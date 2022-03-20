@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Retro Steam
+Exec=sh ~/Desktop/install.sh
+Icon=steamdeck-gaming-return
+Terminal=true
+Type=Application
+StartupNotify=false
