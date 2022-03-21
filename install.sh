@@ -11,30 +11,31 @@ UNDERLINE='\033[4m'
 BLINK='\x1b[5m'
 
 destination=$1
-romsPath="/home/.deck/Emulation/roms/"
-biosPath="/home/.deck/Emulation/bios/"
-if [ $destination == "SD"]; then
+romsPath="/home/deck/Emulation/roms/"
+romsPathSed="\/home\/deck\/Emulation\/roms\/"
+biosPath="/home/deck/Emulation/bios/"
+if [ $destination == "SD" ]; then
 	#Get SD Card name
 	sdCard=$(ls /run/media)
 	romsPath="/run/media/${sdCard}/roms/"
+	romsPathSed="\/home\/deck\/Emulation\/roms\/"
 	biosPath="/run/media/${sdCard}/bios/"
 fi
 
 rm -rf ~/dragoonDoriseTools
+echo -ne "${BOLD}Downloading files...${NONE}"
 sleep 5
-mkdir dragoonDoriseTools
-mkdir dragoonDoriseTools/EmuDeck
+mkdir -p dragoonDoriseTools
+mkdir -p dragoonDoriseTools/EmuDeck
 cd dragoonDoriseTools
 
-echo -ne "Downloading files..."
 
 git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck &>> /dev/null
 curl https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage --output ~/Desktop/Steam-ROM-Manager.AppImage &>> /dev/null
 
 FOLDER=~/dragoonDoriseTools/EmuDeck
 if [ -d "$FOLDER" ]; then
-	echo -e "${GREEN}Done${NONE}"
-	clear
+	echo -e "${GREEN}OK!${NONE}"
 else
 	echo -e ""
 	echo -e "${RED}We couldn't download the needed files, exiting in a few seconds${NONE}"
@@ -43,25 +44,26 @@ else
 	exit
 fi
 
-cat ~/dragoonDoriseTools/EmuDeck/logo.ans
-
-
-
 ##Generate rom folders
-if [ $destination == "internal"]; then
-	echo -e "Creating roms folder in your SD Card..."
+if [ $destination == "internal" ]; then
+	echo -ne "${BOLD}Creating roms folder in your SD Card...${NONE}"
 else
-	echo -e "Creating roms folder in your home folder..."
+	echo -ne "${BOLD}Creating roms folder in your home folder...${NONE}"
 fi
 mkdir -p $romsPath
 mkdir -p $biosPath
+sleep 3
 rsync -r ~/dragoonDoriseTools/EmuDeck/roms/ $romsPath &>> /dev/null
-
+echo -e "${GREEN}OK!${NONE}"
 #Steam RomManager
+echo -e ""
+echo -e ""
+echo -ne "${BOLD}Configuring Steam Rom Manager...${NONE}"
 cp ~/dragoonDoriseTools/EmuDeck/configs/steam-rom-manager/userData/userConfigurations.json ~/.config/steam-rom-manager/userData/userConfigurations.json
 sleep 3
-sed -i 's/mmcblk0p1/${sdCardPath}/g' ~/.config/steam-rom-manager/userData/userConfigurations.json
+sed -i "s/\/run\/media\/mmcblk0p1\/roms\//${romsPathSed}/g" ~/.config/steam-rom-manager/userData/userConfigurations.json
 
+echo -e "${GREEN}OK!${NONE}"
 #Check for installed emulators
 doRA=false
 doDolphin=false
@@ -71,6 +73,10 @@ doYuzu=false
 doCitra=false
 doDuck=false
 
+echo -e ""
+echo -e ""
+echo -e "${BOLD}Checking installed Emulators..${NONE}"
+echo -e ""
 #RA
 FOLDER=~/.var/app/org.libretro.RetroArch/
 echo -ne "Checking RA installation..."
@@ -146,17 +152,23 @@ else
 	fi
 
 #Emus config
-if [ $doRA == true ]; then
 
-	raConfigFile="~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
-	FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak
+echo -e ""
+echo -e ""
+echo -e "${BOLD}Configuring emulators..${NONE}"
+echo -e ""
+if [ $doRA == true ]; then
+	
+	raConfigFile="/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
+	FILE=/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak
 	if [ -d "$FILE" ]; then
-		echo -e "RA Already backed up."
+		echo -e "RetroArch is already backed up."
 	else
-		echo -e "Backing up RA..."
+		echo -ne "Backing up RA..."
 		cp /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak
+		echo -e "${GREEN}OK!${NONE}"
 	fi
-	mkdir /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays
+	mkdir -p /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays
 	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/retroarch/overlays/ ~/.var/app/org.libretro.RetroArch/config/retroarch/overlays
 	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/retroarch/config/ ~/.var/app/org.libretro.RetroArch/config/retroarch/config
 
@@ -196,24 +208,41 @@ if [ $doRA == true ]; then
 	#sed -i 's/input_toggle_fast_forward_btn = "nul"/input_toggle_fast_forward_btn = "+5"/g' $raConfigFile
 
 fi
-
+echo -e ""
+echo -ne "Applying Emu configurations..."
 if [ $doDolphin == true ]; then
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.DolphinEmu.dolphin-emu/ ~/.var/app/org.DolphinEmu.dolphin-emu/
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.DolphinEmu.dolphin-emu/ ~/.var/app/org.DolphinEmu.dolphin-emu/ &>> /dev/null
 fi
 if [ $doPCSX2 == true ]; then
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.pcsx2.PCSX2/ ~/.var/app/net.pcsx2.PCSX2/
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.pcsx2.PCSX2/ ~/.var/app/net.pcsx2.PCSX2/ &>> /dev/null
 fi
 if [ $doRPCS3 == true ]; then
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.rpcs3.RPCS3/ ~/.var/app/net.rpcs3.RPCS3/
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.rpcs3.RPCS3/ ~/.var/app/net.rpcs3.RPCS3/ &>> /dev/null
 fi
 if [ $doCitra == true ]; then
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.citra_emu.citra/ ~/.var/app/org.citra_emu.citra/
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.citra_emu.citra/ ~/.var/app/org.citra_emu.citra/ &>> /dev/null
 fi
 if [ $doDuck == true ]; then
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.duckstation.DuckStation/ ~/.var/app/org.duckstation.DuckStation/
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.duckstation.DuckStation/ ~/.var/app/org.duckstation.DuckStation/ &>> /dev/null
 fi
 if [ $doYuzu == true ]; then
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/ &>> /dev/null
 fi
-	
+echo -e "${GREEN}OK!${NONE}"
+echo -e ""
+echo -ne "Cleaning up downloaded files..."	
 rm -rf ~/dragoonDoriseTools	
+echo -e "${GREEN}OK!${NONE}"
+echo -e ""
+echo -e ""
+echo -e "Now to add your games copy them to this exact folder within the appropiate subfolder for each system:"
+echo -e $romsPath
+echo -e "Copy your BIOS in this folder:"
+echo -e $biosPath
+echo -e "When you are done copying your roms and BIOS do the following:"
+echo -e "1: Right Click the Steam Icon in the taskbar and close it. If you are using the integrated trackpads, the left mouse button is now the R2 and the right mouse button is the L1 button"
+echo -e "2: Open Steam Rom Manager"
+echo -e "3: On Steam Rom Manager click on Preview"
+echo -e "3: Now click on Generate app list"
+
+sleep 999999999

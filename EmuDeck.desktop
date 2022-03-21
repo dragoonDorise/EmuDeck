@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=EmuDeck
-Exec=sh ~/Desktop/install.sh
+Exec=/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dragoonDorise/EmuDeck/main/install.sh)"
 Icon=steamdeck-gaming-return
 Terminal=true
 Type=Application

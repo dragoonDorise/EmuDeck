@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=EmuDeck SD Card
-Exec=sh ~/Desktop/install.sh SD
+Exec=/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dragoonDorise/EmuDeck/main/install.sh SD)"
 Icon=steamdeck-gaming-return
 Terminal=true
 Type=Application
