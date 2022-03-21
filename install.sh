@@ -54,7 +54,7 @@ else
 	echo -e "Creating roms folder in your home folder..."
 fi
 mkdir -p $romsPath
-mkdir -p $romsPath
+mkdir -p $biosPath
 rsync -r ~/dragoonDoriseTools/EmuDeck/roms/ $romsPath &>> /dev/null
 
 #Steam RomManager
