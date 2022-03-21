@@ -19,11 +19,12 @@ cd dragoonDoriseTools
 echo -ne "Downloading files..."
 
 git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck &>> /dev/null
-curl https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage --output ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage &>> /dev/null
+curl https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage --output ~/Desktop/Steam-ROM-Manager.AppImage &>> /dev/null
 
 FOLDER=~/dragoonDoriseTools/EmuDeck
 if [ -d "$FOLDER" ]; then
 	echo -e "${GREEN}Done${NONE}"
+	clear
 else
 	echo -e ""
 	echo -e "${RED}We couldn't dowload the needed files, exiting in a few seconds${NONE}"
@@ -31,6 +32,9 @@ else
 	sleep 10
 	exit
 fi
+
+cat ~/dragoonDoriseTools/EmuDeck/logo.ans
+
 #Get SD Card name
 sdCard=$(ls /run/media)
 sdCardPath="/run/media/${sdCard}"
@@ -40,7 +44,7 @@ echo -e "Creating roms folder in your SD Card..."
 
 mkdir -p $sdCardPath/romss
 rsync -r ~/dragoonDoriseTools/EmuDeck/roms/ $sdCardPath/romss/ &>> /dev/null
-
+cp ~/dragoonDoriseTools/EmuDeck/configs/steam-rom-manager/userData/userConfigurations.json
 
 #Check for installed emulators
 doRA=false
@@ -144,12 +148,12 @@ if [ $doRA == true ]; then
 	mkdir /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays
 	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/retroarch/overlays/ ~/.var/app/org.libretro.RetroArch/config/retroarch/overlays
 	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/retroarch/config/ ~/.var/app/org.libretro.RetroArch/config/retroarch/config
-#
+
 	sed -i 's/config_save_on_exit = "true"/config_save_on_exit = "false"/g' $raConfigFile
 	sed -i 's/input_overlay_enable = "true"/input_overlay_enable = "false"/g' $raConfigFile
 	sed -i 's/menu_show_load_content_animation = "true"/menu_show_load_content_animation = #"false"/g' $raConfigFile
 	sed -i 's/notification_show_autoconfig = "true"/notification_show_autoconfig = "false"/g' $raConfigFile
-	sed -i 's/notification_show_config_override_load = #"true"/notification_show_config_override_load = "false"/g' $raConfigFile
+	sed -i 's/notification_show_config_override_load = "true"/notification_show_config_override_load = "false"/g' $raConfigFile
 	sed -i 's/notification_show_refresh_rate = "true"/notification_show_refresh_rate = "false"/g' $raConfigFile
 	sed -i 's/notification_show_remap_load = "true"/notification_show_remap_load = "false"/g' $raConfigFile
 	sed -i 's/notification_show_screenshot = "true"/notification_show_screenshot = "false"/g' $raConfigFile
@@ -179,41 +183,12 @@ if [ $doRPCS3 == true ]; then
 	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/net.rpcs3.RPCS3/ ~/.var/app/net.rpcs3.RPCS3/
 fi
 if [ $doCitra == true ]; then
-		rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.citra_emu.citra/ ~/.var/app/org.citra_emu.citra/
-	fi
+	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.citra_emu.citra/ ~/.var/app/org.citra_emu.citra/
+fi
 if [ $doduck == true ]; then
-		rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.DolphinEmu.dolphin-emu/ ~/.var/app/org.DolphinEmu.dolphin-emu/
-	fi
-	
+	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.duckstation.DuckStation/ ~/.var/app/org.duckstation.DuckStation/
+fi
 if [ $doYuzu == true ]; then
-	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.DolphinEmu.dolphin-emu/ ~/.var/app/org.DolphinEmu.dolphin-emu/
+	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/
 fi
 	
-
-
-#
-
-#Retroarch config
-
-#cp /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg /home/deck/.#var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak
-sed -i 's/config_save_on_exit = "true"/config_save_on_exit = "false"/g' $raConfigFile
-sed -i 's/input_overlay_enable = "true"/input_overlay_enable = "false"/g' $raConfigFile
-sed -i 's/menu_show_load_content_animation = "true"/menu_show_load_content_animation = #"false"/g' /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg 
-sed -i 's/notification_show_autoconfig = "true"/notification_show_autoconfig = "false"/g' #/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg 
-sed -i 's/notification_show_config_override_load = #"true"/notification_show_config_override_load = "false"/g' /home/deck/.var/app/org.libretro.#RetroArch/config/retroarch/retroarch.cfg 
-sed -i 's/notification_show_refresh_rate = "true"/notification_show_refresh_rate = "false"/g' #/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg 
-sed -i 's/notification_show_remap_load = "true"/notification_show_remap_load = "false"/g' #/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg 
-sed -i 's/notification_show_screenshot = "true"/notification_show_screenshot = "false"/g' #/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg 
-sed -i 's/notification_show_set_initial_disk = "true"/notification_show_set_initial_disk = #"false"/g' /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg 
-sed -i 's/notification_show_patch_applied = "true"/notification_show_patch_applied = #"false"/g' /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg 
-sed -i 's/input_menu_toggle_gamepad_combo = "0"/input_menu_toggle_gamepad_combo = "6"/g' #/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg 
-sed -i 's/input_enable_hotkey_btn = "nul"/input_enable_hotkey_btn = "4"/g' $raConfigFile
-sed -i 's/input_exit_emulator_btn = "nul"/input_exit_emulator_btn = "108"/g' $raConfigFile
-sed -i 's/input_load_state_btn = "nul"/input_load_state_btn = "9"/g' /home/deck/.var/app/org.#libretro.RetroArch/config/retroarch/retroarch.cfg 
-sed -i 's/input_menu_toggle_gamepad_combo = "nul"/input_menu_toggle_gamepad_combo = "6"/g' #/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg 
-sed -i 's/input_rewind_btn = "nul"/input_rewind_btn = "104"/g' /home/deck/.var/app/org.#libretro.RetroArch/config/retroarch/retroarch.cfg 
-sed -i 's/input_save_state_btn = "nul"/input_save_state_btn = "10"/g' /home/deck/.var/app/org.#libretro.RetroArch/config/retroarch/retroarch.cfg 
-sed -i 's/input_state_slot_decrease_btn = "nul"/input_state_slot_decrease_btn = "h0down"/g' #/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg 
-sed -i 's/input_state_slot_increase_btn = "nul"/input_state_slot_increase_btn = "h0up"/g' #/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg 
-sed -i 's/input_toggle_fast_forward_btn = "nul"/input_toggle_fast_forward_btn = "+5"/g' #/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg 
-sed -i 's/menu_driver = "glui"/menu_driver = "ozone"/g' /home/deck/.var/app/org.libretro.#RetroArch/config/retroarch/retroarch.cfg 
