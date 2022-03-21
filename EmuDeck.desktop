@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Retro Steam
+Name=EmuDeck
 Exec=sh ~/Desktop/install.sh
 Icon=steamdeck-gaming-return
 Terminal=true

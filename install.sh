@@ -10,6 +10,16 @@ BOLD='\033[1m'
 UNDERLINE='\033[4m'
 BLINK='\x1b[5m'
 
+destination=$1
+romsPath="/home/.deck/Emulation/roms/"
+biosPath="/home/.deck/Emulation/bios/"
+if [ $destination == "SD"]; then
+	#Get SD Card name
+	sdCard=$(ls /run/media)
+	romsPath="/run/media/${sdCard}/roms/"
+	biosPath="/run/media/${sdCard}/bios/"
+fi
+
 rm -rf ~/dragoonDoriseTools
 sleep 5
 mkdir dragoonDoriseTools
@@ -27,7 +37,7 @@ if [ -d "$FOLDER" ]; then
 	clear
 else
 	echo -e ""
-	echo -e "${RED}We couldn't dowload the needed files, exiting in a few seconds${NONE}"
+	echo -e "${RED}We couldn't download the needed files, exiting in a few seconds${NONE}"
 	echo -e "Please try again in a few minutes"
 	sleep 10
 	exit
@@ -35,16 +45,22 @@ fi
 
 cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 
-#Get SD Card name
-sdCard=$(ls /run/media)
-sdCardPath="/run/media/${sdCard}"
+
 
 ##Generate rom folders
-echo -e "Creating roms folder in your SD Card..."
+if [ $destination == "internal"]; then
+	echo -e "Creating roms folder in your SD Card..."
+else
+	echo -e "Creating roms folder in your home folder..."
+fi
+mkdir -p $romsPath
+mkdir -p $romsPath
+rsync -r ~/dragoonDoriseTools/EmuDeck/roms/ $romsPath &>> /dev/null
 
-mkdir -p $sdCardPath/romss
-rsync -r ~/dragoonDoriseTools/EmuDeck/roms/ $sdCardPath/romss/ &>> /dev/null
-cp ~/dragoonDoriseTools/EmuDeck/configs/steam-rom-manager/userData/userConfigurations.json
+#Steam RomManager
+cp ~/dragoonDoriseTools/EmuDeck/configs/steam-rom-manager/userData/userConfigurations.json ~/.config/steam-rom-manager/userData/userConfigurations.json
+sleep 3
+sed -i 's/mmcblk0p1/${sdCardPath}/g' ~/.config/steam-rom-manager/userData/userConfigurations.json
 
 #Check for installed emulators
 doRA=false
@@ -53,7 +69,7 @@ doPCSX2=false
 doRPCS3=false
 doYuzu=false
 doCitra=false
-doduck=false
+doDuck=false
 
 #RA
 FOLDER=~/.var/app/org.libretro.RetroArch/
@@ -129,11 +145,6 @@ else
 		echo -e "${RED}Install and launch Duckstation from the Discover App if you want to configure it${NONE}"
 	fi
 
-
-sleep 30
-
-exit
-
 #Emus config
 if [ $doRA == true ]; then
 
@@ -151,22 +162,35 @@ if [ $doRA == true ]; then
 
 	sed -i 's/config_save_on_exit = "true"/config_save_on_exit = "false"/g' $raConfigFile
 	sed -i 's/input_overlay_enable = "true"/input_overlay_enable = "false"/g' $raConfigFile
-	sed -i 's/menu_show_load_content_animation = "true"/menu_show_load_content_animation = #"false"/g' $raConfigFile
+	sed -i 's/menu_show_load_content_animation = "true"/menu_show_load_content_animation = "false"/g' $raConfigFile
 	sed -i 's/notification_show_autoconfig = "true"/notification_show_autoconfig = "false"/g' $raConfigFile
 	sed -i 's/notification_show_config_override_load = "true"/notification_show_config_override_load = "false"/g' $raConfigFile
 	sed -i 's/notification_show_refresh_rate = "true"/notification_show_refresh_rate = "false"/g' $raConfigFile
 	sed -i 's/notification_show_remap_load = "true"/notification_show_remap_load = "false"/g' $raConfigFile
 	sed -i 's/notification_show_screenshot = "true"/notification_show_screenshot = "false"/g' $raConfigFile
-	sed -i 's/notification_show_set_initial_disk = "true"/notification_show_set_initial_disk = #"false"/g' $raConfigFile
-	sed -i 's/notification_show_patch_applied = "true"/notification_show_patch_applied = #"false"/g' $raConfigFile
+	sed -i 's/notification_show_set_initial_disk = "true"/notification_show_set_initial_disk = "false"/g' $raConfigFile
+	sed -i 's/notification_show_patch_applied = "true"/notification_show_patch_applied = "false"/g' $raConfigFile
 	
-	#sed -i 's/input_menu_toggle_gamepad_combo = "0"/input_menu_toggle_gamepad_combo = "6"/g' $raConfigFile
-	#sed -i 's/input_enable_hotkey_btn = "nul"/input_enable_hotkey_btn = "4"/g' $raConfigFile
-	#sed -i 's/input_exit_emulator_btn = "nul"/input_exit_emulator_btn = "108"/g' $raConfigFile
-	#sed -i 's/input_load_state_btn = "nul"/input_load_state_btn = "9"/g' $raConfigFile
+	
+	sed -i 's/input_enable_hotkey_btn = "nul"/input_enable_hotkey_btn = "4"/g' $raConfigFile
+	sed -i 's/input_exit_emulator_btn = "nul"/input_exit_emulator_btn = "108"/g' $raConfigFile
+	sed -i 's/input_fps_toggle_btn = "nul"/input_fps_toggle_btn = "2"/g' $raConfigFile
+	sed -i 's/input_load_state_btn = "nul"/input_load_state_btn = "9"/g' $raConfigFile
+	sed -i 's/input_menu_toggle_btn = "nul"/input_menu_toggle_btn = "3"/g' $raConfigFile
+	sed -i 's/input_player1_a_btn = "nul"/input_player1_a_btn = "1"/g' $raConfigFile
+	sed -i 's/input_rewind_axis = "nul"/input_rewind_axis = "+4"/g' $raConfigFile
+	sed -i 's/input_save_state_btn = "nul"/input_save_state_btn = "10"/g' $raConfigFile
+	sed -i 's/input_toggle_fast_forward_axis = "nul"/input_toggle_fast_forward_axis = "+5"/g' $raConfigFile
+	sed -i 's/menu_swap_ok_cancel_buttons = "false"/menu_swap_ok_cancel_buttons = "true"/g' $raConfigFile
+	sed -i 's/quit_press_twice = "true"/quit_press_twice = "false"/g' $raConfigFile
+	sed -i 's/savestate_auto_save = "false"/savestate_auto_save = "true"/g' $raConfigFile
+	sed -i 's/savestate_auto_load = "false"/savestate_auto_load = "true"/g' $raConfigFile
+	sed -i 's/video_fullscreen = "false"/video_fullscreen = "true"/g' $raConfigFile
+	sed -i 's/video_shader_enable = "false"/video_shader_enable = "true"/g' $raConfigFile
+	
+	
 	#sed -i 's/input_menu_toggle_gamepad_combo = "nul"/input_menu_toggle_gamepad_combo = "6"/g' $raConfigFile
 	#sed -i 's/input_rewind_btn = "nul"/input_rewind_btn = "104"/g' $raConfigFile
-	#sed -i 's/input_save_state_btn = "nul"/input_save_state_btn = "10"/g' $raConfigFile
 	#sed -i 's/input_state_slot_decrease_btn = "nul"/input_state_slot_decrease_btn = "h0down"/g' $raConfigFile
 	#sed -i 's/input_state_slot_increase_btn = "nul"/input_state_slot_increase_btn = "h0up"/g' $raConfigFile
 	#sed -i 's/input_toggle_fast_forward_btn = "nul"/input_toggle_fast_forward_btn = "+5"/g' $raConfigFile
@@ -174,21 +198,22 @@ if [ $doRA == true ]; then
 fi
 
 if [ $doDolphin == true ]; then
-	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.DolphinEmu.dolphin-emu/ ~/.var/app/org.DolphinEmu.dolphin-emu/
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.DolphinEmu.dolphin-emu/ ~/.var/app/org.DolphinEmu.dolphin-emu/
 fi
 if [ $doPCSX2 == true ]; then
-	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/net.pcsx2.PCSX2/ ~/.var/app/net.pcsx2.PCSX2/
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.pcsx2.PCSX2/ ~/.var/app/net.pcsx2.PCSX2/
 fi
 if [ $doRPCS3 == true ]; then
-	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/net.rpcs3.RPCS3/ ~/.var/app/net.rpcs3.RPCS3/
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.rpcs3.RPCS3/ ~/.var/app/net.rpcs3.RPCS3/
 fi
 if [ $doCitra == true ]; then
-	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.citra_emu.citra/ ~/.var/app/org.citra_emu.citra/
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.citra_emu.citra/ ~/.var/app/org.citra_emu.citra/
 fi
-if [ $doduck == true ]; then
-	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.duckstation.DuckStation/ ~/.var/app/org.duckstation.DuckStation/
+if [ $doDuck == true ]; then
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.duckstation.DuckStation/ ~/.var/app/org.duckstation.DuckStation/
 fi
 if [ $doYuzu == true ]; then
-	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/
 fi
 	
+rm -rf ~/dragoonDoriseTools	
