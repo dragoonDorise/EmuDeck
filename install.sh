@@ -17,9 +17,9 @@ biosPath="/home/deck/Emulation/bios/"
 if [ $destination == "SD" ]; then
 	#Get SD Card name
 	sdCard=$(ls /run/media)
-	romsPath="/run/media/${sdCard}/roms/"
-	romsPathSed="\/home\/deck\/Emulation\/roms\/"
-	biosPath="/run/media/${sdCard}/bios/"
+	romsPath="/run/media/${sdCard}/Emulation/roms/"
+	romsPathSed="\/run\/media\/${sdCard}\/Emulation\/roms\/"
+	biosPath="/run/media/${sdCard}/Emulation/bios/"
 fi
 
 rm -rf ~/dragoonDoriseTools
