@@ -221,7 +221,7 @@ if [ $doDuck == true ]; then
 	sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/bios\/${biosPathSed}/g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
 fi
 if [ $doYuzu == true ]; then
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/ &>> /dev/null
+	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/ &>> /dev/null
 fi
 echo -e "${GREEN}OK!${NONE}"
 echo -e ""
@@ -238,6 +238,9 @@ echo -e "When you are done copying your roms and BIOS do the following:"
 echo -e "1: Right Click the Steam Icon in the taskbar and close it. If you are using the integrated trackpads, the left mouse button is now the R2 and the right mouse button is the L1 button"
 echo -e "2: Open Steam Rom Manager"
 echo -e "3: On Steam Rom Manager click on Preview"
-echo -e "3: Now click on Generate app list"
-
+echo -e "4: Now click on Generate app list"
+echo -e "5: Wait for the images to finish (Marked as remaining providers on the top)"
+echo -e "6: Click Save app list"
+echo -e "7: Close Steam Rom Manager, this window and click on Return to Gaming Mode."
+echo -e "8: Enjoy!"
 sleep 999999999
