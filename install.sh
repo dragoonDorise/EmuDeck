@@ -182,31 +182,22 @@ if [ $doRA == true ]; then
 	sed -i 's/notification_show_screenshot = "true"/notification_show_screenshot = "false"/g' $raConfigFile
 	sed -i 's/notification_show_set_initial_disk = "true"/notification_show_set_initial_disk = "false"/g' $raConfigFile
 	sed -i 's/notification_show_patch_applied = "true"/notification_show_patch_applied = "false"/g' $raConfigFile
-	
-	
-	sed -i 's/input_enable_hotkey_btn = "nul"/input_enable_hotkey_btn = "4"/g' $raConfigFile
-	sed -i 's/input_exit_emulator_btn = "nul"/input_exit_emulator_btn = "108"/g' $raConfigFile
-	sed -i 's/input_fps_toggle_btn = "nul"/input_fps_toggle_btn = "2"/g' $raConfigFile
-	sed -i 's/input_load_state_btn = "nul"/input_load_state_btn = "9"/g' $raConfigFile
-	sed -i 's/input_menu_toggle_btn = "nul"/input_menu_toggle_btn = "3"/g' $raConfigFile
-	sed -i 's/input_player1_a_btn = "nul"/input_player1_a_btn = "1"/g' $raConfigFile
-	sed -i 's/input_rewind_axis = "nul"/input_rewind_axis = "+4"/g' $raConfigFile
-	sed -i 's/input_save_state_btn = "nul"/input_save_state_btn = "10"/g' $raConfigFile
-	sed -i 's/input_toggle_fast_forward_axis = "nul"/input_toggle_fast_forward_axis = "+5"/g' $raConfigFile
 	sed -i 's/menu_swap_ok_cancel_buttons = "false"/menu_swap_ok_cancel_buttons = "true"/g' $raConfigFile
-	sed -i 's/quit_press_twice = "true"/quit_press_twice = "false"/g' $raConfigFile
 	sed -i 's/savestate_auto_save = "false"/savestate_auto_save = "true"/g' $raConfigFile
 	sed -i 's/savestate_auto_load = "false"/savestate_auto_load = "true"/g' $raConfigFile
 	sed -i 's/video_fullscreen = "false"/video_fullscreen = "true"/g' $raConfigFile
 	sed -i 's/video_shader_enable = "false"/video_shader_enable = "true"/g' $raConfigFile
 	
 	
-	#sed -i 's/input_menu_toggle_gamepad_combo = "nul"/input_menu_toggle_gamepad_combo = "6"/g' $raConfigFile
-	#sed -i 's/input_rewind_btn = "nul"/input_rewind_btn = "104"/g' $raConfigFile
-	#sed -i 's/input_state_slot_decrease_btn = "nul"/input_state_slot_decrease_btn = "h0down"/g' $raConfigFile
-	#sed -i 's/input_state_slot_increase_btn = "nul"/input_state_slot_increase_btn = "h0up"/g' $raConfigFile
-	#sed -i 's/input_toggle_fast_forward_btn = "nul"/input_toggle_fast_forward_btn = "+5"/g' $raConfigFile
-
+	sed -i 's/input_enable_hotkey_btn = "nul"/input_enable_hotkey_btn = "4"/g' $raConfigFile
+	sed -i 's/input_fps_toggle_btn = "nul"/input_fps_toggle_btn = "3"/g' $raConfigFile
+	sed -i 's/input_load_state_btn = "nul"/input_load_state_btn = "9"/g' $raConfigFile
+	sed -i 's/input_rewind_axis = "nul"/input_rewind_axis = "+4"/g' $raConfigFile
+	sed -i 's/input_save_state_btn = "nul"/input_save_state_btn = "10"/g' $raConfigFile
+	sed -i 's/input_menu_toggle_gamepad_combo = "nul"/input_menu_toggle_gamepad_combo = "2"/g' $raConfigFile
+	sed -i 's/input_hold_fast_forward_axis = "nul"/input_hold_fast_forward_axis = "+5"/g' $raConfigFile
+	sed -i 's/input_quit_gamepad_combo = "0"/input_quit_gamepad_combo = "4"/g' $raConfigFile
+	sed -i 's/input_pause_toggle_btn = "nul"/input_pause_toggle_btn = "0"/g' $raConfigFile
 fi
 echo -e ""
 echo -ne "Applying Emu configurations..."
