@@ -14,12 +14,14 @@ destination=$1
 romsPath="/home/deck/Emulation/roms/"
 romsPathSed="\/home\/deck\/Emulation\/roms\/"
 biosPath="/home/deck/Emulation/bios/"
+biosPathSed="\/home\/deck\/Emulation\/bios\/"
 if [ $destination == "SD" ]; then
 	#Get SD Card name
 	sdCard=$(ls /run/media)
 	romsPath="/run/media/${sdCard}/Emulation/roms/"
 	romsPathSed="\/run\/media\/${sdCard}\/Emulation\/roms\/"
 	biosPath="/run/media/${sdCard}/Emulation/bios/"
+	biosPathSed="\/run\/media\/${sdCard}\/Emulation\/bios\/"
 fi
 
 rm -rf ~/dragoonDoriseTools
@@ -215,6 +217,8 @@ if [ $doCitra == true ]; then
 fi
 if [ $doDuck == true ]; then
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.duckstation.DuckStation/ ~/.var/app/org.duckstation.DuckStation/ &>> /dev/null
+	sleep 3
+	sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/bios\/${biosPathSed}/g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
 fi
 if [ $doYuzu == true ]; then
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/ &>> /dev/null
