@@ -165,7 +165,7 @@ if [ $doRA == true ]; then
 	
 	raConfigFile="/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
 	FILE=/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak
-	if [ -d "$FILE" ]; then
+	if [ -f "$FILE" ]; then
 		echo -e "RetroArch is already backed up."
 	else
 		echo -ne "Backing up RA..."
@@ -206,6 +206,14 @@ fi
 echo -e ""
 echo -ne "Applying Emu configurations..."
 if [ $doDolphin == true ]; then
+	FOLDER=~/.var/app/org.DolphinEmu.dolphin-emu/config_bak
+	if [ -d "$FOLDER" ]; then
+		echo "" &>> /dev/null
+	else
+		echo -ne "Backing up Dolphin..."
+		cp -r ~/.var/app/org.DolphinEmu.dolphin-emu/config ~/.var/app/org.DolphinEmu.dolphin-emu/config_bak
+		echo -e "${GREEN}OK!${NONE}"
+	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.DolphinEmu.dolphin-emu/ ~/.var/app/org.DolphinEmu.dolphin-emu/ &>> /dev/null
 fi
 if [ $doPCSX2 == true ]; then
@@ -213,12 +221,38 @@ if [ $doPCSX2 == true ]; then
 	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.pcsx2.PCSX2/ ~/.var/app/net.pcsx2.PCSX2/ &>> /dev/null
 fi
 if [ $doRPCS3 == true ]; then
+	FOLDER=~/.var/app/net.rpcs3.RPCS3/config_bak
+	if [ -d "$FOLDER" ]; then
+		echo "" &>> /dev/null
+	else
+		echo -ne "Backing up RPCS3..."
+		cp -r ~/.var/app/net.rpcs3.RPCS3/config ~/.var/app/net.rpcs3.RPCS3/config_bak
+		echo -e "${GREEN}OK!${NONE}"
+	fi
+
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.rpcs3.RPCS3/ ~/.var/app/net.rpcs3.RPCS3/ &>> /dev/null
 fi
 if [ $doCitra == true ]; then
+	FOLDER=~/.var/app/org.citra_emu.citra/config_bak
+	if [ -d "$FOLDER" ]; then
+		echo "" &>> /dev/null
+	else
+		echo -ne "Backing up Citra..."
+		cp -r ~/.var/app/org.citra_emu.citra/config ~/.var/app/org.citra_emu.citra/config_bak
+		echo -e "${GREEN}OK!${NONE}"
+	fi
+
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.citra_emu.citra/ ~/.var/app/org.citra_emu.citra/ &>> /dev/null
 fi
 if [ $doDuck == true ]; then
+	FOLDER=~/.var/app/org.duckstation.DuckStation/data_bak
+	if [ -d "$FOLDER" ]; then
+		echo "" &>> /dev/null
+	else
+		echo -ne "Backing up DuckStation..."
+		cp -r ~/.var/app/org.duckstation.DuckStation/data ~/.var/app/org.duckstation.DuckStation/data_bak
+		echo -e "${GREEN}OK!${NONE}"
+	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.duckstation.DuckStation/ ~/.var/app/org.duckstation.DuckStation/ &>> /dev/null
 	sleep 3
 	sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/bios\//${biosPathSed}/g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
