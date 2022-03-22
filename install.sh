@@ -64,7 +64,8 @@ echo -e ""
 echo -ne "${BOLD}Configuring Steam Rom Manager...${NONE}"
 cp ~/dragoonDoriseTools/EmuDeck/configs/steam-rom-manager/userData/userConfigurations.json ~/.config/steam-rom-manager/userData/userConfigurations.json
 sleep 3
-sed -i "s/\/run\/media\/mmcblk0p1\/roms\//${romsPathSed}/g" ~/.config/steam-rom-manager/userData/userConfigurations.json
+
+sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/roms\//${romsPathSed}/g" ~/.config/steam-rom-manager/userData/userConfigurations.json
 
 echo -e "${GREEN}OK!${NONE}"
 #Check for installed emulators
