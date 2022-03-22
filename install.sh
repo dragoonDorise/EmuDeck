@@ -25,7 +25,7 @@ if [ $destination == "SD" ]; then
 fi
 
 rm -rf ~/dragoonDoriseTools
-echo -e "${BOLD}EmuDeck v0.2${NONE}"
+echo -e "${BOLD}EmuDeck v0.3${NONE}"
 echo -e "Destination: ${destination}"
 echo -ne "${BOLD}Downloading files...${NONE}"
 sleep 5
@@ -221,7 +221,7 @@ fi
 if [ $doDuck == true ]; then
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.duckstation.DuckStation/ ~/.var/app/org.duckstation.DuckStation/ &>> /dev/null
 	sleep 3
-	sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/bios\/${biosPathSed}/g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
+	sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/bios\//${biosPathSed}/g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
 fi
 if [ $doYuzu == true ]; then
 	echo "" &>> /dev/null
