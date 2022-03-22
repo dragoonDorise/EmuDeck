@@ -25,7 +25,7 @@ if [ $destination == "SD" ]; then
 fi
 
 rm -rf ~/dragoonDoriseTools
-echo -e "${BOLD}EmuDeck v0.3${NONE}"
+echo -e "${BOLD}EmuDeck v0.4${NONE}"
 echo -e "Destination: ${destination}"
 echo -ne "${BOLD}Downloading files...${NONE}"
 sleep 5
@@ -49,7 +49,7 @@ else
 fi
 
 ##Generate rom folders
-if [ $destination == "internal" ]; then
+if [ $destination == "SD" ]; then
 	echo -ne "${BOLD}Creating roms folder in your SD Card...${NONE}"
 else
 	echo -ne "${BOLD}Creating roms folder in your home folder...${NONE}"
