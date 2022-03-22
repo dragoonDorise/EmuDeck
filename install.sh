@@ -25,7 +25,8 @@ if [ $destination == "SD" ]; then
 fi
 
 rm -rf ~/dragoonDoriseTools
-echo -n "${BOLD}EmuDeck v0.2${NONE}"
+echo -e "${BOLD}EmuDeck v0.2${NONE}"
+echo -e "Destination: ${destination}"
 echo -ne "${BOLD}Downloading files...${NONE}"
 sleep 5
 mkdir -p dragoonDoriseTools
