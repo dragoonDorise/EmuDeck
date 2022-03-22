@@ -35,7 +35,6 @@ cd dragoonDoriseTools
 
 
 git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck &>> /dev/null
-curl https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage --output ~/Desktop/Steam-ROM-Manager.AppImage &>> /dev/null
 
 FOLDER=~/dragoonDoriseTools/EmuDeck
 if [ -d "$FOLDER" ]; then
