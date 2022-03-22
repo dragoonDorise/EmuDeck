@@ -25,6 +25,7 @@ if [ $destination == "SD" ]; then
 fi
 
 rm -rf ~/dragoonDoriseTools
+echo -n "${BOLD}EmuDeck v0.2${NONE}"
 echo -ne "${BOLD}Downloading files...${NONE}"
 sleep 5
 mkdir -p dragoonDoriseTools
@@ -41,8 +42,8 @@ if [ -d "$FOLDER" ]; then
 else
 	echo -e ""
 	echo -e "${RED}We couldn't download the needed files, exiting in a few seconds${NONE}"
-	echo -e "Please try again in a few minutes"
-	sleep 10
+	echo -e "Please close this window and try again in a few minutes"
+	sleep 999999
 	exit
 fi
 
@@ -207,6 +208,7 @@ if [ $doDolphin == true ]; then
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.DolphinEmu.dolphin-emu/ ~/.var/app/org.DolphinEmu.dolphin-emu/ &>> /dev/null
 fi
 if [ $doPCSX2 == true ]; then
+	echo "" &>> /dev/null
 	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.pcsx2.PCSX2/ ~/.var/app/net.pcsx2.PCSX2/ &>> /dev/null
 fi
 if [ $doRPCS3 == true ]; then
@@ -221,6 +223,7 @@ if [ $doDuck == true ]; then
 	sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/bios\/${biosPathSed}/g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
 fi
 if [ $doYuzu == true ]; then
+	echo "" &>> /dev/null
 	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/ &>> /dev/null
 fi
 echo -e "${GREEN}OK!${NONE}"
