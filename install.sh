@@ -25,8 +25,6 @@ if [ $destination == "SD" ]; then
 fi
 
 rm -rf ~/dragoonDoriseTools
-echo -e "${BOLD}EmuDeck v0.4${NONE}"
-echo -e "Destination: ${destination}"
 echo -ne "${BOLD}Downloading files...${NONE}"
 sleep 5
 mkdir -p dragoonDoriseTools
@@ -35,7 +33,6 @@ cd dragoonDoriseTools
 
 
 git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck &>> /dev/null
-
 FOLDER=~/dragoonDoriseTools/EmuDeck
 if [ -d "$FOLDER" ]; then
 	echo -e "${GREEN}OK!${NONE}"
@@ -46,6 +43,12 @@ else
 	sleep 999999
 	exit
 fi
+clear
+cat ~/dragoonDoriseTools/EmuDeck/logo.ans
+version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
+echo -e "${BOLD}EmuDeck ${version}${NONE}"
+echo -e ""
+
 
 ##Generate rom folders
 if [ $destination == "SD" ]; then
@@ -163,6 +166,32 @@ echo -e "${BOLD}Configuring emulators..${NONE}"
 echo -e ""
 if [ $doRA == true ]; then
 	
+	raUrl="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
+	raCorePath=""
+	RAcores=(bsnes_hd_beta_libretro.so flycast_libretro.so gambatte_libretro.so genesis_plus_gx_libretro.so genesis_plus_gx_wide_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_wswan_libretro.so melonds_libretro.so mesen_libretro.so mgba_libretro.so mupen64plus_next_libretro.so nestopia_libretro.so picodrive_libretro.so ppsspp_libretro.so snes9x_libretro.so stella_libretro.so yabasanshiro_libretro.so yabause_libretro.so yabause_libretro.so mame2003_plus_libretro.so)
+	echo -e "Downloading RetroArch Cores"
+	for i in "${RAcores[@]}"
+	do
+		FILE=/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
+		if [ -f "$FILE" ]; then
+			echo -e "${i}...${YELLOW}Already Downloaded${NONE}"	
+		else
+			curl $raUrl$i.zip --output /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
+			#rm /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
+			echo -e "${i}...${GREEN}Downloaded!${NONE}"	
+		fi
+	done
+	
+	for entry in /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
+	do
+	 	unzip -o $entry -d /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/
+	done
+	
+	for entry in /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
+	do
+	 	rm -f $entry
+	done
+	
 	raConfigFile="/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
 	FILE=/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak
 	if [ -f "$FILE" ]; then
@@ -269,9 +298,13 @@ echo -e "${GREEN}OK!${NONE}"
 echo -e ""
 echo -e ""
 echo -e "Now to add your games copy them to this exact folder within the appropiate subfolder for each system:"
-echo -e $romsPath
+echo -e ""
+echo -e ${BOLD}$romsPath${NONE}
+echo -e ""
 echo -e "Copy your BIOS in this folder:"
-echo -e $biosPath
+echo -e ""
+echo -e ${BOLD}$biosPath${NONE}
+echo -e ""
 echo -e "When you are done copying your roms and BIOS do the following:"
 echo -e "1: Right Click the Steam Icon in the taskbar and close it. If you are using the integrated trackpads, the left mouse button is now the R2 and the right mouse button is the L1 button"
 echo -e "2: Open Steam Rom Manager"
@@ -279,6 +312,6 @@ echo -e "3: On Steam Rom Manager click on Preview"
 echo -e "4: Now click on Generate app list"
 echo -e "5: Wait for the images to finish (Marked as remaining providers on the top)"
 echo -e "6: Click Save app list"
-echo -e "7: Close Steam Rom Manager, this window and click on Return to Gaming Mode."
+echo -e "7: Close Steam Rom Manager and this window and click on Return to Gaming Mode."
 echo -e "8: Enjoy!"
 sleep 999999999
