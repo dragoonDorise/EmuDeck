@@ -744,7 +744,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo SNES WideScreen - Retroarch - Snes9x",
-    "steamCategory": "${Super Nintendo}",
+    "steamCategory": "${Super Nintendo WideScreen}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/sneshd",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1433,7 +1433,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Sega Genesis/Mega Drive WideScreen - Retroarch - Genesis Plus GX",
-    "steamCategory": "${Genesis/Mega Drive}",
+    "steamCategory": "${Genesis WideScreen}",
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_wide_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/genesiswide",
