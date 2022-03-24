@@ -15,3 +15,7 @@
   0.5.2
 
 - Fixes Genesis (SRM) & Gamecube(folder name)
+
+  0.5.3
+
+- Fullscreen Citra
