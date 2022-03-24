@@ -65,6 +65,7 @@ echo -e "${GREEN}OK!${NONE}"
 echo -e ""
 echo -e ""
 echo -ne "${BOLD}Configuring Steam Rom Manager...${NONE}"
+mkdir -p ~/.config/steam-rom-manager/userData/
 cp ~/dragoonDoriseTools/EmuDeck/configs/steam-rom-manager/userData/userConfigurations.json ~/.config/steam-rom-manager/userData/userConfigurations.json
 sleep 3
 
