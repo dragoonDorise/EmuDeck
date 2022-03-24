@@ -11,3 +11,7 @@
   0.5.1
 
 - Dreamcast 16:9 hacks
+
+  0.5.2
+
+- Fixes Genesis & Gamecube
