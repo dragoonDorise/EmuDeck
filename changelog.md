@@ -18,4 +18,4 @@
 
   0.5.3
 
-- Fullscreen Citra
+- Fullscreen Citra + Steam Input
