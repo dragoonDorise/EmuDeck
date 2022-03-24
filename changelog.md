@@ -14,4 +14,4 @@
 
   0.5.2
 
-- Fixes Genesis & Gamecube
+- Fixes Genesis (SRM) & Gamecube(folder name)
