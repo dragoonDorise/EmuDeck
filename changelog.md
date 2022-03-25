@@ -18,4 +18,9 @@
 
   0.5.3
 
-- Fullscreen Citra + Steam Input
+- Fullscreen Citra + Steam Input for Citra Roms
+  steam://controllerconfig/3151590086/2784099045
+
+  0.6
+
+- Added Yuzu and NDS support

@@ -1482,5 +1482,58 @@
     },
     "parserId": "164806164364417694",
     "version": 5
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "Nintendo DS - Retroarch - melonDS",
+    "steamCategory": "${DS}",
+    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}melonds_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/nds",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "imageProviders": ["SteamGridDB"],
+    "titleModifier": "${fuzzyTitle}",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": false,
+    "advanced": false,
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.7z|.7Z|.nds|.NDS|.zip|.ZIP)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "parserId": "164823604520657522",
+    "version": 5
   }
 ]
