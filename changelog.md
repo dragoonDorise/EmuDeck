@@ -28,3 +28,7 @@
   0.6.1
 
 - Added FBNeo support
+
+  0.6.2
+
+- Fix BIOS folder RA

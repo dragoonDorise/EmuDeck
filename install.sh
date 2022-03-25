@@ -222,6 +222,7 @@ if [ $doRA == true ]; then
 	sed -i 's/video_fullscreen = "false"/video_fullscreen = "true"/g' $raConfigFile
 	sed -i 's/video_shader_enable = "false"/video_shader_enable = "true"/g' $raConfigFile
 	
+	sed -i "s/system_directory = \"~\/.var\/app\/org.libretro.RetroArch\/config\/retroarch\/system\"/system_directory = \"${biosPathSed}\"/g" $raConfigFile
 	
 	sed -i 's/input_enable_hotkey_btn = "nul"/input_enable_hotkey_btn = "4"/g' $raConfigFile
 	sed -i 's/input_fps_toggle_btn = "nul"/input_fps_toggle_btn = "3"/g' $raConfigFile
