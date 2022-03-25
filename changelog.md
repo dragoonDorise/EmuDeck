@@ -24,3 +24,7 @@
   0.6
 
 - Added Yuzu and NDS support
+
+  0.6.1
+
+- Added FBNeo support
