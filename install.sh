@@ -81,7 +81,7 @@ doYuzu=false
 doCitra=false
 doDuck=false
 doCemu=false
-doRyunjinx=false
+doRyujinx=false
 
 echo -e ""
 echo -e ""
@@ -181,7 +181,7 @@ else
 	echo -ne "Checking Ryujinx installation..."
 		if [ -d "$FOLDER" ]; then
 			echo -e "${GREEN}OK!${NONE}"
-			doRyunjinx=false
+			doRyujinx=false
 	else
 			echo -e "${RED}KO :(${NONE}"
 			echo -e "${RED}Install and launch Ryujinx from the Discover App if you want to configure it${NONE}"
