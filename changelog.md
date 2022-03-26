@@ -36,3 +36,8 @@
   0.6.3
 
 - Cemu Experimental
+
+  0.6.4
+
+- Ryujinx controls
+- Fix RA Toggle Menu L3+R3

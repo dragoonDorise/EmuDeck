@@ -256,7 +256,7 @@ if [ $doRA == true ]; then
 	sed -i 's/input_load_state_btn = "nul"/input_load_state_btn = "9"/g' $raConfigFile
 	sed -i 's/input_rewind_axis = "nul"/input_rewind_axis = "+4"/g' $raConfigFile
 	sed -i 's/input_save_state_btn = "nul"/input_save_state_btn = "10"/g' $raConfigFile
-	sed -i 's/input_menu_toggle_gamepad_combo = "nul"/input_menu_toggle_gamepad_combo = "2"/g' $raConfigFile
+	sed -i 's/input_menu_toggle_gamepad_combo = "0"/input_menu_toggle_gamepad_combo = "2"/g' $raConfigFile
 	sed -i 's/input_hold_fast_forward_axis = "nul"/input_hold_fast_forward_axis = "+5"/g' $raConfigFile
 	sed -i 's/input_quit_gamepad_combo = "0"/input_quit_gamepad_combo = "4"/g' $raConfigFile
 	sed -i 's/input_pause_toggle_btn = "nul"/input_pause_toggle_btn = "0"/g' $raConfigFile
