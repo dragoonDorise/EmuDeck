@@ -32,3 +32,7 @@
   0.6.2
 
 - Fix BIOS folder RA
+
+  0.6.3
+
+- Cemu Experimental

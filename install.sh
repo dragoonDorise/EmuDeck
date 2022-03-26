@@ -80,6 +80,7 @@ doRPCS3=false
 doYuzu=false
 doCitra=false
 doDuck=false
+doCemu=false
 
 echo -e ""
 echo -e ""
@@ -157,6 +158,22 @@ else
 	else
 		echo -e "${RED}KO :(${NONE}"
 		echo -e "${RED}Install and launch Duckstation from the Discover App if you want to configure it${NONE}"
+	fi
+
+	#Cemu
+	if [ $destination == "SD" ]; then
+		FILE="/run/media/${sdCard}/Emulation/roms/wiiu/Cemu.exe"
+	else
+		FILE="/home/deck/Emulation/roms/wiiu/Cemu.exe"
+	fi
+	
+	echo -ne "Checking Cemu installation..."
+	if [ -f "$FILE" ]; then
+		echo -e "${GREEN}OK!${NONE}"
+		doCemu=true
+	else
+		echo -e "${RED}KO :(${NONE}"
+		echo -e "${RED}Download Cemu from cemu.info and copy the files on ${FILE} ${NONE}"
 	fi
 
 #Emus config
@@ -291,6 +308,10 @@ fi
 if [ $doYuzu == true ]; then
 	echo "" &>> /dev/null
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/ &>> /dev/null
+fi
+if [ $doCemu == true ]; then
+	echo "" &>> /dev/null
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/cemu/ ${romsPath}/wiiu &>> /dev/null
 fi
 echo -e "${GREEN}OK!${NONE}"
 echo -e ""
