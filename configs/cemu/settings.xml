@@ -6,7 +6,7 @@
     <permanent_storage>true</permanent_storage>
     <language>0</language>
     <use_discord_presence>false</use_discord_presence>
-    <fullscreen_menubar>false</fullscreen_menubar>
+    <fullscreen_menubar>true</fullscreen_menubar>
     <check_update>false</check_update>
     <save_screenshot>true</save_screenshot>
     <vk_warning>false</vk_warning>
@@ -24,12 +24,12 @@
     <window_maximized>false</window_maximized>
     <open_pad>false</open_pad>
     <pad_position>
-        <x>-1</x>
-        <y>-1</y>
+        <x>0</x>
+        <y>0</y>
     </pad_position>
     <pad_size>
-        <x>-1</x>
-        <y>-1</y>
+        <x>0</x>
+        <y>0</y>
     </pad_size>
     <pad_maximized>false</pad_maximized>
     <GameList>
@@ -42,15 +42,18 @@
         <game_started_width>-3</game_started_width>
         <region_width>-3</region_width>
     </GameList>
+    <RecentLaunchFiles/>
     <RecentNFCFiles/>
+    <GamePaths/>
+    <GameCache/>
     <GraphicPack/>
     <Graphic>
-        <api>1</api>
-        <device>00000000040000000000000000000000</device>
+        <api>0</api>
+        <device>00000000000000000000000000000000</device>
         <VSync>0</VSync>
         <GX2DrawdoneSync>true</GX2DrawdoneSync>
         <vertex_cache_accuary>0</vertex_cache_accuary>
-        <UpscaleFilter>1</UpscaleFilter>
+        <UpscaleFilter>0</UpscaleFilter>
         <DownscaleFilter>0</DownscaleFilter>
         <FullscreenScaling>0</FullscreenScaling>
         <AsyncCompile>true</AsyncCompile>
@@ -59,7 +62,7 @@
             <Position>0</Position>
             <TextColor>4294967295</TextColor>
             <TextScale>100</TextScale>
-            <FPS>true</FPS>
+            <FPS>false</FPS>
             <DrawCalls>false</DrawCalls>
             <CPUUsage>false</CPUUsage>
             <CPUPerCoreUsage>false</CPUPerCoreUsage>
@@ -71,10 +74,10 @@
             <Position>0</Position>
             <TextColor>4294967295</TextColor>
             <TextScale>100</TextScale>
-            <ControllerProfiles>true</ControllerProfiles>
+            <ControllerProfiles>false</ControllerProfiles>
             <ControllerBattery>false</ControllerBattery>
-            <ShaderCompiling>true</ShaderCompiling>
-            <FriendService>true</FriendService>
+            <ShaderCompiling>false</ShaderCompiling>
+            <FriendService>false</FriendService>
         </Notification>
     </Graphic>
     <Audio>
