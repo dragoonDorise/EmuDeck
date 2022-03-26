@@ -17,7 +17,7 @@ biosPath="/home/deck/Emulation/bios/"
 biosPathSed="\/home\/deck\/Emulation\/bios\/"
 if [ $destination == "SD" ]; then
 	#Get SD Card name
-	sdCard=$(ls /run/media)
+	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
 	romsPath="/run/media/${sdCard}/Emulation/roms/"
 	romsPathSed="\/run\/media\/${sdCard}\/Emulation\/roms\/"
 	biosPath="/run/media/${sdCard}/Emulation/bios/"
