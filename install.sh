@@ -81,6 +81,7 @@ doYuzu=false
 doCitra=false
 doDuck=false
 doCemu=false
+doRyunjinx=false
 
 echo -e ""
 echo -e ""
@@ -175,7 +176,16 @@ else
 		echo -e "${RED}KO :(${NONE}"
 		echo -e "${RED}Download Cemu from cemu.info and copy the files on ${FILE} ${NONE}"
 	fi
-
+#Ryujimx
+	FOLDER=~/.var/app/org.ryujinx.Ryujinx/
+	echo -ne "Checking Ryujinx installation..."
+		if [ -d "$FOLDER" ]; then
+			echo -e "${GREEN}OK!${NONE}"
+			doRyunjinx=false
+	else
+			echo -e "${RED}KO :(${NONE}"
+			echo -e "${RED}Install and launch Ryujinx from the Discover App if you want to configure it${NONE}"
+		fi
 #Emus config
 
 echo -e ""
@@ -313,6 +323,11 @@ if [ $doCemu == true ]; then
 	echo "" &>> /dev/null
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/cemu/ ${romsPath}/wiiu &>> /dev/null
 fi
+if [ $doRyujinx == true ]; then
+	echo "" &>> /dev/null
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ryujinx.Ryujinx/ ~/.var/app/org.ryujinx.Ryujinx/ &>> /dev/null
+fi
+
 echo -e "${GREEN}OK!${NONE}"
 echo -e ""
 echo -ne "Cleaning up downloaded files..."	
