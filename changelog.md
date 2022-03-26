@@ -41,3 +41,4 @@
 
 - Ryujinx controls
 - Fix RA Toggle Menu L3+R3
+- Nunchuk fix
