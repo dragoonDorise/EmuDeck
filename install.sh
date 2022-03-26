@@ -339,8 +339,8 @@ echo -e "7: Close Steam Rom Manager and this window and click on Return to Gamin
 echo -e "8: Enjoy!"
 
 echo -e "${RED}Cemu Special configuration${NONE}"
-echo -e "Download Cemu from cemu.info and copy its files on ${romsPath}/wiiu"
-echo -e "Copy your games on wux or wud format on ${romsPath}/wiiu/roms"
+echo -e "Download Cemu from cemu.info and copy its files to ${romsPath}/wiiu"
+echo -e "Copy your games on wux or wud format to ${romsPath}/wiiu/roms"
 echo -e "When you add a Wii U game to Steam using Steam Rom Manager"
 echo -e "you need to go to that game Properties and activate Compatibility -> proton 7.0-1"
 
