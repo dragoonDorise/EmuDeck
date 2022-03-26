@@ -82,6 +82,7 @@ doCitra=false
 doDuck=false
 doCemu=false
 doRyujinx=false
+doPrimeHacks=false
 
 echo -e ""
 echo -e ""
@@ -97,6 +98,18 @@ else
 	echo -e "${RED}KO :(${NONE}"
 	echo -e "${RED}Install and launch Retroarch from the Discover App if you want to configure it${NONE}"
 fi
+#DolphinPrimeHacks
+FOLDER=~/.var/app/io.github.shiiion.primehack/
+echo -ne "Checking PrimeHacks installation..."
+	if [ -d "$FOLDER" ]; then
+		echo -e "${GREEN}OK!${NONE}"
+		doPrimeHacks=true
+else
+		echo -e "${RED}KO :(${NONE}"
+		echo -e "${RED}Install and launch PrimeHacks from the Discover App if you want to configure it${NONE}"
+	fi
+
+
 #Dolphin
 FOLDER=~/.var/app/org.DolphinEmu.dolphin-emu/
 echo -ne "Checking Dolphin installation..."
@@ -263,6 +276,17 @@ if [ $doRA == true ]; then
 fi
 echo -e ""
 echo -ne "Applying Emu configurations..."
+if [ $doPrimeHacks == true ]; then
+	FOLDER=~/.var/app/io.github.shiiion.primehack/config_bak
+	if [ -d "$FOLDER" ]; then
+		echo "" &>> /dev/null
+	else
+		echo -ne "Backing up PrimeHacks..."
+		cp -r ~/.var/app/io.github.shiiion.primehack/config ~/.var/app/io.github.shiiion.primehack/config_bak
+		echo -e "${GREEN}OK!${NONE}"
+	fi
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/io.github.shiiion.primehack/ ~/.var/app/io.github.shiiion.primehack/ &>> /dev/null
+fi
 if [ $doDolphin == true ]; then
 	FOLDER=~/.var/app/org.DolphinEmu.dolphin-emu/config_bak
 	if [ -d "$FOLDER" ]; then

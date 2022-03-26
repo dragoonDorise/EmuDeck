@@ -42,3 +42,8 @@
 - Ryujinx controls
 - Fix RA Toggle Menu L3+R3
 - Nunchuk fix
+
+  0.7
+
+- PrimeHacks support
+- Fix .md on genesis folders
