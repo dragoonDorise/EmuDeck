@@ -141,7 +141,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA)"
+      "glob": "${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.wbfs)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1249,7 +1249,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.cue|.CUE|.iso|.ISO|.zip|ZIP)"
+      "glob": "${title}@(.7z|.7Z|.cue|.CUE|.iso|.ISO|.zip|ZIP|.chd)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
