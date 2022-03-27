@@ -15,7 +15,7 @@ romsPath="/home/deck/Emulation/roms/"
 romsPathSed="\/home\/deck\/Emulation\/roms\/"
 biosPath="/home/deck/Emulation/bios/"
 biosPathSed="\/home\/deck\/Emulation\/bios\/"
-if [ $destination == "SD" ]; then
+if [ "$destination" == "SD" ]; then
 	#Get SD Card name
 	sdCard=$(ls /run/media)
 	romsPath="/run/media/${sdCard}/Emulation/roms/"
@@ -51,15 +51,15 @@ echo -e ""
 
 
 ##Generate rom folders
-if [ $destination == "SD" ]; then
+if [ "$destination" == "SD" ]; then
 	echo -ne "${BOLD}Creating roms folder in your SD Card...${NONE}"
 else
 	echo -ne "${BOLD}Creating roms folder in your home folder...${NONE}"
 fi
-mkdir -p $romsPath
-mkdir -p $biosPath
+mkdir -p "$romsPath"
+mkdir -p "$biosPath"
 sleep 3
-rsync -r ~/dragoonDoriseTools/EmuDeck/roms/ $romsPath &>> /dev/null
+rsync -r ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath" &>> /dev/null
 echo -e "${GREEN}OK!${NONE}"
 #Steam RomManager
 echo -e ""
@@ -175,7 +175,7 @@ else
 	fi
 
 	#Cemu
-	if [ $destination == "SD" ]; then
+	if [ "$destination" == "SD" ]; then
 		FILE="/run/media/${sdCard}/Emulation/roms/wiiu/Cemu.exe"
 	else
 		FILE="/home/deck/Emulation/roms/wiiu/Cemu.exe"
@@ -224,7 +224,7 @@ if [ $doRA == true ]; then
 		if [ -f "$FILE" ]; then
 			echo -e "${i}...${YELLOW}Already Downloaded${NONE}"	
 		else
-			curl $raUrl$i.zip --output /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
+			curl "${raUrl}${i}.zip" --output "/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip"
 			#rm /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
 			echo -e "${i}...${GREEN}Downloaded!${NONE}"	
 		fi
@@ -232,12 +232,12 @@ if [ $doRA == true ]; then
 	
 	for entry in /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
 	do
-	 	unzip -o $entry -d /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/
+	 	unzip -o "$entry" -d /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/
 	done
 	
 	for entry in /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
 	do
-	 	rm -f $entry
+	 	rm -f "$entry"
 	done
 	
 	raConfigFile="/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
@@ -352,7 +352,7 @@ if [ $doYuzu == true ]; then
 fi
 if [ $doCemu == true ]; then
 	echo "" &>> /dev/null
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/cemu/ ${romsPath}/wiiu &>> /dev/null
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/cemu/ "${romsPath}/wiiu" &>> /dev/null
 fi
 if [ $doRyujinx == true ]; then
 	echo "" &>> /dev/null
@@ -368,11 +368,11 @@ echo -e ""
 echo -e ""
 echo -e "Now to add your games copy them to this exact folder within the appropiate subfolder for each system:"
 echo -e ""
-echo -e ${BOLD}$romsPath${NONE}
+echo -e "${BOLD}${romsPath}${NONE}"
 echo -e ""
 echo -e "Copy your BIOS in this folder:"
 echo -e ""
-echo -e ${BOLD}$biosPath${NONE}
+echo -e "${BOLD}${biosPath}${NONE}"
 echo -e ""
 echo -e "When you are done copying your roms and BIOS do the following:"
 echo -e "1: Right Click the Steam Icon in the taskbar and close it. If you are using the integrated trackpads, the left mouse button is now the R2 and the right mouse button is the L1 button"
