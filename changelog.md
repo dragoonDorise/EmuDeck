@@ -47,3 +47,7 @@
 
 - PrimeHacks support
 - Fix .md on genesis folders
+
+  0.8
+
+- Automatic Steam Input for Citra and Cemu

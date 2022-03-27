@@ -203,6 +203,13 @@ else
 
 echo -e ""
 echo -e ""
+echo -ne "${BOLD}Configuring Steam Input for emulators..${NONE}"
+echo -e ""
+rsync -r ~/dragoonDoriseTools/EmuDeck/configs/steam-input/ ~/.steam/steam/controller_base/templates/
+echo -e "${GREEN}OK!${NONE}"
+
+echo -e ""
+echo -e ""
 echo -e "${BOLD}Configuring emulators..${NONE}"
 echo -e ""
 if [ $doRA == true ]; then
