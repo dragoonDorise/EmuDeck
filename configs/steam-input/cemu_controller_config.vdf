@@ -726,7 +726,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press ALT"
+							"binding"		"key_press LEFT_ALT"
 						}
 					}
 				}

@@ -51,3 +51,7 @@
   0.8
 
 - Automatic Steam Input for Citra and Cemu
+
+  0.8.1
+
+- CEMU Steam Input fix
