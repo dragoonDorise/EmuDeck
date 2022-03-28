@@ -56,6 +56,6 @@
 
 - CEMU Steam Input fix
 
-  0.8.2
+  0.9
 
-- Added Emulation Station rom path configuration
+- Added Emulation Station rom path configuration, folders and cores
