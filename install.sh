@@ -71,7 +71,17 @@ sleep 3
 
 sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/roms\//${romsPathSed}/g" ~/.config/steam-rom-manager/userData/userConfigurations.json
 
+
+
 echo -e "${GREEN}OK!${NONE}"
+
+echo -ne "${BOLD}Configuring Emulation Station...${NONE}"
+mkdir -p ~/.emulationstation/
+cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/es_settings.xml ~/.emulationstation/es_settings.xml
+sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/roms\//${romsPathSed}/g" ~/.emulationstation/es_settings.xml
+#sed -i "s/name=\"ROMDirectory\" value=\"/name=\"ROMDirectory\" value=\"${romsPathSed}/g" ~/.emulationstation/es_settings.xml
+echo -e "${GREEN}OK!${NONE}"
+
 #Check for installed emulators
 doRA=false
 doDolphin=false

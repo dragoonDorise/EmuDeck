@@ -55,3 +55,7 @@
   0.8.1
 
 - CEMU Steam Input fix
+
+  0.8.1
+
+- Added Emulation Station rom path configuration
