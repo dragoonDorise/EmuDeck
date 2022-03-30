@@ -1747,5 +1747,58 @@
     },
     "parserId": "164830813469988410",
     "version": 5
-  }
+  },
+  {
+  "parserType": "Glob",
+  "configTitle": "Sony PlayStation Portable - PPSSPP",
+  "steamCategory": "${PSP - Standalone PPSSPP}",
+  "executableModifier": "\"${exePath}\"",
+  "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psp",
+  "steamDirectory": "/home/deck/.steam/steam",
+  "startInDirectory": "",
+  "titleModifier": "${fuzzyTitle}",
+  "executableArgs": "run org.ppsspp.PPSSPP -f -g \"${filePath}\"",
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "imageProviders": ["SteamGridDB"],
+  "defaultImage": "",
+  "defaultTallImage": "",
+  "defaultHeroImage": "",
+  "defaultLogoImage": "",
+  "defaultIcon": "",
+  "localImages": "",
+  "localTallImages": "",
+  "localHeroImages": "",
+  "localLogoImages": "",
+  "localIcons": "",
+  "disabled": false,
+  "advanced": false,
+  "userAccounts": {
+    "specifiedAccounts": "",
+    "skipWithMissingDataDir": true,
+    "useCredentials": true
+  },
+  "parserInputs": {
+    "glob": "${title}@(.7z|.7Z|.elf|.ELF|.cso|.CSO|.iso|.ISO|.pbp|.PBP|.prx|.PRX)"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false,
+    "tryToMatchTitle": false
+  },
+  "fuzzyMatch": {
+    "use": true,
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "executable": {
+    "path": "/usr/bin/flatpak",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "parserId": "164785656634747068",
+  "version": 5
+  },
 ]
