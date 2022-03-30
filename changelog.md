@@ -63,3 +63,8 @@
   0.9.1
 
 - Fixed Yuzu's controls on Steam UI
+
+0.10
+
+- Added standalone PPSSPP
+- Added PS2 optimized configuration
