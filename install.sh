@@ -317,7 +317,9 @@ if [ $doDolphin == true ]; then
 fi
 if [ $doPCSX2 == true ]; then
 	echo "" &>> /dev/null
-	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.pcsx2.PCSX2/ ~/.var/app/net.pcsx2.PCSX2/ &>> /dev/null
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.pcsx2.PCSX2/ ~/.var/app/net.pcsx2.PCSX2/ &>> /dev/null
+	#Bios Fix
+	sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/bios\//${biosPathSed}/g" ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini &>> /dev/null
 fi
 if [ $doRPCS3 == true ]; then
 	FOLDER=~/.var/app/net.rpcs3.RPCS3/config_bak
