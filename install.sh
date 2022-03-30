@@ -316,7 +316,14 @@ if [ $doDolphin == true ]; then
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.DolphinEmu.dolphin-emu/ ~/.var/app/org.DolphinEmu.dolphin-emu/ &>> /dev/null
 fi
 if [ $doPCSX2 == true ]; then
-	echo "" &>> /dev/null
+	FOLDER=~/dragoonDoriseTools/EmuDeck/configs/net.pcsx2.PCSX2/config_bak
+	if [ -d "$FOLDER" ]; then
+		echo "" &>> /dev/null
+	else
+		echo -ne "Backing up PCSX2..."
+		cp -r ~/.var/app/net.pcsx2.PCSX2/config ~/.var/app/net.pcsx2.PCSX2/config_bak
+		echo -e "${GREEN}OK!${NONE}"
+	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.pcsx2.PCSX2/ ~/.var/app/net.pcsx2.PCSX2/ &>> /dev/null
 	#Bios Fix
 	sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/bios\//${biosPathSed}/g" ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini &>> /dev/null
