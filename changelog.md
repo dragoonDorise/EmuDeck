@@ -59,3 +59,7 @@
   0.9
 
 - Added Emulation Station rom path configuration, folders and cores
+
+  0.9.1
+
+- Fixed Yuzu's controls on Steam UI
