@@ -60,11 +60,9 @@
 
 - Added Emulation Station rom path configuration, folders and cores
 
-  0.9.1
-
-- Fixed Yuzu's controls on Steam UI
 
 0.10
 
+- Fixed Yuzu's controls on Steam UI
 - Added standalone PPSSPP
 - Added PS2 optimized configuration

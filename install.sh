@@ -93,6 +93,7 @@ doDuck=false
 doCemu=false
 doRyujinx=false
 doPrimeHacks=false
+doPPSSPP=false
 
 echo -e ""
 echo -e ""
@@ -130,6 +131,17 @@ else
 		echo -e "${RED}KO :(${NONE}"
 		echo -e "${RED}Install and launch Dolphin from the Discover App if you want to configure it${NONE}"
 	fi
+#PPSSPP
+	FOLDER=~/.var/app/org.ppsspp.PPSSPP/
+	echo -ne "Checking StandAlone PPSSPP installation..."
+		if [ -d "$FOLDER" ]; then
+			echo -e "${GREEN}OK!${NONE}"
+			doPPSSPP=true
+	else
+			echo -e "${RED}KO :(${NONE}"
+			echo -e "${RED}Install and launch PPSSPP from the Discover App if you want to configure it${NONE}"
+		fi
+	
 
 #PS2
 FOLDER=~/.var/app/net.pcsx2.PCSX2/
@@ -366,7 +378,14 @@ if [ $doDuck == true ]; then
 	sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/bios\//${biosPathSed}/g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
 fi
 if [ $doYuzu == true ]; then
-	echo "" &>> /dev/null
+	FOLDER=~/.var/app/org.yuzu_emu.yuzu/config
+	if [ -d "$FOLDER" ]; then
+		echo "" &>> /dev/null
+	else
+		echo -ne "Backing up Yuzu..."
+		cp -r ~/.var/app/org.yuzu_emu.yuzu/config ~/.var/app/org.yuzu_emu.yuzu/config_bak
+		echo -e "${GREEN}OK!${NONE}"
+	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/ &>> /dev/null
 fi
 if [ $doCemu == true ]; then
@@ -377,7 +396,17 @@ if [ $doRyujinx == true ]; then
 	echo "" &>> /dev/null
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ryujinx.Ryujinx/ ~/.var/app/org.ryujinx.Ryujinx/ &>> /dev/null
 fi
-
+if [ $doPPSSPP == true ]; then
+	FOLDER=~/.var/app/org.ppsspp.PPSSPP/config_bak
+	if [ -d "$FOLDER" ]; then
+		echo "" &>> /dev/null
+	else
+		echo -ne "Backing up PPSSPP..."
+		cp -r ~/.var/app/org.ppsspp.PPSSPP/config ~/.var/app/org.ppsspp.PPSSPP/config_bak
+		echo -e "${GREEN}OK!${NONE}"
+	fi
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ppsspp.PPSSPP/ ~/.var/app/org.ppsspp.PPSSPP/ &>> /dev/null
+fi
 echo -e "${GREEN}OK!${NONE}"
 echo -e ""
 echo -ne "Cleaning up downloaded files..."	
