@@ -110,7 +110,7 @@ if [ -d "$FOLDER" ]; then
 else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub org.libretro.RetroArch -y
-	sleep 1
+	
 fi
 #DolphinPrimeHacks
 FOLDER=~/.var/app/io.github.shiiion.primehack/
@@ -121,7 +121,7 @@ if [ -d "$FOLDER" ]; then
 else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub io.github.shiiion.primehack -y
-	sleep 1
+	
 fi
 
 
@@ -134,7 +134,7 @@ if [ -d "$FOLDER" ]; then
 else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub org.DolphinEmu.dolphin-emu -y
-	sleep 1
+	
 fi
 #PPSSPP
 FOLDER=~/.var/app/org.ppsspp.PPSSPP/
@@ -145,7 +145,7 @@ if [ -d "$FOLDER" ]; then
 else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub org.ppsspp.PPSSPP -y
-	sleep 1
+	
 fi
 	
 
@@ -158,7 +158,7 @@ if [ -d "$FOLDER" ]; then
 else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub net.pcsx2.PCSX2 -y
-	sleep 1
+	echo -e "PCSX2 Installed...continuing"
 fi
 
 #PS3
@@ -170,7 +170,7 @@ if [ -d "$FOLDER" ]; then
 else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub net.rpcs3.RPCS3 -y
-	sleep 1
+	
 fi
 
 #YUZU
@@ -182,7 +182,7 @@ if [ -d "$FOLDER" ]; then
 else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub org.yuzu_emu.yuzu -y
-	sleep 1
+	
 fi
 #Citra
 FOLDER=~/.var/app/org.citra_emu.citra/
@@ -193,7 +193,7 @@ if [ -d "$FOLDER" ]; then
 else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub org.citra_emu.citra -y
-	sleep 1
+	
 fi
 #Duckstation
 FOLDER=~/.var/app/org.duckstation.DuckStation/
@@ -204,7 +204,7 @@ if [ -d "$FOLDER" ]; then
 else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub org.duckstation.DuckStation -y	
-	sleep 1
+	
 fi
 
 echo -e ""
