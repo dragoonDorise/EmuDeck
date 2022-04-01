@@ -69,5 +69,11 @@
 
 0.11
 - Automatic Emulator Installation
-- No need to launch the emulators before playing, now it's automatic too
+- No need to launch the emulators before playing for the first time
 - Yuzu paths for Firmware and Keys are symlinked in Emulation/bios
+
+0.12
+- Fixes several Bugs
+- Adds cores for EmulationStation DE
+- Installs EmulationStation DE
+- Creates EmulationStation DE icon on SteamUI
