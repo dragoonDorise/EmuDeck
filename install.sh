@@ -49,6 +49,20 @@ version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
 echo -e "${BOLD}EmuDeck ${version}${NONE}"
 echo -e ""
 
+echo -e "Installing Emulators"
+flatpak install flathub net.pcsx2.PCSX2 -y  &>> /dev/null
+echo -e "Bad characters" &>> /dev/null
+flatpak install flathub io.github.shiiion.primehack -y &>> /dev/null
+flatpak install flathub net.kuribo64.melonDS -y &>> /dev/null
+flatpak install flathub net.pcsx2.PCSX2 -y &>> /dev/null
+flatpak install flathub net.rpcs3.RPCS3 -y &>> /dev/null
+flatpak install flathub org.citra_emu.citra -y &>> /dev/null
+flatpak install flathub org.DolphinEmu.dolphin-emu -y &>> /dev/null
+flatpak install flathub org.duckstation.DuckStation -y &>> /dev/null
+flatpak install flathub org.libretro.RetroArch -y &>> /dev/null
+flatpak install flathub org.ppsspp.PPSSPP -y &>> /dev/null
+flatpak install flathub org.ryujinx.Ryujinx -y &>> /dev/null
+flatpak install flathub org.yuzu_emu.yuzu -y &>> /dev/null
 
 ##Generate rom folders
 if [ $destination == "SD" ]; then
