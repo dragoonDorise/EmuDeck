@@ -13,6 +13,7 @@ BLINK='\x1b[5m'
 destination=$1
 romsPath="/home/deck/Emulation/roms/"
 toolsPath="/home/deck/Emulation/tools/"
+toolsPathSed="\/home\/deck\/Emulation\/tools\/"
 romsPathSed="\/home\/deck\/Emulation\/roms\/"
 biosPath="/home/deck/Emulation/bios/"
 biosPathSed="\/home\/deck\/Emulation\/bios\/"
@@ -105,7 +106,7 @@ sleep 3
 
 sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/roms\//${romsPathSed}/g" ~/.config/steam-rom-manager/userData/userConfigurations.json
 
-
+sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/tools\//${toolsPathSed}/g" ~/.config/steam-rom-manager/userData/userConfigurations.json
 
 echo -e "${GREEN}OK!${NONE}"
 
