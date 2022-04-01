@@ -34,6 +34,7 @@ cd dragoonDoriseTools
 
 echo -e "Installing Emulators"
 flatpak install flathub net.pcsx2.PCSX2 -y  &>> /dev/null
+echo -e "Bad characters"
 flatpak install flathub io.github.shiiion.primehack -y &>> /dev/null
 flatpak install flathub net.kuribo64.melonDS -y &>> /dev/null
 flatpak install flathub net.pcsx2.PCSX2 -y &>> /dev/null
