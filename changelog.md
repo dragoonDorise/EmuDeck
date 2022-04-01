@@ -78,3 +78,8 @@
 - Installs EmulationStation DE
 - Creates EmulationStation DE icon on SteamUI
 - Removes readme.md files to prevent problems with Sega Systems
+
+0.12.1
+- Added Cemu icon to SteamUI
+0.12.2
+- Vulkan for CEMU

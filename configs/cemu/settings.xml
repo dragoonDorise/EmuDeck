@@ -48,8 +48,8 @@
     <GameCache/>
     <GraphicPack/>
     <Graphic>
-        <api>0</api>
-        <device>00000000000000000000000000000000</device>
+        <api>1</api>
+        <device>00000000040000000000000000000000</device>
         <VSync>0</VSync>
         <GX2DrawdoneSync>true</GX2DrawdoneSync>
         <vertex_cache_accuary>0</vertex_cache_accuary>
