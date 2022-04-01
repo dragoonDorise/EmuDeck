@@ -152,6 +152,7 @@ echo -ne "Checking PCSX2 installation..."
 		doPCSX2=false
 else
 		echo -e "${RED}KO :(${NONE}"
+		flatpak uninstall net.pcsx2.PCSX2 -y &>> /dev/null
 		echo -e "${RED}Install and launch PCSX2 from the Discover App if you want to configure it${NONE}"
 	fi
 
