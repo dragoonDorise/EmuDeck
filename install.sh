@@ -198,6 +198,8 @@ else
 	flatpak install flathub org.duckstation.DuckStation -y
 fi
 
+echo -e ""
+
 #Cemu
 if [ $destination == "SD" ]; then
 	FILE="/run/media/${sdCard}/Emulation/roms/wiiu/Cemu.exe"
@@ -442,9 +444,9 @@ echo -e "When you add a Wii U game to Steam using Steam Rom Manager"
 echo -e "you need to go to that game Properties and activate Compatibility -> proton 7.0-1"
 #Symlinks
 cd $(echo $romsPath | tr -d '\r')
-ln -s segacd megacd
-ln -s gamecube gc
-ln -s genesis megadrive
-ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys $biosPath/yuzu/keys
-ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered $biosPath/yuzu/firmware
+ln -s segacd megacd &>> /dev/null
+ln -s gamecube gc &>> /dev/null
+ln -s genesis megadrive &>> /dev/null
+ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys $biosPath/yuzu/keys &>> /dev/null
+ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered $biosPath/yuzu/firmware &>> /dev/null
 sleep 999999999
