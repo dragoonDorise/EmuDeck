@@ -150,8 +150,8 @@ FOLDER=~/.var/app/net.pcsx2.PCSX2/
 echo -ne "Checking PCSX2 installation..."
 if [ -d "$FOLDER" ]; then
 	echo -e "${GREEN}OK!${NONE}"
-	doPCSX2=false
-	else
+	doPCSX2=true
+else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub net.pcsx2.PCSX2 -y
 fi
@@ -161,7 +161,7 @@ FOLDER=~/.var/app/net.rpcs3.RPCS3/
 echo -ne "Checking RPCS3 installation..."
 if [ -d "$FOLDER" ]; then
 	echo -e "${GREEN}OK!${NONE}"
-	doRPCS3=false
+	doRPCS3=true
 else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub net.rpcs3.RPCS3 -y
@@ -172,7 +172,7 @@ FOLDER=~/.var/app/org.yuzu_emu.yuzu/
 echo -ne "Checking Yuzu installation..."
 if [ -d "$FOLDER" ]; then
 	echo -e "${GREEN}OK!${NONE}"
-	doYuzu=false
+	doYuzu=true
 else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub org.yuzu_emu.yuzu -y
@@ -210,7 +210,8 @@ if [ -f "$FILE" ]; then
 	echo -e "${GREEN}OK!${NONE}"
 	doCemu=true
 else
-	echo -e "${RED}Cemu it's not installed...${NONE}"	
+	echo -e "${RED}Cemu it's not installed...${NONE}"
+	doCemu=false
 fi
 #Ryujimx
 #FOLDER=~/.var/app/org.ryujinx.Ryujinx/
