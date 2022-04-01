@@ -154,6 +154,7 @@ if [ -d "$FOLDER" ]; then
 else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub net.pcsx2.PCSX2 -y
+	echo ""
 fi
 
 #PS3
@@ -165,6 +166,7 @@ if [ -d "$FOLDER" ]; then
 else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub net.rpcs3.RPCS3 -y
+	echo ""
 fi
 
 #YUZU
@@ -176,6 +178,7 @@ if [ -d "$FOLDER" ]; then
 else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub org.yuzu_emu.yuzu -y
+	echo ""
 fi
 #Citra
 FOLDER=~/.var/app/org.citra_emu.citra/
@@ -186,6 +189,7 @@ if [ -d "$FOLDER" ]; then
 else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub org.citra_emu.citra -y
+	echo ""
 fi
 #Duckstation
 FOLDER=~/.var/app/org.duckstation.DuckStation/
@@ -196,6 +200,7 @@ if [ -d "$FOLDER" ]; then
 else
 	echo -e "${RED}Installing...${NONE}"
 	flatpak install flathub org.duckstation.DuckStation -y
+	echo ""
 fi
 
 echo -e ""
