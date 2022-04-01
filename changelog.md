@@ -66,3 +66,7 @@
 - Fixed Yuzu's controls on Steam UI
 - Added standalone PPSSPP
 - Added PS2 optimized configuration
+
+0.11
+- Automatic Emulator Installation
+- No need to launch the emulator first

@@ -24,7 +24,7 @@ if [ $destination == "SD" ]; then
 	biosPathSed="\/run\/media\/${sdCard}\/Emulation\/bios\/"
 fi
 
-rm -rf ~/dragoonDoriseTools
+#rm -rf ~/dragoonDoriseTools
 echo -ne "${BOLD}Downloading files...${NONE}"
 sleep 5
 mkdir -p dragoonDoriseTools
@@ -33,6 +33,9 @@ cd dragoonDoriseTools
 
 
 git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck &>> /dev/null
+
+echo "pause"
+read
 FOLDER=~/dragoonDoriseTools/EmuDeck
 if [ -d "$FOLDER" ]; then
 	echo -e "${GREEN}OK!${NONE}"
@@ -83,17 +86,17 @@ sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/roms\//${romsPathSed}/g" ~/.emulat
 echo -e "${GREEN}OK!${NONE}"
 
 #Check for installed emulators
-doRA=false
-doDolphin=false
-doPCSX2=false
-doRPCS3=false
-doYuzu=false
-doCitra=false
-doDuck=false
-doCemu=false
-doRyujinx=false
-doPrimeHacks=false
-doPPSSPP=false
+doRA=true
+doDolphin=true
+doPCSX2=true
+doRPCS3=true
+doYuzu=true
+doCitra=true
+doDuck=true
+doCemu=true
+doRyujinx=true
+doPrimeHacks=true
+doPPSSPP=true
 
 echo -e ""
 echo -e ""
@@ -106,121 +109,121 @@ if [ -d "$FOLDER" ]; then
 	echo -e "${GREEN}OK!${NONE}"
 	doRA=true
 else
-	echo -e "${RED}KO :(${NONE}"
-	echo -e "${RED}Install and launch Retroarch from the Discover App if you want to configure it${NONE}"
+	echo -e "${RED}Installing...${NONE}"
+	flatpak install flathub org.libretro.RetroArch -y
 fi
 #DolphinPrimeHacks
 FOLDER=~/.var/app/io.github.shiiion.primehack/
 echo -ne "Checking PrimeHacks installation..."
-	if [ -d "$FOLDER" ]; then
-		echo -e "${GREEN}OK!${NONE}"
-		doPrimeHacks=true
+if [ -d "$FOLDER" ]; then
+	echo -e "${GREEN}OK!${NONE}"
+	doPrimeHacks=true
 else
-		echo -e "${RED}KO :(${NONE}"
-		echo -e "${RED}Install and launch PrimeHacks from the Discover App if you want to configure it${NONE}"
-	fi
+	echo -e "${RED}Installing...${NONE}"
+	flatpak install flathub io.github.shiiion.primehack -y
+fi
 
 
 #Dolphin
 FOLDER=~/.var/app/org.DolphinEmu.dolphin-emu/
 echo -ne "Checking Dolphin installation..."
-	if [ -d "$FOLDER" ]; then
-		echo -e "${GREEN}OK!${NONE}"
-		doDolphin=true
+if [ -d "$FOLDER" ]; then
+	echo -e "${GREEN}OK!${NONE}"
+	doDolphin=true
 else
-		echo -e "${RED}KO :(${NONE}"
-		echo -e "${RED}Install and launch Dolphin from the Discover App if you want to configure it${NONE}"
-	fi
+	echo -e "${RED}Installing...${NONE}"
+	flatpak install flathub org.DolphinEmu.dolphin-emu -y
+fi
 #PPSSPP
-	FOLDER=~/.var/app/org.ppsspp.PPSSPP/
-	echo -ne "Checking StandAlone PPSSPP installation..."
-		if [ -d "$FOLDER" ]; then
-			echo -e "${GREEN}OK!${NONE}"
-			doPPSSPP=true
-	else
-			echo -e "${RED}KO :(${NONE}"
-			echo -e "${RED}Install and launch PPSSPP from the Discover App if you want to configure it${NONE}"
-		fi
+FOLDER=~/.var/app/org.ppsspp.PPSSPP/
+echo -ne "Checking StandAlone PPSSPP installation..."
+if [ -d "$FOLDER" ]; then
+	echo -e "${GREEN}OK!${NONE}"
+	doPPSSPP=true
+else
+	echo -e "${RED}Installing...${NONE}"
+	flatpak install flathub org.ppsspp.PPSSPP -y
+fi
 	
 
 #PS2
 FOLDER=~/.var/app/net.pcsx2.PCSX2/
 echo -ne "Checking PCSX2 installation..."
-	if [ -d "$FOLDER" ]; then
-		echo -e "${GREEN}OK!${NONE}"
-		doPCSX2=false
-else
-		echo -e "${RED}KO :(${NONE}"
-		echo -e "${RED}Install and launch PCSX2 from the Discover App if you want to configure it${NONE}"
-	fi
+if [ -d "$FOLDER" ]; then
+	echo -e "${GREEN}OK!${NONE}"
+	doPCSX2=false
+	else
+	echo -e "${RED}Installing...${NONE}"
+	flatpak install flathub net.pcsx2.PCSX2 -y
+fi
 
 #PS3
 FOLDER=~/.var/app/net.rpcs3.RPCS3/
 echo -ne "Checking RPCS3 installation..."
-	if [ -d "$FOLDER" ]; then
-		echo -e "${GREEN}OK!${NONE}"
-		doRPCS3=false
+if [ -d "$FOLDER" ]; then
+	echo -e "${GREEN}OK!${NONE}"
+	doRPCS3=false
 else
-		echo -e "${RED}KO :(${NONE}"
-		echo -e "${RED}Install and launch RPCS3 from the Discover App if you want to configure it${NONE}"
-	fi
+	echo -e "${RED}Installing...${NONE}"
+	flatpak install flathub net.rpcs3.RPCS3 -y
+fi
 
 #YUZU
 FOLDER=~/.var/app/org.yuzu_emu.yuzu/
 echo -ne "Checking Yuzu installation..."
-	if [ -d "$FOLDER" ]; then
-		echo -e "${GREEN}OK!${NONE}"
-		doYuzu=false
+if [ -d "$FOLDER" ]; then
+	echo -e "${GREEN}OK!${NONE}"
+	doYuzu=false
 else
-		echo -e "${RED}KO :(${NONE}"
-		echo -e "${RED}Install and launch Yuzu from the Discover App if you want to configure it${NONE}"
-	fi
+	echo -e "${RED}Installing...${NONE}"
+	flatpak install flathub org.yuzu_emu.yuzu -y
+fi
 #Citra
-	FOLDER=~/.var/app/org.citra_emu.citra/
-	echo -ne "Checking Citra installation..."
-	if [ -d "$FOLDER" ]; then
-		echo -e "${GREEN}OK!${NONE}"
-		doCitra=true
-	else
-		echo -e "${RED}KO :(${NONE}"
-		echo -e "${RED}Install and launch Citra from the Discover App if you want to configure it${NONE}"
-	fi
+FOLDER=~/.var/app/org.citra_emu.citra/
+echo -ne "Checking Citra installation..."
+if [ -d "$FOLDER" ]; then
+	echo -e "${GREEN}OK!${NONE}"
+	doCitra=true
+else
+	echo -e "${RED}Installing...${NONE}"
+	flatpak install flathub org.citra_emu.citra -y
+fi
 #Duckstation
-	FOLDER=~/.var/app/org.duckstation.DuckStation/
-	echo -ne "Checking Duckstation installation..."
-	if [ -d "$FOLDER" ]; then
-		echo -e "${GREEN}OK!${NONE}"
-		doDuck=true
-	else
-		echo -e "${RED}KO :(${NONE}"
-		echo -e "${RED}Install and launch Duckstation from the Discover App if you want to configure it${NONE}"
-	fi
+FOLDER=~/.var/app/org.duckstation.DuckStation/
+echo -ne "Checking Duckstation installation..."
+if [ -d "$FOLDER" ]; then
+	echo -e "${GREEN}OK!${NONE}"
+	doDuck=true
+else
+	echo -e "${RED}Installing...${NONE}"
+	flatpak install flathub org.duckstation.DuckStation -y
+fi
 
-	#Cemu
-	if [ $destination == "SD" ]; then
-		FILE="/run/media/${sdCard}/Emulation/roms/wiiu/Cemu.exe"
-	else
-		FILE="/home/deck/Emulation/roms/wiiu/Cemu.exe"
-	fi
-	
-	echo -ne "Checking Cemu installation..."
-	if [ -f "$FILE" ]; then
-		echo -e "${GREEN}OK!${NONE}"
-		doCemu=true
-	else
-		echo -e "${RED}KO :(${NONE}"
-		echo -e "${RED}Download Cemu from cemu.info and copy the files on ${FILE} ${NONE}"
-	fi
+#Cemu
+if [ $destination == "SD" ]; then
+	FILE="/run/media/${sdCard}/Emulation/roms/wiiu/Cemu.exe"
+else
+	FILE="/home/deck/Emulation/roms/wiiu/Cemu.exe"
+fi
+
+echo -ne "Checking Cemu installation..."
+if [ -f "$FILE" ]; then
+	echo -e "${GREEN}OK!${NONE}"
+	doCemu=true
+else
+	echo -e "${RED}Installing...${NONE}"
+	flatpak install flathub org.libretro.RetroArch -y
+fi
 #Ryujimx
-	FOLDER=~/.var/app/org.ryujinx.Ryujinx/
-	echo -ne "Checking Ryujinx installation..."
-		if [ -d "$FOLDER" ]; then
-			echo -e "${GREEN}OK!${NONE}"
-			doRyujinx=false
-	else
-			echo -e "${RED}KO :(${NONE}"
-			echo -e "${RED}Install and launch Ryujinx from the Discover App if you want to configure it${NONE}"
-		fi
+#FOLDER=~/.var/app/org.ryujinx.Ryujinx/
+#echo -ne "Checking Ryujinx installation..."
+#if [ -d "$FOLDER" ]; then
+#	echo -e "${GREEN}OK!${NONE}"
+#	doRyujinx=false
+#else
+#	echo -e "${RED}Installing...${NONE}"
+#	flatpak install flathub org.libretro.RetroArch -y
+#fi
 #Emus config
 
 echo -e ""
@@ -240,6 +243,7 @@ if [ $doRA == true ]; then
 	raCorePath=""
 	RAcores=(bsnes_hd_beta_libretro.so flycast_libretro.so gambatte_libretro.so genesis_plus_gx_libretro.so genesis_plus_gx_wide_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_wswan_libretro.so melonds_libretro.so mesen_libretro.so mgba_libretro.so mupen64plus_next_libretro.so nestopia_libretro.so picodrive_libretro.so ppsspp_libretro.so snes9x_libretro.so stella_libretro.so yabasanshiro_libretro.so yabause_libretro.so yabause_libretro.so mame2003_plus_libretro.so melonds_libretro.so fbneo_libretro.so bluemsx_libretro.so desmume_libretro.so sameboy_libretro.so gearsystem_libretro.so mednafen_saturn_libretro.so)
 	echo -e "Downloading RetroArch Cores"
+	mkdir -p /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/
 	for i in "${RAcores[@]}"
 	do
 		FILE=/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
@@ -254,12 +258,12 @@ if [ $doRA == true ]; then
 	
 	for entry in /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
 	do
-	 	unzip -o $entry -d /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/
+		 unzip -o $entry -d /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/
 	done
 	
 	for entry in /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
 	do
-	 	rm -f $entry
+		 rm -f $entry
 	done
 	
 	raConfigFile="/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
@@ -271,37 +275,37 @@ if [ $doRA == true ]; then
 		cp /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak
 		echo -e "${GREEN}OK!${NONE}"
 	fi
-	mkdir -p /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays
-	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/retroarch/overlays/ ~/.var/app/org.libretro.RetroArch/config/retroarch/overlays
-	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/retroarch/config/ ~/.var/app/org.libretro.RetroArch/config/retroarch/config
-
-	sed -i 's/config_save_on_exit = "true"/config_save_on_exit = "false"/g' $raConfigFile
-	sed -i 's/input_overlay_enable = "true"/input_overlay_enable = "false"/g' $raConfigFile
-	sed -i 's/menu_show_load_content_animation = "true"/menu_show_load_content_animation = "false"/g' $raConfigFile
-	sed -i 's/notification_show_autoconfig = "true"/notification_show_autoconfig = "false"/g' $raConfigFile
-	sed -i 's/notification_show_config_override_load = "true"/notification_show_config_override_load = "false"/g' $raConfigFile
-	sed -i 's/notification_show_refresh_rate = "true"/notification_show_refresh_rate = "false"/g' $raConfigFile
-	sed -i 's/notification_show_remap_load = "true"/notification_show_remap_load = "false"/g' $raConfigFile
-	sed -i 's/notification_show_screenshot = "true"/notification_show_screenshot = "false"/g' $raConfigFile
-	sed -i 's/notification_show_set_initial_disk = "true"/notification_show_set_initial_disk = "false"/g' $raConfigFile
-	sed -i 's/notification_show_patch_applied = "true"/notification_show_patch_applied = "false"/g' $raConfigFile
-	sed -i 's/menu_swap_ok_cancel_buttons = "false"/menu_swap_ok_cancel_buttons = "true"/g' $raConfigFile
-	sed -i 's/savestate_auto_save = "false"/savestate_auto_save = "true"/g' $raConfigFile
-	sed -i 's/savestate_auto_load = "false"/savestate_auto_load = "true"/g' $raConfigFile
-	sed -i 's/video_fullscreen = "false"/video_fullscreen = "true"/g' $raConfigFile
-	sed -i 's/video_shader_enable = "false"/video_shader_enable = "true"/g' $raConfigFile
+	#mkdir -p /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays
+	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/ ~/.var/app/org.libretro.RetroArch/config/
+	#rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/retroarch/config/ ~/.var/app/org.libretro.RetroArch/config/retroarch/config
+	
+#	sed -i 's/config_save_on_exit = "true"/config_save_on_exit = "false"/g' $raConfigFile
+#	sed -i 's/input_overlay_enable = "true"/input_overlay_enable = "false"/g' $raConfigFile
+#	sed -i 's/menu_show_load_content_animation = "true"/menu_show_load_content_animation = "false"/g' $raConfigFile
+#	sed -i 's/notification_show_autoconfig = "true"/notification_show_autoconfig = "false"/g' $raConfigFile
+#	sed -i 's/notification_show_config_override_load = "true"/notification_show_config_override_load = "false"/g' $raConfigFile
+#	sed -i 's/notification_show_refresh_rate = "true"/notification_show_refresh_rate = "false"/g' $raConfigFile
+#	sed -i 's/notification_show_remap_load = "true"/notification_show_remap_load = "false"/g' $raConfigFile
+#	sed -i 's/notification_show_screenshot = "true"/notification_show_screenshot = "false"/g' $raConfigFile
+#	sed -i 's/notification_show_set_initial_disk = "true"/notification_show_set_initial_disk = "false"/g' $raConfigFile
+#	sed -i 's/notification_show_patch_applied = "true"/notification_show_patch_applied = "false"/g' $raConfigFile
+#	sed -i 's/menu_swap_ok_cancel_buttons = "false"/menu_swap_ok_cancel_buttons = "true"/g' $raConfigFile
+#	sed -i 's/savestate_auto_save = "false"/savestate_auto_save = "true"/g' $raConfigFile
+#	sed -i 's/savestate_auto_load = "false"/savestate_auto_load = "true"/g' $raConfigFile
+#	sed -i 's/video_fullscreen = "false"/video_fullscreen = "true"/g' $raConfigFile
+#	sed -i 's/video_shader_enable = "false"/video_shader_enable = "true"/g' $raConfigFile
 	
 	sed -i "s/system_directory = \"~\/.var\/app\/org.libretro.RetroArch\/config\/retroarch\/system\"/system_directory = \"${biosPathSed}\"/g" $raConfigFile
 	
-	sed -i 's/input_enable_hotkey_btn = "nul"/input_enable_hotkey_btn = "4"/g' $raConfigFile
-	sed -i 's/input_fps_toggle_btn = "nul"/input_fps_toggle_btn = "3"/g' $raConfigFile
-	sed -i 's/input_load_state_btn = "nul"/input_load_state_btn = "9"/g' $raConfigFile
-	sed -i 's/input_rewind_axis = "nul"/input_rewind_axis = "+4"/g' $raConfigFile
-	sed -i 's/input_save_state_btn = "nul"/input_save_state_btn = "10"/g' $raConfigFile
-	sed -i 's/input_menu_toggle_gamepad_combo = "0"/input_menu_toggle_gamepad_combo = "2"/g' $raConfigFile
-	sed -i 's/input_hold_fast_forward_axis = "nul"/input_hold_fast_forward_axis = "+5"/g' $raConfigFile
-	sed -i 's/input_quit_gamepad_combo = "0"/input_quit_gamepad_combo = "4"/g' $raConfigFile
-	sed -i 's/input_pause_toggle_btn = "nul"/input_pause_toggle_btn = "0"/g' $raConfigFile
+#	sed -i 's/input_enable_hotkey_btn = "nul"/input_enable_hotkey_btn = "4"/g' $raConfigFile
+#	sed -i 's/input_fps_toggle_btn = "nul"/input_fps_toggle_btn = "3"/g' $raConfigFile
+#	sed -i 's/input_load_state_btn = "nul"/input_load_state_btn = "9"/g' $raConfigFile
+#	sed -i 's/input_rewind_axis = "nul"/input_rewind_axis = "+4"/g' $raConfigFile
+#	sed -i 's/input_save_state_btn = "nul"/input_save_state_btn = "10"/g' $raConfigFile
+#	sed -i 's/input_menu_toggle_gamepad_combo = "0"/input_menu_toggle_gamepad_combo = "2"/g' $raConfigFile
+#	sed -i 's/input_hold_fast_forward_axis = "nul"/input_hold_fast_forward_axis = "+5"/g' $raConfigFile
+#	sed -i 's/input_quit_gamepad_combo = "0"/input_quit_gamepad_combo = "4"/g' $raConfigFile
+#	sed -i 's/input_pause_toggle_btn = "nul"/input_pause_toggle_btn = "0"/g' $raConfigFile
 fi
 echo -e ""
 echo -ne "Applying Emu configurations..."
