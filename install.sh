@@ -118,17 +118,17 @@ sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/roms\//${romsPathSed}/g" ~/.emulat
 echo -e "${GREEN}OK!${NONE}"
 
 #Check for installed emulators
-doRA=false
-doDolphin=false
-doPCSX2=false
-doRPCS3=false
-doYuzu=false
-doCitra=false
-doDuck=false
+doRA=true
+doDolphin=true
+doPCSX2=true
+doRPCS3=true
+doYuzu=true
+doCitra=true
+doDuck=true
 doCemu=false
-doRyujinx=false
-doPrimeHacks=false
-doPPSSPP=false
+doRyujinx=true
+doPrimeHacks=true
+doPPSSPP=true
 
 	#Cemu
 	if [ $destination == "SD" ]; then
