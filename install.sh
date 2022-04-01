@@ -45,6 +45,8 @@ else
 	sleep 999999
 	exit
 fi
+
+sleep 999999
 clear
 cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
