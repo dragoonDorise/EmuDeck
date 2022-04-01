@@ -59,6 +59,7 @@ else
 fi
 mkdir -p $romsPath
 mkdir -p $biosPath
+mkdir -p $biosPath/yuzu/
 sleep 3
 rsync -r ~/dragoonDoriseTools/EmuDeck/roms/ $romsPath &>> /dev/null
 echo -e "${GREEN}OK!${NONE}"
@@ -439,5 +440,11 @@ echo -e "Download Cemu from cemu.info and copy its files to ${romsPath}/wiiu"
 echo -e "Copy your games on wux or wud format to ${romsPath}/wiiu/roms"
 echo -e "When you add a Wii U game to Steam using Steam Rom Manager"
 echo -e "you need to go to that game Properties and activate Compatibility -> proton 7.0-1"
-
+#Symlinks
+cd $(echo $romsPath | tr -d '\r')
+ln -s segacd megacd
+ln -s gamecube gc
+ln -s genesis megadrive
+ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys $biosPath/yuzu/keys
+ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered $biosPath/yuzu/firmware
 sleep 999999999

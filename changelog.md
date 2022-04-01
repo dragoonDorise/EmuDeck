@@ -69,4 +69,5 @@
 
 0.11
 - Automatic Emulator Installation
-- No need to launch the emulator first
+- No need to launch the emulators before playing, now it's automatic too
+- Yuzu paths for Firmware and Keys are symlinked in Emulation/bios
