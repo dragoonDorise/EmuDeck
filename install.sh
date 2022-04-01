@@ -26,7 +26,7 @@ if [ $destination == "SD" ]; then
 	biosPath="/run/media/${sdCard}/Emulation/bios/"
 	biosPathSed="\/run\/media\/${sdCard}\/Emulation\/bios\/"
 fi
-
+find $romsPath -name "readme.md" -type f -delete &>> /dev/null
 rm -rf ~/dragoonDoriseTools
 echo -ne "${BOLD}Downloading files...${NONE}"
 sleep 5
