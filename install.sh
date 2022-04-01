@@ -210,8 +210,7 @@ if [ -f "$FILE" ]; then
 	echo -e "${GREEN}OK!${NONE}"
 	doCemu=true
 else
-	echo -e "${RED}Installing...${NONE}"
-	flatpak install flathub org.libretro.RetroArch -y
+	echo -e "${RED}Cemu it's not installed...${NONE}"	
 fi
 #Ryujimx
 #FOLDER=~/.var/app/org.ryujinx.Ryujinx/
