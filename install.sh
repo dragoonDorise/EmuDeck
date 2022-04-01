@@ -12,6 +12,7 @@ BLINK='\x1b[5m'
 
 destination=$1
 romsPath="/home/deck/Emulation/roms/"
+toolsPath="/home/deck/Emulation/tools/"
 romsPathSed="\/home\/deck\/Emulation\/roms\/"
 biosPath="/home/deck/Emulation/bios/"
 biosPathSed="\/home\/deck\/Emulation\/bios\/"
@@ -19,6 +20,7 @@ if [ $destination == "SD" ]; then
 	#Get SD Card name
 	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
 	romsPath="/run/media/${sdCard}/Emulation/roms/"
+	toolsPath="/run/media/${sdCard}/Emulation/tools/"
 	romsPathSed="\/run\/media\/${sdCard}\/Emulation\/roms\/"
 	biosPath="/run/media/${sdCard}/Emulation/bios/"
 	biosPathSed="\/run\/media\/${sdCard}\/Emulation\/bios\/"
@@ -48,6 +50,13 @@ cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
 echo -e "${BOLD}EmuDeck ${version}${NONE}"
 echo -e ""
+
+echo -e "Installing Steam Rom Manager"
+curl https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage  --output /home/deck/Desktop/Steam-ROM-Manager-2.3.29.AppImage
+
+echo -e "Installing EmulationStation Desktop Edition"
+curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/33311338/download  --output $toolsPath/ESDE.AppImage
+
 
 echo -e "Installing PCSX2"
 flatpak install flathub net.pcsx2.PCSX2 -y  &>> /dev/null
@@ -80,6 +89,7 @@ else
 	echo -ne "${BOLD}Creating roms folder in your home folder...${NONE}"
 fi
 mkdir -p $romsPath
+mkdir -p $toolsPath
 mkdir -p $biosPath
 mkdir -p $biosPath/yuzu/
 sleep 3
