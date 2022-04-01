@@ -308,7 +308,7 @@ echo -e "Now to add your games copy them to this exact folder within the appropi
 echo -e ""
 echo -e ${BOLD}$romsPath${NONE}
 echo -e ""
-echo -e "Copy your BIOS in this folder:"
+echo -e "Copy your BIOS and Yuzu Keys+Firmware in this folder:"
 echo -e ""
 echo -e ${BOLD}$biosPath${NONE}
 echo -e ""
