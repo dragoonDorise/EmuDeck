@@ -32,8 +32,18 @@ mkdir -p dragoonDoriseTools/EmuDeck
 cd dragoonDoriseTools
 
 echo -e "Installing Emulators"
-flatpak uninstall net.pcsx2.PCSX2 -y
-
+flatpak install flathub net.pcsx2.PCSX2 -y
+flatpak install flathub io.github.shiiion.primehack -y
+flatpak install flathub net.kuribo64.melonDS -y
+flatpak install flathub net.pcsx2.PCSX2 -y
+flatpak install flathub net.rpcs3.RPCS3 -y
+flatpak install flathub org.citra_emu.citra -y
+flatpak install flathub org.DolphinEmu.dolphin-emu -y
+flatpak install flathub org.duckstation.DuckStation -y
+flatpak install flathub org.libretro.RetroArch -y
+flatpak install flathub org.ppsspp.PPSSPP -y
+flatpak install flathub org.ryujinx.Ryujinx -y
+flatpak install flathub org.yuzu_emu.yuzu -y
 git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck &>> /dev/null
 FOLDER=~/dragoonDoriseTools/EmuDeck
 if [ -d "$FOLDER" ]; then
