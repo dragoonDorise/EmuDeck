@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
 NONE='\033[00m'
 RED='\033[01;31m'
 GREEN='\033[01;32m'
@@ -40,7 +41,7 @@ else
 	echo -e ""
 	echo -e "${RED}We couldn't download the needed files, exiting in a few seconds${NONE}"
 	echo -e "Please close this window and try again in a few minutes"
-	sleep 999999
+ 	read -p "Press enter to continue "
 	exit
 fi
 clear
@@ -70,7 +71,6 @@ cp ~/dragoonDoriseTools/EmuDeck/configs/steam-rom-manager/userData/userConfigura
 sleep 3
 
 sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/roms\//${romsPathSed}/g" ~/.config/steam-rom-manager/userData/userConfigurations.json
-
 
 
 echo -e "${GREEN}OK!${NONE}"
@@ -418,11 +418,11 @@ echo -e "Now to add your games copy them to this exact folder within the appropi
 echo -e ""
 echo -e ${BOLD}$romsPath${NONE}
 echo -e ""
-echo -e "Copy your BIOS in this folder:"
+echo -e "Copy your BIOSs in this folder:"
 echo -e ""
 echo -e ${BOLD}$biosPath${NONE}
 echo -e ""
-echo -e "When you are done copying your roms and BIOS do the following:"
+echo -e "When you are done copying your roms and BIOSs do the following:"
 echo -e "1: Right Click the Steam Icon in the taskbar and close it. If you are using the integrated trackpads, the left mouse button is now the R2 and the right mouse button is the L1 button"
 echo -e "2: Open Steam Rom Manager"
 echo -e "3: On Steam Rom Manager click on Preview"
@@ -438,4 +438,4 @@ echo -e "Copy your games on wux or wud format to ${romsPath}/wiiu/roms"
 echo -e "When you add a Wii U game to Steam using Steam Rom Manager"
 echo -e "you need to go to that game Properties and activate Compatibility -> proton 7.0-1"
 
-sleep 999999999
+read -p "Press enter to continue "
