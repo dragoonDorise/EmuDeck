@@ -9,7 +9,7 @@ WHITE='\033[01;37m'
 BOLD='\033[1m'
 UNDERLINE='\033[4m'
 BLINK='\x1b[5m'
-
+flatpak uninstall net.pcsx2.PCSX2 -y
 destination=$1
 romsPath="/home/deck/Emulation/roms/"
 romsPathSed="\/home\/deck\/Emulation\/roms\/"
@@ -151,8 +151,7 @@ echo -ne "Checking PCSX2 installation..."
 		echo -e "${GREEN}OK!${NONE}"
 		doPCSX2=false
 else
-		echo -e "${RED}KO :(${NONE}"
-		flatpak uninstall net.pcsx2.PCSX2 -y
+		echo -e "${RED}KO :(${NONE}"		
 		echo -e "${RED}Install and launch PCSX2 from the Discover App if you want to configure it${NONE}"
 	fi
 
