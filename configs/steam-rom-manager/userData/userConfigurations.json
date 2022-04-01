@@ -1800,5 +1800,59 @@
   },
   "parserId": "164785656634747068",
   "version": 5
+  },{
+      "parserType": "Glob",
+      "configTitle": "Emulation",
+      "steamCategory": "${Emulation}",
+      "executableArgs": "",
+      "executableModifier": "\"${exePath}\"",
+      "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/",
+      "steamDirectory": "/home/deck/.steam/steam",
+      "startInDirectory": "",
+      "imageProviders": [
+          "SteamGridDB"
+      ],
+      "titleModifier": "${fuzzyTitle}",
+      "onlineImageQueries": "${${fuzzyTitle}}",
+      "imagePool": "${fuzzyTitle}",
+      "defaultImage": "",
+      "defaultTallImage": "",
+      "defaultHeroImage": "",
+      "defaultLogoImage": "",
+      "defaultIcon": "",
+      "localImages": "",
+      "localTallImages": "",
+      "localHeroImages": "",
+      "localLogoImages": "",
+      "localIcons": "",
+      "disabled": true,
+      "advanced": false,
+      "executable": {
+          "path": "/run/media/mmcblk0p1/Emulation/tools/EmulationStationDE.AppImage",
+          "shortcutPassthrough": false,
+          "appendArgsToExecutable": true
+      },
+      "userAccounts": {
+          "specifiedAccounts": "",
+          "skipWithMissingDataDir": true,
+          "useCredentials": true
+      },
+      "parserInputs": {
+          "glob": "${title}@(.AppImage)"
+      },
+      "titleFromVariable": {
+          "limitToGroups": "",
+          "caseInsensitiveVariables": false,
+          "skipFileIfVariableWasNotFound": false,
+          "tryToMatchTitle": false
+      },
+      "fuzzyMatch": {
+          "use": true,
+          "replaceDiacritics": true,
+          "removeCharacters": true,
+          "removeBrackets": true
+      },
+      "parserId": "164824496516097458",
+      "version": 5
   }
 ]

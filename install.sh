@@ -51,11 +51,11 @@ version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
 echo -e "${BOLD}EmuDeck ${version}${NONE}"
 echo -e ""
 
-echo -e "Installing Steam Rom Manager"
-curl https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage  --output /home/deck/Desktop/Steam-ROM-Manager-2.3.29.AppImage
+#echo -e "Installing Steam Rom Manager"
+#curl https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage  --output /home/deck/Desktop/Steam-ROM-Manager-2.3.29.AppImage
 
 echo -e "Installing EmulationStation Desktop Edition"
-curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/33311338/download  --output $toolsPath/ESDE.AppImage
+curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/33311338/download  --output $toolsPath/EmulationStationDE.AppImage
 
 
 echo -e "Installing PCSX2"
