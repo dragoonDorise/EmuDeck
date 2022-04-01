@@ -49,19 +49,28 @@ version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
 echo -e "${BOLD}EmuDeck ${version}${NONE}"
 echo -e ""
 
-echo -e "Installing Emulators"
+echo -e "Installing PCSX2"
 flatpak install flathub net.pcsx2.PCSX2 -y  &>> /dev/null
 echo -e "Bad characters" &>> /dev/null
+echo -e "Installing PrimeHack"
 flatpak install flathub io.github.shiiion.primehack -y &>> /dev/null
-flatpak install flathub net.kuribo64.melonDS -y &>> /dev/null
-flatpak install flathub net.pcsx2.PCSX2 -y &>> /dev/null
+#echo -e "Installing PrimeHack"
+#flatpak install flathub net.kuribo64.melonDS -y &>> /dev/null
+echo -e "Installing RPCS3"
 flatpak install flathub net.rpcs3.RPCS3 -y &>> /dev/null
+echo -e "Installing Citra"
 flatpak install flathub org.citra_emu.citra -y &>> /dev/null
+echo -e "Installing dolphin"
 flatpak install flathub org.DolphinEmu.dolphin-emu -y &>> /dev/null
+echo -e "Installing DuckStation"
 flatpak install flathub org.duckstation.DuckStation -y &>> /dev/null
+echo -e "Installing RetroArch"
 flatpak install flathub org.libretro.RetroArch -y &>> /dev/null
+echo -e "Installing PPSSPP"
 flatpak install flathub org.ppsspp.PPSSPP -y &>> /dev/null
-flatpak install flathub org.ryujinx.Ryujinx -y &>> /dev/null
+#echo -e "Installing Ryujinx"
+#flatpak install flathub org.ryujinx.Ryujinx -y &>> /dev/null
+echo -e "Installing Yuzu"
 flatpak install flathub org.yuzu_emu.yuzu -y &>> /dev/null
 
 ##Generate rom folders
@@ -110,107 +119,6 @@ doRyujinx=false
 doPrimeHacks=false
 doPPSSPP=false
 
-echo -e ""
-echo -e ""
-echo -e "${BOLD}Checking installed Emulators..${NONE}"
-echo -e ""
-#RA
-FOLDER=~/.var/app/org.libretro.RetroArch/
-echo -ne "Checking RA installation..."
-if [ -d "$FOLDER" ]; then
-	echo -e "${GREEN}OK!${NONE}"
-	doRA=true
-else
-	echo -e "${RED}KO :(${NONE}"
-	echo -e "${RED}Install and launch Retroarch from the Discover App if you want to configure it${NONE}"
-fi
-#DolphinPrimeHacks
-FOLDER=~/.var/app/io.github.shiiion.primehack/
-echo -ne "Checking PrimeHacks installation..."
-	if [ -d "$FOLDER" ]; then
-		echo -e "${GREEN}OK!${NONE}"
-		doPrimeHacks=true
-else
-		echo -e "${RED}KO :(${NONE}"
-		echo -e "${RED}Install and launch PrimeHacks from the Discover App if you want to configure it${NONE}"
-	fi
-
-
-#Dolphin
-FOLDER=~/.var/app/org.DolphinEmu.dolphin-emu/
-echo -ne "Checking Dolphin installation..."
-	if [ -d "$FOLDER" ]; then
-		echo -e "${GREEN}OK!${NONE}"
-		doDolphin=true
-else
-		echo -e "${RED}KO :(${NONE}"
-		echo -e "${RED}Install and launch Dolphin from the Discover App if you want to configure it${NONE}"
-	fi
-#PPSSPP
-	FOLDER=~/.var/app/org.ppsspp.PPSSPP/
-	echo -ne "Checking StandAlone PPSSPP installation..."
-		if [ -d "$FOLDER" ]; then
-			echo -e "${GREEN}OK!${NONE}"
-			doPPSSPP=true
-	else
-			echo -e "${RED}KO :(${NONE}"
-			echo -e "${RED}Install and launch PPSSPP from the Discover App if you want to configure it${NONE}"
-		fi
-	
-
-#PS2
-FOLDER=~/.var/app/net.pcsx2.PCSX2/
-echo -ne "Checking PCSX2 installation..."
-	if [ -d "$FOLDER" ]; then
-		echo -e "${GREEN}OK!${NONE}"
-		doPCSX2=false
-else
-		echo -e "${RED}KO :(${NONE}"
-		echo -e "${RED}Install and launch PCSX2 from the Discover App if you want to configure it${NONE}"
-	fi
-
-#PS3
-FOLDER=~/.var/app/net.rpcs3.RPCS3/
-echo -ne "Checking RPCS3 installation..."
-	if [ -d "$FOLDER" ]; then
-		echo -e "${GREEN}OK!${NONE}"
-		doRPCS3=false
-else
-		echo -e "${RED}KO :(${NONE}"
-		echo -e "${RED}Install and launch RPCS3 from the Discover App if you want to configure it${NONE}"
-	fi
-
-#YUZU
-FOLDER=~/.var/app/org.yuzu_emu.yuzu/
-echo -ne "Checking Yuzu installation..."
-	if [ -d "$FOLDER" ]; then
-		echo -e "${GREEN}OK!${NONE}"
-		doYuzu=false
-else
-		echo -e "${RED}KO :(${NONE}"
-		echo -e "${RED}Install and launch Yuzu from the Discover App if you want to configure it${NONE}"
-	fi
-#Citra
-	FOLDER=~/.var/app/org.citra_emu.citra/
-	echo -ne "Checking Citra installation..."
-	if [ -d "$FOLDER" ]; then
-		echo -e "${GREEN}OK!${NONE}"
-		doCitra=true
-	else
-		echo -e "${RED}KO :(${NONE}"
-		echo -e "${RED}Install and launch Citra from the Discover App if you want to configure it${NONE}"
-	fi
-#Duckstation
-	FOLDER=~/.var/app/org.duckstation.DuckStation/
-	echo -ne "Checking Duckstation installation..."
-	if [ -d "$FOLDER" ]; then
-		echo -e "${GREEN}OK!${NONE}"
-		doDuck=true
-	else
-		echo -e "${RED}KO :(${NONE}"
-		echo -e "${RED}Install and launch Duckstation from the Discover App if you want to configure it${NONE}"
-	fi
-
 	#Cemu
 	if [ $destination == "SD" ]; then
 		FILE="/run/media/${sdCard}/Emulation/roms/wiiu/Cemu.exe"
@@ -226,16 +134,8 @@ else
 		echo -e "${RED}KO :(${NONE}"
 		echo -e "${RED}Download Cemu from cemu.info and copy the files on ${FILE} ${NONE}"
 	fi
-#Ryujimx
-	FOLDER=~/.var/app/org.ryujinx.Ryujinx/
-	echo -ne "Checking Ryujinx installation..."
-		if [ -d "$FOLDER" ]; then
-			echo -e "${GREEN}OK!${NONE}"
-			doRyujinx=false
-	else
-			echo -e "${RED}KO :(${NONE}"
-			echo -e "${RED}Install and launch Ryujinx from the Discover App if you want to configure it${NONE}"
-		fi
+	
+	
 #Emus config
 
 echo -e ""
@@ -269,7 +169,7 @@ if [ $doRA == true ]; then
 	
 	for entry in /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
 	do
-		 unzip -o $entry -d /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/
+		 unzip -o $entry -d /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/ &>> /dev/null
 	done
 	
 	for entry in /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
@@ -283,40 +183,15 @@ if [ $doRA == true ]; then
 		echo -e "RetroArch is already backed up."
 	else
 		echo -ne "Backing up RA..."
-		cp /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak
+		cp /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak &>> /dev/null
 		echo -e "${GREEN}OK!${NONE}"
 	fi
 	#mkdir -p /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays
 	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/ ~/.var/app/org.libretro.RetroArch/config/
 	#rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/retroarch/config/ ~/.var/app/org.libretro.RetroArch/config/retroarch/config
 	
-#	sed -i 's/config_save_on_exit = "true"/config_save_on_exit = "false"/g' $raConfigFile
-#	sed -i 's/input_overlay_enable = "true"/input_overlay_enable = "false"/g' $raConfigFile
-#	sed -i 's/menu_show_load_content_animation = "true"/menu_show_load_content_animation = "false"/g' $raConfigFile
-#	sed -i 's/notification_show_autoconfig = "true"/notification_show_autoconfig = "false"/g' $raConfigFile
-#	sed -i 's/notification_show_config_override_load = "true"/notification_show_config_override_load = "false"/g' $raConfigFile
-#	sed -i 's/notification_show_refresh_rate = "true"/notification_show_refresh_rate = "false"/g' $raConfigFile
-#	sed -i 's/notification_show_remap_load = "true"/notification_show_remap_load = "false"/g' $raConfigFile
-#	sed -i 's/notification_show_screenshot = "true"/notification_show_screenshot = "false"/g' $raConfigFile
-#	sed -i 's/notification_show_set_initial_disk = "true"/notification_show_set_initial_disk = "false"/g' $raConfigFile
-#	sed -i 's/notification_show_patch_applied = "true"/notification_show_patch_applied = "false"/g' $raConfigFile
-#	sed -i 's/menu_swap_ok_cancel_buttons = "false"/menu_swap_ok_cancel_buttons = "true"/g' $raConfigFile
-#	sed -i 's/savestate_auto_save = "false"/savestate_auto_save = "true"/g' $raConfigFile
-#	sed -i 's/savestate_auto_load = "false"/savestate_auto_load = "true"/g' $raConfigFile
-#	sed -i 's/video_fullscreen = "false"/video_fullscreen = "true"/g' $raConfigFile
-#	sed -i 's/video_shader_enable = "false"/video_shader_enable = "true"/g' $raConfigFile
-	
 	sed -i "s/system_directory = \"~\/.var\/app\/org.libretro.RetroArch\/config\/retroarch\/system\"/system_directory = \"${biosPathSed}\"/g" $raConfigFile
 	
-#	sed -i 's/input_enable_hotkey_btn = "nul"/input_enable_hotkey_btn = "4"/g' $raConfigFile
-#	sed -i 's/input_fps_toggle_btn = "nul"/input_fps_toggle_btn = "3"/g' $raConfigFile
-#	sed -i 's/input_load_state_btn = "nul"/input_load_state_btn = "9"/g' $raConfigFile
-#	sed -i 's/input_rewind_axis = "nul"/input_rewind_axis = "+4"/g' $raConfigFile
-#	sed -i 's/input_save_state_btn = "nul"/input_save_state_btn = "10"/g' $raConfigFile
-#	sed -i 's/input_menu_toggle_gamepad_combo = "0"/input_menu_toggle_gamepad_combo = "2"/g' $raConfigFile
-#	sed -i 's/input_hold_fast_forward_axis = "nul"/input_hold_fast_forward_axis = "+5"/g' $raConfigFile
-#	sed -i 's/input_quit_gamepad_combo = "0"/input_quit_gamepad_combo = "4"/g' $raConfigFile
-#	sed -i 's/input_pause_toggle_btn = "nul"/input_pause_toggle_btn = "0"/g' $raConfigFile
 fi
 echo -e ""
 echo -ne "Applying Emu configurations..."
@@ -326,7 +201,7 @@ if [ $doPrimeHacks == true ]; then
 		echo "" &>> /dev/null
 	else
 		echo -ne "Backing up PrimeHacks..."
-		cp -r ~/.var/app/io.github.shiiion.primehack/config ~/.var/app/io.github.shiiion.primehack/config_bak
+		cp -r ~/.var/app/io.github.shiiion.primehack/config ~/.var/app/io.github.shiiion.primehack/config_bak &>> /dev/null
 		echo -e "${GREEN}OK!${NONE}"
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/io.github.shiiion.primehack/ ~/.var/app/io.github.shiiion.primehack/ &>> /dev/null
@@ -337,7 +212,7 @@ if [ $doDolphin == true ]; then
 		echo "" &>> /dev/null
 	else
 		echo -ne "Backing up Dolphin..."
-		cp -r ~/.var/app/org.DolphinEmu.dolphin-emu/config ~/.var/app/org.DolphinEmu.dolphin-emu/config_bak
+		cp -r ~/.var/app/org.DolphinEmu.dolphin-emu/config ~/.var/app/org.DolphinEmu.dolphin-emu/config_bak &>> /dev/null
 		echo -e "${GREEN}OK!${NONE}"
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.DolphinEmu.dolphin-emu/ ~/.var/app/org.DolphinEmu.dolphin-emu/ &>> /dev/null
@@ -348,7 +223,7 @@ if [ $doPCSX2 == true ]; then
 		echo "" &>> /dev/null
 	else
 		echo -ne "Backing up PCSX2..."
-		cp -r ~/.var/app/net.pcsx2.PCSX2/config ~/.var/app/net.pcsx2.PCSX2/config_bak
+		cp -r ~/.var/app/net.pcsx2.PCSX2/config ~/.var/app/net.pcsx2.PCSX2/config_bak &>> /dev/null
 		echo -e "${GREEN}OK!${NONE}"
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.pcsx2.PCSX2/ ~/.var/app/net.pcsx2.PCSX2/ &>> /dev/null
@@ -361,7 +236,7 @@ if [ $doRPCS3 == true ]; then
 		echo "" &>> /dev/null
 	else
 		echo -ne "Backing up RPCS3..."
-		cp -r ~/.var/app/net.rpcs3.RPCS3/config ~/.var/app/net.rpcs3.RPCS3/config_bak
+		cp -r ~/.var/app/net.rpcs3.RPCS3/config ~/.var/app/net.rpcs3.RPCS3/config_bak &>> /dev/null
 		echo -e "${GREEN}OK!${NONE}"
 	fi
 
@@ -373,7 +248,7 @@ if [ $doCitra == true ]; then
 		echo "" &>> /dev/null
 	else
 		echo -ne "Backing up Citra..."
-		cp -r ~/.var/app/org.citra_emu.citra/config ~/.var/app/org.citra_emu.citra/config_bak
+		cp -r ~/.var/app/org.citra_emu.citra/config ~/.var/app/org.citra_emu.citra/config_bak &>> /dev/null
 		echo -e "${GREEN}OK!${NONE}"
 	fi
 
@@ -385,7 +260,7 @@ if [ $doDuck == true ]; then
 		echo "" &>> /dev/null
 	else
 		echo -ne "Backing up DuckStation..."
-		cp -r ~/.var/app/org.duckstation.DuckStation/data ~/.var/app/org.duckstation.DuckStation/data_bak
+		cp -r ~/.var/app/org.duckstation.DuckStation/data ~/.var/app/org.duckstation.DuckStation/data_bak &>> /dev/null
 		echo -e "${GREEN}OK!${NONE}"
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.duckstation.DuckStation/ ~/.var/app/org.duckstation.DuckStation/ &>> /dev/null
@@ -398,7 +273,7 @@ if [ $doYuzu == true ]; then
 		echo "" &>> /dev/null
 	else
 		echo -ne "Backing up Yuzu..."
-		cp -r ~/.var/app/org.yuzu_emu.yuzu/config ~/.var/app/org.yuzu_emu.yuzu/config_bak
+		cp -r ~/.var/app/org.yuzu_emu.yuzu/config ~/.var/app/org.yuzu_emu.yuzu/config_bak &>> /dev/null
 		echo -e "${GREEN}OK!${NONE}"
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/ &>> /dev/null
@@ -417,7 +292,7 @@ if [ $doPPSSPP == true ]; then
 		echo "" &>> /dev/null
 	else
 		echo -ne "Backing up PPSSPP..."
-		cp -r ~/.var/app/org.ppsspp.PPSSPP/config ~/.var/app/org.ppsspp.PPSSPP/config_bak
+		cp -r ~/.var/app/org.ppsspp.PPSSPP/config ~/.var/app/org.ppsspp.PPSSPP/config_bak &>> /dev/null
 		echo -e "${GREEN}OK!${NONE}"
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ppsspp.PPSSPP/ ~/.var/app/org.ppsspp.PPSSPP/ &>> /dev/null
