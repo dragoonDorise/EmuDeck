@@ -33,6 +33,7 @@ mkdir -p dragoonDoriseTools/EmuDeck
 cd dragoonDoriseTools
 
 echo -e "Installing Emulators"
+flatpak uninstall net.pcsx2.PCSX2 -y
 flatpak install flathub net.pcsx2.PCSX2 -y  &>> /dev/null
 echo -e "Bad characters"
 flatpak install flathub io.github.shiiion.primehack -y &>> /dev/null
