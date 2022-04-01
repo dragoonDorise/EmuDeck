@@ -33,9 +33,9 @@ mkdir -p dragoonDoriseTools/EmuDeck
 cd dragoonDoriseTools
 
 echo -e "Installing Emulators"
-flatpak uninstall net.pcsx2.PCSX2 -y
+flatpak uninstall net.pcsx2.PCSX2
 flatpak install flathub net.pcsx2.PCSX2 -y  &>> /dev/null
-echo -e "Bad characters"
+echo -e "Bad characters" &>> /dev/null
 flatpak install flathub io.github.shiiion.primehack -y &>> /dev/null
 flatpak install flathub net.kuribo64.melonDS -y &>> /dev/null
 flatpak install flathub net.pcsx2.PCSX2 -y &>> /dev/null
@@ -59,7 +59,6 @@ else
 	exit
 fi
 
-sleep 999999
 clear
 cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
