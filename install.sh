@@ -33,7 +33,6 @@ cd dragoonDoriseTools
 
 
 git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck &>> /dev/null
-
 FOLDER=~/dragoonDoriseTools/EmuDeck
 if [ -d "$FOLDER" ]; then
 	echo -e "${GREEN}OK!${NONE}"
@@ -85,17 +84,17 @@ sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/roms\//${romsPathSed}/g" ~/.emulat
 echo -e "${GREEN}OK!${NONE}"
 
 #Check for installed emulators
-doRA=true
-doDolphin=true
-doPCSX2=true
-doRPCS3=true
-doYuzu=true
-doCitra=true
-doDuck=true
+doRA=false
+doDolphin=false
+doPCSX2=false
+doRPCS3=false
+doYuzu=false
+doCitra=false
+doDuck=false
 doCemu=false
-doRyujinx=true
-doPrimeHacks=true
-doPPSSPP=true
+doRyujinx=false
+doPrimeHacks=false
+doPPSSPP=false
 
 echo -e ""
 echo -e ""
@@ -108,132 +107,121 @@ if [ -d "$FOLDER" ]; then
 	echo -e "${GREEN}OK!${NONE}"
 	doRA=true
 else
-	echo -e "${RED}Installing...${NONE}"
-	flatpak install flathub org.libretro.RetroArch -y
-	
+	echo -e "${RED}KO :(${NONE}"
+	echo -e "${RED}Install and launch Retroarch from the Discover App if you want to configure it${NONE}"
 fi
 #DolphinPrimeHacks
 FOLDER=~/.var/app/io.github.shiiion.primehack/
 echo -ne "Checking PrimeHacks installation..."
-if [ -d "$FOLDER" ]; then
-	echo -e "${GREEN}OK!${NONE}"
-	doPrimeHacks=true
+	if [ -d "$FOLDER" ]; then
+		echo -e "${GREEN}OK!${NONE}"
+		doPrimeHacks=true
 else
-	echo -e "${RED}Installing...${NONE}"
-	flatpak install flathub io.github.shiiion.primehack -y
-	
-fi
+		echo -e "${RED}KO :(${NONE}"
+		echo -e "${RED}Install and launch PrimeHacks from the Discover App if you want to configure it${NONE}"
+	fi
 
 
 #Dolphin
 FOLDER=~/.var/app/org.DolphinEmu.dolphin-emu/
 echo -ne "Checking Dolphin installation..."
-if [ -d "$FOLDER" ]; then
-	echo -e "${GREEN}OK!${NONE}"
-	doDolphin=true
+	if [ -d "$FOLDER" ]; then
+		echo -e "${GREEN}OK!${NONE}"
+		doDolphin=true
 else
-	echo -e "${RED}Installing...${NONE}"
-	flatpak install flathub org.DolphinEmu.dolphin-emu -y
-	
-fi
+		echo -e "${RED}KO :(${NONE}"
+		echo -e "${RED}Install and launch Dolphin from the Discover App if you want to configure it${NONE}"
+	fi
 #PPSSPP
-FOLDER=~/.var/app/org.ppsspp.PPSSPP/
-echo -ne "Checking StandAlone PPSSPP installation..."
-if [ -d "$FOLDER" ]; then
-	echo -e "${GREEN}OK!${NONE}"
-	doPPSSPP=true
-else
-	echo -e "${RED}Installing...${NONE}"
-	flatpak install flathub org.ppsspp.PPSSPP -y
-	
-fi
+	FOLDER=~/.var/app/org.ppsspp.PPSSPP/
+	echo -ne "Checking StandAlone PPSSPP installation..."
+		if [ -d "$FOLDER" ]; then
+			echo -e "${GREEN}OK!${NONE}"
+			doPPSSPP=true
+	else
+			echo -e "${RED}KO :(${NONE}"
+			echo -e "${RED}Install and launch PPSSPP from the Discover App if you want to configure it${NONE}"
+		fi
 	
 
 #PS2
 FOLDER=~/.var/app/net.pcsx2.PCSX2/
 echo -ne "Checking PCSX2 installation..."
-if [ -d "$FOLDER" ]; then
-	echo -e "${GREEN}OK!${NONE}"
-	doPCSX2=true
+	if [ -d "$FOLDER" ]; then
+		echo -e "${GREEN}OK!${NONE}"
+		doPCSX2=false
 else
-	echo -e "${RED}Installing...${NONE}"
-	flatpak install flathub net.pcsx2.PCSX2 -y
-	echo -e "PCSX2 Installed...continuing"
-fi
+		echo -e "${RED}KO :(${NONE}"
+		echo -e "${RED}Install and launch PCSX2 from the Discover App if you want to configure it${NONE}"
+	fi
 
 #PS3
 FOLDER=~/.var/app/net.rpcs3.RPCS3/
 echo -ne "Checking RPCS3 installation..."
-if [ -d "$FOLDER" ]; then
-	echo -e "${GREEN}OK!${NONE}"
-	doRPCS3=true
+	if [ -d "$FOLDER" ]; then
+		echo -e "${GREEN}OK!${NONE}"
+		doRPCS3=false
 else
-	echo -e "${RED}Installing...${NONE}"
-	flatpak install flathub net.rpcs3.RPCS3 -y
-	
-fi
+		echo -e "${RED}KO :(${NONE}"
+		echo -e "${RED}Install and launch RPCS3 from the Discover App if you want to configure it${NONE}"
+	fi
 
 #YUZU
 FOLDER=~/.var/app/org.yuzu_emu.yuzu/
 echo -ne "Checking Yuzu installation..."
-if [ -d "$FOLDER" ]; then
-	echo -e "${GREEN}OK!${NONE}"
-	doYuzu=true
+	if [ -d "$FOLDER" ]; then
+		echo -e "${GREEN}OK!${NONE}"
+		doYuzu=false
 else
-	echo -e "${RED}Installing...${NONE}"
-	flatpak install flathub org.yuzu_emu.yuzu -y
-	
-fi
+		echo -e "${RED}KO :(${NONE}"
+		echo -e "${RED}Install and launch Yuzu from the Discover App if you want to configure it${NONE}"
+	fi
 #Citra
-FOLDER=~/.var/app/org.citra_emu.citra/
-echo -ne "Checking Citra installation..."
-if [ -d "$FOLDER" ]; then
-	echo -e "${GREEN}OK!${NONE}"
-	doCitra=true
-else
-	echo -e "${RED}Installing...${NONE}"
-	flatpak install flathub org.citra_emu.citra -y
-	
-fi
+	FOLDER=~/.var/app/org.citra_emu.citra/
+	echo -ne "Checking Citra installation..."
+	if [ -d "$FOLDER" ]; then
+		echo -e "${GREEN}OK!${NONE}"
+		doCitra=true
+	else
+		echo -e "${RED}KO :(${NONE}"
+		echo -e "${RED}Install and launch Citra from the Discover App if you want to configure it${NONE}"
+	fi
 #Duckstation
-FOLDER=~/.var/app/org.duckstation.DuckStation/
-echo -ne "Checking Duckstation installation..."
-if [ -d "$FOLDER" ]; then
-	echo -e "${GREEN}OK!${NONE}"
-	doDuck=true
-else
-	echo -e "${RED}Installing...${NONE}"
-	flatpak install flathub org.duckstation.DuckStation -y	
+	FOLDER=~/.var/app/org.duckstation.DuckStation/
+	echo -ne "Checking Duckstation installation..."
+	if [ -d "$FOLDER" ]; then
+		echo -e "${GREEN}OK!${NONE}"
+		doDuck=true
+	else
+		echo -e "${RED}KO :(${NONE}"
+		echo -e "${RED}Install and launch Duckstation from the Discover App if you want to configure it${NONE}"
+	fi
+
+	#Cemu
+	if [ $destination == "SD" ]; then
+		FILE="/run/media/${sdCard}/Emulation/roms/wiiu/Cemu.exe"
+	else
+		FILE="/home/deck/Emulation/roms/wiiu/Cemu.exe"
+	fi
 	
-fi
-
-echo -e ""
-
-#Cemu
-if [ $destination == "SD" ]; then
-	FILE="/run/media/${sdCard}/Emulation/roms/wiiu/Cemu.exe"
-else
-	FILE="/home/deck/Emulation/roms/wiiu/Cemu.exe"
-fi
-
-echo -ne "Checking Cemu installation..."
-if [ -f "$FILE" ]; then
-	echo -e "${GREEN}OK!${NONE}"
-	doCemu=true
-else
-	echo -e "${RED}Cemu it's not installed...${NONE}"
-	doCemu=false
-fi
+	echo -ne "Checking Cemu installation..."
+	if [ -f "$FILE" ]; then
+		echo -e "${GREEN}OK!${NONE}"
+		doCemu=true
+	else
+		echo -e "${RED}KO :(${NONE}"
+		echo -e "${RED}Download Cemu from cemu.info and copy the files on ${FILE} ${NONE}"
+	fi
 #Ryujimx
-#FOLDER=~/.var/app/org.ryujinx.Ryujinx/
-#echo -ne "Checking Ryujinx installation..."
-#if [ -d "$FOLDER" ]; then
-#	echo -e "${GREEN}OK!${NONE}"
-#	doRyujinx=false
-#else
-#	echo -e "${RED}Installing...${NONE}"
-#	flatpak install flathub org.libretro.RetroArch -y
-#fi
+	FOLDER=~/.var/app/org.ryujinx.Ryujinx/
+	echo -ne "Checking Ryujinx installation..."
+		if [ -d "$FOLDER" ]; then
+			echo -e "${GREEN}OK!${NONE}"
+			doRyujinx=false
+	else
+			echo -e "${RED}KO :(${NONE}"
+			echo -e "${RED}Install and launch Ryujinx from the Discover App if you want to configure it${NONE}"
+		fi
 #Emus config
 
 echo -e ""
@@ -253,7 +241,6 @@ if [ $doRA == true ]; then
 	raCorePath=""
 	RAcores=(bsnes_hd_beta_libretro.so flycast_libretro.so gambatte_libretro.so genesis_plus_gx_libretro.so genesis_plus_gx_wide_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_wswan_libretro.so melonds_libretro.so mesen_libretro.so mgba_libretro.so mupen64plus_next_libretro.so nestopia_libretro.so picodrive_libretro.so ppsspp_libretro.so snes9x_libretro.so stella_libretro.so yabasanshiro_libretro.so yabause_libretro.so yabause_libretro.so mame2003_plus_libretro.so melonds_libretro.so fbneo_libretro.so bluemsx_libretro.so desmume_libretro.so sameboy_libretro.so gearsystem_libretro.so mednafen_saturn_libretro.so)
 	echo -e "Downloading RetroArch Cores"
-	mkdir -p /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/
 	for i in "${RAcores[@]}"
 	do
 		FILE=/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
