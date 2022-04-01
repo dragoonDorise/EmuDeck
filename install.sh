@@ -22,6 +22,7 @@ if [ $destination == "SD" ]; then
 	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
 	romsPath="/run/media/${sdCard}/Emulation/roms/"
 	toolsPath="/run/media/${sdCard}/Emulation/tools/"
+	toolsPathSed="\/run\/media\/${sdCard}\/Emulation\/tools\/"
 	romsPathSed="\/run\/media\/${sdCard}\/Emulation\/roms\/"
 	biosPath="/run/media/${sdCard}/Emulation/bios/"
 	biosPathSed="\/run\/media\/${sdCard}\/Emulation\/bios\/"

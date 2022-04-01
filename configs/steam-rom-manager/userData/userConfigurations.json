@@ -1697,7 +1697,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "WiiU - Cemu",
+    "configTitle": "Cemu",
     "steamCategory": "${Emulation}",
     "executableArgs": "",
     "executableModifier": "\"${exePath}\"",
