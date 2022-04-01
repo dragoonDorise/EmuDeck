@@ -9,7 +9,7 @@ WHITE='\033[01;37m'
 BOLD='\033[1m'
 UNDERLINE='\033[4m'
 BLINK='\x1b[5m'
-flatpak uninstall net.pcsx2.PCSX2 -y
+
 destination=$1
 romsPath="/home/deck/Emulation/roms/"
 romsPathSed="\/home\/deck\/Emulation\/roms\/"
@@ -31,6 +31,8 @@ mkdir -p dragoonDoriseTools
 mkdir -p dragoonDoriseTools/EmuDeck
 cd dragoonDoriseTools
 
+echo -e "Installing Emulators"
+flatpak uninstall net.pcsx2.PCSX2 -y
 
 git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck &>> /dev/null
 FOLDER=~/dragoonDoriseTools/EmuDeck
