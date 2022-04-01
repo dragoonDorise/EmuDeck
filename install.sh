@@ -24,7 +24,7 @@ if [ $destination == "SD" ]; then
 	biosPathSed="\/run\/media\/${sdCard}\/Emulation\/bios\/"
 fi
 
-#rm -rf ~/dragoonDoriseTools
+rm -rf ~/dragoonDoriseTools
 echo -ne "${BOLD}Downloading files...${NONE}"
 sleep 5
 mkdir -p dragoonDoriseTools
