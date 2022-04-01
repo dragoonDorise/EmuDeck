@@ -77,3 +77,4 @@
 - Adds cores for EmulationStation DE
 - Installs EmulationStation DE
 - Creates EmulationStation DE icon on SteamUI
+- Removes readme.md files to prevent problems with Sega Systems
