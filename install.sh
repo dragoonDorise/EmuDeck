@@ -1,4 +1,5 @@
 #!/bin/sh
+export LANG=C.UTF-8
 NONE='\033[00m'
 RED='\033[01;31m'
 GREEN='\033[01;32m'
