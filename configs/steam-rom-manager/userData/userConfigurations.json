@@ -57,7 +57,7 @@
       "parserType": "Glob",
       "configTitle": "RPCS3 Emulator",
       "steamCategory": "${Emulation}",
-      "executableArgs": "run net.rpcs3.RPCS3 --no-gui",
+      "executableArgs": "run net.rpcs3.RPCS3",
       "executableModifier": "\"${exePath}\"",
       "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/",
       "steamDirectory": "/home/deck/.steam/steam",
