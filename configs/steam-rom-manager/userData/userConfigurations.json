@@ -26,7 +26,7 @@
       "disabled": false,
       "advanced": false,
       "executable": {
-          "path": "/run/media/mmcblk0p1/Emulation/tools/EmulationStationDE.AppImage",
+          "path": "/run/media/mmcblk0p1/Emulation/tools/EmulationStation-DE.AppImage",
           "shortcutPassthrough": false,
           "appendArgsToExecutable": true
       },
