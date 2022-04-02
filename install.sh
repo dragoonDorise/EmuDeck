@@ -93,7 +93,7 @@ else
 fi
 
 if [ -f "$FILE" ]; then
-	echo "" &>> ~/dev/null
+	echo "" &>> /dev/null
 	doCemu=true
 else
 	echo -e "${RED}KO :(${NONE}"
