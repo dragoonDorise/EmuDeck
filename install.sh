@@ -57,8 +57,8 @@ echo -e ""
 #curl https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage  --output /home/deck/Desktop/Steam-ROM-Manager-2.3.29.AppImage
 
 echo -e "Installing EmulationStation Desktop Edition"
-curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/33311338/download  --output $toolsPath/EmulationStationDE.AppImage
-chmod +x $toolsPath/EmulationStationDE.AppImage
+curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/33311338/download  --output $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage
+chmod +x $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage
 
 echo -e "Installing PCSX2"
 flatpak install flathub net.pcsx2.PCSX2 -y  &>> /dev/null
