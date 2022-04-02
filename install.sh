@@ -58,7 +58,7 @@ echo -e ""
 
 echo -e "Installing EmulationStation Desktop Edition"
 curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/33311338/download  --output $toolsPath/EmulationStationDE.AppImage
-
+chmod +x $toolsPath/EmulationStationDE.AppImage
 
 echo -e "Installing PCSX2"
 flatpak install flathub net.pcsx2.PCSX2 -y  &>> /dev/null
