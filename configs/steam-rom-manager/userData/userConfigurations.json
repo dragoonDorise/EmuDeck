@@ -26,7 +26,7 @@
       "disabled": false,
       "advanced": false,
       "executable": {
-          "path": "/run/media/mmcblk0p1/Emulation/tools/EmulationStation-DE-x64_SteamDeck.AppImage",
+          "path": "/run/media/mmcblk0p1/Emulation/tools/EmulationStationDE.AppImage",
           "shortcutPassthrough": false,
           "appendArgsToExecutable": true
       },
@@ -51,6 +51,61 @@
           "removeBrackets": true
       },
       "parserId": "164824496516097458",
+      "version": 5
+  },
+  {
+      "parserType": "Glob",
+      "configTitle": "RPCS3 Emulator",
+      "steamCategory": "${Emulation}",
+      "executableArgs": "run net.rpcs3.RPCS3 --no-gui",
+      "executableModifier": "\"${exePath}\"",
+      "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/",
+      "steamDirectory": "/home/deck/.steam/steam",
+      "startInDirectory": "",
+      "imageProviders": [
+          "SteamGridDB"
+      ],
+      "titleModifier": "${fuzzyTitle}",
+      "onlineImageQueries": "${${fuzzyTitle}}",
+      "imagePool": "${fuzzyTitle}",
+      "defaultImage": "",
+      "defaultTallImage": "",
+      "defaultHeroImage": "",
+      "defaultLogoImage": "",
+      "defaultIcon": "",
+      "localImages": "",
+      "localTallImages": "",
+      "localHeroImages": "",
+      "localLogoImages": "",
+      "localIcons": "",
+      "disabled": false,
+      "advanced": false,
+      "executable": {
+          "path": "/usr/bin/flatpak",
+          "shortcutPassthrough": false,
+          "appendArgsToExecutable": true
+      },
+      "userAccounts": {
+          "specifiedAccounts": "",
+          "skipWithMissingDataDir": true,
+          "useCredentials": true
+      },
+      "parserInputs": {
+            "glob": "${title}@(.txt)"
+        },
+      "titleFromVariable": {
+          "limitToGroups": "",
+          "caseInsensitiveVariables": false,
+          "skipFileIfVariableWasNotFound": false,
+          "tryToMatchTitle": false
+      },
+      "fuzzyMatch": {
+          "use": true,
+          "replaceDiacritics": true,
+          "removeCharacters": true,
+          "removeBrackets": true
+      },
+      "parserId": "164824496416297458",
       "version": 5
   },
   {
@@ -104,6 +159,59 @@
       "removeBrackets": true
     },
     "parserId": "164824416576297458",
+    "version": 5
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "Cemu Emulator (rpx)",
+    "steamCategory": "${Emulation}",
+    "executableArgs": "",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "imageProviders": ["SteamGridDB"],
+    "titleModifier": "${fuzzyTitle}",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": false,
+    "advanced": false,
+    "executable": {
+      "path": "/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.exe)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "parserId": "194824413576297458",
     "version": 5
   },
   {
@@ -320,7 +428,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Arcade - MAME",
+    "configTitle": "Arcade - MAME 2003 Plus",
     "steamCategory": "${Arcade MAME}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/mame",
@@ -1401,7 +1509,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": false,
+    "disabled": true,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",

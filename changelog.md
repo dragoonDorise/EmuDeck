@@ -81,8 +81,14 @@
 
 0.12.1
 - Added Cemu icon to SteamUI
+
 0.12.2
 - Vulkan for CEMU
 
 0.12.3
 - ES Fix
+
+0.13
+- RA Fix
+- Cemu autoinstallation
+- Log file
