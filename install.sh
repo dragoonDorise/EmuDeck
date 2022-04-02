@@ -96,7 +96,6 @@ if [ -f "$FILE" ]; then
 	echo "" &>> /dev/null
 	doCemu=true
 else
-	echo -e "${RED}KO :(${NONE}"
 	curl https://cemu.info/releases/cemu_1.26.2.zip --output $romsPath/wiiu/cemu_1.26.2.zip &>> ~/emudek.log
 	unzip -o $romsPath/wiiu/cemu_1.26.2.zip -d $romsPath/wiiu/tmp &>> ~/emudek.log
 	mv $romsPath/wiiu/tmp/*/* $romsPath/wiiu &>> ~/emudek.log
