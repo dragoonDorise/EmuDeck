@@ -92,3 +92,6 @@
 - RA Fix
 - Cemu autoinstallation
 - Log file
+
+0.13.1
+- RPCS3 Controls
