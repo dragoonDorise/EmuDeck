@@ -428,7 +428,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Arcade - MAME",
+    "configTitle": "Arcade - MAME 2003 Plus",
     "steamCategory": "${Arcade MAME}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/mame",
