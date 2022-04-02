@@ -57,8 +57,8 @@ echo -e ""
 #curl https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage  --output /home/deck/Desktop/Steam-ROM-Manager-2.3.29.AppImage
 
 echo -e "Installing EmulationStation Desktop Edition"
-curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/33311338/download  --output $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage >> ~/emudek.log
-chmod +x $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage
+curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/33311338/download  --output $toolsPath/EmulationStationDE.AppImage >> ~/emudek.log
+chmod +x $toolsPath/EmulationStationDE.AppImage
 
 echo -e "Installing PCSX2"
 flatpak install flathub net.pcsx2.PCSX2 -y  &>> ~/emudek.log
@@ -145,6 +145,9 @@ doPPSSPP=true
 	else
 		echo -e "${RED}KO :(${NONE}"
 		echo -e "${RED}Download Cemu from cemu.info and copy the files on ${FILE} ${NONE}"
+		curl https://cemu.info/releases/cemu_1.26.2.zip --output $romsPath/wiiu
+		unzip -o $romsPath/wiiu/cemu_1.26.2.zip -d $romsPath/wiiu/ &>> ~/emudek.log
+		rm -f $romsPath/wiiu/cemu_1.26.2.zip >> ~/emudek.log
 	fi
 	
 	
