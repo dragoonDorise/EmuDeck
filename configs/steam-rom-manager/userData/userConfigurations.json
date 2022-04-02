@@ -26,7 +26,7 @@
       "disabled": false,
       "advanced": false,
       "executable": {
-          "path": "/run/media/mmcblk0p1/Emulation/tools/EmulationStation-DE.AppImage",
+          "path": "/run/media/mmcblk0p1/Emulation/tools/EmulationStation-DE-x64_SteamDeck.AppImage",
           "shortcutPassthrough": false,
           "appendArgsToExecutable": true
       },
