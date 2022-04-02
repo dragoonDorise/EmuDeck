@@ -57,8 +57,8 @@ echo -e ""
 #curl https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage  --output /home/deck/Desktop/Steam-ROM-Manager-2.3.29.AppImage
 
 echo -e "Installing EmulationStation Desktop Edition"
-curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/33311338/download  --output $toolsPath/EmulationStationDE.AppImage >> ~/emudek.log
-chmod +x $toolsPath/EmulationStationDE.AppImage
+curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/33311338/download  --output $toolsPath/EmulationStation-DE.AppImage >> ~/emudek.log
+chmod +x $toolsPath/EmulationStation-DE.AppImage
 
 echo -e "Installing PCSX2"
 flatpak install flathub net.pcsx2.PCSX2 -y  &>> ~/emudek.log
@@ -83,6 +83,28 @@ flatpak install flathub org.ppsspp.PPSSPP -y &>> ~/emudek.log
 #flatpak install flathub org.ryujinx.Ryujinx -y &>> ~/emudek.log
 echo -e "Installing Yuzu"
 flatpak install flathub org.yuzu_emu.yuzu -y &>> ~/emudek.log
+
+#Cemu
+echo -e "Installing Cemu"
+if [ $destination == "SD" ]; then
+	FILE="/run/media/${sdCard}/Emulation/roms/wiiu/Cemu.exe"
+else
+	FILE="/home/deck/Emulation/roms/wiiu/Cemu.exe"
+fi
+
+if [ -f "$FILE" ]; then
+	echo "" &>> ~/dev/null
+	doCemu=true
+else
+	echo -e "${RED}KO :(${NONE}"
+	curl https://cemu.info/releases/cemu_1.26.2.zip --output $romsPath/wiiu/cemu_1.26.2.zip &>> ~/emudek.log
+	unzip -o $romsPath/wiiu/cemu_1.26.2.zip -d $romsPath/wiiu/tmp &>> ~/emudek.log
+	mv $romsPath/wiiu/tmp/*/* $romsPath/wiiu &>> ~/emudek.log
+	rm -rf $romsPath/wiiu/tmp &>> ~/emudek.log
+	rm -f $romsPath/wiiu/cemu_1.26.2.zip &>> ~/emudek.log
+fi
+
+
 
 ##Generate rom folders
 if [ $destination == "SD" ]; then
@@ -131,25 +153,6 @@ doRyujinx=true
 doPrimeHacks=true
 doPPSSPP=true
 
-	#Cemu
-	if [ $destination == "SD" ]; then
-		FILE="/run/media/${sdCard}/Emulation/roms/wiiu/Cemu.exe"
-	else
-		FILE="/home/deck/Emulation/roms/wiiu/Cemu.exe"
-	fi
-	
-	echo -ne "Checking Cemu installation..."
-	if [ -f "$FILE" ]; then
-		echo -e "${GREEN}OK!${NONE}"
-		doCemu=true
-	else
-		echo -e "${RED}KO :(${NONE}"
-		echo -e "${RED}Download Cemu from cemu.info and copy the files on ${FILE} ${NONE}"
-		curl https://cemu.info/releases/cemu_1.26.2.zip --output $romsPath/wiiu
-		unzip -o $romsPath/wiiu/cemu_1.26.2.zip -d $romsPath/wiiu/ &>> ~/emudek.log
-		rm -f $romsPath/wiiu/cemu_1.26.2.zip >> ~/emudek.log
-	fi
-	
 	
 #Emus config
 
