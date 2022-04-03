@@ -30,7 +30,7 @@ doRyujinx=true
 doPrimeHacks=true
 doPPSSPP=true
 doESDE=true
-
+clear
 rm -rf ~/dragoonDoriseTools
 echo -ne "${BOLD}Downloading files...${NONE}"
 sleep 5
