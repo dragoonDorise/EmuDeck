@@ -115,7 +115,7 @@ else
 fi
 
 
-echo -e ""
+
 echo -e ""
 
 ##Generate rom folders
@@ -166,7 +166,6 @@ doPPSSPP=true
 	
 #Emus config
 echo -ne "${BOLD}Configuring Steam Input for emulators..${NONE}"
-echo -e ""
 rsync -r ~/dragoonDoriseTools/EmuDeck/configs/steam-input/ ~/.steam/steam/controller_base/templates/
 echo -e "${GREEN}OK!${NONE}"
 echo -e "${BOLD}Configuring emulators..${NONE}"
