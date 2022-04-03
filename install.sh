@@ -115,6 +115,8 @@ else
 fi
 
 
+echo -e ""
+echo -e ""
 
 ##Generate rom folders
 if [ $destination == "SD" ]; then
@@ -130,8 +132,6 @@ sleep 3
 rsync -r ~/dragoonDoriseTools/EmuDeck/roms/ $romsPath &>> ~/emudek.log
 echo -e "${GREEN}OK!${NONE}"
 #Steam RomManager
-echo -e ""
-echo -e ""
 echo -ne "${BOLD}Configuring Steam Rom Manager...${NONE}"
 mkdir -p ~/.config/steam-rom-manager/userData/
 cp ~/dragoonDoriseTools/EmuDeck/configs/steam-rom-manager/userData/userConfigurations.json ~/.config/steam-rom-manager/userData/userConfigurations.json
@@ -165,16 +165,10 @@ doPPSSPP=true
 
 	
 #Emus config
-
-echo -e ""
-echo -e ""
 echo -ne "${BOLD}Configuring Steam Input for emulators..${NONE}"
 echo -e ""
 rsync -r ~/dragoonDoriseTools/EmuDeck/configs/steam-input/ ~/.steam/steam/controller_base/templates/
 echo -e "${GREEN}OK!${NONE}"
-
-echo -e ""
-echo -e ""
 echo -e "${BOLD}Configuring emulators..${NONE}"
 echo -e ""
 if [ $doRA == true ]; then
@@ -185,7 +179,7 @@ if [ $doRA == true ]; then
 	raUrl="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
 	raCorePath=""
 	RAcores=(81_libretro.so atari800_libretro.so bluemsx_libretro.so chailove_libretro.so fbneo_libretro.so freechaf_libretro.so freeintv_libretro.so fuse_libretro.so gearsystem_libretro.so gw_libretro.so hatari_libretro.so lutro_libretro.so mednafen_pcfx_libretro.so mednafen_vb_libretro.so mednafen_wswan_libretro.so mu_libretro.so neocd_libretro.so nestopia_libretro.so nxengine_libretro.so o2em_libretro.so picodrive_libretro.so pokemini_libretro.so prboom_libretro.so prosystem_libretro.so px68k_libretro.so quasi88_libretro.so scummvm_libretro.so squirreljme_libretro.so theodore_libretro.so uzem_libretro.so vecx_libretro.so vice_xvic_libretro.so virtualjaguar_libretro.so x1_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_pce_libretro.so mednafen_pce_fast_libretro.so mednafen_psx_libretro.so mednafen_psx_hw_libretro.so mednafen_saturn_libretro.so mednafen_supafaust_libretro.so mednafen_supergrafx_libretro.so blastem_libretro.so bluemsx_libretro.so bsnes_libretro.so bsnes_mercury_accuracy_libretro.so cap32_libretro.so citra2018_libretro.so citra_libretro.so crocods_libretro.so desmume2015_libretro.so desmume_libretro.so dolphin_libretro.so dosbox_core_libretro.so dosbox_pure_libretro.so dosbox_svn_libretro.so fbalpha2012_cps1_libretro.so fbalpha2012_cps2_libretro.so fbalpha2012_cps3_libretro.so fbalpha2012_libretro.so fbalpha2012_neogeo_libretro.so fceumm_libretro.so fbneo_libretro.so flycast_libretro.so fmsx_libretro.so frodo_libretro.so gambatte_libretro.so gearboy_libretro.so gearsystem_libretro.so genesis_plus_gx_libretro.so genesis_plus_gx_wide_libretro.so gpsp_libretro.so handy_libretro.so kronos_libretro.so mame2000_libretro.so mame2003_plus_libretro.so mame2010_libretro.so mame_libretro.so melonds_libretro.so mesen_libretro.so mesen-s_libretro.so mgba_libretro.so mupen64plus_next_libretro.so nekop2_libretro.so np2kai_libretro.so nestopia_libretro.so parallel_n64_libretro.so pcsx2_libretro.so pcsx_rearmed_libretro.so picodrive_libretro.so ppsspp_libretro.so puae_libretro.so quicknes_libretro.so race_libretro.so sameboy_libretro.so smsplus_libretro.so snes9x2010_libretro.so snes9x_libretro.so stella2014_libretro.so stella_libretro.so tgbdual_libretro.so vbam_libretro.so vba_next_libretro.so vice_x128_libretro.so vice_x64_libretro.so vice_x64sc_libretro.so vice_xscpu64_libretro.so yabasanshiro_libretro.so yabause_libretro.so bsnes_hd_beta_libretro.so)
-	echo -e "Downloading RetroArch Cores"
+	echo -e "${BOLD}Downloading RetroArch Cores${NONE}"
 	for i in "${RAcores[@]}"
 	do
 		FILE=/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
@@ -211,7 +205,7 @@ if [ $doRA == true ]; then
 	raConfigFile="/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
 	FILE=/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak
 	if [ -f "$FILE" ]; then
-		echo -e "RetroArch is already backed up."
+		echo -e "" &>> /dev/null
 	else
 		echo -ne "Backing up RA..."
 		cp /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak &>> ~/emudek.log
@@ -225,7 +219,7 @@ if [ $doRA == true ]; then
 	
 fi
 echo -e ""
-echo -ne "Applying Emu configurations..."
+echo -ne "${BOLD}Applying Emu configurations...${NONE}"
 if [ $doPrimeHacks == true ]; then
 	FOLDER=~/.var/app/io.github.shiiion.primehack/config_bak
 	if [ -d "$FOLDER" ]; then
@@ -330,7 +324,6 @@ if [ $doPPSSPP == true ]; then
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ppsspp.PPSSPP/ ~/.var/app/org.ppsspp.PPSSPP/ &>> ~/emudek.log
 fi
 echo -e "${GREEN}OK!${NONE}"
-echo -e ""
 echo -ne "Cleaning up downloaded files..."	
 rm -rf ~/dragoonDoriseTools	
 echo -e "${GREEN}OK!${NONE}"
