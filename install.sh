@@ -141,6 +141,9 @@ if [ -f "$SECONDTIME" ]; then
 						8 "PPSSPP" \
 						9 "Yuzu" \
 						10 "Cemu") &>> /dev/null
+	clear
+	cat ~/dragoonDoriseTools/EmuDeck/logo.ans
+	echo -e "${BOLD}EmuDeck ${version}${NONE}"
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		
