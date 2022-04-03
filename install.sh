@@ -11,6 +11,7 @@ UNDERLINE='\033[4m'
 BLINK='\x1b[5m'
 
 destination=$1
+emulationPath="/home/deck/Emulation/"
 romsPath="/home/deck/Emulation/roms/"
 toolsPath="/home/deck/Emulation/tools/"
 toolsPathSed="\/home\/deck\/Emulation\/tools\/"
@@ -19,7 +20,9 @@ biosPath="/home/deck/Emulation/bios/"
 biosPathSed="\/home\/deck\/Emulation\/bios\/"
 if [ $destination == "SD" ]; then
 	#Get SD Card name
+	
 	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
+	emulationPath="/run/media/${sdCard}/Emulation/"
 	romsPath="/run/media/${sdCard}/Emulation/roms/"
 	toolsPath="/run/media/${sdCard}/Emulation/tools/"
 	toolsPathSed="\/run\/media\/${sdCard}\/Emulation\/tools\/"
@@ -27,7 +30,10 @@ if [ $destination == "SD" ]; then
 	biosPath="/run/media/${sdCard}/Emulation/bios/"
 	biosPathSed="\/run\/media\/${sdCard}\/Emulation\/bios\/"
 fi
+echo -ne "Creating Emulation Tools Folder.."
+mkdir -p $emulationPath
 mkdir -p $toolsPath
+echo -e "${GREEN}OK!${NONE}"
 find $romsPath -name "readme.md" -type f -delete &>> ~/emudek.log
 rm -rf ~/dragoonDoriseTools
 echo -ne "${BOLD}Downloading files...${NONE}"
