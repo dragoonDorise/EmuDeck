@@ -116,7 +116,7 @@ fi
 FILE=$toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage
 if [ -f "$FILE" ]; then
 	echo "" &>> /dev/null
-	$doESDE=true
+	doESDE=true
 else
 	text="Do you want to install <span weight=\"bold\" foreground=\"red\">EmulationStation DE</span>?"
 	zenity --question \
