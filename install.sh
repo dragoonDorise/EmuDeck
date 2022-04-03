@@ -109,7 +109,7 @@ echo -e ""
 #SECONDTIME
 if [ -f "$SECONDTIME" ]; then
 		
-	text="`printf "<b>EmuDeck is already installed</b> \nWhat systems do you want me to ignore?\nWe recomend to keep all of them unchecked so everything gets updated so any possible bug can be fixed.\n If you want to mantain any custom configuration on some emulator select its name on this list"`"
+	text="`printf "<b>EmuDeck will overwrite the following Emulators</b> \nWhat systems do you want me to keep its current configuration?\nWe recomend to keep all of them unchecked so everything gets updated so any possible bug can be fixed.\n If you want to mantain any custom configuration on some emulator select its name on this list"`"
 	emusToReset=$(zenity --list \
 						--title="EmuDeck" \
 						--height=500 \
@@ -132,7 +132,6 @@ if [ -f "$SECONDTIME" ]; then
 						10 "Cemu")
 	ans=$?
 	if [ $ans -eq 0 ]; then
-		echo "Has elegido: ${componente}"
 		
 		if [[ "$emusToReset" == *"RetroArch"* ]]; then
 			doRA=false
