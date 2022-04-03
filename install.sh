@@ -113,7 +113,7 @@ find $romsPath -name "readme.md" -type f -delete &>> ~/emudeck/emudeck.log
 #SECONDTIME
 if [ -f "$SECONDTIME" ]; then
 		
-	text="`printf "<b>EmuDeck will overwrite the following Emulators</b> \nWhat systems do you want me to keep its current configuration?\nWe recomend to keep all of them unchecked so everything gets updated so any possible bug can be fixed.\n If you want to mantain any custom configuration on some emulator select its name on this list"`"
+	text="`printf "<b>EmuDeck will overwrite the following Emulators</b> \nWhich systems do you want me to keep its current configuration <b>untouched</b>?\nWe recomend to keep all of them unchecked so everything gets updated so any possible bug can be fixed.\n If you want to mantain any custom configuration on some emulator select its name on this list"`"
 	emusToReset=$(zenity --list \
 						--title="EmuDeck" \
 						--height=500 \
@@ -612,27 +612,18 @@ echo "" > ~/emudeck/.finished
 
 echo -e "${GREEN}OK!${NONE}"
 clear
-echo -e ""
-echo -e ""
-echo -e "To add your games copy them to this exact folder within the appropiate subfolder for each system:"
-echo -e ""
-echo -e ${BOLD}$romsPath${NONE}
-echo -e ""
-echo -e "When you are done copying your roms and BIOS do the following:"
-echo -e "1: Right Click the Steam Icon in the taskbar and close it. If you are using the integrated trackpads, the left mouse button is now the R2 and the right mouse button is the L1 button"
-echo -e "2: Open Steam Rom Manager"
-echo -e "3: On Steam Rom Manager click on Preview"
-echo -e "4: Now click on Generate app list"
-echo -e "5: Wait for the images to finish (Marked as remaining providers on the top)"
-echo -e "6: Click Save app list"
-echo -e "7: Close Steam Rom Manager and this window and click on Return to Gaming Mode."
-echo -e "8: Enjoy!"
 
-echo -e "${RED}Cemu Special configuration${NONE}"
-echo -e "Copy your games on wux or wud format to ${romsPath}/wiiu/roms"
-echo -e "If your games are .rpx you need to load them using the CEMU shorcut"
-echo -e "created on the Emulation Collection using Steam Rom Manager"
-echo -e "When you add a Wii U game to Steam"
-echo -e "${BOLD}you need to go to that game Properties and activate Compatibility -> proton 7.0-1${NONE}"
-
-sleep 999999999
+text="`printf "<b>Done!</b>\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n${biosPath}\nOpen Steam Rom Manager to add your games to your Steam Interface\n<b>Remember that Cemu games needs to be set in compatibility mode: Proton 7</b>"`"
+zenity --question \
+	   --title="EmuDeck" \
+	   --width=250 \
+	   --ok-label="Open Steam Rom Manager" \
+	   --cancel-label="Exit" \
+	   --text="${text}" &>> /dev/null
+ans=$?
+if [ $ans -eq 0 ]; then
+	cd ~/Desktop/
+	./Steam-ROM-Manager-2.3.29.AppImage
+else
+	echo -e "Exit" &>> /dev/null
+fi
