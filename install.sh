@@ -27,6 +27,7 @@ if [ $destination == "SD" ]; then
 	biosPath="/run/media/${sdCard}/Emulation/bios/"
 	biosPathSed="\/run\/media\/${sdCard}\/Emulation\/bios\/"
 fi
+mkdir -p $toolsPath
 find $romsPath -name "readme.md" -type f -delete &>> ~/emudek.log
 rm -rf ~/dragoonDoriseTools
 echo -ne "${BOLD}Downloading files...${NONE}"
@@ -125,7 +126,6 @@ else
 	echo -ne "${BOLD}Creating roms folder in your home folder...${NONE}"
 fi
 mkdir -p $romsPath
-mkdir -p $toolsPath
 mkdir -p $biosPath
 mkdir -p $biosPath/yuzu/
 sleep 3
