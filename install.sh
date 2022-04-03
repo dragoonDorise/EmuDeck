@@ -14,6 +14,49 @@ mkdir -p ~/emudeck
 echo "" > ~/emudeck/emudeck.log
 SECONDTIME=~/emudeck/.finished
 
+
+
+
+#Vars
+doRA=true
+doDolphin=true
+doPCSX2=true
+doRPCS3=true
+doYuzu=true
+doCitra=true
+doDuck=true
+doCemu=true
+doRyujinx=true
+doPrimeHacks=true
+doPPSSPP=true
+doESDE=true
+
+rm -rf ~/dragoonDoriseTools
+echo -ne "${BOLD}Downloading files...${NONE}"
+sleep 5
+mkdir -p dragoonDoriseTools
+mkdir -p dragoonDoriseTools/EmuDeck
+cd dragoonDoriseTools
+
+
+git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck &>> ~/emudeck/emudeck.log
+FOLDER=~/dragoonDoriseTools/EmuDeck
+if [ -d "$FOLDER" ]; then
+	echo -e "${GREEN}OK!${NONE}"
+else
+	echo -e ""
+	echo -e "${RED}We couldn't download the needed files, exiting in a few seconds${NONE}"
+	echo -e "Please close this window and try again in a few minutes"
+	sleep 999999
+	exit
+fi
+clear
+cat ~/dragoonDoriseTools/EmuDeck/logo.ans
+version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
+echo -e "${BOLD}EmuDeck ${version}${NONE}"
+echo -e ""
+
+
 text="Do you want to install your roms on your SD Card or on your Internal Storage?"
 zenity --question \
 	   --title="EmuDeck" \
@@ -30,21 +73,6 @@ else
 	echo "Storage: SD" &>> ~/emudeck/emudeck.log
 	destination="INTERNAL"
 fi
-
-
-#Vars
-doRA=true
-doDolphin=true
-doPCSX2=true
-doRPCS3=true
-doYuzu=true
-doCitra=true
-doDuck=true
-doCemu=true
-doRyujinx=true
-doPrimeHacks=true
-doPPSSPP=true
-doESDE=true
 
 emulationPath="/home/deck/Emulation/"
 romsPath="/home/deck/Emulation/roms/"
@@ -81,30 +109,6 @@ fi
 mkdir -p $emulationPath
 mkdir -p $toolsPath
 find $romsPath -name "readme.md" -type f -delete &>> ~/emudeck/emudeck.log
-rm -rf ~/dragoonDoriseTools
-echo -ne "${BOLD}Downloading files...${NONE}"
-sleep 5
-mkdir -p dragoonDoriseTools
-mkdir -p dragoonDoriseTools/EmuDeck
-cd dragoonDoriseTools
-
-
-git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck &>> ~/emudeck/emudeck.log
-FOLDER=~/dragoonDoriseTools/EmuDeck
-if [ -d "$FOLDER" ]; then
-	echo -e "${GREEN}OK!${NONE}"
-else
-	echo -e ""
-	echo -e "${RED}We couldn't download the needed files, exiting in a few seconds${NONE}"
-	echo -e "Please close this window and try again in a few minutes"
-	sleep 999999
-	exit
-fi
-clear
-cat ~/dragoonDoriseTools/EmuDeck/logo.ans
-version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
-echo -e "${BOLD}EmuDeck ${version}${NONE}"
-echo -e ""
 
 #SECONDTIME
 if [ -f "$SECONDTIME" ]; then
