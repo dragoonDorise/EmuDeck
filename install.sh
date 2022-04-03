@@ -577,7 +577,7 @@ CUSTOM=~/emudeck/.custom
 FILEBEZELS=~/emudeck/.bezels
 if [ ! -f "$CUSTOM" ] && [ ! -f "$FILEBEZELS" ]; then
 	
-	text="Do you want to uses Bezels (Overlays) on RetroArch systems?"
+	text="Do you want to use Bezels (Overlays) on RetroArch systems?"
 	zenity --question \
 		   --title="EmuDeck" \
 		   --width=250 \
@@ -597,7 +597,7 @@ fi
 FILESAVE=~/emudeck/.autosave
 if [ ! -f "$CUSTOM" ] && [ ! -f "$FILESAVE" ]; then	
 	
-	text="Do you want to uses auto save and auto load on RetroArch systems?"
+	text="Do you want to use auto save and auto load for RetroArch systems?"
 	zenity --question \
 		   --title="EmuDeck" \
 		   --width=250 \
