@@ -12,6 +12,13 @@ BLINK='\x1b[5m'
 rm ~/emudek.log &>> /dev/null
 mkdir -p ~/emudeck
 echo "" > ~/emudeck/emudeck.log
+
+#Mark as second time for previous users
+FOLDER=~/.var/app/io.github.shiiion.primehack/config_bak
+if [ -d "$FOLDER" ]; then
+	echo "" > ~/emudeck/.finished
+fi
+sleep 1
 SECONDTIME=~/emudeck/.finished
 
 
@@ -616,7 +623,7 @@ clear
 text="`printf "<b>Done!</b>\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n${biosPath}\nOpen Steam Rom Manager to add your games to your Steam Interface\n<b>Remember that Cemu games needs to be set in compatibility mode: Proton 7</b>"`"
 zenity --question \
 	   --title="EmuDeck" \
-	   --width=250 \
+	   --width=450 \
 	   --ok-label="Open Steam Rom Manager" \
 	   --cancel-label="Exit" \
 	   --text="${text}" &>> /dev/null
@@ -624,6 +631,7 @@ ans=$?
 if [ $ans -eq 0 ]; then
 	cd ~/Desktop/
 	./Steam-ROM-Manager-2.3.29.AppImage
+	exit
 else
 	echo -e "Exit" &>> /dev/null
 fi
