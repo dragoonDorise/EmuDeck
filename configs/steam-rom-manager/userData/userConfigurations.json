@@ -78,7 +78,7 @@
       "localHeroImages": "",
       "localLogoImages": "",
       "localIcons": "",
-      "disabled": false,
+      "disabled": true,
       "advanced": false,
       "executable": {
           "path": "/usr/bin/flatpak",

@@ -101,6 +101,9 @@ flatpak install flathub org.ppsspp.PPSSPP -y &>> ~/emudek.log
 #flatpak install flathub org.ryujinx.Ryujinx -y &>> ~/emudek.log
 echo -e "Installing Yuzu"
 flatpak install flathub org.yuzu_emu.yuzu -y &>> ~/emudek.log
+echo -e "Installing Flatseal (RPCS3 FIX)"
+flatpak install flathub com.github.tchx84.Flatseal -y &>> ~/emudek.log
+
 
 #Cemu
 echo -e "Installing Cemu"
@@ -352,6 +355,10 @@ echo -e "6: Click Save app list"
 echo -e "7: Close Steam Rom Manager and this window and click on Return to Gaming Mode."
 echo -e "8: Enjoy!"
 
+echo -e "${RED}RPCS3 Special configuration${NONE}"
+echo -e "Open the app Flatseal from Utilities"
+echo -e "Look for RPCS3 and there, scroll down  to Fylesystem and check 'All system files'"
+echo -e "You need to do this in order to fix PS3 Games"
 echo -e "${RED}Cemu Special configuration${NONE}"
 echo -e "Copy your games on wux or wud format to ${romsPath}/wiiu/roms"
 echo -e "If your games are .rpx you need to load them using CEMU on the Emulation Collection"
