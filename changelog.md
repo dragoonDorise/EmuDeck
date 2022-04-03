@@ -86,12 +86,9 @@
 - RA Fix
 - Cemu autoinstallation
 - Log file
-
-0.13.1
 - RPCS3 Controls
-
-0.13.2
 - SRM autoinstallation
-
-0.13.3
 - ES Fix
+
+0.14
+- RPCS3 is working from SteamUI thanks to Flatseal
