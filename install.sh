@@ -59,7 +59,7 @@ if [ -f "$FILE" ]; then
 	echo "" &>> /dev/null
 else
 	echo -e "${BOLD}Installing Steam Rom Manager${NONE}"
-	curl -L https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage > ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage >> ~/emudek.log
+	curl -L https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage > ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
 	chmod +x ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
 fi
 FILE=$toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage
