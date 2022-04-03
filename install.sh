@@ -362,6 +362,8 @@ cd $(echo $romsPath | tr -d '\r')
 ln -s segacd megacd &>> ~/emudek.log
 ln -s gamecube gc &>> ~/emudek.log
 ln -s genesis megadrive &>> ~/emudek.log
-ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys $biosPath/yuzu/keys &>> ~/emudek.log
-ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered $biosPath/yuzu/firmware &>> ~/emudek.log
+cd $(echo $biosPath | tr -d '\r')
+cd yuzu
+ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/ ./keys
+ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/ ./firmware
 sleep 999999999
