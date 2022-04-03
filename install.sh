@@ -9,8 +9,40 @@ WHITE='\033[01;37m'
 BOLD='\033[1m'
 UNDERLINE='\033[4m'
 BLINK='\x1b[5m'
+echo "" > ~/emudek.log
 
-destination=$1
+text="Do you want to install your roms on your SD Card or on your Internal Storage?"
+zenity --question \
+	   --title="EmuDeck" \
+	   --width=250 \
+	   --ok-label="SD Card" \
+	   --cancel-label="Internal Storage" \
+	   --text="${text}" &>> /dev/null
+ans=$?
+if [ $ans -eq 0 ]
+then
+	echo "Storage: SD" &>> ~/emudek.log
+	destination="SD"
+else
+	echo "Storage: SD" &>> ~/emudek.log
+	destination="INTERNAL"
+fi
+
+
+#Vars
+doRA=true
+doDolphin=true
+doPCSX2=true
+doRPCS3=true
+doYuzu=true
+doCitra=true
+doDuck=true
+doCemu=false
+doRyujinx=true
+doPrimeHacks=true
+doPPSSPP=true
+doESDE=false
+
 emulationPath="/home/deck/Emulation/"
 romsPath="/home/deck/Emulation/roms/"
 toolsPath="/home/deck/Emulation/tools/"
@@ -20,7 +52,6 @@ biosPath="/home/deck/Emulation/bios/"
 biosPathSed="\/home\/deck\/Emulation\/bios\/"
 if [ $destination == "SD" ]; then
 	#Get SD Card name
-	
 	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
 	emulationPath="/run/media/${sdCard}/Emulation/"
 	romsPath="/run/media/${sdCard}/Emulation/roms/"
@@ -29,11 +60,23 @@ if [ $destination == "SD" ]; then
 	romsPathSed="\/run\/media\/${sdCard}\/Emulation\/roms\/"
 	biosPath="/run/media/${sdCard}/Emulation/bios/"
 	biosPathSed="\/run\/media\/${sdCard}\/Emulation\/bios\/"
+	
+
+	if [ $sdCard != "mmcblk0p1" ]; then		
+		text="You need to format your SD Card using Steam UI.<br>EmuDeck wont work if your SD card is not in ext4 format<br>Please come back when your SD Card is ready"
+		zenity --error \
+			   --title="EmuDeck ERROR" \
+			   --width=250 \	   
+			   --text="${text}" &>> /dev/null
+		exit	   	
+	fi	
+	
 fi
-echo -ne "Creating Emulation Tools Folder.."
+	
+
+
 mkdir -p $emulationPath
 mkdir -p $toolsPath
-echo -e "${GREEN}OK!${NONE}"
 find $romsPath -name "readme.md" -type f -delete &>> ~/emudek.log
 rm -rf ~/dragoonDoriseTools
 echo -ne "${BOLD}Downloading files...${NONE}"
@@ -41,7 +84,7 @@ sleep 5
 mkdir -p dragoonDoriseTools
 mkdir -p dragoonDoriseTools/EmuDeck
 cd dragoonDoriseTools
-echo "" > ~/emudek.log
+
 
 git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck &>> ~/emudek.log
 FOLDER=~/dragoonDoriseTools/EmuDeck
@@ -69,15 +112,33 @@ else
 	curl -L https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage > ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
 	chmod +x ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
 fi
+
+
 FILE=$toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage
 if [ -f "$FILE" ]; then
 	echo "" &>> /dev/null
-
 else
-	echo -e "${BOLD}Installing EmulationStation Desktop Edition${NONE}"
-	curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/33311338/download  --output $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage >> ~/emudek.log
-	chmod +x $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage	
+	text="Do you want to install <span weight=\"bold\" foreground=\"red\">EmulationStation DE</span>?"
+	zenity --question \
+	   	--title="EmuDeck" \
+	   	--width=250 \
+	   	--ok-label="Yes" \
+	   	--cancel-label="No" \
+	   	--text="${text}" &>> /dev/null
+	ans=$?
+	if [ $ans -eq 0 ]
+	then
+		$doESDE=true
+		echo "ESDE: Yes" &>> ~/emudek.log
+		echo -e "${BOLD}Installing EmulationStation Desktop Edition${NONE}"
+		curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/33311338/download  --output $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage >> ~/emudek.log
+		chmod +x $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage		
+	else
+		echo "ESDE: No" &>> ~/emudek.log
+	fi
+		
 fi
+
 echo -e "Installing PCSX2"
 flatpak install flathub net.pcsx2.PCSX2 -y  &>> ~/emudek.log
 echo -e "Bad characters" &>> ~/emudek.log
@@ -159,18 +220,6 @@ sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/roms\//${romsPathSed}/g" ~/.emulat
 #sed -i "s/name=\"ROMDirectory\" value=\"/name=\"ROMDirectory\" value=\"${romsPathSed}/g" ~/.emulationstation/es_settings.xml
 echo -e "${GREEN}OK!${NONE}"
 
-#Check for installed emulators
-doRA=true
-doDolphin=true
-doPCSX2=true
-doRPCS3=true
-doYuzu=true
-doCitra=true
-doDuck=true
-doCemu=false
-doRyujinx=true
-doPrimeHacks=true
-doPPSSPP=true
 
 	
 #Emus config
@@ -186,8 +235,8 @@ if [ $doRA == true ]; then
 	mkdir -p /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores
 	raUrl="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
 	raCorePath=""
-	RAcores=(81_libretro.so atari800_libretro.so bluemsx_libretro.so chailove_libretro.so fbneo_libretro.so freechaf_libretro.so freeintv_libretro.so fuse_libretro.so gearsystem_libretro.so gw_libretro.so hatari_libretro.so lutro_libretro.so mednafen_pcfx_libretro.so mednafen_vb_libretro.so mednafen_wswan_libretro.so mu_libretro.so neocd_libretro.so nestopia_libretro.so nxengine_libretro.so o2em_libretro.so picodrive_libretro.so pokemini_libretro.so prboom_libretro.so prosystem_libretro.so px68k_libretro.so quasi88_libretro.so scummvm_libretro.so squirreljme_libretro.so theodore_libretro.so uzem_libretro.so vecx_libretro.so vice_xvic_libretro.so virtualjaguar_libretro.so x1_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_pce_libretro.so mednafen_pce_fast_libretro.so mednafen_psx_libretro.so mednafen_psx_hw_libretro.so mednafen_saturn_libretro.so mednafen_supafaust_libretro.so mednafen_supergrafx_libretro.so blastem_libretro.so bluemsx_libretro.so bsnes_libretro.so bsnes_mercury_accuracy_libretro.so cap32_libretro.so citra2018_libretro.so citra_libretro.so crocods_libretro.so desmume2015_libretro.so desmume_libretro.so dolphin_libretro.so dosbox_core_libretro.so dosbox_pure_libretro.so dosbox_svn_libretro.so fbalpha2012_cps1_libretro.so fbalpha2012_cps2_libretro.so fbalpha2012_cps3_libretro.so fbalpha2012_libretro.so fbalpha2012_neogeo_libretro.so fceumm_libretro.so fbneo_libretro.so flycast_libretro.so fmsx_libretro.so frodo_libretro.so gambatte_libretro.so gearboy_libretro.so gearsystem_libretro.so genesis_plus_gx_libretro.so genesis_plus_gx_wide_libretro.so gpsp_libretro.so handy_libretro.so kronos_libretro.so mame2000_libretro.so mame2003_plus_libretro.so mame2010_libretro.so mame_libretro.so melonds_libretro.so mesen_libretro.so mesen-s_libretro.so mgba_libretro.so mupen64plus_next_libretro.so nekop2_libretro.so np2kai_libretro.so nestopia_libretro.so parallel_n64_libretro.so pcsx2_libretro.so pcsx_rearmed_libretro.so picodrive_libretro.so ppsspp_libretro.so puae_libretro.so quicknes_libretro.so race_libretro.so sameboy_libretro.so smsplus_libretro.so snes9x2010_libretro.so snes9x_libretro.so stella2014_libretro.so stella_libretro.so tgbdual_libretro.so vbam_libretro.so vba_next_libretro.so vice_x128_libretro.so vice_x64_libretro.so vice_x64sc_libretro.so vice_xscpu64_libretro.so yabasanshiro_libretro.so yabause_libretro.so bsnes_hd_beta_libretro.so)
-	echo -e "${BOLD}Downloading RetroArch Cores${NONE}"
+	RAcores=(bsnes_hd_beta_libretro.so flycast_libretro.so gambatte_libretro.so genesis_plus_gx_libretro.so genesis_plus_gx_wide_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_wswan_libretro.so melonds_libretro.so mesen_libretro.so mgba_libretro.so mupen64plus_next_libretro.so nestopia_libretro.so picodrive_libretro.so ppsspp_libretro.so snes9x_libretro.so stella_libretro.so yabasanshiro_libretro.so yabause_libretro.so yabause_libretro.so mame2003_plus_libretro.so melonds_libretro.so fbneo_libretro.so bluemsx_libretro.so desmume_libretro.so sameboy_libretro.so gearsystem_libretro.so mednafen_saturn_libretro.so)
+	echo -e "${BOLD}Downloading RetroArch Cores for Emudek${NONE}"
 	for i in "${RAcores[@]}"
 	do
 		FILE=/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
@@ -199,6 +248,22 @@ if [ $doRA == true ]; then
 			echo -e "${i}...${GREEN}Downloaded!${NONE}"	
 		fi
 	done
+	
+	if [ $doESDE == true ]; then
+		RAcores=(81_libretro.so atari800_libretro.so bluemsx_libretro.so chailove_libretro.so fbneo_libretro.so freechaf_libretro.so freeintv_libretro.so fuse_libretro.so gearsystem_libretro.so gw_libretro.so hatari_libretro.so lutro_libretro.so mednafen_pcfx_libretro.so mednafen_vb_libretro.so mednafen_wswan_libretro.so mu_libretro.so neocd_libretro.so nestopia_libretro.so nxengine_libretro.so o2em_libretro.so picodrive_libretro.so pokemini_libretro.so prboom_libretro.so prosystem_libretro.so px68k_libretro.so quasi88_libretro.so scummvm_libretro.so squirreljme_libretro.so theodore_libretro.so uzem_libretro.so vecx_libretro.so vice_xvic_libretro.so virtualjaguar_libretro.so x1_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_pce_libretro.so mednafen_pce_fast_libretro.so mednafen_psx_libretro.so mednafen_psx_hw_libretro.so mednafen_saturn_libretro.so mednafen_supafaust_libretro.so mednafen_supergrafx_libretro.so blastem_libretro.so bluemsx_libretro.so bsnes_libretro.so bsnes_mercury_accuracy_libretro.so cap32_libretro.so citra2018_libretro.so citra_libretro.so crocods_libretro.so desmume2015_libretro.so desmume_libretro.so dolphin_libretro.so dosbox_core_libretro.so dosbox_pure_libretro.so dosbox_svn_libretro.so fbalpha2012_cps1_libretro.so fbalpha2012_cps2_libretro.so fbalpha2012_cps3_libretro.so fbalpha2012_libretro.so fbalpha2012_neogeo_libretro.so fceumm_libretro.so fbneo_libretro.so flycast_libretro.so fmsx_libretro.so frodo_libretro.so gambatte_libretro.so gearboy_libretro.so gearsystem_libretro.so genesis_plus_gx_libretro.so genesis_plus_gx_wide_libretro.so gpsp_libretro.so handy_libretro.so kronos_libretro.so mame2000_libretro.so mame2003_plus_libretro.so mame2010_libretro.so mame_libretro.so melonds_libretro.so mesen_libretro.so mesen-s_libretro.so mgba_libretro.so mupen64plus_next_libretro.so nekop2_libretro.so np2kai_libretro.so nestopia_libretro.so parallel_n64_libretro.so pcsx2_libretro.so pcsx_rearmed_libretro.so picodrive_libretro.so ppsspp_libretro.so puae_libretro.so quicknes_libretro.so race_libretro.so sameboy_libretro.so smsplus_libretro.so snes9x2010_libretro.so snes9x_libretro.so stella2014_libretro.so stella_libretro.so tgbdual_libretro.so vbam_libretro.so vba_next_libretro.so vice_x128_libretro.so vice_x64_libretro.so vice_x64sc_libretro.so vice_xscpu64_libretro.so yabasanshiro_libretro.so yabause_libretro.so bsnes_hd_beta_libretro.so swanstation_libretro.so)
+		echo -e "${BOLD}Downloading RetroArch Cores for EmulationStation DE${NONE}"
+		for i in "${RAcores[@]}"
+		do
+			FILE=/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
+			if [ -f "$FILE" ]; then
+				echo -e "${i}...${YELLOW}Already Downloaded${NONE}"	
+			else
+				curl $raUrl$i.zip --output /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip >> ~/emudek.log
+				#rm /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
+				echo -e "${i}...${GREEN}Downloaded!${NONE}"	
+			fi
+		done
+	fi	
 	
 	for entry in /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
 	do
@@ -331,7 +396,19 @@ if [ $doPPSSPP == true ]; then
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ppsspp.PPSSPP/ ~/.var/app/org.ppsspp.PPSSPP/ &>> ~/emudek.log
 fi
+
 echo -e "${GREEN}OK!${NONE}"
+
+#Symlinks
+cd $(echo $romsPath | tr -d '\r')
+ln -s segacd megacd &>> ~/emudek.log
+ln -s gamecube gc &>> ~/emudek.log
+ln -s genesis megadrive &>> ~/emudek.log
+cd $(echo $biosPath | tr -d '\r')
+cd yuzu
+ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/ ./keys &>> ~/emudek.log
+ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/ ./firmware &>> ~/emudek.log
+
 echo -ne "Cleaning up downloaded files..."	
 rm -rf ~/dragoonDoriseTools	
 echo -e "${GREEN}OK!${NONE}"
@@ -364,13 +441,5 @@ echo -e "Copy your games on wux or wud format to ${romsPath}/wiiu/roms"
 echo -e "If your games are .rpx you need to load them using CEMU on the Emulation Collection"
 echo -e "When you add a Wii U game to Steam"
 echo -e "${BOLD}you need to go to that game Properties and activate Compatibility -> proton 7.0-1${NONE}"
-#Symlinks
-cd $(echo $romsPath | tr -d '\r')
-ln -s segacd megacd &>> ~/emudek.log
-ln -s gamecube gc &>> ~/emudek.log
-ln -s genesis megadrive &>> ~/emudek.log
-cd $(echo $biosPath | tr -d '\r')
-cd yuzu
-ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/ ./keys &>> ~/emudek.log
-ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/ ./firmware &>> ~/emudek.log
+
 sleep 999999999
