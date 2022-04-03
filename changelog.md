@@ -78,14 +78,8 @@
 - Installs EmulationStation DE
 - Creates EmulationStation DE icon on SteamUI
 - Removes readme.md files to prevent problems with Sega Systems
-
-0.12.1
 - Added Cemu icon to SteamUI
-
-0.12.2
 - Vulkan for CEMU
-
-0.12.3
 - ES Fix
 
 0.13
@@ -95,3 +89,6 @@
 
 0.13.1
 - RPCS3 Controls
+
+0.13.2
+- SRM autoinstallation
