@@ -133,7 +133,7 @@ if [ -f "$SECONDTIME" ]; then
 						7 "Duckstation" \
 						8 "PPSSPP" \
 						9 "Yuzu" \
-						10 "Cemu")
+						10 "Cemu") &>> /dev/null
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		
