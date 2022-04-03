@@ -623,7 +623,7 @@ echo "" > ~/emudeck/.finished
 echo -e "${GREEN}OK!${NONE}"
 clear
 
-text="`printf "<b>Done!</b>\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n${biosPath}\nOpen Steam Rom Manager to add your games to your Steam Interface\n<b>Remember that Cemu games needs to be set in compatibility mode: Proton 7</b>"`"
+text="`printf "<b>Done!</b>\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\nOpen Steam Rom Manager to add your games to your SteamUI Interface\n<b>Remember that Cemu games needs to be set in compatibility mode in SteamUI: Proton 7 by going into its Properties and then Compatibility</b>/n/nIf you encounter any problem please visit our Discord\n<b>https://discord.gg/b9F7GpXtFP</b>"`"
 zenity --question \
 	   --title="EmuDeck" \
 	   --width=450 \
