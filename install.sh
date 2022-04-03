@@ -53,13 +53,19 @@ version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
 echo -e "${BOLD}EmuDeck ${version}${NONE}"
 echo -e ""
 
-#echo -e "Installing Steam Rom Manager"
-#curl https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage  --output /home/deck/Desktop/Steam-ROM-Manager-2.3.29.AppImage
 
-echo -e "${BOLD}Installing EmulationStation Desktop Edition${NONE}"
-curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/33311338/download  --output $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage >> ~/emudek.log
-chmod +x $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage
-
+FILE=~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
+if [ -f "$FILE" ]; then
+	echo -e "${BOLD}Installing Steam Rom Manager${NONE}"
+	curl -L https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage > ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage >> ~/emudek.log
+	chmod +x ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
+fi
+FILE=$toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage
+if [ -f "$FILE" ]; then
+	echo -e "${BOLD}Installing EmulationStation Desktop Edition${NONE}"
+	curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/33311338/download  --output $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage >> ~/emudek.log
+	chmod +x $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage
+fi
 echo -e "Installing PCSX2"
 flatpak install flathub net.pcsx2.PCSX2 -y  &>> ~/emudek.log
 echo -e "Bad characters" &>> ~/emudek.log
