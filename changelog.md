@@ -92,3 +92,7 @@
 
 0.14
 - RPCS3 is working from SteamUI thanks to Flatseal
+
+
+0.14.1
+- Added support for .rpx Wii U Games
