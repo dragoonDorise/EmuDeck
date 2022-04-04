@@ -97,3 +97,6 @@
 - Complete revamp of the interface
 - Now you can customize some RetroArch Options: Bezels
 - Emulators can now be skipped so you can mantain your custom configuration
+
+0.15.1
+- Added support for .rpx Wii U Games
