@@ -131,7 +131,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": false,
+    "disabled": true,
     "advanced": false,
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe",
@@ -1805,58 +1805,111 @@
     "version": 5
   },
   {
-    "parserType": "Glob",
-    "configTitle": "WiiU - Cemu",
-    "steamCategory": "${WiiU}",
-    "executableArgs": "-f -g \"Z:${filepath}\"",
-    "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
-    "titleModifier": "${fuzzyTitle}",
-    "onlineImageQueries": "${${fuzzyTitle}}",
-    "imagePool": "${fuzzyTitle}",
-    "defaultImage": "",
-    "defaultTallImage": "",
-    "defaultHeroImage": "",
-    "defaultLogoImage": "",
-    "defaultIcon": "",
-    "localImages": "",
-    "localTallImages": "",
-    "localHeroImages": "",
-    "localLogoImages": "",
-    "localIcons": "",
-    "disabled": false,
-    "advanced": false,
-    "executable": {
-      "path": "/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe",
-      "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
+      "parserType": "Glob",
+      "configTitle": "WiiU - Cemu (.rpx)",
+      "steamCategory": "${WiiU}",
+      "executableArgs": "-f -g \"Z:${filepath}\"",
+      "executableModifier": "\"${exePath}\"",
+      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
+      "steamDirectory": "/home/deck/.steam/steam",
+      "startInDirectory": "",
+      "imageProviders": ["SteamGridDB"],
+      "titleModifier": "${fuzzyTitle}",
+      "onlineImageQueries": "${${fuzzyTitle}}",
+      "imagePool": "${fuzzyTitle}",
+      "defaultImage": "",
+      "defaultTallImage": "",
+      "defaultHeroImage": "",
+      "defaultLogoImage": "",
+      "defaultIcon": "",
+      "localImages": "",
+      "localTallImages": "",
+      "localHeroImages": "",
+      "localLogoImages": "",
+      "localIcons": "",
+      "disabled": false,
+      "advanced": false,
+      "executable": {
+        "path": "/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe",
+        "shortcutPassthrough": false,
+        "appendArgsToExecutable": true
+      },
+      "userAccounts": {
+        "specifiedAccounts": "",
+        "skipWithMissingDataDir": true,
+        "useCredentials": true
+      },
+      "parserInputs": {
+        "glob": "${title}/**/*.rpx"
+      },
+      "titleFromVariable": {
+        "limitToGroups": "",
+        "caseInsensitiveVariables": false,
+        "skipFileIfVariableWasNotFound": false,
+        "tryToMatchTitle": false
+      },
+      "fuzzyMatch": {
+        "use": true,
+        "replaceDiacritics": true,
+        "removeCharacters": true,
+        "removeBrackets": true
+      },
+      "parserId": "164824416516097458",
+      "version": 5
     },
-    "userAccounts": {
-      "specifiedAccounts": "",
-      "skipWithMissingDataDir": true,
-      "useCredentials": true
-    },
-    "parserInputs": {
-      "glob": "${title}@(7z|7Z|.zip|.ZIP|wux|wud|wad|iso)"
-    },
-    "titleFromVariable": {
-      "limitToGroups": "",
-      "caseInsensitiveVariables": false,
-      "skipFileIfVariableWasNotFound": false,
-      "tryToMatchTitle": false
-    },
-    "fuzzyMatch": {
-      "use": true,
-      "replaceDiacritics": true,
-      "removeCharacters": true,
-      "removeBrackets": true
-    },
-    "parserId": "164824416516097458",
-    "version": 5
-  },
+   {
+        "parserType": "Glob",
+        "configTitle": "WiiU - Cemu (.wud, .wux)",
+        "steamCategory": "${WiiU}",
+        "executableArgs": "-f -g \"Z:${filepath}\"",
+        "executableModifier": "\"${exePath}\"",
+        "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
+        "steamDirectory": "/home/deck/.steam/steam",
+        "startInDirectory": "",
+        "imageProviders": ["SteamGridDB"],
+        "titleModifier": "${fuzzyTitle}",
+        "onlineImageQueries": "${${fuzzyTitle}}",
+        "imagePool": "${fuzzyTitle}",
+        "defaultImage": "",
+        "defaultTallImage": "",
+        "defaultHeroImage": "",
+        "defaultLogoImage": "",
+        "defaultIcon": "",
+        "localImages": "",
+        "localTallImages": "",
+        "localHeroImages": "",
+        "localLogoImages": "",
+        "localIcons": "",
+        "disabled": false,
+        "advanced": false,
+        "executable": {
+          "path": "/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe",
+          "shortcutPassthrough": false,
+          "appendArgsToExecutable": true
+        },
+        "userAccounts": {
+          "specifiedAccounts": "",
+          "skipWithMissingDataDir": true,
+          "useCredentials": true
+        },
+        "parserInputs": {
+          "glob": "${title}@(7z|7Z|.zip|.ZIP|wux|wud|wad|iso)"
+        },
+        "titleFromVariable": {
+          "limitToGroups": "",
+          "caseInsensitiveVariables": false,
+          "skipFileIfVariableWasNotFound": false,
+          "tryToMatchTitle": false
+        },
+        "fuzzyMatch": {
+          "use": true,
+          "replaceDiacritics": true,
+          "removeCharacters": true,
+          "removeBrackets": true
+        },
+        "parserId": "164824416518097458",
+        "version": 5
+      },
   
   {
     "parserType": "Glob",
