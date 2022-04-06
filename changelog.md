@@ -100,3 +100,7 @@
 
 0.15.1
 - Added support for .rpx Wii U Games
+
+0.15.2
+- Fixed Gamecube and Wii controls
+- Dolphin FPS meter disabled by default
