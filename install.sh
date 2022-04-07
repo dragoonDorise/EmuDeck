@@ -480,6 +480,7 @@ cd $(echo $romsPath | tr -d '\r')
 ln -s segacd megacd &>> ~/emudeck/emudeck.log
 ln -s gamecube gc &>> ~/emudeck/emudeck.log
 ln -s genesis megadrive &>> ~/emudeck/emudeck.log
+ln -s 3ds n3ds &>> ~/emudeck/emudeck.log
 cd $(echo $biosPath | tr -d '\r')
 cd yuzu
 ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/ ./keys &>> ~/emudeck/emudeck.log
