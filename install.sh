@@ -211,7 +211,8 @@ else
 		$doESDE=true
 		echo "ESDE: Yes" &>> ~/emudeck/emudeck.log
 		echo -e "${BOLD}Installing EmulationStation Desktop Edition${NONE}"
-		curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/33311338/download  --output $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage >> ~/emudeck/emudeck.log
+		
+		curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/34287334/download  --output $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage >> ~/emudeck/emudeck.log
 		chmod +x $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage		
 	else
 		echo "ESDE: No" &>> ~/emudeck/emudeck.log
