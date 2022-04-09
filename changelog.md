@@ -58,7 +58,7 @@
 
   0.9
 
-- Added Emulation Station rom path configuration, folders and cores
+- Added EmulationStation rom path configuration, folders and cores
 
   0.10
 

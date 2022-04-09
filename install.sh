@@ -315,7 +315,7 @@ sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/tools\//${toolsPathSed}/g" ~/.conf
 
 echo -e "${GREEN}OK!${NONE}"
 
-echo -ne "${BOLD}Configuring Emulation Station...${NONE}"
+echo -ne "${BOLD}Configuring EmulationStation DE...${NONE}"
 mkdir -p ~/.emulationstation/
 cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/es_settings.xml ~/.emulationstation/es_settings.xml
 sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/roms\//${romsPathSed}/g" ~/.emulationstation/es_settings.xml
