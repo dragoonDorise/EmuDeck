@@ -577,6 +577,8 @@ if [ -f "$FILE" ]; then
 	fi
 fi
 
+sleep 1
+
 CUSTOM=~/emudeck/.custom
 
 FILEBEZELS=~/emudeck/.bezels
