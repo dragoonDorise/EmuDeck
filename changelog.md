@@ -109,5 +109,5 @@
 - Fixed RA bios path on internal storage
 - RA changed fast forward mode from hold to toggle
 - Added MAME folders for 2010, 2003 and current.
-- Fixed the Custom EmuDeck menus
-- Fixed Citra buttons to original button positions
+- Fixed some EmuDeck customize menus that weren't appearing
+- Fixed Citra buttons to original hardware button positions A<->B
