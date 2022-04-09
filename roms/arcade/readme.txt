@@ -1,1 +1,1 @@
-place your roms here
+place your Mame Current roms here

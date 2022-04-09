@@ -574,10 +574,11 @@ if [ -f "$FILE" ]; then
 	else
 		echo "CustomRemain: No" &>> ~/emudeck/emudeck.log
 		rm ~/emudeck/.custom
+		rm ~/emudeck/.bezels
+		rm ~/emudeck/.autosave
+		
 	fi
 fi
-
-sleep 1
 
 CUSTOM=~/emudeck/.custom
 
