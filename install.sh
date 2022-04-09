@@ -111,10 +111,6 @@ if [ $destination == "SD" ]; then
 	
 fi
 
-echo $biosPath;
-sleep 999999
-
-
 mkdir -p $emulationPath
 mkdir -p $toolsPath
 find $romsPath -name "readme.md" -type f -delete &>> ~/emudeck/emudeck.log
