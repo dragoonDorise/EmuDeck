@@ -77,7 +77,7 @@ if [ $ans -eq 0 ]; then
 	destination="SD"
 	echo "" > ~/emudeck/.SD
 else
-	echo "Storage: SD" &>> ~/emudeck/emudeck.log
+	echo "Storage: INTERAL" &>> ~/emudeck/emudeck.log
 	destination="INTERNAL"
 fi
 
@@ -110,7 +110,9 @@ if [ $destination == "SD" ]; then
 	fi	
 	
 fi
-	
+
+echo $biosPath;
+sleep 999999
 
 
 mkdir -p $emulationPath
