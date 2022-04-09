@@ -3,7 +3,7 @@
 	"version"		"3"
 	"revision"		"15"
 	"title"		"EmuDeck - Cemu"
-	"description"		"L5 Swap Screens. Start + Select Exit"
+	"description"		"L5 Swap Screens. Amber Elec Hotkeys"
 	"creator"		"76561197971521082"
 	"progenitor"		"template://cemu_controller_config.vdf"
 	"url"		"template://cemu_controller_config.vdf"

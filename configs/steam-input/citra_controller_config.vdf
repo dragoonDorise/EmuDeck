@@ -3,7 +3,7 @@
 	"version"		"3"
 	"revision"		"15"
 	"title"		"EmuDeck - Citra 3DS"
-	"description"		"L4 Full Screen. R4 Swap Screens. L5 Toggle Layout. Start + Select Exit"
+	"description"		"L4 Full Screen. R4 Swap Screens. L5 Toggle Layout. Amber Elec Hotkeys"
 	"creator"		"76561197971521082"
 	"progenitor"		"template://citra_controller_config.vdf"
 	"url"		"template://citra_controller_config.vdf"
