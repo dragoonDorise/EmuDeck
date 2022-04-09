@@ -60,19 +60,20 @@
 
 - Added Emulation Station rom path configuration, folders and cores
 
-
-0.10
+  0.10
 
 - Fixed Yuzu's controls on Steam UI
 - Added standalone PPSSPP
 - Added PS2 optimized configuration
 
-0.11
+  0.11
+
 - Automatic Emulator Installation
 - No need to launch the emulators before playing for the first time
 - Yuzu paths for Firmware and Keys are symlinked in Emulation/bios
 
-0.12
+  0.12
+
 - Fixes several Bugs
 - Adds cores for EmulationStation DE
 - Installs EmulationStation DE
@@ -82,7 +83,8 @@
 - Vulkan for CEMU
 - ES Fix
 
-0.13
+  0.13
+
 - RA Fix
 - Cemu autoinstallation
 - Log file
@@ -90,24 +92,33 @@
 - SRM autoinstallation
 - ES Fix
 
-0.14
+  0.14
+
 - RPCS3 is working from SteamUI thanks to Flatseal
 
-0.15
+  0.15
+
 - Complete revamp of the interface
 - Now you can customize some RetroArch Options: Bezels
 - Emulators can now be skipped so you can mantain your custom configuration
 
-0.15.1
+  0.15.1
+
 - Added support for .rpx Wii U Games
 
-0.15.2
+  0.15.2
+
 - Fixed Gamecube and Wii controls
 - Dolphin FPS meter disabled by default
 
-0.15.3
+  0.15.3
+
 - Fixed RA bios path on internal storage
 - RA changed fast forward mode from hold to toggle
 - Added MAME folders for 2010, 2003 and current.
 - Fixed some EmuDeck customize menus that weren't appearing
 - Fixed Citra buttons to original hardware button positions A<->B
+
+  0.15.4
+
+- Hotkeys configured for all emulators
