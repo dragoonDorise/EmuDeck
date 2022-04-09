@@ -1,12 +1,12 @@
 "controller_mappings"
 {
 	"version"		"3"
-	"revision"		"7"
+	"revision"		"15"
 	"title"		"EmuDeck - Citra 3DS"
-	"description"		"L4 Full Screen. R4 Swap Screens. L5 Toggle Layout. R5 Exit"
+	"description"		"L4 Full Screen. R4 Swap Screens. L5 Toggle Layout. Start + Select Exit"
 	"creator"		"76561197971521082"
-	"progenitor"		""
-	"url"		"workshop://2785450154"
+	"progenitor"		"template://citra_controller_config.vdf"
+	"url"		"template://citra_controller_config.vdf"
 	"export_type"		"personal_cloud"
 	"controller_type"		"controller_neptune"
 	"major_revision"		"0"
@@ -633,6 +633,13 @@
 							"binding"		"xinput_button start"
 						}
 					}
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press X"
+						}
+					}
 				}
 				"disabled_activators"
 				{
@@ -647,6 +654,13 @@
 						"bindings"
 						{
 							"binding"		"xinput_button select"
+						}
+					}
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press LEFT_SHIFT"
 						}
 					}
 				}
@@ -665,6 +679,13 @@
 							"binding"		"xinput_button shoulder_left"
 						}
 					}
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press K"
+						}
+					}
 				}
 				"disabled_activators"
 				{
@@ -679,6 +700,13 @@
 						"bindings"
 						{
 							"binding"		"xinput_button shoulder_right"
+						}
+					}
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press L"
 						}
 					}
 				}
