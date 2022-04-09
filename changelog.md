@@ -121,4 +121,6 @@
 
   0.15.4
 
-- Hotkeys configured for all emulators
+- Fixes a bug on 0.15.3 that prevented the script to finish
+- Amber Elec Hotkeys configured for almost all emulators
+- Hotkeys and Emulators cheatsheet available on github: https://github.com/dragoonDorise/EmuDeck
