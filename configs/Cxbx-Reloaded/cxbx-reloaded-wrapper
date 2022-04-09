@@ -1,0 +1,24 @@
+#!/bin/bash
+cxbx_reloaded_exe="$(realpath "$(dirname "$0")/cxbx.exe")"
+cxbx_reloaded_bottle='cxbx-reloaded'
+args=("$@")
+i=0
+for a in "${args[@]}"
+do
+    if [[ "${a,,}" == "/load" ]] && [[ $((i+1)) -lt ${#args[@]} ]]
+    then
+        na="${args[$((i+1))]}"
+        if ! [[ "$na" =~ ^[a-zA-Z]:\\ ]]
+        then
+            # we transform the unix path to the equivalent windows path
+            na="$(realpath "$na")"
+            na="Z:${na//\//\\}"
+            args[$((i+1))]="$na"
+        fi
+    fi
+    i=$((i+1))
+done
+exec flatpak run --command="bottles-cli" com.usebottles.bottles run \
+    -b "$cxbx_reloaded_bottle" \
+    -e "$cxbx_reloaded_exe" \
+    -a "${args[*]@Q}"

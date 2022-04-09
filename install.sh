@@ -40,6 +40,7 @@ doUpdateCemu=true
 doUpdateRyujinx=true
 doUpdatePrimeHacks=true
 doUpdatePPSSPP=true
+doUpdateCxbxReloaded=true
 
 #Install all systems by default
 doInstallSRM=true
@@ -54,6 +55,7 @@ doInstallDuck=false
 doInstallCemu=false
 doInstallPrimeHacks=false
 doInstallPPSSPP=false
+doInstallCxbxReloaded=false
 installString='Installing'
 
 #Default RetroArch configuration 
@@ -236,7 +238,8 @@ if [ $expert == true ]; then
 				7 "Duckstation" \
 				8 "PPSSPP" \
 				9 "Yuzu" \
-				10 "Cemu")
+				10 "Cemu" \
+				11 "Cxbx-Reloaded")
 	clear
 	ans=$?	
 	if [ $ans -eq 0 ]; then
@@ -270,6 +273,9 @@ if [ $expert == true ]; then
 		fi
 		if [[ "$emusToInstall" == *"Cemu"* ]]; then
 			doInstallCemu=true
+		fi
+		if [[ "$emusToInstall" == *"Cxbx-Reloaded"* ]]; then
+			doInstallCxbxReloaded=true
 		fi
 		
 	else
@@ -389,7 +395,8 @@ if [ $expert == true ]; then
 							7 "Duckstation" \
 							8 "PPSSPP" \
 							9 "Yuzu" \
-							10 "Cemu")
+							10 "Cemu" \
+							11 "Cxbx-Reloaded")
 		clear
 		cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 		echo -e "${BOLD}EmuDeck ${version}${NONE}"
@@ -426,6 +433,9 @@ if [ $expert == true ]; then
 			if [[ "$emusToReset" == *"Cemu"* ]]; then
 				doUpdateCemu=false
 			fi
+			if [[ "$emusToReset" == *"Cxbx-Reloaded"* ]]; then
+				doUpdateCxbxReloaded=false
+			fi
 			
 		else
 			echo "WTF"
@@ -445,6 +455,7 @@ else
 	doInstallCemu=true
 	doInstallPrimeHacks=true
 	doInstallPPSSPP=true
+	doInstallCxbxReloaded=true
 
 fi # end Expert if
 
@@ -564,6 +575,67 @@ if [ $doInstallCemu == "true" ]; then
 fi
 echo -e ""
 
+#Cxbx-Reloaded
+if [ $doInstallCxbxReloaded == "true" ]; then
+	echo -e "Installing Bottles"
+	flatpak install flathub com.usebottles.bottles -y &>> ~/emudeck/emudeck.log
+	echo -e "Installing Cxbx-Reloaded"
+	# Add flatpak permissions
+	flatpak override --user \
+		--filesystem="$toolsPath/Cxbx-Reloaded" \
+		--filesystem="$romsPath/xbox" \
+		com.usebottles.bottles &>> ~/emudeck/emudeck.log
+
+	cxbx_reloaded_version_file="$toolsPath/Cxbx-Reloaded/version"
+	cxbx_reloaded_version_current=""
+	cxbx_reloaded_resp="$(curl -sSL \
+		-H 'Accept: application/vnd.github.v3+json' \
+		'https://api.github.com/repos/Cxbx-Reloaded/Cxbx-Reloaded/releases?per_page=1' | \
+		jq -r '.[0].assets[0].browser_download_url,.[0].tag_name')"
+	cxbx_reloaded_dl_url="$(echo "$cxbx_reloaded_resp" | head -n 1)"
+	cxbx_reloaded_version="$(echo "$cxbx_reloaded_resp" | tail -n 1)"
+	if [ -f "$cxbx_reloaded_version_file" ]; then
+		cxbx_reloaded_version_current="$(head -n 1 "$cxbx_reloaded_version_file")"
+	fi
+	if [ "$cxbx_reloaded_version" != "$cxbx_reloaded_version_current" ]; then
+		echo -e "Downloading newer Cxbx-Reloaded release $cxbx_reloaded_version"
+		curl -sSLo "$toolsPath/Cxbx-Reloaded.zip" "$cxbx_reloaded_dl_url" &>> ~/emudeck/emudeck.log
+		unzip -o "$toolsPath/Cxbx-Reloaded.zip" -d "$toolsPath/Cxbx-Reloaded" &>> ~/emudeck/emudeck.log
+		echo "$cxbx_reloaded_version" > "$cxbx_reloaded_version_file"
+		rm -f "$toolsPath/Cxbx-Reloaded.zip" &>> ~/emudeck/emudeck.log
+	fi
+
+	# Use a bottle to run Cxbx-Reloaded
+	if ! flatpak run --command="bottles-cli" com.usebottles.bottles -j list bottles | \
+		jq -e '[.[].Name == "cxbx-reloaded"] | any' &>> /dev/null; then
+		echo -e "Setting up bottle for Cxbx-Reloaded, please be patient"
+		flatpak run --command="bottles-cli" com.usebottles.bottles new \
+			--bottle-name cxbx-reloaded \
+			--environment gaming &>> ~/emudeck/emudeck.log
+		flatpak run --command="bottles-cli" com.usebottles.bottles edit \
+			--bottle cxbx-reloaded --params sync:futex2 &>> ~/emudeck/emudeck.log
+
+		# latest builds of Cxbx-Reloaded neec vcrun2019 and additional overrides for msvcp140_atomic_wait msvcp140_codecvt_ids vcamp140 vccorlib140
+		curl -sSLo "$toolsPath/Cxbx-Reloaded/vc_redist.x86.exe" \
+			'https://aka.ms/vs/16/release/vc_redist.x86.exe' &>> ~/emudeck/emudeck.log
+		curl -sSLo "$toolsPath/Cxbx-Reloaded/vc_redist.x64.exe" \
+			'https://aka.ms/vs/16/release/vc_redist.x64.exe' &>> ~/emudeck/emudeck.log
+		flatpak run --command="bottles-cli" com.usebottles.bottles run \
+			-b cxbx-reloaded -e "$(realpath "$toolsPath/Cxbx-Reloaded/vc_redist.x86.exe")" -a /q &>> ~/emudeck/emudeck.log
+		flatpak run --command="bottles-cli" com.usebottles.bottles run \
+			-b cxbx-reloaded -e "$(realpath "$toolsPath/Cxbx-Reloaded/vc_redist.x64.exe")" -a /q &>> ~/emudeck/emudeck.log
+		rm -f "$toolsPath/Cxbx-Reloaded/vc_redist.x86.exe" &>> ~/emudeck/emudeck.log
+		rm -f "$toolsPath/Cxbx-Reloaded/vc_redist.x64.exe" &>> ~/emudeck/emudeck.log
+		for dll in msvcp140_atomic_wait msvcp140_codecvt_ids vcamp140 vccorlib140
+		do
+			flatpak run --command="bottles-cli" com.usebottles.bottles reg \
+				-b cxbx-reloaded -k HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides -v "$dll" -d native,builtin -t REG_SZ add &>> ~/emudeck/emudeck.log
+			# I hate this. A delay is needed here for some reason or the reg command does not do the thing.
+			sleep 2
+		done
+	fi
+fi
+echo -e ""
 
 ##Generate rom folders
 if [ $destination == "SD" ]; then
@@ -815,6 +887,10 @@ if [ $doUpdatePPSSPP == true ]; then
 		echo -e "${GREEN}OK!${NONE}"
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ppsspp.PPSSPP/ ~/.var/app/org.ppsspp.PPSSPP/ &>> ~/emudeck/emudeck.log
+fi
+if [ $doUpdateCxbxReloaded == true ]; then
+	echo "" &>> ~/emudeck/emudeck.log
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/Cxbx-Reloaded/ "$toolsPath/Cxbx-Reloaded/" &>> ~/emudeck/emudeck.log
 fi
 
 echo -e "${GREEN}OK!${NONE}"
