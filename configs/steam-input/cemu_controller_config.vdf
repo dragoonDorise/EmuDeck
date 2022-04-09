@@ -1,12 +1,12 @@
 "controller_mappings"
 {
 	"version"		"3"
-	"revision"		"7"
-	"title"		"EmuDeck - Cemu WiiU"
-	"description"		"L4 + R4 Exit. L5 Swap Screens"
+	"revision"		"15"
+	"title"		"EmuDeck - Cemu"
+	"description"		"L5 Swap Screens. Start + Select Exit"
 	"creator"		"76561197971521082"
-	"progenitor"		""
-	"url"		"workshop://2785450155"
+	"progenitor"		"template://cemu_controller_config.vdf"
+	"url"		"template://cemu_controller_config.vdf"
 	"export_type"		"personal_cloud"
 	"controller_type"		"controller_neptune"
 	"major_revision"		"0"
@@ -633,6 +633,13 @@
 							"binding"		"xinput_button start"
 						}
 					}
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F4"
+						}
+					}
 				}
 				"disabled_activators"
 				{
@@ -647,6 +654,13 @@
 						"bindings"
 						{
 							"binding"		"xinput_button select"
+						}
+					}
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press LEFT_ALT"
 						}
 					}
 				}
@@ -665,6 +679,13 @@
 							"binding"		"xinput_button shoulder_left"
 						}
 					}
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press K"
+						}
+					}
 				}
 				"disabled_activators"
 				{
@@ -679,6 +700,13 @@
 						"bindings"
 						{
 							"binding"		"xinput_button shoulder_right"
+						}
+					}
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press L"
 						}
 					}
 				}
@@ -726,7 +754,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_ALT"
+							"binding"		"key_press F"
 						}
 					}
 				}
@@ -742,7 +770,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F4"
+							"binding"		"key_press TAB"
 						}
 					}
 				}
