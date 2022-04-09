@@ -104,3 +104,10 @@
 0.15.2
 - Fixed Gamecube and Wii controls
 - Dolphin FPS meter disabled by default
+
+0.15.3
+- Fixed RA bios path on internal storage
+- RA changed fast forward mode from hold to toggle
+- Added MAME folders for 2010, 2003 and current.
+- Fixed the Custom EmuDeck menus
+- Fixed Citra buttons to original button positions
