@@ -196,6 +196,16 @@ FILE=$toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage
 if [ -f "$FILE" ]; then
 	echo "" &>> /dev/null
 	doESDE=true
+	#for entry in ~/.emulationstation/themes/*
+	# do
+	#	 
+	#	 
+	#	 if if [ -d "$entry" ]; then
+	#		 cd ~/.emulationstation/$entry &>> /dev/null
+	#		 git pull &>> /dev/null
+	#	 fi
+	#	 cd ~ 
+	# done
 else
 	text="Do you want to install <span weight=\"bold\" foreground=\"red\">EmulationStation DE</span> and all of its RetroArch cores?"
 	zenity --question \
@@ -211,7 +221,24 @@ else
 		echo -e "${BOLD}Installing EmulationStation Desktop Edition${NONE}"
 		
 		curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/34287334/download  --output $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage >> ~/emudeck/emudeck.log
-		chmod +x $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage		
+		chmod +x $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage	
+		
+		#text="Do you want to install a selection of themes for <span weight=\"bold\" foreground=\"red\">EmulationStation DE</span>?"
+		#zenity --question \
+		#	   --title="EmuDeck" \
+		#	   --width=250 \
+		#	   --ok-label="Yes" \
+		#	   --cancel-label="No" \
+		#	   --text="${text}" &>> /dev/null
+		#ans=$?
+		#if [ $ans -eq 0 ]; then
+		#	echo "ESDE themes: Yes" &>> ~/emudeck/emudeck.log
+		#	cd ~/.emulationstation/themes && git clone https://github.com/aitorciki/nostalgia-pure-DE.git ./nostalgia-pure &>> /dev/null
+		#	cd ~
+		#else
+		#	echo "ESDE themes: No" &>> ~/emudeck/emudeck.log
+		#fi
+					
 	else
 		echo "ESDE: No" &>> ~/emudeck/emudeck.log
 	fi
@@ -223,7 +250,7 @@ flatpak install flathub net.pcsx2.PCSX2 -y  &>> ~/emudeck/emudeck.log
 echo -e "Bad characters" &>> ~/emudeck/emudeck.log
 echo -e "Installing PrimeHack"
 flatpak install flathub io.github.shiiion.primehack -y &>> ~/emudeck/emudeck.log
-#echo -e "Installing PrimeHack"
+#echo -e "Installing melonDS"
 #flatpak install flathub net.kuribo64.melonDS -y &>> ~/emudeck/emudeck.log
 echo -e "Installing RPCS3"
 flatpak install flathub net.rpcs3.RPCS3 -y &>> ~/emudeck/emudeck.log
