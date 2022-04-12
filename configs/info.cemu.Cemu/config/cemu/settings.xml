@@ -2,7 +2,7 @@
 <content>
     <logflag>0</logflag>
     <advanced_ppc_logging>false</advanced_ppc_logging>
-    <mlc_path></mlc_path>
+    <mlc_path>/var/data/cemu/mlc01/</mlc_path>
     <permanent_storage>true</permanent_storage>
     <language>0</language>
     <use_discord_presence>false</use_discord_presence>

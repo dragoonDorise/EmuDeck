@@ -273,21 +273,25 @@ flatpak install flathub com.github.tchx84.Flatseal -y &>> ~/emudeck/emudeck.log
 
 #Cemu
 echo -e "Installing Cemu"
-if [ $destination == "SD" ]; then
-	FILE="/run/media/${sdCard}/Emulation/roms/wiiu/Cemu.exe"
-else
-	FILE="/home/deck/Emulation/roms/wiiu/Cemu.exe"
-fi
+curl -sSL https://repo.withertech.com/flatpak/withertech.gpg | gpg -import -
+flatpak remote-add withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo
+flatpak install withertech info.cemu.Cemu
 
-if [ -f "$FILE" ]; then
-	echo "" &>> /dev/null
-else
-	curl https://cemu.info/releases/cemu_1.26.2.zip --output $romsPath/wiiu/cemu_1.26.2.zip &>> ~/emudeck/emudeck.log
-	unzip -o $romsPath/wiiu/cemu_1.26.2.zip -d $romsPath/wiiu/tmp &>> ~/emudeck/emudeck.log
-	mv $romsPath/wiiu/tmp/*/* $romsPath/wiiu &>> ~/emudeck/emudeck.log
-	rm -rf $romsPath/wiiu/tmp &>> ~/emudeck/emudeck.log
-	rm -f $romsPath/wiiu/cemu_1.26.2.zip &>> ~/emudeck/emudeck.log
-fi
+# if [ $destination == "SD" ]; then
+# 	FILE="/run/media/${sdCard}/Emulation/roms/wiiu/Cemu.exe"
+# else
+# 	FILE="/home/deck/Emulation/roms/wiiu/Cemu.exe"
+# fi
+#
+# if [ -f "$FILE" ]; then
+# 	echo "" &>> /dev/null
+# else
+# 	curl https://cemu.info/releases/cemu_1.26.2.zip --output $romsPath/wiiu/cemu_1.26.2.zip &>> ~/emudeck/emudeck.log
+# 	unzip -o $romsPath/wiiu/cemu_1.26.2.zip -d $romsPath/wiiu/tmp &>> ~/emudeck/emudeck.log
+# 	mv $romsPath/wiiu/tmp/*/* $romsPath/wiiu &>> ~/emudeck/emudeck.log
+# 	rm -rf $romsPath/wiiu/tmp &>> ~/emudeck/emudeck.log
+# 	rm -f $romsPath/wiiu/cemu_1.26.2.zip &>> ~/emudeck/emudeck.log
+# fi
 
 echo -e ""
 
@@ -480,8 +484,15 @@ if [ $doYuzu == true ]; then
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/ &>> ~/emudeck/emudeck.log
 fi
 if [ $doCemu == true ]; then
-	echo "" &>> ~/emudeck/emudeck.log
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/cemu/ ${romsPath}/wiiu &>> ~/emudeck/emudeck.log
+	FOLDER=~/.var/app/info.cemu.Cemu/config
+	if [ -d "$FOLDER" ]; then
+		echo "" &>> ~/emudeck/emudeck.log
+	else
+		echo -ne "Backing up Cemu..."
+		cp -r ~/.var/app/info.cemu.Cemu/config ~/.var/app/info.cemu.Cemu/config_bak &>> ~/emudeck/emudeck.log
+		echo -e "${GREEN}OK!${NONE}"
+	fi
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ &>> ~/emudeck/emudeck.log
 fi
 if [ $doRyujinx == true ]; then
 	echo "" &>> ~/emudeck/emudeck.log
@@ -656,7 +667,7 @@ echo "" > ~/emudeck/.finished
 echo -e "${GREEN}OK!${NONE}"
 clear
 
-text="`printf "<b>Done!</b>\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\nOpen Steam Rom Manager to add your games to your SteamUI Interface\n<b>Remember that Cemu games needs to be set in compatibility mode in SteamUI: Proton 7 by going into its Properties and then Compatibility</b>/n/nIf you encounter any problem please visit our Discord\n<b>https://discord.gg/b9F7GpXtFP</b>\nTo Update EmuDeck in the future, just run this App again.\nEnjoy!"`"
+text="`printf "<b>Done!</b>\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\nOpen Steam Rom Manager to add your games to your SteamUI Interface\n/n/nIf you encounter any problem please visit our Discord\n<b>https://discord.gg/b9F7GpXtFP</b>\nTo Update EmuDeck in the future, just run this App again.\nEnjoy!"`"
 zenity --question \
 	   --title="EmuDeck" \
 	   --width=450 \
