@@ -89,14 +89,24 @@ biosPath="/home/deck/Emulation/bios/"
 if [ $destination == "SD" ]; then
 	#check if sd card exists
 	if [ -b "/dev/mmcblk0p1" ]; then
-		#Get SD Card name. use findmnt to explicitly find the first sd card
-    	sdCardFull=$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)
-		echo "SD Card found; installing to /dev/mmcblk0p1 mounted on $sdCardFull"
-		sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
+		#test if card is ext4
+		if [ $(findmnt -n --raw --evaluate --output=fstype -S /dev/mmcblk0p1)="ext4" ]; then
+			#Get SD Card name. use findmnt to explicitly find the first sd card
+			sdCardFull=$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)
+			echo "SD Card found; installing to /dev/mmcblk0p1 mounted on $sdCardFull"
+			sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
+		else
+			text="SD Card must be formatted as EXT4"
+			zenity --error \
+			   --title="SD Card ERROR" \
+			   --width=250 \	   
+			   --text="${text}" &>> /dev/null
+			exit
+		fi
 	else
-		text="You need to format your SD Card using Steam UI.<br>EmuDeck wont work if your SD card is not in ext4 format<br>Please come back when your SD Card is ready"
+		text="SD Card not found"
 		zenity --error \
-			   --title="EmuDeck ERROR" \
+			   --title="SD Card ERROR" \
 			   --width=250 \	   
 			   --text="${text}" &>> /dev/null
 		exit
