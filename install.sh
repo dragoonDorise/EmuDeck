@@ -273,10 +273,9 @@ flatpak install flathub com.github.tchx84.Flatseal -y &>> ~/emudeck/emudeck.log
 
 #Cemu
 echo -e "Installing Cemu"
-curl -sSL https://repo.withertech.com/flatpak/withertech.gpg | gpg -import -
 flatpak remote-add withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo
-flatpak install withertech info.cemu.Cemu 
-flatpak install flathub org.winehq.Wine
+flatpak install withertech info.cemu.Cemu -y &>> ~/emudeck/emudeck.log
+flatpak install flathub org.winehq.Wine -y &>> ~/emudeck/emudeck.log
 
 # if [ $destination == "SD" ]; then
 # 	FILE="/run/media/${sdCard}/Emulation/roms/wiiu/Cemu.exe"
