@@ -484,7 +484,7 @@ if [ $doYuzu == true ]; then
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/ &>> ~/emudeck/emudeck.log
 fi
 if [ $doCemu == true ]; then
-	FOLDER=~/.var/app/info.cemu.Cemu/config
+	FOLDER=~/.var/app/info.cemu.Cemu/data
 	if [ -d "$FOLDER" ]; then
 		echo "" &>> ~/emudeck/emudeck.log
 	else
