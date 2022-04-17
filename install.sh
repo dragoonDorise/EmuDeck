@@ -489,7 +489,7 @@ if [ $doCemu == true ]; then
 		echo "" &>> ~/emudeck/emudeck.log
 	else
 		echo -ne "Backing up Cemu..."
-		cp -r ~/.var/app/info.cemu.Cemu/config ~/.var/app/info.cemu.Cemu/config_bak &>> ~/emudeck/emudeck.log
+		cp -r ~/.var/app/info.cemu.Cemu/data ~/.var/app/info.cemu.Cemu/data_bak &>> ~/emudeck/emudeck.log
 		echo -e "${GREEN}OK!${NONE}"
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ &>> ~/emudeck/emudeck.log
