@@ -1118,9 +1118,9 @@
     "parserType": "Glob",
     "configTitle": "WiiU - Cemu (.rpx)",
     "steamCategory": "${WiiU}",
-    "executableArgs": "-f -g \"Z:${filepath}\"",
+    "executableArgs": "run info.cemu.Cemu -f -g \"Z:${filepath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
@@ -1140,7 +1140,7 @@
     "disabled": false,
     "advanced": false,
     "executable": {
-      "path": "/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe",
+      "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -1171,9 +1171,9 @@
       "parserType": "Glob",
       "configTitle": "WiiU - Cemu (.wud, .wux)",
       "steamCategory": "${WiiU}",
-      "executableArgs": "-f -g \"Z:${filepath}\"",
+      "executableArgs": "run info.cemu.Cemu -f -g \"Z:${filepath}\"",
       "executableModifier": "\"${exePath}\"",
-      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
+      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/",
       "steamDirectory": "/home/deck/.steam/steam",
       "startInDirectory": "",
       "imageProviders": ["SteamGridDB"],
@@ -1193,7 +1193,7 @@
       "disabled": false,
       "advanced": false,
       "executable": {
-        "path": "/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe",
+        "path": "/usr/bin/flatpak",
         "shortcutPassthrough": false,
         "appendArgsToExecutable": true
       },
