@@ -85,31 +85,39 @@ fi
 emulationPath="/home/deck/Emulation/"
 romsPath="/home/deck/Emulation/roms/"
 toolsPath="/home/deck/Emulation/tools/"
-toolsPathSed="\/home\/deck\/Emulation\/tools\/"
-romsPathSed="\/home\/deck\/Emulation\/roms\/"
 biosPath="/home/deck/Emulation/bios/"
-biosPathSed="\/home\/deck\/Emulation\/bios\/"
-if [ $destination == "SD" ]; then
-	#Get SD Card name
-	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
-	emulationPath="/run/media/${sdCard}/Emulation/"
-	romsPath="/run/media/${sdCard}/Emulation/roms/"
-	toolsPath="/run/media/${sdCard}/Emulation/tools/"
-	toolsPathSed="\/run\/media\/${sdCard}\/Emulation\/tools\/"
-	romsPathSed="\/run\/media\/${sdCard}\/Emulation\/roms\/"
-	biosPath="/run/media/${sdCard}/Emulation/bios/"
-	biosPathSed="\/run\/media\/${sdCard}\/Emulation\/bios\/"
-	
 
-	if [ $sdCard != "mmcblk0p1" ]; then		
-		text="You need to format your SD Card using Steam UI.<br>EmuDeck wont work if your SD card is not in ext4 format<br>Please come back when your SD Card is ready"
-		zenity --error \
-			   --title="EmuDeck ERROR" \
+if [ $destination == "SD" ]; then
+	#check if sd card exists
+	if [ -b "/dev/mmcblk0p1" ]; then
+		#test if card is ext4
+		if [ $(findmnt -n --raw --evaluate --output=fstype -S /dev/mmcblk0p1)="ext4" ]; then
+			#Get SD Card name. use findmnt to explicitly find the first sd card
+			sdCardFull=$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)
+			echo "SD Card found; installing to /dev/mmcblk0p1 mounted on $sdCardFull"
+			sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
+		else
+			text="SD Card must be formatted as EXT4"
+			zenity --error \
+			   --title="SD Card ERROR" \
 			   --width=250 \	   
 			   --text="${text}" &>> /dev/null
-		exit	   	
-	fi	
-	
+			exit
+		fi
+	else
+		text="SD Card not found"
+		zenity --error \
+			   --title="SD Card ERROR" \
+			   --width=250 \	   
+			   --text="${text}" &>> /dev/null
+		exit
+	fi
+
+	emulationPath="${sdCardFull}/Emulation/"
+	romsPath="${sdCardFull}/Emulation/roms/"
+	toolsPath="${sdCardFull}/Emulation/tools/"
+	biosPath="${sdCardFull}/Emulation/bios/"
+
 fi
 
 mkdir -p $emulationPath
@@ -356,17 +364,18 @@ mkdir -p ~/.config/steam-rom-manager/userData/
 cp ~/dragoonDoriseTools/EmuDeck/configs/steam-rom-manager/userData/userConfigurations.json ~/.config/steam-rom-manager/userData/userConfigurations.json
 sleep 3
 
-sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/roms\//${romsPathSed}/g" ~/.config/steam-rom-manager/userData/userConfigurations.json
+sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.config/steam-rom-manager/userData/userConfigurations.json
 
-sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/tools\//${toolsPathSed}/g" ~/.config/steam-rom-manager/userData/userConfigurations.json
+sed -i "s|/run/media/mmcblk0p1/Emulation/tools/|${toolsPath}|g" ~/.config/steam-rom-manager/userData/userConfigurations.json
 
 echo -e "${GREEN}OK!${NONE}"
 
 echo -ne "${BOLD}Configuring EmulationStation DE...${NONE}"
 mkdir -p ~/.emulationstation/
-rsync -r ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/ ~/.emulationstation/
-sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/roms\//${romsPathSed}/g" ~/.emulationstation/es_settings.xml
-#sed -i "s/name=\"ROMDirectory\" value=\"/name=\"ROMDirectory\" value=\"${romsPathSed}/g" ~/.emulationstation/es_settings.xml
+
+cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/es_settings.xml ~/.emulationstation/es_settings.xml
+sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.emulationstation/es_settings.xml
+#sed -i "s|name=\"ROMDirectory\" value=\"/name=\"ROMDirectory\" value=\"${romsPathSed}/g" ~/.emulationstation/es_settings.xml
 echo -e "${GREEN}OK!${NONE}"
 
 
@@ -437,7 +446,7 @@ if [ $doRA == true ]; then
 	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/ ~/.var/app/org.libretro.RetroArch/config/
 	#rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/retroarch/config/ ~/.var/app/org.libretro.RetroArch/config/retroarch/config
 	
-	sed -i "s/system_directory = \"~\/.var\/app\/org.libretro.RetroArch\/config\/retroarch\/system\"/system_directory = \"${biosPathSed}\"/g" $raConfigFile
+	sed -i "s|system_directory = \"~/.var/app/org.libretro.RetroArch/config/retroarch/system\"/system_directory = \"${biosPath}\"/g" $raConfigFile
 	
 fi
 echo -e ""
@@ -475,7 +484,7 @@ if [ $doPCSX2 == true ]; then
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.pcsx2.PCSX2/ ~/.var/app/net.pcsx2.PCSX2/ &>> ~/emudeck/emudeck.log
 	#Bios Fix
-	sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/bios\//${biosPathSed}/g" ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini &>> ~/emudeck/emudeck.log
+	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini &>> ~/emudeck/emudeck.log
 fi
 if [ $doRPCS3 == true ]; then
 	FOLDER=~/.var/app/net.rpcs3.RPCS3/config_bak
@@ -513,7 +522,7 @@ if [ $doDuck == true ]; then
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.duckstation.DuckStation/ ~/.var/app/org.duckstation.DuckStation/ &>> ~/emudeck/emudeck.log
 	sleep 3
-	sed -i "s/\/run\/media\/mmcblk0p1\/Emulation\/bios\//${biosPathSed}/g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
+	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
 fi
 if [ $doYuzu == true ]; then
 	FOLDER=~/.var/app/org.yuzu_emu.yuzu/config
@@ -674,7 +683,7 @@ if [ ! -f "$CUSTOM" ] && [ ! -f "$FILEBEZELS" ]; then
 		#find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.cfg" -exec sed -i -e 's/input_overlay_enable = "false"/input_overlay_enable = "true"/g' {} \;	
 	else
 		echo "Overlays: No" &>> ~/emudeck/emudeck.log
-		find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.cfg" -exec sed -i -e 's/input_overlay_enable = "true"/input_overlay_enable = "false"/g' {} \;
+		find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.cfg" -exec sed -i -e 's|input_overlay_enable = "true"|input_overlay_enable = "false"|g' {} \;
 	fi
 	echo "" > ~/emudeck/.bezels
 fi
@@ -695,8 +704,8 @@ if [ ! -f "$CUSTOM" ] && [ ! -f "$FILESAVE" ]; then
 		echo "" > ~/emudeck/.autosave
 	else
 		echo "AutoSaveLoad: No" &>> ~/emudeck/emudeck.log
-		sed -i 's/savestate_auto_load = "true"/savestate_auto_load = "save"/g' ~/.var/app/org.libretro.RetroArch/config/retroarch/config/retroarch.cfg &>> ~/emudeck/emudeck.log
-		sed -i 's/savestate_auto_save = "true"/savestate_auto_save = "save"/g' ~/.var/app/org.libretro.RetroArch/config/retroarch/config/retroarch.cfg &>> ~/emudeck/emudeck.log
+		sed -i 's|savestate_auto_load = "true"|savestate_auto_load = "save"|g' ~/.var/app/org.libretro.RetroArch/config/retroarch/config/retroarch.cfg &>> ~/emudeck/emudeck.log
+		sed -i 's|savestate_auto_save = "true"|savestate_auto_save = "save"|g' ~/.var/app/org.libretro.RetroArch/config/retroarch/config/retroarch.cfg &>> ~/emudeck/emudeck.log
 	fi
 	echo "" > ~/emudeck/.autosave
 fi
