@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ruleList>
+    <emulator name="CXBX_RELOADED">
+        <!-- Microsoft Xbox emulator Cxbx-Reloaded -->
+        <rule type="systempath">
+            <entry>cxbx-reloaded-wrapper</entry>
+        </rule>
+        <rule type="staticpath">
+            <entry>/home/deck/Emulation/tools/Cxbx-Reloaded/cxbx-reloaded-wrapper</entry>
+            <entry>/run/media/mmcblk0p1/Emulation/tools/Cxbx-Reloaded/cxbx-reloaded-wrapper</entry>
+            <entry>/var/lib/flatpak/exports/bin/cxbx-reloaded-wrapper</entry>
+            <entry>~/.local/share/flatpak/exports/bin/cxbx-reloaded-wrapper</entry>
+            <entry>~/Applications/cxbx-reloaded-wrapper</entry>
+            <entry>~/.local/bin/cxbx-reloaded-wrapper</entry>
+            <entry>~/bin/cxbx-reloaded-wrapper</entry>
+        </rule>
+    </emulator>
+</ruleList>

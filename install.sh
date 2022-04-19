@@ -33,6 +33,7 @@ doYuzu=true
 doCitra=true
 doDuck=true
 doCemu=true
+doCxbxReloaded=true
 doRyujinx=true
 doPrimeHacks=true
 doPPSSPP=true
@@ -146,7 +147,8 @@ if [ -f "$SECONDTIME" ]; then
 						7 "Duckstation" \
 						8 "PPSSPP" \
 						9 "Yuzu" \
-						10 "Cemu") &>> /dev/null
+						10 "Cemu" \
+						11 "Cxbx-Reloaded") &>> /dev/null
 	clear
 	cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 	echo -e "${BOLD}EmuDeck ${version}${NONE}"
@@ -182,6 +184,9 @@ if [ -f "$SECONDTIME" ]; then
 		fi
 		if [[ "$emusToReset" == *"Cemu"* ]]; then
 			doCemu=false
+		fi
+		if [[ "$emusToReset" == *"Cxbx-Reloaded"* ]]; then
+			doCxbxReloaded=false
 		fi
 		
 	else
@@ -278,6 +283,8 @@ echo -e "Installing Yuzu"
 flatpak install flathub org.yuzu_emu.yuzu -y &>> ~/emudeck/emudeck.log
 echo -e "Installing Flatseal (RPCS3 FIX)"
 flatpak install flathub com.github.tchx84.Flatseal -y &>> ~/emudeck/emudeck.log
+echo -e "Installing Bottles"
+flatpak install flathub com.usebottles.bottles -y &>> ~/emudeck/emudeck.log
 
 #Cemu
 echo -e "Installing Cemu"
@@ -295,6 +302,46 @@ else
 	mv $romsPath/wiiu/tmp/*/* $romsPath/wiiu &>> ~/emudeck/emudeck.log
 	rm -rf $romsPath/wiiu/tmp &>> ~/emudeck/emudeck.log
 	rm -f $romsPath/wiiu/cemu_1.26.2.zip &>> ~/emudeck/emudeck.log
+fi
+
+echo -e ""
+
+#Cxbx-Reloaded
+echo -e "Installing Cxbx-Reloaded"
+# Add flatpak permissions
+flatpak override --user \
+	--filesystem="$toolsPath/Cxbx-Reloaded" \
+	--filesystem="$romsPath/xbox" \
+	com.usebottles.bottles &>> ~/emudeck/emudeck.log
+
+cxbx_reloaded_version_file="$toolsPath/Cxbx-Reloaded/version"
+cxbx_reloaded_version_current=""
+cxbx_reloaded_resp="$(curl -sSL \
+	-H 'Accept: application/vnd.github.v3+json' \
+	'https://api.github.com/repos/Cxbx-Reloaded/Cxbx-Reloaded/releases?per_page=1' | \
+	jq -r '.[0].assets[0].browser_download_url,.[0].tag_name')"
+cxbx_reloaded_dl_url="$(echo "$cxbx_reloaded_resp" | head -n 1)"
+cxbx_reloaded_version="$(echo "$cxbx_reloaded_resp" | tail -n 1)"
+if [ -f "$cxbx_reloaded_version_file" ]; then
+	cxbx_reloaded_version_current="$(head -n 1 "$cxbx_reloaded_version_file")"
+fi
+if [ "$cxbx_reloaded_version" != "$cxbx_reloaded_version_current" ]; then
+	echo -e "Downloading newer Cxbx-Reloaded release $cxbx_reloaded_version"
+	curl -sSLo "$toolsPath/Cxbx-Reloaded.zip" "$cxbx_reloaded_dl_url" &>> ~/emudeck/emudeck.log
+	unzip -o "$toolsPath/Cxbx-Reloaded.zip" -d "$toolsPath/Cxbx-Reloaded" &>> ~/emudeck/emudeck.log
+	echo "$cxbx_reloaded_version" > "$cxbx_reloaded_version_file"
+	rm -f "$toolsPath/Cxbx-Reloaded.zip" &>> ~/emudeck/emudeck.log
+fi
+
+# Use a bottle because proton fails to run the emulator
+if ! flatpak run --command="bottles-cli" com.usebottles.bottles -j list bottles | \
+	jq -e '[.[].Name == "cxbx-reloaded"] | any' &>> /dev/null; then
+	echo -e "Setting up bottle for Cxbx-Reloaded, please be patient"
+	flatpak run --command="bottles-cli" com.usebottles.bottles new \
+		--bottle-name cxbx-reloaded \
+		--environment gaming &>> ~/emudeck/emudeck.log
+	flatpak run --command="bottles-cli" com.usebottles.bottles edit \
+		--bottle cxbx-reloaded --params sync:futex2 &>> ~/emudeck/emudeck.log
 fi
 
 echo -e ""
@@ -325,6 +372,7 @@ echo -e "${GREEN}OK!${NONE}"
 
 echo -ne "${BOLD}Configuring EmulationStation DE...${NONE}"
 mkdir -p ~/.emulationstation/
+
 cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/es_settings.xml ~/.emulationstation/es_settings.xml
 sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.emulationstation/es_settings.xml
 #sed -i "s|name=\"ROMDirectory\" value=\"/name=\"ROMDirectory\" value=\"${romsPathSed}/g" ~/.emulationstation/es_settings.xml
@@ -490,6 +538,10 @@ fi
 if [ $doCemu == true ]; then
 	echo "" &>> ~/emudeck/emudeck.log
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/cemu/ ${romsPath}/wiiu &>> ~/emudeck/emudeck.log
+fi
+if [ $doCxbxReloaded == true ]; then
+	echo "" &>> ~/emudeck/emudeck.log
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/Cxbx-Reloaded/ "$toolsPath/Cxbx-Reloaded/" &>> ~/emudeck/emudeck.log
 fi
 if [ $doRyujinx == true ]; then
 	echo "" &>> ~/emudeck/emudeck.log

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<systemList>
+    <system>
+        <name>xbox</name>
+        <fullname>Microsoft Xbox</fullname>
+        <path>%ROMPATH%/xbox</path>
+        <extension>.xbe .XBE .iso .ISO</extension>
+        <command label="Cxbx-Reloaded (Standalone)">%EMULATOR_CXBX_RELOADED% /load %ROM%</command>
+        <command label="xemu (Standalone)">%EMULATOR_XEMU% -full-screen -dvd_path %ROM%</command>
+        <platform>xbox</platform>
+        <theme>xbox</theme>
+    </system>
+</systemList>
