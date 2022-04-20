@@ -38,6 +38,7 @@ doRyujinx=true
 doPrimeHacks=true
 doPPSSPP=true
 doESDE=true
+fsWhitelist=("ext4" "btrfs")
 clear
 rm -rf ~/dragoonDoriseTools
 echo -ne "${BOLD}Downloading files...${NONE}"
@@ -90,8 +91,12 @@ biosPath="/home/deck/Emulation/bios/"
 if [ $destination == "SD" ]; then
 	#check if sd card exists
 	if [ -b "/dev/mmcblk0p1" ]; then
-		#test if card is ext4
-		if [ $(findmnt -n --raw --evaluate --output=fstype -S /dev/mmcblk0p1)="ext4" ]; then
+		echo "SD Card is installed" > ~/emudeck/emudeck.log
+		
+		sdFSType=$(findmnt -n --raw --evaluate --output=fstype -S /dev/mmcblk0p1)
+		echo "SD Card formatted as $sdFSType" > ~/emudeck/emudeck.log
+		#test if card filesystem is in whitelist
+		if [[ " ${fsWhitelist[*]} " =~ " ${sdFSType} " ]] ; then
 			#Get SD Card name. use findmnt to explicitly find the first sd card
 			sdCardFull=$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)
 			echo "SD Card found; installing to /dev/mmcblk0p1 mounted on $sdCardFull"
