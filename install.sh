@@ -512,8 +512,11 @@ ln -s mame mame2003 &>> ~/emudeck/emudeck.log
 
 cd $(echo $biosPath | tr -d '\r')
 cd yuzu
-ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/ ./keys &>> ~/emudeck/emudeck.log
-ln -s ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/ ./firmware &>> ~/emudeck/emudeck.log
+mkdir -p ./keys ./firmware &>> ~/emudeck/emudeck.log
+rm -rf ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys &>> ~/emudeck/emudeck.log
+rm -rf ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered &>> ~/emudeck/emudeck.log
+ln -s $(pwd)/keys ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys &>> ~/emudeck/emudeck.log
+ln -s $(pwd)/firmware ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered &>> ~/emudeck/emudeck.log
 
 echo -ne "Cleaning up downloaded files..."	
 rm -rf ~/dragoonDoriseTools	
