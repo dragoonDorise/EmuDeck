@@ -189,6 +189,7 @@ zenity --question \
 		   --ok-label="Yes" \
 		   --cancel-label="No" \
 		   --text="${text}" &>> /dev/null
+ans=$?
 if [ $ans -eq 0 ]; then
   echo -e "${BOLD}Installing Steam Rom Manager${NONE}"
   curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" > ~/Desktop/Steam-ROM-Manager.AppImage
