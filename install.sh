@@ -182,15 +182,18 @@ if [ -f "$SECONDTIME" ]; then
 
 fi
 
-FILE=~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
-if [ -f "$FILE" ]; then
-	echo "" &>> /dev/null
-else
-	echo -e "${BOLD}Installing Steam Rom Manager${NONE}"
-	curl -L https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage > ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
-	chmod +x ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
+text="Do you want to install/update to latest version of the Steam-ROM-Manager?"
+zenity --question \
+		   --title="EmuDeck" \
+		   --width=250 \
+		   --ok-label="Yes" \
+		   --cancel-label="No" \
+		   --text="${text}" &>> /dev/null
+if [ $ans -eq 0 ]; then
+  echo -e "${BOLD}Installing Steam Rom Manager${NONE}"
+  curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" > ~/Desktop/Steam-ROM-Manager.AppImage
+  chmod +x ~/Desktop/Steam-ROM-Manager.AppImage
 fi
-
 
 FILE=$toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage
 if [ -f "$FILE" ]; then
