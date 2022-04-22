@@ -88,34 +88,18 @@ biosPath="/home/deck/Emulation/bios/"
 
 if [ $destination == "SD" ]; then
 	#check if sd card exists
-	if [ -b "/dev/mmcblk0p1" ]; then
-		#test if card is ext4
-		if [ $(findmnt -n --raw --evaluate --output=fstype -S /dev/mmcblk0p1)="ext4" ]; then
-			#Get SD Card name. use findmnt to explicitly find the first sd card
-			sdCardFull=$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)
-			echo "SD Card found; installing to /dev/mmcblk0p1 mounted on $sdCardFull"
-			sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
-		else
-			text="SD Card must be formatted as EXT4"
-			zenity --error \
-			   --title="SD Card ERROR" \
-			   --width=250 \	   
-			   --text="${text}" &>> /dev/null
-			exit
-		fi
+	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
+	if [ $sdCard != "mmcblk0p1" ]; then			
+		sdCard=$(ls /run/media/deck | grep -ve '^deck$' | head -n1)	
+		sdCard="/run/media/deck/${sdCard}"
 	else
-		text="SD Card not found"
-		zenity --error \
-			   --title="SD Card ERROR" \
-			   --width=250 \	   
-			   --text="${text}" &>> /dev/null
-		exit
-	fi
+		sdCard="/run/media/${sdCard}"
+	fi		
 
-	emulationPath="${sdCardFull}/Emulation/"
-	romsPath="${sdCardFull}/Emulation/roms/"
-	toolsPath="${sdCardFull}/Emulation/tools/"
-	biosPath="${sdCardFull}/Emulation/bios/"
+	emulationPath="${sdCard}/Emulation/"
+	romsPath="${sdCard}/Emulation/roms/"
+	toolsPath="${sdCard}/Emulation/tools/"
+	biosPath="${sdCard}/Emulation/bios/"
 
 fi
 
@@ -281,11 +265,8 @@ flatpak install flathub com.github.tchx84.Flatseal -y &>> ~/emudeck/emudeck.log
 
 #Cemu
 echo -e "Installing Cemu"
-if [ $destination == "SD" ]; then
-	FILE="/run/media/${sdCard}/Emulation/roms/wiiu/Cemu.exe"
-else
-	FILE="/home/deck/Emulation/roms/wiiu/Cemu.exe"
-fi
+
+FILE="${romsPath}/wiiu/Cemu.exe"
 
 if [ -f "$FILE" ]; then
 	echo "" &>> /dev/null
