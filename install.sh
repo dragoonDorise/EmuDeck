@@ -88,16 +88,27 @@ biosPath="/home/deck/Emulation/bios/"
 
 if [ $destination == "SD" ]; then
 	#check if sd card exists
-	#sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
-		
-	if [ "$(ls -A /run/media/deck)" ]; then
-		sdCard=$(ls /run/media/deck | grep -ve '^deck$' | head -n1)
-		sdCard="/run/media/deck/${sdCard}"
-	else
-		#mmcblk0p1
-		sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
-		sdCard="/run/media/${sdCard}"
-	fi
+	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
+	sdCard="/run/media/${sdCard}"
+	
+	#Detect non ext4 cards. Not enabled becaouse of issues when creating symlinks.
+	#if [ "$(ls -A /run/media/deck)" ]; then
+	#	sdCard=$(ls /run/media/deck | grep -ve '^deck$' | head -n1)
+	#	sdCard="/run/media/deck/${sdCard}"
+	#else
+	#	#mmcblk0p1
+	#	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
+	#	sdCard="/run/media/${sdCard}"
+	#fi
+	
+	if [ $sdCard != "mmcblk0p1" ]; then		
+		text="You need to format your SD Card using Steam UI.<br>EmuDeck wont work if your SD card is not in ext4 format. EmuDeck can't work properly with non ext4 cards<br>Please come back when your SD Card is ready"
+		zenity --error \
+			   --title="EmuDeck ERROR" \
+			   --width=250 \	   
+			   --text="${text}" &>> /dev/null
+		exit	   	
+	fi		
 	
 	emulationPath="${sdCard}/Emulation/"
 	romsPath="${sdCard}/Emulation/roms/"
