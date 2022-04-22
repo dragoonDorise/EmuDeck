@@ -22,32 +22,31 @@ sleep 1
 SECONDTIME=~/emudeck/.finished
 
 #Fixes RA cfg
-
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/segacd.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/segacd.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Stella/atari2600.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Stella/atari2600.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Gearsystem/gamegear.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Gearsystem/gamegear.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/gamegear.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/gamegear.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Gambatte/gb.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Gambatte/gb.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/SameBoy/gb.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/SameBoy/gb.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/mGBA/gba.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/mGBA/gba.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Gambatte/gbc.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Gambatte/gbc.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/SameBoy/gbc.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/SameBoy/gbc.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/genesis.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/genesis.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Lynx/lynx.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Lynx/lynx.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/MAME\ 2003-Plus/mame.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/MAME\ 2003-Plus/mame.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/mastersystem.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/mastersystem.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/megacd.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/megacd.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/megadrive.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/megadrive.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Nestopia/nes.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Nestopia/nes.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ NeoPop/ngp.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ NeoPop/ngp.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ NeoPop/ngpc.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ NeoPop/ngpc.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ PCE\ Fast/pcengine.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ PCE\ Fast/pcengine.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/PicoDrive/sega32x.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/PicoDrive/sega32x.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/bsnes-hd\ beta/snes.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/bsnes-hd\ beta/snes.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes87.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes87.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswan.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswan.opt
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswanc.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswancopt 
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/segacd.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/segacd.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Stella/atari2600.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Stella/atari2600.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Gearsystem/gamegear.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Gearsystem/gamegear.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/gamegear.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/gamegear.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Gambatte/gb.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Gambatte/gb.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/SameBoy/gb.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/SameBoy/gb.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/mGBA/gba.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/mGBA/gba.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Gambatte/gbc.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Gambatte/gbc.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/SameBoy/gbc.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/SameBoy/gbc.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/genesis.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/genesis.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Lynx/lynx.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Lynx/lynx.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/MAME\ 2003-Plus/mame.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/MAME\ 2003-Plus/mame.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/mastersystem.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/mastersystem.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/megacd.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/megacd.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/megadrive.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/megadrive.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Nestopia/nes.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Nestopia/nes.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ NeoPop/ngp.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ NeoPop/ngp.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ NeoPop/ngpc.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ NeoPop/ngpc.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ PCE\ Fast/pcengine.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ PCE\ Fast/pcengine.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/PicoDrive/sega32x.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/PicoDrive/sega32x.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/bsnes-hd\ beta/snes.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/bsnes-hd\ beta/snes.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes87.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes87.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswan.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswan.opt &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswanc.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswancopt  &>> ~/emudeck/emudeck.log
 
 #Vars
 doRA=true
