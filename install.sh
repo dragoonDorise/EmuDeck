@@ -383,7 +383,7 @@ if [ $doRA == true ]; then
 		 rm -f $entry >> ~/emudeck/emudeck.log
 	done
 	
-	raConfigFile="~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
+	raConfigFile=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg
 	FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak
 	if [ -f "$FILE" ]; then
 		echo -e "" &>> /dev/null
