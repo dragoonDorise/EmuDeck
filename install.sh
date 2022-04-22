@@ -542,6 +542,9 @@ ln -sn mame mame2003 &>> ~/emudeck/emudeck.log
 ln -sn mame mame2003 &>> ~/emudeck/emudeck.log
 ln -sn lynx atarilynx &>> ~/emudeck/emudeck.log
 
+#Fixes ESDE
+unlink megacd
+unlink megadrive
 
 cd $(echo $biosPath | tr -d '\r')
 cd yuzu
