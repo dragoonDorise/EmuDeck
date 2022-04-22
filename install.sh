@@ -673,7 +673,7 @@ zenity --question \
 ans=$?
 if [ $ans -eq 0 ]; then
 	cd ~/Desktop/
-	./Steam-ROM-Manager-2.3.29.AppImage
+	./Steam-ROM-Manager.AppImage
 	exit
 else
 	echo -e "Exit" &>> /dev/null
