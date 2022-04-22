@@ -88,14 +88,16 @@ biosPath="/home/deck/Emulation/bios/"
 
 if [ $destination == "SD" ]; then
 	#check if sd card exists
-	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
-	if [ $sdCard != "mmcblk0p1" ]; then			
-		sdCard=$(ls /run/media/deck | grep -ve '^deck$' | head -n1)	
+	#sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
+		
+	if [ "$(ls -A /run/media/deck)" ]; then
+		sdCard=$(ls /run/media/deck | grep -ve '^deck$' | head -n1)
 		sdCard="/run/media/deck/${sdCard}"
 	else
+		sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
 		sdCard="/run/media/${sdCard}"
-	fi		
-
+	fi
+	
 	emulationPath="${sdCard}/Emulation/"
 	romsPath="${sdCard}/Emulation/roms/"
 	toolsPath="${sdCard}/Emulation/tools/"
