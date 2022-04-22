@@ -102,11 +102,11 @@ if [ $destination == "SD" ]; then
 	#fi
 	
 	if [ $sdCard != "mmcblk0p1" ]; then		
-		text="You need to format your SD Card using Steam UI.<br>EmuDeck wont work if your SD card is not in ext4 format. EmuDeck can't work properly with non ext4 cards<br>Please come back when your SD Card is ready"
+		text="`printf "<b>You need to format your SD Card using Steam UI</b>\nEmuDeck will not work if your SD card is not formatted in ext4 format because of SteamOS permissions limitations on other non ext4 formatted cards.\nPlease come back when your SD Card is ready"`"
 		zenity --error \
-			   --title="EmuDeck ERROR" \
-			   --width=250 \	   
-			   --text="${text}" &>> /dev/null
+			  --title="EmuDeck Error" \
+			  --width=400 \
+			  --text="${text}" &>> /dev/null
 		exit	   	
 	fi		
 	
