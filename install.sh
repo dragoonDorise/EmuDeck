@@ -88,8 +88,7 @@ biosPath="/home/deck/Emulation/bios/"
 
 if [ $destination == "SD" ]; then
 	#check if sd card exists
-	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
-	sdCard="/run/media/${sdCard}"
+	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)	
 	
 	#Detect non ext4 cards. Not enabled becaouse of issues when creating symlinks.
 	#if [ "$(ls -A /run/media/deck)" ]; then
@@ -110,10 +109,11 @@ if [ $destination == "SD" ]; then
 		exit	   	
 	fi		
 	
-	emulationPath="${sdCard}/Emulation/"
-	romsPath="${sdCard}/Emulation/roms/"
-	toolsPath="${sdCard}/Emulation/tools/"
-	biosPath="${sdCard}/Emulation/bios/"
+	sdCardFull="/run/media/${sdCard}"	
+	emulationPath="${sdCardFull}/Emulation/"
+	romsPath="${sdCardFull}/Emulation/roms/"
+	toolsPath="${sdCardFull}/Emulation/tools/"
+	biosPath="${sdCardFull}/Emulation/bios/"
 
 fi
 

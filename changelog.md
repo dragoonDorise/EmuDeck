@@ -126,4 +126,3 @@
 - Hotkeys and Emulators cheatsheet available on github: https://github.com/dragoonDorise/EmuDeck
 
 0.15.5
-- Support for non ext4 SD Cards
