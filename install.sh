@@ -81,10 +81,10 @@ else
 	destination="INTERNAL"
 fi
 
-emulationPath="/home/deck/Emulation/"
-romsPath="/home/deck/Emulation/roms/"
-toolsPath="/home/deck/Emulation/tools/"
-biosPath="/home/deck/Emulation/bios/"
+emulationPath="~/Emulation/"
+romsPath="~/Emulation/roms/"
+toolsPath="~/Emulation/tools/"
+biosPath="~/Emulation/bios/"
 
 if [ $destination == "SD" ]; then
 	#check if sd card exists
@@ -193,8 +193,11 @@ if [ -f "$FILE" ]; then
 	echo "" &>> /dev/null
 else
 	echo -e "${BOLD}Installing Steam Rom Manager${NONE}"
-	curl -L https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.29/Steam-ROM-Manager-2.3.29.AppImage > ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
-	chmod +x ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
+	rm -f ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage &>> ~/emudeck/emudeck.log
+	curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" > ~/Desktop/Steam-ROM-Manager.AppImage
+	#Nova fix'
+	chmod +x ~/Desktop/Steam-ROM-Manager.AppImage
+
 fi
 
 
@@ -334,22 +337,22 @@ echo -e "${GREEN}OK!${NONE}"
 echo -e "${BOLD}Configuring emulators..${NONE}"
 echo -e ""
 if [ $doRA == true ]; then
-	mkdir -p /home/deck/.var/app/org.libretro.RetroArch
-	mkdir -p /home/deck/.var/app/org.libretro.RetroArch/config
-	mkdir -p /home/deck/.var/app/org.libretro.RetroArch/config/retroarch
-	mkdir -p /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores
+	mkdir -p ~/.var/app/org.libretro.RetroArch
+	mkdir -p ~/.var/app/org.libretro.RetroArch/config
+	mkdir -p ~/.var/app/org.libretro.RetroArch/config/retroarch
+	mkdir -p ~/.var/app/org.libretro.RetroArch/config/retroarch/cores
 	raUrl="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
 	raCorePath=""
 	RAcores=(bsnes_hd_beta_libretro.so flycast_libretro.so gambatte_libretro.so genesis_plus_gx_libretro.so genesis_plus_gx_wide_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_wswan_libretro.so melonds_libretro.so mesen_libretro.so mgba_libretro.so mupen64plus_next_libretro.so nestopia_libretro.so picodrive_libretro.so ppsspp_libretro.so snes9x_libretro.so stella_libretro.so yabasanshiro_libretro.so yabause_libretro.so yabause_libretro.so mame2003_plus_libretro.so mame2010_libretro.so mame_libretro.so melonds_libretro.so fbneo_libretro.so bluemsx_libretro.so desmume_libretro.so sameboy_libretro.so gearsystem_libretro.so mednafen_saturn_libretro.so)
 	echo -e "${BOLD}Downloading RetroArch Cores for EmuDeck${NONE}"
 	for i in "${RAcores[@]}"
 	do
-		FILE=/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
+		FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
 		if [ -f "$FILE" ]; then
 			echo -e "${i}...${YELLOW}Already Downloaded${NONE}"	
 		else
-			curl $raUrl$i.zip --output /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip >> ~/emudeck/emudeck.log
-			#rm /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
+			curl $raUrl$i.zip --output ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip >> ~/emudeck/emudeck.log
+			#rm ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
 			echo -e "${i}...${GREEN}Downloaded!${NONE}"	
 		fi
 	done
@@ -359,37 +362,37 @@ if [ $doRA == true ]; then
 		echo -e "${BOLD}Downloading RetroArch Cores for EmulationStation DE${NONE}"
 		for i in "${RAcores[@]}"
 		do
-			FILE=/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
+			FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
 			if [ -f "$FILE" ]; then
 				echo -e "${i}...${YELLOW}Already Downloaded${NONE}"	
 			else
-				curl $raUrl$i.zip --output /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip >> ~/emudeck/emudeck.log
-				#rm /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
+				curl $raUrl$i.zip --output ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip >> ~/emudeck/emudeck.log
+				#rm ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
 				echo -e "${i}...${GREEN}Downloaded!${NONE}"	
 			fi
 		done
 	fi	
 	
-	for entry in /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
+	for entry in ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
 	do
-		 unzip -o $entry -d /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/ &>> ~/emudeck/emudeck.log
+		 unzip -o $entry -d ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/ &>> ~/emudeck/emudeck.log
 	done
 	
-	for entry in /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
+	for entry in ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
 	do
 		 rm -f $entry >> ~/emudeck/emudeck.log
 	done
 	
-	raConfigFile="/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
-	FILE=/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak
+	raConfigFile="~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
+	FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak
 	if [ -f "$FILE" ]; then
 		echo -e "" &>> /dev/null
 	else
 		echo -ne "Backing up RA..."
-		cp /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak &>> ~/emudeck/emudeck.log
+		cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak &>> ~/emudeck/emudeck.log
 		echo -e "${GREEN}OK!${NONE}"
 	fi
-	#mkdir -p /home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays
+	#mkdir -p ~/.var/app/org.libretro.RetroArch/config/retroarch/overlays
 	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/ ~/.var/app/org.libretro.RetroArch/config/
 	#rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/retroarch/config/ ~/.var/app/org.libretro.RetroArch/config/retroarch/config
 	
