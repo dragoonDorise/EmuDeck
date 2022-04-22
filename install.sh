@@ -90,7 +90,7 @@ if [ $destination == "SD" ]; then
 	#check if sd card exists
 	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)	
 	
-	#Detect non ext4 cards. Not enabled becaouse of issues when creating symlinks.
+	#Detect non ext4 cards. Not enabled because of issues when creating symlinks.
 	#if [ "$(ls -A /run/media/deck)" ]; then
 	#	sdCard=$(ls /run/media/deck | grep -ve '^deck$' | head -n1)
 	#	sdCard="/run/media/deck/${sdCard}"
@@ -659,7 +659,8 @@ echo "" > ~/emudeck/.finished
 echo -e "${GREEN}OK!${NONE}"
 clear
 
-text="`printf "<b>Done!</b>\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\nOpen Steam Rom Manager to add your games to your SteamUI Interface\n<b>Remember that Cemu games needs to be set in compatibility mode in SteamUI: Proton 7 by going into its Properties and then Compatibility</b>/n/nIf you encounter any problem please visit our Discord\n<b>https://discord.gg/b9F7GpXtFP</b>\nTo Update EmuDeck in the future, just run this App again.\nEnjoy!"`"
+text="`printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager to add your games to your SteamUI Interface.\n\n<b>Remember that Cemu games needs to be set in compatibility mode in SteamUI: Proton 7 by going into its Properties and then Compatibility</b>\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!"`"
+
 zenity --question \
 	   --title="EmuDeck" \
 	   --width=450 \
