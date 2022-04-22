@@ -94,6 +94,7 @@ if [ $destination == "SD" ]; then
 		sdCard=$(ls /run/media/deck | grep -ve '^deck$' | head -n1)
 		sdCard="/run/media/deck/${sdCard}"
 	else
+		#mmcblk0p1
 		sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
 		sdCard="/run/media/${sdCard}"
 	fi
@@ -381,7 +382,7 @@ if [ $doRA == true ]; then
 	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/ ~/.var/app/org.libretro.RetroArch/config/
 	#rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/retroarch/config/ ~/.var/app/org.libretro.RetroArch/config/retroarch/config
 	
-	sed -i "s|system_directory = \"~/.var/app/org.libretro.RetroArch/config/retroarch/system\"/system_directory = \"${biosPath}\"/g" $raConfigFile
+	sed -i "s|system_directory = \"~/.var/app/org.libretro.RetroArch/config/retroarch/system\"|system_directory = \"${biosPath}\"|g" $raConfigFile
 	
 fi
 echo -e ""
@@ -494,9 +495,9 @@ echo -e "${GREEN}OK!${NONE}"
 
 #Symlinks
 cd $(echo $romsPath | tr -d '\r')
-ln -s segacd megacd &>> ~/emudeck/emudeck.log
+#ln -s segacd megacd &>> ~/emudeck/emudeck.log
 ln -s gamecube gc &>> ~/emudeck/emudeck.log
-ln -s genesis megadrive &>> ~/emudeck/emudeck.log
+#ln -s genesis megadrive &>> ~/emudeck/emudeck.log
 ln -s 3ds n3ds &>> ~/emudeck/emudeck.log
 ln -s arcade mamecurrent &>> ~/emudeck/emudeck.log
 ln -s mame mame2003 &>> ~/emudeck/emudeck.log
