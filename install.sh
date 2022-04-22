@@ -551,6 +551,12 @@ cd yuzu
 ln -sn ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/ ./keys &>> ~/emudeck/emudeck.log
 ln -sn ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/ ./firmware &>> ~/emudeck/emudeck.log
 
+#Fixes repeated Symlinx
+cd ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/
+unlink keys
+cd ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/
+unlink registered
+
 echo -ne "Cleaning up downloaded files..."	
 rm -rf ~/dragoonDoriseTools	
 
