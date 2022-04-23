@@ -575,7 +575,7 @@ echo -e "${GREEN}OK!${NONE}"
 #ESDE Config
 echo -ne "${BOLD}Configuring EmulationStation DE...${NONE}"
 mkdir -p ~/.emulationstation/
-cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/es_settings.xml ~/.emulationstation/es_settings.xml
+rsync -r ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/ ~/.emulationstation/
 sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.emulationstation/es_settings.xml
 #sed -i "s|name=\"ROMDirectory\" value=\"/name=\"ROMDirectory\" value=\"${romsPathSed}/g" ~/.emulationstation/es_settings.xml
 echo -e "${GREEN}OK!${NONE}"
