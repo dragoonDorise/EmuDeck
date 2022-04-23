@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleList>
+    <emulator name="CEMU_FLATPAK">
+        <!-- Nintendo WiiU emulator Cemu -->
+        <rule type="systempath">
+            <entry>cemu</entry>
+            <entry>info.cemu.Cemu</entry>
+        </rule>
+        <rule type="staticpath">
+            <entry>/var/lib/flatpak/exports/bin/info.cemu.Cemu</entry>
+            <entry>~/.local/share/flatpak/exports/bin/info.cemu.Cemu</entry>
+        </rule>
+    </emulator>
+</ruleList>
