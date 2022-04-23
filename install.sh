@@ -363,6 +363,33 @@ if [ $doRA == true ]; then
 	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes87.cfg &>> /dev/null
 	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswan.cfg &>> /dev/null
 	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswanc.cfg  &>> /dev/null
+	
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/segacd.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Stella/atari2600.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Gearsystem/gamegear.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/gamegear.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Gambatte/gb.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/SameBoy/gb.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/mGBA/gba.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Gambatte/gbc.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/SameBoy/gbc.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/genesis.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Lynx/lynx.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/MAME\ 2003-Plus/mame.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/mastersystem.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/megacd.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Genesis\ Plus\ GX/megadrive.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Nestopia/nes.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ NeoPop/ngp.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ NeoPop/ngpc.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ PCE\ Fast/pcengine.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/PicoDrive/sega32x.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/bsnes-hd\ beta/snes.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes87.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswan.opt &>> /dev/null
+	rm -f ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswanc.opt  &>> /dev/null
+	
 
 	mkdir -p ~/.var/app/org.libretro.RetroArch
 	mkdir -p ~/.var/app/org.libretro.RetroArch/config
