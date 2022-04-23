@@ -13,43 +13,43 @@ There are two ways of using EmuDeck:
 This option gives you all your games presented with their box arts as if they were a regular Steam Game.
 EmuDeck has preloaded configurations for Steam Rom Manager for the following systems:
 
-| System                    | Emulator                             | Roms format                                                    |
-| ------------------------- | ------------------------------------ | -------------------------------------------------------------- |
-| Atari 2600                | Retroarch Stella core                | .7z .a26 .bin .zip                                             |
-| Atari Lynx                | Retroarch Beetle Lynx core           | .7z .lnx .bin .zip                                             |
-| GameBoy                   | Retroarch Gambatte core              | .7z .gb .dmg .zip                                              |
-| GameBoy Color             | Retroarch Gambatte core              | .7z .gb .gbc .dmg .zip                                         |
-| GameBoy Advance           | Retroarch mGBA core                  | .7z .gba .zip                                                  |
-| Dreamcast                 | Retroarch FlyCast Core               | .7z, .cdi, .chd, .cue, .gdi                                    |
-| Final Burn Neo            | Retroarch Fbn core                   | .zip .7z                                                       |
-| Mame 2003 Plus            | Retroarch Mame 2003 Plus core        | .zip                                                           |
-| Mame 2010                 | Retroarch Mame 2010 core             | .zip                                                           |
-| Mame Current              | Retroarch Mame Current core          | .zip                                                           |
-| Neo Geo Pocket & Color    | Retroarch Beetle NeoPop              | .7z .ngp .ngc .bin .zip                                        |
-| Nintendo GameCube         | Dolphin Standalone                   | .ciso .dol .elf .gcm .gcz .iso .nkit .iso .rvz .wad .wia       |
-| Nintendo DS               | Retroarch melonDS core               | .7z .nds .zip                                                  |
-| Nintendo 3DS              | Citra                                | .3ds .3dsx .app .axf .cii .cxi .elf .cia                       |
-| Nintendo NES              | Retroarch Nestopia core              | .7z .nes .fds .unf .unif .zip                                  |
-| Nintendo 64               | Mupen64plus FZ                       | .7z .bin .n64 .ndd u1 .v64 .z64 .zip                           |
-| Nintendo GameCube         | Dolphin Standalone                   | .ciso .dol .elf .gcm .gcz .iso .nkit .iso .rvz .wad .wia .wbfs |
-| Nintendo Wii              | Dolphin Standalone                   | .ciso .dol .elf .gcm .gcz .iso .nkit .iso .rvz .wad .wia .wbfs |
-| Nintendo Wii U            | Cemu ( Proton )                      | .rpx .wud .wux                                                 |
-| Nintendo Switch           | Yuzu                                 | .kp .nca .nro .nso .nsp .xci                                   |
-| Super Nintendo            | Retroarch Snes9x Current core        | .7z .bs .fig .sfc .smc .swx .zip                               |
-| Super Nintendo Widescreen | Retroarch bsnes hd beta Current core | .7z .bs .fig .sfc .smc .swx .zip                               |
-| PrimeHacks                | Dolphin PrimeHacks                   | .ciso .dol .elf .gcm .gcz .iso .nkit .iso .rvz .wad .wia .wbfs |
-| Playstation               | DuckStation                          | .cue .chd .ecm .iso .m3u .mds .pbp                             |
-| Playstation 2             | RPCSX2                               | .bin chd .cso .dump .gz .img .iso .mdf .nrg                    |
-| Playstation 3             | RPCS3                                | /PS3_GAME/USRDIR/eboot.bin                                     |
-| PSP                       | PPSSPP & PPSSPP Retroarch core       | .7z .elf .cso .iso .pbp .prx                                   |
-| Sega 32X                  | Retroarch PicoDrive core             | .7z .32x .bin .zip                                             |
-| Sega CD                   | Retroarch Genesis Plus GX core       | .7z .32x .cue .chd .iso .zip                                   |
-| Sega Game Gear            | Retroarch Genesis Plus GX core       | .7z .gg .zip                                                   |
-| Sega Genesis / Mega Drive | Retroarch Genesis Plus GX core       | .7z .gen .md .smd .zip                                         |
-| Sega Genesis Widescreen   | Retroarch Genesis Plus GX Wide core  | .7z .gen .md .smd .zip                                         |
-| Sega Master System        | Retroarch Genesis Plus GX core       | .7z .gen .sms .zip                                             |
-| Sega Saturn               | Retroarch Yabause core               | .7z .cue .iso .chd .zip                                        |
-| Wonderswan & Color        | Retroarch Beetle Cygne core          | .7z .pc2 .ws .wsc .zip                                         |
+| System                    | Emulator                             | Roms format                                                          |
+| ------------------------- | ------------------------------------ | -------------------------------------------------------------------- |
+| Atari 2600                | Retroarch Stella core                | .7z .a26 .bin .zip                                                   |
+| Atari Lynx                | Retroarch Beetle Lynx core           | .7z .lnx .bin .zip                                                   |
+| GameBoy                   | Retroarch Gambatte core              | .7z .gb .dmg .zip                                                    |
+| GameBoy Color             | Retroarch Gambatte core              | .7z .gb .gbc .dmg .zip                                               |
+| GameBoy Advance           | Retroarch mGBA core                  | .7z .gba .zip                                                        |
+| Dreamcast                 | Retroarch FlyCast Core               | .7z, .cdi, .chd, .cue, .gdi                                          |
+| Final Burn Neo            | Retroarch Fbn core                   | .zip .7z                                                             |
+| Mame 2003 Plus            | Retroarch Mame 2003 Plus core        | .zip                                                                 |
+| Mame 2010                 | Retroarch Mame 2010 core             | .zip                                                                 |
+| Mame Current              | Retroarch Mame Current core          | .zip                                                                 |
+| Neo Geo Pocket & Color    | Retroarch Beetle NeoPop              | .7z .ngp .ngc .bin .zip                                              |
+| Nintendo GameCube         | Dolphin Standalone                   | .ciso .dol .elf .gcm .gcz .iso .nkit .iso .rvz .wad .wia             |
+| Nintendo DS               | Retroarch melonDS core               | .7z .nds .zip                                                        |
+| Nintendo 3DS              | Citra                                | .3ds .3dsx .app .axf .cii .cxi .elf .cia                             |
+| Nintendo NES              | Retroarch Nestopia core              | .7z .nes .fds .unf .unif .zip                                        |
+| Nintendo 64               | Mupen64plus FZ                       | .7z .bin .n64 .ndd u1 .v64 .z64 .zip                                 |
+| Nintendo GameCube         | Dolphin Standalone                   | .ciso .dol .elf .gcm .gcz .iso .nkit .iso .rvz .wad .wia .wbfs       |
+| Nintendo Wii              | Dolphin Standalone                   | .ciso .dol .elf .gcm .gcz .iso .json .nkit .iso .rvz .wad .wia .wbfs |
+| Nintendo Wii U            | Cemu ( Proton )                      | .rpx .wud .wux                                                       |
+| Nintendo Switch           | Yuzu                                 | .kp .nca .nro .nso .nsp .xci                                         |
+| Super Nintendo            | Retroarch Snes9x Current core        | .7z .bs .fig .sfc .smc .swx .zip                                     |
+| Super Nintendo Widescreen | Retroarch bsnes hd beta Current core | .7z .bs .fig .sfc .smc .swx .zip                                     |
+| PrimeHacks                | Dolphin PrimeHacks                   | .ciso .dol .elf .gcm .gcz .iso .json .nkit .iso .rvz .wad .wia .wbfs |
+| Playstation               | DuckStation                          | .cue .chd .ecm .iso .m3u .mds .pbp                                   |
+| Playstation 2             | RPCSX2                               | .bin chd .cso .dump .gz .img .iso .mdf .nrg                          |
+| Playstation 3             | RPCS3                                | /PS3_GAME/USRDIR/eboot.bin                                           |
+| PSP                       | PPSSPP & PPSSPP Retroarch core       | .7z .elf .cso .iso .pbp .prx                                         |
+| Sega 32X                  | Retroarch PicoDrive core             | .7z .32x .bin .zip                                                   |
+| Sega CD                   | Retroarch Genesis Plus GX core       | .7z .32x .cue .chd .iso .zip                                         |
+| Sega Game Gear            | Retroarch Genesis Plus GX core       | .7z .gg .zip                                                         |
+| Sega Genesis / Mega Drive | Retroarch Genesis Plus GX core       | .7z .gen .md .smd .zip                                               |
+| Sega Genesis Widescreen   | Retroarch Genesis Plus GX Wide core  | .7z .gen .md .smd .zip                                               |
+| Sega Master System        | Retroarch Genesis Plus GX core       | .7z .gen .sms .zip                                                   |
+| Sega Saturn               | Retroarch Yabause core               | .7z .cue .iso .chd .zip                                              |
+| Wonderswan & Color        | Retroarch Beetle Cygne core          | .7z .pc2 .ws .wsc .zip                                               |
 
 ## Using EmulationStation DE
 
