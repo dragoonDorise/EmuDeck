@@ -1189,7 +1189,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
@@ -1242,7 +1242,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
