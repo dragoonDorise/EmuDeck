@@ -46,7 +46,7 @@ mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes.cfg ~/.
 mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/bsnes-hd\ beta/snes.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/bsnes-hd\ beta/snes.opt &>> ~/emudeck/emudeck.log
 mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes87.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes87.opt &>> ~/emudeck/emudeck.log
 mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswan.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswan.opt &>> ~/emudeck/emudeck.log
-mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswanc.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswancopt  &>> ~/emudeck/emudeck.log
+mv ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswanc.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle\ Cygne/wswanc.opt  &>> ~/emudeck/emudeck.log
 
 #Vars
 doRA=true
@@ -702,7 +702,7 @@ if [ ! -f "$CUSTOM" ] && [ ! -f "$FILEBEZELS" ]; then
 fi
 FILESAVE=~/emudeck/.autosave
 if [ ! -f "$CUSTOM" ] && [ ! -f "$FILESAVE" ]; then	
-	
+	raConfigFile=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg
 	text="Do you want to use auto save and auto load for RetroArch systems?"
 	zenity --question \
 			 --title="EmuDeck" \
@@ -713,12 +713,13 @@ if [ ! -f "$CUSTOM" ] && [ ! -f "$FILESAVE" ]; then
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		echo "AutoSaveLoad: Yes" &>> ~/emudeck/emudeck.log
-		#sed -i 's/config_save_on_exit = "true"/config_save_on_exit = "false"/g' ~/.var/app/org.libretro.RetroArch/config/retroarch/config/retroarch.cfg &>> ~/emudeck/emudeck.log
+		sed -i 's|savestate_auto_load = "false"|savestate_auto_load = "true"|g' $raConfigFile &>> ~/emudeck/emudeck.log
+		sed -i 's|savestate_auto_save = "false"|savestate_auto_save = "true"|g' $raConfigFile &>> ~/emudeck/emudeck.log
 		echo "" > ~/emudeck/.autosave
 	else
 		echo "AutoSaveLoad: No" &>> ~/emudeck/emudeck.log
-		sed -i 's|savestate_auto_load = "true"|savestate_auto_load = "save"|g' ~/.var/app/org.libretro.RetroArch/config/retroarch/config/retroarch.cfg &>> ~/emudeck/emudeck.log
-		sed -i 's|savestate_auto_save = "true"|savestate_auto_save = "save"|g' ~/.var/app/org.libretro.RetroArch/config/retroarch/config/retroarch.cfg &>> ~/emudeck/emudeck.log
+		sed -i 's|savestate_auto_load = "true"|savestate_auto_load = "false"|g' $raConfigFile &>> ~/emudeck/emudeck.log
+		sed -i 's|savestate_auto_save = "true"|savestate_auto_save = "false"|g' $raConfigFile &>> ~/emudeck/emudeck.log
 	fi
 	echo "" > ~/emudeck/.autosave
 fi
