@@ -91,10 +91,9 @@ fi
 clear
 cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
-cat ~/dragoonDoriseTools/EmuDeck/latest.md
 echo -e "${BOLD}EmuDeck ${version}${NONE}"
 echo -e ""
-
+cat ~/dragoonDoriseTools/EmuDeck/latest.md
 #
 # Installation mode selection
 #
