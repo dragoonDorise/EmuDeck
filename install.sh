@@ -419,7 +419,7 @@ if [ $doRA == true ]; then
 	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/ ~/.var/app/org.libretro.RetroArch/config/
 	#rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/retroarch/config/ ~/.var/app/org.libretro.RetroArch/config/retroarch/config
 	
-	sed -i "s|system_directory = \"~/.var/app/org.libretro.RetroArch/config/retroarch/system\"|system_directory = \"${biosPath}\"|g" $raConfigFile
+	sed -i "s|system_directory = \"/run/media/mmcblk0p1/Emulation/bios/\"|system_directory = \"${biosPath}\"|g" $raConfigFile
 	
 fi
 echo -e ""
