@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ruleList>
+    <emulator name="CEMU">
+        <!-- Nintendo Wii U emulator Cemu -->
+        <rule type="systempath">
+            <entry>cemu-wrapper</entry>
+        </rule>
+        <rule type="staticpath">
+            <entry>/home/deck/Emulation/tools/cemu/cemu-wrapper</entry>
+            <entry>/run/media/mmcblk0p1/Emulation/tools/cemu/cemu-wrapper</entry>
+            <entry>/var/lib/flatpak/exports/bin/cemu-wrapper</entry>
+            <entry>~/.local/share/flatpak/exports/bin/cemu-wrapper</entry>
+            <entry>~/Applications/cemu-wrapper</entry>
+            <entry>~/.local/bin/cemu-wrapper</entry>
+            <entry>~/bin/cemu-wrapper</entry>
+        </rule>
+    </emulator>
+</ruleList>

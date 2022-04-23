@@ -33,7 +33,7 @@ EmuDeck has preloaded configurations for Steam Rom Manager for the following sys
 | Nintendo 64               | Mupen64plus FZ                       | .7z .bin .n64 .ndd u1 .v64 .z64 .zip                           |
 | Nintendo GameCube         | Dolphin Standalone                   | .ciso .dol .elf .gcm .gcz .iso .nkit .iso .rvz .wad .wia .wbfs |
 | Nintendo Wii              | Dolphin Standalone                   | .ciso .dol .elf .gcm .gcz .iso .nkit .iso .rvz .wad .wia .wbfs |
-| Nintendo Wii U            | Cemu ( Proton )                      | .rpx .wud .wux                                                 |
+| Nintendo Wii U            | Cemu                                 | .rpx .wud .wux                                                 |
 | Nintendo Switch           | Yuzu                                 | .kp .nca .nro .nso .nsp .xci                                   |
 | Super Nintendo            | Retroarch Snes9x Current core        | .7z .bs .fig .sfc .smc .swx .zip                               |
 | Super Nintendo Widescreen | Retroarch bsnes hd beta Current core | .7z .bs .fig .sfc .smc .swx .zip                               |
