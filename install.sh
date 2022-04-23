@@ -445,6 +445,8 @@ if [ $doDolphin == true ]; then
 		echo -e "${GREEN}OK!${NONE}"
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.DolphinEmu.dolphin-emu/ ~/.var/app/org.DolphinEmu.dolphin-emu/ &>> ~/emudeck/emudeck.log
+	
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
 fi
 if [ $doPCSX2 == true ]; then
 	FOLDER=~/.var/app/net.pcsx2.PCSX2/config_bak
