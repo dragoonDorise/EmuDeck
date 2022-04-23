@@ -512,10 +512,25 @@ if [ $doInstallYuzu == "true" ]; then
 fi
 
 #Cemu
-echo -e "Installing Cemu"
-flatpak remote-add --user --if-not-exists withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo
-flatpak install withertech info.cemu.Cemu -y &>> ~/emudeck/emudeck.log
-flatpak install flathub org.winehq.Wine -y &>> ~/emudeck/emudeck.log
+if [ $doInstallCemu == "true" ]; then
+	echo -e "Installing Cemu"
+	text="`printf "<b>Cemu flatpak requires adding Witherking25\'s flatpak repo</b>\nthis is required for cemu now"`"
+	zenity --question \
+			--title="EmuDeck" \
+			--width=250 \
+			--ok-label="Install WitherTech flatpak repo" \
+			--cancel-label="Ignore" \
+			--text="${text}" &>> /dev/null
+	ans=$?
+	if [ $ans -eq 0 ]; then
+		flatpak remote-add --user --if-not-exists withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo
+		flatpak install withertech info.cemu.Cemu -y &>> ~/emudeck/emudeck.log
+		flatpak install flathub org.winehq.Wine -y &>> ~/emudeck/emudeck.log
+	else
+		 echo "WitherTech repo: No" &>> ~/emudeck/emudeck.log
+	fi
+
+fi
 
 echo -e ""
 
@@ -710,7 +725,7 @@ if [ $doUpdateYuzu == true ]; then
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/ &>> ~/emudeck/emudeck.log
 fi
-if [ $doCemu == true ]; then
+if [ $doUpdateCemu == true ]; then
 	FOLDER=~/.var/app/info.cemu.Cemu/data
 	if [ -d "$FOLDER" ]; then
 		echo "" &>> ~/emudeck/emudeck.log
