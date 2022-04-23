@@ -138,3 +138,8 @@
 - Fixed issues with bios paths when using internal storage
 - Better BIOS detection for PS1 and PS2
 - Fixes autoload / autosave option on RetroArch
+
+  0.15.5
+
+- Bug Fix RA save configuration file issue
+- Fix Mesen Bezels
