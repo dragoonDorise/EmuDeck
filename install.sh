@@ -526,23 +526,31 @@ fi
 
 #Cemu
 if [ $doInstallCemu == "true" ]; then
-	echo -e "Installing Cemu"
-	text="`printf "<b>Cemu flatpak requires adding Witherking25\'s flatpak repo</b>\nthis is required for cemu now"`"
-	zenity --question \
-			--title="EmuDeck" \
-			--width=250 \
-			--ok-label="Install WitherTech flatpak repo" \
-			--cancel-label="Ignore" \
-			--text="${text}" &>> /dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		flatpak remote-add --user --if-not-exists withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo
-		flatpak install withertech info.cemu.Cemu -y &>> ~/emudeck/emudeck.log
-		flatpak install flathub org.winehq.Wine -y &>> ~/emudeck/emudeck.log
-	else
-		 echo "WitherTech repo: No" &>> ~/emudeck/emudeck.log
+	echo -e "Installing Cemu"	
+	# Old Win CEMU
+	#FILE="${romsPath}/wiiu/Cemu.exe"	
+	#if [ -f "$FILE" ]; then
+	#	echo "" &>> /dev/null
+	#else
+	#	curl https://cemu.info/releases/cemu_1.26.2.zip --output $romsPath/wiiu/cemu_1.26.2.zip &>> ~/emudeck/emudeck.log
+	#	unzip -o "$romsPath"/wiiu/cemu_1.26.2.zip -d "$romsPath"/wiiu/tmp &>> ~/emudeck/emudeck.log
+	#	mv "$romsPath"/wiiu/tmp/*/* "$romsPath"/wiiu &>> ~/emudeck/emudeck.log
+	#	rm -rf "$romsPath"/wiiu/tmp &>> ~/emudeck/emudeck.log
+	#	rm -f "$romsPath"/wiiu/cemu_1.26.2.zip &>> ~/emudeck/emudeck.log
+	#fi
+	flatpak remote-add --user --if-not-exists withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo &>> ~/emudeck/emudeck.log
+	flatpak install withertech info.cemu.Cemu -y &>> ~/emudeck/emudeck.log
+	flatpak install flathub org.winehq.Wine -y &>> ~/emudeck/emudeck.log
+	
+	#We move roms to the new path
+	DIR=$romsPath/wiiu/roms/
+	if [ -d "$DIR" ]; then			
+		mv $romsPath/wiiu/roms/ $romsPath/wiiutemp
+		mv $romsPath/wiiu/Cemu.exe $romsPath/wiiu/Cemu.bak
+		rsync -ri $romsPath/wiiu/ ~/.var/app/info.cemu.Cemu/data/cemu/
+		mv $romsPath/wiiu/ $romsPath/wiiu_delete_me
+		mv $romsPath/wiiutemp/ $romsPath/wiiu/
 	fi
-
 fi
 
 echo -e ""
@@ -762,15 +770,23 @@ if [ $doUpdateYuzu == true ]; then
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/ &>> ~/emudeck/emudeck.log
 fi
 if [ $doUpdateCemu == true ]; then
-	FOLDER=~/.var/app/info.cemu.Cemu/data
-	if [ -d "$FOLDER" ]; then
-		echo "" &>> ~/emudeck/emudeck.log
-	else
-		echo -ne "Backing up Cemu..."
-		cp -r ~/.var/app/info.cemu.Cemu/data ~/.var/app/info.cemu.Cemu/data_bak &>> ~/emudeck/emudeck.log
-		echo -e "${GREEN}OK!${NONE}"
+	echo "" &>> ~/emudeck/emudeck.log
+	#We move roms to the new path
+	DIR=$romsPath/wiiu/roms/
+	if [ -d "$DIR" ]; then	
+		echo -e "Updating Cemu to Flatpak version"
+		flatpak remote-add --user --if-not-exists withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo &>> ~/emudeck/emudeck.log
+		flatpak install withertech info.cemu.Cemu -y &>> ~/emudeck/emudeck.log
+		flatpak install flathub org.winehq.Wine -y &>> ~/emudeck/emudeck.log
+		echo -e "Moving your WiiU games and configuration to the new Cemu"
+		mv $romsPath/wiiu/roms/ $romsPath/wiiutemp
+		mv $romsPath/wiiu/Cemu.exe $romsPath/wiiu/Cemu.bak
+		rsync -ri $romsPath/wiiu/ ~/.var/app/info.cemu.Cemu/data/cemu/
+		mv $romsPath/wiiu/ $romsPath/wiiu_delete_me
+		mv $romsPath/wiiutemp/ $romsPath/wiiu/
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ &>> ~/emudeck/emudeck.log
+	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/cemu/ "$romsPath"/wiiu &>> ~/emudeck/emudeck.log
 fi
 if [ $doUpdateRyujinx == true ]; then
 	echo "" &>> ~/emudeck/emudeck.log
