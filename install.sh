@@ -105,25 +105,23 @@ else
 	destination="INTERNAL"
 fi
 
-emulationPath=~/Emulation/
-romsPath=~/Emulation/roms/
-toolsPath=~/Emulation/tools/
-biosPath=~/Emulation/bios/
+
+emulationPathInternal=~/Emulation/
+romsPathInternal=~/Emulation/roms/
+toolsPathInternal=~/Emulation/tools/
+biosPathInternal=~/Emulation/bios/
+
+emulationPathSdcard="/run/media/mmcblk0p1/"
+romsPathSdcard="/run/media/mmcblk0p1/roms/"
+toolsPathSdcard="/run/media/mmcblk0p1/tools/"
+biosPathSdcard="/run/media/mmcblk0p1/bios"
+
 
 if [ $destination == "SD" ]; then
 	#check if sd card exists
 	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
 	
-	#Detect non ext4 cards. Not enabled because of issues when creating symlinks.
-	#if [ "$(ls -A /run/media/deck)" ]; then
-	#	sdCard=$(ls /run/media/deck | grep -ve '^deck$' | head -n1)
-	#	sdCard="/run/media/deck/${sdCard}"
-	#else
-	#	#mmcblk0p1
-	#	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
-	#	sdCard="/run/media/${sdCard}"
-	#fi
-	
+
 	if [ "$sdCard" != "mmcblk0p1" ]; then
 		text="`printf "<b>You need to format your SD Card using Steam UI</b>\nEmuDeck will not work if your SD card is not formatted in ext4 format because of SteamOS permissions limitations on other non ext4 formatted cards.\nPlease come back when your SD Card is ready"`"
 		zenity --error \
@@ -133,11 +131,17 @@ if [ $destination == "SD" ]; then
 		exit
 	fi
 	
-	sdCardFull="/run/media/${sdCard}"
-	emulationPath="${sdCardFull}/Emulation/"
-	romsPath="${sdCardFull}/Emulation/roms/"
-	toolsPath="${sdCardFull}/Emulation/tools/"
-	biosPath="${sdCardFull}/Emulation/bios/"
+	emulationPath="$emulationPathSdcard"
+	romsPath="$romsPathSdcard"
+	toolsPath="$toolsPathSdcard"
+	biosPath="$biosPathSdcard"
+
+else
+
+	emulationPath="$emulationPathInternal"
+	romsPath="$romsPathInternal"
+	toolsPath="$toolsPathInternal"
+	biosPath="$biosPathInternal"
 
 fi
 
@@ -436,6 +440,25 @@ if [ $doPrimeHacks == true ]; then
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/io.github.shiiion.primehack/ ~/.var/app/io.github.shiiion.primehack/ &>> ~/emudeck/emudeck.log
 fi
 if [ $doDolphin == true ]; then
+
+	# Check if there's an existing MAC address and Analytics ID in the Dolphin config
+	config_path="~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
+	WirelessMacOld=$(grep -E "^WirelessMac" $config_path | cut -d\= -f2)
+	AnalyticsIDold=$(grep -E "ID ?= ?[0-9a-f]{32}" $config_path | cut -d\= -f2)
+
+	if [ $AnalyticsIDold == "5dafeb10390683e209b75d2b10f75d84" ]; then
+		# This is the "old" analytics ID which might be shared across a bunch of installations.
+		# If we find that, delete it and generate a new one.
+		AnalyticsIDold=""
+	fi
+
+	if [ "$WirelessMacOld" == "00:17:ab:19:e1:58" ]; then
+		# That's the "old" MAC which might be shared across installations
+		# Delete and have Dolphin generate a new one.
+		WirelessMacOld=""
+	fi
+
+
 	FOLDER=~/.var/app/org.DolphinEmu.dolphin-emu/config_bak
 	if [ -d "$FOLDER" ]; then
 		echo "" &>> ~/emudeck/emudeck.log
@@ -446,7 +469,27 @@ if [ $doDolphin == true ]; then
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.DolphinEmu.dolphin-emu/ ~/.var/app/org.DolphinEmu.dolphin-emu/ &>> ~/emudeck/emudeck.log
 	
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
+	if [ $AnalyticsIDold != "" ]; then
+		# Insert old analytics ID:
+		sed -i "s|@@DOLPHIN_ANALYTICS_ID@@|${AnalyticsIDold}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
+	else
+		# Delete Placeholder so Dolphin regenerates this
+		sed -i "|@@DOLPHIN_ANALYTICS_ID@@|d" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
+	fi
+
+	if [ $WirelessMacOld != "" ]; then
+		# Insert old MAC address:
+		sed -i "s|@@WIRELESS_DEVICE_MAC@@|${WirelessMacOld}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
+	else
+		# Delete Placeholder so Dolphin regenerates this
+		sed -i "|@@WIRELESS_DEVICE_MAC@@|d" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
+	fi
+
+
+	# Add SDcard and Internal ROM paths to Dolphin config
+	sed -i "s|@@ROM_PATH_INTERNAL@@/|${romsPathInternal}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
+	sed -i "s|@@ROM_PATH_SDCARD@@/|${romsPathSdcard}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
+
 fi
 if [ $doPCSX2 == true ]; then
 	FOLDER=~/.var/app/net.pcsx2.PCSX2/config_bak
@@ -485,6 +528,9 @@ if [ $doCitra == true ]; then
 	fi
 
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.citra_emu.citra/ ~/.var/app/org.citra_emu.citra/ &>> ~/emudeck/emudeck.log
+
+	sed -i "s|@@ROM_PATH_INTERNAL@@/|${romsPathInternal}|g" ~/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini
+	sed -i "s|@@ROM_PATH_SDCARD@@/|${romsPathSdcard}|g" ~/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini
 fi
 if [ $doDuck == true ]; then
 	FOLDER=~/.var/app/org.duckstation.DuckStation/data_bak
@@ -539,6 +585,7 @@ ln -sn gamecube gc &>> ~/emudeck/emudeck.log
 #ln -sn genesis megadrive &>> ~/emudeck/emudeck.log
 ln -sn 3ds n3ds &>> ~/emudeck/emudeck.log
 ln -sn arcade mamecurrent &>> ~/emudeck/emudeck.log
+# Why are there three identical symlinks here?
 ln -sn mame mame2003 &>> ~/emudeck/emudeck.log
 ln -sn mame mame2003 &>> ~/emudeck/emudeck.log
 ln -sn mame mame2003 &>> ~/emudeck/emudeck.log
