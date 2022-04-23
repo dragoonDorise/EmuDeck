@@ -1,58 +1,110 @@
 [
   {
-      "parserType": "Glob",
-      "configTitle": "EmulationStationDE",
-      "steamCategory": "${Emulation}",
-      "executableArgs": "",
-      "executableModifier": "\"${exePath}\"",
-      "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/",
-      "steamDirectory": "/home/deck/.steam/steam",
-      "startInDirectory": "",
-      "imageProviders": [
-          "SteamGridDB"
-      ],
-      "titleModifier": "${fuzzyTitle}",
-      "onlineImageQueries": "${${fuzzyTitle}}",
-      "imagePool": "${fuzzyTitle}",
-      "defaultImage": "",
-      "defaultTallImage": "",
-      "defaultHeroImage": "",
-      "defaultLogoImage": "",
-      "defaultIcon": "",
-      "localImages": "",
-      "localTallImages": "",
-      "localHeroImages": "",
-      "localLogoImages": "",
-      "localIcons": "",
-      "disabled": false,
-      "advanced": false,
-      "executable": {
-          "path": "/run/media/mmcblk0p1/Emulation/tools/EmulationStation-DE-x64_SteamDeck.AppImage",
-          "shortcutPassthrough": false,
-          "appendArgsToExecutable": true
-      },
-      "userAccounts": {
-          "specifiedAccounts": "",
-          "skipWithMissingDataDir": true,
-          "useCredentials": true
-      },
-      "parserInputs": {
-          "glob": "${title}@(.AppImage)"
-      },
-      "titleFromVariable": {
-          "limitToGroups": "",
-          "caseInsensitiveVariables": false,
-          "skipFileIfVariableWasNotFound": false,
-          "tryToMatchTitle": false
-      },
-      "fuzzyMatch": {
-          "use": true,
-          "replaceDiacritics": true,
-          "removeCharacters": true,
-          "removeBrackets": true
-      },
-      "parserId": "164824496516097458",
-      "version": 5
+    "parserType": "Glob",
+    "configTitle": "EmulationStationDE",
+    "steamCategory": "${Emulation}",
+    "executableArgs": "",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "imageProviders": ["SteamGridDB"],
+    "titleModifier": "${fuzzyTitle}",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": false,
+    "advanced": false,
+    "executable": {
+      "path": "/run/media/mmcblk0p1/Emulation/tools/EmulationStation-DE-x64_SteamDeck.AppImage",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.AppImage)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "parserId": "164824496516097458",
+    "version": 5
+  },
+
+  {
+    "parserType": "Glob",
+    "configTitle": "3DO",
+    "steamCategory": "${3DO}",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/3do",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}opera_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": false,
+    "advanced": false,
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.iso|.ISO|.bin|.BIN|.chd|.CHD|.cue|.cue)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "${3DO}",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": true
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "parserId": "164785580114332556",
+    "version": 5
   },
   {
     "parserType": "Glob",
@@ -1168,58 +1220,164 @@
     "version": 5
   },
   {
-      "parserType": "Glob",
-      "configTitle": "WiiU - Cemu (.wud, .wux)",
-      "steamCategory": "${WiiU}",
-      "executableArgs": "-f -g \"Z:${filepath}\"",
-      "executableModifier": "\"${exePath}\"",
-      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
-      "steamDirectory": "/home/deck/.steam/steam",
-      "startInDirectory": "",
-      "imageProviders": ["SteamGridDB"],
-      "titleModifier": "${fuzzyTitle}",
-      "onlineImageQueries": "${${fuzzyTitle}}",
-      "imagePool": "${fuzzyTitle}",
-      "defaultImage": "",
-      "defaultTallImage": "",
-      "defaultHeroImage": "",
-      "defaultLogoImage": "",
-      "defaultIcon": "",
-      "localImages": "",
-      "localTallImages": "",
-      "localHeroImages": "",
-      "localLogoImages": "",
-      "localIcons": "",
-      "disabled": false,
-      "advanced": false,
-      "executable": {
-        "path": "/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe",
-        "shortcutPassthrough": false,
-        "appendArgsToExecutable": true
-      },
-      "userAccounts": {
-        "specifiedAccounts": "",
-        "skipWithMissingDataDir": true,
-        "useCredentials": true
-      },
-      "parserInputs": {
-        "glob": "${title}@(7z|7Z|.zip|.ZIP|wux|wud|wad|iso)"
-      },
-      "titleFromVariable": {
-        "limitToGroups": "",
-        "caseInsensitiveVariables": false,
-        "skipFileIfVariableWasNotFound": false,
-        "tryToMatchTitle": false
-      },
-      "fuzzyMatch": {
-        "use": true,
-        "replaceDiacritics": true,
-        "removeCharacters": true,
-        "removeBrackets": true
-      },
-      "parserId": "164824416518097458",
-      "version": 5
+    "parserType": "Glob",
+    "configTitle": "WiiU - Cemu (.wud, .wux)",
+    "steamCategory": "${WiiU}",
+    "executableArgs": "-f -g \"Z:${filepath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "imageProviders": ["SteamGridDB"],
+    "titleModifier": "${fuzzyTitle}",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": false,
+    "advanced": false,
+    "executable": {
+      "path": "/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
     },
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(7z|7Z|.zip|.ZIP|wux|wud|wad|iso)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "parserId": "164824416518097458",
+    "version": 5
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "WiiU - Cemu Flatpak (.rpx)",
+    "steamCategory": "${WiiU}",
+    "executableArgs": "run info.cemu.Cemu -f -g \"Z:${filepath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "imageProviders": ["SteamGridDB"],
+    "titleModifier": "${fuzzyTitle}",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": true,
+    "advanced": false,
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}/**/*.rpx"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "parserId": "164824416516097458",
+    "version": 5
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "WiiU - Cemu Flatpak (.wud, .wux)",
+    "steamCategory": "${WiiU}",
+    "executableArgs": "run info.cemu.Cemu -f -g \"Z:${filepath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "imageProviders": ["SteamGridDB"],
+    "titleModifier": "${fuzzyTitle}",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": true,
+    "advanced": false,
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(7z|7Z|.zip|.ZIP|wux|wud|wad|iso)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "parserId": "164824416518097458",
+    "version": 5
+  },
   {
     "parserType": "Glob",
     "configTitle": "PrimeHacks",
@@ -1728,7 +1886,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.cue|.CUE|.chd|.CHD|.ecm|.ECM|.iso|.ISO|.m3u|.M3U|.mds|.MDS|.pbp|.PBP)"
+      "glob": "${title}@(.cue|.CUE|.bin|.BIN|.img|.IMG|.chd|.CHD|.ecm|.ECM|.iso|.ISO|.m3u|.M3U|.mds|.MDS|.pbp|.PBP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1910,56 +2068,56 @@
     "version": 5
   },
   {
-  "parserType": "Glob",
-  "configTitle": "Sony PlayStation Portable - PPSSPP",
-  "steamCategory": "${PSP - Standalone PPSSPP}",
-  "executableModifier": "\"${exePath}\"",
-  "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psp",
-  "steamDirectory": "/home/deck/.steam/steam",
-  "startInDirectory": "",
-  "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "run org.ppsspp.PPSSPP -f -g \"${filePath}\"",
-  "onlineImageQueries": "${${fuzzyTitle}}",
-  "imagePool": "${fuzzyTitle}",
-  "imageProviders": ["SteamGridDB"],
-  "defaultImage": "",
-  "defaultTallImage": "",
-  "defaultHeroImage": "",
-  "defaultLogoImage": "",
-  "defaultIcon": "",
-  "localImages": "",
-  "localTallImages": "",
-  "localHeroImages": "",
-  "localLogoImages": "",
-  "localIcons": "",
-  "disabled": true,
-  "advanced": false,
-  "userAccounts": {
-    "specifiedAccounts": "",
-    "skipWithMissingDataDir": true,
-    "useCredentials": true
-  },
-  "parserInputs": {
-    "glob": "${title}@(.7z|.7Z|.elf|.ELF|.cso|.CSO|.iso|.ISO|.pbp|.PBP|.prx|.PRX)"
-  },
-  "titleFromVariable": {
-    "limitToGroups": "",
-    "caseInsensitiveVariables": false,
-    "skipFileIfVariableWasNotFound": false,
-    "tryToMatchTitle": false
-  },
-  "fuzzyMatch": {
-    "use": true,
-    "replaceDiacritics": true,
-    "removeCharacters": true,
-    "removeBrackets": true
-  },
-  "executable": {
-    "path": "/usr/bin/flatpak",
-    "shortcutPassthrough": false,
-    "appendArgsToExecutable": true
-  },
-  "parserId": "164785656634747068",
-  "version": 5
+    "parserType": "Glob",
+    "configTitle": "Sony PlayStation Portable - PPSSPP",
+    "steamCategory": "${PSP - Standalone PPSSPP}",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psp",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "executableArgs": "run org.ppsspp.PPSSPP -f -g \"${filePath}\"",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": true,
+    "advanced": false,
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.7z|.7Z|.elf|.ELF|.cso|.CSO|.iso|.ISO|.pbp|.PBP|.prx|.PRX)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "parserId": "164785656634747068",
+    "version": 5
   }
 ]

@@ -124,3 +124,17 @@
 - Fixes a bug on 0.15.3 that prevented the script to finish
 - Amber Elec Hotkeys configured for almost all emulators
 - Hotkeys and Emulators cheatsheet available on github: https://github.com/dragoonDorise/EmuDeck
+
+  0.15.5
+
+- More PS1 formats supported. Thanks to https://github.com/Godsbane
+- SRM always up to date. Thanks to https://github.com/Nikki1993
+- Fixed Atary Linx
+- Fixed symlinks repeating itselfs inside folders
+- Fixes RA save configuration file issue
+- Removes symlinks for MegaDrive y MegaCD
+- Fixed recursive symlinks on yuzu folders
+- Added 3DO support
+- Fixed issues with bios paths when using internal storage
+- Better BIOS detection for PS1 and PS2
+- Fixes autoload / autosave option on RetroArch
