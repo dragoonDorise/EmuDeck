@@ -137,3 +137,4 @@
 - Added 3DO support
 - Fixed issues with bios paths when using internal storage
 - Better BIOS detection for PS1 and PS2
+- Fixes autoload / autosave option on RetroArch
