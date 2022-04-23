@@ -545,8 +545,8 @@ ln -sn mame mame2003 &>> ~/emudeck/emudeck.log
 ln -sn lynx atarilynx &>> ~/emudeck/emudeck.log
 
 #Fixes ESDE
-unlink megacd
-unlink megadrive
+unlink megacd &>> ~/emudeck/emudeck.log
+unlink megadrive &>> ~/emudeck/emudeck.log
 
 cd $(echo $biosPath | tr -d '\r')
 cd yuzu
@@ -555,9 +555,9 @@ ln -sn ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/ .
 
 #Fixes repeated Symlinx
 cd ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/
-unlink keys
+unlink keys &>> ~/emudeck/emudeck.log
 cd ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/
-unlink registered
+unlink registered &>> ~/emudeck/emudeck.log
 
 echo -ne "Cleaning up downloaded files..."	
 rm -rf ~/dragoonDoriseTools	
