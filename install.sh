@@ -792,7 +792,7 @@ if [ $doUpdateCemu == true ]; then
 	echo "" &>> ~/emudeck/emudeck.log
 	#Commented until we get CEMU flatpak working
 	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ &>> ~/emudeck/emudeck.log
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/cemu/ "$romsPath"/wiiu &>> ~/emudeck/emudeck.log
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "$romsPath"/wiiu &>> ~/emudeck/emudeck.log
 fi
 if [ $doUpdateRyujinx == true ]; then
 	echo "" &>> ~/emudeck/emudeck.log
