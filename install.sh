@@ -664,9 +664,9 @@ fi
 if [ $doUpdateDolphin == true ]; then
 
 	# Check if there's an existing MAC address and Analytics ID in the Dolphin config
-	config_path=~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
-	WirelessMacOld=$(grep -E "^WirelessMac" $config_path | cut -d\= -f2)
-	AnalyticsIDold=$(grep -E "ID ?= ?[0-9a-f]{32}" $config_path | cut -d\= -f2)
+	#config_path=~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
+	#WirelessMacOld=$(grep -E "^WirelessMac" $config_path | cut -d\= -f2)
+	#AnalyticsIDold=$(grep -E "ID ?= ?[0-9a-f]{32}" $config_path | cut -d\= -f2)
 
 	FOLDER=~/.var/app/org.DolphinEmu.dolphin-emu/config_bak
 	if [ -d "$FOLDER" ]; then
@@ -680,15 +680,15 @@ if [ $doUpdateDolphin == true ]; then
 	
 	
 	# We add the previous Mac address
-	if [ $AnalyticsIDold != "" ]; then
-		 # Insert old analytics ID:
-		 sed -i "s|@@DOLPHIN_ANALYTICS_ID@@|${AnalyticsIDold}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
-	fi
-	
-	if [ $WirelessMacOld != "" ]; then
-		 # Insert old MAC address:
-		 sed -i "s|@@WIRELESS_DEVICE_MAC@@|${WirelessMacOld}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
-	fi
+	#if [ $AnalyticsIDold != "" ]; then
+	#	 # Insert old analytics ID:
+	#	 sed -i "s|@@DOLPHIN_ANALYTICS_ID@@|${AnalyticsIDold}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
+	#fi
+	#
+	#if [ $WirelessMacOld != "" ]; then
+	#	 # Insert old MAC address:
+	#	 sed -i "s|@@WIRELESS_DEVICE_MAC@@|${WirelessMacOld}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
+	#fi
 		
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
 fi
