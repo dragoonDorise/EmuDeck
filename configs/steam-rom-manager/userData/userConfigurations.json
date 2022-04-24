@@ -22,7 +22,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/EmulationStation-DE-x64_SteamDeck.AppImage",
@@ -75,7 +75,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -128,7 +128,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -181,7 +181,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -234,7 +234,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -287,7 +287,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
@@ -340,7 +340,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -393,7 +393,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -446,7 +446,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -499,7 +499,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -552,7 +552,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -605,7 +605,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -658,7 +658,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -711,7 +711,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -764,7 +764,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -817,7 +817,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
@@ -870,7 +870,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -923,7 +923,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
@@ -976,7 +976,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1029,7 +1029,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1082,7 +1082,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1135,7 +1135,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
@@ -1188,7 +1188,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
@@ -1241,7 +1241,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
@@ -1294,7 +1294,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
@@ -1347,7 +1347,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1400,7 +1400,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1453,7 +1453,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1506,7 +1506,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1559,7 +1559,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
@@ -1612,7 +1612,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
@@ -1665,7 +1665,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1718,7 +1718,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1771,7 +1771,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1824,7 +1824,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1877,7 +1877,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1930,7 +1930,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1983,7 +1983,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
