@@ -1255,7 +1255,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(7z|7Z|.zip|.ZIP|wux|wud|wad|iso)"
+      "glob": "${title}@(wux|wud|wad|iso)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
