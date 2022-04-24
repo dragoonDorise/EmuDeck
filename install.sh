@@ -527,7 +527,7 @@ fi
 #Cemu
 if [ $doInstallCemu == "true" ]; then
 	echo -e "Installing Cemu"	
-	# Old Win CEMU
+	# Old Win CEMU, just in case we need to go back
 	#FILE="${romsPath}/wiiu/Cemu.exe"	
 	#if [ -f "$FILE" ]; then
 	#	echo "" &>> /dev/null
@@ -538,31 +538,24 @@ if [ $doInstallCemu == "true" ]; then
 	#	rm -rf "$romsPath"/wiiu/tmp &>> ~/emudeck/emudeck.log
 	#	rm -f "$romsPath"/wiiu/cemu_1.26.2.zip &>> ~/emudeck/emudeck.log
 	#fi
-	text="`printf "<b>Cemu flatpak requires adding Witherking25\'s flatpak repo</b>\nthis is required for cemu now"`"
-	zenity --question \
-			--title="EmuDeck" \
-			--width=250 \
-			--ok-label="Install WitherTech flatpak repo" \
-			--cancel-label="Ignore" \
-			--text="${text}" &>> /dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		flatpak remote-add --user --if-not-exists withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo &>> ~/emudeck/emudeck.log
-		flatpak install withertech info.cemu.Cemu -y &>> ~/emudeck/emudeck.log
-		flatpak install flathub org.winehq.Wine -y &>> ~/emudeck/emudeck.log
+	echo -e "${BOLD}EmuDeck will add Witherking25's flatpak repo to your Discorver App.this is required for cemu now${NONE}"	
 
-		#We move roms to the new path
-		DIR=$romsPath/wiiu/roms/
-		if [ -d "$DIR" ]; then
-			mv $romsPath/wiiu/roms/ $romsPath/wiiutemp
-			mv $romsPath/wiiu/Cemu.exe $romsPath/wiiu/Cemu.bak
-			rsync -ri $romsPath/wiiu/ ~/.var/app/info.cemu.Cemu/data/cemu/
-			mv $romsPath/wiiu/ $romsPath/wiiu_delete_me
-			mv $romsPath/wiiutemp/ $romsPath/wiiu/
-		fi
+	   
+	flatpak remote-add --user --if-not-exists withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo &>> ~/emudeck/emudeck.log
+	flatpak install withertech info.cemu.Cemu -y &>> ~/emudeck/emudeck.log
+	flatpak install flathub org.winehq.Wine -y &>> ~/emudeck/emudeck.log
+	
+	#We move roms to the new path
+	DIR=$romsPath/wiiu/roms/
+	if [ -d "$DIR" ]; then			
+		mv $romsPath/wiiu/roms/ $romsPath/wiiutemp
+		mv $romsPath/wiiu/Cemu.exe $romsPath/wiiu/Cemu.bak
+		rsync -ri $romsPath/wiiu/ ~/.var/app/info.cemu.Cemu/data/cemu/
+		mv $romsPath/wiiu/ $romsPath/wiiu_delete_me
+		mv $romsPath/wiiutemp/ $romsPath/wiiu/
 	fi
+	
 fi
-
 echo -e ""
 
 
@@ -783,27 +776,17 @@ if [ $doUpdateCemu == true ]; then
 	echo "" &>> ~/emudeck/emudeck.log
 	#We move roms to the new path
 	DIR=$romsPath/wiiu/roms/
-	if [ -d "$DIR" ]; then
+	if [ -d "$DIR" ]; then	
 		echo -e "Updating Cemu to Flatpak version"
-		text="`printf "<b>Cemu flatpak requires adding Witherking25\'s flatpak repo</b>\nthis is required for cemu now"`"
-		zenity --question \
-				--title="EmuDeck" \
-				--width=250 \
-				--ok-label="Install WitherTech flatpak repo" \
-				--cancel-label="Ignore" \
-				--text="${text}" &>> /dev/null
-		ans=$?
-		if [ $ans -eq 0 ]; then
-			flatpak remote-add --user --if-not-exists withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo &>> ~/emudeck/emudeck.log
-			flatpak install withertech info.cemu.Cemu -y &>> ~/emudeck/emudeck.log
-			flatpak install flathub org.winehq.Wine -y &>> ~/emudeck/emudeck.log
-			echo -e "Moving your WiiU games and configuration to the new Cemu"
-			mv $romsPath/wiiu/roms/ $romsPath/wiiutemp
-			mv $romsPath/wiiu/Cemu.exe $romsPath/wiiu/Cemu.bak
-			rsync -ri $romsPath/wiiu/ ~/.var/app/info.cemu.Cemu/data/cemu/
-			mv $romsPath/wiiu/ $romsPath/wiiu_delete_me
-			mv $romsPath/wiiutemp/ $romsPath/wiiu/
-		fi
+		flatpak remote-add --user --if-not-exists withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo &>> ~/emudeck/emudeck.log
+		flatpak install withertech info.cemu.Cemu -y &>> ~/emudeck/emudeck.log
+		flatpak install flathub org.winehq.Wine -y &>> ~/emudeck/emudeck.log
+		echo -e "Moving your WiiU games and configuration to the new Cemu"
+		mv $romsPath/wiiu/roms/ $romsPath/wiiutemp
+		mv $romsPath/wiiu/Cemu.exe $romsPath/wiiu/Cemu.bak
+		rsync -ri $romsPath/wiiu/ ~/.var/app/info.cemu.Cemu/data/cemu/
+		mv $romsPath/wiiu/ $romsPath/wiiu_delete_me
+		mv $romsPath/wiiutemp/ $romsPath/wiiu/
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ &>> ~/emudeck/emudeck.log
 	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/cemu/ "$romsPath"/wiiu &>> ~/emudeck/emudeck.log
@@ -986,7 +969,7 @@ echo "" > ~/emudeck/.finished
 
 clear
 
-text="`printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager to add your games to your SteamUI Interface.\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!"`"
+text="`printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager to add your games to your SteamUI Interface.\n\n<b>Remember that Cemu games needs to be set in compatibility mode in SteamUI: Proton 7 by going into its Properties and then Compatibility</b>\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!"`"
 
 zenity --question \
 		 --title="EmuDeck" \
