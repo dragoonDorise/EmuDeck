@@ -153,6 +153,6 @@
   - Allows users to be able to save its own RA configuration ( Bezels needs to be turned OFF, it's a RA Bug)
   - This mode will allow a lot more in the future: Use non EXT4 SD Cards, use experimental emulators, choose different frontends, etc.
 
-  0.16.2
+    0.16.2
 
-  - Cemu flatpak support! You no longe
+- Cemu installation fixes
