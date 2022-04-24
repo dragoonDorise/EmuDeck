@@ -52,6 +52,7 @@
     "parserId": "164824496516097458",
     "version": 5
   },
+
   {
     "parserType": "Glob",
     "configTitle": "3DO",
@@ -1167,11 +1168,11 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "WiiU - Cemu Flatpak (.rpx)",
+    "configTitle": "WiiU - Cemu (.rpx)",
     "steamCategory": "${WiiU}",
-    "executableArgs": "run info.cemu.Cemu -f -g \"Z:${filepath}\"",
+    "executableArgs": "-f -g \"Z:${filepath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
@@ -1191,7 +1192,7 @@
     "disabled": false,
     "advanced": false,
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -1220,11 +1221,11 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "WiiU - Cemu Flatpak (.wud, .wux)",
+    "configTitle": "WiiU - Cemu (.wud, .wux)",
     "steamCategory": "${WiiU}",
-    "executableArgs": "run info.cemu.Cemu -f -g \"Z:${filepath}\"",
+    "executableArgs": "-f -g \"Z:${filepath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
@@ -1244,7 +1245,7 @@
     "disabled": false,
     "advanced": false,
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -1983,7 +1984,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": false,
+    "disabled": true,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
