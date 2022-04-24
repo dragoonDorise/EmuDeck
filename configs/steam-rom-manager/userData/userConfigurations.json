@@ -1168,7 +1168,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "WiiU - Cemu (.rpx) - Flatpak",
+    "configTitle": "WiiU - Cemu (.rpx)",
     "steamCategory": "${WiiU}",
     "executableArgs": "run info.cemu.Cemu -f -g \"Z:${filepath}\"",
     "executableModifier": "\"${exePath}\"",
@@ -1221,7 +1221,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "WiiU - Cemu (.wud, .wux) - Flatpak",
+    "configTitle": "WiiU - Cemu (.wud, .wux)",
     "steamCategory": "${WiiU}",
     "executableArgs": "run info.cemu.Cemu -f -g \"Z:${filepath}\"",
     "executableModifier": "\"${exePath}\"",

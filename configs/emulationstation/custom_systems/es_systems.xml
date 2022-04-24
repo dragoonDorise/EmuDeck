@@ -2,10 +2,10 @@
 <systemList>
     <system>
         <name>wiiu</name>
-        <fullname>Nintendo Wii U - Flatpak</fullname>
+        <fullname>Nintendo Wii U</fullname>
         <path>%ROMPATH%/wiiu</path>
         <extension>.rpx .RPX .wud .WUD .wux .WUX .7z .7Z .zip .ZIP</extension>
-        <command label="Cemu (Standalone) - Flatpak">%EMULATOR_CEMU_FLATPAK% -f -g %ROM%</command>
+        <command label="Cemu (Standalone)">%EMULATOR_CEMU% -f -g %ROM%</command>
         <platform>wiiu</platform>
         <theme>wiiu</theme>
     </system>

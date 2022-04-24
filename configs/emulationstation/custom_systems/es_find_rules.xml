@@ -254,7 +254,7 @@
             <entry>~/bin/yuzu*.AppImage</entry>
         </rule>
     </emulator>
-    <emulator name="CEMU_FLATPAK">
+    <emulator name="CEMU">
         <!-- Nintendo WiiU emulator Cemu -->
         <rule type="systempath">
             <entry>cemu</entry>
