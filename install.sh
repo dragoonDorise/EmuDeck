@@ -556,10 +556,14 @@ if [ $doInstallCemu == "true" ]; then
 
 		echo -e "Moving your WiiU games and configuration to the new Cemu...This might take a while"
 		mv $romsPath/wiiu/roms/ $romsPath/wiiutemp &>> ~/emudeck/emudeck.log
+		sleep 1
 		mv $romsPath/wiiu/Cemu.exe $romsPath/wiiu/Cemu.bak &>> ~/emudeck/emudeck.log
+		sleep 1
 		rsync -ri $romsPath/wiiu/ ~/.var/app/info.cemu.Cemu/data/cemu/ &>> ~/emudeck/emudeck.log
+		sleep 1
 		mv $romsPath/wiiu/ $romsPath/wiiu_delete_me &>> ~/emudeck/emudeck.log
-		mv $romsPath/wiiutemp/ $romsPath/wiiu/ &>> ~/emudeck/emudeck.log
+		sleep 1
+		mv $romsPath/wiiutemp/ $romsPath/wiiu/ &>> ~/emudeck/emudeck.log		
 		
 		zenity --info \
 		   --title="EmuDeck" \
