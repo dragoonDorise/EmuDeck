@@ -1202,7 +1202,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}/**/*.rpx"
+      "glob": "${title}/**/*@(.rpx|.RPX)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1221,7 +1221,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "WiiU - Cemu (.wud, .wux)",
+    "configTitle": "WiiU - Cemu (.wud, .wux .iso .wad .elf)",
     "steamCategory": "${WiiU}",
     "executableArgs": "run info.cemu.Cemu -f -g \"Z:${filepath}\"",
     "executableModifier": "\"${exePath}\"",
@@ -1255,7 +1255,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(wux|wud|wad|iso)"
+      "glob": "${title}@(.wux|.WUX|.wud|.WUD|.wad|.WAD|.iso|.ISO|.elf|.ELF)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
