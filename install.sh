@@ -553,6 +553,12 @@ if [ $doInstallCemu == "true" ]; then
 		rsync -ri $romsPath/wiiu/ ~/.var/app/info.cemu.Cemu/data/cemu/
 		mv $romsPath/wiiu/ $romsPath/wiiu_delete_me
 		mv $romsPath/wiiutemp/ $romsPath/wiiu/
+		
+		zenity --info \
+		   --title="EmuDeck" \
+		   --width=250 \
+		   --text="We have updated your CEMU installation, you will need to open Steam Rom Manager and add your Wii U games again. This time you don't need to set CEMU to use Proton ever again :)"		   
+		   
 	fi
 	
 fi
@@ -787,6 +793,10 @@ if [ $doUpdateCemu == true ]; then
 		rsync -ri $romsPath/wiiu/ ~/.var/app/info.cemu.Cemu/data/cemu/
 		mv $romsPath/wiiu/ $romsPath/wiiu_delete_me
 		mv $romsPath/wiiutemp/ $romsPath/wiiu/
+		zenity --info \
+		   --title="EmuDeck" \
+		   --width=250 \
+		   --text="We have updated your CEMU installation, you will need to open Steam Rom Manager and add your Wii U games again. This time you don't need to set CEMU to use Proton ever again :)"
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ &>> ~/emudeck/emudeck.log
 	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/cemu/ "$romsPath"/wiiu &>> ~/emudeck/emudeck.log
