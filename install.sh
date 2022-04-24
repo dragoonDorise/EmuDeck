@@ -539,25 +539,25 @@ if [ $doInstallCemu == "true" ]; then
 	#	rm -f "$romsPath"/wiiu/cemu_1.26.2.zip &>> ~/emudeck/emudeck.log
 	#fi
 	echo -e "${BOLD}EmuDeck will add Witherking25's flatpak repo to your Discorver App.this is required for cemu now${NONE}"	
-
-	   
+	   	
 	flatpak remote-add --user --if-not-exists withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo &>> ~/emudeck/emudeck.log
 	flatpak install withertech info.cemu.Cemu -y &>> ~/emudeck/emudeck.log
 	flatpak install flathub org.winehq.Wine -y &>> ~/emudeck/emudeck.log
 	
 	#We move roms to the new path
 	DIR=$romsPath/wiiu/roms/
-	if [ -d "$DIR" ]; then			
-		mv $romsPath/wiiu/roms/ $romsPath/wiiutemp
-		mv $romsPath/wiiu/Cemu.exe $romsPath/wiiu/Cemu.bak
-		rsync -ri $romsPath/wiiu/ ~/.var/app/info.cemu.Cemu/data/cemu/
-		mv $romsPath/wiiu/ $romsPath/wiiu_delete_me
-		mv $romsPath/wiiutemp/ $romsPath/wiiu/
+	if [ -d "$DIR" ]; then					
+		echo -e "Moving your WiiU games and configuration to the new Cemu...This might take a while"
+		mv $romsPath/wiiu/roms/ $romsPath/wiiutemp &>> ~/emudeck/emudeck.log
+		mv $romsPath/wiiu/Cemu.exe $romsPath/wiiu/Cemu.bak &>> ~/emudeck/emudeck.log
+		rsync -ri $romsPath/wiiu/ ~/.var/app/info.cemu.Cemu/data/cemu/ &>> ~/emudeck/emudeck.log
+		mv $romsPath/wiiu/ $romsPath/wiiu_delete_me &>> ~/emudeck/emudeck.log
+		mv $romsPath/wiiutemp/ $romsPath/wiiu/ &>> ~/emudeck/emudeck.log
 		
 		zenity --info \
 		   --title="EmuDeck" \
 		   --width=250 \
-		   --text="We have updated your CEMU installation, you will need to open Steam Rom Manager and add your Wii U games again. This time you don't need to set CEMU to use Proton ever again :)"		   
+		   --text="We have updated your CEMU installation, you will need to open Steam Rom Manager and add your Wii U games again. This time you don't need to set CEMU to use Proton ever again :)" &>> ~/dev/null
 		   
 	fi
 	
@@ -783,20 +783,20 @@ if [ $doUpdateCemu == true ]; then
 	#We move roms to the new path
 	DIR=$romsPath/wiiu/roms/
 	if [ -d "$DIR" ]; then	
-		echo -e "Updating Cemu to Flatpak version"
+		echo -e "Updating Cemu to Flatpak version...This might take a while"
 		flatpak remote-add --user --if-not-exists withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo &>> ~/emudeck/emudeck.log
 		flatpak install withertech info.cemu.Cemu -y &>> ~/emudeck/emudeck.log
 		flatpak install flathub org.winehq.Wine -y &>> ~/emudeck/emudeck.log
-		echo -e "Moving your WiiU games and configuration to the new Cemu"
-		mv $romsPath/wiiu/roms/ $romsPath/wiiutemp
-		mv $romsPath/wiiu/Cemu.exe $romsPath/wiiu/Cemu.bak
-		rsync -ri $romsPath/wiiu/ ~/.var/app/info.cemu.Cemu/data/cemu/
-		mv $romsPath/wiiu/ $romsPath/wiiu_delete_me
-		mv $romsPath/wiiutemp/ $romsPath/wiiu/
+		echo -e "Moving your WiiU games and configuration to the new Cemu...This might take a while"
+		mv $romsPath/wiiu/roms/ $romsPath/wiiutemp &>> ~/emudeck/emudeck.log
+		mv $romsPath/wiiu/Cemu.exe $romsPath/wiiu/Cemu.bak &>> ~/emudeck/emudeck.log
+		rsync -ri $romsPath/wiiu/ ~/.var/app/info.cemu.Cemu/data/cemu/ &>> ~/emudeck/emudeck.log
+		mv $romsPath/wiiu/ $romsPath/wiiu_delete_me &>> ~/emudeck/emudeck.log
+		mv $romsPath/wiiutemp/ $romsPath/wiiu/ &>> ~/emudeck/emudeck.log
 		zenity --info \
 		   --title="EmuDeck" \
 		   --width=250 \
-		   --text="We have updated your CEMU installation, you will need to open Steam Rom Manager and add your Wii U games again. This time you don't need to set CEMU to use Proton ever again :)"
+		   --text="We have updated your CEMU installation, you will need to open Steam Rom Manager and add your Wii U games again. This time you don't need to set CEMU to use Proton ever again :)" &>> ~/dev/null
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ &>> ~/emudeck/emudeck.log
 	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/cemu/ "$romsPath"/wiiu &>> ~/emudeck/emudeck.log

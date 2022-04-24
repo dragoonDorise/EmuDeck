@@ -52,7 +52,6 @@
     "parserId": "164824496516097458",
     "version": 5
   },
-
   {
     "parserType": "Glob",
     "configTitle": "3DO",
@@ -1168,7 +1167,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "WiiU - Cemu (.rpx)",
+    "configTitle": "WiiU - Cemu Flatpak (.rpx)",
     "steamCategory": "${WiiU}",
     "executableArgs": "run info.cemu.Cemu -f -g \"Z:${filepath}\"",
     "executableModifier": "\"${exePath}\"",
@@ -1202,7 +1201,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}/**/*@(.rpx|.RPX)"
+      "glob": "${title}/**/*.rpx"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1221,7 +1220,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "WiiU - Cemu (.wud, .wux .iso .wad .elf)",
+    "configTitle": "WiiU - Cemu Flatpak (.wud, .wux)",
     "steamCategory": "${WiiU}",
     "executableArgs": "run info.cemu.Cemu -f -g \"Z:${filepath}\"",
     "executableModifier": "\"${exePath}\"",
@@ -1255,7 +1254,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.wux|.WUX|.wud|.WUD|.wad|.WAD|.iso|.ISO|.elf|.ELF)"
+      "glob": "${title}@(7z|7Z|.zip|.ZIP|wux|wud|wad|iso)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1984,7 +1983,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
