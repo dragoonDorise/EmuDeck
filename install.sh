@@ -564,7 +564,7 @@ if [ $doInstallCemu == "true" ]; then
 		zenity --info \
 		   --title="EmuDeck" \
 		   --width=250 \
-		   --text="We have updated your CEMU installation, you will need to open Steam Rom Manager and add your Wii U games again. This time you don't need to set CEMU to use Proton ever again :)" &>> ~/dev/null
+		   --text="We have updated your CEMU installation, you will need to open Steam Rom Manager and add your Wii U games again. This time you don't need to set CEMU to use Proton ever again :)" &>> /dev/null
 		   
 	fi
 	
