@@ -998,6 +998,31 @@ fi
 # We mark the script as finished	
 echo "" > ~/emudeck/.finished
 
+#We create new icons
+rm -rf ~/Desktop/EmuDeckUninstall.desktop &>> /dev/null
+echo '#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Uninstall EmuDeck
+Exec=curl https://raw.githubusercontent.com/dragoonDorise/EmuDeck/main/uninstall.sh | bash -s -- SD
+Icon=delete
+Terminal=true
+Type=Application
+StartupNotify=false' > ~/Desktop/EmuDeckUninstall.desktop
+chmod +x ~/Desktop/EmuDeckUninstall.desktop
+
+rm -rf ~/Desktop/EmuDeck.desktop &>> /dev/null
+rm -rf ~/Desktop/EmuDeckSD.desktop &>> /dev/null
+echo "#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=EmuDeck (${version})
+Exec=curl https://raw.githubusercontent.com/dragoonDorise/EmuDeck/main/install.sh | bash -s -- SD
+Icon=steamdeck-gaming-return
+Terminal=true
+Type=Application
+StartupNotify=false" > ~/Desktop/EmuDeck.desktop
+chmod +x ~/Desktop/EmuDeck.desktop
+
+
 clear
 
 text="`printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager to add your games to your SteamUI Interface.\n\n<b>Remember that Cemu games needs to be set in compatibility mode in SteamUI: Proton 7 by going into its Properties and then Compatibility</b>\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!"`"
