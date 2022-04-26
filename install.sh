@@ -67,8 +67,6 @@ romsPath=~/Emulation/roms/
 toolsPath=~/Emulation/tools/
 biosPath=~/Emulation/bios/
 
-clear
-
 echo -ne "${BOLD}Downloading files...${NONE}"
 sleep 5
 
@@ -167,11 +165,13 @@ if [ $destination == "SD" ]; then
 	romsPath="${sdCardFull}/Emulation/roms/"
 	toolsPath="${sdCardFull}/Emulation/tools/"
 	biosPath="${sdCardFull}/Emulation/bios/"
+	ESDEscrapData="${sdCardFull}/Emulation/tools/downloaded_media"
 
 fi
 
 mkdir -p "$emulationPath"
 mkdir -p "$toolsPath"
+
 #Cleanup for old users
 find "$romsPath" -name "readme.md" -type f -delete &>> ~/emudeck/emudeck.log
 
@@ -475,9 +475,18 @@ if [ $doInstallESDE == true ]; then
 	echo "ESDE: Yes" &>> ~/emudeck/emudeck.log
 	echo -e "${BOLD}${installString} EmulationStation Desktop Edition${NONE}"
 	curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/34287334/download --output "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage >> ~/emudeck/emudeck.log
-	chmod +x "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage
+	chmod +x "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage	
 fi
 
+#We check if we have scrapped data on ESDE so we can move it to the SD card
+#We do this wether the user wants to install ESDE or not to account for old users that might have ESDE already installed and won't update
+if [ $destination == "SD" ]; then		
+	#Symlink already created?
+	if [ ! -d "$ESDEscrapData" ]; then		
+		echo -e "Moving EmulationStation downloaded media to the SD Card"			
+		mv ~/.emulationstation/downloaded_media $ESDEscrapData && rm -rf ~/.emulationstation/downloaded_media && ln -sn $ESDEscrapData ~/.emulationstation/downloaded_media			
+	fi			
+fi
 
 #SRM Installation
 if [ $doInstallSRM == true ]; then
