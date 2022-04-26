@@ -149,14 +149,33 @@ if [ $destination == "SD" ]; then
 	#	sdCard="/run/media/${sdCard}"
 	#fi
 	
+	#We check the SD Card fylesysten
+	SDFS=$(df -Th | grep "/run/media")
+	exitInstallation=false
+	if [[ "$SDFS" != *"ext4"* ]]; then
+	  exitInstallation=true
+	fi
+	
+	#Support for btrfs cards
+	#if [[ "$SDFS" == *"btrfs"* ]]; then
+	#  exitInstallation=false
+	#fi
+	
 	if [ "$sdCard" != "mmcblk0p1" ]; then
+		exitInstallation=true
+	else
+		exitInstallation=false		
+	fi
+	
+	
+	if [ $exitInstallation == true ]; then
 		text="`printf "<b>You need to format your SD Card using Steam UI</b>\nEmuDeck will not work if your SD card is not formatted in ext4 format because of SteamOS permissions limitations on other non ext4 formatted cards.\nPlease come back when your SD Card is ready"`"
 		zenity --error \
 				--title="EmuDeck Error" \
 				--width=400 \
 				--text="${text}" &>> /dev/null
 		exit
-	fi
+	fi	
 
 	sdCardFull="/run/media/${sdCard}"
 	
