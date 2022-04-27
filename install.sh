@@ -823,15 +823,16 @@ if [ $doUpdatePPSSPP == true ]; then
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ppsspp.PPSSPP/ ~/.var/app/org.ppsspp.PPSSPP/ &>> ~/emudeck/emudeck.log
 fi
 if [ $doUpdateXemu == true ]; then
-	FOLDER=~/.var/app/app.xemu.xemu/config_bak
+	FOLDER=~/.var/app/app.xemu.xemu/data/xemu/xemu_bak
 	if [ -d "$FOLDER" ]; then
 		echo "" &>> ~/emudeck/emudeck.log
 	else
 		echo -ne "Backing up Xemu..."
-		cp -r ~/.var/app/app.xemu.xemu/config ~/.var/app/app.xemu.xemu/config_bak &>> ~/emudeck/emudeck.log
+		cp -r ~/.var/app/app.xemu.xemu/data/xemu/xemu ~/.var/app/app.xemu.xemu/data/xemu/xemu_bak &>> ~/emudeck/emudeck.log
 		echo -e "${GREEN}OK!${NONE}"
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/app.xemu.xemu/ ~/.var/app/app.xemu.xemu/ &>> ~/emudeck/emudeck.log
+	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.ini
 fi
 echo -e "${GREEN}OK!${NONE}"
 
