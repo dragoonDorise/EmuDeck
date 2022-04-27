@@ -2013,5 +2013,60 @@
     },
     "parserId": "164785656634747068",
     "version": 5
+  },
+  {
+      "parserType": "Glob",
+      "configTitle": "Microsoft XBox - Xemu",
+      "steamCategory": "${XBox}",
+      "executableArgs": "run app.xemu.xemu -full-screen -dvd_path \"${filepath}\"",
+      "executableModifier": "\"${exePath}\"",
+      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/xbox",
+      "steamDirectory": "/home/deck/.steam/steam",
+      "startInDirectory": "",
+      "imageProviders": [
+          "SteamGridDB"
+      ],
+      "titleModifier": "${fuzzyTitle}",
+      "onlineImageQueries": "${${fuzzyTitle}}",
+      "imagePool": "${fuzzyTitle}",
+      "defaultImage": "",
+      "defaultTallImage": "",
+      "defaultHeroImage": "",
+      "defaultLogoImage": "",
+      "defaultIcon": "",
+      "localImages": "",
+      "localTallImages": "",
+      "localHeroImages": "",
+      "localLogoImages": "",
+      "localIcons": "",
+      "disabled": true,
+      "advanced": false,
+      "executable": {
+          "path": "/usr/bin/flatpak",
+          "shortcutPassthrough": false,
+          "appendArgsToExecutable": true
+      },
+      "userAccounts": {
+          "specifiedAccounts": "",
+          "skipWithMissingDataDir": true,
+          "useCredentials": true
+      },
+      "parserInputs": {
+          "glob": "${title}@(.iso|.ISO)"
+      },
+      "titleFromVariable": {
+          "limitToGroups": "",
+          "caseInsensitiveVariables": false,
+          "skipFileIfVariableWasNotFound": false,
+          "tryToMatchTitle": false
+      },
+      "fuzzyMatch": {
+          "use": true,
+          "replaceDiacritics": true,
+          "removeCharacters": true,
+          "removeBrackets": true
+      },
+      "parserId": "165103607715056732",
+      "version": 5
   }
 ]
