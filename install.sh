@@ -40,6 +40,7 @@ doUpdateCemu=true
 doUpdateRyujinx=true
 doUpdatePrimeHacks=true
 doUpdatePPSSPP=true
+doUpdateXemu
 
 #Install all systems by default
 doInstallSRM=true
@@ -54,6 +55,7 @@ doInstallDuck=false
 doInstallCemu=false
 doInstallPrimeHacks=false
 doInstallPPSSPP=false
+doInstallXemu=false
 installString='Installing'
 
 #Default RetroArch configuration 
@@ -255,7 +257,8 @@ if [ $expert == true ]; then
 				7 "Duckstation" \
 				8 "PPSSPP" \
 				9 "Yuzu" \
-				10 "Cemu")
+				10 "Cemu" \
+				11 "Xemu" )
 	clear
 	ans=$?	
 	if [ $ans -eq 0 ]; then
@@ -290,7 +293,9 @@ if [ $expert == true ]; then
 		if [[ "$emusToInstall" == *"Cemu"* ]]; then
 			doInstallCemu=true
 		fi
-		
+		if [[ "$emusToInstall" == *"Xemu"* ]]; then
+			doInstallXemu=true
+		fi
 	else
 		exit
 	fi
@@ -414,7 +419,8 @@ if [ $expert == true ]; then
 							7 "Duckstation" \
 							8 "PPSSPP" \
 							9 "Yuzu" \
-							10 "Cemu")
+							10 "Cemu" \
+							11 "Xemu")
 		clear
 		cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 		echo -e "${BOLD}EmuDeck ${version}${NONE}"
@@ -451,6 +457,9 @@ if [ $expert == true ]; then
 			if [[ "$emusToReset" == *"Cemu"* ]]; then
 				doUpdateCemu=false
 			fi
+			if [[ "$emusToReset" == *"Xemu"* ]]; then
+				doUpdateCemu=false
+			fi
 			
 		else
 			echo "WTF"
@@ -470,6 +479,7 @@ else
 	doInstallCemu=true
 	doInstallPrimeHacks=true
 	doInstallPPSSPP=true
+	doInstallXemu=true
 
 fi # end Expert if
 
@@ -557,7 +567,10 @@ if [ $doInstallYuzu == "true" ]; then
 	echo -e "Installing Yuzu"
 	flatpak install flathub org.yuzu_emu.yuzu -y &>> ~/emudeck/emudeck.log
 fi
-
+if [ $doInstallXemu == "true" ]; then
+	echo -e "Installing Xemu"
+	flatpak install flathub app.xemu.xemu -y &>> ~/emudeck/emudeck.log
+fi
 
 echo -e ""
 
@@ -837,7 +850,18 @@ if [ $doUpdatePPSSPP == true ]; then
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ppsspp.PPSSPP/ ~/.var/app/org.ppsspp.PPSSPP/ &>> ~/emudeck/emudeck.log
 fi
-
+if [ $doUpdateXemu == true ]; then
+	FOLDER=~/.var/app/app.xemu.xemu/data/xemu/xemu_bak
+	if [ -d "$FOLDER" ]; then
+		echo "" &>> ~/emudeck/emudeck.log
+	else
+		echo -ne "Backing up Xemu..."
+		cp -r ~/.var/app/app.xemu.xemu/data/xemu/xemu ~/.var/app/app.xemu.xemu/data/xemu/xemu_bak &>> ~/emudeck/emudeck.log
+		echo -e "${GREEN}OK!${NONE}"
+	fi
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/app.xemu.xemu/ ~/.var/app/app.xemu.xemu/ &>> ~/emudeck/emudeck.log
+	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.ini
+fi
 echo -e "${GREEN}OK!${NONE}"
 
 #Symlinks for ESDE compatibility
