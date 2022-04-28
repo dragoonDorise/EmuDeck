@@ -40,6 +40,7 @@ doUpdateCemu=true
 doUpdateRyujinx=true
 doUpdatePrimeHacks=true
 doUpdatePPSSPP=true
+doUpdateXemu
 
 #Install all systems by default
 doInstallSRM=true
@@ -54,6 +55,7 @@ doInstallDuck=false
 doInstallCemu=false
 doInstallPrimeHacks=false
 doInstallPPSSPP=false
+doInstallXemu=false
 installString='Installing'
 
 #Default RetroArch configuration 
@@ -137,9 +139,33 @@ fi
 
 if [ $destination == "SD" ]; then
 	#check if sd card exists
-	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
-	
+	#sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
+	#check dev to see if sd card is inserted and has a partition
+	if [ -b "/dev/mmcblk0p1" ]
+		#test if card is ext4
+		if [ $(findmnt -n --raw --evaluate --output=fstype -S /dev/mmcblk0p1)="ext4" ]; then
+			# use findmnt to explicitly find the path where the first partition on the SD card is mounted.
+			sdCardFull=$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)
+			echo "SD Card found; installing to /dev/mmcblk0p1 mounted on $sdCardFull"> ~/emudeck/emudeck.log
+		elif
+				text="Card is not EXT4"
+				zenity --error \
+						--title="SDCard Error" \
+						--width=400 \
+						--text="${text}" &>> /dev/null
+				exit
+		fi
+	elif
+		text="Card is not inserted"
+		zenity --error \
+				--title="SDCard Error" \
+				--width=400 \
+				--text="${text}" &>> /dev/null
+		exit
+	fi
+
 	#Detect non ext4 cards. Not enabled because of issues when creating symlinks.
+	#this block does not look for non ext4 cards. To do that, we must test via findmnt.
 	#if [ "$(ls -A /run/media/deck)" ]; then
 	#	sdCard=$(ls /run/media/deck | grep -ve '^deck$' | head -n1)
 	#	sdCard="/run/media/deck/${sdCard}"
@@ -149,6 +175,18 @@ if [ $destination == "SD" ]; then
 	#	sdCard="/run/media/${sdCard}"
 	#fi
 	
+
+	#commented out block because we don't care what the card is called as long as it's ext4. SdCardFull gets set when we check the findmnt command
+	# if [ "$sdCard" != "mmcblk0p1" ]; then
+	# 	text="`printf "<b>You need to format your SD Card using Steam UI</b>\nEmuDeck will not work if your SD card is not formatted in ext4 format because of SteamOS permissions limitations on other non ext4 formatted cards.\nPlease come back when your SD Card is ready"`"
+	# 	zenity --error \
+	# 			--title="EmuDeck Error" \
+	# 			--width=400 \
+	# 			--text="${text}" &>> /dev/null
+	# 	exit
+	# fi
+	#sdCardFull="/run/media/${sdCard}"
+
 	#We check the SD Card fylesysten
 	SDFS=$(df -Th | grep "/run/media")
 	exitInstallation=false
@@ -178,6 +216,7 @@ if [ $destination == "SD" ]; then
 	fi	
 
 	sdCardFull="/run/media/${sdCard}"
+
 	
 	#New paths for SD cards
 	emulationPath="${sdCardFull}/Emulation/"
@@ -255,7 +294,8 @@ if [ $expert == true ]; then
 				7 "Duckstation" \
 				8 "PPSSPP" \
 				9 "Yuzu" \
-				10 "Cemu")
+				10 "Cemu" \
+				11 "Xemu" )
 	clear
 	ans=$?	
 	if [ $ans -eq 0 ]; then
@@ -290,7 +330,9 @@ if [ $expert == true ]; then
 		if [[ "$emusToInstall" == *"Cemu"* ]]; then
 			doInstallCemu=true
 		fi
-		
+		if [[ "$emusToInstall" == *"Xemu"* ]]; then
+			doInstallXemu=true
+		fi
 	else
 		exit
 	fi
@@ -414,7 +456,8 @@ if [ $expert == true ]; then
 							7 "Duckstation" \
 							8 "PPSSPP" \
 							9 "Yuzu" \
-							10 "Cemu")
+							10 "Cemu" \
+							11 "Xemu")
 		clear
 		cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 		echo -e "${BOLD}EmuDeck ${version}${NONE}"
@@ -451,6 +494,9 @@ if [ $expert == true ]; then
 			if [[ "$emusToReset" == *"Cemu"* ]]; then
 				doUpdateCemu=false
 			fi
+			if [[ "$emusToReset" == *"Xemu"* ]]; then
+				doUpdateCemu=false
+			fi
 			
 		else
 			echo "WTF"
@@ -470,6 +516,7 @@ else
 	doInstallCemu=true
 	doInstallPrimeHacks=true
 	doInstallPPSSPP=true
+	doInstallXemu=true
 
 fi # end Expert if
 
@@ -557,7 +604,10 @@ if [ $doInstallYuzu == "true" ]; then
 	echo -e "Installing Yuzu"
 	flatpak install flathub org.yuzu_emu.yuzu -y &>> ~/emudeck/emudeck.log
 fi
-
+if [ $doInstallXemu == "true" ]; then
+	echo -e "Installing Xemu"
+	flatpak install flathub app.xemu.xemu -y &>> ~/emudeck/emudeck.log
+fi
 
 echo -e ""
 
@@ -837,7 +887,18 @@ if [ $doUpdatePPSSPP == true ]; then
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ppsspp.PPSSPP/ ~/.var/app/org.ppsspp.PPSSPP/ &>> ~/emudeck/emudeck.log
 fi
-
+if [ $doUpdateXemu == true ]; then
+	FOLDER=~/.var/app/app.xemu.xemu/data/xemu/xemu_bak
+	if [ -d "$FOLDER" ]; then
+		echo "" &>> ~/emudeck/emudeck.log
+	else
+		echo -ne "Backing up Xemu..."
+		cp -r ~/.var/app/app.xemu.xemu/data/xemu/xemu ~/.var/app/app.xemu.xemu/data/xemu/xemu_bak &>> ~/emudeck/emudeck.log
+		echo -e "${GREEN}OK!${NONE}"
+	fi
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/app.xemu.xemu/ ~/.var/app/app.xemu.xemu/ &>> ~/emudeck/emudeck.log
+	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.ini
+fi
 echo -e "${GREEN}OK!${NONE}"
 
 #Symlinks for ESDE compatibility
