@@ -1221,7 +1221,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "WiiU - Cemu (.wud, .wux)",
+    "configTitle": "WiiU - Cemu (.wud, .wux, .wua)",
     "steamCategory": "${WiiU}",
     "executableArgs": "-f -g \"Z:${filepath}\"",
     "executableModifier": "\"${exePath}\"",
@@ -1255,7 +1255,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(7z|7Z|.zip|.ZIP|wux|wud|wad|iso)"
+      "glob": "${title}@(7z|7Z|.zip|.ZIP|wux|wud|wua|wad|iso)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
