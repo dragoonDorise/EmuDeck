@@ -15,3 +15,9 @@
     0.16.2
 
 - Cemu installation fixes
+
+  0.16.3
+
+- ESDE Downloaded data moved to SD Card if the user chose SD card on install
+- Uninstall icon
+- Update Icon with version installed

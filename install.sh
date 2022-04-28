@@ -40,6 +40,7 @@ doUpdateCemu=true
 doUpdateRyujinx=true
 doUpdatePrimeHacks=true
 doUpdatePPSSPP=true
+doUpdateXemu
 
 #Install all systems by default
 doInstallSRM=true
@@ -54,6 +55,7 @@ doInstallDuck=false
 doInstallCemu=false
 doInstallPrimeHacks=false
 doInstallPPSSPP=false
+doInstallXemu=false
 installString='Installing'
 
 #Default RetroArch configuration 
@@ -66,8 +68,6 @@ emulationPath=~/Emulation/
 romsPath=~/Emulation/roms/
 toolsPath=~/Emulation/tools/
 biosPath=~/Emulation/bios/
-
-clear
 
 echo -ne "${BOLD}Downloading files...${NONE}"
 sleep 5
@@ -175,6 +175,7 @@ if [ $destination == "SD" ]; then
 	#	sdCard="/run/media/${sdCard}"
 	#fi
 	
+
 	#commented out block because we don't care what the card is called as long as it's ext4. SdCardFull gets set when we check the findmnt command
 	# if [ "$sdCard" != "mmcblk0p1" ]; then
 	# 	text="`printf "<b>You need to format your SD Card using Steam UI</b>\nEmuDeck will not work if your SD card is not formatted in ext4 format because of SteamOS permissions limitations on other non ext4 formatted cards.\nPlease come back when your SD Card is ready"`"
@@ -185,17 +186,50 @@ if [ $destination == "SD" ]; then
 	# 	exit
 	# fi
 	#sdCardFull="/run/media/${sdCard}"
+
+	#We check the SD Card fylesysten
+	SDFS=$(df -Th | grep "/run/media")
+	exitInstallation=false
+	if [[ "$SDFS" != *"ext4"* ]]; then
+	  exitInstallation=true
+	fi
+	
+	#Support for btrfs cards
+	#if [[ "$SDFS" == *"btrfs"* ]]; then
+	#  exitInstallation=false
+	#fi
+	
+	if [ "$sdCard" != "mmcblk0p1" ]; then
+		exitInstallation=true
+	else
+		exitInstallation=false		
+	fi
+	
+	
+	if [ $exitInstallation == true ]; then
+		text="`printf "<b>You need to format your SD Card using Steam UI</b>\nEmuDeck will not work if your SD card is not formatted in ext4 format because of SteamOS permissions limitations on other non ext4 formatted cards.\nPlease come back when your SD Card is ready"`"
+		zenity --error \
+				--title="EmuDeck Error" \
+				--width=400 \
+				--text="${text}" &>> /dev/null
+		exit
+	fi	
+
+	sdCardFull="/run/media/${sdCard}"
+
 	
 	#New paths for SD cards
 	emulationPath="${sdCardFull}/Emulation/"
 	romsPath="${sdCardFull}/Emulation/roms/"
 	toolsPath="${sdCardFull}/Emulation/tools/"
 	biosPath="${sdCardFull}/Emulation/bios/"
+	ESDEscrapData="${sdCardFull}/Emulation/tools/downloaded_media"
 
 fi
 
 mkdir -p "$emulationPath"
 mkdir -p "$toolsPath"
+
 #Cleanup for old users
 find "$romsPath" -name "readme.md" -type f -delete &>> ~/emudeck/emudeck.log
 
@@ -260,7 +294,8 @@ if [ $expert == true ]; then
 				7 "Duckstation" \
 				8 "PPSSPP" \
 				9 "Yuzu" \
-				10 "Cemu")
+				10 "Cemu" \
+				11 "Xemu" )
 	clear
 	ans=$?	
 	if [ $ans -eq 0 ]; then
@@ -295,7 +330,9 @@ if [ $expert == true ]; then
 		if [[ "$emusToInstall" == *"Cemu"* ]]; then
 			doInstallCemu=true
 		fi
-		
+		if [[ "$emusToInstall" == *"Xemu"* ]]; then
+			doInstallXemu=true
+		fi
 	else
 		exit
 	fi
@@ -419,7 +456,8 @@ if [ $expert == true ]; then
 							7 "Duckstation" \
 							8 "PPSSPP" \
 							9 "Yuzu" \
-							10 "Cemu")
+							10 "Cemu" \
+							11 "Xemu")
 		clear
 		cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 		echo -e "${BOLD}EmuDeck ${version}${NONE}"
@@ -456,6 +494,9 @@ if [ $expert == true ]; then
 			if [[ "$emusToReset" == *"Cemu"* ]]; then
 				doUpdateCemu=false
 			fi
+			if [[ "$emusToReset" == *"Xemu"* ]]; then
+				doUpdateCemu=false
+			fi
 			
 		else
 			echo "WTF"
@@ -475,6 +516,7 @@ else
 	doInstallCemu=true
 	doInstallPrimeHacks=true
 	doInstallPPSSPP=true
+	doInstallXemu=true
 
 fi # end Expert if
 
@@ -499,9 +541,18 @@ if [ $doInstallESDE == true ]; then
 	echo "ESDE: Yes" &>> ~/emudeck/emudeck.log
 	echo -e "${BOLD}${installString} EmulationStation Desktop Edition${NONE}"
 	curl https://gitlab.com/leonstyhre/emulationstation-de/-/package_files/34287334/download --output "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage >> ~/emudeck/emudeck.log
-	chmod +x "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage
+	chmod +x "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage	
 fi
 
+#We check if we have scrapped data on ESDE so we can move it to the SD card
+#We do this wether the user wants to install ESDE or not to account for old users that might have ESDE already installed and won't update
+if [ $destination == "SD" ]; then		
+	#Symlink already created?
+	if [ ! -d "$ESDEscrapData" ]; then		
+		echo -e "Moving EmulationStation downloaded media to the SD Card"			
+		mv ~/.emulationstation/downloaded_media $ESDEscrapData && rm -rf ~/.emulationstation/downloaded_media && ln -sn $ESDEscrapData ~/.emulationstation/downloaded_media			
+	fi			
+fi
 
 #SRM Installation
 if [ $doInstallSRM == true ]; then
@@ -553,7 +604,10 @@ if [ $doInstallYuzu == "true" ]; then
 	echo -e "Installing Yuzu"
 	flatpak install flathub org.yuzu_emu.yuzu -y &>> ~/emudeck/emudeck.log
 fi
-
+if [ $doInstallXemu == "true" ]; then
+	echo -e "Installing Xemu"
+	flatpak install flathub app.xemu.xemu -y &>> ~/emudeck/emudeck.log
+fi
 
 echo -e ""
 
@@ -833,7 +887,18 @@ if [ $doUpdatePPSSPP == true ]; then
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ppsspp.PPSSPP/ ~/.var/app/org.ppsspp.PPSSPP/ &>> ~/emudeck/emudeck.log
 fi
-
+if [ $doUpdateXemu == true ]; then
+	FOLDER=~/.var/app/app.xemu.xemu/data/xemu/xemu_bak
+	if [ -d "$FOLDER" ]; then
+		echo "" &>> ~/emudeck/emudeck.log
+	else
+		echo -ne "Backing up Xemu..."
+		cp -r ~/.var/app/app.xemu.xemu/data/xemu/xemu ~/.var/app/app.xemu.xemu/data/xemu/xemu_bak &>> ~/emudeck/emudeck.log
+		echo -e "${GREEN}OK!${NONE}"
+	fi
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/app.xemu.xemu/ ~/.var/app/app.xemu.xemu/ &>> ~/emudeck/emudeck.log
+	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.ini
+fi
 echo -e "${GREEN}OK!${NONE}"
 
 #Symlinks for ESDE compatibility
@@ -977,9 +1042,9 @@ fi
 
 #RA Bezels	
 if [ $RABezels == true ]; then	
-	find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.cfg" | while read f; do mv -v "$f" "${f%.*}.bak"; done &>> ~/emudeck/emudeck.log
-else
 	find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.bak" | while read f; do mv -v "$f" "${f%.*}.cfg"; done &>> ~/emudeck/emudeck.log
+else
+	find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.cfg" | while read f; do mv -v "$f" "${f%.*}.bak"; done &>> ~/emudeck/emudeck.log
 fi
 
 #RA AutoSave	
@@ -993,6 +1058,31 @@ fi
 
 # We mark the script as finished	
 echo "" > ~/emudeck/.finished
+
+#We create new icons
+rm -rf ~/Desktop/EmuDeckUninstall.desktop &>> /dev/null
+echo '#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Uninstall EmuDeck
+Exec=curl https://raw.githubusercontent.com/dragoonDorise/EmuDeck/main/uninstall.sh | bash -s -- SD
+Icon=delete
+Terminal=true
+Type=Application
+StartupNotify=false' > ~/Desktop/EmuDeckUninstall.desktop
+chmod +x ~/Desktop/EmuDeckUninstall.desktop
+
+rm -rf ~/Desktop/EmuDeck.desktop &>> /dev/null
+rm -rf ~/Desktop/EmuDeckSD.desktop &>> /dev/null
+echo "#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=EmuDeck (${version})
+Exec=curl https://raw.githubusercontent.com/dragoonDorise/EmuDeck/main/install.sh | bash -s -- SD
+Icon=steamdeck-gaming-return
+Terminal=true
+Type=Application
+StartupNotify=false" > ~/Desktop/EmuDeck.desktop
+chmod +x ~/Desktop/EmuDeck.desktop
+
 
 clear
 
