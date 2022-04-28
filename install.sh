@@ -40,7 +40,8 @@ doUpdateCemu=true
 doUpdateRyujinx=true
 doUpdatePrimeHacks=true
 doUpdatePPSSPP=true
-doUpdateXemu
+doUpdateXemu=true
+doUpdateSRM=true
 
 #Install all systems by default
 doInstallSRM=true
@@ -141,13 +142,13 @@ if [ $destination == "SD" ]; then
 	#check if sd card exists
 	#sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
 	#check dev to see if sd card is inserted and has a partition
-	if [ -b "/dev/mmcblk0p1" ]
+	if [ -b "/dev/mmcblk0p1" ]; then
 		#test if card is ext4
-		if [ $(findmnt -n --raw --evaluate --output=fstype -S /dev/mmcblk0p1)="ext4" ]; then
+		if [ $(findmnt -n --raw --evaluate --output=fstype -S /dev/mmcblk0p1) == "ext4" ]; then
 			# use findmnt to explicitly find the path where the first partition on the SD card is mounted.
 			sdCardFull=$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)
 			echo "SD Card found; installing to /dev/mmcblk0p1 mounted on $sdCardFull"> ~/emudeck/emudeck.log
-		elif
+		else
 				text="Card is not EXT4"
 				zenity --error \
 						--title="SDCard Error" \
@@ -155,7 +156,7 @@ if [ $destination == "SD" ]; then
 						--text="${text}" &>> /dev/null
 				exit
 		fi
-	elif
+	else
 		text="Card is not inserted"
 		zenity --error \
 				--title="SDCard Error" \
@@ -333,6 +334,8 @@ if [ $expert == true ]; then
 		if [[ "$emusToInstall" == *"Xemu"* ]]; then
 			doInstallXemu=true
 		fi
+		
+		
 	else
 		exit
 	fi
@@ -457,7 +460,8 @@ if [ $expert == true ]; then
 							8 "PPSSPP" \
 							9 "Yuzu" \
 							10 "Cemu" \
-							11 "Xemu")
+							11 "Xemu" \
+							12 "SRM")
 		clear
 		cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 		echo -e "${BOLD}EmuDeck ${version}${NONE}"
@@ -497,6 +501,10 @@ if [ $expert == true ]; then
 			if [[ "$emusToReset" == *"Xemu"* ]]; then
 				doUpdateCemu=false
 			fi
+			if [[ "$emusToReset" == *"Xemu"* ]]; then
+				doUpdateSRM=false
+			fi
+			
 			
 		else
 			echo "WTF"
@@ -666,14 +674,16 @@ if [ $doInstallCemu == "true" ]; then
 fi
 
 #Steam RomManager Config
-echo -ne "${BOLD}Configuring Steam Rom Manager...${NONE}"
-mkdir -p ~/.config/steam-rom-manager/userData/
-cp ~/dragoonDoriseTools/EmuDeck/configs/steam-rom-manager/userData/userConfigurations.json ~/.config/steam-rom-manager/userData/userConfigurations.json
-sleep 3
-sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.config/steam-rom-manager/userData/userConfigurations.json
-sed -i "s|/run/media/mmcblk0p1/Emulation/tools/|${toolsPath}|g" ~/.config/steam-rom-manager/userData/userConfigurations.json
-echo -e "${GREEN}OK!${NONE}"
 
+if [ $doUpdateSRM == true ]; then
+	echo -ne "${BOLD}Configuring Steam Rom Manager...${NONE}"
+	mkdir -p ~/.config/steam-rom-manager/userData/
+	cp ~/dragoonDoriseTools/EmuDeck/configs/steam-rom-manager/userData/userConfigurations.json ~/.config/steam-rom-manager/userData/userConfigurations.json
+	sleep 3
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.config/steam-rom-manager/userData/userConfigurations.json
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools/|${toolsPath}|g" ~/.config/steam-rom-manager/userData/userConfigurations.json
+	echo -e "${GREEN}OK!${NONE}"
+fi
 
 #ESDE Config
 echo -ne "${BOLD}Configuring EmulationStation DE...${NONE}"
