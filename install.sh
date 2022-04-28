@@ -139,17 +139,15 @@ fi
 #
 
 if [ $destination == "SD" ]; then
-	#check if sd card exists
-	#sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
-	#check dev to see if sd card is inserted and has a partition
-	if [ -b "/dev/mmcblk0p1" ]; then
+	#check dev to see if sd card is inserted and has a partition	
+	if [ -b "/dev/mmcblk0p1" ]; then	
 		#test if card is ext4
-		if [ $(findmnt -n --raw --evaluate --output=fstype -S /dev/mmcblk0p1) == "ext4" ]; then
+		if [ $(findmnt -n --raw --evaluate --output=fstype -S /dev/mmcblk0p1) = "ext4" ]; then
 			# use findmnt to explicitly find the path where the first partition on the SD card is mounted.
 			sdCardFull=$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)
-			echo "SD Card found; installing to /dev/mmcblk0p1 mounted on $sdCardFull"> ~/emudeck/emudeck.log
+			echo "SD Card found; installing to $sdCardFull"> ~/emudeck/emudeck.log
 		else
-				text="Card is not EXT4"
+				text="`printf "<b>You need to format your SD Card using Steam UI</b>\nEmuDeck will not work if your SD card is not formatted in ext4 format because of SteamOS permissions limitations on other non ext4 formatted cards.\nPlease come back when your SD Card is ready"`"
 				zenity --error \
 						--title="SDCard Error" \
 						--width=400 \
@@ -157,67 +155,13 @@ if [ $destination == "SD" ]; then
 				exit
 		fi
 	else
-		text="Card is not inserted"
+		text="`printf "<b>SD Card not detected</b>\nMake sure your SD Card is inserted and start again the installation"`"
 		zenity --error \
 				--title="SDCard Error" \
 				--width=400 \
 				--text="${text}" &>> /dev/null
 		exit
 	fi
-
-	#Detect non ext4 cards. Not enabled because of issues when creating symlinks.
-	#this block does not look for non ext4 cards. To do that, we must test via findmnt.
-	#if [ "$(ls -A /run/media/deck)" ]; then
-	#	sdCard=$(ls /run/media/deck | grep -ve '^deck$' | head -n1)
-	#	sdCard="/run/media/deck/${sdCard}"
-	#else
-	#	#mmcblk0p1
-	#	sdCard=$(ls /run/media | grep -ve '^deck$' | head -n1)
-	#	sdCard="/run/media/${sdCard}"
-	#fi
-	
-
-	#commented out block because we don't care what the card is called as long as it's ext4. SdCardFull gets set when we check the findmnt command
-	# if [ "$sdCard" != "mmcblk0p1" ]; then
-	# 	text="`printf "<b>You need to format your SD Card using Steam UI</b>\nEmuDeck will not work if your SD card is not formatted in ext4 format because of SteamOS permissions limitations on other non ext4 formatted cards.\nPlease come back when your SD Card is ready"`"
-	# 	zenity --error \
-	# 			--title="EmuDeck Error" \
-	# 			--width=400 \
-	# 			--text="${text}" &>> /dev/null
-	# 	exit
-	# fi
-	#sdCardFull="/run/media/${sdCard}"
-
-	#We check the SD Card fylesysten
-	SDFS=$(df -Th | grep "/run/media")
-	exitInstallation=false
-	if [[ "$SDFS" != *"ext4"* ]]; then
-	  exitInstallation=true
-	fi
-	
-	#Support for btrfs cards
-	#if [[ "$SDFS" == *"btrfs"* ]]; then
-	#  exitInstallation=false
-	#fi
-	
-	if [ "$sdCard" != "mmcblk0p1" ]; then
-		exitInstallation=true
-	else
-		exitInstallation=false		
-	fi
-	
-	
-	if [ $exitInstallation == true ]; then
-		text="`printf "<b>You need to format your SD Card using Steam UI</b>\nEmuDeck will not work if your SD card is not formatted in ext4 format because of SteamOS permissions limitations on other non ext4 formatted cards.\nPlease come back when your SD Card is ready"`"
-		zenity --error \
-				--title="EmuDeck Error" \
-				--width=400 \
-				--text="${text}" &>> /dev/null
-		exit
-	fi	
-
-	sdCardFull="/run/media/${sdCard}"
-
 	
 	#New paths for SD cards
 	emulationPath="${sdCardFull}/Emulation/"
@@ -557,7 +501,9 @@ fi
 if [ $destination == "SD" ]; then		
 	#Symlink already created?
 	if [ ! -d "$ESDEscrapData" ]; then		
+		echo -e ""
 		echo -e "Moving EmulationStation downloaded media to the SD Card"			
+		echo -e ""
 		mv ~/.emulationstation/downloaded_media $ESDEscrapData && rm -rf ~/.emulationstation/downloaded_media && ln -sn $ESDEscrapData ~/.emulationstation/downloaded_media			
 	fi			
 fi
