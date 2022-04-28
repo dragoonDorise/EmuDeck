@@ -307,7 +307,7 @@ if [ $expert == true ]; then
 				RABezels=false
 			fi
 			
-			if [ -f "FILESAVE" ]; then
+			if [ -f "$FILESAVE" ]; then
 				RAautoSave=true
 			else
 				RAautoSave=false
@@ -362,7 +362,7 @@ if [ $expert == true ]; then
 			echo "" > ~/emudeck/.autosave
 		else
 			echo "AutoSaveLoad: No" &>> ~/emudeck/emudeck.log
-			RAautoSave=true
+			RAautoSave=false
 		fi
 	fi
 	
