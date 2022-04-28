@@ -1,7 +1,7 @@
 gambatte_audio_resampler = "sinc"
 gambatte_dark_filter_level = "0"
 gambatte_gb_bootloader = "enabled"
-gambatte_gb_colorization = "disabled"
+gambatte_gb_colorization = "auto"
 gambatte_gb_hwmode = "Auto"
 gambatte_gb_internal_palette = "GB - DMG"
 gambatte_gb_link_mode = "Not Connected"

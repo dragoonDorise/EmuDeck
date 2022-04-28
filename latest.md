@@ -14,4 +14,8 @@
 
     0.16.2
 
-- Cemu installation fixes
+    - Cemu installation fixes
+
+      0.16.3
+
+    - Bezels fix
