@@ -863,8 +863,6 @@ ln -sn gamecube gc &>> ~/emudeck/emudeck.log
 ln -sn 3ds n3ds &>> ~/emudeck/emudeck.log
 ln -sn arcade mamecurrent &>> ~/emudeck/emudeck.log
 ln -sn mame mame2003 &>> ~/emudeck/emudeck.log
-ln -sn mame mame2003 &>> ~/emudeck/emudeck.log
-ln -sn mame mame2003 &>> ~/emudeck/emudeck.log
 ln -sn lynx atarilynx &>> ~/emudeck/emudeck.log
 
 #Fixes ESDE
