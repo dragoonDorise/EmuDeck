@@ -44,8 +44,8 @@ fi
 if [ "$doUninstall" == true ]; then 
 	
 	#Emulator selector
-	text="`printf " <b>This will delete Emudeck , the emulators and all of its configuration files</b>\n\n You can keep the Emulators installed, tell me which ones you want to keep.\n\nIf you select none of them, <b>everything will be deleted, including your Bios and saved games</b>"`"
-	emusToInstall=$(zenity --list \
+	text="`printf " <b>This will delete Emudeck , the emulators and all of its configuration files</b>\n\n You can keep the Emulators installed, tell me which ones you want to keep.\n\nIf you select none of them, everything will be deleted, including your saved games<b>We won't delete your roms</b>"`"
+	emusToUninstall=$(zenity --list \
 				--title="EmuDeck" \
 				--height=500 \
 				--width=250 \
@@ -71,40 +71,40 @@ if [ "$doUninstall" == true ]; then
 	ans=$?	
 	if [ $ans -eq 0 ]; then
 		
-		if [[ "$emusToInstall" == *"RetroArch"* ]]; then
+		if [[ "$emusToUninstall" == *"RetroArch"* ]]; then
 			doUninstallRA=true
 		fi
-		if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
+		if [[ "$emusToUninstall" == *"PrimeHack"* ]]; then
 			doUninstallPrimeHacks=true
 		fi
-		if [[ "$emusToInstall" == *"PCSX2"* ]]; then
+		if [[ "$emusToUninstall" == *"PCSX2"* ]]; then
 			doUninstallPCSX2=true
 		fi
-		if [[ "$emusToInstall" == *"RPCS3"* ]]; then
+		if [[ "$emusToUninstall" == *"RPCS3"* ]]; then
 			doUninstallRPCS3=true
 		fi
-		if [[ "$emusToInstall" == *"Citra"* ]]; then
+		if [[ "$emusToUninstall" == *"Citra"* ]]; then
 			doUninstallCitra=true
 		fi
-		if [[ "$emusToInstall" == *"Dolphin"* ]]; then
+		if [[ "$emusToUninstall" == *"Dolphin"* ]]; then
 			doUninstallDolphin=true
 		fi
-		if [[ "$emusToInstall" == *"Duckstation"* ]]; then
+		if [[ "$emusToUninstall" == *"Duckstation"* ]]; then
 			doUninstallDuck=true
 		fi
-		if [[ "$emusToInstall" == *"PPSSPP"* ]]; then
+		if [[ "$emusToUninstall" == *"PPSSPP"* ]]; then
 			doUninstallPPSSPP=true
 		fi
-		if [[ "$emusToInstall" == *"Yuzu"* ]]; then
+		if [[ "$emusToUninstall" == *"Yuzu"* ]]; then
 			doUninstallYuzu=true
 		fi
-		if [[ "$emusToInstall" == *"Cemu"* ]]; then
+		if [[ "$emusToUninstall" == *"Cemu"* ]]; then
 			doUninstallCemu=true
 		fi		
-		if [[ "$emusToInstall" == *"SteamRomManager"* ]]; then
+		if [[ "$emusToUninstall" == *"SteamRomManager"* ]]; then
 			doUninstallSRM=true
 		fi
-		if [[ "$emusToInstall" == *"EmulationStationDE"* ]]; then
+		if [[ "$emusToUninstall" == *"EmulationStationDE"* ]]; then
 			doUninstallESDE=true
 		fi		
 		
@@ -160,16 +160,15 @@ if [ "$doUninstall" == true ]; then
 		rm -rf ~/.emulationstation &>> /dev/null	
 	fi
 	
-	#Emudeck's files
-	
+	#Emudeck's files	
 	rm -rf ~/.steam/steam/controller_base/templates/cemu_controller_config.vdf
 	rm -rf ~/.steam/steam/controller_base/templates/citra_controller_config.vdf
 	rm -rf ~/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf
 	rm -rf ~/emudeck &>> /dev/null	
-	rm -rf ~/Emulation &>> /dev/null	
-	rm -rf /run/media/mmcblk0p1/Emulation &>> /dev/null	
+	#rm -rf ~/Emulation &>> /dev/null	
+	#rm -rf /run/media/mmcblk0p1/Emulation &>> /dev/null	
 	
-	text="`printf "<b>Done!</b>\n\nWe are sad to see you go and we really hope you give us a chance on the future!"`"
+	text="`printf "<b>Done!</b>\n\nWe are sad to see you go and we really hope you give us a chance on the future!\n\n<b>Your roms, saved games and bios are on your Emulation folder, please delete it manually</b>"`"
 	
 	zenity --info \
 			 --title="EmuDeck" \
