@@ -42,6 +42,7 @@ doUpdatePrimeHacks=true
 doUpdatePPSSPP=true
 doUpdateXemu=true
 doUpdateSRM=true
+#doUpdateMelon=true
 
 #Install all systems by default
 doInstallSRM=true
@@ -57,6 +58,7 @@ doInstallCemu=false
 doInstallPrimeHacks=false
 doInstallPPSSPP=false
 doInstallXemu=false
+#doInstallMelon=false
 installString='Installing'
 
 #Default RetroArch configuration 
@@ -69,6 +71,7 @@ emulationPath=~/Emulation/
 romsPath=~/Emulation/roms/
 toolsPath=~/Emulation/tools/
 biosPath=~/Emulation/bios/
+savesPath=~/Emulation/saves/
 
 echo -ne "${BOLD}Downloading files...${NONE}"
 sleep 5
@@ -168,12 +171,14 @@ if [ $destination == "SD" ]; then
 	romsPath="${sdCardFull}/Emulation/roms/"
 	toolsPath="${sdCardFull}/Emulation/tools/"
 	biosPath="${sdCardFull}/Emulation/bios/"
+	savesPath="${sdCardFull}/Emulation/saves/"
 	ESDEscrapData="${sdCardFull}/Emulation/tools/downloaded_media"
 
 fi
 
 mkdir -p "$emulationPath"
 mkdir -p "$toolsPath"
+mkdir -p $savesPath
 
 #Cleanup for old users
 find "$romsPath" -name "readme.md" -type f -delete &>> ~/emudeck/emudeck.log
@@ -240,7 +245,7 @@ if [ $expert == true ]; then
 				8 "PPSSPP" \
 				9 "Yuzu" \
 				10 "Cemu" \
-				11 "Xemu" )
+				11 "Xemu")
 	clear
 	ans=$?	
 	if [ $ans -eq 0 ]; then
@@ -278,6 +283,9 @@ if [ $expert == true ]; then
 		if [[ "$emusToInstall" == *"Xemu"* ]]; then
 			doInstallXemu=true
 		fi
+		#if [[ "$emusToInstall" == *"MelonDS"* ]]; then
+		#	doInstallMelon=true
+		#fi
 		
 		
 	else
@@ -443,15 +451,18 @@ if [ $expert == true ]; then
 				doUpdateCemu=false
 			fi
 			if [[ "$emusToReset" == *"Xemu"* ]]; then
-				doUpdateCemu=false
+				doUpdateXemu=false
 			fi
-			if [[ "$emusToReset" == *"Xemu"* ]]; then
+			#if [[ "$emusToReset" == *"MelonDS"* ]]; then
+			#	doUpdateMelon=false
+			#fi
+			if [[ "$emusToReset" == *"SRM"* ]]; then
 				doUpdateSRM=false
 			fi
 			
 			
 		else
-			echo "WTF"
+			echo ""
 		fi
 		
 	fi
@@ -469,6 +480,7 @@ else
 	doInstallPrimeHacks=true
 	doInstallPPSSPP=true
 	doInstallXemu=true
+	#doInstallMelon=true
 
 fi # end Expert if
 
@@ -531,8 +543,8 @@ fi
 if [ $doInstallRPCS3 == "true" ]; then
 	echo -e "Installing RPCS3"
 	flatpak install flathub net.rpcs3.RPCS3 -y &>> ~/emudeck/emudeck.log
-	echo -e "Installing Flatseal (RPCS3 FIX)"
-	flatpak install flathub com.github.tchx84.Flatseal -y &>> ~/emudeck/emudeck.log
+#	echo -e "Installing Flatseal (RPCS3 FIX)"
+#	flatpak install flathub com.github.tchx84.Flatseal -y &>> ~/emudeck/emudeck.log
 fi
 if [ $doInstallCitra == "true" ]; then
 	echo -e "Installing Citra"
@@ -562,7 +574,10 @@ if [ $doInstallXemu == "true" ]; then
 	echo -e "Installing Xemu"
 	flatpak install flathub app.xemu.xemu -y &>> ~/emudeck/emudeck.log
 fi
-
+#if [ $doInstallMelon == "true" ]; then
+#	echo -e "Installing MelonDS"
+#	flatpak install flathub net.kuribo64.melonDS -y &>> ~/emudeck/emudeck.log
+#fi
 echo -e ""
 
 
@@ -713,7 +728,7 @@ if [ $doUpdateRA == true ]; then
 	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/ ~/.var/app/org.libretro.RetroArch/config/
 	#rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/retroarch/config/ ~/.var/app/org.libretro.RetroArch/config/retroarch/config
 	
-	sed -i "s|system_directory = \"/run/media/mmcblk0p1/Emulation/bios/\"|system_directory = \"${biosPath}\"|g" $raConfigFile
+	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" $raConfigFile	
 	
 fi
 echo -e ""
@@ -822,6 +837,17 @@ if [ $doUpdateYuzu == true ]; then
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/ &>> ~/emudeck/emudeck.log
 fi
+#if [ $doUpdateMelon == true ]; then
+#	FOLDER=~/.var/app/net.kuribo64.melonDS/config
+#	if [ -d "$FOLDER" ]; then
+#		echo "" &>> ~/emudeck/emudeck.log
+#	else
+#		echo -ne "Backing up MelonDS..."
+#		cp -r ~/.var/app/net.kuribo64.melonDS/config ~/.var/app/net.kuribo64.melonDS/config_bak &>> ~/emudeck/emudeck.log
+#		echo -e "${GREEN}OK!${NONE}"
+#	fi
+#	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.kuribo64.melonDS/ ~/.var/app/net.kuribo64.melonDS/ &>> ~/emudeck/emudeck.log
+#fi
 if [ $doUpdateCemu == true ]; then
 	echo "" &>> ~/emudeck/emudeck.log
 	#Commented until we get CEMU flatpak working
@@ -966,27 +992,10 @@ fi
 
 
 #PS3 permissions?
-RPCS3fixed=$(flatpak info --show-permissions net.rpcs3.RPCS3)
-SUB='host'
-if [[ "$RPCS3fixed" == *"$SUB"* ]]; then
-	echo -e "" &>> /dev/null
-else
-		
-	text="`printf "<b>RPCS3 is not configured</b>\nYou need to open the app Flatseal.\nLook for RPCS3 and there, scroll down to Fylesystem and make sure 'All system files' is <b>checked</b>.\nYou need to do this in order to fix PS3 Games"`"
-	zenity --question \
-			--title="EmuDeck" \
-			--width=250 \
-			--ok-label="Open Flatseal" \
-			--cancel-label="Ignore" \
-			--text="${text}" &>> /dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		 flatpak run com.github.tchx84.Flatseal &>> /dev/null
-	else
-		 echo "ESDE: No" &>> ~/emudeck/emudeck.log
-	fi
-			 
-fi
+flatpak override net.rpcs3.RPCS3 --filesystem=host --user	
+
+#melonDS permissions?
+#flatpak override net.kuribo64.melonDS --filesystem=host --user	
 
 ##
 ##
@@ -1008,6 +1017,115 @@ if [ $RAautoSave == true ]; then
 else
 	sed -i 's|savestate_auto_load = "true"|savestate_auto_load = "false"|g' $raConfigFile &>> ~/emudeck/emudeck.log
 	sed -i 's|savestate_auto_save = "true"|savestate_auto_save = "false"|g' $raConfigFile &>> ~/emudeck/emudeck.log
+fi
+
+#We move all the saved folders to the emulation path
+
+#RA
+if [ ! -d "$savesPath/retroarch/states" ]; then		
+	mkdir -p $savesPath/retroarch
+	echo -e ""
+	echo -e "Moving RetroArch saved states to the Emulation/saves folder"			
+	echo -e ""
+	mv ~/.var/app/org.libretro.RetroArch/config/retroarch/states $savesPath/retroarch/states
+fi
+if [ ! -d "$savesPath/retroarch/saves" ]; then	
+	mkdir -p $savesPath/retroarch
+	echo -e ""
+	echo -e "Moving RetroArch saved games to the Emulation/saves folder"			
+	echo -e ""
+	mv ~/.var/app/org.libretro.RetroArch/config/retroarch/saves $savesPath/retroarch/saves
+fi
+#Dolphin
+if [ ! -d "$savesPath/dolphin/GC" ]; then	
+	mkdir -p $savesPath/dolphin	
+	echo -e ""
+	echo -e "Moving Dolphin Gamecube saved games to the Emulation/saves folder"			
+	echo -e ""
+	mv ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC $savesPath/dolphin/GC && rm -rf ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC $savesPath/dolphin/GC && ln -sn $savesPath/dolphin/GC ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC
+fi
+if [ ! -d "$savesPath/dolphin/Wii" ]; then	
+	mkdir -p $savesPath/dolphin	
+	echo -e ""
+	echo -e "Moving Dolphin Wii saved games to the Emulation/saves folder"			
+	echo -e ""
+	mv ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii $savesPath/dolphin/Wii && rm -rf ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii ln -sn $savesPath/dolphin/Wii ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii
+fi
+if [ ! -d "$savesPath/dolphin/states" ]; then	
+	mkdir -p $savesPath/dolphin	
+	echo -e ""
+	echo -e "Moving Dolphin States to the Emulation/saves folder"			
+	echo -e ""
+	mv ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves $savesPath/dolphin/states && rm -rf ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves && ln -sn $savesPath/dolphin/states ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves
+fi
+#PrimeHacks
+
+#Yuzu
+
+#Duckstation
+if [ ! -d "$savesPath/duckstation/saves" ]; then		
+	mkdir -p $savesPath/duckstation
+	echo -e ""
+	echo -e "Moving Citra Saves to the Emulation/saves folder"			
+	echo -e ""
+	mv ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards $savesPath/duckstation/saves && rm -rf ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards && ln -sn $savesPath/duckstation/saves ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards
+fi
+if [ ! -d "$savesPath/duckstation/states" ]; then	
+	mkdir -p $savesPath/duckstation	
+	echo -e ""
+	echo -e "Moving Citra Saves to the Emulation/saves folder"			
+	echo -e ""
+	mv ~/.var/app/org.duckstation.DuckStation/data/duckstation/savestates $savesPath/duckstation/states && rm -rf ~/.var/app/org.duckstation.DuckStation/data/duckstation/savestates && ln -sn $savesPath/duckstation/states ~/.var/app/org.duckstation.DuckStation/data/duckstation/savestates
+fi
+
+#Xemu
+
+#PCSX2
+if [ ! -d "$savesPath/pcsx2/saves" ]; then		
+	mkdir -p $savesPath/pcsx2
+	echo -e ""
+	echo -e "Moving Citra Saves to the Emulation/saves folder"			
+	echo -e ""
+	mv ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards $savesPath/pcsx2/saves && rm -rf ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards && ln -sn $savesPath/pcsx2/saves ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards
+fi
+if [ ! -d "$savesPath/pcsx2/states" ]; then	
+	mkdir -p $savesPath/pcsx2	
+	echo -e ""
+	echo -e "Moving Citra Saves to the Emulation/saves folder"			
+	echo -e ""
+	mv ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates $savesPath/pcsx2/states && rm -rf ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates && ln -sn $savesPath/pcsx2/states ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates
+fi
+#RPCS3
+
+#Citra
+if [ ! -d "$savesPath/citra/saves" ]; then		
+	mkdir -p $savesPath/citra
+	echo -e ""
+	echo -e "Moving Citra Saves to the Emulation/saves folder"			
+	echo -e ""
+	mv ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc $savesPath/citra/saves && rm -rf ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc && ln -sn $savesPath/citra/saves ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc
+fi
+if [ ! -d "$savesPath/citra/states" ]; then	
+	mkdir -p $savesPath/citra	
+	echo -e ""
+	echo -e "Moving Citra Saves to the Emulation/saves folder"			
+	echo -e ""
+	mv ~/.var/app/org.citra_emu.citra/data/citra-emu/states $savesPath/citra/states && rm -rf ~/.var/app/org.citra_emu.citra/data/citra-emu/states && ln -sn $savesPath/citra/states ~/.var/app/org.citra_emu.citra/data/citra-emu/states
+fi
+#PPSSPP
+if [ ! -d "$savesPath/ppsspp/saves" ]; then		
+	mkdir -p $savesPath/ppsspp
+	echo -e ""
+	echo -e "Moving Citra Saves to the Emulation/saves folder"			
+	echo -e ""
+	mv ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA $savesPath/ppsspp/saves && rm -rf ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA && ln -sn $savesPath/ppsspp/saves ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA
+fi
+if [ ! -d "$savesPath/ppsspp/states" ]; then	
+	mkdir -p $savesPath/ppsspp	
+	echo -e ""
+	echo -e "Moving Citra Saves to the Emulation/saves folder"			
+	echo -e ""
+	mv ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE $savesPath/citra/states && rm -rf ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE && ln -sn $savesPath/citra/states ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE
 fi
 
 # We mark the script as finished	
