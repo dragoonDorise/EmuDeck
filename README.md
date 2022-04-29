@@ -4,6 +4,8 @@
 
 EmuDeck is a collection of scripts that allows you to autoconfigure your Steam Deck, it creates your roms directory structure and downloads all of the needed Emulators for you along with the best configurations for each of them. EmuDeck works great with [Steam Rom Manager](https://github.com/SteamGridDB/steam-rom-manager) or with [EmulationStation DE](https://es-de.org)
 
+** If you are a dev please read till the bottom **
+
 There are two ways of using EmuDeck:
 
 ## Using Steam Rom Manager
@@ -74,3 +76,13 @@ We try to use the same hotkeys for every emulator but some of them has its own d
 | Toggle Layout   | -              | -              | L5       | -              | -              | -            | -            |
 
 \* You need to activate Steam Input to get those hotkeys to work https://www.emudeck.com/#steam_input
+
+# Developers, developers, developers.
+
+If you wanna help us improve EmuDeck we are open to accept your PR! Just keep in mind this simple guide:
+
+- Think EmuDeck is for everybody, tech savvy and regular users, so everything has to be properly explained, use Easy mode for unattended automatic stuff.
+- User input is non recommended, everything should be done with no mouse or keyboard input. If input is a must then you have to code your feature only on expert mode.
+- Things using sudo are a big no no, there are exceptions but always try to find a way of prevent using sudo.
+- Every Emulator added has to be included on this readme file, have a SRM profile and follow the AmberElec hotkey mapping ( just check the previous table)
+- Always do your PR to the dev branch.
