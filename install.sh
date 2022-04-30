@@ -1058,6 +1058,13 @@ fi
 ##
 ##
 
+#RA SNES Aspect Ratio
+if [ $SNESAR == 43 ]; then	
+	cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes43.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes.cfg	
+else
+	cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes87.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes.cfg	
+fi
+
 #RA Bezels	
 if [ $RABezels == true ]; then	
 	find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.bak" | while read f; do mv -v "$f" "${f%.*}.cfg"; done &>> ~/emudeck/emudeck.log
@@ -1074,12 +1081,7 @@ else
 	sed -i 's|savestate_auto_save = "true"|savestate_auto_save = "false"|g' $raConfigFile &>> ~/emudeck/emudeck.log
 fi
 
-#RA SNES Aspect Ratio
-if [ $SNESAR == 42 ]; then	
-	cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes43.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes.cfg	
-else
-	cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes87.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes.cfg	
-fi
+
 #We move all the saved folders to the emulation path
 
 #RA
