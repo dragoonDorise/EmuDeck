@@ -161,7 +161,7 @@
 
 - ESDE Downloaded data moved to SD Card if the user chose SD card on install
 - Uninstall icon for those that want to uninstall EmuDeck
-- Update Icon with current version installed
+- Updated Icon with current version installed
 - Fixes Bezels and Autosave configuration
 - Added Xemu emulator support -
 - Enabled rumble motor on Dolphin
