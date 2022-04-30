@@ -6,7 +6,7 @@
 - Uninstall icon for those that want to uninstall EmuDeck
 - Updated Icon with current version installed
 - Fixes Bezels and Autosave configuration
-- Added Xemu emulator support -
+- Added Xemu emulator support - Godsbane
 - Enabled rumble motor on Dolphin
 - Improved SD Card detection - Godsbane
 - Added .wua support for upcoming Cemu 1.27 - Flynn
