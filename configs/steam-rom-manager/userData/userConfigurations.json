@@ -1170,7 +1170,7 @@
     "parserType": "Glob",
     "configTitle": "WiiU - Cemu (.rpx)",
     "steamCategory": "${WiiU}",
-    "executableArgs": "-f -g \"Z:${filepath}\"",
+    "executableArgs": "run info.cemu.Cemu -f -g \"Z:${filepath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1192,7 +1192,7 @@
     "disabled": false,
     "advanced": false,
     "executable": {
-      "path": "/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe",
+      "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -1223,7 +1223,7 @@
     "parserType": "Glob",
     "configTitle": "WiiU - Cemu (.wud, .wux, .wua)",
     "steamCategory": "${WiiU}",
-    "executableArgs": "-f -g \"Z:${filepath}\"",
+    "executableArgs": "run info.cemu.Cemu -f -g \"Z:${filepath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1245,7 +1245,7 @@
     "disabled": false,
     "advanced": false,
     "executable": {
-      "path": "/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe",
+      "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -2015,58 +2015,56 @@
     "version": 5
   },
   {
-      "parserType": "Glob",
-      "configTitle": "Microsoft XBox - Xemu",
-      "steamCategory": "${XBox}",
-      "executableArgs": "run app.xemu.xemu -full-screen -dvd_path \"${filepath}\"",
-      "executableModifier": "\"${exePath}\"",
-      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/xbox",
-      "steamDirectory": "/home/deck/.steam/steam",
-      "startInDirectory": "",
-      "imageProviders": [
-          "SteamGridDB"
-      ],
-      "titleModifier": "${fuzzyTitle}",
-      "onlineImageQueries": "${${fuzzyTitle}}",
-      "imagePool": "${fuzzyTitle}",
-      "defaultImage": "",
-      "defaultTallImage": "",
-      "defaultHeroImage": "",
-      "defaultLogoImage": "",
-      "defaultIcon": "",
-      "localImages": "",
-      "localTallImages": "",
-      "localHeroImages": "",
-      "localLogoImages": "",
-      "localIcons": "",
-      "disabled": true,
-      "advanced": false,
-      "executable": {
-          "path": "/usr/bin/flatpak",
-          "shortcutPassthrough": false,
-          "appendArgsToExecutable": true
-      },
-      "userAccounts": {
-          "specifiedAccounts": "",
-          "skipWithMissingDataDir": true,
-          "useCredentials": true
-      },
-      "parserInputs": {
-          "glob": "${title}@(.iso|.ISO)"
-      },
-      "titleFromVariable": {
-          "limitToGroups": "",
-          "caseInsensitiveVariables": false,
-          "skipFileIfVariableWasNotFound": false,
-          "tryToMatchTitle": false
-      },
-      "fuzzyMatch": {
-          "use": true,
-          "replaceDiacritics": true,
-          "removeCharacters": true,
-          "removeBrackets": true
-      },
-      "parserId": "165103607715056732",
-      "version": 5
+    "parserType": "Glob",
+    "configTitle": "Microsoft XBox - Xemu",
+    "steamCategory": "${XBox}",
+    "executableArgs": "run app.xemu.xemu -full-screen -dvd_path \"${filepath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/xbox",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "imageProviders": ["SteamGridDB"],
+    "titleModifier": "${fuzzyTitle}",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": true,
+    "advanced": false,
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.iso|.ISO)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "parserId": "165103607715056732",
+    "version": 5
   }
 ]
