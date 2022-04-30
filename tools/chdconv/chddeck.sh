@@ -3,7 +3,7 @@ chmod +x ~/emudeck/chdconv/chdman5
 export PATH="$HOME/emudeck/chdconv/:$PATH"
 romsPath=~/Emulation/roms/
 
-text="`printf "<b>Hi!</b>\nWelcome to EmuDeck's CHD conversion script!\n\nThis script will scan all your roms folders and convert all your .cue/.bin and .gdi files to the superior CHD format.\n\n<b>This action will delete the old files if the conversion to chd succeds</b>"`"
+text="`printf "<b>Hi!</b>\nWelcome to EmuDeck's CHD conversion script!\n\nThis script will scan all your roms folders and convert all your .cue/.bin and .gdi files to the superior CHD format.\n\n<b>This action will delete the old files if the conversion to chd succeeds</b>"`"
 #Nova fix'
 zenity --question \
 		 --title="EmuDeck" \
