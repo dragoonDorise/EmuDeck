@@ -79,7 +79,7 @@ installString='Installing'
 #Default RetroArch configuration 
 RABezels=true
 RAautoSave=false
-
+SNESAR=43
 
 #Default installation folders
 emulationPath=~/Emulation/
@@ -414,9 +414,9 @@ if [ $expert == true ]; then
 			 --text="${text}" &>> /dev/null
 	ans=$?
 	if [ $ans -eq 0 ]; then
-		cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes43.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes.cfg	
+		SNESAR=43		
 	else
-		cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes87.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes.cfg
+		SNESAR=87		
 	fi	
 			
 	
@@ -1074,6 +1074,12 @@ else
 	sed -i 's|savestate_auto_save = "true"|savestate_auto_save = "false"|g' $raConfigFile &>> ~/emudeck/emudeck.log
 fi
 
+#RA SNES Aspect Ratio
+if [ $SNESAR == 42 ]; then	
+	cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes43.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes.cfg	
+else
+	cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes87.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes.cfg	
+fi
 #We move all the saved folders to the emulation path
 
 #RA
