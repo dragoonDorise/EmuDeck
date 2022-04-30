@@ -10,6 +10,21 @@ BOLD='\033[1m'
 UNDERLINE='\033[4m'
 BLINK='\x1b[5m'
 
+#DEV MODE
+devMode=$1
+if [ ! -z "$devMode" ]; then
+	if [ "$devMode" == "BETA" ]; then
+		branch="beta"
+	fi
+	if [ "$devMode" == "DEV" ]; then	
+		branch="dev"
+	else
+		branch="main"
+	fi
+else
+	branch="main"
+fi
+
 #Clean up from previous installations
 rm ~/emudek.log &>> /dev/null
 rm -rf ~/dragoonDoriseTools
@@ -81,7 +96,14 @@ mkdir -p dragoonDoriseTools
 mkdir -p dragoonDoriseTools/EmuDeck
 cd dragoonDoriseTools
 
+
+
 git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck &>> ~/emudeck/emudeck.log
+if [ ! -z "$devMode" ]; then
+	cd ~/dragoonDoriseTools/EmuDeck
+	git checkout $branch
+fi
+
 FOLDER=~/dragoonDoriseTools/EmuDeck
 if [ -d "$FOLDER" ]; then
 	echo -e "${GREEN}OK!${NONE}"
@@ -388,7 +410,18 @@ if [ $expert == true ]; then
 	
 	# Configuration that only appplies to previous users
 	if [ -f "$SECONDTIME" ]; then
-	
+		#We make sure all the emus can write its saves outside its own folders.
+		flatpak override net.pcsx2.PCSX2 --filesystem=host --user
+		flatpak override io.github.shiiion.primehack --filesystem=host --user
+		flatpak override net.rpcs3.RPCS3 --filesystem=host --user
+		flatpak override org.citra_emu.citra --filesystem=host --user
+		flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
+		flatpak override org.duckstation.DuckStation --filesystem=host --user
+		flatpak override org.libretro.RetroArch --filesystem=host --user
+		flatpak override org.ppsspp.PPSSPP --filesystem=host --user
+		flatpak override org.yuzu_emu.yuzu --filesystem=host --user
+		flatpak override app.xemu.xemu --filesystem=host --user
+		
 		installString='Updating'
 			
 		text="`printf "<b>EmuDeck will overwrite the following Emulators configurations</b> \nWhich systems do you want me to keep its current configuration <b>untouched</b>?\nWe recomend to keep all of them unchecked so everything gets updated so any possible bug can be fixed.\n If you want to mantain any custom configuration on some emulator select its name on this list"`"
