@@ -1061,137 +1061,137 @@ fi
 #We move all the saved folders to the emulation path
 
 #RA
-if [ ! -d "$savesPath/retroarch/states" ]; then		
-	mkdir -p $savesPath/retroarch
-	echo -e ""
-	echo -e "Moving RetroArch saved states to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/org.libretro.RetroArch/config/retroarch/states $savesPath/retroarch/states
-fi
-if [ ! -d "$savesPath/retroarch/saves" ]; then	
-	mkdir -p $savesPath/retroarch
-	echo -e ""
-	echo -e "Moving RetroArch saved games to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/org.libretro.RetroArch/config/retroarch/saves $savesPath/retroarch/saves
-fi
-#Dolphin
-if [ ! -d "$savesPath/dolphin/GC" ]; then	
-	mkdir -p $savesPath/dolphin	
-	echo -e ""
-	echo -e "Moving Dolphin Gamecube saved games to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC $savesPath/dolphin/GC && ln -sn $savesPath/dolphin/GC ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC
-fi
-if [ ! -d "$savesPath/dolphin/Wii" ]; then	
-	mkdir -p $savesPath/dolphin	
-	echo -e ""
-	echo -e "Moving Dolphin Wii saved games to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii $savesPath/dolphin/Wii && ln -sn $savesPath/dolphin/Wii ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii
-fi
-if [ ! -d "$savesPath/dolphin/states" ]; then	
-	mkdir -p $savesPath/dolphin	
-	echo -e ""
-	echo -e "Moving Dolphin States to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves $savesPath/dolphin/states && ln -sn $savesPath/dolphin/states ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves
-fi
-#PrimeHack
-if [ ! -d "$savesPath/primehack/GC" ]; then	
-	mkdir -p $savesPath/primehack	
-	echo -e ""
-	echo -e "Moving PrimeHack Gamecube saved games to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC $savesPath/primehack/GC && ln -sn $savesPath/primehack/GC ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC
-fi
-if [ ! -d "$savesPath/primehack/Wii" ]; then	
-	mkdir -p $savesPath/primehack	
-	echo -e ""
-	echo -e "Moving PrimeHack Wii saved games to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii $savesPath/primehack/Wii && ln -sn $savesPath/primehack/Wii ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii
-fi
-if [ ! -d "$savesPath/primehack/states" ]; then	
-	mkdir -p $savesPath/primehack	
-	echo -e ""
-	echo -e "Moving PrimeHack States to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves $savesPath/primehack/states && ln -sn $savesPath/primehack/states ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves
-fi
-#Yuzu
-if [ ! -d "$savesPath/yuzu/saves" ]; then		
-	mkdir -p $savesPath/citra
-	echo -e ""
-	echo -e "Moving Citra Saves to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc $savesPath/yuzu/saves && ln -sn $savesPath/yuzu/saves ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc
-fi
-#Duckstation
-if [ ! -d "$savesPath/duckstation/saves" ]; then		
-	mkdir -p $savesPath/duckstation
-	echo -e ""
-	echo -e "Moving Duckstation Saves to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards $savesPath/duckstation/saves && ln -sn $savesPath/duckstation/saves ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards
-fi
-if [ ! -d "$savesPath/duckstation/states" ]; then	
-	mkdir -p $savesPath/duckstation	
-	echo -e ""
-	echo -e "Moving Duckstation Saves to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/org.duckstation.DuckStation/data/duckstation/savestates $savesPath/duckstation/states && ln -sn $savesPath/duckstation/states ~/.var/app/org.duckstation.DuckStation/data/duckstation/savestates
-fi
-
-#Xemu
-
-#PCSX2
-if [ ! -d "$savesPath/pcsx2/saves" ]; then		
-	mkdir -p $savesPath/pcsx2
-	echo -e ""
-	echo -e "Moving PCSX2 Saves to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards $savesPath/pcsx2/saves && ln -sn $savesPath/pcsx2/saves ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards
-fi
-if [ ! -d "$savesPath/pcsx2/states" ]; then	
-	mkdir -p $savesPath/pcsx2	
-	echo -e ""
-	echo -e "Moving PCSX2 Saves to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates $savesPath/pcsx2/states && ln -sn $savesPath/pcsx2/states ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates
-fi
-#RPCS3
-
-#Citra
-if [ ! -d "$savesPath/citra/saves" ]; then		
-	mkdir -p $savesPath/citra
-	echo -e ""
-	echo -e "Moving Citra Saves to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc $savesPath/citra/saves && ln -sn $savesPath/citra/saves ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc
-fi
-if [ ! -d "$savesPath/citra/states" ]; then	
-	mkdir -p $savesPath/citra	
-	echo -e ""
-	echo -e "Moving Citra Saves to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/org.citra_emu.citra/data/citra-emu/states $savesPath/citra/states && ln -sn $savesPath/citra/states ~/.var/app/org.citra_emu.citra/data/citra-emu/states
-fi
-#PPSSPP
-if [ ! -d "$savesPath/ppsspp/saves" ]; then		
-	mkdir -p $savesPath/ppsspp
-	echo -e ""
-	echo -e "Moving PPSSPP Saves to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA $savesPath/ppsspp/saves && ln -sn $savesPath/ppsspp/saves ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA
-fi
-if [ ! -d "$savesPath/ppsspp/states" ]; then	
-	mkdir -p $savesPath/ppsspp	
-	echo -e ""
-	echo -e "Moving PPSSPP Saves to the Emulation/saves folder"			
-	echo -e ""
-	mv ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE $savesPath/ppsspp/states && ln -sn $savesPath/ppsspp/states ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE
-fi
+#if [ ! -d "$savesPath/retroarch/states" ]; then		
+#	mkdir -p $savesPath/retroarch
+#	echo -e ""
+#	echo -e "Moving RetroArch saved states to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/org.libretro.RetroArch/config/retroarch/states $savesPath/retroarch/states
+#fi
+#if [ ! -d "$savesPath/retroarch/saves" ]; then	
+#	mkdir -p $savesPath/retroarch
+#	echo -e ""
+#	echo -e "Moving RetroArch saved games to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/org.libretro.RetroArch/config/retroarch/saves $savesPath/retroarch/saves
+#fi
+##Dolphin
+#if [ ! -d "$savesPath/dolphin/GC" ]; then	
+#	mkdir -p $savesPath/dolphin	
+#	echo -e ""
+#	echo -e "Moving Dolphin Gamecube saved games to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC $savesPath/dolphin/GC && ln -sn $savesPath/dolphin/GC ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC
+#fi
+#if [ ! -d "$savesPath/dolphin/Wii" ]; then	
+#	mkdir -p $savesPath/dolphin	
+#	echo -e ""
+#	echo -e "Moving Dolphin Wii saved games to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii $savesPath/dolphin/Wii && ln -sn $savesPath/dolphin/Wii ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii
+#fi
+#if [ ! -d "$savesPath/dolphin/states" ]; then	
+#	mkdir -p $savesPath/dolphin	
+#	echo -e ""
+#	echo -e "Moving Dolphin States to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves $savesPath/dolphin/states && ln -sn $savesPath/dolphin/states ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves
+#fi
+##PrimeHack
+#if [ ! -d "$savesPath/primehack/GC" ]; then	
+#	mkdir -p $savesPath/primehack	
+#	echo -e ""
+#	echo -e "Moving PrimeHack Gamecube saved games to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC $savesPath/primehack/GC && ln -sn $savesPath/primehack/GC ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC
+#fi
+#if [ ! -d "$savesPath/primehack/Wii" ]; then	
+#	mkdir -p $savesPath/primehack	
+#	echo -e ""
+#	echo -e "Moving PrimeHack Wii saved games to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii $savesPath/primehack/Wii && ln -sn $savesPath/primehack/Wii ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii
+#fi
+#if [ ! -d "$savesPath/primehack/states" ]; then	
+#	mkdir -p $savesPath/primehack	
+#	echo -e ""
+#	echo -e "Moving PrimeHack States to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves $savesPath/primehack/states && ln -sn $savesPath/primehack/states ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves
+#fi
+##Yuzu
+#if [ ! -d "$savesPath/yuzu/saves" ]; then		
+#	mkdir -p $savesPath/citra
+#	echo -e ""
+#	echo -e "Moving Citra Saves to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc $savesPath/yuzu/saves && ln -sn $savesPath/yuzu/saves ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc
+#fi
+##Duckstation
+#if [ ! -d "$savesPath/duckstation/saves" ]; then		
+#	mkdir -p $savesPath/duckstation
+#	echo -e ""
+#	echo -e "Moving Duckstation Saves to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards $savesPath/duckstation/saves && ln -sn $savesPath/duckstation/saves ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards
+#fi
+#if [ ! -d "$savesPath/duckstation/states" ]; then	
+#	mkdir -p $savesPath/duckstation	
+#	echo -e ""
+#	echo -e "Moving Duckstation Saves to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/org.duckstation.DuckStation/data/duckstation/savestates $savesPath/duckstation/states && ln -sn $savesPath/duckstation/states ~/.var/app/org.duckstation.DuckStation/data/duckstation/savestates
+#fi
+#
+##Xemu
+#
+##PCSX2
+#if [ ! -d "$savesPath/pcsx2/saves" ]; then		
+#	mkdir -p $savesPath/pcsx2
+#	echo -e ""
+#	echo -e "Moving PCSX2 Saves to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards $savesPath/pcsx2/saves && ln -sn $savesPath/pcsx2/saves ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards
+#fi
+#if [ ! -d "$savesPath/pcsx2/states" ]; then	
+#	mkdir -p $savesPath/pcsx2	
+#	echo -e ""
+#	echo -e "Moving PCSX2 Saves to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates $savesPath/pcsx2/states && ln -sn $savesPath/pcsx2/states ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates
+#fi
+##RPCS3
+#
+##Citra
+#if [ ! -d "$savesPath/citra/saves" ]; then		
+#	mkdir -p $savesPath/citra
+#	echo -e ""
+#	echo -e "Moving Citra Saves to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc $savesPath/citra/saves && ln -sn $savesPath/citra/saves ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc
+#fi
+#if [ ! -d "$savesPath/citra/states" ]; then	
+#	mkdir -p $savesPath/citra	
+#	echo -e ""
+#	echo -e "Moving Citra Saves to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/org.citra_emu.citra/data/citra-emu/states $savesPath/citra/states && ln -sn $savesPath/citra/states ~/.var/app/org.citra_emu.citra/data/citra-emu/states
+#fi
+##PPSSPP
+#if [ ! -d "$savesPath/ppsspp/saves" ]; then		
+#	mkdir -p $savesPath/ppsspp
+#	echo -e ""
+#	echo -e "Moving PPSSPP Saves to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA $savesPath/ppsspp/saves && ln -sn $savesPath/ppsspp/saves ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA
+#fi
+#if [ ! -d "$savesPath/ppsspp/states" ]; then	
+#	mkdir -p $savesPath/ppsspp	
+#	echo -e ""
+#	echo -e "Moving PPSSPP Saves to the Emulation/saves folder"			
+#	echo -e ""
+#	mv ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE $savesPath/ppsspp/states && ln -sn $savesPath/ppsspp/states ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE
+#fi
 
 
 # We mark the script as finished	
