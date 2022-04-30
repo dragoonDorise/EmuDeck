@@ -436,9 +436,9 @@ if [ $expert == true ]; then
 				--text="${text}" \
 				--checklist \
 				--column="" \
-				--column="Emulator" \								
+				--column="Emulator" \
 				1 "Dolphin" \
-				2 "Duckstation" \				
+				2 "Duckstation" \
 				3 "Dreamcast")
 	clear
 	ans=$?	
