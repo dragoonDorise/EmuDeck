@@ -81,6 +81,11 @@ RABezels=true
 RAautoSave=false
 SNESAR=43
 
+#Default widescreen
+duckWide=true
+DolphinWide=true
+DreamcastWide=true
+
 #Default installation folders
 emulationPath=~/Emulation/
 romsPath=~/Emulation/roms/
@@ -419,6 +424,39 @@ if [ $expert == true ]; then
 		SNESAR=87		
 	fi	
 			
+	#Emulators screenHacks
+#Emulator selector
+	text="`printf "We use 16:9 widescreen on some emulator, if you want some of them to have the original 4:3 aspect ratio please select them on the following list"`"
+	wideToInstall=$(zenity --list \
+				--title="EmuDeck" \
+				--height=500 \
+				--width=250 \
+				--ok-label="OK" \
+				--cancel-label="Exit" \
+				--text="${text}" \
+				--checklist \
+				--column="" \
+				--column="Emulator" \								
+				1 "Dolphin" \
+				2 "Duckstation" \				
+				3 "Dreamcast")
+	clear
+	ans=$?	
+	if [ $ans -eq 0 ]; then
+		
+		if [[ "$wideToInstall" == *"Duckstation"* ]]; then
+			duckWide=true
+		fi
+		if [[ "$wideToInstall" == *"Dolphin"* ]]; then
+			DolphinWide=true
+		fi
+		if [[ "$wideToInstall" == *"Dreamcast"* ]]; then
+			DreamcastWide=true
+		fi		
+		
+	else		
+		exit		
+	fi			
 	
 	#We mark we've made a custom configuration for future updates
 	echo "" > ~/emudeck/.custom
@@ -427,16 +465,16 @@ if [ $expert == true ]; then
 	# Configuration that only appplies to previous users
 	if [ -f "$SECONDTIME" ]; then
 		#We make sure all the emus can write its saves outside its own folders.
-		flatpak override net.pcsx2.PCSX2 --filesystem=host --user
-		flatpak override io.github.shiiion.primehack --filesystem=host --user
+		#flatpak override net.pcsx2.PCSX2 --filesystem=host --user
+		#flatpak override io.github.shiiion.primehack --filesystem=host --user
 		flatpak override net.rpcs3.RPCS3 --filesystem=host --user
-		flatpak override org.citra_emu.citra --filesystem=host --user
-		flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
-		flatpak override org.duckstation.DuckStation --filesystem=host --user
-		flatpak override org.libretro.RetroArch --filesystem=host --user
-		flatpak override org.ppsspp.PPSSPP --filesystem=host --user
-		flatpak override org.yuzu_emu.yuzu --filesystem=host --user
-		flatpak override app.xemu.xemu --filesystem=host --user
+		#flatpak override org.citra_emu.citra --filesystem=host --user
+		#flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
+		#flatpak override org.duckstation.DuckStation --filesystem=host --user
+		#flatpak override org.libretro.RetroArch --filesystem=host --user
+		#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
+		#flatpak override org.yuzu_emu.yuzu --filesystem=host --user
+		#flatpak override app.xemu.xemu --filesystem=host --user
 		
 		installString='Updating'
 			
@@ -583,13 +621,13 @@ fi
 if [ $doInstallPCSX2 == "true" ]; then
 	echo -e "Installing PCSX2"
 	flatpak install flathub net.pcsx2.PCSX2 -y	&>> ~/emudeck/emudeck.log
-	flatpak override net.pcsx2.PCSX2 --filesystem=host --user
+	#flatpak override net.pcsx2.PCSX2 --filesystem=host --user
 	echo -e "Bad characters" &>> ~/emudeck/emudeck.log
 fi
 if [ $doInstallPrimeHacks == "true" ]; then
 	echo -e "Installing PrimeHack"
 	flatpak install flathub io.github.shiiion.primehack -y &>> ~/emudeck/emudeck.log
-	flatpak override io.github.shiiion.primehack --filesystem=host --user
+	#flatpak override io.github.shiiion.primehack --filesystem=host --user
 fi
 if [ $doInstallRPCS3 == "true" ]; then
 	echo -e "Installing RPCS3"
@@ -601,37 +639,37 @@ fi
 if [ $doInstallCitra == "true" ]; then
 	echo -e "Installing Citra"
 	flatpak install flathub org.citra_emu.citra -y &>> ~/emudeck/emudeck.log
-	flatpak override org.citra_emu.citra --filesystem=host --user
+	#flatpak override org.citra_emu.citra --filesystem=host --user
 fi
 if [ $doInstallDolphin == "true" ]; then
 	echo -e "Installing Dolphin"
 	flatpak install flathub org.DolphinEmu.dolphin-emu -y &>> ~/emudeck/emudeck.log
-	flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
+	#flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
 fi
 if [ $doInstallDuck == "true" ]; then
 	echo -e "Installing DuckStation"
 	flatpak install flathub org.duckstation.DuckStation -y &>> ~/emudeck/emudeck.log
-	flatpak override org.duckstation.DuckStation --filesystem=host --user
+	#flatpak override org.duckstation.DuckStation --filesystem=host --user
 fi
 if [ $doInstallRA == "true" ]; then
 	echo -e "Installing RetroArch"
 	flatpak install flathub org.libretro.RetroArch -y &>> ~/emudeck/emudeck.log
-	flatpak override org.libretro.RetroArch --filesystem=host --user
+	#flatpak override org.libretro.RetroArch --filesystem=host --user
 fi
 if [ $doInstallPPSSPP == "true" ]; then
 	echo -e "Installing PPSSPP"
 	flatpak install flathub org.ppsspp.PPSSPP -y &>> ~/emudeck/emudeck.log
-	flatpak override org.ppsspp.PPSSPP --filesystem=host --user
+	#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
 fi
 if [ $doInstallYuzu == "true" ]; then
 	echo -e "Installing Yuzu"
 	flatpak install flathub org.yuzu_emu.yuzu -y &>> ~/emudeck/emudeck.log
-	flatpak override org.yuzu_emu.yuzu --filesystem=host --user
+	#flatpak override org.yuzu_emu.yuzu --filesystem=host --user
 fi
 if [ $doInstallXemu == "true" ]; then
 	echo -e "Installing Xemu"
 	flatpak install flathub app.xemu.xemu -y &>> ~/emudeck/emudeck.log
-	flatpak override app.xemu.xemu --filesystem=host --user
+	#flatpak override app.xemu.xemu --filesystem=host --user
 fi
 #if [ $doInstallMelon == "true" ]; then
 #	echo -e "Installing MelonDS"
@@ -1081,6 +1119,22 @@ else
 	sed -i 's|savestate_auto_save = "true"|savestate_auto_save = "false"|g' $raConfigFile &>> ~/emudeck/emudeck.log
 fi
 
+#Widescreen hacks
+if [ $duckWide = true ]; then	
+	sed -i "s|WidescreenHack = false|WidescreenHack = true|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
+else
+	sed -i "s|WidescreenHack = true|WidescreenHack = false|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
+fi
+if [ $DolphinWide = true ]; then
+	sed -i "s|wideScreenHack = False|wideScreenHack = True|g" ~/.var/app/org.DolphinEmu.dolphin-emu/GFX.ini
+else
+	sed -i "s|wideScreenHack = True|wideScreenHack = False|g" ~/.var/app/org.DolphinEmu.dolphin-emu/GFX.ini
+fi
+if [ $DreamcastWide = true ]; then
+	sed -i "s|reicast_widescreen_hack = \"disabled\"|reicast_widescreen_hack = \"enabled\"|g" $raConfigFile
+else
+	sed -i "s|reicast_widescreen_hack = \"enabled\"|reicast_widescreen_hack = \"disabled\"|g" $raConfigFile
+fi
 
 #We move all the saved folders to the emulation path
 
