@@ -1120,17 +1120,17 @@ else
 fi
 
 #Widescreen hacks
-if [ $duckWide = true ]; then	
+if [ $duckWide == true ]; then	
 	sed -i "s|WidescreenHack = false|WidescreenHack = true|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
 else
 	sed -i "s|WidescreenHack = true|WidescreenHack = false|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
 fi
-if [ $DolphinWide = true ]; then
+if [ $DolphinWide == true ]; then
 	sed -i "s|wideScreenHack = False|wideScreenHack = True|g" ~/.var/app/org.DolphinEmu.dolphin-emu/GFX.ini
 else
 	sed -i "s|wideScreenHack = True|wideScreenHack = False|g" ~/.var/app/org.DolphinEmu.dolphin-emu/GFX.ini
 fi
-if [ $DreamcastWide = true ]; then
+if [ $DreamcastWide == true ]; then
 	sed -i "s|reicast_widescreen_hack = \"disabled\"|reicast_widescreen_hack = \"enabled\"|g" $raConfigFile
 else
 	sed -i "s|reicast_widescreen_hack = \"enabled\"|reicast_widescreen_hack = \"disabled\"|g" $raConfigFile
