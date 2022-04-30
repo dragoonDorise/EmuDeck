@@ -129,7 +129,7 @@ cat ~/dragoonDoriseTools/EmuDeck/latest.md
 # Installation mode selection
 #
 
-text="`printf "<b>Hi!</b>\nDo you want to run Emudek on Easy or Expert mode?\n\n<b>Easy Mode</b> takes care of everything for you, its an unnatended installation.\n\n<b>Expert mode</b> gives you a bit more of control on how EmuDeck configures your system"`"
+text="`printf "<b>Hi!</b>\nDo you want to run EmuDeck on Easy or Expert mode?\n\n<b>Easy Mode</b> takes care of everything for you, it is an unattended installation.\n\n<b>Expert mode</b> gives you a bit more of control on how EmuDeck configures your system"`"
 zenity --question \
 		 --title="EmuDeck" \
 		 --width=250 \
@@ -172,7 +172,7 @@ if [ $destination == "SD" ]; then
 	#check dev to see if sd card is inserted and has a partition	
 	if [ -b "/dev/mmcblk0p1" ]; then	
 		#test if card is ext4
-		if [ $(findmnt -n --raw --evaluate --output=fstype -S /dev/mmcblk0p1) = "ext4" ]; then
+		if [ $(findmnt -n --raw --evaluate --output=fstype -S /dev/mmcblk0p1) == "ext4" ]; then
 			# use findmnt to explicitly find the path where the first partition on the SD card is mounted.
 			sdCardFull=$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)
 			echo "SD Card found; installing to $sdCardFull"> ~/emudeck/emudeck.log
@@ -205,7 +205,7 @@ fi
 
 mkdir -p "$emulationPath"
 mkdir -p "$toolsPath"
-mkdir -p $savesPath
+mkdir -p "$savesPath"
 
 #Cleanup for old users
 find "$romsPath" -name "readme.md" -type f -delete &>> ~/emudeck/emudeck.log
