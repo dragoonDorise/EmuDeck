@@ -74,6 +74,7 @@ doInstallPrimeHacks=false
 doInstallPPSSPP=false
 doInstallXemu=false
 #doInstallMelon=false
+doInstallCHD=false
 installString='Installing'
 
 #Default RetroArch configuration 
@@ -218,6 +219,23 @@ find "$romsPath" -name "readme.md" -type f -delete &>> ~/emudeck/emudeck.log
 #	
 
 if [ $expert == true ]; then
+
+
+	#CHDMAN
+	text=""
+	text="`printf "Do you want to install our tool to convert iso, gdi and cue to CHD format?\n\n The CHD format allows to have one single file insted of two and the final file takes up to 50% less space"`"
+	zenity --question \
+			 --title="EmuDeck" \
+			 --width=250 \
+			 --ok-label="Yes" \
+			 --cancel-label="No" \
+			 --text="${text}" &>> /dev/null
+	ans=$?
+	if [ $ans -eq 0 ]; then
+		doInstallCHD=true
+	else
+		doInstallCHD=false
+	fi	
 
 	#SRM Update selector	
 	text="Do you want to update Steam Rom Manager?"
@@ -1291,9 +1309,9 @@ fi
 
 #RetroAchievments
 #Disabled until we know why in the world the deck's screen keyword can't type in a zenity dialog
-#if [ -f ~/EmuDeck/.rap ]; then 
-#	rap=$(cat ~/EmuDeck/.rap)
-#	rau=$(cat ~/EmuDeck/.rau)
+#if [ -f ~/emudeck/.rap ]; then 
+#	rap=$(cat ~/emudeck/.rap)
+#	rau=$(cat ~/emudeck/.rau)
 #
 #	sed -i "s|cheevos_password = \"\"|cheevos_password = \"${rap}\"|g" $raConfigFile	
 #	sed -i "s|cheevos_username = \"\"|cheevos_username = \"${rau}\"|g" $raConfigFile	
@@ -1318,7 +1336,7 @@ fi
 #		ans=$?
 #		if [ $ans -eq 0 ]
 #		then
-#			echo "${username}" > ~/EmuDeck/.rau
+#			echo "${username}" > ~/emudeck/.rau
 #			password=$(zenity --password \
 #							  --title="EmuDeck" \
 #							  --width=450 \
@@ -1328,7 +1346,7 @@ fi
 #			ans=$?
 #			if [ $ans -eq 0 ]
 #			then
-#				echo "${password}" > ~/EmuDeck/.rap
+#				echo "${password}" > ~/emudeck/.rap
 #			else
 #				echo "Cancel RetroAchievment Password" &>> /dev/null
 #			fi
@@ -1336,8 +1354,8 @@ fi
 #			echo "Cancel RetroAchievment User" &>> /dev/null
 #		fi
 #		
-#		rap=$(cat ~/EmuDeck/.rap)
-#		rau=$(cat ~/EmuDeck/.rau)
+#		rap=$(cat ~/emudeck/.rap)
+#		rau=$(cat ~/emudeck/.rau)
 #		
 #		sed -i "s|cheevos_password = \"\"|cheevos_password = \"${rap}\"|g" $raConfigFile	
 #		sed -i "s|cheevos_username = \"\"|cheevos_username = \"${rau}\"|g" $raConfigFile	
@@ -1348,6 +1366,23 @@ fi
 #	fi
 #
 #fi
+
+if [ $doInstallCHD == true ]; then
+	mkdir -p ~/emudeck/chdconv/
+	rsync $toolsPath/chdconv/ ~/emudeck/chdconv/
+	
+	rm -rf ~/Desktop/EmuDeckCHD.desktop &>> /dev/null
+	echo "#!/usr/bin/env xdg-open
+	[Desktop Entry]
+	Name=EmuDeck CHD Convert Script
+	Exec=bash ~/emudeck/chdconv/chddeck.sh
+	Icon=steamdeck-gaming-return
+	Terminal=true
+	Type=Application
+	StartupNotify=false" > ~/Desktop/EmuDeckCHD.desktop
+	chmod +x ~/Desktop/EmuDeckCHD.desktop	
+	chmod +x ~/emudeck/chdconv/chddesk.sh
+fi
 
 # We mark the script as finished	
 echo "" > ~/emudeck/.finished
