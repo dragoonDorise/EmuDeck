@@ -1106,6 +1106,7 @@ if [ ! -d "$savesPath/dolphin/GC" ]; then
 	echo -e "Moving Dolphin Gamecube saved games to the Emulation/saves folder"			
 	echo -e ""
 	mv ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC $savesPath/dolphin/GC && ln -sn $savesPath/dolphin/GC ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC
+	mkdir -p $savesPath/dolphin/GC
 fi
 if [ ! -d "$savesPath/dolphin/Wii" ]; then	
 	mkdir -p $savesPath/dolphin	
@@ -1113,6 +1114,7 @@ if [ ! -d "$savesPath/dolphin/Wii" ]; then
 	echo -e "Moving Dolphin Wii saved games to the Emulation/saves folder"			
 	echo -e ""
 	mv ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii $savesPath/dolphin/Wii && ln -sn $savesPath/dolphin/Wii ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii
+	mkdir -p $savesPath/dolphin/Wii
 fi
 if [ ! -d "$savesPath/dolphin/states" ]; then	
 	mkdir -p $savesPath/dolphin	
@@ -1120,6 +1122,7 @@ if [ ! -d "$savesPath/dolphin/states" ]; then
 	echo -e "Moving Dolphin States to the Emulation/saves folder"			
 	echo -e ""
 	mv ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves $savesPath/dolphin/states && ln -sn $savesPath/dolphin/states ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves
+	mkdir -p $savesPath/dolphin/states
 fi
 #PrimeHack
 if [ ! -d "$savesPath/primehack/GC" ]; then	
@@ -1128,6 +1131,7 @@ if [ ! -d "$savesPath/primehack/GC" ]; then
 	echo -e "Moving PrimeHack Gamecube saved games to the Emulation/saves folder"			
 	echo -e ""
 	mv ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC $savesPath/primehack/GC && ln -sn $savesPath/primehack/GC ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC
+	mkdir -p $savesPath/primehack/GC
 fi
 if [ ! -d "$savesPath/primehack/Wii" ]; then	
 	mkdir -p $savesPath/primehack	
@@ -1135,6 +1139,7 @@ if [ ! -d "$savesPath/primehack/Wii" ]; then
 	echo -e "Moving PrimeHack Wii saved games to the Emulation/saves folder"			
 	echo -e ""
 	mv ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii $savesPath/primehack/Wii && ln -sn $savesPath/primehack/Wii ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii
+	mkdir -p $savesPath/primehack/Wii
 fi
 if [ ! -d "$savesPath/primehack/states" ]; then	
 	mkdir -p $savesPath/primehack	
@@ -1142,6 +1147,7 @@ if [ ! -d "$savesPath/primehack/states" ]; then
 	echo -e "Moving PrimeHack States to the Emulation/saves folder"			
 	echo -e ""
 	mv ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves $savesPath/primehack/states && ln -sn $savesPath/primehack/states ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves
+	mkdir -p $savesPath/primehack/states
 fi
 #Yuzu
 if [ ! -d "$savesPath/yuzu/saves" ]; then		
