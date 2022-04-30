@@ -404,6 +404,22 @@ if [ $expert == true ]; then
 		fi
 	fi
 	
+	#SNES Aspect Ratio	
+	text="`printf "What SNES Aspect ratio do you want to use?\n\n<b>4:3</b>Classic CRT TV\n\n<b>8:7</b>Real SNES Internal resolution"`"
+	zenity --question \
+			 --title="EmuDeck" \
+			 --width=250 \
+			 --ok-label="4:3" \
+			 --cancel-label="8:7" \
+			 --text="${text}" &>> /dev/null
+	ans=$?
+	if [ $ans -eq 0 ]; then
+		cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes43.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes.cfg	
+	else
+		cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes87.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch/config/Snes9x/snes.cfg
+	fi	
+			
+	
 	#We mark we've made a custom configuration for future updates
 	echo "" > ~/emudeck/.custom
 	
