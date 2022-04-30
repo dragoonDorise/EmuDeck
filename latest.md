@@ -10,3 +10,7 @@
 - Improved SD Card detection - Godsbane
 - Added .wua support for upcoming Cemu 1.27 - Flynn
 - New Emulation/saves so you can sync your saved games and states using Dropbox or similar
+
+  0.17.1
+
+- New Emulation/saves folder so you can sync your saved games and states using Dropbox or similar
