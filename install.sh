@@ -167,7 +167,7 @@ if [ $destination == "SD" ]; then
 	#check dev to see if sd card is inserted and has a partition	
 	if [ -b "/dev/mmcblk0p1" ]; then	
 		#test if card is ext4
-		if [ $(findmnt -n --raw --evaluate --output=fstype -S /dev/mmcblk0p1) = "ext4" ]; then
+		if [ $(findmnt -n --raw --evaluate --output=fstype -S /dev/mmcblk0p1) == "ext4" ]; then
 			# use findmnt to explicitly find the path where the first partition on the SD card is mounted.
 			sdCardFull=$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)
 			echo "SD Card found; installing to $sdCardFull"> ~/emudeck/emudeck.log
