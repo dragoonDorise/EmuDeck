@@ -444,13 +444,13 @@ if [ $expert == true ]; then
 	if [ $ans -eq 0 ]; then
 		
 		if [[ "$wideToInstall" == *"Duckstation"* ]]; then
-			duckWide=true
+			duckWide=false
 		fi
 		if [[ "$wideToInstall" == *"Dolphin"* ]]; then
-			DolphinWide=true
+			DolphinWide=false
 		fi
 		if [[ "$wideToInstall" == *"Dreamcast"* ]]; then
-			DreamcastWide=true
+			DreamcastWide=false
 		fi		
 		
 	else		
