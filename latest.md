@@ -13,3 +13,4 @@
   0.17.1
 
 - New Emulation/saves folder so you can sync your saved games and states using Dropbox or similar
+- Snes Aspect Ratio selection (4:3 or 8:7)

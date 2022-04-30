@@ -405,7 +405,7 @@ if [ $expert == true ]; then
 	fi
 	
 	#SNES Aspect Ratio	
-	text="`printf "What SNES Aspect ratio do you want to use?\n\n<b>4:3</b>Classic CRT TV\n\n<b>8:7</b>Real SNES Internal resolution"`"
+	text="`printf "What SNES Aspect ratio do you want to use?\n\n<b>4:3</b> Classic CRT TV\n\n<b>8:7</b> Real SNES Internal resolution"`"
 	zenity --question \
 			 --title="EmuDeck" \
 			 --width=250 \
