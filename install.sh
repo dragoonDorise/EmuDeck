@@ -425,8 +425,7 @@ if [ $expert == true ]; then
 	fi	
 			
 	#Emulators screenHacks
-#Emulator selector
-	text="`printf "We use 16:9 widescreen on some emulator, if you want some of them to have the original 4:3 aspect ratio please select them on the following list"`"
+	text="`printf "We use 16:9 widescreen hacks on some emulators, if you want them to have the original 4:3 aspect ratio please select them on the following list"`"
 	wideToInstall=$(zenity --list \
 				--title="EmuDeck" \
 				--height=500 \
