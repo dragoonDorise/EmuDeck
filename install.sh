@@ -1374,7 +1374,7 @@ if [ $doInstallCHD == true ]; then
 	rm -rf ~/Desktop/EmuDeckCHD.desktop &>> /dev/null
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
-	Name=EmuDeck CHD Convert Script
+	Name=EmuDeck CHD Script
 	Exec=bash ~/emudeck/chdconv/chddeck.sh
 	Icon=steamdeck-gaming-return
 	Terminal=true
