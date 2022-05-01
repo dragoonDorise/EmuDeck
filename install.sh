@@ -1200,7 +1200,7 @@ if [ ! -d "$savesPath/dolphin/GC" ]; then
 	echo -e "Linking Dolphin Gamecube saved games to the Emulation/saves folder"			
 	echo -e ""
 	unlink ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC && mv $savesPath/dolphin/GC ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC
-	mkdir ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC
+	mkdir -p ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC
 	ln -sn ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC $savesPath/dolphin/GC 
 fi
 
@@ -1310,7 +1310,7 @@ if [ ! -d "$savesPath/citra/saves" ]; then
 	echo -e "Linking Citra Saves to the Emulation/saves folder"			
 	echo -e ""
 	unlink ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc && mv $savesPath/citra/saves ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc
-	mkdir -p ln -sn ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc
+	mkdir -p ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc
 	ln -sn ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc $savesPath/citra/saves
 fi
 if [ ! -d "$savesPath/citra/states" ]; then	
