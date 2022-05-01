@@ -739,6 +739,7 @@ if [ $doInstallCemu == "true" ]; then
 		mv "$romsPath"/wiiu/tmp/*/* "$romsPath"/wiiu &>> ~/emudeck/emudeck.log
 		rm -rf "$romsPath"/wiiu/tmp &>> ~/emudeck/emudeck.log
 		rm -f "$romsPath"/wiiu/cemu_1.26.2.zip &>> ~/emudeck/emudeck.log
+		mkdir -p "$romsPath"/wiiu/roms
 	fi
 	#Commented until we get CEMU flatpak working
 	#echo -e "${BOLD}EmuDeck will add Witherking25's flatpak repo to your Discorver App.this is required for cemu now${NONE}"	
