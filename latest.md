@@ -18,3 +18,4 @@
 - CHD Conversion script
 - Support for PowerTools - Improves Yuzu and Dolphin performance
 - Added support for DualShock 4 and DualSense controllers for player 2 and 3
+- Wii U Rom folder creation fix
