@@ -16,3 +16,4 @@
 - Snes Aspect Ratio selection (4:3 or 8:7)
 - Widescreen Hacks selection (Flycast RA, Dolphin, DuckStation)
 - CHD Conversion script
+- Support for PowerTools - Improve Yuzu and Dolphin performance
