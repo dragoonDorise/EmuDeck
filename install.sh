@@ -75,6 +75,7 @@ doInstallPPSSPP=false
 doInstallXemu=false
 #doInstallMelon=false
 doInstallCHD=false
+doInstallPowertools=false
 installString='Installing'
 
 #Default RetroArch configuration 
@@ -224,6 +225,22 @@ if [ $expert == true ]; then
 	#CHDMAN
 	text=""
 	text="`printf "Do you want to install our tool to convert iso, gdi and cue to CHD format?\n\n The CHD format allows to have one single file insted of two and the final file takes up to 50% less space"`"
+	zenity --question \
+			 --title="EmuDeck" \
+			 --width=250 \
+			 --ok-label="Yes" \
+			 --cancel-label="No" \
+			 --text="${text}" &>> /dev/null
+	ans=$?
+	if [ $ans -eq 0 ]; then
+		doInstallPowertools=true
+	else
+		doInstallPowertools=false
+	fi	
+	
+	#Powertools
+	text=""
+	text="`printf "Do you want to install Powertools? This can improve Emulators like Yuzu or Dolphin. You will need to create a password for your deck linux desktop user"`"
 	zenity --question \
 			 --title="EmuDeck" \
 			 --width=250 \
@@ -1382,6 +1399,53 @@ if [ $doInstallCHD == true ]; then
 	StartupNotify=false" > ~/Desktop/EmuDeckCHD.desktop
 	chmod +x ~/Desktop/EmuDeckCHD.desktop	
 	chmod +x ~/emudeck/chdconv/chddesk.sh
+fi
+
+if [ $doInstallPowertools == true ]; then
+	
+	hasPass=$(grep -rnw '/etc/passwd' -e 'User:/home/deck')
+	
+	if [[ $hasPass == '' ]]; then
+		text="`printf "In order to install PowerTools you need to set a password for the deck user.\n\n Remember this password. If you forget it you will need to format your Deck to change it"`"
+		zenity --question \
+			 	--title="EmuDeck" \
+			 	--width=250 \
+			 	--ok-label="Continue" \
+			 	--cancel-label="Cancel" \
+			 	--text="${text}" &>> /dev/null
+		ans=$?
+		if [ $ans -eq 0 ]; then
+			passwd
+			continuePowerTools=true
+		else
+			echo "No passwd creation" > ~/emudeck/emudeck.log
+			continuePowerTools=false
+		fi
+	else
+		continuePowerTools=true
+		echo "User already has passwd" > ~/emudeck/emudeck.log
+	fi
+	
+	if [ $continuePowerTools == true ]; then
+		echo "Installing ${BOLD} Plugin loader. Insert your password when required  ${NONE}"
+		curl -L https://github.com/SteamDeckHomebrew/PluginLoader/raw/main/dist/install_release.sh | sh	
+		sudo rm -rf ~/homebrew/plugins/PowerTools
+		sudo git clone https://github.com/NGnius/PowerTools.git ~/homebrew/plugins/PowerTools
+		sleep 1
+		cd ~/homebrew/plugins/PowerTools
+		sudo git pull
+		text="`printf "To finish the installation go into the Steam UI Settings\n\n
+		Under System -> System Settings toggle Enable Developer Mode\n\n
+		Scroll the sidebar all the way down and click on Developer\n\n
+		Under Miscellaneous, enable CEF Remote Debugging\n\n
+		In order to improve performance on Yuzu or Dolphin try configuring Powertools to activate only 4 CPU Cores\n\n
+		You can Access Powertools by presing the ... button and select the new Plugins Menu"`"
+		zenity --info \
+   		--title="EmuDeck" \
+   		--width=250 \
+   		--text="${text}"
+	fi
+
 fi
 
 # We mark the script as finished	
