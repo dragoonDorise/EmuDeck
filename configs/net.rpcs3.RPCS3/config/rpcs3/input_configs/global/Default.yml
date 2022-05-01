@@ -1,6 +1,6 @@
 Player 1 Input:
   Handler: Evdev
-  Device: Microsoft X-Box 360 pad
+  Device: Microsoft X-Box 360 pad 1
   Config:
     Left Stick Left: LX-
     Left Stick Down: LY+
@@ -58,50 +58,50 @@ Player 1 Input:
     Vendor ID: 1356
     Product ID: 616
 Player 2 Input:
-  Handler: "Null"
-  Device: "Null"
+  Handler: DualShock 4
+  Device: "DS4 Pad #1"
   Config:
-    Left Stick Left: ""
-    Left Stick Down: ""
-    Left Stick Right: ""
-    Left Stick Up: ""
-    Right Stick Left: ""
-    Right Stick Down: ""
-    Right Stick Right: ""
-    Right Stick Up: ""
-    Start: ""
-    Select: ""
-    PS Button: ""
-    Square: ""
-    Cross: ""
-    Circle: ""
-    Triangle: ""
-    Left: ""
-    Down: ""
-    Right: ""
-    Up: ""
-    R1: ""
-    R2: ""
-    R3: ""
-    L1: ""
-    L2: ""
-    L3: ""
+    Left Stick Left: LS X-
+    Left Stick Down: LS Y-
+    Left Stick Right: LS X+
+    Left Stick Up: LS Y+
+    Right Stick Left: RS X-
+    Right Stick Down: RS Y-
+    Right Stick Right: RS X+
+    Right Stick Up: RS Y+
+    Start: Options
+    Select: Share
+    PS Button: PS Button
+    Square: Square
+    Cross: Cross
+    Circle: Circle
+    Triangle: Triangle
+    Left: Left
+    Down: Down
+    Right: Right
+    Up: Up
+    R1: R1
+    R2: R2
+    R3: R3
+    L1: L1
+    L2: L2
+    L3: L3
     Pressure Intensity Button: ""
     Pressure Intensity Percent: 50
     Left Stick Multiplier: 100
     Right Stick Multiplier: 100
-    Left Stick Deadzone: 0
-    Right Stick Deadzone: 0
+    Left Stick Deadzone: 40
+    Right Stick Deadzone: 40
     Left Trigger Threshold: 0
     Right Trigger Threshold: 0
-    Left Pad Squircling Factor: 0
-    Right Pad Squircling Factor: 0
+    Left Pad Squircling Factor: 8000
+    Right Pad Squircling Factor: 8000
     Color Value R: 0
     Color Value G: 0
-    Color Value B: 0
+    Color Value B: 20
     Blink LED when battery is below 20%: true
     Use LED as a battery indicator: false
-    LED battery indicator brightness: 50
+    LED battery indicator brightness: 10
     Enable Large Vibration Motor: true
     Enable Small Vibration Motor: true
     Switch Vibration Motors: false
@@ -114,53 +114,53 @@ Player 2 Input:
     Analog Button Lerp Factor: 100
     Trigger Lerp Factor: 100
     Device Class Type: 0
-    Vendor ID: 0
-    Product ID: 0
+    Vendor ID: 1356
+    Product ID: 616
 Player 3 Input:
-  Handler: "Null"
-  Device: "Null"
+  Handler: DualSense
+  Device: "DualSense Pad #1"
   Config:
-    Left Stick Left: ""
-    Left Stick Down: ""
-    Left Stick Right: ""
-    Left Stick Up: ""
-    Right Stick Left: ""
-    Right Stick Down: ""
-    Right Stick Right: ""
-    Right Stick Up: ""
-    Start: ""
-    Select: ""
-    PS Button: ""
-    Square: ""
-    Cross: ""
-    Circle: ""
-    Triangle: ""
-    Left: ""
-    Down: ""
-    Right: ""
-    Up: ""
-    R1: ""
-    R2: ""
-    R3: ""
-    L1: ""
-    L2: ""
-    L3: ""
+    Left Stick Left: LS X-
+    Left Stick Down: LS Y-
+    Left Stick Right: LS X+
+    Left Stick Up: LS Y+
+    Right Stick Left: RS X-
+    Right Stick Down: RS Y-
+    Right Stick Right: RS X+
+    Right Stick Up: RS Y+
+    Start: Options
+    Select: Share
+    PS Button: PS Button
+    Square: Square
+    Cross: Cross
+    Circle: Circle
+    Triangle: Triangle
+    Left: Left
+    Down: Down
+    Right: Right
+    Up: Up
+    R1: R1
+    R2: R2
+    R3: R3
+    L1: L1
+    L2: L2
+    L3: L3
     Pressure Intensity Button: ""
     Pressure Intensity Percent: 50
     Left Stick Multiplier: 100
     Right Stick Multiplier: 100
-    Left Stick Deadzone: 0
-    Right Stick Deadzone: 0
+    Left Stick Deadzone: 40
+    Right Stick Deadzone: 40
     Left Trigger Threshold: 0
     Right Trigger Threshold: 0
-    Left Pad Squircling Factor: 0
-    Right Pad Squircling Factor: 0
+    Left Pad Squircling Factor: 8000
+    Right Pad Squircling Factor: 8000
     Color Value R: 0
     Color Value G: 0
-    Color Value B: 0
+    Color Value B: 20
     Blink LED when battery is below 20%: true
     Use LED as a battery indicator: false
-    LED battery indicator brightness: 50
+    LED battery indicator brightness: 10
     Enable Large Vibration Motor: true
     Enable Small Vibration Motor: true
     Switch Vibration Motors: false
@@ -173,8 +173,8 @@ Player 3 Input:
     Analog Button Lerp Factor: 100
     Trigger Lerp Factor: 100
     Device Class Type: 0
-    Vendor ID: 0
-    Product ID: 0
+    Vendor ID: 1356
+    Product ID: 616
 Player 4 Input:
   Handler: "Null"
   Device: "Null"
