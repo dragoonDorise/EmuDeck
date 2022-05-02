@@ -1780,7 +1780,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.cue|.CUE|.bin|.BIN|.img|.IMG|.chd|.CHD|.ecm|.ECM|.iso|.ISO|.m3u|.M3U|.mds|.MDS|.pbp|.PBP)"
+      "glob": "${title}@(.cue|.CUE|.img|.IMG|.chd|.CHD|.ecm|.ECM|.iso|.ISO|.m3u|.M3U|.mds|.MDS|.pbp|.PBP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
