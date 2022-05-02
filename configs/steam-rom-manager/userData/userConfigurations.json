@@ -2157,7 +2157,7 @@
         "useCredentials": true
     },
     "parserInputs": {
-        "glob": "${title}@(.7z|.7Z|.ccd|.CCD|.chd|.CHD|.cue|.CUE|.m3u|.M3U|.pbp|.PBP|.toc|.TOC)"
+        "glob": "${title}@(.ccd|.CCD|.chd|.CHD|.cue|.CUE|.m3u|.M3U|.pbp|.PBP|.toc|.TOC)"
     },
     "titleFromVariable": {
         "limitToGroups": "",
