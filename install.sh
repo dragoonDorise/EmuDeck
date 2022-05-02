@@ -162,7 +162,7 @@ if [ $ans -eq 0 ]; then
 	destination="SD"
 	echo "" > ~/emudeck/.SD
 else
-	echo "Storage: INTERAL" &>> ~/emudeck/emudeck.log
+	echo "Storage: INTERNAL" &>> ~/emudeck/emudeck.log
 	destination="INTERNAL"
 fi
 
@@ -173,19 +173,33 @@ fi
 if [ $destination == "SD" ]; then
 	#check dev to see if sd card is inserted and has a partition	
 	if [ -b "/dev/mmcblk0p1" ]; then	
-		#test if card is ext4
-		if [ $(findmnt -n --raw --evaluate --output=fstype -S /dev/mmcblk0p1) == "ext4" ]; then
-			# use findmnt to explicitly find the path where the first partition on the SD card is mounted.
-			sdCardFull=$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)
-			echo "SD Card found; installing to $sdCardFull"> ~/emudeck/emudeck.log
-		else
-				text="`printf "<b>You need to format your SD Card using Steam UI</b>\nEmuDeck will not work if your SD card is not formatted in ext4 format because of SteamOS permissions limitations on other non ext4 formatted cards.\nPlease come back when your SD Card is ready"`"
+		#test if card is writable and linkable
+		sdCardFull="$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)"
+		echo "SD Card found; installing to $sdCardFull">> ~/emudeck/emudeck.log
+		touch $sdCardFull/testwrite
+		if [ ! -f  $sdCardFull/testwrite ]; then
+				text="`printf "<b>SD Card not writable</b>\nMake sure your SD Card is writable"`"
 				zenity --error \
-						--title="SDCard Error" \
-						--width=400 \
-						--text="${text}" &>> /dev/null
+				--title="SDCard Error" \
+				--width=400 \
+				--text="${text}" &>> /dev/null
 				exit
+		else
+			echo "SD Card writable" &>> ~/emudeck/emudeck.log
 		fi
+		ln -s $sdCardFull/testwrite $sdCardFull/testwrite.link
+		if [ ! -f  $sdCardFull/testwrite.link ]; then
+				text="`printf "<b>Symlinks can't be created on your card</b>\nMake sure to use a supported filesystem. EXT4 Recommended"`"
+				zenity --error \
+				--title="SDCard Error" \
+				--width=400 \
+				--text="${text}" &>> /dev/null
+				rm -f "$sdCardFull/testwrite"
+				exit
+		else
+			echo "Symlink creation succeeded" &>> ~/emudeck/emudeck.log
+		fi
+		rm -f "$sdCardFull/testwrite" "$sdCardFull/testwrite.link"
 	else
 		text="`printf "<b>SD Card not detected</b>\nMake sure your SD Card is inserted and start again the installation"`"
 		zenity --error \
