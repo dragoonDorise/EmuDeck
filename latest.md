@@ -12,3 +12,4 @@
 - Fixed PrimeHack controller config
 - Fixes for people with custom flathubs repos - Godsbane
 - New SD Card detection method ( BTRFS Support is back ) - popsUlfr + Godsbane
+- Added Emulators parser on SRM
