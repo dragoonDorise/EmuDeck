@@ -67,7 +67,7 @@ We try to use the same hotkeys for every emulator but some of them has its own d
 | --------------- | -------------- | -------------- | -------- | -------------- | -------------- | ------------ | ------------ |
 | Menu            | L3 + R3        | -              | -        | -              | -              | -            | -            |
 | Exit            | Select + Start | Select + Start | R5       | Select + Start | Select + Start | STEAM Button | STEAM Button |
-| Pause Emulation | Select + A     | Select + A     | -        | -              | Select + A     |              | -            |
+| Pause/Unpause Emulation | Select + A     | Select + A     | -        | -              | Select + A     |              | -            |
 | Fast Forward    | Select + R2    | Select         | -        | -              | Select + R2    | Select + R2  | -            |
 | Load State      | Select + L1    | Select + L1    | -        | -              | -              | Select + L1  | -            |
 | Save State      | Select + R1    | Select + R1    | -        | -              | -              | Select + R1  | -            |
