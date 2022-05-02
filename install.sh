@@ -1413,20 +1413,20 @@ fi
 #fi
 
 if [ $doInstallCHD == true ]; then
-	mkdir -p ~/emudeck/chdconv/
-	rsync $toolsPath/chdconv/ ~/emudeck/chdconv/
+	mkdir -p  $toolsPath/chdconv/
+	rsync -avhp ~/dragoonDoriseTools/chdconv/ $toolsPath/chdconv/ &>> ~/emudeck/emudeck.log
 	
 	rm -rf ~/Desktop/EmuDeckCHD.desktop &>> /dev/null
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
 	Name=EmuDeck CHD Script
-	Exec=bash ~/emudeck/chdconv/chddeck.sh
+	Exec=bash $toolsPath/chdconv/chddeck.sh
 	Icon=steamdeck-gaming-return
 	Terminal=true
 	Type=Application
 	StartupNotify=false" > ~/Desktop/EmuDeckCHD.desktop
 	chmod +x ~/Desktop/EmuDeckCHD.desktop	
-	chmod +x ~/emudeck/chdconv/chddesk.sh
+	chmod +x $toolsPath/chdconv/chddesk.sh
 fi
 
 if [ $doInstallPowertools == true ]; then
