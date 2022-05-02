@@ -1051,8 +1051,6 @@ unlink keys &>> ~/emudeck/emudeck.log
 cd ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/
 unlink registered &>> ~/emudeck/emudeck.log
 
-echo -ne "Cleaning up downloaded files..."	
-rm -rf ~/dragoonDoriseTools	
 
 
 #
@@ -1505,6 +1503,8 @@ StartupNotify=false" > ~/Desktop/EmuDeck.desktop
 chmod +x ~/Desktop/EmuDeck.desktop
 
 
+echo -e "Cleaning up downloaded files..."	
+rm -rf ~/dragoonDoriseTools	
 clear
 
 text="`printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager to add your games to your SteamUI Interface.\n\n<b>Remember that Cemu games needs to be set in compatibility mode in SteamUI: Proton 7 by going into its Properties and then Compatibility</b>\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!"`"
