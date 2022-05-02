@@ -175,7 +175,7 @@ if [ $destination == "SD" ]; then
 	if [ -b "/dev/mmcblk0p1" ]; then	
 		#test if card is writable and linkable
 		sdCardFull="$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)"
-
+		echo "SD Card found; installing to $sdCardFull">> ~/emudeck/emudeck.log
 		touch $sdCardFull/testwrite
 		if [ ! -f  $sdCardFull/testwrite ]; then
 				text="`printf "<b>SD Card not writable</b>\nMake sure your SD Card is writable"`"
