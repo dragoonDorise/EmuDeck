@@ -223,7 +223,7 @@ if [ $expert == true ]; then
 
 
 	#CHDMAN	
-	text="`printf "Do you want to install our tool to convert iso, gdi and cue to CHD format?\n\n The CHD format allows to have one single file insted of two and the final file takes up to 50% less space"`"
+	text="`printf "Do you want to install our tool to convert iso, gdi and cue to CHD format?\n\n The CHD format allows to have one single file insted of multiple and the final file takes up to 50%% less space"`"
 	zenity --question \
 			 --title="EmuDeck" \
 			 --width=250 \
@@ -1173,7 +1173,6 @@ fi
 #We move all the saved folders to the emulation path
 
 #RA
-savesPath="/run/media/mmcblk0p1/Emulation/saves/"
 if [ ! -d "$savesPath/retroarch/states" ]; then		
 	mkdir -p $savesPath/retroarch
 	echo -e ""
@@ -1420,7 +1419,7 @@ fi
 
 if [ $doInstallPowertools == true ]; then
 	
-	hasPass=$(grep -rnw '/etc/passwd' -e 'User:/home/deck')
+	hasPass=$(grep -rn '/etc/passwd' -e "$(whoami):") #makes it work for the current user.
 	
 	if [[ $hasPass == '' ]]; then
 		text="`printf "In order to install PowerTools you need to set a password for the deck user.\n\n Remember this password. If you forget it you will need to format your Deck to change it"`"
