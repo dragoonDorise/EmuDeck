@@ -654,60 +654,60 @@ fi
 #Emulators Installation
 if [ $doInstallPCSX2 == "true" ]; then
 	echo -e "Installing PCSX2"
-	flatpak install flathub net.pcsx2.PCSX2 -y	&>> ~/emudeck/emudeck.log
+	flatpak install flathub net.pcsx2.PCSX2 -y --system	&>> ~/emudeck/emudeck.log
 	#flatpak override net.pcsx2.PCSX2 --filesystem=host --user
 	echo -e "Bad characters" &>> ~/emudeck/emudeck.log
 fi
 if [ $doInstallPrimeHacks == "true" ]; then
 	echo -e "Installing PrimeHack"
-	flatpak install flathub io.github.shiiion.primehack -y &>> ~/emudeck/emudeck.log
+	flatpak install flathub io.github.shiiion.primehack -y --system &>> ~/emudeck/emudeck.log
 	#flatpak override io.github.shiiion.primehack --filesystem=host --user
 fi
 if [ $doInstallRPCS3 == "true" ]; then
 	echo -e "Installing RPCS3"
-	flatpak install flathub net.rpcs3.RPCS3 -y &>> ~/emudeck/emudeck.log
+	flatpak install flathub net.rpcs3.RPCS3 -y --system &>> ~/emudeck/emudeck.log
 	flatpak override net.rpcs3.RPCS3 --filesystem=host --user
 #	echo -e "Installing Flatseal (RPCS3 FIX)"
 #	flatpak install flathub com.github.tchx84.Flatseal -y &>> ~/emudeck/emudeck.log
 fi
 if [ $doInstallCitra == "true" ]; then
 	echo -e "Installing Citra"
-	flatpak install flathub org.citra_emu.citra -y &>> ~/emudeck/emudeck.log
+	flatpak install flathub org.citra_emu.citra -y --system &>> ~/emudeck/emudeck.log
 	#flatpak override org.citra_emu.citra --filesystem=host --user
 fi
 if [ $doInstallDolphin == "true" ]; then
 	echo -e "Installing Dolphin"
-	flatpak install flathub org.DolphinEmu.dolphin-emu -y &>> ~/emudeck/emudeck.log
+	flatpak install flathub org.DolphinEmu.dolphin-emu -y --system &>> ~/emudeck/emudeck.log
 	#flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
 fi
 if [ $doInstallDuck == "true" ]; then
 	echo -e "Installing DuckStation"
-	flatpak install flathub org.duckstation.DuckStation -y &>> ~/emudeck/emudeck.log
+	flatpak install flathub org.duckstation.DuckStation -y --system &>> ~/emudeck/emudeck.log
 	#flatpak override org.duckstation.DuckStation --filesystem=host --user
 fi
 if [ $doInstallRA == "true" ]; then
 	echo -e "Installing RetroArch"
-	flatpak install flathub org.libretro.RetroArch -y &>> ~/emudeck/emudeck.log
+	flatpak install flathub org.libretro.RetroArch -y --system &>> ~/emudeck/emudeck.log
 	#flatpak override org.libretro.RetroArch --filesystem=host --user
 fi
 if [ $doInstallPPSSPP == "true" ]; then
 	echo -e "Installing PPSSPP"
-	flatpak install flathub org.ppsspp.PPSSPP -y &>> ~/emudeck/emudeck.log
+	flatpak install flathub org.ppsspp.PPSSPP -y --system &>> ~/emudeck/emudeck.log
 	#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
 fi
 if [ $doInstallYuzu == "true" ]; then
 	echo -e "Installing Yuzu"
-	flatpak install flathub org.yuzu_emu.yuzu -y &>> ~/emudeck/emudeck.log
+	flatpak install flathub org.yuzu_emu.yuzu -y --system &>> ~/emudeck/emudeck.log
 	#flatpak override org.yuzu_emu.yuzu --filesystem=host --user
 fi
 if [ $doInstallXemu == "true" ]; then
 	echo -e "Installing Xemu"
-	flatpak install flathub app.xemu.xemu -y &>> ~/emudeck/emudeck.log
+	flatpak install flathub app.xemu.xemu -y --system &>> ~/emudeck/emudeck.log
 	#flatpak override app.xemu.xemu --filesystem=host --user
 fi
 #if [ $doInstallMelon == "true" ]; then
 #	echo -e "Installing MelonDS"
-#	flatpak install flathub net.kuribo64.melonDS -y &>> ~/emudeck/emudeck.log
+#	flatpak install flathub net.kuribo64.melonDS -y --system &>> ~/emudeck/emudeck.log
 #fi
 echo -e ""
 
