@@ -10,4 +10,4 @@
 - Fixes on PrimeHack SRM config - Godsbane
 - Fixes for people with custom flathubs repos - Godsbane
 - New SD Card detection method - popsUlfr + Godsbane
-- Fixes on PS1 and PrimeHack SRM parsers - Godsbane
+- Fixed PS1 and PrimeHack SRM parsers - Godsbane
