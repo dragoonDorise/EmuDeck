@@ -159,6 +159,7 @@
 
   0.17
 
+- Added Beta and Dev release channels
 - ESDE Downloaded data moved to SD Card if the user chose SD card on install
 - Uninstall icon for those that want to uninstall EmuDeck
 - Updated Icon with current version installed
@@ -166,8 +167,4 @@
 - Added Xemu emulator support - Godsbane
 - Enabled rumble motor on Dolphin
 - Improved SD Card detection - Godsbane
-- Added .wua support for upcoming Cemu 1.27 - Flynn
-
-  0.17.1
-
-- New Emulation/saves so you can sync your saved games and states using Dropbox or similar
+- Added .wua support for upcoming Cemu 1.27 - v-tron
