@@ -223,7 +223,7 @@ if [ $expert == true ]; then
 
 
 	#CHDMAN	
-	text="`printf "Do you want to install our tool to convert iso, gdi and cue to CHD format?\n\n The CHD format allows to have one single file insted of two and the final file takes up to 50% less space"`"
+	text="`printf "Do you want to install our tool to convert iso, gdi and cue to CHD format?\n\n The CHD format allows to have one single file insted of two and the final file takes up to 50%% less space"`"
 	zenity --question \
 			 --title="EmuDeck" \
 			 --width=250 \
