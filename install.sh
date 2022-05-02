@@ -189,7 +189,7 @@ if [ $destination == "SD" ]; then
 		fi
 		ln -s $sdCardFull/testwrite $sdCardFull/testwrite.link
 		if [ ! -f  $sdCardFull/testwrite.link ]; then
-				text="`printf "<b>Symlinks can't be created on your card</b>\nMake sure to use a supported filesystem. EXT4 Recommended"`"
+				text="`printf "<b>Your SD Card is not compatible with EmuDeck.</b>\nMake sure to use a supported filesystem like EXT4. Formatting your SD Card from SteamUI will fix this.\n\n Go back to Gaming Mode, Settings, System and select Format SD Card there. This will delete all your SD contents."`"
 				zenity --error \
 				--title="SDCard Error" \
 				--width=400 \
