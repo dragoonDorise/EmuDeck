@@ -1274,8 +1274,8 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "PrimeHacks",
-    "steamCategory": "${PrimeHacks}",
+    "configTitle": "PrimeHack",
+    "steamCategory": "${PrimeHack}",
     "executableArgs": "run io.github.shiiion.primehack -b -e \"${filepath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/primehacks",
@@ -1308,7 +1308,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA)"
+      "glob": "${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.wbfs|.WBFS)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1780,7 +1780,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.cue|.CUE|.bin|.BIN|.img|.IMG|.chd|.CHD|.ecm|.ECM|.iso|.ISO|.m3u|.M3U|.mds|.MDS|.pbp|.PBP)"
+      "glob": "${title}@(.cue|.CUE|.img|.IMG|.chd|.CHD|.ecm|.ECM|.iso|.ISO|.m3u|.M3U|.mds|.MDS|.pbp|.PBP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
