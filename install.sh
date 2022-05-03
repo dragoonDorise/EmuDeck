@@ -26,7 +26,7 @@ else
 fi
 
 #Clean up from previous installations
-rm ~/emudek.log &>> /dev/null
+rm ~/emudeck.log &>> /dev/null
 rm -rf ~/dragoonDoriseTools
 mkdir -p ~/emudeck
 #Creating log file
