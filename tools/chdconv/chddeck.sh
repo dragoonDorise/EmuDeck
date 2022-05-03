@@ -29,7 +29,7 @@ if [ $ans -eq 0 ]; then
 	
 	if [ $destination == "SD" ]; then
 		romsPath="/run/media/mmcblk0p1/Emulation/roms/"
-		chdPath="/run/media/mmcblk0p1/Emulation/tools/chdconv"
+		chdPath="/run/media/mmcblk0p1/Emulation/tools/chdconv/"
 	else
 		romsPath=~/Emulation/roms/
 		chdPath=~/Emulation/tools/chdconv/
