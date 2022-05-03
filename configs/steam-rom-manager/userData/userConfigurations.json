@@ -2174,7 +2174,7 @@
     "parserId": "165153198040340580",
     "version": 5
 },
-  {
+{
     "parserType": "Glob",
     "configTitle": "DOS - Retroarch(Flatpak) - DOSBox Pure",
     "steamCategory": "${DOS}",
