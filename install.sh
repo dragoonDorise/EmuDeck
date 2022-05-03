@@ -1460,7 +1460,8 @@ if [ $doInstallPowertools == true ]; then
 		sudo rm -rf ~/homebrew/plugins/PowerTools
 		sudo git clone https://github.com/NGnius/PowerTools.git ~/homebrew/plugins/PowerTools >> ~/emudeck/emudeck.log
 		sleep 1
-		cd ~/homebrew/plugins/PowerTools		
+		cd ~/homebrew/plugins/PowerTools
+		sudo git checkout tags/v0.3.0 >> ~/emudeck/emudeck.log
 		text="`printf "To finish the installation go into the Steam UI Settings\n\n
 		Under System -> System Settings toggle Enable Developer Mode\n\n
 		Scroll the sidebar all the way down and click on Developer\n\n
