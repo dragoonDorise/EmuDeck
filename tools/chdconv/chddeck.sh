@@ -28,19 +28,19 @@ if [ $ans -eq 0 ]; then
 	fi
 	
 	if [ $destination == "SD" ]; then
-		romsPath="/run/media/mmcblk0p1/Emulation/roms/"
-		chdPath="/run/media/mmcblk0p1/Emulation/tools/chdconv/"
+		romsPath="/run/media/mmcblk0p1/Emulation/roms"
+		chdPath="/run/media/mmcblk0p1/Emulation/tools/chdconv"
 	else
-		romsPath=~/Emulation/roms/
-		chdPath=~/Emulation/tools/chdconv/
+		romsPath=~/Emulation/roms
+		chdPath=~/Emulation/tools/chdconv
 	fi
 
 	chmod +x ~"${chdPath}"/chdman5
 	export PATH="${chdPath}/:$PATH"
 	
-	find "$romsPath" -not -path "$romsPath/psp" -type f -name "*.cue" | while read f; do chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "${f%.*}.cue" && rm -rf "${f%.*}.bin"; done;
-	find "$romsPath" -not -path "$romsPath/psp" -type f -name "*.gdi" | while read f; do chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "${f%.*}.cue" && rm -rf "${f%.*}.bin"; done;
-	find "$romsPath" -not -path "$romsPath/psp" -type f -name "*.iso" | while read f; do chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "${f%.*}.cue" && rm -rf "${f%.*}.bin"; done;
+	find "$romsPath" -not -path "$romsPath/psp/*" -type f -name "*.cue" | while read f; do chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "${f%.*}.cue" && rm -rf "${f%.*}.bin"; done;
+	find "$romsPath" -not -path "$romsPath/psp/*" -type f -name "*.gdi" | while read f; do chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "${f%.*}.cue" && rm -rf "${f%.*}.bin"; done;
+	find "$romsPath" -not -path "$romsPath/psp/*" -type f -name "*.iso" | while read f; do chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "${f%.*}.cue" && rm -rf "${f%.*}.bin"; done;
 	
 else
 	exit
