@@ -2089,7 +2089,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
@@ -2118,5 +2118,60 @@
     },
     "parserId": "165103607715056732",
     "version": 5
-  }
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "Sony PlayStation - Retroarch - Beetle PSX HW",
+    "steamCategory": "${PS1}",
+    "executableArgs": "run org.libretro.RetroArch -L /mednafen_psx_hw_libretro.so \"${filePath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psx",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "imageProviders": [
+        "SteamGridDB"
+    ],
+    "titleModifier": "${fuzzyTitle}",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": true,
+    "advanced": false,
+    "executable": {
+        "path": "/usr/bin/flatpak",
+        "shortcutPassthrough": false,
+        "appendArgsToExecutable": true
+    },
+    "userAccounts": {
+        "specifiedAccounts": "",
+        "skipWithMissingDataDir": true,
+        "useCredentials": true
+    },
+    "parserInputs": {
+        "glob": "${title}@(.ccd|.CCD|.chd|.CHD|.cue|.CUE|.m3u|.M3U|.pbp|.PBP|.toc|.TOC)"
+    },
+    "titleFromVariable": {
+        "limitToGroups": "",
+        "caseInsensitiveVariables": false,
+        "skipFileIfVariableWasNotFound": false,
+        "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+        "use": true,
+        "replaceDiacritics": true,
+        "removeCharacters": true,
+        "removeBrackets": true
+    },
+    "parserId": "165153198040340580",
+    "version": 5
+}
 ]
