@@ -1414,7 +1414,7 @@ fi
 
 if [ $doInstallCHD == true ]; then
 	mkdir -p  "$toolsPath"chdconv/
-	rsync -avhp ~/dragoonDoriseTools/chdconv/ "$toolsPath"chdconv/ &>> ~/emudeck/emudeck.log
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/tools/chdconv/ "$toolsPath"chdconv/ &>> ~/emudeck/emudeck.log
 	
 	rm -rf ~/Desktop/EmuDeckCHD.desktop &>> /dev/null
 	echo "#!/usr/bin/env xdg-open
