@@ -11,8 +11,8 @@ zenity --question \
 ans=$?
 if [ $ans -eq 0 ]; then
 	#paths update via sed in main script
-	romsPath="/run/media/external/mmcblk0p1/roms/"
-	chdPath="/run/media/external/mmcblk0p1/tools/chdconv/"
+	romsPath="/run/media/mmcblk0p1/Emulation/roms/"
+	chdPath="/run/media/mmcblk0p1/Emulation/tools/chdconv/"
 
 	#whitelist
 	declare -a folderWhiteList=("dreamcast" "psx" "segacd" "3d0" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd")
