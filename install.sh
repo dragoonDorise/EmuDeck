@@ -794,6 +794,12 @@ fi
 #ESDE Config
 echo -ne "${BOLD}Configuring EmulationStation DE...${NONE}"
 mkdir -p ~/.emulationstation/
+#Cemu (Proton)
+mkdir -p ~/.emulationstation/custom_systems/
+cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/custom_systems/es_systems.xml ~/.emulationstation/custom_systems/es_systems.xml
+sed -i "s|/run/media/mmcblk0p1/Emulation/roms/wiiu/cemu.sh|${romsPath}/wiiu/cemu.sh|g" ~/.emulationstation/custom_systems/es_systems.xml
+cp ~/dragoonDoriseTools/EmuDeck/configs/cemu/cemu.sh ${romsPath}/wiiu/cemu.sh
+chmod +x ${romsPath}/wiiu/cemu.sh
 #Commented until we get CEMU flatpak working
 #rsync -r ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/ ~/.emulationstation/
 cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/es_settings.xml ~/.emulationstation/es_settings.xml
