@@ -29,10 +29,20 @@ if [ $ans -eq 0 ]; then
 			searchFolderList+=("$romfolder")
 		fi
 	done
-	numFolders=${#searchFolderList[@]}
-	declare -i height=$numFolders*100
+	
+	if (( ${#searchFolderList[@]} == 0 )); then
+		text="`printf "<b>No suitable roms were found for conversion.</b>\n\nPlease check if you have any cue / gdi / iso files for compatible systems."`"
+		zenity --error \
+		 --title="EmuDeck" \
+		 --width=250 \
+		 --ok-label="Bye" \
+		 --text="${text}" &>> /dev/null
+		exit
+	fi
+
+	declare -i height=(${#searchFolderList[@]}*100)
 	selectColumnStr="RomFolder " 
-	for (( i=1; i<=$numFolders; i++ )); do selectColumnStr+="$i ${searchFolderList[$i-1]} " ; done
+	for (( i=1; i<=${#searchFolderList[@]}; i++ )); do selectColumnStr+="$i ${searchFolderList[$i-1]} " ; done
 	text="`printf "What folders do you want to convert?"`"
 	folderstoconvert=$(zenity --list \
 				--title="EmuDeck" \
