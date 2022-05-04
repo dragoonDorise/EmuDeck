@@ -1427,6 +1427,11 @@ if [ $doInstallCHD == true ]; then
 	StartupNotify=false" > ~/Desktop/EmuDeckCHD.desktop
 	chmod +x ~/Desktop/EmuDeckCHD.desktop	
 	chmod +x $toolsPath/chdconv/chddesk.sh
+	chmod +x $toolsPath/chdconv/chdman5
+	#update the paths in the script
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" $toolsPath/chdconv/chddesk.sh
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools/|${toolsPath}|g" $toolsPath/chdconv/chddesk.sh
+
 fi
 
 if [ $doInstallPowertools == true ]; then
