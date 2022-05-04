@@ -15,15 +15,15 @@ if [ $ans -eq 0 ]; then
 	chdPath="/run/media/mmcblk0p1/Emulation/tools/chdconv/"
 
 	#whitelist
-	declare -a folderWhiteList=("dreamcast" "psx" "segacd" "3d0" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd")
+	declare -a folderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd")
 	declare -a searchFolderList
 
 	export PATH="${chdPath}/:$PATH"
 
 	#find file types we support within whitelist of folders
 	for romfolder in ${folderWhiteList[@]}; do
-		echo "Checking $romsPath""$romfolder"
-		files=(`find "$romsPath""$romfolder" -type f -iname "*.gdi" -o -type f -iname "*.cue" -o -type f -iname "*.iso"`)
+		echo "Checking ${romsPath}${romfolder}\"
+		files=(`find "${romsPath}${romfolder}\" -type f -iname "*.gdi" -o -type f -iname "*.cue" -o -type f -iname "*.iso"`)
 		if [ ${#files[@]} -gt 0 ]; then 
 			echo "found in $romfolder"
 			searchFolderList+=("$romfolder")
@@ -44,12 +44,11 @@ if [ $ans -eq 0 ]; then
 				--checklist \
 				--column="" \
 				--column=${selectColumnStr})
-	#folderstoconvert=(`echo $folderstoconvert | sed 's/|/ /g'`)
-	IFS="|"
-	IFS=', ' read -r -a romfolders <<< "$folderstoconvert"
+	
+	IFS="|" read -r -a romfolders <<< "$folderstoconvert"
 	for romfolder in ${romfolders[@]}; do
-		find "$romsPath$romfolder" -type f -iname "*.cue" | while read f; do chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "$f" && rm -rf "${f%.*}.bin" && rm -rf "${f%.*}.BIN"; done;
-		find "$romsPath$romfolder" -type f -iname "*.gdi" | while read f; do chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "$f"; done;
+		find "$romsPath$romfolder" -type f -iname "*.cue" | while read f; do chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "$f" && rm -rf "${f%.*}.[bB][iI][nN]"; done;
+		find "$romsPath$romfolder" -type f -iname "*.gdi" | while read f; do chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "$f"; done; #going to need work
 		find "$romsPath$romfolder" -type f -iname "*.iso" | while read f; do chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "$f"; done;
 	done
 else
