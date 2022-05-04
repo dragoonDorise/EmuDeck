@@ -22,8 +22,8 @@ if [ $ans -eq 0 ]; then
 
 	#find file types we support within whitelist of folders
 	for romfolder in ${folderWhiteList[@]}; do
-		echo "Checking ${romsPath}${romfolder}\"
-		files=(`find "${romsPath}${romfolder}\" -type f -iname "*.gdi" -o -type f -iname "*.cue" -o -type f -iname "*.iso"`)
+		echo "Checking ${romsPath}${romfolder}/"
+		files=(`find "${romsPath}${romfolder}/" -type f -iname "*.gdi" -o -type f -iname "*.cue" -o -type f -iname "*.iso"`)
 		if [ ${#files[@]} -gt 0 ]; then 
 			echo "found in $romfolder"
 			searchFolderList+=("$romfolder")
