@@ -6,7 +6,7 @@ APPPATH="$(dirname "${BASH_SOURCE[0]}")"
 # Steam Path
 STEAMPATH="${HOME}/.local/share/Steam"
 # Proton Path
-PROTON="${STEAMPATH}/steamapps/common/Proton - Experimental/proton"
+PROTON="${STEAMPATH}/steamapps/common/Proton 7.0/proton"
 # Prefix
 PFX="${STEAMPATH}/steamapps/compatdata/pfx"
 # AppID
