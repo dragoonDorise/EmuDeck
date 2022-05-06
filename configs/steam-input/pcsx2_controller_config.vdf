@@ -716,7 +716,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press K"
+							"binding"		"key_press F3"
 						}
 					}
 				}
@@ -739,7 +739,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press L"
+							"binding"		"key_press F1"
 						}
 					}
 				}
