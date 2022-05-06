@@ -220,7 +220,7 @@ if [ $destination == "SD" ]; then
 fi
 
 mkdir -p "$emulationPath"
-mkdir -p "$toolsPath"
+mkdir -p "$toolsPath"launchers 
 mkdir -p "$savesPath"
 
 #Cleanup for old users
@@ -670,55 +670,92 @@ fi
 if [ $doInstallPCSX2 == "true" ]; then
 	echo -e "Installing PCSX2"
 	flatpak install flathub net.pcsx2.PCSX2 -y --system	&>> ~/emudeck/emudeck.log
-	#flatpak override net.pcsx2.PCSX2 --filesystem=host --user
-	echo -e "Bad characters" &>> ~/emudeck/emudeck.log
+	flatpak override net.pcsx2.PCSX2 --filesystem=host --user
+	#write out launcher
+	echo "#!/bin/sh
+	/usr/bin/flatpak run net.pcsx2.PCSX2" > "${toolsPath}"launchers/pcsx2.sh
+	chmod +x "${toolsPath}"launchers/pcsx2.sh	
 fi
 if [ $doInstallPrimeHacks == "true" ]; then
 	echo -e "Installing PrimeHack"
 	flatpak install flathub io.github.shiiion.primehack -y --system &>> ~/emudeck/emudeck.log
 	flatpak override io.github.shiiion.primehack --filesystem=host --user
+	#write out launcher
+	echo "#!/bin/sh
+	/usr/bin/flatpak run io.github.shiiion.primehack" > "${toolsPath}"launchers/primehack.sh
+	chmod +x "${toolsPath}"launchers/primehack.sh	
 fi
 if [ $doInstallRPCS3 == "true" ]; then
 	echo -e "Installing RPCS3"
 	flatpak install flathub net.rpcs3.RPCS3 -y --system &>> ~/emudeck/emudeck.log
 	flatpak override net.rpcs3.RPCS3 --filesystem=host --user
-#	echo -e "Installing Flatseal (RPCS3 FIX)"
-#	flatpak install flathub com.github.tchx84.Flatseal -y &>> ~/emudeck/emudeck.log
+	#write out launcher
+	echo "#!/bin/sh
+	/usr/bin/flatpak run net.rpcs3.RPCS3" > "${toolsPath}"launchers/rpcs3.sh
+	chmod +x "${toolsPath}"launchers/rpcs3.sh	
 fi
 if [ $doInstallCitra == "true" ]; then
 	echo -e "Installing Citra"
 	flatpak install flathub org.citra_emu.citra -y --system &>> ~/emudeck/emudeck.log
 	flatpak override org.citra_emu.citra --filesystem=host --user
+	#write out launcher
+	echo "#!/bin/sh
+	/usr/bin/flatpak run org.citra_emu.citra" > "${toolsPath}"launchers/citra.sh
+	chmod +x "${toolsPath}"launchers/citra.sh	
 fi
 if [ $doInstallDolphin == "true" ]; then
 	echo -e "Installing Dolphin"
 	flatpak install flathub org.DolphinEmu.dolphin-emu -y --system &>> ~/emudeck/emudeck.log
 	flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
+	#write out launcher
+	echo "#!/bin/sh
+	/usr/bin/flatpak run org.DolphinEmu.dolphin-emu" > "${toolsPath}"launchers/dolphin-emu.sh
+	chmod +x "${toolsPath}"launchers/dolphin-emu.sh	
 fi
 if [ $doInstallDuck == "true" ]; then
 	echo -e "Installing DuckStation"
 	flatpak install flathub org.duckstation.DuckStation -y --system &>> ~/emudeck/emudeck.log
 	#flatpak override org.duckstation.DuckStation --filesystem=host --user
+	#write out launcher
+	echo "#!/bin/sh
+	/usr/bin/flatpak run org.duckstation.DuckStation" > "${toolsPath}"launchers/duckstation.sh
+	chmod +x "${toolsPath}"launchers/duckstation.sh	
 fi
 if [ $doInstallRA == "true" ]; then
 	echo -e "Installing RetroArch"
 	flatpak install flathub org.libretro.RetroArch -y --system &>> ~/emudeck/emudeck.log
 	#flatpak override org.libretro.RetroArch --filesystem=host --user
+	#write out launcher
+	echo "#!/bin/sh
+	/usr/bin/flatpak run org.libretro.RetroArch" > "${toolsPath}"launchers/RetroArch.sh
+	chmod +x "${toolsPath}"launchers/RetroArch.sh	
 fi
 if [ $doInstallPPSSPP == "true" ]; then
 	echo -e "Installing PPSSPP"
 	flatpak install flathub org.ppsspp.PPSSPP -y --system &>> ~/emudeck/emudeck.log
 	#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
+	#write out launcher
+	echo "#!/bin/sh
+	/usr/bin/flatpak run org.ppsspp.PPSSPP" > "${toolsPath}"launchers/ppsspp.sh
+	chmod +x "${toolsPath}"launchers/ppsspp.sh
 fi
 if [ $doInstallYuzu == "true" ]; then
 	echo -e "Installing Yuzu"
 	flatpak install flathub org.yuzu_emu.yuzu -y --system &>> ~/emudeck/emudeck.log
 	flatpak override org.yuzu_emu.yuzu --filesystem=host --user
+	#write out launcher
+	echo "#!/bin/sh
+	/usr/bin/flatpak run org.yuzu_emu.yuzu" > "${toolsPath}"launchers/yuzu.sh
+	chmod +x "${toolsPath}"launchers/yuzu.sh
 fi
 if [ $doInstallXemu == "true" ]; then
 	echo -e "Installing Xemu"
 	flatpak install flathub app.xemu.xemu -y --system &>> ~/emudeck/emudeck.log
 	flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
+	#write out launcher
+	echo "#!/bin/sh
+	/usr/bin/flatpak run app.xemu.xemu" > "${toolsPath}"launchers/xemu.sh
+	chmod +x "${toolsPath}"launchers/xemu.sh
 fi
 #if [ $doInstallMelon == "true" ]; then
 #	echo -e "Installing MelonDS"
