@@ -513,15 +513,16 @@ if [ $expert == true ]; then
 	# Configuration that only appplies to previous users
 	if [ -f "$SECONDTIME" ]; then
 		#We make sure all the emus can write its saves outside its own folders.
+		#Also needed for certain emus to open certain menus for adding rom directories in the front end.
 		#flatpak override net.pcsx2.PCSX2 --filesystem=host --user
-		#flatpak override io.github.shiiion.primehack --filesystem=host --user
+		flatpak override io.github.shiiion.primehack --filesystem=host --user
 		flatpak override net.rpcs3.RPCS3 --filesystem=host --user
-		#flatpak override org.citra_emu.citra --filesystem=host --user
-		#flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
+		flatpak override org.citra_emu.citra --filesystem=host --user
+		flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
 		#flatpak override org.duckstation.DuckStation --filesystem=host --user
 		#flatpak override org.libretro.RetroArch --filesystem=host --user
 		#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
-		#flatpak override org.yuzu_emu.yuzu --filesystem=host --user
+		flatpak override org.yuzu_emu.yuzu --filesystem=host --user
 		flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
 		
 		installString='Updating'
@@ -675,7 +676,7 @@ fi
 if [ $doInstallPrimeHacks == "true" ]; then
 	echo -e "Installing PrimeHack"
 	flatpak install flathub io.github.shiiion.primehack -y --system &>> ~/emudeck/emudeck.log
-	#flatpak override io.github.shiiion.primehack --filesystem=host --user
+	flatpak override io.github.shiiion.primehack --filesystem=host --user
 fi
 if [ $doInstallRPCS3 == "true" ]; then
 	echo -e "Installing RPCS3"
@@ -687,12 +688,12 @@ fi
 if [ $doInstallCitra == "true" ]; then
 	echo -e "Installing Citra"
 	flatpak install flathub org.citra_emu.citra -y --system &>> ~/emudeck/emudeck.log
-	#flatpak override org.citra_emu.citra --filesystem=host --user
+	flatpak override org.citra_emu.citra --filesystem=host --user
 fi
 if [ $doInstallDolphin == "true" ]; then
 	echo -e "Installing Dolphin"
 	flatpak install flathub org.DolphinEmu.dolphin-emu -y --system &>> ~/emudeck/emudeck.log
-	#flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
+	flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
 fi
 if [ $doInstallDuck == "true" ]; then
 	echo -e "Installing DuckStation"
@@ -712,7 +713,7 @@ fi
 if [ $doInstallYuzu == "true" ]; then
 	echo -e "Installing Yuzu"
 	flatpak install flathub org.yuzu_emu.yuzu -y --system &>> ~/emudeck/emudeck.log
-	#flatpak override org.yuzu_emu.yuzu --filesystem=host --user
+	flatpak override org.yuzu_emu.yuzu --filesystem=host --user
 fi
 if [ $doInstallXemu == "true" ]; then
 	echo -e "Installing Xemu"
