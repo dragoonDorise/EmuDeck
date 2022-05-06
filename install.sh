@@ -944,7 +944,8 @@ if [ $doUpdateRPCS3 == true ]; then
 	fi
 
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.rpcs3.RPCS3/ ~/.var/app/net.rpcs3.RPCS3/ &>> ~/emudeck/emudeck.log
-	echo "" > "$toolsPath"/RPCS3.txt
+	sed -i 's| $(EmulatorDir)dev_hdd0/| '$savesPath'/rpcs3/dev_hdd0/|g' /home/deck/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml >> ~/emudeck/emudeck.log
+	mkdir $savesPath/rpcs3/dev_hdd0 >> ~/emudeck/emudeck.log
 fi
 if [ $doUpdateCitra == true ]; then
 	FOLDER=~/.var/app/org.citra_emu.citra/config_bak
@@ -1195,7 +1196,6 @@ if [ ! -d "$savesPath/retroarch/states" ]; then
 	mkdir -p ~/.var/app/org.libretro.RetroArch/config/retroarch/states 
 	ln -sn ~/.var/app/org.libretro.RetroArch/config/retroarch/states $savesPath/retroarch/states 
 fi
-
 if [ ! -d "$savesPath/retroarch/saves" ]; then	
 	mkdir -p $savesPath/retroarch
 	echo -e ""
@@ -1215,7 +1215,6 @@ if [ ! -d "$savesPath/dolphin/GC" ]; then
 	mkdir -p ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC
 	ln -sn ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC $savesPath/dolphin/GC 
 fi
-
 if [ ! -d "$savesPath/dolphin/Wii" ]; then	
 	mkdir -p $savesPath/dolphin	
 	echo -e ""
@@ -1234,6 +1233,7 @@ if [ ! -d "$savesPath/dolphin/states" ]; then
 	mkdir -p ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves
 	ln -sn ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves $savesPath/dolphin/states
 fi
+
 #PrimeHack
 if [ ! -d "$savesPath/primehack/GC" ]; then	
 	mkdir -p $savesPath/primehack	
@@ -1262,6 +1262,7 @@ if [ ! -d "$savesPath/primehack/states" ]; then
 	mkdir -p ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves
 	ln -sn ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves $savesPath/primehack/states
 fi
+
 #Yuzu
 if [ ! -d "$savesPath/yuzu/saves" ]; then		
 	mkdir -p $savesPath/citra
@@ -1272,6 +1273,7 @@ if [ ! -d "$savesPath/yuzu/saves" ]; then
 	mkdir -p ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc
 	ln -sn ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc $savesPath/yuzu/saves	
 fi
+
 #Duckstation
 if [ ! -d "$savesPath/duckstation/saves" ]; then		
 	mkdir -p $savesPath/duckstation
@@ -1321,7 +1323,17 @@ if [ ! -d "$savesPath/pcsx2/states" ]; then
 	mkdir -p ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates
 	ln -sn ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates $savesPath/pcsx2/states
 fi
+
 #RPCS3
+if [ ! -d "$savesPath/rpcs3/dev_hdd0" ]; then		
+	echo -e ""
+	echo -e "Moving rpcs3 hdd0 to the Emulation/Saves folder"			
+	echo -e "Depending on how many pkgs you have installed, this may take a while."
+	mkdir -p "$savesPath/rpcs3" >> ~/emudeck/emudeck.log
+	mv ~/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0 "$savesPath"/rpcs3/ >> ~/emudeck/emudeck.log
+	#update config file for the new loc $(emulatorDir) is in the file. made this annoying.
+	sed -i "'s|$(EmulatorDir)dev_hdd0/|'$savesPath'/rpcs3/dev_hdd0/|g'" /home/deck/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml >> ~/emudeck/emudeck.log
+fi
 
 #Citra
 if [ ! -d "$savesPath/citra/saves" ]; then		
