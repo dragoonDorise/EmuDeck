@@ -26,7 +26,7 @@ else
 fi
 
 #Clean up from previous installations
-rm ~/emudeck.log &>> /dev/null
+rm ~/emudek.log &>> /dev/null # This is emudeck's old log file, it's not a typo!
 rm -rf ~/dragoonDoriseTools
 mkdir -p ~/emudeck
 #Creating log file
