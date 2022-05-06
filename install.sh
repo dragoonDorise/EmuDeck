@@ -841,10 +841,10 @@ if [ $doInstallXenia == "true" ]; then
 	if [ -f "$FILE" ]; then
 		echo "" &>> /dev/null
 	else
-		curl https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip --output $romsPath/xbox360/xenia_master.zip &>> ~/emudeck/emudeck.log
+		curl -L https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip --output $romsPath/xbox360/xenia_master.zip &>> ~/emudeck/emudeck.log
 		mkdir -p $romsPath/xbox360/tmp
 		unzip -o "$romsPath"/xbox360/xenia_master.zip -d "$romsPath"/xbox360/tmp &>> ~/emudeck/emudeck.log
-		mv "$romsPath"/xbox360/tmp/*/* "$romsPath"/xbox360 &>> ~/emudeck/emudeck.log
+		mv "$romsPath"/xbox360/tmp/* "$romsPath"/xbox360 &>> ~/emudeck/emudeck.log
 		rm -rf "$romsPath"/xbox360/tmp &>> ~/emudeck/emudeck.log
 		rm -f "$romsPath"/xbox360/xenia_master.zip &>> ~/emudeck/emudeck.log		
 	fi
