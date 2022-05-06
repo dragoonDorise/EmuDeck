@@ -89,6 +89,7 @@ SNESAR=43
 duckWide=true
 DolphinWide=true
 DreamcastWide=true
+BeetleWide=true
 
 #Default installation folders
 emulationPath=~/Emulation/
@@ -493,7 +494,8 @@ if [ $expert == true ]; then
 				--column="Emulator" \
 				1 "Dolphin" \
 				2 "Duckstation" \
-				3 "Dreamcast")
+				3 "BeetlePSX"
+				4 "Dreamcast")
 	clear
 	ans=$?	
 	if [ $ans -eq 0 ]; then
@@ -507,6 +509,10 @@ if [ $expert == true ]; then
 		if [[ "$wideToInstall" == *"Dreamcast"* ]]; then
 			DreamcastWide=false
 		fi		
+		if [[ "$wideToInstall" == *"BeetlePSX"* ]]; then
+			BeetleWide=true
+		fi				
+				
 		
 	else		
 		exit		
@@ -1259,6 +1265,12 @@ if [ $DreamcastWide == true ]; then
 	sed -i "s|reicast_widescreen_hack = \"disabled\"|reicast_widescreen_hack = \"enabled\"|g" ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Flycast/Flycast.opt
 else
 	sed -i "s|reicast_widescreen_hack = \"enabled\"|reicast_widescreen_hack = \"disabled\"|g" ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Flycast/Flycast.opt
+fi
+
+if [ $BeetleWide == true ]; then
+	sed -i "s|beetle_psx_hw_widescreen_hack = \"disabled\"|beetle_psx_hw_widescreen_hack = \"enabled\"|g" ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle PSX HW/Beetle PSX HW.opt
+else
+	sed -i "s|beetle_psx_hw_widescreen_hack = \"enabled\"|beetle_psx_hw_widescreen_hack = \"disabled\"|g" ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle PSX HW/Beetle PSX HW.opt
 fi
 
 #We move all the saved folders to the emulation path
