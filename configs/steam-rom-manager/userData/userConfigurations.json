@@ -637,6 +637,59 @@
   },
   {
     "parserType": "Glob",
+    "configTitle": "Microsoft Xbox 360 - Xenia",
+    "steamCategory": "${Xbox 360}",
+    "executableArgs": "-f -g \"Z:${filepath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/xbox360/roms/",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "imageProviders": ["SteamGridDB"],
+    "titleModifier": "${fuzzyTitle}",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": false,
+    "advanced": false,
+    "executable": {
+      "path": "/run/media/mmcblk0p1/Emulation/roms/xbox360/xenia.exe",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.iso|.ISO)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "parserId": "135113607715086732",
+    "version": 5
+  },
+  {
+    "parserType": "Glob",
     "configTitle": "Nintendo 3DS - Citra",
     "steamCategory": "${Nintendo 3DS}",
     "executableModifier": "\"${exePath}\"",

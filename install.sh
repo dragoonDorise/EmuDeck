@@ -52,6 +52,7 @@ doUpdateYuzu=true
 doUpdateCitra=true
 doUpdateDuck=true
 doUpdateCemu=true
+doUpdateXenia=true
 doUpdateRyujinx=true
 doUpdatePrimeHacks=true
 doUpdatePPSSPP=true
@@ -70,6 +71,7 @@ doInstallYuzu=false
 doInstallCitra=false
 doInstallDuck=false
 doInstallCemu=false
+doInstallXenia=false
 doInstallPrimeHacks=false
 doInstallPPSSPP=false
 doInstallXemu=false
@@ -321,7 +323,8 @@ if [ $expert == true ]; then
 				8 "PPSSPP" \
 				9 "Yuzu" \
 				10 "Cemu" \
-				11 "Xemu")
+				11 "Xemu" \
+			    12 "Xenia")
 	clear
 	ans=$?	
 	if [ $ans -eq 0 ]; then
@@ -358,6 +361,9 @@ if [ $expert == true ]; then
 		fi
 		if [[ "$emusToInstall" == *"Xemu"* ]]; then
 			doInstallXemu=true
+		fi
+		if [[ "$emusToInstall" == *"Xenia"* ]]; then
+			doInstallXenia=true
 		fi
 		#if [[ "$emusToInstall" == *"MelonDS"* ]]; then
 		#	doInstallMelon=true
@@ -549,7 +555,8 @@ if [ $expert == true ]; then
 							9 "Yuzu" \
 							10 "Cemu" \
 							11 "Xemu" \
-							12 "SRM")
+							12 "Xenia" \
+							13 "SRM")
 		clear
 		cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 		echo -e "${BOLD}EmuDeck ${version}${NONE}"
@@ -589,6 +596,9 @@ if [ $expert == true ]; then
 			if [[ "$emusToReset" == *"Xemu"* ]]; then
 				doUpdateXemu=false
 			fi
+			if [[ "$emusToReset" == *"Xenia"* ]]; then
+				doUpdateXenia=false
+			fi
 			#if [[ "$emusToReset" == *"MelonDS"* ]]; then
 			#	doUpdateMelon=false
 			#fi
@@ -613,6 +623,7 @@ else
 	doInstallCitra=true
 	doInstallDuck=true
 	doInstallCemu=true
+	doInstallXenia=true
 	doInstallPrimeHacks=true
 	doInstallPPSSPP=true
 	doInstallXemu=true
@@ -814,6 +825,23 @@ if [ $doInstallCemu == "true" ]; then
 	#	   --text="We have updated your CEMU installation, you will need to open Steam Rom Manager and add your Wii U games again. This time you don't need to set CEMU to use Proton ever again :)" &>> /dev/null
 	#	   
 	#fi
+	
+fi
+
+#Xenia - We need to install Xenia after creating the Roms folders!
+if [ $doInstallXenia == "true" ]; then
+	echo -e "Installing Xenia"		
+	FILE="${romsPath}/xbox360/xenia.exe"	
+	if [ -f "$FILE" ]; then
+		echo "" &>> /dev/null
+	else
+		curl https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip --output $romsPath/xbox360/xenia_master.zip &>> ~/emudeck/emudeck.log
+		mkdir -p $romsPath/xbox360/tmp
+		unzip -o "$romsPath"/xbox360/xenia_master.zip -d "$romsPath"/xbox360/tmp &>> ~/emudeck/emudeck.log
+		mv "$romsPath"/xbox360/tmp/*/* "$romsPath"/xbox360 &>> ~/emudeck/emudeck.log
+		rm -rf "$romsPath"/xbox360/tmp &>> ~/emudeck/emudeck.log
+		rm -f "$romsPath"/xbox360/xenia_master.zip &>> ~/emudeck/emudeck.log		
+	fi
 	
 fi
 
@@ -1043,6 +1071,10 @@ if [ $doUpdateCemu == true ]; then
 	#Commented until we get CEMU flatpak working
 	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ &>> ~/emudeck/emudeck.log
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "$romsPath"/wiiu &>> ~/emudeck/emudeck.log
+fi
+if [ $doUpdateXenia == true ]; then
+	echo "" &>> ~/emudeck/emudeck.log
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/xenia/ "$romsPath"/xbox360 &>> ~/emudeck/emudeck.log
 fi
 if [ $doUpdateRyujinx == true ]; then
 	echo "" &>> ~/emudeck/emudeck.log
