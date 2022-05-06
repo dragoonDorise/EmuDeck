@@ -531,17 +531,17 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "SNK Neo Geo Pocket/Color - Retroarch - Beetle NeoPop",
-    "steamCategory": "${Neo Geo Pocket}",
+    "configTitle": "DOS - Retroarch(Flatpak) - DOSBox Pure",
+    "steamCategory": "${DOS}",
+    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}dosbox_pure_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\" -conf \"${filePath}${/}${title}.conf\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/ngpc",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/dos",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
-    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_ngp_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -554,13 +554,18 @@
     "localIcons": "",
     "disabled": false,
     "advanced": false,
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.ngc|.NGC|.ngp|.NGP|.zip|.ZIP)"
+      "glob": "${title}@(.7z|.7Z|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -574,12 +579,60 @@
       "removeCharacters": true,
       "removeBrackets": true
     },
+    "parserId": "165155371770791847",
+    "version": 5
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "Microsoft XBox - Xemu",
+    "steamCategory": "${XBox}",
+    "executableArgs": "run app.xemu.xemu -full-screen -dvd_path \"${filepath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/xbox",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "imageProviders": ["SteamGridDB"],
+    "titleModifier": "${fuzzyTitle}",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": false,
+    "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
-    "parserId": "164785621885441701",
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.iso|.ISO)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "parserId": "165103607715056732",
     "version": 5
   },
   {
@@ -1220,7 +1273,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "WiiU - Cemu (.rpx)",
+    "configTitle": "Nintendo WiiU - Cemu (.rpx)",
     "steamCategory": "${WiiU}",
     "executableArgs": "-f -g \"Z:${filepath}\"",
     "executableModifier": "\"${exePath}\"",
@@ -1273,7 +1326,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "WiiU - Cemu (.wud, .wux, .wua)",
+    "configTitle": "Nintendo WiiU - Cemu (.wud, .wux, .wua)",
     "steamCategory": "${WiiU}",
     "executableArgs": "-f -g \"Z:${filepath}\"",
     "executableModifier": "\"${exePath}\"",
@@ -1801,6 +1854,60 @@
     "parserId": "164785645253672240",
     "version": 5
   },
+
+  {
+    "parserType": "Glob",
+    "configTitle": "SNK Neo Geo Pocket/Color - Retroarch - Beetle NeoPop",
+    "steamCategory": "${Neo Geo Pocket}",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/ngpc",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_ngp_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": false,
+    "advanced": false,
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.7z|.7Z|.ngc|.NGC|.ngp|.NGP|.zip|.ZIP)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "parserId": "164785621885441701",
+    "version": 5
+  },
   {
     "parserType": "Glob",
     "configTitle": "Sony PlayStation - DuckStation",
@@ -1852,6 +1959,59 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785656699856393",
+    "version": 5
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "Sony PlayStation - Retroarch - Beetle PSX HW",
+    "steamCategory": "${PlayStation - Beetle}",
+    "executableArgs": "run org.libretro.RetroArch -L /mednafen_psx_hw_libretro.so \"${filePath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psx",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "imageProviders": ["SteamGridDB"],
+    "titleModifier": "${fuzzyTitle}",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": true,
+    "advanced": false,
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.ccd|.CCD|.chd|.CHD|.cue|.CUE|.m3u|.M3U|.pbp|.PBP|.toc|.TOC)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "parserId": "165153198040340580",
     "version": 5
   },
   {
@@ -2066,168 +2226,8 @@
     "parserId": "164785656634747068",
     "version": 5
   },
+
   {
-    "parserType": "Glob",
-    "configTitle": "Microsoft XBox - Xemu",
-    "steamCategory": "${XBox}",
-    "executableArgs": "run app.xemu.xemu -full-screen -dvd_path \"${filepath}\"",
-    "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/xbox",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
-    "titleModifier": "${fuzzyTitle}",
-    "onlineImageQueries": "${${fuzzyTitle}}",
-    "imagePool": "${fuzzyTitle}",
-    "defaultImage": "",
-    "defaultTallImage": "",
-    "defaultHeroImage": "",
-    "defaultLogoImage": "",
-    "defaultIcon": "",
-    "localImages": "",
-    "localTallImages": "",
-    "localHeroImages": "",
-    "localLogoImages": "",
-    "localIcons": "",
-    "disabled": false,
-    "advanced": false,
-    "executable": {
-      "path": "/usr/bin/flatpak",
-      "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
-    },
-    "userAccounts": {
-      "specifiedAccounts": "",
-      "skipWithMissingDataDir": true,
-      "useCredentials": true
-    },
-    "parserInputs": {
-      "glob": "${title}@(.iso|.ISO)"
-    },
-    "titleFromVariable": {
-      "limitToGroups": "",
-      "caseInsensitiveVariables": false,
-      "skipFileIfVariableWasNotFound": false,
-      "tryToMatchTitle": false
-    },
-    "fuzzyMatch": {
-      "use": true,
-      "replaceDiacritics": true,
-      "removeCharacters": true,
-      "removeBrackets": true
-    },
-    "parserId": "165103607715056732",
-    "version": 5
-  },
-  {
-    "parserType": "Glob",
-    "configTitle": "Sony PlayStation - Retroarch - Beetle PSX HW",
-    "steamCategory": "${PS1}",
-    "executableArgs": "run org.libretro.RetroArch -L /mednafen_psx_hw_libretro.so \"${filePath}\"",
-    "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psx",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "startInDirectory": "",
-    "imageProviders": [
-        "SteamGridDB"
-    ],
-    "titleModifier": "${fuzzyTitle}",
-    "onlineImageQueries": "${${fuzzyTitle}}",
-    "imagePool": "${fuzzyTitle}",
-    "defaultImage": "",
-    "defaultTallImage": "",
-    "defaultHeroImage": "",
-    "defaultLogoImage": "",
-    "defaultIcon": "",
-    "localImages": "",
-    "localTallImages": "",
-    "localHeroImages": "",
-    "localLogoImages": "",
-    "localIcons": "",
-    "disabled": true,
-    "advanced": false,
-    "executable": {
-        "path": "/usr/bin/flatpak",
-        "shortcutPassthrough": false,
-        "appendArgsToExecutable": true
-    },
-    "userAccounts": {
-        "specifiedAccounts": "",
-        "skipWithMissingDataDir": true,
-        "useCredentials": true
-    },
-    "parserInputs": {
-        "glob": "${title}@(.ccd|.CCD|.chd|.CHD|.cue|.CUE|.m3u|.M3U|.pbp|.PBP|.toc|.TOC)"
-    },
-    "titleFromVariable": {
-        "limitToGroups": "",
-        "caseInsensitiveVariables": false,
-        "skipFileIfVariableWasNotFound": false,
-        "tryToMatchTitle": false
-    },
-    "fuzzyMatch": {
-        "use": true,
-        "replaceDiacritics": true,
-        "removeCharacters": true,
-        "removeBrackets": true
-    },
-    "parserId": "165153198040340580",
-    "version": 5
-},
-{
-    "parserType": "Glob",
-    "configTitle": "DOS - Retroarch(Flatpak) - DOSBox Pure",
-    "steamCategory": "${DOS}",
-    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}dosbox_pure_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\" -conf \"${filePath}${/}${title}.conf\"",
-    "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/dos",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
-    "titleModifier": "${fuzzyTitle}",
-    "onlineImageQueries": "${${fuzzyTitle}}",
-    "imagePool": "${fuzzyTitle}",
-    "defaultImage": "",
-    "defaultTallImage": "",
-    "defaultHeroImage": "",
-    "defaultLogoImage": "",
-    "defaultIcon": "",
-    "localImages": "",
-    "localTallImages": "",
-    "localHeroImages": "",
-    "localLogoImages": "",
-    "localIcons": "",
-    "disabled": false,
-    "advanced": false,
-    "executable": {
-        "path": "/usr/bin/flatpak",
-        "shortcutPassthrough": false,
-        "appendArgsToExecutable": true
-    },
-    "userAccounts": {
-        "specifiedAccounts": "",
-        "skipWithMissingDataDir": true,
-        "useCredentials": true
-    },
-    "parserInputs": {
-        "glob": "${title}@(.7z|.7Z|.zip|.ZIP)"
-    },
-    "titleFromVariable": {
-        "limitToGroups": "",
-        "caseInsensitiveVariables": false,
-        "skipFileIfVariableWasNotFound": false,
-        "tryToMatchTitle": false
-    },
-    "fuzzyMatch": {
-        "use": true,
-        "replaceDiacritics": true,
-        "removeCharacters": true,
-        "removeBrackets": true
-    },
-    "parserId": "165155371770791847",
-    "version": 5
-},
-{
     "parserType": "Glob",
     "configTitle": "Sony PlayStation 3 - RPCS3(Flatpak) (Installed PKG)",
     "steamCategory": "${PS3}",
@@ -2237,9 +2237,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-        "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -2253,31 +2251,31 @@
     "localLogoImages": "",
     "localIcons": "",
     "userAccounts": {
-        "specifiedAccounts": "",
-        "skipWithMissingDataDir": true,
-        "useCredentials": true
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
     },
     "executable": {
-        "path": "/usr/bin/flatpak",
-        "shortcutPassthrough": false,
-        "appendArgsToExecutable": true
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
-        "glob": "${title}/USRDIR/@(eboot.bin|EBOOT.BIN)"
+      "glob": "${title}/USRDIR/@(eboot.bin|EBOOT.BIN)"
     },
     "titleFromVariable": {
-        "limitToGroups": "${PS3}",
-        "caseInsensitiveVariables": false,
-        "skipFileIfVariableWasNotFound": false,
-        "tryToMatchTitle": true
+      "limitToGroups": "${PS3}",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": true
     },
     "fuzzyMatch": {
-        "use": null,
-        "replaceDiacritics": true,
-        "removeCharacters": true,
-        "removeBrackets": true
+      "use": null,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
     },
     "parserId": "165182011334544893",
     "version": 6
-}
+  }
 ]
