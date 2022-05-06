@@ -983,7 +983,7 @@ if [ $doUpdateRPCS3 == true ]; then
 
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.rpcs3.RPCS3/ ~/.var/app/net.rpcs3.RPCS3/ &>> ~/emudeck/emudeck.log
 	sed -i 's| $(EmulatorDir)dev_hdd0/| '$savesPath'/rpcs3/dev_hdd0/|g' /home/deck/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml >> ~/emudeck/emudeck.log
-	mkdir $savesPath/rpcs3/dev_hdd0 >> ~/emudeck/emudeck.log
+	mkdir -p $savesPath/rpcs3/dev_hdd0 >> ~/emudeck/emudeck.log
 fi
 if [ $doUpdateCitra == true ]; then
 	FOLDER=~/.var/app/org.citra_emu.citra/config_bak
