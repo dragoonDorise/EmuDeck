@@ -522,7 +522,7 @@ if [ $expert == true ]; then
 		#flatpak override org.libretro.RetroArch --filesystem=host --user
 		#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
 		#flatpak override org.yuzu_emu.yuzu --filesystem=host --user
-		#flatpak override app.xemu.xemu --filesystem=host --user
+		flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
 		
 		installString='Updating'
 			
@@ -717,7 +717,7 @@ fi
 if [ $doInstallXemu == "true" ]; then
 	echo -e "Installing Xemu"
 	flatpak install flathub app.xemu.xemu -y --system &>> ~/emudeck/emudeck.log
-	#flatpak override app.xemu.xemu --filesystem=host --user
+	flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
 fi
 #if [ $doInstallMelon == "true" ]; then
 #	echo -e "Installing MelonDS"
@@ -1025,6 +1025,8 @@ if [ $doUpdateXemu == true ]; then
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/app.xemu.xemu/ ~/.var/app/app.xemu.xemu/ &>> ~/emudeck/emudeck.log
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.ini
+	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml
+	sed -i "s|/run/media/mmcblk0p1/Emulation/saves/|${savesPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml
 fi
 echo -e "${GREEN}OK!${NONE}"
 
@@ -1291,6 +1293,14 @@ if [ ! -d "$savesPath/duckstation/states" ]; then
 fi
 
 #Xemu
+if [ ! -d "$savesPath/xemu" ]; then		
+	mkdir -p "$savesPath/xemu"
+	echo -e ""
+	echo -e "Moving Xemu HDD and EEPROM to the Emulation/saves folder"			
+	echo -e ""
+	mv /home/deck/.var/app/app.xemu.xemu/data/xemu/xemu/xbox_hdd.qcow2 $savesPath/xemu 
+	mv /home/deck/.var/app/app.xemu.xemu/data/xemu/xemu/eeprom.bin $savesPath/xemu 	
+fi
 
 #PCSX2
 if [ ! -d "$savesPath/pcsx2/saves" ]; then		
