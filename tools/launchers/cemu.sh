@@ -2,7 +2,7 @@
 
 ## Config
 # App Path
-APPPATH=/run/media/mmcblk0p1/Emulation/roms/wiiu
+APPPATH="/run/media/mmcblk0p1/Emulation/roms/wiiu"
 # Steam Path
 STEAMPATH="${HOME}/.local/share/Steam"
 # Proton Path
@@ -33,3 +33,4 @@ set_env() {
 # Main
 set_env
 python "${PROTON}" waitforexitandrun "${APPPATH}/Cemu.exe" "${@}"
+ 
