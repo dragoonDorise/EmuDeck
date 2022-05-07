@@ -1486,6 +1486,8 @@ if [ -f ~/emudeck/.rap ]; then
 
 	sed -i "s|cheevos_password = \"\"|cheevos_password = \"${rap}\"|g" $raConfigFile	
 	sed -i "s|cheevos_username = \"\"|cheevos_username = \"${rau}\"|g" $raConfigFile	
+	sed -i "s|cheevos_enable = \"false\"|cheevos_enable = \"true\"|g" $raConfigFile
+	
 
 else
 
@@ -1532,6 +1534,7 @@ else
 		
 		sed -i "s|cheevos_password = \"\"|cheevos_password = \"${rap}\"|g" $raConfigFile	
 		sed -i "s|cheevos_username = \"\"|cheevos_username = \"${rau}\"|g" $raConfigFile	
+		sed -i "s|cheevos_enable = \"false\"|cheevos_enable = \"true\"|g" $raConfigFile
 		
 	else
 		echo "" &>> /dev/null		
