@@ -383,41 +383,43 @@ if [ $expert == true ]; then
 
 	FILE=~/emudeck/.custom
 	if [ -f "$FILE" ]; then
-		
-		text="Do you want to use your previous RetroArch customization?"
-		zenity --question \
-				 --title="EmuDeck" \
-				 --width=250 \
-				 --ok-label="Yes" \
-				 --cancel-label="No" \
-				 --text="${text}" &>> /dev/null
-		ans=$?
-		if [ $ans -eq 0 ]; then
-			echo "CustomRemain: Yes" &>> ~/emudeck/emudeck.log
-			
-			#We set the flas if we have created the .files before.
-			#if .file exists then the flag is true for that particular question
-			FILEBEZELS=~/emudeck/.bezels		
-			FILESAVE=~/emudeck/.autosave
-			
-			if [ -f "$FILEBEZELS" ]; then
-				RABezels=true
+		FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg
+			if [ -d "$FILE" ]; then	
+			text="Do you want to use your previous RetroArch customization?"
+			zenity --question \
+				 	--title="EmuDeck" \
+				 	--width=250 \
+				 	--ok-label="Yes" \
+				 	--cancel-label="No" \
+				 	--text="${text}" &>> /dev/null
+			ans=$?
+			if [ $ans -eq 0 ]; then
+				echo "CustomRemain: Yes" &>> ~/emudeck/emudeck.log
+				
+				#We set the flas if we have created the .files before.
+				#if .file exists then the flag is true for that particular question
+				FILEBEZELS=~/emudeck/.bezels		
+				FILESAVE=~/emudeck/.autosave
+				
+				if [ -f "$FILEBEZELS" ]; then
+					RABezels=true
+				else
+					RABezels=false
+				fi
+				
+				if [ -f "$FILESAVE" ]; then
+					RAautoSave=true
+				else
+					RAautoSave=false
+				fi
+							
 			else
-				RABezels=false
+				echo "CustomRemain: No" &>> ~/emudeck/emudeck.log
+				#We reset everything
+				rm ~/emudeck/.custom &>> /dev/null
+				rm ~/emudeck/.bezels &>> /dev/null
+				rm ~/emudeck/.autosave &>> /dev/null			
 			fi
-			
-			if [ -f "$FILESAVE" ]; then
-				RAautoSave=true
-			else
-				RAautoSave=false
-			fi
-						
-		else
-			echo "CustomRemain: No" &>> ~/emudeck/emudeck.log
-			#We reset everything
-			rm ~/emudeck/.custom &>> /dev/null
-			rm ~/emudeck/.bezels &>> /dev/null
-			rm ~/emudeck/.autosave &>> /dev/null			
 		fi
 	fi
 	
