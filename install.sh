@@ -1582,7 +1582,9 @@ if [ $doInstallPowertools == true ]; then
 		Scroll the sidebar all the way down and click on Developer\n\n
 		Under Miscellaneous, enable CEF Remote Debugging\n\n
 		In order to improve performance on Yuzu or Dolphin try configuring Powertools to activate only 4 CPU Cores\n\n
-		You can Access Powertools by presing the ... button and selecting the new Plugins Menu"`"
+		You can Access Powertools by presing the ... button and selecting the new Plugins Menu\n\n
+		\n\n
+		IMPORTANT - The powertools menu is touch ONLY."`"
 		zenity --info \
 		   --title="EmuDeck" \
 		   --width=450 \
