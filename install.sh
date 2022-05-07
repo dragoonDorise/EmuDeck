@@ -1496,63 +1496,63 @@ fi
 
 #RetroAchievments
 #Disabled until we know why in the world the deck's screen keyword can't type in a zenity dialog
-#if [ -f ~/emudeck/.rap ]; then 
-#	rap=$(cat ~/emudeck/.rap)
-#	rau=$(cat ~/emudeck/.rau)
-#
-#	sed -i "s|cheevos_password = \"\"|cheevos_password = \"${rap}\"|g" $raConfigFile	
-#	sed -i "s|cheevos_username = \"\"|cheevos_username = \"${rau}\"|g" $raConfigFile	
-#
-#else
-#
-#	text="`printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>"`"
-#	zenity --question \
-#			 --title="EmuDeck" \
-#			 --width=450 \
-#			 --ok-label="Yes" \
-#			 --cancel-label="No" \
-#			 --text="${text}" &>> /dev/null
-#	ans=$?
-#	if [ $ans -eq 0 ]; then
-#		username=$(zenity --entry \
-#						--title="EmuDeck" \
-#						--width=450 \
-#						--ok-label="OK" \
-#						--cancel-label="Cancel" \
-#						--text="What is your RetroAchievments username?")
-#		ans=$?
-#		if [ $ans -eq 0 ]
-#		then
-#			echo "${username}" > ~/emudeck/.rau
-#			password=$(zenity --password \
-#							  --title="EmuDeck" \
-#							  --width=450 \
-#							  --ok-label="OK" \
-#							  --cancel-label="Cancel" \
-#							  --text="What is your RetroAchievments password?")
-#			ans=$?
-#			if [ $ans -eq 0 ]
-#			then
-#				echo "${password}" > ~/emudeck/.rap
-#			else
-#				echo "Cancel RetroAchievment Password" &>> /dev/null
-#			fi
-#		else
-#			echo "Cancel RetroAchievment User" &>> /dev/null
-#		fi
-#		
-#		rap=$(cat ~/emudeck/.rap)
-#		rau=$(cat ~/emudeck/.rau)
-#		
-#		sed -i "s|cheevos_password = \"\"|cheevos_password = \"${rap}\"|g" $raConfigFile	
-#		sed -i "s|cheevos_username = \"\"|cheevos_username = \"${rau}\"|g" $raConfigFile	
-#		
-#	else
-#		echo "" &>> /dev/null		
-#	
-#	fi
-#
-#fi
+if [ -f ~/emudeck/.rap ]; then 
+	rap=$(cat ~/emudeck/.rap)
+	rau=$(cat ~/emudeck/.rau)
+
+	sed -i "s|cheevos_password = \"\"|cheevos_password = \"${rap}\"|g" $raConfigFile	
+	sed -i "s|cheevos_username = \"\"|cheevos_username = \"${rau}\"|g" $raConfigFile	
+
+else
+
+	text="`printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>"`"
+	zenity --question \
+			 --title="EmuDeck" \
+			 --width=450 \
+			 --ok-label="Yes" \
+			 --cancel-label="No" \
+			 --text="${text}" &>> /dev/null
+	ans=$?
+	if [ $ans -eq 0 ]; then
+		username=$(zenity --entry \
+						--title="EmuDeck" \
+						--width=450 \
+						--ok-label="OK" \
+						--cancel-label="Cancel" \
+						--text="What is your RetroAchievments username?")
+		ans=$?
+		if [ $ans -eq 0 ]
+		then
+			echo "${username}" > ~/emudeck/.rau
+			password=$(zenity --password \
+							  --title="EmuDeck" \
+							  --width=450 \
+							  --ok-label="OK" \
+							  --cancel-label="Cancel" \
+							  --text="What is your RetroAchievments password?")
+			ans=$?
+			if [ $ans -eq 0 ]
+			then
+				echo "${password}" > ~/emudeck/.rap
+			else
+				echo "Cancel RetroAchievment Password" &>> /dev/null
+			fi
+		else
+			echo "Cancel RetroAchievment User" &>> /dev/null
+		fi
+		
+		rap=$(cat ~/emudeck/.rap)
+		rau=$(cat ~/emudeck/.rau)
+		
+		sed -i "s|cheevos_password = \"\"|cheevos_password = \"${rap}\"|g" $raConfigFile	
+		sed -i "s|cheevos_username = \"\"|cheevos_username = \"${rau}\"|g" $raConfigFile	
+		
+	else
+		echo "" &>> /dev/null		
+	
+	fi
+
+fi
 
 if [ $doInstallCHD == true ]; then
 	mkdir -p  "$toolsPath"chdconv/

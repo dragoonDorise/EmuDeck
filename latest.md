@@ -1,5 +1,6 @@
 0.17.2
 
+- Added RetroAchievments for RA
 - Added Amiga support on SRM
 - Set default emulators on ESDE
 - Uninstaller fixes
