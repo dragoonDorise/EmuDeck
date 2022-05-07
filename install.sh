@@ -1498,22 +1498,24 @@ else
 			 --text="${text}" &>> /dev/null
 	ans=$?
 	if [ $ans -eq 0 ]; then
+		text="`printf "What is your RetroAchievments username?\n\nPress STEAM + X to get the onscreen Keyboard"`"
 		username=$(zenity --entry \
 						--title="EmuDeck" \
 						--width=450 \
 						--ok-label="OK" \
 						--cancel-label="Cancel" \
-						--text="What is your RetroAchievments username?")
+						--text="${text}")
 		ans=$?
 		if [ $ans -eq 0 ]
 		then
 			echo "${username}" > ~/emudeck/.rau
+			text="`printf "What is your RetroAchievments password?\n\nPress STEAM + X to get the onscreen Keyboard"`"
 			password=$(zenity --password \
 							  --title="EmuDeck" \
 							  --width=450 \
 							  --ok-label="OK" \
 							  --cancel-label="Cancel" \
-							  --text="What is your RetroAchievments password?")
+							  --text="${text}")							  
 			ans=$?
 			if [ $ans -eq 0 ]
 			then
