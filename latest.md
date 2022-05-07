@@ -1,6 +1,7 @@
 0.17.2
 
 - Xenia ( Xbox360 support )
+- Uninstaller fixes
 - Added Cemu to Emulators on SteamUI - AngelofWoe
 - RA video driver changed to Vulkan except for Dolphin - AngelofWoe
 - Xbox Parser turned on by default on SRM - Godsbane
