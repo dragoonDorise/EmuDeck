@@ -15,3 +15,4 @@
 - Fixed Emulator launchers, only created for the ones the user chooses to install - Godsbane
 - Get ESDE latest version from Dynamic url - Godsbane
 - CHD script improvements - Godsbane
+- Fix PCSX2 Save/Load state mappings - LBRapid
