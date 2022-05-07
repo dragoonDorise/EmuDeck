@@ -1,9 +1,9 @@
 0.17.2
 
 - Added Amiga support on SRM
-- Xenia (Xbox 360)
+- Set default emulators on ESDE
+- Xenia (Xbox 360) - Experimental
 - Uninstaller fixes
-- Added Cemu to Emulators on SteamUI - AngelofWoe
 - RA video driver changed to Vulkan except for Dolphin - AngelofWoe
 - Xbox Parser turned on by default on SRM - Godsbane
 - Added PS1 Beetle PSX RA Core on SRM (disabled by default) - Godsbane
