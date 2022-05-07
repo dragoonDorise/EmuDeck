@@ -19,6 +19,8 @@ doUninstallYuzu=false
 doUninstallCitra=false
 doUninstallDuck=false
 doUninstallCemu=false
+doUninstallXemu=false
+doUninstallXenua=false
 doUninstallPrimeHacks=false
 doUninstallPPSSPP=false
 doUninstallSRM=false
@@ -64,10 +66,11 @@ if [ "$doUninstall" == true ]; then
 				7 "Duckstation" \
 				8 "PPSSPP" \
 				9 "Yuzu" \
-				10 "Cemu" \
-				11 "Xemu" \
-				12 "SteamRomManager" \
-				13 "EmulationStationDE")
+				10 "Xemu" \
+				11 "Xenia" \
+				12 "Cemu" \
+				13 "SteamRomManager" \
+				14 "EmulationStationDE")
 	clear
 	ans=$?	
 	if [ $ans -eq 0 ]; then
@@ -101,6 +104,9 @@ if [ "$doUninstall" == true ]; then
 		fi
 		if [[ "$emusToUninstall" == *"Cemu"* ]]; then
 			doUninstallCemu=true
+		fi
+		if [[ "$emusToUninstall" == *"Xenia"* ]]; then
+			doUninstallXenia=true
 		fi
 		if [[ "$emusToUninstall" == *"Xemu"* ]]; then
 			doUninstallXemu=true
@@ -154,8 +160,14 @@ if [ "$doUninstall" == true ]; then
 		rm -rf ~/.var/app/org.yuzu_emu.yuzu &>> /dev/null
 	fi
 	if [[ "$doUninstallCemu" == true ]]; then
-		flatpak uninstall info.cemu.Cemu
-		rm -rf ~/.var/app/info.cemu.Cemu &>> /dev/null
+		#flatpak uninstall info.cemu.Cemu
+		#rm -f ~/.var/app/info.cemu.Cemu &>> /dev/null
+		rm -f ~/Emulation/roms/wiiu/* &>> /dev/null
+		rm -f /run/media/mmcblk0p1/Emulation/roms/wiiu/* &>> /dev/null
+	fi
+	if [[ "$doUninstallXenia" == true ]]; then		
+		rm -f ~/Emulation/roms/xbox360/* &>> /dev/null
+		rm -f /run/media/mmcblk0p1/Emulation/roms/xbox360/* &>> /dev/null
 	fi
 	if [[ "$doUninstallXemu" == true ]]; then
 		flatpak uninstall app.xemu.xemu
