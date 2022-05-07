@@ -12,3 +12,5 @@
 - Added PS3 PKG games on SRM - Godsbane
 - Fixed Emulators flatpak permission to access their roms folder when not using SRM or ESDE - Godsbane
 - Fixed Emulator launchers, only created for the ones the user chooses to install - Godsbane
+- Get ESDE latest version from Dynamic url - Godsbane
+- CHD script improvements - Godsbane
