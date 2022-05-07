@@ -2,7 +2,7 @@
 
 ## Config
 # App Path
-APPPATH="$(dirname "${BASH_SOURCE[0]}")"
+APPPATH=/run/media/mmcblk0p1/Emulation/roms/wiiu
 # Steam Path
 STEAMPATH="${HOME}/.local/share/Steam"
 # Proton Path
