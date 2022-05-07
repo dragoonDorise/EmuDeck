@@ -159,7 +159,7 @@ if [ "$doUninstall" == true ]; then
 	fi
 	if [[ "$doUninstallXemu" == true ]]; then
 		flatpak uninstall app.xemu.xemu
-		rm -rf ~/.var/app/info.xemu.xemu &>> /dev/null
+		rm -rf ~/.var/app/app.xemu.xemu &>> /dev/null
 	fi
 	if [[ "$doUninstallSRM" == true ]]; then	
 		rm -rf ~/Desktop/Steam-ROM-Manager.AppImage &>> /dev/null
