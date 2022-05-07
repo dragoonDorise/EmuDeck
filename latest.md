@@ -2,7 +2,6 @@
 
 - Added Amiga support on SRM
 - Set default emulators on ESDE
-- Xenia (Xbox 360) - Experimental
 - Uninstaller fixes
 - RA video driver changed to Vulkan except for Dolphin - AngelofWoe
 - Xbox Parser turned on by default on SRM - Godsbane

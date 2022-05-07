@@ -67,10 +67,9 @@ if [ "$doUninstall" == true ]; then
 				8 "PPSSPP" \
 				9 "Yuzu" \
 				10 "Xemu" \
-				11 "Xenia" \
-				12 "Cemu" \
-				13 "SteamRomManager" \
-				14 "EmulationStationDE")
+				11 "Cemu" \
+				12 "SteamRomManager" \
+				13 "EmulationStationDE")
 	clear
 	ans=$?	
 	if [ $ans -eq 0 ]; then
@@ -105,9 +104,9 @@ if [ "$doUninstall" == true ]; then
 		if [[ "$emusToUninstall" == *"Cemu"* ]]; then
 			doUninstallCemu=true
 		fi
-		if [[ "$emusToUninstall" == *"Xenia"* ]]; then
-			doUninstallXenia=true
-		fi
+		#if [[ "$emusToUninstall" == *"Xenia"* ]]; then
+		#	doUninstallXenia=true
+		#fi
 		if [[ "$emusToUninstall" == *"Xemu"* ]]; then
 			doUninstallXemu=true
 		fi				
@@ -165,10 +164,10 @@ if [ "$doUninstall" == true ]; then
 		rm -f ~/Emulation/roms/wiiu/* &>> /dev/null
 		rm -f /run/media/mmcblk0p1/Emulation/roms/wiiu/* &>> /dev/null
 	fi
-	if [[ "$doUninstallXenia" == true ]]; then		
-		rm -f ~/Emulation/roms/xbox360/* &>> /dev/null
-		rm -f /run/media/mmcblk0p1/Emulation/roms/xbox360/* &>> /dev/null
-	fi
+	#if [[ "$doUninstallXenia" == true ]]; then		
+	#	rm -f ~/Emulation/roms/xbox360/* &>> /dev/null
+	#	rm -f /run/media/mmcblk0p1/Emulation/roms/xbox360/* &>> /dev/null
+	#fi
 	if [[ "$doUninstallXemu" == true ]]; then
 		flatpak uninstall app.xemu.xemu
 		rm -rf ~/.var/app/app.xemu.xemu &>> /dev/null
