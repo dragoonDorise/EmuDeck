@@ -65,8 +65,9 @@ if [ "$doUninstall" == true ]; then
 				8 "PPSSPP" \
 				9 "Yuzu" \
 				10 "Cemu" \
-				11 "SteamRomManager" \
-				12 "EmulationStationDE")
+				11 "Xemu" \
+				12 "SteamRomManager" \
+				13 "EmulationStationDE")
 	clear
 	ans=$?	
 	if [ $ans -eq 0 ]; then
@@ -100,7 +101,10 @@ if [ "$doUninstall" == true ]; then
 		fi
 		if [[ "$emusToUninstall" == *"Cemu"* ]]; then
 			doUninstallCemu=true
-		fi		
+		fi
+		if [[ "$emusToUninstall" == *"Xemu"* ]]; then
+			doUninstallXemu=true
+		fi				
 		if [[ "$emusToUninstall" == *"SteamRomManager"* ]]; then
 			doUninstallSRM=true
 		fi
@@ -152,6 +156,10 @@ if [ "$doUninstall" == true ]; then
 	if [[ "$doUninstallCemu" == true ]]; then
 		flatpak uninstall info.cemu.Cemu
 		rm -rf ~/.var/app/info.cemu.Cemu &>> /dev/null
+	fi
+	if [[ "$doUninstallXemu" == true ]]; then
+		flatpak uninstall app.xemu.xemu
+		rm -rf ~/.var/app/app.xemu.xemu &>> /dev/null
 	fi
 	if [[ "$doUninstallSRM" == true ]]; then	
 		rm -rf ~/Desktop/Steam-ROM-Manager.AppImage &>> /dev/null
