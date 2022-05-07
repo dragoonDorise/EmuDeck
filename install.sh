@@ -812,6 +812,12 @@ if [ $doInstallCemu == "true" ]; then
 		rm -rf "$romsPath"/wiiu/tmp &>> ~/emudeck/emudeck.log
 		rm -f "$romsPath"/wiiu/cemu_1.26.2.zip &>> ~/emudeck/emudeck.log		
 	fi
+
+	if ! [ -f "${toolsPath}"launchers/cemu.sh ]; then
+		cp ~/dragoonDoriseTools/EmuDeck/tools/launchers/cemu.sh "${toolsPath}"launchers/cemu.sh
+		sed -i 's|/run/media/mmcblk0p1/Emulation/roms/wiiu|${romsPath}wiiu|' "${toolsPath}"launchers/cemu.sh
+		chmod +x ${toolsPath}/launchers/cemu.sh
+	fi
 	#Commented until we get CEMU flatpak working
 	#echo -e "${BOLD}EmuDeck will add Witherking25's flatpak repo to your Discorver App.this is required for cemu now${NONE}"	
 	#flatpak remote-add --user --if-not-exists withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo &>> ~/emudeck/emudeck.log
@@ -872,9 +878,7 @@ mkdir -p ~/.emulationstation/
 #Cemu (Proton)
 mkdir -p ~/.emulationstation/custom_systems/
 cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/custom_systems/es_systems.xml ~/.emulationstation/custom_systems/es_systems.xml
-sed -i "s|/run/media/mmcblk0p1/Emulation/roms/wiiu/cemu.sh|${romsPath}/wiiu/cemu.sh|g" ~/.emulationstation/custom_systems/es_systems.xml
-cp ~/dragoonDoriseTools/EmuDeck/configs/cemu/cemu.sh ${romsPath}/wiiu/cemu.sh
-chmod +x ${romsPath}/wiiu/cemu.sh
+sed -i "s|/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh|${toolsPath}launchers/cemu.sh|" ~/.emulationstation/custom_systems/es_systems.xml
 #Commented until we get CEMU flatpak working
 #rsync -r ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/ ~/.emulationstation/
 cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/es_settings.xml ~/.emulationstation/es_settings.xml
