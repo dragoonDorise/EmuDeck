@@ -160,6 +160,219 @@
   },
   {
     "parserType": "Glob",
+    "configTitle": "Amiga - Retroarch",
+    "steamCategory": "${Amiga}",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/amiga",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": false,
+    "advanced": false,
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.adf|.ADF|.adz|.ADZ|.dms|.DMS|.fdi|.FDI|.ipf|.IPF|.hdf|.HDF|.hdz|.HDZ|.lha|.LHA|.slave|.SLAVE|.info|.INFO|.cue|.CUE|.ccd|.CCD|.chd|.CHD|.nrg|.NRG|.mds|.MDS|.iso|.ISO|.uae|.UAE|.m3u|.M3U|.zip|.ZIP|.7z|.7Z)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "parserId": "164785598905398120",
+    "version": 5
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "Amiga 600 - Retroarch",
+    "steamCategory": "${Amiga 600}",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/amiga600",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": false,
+    "advanced": false,
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.adf|.ADF|.adz|.ADZ|.dms|.DMS|.fdi|.FDI|.ipf|.IPF|.hdf|.HDF|.hdz|.HDZ|.lha|.LHA|.slave|.SLAVE|.info|.INFO|.cue|.CUE|.ccd|.CCD|.chd|.CHD|.nrg|.NRG|.mds|.MDS|.iso|.ISO|.uae|.UAE|.m3u|.M3U|.zip|.ZIP|.7z|.7Z)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "parserId": "164785598905398121",
+    "version": 5
+  },
+
+  {
+    "parserType": "Glob",
+    "configTitle": "Amiga 1200 - Retroarch",
+    "steamCategory": "${Amiga 1200}",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/amiga1200",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": false,
+    "advanced": false,
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.adf|.ADF|.adz|.ADZ|.dms|.DMS|.fdi|.FDI|.ipf|.IPF|.hdf|.HDF|.hdz|.HDZ|.lha|.LHA|.slave|.SLAVE|.info|.INFO|.cue|.CUE|.ccd|.CCD|.chd|.CHD|.nrg|.NRG|.mds|.MDS|.iso|.ISO|.uae|.UAE|.m3u|.M3U|.zip|.ZIP|.7z|.7Z)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "parserId": "164785598905398122",
+    "version": 5
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "Amiga CD - Retroarch",
+    "steamCategory": "${Amiga CD}",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/amigacd32",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": false,
+    "advanced": false,
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.adf|.ADF|.adz|.ADZ|.dms|.DMS|.fdi|.FDI|.ipf|.IPF|.hdf|.HDF|.hdz|.HDZ|.lha|.LHA|.slave|.SLAVE|.info|.INFO|.cue|.CUE|.ccd|.CCD|.chd|.CHD|.nrg|.NRG|.mds|.MDS|.iso|.ISO|.uae|.UAE|.m3u|.M3U|.zip|.ZIP|.7z|.7Z)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "parserId": "164785598905398123",
+    "version": 5
+  },
+  {
+    "parserType": "Glob",
     "configTitle": "Arcade - MAME 2003 Plus",
     "steamCategory": "${Arcade MAME 2003+}",
     "executableModifier": "\"${exePath}\"",
