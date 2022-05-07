@@ -97,6 +97,25 @@ romsPath=~/Emulation/roms/
 toolsPath=~/Emulation/tools/
 biosPath=~/Emulation/bios/
 savesPath=~/Emulation/saves/
+
+#Functions
+setESDEEmus(){
+	#emu, path, system as parameters
+	emu=$1
+	path=$2
+	system=$3
+	
+	FILE=$path
+	if [ ! -f "$FILE" ]; then
+		cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/gamelists/$system/gamelist.xml $FILE
+	else
+		alternativeEmu=$(grep -rnw $FILE -e 'alternativeEmulator')
+		if [[ $alternativeEmu == '' ]]; then
+			echo "<alternativeEmulator><label>$emu</label></alternativeEmulator>" >> $FILE
+		fi
+	fi
+}
+
 clear
 echo -ne "${BOLD}Downloading files...${NONE}"
 sleep 5
@@ -888,6 +907,13 @@ sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.emulationstatio
 #sed -i "s|name=\"ROMDirectory\" value=\"/name=\"ROMDirectory\" value=\"${romsPathSed}/g" ~/.emulationstation/es_settings.xml
 echo -e "${GREEN}OK!${NONE}"
 
+#ESDE default emulators
+setESDEEmus 'Genesis Plus GX' ~/.emulationstation/gamelists/gamegear/gamelist.xml gamegear
+setESDEEmus 'Gambatte' ~/.emulationstation/gamelists/gb/gamelist.xml gb
+setESDEEmus 'Gambatte' ~/.emulationstation/gamelists/gbc/gamelist.xml gbc
+setESDEEmus 'Dolphin (Standalone)' ~/.emulationstation/gamelists/gc/gamelist.xml gc
+setESDEEmus 'PPSSPP (Standalone)' ~/.emulationstation/gamelists/psp/gamelist.xml psp
+setESDEEmus 'Dolphin (Standalone)' ~/.emulationstation/gamelists/wii/gamelist.xml wii
 	
 #Emus config
 echo -ne "${BOLD}Configuring Steam Input for emulators..${NONE}"
