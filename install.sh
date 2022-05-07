@@ -1383,9 +1383,9 @@ fi
 
 #Yuzu
 if [ ! -d "$savesPath/yuzu/saves" ]; then		
-	mkdir -p $savesPath/citra
+	mkdir -p $savesPath/yuzu
 	echo -e ""
-	echo -e "Linking Citra Saves to the Emulation/saves folder"			
+	echo -e "Linking Yuzu Saves to the Emulation/saves folder"			
 	echo -e ""
 	unlink ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc && mv $savesPath/yuzu/saves ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc
 	mkdir -p ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc
