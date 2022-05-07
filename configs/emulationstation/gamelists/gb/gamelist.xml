@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<alternativeEmulator>
+	<label>Gambatte</label>
+</alternativeEmulator>
+<gameList>
+	<game>
+		<path>./doa.zip</path>
+		<name>doa</name>
+	</game>
+</gameList>
