@@ -52,7 +52,7 @@ doUpdateYuzu=true
 doUpdateCitra=true
 doUpdateDuck=true
 doUpdateCemu=true
-doUpdateXenia=false
+doUpdateXenia=true
 doUpdateRyujinx=true
 doUpdatePrimeHacks=true
 doUpdatePPSSPP=true
@@ -324,7 +324,8 @@ if [ $expert == true ]; then
 				8 "PPSSPP" \
 				9 "Yuzu" \
 				10 "Cemu" \
-				11 "Xemu")
+				11 "Xemu" \
+				12 "Xenia")
 	clear
 	ans=$?	
 	if [ $ans -eq 0 ]; then
@@ -560,7 +561,8 @@ if [ $expert == true ]; then
 							9 "Yuzu" \
 							10 "Cemu" \
 							11 "Xemu" \
-							12 "SRM")
+							12 "Xenia" \
+							13 "SRM")
 		clear
 		cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 		echo -e "${BOLD}EmuDeck ${version}${NONE}"
@@ -627,7 +629,7 @@ else
 	doInstallCitra=true
 	doInstallDuck=true
 	doInstallCemu=true
-	doInstallXenia=false
+	doInstallXenia=true
 	doInstallPrimeHacks=true
 	doInstallPPSSPP=true
 	doInstallXemu=true

@@ -1,5 +1,6 @@
 0.17.2
 
+- Xenia (Xbox 360)
 - Uninstaller fixes
 - Added Cemu to Emulators on SteamUI - AngelofWoe
 - RA video driver changed to Vulkan except for Dolphin - AngelofWoe
