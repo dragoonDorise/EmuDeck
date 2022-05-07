@@ -1491,7 +1491,7 @@ if [ -f ~/emudeck/.rap ]; then
 
 else
 
-	text="`printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>"`"
+	text="`printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>\n\n Activating RetroAchievments will disable save states unless you disable hardcore mode "`"
 	zenity --question \
 			 --title="EmuDeck" \
 			 --width=450 \
