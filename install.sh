@@ -256,7 +256,7 @@ if [ $expert == true ]; then
 	
 	#Powertools
 	text=""
-	text="`printf "Do you want to install Powertools? This can improve Emulators like Yuzu or Dolphin. You will need to create a password for your deck linux desktop user"`"
+	text="`printf "Do you want to install Powertools? This can improve Emulators like Yuzu or Dolphin. You will need to create a password for your deck linux desktop user. PowerTools only has touch support, you can control it using the controller\n\n<b>Do not use this if you don not have basic Linux Terminal knowlegde</b>"`"
 	zenity --question \
 			 --title="EmuDeck" \
 			 --width=250 \
@@ -1558,7 +1558,7 @@ if [ $doInstallPowertools == true ]; then
 	hasPass=$(grep -rn '/etc/passwd' -e "$(whoami):") #makes it work for the current user.
 	
 	if [[ $hasPass == '' ]]; then
-		text="`printf "In order to install PowerTools you need to set a password for the deck user.\n\n Remember this password. If you forget it you will need to format your Deck to change it"`"
+		text="`printf "In order to install PowerTools you need to set a password for the deck user.\n\n Remember this password. If you forget it you will need to format your Deck to change it\n\n<b>When you type your password, it will not appear on screen, this is normal</b>"`"
 		zenity --question \
 				 --title="EmuDeck" \
 				 --width=250 \
