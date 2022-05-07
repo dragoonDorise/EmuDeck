@@ -1574,18 +1574,20 @@ if [ $doInstallPowertools == true ]; then
 	
 	if [ $continuePowerTools == true ]; then
 		echo "Installing ${BOLD} Plugin loader. Insert your password when required  ${NONE}"
-		curl -L https://github.com/SteamDeckHomebrew/PluginLoader/raw/main/dist/install_release.sh | sh	
+		curl -L https://github.com/SteamDeckHomebrew/PluginLoader/raw/main/dist/install_release.sh | sh	>> ~/emudeck/emudeck.log
 		sudo rm -rf ~/homebrew/plugins/PowerTools
 		sudo git clone https://github.com/NGnius/PowerTools.git ~/homebrew/plugins/PowerTools >> ~/emudeck/emudeck.log
 		sleep 1
 		cd ~/homebrew/plugins/PowerTools
 		sudo git checkout tags/v0.3.0 >> ~/emudeck/emudeck.log
-		text="`printf "To finish the installation go into the Steam UI Settings\n\n
+		text="$(printf "To finish the installation go into the Steam UI Settings\n\n
 		Under System -> System Settings toggle Enable Developer Mode\n\n
 		Scroll the sidebar all the way down and click on Developer\n\n
 		Under Miscellaneous, enable CEF Remote Debugging\n\n
 		In order to improve performance on Yuzu or Dolphin try configuring Powertools to activate only 4 CPU Cores\n\n
-		You can Access Powertools by presing the ... button and selecting the new Plugins Menu"`"
+		You can Access Powertools by presing the ... button and selecting the new Plugins Menu\n\n
+		\n\n
+		IMPORTANT - The Powertools menu is touch ONLY.\n\n")"
 		zenity --info \
 		   --title="EmuDeck" \
 		   --width=450 \
