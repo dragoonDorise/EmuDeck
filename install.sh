@@ -1288,9 +1288,9 @@ else
 	sed -i "s|WidescreenHack = true|WidescreenHack = false|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini &>> ~/emudeck/emudeck.log
 fi
 if [ $DolphinWide == true ]; then
-	sed -i "s|wideScreenHack = False|wideScreenHack = True|g" ~/.var/app/org.DolphinEmu.dolphin-emu/GFX.ini &>> ~/emudeck/emudeck.log
+	sed -i "s|wideScreenHack = False|wideScreenHack = True|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini &>> ~/emudeck/emudeck.log
 else
-	sed -i "s|wideScreenHack = True|wideScreenHack = False|g" ~/.var/app/org.DolphinEmu.dolphin-emu/GFX.ini &>> ~/emudeck/emudeck.log
+	sed -i "s|wideScreenHack = True|wideScreenHack = False|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini &>> ~/emudeck/emudeck.log
 fi
 if [ $DreamcastWide == true ]; then
 	sed -i "s|reicast_widescreen_hack = \"disabled\"|reicast_widescreen_hack = \"enabled\"|g" ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Flycast/Flycast.opt &>> ~/emudeck/emudeck.log

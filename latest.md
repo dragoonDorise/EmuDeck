@@ -4,6 +4,7 @@
 - Added Amiga support on SRM
 - Set default emulators on ESDE
 - Uninstaller fixes
+- Fixed Widescreen toggle for Dolphin
 - RA video driver changed to Vulkan except for Dolphin - AngelofWoe
 - Xbox Parser turned on by default on SRM - Godsbane
 - Added PS1 Beetle PSX RA Core on SRM (disabled by default) - Godsbane
