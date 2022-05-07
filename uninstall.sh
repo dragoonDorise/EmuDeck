@@ -66,8 +66,8 @@ if [ "$doUninstall" == true ]; then
 				9 "Yuzu" \
 				10 "Cemu" \
 				11 "Xemu" \
-				11 "SteamRomManager" \
-				12 "EmulationStationDE")
+				12 "SteamRomManager" \
+				13 "EmulationStationDE")
 	clear
 	ans=$?	
 	if [ $ans -eq 0 ]; then
