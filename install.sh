@@ -12,18 +12,17 @@ BLINK='\x1b[5m'
 
 #DEV MODE
 devMode=$1
-if [ ! -z "$devMode" ]; then
-	if [ "$devMode" == "BETA" ]; then
-		branch="beta"
-	fi
-	if [ "$devMode" == "DEV" ]; then	
-		branch="dev"
-	else
-		branch="main"
-	fi
-else
+case $devMode in
+  "BETA")
+	branch="beta"
+  ;;
+  "DEV")
+	  branch="dev"
+	;;  
+  *)
 	branch="main"
-fi
+  ;;
+esac
 
 #Clean up from previous installations
 rm ~/emudek.log &>> /dev/null # This is emudeck's old log file, it's not a typo!
