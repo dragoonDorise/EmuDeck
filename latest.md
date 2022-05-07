@@ -1,5 +1,6 @@
 0.17.2
 
+- Added Amiga support on SRM
 - Xenia (Xbox 360)
 - Uninstaller fixes
 - Added Cemu to Emulators on SteamUI - AngelofWoe
