@@ -1328,8 +1328,7 @@ if [ ! -d "$savesPath/dolphin/GC" ]; then
 	mkdir -p $savesPath/dolphin	
 	echo -e ""
 	echo -e "Linking Dolphin Gamecube saved games to the Emulation/saves folder"			
-	echo -e ""
-	unlink ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC && mv $savesPath/dolphin/GC ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC
+	echo -e ""	
 	mkdir -p ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC
 	ln -sn ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC $savesPath/dolphin/GC 
 fi
@@ -1338,7 +1337,6 @@ if [ ! -d "$savesPath/dolphin/Wii" ]; then
 	echo -e ""
 	echo -e "Linking Dolphin Wii saved games to the Emulation/saves folder"			
 	echo -e ""
-	unlink ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii && mv $savesPath/dolphin/Wii ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii
 	mkdir -p ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii	
 	ln -sn ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii $savesPath/dolphin/Wii 
 fi
@@ -1347,7 +1345,6 @@ if [ ! -d "$savesPath/dolphin/states" ]; then
 	echo -e ""
 	echo -e "Linking Dolphin States to the Emulation/saves folder"			
 	echo -e ""
-	unlink ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves && mv $savesPath/dolphin/states ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves
 	mkdir -p ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves
 	ln -sn ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves $savesPath/dolphin/states
 fi
@@ -1358,7 +1355,6 @@ if [ ! -d "$savesPath/primehack/GC" ]; then
 	echo -e ""
 	echo -e "Linking PrimeHack Gamecube saved games to the Emulation/saves folder"			
 	echo -e ""
-	unlink ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC && mv $savesPath/primehack/GC ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC	
 	mkdir -p ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC
 	ln -sn ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC $savesPath/primehack/GC
 fi
@@ -1367,7 +1363,6 @@ if [ ! -d "$savesPath/primehack/Wii" ]; then
 	echo -e ""
 	echo -e "Linking PrimeHack Wii saved games to the Emulation/saves folder"			
 	echo -e ""
-	unlink ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii && mv $savesPath/primehack/Wii ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii
 	mkdir -p ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii
 	ln -sn ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii $savesPath/primehack/Wii	
 fi
@@ -1376,7 +1371,6 @@ if [ ! -d "$savesPath/primehack/states" ]; then
 	echo -e ""
 	echo -e "Linking PrimeHack States to the Emulation/states folder"			
 	echo -e ""
-	unlink ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves && mv $savesPath/primehack/states ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves
 	mkdir -p ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves
 	ln -sn ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves $savesPath/primehack/states
 fi
@@ -1387,7 +1381,7 @@ if [ ! -d "$savesPath/yuzu/saves" ]; then
 	echo -e ""
 	echo -e "Linking Yuzu Saves to the Emulation/saves folder"			
 	echo -e ""
-	unlink ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc && mv $savesPath/yuzu/saves ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc
+	
 	mkdir -p ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc
 	ln -sn ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc $savesPath/yuzu/saves	
 fi
@@ -1398,7 +1392,6 @@ if [ ! -d "$savesPath/duckstation/saves" ]; then
 	echo -e ""
 	echo -e "Linking Duckstation Saves to the Emulation/saves folder"			
 	echo -e ""
-	unlink ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards && mv $savesPath/duckstation/saves ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards
 	mkdir -p ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards
 	ln -sn ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards $savesPath/duckstation/saves	
 fi
@@ -1407,7 +1400,6 @@ if [ ! -d "$savesPath/duckstation/states" ]; then
 	echo -e ""
 	echo -e "Linking Duckstation Saves to the Emulation/states folder"			
 	echo -e ""
-	unlink ~/.var/app/org.duckstation.DuckStation/data/duckstation/savestates && mv $savesPath/duckstation/states ~/.var/app/org.duckstation.DuckStation/data/duckstation/savestates
 	mkdir -p ~/.var/app/org.duckstation.DuckStation/data/duckstation/savestates
 	ln -sn ~/.var/app/org.duckstation.DuckStation/data/duckstation/savestates $savesPath/duckstation/states
 fi
@@ -1427,8 +1419,7 @@ if [ ! -d "$savesPath/pcsx2/saves" ]; then
 	mkdir -p $savesPath/pcsx2
 	echo -e ""
 	echo -e "Linking PCSX2 Saves to the Emulation/saves folder"			
-	echo -e ""
-	unlink ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards && mv $savesPath/pcsx2/saves ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards
+	echo -e ""	
 	mkdir -p ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards
 	ln -sn ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards $savesPath/pcsx2/saves
 fi
@@ -1436,8 +1427,7 @@ if [ ! -d "$savesPath/pcsx2/states" ]; then
 	mkdir -p $savesPath/pcsx2	
 	echo -e ""
 	echo -e "Linking PCSX2 Saves to the Emulation/states folder"			
-	echo -e ""
-	unlink ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates && mv $savesPath/pcsx2/states ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates
+	echo -e ""	
 	mkdir -p ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates
 	ln -sn ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates $savesPath/pcsx2/states
 fi
@@ -1458,8 +1448,7 @@ if [ ! -d "$savesPath/citra/saves" ]; then
 	mkdir -p $savesPath/citra
 	echo -e ""
 	echo -e "Linking Citra Saves to the Emulation/saves folder"			
-	echo -e ""
-	unlink ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc && mv $savesPath/citra/saves ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc
+	echo -e ""	
 	mkdir -p ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc
 	ln -sn ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc $savesPath/citra/saves
 fi
@@ -1468,7 +1457,6 @@ if [ ! -d "$savesPath/citra/states" ]; then
 	echo -e ""
 	echo -e "Linking Citra Saves to the Emulation/states folder"			
 	echo -e ""
-	unlink ~/.var/app/org.citra_emu.citra/data/citra-emu/states && mv $savesPath/citra/states ~/.var/app/org.citra_emu.citra/data/citra-emu/states
 	mkdir -p ~/.var/app/org.citra_emu.citra/data/citra-emu/states
 	ln -sn ~/.var/app/org.citra_emu.citra/data/citra-emu/states $savesPath/citra/states
 fi
@@ -1478,7 +1466,6 @@ if [ ! -d "$savesPath/ppsspp/saves" ]; then
 	echo -e ""
 	echo -e "Linking PPSSPP Saves to the Emulation/saves folder"			
 	echo -e ""
-	unlink ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA && mv $savesPath/ppsspp/saves ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA
 	mkdir -p ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA
 	ln -sn ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA $savesPath/ppsspp/saves
 fi
@@ -1487,7 +1474,6 @@ if [ ! -d "$savesPath/ppsspp/states" ]; then
 	echo -e ""
 	echo -e "Linking PPSSPP Saves to the Emulation/states folder"			
 	echo -e ""
-	unlink ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE && mv $savesPath/ppsspp/states ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE
 	mkdir -p ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE
 	ln -sn ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE $savesPath/ppsspp/states	
 fi
