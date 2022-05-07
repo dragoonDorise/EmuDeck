@@ -671,7 +671,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.iso|.ISO)"
+      "glob": "${title}@(.iso|.ISO|.xex|.XEX)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
