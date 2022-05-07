@@ -117,7 +117,7 @@ setESDEEmus(){
 }
 
 clear
-echo -ne "${BOLD}Downloading files...${NONE}"
+echo -ne "${BOLD}Downloading files from $branch channel...${NONE}"
 sleep 5
 
 #We create all the needed folders for installation
@@ -130,7 +130,7 @@ cd dragoonDoriseTools
 git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck &>> ~/emudeck/emudeck.log
 if [ ! -z "$devMode" ]; then
 	cd ~/dragoonDoriseTools/EmuDeck
-	git checkout $branch
+	git checkout $branch &>> ~/emudeck/emudeck.log
 fi
 
 FOLDER=~/dragoonDoriseTools/EmuDeck
