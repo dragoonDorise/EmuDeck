@@ -1,6 +1,6 @@
 #!/bin/bash
 
-text="`printf "<b>Hi!</b>\nWelcome to EmuDeck's CHD conversion script!\n\nThis script will scan the roms folder you choose and convert all your .cue/.bin and .gdi files to the superior CHD format.\n\n<b>This action will delete the old files if the conversion to chd succeeds</b>"`"
+text="`printf "<b>Hi!</b>\nWelcome to EmuDeck's CHD conversion script!\n\nThis is currently a BETA feature. Please be very careful and make sure you have backups of roms.\n\nThis script will scan the roms folder you choose and convert all your .cue/.bin and .gdi files to the superior CHD format.\n\n<b>This action will delete the old files if the conversion to chd succeeds</b>"`"
 #Nova fix'
 zenity --question \
 		 --title="EmuDeck" \
