@@ -1438,8 +1438,9 @@ if [ ! -d "$savesPath/rpcs3/dev_hdd0" ]; then
 	echo -e ""
 	echo -e "Moving rpcs3 hdd0 to the Emulation/Saves folder"			
 	echo -e "Depending on how many pkgs you have installed, this may take a while."
+	echo -e "If you don't have enough available space ."
 	mkdir -p "$savesPath/rpcs3" >> ~/emudeck/emudeck.log
-	mv ~/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0 "$savesPath"/rpcs3/ >> ~/emudeck/emudeck.log
+	cp -r ~/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0 "$savesPath"rpcs3/ && rm -rf ~/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0 >> ~/emudeck/emudeck.log
 	#update config file for the new loc $(emulatorDir) is in the file. made this annoying.
 	sed -i "'s|$(EmulatorDir)dev_hdd0/|'$savesPath'/rpcs3/dev_hdd0/|g'" /home/deck/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml >> ~/emudeck/emudeck.log
 fi
