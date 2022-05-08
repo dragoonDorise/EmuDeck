@@ -2444,7 +2444,7 @@
     "parserType": "Glob",
     "configTitle": "Sony PlayStation 3 - RPCS3(Flatpak) (Installed PKG)",
     "steamCategory": "${PS3}",
-    "steamDirectory": "${steamdirglobal}",
+    "steamDirectory": "/home/deck/.steam/steam",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/saves/rpcs3/dev_hdd0/game",
     "executableArgs": "run net.rpcs3.RPCS3 --no-gui \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
