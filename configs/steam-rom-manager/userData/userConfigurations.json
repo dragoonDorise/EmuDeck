@@ -852,7 +852,7 @@
     "parserType": "Glob",
     "configTitle": "Microsoft Xbox 360 - Xenia",
     "steamCategory": "${Xbox 360}",
-    "executableArgs": "-f -g \"Z:${filepath}\"",
+    "executableArgs": "\"Z:${filepath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/xbox360/roms/",
     "steamDirectory": "/home/deck/.steam/steam",
