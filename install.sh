@@ -1054,7 +1054,7 @@ if [ $doUpdateRPCS3 == true ]; then
 
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.rpcs3.RPCS3/ ~/.var/app/net.rpcs3.RPCS3/ &>> ~/emudeck/emudeck.log
 	sed -i 's| $(EmulatorDir)dev_hdd0/| '$savesPath'/rpcs3/dev_hdd0/|g' /home/deck/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml >> ~/emudeck/emudeck.log
-	mkdir -p $savesPath/rpcs3/dev_hdd0 >> ~/emudeck/emudeck.log
+	mkdir -p $savesPath/rpcs3/ >> ~/emudeck/emudeck.log
 fi
 if [ $doUpdateCitra == true ]; then
 	FOLDER=~/.var/app/org.citra_emu.citra/config_bak
@@ -1434,7 +1434,7 @@ if [ ! -d "$savesPath/pcsx2/states" ]; then
 fi
 
 #RPCS3
-if [ ! -d "$savesPath/rpcs3/dev_hdd0" ]; then		
+if [ ! -d "$savesPath/rpcs3/dev_hdd0/savedata" ]; then		
 	echo -e ""
 	echo -e "Moving rpcs3 hdd0 to the Emulation/Saves folder"			
 	echo -e "Depending on how many pkgs you have installed, this may take a while."
