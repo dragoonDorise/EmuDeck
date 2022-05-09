@@ -1,8 +1,6 @@
 #!/bin/sh
 ## Config
 # App Path
-ROM=$1
-
 APPPATH="/run/media/mmcblk0p1/Emulation/roms/wiiu"
 # Steam Path
 STEAMPATH="${HOME}/.local/share/Steam"
@@ -33,5 +31,4 @@ set_env() {
 
 # Main
 set_env
-python "${PROTON}" waitforexitandrun "${APPPATH}/Cemu.exe" -f -g "Z:$ROM"
- 
+python "${PROTON}" waitforexitandrun "${APPPATH}/Cemu.exe" -f -g "${@}"
