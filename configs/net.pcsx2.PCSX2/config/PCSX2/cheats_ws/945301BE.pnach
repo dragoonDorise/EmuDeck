@@ -1,0 +1,11 @@
+gametitle=Run Like Hell (PAL-M5) (SLES-51345)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,00110ba0,word,3c013f40 // 00000000 hor fov
+patch=1,EE,00110ba8,word,4481f000 // 00000000
+patch=1,EE,001a17c0,word,461e0583 // 46000586
+
+// HUD-Fix
+patch=1,EE,00170430,word,461ef383 // 3c013f80
+patch=1,EE,00170434,word,460e7783 // 44817000

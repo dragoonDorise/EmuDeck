@@ -1,0 +1,6 @@
+gametitle=Tank Elite (PAL)(SLES-51855)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,20218BE0,extended,43E0A000 //4415c000 X-Fov

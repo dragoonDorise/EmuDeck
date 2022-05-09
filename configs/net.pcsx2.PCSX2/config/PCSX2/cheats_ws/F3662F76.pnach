@@ -1,0 +1,7 @@
+gametitle=Silent Hill Origins (K)(SLKA-25422)
+comment=Widescreen fix by nemesis2000 (NTAC-K by nemesis2000)
+
+
+//Zoom fix (Internal Widescreen)
+patch=1,EE,001da984,word,3c013fe3 
+patch=1,EE,001da988,word,34218e39

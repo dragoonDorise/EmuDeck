@@ -1,0 +1,11 @@
+gametitle=Worms Forts - Under Siege (E)(SLES-52734)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,001bba00,word,3c013cb1 //3c013c8e
+patch=1,EE,001bba04,word,34214000 //3421fa36
+
+//Y-Fov
+patch=1,EE,001bba1c,word,3c013f10 //3c013f40

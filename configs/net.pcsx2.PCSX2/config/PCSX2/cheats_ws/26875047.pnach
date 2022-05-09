@@ -1,0 +1,8 @@
+gametitle=Death Crimson OX+ (J)(SLPM-62401)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//0000803f 00000000 efeeee3e 00000000
+patch=1,EE,002988c0,word,3f400000 //3f800000

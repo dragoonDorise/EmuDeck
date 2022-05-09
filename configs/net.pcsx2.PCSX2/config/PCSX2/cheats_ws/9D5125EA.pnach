@@ -1,0 +1,16 @@
+gametitle=Transformers Tatakai (J)(SLPM-65407)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//4c3f033c cdcc6334 5000a0c4
+patch=1,EE,0014b1b0,word,3c033f19 //3c033f4c
+patch=1,EE,0014b1b4,word,3463999a //3463cccd
+
+//Rendering diatance
+//803f033c 00e04234
+patch=1,EE,00148900,word,3c033fb0 //3c033f80
+
+//Mini Map 
+//patch=1,EE,20284680,extended,3f400000 //3f800000

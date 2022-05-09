@@ -1,0 +1,18 @@
+gametitle=Airborne Troops - Countdown to D-Day (U)(SLUS-21125)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//1042023c 2d808000 00008244
+patch=1,EE,0040775c,word,3c024240
+
+//////////////////////////////////////////////
+//X-Fov (Needs render fix)
+//patch=1,EE,0013e9d4,word,08044e64 //46070202
+
+//patch=1,EE,00113990,word,46070202 //
+//patch=1,EE,00113994,word,3C013F40 //
+//patch=1,EE,00113998,word,4481F000 //
+//patch=1,EE,0011399C,word,461e4202 //
+//patch=1,EE,001139A0,word,0804fa76 //

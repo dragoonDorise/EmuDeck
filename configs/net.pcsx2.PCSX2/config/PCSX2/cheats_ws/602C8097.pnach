@@ -1,0 +1,5 @@
+gametitle=Makai Eiyuuki Maximo: Machine Monster no Yabou [NTSC-J] (SLPM-62127)
+comment=Widescreen Hack by Little Gaint
+
+patch=1,EE,20262FE0,extended,43870000 //43B40000 hor
+patch=1,EE,201DECC4,extended,3FEEEEEE //3FB33333 render fix

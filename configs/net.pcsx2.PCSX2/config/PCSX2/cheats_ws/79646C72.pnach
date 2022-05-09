@@ -1,0 +1,8 @@
+gametitle=James Bond 007 - Agent Under Fire (U)(SLUS-20265)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//803f013c 00088144 60654224
+patch=1,EE,003202dc,word,3c013fab //3c013f80

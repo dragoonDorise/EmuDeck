@@ -1,0 +1,6 @@
+gametitle=Garfield - Garfield World Tour (NTSC-U)
+//Widescreen hack 16:9
+
+//FOV
+//803f033c 4940023c 00188344
+patch=1,EE,001c3ba4,word,3c033f40 //3c033f80

@@ -1,0 +1,6 @@
+gametitle=Women's Volleyball Championship (U)(SLUS-21742)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,01c0c960,word,3c013f40 //3c013f80

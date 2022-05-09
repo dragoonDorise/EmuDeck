@@ -1,0 +1,18 @@
+gametitle=Moto GP (U)(SLUS-20058)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-fov
+//803f013c 00088144 80020524
+patch=1,EE,001f66a0,word,3c013f40 //3c013f80
+
+//HUD speedometer fix
+patch=1,EE,001acddc,word,3c013f40 //3c013f80
+patch=1,EE,001ad578,word,3c013f40 //3c013f80
+
+//Render fix
+patch=1,EE,001828a4,word,3c014330 //3c0143a0
+patch=1,EE,00185cd4,word,3c014330 //3c0143a0
+patch=1,EE,0021477c,word,3c014010 //3c013f9c
+patch=1,EE,00214780,word,34210000 //342128f6

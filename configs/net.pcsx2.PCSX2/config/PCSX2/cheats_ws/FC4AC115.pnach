@@ -1,0 +1,21 @@
+gametitle=ObsCure II (PAL-M5) (SLES-54782)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,00172924,word,08103ca7 // 46070202  jump to code-inject 0040f29c
+patch=1,EE,00172928,word,00000000 // 24430050
+
+patch=1,EE,0040f29c,word,3c013f40 // 00000000 hor fov
+patch=1,EE,0040f2a0,word,4481f000 // 00000000
+patch=1,EE,0040f2a4,word,46070202 // 00000000
+patch=1,EE,0040f2a8,word,24430050 // 00000000
+patch=1,EE,0040f2ac,word,461e4202 // 00000000
+patch=1,EE,0040f2b0,word,0805ca4a // 00000000 jump back to 00172928
+
+// Render-Fix
+patch=1,EE,002561dc,word,3c023faa
+
+// black borders fix by nemesis2000
+patch=1,EE,001f4aa8,word,3c020000 // 3c023f80
+patch=1,EE,001f4a38,word,3c030000 // 3c033f80
+patch=1,EE,001f4b28,word,3c020000 // 3c023f80

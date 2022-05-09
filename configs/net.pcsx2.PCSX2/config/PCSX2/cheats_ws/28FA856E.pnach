@@ -1,0 +1,9 @@
+gametitle=2003-Nen Kaimaku - Ganbare Kyuukaiou (J)(SLPM-62320)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+//Zoom
+patch=1,EE,00262890,word,3c014308 //3c013f00
+
+//Y-Fov
+patch=1,EE,0051094c,word,3FDDDDDB //3fa66666

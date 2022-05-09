@@ -1,0 +1,33 @@
+gametitle=SD Gundam G Generation Wars (J)(SLPS-25941)
+comment=Widescreen hack by Arapapa
+
+//Widescreen 16:9
+
+patch=1,EE,005c47b0,word,080a6610 //c6010068
+
+patch=1,EE,00299840,word,3c013f40 // 00000000
+patch=1,EE,00299844,word,4481f000 // 00000000
+patch=1,EE,00299848,word,c6010068 // 00000000
+patch=1,EE,0029984c,word,c602006c // 00000000
+patch=1,EE,00299850,word,461e0843 // 00000000
+patch=1,EE,00299854,word,e6010068 // 00000000
+patch=1,EE,00299858,word,081711ee // 00000000
+
+/////////////////////////////////////////////////
+//Zoom
+//patch=1,EE,001ab6f4,word,3c03402a //3c034000
+//patch=1,EE,001ab6f8,word,3463aaab //9382baa4
+//patch=1,EE,001ab6fc,word,9382baa4 //44830800
+//patch=1,EE,001ab700,word,44830800 //00000000
+
+//Y-Fov
+//patch=1,EE,001ab794,word,081bba48
+
+//patch=1,EE,006ee920,word,46142802
+//patch=1,EE,006ee924,word,3c013f40
+//patch=1,EE,006ee928,word,4481f000
+//patch=1,EE,006ee92c,word,461e0002
+//patch=1,EE,006ee930,word,0806ade6
+
+//2D LEFT (In the battles)
+//patch=1,EE,0052b6a8,word,3c02bf40 //3c02bf80

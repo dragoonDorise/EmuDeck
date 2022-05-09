@@ -1,0 +1,18 @@
+gametitle=DreamWorks Shrek the Third (E)(SLES-54771)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//003f013c 00b88144 1002a0af
+patch=1,EE,002ee7bc,word,3c013f21 //3c013f00
+
+//Y-Fov
+//02000246 87030046 (2nd)
+patch=1,EE,002ee7fc,word,08030000
+
+patch=1,EE,000c0000,word,46020002
+patch=1,EE,000c0004,word,3c013f40
+patch=1,EE,000c0008,word,4481f000
+patch=1,EE,000c000c,word,461e0002
+patch=1,EE,000c0010,word,080bba00

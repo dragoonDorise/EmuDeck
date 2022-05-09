@@ -1,0 +1,18 @@
+gametitle=Clock Tower 3 (SLKA_25051)
+comment=Widescreen Hack by nemesis2000 and hyakki (NTSC-K by Arapapa)
+
+//gameplay by hyakki
+patch=1,EE,01939da8,word,3f1fbe77
+
+//FMV's fix by nemesis2000
+patch=1,EE,018bd668,word,3c026fa0
+patch=1,EE,018bd6b8,word,34028260
+
+patch=1,EE,018bcf38,word,3c026fa0 //3c027200
+patch=1,EE,018bcf84,word,34028260
+
+//black borders fix by nemesis2000
+patch=1,EE,018f3824,word,3c030000
+
+//remove black square near Panic Meter
+patch=1,EE,2041C240,word,00000000

@@ -1,0 +1,13 @@
+gametitle=Aqua Kids (J)(SLPM-65670)
+comment=Widescreen hack by Arapapa
+ 
+//Widescreen 16:9
+
+//X-Fov
+//700000c6 0400028e (1st)
+patch=1,EE,00266a54,word,080bf078
+patch=1,EE,002fc1e0,word,c6000070
+patch=1,EE,002fc1e4,word,3c013f40
+patch=1,EE,002fc1e8,word,4481f000
+patch=1,EE,002fc1ec,word,461e0002
+patch=1,EE,002fc1f0,word,08099a96

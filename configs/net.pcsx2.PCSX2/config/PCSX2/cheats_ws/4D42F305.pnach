@@ -1,0 +1,8 @@
+gametitle=Eagle Eye Golf (U)(SLUS-21486)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//803f033c 9c00a227 (2nd)
+patch=1,EE,00231ac8,word,3c033f40 //3c033f80

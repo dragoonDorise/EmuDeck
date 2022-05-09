@@ -1,0 +1,10 @@
+gametitle=Jikkyou Powerful Major League (J)(SLPM-66417)
+comment=Widescreen hack by Arapapa
+
+//Widescreen 16:9
+
+//Gameplay
+//2044023c 60088046
+patch=1,EE,00139b1c,word,44910800
+patch=1,EE,00139b20,word,3c024455
+patch=1,EE,00139b24,word,34425555 //3c024420

@@ -1,0 +1,7 @@
+gametitle=River King - A Wonderful Journey (NTSC-U)(SLUS-21275)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+patch=1,EE,00404df4,word,3c013f40 //00000000
+patch=1,EE,00404df8,word,44810000 //00000000
+patch=1,EE,00404e00,word,4600c602 //00000000

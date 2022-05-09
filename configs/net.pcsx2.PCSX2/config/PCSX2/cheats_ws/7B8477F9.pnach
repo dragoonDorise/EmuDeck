@@ -1,0 +1,6 @@
+gametitle=Def Jam: Vendetta [PAL] (SLES_514.79)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9 
+patch=1,EE,001A1D24,word,3C013F10 //3C013F40 (Increases hor. axis)
+patch=1,EE,00198154,word,3C013F22 //3C013F00

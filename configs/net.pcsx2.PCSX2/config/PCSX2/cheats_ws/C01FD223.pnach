@@ -1,0 +1,15 @@
+gametitle=TimeSplitters 2 (K)(SLKA-25020)
+comment=Widescreen hack by No.47 (NTSC-K by Arapapa)
+
+patch=1,EE,20571870,word,3FC71C71
+patch=1,EE,20572444,word,3FC71C71
+patch=1,EE,205724CC,word,3FC71C71
+patch=1,EE,20575870,word,3FC71C71
+
+
+
+
+
+//40490fdb3F955555 (1,2)
+//3c8888893F955555
+//3f860a923F955555

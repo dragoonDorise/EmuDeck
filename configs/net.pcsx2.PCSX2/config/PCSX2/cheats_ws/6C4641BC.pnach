@@ -1,0 +1,19 @@
+gametitle=Tetsujin 28 Go (NTSC-J) [SLPS-25362] [6C4641BC]
+comment=Widescreen hacks by Eiji (initial active X FOV hack) and Aced14 (ELF and 16:10 hacks)
+
+//16:9 Widescreen
+patch=1,EE,1013B188,extended,00003F40 //3C023F80 - Master X FOV #1
+
+//16:10 Widescreen (Normal)
+//patch=1,EE,2013B188,extended,08045820 //3C023F80 - j $00116080 - Jump to injected MIPS instructions
+//patch=1,EE,20116080,extended,3C023F55 //8E190008 - lui v0, $3f55 - Set first half of v0 register (Master X FOV #1)
+//patch=1,EE,20116084,extended,0804EC63 //8F390028 - j $0013b18c - Jump to 1 line after the overwritten MIPS instruction
+//patch=1,EE,20116088,extended,34425555 //0320F809 - ori v0, v0, $5555 - Set second half of v0 register (Master X FOV #2)
+
+//16:10 Widescreen (Ultra)
+//patch=1,EE,1013B188,extended,00003F40 //3C023F80 - Master X FOV #1
+//patch=1,EE,0013B190,extended,00003F4A //3C023F61 - Master Y FOV #1
+//patch=1,EE,0013B194,extended,0000C083 //344247AE - Master Y FOV #2
+
+//HUD
+//patch=1,EE,10130B68,extended,0000???? //3C033F80 - Radar X FOV #1 (replace ???? with 3F80 for 16:9/16:10 Widescreen [Ultra] - or 3F55 for 16:10 Widescreen [Normal])

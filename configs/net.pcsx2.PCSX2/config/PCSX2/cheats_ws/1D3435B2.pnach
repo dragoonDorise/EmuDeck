@@ -1,0 +1,8 @@
+gametitle=Tiger Woods PGA Tour 2001 (PAL)(SLES-50118)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//0000803f 0af67f3f 17d87f3f (1st)
+patch=1,EE,001e8e58,word,3faaaaab //3f800000

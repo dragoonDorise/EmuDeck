@@ -1,0 +1,402 @@
+gametitle=Ratchet & Clank (PAL-M5) (SCES-50916)
+comment=Widescreen hack by ElHecht
+
+// 16:9 code-inject function
+patch=1,EE,e0220000,extended,00100000 // check 20100000 matches value xxxx0000
+patch=1,EE,200ffef4,extended,3c013f40 // 00000000
+patch=1,EE,200ffef8,extended,34210001 // 00000000
+patch=1,EE,200ffefc,extended,4481f000 // 00000000
+patch=1,EE,200fff00,extended,3c013f21 // 00000000 3f2147af (value set 4:3 - for vendor screen, menu and hud)
+patch=1,EE,200fff04,extended,342147af // 00000000
+patch=1,EE,200fff08,extended,8c7900b0 // 00000000
+patch=1,EE,200fff0c,extended,14390007 // 00000000
+patch=1,EE,200fff10,extended,00000000 // 00000000
+patch=1,EE,200fff14,extended,4481f800 // 00000000
+patch=1,EE,200fff18,extended,e47f00b0 // 00000000
+patch=1,EE,200fff1c,extended,461e0843 // 00000000
+patch=1,EE,200fff20,extended,c46000b0 // 00000000
+patch=1,EE,200fff24,extended,46010003 // 00000000
+patch=1,EE,200fff28,extended,e46000b4 // 00000000
+patch=1,EE,200fff2c,extended,3c013f21 // 00000000 3f2147ae (value gameplay)
+patch=1,EE,200fff30,extended,342147ae // 00000000
+patch=1,EE,200fff34,extended,8c7900b0 // 00000000
+patch=1,EE,200fff38,extended,14390004 // 00000000
+patch=1,EE,200fff3c,extended,00000000 // 00000000
+patch=1,EE,200fff40,extended,4481f800 // 00000000
+patch=1,EE,200fff44,extended,461effc3 // 00000000
+patch=1,EE,200fff48,extended,e47f00b0 // 00000000
+patch=1,EE,200fff4c,extended,3c013ed4 // 00000000 3ed40674 (value cut-scenes)
+patch=1,EE,200fff50,extended,34210674 // 00000000
+patch=1,EE,200fff54,extended,8c7900b0 // 00000000
+patch=1,EE,200fff58,extended,14390004 // 00000000
+patch=1,EE,200fff5c,extended,00000000 // 00000000
+patch=1,EE,200fff60,extended,4481f800 // 00000000
+patch=1,EE,200fff64,extended,461effc3 // 00000000
+patch=1,EE,200fff68,extended,e47f00b0 // 00000000
+patch=1,EE,200fff6c,extended,461e0842 // 00000000
+patch=1,EE,200fff70,extended,c46000b0 // 00000000
+patch=1,EE,200fff74,extended,46010002 // 00000000
+patch=1,EE,200fff78,extended,e46000b4 // 00000000
+
+patch=1,EE,e0050000,extended,00100000 // check 20100000 matches value xxxx0000
+patch=1,EE,200fff84,extended,3c013421 // 00000000 342147af (value vendor open) set 4:3
+patch=1,EE,200fff88,extended,342147af // 00000000
+patch=1,EE,200fff8c,extended,4481f000 // 00000000
+patch=1,EE,200fff98,extended,ae220054 // 00000000
+patch=1,EE,200fff9c,extended,ae200058 // 00000000
+
+patch=1,EE,e0050000,extended,00100000 // check 20100000 matches value xxxx0000
+patch=1,EE,200fffb0,extended,3c013421 // 00000000 342147ae (value vendor close) set 16:9
+patch=1,EE,200fffb4,extended,342147ae // 00000000
+patch=1,EE,200fffb8,extended,4481f000 // 00000000
+patch=1,EE,200fffc4,extended,24050001 // 00000000
+patch=1,EE,200fffc8,extended,8c46001c // 00000000
+
+
+// Main Menu
+patch=1,EE,e003caff,extended,001f3168 // check 001f7d28 matches value 0000caff
+patch=1,EE,201f31a8,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,201f31ac,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,0807cc6b // 00000000 jump back to 201f31ac
+
+
+// Planet Veldin - Kyzil Plateau
+patch=1,EE,e00ecaff,extended,001f7d28 // check 001f7d28 matches value 0000caff
+patch=1,EE,201f7d68,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,201f7d6c,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,0807df5b // 00000000 jump back to 201f7d6c
+patch=1,EE,20277404,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,2029bb20,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,2029bb24,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c01001f // 00000000 001f7c10
+patch=1,EE,200fff94,extended,e43e7c10 // 00000000
+patch=1,EE,200fffa0,extended,080a6ec9 // 00000000 jump back to 2029bb24
+patch=1,EE,2029e7d8,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,2029e7dc,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c01001f // 00000000 001f7c10
+patch=1,EE,200fffc0,extended,e43e7c10 // 00000000
+patch=1,EE,200fffcc,extended,080a79f7 // 00000000 jump back to 2029e7dc
+
+
+// Planet Novalis - Tobruk Crater
+patch=1,EE,e00ecaff,extended,002198a8 // check 002198a8 matches value 0000caff
+patch=1,EE,202198e8,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,202198ec,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,0808663b // 00000000 jump back to 202198ec
+patch=1,EE,2028d0ec,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,202af538,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,202af53c,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c010022 // 00000000 00219790
+patch=1,EE,200fff94,extended,e43e9790 // 00000000
+patch=1,EE,200fffa0,extended,080abd4f // 00000000 jump back to 202af53c
+patch=1,EE,202b2470,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,202b2474,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c010022 // 00000000 00219790
+patch=1,EE,200fffc0,extended,e43e9790 // 00000000
+patch=1,EE,200fffcc,extended,080ac91d // 00000000 jump back to 202b2474
+
+
+// Planet Kerwan - Metropolis
+patch=1,EE,e00ecaff,extended,001f1610 // check 001f1610 matches value 0000caff
+patch=1,EE,201f1650,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,201f1654,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,0807c595 // 00000000 jump back to 201f1654
+patch=1,EE,20265f8c,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,20288380,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,20288384,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c01001f // 00000000 001f14f8
+patch=1,EE,200fff94,extended,e43e14f8 // 00000000
+patch=1,EE,200fffa0,extended,080a20e1 // 00000000 jump back to 20288384
+patch=1,EE,2028b038,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,2028b03c,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c01001f // 00000000 001f14f8
+patch=1,EE,200fffc0,extended,e43e14f8 // 00000000
+patch=1,EE,200fffcc,extended,080a2c0f // 00000000 jump back to 2028b03c
+
+
+// Planet Aridia - Outpost XII
+patch=1,EE,e00ecaff,extended,00208b90 // check 00208b90 matches value 0000caff
+patch=1,EE,20208bd0,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,20208bd4,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,080822f5 // 00000000 jump back to 20208bd4
+patch=1,EE,2027886c,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,2029b278,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,2029b27c,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c010021 // 00000000 00208a78
+patch=1,EE,200fff94,extended,e43e8a78 // 00000000
+patch=1,EE,200fffa0,extended,080a6c9f // 00000000 jump back to 2029b27c
+patch=1,EE,2029df30,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,2029df34,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c010021 // 00000000 001f14f8
+patch=1,EE,200fffc0,extended,e43e8a78 // 00000000
+patch=1,EE,200fffcc,extended,080a77cd // 00000000 jump back to 2029df34
+
+
+// Planet Eudora - Logging Site
+patch=1,EE,e00ecaff,extended,001ea610 // check 001ea610 matches value 0000caff
+patch=1,EE,201ea650,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,201ea654,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,0807a995 // 00000000 jump back to 201ea654
+patch=1,EE,2026a664,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,2028c948,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,2028c94c,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c01001f // 00000000 001ea4f8
+patch=1,EE,200fff94,extended,e43ea4f8 // 00000000
+patch=1,EE,200fffa0,extended,080a3253 // 00000000 jump back to 2028c94c
+patch=1,EE,2028f600,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,2028f604,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c01001f // 00000000 001ea4f8
+patch=1,EE,200fffc0,extended,e43ea4f8 // 00000000
+patch=1,EE,200fffcc,extended,080a3d81 // 00000000 jump back to 2028f604
+
+
+// Nebula G34 - Blarg Station
+patch=1,EE,e00ecaff,extended,0020f910 // check 0020f910 matches value 0000caff
+patch=1,EE,2020f950,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,2020f954,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,08083e55 // 00000000 jump back to 2020f954
+patch=1,EE,20286164,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,202a8b98,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,202a8b9c,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c010021 // 00000000 0020f7f8
+patch=1,EE,200fff94,extended,e43ef7f8 // 00000000
+patch=1,EE,200fffa0,extended,080aa2e7 // 00000000 jump back to 202a8b9c
+patch=1,EE,202ab850,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,202ab854,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c010021 // 00000000 0020f7f8
+patch=1,EE,200fffc0,extended,e43ef7f8 // 00000000
+patch=1,EE,200fffcc,extended,080aae15 // 00000000 jump back to 202ab854
+
+
+// Planet Rilgar - Blackwater City
+patch=1,EE,e00ecaff,extended,00226990 // check 00226990 matches value 0000caff
+patch=1,EE,202269d0,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,202269d4,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,08089a75 // 00000000 jump back to 202269d4
+patch=1,EE,202a16b4,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,202c4218,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,202c421c,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c010022 // 00000000 00226878
+patch=1,EE,200fff94,extended,e43e6878 // 00000000
+patch=1,EE,200fffa0,extended,080b1087 // 00000000 jump back to 202c421c
+patch=1,EE,202c6ed0,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,202c6ed4,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c010022 // 00000000 00226878
+patch=1,EE,200fffc0,extended,e43e6878 // 00000000
+patch=1,EE,200fffcc,extended,080b1bb5 // 00000000 jump back to 202c6ed4
+
+
+// Planet Umbris - Qwark's HQ
+patch=1,EE,e00ecaff,extended,0021fa90 // check 0021fa90 matches value 0000caff
+patch=1,EE,2021fad0,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,2021fad4,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,08087eb5 // 00000000 jump back to 2021fad4
+patch=1,EE,2029fd54,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,202c26f8,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,202c26fc,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c010022 // 00000000 0021f978
+patch=1,EE,200fff94,extended,e43ef978 // 00000000
+patch=1,EE,200fffa0,extended,080b09bf // 00000000 jump back to 202c26fc
+patch=1,EE,202c53b0,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,202c53b4,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c010022 // 00000000 0021f978
+patch=1,EE,200fffc0,extended,e43ef978 // 00000000
+patch=1,EE,200fffcc,extended,080b14ed // 00000000 jump back to 202c53b4
+
+
+// Planet Batalia - Fort Krontos
+patch=1,EE,e00ecaff,extended,0020a6b8 // check 0020a6b8 matches value 0000caff
+patch=1,EE,2020a6f8,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,2020a6fc,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,080829bf // 00000000 jump back to 2020a6fc
+patch=1,EE,20281a7c,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,202a3e68,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,202a3e6c,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c010021 // 00000000 0020a5a0
+patch=1,EE,200fff94,extended,e43ea5a0 // 00000000
+patch=1,EE,200fffa0,extended,080a8f9b // 00000000 jump back to 202a3e6c
+patch=1,EE,202a6b20,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,202a6b24,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c010021 // 00000000 0020a5a0
+patch=1,EE,200fffc0,extended,e43ea5a0 // 00000000
+patch=1,EE,200fffcc,extended,080a9ac9 // 00000000 jump back to 202a6b24
+
+
+// Planet Gaspar - Blarg Depot
+patch=1,EE,e00ecaff,extended,00216f90 // check 00216f90 matches value 0000caff
+patch=1,EE,20216fd0,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,20216fd4,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,08085bf5 // 00000000 jump back to 20216fd4
+patch=1,EE,20296124,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,202b8370,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,202b8374,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c010021 // 00000000 00216e78
+patch=1,EE,200fff94,extended,e43e6e78 // 00000000
+patch=1,EE,200fffa0,extended,080ae0dd // 00000000 jump back to 202b8374
+patch=1,EE,202bb028,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,202bb02c,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c010021 // 00000000 00216e78
+patch=1,EE,200fffc0,extended,e43e6e78 // 00000000
+patch=1,EE,200fffcc,extended,080aec0b // 00000000 jump back to 202bb02c
+
+
+// Planet Orxon - Kogor Refinery
+patch=1,EE,e00ecaff,extended,001eb310 // check 001eb310 matches value 0000caff
+patch=1,EE,201eb350,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,201eb354,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,0807acd5 // 00000000 jump back to 201eb354
+patch=1,EE,2026a234,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,2028c530,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,2028c534,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c01001f // 00000000 001eb1f8
+patch=1,EE,200fff94,extended,e43eb1f8 // 00000000
+patch=1,EE,200fffa0,extended,080a314d // 00000000 jump back to 2028c534
+patch=1,EE,2028f1e8,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,2028f1ec,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c01001f // 00000000 001eb1f8
+patch=1,EE,200fffc0,extended,e43eb1f8 // 00000000
+patch=1,EE,200fffcc,extended,080a3c7b // 00000000 jump back to 2028f1ec
+
+
+// Planet Pokitaru - Jowai Resort
+patch=1,EE,e00ecaff,extended,00229510 // check 00229510 matches value 0000caff
+patch=1,EE,20229550,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,20229554,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,0808a555 // 00000000 jump back to 20229554
+patch=1,EE,2029c6ac,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,202be938,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,202be93c,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c010023 // 00000000 002293f8
+patch=1,EE,200fff94,extended,e43e93f8 // 00000000
+patch=1,EE,200fffa0,extended,080afa4f // 00000000 jump back to 202be93c
+patch=1,EE,202c15f0,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,202c15f4,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c010023 // 00000000 002293f8
+patch=1,EE,200fffc0,extended,e43e93f8 // 00000000
+patch=1,EE,200fffcc,extended,080b057d // 00000000 jump back to 202c15f4
+
+
+// Planet Hoven - Bomb Factory
+patch=1,EE,e00ecaff,extended,0021a718 // check 0021a718 matches value 0000caff
+patch=1,EE,2021a758,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,2021a75c,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,080869d7 // 00000000 jump back to 2021a75c
+patch=1,EE,2028ffdc,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,202b22d8,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,202b22dc,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c010022 // 00000000 0021a600
+patch=1,EE,200fff94,extended,e43ea600 // 00000000
+patch=1,EE,200fffa0,extended,080ac8b7 // 00000000 jump back to 202b22dc
+patch=1,EE,202b4f90,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,202b4f94,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c010022 // 00000000 0021a600
+patch=1,EE,200fffc0,extended,e43ea600 // 00000000
+patch=1,EE,200fffcc,extended,080ad3e5 // 00000000 jump back to 202b4f94
+
+
+// Oltanis Orbit - Gemlik Base
+patch=1,EE,e00ecaff,extended,00203690 // check 00203690 matches value 0000caff
+patch=1,EE,202036d0,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,202036d4,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,08080db5 // 00000000 jump back to 202036d4
+patch=1,EE,20283494,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,202a5e40,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,202a5e44,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c010020 // 00000000 00203578
+patch=1,EE,200fff94,extended,e43e3578 // 00000000
+patch=1,EE,200fffa0,extended,080a9791 // 00000000 jump back to 202a5e44
+patch=1,EE,202a8d78,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,202a8d7c,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c010020 // 00000000 00203578
+patch=1,EE,200fffc0,extended,e43e3578 // 00000000
+patch=1,EE,200fffcc,extended,080aa35f // 00000000 jump back to 202a8d7c
+
+
+// Planet Oltanis - Gorda City Ruins
+patch=1,EE,e00ecaff,extended,0020af18 // check 0020af18 matches value 0000caff
+patch=1,EE,2020af58,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,2020af5c,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,08082bd7 // 00000000 jump back to 2020af5c
+patch=1,EE,2027fb44,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,202a1e78,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,202a1e7c,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c010021 // 00000000 0020ae00
+patch=1,EE,200fff94,extended,e43eae00 // 00000000
+patch=1,EE,200fffa0,extended,080a879f // 00000000 jump back to 202a1e7c
+patch=1,EE,202a4b30,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,202a4b34,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c010021 // 00000000 0020ae00
+patch=1,EE,200fffc0,extended,e43eae00 // 00000000
+patch=1,EE,200fffcc,extended,080a92cd // 00000000 jump back to 202a4b34
+
+
+// Planet Quartu - Robot Plant
+patch=1,EE,e00ecaff,extended,001f1390 // check 001f1390 matches value 0000caff
+patch=1,EE,201f13d0,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,201f13d4,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,0807c4f5 // 00000000 jump back to 201f13d4
+patch=1,EE,20266fec,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,202899a8,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,202899ac,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c01001f // 00000000 001f1278
+patch=1,EE,200fff94,extended,e43e1278 // 00000000
+patch=1,EE,200fffa0,extended,080a266b // 00000000 jump back to 202899ac
+patch=1,EE,2028c660,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,2028c664,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c01001f // 00000000 001f1278
+patch=1,EE,200fffc0,extended,e43e1278 // 00000000
+patch=1,EE,200fffcc,extended,080a3199 // 00000000 jump back to 2028c664
+
+
+// Planet Kalebo III - Gadgetron Site
+patch=1,EE,e00ecaff,extended,001f6510 // check 001f6510 matches value 0000caff
+patch=1,EE,201f6550,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,201f6554,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,0807d955 // 00000000 jump back to 201f6554
+patch=1,EE,20272614,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,202949a8,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,202949ac,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c01001f // 00000000 001f63f8
+patch=1,EE,200fff94,extended,e43e63f8 // 00000000
+patch=1,EE,200fffa0,extended,080a526b // 00000000 jump back to 202949ac
+patch=1,EE,20297660,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,20297664,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c01001f // 00000000 001f63f8
+patch=1,EE,200fffc0,extended,e43e63f8 // 00000000
+patch=1,EE,200fffcc,extended,080a5d99 // 00000000 jump back to 20297664
+
+
+// Veldin Orbit - Drek's Fleet
+patch=1,EE,e00ecaff,extended,001f4e10 // check 001f4e10 matches value 0000caff
+patch=1,EE,201f4e50,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,201f4e54,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,0807d395 // 00000000 jump back to 201f4e54
+patch=1,EE,202714dc,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,20293da8,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,20293dac,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c01001f // 00000000 001f4cf8
+patch=1,EE,200fff94,extended,e43e4cf8 // 00000000
+patch=1,EE,200fffa0,extended,080a4f6b // 00000000 jump back to 20293dac
+patch=1,EE,20296a60,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,20296a64,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c01001f // 00000000 001f4cf8
+patch=1,EE,200fffc0,extended,e43e4cf8 // 00000000
+patch=1,EE,200fffcc,extended,080a5a99 // 00000000 jump back to 20296a64
+
+
+// Planet Veldin - Kyzil Plateau (Final Visit)
+patch=1,EE,e00ecaff,extended,00200990 // check 00200990 matches value 0000caff
+patch=1,EE,202009d0,extended,0803ffbd // c46000b0 jump to code-inject 200ffef4
+patch=1,EE,202009d4,extended,00000000 // 46010002
+patch=1,EE,200fff7c,extended,08080275 // 00000000 jump back to 202009d4
+patch=1,EE,202792cc,extended,342147af // 342147ae hor fov fix menu
+patch=1,EE,2029b608,extended,0803ffe1 // ae220054 jump to code-inject fov fix vendor open 200fff84
+patch=1,EE,2029b60c,extended,00000000 // ae200058
+patch=1,EE,200fff90,extended,3c010020 // 00000000 00200878
+patch=1,EE,200fff94,extended,e43e0878 // 00000000
+patch=1,EE,200fffa0,extended,080a6d83 // 00000000 jump back to 2029b60c
+patch=1,EE,2029e2c0,extended,0803ffec // 24050001 jump to code-inject fov fix vendor close 200fffb0
+patch=1,EE,2029e2c4,extended,00000000 // 8c46001c
+patch=1,EE,200fffbc,extended,3c010020 // 00000000 00200878
+patch=1,EE,200fffc0,extended,e43e0878 // 00000000
+patch=1,EE,200fffcc,extended,080a78b1 // 00000000 jump back to 2029e2c4

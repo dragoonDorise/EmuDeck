@@ -1,0 +1,10 @@
+gametitle=X-Men - Next Dimension (E)(SLES-50898)
+comment=Widescreen hack (Pal by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,001a5bfc,word,3c014455 //3c014420
+patch=1,EE,001a5c18,word,3c013fe3
+patch=1,EE,001a5c1c,word,34218e38
+patch=1,EE,0019dc0c,word,3c013f22 //3c013f00
+

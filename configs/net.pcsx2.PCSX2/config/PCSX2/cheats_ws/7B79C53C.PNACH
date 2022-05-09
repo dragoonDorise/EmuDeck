@@ -1,0 +1,10 @@
+gametitle=Way of the Samurai 2 (PAL-M3) (SLES-52275)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,001de530,word,3c023f40 // 3c023f80 hor fov 50hz
+patch=1,EE,001de544,word,460c6343 // 46006346
+patch=1,EE,001de5c8,word,3c023f40 // 3c023f80 hor fov 60hz
+patch=1,EE,001de5dc,word,460c6343 // 46006346
+patch=1,EE,0016597c,word,3c033fb0 // 3c033f80 renderfix1
+patch=1,EE,00159524,word,3c034296 // 3c0342c8 renderfix2 water

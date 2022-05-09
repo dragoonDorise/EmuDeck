@@ -1,0 +1,68 @@
+gametitle=War of the Monsters (K)(SCKA-20003)
+comment=Widescreen hacks by Aced14 (NTSC-K by Arapapa)
+
+//16:9 Widescreen
+
+//Title Menu
+//00 00 F8 43 80 02 E0 00 80 02 E0 00
+patch=1,EE,206e5880,extended,43BA0000 //43F80000 - Title Menu Master X FOV
+//D7 A3 F0 3E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 AE 1D 57 BF AE 1D 57 3F 00 00 00 00
+patch=1,EE,206e58a0,extended,3F206D3A //3EF0A3D7 - Title Menu Master Y FOV
+
+//Crush-O-Rama Camera Distance (normally based on X FOV)
+//C2 BD 15 46 06 A3 00 46
+patch=1,EE,2011F498,extended,00000000 //4615BDC2 - Crush-O-Rama Camera Distance Fix #1 -38
+//02 00 02 46 00 00 4B DA 00 00 02 44
+patch=1,EE,2011f4d0,extended,00000000 //46020002 - Crush-O-Rama Camera Distance Fix #2 
+
+//1 Player
+//00 00 C0 43 80 02 E0 00 80 02 E0 00 00 00 00 00
+patch=1,EE,206e5640,extended,43900000 //43C00000 - 1P Master X FOV
+patch=1,EE,206e5660,extended,3F206D3A //3EF0A3D7 - 1P Master Y FOV +20
+
+//00 00 C0 43 80 02 E0 00 80 02 E0 00 00 00 00 00 (2nd)
+patch=1,EE,206e5a00,extended,43900000 //43C00000 - Unified Master X FOV
+patch=1,EE,206e5a20,extended,3F206D3A //3EF0A3D7 - Unified Master Y FOV +20
+
+//0A C3 01 3C 3D 4A 21
+patch=1,EE,10142fa0,extended,0000C33A //3C01C30A - 1P + Unified Master X P1 HUD #1
+patch=1,EE,10142fa4,extended,00006666 //34214A3D - 1P + Unified Master X P1 HUD #2 +4
+
+//23 00 05 24 F6 FE 07 0C
+patch=1,EE,10144878,extended,0000001A //24050023 - 1P + Unified P1 "WINS #" X Position (35 -> 26)
+//28 00 05 24 00 00 47 8C
+patch=1,EE,101463c4,extended,0000001E //24050028 - 1P + Unified P1 Pickup Notification X Position (40 -> 30) 1B8C
+//E0 01 05 24 F6 FE 07 0C
+patch=1,EE,101D360C,extended,00000208 //240501E0 - 1P Core Meltdown "#" Timer X Position (480 -> 520)
+
+//Health Icons
+//1A 00 00 00 0D 00 00 00 00 00 00 00 00 00 00 00
+patch=1,EE,202a4c38,extended,00000014 //0000001A - Health Icon 1 Inner Width
+patch=1,EE,202A4CC8,extended,00000014 //0000001A - Health Icon 1 Outer Width +90
+patch=1,EE,202A4C5C,extended,00000014 //0000001A - Health Icon 2 Inner Width +24
+patch=1,EE,202A4CEC,extended,00000014 //0000001A - Health Icon 2 Outer Width +b4
+patch=1,EE,202A4C80,extended,00000014 //0000001A - Health Icon 3 Inner Width +48
+patch=1,EE,202A4D10,extended,00000014 //0000001A - Health Icon 3 Outer Width +d8
+patch=1,EE,202A4CA4,extended,00000014 //0000001A - Health Icon 4 Inner Width +6c
+patch=1,EE,202A4D34,extended,00000014 //0000001A - Health Icon 4 Outer Width +fc
+
+//Distant Shadows
+00 00 00 44 BF 21 E0 81 3C 2B 2E 80 DE AD 20 00
+patch=1,EE,2025c3e8,extended,43C00000 //44000000 - Distant Shadows Width #1 (ZAxisAllLoop)
+00 00 00 44 D0 7B 80 81 3C 03 00 80 FF 02 00 00
+patch=1,EE,2025c4b0,extended,43C00000 //44000000 - Distant Shadows Width #2 (ZAxisClipXY2)
+
+//Sprites
+//00 00 00 44 18 02 40 80 45 04 0F 42 FF 02 00 00
+patch=1,EE,2025c550,extended,43C00000 //44000000 - Nearby Sprites Width (SimpSpriteStart)
+//00 00 00 44 18 02 40 80 1B 04 0F 42 FF 02 00 00
+patch=1,EE,2025c6a0,extended,43C00000 //44000000 - Distant Sprites Width (SpriteAllStart)
+
+//Loading Bar
+//08 00 A4 8F 80 00 0C 24 C0 39 07 00 00 00 A5 8F
+patch=1,EE,20227a54,extended,3404014A //8FA40008 - Loading Bar Master X Width
+
+//Generic Font - Width
+//Impacts top + bottom title screen text, unselected unlocks screen text, and pause menu text.
+//05 00 06 24 1A 00 A6 00 38 00 03 24 75 00 02 3C
+patch=1,EE,101Fe594,extended,00000007 //24060005 - Generic Font Width (5 -> 7)

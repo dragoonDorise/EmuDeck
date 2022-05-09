@@ -1,0 +1,8 @@
+gametitle= Dual Hearts [NTSC-J] (SCPS-15022)
+comment=Widescreen fix (Pnach by Little Gaint)
+
+patch=1,EE,006F0D30,word,41400000  //horizontal fov
+
+//Partial HUD fix
+patch=1,EE,006cb200,word,42C00000  //map size width
+patch=1,EE,006cb240,word,41400000  //arrow size width

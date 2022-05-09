@@ -1,0 +1,73 @@
+gametitle=Shin Megami Tensei: Persona 3 FES (SLPM-66690)
+comment=Widescreen hack by CeruleansBlue, devina, nemesis2000, sergx12, Arapapa
+
+//16:9 by CeruleansBlue
+patch=1,EE,007ccc1c,word,3fe38e38
+
+//partial HUD fix
+patch=1,EE,00106cb0,word,3c043f40 
+patch=1,EE,00106cb8,word,00701821
+patch=1,EE,00106cbc,word,24634b2c
+patch=1,EE,00106cc4,word,00000000 
+patch=1,EE,00106cc8,word,24630004
+patch=1,EE,00106ccc,word,3c043f80
+
+//persona art fix by devina and nemesis2000
+//003f033c 3001a3af 3401a0af 7001a0af 803f023c
+patch=1,EE,0011486c,word,3c033ec0 // 3c033f00
+patch=1,EE,0011487c,word,3c023f90 // 3c023f80
+
+//FMV's fix by nemesis2000
+patch=1,EE,0010ae10,word,1462000a
+patch=1,EE,0010ae18,word,3c02c294
+patch=1,EE,0010ae1c,word,10000008
+patch=1,EE,0010ae2c,word,00000000
+patch=1,EE,0010ae3c,word,3c02c1a8
+patch=1,EE,0010ae50,word,00000000
+
+//Clock, Popup portraits and etc by Arapapa
+//02080046 b4f260e4 6c0080c4
+patch=1,EE,004ab050,word,08030000
+patch=1,EE,000c0000,word,46000802
+patch=1,EE,000c0004,word,3c013f40
+patch=1,EE,000c0008,word,4481f000
+patch=1,EE,000c000c,word,461e0002
+patch=1,EE,000c0010,word,0812ac15
+
+//Arcana Card Fix by Arapapa
+patch=1,EE,003a0264,word,3c0242be //3c0242fe
+patch=1,EE,003a0338,word,3c0242be //3c0242fe
+patch=1,EE,0039ff50,word,3c024240 //3c0242b4
+
+//Shuffle Time (Card) Fix by Arpapa
+//2c0000c6 6000a0e7
+patch=1,EE,0020cc04,word,08168a54 //c600002c
+patch=1,EE,005a2950,word,c600002c //00000000
+patch=1,EE,005a2954,word,3c013f40 //00000000
+patch=1,EE,005a2958,word,3421aaab //00000000
+patch=1,EE,005a295c,word,4481f000 //00000000
+patch=1,EE,005a2960,word,461e0002 //00000000
+patch=1,EE,005a2964,word,08083302 //00000000
+
+//Community (2D Characters & Cards) fix by Arapapa
+//000040c4 0000e0e4 040040c4 (3rd)
+patch=1,EE,001141e0,word,08168a5a
+patch=1,EE,005a2968,word,c4400000
+patch=1,EE,005a296c,word,3c013f40
+patch=1,EE,005a2970,word,4481f000
+patch=1,EE,005a2974,word,461e0002
+patch=1,EE,005a2978,word,08045079
+
+//Community 2D Characters X-position by Arapapa
+//bb43023c 00088244 1002a0c7
+patch=1,EE,0013a154,word,3c024405 //3c0243bb
+//b143023c 00088244 0802a0c7
+patch=1,EE,0013a1f8,word,3c024400 //3c0243b1
+
+//Community Cards X-position by Arapapa
+//c041023c 00088244 7800a0c7 (2nd)
+patch=1,EE,00137294,word,3c024250 //3c0241c0
+
+//Popup Portraits (In the Battles) fix by Arapapa
+//8045023c 00008244 00000000 42001546 (1st)
+//patch=1,EE,003c8abc,word,3c024540 //3c024580 

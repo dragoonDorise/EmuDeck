@@ -1,0 +1,5 @@
+gametitle=Ace Combat: Distant Thunder PAL (SCES_504.10)
+comment=Widescreen pnach by El_Patas
+
+//Widescreen fix
+patch=1,EE,004235CC,word,441CF7AE //4440499A

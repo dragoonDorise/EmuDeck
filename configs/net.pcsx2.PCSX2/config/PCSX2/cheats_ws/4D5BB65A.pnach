@@ -1,0 +1,10 @@
+gametitle=Mr. Incredible (J)(SLPM-65759)
+comment=Widescreen hack by Sergx12 (NTSC-J by Arpapa)
+
+//Gameplay 16:9
+//003f023c 00008244 8e3c033c
+patch=1,EE,001ff4b4,word,3c023f1C //3C023F00 Zoom
+patch=1,EE,001ff4e0,word,3c023f10 //3C023F40 Y-FOV
+
+//Hang fix by Prafull (Only needed for pcsx2, is not needed for the PS2)
+patch=1,EE,0010EC20,word,00000000 //40036000

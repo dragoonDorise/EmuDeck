@@ -1,0 +1,6 @@
+gametitle=Sagashi ni Ikouyo - Go to Find It! (NTSC-J)(SCPS-11005)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+patch=1,EE,201B2494,word,3FAAAAAB //3F800000 Y-ratio
+patch=1,EE,201B24A8,word,3FAAAAAB //3F800000 Zoom

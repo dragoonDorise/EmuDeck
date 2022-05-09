@@ -1,0 +1,20 @@
+gametitle=Horsez (U)(SLUS-21563)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+patch=1,EE,0032ca6c,word,3c023f00 //3c023f40
+
+//Zoom
+patch=1,EE,0032ca78,word,3c023fc0 //3c024000
+
+//Hud Fix
+patch=1,EE,00222c1c,word,08040718
+
+patch=1,EE,00101c60,word,46010303
+patch=1,EE,00101c64,word,3c013faa
+patch=1,EE,00101c68,word,3421aaab
+patch=1,EE,00101c6c,word,4481f000
+patch=1,EE,00101c70,word,461e6302
+patch=1,EE,00101c74,word,08088b08

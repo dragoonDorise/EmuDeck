@@ -1,0 +1,10 @@
+gametitle=Xi 5 (K)(SCKA-20001)
+comment=Widescreen Hack  by Arapapa
+
+//Gameplay 16:9
+
+patch=1,EE,00157ec0,word,3c013f40 //3c013f80
+patch=1,EE,00157f48,word,3c0143e0 //3c0143a0
+patch=1,EE,001a8780,word,3c013f40 //3c013f80
+patch=1,EE,001a8798,word,3c0143e0 //3c0143a0
+

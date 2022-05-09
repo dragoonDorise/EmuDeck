@@ -1,0 +1,12 @@
+gametitle=Kidou Senshi Gundam - Gundam vs. Z Gundam (K)(SLKA-25268)
+
+//Widescreen hack 16:9
+
+//X-Fov
+//803f023c 40000426
+patch=1,EE,00267f04,word,3c023f40 //3c023f80
+
+//Render fix
+patch=1,EE,207BEDB0,extended,44bff400 //44fff000
+patch=1,EE,207BEF70,extended,443FE7FF //447fe000
+patch=1,EE,207BF130,extended,443FE7FF //447fe000

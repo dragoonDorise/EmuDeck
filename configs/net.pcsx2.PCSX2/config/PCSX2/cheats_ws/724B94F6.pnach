@@ -1,0 +1,13 @@
+gametitle=G.I. Joe - The Rise of Cobra (E)(SLES-55537)
+comment=Widescreen hack  by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,00224500,word,3c013ec0 //3c013f00
+
+//Y-Fov
+patch=1,EE,00224454,word,3c013faa //00000000
+patch=1,EE,00224458,word,3421aaab //00000000
+patch=1,EE,00224464,word,4481f000 //00000000
+patch=1,EE,00224468,word,461e18c2 //00000000

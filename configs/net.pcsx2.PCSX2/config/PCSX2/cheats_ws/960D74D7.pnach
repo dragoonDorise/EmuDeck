@@ -1,0 +1,9 @@
+gametitle=Van Helsing (J)(SLPM-65723)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,002ec1b0,word,3fe38e38 //3faaaaaa
+
+//X-Fov (include 2D)
+//patch=1,EE,0023dfc4,word,3c013ec0 //3c013f00

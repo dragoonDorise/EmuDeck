@@ -1,0 +1,6 @@
+﻿gametitle=Onimusha 2 [NTSC-U]
+comment=Widescreen correction by nemesis2000 (pnach by Little Giant)
+//gameplay
+patch=1,EE,2010285c,word,3c013f40
+patch=1,EE,20102860,word,44810000
+patch=1,EE,20102868,word,4600c602

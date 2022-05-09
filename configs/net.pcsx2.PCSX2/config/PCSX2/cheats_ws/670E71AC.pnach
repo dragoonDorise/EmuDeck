@@ -1,0 +1,8 @@
+gametitle=K-1 World Grand Prix 2002 (J)(SLPM-65202)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0045c6b0,word,3f2ccccd //3f666666
+patch=1,EE,0045cee8,word,3f2ccccd //3f666666
+patch=1,EE,0045d4f4,word,3f2ccccd //3f666666

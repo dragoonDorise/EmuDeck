@@ -1,0 +1,17 @@
+gametitle=La Pucelle: Hikari no Seijo Densetsu Nishuu 2-Shu-me hajimemashita (J)(SLPS-20398)
+comment=Widescreen hack by El_Patas (NTSC-J by Arapapa)
+ 
+//Gameplay 16:9
+
+patch=1,EE,00108b8c,word,3c013f40 //00000000
+patch=1,EE,00108b90,word,44810000 //00000000
+patch=1,EE,00108b98,word,4600c602 //00000000
+
+patch=1,EE,204C6340,extended,45700000 //45A00000 Hor fov 3D Backgrounds (Memory value)
+
+//2D Characters fix
+//0040023c 00088244 f400a0c7
+patch=1,EE,00138170,word,3c023fc0 //3c024000
+patch=1,EE,00138184,word,3c033fc0 //3c034000
+patch=1,EE,00138198,word,3c023fc0 //3c024000
+patch=1,EE,001381ac,word,3c023fc0 //3c024000

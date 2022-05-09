@@ -1,0 +1,5 @@
+gametitle=Simple 2000 Series Ultimate Vol.28 - The Gaidou! Genocide Grand Prix - D
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+patch=1,EE,2074302C,extended,3f100000 //3f400000 X-Fov

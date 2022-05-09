@@ -1,0 +1,7 @@
+gametitle=Jurassic Park - Operation Genesis (E)(SLES-51354)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0055a410,word,3ff3aaab //3eaaaaab
+patch=1,EE,0055c1f4,word,3FB60CD0 //3f8889a0

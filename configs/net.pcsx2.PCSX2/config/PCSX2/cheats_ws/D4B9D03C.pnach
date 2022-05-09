@@ -1,0 +1,8 @@
+gametitle=Armored Core 3 (NTSC-K) (SLPM_67524)
+comment=Widescreen hack by ElHecht (NTSC-K by Arapapa)
+
+// 16:9
+patch=1,EE,002e6dfc,word,3c013f40 // 00000000 hor fov
+patch=1,EE,002e6e08,word,44810000 // 00000000
+patch=1,EE,002e6e0c,word,4600c602 // 00000000
+patch=1,EE,0026c96c,word,3c0143d6 // 3c0143a0 renderfix

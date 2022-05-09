@@ -1,0 +1,16 @@
+gametitle=Crazy Frog Arcade Racer (U)(SLUS-21634)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//803f023c 2d208002 00088244
+patch=1,EE,0047fe48,word,3c023f40 //3c023f80
+
+//Y-Fov
+//00bf033c 00088244 2d204002
+patch=1,EE,0046d10c,word,3c03bf2a //3c03bf00
+
+//HUD fix (Zoom)
+//0040023c 00088644
+patch=1,EE,0046d610,word,3c023fc0 //3c024000

@@ -1,0 +1,12 @@
+gametitle=Garfield - Saving Arlene (PAL)(SLES-53587)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//803f033c 4940023c 00188344
+patch=1,EE,0010ed84,word,3c033f40 //3c033f80
+
+//Fov
+//803f033c 00088344 00000000 02a80046
+patch=1,EE,0010ee8c,word,3c033f40 //3c033f80

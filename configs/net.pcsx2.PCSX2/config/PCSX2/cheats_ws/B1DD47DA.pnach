@@ -1,0 +1,19 @@
+gametitle=Backyard Wrestling - Don't Try This at Home (J)(SLPS-25341)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+patch=1,EE,002c3750,word,3c013fcc//3c013f99
+patch=1,EE,002c3754,word,3421ccc4 //3421999a
+
+//Zoom (need render fix)
+patch=1,EE,002c3734,word,3c014456 //3c014420
+//patch=1,EE,002c3144,word,3c013fab //3c013f80
+
+//Gameplay Zoom (except event, needless render fix) 
+//patch=1,EE,002c36b8,word,3c014387 //3c0143b4
+
+//Render Fix
+//1644013c 00608144 a000043c
+patch=1,EE,002b3204,word,3c014480 //3c014416

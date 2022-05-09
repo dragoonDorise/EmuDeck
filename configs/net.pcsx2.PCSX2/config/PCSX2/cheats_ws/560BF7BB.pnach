@@ -1,0 +1,6 @@
+gametitle=Backyard Baseball '10 (U)(SLUS-21884)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00133350,word,3c024140 //3c024180

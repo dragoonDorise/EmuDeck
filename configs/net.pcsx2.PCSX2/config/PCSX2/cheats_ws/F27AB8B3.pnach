@@ -1,0 +1,20 @@
+gametitle=Medal of Honor - Rising Sun (NTSC-K)(SLKA-25140)
+comment=Widescreen hack by nemesis2000 (NTSC-K by Arapapa)
+
+//Widescreen hack 16:9
+patch=1,EE,003a42a0,word,3f100000 //3f400000
+
+patch=1,EE,001b95f8,word,3c013f50 //c4810e30
+patch=1,EE,001b95fc,word,44810800 //460c0832
+patch=1,EE,001b9600,word,46016303 //00000000
+patch=1,EE,001b9604,word,c4810e30 //45010009
+patch=1,EE,001b9608,word,460c0832 //00000000
+patch=1,EE,001b960c,word,45010008 //46016034
+patch=1,EE,001b9614,word,46016034 //45000004
+patch=1,EE,001b9618,word,45000004 //e48c0e38
+patch=1,EE,001b961c,word,e48c0e38 //46006807
+patch=1,EE,001b9620,word,46006807 //03e00008
+patch=1,EE,001b9624,word,03e00008 //e4800e3c
+patch=1,EE,001b9628,word,e4800e3c //e48d0e3c
+patch=1,EE,001b962c,word,e48d0e3c //03e00008
+patch=1,EE,001b9630,word,03e00008 //00000000

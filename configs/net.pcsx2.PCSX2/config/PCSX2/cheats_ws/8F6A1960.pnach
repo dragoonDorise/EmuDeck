@@ -1,0 +1,14 @@
+gametitle=Scooby-Doo! Mystery Mayhem (U)(SLUS-20701)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//43000146 0400048e
+patch=1,EE,001978a0,word,0809fa4c
+
+patch=1,EE,0027e930,word,46010043
+patch=1,EE,0027e934,word,3c013f40
+patch=1,EE,0027e938,word,4481f000
+patch=1,EE,0027e93c,word,461e0842
+patch=1,EE,0027e940,word,08065e29

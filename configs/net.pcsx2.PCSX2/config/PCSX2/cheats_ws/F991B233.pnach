@@ -1,0 +1,6 @@
+gametitle=Demon Chaos (PAL-M5) (SLES-54305)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,0017a87c,word,3c023f80 // 3c023faa hor fov
+patch=1,EE,0017a880,word,344a0000 // 344aaaaa hor fov

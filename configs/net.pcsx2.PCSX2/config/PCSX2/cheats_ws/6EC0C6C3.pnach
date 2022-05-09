@@ -1,0 +1,8 @@
+gametitle=DreamWorks Madagascar 2 - Escape 2 Africa (U)(SLUS-21840)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//820d0046 003f023c 00008244 (2nd)
+patch=1,EE,001ff08c,word,3c023f1e //3c023f00

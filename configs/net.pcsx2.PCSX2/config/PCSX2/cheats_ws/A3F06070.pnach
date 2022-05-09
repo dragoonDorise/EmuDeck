@@ -1,0 +1,6 @@
+gametitle=Choro Q H.G High Grade 3 (J)(SLPM-62244)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0021bc48,word,3c013f40 //3c013f80

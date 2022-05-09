@@ -1,0 +1,5 @@
+gametitle=Future Tactics: The Uprising [PAL] (SLES_527.01)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,0013C2DC,word,3C013FE3 //3C013FAA (Increases hor. axis)

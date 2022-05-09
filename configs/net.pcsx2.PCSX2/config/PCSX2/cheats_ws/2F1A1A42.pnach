@@ -1,0 +1,11 @@
+gametitle=Gladius [PAL-M3] (SLES_510.64)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9 in SPANISH.ELF
+patch=1,EE,003DBDB8,word,3C023F40 //3C023F80 (Increases hor. axis)
+
+//Gameplay 16:9 in ENGLISH.ELF
+patch=1,EE,003CED58,word,3C023F40 //3C023F80 (Increases hor. axis)
+
+//Gameplay 16:9 in ITALIAN.ELF
+patch=1,EE,003DBE18,word,3C023F40 //3C023F80 (Increases hor. axis)

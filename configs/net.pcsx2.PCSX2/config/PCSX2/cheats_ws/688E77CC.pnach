@@ -1,0 +1,24 @@
+gametitle=BLACK (K)(SLKA-25372)
+comment=Widescreen hack by No.47 and 60 FPS by asasega (NTSC-K by Arapapa)
+
+patch=1,EE,203BE8BC,extended,00000001
+patch=1,EE,204BC950,extended,00000001
+patch=1,EE,204BD98C,extended,00000001
+patch=1,EE,204CAD54,extended,3FE38E39
+patch=1,EE,204CADF0,extended,3FAAAAAB
+patch=1,EE,204CADF4,extended,3FE38E39
+patch=1,EE,204CAE94,extended,3FE38E39
+patch=1,EE,205BCB90,extended,3F400000
+
+//Font fix
+//00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 A0 43 44 44 A4 41
+//patch=1,EE,20431FD8,extended,3f400000
+//patch=1,EE,20431FD0,extended,43aaaaaa //43a00000
+//patch=1,EE,20432098,extended,3f400000
+//patch=1,EE,20432090,extended,43aaaaaa //43a00000
+//patch=1,EE,20432278,extended,3f400000
+//patch=1,EE,20432370,extended,43aaaaaa //43a00000
+
+//60 FPS by asasega
+//patch=1,EE,1040dff4,extended,00000001
+//patch=1,EE,2040ec2c,extended,3C888889

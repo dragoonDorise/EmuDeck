@@ -1,0 +1,12 @@
+gametitle=Noddy and the Magic Book (E)(SLES-54311)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//80bf033c 6000a427
+patch=1,EE,00469f10,word,3c03bfab //3c03bf80
+
+//Y-Fov
+//00bf033c 00088244 2d204002
+patch=1,EE,00469f9c,word,3c03bf2a //3c03bf00

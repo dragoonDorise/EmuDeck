@@ -1,0 +1,15 @@
+gametitle=World Series of Poker - Tournament of Champions - 2007 Edition (E)(SLES-54448)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//003f013c 00608144 (4th)
+patch=1,EE,00315a74,word,3c013f21 //3c013f00
+
+//Y-Fov
+//00000000 00000000 43ad1346 00000000
+//403f013c 00008144 43ad1346 c3bd0046
+patch=1,EE,00378b24,word,3c013f40 //00000000
+patch=1,EE,00378b28,word,44810000 //00000000
+patch=1,EE,00378b30,word,4600bdc3 //00000000

@@ -1,0 +1,8 @@
+gametitle=Dukes of Hazzard, The - Return of the General Lee SLES_527.47
+comment=Widescreen Hack
+patch=1,EE,003f8ef8,word,3c013fc3 
+patch=1,EE,003f8efc,word,34210c2c
+//hex pattern
+//4000228e923f013c2549213400008144
+//to 16:9
+//4000228ec33f013c2c0c213400008144

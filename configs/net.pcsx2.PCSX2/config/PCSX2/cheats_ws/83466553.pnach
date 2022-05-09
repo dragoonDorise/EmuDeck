@@ -1,0 +1,6 @@
+gametitle=Alias (Pal-M5)(SLES-51821)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,00248138,word,3c013ec0 // 3c013f00 hor fov
+patch=1,EE,001f3c70,word,3c013f40 // 3c013f80 renderfix

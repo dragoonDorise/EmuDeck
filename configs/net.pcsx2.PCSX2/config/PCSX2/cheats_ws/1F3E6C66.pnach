@@ -1,0 +1,4 @@
+gametitle=The Nightmare of Druaga: Fushigino Dungeon SLUS_210.71
+comment=Widescreen Hack
+patch=1,EE,0042A7AC,word,3c023f06
+patch=1,EE,0042A7B0,word,34436666

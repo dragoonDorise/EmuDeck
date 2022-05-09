@@ -1,0 +1,26 @@
+gametitle=Silent Hill - Shattered Memories (J)(SLPM-55231)
+comment=Widescreen hack by nemesis2000 (NTSC-J by Arapapa)
+
+//widescreen fix
+patch=1,EE,002c4a0c,word,3c013faa //3c013fe3
+patch=1,EE,002c4a10,word,3421aaaa //34218e39
+patch=1,EE,002c4a1c,word,46036302 //e7ac0000
+patch=1,EE,002c4a20,word,460318c2 //14800011
+patch=1,EE,002c4a24,word,e7ac0000 //afa00004
+patch=1,EE,002c4a28,word,1480000f //3c013faa
+patch=1,EE,002c4a2c,word,afa00004 //3421aaa8
+patch=1,EE,002c4a30,word,3c013faa //44810800
+patch=1,EE,002c4a34,word,3421aaa8 //3c013eaa
+patch=1,EE,002c4a38,word,44810800 //3421aaab
+patch=1,EE,002c4a3c,word,3c013eaa //44810000
+patch=1,EE,002c4a40,word,3421aaab //00000000
+patch=1,EE,002c4a44,word,44810000 //00000000
+
+//fastboot widescreen
+//03004230 1000bfdf
+patch=1,EE,003895c8,word,24020002
+
+//noise off
+patch=1,EE,002b67ec,word,24040000 //03e00008
+patch=1,EE,002b67f0,word,03e00008 //ac44b0c0 
+patch=1,EE,002b67f4,word,ac44b0c0 //00000000 NTSC-U ac44abc0

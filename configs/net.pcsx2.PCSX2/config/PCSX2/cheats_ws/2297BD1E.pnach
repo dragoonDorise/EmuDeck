@@ -1,0 +1,6 @@
+gametitle=Panel Quiz Attack 25 (J)(SLPS-25148)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00149390,word,3c033f40 //3c033f80

@@ -1,0 +1,88 @@
+gametitle=Hungry Ghosts (J)(SCPS-15046)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//patch=1,EE,001482fc,word,3c0b3f40 //3c0b3f80
+
+//Zoom
+//patch=1,EE,003da3d8,word,40000000 //3eaaaaab
+//patch=1,EE,0012bb7c,word,3c024300 //3c024334
+//patch=1,EE,0012bbb8,word,3c034370 //3c034360
+
+//Zoom
+patch=1,EE,0012bb74,word,3c043fC0 //3c044000 Event
+patch=1,EE,0012bc0c,word,3c0343ba //3c0343f0 Gameplay
+
+//Y-Fov
+patch=1,EE,00148300,word,3c0a3f2a //3c0a3f00
+
+//Render Fix (Event)
+patch=1,EE,0013b5f0,word,3c033fc0 //3c034000 Gameplay
+//patch=1,EE,0014cdb8,word,3c0240e0 //3c024120 Event
+patch=1,EE,0013b608,word,3c03bfc0 //3c03c000
+
+//Font Y-Fov
+patch=1,EE,0014b050,word,3c023fc0 //3c024000
+
+//Font Zoom
+patch=1,EE,00182804,word,3c024190 //3c0241c0
+patch=1,EE,001827d0,word,3c024190 //3c0241c0
+
+//Sprit bar
+//patch=1,EE,00180e00,word,3c024340 //3c024380 X-Fov
+//patch=1,EE,00180dec,word,3c024240 //3c024100 X-Position
+
+//Spirit Fire
+patch=1,EE,00180474,word,3c054308 //3c054334 Y-Position
+//patch=1,EE,00180468,word,3c02437b //3c02436b X-Position
+
+//Spirit Slot
+patch=1,EE,0018035c,word,3c08430d //3c084339 Y-Position
+
+//Vitality bar
+//patch=1,EE,00180ba4,word,3c044340 //3c044380 X-Fov
+//patch=1,EE,00180b98,word,3c0643fc //3c0643bc X-Position
+
+//Vitality
+patch=1,EE,0018005c,word,3c074308 //3c074334 Y-Position
+
+//Action Select Bar
+patch=1,EE,00182258,word,3c024040 //3c024000 Y-Position
+patch=1,EE,00182268,word,3c0243e7 //3c0243f7 X-position 3c0243e7
+patch=1,EE,00178b94,word,3c024180 //3c0241a0 Text Y-Position
+
+//Action Explanation
+patch=1,EE,0014af7c,word,3c024190 //3c0241c0 Text Zoom
+patch=1,EE,001680d4,word,3c024170 //3c0241a0 Button X-Fov
+
+//Action Select Zoom
+//patch=1,EE,00181a20,word,3c024420 //3c0243f7
+//patch=1,EE,00181b84,word,3c024420 //3c0243f7
+//patch=1,EE,00182268,word,3c024410 //3c0243f7
+
+//patch=1,EE,0018203c,word,3c0342f0 //3c0341a0
+//patch=1,EE,00182040,word,3c023f00 //3c0341a0
+
+//Action Select Bar X-Fov
+//patch=1,EE,00181ff0,word,3c024030 Action 
+
+//patch=1,EE,00181fc4,word,3c034100
+//patch=1,EE,00182120,word,3c023f00 //3c0241f0
+//patch=1,EE,00182158,word,3c0242f0 //3c0241f0
+
+//patch=1,EE,001820f8,word,3c0243f0 //3c0243a0 talk bar X-Position
+
+
+
+
+
+
+
+
+
+
+
+
+//patch=1,EE,00182100,word,3c023f00

@@ -1,0 +1,15 @@
+gametitle=SWAT - Global Strike Team (E)(SLES-51997)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,002a6774,word,3c013f23 //3c013f00
+
+//Y-Fov
+patch=1,EE,0025fa14,word,080a5248 //460039c2
+patch=1,EE,00294920,word,460039c2
+patch=1,EE,00294924,word,3c013f40
+patch=1,EE,00294928,word,4481f000
+patch=1,EE,0029492c,word,461e39c3
+patch=1,EE,00294930,word,08097e86

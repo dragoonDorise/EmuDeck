@@ -1,0 +1,4 @@
+﻿gametitle=X-Squad [NTSC-U] (SLUS-20094)
+comment=Widescreen Hack
+
+patch=1,EE,001c7f64,word,3c013f40 //3c013f80

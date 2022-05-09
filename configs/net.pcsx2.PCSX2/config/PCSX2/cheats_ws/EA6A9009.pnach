@@ -1,0 +1,9 @@
+gametitle=Disney-Pixar Toy Story 3 (U)(SLUS-21931)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom fix (Internal Widescreen)
+//aa3f033c 00188444 713d6334
+patch=1,EE,004f6ee8,word,3c033f80
+patch=1,EE,004f6ef0,word,34630000

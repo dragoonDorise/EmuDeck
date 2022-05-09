@@ -1,0 +1,18 @@
+gametitle=Teen Titans (PAL-E) (SLES-54431)
+comment=Widescreen hack by ElHecht, also works with NTSC-U
+
+// 16:9
+patch=1,EE,00205784,word,080f1e0c // 4600ab06 jump to 003c7830
+patch=1,EE,00205788,word,00000000 // 0c072734
+patch=1,EE,003c7830,word,3c013f40 // 00000000 hor fov gameplay
+patch=1,EE,003c7834,word,4481f000 // 00000000
+patch=1,EE,003c7838,word,461ead43 // 00000000
+patch=1,EE,003c783c,word,4600ab06 // 00000000
+patch=1,EE,003c7840,word,0c072734 // 00000000
+patch=1,EE,003c7844,word,00000000 // 00000000
+patch=1,EE,003c7848,word,080815e2 // 00000000 jump back to 00205788
+
+patch=1,EE,001c9d78,word,3c023fc0 // 3c024000 zoom cut-scenes
+patch=1,EE,001c9da8,word,3c013f40 // 00000000 ver fov cut-scenes
+patch=1,EE,001c9dac,word,4481f000 // 00000000
+patch=1,EE,001c9db4,word,461e0342 // 00000000

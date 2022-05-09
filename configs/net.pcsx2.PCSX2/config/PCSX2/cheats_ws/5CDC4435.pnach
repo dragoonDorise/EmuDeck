@@ -1,0 +1,11 @@
+gametitle=Simple 2000 Series Vol. 52 - The Chikyuu Shinryokugun - Space Raiders [NTSC-J] [SLPM-62496]
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,00284dc8,word,40700000 //3eaaaaab
+
+//Y-Fov
+patch=1,EE,0021523c,word,3c023f23 //3c023ef5
+patch=1,EE,00215240,word,3442d70a //3442c28f

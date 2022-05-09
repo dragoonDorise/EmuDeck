@@ -1,0 +1,11 @@
+gametitle=Gun Survivor 2 - BioHazard Code - Veronica (with GunCon2) [NTSC-J] (SLPM-65059)
+comment=Widescreen hack by ElHecht (pnach by Little Giant)
+
+// 16:9
+patch=1,EE,00333af8,word,3c023f61 // 3c023f96 hor fov
+patch=1,EE,00333afc,word,34436873 // 344345a2 hor fov
+
+// RE4 style camera
+//patch=1,EE,20375c40,extended,40900000 // tori_x (horizontal)
+//patch=1,EE,20375c50,extended,C0000000 // tory_y (height)
+//patch=1,EE,20375c60,extended,41100000 // tori_z (distance)

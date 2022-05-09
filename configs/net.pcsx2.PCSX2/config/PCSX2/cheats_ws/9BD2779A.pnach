@@ -1,0 +1,8 @@
+gametitle=Ultraman Fighting Evolution 2 [NTSC-J] (SLPS-25155)
+comment=Widescreen hack by Little Giant
+
+//16:9
+patch=1,EE,002006B4,word,3C013F40 //3C013F80
+
+//16:10
+//patch=1,EE,002006B4,word,3C013F55 //3C013F80

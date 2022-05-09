@@ -1,0 +1,15 @@
+gametitle=SD Gundam G Generation Spirits (J)(SLPS-25832)
+comment=Widescreen hack by Arapapa
+
+//Widescreen 16:9
+
+patch=1,EE,003314cc,word,081968d0
+
+patch=1,EE,0065a340,word,4617a883
+patch=1,EE,0065a344,word,3c013faa
+patch=1,EE,0065a348,word,3421aaab
+patch=1,EE,0065a34c,word,4481f000
+patch=1,EE,0065a350,word,461e1082
+patch=1,EE,0065a354,word,080cc534
+
+//patch=1,EE,0033147c,word,3c024100 //3c024000

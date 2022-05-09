@@ -1,0 +1,8 @@
+gametitle=Shadow Man - 2econd Coming (E)(SLES-50446)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,002b9534,word,3FE38E08 //3faaaaab
+patch=1,EE,002b955c,word,3FE38E08 //3faaaaab

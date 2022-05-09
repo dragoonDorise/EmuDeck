@@ -1,0 +1,5 @@
+gametitle=Medal of Honor - European Assault (NTSC-K)(SLKA-25243)
+comment=Widescreen hack by nemesis2000 (NTSC-K by Arapapa)
+
+//Widescreen hack 16:9
+patch=1,EE,0012927c,word,00000000 //10400009

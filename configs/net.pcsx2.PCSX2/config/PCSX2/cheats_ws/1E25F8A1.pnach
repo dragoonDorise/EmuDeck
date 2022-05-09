@@ -1,0 +1,9 @@
+gametitle=Bleach - Erabareshi Tamashi (J)(SCPS-15087)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//663f023c 00208344 66664234 -> 993f023c 00208344 9a994234
+patch=1,EE,00131fb4,word,3c023f99 //3c023f66
+patch=1,EE,00131fbc,word,3442999a //34426666

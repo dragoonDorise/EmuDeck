@@ -1,0 +1,26 @@
+gametitle=Summon Night EX Thesis - Yoake no Tsubasa (J)(SLPS-25528)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Gameplay
+patch=1,EE,0013ae3c,word,3c023f19 //3c023f4c
+patch=1,EE,0013ae44,word,3442999a //3442cccd
+
+//Menu
+patch=1,EE,0014ec3c,word,3c023f19 //3c023f4c
+patch=1,EE,0014ec40,word,3442999a //3442cccd
+
+//Menu 2
+patch=1,EE,001ee000,word,3c023f10 //3c023f4c
+patch=1,EE,001ee004,word,3442999a //3442cccd
+
+//2D characters and Text Box
+//patch=1,EE,00256f90,word,3f400000 //3f800000
+//patch=1,EE,0016f9a4,word,3c023f19 //3c023f4c
+//patch=1,EE,0016f9a8,word,3442999a //3442cccd
+
+//Text Box Fix
+//patch=1,EE,2031C390,extended,3f800000
+//patch=1,EE,2031C470,extended,3f800000
+//2031C390

@@ -1,0 +1,34 @@
+
+; ==========
+ ; pgert@190227
+ ; http:// forums.pcsx2.net/Thread-PCSX2-Widescreen-Game- patches?pid=240786#pid240786
+; ==========
+ gametitle=Tomb Raider - Angel of Darkness
+ comment= Tomb Raider - Angel of Darkness * SLES-51227 * PAL-M10 * 54AD76D7
+; ==========
+ ; Ported from the NTSC-U pnach by Arapapa.
+; ==========
+
+ // Fast Boot 4:3 hack - 16:9
+ patch=1,EE,00207494,word,3C013FE2 // 3C013FAA
+ patch=1,EE,00207498,word,3421FC93 // 34213D71
+
+ // Fast Boot 4:3 hack - 16:10
+// patch=1,EE,00207494,word,3C013FCC // 3C013FAA
+// patch=1,EE,00207498,word,342149BB // 34213D71
+
+ // Fast Boot 4:3 hack - 15:10
+// patch=1,EE,00207494,word,3C013FBF // 3C013FAA
+// patch=1,EE,00207498,word,3421851F // 34213D71
+
+ // Full Boot 16:9 fix
+ patch=1,EE,002074A8,word,3C013FE2 // 3C013FD5
+ patch=1,EE,002074AC,word,3421FC93 // 3421C28F
+
+ // Full Boot 16:10
+// patch=1,EE,002074A8,word,3C013FCC // 3C013FD5
+// patch=1,EE,002074AC,word,342149BB // 3421C28F
+
+ // Full Boot 15:10
+// patch=1,EE,002074A8,word,3C013FBF // 3C013FD5
+// patch=1,EE,002074AC,word,3421851F // 3421C28F

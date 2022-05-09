@@ -1,0 +1,8 @@
+gametitle=GTC Africa (PAL-M5) (SLES-50472)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,001009dc,word,3c013f40 // 00000000
+patch=1,EE,001009f0,word,4481f800 // 00000000
+patch=1,EE,00100a40,word,461fad42 // 00000000
+patch=1,EE,00100a44,word,461fa502 // 00000000

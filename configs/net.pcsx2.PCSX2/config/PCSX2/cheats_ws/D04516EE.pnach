@@ -1,0 +1,5 @@
+gametitle=Sonic Riders Zero Gravity (NTSC-U)
+comment=Widescreen hack by JLB
+patch=1,EE,205FE740,word,43700000
+patch=1,EE,205FE7A0,word,43700000 // shop, character
+patch=1,EE,00149964,word,3c023fab // 3c023f80 renderfix

@@ -1,0 +1,5 @@
+gametitle= Life Line (NTSC-U) (SLUS-20848)
+comment= Life Line Widescreen Hack by VIRGIN KLM
+
+//Widescreen
+patch=1,EE,2038D3A8,word,3F400000 // 3F800000

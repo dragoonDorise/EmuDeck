@@ -1,0 +1,6 @@
+gametitle=Sky Odyssey (NTSC-U)
+comment=Widescreen Hack by ElHecht
+
+// 16:9
+patch=1,EE,20283488,word,3f400000 // 3f800000 hor fov
+patch=1,EE,2026C300,word,43d55555 // 43a00000 increase hor fov

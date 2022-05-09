@@ -1,0 +1,15 @@
+gametitle=Barnyard (U)(SLUS-21277)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+patch=1,EE,00540d60,word,3F9F4877 //3f6eecc0
+
+//Zoom (Select Menu and Game Play)
+//patch=1,EE,0053e804,word,3fa80000 //3f860a93
+patch=1,EE,0053d748,word,3fd50000 //3eaaaaab
+
+//Black Bar Fix (Event Scene Top and Bottom)  // TLB miss
+//patch=1,EE,21A1DF04,extended,00000000 //42300000
+//patch=1,EE,21A1DF7C,extended,00000000 //42300000

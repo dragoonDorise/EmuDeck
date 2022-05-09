@@ -1,0 +1,15 @@
+gametitle=Biker Mice from Mars (E)(SLES-54319)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//02100046 4000a1e7
+patch=1,EE,00134a00,word,08030000 //46001002
+
+patch=1,EE,000c0000,word,46001002
+patch=1,EE,000c0004,word,3c013fa0
+patch=1,EE,000c0008,word,3421aaab
+patch=1,EE,000c000c,word,4481f000
+patch=1,EE,000c0010,word,461e0002
+patch=1,EE,000c0014,word,0804d281

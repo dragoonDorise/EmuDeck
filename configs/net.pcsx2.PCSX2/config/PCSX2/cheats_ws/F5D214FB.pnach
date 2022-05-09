@@ -1,0 +1,21 @@
+gametitle=WWE SmackDown! vs Raw 2006 (K)(SLKA-25318)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//803f013c 00008144 2d20a003
+//patch=1,EE,0011e980,word,3c013fab //3c013f80
+
+///Y-Fov
+//2044023c 00088244 00a08344
+//patch=1,EE,002242c8,word,3c024455 //3c024420
+
+//X-Fov Locker Room
+//803f033c 0145023c
+//patch=1,EE,00224344,word,3c033f40 //3c033f80
+
+
+patch=1,EE,0011e95c,word,3c013f40 //00000000
+patch=1,EE,0011e960,word,44810000 //00000000
+patch=1,EE,0011e968,word,4600c602 //00000000

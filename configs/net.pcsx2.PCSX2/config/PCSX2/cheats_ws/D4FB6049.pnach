@@ -1,0 +1,7 @@
+gametitle=Pryzm: Chapter One: The Dark Unicorn [PAL-M4] (SLES_507.21)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,001186E8,word,3C013F22 //3C013F00
+patch=1,EE,0017E834,word,3C013F10 //3C013F40 Y-FOV
+patch=1,EE,003341DC,word,3C01BEC0 //3C01BF00

@@ -1,0 +1,8 @@
+gametitle=Rampage - Total Destruction (NTSC-U & PAL)(SLUS-21323 & SLES-53800)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//403f023c 140001c6 00008244
+patch=1,EE,0025e694,word,3c023f10 //3c023f40

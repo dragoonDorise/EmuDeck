@@ -1,0 +1,14 @@
+gametitle=Bratz - The Movie (U)(SLUS-21643)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//000000000000000083ad004600000000
+patch=1,EE,003dd444,word,3c013f40 //00000000
+patch=1,EE,003dd448,word,4481f000 //00000000
+patch=1,EE,003dd450,word,461eb582 //00000000
+
+//Render fix
+//003f013c 00a08144 98000cc6 (1st)
+patch=1,EE,003bc790,word,3c013f2b //3c013f00

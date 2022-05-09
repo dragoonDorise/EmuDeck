@@ -1,0 +1,10 @@
+gametitle=Shadow Man - 2econd Coming (U)(SLUS-20413)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,002ba00c,word,3FE38E08 //3faaaaab
+patch=1,EE,002b9fe4,word,3FE38E08 //3faaaaab
+
+//HUD
+//patch=1,EE,0013f7ac,word,3c013ec0 //3c013f00

@@ -1,0 +1,80 @@
+gametitle=Full Spectrum Warrior (K)(SLKA-25264)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+///X-Fov (Need Render fix)
+//803f013c 00a88144 80001026
+patch=1,EE,00403900,word,3c013fab //3c013f80
+ 
+//X-Fov (Menu and etc)
+//8c3f013c cdcc2134 00088144 40134224
+patch=1,EE,004026a8,word,3c013f53 //3c013f8c
+patch=1,EE,004026ac,word,34213333 //3421cccd
+
+//Black Bar (Get rid of Black Bar)
+//4842013c 00a08144 80730e46
+patch=1,EE,002eb440,word,3c010000 //3c014248
+
+//Black Bar Size Y 0
+//patch=1,EE,002eb3a4,word,3c010000 //3c013f80
+
+//Get rid of fading effect (Black Scene)
+//803f013c 00008144 00000000 34000c46 (1st)
+patch=1,EE,002eb7f0,word,3c010000 //3c013f80
+//803f013c 00008144 0800e003 409980e7
+patch=1,EE,002eb368,word,3c010000 //3c013f80
+//7f43013c 00008144 140042c4 061b0046
+patch=1,EE,002eb93c,word,3c010000 //3c01437f
+
+//Render fix
+
+//00000000 00000000 c3b00046 700115e6 00000000 00000000 03110046 800115e6 00000000 00000000 43a10046
+//ab3f013c 00f08144 c3b00046 700115e6 00000000 03110046 02211e46 800115e6 00000000 43a10046 42291e46
+
+patch=1,EE,0042df8c,word,3c013fab //00000000
+patch=1,EE,0042df90,word,4481f000 //00000000
+patch=1,EE,0042dfa0,word,46001103 //00000000
+patch=1,EE,0042dfa4,word,461e2102 //46001103 Left
+patch=1,EE,0042dfb0,word,4600a143 //00000000
+patch=1,EE,0042dfb4,word,461e2942 //4600a143 Right
+
+
+////////////////////////////////////////////////////////////////////
+//X-Fov (Needs more render fix)
+//8c3f013c cdcc2134 00088144 00000000 (2nd)
+//patch=1,EE,00403a14,word,3c013f53 //3c013f8c
+//patch=1,EE,00403a18,word,34213333 //3421cccd
+//Render fix 
+//003f013c 00008144 3d1be24b (2nd)
+//patch=1,EE,003c8b4c,word,3c013f40 //3c013f00
+
+//003f013c 00008144 c1500846  xxxxxx
+//patch=1,EE,001a2c98,word,3c013ec0 //3c013f00 Render ???
+
+//2071269C Fog effect
+
+//xxx
+//patch=1,EE,003052ec,word,3c013fab //3c013f80
+//patch=1,EE,003c8a34,word,3c013fab //3c013f80
+//patch=1,EE,003c8bac,word,3c013fab //3c013f80
+//patch=1,EE,003dc8e8,word,3c013fab //3c013f80
+
+//patch=1,EE,0042e500,word,3c013f40 //3c013f80
+
+//Y-Fov
+//883f013c c3f52134 00088144 (1st)
+//patch=1,EE,00403a30,word,3c013fb6 //3c013f88
+//patch=1,EE,00403a34,word,34219cfe //3421f5c3
+
+//Zoom
+//003f013c 00088144 418c1046
+//patch=1,EE,003c8990,word,3c013f20 //3c013f00
+//003f013c 00008144 80730f46
+//patch=1,EE,003c8a10,word,3c013ec0 //3c013f00
+
+//Gameplay Zoom
+//patch=1,EE,00237d2c,word,3c013f40 //3c013f80
+//patch=1,EE,00237d44,word,3c0140ab
+
+//patch=1,EE,002eb854,word,3c013fB0 //3c013f80

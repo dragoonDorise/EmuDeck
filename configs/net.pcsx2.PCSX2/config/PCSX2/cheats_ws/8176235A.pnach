@@ -1,0 +1,5 @@
+gametitle=Van Helsing [PAL] (SLES_519.08)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,202E88A8,extended,3FE38E38 //3FAAAAAA (Increases hor. axis)

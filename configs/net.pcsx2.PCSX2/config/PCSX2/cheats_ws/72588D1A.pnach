@@ -1,0 +1,17 @@
+gametitle= Rule of Rose (J) (SCPS-15093)
+comment=Widescreen patch (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,0013ba74,word,3c013f12  // 003f013c 00608144 96B2090C
+patch=1,EE,0013ba9c,word,3c013f10  // 02000146 403F013C 00088144 02000246
+
+//noise off
+//3c000000 06000000 (50452e00)
+patch=1,EE,2073ABE0,extended,00000000
+
+//noise off (alternate address)
+//patch=1,EE,001c8dc0,word,e43f1fa0 //e4211fa0
+
+//black borders's fix
+//patch=1,EE,001909b4,word,24050000

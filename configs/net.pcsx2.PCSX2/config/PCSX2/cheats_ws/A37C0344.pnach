@@ -1,0 +1,5 @@
+gametitle=Matt Hoffman's Pro BMX 2 SLUS_203.35
+comment=Widescreen Hack
+patch=1,EE,001c5744,word,3c023fab
+patch=1,EE,0024d588,word,3c023c2e
+patch=1,EE,0036c108,word,3c033fc0

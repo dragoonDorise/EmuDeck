@@ -1,0 +1,25 @@
+comment=Alien Hominid Widescreen (NTSC-U)
+
+patch=1,EE,2017C7D8,extended,08030000 //Jump to Rectangle Scaling Code
+patch=1,EE,200C0000,extended,3C153F40 //Rectangle Scale
+patch=1,EE,200C0004,extended,44955000 //Move Rectangle Scale to F10
+patch=1,EE,200C0008,extended,C4A90000 //Load Lower-Left of Rectangle into f9
+patch=1,EE,200C000C,extended,C4C80000 //Load Upper-Right of Rectangle into f8
+patch=1,EE,200C0010,extended,C4E70000 //Load Lower-Right of Ractangle into f7
+patch=1,EE,200C0014,extended,C5060000 //Load Upper-Left of Ractangle into f7
+patch=1,EE,200C0018,extended,460A4A42 //Multiply Lower-Left of Rectangle by Rectangle Scale
+patch=1,EE,200C001C,extended,460A4202 //Multiply Upper-Right of Rectangle by Rectangle Scale
+patch=1,EE,200C0020,extended,460A39C2 //Multiply Lower-Right of Rectangle by Rectangle Scale
+patch=1,EE,200C0024,extended,460A3182 //Multiply Upper-Left of Rectangle by Rectangle Scale
+patch=1,EE,200C0028,extended,E4A90000 //Update Lower-Left of Rectangle
+patch=1,EE,200C002C,extended,E4C80000 //Update Upper-Right of Rectangle
+patch=1,EE,200C0030,extended,E4E70000 //Update Lower-Right of Rectangle
+patch=1,EE,200C0034,extended,E5060000 //Update Upper-Left of Rectangle
+patch=1,EE,200C0038,extended,0805F1F8 //Return to Original Code
+patch=1,EE,200C003C,extended,0160B021 //Original Instruction
+patch=1,EE,2013E2B8,extended,00000000 //Sprite Render Fix
+patch=1,EE,20102A20,extended,24B3FF96 //Counters X Offset
+patch=1,EE,20102AC0,extended,00000000 //Fix Counter Visibility Near Left Edge
+patch=1,EE,2014BDD0,extended,24020337 //Walk Range Width
+patch=1,EE,2014BD94,extended,3C024455 //Object Viewport Width
+patch=1,EE,20129C38,extended,3C034455 //Background Colour Plane Width

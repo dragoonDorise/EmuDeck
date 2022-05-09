@@ -1,0 +1,10 @@
+comment=Spongebob Squarepants Movie Game (NTSC-U) (SLUS-20904) Widescreen Hack (nemesis2000) (gamemasterplc)
+patch=1,EE,00437714,word,46010083 //Multiply Aspect
+patch=1,EE,00437718,word,E7A20028 //Store Multiplied Aspect
+patch=1,EE,0043771C,word,46010002 //Set Height
+patch=1,EE,00437720,word,0C0655BC //Jump to RWCameraSetView
+patch=1,EE,00437724,word,E7A0002C //Store Height (Delay Slot)
+patch=1,EE,00437728,word,DFBF0010 //Restore RA
+patch=1,EE,0043772C,word,7BB00000 //Restore S0
+patch=1,EE,00437730,word,03E00008 //Jump to RA
+patch=1,EE,00437734,word,27BD0030 //Restore Stack (Delay Slot)

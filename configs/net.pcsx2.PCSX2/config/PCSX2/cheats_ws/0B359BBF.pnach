@@ -1,0 +1,16 @@
+gametitle=Kamen Rider 555 (J)(SLPS-20329)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,001adae8,word,08048174 // c6010068
+patch=1,EE,001adaec,word,00000000 // c602006c
+
+patch=1,EE,001205d0,word,3c013f40 // 00000000
+patch=1,EE,001205d4,word,4481f000 // 00000000
+patch=1,EE,001205d8,word,c6010068 // 00000000
+patch=1,EE,001205dc,word,c602006c // 00000000
+patch=1,EE,001205e0,word,461e0843 // 00000000
+patch=1,EE,001205e4,word,e6010068 // 00000000
+patch=1,EE,001205e8,word,0806b6bc // 00000000

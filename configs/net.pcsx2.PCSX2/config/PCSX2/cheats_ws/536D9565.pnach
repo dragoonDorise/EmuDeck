@@ -1,0 +1,17 @@
+gametitle=Evolution Skateboarding (U)(SLUS-20540)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//0040033c 42ce0346 
+patch=1,EE,001a6104,word,3c033fc0 //3c034000
+
+//Y-Fov
+//43200346 100022e6
+patch=1,EE,001a614c,word,080e3b84 //46032043
+patch=1,EE,0038ee10,word,46032043
+patch=1,EE,0038ee14,word,3c013f40
+patch=1,EE,0038ee18,word,4481f000
+patch=1,EE,0038ee1c,word,461e0843
+patch=1,EE,0038ee20,word,08069854

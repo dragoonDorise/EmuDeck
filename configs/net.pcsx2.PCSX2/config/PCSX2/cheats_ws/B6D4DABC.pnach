@@ -1,0 +1,21 @@
+gametitle=Dai-2-Ji Super Robot Taisen Alpha (J)(SLPS-25228)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom (3D Graphics)
+//803f023c 14005fe6
+patch=1,EE,001294c4,word,3c023fab //3c023f80
+
+//Y-Fov (3D Graphics)
+patch=1,EE,0012d72c,word,3c023F1F //3c023eee
+patch=1,EE,0012d730,word,344349f1 //3443eeef
+
+
+//Y-Fov (2D Graphics)
+patch=1,EE,0012a410,word,3c023F1F //3c023eee
+patch=1,EE,0012a414,word,344249f1 //3442eeef
+
+//Zoom (2D Graphics)
+//803f013c 00008144 2d20a003
+patch=1,EE,00103768,word,3c013fab //3c013f80

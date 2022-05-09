@@ -1,0 +1,7 @@
+gametitle=Simple 2000 Series Vol. 111 - The Itadaki Raider (J)(SLPS-25703)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,002fe630,word,3c013f97 //3c013f80
+patch=1,EE,00302a24,word,3c01bec0 //3c01bf00

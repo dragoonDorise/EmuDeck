@@ -1,0 +1,11 @@
+gametitle=Shinten Makai - Generation of Chaos IV (J)(SLPM-65572)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,0011c7b4,word,3c033f19 //3c033f4c
+patch=1,EE,0011c7b8,word,3463999a //3463cccd
+
+//Render Fix
+patch=1,EE,0011c7d4,word,3c034400 //3c0343b9

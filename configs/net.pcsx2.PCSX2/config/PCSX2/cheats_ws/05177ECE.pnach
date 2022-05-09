@@ -1,0 +1,76 @@
+
+; ==========
+ ; pgert@190222
+ ; http://forums.pcsx2.net/Thread-PCSX2-Widescreen-Game-Patches?pid=240786#pid240786
+; ==========
+ gametitle=Lara Croft Tomb Raider - Legend
+ comment= Lara Croft Tomb Raider - Legend * SLES-53908 * PAL/Europe * 05177ECE
+ comment= pnach by pgert.
+; ==========
+ ; Note that GSdx have a CRC-specific HW-hack for this game.
+; ==========
+ ; This game gains a big speedup by (in combination) setting "EE Cycle Skipping" to 2
+ ;  under Config > Emulation Settings > Speedhacks, and activating "Monitor Frequency PAL-60"
+ ;  under Options > Display in the game-menu.
+; ==========
+
+; ==========
+ // 16:10 support.
+// patch=1,EE,001B6B34,word,3C013F55 // 3C013F40 - source HOW - GamePlay X-axis.
+ // patch=1,EE,204A4E10,extended,3F555555 // 3F800000\3F400000 - HOW set from 001B6B34.
+ // patch=1,EE,204A4E18,extended,3F555555 // 3F800000\3F400000 - HOW set from 001B6B34.
+ // - 204A4E10 & 204A4E18 might not work with all BIOS types & configurations.
+// patch=1,EE,001401D4,word,3C013F55 // 3C013F40
+// patch=1,EE,0014EA44,word,3C013F55 // 3C013F40
+// patch=1,EE,0014ED00,word,3C013F55 // 3C013F40
+// patch=1,EE,0014EE34,word,3C013F55 // 3C013F40
+// patch=1,EE,0018E804,word,3C013F55 // 3C013F40
+// patch=1,EE,001C8518,word,3C013F55 // 3C013F40
+// patch=1,EE,002163D8,word,3C013F55 // 3C013F40
+// patch=1,EE,0021845C,word,3C013F55 // 3C013F40
+// patch=1,EE,002402E0,word,3C013F55 // 3C013F40
+// patch=1,EE,0027D3B0,word,3C013F55 // 3C013F40
+// patch=1,EE,002ADBBC,word,3C013F55 // 3C013F40
+// patch=1,EE,002C64C4,word,3C013F55 // 3C013F40
+// patch=1,EE,002DF170,word,3C013F55 // 3C013F40
+// patch=1,EE,002F41C0,word,3C013F55 // 3C013F40
+// patch=1,EE,002F995C,word,3C013F55 // 3C013F40
+; ==========
+
+; ==========
+ // 15:10 support (MS Surface Book).
+ // patch=1,EE,001B6B34,word,3C013F64
+ // patch=1,EE,204A4E10,extended,3F638E39
+ // patch=1,EE,204A4E18,extended,3F638E39
+ // - 204A4E10 & 204A4E18 might not work with all BIOS types & configurations.
+ // patch=1,EE,001401D4,word,3C013F64
+ // patch=1,EE,0014EA44,word,3C013F64
+ // patch=1,EE,0014ED00,word,3C013F64
+ // patch=1,EE,0014EE34,word,3C013F64
+ // patch=1,EE,0018E804,word,3C013F64
+ // patch=1,EE,001C8518,word,3C013F64
+ // patch=1,EE,002163D8,word,3C013F64
+ // patch=1,EE,0021845C,word,3C013F64
+ // patch=1,EE,002402E0,word,3C013F64
+ // patch=1,EE,0027D3B0,word,3C013F64
+ // patch=1,EE,002ADBBC,word,3C013F64
+ // patch=1,EE,002C64C4,word,3C013F64
+ // patch=1,EE,002DF170,word,3C013F64
+ // patch=1,EE,002F41C0,word,3C013F64
+ // patch=1,EE,002F995C,word,3C013F64
+; ==========
+
+; ==========
+ // Widescreen enforcement lazy-hack (optional).
+// patch=1,EE,203921F0,extended,3F800000 // 00000000
+// patch=1,EE,203B9080,extended,00000001 // 00000000
+// patch=1,EE,2046ED64,extended,3F800000 // 00000000
+// patch=1,EE,20977390,extended,00000001 // 00000000
+// patch=1,EE,2098EFA0,extended,00000001 // 00000000
+ // - Might not work with all BIOS types & configurations.
+; ==========
+ // Blackbars hack (optional).
+// patch=1,EE,0016C688,word,3C01BF60 // 3C01BF40 - bisects upper Blackbar of Cinematics (sets it to 50%).
+// patch=1,EE,0016C694,word,3C013F60 // 3C013F40 - bisects lower Blackbar of Cinematics (sets it to 50%).
+ // - Set the value of these patches to 3C01BF80 & 3C013F80 to fully remove the Blackbars.
+; ==========

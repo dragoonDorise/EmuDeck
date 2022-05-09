@@ -1,0 +1,12 @@
+gametitle=Pop Idol (E)(SLES-51825)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,002180c4,word,080ad914
+
+patch=1,EE,002b6450,word,46010902
+patch=1,EE,002b6454,word,3c013eaa
+patch=1,EE,002b6458,word,4481f000
+patch=1,EE,002b645c,word,461e2102
+patch=1,EE,002b6460,word,08086032

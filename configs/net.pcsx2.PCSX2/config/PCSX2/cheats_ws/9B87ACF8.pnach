@@ -1,0 +1,13 @@
+gametitle=City Crisis (U)(SLUS-20274)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00232c08,word,3c023f6e //3c023f33
+patch=1,EE,00232c0c,word,3442eee9 //34423333
+patch=1,EE,00232c14,word,3c023fe3 //3c023faa
+patch=1,EE,00232c18,word,34428e2a //3442aaab
+patch=1,EE,003ecc08,word,3c023f6e //3c023f33
+patch=1,EE,003ecc0c,word,3442eee9 //34423333
+patch=1,EE,003ecc14,word,3c023fe3 //3c023faa
+patch=1,EE,003ecc18,word,34428e2a //3442aaab

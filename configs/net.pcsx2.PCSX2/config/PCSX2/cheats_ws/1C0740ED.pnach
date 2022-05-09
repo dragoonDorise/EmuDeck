@@ -1,0 +1,23 @@
+gametitle=SpongeBob SquarePants - Lights, Camera, Pants! (K)(SLKA-25319)
+comment=Widescreen hack by Arapapa
+ 
+//Widescreen 16:9
+
+//X-Fov
+//680080c4 03080046
+patch=1,EE,00230328,word,081258cc
+patch=1,EE,00496330,word,c4800068
+patch=1,EE,00496334,word,3c013f40
+patch=1,EE,00496338,word,4481f000
+patch=1,EE,0049633c,word,461e0003
+patch=1,EE,00496340,word,e4800068
+patch=1,EE,00496344,word,0808c0cb
+
+///////////////////////////////////////////////////////////
+//ICON and Font fix
+//803f023c 7200a392 00388244 (Twice) 
+//patch=1,EE,003e0d18,word,3c023f40 //3c023f80 Characters ICON
+//patch=1,EE,003df178,word,3c023f40 //3c023f80 Font Count and Text
+//803f033c 0400a28e 00088344
+//patch=1,EE,003df414,word,3c033f40 //3c033f80 Font Time
+

@@ -1,0 +1,13 @@
+gametitle=Conflict - Desert Storm II (E)(SLES-51523)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom fix - Internal Widescreen and 4:3 X-Fov
+//aa3f013c 93a92134 00b08144
+patch=1,EE,002a32f0,word,3c013fe3 //3c013faa
+patch=1,EE,002a32f4,word,34218cc1 //3421a993
+
+//Y-Fov fix - Internal Widescreen 
+patch=1,EE,002a3330,word,3c013f0e //3c013f0a
+patch=1,EE,002a3334,word,342190dd //342160dd

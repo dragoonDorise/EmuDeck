@@ -1,0 +1,15 @@
+gametitle=SBK-09 - Superbike World Championship (PAL-M5) (SLES-55492)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,0013d448,word,4482e000 // 44820000
+patch=1,EE,0013d458,word,460ce002 // 460c0002
+patch=1,EE,0013d45c,word,4483e800 // 44830800
+patch=1,EE,0013d468,word,4600eb02 // 46000b02
+patch=1,EE,0013d46c,word,00000000 // e7a00048
+patch=1,EE,0013d470,word,3c013f40 // 3c023f00 hor fov
+patch=1,EE,0013d474,word,4481f000 // 44820000
+patch=1,EE,0013d478,word,461e0003 // 3c033c8e
+patch=1,EE,0013d47c,word,e7a00048 // 3463fa35
+patch=1,EE,0013d484,word,4614e002 // 46140002
+patch=1,EE,0013d488,word,4600e846 // 44830800

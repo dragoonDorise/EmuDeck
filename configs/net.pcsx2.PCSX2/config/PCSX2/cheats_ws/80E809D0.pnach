@@ -1,0 +1,7 @@
+gametitle=Sega Ages 2500 Series Vol.24 - Last Bronx (J)(SLPM-62687)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0041b3d4,word,3ec00000 //3f000000
+patch=1,EE,0041e9f8,word,3f300000 //3f000000

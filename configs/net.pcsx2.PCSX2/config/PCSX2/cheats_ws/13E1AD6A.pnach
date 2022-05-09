@@ -1,0 +1,8 @@
+gametitle=Hitman - Blood Money (SLUS_21108)
+comment=Widescreen hack
+
+patch=1,EE,00178b58,word,3c013f40 //00000000 hor FOV
+patch=1,EE,00178b5c,word,4481f000 //00000000
+patch=1,EE,00178b98,word,461e0003 //00000000
+patch=1,EE,00291610,word,461ea502 //00000000
+patch=1,EE,002b27f4,word,461ea302 //4600a306

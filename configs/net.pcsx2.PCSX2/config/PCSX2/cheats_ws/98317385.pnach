@@ -1,0 +1,5 @@
+gametitle=Garfield - Lasangna World Tour (E)(SLES-54817)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,001c3a74,word,3c033f40 //3c033f80

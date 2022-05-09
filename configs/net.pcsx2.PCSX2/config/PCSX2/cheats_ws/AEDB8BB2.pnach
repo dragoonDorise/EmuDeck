@@ -1,0 +1,9 @@
+gametitle=Busin 0 - Wizardry Alternative NEO (J)(SLPM-65378)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//8c3f023c cdcc4234
+patch=1,EE,00130080,word,3c023f53 //3c023f8c
+patch=1,EE,00130084,word,34423333 //3c023f8c

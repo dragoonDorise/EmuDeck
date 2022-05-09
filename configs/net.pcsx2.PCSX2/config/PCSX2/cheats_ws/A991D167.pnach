@@ -1,0 +1,6 @@
+gametitle=XGIII: Extreme G Racing [PAL-M4] (SLES_502.10)
+comment=Widescreen hack by El_Patas
+
+//16:9
+patch=1,EE,0022C288,word,3FE38E38 //3FAAAAAB
+patch=1,EE,0022C394,word,42AC0000 //428C0000

@@ -1,0 +1,8 @@
+gametitle=LarryBoy and the Bad Apple [NTSC-U] (SLUS_214.40)
+comment=Widescreen hack by El_Patas (Causes a glitch in the upper left HUD panel)
+
+//Gameplay 16:9
+patch=1,EE,0021E414,word,3C014440 //3C014480 (Increases horiz. axis)
+
+//Render fix
+patch=1,EE,0021271C,word,3C013C2E //3C013C0E

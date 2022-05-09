@@ -1,0 +1,25 @@
+gametitle=Harry Potter and the Prisoner of Azkaban (U)(SLUS-20926)
+comment=Widescreen hack by Devina and Arapapa
+
+//Widescreen hack 16:9
+//to widen the HUD to hide unwanted elements,
+//enable patch in-game, not on boot
+
+//X-Fov
+//00000000 00000000 43ad1a46
+//403f013c 00f08144 43ad1a46 
+patch=1,EE,00147af8,word,3c013f40
+patch=1,EE,00147afc,word,4481f000
+
+//00000000 03a51946
+//03a51946 02a51e46
+patch=1,EE,00147b10,word,4619a503
+patch=1,EE,00147b14,word,461ea502
+
+//Render fix
+//803f013c 00608144 aa3f013c
+patch=1,EE,001223f0,word,3c013f40 //3c013f80
+
+//Render fix #2 (doesn't seem needed in recent builds and causes graphic errors)
+//803f013c 00208144 2800b4e7
+//patch=1,EE,001560b8,word,3c013fab //3c013f80

@@ -1,0 +1,15 @@
+gametitle=Robin Hood - Defender of the Crown (U)(SLUS-20723)
+comment=Widescreen hack by Devina and Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//42a80146 2700013c
+patch=1,EE,0022778c,word,08097c04
+
+patch=1,EE,0025f010,word,4601a842
+patch=1,EE,0025f014,word,3c013faa
+patch=1,EE,0025f018,word,3421aaab
+patch=1,EE,0025f01c,word,4481f000
+patch=1,EE,0025f020,word,461e0842
+patch=1,EE,0025f024,word,08089de4

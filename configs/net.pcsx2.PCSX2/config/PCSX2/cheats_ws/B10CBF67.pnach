@@ -1,0 +1,4 @@
+gametitle=Gretzky NHL 2005 SCUS_974.09
+comment=Widescreen Hack
+patch=1,EE,002bcfc0,word,3c013c2e
+patch=1,EE,002bcfd4,word,3c013f10

@@ -1,0 +1,19 @@
+gametitle=Manhunt (U)(SLUS-20827)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,205e0664,extended,00000000 // Turn off 'Internal Widescreen'
+patch=1,EE,20548ec8,extended,3f6eeeee
+patch=1,EE,20548ecc,extended,3f0c0000
+
+
+///////////////////
+//////////////////////////////////////
+//X-Fov  (Needs Render fix)
+//patch=1,EE,00422ba8,word,080d3724
+//patch=1,EE,0034dc90,word,46010043
+//patch=1,EE,0034dc94,word,3c013f40
+//patch=1,EE,0034dc98,word,4481f000
+//patch=1,EE,0034dc9c,word,461e0842
+//patch=1,EE,0034dca0,word,08108aeb

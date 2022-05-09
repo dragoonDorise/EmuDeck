@@ -1,0 +1,36 @@
+gametitle=Tony Hawks Pro Skater 3 (SLUS_20013)
+comment=Widescreen hack by No.47
+
+//(A) horizontal FOV - single player
+
+//gameplay & park editor (without pressing select)
+patch=1,EE,0017c060,word,3c013ff3//3c013fb6
+patch=1,EE,0017c064,word,3421cf00//3421db40
+
+//gameplay & park editor (after pressing select)
+patch=1,EE,001f34d4,word,3c013ff3//3c013fb6
+patch=1,EE,001f34d8,word,3421cf00//3421db40
+
+//menu
+patch=1,EE,001f7f08,word,3c013ff3//3c013fb6
+patch=1,EE,001f7f0c,word,3421cf00//3421db40
+
+//(B) horizontal FOV - vertical splitscreen
+
+//gameplay (without pressing select)
+patch=1,EE,0017c080,word,3c013f73//3c013f36
+patch=1,EE,0017c084,word,3421cf00//3421db40
+
+//gameplay (after pressing select)
+patch=1,EE,001f34f4,word,3c013f73//3c013f36
+patch=1,EE,001f34f8,word,3421cf00//3421db40
+
+//(C) horizontal FOV - horizontal splitscreen
+
+//gameplay (without pressing select)
+patch=1,EE,0017c0d4,word,3c014073//3c014036
+patch=1,EE,0017c0d8,word,3421cf00//3421db40
+
+//gameplay (after pressing select)
+patch=1,EE,001f3514,word,3c014073//3c014036
+patch=1,EE,001f3518,word,3421cf00//3421db40

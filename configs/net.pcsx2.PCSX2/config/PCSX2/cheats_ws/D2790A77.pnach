@@ -1,0 +1,7 @@
+﻿gametitle=Family Guy (SLUS-20718)
+comment=Widescreen update by Brandondorf9999
+
+//---
+patch=1,EE,0011B3A8,word,00000000
+patch=1,EE,0011B3BC,word,3C013F80
+patch=1,EE,0011B3C0,word,34210000 //---

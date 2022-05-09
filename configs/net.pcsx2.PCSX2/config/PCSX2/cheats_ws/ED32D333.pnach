@@ -1,0 +1,8 @@
+gametitle=Boboboubo Boubobo - Hajike Matsuri (J)(SLPM-65262)
+comment=Widescreen hack by Arapapa
+ 
+//Gameplay 16:9
+
+patch=1,EE,001059c4,word,3c013f40 //00000000
+patch=1,EE,001059c8,word,44810000 //00000000
+patch=1,EE,001059d0,word,4600c602 //00000000

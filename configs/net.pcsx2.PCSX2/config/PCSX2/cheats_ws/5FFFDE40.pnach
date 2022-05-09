@@ -1,0 +1,6 @@
+gametitle=James Bond 007 - Everything or Nothing (J)(SLPM-65446)
+comment=Widescreen Hack by nemesis2000 (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,0041ab2c,word,3faaaaab //3f800000

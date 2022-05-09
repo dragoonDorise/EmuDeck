@@ -1,0 +1,10 @@
+gametitle=Raging Blades (E)(SLES-51235)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-fov
+patch=1,EE,0022d420,word,3c013f40 //3c013f80
+
+//Render fix
+patch=1,EE,002e4b70,word,43e00000 //43a00000

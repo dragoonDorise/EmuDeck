@@ -1,0 +1,12 @@
+gametitle=Cyclone Circus (E)(SLES-52684)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00243348,word,08086794
+
+patch=1,EE,00219e50,word,46014242
+patch=1,EE,00219e54,word,3c013f40
+patch=1,EE,00219e58,word,4481f000
+patch=1,EE,00219e5c,word,461e4a42
+patch=1,EE,00219e60,word,08090cd3

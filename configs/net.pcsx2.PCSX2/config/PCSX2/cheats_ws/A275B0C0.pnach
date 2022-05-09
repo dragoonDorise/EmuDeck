@@ -1,0 +1,13 @@
+gametitle=Curious George (U)(SLUS-21354)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//000009e6 280000e6 380001e6
+patch=1,EE,002255a8,word,0809ef94
+patch=1,EE,0027be50,word,3c013f40
+patch=1,EE,0027be54,word,4481f000
+patch=1,EE,0027be58,word,461e4a42
+patch=1,EE,0027be5c,word,e6090000
+patch=1,EE,0027be60,word,0808956b

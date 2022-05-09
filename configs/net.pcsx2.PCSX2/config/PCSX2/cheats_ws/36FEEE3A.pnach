@@ -1,0 +1,10 @@
+gametitle=Knockout Kings 2002 (U)(SLUS-20369)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Matrix hack
+patch=1,EE,00219a94,word,3c013f40 //00000000
+patch=1,EE,00219a98,word,44810000 //00000000
+patch=1,EE,00219aa0,word,4600c602 //00000000
+

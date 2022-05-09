@@ -1,0 +1,11 @@
+gametitle=Dennou Senki Virtual-On - Marz (J)(SLPM-65303)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//803f023c 00608244 803f023c 00688244 (4th)
+patch=1,EE,0014ff74,word,3c023f40 //3c023f80
+
+//Zoom out + Y-Fov(-) 
+//patch=1,EE,0014ff7c,word,3c023f70 //3c023f80

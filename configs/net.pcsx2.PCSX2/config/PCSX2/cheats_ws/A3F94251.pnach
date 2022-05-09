@@ -1,0 +1,10 @@
+gametitle=Arc the Lad - Seirei no Koukon (NTSC-J) (SCPS-15041)
+comment=Widescreen hack (NTSC-J by Arapapa)
+
+//Widescreen Hack 16:9
+
+//cdcc4c3f efee6e3f d80f49c0
+patch=1,EE,00257a84,word,3f19999a //3f4ccccd
+
+//cdcc4c3f efee6e3f 00247449
+patch=1,EE,00257f40,word,3f19999a //3f4ccccd

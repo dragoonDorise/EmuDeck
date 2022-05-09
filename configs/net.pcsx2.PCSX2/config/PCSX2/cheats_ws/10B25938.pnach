@@ -1,0 +1,8 @@
+gametitle=Dragon Ball Z 2 (PlayStation 2 the Best) (J)(SLPS-73208)
+comment=Widescreen hack (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,00131b6c,word,3c013f40 //00000000
+patch=1,EE,00131b70,word,4481f000 //00000000
+patch=1,EE,00131a3c,word,461ead42 //00000000

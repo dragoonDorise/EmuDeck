@@ -1,0 +1,8 @@
+comment=Final Fantasy XII (SLES-54356)
+comment=Widescreen hack by nemesis2000 (original pnach by nemesis2000)
+comment=Ported from PAL-E to PAL-G by theHOMER
+
+//widescreen fix
+patch=1,EE,001803c8,word,3C013f80
+patch=1,EE,001803cc,word,34210000
+patch=1,EE,0033E714,word,3c020000

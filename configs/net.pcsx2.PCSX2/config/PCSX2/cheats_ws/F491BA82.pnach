@@ -1,0 +1,16 @@
+gametitle=Army Men - Sarge's Heroes 2 (PAL-Unk)(SLES-50192)
+comment=Widescreen Hack by El_Patas and Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//003f013c 00008144 e0ffbd27
+patch=1,EE,001b1878,word,3c013f22 //3c013f00
+
+//Fov
+//803f013c 00a08144 43480200
+patch=1,EE,001db1a0,word,3c013fb3 //3c013f80
+
+//Menu Screen and Energy bar fix
+//803f013c 00208144 07000046
+patch=1,EE,001b1ae0,word,3c013fab //3c013f80

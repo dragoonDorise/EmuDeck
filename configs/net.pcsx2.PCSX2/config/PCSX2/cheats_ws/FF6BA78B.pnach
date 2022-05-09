@@ -1,0 +1,15 @@
+gametitle=Kinniku Banzuke - Muscle Wars 21 (J)(SLPM-65048)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,003c5c94,word,081083f4 // c6010068
+patch=1,EE,003c5c98,word,00000000 // c602006c
+
+patch=1,EE,00420fd0,word,3c013f40 // 00000000
+patch=1,EE,00420fd4,word,4481f000 // 00000000
+patch=1,EE,00420fd8,word,c6010068 // 00000000
+patch=1,EE,00420fdc,word,c602006c // 00000000
+patch=1,EE,00420fe0,word,461e0843 // 00000000
+patch=1,EE,00420fe4,word,e6010068 // 00000000
+patch=1,EE,00420fe8,word,080f1727 // 00000000

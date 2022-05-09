@@ -1,0 +1,8 @@
+gametitle=SpongeBob Squarepants - Revenge of the Flying Dutchman (E)(SLES-51285)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,00301d04,word,3c023f40 //3c023f80
+

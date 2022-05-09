@@ -1,0 +1,18 @@
+gametitle=Ephemeral Fantasia [PAL] (SLES-50110)
+comment=Widescreen Hack by Little Giant
+
+//Vert
+patch=1,EE,00239dbc,word,3c023fa2
+patch=1,EE,00239dc0,word,34422222
+patch=1,EE,0034d140,word,3c023fa2
+patch=1,EE,0034d144,word,34422222
+patch=1,EE,002e4514,word,3C023FA2
+patch=1,EE,002e4518,word,34422222
+
+//Zoom
+patch=1,EE,00239EF4,word,3c013f40
+patch=1,EE,00239F08,word,4481F000
+patch=1,EE,00239F0c,word,461e6302
+patch=1,EE,00239F10,word,E44C0160
+patch=1,EE,00239F14,word,24020001
+patch=1,EE,00239F18,word,03E00008

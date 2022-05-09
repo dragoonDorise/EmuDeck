@@ -1,0 +1,17 @@
+gametitle=Tomb Raider - Utsukushiki Toubousha (J)(SLPS-25246)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Force turn on Native Widescreen (Full boot bypassing)
+patch=1,EE,00224bf0,word,24020002 //30420003
+
+//Full Boot 16:9 fix
+patch=1,EE,002091d0,word,3c013fe2 //3c013fd5
+patch=1,EE,002091d4,word,3421fc93 //3421c28f
+
+////////////////////////////////////////
+//Fast Boot 4:3 fix
+//aa3f013c 713d2134 (Last)
+patch=1,EE,002091bc,word,3c013fe2 //3c013faa
+patch=1,EE,002091c0,word,3421fc93 //34213d71

@@ -1,0 +1,31 @@
+gametitle=Worms 3D (E)(SLES-51843)
+comment=Widescreen Hack by El_Patas & Arapapa
+
+//Widescreen hack 16:9
+
+//43080a46 c00085e4 03000b46
+patch=1,EE,002ca6ec,word,08108388 //460a0843
+
+patch=1,EE,00420e20,word,460a0843
+patch=1,EE,00420e24,word,3c013f40
+patch=1,EE,00420e28,word,4481f000
+patch=1,EE,00420e2c,word,461e0842
+patch=1,EE,00420e30,word,080b29bc
+
+///////////////////////////////////////////////
+//42080846 180086e4 07000046
+//patch=1,EE,00287c08,word,08108388
+
+//patch=1,EE,00420e20,word,46080842
+//patch=1,EE,00420e24,word,3c013f40
+//patch=1,EE,00420e28,word,4481f000
+//patch=1,EE,00420e2c,word,461e0842
+//patch=1,EE,00420e30,word,080a1f03
+
+//patch=1,EE,002CA964,word,3C013F00 //3C013F80 Zoom
+//patch=1,EE,00287B98,word,3C014010 //3C014040 Zoom
+
+//Y-Fov adress
+//patch=1,EE,00287c00,word,46081082
+
+//patch=1,EE,00287b84,word,3c01c080 //3c014000

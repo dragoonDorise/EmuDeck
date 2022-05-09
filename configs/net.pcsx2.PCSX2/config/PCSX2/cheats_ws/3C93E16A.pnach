@@ -1,0 +1,12 @@
+gametitle=Samurai Warriors 2 Xtreme Legends [SLUS 21726] (U)
+comment=Widescreen patch
+
+// 16:9
+patch=1,EE,00181bf8,word,3c023f19 // 3c023f4c hor fov 1-player
+patch=1,EE,00181c00,word,3442999a // 3442cccd hor fov 1-player
+
+patch=1,EE,001882a8,word,3c033f19 // 3c033f4c hor fov 2-players
+patch=1,EE,00181dc0,word,3463999a // 3463cccd hor fov 2-players
+
+patch=1,EE,00182034,word,3c03440a // 3c0343cf renderfix enemies 1-player
+patch=1,EE,00182094,word,3c03440a // 3c0343cf renderfix enemies 2-players

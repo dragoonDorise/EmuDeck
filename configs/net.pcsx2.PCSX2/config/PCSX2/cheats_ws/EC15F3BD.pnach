@@ -1,0 +1,15 @@
+gametitle=Magical Sports - Hard hitter 2 (J)(SLPS-20173)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+
+//X-Fov
+//02210846 0000a4e7 040063c4 (1st)
+patch=1,EE,002688b4,word,0804dd49
+
+patch=1,EE,00137524,word,46082102
+patch=1,EE,00137528,word,3c013f40
+patch=1,EE,0013752c,word,4481f000
+patch=1,EE,00137530,word,461e2102
+patch=1,EE,00137534,word,0809a22e

@@ -1,0 +1,7 @@
+gametitle = NBA Street Vol.2 (NTSC-U)
+comment = Widescreen Hack by Ko81e24wy
+
+// Widescreen 16:9
+patch=1,EE,208D6AA0,extended,3F400000
+patch=1,EE,208D6AD8,extended,3FA66666
+patch=1,EE,208D6ADC,extended,3FA66666

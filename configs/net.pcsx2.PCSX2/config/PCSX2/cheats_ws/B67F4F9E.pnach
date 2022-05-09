@@ -1,0 +1,12 @@
+gametitle=Mafia [NTSC-U] (SLUS_206.71)
+comment=Widescreen Hack by El_Patas, Render fixes by arapapa
+
+//Gameplay 16:9
+patch=1,EE,20FF8D64,extended,3FAB0000 //3F800000 Vertical axis
+patch=1,EE,20FF8E4C,extended,3FAB0000 //3F800000 Horizontal axis
+
+//Render fix
+patch=1,EE,20FF8DB4,extended,3D000000 //3D4CCCCD
+
+//Rendering distancce
+patch=1,EE,20FF8DB8,extended,44000000 //43660000

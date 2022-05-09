@@ -1,0 +1,10 @@
+gametitle=Biathlon 2008 (U)(SLUS-21711)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,00384af8,word,3f400000 //3f800000
+
+//Y-Fov
+patch=1,EE,00385428,word,412AAAA4 //41000000

@@ -1,0 +1,15 @@
+gametitle=Ultraman (J)(SLPS-25364)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,002681dc,word,3c01bec0 //3c01bf00
+
+//Y-Fov
+//00000000 00000000 03a81446 00000000
+//ab3f013c 00008144 02a50046 03a81446
+patch=1,EE,001dbd40,word,3C013Fab //00000000
+patch=1,EE,001dbd44,word,44810000 //00000000
+patch=1,EE,001dbd48,word,4600a502 //4614a803
+patch=1,EE,001dbd4c,word,4614a803 //00000000

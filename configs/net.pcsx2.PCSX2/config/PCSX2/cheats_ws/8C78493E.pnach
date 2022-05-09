@@ -1,0 +1,6 @@
+gametitle=Crazy Taxi (NTSC-J)(SLPM-62102)
+comment=Widescreen hack by No.47 (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+//713daa3f 9a99593f 0ad7233c
+patch=1,EE,2042AB48,word,3FE2FC93 //3c23d70a

@@ -1,0 +1,12 @@
+gametitle=Choro Q HG (J)(SLPS-25015)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//a043013c 00688144 c6c30046
+patch=1,EE,0018fe04,word,3c014370 //3c0143a0
+
+//Render fix
+//f03f013c 00b08144
+patch=1,EE,0018fe48,word,3c014020 //3c013ff0

@@ -1,0 +1,12 @@
+gametitle=The Simpsons - Skateboarding (PAL-G) (SLES-51362)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,0022a6ac,word,08121331 // 46070202
+patch=1,EE,0022a6b0,word,00000000 // 24430050
+patch=1,EE,00484cc4,word,3c013f40 // 00000000 hor fov
+patch=1,EE,00484cc8,word,4481f000 // 00000000
+patch=1,EE,00484ccc,word,46070202 // 00000000
+patch=1,EE,00484cd0,word,24430050 // 00000000
+patch=1,EE,00484cd4,word,461e4202 // 00000000
+patch=1,EE,00484cd8,word,0808a9ac // 00000000

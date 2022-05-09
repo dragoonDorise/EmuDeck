@@ -1,0 +1,7 @@
+gametitle=Simple 2000 Hello Kitty Series Vol.2 - Minna de Sugoroku (J)(SLPM-62250)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//803f013c 00108144 00000000 00000000
+patch=1,EE,00209054,word,3c013f40 //3c013f80 X-Fov

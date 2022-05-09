@@ -1,0 +1,15 @@
+gametitle=Homerun (E)(SLES-51812)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,001cf6e0,word,3c014388 //3c0143b4
+
+//Y-Fov
+patch=1,EE,002506bc,word,3c01bf2a //3c01bf00
+
+//2D fix
+patch=1,EE,002ae968,word,3c013fab //3c013f80
+
+//patch=1,EE,00250540,word,3c01bec0 //3c013f00 X-Fov (Needs render fix)

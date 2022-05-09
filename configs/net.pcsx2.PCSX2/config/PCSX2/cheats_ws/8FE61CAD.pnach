@@ -1,0 +1,8 @@
+gametitle=Roland Garros 2005 - Powered by Smash Court Tennis (E)(SCES-53310)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,002b346c,word,3c013f40
+patch=1,EE,002b3470,word,44810000
+patch=1,EE,002b3478,word,4600c602

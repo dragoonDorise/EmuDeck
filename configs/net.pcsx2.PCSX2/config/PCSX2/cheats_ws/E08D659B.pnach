@@ -1,0 +1,8 @@
+gametitle=Simple 2000 Series Vol.112 - The Tousou Highway 2 - Road Warrior 2050 (J)(SLPS-20481)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,001e5f4c,word,3c013f40 //00000000
+patch=1,EE,001e5f50,word,44810000 //00000000
+patch=1,EE,001e5f58,word,4600c602 //00000000

@@ -1,0 +1,12 @@
+gametitle=God Hand (J) (SLPM_66550)
+comment=Widescreen hack by nemesis2000 and Arapapa
+
+//16:9 (6e3f013c efee2134 00288144 3c00073c)
+patch=1,EE,0030afe0,word,3c013f9f // 3c013f6e
+patch=1,EE,0030afe4,word,342149f1 // 3421eeef
+
+//Font fix
+//patch=1,EE,002aedfc,word,3c013f40 //3c013f80
+//patch=1,EE,002afdd0,word,3c013f40 //3c013f80
+patch=1,EE,002b17e8,word,3c013f2c //3c013f66
+patch=1,EE,002b17ec,word,3421cccd //34216666

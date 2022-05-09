@@ -1,0 +1,13 @@
+gametitle=X-Men Legends (PAL-E) (SLES-52624)
+comment=Widescreen Hack (16:9) by XxGaMiNGK3LLERxX
+
+patch=1,EE,20D86690,word,3F666666 // HUD Height
+patch=1,EE,207214D4,word,3FA00000 // HUD & Menu Width
+patch=1,EE,20D86678,word,3F59999A // HUD Width
+patch=1,EE,207214CC,word,3F100000 // font width
+patch=1,EE,207214D0,word,3F100000 // font height
+patch=1,EE,207214A0,word,3FE00000 // Gameplay screen fix 16:9
+
+//patch=1,EE,20D866B4,word,3F733333
+//patch=1,EE,30231920,word,3F333333
+//patch=1,EE,206A81EC,word,3F7AE148 //character skill highlight beta fix - causes ring health to bug when applied

@@ -1,0 +1,11 @@
+gametitle=War Chess (E)(SLES-51973)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0019105c,word,08092dd8
+patch=1,EE,0024b760,word,46020842
+patch=1,EE,0024b764,word,3c013f40
+patch=1,EE,0024b768,word,4481f000
+patch=1,EE,0024b76c,word,461e0842
+patch=1,EE,0024b770,word,08064418

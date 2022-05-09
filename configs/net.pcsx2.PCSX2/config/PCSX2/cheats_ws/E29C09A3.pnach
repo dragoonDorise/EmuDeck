@@ -1,0 +1,21 @@
+gametitle=Dragon Ball Z - Sparking! NEO (K)(SLKA-25397)
+comment=Widescreen hack by sergx12 (NTSC-K by Arapapa)
+
+// 16:9
+//403f013c 00a08144
+patch=1,EE,0012b758,word,3c013f10 // 3c013f40 sky fix
+
+//803f013c 00088144 1000a527
+patch=1,EE,00259e70,word,3c013f40 // 3c013f40 cut-scenes
+
+//803f013c 00208144 0045013c
+patch=1,EE,0025b684,word,3c013f40 // 3c013f80 gameplay
+
+//803f013c 00008144 86230046
+patch=1,EE,0025b720,word,3c013f40 // 3c013f80 versus 1p
+patch=1,EE,0025b780,word,3c013f40 // 3c013f80 versus 2p
+
+patch=1,EE,00386820,word,44105555 //43d88000
+patch=1,EE,00386858,word,44105555 //43d88000
+patch=1,EE,00386874,word,44105555 //43d88000
+patch=1,EE,00386880,word,44105555 //43d88000

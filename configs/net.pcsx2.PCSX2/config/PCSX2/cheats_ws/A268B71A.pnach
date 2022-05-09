@@ -1,0 +1,10 @@
+gametitle=Simple 2000 Series Vol. 06 - The Snowboard (J)(SLPM-62196)
+comment=Widescreen hack by Arapapa
+
+//Widescreen 16:9
+
+//03001d46 2d20c002 00000000
+patch=1,EE,001744b8,word,3c013f40
+patch=1,EE,001744c4,word,44819000
+patch=1,EE,001744c8,word,46120002
+patch=1,EE,001744cc,word,461d0003

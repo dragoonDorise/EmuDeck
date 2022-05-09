@@ -1,0 +1,7 @@
+gametitle = NBA Street Vol. 2 (K)(SLKA-25027)
+comment = Widescreen Hack by Ko81e24wy (NTSC-K by Arapapa)
+
+// Widescreen 16:9
+patch=1,EE,20956EE0,extended,3F400000
+patch=1,EE,20956F18,extended,3FA66666 
+patch=1,EE,20956F1C,extended,3FA66666

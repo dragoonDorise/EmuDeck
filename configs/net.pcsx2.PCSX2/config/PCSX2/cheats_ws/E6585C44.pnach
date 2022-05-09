@@ -1,0 +1,15 @@
+gametitle=The Millenium European Paintball Series - Championship Paintball 2009 (E)(SLES-55328)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen 16:9
+
+//Zoom
+patch=1,EE,00237f5c,word,3c023f20 //3c023f00
+
+//Y-Fov
+patch=1,EE,00237f88,word,081a1860 //46000803
+patch=1,EE,00686180,word,46000803
+patch=1,EE,00686184,word,3c013f40
+patch=1,EE,00686188,word,4481f000
+patch=1,EE,0068618c,word,461e0002
+patch=1,EE,00686190,word,0808dfe3

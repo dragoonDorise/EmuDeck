@@ -1,0 +1,13 @@
+gametitle=Bratz - Forever Diamonds (U)(SLUS-21470)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen Hack 16:9
+
+//003f013c 00608144 ac9a090c 020b0c46
+patch=1,EE,002ff55c,word,3c013ec0 //3c013f00 fov
+
+//003f013c 00b88144 98000cc6 900018c6
+patch=1,EE,0031e200,word,3c013f2b //3c013f00 zoom
+
+//003f013c 00a08144 98000cc6 c93f013c 
+patch=1,EE,002ff470,word,3c013f2b //3c013f00 render fix

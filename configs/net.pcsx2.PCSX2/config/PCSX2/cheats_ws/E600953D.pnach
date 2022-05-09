@@ -1,0 +1,12 @@
+gametitle=Batman - Rise of Shin Tzu (K)(SLKA-25102)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//0ad7233f 8fc2f53e
+patch=1,EE,004af398,word,3F5A7408 //3f23d70a
+
+//Render Fix
+//003f023c a80000c6
+patch=1,EE,00307f88,word,3c023f40 //3c023f00

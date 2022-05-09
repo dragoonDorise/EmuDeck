@@ -1,0 +1,13 @@
+gametitle=Monkey Turn V (J)(SLPS-20381)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,001342bc,word,08042c68
+
+patch=1,EE,0010b1a0,word,46160803
+patch=1,EE,0010b1a4,word,3c013f40
+patch=1,EE,0010b1a8,word,4481f000
+patch=1,EE,0010b1ac,word,461e0002
+patch=1,EE,0010b1b0,word,0804d0b0

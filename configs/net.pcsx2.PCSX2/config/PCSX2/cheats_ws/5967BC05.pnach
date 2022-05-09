@@ -1,0 +1,7 @@
+gametitle=Bloody Roar 3 (NTSC-J)(SLPM-62055)
+comment=Widescreen Hack (NTSC-J by Arapapa)
+
+//Widescreen Hack 16:9
+
+//0000803f eeeeee3e 00000045 00000045 0000803f ffff7f4b
+patch=1,EE,201F3A54,extended,3F400000 //3f800000

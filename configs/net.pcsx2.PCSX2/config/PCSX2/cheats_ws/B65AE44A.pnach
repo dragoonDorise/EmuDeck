@@ -1,0 +1,8 @@
+gametitle=Virtua Fighter 4 (PAL-M5) (SCES-50759)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,00271614,word,3c194455 // 3c194420 hor fov
+patch=1,EE,00271618,word,37395555 // 44811800 hor fov
+patch=1,EE,0027163c,word,44991800 // 00000000
+patch=1,EE,0024c344,word,3c014456 // 3c014420 renderfix

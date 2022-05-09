@@ -1,0 +1,42 @@
+gametitle=Teitoku no Ketsudan IV with Power-Up Kit (J)(SLPM-62470)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Menu and DEMO
+//003f013c 00088144 00108044
+patch=1,EE,00310000,word,3c013ec0 //3c013f00 Zoom
+//2044033c 00688244 00608344 7448023c
+patch=1,EE,002a5178,word,3c034455 //3c034420 Y-Fov
+patch=1,EE,002a51c8,word,3c034455 //3c034420 Y-Fov
+patch=1,EE,002a4f84,word,3c034455 //3c034420 Y-Fov
+patch=1,EE,002a50c0,word,3c034455 //3c034420 Y-Fov
+
+//Strategy Screen
+//2044023c 00088244 f043033c 
+patch=1,EE,001d9c28,word,3c024455 //3c024420
+
+//Tactical Screen
+//2044023c 00608244 780120c6
+patch=1,EE,00216c70,word,3c024455 //3c024420
+//2044033c 00688244 00608344 f448023c (1st)
+patch=1,EE,0026ec2c,word,3c034455 //3c034420
+
+///////////////////////////////////////////////////
+//patch=1,EE,002f949c,word,08030000
+//patch=1,EE,000c0000,word,46006346
+//patch=1,EE,000c0004,word,3c013fab
+//patch=1,EE,000c0008,word,4481f000
+//patch=1,EE,000c000c,word,461e6b42
+//patch=1,EE,000c0010,word,080be528
+
+
+//Font Fix
+//patch=1,EE,0022aa5c,word,08030000
+//patch=1,EE,000c0000,word,00000000
+//patch=1,EE,000c0004,word,46006546
+//patch=1,EE,000c0008,word,46006d06
+//patch=1,EE,000c000c,word,3c013f50
+//patch=1,EE,000c0010,word,4481f000
+//patch=1,EE,000c0014,word,461ead42
+//patch=1,EE,000c0018,word,0808aa98

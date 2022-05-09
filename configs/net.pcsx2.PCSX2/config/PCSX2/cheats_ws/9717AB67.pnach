@@ -1,0 +1,14 @@
+gametitle=Kousoku Kidoutai - World Super Police (J)(SLPM-65761)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//00001fe6 2d280002
+patch=1,EE,001055b0,word,08030000
+
+patch=1,EE,000c0000,word,3c013f40
+patch=1,EE,000c0004,word,44811800
+patch=1,EE,000c0008,word,4603ffc2
+patch=1,EE,000c000c,word,e61f0000
+patch=1,EE,000c0010,word,0804156d

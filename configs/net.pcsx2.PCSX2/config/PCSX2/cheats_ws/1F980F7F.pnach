@@ -1,0 +1,5 @@
+gametitle=Jikkyou Powerful Pro Yakyuu 11 Chou Ketteiban (J)(SLPM-65825)
+comment=Widescreen hack by Arapapa
+
+//X-Fov 
+patch=1,EE,002faa74,word,3f19999a //3f4ccccd

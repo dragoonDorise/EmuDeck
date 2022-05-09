@@ -1,0 +1,14 @@
+gametitle=Shinseiki Evangelion 2 - Evangelions (K)(SLKA-250103)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+//963f013c 66662134
+//c83f013c 83882134
+patch=1,EE,0011194c,word,3c013fc8 //3c013f96
+patch=1,EE,00111950,word,34218883 //34216666
+
+//Zoom
+//003f013c 00a08144 02000146
+patch=1,EE,00111a5c,word,3c013f68 //3c013f00

@@ -1,0 +1,6 @@
+gametitle=The Thing [PAL-M4] (SLES_509.75)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,0016EC34,word,3C023FE3 //3C023FAA (Increases hor. axis)
+patch=1,EE,0016EC38,word,34428E38 //3442AAAB

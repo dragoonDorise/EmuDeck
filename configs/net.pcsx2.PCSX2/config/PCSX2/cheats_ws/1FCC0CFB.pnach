@@ -1,0 +1,5 @@
+gametitle= Driving Emotion Type-S NTSC-U (SLUS-20113)
+comment= Driving Emotion Type-S NTSC-U (SLUS-20113) Widescreen Hack by VIRGIN KLM
+
+//Gameplay 3D
+patch=1,EE,0045B2A8,word,3F400000 // 3F800000

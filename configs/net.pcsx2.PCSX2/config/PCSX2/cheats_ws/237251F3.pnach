@@ -1,0 +1,12 @@
+gametitle=Jet X2O (U)(SCUS 97173)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,001e8448,word,3c013f40 //3c013f80
+
+//Zoom
+//patch=1,EE,001e839c,word,3c013ff0 //3c013f80
+//Y-Fov + Zoom
+//patch=1,EE,00104c28,word,3c013fab //3c013f80

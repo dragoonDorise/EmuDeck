@@ -1,0 +1,10 @@
+gametitle=Bionicle Heroes (E)(SLES-54150)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+// Zoom fix (Internal Widescreen Option) 
+patch=1,EE,00388cf8,word,3c013f80 //3c013f40
+
+//X-Fov
+patch=1,EE,00388d28,word,3c013f10 //3c013f40

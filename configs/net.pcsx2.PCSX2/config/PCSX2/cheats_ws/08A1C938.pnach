@@ -1,0 +1,6 @@
+gametitle=Police 24/7 (E)(SLES-50285)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,001cef84,word,3c043fcd //3c043fd3

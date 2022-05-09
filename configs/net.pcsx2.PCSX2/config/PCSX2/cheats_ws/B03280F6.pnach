@@ -1,0 +1,7 @@
+gametitle=ESPN International Winter Sports 2002 (U)(SLUS-20320)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//0040053c 80c7033c
+patch=1,EE,0015421c,word,3c053fc0 //3c054000 X-Fov

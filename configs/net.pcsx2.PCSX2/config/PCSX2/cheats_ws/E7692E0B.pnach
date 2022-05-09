@@ -1,0 +1,7 @@
+gametitle=The Sims 2 - Castaway (E)(SLES-54903)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00435398,word,3c013fe3
+patch=1,EE,0043539c,word,34218e2a

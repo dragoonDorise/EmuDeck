@@ -1,0 +1,9 @@
+gametitle=R-Type Final (PAL-M3) [SLES-51952]
+comment=Widescreen Hack by sergx12, PAL conversion & black bar fix by FlatOut
+patch=1,EE,0016edc0,word,3c033f40 // menu
+patch=1,EE,0016fbac,word,3c043f40 // hor
+patch=1,EE,0022E010,word,43d60000 // render fix
+patch=1,EE,0022E020,word,43d60000 // render fix
+//black bar fix
+patch=1,EE,2055EAD0,word,00000000
+patch=1,EE,2055EB50,word,00000000

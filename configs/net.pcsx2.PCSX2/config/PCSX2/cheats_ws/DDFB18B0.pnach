@@ -1,0 +1,11 @@
+gametitle=Shadow Hearts (PlayStation2 the Best) [NTSC-J] [SLPS-73418]
+comment=Widescreen Hack
+
+//Widescreen hack 16:9
+patch=1,EE,0028cec0,word,3c043f40 //3c043f80
+patch=1,EE,00281d64,word,3c023f40 //3c023f80
+
+//Status screen and souls information. plus optional font size reduction (disabled by default) by sergx12
+patch=1,EE,0039e670,word,3c023f40 //3c023f80
+patch=1,EE,003d37a4,word,3c023f40 //3c023f80
+patch=1,EE,003ec3dc,word,3c023f40 //3c023f80

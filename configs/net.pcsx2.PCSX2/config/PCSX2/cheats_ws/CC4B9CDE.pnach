@@ -1,0 +1,21 @@
+gametitle=Samurai Warriors 2 (U)(SLUS-21462)
+comment=Widescreen Hack (16:9) by ElHecht
+
+// 16:9
+//4c3f023c 040203ae cdcc4234 
+patch=1,EE,00179f18,word,3c023f19 // 3c023f4c hor fov 1-player
+patch=1,EE,00179f20,word,3442999a // 3442cccd hor fov 1-player
+
+//4c3f033c ee3e023c cdcc6334
+patch=1,EE,0017a0d8,word,3c033f19 // 3c033f4c hor fov 2-players
+patch=1,EE,0017a0e0,word,3463999a // 3463cccd hor fov 2-players
+
+//cf43033c 0042043c
+patch=1,EE,0017a3a4,word,3c03440a // 3c0343cf renderfix enemies 1-player
+//cf43033c 8042043c
+patch=1,EE,0017a344,word,3c03440a // 3c0343cf renderfix enemies 2-players
+
+//Skip Videos
+//patch=0,EE,0013CD10,word,24020001
+//ZeroGS patches
+//zerogs=00000002

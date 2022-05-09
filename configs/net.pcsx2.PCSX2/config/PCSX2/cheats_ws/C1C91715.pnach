@@ -1,0 +1,15 @@
+gametitle=Rumble Roses (NTSC-J) (SLPM_658.85) 
+comment=Widescreen Hack (16:9) by ElHecht Mod Pnach crc by Acem 
+comment=Font fix by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00104084,word,3c013f40
+patch=1,EE,00104088,word,44810000
+patch=1,EE,00104090,word,4600c602
+
+//Font Fix
+//8c3f033c cdcc6334 43080046
+//533f033c 33336334 43080046
+patch=1,EE,0030f1dc,word,3c033f53 //3c033f8c
+patch=1,EE,0030f1e0,word,34633333 //3463cccd

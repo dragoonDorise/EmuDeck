@@ -1,0 +1,22 @@
+gametitle=Bouken Shounen Club Gahou (J)(SLPS-25279)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,0019a7cc,word,3c01bec0 //3c01bf00
+
+//Y-Fov
+patch=1,EE,0019a894,word,0807e2e8 //46001002
+
+patch=1,EE,001f8ba0,word,c6010074
+patch=1,EE,001f8ba4,word,3c013faa
+patch=1,EE,001f8ba8,word,3421aaab
+patch=1,EE,001f8bac,word,4481f000
+patch=1,EE,001f8bb0,word,461e0842
+patch=1,EE,001f8bb4,word,08066a26
+
+//////////////////////////////////
+//Zoom
+//patch=1,EE,0010fb14,word,3c013f2b //3c013f00
+//patch=1,EE,0019b51c,word,3c013f48 //3c013f80

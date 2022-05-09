@@ -1,0 +1,5 @@
+gametitle=Dynasty Warriors 5 (SLES-53340)
+comment=Widescreen hack by Machiavel Dhy'v (converted from nemesis2000 ntsc-u)
+patch=1,EE,00146cc8,word,3c0243d6
+patch=1,EE,0018249c,word,3c023f2b
+patch=1,EE,00146a14,word,3c023e40 //cutscenes zoom (fixes Battle of Bai Di Castle - Wu crash)

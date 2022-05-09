@@ -1,0 +1,17 @@
+gametitle=Doomsday Racers (E)(SLES-53142)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,00197c14,word,3c013f21 //3c013f00
+
+//Y-Fov
+patch=1,EE,00197c64,word,0808e728
+
+
+patch=1,EE,00239ca0,word,461505c2
+patch=1,EE,00239ca4,word,3c013f40
+patch=1,EE,00239ca8,word,4481f000
+patch=1,EE,00239cac,word,461ebdc2
+patch=1,EE,00239cb0,word,08065f1a

@@ -1,0 +1,12 @@
+gametitle=Hard Knock High (E)(SLES-54590)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom in
+//003f013c 00008144 2000b07f
+patch=1,EE,00182d54,word,3c013ec5 //3c013f00
+
+//X-Fov + Zoom Out
+//803f013c 00708144 80000426
+patch=1,EE,00182dd8,word,3c013f40 //3c013f80

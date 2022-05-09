@@ -1,0 +1,5 @@
+gametitle=Breath of Fire V - Dragon Quarter [NTSC-J] (SLPM-65196)
+comment=Widescreen patch by nemesis2000 (pnach by Little Giant)
+
+patch=1,EE,0012dc8c,word,3c024307 //3c024333 hor val
+patch=1,EE,0012ddd8,word,3c034074 //3c034036 render fix

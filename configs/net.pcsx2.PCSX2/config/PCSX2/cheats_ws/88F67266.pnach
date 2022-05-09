@@ -1,0 +1,6 @@
+gametitle=Lord of the Rings, The - The Two Towers (Seigneur des Anneaux - Les Deux Tours) (PAL-F) (SLES-51253)
+comment=Widescreen hack by Catarax
+
+// 16:9
+patch=1,EE,00107160,word,3c023fe3 // 3c023faa hor fov
+patch=1,EE,00107164,word,34428e39 // 3442aaab hor fov

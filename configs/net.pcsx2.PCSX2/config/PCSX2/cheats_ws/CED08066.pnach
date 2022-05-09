@@ -1,0 +1,6 @@
+gametitle=Tak: The Great Juju Challenge [PAL] (SLES_536.95)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,003E3C20,word,3C013FE3 //3C013FAA
+patch=1,EE,003E3C24,word,3421388E //3421AAAB

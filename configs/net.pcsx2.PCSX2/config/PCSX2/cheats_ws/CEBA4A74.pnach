@@ -1,0 +1,15 @@
+gametitle=Shinki Genso - Spectral Souls (J)(SLPM-65391)
+comment= Widescreen Hack (16:9) by Arapapa
+
+// 16:9
+
+//X-Fov
+patch=1,EE,00128cb4,word,3c033f19 //3c033f4c
+patch=1,EE,00128cb8,word,3463999a //3463cccd
+
+//Render fix
+patch=1,EE,00128cd4,word,3c0343f7 //3c0343b9
+
+//Font X-Size
+//patch=1,EE,0012bd4c,word,3c024130 //3c024160
+//patch=1,EE,0012bd94,word,3c024130 //3c024160

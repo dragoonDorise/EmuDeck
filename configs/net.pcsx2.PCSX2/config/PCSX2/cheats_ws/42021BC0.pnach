@@ -1,0 +1,13 @@
+gametitle=Moto GP 4 (E)(SLES-52892)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov Game play
+patch=1,EE,0055e95c,word,3f400000 //3f800000
+
+//Render fix
+patch=1,EE,00558ac8,word,43000000 //43a00000 Result background
+patch=1,EE,00560bc8,word,43000000 //43a00000 Gameplay
+patch=1,EE,00592cb0,word,43000000 //43a00000 Ground object
+patch=1,EE,0058dfa8,word,40100000 //3f9c28f6 NPC player

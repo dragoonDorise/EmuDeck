@@ -1,0 +1,4 @@
+gametitle=NBA Starting Five 2005 SLPM_657.67
+comment=Widescreen Hack
+patch=1,EE,00157d28,word,3c053fab
+patch=1,EE,00157eac,word,3c0243a8

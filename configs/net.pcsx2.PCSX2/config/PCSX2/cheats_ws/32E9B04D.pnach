@@ -1,0 +1,13 @@
+gametitle=The Haunted Mansion (U)(SLUS-20681)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//aa3f023c 8faa4234 00688244 c00201c6
+patch=1,EE,001c946c,word,3c023fe3 //3c023faa #1
+patch=1,EE,001c9470,word,34428e33 //3442aa8f
+
+//aa3f033c 0c0085ac
+patch=1,EE,0022057c,word,3c033fe3 //3c033faa #2
+patch=1,EE,00220584,word,34638e33 //3442aa8f

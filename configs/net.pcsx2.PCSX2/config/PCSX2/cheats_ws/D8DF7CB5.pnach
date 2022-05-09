@@ -1,0 +1,11 @@
+gametitle=They Came from the Skies (E)(SLES-54803)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00159f90,word,08030000
+patch=1,EE,000c0000,word,3c013f40
+patch=1,EE,000c0004,word,44812000
+patch=1,EE,000c0008,word,4604bdc2
+patch=1,EE,000c000c,word,4614bdc2
+patch=1,EE,000c0010,word,080567e5

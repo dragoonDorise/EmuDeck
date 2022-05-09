@@ -1,0 +1,9 @@
+gametitle= Sega Rally 2006 (NTSC-J SLPM-66212)
+comment= Sega Rally 2006 (NTSC-J SLPM-66212) Widescreen Hack by VIRGIN KLM
+
+//Widescreen
+patch=1,EE,20383AF8,word,3FC71C71
+patch=1,EE,20356EA0,word,3FC71C71
+patch=1,EE,20356EC0,word,3FC71C71
+patch=1,EE,2038445C,word,00000001
+patch=1,EE,20383C3C,word,3FC00000

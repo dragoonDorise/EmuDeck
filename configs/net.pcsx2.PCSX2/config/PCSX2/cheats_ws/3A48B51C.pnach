@@ -1,0 +1,13 @@
+gametitle=BMX XXX (SLES-50880)
+comment=Widescreen patch by BloodRaynare
+
+// 16:9
+patch=1,EE,0010107c,word,3c013f40 // 3c013f80 hor fov
+patch=1,EE,00298ea4,word,3c093f40 // 00000000 renderfix
+patch=1,EE,00101504,word,080a63a9 // 46000843
+patch=1,EE,00101508,word,00000000 // e62404e8
+patch=1,EE,00298eac,word,4489f000 // 00000000
+patch=1,EE,00298eb0,word,461e0843 // 00000000
+patch=1,EE,00298eb4,word,46000843 // 00000000
+patch=1,EE,00298eb8,word,e62004e8 // 00000000
+patch=1,EE,00298ebc,word,08040542 // 00000000

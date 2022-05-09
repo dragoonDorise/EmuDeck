@@ -1,0 +1,6 @@
+gametitle=International Snooker Championship (E)(SLES-51996)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00157d48,word,3c013f40 //3c013f80

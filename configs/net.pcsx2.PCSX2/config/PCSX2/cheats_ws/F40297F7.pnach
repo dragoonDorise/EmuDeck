@@ -1,0 +1,4 @@
+gametitle=Evergrace (PAL) (SLES-50050)
+comment=Widescreen Hack by Machiavel Dhy'v converted from NTSC-U
+patch=1,EE,00101178,extended,3c013f40
+patch=1,EE,00101218,extended,3c013f40

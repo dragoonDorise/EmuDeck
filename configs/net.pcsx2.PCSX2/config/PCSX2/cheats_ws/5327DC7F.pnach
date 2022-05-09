@@ -1,0 +1,14 @@
+gametitle=Lupin Sansei - Majutsuou no Isan (J)(SLPS-25171)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0024c214,word,3c013f40 //00000000
+patch=1,EE,0024c218,word,44810000 //00000000
+patch=1,EE,0024c220,word,4600c602 //00000000
+
+//Hud Fix (El_Patas)
+patch=1,EE,001fb174,word,3c013fab //3c013f80
+
+//Render fix
+patch=1,EE,001fce14,word,3c0143e0 //3c0143a0

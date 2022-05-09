@@ -1,0 +1,11 @@
+gametitle=Turbo Trucks (E)(SLES-54195)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00166bcc,word,080800a4
+patch=1,EE,00200290,word,4600bb06
+patch=1,EE,00200294,word,3c013f40
+patch=1,EE,00200298,word,4481f000
+patch=1,EE,0020029c,word,461e6303
+patch=1,EE,002002a0,word,08059af4

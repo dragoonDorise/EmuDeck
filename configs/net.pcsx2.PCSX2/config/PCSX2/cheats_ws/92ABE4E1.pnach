@@ -1,0 +1,7 @@
+gametitle=NBA Street Vol. 2 [PAL-M2] (SLES_514.81)
+comment=Widescreen Hack by Ko81e24wy
+
+//Gameplay 16:9
+patch=1,EE,208D6AA0,extended,3F400000 //3F800000 (Increases hor. axis)
+patch=1,EE,208D6AD8,extended,3FA66666 //
+patch=1,EE,208D6ADC,extended,3FA66666 //

@@ -1,0 +1,6 @@
+gametitle=Gladiator - Sword of Vengeance SLES_517.66
+comment=Widescreen hack
+patch=1,EE,001c5c98,word,3c013f40 //fov
+patch=1,EE,0020d690,word,3c013fab // vert fov
+patch=1,EE,00284084,word,3c010000 // black bars remove
+patch=1,EE,2078d930,extended,bfab0000 //hud stretch

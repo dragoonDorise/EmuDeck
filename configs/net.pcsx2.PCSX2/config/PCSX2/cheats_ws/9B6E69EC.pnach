@@ -1,0 +1,54 @@
+gametitle=ESPN NHL 2K5 (U)(SLUS-20921)
+comment=Widescreen hack by El_Patas & Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom (gameplay)
+patch=1,EE,001a3050,word,3c013f40 //3c013f80
+
+//Zoom (Menu and Cutscene)
+patch=1,EE,003e9ef8,word,3c013f40 //3c013f80
+
+//Y-Fov
+//ec678b3f -> d61b513f
+patch=1,EE,00595d80,word,3F511BD6 //3f8b67ec
+
+
+//Widescreen hack 21:9
+
+//Zoom (gameplay)
+//patch=1,EE,001a3050,word,3c013f10 //3c013f80
+
+//Zoom (Menu and Cutscene)
+//patch=1,EE,003e9ef8,word,3c013f10 //3c013f80
+
+//Y-Fov
+//ec678b3f -> d61b513f
+//patch=1,EE,00595d80,word,3F1CD4DC //3f8b67ec
+
+
+///////////////////////////////////////////
+//X-Fov (Needs render fix)
+//patch=1,EE,003d9c4c,word,080ab89c
+
+//patch=1,EE,002ae270,word,46012943
+//patch=1,EE,002ae274,word,3c013f40
+//patch=1,EE,002ae278,word,4481f000
+//patch=1,EE,002ae27c,word,461e2942
+//patch=1,EE,002ae280,word,080f6714
+
+//Y-Fov
+//c3390046 1c0020ae
+////patch=1,EE,003d9c98,word,08030000
+
+//patch=1,EE,003d9c98,word,08030000
+
+//patch=1,EE,000c0000,word,460039c3
+//patch=1,EE,000c0004,word,3c013faa
+//patch=1,EE,000c0008,word,3421aaab
+//patch=1,EE,000c000c,word,4481f000
+//patch=1,EE,000c0010,word,461e39c2
+//patch=1,EE,000c0014,word,080f6727
+
+//Gameplay 16:9
+//patch=1,EE,001A2FC0,word,3C013FAA //3C013F80 (Increases hor. axis)

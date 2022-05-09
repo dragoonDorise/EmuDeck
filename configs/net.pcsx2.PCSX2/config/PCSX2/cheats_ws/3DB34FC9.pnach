@@ -1,0 +1,8 @@
+gametitle=Butt-Ugly Martians - Zoom or Doom! (E)(SLES-51060)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,00152288,word,3c013f40 //3c013f80
+

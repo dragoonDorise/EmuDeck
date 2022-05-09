@@ -1,0 +1,8 @@
+gametitle=Digimon World 4 (PAL-M4) (SLES-53405)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,001b6de8,word,3c013f40 // 00000000 hor fov
+patch=1,EE,001b6df0,word,4481f000 // 00000000
+patch=1,EE,001b6e58,word,461ebb03 // 4600bb06
+patch=1,EE,001b6e5c,word,46006347 // 4600bb47

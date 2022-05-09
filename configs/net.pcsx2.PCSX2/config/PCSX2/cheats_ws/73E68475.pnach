@@ -1,0 +1,10 @@
+gametitle=The Simpsons - Hit & Run (PAL-M4) (SLES-51897)
+comment=Widescreen hack by ElHecht
+
+// 16:9 ver
+patch=1,EE,00138ab8,word,00000000 // 10400005
+patch=1,EE,0014b3a8,word,00000000 // 10400004
+patch=1,EE,0014c3ac,word,00000000 // 10400004
+patch=1,EE,002a1f88,word,00000000 // 10400004
+patch=1,EE,0031e0b8,word,00000000 // 10400004
+patch=1,EE,0031eea4,word,00000000 // 10400004

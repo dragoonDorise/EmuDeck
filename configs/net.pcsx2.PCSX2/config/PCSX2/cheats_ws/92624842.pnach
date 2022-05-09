@@ -1,0 +1,10 @@
+gametitle=Big Mutha Truckers (U)(SLUS-20291)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,001a3bcc,word,3c013f3a //3c013f80
+
+//Y-Fov
+patch=1,EE,00382de0,word,3fe00000 //3f99999a

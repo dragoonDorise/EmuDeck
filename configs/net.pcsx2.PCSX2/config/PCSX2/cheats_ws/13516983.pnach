@@ -1,0 +1,8 @@
+gametitle=Legends of Wrestling (E)(SLES-50107)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 39 B4 C8 3A F4 FD 7F 3F 00 00 00 00
+patch=1,EE,2073df10,extended,3f400000

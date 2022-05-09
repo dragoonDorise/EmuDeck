@@ -1,0 +1,11 @@
+gametitle=Sengoku Musou 2 (J)(SLPM-66307)
+comment=Widescreen Hack (16:9) by ElHecht (NTSC-K by Arapapa)
+
+patch=1,EE,00179c38,word,3c023f19 //3c023f4c
+patch=1,EE,00179c40,word,3442999a //3442cccd
+
+patch=1,EE,00179df8,word,3c023f19 //3c033f4c
+patch=1,EE,00179e00,word,3442999a //3463cccd
+
+patch=1,EE,0017a0c4,word,3c03440a //3c0343cf
+patch=1,EE,0017a064,word,3c03440a //3c0343cf

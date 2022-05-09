@@ -1,0 +1,6 @@
+gametitle=Yuusei Kara no Buutai X - Episode II (The Thing) (J)(SLPM-62245)
+comment=Widescreen hack (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+patch=1,EE,00316a50,word,3c023fe3 //3c023faa
+patch=1,EE,00316a54,word,34428e38 //3442aaab

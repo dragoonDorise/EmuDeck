@@ -1,0 +1,7 @@
+gametitle=The Sims 2 - Pets (NTSC-U)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+//aa3f013c abaa2134 00008144 0800e003 00000000 00000000 0800e003
+patch=1,EE,0042b6f0,word,3c013fe3 //3c013faa
+patch=1,EE,0042b6f4,word,34218e21 //3421aaab

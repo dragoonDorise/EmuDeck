@@ -1,0 +1,19 @@
+gametitle=Scooby-Doo! Unmasked (U)(SLUS-21091) and (E)(SLES-53100)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//0040023c 00008244 3800a2c7
+patch=1,EE,001daf68,word,3c023fc0
+
+//Y-Fov
+//02100046 0800a0ac
+patch=1,EE,0023af14,word,08030000
+
+patch=1,EE,000c0000,word,46001002
+patch=1,EE,000c0004,word,3c013faa
+patch=1,EE,000c0008,word,3421aaab
+patch=1,EE,000c000c,word,4481f000
+patch=1,EE,000c0010,word,461e0002
+patch=1,EE,000c0014,word,0808ebc6

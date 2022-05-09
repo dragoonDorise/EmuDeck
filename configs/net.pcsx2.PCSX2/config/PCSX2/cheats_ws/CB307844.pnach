@@ -1,0 +1,8 @@
+gametitle= Super Trucks Racing NTSC-U (SLUS-20748)
+comment= Super Trucks Racing NTSC-U (SLUS-20748) Widescreen Hack by VIRGIN KLM
+
+//Gameplay 3D Stuff
+patch=1,EE,008138E4,word,3F400000 // 3F800000
+
+//Menu 3D Stuff
+patch=1,EE,0047DAE4,word,3F400000 // 3F800000

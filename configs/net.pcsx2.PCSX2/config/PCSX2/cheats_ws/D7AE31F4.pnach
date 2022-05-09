@@ -1,0 +1,16 @@
+gametitle=MX vs ATV Unleashed [PAL] (SLES_531.06)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9 
+patch=1,EE,00111F70,word,3C033CAA //3C033C8E Zoom
+patch=1,EE,00111F74,word,3463A21D //3463FA34
+patch=1,EE,00111F68,word,3C023FAB //3C023F80 Y-FOV
+
+//Alternative Gameplay 16:9
+//patch=1,EE,001B7EB4,word,3C023F18 //3C023F00 Zoom
+//patch=1,EE,0022C9C8,word,3C043FE3 //3C043FAA Y-FOV
+//patch=1,EE,0022C9CC,word,348E8E39 //348EAAAB
+
+//Render fix
+patch=1,EE,0018EAF4,word,3C03BFAB //3C03BF80
+patch=1,EE,0018EAF8,word,3C023FAB //3C023F80

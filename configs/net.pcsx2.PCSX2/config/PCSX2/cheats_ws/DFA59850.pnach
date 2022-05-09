@@ -1,0 +1,13 @@
+gametitle=The Terminator - Dawn of Fate (U)(SLUS-20391)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//2d202002 06bb0046 (3rd)
+patch=1,EE,00179a74,word,08030000
+patch=1,EE,000c0000,word,4600bb06
+patch=1,EE,000c0004,word,3c013f52
+patch=1,EE,000c0008,word,4481f000
+patch=1,EE,000c000c,word,461e6303
+patch=1,EE,000c0010,word,0805e69e

@@ -1,0 +1,8 @@
+gametitle=Dirge of Cerberus - Final Fantasy VII (J)(SLPM-66271)
+comment=Widescreen hack
+
+//Widescreen hack 16:9
+
+patch=1,EE,0042c428,word,3c013fc9 //3c013f97
+patch=1,EE,0042c42c,word,342162d8 //34210a3d
+patch=1,EE,0042cf74,word,3C013EC0

@@ -1,0 +1,12 @@
+gametitle=SOCOM II - U.S. Navy SEALs (U)(SCUS-97275)
+comment=Widescreen Hack by  ElHecht (NTSC-U by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,001c0474,word,3c013f40 //00000000
+patch=1,EE,001c0478,word,4481e800 //00000000
+patch=1,EE,001c0480,word,461dbdc3 //00000000
+
+//0000000003100046d00100e606000046
+patch=1,EE,20291450,extended,461d0002 // 00000000 zoom gameplay
+patch=1,EE,20291688,extended,461d0002 // 00000000 zoom cut-scenes

@@ -1,0 +1,7 @@
+gametitle=Tony Hawk's Downhill Jam [PAL-M4] (SLES_547.15)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,00127CD4,word,3C013F24 //3C013F00 Zoom
+patch=1,EE,00157DCC,word,3C013FE3 //3C013FAA Y-FOV
+patch=1,EE,00157DD0,word,34218E39 //3421AAAB

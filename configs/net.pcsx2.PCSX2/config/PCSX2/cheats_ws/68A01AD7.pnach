@@ -1,0 +1,6 @@
+gametitle=Sven-Goeran Eriksson's World Challenge (E)(SLES-50852)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00130598,word,3c013f40

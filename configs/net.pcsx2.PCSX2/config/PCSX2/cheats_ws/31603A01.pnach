@@ -1,0 +1,11 @@
+gametitle=Kensetsu Juuki Kenka Battle - Buchigire Kongou!! [NTSC-J] [PBPX-95201](SLPS-25004)
+comment=Widescreen hack by El_Patas (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+
+//patch=1,EE,00281d2c,word,3c013f40 //00000000
+//patch=1,EE,00281d30,word,44810000 //00000000
+//patch=1,EE,00281d38,word,4600c602 //00000000
+
+patch=1,EE,00219540,word,3C013F40 //3C013F80 (Increases hor. axis)
+patch=1,EE,002180ec,word,3c014fff //3c013f80

@@ -1,0 +1,15 @@
+gametitle=MLB SlugFest 2004 (U)(SLUS-20618)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//680080c4 03100046 700080e4
+patch=1,EE,00158f58,word,080dfb10 //3c083f80
+patch=1,EE,0037ec40,word,c4800068
+patch=1,EE,0037ec44,word,3c013f40
+patch=1,EE,0037ec48,word,4481f000
+patch=1,EE,0037ec4c,word,461e0003
+patch=1,EE,0037ec50,word,e4800068
+patch=1,EE,0037ec54,word,080563d7
+

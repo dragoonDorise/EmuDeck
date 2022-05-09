@@ -1,0 +1,13 @@
+gametitle=Amplitude (NTSC-U) [SCUS-97258] [2F7B4DB8]
+comment=Widescreen hacks by Aced14 (MIPS code injection/FMV experiment) and 2007excalibur2007 (initial live memory discovery)
+
+//16:9 Widescreen
+patch=1,EE,E0FF0000,extended,001001E0 //00000000 - Enable condition
+patch=1,EE,20221A88,extended,080A2564 //E6000160 - j $00289590 - Jump to injected MIPS instructions
+patch=1,EE,20289590,extended,3C013F40 //3C050042 - lui at, $3f40 - Set $f31 register to .75 #1
+patch=1,EE,20289594,extended,4481F800 //0200202D - mtc1 at, $f31 - Set $f31 register to .75 #2
+patch=1,EE,20289598,extended,461F07C2 //24A5B880 - mul.s $f31, $f0, $f31 - Multiply $f0 by $f31 and store in $f31
+patch=1,EE,2028959C,extended,080886A4 //0C0C9480 - j $00221a90 - Jump to 2 lines after the overwritten MIPS instruction
+patch=1,EE,202895A0,extended,E61F0160 //0220302D - swc1 $f31, $0160(s0) - Write $f31 into where $f0 would've been written to by the restored overwritten MIPS instruction
+
+//patch=1,EE,101AEE0C,extended,00000355 //24060280 - FMV width (WIP)

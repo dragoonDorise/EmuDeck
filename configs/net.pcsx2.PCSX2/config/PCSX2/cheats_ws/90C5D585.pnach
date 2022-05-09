@@ -1,0 +1,18 @@
+gametitle=Fire Heroes (E)(SLES-53237)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+patch=1,EE,00296b64,word,3c023fe3 //3c023faa
+patch=1,EE,00296b70,word,34428e2a //3442aaab
+
+//Zoom
+patch=1,EE,00296b7c,word,08030000
+
+patch=1,EE,000c0000,word,c66c00a0
+patch=1,EE,000c0004,word,3c013faa
+patch=1,EE,000c0008,word,3421aaab
+patch=1,EE,000c000c,word,4481f000
+patch=1,EE,000c0010,word,461e6302
+patch=1,EE,000c0014,word,080a5ae0

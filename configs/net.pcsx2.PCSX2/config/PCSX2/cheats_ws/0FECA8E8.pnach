@@ -1,0 +1,13 @@
+gametitle=Winx Club (PAL-M5) (SLES-53219)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,001b2200,word,3c013f40 // 00000000 hor fov
+patch=1,EE,001b2204,word,0c108f50 // 00000000
+patch=1,EE,001b2208,word,4481f000 // 0c108f50
+patch=1,EE,001b220c,word,c60100c8 // 00000000
+patch=1,EE,001b2210,word,46000802 // c60100c8
+patch=1,EE,001b2214,word,461e0783 // 46000802
+patch=1,EE,001b2218,word,e61e00c0 // e60000c0
+patch=1,EE,204FD080,extended,3f400000 // 3f800000 hud hor fov
+patch=1,EE,204F4ED0,extended,3f400000 // 3f800000 hud hor fov

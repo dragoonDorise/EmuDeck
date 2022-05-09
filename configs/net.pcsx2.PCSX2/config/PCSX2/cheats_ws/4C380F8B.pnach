@@ -1,0 +1,8 @@
+﻿gametitle=Total Overdose (E)(SLES-53492)
+comment=Widescreen Hack
+
+//00 00 80 3F 83 F9 22 3F DB 0F C9 3F 00 00 00 BF
+patch=1,EE,20692A2C,word,3F47AE14 // Zoom
+
+//00 00 80 3F 00 00 00 00 00 00 00 00 2F 00 00 00
+patch=1,EE,206C64C4,word,3F400000 // Vert fov

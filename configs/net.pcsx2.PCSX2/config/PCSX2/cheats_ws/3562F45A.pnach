@@ -1,0 +1,12 @@
+gametitle=Over the Monochrome Rainbow featuring Shogo Hamada (J)(SLPM-65271)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00276208,word,080ab98c
+
+patch=1,EE,002ae630,word,46014a02
+patch=1,EE,002ae634,word,3c013f40
+patch=1,EE,002ae638,word,4481f000
+patch=1,EE,002ae63c,word,461e4202
+patch=1,EE,002ae640,word,0809d883

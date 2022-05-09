@@ -1,0 +1,10 @@
+gametitle= King of Fighters - Maximum Impact 2 (Limited Edition) (J)(SLPS-25609)
+comment= Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//abaaaa3f 00006042
+patch=1,EE,007d2e14,word,3fe38e38 //3faaaaab Y-Fov
+
+//abaaaa3e 8988083e (1st)
+patch=1,EE,008a48c0,word,400ccccd //3eaaaaab Zoom

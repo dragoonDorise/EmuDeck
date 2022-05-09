@@ -1,0 +1,6 @@
+gametitle=Billy the Wizard - Rocket Broomstick Racing (E)(SLES-53736)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0017f298,word,3c01bf2a

@@ -1,0 +1,6 @@
+gametitle=Codename - Kids Next Door - Operation - V.I.D.E.O.G.A.M.E. (U)(SLUS-21155)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9 
+//00 00 80 3F 00 00 80 BF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E0 01 00 00 50 00 00 0E
+patch=1,EE,20C1a9a4,extended,3F400000 //3F800000 (Increases hor. axis)

@@ -1,0 +1,17 @@
+gametitle=Zeonic Front - Kidou Senshi Gundam 0079 (J)(SLPS-25048)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00213454,word,3c013f40 //00000000
+patch=1,EE,00213458,word,44810000 //00000000
+patch=1,EE,00213460,word,4600c602 //00000000
+
+//////////////////////////////////////////////////
+//Zoom
+//803f013c 00008144 2d20a003 (3rd)
+//patch=1,EE,00213478,word,3c013fab //3c013f80
+
+//Y-Fov (Except background Picture (Cloud)
+//efeeee3f -> f5491f40
+//patch=1,EE,0038ad08,word,401f49f5 //3feeeeef

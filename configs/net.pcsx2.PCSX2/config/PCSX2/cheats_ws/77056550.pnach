@@ -1,0 +1,14 @@
+gametitle=Legends of Wrestling II (E)(SLES-51045)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//03210e46 015a0546
+patch=1,EE,002b0034,word,08030000
+
+patch=1,EE,000c0000,word,460e2103
+patch=1,EE,000c0004,word,3c173f40
+patch=1,EE,000c0008,word,4497f800
+patch=1,EE,000c000c,word,461f2102
+patch=1,EE,000c0010,word,080ac00e

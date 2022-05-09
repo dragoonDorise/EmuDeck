@@ -1,0 +1,19 @@
+gametitle=Def Jam - Fight for NY (PAL-M2) (SLES-52507)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,0021e97c,word,3c013f40 // 00000000 hor fov
+patch=1,EE,0021e990,word,4481f000 // 00000000
+patch=1,EE,0021e9a8,word,461ef743 // 00000000
+patch=1,EE,0021e9c0,word,461eef43 // 00000000
+patch=1,EE,0021ea78,word,e61e0120 // e6000120
+patch=1,EE,0021ebb0,word,e61d0158 // e6000158 renderfix left
+patch=1,EE,0021ebb4,word,e61d015c // e600015c renderfix right
+
+// menu fix 
+patch=1,EE,0021f164,word,46010a83 // 3c013f80
+patch=1,EE,0021f168,word,460a5340 // 44815000
+patch=1,EE,0021f174,word,3c013f40 // 3c014000 hor fov menu fix
+patch=1,EE,0021f178,word,4481f000 // 44816800
+patch=1,EE,0021f1a8,word,46005247 // 3c01bf80
+patch=1,EE,0021f1ac,word,461e2103 // 44814800

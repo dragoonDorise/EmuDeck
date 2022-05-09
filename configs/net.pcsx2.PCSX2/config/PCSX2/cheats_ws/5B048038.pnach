@@ -1,0 +1,14 @@
+gametitle=Rebel Raiders - Operation Nighthawk (U)(SLUS-21303)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0016bb18,word,08047790 //c6010068
+
+patch=1,EE,0011de40,word,3c013f40 // 00000000
+patch=1,EE,0011de44,word,4481f000 // 00000000
+patch=1,EE,0011de48,word,c6010068 // 00000000
+patch=1,EE,0011de4c,word,c602006c // 00000000
+patch=1,EE,0011de50,word,461e0843 // 00000000
+patch=1,EE,0011de54,word,e6010068 // 00000000
+patch=1,EE,0011de58,word,0805aec8 // 00000000

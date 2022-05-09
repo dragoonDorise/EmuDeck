@@ -1,0 +1,18 @@
+gametitle=Asterix & Obelix XXL 2 (PAL-M5) (SLES-53725)
+comment=Widescreen hack by Arapapa/ElHecht
+
+// 16:9
+patch=1,EE,0012a268,word,0811687c // 3c023f40 jump to code-inject 0045a1f0
+patch=1,EE,0012a26c,word,00000000 // ae020034
+patch=1,EE,0012a270,word,00000000 // c7a10020
+
+patch=1,EE,0045a1f0,word,3c013f40 // 00000000 hor fov
+patch=1,EE,0045a1f4,word,4481f000 // 00000000
+patch=1,EE,0045a1f8,word,461ef042 // 00000000
+patch=1,EE,0045a1fc,word,e6010034 // 00000000
+patch=1,EE,0045a200,word,c7a10020 // 00000000
+patch=1,EE,0045a204,word,461e0843 // 00000000
+patch=1,EE,0045a208,word,e7a10020 // 00000000
+patch=1,EE,0045a20c,word,0804a89c // 00000000 jump back to 0012a270
+
+patch=1,EE,00141ea4,word,3c023f2b // 3c023f00 renderfix

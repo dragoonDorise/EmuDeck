@@ -1,0 +1,8 @@
+gametitle=Momotarou Dentetsu 16 - Hokkaido Dai Idou no Kan (J)(SLPM-62750)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//5555953f db0f4940
+patch=1,EE,003b83f0,word,3FC71C76 //3f955555

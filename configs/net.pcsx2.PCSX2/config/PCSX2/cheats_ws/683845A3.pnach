@@ -1,0 +1,15 @@
+gametitle=Hard Hitter Tennis (U)(SLUS-20568)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+
+//X-Fov
+//02210846 0000a4e7 040063c4 (1st)
+patch=1,EE,0026f1fc,word,080b6598
+
+patch=1,EE,002d9660,word,46082102
+patch=1,EE,002d9664,word,3c013f40
+patch=1,EE,002d9668,word,4481f000
+patch=1,EE,002d966c,word,461e2102
+patch=1,EE,002d9670,word,0809bc80

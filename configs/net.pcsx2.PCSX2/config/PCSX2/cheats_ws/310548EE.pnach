@@ -1,0 +1,4 @@
+gametitle=UFC - Sudden Impact SLES_522.04
+comment=Widescreen Hack
+patch=1,EE,0021c55c,word,3c013ec0 //90ffbd27 003f013c to 90ffbd27 c03e013c
+patch=1,EE,0021c5e0,word,3c013f40 //c00001e6 803f013c to c00001e6 403f013c

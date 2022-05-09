@@ -1,0 +1,8 @@
+gametitle=Yanya Caballista - City Skater (U)(SLUS-20278)
+comment=Widescreen hack by Arapapa
+
+//Widescreen Hack 16:9
+
+//X-Fov
+//803f013c 00008144 30d66224
+patch=1,EE,002c8c60,word,3c013f40 //3c013f80

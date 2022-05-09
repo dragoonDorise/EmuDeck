@@ -1,0 +1,13 @@
+gametitle=Leisure Suit Larry - Magna Cum Laude - Uncut (PAL-E) (SLES-52641)
+comment=Widescreen Hack (16:9) by ElHecht
+
+// 16:9
+patch=1,EE,002e5fd0,word,080fb7cc // 46020082 jump to code-inject 003edf30
+patch=1,EE,002e5fd4,word,00000000 // 46020842
+
+patch=1,EE,003edf30,word,3c013f40 // 00000000 hor fov
+patch=1,EE,003edf34,word,4481f000 // 00000000
+patch=1,EE,003edf38,word,46020082 // 00000000
+patch=1,EE,003edf3c,word,46020842 // 00000000
+patch=1,EE,003edf40,word,461e0843 // 00000000
+patch=1,EE,003edf44,word,080b97f5 // 00000000 jump back to function 002e5fd4

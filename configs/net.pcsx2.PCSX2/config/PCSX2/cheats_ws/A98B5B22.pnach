@@ -1,0 +1,7 @@
+gametitle=Raw Danger! [PAL] (SLES_545.87)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9 
+patch=1,EE,003A8360,word,43E00000 //43A00000 (Increases hor. axis)
+patch=1,EE,003A8380,word,43E00000 //43A00000
+patch=1,EE,0048C12C,word,3F400000 //3F800000

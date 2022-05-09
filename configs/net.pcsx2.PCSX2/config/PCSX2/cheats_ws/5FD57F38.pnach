@@ -1,0 +1,134 @@
+gametitle=War of the Monsters (PAL-Unk) [SCES-51224]
+comment=Widescreen hacks by Aced14
+
+//16:9 Widescreen
+
+//Title Menu
+patch=1,EE,206E8580,extended,43BA0000 //43F80000 - Title Menu Master X FOV
+patch=1,EE,206E85A0,extended,3F3BBBBC //3F0CCCCD - Title Menu Master Y FOV
+
+//Crush-O-Rama Camera Distance (normally based on X FOV)
+patch=1,EE,2011F818,extended,00000000 //4616BDC2 - Crush-O-Rama Camera Distance Fix #1
+patch=1,EE,2011F850,extended,00000000 //46020002 - Crush-O-Rama Camera Distance Fix #2
+
+//1 Player
+patch=1,EE,206E8340,extended,43900000 //43C00000 - 1P Master X FOV
+patch=1,EE,206E8360,extended,3F3BBBBC //3F0CCCCD - 1P Master Y FOV
+patch=1,EE,206E8700,extended,43900000 //43C00000 - Unified Master X FOV
+patch=1,EE,206E8720,extended,3F3BBBBC //3F0CCCCD - Unified Master Y FOV
+patch=1,EE,10143820,extended,0000C33A //3C01C30A - 1P + Unified Master X P1 HUD #1
+patch=1,EE,10143824,extended,00006666 //34214A3D - 1P + Unified Master X P1 HUD #2
+patch=1,EE,10145200,extended,0000001A //24050023 - 1P + Unified P1 "WINS #" X Position (35 -> 26)
+patch=1,EE,10147004,extended,0000001E //24050028 - 1P + Unified P1 Pickup Notification X Position (40 -> 30)
+patch=1,EE,101D53EC,extended,00000208 //240501E0 - 1P Core Meltdown "#" Timer X Position (480 -> 520)
+
+//2 Players - Separator Bar
+patch=1,EE,10145718,extended,0000FFFB //2473FFFA - 2P Separator Bar Width (-6 -> -5)
+
+//2 Players - Unified View Black Bar Fix
+//Prevents black bar from appearing in the far right of unified view in 2 player matches
+patch=1,EE,E0010001,extended,00707D64 //00000000 - If gUseUnifiedView variable is 1...
+patch=1,EE,2018B238,extended,00000000 //0C051582 - Remove reference to buildSeparator function
+patch=1,EE,E0010000,extended,00707D64 //00000000 - If gUseUnifiedView variable is 0...
+patch=1,EE,2018B238,extended,0C051582 //0C051582 - Restore reference to buildSeparator function
+
+//2 Players - Unified View Black Bar Fix (alternate MIPS version)
+//Useful if injecting the fix into a hacked ELF or if using an older PS2 cheat device.
+//patch=1,EE,2018B238,extended,0C08036C //0C051582 - jal $00200db0 - Jump to injected MIPS instructions (instead of buildSeparator function)
+//patch=1,EE,20200DB0,extended,3C020070 //24020038 - lui v0, $0070 - Load gUseUnifiedView variable into v0 register #1
+//patch=1,EE,20200DB4,extended,8C427D64 //00A73821 - lw v0, $7d64(v0) - Load gUseUnifiedView variable into v0 register #2
+//patch=1,EE,20200DB8,extended,14400003 //00822018 - bne v0, zero, $00200dc8 - Skip next 2 lines (after below one) if gUseUnifiedView variable isn't equal to 0
+//patch=1,EE,20200DBC,extended,00000000 //00C84021 - nop - Delay slot
+//patch=1,EE,20200DC0,extended,08051582 //3C020075 - j $00145608 - Jump to buildSeparator function
+//patch=1,EE,20200DC4,extended,00000000 //00073900 - nop - Delay slot
+//patch=1,EE,20200DC8,extended,03E00008 //24428680 - jr ra - Jump return
+//patch=1,EE,20200DCC,extended,00000000 //00084100 - nop - Delay slot
+
+//2 Players - Player 1
+patch=1,EE,206E8400,extended,43840000 //43B00000 - 2P P1 Master X FOV
+patch=1,EE,206E8420,extended,3F3BBBBC //3F0CCCCD - 2P P1 Master Y FOV
+patch=1,EE,10143850,extended,0000C2C7 //3C01C292 - 2P P1 Master X HUD #1
+patch=1,EE,10143854,extended,00000000 //3421FE77 - 2P P1 Master X HUD #2
+patch=1,EE,10146E28,extended,0000001A //24050022 - 2P P1 Pickup Notification X Position (34 -> 26)
+patch=1,EE,1014507C,extended,00000018 //24050020 - 2P P1 "WINS #" X Position (32 - 24)
+patch=1,EE,1012F2C0,extended,00000018 //24050020 - 2P P1 Dodgeball "P1 #" X Position (32 -> 24)
+patch=1,EE,1011B174,extended,00000018 //24050020 - 2P P1 Big Shot "P1 #" X Position (32 -> 24)
+patch=1,EE,1012E4C8,extended,00000018 //24050020 - 2P P1 Crush-O-Rama "P1 #" X Position (32 -> 24)
+
+//2 Players - Player 2
+patch=1,EE,206E84C0,extended,43840000 //43B00000 - 2P P2 Master X FOV
+patch=1,EE,206E84E0,extended,3F3BBBBC //3F0CCCCD - 2P P2 Master Y FOV
+patch=1,EE,10143898,extended,000042C7 //3C014292 - 2P P2 Master X HUD #1
+patch=1,EE,1014389C,extended,00000000 //3421FE77 - 2P P2 Master X HUD #2
+patch=1,EE,10143864,extended,0000433A //3C01430A - Unified Master X P2 HUD #1
+patch=1,EE,10143868,extended,00006666 //34214A3D - Unified Master X P2 HUD #2
+patch=1,EE,10145218,extended,00000262 //24050258 - Unified P2 "WINS #" X Position (600 -> 610)
+patch=1,EE,10147038,extended,00000262 //24050258 - Unified P2 Pickup Notification X Position (600 -> 610)
+patch=1,EE,10146E54,extended,00000125 //2405011C - 2P P2 Pickup Notification X Position (284 -> 293)
+patch=1,EE,10145094,extended,00000122 //24050118 - 2P P2 "WINS #" X Position (280 -> 290)
+patch=1,EE,1012F394,extended,00000131 //2405012C - 2P P2 Dodgeball "P2 #" X Position (300 -> 305)
+patch=1,EE,1011B25C,extended,00000275 //24050271 - 2P P2 "P2 #" Big Shot X Position (625 -> 629)
+patch=1,EE,1012E604,extended,00000275 //24050271 - 2P P2 Crush-O-Rama "P2 #" X Position (625 -> 629)
+
+//Health Icons
+patch=1,EE,202A85B8,extended,00000014 //0000001A - Health Icon 1 Inner Width
+patch=1,EE,202A8648,extended,00000014 //0000001A - Health Icon 1 Outer Width
+patch=1,EE,202A85DC,extended,00000014 //0000001A - Health Icon 2 Inner Width
+patch=1,EE,202A866C,extended,00000014 //0000001A - Health Icon 2 Outer Width
+patch=1,EE,202A8600,extended,00000014 //0000001A - Health Icon 3 Inner Width
+patch=1,EE,202A8690,extended,00000014 //0000001A - Health Icon 3 Outer Width
+patch=1,EE,202A8624,extended,00000014 //0000001A - Health Icon 4 Inner Width
+patch=1,EE,202A86B4,extended,00000014 //0000001A - Health Icon 4 Outer Width
+
+//Distant Shadows
+patch=1,EE,2025FD88,extended,43C00000 //44000000 - Distant Shadows Width #1 (ZAxisAllLoop)
+patch=1,EE,2025FE50,extended,43C00000 //44000000 - Distant Shadows Width #2 (ZAxisClipXY2)
+
+//Sprites
+patch=1,EE,2025FEF0,extended,43C00000 //44000000 - Nearby Sprites Width (SimpSpriteStart)
+patch=1,EE,20260040,extended,43C00000 //44000000 - Distant Sprites Width (SpriteAllStart)
+
+//Loading Bar
+patch=1,EE,2022980C,extended,3404014A //8FA40008 - Loading Bar Master X Width
+
+//Generic Font - Width
+//Impacts top + bottom title screen text, unselected unlocks screen text, and pause menu text.
+patch=1,EE,10200884,extended,00000007 //24060005 - Generic Font Width (5 -> 7)
+
+//Sub Pixels Font - Width and Spacing
+//Impacts all other text.
+patch=1,EE,20200DF8,extended,0808032E //00832018 - j $00200cb8 - Jump to injected MIPS instructions
+patch=1,EE,20200CB8,extended,3C013F40 //27BDFFA0 - lui at, $3f40 - Set $f29 register to .75 #1
+patch=1,EE,20200CBC,extended,4481E800 //24030038 - mtc1 at, $f29 - Set $f29 register to .75 #2
+patch=1,EE,20200CC0,extended,3C013F00 //7FB20030 - lui at, $3f00 - Set $f30 register to .5 #1
+patch=1,EE,20200CC4,extended,4481F000 //3C020075 - mtc1 at, $f30 - Set $f30 register to .5 #2
+patch=1,EE,20200CC8,extended,4485F800 //00839018 - mtc1 a1, $f31 - Convert int to float #1
+patch=1,EE,20200CCC,extended,4680FFE0 //7FB10020 - cvt.s.w $f31, $f31 - Convert int to float #2
+patch=1,EE,20200CD0,extended,461DFFC2 //7FB00010 - mul.s $f31, $f31, $f29 - Multiply $f31 by $f29
+patch=1,EE,20200CD4,extended,461EFFC0 //24428680 - add.s $f31, $f31, $f30 - Add .5 for rounding
+patch=1,EE,20200CD8,extended,4600FFE4 //E7B50058 - cvt.w.s $f31, $f31 - Convert float to int #1
+patch=1,EE,20200CDC,extended,4405F800 //00A0802D - mfc1 a1, $f31 - Convert float to int #2
+patch=1,EE,20200CE0,extended,4487F800 //E7B40050 - mtc1 a3, $f31 - Convert int to float #1
+patch=1,EE,20200CE4,extended,4680FFE0 //46006D46 - cvt.s.w $f31, $f31 - Convert int to float #2
+patch=1,EE,20200CE8,extended,461DFFC2 //46006506 - mul.s $f31, $f31, $f29 - Multiply $f31 by $f29
+patch=1,EE,20200CEC,extended,461EFFC1 //7FBF0040 - sub.s $f31, $f31, $f30 - Subtract .5 for rounding
+patch=1,EE,20200CF0,extended,4600FFE4 //02429021 - cvt.w.s $f31, $f31 - Convert float to int #1
+patch=1,EE,20200CF4,extended,4407F800 //0C08B0AA - mfc1 a3, $f31 - Convert float to int #2
+patch=1,EE,20200CF8,extended,08080380 //00C0882D - j $00200e00 - Jump to 2 lines after the overwritten MIPS instruction
+patch=1,EE,20200CFC,extended,00832018 //03A0282D - mult a0, a0, v1 - Restore overwritten MIPS instruction from initial jump
+
+//Unlocks - Left Text Positioning (fontSpritePrintCenteredXY)
+patch=1,EE,20200BC4,extended,08080312 //0080982D - j $00200c48 - Jump to injected MIPS instructions
+patch=1,EE,20200C48,extended,240B00E6 //27BDFFC0 - addiu t3, zero, $00e6 - Set t3 register to 230
+patch=1,EE,20200C4C,extended,14AB0002 //3C020075 - bne a1, t3, $00200c58 - Skip next line (after below one) if $a1 and t3 registers aren't equal
+patch=1,EE,20200C50,extended,00000000 //7FB10010 - nop - Delay slot
+patch=1,EE,20200C54,extended,240500FD //24428680 - addiu a1, zero, $00fd - Set a1 register to 253
+patch=1,EE,20200C58,extended,080802F3 //7FB00000 - j $00200bcc - Jump to 2 addresses after initial jump
+patch=1,EE,20200C5C,extended,0080982D //0080882D - daddu s3, a0, zero - Restore overwritten MIPS instruction from initial jump
+
+//Unlocks - Right Text Positioning (fontSpritePrintCenteredXY)
+patch=1,EE,101A1868,extended,000001A2 //240501C2 - Prices Selected Right X Position (450 -> 418)
+patch=1,EE,101A18A0,extended,000001A2 //240501C2 - Prices Unselected Right X Position (450 -> 418)
+patch=1,EE,101A19C0,extended,000001A2 //240501C2 - "FREEBIE" Unselected Right X Position (450 -> 418)
+patch=1,EE,101A1A18,extended,000001A2 //240501C2 - "FREEBIE/UNLOCKED" Selected Right X Position (450 -> 418)
+patch=1,EE,101A1A70,extended,000001A2 //240501C2 - "Unlocked" Unselected Right X Position (450 -> 418)

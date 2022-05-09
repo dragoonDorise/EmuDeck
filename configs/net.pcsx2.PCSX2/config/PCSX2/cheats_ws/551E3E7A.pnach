@@ -1,0 +1,30 @@
+gametitle=The History Channel - Battle for the Pacific (U)(SLUS-21712)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen 16:9
+
+//Zoom
+//003f023c 988a22c4 (2nd)
+patch=1,EE,002e881c,word,3c023f20 //3c023f00
+
+//Y-Fov
+//03080046 ec00a0e6
+patch=1,EE,002e8850,word,08164f48
+patch=1,EE,00593d20,word,46000803
+patch=1,EE,00593d24,word,3c013f40
+patch=1,EE,00593d28,word,4481f000
+patch=1,EE,00593d2c,word,461e0002
+patch=1,EE,00593d30,word,080ba215
+
+
+//////////////////////////////////
+//X-Fov (needs render fix)
+//patch=1,EE,002e7f24,word,3c033fc0 //3c034000
+//X-Fov
+//0000803f 00000000 0000803f 00000000 00000000 00000000 03000000  
+//patch=1,EE,005d5de8,word,3faaaaab //3f800000
+//Render fix
+//0040023c c80283c4
+//patch=1,EE,002e1690,word,3c033fc0 //3c034000
+//0040033c 00308344 0800c0e4
+//patch=1,EE,002e1798,word,3c03402b //3c034000

@@ -1,0 +1,7 @@
+gametitle=International Super Karts (E)(SLES-53186)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,001cf518,word,3c013f9e //3c013f6e
+patch=1,EE,001cf51c,word,3421e400 //34215604

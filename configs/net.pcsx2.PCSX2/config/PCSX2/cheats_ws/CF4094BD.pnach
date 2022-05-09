@@ -1,0 +1,8 @@
+gametitle=Cocoto Funfair (E)(SLES-53805)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//003f023c 00bf033c
+patch=1,EE,0046b578,word,3c023ec0 //3c023fa0

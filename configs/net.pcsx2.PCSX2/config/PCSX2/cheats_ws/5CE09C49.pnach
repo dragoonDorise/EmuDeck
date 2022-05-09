@@ -1,0 +1,15 @@
+gametitle=CID the Dummy (E)(SLES-55079)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//06a30046 86050046
+patch=1,EE,00228a58,word,080997d8
+
+patch=1,EE,00265f60,word,46000586
+patch=1,EE,00265f64,word,3c013faa
+patch=1,EE,00265f68,word,3421aaab
+patch=1,EE,00265f6c,word,4481f000
+patch=1,EE,00265f70,word,461eb582
+patch=1,EE,00265f74,word,0808a297

@@ -1,0 +1,7 @@
+gametitle=Battle of Sunrise (J)(SLPS-25855)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,002c1d54,word,3F19999A //3f4ccccd

@@ -1,0 +1,22 @@
+gametitle=Brunswick Pro Bowling (U)(SLUS-21566)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//03001246 03150046
+patch=1,EE,00196ae0,word,0807c9ac
+patch=1,EE,001f26b0,word,46001503
+patch=1,EE,001f26b4,word,3c013f40
+patch=1,EE,001f26b8,word,4481f000
+patch=1,EE,001f26bc,word,461ea503
+patch=1,EE,001f26c0,word,08065ab9
+
+/////////////////////////////////////////
+//X-Fov (2D +3D) needs render fix
+//patch=1,EE,00196d20,word,08030000
+//patch=1,EE,000c0000,word,46030842
+//patch=1,EE,000c0004,word,3c013f40
+//patch=1,EE,000c0008,word,4481f000
+//patch=1,EE,000c000c,word,461e0842
+//patch=1,EE,000c0010,word,08065b49

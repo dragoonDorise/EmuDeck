@@ -1,0 +1,14 @@
+gametitle=Peter Jackson's King Kong - The Official Game of the Movie (E)(SLES-53703)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,00127ac4,word,3c033f40 //3c033f80
+
+//Y-Fov
+patch=1,EE,00134e68,word,3c033fe3 //3c033faa 4/3 Black Bands Screen Mode
+patch=1,EE,00134e70,word,3c033fe3 //3c033faa 4/3 Screen Mode
+
+//Render fix
+patch=1,EE,001529e0,word,3c023f40 //3c023f00

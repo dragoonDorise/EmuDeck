@@ -1,0 +1,25 @@
+gametitle=Medal of Honor - Frontline (E)(SLES-50684)
+comment=Widescreen hack by nemesis2000 (PAL by Arapapa)
+
+patch=1,EE,00145768,word,0c052e5b //0c052e5c
+patch=1,EE,00145788,word,0c052e5b //0c052e5c
+patch=1,EE,001457a8,word,0c052e5b //0c052e5c
+
+patch=1,EE,0014b96c,word,3c013f50 //00000000
+patch=1,EE,0014b970,word,44810800 //c481043c
+patch=1,EE,0014b974,word,46016303 //460c0832
+patch=1,EE,0014b978,word,c481043c //45010009
+patch=1,EE,0014b97c,word,460c0832 //00000000
+patch=1,EE,0014b980,word,45010008 //46016034
+patch=1,EE,0014b988,word,46016034 //45000004
+patch=1,EE,0014b98c,word,45000004 //e48c0444
+patch=1,EE,0014b990,word,e48c0444 //46006807
+patch=1,EE,0014b994,word,46006807 //03e00008
+patch=1,EE,0014b998,word,03e00008 //e4800448
+patch=1,EE,0014b99c,word,e4800448 //e48d0448
+patch=1,EE,0014b9a0,word,e48d0448 //03e00008
+patch=1,EE,0014b9a4,word,03e00008 //00000000
+patch=1,EE,0014b9a8,word,3c030024 //27bdff60
+patch=1,EE,0014b9ac,word,27bdff60 //3c030024
+
+patch=1,EE,00327fe0,word,3f1c0000 //3f400000

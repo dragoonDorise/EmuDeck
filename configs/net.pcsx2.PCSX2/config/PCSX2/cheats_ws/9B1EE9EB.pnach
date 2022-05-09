@@ -1,0 +1,8 @@
+gametitle=DNA - Dark Native Apostle (E)(SLES-50202)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0019278c,word,3c013f40 //00000000
+patch=1,EE,00192790,word,44810000 //00000000
+patch=1,EE,00192798,word,4600c602 //00000000

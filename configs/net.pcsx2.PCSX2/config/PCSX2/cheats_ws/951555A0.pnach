@@ -1,0 +1,83 @@
+gametitle=Disgaea 2: Cursed Memories (SLUS-21397)
+comment=Widescreen hack by nemesis2000 (pnach by nemesis2000 )
+patch=1,EE,00104a5c,word,3c013f40
+patch=1,EE,00104a60,word,44810000
+patch=1,EE,00104a68,word,4600c602
+
+//NEW
+patch=1,EE,0027d32c,word,46000883
+patch=1,EE,0027d330,word,1040000e
+patch=1,EE,0027d334,word,00000000
+patch=1,EE,0027d338,word,c6010050
+patch=1,EE,0027d33c,word,0200202d
+patch=1,EE,0027d340,word,46021002
+patch=1,EE,0027d344,word,27a50020
+patch=1,EE,0027d348,word,46011042
+patch=1,EE,0027d34c,word,e7a10020
+patch=1,EE,0027d350,word,c6010064
+patch=1,EE,0027d354,word,46011042
+patch=1,EE,0027d358,word,e7a00028
+patch=1,EE,0027d35c,word,0c09f138
+patch=1,EE,0027d360,word,e7a10024
+patch=1,EE,0027d364,word,1000000B
+patch=1,EE,0027d368,word,00000000
+patch=1,EE,0027d36c,word,46021002
+patch=1,EE,0027d370,word,0200202d
+patch=1,EE,0027d374,word,27a50020
+patch=1,EE,0027d378,word,e7a20024
+patch=1,EE,0027d37c,word,3c013f40
+patch=1,EE,0027d380,word,4481f000
+patch=1,EE,0027d384,word,461e1082
+patch=1,EE,0027d388,word,e7a20020
+
+
+//OLD
+//patch=1,EE,0027a370,word,3c033f40
+//patch=1,EE,0027a384,word,3c033f80
+//patch=1,EE,0027a388,word,ac830010
+//patch=1,EE,0027a38c,word,ac800014
+//patch=1,EE,0027a390,word,ac800018
+//patch=1,EE,0027a394,word,ac80001c
+//patch=1,EE,0027a398,word,03e00008
+//patch=1,EE,0027a39c,word,ac830020
+//patch=1,EE,0027d3b8,word,3c023fab
+//patch=1,EE,0027d3bc,word,0c09f138
+//patch=1,EE,0027d3c0,word,afa20020
+//patch=1,EE,0027d3c4,word,1000fff3
+
+
+//font fix
+patch=1,EE,0012E444,word,3c023f40
+
+patch=1,EE,001B5608,word,24070015
+patch=1,EE,00144f38,word,24070015
+patch=1,EE,001b5634,word,24070015
+patch=1,EE,00205FA8,word,24170015
+patch=1,EE,001D7C30,word,24080015
+
+
+//portrait fix
+patch=1,EE,00204C48,word,240900d9 //24090121
+patch=1,EE,0028D180,word,000000b8 //00000098
+patch=1,EE,0028D184,word,00000130 //00000110
+patch=1,EE,0028D188,word,00000160 //00000140
+patch=1,EE,0028D18c,word,00000190 //00000170
+patch=1,EE,0028D190,word,00000208 //000001e8
+
+patch=1,EE,00205E00,word,24090042 //24090058
+patch=1,EE,00205DE0,word,2666001E //26660008
+
+patch=1,EE,001dbe68,word,24090042 //24090058
+patch=1,EE,001dbe6c,word,240a002c //240a002d
+patch=1,EE,001DBE5C,word,26a60013 //26a60008
+
+patch=1,EE,001dc668,word,24090042 //24090058
+patch=1,EE,001dc66c,word,240a002c //240a002d
+patch=1,EE,001dc65c,word,26460013 //26460008
+
+patch=1,EE,001ddb34,word,24090042 //24090058
+patch=1,EE,001ddb38,word,240a002c //240a002d
+patch=1,EE,001ddb28,word,26260013 //26260008
+
+patch=1,EE,001DB9D8,word,24090018 //24090020
+patch=1,EE,001db9d0,word,26860008

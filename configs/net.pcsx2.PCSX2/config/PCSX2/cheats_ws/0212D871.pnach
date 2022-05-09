@@ -1,0 +1,4 @@
+//Y-Fov
+patch=1,EE,0034f7d4,word,3fc8aaab //3f800000
+
+patch=1,EE,0034fc9c,word,3F59774F //3f20d97c

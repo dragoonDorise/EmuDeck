@@ -1,0 +1,329 @@
+gametitle=Ratchet & Clank 2 (PAL-M5) (SCES-51607)
+comment=Widescreen hack by ElHecht
+
+// enable widescreen mode in options
+patch=1,EE,e0010400,extended,001a7c28 // check 001a7c28 matches value xxxx0400
+patch=1,EE,201a7c38,extended,01010100 // 01010000
+
+
+// values to check for loop
+patch=1,EE,e00c0000,extended,000ffdac // check 000ffdac matches value xxxx0000
+patch=1,EE,200ffdb0,extended,3f214633 // 00000000 value1
+patch=1,EE,200ffdb4,extended,3f2147ae // 00000000 value2
+patch=1,EE,200ffdb8,extended,3f1eb852 // 00000000 value3
+patch=1,EE,200ffdbc,extended,3f1ff770 // 00000000 value4
+patch=1,EE,200ffdc0,extended,3ed40674 // 00000000 value5
+patch=1,EE,200ffdc4,extended,00000000 // 00000000 end of loop
+
+// 16:9 code-inject function (loop)
+patch=1,EE,e0160000,extended,000ffdfc // check 000ffdfc matches value xxxx0000
+patch=1,EE,200ffe00,extended,3c013f40 // 00000000 hor fov
+patch=1,EE,200ffe04,extended,34210001 // 00000000 hor fov
+patch=1,EE,200ffe08,extended,4481f000 // 00000000 
+patch=1,EE,200ffe0c,extended,3c180010 // 00000000
+patch=1,EE,200ffe10,extended,2318fdb0 // 00000000
+patch=1,EE,200ffe14,extended,8f010000 // 00000000
+patch=1,EE,200ffe18,extended,1020000c // 00000000
+patch=1,EE,200ffe1c,extended,00000000 // 00000000
+patch=1,EE,200ffe20,extended,8f010000 // 00000000
+patch=1,EE,200ffe24,extended,8c7900b0 // 00000000
+patch=1,EE,200ffe28,extended,14390004 // 00000000
+patch=1,EE,200ffe2c,extended,00000000 // 00000000
+patch=1,EE,200ffe30,extended,4481f800 // 00000000
+patch=1,EE,200ffe34,extended,461effc3 // 00000000
+patch=1,EE,200ffe38,extended,e47f00b0 // 00000000
+patch=1,EE,200ffe3c,extended,00000000 // 00000000
+patch=1,EE,200ffe40,extended,23180004 // 00000000
+patch=1,EE,200ffe44,extended,0803ff85 // 00000000
+patch=1,EE,200ffe48,extended,00000000 // 00000000
+patch=1,EE,200ffe4c,extended,c46000b0 // 00000000
+patch=1,EE,200ffe50,extended,461e0002 // 00000000
+patch=1,EE,200ffe54,extended,46010002 // 00000000
+
+
+// Intro
+patch=1,EE,e008caff,extended,0027af4c // check 0027af4c matches value xxxxcaff
+patch=1,EE,2027af8c,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,2027af90,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,0809ebe4 // 00000000 jump back to 2027af90
+patch=1,EE,2027afa0,extended,14400007 // 10400007
+patch=1,EE,20301d34,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,20301d38,extended,4481f000 // 00000000
+patch=1,EE,20301d44,extended,461e0002 // 00000000
+patch=1,EE,20301d5c,extended,14600008 // 10600008
+
+
+// Planet Aranos
+patch=1,EE,e008caff,extended,002e5a74 // check 002e5a74 matches value xxxxcaff
+patch=1,EE,202e5ab4,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202e5ab8,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080b96ae // 00000000 jump back to 202e5ab8
+patch=1,EE,202e5ac8,extended,14400007 // 10400007
+patch=1,EE,20383544,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,20383548,extended,4481f000 // 00000000
+patch=1,EE,20383554,extended,461e0002 // 00000000
+patch=1,EE,2038356c,extended,14600008 // 10600008
+
+
+// Planet Oozla - Megacorp Outlet
+patch=1,EE,e008caff,extended,002daf8c // check 002daf8c matches value xxxxcaff
+patch=1,EE,202dafcc,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202dafd0,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080b6bf4 // 00000000 jump back to 202dafd0
+patch=1,EE,202dafe0,extended,14400007 // 10400007
+patch=1,EE,20379604,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,20379608,extended,4481f000 // 00000000
+patch=1,EE,20379614,extended,461e0002 // 00000000
+patch=1,EE,2037962c,extended,14600008 // 10600008
+
+
+// Whupash Nebula
+patch=1,EE,e008caff,extended,002f8b14 // check 002f8b14 matches value xxxxcaff
+patch=1,EE,202f8b54,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202f8b58,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080be2d6 // 00000000 jump back to 202f8b58
+patch=1,EE,202f8b68,extended,14400007 // 10400007
+patch=1,EE,203925fc,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,20392600,extended,4481f000 // 00000000
+patch=1,EE,2039260c,extended,461e0002 // 00000000
+patch=1,EE,20392624,extended,14600008 // 10600008
+
+
+// Maktar Nebula - Maktar Resort
+patch=1,EE,e008caff,extended,002e8f8c // check 002e8f8c matches value xxxxcaff
+patch=1,EE,202e8fcc,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202e8fd0,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080ba3f4 // 00000000 jump back to 202e8fd0
+patch=1,EE,202e8fe0,extended,14400007 // 10400007
+patch=1,EE,2038adf4,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,2038adf8,extended,4481f000 // 00000000
+patch=1,EE,2038ae04,extended,461e0002 // 00000000
+patch=1,EE,2038ae1c,extended,14600008 // 10600008
+
+
+// Planet Endako - Megapolis
+patch=1,EE,e008caff,extended,002e655c // check 002e655c matches value xxxxcaff
+patch=1,EE,202e659c,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202e65a0,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080b9968 // 00000000 jump back to 202e65a0
+patch=1,EE,202e65b0,extended,14400007 // 10400007
+patch=1,EE,20384b2c,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,20384b30,extended,4481f000 // 00000000
+patch=1,EE,20384b3c,extended,461e0002 // 00000000
+patch=1,EE,20384b54,extended,14600008 // 10600008
+
+
+// Planet Barlow - Vukovar Canyon
+patch=1,EE,e008caff,extended,003061cc // check 003061cc matches value xxxxcaff
+patch=1,EE,2030620c,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,20306210,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080c1884 // 00000000 jump back to 20306210
+patch=1,EE,20306220,extended,14400007 // 10400007
+patch=1,EE,203a92ac,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,203a92b0,extended,4481f000 // 00000000
+patch=1,EE,203a92bc,extended,461e0002 // 00000000
+patch=1,EE,203a92d4,extended,14600008 // 10600008
+
+
+// Feltzin System - Thug Rendezvous
+patch=1,EE,e008caff,extended,002fe194 // check 002fe194 matches value xxxxcaff
+patch=1,EE,202fe1d4,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202fe1d8,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080bf876 // 00000000 jump back to 202fe1d8
+patch=1,EE,202fe1e8,extended,14400007 // 10400007
+patch=1,EE,2039878c,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,20398790,extended,4481f000 // 00000000
+patch=1,EE,2039879c,extended,461e0002 // 00000000
+patch=1,EE,203987b4,extended,14600008 // 10600008
+
+
+// Planet Notak - Canal City
+patch=1,EE,e008caff,extended,003251dc // check 003251dc matches value xxxxcaff
+patch=1,EE,2032521c,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,20325220,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080c9488 // 00000000 jump back to 20325220
+patch=1,EE,20325230,extended,14400007 // 10400007
+patch=1,EE,203c6ce4,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,203c6ce8,extended,4481f000 // 00000000
+patch=1,EE,203c6cf4,extended,461e0002 // 00000000
+patch=1,EE,203c6d0c,extended,14600008 // 10600008
+
+
+// Planet Siberius - Frozen Base
+patch=1,EE,e008caff,extended,002db92c // check 002db92c matches value xxxxcaff
+patch=1,EE,202db96c,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202db970,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080b6e5c // 00000000 jump back to 202db970
+patch=1,EE,202db980,extended,14400007 // 10400007
+patch=1,EE,20379444,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,20379448,extended,4481f000 // 00000000
+patch=1,EE,20379454,extended,461e0002 // 00000000
+patch=1,EE,2037946c,extended,14600008 // 10600008
+
+
+// Planet Tabora - Mining Area
+patch=1,EE,e008caff,extended,002f17c4 // check 002f17c4 matches value xxxxcaff
+patch=1,EE,202f1804,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202f1808,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080bc602 // 00000000 jump back to 202f1808
+patch=1,EE,202f1818,extended,14400007 // 10400007
+patch=1,EE,20393f1c,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,20393f20,extended,4481f000 // 00000000
+patch=1,EE,20393f2c,extended,461e0002 // 00000000
+patch=1,EE,20393f44,extended,14600008 // 10600008
+
+
+// Planet Dobbo - Testing Facility
+patch=1,EE,e008caff,extended,002e1a6c // check 002e1a6c matches value xxxxcaff
+patch=1,EE,202e1aac,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202e1ab0,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080b86ac // 00000000 jump back to 202e1ab0
+patch=1,EE,202e1ac0,extended,14400007 // 10400007
+patch=1,EE,203809fc,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,20380a00,extended,4481f000 // 00000000
+patch=1,EE,20380a0c,extended,461e0002 // 00000000
+patch=1,EE,20380a24,extended,14600008 // 10600008
+
+
+// Hrugis Cloud - Deep Space Disposal
+patch=1,EE,e008caff,extended,00300694 // check 00300694 matches value xxxxcaff
+patch=1,EE,203006d4,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,203006d8,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080c01b6 // 00000000 jump back to 203006d8
+patch=1,EE,203006e8,extended,14400007 // 10400007
+patch=1,EE,2039a46c,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,2039a470,extended,4481f000 // 00000000
+patch=1,EE,2039a47c,extended,461e0002 // 00000000
+patch=1,EE,2039a494,extended,14600008 // 10600008
+
+
+// Planet Joba - Megacorp Games
+patch=1,EE,e008caff,extended,002f7724 // check 002f7724 matches value xxxxcaff
+patch=1,EE,202f7764,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202f7768,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080bddda // 00000000 jump back to 202f7768
+patch=1,EE,202f7778,extended,14400007 // 10400007
+patch=1,EE,20397d54,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,20397d58,extended,4481f000 // 00000000
+patch=1,EE,20397d64,extended,461e0002 // 00000000
+patch=1,EE,20397d7c,extended,14600008 // 10600008
+
+
+// Planet Todano - Megacorp Armory
+patch=1,EE,e008caff,extended,002e8f7c // check 002e8f7c matches value xxxxcaff
+patch=1,EE,202e8fbc,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202e8fc0,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080ba3f0 // 00000000 jump back to 202e8fc0
+patch=1,EE,202e8fd0,extended,14400007 // 10400007
+patch=1,EE,20388c7c,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,20388c80,extended,4481f000 // 00000000
+patch=1,EE,20388c8c,extended,461e0002 // 00000000
+patch=1,EE,20388ca4,extended,14600008 // 10600008
+
+
+// Planet Boldan - Silver City
+patch=1,EE,e008caff,extended,002f0564 // check 002f0564 matches value xxxxcaff
+patch=1,EE,202f05a4,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202f05a8,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080bc16a // 00000000 jump back to 202f05a8
+patch=1,EE,202f05b8,extended,14400007 // 10400007
+patch=1,EE,2038cf0c,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,2038cf10,extended,4481f000 // 00000000
+patch=1,EE,2038cf1c,extended,461e0002 // 00000000
+patch=1,EE,2038cf34,extended,14600008 // 10600008
+
+
+// Planet Aranos - Flying Lab (Revisited)
+patch=1,EE,e008caff,extended,002ed374 // check 002ed374 matches value xxxxcaff
+patch=1,EE,202ed3b4,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202ed3b8,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080bb4ee // 00000000 jump back to 202ed3b8
+patch=1,EE,202ed3c8,extended,14400007 // 10400007
+patch=1,EE,2038dd94,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,2038dd98,extended,4481f000 // 00000000
+patch=1,EE,2038dda4,extended,461e0002 // 00000000
+patch=1,EE,2038ddbc,extended,14600008 // 10600008
+
+
+// Planet Gorn - Thug-4-Less Fleet
+patch=1,EE,e008caff,extended,002fe814 // check 002fe814 matches value xxxxcaff
+patch=1,EE,202fe854,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202fe858,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080bfa16 // 00000000 jump back to 202fe858
+patch=1,EE,202fe868,extended,14400007 // 10400007
+patch=1,EE,2039f1c4,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,2039f1c8,extended,4481f000 // 00000000
+patch=1,EE,2039f1d4,extended,461e0002 // 00000000
+patch=1,EE,2039f1ec,extended,14600008 // 10600008
+
+
+// Planet Snivelak - Thug HQ
+patch=1,EE,e008caff,extended,002dec34 // check 002dec34 matches value xxxxcaff
+patch=1,EE,202dec74,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202dec78,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080b7b1e // 00000000 jump back to 202dec78
+patch=1,EE,202dec88,extended,14400007 // 10400007
+patch=1,EE,2037b18c,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,2037b190,extended,4481f000 // 00000000
+patch=1,EE,2037b19c,extended,461e0002 // 00000000
+patch=1,EE,2037b1b4,extended,14600008 // 10600008
+
+
+// Planet Smolg - Distribution Facility
+patch=1,EE,e008caff,extended,002e6b34 // check 002e6b34 matches value xxxxcaff
+patch=1,EE,202e6b74,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202e6b78,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080b9ade // 00000000 jump back to 202e6b78
+patch=1,EE,202e6b88,extended,14400007 // 10400007
+patch=1,EE,20386bbc,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,20386bc0,extended,4481f000 // 00000000
+patch=1,EE,20386bcc,extended,461e0002 // 00000000
+patch=1,EE,20386be4,extended,14600008 // 10600008
+
+
+// Planet Damosel - Allgon City
+patch=1,EE,e008caff,extended,003002bc // check 003002bc matches value xxxxcaff
+patch=1,EE,203002fc,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,20300300,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080c00c0 // 00000000 jump back to 20300300
+patch=1,EE,20300310,extended,14400007 // 10400007
+patch=1,EE,203a192c,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,203a1930,extended,4481f000 // 00000000
+patch=1,EE,203a193c,extended,461e0002 // 00000000
+patch=1,EE,203a1954,extended,14600008 // 10600008
+
+
+// Planet Grelbin - Tundor Wastes
+patch=1,EE,e008caff,extended,002e335c // check 002e335c matches value xxxxcaff
+patch=1,EE,202e339c,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202e33a0,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080b8ce8 // 00000000 jump back to 202e33a0
+patch=1,EE,202e33b0,extended,14400007 // 10400007
+patch=1,EE,203813f4,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,203813f8,extended,4481f000 // 00000000
+patch=1,EE,20381404,extended,461e0002 // 00000000
+patch=1,EE,2038141c,extended,14600008 // 10600008
+
+
+// Planet Yeedil - Protopet Factory
+patch=1,EE,e008caff,extended,002f9ac4 // check 002f9ac4 matches value xxxxcaff
+patch=1,EE,202f9b04,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202f9b08,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080be6c2 // 00000000 jump back to 202f9b08
+patch=1,EE,202f9b18,extended,14400007 // 10400007
+patch=1,EE,2039b7dc,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,2039b7e0,extended,4481f000 // 00000000
+patch=1,EE,2039b7ec,extended,461e0002 // 00000000
+patch=1,EE,2039b804,extended,14600008 // 10600008
+
+
+// Ship Shack - Slim Cognito's
+patch=1,EE,e008caff,extended,002e4a14 // check 002e4a14 matches value xxxxcaff
+patch=1,EE,202e4a54,extended,0803ff80 // c46000b0 jump to code-inject 200ffe00
+patch=1,EE,202e4a58,extended,00000000 // 46010002
+patch=1,EE,200ffe58,extended,080b9296 // 00000000 jump back to 202e4a58
+patch=1,EE,202e4a68,extended,14400007 // 10400007
+patch=1,EE,2037a6cc,extended,3c013f40 // 00000000 hor fov hud and menu
+patch=1,EE,2037a6d0,extended,4481f000 // 00000000
+patch=1,EE,2037a6dc,extended,461e0002 // 00000000
+patch=1,EE,2037a6f4,extended,14600008 // 10600008

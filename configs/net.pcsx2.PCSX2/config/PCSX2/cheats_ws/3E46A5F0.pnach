@@ -1,0 +1,15 @@
+gametitle=Shadow Hearts (J) SLPS_250.41
+comment=Widescreen Hack
+
+//Widescreen hack 16:9
+
+//803f043c 00688444 9c45023c
+patch=1,EE,0028d738,word,3c043f40
+//803f023c 00688244 7f47023c
+patch=1,EE,00282564,word,3c023f40
+//patch=1,EE,00324530,word,3c023f40 // field
+
+//Status screen and souls information. plus optional font size reduction (disabled by default) by sergx12
+patch=1,EE,0039f340,word,3c023f40 //3c023f80
+patch=1,EE,003d43c4,word,3c023f40 //3c023f80
+patch=1,EE,003ecfec,word,3c023f40 //3c023f80

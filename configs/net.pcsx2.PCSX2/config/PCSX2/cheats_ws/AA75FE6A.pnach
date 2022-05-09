@@ -1,0 +1,10 @@
+gametitle=Inaka Kurasi - Nan no Shima no Monogatari (Super Best Collection) [NTSC-J] (PBPX-95201) (SLPS-20499)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,00172a7c,word,3c0243a8 //3c0243e0
+
+//Y-Fov
+patch=1,EE,00172ab8,word,3c0243a8 //3c0243e0

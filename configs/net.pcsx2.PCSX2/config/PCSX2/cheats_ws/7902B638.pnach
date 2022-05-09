@@ -1,0 +1,4 @@
+﻿gametitle=Yoshitsune-ki [NTSC-J] (SLPS-25523)
+comment=Widescreen Hack
+
+patch=1,EE,205A18C0,extended,43700000

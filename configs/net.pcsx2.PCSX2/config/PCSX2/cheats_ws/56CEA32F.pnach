@@ -1,0 +1,7 @@
+1gametitle=Disney Hannah Montana - Spotlight World Tour (E)(SLES-55293)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,004f972c,word,3fe38e32 //3faaaaab
+patch=1,EE,0050b7cc,word,3fe38e32 //3faaaaab

@@ -1,0 +1,9 @@
+gametitle=Winback - Covert Operations (NTSC-U)
+comment=Widescreen hack
+
+// 16:9
+patch=1,EE,00246cb8,word,3c013f40 // 00000000 hor fov
+patch=1,EE,00246cbc,word,4481f000 // 00000000
+patch=1,EE,00246ccc,word,461eb583 // 00000000
+patch=1,EE,001c63a8,word,461e0002 // 00000000 cross hairs position fix
+patch=1,EE,001c68c4,word,461ea302 // 4600a306 cross hairs render fix

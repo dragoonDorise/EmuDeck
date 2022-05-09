@@ -1,0 +1,8 @@
+gametitle=Tenka-bito (NTSC-J)(SLPM-66291)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//cdcc8c3f 0000803f 02020003
+patch=1,EE,202638F4,extended,3F533333 //3f8ccccd fov
+

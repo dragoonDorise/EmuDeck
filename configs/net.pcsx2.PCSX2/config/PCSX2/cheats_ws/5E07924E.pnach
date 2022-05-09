@@ -1,0 +1,11 @@
+gametitle=League Series Baseball 2 (E)(SLES-51718)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,001ce734,word,3c013f26 //3c013f00
+
+//Y-Fov
+patch=1,EE,001ce764,word,3c013fe3 //3c013faa
+patch=1,EE,001ce768,word,34218e32 //3421aaab

@@ -1,0 +1,18 @@
+﻿gametitle=Xenosaga Episode III - Zarathustra wa Kaku Katariki [NTSC-J] [Disc1] (SLPS-25640) / Xenosaga Episode III - Zarathustra wa Kaku Katariki [NTSC-J] [Disc2] (SLPS-25641)
+comment=Widescreen hack by nemesis2000 (pnach by Little Giant)
+
+//gameplay
+patch=1,EE,2054e720,extended,3fc1f080 //original value 3f91745d
+
+//cutscenes portrait's fix
+patch=1,EE,00267950,word,24020078 //240200a0
+patch=1,EE,003e2da0,extended,00000174 //0000014c
+patch=1,EE,003e2dc0,extended,00000174 //0000014c
+
+//480p
+patch=1,EE,0019ac18,word,24020001 //a2000080
+patch=1,EE,0019ac1c,word,a2020081 //a2000081
+
+//black borders's fix (optional)
+patch=1,EE,00243768,word,24060000 //8f869a9c
+patch=1,EE,0024377c,word,24c801c0 //24c80140

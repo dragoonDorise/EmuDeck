@@ -1,0 +1,12 @@
+gametitle=Grand Theft Auto - Vice City (SLUS_20552) / Ver 3.00
+comment=Widescreen hack
+
+patch=1,EE,001324bc,word,3c013f9d //00000000
+patch=1,EE,001324c0,word,44810000 //03e00008
+patch=1,EE,001324c4,word,46006302 //e78c86f8
+patch=1,EE,001324c8,word,03e00008 //00000000
+patch=1,EE,001324cc,word,e78c86f8 //00000000
+
+patch=1,EE,002485dc,word,0C04C92f //0c04c930
+patch=1,EE,0027579c,word,0C04C932 //0c04c930
+patch=1,EE,00275d6c,word,0C04C932 //0c04c930

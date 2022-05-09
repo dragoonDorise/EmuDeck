@@ -1,0 +1,11 @@
+gametitle=Haven - Call of the King (PAL-M5) (SLES-51209)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,0011638c,word,3c013f40 // 3c013f80 hor fov
+patch=1,EE,00116390,word,44811800 // 44811000
+patch=1,EE,00116398,word,46031883 // 3c013f40
+patch=1,EE,0011639c,word,46031f82 // 44811800
+patch=1,EE,001163c0,word,e61e0044 // e6030044
+patch=1,EE,0021cc20,word,3c013fee // 3c013fb3 background fix
+patch=1,EE,0021cc24,word,3421eeee // 34213333 background fix

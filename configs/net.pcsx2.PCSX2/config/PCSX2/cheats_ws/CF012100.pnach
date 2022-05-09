@@ -1,0 +1,12 @@
+gametitle=Motor Mayhem (E)(SLES-50438)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//b442013c 00088144 00000000 43080046
+patch=1,EE,0011cd28,word,3c014287 //3c0142b4
+
+//Render fix
+//003f013c 00108144 02050146
+patch=1,EE,00141cd8,word,3c013f2b //3c013f00

@@ -1,0 +1,18 @@
+gametitle=Kurogane no Houkou 2 - Warship Commander (J)(SLPM-65458)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//46ab0046 2041013c
+patch=1,EE,00144e90,word,080cf494
+
+patch=1,EE,0033d250,word,4600ab46
+patch=1,EE,0033d254,word,3c013f40
+patch=1,EE,0033d258,word,4481f000
+patch=1,EE,0033d25c,word,461e6b42
+patch=1,EE,0033d260,word,080513a5
+
+//Render fix
+//003f013c 00308144 0c0063c4
+patch=1,EE,00144c80,word,3c013f2b //3c013f00

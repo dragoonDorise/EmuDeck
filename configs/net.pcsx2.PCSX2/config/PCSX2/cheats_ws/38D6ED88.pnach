@@ -1,0 +1,26 @@
+gametitle=Disney Princess - Mahou no Sekai e (J)(SLPM-66902)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//8044013c 00088144 21208300
+patch=1,EE,00268854,word,3c014440 //3c014480
+
+//Zoom
+//patch=1,EE,00268780,word,3c013fab //3c013f80
+
+//Y-Fov
+//patch=1,EE,00268860,word,3c01c4ab //3c01c480
+
+//Render Fix
+//abaaaa3e 8988083e (2nd)
+patch=1,EE,003fb630,word,40000000 //3eaaaaab
+
+//Menu.... Character Position (Not Fixed Address)
+//patch=1,EE,206db7d8,extended,39000000 //3d991686
+//patch=1,EE,206db7e0,extended,3e3f0000 //3e4d4fdf
+
+//Black Bar Fix
+8642013c 67662134 00008144
+patch=1,EE,00188d18,word,00000000 //44810000

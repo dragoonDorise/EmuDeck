@@ -1,0 +1,11 @@
+gametitle=Galactic Wrestling - Featuring Ultimate Muscle (U)(SLUS-20822)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//403f013c 00888144 02b30c46
+patch=1,EE,00188f54,word,3c013f10 //3c013f40 Game play
+
+//403f013c 00888144 03840146
+patch=1,EE,0018d264,word,3c013f10 //3c013f40 Event

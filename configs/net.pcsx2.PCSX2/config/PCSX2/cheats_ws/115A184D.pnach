@@ -1,0 +1,13 @@
+gametitle=Digimon Battle Chronicle (K)(SLKA-25254)
+comment=Widescreen Hack (NTSC-K by Arapapa)
+
+//388880c7 003f013c 00608144
+//388880c7 223f013c 00608144
+patch=1,EE,0029cf70,word,3c013f22
+
+//d48680c7 003f013c 00b88144
+//d48680c7 223f013c 00b88144
+patch=1,EE,002210e4,word,3c013f22
+
+//00 00 20 44 00 00 E0 43 80 02 00 00 C0 01 00 00 0A 00 00 00 02 00 00 00 46 00 00 00 80 02 00 00
+patch=1,EE,2056CA30,extended,44550000

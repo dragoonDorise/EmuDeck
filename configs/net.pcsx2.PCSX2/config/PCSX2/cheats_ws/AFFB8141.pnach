@@ -1,0 +1,14 @@
+gametitle=Skate Attack (E)(SLES-54628)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov 
+patch=1,EE,00109f30,word,0804fe60 //c6010068
+patch=1,EE,0013f980,word,3c013f40 //00000000
+patch=1,EE,0013f984,word,4481f000 //00000000
+patch=1,EE,0013f988,word,c6010068 //00000000
+patch=1,EE,0013f98c,word,c602006c //00000000
+patch=1,EE,0013f990,word,461e0843 //00000000
+patch=1,EE,0013f994,word,e6010068 //00000000
+patch=1,EE,0013f998,word,080427ce //00000000

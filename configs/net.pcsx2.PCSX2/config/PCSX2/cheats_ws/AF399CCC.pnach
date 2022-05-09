@@ -1,0 +1,18 @@
+gametitle=Metal Arms - Glitch in the System (E)(SLES-51758)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//803f013c 00508144 c2190646
+patch=1,EE,003dd134,word,3c013f40 //3c013f80
+
+//Y-Fov
+//82390746 6400a7e7 
+patch=1,EE,003dd1e0,word,08109d74 //46073982
+
+patch=1,EE,004275d0,word,46073982 //00000000
+patch=1,EE,004275d4,word,3c013f10 //00000000
+patch=1,EE,004275d8,word,4481f000 //00000000
+patch=1,EE,004275dc,word,461e3182 //00000000
+patch=1,EE,004275e0,word,080f7479 //00000000

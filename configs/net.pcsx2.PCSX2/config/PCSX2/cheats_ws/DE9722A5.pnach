@@ -1,0 +1,10 @@
+gametitle=God Hand (PAL-M5) (SLES-54490)
+comment=Widescreen Hack (16:9) by ElHecht and Arapapa
+
+// 16:9
+patch=1,EE,00138814,word,3c014455
+patch=1,EE,00153a38,word,3c014455
+
+//Font fix
+patch=1,EE,002afc20,word,3c013f2c //3c013f66
+patch=1,EE,002afc24,word,3421cccd //34216666

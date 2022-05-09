@@ -1,0 +1,8 @@
+gametitle=Gigantic Drive (J)(SLPM-62209)
+comment=Widescreen hacks by ElHecht (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,001958c4,word,3c033f40 //3c033f80
+patch=1,EE,001f3868,word,3c023f40 //3c023f80
+patch=1,EE,001fc5a8,word,3c023f40 //3c023f80

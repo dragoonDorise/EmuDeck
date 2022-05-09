@@ -1,0 +1,16 @@
+gametitle=Standard Daisenryaku - Dengekisen (J)(SLPM-65704)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom (3D)
+patch=1,EE,0013d618,word,3c023f26 //3c023f00
+
+//Y-Fov (3D)
+patch=1,EE,0013d6ec,word,08091664
+patch=1,EE,00245990,word,3c083f40
+patch=1,EE,00245994,word,4488f000
+patch=1,EE,00245998,word,461e0843
+patch=1,EE,0024599c,word,e7a10034
+patch=1,EE,002459a0,word,46141843
+patch=1,EE,002459a4,word,0804f5bc

@@ -1,0 +1,18 @@
+gametitle=Nitrobike (U)(SLUS-21738)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+patch=1,EE,00429eac,word,3c013faa //00000000
+patch=1,EE,00429eb0,word,3421aaab //00000000
+patch=1,EE,00429eb8,word,4481f000 //00000000
+patch=1,EE,00429ebc,word,461ebdc2 //00000000
+
+//Zoom
+//003f013c 00608144 00009344 00000000 20008046
+patch=1,EE,0039bf14,word,3c013f16 //3c013f00
+
+//patch=1,EE,00429eac,word,3c013f40 //00000000
+//patch=1,EE,00429eb0,word,44810000 //00000000
+//patch=1,EE,00429eb8,word,4600c602 //00000000

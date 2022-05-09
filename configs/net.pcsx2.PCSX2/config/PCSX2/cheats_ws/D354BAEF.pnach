@@ -1,0 +1,8 @@
+gametitle=Mojo! (U)(SLES-52111)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,0024ad74,word,3c024140 //3c024180
+

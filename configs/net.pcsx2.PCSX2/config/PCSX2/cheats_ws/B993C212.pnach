@@ -1,0 +1,7 @@
+gametitle=Terminator 3: The Redemption (U)(SLUS-20852)
+comment=Widescreen Hack (NTSC-U by Arapapa)
+
+//Gameplay 16:9 
+
+patch=1,EE,00416bf4,word,3c013ec0 //3c013f00
+patch=1,EE,00416dc4,word,3c013f22 //3c013f00

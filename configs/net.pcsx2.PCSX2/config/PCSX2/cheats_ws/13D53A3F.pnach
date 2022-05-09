@@ -1,0 +1,11 @@
+gametitle=Boukoku no Aegis 2035 - Warship Gunner (NTSC-J)(SLPM-66060)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//0000803f 00000000 16177070 17167170 (1st)
+patch=1,EE,0024e048,word,3f400000 //3f800000 X-Fov
+
+//Memory Hack
+//0000803f 6566663f 0000803f 0000803f 6566663f 0000803f
+//patch=1,EE,20294184,extended,3f400000 //3f800000

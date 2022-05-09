@@ -1,0 +1,18 @@
+gametitle=Dragon Quest V - Tenkuu no Hanayome [NTSC-J] (SLPM-65555)
+comment=Widescreen hack by kerostar (English patch)
+
+//16:9
+patch=1,EE,2081B5E0,extended,3F400000 //3F800000 town
+patch=1,EE,2081A8D0,extended,3F400000 //3F800000 map
+patch=1,EE,2057BD14,extended,3C033F4e //3C033F89 battle
+patch=1,EE,2057BD1C,extended,3463F9da //3463FBE7
+
+//16:10
+//patch=1,EE,2081B5E0,extended,3F555555 //3F800000 town
+//patch=1,EE,2081A8D0,extended,3F555555 //3F800000 map
+//patch=1,EE,2057BD14,extended,3C033F65 //3C033F89 battle
+//patch=1,EE,2057BD1C,extended,3463F92C //3463FBE7
+
+//Font fix by Arapapa
+//0000803f0000803f000000400000c04001000200
+patch=1,EE,207454C4,extended,3F400000 //3f800000

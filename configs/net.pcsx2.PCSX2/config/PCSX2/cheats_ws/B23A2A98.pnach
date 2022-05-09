@@ -1,0 +1,12 @@
+gametitle=Simple 2000 Series Vol. 14 - The Billiard
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,008ac548,word,08231f78 //e6180000
+patch=1,EE,008c7de0,word,3c1b3f40
+patch=1,EE,008c7de4,word,449bb800
+patch=1,EE,008c7de8,word,4617c602
+patch=1,EE,008c7dec,word,e6180000
+patch=1,EE,008c7df0,word,0822b153

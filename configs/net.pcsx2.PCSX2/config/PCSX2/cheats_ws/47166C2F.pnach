@@ -1,0 +1,52 @@
+comment=Naruto - Ultimate Ninja (PAL-M5) (SLES-54163)
+comment=Widescreen Hack by ElHecht & Arapapa
+
+patch=1,EE,E0081100,extended,00100128 //Spanish
+patch=1,EE,20844FB0,extended,3f400000 //3f800000 X-Fov
+patch=1,EE,20263e64,extended,3c023f40 //3c023f80 3D Cartoon Scene #1
+patch=1,EE,20263eb4,extended,3c023f40 //3c023f80 3D Cartoon Scene #2
+patch=1,EE,20263ffc,extended,3c023f40 //3c023f80 3D Cartoon Scene #3
+patch=1,EE,20264144,extended,3c023f40 //3c023f80 3D Cartoon Scene #4
+patch=1,EE,20265720,extended,3c023f40 //3c023f80 3D Cartoon Scene #5
+patch=1,EE,2026576c,extended,3c023f40 //3c023f80 3D Cartoon Scene #6
+patch=1,EE,202658ac,extended,3c023f40 //3c023f80 3D Cartoon Scene #7
+
+patch=1,EE,E0080d00,extended,00100128 //Italian
+patch=1,EE,20844BB0,extended,3f400000 //3f800000 X-Fov
+patch=1,EE,20263e64,extended,3c023f40 //3c023f80 3D Cartoon Scene #1
+patch=1,EE,20263eb4,extended,3c023f40 //3c023f80 3D Cartoon Scene #2
+patch=1,EE,20263ffc,extended,3c023f40 //3c023f80 3D Cartoon Scene #3
+patch=1,EE,20264144,extended,3c023f40 //3c023f80 3D Cartoon Scene #4
+patch=1,EE,20265720,extended,3c023f40 //3c023f80 3D Cartoon Scene #5
+patch=1,EE,2026576c,extended,3c023f40 //3c023f80 3D Cartoon Scene #6
+patch=1,EE,202658ac,extended,3c023f40 //3c023f80 3D Cartoon Scene #7
+
+patch=1,EE,E0082380,extended,00100128 //German
+patch=1,EE,20846230,extended,3f400000 //3f800000 X-Fov
+patch=1,EE,20263e64,extended,3c023f40 //3c023f80 3D Cartoon Scene #1
+patch=1,EE,20263eb4,extended,3c023f40 //3c023f80 3D Cartoon Scene #2
+patch=1,EE,20263ffc,extended,3c023f40 //3c023f80 3D Cartoon Scene #3
+patch=1,EE,20264144,extended,3c023f40 //3c023f80 3D Cartoon Scene #4
+patch=1,EE,20265720,extended,3c023f40 //3c023f80 3D Cartoon Scene #5
+patch=1,EE,2026576c,extended,3c023f40 //3c023f80 3D Cartoon Scene #6
+patch=1,EE,202658ac,extended,3c023f40 //3c023f80 3D Cartoon Scene #7
+
+patch=1,EE,E008f980,extended,00100128 //French
+patch=1,EE,20843830,extended,3f400000 //3f800000 X-Fov
+patch=1,EE,20263e64,extended,3c023f40 //3c023f80 3D Cartoon Scene #1
+patch=1,EE,20263eb4,extended,3c023f40 //3c023f80 3D Cartoon Scene #2
+patch=1,EE,20263ffc,extended,3c023f40 //3c023f80 3D Cartoon Scene #3
+patch=1,EE,20264144,extended,3c023f40 //3c023f80 3D Cartoon Scene #4
+patch=1,EE,20265720,extended,3c023f40 //3c023f80 3D Cartoon Scene #5
+patch=1,EE,2026576c,extended,3c023f40 //3c023f80 3D Cartoon Scene #6
+patch=1,EE,202658ac,extended,3c023f40 //3c023f80 3D Cartoon Scene #7
+
+patch=1,EE,E0080680,extended,00100128 //English
+patch=1,EE,20844530,extended,3f400000 //3f800000 X-Fov
+patch=1,EE,20263e64,extended,3c023f40 //3c023f80 3D Cartoon Scene #1
+patch=1,EE,20263eb4,extended,3c023f40 //3c023f80 3D Cartoon Scene #2
+patch=1,EE,20263ffc,extended,3c023f40 //3c023f80 3D Cartoon Scene #3
+patch=1,EE,20264144,extended,3c023f40 //3c023f80 3D Cartoon Scene #4
+patch=1,EE,20265720,extended,3c023f40 //3c023f80 3D Cartoon Scene #5
+patch=1,EE,2026576c,extended,3c023f40 //3c023f80 3D Cartoon Scene #6
+patch=1,EE,202658ac,extended,3c023f40 //3c023f80 3D Cartoon Scene #7

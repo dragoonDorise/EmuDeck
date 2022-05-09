@@ -1,0 +1,12 @@
+gametitle=Robots (NTSC-U)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+//803f013c 00188144 86080046 (1st)
+patch=1,EE,00298924,word,3c013f40 //3c013f80
+
+//Zoom
+//803f013c 00608144 4000a827
+patch=1,EE,00298b2c,word,3c013f40 //3c013f80

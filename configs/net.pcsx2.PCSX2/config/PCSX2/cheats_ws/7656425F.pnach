@@ -1,0 +1,212 @@
+gametitle=Hitman 2 - Silent Assassin, Jampack Demo Discs (? and up), KISOK Demo Discs (<=2.8 and up), Network Adapter Start-Up Disc and Official U.S. PlayStation Magazine Demo Discs (056 and up) (NTSC-U) [*] [7656425F]
+comment=Amplitude demo widescreen hacks by Aced14 (MIPS code injection) and 2007excalibur2007 (initial live memory discovery)
+comment=Frequency demos'/expansion widescreen hacks by Aced14
+comment=Hitman 2 - Silent Assassin widescreen hacks by No.47
+comment=War of the Monsters demo widescreen hacks by Aced14
+
+
+
+
+//Amplitude Demo
+//KIOSK Demo Disc 2.9 (NTSC-U) [SCUS-97261] [7656425F]
+//Jampack Demo Disc - Summer 2003 [T-Rated] (NTSC-U) [SCUS-97280] [7656425F]
+//Jampack Demo Disc - Summer 2003 [M-Rated] (NTSC-U) [SCUS-97281] [7656425F]
+//Official U.S. PlayStation Magazine Demo Disc 067 (NTSC-U) [SCUS-97242] [7656425F]
+//Official U.S. PlayStation Magazine Demo Disc 104 (NTSC-U) [SCUS-97532] [7656425F]
+
+//16:9 Widescreen
+patch=1,EE,E0066D61,extended,00341B30 //6C706D61 - Enable condition (check the first 2 characters in the "amplitude" string)
+patch=1,EE,201E9214,extended,08096C9A //E6000160 - j $0025b268 - Jump to injected MIPS instructions
+patch=1,EE,2025B268,extended,3C013F40 //0260202D - lui at, $3f40 - Set $f31 register to .75 #1
+patch=1,EE,2025B26C,extended,4481F800 //24A52A98 - mtc1 at, $f31 - Set $f31 register to .75 #2
+patch=1,EE,2025B270,extended,461F07C2 //0C09D130 - mul.s $f31, $f0, $f31 - Multiply $f0 by $f31 and store in $f31
+patch=1,EE,2025B274,extended,0807A487 //0200302D - j $001e921c - Jump to 2 lines after the overwritten MIPS instruction
+patch=1,EE,2025B278,extended,E61F0160 //10000007 - swc1 $f31, $0160(s0) - Write $f31 into where $f0 would've been written to by the restored overwritten MIPS instruction
+
+
+
+
+//Frequency Demo
+//KIOSK Demo Disc 2.5 (NTSC-U) [SCUS-97200] (unconfirmed CRC/demo variant)
+//KIOSK Demo Disc 2.6 (NTSC-U) [SCUS-97218] (unconfirmed CRC/demo variant)
+//Official U.S. PlayStation Magazine Demo Disc 060 (NTSC-U) [SCUS-97186] [7656425F]
+//Official U.S. PlayStation Magazine Demo Disc 104 (NTSC-U) [SCUS-97532] [7656425F]
+//PlayStation Underground Jampack Summer 2002 (NTSC-U) [SCUS-97206] (unconfirmed CRC/demo variant)
+
+//16:9 Widescreen
+patch=1,EE,E0065246,extended,008087D0 //51455246 - Enable condition (check the first 2 characters in the "FREQUENCY" string)
+patch=1,EE,204CE64C,extended,0813F231 //E6000120 - j $004fc8c4 - Jump to injected MIPS instructions
+patch=1,EE,204FC8C4,extended,3C013F40 //3C050084 - lui at, $3f40 - Set $f31 register to .75 #1
+patch=1,EE,204FC8C8,extended,4481F800 //24A5CF00 - mtc1 at, $f31 - Set $f31 register to .75 #2
+patch=1,EE,204FC8CC,extended,461F07C2 //0C135982 - mul.s $f31, $f0, $f31 - Multiply $f0 by $f31 and store in $f31
+patch=1,EE,204FC8D0,extended,08133995 //0200202D - j $004ce654 - Jump to 2 lines after the overwritten MIPS instruction
+patch=1,EE,204FC8D4,extended,E61F0120 //8E510000 - swc1 $f31, $0120(s0) - Write $f31 into where $f0 would've been written to by the restored overwritten MIPS instruction
+
+
+
+
+//Frequency Online/Expansion Demo
+//Network Adapter Start-Up Disc (NTSC-U) [SCUS-97097] [7656425F]
+
+//16:9 Widescreen
+patch=1,EE,E0065246,extended,00917618 //51455246 - Enable condition (check the first 2 characters in the "FREQUENCY" string)
+patch=1,EE,20566D6C,extended,0816709C //E6000120 - j $0059c270 - Jump to injected MIPS instructions
+patch=1,EE,2059C270,extended,3C013F40 //3C050093 - lui at, $3f40 - Set $f31 register to .75 #1
+patch=1,EE,2059C274,extended,4481F800 //24A508E8 - mtc1 at, $f31 - Set $f31 register to .75 #2
+patch=1,EE,2059C278,extended,461F07C2 //0C15BB2C - mul.s $f31, $f0, $f31 - Multiply $f0 by $f31 and store in $f31
+patch=1,EE,2059C27C,extended,08159B5D //0200202D - j $00566d74 - Jump to 2 lines after the overwritten MIPS instruction
+patch=1,EE,2059C280,extended,E61F0120 //8E510000 - swc1 $f31, $0120(s0) - Write $f31 into where $f0 would've been written to by the restored overwritten MIPS instruction
+
+//patch=1,EE,105CB074,extended,00000355 //24060280 - FMV width (WIP) - To enable this, uncomment this line and set the first part of the enable condition to "E0075246".
+
+
+
+
+//Hitman 2 - Silent Assassin (NTSC-U) [SLUS-20374] [7656425F]
+
+//important: addresses are in "STARTUP.ELF", not in the bootfile ("SLUS_203.74")!
+
+//16:9 Widescreen
+patch=1,EE,e00a3f10,extended,00313f7e //3c013f40 - Enable condition
+patch=1,EE,20313f7c,extended,3c013f10 //3c013f40 vert FOV
+patch=1,EE,202bbe18,extended,3c1b3f40 //00000000 zoom
+patch=1,EE,202bc00c,extended,3c013f00 //3c013f80
+patch=1,EE,202bc010,extended,4481a800 //4481a000
+patch=1,EE,202bc014,extended,4615ad00 //3c013f00
+patch=1,EE,202bc018,extended,449bf000 //4481a800
+patch=1,EE,202bc054,extended,461e0002 //46150002
+patch=1,EE,202bc058,extended,46150002 //4600a583
+patch=1,EE,202bc05c,extended,4600a583 //e6200054
+patch=1,EE,202bc060,extended,e6200054 //3c01bf00
+patch=1,EE,202bc064,extended,4600a807 //44810000
+
+
+
+
+//War of the Monsters Demo
+//KIOSK Demo Disc 2.8 (NTSC-U) [SCUS-97261] [7656425F]
+//KIOSK Demo Disc 2.9 (NTSC-U) [SCUS-97270] [7656425F]
+//Jampack Demo Disc - Summer 2003 [T-Rated] (NTSC-U) [SCUS-97280] [7656425F]
+//Jampack Demo Disc - Summer 2003 [M-Rated] (NTSC-U) [SCUS-97281] [7656425F]
+//Official U.S. PlayStation Magazine Demo Disc 064 (NTSC-U) [SCUS-97190] [7656425F]
+//Official U.S. PlayStation Magazine Demo Disc 069 (NTSC-U) [SCUS-97244] [7656425F]
+
+//16:9 Widescreen
+
+//Enable Condition
+//Condition to only enable these hacks when the War of the Monsters demo's ELF file is loaded into memory.
+patch=1,EE,E0453739,extended,002CD4F2 //37393137 - Check the last 2 characters in the "BASCUS-97197" string
+
+//Title Menu
+patch=1,EE,20705140,extended,43BA0000 //43F80000 - Title Menu Master X FOV
+patch=1,EE,20705160,extended,3F206D3A //3EF0A3D7 - Title Menu Master Y FOV
+
+//1 Player
+patch=1,EE,20704F00,extended,43900000 //43C00000 - 1P Master X FOV
+patch=1,EE,20704F20,extended,3F206D3A //3EF0A3D7 - 1P Master Y FOV
+patch=1,EE,207052C0,extended,43900000 //43C00000 - Unified Master X FOV
+patch=1,EE,207052E0,extended,3F206D3A //3EF0A3D7 - Unified Master Y FOV
+patch=1,EE,10147F00,extended,1000C33A //3C01C30A - 1P + Unified Master X P1 HUD #1
+patch=1,EE,10147F04,extended,10006666 //34214A3D - 1P + Unified Master X P1 HUD #2
+
+//2 Players - Separator Bar
+patch=1,EE,101496E8,extended,0000FFFB //2473FFFA - 2P Separator Bar Width (-6 -> -5)
+
+//2 Players - Unified View Black Bar Fix
+//Prevents black bar from appearing in the far right of unified view in 2 player matches
+patch=1,EE,E0010001,extended,00731874 //00000000 - If gUseUnifiedView variable is 1...
+patch=1,EE,2019F0E0,extended,00000000 //0C052576 - Remove reference to buildSeparator function
+patch=1,EE,E0010000,extended,00731874 //00000000 - If gUseUnifiedView variable is 0...
+patch=1,EE,2019F0E0,extended,0C052576 //0C052576 - Restore reference to buildSeparator function
+
+//2 Players - Unified View Black Bar Fix (alternate MIPS version)
+//Useful if injecting the fix into a hacked ELF or if using an older PS2 cheat device.
+//If this version of the black bar fix gets enabled in the pnach or used with a PS2 cheat device, remove or comment-out the preceding 4 line version and set the first part of the enable condition to "E04A3739".
+//patch=1,EE,2019F0E0,extended,0C084D0E //0C052576 - jal $00213438 - Jump to injected MIPS instructions (instead of buildSeparator function)
+//patch=1,EE,20213438,extended,3C020073 //24020038 - lui v0, $0073 - Load gUseUnifiedView variable into v0 register #1
+//patch=1,EE,2021343C,extended,8C421874 //00A73821 - lw v0, $1874(v0) - Load gUseUnifiedView variable into v0 register #2
+//patch=1,EE,20213440,extended,14400003 //00822018 - bne v0, zero, $00213450 - Skip next 2 lines (after below one) if gUseUnifiedView variable isn't equal to 0
+//patch=1,EE,20213444,extended,00000000 //00C84021 - nop - Delay slot
+//patch=1,EE,20213448,extended,08052576 //3C020078 - j $001495d8 - Jump to buildSeparator function
+//patch=1,EE,2021344C,extended,00000000 //00073900 - nop - Delay slot
+//patch=1,EE,20213450,extended,03E00008 //244215B0 - jr ra - Jump return
+//patch=1,EE,20213454,extended,00000000 //00084100 - nop - Delay slot
+
+//2 Players - Player 1
+patch=1,EE,20704FC0,extended,43840000 //43B00000 - 2P P1 Master X FOV
+patch=1,EE,20704FE0,extended,3F206D39 //3EF0A3D7 - 2P P1 Master Y FOV
+patch=1,EE,10147F30,extended,1000C2C7 //3C01C292 - 2P P1 Master X HUD #1
+patch=1,EE,10147F34,extended,10000000 //3421FE77 - 2P P1 Master X HUD #2
+
+//2 Players - Player 2
+patch=1,EE,20705080,extended,43840000 //43B00000 - 2P P2 Master X FOV
+patch=1,EE,207050A0,extended,3F206D39 //3EF0A3D7 - 2P P2 Master Y FOV
+patch=1,EE,10147F78,extended,100042C7 //3C014292 - 2P P2 Master X HUD #1
+patch=1,EE,10147F7C,extended,10000000 //3421FE77 - 2P P2 Master X HUD #2
+patch=1,EE,10147F44,extended,1000433A //3C01430A - Unified Master X P2 HUD #1
+patch=1,EE,10147F48,extended,10006666 //34214A3D - Unified Master X P2 HUD #2
+patch=1,EE,1014B60C,extended,00000262 //24050258 - Unified P2 Pickup Notification X Position (600 -> 610)
+patch=1,EE,1014B440,extended,00000125 //2405011C - 2P P2 Pickup Notification X Position (284 -> 293)
+
+//Health Icons
+patch=1,EE,202C8168,extended,00000014 //0000001A - Health Icon 1 Inner Width
+patch=1,EE,202C81F8,extended,00000014 //0000001A - Health Icon 1 Outer Width
+patch=1,EE,202C818C,extended,00000014 //0000001A - Health Icon 2 Inner Width
+patch=1,EE,202C821C,extended,00000014 //0000001A - Health Icon 2 Outer Width
+
+//Distant Shadows
+patch=1,EE,2027E758,extended,43C00000 //44000000 - Distant Shadows Width #1 (ZAxisAllLoop)
+patch=1,EE,2027E820,extended,43C00000 //44000000 - Distant Shadows Width #2 (ZAxisClipXY2)
+
+//Sprites
+patch=1,EE,2027E8C0,extended,43C00000 //44000000 - Nearby Sprites Width (SimpSpriteStart)
+patch=1,EE,2027EA10,extended,43C00000 //44000000 - Distant Sprites Width (SpriteAllStart)
+
+//Loading Bar
+patch=1,EE,202497C4,extended,3404014A //8FA40008 - Loading Bar Master X Width
+
+//Generic Font - Width
+//Impacts top + bottom title screen text, unselected unlocks screen text, and pause menu text.
+patch=1,EE,10212F0C,extended,00000007 //24060005 - Generic Font Width (5 -> 7)
+
+//Sub Pixels Font - Width and Spacing
+//Impacts all other text.
+patch=1,EE,20213480,extended,08084CD0 //00832018 - j $00213340 - Jump to injected MIPS instructions
+patch=1,EE,20213340,extended,3C013F40 //27BDFFA0 - lui at, $3f40 - Set $f29 register to .75 #1
+patch=1,EE,20213344,extended,4481E800 //24030038 - mtc1 at, $f29 - Set $f29 register to .75 #2
+patch=1,EE,20213348,extended,3C013F00 //7FB20030 - lui at, $3f00 - Set $f30 register to .5 #1
+patch=1,EE,2021334C,extended,4481F000 //3C020078 - mtc1 at, $f30 - Set $f30 register to .5 #2
+patch=1,EE,20213350,extended,4485F800 //00839018 - mtc1 a1, $f31 - Convert int to float #1
+patch=1,EE,20213354,extended,4680FFE0 //7FB10020 - cvt.s.w $f31, $f31 - Convert int to float #2
+patch=1,EE,20213358,extended,461DFFC2 //7FB00010 - mul.s $f31, $f31, $f29 - Multiply $f31 by $f29
+patch=1,EE,2021335C,extended,461EFFC0 //244215B0 - add.s $f31, $f31, $f30 - Add .5 for rounding
+patch=1,EE,20213360,extended,4600FFE4 //E7B50058 - cvt.w.s $f31, $f31 - Convert float to int #1
+patch=1,EE,20213364,extended,4405F800 //00A0802D - mfc1 a1, $f31 - Convert float to int #2
+patch=1,EE,20213368,extended,4487F800 //E7B40050 - mtc1 a3, $f31 - Convert int to float #1
+patch=1,EE,2021336C,extended,4680FFE0 //46006D46 - cvt.s.w $f31, $f31 - Convert int to float #2
+patch=1,EE,20213370,extended,461DFFC2 //46006506 - mul.s $f31, $f31, $f29 - Multiply $f31 by $f29
+patch=1,EE,20213374,extended,461EFFC1 //7FBF0040 - sub.s $f31, $f31, $f30 - Subtract .5 for rounding
+patch=1,EE,20213378,extended,4600FFE4 //02429021 - cvt.w.s $f31, $f31 - Convert float to int #1
+patch=1,EE,2021337C,extended,4407F800 //0C093096 - mfc1 a3, $f31 - Convert float to int #2
+patch=1,EE,20213380,extended,08084D22 //00C0882D - j $20213488 - Jump to 2 lines after the overwritten MIPS instruction
+patch=1,EE,20213384,extended,00832018 //03A0282D - mult a0, a0, v1 - Restore overwritten MIPS instruction from initial jump
+
+//Left-Aligned Text Positions
+//Impacts P1 pickup notifications and tweaks menu.
+patch=1,EE,20213178,extended,08084CB4 //00054100 - j $002132d0 - Jump to injected MIPS instructions
+patch=1,EE,202132D0,extended,3C013F40 //27BDFFC0 - lui at, $3f40 - Set $f29 register to .75 #1
+patch=1,EE,202132D4,extended,4481E800 //3C020078 - mtc1 at, $f29 - Set $f29 register to .75 #2
+patch=1,EE,202132D8,extended,3C013F00 //7FB10010 - lui at, $3f00 - Set $f30 register to .5 #1
+patch=1,EE,202132DC,extended,4481F000 //244215B0 - mtc1 at, $f30 - Set $f30 register to .5 #2
+patch=1,EE,202132E0,extended,4485F800 //7FB00000 - mtc1 a1, $f31 - Convert int to float #1
+patch=1,EE,202132E4,extended,4680FFE0 //0080882D - cvt.s.w $f31, $f31 - Convert int to float #2
+patch=1,EE,202132E8,extended,461DFFC2 //24100038 - mul.s $f31, $f31, $f29 - Multiply $f31 by $f29
+patch=1,EE,202132EC,extended,461EFFC0 //7FB20020 - add.s $f31, $f31, $f30 - Add .5 for rounding
+patch=1,EE,202132F0,extended,4600FFE4 //02308018 - cvt.w.s $f31, $f31 - Convert float to int #1
+patch=1,EE,202132F4,extended,4405F800 //7FBF0030 - mfc1 a1, $f31 - Convert float to int #2
+patch=1,EE,202132F8,extended,08084C60 //00A0902D - j $00213180 - Jump to 2 lines after the overwritten MIPS instruction
+patch=1,EE,202132FC,extended,00054100 //24030001 - sll t0, a1, 4 - Restore overwritten MIPS instruction from initial jump
+
+//Tweaks - Interactive Music - Print Interactive Music Volumes
+patch=1,EE,101D5E44,extended,0000013B //240501A4 - "%d Ambient Track Volume:" X Position (420 -> 315)
+patch=1,EE,101D5E70,extended,0000013B //240501A4 - "%d Battle Track Volume:" X Position (420 -> 315)

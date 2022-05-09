@@ -1,0 +1,9 @@
+gametitle=Shinseiki Evangelion - Battle Orchestra (J)(SLPM-66763)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//00000000 803f023c 500082ac
+//803f023c abaa4234 500082ac
+patch=1,EE,0028c0c8,word,3c023faa //00000000
+patch=1,EE,0028c0cc,word,3442aaab //3c023f80

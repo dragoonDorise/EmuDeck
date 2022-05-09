@@ -1,0 +1,8 @@
+gametitle=King of Colosseum (Red) - Shin Nippon x Zen Nippon x Pancrase Disc (J)(SLPM-65176)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,001d05d8,word,3c013f40 //3c013f80 Gameplay
+patch=1,EE,0021d0f4,word,3c013f40 //3c013f80 Event
+patch=1,EE,00231cd0,word,3c013f40 //3c013f80 Event

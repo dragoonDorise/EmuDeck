@@ -1,0 +1,18 @@
+gametitle=The Lord of the Rings - The Fellowship of the Ring (PAL-M5) (SLES-50988)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,00147618,word,08102677 // e6000228
+patch=1,EE,0014761c,word,00000000 // e601022c
+patch=1,EE,004099dc,word,3c013f40 // 00000000 hor fov
+patch=1,EE,004099e0,word,4481f000 // 00000000
+patch=1,EE,004099e4,word,461e0002 // 00000000
+patch=1,EE,004099e8,word,e6000228 // 00000000
+patch=1,EE,004099ec,word,461e0842 // 00000000
+patch=1,EE,004099f0,word,e601022c // 00000000
+patch=1,EE,004099f4,word,08051d87 // 00000000
+
+patch=1,EE,00281554,word,3c013edf // 3c013f00 inventory position fix hor
+
+patch=1,EE,001fc170,word,3c013f06 // 3c013f33 font fix hor
+patch=1,EE,001fc174,word,34216666 // 34213333 font fix hor

@@ -1,0 +1,18 @@
+gametitle=The Sims 2 - Pets (NTSC-K)(SLKA-25399)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+//aa3f013c abaa2134 00008144 0800e003 00000000 00000000 0800e003
+patch=1,EE,0042ac00,word,3c013fe3 //3c013faa
+patch=1,EE,0042ac04,word,34218e21 //3421aaab
+
+//Fov and Zoom (ELF hack) 
+//8000a2c7 803f013c 00008144 00000000 03000146
+//patch=1,EE,003199e0,word,3c013fab //3c013f80 fov
+
+//2000a0c7 803f013c 00008144 00000000 03000146 42100046
+//patch=1,EE,0046776c,word,3c013f40 //3c013f80 zoom
+
+//Menu Box and Text Fix (Memory Hack)
+//0000803f 0000d844 0000e444 00001445
+//patch=1,EE,21A6825C,extended,3f400000 //3f800000

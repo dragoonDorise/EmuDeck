@@ -1,0 +1,15 @@
+gametitle=Rogue Galaxy [PAL-M5] (SLES_545.52)
+comment=Widescreen pnach by El_Patas
+
+//Gameplay 16:9 
+patch=1,EE,001C5E40,word,3C023F10 //3C023F40 (Increases hor. axis) 
+
+//Compass
+patch=1,EE,00377F9C,word,3C023F10 //3C023F40
+
+//Black border fix
+patch=1,EE,00261FB4,word,3C020000 //3C023F80
+
+//FMV's fix
+patch=1,EE,001D4E2C,word,24060000 //02C23021 Top
+patch=1,EE,001D4E7C,word,240201C0 //00451021 Bottom

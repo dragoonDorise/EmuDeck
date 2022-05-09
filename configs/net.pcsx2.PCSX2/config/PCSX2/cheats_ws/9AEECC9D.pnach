@@ -1,0 +1,11 @@
+gametitle=World Championship Poker 2 - Featuring Howard Lederer (U)(SLUS-21176)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0023c2dc,word,08030000
+patch=1,EE,000c0000,word,46031082
+patch=1,EE,000c0004,word,3c013f40
+patch=1,EE,000c0008,word,4481f000
+patch=1,EE,000c000c,word,461e1082
+patch=1,EE,000c0010,word,0808f0b8

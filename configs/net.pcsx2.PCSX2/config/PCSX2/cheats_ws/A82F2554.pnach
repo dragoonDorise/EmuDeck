@@ -1,0 +1,5 @@
+gametitle=Shining Force Neo SLUS_212.06
+comment=Widescreen Hack
+patch=1,EE,001a8ff8,word,3c033ff3 // 3fb6db6e
+patch=1,EE,001a9000,word,3463cf35
+patch=1,EE,0029dd78,word,3c02401f

@@ -1,0 +1,7 @@
+gametitle=Simple 2000 Series Vol. 16 - The Sniper 2 [NTSC-J] [SLPM-62253]
+comment=Widescreen hack by Arapapa
+
+//Widescreen 16:9
+
+//803f013c 00688144 70001326
+patch=1,EE,00101fcc,word,3c013f40 //3c013f80

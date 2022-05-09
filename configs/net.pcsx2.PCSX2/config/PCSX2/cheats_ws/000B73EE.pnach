@@ -1,0 +1,8 @@
+gametitle=Simple 2000 Series Vol. 65 - The Kyonshi Panic (J)(SLPM-62543)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//003f013c 00a88144 50b0a0ac
+patch=1,EE,001731b8,word,3c013f2a //3c013f00

@@ -1,0 +1,13 @@
+gametitle=Autobahn Raser - Das Spiel zum Film (G)(SLES-52459)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00116890,word,08052038
+
+patch=1,EE,001480e0,word,46020b02
+patch=1,EE,001480e4,word,3c013faa
+patch=1,EE,001480e8,word,3421aaab
+patch=1,EE,001480ec,word,4481f000
+patch=1,EE,001480f0,word,461e6302
+patch=1,EE,001480f4,word,08045a25

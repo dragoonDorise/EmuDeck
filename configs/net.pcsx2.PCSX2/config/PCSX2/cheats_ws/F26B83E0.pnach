@@ -1,0 +1,19 @@
+gametitle=Dark Summit (U)(SLUS-20300)
+comment=Widescreen hack by Arapapa
+
+Widescreen hack 16:9
+
+//X-Fov
+//02000446 280100ae 42080546
+patch=1,EE,003d2240,word,08030000
+
+patch=1,EE,000c0000,word,46040002
+patch=1,EE,000c0004,word,3c013f40
+patch=1,EE,000c0008,word,00000000
+patch=1,EE,000c000c,word,4481f000
+patch=1,EE,000c0010,word,461e0002
+patch=1,EE,000c0014,word,080f4891
+
+//Render fix
+//003f013c 00a88144 0000b07f
+patch=1,EE,0036305c,word,3c013f2b //3c013f00

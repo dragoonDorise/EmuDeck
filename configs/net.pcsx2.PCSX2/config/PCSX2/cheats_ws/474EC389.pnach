@@ -1,0 +1,13 @@
+gametitle=La Pucelle - Tactics [PAL] (SLES_529.78)
+comment=Widescreen hack by El_Patas
+ 
+//Gameplay 16:9 
+patch=1,EE,00108994,word,3C013F40 //00000000 (Increases hor. axis)
+patch=1,EE,00108998,word,44810000 //00000000
+patch=1,EE,001089A0,word,4600C602 //00000000
+
+//2D Characters fix
+patch=1,EE,00136728,word,3c033fc0 //3c034000
+patch=1,EE,0013673c,word,3c023fc0 //3c024000
+patch=1,EE,00136750,word,3c023fc0 //3c024000
+patch=1,EE,00136764,word,3c063fc0 //3c064000

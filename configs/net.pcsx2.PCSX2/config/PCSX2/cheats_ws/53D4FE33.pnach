@@ -1,0 +1,7 @@
+gametitle=Greatest Striker (J)(SLPM-62028)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//803f013c 00a08144 2d284002
+patch=1,EE,0010878c,word,3c013f40 //3c013f80

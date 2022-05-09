@@ -1,0 +1,12 @@
+gametitle=Way of the Samurai (PAL-M3) (SLES-50921)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,00100024,word,3c1b3f40 // 00000000 hor fov
+patch=1,EE,00138380,word,449bf000 // 4600e007
+patch=1,EE,00138388,word,4600f787 // e7a00060
+patch=1,EE,001383d4,word,e7be0060 // 00000000
+patch=1,EE,0013811c,word,449bf000 // 4600e007
+patch=1,EE,00138124,word,4600f787 // e7a00050
+patch=1,EE,0013816c,word,e7be0050 // 00000000
+patch=1,EE,001384b0,word,3c023fab // 3c023f80 renderfix

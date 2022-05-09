@@ -1,0 +1,5 @@
+gametitle=Tokobot Plus: Mysteries of the Karakuri [PAL] (SLES_544.87)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,001238AC,word,3C013F40 //3C013F80 (Increases hor. axis)

@@ -1,0 +1,8 @@
+gametitle=Mashed - Drive to Survive (E)(SLES-52446)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//403f013c 00008144 00000000 e42360e4
+patch=1,EE,001f269c,word,3c013f10 //3c013f40

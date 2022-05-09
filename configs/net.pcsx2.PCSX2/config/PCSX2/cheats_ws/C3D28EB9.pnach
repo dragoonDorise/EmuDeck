@@ -1,0 +1,14 @@
+gametitle=Shadow Hearts - From the New World  SLUS_213.26
+comment=Widescreen Hack
+
+//black borders fix (optional)
+(c843033c 803f023c to c843033c 0000023c)
+patch=1,EE,002f75c4,word,3c020000 //3c023f80
+
+// 16:9
+patch=1,EE,00202d4c,word,3c013f40
+patch=1,EE,00202d50,word,44810000
+patch=1,EE,00202d58,word,4600c602
+
+// Render-Fix
+patch=1,EE,002282cc,word,3c033fc0

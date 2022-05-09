@@ -1,0 +1,10 @@
+gametitle=DragonBall Z - Budokai Tenkaichi 2 SLUS_214.41
+comment=Widescreen Hack
+patch=1,EE,0012ba08,word,3c013f10
+patch=1,EE,00386dc8,word,3FC71C55
+patch=1,EE,00386da4,word,3FC71C55
+patch=1,EE,00386dd8,word,4410553E
+patch=1,EE,00386da0,word,4410553E
+patch=1,EE,00386e00,word,4410553E
+patch=1,EE,00386df4,word,4410553E
+patch=1,EE,0025B694,word,3C013f40

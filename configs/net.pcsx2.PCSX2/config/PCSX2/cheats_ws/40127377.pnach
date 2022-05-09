@@ -1,0 +1,9 @@
+gametitle=Bombastic [PAL] (SLES_519.66)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,001583AC,word,3C013F40 //3C013F80 Hor menu
+patch=1,EE,00158434,word,3C0143D6 //3C0143A0 Render fix menu
+patch=1,EE,001A9F58,word,3C013F40 //3C013F80 Hor gameplay
+patch=1,EE,001A9F70,word,3C0143D6 //3C0143A0 Render fix gameplay
+//patch=1,EE,001A9F90,word,3C014495 //3C01447A FOV decrease

@@ -1,0 +1,33 @@
+gametitle=Full Spectrum Warrior (U)(SLUS-21145)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//803f013c 00a88144 80001026
+patch=1,EE,00402c28,word,3c013fab //3c013f80
+
+//X-Fov (Menu and etc)
+//8c3f013c cdcc2134 00088144 40134224
+patch=1,EE,004019d0,word,3c013f53 //3c013f8c
+patch=1,EE,004019d4,word,34213333 //3421cccd
+
+//Render fix
+//00000000 00000000 c3b00046 700115e6 00000000 00000000 03110046 800115e6 00000000 00000000 43a10046
+//ab3f013c 00f08144 c3b00046 700115e6 00000000 03110046 02211e46 800115e6 00000000 43a10046 42291e46
+
+patch=1,EE,0042b404,word,3c013fab //00000000
+patch=1,EE,0042b408,word,4481f000 //00000000
+patch=1,EE,0042b418,word,46001103 //00000000
+patch=1,EE,0042b41c,word,461e2102 //46001103 Left
+patch=1,EE,0042b428,word,4600a143 //00000000
+patch=1,EE,0042b42c,word,461e2942 //4600a143 Right
+
+//Black Bar Fix(Get rid of Black Bar)
+//4842013c 00a08144 80730e46
+patch=1,EE,002ea0f0,word,3c010000 //3c014248
+
+//Get rid of fading effect (Black Scene)
+patch=1,EE,002ea018,word,3c010000 //3c013f80
+patch=1,EE,002ea4a0,word,3c010000 //3c013f80
+patch=1,EE,002ea5ec,word,3c010000 //3c01437f

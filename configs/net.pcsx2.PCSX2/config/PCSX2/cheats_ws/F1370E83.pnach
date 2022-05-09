@@ -1,0 +1,5 @@
+gametitle=Enter the Matrix [PAL-M5] (SLES_512.03)
+comment=Widescreen pnach by El_Patas
+
+//Built-in widescreen 16:9 
+patch=1,EE,001CFA78,word,A2740BCC //AE600BCC (Increases hor. axis)

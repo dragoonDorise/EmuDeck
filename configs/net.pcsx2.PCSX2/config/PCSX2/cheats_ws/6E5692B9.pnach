@@ -1,0 +1,14 @@
+gametitle=Legends of Wrestling II (U)(SLUS-20507)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//03210e46 015a0546
+patch=1,EE,002b0b84,word,080c6fd8
+
+patch=1,EE,0031bf60,word,460e2103
+patch=1,EE,0031bf64,word,3c173f40
+patch=1,EE,0031bf68,word,4497f800
+patch=1,EE,0031bf6c,word,461f2102
+patch=1,EE,0031bf70,word,080ac2e2

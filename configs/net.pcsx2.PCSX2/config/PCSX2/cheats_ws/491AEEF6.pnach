@@ -1,0 +1,8 @@
+﻿gametitle=Yoshitsune Eiyuuden - The Story of Hero Yoshitsune [NTSC-J] (SLPS-25454)
+comment=Widescreen Hack
+
+//gameplay
+patch=1,EE,00139584,word,3c023f19
+patch=1,EE,00139588,word,3443999a
+//render fix
+patch=1,EE,001397ec,word,3c0443d6

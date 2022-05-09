@@ -1,0 +1,5 @@
+gametitle=LEGO Star Wars: The Videogame [PAL] (SLES_531.94)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9 (Memory hack)
+patch=1,EE,21F25E74,extended,3F100000 //3F400000 (Increases hor. axis)

@@ -1,0 +1,17 @@
+gametitle=The Lord of the Rings - The Two Towers (K) (SLPS-25026)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen 16:9
+
+//X-Fov
+patch=1,EE,00107160,word,3c023fe3 //3c023faa
+patch=1,EE,00107164,word,34428e39 //3442aaab
+
+//Font Fix (Although the spacing between letters should be narrowed. But it is better to read Korean without correcting.)
+patch=1,EE,001b4058,word,3c02417f
+patch=1,EE,001b405c,word,3442b000
+patch=1,EE,001b4060,word,44820000
+
+//HUD Fix (Need push to the right. However, there is not much difference without modification.)
+patch=1,EE,001b5168,word,3c02417f
+

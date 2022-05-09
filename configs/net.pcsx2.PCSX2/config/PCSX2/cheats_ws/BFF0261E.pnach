@@ -1,0 +1,19 @@
+gametitle=Formula One 2001 (J)(SCPS-15019)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//abaaaa3e 8988083e
+patch=1,EE,002ed188,word,3FECCCCD //3eaaaaab Standards Zoom Out (Car Chase Mode)
+//39b4283f 39b4283f 39b4283f 39b4283f 39b4283f 39b4283f 39b4283f 39b4283f 00000000
+patch=1,EE,002c3364,word,3f1a0000 //3f28b439 Fix Zoom in 'Driver's Head Chase Mode'
+
+//Y-Fov
+//0000003f 00000000 0000c042
+patch=1,EE,002c6ef0,word,3F2AAA9F //3f000000
+
+//Rendeer Fix
+//c93f013c db0f2134 00c88144
+patch=1,EE,00209d68,word,3c013ff0 //3c013fc9
+patch=1,EE,00209d6c,word,34210000 //34210fdb

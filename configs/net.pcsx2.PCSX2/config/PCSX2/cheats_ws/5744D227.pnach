@@ -1,0 +1,18 @@
+gametitle=Mark Davis Pro Bass Challenge (U)(SLUS-20646)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//aa3f023c abaa4234 00008344 00608244 (1st)
+patch=1,EE,001af938,word,3c023fe3 //3c023faa
+patch=1,EE,001af93c,word,34428e2a //3442aaab
+
+//Zoom
+//patch=1,EE,001c2b58,word,3c023f40 //3c023f80
+//patch=1,EE,001c8dc0,word,3c023f40 //3c023f80
+
+//Y-Fov ???
+//patch=1,EE,001c3210,word,3c023f40 //3c023f80
+//???
+//patch=1,EE,001c9048,word,3c053f00 //3c053f80

@@ -1,0 +1,4 @@
+gametitle=Romance of the Three Kingdoms XI SLUS_215.84
+comment=Widescreen Hack
+patch=1,EE,00182FBC,word,3C024455
+patch=1,EE,20C57790,extended,44BFFF40

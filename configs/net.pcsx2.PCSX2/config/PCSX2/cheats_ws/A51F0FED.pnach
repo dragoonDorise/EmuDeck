@@ -1,0 +1,12 @@
+gametitle=MTV Pimp My Ride - Street Racing (E)(SLES-55511)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,003459e8,word,08030000
+
+patch=1,EE,000c0000,word,46012802
+patch=1,EE,000c0004,word,3c013f40
+patch=1,EE,000c0008,word,4481f000
+patch=1,EE,000c000c,word,461e0002
+patch=1,EE,000c0010,word,080d167b

@@ -1,0 +1,5 @@
+﻿gametitle=Samurai Western (NTSC-U)
+comment=Widescreen Hack
+
+patch=1,EE,202D35A0,extended,3f400000
+patch=1,EE,0014cf5c,word,3c033fab

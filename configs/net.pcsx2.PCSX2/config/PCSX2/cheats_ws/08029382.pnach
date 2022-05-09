@@ -1,0 +1,6 @@
+gametitle=Ben 10: Alien Force [PAL-M5] (SLES_554.40)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,002A2428,word,3C013F1C //3C013F00 Zoom
+patch=1,EE,001124E4,word,3C013ED6 //3C013F00 Y-FOV

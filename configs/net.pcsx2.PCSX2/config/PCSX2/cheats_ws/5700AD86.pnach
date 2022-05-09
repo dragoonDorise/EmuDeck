@@ -1,0 +1,5 @@
+gametitle=Onimusha: Blade Warriors (PAL-M3) (SLES_519.13)
+comment=Widescreen Hack by El_Patas
+
+//Widescreen
+patch=1,EE,205063C0,extended,3F400000 //3F800000

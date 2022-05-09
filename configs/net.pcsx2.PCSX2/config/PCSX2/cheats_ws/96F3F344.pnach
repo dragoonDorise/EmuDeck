@@ -1,0 +1,13 @@
+gametitle=Ougon Kishi Garo [NTSC-J] (SLPS-20463)
+comment=Widescreen Hack by Little Giant
+
+//16:9
+patch=1,EE,0020C7F8,word,3c013f40 //00000000
+patch=1,EE,0020C7Fc,word,4481F000 //00000000
+patch=1,EE,0029ED78,word,080c5a2a //46010043
+patch=1,EE,0031689c,word,080c5a30 //00000000
+patch=1,EE,003168a8,word,461e0fc3 //00000000
+patch=1,EE,003168ac,word,46010043 //00000000
+patch=1,EE,003168b0,word,461e0842 //00000000
+patch=1,EE,003168b4,word,e61f0068 //00000000
+patch=1,EE,003168b8,word,080a7b60 //00000000

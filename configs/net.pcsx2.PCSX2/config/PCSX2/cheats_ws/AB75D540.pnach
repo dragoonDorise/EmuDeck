@@ -1,0 +1,8 @@
+gametitle=Disney's: Chicken Little [PAL] (SLES_537.39)
+comment=Widescreen pnach by El_Patas
+
+//Gameplay 16:9 (Memory Hack) 
+patch=1,EE,205D27AC,extended,3FE38E32 //3FAAAAAB (Increases hor. axis)
+ 
+//Start menu and left status bar (ELF Hack)
+patch=1,EE,00287DE0,word,3C014455 //3C014420

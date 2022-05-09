@@ -1,0 +1,15 @@
+gametitle=MLB Power Pros 2008 (U)(SLUS-21748)
+comment=Widescreen hack by Arapapa
+
+//Widescreen 16:9
+
+//Gameplay
+//2044023c 00088244 f043023c
+patch=1,EE,001332ac,word,3c024455 //3c024420
+patch=1,EE,001332b0,word,34425555 //44820800
+patch=1,EE,001332b4,word,44820800 //3c0243f0
+patch=1,EE,001332b8,word,3c0243f0 //44911000
+patch=1,EE,001332bc,word,44911000 //00000000
+
+//Event
+//patch=1,EE,001011d0,word,3c024455 //3c024420

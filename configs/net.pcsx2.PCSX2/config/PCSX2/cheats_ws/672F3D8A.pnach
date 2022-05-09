@@ -1,0 +1,16 @@
+gametitle=Kidou Senshi Gundam Senki - Lost War Chronicles (J)(SLPS-25123)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//a043023c 00088244 00000000 (2nd)
+patch=1,EE,00158c40,word,3c024370 //3c0243a0
+
+//Y-Fov
+//f043033c 00008344 3200013c
+patch=1,EE,00158004,word,3c0343B4 //3c0343f0
+
+///////////////////////////////////////////////
+//Zoom
+//patch=1,EE,00158c00,word,3c02402a //3c024000

@@ -1,0 +1,11 @@
+gametitle=Shin Combat Choro Q (K)(SLKA-25047)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,001bc24c,word,3c013f40 //00000000
+patch=1,EE,001bc250,word,44810000 //00000000
+patch=1,EE,001bc258,word,4600c602 //00000000
+
+//Render fix
+patch=1,EE,00186b64,word,3c0140a7 //3c01407a

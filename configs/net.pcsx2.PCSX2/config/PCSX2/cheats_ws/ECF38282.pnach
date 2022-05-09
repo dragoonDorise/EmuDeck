@@ -1,0 +1,17 @@
+gametitle=Lilo and Stitch - Stitch no Daibouken (J)(SLPS-25153)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+//803f043c 80bf033c 
+patch=1,EE,00237c84,word,3c03bfab //3c03bf80
+
+//Zoom
+//003f023c 1000bfff
+patch=1,EE,00237834,word,3c023f20 //3c023f00
+
+///////////////////////////////////
+//X-Fov.. needs render fix
+//patch=1,EE,2065C550,extended,3F2E8BA0 //3f68ba2e
+//patch=1,EE,00237c80,word,3c043f40 //3c043f80

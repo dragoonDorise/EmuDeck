@@ -1,0 +1,4 @@
+gametitle=Sonic Gems collection (pal)(SLES-53350)
+comment=Widescreen hack by Esppiral
+patch=1,EE,00290960,word,3FAAAAAB
+patch=1,EE,216CC190,word,3F400000

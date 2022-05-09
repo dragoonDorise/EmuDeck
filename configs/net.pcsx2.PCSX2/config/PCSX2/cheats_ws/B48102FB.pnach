@@ -1,0 +1,6 @@
+gametitle=Waku Waku Volley 2 [NTSC-J] [SLPM-62285]
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,01534544,word,3f400000 //3f800000

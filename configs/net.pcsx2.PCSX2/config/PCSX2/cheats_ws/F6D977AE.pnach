@@ -1,0 +1,13 @@
+gametitle=MLB Slugfest 2006 (U)(SLUS-21342)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,001547ac,word,080696b4 //c4600068
+patch=1,EE,001a5ad0,word,c4600068
+patch=1,EE,001a5ad4,word,3c013f40
+patch=1,EE,001a5ad8,word,4481f000
+patch=1,EE,001a5adc,word,461e0003
+patch=1,EE,001a5ae0,word,e4800068
+patch=1,EE,001a5ae4,word,080551ec

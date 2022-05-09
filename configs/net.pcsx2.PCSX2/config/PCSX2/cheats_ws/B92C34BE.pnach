@@ -1,0 +1,10 @@
+gametitle=Ultimate Fighting Championship 2 - Tap-Out (J)(SLPM-64539)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,2025DB40,extended,3f400000 //3f800000 X-Fov
+
+//Y-fov
+//patch=1,EE,001aa9b4,word,3c013fdd //3c013faa
+//patch=1,EE,001aa9b8,word,34211234 //3c013faa

@@ -1,0 +1,34 @@
+gametitle=Sly Raccoon (PAL-M5) (SCES-50917)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,001438b0,word,08086204 // e60c01f0
+patch=1,EE,001438b4,word,00000000 // 46020842
+patch=1,EE,00218810,word,3c013f40 // 00000000 hor fov
+patch=1,EE,00218818,word,4481f000 // 00000000
+patch=1,EE,0021881c,word,461e6303 // 00000000
+patch=1,EE,00218820,word,e60c01f0 // 00000000
+patch=1,EE,00218824,word,46020842 // 00000000
+patch=1,EE,00218828,word,08050e2d // 00000000
+patch=1,EE,00185184,word,e61e0364 // e6010364
+
+// disable cheat-detection
+patch=1,EE,001eacd0,word,00000000 // 15200004
+patch=1,EE,001eacd8,word,00000000 // 10a00002
+patch=1,EE,001eacdc,word,00000000 // 24020001
+patch=1,EE,001eace0,word,00000000 // af02f3a4
+
+patch=1,EE,00190208,word,00000000 // 14e00005
+patch=1,EE,00190210,word,00000000 // 10600003
+patch=1,EE,00190214,word,00000000 // 3c030027
+patch=1,EE,00190218,word,00000000 // 24020001
+patch=1,EE,0019021c,word,00000000 // ac62adb8
+
+patch=1,EE,0012b950,word,00000000 // 1540000a
+patch=1,EE,0012b958,word,0804ae5f // 10400008
+patch=1,EE,0012b95c,word,00000000 // 3c030026
+
+patch=1,EE,0015f32c,word,00000000 // 10400003
+patch=1,EE,0015f330,word,00000000 // 3c030026
+patch=1,EE,0015f334,word,00000000 // 24020001
+patch=1,EE,0015f338,word,00000000 // ac623620

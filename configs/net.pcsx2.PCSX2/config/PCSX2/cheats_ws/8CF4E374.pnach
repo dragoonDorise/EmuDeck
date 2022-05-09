@@ -1,0 +1,18 @@
+gametitle=Tarzan - Untamed (K)(SLPM-67520)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//a80020c6 003f023c 00088244 
+patch=1,EE,0036ca88,word,3c023f21 //3c023f00
+
+//Y-Fov
+//43a81446 a00030c6 a40031c6
+patch=1,EE,0036cac8,word,0808a268
+
+patch=1,EE,002289a0,word,4614a843
+patch=1,EE,002289a4,word,3c013f40
+patch=1,EE,002289a8,word,4481f000
+patch=1,EE,002289ac,word,461e0842
+patch=1,EE,002289b0,word,080db2b3

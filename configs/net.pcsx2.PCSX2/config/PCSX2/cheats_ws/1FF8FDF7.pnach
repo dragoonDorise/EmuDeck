@@ -1,0 +1,9 @@
+gametitle=Simple 2000 Series Ultimate Vol.21 - Kenka Joutou Yankee Banchou (J)(SLPM-62558)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Matrix hack
+patch=1,EE,00223fdc,word,3c013f40 //00000000
+patch=1,EE,00223fe0,word,44810000 //00000000
+patch=1,EE,00223fe8,word,4600c602 //00000000

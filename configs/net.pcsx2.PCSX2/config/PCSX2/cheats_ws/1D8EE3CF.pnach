@@ -1,0 +1,11 @@
+gametitle=Splatter Master (E)(SLES-53368)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+patch=1,EE,00138144,word,3c023f40 //3c023f80
+
+//Zoom
+patch=1,EE,001c5fcc,word,3c024466 //3c024499
+patch=1,EE,001c5fd4,word,34427000 //3442a000

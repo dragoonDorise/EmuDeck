@@ -1,0 +1,10 @@
+gametitle=Shox (K)(SLPM-64524)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//aa3f013c abaa2134 00008144 1000828d
+//e33f013c 2a8e2134 00008144 1000828d
+patch=1,EE,0020655c,word,3c013fe3 //3c013faa
+patch=1,EE,00206560,word,34218e2a //3421aaab

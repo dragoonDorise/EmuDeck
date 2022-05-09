@@ -1,0 +1,104 @@
+gametitle=Ratchet & Clank - Going Commando
+comment=Widescreen hack by PsxFan107
+
+// DWORD Code patching routine
+patch=1,EE,200C0000,extended,3C1B000C
+patch=1,EE,200C0004,extended,DF7100A8
+patch=1,EE,200C0008,extended,14510005
+patch=1,EE,200C0010,extended,8F7100B8
+patch=1,EE,200C0014,extended,AC71FFB4
+patch=1,EE,200C0018,extended,8F7100BC
+patch=1,EE,200C001C,extended,AC71FFC8
+patch=1,EE,200C0020,extended,DF7100B0
+patch=1,EE,200C0024,extended,14510009
+patch=1,EE,200C002C,extended,8F7100C0
+patch=1,EE,200C0030,extended,AC71FF84
+patch=1,EE,200C0034,extended,8F7100C4
+patch=1,EE,200C0038,extended,AC71FF88
+patch=1,EE,200C003C,extended,8F7100C8
+patch=1,EE,200C0040,extended,AC71FF94
+patch=1,EE,200C0044,extended,8F7100CC
+patch=1,EE,200C0048,extended,AC71FFAC
+patch=1,EE,200C004C,extended,0804C747
+patch=1,EE,200C0050,extended,FC62FFF8
+
+// WORD Code patching routine
+patch=1,EE,200C0054,extended,3C1B000C
+patch=1,EE,200C0058,extended,8F7100A8
+patch=1,EE,200C005C,extended,14510005
+patch=1,EE,200C0064,extended,8F7100B8
+patch=1,EE,200C0068,extended,ACB1FFB8
+patch=1,EE,200C006C,extended,8F7100BC
+patch=1,EE,200C0070,extended,ACB1FFCC
+patch=1,EE,200C0074,extended,8F7100B4
+patch=1,EE,200C0078,extended,14510009
+patch=1,EE,200C0080,extended,8F7100C0
+patch=1,EE,200C0084,extended,ACB1FF84
+patch=1,EE,200C0088,extended,8F7100C4
+patch=1,EE,200C008C,extended,ACB1FF88
+patch=1,EE,200C0090,extended,8F7100C8
+patch=1,EE,200C0094,extended,ACB1FF94
+patch=1,EE,200C0098,extended,8F7100CC
+patch=1,EE,200C009C,extended,ACB1FFAC
+patch=1,EE,200C00A0,extended,0804C753
+patch=1,EE,200C00A4,extended,ACA2FFFC
+
+// Refrence WORD/DWORD for widescreen
+// Note: The patching routine uses this to patch an address before this in memory.
+patch=1,EE,200C00A8,extended,C6030200
+patch=1,EE,200C00AC,extended,4600A306
+
+// Refrence WORD/DWORD for HUD fix
+// Note: The patching routine uses this to patch an address before this in memory.
+patch=1,EE,200C00B0,extended,468010A0
+patch=1,EE,200C00B4,extended,C7A40030
+
+// Replacement WORDs for widescreen 
+patch=1,EE,200C00B8,extended,0C030034
+patch=1,EE,200C00BC,extended,14400007
+
+// Replacement WORDs for HUD fix
+patch=1,EE,200C00C0,extended,3C013F40
+patch=1,EE,200C00C4,extended,4481F000
+patch=1,EE,200C00C8,extended,461E0002
+patch=1,EE,200C00CC,extended,14600008
+
+// Hor FOV recalulation routine
+// This routine checks if an unpatched HOR FOV currently resides in ram,
+// by iterating through a list and patching the value if a match is found.
+patch=1,EE,200C00D0,extended,C77E0114
+patch=1,EE,200C00D4,extended,3C01000C
+patch=1,EE,200C00D8,extended,3421012C
+patch=1,EE,200C00DC,extended,277B0118
+patch=1,EE,200C00E0,extended,C46000B0
+patch=1,EE,200C00E4,extended,103B0007
+patch=1,EE,200C00E8,extended,C7620000
+patch=1,EE,200C00EC,extended,277B0004
+patch=1,EE,200C00F0,extended,46020032
+patch=1,EE,200C00F4,extended,4500FFFB
+patch=1,EE,200C00FC,extended,461E0003
+patch=1,EE,200C0100,extended,E46000B0
+patch=1,EE,200C0104,extended,461E0002
+patch=1,EE,200C0108,extended,46010002
+patch=1,EE,200C010C,extended,03E00008
+patch=1,EE,200C0110,extended,3C1B000C
+
+//Hor scale
+patch=1,EE,200C0114,extended,3F400000
+
+// Unpatched Hor FOV values 
+patch=1,EE,200C0118,extended,3F214633  //This value is inaccurate on PCSX2. Please use 3F214631 on actual hardware
+patch=1,EE,200C011C,extended,3F2147AE
+patch=1,EE,200C0120,extended,3F1EB852
+patch=1,EE,200C0124,extended,3F1FF770
+patch=1,EE,200C0128,extended,3ED40674
+
+// Jump to DWORD patching routine
+patch=1,EE,20131D14,extended,08030000
+
+// Jump to WORD patching routine
+patch=1,EE,20131D44,extended,08030015
+
+//Force built-in widescreen
+patch=1,EE,E0010101,extended,001A7BB2
+patch=1,EE,001A7BB1,byte,00000001

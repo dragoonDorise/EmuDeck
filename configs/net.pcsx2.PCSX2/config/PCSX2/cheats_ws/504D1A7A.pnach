@@ -1,0 +1,16 @@
+gametitle=Aqua Teen Hunger Force - Zombie Ninja Pro-Am (U)(SLUS-21633)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+
+//42080c46 0400b5e7
+patch=1,EE,001241f8,word,080ee12c //460c0842
+
+patch=1,EE,003b84b0,word,460c0842
+patch=1,EE,003b84b4,word,3c013f97
+patch=1,EE,003b84b8,word,34214aaa
+patch=1,EE,003b84bc,word,4481f000
+patch=1,EE,003b84c0,word,461e0842
+patch=1,EE,003b84c4,word,0804907f

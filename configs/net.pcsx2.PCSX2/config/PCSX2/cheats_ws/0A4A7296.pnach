@@ -1,0 +1,15 @@
+gametitle=Pro Beach Soccer (E)(SLES-51492)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00282238,word,0811e324 //c6010068
+patch=1,EE,0028223c,word,00000000 //c602006c
+
+patch=1,EE,00478c90,word,3c013f40 // 00000000
+patch=1,EE,00478c94,word,4481f000 // 00000000
+patch=1,EE,00478c98,word,c6010068 // 00000000
+patch=1,EE,00478c9c,word,c602006c // 00000000
+patch=1,EE,00478ca0,word,461e0843 // 00000000
+patch=1,EE,00478ca4,word,e6010068 // 00000000
+patch=1,EE,00478ca8,word,080a088f // 00000000

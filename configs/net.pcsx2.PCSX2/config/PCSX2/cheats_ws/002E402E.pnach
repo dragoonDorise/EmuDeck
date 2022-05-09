@@ -1,0 +1,14 @@
+gametitle=Warriors of Might and Magic (PAL-M5) (SLES-50187)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,002fc8c0,word,3c013f81 // 00000000 hor fov
+patch=1,EE,002fc8c8,word,3421de4d // 00000000 hor fov
+patch=1,EE,002fc970,word,ac810000 // e4840000
+patch=1,EE,0015a20c,word,3c013ec0 // 3c013f00 renderfix
+
+patch=1,EE,00263e9c,word,3c013f9e // 3c013f80 newgame menu ver fov
+patch=1,EE,00263f5c,word,3c013f49 // 3c013f57 newgame menu ver position
+patch=1,EE,002fcb34,word,3c023faa // 3c013f80 newgame menu zoom
+patch=1,EE,002fcb38,word,3442aaab // 44810000 newgame menu zoom
+patch=1,EE,002fcb4c,word,ac82003c // e480003c

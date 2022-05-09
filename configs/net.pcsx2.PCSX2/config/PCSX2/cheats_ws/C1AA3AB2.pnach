@@ -1,0 +1,8 @@
+gametitle=Kurogane no Houkou 2 - Warship Gunner (J)(SLPM-65267)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//2044023c 00608244 f043023c
+patch=1,EE,00279684,word,3c024455 //3c024420

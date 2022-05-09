@@ -1,0 +1,5 @@
+gametitle=Tiny Toon Adventures - Defenders of the Universe SLUS_201.83
+comment=Widescreen Hack
+patch=1,EE,002cc43c,word,bf400000
+patch=1,EE,002cc440,word,3f400000
+patch=1,EE,002cc444,word,3e900000

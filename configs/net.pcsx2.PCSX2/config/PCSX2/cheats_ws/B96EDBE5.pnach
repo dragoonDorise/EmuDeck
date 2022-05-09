@@ -1,0 +1,13 @@
+gametitle=Strike Force Bowling (U)(SLUS-20846)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00205e28,word,08097450
+patch=1,EE,0025d140,word,3c013f40
+patch=1,EE,0025d144,word,4481f000
+patch=1,EE,0025d148,word,c6010068
+patch=1,EE,0025d14c,word,c602006c
+patch=1,EE,0025d150,word,461e0843
+patch=1,EE,0025d154,word,e6010068
+patch=1,EE,0025d158,word,0808178c

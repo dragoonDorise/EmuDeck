@@ -1,0 +1,8 @@
+gametitle=Smash Court Tennis - Pro Tournament (U)(SLUS-20286)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//803f013c 00208144 c89082c7
+patch=1,EE,001ae5cc,word,3c013f40 //3c013f80

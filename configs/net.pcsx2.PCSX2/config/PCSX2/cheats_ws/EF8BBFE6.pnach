@@ -1,0 +1,16 @@
+gametitle=Chicken Little (K)(SLKA-25345)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//0040013c 00608144 803f013c 00708144
+patch=1,EE,00312a10,word,3c013fc0 //3c014000
+patch=1,EE,00312a24,word,00000000
+
+patch=1,EE,00312a1c,word,08127f30
+patch=1,EE,0049fcc0,word,3c173f40
+patch=1,EE,0049fcc4,word,4497f000
+patch=1,EE,0049fcc8,word,461e6343
+patch=1,EE,0049fccc,word,44817000
+patch=1,EE,0049fcd0,word,080c4a88

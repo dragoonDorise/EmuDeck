@@ -1,0 +1,6 @@
+gametitle=Ikusa Gami [NTSC-J] (SLPM-66184)
+comment=Widescreen hack by ElHecht (pnach by Little Giant)
+
+// 16:9
+patch=1,EE,00132e6c,word,3c023f80 //3c023faa
+patch=1,EE,00132e70,word,344a0000 //344aaaaa

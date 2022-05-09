@@ -1,0 +1,10 @@
+gametitle=King of Colosseum II (J)(SLPM-65602)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,00293400,word,3c013fab //3c013f80
+
+//Y-Fov
+patch=1,EE,00293554,word,3c0140ab

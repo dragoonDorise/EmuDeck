@@ -1,0 +1,20 @@
+gametitle=Metal Gear Solid 3 - Subsistence (SLUS_21359)
+comment=Widescreen hack by No.47
+patch=1,EE,202050AC,word,3F400000
+
+//commentcheat=No Letterbox V2 (By SolidSnake11)
+patch=1,EE,D025E6A7,extended,00100001
+patch=1,EE,2025E6A4,extended,00000000
+patch=1,EE,D0145990,extended,8C8B000C
+patch=1,EE,D01459C8,extended,240F8000
+patch=1,EE,D0131758,extended,8E0E0004
+
+//comment=Force 60 FPS
+//patch=1,EE,001D5AD8,extended,00000000
+//patch=1,EE,001D6DB8,extended,00000001
+//patch=1,EE,001D6DBC,extended,00000000
+
+//comment=Force 30 FPS
+//patch=1,EE,001D5AD8,extended,00000040
+//patch=1,EE,001D6DB8,extended,00000002
+//patch=1,EE,001D6DBC,extended,00000001

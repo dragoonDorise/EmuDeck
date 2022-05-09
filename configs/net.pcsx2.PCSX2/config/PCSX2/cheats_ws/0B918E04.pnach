@@ -1,0 +1,13 @@
+gametitle=Brothers in Arms: Road to Hill 30 [PAL-M5] (SLES_528.88)
+comment=Widescreen pnach by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,003057EC,word,3C023F40 //3C023F80 (Increases hor. axis)
+
+//Menu font fix
+patch=1,EE,003E56FC,word,3C033F40 //3C033F80
+patch=1,EE,003E5704,word,3C033F80 //44830800
+patch=1,EE,003E5708,word,44830800 //AE630108
+patch=1,EE,003E570C,word,AE630108 //C6600104
+patch=1,EE,003E5710,word,C6600104 //46010036
+patch=1,EE,003E5714,word,46010036 //00000000

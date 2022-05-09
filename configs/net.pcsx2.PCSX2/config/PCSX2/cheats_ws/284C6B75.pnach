@@ -1,0 +1,18 @@
+gametitle=Autobahn Raser IV (G)(SLES-51009)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00110cf8,word,3c02427e //3c02423f
+patch=1,EE,00110cfc,word,34425c29 //3442851f
+
+
+///////////////////////////////
+//X-Fov (2D + 3D, needs render fix)
+//patch=1,EE,001caf48,word,080fc488
+
+//patch=1,EE,003f1220,word,46021883
+//patch=1,EE,003f1224,word,3c013f40
+//patch=1,EE,003f1228,word,4481f000
+//patch=1,EE,003f122c,word,461e1082
+//patch=1,EE,003f1230,word,08072bd3

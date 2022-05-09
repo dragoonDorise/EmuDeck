@@ -1,0 +1,9 @@
+gametitle=Tenchu - Wrath of Heaven (NTSC-K)(SLKA-25064)
+comment=Widescreen hack (NTSC-K by Arapapa)
+
+//Widescreen 16:9
+patch=1,EE,21646724,extended,3f400000 //3f800000
+
+//render fix
+patch=1,EE,00154ba8,word,3c024455 //3c024422
+patch=1,EE,00154e10,word,3c024455 //3c024422

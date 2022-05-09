@@ -1,0 +1,17 @@
+gametitle=Final Fantasy X (J)(SLPS-25050)
+comment=Widescreen hack by nemesiss2000
+
+//Widescreen hack 16:9
+
+patch=1,EE,001ce4ac,word,3c013f19
+patch=1,EE,001ce4b0,word,3421999a
+patch=1,EE,0011966c,word,3c014440
+patch=1,EE,0019f664,word,3c01442b
+
+//world map
+//803f013c 00008144 01001124
+patch=1,EE,00258790,word,3c013f40 //3c013f80
+
+//sphere grid
+//803f013c 00a08144 e601023c
+patch=1,EE,00259ff4,word,3c013f40 //3c013f80

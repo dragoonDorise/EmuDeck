@@ -1,0 +1,6 @@
+gametitle=Arthur and the Invisibles: The Game [NTSC-U] (SLUS_213.05)
+comment=Widescreen hack by Sergx12
+
+//Gameplay 16:9
+patch=1,EE,0012BBA4,word,3C023F1E //3C023F00
+patch=1,EE,0012BBC8,word,3C023F0F //3C023F40

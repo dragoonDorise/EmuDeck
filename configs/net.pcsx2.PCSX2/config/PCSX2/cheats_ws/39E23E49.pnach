@@ -1,0 +1,15 @@
+gametitle=Kateikyoushi Hitman Reborn! Dream Hyper Battle (J)(SLPS-25806)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//02031546 2d808000
+patch=1,EE,001e6ad8,word,08030000
+
+patch=1,EE,000c0000,word,46150302
+patch=1,EE,000c0004,word,3c013faa
+patch=1,EE,000c0008,word,3421aaab
+patch=1,EE,000c000c,word,4481f000
+patch=1,EE,000c0010,word,461e6302
+patch=1,EE,000c0014,word,08079ab7

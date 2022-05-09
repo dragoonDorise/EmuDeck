@@ -1,0 +1,22 @@
+gametitle=Conflict - Global Terror (U)(SLUS-21172)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov 4:3 Screen
+//aa3f013c 93a92134 00888144
+patch=1,EE,003f028c,word,3c013fe3 //3c013faa
+patch=1,EE,003f0290,word,34218cc1 //3421a993
+
+//X-Fov fix - Internal Widescreen
+//bb3f013c 61322134 00888144
+patch=1,EE,003f02b4,word,3c013fe3 //003f02b4
+patch=1,EE,003f02b8,word,34218e39 //34213261
+
+//Y-Fov fix - Internal Widescreen 
+patch=1,EE,003f02c0,word,3c013f80 //3c013f4a
+patch=1,EE,003f02c4,word,00000000 //34215ffa
+
+//Render fix
+//83a50046 003f013c 00608144
+patch=1,EE,00407fdc,word,3c013f2b //3c013f00

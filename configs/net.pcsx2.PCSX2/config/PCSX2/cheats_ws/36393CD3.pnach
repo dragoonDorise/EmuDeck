@@ -1,0 +1,11 @@
+gametitle=Shadow of Rome (J)(SLPM-65883)
+comment=Widescreen hack (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,00146c08,word,3c023f1f //3c023eee
+patch=1,EE,00146c10,word,344249f9 //3442eeef
+patch=1,EE,00146e24,word,3c023f1f //3c023eee
+patch=1,EE,00146e2c,word,344249f9 //3442eeef
+
+patch=1,EE,001e75bc,word,3c044328 //3c044360

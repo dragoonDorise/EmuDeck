@@ -1,0 +1,10 @@
+gametitle=The Simpsons - Hit & Run (NTSC-U)
+comment=Widescreen hack by ElHecht
+
+// 16:9 ver
+patch=1,EE,00138a88,word,00000000 // 10400005
+patch=1,EE,0014b360,word,00000000 // 10400004
+patch=1,EE,0014b364,word,00000000 // 10400004
+patch=1,EE,002a0b38,word,00000000 // 10400004
+patch=1,EE,0031c888,word,00000000 // 10400004
+patch=1,EE,0031d674,word,00000000 // 10400004

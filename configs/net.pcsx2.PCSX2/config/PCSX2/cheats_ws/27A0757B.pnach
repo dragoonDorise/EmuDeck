@@ -1,0 +1,6 @@
+gametitle=Big Mutha Truckers 2: Truck Me Harder [PAL] (SLES_529.80)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,00480160,word,3F400000 //3F800000 Zoom
+patch=1,EE,00480168,word,3FE38E2A //3FAAAAAB Y-FOV

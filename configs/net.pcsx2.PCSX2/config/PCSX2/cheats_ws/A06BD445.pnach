@@ -1,0 +1,15 @@
+gametitle=CID the Dummy (U)(SLUS-21754)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//06a30046 86050046
+patch=1,EE,00228aa0,word,08030000
+
+patch=1,EE,000c0000,word,46000586
+patch=1,EE,000c0004,word,3c013faa
+patch=1,EE,000c0008,word,3421aaab
+patch=1,EE,000c000c,word,4481f000
+patch=1,EE,000c0010,word,461eb582
+patch=1,EE,000c0014,word,0808a2a9

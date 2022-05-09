@@ -1,0 +1,10 @@
+gametitle=Super Trucks (NTSC-J)(SLPM-62256)
+comment=Widescreen Hack by VIRGIN KLM (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+
+//0000803f d7a3703f
+patch=1,EE,20488064,extended,3f400000 //3f800000 Menu 3D Stuff
+
+//0000803f d7a3703f
+patch=1,EE,2081DE64,extended,3f400000 //3f800000 Gameplay 3D Stuff

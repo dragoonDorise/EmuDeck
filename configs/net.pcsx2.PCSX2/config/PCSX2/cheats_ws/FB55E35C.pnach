@@ -1,0 +1,7 @@
+gametitle=Bombastic SLUS_207.64
+comment=Widescreen Hack
+patch=1,EE,001581bc,word,3c013f40 //hor menu
+patch=1,EE,00158244,word,3c0143d6 //render fix menu
+patch=1,EE,001aa03c,word,3c013f40 //hor gameplay
+patch=1,EE,001aa054,word,3c0143d6 // render fix gameplay
+//patch=1,EE,001aa074,word,3c014495 // 3c01447a fov decrease 

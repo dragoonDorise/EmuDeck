@@ -1,0 +1,14 @@
+gametitle=Sakurazaka Shouboutai (J)(SLPS-25363)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+
+//Gameplay
+patch=1,EE,001520b0,word,3c023f28 //3c023f61
+patch=1,EE,001520b8,word,3442f5c3 //344247af
+
+//Event
+patch=1,EE,0015218c,word,3c023f28 //3c023f61
+patch=1,EE,00152190,word,3442f5c3 //344247af

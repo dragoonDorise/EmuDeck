@@ -1,0 +1,4 @@
+gametitle=Shadow the Hedgehog SLUS_212.61
+comment=Widescreen Hack
+patch=1,EE,207CF188,extended,3F199999 // 3F9DA591 chaos control fov
+patch=1,EE,20845ED8,extended,3FAAAAAA // 3F800000 main fov

@@ -1,0 +1,18 @@
+gametitle=The Nightmare of Druaga - Fushigi no Dungeon (J)(SLPS-25377)
+comment=Widescreen hack (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,00432f1c,word,3c023f06
+patch=1,EE,00432fb0,word,34436666
+
+
+/////////////////////////////////////////////////
+//Y-Fov
+//patch=1,EE,00432dec,word,8f838da0 //00000000
+//patch=1,EE,00432df0,word,3c02bfaa //8f838da0
+//patch=1,EE,00432df4,word,3442aaab //3c02bf80
+
+//Zoom
+//patch=1,EE,00432e18,word,3c023ec0 //3c023f00

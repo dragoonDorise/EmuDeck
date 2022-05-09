@@ -1,0 +1,8 @@
+gametitle=San Goku Shi XI (J)(SLPM-66549)
+comment=Widescreen Hack (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+
+//2044023c 0045033c 
+patch=1,EE,00181afc,word,3c024455 //3c024420 Render fix
+patch=1,EE,20CCCD10,extended,44BFFF40 //X-Fov

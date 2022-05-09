@@ -1,0 +1,5 @@
+gametitle=Virtua Tennis 2 [PAL-M4] (SLES_512.32)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,00193848,word,3C013F40 //3C013F80 (Increases hor. axis)

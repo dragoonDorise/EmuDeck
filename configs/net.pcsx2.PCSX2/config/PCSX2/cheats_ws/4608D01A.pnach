@@ -1,0 +1,13 @@
+gametitle=Need for Speed Underground (J)(SLPM-65471)
+comment=Widescreen hack by nemesis2000 (NTSC-Kby Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,00503d34,word,3f400000 //3f800000
+patch=1,EE,00503f28,word,3f2aaaaa //3f000000
+patch=1,EE,00503f30,word,3f2aaaaa //3f000000
+
+patch=1,EE,00229f68,word,3c01bf2a //3c01bf00
+patch=1,EE,00229f6c,word,44816800 //44816000
+patch=1,EE,00229f9c,word,46007307 //46006346
+patch=1,EE,00229fa0,word,46006bc7 //460073c6

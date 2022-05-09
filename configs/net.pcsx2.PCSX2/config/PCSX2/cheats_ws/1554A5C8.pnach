@@ -1,0 +1,7 @@
+gametitle=Nihon Sumo Kyokai Kounin: Nihon Oozumou Gekitou Honbashohen (J)(SLPM-62194)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,00130d34,word,3c023f40 //3c023f80

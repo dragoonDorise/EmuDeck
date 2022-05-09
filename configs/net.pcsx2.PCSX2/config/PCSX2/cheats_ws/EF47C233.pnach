@@ -1,0 +1,8 @@
+gametitle=Sniper Elite [PAL-M5] (SLES-51820)
+comment=Widescreen hack by Arapapa (Ported to PAL by El_Patas)
+
+//Zoom
+patch=1,EE,005015d0,word,3f9faaab //3eaaaaab
+
+//Y-FOV
+patch=1,EE,00502848,word,3fe38e2a //3faaaaab

@@ -1,0 +1,16 @@
+gametitle=Polar Express, The (U)(SLUS-20989)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+
+patch=1,EE,00347860,word,080bc5d4
+patch=1,EE,00347864,word,00000000
+
+patch=1,EE,002f1750,word,3c013f40 // 00000000
+patch=1,EE,002f1754,word,4481f000 // 00000000
+patch=1,EE,002f1758,word,c6010068 // 00000000
+patch=1,EE,002f175c,word,c602006c // 00000000
+patch=1,EE,002f1760,word,461e0843 // 00000000
+patch=1,EE,002f1764,word,e6010068 // 00000000
+patch=1,EE,002f1768,word,080d1e19 // 00000000

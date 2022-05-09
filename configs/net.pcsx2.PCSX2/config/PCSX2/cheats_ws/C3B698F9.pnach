@@ -1,0 +1,36 @@
+gametitle=Baldur's Gate - Dark Alliance II (NTSC-J)(SLPM-65845)
+comment=Widescreen hack by nemesis2000 (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+
+//vert fov-
+//ee3e013c f0ee2134 (NTSC-U efee2134)
+patch=1,EE,001eb818,word,3c013f1f //3c013eee
+patch=1,EE,001eb81c,word,342149f1 //3421eef0
+patch=1,EE,0023cf74,word,3c013f1f //3c013eee
+patch=1,EE,0023cf78,word,342149f1 //3421eef0
+patch=1,EE,0027c63c,word,3c013f1f //3c013eee
+patch=1,EE,0027c640,word,342149f1 //3421eef0
+patch=1,EE,002c5020,word,3c013f1f //3c013eee
+patch=1,EE,002c5024,word,342149f1 //3421eef0
+
+//both fov+
+//1
+patch=1,EE,001eb82c,word,3c014440 //3c014480
+
+//2
+patch=1,EE,0023cf84,word,3c014440 //3c014480
+patch=1,EE,0027c64c,word,3c014440 //3c014480
+
+//3
+patch=1,EE,002c5030,word,3c014440 //3c014480
+
+//render fix
+patch=1,EE,002c0efc,word,3c013ff0 //3c013faa
+patch=1,EE,002c0f00,word,34210000 //34213d71
+patch=1,EE,002c4c64,word,3c013ff0 //3c013faa
+patch=1,EE,002c4c68,word,34210000 //34213d71
+//patch=1,EE,002c0efc,word,3c013de3 //3c013faa
+//patch=1,EE,002c0f00,word,3421f70a //34213d71
+//patch=1,EE,002c4c64,word,3c013fe3 //3c013faa
+//patch=1,EE,002c4c68,word,3421f70a //34213d71

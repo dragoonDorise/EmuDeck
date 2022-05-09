@@ -1,0 +1,10 @@
+gametitle=ATV Offroad Fury 2 [PAL] (SLES_518.14)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9 
+patch=1,EE,0011B0C0,word,3C023CAA //3C023C8E Zoom
+patch=1,EE,0011B0CC,word,3C023FAB //3C023F80 Y-FOV
+
+//Render fix
+patch=1,EE,001A2A8C,word,3C03BFAB //3C03BF80
+patch=1,EE,001A2A90,word,3C023FAB //3C023F80

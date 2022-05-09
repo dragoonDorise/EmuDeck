@@ -1,0 +1,14 @@
+gametitle=Tiger Woods PGA Tour 2003 (NTSC-U) (SLUS-20572)
+comment=Widescreen Hack by VIRGIN KLM
+
+//Widescreen hack 16:9
+
+//Menu 3D
+patch=1,EE,0055A000,extended,3f400000 //3f800000
+
+//Game Play Fov
+patch=1,EE,005784E0,extended,3f400000 //3f800000
+
+//Game Play Render Fix
+patch=1,EE,005784F0,extended,44800000 //44000000
+patch=1,EE,005784F8,extended,40000000 //3f800000

@@ -1,0 +1,13 @@
+gametitle= King of Fighters - Maximum Impact [NTSC-J] [SLPS-25386]
+comment= Widescreen Hack by nemesis2000 (pnach by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,00384054,word,3c043f24 //3c043f00
+patch=1,EE,0038408c,word,46010003 //00000000
+patch=1,EE,0038ca58,word,3c023f24 //3c023f00
+patch=1,EE,0038ca90,word,46010842 //3c023f80
+patch=1,EE,0038ca98,word,46010903 //44822000
+
+//patch=1,EE,00582a34,word,3fe3aaab //3faaaaab Y-Fov
+//patch=1,EE,005a37d0,word,400caaab //3eaaaaab Zoom

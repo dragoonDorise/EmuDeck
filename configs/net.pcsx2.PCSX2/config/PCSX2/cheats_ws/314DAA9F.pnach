@@ -1,0 +1,9 @@
+gametitle=Constantine (U)(SLUS-21142)
+comment=Widescreen Hack by Arapapa
+
+//X-Fov - ELF hack
+//803f013c 00108144 0c00438e
+patch=1,EE,002b52e0,word,3c013f40 //3c013f80
+
+//Memory Hack
+//patch=1,EE,20817074,extended,3F400000 // 3F800000

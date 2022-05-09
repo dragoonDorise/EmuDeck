@@ -1,0 +1,10 @@
+gametitle=Batman - Rise of Sin Tzu (U)(SLUS-20709)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,004af438,word,3f5a7408 //3f23d70a
+
+//Render Fix
+patch=1,EE,00308038,word,3c023f40 //3c023f00

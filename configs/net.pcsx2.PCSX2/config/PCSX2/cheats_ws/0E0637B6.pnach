@@ -1,0 +1,7 @@
+gametitle=Ninkyouden Toseinin Ichidaiki (J)(SLPM-66274)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//803f023c 4000a2af 80bf023c
+patch=1,EE,0014a050,word,3c023f40 //3c023f80 X-Fov

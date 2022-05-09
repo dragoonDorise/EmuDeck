@@ -1,0 +1,8 @@
+gametitle=Extermination (J)
+comment=Widescreen hack by El_Patas (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+
+//4c3f023c cdcc4234 00088244 1c0040ae
+patch=1,EE,001d1ff8,word,3c023f19 //3c023f4c fov
+patch=1,EE,001d1ffc,word,3442aaab //3442cccd

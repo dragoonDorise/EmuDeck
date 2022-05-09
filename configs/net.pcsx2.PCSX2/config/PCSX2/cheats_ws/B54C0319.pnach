@@ -1,0 +1,10 @@
+﻿gametitle=Capcom vs. SNK 2: Mark of the Millennium 2001  [NTSC-J] (SLPM-65047)
+comment=Widescreen patch by nemesis2000 (pnach by nemesis2000)
+
+patch=1,EE,00142fb0,word,3C023FAA
+patch=1,EE,00143224,word,3C023FAA
+patch=1,EE,00125030,word,AC83003C
+patch=1,EE,00125034,word,3C033F40
+patch=1,EE,00125038,word,03E00008
+patch=1,EE,0012503C,word,AC830000
+patch=1,EE,0012492c,word,3C023FE3

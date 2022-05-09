@@ -1,0 +1,13 @@
+gametitle=Brothers in Arms - Road to Hill 30 (J)(SLPM-66042)
+comment=Widescreen Hack by nemesis2000 (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,00305a3c,word,3c023f40 //3c023f80
+
+patch=1,EE,003e593c,word,3c033f40 //3c033f80
+patch=1,EE,003e5944,word,3c033f80 //44830800
+patch=1,EE,003e5948,word,44830800 //ae630108
+patch=1,EE,003e594c,word,ae630108 //c6600104
+patch=1,EE,003e5950,word,c6600104 //46010036
+patch=1,EE,003e5954,word,46010036 //00000000

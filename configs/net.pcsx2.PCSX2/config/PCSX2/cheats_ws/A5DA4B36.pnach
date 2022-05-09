@@ -1,0 +1,10 @@
+gametitle=Yakuza Fury (E)(SLES-53399)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+patch=1,EE,0013e48c,word,3c053f40 //3c053f80
+
+//Zoom
+patch=1,EE,0013e8f0,word,3c0443e4 //3c044418

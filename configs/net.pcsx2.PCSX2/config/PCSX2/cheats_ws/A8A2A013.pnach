@@ -1,0 +1,6 @@
+gametitle=Stunt GP (J)(SLPS-20152)
+comment=Widescreen hack by LRukyk (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+patch=1,EE,005de5cc,word,3fe37119 //3faa9fbe
+patch=1,EE,005de5c8,word,3fe37119 //3faa9fbe

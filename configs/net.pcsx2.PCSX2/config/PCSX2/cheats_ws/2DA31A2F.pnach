@@ -1,0 +1,11 @@
+gametitle=GunGriffon Blaze (J)(SLPS-20033)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//803f013c 00308144 21205102
+patch=1,EE,00211684,word,3c013f40 //3c013f80 Menu
+
+//803f013c 00088144 40000924
+patch=1,EE,00212168,word,3c013f40 //3c013f80 Gameplay

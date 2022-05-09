@@ -1,0 +1,15 @@
+gametitle=Monsters, Inc. (U)(SCUS-97123)
+comment=Widescreen hack by ElHecht (NTSC-U by Arapapa)
+
+// 16:9
+patch=1,EE,001c7528,word,080abe2b // c6010068 jump to code-inject 002af8ac
+patch=1,EE,001c752c,word,00000000 // c602006c
+
+
+patch=1,EE,002af8ac,word,3c013f40 // 00000000 hor  fov
+patch=1,EE,002af8b0,word,4481f000 // 00000000
+patch=1,EE,002af8b4,word,c6010068 // 00000000
+patch=1,EE,002af8b8,word,c602006c // 00000000
+patch=1,EE,002af8bc,word,461e0843 // 00000000
+patch=1,EE,002af8c0,word,e6010068 // 00000000
+patch=1,EE,002af8c4,word,08071d4b // 00000000 jump back to 001c752c

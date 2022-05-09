@@ -1,0 +1,26 @@
+gametitle=Fallout - Brotherhood of Steel (J)(SLPM-65915)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//803f013c 00608144 ee3e013c (1st, 2nd, 3nd and 4th from Bottom)
+patch=1,EE,001f1b80,word,3c013f40 //3c013f80 Loading 
+patch=1,EE,00219cb8,word,3c013f40 //3c013f80 Shadows
+patch=1,EE,00219d38,word,3c013f40 //3c013f80 Characters
+patch=1,EE,00219da4,word,3c013f40 //3c013f80 Ground
+
+//X-Fov (Flare and etc)
+patch=1,EE,0013ae7c,word,3c013f40 //3c013f80
+//patch=1,EE,0013aeec,word,3c013f40 //3c013f80 Inventory
+patch=1,EE,0013af5c,word,3c013f40 //3c013f80
+patch=1,EE,001e09f4,word,3c013f40 //3c013f80
+patch=1,EE,001ee1b0,word,3c013f40 //3c013f80 flare
+patch=1,EE,001f1b30,word,3c013f40 //3c013f80
+
+//Render fix
+//aa3f013c 713d2134
+patch=1,EE,0021026c,word,3c013ff0 //3c013faa
+patch=1,EE,00210270,word,34210000 //34213d71
+patch=1,EE,00213220,word,3c013ff0 //3c013faa
+patch=1,EE,00213224,word,34210000 //34213d71

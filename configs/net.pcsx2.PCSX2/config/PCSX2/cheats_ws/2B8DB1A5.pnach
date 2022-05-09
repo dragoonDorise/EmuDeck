@@ -1,0 +1,12 @@
+﻿gametitle=Inuyasha - Okugi Ranbu [NTSC-J] (SLPS-25518)
+comment=Widescreen hack by Little Giant
+
+//16:9
+patch=1,EE,0011ff90,word,3c013fdc //3c013fa5 hor 1
+patch=1,EE,0011ff94,word,34211ade //34211eb8
+
+patch=1,EE,00121a88,word,3c013fdc //3c013fa5 hor 2
+patch=1,EE,00121a8c,word,34211ade //34211eb8
+
+patch=1,EE,00122498,word,3c013fdc //3c013fa5 hor 3
+patch=1,EE,0012249c,word,34211ade //34211eb8

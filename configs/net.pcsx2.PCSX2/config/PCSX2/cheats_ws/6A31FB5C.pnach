@@ -1,0 +1,5 @@
+gametitle=Spy vs. Spy SLES_530.78
+comment=Widescreen Hack
+patch=1,EE,001d6d84,word,3c014225
+patch=1,EE,001d6dfc,word,3c013f2a
+patch=1,EE,2020371c,word,3c013ec0

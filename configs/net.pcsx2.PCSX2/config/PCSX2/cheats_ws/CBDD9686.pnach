@@ -1,0 +1,14 @@
+gametitle=SpongeBob SquarePants - Lights, Camera, Pants! (E)(SLES-53494)
+comment=Widescreen hack by Arapapa
+ 
+//Widescreen 16:9
+
+//X-Fov
+//680080c4 03080046
+patch=1,EE,0022fe68,word,0812500c
+patch=1,EE,00494030,word,c4800068
+patch=1,EE,00494034,word,3c013f40
+patch=1,EE,00494038,word,4481f000
+patch=1,EE,0049403c,word,461e0003
+patch=1,EE,00494040,word,e4800068
+patch=1,EE,00494044,word,0808bf9b

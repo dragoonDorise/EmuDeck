@@ -1,0 +1,10 @@
+gametitle=Wallace & Gromit - The Curse of the Were-Rabbit (U)(SLUS-021312)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,0011a4f4,word,3c013f1d //3c013f00
+
+//Y-Fov
+patch=1,EE,0011a598,word,3c014080 //3c014040

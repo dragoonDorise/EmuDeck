@@ -1,0 +1,9 @@
+gametitle=Summer Heat - Beach Volleyball (SLUS_20634)
+comment=Widescreen hack by No.47
+
+patch=1,EE,001b08a4,word,3c01464F //3c014622 - both FOV
+
+patch=1,EE,001b0a38,word,3c01464F //3c014622 - render fix
+
+patch=1,EE,001b0a58,word,3c013f9f //3c013f6f - vert fov
+patch=1,EE,001b0a5c,word,3421ea28 //3421df3b

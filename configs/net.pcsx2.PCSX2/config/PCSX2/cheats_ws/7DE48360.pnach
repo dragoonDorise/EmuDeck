@@ -1,0 +1,4 @@
+gametitle=Cy Girls [Disc 1] (PAL-E-F-S) SLES_820.18
+comment=Widescreen hack by dieSkaarj.
+
+patch=1,EE,2048f5f8,extended,3f400000 //3f800000

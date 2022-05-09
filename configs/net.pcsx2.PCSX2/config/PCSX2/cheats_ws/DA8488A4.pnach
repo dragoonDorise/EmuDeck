@@ -1,0 +1,11 @@
+gametitle=WinBack 2 - Project Poseidon (K)(SLKA-25380)
+comment=Widescreen hack (NTSC-K by Arapapa)
+
+patch=1,EE,002ee3f0,word,3c013f40 //00000000
+patch=1,EE,002ee3f4,word,4481f000 //00000000
+patch=1,EE,002ee3fc,word,461e0003 //00000000
+
+
+
+//00000000 00000000 43001446 00000000
+//403f013c 00f08144 43001446 03001e46

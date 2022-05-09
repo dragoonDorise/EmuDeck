@@ -1,0 +1,25 @@
+gametitle=Secret Weapons Over Normandy (U)(SLUS-20762)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//42420146 02490446
+patch=1,EE,001b6638,word,08128790
+
+patch=1,EE,004a1e40,word,46014242
+patch=1,EE,004a1e44,word,3c013f40
+patch=1,EE,004a1e48,word,4481f000
+patch=1,EE,004a1e4c,word,461e4a42
+patch=1,EE,004a1e50,word,0806d98f
+
+//Render fix
+//68008bc4 0800a327
+patch=1,EE,001b5cf0,word,08128798
+
+patch=1,EE,004a1e60,word,c48b0068
+patch=1,EE,004a1e64,word,3c013faa
+patch=1,EE,004a1e68,word,3421aaab
+patch=1,EE,004a1e6c,word,4481f000
+patch=1,EE,004a1e70,word,461e5ac2
+patch=1,EE,004a1e74,word,0806d73d

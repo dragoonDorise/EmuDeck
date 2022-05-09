@@ -1,0 +1,8 @@
+gametitle=Orega Kantoku da (NTSC-J)(SLPM-65005)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,002b1674,word,3c013f40 //00000000
+patch=1,EE,002b1678,word,44810000 //00000000
+patch=1,EE,002b1680,word,4600c602 //00000000

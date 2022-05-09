@@ -1,0 +1,12 @@
+gametitle=Sly Cooper (NTSC) (SCUS-97198)
+comment = Widescreen hack by nemesis2000; Fixed by PsxFan107
+
+//Widescreen by nemesis2000
+patch=1,EE,201436B0,word,3C013FDD
+patch=1,EE,201436B4,word,3421A51D
+
+//Bug Fix
+patch=1,EE,2012B818,word,10000003
+patch=1,EE,2015EECC,word,00000000
+patch=1,EE,2018F798,word,00000000
+patch=1,EE,201E9C98,word,00000000

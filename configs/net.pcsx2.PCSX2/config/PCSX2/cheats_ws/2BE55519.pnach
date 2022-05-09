@@ -1,0 +1,91 @@
+gametitle=Eternal Poison (U) (SLUS-21779)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//000080bf d7a370bf (1st)
+patch=1,EE,00487114,word,bf400000 //bf800000
+
+//Text Box Fix
+//00009c43 0000803f 000040c2 00000c43 (1st)
+patch=1,EE,00557404,word,43c00000 //439c0000
+
+//0000b042 0080cf43 (1st)
+patch=1,EE,005573e0,word,42c00000 //42b00000
+patch=1,EE,005573e4,word,00000000 //43cf8000
+
+//Message Indicator Position (Up)
+//0000d143 0000803f 00000000
+patch=1,EE,0055736c,word,43c80000 //43d10000
+
+//Font fix (Conversation)
+//0000803f 0000803f 0000803e 0000803f cccccc3d
+patch=1,EE,00557378,word,3f400000 //3f800000 //3f400000 is too narrow in case of Japaness
+
+
+//********  2D FIX PARTS  ********
+
+//2D Characters (Town & Battle Field)
+//43000f3c d80115e6 20008046
+patch=1,EE,00132e20,word,0810b346 //3c0f0043
+
+patch=1,EE,0042cd18,word,3c0f0043
+patch=1,EE,0042cd1c,word,3c013faa
+patch=1,EE,0042cd20,word,3421aaab
+patch=1,EE,0042cd24,word,4481f000
+patch=1,EE,0042cd28,word,e61e01d8
+patch=1,EE,0042cd2c,word,0804cb8a
+
+
+//Traviata House
+//900014e6 940014e6 1400e58d
+patch=1,EE,002d9360,word,0810b334 // 900014e6
+
+patch=1,EE,0042ccd0,word,3c013f40 // 00000000
+patch=1,EE,0042ccd4,word,4481f800 // 00000000
+patch=1,EE,0042ccd8,word,e61f0090 // 00000000
+patch=1,EE,0042ccdc,word,080b64d9 // 00000000
+
+
+//The Uzaporium Shop
+//900015e6 940015e6 1800a524 (2nd)
+patch=1,EE,002ac0ac,word,0810b338 // 900015e6
+
+patch=1,EE,0042cce0,word,3c013f40 // 00000000
+patch=1,EE,0042cce4,word,4481f800 // 00000000
+patch=1,EE,0042cce8,word,e61f0090 // 00000000
+patch=1,EE,0042ccec,word,080ab02c // 00000000
+
+
+//Twilight's Rest (Potraits)
+//940015e6 800000a2 0800b6e5 (1st)
+patch=1,EE,00286be0,word,0810b33c // 940015e6
+
+patch=1,EE,0042ccf0,word,3c013f40 // 00000000
+patch=1,EE,0042ccf4,word,4481f000 // 00000000
+patch=1,EE,0042ccf8,word,e61e0094 // 00000000
+patch=1,EE,0042ccfc,word,080a1af9 // 00000000
+
+
+//2D Characters (Conversation and Twilight's Rest)
+//c0ffbd27 1000b0ff 2000b2ff 2800b3ff 2d80a000
+patch=1,EE,0023cdd8,word,0810b341 // c4400008
+
+patch=1,EE,0042cd04,word,c4400008 // 00000000
+patch=1,EE,0042cd08,word,3c013f40 // 00000000
+patch=1,EE,0042cd0c,word,4481f000 // 00000000
+patch=1,EE,0042cd10,word,461e0002 // 00000000
+patch=1,EE,0042cd14,word,0808f377 // 00000000
+
+
+////////////////////////////////////////////////////////
+//Left Characters
+//080000c6 080041c4 02000146
+//patch=1,EE,002224f4,word,0810b340 // 080000c6
+
+//patch=1,EE,0042cd00,word,c6000008 // 00000000
+//patch=1,EE,0042cd04,word,3c013f40 // 00000000
+//patch=1,EE,0042cd08,word,4481f000 // 00000000
+//patch=1,EE,0042cd0c,word,461e0002 // 00000000
+//patch=1,EE,0042cd10,word,0808893e // 00000000

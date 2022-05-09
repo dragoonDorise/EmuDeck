@@ -1,0 +1,132 @@
+gametitle=Poison Pink (J) (SLPS-25854)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//000080bf d7a370bf (1st)
+patch=1,EE,00482894,word,bf400000 //bf800000
+
+//Text Box Fix
+//00009c43 0000803f 000040c2 00000c43 (1st)
+patch=1,EE,0055278c,word,43c00000 //439c0000
+
+//0000b042 0080cf43 (1st)
+patch=1,EE,00552768,word,42c00000 //42b00000
+patch=1,EE,0055276c,word,00000000 //43cf8000
+
+//Message Indicator Position (Up)
+//0000d143 0000803f 00000000
+patch=1,EE,005526f4,word,43c80000 //43d10000
+
+//Font fix (conversation)
+//0000803f 0000803f 0000803e 0000803f cccccc3d
+patch=1,EE,00552700,word,3f600000 //3f800000 //3f400000 is too narrow in case of Japaness
+
+
+//********  2D FIX PARTS  ********
+
+
+//2D Characters (Town & Battle Field)
+//43000f3c d80115e6 20008046
+patch=1,EE,00132e00,word,0814f738
+
+patch=1,EE,0053dce0,word,3c0f0043
+patch=1,EE,0053dce4,word,3c013faa
+patch=1,EE,0053dce8,word,3421aaab
+patch=1,EE,0053dcec,word,4481f000
+patch=1,EE,0053dcf0,word,e61e01d8
+patch=1,EE,0053dcf4,word,0804cb82
+
+
+//Traviata House
+//900014e6 940014e6 1400e58d
+patch=1,EE,002d7aa0,word,0814f723 // 900014e6
+
+patch=1,EE,0053dc8c,word,3c013f40 // 00000000
+patch=1,EE,0053dc90,word,4481f800 // 00000000
+patch=1,EE,0053dc94,word,e61f0090 // 00000000
+patch=1,EE,0053dc98,word,080b5ea9 // 00000000
+
+
+//The Uzaporium Shop
+//900015e6 940015e6 1800a524 (2nd)
+patch=1,EE,002aab74,word,0814f727 // 900015e6
+
+patch=1,EE,0053dc9c,word,3c013f40 // 00000000
+patch=1,EE,0053dca0,word,4481f800 // 00000000
+patch=1,EE,0053dca4,word,e61f0090 // 00000000
+patch=1,EE,0053dca8,word,080aaade // 00000000
+
+
+//Twilight's Rest (Potraits)
+//940015e6 800000a2 0800b6e5 (1st)
+patch=1,EE,002857b8,word,0814f72b // 940015e6
+
+patch=1,EE,0053dcaC,word,3c013f40 // 00000000
+patch=1,EE,0053dcB0,word,4481f000 // 00000000
+patch=1,EE,0053dcB4,word,e61e0094 // 00000000
+patch=1,EE,0053dcB8,word,080a15ef // 00000000
+
+
+//2D Characters (Conversation and Twilight's Rest)
+//c0ffbd27 1000b0ff 2000b2ff 2800b3ff 2d80a000
+patch=1,EE,0023bc88,word,0814f733 // c4400008
+
+patch=1,EE,0053dccc,word,c4400008 // 00000000
+patch=1,EE,0053dcd0,word,3c013f40 // 00000000
+patch=1,EE,0053dcd4,word,4481f000 // 00000000
+patch=1,EE,0053dcd8,word,461e0002 // 00000000
+patch=1,EE,0053dcdc,word,0808ef23 // 00000000
+
+
+
+///////////////////////////////////////////////////////////
+//Left Characters
+//080000c6 080041c4 02000146
+//patch=1,EE,0022217c,word,0814f72f // 080000c6
+
+//patch=1,EE,0053dcbc,word,c6000008 // 00000000
+//patch=1,EE,0053dcc0,word,3c01bf40 // 00000000
+//patch=1,EE,0053dcc4,word,4481f000 // 00000000
+//patch=1,EE,0053dcc8,word,461e0002 // 00000000
+//patch=1,EE,0053dccc,word,08088862 // 00000000
+
+//Letter Box 
+//patch=1,EE,2062dea0,extended,3F400000 //3F800000 
+
+
+//2D Characters fix  (Cause a many others problem)
+//patch=1,EE,001cc724,word,3c013f40
+//patch=1,EE,001cc728,word,4481f800
+//patch=1,EE,001cc72c,word,461fad42
+//patch=1,EE,001cc730,word,46150003
+//patch=1,EE,001cc734,word,00000000
+//patch=1,EE,001cc738,word,a6970006
+
+
+//Menu 2D Character (Y-Fov, X-Fov, and Color changed at the same time)
+//patch=1,EE,005545d8,word,3F400000 //3F800000 
+
+//0000430000430000803f0000803f
+
+//patch=1,EE,005526d8,word,00000000 //0062daf0
+//patch=1,EE,00556120,word,43a10000 //43000000
+
+//Background Picture Zoom
+//patch=1,EE,00550708,word,3faaaaab //3f800000
+
+//xxx
+//patch=1,EE,001cc6fc,word,44a00000 //44900000
+
+
+//2D Characters(Battle Field) Y-Fov(+), X-Fov(+)
+//0000803f 0000a041 0000803f
+//patch=1,EE,0054e4e4,word,3faaaaab //3f800000
+
+//2D Characters(Battle Field) X-Fov(-)
+//000080bf cccc2c40
+//patch=1,EE,00552824,word,bf400000 //bf800000
+
+//ALL 2D Grahpics
+//patch=1,EE,00482de0,word,3f400000 //3f800000

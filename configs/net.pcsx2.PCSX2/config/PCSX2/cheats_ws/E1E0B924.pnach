@@ -1,0 +1,28 @@
+gametitle=Spectral Force Chronicle (J)(SLPM-65967)
+comment= Widescreen Hack by Arapapa
+
+// Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,002ab6b0,word,08030000 //c6010068
+patch=1,EE,000c0000,word,3c013f40 //0000000
+patch=1,EE,000c0004,word,4481f000 //0000000
+patch=1,EE,000c0008,word,c6010068 //0000000
+patch=1,EE,000c000c,word,c602006c //0000000
+patch=1,EE,000c0010,word,461e0843 //0000000
+patch=1,EE,000c0014,word,e6010068 //0000000
+patch=1,EE,000c0018,word,080aadae //0000000
+
+//Font Fix (Conversation)
+patch=1,EE,00195208,word,0803000c
+patch=1,EE,000c0030,word,4600a386
+patch=1,EE,000c0034,word,3c013f60 //3f40 is too narrow
+patch=1,EE,000c0038,word,4481f000
+patch=1,EE,000c003c,word,461ea382
+patch=1,EE,000c0040,word,08065483
+
+//Font X-position
+patch=1,EE,0019520c,word,3c014215
+
+//2D Popup Portraits fix (Conversation)
+patch=1,EE,0019497c,word,3c0143f0 //3c0143d5

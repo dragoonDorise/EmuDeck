@@ -1,0 +1,7 @@
+﻿gametitle=Mahou Tsukai Kurohime [NTSC-J] (SLPM-66164)
+comment=Widescreen hack by Little Giant
+
+patch=1,EE,00196ab4,word,3c013f40 //00000000
+patch=1,EE,00196ab8,word,44810000 //00000000
+patch=1,EE,00196ac0,word,4600c602 //00000000
+patch=1,EE,0031A4F4,word,43e00000 //Render fix

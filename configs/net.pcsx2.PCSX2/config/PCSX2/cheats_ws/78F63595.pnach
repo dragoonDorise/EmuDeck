@@ -1,0 +1,12 @@
+gametitle=Frequency (NTSC-U) [SCUS-97125] [78F63595]
+comment=Widescreen hacks by Aced14
+
+//16:9 Widescreen
+patch=1,EE,204AFBDC,extended,081378DC //E6000120 - j $004de370 - Jump to injected MIPS instructions
+patch=1,EE,204DE370,extended,3C013F40 //3C050082 - lui at, $3f40 - Set $f31 register to .75 #1
+patch=1,EE,204DE374,extended,4481F800 //24A53180 - mtc1 at, $f31 - Set $f31 register to .75 #2
+patch=1,EE,204DE378,extended,461F07C2 //0C12DEB4 - mul.s $f31, $f0, $f31 - Multiply $f0 by $f31 and store in $f31
+patch=1,EE,204DE37C,extended,0812BEF9 //0200202D - j $004afbe4 - Jump to 2 lines after the overwritten MIPS instruction
+patch=1,EE,204DE380,extended,E61F0120 //8E510000 - swc1 $f31, $0120(s0) - Write $f31 into where $f0 would've been written to by the restored overwritten MIPS instruction
+
+//patch=1,EE,105110BC,extended,00000355 //24060280 - FMV width (WIP)

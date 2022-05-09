@@ -1,0 +1,18 @@
+gametitle=Standard Daisenryaku - Shiwareta Shouri (J)(SLPM-65959)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom (3D)
+//003f023c 00008244 6800a427
+patch=1,EE,0013d618,word,3c023f26 //3c023f00
+
+//Y-Fov (3D)
+patch=1,EE,0013d6ec,word,08095b68
+patch=1,EE,00256da0,word,3c083f40
+patch=1,EE,00256da4,word,4488f000
+patch=1,EE,00256da8,word,461e0843
+patch=1,EE,00256dac,word,e7a10034
+patch=1,EE,00256db0,word,46141843
+patch=1,EE,00256db4,word,0804f5bc
+

@@ -1,0 +1,14 @@
+gametitle=D1 Professional Drift Grand Prix Series 2005 (J)(SLPM-66144)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//02020746 50004324 500044c4 (1st)
+patch=1,EE,0022ec64,word,08079bbc
+
+patch=1,EE,001e6ef0,word,46070202
+patch=1,EE,001e6ef4,word,3c013f40
+patch=1,EE,001e6ef8,word,4481f000
+patch=1,EE,001e6efc,word,461e4202
+patch=1,EE,001e6f00,word,0808bb1a

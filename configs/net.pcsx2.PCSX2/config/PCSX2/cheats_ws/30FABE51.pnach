@@ -1,0 +1,6 @@
+gametitle=Time Crisis 2 SLES_503.00
+comment=Widescreen hack by dieSkaarj.
+comment=Aiming still in 4:3
+
+patch=1,EE,00298818,word,3c013f40 //3c013f80
+

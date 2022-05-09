@@ -1,0 +1,5 @@
+gametitle=Rise of the Kasai SCUS_974.16
+comment=Widescreen Hack
+patch=1,EE,003414fc,word,3c0143a8
+patch=1,EE,002dbf68,word,3c014396
+patch=1,EE,00323f3c,word,3c014396

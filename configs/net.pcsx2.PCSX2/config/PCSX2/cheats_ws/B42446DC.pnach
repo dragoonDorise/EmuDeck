@@ -1,0 +1,12 @@
+gametitle=TT Superbikes: Real Road Racing [PAL-M5] (SLES_519.80)
+comment=Widescreen hack by El_Patas
+
+// Gameplay 16:9
+patch=1,EE,205F9B58,extended,3F400000 //3F800000 (Increases hor. axis)
+
+// Render Fix
+patch=1,EE,00159440,word,3C013F40 //3C013F00
+patch=1,EE,00159E94,word,3C013F40 //3C013F00
+
+patch=1,EE,00159404,word,3C013F40 //3C013F80
+patch=1,EE,00159450,word,3C013F40 //3C013F80

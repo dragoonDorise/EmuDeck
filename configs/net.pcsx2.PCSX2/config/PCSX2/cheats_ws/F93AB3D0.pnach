@@ -1,0 +1,25 @@
+gametitle=Densha de Go! Final (J)(SLPM-65590)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,0017a710,word,3c023f40 //3c023f80
+
+//Y-Fov
+patch=1,EE,0017a738,word,3c023f2a //3c023f00
+
+//Render Fix
+//patch=1,EE,00138140,word,3c024400 //3c024316
+
+//Distance Render
+//patch=1,EE,001b2454,word,3c024000 //3c024100
+
+//patch=1,EE,001b3190,word,3c024000 //3c024270
+
+
+
+//patch=1,EE,00129984,word,3c023fa0 //3c024000
+
+//Render  
+//patch=1,EE,0017a794,word,3c0241c0

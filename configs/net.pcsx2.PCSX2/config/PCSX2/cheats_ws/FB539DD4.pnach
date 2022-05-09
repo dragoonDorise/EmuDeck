@@ -1,0 +1,4 @@
+gametitle=Kessen 3 SLUS_211.19
+comment=Widescreen Hack
+patch=1,EE,0015be08,word,3c023f40 //hor
+patch=1,EE,0038f4d8,word,3c023f40

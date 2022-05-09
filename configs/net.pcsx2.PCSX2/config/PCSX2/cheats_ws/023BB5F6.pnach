@@ -1,0 +1,7 @@
+gametitle=Buccaneer (E)(SLES-54476)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00277a80,word,3c033f08 //3c033ecc
+patch=1,EE,00277a88,word,34648883 //3464cccd

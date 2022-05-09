@@ -1,0 +1,4 @@
+gametitle=Bomberman Land 3 (J)(SLPM_62643)
+comment=Widescreen Hack by gamemasterplc
+
+patch=1,EE,201327D8,word,3C054455 //3D Width

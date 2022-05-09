@@ -1,0 +1,14 @@
+gametitle=Scaler (PAL-M4) (SLES-52918)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,0021b9dc,word,080bd30c // e4a10000
+patch=1,EE,0021b9e0,word,00000000 // aca00004
+patch=1,EE,002f4c30,word,3c013f40 // 00000000 hor fov
+patch=1,EE,002f4c38,word,4481f000 // 00000000
+patch=1,EE,002f4c3c,word,461e0842 // 00000000
+patch=1,EE,002f4c40,word,e4a10000 // 00000000
+patch=1,EE,002f4c44,word,aca00004 // 00000000
+patch=1,EE,002f4c48,word,08086e78 // 00000000
+patch=1,EE,0020b274,word,3c023f40 // 3c023f80 renderfix left
+patch=1,EE,0020b290,word,3c02bf40 // 3c02bf80 renderfix right

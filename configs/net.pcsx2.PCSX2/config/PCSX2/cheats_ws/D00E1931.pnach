@@ -1,0 +1,15 @@
+﻿gametitle=Armored Core 3 [NTSC-J] (SLPS-25112)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,002e6c3c,word,3c013f40 // 00000000 hor fov
+patch=1,EE,002e6c48,word,44810000 // 00000000
+patch=1,EE,002e6c4c,word,4600c602 // 00000000
+patch=1,EE,0026caf4,word,3c0143d6 // 3c0143a0 renderfix
+
+// 16:10
+//patch=1,EE,002e6c3c,word,3c013f55 // 00000000 hor fov
+//patch=1,EE,002e6c40,word,34215555 // 00000000
+//patch=1,EE,002e6c48,word,44810000 // 00000000
+//patch=1,EE,002e6c4c,word,4600c602 // 00000000
+//patch=1,EE,0026caf4,word,3c0143c1 // 3c0143a0 renderfix

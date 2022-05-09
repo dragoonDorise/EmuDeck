@@ -1,0 +1,7 @@
+gametitle=Tak - The Great Juju Challenge (U)(SLUS-21218)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,003dcd18,word,3c013fe3 //3c013faa
+patch=1,EE,003dcd1c,word,3421388e //3421aaab

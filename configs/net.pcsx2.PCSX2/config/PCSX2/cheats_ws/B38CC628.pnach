@@ -1,0 +1,4 @@
+gametitle=Harry Potter and the Goblet of Fire SLUS_213.25
+comment=Widescreen Hack
+patch=1,EE,0029fd74,word,3c013fe3
+patch=1,EE,0029fd78,word,34218e39

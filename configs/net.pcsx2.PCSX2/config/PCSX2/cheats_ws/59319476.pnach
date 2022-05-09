@@ -1,0 +1,6 @@
+gametitle=Mobile Suit Gundam - Gundam vs. Zeta Gundam SLUS_208.21
+comment=Widescreen Hack
+patch=1,EE,00267604,word,3c023f40
+patch=1,EE,207a11b0,extended,44bff400
+patch=1,EE,207a1370,extended,443FE7FF
+patch=1,EE,207a1530,extended,443FE7FF
