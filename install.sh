@@ -544,6 +544,7 @@ if [ $expert == true ]; then
 		#We make sure all the emus can write its saves outside its own folders.
 		#Also needed for certain emus to open certain menus for adding rom directories in the front end.
 		#flatpak override net.pcsx2.PCSX2 --filesystem=host --user
+		flatpak override net.pcsx2.PCSX2 --share=network --user # for network access / online play
 		flatpak override io.github.shiiion.primehack --filesystem=host --user
 		flatpak override net.rpcs3.RPCS3 --filesystem=host --user
 		flatpak override org.citra_emu.citra --filesystem=host --user
@@ -708,6 +709,7 @@ if [ $doInstallPCSX2 == "true" ]; then
 	echo -e "Installing PCSX2"
 	flatpak install flathub net.pcsx2.PCSX2 -y --system	&>> ~/emudeck/emudeck.log
 	flatpak override net.pcsx2.PCSX2 --filesystem=host --user
+	flatpak override net.pcsx2.PCSX2 --share=network --user
 	#write out launcher
 	echo "#!/bin/sh
 	/usr/bin/flatpak run net.pcsx2.PCSX2" > "${toolsPath}"launchers/pcsx2.sh
