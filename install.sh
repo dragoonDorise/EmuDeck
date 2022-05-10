@@ -830,7 +830,7 @@ if [ $doInstallCemu == "true" ]; then
 
 	if ! [ -f "${toolsPath}"launchers/cemu.sh ]; then
 		cp ~/dragoonDoriseTools/EmuDeck/tools/launchers/cemu.sh "${toolsPath}"launchers/cemu.sh
-		sed -i 's|/run/media/mmcblk0p1/Emulation/roms/wiiu|${romsPath}wiiu|' "${toolsPath}"launchers/cemu.sh
+		sed -i "s|/run/media/mmcblk0p1/Emulation/roms/wiiu|${romsPath}wiiu|" "${toolsPath}"launchers/cemu.sh
 		chmod +x ${toolsPath}/launchers/cemu.sh
 	fi
 	#Commented until we get CEMU flatpak working
