@@ -553,7 +553,8 @@ if [ $expert == true ]; then
 		#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
 		flatpak override org.yuzu_emu.yuzu --filesystem=host --user
 		flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
-		
+		flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
+
 		installString='Updating'
 			
 		text="`printf "<b>EmuDeck will overwrite the following Emulators configurations</b> \nWhich systems do you want me to keep its current configuration <b>untouched</b>?\nWe recomend to keep all of them unchecked so everything gets updated so any possible bug can be fixed.\n If you want to mantain any custom configuration on some emulator select its name on this list"`"
@@ -788,6 +789,7 @@ if [ $doInstallXemu == "true" ]; then
 	echo -e "Installing Xemu"
 	flatpak install flathub app.xemu.xemu -y --system &>> ~/emudeck/emudeck.log
 	flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
+	flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
 	#write out launcher
 	echo "#!/bin/sh
 	/usr/bin/flatpak run app.xemu.xemu" > "${toolsPath}"launchers/xemu.sh
@@ -1414,6 +1416,7 @@ if [ ! -d "$savesPath/xemu" ]; then
 	echo -e ""
 	mv /home/deck/.var/app/app.xemu.xemu/data/xemu/xemu/xbox_hdd.qcow2 $savesPath/xemu 
 	mv /home/deck/.var/app/app.xemu.xemu/data/xemu/xemu/eeprom.bin $savesPath/xemu 	
+	flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
 fi
 
 #PCSX2
