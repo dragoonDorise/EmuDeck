@@ -913,6 +913,7 @@ setESDEEmus 'Dolphin (Standalone)' wii
 setESDEEmus 'Mesen' nes
 setESDEEmus 'DOSBox-Pure' dos
 setESDEEmus 'PCSX2 (Standalone)' ps2
+setESDEEmus 'melonDS' nds
 	
 #Emus config
 echo -ne "${BOLD}Configuring Steam Input for emulators..${NONE}"
