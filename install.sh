@@ -1575,6 +1575,7 @@ if [ $doInstallPowertools == true ]; then
 	hasPass=$(grep -rn '/etc/passwd' -e "$(whoami):") #makes it work for the current user.
 	
 	if [[ $hasPass == '' ]]; then
+		echo "user does not have a password" >> ~/emudeck/emudeck.log
 		text="`printf "In order to install PowerTools you need to set a password for the deck user.\n\n Remember this password. If you forget it you will need to format your Deck to change it\n\n<b>When you type your password, it will not appear on screen, this is normal</b>"`"
 		zenity --question \
 				 --title="EmuDeck" \
@@ -1583,12 +1584,11 @@ if [ $doInstallPowertools == true ]; then
 				 --cancel-label="Cancel" \
 				 --text="${text}" &>> /dev/null
 		ans=$?
+		continuePowerTools=false #default state is not to continue. Only allow continue if the password succeeds in setting the password.
 		if [ $ans -eq 0 ]; then
-			passwd
-			continuePowerTools=true
+			passwd && continuePowerTools=true
 		else
 			echo "No passwd creation" >> ~/emudeck/emudeck.log
-			continuePowerTools=false
 		fi
 	else
 		continuePowerTools=true
@@ -1615,6 +1615,51 @@ if [ $doInstallPowertools == true ]; then
 		   --title="EmuDeck" \
 		   --width=450 \
 		   --text="${text}"
+	else
+		echo "user did not continue Powertools install" >> ~/emudeck/emudeck.log
+	fi
+
+fi
+
+if [ $doInstallGyroControl == true ]; then
+	
+	hasPass=$(grep -rn '/etc/passwd' -e "$(whoami):") #makes it work for the current user.
+	
+	if [[ $hasPass == '' ]]; then
+		echo "user does not have a password" >> ~/emudeck/emudeck.log
+		text="`printf "In order to install SteamDeckGyroDSU you need to set a password for the deck user.\n\n 
+		Remember this password. If you forget it you will need to format your Deck to change it\n\n
+		<b>When you type your password, it will not appear on screen, this is normal</b>"`"
+		zenity --question \
+				 --title="EmuDeck" \
+				 --width=250 \
+				 --ok-label="Continue" \
+				 --cancel-label="Cancel" \
+				 --text="${text}" &>> /dev/null
+		ans=$?
+		continueGyro=false
+		if [ $ans -eq 0 ]; then
+			echo "user wants to set a password" >> ~/emudeck/emudeck.log
+			passwd && continueGyro=true  #default state is not to continue. Only allow continue if the password succeeds in setting the password.
+		else
+			echo "No passwd creation" >> ~/emudeck/emudeck.log
+		fi
+	else
+		continueGyro=true
+		echo "User already has passwd" >> ~/emudeck/emudeck.log
+	fi
+	
+	if [ $continueGyro == true ]; then
+		echo "Installing ${BOLD} SteamDeckGyroDSU. Insert your password when required. ${NONE}"
+		bash <(curl -sL https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh) >> ~/emudeck/emudeck.log
+		# we should add special controller config installs here for gyro
+		text="$(printf "To finish the installation you must reboot your system.")"
+		zenity --info \
+		   --title="EmuDeck" \
+		   --width=450 \
+		   --text="${text}"
+	else
+		echo "user did not continue Gyro install" >> ~/emudeck/emudeck.log
 	fi
 
 fi
