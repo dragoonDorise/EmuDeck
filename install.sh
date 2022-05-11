@@ -1135,6 +1135,7 @@ if [ $doUpdateCemu == true ]; then
 	#Commented until we get CEMU flatpak working
 	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ &>> ~/emudeck/emudeck.log
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "$romsPath"/wiiu &>> ~/emudeck/emudeck.log
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" "$romsPath"/wiiu/settings.xml &>> ~/emudeck/emudeck.log
 fi
 if [ $doUpdateXenia == true ]; then
 	echo "" &>> ~/emudeck/emudeck.log
