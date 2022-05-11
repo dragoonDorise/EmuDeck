@@ -289,7 +289,7 @@ if [ $expert == true ]; then
 	
 	#Gyro
 	text=""
-	text="`printf "Do you want to install SteamGyroDSU? This can be used in emulators such as Cemu for proper motion controls. You will need to create a password for your deck linux desktop user.</b>"`"
+	text="`printf "Do you want to install SteamGyroDSU? This can be used in emulators such as Cemu for proper motion controls. <b>You will need to create a password for your deck linux desktop user, if you do not already have one.</b>"`"
 	zenity --question \
 			 --title="EmuDeck" \
 			 --width=250 \
