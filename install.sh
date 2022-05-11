@@ -1005,6 +1005,7 @@ if [ $doUpdatePrimeHacks == true ]; then
 		echo -e "${GREEN}OK!${NONE}"
 	fi
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/io.github.shiiion.primehack/ ~/.var/app/io.github.shiiion.primehack/ &>> ~/emudeck/emudeck.log
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Dolphin.ini
 fi
 if [ $doUpdateDolphin == true ]; then
 
