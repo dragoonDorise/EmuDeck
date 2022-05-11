@@ -25,7 +25,7 @@ case $devMode in
 esac
 
 #Clean up from previous installations
-rm ~/emudek.log &>> /dev/null # This is emudeck's old log file, it's not a typo!
+rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
 rm -rf ~/dragoonDoriseTools
 mkdir -p ~/emudeck
 #Creating log file
@@ -156,7 +156,7 @@ zenity --question \
 		 --width=250 \
 		 --ok-label="Expert Mode" \
 		 --cancel-label="Easy Mode" \
-		 --text="${text}" &>> /dev/null
+		 --text="${text}" 2>/dev/null
 ans=$?
 if [ $ans -eq 0 ]; then
 	expert=true
@@ -174,7 +174,7 @@ zenity --question \
 		 --width=250 \
 		 --ok-label="SD Card" \
 		 --cancel-label="Internal Storage" \
-		 --text="${text}" &>> /dev/null
+		 --text="${text}" 2>/dev/null
 ans=$?
 if [ $ans -eq 0 ]; then
 	echo "Storage: SD" &>> ~/emudeck/emudeck.log
@@ -201,7 +201,7 @@ if [ $destination == "SD" ]; then
 				zenity --error \
 				--title="SDCard Error" \
 				--width=400 \
-				--text="${text}" &>> /dev/null
+				--text="${text}" 2>/dev/null
 				exit
 		else
 			echo "SD Card writable" &>> ~/emudeck/emudeck.log
@@ -212,7 +212,7 @@ if [ $destination == "SD" ]; then
 				zenity --error \
 				--title="SDCard Error" \
 				--width=400 \
-				--text="${text}" &>> /dev/null
+				--text="${text}" 2>/dev/null
 				rm -f "$sdCardFull/testwrite"
 				exit
 		else
@@ -224,7 +224,7 @@ if [ $destination == "SD" ]; then
 		zenity --error \
 				--title="SDCard Error" \
 				--width=400 \
-				--text="${text}" &>> /dev/null
+				--text="${text}" 2>/dev/null
 		exit
 	fi
 	
@@ -262,7 +262,7 @@ if [ $expert == true ]; then
 			 --width=250 \
 			 --ok-label="Yes" \
 			 --cancel-label="No" \
-			 --text="${text}" &>> /dev/null
+			 --text="${text}" 2>/dev/null
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		doInstallCHD=true
@@ -278,7 +278,7 @@ if [ $expert == true ]; then
 			 --width=250 \
 			 --ok-label="Yes" \
 			 --cancel-label="No" \
-			 --text="${text}" &>> /dev/null
+			 --text="${text}" 2>/dev/null
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		doInstallPowertools=true
@@ -295,7 +295,7 @@ if [ $expert == true ]; then
 			 --width=250 \
 			 --ok-label="Yes" \
 			 --cancel-label="No" \
-			 --text="${text}" &>> /dev/null
+			 --text="${text}" 2>/dev/null
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		doInstallGyro=true
@@ -311,7 +311,7 @@ if [ $expert == true ]; then
 			 --width=250 \
 			 --ok-label="Yes" \
 			 --cancel-label="No" \
-			 --text="${text}" &>> /dev/null
+			 --text="${text}" 2>/dev/null
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		doInstallSRM=true
@@ -326,7 +326,7 @@ if [ $expert == true ]; then
 			 --width=250 \
 			 --ok-label="Yes" \
 			 --cancel-label="No" \
-			 --text="${text}" &>> /dev/null
+			 --text="${text}" 2>/dev/null
 	ans=$?	
 
 	if [ $ans -eq 0 ]; then
@@ -424,7 +424,7 @@ if [ $expert == true ]; then
 				 	--width=250 \
 				 	--ok-label="Yes" \
 				 	--cancel-label="No" \
-				 	--text="${text}" &>> /dev/null
+				 	--text="${text}" 2>/dev/null
 			ans=$?
 			if [ $ans -eq 0 ]; then
 				echo "CustomRemain: Yes" &>> ~/emudeck/emudeck.log
@@ -449,9 +449,9 @@ if [ $expert == true ]; then
 			else
 				echo "CustomRemain: No" &>> ~/emudeck/emudeck.log
 				#We reset everything
-				rm ~/emudeck/.custom &>> /dev/null
-				rm ~/emudeck/.bezels &>> /dev/null
-				rm ~/emudeck/.autosave &>> /dev/null			
+				rm ~/emudeck/.custom 2>/dev/null
+				rm ~/emudeck/.bezels 2>/dev/null
+				rm ~/emudeck/.autosave 2>/dev/null			
 			fi
 		fi
 	fi
@@ -467,7 +467,7 @@ if [ $expert == true ]; then
 				 --width=250 \
 				 --ok-label="Yes" \
 				 --cancel-label="No" \
-				 --text="${text}" &>> /dev/null
+				 --text="${text}" 2>/dev/null
 		ans=$?
 		if [ $ans -eq 0 ]; then
 			echo "Overlays: Yes" &>> ~/emudeck/emudeck.log
@@ -488,7 +488,7 @@ if [ $expert == true ]; then
 				 --width=250 \
 				 --ok-label="Yes" \
 				 --cancel-label="No" \
-				 --text="${text}" &>> /dev/null
+				 --text="${text}" 2>/dev/null
 		ans=$?
 		if [ $ans -eq 0 ]; then
 			echo "AutoSaveLoad: Yes" &>> ~/emudeck/emudeck.log
@@ -507,7 +507,7 @@ if [ $expert == true ]; then
 			 --width=250 \
 			 --ok-label="4:3" \
 			 --cancel-label="8:7" \
-			 --text="${text}" &>> /dev/null
+			 --text="${text}" 2>/dev/null
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		SNESAR=43		
@@ -841,7 +841,7 @@ if [ $doInstallCemu == "true" ]; then
 	echo -e "Installing Cemu"		
 	FILE="${romsPath}/wiiu/Cemu.exe"	
 	if [ -f "$FILE" ]; then
-		echo "" &>> /dev/null
+		echo "" 2>/dev/null
 	else
 		curl https://cemu.info/releases/cemu_1.26.2.zip --output $romsPath/wiiu/cemu_1.26.2.zip &>> ~/emudeck/emudeck.log
 		mkdir -p $romsPath/wiiu/tmp
@@ -875,7 +875,7 @@ if [ $doInstallCemu == "true" ]; then
 	#	zenity --info \
 	#	   --title="EmuDeck" \
 	#	   --width=250 \
-	#	   --text="We have updated your CEMU installation, you will need to open Steam Rom Manager and add your Wii U games again. This time you don't need to set CEMU to use Proton ever again :)" &>> /dev/null
+	#	   --text="We have updated your CEMU installation, you will need to open Steam Rom Manager and add your Wii U games again. This time you don't need to set CEMU to use Proton ever again :)" 2>/dev/null
 	#	   
 	#fi
 	
@@ -886,7 +886,7 @@ if [ $doInstallXenia == "true" ]; then
 	echo -e "Installing Xenia"		
 	FILE="${romsPath}/xbox360/xenia.exe"	
 	if [ -f "$FILE" ]; then
-		echo "" &>> /dev/null
+		echo "" 2>/dev/null
 	else
 		curl -L https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip --output $romsPath/xbox360/xenia_master.zip &>> ~/emudeck/emudeck.log
 		mkdir -p $romsPath/xbox360/tmp
@@ -993,7 +993,7 @@ if [ $doUpdateRA == true ]; then
 	raConfigFile=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg
 	FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak
 	if [ -f "$FILE" ]; then
-		echo -e "" &>> /dev/null
+		echo -e "" 2>/dev/null
 	else
 		echo -ne "Backing up RA..."
 		cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak &>> ~/emudeck/emudeck.log
@@ -1252,7 +1252,7 @@ if [ $PSXBIOS == false ]; then
 	zenity --error \
 			--title="EmuDeck" \
 			--width=400 \
-			--text="${text}" &>> /dev/null
+			--text="${text}" 2>/dev/null
 fi
 
 if [ $PS2BIOS == false ]; then
@@ -1261,21 +1261,21 @@ if [ $PS2BIOS == false ]; then
 	zenity --error \
 			--title="EmuDeck" \
 			--width=400 \
-			--text="${text}" &>> /dev/null
+			--text="${text}" 2>/dev/null
 fi
 
 
 #Yuzu Keys & Firmware
 FILE=~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/prod.keys
 if [ -f "$FILE" ]; then
-	echo -e "" &>> /dev/null
+	echo -e "" 2>/dev/null
 else
 		
 	text="`printf "<b>Yuzu is not configured</b>\nYou need to copy your Keys and firmware to: \n${biosPath}yuzu/keys\n${biosPath}yuzu/firmware\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them</b>"`"
 	zenity --error \
 			--title="EmuDeck" \
 			--width=400 \
-			--text="${text}" &>> /dev/null
+			--text="${text}" 2>/dev/null
 fi
 
 #melonDS permissions?
@@ -1531,7 +1531,7 @@ else
 			 --width=450 \
 			 --ok-label="Yes" \
 			 --cancel-label="No" \
-			 --text="${text}" &>> /dev/null
+			 --text="${text}" 2>/dev/null
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		text="`printf "What is your RetroAchievments username?\n\nPress STEAM + X to get the onscreen Keyboard"`"
@@ -1557,10 +1557,10 @@ else
 			then
 				echo "${password}" > ~/emudeck/.rap
 			else
-				echo "Cancel RetroAchievment Password" &>> /dev/null
+				echo "Cancel RetroAchievment Password" 2>/dev/null
 			fi
 		else
-			echo "Cancel RetroAchievment User" &>> /dev/null
+			echo "Cancel RetroAchievment User" 2>/dev/null
 		fi
 		
 		rap=$(cat ~/emudeck/.rap)
@@ -1571,7 +1571,7 @@ else
 		sed -i "s|cheevos_enable = \"false\"|cheevos_enable = \"true\"|g" $raConfigFile
 		
 	else
-		echo "" &>> /dev/null		
+		echo "" 2>/dev/null		
 	
 	fi
 
@@ -1581,7 +1581,7 @@ if [ $doInstallCHD == true ]; then
 	mkdir -p  "$toolsPath"chdconv/
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/tools/chdconv/ "$toolsPath"chdconv/ &>> ~/emudeck/emudeck.log
 	
-	rm -rf ~/Desktop/EmuDeckCHD.desktop &>> /dev/null
+	rm -rf ~/Desktop/EmuDeckCHD.desktop 2>/dev/null
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
 	Name=EmuDeck CHD Script
@@ -1611,7 +1611,7 @@ if [ $doInstallPowertools == true ]; then
 				 --width=250 \
 				 --ok-label="Continue" \
 				 --cancel-label="Cancel" \
-				 --text="${text}" &>> /dev/null
+				 --text="${text}" 2>/dev/null
 		ans=$?
 		continuePowerTools=false #default state is not to continue. Only allow continue if the password succeeds in setting the password.
 		if [ $ans -eq 0 ]; then
@@ -1664,7 +1664,7 @@ if [ $doInstallGyro == true ]; then
 				 --width=250 \
 				 --ok-label="Continue" \
 				 --cancel-label="Cancel" \
-				 --text="${text}" &>> /dev/null
+				 --text="${text}" 2>/dev/null
 		ans=$?
 		continueGyro=false
 		if [ $ans -eq 0 ]; then
@@ -1700,7 +1700,7 @@ echo "" > ~/emudeck/.finished
 if [ $branch == 'main' ];then
 
 	#We create new icons
-	rm -rf ~/Desktop/EmuDeckUninstall.desktop &>> /dev/null
+	rm -rf ~/Desktop/EmuDeckUninstall.desktop 2>/dev/null
 	echo '#!/usr/bin/env xdg-open
 	[Desktop Entry]
 	Name=Uninstall EmuDeck
@@ -1711,8 +1711,8 @@ if [ $branch == 'main' ];then
 	StartupNotify=false' > ~/Desktop/EmuDeckUninstall.desktop
 	chmod +x ~/Desktop/EmuDeckUninstall.desktop
 	
-	rm -rf ~/Desktop/EmuDeck.desktop &>> /dev/null
-	rm -rf ~/Desktop/EmuDeckSD.desktop &>> /dev/null
+	rm -rf ~/Desktop/EmuDeck.desktop 2>/dev/null
+	rm -rf ~/Desktop/EmuDeckSD.desktop 2>/dev/null
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
 	Name=EmuDeck (${version})
@@ -1736,12 +1736,12 @@ zenity --question \
 		 --width=450 \
 		 --ok-label="Open Steam Rom Manager" \
 		 --cancel-label="Exit" \
-		 --text="${text}" &>> /dev/null
+		 --text="${text}" 2>/dev/null
 ans=$?
 if [ $ans -eq 0 ]; then
 	cd ~/Desktop/
 	./Steam-ROM-Manager.AppImage
 	exit
 else
-	echo -e "Exit" &>> /dev/null
+	echo -e "Exit" 2>/dev/null
 fi
