@@ -1650,7 +1650,7 @@ if [ $doInstallPowertools == true ]; then
 
 fi
 
-if [ $doInstallGyroControl == true ]; then
+if [ $doInstallGyro == true ]; then
 	
 	hasPass=$(grep -rn '/etc/passwd' -e "$(whoami):") #makes it work for the current user.
 	
