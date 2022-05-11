@@ -358,7 +358,7 @@ if [ $expert == true ]; then
 				9 "Yuzu" \
 				10 "Cemu" \
 				11 "Xemu" \
-				12 "Xenia") 2>/dev/null
+				12 "Xenia" 2>/dev/null)
 	clear
 	ans=$?	
 	if [ $ans -eq 0 ]; then
@@ -598,7 +598,7 @@ if [ $expert == true ]; then
 							9 "Yuzu" \
 							10 "Cemu" \
 							11 "Xemu" \
-							12 "SRM") 2>/dev/null
+							12 "SRM"  2>/dev/null)
 		clear
 		cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 		echo -e "${BOLD}EmuDeck ${version}${NONE}"
