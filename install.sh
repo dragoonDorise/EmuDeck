@@ -358,7 +358,7 @@ if [ $expert == true ]; then
 				9 "Yuzu" \
 				10 "Cemu" \
 				11 "Xemu" \
-				12 "Xenia")
+				12 "Xenia") 2>/dev/null
 	clear
 	ans=$?	
 	if [ $ans -eq 0 ]; then
@@ -598,7 +598,7 @@ if [ $expert == true ]; then
 							9 "Yuzu" \
 							10 "Cemu" \
 							11 "Xemu" \
-							12 "SRM")
+							12 "SRM") 2>/dev/null
 		clear
 		cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 		echo -e "${BOLD}EmuDeck ${version}${NONE}"
@@ -1540,7 +1540,7 @@ else
 						--width=450 \
 						--ok-label="OK" \
 						--cancel-label="Cancel" \
-						--text="${text}")
+						--text="${text}" 2>/dev/null)
 		ans=$?
 		if [ $ans -eq 0 ]
 		then
@@ -1551,7 +1551,7 @@ else
 							  --width=450 \
 							  --ok-label="OK" \
 							  --cancel-label="Cancel" \
-							  --text="${text}")							  
+							  --text="${text}" 2>/dev/null)							  
 			ans=$?
 			if [ $ans -eq 0 ]
 			then
@@ -1643,7 +1643,7 @@ if [ $doInstallPowertools == true ]; then
 		zenity --info \
 		   --title="EmuDeck" \
 		   --width=450 \
-		   --text="${text}"
+		   --text="${text}" 2>/dev/null
 	else
 		echo "user did not continue Powertools install" >> ~/emudeck/emudeck.log
 	fi
@@ -1687,7 +1687,7 @@ if [ $doInstallGyro == true ]; then
 		zenity --info \
 		   --title="EmuDeck" \
 		   --width=450 \
-		   --text="${text}"
+		   --text="${text}" 2>/dev/null
 	else
 		echo "user did not continue Gyro install" >> ~/emudeck/emudeck.log
 	fi
