@@ -851,11 +851,11 @@ if [ $doInstallCemu == "true" ]; then
 		rm -f "$romsPath"/wiiu/cemu_1.26.2.zip &>> ~/emudeck/emudeck.log		
 	fi
 
-	if ! [ -f "${toolsPath}"launchers/cemu.sh ]; then
-		cp ~/dragoonDoriseTools/EmuDeck/tools/launchers/cemu.sh "${toolsPath}"launchers/cemu.sh
-		sed -i "s|/run/media/mmcblk0p1/Emulation/roms/wiiu|${romsPath}wiiu|" "${toolsPath}"launchers/cemu.sh
-		chmod +x ${toolsPath}/launchers/cemu.sh
-	fi
+	#because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
+	cp ~/dragoonDoriseTools/EmuDeck/tools/launchers/cemu.sh "${toolsPath}"launchers/cemu.sh
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/wiiu|${romsPath}wiiu|" "${toolsPath}"launchers/cemu.sh
+	chmod +x ${toolsPath}/launchers/cemu.sh
+
 	#Commented until we get CEMU flatpak working
 	#echo -e "${BOLD}EmuDeck will add Witherking25's flatpak repo to your Discorver App.this is required for cemu now${NONE}"	
 	#flatpak remote-add --user --if-not-exists withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo &>> ~/emudeck/emudeck.log
