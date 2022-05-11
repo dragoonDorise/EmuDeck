@@ -529,8 +529,8 @@ if [ $expert == true ]; then
 				--column="Emulator" \
 				1 "Dolphin" \
 				2 "Duckstation" \
-				3 "BeetlePSX"
-				4 "Dreamcast")
+				3 "BeetlePSX" \
+				4 "Dreamcast"  2>/dev/null)
 	clear
 	ans=$?	
 	if [ $ans -eq 0 ]; then
