@@ -907,6 +907,7 @@ if [ $doUpdateSRM == true ]; then
 	sleep 3
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.config/steam-rom-manager/userData/userConfigurations.json
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools/|${toolsPath}|g" ~/.config/steam-rom-manager/userData/userConfigurations.json
+	sed -i "s|/run/media/mmcblk0p1/Emulation/saves/|${savesPath}|g" ~/.config/steam-rom-manager/userData/userConfigurations.json
 	echo -e "${GREEN}OK!${NONE}"
 fi
 
