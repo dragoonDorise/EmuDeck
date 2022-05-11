@@ -7,7 +7,7 @@ zenity --question \
 		 --width=250 \
 		 --ok-label="Ok, let's start" \
 		 --cancel-label="Exit" \
-		 --text="${text}" &>> /dev/null
+		 --text="${text}" 2>/dev/null
 ans=$?
 if [ $ans -eq 0 ]; then
 	
@@ -46,7 +46,7 @@ if [ $ans -eq 0 ]; then
 		 --title="EmuDeck" \
 		 --width=250 \
 		 --ok-label="Bye" \
-		 --text="${text}" &>> /dev/null
+		 --text="${text}" 2>/dev/null
 		exit
 	fi
 
@@ -64,7 +64,7 @@ if [ $ans -eq 0 ]; then
 				--checklist \
 				--column="" \
 				--column=${selectColumnStr})
-				echo "User selected $folderstoconvert"
+				echo "User selected $folderstoconvert" 2>/dev/null
 	
 	IFS="|" read -r -a romfolders <<< "$folderstoconvert"
 	
@@ -86,10 +86,11 @@ zenity --question \
 		 --width=450 \
 		 --ok-label="Open Steam Rom Manager" \
 		 --cancel-label="Exit" \
-		 --text="${text}" &>> /dev/null
+		 --text="${text}" 2>/dev/null
 ans=$?
 if [ $ans -eq 0 ]; then
 	cd ~/Desktop/
+	echo "user launched SRM"
 	./Steam-ROM-Manager.AppImage
 	exit
 else
