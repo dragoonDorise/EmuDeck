@@ -40,13 +40,13 @@ if [ $ans -eq 0 ]; then
 	done
 	
 	if (( ${#searchFolderList[@]} == 0 )); then
+		echo "No eligible files found."
 		text="`printf "<b>No suitable roms were found for conversion.</b>\n\nPlease check if you have any cue / gdi / iso files for compatible systems."`"
 		zenity --error \
 		 --title="EmuDeck" \
 		 --width=250 \
 		 --ok-label="Bye" \
 		 --text="${text}" &>> /dev/null
-		 echo "Nothing Found."
 		exit
 	fi
 
