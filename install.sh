@@ -77,6 +77,7 @@ doInstallXemu=false
 #doInstallMelon=false
 doInstallCHD=false
 doInstallPowertools=false
+doInstallGyro=false
 installString='Installing'
 
 #Default RetroArch configuration 
@@ -271,7 +272,7 @@ if [ $expert == true ]; then
 	
 	#Powertools
 	text=""
-	text="`printf "Do you want to install Powertools? This can improve Emulators like Yuzu or Dolphin. You will need to create a password for your deck linux desktop user. PowerTools only has touch support, you can control it using the controller\n\n<b>Do not use this if you don not have basic Linux Terminal knowlegde</b>"`"
+	text="`printf "Do you want to install Powertools? This can improve Emulators like Yuzu or Dolphin. You will need to create a password for your deck linux desktop user. PowerTools only has touch support, you can not control it using the controller.\n\n<b>Do not use this if you do not have basic Linux Terminal knowledge.</b>"`"
 	zenity --question \
 			 --title="EmuDeck" \
 			 --width=250 \
@@ -284,6 +285,23 @@ if [ $expert == true ]; then
 		
 	else
 		doInstallPowertools=false
+	fi
+	
+	#Gyro
+	text=""
+	text="`printf "Do you want to install SteamGyroDSU? This can be used in emulators such as Cemu for proper motion controls. You will need to create a password for your deck linux desktop user.</b>"`"
+	zenity --question \
+			 --title="EmuDeck" \
+			 --width=250 \
+			 --ok-label="Yes" \
+			 --cancel-label="No" \
+			 --text="${text}" &>> /dev/null
+	ans=$?
+	if [ $ans -eq 0 ]; then
+		doInstallGyro=true
+		
+	else
+		doInstallGyro=false
 	fi	
 
 	#SRM Update selector	
