@@ -1680,7 +1680,8 @@ if [ $doInstallGyro == true ]; then
 	
 	if [ $continueGyro == true ]; then
 		echo "Installing ${BOLD} SteamDeckGyroDSU. Insert your password when required. ${NONE}"
-		bash <(curl -sL https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh) >> ~/emudeck/emudeck.log
+		InstallGyro=$(bash <(curl -sL https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh))
+		echo $InstallGyro >> ~/emudeck/emudeck.log
 		# we should add special controller config installs here for gyro
 		text="$(printf "To finish the installation you must reboot your system.")"
 		zenity --info \
