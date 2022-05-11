@@ -31,4 +31,4 @@ set_env() {
 
 # Main
 set_env
-python "${PROTON}" waitforexitandrun "${APPPATH}/Cemu.exe" -f -g "${@}"
+python "${PROTON}" waitforexitandrun "${APPPATH}/Cemu.exe" "${@}"
