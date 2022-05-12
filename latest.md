@@ -17,3 +17,4 @@
 - update RPCS3 config with new version, as its config had changed
 - update PowerTools to version 4. SMT Toggle is in. Be aware that this may crash MangoHud(stats) if enabled, but it won't hurt anything. MangoHud will come back on reboot.
 - fixed SRM Parser for Installed PS3 games for internal users.
+- Expert mode will ask about Bezels and Autosave again
