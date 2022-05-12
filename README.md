@@ -32,7 +32,7 @@ EmuDeck has preloaded configurations for Steam Rom Manager for the following sys
 | Nintendo DS               | Retroarch melonDS core               | .7z .nds .zip                                                        |
 | Nintendo 3DS              | Citra                                | .3ds .3dsx .app .axf .cii .cxi .elf .cia                             |
 | Nintendo NES              | Retroarch Nestopia core              | .7z .nes .fds .unf .unif .zip                                        |
-| Nintendo 64               | Mupen64plus-Next                       | .7z .bin .n64 .ndd u1 .v64 .z64 .zip                                 |
+| Nintendo 64               | Retroarch Mupen64plus-Next                       | .7z .bin .n64 .ndd u1 .v64 .z64 .zip                                 |
 | Nintendo GameCube         | Dolphin Standalone                   | .ciso .dol .elf .gcm .gcz .iso .nkit .iso .rvz .wad .wia .wbfs       |
 | Nintendo Wii              | Dolphin Standalone                   | .ciso .dol .elf .gcm .gcz .iso .json .nkit .iso .rvz .wad .wia .wbfs |
 | Nintendo Wii U            | Cemu                                 | .rpx .wud .wux .elf .iso .wad                                        |
