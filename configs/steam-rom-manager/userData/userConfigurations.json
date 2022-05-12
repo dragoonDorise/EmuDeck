@@ -1563,7 +1563,7 @@
     "disabled": false,
     "advanced": false,
     "executable": {
-      "path": "/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -1616,7 +1616,7 @@
     "disabled": false,
     "advanced": false,
     "executable": {
-      "path": "/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
