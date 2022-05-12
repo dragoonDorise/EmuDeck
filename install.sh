@@ -720,7 +720,25 @@ if [ $doInstallSRM == true ]; then
 	#Nova fix'
 	chmod +x ~/Desktop/Steam-ROM-Manager.AppImage
 fi
-	
+
+#Ensure the dependencies are installed before proceeding.
+for package in packagekit-qt5 flatpak rsync unzip
+do
+  pacman -Q ${package} &>> ~/emudeck/emudeck.log || sudo pacman -Sy --noconfirm ${package} &>> ~/emudeck/emudeck.log
+done
+
+#The user must be in the wheel group to install flatpaks successfully.
+wheel=$(awk '/'${USER}'/ {if ($1 ~ /wheel/) print}' /etc/group)
+if [[ ! "${wheel}" =~ ${USER} ]]
+then
+  sudo usermod -a -G wheel ${USER} &>> ~/emudeck/emudeck.log
+fi
+
+#Ensure the Desktop directory isn't owned by root
+if [[ "$(stat -c %U ${HOME}/Desktop)" =~ root ]]
+then
+  sudo chown -R ${USER}:${USER} ~/Desktop &>> ~/emudeck/emudeck.log
+fi
 
 #Emulators Installation
 if [ $doInstallPCSX2 == "true" ]; then
