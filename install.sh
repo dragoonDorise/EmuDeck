@@ -417,7 +417,7 @@ if [ $expert == true ]; then
 	FILE=~/emudeck/.custom
 	if [ -f "$FILE" ]; then
 		FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg
-			if [ -d "$FILE" ]; then	
+			if [ -f "$FILE" ]; then	
 			text="Do you want to use your previous RetroArch customization?"
 			zenity --question \
 				 	--title="EmuDeck" \
@@ -1638,9 +1638,10 @@ if [ $doInstallPowertools == true ]; then
 		# shellcheck disable=SC2024
 		sudo git clone https://github.com/NGnius/PowerTools.git ~/homebrew/plugins/PowerTools >> ~/emudeck/emudeck.log
 		sleep 1
+
 		cd ~/homebrew/plugins/PowerTools || exit
-		# shellcheck disable=SC2024
-		sudo git checkout tags/v0.4.0 >> ~/emudeck/emudeck.log
+		sudo git checkout tags/v0.4.1 >> ~/emudeck/emudeck.log
+
 		text="$(printf "To finish the installation go into the Steam UI Settings\n\n
 		Under System -> System Settings toggle Enable Developer Mode\n\n
 		Scroll the sidebar all the way down and click on Developer\n\n
