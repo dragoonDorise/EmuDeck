@@ -733,6 +733,7 @@ if [[ ! "$(cat /sys/devices/virtual/dmi/id/product_name)" =~ Jupiter ]]; then
 	wheel=$(awk '/'${USER}'/ {if ($1 ~ /wheel/) print}' /etc/group)
 	if [[ ! "${wheel}" =~ ${USER} ]]; then
 		sudo usermod -a -G wheel ${USER} &>> ~/emudeck/emudeck.log
+		newgrp wheel
 	fi
 
 	#Ensure the Desktop directory isn't owned by root
