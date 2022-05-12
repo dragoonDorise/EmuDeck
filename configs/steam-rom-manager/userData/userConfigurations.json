@@ -747,7 +747,7 @@
     "configTitle": "Commodore 64 - Retroarch",
     "steamCategory": "${Commodore 64}",
     "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/home/deck/Emulation/roms/c64",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/c64",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}vice_x64_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
