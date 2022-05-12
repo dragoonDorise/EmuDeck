@@ -417,7 +417,7 @@ if [ $expert == true ]; then
 	FILE=~/emudeck/.custom
 	if [ -f "$FILE" ]; then
 		FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg
-			if [ -d "$FILE" ]; then	
+			if [ -f "$FILE" ]; then	
 			text="Do you want to use your previous RetroArch customization?"
 			zenity --question \
 				 	--title="EmuDeck" \
