@@ -22,7 +22,7 @@ EmuDeck has preloaded configurations for Steam Rom Manager for the following sys
 | GameBoy                   | Retroarch Gambatte core              | .7z .gb .dmg .zip                                                    |
 | GameBoy Color             | Retroarch Gambatte core              | .7z .gb .gbc .dmg .zip                                               |
 | GameBoy Advance           | Retroarch mGBA core                  | .7z .gba .zip                                                        |
-| Dreamcast                 | Retroarch FlyCast Core               | .7z, .cdi, .chd, .cue, .gdi                                          |
+| Dreamcast                 | Retroarch FlyCast Core               | .7z .cdi .chd .cue .gdi                                              |
 | Final Burn Neo            | Retroarch Fbn core                   | .zip .7z                                                             |
 | Mame 2003 Plus            | Retroarch Mame 2003 Plus core        | .zip                                                                 |
 | Mame 2010                 | Retroarch Mame 2010 core             | .zip                                                                 |
@@ -32,7 +32,7 @@ EmuDeck has preloaded configurations for Steam Rom Manager for the following sys
 | Nintendo DS               | Retroarch melonDS core               | .7z .nds .zip                                                        |
 | Nintendo 3DS              | Citra                                | .3ds .3dsx .app .axf .cii .cxi .elf .cia                             |
 | Nintendo NES              | Retroarch Nestopia core              | .7z .nes .fds .unf .unif .zip                                        |
-| Nintendo 64               | Mupen64plus FZ                       | .7z .bin .n64 .ndd u1 .v64 .z64 .zip                                 |
+| Nintendo 64               | Retroarch Mupen64plus-Next           | .7z .bin .n64 .ndd .u1 .v64 .z64 .zip                                |
 | Nintendo GameCube         | Dolphin Standalone                   | .ciso .dol .elf .gcm .gcz .iso .nkit .iso .rvz .wad .wia .wbfs       |
 | Nintendo Wii              | Dolphin Standalone                   | .ciso .dol .elf .gcm .gcz .iso .json .nkit .iso .rvz .wad .wia .wbfs |
 | Nintendo Wii U            | Cemu                                 | .rpx .wud .wux .elf .iso .wad                                        |
@@ -41,7 +41,7 @@ EmuDeck has preloaded configurations for Steam Rom Manager for the following sys
 | Super Nintendo Widescreen | Retroarch bsnes hd beta Current core | .7z .bs .fig .sfc .smc .swx .zip                                     |
 | PrimeHacks                | Dolphin PrimeHacks                   | .ciso .dol .elf .gcm .gcz .iso .json .nkit .iso .rvz .wad .wia .wbfs |
 | Playstation               | DuckStation                          | .cue .chd .ecm .iso .m3u .mds .pbp                                   |
-| Playstation 2             | RPCSX2                               | .bin chd .cso .dump .gz .img .iso .mdf .nrg                          |
+| Playstation 2             | RPCSX2                               | .bin .chd .cso .dump .gz .img .iso .mdf .nrg                         |
 | Playstation 3             | RPCS3                                | /PS3_GAME/USRDIR/eboot.bin                                           |
 | PSP                       | PPSSPP & PPSSPP Retroarch core       | .7z .elf .cso .iso .pbp .prx                                         |
 | Sega 32X                  | Retroarch PicoDrive core             | .7z .32x .bin .zip                                                   |
