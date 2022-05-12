@@ -30,3 +30,5 @@
 - update PowerTools to version 4. SMT Toggle is in. Be aware that this may crash MangoHud(stats) if enabled, but it won't hurt anything. MangoHud will come back on reboot.
 - fixed SRM Parser for Installed PS3 games for internal users.
 - Expert mode will ask about Bezels and Autosave again
+- Cemu Script added to installers. When added to SRM does not require proton being set.
+-          Cemu may require a refresh after the update to show games in rom path.
