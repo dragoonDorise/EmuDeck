@@ -722,8 +722,7 @@ if [ $doInstallSRM == true ]; then
 fi
 
 #We only want to execute on non-valve hardware.
-if [[ ! "$(cat /sys/devices/virtual/dmi/id/product_name)" =~ Jupiter ]]
-then
+if [[ ! "$(cat /sys/devices/virtual/dmi/id/product_name)" =~ Jupiter ]]; then
 	#Ensure the dependencies are installed before proceeding.
 	for package in packagekit-qt5 flatpak rsync unzip
 	do
@@ -732,14 +731,12 @@ then
 
 	#The user must be in the wheel group to install flatpaks successfully.
 	wheel=$(awk '/'${USER}'/ {if ($1 ~ /wheel/) print}' /etc/group)
-	if [[ ! "${wheel}" =~ ${USER} ]]
-	then
+	if [[ ! "${wheel}" =~ ${USER} ]]; then
 		sudo usermod -a -G wheel ${USER} &>> ~/emudeck/emudeck.log
 	fi
 
 	#Ensure the Desktop directory isn't owned by root
-	if [[ "$(stat -c %U ${HOME}/Desktop)" =~ root ]]
-	then
+	if [[ "$(stat -c %U ${HOME}/Desktop)" =~ root ]]; then
 		sudo chown -R ${USER}:${USER} ~/Desktop &>> ~/emudeck/emudeck.log
 	fi
 fi
