@@ -742,7 +742,6 @@ then
 	then
 		sudo chown -R ${USER}:${USER} ~/Desktop &>> ~/emudeck/emudeck.log
 	fi
-
 fi
 
 #Emulators Installation
