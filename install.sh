@@ -1095,6 +1095,7 @@ if [ $doUpdateCitra == true ]; then
 	fi
 
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.citra_emu.citra/ ~/.var/app/org.citra_emu.citra/ &>> ~/emudeck/emudeck.log
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini
 fi
 if [ $doUpdateDuck == true ]; then
 	FOLDER=~/.var/app/org.duckstation.DuckStation/data_bak
