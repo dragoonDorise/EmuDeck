@@ -1,0 +1,5 @@
+gametitle=Chou Saisoku Zokusha King BU - Bucchigiri Densetsu 2 (J)(SLPM-62486)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+patch=1,EE,2034EB94,extended,3f400000 //3f800000

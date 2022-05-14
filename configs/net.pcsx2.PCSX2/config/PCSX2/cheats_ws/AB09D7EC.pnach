@@ -1,0 +1,5 @@
+gametitle=Project Minerva [NTSC-J] (SLPM-65165)
+comment=Widescreen Hack by Little Gaint
+
+patch=1,EE,20F2B608,extended,3F206D3A // vert
+patch=1,EE,20F322D4,extended,3F5AE148 // zoom

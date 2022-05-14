@@ -1,0 +1,13 @@
+gametitle=Kaitou Sly Cooper(J)(SCPS-15036)
+comment=Widescreen hack (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,00143a50,word,3c013fdd //3c013fa6
+patch=1,EE,00143a54,word,3421a51d //34213bd8
+patch=1,EE,0012b938,word,10000003 //11000003
+patch=1,EE,0015f424,word,00000000 //0c057cc4
+patch=1,EE,001907e0,word,00000000 //0c064238
+patch=1,EE,001eb448,word,00000000 //0c07acb8
+
+

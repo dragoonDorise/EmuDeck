@@ -1,0 +1,7 @@
+gametitle=Strawberry Shortcake - The Sweet Dreams Game (U)(SLUS-21497)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//803f033c 4940023c 00188344
+patch=1,EE,0019d624,word,3c033f40 //3c033f80

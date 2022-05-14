@@ -1,0 +1,18 @@
+gametitle=Mobile Suit Gundam - Zeonic Front (U)(SLUS-20233)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Matrix Hack (3rd)
+patch=1,EE,002147cc,word,3c013f40 //00000000
+patch=1,EE,002147d0,word,44810000 //00000000
+patch=1,EE,002147d8,word,4600c602 //00000000
+
+///////////////////////////////////////////////////
+//Zoom
+//803f013c 00008144 2d20a003 (3rd)
+//patch=1,EE,002147f0,word,3c013fab //3c013f80
+
+//Y-Fov (Except background Picture (Cloud)
+//efeeee3f -> f5491f40
+//patch=1,EE,003a8008,word,401F49F5 //3feeeeef

@@ -1,0 +1,33 @@
+gametitle=Shinki Genso - Spectral Souls II (J)(SLPM-65861)
+comment= Widescreen Hack by Arapapa
+
+// Widescreen 16:9
+
+//X-Fov
+patch=1,EE,0023a4a4,word,3c033f19 //3c033f4c
+patch=1,EE,0023a4a8,word,3463999a //3463cccd
+
+//Render fix
+patch=1,EE,0023a4c4,word,3c0343f7 //3c0343b9
+
+//All of 2D fix
+patch=1,EE,0023b484,word,3c023f19 //3c023f4c
+patch=1,EE,0023b488,word,3442999a //3442cccd
+patch=1,EE,0023b524,word,3c023f19 //3c023f4c
+patch=1,EE,0023b528,word,3442999a //3442cccd
+patch=1,EE,0023b5c4,word,3c023f19 //3c023f4c
+patch=1,EE,0023b5c8,word,3442999a //3442cccd
+patch=1,EE,0023b664,word,3c023f19 //3c023f4c
+patch=1,EE,0023b668,word,3442999a //3442cccd
+patch=1,EE,0023b714,word,3c023f19 //3c023f4c
+patch=1,EE,0023b718,word,3442999a //3442cccd
+patch=1,EE,0023b75c,word,3c023f19 //3c023f4c
+patch=1,EE,0023b760,word,3442999a //3442cccd
+
+//2D X-position
+patch=1,EE,002192c4,word,24647400 //24647000
+patch=1,EE,0023b4ac,word,24647400 //24647000
+patch=1,EE,0023b54c,word,24647400 //24647000
+patch=1,EE,0023b5ec,word,24647400 //24647000
+patch=1,EE,0023b68c,word,24647400 //24647000
+patch=1,EE,0023b73c,word,24437400 //24437000

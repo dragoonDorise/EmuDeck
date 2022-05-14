@@ -1,0 +1,15 @@
+gametitle=Myth Makers - Orbs of Doom (E)(SLES-52241)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0034a170,word,08040034 // c6010068
+patch=1,EE,0034a174,word,00000000 // c602006c
+
+patch=1,EE,001000d0,word,3c013f40 // 00000000
+patch=1,EE,001000d4,word,4481f000 // 00000000
+patch=1,EE,001000d8,word,c6010068 // 00000000
+patch=1,EE,001000dc,word,c602006c // 00000000
+patch=1,EE,001000e0,word,461e0843 // 00000000
+patch=1,EE,001000e4,word,e6010068 // 00000000
+patch=1,EE,001000e8,word,080d285e // 00000000

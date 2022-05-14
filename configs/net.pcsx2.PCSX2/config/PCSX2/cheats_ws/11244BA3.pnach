@@ -1,0 +1,9 @@
+gametitle=K-1 World Grand Prix 2001 (J)(SLPM-65075)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,001c6468,word,3c013f40 //3c013f80 Menu
+patch=1,EE,001c93dc,word,3c013f40 //3c013f80 Event
+patch=1,EE,0010d7b8,word,3c013f40 //3c013f80 Game Play

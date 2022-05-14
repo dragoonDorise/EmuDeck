@@ -1,0 +1,24 @@
+gametitle=Herdy Gerdy (K)(SLKA-25003)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//003f013c 00008144 b0ffbd27
+patch=1,EE,0012ca90,word,3c013f20 //3c013f00
+
+//Render fix
+//003f013c 00008144 f0ffbd27
+patch=1,EE,0012cce8,word,3c013f40 //3c013f00
+
+//Vert
+//803f013c 00c88144 66a20a0c
+patch=1,EE,002604c4,word,3c013fab//3c013f80
+//0044013c 00608144 46a30046
+patch=1,EE,002604d4,word,3c0143c0//3c014400
+
+//xxx
+//patch=1,EE,0012cbdc,word,3c013f40 //3c013f80
+//patch=1,EE,0012ce0c,word,3c013f40 //3c013f80
+//patch=1,EE,00104210,word,3c013fff //3c013f80
+//patch=1,EE,00292cd0,word,3c013fff //3c013f80

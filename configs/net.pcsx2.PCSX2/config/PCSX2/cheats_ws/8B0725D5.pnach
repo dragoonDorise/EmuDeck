@@ -1,0 +1,19 @@
+gametitle=The Flintstones - Bedrock Racing (E)(SLES-54473)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//003f013c 00008144 3800b7e7
+patch=1,EE,00180684,word,3c013f21 //3c013f00
+
+//Y-Fov
+//c2051546 2d200002
+patch=1,EE,001806d4,word,08087fb8
+
+patch=1,EE,0021fee0,word,461505c2
+patch=1,EE,0021fee4,word,3c013f40
+patch=1,EE,0021fee8,word,00000000
+patch=1,EE,0021feec,word,4481f000
+patch=1,EE,0021fef0,word,461ebdc2
+patch=1,EE,0021fef4,word,080601b6

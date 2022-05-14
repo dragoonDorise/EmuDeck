@@ -1,0 +1,31 @@
+gametitle=Warriors of Might and Magic (U)(SLUS-20006)
+comment=Widescreen hack by ElHecht and Arapapa
+
+//Widescreen hack 16:9
+
+//Gameplay
+//00000000 34800046 00000000
+patch=1,EE,002fc470,word,3c013f81 // 00000000 hor fov
+patch=1,EE,002fc478,word,3421de4d // 00000000 hor fov
+
+//000084e4 0800e003
+patch=1,EE,002fc520,word,ac810000 // e4840000
+
+//003f013c 00c08144 (2nd)
+patch=1,EE,0015a30c,word,3c013ec0 // 3c013f00 renderfix
+
+//Menu Fix
+//89C0013C 92242134
+//40DC013C D8B62134
+patch=1,EE,00263c08,word,3c01c04D //46000843 Y-Fov
+patch=1,EE,00263c0c,word,3421B6D8 //34212492
+
+//8940013C 92242134
+//40D4013C D8B62134
+patch=1,EE,00263c14,word,3c01404D //46000843 Y-Fov
+patch=1,EE,00263c18,word,3421B6D8 //34212492
+
+//803f013c 00008144 40780e46
+patch=1,EE,002fc6e4,word,3c023fab // 3c013f80 newgame menu zoom
+patch=1,EE,002fc6e8,word,3442aaab // 44810000 newgame menu zoom
+patch=1,EE,002fc6fc,word,ac82003c // e480003c

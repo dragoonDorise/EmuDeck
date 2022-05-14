@@ -1,0 +1,10 @@
+gametitle=Big Mutha Truckers (PAL)(SLES-51355)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,001aa3f4,word,3c013f3a //3c013f80
+
+//Y-Fov
+patch=1,EE,0037c730,word,3fe00000 //3f99999a

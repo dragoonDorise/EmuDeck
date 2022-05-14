@@ -1,0 +1,24 @@
+gametitle=Showdown - Legends of Wrestling (K)(SLKA-25204)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//000060e4 040062e4 080062e4
+patch=1,EE,00249528,word,080c298c
+
+patch=1,EE,0030a630,word,3c023f40
+patch=1,EE,0030a634,word,4482f000
+patch=1,EE,0030a638,word,461e0002
+patch=1,EE,0030a63c,word,e4600000
+patch=1,EE,0030a640,word,0809254b
+
+//xxxx
+//patch=1,EE,0013feb0,word,3c033ff0 //3c033f80
+//patch=1,EE,002491fc,word,3c0845d0 //3c084500
+//patch=1,EE,002494e8,word,3c0645d0 //3c064500
+//patch=1,EE,0024923c,word,3c0345d0 //3c034500
+//patch=1,EE,002494e8,word,3c0645d0 //3c064500
+//patch=1,EE,00260d6c,word,3c033f00 //3c033f80
+//patch=1,EE,00260d7c,word,3c033f00 //3c033f80
+//patch=1,EE,00260f98,word,3c083f00 //3c083f80
+//patch=1,EE,00261018,word,3c0b3f00 //3c0b3f80

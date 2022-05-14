@@ -1,0 +1,74 @@
+gametitle=Mobile Suit Gundam - Journey to Jaburo (U)(SLUS-20175)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Search Values
+//2044033c 00108344 28a68070 (X-Fov)
+//a043023c 00008244 466d0046 (Render fix)
+
+//Title
+patch=1,EE,E0023f00,extended,00100050
+patch=1,EE,20128c38,extended,3c034455 //3c034420 X-Fov
+patch=1,EE,201ae388,extended,3c0243e0 //3c0243a0 Render fix
+
+//Story 1
+patch=1,EE,E002f780,extended,00100050
+patch=1,EE,2012aed8,extended,3c034455 //3c034420 X-Fov
+patch=1,EE,201adbe8,extended,3c0243e0 //3c0243a0 Render fix
+
+//Story 2
+patch=1,EE,E002af80,extended,00100050
+patch=1,EE,2012aff8,extended,3c034439 //3c034420 X-Fov
+patch=1,EE,201af358,extended,3c0243e0 //3c0243a0 Render fix
+
+//Story 3
+patch=1,EE,E002c580,extended,00100050
+patch=1,EE,2012aff8,extended,3c034455 //3c034420 X-Fov
+patch=1,EE,201af1c8,extended,3c0243e0 //3c0243a0 Render fix
+
+//Story 4
+patch=1,EE,E0023d00,extended,00100050
+patch=1,EE,2012aff8,extended,3c034455 //3c034420 X-Fov
+patch=1,EE,201aef18,extended,3c0243e0 //3c0243a0 Render fix
+
+//Story 5
+patch=1,EE,E0021480,extended,00100050
+patch=1,EE,2012aff8,extended,3c034455 //3c034420 X-Fov
+patch=1,EE,201adf28,extended,3c0243e0 //3c0243a0 Render fix
+
+//Story 6
+patch=1,EE,E002b880,extended,00100050
+patch=1,EE,2012aff8,extended,3c034455 //3c034420 X-Fov
+patch=1,EE,201aef68,extended,3c0243e0 //3c0243a0 Render fix
+
+//Story 7
+patch=1,EE,E0028600,extended,00100050
+patch=1,EE,2012aff8,extended,3c034455 //3c034420 X-Fov
+patch=1,EE,201af4a8,extended,3c0243e0 //3c0243a0 Render fix
+
+//Story 8
+patch=1,EE,E002bc80,extended,00100050
+patch=1,EE,2012aff8,extended,3c034455 //3c034420 X-Fov
+patch=1,EE,201af398,extended,3c0243e0 //3c0243a0 Render fix
+
+//Story 9
+patch=1,EE,E0029f00,extended,00100050
+patch=1,EE,2012aed8,extended,3c034455 //3c034420 X-Fov
+patch=1,EE,201af4d8,extended,3c0243e0 //3c0243a0 Render fix
+
+////////////////////////////////////////////////////////////////
+//Extra 1
+//patch=1,EE,E002a780,extended,00100050
+//patch=1,EE,2012aed8,extended,3c034455 //3c034420 X-Fov
+//patch=1,EE,201ae388,extended,3c0243e0 //3c0243a0 Render fix
+
+//Extra 2
+//patch=1,EE,E0024600,extended,00100050
+//patch=1,EE,2012aed8,extended,3c034455 //3c034420 X-Fov
+//patch=1,EE,201ae208,extended,3c0243e0 //3c0243a0 Render fix
+
+//Extra 3
+//patch=1,EE,E002d900,extended,00100050
+//patch=1,EE,2012aff8,extended,3c034455 //3c034420 X-Fov
+//patch=1,EE,201ae618,extended,3c0243e0 //3c0243a0 Render fix

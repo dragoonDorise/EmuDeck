@@ -1,0 +1,17 @@
+gametitle=Red Ninja: End of Honor (NTSC-U)
+comment=Widescreen hack
+
+// 16:9
+patch=1,EE,003695dc,word,3c013f40 // 3c013f80 hor fov1
+patch=1,EE,003695e0,word,44817000 // 44816000
+patch=1,EE,003695f0,word,460e7303 // 46006386
+
+patch=1,EE,003fdc40,word,3c013f40 // 00000000 hor fov2 (background trees)
+patch=1,EE,003fdc48,word,4481f000 // 00000000
+patch=1,EE,003fdc98,word,4602f782 // 00000000
+patch=1,EE,003fdcac,word,461e0842 // 46020002
+
+patch=1,EE,0035dcc4,word,3c013f2b // 3c013f00 renderfix enemies
+
+patch=1,EE,00109e90,word,3c01c380 // 3c01c316 remove black bars in cut-scenes
+patch=1,EE,00109ec4,word,3c014380 // 3c014316 remove black bars in cut-scenes

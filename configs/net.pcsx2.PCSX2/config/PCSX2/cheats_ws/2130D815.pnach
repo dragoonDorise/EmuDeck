@@ -1,0 +1,28 @@
+gametitle=Mercury Meltdown - Remix (U)(SLUS-21548)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//f041013c 00008144 713e013c
+patch=1,EE,00155e74,word,3c014120 //3c0141f0
+
+//Y-Fov
+//440003e6 03a50046
+patch=1,EE,001f8ea0,word,0805ed16
+patch=1,EE,0017b458,word,4600a503
+patch=1,EE,0017b45c,word,46031082
+patch=1,EE,0017b460,word,3c013f40
+patch=1,EE,0017b464,word,4481f000
+patch=1,EE,0017b468,word,461e18c3
+patch=1,EE,0017b46c,word,e6030044
+patch=1,EE,0017b470,word,0807e3ab
+
+///////////////////////////////////
+//X-Fov (render fix)
+//patch=1,EE,001f8ea8,word,0805ed16
+//patch=1,EE,0017b458,word,46031082
+//patch=1,EE,0017b45c,word,3c013f40
+//patch=1,EE,0017b460,word,4481f000
+//patch=1,EE,0017b464,word,461e1082
+//patch=1,EE,0017b468,word,0807e3ab

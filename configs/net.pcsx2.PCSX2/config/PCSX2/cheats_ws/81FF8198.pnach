@@ -1,0 +1,15 @@
+gametitle=The BIGS (NTSC-U)(SLUS-21623)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Normal play
+patch=1,EE,20BDF298,extended,3FE38E32 //3FAAAAAB
+
+//Turbo and Power blast play
+patch=1,EE,20BDF378,extended,3FE38E32 //3FAAAAAB
+patch=1,EE,20BDF430,extended,3FE38E32 //3FAAAAAB
+patch=1,EE,20BDF4E4,extended,3FE38E32 //3FAAAAAB
+patch=1,EE,20BDF5C4,extended,3FE38E32 //3FAAAAAB
+patch=1,EE,20BDF67C,extended,3FE38E32 //3FAAAAAB
+patch=1,EE,20BDF730,extended,3FE38E32 //3FAAAAAB

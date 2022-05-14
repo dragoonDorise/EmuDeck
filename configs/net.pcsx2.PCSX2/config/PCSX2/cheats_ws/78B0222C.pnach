@@ -1,0 +1,14 @@
+gametitle=NBA Live 2002 (U)(SLUS-20303)
+comment=Widescreen hack by Arapapa
+ 
+//Gameplay 16:9
+
+//Y-Fov
+//aa3f013c abaa2134 00688144 1c0637e6
+//e33f013c 2a8e2134 00688144 1c0637e6
+patch=1,EE,00194af8,word,3c013fe3 //3c013faa
+patch=1,EE,00194afc,word,34218e2a //3421aaab
+
+//Zoom
+//403f013c 00608144 1806248e
+patch=1,EE,00194f88,word,3c013f80 //3c013f40

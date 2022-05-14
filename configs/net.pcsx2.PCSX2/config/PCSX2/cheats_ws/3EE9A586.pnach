@@ -1,0 +1,6 @@
+gametitle=Football Kingdom: Trial Edition [NTSC-J] (SLPS_203.74) [English patched, Fernando's v0.004 patch]
+comment=Widescreen hacks by El_Patas (X FOV) and Aced14 (Y FOV)
+
+//Gameplay 16:9
+patch=1,EE,102AFBB4,extended,00003F40 //3C013F80 - Master X FOV
+patch=1,EE,10110EC4,extended,00000150 //240701C0 - Master Y FOV

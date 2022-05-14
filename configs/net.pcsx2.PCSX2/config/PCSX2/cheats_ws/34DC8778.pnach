@@ -1,0 +1,11 @@
+gametitle=Technic Beat (U)(SLUS-21019)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+patch=1,EE,00216954,word,3c023f20 //3c023ef0
+patch=1,EE,00216958,word,34426d2f //3442a3d7
+
+//Zoom
+patch=1,EE,00216944,word,3c02443b //3c02447a

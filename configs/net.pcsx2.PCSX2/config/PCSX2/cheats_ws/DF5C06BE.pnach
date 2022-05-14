@@ -1,0 +1,13 @@
+gametitle=Mat Hoffman's Pro BMX 2 [PAL] (SLES_508.70)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9 
+patch=1,EE,0037B1B8,word,3C033FC0 //3C034000 Zoom
+patch=1,EE,001CC274,word,3C023FAB //3C023F80 Y-FOV
+
+//Alternative Gameplay 16:9
+//patch=1,EE,001CC264,word,3C023CA8 //3C023C8E Zoom 
+//patch=1,EE,001CC274,word,3C023FAB //3C023F80 Y-FOV
+
+//Render fix
+patch=1,EE,00254128,word,3C023C2E //3C023C0E

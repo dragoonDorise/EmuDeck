@@ -1,0 +1,12 @@
+gametitle=F1 Racing Championship (E)(SLES-50047)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,003e004c,word,3F19999A //3f4ccccd
+patch=1,EE,003e005c,word,3F19999A //3f4ccccd
+
+//Y-Fov
+patch=1,EE,003dfc84,word,3FE38E2A //3faaaaab
+patch=1,EE,003dfc88,word,3FE38E2A //3faaaaab

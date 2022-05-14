@@ -1,0 +1,23 @@
+gametitle=SOCOM II - U.S. Navy SEALs (K)(SCKA-20020)
+comment=Widescreen Hack by  ElHecht (NTSC-K by Arapapa)
+
+//Widescreen hack 16:9
+
+//00000000 00000000 43ad1346 00000000
+patch=1,EE,001c3344,word,3c013f40 //00000000
+patch=1,EE,001c3348,word,4481e800 //00000000
+patch=1,EE,001c3350,word,461dbdc3 //00000000
+
+//00000000 03100046 d00100e6 (2 times)
+patch=1,EE,2029bde0,extended,461d0002 // 00000000 zoom gameplay
+patch=1,EE,2029c018,extended,461d0002 // 00000000 zoom cut-scenes
+
+//HUD fix by harry62
+//00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 D8 44 00 00 E4 44 00 00 14 45 00 00 0E 45
+patch=1,EE,204875f0,extended,3F3C28F6
+patch=1,EE,204875f4,extended,3F800000
+
+//HUD Position by harry62
+//00 00 D8 44 00 00 E4 44 00 00 14 45 00 00 0E 45
+patch=1,EE,20487600,extended,44E2A000
+patch=1,EE,20487604,extended,44E42000

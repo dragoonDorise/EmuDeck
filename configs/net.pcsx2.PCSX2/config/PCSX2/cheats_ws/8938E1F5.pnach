@@ -1,0 +1,8 @@
+gametitle=Disney's PK - Out of the Shadows (U)(SLUS-20478)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//000080bf 0000803f 000080bf 00000000
+patch=1,EE,003324b0,word,bf400000 //3f800000

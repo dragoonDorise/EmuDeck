@@ -1,0 +1,7 @@
+gametitle=Fruitfall (E)(SLES-53148)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,20300954,extended,3faaaaab //3f800000
+patch=1,EE,20300958,extended,3faaaaab //3f800000

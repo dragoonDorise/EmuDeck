@@ -1,0 +1,6 @@
+gametitle=Onimusha Buraiden (K)(SLKA-25092)
+comment=Widescreen Hack by VIRGIN KLM (NTSC-K by Arapapa)
+
+//Widescreen
+patch=1,EE,204fc3c0,extended,3F400000 //3F800000
+//00 00 80 3F 00 00 00 3F 00 00 00 3F 00 00 80 40 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 00 00 00 00 20 44 00 00 E0 43 00 00 20 44 00 00 60 43

@@ -1,0 +1,7 @@
+gametitle=World Wrestling Championship (E)(SLES-54792)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,002dc1f4,word,3faaaaab //3f800000 Y-Fov
+patch=1,EE,002df284,word,3F24CBDA //3f490fda Zoom

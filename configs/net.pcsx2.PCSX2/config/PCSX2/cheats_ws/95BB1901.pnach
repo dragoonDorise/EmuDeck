@@ -1,0 +1,7 @@
+gametitle=MX vs. ATV Unleashed SLUS_211.04
+comment=Widescreen Hack
+patch=1,EE,0018ee14,word,3c03bfab //r fix
+patch=1,EE,0018ee18,word,3c023fab //r fix
+patch=1,EE,001b81d4,word,3c023f18 //fov
+patch=1,EE,0022c5c8,word,3c043fe3 // vert fov
+patch=1,EE,0022c5cc,word,348e8e39

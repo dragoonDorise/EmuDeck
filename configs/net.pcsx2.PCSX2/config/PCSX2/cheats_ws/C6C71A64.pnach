@@ -1,0 +1,11 @@
+gametitle=Sengoku Musou 2 (K)(SLKA-25379)
+comment=Widescreen Hack (16:9) by ElHecht (NTSC-K by Arapapa)
+
+patch=1,EE,00179868,word,3c023f19 //3c023f4c
+patch=1,EE,00179870,word,3442999a //3442cccd
+
+patch=1,EE,00179a28,word,3c023f19 //3c033f4c
+patch=1,EE,00179a30,word,3442999a //3463cccd
+
+patch=1,EE,00179cf4,word,3c03440a //3c0343cf
+patch=1,EE,00179c94,word,3c03440a //3c0343cf

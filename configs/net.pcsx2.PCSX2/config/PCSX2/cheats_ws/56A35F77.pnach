@@ -1,0 +1,101 @@
+gametitle=Ratchet & Clank (J)(SCPS-15037)
+comment=Widescreen hack by PsxFan107 (NTSC-J by Arapapa)
+
+// DWORD Code patching routine
+patch=1,EE,200C0000,extended,3C1B000C
+patch=1,EE,200C0004,extended,DF710080
+patch=1,EE,200C0008,extended,14510002
+patch=1,EE,200C0010,extended,DF620088
+patch=1,EE,200C0014,extended,DF710090
+patch=1,EE,200C0018,extended,14510003
+patch=1,EE,200C0020,extended,8F7200A0
+patch=1,EE,200C0024,extended,AC72FFF0
+patch=1,EE,200C0028,extended,DF710098
+patch=1,EE,200C002C,extended,14510002
+patch=1,EE,200C0034,extended,AC72FFF0
+
+//0000000000000000faff6614
+patch=1,EE,200C0038,extended,0804b6a7 //NTSC-J 2012da9c
+patch=1,EE,200C003C,extended,FC62FFF8
+
+// WORD Code patching routine
+patch=1,EE,200C0040,extended,3C1B000C
+patch=1,EE,200C0044,extended,8F710080
+patch=1,EE,200C0048,extended,14510002
+patch=1,EE,200C0050,extended,8F620088
+patch=1,EE,200C0054,extended,8F710090
+patch=1,EE,200C0058,extended,14510003
+patch=1,EE,200C0060,extended,8F7200A0
+patch=1,EE,200C0064,extended,ACB2FFF4
+patch=1,EE,200C0068,extended,8F71009C
+patch=1,EE,200C006C,extended,14510002
+patch=1,EE,200C0074,extended,ACB2FFF0
+
+//0000000000000000faffa314
+patch=1,EE,200C0078,extended,0804b6b3   //NTSC-J 2012dacc
+patch=1,EE,200C007C,extended,ACA2FFFC
+
+// Widescreen comparison  DWORD/WORD
+patch=1,EE,200C0080,extended,C46000B0
+patch=1,EE,200C0084,extended,46010002
+
+// Widescreen replacement  DWORD/WORD
+patch=1,EE,200C0088,extended,0C030029
+patch=1,EE,200C008C,extended,46010002
+
+// Pause menu fix refrence  DWORD/WORD
+// Note: The injection routine works backwards from this.
+patch=1,EE,200C0090,extended,00055443
+patch=1,EE,200C0094,extended,00031C00
+
+// Gadgetron vendor fix refrence  DWORD/WORD
+// Note: The injection routine works backwards from this.
+patch=1,EE,200C0098,extended,E60100E8
+patch=1,EE,200C009C,extended,E44000B0
+
+// Pause menu / Gadgetron vendor fix replacement DWORD/WORD
+patch=1,EE,200C00A0,extended,342147AF
+
+// HOR FOV Recalculation routine
+// This routine works by iterating through a list of unpatched FOV's.
+// If the HOR FOV in ram matches one these values, it gets recalculated.
+patch=1,EE,200C00A4,extended,8C6100B0
+patch=1,EE,200C00A8,extended,8F640110
+patch=1,EE,200C00AC,extended,14240006
+patch=1,EE,200C00B4,extended,C7620114
+patch=1,EE,200C00B8,extended,E46200B0
+patch=1,EE,200C00BC,extended,44810000
+patch=1,EE,200C00C0,extended,1000000F
+patch=1,EE,200C00C8,extended,C77E010C
+patch=1,EE,200C00CC,extended,3C01000C
+patch=1,EE,200C00D0,extended,3421011C
+patch=1,EE,200C00D4,extended,277B0114
+patch=1,EE,200C00D8,extended,C46000B0
+patch=1,EE,200C00DC,extended,103B0007
+patch=1,EE,200C00E0,extended,C7620000
+patch=1,EE,200C00E4,extended,277B0004
+patch=1,EE,200C00E8,extended,46020032
+patch=1,EE,200C00EC,extended,4500FFFB
+patch=1,EE,200C00F4,extended,461E0003
+patch=1,EE,200C00F8,extended,E46000B0
+patch=1,EE,200C00FC,extended,461E0002
+patch=1,EE,200C0100,extended,46010002
+patch=1,EE,200C0104,extended,03E00008
+patch=1,EE,200C0108,extended,3C1B000C
+
+// Hor scale
+patch=1,EE,200C010C,extended,3F400000
+
+// Pause menu and Gadgetron Hor FOV
+patch=1,EE,200C0110,extended,3F2147AF
+
+// Unpatched Hor FOV values
+patch=1,EE,200C0114,extended,3F2147AE
+patch=1,EE,200C0118,extended,3ED40674
+
+// Jump to DWORD patching routine
+//000062fc08006324 #1
+patch=1,EE,2012da94,extended,08030000
+
+// Jump to WORD patching routine
+patch=1,EE,2012DAC4,extended,08030010 //#1 + 0x30

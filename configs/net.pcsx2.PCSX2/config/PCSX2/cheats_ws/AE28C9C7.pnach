@@ -1,0 +1,12 @@
+gametitle=SpongeBob's Atlantis SquarePantis (E)(SLES-55024)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,003b36fc,word,3c013f40
+patch=1,EE,003b3700,word,4481f000
+patch=1,EE,003b3708,word,461eb582
+
+//Render fix
+patch=1,EE,00393220,word,3c013f2b //3c013f00

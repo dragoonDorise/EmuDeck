@@ -1,0 +1,27 @@
+gametitle= Rule of Rose SLUS 214.48
+comment=Widescreen Hack
+patch=1,EE,0013bd54,extended,3c013f12
+patch=1,EE,0013bd7c,extended,3c013f10
+
+//Jennifer runs faster (don't move in attack stance)
+//patch=1,EE,202EA740,extended,3FAAAAAA //full speed
+//patch=1,EE,202EA744,extended,3FAAAAAA //tired speed
+
+//Lower pitch BGM
+//patch=1,EE,207B297C,extended,3F666666
+//Higher pitch BGM
+//patch=1,EE,207B297C,extended,3F8CCCCD
+
+//Draw distance
+//patch=1,EE,20302418,extended,00000000
+
+//noise off
+patch=1,EE,2073D6A0,extended,00000000
+
+//noise off (alternate address)
+//patch=1,EE,001c9cec,word,e43f1fa0 //e4211fa0
+
+//black borders's fix
+patch=1,EE,00190e58,word,24050000
+
+//Camera distance = 203035B0

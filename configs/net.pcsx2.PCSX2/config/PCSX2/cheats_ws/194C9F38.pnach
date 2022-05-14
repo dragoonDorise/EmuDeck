@@ -1,0 +1,6 @@
+gametitle=Ace Combat - The Belkan War (SCES-54041)
+comment=Widescreen fix by nemesis2000 (PAL-E by mirh)
+
+//widescreen fix
+patch=1,EE,003FC370,word,43D638F3
+patch=1,EE,003FC374,word,43EB7385

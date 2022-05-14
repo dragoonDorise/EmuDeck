@@ -1,0 +1,12 @@
+gametitle=Golful Golf (J)(SLPS-25032)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//803f013c 00688144 ec9380c7
+patch=1,EE,00193708,word,3c013f40 //3c013f80
+
+//Render fix
+//00002044 0000f043 00008041
+patch=1,EE,0041e5e0,word,44500000 //44200000

@@ -1,0 +1,12 @@
+gametitle=Agent Hugo (E)(SLES-53504)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+//403f013c 00008144 2d200002
+patch=1,EE,001add98,word,3c013f10 //3c013f40
+
+//Zoom
+//00bf013c 00388144 2000b07f (2nd)
+patch=1,EE,002bd2dc,word,3c01bec0 //3c01bf00

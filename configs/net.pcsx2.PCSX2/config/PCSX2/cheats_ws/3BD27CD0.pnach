@@ -1,0 +1,7 @@
+gametitle=Top Gear Dare Devil (U)(SLUS-20039)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00143efc,word,3c013ec0 //3c013f00
+

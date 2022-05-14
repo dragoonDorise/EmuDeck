@@ -1,0 +1,17 @@
+gametitle=La Pucelle - Hikari no Seijou Densetsu (J) (v1.04) (SLPS-20167)
+comment=Widescreen hack by El_Patas (NTSC-J by Arapapa)
+ 
+//Gameplay 16:9
+
+patch=1,EE,0020544c,word,3c013f40 //00000000 Hor fov 2D Backgrounds
+patch=1,EE,00205450,word,44810000 //00000000
+patch=1,EE,00205458,word,4600c602 //00000000
+
+patch=1,EE,20539270,extended,45700000 //45A00000 Hor fov 3D Backgrounds (Memory value)
+
+//2D Characters fix
+//0040033c 00088344 f400a0c7
+patch=1,EE,002c4738,word,3c033fc0 //3c034000
+patch=1,EE,002c474c,word,3c023fc0 //3c024000
+patch=1,EE,002c4760,word,3c023fc0 //3c024000
+patch=1,EE,002c4774,word,3c023fc0 //3c024000

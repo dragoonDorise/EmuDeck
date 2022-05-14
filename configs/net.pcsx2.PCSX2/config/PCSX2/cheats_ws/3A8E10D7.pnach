@@ -1,0 +1,5 @@
+gametitle=Shaun Palmer's Pro Snowboarder SLUS_201.99
+comment=Widescreen Hack
+patch=1,EE,0019e668,word,3c024455
+patch=1,EE,001a60e0,word,3c0243a8
+patch=1,EE,001a6108,word,3c0243c0

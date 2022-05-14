@@ -1,0 +1,17 @@
+comment=Clock Tower 3 - Widescreen Hack (16:9) (PAL-E) // strider3871
+
+//gameplay by hyakki
+patch=1,EE,2193C0A8,extended,3F1FBE77 // 3F54FDF4
+
+//FMV's fix by nemesis2000
+patch=1,EE,018bddb8,word,3c026fa0 //3c027200
+patch=1,EE,018bde08,word,34028260 //34028000
+
+patch=1,EE,018bd788,word,3c026fa0 //3c027200
+patch=1,EE,018bd7d4,word,34028260 //34028000
+
+//black borders fix by nemesis2000
+patch=1,EE,018f4824,word,3c030000 //3c034274
+
+//remove black square near Panic Meter
+patch=1,EE,2041C100,word,00000000

@@ -1,0 +1,6 @@
+gametitle=Super Robot Taisen Impact (J)(SLPS-25104)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0025bf34,word,3f400000 //3f800000

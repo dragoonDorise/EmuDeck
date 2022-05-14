@@ -1,0 +1,9 @@
+gametitle=Burnout Revenge (E)(SLES-53506)
+comment=Widescreen Hack (16:9) by Dread and Arapapa
+
+////Force turn on Internal Widescreen (Full boot bypassing)
+patch=1,EE,003a64a8,word,24020002 //30420003
+
+//Zoom Fix
+//9A 99 99 3F 39 8E E3 3F 80 02 00 00 C0 01 00 00
+patch=1,EE,21bfeb10,extended,3FAAAAAB // 3F800000

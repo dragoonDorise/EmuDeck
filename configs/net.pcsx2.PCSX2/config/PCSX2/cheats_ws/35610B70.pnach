@@ -1,0 +1,6 @@
+1gametitle=Simple 2000 Series Vol. 11 - The Offroad Buggy(Rebuild) (J)(PBPX-95201)(SLPM-62223)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0016dcfc,word,3c023f40 //3c023f80

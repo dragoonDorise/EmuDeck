@@ -1,0 +1,7 @@
+gametitle=Football Generation (E)(SLES-51959)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0017c108,word,3c013f20 //3c013f00 Zoom
+patch=1,EE,0017c128,word,3c013f10 //3c013f40 Y-Fov

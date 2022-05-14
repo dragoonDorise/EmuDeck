@@ -1,0 +1,7 @@
+gametitle=Wallace & Gromit in Project Zoo (E)(SLES-51372)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,00235f10,word,3c014080 //3c014040

@@ -1,0 +1,8 @@
+gametitle=F1 2001 (E)(SLES-50423)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//803f013c 00188144 2a09c14b
+patch=1,EE,00214cf4,word,3c013f40 //3c013f80

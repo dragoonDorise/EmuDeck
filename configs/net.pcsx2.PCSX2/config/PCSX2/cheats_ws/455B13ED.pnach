@@ -1,0 +1,14 @@
+gametitle=Master Rallye (E)(SLES-50906)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,002dd514,word,08030000
+
+patch=1,EE,000c0000,word,7fb50080
+patch=1,EE,000c0004,word,3c013faa
+patch=1,EE,000c0008,word,3421aaab
+patch=1,EE,000c000c,word,4481f000
+patch=1,EE,000c0010,word,080b7546
+
+patch=1,EE,002dd588,word,461e7bc2

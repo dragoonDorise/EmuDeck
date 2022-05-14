@@ -1,0 +1,15 @@
+gametitle=World Destruction League - Thunder Tanks (U)(SLUS-20005)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,001ad4a4,word,3c013ed2 //3c013f80
+
+//Y-Fov
+patch=1,EE,001ad398,word,08030000 //46020002
+patch=1,EE,000c0000,word,46020002
+patch=1,EE,000c0004,word,3c1b3f40
+patch=1,EE,000c0008,word,449bf000
+patch=1,EE,000c000c,word,461e0003
+patch=1,EE,000c0010,word,0806b4e7

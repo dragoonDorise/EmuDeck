@@ -1,0 +1,5 @@
+gametitle=Hunter X Hunter - Ryumyaku no Saidan [NTSC-J] (SLPM-62067)
+comment=Widescreen Hack by Little Gaint
+
+patch=1,EE,00118e34,extended,3c024408 //3c024448 zoom
+patch=1,EE,202CBDEC,extended,3F9F3B64 //3F6ED917 vert

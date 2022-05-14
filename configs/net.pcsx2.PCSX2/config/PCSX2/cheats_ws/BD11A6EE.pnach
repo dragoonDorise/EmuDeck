@@ -1,0 +1,12 @@
+gametitle=Chains of Power (K)(SLKA-25291)
+comment=Widescreen hack by nemesis2000 (NTSC-K by Arapapa)
+
+//Widescreen hack 16:9
+
+//Gameplay
+patch=1,EE,004f6f00,word,46010082 //00000000
+patch=1,EE,004f6f04,word,e7a20058 //e7a00058
+
+//Cutscenes
+patch=1,EE,004f72d0,word,46010082 //00000000
+patch=1,EE,004f72d4,word,e7a20068 //e7a00068

@@ -1,0 +1,8 @@
+gametitle=Super PickUps [NTSC-U] (SLUS_214.50)
+comment=Widescreen hack by Sergx12 & El_Patas
+
+//Gameplay 16:9
+patch=1,EE,001F7FF0,word,3C023F18 //3C023F00 (Increases hor. axis)
+
+//Cars menus
+patch=1,EE,00260F48,word,3C033F67 //3C033F80 (Increases hor. axis)

@@ -1,0 +1,12 @@
+﻿gametitle=Rurouni Kenshin - Enjou! Kyoto Rinne [NTSC-J] (SLPS-25685)
+comment=Widescreen Hack by Little Giant
+
+//16:9
+patch=1,EE,00120c70,word,3c013f53 // 3c013f8c vert
+patch=1,EE,00120c74,word,34213334 // 3421cccd
+
+patch=1,EE,00122D1C,word,3C013Fab // 00000000 Zoom
+patch=1,EE,00122D44,word,4481F000 // 00000000
+patch=1,EE,00122B2C,word,461E6302 // 00000000
+
+patch=1,EE,0018a980,word,3c013f40 // 3c013f80 render

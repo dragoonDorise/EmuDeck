@@ -1,0 +1,9 @@
+gametitle=International Superstar Soccer 2 (E)(SLES-50787)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,001033f4,word,3c013f40 //00000000
+patch=1,EE,001033f8,word,44810000 //00000000
+patch=1,EE,00103400,word,4600c602 //00000000

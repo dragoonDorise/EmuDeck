@@ -1,0 +1,13 @@
+gametitle=Shin Onimusha - Dawn of Dreams (PlayStation 2 the Best) [NTSC-J] [Disc2of2] [SLPM-74232]
+comment=Widescreen hack by nemesiss2000
+
+//Widescreen hack 16:9
+
+patch=1,EE,0012f960,word,3c033f19 //3c033f4c
+patch=1,EE,0012f968,word,34649999 //3464cccd
+patch=1,EE,0012f9c8,word,3c023f19 //3c023f4c
+patch=1,EE,0012f9cc,word,34439999 //3443cccd
+patch=1,EE,0012fb38,word,3c033f19 //3c033f4c
+patch=1,EE,0012fb40,word,34639999 //3463cccd
+patch=1,EE,0012fbb0,word,3c02c3d6 //3c02c3a0
+patch=1,EE,0012faa0,word,3c024527 //3c0244fa

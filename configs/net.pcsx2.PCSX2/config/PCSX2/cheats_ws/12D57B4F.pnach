@@ -1,0 +1,5 @@
+gametitle=Shaman King: Power of Spirit [PAL] (SLES_533.53)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,001DCFD4,word,3C023FAB //3C023F80 (Increases hor. axis)

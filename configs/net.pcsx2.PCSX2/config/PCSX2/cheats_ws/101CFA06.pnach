@@ -1,0 +1,29 @@
+gametitle=Grim Grimoire (J)(SLPS-25771)
+comment=Widescreen hack by Arapapa
+
+//Gameplay 16:9
+
+//Zoom
+//0040033c 00108344 00000000 (1st)
+patch=1,EE,0016e9a0,word,3c033fb5 //3c034000
+
+//Y-Fov
+//43d00246 03000246
+patch=1,EE,0016e9ac,word,0807fbf4 //4602d043
+
+patch=1,EE,001fefd0,word,4602d043 //00000000
+patch=1,EE,001fefd4,word,3c013f08 //00000000
+patch=1,EE,001fefd8,word,4481f000 //00000000
+patch=1,EE,001fefdc,word,461e0842 //00000000
+patch=1,EE,001fefe0,word,0805ba6c //00000000
+
+/////////////////////////////////
+//screen Y-scale
+//patch=1,EE,0016a210,word,3c023fab //3c023f80
+
+//Back graphic zoom
+//patch=1,EE,001733b4,word,3c033f40 //3c033f80
+
+//Zoom
+//patch=1,EE,001cfa60,word,3c033f60 //3c033f80
+//patch=1,EE,001cadc8,word,3c024296 //3c0242c8

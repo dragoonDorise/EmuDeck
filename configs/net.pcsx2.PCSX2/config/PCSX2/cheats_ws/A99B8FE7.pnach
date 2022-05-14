@@ -1,0 +1,13 @@
+gametitle=Jurassic Park - Operation Genesis (U)(SLUS20380)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//abaaaa3e 8988083e (1st)
+patch=1,EE,0055b2a0,word,3ff3aaab //3eaaaaab
+
+//Y-Fov
+//c0ec6e3f 0ad7a33f
+patch=1,EE,0055d07c,word,3F9F4880 //3f6eecc0
+

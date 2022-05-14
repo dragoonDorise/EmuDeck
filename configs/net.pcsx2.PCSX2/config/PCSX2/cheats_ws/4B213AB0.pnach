@@ -1,0 +1,12 @@
+gametitle=World Soccer Winning Eleven 5: Final Evolution (SLPM-62113)
+comment=Widescreen patch by BloodRaynare
+
+patch=1,EE,00e9e1d8,word,08402c43
+patch=1,EE,00e9e1dc,word,00000000
+patch=1,EE,0100b10c,word,3c013f40
+patch=1,EE,0100b110,word,4481f000
+patch=1,EE,0100b114,word,c6010068
+patch=1,EE,0100b118,word,c602006c
+patch=1,EE,0100b11c,word,461e0843
+patch=1,EE,0100b120,word,e6010068
+patch=1,EE,0100b124,word,083a7878

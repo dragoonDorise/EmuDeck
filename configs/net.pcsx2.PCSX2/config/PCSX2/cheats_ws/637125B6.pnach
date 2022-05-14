@@ -1,0 +1,19 @@
+gametitle=Reign of Fire (K)(SLKA-25011)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+//803f023c 00a88244 04000010
+patch=1,EE,00135320,word,3c023fab
+
+//Y-Fov
+//patch=1,EE,001352f8,word,3c013fab //00000000
+//patch=1,EE,001352fc,word,4481f800 //00000000
+//patch=1,EE,00135300,word,00000000 //46010183
+//patch=1,EE,00135304,word,461f3182 //00000000
+
+//Zoom
+//003f023c 00088244 28868070
+patch=1,EE,001352b8,word,3c023f24 //3c023f00
+//patch=1,EE,00135348,word,3c043ec0

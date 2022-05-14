@@ -1,0 +1,14 @@
+﻿gametitle=Zettaizetsumei Toshi [NTSC-J] (SLPS-25113)
+comment=Widescreen Hack by Little Giant
+
+//16:9
+patch=1,EE,0013e3b4,word,3c023f40 //3c023f80 game play
+patch=1,EE,0013d9d4,word,3c023f40 //3c023f80 cutscenes fix
+patch=1,EE,0013e230,word,3c023f80 //3c023f80 cutscenes fix
+patch=1,EE,0025cd40,word,43E00000 //43a00000 (Increases hor. axis)
+patch=1,EE,0025cd50,word,43E00000 //43a00000 render fix
+
+//black borders's fix (optional)
+patch=1,EE,001945E4,word,24634230 //24634260
+patch=1,EE,001947e0,word,24634230 //24634260
+patch=1,EE,001948B4,word,24644230 //24644260

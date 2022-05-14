@@ -1,0 +1,13 @@
+gametitle=BMX XXX (SLUS-20415)
+comment=Widescreen patch by BloodRaynare
+
+// 16:9
+patch=1,EE,00101074,word,3c013f40 // 3c013f80 hor fov
+patch=1,EE,00299544,word,3c093f40 // 00000000 renderfix
+patch=1,EE,001014a4,word,080a6551 // 46000843
+patch=1,EE,001014a8,word,00000000 // e62404e8
+patch=1,EE,0029954c,word,4489f000 // 00000000
+patch=1,EE,00299550,word,461e0843 // 00000000
+patch=1,EE,00299554,word,46000843 // 00000000
+patch=1,EE,00299558,word,e62004e8 // 00000000
+patch=1,EE,0029955c,word,0804052a // 00000000

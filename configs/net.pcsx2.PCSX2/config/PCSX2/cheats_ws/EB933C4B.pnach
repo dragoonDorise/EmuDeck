@@ -1,0 +1,32 @@
+gametitle=Muppets Party Cruise (U)(SLUS-20635)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//003f013c 00008144 80680c46
+patch=1,EE,0012424c,word,3c013f13 //3c013f00
+
+//Y-Fov
+//02210546 000085e4
+patch=1,EE,001242d0,word,08030008
+
+patch=1,EE,000c0020,word,46052102
+patch=1,EE,000c0024,word,3c013faa
+patch=1,EE,000c0028,word,4481f000
+patch=1,EE,000c002c,word,461e2102
+patch=1,EE,000c0030,word,080490b5
+
+//2D fix
+//83100046 0c0080ac
+patch=1,EE,00124324,word,08030000
+
+patch=1,EE,000c0000,word,46001083
+patch=1,EE,000c0004,word,3c013f40
+patch=1,EE,000c0008,word,4481f000
+patch=1,EE,000c000c,word,461e1082
+patch=1,EE,000c0010,word,080490ca
+
+//Render fix
+//003f013c 00008144 f0ffbd27 (2nd)
+patch=1,EE,001243b0,word,3c013f2b //3c013f00

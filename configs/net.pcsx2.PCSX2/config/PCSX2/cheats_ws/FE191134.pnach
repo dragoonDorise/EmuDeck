@@ -1,0 +1,43 @@
+gametitle=Freak Out (PAL-Unk) [SLES-50310] [FE191134]
+comment=Widescreen hacks by sergx12 (ISO HEX codes) and Aced14 (pnach version - ELF and 16:10 hacks)
+
+//16:9 widescreen
+patch=1,EE,2011FB2C,extended,08047ED8 //0441000C - j $0011fb60 - Jump over game logic for PADMAN.IRX debug error message to prevent conflicts
+patch=1,EE,2012C200,extended,08047ECD //C60D0174 - j $0011fb34 - Jump to injected MIPS instructions for widescreen logic
+patch=1,EE,2011FB34,extended,12600004 //3C02006A - beq s3, zero, $0011fb48 - Branch to the end of the widescreen logic if a cutscene is running (by checking if s3 register is 0)
+patch=1,EE,2011FB38,extended,3C013FAA //0C046690 - lui at, $3faa - Set $f31 register to 1.333333373 #1
+patch=1,EE,2011FB3C,extended,3421AAAB //2444B6E0 - ori at, at, $aaab - Set $f31 register to 1.333333373 #2
+patch=1,EE,2011FB40,extended,4481F800 //3C02006A - mtc1 at, $f31 - Set $f31 register to 1.333333373 #3
+patch=1,EE,2011FB44,extended,461F6302 //2444B6C0 - mul.s $f12, $f12, $f31 - Multiply $f12 by $f31 and store the result in $f12 (positive X FOV)
+patch=1,EE,2011FB48,extended,0804B082 //70002E28 - j $0012C208 - Jump to 2 lines after the overwritten MIPS instruction
+patch=1,EE,2011FB4C,extended,46006347 //0C043184 - neg.s $f13, $f12 - Negate $f12 and store the result in $f13 (negative X FOV)
+
+//16:10 widescreen (normal)
+//patch=1,EE,2011FB2C,extended,08047ED8 //0441000C - j $0011fb60 - Jump over game logic for PADMAN.IRX debug error message to prevent conflicts
+//patch=1,EE,2012C200,extended,08047ECD //C60D0174 - j $0011fb34 - Jump to injected MIPS instructions for widescreen logic
+//patch=1,EE,2011FB34,extended,12600004 //3C02006A - beq s3, zero, $0011fb48 - Branch to the end of the widescreen logic if a cutscene is running (by checking if s3 register is 0)
+//patch=1,EE,2011FB38,extended,3C013F99 //0C046690 - lui at, $3f99 - Set $f31 register to 1.2 #1
+//patch=1,EE,2011FB3C,extended,3421999A //2444B6E0 - ori at, at, $999a - Set $f31 register to 1.2 #2
+//patch=1,EE,2011FB40,extended,4481F800 //3C02006A - mtc1 at, $f31 - Set $f31 register to 1.2 #3
+//patch=1,EE,2011FB44,extended,461F6302 //2444B6C0 - mul.s $f12, $f12, $f31 - Multiply $f12 by $f31 and store the result in $f12 (positive X FOV)
+//patch=1,EE,2011FB48,extended,0804B082 //70002E28 - j $0012C208 - Jump to 2 lines after the overwritten MIPS instruction
+//patch=1,EE,2011FB4C,extended,46006347 //0C043184 - neg.s $f13, $f12 - Negate $f12 and store the result in $f13 (negative X FOV)
+
+//16:10 widescreen (ultra)
+//patch=1,EE,2011FAE8,extended,08047EC6 //0441000B - j $0011fb18 - Jump over game logic for SIO2MAN.IRX debug error message to prevent conflicts
+//patch=1,EE,2011FB2C,extended,08047ED8 //0441000C - j $0011fb60 - Jump over game logic for PADMAN.IRX debug error message to prevent conflicts
+//patch=1,EE,2012C208,extended,08047EC2 //C60F017C - j $0011fb08 - Jump to injected MIPS instructions for cutscene/playing check
+//patch=1,EE,2011FB08,extended,52600013 //0C043184 - beql s3, zero, $0011fb58 - Branch to the end of the widescreen logic if a cutscene is running (by checking if s3 register is 0)
+//patch=1,EE,2011FB0C,extended,00000000 //70003628 - nop - Nop delay slot (to avoid a "branch XXXXXXXX in delay slot!" warning in PCSX2's log)
+//patch=1,EE,2011FB10,extended,08047ECD //0440FFF7 - j $0011fb34 - Jump to injected MIPS instructions for widescreen logic
+//patch=1,EE,2011FB34,extended,3C013FAA //3C02006A - lui at, $3faa - Set $f31 register to 1.333333373 #1
+//patch=1,EE,2011FB38,extended,3421AAAB //0C046690 - ori at, at, $aaab - Set $f31 register to 1.333333373 #2
+//patch=1,EE,2011FB3C,extended,4481F800 //2444B6E0 - mtc1 at, $f31 - Set $f31 register to 1.333333373 #3
+//patch=1,EE,2011FB40,extended,461F6302 //3C02006A - mul.s $f12, $f12, $f31 - Multiply $f12 by $f31 and store the result in $f12 (positive X FOV)
+//patch=1,EE,2011FB44,extended,46006347 //2444B6C0 - neg.s $f13, $f12 - Negate $f12 and store the result in $f13 (negative X FOV)
+//patch=1,EE,2011FB48,extended,3C013F8E //70002E28 - lui at, $3f8e - Set $f31 register to 1.111111164 #1
+//patch=1,EE,2011FB4C,extended,342138E4 //0C043184 - ori at, at, $38e4 - Set $f31 register to 1.111111164 #2
+//patch=1,EE,2011FB50,extended,4481F800 //70003628 - mtc1 at, $f31 - Set $f31 register to 1.111111164 #3
+//patch=1,EE,2011FB54,extended,461F7382 //0440FFF7 - mul.s $f14, $f14, $f31 - Multiply $f14 by $f31 and store the result in $f14 (negative Y FOV)
+//patch=1,EE,2011FB58,extended,0804B084 //00000000 - j $0012c210 - Jump to 2 lines after the overwritten MIPS instruction
+//patch=1,EE,2011FB5C,extended,460073C7 //00000000 - neg.s $f15, $f14 - Negate $f14 to make it positive and store the result in $f15 (positive Y FOV)

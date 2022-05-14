@@ -1,0 +1,15 @@
+gametitle=The Bigs 2 (U)(SLUS-21860)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Normal play
+patch=1,EE,20C74768,extended,3FE38E32 //3AAAAAAB
+
+//Turbo and Power blast play
+patch=1,EE,20C74848,extended,3FE38E32 //3AAAAAAB
+patch=1,EE,20C74900,extended,3FE38E32 //3AAAAAAB
+patch=1,EE,20C749B4,extended,3FE38E32 //3AAAAAAB
+patch=1,EE,20C74A94,extended,3FE38E32 //3AAAAAAB
+patch=1,EE,20C74B4C,extended,3FE38E32 //3AAAAAAB
+patch=1,EE,20C74C00,extended,3FE38E32 //3AAAAAAB

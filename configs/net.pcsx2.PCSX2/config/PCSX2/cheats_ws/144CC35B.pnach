@@ -1,0 +1,17 @@
+
+; ==========
+ ; pgert@180130
+ ; http://forums.pcsx2.net/Thread-PCSX2-Widescreen-Game-Patches?pid=240786#pid240786
+; ==========
+
+; ==========
+ gametitle=Rogue Ops
+ comment= Rogue Ops * SLES-52002 * PAL-M6 * 144CC35B
+ comment=- Widescreen hack by pgert.
+ comment=- Might not work with all BIOS types & configurations.
+ patch=1,EE,2065A190,extended,3F400000 // 3F800000 - X-Axis - 16:9
+// patch=1,EE,2065A190,extended,3F555555 // - 16:10
+// patch=1,EE,2065A190,extended,3F638E39 // - 15:10 (MS Surface Book)
+; ==========
+// patch=1,EE,2065A194,extended,3F555555 // 3F800000 - Y-Axis - alternative 16:10 hack
+; ==========

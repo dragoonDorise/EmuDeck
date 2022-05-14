@@ -1,0 +1,6 @@
+gametitle=The Grim Adventures of Billy & Mandy (NTSC-U)(SLUS-21451)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9 
+//0000803f 000080bf 00000000
+patch=1,EE,20D467A4,extended,3F400000 // 3f800000

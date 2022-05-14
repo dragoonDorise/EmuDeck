@@ -1,0 +1,8 @@
+gametitle=Frogger - The Great Quest (E)(SLES-50788)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0010daa4,word,3c023f21 //3c023f00 Zoom
+patch=1,EE,0010dfbc,word,3c02bfaa //3c02bf7f Y-Fov
+patch=1,EE,001428a0,word,3c023f2b //3c023f00 Render fix

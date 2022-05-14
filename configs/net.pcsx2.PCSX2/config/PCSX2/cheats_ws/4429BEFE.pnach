@@ -1,0 +1,8 @@
+gametitle=World Soccer Winning Eleven 9 [NTSC-U] (SLUS_212.20)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,0036AA60,word,3FAAAAAB //3F800000 (Increases hor. axis)
+
+//Render fix
+patch=1,EE,00129EEC,word,3C053FAB //3C053F80

@@ -1,0 +1,4 @@
+﻿gametitle=Drift Racer - Kaido Battle [NTSC-J] (SLPM-65246)
+comment=Widescreen hack by nemesis2000 (pnach by nemesis2000)
+
+patch=1,EE,0013bd80,word,3c023f40

@@ -1,0 +1,33 @@
+gametitle=Lemony Snicket's A Series of Unfortunate Events (U)(SLUS-21078)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom (Gameplay)
+//003f013c 00608144
+patch=1,EE,0018cd58,word,3c013f1b //3c013f00
+
+//Y-Fov (Gameplay)
+//82100046 000002e6
+patch=1,EE,0018cda4,word,080dee6c
+
+patch=1,EE,0037b9b0,word,46001082
+patch=1,EE,0037b9b4,word,3c013f40
+patch=1,EE,0037b9b8,word,4481f000
+patch=1,EE,0037b9bc,word,461e1082
+patch=1,EE,0037b9c0,word,0806336a
+
+//Black bar fix (Gameplay)
+//803f013c 00008144 34100046 00000000
+patch=1,EE,001af498,word,3c013a00 //3c013f80
+
+//X-Fov (Menu,Text and Cutscene)
+//0000acc7 803f013c (2nd)
+patch=1,EE,002bbf24,word,080dee74
+
+patch=1,EE,0037b9d0,word,c7ac0000
+patch=1,EE,0037b9d4,word,3c013faa
+patch=1,EE,0037b9d8,word,3421aaab
+patch=1,EE,0037b9dc,word,4481f000
+patch=1,EE,0037b9e0,word,461e6302
+patch=1,EE,0037b9e4,word,080aefca

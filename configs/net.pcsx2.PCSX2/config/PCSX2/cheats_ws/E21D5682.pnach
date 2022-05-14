@@ -1,0 +1,10 @@
+gametitle=Kidou Senshi Gundam - Climax U.C. (J)(SLPS-25627)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,0011156c,word,3c034370 //3c0343a0
+
+//Y-Fov
+patch=1,EE,00111110,word,3c0243b4 //3c0243f0

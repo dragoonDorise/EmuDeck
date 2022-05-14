@@ -1,0 +1,7 @@
+gametitle=Spyro: A Hero's Tail (SLUS-20884)
+comment=Widescreen
+
+//Widescreen + Extra Perspective
+patch=1,EE,203B1B70,extended,3C013F10
+patch=2,EE,203B1B84,extended,3C013F10
+patch=3,EE,203B21B0,extended,3C013EC0

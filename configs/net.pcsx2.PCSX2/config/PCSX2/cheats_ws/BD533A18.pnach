@@ -1,0 +1,46 @@
+gametitle=Daidassou - The Great Escape (J)(SLPS-25374)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//cc3a013c ccdcc2134
+patch=1,EE,00344f8c,word,3c013b01 //3c013acc
+patch=1,EE,00344f90,word,34210000 //3421cccd
+
+//Y-Fov
+//083b013c 889882134
+patch=1,EE,00345014,word,3c013b35 //3c013b08
+patch=1,EE,00345018,word,3421fe54 //34218889
+
+//Render fix
+//8e3c013c 36fa2134
+patch=1,EE,0035598c,word,3c013d00 //3c013c8e
+patch=1,EE,00355990,word,34210000 //3421fa36
+
+////////////////////////////////////////////
+
+//xx
+//patch=1,EE,002bfe50,word,3c013f60 //3c013f80
+
+//Zoom but ????
+//patch=1,EE,002c0094,word,3c013fab //3c013f80 x
+//patch=1,EE,002c02c0,word,3c013fab //3c013f66 00
+//patch=1,EE,002ec220,word,3c013fff //3c013fdd
+//patch=1,EE,003450cc,word,3c013f20 //3c013f40
+
+//Screen Position X
+//patch=1,EE,00344fa4,word,3c013f00 //3c013f00
+//patch=1,EE,00344fcc,word,3c0143a0
+
+//Screen Size
+//patch=1,EE,003450b4,word,3c013f20
+
+//xxx
+//patch=1,EE,00195f80,word,44f00000 //44810000
+//patch=1,EE,001978f8,word,44f00000 //44800000
+//patch=1,EE,003419a8,word,44880000 //44800000
+//patch=1,EE,0033d370,word,3c013fb0 //3c013f80
+//patch=1,EE,00345134,word,3c013fb0 //3c013f80
+//patch=1,EE,003451e4,word,3c013fb0 //3c013f80
+//patch=1,EE,00345224,word,3c013fb0 //3c013f80

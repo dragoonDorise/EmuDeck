@@ -1,0 +1,10 @@
+gametitle=SnoCross 2 - Featuring Blair Morgan (E)(SLES-54157)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,001effec,word,3c01bf90
+patch=1,EE,001efff0,word,4481f000
+
+patch=1,EE,001f0000,word,46056b43
+patch=1,EE,001f0004,word,461e68c2

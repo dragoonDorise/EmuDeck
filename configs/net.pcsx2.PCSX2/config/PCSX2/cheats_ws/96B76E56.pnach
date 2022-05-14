@@ -1,0 +1,13 @@
+gametitle=SX Superstar (E)(SLES-51495)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//83100146 5c00c4c4
+patch=1,EE,0011f258,word,080d4368
+patch=1,EE,00350da0,word,46011083
+patch=1,EE,00350da4,word,3c013f40
+patch=1,EE,00350da8,word,4481f000
+patch=1,EE,00350dac,word,461e1083
+patch=1,EE,00350db0,word,08047c97

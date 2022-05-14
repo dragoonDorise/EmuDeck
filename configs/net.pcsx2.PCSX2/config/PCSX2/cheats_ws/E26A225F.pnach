@@ -1,0 +1,43 @@
+gametitle=Kamen Rider Hibiki (J)(SLPS-20447)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Menu Zoom (2D)
+//003f013c 00088144 e0ffbd27
+//patch=1,EE,00145f68,word,3c013ec0 //3c013f00
+
+//Menu Y-Fov (2D)
+//426b0146 2000a28f
+//patch=1,EE,00145f84,word,08030000
+//patch=1,EE,000c0000,word,46016b42
+//patch=1,EE,000c0004,word,3c013f40
+//patch=1,EE,000c0008,word,4481f000
+//patch=1,EE,000c000c,word,461e6b43
+//patch=1,EE,000c0010,word,080517e2
+
+//Cutscene Zoom
+//803f013c 00a88144 01a50046
+patch=1,EE,00130894,word,3c013fab //3c013f80
+
+/Cutscene Y-Fov
+//00008044 32d00046
+patch=1,EE,001308d8,word,08030008
+patch=1,EE,000c0020,word,44800000
+patch=1,EE,000c0024,word,3c013f40
+patch=1,EE,000c0028,word,4481f000
+patch=1,EE,000c002c,word,461ead42
+patch=1,EE,000c0030,word,0804c237
+
+//Gameplay X-Fov
+//44808dc7 067c0046
+patch=1,EE,0010362c,word,08030010
+patch=1,EE,000c0040,word,c78d8044
+patch=1,EE,000c0044,word,3c013f40
+patch=1,EE,000c0048,word,4481f000
+patch=1,EE,000c004c,word,461e6b42
+patch=1,EE,000c0050,word,08040d8c
+
+//////////////////////////////////////
+//Gameplay Zoom
+//patch=1,EE,00103574,word,3c01443a //3c01447a

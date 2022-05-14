@@ -1,0 +1,4 @@
+gametitle=Terminator 3 - The Redemption SLES_522.83
+comment=Widescreen Hack
+patch=1,EE,00416ea4,word,3c013ec0 // vert d0050cc6003f013c to d0050cc6c03e013c
+patch=1,EE,00417074,word,3c013f22 //zoom e0055426003f013c to e0055426223f013c

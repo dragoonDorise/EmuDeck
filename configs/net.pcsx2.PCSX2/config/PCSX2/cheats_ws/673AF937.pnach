@@ -1,0 +1,13 @@
+gametitle=The Sopranos: Road to Respect [PAL] (SLES_542.09)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9 
+patch=1,EE,00425280,word,3FC0D938 //3F90A3D7 (Increases hor. axis)
+
+//Prevent writes to 00425280 for make the patch to work in the PS2
+patch=1,EE,001C8294,word,00000000 //E4815280
+patch=1,EE,001C8578,word,00000000 //E4405280
+patch=1,EE,0030BAD0,word,00000000 //E6C05280
+patch=1,EE,00317E40,word,00000000 //E4405280
+patch=1,EE,0036E7F4,word,00000000 //E4625280
+patch=1,EE,0036F5B0,word,00000000 //E4605280

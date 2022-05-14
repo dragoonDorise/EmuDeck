@@ -1,0 +1,8 @@
+gametitle=Gun Survivor 4 - Biohazard - Heroes Never Die (K)(SLKA-25038)
+comment=Widescreen hack by Little Giant (NTSC-K by Arapapa)
+
+patch=1,EE,00108b74,word,3c013f40 //00000000 hor fov
+patch=1,EE,00108b78,word,44810000 //00000000
+patch=1,EE,00108b80,word,4600c602 //00000000
+
+patch=1,EE,0022fa20,word,3c0143d6 //3c0143a0 render fix

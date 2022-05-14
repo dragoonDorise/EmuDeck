@@ -1,0 +1,6 @@
+gametitle=The Lord of the Rings: The Two Towers (PAL-Spain) (SLES_512.56)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,00107160,word,3C023FE3 //3C023FAA hor fov
+patch=1,EE,00107164,word,34428E39 //3442AAAB hor fov

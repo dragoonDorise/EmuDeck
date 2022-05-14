@@ -1,0 +1,33 @@
+gametitle=Monsters vs. Aliens (U)(SLUS-21870)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom (Menu and Cutscenes)
+//003f023c ec0081c6
+patch=1,EE,001abd20,word,3c023f1b //3c023f00
+
+////Y-Fov (Menu and Cutscenes)
+//03081546 1401a0e7
+patch=1,EE,001abd9c,word,08030000
+
+patch=1,EE,000c0000,word,46150803
+patch=1,EE,000c0004,word,3c013faa
+patch=1,EE,000c0008,word,3421aaab
+patch=1,EE,000c000c,word,4481f800
+patch=1,EE,000c0010,word,461f0002
+patch=1,EE,000c0014,word,0806af68
+
+
+//Zoom (Gameplay)
+//003f023c 00008244 f00097c4
+patch=1,EE,00233764,word,3c023f1b //3c023f00
+
+//Y-Fov (Gameplay)
+patch=1,EE,0023376c,word,08030008
+
+patch=1,EE,000c0020,word,c49700f0
+patch=1,EE,000c0024,word,3c013f40
+patch=1,EE,000c0028,word,4481f000
+patch=1,EE,000c002c,word,461ebdc2
+patch=1,EE,000c0030,word,0808cddc

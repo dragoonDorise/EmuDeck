@@ -1,0 +1,7 @@
+gametitle=Sidewinder F (K) (SLPM-67538)
+comment=Widescreen Hack by El_Patas (NTSC-K by Arapapa)
+
+//Gameplay 16:9
+
+patch=1,EE,0014e438,word,3c0143c0 //3c014400
+patch=1,EE,001004b0,word,3c0143b4 //3c0143f0

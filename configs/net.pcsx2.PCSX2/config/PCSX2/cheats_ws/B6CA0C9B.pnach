@@ -1,0 +1,8 @@
+gametitle=Super PickUps [PAL-M5] (SLES_548.18)
+comment=Widescreen hack by Sergx12 & El_Patas
+
+//Gameplay 16:9
+patch=1,EE,00143080,word,3C023F19 //3C023F00 (Increases hor. axis)
+
+//Cars menus
+patch=1,EE,001ABAC8,word,3C033F67 //3C033F80 (Increases hor. axis)

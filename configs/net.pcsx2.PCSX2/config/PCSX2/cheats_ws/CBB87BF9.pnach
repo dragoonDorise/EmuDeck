@@ -1,0 +1,7 @@
+gametitle=Evangelion - Jo (J)(SLPS-25932)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//0000803f 000080bf 0000803f 00003543
+patch=1,EE,2041B328,extended,3F400000 //3f800000 X-Fov

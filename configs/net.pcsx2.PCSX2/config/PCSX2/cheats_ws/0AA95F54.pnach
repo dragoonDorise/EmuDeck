@@ -1,0 +1,17 @@
+gametitle=Monster Attack (PAL-Unk) [SLES-51856] [0AA95F54]
+comment=Widescreen hacks by Aced14
+
+//16:9 Widescreen
+patch=1,EE,10134228,extended,00003F40 //3C023F80 - Master X FOV #1
+
+//16:10 Widescreen (Normal)
+//patch=1,EE,20134224,extended,08044F00 //8FA3001C - j $00113c00 - Jump to injected MIPS instructions
+//patch=1,EE,10134228,extended,00003F55 //3C023F80 - lui v1, $3f80 - Set first half of v0 register (Master X FOV #1)
+//patch=1,EE,20113C00,extended,34425555 //8E190008 - ori v0, v0, $5555 - Set second half of v0 register (Master X FOV #2)
+//patch=1,EE,20113C04,extended,0804D08B //8F390028 - j $0013422c - Jump to 2 lines after the overwritten MIPS instruction
+//patch=1,EE,20113C08,extended,8FA3001C //0320F809 - lw v1, $001c(sp) - Restore overwritten MIPS instruction
+
+//16:10 Widescreen (Ultra)
+//patch=1,EE,10134228,extended,00003F40 //3C023F80 - Master X FOV #1
+//patch=1,EE,10134230,extended,00003F4A //3C023F61 - Master Y FOV #1
+//patch=1,EE,10134234,extended,0000C083 //344247AE - Master Y FOV #2

@@ -1,0 +1,13 @@
+gametitle=Urban Extreme (E)(SLES-52957)
+comment=Widescreen hack by Arapapa
+
+//Widescreen 16:9
+
+patch=1,EE,00316aa8,word,080de3e8 //c6010068
+patch=1,EE,00378fa0,word,3c013f40 //00000000
+patch=1,EE,00378fa4,word,4481f000 //00000000
+patch=1,EE,00378fa8,word,c6010068 //00000000
+patch=1,EE,00378fac,word,c602006c //00000000
+patch=1,EE,00378fb0,word,461e0843 //00000000
+patch=1,EE,00378fb4,word,e6010068 //00000000
+patch=1,EE,00378fb8,word,080c5aac //00000000

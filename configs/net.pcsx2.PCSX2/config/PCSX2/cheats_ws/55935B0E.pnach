@@ -1,0 +1,9 @@
+gametitle=Naruto - Uzumaki Ninden (J)(SLPS-25542)
+comment= Widescreen Hack (16:9)
+
+// 16:9
+// 613f023c af474234 (search twice)
+patch=1,EE,001ed2d8,word,3c023f28 //3c023f61
+patch=1,EE,001ed2dc,word,3442f5c3 //344247af
+patch=1,EE,001ed970,word,3c023f28 //3c023f61
+patch=1,EE,001ed974,word,3442f5c3 //344247af

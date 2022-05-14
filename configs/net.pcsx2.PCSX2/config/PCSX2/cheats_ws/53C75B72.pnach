@@ -1,0 +1,16 @@
+gametitle=Shinseiki GPX Cyber Formula - Road to the Infinity 2 (J)(SLPS-25541)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,0029c518,word,080b5d94 // c6010068
+patch=1,EE,0029c51c,word,00000000 // c602006c
+
+patch=1,EE,002d7650,word,3c013f40 // 00000000
+patch=1,EE,002d7654,word,4481f000 // 00000000
+patch=1,EE,002d7658,word,c6010068 // 00000000
+patch=1,EE,002d765c,word,c602006c // 00000000
+patch=1,EE,002d7660,word,461e0843 // 00000000
+patch=1,EE,002d7664,word,e6010068 // 00000000
+patch=1,EE,002d7668,word,080a7148 // 00000000

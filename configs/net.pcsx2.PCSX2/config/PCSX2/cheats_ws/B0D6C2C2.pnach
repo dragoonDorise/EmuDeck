@@ -1,0 +1,15 @@
+gametitle=Soldier of Fortune - Gold Edition (U)(SLUS-20084)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//83100746 2400a4e7
+patch=1,EE,0041c540,word,3c013f40
+patch=1,EE,0041c548,word,4481f000
+patch=1,EE,0041c54c,word,46071083
+patch=1,EE,0041c550,word,461e1082
+
+//Render fix
+//003f013c 00a88144 002c1026
+patch=1,EE,003f5f54,word,3c013f2b //3c013f00

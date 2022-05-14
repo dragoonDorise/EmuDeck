@@ -1,0 +1,13 @@
+gametitle=Pimp my Ride (U)(SLUS-21580)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,001e80fc,word,0806bcb4
+
+patch=1,EE,001af2d0,word,c4810008
+patch=1,EE,001af2d4,word,3c013faa
+patch=1,EE,001af2d8,word,3421aaab
+patch=1,EE,001af2dc,word,4481f000
+patch=1,EE,001af2e0,word,461e0842
+patch=1,EE,001af2e4,word,0807a040

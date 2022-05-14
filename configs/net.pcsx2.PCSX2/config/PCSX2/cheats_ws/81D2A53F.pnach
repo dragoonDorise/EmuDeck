@@ -1,0 +1,16 @@
+gametitle=Atelier Iris 3: Grand Phantasm [PAL] (SLES_548.22)
+comment=Widescreen pnach by El_Patas
+
+//3D Scenes
+patch=1,EE,0035F12C,word,3C013F40 //00000000 hor value
+patch=1,EE,0035F130,word,44810000 //00000000
+patch=1,EE,0035F138,word,4600C602 //00000000
+
+//Battle's fix
+patch=1,EE,008BF7BC,word,44400000 //44800000 right side fix
+patch=1,EE,008BF7C4,word,C4400000 //C4800000 left side fix
+patch=1,EE,008BEA2C,word,3FAAAAAB //3F800000 menu fix
+
+//2D Scenes 
+patch=1,EE,001B0D88,word,3C014440 //3C010084 hor value
+patch=1,EE,001B0D8C,word,44810000 //C420E968

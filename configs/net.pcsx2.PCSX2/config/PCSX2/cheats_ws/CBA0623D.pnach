@@ -1,0 +1,24 @@
+gametitle=Mercenaries: Playground of Destruction [PAL-M2-Spa-Ita] (SLES_530.08)
+comment=Widescreen Hack by El_Patas
+
+// 16:9 
+patch=1,EE,0033b098,word,3c013f40 //00000000 hor fov
+
+// 16:10 
+//patch=1,EE,0033b098,word,3c013f55 //00000000 hor fov
+//patch=1,EE,0033b09c,word,34215555 //00000000 hor fov
+
+// 16:9 and 16:10 main modifications
+// no need to change anything here! all modifications are calculated
+// based on the hor fov value in the upper 16:9/16:10 section
+patch=1,EE,0033b0a0,word,4481f000 //00000000 fov
+patch=1,EE,0033b940,word,4600f306 //44816000 fov
+patch=1,EE,0033f7cc,word,461e0843 //3c013f80 renderfix 1 objects
+patch=1,EE,0033f7d0,word,46010d43 //4481a800 renderfix 1 objects
+patch=1,EE,003476b8,word,4600f306 //44816000 renderfix 2 smoke and fire
+//patch=1,EE,0033a248,word,0813cbcb //46030842 hud-identification fix // Makes freeze the game
+patch=1,EE,0033a24c,word,00000000 //46030002 hud-identification fix
+patch=1,EE,004f40b8,word,46030842 //00000000 hud-identification fix
+patch=1,EE,004f40bc,word,46030002 //00000000 hud-identification fix
+patch=1,EE,004f40c0,word,461e0002 //00000000 hud-identification fix
+patch=1,EE,004f40c4,word,080ce663 //00000000 hud-identification fix

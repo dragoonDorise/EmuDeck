@@ -1,0 +1,24 @@
+gametitle=Sacred Blaze (J)(SLPS-25917)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,00129340,word,3c034340 //3c034380
+
+//Y-Fov
+patch=1,EE,00129354,word,3c023f9f //3c023f6e
+patch=1,EE,00129358,word,344349e9 //3443eeef
+
+//Render Fix
+patch=1,EE,0013193c,word,3c023fb0 //3c023f80
+
+//Menu
+//patch=1,EE,00128ea4,word,3c033f19 //3c033f4c
+//patch=1,EE,00128eb0,word,3462999a //3462cccd
+
+//2D Objects X-Fov (Need to modify too many things)
+//patch=1,EE,001C0A98,word,3faaaaab //3f800000
+
+//2D Objects Position
+//patch=1,EE,001c0a68,word,3e700000 //3f000000

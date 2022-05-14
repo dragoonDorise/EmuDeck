@@ -1,0 +1,14 @@
+gametitle=Circuit Blasters (E)(SLES-53090)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//02210846 0000a4e7 040063c4 (1st)
+patch=1,EE,00285ba8,word,080c2b44
+
+patch=1,EE,0030ad10,word,46082102
+patch=1,EE,0030ad14,word,3c013f40
+patch=1,EE,0030ad18,word,4481f000
+patch=1,EE,0030ad1c,word,461e2102
+patch=1,EE,0030ad20,word,080a16eb

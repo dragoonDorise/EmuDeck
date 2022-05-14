@@ -1,0 +1,7 @@
+gametitle=Kaido Battle (NTSC-K)(SLKA-25063) 
+comment=Widescreen pnach by Arapapa
+//Search Values are different to other nations
+
+//Widescreen Hack 16:9
+//803f023c d000a2af e400a2af
+patch=1,EE,0013d26c,word,3c023f40 //3c023f80

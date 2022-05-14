@@ -1,0 +1,16 @@
+gametitle=The Simpsons - Road Rage (PAL-M5) (SLES-50628)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,001a1914,word,3c013fc0 // 3c013f9c 1-player zoom
+patch=1,EE,001a1918,word,34214000 // 342161ab 1-player zoom
+patch=1,EE,001a1924,word,3c013fe3 // 3c013faa 1-player ver fov
+patch=1,EE,001a1928,word,34218e39 // 3421aaab 1-player ver fov
+
+patch=1,EE,001a18e0,word,3c013fbb // 3c013f97 2-players zoom
+patch=1,EE,001a18e4,word,34218000 // 3421e9d9 2-players zoom
+patch=1,EE,001588ec,word,3c014063 // 3c01402a 2-players ver fov
+patch=1,EE,001588f0,word,34218e39 // 3421aaab 2-players ver fov
+
+// removes black texture glitches in hardware emulation, but brightens screen
+patch=1,EE,001c16e4,word,3c013f7f // 3c013f80

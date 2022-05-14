@@ -1,0 +1,5 @@
+gametitle=Rumble Racing [PAL-M3] (SLES_501.20)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,001549F0,word,3C023F40 //3C023F80 (Increases hor. axis)

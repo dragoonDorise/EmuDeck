@@ -1,0 +1,27 @@
+gametitle=Odin Sphere (J)(SLPM-66474)
+comment=Widescreen hack by Arapapa
+
+//Zoom
+//0040033c 00108344 00000000 43d00246
+patch=1,EE,0016fcc4,word,080d78b0 //44831000
+
+patch=1,EE,0035e2c0,word,44831000 //00000000
+patch=1,EE,0035e2c4,word,3c013faa //00000000
+patch=1,EE,0035e2c8,word,3421aaab //00000000
+patch=1,EE,0035e2cc,word,4481f000 //00000000
+patch=1,EE,0035e2d0,word,461e1082 //00000000
+patch=1,EE,0035e2d4,word,0805bf32 //00000000
+
+//Y-Fov
+//41b81846 140000e6
+patch=1,EE,0016fcdc,word,080d78b8 //4618b841
+
+patch=1,EE,0035e2e0,word,4618b841 //00000000
+patch=1,EE,0035e2e4,word,461e0002 //00000000
+patch=1,EE,0035e2e8,word,0805bf38 //00000000
+
+//Render fix
+//96c3033c 500043c4
+patch=1,EE,00193564,word,3c03c3d2 //3c03c396 Left
+//9643023c5cb80346
+patch=1,EE,00193598,word,3c0243d2 //3c024396 Right

@@ -1,0 +1,13 @@
+gametitle=Nebula - Echo Night (J)(SLPS-25314)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Force turn on Internal Widescreen
+//01 00 00 00 00 00 00 3F 01 01 00 00 18 EE 29 00
+patch=1,EE,202AD621,byte,00000001
+
+//703f033c 003f023c d7a36334
+//patch=1,EE,00143ed0,word,3c033fa0 //3c023f70 Y-Fov
+patch=1,EE,00143ed4,word,3c023f1f //3c023f00 Zoom
+

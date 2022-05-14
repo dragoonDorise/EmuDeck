@@ -1,0 +1,15 @@
+gametitle=Stuntman Ignition (J)(SLPM-66910)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom 
+//403f023c 00688244 40cc0b0c
+patch=1,EE,002aa3d4,word,3c023f10 //3c023f40
+//patch=1,EE,004f3bb0,word,3f400000 //3f800000
+//patch=1,EE,0033f3b8,word,3c0c3f40 //3c0c3f80
+//patch=1,EE,002f3114,word,3c023f2a //3c023f00
+
+
+//Y-Fov
+patch=1,EE,205BA8C0,extended,3F252945 //3f5c370f //Memory Hack. but able to ISO patch.

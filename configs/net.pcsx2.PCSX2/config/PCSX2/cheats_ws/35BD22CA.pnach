@@ -1,0 +1,16 @@
+gametitle=Nicktoons - Attack of the Toybots (E)(SLES-54991)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,0012a828,word,3c013f80 //3c013f40
+
+//Y-Fov
+//0c00a1e7 22004014
+patch=1,EE,002774f0,word,08030000 //e7a1000c
+patch=1,EE,000c0000,word,3c013f40
+patch=1,EE,000c0004,word,4481f000
+patch=1,EE,000c0008,word,461e0f83
+patch=1,EE,000c000c,word,e7be000c
+patch=1,EE,000c0010,word,0809dd3d

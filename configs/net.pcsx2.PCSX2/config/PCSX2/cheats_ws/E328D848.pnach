@@ -1,0 +1,17 @@
+gametitle=Over the Hedge (U)(SLUS-21300)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//066e0046 1800b5e7 (1st)
+patch=1,EE,00319760,word,08030000
+patch=1,EE,000c0000,word,46006e06
+patch=1,EE,000c0004,word,3c013f40
+patch=1,EE,000c0008,word,4481f000
+patch=1,EE,000c000c,word,461ec603
+patch=1,EE,000c0010,word,080c65d9
+
+//Render fix
+//003f013c 00088144 38004cc4
+patch=1,EE,00271b9c,word,3c013f2b //3c013f00

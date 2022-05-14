@@ -1,0 +1,12 @@
+gametitle=IHRA Drag Racing - Sportsman Edition (U)(SLUS-21256)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,002fefd4,word,08129860
+
+patch=1,EE,004a6180,word,46002d03
+patch=1,EE,004a6184,word,3C013F40
+patch=1,EE,004a6188,word,4481F000
+patch=1,EE,004a618C,word,461ea502
+patch=1,EE,004a6190,word,080bfbf6

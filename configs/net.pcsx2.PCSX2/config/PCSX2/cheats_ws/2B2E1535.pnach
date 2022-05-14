@@ -1,0 +1,10 @@
+gametitle=Arctic Thunder (U)(SLUS-20217)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//803f013c 00008144 2d200000
+patch=1,EE,00102a10,word,3c013f40 //3c013f80
+
+//46630046 0000058e
+patch=1,EE,0010cddc,word,46000346 //46006346

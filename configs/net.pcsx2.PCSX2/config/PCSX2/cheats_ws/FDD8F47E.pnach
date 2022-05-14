@@ -1,0 +1,7 @@
+gametitle=Forbidden Siren SCES_523.27 (PAL-EUR M5)
+comment=Widescreen Hack converted from NTSC-U to PAL by Machiavel Dhy'v
+patch=1,EE,002018a8,word,3c023f40
+
+//FMV's fix by nemesis2000 - converted to PAL by Machiavel Dhy'v
+patch=1,EE,001fba78,word,3c027630 // 3c027800
+patch=1,EE,001fbac4,word,34028970 // 34028800

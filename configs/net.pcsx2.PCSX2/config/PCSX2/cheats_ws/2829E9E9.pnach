@@ -1,0 +1,13 @@
+gametitle=Barbarian (K)(SLKA-15001)
+comment=Widescreen Hack (NTSC-K by Arapapa)
+comment=Needs FULL BOOT. (If do not FULL BOOT, will be crashed.) 
+
+//Widescreen hack 16:9
+
+//Gameplay
+//803f013c 00008144 00000000 00000000 03000146 (12th)
+patch=1,EE,0012cd9c,word,3c013f40 //3c013f80
+
+//2D Fix (Loading, Select Menu ,Upper Energy Bar and Pause Menu)
+//0000403f 00000000 00000080 00000000 00000080
+patch=1,EE,20535848,extended,3f800000

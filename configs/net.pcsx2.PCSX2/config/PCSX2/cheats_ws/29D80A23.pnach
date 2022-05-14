@@ -1,0 +1,7 @@
+gametitle=Sidewinder V [NTSC-J] (SLPS_252.55)
+comment=Widescreen Hack by El_Patas 
+
+//Gameplay 16:9
+patch=1,EE,0012670C,word,3C0143C0 //3C014400 Zoom
+patch=1,EE,0010108C,word,3C0143B4 //3C0143F0 Y-FOV general cameras
+patch=1,EE,00100D1C,word,3C0143B4 //3C0143F0 Y-FOV internal cockpit graphic

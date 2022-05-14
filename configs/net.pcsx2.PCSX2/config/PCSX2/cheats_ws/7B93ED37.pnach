@@ -1,0 +1,7 @@
+gametitle=Special Forces (E)(SLES-54591)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,0019af28,word,3c043f40 //3c043f80

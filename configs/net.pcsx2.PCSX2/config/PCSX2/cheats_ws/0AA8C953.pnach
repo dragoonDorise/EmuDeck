@@ -1,0 +1,11 @@
+gametitle=The Seed: Warzone [PAL] (SLES_517.15)
+comment=Widescreen hack by El_Patas
+ 
+//Gameplay 16:9
+patch=1,EE,00137D7C,word,3C013F40 //3C013F80 Map menu
+patch=1,EE,0017509C,word,3C013F40 //3C013F80 Objects battles
+patch=1,EE,00188838,word,3C013F40 //3C013F80 Background battles 01
+patch=1,EE,00187EC4,word,3C013F40 //3C013F80 Background battles 02
+patch=1,EE,001870D4,word,3C013F40 //3C013F80 Background battles 03
+patch=1,EE,00187C9C,word,3C013F40 //3C013F80 Background battles 04
+patch=1,EE,00187718,word,3C013F40 //3C013F80 Background battles 05

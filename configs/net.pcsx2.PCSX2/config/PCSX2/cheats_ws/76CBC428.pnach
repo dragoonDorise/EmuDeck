@@ -1,0 +1,15 @@
+gametitle=Stuntman (U)(SLUS-20250)
+comment=Widescreen hack by Arapapa and FlatOut
+
+//Gameplay 16:9
+
+//Render fix
+patch=1,EE,001d4124,word,3c013f30 //3c013f00
+
+//Zoom
+//Other Zoom :003f013c 00a88144 06650046 
+patch=1,EE,0028f5d8,word,3FD66666 //3eaaaaab Fiexed FlatOut
+
+//Y-Fov
+patch=1,EE,001d4168,word,3c013fe3 //3c013faa
+patch=1,EE,001d416c,word,34218e3f //3421aaab

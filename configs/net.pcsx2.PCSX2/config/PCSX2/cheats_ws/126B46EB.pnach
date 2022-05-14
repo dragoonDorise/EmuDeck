@@ -1,0 +1,8 @@
+gametitle=Top Spin (E)(SLES-53175)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,00318ca0,word,3c033fe3 //3c033faa
+patch=1,EE,00318ca4,word,34632a8e //3463aaab

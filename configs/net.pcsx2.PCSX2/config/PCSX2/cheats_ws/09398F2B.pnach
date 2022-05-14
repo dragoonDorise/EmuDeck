@@ -1,0 +1,4 @@
+﻿gametitle=Hudson Selection Vol. 4 - Takahashi Meijin no Bouken Jima [NTSC-J] (SLPM-62422)
+comment=Widescreen hack by Little Giant
+
+patch=1,EE,206F1C60,extended,3F4F5C2A //3F8A3D71

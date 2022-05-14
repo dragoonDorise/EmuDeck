@@ -1,0 +1,19 @@
+gametitle=Bee Movie Game (E)(SLES-55016)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//003f023c 1c0101c6
+patch=1,EE,001864b0,word,3c023f1a //3c023f00
+
+//Y-Fov
+//03081546 9400a0e7
+patch=1,EE,0018652c,word,0808bad8
+
+patch=1,EE,0022eb60,word,46150803
+patch=1,EE,0022eb64,word,3c013faa
+patch=1,EE,0022eb68,word,3421aaab
+patch=1,EE,0022eb6c,word,4481f000
+patch=1,EE,0022eb70,word,461e0002
+patch=1,EE,0022eb74,word,0806194c

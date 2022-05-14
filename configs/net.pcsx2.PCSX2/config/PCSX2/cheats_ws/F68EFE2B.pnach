@@ -1,0 +1,6 @@
+gametitle=Hyper Sports 2002 Winter (J)(SLPM-62126)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,001542bc,word,3c053fc0 //3c054000

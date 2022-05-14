@@ -1,0 +1,13 @@
+gametitle=Torrente 3 - The Protector (E)(SLES-54117)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00253c48,word,08123794
+patch=1,EE,0048de50,word,3c013f40
+patch=1,EE,0048de54,word,4481f000
+patch=1,EE,0048de58,word,c6010068
+patch=1,EE,0048de5c,word,c602006c
+patch=1,EE,0048de60,word,461e0843
+patch=1,EE,0048de64,word,e6010068
+patch=1,EE,0048de68,word,08094f14

@@ -1,0 +1,57 @@
+gametitle=Silent Hill 2 (original version) SLUS_202.28
+comment=Widescreen Hack
+
+//16:9
+patch=1,EE,002c99e0,word,3f28f5c3 //3f6147ae
+patch=1,EE,00187984,word,3c034455 //3c034400
+
+//FMV fix @ 1.55 AR
+patch=1,EE,202a258c,extended,3c027200
+patch=1,EE,202a25bc,extended,34068e00
+patch=1,EE,202a2590,extended,34467200
+patch=1,EE,202a25c4,extended,34c68df0
+
+//Black borders fix (00 74 C6 34 38 34 06 00)
+patch=1,EE,202a2730,extended,34c60000
+patch=1,EE,202a27ac,extended,34c60000
+
+//Lens Flare's fix
+patch=1,EE,001892c0,word,3c024010 //3c024040
+patch=1,EE,0018933c,word,3c0243a8 //3c0243e0
+patch=1,EE,00189f94,word,3c024010 //3c024040
+
+patch=1,EE,0018a02c,word,3c0243a8 //3c0243e0
+patch=1,EE,0018a0a8,word,3c0243a8 //3c0243e0
+patch=1,EE,0018a674,word,3c0243a8 //3c0243e0
+patch=1,EE,0018a708,word,3c0243a8 //3c0243e0
+patch=1,EE,0018a79c,word,3c0243a8 //3c0243e0
+patch=1,EE,0018a830,word,3c0243a8 //3c0243e0
+patch=1,EE,0018abc4,word,3c0243a8 //3c0243e0
+patch=1,EE,0018ac58,word,3c0243a8 //3c0243e0
+patch=1,EE,0018acec,word,3c0243a8 //3c0243e0
+patch=1,EE,0018ad80,word,3c0243a8 //3c0243e0
+
+patch=1,EE,0018af74,word,3c0243a8 //3c0243e0
+patch=1,EE,0018afe0,word,3c0243a8 //3c0243e0
+patch=1,EE,0018b12c,word,3c0243a8 //3c0243e0
+patch=1,EE,0018b198,word,3c0243a8 //3c0243e0
+
+//Loading scene (Foot Print)
+//403f023c 00088244 c000a0c7
+patch=1,EE,002b2454,word,3c023f10 //3c023f40
+
+//Item & Equipment Y-Fov
+//8042023c 00008244 00000000 02001446
+patch=1,EE,00213560,word,3c0242aa //3c024280
+patch=1,EE,00213564,word,3442aaab //44820000
+patch=1,EE,00213568,word,44820000 //00000000
+
+//Item Zoom
+//993e033c 9a996334 00008344
+patch=1,EE,001d74f4,word,3c033daa //3c033e99
+patch=1,EE,001d74f8,word,3463aaab //3463999a
+
+//Equipment Zoom
+//663f023c 66664234 00088244
+patch=1,EE,001d7900,word,3c023f2c //3c023f66
+patch=1,EE,001d7904,word,3442cccd //34426666

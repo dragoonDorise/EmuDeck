@@ -1,0 +1,17 @@
+gametitle=Robot Wars - Arenas of Destruction (E)(SLES-50572)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,00191058,word,3c013f2a //3c013f00
+
+//Y-Fov
+patch=1,EE,00191090,word,08030000
+
+patch=1,EE,000c0000,word,4616a583
+patch=1,EE,000c0004,word,3c013f40
+patch=1,EE,000c0008,word,00000000
+patch=1,EE,000c000c,word,4481f000
+patch=1,EE,000c0010,word,461eb582
+patch=1,EE,000c0014,word,08064425

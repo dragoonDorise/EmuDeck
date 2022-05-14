@@ -1,0 +1,13 @@
+gametitle=Fantavision (E)(SCES-50002)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,00193f50,word,3c0143f0 //3c014420
+
+//Zoom
+//patch=1,EE,00193fe4,word,3c013ec0 //3c013f00
+
+//Y-Fov
+//patch=1,EE,00193fc8,word,3c013eb4 //3c013ef0

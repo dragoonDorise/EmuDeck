@@ -1,0 +1,16 @@
+gametitle=The Godfather (NTSC-U)(SLUS-21385)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//003f013c 00608144
+patch=1,EE,0035f26c,word,3c013f20 //3c013f00
+
+//Fov
+//5b3f013c b86d2134 00008144 5c00053c
+patch=1,EE,0036f468,word,3c013f24 //3c013f5b
+patch=1,EE,0036f46c,word,34219247 //34216db8
+
+//Cutscene Bars
+patch=1,EE,006617B8,word,00000001

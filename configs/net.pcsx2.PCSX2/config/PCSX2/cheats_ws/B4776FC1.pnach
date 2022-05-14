@@ -1,0 +1,8 @@
+﻿gametitle=Genji [NTSC-J] (SCPS-15095)
+comment=Widescreen Hack by okuha8748p, Arapapa 
+
+patch=1,EE,002e4ba0,word,3C013FC5
+
+//FMV fix
+patch=1,EE,002cb63c,word,3c013f2a
+patch=1,EE,002cb64c,word,3c013f2a

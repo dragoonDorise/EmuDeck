@@ -1,0 +1,3 @@
+gametitle=K-1 World Grand Prix SLUS_206.82
+comment=Widescreen hack
+patch=1,EE,2080143c,extended,3f2ccccd //3f666666

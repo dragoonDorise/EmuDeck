@@ -1,0 +1,5 @@
+gametitle=Street Fighter EX3 (J)(SLPS-20003)
+comment=Widescreen hack by nemesis2000
+patch=1,EE,002097dc,word,3c013f40 //00000000
+patch=1,EE,002097e0,word,44810000 //00000000
+patch=1,EE,002097e8,word,4600c602 //00000000

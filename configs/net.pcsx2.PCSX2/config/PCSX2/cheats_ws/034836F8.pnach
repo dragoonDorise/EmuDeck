@@ -1,0 +1,8 @@
+gametitle=Driving Emotion Type-S (J)(SLPS-20007)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//f043013c 00188144 12004584
+patch=1,EE,00258528,word,3c0143b4 //3c0143f0

@@ -1,0 +1,25 @@
+gametitle=Largo Winch - Empire Under Threat (E)(SLES-51093)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,0028029c,word,3c013f2f //3c013f80
+
+//Y-Fov
+patch=1,EE,001abc40,word,08030000
+
+patch=1,EE,000c0000,word,46070a02
+patch=1,EE,000c0004,word,3c013fa6
+patch=1,EE,000c0008,word,4481f000
+patch=1,EE,000c000c,word,461e4202
+patch=1,EE,000c0010,word,0806af11
+
+////////////////////////////
+//X-Fov (Needs render fix)
+//patch=1,EE,001abb98,word,08030000
+//patch=1,EE,000c0000,word,24420050
+//patch=1,EE,000c0004,word,3c013f40
+//patch=1,EE,000c0008,word,4481f000
+//patch=1,EE,000c000c,word,461e4202
+//patch=1,EE,000c0010,word,0806aee7

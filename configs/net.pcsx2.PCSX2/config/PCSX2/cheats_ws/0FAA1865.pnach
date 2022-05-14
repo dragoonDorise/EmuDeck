@@ -1,0 +1,13 @@
+gametitle=American Chopper 2 - Full Throttle (E)(SLES-53779)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0015a8e0,word,080f4f58 //460c0082
+
+patch=1,EE,003d3d60,word,460c0082
+patch=1,EE,003d3d64,word,3c013fa0
+patch=1,EE,003d3d68,word,3421aaaa
+patch=1,EE,003d3d6c,word,4481f000
+patch=1,EE,003d3d70,word,461e1082
+patch=1,EE,003d3d74,word,08056a39

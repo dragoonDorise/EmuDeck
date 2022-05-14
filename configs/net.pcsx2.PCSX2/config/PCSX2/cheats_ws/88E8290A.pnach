@@ -1,0 +1,4 @@
+gametitle=Time Crisis - Crisis Zone (PAL-M5) SCES_525.30
+comment=Widescreen hack. Port by dieSkaarj (PAL.)
+
+patch=1,EE,001047c8,word,3c013fab //3c013f80

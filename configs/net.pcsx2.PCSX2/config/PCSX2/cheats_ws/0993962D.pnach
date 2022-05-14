@@ -1,0 +1,9 @@
+gametitle=Cool Boarders 2001 SCUS_971.08
+comment=Widescreen Hack
+//credit goes to nemesis2000
+patch=1,EE,0011d2ac,word,3c01442b //r fix
+patch=1,EE,0011d2d0,word,3c01442b //r fix hor splitscreen
+patch=1,EE,0011d2ec,word,3c0143ab //r fix vert splitscreen
+patch=1,EE,0017453c,word,3c013f40
+patch=1,EE,00174540,word,44810000
+patch=1,EE,00174548,word,4600c602

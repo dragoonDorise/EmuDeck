@@ -1,0 +1,10 @@
+gametitle=Ultraman Nexus (J)(SLPS-20420)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+patch=1,EE,00439690,word,3f100000 //3f400000
+
+//Zoom
+patch=1,EE,00285334,word,3c01bec0 //3c01bf00

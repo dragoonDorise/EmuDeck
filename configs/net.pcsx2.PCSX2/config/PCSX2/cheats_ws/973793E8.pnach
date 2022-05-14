@@ -1,0 +1,10 @@
+gametitle=Kaan - Barbarian's Blade (E)(SLES-52179)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,001849d4,word,3c023f40 //3c023f80
+
+//Y-Fov
+patch=1,EE,00177a1c,word,3c024010 //3c024040

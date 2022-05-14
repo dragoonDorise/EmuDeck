@@ -1,0 +1,7 @@
+gametitle=One Piece - Grand Adventure (NTSC-U)
+comment=Widescreen Hack by ElHecht
+
+// 16:9
+patch=1,EE,002b4d18,word,3c013f40
+patch=1,EE,002b4d2c,word,4481f000
+patch=1,EE,002b4d70,word,461ec602

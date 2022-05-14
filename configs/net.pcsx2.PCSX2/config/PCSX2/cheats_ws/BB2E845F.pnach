@@ -1,0 +1,240 @@
+gametitle=Burnout 3 - Takedown (J) (SLPM-65719) 
+comment=Widescreen Hack (16:9) by Aero_ (NTSC-J by Arapapa)
+
+
+
+// FOV (16:9)
+
+patch=1,EE,0068A3CD,byte,01 // enables widescreen FOV values
+
+//9A 99 99 3F CE CC 4C 3E CD CC 4C 3F C8 CC CC 3D
+patch=1,EE,20504F30,extended,3FAAAAAB // FOV (Single Player) // 16:9 = 1.33333
+
+//39 8E E3 3F 00 80 0E 43 EF EE 6E 3E 29 5C CF 3F
+patch=1,EE,2050514C,extended,3FE38E39 // Aspect Ratio (Single Player) // 16:9 = 1.77778
+
+//29 5C CF 3F 39 8E 63 40 CD CC AC 3F
+patch=1,EE,20505158,extended,3FE38E39 // FOV (Multiplayer) // 16:9 = 1.77778
+
+//39 8E 63 40 CD CC AC 3F AB AA 2A 40
+patch=1,EE,2050515C,extended,40638E39 // Aspect Ratio (Multiplayer) // 16:9 = 3.55556
+
+
+
+
+// HUD (16:9)
+//CD CC CC 3A 89 88 08 3B 9A 99 01 C1
+patch=1,EE,20505538,extended,3A99999A // HUD Width // 16:9 = 0.00117188
+
+//00 00 00 00 00 00 00 00 00 00 80 3F EF EE 6E 3F
+patch=1,EE,2068C7B0,extended,42A00000 // HUD X Pos // 16:9 = +80 (Player 1)
+
+//00 00 00 00 00 00 00 00 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 54 A4 66 00 00 00 00 00 00 00 00 00 54 A4 66 00
+patch=1,EE,2068E030,extended,42A00000 // HUD X Pos // 16:9 = +80 (Player 2)
+
+//00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 BF 00 00 80 BF 00 00 80 BF 00 00 80 BF 00 00 00 00
+patch=1,EE,204DBBB8,extended,3F9947AE // HUD Top Right X Pos // 16:9 = +0.1975
+
+//00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 00 3F 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 BF 00 00 80 BF 00 00 80 BF 00 00 80 BF 00 00 00 00
+patch=1,EE,204DBBA8,extended,3F9947AE // HUD Bottom Right X Pos // 16:9 = +0.1975
+
+//00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 3F 00 00 00 00 00 00 80 3F 00 00 00 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 00 3F 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00
+patch=1,EE,204DBB88,extended,BE4A3D71 // HUD Top Left X Pos // 16:9 = -0.1975
+
+//00 00 00 00 00 00 80 3F 00 00 00 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 80 3F 00 00 00 3F 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00
+patch=1,EE,204DBB98,extended,BE4A3D71 // HUD Bottom Left X Pos // 16:9 = -0.1975
+
+//00 00 20 44 00 00 70 42 CD CC CC 3A 89 88 88 3C
+patch=1,EE,204EEB20,extended,44555555 // Crash Cam Border Width
+
+//00 00 20 44 00 00 70 42 00 00 00 00 00 00 00 00 00 00 20 44 00 00 00 40 00 00 00 00 00 00 D2 43
+patch=1,EE,204EEB00,extended,44555555 // Crash Cam Border Width
+
+//00 00 20 44 00 00 00 40 00 00 00 00 00 00 D2 43
+patch=1,EE,204EEB10,extended,44555555 // Crash Cam Border Width
+
+//00 00 00 00 00 00 00 00 00 00 20 44 00 00 70 42 00 00 00 00 00 00 00 00 00 00 20 44 00 00 00 40
+patch=1,EE,204EEAF8,extended,c2d70000 // Crash Cam Border X Pos // 16:9 = -0.107.5
+
+//00 00 00 00 00 00 D2 43 00 00 20 44 00 00 70 42
+patch=1,EE,204EEB18,extended,c2d70000 // Crash Cam Border X Pos // 16:9 = -0.107.5
+
+//20 44 02 3C 70 00 A0 AF 68 00 A2 AF 70 00 A6 27
+patch=1,EE,203d78c8,extended,3C024456 // Crash Cam List Backing Width // only change the last four bytes // 16:9 = 854
+
+
+
+//////////////////////////////////
+
+//70 00 A1 C7 74 00 A0 C7 00 00 A1 E4 04 00 A0 E4
+patch=1,EE,203d774c,extended,081217b0 // jumps to code cave #1
+patch=1,EE,20485EC0,extended,3C08C2D7 // Crash Cam List Backing X Pos // only change the last four bytes // 16:9 = -0.107.5
+patch=1,EE,20485EC4,extended,44880800 // moves new x pos value
+
+patch=1,EE,20485EC8,extended,080f5dd4 // jumps back #1 + 4
+
+//50 00 A2 C7 54 00 A0 C7 81 20 02 46 01 08 00 46
+patch=1,EE,203d7984,extended,081217b3 // jumps to code cave #2
+patch=1,EE,20485ECC,extended,3C19C2D7 // Crash Cam List Text X Pos // -0.107.5 for 16:9; only change the last four bytes
+patch=1,EE,20485ED0,extended,44991000 // moves new x pos value
+patch=1,EE,20485ED4,extended,080f5e62 // jumps back #2 + 4
+
+//20 44 02 3C A8 00 A0 AF A0 00 A2 AF 2D 28 00 00
+patch=1,EE,201a172c,short,4456 // HUD Render Width (Player 1) // 16:9 = 854
+
+//20 44 02 3C 98 00 A0 AF 90 00 A2 AF A8 00 A3 C7
+patch=1,EE,201A1790,short,4456 // HUD Render Width (Player 2) // 16:9 = 854
+
+
+
+/////////////////////////////////////////////////
+
+//A0 00 A2 AF 2D 28 00 00 70 43 02 3C AC 00 A0 AF
+patch=1,EE,201A1734,extended,081217f2 // jumps to code cave #1
+patch=1,EE,20485FC8,extended,AfA200A0 // saves width value
+patch=1,EE,20485FD0,extended,3C02C2D7 // HUD Render X Pos (Player 1) // only change the last four bytes // 16:9 = -0.107.5
+patch=1,EE,20485FD4,extended,AFA200A8 // saves new x pos value
+patch=1,EE,20485FD8,extended,080685ce // jumps back #1 + 4
+
+//90 00 A2 AF A8 00 A3 C7 70 43 02 3C 2D 28 00 00
+patch=1,EE,201A1798,extended,081217f6 // jumps to code cave #2
+patch=1,EE,20485FD8,extended,AFA20090 // saves width value
+patch=1,EE,20485FDC,extended,3C02C2D7 // HUD Render X Pos (Player 2) // only change the last four bytes // 16:9 = -0.107.5
+patch=1,EE,20485FE0,extended,AFA20098 // saves new x pos value
+patch=1,EE,20485FE4,extended,080685e7 // jumps back #2 + 4
+
+//20 44 02 3C 2D 50 00 00 00 10 82 44 00 00 00 00
+patch=1,EE,20134f5c,short,4456 // "Get Ready! GO" Width // 16:9 = 854
+
+//74 01 A2 AF 00 00 B0 FF
+patch=1,EE,20134F34,extended,081217ee // jumps to code cave
+patch=1,EE,20485FB8,extended,AFA20174 // saves y pos value
+patch=1,EE,20485FBC,extended,3C023EC0 //  "Get Ready! GO" X Pos // only change the last four bytes // 16:9 = 0.375
+patch=1,EE,20485FC0,extended,AFA20168 // saves new x pos value
+patch=1,EE,20485FC4,extended,0804d3ce // jumps back
+
+
+// Menus (16:9)
+
+//b401848c 20 44 03 3C 00 28 83 44
+patch=1,EE,2030d664,short,43F0 // Menu Width // 16:9 = 480
+
+//08 00 83 E4 0C 00 80 E4 E0 B1 63 90 48 00 A3 E7
+//6148033c 60088046 00008344 (ELF)
+patch=1,EE,2030d6b4,extended,081217b6 // jumps to code cave
+patch=1,EE,20485ED8,extended,E4830008 // saves width value
+patch=1,EE,20485EDC,extended,3C1942A0 // Menu X Pos // only change the last four bytes // 16:9 = +80
+patch=1,EE,20485EE0,extended,44991800 // moves new x pos value
+patch=1,EE,20485EE4,extended,E4830000 // saves new x pos value
+patch=1,EE,20485EE8,extended,080c35ae // jumps back
+
+//00 00 20 44 00 00 B0 43 00 00 00 00 00 00 00 00 00 00 80 3F 00 00 00 00 00 00 00 00 0F 09 44 42
+patch=1,EE,204F5A30,extended,44555555 // Car Select Overlay Width  // 16:9 = 853.3
+
+//00 00 00 00 00 00 80 42 00 00 20 44 00 00 B0 43 00 00 00 00 00 00 00 00 00 00 80 3F 00 00 00 00
+patch=1,EE,204F5A28,extended,C2D70000 // Car Select Overlay X Pos  // 16:9 = -107.5
+
+//20 44 03 3C 2D A8 80 00 E9 01 10 3C 67 00 14 3C
+// 2044033c (elf 2nd from top)
+patch=1,EE,2031b030,short,4456 // Top Border Width // 16:9 = 854
+
+//04 00 85 C4 6A 18 E1 4B D8 01 A2 FF 00 08 83 44
+patch=1,EE,2031B0A4,extended,081217bb // jumps to code cave
+patch=1,EE,20485EEC,extended,3C190000 // Top Border X Pos // only change the last four bytes // 16:9 = 0 (4:3 = 80)
+patch=1,EE,20485EF0,extended,44993800 // moves new x pos value
+patch=1,EE,20485EF4,extended,E4870000 // saves new x pos value
+patch=1,EE,20485EF8,extended,C4850004 // original code
+patch=1,EE,20485EFC,extended,080c6c2a // jumps back
+
+//20 44 02 3C 78 00 A0 AF 70 00 A2 AF 78 00 A6 27
+patch=1,EE,2038B380,short,4456 // Bottom Border Width // 16:9 = 854
+
+//20 44 02 3C 60 00 A0 AF 58 00 A2 AF 68 00 A5 27
+patch=1,EE,2038B3B8,short,4456 // Bottom Border Width // 16:9 = 854
+
+//68 00 A0 AF 5C 00 A2 AF 60 00 A6 27 80 3F 02 3C
+patch=1,EE,2038B3CC,extended,081217c0 // jumps to code cave
+patch=1,EE,20485F00,extended,3C19C2D7 // Bottom Border X Pos // only change the last four bytes // 16:9 = -107.5
+patch=1,EE,20485F04,extended,AFB90068 // saves new x pos value
+patch=1,EE,20485F08,extended,080e2cf4 // jumps back
+
+//78 00 A0 AF 70 00 A2 AF 78 00 A6 27 C0 42 02 3C
+patch=1,EE,2038B384,extended,081217c3 // jumps to code cave
+patch=1,EE,20485F0C,extended,3C193E00 // Bottom Border X Pos // only change the last four bytes // 16:9 = 0.125
+patch=1,EE,20485F10,extended,AFB90078 // saves new x pos value
+patch=1,EE,20485F14,extended,080e2ce2 // jumps back
+
+//20 44 02 3C 4C 00 0A 3C 08 01 A2 AF 4C 00 0B 3C
+patch=1,EE,2031D594,short,4456 // Checkerboard Width // 16:9 = 854
+
+//20 44 02 3C EA 01 0A 3C F0 00 A2 AF EA 01 0B 3C
+patch=1,EE,2031D5EC,short,4456 // Checkerboard Width // 16:9 = 854
+
+//20 44 02 3C 4C 00 08 3C C0 00 A2 AF 4C 00 09 3C
+patch=1,EE,2031D698,short,4456 // Checkerboard Width // 16:9 = 854
+
+//20 44 02 3C EA 01 0A 3C D8 00 A2 AF EA 01 0B 3C
+patch=1,EE,2031D640,short,4456 // Checkerboard Width // 16:9 = 854
+
+//20 44 02 3C EA 01 08 3C A8 00 A2 AF EA 01 09 3C
+patch=1,EE,2031D6F0,short,4456 // Checkerboard Width // 16:9 = 854
+
+
+/////////////////////////////////////////////////////////
+
+//10 01 A0 AF 0C 01 A2 AF 18 01 A5 27 C0 42 02 3C
+patch=1,EE,2031D5A8,extended,081217c6 // jumps to code cave
+patch=1,EE,20485F18,extended,3C193E00 // Middle Checkerboard X Pos // only change the last four bytes // 16:9 = 0.125
+patch=1,EE,20485F1C,extended,AFB90110 // saves new x pos value
+patch=1,EE,20485F20,extended,080c756b // jumps back
+
+//F8 00 A0 AF F4 00 A2 AF 00 01 A5 27 FC 00 A0 AF
+patch=1,EE,2031D600,extended,081217c9 // jumps to code cave
+patch=1,EE,20485F24,extended,3C193E00 // Top Checkerboard X Pos // only change the last four bytes // 16:9 = 0.125
+patch=1,EE,20485F28,extended,AFB900F8 // saves new x pos value
+patch=1,EE,20485F2C,extended,080c7581 // jumps back
+
+//C8 00 A0 AF C4 00 A2 AF D0 00 A5 27 80 42 02 3C
+patch=1,EE,2031D6AC,extended,081217cc // jumps to code cave
+patch=1,EE,20485F30,extended,3C193E00 // Top Middle Checkerboard X Pos // only change the last four bytes // 16:9 = 0.125
+patch=1,EE,20485F34,extended,AFB900C8 // saves new x pos value
+patch=1,EE,20485F38,extended,080c75ac // jumps back
+
+//E0 00 A0 AF DC 00 A2 AF 10 01 88 26 D0 43 02 3C
+patch=1,EE,2031D654,extended,081217cf // jumps to code cave
+patch=1,EE,20485F3C,extended,3C193E00 // Bottom Checkerboard X Pos // only change the last four bytes // 16:9 = 0.125
+patch=1,EE,20485F40,extended,AFB900E0 // saves new x pos value
+patch=1,EE,20485F44,extended,080c7596 // jumps back
+
+//B0 00 A0 AF AC 00 A2 AF 06 A3 00 46 C0 43 02 3C
+patch=1,EE,2031D704,extended,081217d2 // jumps to code cave
+patch=1,EE,20485F48,extended,3C193E00 // Bottom Middle Checkerboard X Pos // only change the last four bytes // 16:9 = 0.125
+patch=1,EE,20485F4C,extended,AFB900B0 // saves new x pos value
+patch=1,EE,20485F50,extended,080c75c2 // jumps back
+
+//20 44 02 3C D0 01 A0 AF C8 01 A2 AF D8 01 A5 27
+patch=1,EE,2031D8D0,short,4456 // Loading Background Width // 16:9 = 854 #
+patch=1,EE,2031D8F0,extended,081217d5 // jumps to code cave  # +20
+patch=1,EE,20485F54,extended,3C19C2D7 // Loading Background X Pos // only change the last four bytes // 16:9 = -107.5
+patch=1,EE,20485F58,extended,AFB901D8 // saves new x pos value
+patch=1,EE,20485F5C,extended,080c763d // jumps back
+
+//20 44 02 3C 70 00 A0 AF 68 00 A2 AF 78 00 A5 27
+patch=1,EE,203A6F84,short,4456 // Replay Top Bar Width // 16:9 = 854 #
+patch=1,EE,203A6F88,extended,081217e8 // jumps to code cave  # +4
+patch=1,EE,20485FA0,extended,3C19C2D7 // Replay Top Bar X Pos // only change the last four bytes // 16:9 = -107.5
+patch=1,EE,20485FA4,extended,AFB90078 // saves new x pos value
+patch=1,EE,20485FA8,extended,080e9be3 // jumps back
+
+//20 44 02 3C 58 00 A0 AF 50 00 A2 AF 5C 00 B4 E7
+patch=1,EE,203A6FC8,short,4456 // Replay Bottom Bar Width // 16:9 = 854 #
+patch=1,EE,203A6FDC,extended,081217eb // jumps to code cave # +14
+patch=1,EE,20485FAC,extended,3C19C2D7 // Replay Bottom Bar X Pos // only change the last four bytes // 16:9 = -107.5
+patch=1,EE,20485FB0,extended,AFB90060 // saves new x pos value
+patch=1,EE,20485FB4,extended,080e9bf8 // jumps back
+
+//AB AA AA 3F 55 55 D5 3F E4 CB 16 41 9A 99 99 BE
+patch=1,EE,20505118,extended,3FE38E39 // Globe Aspect Ratio // 16:9 = 1.777777791
+
+//AB AA 8A 3F
+patch=1,EE,20504F8C,extended,3FB8E38F // Globe Glow Aspect Ratio // 16:9 = 1.444444537

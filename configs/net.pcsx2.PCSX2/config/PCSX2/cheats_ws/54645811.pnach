@@ -1,0 +1,13 @@
+gametitle=MegaRace 3 - Nanotech Disaster (E)(SLES-50903)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0020d484,word,08083f04 //46080002
+
+patch=1,EE,0020fc10,word,46070202 // 00000000
+patch=1,EE,0020fc14,word,3c013f40 // 00000000
+patch=1,EE,0020fc18,word,00000000 // 00000000
+patch=1,EE,0020fc1c,word,4481f000 // 00000000
+patch=1,EE,0020fc20,word,461e4202 // 00000000
+patch=1,EE,0020fc24,word,08083522 // 00000000

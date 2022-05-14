@@ -1,0 +1,5 @@
+gametitle=Summoner 2 (NTSC-U)
+//
+// 16:9
+patch=1,EE,2088F668,extended,3F100000 // 3F400000 vert fov
+patch=1,EE,202C0580,extended,3FA28F5C // 3EAAAAAB camera zoom

@@ -1,0 +1,6 @@
+gametitle=Yu Yu Hakusho - Dark Tournament [NTSC-U] (SLUS-20805)
+comment=Widescreen hack by Little Giant
+
+//16:9
+patch=1,EE,00118e08,word,3c0240ab //3c024080  hor
+patch=1,EE,00118780,word,3c023f2b //3c023f00 render fix

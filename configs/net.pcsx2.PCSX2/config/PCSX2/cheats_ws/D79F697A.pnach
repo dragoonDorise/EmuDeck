@@ -1,0 +1,13 @@
+gametitle=Capcom vs SNK 2 - Millionaire Fighting (J)(SLPM-65047)(PBPX-95201)
+comment=Widescreen Hack by nemesis2000 (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,00144630,word,3c023faa //3c023f80
+patch=1,EE,001448a4,word,3c023faa //3c023f80
+patch=1,EE,00126480,word,ac83003c //03e00008
+patch=1,EE,00126484,word,3c033f40 //ac83003c
+patch=1,EE,00126488,word,03e00008 //00000000
+patch=1,EE,0012648c,word,ac830000 //00000000
+patch=1,EE,00125d7c,word,3c023fe3 //3c033faa
+

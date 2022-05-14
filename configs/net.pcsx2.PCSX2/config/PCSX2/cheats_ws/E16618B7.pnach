@@ -1,0 +1,10 @@
+gametitle=Battle Engine Aquila (E)(SLES-50777)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,00471b20,word,3d030000 //3c088889
+
+//Render fix
+patch=1,EE,001c055c,word,3c013f00 //3c014000

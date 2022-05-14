@@ -1,0 +1,24 @@
+gametitle=Robot Alchemic Drive (NTSC-U) [SLUS-20445]
+comment=Widescreen hacks by ElHecht; updates by Aced14
+
+// 16:9
+patch=1,EE,001c63b4,word,3c033f00 // 3c033f80 menu meganite hor pos
+patch=1,EE,0013e568,word,3c023f40 // 3c023f80 menu hor fov
+patch=1,EE,001472b8,word,3c023f40 // 3c023f80 in-game hor fov
+
+// 16:10 (normal)
+//patch=1,EE,001c63b4,word,3c033f30 // 3c033f80 menu meganite hor pos
+//patch=1,EE,0023f51c,word,1040fffc // 00000000
+//patch=1,EE,0023f524,word,3c1b3f55 // 3c023f80 menu + in-game hor fov
+//patch=1,EE,0023f528,word,377b5555 // 1040fff9 menu + in-game hor fov
+//patch=1,EE,0013e56c,word,449b6000 // 44826000
+//patch=1,EE,001472bc,word,449b6000 // 44826000
+
+// 16:10 (ultra)
+//patch=1,EE,001c63b4,word,3c033f00 // 3c033f80 menu meganite hor pos
+//patch=1,EE,0013e568,word,3c023f40 // 3c023f80 menu hor fov
+//patch=1,EE,0013e570,word,3c023f4a // 3c023f61 menu ver fov
+//patch=1,EE,0013e574,word,3442c083 // 344247ae menu ver fov
+//patch=1,EE,001472b8,word,3c023f40 // 3c023f80 in-game hor fov
+//patch=1,EE,001472c0,word,3c023f4a // 3c023f61 in-game ver fov
+//patch=1,EE,001472c4,word,3442c083 // 344247ae in-game ver fov

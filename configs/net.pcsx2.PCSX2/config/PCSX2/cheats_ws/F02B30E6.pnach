@@ -1,0 +1,6 @@
+gametitle=The Demolition Girl (K)(SLKA-15054)
+comment=Widescreen hack (NTSC-K by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,001f34c4,word,3c013f40 //3c013f80

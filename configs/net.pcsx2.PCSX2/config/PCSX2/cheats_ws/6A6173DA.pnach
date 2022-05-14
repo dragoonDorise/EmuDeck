@@ -1,0 +1,16 @@
+gametitle=NHL 2003 (U)(SLUS-20531)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom (Gameplay)
+//c2f5a83e eb51383e
+patch=1,EE,0043ea90,word,3EE147AE //3ea8f5c2
+
+//Zoom (Cutscenes)
+//2e4c523f cf66553c (2nd)
+patch=1,EE,0043b610,word,3F8C32B1 //3f524c2e
+
+//Y-Fov
+//aaaaaa3f 3333f33f
+patch=1,EE,0043bde0,word,3fe38e38 //3faaaaaa

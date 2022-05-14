@@ -1,0 +1,7 @@
+gametitle=Just Cause (E)(SLES-54137)
+comment=Widescreen hack  by Arapapa
+
+//Widescreen hack 16:9
+
+//0000803f 0000803f 0000003f 66666645
+patch=1,EE,207BEE08,extended,3FAAAAAB //3f800000

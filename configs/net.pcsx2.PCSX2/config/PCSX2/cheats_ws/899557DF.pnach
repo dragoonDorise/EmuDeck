@@ -1,0 +1,13 @@
+gametitle=Moto X Maniac (E)(SLES-54885)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,00135de4,word,3c013f1e //3c013f00
+
+//Y-Fov
+patch=1,EE,00135e28,word,3c013faa
+patch=1,EE,00135e2c,word,3421aaab
+patch=1,EE,00135e34,word,4481f000
+patch=1,EE,00135e38,word,461ebdc2

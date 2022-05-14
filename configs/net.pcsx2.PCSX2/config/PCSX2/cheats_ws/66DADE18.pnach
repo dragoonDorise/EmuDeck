@@ -1,0 +1,22 @@
+gametitle=Hajime no Ippo All-Stars (K)(SLKA-25152)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//803f023c 00608244 040001c6 (1st)
+patch=1,EE,001937d8,word,3c023fab //3c023f80
+
+//Cutscenes
+//02080046 4800a0e7 380080c4
+patch=1,EE,0013b3d4,word,080af648
+patch=1,EE,002bd920,word,46000802
+patch=1,EE,002bd924,word,3c013f40
+patch=1,EE,002bd928,word,4481f000
+patch=1,EE,002bd92c,word,461e0003
+patch=1,EE,002bd930,word,0804ecf6
+
+/////////////////////////////////////
+//Event Zoom
+//003f023c 3000bfff
+//patch=1,EE,0013b3a4,word,3c023f2a //3c023f00

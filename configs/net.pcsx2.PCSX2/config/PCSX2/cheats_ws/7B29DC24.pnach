@@ -1,0 +1,9 @@
+﻿gametitle=Yoshitsune Eiyuuden Shura - The Story of Hero Yoshitsune Shura [NTSC-J] (SLPS-25553)
+comment=Widescreen Hack
+
+//gameplay
+patch=1,EE,0013d504,word,3c023f19
+patch=1,EE,0013d508,word,3443999a
+
+//render fix
+patch=1,EE,0013d764,word,3c0343d6

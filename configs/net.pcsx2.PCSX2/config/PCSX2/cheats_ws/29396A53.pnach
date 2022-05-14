@@ -1,0 +1,6 @@
+gametitle=Monster Hunter G (J) (SLPM-65869)
+comment=Widescreen hack by nemesis2000 (NTSC-J by Arapapa)
+
+//Wide hack 16:9
+patch=1,EE,00135064,word,3c023ff3 //3c023fb6
+patch=1,EE,0013506c,word,3442cf35 //3442db6e

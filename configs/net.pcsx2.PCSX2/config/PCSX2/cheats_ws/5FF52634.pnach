@@ -1,0 +1,11 @@
+gametitle=Simple 2000 Series Vol. 100 - The Otoko Tachi no Kijuu Houza (J)(SLPS-20465)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//aa3f013c abaa2134 00608144
+patch=1,EE,00108ab4,word,3c013fe3 //3c013fe3
+patch=1,EE,00108ab8,word,34218e22a //3421aaab
+
+//patch=1,EE,00108ad4,word,3c013fab //3c013f80

@@ -1,0 +1,109 @@
+gametitle=Devil May Cry 2 (Disc 1) (Dante Disc) /  / Devil May Cry 2 (Disc 2) (Lucia Disc)
+comment=Widescreen hack by nemesis2000 (pnach by nemesis2000)
+
+patch=1,EE,003181E8,word,00000000
+
+//
+patch=1,EE,001fdfd0,word,0c0c69a0
+patch=1,EE,001fdfd4,word,c4600030
+
+patch=1,EE,0031a680,word,3c05005b
+patch=1,EE,0031a684,word,84a28b92
+patch=1,EE,0031a688,word,14400002
+patch=1,EE,0031a68c,word,3c013f80 //3f6a //hor aspect cutscenes
+patch=1,EE,0031a690,word,3c013f40 //hor aspect gameplay
+patch=1,EE,0031a694,word,44811000
+patch=1,EE,0031a698,word,46001002
+patch=1,EE,0031a69c,word,03e00008
+
+patch=1,EE,0031a6a0,word,c48201c0
+
+//
+patch=1,EE,001fdfe4,word,0c0c69a9
+patch=1,EE,001fdfe8,word,c4800034
+
+patch=1,EE,0031a6a4,word,14400002
+patch=1,EE,0031a6a8,word,3c013fab //3f9c //vert aspect cutscenes
+patch=1,EE,0031a6ac,word,3c013f80 //vert aspect gameplay
+patch=1,EE,0031a6b0,word,44810800
+patch=1,EE,0031a6b4,word,46000802
+patch=1,EE,0031a6b8,word,03e00008
+patch=1,EE,0031a6bc,word,8f83b6c4
+
+//
+patch=1,EE,001fdff8,word,0c0c69b0
+patch=1,EE,001fdffc,word,c4800030
+
+patch=1,EE,0031a6c0,word,14400002
+patch=1,EE,0031a6c4,word,3c014000 //3fa0 //rfix hor cutscenes
+patch=1,EE,0031a6c8,word,3c013f80 //rfix hor gameplay
+patch=1,EE,0031a6cc,word,44810800
+patch=1,EE,0031a6d0,word,03e00008
+patch=1,EE,0031a6d4,word,8f83b6c4
+
+//
+patch=1,EE,001fe014,word,0c0c69b6
+patch=1,EE,001fe018,word,c4800034
+
+patch=1,EE,0031a6d8,word,14400002
+patch=1,EE,0031a6dc,word,3c01402a // 401c  //rfix vert cutscenes
+patch=1,EE,0031a6e0,word,3c014000  //rfix vert gameplay
+patch=1,EE,0031a6e4,word,44810800
+patch=1,EE,0031a6ec,word,03e00008
+patch=1,EE,0031a6f0,word,8f83b6c4
+
+//old
+//patch=1,EE,001fdf6c,word,3c0243e0
+//patch=1,EE,001fdf70,word,c4600034
+//patch=1,EE,001fdf74,word,44820800
+//patch=1,EE,001fdf78,word,46020843
+//patch=1,EE,001fdf7c,word,0c0470b4
+//patch=1,EE,001fdf80,word,46000d03
+//patch=1,EE,001fdf84,word,4600a003
+//patch=1,EE,001fdf88,word,8f85b6c4
+//patch=1,EE,001fdf8c,word,3c04457f
+//patch=1,EE,001fdf90,word,3c034000
+//patch=1,EE,001fdf94,word,3484f000
+//patch=1,EE,001fdf98,word,44841800
+//patch=1,EE,001fdf9c,word,e4a001c0
+//patch=1,EE,001fdfa0,word,44830800
+//patch=1,EE,001fdfa4,word,8f84b6c4
+//patch=1,EE,001fdfa8,word,8f83b6c8
+//patch=1,EE,001fdfac,word,c4600030
+//patch=1,EE,001fdfb0,word,3c013f40 // hor asp
+//patch=1,EE,001fdfb4,word,44811000
+//patch=1,EE,001fdfb8,word,46001002
+//patch=1,EE,001fdfbc,word,c48201c0
+//patch=1,EE,001fdfc0,word,46001002
+//patch=1,EE,001fdfc4,word,e4800040
+//patch=1,EE,001fdfc8,word,8f84b6c8
+//patch=1,EE,001fdfcc,word,8f83b6c4
+//patch=1,EE,001fdfd0,word,c4800034
+//patch=1,EE,001fdfd4,word,46001002
+//patch=1,EE,001fdfd8,word,e4600054
+//patch=1,EE,001fdfdc,word,8f84b6c8
+//patch=1,EE,001fdfe0,word,8f83b6c4
+//patch=1,EE,001fdfe4,word,c4800030
+//patch=1,EE,001fdfe8,word,3c013faa // hor render fix val 1
+//patch=1,EE,001fdfec,word,4481a000
+//patch=1,EE,001fdff0,word,4600a003
+//patch=1,EE,001fdff4,word,46001802
+//patch=1,EE,001fdff8,word,46010003
+//patch=1,EE,001fdffc,word,46001003
+//patch=1,EE,001fe000,word,e4600080
+//patch=1,EE,001fe004,word,8f84b6c8
+//patch=1,EE,001fe008,word,8f83b6c4
+//patch=1,EE,001fe00c,word,c4800034
+//patch=1,EE,001fe010,word,3c013f80  // vert render fix val 1
+//patch=1,EE,001fe014,word,4481a000
+//patch=1,EE,001fe018,word,4600a003
+
+patch=1,EE,001FE590,word,24030155 // hor render fix val 2
+
+//black borders fix
+patch=1,EE,002107FC,word,24060000
+//patch=1,EE,0031A6E4,word,24020000
+
+//cutscenes font fix
+patch=1,EE,0031A5F8,word,24020178
+patch=1,EE,0031A600,word,24420043

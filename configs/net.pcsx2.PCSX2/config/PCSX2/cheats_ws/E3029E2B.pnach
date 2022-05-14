@@ -1,0 +1,13 @@
+gametitle=Go, Diego, Go! Safari Rescue (U)(SLUS-21718)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//83001646 140000e6
+patch=1,EE,00118e34,word,08072814
+
+patch=1,EE,001ca050,word,46160083
+patch=1,EE,001ca054,word,3c013f40
+patch=1,EE,001ca058,word,4481f000
+patch=1,EE,001ca05c,word,461e1082
+patch=1,EE,001ca060,word,0804638e

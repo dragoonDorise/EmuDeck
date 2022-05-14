@@ -1,0 +1,15 @@
+gametitle=Gradius V (E)(SLES-52095)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//803f033c 1855040c 06a30046
+patch=1,EE,001da728,word,3c033f72 //3c033f80
+
+//Render Fix
+//803f033c 6400a2af 0070023c
+patch=1,EE,002e3428,word,3c033fb0 //3c033f80
+patch=1,EE,002e3738,word,3c033fb0 //3c033f80 ??
+patch=1,EE,002e3e28,word,3c033fb0 //3c033f80
+patch=1,EE,002e3f68,word,3c033fb0 //3c033f80 ??

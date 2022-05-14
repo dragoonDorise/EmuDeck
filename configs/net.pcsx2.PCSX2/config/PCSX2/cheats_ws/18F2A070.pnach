@@ -1,0 +1,25 @@
+gametitle=The Operative - No One Lives Forever (E)(SLES-50592)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom #1
+//003f033c 00088344 0c000de6
+patch=1,EE,002f9ca4,word,3c033f17 //3c033f00
+
+//Y-Fov #1
+//42080f46 00a980c7
+patch=1,EE,002f9cb4,word,08030000
+patch=1,EE,000c0000,word,460f0842
+patch=1,EE,000c0004,word,3c013f59
+patch=1,EE,000c0008,word,4481f000
+patch=1,EE,000c000c,word,461e0842
+patch=1,EE,000c0010,word,080be72e
+
+//X-Fov #2
+patch=1,EE,002e83d8,word,08030008
+patch=1,EE,000c0020,word,c781a88c
+patch=1,EE,000c0024,word,3c013f40
+patch=1,EE,000c0028,word,4481f000
+patch=1,EE,000c002c,word,461e0842
+patch=1,EE,000c0030,word,080ba0f7

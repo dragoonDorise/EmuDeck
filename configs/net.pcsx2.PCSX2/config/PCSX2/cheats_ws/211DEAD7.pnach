@@ -1,0 +1,8 @@
+gametitle=Itadaki Street 3 - Okumanchouja ni Shite Ageru! (J)(SLPM-62112)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00201dbc,word,3c013f40 //00000000
+patch=1,EE,00201dc0,word,44810000 //00000000
+patch=1,EE,00201dc8,word,4600c602 //00000000

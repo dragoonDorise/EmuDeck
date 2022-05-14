@@ -1,0 +1,13 @@
+gametitle=World Championship Poker (U)(SLUS-21028)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,002c9fc0,word,080d0410 //c6010068
+patch=1,EE,00341040,word,3c013f40 //00000000
+patch=1,EE,00341044,word,4481f000 //00000000
+patch=1,EE,00341048,word,c6010068 //00000000
+patch=1,EE,0034104c,word,c602006c //00000000
+patch=1,EE,00341050,word,461e0843 //00000000
+patch=1,EE,00341054,word,e6010068 //00000000
+patch=1,EE,00341058,word,080b27f2 //00000000

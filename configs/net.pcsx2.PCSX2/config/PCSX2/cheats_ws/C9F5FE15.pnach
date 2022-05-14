@@ -1,0 +1,16 @@
+gametitle=Monster Jam (U)(SLUS-21635)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,001ad9c8,word,080d8c90 // c6010068
+patch=1,EE,001ad9cc,word,00000000 // c602006c
+
+patch=1,EE,00363240,word,3c013f40 // 00000000
+patch=1,EE,00363244,word,4481f000 // 00000000
+patch=1,EE,00363248,word,c6010068 // 00000000
+patch=1,EE,0036324c,word,c602006c // 00000000
+patch=1,EE,00363250,word,461e0843 // 00000000
+patch=1,EE,00363254,word,e6010068 // 00000000
+patch=1,EE,00363258,word,0806b674 // 00000000

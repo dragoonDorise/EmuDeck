@@ -1,0 +1,7 @@
+gametitle=Nippon Daisumo (J)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//803f023c 00688244 f03e023c
+patch=1,EE,001548f4,word,3c023f40 //3c023f80 X-Fov

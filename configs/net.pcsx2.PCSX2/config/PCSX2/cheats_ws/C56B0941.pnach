@@ -1,0 +1,10 @@
+gametitle=Short Track Racing - Trading Paint (U)(SLUS-21857)
+comment=Widescreen Hack by Arapapa
+
+// FOV (16:9)
+
+//X-Fov
+patch=1,EE,00279134,word,3c013faa //00000000
+patch=1,EE,00279140,word,3421aaab //00000000
+patch=1,EE,00279144,word,4481f000 //00000000
+patch=1,EE,00279154,word,461e0002 //00000000

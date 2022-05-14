@@ -1,0 +1,12 @@
+gametitle=High Heat Major League Baseball 2002 (U)(SLUS-20133)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,002c3450,word,08030000
+
+patch=1,EE,000c0000,word,46072103
+patch=1,EE,000c0004,word,3c013f40
+patch=1,EE,000c0008,word,4481f000
+patch=1,EE,000c000c,word,461e2102
+patch=1,EE,000c0010,word,080b0d15

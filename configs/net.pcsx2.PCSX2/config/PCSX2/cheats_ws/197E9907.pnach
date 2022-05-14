@@ -1,0 +1,5 @@
+gametitle=Chou Dragon Ball Z (J)(SLPS-25642)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+patch=1,EE,002b0f04,word,3c023f10 //3c023f40

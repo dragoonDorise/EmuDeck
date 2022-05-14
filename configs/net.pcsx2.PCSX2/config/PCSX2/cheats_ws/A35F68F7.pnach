@@ -1,0 +1,18 @@
+gametitle=Minna no Tennis (J)(SCPS-15113)
+comment=Widescreen hack by ElHecht (NTSC-J by Arapapa)
+
+// 16:9
+//440584e4 07210046
+patch=1,EE,00139120,word,08070243 // e4840544 jump to code-inject 001c090c
+patch=1,EE,00139124,word,00000000 // 46002107
+
+//007a3300 00000000 00000000
+patch=1,EE,001c090c,word,3c013f40 // 00000000 hor fov
+patch=1,EE,001c0910,word,4481f000 // 00000000
+patch=1,EE,001c0914,word,461e2103 // 00000000
+patch=1,EE,001c0918,word,e4840544 // 00000000
+patch=1,EE,001c091c,word,46002107 // 00000000
+patch=1,EE,001c0920,word,0804e449 // 00000000 jump back to 00139124
+
+//2044033c f40000ae
+patch=1,EE,00137984,word,3c034456 // 3c034420 2D menu/hud fix

@@ -1,0 +1,17 @@
+gametitle=Goosebumps Horrorland - Happy Halloween (U)(SLUS 21834)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,002271b0,word,3c013f27 //3c013f00
+
+//Y-Fov
+patch=1,EE,0022726c,word,08030000
+
+patch=1,EE,000c0000,word,4616a503
+patch=1,EE,000c0004,word,3c013faa
+patch=1,EE,000c0008,word,3421aaab
+patch=1,EE,000c000c,word,4481f000
+patch=1,EE,000c0010,word,461ea502
+patch=1,EE,000c0014,word,08089c9c

@@ -1,0 +1,7 @@
+gametitle=Classic British Motor Racing (E)(SLES-53614)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0017f974,word,3c01bf2a //00000000
+patch=1,EE,0017f988,word,3421aaab //3c01bf00

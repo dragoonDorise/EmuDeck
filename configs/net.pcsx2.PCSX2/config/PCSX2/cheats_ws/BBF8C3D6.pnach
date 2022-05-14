@@ -1,0 +1,12 @@
+gametitle=Echo Night: Beyond [PAL] (SLES_534.14)
+comment=Widescreen hack by El_Patas and Arapapa
+
+//Widescreen hack 16:9
+
+//Force turn on Internal Widescreen
+//01 00 00 00 00 00 00 3F
+patch=1,EE,202b4001,byte,00000001
+ 
+//Zoom Fix
+patch=1,EE,00146EA4,word,3C023F1F //3C023F00 Zoom 
+//patch=1,EE,00146EA0,word,3C033FA0 //3C033F70 Y-FOV

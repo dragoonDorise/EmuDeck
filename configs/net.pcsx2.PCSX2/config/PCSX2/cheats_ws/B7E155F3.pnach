@@ -1,0 +1,10 @@
+gametitle=The Baseball 2003 - Akikigou (J)(SLPM-65379))
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+patch=1,EE,20612ea8,extended,3faaaaab //3f800000
+
+//Zoom
+patch=1,EE,20612eac,extended,3faaaaab //3f800000

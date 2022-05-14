@@ -1,0 +1,5 @@
+gametitle=Super Dragon Ball Z [PAL] (SLES_541.61)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9 
+patch=1,EE,002B15FC,word,3C023F10 //3C023F40 (Increases hor. axis)

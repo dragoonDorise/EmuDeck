@@ -1,0 +1,12 @@
+gametitle=Mystic Nights (K)(SCKA-20055)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,0016aa5c,word,3c0243c0 //3c024400
+//patch=1,EE,00168dd0,word,3c023fe9 //3c023f80
+
+//Y-Fov
+patch=1,EE,0016aa74,word,3c023f36 //3c023f08
+patch=1,EE,0016aa78,word,34429cfe //3442f5c3

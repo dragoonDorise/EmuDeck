@@ -1,0 +1,10 @@
+gametitle=Astro Boy - Tetsuwan Atom (J)(v1.00) (SLPM-65551)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Fov
+patch=1,EE,002be1f8,word,3c013fd5 //3c013fa0
+
+//Zoom
+patch=1,EE,003725b8,word,3c013ec0 //3c013f00

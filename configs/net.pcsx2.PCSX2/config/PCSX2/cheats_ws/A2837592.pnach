@@ -1,0 +1,59 @@
+gametitle=The Mark of Kri (PAL-M5) (SCES-51164)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,002d3f18,word,3c013ec0 // 3c013f00 font size ver
+patch=1,EE,00311c74,word,3c0143a8 // 3c0143e0 ver fov
+
+patch=1,EE,00311c80,word,080fa25b // 4600ad43
+patch=1,EE,00311c84,word,00000000 // e600002c
+
+patch=1,EE,003e896c,word,4600ad43 // 00000000
+patch=1,EE,003e8970,word,e600002c // 00000000
+
+patch=1,EE,e00c0000,extended,0036f5dc // xxxxxxxx check wise man / main menu
+patch=1,EE,203e8974,extended,3c0143f3 // 00000000 zoom wise man / main menu
+patch=1,EE,203e8978,extended,3421c000 // 00000000 zoom wise man / main menu
+patch=1,EE,203e897c,extended,ae010000 // 00000000
+patch=1,EE,203e8980,extended,3c01bf9c // 00000000 hor hud wise man / main menu
+patch=1,EE,203e8984,extended,ae010040 // 00000000
+patch=1,EE,203e8988,extended,3c01bfd0 // 00000000 ver hud wise man / main menu
+patch=1,EE,203e898c,extended,ae010054 // 00000000
+patch=1,EE,203e8990,extended,00000000 // 00000000
+patch=1,EE,203e8994,extended,00000000 // 00000000
+patch=1,EE,203e8998,extended,00000000 // 00000000
+patch=1,EE,203e899c,extended,00000000 // 00000000
+patch=1,EE,203e89a0,extended,00000000 // 00000000
+
+
+patch=1,EE,e01a0001,extended,0036f5dc // xxxxxxxx check gameplay
+
+patch=1,EE,e00c0001,extended,003927c0 // xxxxxxxx check crow view
+patch=1,EE,203e8974,extended,3c013f5d // 00000000 zoom crow view
+patch=1,EE,203e8978,extended,3421b3e5 // 00000000
+patch=1,EE,203e897c,extended,4481f000 // 00000000
+patch=1,EE,203e8980,extended,c61f0000 // 00000000
+patch=1,EE,203e8984,extended,461effc2 // 00000000
+patch=1,EE,203e8988,extended,e61f0000 // 00000000
+patch=1,EE,203e898c,extended,3c01bf5d // 00000000 hor hud crow view
+patch=1,EE,203e8990,extended,3421b3e5 // 00000000
+patch=1,EE,203e8994,extended,ae010040 // 00000000
+patch=1,EE,203e8998,extended,3c01bf94 // 00000000 ver hud crow view
+patch=1,EE,203e899c,extended,00000000 // 00000000
+patch=1,EE,203e89a0,extended,ae010054 // 00000000
+
+patch=1,EE,e00c0000,extended,003927c0 // xxxxxxxx check normal view
+patch=1,EE,203e8974,extended,3c014396 // 00000000 zoom normal view
+patch=1,EE,203e8978,extended,ae010000 // 00000000
+patch=1,EE,203e897c,extended,3c01bf40 // 00000000 hor hud normal view
+patch=1,EE,203e8980,extended,ae010040 // 00000000
+patch=1,EE,203e8984,extended,3c01bf80 // 00000000 ver hud normal view
+patch=1,EE,203e8988,extended,ae010054 // 00000000
+patch=1,EE,203e898c,extended,00000000 // 00000000
+patch=1,EE,203e8990,extended,00000000 // 00000000
+patch=1,EE,203e8994,extended,00000000 // 00000000
+patch=1,EE,203e8998,extended,00000000 // 00000000
+patch=1,EE,203e899c,extended,00000000 // 00000000
+patch=1,EE,203e89a0,extended,00000000 // 00000000
+
+patch=1,EE,003e89b8,word,080c4721 // 00000000

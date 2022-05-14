@@ -1,0 +1,6 @@
+gametitle=Ben 10: Protector of Earth [PAL-M5] (SLES_549.52)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,0011940C,word,3C013F4D //3C013F89
+patch=1,EE,00119410,word,3421B6E0 //34212493

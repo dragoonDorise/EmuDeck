@@ -1,0 +1,4 @@
+gametitle=Dragon Rage (PAL-E) SLES_506.30
+comment=Widescreen hack by dieSkaarj
+
+patch=1,EE,2029ef5e,word,00003fab //00003f80

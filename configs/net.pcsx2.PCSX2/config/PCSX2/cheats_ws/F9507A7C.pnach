@@ -1,0 +1,16 @@
+gametitle=Chou Battle Houshi (K)(SLKA-25010)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom (Event)
+//803f013c 00008144 (1st)
+patch=1,EE,00107a94,word,3c013f40 //3c013f80
+
+//Zoom (Gameplay)
+//803f013c 00008144 (9th)
+patch=1,EE,0012b13c,word,3c013f40 //3c013f80
+
+//Y-Fov
+//803f013c 00a08144 cc240b0c
+patch=1,EE,002c8260,word,3c013fab //3c013f80

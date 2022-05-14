@@ -1,0 +1,12 @@
+gametitle=Mafia [PAL] (SLES_522.82)
+comment=Widescreen Hack by El_Patas, Render fixes by arapapa
+
+//Gameplay 16:9
+patch=1,EE,20FFB6B4,extended,3FAB0000 //3F800000 Vertical axis
+patch=1,EE,20FFB79C,extended,3FAB0000 //3F800000 Horizontal axis
+
+//Render fix
+patch=1,EE,20FFB704,extended,3D000000 //3D4CCCCD
+
+//Rendering distancce
+patch=1,EE,20FFB708,extended,44000000 //43660000

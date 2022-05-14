@@ -1,0 +1,6 @@
+gametitle=Kelly Slater's Pro Surfer [NTSC-U] (SLUS_203.34)
+comment=Widescreen hack by Sergx12
+
+//Gameplay 16:9
+patch=1,EE,0029F198,word,3C01435F //3C014334 Zoom 
+patch=1,EE,004AC024,word,3FE38E39 //3FAAAAAB Y-FOV

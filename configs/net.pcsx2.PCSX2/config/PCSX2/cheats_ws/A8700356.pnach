@@ -1,0 +1,11 @@
+gametitle=Kidou Senshi Gundam - SEED (J)(SLPS-20300)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+
+//X-Fov (Little zoom out than original)
+patch=1,EE,0015f198,word,3c02442A //3c024400
+
+//Zoom in (Fix zoom scale)
+patch=1,EE,00129b6c,word,3c024414 //3c024400

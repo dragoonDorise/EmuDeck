@@ -1,0 +1,13 @@
+gametitle=Simple 2000 Series Vol. 56 - The Survival Game
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov  202208E8
+patch=1,EE,00250e98,word,3FE38E2A //3faaaaab
+
+//Zoom
+//patch=1,EE,00196184,word,3c01bec0 //3c01bf00
+//patch=1,EE,00196e84,word,3c013f40 //3c013f80
+patch=1,EE,002afef0,word,3F6EEEE9 //3f333333
+patch=1,EE,002afef8,word,3F6EEEE9 //3f333333

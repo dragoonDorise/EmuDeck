@@ -1,0 +1,11 @@
+gametitle=Sonic Unleashed (PAL-M5) (SLES-55380)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,0038d71c,word,3c014340 // 00000000 hor fov
+patch=1,EE,0038d720,word,3c1b008a // 00000000
+patch=1,EE,0038d724,word,af6143b0 // 00000000
+patch=1,EE,0038d728,word,03e00008 // 00000000
+patch=1,EE,00528cf4,word,3c023fab // 3c023f80 renderfix
+patch=1,EE,0043657c,word,3c024436 // 3c024420 2d char fix pos
+patch=1,EE,007638c0,word,3faaaaab // 3f800000 2d char fix fov

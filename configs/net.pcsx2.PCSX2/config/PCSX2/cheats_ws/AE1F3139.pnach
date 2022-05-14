@@ -1,0 +1,16 @@
+gametitle=Battlefield 2: Modern Combat (SLUS-21026)
+comment=Widescreen hack by Nemesis
+
+patch=1,EE,0022d4b0,word,3c013fab
+patch=1,EE,0022d8e8,word,3c013fab
+patch=1,EE,003bf5c0,word,3c013f40
+patch=1,EE,003bf5d0,word,4481f000
+patch=1,EE,003bf69c,word,461e0303
+patch=1,EE,003bfd88,word,461e0303
+patch=1,EE,0040b4fc,word,461e0303
+
+patch=1,EE,0027C1C8,word,24020002 // vert- widescreen turn on
+
+//vert- widescreen correction
+patch=1,EE,0022d490,word,3c013fab
+patch=1,EE,0022d8c8,word,3c013fab

@@ -1,0 +1,7 @@
+gametitle=Sega Soccer Slam (U)(SLUS-20509)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//803f013c 00088144 4000b027 (1st)
+patch=1,EE,00231f2c,word,3c013f40

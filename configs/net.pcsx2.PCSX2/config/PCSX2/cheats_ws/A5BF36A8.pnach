@@ -1,0 +1,11 @@
+gametitle=Paris-Dakar Rally (E)(SLES-50212)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//403f033c 00688344 7a44033c
+patch=1,EE,001abb4c,word,3c033f10 //3c033f40 Menu
+
+//403f023c 4d00013c
+patch=1,EE,0017c480,word,3c023f10 //3c023f40 Gameplay

@@ -1,0 +1,11 @@
+gametitle=Chou Battle Houshin [NTSC-J] [SLPM-65207]
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,00107414,word,3c013f40 //3c013f80 (Event)
+patch=1,EE,0012a67c,word,3c013f40 //3c013f80 (Gameplay)
+
+//Y-Fov
+patch=1,EE,002c6f40,word,3c013fab //3c013f80

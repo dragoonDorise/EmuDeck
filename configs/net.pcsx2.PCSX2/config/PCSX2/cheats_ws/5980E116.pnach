@@ -1,0 +1,11 @@
+﻿gametitle=Auto Modellista [NTSC-J] (SLPM-65124)
+comment=Widescreen hack by nemesis2000 and Arapapa
+
+//gameplay
+patch=1,EE,003f35ac,word,3fe38e38
+patch=1,EE,002bf0b0,word,3c023fe3
+patch=1,EE,002bf0b8,word,34428e38
+
+//Re-play
+//abaaaa3f 00000000 00000000 80020000 (2nd)
+patch=1,EE,003f36ec,word,3fe38e38 //3faaaaab

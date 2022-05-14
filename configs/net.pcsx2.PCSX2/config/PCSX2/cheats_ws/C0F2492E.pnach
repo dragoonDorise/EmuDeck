@@ -1,0 +1,12 @@
+gametitle=Technic Beat (J)(SLPS-25159)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+//7a44023c 00608244 f03e023c d7a34234 -> 3b44023c 00608244 203f023c 2f6d4234
+patch=1,EE,002156c4,word,3c023f20 //3c023ef0
+patch=1,EE,002156c8,word,34426d2f //3442a3d7
+
+//Zoom
+patch=1,EE,002156bc,word,3c02443b //3c02447a

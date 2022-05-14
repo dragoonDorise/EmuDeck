@@ -1,0 +1,8 @@
+gametitle=Kikou Heidan J-Phoenix Joshouhen (J)(SLPS-20075)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,001b2224,word,3c013f40 //00000000
+patch=1,EE,001b2228,word,44810000 //00000000
+patch=1,EE,001b2230,word,4600c602 //00000000

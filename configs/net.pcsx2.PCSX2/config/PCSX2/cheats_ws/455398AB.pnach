@@ -1,0 +1,11 @@
+gametitle=Starsky & Hutch (U)(SLUS-20619)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,00123e9c,word,3c033f2a //3c033f00
+
+//Y-Fov
+//3f333333 3f333333
+patch=1,EE,204D235C,extended,3F066666 //3f333333

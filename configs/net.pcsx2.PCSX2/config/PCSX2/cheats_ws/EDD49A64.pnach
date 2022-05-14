@@ -1,0 +1,16 @@
+gametitle=Cars: Mater-National Championship [PAL-M4-Eng-Dan-Sve-Nor] (SLES_550.30)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9 
+patch=1,EE,00119550,word,3C033CAE //3C033C8E Zoom
+patch=1,EE,00119554,word,34635555 //3463FA34
+patch=1,EE,00119548,word,3C023FAB //3C023F80 Y-FOV
+
+//Render fix
+patch=1,EE,001DE9C4,word,3C03BFAB //3C03BF80
+patch=1,EE,001DE9C8,word,3C023FAB //3C023F80
+
+//Better match for 2 player mode
+//patch=1,EE,00119550,word,3C033CB0 //3C033C8E Zoom
+//patch=1,EE,00119554,word,34635555 //3463FA34
+//patch=1,EE,00119548,word,3C023FAB //3C023F80 Y-FOV

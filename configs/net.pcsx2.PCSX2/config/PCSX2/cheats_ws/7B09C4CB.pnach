@@ -1,0 +1,15 @@
+gametitle=Everybody's Tennis (PAL-M11) (SCES-54535)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,001398f0,word,08079ed3 // e4840544 jump to code-inject 001e7b4c
+patch=1,EE,001398f4,word,00000000 // 46002107
+
+patch=1,EE,001e7b4c,word,3c013f40 // 00000000 hor fov
+patch=1,EE,001e7b50,word,4481f000 // 00000000
+patch=1,EE,001e7b54,word,461e2103 // 00000000
+patch=1,EE,001e7b58,word,e4840544 // 00000000
+patch=1,EE,001e7b5c,word,46002107 // 00000000
+patch=1,EE,001e7b60,word,0804e63d // 00000000 jump back to 001398f4
+
+patch=1,EE,00138154,word,3c034456 // 3c034420 2D menu/hud fix

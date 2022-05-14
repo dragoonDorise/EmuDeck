@@ -1,0 +1,6 @@
+gametitle=K.O King (E)(SLES-54537)
+comment=Widescreen hack  (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,002be7d8,word,43c00000 //44000000

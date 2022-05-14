@@ -1,0 +1,12 @@
+gametitle=Shin Sangoku Musou 2 Mushouden (K)(SLPM-67550)
+comment=Widescreen Hack (16:9) by ElHecht (NTSC-K by Arapapa)
+
+//Widescreen 16:9
+
+//0000803f 00000000 00000000 0000803f 00000000 00000000 00000000 00000000 0000803f
+patch=1,EE,0026e078,word,3faaaaab //3f800000
+patch=1,EE,0026e084,word,3faaaaab //3f800000
+
+//Render fix
+//003f023c 00088244 00000000 020b1446
+patch=1,EE,0017f870,word,3c023f2b //3c023f00

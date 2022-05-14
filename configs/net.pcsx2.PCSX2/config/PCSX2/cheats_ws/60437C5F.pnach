@@ -1,0 +1,9 @@
+gametitle=Sega Ages 2500 Series Vol. 10 - Afterburner II (J)(SLPM-62446)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,00138e90,word,3c023fe3 //3c023faa #1
+patch=1,EE,00138e94,word,34428e39 //3442aaab
+patch=1,EE,0012b094,word,3c073f40 //3c073f80 #2

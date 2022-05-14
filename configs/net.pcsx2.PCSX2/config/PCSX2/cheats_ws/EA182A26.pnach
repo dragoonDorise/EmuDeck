@@ -1,0 +1,8 @@
+gametitle=K-1 World Grand Prix - The Beast Attack! (J)(SLPM-65336)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,004595b4,word,3f2ccccd //3f666666
+patch=1,EE,00459df0,word,3f2ccccd //3f666666
+patch=1,EE,0045a414,word,3f2ccccd //3f666666

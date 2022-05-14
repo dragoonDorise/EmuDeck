@@ -1,0 +1,8 @@
+gametitle=Furry Tales (E)(SLES-52824)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//003f023c 00088244 0000a3fc
+patch=1,EE,00286ecc,word,3c023f2a //3c023f00

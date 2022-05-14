@@ -1,0 +1,12 @@
+gametitle=Army Men - Air Attack - Blade's Revenge (E)(SLES-50233)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//fov
+//803f013c 00208144 2001b1ff 
+patch=1,EE,00142b14,word,3c014003 //3c013f80
+
+//zoom
+//803f013c 00488144 40600146
+patch=1,EE,0018749c,word,3c013ee3 //3c013f80

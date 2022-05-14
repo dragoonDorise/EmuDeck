@@ -1,0 +1,17 @@
+gametitle=Tomb Raider - The Angel of Darkness (U)(SLUS-20467)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Force turn on Native Widescreen (Full boot bypassing)
+patch=1,EE,00220bd0,word,24020002 //30420003
+
+//Full Boot 16:9 fix
+patch=1,EE,00205230,word,3c013fe2 //3c013fd5
+patch=1,EE,00205234,word,3421fc93 //3421c28f
+
+/////////////////////////////
+//Fast Boot 4:3 fix
+//aa3f013c 713d2134 (Last)
+//patch=1,EE,0020521c,word,3c013fe2 //3c013faa
+//patch=1,EE,00205220,word,3421fc93 //34213d71

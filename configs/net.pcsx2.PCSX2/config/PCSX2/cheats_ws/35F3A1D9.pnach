@@ -1,0 +1,27 @@
+gametitle=Odin Sphere (E)(SLES-55110)
+comment=Widescreen hack by Arapapa
+
+//Zoom
+//00108344 00000000 43d00246
+patch=1,EE,0017a214,word,080d9624 //44831000
+
+patch=1,EE,00365890,word,44831000 //00000000
+patch=1,EE,00365894,word,3c013faa //00000000
+patch=1,EE,00365898,word,3421aaab //00000000
+patch=1,EE,0036589c,word,4481f000 //00000000
+patch=1,EE,003658a0,word,461e1082 //00000000
+patch=1,EE,003658a4,word,0805e886 //00000000
+
+//Y-Fov
+//41b81846 140000e6
+patch=1,EE,0017a22c,word,080d962c //4618b841
+
+patch=1,EE,003658b0,word,4618b841 //00000000
+patch=1,EE,003658b4,word,461e0002 //00000000
+patch=1,EE,003658b8,word,0805e88c //00000000
+
+//Render fix
+//96c3033c 500043c4
+patch=1,EE,0019fea4,word,3c03c3d2 //3c03c396 Left
+//9643023c5cb80346
+patch=1,EE,0019fed8,word,3c0243d2 //3c024396 Right

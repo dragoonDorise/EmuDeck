@@ -1,0 +1,14 @@
+gametitle=Barbarian (PAL-M5) SLES_509.72
+comment=Widescreen port and menu hacks by dieSkaarj
+
+//Widescreen
+patch=1,EE,0012CD0C,word,3C013F40
+
+// Center surfaces (Offsets the X draw position of textures)
+patch=1,EE,205359BC,extended,BF400000
+
+//or
+
+// Stretch HUD
+//~patch=1,EE,20535A1C,extended,3F400000
+//~patch=1,EE,20535A44,extended,3F400000

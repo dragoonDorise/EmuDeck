@@ -1,0 +1,12 @@
+gametitle=Street Racing Syndicate (E)(SLES-53045)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,00349860,word,3c013f1e //3c013f00
+
+//Y-Fov
+patch=1,EE,003498b0,word,3c013f40
+patch=1,EE,003498b4,word,4481f000
+patch=1,EE,003498c4,word,461e2103

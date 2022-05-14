@@ -1,0 +1,7 @@
+gametitle=Dynasty Tactics 2 (U)(SLUS-20761)
+comment=widescreen 16:9 hack by 99skull (NTSC-U by Arapapa)
+
+//Widescreen hack 16:9
+
+//803f023c 00008244 00000000 03001646 (1st)
+patch=1,EE,00140894,word,3c023f40 //3c023f80 X-Fov

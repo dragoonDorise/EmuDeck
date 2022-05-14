@@ -1,0 +1,14 @@
+gametitle=Driven (U)(SLUS-20239)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//43000146 0400048e 03000246
+patch=1,EE,001c01a8,word,08030000
+
+patch=1,EE,000c0000,word,46010043
+patch=1,EE,000c0004,word,3c013f40
+patch=1,EE,000c0008,word,4481f000
+patch=1,EE,000c000c,word,461e0842
+patch=1,EE,000c0010,word,0807006b

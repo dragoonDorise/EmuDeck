@@ -1,0 +1,6 @@
+gametitle=Enthusia Professional Racing (J)(SLPM-65948)
+comment=Widescreen hack by No.47
+
+//Widescreen hack 16:9
+
+patch=1,EE,20388D88,word,3F400000

@@ -1,0 +1,4 @@
+gametitle=Flipnic Ultimate Pinball SLUS_211.57
+comment=Widescreen Hack
+patch=1,EE,001865d8,word,3c043f40 //hor
+patch=1,EE,001869ac,word,3c023fab //render fix

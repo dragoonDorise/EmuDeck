@@ -1,0 +1,16 @@
+gametitle=Scooby-Doo! Night of 100 Frights (E)(SLES-51017)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//680001c6 6c0002c6
+patch=1,EE,001e6d68,word,080a06f4 //c6010068
+
+patch=1,EE,00281bd0,word,3c013f40 // 00000000
+patch=1,EE,00281bd4,word,4481f000 // 00000000
+patch=1,EE,00281bd8,word,c6010068 // 00000000
+patch=1,EE,00281bdc,word,c602006c // 00000000
+patch=1,EE,00281be0,word,461e0843 // 00000000
+patch=1,EE,00281be4,word,e6010068 // 00000000
+patch=1,EE,00281be8,word,08079b5c // 00000000

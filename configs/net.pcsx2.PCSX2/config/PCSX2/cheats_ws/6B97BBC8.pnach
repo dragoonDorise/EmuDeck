@@ -1,0 +1,12 @@
+gametitle=Psychonauts (E)(SLES-53830)
+comment=Widescreen hack by pelvicthrustman
+
+//Widescreen
+patch=1,EE,001ea96c,word,3c013f40 //00000000 (horizontal fov)
+patch=1,EE,001ea970,word,4481f800 //00000000
+patch=1,EE,001ea974,word,461f3183 //46061983
+patch=1,EE,001ea98c,word,46061983 //00000000
+
+//Render Fix
+patch=1,EE,001e90c4,word,340f02ab //962f0038
+patch=1,EE,001292d8,word,240e02ab //240e0200

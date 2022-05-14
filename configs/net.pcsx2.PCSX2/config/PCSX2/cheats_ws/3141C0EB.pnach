@@ -1,0 +1,8 @@
+gametitle=Conflict Delta - Wangan Sensou 1991 (J)(SLPM-65460)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0013f8e4,word,3c0142ae //3c01428c
+patch=1,EE,00241c5c,word,3c013b36 //3c013b08
+patch=1,EE,00241c60,word,342103ce //34218889

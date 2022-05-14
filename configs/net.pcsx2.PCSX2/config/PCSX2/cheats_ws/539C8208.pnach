@@ -1,0 +1,13 @@
+gametitle=World Championship Cards (U)(SLUS-21340)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//42080246 8c0203e6
+patch=1,EE,002b6574,word,0815af58
+patch=1,EE,0056bd60,word,46020842
+patch=1,EE,0056bd64,word,3C013F40
+patch=1,EE,0056bd68,word,4481f000
+patch=1,EE,0056bd6c,word,461e0842
+patch=1,EE,0056bd70,word,080ad95e

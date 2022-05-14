@@ -1,0 +1,78 @@
+
+; ==========
+ ; pgert@190222
+ ; http://forums.pcsx2.net/Thread-PCSX2-Widescreen-Game-Patches?pid=240786#pid240786
+; ==========
+ gametitle=Lara Croft Tomb Raider - Anniversary
+ comment= Lara Croft Tomb Raider - Anniversary * SLES-54674 * PAL/Europe * A629A376
+ comment= pnach by pgert.
+; ==========
+ ; Note that GSdx have a CRC-specific HW-hack for this game.
+; ==========
+ ; This game gains a big speedup by (in combination) setting "EE Cycle Skipping" to 2
+ ;  under Config > Emulation Settings > Speedhacks, and activating "Monitor Frequency PAL-60"
+ ;  under Options > Display in the game-menu.
+; ==========
+
+; ==========
+ // 16:10 support.
+// patch=1,EE,001B8754,word,3C013F55 // 3C013F40 - GamePlay X-axis.
+ // patch=1,EE,204AD580,extended,3F555555 // 3F800000\3F400000 - HOW set from 001B8754.
+ // patch=1,EE,204AD588,extended,3F555555 // 3F800000\3F400000 - HOW set from 001B8754.
+ // - 204AD580 & 204AD588 might not work with all BIOS types & configurations.
+// patch=1,EE,00140E1C,word,3C013F55 // 3C013F40
+// patch=1,EE,001513C4,word,3C013F55 // 3C013F40
+// patch=1,EE,00151680,word,3C013F55 // 3C013F40
+// patch=1,EE,001517B4,word,3C013F55 // 3C013F40
+// patch=1,EE,0016f374,word,3C01BF55 // 3C01BF40
+// patch=1,EE,0016F380,word,3C013F55 // 3C013F40
+// patch=1,EE,00192EBC,word,3C013F55 // 3C013F40
+// patch=1,EE,00212708,word,3C013F55 // 3C013F40
+// patch=1,EE,002147AC,word,3C013F55 // 3C013F40
+// patch=1,EE,00241D38,word,3C013F55 // 3C013F40
+// patch=1,EE,002A6724,word,3C013F55 // 3C013F40
+// patch=1,EE,002C3D1C,word,3C013F55 // 3C013F40
+// patch=1,EE,002DBA08,word,3C013F55 // 3C013F40
+// patch=1,EE,002F1C98,word,3C013F55 // 3C013F40
+// patch=1,EE,002F7864,word,3C013F55 // 3C013F40
+; ==========
+
+; ==========
+ // 15:10 support (MS Surface Book).
+// patch=1,EE,001B8754,word,3C013F64
+ // patch=1,EE,204AD580,extended,3F638E39
+ // patch=1,EE,204AD588,extended,3F638E39
+ // - 204AD580 & 204AD588 might not work with all BIOS types & configurations.
+// patch=1,EE,00140E1C,word,3C013F64
+// patch=1,EE,001513C4,word,3C013F64
+// patch=1,EE,00151680,word,3C013F64
+// patch=1,EE,001517B4,word,3C013F64
+// patch=1,EE,0016f374,word,3C01BF64
+// patch=1,EE,0016F380,word,3C013F64
+// patch=1,EE,00192EBC,word,3C013F64
+// patch=1,EE,00212708,word,3C013F64
+// patch=1,EE,002147AC,word,3C013F64
+// patch=1,EE,00241D38,word,3C013F64
+// patch=1,EE,002A6724,word,3C013F64
+// patch=1,EE,002C3D1C,word,3C013F64
+// patch=1,EE,002DBA08,word,3C013F64
+// patch=1,EE,002F1C98,word,3C013F64
+// patch=1,EE,002F7864,word,3C013F64
+; ==========
+
+; ==========
+ // Widescreen enforcement lazy-hack (optional).
+// patch=1,EE,20398590,extended,3F800000 // 00000000
+// patch=1,EE,203BED10,extended,00000001 // 00000000
+// patch=1,EE,20992524,extended,00000001 // 00000000
+ // - Might not work with all BIOS types & configurations.
+; ==========
+ // Calcutta-Cinematic Subtitles-Placement patches (optional) - only for 50Hz mode.
+// patch=1,EE,00109CB4,word,3C013F47 // 3C013F00 - Y-axis of Subtitles & SubtitlesBackground.
+// patch=1,EE,001515B4,word,3C013F83 // 3C013F80 - Y-axis placement of Subtitles, but not the SubtitlesBackground.
+; ==========
+ // Blackbars hack (optional).
+// patch=1,EE,0016F374,word,3C01BF60 // 3C01BF40 - bisects upper Blackbar of Cinematics (sets it to 50%).
+// patch=1,EE,0016F380,word,3C013F60 // 3C013F40 - bisects lower Blackbar of Cinematics (sets it to 50%).
+ // - Set the value of these patches to 3C01BF80 & 3C013F80 to fully remove the Blackbars.
+; ==========

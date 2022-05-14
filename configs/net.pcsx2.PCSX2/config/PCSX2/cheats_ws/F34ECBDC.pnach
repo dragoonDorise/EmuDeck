@@ -1,0 +1,18 @@
+gametitle=Disney's Donald Duck - Quack Attack (E)(SLES-50048)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//a80000c6 003f023c 00088244
+patch=1,EE,00270798,word,3c023f1d //3c023f00
+
+//Y-Fov
+//c2030146 00888244 06a40046
+patch=1,EE,002707e8,word,080850e8
+
+patch=1,EE,002143a0,word,460103c2
+patch=1,EE,002143a4,word,3c013f40
+patch=1,EE,002143a8,word,4481f000
+patch=1,EE,002143ac,word,461e7bc2
+patch=1,EE,002143b0,word,0809c1fb

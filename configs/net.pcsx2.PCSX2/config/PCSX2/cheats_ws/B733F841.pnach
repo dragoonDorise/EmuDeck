@@ -1,0 +1,20 @@
+gametitle=Fukuhara Ai no Takkyu Icchokusen (J)(SLPM-62505)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,0026f07c,word,3c024060 //3c024020
+
+//Y-Fov
+patch=1,EE,0021fb68,word,08047e34
+
+patch=1,EE,0011f8d0,word,46070a02
+patch=1,EE,0011f8d4,word,3c013faa
+patch=1,EE,0011f8d8,word,3421aaab
+patch=1,EE,0011f8dc,word,4481f000
+patch=1,EE,0011f8e0,word,461e4202
+patch=1,EE,0011f8e4,word,08087edb
+
+////////////////////
+//patch=1,EE,0021fabc,word,08047e34

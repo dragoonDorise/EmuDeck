@@ -1,0 +1,7 @@
+gametitle=FlatOut 2 [PAL-M4] (SLES_540.02)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,003A1F28,word,3C013F14 //3C013F00 Zoom
+patch=1,EE,002D6650,word,3C014010 //3C014040 Y-FOV
+patch=1,EE,00234F18,word,3C013F8A //3C013F80 Y-FOV car menus

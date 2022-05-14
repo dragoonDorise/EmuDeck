@@ -1,0 +1,10 @@
+gametitle=Doko Demo Issyo - Toro to Ippai (J)(SCPS-15081)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov (4th)
+//It's a Memory Hack. but ISO patch is possible
+//00004040 00000000 00000000 00000000 01000000
+//00004040 00000000 0000403f 00000000 01000000
+patch=1,EE,005C3CF0,word,3F400000 //00000000

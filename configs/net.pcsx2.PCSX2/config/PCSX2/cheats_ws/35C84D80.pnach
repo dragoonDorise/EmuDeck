@@ -1,0 +1,5 @@
+gametitle=Ben 10: Alien Force Vilgax Attacks [PAL-M5] (SLES_555.92)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,2073DD54,extended,3FE38E38 //3FAAAAAB (Increases hor. axis)

@@ -1,0 +1,10 @@
+gametitle=Garfield - Saving Arlene (J)(SLPM-62733)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//zoom
+patch=1,EE,0010ecb4,word,3c033f40 //3c033f80
+
+//fov
+patch=1,EE,0010edbc,word,3c033f40 //3c033f80

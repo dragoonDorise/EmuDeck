@@ -1,0 +1,10 @@
+gametitle=Pro Evolution Soccer 2014 [E] (SLES-55673)
+comment=Widescreen hack (PAL by Arapapa)
+
+// 16:9 (00000000 00000000 43ad1346 00000000)
+patch=1,EE,001043fc,word,3c013f40 //00000000
+patch=1,EE,00104400,word,44810000 //00000000
+patch=1,EE,00104408,word,4600c602 //00000000
+
+// Render fix by El_Patas (803f053c 4400023c)
+patch=1,EE,00125f4c,word,3C053FAB //3C053F80 (increases hor. render area)

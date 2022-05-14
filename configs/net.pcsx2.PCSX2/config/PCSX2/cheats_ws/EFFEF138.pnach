@@ -1,0 +1,13 @@
+gametitle=Gallop Racer Inbreed (J)(SLPS-25701)
+comment=Widescreen hack  by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,e0023f80,extended,0012ba00
+patch=1,EE,2012ba00,extended,3c013f40 //3c013f80
+patch=1,EE,2012bbd8,extended,3c0142d0 //3c014248
+
+patch=1,EE,e0033f80,extended,00134478
+patch=1,EE,20134478,extended,3c013f40 //3c013f80
+patch=1,EE,20134b08,extended,3c013f40 //3c013f80
+patch=1,EE,201348a0,extended,3c0142d0 //3c014248

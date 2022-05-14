@@ -1,0 +1,5 @@
+gametitle=Strawberry Shortcake: The Sweet Dreams Game [PAL-M6] (SLES_543.09)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,001A1358,word,3C033FAB //3C033F80 (Increases hor. axis)

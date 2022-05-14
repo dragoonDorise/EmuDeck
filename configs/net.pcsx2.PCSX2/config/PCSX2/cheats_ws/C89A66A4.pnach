@@ -1,0 +1,9 @@
+gametitle=Simple 2000 Series Vol. 78 - The Uchuu Daisensou (J)(SLPM-62618)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//00002044 00006043 0000a043
+//00405544 00006043 00001044
+patch=1,EE,0033d8f0,word,44554000 //44200000 X-Fov
+patch=1,EE,0033d8f8,word,44100000 //43a00000 Render Fix

@@ -1,0 +1,10 @@
+gametitle=Global Folktale (NTSC-J)(SLPS-20052)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//803f033c 9801013c 907223ac
+patch=1,EE,0012d4e4,word,3c033f40 //3c033f80 fov
+
+//b943033c 9801013c 987223ac
+patch=1,EE,0012d500,word,3c034440 //3c0343b9 render fix

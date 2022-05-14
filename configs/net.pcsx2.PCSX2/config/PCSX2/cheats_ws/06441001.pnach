@@ -1,0 +1,20 @@
+gametitle=Wild Arms 3 (SCUS-97203) 
+comment=widescreen hack by nemesis2000 (pnach by nemesis2000)
+
+//widescreen
+patch=1,EE,00115bd0,word,3c023f40
+patch=1,EE,00115be0,word,3c023f40
+patch=1,EE,001159b4,word,3c023f40
+patch=1,EE,0011603c,word,3c023f40
+patch=1,EE,002639cc,word,3c023f40
+
+//render fix
+patch=1,EE,0011478c,word,3c033fc0
+
+//bb fix
+patch=1,EE,001a93cc,word,24079400
+
+//dialog portraits fix
+patch=1,EE,0011ae00,word,240501b0
+patch=1,EE,0011ae30,word,240501b0
+patch=1,EE,0012ac98,word,25850750

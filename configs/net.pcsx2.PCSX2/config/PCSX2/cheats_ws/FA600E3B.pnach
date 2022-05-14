@@ -1,0 +1,13 @@
+gametitle=Momotarou Dentetsu USA (J)(SLPM-62555)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//3c0050c4 00000000 00000000 03a50046
+patch=1,EE,002b2a00,word,080c4e28
+
+patch=1,EE,003138a0,word,3c013f40
+patch=1,EE,003138a4,word,4481f000
+patch=1,EE,003138a8,word,461e6b42
+patch=1,EE,003138ac,word,080aca81

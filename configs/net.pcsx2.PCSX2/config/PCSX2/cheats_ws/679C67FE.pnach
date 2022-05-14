@@ -1,0 +1,10 @@
+gametitle=Sega Ages 2500 Series Vol. 3: Fantasy Zone [NTSC-J] (SLPM_623.66)
+comment=Widescreen hack by El_Patas
+
+// Gameplay 16:9
+patch=1,EE,00101df4,word,3c023fe3 //3c023faa
+patch=1,EE,00101df8,word,3442aa39 //3442aaab
+
+// Menus
+patch=1,EE,001f464c,word,3c023fe3 //3c023faa
+patch=1,EE,001f4650,word,3442aa39 //3442aaab

@@ -1,0 +1,40 @@
+gametitle=Silent Hill 4 - The Room (K) (SLKA_25149)
+comment=Widescreen hack by ElHecht (NTSC-K by Arapapa)
+comment=FMV hack by Pelvicthrustman
+comment=Black borders fix by nemesis2000
+
+// 16:9
+//00000000(*) 03050146 00000000 00000000(*)
+patch=1,EE,00148564,word,3c013f40 // 00000000 hor fov
+patch=1,EE,00148570,word,4481f000 // 00000000
+
+//47d60046 0424050c
+patch=1,EE,001485a0,word,461ed683 // 4600d647
+
+//00000000 32b00046
+patch=1,EE,001485b4,word,4600d647 // 00000000
+
+//0800023c 7000a427, 08002226 08000326
+patch=1,EE,202f79e4,extended,3c020380 // 3c020008 FMV top
+patch=1,EE,202f7a28,extended,34021880 // 26220008 FMV bottom
+
+// Inventory fix
+patch=1,EE,20625F54,extended,3F400000 //1
+patch=1,EE,20626024,extended,3F400000 //2
+patch=1,EE,206260F4,extended,3F400000 //3
+patch=1,EE,206261C4,extended,3F400000 //4
+patch=1,EE,20626294,extended,3F400000 //5
+patch=1,EE,20626364,extended,3F400000 //6
+patch=1,EE,20626434,extended,3F400000 //7
+patch=1,EE,20626504,extended,3F400000 //8
+patch=1,EE,206265D4,extended,3F400000 //9
+patch=1,EE,206266A4,extended,3F400000 //10
+
+// Item box fix
+patch=1,EE,20624D54,extended,3F400000 //1
+patch=1,EE,20624E24,extended,3F400000 //2
+patch=1,EE,20624EF4,extended,3F400000 //3
+patch=1,EE,20624FC4,extended,3F400000 //4
+patch=1,EE,20625094,extended,3F400000 //5
+patch=1,EE,20625164,extended,3F400000 //6
+patch=1,EE,20625234,extended,3F400000 //7

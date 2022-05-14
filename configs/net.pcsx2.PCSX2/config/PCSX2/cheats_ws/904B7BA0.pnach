@@ -1,0 +1,7 @@
+gametitle=Cell Damage Overdrive (PAL-M5) SLES_515.54
+comment=Widescreen hack by dieSkaarj
+
+patch=1,EE,20362ce8,word,3f400000 //3f800000
+patch=1,EE,20362D00,word,3faaaaab //3f800000
+
+//patch=1,EE,0023f2a0,word,27bdff20 //3c02bf80 HUD scaling?

@@ -1,0 +1,22 @@
+gametitle=Minna no Golf 3 (J)(SCPS-15016)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,0030b0f0,word,42500000 //42200000
+patch=1,EE,002fdab0,word,42500000 //42200000
+
+//Y-Fov
+//000060430000a043
+patch=1,EE,2034DA7C,extended,43955553 //43600000
+
+////////////////////////////////////////////////////////
+//Status fix 
+//patch=1,EE,20da0cb4,extended,43950000 //43d57f64
+
+//Menu Zoom
+//patch=1,EE,00288484,extended,3c023e00 //43d57f64
+
+//game menu move
+//patch=1,EE,0030b270,word,43fddddd //43a00000

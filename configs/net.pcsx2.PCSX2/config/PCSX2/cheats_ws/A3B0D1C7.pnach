@@ -1,0 +1,8 @@
+gametitle=Wrestle Kingdom 2 - Pro Wrestling Sekai Taisen (J)(SLPM-66714)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,00167d84,word,3c023f19 //3c023f4c
+patch=1,EE,00167d88,word,3443999a //3443cccd

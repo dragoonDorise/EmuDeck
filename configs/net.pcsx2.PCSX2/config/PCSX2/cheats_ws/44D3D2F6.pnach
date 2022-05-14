@@ -1,0 +1,11 @@
+gametitle=Gakkou o Tsukurou!! Happy Days (J)(SLPS-25471)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,001a917c,word,3c01bec0 //3c01bf00
+
+//Y-Fov
+patch=1,EE,00222d40,word,3c023fe3 //3c023faa
+patch=1,EE,00222d48,word,34428e2a //3442aaa8

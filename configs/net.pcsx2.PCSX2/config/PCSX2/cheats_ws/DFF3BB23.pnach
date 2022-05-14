@@ -1,0 +1,12 @@
+gametitle=Zapper (E)(SLES-50974)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+//Y-Fov
+patch=1,EE,001fad48,word,3c013ed0 //3c013f00
+
+//Zoom
+patch=1,EE,001fae98,word,3c013f20 //3c013f00
+
+//Render fix
+patch=1,EE,001f9ff8,word,3c013f30 //3c013f00

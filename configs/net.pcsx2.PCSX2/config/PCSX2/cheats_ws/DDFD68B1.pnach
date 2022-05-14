@@ -1,0 +1,4 @@
+comment=Corvette (NTSC-U)
+
+//widescreen patch
+patch=1,EE,214CDEF0,word,3FB60B60

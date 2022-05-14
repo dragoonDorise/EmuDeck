@@ -1,0 +1,6 @@
+gametitle=Sly Cooper 3 - Honour Among Thieves (K)(SCKA-20063)
+comment=Widescreen Hack (NTSC-K by Arapapa)
+
+//X-Fov 16:9
+patch=1,EE,00166bec,word,3c014455 //3c014420
+

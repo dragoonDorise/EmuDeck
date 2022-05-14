@@ -1,0 +1,19 @@
+gametitle=Knights Of The Temple II (PAL-M5) (SLES-53645)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,001034e4,word,3c013f40 // 00000000 hor fov
+patch=1,EE,001034e8,word,4481f000 // 00000000
+patch=1,EE,00103564,word,461e6302 // 00000000
+
+patch=1,EE,0018c764,word,3c013f40 // 00000000 renderfix1
+patch=1,EE,0018c768,word,4481f000 // 00000000
+patch=1,EE,0018c76c,word,461e8483 // 00000000
+
+patch=1,EE,0018b920,word,3c013f40 // 00000000 renderfix2
+patch=1,EE,0018b924,word,4481f000 // 00000000
+patch=1,EE,0018b940,word,461e4a42 // 00000000
+
+patch=1,EE,006c4984,word,3faaaaab // 00000000 inventory screen fix1
+patch=1,EE,0018a254,word,3c013faa // c4730000 inventory screen fix2
+patch=1,EE,0018a274,word,afa10000 // e7b30000

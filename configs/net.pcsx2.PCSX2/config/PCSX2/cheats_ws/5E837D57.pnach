@@ -1,0 +1,8 @@
+gametitle=Monster Trux Extreme - Arena Edition (E)(SLES-52750)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//00bf013c 00308144 00188344 (1st)
+patch=1,EE,0016696c,word,3c01bf2a //3c01bf00

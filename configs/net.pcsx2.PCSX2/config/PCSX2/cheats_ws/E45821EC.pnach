@@ -1,0 +1,12 @@
+gametitle=Disney's Peter Pan - The Legend of Never Land (E)(SCES-50522)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0011b854,word,08096408
+
+patch=1,EE,00259020,word,46145882
+patch=1,EE,00259024,word,3c013f40
+patch=1,EE,00259028,word,4481f000
+patch=1,EE,0025902c,word,461e1082
+patch=1,EE,00259030,word,08046e16

@@ -1,0 +1,16 @@
+gametitle=Dead to Rights (U)(SLUS-20220)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Force turn on Widescreen
+//00 00 00 00 01 00 00 00 AB AA AA 3F 00 00 80 3F
+patch=1,EE,2042B080,byte,00000001
+
+//Zoom fix
+//29 5C 8F 3F 00 00 C0 43 00 00 C0 43
+patch=1,EE,2042b094,extended,3f800000 //3f8f5c29
+
+/////////////////////////////////////////////////////
+//X-Fov
+//patch=1,EE,00114d9c,word,3c013f10 //3c013f40

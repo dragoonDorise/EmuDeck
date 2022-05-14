@@ -1,0 +1,35 @@
+﻿gametitle=Bouken Jidai Katsugeki - Goemon [NTSC-J] (SLPM-65014)
+comment=Widescreen hack by Little Giant and Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,002EECAC,word,3C013f9a //3C013F68
+patch=1,EE,002EECb0,word,3421e462 //34215697
+
+//Y-Fov
+patch=1,EE,00338830,word,3c013f20 //3c013ef0
+patch=1,EE,00338834,word,3421603a //3421a3d7
+
+//Menu and HUD fix
+patch=1,EE,003389d0,word,080e4a58 //c6000230
+
+patch=1,EE,00392960,word,c6000230 //
+patch=1,EE,00392964,word,3c013f40 //
+patch=1,EE,00392968,word,4481f000 //
+patch=1,EE,0039296c,word,461e0002 //
+patch=1,EE,00392970,word,080ce275 //
+
+////////////////////////////////////////////////////////////////
+
+//X-Fov
+//patch=1,EE,003387a4,word,3c013f40
+
+//Render fix
+//patch=1,EE,0026d480,word,3c0143e0 //3c0143a0
+//patch=1,EE,0031399c,word,3c0143e0 //3c0143a0
+//patch=1,EE,00321d4c,word,3c0143e0 //3c0143a0
+//patch=1,EE,00321de4,word,3c0143e0 //3c0143a0
+//patch=1,EE,00338808,word,3c0143e0 //3c0143a0
+
+//patch=1,EE,21FBB0C0,extended,3F206D3A //3EF0A3D7  vert 

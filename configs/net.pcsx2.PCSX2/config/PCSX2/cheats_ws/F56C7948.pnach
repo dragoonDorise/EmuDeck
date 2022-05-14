@@ -1,0 +1,11 @@
+gametitle=Heavy Metal Thunder (J)(SLPM-66030)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,0012dc5c,word,3c033fc0 //3c034000
+
+//Y-Fov
+patch=1,EE,0012de6c,word,3c023fc7 //3c023f95
+patch=1,EE,0012de70,word,3443ae14 //3443c28f

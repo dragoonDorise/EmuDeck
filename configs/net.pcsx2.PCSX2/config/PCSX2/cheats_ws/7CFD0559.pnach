@@ -1,0 +1,99 @@
+gametitle=War of the Monsters [Demo] (NTSC-U) [SCUS-97260]
+comment=Widescreen hacks by Aced14
+
+//16:9 Widescreen
+
+//Title Menu
+patch=1,EE,206E0800,extended,43BA0000 //43F80000 - Title Menu Master X FOV
+patch=1,EE,206E0820,extended,3F206D3A //3EF0A3D7 - Title Menu Master Y FOV
+
+//1 Player
+patch=1,EE,206E05C0,extended,43900000 //43C00000 - 1P Master X FOV
+patch=1,EE,206E05E0,extended,3F206D3A //3EF0A3D7 - 1P Master Y FOV
+patch=1,EE,206E0980,extended,43900000 //43C00000 - Unified Master X FOV
+patch=1,EE,206E09A0,extended,3F206D3A //3EF0A3D7 - Unified Master Y FOV
+patch=1,EE,10143070,extended,0000C33A //3C01C30A - 1P + Unified Master X P1 HUD #1
+patch=1,EE,10143074,extended,00006666 //34214A3D - 1P + Unified Master X P1 HUD #2
+patch=1,EE,10145D04,extended,0000001E //24050028 - 1P + Unified P1 Pickup Notification X Position (40 -> 30)
+
+//2 Players - Separator Bar
+patch=1,EE,101446D8,extended,0000FFFB //2473FFFA - 2P Separator Bar Width (-6 -> -5)
+
+//2 Players - Unified View Black Bar Fix
+//Prevents black bar from appearing in the far right of unified view in 2 player matches
+patch=1,EE,E0010001,extended,006F7D94 //00000000 - If gUseUnifiedView variable is 1...
+patch=1,EE,20188758,extended,00000000 //0C051172 - Remove reference to buildSeparator function
+patch=1,EE,E0010000,extended,006F7D94 //00000000 - If gUseUnifiedView variable is 0...
+patch=1,EE,20188758,extended,0C051172 //0C051172 - Restore reference to buildSeparator function
+
+//2 Players - Unified View Black Bar Fix (alternate MIPS version)
+//Useful if injecting the fix into a hacked ELF or if using an older PS2 cheat device.
+//patch=1,EE,20188758,extended,0C07F084 //0C051172 - jal $001fc210 - Jump to injected MIPS instructions (instead of buildSeparator function)
+//patch=1,EE,201FC210,extended,3C02006F //24020038 - lui v0, $006f - Load gUseUnifiedView variable into v0 register #1
+//patch=1,EE,201FC214,extended,8C427D94 //00A73821 - lw v0, $7d94(v0) - Load gUseUnifiedView variable into v0 register #2
+//patch=1,EE,201FC218,extended,14400003 //00822018 - bne v0, zero, $001fc228 - Skip next 2 lines (after below one) if gUseUnifiedView variable isn't equal to 0
+//patch=1,EE,201FC21C,extended,00000000 //00C84021 - nop - Delay slot
+//patch=1,EE,201FC220,extended,08051172 //3C020073 - j $001445c8 - Jump to buildSeparator function
+//patch=1,EE,201FC224,extended,00000000 //00073900 - nop - Delay slot
+//patch=1,EE,201FC228,extended,03E00008 //24424B90 - jr ra - Jump return
+//patch=1,EE,201FC22C,extended,00000000 //00084100 - nop - Delay slot
+
+//2 Players - Player 1
+patch=1,EE,206E0680,extended,43840000 //43B00000 - 2P P1 Master X FOV
+patch=1,EE,206E06A0,extended,3F206D39 //3EF0A3D7 - 2P P1 Master Y FOV
+patch=1,EE,101430A0,extended,0000C2C7 //3C01C292 - 2P P1 Master X HUD #1
+patch=1,EE,101430A4,extended,00000000 //3421FE77 - 2P P1 Master X HUD #2
+patch=1,EE,10145B34,extended,0000001A //24050022 - 2P P1 Pickup Notification X Position (34 -> 26)
+
+//2 Players - Player 2
+patch=1,EE,206E0740,extended,43840000 //43B00000 - 2P P2 Master X FOV
+patch=1,EE,206E0760,extended,3F206D39 //3EF0A3D7 - 2P P2 Master Y FOV
+patch=1,EE,101430E8,extended,000042C7 //3C014292 - 2P P2 Master X HUD #1
+patch=1,EE,101430EC,extended,00000000 //3421FE77 - 2P P2 Master X HUD #2
+patch=1,EE,101430B4,extended,0000433A //3C01430A - Unified Master X P2 HUD #1
+patch=1,EE,101430B8,extended,00006666 //34214A3D - Unified Master X P2 HUD #2
+patch=1,EE,10145D34,extended,00000262 //24050258 - Unified P2 Pickup Notification X Position (600 -> 610)
+patch=1,EE,10145B5C,extended,00000125 //2405011C - 2P P2 Pickup Notification X Position (284 -> 293)
+
+//Health Icons
+patch=1,EE,202A2308,extended,00000014 //0000001A - Health Icon 1 Inner Width
+patch=1,EE,202A2398,extended,00000014 //0000001A - Health Icon 1 Outer Width
+patch=1,EE,202A232C,extended,00000014 //0000001A - Health Icon 2 Inner Width
+patch=1,EE,202A23BC,extended,00000014 //0000001A - Health Icon 2 Outer Width
+
+//Distant Shadows
+patch=1,EE,20259AE8,extended,43C00000 //44000000 - Distant Shadows Width #1 (ZAxisAllLoop)
+patch=1,EE,20259BB0,extended,43C00000 //44000000 - Distant Shadows Width #2 (ZAxisClipXY2)
+
+//Sprites
+patch=1,EE,20259C50,extended,43C00000 //44000000 - Nearby Sprites Width (SimpSpriteStart)
+patch=1,EE,20259DA0,extended,43C00000 //44000000 - Distant Sprites Width (SpriteAllStart)
+
+//Loading Bar
+patch=1,EE,20225034,extended,3404014A //8FA40008 - Loading Bar Master X Width
+
+//Generic Font - Width
+//Impacts top + bottom title screen text, unselected unlocks screen text, and pause menu text.
+patch=1,EE,101FBCE4,extended,00000007 //24060005 - Generic Font Width (5 -> 7)
+
+//Sub Pixels Font - Width and Spacing
+//Impacts all other text.
+patch=1,EE,201FC258,extended,0807F046 //00832018 - j $001fc118 - Jump to injected MIPS instructions
+patch=1,EE,201FC118,extended,3C013F40 //27BDFFA0 - lui at, $3f40 - Set $f29 register to .75 #1
+patch=1,EE,201FC11C,extended,4481E800 //24030038 - mtc1 at, $f29 - Set $f29 register to .75 #2
+patch=1,EE,201FC120,extended,3C013F00 //7FB20030 - lui at, $3f00 - Set $f30 register to .5 #1
+patch=1,EE,201FC124,extended,4481F000 //3C020073 - mtc1 at, $f30 - Set $f30 register to .5 #2
+patch=1,EE,201FC128,extended,4485F800 //00839018 - mtc1 a1, $f31 - Convert int to float #1
+patch=1,EE,201FC12C,extended,4680FFE0 //7FB10020 - cvt.s.w $f31, $f31 - Convert int to float #2
+patch=1,EE,201FC130,extended,461DFFC2 //7FB00010 - mul.s $f31, $f31, $f29 - Multiply $f31 by $f29
+patch=1,EE,201FC134,extended,461EFFC0 //24424B90 - add.s $f31, $f31, $f30 - Add .5 for rounding
+patch=1,EE,201FC138,extended,4600FFE4 //E7B50058 - cvt.w.s $f31, $f31 - Convert float to int #1
+patch=1,EE,201FC13C,extended,4405F800 //00A0802D - mfc1 a1, $f31 - Convert float to int #2
+patch=1,EE,201FC140,extended,4487F800 //E7B40050 - mtc1 a3, $f31 - Convert int to float #1
+patch=1,EE,201FC144,extended,4680FFE0 //46006D46 - cvt.s.w $f31, $f31 - Convert int to float #2
+patch=1,EE,201FC148,extended,461DFFC2 //46006506 - mul.s $f31, $f31, $f29 - Multiply $f31 by $f29
+patch=1,EE,201FC14C,extended,461EFFC1 //7FBF0040 - sub.s $f31, $f31, $f30 - Subtract .5 for rounding
+patch=1,EE,201FC150,extended,4600FFE4 //02429021 - cvt.w.s $f31, $f31 - Convert float to int #1
+patch=1,EE,201FC154,extended,4407F800 //0C089EA6 - mfc1 a3, $f31 - Convert float to int #2
+patch=1,EE,201FC158,extended,0807F098 //00C0882D - j $001fc260 - Jump to 2 lines after the overwritten MIPS instruction
+patch=1,EE,201FC15C,extended,00832018 //03A0282D - mult a0, a0, v1 - Restore overwritten MIPS instruction from initial jump

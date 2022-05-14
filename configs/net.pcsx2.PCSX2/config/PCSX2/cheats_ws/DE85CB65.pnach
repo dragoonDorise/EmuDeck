@@ -1,0 +1,8 @@
+gametitle=Simple 2000 Series Vol. 68 - The Runaway - Toumei Highway (J)(SLPM-62564)
+
+//Widescreen hack 16:9
+
+patch=1,EE,0018936c,word,3c013f40 //00000000
+patch=1,EE,00189370,word,44810000 //00000000
+patch=1,EE,00189378,word,4600c602 //00000000
+

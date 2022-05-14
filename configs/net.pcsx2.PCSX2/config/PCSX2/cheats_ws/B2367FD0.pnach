@@ -1,0 +1,14 @@
+gametitle=Nitrobike (E)(SLES-55192)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+patch=1,EE,00429f9c,word,3c013faa //00000000
+patch=1,EE,00429fa0,word,3421aaab //00000000
+patch=1,EE,00429fa8,word,4481f000 //00000000
+patch=1,EE,00429fac,word,461ebdc2 //00000000
+
+//Zoom
+//003f013c 00608144 00009344 00000000 20008046
+patch=1,EE,0039c03c,word,3c013f16 //3c013f00

@@ -1,0 +1,9 @@
+gametitle=Sonic Unleashed (SLUS-21846)
+comment=Widescreen Patch (16:9) by Monsterjamp
+
+//FOV
+patch=1,EE,20872CD0,word,3FD21DAF
+
+//Fixes video aspect ratio
+patch=1,EE,20ED1A68,word,43E00000
+patch=1,EE,20ED1A58,word,00000000

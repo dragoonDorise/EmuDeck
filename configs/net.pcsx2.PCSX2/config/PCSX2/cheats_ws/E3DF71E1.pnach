@@ -1,0 +1,10 @@
+gametitle=Catwoman (U)(SLUS-20992)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom fix (Internal Widescreen)
+//593f013c 9a992134
+//803f013c 00000000
+patch=1,EE,00116c64,word,3c013f80 //3c013f59
+patch=1,EE,00116c68,word,00000000 //3421999a

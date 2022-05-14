@@ -1,0 +1,8 @@
+gametitle=Kengo 3 (K)(SLKA-25199)
+comment=Widescreen hack by El_Patas (NTSC-K by Arapapa)
+ 
+//Gameplay 16:9 (Memory hack)
+patch=1,EE,20868E78,extended,3F400000 //3F800000 (Increases hor. axis)
+
+//Render fix (ELF hack)
+patch=1,EE,00138544,word,3C023FAB //3C023F00

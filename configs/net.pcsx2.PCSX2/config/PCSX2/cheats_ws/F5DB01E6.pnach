@@ -1,0 +1,15 @@
+gametitle=Tiger Woods PGA Tour 2001 (J)(SLPS-20092)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//0000803f 0af67f3f 17d87f3f (1st)
+patch=1,EE,001ebd98,word,3faaaaab //3f800000
+
+////////////////////////////////////
+//Zoom
+//patch=1,EE,001341a0,word,3c013f40 //3c013f00
+
+//render fix
+//patch=1,EE,00139a5c,word,3c013f40 //3c013f00

@@ -1,0 +1,11 @@
+gametitle=Max Payne [PAL-M4] (SLES_503.26)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9
+//ELF file is called "MAIN_P.RUN" 
+patch=1,EE,0050eae0,word,3c013f40 //00000000 (Increases hor. axis)
+patch=1,EE,0050eae8,word,4481f000 //00000000
+patch=1,EE,0050eaec,word,0c04821c //00000000
+patch=1,EE,0050eaf0,word,00000000 //0c04821c
+patch=1,EE,0050eaf4,word,461e0003 //00000000
+patch=1,EE,0050eb04,word,461e0082 //c68201f8

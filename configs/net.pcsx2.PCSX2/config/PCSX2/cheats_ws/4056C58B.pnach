@@ -1,0 +1,22 @@
+gametitle=Akudaikan 3 (J)(SLPM-66653)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-fov - ELF hack
+//4c3f033c 3c8580af cdcc6434
+patch=1,EE,00158d14,word,3c033f19 //3c033f4c
+patch=1,EE,00158d1c,word,3464999a //3464cccd
+
+//Render fix - Memory hack
+patch=1,EE,20446298,extended,3f000000 //3f5bc8b9 Left
+patch=1,EE,204462ac,extended,bf500000 //bf03444b Right
+
+///////////////////////////////////////////////////////
+
+//zoom
+//patch=1,EE,0014186c,word,3c023fab //3c023f80 
+
+//X-Fov - Memory hack
+//0000e03f cdcc4c3f 00000000 00000000
+patch=1,EE,2017C330,extended,3F19999A //3f4ccccd

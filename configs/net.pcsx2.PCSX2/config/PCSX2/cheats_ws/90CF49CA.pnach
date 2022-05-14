@@ -1,0 +1,7 @@
+gametitle=Cocoto Platform Jumper (E)(SLES-52523)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,0010d0f8,word,3c013ec0

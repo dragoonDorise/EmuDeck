@@ -1,0 +1,10 @@
+gametitle=Action Girlz Racing (E)(SLES-52956)
+comment=Widescreen hack by Arapapa
+ 
+//Gameplay 16:9
+
+//X-Fov
+patch=1,EE,00165cac,word,3c01bf2a //3c01bf00
+patch=1,EE,00165cb0,word,3421aaab //44813000
+patch=1,EE,00165cb4,word,44813000 //44831800
+patch=1,EE,00165cb8,word,44831800 //00000000

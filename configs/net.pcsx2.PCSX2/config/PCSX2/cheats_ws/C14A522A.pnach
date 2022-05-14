@@ -1,0 +1,13 @@
+gametitle=Shinsengumi Gunrou-den [NTSC-J] (SLPM-65823)
+comment=Widescreen hack by ElHecht (pnach by Little Giant)
+
+// 16:9
+patch=1,EE,00207b44,word,3c013f40 // 00000000 hor fov
+patch=1,EE,00207b48,word,4481e000 // 00000000
+patch=1,EE,00207bb4,word,461cc602 // 46170703
+patch=1,EE,00207bb8,word,46170703 // 00000000
+
+patch=1,EE,002079d0,word,3c013f40 // 00000000 renderfix
+patch=1,EE,00207a00,word,4481a800 // 00000000
+patch=1,EE,00207a2c,word,4615b582 // 46041d42
+patch=1,EE,00207a30,word,46041d42 // 00000000

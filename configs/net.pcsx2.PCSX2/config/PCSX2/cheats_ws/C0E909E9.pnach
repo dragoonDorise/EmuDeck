@@ -1,0 +1,16 @@
+gametitle=Lord of the Rings - Futatsu no Tou (J)(SLPS-29004)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen 16:9
+
+//X-Fov
+patch=1,EE,00107160,word,3c023fe3
+patch=1,EE,00107164,word,34428e39
+
+//Font Fix (Although the spacing between letters should be narrowed. But it is better to read without correcting.)
+patch=1,EE,001b4758,word,3c02417f
+patch=1,EE,001b475c,word,3442b000
+patch=1,EE,001b4760,word,44820000
+
+//HUD Fix (Need push to the right. However, there is not much difference without modification.)
+patch=1,EE,001b5868,word,3c02417f

@@ -1,0 +1,5 @@
+gametitle=Kengo - Master of Bushido PAL
+comment=Widescreen Hack
+patch=1,EE,0012a9cc,word,3c013f40
+patch=1,EE,0012abd8,word,3c013f40
+patch=1,EE,0012b46c,word,3c013f40

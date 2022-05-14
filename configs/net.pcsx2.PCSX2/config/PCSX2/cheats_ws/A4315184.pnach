@@ -1,0 +1,12 @@
+gametitle=Thrillville (U)(SLUS-21413)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//003f013c 00608144 000096c4
+patch=1,EE,00432db4,word,3c013f20 //3c013f00
+
+//Y-Fov
+//4040013c 00008144 803e013c 00088144 02a00046 (3rd)
+patch=1,EE,00432e48,word,3c014080 //3c014040

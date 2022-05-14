@@ -1,0 +1,47 @@
+comment=Grandia II (NTSC-U) (SLUS-20194) Widescreen Hack (16:9)
+
+patch=1,EE,20213974,extended,3C013F40 //Main Camera FOV Fix
+
+//FMV fix (by flameofrecca)
+patch=1,EE,20401874,extended,42A00000 //FMV X Position
+patch=1,EE,2040187C,extended,43F00000 //FMV Width
+
+//GUI Fixes
+patch=1,EE,202665E0,extended,00000000 //Enable Scaling More Sprites
+patch=1,EE,202665EC,extended,00000000 //Enable Rotating More Sprites
+patch=1,EE,2026C948,extended,08099A04 //Jump to Rectangle Scaling Code
+patch=1,EE,20266810,extended,3C033F40 //Rectangle X Scale
+patch=1,EE,20266814,extended,44830000 //Load Rectangle X Scale into f0
+patch=1,EE,20266818,extended,460018C2 //Multiply Rectangle X Coordinate by X Scale
+patch=1,EE,2026681C,extended,3C0342A0 //Rectangle X Offset
+patch=1,EE,20266820,extended,44830000 //Load Rectangle X Offset into f0
+patch=1,EE,20266824,extended,460018C0 //Move Rectangle by X Offset to the Right
+patch=1,EE,20266828,extended,0809B254 //Return to Original Code
+patch=1,EE,2026682C,extended,8FA30000 //Run Replaced Instruction
+patch=1,EE,2026B384,extended,26D6FF96 //Menu Background X Position Fix
+patch=1,EE,2026B228,extended,3C014455 //Menu Background Number of Tiles Fix
+patch=1,EE,20139370,extended,3C0143A0 //Selectable Battle Options X Position First Turn (320.0f)
+patch=1,EE,20139E6C,extended,3C0143A0 //Selectable Battle Options X Position (320.0f)
+patch=1,EE,201B72B0,extended,3C014426 //Compass X Position (664.0f)
+patch=1,EE,201FAB38,extended,3C014403 //Now Loading Text Left Edge X Position (524.0f)
+patch=1,EE,201FAB40,extended,3C014443 //Now Loading Text Right Edge X Position (780.0f)
+patch=1,EE,20179DF8,extended,3C01C2D5 //Menu Fade X Position (-106.6f)
+patch=1,EE,20179DFC,extended,44811800 //Update Menu Fade X Position
+patch=1,EE,20179E14,extended,3C014455 //Menu Fade Width (853.3f)
+patch=1,EE,202225B0,extended,3C1BC2D5 //Overworld Fade X Position (-106.6f)
+patch=1,EE,202225C8,extended,3C014455 //Overworld Fade Width (853.3f)
+patch=1,EE,202225E4,extended,AE3B0000 //Update Upper Left of Overworld Fades
+patch=1,EE,202225F4,extended,AE3B0010 //Update Lower Left of Overworld Fades
+patch=1,EE,2011B82C,extended,00000000 //Hide Black Borders at Battle Start
+patch=1,EE,201179B0,extended,3C1BC2D5 //X Position of Battle Fades
+patch=1,EE,20117A2C,extended,3C014455 //Battle Fade Width (853.3f)
+patch=1,EE,20117AFC,extended,AFBB0010 //Update Lower Left of Overworld Fades
+patch=1,EE,20117B00,extended,AFBB0000 //Update Upper Left of Overworld Fades
+patch=1,EE,20258460,extended,00000000 //Battle Sprites Don't Cull (Left)
+patch=1,EE,20258484,extended,3C01443A //Battle Sprites Don't Cull (Right)
+patch=1,EE,20141880,extended,3C01C2A5 //Battle Player Information X Position (-82.5f)
+patch=1,EE,201344B4,extended,3C01C2C5 //Battle Player Status Destination X Position (-98.5f)
+patch=1,EE,20134408,extended,3C01C2C5 //Battle Player Status Start X Position (-98.5f)
+patch=1,EE,20136764,extended,3C01C2AD //Battle Damage UI X Position (-86.5f)
+patch=1,EE,2025B050,extended,3C013F80 //3D to 2D Conversion FOV
+patch=1,EE,2025B054,extended,44814800 //Move 3D to 2D Conversion FOV to F9

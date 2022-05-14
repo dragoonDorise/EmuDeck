@@ -1,0 +1,9 @@
+gametitle=Berserk - Millennium Falcon Hen Seima Senki no Shou (J)(SLPM-65688)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov 
+//4c3f033c 703f023c cdcc6334 (3rd)
+patch=1,EE,00239aac,word,3c033f19 //3c033f4c
+patch=1,EE,00239ab4,word,3463999a //3463cccd

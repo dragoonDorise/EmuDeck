@@ -1,0 +1,8 @@
+gametitle=Graffiti Kingdom (NTSC-U)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//803f023c 00008244 00000000
+patch=1,EE,001f15a0,word,3c023fab //3c023f80

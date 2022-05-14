@@ -1,0 +1,7 @@
+gametitle=Kidou Senshi Gundam 00 - Gundam Meisters (J)(SLPS-25900)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,001f0f40,word,3c023f19 //3c023f4c
+patch=1,EE,001f0f48,word,3443999a //3443cccd

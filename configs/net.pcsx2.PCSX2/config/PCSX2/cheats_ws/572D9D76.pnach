@@ -1,0 +1,17 @@
+gametitle=Walt Disney's The Jungle Book - Groove Party (E)(SLES-50045)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//003f023c 00088244 a80020c6
+patch=1,EE,0028d01c,word,3c023f20 //3c023f00
+
+//Y-Fov
+//c2030146 07030046 (2nd)
+patch=1,EE,0028d07c,word,080e83b8
+patch=1,EE,003a0ee0,word,460103c2
+patch=1,EE,003a0ee4,word,3c013f40
+patch=1,EE,003a0ee8,word,4481f000
+patch=1,EE,003a0eec,word,461e7bc2
+patch=1,EE,003a0ef0,word,080a3420

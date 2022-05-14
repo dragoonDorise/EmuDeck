@@ -1,0 +1,7 @@
+gametitle=Mad Maestro! (U)(SLUS-20376)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//803f023c 00688244 10808cc7
+patch=1,EE,00111400,word,3c023f40 //3c023f80 X-fov

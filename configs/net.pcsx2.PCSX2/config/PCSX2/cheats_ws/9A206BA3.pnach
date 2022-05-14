@@ -1,0 +1,23 @@
+gametitle=Conan - The Dark Axe (E)(SLES-52451)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+patch=1,EE,001085d4,word,3c013f10 //3c013f40
+//patch=1,EE,001086b4,word,3c0140d5
+
+//Zoom
+patch=1,EE,00267018,word,3c013f20 //3c013f00
+
+//Render Fix
+//80bf013c 00088144 944662ae 803f013c
+//patch=1,EE,0019de9c,word,3c01bfb0 //3c01bf80 Left
+//patch=1,EE,0019dea8,word,3c013fb0 //3c013f80 Right
+
+//Render Distance
+//patch=1,EE,001177c0,word,3c014000 //3c013f80
+
+//X-Fov
+//patch=1,EE,00108674,word,3c013ec0 //3c013f00
+//patch=1,EE,0010867c,word,3c014070 //3c0140a0

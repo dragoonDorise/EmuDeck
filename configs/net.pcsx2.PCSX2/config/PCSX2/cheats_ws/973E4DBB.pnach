@@ -1,0 +1,15 @@
+gametitle=Monster Lab (E)(SLES-55169)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//02051446 e40100e6
+patch=1,EE,001857f8,word,080430d4
+
+patch=1,EE,0010c350,word,46140502
+patch=1,EE,0010c354,word,3c013faa
+patch=1,EE,0010c358,word,3421aaab
+patch=1,EE,0010c35c,word,4481f000
+patch=1,EE,0010c360,word,461ea502
+patch=1,EE,0010c364,word,080615ff

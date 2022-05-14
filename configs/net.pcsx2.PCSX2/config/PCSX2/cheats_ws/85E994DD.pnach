@@ -1,0 +1,6 @@
+gametitle=R-Type Final SLUS_207.80
+comment=Widescreen Hack
+patch=1,EE,0016edc0,word,3c033f40 // menu
+patch=1,EE,0016fbac,word,3c043f40 //hor
+patch=1,EE,0022ac90,word,43d60000 //r fix
+patch=1,EE,0022aca0,word,43d60000 //r fix

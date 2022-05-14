@@ -1,0 +1,43 @@
+gametitle=Disgaea: Hour of Darkness (SLUS-20666)
+comment=Widescreen hack by nemesis2000 (pnach by nemesis2000 )
+patch=1,EE,0014d6ac,word,3c033f40
+patch=1,EE,0014d6b4,word,e7a000dc
+patch=1,EE,0014d6b8,word,46000003
+patch=1,EE,0014d6bc,word,e7a000d8
+patch=1,EE,001051d4,word,3c013f40
+patch=1,EE,001051d8,word,44810000
+patch=1,EE,001051e0,word,4600c602
+
+
+//480i
+patch=1,EE,0013B818,word,24050001
+
+
+//font fix
+patch=1,EE,001878f8,word,24080012
+patch=1,EE,001892e0,word,24080017
+patch=1,EE,001946C4,word,24080017
+patch=1,EE,001d3594,word,24080017
+patch=1,EE,001d382c,word,24080017
+
+patch=1,EE,0013e258,word,24090017
+patch=1,EE,0013e264,word,24C60007
+
+//portrait fix
+patch=1,EE,001944a4,word,2648001e //2648000a
+patch=1,EE,001944cc,word,2409003c //24090050
+
+patch=1,EE,0018C914,word,2646000E //26460004
+patch=1,EE,0018c930,word,2409003c //24090050
+
+patch=1,EE,00188304,word,2546000a //0140302d
+patch=1,EE,0018830c,word,2409003c //24090050
+
+patch=1,EE,0018d1b8,word,24c60008 //00000000
+patch=1,EE,0018d1a8,word,24090018 //24090020
+
+patch=1,EE,00192938,word,240a00c0 //240a0100
+patch=1,EE,0019351c,word,24c60020 //00000000
+
+patch=1,EE,00194608,word,240900c0 //24090100
+patch=1,EE,00194618,word,24c60020 //00000000

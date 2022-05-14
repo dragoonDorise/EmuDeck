@@ -1,0 +1,14 @@
+gametitle=Jak II - Renegade (NTSC-K) (SCKA-20010)
+comment=Widescreen Hack by ElHecht (NTSC-K by Arapapa)
+
+// 16:9
+
+//003f033c 00008344
+patch=1,EE,20367ae8,extended,3c033f1f // 3c033f00 zoom
+
+//c1781400 01321400  (PAL c1791400)
+patch=1,EE,20826E10,extended,0014A709 // 001478C1 force native 16:9 mode
+
+// menu fix
+patch=1,EE,20B63EE0,extended,43A80000 // 436DE43C
+patch=1,EE,20B664B0,extended,43440000 // 4309CAD8

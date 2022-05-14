@@ -1,0 +1,8 @@
+gametitle=International Superstar Soccer 3 (PAL-M5) (SLES-51435)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+// Note: data is stored in ELF00.DAT
+patch=1,EE,e002a2a0,extended,0012b658 // check 2012b658 matches value xxxxa2a0
+patch=1,EE,20129904,extended,3c023f40 // 3c023f80 hor fov
+patch=1,EE,2012b480,extended,3c0443d6 // 3c0443a0 renderfix

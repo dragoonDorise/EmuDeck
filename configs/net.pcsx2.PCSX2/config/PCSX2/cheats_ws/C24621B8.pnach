@@ -1,0 +1,10 @@
+gametitle=Everybody's Golf (PAL-M5) (SCES-52582)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,e005010C,extended,005522A4 // check 205522A4 matches value xxxx010c
+patch=1,EE,20552280,extended,3c0143f0 // c4840708 hor fov menu
+patch=1,EE,205522A4,extended,ac81010c // e484010c
+patch=1,EE,20154548,extended,3c023c39 // 3c023c0e zoom gameplay
+patch=1,EE,2015454c,extended,3442a4ec // 3442fa35
+patch=1,EE,2050c420,extended,43aaaaab // 43800000 ver fov gameplay

@@ -1,0 +1,18 @@
+gametitle=Donald Duck - Rescue Daisakusen!! (J)(SLPS-20070)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//a80000c6 003f023c 00088244
+patch=1,EE,002731a8,word,3c023f1d //3c023f00
+
+//Y-Fov
+//c2030146 00888244 06a40046
+patch=1,EE,002731f8,word,08030000
+
+patch=1,EE,000c0000,word,460103c2
+patch=1,EE,000c0004,word,3c013f40
+patch=1,EE,000c0008,word,4481f000
+patch=1,EE,000c000c,word,461e7bc2
+patch=1,EE,000c0010,word,0809cc7f

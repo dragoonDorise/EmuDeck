@@ -1,0 +1,14 @@
+gametitle=F1 Racing Championship (J)(SLPS-20042)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,002a0b44,word,3F23645A //3f59db23
+patch=1,EE,002a0b58,word,3EFD70A4 //3f28f5c3
+patch=1,EE,002a0b6c,word,3F0BC6A8 //3f3a5e35
+patch=1,EE,002a0b80,word,3F1624DD //3f483127
+
+//Y-Fov
+patch=1,EE,003da410,word,3F9F49E9 //3f6eeeef
+patch=1,EE,003da414,word,3F9F49E9 //3f6eeeef

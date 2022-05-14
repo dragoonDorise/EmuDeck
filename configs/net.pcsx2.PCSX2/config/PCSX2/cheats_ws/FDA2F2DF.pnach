@@ -1,0 +1,114 @@
+gametitle=DoRoRo (K)(SLKA-25225)
+comment=Widescreen Hack by Little Giant, Arapapa
+
+//Widescreen hack 16:9
+patch=1,EE,001b8cbc,word,3c023f06 //3c023f33
+patch=1,EE,001b8cc4,word,34426666 //34423333
+
+//Font X-position - Conversation
+patch=1,EE,003ae3dc,word,3c024316 //3c0242e8
+
+//Button X-position
+patch=1,EE,003ae424,word,3c034310 //3c0342e8
+patch=1,EE,003ae428,word,3c0243b5 //3c0243b4
+
+//Font X-Size - Conversation
+patch=1,EE,003ae3c4,word,3c023f40
+patch=1,EE,003ae3c8,word,44826000
+
+patch=1,EE,003ae3d8,word,00000000
+
+//Font Y-Size - Conversation
+patch=1,EE,003ae3cc,word,0810312c
+patch=1,EE,0040c4b0,word,3c013fa0  //Increasing readability
+patch=1,EE,0040c4b4,word,44816800
+patch=1,EE,0040c4b8,word,080eb8f4
+
+//Font - Menu
+patch=1,EE,002c8f3c,word,08103130
+patch=1,EE,0040c4c0,word,3c013f40
+patch=1,EE,0040c4c4,word,ac81001c
+patch=1,EE,0040c4c8,word,080b23d0
+
+//Time
+patch=1,EE,002caa7c,word,3c013f80
+patch=1,EE,002caa80,word,4481f000
+patch=1,EE,002caaa4,word,3c023f40
+patch=1,EE,002caabc,word,4600f346
+
+//Mission
+patch=1,EE,002bae58,word,08103134
+patch=1,EE,002bae5c,word,00000000
+patch=1,EE,0040c4d0,word,3c013f40
+patch=1,EE,0040c4d4,word,44816000
+patch=1,EE,0040c4d8,word,27a40040
+patch=1,EE,0040c4dC,word,080aeb97
+
+//etc....
+patch=1,EE,002d017c,word,3c033f40 //3c033f80
+patch=1,EE,002d0194,word,4600f346 //46006346
+
+patch=1,EE,002d0214,word,3c033f40 //3c033f80
+patch=1,EE,002d022c,word,4600f346 //46006346
+
+patch=1,EE,002cab9c,word,3c033f40 //3c033f80
+patch=1,EE,002cabb4,word,4600f346 //46006346
+
+patch=1,EE,002cb118,word,3c033f40 //3c033f80
+patch=1,EE,002cb130,word,4600f346 //46006346
+
+patch=1,EE,002cd288,word,3c033f40 //3c033f80
+patch=1,EE,002cd2a0,word,4600f346 //46006346
+
+patch=1,EE,002cf43c,word,3c033f40 //3c033f80
+patch=1,EE,002cf454,word,4600f346 //46006346
+
+patch=1,EE,002d42e4,word,3c033f40 //3c033f80
+patch=1,EE,002d42fc,word,4600f346 //46006346
+
+patch=1,EE,002cf174,word,3c023f40 //3c023f80
+patch=1,EE,002cf18c,word,4600f346 //46006346
+
+patch=1,EE,002cf2d0,word,3c023f40 //3c023f80
+patch=1,EE,002cf2e8,word,4600f346 //46006346
+
+patch=1,EE,002cf368,word,3c023f40 //3c023f80
+patch=1,EE,002cf380,word,4600f346 //46006346
+
+patch=1,EE,002cf3f0,word,3c023f40 //3c023f80
+patch=1,EE,002cf408,word,4600f346 //46006346
+
+patch=1,EE,002d42e4,word,3c033f40 //3c033f80
+patch=1,EE,002d42fc,word,4600f346 //46006346
+
+patch=1,EE,002d4c94,word,3c023f40 //3c023f80
+patch=1,EE,002d4cac,word,4600f346 //46006346
+
+patch=1,EE,002d4d54,word,3c023f40 //3c023f80
+patch=1,EE,002d4d6c,word,4600f346 //46006346
+
+patch=1,EE,002d4e20,word,3c033f40 //3c033f80
+patch=1,EE,002d4e34,word,4600f346 //46006346
+
+//Map X-position
+patch=1,EE,00244f6c,word,3c02bf30 //3c02bf80
+patch=1,EE,0024576c,word,3c02bf30 //3c02bf80
+
+////////////////////////////////////////////////////
+//HP
+//patch=1,EE,002cae20,word,3c023f40 //3c033f80
+//patch=1,EE,002cae38,word,4600f346 //46006346
+//≈ª»Ø∫Œ¿ß
+//patch=1,EE,002caed0,word,3c023f00 //3c023f80
+//patch=1,EE,002caf6c,word,3c023f00 //3c023f80
+//patch=1,EE,002cab9c,word,3c033f00 //3c033f80
+//Name zoom
+//patch=1,EE,003ae378,word,3c023ff0 //3c023f80
+//Loading
+//patch=1,EE,00211790,word,3c023f40//3c023f80
+//Name
+//patch=1,EE,003ae388,word,08030000
+//patch=1,EE,000c0000,word,3c010054 //X-Size
+//patch=1,EE,000c0004,word,3c173f40
+//patch=1,EE,000c0008,word,ac37ae88
+//patch=1,EE,000c000c,word,080eb8e3

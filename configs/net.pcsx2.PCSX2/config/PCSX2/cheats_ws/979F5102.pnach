@@ -1,0 +1,6 @@
+gametitle=Star Wars - Jedi Starfighter (E)(SLES-50371)
+comment=Widescreen Hack (PAL by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,00126c30,word,3c023f40 //3c023f80

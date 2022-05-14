@@ -1,0 +1,8 @@
+gametitle=ChoroQ Works (NTSC-J) (SLPM_657.24)
+comment=Widescreen Hack by El_Patas
+
+// 16:9
+patch=1,EE,001FFB74,word,3C013F40 //00000000 hor fov
+patch=1,EE,001FFB80,word,44810000 //00000000
+patch=1,EE,001FFB84,word,4600C602 //00000000
+patch=1,EE,001B7C1C,word,3C0140A7 //3C01407A renderfix

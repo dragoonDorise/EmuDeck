@@ -1,0 +1,13 @@
+gametitle=Worms Forts - Under Siege (U)(SLUS-21093)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//8e3c013c 36fa2134 00008144 0000acc7
+//b13c013c 00402134  00008144 0000acc7
+patch=1,EE,001bbb40,word,3c013cb1 //3c013c8e
+patch=1,EE,001bbb44,word,34214000 //3421fa36
+
+//Y-Fov
+patch=1,EE,001bbb5c,word,3c013f10 //3c013f40

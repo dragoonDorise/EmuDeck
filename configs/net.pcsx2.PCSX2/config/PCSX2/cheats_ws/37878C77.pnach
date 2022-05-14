@@ -1,0 +1,15 @@
+gametitle=Dragon Rage (U)(SLUS-20195)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//02410446 380081e4 c2400346
+patch=1,EE,001bfacc,word,08030000
+
+patch=1,EE,000c0000,word,46044102
+patch=1,EE,000c0004,word,3c013f40
+patch=1,EE,000c0008,word,00000000
+patch=1,EE,000c000c,word,4481f000
+patch=1,EE,000c0010,word,461e2102
+patch=1,EE,000c0014,word,0806feb4

@@ -1,0 +1,7 @@
+gametitle=Harry Potter and The Goblet of Fire (K)(SLKA-25327)
+comment=Widescreen hack (NTSC-K by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,0029ff04,word,3c013fe3 //3c013faa
+patch=1,EE,0029ff08,word,34218e39 //3421aaab

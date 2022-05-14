@@ -56,6 +56,7 @@ Core:
   Sleep Timers Accuracy: As Host
   Performance Report Threshold: 500
   Enable Performance Report: false
+  Assume External Debugger: false
 VFS:
   Enable /host_root/: false
   Initialize Directories: true
@@ -109,6 +110,8 @@ Video:
   Vblank NTSC Fixup: false
   DECR memory layout: false
   Allow Host GPU Labels: false
+  Disable MSL Fast Math: false
+  Software VkSemaphore: false
   Vulkan:
     Adapter: AMD RADV VANGOGH
     Force FIFO present mode: false
@@ -118,7 +121,6 @@ Video:
     Enable FidelityFX Super Resolution Upscaling: false
     FidelityFX CAS Sharpening Intensity: 50
     Asynchronous Queue Scheduler: Safe
-    Metal Semaphore: MTLEvent preferred
   Performance Overlay:
     Enabled: false
     Enable Framerate Graph: false

@@ -1,0 +1,5 @@
+gametitle=Monster Farm 5 - Circus Caravan [NTSC-J] (SLPS-25585)
+comment=Widescreen Hack by Little Gaint
+
+patch=1,EE,204EFEEC,extended,3F19999A //3F4CCCCD hor
+patch=1,EE,20590D94,extended,43E00000 //43A00000 render fix

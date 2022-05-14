@@ -1,0 +1,21 @@
+gametitle=Tony Hawk's Pro Skater 3 (PAL-F)
+comment=Widescreen Hack by Catarax
+
+patch=1,EE,0017a210,word,3c013ff3 //3c013fb6
+patch=1,EE,0017c1a8,word,3c013ff3 //3c013fb6
+patch=1,EE,001f3714,word,3c013ff3 //3c013fb6
+patch=1,EE,001f8148,word,3c013ff3 //3c013fb6
+patch=1,EE,001f8600,word,3c013ff3 //3c013fb6
+
+patch=1,EE,0017a214,word,3421cf00 //3421db40
+patch=1,EE,0017c1ac,word,3421cf00 //3421db40
+patch=1,EE,0017c1cc,word,3421cf00 //3421db40
+patch=1,EE,0017c220,word,3421cf00 //3421db40
+patch=1,EE,001f3718,word,3421cf00 //3421db40
+patch=1,EE,001f3738,word,3421cf00 //3421db40
+patch=1,EE,001f3758,word,3421cf00 //3421db40
+patch=1,EE,001f814c,word,3421cf00 //3421db40
+patch=1,EE,001f8604,word,3421cf00 //3421db40
+
+patch=1,EE,0017c1c8,word,3c013f73 //3c013f36
+patch=1,EE,001f3734,word,3c013f73 //3c013f36

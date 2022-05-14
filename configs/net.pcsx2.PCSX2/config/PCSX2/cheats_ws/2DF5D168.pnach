@@ -1,0 +1,8 @@
+gametitle=Otostaz (K)(SCPS-56004)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//3f800000 3f70a3d7
+patch=1,EE,20298270,extended,3f400000 //3f800000

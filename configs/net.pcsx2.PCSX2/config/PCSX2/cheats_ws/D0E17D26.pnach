@@ -1,0 +1,8 @@
+gametitle=R-Type Final (J)(SLPS-25247)
+comment=Widescreen hack NTSC-J by Arapapa
+
+//Widescreen hack 16:9
+patch=1,EE,0016f060,word,3c033f40 //3c033f80
+patch=1,EE,0016fe4c,word,3c043f40 
+patch=1,EE,00229f90,word,43d60000 //r fix  0000a043 00007043
+patch=1,EE,00229fa0,word,43d60000 //r fix

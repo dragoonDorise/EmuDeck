@@ -1,0 +1,5 @@
+gametitle=Psi-Ops: The Mindgate Conspiracy [PAL-M5] (SLES_527.02)
+comment=Widescreen pnach by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,0047015C,word,241102AA //00000000 (Increases hor. axis)

@@ -1,0 +1,17 @@
+gametitle=The Bible Game (U)(SLUS-21175)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//000093e4 140080e4
+patch=1,EE,001e615c,word,0808d504
+patch=1,EE,00235410,word,3c013f40
+patch=1,EE,00235414,word,4481f000
+patch=1,EE,00235418,word,461e9cc2
+patch=1,EE,0023541c,word,e4930000
+patch=1,EE,00235420,word,08079858
+
+//Render fix
+//003f013c 00008144 3d1be24b (2nd)
+patch=1,EE,001e620c,word,3c013f2b //3c013f00

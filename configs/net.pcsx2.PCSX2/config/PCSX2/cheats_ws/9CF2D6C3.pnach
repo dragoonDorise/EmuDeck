@@ -1,0 +1,6 @@
+gametitle=One Piece - Pirates Carnival (K)(SLKA-25351)
+comment=Widescreen Hack by Little Giant (NTSC-K by Arapapa)
+
+patch=1,EE,001c922c,word,3c023fe3 //3c023faa
+patch=1,EE,001c9230,word,34428e39 //3442aaab
+patch=1,EE,001d8b1c,word,3c023f2b //3c023f00

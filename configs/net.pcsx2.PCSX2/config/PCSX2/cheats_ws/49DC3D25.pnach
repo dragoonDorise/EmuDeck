@@ -1,0 +1,24 @@
+gametitle=Army Men - RTS (U)(SLUS-20206)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//3D Scene which is proceeding automatically
+//803f013c 00188144 9000b17f
+patch=1,EE,001a33c4,word,3c013fab //3c013f80 Fov
+//003f013c 00088144 080002c6
+patch=1,EE,001a3404,word,3c013F05 //3c013f00 Zoom
+
+//Game Play
+//803f013c 00a08144 43480200
+patch=1,EE,001a2ecc,word,3c013fab //3c013f80 Fov
+//003f013c 00388144 080000c6
+patch=1,EE,001a3304,word,3c013F05 //3c013f00 Zoom
+
+//Render fix (unable to increase than 3F80)
+//803f013c 00188144 42080446
+//patch=1,EE,0020ceb4,word,3c013fab //3c013f80
+
+//Odd Zoom (able to avoid "render fix")
+//803f013c 00a08144 9653060c
+patch=1,EE,0020cb1c,word,3c013FB0//3c013f80

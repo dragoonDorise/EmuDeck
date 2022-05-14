@@ -1,0 +1,6 @@
+gametitle=Lethal Skies Elite Pilot: Team SW [PAL] (SLES_508.92)
+comment=Widescreen pnach by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,0014E450,word,3C0143C0 //3C014400 Zoom
+patch=1,EE,001006D4,word,3C0143B4 //3C0143F0 Y-FOV

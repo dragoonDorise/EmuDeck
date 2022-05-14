@@ -1,0 +1,11 @@
+gametitle=Cars (K)(SCKA-20068)
+comment=Widescreen Hack by El_Patas (NTSC-K by Arapapa)
+
+//Gameplay 16:9 
+
+patch=1,EE,00116d48,word,3c023fab //3c023f80
+patch=1,EE,00116d50,word,3c033cae //3c033c8e
+patch=1,EE,00116d54,word,34635555 //3463fa34
+
+patch=1,EE,001d5e54,word,3c03bfab //3c03bf80
+patch=1,EE,001d5e58,word,3c023fab //3c023f80

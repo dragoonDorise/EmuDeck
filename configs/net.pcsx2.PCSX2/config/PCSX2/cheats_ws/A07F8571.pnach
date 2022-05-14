@@ -1,0 +1,15 @@
+gametitle=Breeder's Cup - World Thoroughbred Championships (U)(SLUS-21195)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,001b54dc,word,080848c8
+patch=1,EE,00212320,word,46001906
+patch=1,EE,00212324,word,3c013f40
+patch=1,EE,00212328,word,4481f000
+patch=1,EE,0021232c,word,461e2102
+patch=1,EE,00212330,word,0806d538
+
+//Render fix
+patch=1,EE,0011adb4,word,3c013f2b //3c013f00

@@ -1,0 +1,7 @@
+gametitle=Justice League Heroes [PAL-M5] (SLES_544.23)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9 
+patch=1,EE,001BCA20,word,3C01427F //3C014248 Zoom 
+patch=1,EE,001BCAB0,word,3C013F35 //3C013F08 Y-FOV
+patch=1,EE,001BCAB4,word,3421FA25 //34218889 Y-FOV up screen

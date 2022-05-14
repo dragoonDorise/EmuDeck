@@ -1,0 +1,11 @@
+gametitle=Splashdown [PAL-M5] (SLES_504.86) (Original game 66CFAB3C)
+comment=Widescreen Hack by Sergx12 and El_Patas
+
+//Gameplay 16:9
+patch=1,EE,00213EB4,word,3C023FE4 //3C023FAA Y-FOV
+patch=1,EE,00213EB8,word,34428E39 //3442AAAB
+patch=1,EE,00214BEC,word,3C023CAC //3C023C8E Zoom
+patch=1,EE,00214BF0,word,3442A21D //3442FA34
+patch=1,EE,002D87BC,word,3C023CAC //3C023C8E Water fix
+patch=1,EE,002D87C0,word,3442A21D //3442FA34 
+patch=1,EE,00214E00,word,3C033F2B //3C033F00 Fix graphical glitch 2 player vertical split screen

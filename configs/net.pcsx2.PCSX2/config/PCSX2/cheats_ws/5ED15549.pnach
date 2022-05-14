@@ -1,0 +1,10 @@
+gametitle=Despicable Me - The Game (E)(SLES-55625)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+
+patch=1,EE,00119874,word,00000000 //46140034
+patch=1,EE,001198bc,word,3c014235 //3c014265
+patch=1,EE,001198c0,word,3421e327 //34212ee1

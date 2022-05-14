@@ -1,0 +1,17 @@
+gametitle=Victorious Boxers - Ippo's Road to Glory (U)(SLUS-20282)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+
+X-Fov (In Squared Ring)
+//803f013c 00a08144
+patch=1,EE,00114578,word,3c013f40 //3c013f80
+
+//Event Zoom
+//803f013c 00008144
+patch=1,EE,0019a3d8,word,3c013fab //3c013f80
+
+//Event Y-Fov
+//f043013c 00008144
+patch=1,EE,00190bc8,word,3c0143b4 //3c0143f0

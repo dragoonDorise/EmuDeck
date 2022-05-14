@@ -1,0 +1,26 @@
+gametitle=SWAT - Global Strike Team (U)(SLUS-20433)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//003f013c 00008144 0000a27b
+patch=1,EE,002a6634,word,3c013f23 //3c013f00
+
+//Y-Fov
+//c2390046 280085e4
+patch=1,EE,0025fa1c,word,080a5210
+patch=1,EE,00294840,word,460039c2
+patch=1,EE,00294844,word,3c013f40
+patch=1,EE,00294848,word,4481f000
+patch=1,EE,0029484c,word,461e39c3
+patch=1,EE,00294850,word,08097e88
+
+////////////////////////////////////////////
+//X-Fov (needs render fix)
+//patch=1,EE,0025f9bc,word,080a5210
+//patch=1,EE,00294840,word,46062102
+//patch=1,EE,00294844,word,3c013f40
+//patch=1,EE,00294848,word,4481f000
+//patch=1,EE,0029484c,word,461e2102
+//patch=1,EE,00294850,word,08097e70

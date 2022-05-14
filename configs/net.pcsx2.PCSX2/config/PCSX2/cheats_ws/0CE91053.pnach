@@ -1,0 +1,9 @@
+gametitle=Dynasty Warriors 2 (PAL-G) (SLES-50059)
+comment=Widescreen Hack (16:9) by ElHecht
+
+// 16:9
+patch=1,EE,00202714,word,3c013f40 // 00000000 zoom
+patch=1,EE,00202718,word,4481f000 // 00000000
+patch=1,EE,00202728,word,461e0003 // 46000306
+patch=1,EE,00332a74,word,3faaaaab // 3f800000 ver fov
+patch=1,EE,00253e04,word,3c013f2b // 3c013f00 renderfix

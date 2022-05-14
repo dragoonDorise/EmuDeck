@@ -1,0 +1,6 @@
+gametitle=Spy Hunter: Nowhere to Run [PAL] (SLES_541.30)
+comment=Widescreen hack by El_Patas
+ 
+//Gameplay 16:9 
+patch=1,EE,005FBC84,word,3FE505E3 //3FA4BC75
+patch=1,EE,004A8ADC,word,3C013F83 //3C013F80 Y-FOV

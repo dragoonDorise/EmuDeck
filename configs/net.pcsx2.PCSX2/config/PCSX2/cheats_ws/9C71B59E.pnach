@@ -1,0 +1,7 @@
+gametitle=Psi-Ops: The Mindgate Conspiracy (SLUS-20688)
+comment=Widescreen hack by Nemesis2000
+
+patch=1,EE,0046DC3C,word,241102AA
+
+//FMV's fix
+patch=1,EE,00469938,word,2411012A

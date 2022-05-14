@@ -1,0 +1,15 @@
+gametitle=Formula One 2001 (U)(SCUS-97150)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,002ec078,word,3feccccd //3eaaaaab
+patch=1,EE,002c2264,word,3f1a0000 //3f28b439
+
+//Y-Fov
+patch=1,EE,002c5de0,word,3f2aaa9f //3f000000
+
+//Rendeer Fix
+patch=1,EE,002094e8,word,3c013ff0 //3c013fc9
+patch=1,EE,002094ec,word,34210000 //34210fdb

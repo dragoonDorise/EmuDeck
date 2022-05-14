@@ -1,0 +1,184 @@
+gametitle=Twisted Metal: Black (NTSC-U) [SCUS-97101] [073696DA]
+comment=Widescreen hacks by Aced14 (major updates) and No.47 (initial FOV hacks)
+
+//16:9 Widescreen
+
+//FMV
+//patch=1,EE,101C179C,extended,00000000 //24070028 - FMV Top Y Offset (WIP) (40 -> 0)
+
+//Main Menu
+patch=1,EE,204DF5B0,extended,43C00000 //44000000 - Menu Master X FOV
+patch=1,EE,204DF5D0,extended,3FAAAAAB //3F800000 - Menu Master Y FOV
+patch=1,EE,1019C978,extended,0000003B //2405002C - Menu Game Descriptions Font Width (44 -> 59)
+patch=1,EE,1019CC84,extended,0000003B //2405002C - Menu High Score Font Width (44 -> 59)
+patch=1,EE,104DFB34,extended,0000009D //001400D1 - Menu Loading Bar Width (209 -> 157)
+
+//1 Player
+patch=1,EE,204DEF80,extended,43E40000 //44180000 - 1P Master X FOV
+patch=1,EE,204DEFA0,extended,3F206D39 //3EF0A3D7 - 1P Master Y FOV
+patch=1,EE,204F8188,extended,C01F1AA0 //BFF28F5C - 1P Master X Radar
+patch=1,EE,204F8194,extended,40076C8B //3FBFF6F5 - 1P Master X Weapon
+patch=1,EE,101401DC,extended,0000004F //2411006C - 1P Radar Closest Enemy Name X Position (108 -> 79)
+patch=1,EE,1013DE2C,extended,00000284 //24050219 - 1P Machine Gun Counter X Position (537 -> 644)
+patch=1,EE,1013E0F0,extended,00000235 //24050226 - 1P Endurance "KILLS:%d" X Position (550 -> 565)
+patch=1,EE,1013E0F8,extended,00000005 //2406000A - 1P Endurance "KILLS:%d" Y Position (10 -> 5)
+
+//1 Player - Large Rear View
+patch=1,EE,204DF9D0,extended,43E40000 //44180000 - 1P Large Rear View Master X Rear FOV
+patch=1,EE,204DF9F0,extended,3F206D39 //3EF0A3D7 - 1P Large Rear View Master Y Rear FOV
+patch=1,EE,204DFA80,extended,43E40000 //44180000 - 1P Large Rear View Master X Front FOV
+patch=1,EE,204DFAA0,extended,3F206D39 //3EF0A3D7 - 1P Large Rear View Master Y Front FOV
+patch=1,EE,204F8168,extended,3E46A7F0 //3E19999A - 1P Large Rear View Master X Radar
+patch=1,EE,204F817C,extended,3ED47AE1 //3E99999A - 1P Large Rear View Master X Weapon
+patch=1,EE,101401C4,extended,00000047 //24110061 - 1P Large Rear View Radar Closest Enemy Name X Position (97 -> 71)
+patch=1,EE,1013DDEC,extended,0000028C //24050221 - 1P Large Rear View Machine Gun Counter X Position (545 -> 652)
+
+//1 Player - Small Rear View
+patch=1,EE,204DF920,extended,44100000 //44400000 - 1P Small Rear View Master X FOV
+patch=1,EE,204DF940,extended,3F206D3A //3EF0A3D7 - 1P Small Rear View Master Y FOV
+patch=1,EE,104DF92C,extended,000001AC //000801A8 - 1P Small Rear View Viewport X Position (424 -> 428)
+patch=1,EE,104DF92E,extended,0000000E //C0000008 - 1P Small Rear View Viewport Y Position (8 -> 14)
+patch=1,EE,204DF930,extended,450D0000 //450CC000 - 1P Small Rear View Camera X Position
+patch=1,EE,204DF934,extended,44F6C000 //44F60000 - 1P Small Rear View Camera Y Position
+patch=1,EE,204DF938,extended,000008D0 //000008CC - 1P Small Rear View Borders X Position (2252 -> 2256)
+patch=1,EE,204DF93C,extended,000007B6 //000007B0 - 1P Small Rear View Borders Y Position (1968 -> 1974)
+patch=1,EE,1013E480,extended,00000002 //24840001 - 1P Small Rear View Right Border X Position (Bug Fix) (2 -> 1)
+
+//2-4 Players - In-Game Loading Bar
+patch=1,EE,104DFBE4,extended,000000A1 //000A00D8 - 2-4P In-Game Loading Bar Width (216 -> 161)
+patch=1,EE,104DFBEC,extended,000000F0 //00C800D4 - 2-4P In-Game Loading Bar X Position (212 -> 240)
+
+//2 Players - Horizontal Splitscreen
+patch=1,EE,204DF030,extended,43E40000 //44180000 - 2P Horizontal P1 Master X FOV
+patch=1,EE,204DF050,extended,3F206D39 //3EF0A3D7 - 2P Horizontal P1 Master Y FOV
+patch=1,EE,204DF0E0,extended,43E40000 //44180000 - 2P Horizontal P2 Master X FOV
+patch=1,EE,204DF100,extended,3F206D39 //3EF0A3D7 - 2P Horizontal P2 Master Y FOV
+patch=1,EE,204F81A0,extended,C043645A //C0147AE1 - 2P Horizontal Master X Radar
+patch=1,EE,1013D6E4,extended,0000401D //3C013FE0 - 2P Horizontal Master X Weapon
+patch=1,EE,101401F0,extended,0000003F //24110057 - 2P Horizontal Radar Closest Enemy Name X Position (87 -> 63)
+patch=1,EE,1013DE6C,extended,0000028C //24050221 - 2P Horizontal Machine Gun Counter X Position (545 -> 652)
+
+//2 Players - Vertical Splitscreen
+patch=1,EE,204DF190,extended,43C00000 //44000000 - 2P Vertical P1 Master X FOV
+patch=1,EE,204DF1B0,extended,3F206D3A //3EF0A3D7 - 2P Vertical P1 Master Y FOV
+patch=1,EE,204DF240,extended,43C00000 //44000000 - 2P Vertical P2 Master X FOV
+patch=1,EE,204DF260,extended,3F206D3A //3EF0A3D7 - 2P Vertical P2 Master Y FOV
+patch=1,EE,204F81B4,extended,BFCF1AA0 //BF9F5C29 - 2P Vertical Master X Radar
+patch=1,EE,204F81C0,extended,3F900000 //3F428F5C - 2P Vertical Master X Weapon
+patch=1,EE,10140200,extended,0000003F //24110054 - 2P Vertical Radar Closest Enemy Name X Position (84 -> 63)
+patch=1,EE,10142A3C,extended,00000023 //24A5002E - 2P Vertical Notification Center Offset X Position (46 -> 35)
+patch=1,EE,1013DEB4,extended,000000A4 //240600A2 - 2P Vertical Machine Gun Counter Y Position (162 -> 164)
+patch=1,EE,10142588,extended,000000BB //240500F0 - 2P Vertical Reticle Counter X Position (240 -> 187)
+
+//3-4 Players
+patch=1,EE,204DF660,extended,44040000 //44300000 - 4P P1 Master X FOV
+patch=1,EE,204DF680,extended,3F206D3A //3EF0A3D7 - 4P P1 Master Y FOV
+patch=1,EE,204DF710,extended,44040000 //44300000 - 4P P2 Master X FOV
+patch=1,EE,204DF730,extended,3F206D3A //3EF0A3D7 - 4P P2 Master Y FOV
+patch=1,EE,204DF7C0,extended,44040000 //44300000 - 4P P3 Master X FOV
+patch=1,EE,204DF7E0,extended,3F206D3A //3EF0A3D7 - 4P P3 Master Y FOV
+patch=1,EE,204DF870,extended,44040000 //44300000 - 4P P4 Master X FOV
+patch=1,EE,204DF890,extended,3F206D3A //3EF0A3D7 - 4P P4 Master Y FOV
+patch=1,EE,204F81C8,extended,C006978D //BFCF5C29 - 4P Master X Radar
+patch=1,EE,204F81D4,extended,3FBDF3B6 //3F83D70A - 4P Master X Weapon
+patch=1,EE,1013DAD4,extended,00000111 //24060102 - 4P Master X Turbo Bar (258 -> 273)
+patch=1,EE,1013DADC,extended,00000025 //2408002E - 4P Master Width Turbo Bar (46 -> 37)
+patch=1,EE,1013DAF0,extended,00000111 //24060102 - 4P Master X Energy Bar (258 -> 273)
+patch=1,EE,1013DAF8,extended,00000025 //2408002E - 4P Master Width Energy Bar (46 -> 37)
+patch=1,EE,1013DB0C,extended,0000012D //24060128 - 4P Master X Health Bar (296 -> 301)
+patch=1,EE,1013DB10,extended,00000010 //2407000F - 4P Master Y Health Bar (15 -> 16)
+patch=1,EE,1013DB14,extended,00000008 //2408000A - 4P Master Width Health Bar (10 -> 8) (Set to 9 to look better on real PS2s/PCSX2 GSdx software mode)
+patch=1,EE,10142490,extended,00000099 //240500CF - 4P Reticle Counter X Position (207 -> 153)
+patch=1,EE,101644C0,extended,0000019D //240501BC - 4P Team Play Scoreboard - GREEN TEAM HIT PTS # X Position (444 -> 413)
+patch=1,EE,101645E8,extended,0000019D //240501BC - 4P Team Play Scoreboard - WHITE TEAM HIT PTS # X Position (444 -> 413)
+patch=1,EE,101649D4,extended,0000019D //240501BC - 4P Free For All Scoreboard - HIT PTS # X Position (444 -> 413)
+
+//Moving Enemy Health Bars
+patch=1,EE,1013FF4C,extended,00000020 //2408002A - Moving Enemy Health Bar Width (42 -> 32)
+patch=1,EE,1013FF54,extended,00000010 //24C60015 - Moving Enemy Health Bar X Position Offset (21 -> 16)
+
+//Moving Enemy Indicator Arrows
+patch=1,EE,1013F8FC,extended,0000FFF7 //26A6FFF4 - Moving Enemy Indicator Arrow Left Width (-12 -> -9)
+patch=1,EE,1013F924,extended,00000009 //26A9000C - Moving Enemy Indicator Arrow Right Width (9 -> 12)
+
+//Sprites
+patch=1,EE,202334D0,extended,43E40000 //44180000 - "Hollow" Sprite Width (Non-Interactive Trees, Signal Lights, Etc...)
+//patch=1,EE,20233208,extended,43E40000 //44180000 - "Physical" Sprite Size (Interactive Bushy Trees, Weapon Pickups/Street Lights Glow, Etc...) (WIP)
+//patch=1,EE,20233228,extended,43640000 //43980000 - "Physical" Sprite Rotation (Interactive Bushy Trees, Weapon Pickups/Street Lights Glow, Etc...) (WIP)
+
+//Generic Font
+patch=1,EE,101C4344,extended,00000007 //24060005 - Most In-Game Text Widths (Notifications, Machine Gun Counter, Start Menu, Scoreboards, Etc...) (5 -> 7)
+
+//Radar - Closest Enemy Names Widths (hudCarWidths)
+patch=1,EE,2023C530,extended,09070707 //0C0A0A09 - Closest Enemy Names Pixel Widths ("OutLaw", "Yellow-J", "RoadKill", "         " - Initial Empty Name for "WarHawk") (12 -> 9, 10 -> 7, 10 -> 7, 9 -> 7)
+patch=1,EE,2023C534,extended,06080808 //090B0B0B - Closest Enemy Names Pixel Widths ("Brimstone", "S-TOOTH", "Crazy 8", "Spectre") (9 -> 6, 11 -> 8, 11 -> 8, 11 -> 8)
+patch=1,EE,2023C538,extended,09070807 //0C0A0B09 - Closest Enemy Names Pixel Widths ("Axel", "Mr.Grimm", "Shadow", "Junk-Dog") (12 -> 9, 10 -> 7, 11 -> 8, 9 -> 7)
+patch=1,EE,2023C53C,extended,08060708 //0B090A0A - Closest Enemy Names Pixel Widths ("Minion", "M-Slaught", "DarkSide", "WartHog") (11 -> 8, 9 -> 6, 10 -> 7, 10 -> 8)
+patch=1,EE,1023C540,extended,00000808 //00000A0B - Closest Enemy Names Pixel Widths ("Tanker", "WarHawk") (10 -> 8, 11 -> 8)
+
+//Radar - Coordinates Positioning
+patch=1,EE,101405F4,extended,00004134 //3C014170 - Radar X Axis Coordinates Width
+patch=1,EE,20140620,extended,08081544 //46051082 - j $00205510 - Jump to injected MIPS instructions
+patch=1,EE,20205510,extended,3C014170 //0080302D - lui at, $4170 - Set radar Y axis coordinate height #1
+patch=1,EE,20205514,extended,44812800 //24030070 - mtc1 at, $f5 - Set radar Y axis coordinate height #2
+patch=1,EE,20205518,extended,0805018A //2404001C - j $00140628 - Jump to 2 lines after the overwritten MIPS instruction
+patch=1,EE,2020551C,extended,46051082 //70C31818 - mul.s $f2, $f2, $f5 - Restore overwritten MIPS instruction from initial jump
+
+//Left-Aligned Text Positioning (fontSpritePrintXY)
+patch=1,EE,201C44AC,extended,08081548 //00041940 - j $00205520 - Jump to injected MIPS instructions
+patch=1,EE,20205520,extended,4485F800 //00A42018 - mtc1 a1, $f31 - Convert int to float #1
+patch=1,EE,20205524,extended,4680FFE0 //27BDFFF0 - cvt.s.w $f31, $f31 - Convert int to float #2
+patch=1,EE,20205528,extended,3C0142D5 //3C020075 - lui at, $42d5 - Set $f30 register to 106.666687 #1
+patch=1,EE,2020552C,extended,34215558 //FFBF0000 - ori at, at, $5556 - Set $f30 register to 106.666687 #2
+patch=1,EE,20205530,extended,4481F000 //2442A310 - mtc1 at, $f30 - Set $f30 register to 106.666687 #3
+patch=1,EE,20205534,extended,461EFFC0 //00832021 - add.s $f31, $f31, $f30 - Add $f30 to $f31
+patch=1,EE,20205538,extended,3C013F40 //00441021 - lui at, $3f40 - Set $f30 register to .75 #1
+patch=1,EE,2020553C,extended,4481F000 //8C430010 - mtc1 at, $f30 - Set $f30 register to .75 #2
+patch=1,EE,20205540,extended,461EFFC2 //10600004 - mul.s $f31, $f31, $f30 - Multiply $f31 by $f30
+patch=1,EE,20205544,extended,3C013F00 //0000102D - lui at, $3f00 - Set $f30 register to .5 #1
+patch=1,EE,20205548,extended,4481F000 //0C08152C - mtc1 at, $f30 - Set $f30 register to .5 #2
+patch=1,EE,2020554C,extended,461EFFC0 //00C0202D - add.s $f31, $f31, $f30 - Add .5 for rounding
+patch=1,EE,20205550,extended,4600FFE4 //8C420058 - cvt.w.s $f31, $f31 - Convert float to int #1
+patch=1,EE,20205554,extended,4405F800 //DFBF0000 - mfc1 a1, $f31 - Convert float to int #2
+patch=1,EE,20205558,extended,0807112D //03E00008 - j $001c44b4 - Jump to 2 lines after the overwritten MIPS instruction
+patch=1,EE,2020555C,extended,00041940 //27BD0010 - sll v1, a0, 5 - Restore overwritten MIPS instruction from initial jump
+
+//Sub Pixel Font Width/Spacing (fontSetCharSizesInSubPixels)
+patch=1,EE,201C4704,extended,080711CC //00042140 - j $001c4730 - Jump to injected MIPS instructions
+patch=1,EE,201C4730,extended,3C013F40 //3C020050 - lui at, $3f40 - Set $f29 register to .75 #1
+patch=1,EE,201C4734,extended,4481E800 //00042140 - mtc1 at, $f29 - Set $f29 register to .75 #2
+patch=1,EE,201C4738,extended,3C013F00 //24424540 - lui at, $3f00 - Set $f30 register to .5 #1
+patch=1,EE,201C473C,extended,4481F000 //00822021 - mtc1 at, $f30 - Set $f30 register to .5 #2
+patch=1,EE,201C4740,extended,4485F800 //9483000E - mtc1 a1, $f31 - Convert int to float #1
+patch=1,EE,201C4744,extended,4680FFE0 //9482000C - cvt.s.w $f31, $f31 - Convert int to float #2
+patch=1,EE,201C4748,extended,461DFFC2 //00A32818 - mul.s $f31, $f31, $f29 - Multiply $f31 by $f29
+patch=1,EE,201C474C,extended,461EFFC0 //70C23018 - add.s $f31, $f31, $f30 - Add .5 for rounding
+patch=1,EE,201C4750,extended,4600FFE4 //A4850010 - cvt.w.s $f31, $f31 - Convert float to int #1
+patch=1,EE,201C4754,extended,4405F800 //A4860012 - mfc1 a1, $f31 - Convert float to int #2
+patch=1,EE,201C4758,extended,4487F800 //03E00008 - mtc1 a3, $f31 - Convert int to float #1
+patch=1,EE,201C475C,extended,4680FFE0 //A4850014 - cvt.s.w $f31, $f31 - Convert int to float #2
+patch=1,EE,201C4760,extended,461DFFC2 //3C020050 - mul.s $f31, $f31, $f29 - Multiply $f31 by $f29
+patch=1,EE,201C4764,extended,461EFFC1 //00042140 - sub.s $f31, $f31, $f30 - Subtract .5 for rounding
+patch=1,EE,201C4768,extended,4600FFE4 //24424540 - cvt.w.s $f31, $f31 - Convert float to int #1
+patch=1,EE,201C476C,extended,4407F800 //00822021 - mfc1 a3, $f31 - Convert float to int #2
+patch=1,EE,201C4770,extended,080711C3 //9483000E - j $001c470c - Jump to 2 lines after the overwritten MIPS instruction
+patch=1,EE,201C4774,extended,00042140 //9482000C - sll a0, a0, 5 - Restore overwritten MIPS instruction from initial jump
+
+//Sub Pixel-Based Text Positioning (fontSetCursorAtSubPixel)
+patch=1,EE,201C47BC,extended,080711DE //00042140 - j $001C4778 - Jump to injected MIPS instructions
+patch=1,EE,201C4778,extended,4485F800 //00C33018 - mtc1 a1, $f31 - Convert int to float #1
+patch=1,EE,201C477C,extended,4680FFE0 //70A22818 - cvt.s.w $f31, $f31 - Convert int to float #2
+patch=1,EE,201C4780,extended,3C0144D5 //A4860010 - lui at, $44d5 - Set $f30 register to 1708.333374 #1
+patch=1,EE,201C4784,extended,34218AAB //A4850012 - ori at, at, $8aab - Set $f30 register to 1708.333374 #2
+patch=1,EE,201C4788,extended,4481F000 //03E00008 - mtc1 at, $f30 - Set $f30 register to 1708.333374 #3
+patch=1,EE,201C478C,extended,461EFFC0 //A4860014 - add.s $f31, $f31, $f30 - Add $f30 to $f31
+patch=1,EE,201C4790,extended,3C013F40 //3C020050 - lui at, $3f40 - Set $f30 register to .75 #1
+patch=1,EE,201C4794,extended,4481F000 //00042140 - mtc1 at, $f30 - Set $f30 register to .75 #2
+patch=1,EE,201C4798,extended,461EFFC2 //24424540 - mul.s $f31, $f31, $f30 - Multiply $f31 by $f30
+patch=1,EE,201C479C,extended,3C013F00 //00052900 - lui at, $3f00 - Set $f30 register to .5 #1
+patch=1,EE,201C47A0,extended,4481F000 //00822021 - mtc1 at, $f30 - Set $f30 register to .5 #2
+patch=1,EE,201C47A4,extended,461EFFC0 //00063100 - add.s $f31, $f31, $f30 - Add .5 for rounding
+patch=1,EE,201C47A8,extended,4600FFE4 //A4860012 - cvt.w.s $f31, $f31 - Convert float to int #1
+patch=1,EE,201C47AC,extended,4405F800 //A4850010 - mfc1 a1, $f31 - Convert float to int #2
+patch=1,EE,201C47B0,extended,080711F1 //03E00008 - j $001c47c4 - Jump to 2 lines after the overwritten MIPS instruction
+patch=1,EE,201C47B4,extended,00042140 //A4850014 - sll a0, a0, 5 - Restore overwritten MIPS instruction from initial jump

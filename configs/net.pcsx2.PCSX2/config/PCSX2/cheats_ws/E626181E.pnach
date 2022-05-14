@@ -1,0 +1,8 @@
+gametitle=The Sims 2 (E)(SLES-53718)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//aa3f013c abaa2134 00008144 0800e003 00000000 00000000 0800e003
+patch=1,EE,003db168,word,3c013fe3 //3c013faa
+patch=1,EE,003db16c,word,34218e2a //3421aaab

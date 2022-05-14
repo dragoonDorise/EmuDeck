@@ -1,0 +1,10 @@
+gametitle=MVP Baseball 2003 (NTSC-U)(SLUS-20650)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//803f013c 00008144 380017e6
+patch=1,EE,004ecfa8,word,3c013f40 //3c013f80 zoom
+
+//803f013c 00108144 83b50146
+patch=1,EE,004ed038,word,3c013fab //3c013f80 fov

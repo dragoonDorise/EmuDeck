@@ -1,0 +1,12 @@
+gametitle=Phantom Kingdom (J)(SLPS-20410)
+comment=Widescreen Hack by Arapapa
+
+//Gameplay 16:9
+
+patch=1,EE,001058d4,word,3c013f40 //00000000
+patch=1,EE,001058d8,word,44810000 //00000000
+patch=1,EE,001058e0,word,4600c602 //00000000
+
+//2D Characters X-Fov
+//803f023c 00608244 00688044
+patch=1,EE,0014fafc,word,3c023f40 //3c023f80

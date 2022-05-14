@@ -1,0 +1,4 @@
+gametitle=HERDY GERDY (PAL-M5) (SLES_507)
+comment=Widescreen Hack (16:9) by ESPPIRAL
+//16:9
+patch=1,EE,211F2688,word,3F0CCCCD // 00000000

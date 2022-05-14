@@ -1,0 +1,6 @@
+gametitle=ATV Offroad: All Terrain Vehicle [PAL-M5] (SCES_502.93)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9 
+patch=1,EE,0011F2AC,word,3C023CAC //3C023C8E Zoom
+patch=1,EE,0011F2C0,word,3C023FAC //3C023F80 Y-FOV

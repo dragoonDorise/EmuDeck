@@ -1,0 +1,11 @@
+gametitle=Metal Gear Solid 3 - Subsistence (Disc 2of3) (U)(SLUS-21243)
+comment=Widescreen
+//patch=1,EE,2026D1DC,extended,3F400000
+patch=1,EE,202050ac,extended,3F400000
+
+//commentcheat=No Letterbox V2 (By SolidSnake11)
+patch=1,EE,D025E6A7,extended,00100001
+patch=1,EE,2025E6A4,extended,00000000
+patch=1,EE,D0145990,extended,8C8B000C
+patch=1,EE,D01459C8,extended,240F8000
+patch=1,EE,D0131758,extended,8E0E0004

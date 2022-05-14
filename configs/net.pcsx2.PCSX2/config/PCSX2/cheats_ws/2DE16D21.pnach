@@ -1,0 +1,12 @@
+gametitle=Echo Night - Beyond (U)(SLUS-20928)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Force turn on Internal Widescreen
+//01 00 00 00 00 00 00 3F
+patch=1,EE,202ADC01,byte,00000001
+
+//703f033c 003f023c d7a36334
+//patch=1,EE,00143d10,word,3c033fa0 //3c023f70 Y-Fov
+patch=1,EE,00143d14,word,3c023f1f //3c023f00 Zoom

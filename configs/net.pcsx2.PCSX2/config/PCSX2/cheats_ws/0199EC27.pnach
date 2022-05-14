@@ -1,0 +1,7 @@
+gametitle=Finny the Fish & the Seven Waters (U)(SLUS-21072)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00183950,word,3c023ff3 //3c023fb6
+patch=1,EE,00183954,word,3442cf9a //3442db6e

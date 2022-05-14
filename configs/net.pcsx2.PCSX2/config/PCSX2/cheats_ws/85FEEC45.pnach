@@ -1,0 +1,13 @@
+gametitle=SOCOM - U.S. Navy SEALs (PAL-M5) (SCES-50928)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,0014f64c,word,3c013f40 // 00000000 ver fov
+patch=1,EE,0014f650,word,4481e800 // 00000000
+patch=1,EE,0014f658,word,461dbdc3 // 00000000
+
+patch=1,EE,001c8400,word,4614a083 // 3c023f80 zoom gameplay
+patch=1,EE,001c8410,word,461d0002 // 44821000 zoom gameplay
+
+patch=1,EE,001c7c04,word,4614a103 // 3c023f80 zoom cut-scenes
+patch=1,EE,001c7c14,word,461d1082 // 44822000 zoom cut-scenes

@@ -1,0 +1,7 @@
+gametitle=Flipnic (E)(SLES-52065)
+comment=Widescreen hack by Arapapa
+
+//Gameplay 16:9
+
+patch=1,EE,001864ec,word,3c023f19 //3c023f4c
+patch=1,EE,001864f4,word,3447999a //3447cccd

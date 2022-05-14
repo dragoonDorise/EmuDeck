@@ -1,0 +1,18 @@
+gametitle=Hot Wheels - Velocity X (U)(SLUS-20412)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//42100146 803f023c 
+patch=1,EE,0023dc5c,word,08082ed8
+
+patch=1,EE,0020bb60,word,46011042
+patch=1,EE,0020bb64,word,3c013f40
+patch=1,EE,0020bb68,word,4481f000
+patch=1,EE,0020bb6c,word,461e0842
+patch=1,EE,0020bb70,word,0808f718
+
+//Render fix
+//003f023c 33336434
+patch=1,EE,00248e3c,word,3c023f2b //3c023f00

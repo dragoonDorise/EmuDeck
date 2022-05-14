@@ -1,0 +1,20 @@
+gametitle=Shin Sangoku Musou 2 (J)(SLPM-65053)
+comment=Widescreen hack by 99skull (NTSC-J by Arapapa)
+
+//16:9 widescreen hack 
+
+patch=1,EE,001759b8,word,3c0243b4 //3c0243f0 render fix1
+
+patch=1,EE,0018747c,word,3c024082 //3c024049 render fix2
+
+patch=1,EE,0018770c,word,3c024370 //3c0243a0 zoom
+
+patch=1,EE,001878bc,word,3c0243b4 //3c0243f0 vertical FOV
+
+patch=1,EE,0025e828,word,3c023faa //3c023f80 vertical FOV(ending scene)
+patch=1,EE,0025e82c,word,3442aaab //44820000
+patch=1,EE,0025e830,word,44820000 //00000000
+
+patch=1,EE,0025e83c,word,3C023FAA //3C023F80 zoom(ending scene)
+patch=1,EE,0025e840,word,3442AAAB //44820000
+patch=1,EE,0025e844,word,44820000 //00000000

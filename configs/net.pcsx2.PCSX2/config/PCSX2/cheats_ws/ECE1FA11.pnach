@@ -1,0 +1,14 @@
+gametitle=Yu-Gi-Oh! Capsule Monster Coliseum (E)(SLES-52576)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov (Only Battlefields)
+patch=1,EE,001db0c4,word,3c023faa //3c023f80
+patch=1,EE,001db0c8,word,3442aaab //44820000
+patch=1,EE,001db0cc,word,44820000 //00000000
+
+//2D fix
+//00 00 80 BF 00 00 80 3F 00 00 80 BF 00 00 80 3F 00 00 80 3F
+patch=1,EE,20b0f258,extended,bf400000 //bf800000
+patch=1,EE,20b0f268,extended,3f400000 //3f800000

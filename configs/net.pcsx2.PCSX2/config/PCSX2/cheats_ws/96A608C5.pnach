@@ -1,0 +1,15 @@
+gametitle=Official U.S. PlayStation Magazine Demo Disc 055 (NTSC-U) [SCUS-97181] [96A608C5]
+comment=Frequency demo widescreen hacks by Aced14
+
+//Frequency Demo
+
+//16:9 Widescreen
+patch=1,EE,E0FF5246,extended,00828450 //51455246 - Enable condition (check the first 2 characters in the "FREQUENCY" string)
+patch=1,EE,204E541C,extended,08144FF7 //E6000120 - j $00513fdc - Jump to injected MIPS instructions
+patch=1,EE,20513FDC,extended,3C013F40 //3C050086 - lui at, $3f40 - Set $f31 register to .75 #1
+patch=1,EE,20513FE0,extended,4481F800 //24A50530 - mtc1 at, $f31 - Set $f31 register to .75 #2
+patch=1,EE,20513FE4,extended,461F07C2 //0C13B554 - mul.s $f31, $f0, $f31 - Multiply $f0 by $f31 and store in $f31
+patch=1,EE,20513FE8,extended,08139509 //0200202D - j $004e5424 - Jump to 2 lines after the overwritten MIPS instruction
+patch=1,EE,20513FEC,extended,E61F0120 //8E510000 - swc1 $f31, $0120(s0) - Write $f31 into where $f0 would've been written to by the restored overwritten MIPS instruction
+
+//patch=1,EE,1054944C,extended,00000355 //24060280 - FMV width (WIP)

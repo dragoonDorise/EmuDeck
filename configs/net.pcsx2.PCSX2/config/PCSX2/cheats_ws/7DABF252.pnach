@@ -1,0 +1,13 @@
+gametitle=Astro Boy - The Video Game (U)(SLUS-21895)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//83001646140000e6
+patch=1,EE,0011a1dc,word,0804afdc
+patch=1,EE,0012bf70,word,46160083
+patch=1,EE,0012bf74,word,3c013f40
+patch=1,EE,0012bf78,word,4481f000
+patch=1,EE,0012bf7c,word,461e1082
+patch=1,EE,0012bf80,word,08046878

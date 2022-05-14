@@ -1,0 +1,5 @@
+gametitle=Conflict - Desert Storm SLUS_205.49
+comment=Widescreen Hack
+patch=1,EE,0013f45c,word,3c0142ae //3c01428c
+patch=1,EE,0021ef9c,word,3c013b36 //3c013b08
+patch=1,EE,0021efa0,word,342103ce //34218889

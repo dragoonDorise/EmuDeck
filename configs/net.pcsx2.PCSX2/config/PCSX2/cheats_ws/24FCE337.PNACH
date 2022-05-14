@@ -1,0 +1,7 @@
+gametitle=Speed Racer (PAL) SLES_550.75
+comment=Widescreen hack by pelvicthrustman
+comment= PAL Port by PuNkY_BoY
+
+patch=1,EE,004c3fcc,word,3c013f00 //00000000
+patch=1,EE,004c3fec,word,4481f800 //00000000
+patch=1,EE,004c4040,word,461f0003 //46000803

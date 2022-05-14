@@ -1,0 +1,12 @@
+gametitle=Marvel vs Capcom 2 PAL (SLES_511.74)
+comment=Widescreen pnach by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,00415254,word,3C023FAA //3C023F80
+patch=1,EE,003DEA30,word,AC83003C //03E00008
+patch=1,EE,003DEA34,word,3C033F40 //AC83003C
+patch=1,EE,003DEA38,word,03E00008 //00000000
+patch=1,EE,003DEA3C,word,AC830000 //00000000
+patch=1,EE,003DE3A0,word,3C023FE3 //3C033FAA 
+
+

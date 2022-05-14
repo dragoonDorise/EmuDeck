@@ -1,0 +1,13 @@
+gametitle=Strike Force Bowling (E)(SLES-53172)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00206f00,word,08097878
+patch=1,EE,0025e1e0,word,3c013f40
+patch=1,EE,0025e1e4,word,4481f000
+patch=1,EE,0025e1e8,word,c6010068
+patch=1,EE,0025e1ec,word,c602006c
+patch=1,EE,0025e1f0,word,461e0843
+patch=1,EE,0025e1f4,word,e6010068
+patch=1,EE,0025e1f8,word,08081bc2

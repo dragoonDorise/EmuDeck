@@ -1,0 +1,13 @@
+gametitle=Bokujou Monogatari - Oh! Wonderful Life (First Print Limited Edition) (J)(SLPS-25421)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Matrix Hack
+patch=1,EE,0043bb1c,word,3c013f40 //00000000
+patch=1,EE,0043bb20,word,44810000 //00000000
+patch=1,EE,0043bb28,word,4600c602 //00000000
+
+//82001646 2d300000 803f043c xxxxxxxx80bf053c
+patch=1,EE,00402248,word,3c043fab // 3c043f80 renderfix 1
+patch=1,EE,00402250,word,3c05bfab // 3c05bf80 renderfix 2

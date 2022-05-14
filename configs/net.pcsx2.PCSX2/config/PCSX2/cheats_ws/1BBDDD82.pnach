@@ -1,0 +1,21 @@
+gametitle=Wave Rally (K)(SLPM-64507)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom  (1st)
+//5f3f013c f4662134
+//943f013c 4eef2134
+patch=1,EE,001801e4,word,3c013f94 //3c013f5f
+patch=1,EE,001801e8,word,3421ef4e //342166f4
+
+//Y-Fov (3rd)
+//aa3f013c abaa2134
+//e33f013c 4eef2134
+patch=1,EE,001800e4,word,3c013fe3 //3c013faa
+patch=1,EE,001800e8,word,3421ef4e //3421aaab
+////////////////////////////////////////
+
+//Render fix
+//patch=1,EE,0014d62c,word,3c013f40 //3c013f80
+//patch=1,EE,0014d864,word,3c013f40 //3c013f80

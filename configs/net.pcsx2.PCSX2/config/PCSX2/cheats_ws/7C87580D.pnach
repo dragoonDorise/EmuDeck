@@ -1,0 +1,8 @@
+﻿gametitle=One Piece Pirates' Carnival [NTSC-U] (SLUS-21364)
+comment=Widescreen Hack by Little Giant
+
+//16:9
+patch=1,EE,001c931c,word,3C023FE3 //3C023FAA vert
+patch=1,EE,001c9320,word,34428E39 //3442AAAB
+
+patch=1,EE,001d8c0c,word,3C023F2b //3C023F00 zoom

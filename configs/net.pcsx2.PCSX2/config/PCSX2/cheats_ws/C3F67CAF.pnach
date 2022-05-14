@@ -1,0 +1,5 @@
+gametitle=Shining Force EXA SLUS_215.67
+comment=Widescreen Hack
+patch=1,EE,001abbd8,word,3c033ff3 // 3fb6db6e
+patch=1,EE,001abbe0,word,3463cf35
+patch=1,EE,002b9560,word,3c02401c //mini map

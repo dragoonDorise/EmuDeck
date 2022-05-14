@@ -1,0 +1,7 @@
+gametitle=Tak 2 - The Staff of Dreams (K)(SLKA-25272)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,003e4258,word,3c013fe3 //3c013faa
+patch=1,EE,003e425c,word,34218e38 //3421aaab

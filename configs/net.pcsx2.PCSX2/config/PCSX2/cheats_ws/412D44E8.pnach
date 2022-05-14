@@ -1,0 +1,4 @@
+gametitle=Gregory Horror Show SLES_519.33
+comment=Widescreen hack
+//patch=1,EE,00166000,word,3c023f40 // hud fix (awkward transitions/thick font)
+patch=1,EE,00166078,word,3c023f40 // hor fov

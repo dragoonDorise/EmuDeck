@@ -1,0 +1,8 @@
+gametitle=Disney Stitch: Experiment 626 [PAL-M2] [Esp-Por] (SCES_509.59)
+comment=Widescreen Hack by El_Patas
+
+//Zoom 16:9
+patch=1,EE,00236AE4,word,3C023F1E //3C023F00
+
+//Y-FOV 16:9
+patch=1,EE,00236F34,word,3C03BFAC //3C03BF80

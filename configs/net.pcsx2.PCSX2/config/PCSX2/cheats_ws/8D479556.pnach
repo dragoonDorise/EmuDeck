@@ -1,0 +1,11 @@
+gametitle=MVP 07 NCAA Baseball (U)(SLUS-21582)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,00458e78,word,3c01bfab //3c01bf80
+
+//Y-Fov
+patch=1,EE,00460f24,word,3c013fe3 //3c013faa
+patch=1,EE,00460f28,word,34218e39 //3421aaab

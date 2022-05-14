@@ -1,0 +1,10 @@
+gametitle=RS II - Riding Spirits (E)(SLES-52277)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,00181258,word,3c013f40 //3c013f80
+
+//Y-Fov fix (When Wide option is turnned on)
+patch=1,EE,00288950,word,3f088888 //3f360b60

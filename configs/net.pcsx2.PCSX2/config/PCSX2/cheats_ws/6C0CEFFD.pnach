@@ -1,0 +1,19 @@
+gametitle=Ar Tonelico Melody of Elemia PAL (SLES_545.86)
+comment=Widescreen pnach by El_Patas
+
+//3D Scenes
+patch=1,EE,00344C9C,word,3C013F40 //00000000 hor value
+patch=1,EE,00344CA0,word,44810000 //00000000
+patch=1,EE,00344CA8,word,4600C602 //00000000
+
+//Battle's fix
+patch=1,EE,00A90054,word,44400000 //44800000 right side fix
+patch=1,EE,00A9005C,word,C4400000 //C4800000 left side fix
+
+//2D Scenes
+patch=1,EE,001A3F8C,word,3C014440 //3C0E00A9 hor value
+patch=1,EE,001A3F90,word,44810800 //25CE0D04
+patch=1,EE,001A3F94,word,46010042 //C5C10000
+patch=1,EE,001A3F98,word,E6810090 //46010002
+patch=1,EE,001A3F9C,word,3C014480 //E6800090 vert value
+patch=1,EE,001A3FA0,word,44810800 //C62000E8

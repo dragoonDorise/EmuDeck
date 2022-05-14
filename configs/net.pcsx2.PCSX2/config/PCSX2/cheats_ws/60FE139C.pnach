@@ -1,0 +1,10 @@
+gametitle=Grand Theft Auto - San Andreas (SLPM-65984)
+comment=Widescreen fix by BloodRaynare
+
+patch=1,EE,001130bc,word,3c013f9d
+patch=1,EE,001130c0,word,44810000
+patch=1,EE,001130c4,word,46006302
+patch=1,EE,001130c8,word,03e00008
+patch=1,EE,001130cc,word,e78c9a90
+patch=1,EE,0021dd04,word,0c044c2f
+patch=1,EE,00242c94,word,0c044c32

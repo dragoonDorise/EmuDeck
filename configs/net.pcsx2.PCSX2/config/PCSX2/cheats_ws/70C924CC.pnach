@@ -1,0 +1,17 @@
+gametitle=WarJetz (U)(SLUS-20007)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//803f013c 00488144 40600146
+patch=1,EE,002b516c,word,3c013ee4 //3c013f80
+
+//Y-Fov
+//02000246 42410546
+patch=1,EE,002b5060,word,08030000
+patch=1,EE,000c0000,word,46020002
+patch=1,EE,000c0004,word,3c1b3f40
+patch=1,EE,000c0008,word,449bf000
+patch=1,EE,000c000c,word,461e0003
+patch=1,EE,000c0010,word,080ad419

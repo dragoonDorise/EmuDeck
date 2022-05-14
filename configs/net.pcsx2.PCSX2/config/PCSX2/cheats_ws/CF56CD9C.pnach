@@ -1,0 +1,17 @@
+gametitle=The Lord of the Rings - The Fellowship of the Ring (NTSC-U) (SLUS-20520)
+comment=Widescreen hack by ElHecht
+
+// 16:9
+patch=1,EE,001473e0,word,08100078 // e6000228
+patch=1,EE,001473e4,word,00000000 // e601022c
+patch=1,EE,004001e0,word,3c013f40 // 00000000 hor fov
+patch=1,EE,004001e4,word,4481f000 // 00000000
+patch=1,EE,004001e8,word,461e0002 // 00000000
+patch=1,EE,004001ec,word,e6000228 // 00000000
+patch=1,EE,004001f0,word,461e0842 // 00000000
+patch=1,EE,004001f4,word,e601022c // 00000000
+patch=1,EE,004001f8,word,08051cf9 // 00000000
+
+patch=1,EE,002790e4,word,3c013edf // 3c013f00 inventory position fix hor
+
+patch=1,EE,001fbee0,word,3c013f40 // 3c013f80 font fix hor

@@ -1,0 +1,6 @@
+gametitle=Space War Attack (E)(SLES-53915)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+patch=1,EE,00343ff8,word,44554000 //44200000 X-Fov
+patch=1,EE,00344000,word,44100000 //43a00000 Render Fix

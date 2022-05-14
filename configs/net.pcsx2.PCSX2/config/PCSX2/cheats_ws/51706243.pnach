@@ -1,0 +1,5 @@
+gametitle=Pryzm - Chapter One - The Dark Unicorn SLUS_201.72
+comment=Widescreen Hack
+patch=1,EE,001186e8,word,3c013f22
+patch=1,EE,0017db4c,word,3c013f10 // vert fov
+patch=1,EE,0033198c,word,3c01bec0

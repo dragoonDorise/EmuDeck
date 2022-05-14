@@ -1,0 +1,25 @@
+gametitle=Super Robot Taisen - Scramble Commander (J)(SLPS-25296)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Object
+patch=1,EE,00197e6c,word,3c013f40 //00000000
+patch=1,EE,00197e70,word,44810000 //00000000
+patch=1,EE,00197e78,word,4600c602 //00000000
+
+//Back Ground
+patch=1,EE,00169ff4,word,0806ae28
+
+patch=1,EE,001ab8a0,word,46006dc6
+patch=1,EE,001ab8a4,word,3c013f40
+patch=1,EE,001ab8a8,word,44815000
+patch=1,EE,001ab8ac,word,460abdc2
+patch=1,EE,001ab8b0,word,0805a7fe
+
+////////////////////////////////////
+//xxx
+//patch=1,EE,0016a0dc,word,3c013f00 //3c013f80
+
+//patch=1,EE,00142c98,word,3c014100 //3c0141a0
+//patch=1,EE,00142cc0,word,3c014100 //3c014180

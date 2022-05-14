@@ -1,0 +1,22 @@
+gametitle=Namco x Capcom (NTSC-J) (English patch)
+comment=Widescreen Hack
+
+patch=1,EE,2048E604,word,3F400000
+patch=1,EE,2048FBE4,word,3F400000
+
+patch=1,EE,002A74DC,word,3C023FAA
+patch=1,EE,002A74E8,word,460D6B03
+patch=1,EE,00282B3C,word,3C023F40 // 2D portrait width
+patch=1,EE,002A74E0,word,44826800 // 2D portrait width
+patch=1,EE,00282B40,word,3C02BF40
+patch=1,EE,00147318,word,0C064C33
+patch=1,EE,00148228,word,0C064C33
+patch=1,EE,001482AC,word,0C064C33
+patch=1,EE,00148928,word,0C064C33
+patch=1,EE,001930CC,word,460D6B43
+patch=1,EE,001930D4,word,3C023FC0 // 2D character width // battles
+patch=1,EE,00193124,word,460D6B40
+patch=1,EE,00192DE0,word,24E772A0 //battles background // 24E76C00
+patch=1,EE,00192E54,word,250872A0 //battles background // 25086C00
+patch=1,EE,00192ECC,word,25086680 //battles background // 25086C00
+patch=1,EE,00192F3C,word,25296680 //battles background // 25296C00

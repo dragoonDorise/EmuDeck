@@ -1,0 +1,12 @@
+gametitle=Inuyasha - Feudal Combat [NTSC-U] (SLUS-21193)
+comment=Widescreen hack by Little Giant
+
+//16:9
+patch=1,EE,0011ff98,word,3c013fdc //3c013fa5 hor 1
+patch=1,EE,0011ff9c,word,34211ade //34211eb8
+
+patch=1,EE,00121a90,word,3c013fdc //3c013fa5 hor 2
+patch=1,EE,00121a94,word,34211ade //34211eb8
+
+patch=1,EE,001224a0,word,3c013fdc //3c013fa5 hor 3
+patch=1,EE,001224a4,word,34211ade //34211eb8

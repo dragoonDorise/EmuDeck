@@ -1,0 +1,10 @@
+gametitle=Steamboy (J)(SLPS-25502)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+patch=1,EE,00132380,word,3c083fab //3c083f80
+
+//Zoom
+patch=1,EE,0013c428,word,3c043f40 //3c043f80

@@ -1,0 +1,11 @@
+gametitle=Barbie Horse Adventures - Wild Horse Rescue (E)(SLES-51845)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+patch=1,EE,00239304,word,3c013ed0 //3c013f00
+
+//Zoom
+//003f013c 00b08144 58010cc6
+patch=1,EE,00239460,word,3c013f20 //3c013f00

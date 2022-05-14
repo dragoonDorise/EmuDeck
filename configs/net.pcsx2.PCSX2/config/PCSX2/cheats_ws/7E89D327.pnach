@@ -1,0 +1,5 @@
+gametitle=Hidden Invasion [PAL] (SLES_502.60)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,00121CCC,word,3C013F40 //3C013F80 (Increases hor. axis)

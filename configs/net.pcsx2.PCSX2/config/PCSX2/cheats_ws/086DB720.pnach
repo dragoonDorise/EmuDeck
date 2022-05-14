@@ -1,0 +1,35 @@
+gametitle=Dino Stalker [PAL] (SLES_509.30)
+comment=Widescreen pnach by El_Patas
+
+//Gameplay 16:9 
+patch=1,EE,002afdc4,word,3f199999 //3f4ccccd (Increases hor. axis)
+patch=1,EE,002afe04,word,3f199999 //3f4ccccd
+patch=1,EE,003e2f54,word,3f199999 //3f4ccccd
+patch=1,EE,003e2f94,word,3f199999 //3f4ccccd
+patch=1,EE,003e37f4,word,3f199999 //3f4ccccd
+patch=1,EE,003e3834,word,3f199999 //3f4ccccd
+patch=1,EE,003e4ab4,word,3f199999 //3f4ccccd
+patch=1,EE,003e4af4,word,3f199999 //3f4ccccd
+patch=1,EE,003e4f84,word,3f199999 //3f4ccccd
+patch=1,EE,003e4fc4,word,3f199999 //3f4ccccd
+patch=1,EE,003e54a4,word,3f199999 //3f4ccccd
+patch=1,EE,003e54e4,word,3f199999 //3f4ccccd
+patch=1,EE,003e5e34,word,3f199999 //3f4ccccd
+patch=1,EE,003e5e74,word,3f199999 //3f4ccccd
+patch=1,EE,003e6364,word,3f199999 //3f4ccccd
+patch=1,EE,003e63a4,word,3f199999 //3f4ccccd
+patch=1,EE,003e6734,word,3f199999 //3f4ccccd
+patch=1,EE,003e6774,word,3f199999 //3f4ccccd
+patch=1,EE,003e6d64,word,3f199999 //3f4ccccd
+patch=1,EE,003e6da4,word,3f199999 //3f4ccccd
+patch=1,EE,003ec544,word,3f199999 //3f4ccccd
+patch=1,EE,005275b4,word,3f199999 //3f4ccccd
+patch=1,EE,00600bc4,word,3f199999 //3f4ccccd
+patch=1,EE,00606f24,word,3f199999 //3f4ccccd
+patch=1,EE,00616b74,word,3f199999 //3f4ccccd
+patch=1,EE,006236c4,word,3f199999 //3f4ccccd
+patch=1,EE,002afe44,word,3f199999 //3f4ccccd
+
+//Render fix
+patch=1,EE,0012D4FC,word,3C0143D6 //3C0143A0
+patch=1,EE,00117740,word,3C0143D6 //3C0143A0

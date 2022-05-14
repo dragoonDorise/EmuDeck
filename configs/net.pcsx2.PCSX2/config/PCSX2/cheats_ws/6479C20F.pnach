@@ -1,0 +1,10 @@
+gametitle=Shrek 2 (J)(SLPM-65697)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//7F AA AA 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 31 8D D6 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D6 00 80 3F 00 00 80 3F
+patch=1,EE,2039a630,extended,3f800000 //3faaaa7f
+
+//00 00 80 3F 00 00 80 3F 00 00 00 00 25 64 20 00
+patch=1,EE,203816B4,extended,3f400000 //3f800000 HUD fix

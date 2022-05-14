@@ -1,0 +1,10 @@
+gametitle=Spider-Man - The Movie (E)(SLES-50812)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+patch=1,EE,004d1554,word,3fe38e2a //3faaaaab
+
+//Zoom
+patch=1,EE,002b5e64,word,3c013c28 //3c013c0e

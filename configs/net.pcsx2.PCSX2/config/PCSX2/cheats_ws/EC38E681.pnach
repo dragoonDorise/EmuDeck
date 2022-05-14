@@ -1,0 +1,7 @@
+﻿gametitle=Legaia: Duel Saga  [NTSC-J] (SCPS-15020)
+comment=Widescreen Hack by Little Gaint
+
+patch=1,EE,00220050,word,3c013f40 //3c013f80 gameplay hor fov
+patch=1,EE,002200dc,word,3c013f40 //3c013f80 battle hor fov
+patch=1,EE,00134074,word,3c01c3d5 //3c01c3a0 render fix left
+patch=1,EE,0013408c,word,3c0143d5 //3c0143a0 render fix right

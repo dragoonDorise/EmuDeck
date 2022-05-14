@@ -1,0 +1,7 @@
+gametitle=Arc the Lad - Generation (NTSC-J) (SCPS-15058)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//cccc4c3f eeee6e3f d70f49c0
+patch=1,EE,002BDB84,word,3F19999A //3f4ccccc

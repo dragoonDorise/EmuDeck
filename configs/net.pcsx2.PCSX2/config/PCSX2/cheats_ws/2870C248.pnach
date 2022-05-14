@@ -1,0 +1,18 @@
+gametitle=F1 2001 (U)(SLUS-20264)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//803f013c 00188144 2a09c14b
+patch=1,EE,00214cf4,word,3c013f40 //3c013f80
+
+/////////////////////////////////////////////
+//[patches = 2870C248]
+	
+//	comment=Patch by Shadow Lady.
+	
+//	//IPU dma fix
+//	patch=0,EE,003b8580,word,00000000 
+	
+//[/patches]

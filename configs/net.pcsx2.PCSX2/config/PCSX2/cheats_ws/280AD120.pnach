@@ -1,0 +1,12 @@
+gametitle=Final Fantasy XII (J)(SLPM-66320)
+comment=NTSC-J Widescreen Hack by synce
+//patch=1,EE,204dfb50,extended,3fe28f5c
+//patch=1,EE,204dfbb0,extended,3fe28f5c
+
+patch=1,EE,002a90d8,word,3c013fe3 //3c013faa
+patch=1,EE,002a90dc,word,34218e2a //3421aaaa
+
+//hud fix (font, mini map and etc)(cause some problem)
+//patch=1,EE,205b4a80,extended,3f400000
+//or
+//patch=1,EE,205b4aa0,extended,45400000 //45800000

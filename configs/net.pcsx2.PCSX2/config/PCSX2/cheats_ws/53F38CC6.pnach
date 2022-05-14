@@ -1,0 +1,9 @@
+gametitle=Welcome to Universal Studios Japan (J)(SLPM-62349)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00102d04,word,3c013f40 //00000000
+patch=1,EE,00102d08,word,44810000 //00000000
+patch=1,EE,00102d10,word,4600c602 //00000000
+

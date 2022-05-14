@@ -1,0 +1,11 @@
+gametitle=SnoCross 2 - Featuring Blair Morgan (U)(SLUS-21130)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//00000000 436b0546 380042e4
+patch=1,EE,001ee198,word,3c01bf90
+patch=1,EE,001ee1a4,word,4481f000
+
+patch=1,EE,001ee1a8,word,46056b43
+patch=1,EE,001ee1ac,word,461e68c2

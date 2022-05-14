@@ -1,0 +1,8 @@
+gametitle=WWE SmackDown - Shut Your Mouth (K)(SLKA-25030)
+comment=Widescreen hack by ElHecht (NTSC-K by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,001035e4,word,3c013f40 //00000000
+patch=1,EE,001035f0,word,44810000 //00000000
+patch=1,EE,001035f4,word,4600c602 //00000000

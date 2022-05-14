@@ -1,0 +1,6 @@
+gametitle=The Flintstones in Viva Rock Vegas [PAL] (SLES_502.59)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,00139738,word,3C013F40 //3C013F80 Single Player
+patch=1,EE,00139814,word,3C013EC0 //3C013F00 Multiplayer

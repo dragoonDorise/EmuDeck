@@ -1,0 +1,28 @@
+gametitle=Kinkou Myaku Tansa Simulation - Ingot 79 (J)(SLPS-25166)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//003f013c 00108144 00000000
+patch=1,EE,0013bcb0,word,3c013ec0 //3c013f00
+
+//Y-Fov
+//2044023c 00608244 f043023c
+patch=1,EE,0010f408,word,3c024456 //3c024420
+
+////////////////////
+//xx
+//patch=1,EE,00136d70,word,3c013edd //3c013f80
+//patch=1,EE,0013b93c,word,3c013f40 //3c013f80
+//patch=1,EE,0013c408,word,3c013edd //3c013f80
+//patch=1,EE,0014387c,word,3c013f40 //3c013f80
+//patch=1,EE,0013b3b4,word,3c013fab//3c013f80
+//patch=1,EE,0013b468,word,3c013fab//3c013f80
+//patch=1,EE,0013b4d8,word,3c013f30 //3c013f00
+//patch=1,EE,0013b4e0,word,3c013fab //3c013f80
+//??
+//patch=1,EE,0013ba3c,word,3c013f30 //3c013f00
+//Zoom
+//patch=1,EE,0013c394,word,3c013edd //3c013f40
+//patch=1,EE,0013c410,word,3c01bedd //3c01bf80

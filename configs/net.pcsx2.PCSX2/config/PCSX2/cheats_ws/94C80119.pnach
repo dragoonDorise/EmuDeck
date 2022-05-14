@@ -1,0 +1,8 @@
+gametitle=Beni no Umi 2 - Crimson Sea [NTSC-J] [SLPM-65477]
+comment=Widescreen Hack NTSC-J by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,00443CD8,word,3c024328 // 43600000
+patch=1,EE,00443CE8,word,3c023f1f // 3eeeeeef
+patch=1,EE,00443CEC,word,344349f9

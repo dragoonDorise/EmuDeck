@@ -1,0 +1,27 @@
+gametitle=Harry Potter to Himitsu no Heya(Coca Cola Original version) (J)(SLPM-68005)
+gametitle=Harry Potter and The Chamber of Secrets (K)(SLPM-64528)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,004ca808,word,3c013f24 //3c013f49
+patch=1,EE,004ca80c,word,34210000 //34210fda
+
+//Y-Fov
+patch=1,EE,004e8f30,word,3c013fe3 //3c013faa
+patch=1,EE,004e8f34,word,34218e2a //3421aaab
+
+//Button fix
+patch=1,EE,0031cb9c,word,3c013fd0 //3c013f9c
+patch=1,EE,0031cba0,word,342197af //342171c7
+
+
+//Font Y-Fov
+patch=1,EE,20541914,extended,3B0882F1 //3acccccd
+
+//Font Y-Position
+patch=1,EE,20541934,extended,bf000000 //bec00000
+
+//Font Zoom
+patch=1,EE,2054193c,extended,3faaaaab //3f800000

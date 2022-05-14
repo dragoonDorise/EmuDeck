@@ -1,0 +1,14 @@
+gametitle=Backyard Wrestling - Don't Try This at Home (PAL)(SLES-51966)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Y-Fov
+patch=1,EE,002c20e0,word,3c013fcc //3c013f99
+patch=1,EE,002c20e4,word,3421ccc4 //3421999a
+
+//Zoom
+patch=1,EE,002c20c4,word,3c014456 //3c014420
+
+//Render fix
+patch=1,EE,002b1b8c,word,3c014480 //3c014416

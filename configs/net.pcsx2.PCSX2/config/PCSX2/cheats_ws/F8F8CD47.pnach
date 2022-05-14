@@ -1,0 +1,20 @@
+gametitle=Garfield (E)(SLES-52843)
+comment=Widescreen hack  by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//193f023c 9a994234 00608244 (2nd)
+patch=1,EE,00377b20,word,3c023f4c //3c023f19
+patch=1,EE,00377b24,word,3442cccd //3442999a
+
+//Y-Fov
+//03000246 700001e6
+patch=1,EE,00314d78,word,08083bb4  //08083bb4
+
+patch=1,EE,0020eed0,word,46020003
+patch=1,EE,0020eed4,word,3c013faa
+patch=1,EE,0020eed8,word,3421aaab
+patch=1,EE,0020eedc,word,4481f000
+patch=1,EE,0020eee0,word,461e0002
+patch=1,EE,0020eee4,word,080c535f

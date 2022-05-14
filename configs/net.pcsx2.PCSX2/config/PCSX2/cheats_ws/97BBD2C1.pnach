@@ -1,0 +1,5 @@
+gametitle=Battle Assault 3 featuring Gundam Seed SLUS_209.29
+comment=Widescreen Hack
+patch=1,EE,001d5b04,word,3c0243e6 //3c024419
+patch=1,EE,001d5b0c,word,34426666 //3442999a
+patch=1,EE,001d5b30,word,3c02442b //3c024400

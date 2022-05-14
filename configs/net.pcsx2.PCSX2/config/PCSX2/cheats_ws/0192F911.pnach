@@ -1,0 +1,16 @@
+gametitle=Dragon Ball Z (K)(SLKA-25046)
+comment=Widescreen Hack by sergx12 (NTSC-K by Arapapa)
+
+//Gameplay 16:9
+
+patch=1,EE,00332f20,word,3f400000 //3f800000
+patch=1,EE,00333480,word,3f400000 //3f800000
+patch=1,EE,0034bec0,word,3f400000 //3f800000
+patch=1,EE,0034cb80,word,3f400000 //3f800000
+patch=1,EE,0034e7d0,word,3f400000 //3f800000
+patch=1,EE,0034ead0,word,3f400000 //3f800000
+patch=1,EE,0034ef80,word,3f400000 //3f800000
+patch=1,EE,0034efe0,word,3f400000 //3f800000
+patch=1,EE,003575c0,word,3f400000 //3f800000
+
+//0000803f efee6e3f 00000045

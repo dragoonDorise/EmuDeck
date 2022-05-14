@@ -1,0 +1,7 @@
+gametitle=Poncotsu Roman Daikatsugeki Bumpy Trot (K)(SCKA-20058)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,001321e0,word,3c033f40 //3c033f80
+patch=1,EE,00132038,word,3c0643e0 //3c0643a0

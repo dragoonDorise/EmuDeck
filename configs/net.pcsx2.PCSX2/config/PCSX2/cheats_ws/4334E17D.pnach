@@ -1,0 +1,73 @@
+gametitle=Makai Senki Disgaea 2 (J) (SLPS-256.08)
+comment=Widescreen hack by nemesis2000 (pnach by Arapapa)
+
+patch=1,EE,00104dc4,word,3c013f40
+patch=1,EE,00104dc8,word,44810000
+patch=1,EE,00104dd0,word,4600c602
+
+
+//NEW (2D Characters in the field)
+patch=1,EE,0027c9d4,word,3c013f40
+patch=1,EE,0027c9d8,word,4481f000
+patch=1,EE,0027ca14,word,46021002
+patch=1,EE,0027ca18,word,0200202d
+patch=1,EE,0027ca1c,word,27a50020
+patch=1,EE,0027ca20,word,e7a20024
+patch=1,EE,0027ca24,word,461e1082
+
+//OLD
+//patch=1,EE,00279a10,word,3c033f40
+//patch=1,EE,00279a24,word,3c033f80
+//patch=1,EE,00279a28,word,ac830010
+//patch=1,EE,00279a2c,word,ac800014
+//patch=1,EE,00279a30,word,ac800018
+//patch=1,EE,00279a34,word,ac80001c
+//patch=1,EE,00279a38,word,03e00008
+//patch=1,EE,00279a3c,word,ac830020
+
+//font fix
+//803f023c 00608244 803f023c 00688244 1000a48f
+patch=1,EE,0012ecc4,word,3c023f40
+
+patch=1,EE,001b5508,word,24070015 //1c000724 60184634 0e000824 (1 & 2)
+patch=1,EE,00144210,word,24070015 //1c000724 0e000824 (1st)
+patch=1,EE,001b5534,word,24070015
+patch=1,EE,00206424,word,24070015 //button
+//patch=1,EE,001D7C30,word,24080015 //1c000824 200b4734
+
+
+//portrait fix
+//21010924 2df02001
+patch=1,EE,002050c8,word,240400d9 //24040121
+
+//98000000 10010000
+patch=1,EE,0028d7c0,word,000000b8 //00000098
+patch=1,EE,0028d7c4,word,00000130 //00000110
+patch=1,EE,0028d7c8,word,00000160 //00000140
+patch=1,EE,0028d7cc,word,00000190 //00000170
+patch=1,EE,0028d7d0,word,00000208 //000001e8
+
+patch=1,EE,00206274,word,24090042 //24090058
+patch=1,EE,00206254,word,2674001e //26740008
+
+patch=1,EE,001dcadc,word,24090042 //24090058
+patch=1,EE,001dcae0,word,240a002c //240a002d
+patch=1,EE,001dcad0,word,26a60013 //26a60008
+
+patch=1,EE,001dd4c4,word,24090042 //24090058
+patch=1,EE,001dd4c8,word,240a002c //240a002d
+patch=1,EE,001dd4b8,word,26460013 //26460008
+
+patch=1,EE,001deac0,word,24090042 //24090058
+patch=1,EE,001deac4,word,240a002c //240a002d
+patch=1,EE,001deab4,word,26260013 //26260008
+
+patch=1,EE,001dc4d8,word,24090018 //24090020
+patch=1,EE,001dc4d0,word,26860008
+
+////////////////////////////////////////
+//Narration subtitles
+//patch=1,EE,0027ca58,word,3c023fab  // If turn on it, will be crashed
+//patch=1,EE,0027ca5c,word,0c09f138
+//patch=1,EE,0027ca60,word,afa20020
+//patch=1,EE,0027ca64,word,1000fff3

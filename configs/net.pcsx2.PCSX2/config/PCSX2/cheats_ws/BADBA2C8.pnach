@@ -1,0 +1,30 @@
+gametitle=Club Football - Juventus (PAL)(SLES-51081)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Menu 3D Fov
+//aa3f013c abaa2134
+patch=1,EE,0032aa44,word,3c013fe2 //3c013faa
+patch=1,EE,0032aa48,word,34218e32 //3421aaab
+
+//Game Play and Replay Fov
+//aa3f013c be9f2134
+patch=1,EE,001532f4,word,3c013fe3 //3c013faa
+patch=1,EE,001532f8,word,34217fa6 //34219fbe
+
+//Game play - Players entering in the ground - Scene Fov
+//aa3f013c be9f2134
+patch=1,EE,002ab73c,word,3c013fe3 //3c013faa
+patch=1,EE,002ab740,word,34217fa6 //34219fbe
+
+patch=1,EE,0032ac90,word,3c013fe2 //3c013faa
+patch=1,EE,0032ac94,word,34218e32 //3421aaab
+
+//Menu 3D Zoom
+//803f013c 00088144 02200046
+patch=1,EE,00368530,word,3c013f40 //3c013f80
+
+//Game Play Zoom
+//803f013c 00188144 02200046
+patch=1,EE,003684e4,word,3c013f40 //3c013f80

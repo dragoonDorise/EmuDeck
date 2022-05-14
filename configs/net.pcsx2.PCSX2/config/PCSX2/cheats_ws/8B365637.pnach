@@ -1,0 +1,9 @@
+gametitle=Simple 2000 Series Vol. 60 - The Tokusatsu Henshin Hero (J)(SLPM-62510)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,0017eb54,word,3c013f40 //00000000
+patch=1,EE,0017eb58,word,44810000 //00000000
+patch=1,EE,0017eb60,word,4600c602 //00000000
+

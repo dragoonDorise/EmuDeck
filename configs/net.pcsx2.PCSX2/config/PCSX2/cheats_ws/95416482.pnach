@@ -1,0 +1,6 @@
+gametitle=Smuggler's Run [PAL-M5] (SLES_500.61)
+comment=Widescreen hack by El_Patas
+
+//Gameplay 16:9 
+patch=1,EE,0023548C,word,3C013FCC //3C013F99
+patch=1,EE,00235490,word,342199CD //3421999A

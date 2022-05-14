@@ -1,0 +1,12 @@
+gametitle=Wave Rally (U)(SLUS-20313)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+patch=1,EE,0017d72c,word,3c013f94 //3c013f5f
+patch=1,EE,0017d730,word,3421ef4e //342166f4
+
+//Y-Fov
+patch=1,EE,0017d62c,word,3c013fe3 //3c013faa
+patch=1,EE,0017d630,word,3421ef4e //3421aaab

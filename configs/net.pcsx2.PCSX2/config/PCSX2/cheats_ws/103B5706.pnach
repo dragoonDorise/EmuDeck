@@ -1,0 +1,5 @@
+gametitle=Crash Bandicoot Wrath Of Cortex (SLUS_202.38) (Version 1.1)
+comment=Widescreen hack by flameofrecca; ported by PsxFan107
+patch=1,EE,001138B8,extended,3c013f11 //vertical fov
+patch=1,EE,001127A0,extended,3c013f2a //zoom value
+patch=1,EE,0011287C,extended,3c013f2a //render value

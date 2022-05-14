@@ -1,0 +1,5 @@
+gametitle=Athens 2004 (K)(SCKA-20031)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+patch=1,EE,0026fd48,word,3c013f10 //3c013f40

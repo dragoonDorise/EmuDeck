@@ -1,0 +1,7 @@
+gametitle=Covert Command (E)(SLES-54568)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,002057ec,word,3c013f40 //3c013f80

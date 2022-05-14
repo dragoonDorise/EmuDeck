@@ -1,0 +1,12 @@
+gametitle=Summer Heat: Beach Volleyball [PAL-M5] (SLES_517.78)
+comment=Widescreen Hack by El_Patas
+
+//Both fov 16:9
+patch=1,EE,001B098C,word,3C01464F //3C014622
+
+//Vert fov 16:9
+patch=1,EE,001B0B40,word,3C013FB5 //3C013F88
+patch=1,EE,001B0B44,word,3421EA28 //34213127
+
+//Render fix
+patch=1,EE,001B0B20,word,3C01464F //3C014622

@@ -1,0 +1,15 @@
+gametitle=Magical Sports - Hard Hitter (New Price) (J)(SLPS-20205)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+
+//X-Fov
+//02210846 0000a4e7 040063c4 (1st)
+patch=1,EE,002128a4,word,0804d0cc
+
+patch=1,EE,00134330,word,46082102
+patch=1,EE,00134334,word,3c013f40
+patch=1,EE,00134338,word,4481f000
+patch=1,EE,0013433c,word,461e2102
+patch=1,EE,00134340,word,08084a2a

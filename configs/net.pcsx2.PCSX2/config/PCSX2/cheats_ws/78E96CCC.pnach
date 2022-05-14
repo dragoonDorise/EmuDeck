@@ -1,0 +1,21 @@
+﻿gametitle=Inuyasha - Juuso no Kamen [NTSC-J] (SLPS-25320)
+comment=Widescreen hack by miseru99 
+
+//3D field models
+patch=1,EE,2020E6E0,extended,3F400000
+patch=1,EE,2020E6E8,extended,3F400000
+//patch=1,EE,2020F684,extended,3FAAAAA8 //height - leaving in case anyone prefer taller/bigger characters
+//3D menu models
+patch=1,EE,202329D0,extended,3F400000
+patch=1,EE,202329D8,extended,3F400000
+//patch=1,EE,202353E4,extended,3FAAAAA8 //height - same as above
+//fights
+patch=1,EE,2024FB0C,extended,44555555
+//"after fight" screen
+patch=1,EE,D0247CA2,extended,00000023 //if "after fight screen" do:
+patch=1,EE,202461CC,extended,3F54924A
+//"if not" doesn't work, hence another 4 lines of code for wrongly affected stuff;p
+patch=1,EE,D0247CA2,extended,00000020
+patch=1,EE,202461CC,extended,3F8DB6DC
+patch=1,EE,D0247CA2,extended,00000021
+patch=1,EE,202461CC,extended,3F8DB6DC

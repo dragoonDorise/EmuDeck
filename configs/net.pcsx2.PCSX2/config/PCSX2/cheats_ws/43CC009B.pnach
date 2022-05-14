@@ -1,0 +1,10 @@
+gametitle=Slam Tennis (E)(SLES-50776)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+patch=1,EE,0016ead0,word,3c013f40 //3c013f80
+
+//Render fix
+patch=1,EE,0014edd4,word,3c013f2b //3c013f00

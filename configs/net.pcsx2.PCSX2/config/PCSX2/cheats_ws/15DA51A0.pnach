@@ -1,0 +1,26 @@
+gametitle=Gigawing Generations (DVD Convert)(E)(SLES-53548)
+comment=Widescreen hack  by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//000017e6 280000ae
+patch=1,EE,002ffbf4,word,08030000//e6170000
+
+patch=1,EE,000c0000,word,3c013f40
+patch=1,EE,000c0004,word,4481f000
+patch=1,EE,000c0008,word,461ebdc2
+patch=1,EE,000c000c,word,e6170000
+patch=1,EE,000c0010,word,080bfefe
+
+
+//Render fix
+//3003b0df 803f013c 00a88144 
+patch=1,EE,00327ac0,word,3c013f40 //3c013f80
+
+////////////////
+//X-Fov (Menu)
+//patch=1,EE,00327930,word,3c013f40 //3c013f80
+//X-Fov
+//803f013c 00688144 0045013c 00788144
+//patch=1,EE,00327998,word,3c013f40 //3c013f80

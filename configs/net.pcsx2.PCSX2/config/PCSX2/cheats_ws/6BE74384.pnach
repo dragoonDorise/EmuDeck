@@ -1,0 +1,12 @@
+gametitle=Astro Boy (K)(SLKA-25159)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Fov
+//a03f013c 00688144 e4310b0c
+patch=1,EE,002cb550,word,3c013fd5 //3c013fa0
+
+//Zoom
+//003f013c 00088144 0000bfdf
+patch=1,EE,0037f0d8,word,3c013ec0 //3c013f00

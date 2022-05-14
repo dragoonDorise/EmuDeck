@@ -1,0 +1,12 @@
+gametitle=Warriors Orochi 2 (NTSC-U) (SLUS-21803)
+
+//16:9
+patch=1,EE,2050E568,extended,3F19999A // 3F4CCCCD = 0.8 - 3F19999A = 0.6
+patch=1,EE,2050E7A8,extended,3F19999A // 3F4CCCCD = 0.8 - 3F19999A = 0.6
+
+//21:9
+//patch=1,EE,2050E568,extended,3EE66666 // 3F4CCCCD = 0.8 - 3EE66666 = 0.45
+//patch=1,EE,2050E7A8,extended,3EE66666 // 3F4CCCCD = 0.8 - 3EE66666 = 0.45
+
+//View Distance
+patch=1,EE,2050E598,extended,41200000 // 3F800000 = 1.0 - 41200000 = 10.0

@@ -1,0 +1,4 @@
+gametitle=NHL Hitz 2002
+comment=Widescreen hack
+patch=1,EE,204dc0a8,word,3F248B44
+patch=1,EE,2071fc18,word,3F2AE148

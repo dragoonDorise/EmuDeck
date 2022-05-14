@@ -1,0 +1,15 @@
+gametitle=The Fairly OddParents! Shadow Showdown (U)(SLUS-20880)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//02631646 540014c6
+patch=1,EE,00381f44,word,080f8a54
+
+patch=1,EE,003e2950,word,46166302
+patch=1,EE,003e2954,word,3c013faa
+patch=1,EE,003e2958,word,3421aaab
+patch=1,EE,003e295c,word,4481f000
+patch=1,EE,003e2960,word,461e6302
+patch=1,EE,003e2964,word,080e07d2

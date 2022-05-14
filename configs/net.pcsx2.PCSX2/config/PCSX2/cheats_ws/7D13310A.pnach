@@ -1,0 +1,7 @@
+gametitle=Tony Hawk's Downhill Jam SLUS_214.56
+comment=Widescreen Hack
+//d0ffbd27003f013c00108144 to d0ffbd27103f013c00108144
+//00000000aa3f013cabaa213400608144 to 00000000e33f013c398e213400608144
+patch=1,EE,00127cd4,word,3c013f10
+patch=1,EE,00157dc4,word,3c013fe3
+patch=1,EE,00157dc8,word,34218e39

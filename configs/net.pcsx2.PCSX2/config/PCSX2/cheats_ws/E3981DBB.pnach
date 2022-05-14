@@ -1,0 +1,14 @@
+gametitle=Atelier Iris Eternal Mana (NTSC) (SCUS-97198)
+comment=Widescreen hack by gamemasterplc 
+
+patch=1,EE,2021CFD8,extended,3C0144AB //Zoom-In Battle Camera View
+patch=1,EE,2024A3C4,extended,08030000 //Jump to Code for Resizing View
+patch=1,EE,200C0000,extended,3C013F40 //View Width Multiplier (.75f)
+patch=1,EE,200C0004,extended,44811000 //Load View Width Multiplier into f2
+patch=1,EE,200C0008,extended,080928F3 //Return to Original Code
+patch=1,EE,200C000C,extended,46020002 //Get Updated View X Axis Width (Delay Slot)
+patch=1,EE,202797E8,extended,2483FE56 //Tile Render Fix (Left)
+patch=1,EE,20279804,extended,248201AA //Tile Render Fix (Right)
+patch=1,EE,202BA3A4,extended,3C013F40 //3D Scenes Aspect Ratio Multiplier
+patch=1,EE,202BA3A8,extended,44810000 //Load 3D Scenes Aspect Ratio Multiplier into f0
+patch=1,EE,202BA3B0,extended,4600C602 //Fix 3D Scenes Aspect Ratio

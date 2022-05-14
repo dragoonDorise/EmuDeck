@@ -1,0 +1,7 @@
+gametitle=Hot Wheels - Stunt Track Challenge (U)(SLUS-20954)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,20BA949C,extended,3faaaaab //3f800000 fov
+patch=1,EE,20BCCD3C,extended,3faaaaab //3f800000 fov

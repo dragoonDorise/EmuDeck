@@ -1,0 +1,14 @@
+gametitle=Gacharoku 2 - Kondo wa Sekai Isshuu yo!! (J)(SCPS-11034)
+comment=Widescreen hack  by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//000018e6 280000ae 00000000
+patch=1,EE,00a7bdb8,word,082a9404
+
+patch=1,EE,00aa5010,word,3c013f40
+patch=1,EE,00aa5014,word,4481b800
+patch=1,EE,00aa5018,word,4617c602
+patch=1,EE,00aa501c,word,e6180000
+patch=1,EE,00aa5020,word,0829ef6f

@@ -1,0 +1,8 @@
+gametitle=MXRider (E)(SLES-50132)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//X-Fov
+//003f013c 00008144 8e3c013c (2nd)
+patch=1,EE,002ce274,word,3c013f20 //3c013f00

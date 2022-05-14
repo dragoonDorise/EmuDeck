@@ -1,0 +1,7 @@
+gametitle=Def Jam - Vendetta (J)(SLPS-25275)
+comment=Widescreen Hack (NTSC-K by Arapapa)
+
+//Widescreen hack 16:9
+
+patch=1,EE,001a36ec,word,3c013f10 //3c013f40
+patch=1,EE,00199b3c,word,3c013f22 //3c013f00

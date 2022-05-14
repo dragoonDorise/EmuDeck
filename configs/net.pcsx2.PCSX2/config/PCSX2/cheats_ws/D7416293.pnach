@@ -1,0 +1,6 @@
+gametitle=Golf Paradise DX (J)(SLPS-25027)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,203C50F0,extended,3f400000 //3f800000

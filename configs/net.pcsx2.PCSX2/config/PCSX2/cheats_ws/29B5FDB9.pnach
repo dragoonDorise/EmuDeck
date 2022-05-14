@@ -1,0 +1,8 @@
+gametitle=Shinobi [PAL-M5] (SCES_514.28)
+comment=Widescreen Hack by El_Patas
+
+//Gameplay 16:9 (50Hz Mode)
+patch=1,EE,00183A64,word,3C023F40 //3C023F80 (Increases hor. axis)
+ 
+//Gameplay 16:9 (60Hz Mode) 
+patch=1,EE,00183A88,word,3C023F40 //3C023F80 (Increases hor. axis)

@@ -1,0 +1,8 @@
+gametitle=Kengo 3 [NTSC-J] (SLPM_657.00)
+comment=Widescreen hack by El_Patas
+ 
+//Gameplay 16:9 (Memory hack)
+patch=1,EE,20868E38,extended,3F400000 //3F800000 (Increases hor. axis)
+
+//Render fix (ELF hack)
+patch=1,EE,001383A4,word,3C023FAB //3C023F00
