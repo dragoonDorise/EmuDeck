@@ -1629,19 +1629,14 @@ if [ $doInstallPowertools == true ]; then
 	if [ $continuePowerTools == true ]; then
 		echo "Installing ${BOLD} Plugin loader. Insert your password when required  ${NONE}"
 		curl -L https://github.com/SteamDeckHomebrew/PluginLoader/raw/main/dist/install_release.sh | sh	>> ~/emudeck/emudeck.log
+		echo -e "You need to enter your password now. ${BOLD}You won't see what you are writing, this is normal${NONE}"
 		sudo rm -rf ~/homebrew/plugins/PowerTools
 		sudo git clone https://github.com/NGnius/PowerTools.git ~/homebrew/plugins/PowerTools >> ~/emudeck/emudeck.log
 		sleep 1
 		cd ~/homebrew/plugins/PowerTools
 		sudo git checkout tags/v0.4.1 >> ~/emudeck/emudeck.log
-		text="$(printf "To finish the installation go into the Steam UI Settings\n\n
-		Under System -> System Settings toggle Enable Developer Mode\n\n
-		Scroll the sidebar all the way down and click on Developer\n\n
-		Under Miscellaneous, enable CEF Remote Debugging\n\n
-		In order to improve performance on Yuzu or Dolphin try configuring Powertools to activate only 4 CPU Cores\n\n
-		You can Access Powertools by presing the ... button and selecting the new Plugins Menu\n\n
-		\n\n
-		IMPORTANT - The Powertools menu is touch ONLY.\n\n")"
+		text="$(printf "To finish the installation go into the Steam UI Settings\n\nUnder System -> System Settings toggle Enable Developer Mode\n\nScroll the sidebar all the way down and click on Developer\n\nUnder Miscellaneous, enable CEF Remote Debugging\n\nIn order to improve performance on Yuzu or Dolphin try configuring Powertools to activate only 4 CPU Cores\n\nYou can Access Powertools by presing the ... button and selecting the new Plugins Menu\n\n
+		\n\nIMPORTANT - The Powertools menu is touch ONLY.\n\n")"
 		zenity --info \
 		   --title="EmuDeck" \
 		   --width=450 \
@@ -1685,7 +1680,7 @@ if [ $doInstallGyro == true ]; then
 		InstallGyro=$(bash <(curl -sL https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh))
 		echo $InstallGyro >> ~/emudeck/emudeck.log
 		# we should add special controller config installs here for gyro
-		text="$(printf "To finish the installation you must reboot your system.")"
+		text="$(printf "To finish the installation of PowerTools you must reboot your system. Ypu can continue the rest of the EmuDeck installation and rom configuration, but remember to reboot if you want to enable PowerTools")"
 		zenity --info \
 		   --title="EmuDeck" \
 		   --width=450 \
@@ -1731,7 +1726,7 @@ echo -e "Cleaning up downloaded files..."
 rm -rf ~/dragoonDoriseTools	
 clear
 
-text="`printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager to add your games to your SteamUI Interface.\n\n<b>Remember that Cemu games needs to be set in compatibility mode in SteamUI: Proton 7 by going into its Properties and then Compatibility</b>\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!"`"
+text="`printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager on your Desktop to add your games to your SteamUI Interface.\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!"`"
 
 zenity --question \
 		 --title="EmuDeck" \
