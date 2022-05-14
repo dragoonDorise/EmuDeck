@@ -422,11 +422,11 @@ if [ $expert == true ]; then
 			if [ -f "$FILE" ]; then	
 			text="Do you want to use your previous RetroArch customization?"
 			zenity --question \
-				 	--title="EmuDeck" \
-				 	--width=250 \
-				 	--ok-label="Yes" \
-				 	--cancel-label="No" \
-				 	--text="${text}" 2>/dev/null
+					 --title="EmuDeck" \
+					 --width=250 \
+					 --ok-label="Yes" \
+					 --cancel-label="No" \
+					 --text="${text}" 2>/dev/null
 			ans=$?
 			if [ $ans -eq 0 ]; then
 				echo "CustomRemain: Yes" &>> ~/emudeck/emudeck.log
@@ -870,8 +870,8 @@ if [ $doInstallXemu == "true" ]; then
 	flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
 	#write out launcher
 	echo "#!/bin/sh
-	/usr/bin/flatpak run app.xemu.xemu" > "${toolsPath}"launchers/xemu.sh
-	chmod +x "${toolsPath}"launchers/xemu.sh
+	/usr/bin/flatpak run app.xemu.xemu" > "${toolsPath}"launchers/xemu-emu.sh
+	chmod +x "${toolsPath}"launchers/xemu-emu.sh
 fi
 #if [ $doInstallMelon == "true" ]; then
 #	echo -e "Installing MelonDS"
@@ -1552,9 +1552,9 @@ if [ ! -d "$savesPath/rpcs3/dev_hdd0/savedata" ] && [ -d "~/.var/app/net.rpcs3.R
 		text="$(printf "Moving rpcs3 hdd0 to the Emulation/Saves folder\n\nDepending on how many pkgs you have installed, this may take a while.")"
 	fi
 	zenity --info \
-    --title="EmuDeck" \
-    --width=450 \
-    --text="${text}" 2>/dev/null
+	--title="EmuDeck" \
+	--width=450 \
+	--text="${text}" 2>/dev/null
 
 	mkdir -p "$savesPath/rpcs3" >> ~/emudeck/emudeck.log
 	rsync -r ~/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0 "$savesPath"/rpcs3/ && rm -rf ~/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0 >> ~/emudeck/emudeck.log
