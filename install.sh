@@ -1545,13 +1545,17 @@ if [ ! -d "$savesPath/pcsx2/states" ]; then
 fi
 
 #RPCS3
-if [ ! -d "$savesPath/rpcs3/dev_hdd0/savedata" ]; then		
-	echo -e ""
-	echo -e "Moving rpcs3 hdd0 to the Emulation/Saves folder"			
-	echo -e "Depending on how many pkgs you have installed, this may take a while."
+if [ ! -d "$savesPath/rpcs3/dev_hdd0/savedata" ]; then	
 	if [ $destination == "SD" ]; then
-		echo -e "If you don't have enough available space in your SD Card this will fail, clean up your SD Card and run EmuDeck Again."
+		text="$(printf "Moving rpcs3 hdd0 to the Emulation/Saves folder\n\nDepending on how many pkgs you have installed, this may take a while.<b>If you do not have enough available space in your SD Card this will fail, clean up your SD Card and run EmuDeck Again.</b>")"
+	else	
+		text="$(printf "Moving rpcs3 hdd0 to the Emulation/Saves folder\n\nDepending on how many pkgs you have installed, this may take a while.")"
 	fi
+	zenity --info \
+    --title="EmuDeck" \
+    --width=450 \
+    --text="${text}" 2>/dev/null
+
 	mkdir -p "$savesPath/rpcs3" >> ~/emudeck/emudeck.log
 	rsync -r ~/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0 "$savesPath"/rpcs3/ && rm -rf ~/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0 >> ~/emudeck/emudeck.log
 	#update config file for the new loc $(emulatorDir) is in the file. made this annoying.
