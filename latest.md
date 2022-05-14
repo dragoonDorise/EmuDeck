@@ -32,3 +32,4 @@
 - fixed SRM Parser for Installed PS3 games for internal users.
 - Expert mode will ask about Bezels and Autosave again
 - Cemu Script added to installers. Adding games to SRM no longer requires proton to be set manually.
+- Dolhin set as 16:9 by default on easy mode
