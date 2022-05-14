@@ -51,7 +51,7 @@ doUpdateYuzu=true
 doUpdateCitra=true
 doUpdateDuck=true
 doUpdateCemu=true
-doUpdateXenia=true
+doUpdateXenia=false
 doUpdateRyujinx=true
 doUpdatePrimeHacks=true
 doUpdatePPSSPP=true
@@ -357,8 +357,7 @@ if [ $expert == true ]; then
 				8 "PPSSPP" \
 				9 "Yuzu" \
 				10 "Cemu" \
-				11 "Xemu" \
-				12 "Xenia" 2>/dev/null)
+				11 "Xemu" 2>/dev/null)
 	clear
 	ans=$?	
 	if [ $ans -eq 0 ]; then
@@ -397,7 +396,7 @@ if [ $expert == true ]; then
 			doInstallXemu=true
 		fi
 		if [[ "$emusToInstall" == *"Xenia"* ]]; then
-			doInstallXenia=true
+			doInstallXenia=false
 		fi
 		#if [[ "$emusToInstall" == *"MelonDS"* ]]; then
 		#	doInstallMelon=true
@@ -665,7 +664,7 @@ else
 	doInstallCitra=true
 	doInstallDuck=true
 	doInstallCemu=true
-	doInstallXenia=true
+	doInstallXenia=false
 	doInstallPrimeHacks=true
 	doInstallPPSSPP=true
 	doInstallXemu=true

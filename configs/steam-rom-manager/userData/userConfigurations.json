@@ -871,10 +871,10 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": false,
+    "disabled": true,
     "advanced": false,
     "executable": {
-      "path": "/run/media/mmcblk0p1/Emulation/roms/xbox360/xenia.exe",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
