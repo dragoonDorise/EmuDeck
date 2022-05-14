@@ -98,6 +98,9 @@ toolsPath=~/Emulation/tools/
 biosPath=~/Emulation/bios/
 savesPath=~/Emulation/saves/
 
+#Default ESDE Theme
+esdeTheme="EPICNOIR"
+
 #Functions
 setESDEEmus(){		
 	emu=$1
@@ -983,26 +986,23 @@ git clone https://github.com/dragoonDorise/es-theme-epicnoir.git ~/.emulationsta
 cd ~/.emulationstation/themes/es-epicnoir && git pull
 echo -e "${GREEN}OK!${NONE}"
 
-if [ $expert == true ]; then
-
-	#Do this properly with wildcards
-	if [[ "$esdeTheme" == *"EPICNOIR"* ]]; then
-		sed -i "s|rbsimple-DE|es-epicnoir|" es_settings.xml >> ~/emudeck/emudeck.log
-		sed -i "s|modern-DE|es-epicnoir|" es_settings.xml >> ~/emudeck/emudeck.log
-		sed -i "s|es-epicnoir|es-epicnoir|" es_settings.xml >> ~/emudeck/emudeck.log
-	fi
-	if [[ "$esdeTheme" == *"MODERN-DE"* ]]; then
-		sed -i "s|rbsimple-DE|modern-DE|" es_settings.xml >> ~/emudeck/emudeck.log
-		sed -i "s|modern-DE|modern-DE|" es_settings.xml >> ~/emudeck/emudeck.log
-		sed -i "s|es-epicnoir|modern-DE|" es_settings.xml >> ~/emudeck/emudeck.log
-	fi
-	if [[ "$esdeTheme" == *"RBSIMPLE-DE"* ]]; then
-		sed -i "s|rbsimple-DE|rbsimple-DE|" es_settings.xml >> ~/emudeck/emudeck.log
-		sed -i "s|modern-DE|rbsimple-DE|" es_settings.xml >> ~/emudeck/emudeck.log
-		sed -i "s|es-epicnoir|rbsimple-DE|" es_settings.xml >> ~/emudeck/emudeck.log
-	fi
-
+#Do this properly with wildcards
+if [[ "$esdeTheme" == *"EPICNOIR"* ]]; then
+	sed -i "s|rbsimple-DE|es-epicnoir|" es_settings.xml >> ~/emudeck/emudeck.log
+	sed -i "s|modern-DE|es-epicnoir|" es_settings.xml >> ~/emudeck/emudeck.log
+	sed -i "s|es-epicnoir|es-epicnoir|" es_settings.xml >> ~/emudeck/emudeck.log
 fi
+if [[ "$esdeTheme" == *"MODERN-DE"* ]]; then
+	sed -i "s|rbsimple-DE|modern-DE|" es_settings.xml >> ~/emudeck/emudeck.log
+	sed -i "s|modern-DE|modern-DE|" es_settings.xml >> ~/emudeck/emudeck.log
+	sed -i "s|es-epicnoir|modern-DE|" es_settings.xml >> ~/emudeck/emudeck.log
+fi
+if [[ "$esdeTheme" == *"RBSIMPLE-DE"* ]]; then
+	sed -i "s|rbsimple-DE|rbsimple-DE|" es_settings.xml >> ~/emudeck/emudeck.log
+	sed -i "s|modern-DE|rbsimple-DE|" es_settings.xml >> ~/emudeck/emudeck.log
+	sed -i "s|es-epicnoir|rbsimple-DE|" es_settings.xml >> ~/emudeck/emudeck.log
+fi
+
 
 #ESDE default emulators
 mkdir -p  ~/.emulationstation/gamelists/
