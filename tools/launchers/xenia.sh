@@ -2,7 +2,7 @@
 ## Config
 PROTONVERSION='Proton - Experimental'
 # App Path
-APPPATH="/run/media/external/Emulation/roms/xbox360"
+APPPATH="/run/media/mmcblk0p1/Emulation/roms/xbox360"
 # Steam Path
 STEAMPATH="${HOME}/.local/share/Steam"
 # Proton Path
