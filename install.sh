@@ -1762,12 +1762,7 @@ if [ $doInstallGyro == true ]; then
 		echo "Installing ${BOLD} SteamDeckGyroDSU. Insert your password when required. ${NONE}"
 		InstallGyro=$(bash <(curl -sL https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh))
 		echo $InstallGyro >> ~/emudeck/emudeck.log
-		# we should add special controller config installs here for gyro
-		text="$(printf "To finish the installation of PowerTools you must reboot your system. Ypu can continue the rest of the EmuDeck installation and rom configuration, but remember to reboot if you want to enable PowerTools")"
-		zenity --info \
-		   --title="EmuDeck" \
-		   --width=450 \
-		   --text="${text}" 2>/dev/null
+		# we should add special controller config installs here for gyro	
 	else
 		echo "user did not continue Gyro install" >> ~/emudeck/emudeck.log
 	fi
