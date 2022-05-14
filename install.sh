@@ -870,8 +870,8 @@ if [ $doInstallXemu == "true" ]; then
 	flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
 	#write out launcher
 	echo "#!/bin/sh
-	/usr/bin/flatpak run app.xemu.xemu" > "${toolsPath}"launchers/xemu.sh
-	chmod +x "${toolsPath}"launchers/xemu.sh
+	/usr/bin/flatpak run app.xemu.xemu" > "${toolsPath}"launchers/xemu-emu.sh
+	chmod +x "${toolsPath}"launchers/xemu-emu.sh
 fi
 #if [ $doInstallMelon == "true" ]; then
 #	echo -e "Installing MelonDS"
