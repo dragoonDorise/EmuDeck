@@ -700,29 +700,30 @@ if [ $doInstallESDE == true ]; then
 		curl https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt --output "$toolsPath"/latesturl.txt >> ~/emudeck/emudeck.log
 		latestURL=$(grep "https://gitlab" "$toolsPath"/latesturl.txt)
 	fi
-	
-	curl $latestURL --output "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage >> ~/emudeck/emudeck.log
-	rm "$toolsPath"/latesturl.txt
-	chmod +x "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage	
-	
-	text="Which theme do you want to set as default on EmulationStation DE?"
-	esdeTheme=$(zenity --list \
-	--title="EmuDeck" \
-	--height=250 \
-	--width=250 \
-	--ok-label="OK" \
-	--cancel-label="Exit" \
-	--text="${text}" \
-	--radiolist \
-	--column="" \
-	--column="Theme" \
-	1 "EPICNOIR" \
-	2 "MODERN-DE" \
-	3 "RBSIMPLE-DE" 2>/dev/null)
-	clear
-	ans=$?	
-	if [ $ans -eq 0 ]; then
-		echo "Theme selected" &>> ~/emudeck/emudeck.log
+		curl $latestURL --output "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage >> ~/emudeck/emudeck.log
+		rm "$toolsPath"/latesturl.txt
+		chmod +x "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage	
+		
+	if [ $expert == true ]; then	
+		text="Which theme do you want to set as default on EmulationStation DE?"
+		esdeTheme=$(zenity --list \
+		--title="EmuDeck" \
+		--height=250 \
+		--width=250 \
+		--ok-label="OK" \
+		--cancel-label="Exit" \
+		--text="${text}" \
+		--radiolist \
+		--column="" \
+		--column="Theme" \
+		1 "EPICNOIR" \
+		2 "MODERN-DE" \
+		3 "RBSIMPLE-DE" 2>/dev/null)
+		clear
+		ans=$?	
+		if [ $ans -eq 0 ]; then
+			echo "Theme selected" &>> ~/emudeck/emudeck.log
+		fi
 	fi
 	
 fi
