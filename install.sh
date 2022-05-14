@@ -716,7 +716,7 @@ if [ $doInstallESDE == true ]; then
 	--radiolist \
 	--column="" \
 	--column="Theme" \
-	1 "EPICNOIR "\
+	1 "EPICNOIR" \
 	2 "MODERN-DE" \
 	3 "RBSIMPLE-DE" 2>/dev/null)
 	clear
