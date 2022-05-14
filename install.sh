@@ -978,7 +978,7 @@ sed -i "s|/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh|${toolsPath}lau
 cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/es_settings.xml ~/.emulationstation/es_settings.xml
 sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.emulationstation/es_settings.xml
 #sed -i "s|name=\"ROMDirectory\" value=\"/name=\"ROMDirectory\" value=\"${romsPathSed}/g" ~/.emulationstation/es_settings.xml
-mkdir ~/.emulationstation/themes/
+mkdir -p ~/.emulationstation/themes/
 git clone https://github.com/dragoonDorise/es-theme-epicnoir.git ~/.emulationstation/themes/es-epicnoir &>> /dev/null
 cd ~/.emulationstation/themes/es-epicnoir && git pull
 echo -e "${GREEN}OK!${NONE}"
