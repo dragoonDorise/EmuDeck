@@ -1819,8 +1819,10 @@ zenity --question \
 		 --text="${text}" 2>/dev/null
 ans=$?
 if [ $ans -eq 0 ]; then
+	kill -9 `pidof steam`
 	cd ~/Desktop/
 	./Steam-ROM-Manager.AppImage
+	qdbus org.kde.Shutdown /Shutdown org.kde.Shutdown.logout
 	exit
 else
 	echo -e "Exit" 2>/dev/null
