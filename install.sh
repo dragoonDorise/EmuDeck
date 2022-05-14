@@ -704,6 +704,27 @@ if [ $doInstallESDE == true ]; then
 	curl $latestURL --output "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage >> ~/emudeck/emudeck.log
 	rm "$toolsPath"/latesturl.txt
 	chmod +x "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage	
+	
+	text="What Theme do you want to set as default?"
+	esdeTheme=$(zenity --list \
+	--title="EmuDeck" \
+	--height=500 \
+	--width=250 \
+	--ok-label="OK" \
+	--cancel-label="Exit" \
+	--text="${text}" \
+	--checklist \
+	--column="" \
+	--column="Emulator" \
+	1 "EPICNOIR"\
+	2 "MODERN-DE" \
+	3 "RBSIMPLE-DE" 2>/dev/null)
+	clear
+	ans=$?	
+	if [ $ans -eq 0 ]; then
+		echo "Theme selected" &>> ~/emudeck/emudeck.log
+	fi
+	
 fi
 
 #We check if we have scrapped data on ESDE so we can move it to the SD card
@@ -933,6 +954,27 @@ mkdir ~/.emulationstation/themes/
 git clone https://github.com/dragoonDorise/es-theme-epicnoir.git ~/.emulationstation/themes/es-epicnoir &>> /dev/null
 cd ~/.emulationstation/themes/es-epicnoir && git pull
 echo -e "${GREEN}OK!${NONE}"
+
+if [ $expert == true ]; then
+
+	#Do this properly with wildcards
+	if [[ "$esdeTheme" == *"EPICNOIR"* ]]; then
+		sed -i "s|rbsimple-DE|es-epicnoir|" es_settings.xml >> ~/emudeck/emudeck.log
+		sed -i "s|modern-DE|es-epicnoir|" es_settings.xml >> ~/emudeck/emudeck.log
+		sed -i "s|es-epicnoir|es-epicnoir|" es_settings.xml >> ~/emudeck/emudeck.log
+	fi
+	if [[ "$esdeTheme" == *"MODERN-DE"* ]]; then
+		sed -i "s|rbsimple-DE|modern-DE|" es_settings.xml >> ~/emudeck/emudeck.log
+		sed -i "s|modern-DE|modern-DE|" es_settings.xml >> ~/emudeck/emudeck.log
+		sed -i "s|es-epicnoir|modern-DE|" es_settings.xml >> ~/emudeck/emudeck.log
+	fi
+	if [[ "$esdeTheme" == *"RBSIMPLE-DE"* ]]; then
+		sed -i "s|rbsimple-DE|rbsimple-DE|" es_settings.xml >> ~/emudeck/emudeck.log
+		sed -i "s|modern-DE|rbsimple-DE|" es_settings.xml >> ~/emudeck/emudeck.log
+		sed -i "s|es-epicnoir|rbsimple-DE|" es_settings.xml >> ~/emudeck/emudeck.log
+	fi
+
+fi
 
 #ESDE default emulators
 mkdir -p  ~/.emulationstation/gamelists/
