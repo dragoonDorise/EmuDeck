@@ -31,3 +31,5 @@
 - Fixed SRM Parser for Installed PS3 games for internal users.
 - Expert mode will ask about Bezels and Autosave again
 - Dolphin set as 16:9 by default on easy mode
+- Fix Sega Genesis missing extension and adds Commodore 64
+- Add support for holoISO
