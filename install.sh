@@ -748,8 +748,15 @@ if [ $doInstallSRM == true ]; then
 	chmod +x ~/Desktop/Steam-ROM-Manager.AppImage
 fi
 
-#We only want to execute on non-valve hardware.
+#Support for non-valve hardware.
 if [[ ! "$(cat /sys/devices/virtual/dmi/id/product_name)" =~ Jupiter ]]; then
+
+	text="$(printf "Hey! This is not an SteamDeck. EmuDeck can work just fine, but you need to have a valid account\n\nThe script will ask for your password to make sure everything wokrs as expected")"
+zenity --info \
+   --title="EmuDeck" \
+   --width=450 \
+   --text="${text}" 2>/dev/null
+
 	#Ensure the dependencies are installed before proceeding.
 	for package in packagekit-qt5 flatpak rsync unzip
 	do
