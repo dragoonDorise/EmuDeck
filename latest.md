@@ -1,5 +1,5 @@
 0.17.3
-- New ESDE Epic Noir Theme set as default 
+- New ESDE Epic Noir Theme set as default & Theme Selector 
 - Ability to launch WiiU Games from ESDE
 - Cemu Script added to installers. Adding WiiU games to SRM no longer requires proton to be set, it just works TM!
 - Widescreen Hacks for PS2 Games - Only US
