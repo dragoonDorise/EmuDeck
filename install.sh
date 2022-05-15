@@ -452,7 +452,7 @@ if [ $expert == true ]; then
 		else		
 			exit		
 		fi			
-	
+	fi
 	#We mark we've made a custom configuration for future updates
 	echo "" > ~/emudeck/.custom
 	
