@@ -270,6 +270,7 @@ if [ $expert == true ]; then
 		doSNESAR87=false
 		doSelectWideScreen=false
 		doRASignIn=false
+		doRAEnable=false
     
 		#one entry per expert mode feature
         table=()
@@ -284,9 +285,10 @@ if [ $expert == true ]; then
 		table+=(TRUE "selectRAAutoSave" "Turn on Retroarch AutoSave/Restore state?")
 		table+=(TRUE "snesAR" "SNES 8:7 Aspect Ratio? (unchecked is 4:3)")
 		table+=(TRUE "selectWideScreen" "Customize Emulator Widescreen Selection?")
+		table+=(TRUE "setRAEnabled" "Enable Retroachievments in Retroarch?")
 		table+=(TRUE "setRASignIn" "Change RetroAchievements Sign in?")
 
-		declare -i height=(${#table[@]}*70)
+		declare -i height=(${#table[@]}*50)
 
         expertModeFeatureList=$(zenity  --list --checklist --width=1000 --height=${height} \
         --column="Select?"  \
@@ -330,8 +332,12 @@ if [ $expert == true ]; then
 			doSelectWideScreen=true
 		fi
 		if [[ "$expertModeFeatureList" == *"setRASignIn"* ]]; then
-			setRASignIn=true
+			doRASignIn=true
 		fi
+		if [[ "$expertModeFeatureList" == *"setRAEnable"* ]]; then
+			doRAEnable=true
+		fi
+		
 	
 	if [[ $doSelectEmulators ]]; then
 		
@@ -1497,67 +1503,44 @@ fi
 
 #RetroAchievments
 #Disabled until we know why in the world the deck's screen keyword can't type in a zenity dialog
-if [ -f ~/emudeck/.rap ]; then 
+if [[ ! -f ~/emudeck/.rap && $doRAEnable ] || $doRASignIn ]; then
+
+	text=$(printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>\n\nActivating RetroAchievments will disable save states unless you disable hardcore mode\n\n\n\nPress STEAM + X to get the onscreen Keyboard")
+	RAInput=$(zenity --forms \
+            --title="Retroachievements Sign in" \
+            --text="$text" \
+            --add-entry="Username: " \
+            --add-password="Password: " \
+            --separator="," 2>/dev/null)
+            
+	if [ $ans -eq 0 ]; then
+		echo "RetroAchievment Login"&>> ~/emudeck/emudeck.log
+		echo $RAInput | awk -F "," '{print $1}' > ~/emudeck/.rau
+		echo $RAInput | awk -F "," '{print $2}' > ~/emudeck/.rap
+		rap=$(cat ~/emudeck/.rap)
+		rau=$(cat ~/emudeck/.rau)
+		if [ ${#rap} -lt 1 ]; then
+			echo "No password"
+			doRAEnable=false
+		elif [ ${#rau} -lt 1 ]; then
+			echo "No username"
+			doRAEnable=false
+		else
+			echo "Valid Username and Password"
+		fi
+	else
+		echo "Cancel RetroAchievment Login" &>> ~/emudeck/emudeck.log
+	fi
+		
+
+fi
+if [ -f ~/emudeck/.rap && $doRAEnable ]; then 
 	rap=$(cat ~/emudeck/.rap)
 	rau=$(cat ~/emudeck/.rau)
 
 	sed -i "s|cheevos_password = \"\"|cheevos_password = \"${rap}\"|g" $raConfigFile	
 	sed -i "s|cheevos_username = \"\"|cheevos_username = \"${rau}\"|g" $raConfigFile	
 	sed -i "s|cheevos_enable = \"false\"|cheevos_enable = \"true\"|g" $raConfigFile
-	
-
-else
-
-	text="`printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>\n\n Activating RetroAchievments will disable save states unless you disable hardcore mode "`"
-	zenity --question \
-			 --title="EmuDeck" \
-			 --width=450 \
-			 --ok-label="Yes" \
-			 --cancel-label="No" \
-			 --text="${text}" 2>/dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		text="`printf "What is your RetroAchievments username?\n\nPress STEAM + X to get the onscreen Keyboard"`"
-		username=$(zenity --entry \
-						--title="EmuDeck" \
-						--width=450 \
-						--ok-label="OK" \
-						--cancel-label="Cancel" \
-						--text="${text}" 2>/dev/null)
-		ans=$?
-		if [ $ans -eq 0 ]
-		then
-			echo "${username}" > ~/emudeck/.rau
-			text="`printf "What is your RetroAchievments password?\n\nPress STEAM + X to get the onscreen Keyboard"`"
-			password=$(zenity --password \
-							  --title="EmuDeck" \
-							  --width=450 \
-							  --ok-label="OK" \
-							  --cancel-label="Cancel" \
-							  --text="${text}" 2>/dev/null)							  
-			ans=$?
-			if [ $ans -eq 0 ]
-			then
-				echo "${password}" > ~/emudeck/.rap
-			else
-				echo "Cancel RetroAchievment Password" 2>/dev/null
-			fi
-		else
-			echo "Cancel RetroAchievment User" 2>/dev/null
-		fi
-		
-		rap=$(cat ~/emudeck/.rap)
-		rau=$(cat ~/emudeck/.rau)
-		
-		sed -i "s|cheevos_password = \"\"|cheevos_password = \"${rap}\"|g" $raConfigFile	
-		sed -i "s|cheevos_username = \"\"|cheevos_username = \"${rau}\"|g" $raConfigFile	
-		sed -i "s|cheevos_enable = \"false\"|cheevos_enable = \"true\"|g" $raConfigFile
-		
-	else
-		echo "" 2>/dev/null		
-	
-	fi
-
 fi
 
 if [ $doInstallCHD == true ]; then
