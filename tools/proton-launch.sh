@@ -9,7 +9,7 @@ Help () {
     # Display Help
     echo "This script will open a program via Proton"
     echo
-    echo "Syntax: proton-launch [-h|p|o|i] <path-to-target>"
+    echo "Syntax: proton-launch [-h|p|i] -- <path-to-target> <target options>"
     echo "options:"
     echo "h     Print this Help."
     echo "p     Proton version"
