@@ -13,7 +13,6 @@ Help () {
     echo "options:"
     echo "h     Print this Help."
     echo "p     Proton version"
-    echo "o     Command line options for target application"
     echo "i     Proton AppID"
     echo
     exit
