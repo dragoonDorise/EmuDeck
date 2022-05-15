@@ -427,7 +427,7 @@ if [ $expert == true ]; then
 	fi	
 	
 
-	if [[ $doSelectWideScreen=true ]]
+	if [[ $doSelectWideScreen=true ]]; then
 		#Emulators screenHacks
 		text="`printf "We use 16:9 widescreen hacks on some emulators, if you want them to have the original 4:3 aspect ratio please select them on the following list"`"
 		wideToInstall=$(zenity --list \
@@ -465,7 +465,7 @@ if [ $expert == true ]; then
 		else		
 			exit		
 		fi			
-	
+	fi
 	#We mark we've made a custom configuration for future updates
 	echo "" > ~/emudeck/.custom
 	
