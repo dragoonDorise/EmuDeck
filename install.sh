@@ -271,6 +271,8 @@ if [ $expert == true ]; then
 		doSelectWideScreen=false
 		doRASignIn=false
 		doRAEnable=false
+		doESDEThemePicker=false
+		doXboxButtons=false
     
 		#one entry per expert mode feature
         table=()
@@ -287,6 +289,8 @@ if [ $expert == true ]; then
 		table+=(TRUE "selectWideScreen" "Customize Emulator Widescreen Selection?")
 		table+=(TRUE "setRAEnabled" "Enable Retroachievments in Retroarch?")
 		table+=(TRUE "setRASignIn" "Change RetroAchievements Sign in?")
+		table+=(TRUE "doESDEThemePicker" "Choose your EmulationStation-DE Theme?")
+		#table+=(TRUE "doXboxButtons" "Should facebutton letters match between Nintendo and Steamdeck? (default is matched location)")
 
 		declare -i height=(${#table[@]}*50)
 
@@ -337,9 +341,12 @@ if [ $expert == true ]; then
 		if [[ "$expertModeFeatureList" == *"setRAEnable"* ]]; then
 			doRAEnable=true
 		fi
+		if [[ "$expertModeFeatureList" == *"doESDEThemePicker"* ]]; then
+			doESDEThemePicker=true
+		fi
 		
 	
-	if [[ $doSelectEmulators ]]; then
+	if [[ $doSelectEmulators=true ]]; then
 		
 		#Emulator selector
 		text="`printf "What emulators do you want to install?"`"
@@ -420,7 +427,7 @@ if [ $expert == true ]; then
 	fi	
 	
 
-	if [[ $doSelectWideScreen ]]
+	if [[ $doSelectWideScreen=true ]]
 		#Emulators screenHacks
 		text="`printf "We use 16:9 widescreen hacks on some emulators, if you want them to have the original 4:3 aspect ratio please select them on the following list"`"
 		wideToInstall=$(zenity --list \
@@ -462,7 +469,7 @@ if [ $expert == true ]; then
 	#We mark we've made a custom configuration for future updates
 	echo "" > ~/emudeck/.custom
 	
-	if [[ $doCustomEmulators ]]
+	if [[ $doCustomEmulators=true ]]; then
 		# Configuration that only appplies to previous users
 		if [ -f "$SECONDTIME" ]; then
 			#We make sure all the emus can write its saves outside its own folders.
@@ -659,8 +666,8 @@ fi
 #Support for non-valve hardware.
 if [[ ! "$(cat /sys/devices/virtual/dmi/id/product_name)" =~ Jupiter ]]; then
 
-	text="$(printf "Hey! This is not an SteamDeck. EmuDeck can work just fine, but you need to have a valid account\n\nThe script will ask for your password to make sure everything wokrs as expected")"
-zenity --info \
+	text="$(printf "Hey! This is not an SteamDeck. EmuDeck can work just fine, but you need to have a valid user account\n\nThe script will ask for your password to make sure everything works as expected.")"
+	zenity --info \
    --title="EmuDeck" \
    --width=450 \
    --text="${text}" 2>/dev/null
@@ -1503,7 +1510,7 @@ fi
 
 #RetroAchievments
 #Disabled until we know why in the world the deck's screen keyword can't type in a zenity dialog
-if [[ ! -f ~/emudeck/.rap && $doRAEnable ] || $doRASignIn ]; then
+if [[ ! -f ~/emudeck/.rap && $doRAEnable=true ] || $doRASignIn=true ]; then
 
 	text=$(printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>\n\nActivating RetroAchievments will disable save states unless you disable hardcore mode\n\n\n\nPress STEAM + X to get the onscreen Keyboard")
 	RAInput=$(zenity --forms \
@@ -1534,7 +1541,7 @@ if [[ ! -f ~/emudeck/.rap && $doRAEnable ] || $doRASignIn ]; then
 		
 
 fi
-if [ -f ~/emudeck/.rap && $doRAEnable ]; then 
+if [ -f ~/emudeck/.rap && $doRAEnable=true ]; then 
 	rap=$(cat ~/emudeck/.rap)
 	rau=$(cat ~/emudeck/.rau)
 
