@@ -1,6 +1,7 @@
+##Requires -RunAsAdministrator
 $env:path = $env:path + ";C:\Program Files\WinRaR"
-$winPath=-join((Get-Item .\EmuDeck.bat).PSDrive.Name,':')
-
+#$winPath=-join((Get-Item .\EmuDeck.bat).PSDrive.Name,':')
+$winPath = Get-Location
 function waitForWinRar(){
 	While(1){
 		$winrar = [bool](Get-Process Winrar -EA SilentlyContinue)
@@ -31,6 +32,16 @@ function download($url, $output) {
 			del $output
 		}
 	}
+	Write-Host "Done!" -ForegroundColor green -BackgroundColor black
+}
+
+function downloadCore($url, $output) {	
+	$Path = Get-Location
+	$Path = -join($Path,$output)
+	$wc = New-Object net.webclient
+	$wc.Downloadfile($url, $Path)  
+	Expand-Archive $Path .\tools\EmulationStation-DE\Emulators\RetroArch\cores\ -Force
+	del $Path	
 }
 
 function Show-Notification {
@@ -42,7 +53,8 @@ function Show-Notification {
 		[parameter(ValueFromPipeline)]
 		$ToastText
 	)
-
+	$echo = -join($ToastTitle,'...')
+	echo $echo
 	[Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] > $null
 	$Template = [Windows.UI.Notifications.ToastNotificationManager]::GetTemplateContent([Windows.UI.Notifications.ToastTemplateType]::ToastText02)
 
@@ -75,6 +87,7 @@ function sedFile($file, $old, $new){
 }
 
 
+
 $installationPath = "C:\Emulation\"
 $url_ra = "https://buildbot.libretro.com/stable/1.10.3/windows/x86_64/RetroArch.7z"
 $url_dolphin = "https://dl.dolphin-emu.org/builds/c0/39/dolphin-master-5.0-16101-x64.7z"
@@ -87,14 +100,14 @@ $url_xenia = "https://github.com/xenia-project/release-builds-windows/releases/l
 $url_xemu = "https://github.com/mborgerson/xemu/releases/latest/download/xemu-win-release.zip"
 $url_srm = "https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.36/Steam-ROM-Manager-portable-2.3.36.exe"
 $url_esde = "https://gitlab.com/es-de/emulationstation-de/-/package_files/36880305/download"
-$url_xemu = "https://github.com/mborgerson/xemu/releases/latest/download/xemu-win-release.zip"
+
 
 
 Write-Host "Hi! Welcome to EmuDeck Windows Edition." -ForegroundColor blue -BackgroundColor black
 echo ""
-echo "This script will create an Emulation folder in the same folder as this file"
-echo "and in there it will download all the needed emulators, EmulationStation and Steam Rom Manager."
-Write-Host "If you want to install EmuDeck on another drive, just move Emudeck.bat there now and open it again." -ForegroundColor red -BackgroundColor black
+echo "This script will create an Emulation folder in $winPath"
+echo "This folder will store your Emulators, Roms, Bios, EmulationStation and Steam Rom Manager."
+Write-Host "If you want to install EmuDeck on another place, just move Emudeck.bat there now and open it again." -ForegroundColor red -BackgroundColor black
 echo "Before you continue make sure you have WinRar installed"
 echo "You can download Winrar from https://www.win-rar.com/download.html"
 echo ""
@@ -107,14 +120,13 @@ clear
 mkdir Emulation -ErrorAction SilentlyContinue
 cd Emulation
 mkdir bios -ErrorAction SilentlyContinue
-mkdir emulators -ErrorAction SilentlyContinue
 mkdir tools -ErrorAction SilentlyContinue
 mkdir saves -ErrorAction SilentlyContinue
 
 clear
 
 echo "Installing, please stand by..."
-
+echo ""
 #EmuDeck Download
 Show-Notification -ToastTitle "Downloading EmuDeck files"
 download "https://github.com/dragoonDorise/EmuDeck/archive/refs/heads/main.zip" "temp.zip"
@@ -122,10 +134,13 @@ moveFromTemp "temp\EmuDeck-main" "EmuDeck"
 moveFromTemp "EmuDeck\roms" "roms"
 
 
-
+#Dowloading..ESDE
+Show-Notification -ToastTitle 'Downloading EmulationStation DE'
+download $url_esde "esde.zip"
+moveFromTemp "esde\EmulationStation-DE" "tools/EmulationStation-DE"
 
 #
-#We download all the emulators
+#We download all the Emulators
 #
 
 
@@ -143,44 +158,35 @@ Show-Notification -ToastTitle 'Downloading RPCS3'
 download $url_rpcs3 "rpcs3.7z"
 #Xemu
 Show-Notification -ToastTitle 'Downloading Xemu'
-download $url_xemu "xemu.zip"
-moveFromTemp "xemu-win-release" "emulators\xemu"
+download $url_xemu "xemu-win-release.zip"
+moveFromTemp "xemu-win-release" "tools\EmulationStation-DE\Emulators\xemu"
 #Yuzu
 Show-Notification -ToastTitle 'Downloading Yuzu'
 download $url_yuzu "yuzu.zip"
-moveFromTemp "yuzu\yuzu-windows-msvc" "emulators\yuzu"
+moveFromTemp "yuzu\yuzu-windows-msvc" "tools\EmulationStation-DE\Emulators\yuzu\yuzu-windows-msvc"
 #Citra
 #download "https://github.com/citra-emu/citra-web/releases/download/1.0/citra-setup-windows.exe" "citra.exe"
 #Duckstation
 Show-Notification -ToastTitle 'Downloading DuckStation'
 download $url_duck "duckstation.zip"
-moveFromTemp "duckstation" "emulators\duckstation"
+moveFromTemp "duckstation" "tools\EmulationStation-DE\Emulators\duckstation"
 #Cemu
 Show-Notification -ToastTitle 'Downloading Cemu'
 download $url_cemu "cemu.zip"
-moveFromTemp "cemu\cemu_1.26.2" "emulators\cemu"
+moveFromTemp "cemu\cemu_1.26.2" "tools\EmulationStation-DE\Emulators\cemu"
 #Xenia
 Show-Notification -ToastTitle 'Downloading Xenia'
 download $url_xenia "xenia.zip"
-moveFromTemp "xenia" "emulators\xenia"
-#Xemu
-Show-Notification -ToastTitle 'Downloading Xemu'
-download $url_xemu "xemu.zip"
-moveFromTemp "xemu" "emulators\xemu"
+moveFromTemp "xenia" "tools\EmulationStation-DE\Emulators\xenia"
 #SRM
 Show-Notification -ToastTitle 'Downloading Steam Rom Manager'
 download $url_srm "tools/srm.exe"
-#ESDE
-Show-Notification -ToastTitle 'Downloading EmulationStation DE'
-download $url_esde "esde.zip"
-moveFromTemp "esde\EmulationStation-DE" "tools/EmulationStation-DE"
-#We wait for winrar to finish
 
 Show-Notification -ToastTitle 'Cleaning up...'
-moveFromTemp "ra\RetroArch-Win64" "emulators\retroarch"
-moveFromTemp "pcsx2\PCSX2 1.6.0" "emulators\pcsx2"
-moveFromTemp "rpcs3" "emulators\rpcs3"
-moveFromTemp "dolphin\Dolphin-x64" "emulators\dolphin"
+moveFromTemp "ra\RetroArch-Win64" "tools\EmulationStation-DE\Emulators\RetroArch"
+moveFromTemp "pcsx2\PCSX2 1.6.0" "tools\EmulationStation-DE\Emulators\PCSX2"
+moveFromTemp "rpcs3" "tools\EmulationStation-DE\Emulators\RPCS3"
+moveFromTemp "dolphin\Dolphin-x64" "tools\EmulationStation-DE\Emulators\Dolphin-x64"
 rmdir cemu
 rmdir ra
 rmdir dolphin
@@ -188,7 +194,7 @@ rmdir esde
 rmdir pcsx2
 rmdir yuzu
 rmdir temp
-
+Write-Host "Done!" -ForegroundColor green -BackgroundColor black
 #Emulators config
 Show-Notification -ToastTitle 'Configuring Emulators'
 $userFolder = $env:USERPROFILE
@@ -196,59 +202,78 @@ $dolphinDir = -join($userFolder,'\Documents\Dolphin Emulator\Config')
 $duckDir = -join($userFolder,'\Documents\DuckStation')
 $yuzuDir = -join($userFolder,'\AppData\Roaming\yuzu')
 $dolphinIni=-join($dolphinDir,'\Dolphin.ini')
-$YuzuIni=-join($dolphinDir,'\qt-config.ini')
+$YuzuIni=-join($yuzuDir,'\qt-config.ini')
 $duckIni=-join($duckDir,'\settings.ini')
 $deckPath="/run/media/mmcblk0p1"
-$raConfigDir=-join($winPath,'\Emulation\emulators\retroarch\')
-
-#To do
+$raConfigDir=-join($winPath,'\Emulation\tools\EmulationStation-DE\Emulators\RetroArch\')
+$raExe=-join($winPath,'\\Emulation\\tools\EmulationStation-DE\Emulators\\RetroArch\\','retroarch.exe')
 
 #moveFromTemp "EmuDeck\configs\org.citra_emu.citra" "XXXX"
 #moveFromTemp "EmuDeck\configs\org.ryujinx.Ryujinx" "XXXX"
 
 moveFromTemp "EmuDeck\configs\org.DolphinEmu.dolphin-emu\config\dolphin-emu" $dolphinDir
-moveFromTemp "EmuDeck\configs\info.cemu.Cemu\data\cemu" "emulators\cemu"
-moveFromTemp "EmuDeck\configs\org.libretro.RetroArch\config\retroarch" "emulators\retroarch"
-moveFromTemp "EmuDeck\configs\net.pcsx2.PCSX2\config\PCSX2" "emulators\pcsx2"
-moveFromTemp "EmuDeck\configs\net.rpcs3.RPCS3\config\rpcs3" "emulators\rpcs3"
+moveFromTemp "EmuDeck\configs\info.cemu.Cemu\data\cemu" "tools\EmulationStation-DE\Emulators\cemu"
+moveFromTemp "EmuDeck\configs\org.libretro.RetroArch\config\retroarch" "tools\EmulationStation-DE\Emulators\RetroArch"
+moveFromTemp "EmuDeck\configs\net.pcsx2.PCSX2\config\PCSX2" "tools\EmulationStation-DE\Emulators\PCSX2"
+moveFromTemp "EmuDeck\configs\net.rpcs3.RPCS3\config\rpcs3" "tools\EmulationStation-DE\Emulators\RPCS3"
 moveFromTemp "EmuDeck\configs\org.duckstation.DuckStation\data\duckstation" $duckDir
 moveFromTemp "EmuDeck\configs\steam-rom-manager" "tools"
 moveFromTemp "EmuDeck\configs\org.yuzu_emu.yuzu" $yuzuDir
-moveFromTemp "EmuDeck\configs\emulationstation" "tools\EmulationStation-DE\.emulationstation" 
-moveFromTemp "EmuDeck\configs\app.xemu.xemu\data\xemu\xemu" "emulators\xemu"
-moveFromTemp "EmuDeck\configs\xenia" "emulators\xenia"
+#moveFromTemp "EmuDeck\configs\emulationstation" "tools\EmulationStation-DE\.emulationstation"
+moveFromTemp "EmuDeck\configs\app.xemu.xemu\data\xemu\xemu" "tools\EmulationStation-DE\Emulators\xemu"
+moveFromTemp "EmuDeck\configs\xenia" "tools\EmulationStation-DE\Emulators\xenia"
+mkdir tools\EmulationStation-DE\.emulationstation\  -ErrorAction SilentlyContinue
+copy EmuDeck\configs\emulationstation\es_settings.xml tools\EmulationStation-DE\.emulationstation\es_settings.xml
+Write-Host "Done!" -ForegroundColor green -BackgroundColor black
 
-$deckPath="/run/media/mmcblk0p1"
-
-sedFile 'emulators\xemu\xemu.ini' $deckPath $winPath
-sedFile 'emulators\xemu\xemu.toml' $deckPath $winPath
-sedFile 'emulators\cemu\settings.xml' 'Z:/run/media/mmcblk0p1' $winPath
-sedFile 'emulators\cemu\settings.xml' 'roms/wiiu/roms' 'roms\wiiu\'
+Show-Notification -ToastTitle 'Applying Windows Especial configurations'
+sedFile 'tools\EmulationStation-DE\Emulators\xemu\xemu.ini' $deckPath $winPath
+sedFile 'tools\EmulationStation-DE\Emulators\xemu\xemu.toml' $deckPath $winPath
+sedFile 'tools\EmulationStation-DE\Emulators\cemu\settings.xml' 'Z:/run/media/mmcblk0p1' $winPath
+sedFile 'tools\EmulationStation-DE\Emulators\cemu\settings.xml' 'roms/wiiu/roms' 'roms\wiiu\'
 sedFile $dolphinIni $deckPath $winPath
-sedFile 'tools\userData\userConfigurations.json' 'Z:' ''
-sedFile 'tools\userData\userConfigurations.json' $deckPath $winPath
-sedFile 'tools\EmulationStation-DE\.emulationstation\es_settings.xml' $deckPath $winPath
-sedFile 'tools\EmulationStation-DE\.emulationstation\custom_systems\es_systems.xml' '/usr/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh' 'E:\Emulation\emulators\cemu\cemu.exe'
-sedFile 'tools\EmulationStation-DE\.emulationstation\custom_systems\es_systems.xml' 'z:%' ''
-sedFile 'emulators\pcsx2\inis\PCSX2_ui.ini' $deckPath $winPath
+sedFile 'tools\EmulationStation-DE\Emulators\PCSX2\inis\PCSX2_ui.ini' $deckPath $winPath
 sedFile $YuzuIni $deckPath $winPath
 sedFile $duckIni $deckPath $winPath
 
+
+#SRM
+sedFile 'tools\userData\userConfigurations.json' 'Z:' ''
+sedFile 'tools\userData\userConfigurations.json' $deckPath $winPath
+sedFile 'tools\userData\userConfigurations.json' '/home/deck/.steam/steam' 'C:\\Program Files (x86)\\Steam'
+sedFile 'tools\userData\userConfigurations.json' 'run org.libretro.RetroArch' $raExe
+
+#ESDE
+sedFile 'tools\EmulationStation-DE\.emulationstation\es_settings.xml' $deckPath $winPath
+sedFile 'tools\EmulationStation-DE\.emulationstation\es_settings.xml' '/Emulation/roms/' 'Emulation\roms\'
+
 #RetroArch especial fixes
-sedFile 'emulators\retroarch\retroarch.cfg' $deckPath $winPath
-sedFile 'emulators\retroarch\retroarch.cfg' '~/.var/app/org.libretro.RetroArch/config/retroarch/' $raConfigDir
-sedFile 'emulators\retroarch\retroarch.cfg' '/app/share/libretro/' ':'
-sedFile 'emulators\retroarch\retroarch.cfg' '/"' '\"'
-sedFile 'emulators\retroarch\retroarch.cfg' 'http://localhost:4404\' 'http://localhost:4404/'
-sedFile 'emulators\retroarch\retroarch.cfg' '/app/lib/retroarch/filters/' '\app\lib\retroarch\filters\'
-sedFile 'emulators\retroarch\retroarch.cfg' 'database/' 'database\'
-sedFile 'emulators\retroarch\retroarch.cfg' 'http://buildbot.libretro.com/nightly/linux/x86_64/latest\' 'http://buildbot.libretro.com/nightly/linux/x86_64/latest/'
-sedFile 'emulators\retroarch\retroarch.cfg' 'config/remaps' 'config\remaps'
-sedFile 'emulators\retroarch\retroarch.cfg' '/Emulation/bios' '\Emulation\bios'
-sedFile 'emulators\retroarch\retroarch.cfg' 'video4linux2' ''
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' $deckPath $winPath
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' '~/.var/app/org.libretro.RetroArch/config/retroarch/' $raConfigDir
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' '/app/share/libretro/' ':\'
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' '/"' '\"'
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' 'http://localhost:4404\' 'http://localhost:4404/'
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' '/app/lib/retroarch/filters/' '\app\lib\retroarch\filters\'
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' 'database/' 'database\'
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' 'http://buildbot.libretro.com/nightly/linux/x86_64/latest\' 'http://buildbot.libretro.com/nightly/windows/x86_64/latest/'
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' 'config/remaps' 'config\remaps'
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' '/Emulation/bios' '\Emulation\bios'
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' 'video4linux2' ''
 
-#sedFile 'emulators\citra\qt-config.ini' $deckPath $winPath
+#sedFile 'tools\EmulationStation-DE\Emulators\citra\qt-config.ini' $deckPath $winPath
 
 
+Show-Notification -ToastTitle 'Downloading RetroArch Cores'
+mkdir "tools\EmulationStation-DE\Emulators\RetroArch\cores"  -ErrorAction SilentlyContinue
+
+$RAcores = @('a5200_libretro.dll','81_libretro.dll','atari800_libretro.dll','bluemsx_libretro.dll','chailove_libretro.dll','fbneo_libretro.dll','freechaf_libretro.dll','freeintv_libretro.dll','fuse_libretro.dll','gearsystem_libretro.dll','gw_libretro.dll','hatari_libretro.dll','lutro_libretro.dll','mednafen_pcfx_libretro.dll','mednafen_vb_libretro.dll','mednafen_wswan_libretro.dll','mu_libretro.dll','neocd_libretro.dll','nestopia_libretro.dll','nxengine_libretro.dll','o2em_libretro.dll','picodrive_libretro.dll','pokemini_libretro.dll','prboom_libretro.dll','prosystem_libretro.dll','px68k_libretro.dll','quasi88_libretro.dll','scummvm_libretro.dll','squirreljme_libretro.dll','theodore_libretro.dll','uzem_libretro.dll','vecx_libretro.dll','vice_xvic_libretro.dll','virtualjaguar_libretro.dll','x1_libretro.dll','mednafen_lynx_libretro.dll','mednafen_ngp_libretro.dll','mednafen_pce_libretro.dll','mednafen_pce_fast_libretro.dll','mednafen_psx_libretro.dll','mednafen_psx_hw_libretro.dll','mednafen_saturn_libretro.dll','mednafen_supafaust_libretro.dll','mednafen_supergrafx_libretro.dll','blastem_libretro.dll','bluemsx_libretro.dll','bsnes_libretro.dll','bsnes_mercury_accuracy_libretro.dll','cap32_libretro.dll','citra2018_libretro.dll','citra_libretro.dll','crocods_libretro.dll','desmume2015_libretro.dll','desmume_libretro.dll','dolphin_libretro.dll','dosbox_core_libretro.dll','dosbox_pure_libretro.dll','dosbox_svn_libretro.dll','fbalpha2012_cps1_libretro.dll','fbalpha2012_cps2_libretro.dll','fbalpha2012_cps3_libretro.dll','fbalpha2012_libretro.dll','fbalpha2012_neogeo_libretro.dll','fceumm_libretro.dll','fbneo_libretro.dll','flycast_libretro.dll','fmsx_libretro.dll','frodo_libretro.dll','gambatte_libretro.dll','gearboy_libretro.dll','gearsystem_libretro.dll','genesis_plus_gx_libretro.dll','genesis_plus_gx_wide_libretro.dll','gpsp_libretro.dll','handy_libretro.dll','kronos_libretro.dll','mame2000_libretro.dll','mame2003_plus_libretro.dll','mame2010_libretro.dll','mame_libretro.dll','melonds_libretro.dll','mesen_libretro.dll','mesen-s_libretro.dll','mgba_libretro.dll','mupen64plus_next_libretro.dll','nekop2_libretro.dll','np2kai_libretro.dll','nestopia_libretro.dll','parallel_n64_libretro.dll','pcsx2_libretro.dll','pcsx_rearmed_libretro.dll','picodrive_libretro.dll','ppsspp_libretro.dll','puae_libretro.dll','quicknes_libretro.dll','race_libretro.dll','sameboy_libretro.dll','smsplus_libretro.dll','snes9x2010_libretro.dll','snes9x_libretro.dll','stella2014_libretro.dll','stella_libretro.dll','tgbdual_libretro.dll','vbam_libretro.dll','vba_next_libretro.dll','vice_x128_libretro.dll','vice_x64_libretro.dll','vice_x64sc_libretro.dll','vice_xscpu64_libretro.dll','yabasanshiro_libretro.dll','yabause_libretro.dll','bsnes_hd_beta_libretro.dll','swanstation_libretro.dll')
+$RAcores.count
+
+foreach ( $core in $RAcores )
+{
+	$url= -join('http://buildbot.libretro.com/nightly/windows/x86_64/latest/',$core,'.zip')
+	$dest= -join('\tools\EmulationStation-DE\Emulators\RetroArch\cores\',$core,'.zip')
+	downloadCore $url $dest
+}
 
 Write-Host "All done!" -ForegroundColor green -BackgroundColor black
