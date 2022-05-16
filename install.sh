@@ -241,7 +241,8 @@ if [[ destination == "custom" ]]; then
 		echo "Storage: ${destination}"
 
 		customValid=$(testLocationValid "${destination}" "CUSTOM")
-		if [[customValid == false]]; then
+		
+		if [[ $customValid == false ]]; then
 			echo "Valid location not chosen. Exiting"
 			exit
 		fi
@@ -262,7 +263,6 @@ biosPath="${destination}/Emulation/bios/"
 savesPath="${destination}/Emulation/saves/"
 ESDEscrapData="${destination}/Emulation/tools/downloaded_media"
 
-fi
 
 mkdir -p "$emulationPath"
 mkdir -p "$toolsPath"launchers 
