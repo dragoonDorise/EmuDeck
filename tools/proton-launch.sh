@@ -36,7 +36,7 @@ set_env () {
         install -d ${STEAM_COMPAT_DATA_PATH} || exit 1
     fi
 
-    echo "STEAM_COMPAT_DATA_PATH: ${STEAM_COMPAT_DATA_PATH+}" >> "${LOGFILE}"
+    echo "STEAM_COMPAT_DATA_PATH: ${STEAM_COMPAT_DATA_PATH}" >> "${LOGFILE}"
     echo "SteamAppId: ${SteamAppId}" >> "${LOGFILE}"
     echo "STEAM_COMPAT_CLIENT_INSTALL_PATH: ${STEAM_COMPAT_CLIENT_INSTALL_PATH}" >> "${LOGFILE}"
 }
