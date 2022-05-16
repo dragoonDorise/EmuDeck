@@ -151,6 +151,49 @@ version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
 echo -e "${BOLD}EmuDeck ${version}${NONE}"
 echo -e ""
 cat ~/dragoonDoriseTools/EmuDeck/latest.md
+
+#
+#Hardware Check
+#
+if [[ "$(cat /sys/devices/virtual/dmi/id/product_name)" =~ Jupiter ]]; then
+	isRealDeck=true
+else
+	isRealDeck=false
+fi
+
+
+#
+# Initialize locations
+#
+locationTable()
+locationTable+=(TRUE "Internal" "$HOME") #always valid
+
+#built in SD Card reader
+if [ -b "/dev/mmcblk0p1" ]; then	
+	#test if card is writable and linkable
+	sdCardFull="$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)"
+	echo "SD Card found; testing $sdCardFull for validity."
+
+	touch $sdCardFull/testwrite
+	if [ ! -f  $sdCardFull/testwrite ]; then
+		echo "SD Card not writeable"
+		sdCompatible=false
+	else
+		echo "SD Card writable" 
+
+		ln -s $sdCardFull/testwrite $sdCardFull/testwrite.link
+		if [ ! -f  $sdCardFull/testwrite.link ]; then
+			echo "Symlink creation failed"
+			sdCompatible=false
+		else
+			echo "Symlink creation succeeded" 
+			sdCompatible=true
+			locationTable+=(FALSE "SD" "$sdCardFull") #valid only if SD card is there, writable, and linkable
+		fi
+	fi
+	rm -f "$sdCardFull/testwrite" "$sdCardFull/testwrite.link"
+fi
+
 #
 # Installation mode selection
 #
@@ -165,90 +208,52 @@ zenity --question \
 ans=$?
 if [ $ans -eq 0 ]; then
 	expert=true
+	locationTable+=(FALSE "Custom" "CUSTOM") #in expert mode we'll allow the user to pick an arbitrary place.
 else
 	expert=false
 fi
 #
-#Hardware Check
-#
-if [[ "$(cat /sys/devices/virtual/dmi/id/product_name)" =~ Jupiter ]]; then
-	isRealDeck=true
-else
-	isRealDeck=false
-fi
-
-
-#
 #Storage Selection
 #
 
-text="Do you want to install your roms on your SD Card or on your Internal Storage?"
-zenity --question \
-		 --title="EmuDeck" \
-		 --width=250 \
-		 --ok-label="SD Card" \
-		 --cancel-label="Internal Storage" \
-		 --text="${text}" 2>/dev/null
-ans=$?
-if [ $ans -eq 0 ]; then
-	echo "Storage: SD" 
-	destination="SD"
-	echo "" > ~/emudeck/.SD
-else
-	echo "Storage: INTERNAL" 
-	destination="INTERNAL"
-fi
-
-#
-#SD Card detection
-#
-
-if [ $destination == "SD" ]; then
-	#check dev to see if sd card is inserted and has a partition	
-	if [ -b "/dev/mmcblk0p1" ]; then	
-		#test if card is writable and linkable
-		sdCardFull="$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)"
-		echo "SD Card found; installing to $sdCardFull"
-		touch $sdCardFull/testwrite
-		if [ ! -f  $sdCardFull/testwrite ]; then
-				text="`printf "<b>SD Card not writable</b>\nMake sure your SD Card is writable"`"
-				zenity --error \
-				--title="SDCard Error" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
-				exit
-		else
-			echo "SD Card writable" 
-		fi
-		ln -s $sdCardFull/testwrite $sdCardFull/testwrite.link
-		if [ ! -f  $sdCardFull/testwrite.link ]; then
-				text="`printf "<b>Your SD Card is not compatible with EmuDeck.</b>\nMake sure to use a supported filesystem like EXT4. Formatting your SD Card from SteamUI will fix this.\n\n Go back to Gaming Mode, Settings, System and select Format SD Card there. This will delete all your SD contents."`"
-				zenity --error \
-				--title="SDCard Error" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
-				rm -f "$sdCardFull/testwrite"
-				exit
-		else
-			echo "Symlink creation succeeded" 
-		fi
-		rm -f "$sdCardFull/testwrite" "$sdCardFull/testwrite.link"
+if [[ ${#locationTable[@]} -gt 1 ]]; then
+	destination=$(zenity --list \
+	--title="Where would you like Emudeck to be installed?" \
+	--radiolist \
+	--width=200 --height=225 \
+	--column="" --column="Install Location" --column="value" \
+	--hide-column=3 --print-column=3 \
+		"${locationTable[@]}"  2>/dev/null)
+	ans=$?
+	if [ $ans -eq 0 ]; then\
+		echo "Storage: ${destination}"
 	else
-		text="`printf "<b>SD Card not detected</b>\nMake sure your SD Card is inserted and start again the installation"`"
-		zenity --error \
-				--title="SDCard Error" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
+		echo "No storage choice made"
 		exit
 	fi
-	
-	#New paths for SD cards
-	emulationPath="${sdCardFull}/Emulation/"
-	romsPath="${sdCardFull}/Emulation/roms/"
-	toolsPath="${sdCardFull}/Emulation/tools/"
-	biosPath="${sdCardFull}/Emulation/bios/"
-	savesPath="${sdCardFull}/Emulation/saves/"
-	ESDEscrapData="${sdCardFull}/Emulation/tools/downloaded_media"
+else
+	destination="$HOME"
+fi
+
+if [[ destination == "custom" ]]; then
+	destination=$(zenity --file-selection --directory --title="Select a destination for the Emulation directory." 2>/dev/null)
+	if [ $ans -eq 0 ]; then\
+		echo "Storage: ${destination}"
+	else
+		echo "No custom storage choice made"
+		exit
+	fi
+fi
+
+
+
+#New paths based on where the user picked.
+emulationPath="${destination}/Emulation/"
+romsPath="${destination}/Emulation/roms/"
+toolsPath="${destination}/Emulation/tools/"
+biosPath="${destination}/Emulation/bios/"
+savesPath="${destination}/Emulation/saves/"
+ESDEscrapData="${destination}/Emulation/tools/downloaded_media"
 
 fi
 
