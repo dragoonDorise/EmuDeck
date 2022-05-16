@@ -165,7 +165,7 @@ fi
 #
 # Initialize locations
 #
-locationTable()
+locationTable=()
 locationTable+=(TRUE "Internal" "$HOME") #always valid
 
 #built in SD Card reader
