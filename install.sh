@@ -670,11 +670,11 @@ fi
 
 #We check if we have scrapped data on ESDE so we can move it to the SD card
 #We do this wether the user wants to install ESDE or not to account for old users that might have ESDE already installed and won't update
-if [ $destination == "SD" ]; then		
+if [ $destination != "$HOME" ]; then		
 	#Symlink already created?
 	if [ ! -d "$ESDEscrapData" ]; then		
 		echo -e ""
-		echo -e "Moving EmulationStation downloaded media to the SD Card"			
+		echo -e "Moving EmulationStation downloaded media to $destination"			
 		echo -e ""
 		mv ~/.emulationstation/downloaded_media $ESDEscrapData && rm -rf ~/.emulationstation/downloaded_media && ln -sn $ESDEscrapData ~/.emulationstation/downloaded_media			
 	fi			
@@ -818,11 +818,9 @@ echo -e ""
 
 
 ##Generate rom folders
-if [ $destination == "SD" ]; then
-	echo -ne "${BOLD}Creating roms folder in your SD Card...${NONE}"
-else
-	echo -ne "${BOLD}Creating roms folder in your home folder...${NONE}"
-fi
+
+echo -ne "${BOLD}Creating roms folder in $destination"
+
 mkdir -p "$romsPath"
 mkdir -p "$biosPath"
 mkdir -p "$biosPath"/yuzu/
@@ -1483,8 +1481,8 @@ fi
 
 #RPCS3
 if [ ! -d "$savesPath/rpcs3/dev_hdd0/savedata" ] && [ -d "~/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0" ]; then	
-	if [ $destination == "SD" ]; then
-		text="$(printf "Moving rpcs3 hdd0 to the Emulation/Saves folder\n\nDepending on how many pkgs you have installed, this may take a while.<b>If you do not have enough available space in your SD Card this will fail, clean up your SD Card and run EmuDeck Again.</b>")"
+	if [ $destination != "$home" ]; then
+		text="$(printf "Moving rpcs3 hdd0 to the Emulation/Saves folder\n\nDepending on how many pkgs you have installed, this may take a while.<b>If you do not have enough available space in your chosen location this will fail, clean up your SD Card and run EmuDeck Again.</b>")"
 	else	
 		text="$(printf "Moving rpcs3 hdd0 to the Emulation/Saves folder\n\nDepending on how many pkgs you have installed, this may take a while.")"
 	fi
