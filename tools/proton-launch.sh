@@ -127,7 +127,7 @@ main () {
 
     # Set PFX if not set
     if [ -z ${PFX+x} ] && ! [ -z ${COMPATDATA} ]; then
-        PFX="${COMPATDATA}/${APPID}"
+        PFX="${COMPATDATA}/${APPID}/pfx"
         echo "PFX: ${PFX}" >> "${LOGFILE}"
     elif [ -z ${PFX+x} ]; then
         echo "No PFX." >> "${LOGFILE}"
