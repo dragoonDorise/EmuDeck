@@ -1530,7 +1530,7 @@ if [ ! -d "$savesPath/ppsspp/states" ]; then
 fi
 
 #RetroAchievments
-#Disabled until we know why in the world the deck's screen keyword can't type in a zenity dialog
+#if there is no rap file and we have said to enable retroachieve, we have to ask. Also if the user wants to change their sign  in, we ask.
 if [[ ! -f ~/emudeck/.rap && $doRAEnable == true ]] || [[ $doRASignIn == true ]]; then
 
 	text=$(printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>\n\nActivating RetroAchievments will disable save states unless you disable hardcore mode\n\n\n\nPress STEAM + X to get the onscreen Keyboard")
@@ -1559,10 +1559,10 @@ if [[ ! -f ~/emudeck/.rap && $doRAEnable == true ]] || [[ $doRASignIn == true ]]
 	else
 		echo "Cancel RetroAchievment Login" 
 	fi
-		
-
 fi
-if [ -f ~/emudeck/.rap && $doRAEnable=true ]; then 
+
+#if we have a rap file already, and the user wanted to enable retroachievements, but didn't want to set a new username and pw.
+if [[ -f ~/emudeck/.rap && $doRAEnable == true ]]; then 
 	rap=$(cat ~/emudeck/.rap)
 	rau=$(cat ~/emudeck/.rau)
 
@@ -1595,49 +1595,15 @@ fi
 
 if [ $doInstallGyro == true ]; then
 	
-	# hasPass=$(grep -rn '/etc/passwd' -e "$(whoami):") #makes it work for the current user.
-	
-	# if [[ $hasPass == '' ]]; then
-	# 	echo "user does not have a password" 
-	# 	text="`printf "In order to install SteamDeckGyroDSU you need to set a password for the deck user.\n\n 
-	# 	Remember this password. If you forget it you will need to format your Deck to change it\n\n
-	# 	<b>When you type your password, it will not appear on screen, this is normal</b>"`"
-	# 	zenity --question \
-	# 			 --title="EmuDeck" \
-	# 			 --width=250 \
-	# 			 --ok-label="Continue" \
-	# 			 --cancel-label="Cancel" \
-	# 			 --text="${text}" 2>/dev/null
-	# 	ans=$?
-	# 	continueGyro=false
-	# 	if [ $ans -eq 0 ]; then
-	# 		echo "user wants to set a password" 
-	# 		passwd && continueGyro=true  #default state is not to continue. Only allow continue if the password succeeds in setting the password.
-	# 	else
-	# 		echo "No passwd creation" 
-	# 	fi
-	# else
-	# 	continueGyro=true
-	# 	echo "User already has passwd" 
-	# fi
-	
-	# if [ $continueGyro == true ]; then
-	# 	echo "Installing ${BOLD} SteamDeckGyroDSU. Insert your password when required. ${NONE}"
 		InstallGyro=$(bash <(curl -sL https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh))
 		echo $InstallGyro 
-		# we should add special controller config installs here for gyro	
-	# else
-	# 	echo "user did not continue Gyro install" 
-	# fi
 
 fi
 
 if [ $doInstallPowertools == true ]; then
 	
 		#should use sudo password piped into cache earlier.
-		echo "Installing ${BOLD} Plugin loader. Insert your password when required  ${NONE}"
 		curl -L https://github.com/SteamDeckHomebrew/PluginLoader/raw/main/dist/install_release.sh | sh	
-		echo -e "You need to enter your password now. ${BOLD}You won't see what you are writing, this is normal${NONE}"
 		sudo rm -rf ~/homebrew/plugins/PowerTools
 		sudo git clone https://github.com/NGnius/PowerTools.git ~/homebrew/plugins/PowerTools 
 		sleep 1
