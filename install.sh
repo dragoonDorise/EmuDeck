@@ -787,6 +787,9 @@ fi
 mkdir -p "$romsPath"
 mkdir -p "$biosPath"
 mkdir -p "$biosPath"/yuzu/
+
+echo "Put your bios in here. Don't use subfolders except for Yuzu!" > "$biosPath/readme.txt"
+
 sleep 3
 rsync -r ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath" &>> ~/emudeck/emudeck.log
 echo -e "${GREEN}OK!${NONE}"
