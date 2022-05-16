@@ -118,22 +118,26 @@ setESDEEmus(){
 	fi
 }
 testLocationValid(){
-	testLocation=$1
+	testLocation=$2
 	touch $testLocation/testwrite
+	declare -i returnVal=0
 	if [ ! -f  $testLocation/testwrite ]; then
 		echo "$testLocation not writeable"
+		returnVal=returnVal+1
 	else
 		echo "$testLocation writable" 
 
 		ln -s $testLocation/testwrite $testLocation/testwrite.link
 		if [ ! -f  $testLocation/testwrite.link ]; then
 			echo "Symlink creation failed in $testLocation"
+			returnVal=returnVal+1
 		else
 			echo "Symlink creation succeeded in $testLocation" 
-			locationTable+=(FALSE "$2" "$testLocation") #valid only if location is writable and linkable
+			locationTable+=(FALSE "$1" "$testLocation") #valid only if location is writable and linkable
 		fi
 	fi
 	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
+	return $returnVal
 }
 
 echo -ne "${BOLD}Downloading files from $branch channel...${NONE}"
@@ -190,8 +194,8 @@ if [ -b "/dev/mmcblk0p1" ]; then
 	#test if card is writable and linkable
 	sdCardFull="$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)"
 	echo "SD Card found; testing $sdCardFull for validity."
-	sdValid=$(testLocationValid $sdCardFull "SD")
-	echo "SD Card at $sdCardFull is valid? $sdValid"
+	sdValid=$(testLocationValid "SD" $sdCardFull)
+	echo "SD Card at $sdCardFull is valid? Return val: $sdValid"
 fi
 
 #
@@ -235,13 +239,13 @@ else
 	destination="$HOME"
 fi
 
-if [[ $destination == "custom" ]]; then
+if [[ $destination == "CUSTOM" ]]; then
 	destination=$(zenity --file-selection --directory --title="Select a destination for the Emulation directory." 2>/dev/null)
-	if [[ $destination != "custom" ]]; then
+	if [[ $destination != "CUSTOM" ]]; then
 		echo "Storage: ${destination}"
-		customValid=$(testLocationValid "${destination}" "CUSTOM")
+		customValid=$(testLocationValid "Custom" "${destination}")
 
-		if [[ $customValid == false ]]; then
+		if [[ $customValid != 0 ]]; then
 			echo "Valid location not chosen. Exiting"
 			exit
 		fi
