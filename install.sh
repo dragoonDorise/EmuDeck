@@ -117,8 +117,25 @@ setESDEEmus(){
 		fi
 	fi
 }
+testLocationValid(){
+	testLocation=$1
+	touch $testLocation/testwrite
+	if [ ! -f  $testLocation/testwrite ]; then
+		echo "$testLocation not writeable"
+	else
+		echo "$testLocation writable" 
 
-clear
+		ln -s $testLocation/testwrite $testLocation/testwrite.link
+		if [ ! -f  $testLocation/testwrite.link ]; then
+			echo "Symlink creation failed in $testLocation"
+		else
+			echo "Symlink creation succeeded in $testLocation" 
+			locationTable+=(FALSE "$2" "$testLocation") #valid only if location is writable and linkable
+		fi
+	fi
+	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
+}
+
 echo -ne "${BOLD}Downloading files from $branch channel...${NONE}"
 sleep 5
 
@@ -173,25 +190,8 @@ if [ -b "/dev/mmcblk0p1" ]; then
 	#test if card is writable and linkable
 	sdCardFull="$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)"
 	echo "SD Card found; testing $sdCardFull for validity."
-
-	touch $sdCardFull/testwrite
-	if [ ! -f  $sdCardFull/testwrite ]; then
-		echo "SD Card not writeable"
-		sdCompatible=false
-	else
-		echo "SD Card writable" 
-
-		ln -s $sdCardFull/testwrite $sdCardFull/testwrite.link
-		if [ ! -f  $sdCardFull/testwrite.link ]; then
-			echo "Symlink creation failed"
-			sdCompatible=false
-		else
-			echo "Symlink creation succeeded" 
-			sdCompatible=true
-			locationTable+=(FALSE "SD" "$sdCardFull") #valid only if SD card is there, writable, and linkable
-		fi
-	fi
-	rm -f "$sdCardFull/testwrite" "$sdCardFull/testwrite.link"
+	sdValid=$(testLocationValid $sdCardFull "SD")
+	echo "SD Card at $sdCardFull is valid? $sdValid"
 fi
 
 #
@@ -239,8 +239,15 @@ if [[ destination == "custom" ]]; then
 	destination=$(zenity --file-selection --directory --title="Select a destination for the Emulation directory." 2>/dev/null)
 	if [ $ans -eq 0 ]; then\
 		echo "Storage: ${destination}"
+
+		customValid=$(testLocationValid "${destination}" "CUSTOM")
+		if [[customValid == false]]; then
+			echo "Valid location not chosen. Exiting"
+			exit
+		fi
+
 	else
-		echo "No custom storage choice made"
+		echo "User closed selection box. Exiting."
 		exit
 	fi
 fi
