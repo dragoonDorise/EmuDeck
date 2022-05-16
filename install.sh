@@ -1510,7 +1510,7 @@ fi
 
 #RetroAchievments
 #Disabled until we know why in the world the deck's screen keyword can't type in a zenity dialog
-if [[ ! -f ~/emudeck/.rap && $doRAEnable=true ] || $doRASignIn=true ]; then
+if [[ ! -f ~/emudeck/.rap && $doRAEnable=true ]] || [[ $doRASignIn=true ]]; then
 
 	text=$(printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>\n\nActivating RetroAchievments will disable save states unless you disable hardcore mode\n\n\n\nPress STEAM + X to get the onscreen Keyboard")
 	RAInput=$(zenity --forms \
