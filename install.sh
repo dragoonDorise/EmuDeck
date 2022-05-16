@@ -257,90 +257,87 @@ find "$romsPath" -name "readme.md" -type f -delete &>> ~/emudeck/emudeck.log
 
 if [ $expert == true ]; then
 
-
-	#CHDMAN	
-	text="`printf "Do you want to install our tool to convert iso, gdi and cue to CHD format?\n\n The CHD format allows to have one single file insted of multiple and the final file takes up to 50%% less space"`"
-	zenity --question \
-			 --title="EmuDeck" \
-			 --width=250 \
-			 --ok-label="Yes" \
-			 --cancel-label="No" \
-			 --text="${text}" 2>/dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		doInstallCHD=true
-	else
+		#set all features to false
 		doInstallCHD=false
-	fi	
-	
-	#Powertools
-	text=""
-	text="`printf "Do you want to install Powertools? This can improve Emulators like Yuzu or Dolphin. You will need to create a password for your deck linux desktop user. PowerTools only has touch support, you can not control it using the controller.\n\n<b>Do not use this if you do not have basic Linux Terminal knowledge.</b>"`"
-	zenity --question \
-			 --title="EmuDeck" \
-			 --width=250 \
-			 --ok-label="Yes" \
-			 --cancel-label="No" \
-			 --text="${text}" 2>/dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		doInstallPowertools=true
-		
-	else
 		doInstallPowertools=false
-	fi
-	
-	#Gyro
-	text=""
-	text="`printf "Do you want to install SteamGyroDSU? This can be used in emulators such as Cemu for proper motion controls. <b>You will need to create a password for your deck linux desktop user, if you do not already have one.</b>"`"
-	zenity --question \
-			 --title="EmuDeck" \
-			 --width=250 \
-			 --ok-label="Yes" \
-			 --cancel-label="No" \
-			 --text="${text}" 2>/dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		doInstallGyro=true
-		
-	else
 		doInstallGyro=false
-	fi	
-
-	#SRM Update selector	
-	text="Do you want to update Steam Rom Manager?"
-	zenity --question \
-			 --title="EmuDeck" \
-			 --width=250 \
-			 --ok-label="Yes" \
-			 --cancel-label="No" \
-			 --text="${text}" 2>/dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		doInstallSRM=true
-	else
-		doInstallSRM=false
-	fi	
-		
-	#ESDE Install selector	
-	text="Do you want to install <span weight=\"bold\" foreground=\"red\">EmulationStation DE</span> and all of its RetroArch cores?"
-	zenity --question \
-			 --title="EmuDeck" \
-			 --width=250 \
-			 --ok-label="Yes" \
-			 --cancel-label="No" \
-			 --text="${text}" 2>/dev/null
-	ans=$?	
-
-	if [ $ans -eq 0 ]; then
-		doInstallESDE=true
-	else
+		doUpdateSRM=false
 		doInstallESDE=false
-	fi
-	clear
-	#Emulator selector
-	text="`printf "What emulators do you want to install?"`"
-	emusToInstall=$(zenity --list \
+		doSelectEmulators=false
+		doCustomEmulators=false
+		doSelectRABezels=false
+		doSelectRAAutoSave=false
+		doSNESAR87=false
+		doSelectWideScreen=false
+		doRASignIn=false
+    
+		#one entry per expert mode feature
+        table=()
+        table+=(TRUE "CHDScript" "Install the latest version of our CHD conversion script?")
+		table+=(TRUE "PowerTools" "Install Power Tools for CPU control? (password required)")
+		table+=(TRUE "SteamGyro" "Setup the SteamDeckGyroDSU for gyro control (password required)")
+		table+=(TRUE "updateSRM" "Install/Update Steam Rom Manager?")
+		table+=(TRUE "updateESDE" "Install/Update Emulation Station DE?")
+		table+=(TRUE "selectEmulators" "Select the emulators to install.")
+		table+=(TRUE "selectEmulatorConfig" "Customize the emulators who's config we override (note: Fixes will be skipped)")
+		table+=(TRUE "selectRABezels" "Turn on Bezels for Retroarch?")
+		table+=(TRUE "selectRAAutoSave" "Turn on Retroarch AutoSave/Restore state?")
+		table+=(TRUE "snesAR" "SNES 8:7 Aspect Ratio? (unchecked is 4:3)")
+		table+=(TRUE "selectWideScreen" "Customize Emulator Widescreen Selection?")
+		table+=(TRUE "setRASignIn" "Change RetroAchievements Sign in?")
+
+		declare -i height=(${#table[@]}*70)
+
+        expertModeFeatureList=$(zenity  --list --checklist --width=1000 --height=${height} \
+        --column="Select?"  \
+        --column="Features"  \
+        --column="Description" \
+        --hide-column=2 \
+        "${table[@]}" 2>/dev/null)
+
+		#set flags to true for selected expert mode features
+		if [[ "$expertModeFeatureList" == *"CHDScript"* ]]; then
+			doInstallCHD=true
+		fi
+		if [[ "$expertModeFeatureList" == *"PowerTools"* ]]; then
+			doInstallPowertools=true
+		fi
+		if [[ "$expertModeFeatureList" == *"SteamGyro"* ]]; then
+			doInstallGyro=true
+		fi
+		if [[ "$expertModeFeatureList" == *"updateSRM"* ]]; then
+			doUpdateSRM=true
+		fi
+		if [[ "$expertModeFeatureList" == *"updateESDE"* ]]; then
+			doInstallESDE=true
+		fi
+		if [[ "$expertModeFeatureList" == *"selectEmulators"* ]]; then
+			doSelectEmulators=true
+		fi
+		if [[ "$expertModeFeatureList" == *"selectEmulatorConfig"* ]]; then
+			doCustomEmulators=true
+		fi
+		if [[ "$expertModeFeatureList" == *"selectRABezels"* ]]; then
+			RABezels=true
+		fi
+		if [[ "$expertModeFeatureList" == *"selectRAAutoSave"* ]]; then
+			RAautoSave=true
+		fi
+		if [[ "$expertModeFeatureList" == *"snesAR"* ]]; then
+			SNESAR=43
+		fi
+		if [[ "$expertModeFeatureList" == *"selectWideScreen"* ]]; then
+			doSelectWideScreen=true
+		fi
+		if [[ "$expertModeFeatureList" == *"setRASignIn"* ]]; then
+			setRASignIn=true
+		fi
+	
+	if [[ $doSelectEmulators ]]; then
+		
+		#Emulator selector
+		text="`printf "What emulators do you want to install?"`"
+		emusToInstall=$(zenity --list \
 				--title="EmuDeck" \
 				--height=500 \
 				--width=250 \
@@ -361,302 +358,203 @@ if [ $expert == true ]; then
 				9 "Yuzu" \
 				10 "Cemu" \
 				11 "Xemu" 2>/dev/null)
-	clear
-	ans=$?	
-	if [ $ans -eq 0 ]; then
+		clear
+		ans=$?	
+		if [ $ans -eq 0 ]; then
 		
-		if [[ "$emusToInstall" == *"RetroArch"* ]]; then
-			doInstallRA=true
-		fi
-		if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
-			doInstallPrimeHacks=true
-		fi
-		if [[ "$emusToInstall" == *"PCSX2"* ]]; then
-			doInstallPCSX2=true
-		fi
-		if [[ "$emusToInstall" == *"RPCS3"* ]]; then
-			doInstallRPCS3=true
-		fi
-		if [[ "$emusToInstall" == *"Citra"* ]]; then
-			doInstallCitra=true
-		fi
-		if [[ "$emusToInstall" == *"Dolphin"* ]]; then
-			doInstallDolphin=true
-		fi
-		if [[ "$emusToInstall" == *"Duckstation"* ]]; then
-			doInstallDuck=true
-		fi
-		if [[ "$emusToInstall" == *"PPSSPP"* ]]; then
-			doInstallPPSSPP=true
-		fi
-		if [[ "$emusToInstall" == *"Yuzu"* ]]; then
-			doInstallYuzu=true
-		fi
-		if [[ "$emusToInstall" == *"Cemu"* ]]; then
-			doInstallCemu=true
-		fi
-		if [[ "$emusToInstall" == *"Xemu"* ]]; then
-			doInstallXemu=true
-		fi
-		if [[ "$emusToInstall" == *"Xenia"* ]]; then
-			doInstallXenia=false
-		fi
-		#if [[ "$emusToInstall" == *"MelonDS"* ]]; then
-		#	doInstallMelon=true
-		#fi
+			if [[ "$emusToInstall" == *"RetroArch"* ]]; then
+				doInstallRA=true
+			fi
+			if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
+				doInstallPrimeHacks=true
+			fi
+			if [[ "$emusToInstall" == *"PCSX2"* ]]; then
+				doInstallPCSX2=true
+			fi
+			if [[ "$emusToInstall" == *"RPCS3"* ]]; then
+				doInstallRPCS3=true
+			fi
+			if [[ "$emusToInstall" == *"Citra"* ]]; then
+				doInstallCitra=true
+			fi
+			if [[ "$emusToInstall" == *"Dolphin"* ]]; then
+				doInstallDolphin=true
+			fi
+			if [[ "$emusToInstall" == *"Duckstation"* ]]; then
+				doInstallDuck=true
+			fi
+			if [[ "$emusToInstall" == *"PPSSPP"* ]]; then
+				doInstallPPSSPP=true
+			fi
+			if [[ "$emusToInstall" == *"Yuzu"* ]]; then
+				doInstallYuzu=true
+			fi
+			if [[ "$emusToInstall" == *"Cemu"* ]]; then
+				doInstallCemu=true
+			fi
+			if [[ "$emusToInstall" == *"Xemu"* ]]; then
+				doInstallXemu=true
+			fi
+			if [[ "$emusToInstall" == *"Xenia"* ]]; then
+				doInstallXenia=false
+			fi
+			#if [[ "$emusToInstall" == *"MelonDS"* ]]; then
+			#	doInstallMelon=true
+			#fi
 		
 		
-	else
-		exit
+		else
+			exit
+		fi
 	fi
-	
 	#We force new Cemu install if we detect an older version exists
 	DIR=$romsPath/wiiu/roms/
 	if [ -d "$DIR" ]; then	
 		doInstallCemu=true	
-	fi
-
-	FILE=~/emudeck/.custom
-	if [ -f "$FILE" ]; then
-		FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg
-			if [ -f "$FILE" ]; then	
-			text="Do you want to use your previous RetroArch customization?"
-			zenity --question \
-					 --title="EmuDeck" \
-					 --width=250 \
-					 --ok-label="Yes" \
-					 --cancel-label="No" \
-					 --text="${text}" 2>/dev/null
-			ans=$?
-			if [ $ans -eq 0 ]; then
-				echo "CustomRemain: Yes" &>> ~/emudeck/emudeck.log
-				
-				#We set the flas if we have created the .files before.
-				#if .file exists then the flag is true for that particular question
-				FILEBEZELS=~/emudeck/.bezels		
-				FILESAVE=~/emudeck/.autosave
-				
-				if [ -f "$FILEBEZELS" ]; then
-					RABezels=true
-				else
-					RABezels=false
-				fi
-				
-				if [ -f "$FILESAVE" ]; then
-					RAautoSave=true
-				else
-					RAautoSave=false
-				fi
-							
-			else
-				echo "CustomRemain: No" &>> ~/emudeck/emudeck.log
-				#We reset everything
-				rm ~/emudeck/.custom 2>/dev/null
-				rm ~/emudeck/.bezels 2>/dev/null
-				rm ~/emudeck/.autosave 2>/dev/null			
-			fi
-		fi
-	fi
-	
-	CUSTOM=~/emudeck/.custom
-	
-	FILEBEZELS=~/emudeck/.bezels
-	if [ ! -f "$CUSTOM" ] && [ ! -f "$FILEBEZELS" ]; then
-		
-		text="Do you want to use Bezels (Overlays) on RetroArch systems?"
-		zenity --question \
-				 --title="EmuDeck" \
-				 --width=250 \
-				 --ok-label="Yes" \
-				 --cancel-label="No" \
-				 --text="${text}" 2>/dev/null
-		ans=$?
-		if [ $ans -eq 0 ]; then
-			echo "Overlays: Yes" &>> ~/emudeck/emudeck.log
-			RABezels=true
-			echo "" > ~/emudeck/.bezels
-		else
-			echo "Overlays: No" &>> ~/emudeck/emudeck.log
-			RABezels=false
-		fi
-		
-	fi
-	FILESAVE=~/emudeck/.autosave
-	if [ ! -f "$CUSTOM" ] && [ ! -f "$FILESAVE" ]; then	
-		raConfigFile=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg
-		text="Do you want to use auto save and auto load for RetroArch systems?"
-		zenity --question \
-				 --title="EmuDeck" \
-				 --width=250 \
-				 --ok-label="Yes" \
-				 --cancel-label="No" \
-				 --text="${text}" 2>/dev/null
-		ans=$?
-		if [ $ans -eq 0 ]; then
-			echo "AutoSaveLoad: Yes" &>> ~/emudeck/emudeck.log
-			RAautoSave=true
-			echo "" > ~/emudeck/.autosave
-		else
-			echo "AutoSaveLoad: No" &>> ~/emudeck/emudeck.log
-			RAautoSave=false
-		fi
-	fi
-	
-	#SNES Aspect Ratio	
-	text="`printf "What SNES Aspect ratio do you want to use?\n\n<b>4:3</b> Classic CRT TV\n\n<b>8:7</b> Real SNES Internal resolution"`"
-	zenity --question \
-			 --title="EmuDeck" \
-			 --width=250 \
-			 --ok-label="4:3" \
-			 --cancel-label="8:7" \
-			 --text="${text}" 2>/dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		SNESAR=43		
-	else
-		SNESAR=87		
 	fi	
-			
-	#Emulators screenHacks
-	text="`printf "We use 16:9 widescreen hacks on some emulators, if you want them to have the original 4:3 aspect ratio please select them on the following list"`"
-	wideToInstall=$(zenity --list \
-				--title="EmuDeck" \
-				--height=500 \
-				--width=250 \
-				--ok-label="OK" \
-				--cancel-label="Exit" \
-				--text="${text}" \
-				--checklist \
-				--column="" \
-				--column="Emulator" \
-				1 "Dolphin" \
-				2 "Duckstation" \
-				3 "BeetlePSX" \
-				4 "Dreamcast"  2>/dev/null)
-	clear
-	ans=$?	
-	if [ $ans -eq 0 ]; then
-		
-		if [[ "$wideToInstall" == *"Duckstation"* ]]; then
-			duckWide=false
-		fi
-		if [[ "$wideToInstall" == *"Dolphin"* ]]; then
-			DolphinWide=false
-		fi
-		if [[ "$wideToInstall" == *"Dreamcast"* ]]; then
-			DreamcastWide=false
-		fi		
-		if [[ "$wideToInstall" == *"BeetlePSX"* ]]; then
-			BeetleWide=true
-		fi				
-				
-		
-	else		
-		exit		
-	fi			
 	
+
+	if [[ $doSelectWideScreen ]]; then
+		#Emulators screenHacks
+		text="`printf "We use 16:9 widescreen hacks on some emulators, if you want them to have the original 4:3 aspect ratio please select them on the following list"`"
+		wideToInstall=$(zenity --list \
+					--title="EmuDeck" \
+					--height=500 \
+					--width=250 \
+					--ok-label="OK" \
+					--cancel-label="Exit" \
+					--text="${text}" \
+					--checklist \
+					--column="" \
+					--column="Emulator" \
+					1 "Dolphin" \
+					2 "Duckstation" \
+					3 "BeetlePSX" \
+					4 "Dreamcast"  2>/dev/null)
+		clear
+		ans=$?	
+		if [ $ans -eq 0 ]; then
+			
+			if [[ "$wideToInstall" == *"Duckstation"* ]]; then
+				duckWide=false
+			fi
+			if [[ "$wideToInstall" == *"Dolphin"* ]]; then
+				DolphinWide=false
+			fi
+			if [[ "$wideToInstall" == *"Dreamcast"* ]]; then
+				DreamcastWide=false
+			fi		
+			if [[ "$wideToInstall" == *"BeetlePSX"* ]]; then
+				BeetleWide=true
+			fi				
+					
+			
+		else		
+			exit		
+		fi			
+	fi
 	#We mark we've made a custom configuration for future updates
 	echo "" > ~/emudeck/.custom
 	
-	
-	# Configuration that only appplies to previous users
-	if [ -f "$SECONDTIME" ]; then
-		#We make sure all the emus can write its saves outside its own folders.
-		#Also needed for certain emus to open certain menus for adding rom directories in the front end.
-		#flatpak override net.pcsx2.PCSX2 --filesystem=host --user
-		flatpak override net.pcsx2.PCSX2 --share=network --user # for network access / online play
-		flatpak override io.github.shiiion.primehack --filesystem=host --user
-		flatpak override net.rpcs3.RPCS3 --filesystem=host --user
-		flatpak override org.citra_emu.citra --filesystem=host --user
-		flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
-		#flatpak override org.duckstation.DuckStation --filesystem=host --user
-		#flatpak override org.libretro.RetroArch --filesystem=host --user
-		#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
-		flatpak override org.yuzu_emu.yuzu --filesystem=host --user
-		flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
-		flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
+	if [[ $doCustomEmulators ]]; then
+		# Configuration that only appplies to previous users
+		if [ -f "$SECONDTIME" ]; then
+			#We make sure all the emus can write its saves outside its own folders.
+			#Also needed for certain emus to open certain menus for adding rom directories in the front end.
+			#flatpak override net.pcsx2.PCSX2 --filesystem=host --user
+			flatpak override net.pcsx2.PCSX2 --share=network --user # for network access / online play
+			flatpak override io.github.shiiion.primehack --filesystem=host --user
+			flatpak override net.rpcs3.RPCS3 --filesystem=host --user
+			flatpak override org.citra_emu.citra --filesystem=host --user
+			flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
+			#flatpak override org.duckstation.DuckStation --filesystem=host --user
+			#flatpak override org.libretro.RetroArch --filesystem=host --user
+			#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
+			flatpak override org.yuzu_emu.yuzu --filesystem=host --user
+			flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
+			flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
 
-		installString='Updating'
+			installString='Updating'
+				
+			text="`printf "<b>EmuDeck will overwrite the following Emulators configurations</b> \nWhich systems do you want me to keep its current configuration <b>untouched</b>?\nWe recomend to keep all of them unchecked so everything gets updated so any possible bug can be fixed.\n If you want to mantain any custom configuration on some emulator select its name on this list"`"
+			emusToReset=$(zenity --list \
+								--title="EmuDeck" \
+								--height=500 \
+								--width=250 \
+								--ok-label="OK" \
+								--cancel-label="Exit" \
+								--text="${text}" \
+								--checklist \
+								--column="" \
+								--column="Emulator" \
+								1 "RetroArch"\
+								2 "PrimeHack" \
+								3 "PCSX2" \
+								4 "RPCS3" \
+								5 "Citra" \
+								6 "Dolphin" \
+								7 "Duckstation" \
+								8 "PPSSPP" \
+								9 "Yuzu" \
+								10 "Cemu" \
+								11 "Xemu" \
+								12 "SRM"  2>/dev/null)
+			clear
+			cat ~/dragoonDoriseTools/EmuDeck/logo.ans
+			echo -e "${BOLD}EmuDeck ${version}${NONE}"
+			ans=$?
+			if [ $ans -eq 0 ]; then
+				
+				if [[ "$emusToReset" == *"RetroArch"* ]]; then
+					doUpdateRA=false
+				fi
+				if [[ "$emusToReset" == *"PrimeHack"* ]]; then
+					doUpdatePrimeHacks=false
+				fi
+				if [[ "$emusToReset" == *"PCSX2"* ]]; then
+					doUpdatePCSX2=false
+				fi
+				if [[ "$emusToReset" == *"RPCS3"* ]]; then
+					doUpdateRPCS3=false
+				fi
+				if [[ "$emusToReset" == *"Citra"* ]]; then
+					doUpdateCitra=false
+				fi
+				if [[ "$emusToReset" == *"Dolphin"* ]]; then
+					doUpdateDolphin=false
+				fi
+				if [[ "$emusToReset" == *"Duckstation"* ]]; then
+					doUpdateDuck=false
+				fi
+				if [[ "$emusToReset" == *"PPSSPP"* ]]; then
+					doUpdatePPSSPP=false
+				fi
+				if [[ "$emusToReset" == *"Yuzu"* ]]; then
+					doUpdateYuzu=false
+				fi
+				if [[ "$emusToReset" == *"Cemu"* ]]; then
+					doUpdateCemu=false
+				fi
+				if [[ "$emusToReset" == *"Xemu"* ]]; then
+					doUpdateXemu=false
+				fi
+				if [[ "$emusToReset" == *"Xenia"* ]]; then
+					doUpdateXenia=false
+				fi
+				#if [[ "$emusToReset" == *"MelonDS"* ]]; then
+				#	doUpdateMelon=false
+				#fi
+				if [[ "$emusToReset" == *"SRM"* ]]; then
+					doUpdateSRM=false
+				fi
+				
+				
+			else
+				echo ""
+			fi
 			
-		text="`printf "<b>EmuDeck will overwrite the following Emulators configurations</b> \nWhich systems do you want me to keep its current configuration <b>untouched</b>?\nWe recomend to keep all of them unchecked so everything gets updated so any possible bug can be fixed.\n If you want to mantain any custom configuration on some emulator select its name on this list"`"
-		emusToReset=$(zenity --list \
-							--title="EmuDeck" \
-							--height=500 \
-							--width=250 \
-							--ok-label="OK" \
-							--cancel-label="Exit" \
-							--text="${text}" \
-							--checklist \
-							--column="" \
-							--column="Emulator" \
-							1 "RetroArch"\
-							2 "PrimeHack" \
-							3 "PCSX2" \
-							4 "RPCS3" \
-							5 "Citra" \
-							6 "Dolphin" \
-							7 "Duckstation" \
-							8 "PPSSPP" \
-							9 "Yuzu" \
-							10 "Cemu" \
-							11 "Xemu" \
-							12 "SRM"  2>/dev/null)
-		clear
-		cat ~/dragoonDoriseTools/EmuDeck/logo.ans
-		echo -e "${BOLD}EmuDeck ${version}${NONE}"
-		ans=$?
-		if [ $ans -eq 0 ]; then
-			
-			if [[ "$emusToReset" == *"RetroArch"* ]]; then
-				doUpdateRA=false
-			fi
-			if [[ "$emusToReset" == *"PrimeHack"* ]]; then
-				doUpdatePrimeHacks=false
-			fi
-			if [[ "$emusToReset" == *"PCSX2"* ]]; then
-				doUpdatePCSX2=false
-			fi
-			if [[ "$emusToReset" == *"RPCS3"* ]]; then
-				doUpdateRPCS3=false
-			fi
-			if [[ "$emusToReset" == *"Citra"* ]]; then
-				doUpdateCitra=false
-			fi
-			if [[ "$emusToReset" == *"Dolphin"* ]]; then
-				doUpdateDolphin=false
-			fi
-			if [[ "$emusToReset" == *"Duckstation"* ]]; then
-				doUpdateDuck=false
-			fi
-			if [[ "$emusToReset" == *"PPSSPP"* ]]; then
-				doUpdatePPSSPP=false
-			fi
-			if [[ "$emusToReset" == *"Yuzu"* ]]; then
-				doUpdateYuzu=false
-			fi
-			if [[ "$emusToReset" == *"Cemu"* ]]; then
-				doUpdateCemu=false
-			fi
-			if [[ "$emusToReset" == *"Xemu"* ]]; then
-				doUpdateXemu=false
-			fi
-			if [[ "$emusToReset" == *"Xenia"* ]]; then
-				doUpdateXenia=false
-			fi
-			#if [[ "$emusToReset" == *"MelonDS"* ]]; then
-			#	doUpdateMelon=false
-			#fi
-			if [[ "$emusToReset" == *"SRM"* ]]; then
-				doUpdateSRM=false
-			fi
-			
-			
-		else
-			echo ""
 		fi
-		
 	fi
-	
 else
 
 	doInstallRA=true
