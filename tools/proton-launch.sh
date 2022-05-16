@@ -43,23 +43,23 @@ set_env () {
     echo "STEAM_COMPAT_CLIENT_INSTALL_PATH: ${STEAM_COMPAT_CLIENT_INSTALL_PATH}" >> "${LOGFILE}"
 }
 
-# Main
+# Main Start
 main () {
     # Steam Application Path
     if [ -d "$HOME/.local/share/Steam" ]; then
         STEAMPATH="$HOME/.local/share/Steam"
         echo "STEAMPATH: ${STEAMPATH}" >> "${LOGFILE}"
-    else
+    else # Fail if Steam path isn't a directory
         echo "Steam path not found." >> "${LOGFILE}"; exit 1
     fi
 
-    # Alt Steam Path
+    # Alt steamapps path - need a way to pull all available steamapps directories own by Steam
     if [ -d "/run/media/mmcblk0p1/steamapps" ]; then
         ALTSTEAM="/run/media/mmcblk0p1/steamapps"
         echo "ALTSTEAM: ${ALTSTEAM}" >> "${LOGFILE}"
     fi
 
-    # Check or options
+    # Check for options -h help -p Proton Version -i AppID
     while getopts "h:p:i:" option; do
         case ${option} in
             h) # display Help
@@ -75,7 +75,7 @@ main () {
                     echo "Proton Version: ${PROTONVER}" >> "${LOGFILE}"
                     echo "Proton Path: ${PROTON}" >> "${LOGFILE}"
                     echo "COMPATDATA: ${COMPATDATA}" >> "${LOGFILE}"
-                # If we can't find the default path, try the alternate one
+                # If we can't find the default path, try the alternate one - loop here through all Steamapps?
                 elif [ ! -z ${ALTSTEAM+x} ] && [ -f "${ALTSTEAM}/common/Proton ${PROTONVER}/proton" ]; then
                     PROTON="${ALTSTEAM}/common/Proton ${PROTONVER}/proton"
                     COMPATDATA="${ALTSTEAM}/compatdata"
@@ -111,7 +111,7 @@ main () {
         PFX="${STEAMPATH}/steamapps/compatdata/${APPID}/pfx"
         echo "Proton: ${PROTON}" >> "${LOGFILE}"
         echo "PFX: ${PFX}" >> "${LOGFILE}"
-    # Try the Alt directory
+    # Try the Alt directory - loop here?
     elif [ -z ${PROTON+x} ] && [ ! -z ${ALTSTEAM+x} ] && [ -f "${ALTSTEAM}/common/Proton 7.0/proton" ]; then
         PROTON="${ALTSTEAM}/common/Proton 7.0/proton"
         PFX="${ALTSTEAM}/compatdata/${APPID}/pfx"
@@ -119,7 +119,7 @@ main () {
         echo "PFX: ${PFX}" >> "${LOGFILE}"
     fi
 
-    # Cancel if Proton is still not set.
+    # Cancel if PROTON is still not set.
     if [ -z ${PROTON+x} ]; then
         echo "Proton is not set." >> "${LOGFILE}"
         exit 1
@@ -133,7 +133,7 @@ main () {
         echo "No PFX." >> "${LOGFILE}"
     fi
 
-    # Remove opt arguments before --
+    # Remove opt arguments from $@ before --
     shift "$(( OPTIND - 1 ))"
 
     # Check for mandatory target
@@ -146,23 +146,30 @@ main () {
         echo "Target application not found. - ${1}" >> "${LOGFILE}"
         echo
         Help
+        exit 1
     fi
     
     # Call set_env function
     set_env
+
     # Start application with Proton
-    echo "Running python ${PROTON} waitforexitandrun ${@}" >> "${LOGFILE}"
+    echo "Running python ${PROTON} waitforexitandrun ${@}" >> "${LOGFILE}" # Send command to log just in case
     python "${PROTON}" waitforexitandrun "${@}"
 }
 
 # Only run if run directly
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    # Set a LOGFILE to proton-launch.log in the same directory this script runs from
     LOGFILE="$(dirname "${BASH_SOURCE[0]}")/proton-launch.log"
     echo "$(date +'%m/%d/%Y - %H:%I:%S') - Started" > "${LOGFILE}"
+    
+    # Exit if there aren't any arguments
     if ! [[ "${1}" ]]; then
         Help
         echo "No arguments provided." >> "${LOGFILE}"
         exit 1
     fi
+
+    # Continue to main()
     main "$@"
 fi
