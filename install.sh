@@ -122,17 +122,17 @@ testLocationValid(){
 	touch $testLocation/testwrite
 	declare -i returnVal=0
 	if [ ! -f  $testLocation/testwrite ]; then
-		echo "$testLocation not writeable"
+		#echo "$testLocation not writeable"
 		returnVal=returnVal+1
 	else
-		echo "$testLocation writable" 
+		#echo "$testLocation writable" 
 
 		ln -s $testLocation/testwrite $testLocation/testwrite.link
 		if [ ! -f  $testLocation/testwrite.link ]; then
-			echo "Symlink creation failed in $testLocation"
+			#echo "Symlink creation failed in $testLocation"
 			returnVal=returnVal+1
 		else
-			echo "Symlink creation succeeded in $testLocation" 
+			#echo "Symlink creation succeeded in $testLocation" 
 			locationTable+=(FALSE "$1" "$testLocation") #valid only if location is writable and linkable
 		fi
 	fi
