@@ -116,6 +116,9 @@ $dolphinDirBak = -join($dolphinDir,'_bak')
 $duckDirBak = -join($duckDir,'_bak')
 $yuzuDirBak = -join($yuzuDir,'_bak')
 
+$RAoverlayWin= -join($winPath,'Emulation\tools\EmulationStation-DE\Emulators\RetroArch\overlays\pegasus\')
+$RAoverlayDeck= '/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/'
+
 
 ##### The real fun begins here!
 
@@ -262,6 +265,7 @@ moveFromTemp "EmuDeck\configs\app.xemu.xemu\data\xemu\xemu" "tools\EmulationStat
 moveFromTemp "EmuDeck\configs\xenia" "tools\EmulationStation-DE\Emulators\xenia"
 mkdir tools\EmulationStation-DE\.emulationstation\  -ErrorAction SilentlyContinue
 copy EmuDeck\configs\emulationstation\es_settings.xml tools\EmulationStation-DE\.emulationstation\es_settings.xml
+moveFromTemp "EmuDeck\configs\emulationstation\gamelists" "tools\EmulationStation-DE\.emulationstation\gamelists"
 Write-Host "Done!" -ForegroundColor green -BackgroundColor black
 
 Show-Notification -ToastTitle 'Applying Windows Especial configurations'
@@ -298,8 +302,38 @@ sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' 'config/re
 sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' '/Emulation/bios' '\Emulation\bios'
 sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' 'video4linux2' ''
 
+#RetroArch Bezels fixes
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Stella/atari2600.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Gearsystem/gamegear.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Genesis Plus GX/gamegear.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Gambatte/gb.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/SameBoy/gb.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/mGBA/gba.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/SameBoy/gbc.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Gambatte/gbc.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Genesis Plus GX/genesis.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Beetle Lynx/lynx.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/MAME 2003-Plus/mame.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Genesis Plus GX/mastersystem.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Genesis Plus GX/megacd.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Mesen/nes.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Nestopia/nes.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Beetle NeoPop/ngp.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Beetle NeoPop/ngpc.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Beetle PCE Fast/pcengine.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/PPSSPP/psp.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/PicoDrive/sega32x.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Genesis Plus GX/segacd.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/bsnes-hd beta/snes.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Snes9x/snes.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Snes9x/snes43.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Snes9x/snes87.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Beetle Cygne/wswan.cfg' $RAoverlayDeck $RAoverlayWin
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\config/Beetle Cygne/wswanc.cfg' $RAoverlayDeck $RAoverlayWin
+
 #sedFile 'tools\EmulationStation-DE\Emulators\citra\qt-config.ini' $deckPath $winPath
 
+#Configure Bezels
 
 Show-Notification -ToastTitle 'Downloading RetroArch Cores'
 mkdir "tools\EmulationStation-DE\Emulators\RetroArch\cores"  -ErrorAction SilentlyContinue
