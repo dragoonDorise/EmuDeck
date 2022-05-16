@@ -225,7 +225,7 @@ if [[ ${#locationTable[@]} -gt 3 ]]; then # -gt 3 because there's 3 entries per 
 	--hide-column=3 --print-column=3 \
 		"${locationTable[@]}"  2>/dev/null)
 	ans=$?
-	if [ $ans -eq 0 ]; then\
+	if [ $ans -eq 0 ]; then
 		echo "Storage: ${destination}"
 	else
 		echo "No storage choice made"
@@ -237,9 +237,8 @@ fi
 
 if [[ $destination == "custom" ]]; then
 	destination=$(zenity --file-selection --directory --title="Select a destination for the Emulation directory." 2>/dev/null)
-	if [ $ans -eq 0 ]; then\
+	if [[ $destination != "custom" ]]; then
 		echo "Storage: ${destination}"
-
 		customValid=$(testLocationValid "${destination}" "CUSTOM")
 
 		if [[ $customValid == false ]]; then
@@ -248,7 +247,7 @@ if [[ $destination == "custom" ]]; then
 		fi
 
 	else
-		echo "User closed selection box. Exiting."
+		echo "User didn't choose. Exiting."
 		exit
 	fi
 fi
