@@ -22,8 +22,10 @@ Help () {
 set_env () {
     echo "Setting environment variables." >> "${LOGFILE}"
     # Set default data path if it isn't set, then include an appID
-    if [ -z ${STEAM_COMPAT_DATA_PATH+x} ]; then
-        export STEAM_COMPAT_DATA_PATH="${PFX}"/${SteamAppId:-${APPID}}
+    if [ -z ${STEAM_COMPAT_DATA_PATH+x} ] && ! [ -z ${PFX+x} ]; then
+        export STEAM_COMPAT_DATA_PATH="${PFX}"
+    elif [ -z ${STEAM_COMPAT_DATA_PATH+x} ]; then
+        export STEAM_COMPAT_DATA_PATH="${COMPATDATA}/${SteamAppId:-${APPID}}/pfx"
     elif ! [ ${SteamGameId} -ge 0 ] 2>/dev/null && ! [ ${SteamAppId} -ge 0 ] 2>/dev/null && ! [ $(basename ${STEAM_COMPAT_DATA_PATH}) -ge 0 ] 2>/dev/null; then
         export SteamAppId=${APPID}
     fi
@@ -69,18 +71,17 @@ main () {
                 # Check for Proton paths
                 if [ -f "${STEAMPATH}/steamapps/common/Proton ${PROTONVER}/proton" ]; then
                     PROTON="${STEAMPATH}/steamapps/common/Proton ${PROTONVER}/proton"
-                    PFX="${STEAMPATH}/steamapps/compatdata/pfx"
+                    COMPATDATA="${STEAMPATH}/steamapps/compatdata"
                     echo "Proton Version: ${PROTONVER}" >> "${LOGFILE}"
                     echo "Proton Path: ${PROTON}" >> "${LOGFILE}"
-                    echo "PFX: ${PFX}" >> "${LOGFILE}"
+                    echo "COMPATDATA: ${COMPATDATA}" >> "${LOGFILE}"
                 # If we can't find the default path, try the alternate one
                 elif [ ! -z ${ALTSTEAM+x} ] && [ -f "${ALTSTEAM}/common/Proton ${PROTONVER}/proton" ]; then
-                    PROTONVER="${OPTARG}"
                     PROTON="${ALTSTEAM}/common/Proton ${PROTONVER}/proton"
-                    PFX="${ALTSTEAM}/compatdata/pfx"
+                    COMPATDATA="${ALTSTEAM}/compatdata"
                     echo "Proton Version: ${PROTONVER}" >> "${LOGFILE}"
                     echo "Proton Path: ${PROTON}" >> "${LOGFILE}"
-                    echo "PFX: ${PFX}" >> "${LOGFILE}"
+                    echo "COMPATDATA: ${COMPATDATA}" >> "${LOGFILE}"
                 # Couldn't find either path
                 else
                     echo "Proton version is not installed." >> "${LOGFILE}"
@@ -107,13 +108,13 @@ main () {
     # Check if Proton is set, if not, set it to 7.0 by default
     if [ -z ${PROTON+x} ] && [ -f "${STEAMPATH}/steamapps/common/Proton 7.0/proton" ]; then
         PROTON="${STEAMPATH}/steamapps/common/Proton 7.0/proton"
-        PFX="${STEAMPATH}/steamapps/compatdata/pfx"
+        PFX="${STEAMPATH}/steamapps/compatdata/${APPID}/pfx"
         echo "Proton: ${PROTON}" >> "${LOGFILE}"
         echo "PFX: ${PFX}" >> "${LOGFILE}"
     # Try the Alt directory
     elif [ -z ${PROTON+x} ] && [ ! -z ${ALTSTEAM+x} ] && [ -f "${ALTSTEAM}/common/Proton 7.0/proton" ]; then
         PROTON="${ALTSTEAM}/common/Proton 7.0/proton"
-        PFX="${ALTSTEAM}/compatdata/pfx"
+        PFX="${ALTSTEAM}/compatdata/${APPID}/pfx"
         echo "Proton: ${PROTON}" >> "${LOGFILE}"
         echo "PFX: ${PFX}" >> "${LOGFILE}"
     fi
@@ -122,6 +123,14 @@ main () {
     if [ -z ${PROTON+x} ]; then
         echo "Proton is not set." >> "${LOGFILE}"
         exit 1
+    fi
+
+    # Set PFX if not set
+    if [ -z ${PFX+x} ] && ! [ -z ${COMPATDATA} ]; then
+        PFX="${COMPATDATA}/${APPID}"
+        echo "PFX: ${PFX}" >> "${LOGFILE}"
+    elif [ -z ${PFX+x} ]; then
+        echo "No PFX." >> "${LOGFILE}"
     fi
 
     # Remove opt arguments before --
