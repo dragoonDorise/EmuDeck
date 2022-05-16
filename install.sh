@@ -811,6 +811,7 @@ if [ $doInstallCemu == "true" ]; then
 	cp ~/dragoonDoriseTools/EmuDeck/tools/proton-launch.sh "${toolsPath}"proton-launch.sh
 	chmod +x "${toolsPath}"proton-launch.sh
 	cp ~/dragoonDoriseTools/EmuDeck/tools/launchers/cemu.sh "${toolsPath}"launchers/cemu.sh
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|" "${toolsPath}"launchers/cemu.sh
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/wiiu|${romsPath}wiiu|" "${toolsPath}"launchers/cemu.sh
 	chmod +x "${toolsPath}"launchers/cemu.sh
 
