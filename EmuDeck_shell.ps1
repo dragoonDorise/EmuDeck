@@ -100,6 +100,7 @@ $url_xenia = "https://github.com/xenia-project/release-builds-windows/releases/l
 $url_xemu = "https://github.com/mborgerson/xemu/releases/latest/download/xemu-win-release.zip"
 $url_srm = "https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.36/Steam-ROM-Manager-portable-2.3.36.exe"
 $url_esde = "https://gitlab.com/es-de/emulationstation-de/-/package_files/36880305/download"
+$url_theme_epicnoir = "https://github.com/dragoonDorise/es-theme-epicnoir/archive/refs/heads/master.zip"
 
 $userFolder = $env:USERPROFILE
 $dolphinDir = -join($userFolder,'\Documents\Dolphin Emulator\Config')
@@ -114,6 +115,9 @@ $raExe=-join($winPath,'\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroA
 $dolphinDirBak = -join($dolphinDir,'_bak')
 $duckDirBak = -join($duckDir,'_bak')
 $yuzuDirBak = -join($yuzuDir,'_bak')
+
+
+##### The real fun begins here!
 
 
 Write-Host "Hi! Welcome to EmuDeck Windows Edition." -ForegroundColor blue -BackgroundColor black
@@ -160,8 +164,6 @@ mkdir tools -ErrorAction SilentlyContinue
 mkdir saves -ErrorAction SilentlyContinue
 
 clear
-
-##### The real fun begins here!
 
 
 echo "Installing, please stand by..."
@@ -221,6 +223,11 @@ moveFromTemp "xenia" "tools\EmulationStation-DE\Emulators\xenia"
 Show-Notification -ToastTitle 'Downloading Steam Rom Manager'
 download $url_srm "tools/srm.exe"
 
+#ESDE Themes
+Show-Notification -ToastTitle 'Downloading Epic Noir Theme'
+download $url_theme_epicnoir "epicnoir.zip"
+moveFromTemp "epicnoir\es-theme-epicnoir-master" "tools\EmulationStation-DE\themes\es-epicnoir"
+
 Show-Notification -ToastTitle 'Cleaning up...'
 moveFromTemp "ra\RetroArch-Win64" "tools\EmulationStation-DE\Emulators\RetroArch"
 moveFromTemp "pcsx2\PCSX2 1.6.0" "tools\EmulationStation-DE\Emulators\PCSX2"
@@ -233,6 +240,7 @@ rmdir esde
 rmdir pcsx2
 rmdir yuzu
 rmdir temp
+rmdir epicnoir
 Write-Host "Done!" -ForegroundColor green -BackgroundColor black
 #Emulators config
 Show-Notification -ToastTitle 'Configuring Emulators'
