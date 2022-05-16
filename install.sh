@@ -120,24 +120,24 @@ setESDEEmus(){
 testLocationValid(){
 	testLocation=$2
 	touch $testLocation/testwrite
-	declare -i returnVal=0
+	return=""
 	if [ ! -f  $testLocation/testwrite ]; then
 		#echo "$testLocation not writeable"
-		returnVal=returnVal+1
+		return="invalid"
 	else
 		#echo "$testLocation writable" 
 
 		ln -s $testLocation/testwrite $testLocation/testwrite.link
 		if [ ! -f  $testLocation/testwrite.link ]; then
 			#echo "Symlink creation failed in $testLocation"
-			returnVal=returnVal+1
+			return="invalid"
 		else
-			#echo "Symlink creation succeeded in $testLocation" 
+			return="valid"
 			locationTable+=(FALSE "$1" "$testLocation") #valid only if location is writable and linkable
 		fi
 	fi
 	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
-	return $returnVal
+	echo $return
 }
 
 echo -ne "${BOLD}Downloading files from $branch channel...${NONE}"
@@ -245,7 +245,7 @@ if [[ $destination == "CUSTOM" ]]; then
 		echo "Storage: ${destination}"
 		customValid=$(testLocationValid "Custom" "${destination}")
 
-		if [[ $customValid != 0 ]]; then
+		if [[ $customValid != "valid" ]]; then
 			echo "Valid location not chosen. Exiting"
 			exit
 		fi
