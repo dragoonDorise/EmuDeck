@@ -86,7 +86,7 @@ function sedFile($file, $old, $new){
 	(Get-Content $file).replace($old, $new) | Set-Content $file
 }
 
-
+#Variables
 
 $installationPath = "C:\Emulation\"
 $url_ra = "https://buildbot.libretro.com/stable/1.10.3/windows/x86_64/RetroArch.7z"
@@ -101,6 +101,19 @@ $url_xemu = "https://github.com/mborgerson/xemu/releases/latest/download/xemu-wi
 $url_srm = "https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.36/Steam-ROM-Manager-portable-2.3.36.exe"
 $url_esde = "https://gitlab.com/es-de/emulationstation-de/-/package_files/36880305/download"
 
+$userFolder = $env:USERPROFILE
+$dolphinDir = -join($userFolder,'\Documents\Dolphin Emulator\Config')
+$duckDir = -join($userFolder,'\Documents\DuckStation')
+$yuzuDir = -join($userFolder,'\AppData\Roaming\yuzu')
+$dolphinIni=-join($dolphinDir,'\Dolphin.ini')
+$YuzuIni=-join($yuzuDir,'\qt-config.ini')
+$duckIni=-join($duckDir,'\settings.ini')
+$deckPath="/run/media/mmcblk0p1"
+$raConfigDir=-join($winPath,'\Emulation\tools\EmulationStation-DE\Emulators\RetroArch\')
+$raExe=-join($winPath,'\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\','retroarch.exe')
+$dolphinDirBak = -join($dolphinDir,'_bak')
+$duckDirBak = -join($duckDir,'_bak')
+$yuzuDirBak = -join($yuzuDir,'_bak')
 
 
 Write-Host "Hi! Welcome to EmuDeck Windows Edition." -ForegroundColor blue -BackgroundColor black
@@ -114,8 +127,31 @@ echo ""
 waitForUser
 
 clear
+Show-Notification -ToastTitle 'Creating Backups of Dolphin, Yuzu and Duckstation configuration'
+#Backup of non portable emulators config
+if (Test-Path -Path $dolphinDirBak){
+	echo ""
+}
+else {
+	Copy-Item -Path $dolphinDir -Destination $dolphinDirBak -PassThru
+}
 
+if (Test-Path -Path $duckDirBak){
+	echo ""
+}
+else {
+	Copy-Item -Path $duckDir -Destination $duckDirBak -PassThru
+}
 
+if (Test-Path -Path $yuzuDirBak){
+	echo ""
+}
+else {
+	Copy-Item -Path $yuzuDir -Destination $yuzuDirBak -PassThru
+}
+Write-Host "Done!" -ForegroundColor green -BackgroundColor black
+
+Start-Sleep -s 2
 
 mkdir Emulation -ErrorAction SilentlyContinue
 cd Emulation
@@ -124,6 +160,9 @@ mkdir tools -ErrorAction SilentlyContinue
 mkdir saves -ErrorAction SilentlyContinue
 
 clear
+
+##### The real fun begins here!
+
 
 echo "Installing, please stand by..."
 echo ""
@@ -197,16 +236,7 @@ rmdir temp
 Write-Host "Done!" -ForegroundColor green -BackgroundColor black
 #Emulators config
 Show-Notification -ToastTitle 'Configuring Emulators'
-$userFolder = $env:USERPROFILE
-$dolphinDir = -join($userFolder,'\Documents\Dolphin Emulator\Config')
-$duckDir = -join($userFolder,'\Documents\DuckStation')
-$yuzuDir = -join($userFolder,'\AppData\Roaming\yuzu')
-$dolphinIni=-join($dolphinDir,'\Dolphin.ini')
-$YuzuIni=-join($yuzuDir,'\qt-config.ini')
-$duckIni=-join($duckDir,'\settings.ini')
-$deckPath="/run/media/mmcblk0p1"
-$raConfigDir=-join($winPath,'\Emulation\tools\EmulationStation-DE\Emulators\RetroArch\')
-$raExe=-join($winPath,'\\Emulation\\tools\EmulationStation-DE\Emulators\\RetroArch\\','retroarch.exe')
+
 
 #moveFromTemp "EmuDeck\configs\org.citra_emu.citra" "XXXX"
 #moveFromTemp "EmuDeck\configs\org.ryujinx.Ryujinx" "XXXX"
