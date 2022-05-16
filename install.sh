@@ -216,7 +216,7 @@ fi
 #Storage Selection
 #
 
-if [[ ${#locationTable[@]} -gt 1 ]]; then
+if [[ ${#locationTable[@]} -gt 3 ]]; then # -gt 3 because there's 3 entries per row.
 	destination=$(zenity --list \
 	--title="Where would you like Emudeck to be installed?" \
 	--radiolist \
