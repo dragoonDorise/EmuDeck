@@ -235,13 +235,13 @@ else
 	destination="$HOME"
 fi
 
-if [[ destination == "custom" ]]; then
+if [[ $destination == "custom" ]]; then
 	destination=$(zenity --file-selection --directory --title="Select a destination for the Emulation directory." 2>/dev/null)
 	if [ $ans -eq 0 ]; then\
 		echo "Storage: ${destination}"
 
 		customValid=$(testLocationValid "${destination}" "CUSTOM")
-		
+
 		if [[ $customValid == false ]]; then
 			echo "Valid location not chosen. Exiting"
 			exit
