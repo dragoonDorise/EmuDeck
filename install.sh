@@ -346,7 +346,7 @@ if [ $expert == true ]; then
 		fi
 		
 	
-	if [[ $doSelectEmulators=true ]]; then
+	if [[ $doSelectEmulators == true ]]; then
 		
 		#Emulator selector
 		text="`printf "What emulators do you want to install?"`"
@@ -427,7 +427,7 @@ if [ $expert == true ]; then
 	fi	
 	
 
-	if [[ $doSelectWideScreen=true ]]; then
+	if [[ $doSelectWideScreen == true ]]; then
 		#Emulators screenHacks
 		text="`printf "We use 16:9 widescreen hacks on some emulators, if you want them to have the original 4:3 aspect ratio please select them on the following list"`"
 		wideToInstall=$(zenity --list \
@@ -469,99 +469,99 @@ if [ $expert == true ]; then
 	#We mark we've made a custom configuration for future updates
 	echo "" > ~/emudeck/.custom
 	
-	if [[ $doCustomEmulators=true ]]; then
-		# Configuration that only appplies to previous users
-		if [ -f "$SECONDTIME" ]; then
-			#We make sure all the emus can write its saves outside its own folders.
-			#Also needed for certain emus to open certain menus for adding rom directories in the front end.
-			#flatpak override net.pcsx2.PCSX2 --filesystem=host --user
-			flatpak override net.pcsx2.PCSX2 --share=network --user # for network access / online play
-			flatpak override io.github.shiiion.primehack --filesystem=host --user
-			flatpak override net.rpcs3.RPCS3 --filesystem=host --user
-			flatpak override org.citra_emu.citra --filesystem=host --user
-			flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
-			#flatpak override org.duckstation.DuckStation --filesystem=host --user
-			#flatpak override org.libretro.RetroArch --filesystem=host --user
-			#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
-			flatpak override org.yuzu_emu.yuzu --filesystem=host --user
-			flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
-			flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
+if [[ $doCustomEmulators == true ]]; then
+	# Configuration that only appplies to previous users
+	if [ -f "$SECONDTIME" ]; then
+		#We make sure all the emus can write its saves outside its own folders.
+		#Also needed for certain emus to open certain menus for adding rom directories in the front end.
+		#flatpak override net.pcsx2.PCSX2 --filesystem=host --user
+		flatpak override net.pcsx2.PCSX2 --share=network --user # for network access / online play
+		flatpak override io.github.shiiion.primehack --filesystem=host --user
+		flatpak override net.rpcs3.RPCS3 --filesystem=host --user
+		flatpak override org.citra_emu.citra --filesystem=host --user
+		flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
+		#flatpak override org.duckstation.DuckStation --filesystem=host --user
+		#flatpak override org.libretro.RetroArch --filesystem=host --user
+		#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
+		flatpak override org.yuzu_emu.yuzu --filesystem=host --user
+		flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
+		flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
 
-			installString='Updating'
-				
-			text="`printf "<b>EmuDeck will overwrite the following Emulators configurations</b> \nWhich systems do you want me to keep its current configuration <b>untouched</b>?\nWe recomend to keep all of them unchecked so everything gets updated so any possible bug can be fixed.\n If you want to mantain any custom configuration on some emulator select its name on this list"`"
-			emusToReset=$(zenity --list \
-								--title="EmuDeck" \
-								--height=500 \
-								--width=250 \
-								--ok-label="OK" \
-								--cancel-label="Exit" \
-								--text="${text}" \
-								--checklist \
-								--column="" \
-								--column="Emulator" \
-								1 "RetroArch"\
-								2 "PrimeHack" \
-								3 "PCSX2" \
-								4 "RPCS3" \
-								5 "Citra" \
-								6 "Dolphin" \
-								7 "Duckstation" \
-								8 "PPSSPP" \
-								9 "Yuzu" \
-								10 "Cemu" \
-								11 "Xemu" \
-								12 "SRM"  2>/dev/null)
-			clear
-			cat ~/dragoonDoriseTools/EmuDeck/logo.ans
-			echo -e "${BOLD}EmuDeck ${version}${NONE}"
-			ans=$?
-			if [ $ans -eq 0 ]; then
-				
-				if [[ "$emusToReset" == *"RetroArch"* ]]; then
-					doUpdateRA=false
-				fi
-				if [[ "$emusToReset" == *"PrimeHack"* ]]; then
-					doUpdatePrimeHacks=false
-				fi
-				if [[ "$emusToReset" == *"PCSX2"* ]]; then
-					doUpdatePCSX2=false
-				fi
-				if [[ "$emusToReset" == *"RPCS3"* ]]; then
-					doUpdateRPCS3=false
-				fi
-				if [[ "$emusToReset" == *"Citra"* ]]; then
-					doUpdateCitra=false
-				fi
-				if [[ "$emusToReset" == *"Dolphin"* ]]; then
-					doUpdateDolphin=false
-				fi
-				if [[ "$emusToReset" == *"Duckstation"* ]]; then
-					doUpdateDuck=false
-				fi
-				if [[ "$emusToReset" == *"PPSSPP"* ]]; then
-					doUpdatePPSSPP=false
-				fi
-				if [[ "$emusToReset" == *"Yuzu"* ]]; then
-					doUpdateYuzu=false
-				fi
-				if [[ "$emusToReset" == *"Cemu"* ]]; then
-					doUpdateCemu=false
-				fi
-				if [[ "$emusToReset" == *"Xemu"* ]]; then
-					doUpdateXemu=false
-				fi
-				if [[ "$emusToReset" == *"Xenia"* ]]; then
-					doUpdateXenia=false
-				fi
-				#if [[ "$emusToReset" == *"MelonDS"* ]]; then
-				#	doUpdateMelon=false
-				#fi
-				if [[ "$emusToReset" == *"SRM"* ]]; then
-					doUpdateSRM=false
-				fi
-				
-				
+		installString='Updating'
+			
+		text="`printf "<b>EmuDeck will overwrite the following Emulators configurations</b> \nWhich systems do you want me to keep its current configuration <b>untouched</b>?\nWe recomend to keep all of them unchecked so everything gets updated so any possible bug can be fixed.\n If you want to mantain any custom configuration on some emulator select its name on this list"`"
+		emusToReset=$(zenity --list \
+							--title="EmuDeck" \
+							--height=500 \
+							--width=250 \
+							--ok-label="OK" \
+							--cancel-label="Exit" \
+							--text="${text}" \
+							--checklist \
+							--column="" \
+							--column="Emulator" \
+							1 "RetroArch"\
+							2 "PrimeHack" \
+							3 "PCSX2" \
+							4 "RPCS3" \
+							5 "Citra" \
+							6 "Dolphin" \
+							7 "Duckstation" \
+							8 "PPSSPP" \
+							9 "Yuzu" \
+							10 "Cemu" \
+							11 "Xemu" \
+							12 "SRM"  2>/dev/null)
+		clear
+		cat ~/dragoonDoriseTools/EmuDeck/logo.ans
+		echo -e "${BOLD}EmuDeck ${version}${NONE}"
+		ans=$?
+		if [ $ans -eq 0 ]; then
+			
+			if [[ "$emusToReset" == *"RetroArch"* ]]; then
+				doUpdateRA=false
+			fi
+			if [[ "$emusToReset" == *"PrimeHack"* ]]; then
+				doUpdatePrimeHacks=false
+			fi
+			if [[ "$emusToReset" == *"PCSX2"* ]]; then
+				doUpdatePCSX2=false
+			fi
+			if [[ "$emusToReset" == *"RPCS3"* ]]; then
+				doUpdateRPCS3=false
+			fi
+			if [[ "$emusToReset" == *"Citra"* ]]; then
+				doUpdateCitra=false
+			fi
+			if [[ "$emusToReset" == *"Dolphin"* ]]; then
+				doUpdateDolphin=false
+			fi
+			if [[ "$emusToReset" == *"Duckstation"* ]]; then
+				doUpdateDuck=false
+			fi
+			if [[ "$emusToReset" == *"PPSSPP"* ]]; then
+				doUpdatePPSSPP=false
+			fi
+			if [[ "$emusToReset" == *"Yuzu"* ]]; then
+				doUpdateYuzu=false
+			fi
+			if [[ "$emusToReset" == *"Cemu"* ]]; then
+				doUpdateCemu=false
+			fi
+			if [[ "$emusToReset" == *"Xemu"* ]]; then
+				doUpdateXemu=false
+			fi
+			if [[ "$emusToReset" == *"Xenia"* ]]; then
+				doUpdateXenia=false
+			fi
+			#if [[ "$emusToReset" == *"MelonDS"* ]]; then
+			#	doUpdateMelon=false
+			#fi
+			if [[ "$emusToReset" == *"SRM"* ]]; then
+				doUpdateSRM=false
+			fi
+			
+			
 			else
 				echo ""
 			fi
@@ -1510,7 +1510,7 @@ fi
 
 #RetroAchievments
 #Disabled until we know why in the world the deck's screen keyword can't type in a zenity dialog
-if [[ ! -f ~/emudeck/.rap && $doRAEnable=true ]] || [[ $doRASignIn=true ]]; then
+if [[ ! -f ~/emudeck/.rap && $doRAEnable == true ]] || [[ $doRASignIn == true ]]; then
 
 	text=$(printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>\n\nActivating RetroAchievments will disable save states unless you disable hardcore mode\n\n\n\nPress STEAM + X to get the onscreen Keyboard")
 	RAInput=$(zenity --forms \
