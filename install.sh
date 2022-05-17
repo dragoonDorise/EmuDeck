@@ -299,6 +299,7 @@ if [ $expert == true ]; then
 		doRAEnable=false
 		doESDEThemePicker=false
 		doXboxButtons=false
+		clobberRoms=false
     
 		#one entry per expert mode feature
         table=()
@@ -316,6 +317,7 @@ if [ $expert == true ]; then
 		table+=(TRUE "setRAEnabled" "Enable Retroachievments in Retroarch?")
 		table+=(TRUE "setRASignIn" "Change RetroAchievements Sign in?")
 		table+=(TRUE "doESDEThemePicker" "Choose your EmulationStation-DE Theme?")
+		table+=(TRUE "clobberRoms" "Unchecking this box may be useful for non-standard roms folder setups.(symlinks as folders)")
 		#table+=(TRUE "doXboxButtons" "Should facebutton letters match between Nintendo and Steamdeck? (default is matched location)")
 
 		declare -i height=(${#table[@]}*50)
@@ -370,6 +372,10 @@ if [ $expert == true ]; then
 		if [[ "$expertModeFeatureList" == *"doESDEThemePicker"* ]]; then
 			doESDEThemePicker=true
 		fi
+		if [[ "$expertModeFeatureList" == *"clobberRoms"* ]]; then
+			clobberRoms=true
+		fi
+		
 
 		if [[ $doInstallPowertools == true || $doInstallGyro == true || $isRealDeck == false ]]; then
 			hasPass=$(passwd -S $(whoami) | awk -F " " '{print $2}' )
@@ -494,7 +500,7 @@ if [ $expert == true ]; then
 				DreamcastWide=false
 			fi		
 			if [[ "$wideToInstall" == *"BeetlePSX"* ]]; then
-				BeetleWide=true
+				BeetleWide=false
 			fi				
 					
 			
@@ -619,6 +625,9 @@ else
 	doInstallPPSSPP=true
 	doInstallXemu=true
 	#doInstallMelon=true
+
+	#ExpertModeSettingOverride
+	clobberRoms=true #in easy mode, we always replace the roms directories
 
 fi # end Expert if
 
@@ -828,16 +837,18 @@ echo -e ""
 
 
 ##Generate rom folders
+if [[ $clobberRoms == true ]]; then
+	echo -ne "${BOLD}Creating roms folder in $destination"
 
-echo -ne "${BOLD}Creating roms folder in $destination"
-
-mkdir -p "$romsPath"
-mkdir -p "$biosPath"
-mkdir -p "$biosPath"/yuzu/
-sleep 3
-rsync -r ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath" 
-echo -e "${GREEN}OK!${NONE}"
-
+	mkdir -p "$romsPath"
+	mkdir -p "$biosPath"
+	mkdir -p "$biosPath"/yuzu/
+	sleep 3
+	rsync -r ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath" 
+	echo -e "${GREEN}OK!${NONE}"
+else
+	echo -ne "Leaving existing Emulation folder structure"
+fi
 
 #Cemu - We need to install Cemu after creating the Roms folders!
 if [ $doInstallCemu == "true" ]; then
