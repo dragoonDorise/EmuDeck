@@ -133,7 +133,8 @@ testLocationValid(){
 			return="invalid"
 		else
 			return="valid"
-			locationTable+=(FALSE "$1" "$testLocation") #valid only if location is writable and linkable
+			#doesn't work? scope issue?
+			#locationTable+=(FALSE "$1" "$testLocation") #valid only if location is writable and linkable
 		fi
 	fi
 	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
@@ -196,6 +197,9 @@ if [ -b "/dev/mmcblk0p1" ]; then
 	echo "SD Card found; testing $sdCardFull for validity."
 	sdValid=$(testLocationValid "SD" $sdCardFull)
 	echo "SD Card at $sdCardFull is valid? Return val: $sdValid"
+	if [[ $sdValid == "valid" ]]; then
+		locationTable+=(FALSE "SD" "$sdCardFull") 
+	fi
 fi
 
 #
