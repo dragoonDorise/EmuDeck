@@ -529,8 +529,8 @@ if [[ $doCustomEmulators == true ]]; then
 		flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
 		flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
 
-		installString='Updating'
-			
+		installString='Updating'	
+		
 		text="`printf "<b>EmuDeck will overwrite the following Emulators configurations</b> \nWhich systems do you want me to keep its current configuration <b>untouched</b>?\nWe recomend to keep all of them unchecked so everything gets updated so any possible bug can be fixed.\n If you want to mantain any custom configuration on some emulator select its name on this list"`"
 		emusToReset=$(zenity --list \
 							--title="EmuDeck" \
@@ -611,7 +611,7 @@ if [[ $doCustomEmulators == true ]]; then
 		fi
 	fi
 else
-
+	#easy mode settings
 	doInstallRA=true
 	doInstallDolphin=true
 	doInstallPCSX2=true
@@ -626,8 +626,11 @@ else
 	doInstallXemu=true
 	#doInstallMelon=true
 
-	#ExpertModeSettingOverride
-	clobberRoms=true #in easy mode, we always replace the roms directories
+	#Don't clobber roms dirs if we already made them.
+	#Expert choice available.
+	if [ -f "$SECONDTIME" ]; then
+			clobberRoms=false
+	fi
 
 fi # end Expert if
 
