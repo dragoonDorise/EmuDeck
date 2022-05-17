@@ -873,9 +873,12 @@ if [ $doInstallCemu == "true" ]; then
 	fi
 
 	#because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
+	cp ~/dragoonDoriseTools/EmuDeck/tools/proton-launch.sh "${toolsPath}"proton-launch.sh
+	chmod +x "${toolsPath}"proton-launch.sh
 	cp ~/dragoonDoriseTools/EmuDeck/tools/launchers/cemu.sh "${toolsPath}"launchers/cemu.sh
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|" "${toolsPath}"launchers/cemu.sh
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/wiiu|${romsPath}wiiu|" "${toolsPath}"launchers/cemu.sh
-	chmod +x ${toolsPath}/launchers/cemu.sh
+	chmod +x "${toolsPath}"launchers/cemu.sh
 
 	#Commented until we get CEMU flatpak working
 	#echo -e "${BOLD}EmuDeck will add Witherking25's flatpak repo to your Discorver App.this is required for cemu now${NONE}"	
