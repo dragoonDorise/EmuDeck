@@ -4,6 +4,7 @@
 - Fixed RPCS3 Controller not working on new install
 - Changed Cemu default controller to gamepad with gyro (gyro requires SteamDeckGyroDSU installation. See Expert mode for more details)
 - updated Mupen64Plus-Next defaults for N64. Should be much better now. more accurate, faster, and look better.
+- new tool added - Proton-Launch.sh (for all your non-steam windows app shenanigans) 
 
 redid the menu system:
 General Changes:
