@@ -110,7 +110,7 @@ setESDEEmus(){
 		mkdir -p ~/.emulationstation/gamelists/$system && cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/gamelists/$system/gamelist.xml $FILE
 	else
 		gamelistFound=$(grep -rnw $FILE -e 'gameList')
-		if [[ gamelistFound == '' ]]; then
+		if [[ $gamelistFound == '' ]]; then
 		    sed -i -e '$a\<gameList />' $FILE
 		fi
 		alternativeEmu=$(grep -rnw $FILE -e 'alternativeEmulator')
