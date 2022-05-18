@@ -132,7 +132,7 @@ main () {
     fi
 
     # Set PFX if not set
-    if [ -z ${PFX+x} ] && ! [ -z ${COMPATDATA} ]; then
+    if [ -z ${PFX+x} ] && ! [ -z ${COMPATDATA+x} ]; then
         PFX="${COMPATDATA}/${APPID}"
         echo "PFX: ${PFX}" >> "${LOGFILE}"
     elif [ -z ${PFX+x} ]; then
