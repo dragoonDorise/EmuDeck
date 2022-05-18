@@ -25,10 +25,16 @@ set_env () {
     if [ -z ${STEAM_COMPAT_DATA_PATH+x} ] && ! [ -z ${PFX+x} ]; then
         export STEAM_COMPAT_DATA_PATH="${PFX}"
     elif [ -z ${STEAM_COMPAT_DATA_PATH+x} ]; then
-        export STEAM_COMPAT_DATA_PATH="${COMPATDATA}/${SteamAppId:-${APPID}}/pfx"
-    elif ! [ ${SteamGameId} -ge 0 ] 2>/dev/null && ! [ ${SteamAppId} -ge 0 ] 2>/dev/null && ! [ $(basename ${STEAM_COMPAT_DATA_PATH}) -ge 0 ] 2>/dev/null; then
-        export SteamAppId=${APPID}
+        export STEAM_COMPAT_DATA_PATH="${COMPATDATA}/${SteamAppId:-${APPID}}"
     fi
+
+    # Set SteamAppId
+    if [ -z ${SteamAppId+x} ] && ! [ -z ${APPID+x} ]; then
+        export SteamAppId=${APPID}
+    elif [ -z ${SteamAppId+x} ]; then
+        export SteamAppId=0
+    fi
+
     # Set default Steam Client path if it isn't
     if [ -z ${STEAM_COMPAT_CLIENT_INSTALL_PATH+x} ]; then
         export STEAM_COMPAT_CLIENT_INSTALL_PATH="${STEAMPATH}"
@@ -108,13 +114,13 @@ main () {
     # Check if Proton is set, if not, set it to 7.0 by default
     if [ -z ${PROTON+x} ] && [ -f "${STEAMPATH}/steamapps/common/Proton 7.0/proton" ]; then
         PROTON="${STEAMPATH}/steamapps/common/Proton 7.0/proton"
-        PFX="${STEAMPATH}/steamapps/compatdata/${APPID}/pfx"
+        PFX="${STEAMPATH}/steamapps/compatdata/${APPID}"
         echo "Proton: ${PROTON}" >> "${LOGFILE}"
         echo "PFX: ${PFX}" >> "${LOGFILE}"
     # Try the Alt directory - loop here?
     elif [ -z ${PROTON+x} ] && [ ! -z ${ALTSTEAM+x} ] && [ -f "${ALTSTEAM}/common/Proton 7.0/proton" ]; then
         PROTON="${ALTSTEAM}/common/Proton 7.0/proton"
-        PFX="${ALTSTEAM}/compatdata/${APPID}/pfx"
+        PFX="${ALTSTEAM}/compatdata/${APPID}"
         echo "Proton: ${PROTON}" >> "${LOGFILE}"
         echo "PFX: ${PFX}" >> "${LOGFILE}"
     fi
@@ -127,7 +133,7 @@ main () {
 
     # Set PFX if not set
     if [ -z ${PFX+x} ] && ! [ -z ${COMPATDATA} ]; then
-        PFX="${COMPATDATA}/${APPID}/pfx"
+        PFX="${COMPATDATA}/${APPID}"
         echo "PFX: ${PFX}" >> "${LOGFILE}"
     elif [ -z ${PFX+x} ]; then
         echo "No PFX." >> "${LOGFILE}"
