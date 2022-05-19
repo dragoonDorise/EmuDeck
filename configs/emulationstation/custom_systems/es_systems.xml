@@ -9,4 +9,13 @@
         <platform>wiiu</platform>
         <theme>wiiu</theme>
     </system>
+    <system>
+        <name>arcade</name>
+        <fullname>Arcade</fullname>
+        <path>%ROMPATH%/mame/roms</path>
+        <extension>.cmd .CMD .7z .7Z .zip .ZIP</extension>
+        <command label="MAME (Proton)">/usr/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/mame-proton.sh -rompath %ROMPATH% %BASENAME%</command>
+        <platform>arcade</platform>
+        <theme>arcade</theme>
+    </system>
 </systemList>
