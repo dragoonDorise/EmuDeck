@@ -61,7 +61,7 @@ EmuDeck configures EmulationStation DE to use the same rom folders that EmuDeck 
 
 # Hotkeys
 
-We try to use the same hotkeys for every emulator but some of them has its own different Hotkeys, check the following table:
+We try to use the same hotkeys for every emulator but some of them have their own different hotkeys, shown here:
 
 |  Hotkey         | RetroArch      | Dolphin        | Citra \* | Cemu \*        | Yuzu           | PCSX2 \*     | RPCS3        |
 | --------------- | -------------- | -------------- | -------- | -------------- | -------------- | ------------ | ------------ |
@@ -75,6 +75,7 @@ We try to use the same hotkeys for every emulator but some of them has its own d
 | Swap Screens    | -              | -              | R4       | R4             | -              | -            | -            |
 | Toggle Layout   | -              | -              | L5       | -              | -              | -            | -            |
 
+Note that Nintendo-oriented emulators refer to "A" in the emulated sense (physical Steam Deck "B")
 \* You need to activate Steam Input to get those hotkeys to work https://www.emudeck.com/#steam_input
 
 # Developers, developers, developers.
