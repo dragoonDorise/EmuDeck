@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # Why?
-# Steam retro arch allows you to save your game states and saves with steam cloud saves which is nice when 
+# Steam RetroArch allows you to save your game states and saves with steam cloud saves which is nice when 
 # switching between your steamdeck and desktop. Without having to deal with google drive or dropbox.
 # You can also gain acess to steam only features like online coop and remote play.
 
-# Requirements
-# Retro Arch must be installed on SD card and not internal storage 
+# Requirements:
+# RetroArch must be installed on SD card and not internal storage 
 # EmuDeck must be installed on SD card as well
-# make sure you copy over any saves or states in the Flatpack version of retro arch to the steam version 
+# make sure you copy over any saves or states in the Flatpack version of RetroArch to the steam version 
 # as any current saves will be over written with that of the steam verstion
 
 # steps:
-# Install Retro Arch
+# Install RetroArch
 # Run EmuDeck in easy mode
 # Run this script
 
