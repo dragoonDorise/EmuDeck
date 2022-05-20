@@ -5,7 +5,7 @@
 - Changed Cemu default controller to gamepad with gyro (gyro requires SteamDeckGyroDSU installation. See Expert mode for more details)
 - updated Mupen64Plus-Next defaults for N64. Should be much better now. more accurate, faster, and look better.
 - new tool added - proton-launch.sh (for all your non-steam windows app shenanigans, courtesy of Angel) 
-
+- Citra left trackpad as mouse instead of D-pad
 redid the menu system:
 General Changes:
    - SD card is only available if one is inserted, writable, and supports symlinks
