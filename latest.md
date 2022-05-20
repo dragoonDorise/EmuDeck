@@ -1,35 +1,20 @@
-0.17.3
-- New ESDE Epic Noir Theme set as default & Theme Selector 
-- Ability to launch WiiU Games from ESDE
-- Cemu Script added to installers. Adding WiiU games to SRM no longer requires proton to be set, it just works TM!
-- Widescreen Hacks for PS2 Games - Only US
-- Widescreen for 70 Wii and GC games - SkyHighBrownie
-- Added log files for Community Dolphin ini hacks. Send us your own!
-- Added new ExpertMode feature - SteamGyroDSU. (requires sudo)
-- Added logging to CHDman script so you can check what it did after the run.
-- Added paths to Yuzu for roms directory.
-- Added paths to Citra for roms directory.
-- Added paths to Primehack for roms directory.
-- Added permissions for PCSX2 to do netplay.
-- Added permissions for Xemu to write to its hdd if it's internal.
-- Added default paths for Cemu to mlc01
-- Added default paths for Cemu to roms folder. When you launch cemu with proton, you may need to refresh the games list manually for them to show up.
-- Set new default emulators for ES-DE to be more in line with the ones we set for SRM and set preparations for future ESDE updates
--     New emulation station defaults:
-           'Genesis Plus GX' gamegear
-           'Gambatte' gb
-           'Gambatte' gbc
-           'Dolphin (Standalone)' gc
-           'PPSSPP (Standalone)' psp
-           'Dolphin (Standalone)' wii
-           'Mesen' nes
-           'DOSBox-Pure' dos
-           'PCSX2 (Standalone)' ps2
-           'melonDS' nds
-- Update RPCS3 config with new version, as its config had changed
-- Update PowerTools to version 4.1 ( Expert mode ). SMT Toggle is in. Be aware that this may crash MangoHud(stats) if enabled, but it won't hurt anything. MangoHud will come back on reboot.
-- Fixed SRM Parser for Installed PS3 games for internal users.
-- Expert mode will ask about Bezels and Autosave again
-- Dolphin set as 16:9 by default on easy mode
-- Fix Sega Genesis missing extension and adds Commodore 64
-- Add support for holoISO
+0.17.4
+- EmuDeck WE beta ( Windows Edition )
+- Auto close of Steam Desktop when opening SRM, and auto going back to SteamUI on closing SRM but only when launched from EmuDeck
+- Fixed RPCS3 Controller not working on new install
+- Changed Cemu default controller to gamepad with gyro (gyro requires SteamDeckGyroDSU installation. See Expert mode for more details)
+- updated Mupen64Plus-Next defaults for N64. Should be much better now. more accurate, faster, and look better.
+- new tool added - proton-launch.sh (for all your non-steam windows app shenanigans, courtesy of Angel) 
+- Citra left trackpad as mouse instead of D-pad
+redid the menu system:
+General Changes:
+   - SD card is only available if one is inserted, writable, and supports symlinks
+   - If the user does not have an SD Card, and chooses easy mode, it will skip location choice and install to ~/
+   - If the user has installed EmuDeck before, we won't write the roms folders over their existing ones anymore.
+   - logging is more verbose.
+
+Expert Mode Changes:
+   - Expert mode now has a list of changes intead of a series of questions.
+   - Expert mode now has a custom install location available. It will be tested for the ability to both write and link, and 
+      rejected if either fail.
+   - Now has option to clobber roms folders even if you have already run it before.
