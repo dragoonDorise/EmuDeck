@@ -811,7 +811,7 @@
     "parserType": "Glob",
     "configTitle": "DOS - Retroarch(Flatpak) - DOSBox Pure",
     "steamCategory": "${DOS}",
-    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}dosbox_pure_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\" -conf \"${filePath}${/}${title}.conf\"",
+    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}dosbox_pure_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/dos",
     "steamDirectory": "/home/deck/.steam/steam",
