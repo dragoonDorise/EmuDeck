@@ -1391,6 +1391,8 @@ fi
 #RA
 if [ ! -d "$savesPath/retroarch/states" ]; then		
 	mkdir -p $savesPath/retroarch
+	cp ~/dragoonDoriseTools/EmuDeck/tools/steamCloudSaves.sh "${savesPath}"/retroarch/
+	chmod +x "${savesPath}"/retroarch/steamCloudSaves.sh
 	echo -e ""
 	echo -e "Linking RetroArch saved states to the Emulation/saves folder"			
 	echo -e ""	
