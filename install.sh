@@ -714,10 +714,20 @@ fi
 #SRM Installation
 if [ $doInstallSRM == true ]; then
 	echo -e "${BOLD}${installString} Steam Rom Manager${NONE}"
-	rm -f ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage 
-	curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" > ~/Desktop/Steam-ROM-Manager.AppImage
+	rm -f ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
+	rm -f ~/Desktop/Steam-ROM-Manager.AppImage
+	curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" > "${toolsPath}"Steam-ROM-Manager.AppImage
 	#Nova fix'
-	chmod +x ~/Desktop/Steam-ROM-Manager.AppImage
+	echo "#!/usr/bin/env xdg-open
+	[Desktop Entry]
+	Name=Steam Rom Manager
+	Exec= kill -9 `pidof steam` & ${toolsPath}Steam-ROM-Manager.AppImage
+	Icon=steamdeck-gaming-return
+	Terminal=true
+	Type=Application
+	StartupNotify=false" > ~/Desktop/SteamRomManager.desktop
+	chmod +x ~/Desktop/SteamRomManager.desktop
+	chmod +x ${toolsPath}Steam-ROM-Manager.AppImage
 fi
 
 #Support for non-valve hardware.
@@ -1707,7 +1717,7 @@ ans=$?
 if [ $ans -eq 0 ]; then
 	kill -9 `pidof steam`
 	cd ~/Desktop/
-	./Steam-ROM-Manager.AppImage
+	"$toolsPath"Steam-ROM-Manager.AppImage
 	qdbus org.kde.Shutdown /Shutdown org.kde.Shutdown.logout
 	exit
 else
