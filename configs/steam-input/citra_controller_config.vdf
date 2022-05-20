@@ -768,6 +768,34 @@
 			}
 		}
 	}
+	"group"
+	{
+		"id"		"15"
+		"mode"		"absolute_mouse"
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mouse_button LEFT"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+		"gameactions"
+		{
+		}
+	}
 	"preset"
 	{
 		"id"		"0"
@@ -776,8 +804,9 @@
 		{
 			"7"		"switch active"
 			"0"		"button_diamond active"
-			"1"		"left_trackpad active"
+			"1"		"left_trackpad inactive"
 			"11"		"left_trackpad inactive"
+			"15"		"left_trackpad active"
 			"2"		"right_trackpad inactive"
 			"6"		"right_trackpad inactive"
 			"10"		"right_trackpad inactive"
