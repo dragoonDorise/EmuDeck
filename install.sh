@@ -695,15 +695,24 @@ fi
 
 #We check if we have scrapped data on ESDE so we can move it to the SD card
 #We do this wether the user wants to install ESDE or not to account for old users that might have ESDE already installed and won't update
-if [ $destination != "$HOME" ]; then		
-	#Symlink already created?
-	if [ ! -d "$ESDEscrapData" ]; then		
-		echo -e ""
-		echo -e "Moving EmulationStation downloaded media to $destination"			
-		echo -e ""
-		mv ~/.emulationstation/downloaded_media $ESDEscrapData && rm -rf ~/.emulationstation/downloaded_media && ln -sn $ESDEscrapData ~/.emulationstation/downloaded_media			
-	fi			
-fi
+#Leon requested we use his config instead of symlink
+
+if [ ! -d "$ESDEscrapData" ]; then		
+	echo -e ""
+	echo -e "Moving EmulationStation downloaded media to $destination"			
+	echo -e ""
+	mv ~/.emulationstation/downloaded_media $ESDEscrapData && rm -rf ~/.emulationstation/downloaded_media		#move it
+fi	
+#Configure Downloaded_media folder
+esDE_MediaDir="<string name=\"MediaDirectory\" value="${ESDEscrapData}" />"
+#search for media dir in xml, if not found, change to ours.
+mediaDirFound=$(grep -rnw $FILE -e 'MediaDirectory')
+		if [[ $mediaDirFound == '' ]]; then
+		    sed -i -e '$a'$esDE_MediaDir  ~/.emulationstation/es_settings.xml # use config file instead of link
+		else
+			#check if the media dir is ours then write it?
+		fi
+
 
 #SRM Installation
 if [ $doInstallSRM == true ]; then
@@ -955,6 +964,14 @@ sed -i "s|/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh|${toolsPath}lau
 #rsync -r ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/ ~/.emulationstation/
 cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/es_settings.xml ~/.emulationstation/es_settings.xml
 sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.emulationstation/es_settings.xml
+
+#Configure Downloaded_media folder
+esDE_MediaDir="<string name=\"MediaDirectory\" value="${ESDEscrapData}" />"
+#search for media dir in xml, if not found, change to ours.
+mediaDirFound=$(grep -rnw $FILE -e 'MediaDirectory')
+		if [[ $mediaDirFound == '' ]]; then
+		    sed -i -e '$a'$esDE_MediaDir  ~/.emulationstation/es_settings.xml # use config file instead of link
+		fi
 #sed -i "s|name=\"ROMDirectory\" value=\"/name=\"ROMDirectory\" value=\"${romsPathSed}/g" ~/.emulationstation/es_settings.xml
 mkdir -p ~/.emulationstation/themes/
 git clone https://github.com/dragoonDorise/es-theme-epicnoir.git ~/.emulationstation/themes/es-epicnoir &>> /dev/null
