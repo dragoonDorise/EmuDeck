@@ -308,7 +308,7 @@ if [ $expert == true ]; then
 		doRAEnable=false
 		doESDEThemePicker=false
 		doXboxButtons=false
-		clobberRoms=false
+		clobberRoms=true
     
 		#one entry per expert mode feature
         table=()
@@ -325,8 +325,7 @@ if [ $expert == true ]; then
 		table+=(TRUE "selectWideScreen" "Customize Emulator Widescreen Selection?")
 		table+=(TRUE "setRAEnabled" "Enable Retroachievments in Retroarch?")
 		table+=(TRUE "setRASignIn" "Change RetroAchievements Sign in?")
-		table+=(TRUE "doESDEThemePicker" "Choose your EmulationStation-DE Theme?")
-		table+=(TRUE "clobberRoms" "Unchecking this box may be useful for non-standard roms folder setups.(symlinks as folders)")
+		table+=(TRUE "doESDEThemePicker" "Choose your EmulationStation-DE Theme?")		
 		#table+=(TRUE "doXboxButtons" "Should facebutton letters match between Nintendo and Steamdeck? (default is matched location)")
 
 		declare -i height=(${#table[@]}*50)
@@ -635,12 +634,6 @@ else
 	doInstallXemu=true
 	#doInstallMelon=true
 
-	#Don't clobber roms dirs if we already made them.
-	#Expert choice available.
-	if [ -f "$SECONDTIME" ]; then
-			clobberRoms=false
-	fi
-
 fi # end Expert if
 
 ##
@@ -674,26 +667,27 @@ if [ $doInstallESDE == true ]; then
 		curl $latestURL --output "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage 
 		rm "$toolsPath"/latesturl.txt
 		chmod +x "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage	
-		
-	if [ $expert == true ]; then	
-		text="Which theme do you want to set as default on EmulationStation DE?"
-		esdeTheme=$(zenity --list \
-		--title="EmuDeck" \
-		--height=250 \
-		--width=250 \
-		--ok-label="OK" \
-		--cancel-label="Exit" \
-		--text="${text}" \
-		--radiolist \
-		--column="" \
-		--column="Theme" \
-		1 "EPICNOIR" \
-		2 "MODERN-DE" \
-		3 "RBSIMPLE-DE" 2>/dev/null)
-		clear
-		ans=$?	
-		if [ $ans -eq 0 ]; then
-			echo "Theme selected" 
+	if [ $doESDEThemePicker = true	]; then
+		if [ $expert == true ]; then	
+			text="Which theme do you want to set as default on EmulationStation DE?"
+			esdeTheme=$(zenity --list \
+			--title="EmuDeck" \
+			--height=250 \
+			--width=250 \
+			--ok-label="OK" \
+			--cancel-label="Exit" \
+			--text="${text}" \
+			--radiolist \
+			--column="" \
+			--column="Theme" \
+			1 "EPICNOIR" \
+			2 "MODERN-DE" \
+			3 "RBSIMPLE-DE" 2>/dev/null)
+			clear
+			ans=$?	
+			if [ $ans -eq 0 ]; then
+				echo "Theme selected" 
+			fi
 		fi
 	fi
 	
@@ -866,7 +860,7 @@ if [[ $clobberRoms == true ]]; then
 	mkdir -p "$biosPath"
 	mkdir -p "$biosPath"/yuzu/
 	sleep 3
-	rsync -r ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath" 
+	rsync -r --ignore-existing ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath" 
 	echo -e "${GREEN}OK!${NONE}"
 else
 	echo -ne "Leaving existing Emulation folder structure"
@@ -1237,6 +1231,7 @@ fi
 echo -e "${GREEN}OK!${NONE}"
 
 #Symlinks for ESDE compatibility
+unlink n3ds
 cd $(echo $romsPath | tr -d '\r') 
 ln -sn gamecube gc 
 ln -sn 3ds n3ds 

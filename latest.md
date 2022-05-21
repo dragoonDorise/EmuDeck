@@ -8,6 +8,8 @@
 - New tool added - proton-launch.sh (for all your non-steam windows app shenanigans, courtesy of Angel) 
 - Citra left trackpad as mouse instead of D-pad
 - PPSSPP Audio Fix for Sleep Mode
+- Fixed 3ds symlink for old installations
+- Now rom folder creation will respect users custom symlinks
 redid the menu system:
 General Changes:
    - SD card is only available if one is inserted, writable, and supports symlinks
@@ -16,7 +18,7 @@ General Changes:
    - logging is more verbose.
 
 Expert Mode Changes:
-   - Expert mode now has a list of changes intead of a series of questions.
+   - Expert mode now has a list of changes instead of a series of questions.
    - Expert mode now has a custom install location available. It will be tested for the ability to both write and link, and 
       rejected if either fail.
    - Now has option to clobber roms folders even if you have already run it before.
