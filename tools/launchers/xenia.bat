@@ -1,1 +1,1 @@
-start E:/Emulation/tools/EmulationStation-DE/Emulators/xenia/xenia.exe
+start XX/Emulation/tools/EmulationStation-DE/Emulators/xenia/xenia.exe
