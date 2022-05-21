@@ -34,6 +34,30 @@ function download($url, $output) {
 	Write-Host "Done!" -ForegroundColor green -BackgroundColor black
 }
 
+function downloadCore($url, $output) {
+	#Invoke-WebRequest -Uri $url -OutFile $output
+	$file=-join('Emulation\',$output,'.zip')
+	$zipFile=-join('E:\',$file)
+	$destination = -join($winPath,'Emulation\tools\EmulationStation-DE\Emulators\RetroArch\cores\')
+	$wc = New-Object net.webclient
+	$wc.Downloadfile($url, $file)
+	
+	foreach ($line in $file) {
+		$extn = [IO.Path]::GetExtension($line)
+		if ($extn -eq ".zip" ){			
+			Expand-Archive -Path $zipFile -DestinationPath $destination -Force
+			del $zipFile
+		}
+		#if ($extn -eq ".7z" ){
+		#	$dir = -join($output.replace('.7z',''), "\");
+		#	WinRAR x -y $output $dir
+		#	waitForWinRar
+		#	del $output
+		#}
+	}
+	Write-Host "Done!" -ForegroundColor green -BackgroundColor black
+}
+
 function Show-Notification {
 	[cmdletbinding()]
 	Param (
@@ -98,9 +122,9 @@ $yuzuDir = -join($userFolder,'\AppData\Roaming\yuzu')
 $dolphinIni=-join($dolphinDir,'\Dolphin.ini')
 $YuzuIni=-join($yuzuDir,'\config\qt-config.ini')
 $duckIni=-join($duckDir,'\settings.ini')
-$deckPath="/run/media/mmcblk0p1"
+$deckPath="/run/media/mmcblk0p1/"
 $raConfigDir=-join($winPath,'\Emulation\tools\EmulationStation-DE\Emulators\RetroArch\')
-$raExe=-join($winPath,'\\Emulation\\tools\EmulationStation-DE\Emulators\\RetroArch\\','retroarch.exe')
+$raExe=-join($winPath,'\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\','retroarch.exe')
 
 Write-Host "Hi! Welcome to EmuDeck Windows Edition." -ForegroundColor blue -BackgroundColor black
 echo ""
@@ -208,7 +232,11 @@ moveFromTemp "EmuDeck\configs\org.libretro.RetroArch\config\retroarch" "tools\Em
 moveFromTemp "EmuDeck\configs\net.pcsx2.PCSX2\config\PCSX2" "tools\EmulationStation-DE\Emulators\PCSX2"
 moveFromTemp "EmuDeck\configs\net.rpcs3.RPCS3\config\rpcs3" "tools\EmulationStation-DE\Emulators\RPCS3"
 moveFromTemp "EmuDeck\configs\org.duckstation.DuckStation\data\duckstation" $duckDir
-moveFromTemp "EmuDeck\configs\steam-rom-manager" "tools"
+mkdir "tools\userData\" -ErrorAction SilentlyContinue
+Copy-Item  "EmuDeck\configs\steam-rom-manager\userData\userConfigurationsWE.json" "tools\userData\userConfigurations.json"
+
+
+rename tools/userData/userConfigurationsWE.json tools/userData/userConfigurations.json
 moveFromTemp "EmuDeck\configs\org.yuzu_emu.yuzu" $yuzuDir
 #moveFromTemp "EmuDeck\configs\emulationstation" "tools\EmulationStation-DE\.emulationstation"
 moveFromTemp "EmuDeck\configs\app.xemu.xemu\data\xemu\xemu" "tools\EmulationStation-DE\Emulators\xemu"
@@ -231,10 +259,19 @@ sedFile $duckIni $deckPath $winPath
 #SRM
 sedFile 'tools\userData\userConfigurations.json' 'Z:' ''
 sedFile 'tools\userData\userConfigurations.json' $deckPath $winPath
-sedFile 'tools\userData\userConfigurations.json' '/home/deck/.steam/steam' 'C:\\Program Files (x86)\\Steam'
 sedFile 'tools\userData\userConfigurations.json' '/' '\'
-sedFile 'tools\userData\userConfigurations.json' '/user/bin/flatpak' ''
-sedFile 'tools\userData\userConfigurations.json' 'run org.libretro.RetroArch' $raExe
+sedFile 'tools\userData\userConfigurations.json' '\' '\\'
+sedFile 'tools\userData\userConfigurations.json' '"\\"${exePath}\\""' '"\"${exePath}\""'
+sedFile 'tools\userData\userConfigurations.json' '\\"${filePath}\\"'  '\"${filePath}\"'
+sedFile 'tools\userData\userConfigurations.json' '${\\}' '${/}' 
+sedFile 'tools\userData\userConfigurations.json' '\\home\\deck\\.steam\\steam' 'C:\\Program Files (x86)\\Steam'
+sedFile 'tools\userData\userConfigurations.json' '\\usr\\bin\\flatpak' $raExe
+sedFile 'tools\userData\userConfigurations.json' 'run org.libretro.RetroArch' ''
+sedFile 'tools\userData\userConfigurations.json' 'E:\\Emulation\\tools\\EmulationStation-DE-x64_SteamDeck.AppImage' ''
+sedFile 'tools\userData\userConfigurations.json' '@(.AppImage)' '@(.exe)'
+sedFile 'tools\userData\userConfigurations.json' '@(.sh)' '@(.bat)'
+sedFile 'tools\userData\userConfigurations.json' '"romDirectory": "E:\\Emulation\\tools\\"' '"romDirectory": "E:\\Emulation\\tools\\EmulationStation-DE\\"'
+sedFile 'tools\userData\userConfigurations.json' '\\usr\\bin\\bash' ''
 
 #ESDE
 sedFile 'tools\EmulationStation-DE\.emulationstation\es_settings.xml' $deckPath $winPath
@@ -250,7 +287,7 @@ foreach ( $core in $RAcores )
 	$url= -join('http://buildbot.libretro.com/nightly/windows/x86_64/latest/',$core,'.zip')
 	$dest= -join('tools\EmulationStation-DE\Emulators\RetroArch\cores\',$core)
 	Show-Notification -ToastTitle "Downloading $url"	
-	download $url $dest
+	downloadCore $url $dest
 }
 
 #RetroArch especial fixes
