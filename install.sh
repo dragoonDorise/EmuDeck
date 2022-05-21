@@ -702,16 +702,15 @@ if [ ! -d "$ESDEscrapData" ]; then
 	echo -e "Moving EmulationStation downloaded media to $destination"			
 	echo -e ""
 	mv ~/.emulationstation/downloaded_media $ESDEscrapData && rm -rf ~/.emulationstation/downloaded_media		#move it
-fi	
+fi
+
 #Configure Downloaded_media folder
 esDE_MediaDir="<string name=\"MediaDirectory\" value=\""${ESDEscrapData}"\" />"
 #search for media dir in xml, if not found, change to ours.
 mediaDirFound=$(grep -rnw $FILE -e 'MediaDirectory')
-		if [[ $mediaDirFound == '' ]]; then
-		    sed -i -e '$a'$esDE_MediaDir  ~/.emulationstation/es_settings.xml # use config file instead of link
-		else
-			#check if the media dir is ours then write it?
-		fi
+if [[ $mediaDirFound == '' ]]; then
+    sed -i -e '$a'$esDE_MediaDir  ~/.emulationstation/es_settings.xml # use config file instead of link
+fi
 
 
 #SRM Installation
@@ -969,9 +968,9 @@ sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.emulationstatio
 esDE_MediaDir="<string name=\"MediaDirectory\" value=\""${ESDEscrapData}"\" />"
 #search for media dir in xml, if not found, change to ours.
 mediaDirFound=$(grep -rnw $FILE -e 'MediaDirectory')
-		if [[ $mediaDirFound == '' ]]; then
-		    sed -i -e '$a'$esDE_MediaDir  ~/.emulationstation/es_settings.xml # use config file instead of link
-		fi
+if [[ $mediaDirFound == '' ]]; then
+    sed -i -e '$a'$esDE_MediaDir  ~/.emulationstation/es_settings.xml # use config file instead of link
+fi
 #sed -i "s|name=\"ROMDirectory\" value=\"/name=\"ROMDirectory\" value=\"${romsPathSed}/g" ~/.emulationstation/es_settings.xml
 mkdir -p ~/.emulationstation/themes/
 git clone https://github.com/dragoonDorise/es-theme-epicnoir.git ~/.emulationstation/themes/es-epicnoir &>> /dev/null
