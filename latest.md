@@ -7,6 +7,7 @@
 - Updated Mupen64Plus-Next defaults for N64. Should be much better now. more accurate, faster, and look better.
 - New tool added - proton-launch.sh (for all your non-steam windows app shenanigans, courtesy of Angel) 
 - Citra left trackpad as mouse instead of D-pad
+- Fix Citra non exiting with R5
 - PPSSPP Audio Fix for Sleep Mode
 - Fixed 3ds symlink for old installations
 - Now rom folder creation will respect users custom symlinks
