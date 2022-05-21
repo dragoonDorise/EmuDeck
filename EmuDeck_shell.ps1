@@ -65,7 +65,7 @@ function Show-Notification {
 }
 
 function moveFromTemp($old,$new){
-	robocopy "$old" $new /s /move /NFL /NDL /NJH /NJS /nc /ns /np
+	robocopy "$old" $new /s /Move /NFL /NDL /NJH /NJS /nc /ns /np 
 }
 
 function waitForUser(){
@@ -91,7 +91,16 @@ $url_xemu = "https://github.com/mborgerson/xemu/releases/latest/download/xemu-wi
 $url_srm = "https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.36/Steam-ROM-Manager-portable-2.3.36.exe"
 $url_esde = "https://gitlab.com/es-de/emulationstation-de/-/package_files/36880305/download"
 
-
+$userFolder = $env:USERPROFILE
+$dolphinDir = -join($userFolder,'\Documents\Dolphin Emulator\Config')
+$duckDir = -join($userFolder,'\Documents\DuckStation')
+$yuzuDir = -join($userFolder,'\AppData\Roaming\yuzu')
+$dolphinIni=-join($dolphinDir,'\Dolphin.ini')
+$YuzuIni=-join($yuzuDir,'\config\qt-config.ini')
+$duckIni=-join($duckDir,'\settings.ini')
+$deckPath="/run/media/mmcblk0p1"
+$raConfigDir=-join($winPath,'\Emulation\tools\EmulationStation-DE\Emulators\RetroArch\')
+$raExe=-join($winPath,'\\Emulation\\tools\EmulationStation-DE\Emulators\\RetroArch\\','retroarch.exe')
 
 Write-Host "Hi! Welcome to EmuDeck Windows Edition." -ForegroundColor blue -BackgroundColor black
 echo ""
@@ -118,10 +127,10 @@ echo "Installing, please stand by..."
 echo ""
 #EmuDeck Download
 Show-Notification -ToastTitle "Downloading EmuDeck files"
-download "https://github.com/dragoonDorise/EmuDeck/archive/refs/heads/main.zip" "temp.zip"
-moveFromTemp "temp\EmuDeck-main" "EmuDeck"
+download "https://github.com/dragoonDorise/EmuDeck/archive/refs/heads/dev.zip" "temp.zip"
+moveFromTemp "temp\EmuDeck-dev" "EmuDeck"
 moveFromTemp "EmuDeck\roms" "roms"
-
+moveFromTemp "EmuDeck\tools\launchers" "tools\launchers"
 
 #Dowloading..ESDE
 Show-Notification -ToastTitle 'Downloading EmulationStation DE'
@@ -186,16 +195,9 @@ rmdir temp
 Write-Host "Done!" -ForegroundColor green -BackgroundColor black
 #Emulators config
 Show-Notification -ToastTitle 'Configuring Emulators'
-$userFolder = $env:USERPROFILE
-$dolphinDir = -join($userFolder,'\Documents\Dolphin Emulator\Config')
-$duckDir = -join($userFolder,'\Documents\DuckStation')
-$yuzuDir = -join($userFolder,'\AppData\Roaming\yuzu')
-$dolphinIni=-join($dolphinDir,'\Dolphin.ini')
-$YuzuIni=-join($yuzuDir,'\qt-config.ini')
-$duckIni=-join($duckDir,'\settings.ini')
-$deckPath="/run/media/mmcblk0p1"
-$raConfigDir=-join($winPath,'\Emulation\tools\EmulationStation-DE\Emulators\RetroArch\')
-$raExe=-join($winPath,'\\Emulation\\tools\EmulationStation-DE\Emulators\\RetroArch\\','retroarch.exe')
+
+
+
 
 #moveFromTemp "EmuDeck\configs\org.citra_emu.citra" "XXXX"
 #moveFromTemp "EmuDeck\configs\org.ryujinx.Ryujinx" "XXXX"
@@ -211,6 +213,7 @@ moveFromTemp "EmuDeck\configs\org.yuzu_emu.yuzu" $yuzuDir
 #moveFromTemp "EmuDeck\configs\emulationstation" "tools\EmulationStation-DE\.emulationstation"
 moveFromTemp "EmuDeck\configs\app.xemu.xemu\data\xemu\xemu" "tools\EmulationStation-DE\Emulators\xemu"
 moveFromTemp "EmuDeck\configs\xenia" "tools\EmulationStation-DE\Emulators\xenia"
+mkdir "tools\EmulationStation-DE\.emulationstation" -ErrorAction SilentlyContinue
 copy EmuDeck\configs\emulationstation\es_settings.xml tools\EmulationStation-DE\.emulationstation\es_settings.xml
 Write-Host "Done!" -ForegroundColor green -BackgroundColor black
 
@@ -238,7 +241,7 @@ sedFile 'tools\EmulationStation-DE\.emulationstation\es_settings.xml' $deckPath 
 sedFile 'tools\EmulationStation-DE\.emulationstation\es_settings.xml' '/Emulation/roms/' 'Emulation\roms\'
 
 Show-Notification -ToastTitle 'Downloading RetroArch Cores'
-mkdir "tools\EmulationStation-DE\Emulators\RetroArch\cores"
+mkdir "tools\EmulationStation-DE\Emulators\RetroArch\cores" -ErrorAction SilentlyContinue
 $RAcores = @('a5200_libretro.dll','81_libretro.dll','atari800_libretro.dll','bluemsx_libretro.dll','chailove_libretro.dll','fbneo_libretro.dll','freechaf_libretro.dll','freeintv_libretro.dll','fuse_libretro.dll','gearsystem_libretro.dll','gw_libretro.dll','hatari_libretro.dll','lutro_libretro.dll','mednafen_pcfx_libretro.dll','mednafen_vb_libretro.dll','mednafen_wswan_libretro.dll','mu_libretro.dll','neocd_libretro.dll','nestopia_libretro.dll','nxengine_libretro.dll','o2em_libretro.dll','picodrive_libretro.dll','pokemini_libretro.dll','prboom_libretro.dll','prosystem_libretro.dll','px68k_libretro.dll','quasi88_libretro.dll','scummvm_libretro.dll','squirreljme_libretro.dll','theodore_libretro.dll','uzem_libretro.dll','vecx_libretro.dll','vice_xvic_libretro.dll','virtualjaguar_libretro.dll','x1_libretro.dll','mednafen_lynx_libretro.dll','mednafen_ngp_libretro.dll','mednafen_pce_libretro.dll','mednafen_pce_fast_libretro.dll','mednafen_psx_libretro.dll','mednafen_psx_hw_libretro.dll','mednafen_saturn_libretro.dll','mednafen_supafaust_libretro.dll','mednafen_supergrafx_libretro.dll','blastem_libretro.dll','bluemsx_libretro.dll','bsnes_libretro.dll','bsnes_mercury_accuracy_libretro.dll','cap32_libretro.dll','citra2018_libretro.dll','citra_libretro.dll','crocods_libretro.dll','desmume2015_libretro.dll','desmume_libretro.dll','dolphin_libretro.dll','dosbox_core_libretro.dll','dosbox_pure_libretro.dll','dosbox_svn_libretro.dll','fbalpha2012_cps1_libretro.dll','fbalpha2012_cps2_libretro.dll','fbalpha2012_cps3_libretro.dll','fbalpha2012_libretro.dll','fbalpha2012_neogeo_libretro.dll','fceumm_libretro.dll','fbneo_libretro.dll','flycast_libretro.dll','fmsx_libretro.dll','frodo_libretro.dll','gambatte_libretro.dll','gearboy_libretro.dll','gearsystem_libretro.dll','genesis_plus_gx_libretro.dll','genesis_plus_gx_wide_libretro.dll','gpsp_libretro.dll','handy_libretro.dll','kronos_libretro.dll','mame2000_libretro.dll','mame2003_plus_libretro.dll','mame2010_libretro.dll','mame_libretro.dll','melonds_libretro.dll','mesen_libretro.dll','mesen-s_libretro.dll','mgba_libretro.dll','mupen64plus_next_libretro.dll','nekop2_libretro.dll','np2kai_libretro.dll','nestopia_libretro.dll','parallel_n64_libretro.dll','pcsx2_libretro.dll','pcsx_rearmed_libretro.dll','picodrive_libretro.dll','ppsspp_libretro.dll','puae_libretro.dll','quicknes_libretro.dll','race_libretro.dll','sameboy_libretro.dll','smsplus_libretro.dll','snes9x2010_libretro.dll','snes9x_libretro.dll','stella2014_libretro.dll','stella_libretro.dll','tgbdual_libretro.dll','vbam_libretro.dll','vba_next_libretro.dll','vice_x128_libretro.dll','vice_x64_libretro.dll','vice_x64sc_libretro.dll','vice_xscpu64_libretro.dll','yabasanshiro_libretro.dll','yabause_libretro.dll','bsnes_hd_beta_libretro.dll','swanstation_libretro.dll')
 $RAcores.count
 
@@ -265,7 +268,75 @@ sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' 'video4lin
 
 #sedFile 'tools\EmulationStation-DE\Emulators\citra\qt-config.ini' $deckPath $winPath
 
-#Emu Launchers for SRM
-moveFromTemp "EmuDeck\tools\launchers" "tools\launchers"
+
+
+
+sedFile 'tools/launchers/cemu.bat' 'XX' $winPath
+sedFile 'tools/launchers/dolphin-emu.bat'  'XX' $winPath
+sedFile 'tools/launchers/duckstation.bat'  'XX' $winPath
+sedFile 'tools/launchers/PCSX2.bat'  'XX' $winPath
+sedFile 'tools/launchers/retroarch.bat'  'XX' $winPath
+sedFile 'tools/launchers/RPCS3.bat'  'XX' $winPath
+sedFile 'tools/launchers/xemu-emu.bat'  'XX' $winPath
+sedFile 'tools/launchers/xenia.bat'  'XX' $winPath
+sedFile 'tools/launchers/yuzu.bat'  'XX' $winPath
+
+
+#Controller configs
+#Dolphin
+$controllerDolphinIni=-join($dolphinDir,'\GCPadNew.ini')
+$controllerDolphinWiiIni=-join($dolphinDir,'\WiimoteNew.ini')
+
+#Dolphin GC
+sedFile $controllerDolphinIni 'evdev/0/Microsoft X-Box 360 pad 0' 'XInput/0/Gamepad'
+sedFile $controllerDolphinIni 'Buttons/A = SOUTH' 'Buttons/A = Button B'
+sedFile $controllerDolphinIni 'Buttons/B = EAST' 'Buttons/B = Button A'
+sedFile $controllerDolphinIni 'Buttons/X = NORTH' 'Buttons/X = Button Y'
+sedFile $controllerDolphinIni 'Buttons/Y = WEST' 'Buttons/Y = Button X'
+sedFile $controllerDolphinIni 'Buttons/Z = TR' 'Buttons/Z = Trigger L'
+sedFile $controllerDolphinIni 'Buttons/Start = START' 'Buttons/Start = Start'
+sedFile $controllerDolphinIni 'Main Stick/Up = `Axis 1-`' 'Main Stick/Up = `Left Y+`'
+sedFile $controllerDolphinIni 'Main Stick/Down = `Axis 1+`' 'Main Stick/Down = `Left Y-`'
+sedFile $controllerDolphinIni 'Main Stick/Left = `Axis 0-`' 'Main Stick/Left = `Left X-`'
+sedFile $controllerDolphinIni 'Main Stick/Right = `Axis 0+`' 'Main Stick/Right = `Left X+`'
+sedFile $controllerDolphinIni 'C-Stick/Up = `Axis 4-`' 'C-Stick/Up = `Right Y+`'
+sedFile $controllerDolphinIni 'C-Stick/Down = `Axis 4+`' 'C-Stick/Down = `Right Y-`'
+sedFile $controllerDolphinIni 'C-Stick/Left = `Axis 3-`' 'C-Stick/Left = `Right X-`'
+sedFile $controllerDolphinIni 'C-Stick/Right = `Axis 3+`' 'C-Stick/Right = `Right X+`'
+sedFile $controllerDolphinIni 'Triggers/L = `Full Axis 2+`' 'Triggers/L = `Shoulder L`'
+sedFile $controllerDolphinIni 'Triggers/R = `Full Axis 5+`' 'Triggers/R = `Shoulder R`'
+sedFile $controllerDolphinIni 'Triggers/L-Analog = `Full Axis 2+`' 'Triggers/L-Analog = `Trigger L`'
+sedFile $controllerDolphinIni 'Triggers/R-Analog = `Full Axis 5+`' 'Triggers/R-Analog = `Trigger R`'
+sedFile $controllerDolphinIni 'D-Pad/Up = `Axis 7-`' 'D-Pad/Up = `Pad N`'
+sedFile $controllerDolphinIni 'D-Pad/Down = `Axis 7+`' 'D-Pad/Down = `Pad S`'
+sedFile $controllerDolphinIni 'D-Pad/Left = `Axis 6-`' 'D-Pad/Left = `Pad W`'
+sedFile $controllerDolphinIni 'D-Pad/Right = `Axis 6+`' 'D-Pad/Right = `Pad E`'
+
+#Dolphin Wii
+sedFile $controllerDolphinWiiIni 'evdev/0/Microsoft X-Box 360 pad 0' 'XInput/0/Gamepad'
+sedFile $controllerDolphinWiiIni 'Buttons/A = SOUTH' 'Buttons/A = Button B'
+sedFile $controllerDolphinWiiIni 'Buttons/B = EAST' 'Buttons/B = Button A'
+sedFile $controllerDolphinWiiIni 'Buttons/1 = NORTH' 'Buttons/X = Button Y'
+sedFile $controllerDolphinWiiIni 'Buttons/2 = WEST' 'Buttons/Y = Button X'
+sedFile $controllerDolphinWiiIni 'Buttons/- = SELECT' 'Buttons/- = Select'
+sedFile $controllerDolphinWiiIni 'Buttons/+ = START' 'Buttons/+ = Start'
+sedFile $controllerDolphinWiiIni 'D-Pad/Up = `Axis 7-`' 'D-Pad/Up = `Pad N`'
+sedFile $controllerDolphinWiiIni 'D-Pad/Down = `Axis 7+`' 'D-Pad/Down = `Pad S`'
+sedFile $controllerDolphinWiiIni 'D-Pad/Left = `Axis 6-`' 'D-Pad/Left = `Pad W`'
+sedFile $controllerDolphinWiiIni 'D-Pad/Right = `Axis 6+`' 'D-Pad/Right = `Pad E`'
+sedFile $controllerDolphinWiiIni 'Shake/Z = TL' 'Shake/Z = Shoulder L'
+sedFile $controllerDolphinWiiIni 'IR/Up = `Axis 4-`' 'IR/Up = `Right Y+`'
+sedFile $controllerDolphinWiiIni 'IR/Down = `Axis 4+`' 'IR/Down = `Right Y-`'
+sedFile $controllerDolphinWiiIni 'IR/Left = `Axis 3-`' 'IR/Left = `Right X-`'
+sedFile $controllerDolphinWiiIni 'IR/Right = `Axis 3+`' 'IR/Right = `Right X+`'
+sedFile $controllerDolphinWiiIni 'Nunchuk/Buttons/C = `Full Axis 5+`' 'Nunchuk/Buttons/C = `Trigger L`'
+sedFile $controllerDolphinWiiIni 'Nunchuk/Buttons/Z = `Full Axis 2+`' 'Nunchuk/Buttons/Z = `Trigger R`'
+sedFile $controllerDolphinWiiIni 'Nunchuk/Stick/Up = `Axis 1-`' 'Nunchuk/Stick/Up = `Left Y+`'
+sedFile $controllerDolphinWiiIni 'Nunchuk/Stick/Down = `Axis 1+`' 'Nunchuk/Stick/Down = `Left Y-`'
+sedFile $controllerDolphinWiiIni 'Nunchuk/Stick/Left = `Axis 0-`' 'Nunchuk/Stick/Left = `Left X-`'
+sedFile $controllerDolphinWiiIni 'Nunchuk/Stick/Right = `Axis 0+`' 'Nunchuk/Stick/Right = `Left X+`'
+sedFile $controllerDolphinWiiIni 'Nunchuk/Shake/Z = TR' 'Nunchuk/Shake/Z = TR'
+
+
 
 Write-Host "All done!" -ForegroundColor green -BackgroundColor black
