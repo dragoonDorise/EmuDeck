@@ -1,1 +1,1 @@
-start XX/Emulation/tools/EmulationStation-DE/Emulators/Cemu.exe
+start XX\Emulation\tools\EmulationStation-DE\Emulators\Cemu.exe
