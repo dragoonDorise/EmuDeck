@@ -704,7 +704,7 @@ if [ ! -d "$ESDEscrapData" ]; then
 	mv ~/.emulationstation/downloaded_media $ESDEscrapData && rm -rf ~/.emulationstation/downloaded_media		#move it
 fi	
 #Configure Downloaded_media folder
-esDE_MediaDir="<string name=\"MediaDirectory\" value="${ESDEscrapData}" />"
+esDE_MediaDir="<string name=\"MediaDirectory\" value=\""${ESDEscrapData}"\" />"
 #search for media dir in xml, if not found, change to ours.
 mediaDirFound=$(grep -rnw $FILE -e 'MediaDirectory')
 		if [[ $mediaDirFound == '' ]]; then
@@ -966,7 +966,7 @@ cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/es_settings.xml ~/.emul
 sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.emulationstation/es_settings.xml
 
 #Configure Downloaded_media folder
-esDE_MediaDir="<string name=\"MediaDirectory\" value="${ESDEscrapData}" />"
+esDE_MediaDir="<string name=\"MediaDirectory\" value=\""${ESDEscrapData}"\" />"
 #search for media dir in xml, if not found, change to ours.
 mediaDirFound=$(grep -rnw $FILE -e 'MediaDirectory')
 		if [[ $mediaDirFound == '' ]]; then
