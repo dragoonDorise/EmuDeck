@@ -112,7 +112,6 @@ cd Emulation
 mkdir bios -ErrorAction SilentlyContinue
 mkdir tools -ErrorAction SilentlyContinue
 mkdir saves -ErrorAction SilentlyContinue
-
 clear
 
 echo "Installing, please stand by..."
@@ -230,6 +229,8 @@ sedFile $duckIni $deckPath $winPath
 sedFile 'tools\userData\userConfigurations.json' 'Z:' ''
 sedFile 'tools\userData\userConfigurations.json' $deckPath $winPath
 sedFile 'tools\userData\userConfigurations.json' '/home/deck/.steam/steam' 'C:\\Program Files (x86)\\Steam'
+sedFile 'tools\userData\userConfigurations.json' '/' '\'
+sedFile 'tools\userData\userConfigurations.json' '/user/bin/flatpak' ''
 sedFile 'tools\userData\userConfigurations.json' 'run org.libretro.RetroArch' $raExe
 
 #ESDE
@@ -264,6 +265,7 @@ sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' 'video4lin
 
 #sedFile 'tools\EmulationStation-DE\Emulators\citra\qt-config.ini' $deckPath $winPath
 
-
+#Emu Launchers for SRM
+moveFromTemp "EmuDeck\tools\launchers" "tools\launchers"
 
 Write-Host "All done!" -ForegroundColor green -BackgroundColor black

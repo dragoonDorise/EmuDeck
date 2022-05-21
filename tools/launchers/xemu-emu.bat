@@ -1,1 +1,1 @@
-start /Emulation/tools/EmulationStation-DE/Emulators/xemu/xemu.exe
+start E:/Emulation/tools/EmulationStation-DE/Emulators/xemu/xemu.exe

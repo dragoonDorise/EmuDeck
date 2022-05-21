@@ -1,1 +1,1 @@
-start /Emulation/tools/EmulationStation-DE/Emulators/Cemu.exe
+start E:/Emulation/tools/EmulationStation-DE/Emulators/Cemu.exe
