@@ -711,7 +711,7 @@ mediaDirFound=$(grep -rnw ~/.emulationstation/es_settings.xml -e 'MediaDirectory
 if [[ $mediaDirFound == '' ]]; then
     sed -i -e '$a'"${esDE_MediaDir}"  ~/.emulationstation/es_settings.xml # use config file instead of link
 fi
-
+unlink /.emulationstation/downloaded_media
 
 #SRM Installation
 if [ $doInstallSRM == true ]; then
