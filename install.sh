@@ -697,9 +697,9 @@ fi
 #We do this wether the user wants to install ESDE or not to account for old users that might have ESDE already installed and won't update
 #Leon requested we use his config instead of symlink
 
-if [ -d "~/.emulationstation/downloaded_media" ]; then		
+if [ -d "$HOME/.emulationstation/downloaded_media" ]; then		
 	echo -e ""
-	echo -e "Moving EmulationStation downloaded media to $destination"			
+	echo -e "Moving EmulationStation downloaded media to $toolsPath"			
 	echo -e ""
 	rsync -a ~/.emulationstation/downloaded_media $toolsPath  && rm -rf ~/.emulationstation/downloaded_media		#move it, merging files if in both locations
 fi
@@ -707,7 +707,7 @@ fi
 #Configure Downloaded_media folder
 esDE_MediaDir="<string name=\"MediaDirectory\" value=\""${ESDEscrapData}"\" />"
 #search for media dir in xml, if not found, change to ours.
-mediaDirFound=$(grep -rnw ~/.emulationstation/es_settings.xml -e 'MediaDirectory')
+mediaDirFound=$(grep -rnw $HOME/.emulationstation/es_settings.xml -e 'MediaDirectory')
 if [[ $mediaDirFound == '' ]]; then
     sed -i -e '$a'"${esDE_MediaDir}"  ~/.emulationstation/es_settings.xml # use config file instead of link
 fi
@@ -1538,7 +1538,7 @@ if [ ! -d "$savesPath/pcsx2/states" ]; then
 fi
 
 #RPCS3
-if [ ! -d "$savesPath/rpcs3/dev_hdd0/savedata" ] && [ -d "~/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0" ]; then	
+if [ ! -d "$savesPath/rpcs3/dev_hdd0/savedata" ] && [ -d "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0" ]; then	
 	if [ $destination != "$home" ]; then
 		text="$(printf "Moving rpcs3 hdd0 to the Emulation/Saves folder\n\nDepending on how many pkgs you have installed, this may take a while.<b>If you do not have enough available space in your chosen location this will fail, clean up your SD Card and run EmuDeck Again.</b>")"
 	else	
