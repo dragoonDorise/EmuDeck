@@ -126,6 +126,7 @@ zenity --progress \
   --text="Installing..." \
   --percentage=0 \
   --no-cancel \
+  --pulsate \
   --auto-close \
   --width=300 \ &
 
@@ -137,11 +138,10 @@ fi
 #Functions
 echo "" > ~/emudeck/prog.log
 setMSG(){		
-	
-	if [ $progressBar == 99 ]; then
-		progressBar == 99
-	else
-		progressBar=$((progressBar + 1))
+	progressBar=$((progressBar + 5))
+	#We prevent the zenity to close if we have too much MSG, the classic eternal 99%
+	if [ $progressBar == 95 ]; then
+		progressBar=90
 	fi	
 	echo "$progressBar" > ~/emudeck/msg.log	
 	echo "# $1" >> ~/emudeck/msg.log	
@@ -1796,8 +1796,8 @@ zenity --question \
 ans=$?
 if [ $ans -eq 0 ]; then
 	kill -9 `pidof steam`
-	cd ~/Desktop/
-	"$toolsPath"/srm/Steam-ROM-Manager.AppImage
+	cd ${toolsPath}/srm
+	./Steam-ROM-Manager.AppImage
 	qdbus org.kde.Shutdown /Shutdown org.kde.Shutdown.logout
 	exit
 else
