@@ -114,7 +114,7 @@ $url_xenia = "https://github.com/xenia-project/release-builds-windows/releases/l
 $url_xemu = "https://github.com/mborgerson/xemu/releases/latest/download/xemu-win-release.zip"
 $url_srm = "https://github.com/SteamGridDB/steam-rom-manager/releases/download/v2.3.36/Steam-ROM-Manager-portable-2.3.36.exe"
 $url_esde = "https://gitlab.com/es-de/emulationstation-de/-/package_files/36880305/download"
-
+$url_citra ="https://github.com/citra-emu/citra-nightly/releases/download/nightly-1766/citra-windows-mingw-20220520-a6e7a81.7z"
 $userFolder = $env:USERPROFILE
 $dolphinDir = -join($userFolder,'\Documents\Dolphin Emulator\Config')
 $duckDir = -join($userFolder,'\Documents\DuckStation')
@@ -187,7 +187,9 @@ Show-Notification -ToastTitle 'Downloading Yuzu'
 download $url_yuzu "yuzu.zip"
 moveFromTemp "yuzu\yuzu-windows-msvc" "tools\EmulationStation-DE\Emulators\yuzu\yuzu-windows-msvc"
 #Citra
-#download "https://github.com/citra-emu/citra-web/releases/download/1.0/citra-setup-windows.exe" "citra.exe"
+Show-Notification -ToastTitle 'Downloading Citra'
+download $url_citra "citra.zip"
+moveFromTemp "citra/nightly-mingw" "tools\EmulationStation-DE\Emulators\citra"
 #Duckstation
 Show-Notification -ToastTitle 'Downloading DuckStation'
 download $url_duck "duckstation.zip"
@@ -228,14 +230,13 @@ Show-Notification -ToastTitle 'Configuring Emulators'
 
 moveFromTemp "EmuDeck\configs\org.DolphinEmu.dolphin-emu\config\dolphin-emu" $dolphinDir
 moveFromTemp "EmuDeck\configs\info.cemu.Cemu\data\cemu" "tools\EmulationStation-DE\Emulators\cemu"
+moveFromTemp "EmuDeck\configs\org.citra_emu.citra\config\citra-emu" "tools\EmulationStation-DE\Emulators\citra"
 moveFromTemp "EmuDeck\configs\org.libretro.RetroArch\config\retroarch" "tools\EmulationStation-DE\Emulators\RetroArch"
 moveFromTemp "EmuDeck\configs\net.pcsx2.PCSX2\config\PCSX2" "tools\EmulationStation-DE\Emulators\PCSX2"
 moveFromTemp "EmuDeck\configs\net.rpcs3.RPCS3\config\rpcs3" "tools\EmulationStation-DE\Emulators\RPCS3"
 moveFromTemp "EmuDeck\configs\org.duckstation.DuckStation\data\duckstation" $duckDir
 mkdir "tools\userData\" -ErrorAction SilentlyContinue
 Copy-Item  "EmuDeck\configs\steam-rom-manager\userData\userConfigurationsWE.json" "tools\userData\userConfigurations.json"
-
-
 rename tools/userData/userConfigurationsWE.json tools/userData/userConfigurations.json
 moveFromTemp "EmuDeck\configs\org.yuzu_emu.yuzu" $yuzuDir
 #moveFromTemp "EmuDeck\configs\emulationstation" "tools\EmulationStation-DE\.emulationstation"
@@ -251,27 +252,19 @@ sedFile 'tools\EmulationStation-DE\Emulators\xemu\xemu.toml' $deckPath $winPath
 sedFile 'tools\EmulationStation-DE\Emulators\cemu\settings.xml' 'Z:/run/media/mmcblk0p1/' $winPath
 sedFile 'tools\EmulationStation-DE\Emulators\cemu\settings.xml' 'roms/wiiu/roms' 'roms\wiiu\'
 sedFile $dolphinIni $deckPath $winPath
+sedFile $dolphinIni 'Emulation/bios/' 'Emulation\bios\'
+sedFile $dolphinIni '/roms/gamecube' '\roms\gamecube'
+sedFile $dolphinIni '/roms/wii' '\roms\wii'
 sedFile 'tools\EmulationStation-DE\Emulators\PCSX2\inis\PCSX2_ui.ini' $deckPath $winPath
+sedFile 'tools\EmulationStation-DE\Emulators\PCSX2\inis\PCSX2_ui.ini' 'Emulation/bios/' 'Emulation\bios\'
 sedFile $YuzuIni $deckPath $winPath
+sedFile $YuzuIni 'Emulation/roms/switch' 'Emulation\roms\switch'
 sedFile $duckIni $deckPath $winPath
-
+sedFile $duckIni 'Emulation/bios/' 'Emulation\bios\'
 
 #SRM
-sedFile 'tools\userData\userConfigurations.json' 'Z:' ''
-sedFile 'tools\userData\userConfigurations.json' $deckPath $winPath
-sedFile 'tools\userData\userConfigurations.json' '/' '\'
-sedFile 'tools\userData\userConfigurations.json' '\' '\\'
-sedFile 'tools\userData\userConfigurations.json' '"\\"${exePath}\\""' '"\"${exePath}\""'
-sedFile 'tools\userData\userConfigurations.json' '\\"${filePath}\\"'  '\"${filePath}\"'
-sedFile 'tools\userData\userConfigurations.json' '${\\}' '${/}' 
-sedFile 'tools\userData\userConfigurations.json' '\\home\\deck\\.steam\\steam' 'C:\\Program Files (x86)\\Steam'
-sedFile 'tools\userData\userConfigurations.json' '\\usr\\bin\\flatpak' $raExe
-sedFile 'tools\userData\userConfigurations.json' 'run org.libretro.RetroArch' ''
-sedFile 'tools\userData\userConfigurations.json' 'E:\\Emulation\\tools\\EmulationStation-DE-x64_SteamDeck.AppImage' ''
-sedFile 'tools\userData\userConfigurations.json' '@(.AppImage)' '@(.exe)'
-sedFile 'tools\userData\userConfigurations.json' '@(.sh)' '@(.bat)'
-sedFile 'tools\userData\userConfigurations.json' '"romDirectory": "E:\\Emulation\\tools\\"' '"romDirectory": "E:\\Emulation\\tools\\EmulationStation-DE\\"'
-sedFile 'tools\userData\userConfigurations.json' '\\usr\\bin\\bash' ''
+sedFile 'tools\userData\userConfigurations.json' 'E:/' $winPath
+
 
 #ESDE
 sedFile 'tools\EmulationStation-DE\.emulationstation\es_settings.xml' $deckPath $winPath
@@ -302,11 +295,11 @@ sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' 'http://bu
 sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' 'config/remaps' 'config\remaps'
 sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' '/Emulation/bios' '\Emulation\bios'
 sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' 'video4linux2' ''
-
 #sedFile 'tools\EmulationStation-DE\Emulators\citra\qt-config.ini' $deckPath $winPath
 
+#Path fixes other emus
 
-
+sedFile 'tools\EmulationStation-DE\Emulators\RetroArch\retroarch.cfg' '/Emulation/bios' '\Emulation\bios'
 
 sedFile 'tools/launchers/cemu.bat' 'XX' $winPath
 sedFile 'tools/launchers/dolphin-emu.bat'  'XX' $winPath

@@ -24,7 +24,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "executable": {
             "path": "",
             "shortcutPassthrough": false,
@@ -90,7 +90,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "executable": {
             "path": "",
             "shortcutPassthrough": false,
@@ -156,7 +156,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -222,7 +222,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -288,7 +288,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -354,7 +354,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -420,7 +420,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -486,7 +486,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -552,7 +552,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -618,7 +618,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -684,7 +684,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "executable": {
             "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\retroarch.exe",
             "shortcutPassthrough": false,
@@ -750,7 +750,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -816,7 +816,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -882,7 +882,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -987,7 +987,7 @@
         },
         "parserId": "164785598905497512",
         "version": 10,
-        "disabled": true
+        "disabled": false
     },
     {
         "parserType": "Glob",
@@ -1014,7 +1014,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "executable": {
             "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\retroarch.exe",
             "shortcutPassthrough": false,
@@ -1059,15 +1059,15 @@
         "parserType": "Glob",
         "configTitle": "Microsoft XBox - Xemu",
         "steamCategory": "${XBox}",
-        "executableArgs": "run app.xemu.xemu -full-screen -dvd_path \"${filePath}\"",
-        "executableModifier": "\"${exePath}\"",
-        "romDirectory": "E:\\Emulation\\roms\\xbox",
         "steamDirectory": "C:\\Program Files (x86)\\Steam",
+        "romDirectory": "E:\\Emulation\\roms\\xbox",
+        "executableArgs": "-full-screen -dvd_path \"${filePath}\"",
+        "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
+        "titleModifier": "${fuzzyTitle}",
         "imageProviders": [
             "SteamGridDB"
         ],
-        "titleModifier": "${fuzzyTitle}",
         "onlineImageQueries": "${${fuzzyTitle}}",
         "imagePool": "${fuzzyTitle}",
         "defaultImage": "",
@@ -1080,16 +1080,15 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
-        "executable": {
-            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\retroarch.exe",
-            "shortcutPassthrough": false,
-            "appendArgsToExecutable": true
-        },
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
             "useCredentials": true
+        },
+        "executable": {
+            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\xemu\\xemu.exe",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
         },
         "parserInputs": {
             "glob": "${title}@(.iso|.ISO)"
@@ -1101,39 +1100,41 @@
             "tryToMatchTitle": false
         },
         "fuzzyMatch": {
+            "use": null,
             "replaceDiacritics": true,
             "removeCharacters": true,
             "removeBrackets": true
         },
-        "parserId": "165103607715056732",
-        "version": 10,
         "imageProviderAPIs": {
             "SteamGridDB": {
                 "nsfw": false,
                 "humor": false,
-                "imageMotionTypes": [
-                    "static"
-                ],
                 "styles": [],
                 "stylesHero": [],
                 "stylesLogo": [],
-                "stylesIcon": []
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ]
             }
-        }
+        },
+        "parserId": "165103607715056732",
+        "version": 10,
+        "disabled": false
     },
     {
         "parserType": "Glob",
         "configTitle": "Microsoft Xbox 360 - Xenia",
         "steamCategory": "${Xbox 360}",
+        "steamDirectory": "C:\\Program Files (x86)\\Steam",
+        "romDirectory": "E:\\Emulation\\roms\\xbox360\\",
         "executableArgs": "\"${filePath}\"",
         "executableModifier": "\"${exePath}\"",
-        "romDirectory": "E:\\Emulation\\roms\\xbox360\\roms\\",
-        "steamDirectory": "C:\\Program Files (x86)\\Steam",
         "startInDirectory": "",
+        "titleModifier": "${fuzzyTitle}",
         "imageProviders": [
             "SteamGridDB"
         ],
-        "titleModifier": "${fuzzyTitle}",
         "onlineImageQueries": "${${fuzzyTitle}}",
         "imagePool": "${fuzzyTitle}",
         "defaultImage": "",
@@ -1146,16 +1147,15 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
-        "executable": {
-            "path": "E:\\Emulation\\tools\\launchers\\xenia.sh",
-            "shortcutPassthrough": false,
-            "appendArgsToExecutable": true
-        },
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
             "useCredentials": true
+        },
+        "executable": {
+            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\xenia\\xenia.exe",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
         },
         "parserInputs": {
             "glob": "${title}@(.iso|.ISO|.xex|.XEX)"
@@ -1167,25 +1167,27 @@
             "tryToMatchTitle": false
         },
         "fuzzyMatch": {
+            "use": null,
             "replaceDiacritics": true,
             "removeCharacters": true,
             "removeBrackets": true
         },
-        "parserId": "135113607715086732",
-        "version": 10,
         "imageProviderAPIs": {
             "SteamGridDB": {
                 "nsfw": false,
                 "humor": false,
-                "imageMotionTypes": [
-                    "static"
-                ],
                 "styles": [],
                 "stylesHero": [],
                 "stylesLogo": [],
-                "stylesIcon": []
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ]
             }
-        }
+        },
+        "parserId": "135113607715086732",
+        "version": 10,
+        "disabled": false
     },
     {
         "parserType": "Glob",
@@ -1196,7 +1198,7 @@
         "steamDirectory": "C:\\Program Files (x86)\\Steam",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
-        "executableArgs": "run org.citra_emu.citra \"${filePath}\"",
+        "executableArgs": "\"${filePath}\"",
         "onlineImageQueries": "${${fuzzyTitle}}",
         "imagePool": "${fuzzyTitle}",
         "imageProviders": [
@@ -1212,7 +1214,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -1233,7 +1235,7 @@
             "removeBrackets": true
         },
         "executable": {
-            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\retroarch.exe",
+            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\Citra\\citra-qt.exe",
             "shortcutPassthrough": false,
             "appendArgsToExecutable": true
         },
@@ -1278,7 +1280,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -1344,7 +1346,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -1410,7 +1412,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -1476,7 +1478,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -1542,7 +1544,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "executable": {
             "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\retroarch.exe",
             "shortcutPassthrough": false,
@@ -1608,7 +1610,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -1674,7 +1676,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "executable": {
             "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\retroarch.exe",
             "shortcutPassthrough": false,
@@ -1740,7 +1742,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -1806,7 +1808,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -1851,17 +1853,17 @@
         "parserType": "Glob",
         "configTitle": "Nintendo Switch - Yuzu",
         "steamCategory": "${Nintendo Switch - Yuzu}",
-        "executableModifier": "\"${exePath}\"",
-        "romDirectory": "E:\\Emulation\\roms\\switch",
         "steamDirectory": "C:\\Program Files (x86)\\Steam",
+        "romDirectory": "E:\\Emulation\\roms\\switch",
+        "executableArgs": "-f -g \"${filePath}\"",
+        "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
-        "executableArgs": "run org.yuzu_emu.yuzu -f -g \"${filePath}\"",
-        "onlineImageQueries": "${${fuzzyTitle}}",
-        "imagePool": "${fuzzyTitle}",
         "imageProviders": [
             "SteamGridDB"
         ],
+        "onlineImageQueries": "${${fuzzyTitle}}",
+        "imagePool": "${fuzzyTitle}",
         "defaultImage": "",
         "defaultTallImage": "",
         "defaultHeroImage": "",
@@ -1872,11 +1874,15 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
             "useCredentials": true
+        },
+        "executable": {
+            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\yuzu\\yuzu-windows-msvc\\yuzu.exe",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
         },
         "parserInputs": {
             "glob": "${title}@(.kip|.KIP|.nca|.NCA|.nro|.NRO|.nso|.NSO|.nsp|.NSP|.xci|.XCI)"
@@ -1888,44 +1894,41 @@
             "tryToMatchTitle": false
         },
         "fuzzyMatch": {
+            "use": null,
             "replaceDiacritics": true,
             "removeCharacters": true,
             "removeBrackets": true
         },
-        "executable": {
-            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\retroarch.exe",
-            "shortcutPassthrough": false,
-            "appendArgsToExecutable": true
-        },
-        "parserId": "164785621855061650",
-        "version": 10,
         "imageProviderAPIs": {
             "SteamGridDB": {
                 "nsfw": false,
                 "humor": false,
-                "imageMotionTypes": [
-                    "static"
-                ],
                 "styles": [],
                 "stylesHero": [],
                 "stylesLogo": [],
-                "stylesIcon": []
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ]
             }
-        }
+        },
+        "parserId": "164785621855061650",
+        "version": 10,
+        "disabled": false
     },
     {
         "parserType": "Glob",
         "configTitle": "Nintendo Wii - Dolphin",
         "steamCategory": "${Wii}",
-        "executableArgs": "run org.DolphinEmu.dolphin-emu -b -e \"${filePath}\"",
-        "executableModifier": "\"${exePath}\"",
-        "romDirectory": "E:\\Emulation\\roms\\wii",
         "steamDirectory": "C:\\Program Files (x86)\\Steam",
+        "romDirectory": "E:\\Emulation\\roms\\wii",
+        "executableArgs": "-b -e \"${filePath}\"",
+        "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
+        "titleModifier": "${fuzzyTitle}",
         "imageProviders": [
             "SteamGridDB"
         ],
-        "titleModifier": "${fuzzyTitle}",
         "onlineImageQueries": "${${fuzzyTitle}}",
         "imagePool": "${fuzzyTitle}",
         "defaultImage": "",
@@ -1938,16 +1941,15 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": false,
-        "executable": {
-            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\retroarch.exe",
-            "shortcutPassthrough": false,
-            "appendArgsToExecutable": true
-        },
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
             "useCredentials": true
+        },
+        "executable": {
+            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\Dolphin-x64\\Dolphin.exe",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
         },
         "parserInputs": {
             "glob": "${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.wbfs)"
@@ -1959,39 +1961,41 @@
             "tryToMatchTitle": false
         },
         "fuzzyMatch": {
+            "use": null,
             "replaceDiacritics": true,
             "removeCharacters": true,
             "removeBrackets": true
         },
-        "parserId": "164770823452964732",
-        "version": 10,
         "imageProviderAPIs": {
             "SteamGridDB": {
                 "nsfw": false,
                 "humor": false,
-                "imageMotionTypes": [
-                    "static"
-                ],
                 "styles": [],
                 "stylesHero": [],
                 "stylesLogo": [],
-                "stylesIcon": []
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ]
             }
-        }
+        },
+        "parserId": "164770823452964732",
+        "version": 10,
+        "disabled": false
     },
     {
         "parserType": "Glob",
         "configTitle": "Nintendo WiiU - Cemu (.rpx)",
         "steamCategory": "${WiiU}",
+        "steamDirectory": "C:\\Program Files (x86)\\Steam",
+        "romDirectory": "E:\\Emulation\\roms\\wiiu\\",
         "executableArgs": "-f -g \"${filePath}\"",
         "executableModifier": "\"${exePath}\"",
-        "romDirectory": "E:\\Emulation\\roms\\wiiu\\roms\\",
-        "steamDirectory": "C:\\Program Files (x86)\\Steam",
         "startInDirectory": "",
+        "titleModifier": "${fuzzyTitle}",
         "imageProviders": [
             "SteamGridDB"
         ],
-        "titleModifier": "${fuzzyTitle}",
         "onlineImageQueries": "${${fuzzyTitle}}",
         "imagePool": "${fuzzyTitle}",
         "defaultImage": "",
@@ -2004,19 +2008,18 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
-        "executable": {
-            "path": "E:\\Emulation\\tools\\launchers\\cemu.sh",
-            "shortcutPassthrough": false,
-            "appendArgsToExecutable": true
-        },
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
             "useCredentials": true
         },
+        "executable": {
+            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\cemu\\Cemu.exe",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
+        },
         "parserInputs": {
-            "glob": "${title}\\**\\*.rpx"
+            "glob": "${title}/**/*.rpx"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -2025,39 +2028,41 @@
             "tryToMatchTitle": false
         },
         "fuzzyMatch": {
+            "use": null,
             "replaceDiacritics": true,
             "removeCharacters": true,
             "removeBrackets": true
         },
-        "parserId": "164824416516097458",
-        "version": 10,
         "imageProviderAPIs": {
             "SteamGridDB": {
                 "nsfw": false,
                 "humor": false,
-                "imageMotionTypes": [
-                    "static"
-                ],
                 "styles": [],
                 "stylesHero": [],
                 "stylesLogo": [],
-                "stylesIcon": []
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ]
             }
-        }
+        },
+        "parserId": "164824416516097458",
+        "version": 10,
+        "disabled": false
     },
     {
         "parserType": "Glob",
         "configTitle": "Nintendo WiiU - Cemu (.wud, .wux, .wua)",
         "steamCategory": "${WiiU}",
+        "steamDirectory": "C:\\Program Files (x86)\\Steam",
+        "romDirectory": "E:\\Emulation\\roms\\wiiu\\",
         "executableArgs": "-f -g \"${filePath}\"",
         "executableModifier": "\"${exePath}\"",
-        "romDirectory": "E:\\Emulation\\roms\\wiiu\\roms\\",
-        "steamDirectory": "C:\\Program Files (x86)\\Steam",
         "startInDirectory": "",
+        "titleModifier": "${fuzzyTitle}",
         "imageProviders": [
             "SteamGridDB"
         ],
-        "titleModifier": "${fuzzyTitle}",
         "onlineImageQueries": "${${fuzzyTitle}}",
         "imagePool": "${fuzzyTitle}",
         "defaultImage": "",
@@ -2070,16 +2075,15 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
-        "executable": {
-            "path": "E:\\Emulation\\tools\\launchers\\cemu.sh",
-            "shortcutPassthrough": false,
-            "appendArgsToExecutable": true
-        },
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
             "useCredentials": true
+        },
+        "executable": {
+            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\cemu\\Cemu.exe",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
         },
         "parserInputs": {
             "glob": "${title}@(7z|7Z|.zip|.ZIP|wux|wud|wua|wad|iso)"
@@ -2091,25 +2095,27 @@
             "tryToMatchTitle": false
         },
         "fuzzyMatch": {
+            "use": null,
             "replaceDiacritics": true,
             "removeCharacters": true,
             "removeBrackets": true
         },
-        "parserId": "164824416518097458",
-        "version": 10,
         "imageProviderAPIs": {
             "SteamGridDB": {
                 "nsfw": false,
                 "humor": false,
-                "imageMotionTypes": [
-                    "static"
-                ],
                 "styles": [],
                 "stylesHero": [],
                 "stylesLogo": [],
-                "stylesIcon": []
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ]
             }
-        }
+        },
+        "parserId": "164824416518097458",
+        "version": 10,
+        "disabled": false
     },
     {
         "parserType": "Glob",
@@ -2136,7 +2142,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "executable": {
             "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\retroarch.exe",
             "shortcutPassthrough": false,
@@ -2202,7 +2208,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -2268,7 +2274,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -2334,7 +2340,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -2400,7 +2406,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -2466,7 +2472,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "executable": {
             "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\retroarch.exe",
             "shortcutPassthrough": false,
@@ -2532,7 +2538,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "executable": {
             "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\retroarch.exe",
             "shortcutPassthrough": false,
@@ -2598,7 +2604,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -2664,7 +2670,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -2730,7 +2736,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -2775,17 +2781,17 @@
         "parserType": "Glob",
         "configTitle": "Sony PlayStation - DuckStation",
         "steamCategory": "${PlayStation}",
-        "executableModifier": "\"${exePath}\"",
-        "romDirectory": "E:\\Emulation\\roms\\psx",
         "steamDirectory": "C:\\Program Files (x86)\\Steam",
+        "romDirectory": "E:\\Emulation\\roms\\psx",
+        "executableArgs": "-batch -fullscreen \"${filePath}\"",
+        "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
-        "executableArgs": "run org.duckstation.DuckStation -batch -fullscreen \"${filePath}\"",
-        "onlineImageQueries": "${${fuzzyTitle}}",
-        "imagePool": "${fuzzyTitle}",
         "imageProviders": [
             "SteamGridDB"
         ],
+        "onlineImageQueries": "${${fuzzyTitle}}",
+        "imagePool": "${fuzzyTitle}",
         "defaultImage": "",
         "defaultTallImage": "",
         "defaultHeroImage": "",
@@ -2796,11 +2802,15 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
             "useCredentials": true
+        },
+        "executable": {
+            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\duckstation\\duckstation-qt-x64-ReleaseLTCG.exe",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
         },
         "parserInputs": {
             "glob": "${title}@(.cue|.CUE|.img|.IMG|.chd|.CHD|.ecm|.ECM|.iso|.ISO|.m3u|.M3U|.mds|.MDS|.pbp|.PBP)"
@@ -2812,30 +2822,26 @@
             "tryToMatchTitle": false
         },
         "fuzzyMatch": {
+            "use": null,
             "replaceDiacritics": true,
             "removeCharacters": true,
             "removeBrackets": true
         },
-        "executable": {
-            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\retroarch.exe",
-            "shortcutPassthrough": false,
-            "appendArgsToExecutable": true
-        },
-        "parserId": "164785656699856393",
-        "version": 10,
         "imageProviderAPIs": {
             "SteamGridDB": {
                 "nsfw": false,
                 "humor": false,
-                "imageMotionTypes": [
-                    "static"
-                ],
                 "styles": [],
                 "stylesHero": [],
                 "stylesLogo": [],
-                "stylesIcon": []
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ]
             }
-        }
+        },
+        "parserId": "164785656699856393",
+        "version": 10
     },
     {
         "parserType": "Glob",
@@ -2862,7 +2868,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "executable": {
             "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\retroarch.exe",
             "shortcutPassthrough": false,
@@ -2907,17 +2913,17 @@
         "parserType": "Glob",
         "configTitle": "Sony PlayStation 2 - PCSX2",
         "steamCategory": "${Playstation 2}",
-        "executableModifier": "\"${exePath}\"",
-        "romDirectory": "E:\\Emulation\\roms\\ps2",
         "steamDirectory": "C:\\Program Files (x86)\\Steam",
+        "romDirectory": "E:\\Emulation\\roms\\ps2",
+        "executableArgs": "\"${filePath}\" --nogui --fullscreen",
+        "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
-        "executableArgs": "run net.pcsx2.PCSX2 \"${filePath}\" --nogui --fullscreen",
-        "onlineImageQueries": "${${fuzzyTitle}}",
-        "imagePool": "${fuzzyTitle}",
         "imageProviders": [
             "SteamGridDB"
         ],
+        "onlineImageQueries": "${${fuzzyTitle}}",
+        "imagePool": "${fuzzyTitle}",
         "defaultImage": "",
         "defaultTallImage": "",
         "defaultHeroImage": "",
@@ -2928,11 +2934,15 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
             "useCredentials": true
+        },
+        "executable": {
+            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\PCSX2\\pcsx2.exe",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
         },
         "parserInputs": {
             "glob": "${title}@(.bin|.BIN|.chd|.CHD|.cso|.CSO|.dump|.DUMP|.gz|.GZ|.img|.IMG|.iso|.ISO|.mdf|.MDF|.nrg|.NRG)"
@@ -2944,46 +2954,43 @@
             "tryToMatchTitle": false
         },
         "fuzzyMatch": {
+            "use": null,
             "replaceDiacritics": true,
             "removeCharacters": true,
             "removeBrackets": true
         },
-        "executable": {
-            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\retroarch.exe",
-            "shortcutPassthrough": false,
-            "appendArgsToExecutable": true
-        },
-        "parserId": "164785208872922785",
-        "version": 10,
         "imageProviderAPIs": {
             "SteamGridDB": {
                 "nsfw": false,
                 "humor": false,
-                "imageMotionTypes": [
-                    "static"
-                ],
                 "styles": [],
                 "stylesHero": [],
                 "stylesLogo": [],
-                "stylesIcon": []
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ]
             }
-        }
+        },
+        "parserId": "164785208872922785",
+        "version": 10,
+        "disabled": false
     },
     {
         "parserType": "Glob",
         "configTitle": "Sony PlayStation 3 - RPCS3 (Extracted ISO\\PSN)",
         "steamCategory": "${PlayStation 3}",
-        "executableModifier": "\"${exePath}\"",
-        "romDirectory": "E:\\Emulation\\roms\\ps3",
         "steamDirectory": "C:\\Program Files (x86)\\Steam",
+        "romDirectory": "E:\\Emulation\\roms\\ps3",
+        "executableArgs": "--no-gui \"${filePath}\"",
+        "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
-        "executableArgs": "run net.rpcs3.RPCS3 --no-gui \"${filePath}\"",
-        "onlineImageQueries": "${${fuzzyTitle}}",
-        "imagePool": "${fuzzyTitle}",
         "imageProviders": [
             "SteamGridDB"
         ],
+        "onlineImageQueries": "${${fuzzyTitle}}",
+        "imagePool": "${fuzzyTitle}",
         "defaultImage": "",
         "defaultTallImage": "",
         "defaultHeroImage": "",
@@ -2994,14 +3001,18 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
             "useCredentials": true
         },
+        "executable": {
+            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\RPCS3\\rpcs3.exe",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
+        },
         "parserInputs": {
-            "glob": "${title}\\PS3_GAME\\USRDIR\\@(eboot.bin|EBOOT.BIN)"
+            "glob": "${title}/PS3_GAME/USRDIR/@(eboot.bin|EBOOT.BIN)"
         },
         "titleFromVariable": {
             "limitToGroups": "${PS3}",
@@ -3010,30 +3021,27 @@
             "tryToMatchTitle": true
         },
         "fuzzyMatch": {
+            "use": null,
             "replaceDiacritics": true,
             "removeCharacters": true,
             "removeBrackets": true
         },
-        "executable": {
-            "path": "E:\\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\retroarch.exe",
-            "shortcutPassthrough": false,
-            "appendArgsToExecutable": true
-        },
-        "parserId": "164785645271669680",
-        "version": 10,
         "imageProviderAPIs": {
             "SteamGridDB": {
                 "nsfw": false,
                 "humor": false,
-                "imageMotionTypes": [
-                    "static"
-                ],
                 "styles": [],
                 "stylesHero": [],
                 "stylesLogo": [],
-                "stylesIcon": []
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ]
             }
-        }
+        },
+        "parserId": "164785645271669680",
+        "version": 10,
+        "disabled": false
     },
     {
         "parserType": "Glob",
@@ -3060,7 +3068,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -3126,7 +3134,7 @@
         "localHeroImages": "",
         "localLogoImages": "",
         "localIcons": "",
-        "disabled": true,
+        "disabled": false,
         "userAccounts": {
             "specifiedAccounts": "",
             "skipWithMissingDataDir": true,
@@ -3169,7 +3177,7 @@
     },
     {
         "parserType": "Glob",
-        "configTitle": "Sony PlayStation 3 - RPCS3(Flatpak) (Installed PKG)",
+        "configTitle": "Sony PlayStation 3 - RPCS3 ) (Installed PKG)",
         "steamCategory": "${PS3}",
         "steamDirectory": "C:\\Program Files (x86)\\Steam",
         "romDirectory": "E:\\Emulation\\saves\\rpcs3\\dev_hdd0\\game",
@@ -3212,25 +3220,26 @@
             "tryToMatchTitle": true
         },
         "fuzzyMatch": {
+            "use": null,
             "replaceDiacritics": true,
             "removeCharacters": true,
             "removeBrackets": true
         },
-        "parserId": "165182011334544893",
-        "version": 10,
         "imageProviderAPIs": {
             "SteamGridDB": {
                 "nsfw": false,
                 "humor": false,
-                "imageMotionTypes": [
-                    "static"
-                ],
                 "styles": [],
                 "stylesHero": [],
                 "stylesLogo": [],
-                "stylesIcon": []
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ]
             }
         },
+        "parserId": "165182011334544893",
+        "version": 10,
         "disabled": true
     }
 ]
