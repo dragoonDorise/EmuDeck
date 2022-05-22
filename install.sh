@@ -617,7 +617,7 @@ if [[ $doCustomEmulators == true ]]; then
 			#if [[ "$emusToReset" == *"MelonDS"* ]]; then
 			#	doUpdateMelon=false
 			#fi
-			if [[ "$emusToReset" == *"SRM"* ]]; then
+			if [[ "$emusToReset" == *"Steam Rom Manager"* ]]; then
 				doUpdateSRM=true
 			fi
 			
