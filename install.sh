@@ -667,8 +667,8 @@ if [ $doInstallESDE == true ]; then
 		curl $latestURL --output "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage 
 		rm "$toolsPath"/latesturl.txt
 		chmod +x "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage	
-	if [ $doESDEThemePicker == true ]; then
-		if [ $expert == true ]; then	
+	if [[ $doESDEThemePicker == true ]]; then
+		if [[ $expert == true ]]; then	
 			text="Which theme do you want to set as default on EmulationStation DE?"
 			esdeTheme=$(zenity --list \
 			--title="EmuDeck" \
