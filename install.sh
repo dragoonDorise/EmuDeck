@@ -391,12 +391,25 @@ if [ $expert == true ]; then
 				echo "You don't have a password set. Please set one now. once set, you will be prompted to enter it in a new window."
 				passwd 
 			fi
-			PASSWD="$(zenity --password --title=Enter Deck User Password)"
+			PASSWD="$(zenity --password --title="Enter Deck User Password" 2>/dev/null)"
 			echo $PASSWD | sudo -v -S 
 		fi
 		
 	
 	if [[ $doSelectEmulators == true ]]; then
+		
+		emuTable=()
+        emuTable+=(TRUE "RetroArch")
+		emuTable+=(TRUE "PrimeHack")
+        emuTable+=(TRUE "PCSX2")
+		emuTable+=(TRUE "RPCS3")
+		emuTable+=(TRUE "Citra")
+		emuTable+=(TRUE "Dolphin")
+		emuTable+=(TRUE "Duckstation")
+		emuTable+=(TRUE "PPSSPP")
+		emuTable+=(TRUE "Yuzu")
+		emuTable+=(TRUE "Cemu")
+		emuTable+=(TRUE "Xemu")
 		
 		#Emulator selector
 		text="`printf "What emulators do you want to install?"`"
@@ -408,19 +421,9 @@ if [ $expert == true ]; then
 				--cancel-label="Exit" \
 				--text="${text}" \
 				--checklist \
-				--column="" \
+				--column="Select" \
 				--column="Emulator" \
-				1 "RetroArch"\
-				2 "PrimeHack" \
-				3 "PCSX2" \
-				4 "RPCS3" \
-				5 "Citra" \
-				6 "Dolphin" \
-				7 "Duckstation" \
-				8 "PPSSPP" \
-				9 "Yuzu" \
-				10 "Cemu" \
-				11 "Xemu" 2>/dev/null)
+				"${emuTable[@]}" 2>/dev/null)
 		clear
 		ans=$?	
 		if [ $ans -eq 0 ]; then
@@ -479,7 +482,13 @@ if [ $expert == true ]; then
 
 	if [[ $doSelectWideScreen == true ]]; then
 		#Emulators screenHacks
-		text="`printf "We use 16:9 widescreen hacks on some emulators, if you want them to have the original 4:3 aspect ratio please select them on the following list"`"
+		emuTable=()
+        emuTable+=(TRUE "Dolphin")
+		emuTable+=(TRUE "Duckstation")
+        emuTable+=(TRUE "BeetlePSX")
+		emuTable+=(TRUE "Dreamcast")
+
+		text="`printf "Selected Emulators will use WideScreen Hacks"`"
 		wideToInstall=$(zenity --list \
 					--title="EmuDeck" \
 					--height=500 \
@@ -488,27 +497,24 @@ if [ $expert == true ]; then
 					--cancel-label="Exit" \
 					--text="${text}" \
 					--checklist \
-					--column="" \
+					--column="Widescreen?" \
 					--column="Emulator" \
-					1 "Dolphin" \
-					2 "Duckstation" \
-					3 "BeetlePSX" \
-					4 "Dreamcast"  2>/dev/null)
+					"${emuTable[@]}"  2>/dev/null)
 		clear
 		ans=$?	
 		if [ $ans -eq 0 ]; then
 			
 			if [[ "$wideToInstall" == *"Duckstation"* ]]; then
-				duckWide=false
+				duckWide=true
 			fi
 			if [[ "$wideToInstall" == *"Dolphin"* ]]; then
-				DolphinWide=false
+				DolphinWide=true
 			fi
 			if [[ "$wideToInstall" == *"Dreamcast"* ]]; then
-				DreamcastWide=false
+				DreamcastWide=true
 			fi		
 			if [[ "$wideToInstall" == *"BeetlePSX"* ]]; then
-				BeetleWide=false
+				BeetleWide=true
 			fi				
 					
 			
@@ -537,9 +543,24 @@ if [[ $doCustomEmulators == true ]]; then
 		flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
 		flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
 
-		installString='Updating'	
-		
-		text="`printf "<b>EmuDeck will overwrite the following Emulators configurations</b> \nWhich systems do you want me to keep its current configuration <b>untouched</b>?\nWe recomend to keep all of them unchecked so everything gets updated so any possible bug can be fixed.\n If you want to mantain any custom configuration on some emulator select its name on this list"`"
+		installString='Updating'
+
+		emuTable=()
+        emuTable+=(TRUE "RetroArch")
+		emuTable+=(TRUE "PrimeHack")
+        emuTable+=(TRUE "PCSX2")
+		emuTable+=(TRUE "RPCS3")
+		emuTable+=(TRUE "Citra")
+		emuTable+=(TRUE "Dolphin")
+		emuTable+=(TRUE "Duckstation")
+		emuTable+=(TRUE "PPSSPP")
+		emuTable+=(TRUE "Yuzu")
+		emuTable+=(TRUE "Cemu")
+		emuTable+=(TRUE "Xemu")
+		emuTable+=(TRUE "Steam Rom Manager")
+
+
+		text="`printf "<b>EmuDeck will overwrite the following Emulators configurations by default</b> \nWhich systems do you want <b>reconfigure</b>?\nWe recommend to keep all of them checked so everything gets updated and known issues are fixed.\n If you want to mantain any custom configuration on some emulator unselect its name on this list"`"
 		emusToReset=$(zenity --list \
 							--title="EmuDeck" \
 							--height=500 \
@@ -548,20 +569,9 @@ if [[ $doCustomEmulators == true ]]; then
 							--cancel-label="Exit" \
 							--text="${text}" \
 							--checklist \
-							--column="" \
+							--column="Reconfigure?" \
 							--column="Emulator" \
-							1 "RetroArch"\
-							2 "PrimeHack" \
-							3 "PCSX2" \
-							4 "RPCS3" \
-							5 "Citra" \
-							6 "Dolphin" \
-							7 "Duckstation" \
-							8 "PPSSPP" \
-							9 "Yuzu" \
-							10 "Cemu" \
-							11 "Xemu" \
-							12 "SRM"  2>/dev/null)
+							"${emuTable[@]}"  2>/dev/null)
 		clear
 		cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 		echo -e "${BOLD}EmuDeck ${version}${NONE}"
@@ -569,46 +579,46 @@ if [[ $doCustomEmulators == true ]]; then
 		if [ $ans -eq 0 ]; then
 			
 			if [[ "$emusToReset" == *"RetroArch"* ]]; then
-				doUpdateRA=false
+				doUpdateRA=true
 			fi
 			if [[ "$emusToReset" == *"PrimeHack"* ]]; then
-				doUpdatePrimeHacks=false
+				doUpdatePrimeHacks=true
 			fi
 			if [[ "$emusToReset" == *"PCSX2"* ]]; then
-				doUpdatePCSX2=false
+				doUpdatePCSX2=true
 			fi
 			if [[ "$emusToReset" == *"RPCS3"* ]]; then
-				doUpdateRPCS3=false
+				doUpdateRPCS3=true
 			fi
 			if [[ "$emusToReset" == *"Citra"* ]]; then
-				doUpdateCitra=false
+				doUpdateCitra=true
 			fi
 			if [[ "$emusToReset" == *"Dolphin"* ]]; then
-				doUpdateDolphin=false
+				doUpdateDolphin=true
 			fi
 			if [[ "$emusToReset" == *"Duckstation"* ]]; then
-				doUpdateDuck=false
+				doUpdateDuck=true
 			fi
 			if [[ "$emusToReset" == *"PPSSPP"* ]]; then
-				doUpdatePPSSPP=false
+				doUpdatePPSSPP=true
 			fi
 			if [[ "$emusToReset" == *"Yuzu"* ]]; then
-				doUpdateYuzu=false
+				doUpdateYuzu=true
 			fi
 			if [[ "$emusToReset" == *"Cemu"* ]]; then
-				doUpdateCemu=false
+				doUpdateCemu=true
 			fi
 			if [[ "$emusToReset" == *"Xemu"* ]]; then
-				doUpdateXemu=false
+				doUpdateXemu=true
 			fi
 			if [[ "$emusToReset" == *"Xenia"* ]]; then
-				doUpdateXenia=false
+				doUpdateXenia=false #false until we add above
 			fi
 			#if [[ "$emusToReset" == *"MelonDS"* ]]; then
 			#	doUpdateMelon=false
 			#fi
 			if [[ "$emusToReset" == *"SRM"* ]]; then
-				doUpdateSRM=false
+				doUpdateSRM=true
 			fi
 			
 			
