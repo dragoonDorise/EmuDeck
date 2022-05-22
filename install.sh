@@ -697,11 +697,11 @@ fi
 #We do this wether the user wants to install ESDE or not to account for old users that might have ESDE already installed and won't update
 #Leon requested we use his config instead of symlink
 
-if [ ! -d "$ESDEscrapData" ]; then		
+if [ -d "~/.emulationstation/downloaded_media" ]; then		
 	echo -e ""
 	echo -e "Moving EmulationStation downloaded media to $destination"			
 	echo -e ""
-	mv ~/.emulationstation/downloaded_media $ESDEscrapData && rm -rf ~/.emulationstation/downloaded_media		#move it
+	rsync -a ~/.emulationstation/downloaded_media $toolsPath  && rm -rf ~/.emulationstation/downloaded_media		#move it, merging files if in both locations
 fi
 
 #Configure Downloaded_media folder
@@ -711,7 +711,7 @@ mediaDirFound=$(grep -rnw ~/.emulationstation/es_settings.xml -e 'MediaDirectory
 if [[ $mediaDirFound == '' ]]; then
     sed -i -e '$a'"${esDE_MediaDir}"  ~/.emulationstation/es_settings.xml # use config file instead of link
 fi
-unlink /.emulationstation/downloaded_media
+unlink ~/.emulationstation/downloaded_media
 
 #SRM Installation
 if [ $doInstallSRM == true ]; then
