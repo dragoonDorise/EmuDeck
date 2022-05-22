@@ -1,6 +1,6 @@
 Player 1 Input:
   Handler: Evdev
-  Device: Microsoft X-Box 360 pad 1
+  Device: Microsoft X-Box 360 pad 0
   Config:
     Left Stick Left: LX-
     Left Stick Down: LY+
