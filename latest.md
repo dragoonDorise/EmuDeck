@@ -15,7 +15,7 @@ SD Card detection fixes:
 General Changes:
    - SD card is only available if one is inserted, writable, and supports symlinks
    - If the user does not have an SD Card, and chooses easy mode, it will skip location choice and install directly to ~/
-   - logging is more verbose.
+   - New user interface
 
 Expert Mode Changes:
    - New preselection screen where you can chose what do you want to customize.
