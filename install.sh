@@ -659,8 +659,7 @@ fi # end Expert if
 
 
 #ESDE Installation
-if [ $doInstallESDE == true ]; then
-	echo "ESDE: Yes" 
+if [ $doInstallESDE == true ]; then	
 	echo -e "${BOLD}${installString} EmulationStation Desktop Edition${NONE}"
 	curl https://gitlab.com/leonstyhre/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt --output "$toolsPath"/latesturl.txt 
 	latestURL=$(grep "https://gitlab" "$toolsPath"/latesturl.txt)
@@ -716,7 +715,7 @@ elif [ -e ${originalESMediaFolder} ] ; then
 		rsync -a $originalESMediaFolder $toolsPath  && rm -rf $originalESMediaFolder		#move it, merging files if in both locations
 	fi
 else
-	echo "Missing"
+	echo "downloaded_media not found on original location"
 fi
 
 
@@ -735,18 +734,19 @@ if [ $doInstallSRM == true ]; then
 	echo -e "${BOLD}${installString} Steam Rom Manager${NONE}"
 	rm -f ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
 	rm -f ~/Desktop/Steam-ROM-Manager.AppImage
-	curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" > "${toolsPath}"Steam-ROM-Manager.AppImage
+	mkdir -p "${toolsPath}"/srm
+	curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" > "${toolsPath}"srm/Steam-ROM-Manager.AppImage
 	#Nova fix'
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
 	Name=Steam Rom Manager
-	Exec= kill -9 `pidof steam` & ${toolsPath}Steam-ROM-Manager.AppImage
+	Exec=kill -9 `pidof steam` & ${toolsPath}srm/Steam-ROM-Manager.AppImage
 	Icon=steamdeck-gaming-return
-	Terminal=true
+	Terminal=false
 	Type=Application
 	StartupNotify=false" > ~/Desktop/SteamRomManager.desktop
 	chmod +x ~/Desktop/SteamRomManager.desktop
-	chmod +x ${toolsPath}Steam-ROM-Manager.AppImage
+	chmod +x "${toolsPath}"/srm/Steam-ROM-Manager.AppImage
 fi
 
 #Support for non-valve hardware.
@@ -992,19 +992,19 @@ echo -e "${GREEN}OK!${NONE}"
 
 #Do this properly with wildcards
 if [[ "$esdeTheme" == *"EPICNOIR"* ]]; then
-	sed -i "s|rbsimple-DE|es-epicnoir|" es_settings.xml 
-	sed -i "s|modern-DE|es-epicnoir|" es_settings.xml 
-	sed -i "s|es-epicnoir|es-epicnoir|" es_settings.xml 
+	sed -i "s|rbsimple-DE|es-epicnoir|" ~/.emulationstation/es_settings.xml 
+	sed -i "s|modern-DE|es-epicnoir|" ~/.emulationstation/es_settings.xml 
+	sed -i "s|es-epicnoir|es-epicnoir|" ~/.emulationstation/es_settings.xml 
 fi
 if [[ "$esdeTheme" == *"MODERN-DE"* ]]; then
-	sed -i "s|rbsimple-DE|modern-DE|" es_settings.xml 
-	sed -i "s|modern-DE|modern-DE|" es_settings.xml 
-	sed -i "s|es-epicnoir|modern-DE|" es_settings.xml 
+	sed -i "s|rbsimple-DE|modern-DE|" ~/.emulationstation/es_settings.xml 
+	sed -i "s|modern-DE|modern-DE|" ~/.emulationstation/es_settings.xml 
+	sed -i "s|es-epicnoir|modern-DE|" ~/.emulationstation/es_settings.xml 
 fi
 if [[ "$esdeTheme" == *"RBSIMPLE-DE"* ]]; then
-	sed -i "s|rbsimple-DE|rbsimple-DE|" es_settings.xml 
-	sed -i "s|modern-DE|rbsimple-DE|" es_settings.xml 
-	sed -i "s|es-epicnoir|rbsimple-DE|" es_settings.xml 
+	sed -i "s|rbsimple-DE|rbsimple-DE|" ~/.emulationstation/es_settings.xml 
+	sed -i "s|modern-DE|rbsimple-DE|" ~/.emulationstation/es_settings.xml 
+	sed -i "s|es-epicnoir|rbsimple-DE|" ~/.emulationstation/es_settings.xml 
 fi
 
 
@@ -1259,8 +1259,13 @@ if [ $doUpdateXemu == true ]; then
 fi
 echo -e "${GREEN}OK!${NONE}"
 
-#Symlinks for ESDE compatibility
+
+#Fixes ESDE older installations
+unlink megacd 
+unlink megadrive 
 unlink n3ds
+
+#Symlinks for ESDE compatibility
 cd $(echo $romsPath | tr -d '\r') 
 ln -sn gamecube gc 
 ln -sn 3ds n3ds 
@@ -1268,16 +1273,13 @@ ln -sn arcade mamecurrent
 ln -sn mame mame2003 
 ln -sn lynx atarilynx 
 
-#Fixes ESDE
-unlink megacd 
-unlink megadrive 
 
 cd $(echo $biosPath | tr -d '\r')
 cd yuzu
 ln -sn ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/ ./keys 
 ln -sn ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/ ./firmware 
 
-#Fixes repeated Symlinx
+#Fixes repeated Symlink for older installations
 cd ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/
 unlink keys 
 cd ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/
@@ -1741,7 +1743,7 @@ ans=$?
 if [ $ans -eq 0 ]; then
 	kill -9 `pidof steam`
 	cd ~/Desktop/
-	"$toolsPath"Steam-ROM-Manager.AppImage
+	"$toolsPath"/srm/Steam-ROM-Manager.AppImage
 	qdbus org.kde.Shutdown /Shutdown org.kde.Shutdown.logout
 	exit
 else
