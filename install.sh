@@ -113,7 +113,7 @@ setESDEEmus(){
 	else
 		gamelistFound=$(grep -rnw $FILE -e 'gameList')
 		if [[ $gamelistFound == '' ]]; then
-		    sed -i -e '$a\<gameList />' $FILE
+			sed -i -e '$a\<gameList />' $FILE
 		fi
 		alternativeEmu=$(grep -rnw $FILE -e 'alternativeEmulator')
 		if [[ $alternativeEmu == '' ]]; then
@@ -233,7 +233,7 @@ if [[ ${#locationTable[@]} -gt 3 ]]; then # -gt 3 because there's 3 entries per 
 	destination=$(zenity --list \
 	--title="Where would you like Emudeck to be installed?" \
 	--radiolist \
-	--width=300 --height=225 \
+	--width=400 --height=225 \
 	--column="" --column="Install Location" --column="value" \
 	--hide-column=3 --print-column=3 \
 		"${locationTable[@]}"  2>/dev/null)
@@ -307,12 +307,11 @@ if [ $expert == true ]; then
 		doRASignIn=false
 		doRAEnable=false
 		doESDEThemePicker=false
-		doXboxButtons=false
-		clobberRoms=true
-    
+		doXboxButtons=false		
+	
 		#one entry per expert mode feature
-        table=()
-        table+=(TRUE "CHDScript" "Install the latest version of our CHD conversion script?")
+		table=()
+		table+=(TRUE "CHDScript" "Install the latest version of our CHD conversion script?")
 		table+=(TRUE "PowerTools" "Install Power Tools for CPU control? (password required)")
 		table+=(TRUE "SteamGyro" "Setup the SteamDeckGyroDSU for gyro control (password required)")
 		table+=(TRUE "updateSRM" "Install/Update Steam Rom Manager?")
@@ -330,12 +329,12 @@ if [ $expert == true ]; then
 
 		declare -i height=(${#table[@]}*50)
 
-        expertModeFeatureList=$(zenity  --list --checklist --width=1000 --height=${height} \
-        --column="Select?"  \
-        --column="Features"  \
-        --column="Description" \
-        --hide-column=2 \
-        "${table[@]}" 2>/dev/null)
+		expertModeFeatureList=$(zenity  --list --checklist --width=1000 --height=${height} \
+		--column="Select?"  \
+		--column="Features"  \
+		--column="Description" \
+		--hide-column=2 \
+		"${table[@]}" 2>/dev/null)
 
 		#set flags to true for selected expert mode features
 		if [[ "$expertModeFeatureList" == *"CHDScript"* ]]; then
@@ -379,10 +378,7 @@ if [ $expert == true ]; then
 		fi
 		if [[ "$expertModeFeatureList" == *"doESDEThemePicker"* ]]; then
 			doESDEThemePicker=true
-		fi
-		if [[ "$expertModeFeatureList" == *"clobberRoms"* ]]; then
-			clobberRoms=true
-		fi
+		fi	
 		
 
 		if [[ $doInstallPowertools == true || $doInstallGyro == true || $isRealDeck == false ]]; then
@@ -399,9 +395,9 @@ if [ $expert == true ]; then
 	if [[ $doSelectEmulators == true ]]; then
 		
 		emuTable=()
-        emuTable+=(TRUE "RetroArch")
+		emuTable+=(TRUE "RetroArch")
 		emuTable+=(TRUE "PrimeHack")
-        emuTable+=(TRUE "PCSX2")
+		emuTable+=(TRUE "PCSX2")
 		emuTable+=(TRUE "RPCS3")
 		emuTable+=(TRUE "Citra")
 		emuTable+=(TRUE "Dolphin")
@@ -483,9 +479,9 @@ if [ $expert == true ]; then
 	if [[ $doSelectWideScreen == true ]]; then
 		#Emulators screenHacks
 		emuTable=()
-        emuTable+=(TRUE "Dolphin")
+		emuTable+=(TRUE "Dolphin")
 		emuTable+=(TRUE "Duckstation")
-        emuTable+=(TRUE "BeetlePSX")
+		emuTable+=(TRUE "BeetlePSX")
 		emuTable+=(TRUE "Dreamcast")
 
 		text="`printf "Selected Emulators will use WideScreen Hacks"`"
@@ -546,9 +542,9 @@ if [[ $doCustomEmulators == true ]]; then
 		installString='Updating'
 
 		emuTable=()
-        emuTable+=(TRUE "RetroArch")
+		emuTable+=(TRUE "RetroArch")
 		emuTable+=(TRUE "PrimeHack")
-        emuTable+=(TRUE "PCSX2")
+		emuTable+=(TRUE "PCSX2")
 		emuTable+=(TRUE "RPCS3")
 		emuTable+=(TRUE "Citra")
 		emuTable+=(TRUE "Dolphin")
@@ -730,7 +726,7 @@ esDE_MediaDir="<string name=\"MediaDirectory\" value=\""${ESDEscrapData}"\" />"
 #search for media dir in xml, if not found, change to ours.
 mediaDirFound=$(grep -rnw $HOME/.emulationstation/es_settings.xml -e 'MediaDirectory')
 if [[ $mediaDirFound == '' ]]; then
-    sed -i -e '$a'"${esDE_MediaDir}"  ~/.emulationstation/es_settings.xml # use config file instead of link
+	sed -i -e '$a'"${esDE_MediaDir}"  ~/.emulationstation/es_settings.xml # use config file instead of link
 fi
 
 
@@ -882,7 +878,6 @@ echo -e ""
 
 
 ##Generate rom folders
-if [[ $clobberRoms == true ]]; then
 	echo -ne "${BOLD}Creating roms folder in $destination"
 
 	mkdir -p "$romsPath"
@@ -891,9 +886,6 @@ if [[ $clobberRoms == true ]]; then
 	sleep 3
 	rsync -r --ignore-existing ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath" 
 	echo -e "${GREEN}OK!${NONE}"
-else
-	echo -ne "Leaving existing Emulation folder structure"
-fi
 
 #Cemu - We need to install Cemu after creating the Roms folders!
 if [ $doInstallCemu == "true" ]; then
@@ -990,7 +982,7 @@ esDE_MediaDir="<string name=\"MediaDirectory\" value=\""${ESDEscrapData}"\" />"
 #search for media dir in xml, if not found, change to ours.
 mediaDirFound=$(grep -rnw  ~/.emulationstation/es_settings.xml -e 'MediaDirectory')
 if [[ $mediaDirFound == '' ]]; then
-    sed -i -e '$a'"${esDE_MediaDir}"  ~/.emulationstation/es_settings.xml # use config file instead of link
+	sed -i -e '$a'"${esDE_MediaDir}"  ~/.emulationstation/es_settings.xml # use config file instead of link
 fi
 #sed -i "s|name=\"ROMDirectory\" value=\"/name=\"ROMDirectory\" value=\"${romsPathSed}/g" ~/.emulationstation/es_settings.xml
 mkdir -p ~/.emulationstation/themes/
@@ -1617,12 +1609,12 @@ if [[ ! -f ~/emudeck/.rap && $doRAEnable == true ]] || [[ $doRASignIn == true ]]
 
 	text=$(printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>\n\nActivating RetroAchievments will disable save states unless you disable hardcore mode\n\n\n\nPress STEAM + X to get the onscreen Keyboard")
 	RAInput=$(zenity --forms \
-            --title="Retroachievements Sign in" \
-            --text="$text" \
-            --add-entry="Username: " \
-            --add-password="Password: " \
-            --separator="," 2>/dev/null)
-            
+			--title="Retroachievements Sign in" \
+			--text="$text" \
+			--add-entry="Username: " \
+			--add-password="Password: " \
+			--separator="," 2>/dev/null)
+			
 	if [ $ans -eq 0 ]; then
 		echo "RetroAchievment Login"
 		echo $RAInput | awk -F "," '{print $1}' > ~/emudeck/.rau
