@@ -707,9 +707,9 @@ fi
 #Configure Downloaded_media folder
 esDE_MediaDir="<string name=\"MediaDirectory\" value=\""${ESDEscrapData}"\" />"
 #search for media dir in xml, if not found, change to ours.
-mediaDirFound=$(grep -rnw $FILE -e 'MediaDirectory')
+mediaDirFound=$(grep -rnw ~/.emulationstation/es_settings.xml -e 'MediaDirectory')
 if [[ $mediaDirFound == '' ]]; then
-    sed -i -e '$a'$esDE_MediaDir  ~/.emulationstation/es_settings.xml # use config file instead of link
+    sed -i -e '$a'"${esDE_MediaDir}"  ~/.emulationstation/es_settings.xml # use config file instead of link
 fi
 
 
@@ -967,9 +967,9 @@ sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.emulationstatio
 #Configure Downloaded_media folder
 esDE_MediaDir="<string name=\"MediaDirectory\" value=\""${ESDEscrapData}"\" />"
 #search for media dir in xml, if not found, change to ours.
-mediaDirFound=$(grep -rnw $FILE -e 'MediaDirectory')
+mediaDirFound=$(grep -rnw  ~/.emulationstation/es_settings.xml -e 'MediaDirectory')
 if [[ $mediaDirFound == '' ]]; then
-    sed -i -e '$a'$esDE_MediaDir  ~/.emulationstation/es_settings.xml # use config file instead of link
+    sed -i -e '$a'"${esDE_MediaDir}"  ~/.emulationstation/es_settings.xml # use config file instead of link
 fi
 #sed -i "s|name=\"ROMDirectory\" value=\"/name=\"ROMDirectory\" value=\"${romsPathSed}/g" ~/.emulationstation/es_settings.xml
 mkdir -p ~/.emulationstation/themes/
