@@ -203,7 +203,7 @@ if [ -b "/dev/mmcblk0p1" ]; then
 	sdValid=$(testLocationValid "SD" $sdCardFull)
 	echo "SD Card at $sdCardFull is valid? Return val: $sdValid"
 	if [[ $sdValid == "valid" ]]; then
-		locationTable+=(FALSE "SD" "$sdCardFull") 
+		locationTable+=(FALSE "SD Card" "$sdCardFull") 
 	fi
 fi
 
@@ -233,7 +233,7 @@ if [[ ${#locationTable[@]} -gt 3 ]]; then # -gt 3 because there's 3 entries per 
 	destination=$(zenity --list \
 	--title="Where would you like Emudeck to be installed?" \
 	--radiolist \
-	--width=200 --height=225 \
+	--width=300 --height=225 \
 	--column="" --column="Install Location" --column="value" \
 	--hide-column=3 --print-column=3 \
 		"${locationTable[@]}"  2>/dev/null)
