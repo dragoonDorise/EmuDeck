@@ -569,10 +569,10 @@
       "glob": "${title}@(7z|7Z|.zip|.ZIP)"
     },
     "titleFromVariable": {
-      "limitToGroups": "",
+      "limitToGroups": "${MAME}",
       "caseInsensitiveVariables": false,
       "skipFileIfVariableWasNotFound": false,
-      "tryToMatchTitle": false
+      "tryToMatchTitle": true
     },
     "fuzzyMatch": {
       "use": true,
