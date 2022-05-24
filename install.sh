@@ -399,9 +399,13 @@ if [ $expert == true ]; then
 		fi
 		if [[ "$expertModeFeatureList" == *"updateSRM"* ]]; then
 			doUpdateSRM=true
+		else
+			doUpdateSRM=false
 		fi
 		if [[ "$expertModeFeatureList" == *"updateESDE"* ]]; then
 			doInstallESDE=true
+		else
+			doInstallESDE=false
 		fi
 		if [[ "$expertModeFeatureList" == *"selectEmulators"* ]]; then
 			doSelectEmulators=true
@@ -411,15 +415,21 @@ if [ $expert == true ]; then
 		fi
 		if [[ "$expertModeFeatureList" == *"selectRABezels"* ]]; then
 			RABezels=true
+		else
+			RABezels=false
 		fi
 		if [[ "$expertModeFeatureList" == *"selectRAAutoSave"* ]]; then
 			RAautoSave=true
+		else
+			RAautoSave=false
 		fi
 		if [[ "$expertModeFeatureList" == *"snesAR"* ]]; then
 			SNESAR=43
+		else
+			SNESAR=83		
 		fi
 		if [[ "$expertModeFeatureList" == *"selectWideScreen"* ]]; then
-			doSelectWideScreen=true
+			doSelectWideScreen=true			
 		fi
 		if [[ "$expertModeFeatureList" == *"setRASignIn"* ]]; then
 			doRASignIn=true
@@ -553,15 +563,23 @@ if [ $expert == true ]; then
 			
 			if [[ "$wideToInstall" == *"Duckstation"* ]]; then
 				duckWide=true
+			else
+				duckWide=false
 			fi
 			if [[ "$wideToInstall" == *"Dolphin"* ]]; then
 				DolphinWide=true
+			else
+				DolphinWide=false
 			fi
 			if [[ "$wideToInstall" == *"Dreamcast"* ]]; then
 				DreamcastWide=true
+			else
+				DreamcastWide=false
 			fi		
 			if [[ "$wideToInstall" == *"BeetlePSX"* ]]; then
 				BeetleWide=true
+				else
+				BeetleWide=false
 			fi				
 					
 			
