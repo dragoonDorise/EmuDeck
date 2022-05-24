@@ -1428,12 +1428,6 @@ fi
 ##
 ##
 
-#RA SNES Aspect Ratio
-if [ $SNESAR == 43 ]; then	
-	cp ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes43.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes.cfg	
-else
-	cp ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes87.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes.cfg	
-fi
 
 #RA Bezels	
 if [ $RABezels == true ]; then	
@@ -1441,6 +1435,14 @@ if [ $RABezels == true ]; then
 else
 	find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.cfg" | while read f; do mv -v "$f" "${f%.*}.bak"; done 
 fi
+
+#RA SNES Aspect Ratio
+if [ $SNESAR == 43 ]; then	
+	cp ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes43.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes.cfg	
+else
+	cp ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes87.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes.cfg	
+fi
+
 
 #RA AutoSave	
 if [ $RAautoSave == true ]; then
