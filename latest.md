@@ -11,7 +11,7 @@
 - Fix Citra non exiting while pressing R5
 - PPSSPP Audio Fix when the Deck goes into Sleep Mode
 - Fixed 3ds bad symlink for older installations
-SD Card detection fixes:
+
 General Changes:
    - SD card is only available if one is inserted, writable, and supports symlinks
    - If the user does not have an SD Card, and chooses easy mode, it will skip location choice and install directly to ~/
