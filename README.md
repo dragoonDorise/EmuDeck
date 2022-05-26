@@ -52,6 +52,7 @@ EmuDeck has preloaded configurations for Steam Rom Manager for the following sys
 | Sega Master System        | Retroarch Genesis Plus GX core       | .7z .gen .sms .zip                                                   |
 | Sega Saturn               | Retroarch Yabause core               | .7z .cue .iso .chd .zip                                              |
 | Wonderswan & Color        | Retroarch Beetle Cygne core          | .7z .pc2 .ws .wsc .zip                                               |
+| Xbox                      | xemu                                 | .iso (xiso format)                                                   |
 
 ## Using EmulationStation DE
 
