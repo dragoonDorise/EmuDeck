@@ -12,6 +12,9 @@ case $devMode in
   ;;
 esac
 
+#source ~/dragoonDoriseTools/EmuDeck/settings.sh
+
+
 #Creating log file
 echo "" > ~/emudeck/emudeck.log
 LOGFILE=~/emudeck/emudeck.log
@@ -121,61 +124,11 @@ fi
 
 #Functions
 echo "" > ~/emudeck/prog.log
-setMSG(){		
-	progressBar=$((progressBar + 5))
-	#We prevent the zenity to close if we have too much MSG, the classic eternal 99%
-	if [ $progressBar == 95 ]; then
-		progressBar=90
-	fi	
-	echo "$progressBar" > ~/emudeck/msg.log	
-	echo "# $1" >> ~/emudeck/msg.log	
-	sleep 0.5
-}
+source ~/dragoonDoriseTools/EmuDeck/functions/setMSG.sh
+source ~/dragoonDoriseTools/EmuDeck/functions/setESDEEmus.sh
+source ~/dragoonDoriseTools/EmuDeck/functions/testLocationValid.sh
 
-setESDEEmus(){		
-	emu=$1
-	system=$2
-	FILE=~/.emulationstation/gamelists/$system/gamelist.xml
-	if [ ! -f "$FILE" ]; then
-		mkdir -p ~/.emulationstation/gamelists/$system && cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/gamelists/$system/gamelist.xml $FILE
-	else
-		gamelistFound=$(grep -rnw $FILE -e 'gameList')
-		if [[ $gamelistFound == '' ]]; then
-			sed -i -e '$a\<gameList />' $FILE
-		fi
-		alternativeEmu=$(grep -rnw $FILE -e 'alternativeEmulator')
-		if [[ $alternativeEmu == '' ]]; then
-			echo "<alternativeEmulator><label>$emu</label></alternativeEmulator>" >> $FILE
-		fi
-		sed -i "s|<?xml version=\"1.0\">|<?xml version=\"1.0\"?>|g" $FILE
-	fi
-}
-testLocationValid(){
-	testLocation=$2
-	touch $testLocation/testwrite
-	return=""
-	if [ ! -f  $testLocation/testwrite ]; then
-		#echo "$testLocation not writeable"
-		return="invalid"
-	else
-		#echo "$testLocation writable" 
-
-		ln -s $testLocation/testwrite $testLocation/testwrite.link
-		if [ ! -f  $testLocation/testwrite.link ]; then
-			#echo "Symlink creation failed in $testLocation"
-			return="invalid"
-		else
-			return="valid"
-			#doesn't work? scope issue?
-			#locationTable+=(FALSE "$1" "$testLocation") #valid only if location is writable and linkable
-		fi
-	fi
-	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
-	echo $return
-}
-
-
-
+#Show changelog
 latest=$(cat ~/dragoonDoriseTools/EmuDeck/latest.md)
 
 if [ -f "$SECONDTIME" ]; then

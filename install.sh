@@ -46,6 +46,3 @@ fi
 
 cd $FOLDER
 sh doInstall.sh $devMode
-
-
-sleep 999999
