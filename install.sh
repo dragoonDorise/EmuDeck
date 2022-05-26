@@ -30,6 +30,8 @@ rm -rf ~/dragoonDoriseTools
 mkdir -p ~/emudeck
 #Creating log file
 echo "" > ~/emudeck/emudeck.log
+LOGFILE=~/emudeck/emudeck.log
+exec > >(tee ${LOGFILE}) 2>&1
 
 #Mark as second time so we can detect previous users
 FOLDER=~/.var/app/io.github.shiiion.primehack/config_bak
@@ -101,7 +103,51 @@ savesPath=~/Emulation/saves/
 #Default ESDE Theme
 esdeTheme="EPICNOIR"
 
+#Progress Bar
+finished=false
+progressBar=0
+
+echo "0" > ~/emudeck/msg.log
+echo "# Starting Installation" >> ~/emudeck/msg.log
+MSG=~/emudeck/msg.log
+(	
+	while [ $finished == false ]
+	do 
+		  cat $MSG		    
+		  if grep -q "100" "$MSG"; then
+			  finished=true
+			break
+		  fi
+							  
+	done &
+) |
+zenity --progress \
+  --title="Installing EmuDeck" \
+  --text="Installing..." \
+  --percentage=0 \
+  --no-cancel \
+  --pulsate \
+  --auto-close \
+  --width=300 \ &
+
+if [ "$?" = -1 ] ; then
+		zenity --error \
+		  --text="Update canceled."
+fi
+
 #Functions
+echo "" > ~/emudeck/prog.log
+setMSG(){		
+	progressBar=$((progressBar + 5))
+	#We prevent the zenity to close if we have too much MSG, the classic eternal 99%
+	if [ $progressBar == 95 ]; then
+		progressBar=90
+	fi	
+	echo "$progressBar" > ~/emudeck/msg.log	
+	echo "# $1" >> ~/emudeck/msg.log	
+	sleep 0.5
+}
+
 setESDEEmus(){		
 	emu=$1
 	system=$2
@@ -111,7 +157,7 @@ setESDEEmus(){
 	else
 		gamelistFound=$(grep -rnw $FILE -e 'gameList')
 		if [[ $gamelistFound == '' ]]; then
-		    sed -i -e '$a\<gameList />' $FILE
+			sed -i -e '$a\<gameList />' $FILE
 		fi
 		alternativeEmu=$(grep -rnw $FILE -e 'alternativeEmulator')
 		if [[ $alternativeEmu == '' ]]; then
@@ -120,9 +166,31 @@ setESDEEmus(){
 		sed -i "s|<?xml version=\"1.0\">|<?xml version=\"1.0\"?>|g" $FILE
 	fi
 }
+testLocationValid(){
+	testLocation=$2
+	touch $testLocation/testwrite
+	return=""
+	if [ ! -f  $testLocation/testwrite ]; then
+		#echo "$testLocation not writeable"
+		return="invalid"
+	else
+		#echo "$testLocation writable" 
 
-clear
-echo -ne "${BOLD}Downloading files from $branch channel...${NONE}"
+		ln -s $testLocation/testwrite $testLocation/testwrite.link
+		if [ ! -f  $testLocation/testwrite.link ]; then
+			#echo "Symlink creation failed in $testLocation"
+			return="invalid"
+		else
+			return="valid"
+			#doesn't work? scope issue?
+			#locationTable+=(FALSE "$1" "$testLocation") #valid only if location is writable and linkable
+		fi
+	fi
+	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
+	echo $return
+}
+
+setMSG "Downloading files from $branch channel..."
 sleep 5
 
 #We create all the needed folders for installation
@@ -131,29 +199,65 @@ mkdir -p dragoonDoriseTools/EmuDeck
 cd dragoonDoriseTools
 
 
-
-git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck &>> ~/emudeck/emudeck.log
+git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck 
 if [ ! -z "$devMode" ]; then
 	cd ~/dragoonDoriseTools/EmuDeck
-	git checkout $branch &>> ~/emudeck/emudeck.log
+	git checkout $branch 
 fi
 
 FOLDER=~/dragoonDoriseTools/EmuDeck
 if [ -d "$FOLDER" ]; then
-	echo -e "${GREEN}OK!${NONE}"
+	echo -e "OK!"
 else
 	echo -e ""
-	echo -e "${RED}We couldn't download the needed files, exiting in a few seconds${NONE}"
+	echo -e "We couldn't download the needed files, exiting in a few seconds"
 	echo -e "Please close this window and try again in a few minutes"
 	sleep 999999
 	exit
 fi
-clear
-cat ~/dragoonDoriseTools/EmuDeck/logo.ans
-version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
-echo -e "${BOLD}EmuDeck ${version}${NONE}"
-echo -e ""
-cat ~/dragoonDoriseTools/EmuDeck/latest.md
+
+	latest=$(cat ~/dragoonDoriseTools/EmuDeck/latest.md)
+	
+	if [ -f "$SECONDTIME" ]; then
+		 text="$(printf "<b>Hi, this is the changelog of the new features added in this version</b>\n\n${latest}")"
+		 width=1000
+	else
+		text="$(printf "<b>Welcome to EmuDeck!</b>")"
+		width=300
+	fi 
+	 zenity --info \
+	--title="EmuDeck" \
+	--width=${width} \
+	--text="${text}" 2>/dev/null
+	
+#
+#Hardware Check
+#
+if [[ "$(cat /sys/devices/virtual/dmi/id/product_name)" =~ Jupiter ]]; then
+	isRealDeck=true
+else
+	isRealDeck=false
+fi
+
+
+#
+# Initialize locations
+#
+locationTable=()
+locationTable+=(TRUE "Internal" "$HOME") #always valid
+
+#built in SD Card reader
+if [ -b "/dev/mmcblk0p1" ]; then	
+	#test if card is writable and linkable
+	sdCardFull="$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)"
+	echo "SD Card found; testing $sdCardFull for validity."
+	sdValid=$(testLocationValid "SD" $sdCardFull)
+	echo "SD Card at $sdCardFull is valid? Return val: $sdValid"
+	if [[ $sdValid == "valid" ]]; then
+		locationTable+=(FALSE "SD Card" "$sdCardFull") 
+	fi
+fi
+
 #
 # Installation mode selection
 #
@@ -168,90 +272,67 @@ zenity --question \
 ans=$?
 if [ $ans -eq 0 ]; then
 	expert=true
+	locationTable+=(FALSE "Custom" "CUSTOM") #in expert mode we'll allow the user to pick an arbitrary place.
 else
 	expert=false
 fi
-
 #
 #Storage Selection
 #
 
-text="Do you want to install your roms on your SD Card or on your Internal Storage?"
-zenity --question \
-		 --title="EmuDeck" \
-		 --width=250 \
-		 --ok-label="SD Card" \
-		 --cancel-label="Internal Storage" \
-		 --text="${text}" 2>/dev/null
-ans=$?
-if [ $ans -eq 0 ]; then
-	echo "Storage: SD" &>> ~/emudeck/emudeck.log
-	destination="SD"
-	echo "" > ~/emudeck/.SD
-else
-	echo "Storage: INTERNAL" &>> ~/emudeck/emudeck.log
-	destination="INTERNAL"
-fi
-
-#
-#SD Card detection
-#
-
-if [ $destination == "SD" ]; then
-	#check dev to see if sd card is inserted and has a partition	
-	if [ -b "/dev/mmcblk0p1" ]; then	
-		#test if card is writable and linkable
-		sdCardFull="$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)"
-		echo "SD Card found; installing to $sdCardFull">> ~/emudeck/emudeck.log
-		touch $sdCardFull/testwrite
-		if [ ! -f  $sdCardFull/testwrite ]; then
-				text="`printf "<b>SD Card not writable</b>\nMake sure your SD Card is writable"`"
-				zenity --error \
-				--title="SDCard Error" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
-				exit
-		else
-			echo "SD Card writable" &>> ~/emudeck/emudeck.log
-		fi
-		ln -s $sdCardFull/testwrite $sdCardFull/testwrite.link
-		if [ ! -f  $sdCardFull/testwrite.link ]; then
-				text="`printf "<b>Your SD Card is not compatible with EmuDeck.</b>\nMake sure to use a supported filesystem like EXT4. Formatting your SD Card from SteamUI will fix this.\n\n Go back to Gaming Mode, Settings, System and select Format SD Card there. This will delete all your SD contents."`"
-				zenity --error \
-				--title="SDCard Error" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
-				rm -f "$sdCardFull/testwrite"
-				exit
-		else
-			echo "Symlink creation succeeded" &>> ~/emudeck/emudeck.log
-		fi
-		rm -f "$sdCardFull/testwrite" "$sdCardFull/testwrite.link"
+if [[ ${#locationTable[@]} -gt 3 ]]; then # -gt 3 because there's 3 entries per row.
+	destination=$(zenity --list \
+	--title="Where would you like Emudeck to be installed?" \
+	--radiolist \
+	--width=400 --height=225 \
+	--column="" --column="Install Location" --column="value" \
+	--hide-column=3 --print-column=3 \
+		"${locationTable[@]}"  2>/dev/null)
+	ans=$?
+	if [ $ans -eq 0 ]; then
+		echo "Storage: ${destination}"
 	else
-		text="`printf "<b>SD Card not detected</b>\nMake sure your SD Card is inserted and start again the installation"`"
-		zenity --error \
-				--title="SDCard Error" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
+		echo "No storage choice made"
 		exit
 	fi
-	
-	#New paths for SD cards
-	emulationPath="${sdCardFull}/Emulation/"
-	romsPath="${sdCardFull}/Emulation/roms/"
-	toolsPath="${sdCardFull}/Emulation/tools/"
-	biosPath="${sdCardFull}/Emulation/bios/"
-	savesPath="${sdCardFull}/Emulation/saves/"
-	ESDEscrapData="${sdCardFull}/Emulation/tools/downloaded_media"
-
+else
+	destination="$HOME"
 fi
+
+if [[ $destination == "CUSTOM" ]]; then
+	destination=$(zenity --file-selection --directory --title="Select a destination for the Emulation directory." 2>/dev/null)
+	if [[ $destination != "CUSTOM" ]]; then
+		echo "Storage: ${destination}"
+		customValid=$(testLocationValid "Custom" "${destination}")
+
+		if [[ $customValid != "valid" ]]; then
+			echo "Valid location not chosen. Exiting"
+			exit
+		fi
+
+	else
+		echo "User didn't choose. Exiting."
+		exit
+	fi
+fi
+
+
+
+#New paths based on where the user picked.
+emulationPath="${destination}/Emulation/"
+romsPath="${destination}/Emulation/roms/"
+toolsPath="${destination}/Emulation/tools/"
+biosPath="${destination}/Emulation/bios/"
+savesPath="${destination}/Emulation/saves/"
+ESDEscrapData="${destination}/Emulation/tools/downloaded_media"
+
 
 mkdir -p "$emulationPath"
 mkdir -p "$toolsPath"launchers 
 mkdir -p "$savesPath"
 
 #Cleanup for old users
-find "$romsPath" -name "readme.md" -type f -delete &>> ~/emudeck/emudeck.log
+find "$romsPath" -name "readme.md" -type f -delete 
 
 
 #
@@ -262,90 +343,134 @@ find "$romsPath" -name "readme.md" -type f -delete &>> ~/emudeck/emudeck.log
 
 if [ $expert == true ]; then
 
-
-	#CHDMAN	
-	text="`printf "Do you want to install our tool to convert iso, gdi and cue to CHD format?\n\n The CHD format allows to have one single file insted of multiple and the final file takes up to 50%% less space"`"
-	zenity --question \
-			 --title="EmuDeck" \
-			 --width=250 \
-			 --ok-label="Yes" \
-			 --cancel-label="No" \
-			 --text="${text}" 2>/dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		doInstallCHD=true
-	else
+		#set all features to false
 		doInstallCHD=false
-	fi	
-	
-	#Powertools
-	text=""
-	text="`printf "Do you want to install Powertools? This can improve Emulators like Yuzu or Dolphin. You will need to create a password for your deck linux desktop user. PowerTools only has touch support, you can not control it using the controller.\n\n<b>Do not use this if you do not have basic Linux Terminal knowledge.</b>"`"
-	zenity --question \
-			 --title="EmuDeck" \
-			 --width=250 \
-			 --ok-label="Yes" \
-			 --cancel-label="No" \
-			 --text="${text}" 2>/dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		doInstallPowertools=true
-		
-	else
 		doInstallPowertools=false
-	fi
-	
-	#Gyro
-	text=""
-	text="`printf "Do you want to install SteamGyroDSU? This can be used in emulators such as Cemu for proper motion controls. <b>You will need to create a password for your deck linux desktop user, if you do not already have one.</b>"`"
-	zenity --question \
-			 --title="EmuDeck" \
-			 --width=250 \
-			 --ok-label="Yes" \
-			 --cancel-label="No" \
-			 --text="${text}" 2>/dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		doInstallGyro=true
-		
-	else
 		doInstallGyro=false
-	fi	
-
-	#SRM Update selector	
-	text="Do you want to update Steam Rom Manager?"
-	zenity --question \
-			 --title="EmuDeck" \
-			 --width=250 \
-			 --ok-label="Yes" \
-			 --cancel-label="No" \
-			 --text="${text}" 2>/dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		doInstallSRM=true
-	else
-		doInstallSRM=false
-	fi	
-		
-	#ESDE Install selector	
-	text="Do you want to install <span weight=\"bold\" foreground=\"red\">EmulationStation DE</span> and all of its RetroArch cores?"
-	zenity --question \
-			 --title="EmuDeck" \
-			 --width=250 \
-			 --ok-label="Yes" \
-			 --cancel-label="No" \
-			 --text="${text}" 2>/dev/null
-	ans=$?	
-
-	if [ $ans -eq 0 ]; then
-		doInstallESDE=true
-	else
+		doUpdateSRM=false
 		doInstallESDE=false
-	fi
-	clear
-	#Emulator selector
-	text="`printf "What emulators do you want to install?"`"
-	emusToInstall=$(zenity --list \
+		doSelectEmulators=false
+		doCustomEmulators=false
+		doSelectRABezels=false
+		doSelectRAAutoSave=false
+		doSNESAR87=false
+		doSelectWideScreen=false
+		doRASignIn=false
+		doRAEnable=false
+		doESDEThemePicker=false
+		doXboxButtons=false		
+	
+		#one entry per expert mode feature
+		table=()
+		table+=(TRUE "CHDScript" "Install the latest version of our CHD conversion script?")
+		table+=(TRUE "PowerTools" "Install Power Tools for CPU control? (password required)")
+		table+=(TRUE "SteamGyro" "Setup the SteamDeckGyroDSU for gyro control (password required)")
+		table+=(TRUE "updateSRM" "Install/Update Steam Rom Manager?")
+		table+=(TRUE "updateESDE" "Install/Update Emulation Station DE?")
+		table+=(TRUE "selectEmulators" "Select the emulators to install.")
+		table+=(TRUE "selectEmulatorConfig" "Customize the emulators who's config we override (note: Fixes will be skipped)")
+		table+=(TRUE "selectRABezels" "Turn on Bezels for Retroarch?")
+		table+=(TRUE "selectRAAutoSave" "Turn on Retroarch AutoSave/Restore state?")
+		table+=(TRUE "snesAR" "SNES 8:7 Aspect Ratio? (unchecked is 4:3)")
+		table+=(TRUE "selectWideScreen" "Customize Emulator Widescreen Selection?")
+		table+=(TRUE "setRAEnabled" "Enable Retroachievments in Retroarch?")
+		table+=(TRUE "setRASignIn" "Change RetroAchievements Sign in?")
+		table+=(TRUE "doESDEThemePicker" "Choose your EmulationStation-DE Theme?")		
+		#table+=(TRUE "doXboxButtons" "Should facebutton letters match between Nintendo and Steamdeck? (default is matched location)")
+
+		declare -i height=(${#table[@]}*50)
+
+		expertModeFeatureList=$(zenity  --list --checklist --width=1000 --height=${height} \
+		--column="Select?"  \
+		--column="Features"  \
+		--column="Description" \
+		--hide-column=2 \
+		"${table[@]}" 2>/dev/null)
+
+		#set flags to true for selected expert mode features
+		if [[ "$expertModeFeatureList" == *"CHDScript"* ]]; then
+			doInstallCHD=true
+		fi
+		if [[ "$expertModeFeatureList" == *"PowerTools"* ]]; then
+			doInstallPowertools=true
+		fi
+		if [[ "$expertModeFeatureList" == *"SteamGyro"* ]]; then
+			doInstallGyro=true
+		fi
+		if [[ "$expertModeFeatureList" == *"updateSRM"* ]]; then
+			doUpdateSRM=true
+		else
+			doUpdateSRM=false
+		fi
+		if [[ "$expertModeFeatureList" == *"updateESDE"* ]]; then
+			doInstallESDE=true
+		else
+			doInstallESDE=false
+		fi
+		if [[ "$expertModeFeatureList" == *"selectEmulators"* ]]; then
+			doSelectEmulators=true
+		fi
+		if [[ "$expertModeFeatureList" == *"selectEmulatorConfig"* ]]; then
+			doCustomEmulators=true
+		fi
+		if [[ "$expertModeFeatureList" == *"selectRABezels"* ]]; then
+			RABezels=true
+		else
+			RABezels=false
+		fi
+		if [[ "$expertModeFeatureList" == *"selectRAAutoSave"* ]]; then
+			RAautoSave=true
+		else
+			RAautoSave=false
+		fi
+		if [[ "$expertModeFeatureList" == *"snesAR"* ]]; then
+			SNESAR=43
+		else
+			SNESAR=83		
+		fi
+		if [[ "$expertModeFeatureList" == *"selectWideScreen"* ]]; then
+			doSelectWideScreen=true			
+		fi
+		if [[ "$expertModeFeatureList" == *"setRASignIn"* ]]; then
+			doRASignIn=true
+		fi
+		if [[ "$expertModeFeatureList" == *"setRAEnable"* ]]; then
+			doRAEnable=true
+		fi
+		if [[ "$expertModeFeatureList" == *"doESDEThemePicker"* ]]; then
+			doESDEThemePicker=true
+		fi	
+		
+
+		if [[ $doInstallPowertools == true || $doInstallGyro == true || $isRealDeck == false ]]; then
+			hasPass=$(passwd -S $(whoami) | awk -F " " '{print $2}' )
+			if [[ $hasPass == "NP" ]]; then
+				echo "You don't have a password set. Please set one now. once set, you will be prompted to enter it in a new window."
+				passwd 
+			fi
+			PASSWD="$(zenity --password --title="Enter Deck User Password" 2>/dev/null)"
+			echo $PASSWD | sudo -v -S 
+		fi
+		
+	
+	if [[ $doSelectEmulators == true ]]; then
+		
+		emuTable=()
+		emuTable+=(TRUE "RetroArch")
+		emuTable+=(TRUE "PrimeHack")
+		emuTable+=(TRUE "PCSX2")
+		emuTable+=(TRUE "RPCS3")
+		emuTable+=(TRUE "Citra")
+		emuTable+=(TRUE "Dolphin")
+		emuTable+=(TRUE "Duckstation")
+		emuTable+=(TRUE "PPSSPP")
+		emuTable+=(TRUE "Yuzu")
+		emuTable+=(TRUE "Cemu")
+		emuTable+=(TRUE "Xemu")
+		
+		#Emulator selector
+		text="`printf "What emulators do you want to install?"`"
+		emusToInstall=$(zenity --list \
 				--title="EmuDeck" \
 				--height=500 \
 				--width=250 \
@@ -353,217 +478,119 @@ if [ $expert == true ]; then
 				--cancel-label="Exit" \
 				--text="${text}" \
 				--checklist \
-				--column="" \
+				--column="Select" \
 				--column="Emulator" \
-				1 "RetroArch"\
-				2 "PrimeHack" \
-				3 "PCSX2" \
-				4 "RPCS3" \
-				5 "Citra" \
-				6 "Dolphin" \
-				7 "Duckstation" \
-				8 "PPSSPP" \
-				9 "Yuzu" \
-				10 "Cemu" \
-				11 "Xemu" 2>/dev/null)
-	clear
-	ans=$?	
-	if [ $ans -eq 0 ]; then
+				"${emuTable[@]}" 2>/dev/null)
+		clear
+		ans=$?	
+		if [ $ans -eq 0 ]; then
 		
-		if [[ "$emusToInstall" == *"RetroArch"* ]]; then
-			doInstallRA=true
-		fi
-		if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
-			doInstallPrimeHacks=true
-		fi
-		if [[ "$emusToInstall" == *"PCSX2"* ]]; then
-			doInstallPCSX2=true
-		fi
-		if [[ "$emusToInstall" == *"RPCS3"* ]]; then
-			doInstallRPCS3=true
-		fi
-		if [[ "$emusToInstall" == *"Citra"* ]]; then
-			doInstallCitra=true
-		fi
-		if [[ "$emusToInstall" == *"Dolphin"* ]]; then
-			doInstallDolphin=true
-		fi
-		if [[ "$emusToInstall" == *"Duckstation"* ]]; then
-			doInstallDuck=true
-		fi
-		if [[ "$emusToInstall" == *"PPSSPP"* ]]; then
-			doInstallPPSSPP=true
-		fi
-		if [[ "$emusToInstall" == *"Yuzu"* ]]; then
-			doInstallYuzu=true
-		fi
-		if [[ "$emusToInstall" == *"Cemu"* ]]; then
-			doInstallCemu=true
-		fi
-		if [[ "$emusToInstall" == *"Xemu"* ]]; then
-			doInstallXemu=true
-		fi
-		if [[ "$emusToInstall" == *"Xenia"* ]]; then
-			doInstallXenia=false
-		fi
-		#if [[ "$emusToInstall" == *"MelonDS"* ]]; then
-		#	doInstallMelon=true
-		#fi
+			if [[ "$emusToInstall" == *"RetroArch"* ]]; then
+				doInstallRA=true
+			fi
+			if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
+				doInstallPrimeHacks=true
+			fi
+			if [[ "$emusToInstall" == *"PCSX2"* ]]; then
+				doInstallPCSX2=true
+			fi
+			if [[ "$emusToInstall" == *"RPCS3"* ]]; then
+				doInstallRPCS3=true
+			fi
+			if [[ "$emusToInstall" == *"Citra"* ]]; then
+				doInstallCitra=true
+			fi
+			if [[ "$emusToInstall" == *"Dolphin"* ]]; then
+				doInstallDolphin=true
+			fi
+			if [[ "$emusToInstall" == *"Duckstation"* ]]; then
+				doInstallDuck=true
+			fi
+			if [[ "$emusToInstall" == *"PPSSPP"* ]]; then
+				doInstallPPSSPP=true
+			fi
+			if [[ "$emusToInstall" == *"Yuzu"* ]]; then
+				doInstallYuzu=true
+			fi
+			if [[ "$emusToInstall" == *"Cemu"* ]]; then
+				doInstallCemu=true
+			fi
+			if [[ "$emusToInstall" == *"Xemu"* ]]; then
+				doInstallXemu=true
+			fi
+			if [[ "$emusToInstall" == *"Xenia"* ]]; then
+				doInstallXenia=false
+			fi
+			#if [[ "$emusToInstall" == *"MelonDS"* ]]; then
+			#	doInstallMelon=true
+			#fi
 		
 		
-	else
-		exit
+		else
+			exit
+		fi
 	fi
-	
 	#We force new Cemu install if we detect an older version exists
 	DIR=$romsPath/wiiu/roms/
 	if [ -d "$DIR" ]; then	
 		doInstallCemu=true	
-	fi
-
-	FILE=~/emudeck/.custom
-	if [ -f "$FILE" ]; then
-		FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg
-			if [ -f "$FILE" ]; then	
-			text="Do you want to use your previous RetroArch customization?"
-			zenity --question \
-					 --title="EmuDeck" \
-					 --width=250 \
-					 --ok-label="Yes" \
-					 --cancel-label="No" \
-					 --text="${text}" 2>/dev/null
-			ans=$?
-			if [ $ans -eq 0 ]; then
-				echo "CustomRemain: Yes" &>> ~/emudeck/emudeck.log
-				
-				#We set the flas if we have created the .files before.
-				#if .file exists then the flag is true for that particular question
-				FILEBEZELS=~/emudeck/.bezels		
-				FILESAVE=~/emudeck/.autosave
-				
-				if [ -f "$FILEBEZELS" ]; then
-					RABezels=true
-				else
-					RABezels=false
-				fi
-				
-				if [ -f "$FILESAVE" ]; then
-					RAautoSave=true
-				else
-					RAautoSave=false
-				fi
-							
-			else
-				echo "CustomRemain: No" &>> ~/emudeck/emudeck.log
-				#We reset everything
-				rm ~/emudeck/.custom 2>/dev/null
-				rm ~/emudeck/.bezels 2>/dev/null
-				rm ~/emudeck/.autosave 2>/dev/null			
-			fi
-		fi
-	fi
-	
-	CUSTOM=~/emudeck/.custom
-	
-	FILEBEZELS=~/emudeck/.bezels
-	if [ ! -f "$CUSTOM" ] && [ ! -f "$FILEBEZELS" ]; then
-		
-		text="Do you want to use Bezels (Overlays) on RetroArch systems?"
-		zenity --question \
-				 --title="EmuDeck" \
-				 --width=250 \
-				 --ok-label="Yes" \
-				 --cancel-label="No" \
-				 --text="${text}" 2>/dev/null
-		ans=$?
-		if [ $ans -eq 0 ]; then
-			echo "Overlays: Yes" &>> ~/emudeck/emudeck.log
-			RABezels=true
-			echo "" > ~/emudeck/.bezels
-		else
-			echo "Overlays: No" &>> ~/emudeck/emudeck.log
-			RABezels=false
-		fi
-		
-	fi
-	FILESAVE=~/emudeck/.autosave
-	if [ ! -f "$CUSTOM" ] && [ ! -f "$FILESAVE" ]; then	
-		raConfigFile=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg
-		text="Do you want to use auto save and auto load for RetroArch systems?"
-		zenity --question \
-				 --title="EmuDeck" \
-				 --width=250 \
-				 --ok-label="Yes" \
-				 --cancel-label="No" \
-				 --text="${text}" 2>/dev/null
-		ans=$?
-		if [ $ans -eq 0 ]; then
-			echo "AutoSaveLoad: Yes" &>> ~/emudeck/emudeck.log
-			RAautoSave=true
-			echo "" > ~/emudeck/.autosave
-		else
-			echo "AutoSaveLoad: No" &>> ~/emudeck/emudeck.log
-			RAautoSave=false
-		fi
-	fi
-	
-	#SNES Aspect Ratio	
-	text="`printf "What SNES Aspect ratio do you want to use?\n\n<b>4:3</b> Classic CRT TV\n\n<b>8:7</b> Real SNES Internal resolution"`"
-	zenity --question \
-			 --title="EmuDeck" \
-			 --width=250 \
-			 --ok-label="4:3" \
-			 --cancel-label="8:7" \
-			 --text="${text}" 2>/dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		SNESAR=43		
-	else
-		SNESAR=87		
 	fi	
-			
-	#Emulators screenHacks
-	text="`printf "We use 16:9 widescreen hacks on some emulators, if you want them to have the original 4:3 aspect ratio please select them on the following list"`"
-	wideToInstall=$(zenity --list \
-				--title="EmuDeck" \
-				--height=500 \
-				--width=250 \
-				--ok-label="OK" \
-				--cancel-label="Exit" \
-				--text="${text}" \
-				--checklist \
-				--column="" \
-				--column="Emulator" \
-				1 "Dolphin" \
-				2 "Duckstation" \
-				3 "BeetlePSX" \
-				4 "Dreamcast"  2>/dev/null)
-	clear
-	ans=$?	
-	if [ $ans -eq 0 ]; then
-		
-		if [[ "$wideToInstall" == *"Duckstation"* ]]; then
-			duckWide=false
-		fi
-		if [[ "$wideToInstall" == *"Dolphin"* ]]; then
-			DolphinWide=false
-		fi
-		if [[ "$wideToInstall" == *"Dreamcast"* ]]; then
-			DreamcastWide=false
-		fi		
-		if [[ "$wideToInstall" == *"BeetlePSX"* ]]; then
-			BeetleWide=true
-		fi				
-				
-		
-	else		
-		exit		
-	fi			
 	
+
+	if [[ $doSelectWideScreen == true ]]; then
+		#Emulators screenHacks
+		emuTable=()
+		emuTable+=(TRUE "Dolphin")
+		emuTable+=(TRUE "Duckstation")
+		emuTable+=(TRUE "BeetlePSX")
+		emuTable+=(TRUE "Dreamcast")
+
+		text="`printf "Selected Emulators will use WideScreen Hacks"`"
+		wideToInstall=$(zenity --list \
+					--title="EmuDeck" \
+					--height=500 \
+					--width=250 \
+					--ok-label="OK" \
+					--cancel-label="Exit" \
+					--text="${text}" \
+					--checklist \
+					--column="Widescreen?" \
+					--column="Emulator" \
+					"${emuTable[@]}"  2>/dev/null)
+		clear
+		ans=$?	
+		if [ $ans -eq 0 ]; then
+			
+			if [[ "$wideToInstall" == *"Duckstation"* ]]; then
+				duckWide=true
+			else
+				duckWide=false
+			fi
+			if [[ "$wideToInstall" == *"Dolphin"* ]]; then
+				DolphinWide=true
+			else
+				DolphinWide=false
+			fi
+			if [[ "$wideToInstall" == *"Dreamcast"* ]]; then
+				DreamcastWide=true
+			else
+				DreamcastWide=false
+			fi		
+			if [[ "$wideToInstall" == *"BeetlePSX"* ]]; then
+				BeetleWide=true
+				else
+				BeetleWide=false
+			fi				
+					
+			
+		else		
+			exit		
+		fi			
+	fi
 	#We mark we've made a custom configuration for future updates
 	echo "" > ~/emudeck/.custom
 	
-	
+if [[ $doCustomEmulators == true ]]; then
 	# Configuration that only appplies to previous users
 	if [ -f "$SECONDTIME" ]; then
 		#We make sure all the emus can write its saves outside its own folders.
@@ -582,8 +609,23 @@ if [ $expert == true ]; then
 		flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
 
 		installString='Updating'
-			
-		text="`printf "<b>EmuDeck will overwrite the following Emulators configurations</b> \nWhich systems do you want me to keep its current configuration <b>untouched</b>?\nWe recomend to keep all of them unchecked so everything gets updated so any possible bug can be fixed.\n If you want to mantain any custom configuration on some emulator select its name on this list"`"
+
+		emuTable=()
+		emuTable+=(TRUE "RetroArch")
+		emuTable+=(TRUE "PrimeHack")
+		emuTable+=(TRUE "PCSX2")
+		emuTable+=(TRUE "RPCS3")
+		emuTable+=(TRUE "Citra")
+		emuTable+=(TRUE "Dolphin")
+		emuTable+=(TRUE "Duckstation")
+		emuTable+=(TRUE "PPSSPP")
+		emuTable+=(TRUE "Yuzu")
+		emuTable+=(TRUE "Cemu")
+		emuTable+=(TRUE "Xemu")
+		emuTable+=(TRUE "Steam Rom Manager")
+
+
+		text="`printf "<b>EmuDeck will overwrite the following Emulators configurations by default</b> \nWhich systems do you want <b>reconfigure</b>?\nWe recommend to keep all of them checked so everything gets updated and known issues are fixed.\n If you want to mantain any custom configuration on some emulator unselect its name on this list"`"
 		emusToReset=$(zenity --list \
 							--title="EmuDeck" \
 							--height=500 \
@@ -592,78 +634,67 @@ if [ $expert == true ]; then
 							--cancel-label="Exit" \
 							--text="${text}" \
 							--checklist \
-							--column="" \
+							--column="Reconfigure?" \
 							--column="Emulator" \
-							1 "RetroArch"\
-							2 "PrimeHack" \
-							3 "PCSX2" \
-							4 "RPCS3" \
-							5 "Citra" \
-							6 "Dolphin" \
-							7 "Duckstation" \
-							8 "PPSSPP" \
-							9 "Yuzu" \
-							10 "Cemu" \
-							11 "Xemu" \
-							12 "SRM"  2>/dev/null)
+							"${emuTable[@]}"  2>/dev/null)
 		clear
 		cat ~/dragoonDoriseTools/EmuDeck/logo.ans
-		echo -e "${BOLD}EmuDeck ${version}${NONE}"
+		echo -e "EmuDeck ${version}"
 		ans=$?
 		if [ $ans -eq 0 ]; then
 			
 			if [[ "$emusToReset" == *"RetroArch"* ]]; then
-				doUpdateRA=false
+				doUpdateRA=true
 			fi
 			if [[ "$emusToReset" == *"PrimeHack"* ]]; then
-				doUpdatePrimeHacks=false
+				doUpdatePrimeHacks=true
 			fi
 			if [[ "$emusToReset" == *"PCSX2"* ]]; then
-				doUpdatePCSX2=false
+				doUpdatePCSX2=true
 			fi
 			if [[ "$emusToReset" == *"RPCS3"* ]]; then
-				doUpdateRPCS3=false
+				doUpdateRPCS3=true
 			fi
 			if [[ "$emusToReset" == *"Citra"* ]]; then
-				doUpdateCitra=false
+				doUpdateCitra=true
 			fi
 			if [[ "$emusToReset" == *"Dolphin"* ]]; then
-				doUpdateDolphin=false
+				doUpdateDolphin=true
 			fi
 			if [[ "$emusToReset" == *"Duckstation"* ]]; then
-				doUpdateDuck=false
+				doUpdateDuck=true
 			fi
 			if [[ "$emusToReset" == *"PPSSPP"* ]]; then
-				doUpdatePPSSPP=false
+				doUpdatePPSSPP=true
 			fi
 			if [[ "$emusToReset" == *"Yuzu"* ]]; then
-				doUpdateYuzu=false
+				doUpdateYuzu=true
 			fi
 			if [[ "$emusToReset" == *"Cemu"* ]]; then
-				doUpdateCemu=false
+				doUpdateCemu=true
 			fi
 			if [[ "$emusToReset" == *"Xemu"* ]]; then
-				doUpdateXemu=false
+				doUpdateXemu=true
 			fi
 			if [[ "$emusToReset" == *"Xenia"* ]]; then
-				doUpdateXenia=false
+				doUpdateXenia=false #false until we add above
 			fi
 			#if [[ "$emusToReset" == *"MelonDS"* ]]; then
 			#	doUpdateMelon=false
 			#fi
-			if [[ "$emusToReset" == *"SRM"* ]]; then
-				doUpdateSRM=false
+			if [[ "$emusToReset" == *"Steam Rom Manager"* ]]; then
+				doUpdateSRM=true
 			fi
 			
 			
-		else
-			echo ""
+			else
+				echo ""
+			fi
+			
 		fi
-		
 	fi
-	
 else
-
+	#easy mode settings
 	doInstallRA=true
 	doInstallDolphin=true
 	doInstallPCSX2=true
@@ -698,39 +729,40 @@ fi # end Expert if
 
 #ESDE Installation
 if [ $doInstallESDE == true ]; then
-	echo "ESDE: Yes" &>> ~/emudeck/emudeck.log
-	echo -e "${BOLD}${installString} EmulationStation Desktop Edition${NONE}"
-	curl https://gitlab.com/leonstyhre/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt --output "$toolsPath"/latesturl.txt >> ~/emudeck/emudeck.log
+		
+	setMSG "${installString} EmulationStation Desktop Edition"
+	curl https://gitlab.com/leonstyhre/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt --output "$toolsPath"/latesturl.txt 
 	latestURL=$(grep "https://gitlab" "$toolsPath"/latesturl.txt)
 	
 	#New repo if the other fails
 	if [ -z $latestURL ]; then
-		curl https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt --output "$toolsPath"/latesturl.txt >> ~/emudeck/emudeck.log
+		curl https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt --output "$toolsPath"/latesturl.txt 
 		latestURL=$(grep "https://gitlab" "$toolsPath"/latesturl.txt)
 	fi
-		curl $latestURL --output "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage >> ~/emudeck/emudeck.log
+		curl $latestURL --output "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage 
 		rm "$toolsPath"/latesturl.txt
 		chmod +x "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage	
-		
-	if [ $expert == true ]; then	
-		text="Which theme do you want to set as default on EmulationStation DE?"
-		esdeTheme=$(zenity --list \
-		--title="EmuDeck" \
-		--height=250 \
-		--width=250 \
-		--ok-label="OK" \
-		--cancel-label="Exit" \
-		--text="${text}" \
-		--radiolist \
-		--column="" \
-		--column="Theme" \
-		1 "EPICNOIR" \
-		2 "MODERN-DE" \
-		3 "RBSIMPLE-DE" 2>/dev/null)
-		clear
-		ans=$?	
-		if [ $ans -eq 0 ]; then
-			echo "Theme selected" &>> ~/emudeck/emudeck.log
+	if [[ $doESDEThemePicker == true ]]; then
+		if [[ $expert == true ]]; then	
+			text="Which theme do you want to set as default on EmulationStation DE?"
+			esdeTheme=$(zenity --list \
+			--title="EmuDeck" \
+			--height=250 \
+			--width=250 \
+			--ok-label="OK" \
+			--cancel-label="Exit" \
+			--text="${text}" \
+			--radiolist \
+			--column="" \
+			--column="Theme" \
+			1 "EPICNOIR" \
+			2 "MODERN-DE" \
+			3 "RBSIMPLE-DE" 2>/dev/null)
+			clear
+			ans=$?	
+			if [ $ans -eq 0 ]; then
+				echo "Theme selected" 
+			fi
 		fi
 	fi
 	
@@ -738,57 +770,87 @@ fi
 
 #We check if we have scrapped data on ESDE so we can move it to the SD card
 #We do this wether the user wants to install ESDE or not to account for old users that might have ESDE already installed and won't update
-if [ $destination == "SD" ]; then		
-	#Symlink already created?
-	if [ ! -d "$ESDEscrapData" ]; then		
+#Leon requested we use his config instead of symlink
+
+originalESMediaFolder="$HOME/.emulationstation/downloaded_media"
+echo "processing $originalESMediaFolder"
+if [ -L ${originalESMediaFolder} ] ; then
+	echo "link found"
+	unlink ${originalESMediaFolder} && echo "unlinked"
+elif [ -e ${originalESMediaFolder} ] ; then
+	if [ -d "$HOME/.emulationstation/downloaded_media" ]; then		
 		echo -e ""
-		echo -e "Moving EmulationStation downloaded media to the SD Card"			
+		echo -e "Moving EmulationStation-DE downloaded_media to $toolsPath"			
 		echo -e ""
-		mv ~/.emulationstation/downloaded_media $ESDEscrapData && rm -rf ~/.emulationstation/downloaded_media && ln -sn $ESDEscrapData ~/.emulationstation/downloaded_media			
-	fi			
+		rsync -a $originalESMediaFolder $toolsPath  && rm -rf $originalESMediaFolder		#move it, merging files if in both locations
+	fi
+else
+	echo "downloaded_media not found on original location"
 fi
+
+
+
+#Configure Downloaded_media folder
+esDE_MediaDir="<string name=\"MediaDirectory\" value=\""${ESDEscrapData}"\" />"
+#search for media dir in xml, if not found, change to ours.
+mediaDirFound=$(grep -rnw $HOME/.emulationstation/es_settings.xml -e 'MediaDirectory')
+if [[ $mediaDirFound == '' ]]; then
+	sed -i -e '$a'"${esDE_MediaDir}"  ~/.emulationstation/es_settings.xml # use config file instead of link
+fi
+
 
 #SRM Installation
 if [ $doInstallSRM == true ]; then
-	echo -e "${BOLD}${installString} Steam Rom Manager${NONE}"
-	rm -f ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage &>> ~/emudeck/emudeck.log
-	curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" > ~/Desktop/Steam-ROM-Manager.AppImage
+	setMSG "${installString} Steam Rom Manager"
+	rm -f ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
+	rm -f ~/Desktop/Steam-ROM-Manager.AppImage
+	mkdir -p "${toolsPath}"/srm
+	curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" > "${toolsPath}"srm/Steam-ROM-Manager.AppImage
 	#Nova fix'
-	chmod +x ~/Desktop/Steam-ROM-Manager.AppImage
+	echo "#!/usr/bin/env xdg-open
+	[Desktop Entry]
+	Name=Steam Rom Manager
+	Exec=kill -9 `pidof steam` & ${toolsPath}srm/Steam-ROM-Manager.AppImage
+	Icon=steamdeck-gaming-return
+	Terminal=false
+	Type=Application
+	StartupNotify=false" > ~/Desktop/SteamRomManager.desktop
+	chmod +x ~/Desktop/SteamRomManager.desktop
+	chmod +x "${toolsPath}"/srm/Steam-ROM-Manager.AppImage
 fi
 
 #Support for non-valve hardware.
-if [[ ! "$(cat /sys/devices/virtual/dmi/id/product_name)" =~ Jupiter ]]; then
+if [[ $isRealDeck == false ]]; then
 
-	text="$(printf "Hey! This is not an SteamDeck. EmuDeck can work just fine, but you need to have a valid account\n\nThe script will ask for your password to make sure everything wokrs as expected")"
-zenity --info \
-   --title="EmuDeck" \
-   --width=450 \
-   --text="${text}" 2>/dev/null
+# 	text="$(printf "Hey! This is not an SteamDeck. EmuDeck can work just fine, but you need to have a valid user account\n\nThe script will ask for your password to make sure everything works as expected.")"
+# 	zenity --info \
+#    --title="EmuDeck" \
+#    --width=450 \
+#    --text="${text}" 2>/dev/null
 
 	#Ensure the dependencies are installed before proceeding.
 	for package in packagekit-qt5 flatpak rsync unzip
 	do
-		pacman -Q ${package} &>> ~/emudeck/emudeck.log || sudo pacman -Sy --noconfirm ${package} &>> ~/emudeck/emudeck.log
+		pacman -Q ${package}  || sudo pacman -Sy --noconfirm ${package} 
 	done
 
 	#The user must be in the wheel group to install flatpaks successfully.
 	wheel=$(awk '/'${USER}'/ {if ($1 ~ /wheel/) print}' /etc/group)
 	if [[ ! "${wheel}" =~ ${USER} ]]; then
-		sudo usermod -a -G wheel ${USER} &>> ~/emudeck/emudeck.log
+		sudo usermod -a -G wheel ${USER} 
 		newgrp wheel
 	fi
 
 	#Ensure the Desktop directory isn't owned by root
 	if [[ "$(stat -c %U ${HOME}/Desktop)" =~ root ]]; then
-		sudo chown -R ${USER}:${USER} ~/Desktop &>> ~/emudeck/emudeck.log
+		sudo chown -R ${USER}:${USER} ~/Desktop 
 	fi
 fi
 
 #Emulators Installation
 if [ $doInstallPCSX2 == "true" ]; then
-	echo -e "Installing PCSX2"
-	flatpak install flathub net.pcsx2.PCSX2 -y --system	&>> ~/emudeck/emudeck.log
+	setMSG "Installing PCSX2"
+	flatpak install flathub net.pcsx2.PCSX2 -y --system	
 	flatpak override net.pcsx2.PCSX2 --filesystem=host --user
 	flatpak override net.pcsx2.PCSX2 --share=network --user
 	#write out launcher
@@ -797,8 +859,8 @@ if [ $doInstallPCSX2 == "true" ]; then
 	chmod +x "${toolsPath}"launchers/pcsx2.sh	
 fi
 if [ $doInstallPrimeHacks == "true" ]; then
-	echo -e "Installing PrimeHack"
-	flatpak install flathub io.github.shiiion.primehack -y --system &>> ~/emudeck/emudeck.log
+	setMSG "Installing PrimeHack"
+	flatpak install flathub io.github.shiiion.primehack -y --system 
 	flatpak override io.github.shiiion.primehack --filesystem=host --user
 	#write out launcher
 	echo "#!/bin/sh
@@ -806,8 +868,8 @@ if [ $doInstallPrimeHacks == "true" ]; then
 	chmod +x "${toolsPath}"launchers/primehack.sh	
 fi
 if [ $doInstallRPCS3 == "true" ]; then
-	echo -e "Installing RPCS3"
-	flatpak install flathub net.rpcs3.RPCS3 -y --system &>> ~/emudeck/emudeck.log
+	setMSG "Installing RPCS3"
+	flatpak install flathub net.rpcs3.RPCS3 -y --system 
 	flatpak override net.rpcs3.RPCS3 --filesystem=host --user
 	#write out launcher
 	echo "#!/bin/sh
@@ -815,8 +877,8 @@ if [ $doInstallRPCS3 == "true" ]; then
 	chmod +x "${toolsPath}"launchers/rpcs3.sh	
 fi
 if [ $doInstallCitra == "true" ]; then
-	echo -e "Installing Citra"
-	flatpak install flathub org.citra_emu.citra -y --system &>> ~/emudeck/emudeck.log
+	setMSG "Installing Citra"
+	flatpak install flathub org.citra_emu.citra -y --system 
 	flatpak override org.citra_emu.citra --filesystem=host --user
 	#write out launcher
 	echo "#!/bin/sh
@@ -824,8 +886,8 @@ if [ $doInstallCitra == "true" ]; then
 	chmod +x "${toolsPath}"launchers/citra.sh	
 fi
 if [ $doInstallDolphin == "true" ]; then
-	echo -e "Installing Dolphin"
-	flatpak install flathub org.DolphinEmu.dolphin-emu -y --system &>> ~/emudeck/emudeck.log
+	setMSG "Installing Dolphin"
+	flatpak install flathub org.DolphinEmu.dolphin-emu -y --system 
 	flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
 	#write out launcher
 	echo "#!/bin/sh
@@ -833,8 +895,8 @@ if [ $doInstallDolphin == "true" ]; then
 	chmod +x "${toolsPath}"launchers/dolphin-emu.sh	
 fi
 if [ $doInstallDuck == "true" ]; then
-	echo -e "Installing DuckStation"
-	flatpak install flathub org.duckstation.DuckStation -y --system &>> ~/emudeck/emudeck.log
+	setMSG "Installing DuckStation"
+	flatpak install flathub org.duckstation.DuckStation -y --system 
 	#flatpak override org.duckstation.DuckStation --filesystem=host --user
 	#write out launcher
 	echo "#!/bin/sh
@@ -842,8 +904,8 @@ if [ $doInstallDuck == "true" ]; then
 	chmod +x "${toolsPath}"launchers/duckstation.sh	
 fi
 if [ $doInstallRA == "true" ]; then
-	echo -e "Installing RetroArch"
-	flatpak install flathub org.libretro.RetroArch -y --system &>> ~/emudeck/emudeck.log
+	setMSG "Installing RetroArch"
+	flatpak install flathub org.libretro.RetroArch -y --system 
 	#flatpak override org.libretro.RetroArch --filesystem=host --user
 	#write out launcher
 	echo "#!/bin/sh
@@ -851,8 +913,8 @@ if [ $doInstallRA == "true" ]; then
 	chmod +x "${toolsPath}"launchers/RetroArch.sh	
 fi
 if [ $doInstallPPSSPP == "true" ]; then
-	echo -e "Installing PPSSPP"
-	flatpak install flathub org.ppsspp.PPSSPP -y --system &>> ~/emudeck/emudeck.log
+	setMSG "Installing PPSSPP"
+	flatpak install flathub org.ppsspp.PPSSPP -y --system 
 	#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
 	#write out launcher
 	echo "#!/bin/sh
@@ -860,8 +922,8 @@ if [ $doInstallPPSSPP == "true" ]; then
 	chmod +x "${toolsPath}"launchers/ppsspp.sh
 fi
 if [ $doInstallYuzu == "true" ]; then
-	echo -e "Installing Yuzu"
-	flatpak install flathub org.yuzu_emu.yuzu -y --system &>> ~/emudeck/emudeck.log
+	setMSG "Installing Yuzu"
+	flatpak install flathub org.yuzu_emu.yuzu -y --system 
 	flatpak override org.yuzu_emu.yuzu --filesystem=host --user
 	#write out launcher
 	echo "#!/bin/sh
@@ -869,8 +931,8 @@ if [ $doInstallYuzu == "true" ]; then
 	chmod +x "${toolsPath}"launchers/yuzu.sh
 fi
 if [ $doInstallXemu == "true" ]; then
-	echo -e "Installing Xemu"
-	flatpak install flathub app.xemu.xemu -y --system &>> ~/emudeck/emudeck.log
+	setMSG "Installing Xemu"
+	flatpak install flathub app.xemu.xemu -y --system 
 	flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
 	flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
 	#write out launcher
@@ -880,60 +942,59 @@ if [ $doInstallXemu == "true" ]; then
 fi
 #if [ $doInstallMelon == "true" ]; then
 #	echo -e "Installing MelonDS"
-#	flatpak install flathub net.kuribo64.melonDS -y --system &>> ~/emudeck/emudeck.log
+#	flatpak install flathub net.kuribo64.melonDS -y --system 
 #fi
 echo -e ""
 
 
 ##Generate rom folders
-if [ $destination == "SD" ]; then
-	echo -ne "${BOLD}Creating roms folder in your SD Card...${NONE}"
-else
-	echo -ne "${BOLD}Creating roms folder in your home folder...${NONE}"
-fi
-mkdir -p "$romsPath"
-mkdir -p "$biosPath"
-mkdir -p "$biosPath"/yuzu/
-sleep 3
-rsync -r ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath" &>> ~/emudeck/emudeck.log
-echo -e "${GREEN}OK!${NONE}"
+	setMSG "Creating roms folder in $destination"
 
+	mkdir -p "$romsPath"
+	mkdir -p "$biosPath"
+	mkdir -p "$biosPath"/yuzu/
+	sleep 3
+	rsync -r --ignore-existing ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath" 
+	echo -e "OK!"
 
 #Cemu - We need to install Cemu after creating the Roms folders!
 if [ $doInstallCemu == "true" ]; then
-	echo -e "Installing Cemu"		
+	setMSG "Installing Cemu"		
 	FILE="${romsPath}/wiiu/Cemu.exe"	
 	if [ -f "$FILE" ]; then
 		echo "" 2>/dev/null
 	else
-		curl https://cemu.info/releases/cemu_1.26.2.zip --output $romsPath/wiiu/cemu_1.26.2.zip &>> ~/emudeck/emudeck.log
+		curl https://cemu.info/releases/cemu_1.26.2.zip --output $romsPath/wiiu/cemu_1.26.2.zip 
 		mkdir -p $romsPath/wiiu/tmp
-		unzip -o "$romsPath"/wiiu/cemu_1.26.2.zip -d "$romsPath"/wiiu/tmp &>> ~/emudeck/emudeck.log
-		mv "$romsPath"/wiiu/tmp/*/* "$romsPath"/wiiu &>> ~/emudeck/emudeck.log
-		rm -rf "$romsPath"/wiiu/tmp &>> ~/emudeck/emudeck.log
-		rm -f "$romsPath"/wiiu/cemu_1.26.2.zip &>> ~/emudeck/emudeck.log		
+		unzip -o "$romsPath"/wiiu/cemu_1.26.2.zip -d "$romsPath"/wiiu/tmp 
+		mv "$romsPath"/wiiu/tmp/*/* "$romsPath"/wiiu 
+		rm -rf "$romsPath"/wiiu/tmp 
+		rm -f "$romsPath"/wiiu/cemu_1.26.2.zip 		
 	fi
 
 	#because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
+	cp ~/dragoonDoriseTools/EmuDeck/tools/proton-launch.sh "${toolsPath}"proton-launch.sh
+	chmod +x "${toolsPath}"proton-launch.sh
 	cp ~/dragoonDoriseTools/EmuDeck/tools/launchers/cemu.sh "${toolsPath}"launchers/cemu.sh
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|" "${toolsPath}"launchers/cemu.sh
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/wiiu|${romsPath}wiiu|" "${toolsPath}"launchers/cemu.sh
-	chmod +x ${toolsPath}/launchers/cemu.sh
+	chmod +x "${toolsPath}"launchers/cemu.sh
 
 	#Commented until we get CEMU flatpak working
-	#echo -e "${BOLD}EmuDeck will add Witherking25's flatpak repo to your Discorver App.this is required for cemu now${NONE}"	
-	#flatpak remote-add --user --if-not-exists withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo &>> ~/emudeck/emudeck.log
-	#flatpak install withertech info.cemu.Cemu -y &>> ~/emudeck/emudeck.log
-	#flatpak install flathub org.winehq.Wine -y &>> ~/emudeck/emudeck.log
+	#echo -e "EmuDeck will add Witherking25's flatpak repo to your Discorver App.this is required for cemu now"	
+	#flatpak remote-add --user --if-not-exists withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo 
+	#flatpak install withertech info.cemu.Cemu -y 
+	#flatpak install flathub org.winehq.Wine -y 
 	#
 	##We move roms to the new path
 	#DIR=$romsPath/wiiu/roms/
 	#if [ -d "$DIR" ]; then			
 	#	echo -e "Moving your WiiU games and configuration to the new Cemu...This might take a while"
-	#	mv $romsPath/wiiu/roms/ $romsPath/wiiutemp &>> ~/emudeck/emudeck.log
-	#	mv $romsPath/wiiu/Cemu.exe $romsPath/wiiu/Cemu.bak &>> ~/emudeck/emudeck.log
-	#	rsync -ri $romsPath/wiiu/ ~/.var/app/info.cemu.Cemu/data/cemu/ &>> ~/emudeck/emudeck.log
-	#	mv $romsPath/wiiu/ $romsPath/wiiu_delete_me &>> ~/emudeck/emudeck.log
-	#	mv $romsPath/wiiutemp/ $romsPath/wiiu/ &>> ~/emudeck/emudeck.log
+	#	mv $romsPath/wiiu/roms/ $romsPath/wiiutemp 
+	#	mv $romsPath/wiiu/Cemu.exe $romsPath/wiiu/Cemu.bak 
+	#	rsync -ri $romsPath/wiiu/ ~/.var/app/info.cemu.Cemu/data/cemu/ 
+	#	mv $romsPath/wiiu/ $romsPath/wiiu_delete_me 
+	#	mv $romsPath/wiiutemp/ $romsPath/wiiu/ 
 	#	
 	#	zenity --info \
 	#	   --title="EmuDeck" \
@@ -946,17 +1007,17 @@ fi
 
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ $doInstallXenia == "true" ]; then
-	echo -e "Installing Xenia"		
+	setMSG "Installing Xenia"		
 	FILE="${romsPath}/xbox360/xenia.exe"	
 	if [ -f "$FILE" ]; then
 		echo "" 2>/dev/null
 	else
-		curl -L https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip --output $romsPath/xbox360/xenia_master.zip &>> ~/emudeck/emudeck.log
+		curl -L https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip --output $romsPath/xbox360/xenia_master.zip 
 		mkdir -p $romsPath/xbox360/tmp
-		unzip -o "$romsPath"/xbox360/xenia_master.zip -d "$romsPath"/xbox360/tmp &>> ~/emudeck/emudeck.log
-		mv "$romsPath"/xbox360/tmp/* "$romsPath"/xbox360 &>> ~/emudeck/emudeck.log
-		rm -rf "$romsPath"/xbox360/tmp &>> ~/emudeck/emudeck.log
-		rm -f "$romsPath"/xbox360/xenia_master.zip &>> ~/emudeck/emudeck.log		
+		unzip -o "$romsPath"/xbox360/xenia_master.zip -d "$romsPath"/xbox360/tmp 
+		mv "$romsPath"/xbox360/tmp/* "$romsPath"/xbox360 
+		rm -rf "$romsPath"/xbox360/tmp 
+		rm -f "$romsPath"/xbox360/xenia_master.zip 		
 	fi
 	
 fi
@@ -964,18 +1025,18 @@ fi
 #Steam RomManager Config
 
 if [ $doUpdateSRM == true ]; then
-	echo -ne "${BOLD}Configuring Steam Rom Manager...${NONE}"
+	setMSG "Configuring Steam Rom Manager..."
 	mkdir -p ~/.config/steam-rom-manager/userData/
 	cp ~/dragoonDoriseTools/EmuDeck/configs/steam-rom-manager/userData/userConfigurations.json ~/.config/steam-rom-manager/userData/userConfigurations.json
 	sleep 3
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.config/steam-rom-manager/userData/userConfigurations.json
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools/|${toolsPath}|g" ~/.config/steam-rom-manager/userData/userConfigurations.json
 	sed -i "s|/run/media/mmcblk0p1/Emulation/saves/|${savesPath}|g" ~/.config/steam-rom-manager/userData/userConfigurations.json
-	echo -e "${GREEN}OK!${NONE}"
+	echo -e "OK!"
 fi
 
 #ESDE Config
-echo -ne "${BOLD}Configuring EmulationStation DE...${NONE}"
+setMSG "Configuring EmulationStation DE..."
 mkdir -p ~/.emulationstation/
 #Cemu (Proton) commented until we get it right
 mkdir -p ~/.emulationstation/custom_systems/
@@ -985,27 +1046,35 @@ sed -i "s|/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh|${toolsPath}lau
 #rsync -r ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/ ~/.emulationstation/
 cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/es_settings.xml ~/.emulationstation/es_settings.xml
 sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.emulationstation/es_settings.xml
+
+#Configure Downloaded_media folder
+esDE_MediaDir="<string name=\"MediaDirectory\" value=\""${ESDEscrapData}"\" />"
+#search for media dir in xml, if not found, change to ours.
+mediaDirFound=$(grep -rnw  ~/.emulationstation/es_settings.xml -e 'MediaDirectory')
+if [[ $mediaDirFound == '' ]]; then
+	sed -i -e '$a'"${esDE_MediaDir}"  ~/.emulationstation/es_settings.xml # use config file instead of link
+fi
 #sed -i "s|name=\"ROMDirectory\" value=\"/name=\"ROMDirectory\" value=\"${romsPathSed}/g" ~/.emulationstation/es_settings.xml
 mkdir -p ~/.emulationstation/themes/
 git clone https://github.com/dragoonDorise/es-theme-epicnoir.git ~/.emulationstation/themes/es-epicnoir &>> /dev/null
 cd ~/.emulationstation/themes/es-epicnoir && git pull
-echo -e "${GREEN}OK!${NONE}"
+echo -e "OK!"
 
 #Do this properly with wildcards
 if [[ "$esdeTheme" == *"EPICNOIR"* ]]; then
-	sed -i "s|rbsimple-DE|es-epicnoir|" es_settings.xml >> ~/emudeck/emudeck.log
-	sed -i "s|modern-DE|es-epicnoir|" es_settings.xml >> ~/emudeck/emudeck.log
-	sed -i "s|es-epicnoir|es-epicnoir|" es_settings.xml >> ~/emudeck/emudeck.log
+	sed -i "s|rbsimple-DE|es-epicnoir|" ~/.emulationstation/es_settings.xml 
+	sed -i "s|modern-DE|es-epicnoir|" ~/.emulationstation/es_settings.xml 
+	sed -i "s|es-epicnoir|es-epicnoir|" ~/.emulationstation/es_settings.xml 
 fi
 if [[ "$esdeTheme" == *"MODERN-DE"* ]]; then
-	sed -i "s|rbsimple-DE|modern-DE|" es_settings.xml >> ~/emudeck/emudeck.log
-	sed -i "s|modern-DE|modern-DE|" es_settings.xml >> ~/emudeck/emudeck.log
-	sed -i "s|es-epicnoir|modern-DE|" es_settings.xml >> ~/emudeck/emudeck.log
+	sed -i "s|rbsimple-DE|modern-DE|" ~/.emulationstation/es_settings.xml 
+	sed -i "s|modern-DE|modern-DE|" ~/.emulationstation/es_settings.xml 
+	sed -i "s|es-epicnoir|modern-DE|" ~/.emulationstation/es_settings.xml 
 fi
 if [[ "$esdeTheme" == *"RBSIMPLE-DE"* ]]; then
-	sed -i "s|rbsimple-DE|rbsimple-DE|" es_settings.xml >> ~/emudeck/emudeck.log
-	sed -i "s|modern-DE|rbsimple-DE|" es_settings.xml >> ~/emudeck/emudeck.log
-	sed -i "s|es-epicnoir|rbsimple-DE|" es_settings.xml >> ~/emudeck/emudeck.log
+	sed -i "s|rbsimple-DE|rbsimple-DE|" ~/.emulationstation/es_settings.xml 
+	sed -i "s|modern-DE|rbsimple-DE|" ~/.emulationstation/es_settings.xml 
+	sed -i "s|es-epicnoir|rbsimple-DE|" ~/.emulationstation/es_settings.xml 
 fi
 
 
@@ -1021,12 +1090,13 @@ setESDEEmus 'Mesen' nes
 setESDEEmus 'DOSBox-Pure' dos
 setESDEEmus 'PCSX2 (Standalone)' ps2
 setESDEEmus 'melonDS' nds
+setESDEEmus 'Citra (Standalone)' n3ds
 	
 #Emus config
-echo -ne "${BOLD}Configuring Steam Input for emulators..${NONE}"
+setMSG "Configuring Steam Input for emulators.."
 rsync -r ~/dragoonDoriseTools/EmuDeck/configs/steam-input/ ~/.steam/steam/controller_base/templates/
-echo -e "${GREEN}OK!${NONE}"
-echo -e "${BOLD}Configuring emulators..${NONE}"
+echo -e "OK!"
+setMSG "Configuring emulators.."
 echo -e ""
 if [ $doUpdateRA == true ]; then
 
@@ -1036,43 +1106,43 @@ if [ $doUpdateRA == true ]; then
 	mkdir -p ~/.var/app/org.libretro.RetroArch/config/retroarch/cores
 	raUrl="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
 	RAcores=(bsnes_hd_beta_libretro.so flycast_libretro.so gambatte_libretro.so genesis_plus_gx_libretro.so genesis_plus_gx_wide_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_wswan_libretro.so melonds_libretro.so mesen_libretro.so mgba_libretro.so mupen64plus_next_libretro.so nestopia_libretro.so picodrive_libretro.so ppsspp_libretro.so snes9x_libretro.so stella_libretro.so yabasanshiro_libretro.so yabause_libretro.so yabause_libretro.so mame2003_plus_libretro.so mame2010_libretro.so mame_libretro.so melonds_libretro.so fbneo_libretro.so bluemsx_libretro.so desmume_libretro.so sameboy_libretro.so gearsystem_libretro.so mednafen_saturn_libretro.so opera_libretro.so dosbox_core_libretro.so dosbox_pure_libretro.so dosbox_svn_libretro.so puae_libretro.so)
-	echo -e "${BOLD}Downloading RetroArch Cores for EmuDeck${NONE}"
+	setMSG "Downloading RetroArch Cores for EmuDeck"
 	for i in "${RAcores[@]}"
 	do
 		FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
 		if [ -f "$FILE" ]; then
-			echo -e "${i}...${YELLOW}Already Downloaded${NONE}"
+			echo "${i}...Already Downloaded"
 		else
-			curl $raUrl$i.zip --output ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip >> ~/emudeck/emudeck.log
+			curl $raUrl$i.zip --output ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip 
 			#rm ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
-			echo -e "${i}...${GREEN}Downloaded!${NONE}"
+			echo "${i}...Downloaded!"
 		fi
 	done	
 	
 	if [ $doInstallESDE == true ]; then
 		RAcores=(a5200_libretro.so 81_libretro.so atari800_libretro.so bluemsx_libretro.so chailove_libretro.so fbneo_libretro.so freechaf_libretro.so freeintv_libretro.so fuse_libretro.so gearsystem_libretro.so gw_libretro.so hatari_libretro.so lutro_libretro.so mednafen_pcfx_libretro.so mednafen_vb_libretro.so mednafen_wswan_libretro.so mu_libretro.so neocd_libretro.so nestopia_libretro.so nxengine_libretro.so o2em_libretro.so picodrive_libretro.so pokemini_libretro.so prboom_libretro.so prosystem_libretro.so px68k_libretro.so quasi88_libretro.so scummvm_libretro.so squirreljme_libretro.so theodore_libretro.so uzem_libretro.so vecx_libretro.so vice_xvic_libretro.so virtualjaguar_libretro.so x1_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_pce_libretro.so mednafen_pce_fast_libretro.so mednafen_psx_libretro.so mednafen_psx_hw_libretro.so mednafen_saturn_libretro.so mednafen_supafaust_libretro.so mednafen_supergrafx_libretro.so blastem_libretro.so bluemsx_libretro.so bsnes_libretro.so bsnes_mercury_accuracy_libretro.so cap32_libretro.so citra2018_libretro.so citra_libretro.so crocods_libretro.so desmume2015_libretro.so desmume_libretro.so dolphin_libretro.so dosbox_core_libretro.so dosbox_pure_libretro.so dosbox_svn_libretro.so fbalpha2012_cps1_libretro.so fbalpha2012_cps2_libretro.so fbalpha2012_cps3_libretro.so fbalpha2012_libretro.so fbalpha2012_neogeo_libretro.so fceumm_libretro.so fbneo_libretro.so flycast_libretro.so fmsx_libretro.so frodo_libretro.so gambatte_libretro.so gearboy_libretro.so gearsystem_libretro.so genesis_plus_gx_libretro.so genesis_plus_gx_wide_libretro.so gpsp_libretro.so handy_libretro.so kronos_libretro.so mame2000_libretro.so mame2003_plus_libretro.so mame2010_libretro.so mame_libretro.so melonds_libretro.so mesen_libretro.so mesen-s_libretro.so mgba_libretro.so mupen64plus_next_libretro.so nekop2_libretro.so np2kai_libretro.so nestopia_libretro.so parallel_n64_libretro.so pcsx2_libretro.so pcsx_rearmed_libretro.so picodrive_libretro.so ppsspp_libretro.so puae_libretro.so quicknes_libretro.so race_libretro.so sameboy_libretro.so smsplus_libretro.so snes9x2010_libretro.so snes9x_libretro.so stella2014_libretro.so stella_libretro.so tgbdual_libretro.so vbam_libretro.so vba_next_libretro.so vice_x128_libretro.so vice_x64_libretro.so vice_x64sc_libretro.so vice_xscpu64_libretro.so yabasanshiro_libretro.so yabause_libretro.so bsnes_hd_beta_libretro.so swanstation_libretro.so)
-		echo -e "${BOLD}Downloading RetroArch Cores for EmulationStation DE${NONE}"
+		setMSG "Downloading RetroArch Cores for EmulationStation DE"
 		for i in "${RAcores[@]}"
 		do
 			FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
 			if [ -f "$FILE" ]; then
-				echo -e "${i}...${YELLOW}Already Downloaded${NONE}"
+				echo "${i}...Already Downloaded"
 			else
-				curl $raUrl$i.zip --output ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip >> ~/emudeck/emudeck.log
+				curl $raUrl$i.zip --output ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip 
 				#rm ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
-				echo -e "${i}...${GREEN}Downloaded!${NONE}"
+				echo "${i}...Downloaded!"
 			fi
 		done
 	fi	
 	
 	for entry in ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
 	do
-		 unzip -o "$entry" -d ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/ &>> ~/emudeck/emudeck.log
+		 unzip -o "$entry" -d ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/ 
 	done
 	
 	for entry in ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
 	do
-		 rm -f "$entry" >> ~/emudeck/emudeck.log
+		 rm -f "$entry" 
 	done
 	
 	raConfigFile=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg
@@ -1080,15 +1150,15 @@ if [ $doUpdateRA == true ]; then
 	if [ -f "$FILE" ]; then
 		echo -e "" 2>/dev/null
 	else
-		echo -ne "Backing up RA..."
-		cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak &>> ~/emudeck/emudeck.log
-		echo -e "${GREEN}OK!${NONE}"
+		setMSG "Backing up RA..."
+		cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak 
+		echo -e "OK!"
 	fi
 	#mkdir -p ~/.var/app/org.libretro.RetroArch/config/retroarch/overlays
 	
 	#Cleaning up cfg files that the user could have created on Expert mode
-	find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.cfg" | while read f; do rm -f "$f"; done &>> ~/emudeck/emudeck.log
-	find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.bak" | while read f; do rm -f "$f"; done &>> ~/emudeck/emudeck.log
+	find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.cfg" | while read f; do rm -f "$f"; done 
+	find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.bak" | while read f; do rm -f "$f"; done 
 	
 	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/ ~/.var/app/org.libretro.RetroArch/config/
 	#rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/retroarch/config/ ~/.var/app/org.libretro.RetroArch/config/retroarch/config
@@ -1097,17 +1167,17 @@ if [ $doUpdateRA == true ]; then
 	
 fi
 echo -e ""
-echo -ne "${BOLD}Applying Emu configurations...${NONE}"
+setMSG "Applying Emu configurations..."
 if [ $doUpdatePrimeHacks == true ]; then
 	FOLDER=~/.var/app/io.github.shiiion.primehack/config_bak
 	if [ -d "$FOLDER" ]; then
-		echo "" &>> ~/emudeck/emudeck.log
+		echo "" 
 	else
-		echo -ne "Backing up PrimeHacks..."
-		cp -r ~/.var/app/io.github.shiiion.primehack/config ~/.var/app/io.github.shiiion.primehack/config_bak &>> ~/emudeck/emudeck.log
-		echo -e "${GREEN}OK!${NONE}"
+		setMSG "Backing up PrimeHacks..."
+		cp -r ~/.var/app/io.github.shiiion.primehack/config ~/.var/app/io.github.shiiion.primehack/config_bak 
+		echo -e "OK!"
 	fi
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/io.github.shiiion.primehack/ ~/.var/app/io.github.shiiion.primehack/ &>> ~/emudeck/emudeck.log
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/io.github.shiiion.primehack/ ~/.var/app/io.github.shiiion.primehack/ 
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Dolphin.ini
 fi
 if [ $doUpdateDolphin == true ]; then
@@ -1119,13 +1189,13 @@ if [ $doUpdateDolphin == true ]; then
 
 	FOLDER=~/.var/app/org.DolphinEmu.dolphin-emu/config_bak
 	if [ -d "$FOLDER" ]; then
-		echo "" &>> ~/emudeck/emudeck.log
+		echo "" 
 	else
-		echo -ne "Backing up Dolphin..."
-		cp -r ~/.var/app/org.DolphinEmu.dolphin-emu/config ~/.var/app/org.DolphinEmu.dolphin-emu/config_bak &>> ~/emudeck/emudeck.log
-		echo -e "${GREEN}OK!${NONE}"
+		setMSG "Backing up Dolphin..."
+		cp -r ~/.var/app/org.DolphinEmu.dolphin-emu/config ~/.var/app/org.DolphinEmu.dolphin-emu/config_bak 
+		echo -e "OK!"
 	fi
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.DolphinEmu.dolphin-emu/ ~/.var/app/org.DolphinEmu.dolphin-emu/ &>> ~/emudeck/emudeck.log
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.DolphinEmu.dolphin-emu/ ~/.var/app/org.DolphinEmu.dolphin-emu/ 
 	
 	
 	# We add the previous Mac address
@@ -1144,143 +1214,146 @@ fi
 if [ $doUpdatePCSX2 == true ]; then
 	FOLDER=~/.var/app/net.pcsx2.PCSX2/config_bak
 	if [ -d "$FOLDER" ]; then
-		echo "" &>> ~/emudeck/emudeck.log
+		echo "" 
 	else
-		echo -ne "Backing up PCSX2..."
-		cp -r ~/.var/app/net.pcsx2.PCSX2/config ~/.var/app/net.pcsx2.PCSX2/config_bak &>> ~/emudeck/emudeck.log
-		echo -e "${GREEN}OK!${NONE}"
+		setMSG "Backing up PCSX2..."
+		cp -r ~/.var/app/net.pcsx2.PCSX2/config ~/.var/app/net.pcsx2.PCSX2/config_bak 
+		echo -e "OK!"
 	fi
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.pcsx2.PCSX2/ ~/.var/app/net.pcsx2.PCSX2/ &>> ~/emudeck/emudeck.log
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.pcsx2.PCSX2/ ~/.var/app/net.pcsx2.PCSX2/ 
 	#Bios Fix
-	sed -i "s|/run/media/mmcblk0p1/Emulation/bios|${biosPath}|g" ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini &>> ~/emudeck/emudeck.log
+	sed -i "s|/run/media/mmcblk0p1/Emulation/bios|${biosPath}|g" ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini 
 fi
 if [ $doUpdateRPCS3 == true ]; then
 	FOLDER=~/.var/app/net.rpcs3.RPCS3/config_bak
 	if [ -d "$FOLDER" ]; then
-		echo "" &>> ~/emudeck/emudeck.log
+		echo "" 
 	else
-		echo -ne "Backing up RPCS3..."
-		cp -r ~/.var/app/net.rpcs3.RPCS3/config ~/.var/app/net.rpcs3.RPCS3/config_bak &>> ~/emudeck/emudeck.log
-		echo -e "${GREEN}OK!${NONE}"
+		setMSG "Backing up RPCS3..."
+		cp -r ~/.var/app/net.rpcs3.RPCS3/config ~/.var/app/net.rpcs3.RPCS3/config_bak 
+		echo -e "OK!"
 	fi
 
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.rpcs3.RPCS3/ ~/.var/app/net.rpcs3.RPCS3/ &>> ~/emudeck/emudeck.log
-	sed -i 's| $(EmulatorDir)dev_hdd0/| '$savesPath'/rpcs3/dev_hdd0/|g' /home/deck/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml >> ~/emudeck/emudeck.log
-	mkdir -p $savesPath/rpcs3/ >> ~/emudeck/emudeck.log
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.rpcs3.RPCS3/ ~/.var/app/net.rpcs3.RPCS3/ 
+	sed -i 's| $(EmulatorDir)dev_hdd0/| '$savesPath'/rpcs3/dev_hdd0/|g' /home/deck/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml 
+	mkdir -p $savesPath/rpcs3/ 
 fi
 if [ $doUpdateCitra == true ]; then
 	FOLDER=~/.var/app/org.citra_emu.citra/config_bak
 	if [ -d "$FOLDER" ]; then
-		echo "" &>> ~/emudeck/emudeck.log
+		echo "" 
 	else
-		echo -ne "Backing up Citra..."
-		cp -r ~/.var/app/org.citra_emu.citra/config ~/.var/app/org.citra_emu.citra/config_bak &>> ~/emudeck/emudeck.log
-		echo -e "${GREEN}OK!${NONE}"
+		setMSG "Backing up Citra..."
+		cp -r ~/.var/app/org.citra_emu.citra/config ~/.var/app/org.citra_emu.citra/config_bak 
+		echo -e "OK!"
 	fi
 
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.citra_emu.citra/ ~/.var/app/org.citra_emu.citra/ &>> ~/emudeck/emudeck.log
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.citra_emu.citra/ ~/.var/app/org.citra_emu.citra/ 
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini
 fi
 if [ $doUpdateDuck == true ]; then
 	FOLDER=~/.var/app/org.duckstation.DuckStation/data_bak
 	if [ -d "$FOLDER" ]; then
-		echo "" &>> ~/emudeck/emudeck.log
+		echo "" 
 	else
-		echo -ne "Backing up DuckStation..."
-		cp -r ~/.var/app/org.duckstation.DuckStation/data ~/.var/app/org.duckstation.DuckStation/data_bak &>> ~/emudeck/emudeck.log
-		echo -e "${GREEN}OK!${NONE}"
+		setMSG "Backing up DuckStation..."
+		cp -r ~/.var/app/org.duckstation.DuckStation/data ~/.var/app/org.duckstation.DuckStation/data_bak 
+		echo -e "OK!"
 	fi
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.duckstation.DuckStation/ ~/.var/app/org.duckstation.DuckStation/ &>> ~/emudeck/emudeck.log
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.duckstation.DuckStation/ ~/.var/app/org.duckstation.DuckStation/ 
 	sleep 3
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
 fi
 if [ $doUpdateYuzu == true ]; then
 	FOLDER=~/.var/app/org.yuzu_emu.yuzu/config
 	if [ -d "$FOLDER" ]; then
-		echo "" &>> ~/emudeck/emudeck.log
+		echo "" 
 	else
-		echo -ne "Backing up Yuzu..."
-		cp -r ~/.var/app/org.yuzu_emu.yuzu/config ~/.var/app/org.yuzu_emu.yuzu/config_bak &>> ~/emudeck/emudeck.log
-		echo -e "${GREEN}OK!${NONE}"
+		setMSG "Backing up Yuzu..."
+		cp -r ~/.var/app/org.yuzu_emu.yuzu/config ~/.var/app/org.yuzu_emu.yuzu/config_bak 
+		echo -e "OK!"
 	fi
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/ &>> ~/emudeck/emudeck.log
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/ 
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.yuzu_emu.yuzu/config/yuzu/qt-config.ini
 fi
 #if [ $doUpdateMelon == true ]; then
 #	FOLDER=~/.var/app/net.kuribo64.melonDS/config
 #	if [ -d "$FOLDER" ]; then
-#		echo "" &>> ~/emudeck/emudeck.log
+#		echo "" 
 #	else
 #		echo -ne "Backing up MelonDS..."
-#		cp -r ~/.var/app/net.kuribo64.melonDS/config ~/.var/app/net.kuribo64.melonDS/config_bak &>> ~/emudeck/emudeck.log
-#		echo -e "${GREEN}OK!${NONE}"
+#		cp -r ~/.var/app/net.kuribo64.melonDS/config ~/.var/app/net.kuribo64.melonDS/config_bak 
+#		echo -e "OK!"
 #	fi
-#	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.kuribo64.melonDS/ ~/.var/app/net.kuribo64.melonDS/ &>> ~/emudeck/emudeck.log
+#	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.kuribo64.melonDS/ ~/.var/app/net.kuribo64.melonDS/ 
 #fi
 if [ $doUpdateCemu == true ]; then
-	echo "" &>> ~/emudeck/emudeck.log
+	echo "" 
 	#Commented until we get CEMU flatpak working
-	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ &>> ~/emudeck/emudeck.log
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "$romsPath"/wiiu &>> ~/emudeck/emudeck.log
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" "$romsPath"/wiiu/settings.xml &>> ~/emudeck/emudeck.log
+	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ 
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "$romsPath"/wiiu 
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" "$romsPath"/wiiu/settings.xml 
 fi
 if [ $doUpdateXenia == true ]; then
-	echo "" &>> ~/emudeck/emudeck.log
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/xenia/ "$romsPath"/xbox360 &>> ~/emudeck/emudeck.log
+	echo "" 
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/xenia/ "$romsPath"/xbox360 
 fi
 if [ $doUpdateRyujinx == true ]; then
-	echo "" &>> ~/emudeck/emudeck.log
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ryujinx.Ryujinx/ ~/.var/app/org.ryujinx.Ryujinx/ &>> ~/emudeck/emudeck.log
+	echo "" 
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ryujinx.Ryujinx/ ~/.var/app/org.ryujinx.Ryujinx/ 
 fi
 if [ $doUpdatePPSSPP == true ]; then
 	FOLDER=~/.var/app/org.ppsspp.PPSSPP/config_bak
 	if [ -d "$FOLDER" ]; then
-		echo "" &>> ~/emudeck/emudeck.log
+		echo "" 
 	else
-		echo -ne "Backing up PPSSPP..."
-		cp -r ~/.var/app/org.ppsspp.PPSSPP/config ~/.var/app/org.ppsspp.PPSSPP/config_bak &>> ~/emudeck/emudeck.log
-		echo -e "${GREEN}OK!${NONE}"
+		setMSG "Backing up PPSSPP..."
+		cp -r ~/.var/app/org.ppsspp.PPSSPP/config ~/.var/app/org.ppsspp.PPSSPP/config_bak 
+		echo -e "OK!"
 	fi
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ppsspp.PPSSPP/ ~/.var/app/org.ppsspp.PPSSPP/ &>> ~/emudeck/emudeck.log
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ppsspp.PPSSPP/ ~/.var/app/org.ppsspp.PPSSPP/ 
 fi
 if [ $doUpdateXemu == true ]; then
 	FOLDER=~/.var/app/app.xemu.xemu/data/xemu/xemu_bak
 	if [ -d "$FOLDER" ]; then
-		echo "" &>> ~/emudeck/emudeck.log
+		echo "" 
 	else
-		echo -ne "Backing up Xemu..."
-		cp -r ~/.var/app/app.xemu.xemu/data/xemu/xemu ~/.var/app/app.xemu.xemu/data/xemu/xemu_bak &>> ~/emudeck/emudeck.log
-		echo -e "${GREEN}OK!${NONE}"
+		setMSG "Backing up Xemu..."
+		cp -r ~/.var/app/app.xemu.xemu/data/xemu/xemu ~/.var/app/app.xemu.xemu/data/xemu/xemu_bak 
+		echo -e "OK!"
 	fi
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/app.xemu.xemu/ ~/.var/app/app.xemu.xemu/ &>> ~/emudeck/emudeck.log
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/app.xemu.xemu/ ~/.var/app/app.xemu.xemu/ 
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.ini
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml
 	sed -i "s|/run/media/mmcblk0p1/Emulation/saves/|${savesPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml
 fi
-echo -e "${GREEN}OK!${NONE}"
+echo -e "OK!"
+
+
+#Fixes ESDE older installations
+unlink megacd 
+unlink megadrive 
+unlink n3ds
 
 #Symlinks for ESDE compatibility
 cd $(echo $romsPath | tr -d '\r') 
-ln -sn gamecube gc &>> ~/emudeck/emudeck.log
-ln -sn 3ds n3ds &>> ~/emudeck/emudeck.log
-ln -sn arcade mamecurrent &>> ~/emudeck/emudeck.log
-ln -sn mame mame2003 &>> ~/emudeck/emudeck.log
-ln -sn lynx atarilynx &>> ~/emudeck/emudeck.log
+ln -sn gamecube gc 
+ln -sn 3ds n3ds 
+ln -sn arcade mamecurrent 
+ln -sn mame mame2003 
+ln -sn lynx atarilynx 
 
-#Fixes ESDE
-unlink megacd &>> ~/emudeck/emudeck.log
-unlink megadrive &>> ~/emudeck/emudeck.log
 
 cd $(echo $biosPath | tr -d '\r')
 cd yuzu
-ln -sn ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/ ./keys &>> ~/emudeck/emudeck.log
-ln -sn ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/ ./firmware &>> ~/emudeck/emudeck.log
+ln -sn ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/ ./keys 
+ln -sn ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/ ./firmware 
 
-#Fixes repeated Symlinx
+#Fixes repeated Symlink for older installations
 cd ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/
-unlink keys &>> ~/emudeck/emudeck.log
+unlink keys 
 cd ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/
-unlink registered &>> ~/emudeck/emudeck.log
+unlink registered 
 
 
 
@@ -1373,6 +1446,14 @@ fi
 ##
 ##
 
+
+#RA Bezels	
+if [ $RABezels == true ]; then	
+	find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.bak" | while read f; do mv -v "$f" "${f%.*}.cfg"; done 
+else
+	find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.cfg" | while read f; do mv -v "$f" "${f%.*}.bak"; done 
+fi
+
 #RA SNES Aspect Ratio
 if [ $SNESAR == 43 ]; then	
 	cp ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes43.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes.cfg	
@@ -1380,43 +1461,37 @@ else
 	cp ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes87.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes.cfg	
 fi
 
-#RA Bezels	
-if [ $RABezels == true ]; then	
-	find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.bak" | while read f; do mv -v "$f" "${f%.*}.cfg"; done &>> ~/emudeck/emudeck.log
-else
-	find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.cfg" | while read f; do mv -v "$f" "${f%.*}.bak"; done &>> ~/emudeck/emudeck.log
-fi
 
 #RA AutoSave	
 if [ $RAautoSave == true ]; then
-	sed -i 's|savestate_auto_load = "false"|savestate_auto_load = "true"|g' $raConfigFile &>> ~/emudeck/emudeck.log
-	sed -i 's|savestate_auto_save = "false"|savestate_auto_save = "true"|g' $raConfigFile &>> ~/emudeck/emudeck.log
+	sed -i 's|savestate_auto_load = "false"|savestate_auto_load = "true"|g' $raConfigFile 
+	sed -i 's|savestate_auto_save = "false"|savestate_auto_save = "true"|g' $raConfigFile 
 else
-	sed -i 's|savestate_auto_load = "true"|savestate_auto_load = "false"|g' $raConfigFile &>> ~/emudeck/emudeck.log
-	sed -i 's|savestate_auto_save = "true"|savestate_auto_save = "false"|g' $raConfigFile &>> ~/emudeck/emudeck.log
+	sed -i 's|savestate_auto_load = "true"|savestate_auto_load = "false"|g' $raConfigFile 
+	sed -i 's|savestate_auto_save = "true"|savestate_auto_save = "false"|g' $raConfigFile 
 fi
 
 #Widescreen hacks
 if [ $duckWide == true ]; then	
-	sed -i "s|WidescreenHack = false|WidescreenHack = true|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini &>> ~/emudeck/emudeck.log
+	sed -i "s|WidescreenHack = false|WidescreenHack = true|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini 
 else
-	sed -i "s|WidescreenHack = true|WidescreenHack = false|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini &>> ~/emudeck/emudeck.log
+	sed -i "s|WidescreenHack = true|WidescreenHack = false|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini 
 fi
 if [ $DolphinWide == true ]; then
-	sed -i "s|wideScreenHack = False|wideScreenHack = True|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini &>> ~/emudeck/emudeck.log
+	sed -i "s|wideScreenHack = False|wideScreenHack = True|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini 
 else
-	sed -i "s|wideScreenHack = True|wideScreenHack = False|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini &>> ~/emudeck/emudeck.log
+	sed -i "s|wideScreenHack = True|wideScreenHack = False|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini 
 fi
 if [ $DreamcastWide == true ]; then
-	sed -i "s|reicast_widescreen_hack = \"disabled\"|reicast_widescreen_hack = \"enabled\"|g" ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Flycast/Flycast.opt &>> ~/emudeck/emudeck.log
+	sed -i "s|reicast_widescreen_hack = \"disabled\"|reicast_widescreen_hack = \"enabled\"|g" ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Flycast/Flycast.opt 
 else
-	sed -i "s|reicast_widescreen_hack = \"enabled\"|reicast_widescreen_hack = \"disabled\"|g" ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Flycast/Flycast.opt &>> ~/emudeck/emudeck.log
+	sed -i "s|reicast_widescreen_hack = \"enabled\"|reicast_widescreen_hack = \"disabled\"|g" ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Flycast/Flycast.opt 
 fi
 
 if [ $BeetleWide == true ]; then
-	sed -i "s|beetle_psx_hw_widescreen_hack = \"disabled\"|beetle_psx_hw_widescreen_hack = \"enabled\"|g" "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle PSX HW/Beetle PSX HW.opt" &>> ~/emudeck/emudeck.log
+	sed -i "s|beetle_psx_hw_widescreen_hack = \"disabled\"|beetle_psx_hw_widescreen_hack = \"enabled\"|g" "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle PSX HW/Beetle PSX HW.opt" 
 else
-	sed -i "s|beetle_psx_hw_widescreen_hack = \"enabled\"|beetle_psx_hw_widescreen_hack = \"disabled\"|g" "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle PSX HW/Beetle PSX HW.opt" &>> ~/emudeck/emudeck.log
+	sed -i "s|beetle_psx_hw_widescreen_hack = \"enabled\"|beetle_psx_hw_widescreen_hack = \"disabled\"|g" "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle PSX HW/Beetle PSX HW.opt" 
 fi
 
 #We move all the saved folders to the emulation path
@@ -1433,7 +1508,7 @@ fi
 if [ ! -d "$savesPath/retroarch/saves" ]; then	
 	mkdir -p $savesPath/retroarch
 	echo -e ""
-	echo -e "Linking RetroArch saved games to the Emulation/saves folder"			
+	setMSG "Linking RetroArch saved games to the Emulation/saves folder"			
 	echo -e ""
 	mkdir -p ~/.var/app/org.libretro.RetroArch/config/retroarch/saves 
 	ln -sn ~/.var/app/org.libretro.RetroArch/config/retroarch/saves $savesPath/retroarch/saves 		
@@ -1443,7 +1518,7 @@ fi
 if [ ! -d "$savesPath/dolphin/GC" ]; then	
 	mkdir -p $savesPath/dolphin	
 	echo -e ""
-	echo -e "Linking Dolphin Gamecube saved games to the Emulation/saves folder"			
+	setMSG "Linking Dolphin Gamecube saved games to the Emulation/saves folder"			
 	echo -e ""	
 	mkdir -p ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC
 	ln -sn ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC $savesPath/dolphin/GC 
@@ -1451,7 +1526,7 @@ fi
 if [ ! -d "$savesPath/dolphin/Wii" ]; then	
 	mkdir -p $savesPath/dolphin	
 	echo -e ""
-	echo -e "Linking Dolphin Wii saved games to the Emulation/saves folder"			
+	setMSG "Linking Dolphin Wii saved games to the Emulation/saves folder"			
 	echo -e ""
 	mkdir -p ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii	
 	ln -sn ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii $savesPath/dolphin/Wii 
@@ -1459,7 +1534,7 @@ fi
 if [ ! -d "$savesPath/dolphin/states" ]; then	
 	mkdir -p $savesPath/dolphin	
 	echo -e ""
-	echo -e "Linking Dolphin States to the Emulation/saves folder"			
+	setMSG "Linking Dolphin States to the Emulation/saves folder"			
 	echo -e ""
 	mkdir -p ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves
 	ln -sn ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves $savesPath/dolphin/states
@@ -1469,7 +1544,7 @@ fi
 if [ ! -d "$savesPath/primehack/GC" ]; then	
 	mkdir -p $savesPath/primehack	
 	echo -e ""
-	echo -e "Linking PrimeHack Gamecube saved games to the Emulation/saves folder"			
+	setMSG "Linking PrimeHack Gamecube saved games to the Emulation/saves folder"			
 	echo -e ""
 	mkdir -p ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC
 	ln -sn ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC $savesPath/primehack/GC
@@ -1477,7 +1552,7 @@ fi
 if [ ! -d "$savesPath/primehack/Wii" ]; then	
 	mkdir -p $savesPath/primehack	
 	echo -e ""
-	echo -e "Linking PrimeHack Wii saved games to the Emulation/saves folder"			
+	setMSG "Linking PrimeHack Wii saved games to the Emulation/saves folder"			
 	echo -e ""
 	mkdir -p ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii
 	ln -sn ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii $savesPath/primehack/Wii	
@@ -1485,7 +1560,7 @@ fi
 if [ ! -d "$savesPath/primehack/states" ]; then	
 	mkdir -p $savesPath/primehack	
 	echo -e ""
-	echo -e "Linking PrimeHack States to the Emulation/states folder"			
+	setMSG "Linking PrimeHack States to the Emulation/states folder"			
 	echo -e ""
 	mkdir -p ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves
 	ln -sn ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves $savesPath/primehack/states
@@ -1495,7 +1570,7 @@ fi
 if [ ! -d "$savesPath/yuzu/saves" ]; then		
 	mkdir -p $savesPath/yuzu
 	echo -e ""
-	echo -e "Linking Yuzu Saves to the Emulation/saves folder"			
+	setMSG "Linking Yuzu Saves to the Emulation/saves folder"			
 	echo -e ""
 	
 	mkdir -p ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc
@@ -1506,7 +1581,7 @@ fi
 if [ ! -d "$savesPath/duckstation/saves" ]; then		
 	mkdir -p $savesPath/duckstation
 	echo -e ""
-	echo -e "Linking Duckstation Saves to the Emulation/saves folder"			
+	setMSG "Linking Duckstation Saves to the Emulation/saves folder"			
 	echo -e ""
 	mkdir -p ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards
 	ln -sn ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards $savesPath/duckstation/saves	
@@ -1514,7 +1589,7 @@ fi
 if [ ! -d "$savesPath/duckstation/states" ]; then	
 	mkdir -p $savesPath/duckstation	
 	echo -e ""
-	echo -e "Linking Duckstation Saves to the Emulation/states folder"			
+	setMSG "Linking Duckstation Saves to the Emulation/states folder"			
 	echo -e ""
 	mkdir -p ~/.var/app/org.duckstation.DuckStation/data/duckstation/savestates
 	ln -sn ~/.var/app/org.duckstation.DuckStation/data/duckstation/savestates $savesPath/duckstation/states
@@ -1524,7 +1599,7 @@ fi
 if [ ! -d "$savesPath/xemu" ]; then		
 	mkdir -p "$savesPath/xemu"
 	echo -e ""
-	echo -e "Moving Xemu HDD and EEPROM to the Emulation/saves folder"			
+	setMSG "Moving Xemu HDD and EEPROM to the Emulation/saves folder"			
 	echo -e ""
 	mv /home/deck/.var/app/app.xemu.xemu/data/xemu/xemu/xbox_hdd.qcow2 $savesPath/xemu 
 	mv /home/deck/.var/app/app.xemu.xemu/data/xemu/xemu/eeprom.bin $savesPath/xemu 	
@@ -1535,7 +1610,7 @@ fi
 if [ ! -d "$savesPath/pcsx2/saves" ]; then		
 	mkdir -p $savesPath/pcsx2
 	echo -e ""
-	echo -e "Linking PCSX2 Saves to the Emulation/saves folder"			
+	setMSG "Linking PCSX2 Saves to the Emulation/saves folder"			
 	echo -e ""	
 	mkdir -p ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards
 	ln -sn ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards $savesPath/pcsx2/saves
@@ -1543,16 +1618,16 @@ fi
 if [ ! -d "$savesPath/pcsx2/states" ]; then	
 	mkdir -p $savesPath/pcsx2	
 	echo -e ""
-	echo -e "Linking PCSX2 Saves to the Emulation/states folder"			
+	setMSG "Linking PCSX2 Saves to the Emulation/states folder"			
 	echo -e ""	
 	mkdir -p ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates
 	ln -sn ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates $savesPath/pcsx2/states
 fi
 
 #RPCS3
-if [ ! -d "$savesPath/rpcs3/dev_hdd0/savedata" ] && [ -d "~/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0" ]; then	
-	if [ $destination == "SD" ]; then
-		text="$(printf "Moving rpcs3 hdd0 to the Emulation/Saves folder\n\nDepending on how many pkgs you have installed, this may take a while.<b>If you do not have enough available space in your SD Card this will fail, clean up your SD Card and run EmuDeck Again.</b>")"
+if [ ! -d "$savesPath/rpcs3/dev_hdd0/savedata" ] && [ -d "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0" ]; then	
+	if [ $destination != "$home" ]; then
+		text="$(printf "Moving rpcs3 hdd0 to the Emulation/Saves folder\n\nDepending on how many pkgs you have installed, this may take a while.<b>If you do not have enough available space in your chosen location this will fail, clean up your SD Card and run EmuDeck Again.</b>")"
 	else	
 		text="$(printf "Moving rpcs3 hdd0 to the Emulation/Saves folder\n\nDepending on how many pkgs you have installed, this may take a while.")"
 	fi
@@ -1561,17 +1636,17 @@ if [ ! -d "$savesPath/rpcs3/dev_hdd0/savedata" ] && [ -d "~/.var/app/net.rpcs3.R
 	--width=450 \
 	--text="${text}" 2>/dev/null
 
-	mkdir -p "$savesPath/rpcs3" >> ~/emudeck/emudeck.log
-	rsync -r ~/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0 "$savesPath"/rpcs3/ && rm -rf ~/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0 >> ~/emudeck/emudeck.log
+	mkdir -p "$savesPath/rpcs3" 
+	rsync -r ~/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0 "$savesPath"/rpcs3/ && rm -rf ~/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0 
 	#update config file for the new loc $(emulatorDir) is in the file. made this annoying.
-	sed -i "'s|$(EmulatorDir)dev_hdd0/|'$savesPath'/rpcs3/dev_hdd0/|g'" /home/deck/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml >> ~/emudeck/emudeck.log
+	sed -i "'s|$(EmulatorDir)dev_hdd0/|'$savesPath'/rpcs3/dev_hdd0/|g'" /home/deck/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml 
 fi
 
 #Citra
 if [ ! -d "$savesPath/citra/saves" ]; then		
 	mkdir -p $savesPath/citra
 	echo -e ""
-	echo -e "Linking Citra Saves to the Emulation/saves folder"			
+	setMSG "Linking Citra Saves to the Emulation/saves folder"			
 	echo -e ""	
 	mkdir -p ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc
 	ln -sn ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc $savesPath/citra/saves
@@ -1579,7 +1654,7 @@ fi
 if [ ! -d "$savesPath/citra/states" ]; then	
 	mkdir -p $savesPath/citra	
 	echo -e ""
-	echo -e "Linking Citra Saves to the Emulation/states folder"			
+	setMSG "Linking Citra Saves to the Emulation/states folder"			
 	echo -e ""
 	mkdir -p ~/.var/app/org.citra_emu.citra/data/citra-emu/states
 	ln -sn ~/.var/app/org.citra_emu.citra/data/citra-emu/states $savesPath/citra/states
@@ -1588,7 +1663,7 @@ fi
 if [ ! -d "$savesPath/ppsspp/saves" ]; then		
 	mkdir -p $savesPath/ppsspp
 	echo -e ""
-	echo -e "Linking PPSSPP Saves to the Emulation/saves folder"			
+	setMSG "Linking PPSSPP Saves to the Emulation/saves folder"			
 	echo -e ""
 	mkdir -p ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA
 	ln -sn ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA $savesPath/ppsspp/saves
@@ -1596,80 +1671,57 @@ fi
 if [ ! -d "$savesPath/ppsspp/states" ]; then	
 	mkdir -p $savesPath/ppsspp	
 	echo -e ""
-	echo -e "Linking PPSSPP Saves to the Emulation/states folder"			
+	setMSG "Linking PPSSPP Saves to the Emulation/states folder"			
 	echo -e ""
 	mkdir -p ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE
 	ln -sn ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE $savesPath/ppsspp/states	
 fi
 
 #RetroAchievments
-#Disabled until we know why in the world the deck's screen keyword can't type in a zenity dialog
-if [ -f ~/emudeck/.rap ]; then 
+#if there is no rap file and we have said to enable retroachieve, we have to ask. Also if the user wants to change their sign  in, we ask.
+if [[ ! -f ~/emudeck/.rap && $doRAEnable == true ]] || [[ $doRASignIn == true ]]; then
+
+	text=$(printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>\n\nActivating RetroAchievments will disable save states unless you disable hardcore mode\n\n\n\nPress STEAM + X to get the onscreen Keyboard")
+	RAInput=$(zenity --forms \
+			--title="Retroachievements Sign in" \
+			--text="$text" \
+			--add-entry="Username: " \
+			--add-password="Password: " \
+			--separator="," 2>/dev/null)
+			
+	if [ $ans -eq 0 ]; then
+		echo "RetroAchievment Login"
+		echo $RAInput | awk -F "," '{print $1}' > ~/emudeck/.rau
+		echo $RAInput | awk -F "," '{print $2}' > ~/emudeck/.rap
+		rap=$(cat ~/emudeck/.rap)
+		rau=$(cat ~/emudeck/.rau)
+		if [ ${#rap} -lt 1 ]; then
+			echo "No password"
+			doRAEnable=false
+		elif [ ${#rau} -lt 1 ]; then
+			echo "No username"
+			doRAEnable=false
+		else
+			echo "Valid Username and Password"
+		fi
+	else
+		echo "Cancel RetroAchievment Login" 
+	fi
+fi
+
+#if we have a rap file already, and the user wanted to enable retroachievements, but didn't want to set a new username and pw.
+if [[ -f ~/emudeck/.rap && $doRAEnable == true ]]; then 
 	rap=$(cat ~/emudeck/.rap)
 	rau=$(cat ~/emudeck/.rau)
 
 	sed -i "s|cheevos_password = \"\"|cheevos_password = \"${rap}\"|g" $raConfigFile	
 	sed -i "s|cheevos_username = \"\"|cheevos_username = \"${rau}\"|g" $raConfigFile	
 	sed -i "s|cheevos_enable = \"false\"|cheevos_enable = \"true\"|g" $raConfigFile
-	
-
-else
-
-	text="`printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>\n\n Activating RetroAchievments will disable save states unless you disable hardcore mode "`"
-	zenity --question \
-			 --title="EmuDeck" \
-			 --width=450 \
-			 --ok-label="Yes" \
-			 --cancel-label="No" \
-			 --text="${text}" 2>/dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		text="`printf "What is your RetroAchievments username?\n\nPress STEAM + X to get the onscreen Keyboard"`"
-		username=$(zenity --entry \
-						--title="EmuDeck" \
-						--width=450 \
-						--ok-label="OK" \
-						--cancel-label="Cancel" \
-						--text="${text}" 2>/dev/null)
-		ans=$?
-		if [ $ans -eq 0 ]
-		then
-			echo "${username}" > ~/emudeck/.rau
-			text="`printf "What is your RetroAchievments password?\n\nPress STEAM + X to get the onscreen Keyboard"`"
-			password=$(zenity --password \
-							  --title="EmuDeck" \
-							  --width=450 \
-							  --ok-label="OK" \
-							  --cancel-label="Cancel" \
-							  --text="${text}" 2>/dev/null)							  
-			ans=$?
-			if [ $ans -eq 0 ]
-			then
-				echo "${password}" > ~/emudeck/.rap
-			else
-				echo "Cancel RetroAchievment Password" 2>/dev/null
-			fi
-		else
-			echo "Cancel RetroAchievment User" 2>/dev/null
-		fi
-		
-		rap=$(cat ~/emudeck/.rap)
-		rau=$(cat ~/emudeck/.rau)
-		
-		sed -i "s|cheevos_password = \"\"|cheevos_password = \"${rap}\"|g" $raConfigFile	
-		sed -i "s|cheevos_username = \"\"|cheevos_username = \"${rau}\"|g" $raConfigFile	
-		sed -i "s|cheevos_enable = \"false\"|cheevos_enable = \"true\"|g" $raConfigFile
-		
-	else
-		echo "" 2>/dev/null		
-	
-	fi
-
 fi
 
 if [ $doInstallCHD == true ]; then
 	mkdir -p  "$toolsPath"chdconv/
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/tools/chdconv/ "$toolsPath"chdconv/ &>> ~/emudeck/emudeck.log
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/tools/chdconv/ "$toolsPath"chdconv/ 
 	
 	rm -rf ~/Desktop/EmuDeckCHD.desktop 2>/dev/null
 	echo "#!/usr/bin/env xdg-open
@@ -1689,93 +1741,31 @@ if [ $doInstallCHD == true ]; then
 
 fi
 
+if [ $doInstallGyro == true ]; then
+	
+		InstallGyro=$(bash <(curl -sL https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh))
+		echo $InstallGyro 
+
+fi
+
 if [ $doInstallPowertools == true ]; then
 	
-	hasPass=$(grep -rn '/etc/passwd' -e "$(whoami):") #makes it work for the current user.
-	
-	if [[ $hasPass == '' ]]; then
-		echo "user does not have a password" >> ~/emudeck/emudeck.log
-		text="`printf "In order to install PowerTools you need to set a password for the deck user.\n\n Remember this password. If you forget it you will need to format your Deck to change it\n\n<b>When you type your password, it will not appear on screen, this is normal</b>"`"
-		zenity --question \
-				 --title="EmuDeck" \
-				 --width=250 \
-				 --ok-label="Continue" \
-				 --cancel-label="Cancel" \
-				 --text="${text}" 2>/dev/null
-		ans=$?
-		continuePowerTools=false #default state is not to continue. Only allow continue if the password succeeds in setting the password.
-		if [ $ans -eq 0 ]; then
-			passwd && continuePowerTools=true
-		else
-			echo "No passwd creation" >> ~/emudeck/emudeck.log
-		fi
-	else
-		continuePowerTools=true
-		echo "User already has passwd" >> ~/emudeck/emudeck.log
-	fi
-	
-	if [ $continuePowerTools == true ]; then
-		echo "Installing ${BOLD} Plugin loader. Insert your password when required  ${NONE}"
-		curl -L https://github.com/SteamDeckHomebrew/PluginLoader/raw/main/dist/install_release.sh | sh	>> ~/emudeck/emudeck.log
-		echo -e "You need to enter your password now. ${BOLD}You won't see what you are writing, this is normal${NONE}"
+		#should use sudo password piped into cache earlier.
+		curl -L https://github.com/SteamDeckHomebrew/PluginLoader/raw/main/dist/install_release.sh | sh	
 		sudo rm -rf ~/homebrew/plugins/PowerTools
-		sudo git clone https://github.com/NGnius/PowerTools.git ~/homebrew/plugins/PowerTools >> ~/emudeck/emudeck.log
+		sudo git clone https://github.com/NGnius/PowerTools.git ~/homebrew/plugins/PowerTools 
 		sleep 1
 		cd ~/homebrew/plugins/PowerTools
-		sudo git checkout tags/v0.4.1 >> ~/emudeck/emudeck.log
+		sudo git checkout tags/v0.5.0
 		text="$(printf "To finish the installation go into the Steam UI Settings\n\nUnder System -> System Settings toggle Enable Developer Mode\n\nScroll the sidebar all the way down and click on Developer\n\nUnder Miscellaneous, enable CEF Remote Debugging\n\nIn order to improve performance on Yuzu or Dolphin try configuring Powertools to activate only 4 CPU Cores\n\nYou can Access Powertools by presing the ... button and selecting the new Plugins Menu\n\n
 		\n\nIMPORTANT - The Powertools menu is touch ONLY.\n\n")"
 		zenity --info \
 		   --title="EmuDeck" \
 		   --width=450 \
 		   --text="${text}" 2>/dev/null
-	else
-		echo "user did not continue Powertools install" >> ~/emudeck/emudeck.log
-	fi
 
 fi
 
-if [ $doInstallGyro == true ]; then
-	
-	hasPass=$(grep -rn '/etc/passwd' -e "$(whoami):") #makes it work for the current user.
-	
-	if [[ $hasPass == '' ]]; then
-		echo "user does not have a password" >> ~/emudeck/emudeck.log
-		text="`printf "In order to install SteamDeckGyroDSU you need to set a password for the deck user.\n\n 
-		Remember this password. If you forget it you will need to format your Deck to change it\n\n
-		<b>When you type your password, it will not appear on screen, this is normal</b>"`"
-		zenity --question \
-				 --title="EmuDeck" \
-				 --width=250 \
-				 --ok-label="Continue" \
-				 --cancel-label="Cancel" \
-				 --text="${text}" 2>/dev/null
-		ans=$?
-		continueGyro=false
-		if [ $ans -eq 0 ]; then
-			echo "user wants to set a password" >> ~/emudeck/emudeck.log
-			passwd && continueGyro=true  #default state is not to continue. Only allow continue if the password succeeds in setting the password.
-		else
-			echo "No passwd creation" >> ~/emudeck/emudeck.log
-		fi
-	else
-		continueGyro=true
-		echo "User already has passwd" >> ~/emudeck/emudeck.log
-	fi
-	
-	if [ $continueGyro == true ]; then
-		echo "Installing ${BOLD} SteamDeckGyroDSU. Insert your password when required. ${NONE}"
-		InstallGyro=$(bash <(curl -sL https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh))
-		echo $InstallGyro >> ~/emudeck/emudeck.log
-		# we should add special controller config installs here for gyro	
-	else
-		echo "user did not continue Gyro install" >> ~/emudeck/emudeck.log
-	fi
-
-fi
-
-# We mark the script as finished	
-echo "" > ~/emudeck/.finished
 
 if [ $branch == 'main' ];then
 
@@ -1786,7 +1776,7 @@ if [ $branch == 'main' ];then
 	Name=Uninstall EmuDeck
 	Exec=curl https://raw.githubusercontent.com/dragoonDorise/EmuDeck/main/uninstall.sh | bash -s -- SD
 	Icon=delete
-	Terminal=true
+	Terminal=false
 	Type=Application
 	StartupNotify=false' > ~/Desktop/EmuDeckUninstall.desktop
 	chmod +x ~/Desktop/EmuDeckUninstall.desktop
@@ -1798,30 +1788,48 @@ if [ $branch == 'main' ];then
 	Name=EmuDeck (${version})
 	Exec=curl https://raw.githubusercontent.com/dragoonDorise/EmuDeck/main/install.sh | bash -s -- SD
 	Icon=steamdeck-gaming-return
-	Terminal=true
+	Terminal=false
 	Type=Application
 	StartupNotify=false" > ~/Desktop/EmuDeck.desktop
 	chmod +x ~/Desktop/EmuDeck.desktop
 
 fi
 
-echo -e "Cleaning up downloaded files..."	
+setMSG "Cleaning up downloaded files..."	
 rm -rf ~/dragoonDoriseTools	
 clear
+
+# We mark the script as finished	
+echo "" > ~/emudeck/.finished
+echo "100" > ~/emudeck/msg.log
+echo "# Installation Complete" >> ~/emudeck/msg.log
+finished=true
 
 text="`printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager on your Desktop to add your games to your SteamUI Interface.\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!"`"
 
 zenity --question \
-		 --title="EmuDeck" \
-		 --width=450 \
-		 --ok-label="Open Steam Rom Manager" \
-		 --cancel-label="Exit" \
-		 --text="${text}" 2>/dev/null
+         --title="EmuDeck" \
+         --width=450 \
+         --ok-label="Open Steam Rom Manager" \
+         --cancel-label="Exit" \
+         --text="${text}" 2>/dev/null
 ans=$?
 if [ $ans -eq 0 ]; then
-	cd ~/Desktop/
+	kill -15 `pidof steam`
+	cd ${toolsPath}/srm
 	./Steam-ROM-Manager.AppImage
+	zenity --question \
+		 --title="EmuDeck" \
+		 --width=350 \
+		 --text="Return to Game Mode?" \
+		 --ok-label="Yes" \
+		 --cancel-label="No" 2>/dev/null
+	ans2=$?
+	if [ $ans2 -eq 0 ]; then
+		qdbus org.kde.Shutdown /Shutdown org.kde.Shutdown.logout
+	fi
 	exit
 else
+	exit
 	echo -e "Exit" 2>/dev/null
 fi
