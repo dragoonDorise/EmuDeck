@@ -16,6 +16,12 @@ esac
 
 #setMSG "Downloading files from $branch channel..."
 #sleep 5
+notify-send -t 3000 "Downloading EmuDeck files from ${branch} channel..."
+
+#Clean up from previous installations
+rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
+rm -rf ~/dragoonDoriseTools
+mkdir -p ~/emudeck
 
 #We create all the needed folders for installation
 mkdir -p dragoonDoriseTools
@@ -40,3 +46,6 @@ fi
 
 cd $FOLDER
 sh doInstall.sh $devMode
+
+
+sleep 999999

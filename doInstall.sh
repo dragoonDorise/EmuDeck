@@ -12,7 +12,6 @@ case $devMode in
   ;;
 esac
 
-
 #Creating log file
 echo "" > ~/emudeck/emudeck.log
 LOGFILE=~/emudeck/emudeck.log
