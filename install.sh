@@ -205,6 +205,13 @@ if [ ! -z "$devMode" ]; then
 	git checkout $branch 
 fi
 
+clear
+cat ~/dragoonDoriseTools/EmuDeck/logo.ans
+version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
+echo -e "${BOLD}EmuDeck ${version}${NONE}"
+echo -e ""
+cat ~/dragoonDoriseTools/EmuDeck/latest.md
+
 FOLDER=~/dragoonDoriseTools/EmuDeck
 if [ -d "$FOLDER" ]; then
 	echo -e "OK!"
@@ -1788,7 +1795,7 @@ if [ $branch == 'main' ];then
 	Name=EmuDeck (${version})
 	Exec=curl https://raw.githubusercontent.com/dragoonDorise/EmuDeck/main/install.sh | bash -s -- SD
 	Icon=steamdeck-gaming-return
-	Terminal=false
+	Terminal=true
 	Type=Application
 	StartupNotify=false" > ~/Desktop/EmuDeck.desktop
 	chmod +x ~/Desktop/EmuDeck.desktop
