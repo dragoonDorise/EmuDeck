@@ -235,6 +235,12 @@ mkdir -p "$romsPath"
 mkdir -p "$biosPath"
 mkdir -p "$biosPath"/yuzu/
 
+##Generate rom folders
+setMSG "Creating roms folder in $destination"
+
+sleep 3
+rsync -r --ignore-existing ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath" 
+
 #
 # Start of Expert mode configuration
 # The idea is that Easy mode is unatended, so everything that's out
@@ -678,12 +684,7 @@ if [ $doInstallXemu == "true" ]; then
 fi
 
 
-##Generate rom folders
-	setMSG "Creating roms folder in $destination"
 
-	sleep 3
-	rsync -r --ignore-existing ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath" 
-	echo -e "OK!"
 
 #Cemu - We need to install Cemu after creating the Roms folders!
 if [ $doInstallCemu == "true" ]; then
@@ -764,7 +765,7 @@ fi
 #Emus config
 setMSG "Configuring Steam Input for emulators.."
 rsync -r ~/dragoonDoriseTools/EmuDeck/configs/steam-input/ ~/.steam/steam/controller_base/templates/
-echo -e "OK!"
+
 setMSG "Configuring emulators.."
 echo -e ""
 if [ $doUpdateRA == true ]; then
@@ -781,8 +782,7 @@ if [ $doUpdateRA == true ]; then
 		echo -e "" 2>/dev/null
 	else
 		setMSG "Backing up RA..."
-		cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak 
-		echo -e "OK!"
+		cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak 	
 	fi
 	#mkdir -p ~/.var/app/org.libretro.RetroArch/config/retroarch/overlays
 	
@@ -855,21 +855,8 @@ if [ $doUpdateXenia == true ]; then
 	echo "" 
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/xenia/ "$romsPath"/xbox360 
 fi
-echo -e "OK!"
 
 
-#Fixes ESDE older installations
-unlink megacd 
-unlink megadrive 
-unlink n3ds
-
-#Symlinks for ESDE compatibility
-cd $(echo $romsPath | tr -d '\r') 
-ln -sn gamecube gc 
-ln -sn 3ds n3ds 
-ln -sn arcade mamecurrent 
-ln -sn mame mame2003 
-ln -sn lynx atarilynx 
 
 
 cd $(echo $biosPath | tr -d '\r')

@@ -55,4 +55,13 @@ configESDE(){
 	setESDEEmus 'PCSX2 (Standalone)' ps2
 	setESDEEmus 'melonDS' nds
 	setESDEEmus 'Citra (Standalone)' n3ds
+
+	#Symlinks for ESDE compatibility
+	cd $(echo $romsPath | tr -d '\r') 
+	ln -sn gamecube gc 
+	ln -sn 3ds n3ds 
+	ln -sn arcade mamecurrent 
+	ln -sn mame mame2003 
+	ln -sn lynx atarilynx 
+
 }
