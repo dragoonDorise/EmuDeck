@@ -645,98 +645,34 @@ fi
 
 #Emulators Installation
 if [ $doInstallPCSX2 == "true" ]; then	
-	installEmuFP PCSX2 net.pcsx2.PCSX2		
+	installEmuFP "PCSX2" "net.pcsx2.PCSX2"		
 fi
 if [ $doInstallPrimeHacks == "true" ]; then
-	installEmuFP PrimeHack io.github.shiiion.primehack		
-	#setMSG "Installing PrimeHack"
-	#flatpak install flathub io.github.shiiion.primehack -y --system 
-	#flatpak override io.github.shiiion.primehack --filesystem=host --user
-	##write out launcher
-	#echo "#!/bin/sh
-	#/usr/bin/flatpak run io.github.shiiion.primehack" > "${toolsPath}"launchers/primehack.sh
-	#chmod +x "${toolsPath}"launchers/primehack.sh	
+	installEmuFP "PrimeHack" "io.github.shiiion.primehack"		
 fi
 if [ $doInstallRPCS3 == "true" ]; then
-	installEmuFP RPCS3 net.rpcs3.RPCS3		
-	#setMSG "Installing RPCS3"
-	#flatpak install flathub net.rpcs3.RPCS3 -y --system 
-	#flatpak override net.rpcs3.RPCS3 --filesystem=host --user
-	##write out launcher
-	#echo "#!/bin/sh
-	#/usr/bin/flatpak run net.rpcs3.RPCS3" > "${toolsPath}"launchers/rpcs3.sh
-	#chmod +x "${toolsPath}"launchers/rpcs3.sh	
+	installEmuFP "RPCS3" "net.rpcs3.RPCS3"		
 fi
 if [ $doInstallCitra == "true" ]; then
-	installEmuFP Citra org.citra_emu.citra		
-	#setMSG "Installing Citra"
-	#flatpak install flathub org.citra_emu.citra -y --system 
-	#flatpak override org.citra_emu.citra --filesystem=host --user
-	##write out launcher
-	#echo "#!/bin/sh
-	#/usr/bin/flatpak run org.citra_emu.citra" > "${toolsPath}"launchers/citra.sh
-	#chmod +x "${toolsPath}"launchers/citra.sh	
+	installEmuFP "Citra" "org.citra_emu.citra"		
 fi
 if [ $doInstallDolphin == "true" ]; then
-	installEmuFP Dolphin org.DolphinEmu.dolphin-emu		
-	#setMSG "Installing Dolphin"
-	#flatpak install flathub org.DolphinEmu.dolphin-emu -y --system 
-	#flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
-	##write out launcher
-	#echo "#!/bin/sh
-	#/usr/bin/flatpak run org.DolphinEmu.dolphin-emu" > "${toolsPath}"launchers/dolphin-emu.sh
-	#chmod +x "${toolsPath}"launchers/dolphin-emu.sh	
+	installEmuFP "Dolphin" "org.DolphinEmu.dolphin-emu"		
 fi
 if [ $doInstallDuck == "true" ]; then
-	installEmuFP DuckStation org.duckstation.DuckStation		
-	#setMSG "Installing DuckStation"
-	#flatpak install flathub org.duckstation.DuckStation -y --system 
-	##flatpak override org.duckstation.DuckStation --filesystem=host --user
-	##write out launcher
-	#echo "#!/bin/sh
-	#/usr/bin/flatpak run org.duckstation.DuckStation" > "${toolsPath}"launchers/duckstation.sh
-	#chmod +x "${toolsPath}"launchers/duckstation.sh	
+	installEmuFP "DuckStation" "org.duckstation.DuckStation"		
 fi
 if [ $doInstallRA == "true" ]; then
-	installEmuFP RetroArch org.libretro.RetroArch		
-	#setMSG "Installing RetroArch"
-	#flatpak install flathub org.libretro.RetroArch -y --system 
-	##flatpak override org.libretro.RetroArch --filesystem=host --user
-	##write out launcher
-	#echo "#!/bin/sh
-	#/usr/bin/flatpak run org.libretro.RetroArch" > "${toolsPath}"launchers/RetroArch.sh
-	#chmod +x "${toolsPath}"launchers/RetroArch.sh	
+	installEmuFP "RetroArch" "org.libretro.RetroArch"		
 fi
 if [ $doInstallPPSSPP == "true" ]; then
-	installEmuFP PPSSPP org.ppsspp.PPSSPP		
-	#setMSG "Installing PPSSPP"
-	#flatpak install flathub org.ppsspp.PPSSPP -y --system 
-	##flatpak override org.ppsspp.PPSSPP --filesystem=host --user
-	##write out launcher
-	#echo "#!/bin/sh
-	#/usr/bin/flatpak run org.ppsspp.PPSSPP" > "${toolsPath}"launchers/ppsspp.sh
-	#chmod +x "${toolsPath}"launchers/ppsspp.sh
+	installEmuFP "PPSSPP" "org.ppsspp.PPSSPP"		
 fi
 if [ $doInstallYuzu == "true" ]; then
-	installEmuFP Yuzu org.citra_emu.citra		
-	#setMSG "Installing Yuzu"
-	#flatpak install flathub org.yuzu_emu.yuzu -y --system 
-	#flatpak override org.yuzu_emu.yuzu --filesystem=host --user
-	##write out launcher
-	#echo "#!/bin/sh
-	#/usr/bin/flatpak run org.yuzu_emu.yuzu" > "${toolsPath}"launchers/yuzu.sh
-	#chmod +x "${toolsPath}"launchers/yuzu.sh
+	installEmuFP "Yuzu" "org.yuzu_emu.yuzu"		
 fi
 if [ $doInstallXemu == "true" ]; then
-	installEmuFP Xemu app.xemu.xemu		
-	#setMSG "Installing Xemu"
-	#flatpak install flathub app.xemu.xemu -y --system 
-	#flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
-	#flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
-	##write out launcher
-	#echo "#!/bin/sh
-	#/usr/bin/flatpak run app.xemu.xemu" > "${toolsPath}"launchers/xemu-emu.sh
-	#chmod +x "${toolsPath}"launchers/xemu-emu.sh
+	installEmuFP "Xemu" "app.xemu.xemu"		
 fi
 #if [ $doInstallMelon == "true" ]; then
 #	echo -e "Installing MelonDS"
@@ -967,47 +903,45 @@ fi
 echo -e ""
 setMSG "Applying Emu configurations..."
 if [ $doUpdatePrimeHacks == true ]; then
-	configEmuFP PrimeHack io.github.shiiion.primehack
+	configEmuFP "PrimeHack" "io.github.shiiion.primehack"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Dolphin.ini
 fi
 if [ $doUpdateDolphin == true ]; then
-	configEmuFP Dolphin org.DolphinEmu.dolphin-emu
+	configEmuFP "Dolphin" "org.DolphinEmu.dolphin-emu"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
 fi
 if [ $doUpdatePCSX2 == true ]; then
-	configEmuFP PCSX2 net.pcsx2.PCSX2
+	configEmuFP "PCSX2" "net.pcsx2.PCSX2"
 	#Bios Fix
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios|${biosPath}|g" ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini 
 fi
 if [ $doUpdateRPCS3 == true ]; then
-	configEmuFP RPCS3 net.rpcs3.RPCS3
+	configEmuFP "RPCS3" "net.rpcs3.RPCS3"
 	#HDD Config
 	sed -i 's| $(EmulatorDir)dev_hdd0/| '$savesPath'/rpcs3/dev_hdd0/|g' /home/deck/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml 
 	mkdir -p $savesPath/rpcs3/ 
 fi
 if [ $doUpdateCitra == true ]; then
-	configEmuFP Citra org.citra_emu.citra
+	configEmuFP "Citra" "org.citra_emu.citra"
 	#Roms Path
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini
 fi
 if [ $doUpdateDuck == true ]; then
-	configEmuFP DuckStation org.duckstation.DuckStation
+	configEmuFP "DuckStation" "org.duckstation.DuckStation"
 	#Bios Path
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
 fi
 if [ $doUpdateYuzu == true ]; then
-	configEmuFP Yuzu org.yuzu_emu.yuzu
+	configEmuFP "Yuzu" "org.yuzu_emu.yuzu"
 	#Roms Path
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.yuzu_emu.yuzu/config/yuzu/qt-config.ini
 fi
 
-
-
 if [ $doUpdatePPSSPP == true ]; then
-	configEmuFP PPSSPP org.ppsspp.PPSSPP
+	configEmuFP "PPSSPP" "org.ppsspp.PPSSPP"
 fi
 if [ $doUpdateXemu == true ]; then
-	configEmuFP Xemu app.xemu.xemu	
+	configEmuFP "Xemu" "app.xemu.xemu"	
 	#Bios Fix
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.ini
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml
