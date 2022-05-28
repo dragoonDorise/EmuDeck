@@ -11,29 +11,45 @@ zenity --question \
 ans=$?
 if [ $ans -eq 0 ]; then
 	
-	
+
 	#paths update via sed in main script
 	romsPath="/run/media/mmcblk0p1/Emulation/roms/"
-	chdPath="/run/media/mmcblk0p1/Emulation/tools/chdconv/"
+	toolsPath="/run/media/mmcblk0p1/Emulation/tools/"
+	chdPath="${toolsPath}chdconv/"
+	
 	
 	#initialize log
 	TIMESTAMP=`date "+%Y%m%d_%H%M%S"`
 	LOGFILE="$chdPath/chdman-$TIMESTAMP.log"
 	exec > >(tee ${LOGFILE}) 2>&1
 	
+
+	#ask user if they want to pick manually or run a search for eligible files. Manual will need to ask the user to pick a file, and then it will need to ask the type to convert to. (chd, rvz, cso)
+
+
 	echo "Checking $romsPath for files eligible for conversion."
 	
 	#whitelist
-	declare -a folderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
+	declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
+	declare -a rvzfolderWhiteList=("gamecube" "wii")
 	declare -a searchFolderList
-
+    echo $chdfolderWhiteList
 	export PATH="${chdPath}/:$PATH"
 
 	#find file types we support within whitelist of folders
-	for romfolder in ${folderWhiteList[@]}; do
+	for romfolder in ${chdfolderWhiteList[@]}; do
 		echo "Checking ${romsPath}${romfolder}/"
 		files=(`find "${romsPath}${romfolder}/" -type f -iname "*.gdi" -o -type f -iname "*.cue" -o -type f -iname "*.iso"`)
 		if [ ${#files[@]} -gt 0 ]; then 
+			echo "found in $romfolder"
+			searchFolderList+=("$romfolder")
+		fi
+	done
+
+    for romfolder in ${rvzfolderWhiteList[@]}; do
+		echo "Checking ${romsPath}${romfolder}/"
+		files=(`find "${romsPath}${romfolder}/" -type f -iname "*.gcm"  -o -type f -iname "*.iso"`)
+		if [ ${#files[@]} -gt 0 ]; then
 			echo "found in $romfolder"
 			searchFolderList+=("$romfolder")
 		fi
@@ -49,6 +65,7 @@ if [ $ans -eq 0 ]; then
 		 --text="${text}" 2>/dev/null
 		exit
 	fi
+
 
 	declare -i height=(${#searchFolderList[@]}*100)
 	selectColumnStr="RomFolder " 
@@ -70,12 +87,36 @@ if [ $ans -eq 0 ]; then
 	
 	#query user about FileTypes? maybe they only want to convert bin/cue? Iso? Gdi?
 	#check list here?
-	
+
+	# should be able to use grep / bash compare the files in the dir against the cue / gdi file to determine if it should be deleted.
+	# something like after the processing of the cue / gdi succeeds, then do this
+	# for file in folder           		#where file is a foreach variable and folder is some array of the files in the folder being processed.
+	# if grep -q $file "$f"; then 		#where $f is the cue / gdi, and $file is a file in the folder.
+  	#	rm -rf $file
+	# fi
+	#
+
+
+	#CHD
 	for romfolder in ${romfolders[@]}; do
-		find "$romsPath$romfolder" -type f -iname "*.cue" | while read f; do echo "Converting: $f"; chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "$f" && rm -rf "${f%.*}.[bB][iI][nN]"; done;
-		find "$romsPath$romfolder" -type f -iname "*.gdi" | while read f; do echo "Converting: $f"; chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "$f"; done; #going to need work
-		find "$romsPath$romfolder" -type f -iname "*.iso" | while read f; do echo "Converting: $f"; chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "$f"; done;
+        if [[ " ${chdfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+            find "$romsPath$romfolder" -type f -iname "*.cue" | while read f; do echo "Converting: $f"; chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "$f" && rm -rf "${f%.*}.bin"; done;
+            find "$romsPath$romfolder" -type f -iname "*.gdi" | while read f; do echo "Converting: $f"; chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "$f"; done; #going to need work
+            find "$romsPath$romfolder" -type f -iname "*.iso" | while read f; do echo "Converting: $f"; chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "$f"; done;
+        fi
 	done
+
+	#rvz
+    for romfolder in ${romfolders[@]}; do
+        if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+            find "$romsPath$romfolder" -type f -iname "*.iso" | while read f; do echo "Converting: $f"; ${toolsPath}proton-launch.sh ${chdPath}DolphinTool.exe convert -f rvz -b 131072 -c zstd -l 5 -i "z:$f" -o "z:${f%.*}.rvz"  && rm -rf "$f"; done;
+            find "$romsPath$romfolder" -type f -iname "*.gcm" | while read f; do echo "Converting: $f"; ${toolsPath}proton-launch.sh ${chdPath}DolphinTool.exe convert -f rvz -b 131072 -c zstd -l 5 -i "z:$f" -o "z:${f%.*}.rvz"  && rm -rf "$f"; done;
+        fi
+	done
+
+	#cso
+	#
+
 else
 	exit
 fi
