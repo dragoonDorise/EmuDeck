@@ -18,6 +18,7 @@ doUpdateRyujinx=true
 doUpdatePrimeHacks=true
 doUpdatePPSSPP=true
 doUpdateXemu=true
+doUpdateESDE=true
 doUpdateSRM=true
 #doUpdateMelon=true
 
