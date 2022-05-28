@@ -22,7 +22,7 @@ esac
 
 #Clean up previous installations
 rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
-#rm -rf ~/dragoonDoriseTools
+rm -rf ~/dragoonDoriseTools
 mkdir -p ~/emudeck
 
 #Creating log file
@@ -644,97 +644,99 @@ if [[ $isRealDeck == false ]]; then
 fi
 
 #Emulators Installation
-if [ $doInstallPCSX2 == "true" ]; then
-	setMSG "Installing PCSX2"
-	flatpak install flathub net.pcsx2.PCSX2 -y --system	
-	flatpak override net.pcsx2.PCSX2 --filesystem=host --user
-	flatpak override net.pcsx2.PCSX2 --share=network --user
-	#write out launcher
-	echo "#!/bin/sh
-	/usr/bin/flatpak run net.pcsx2.PCSX2" > "${toolsPath}"launchers/pcsx2.sh
-	chmod +x "${toolsPath}"launchers/pcsx2.sh	
+if [ $doInstallPCSX2 == "true" ]; then	
+	installEmuFP PCSX2 net.pcsx2.PCSX2		
 fi
 if [ $doInstallPrimeHacks == "true" ]; then
-	setMSG "Installing PrimeHack"
-	flatpak install flathub io.github.shiiion.primehack -y --system 
-	flatpak override io.github.shiiion.primehack --filesystem=host --user
-	#write out launcher
-	echo "#!/bin/sh
-	/usr/bin/flatpak run io.github.shiiion.primehack" > "${toolsPath}"launchers/primehack.sh
-	chmod +x "${toolsPath}"launchers/primehack.sh	
+	installEmuFP PrimeHack io.github.shiiion.primehack		
+	#setMSG "Installing PrimeHack"
+	#flatpak install flathub io.github.shiiion.primehack -y --system 
+	#flatpak override io.github.shiiion.primehack --filesystem=host --user
+	##write out launcher
+	#echo "#!/bin/sh
+	#/usr/bin/flatpak run io.github.shiiion.primehack" > "${toolsPath}"launchers/primehack.sh
+	#chmod +x "${toolsPath}"launchers/primehack.sh	
 fi
 if [ $doInstallRPCS3 == "true" ]; then
-	setMSG "Installing RPCS3"
-	flatpak install flathub net.rpcs3.RPCS3 -y --system 
-	flatpak override net.rpcs3.RPCS3 --filesystem=host --user
-	#write out launcher
-	echo "#!/bin/sh
-	/usr/bin/flatpak run net.rpcs3.RPCS3" > "${toolsPath}"launchers/rpcs3.sh
-	chmod +x "${toolsPath}"launchers/rpcs3.sh	
+	installEmuFP RPCS3 net.rpcs3.RPCS3		
+	#setMSG "Installing RPCS3"
+	#flatpak install flathub net.rpcs3.RPCS3 -y --system 
+	#flatpak override net.rpcs3.RPCS3 --filesystem=host --user
+	##write out launcher
+	#echo "#!/bin/sh
+	#/usr/bin/flatpak run net.rpcs3.RPCS3" > "${toolsPath}"launchers/rpcs3.sh
+	#chmod +x "${toolsPath}"launchers/rpcs3.sh	
 fi
 if [ $doInstallCitra == "true" ]; then
-	setMSG "Installing Citra"
-	flatpak install flathub org.citra_emu.citra -y --system 
-	flatpak override org.citra_emu.citra --filesystem=host --user
-	#write out launcher
-	echo "#!/bin/sh
-	/usr/bin/flatpak run org.citra_emu.citra" > "${toolsPath}"launchers/citra.sh
-	chmod +x "${toolsPath}"launchers/citra.sh	
+	installEmuFP Citra org.citra_emu.citra		
+	#setMSG "Installing Citra"
+	#flatpak install flathub org.citra_emu.citra -y --system 
+	#flatpak override org.citra_emu.citra --filesystem=host --user
+	##write out launcher
+	#echo "#!/bin/sh
+	#/usr/bin/flatpak run org.citra_emu.citra" > "${toolsPath}"launchers/citra.sh
+	#chmod +x "${toolsPath}"launchers/citra.sh	
 fi
 if [ $doInstallDolphin == "true" ]; then
-	setMSG "Installing Dolphin"
-	flatpak install flathub org.DolphinEmu.dolphin-emu -y --system 
-	flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
-	#write out launcher
-	echo "#!/bin/sh
-	/usr/bin/flatpak run org.DolphinEmu.dolphin-emu" > "${toolsPath}"launchers/dolphin-emu.sh
-	chmod +x "${toolsPath}"launchers/dolphin-emu.sh	
+	installEmuFP Dolphin org.DolphinEmu.dolphin-emu		
+	#setMSG "Installing Dolphin"
+	#flatpak install flathub org.DolphinEmu.dolphin-emu -y --system 
+	#flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
+	##write out launcher
+	#echo "#!/bin/sh
+	#/usr/bin/flatpak run org.DolphinEmu.dolphin-emu" > "${toolsPath}"launchers/dolphin-emu.sh
+	#chmod +x "${toolsPath}"launchers/dolphin-emu.sh	
 fi
 if [ $doInstallDuck == "true" ]; then
-	setMSG "Installing DuckStation"
-	flatpak install flathub org.duckstation.DuckStation -y --system 
-	#flatpak override org.duckstation.DuckStation --filesystem=host --user
-	#write out launcher
-	echo "#!/bin/sh
-	/usr/bin/flatpak run org.duckstation.DuckStation" > "${toolsPath}"launchers/duckstation.sh
-	chmod +x "${toolsPath}"launchers/duckstation.sh	
+	installEmuFP DuckStation org.duckstation.DuckStation		
+	#setMSG "Installing DuckStation"
+	#flatpak install flathub org.duckstation.DuckStation -y --system 
+	##flatpak override org.duckstation.DuckStation --filesystem=host --user
+	##write out launcher
+	#echo "#!/bin/sh
+	#/usr/bin/flatpak run org.duckstation.DuckStation" > "${toolsPath}"launchers/duckstation.sh
+	#chmod +x "${toolsPath}"launchers/duckstation.sh	
 fi
 if [ $doInstallRA == "true" ]; then
-	setMSG "Installing RetroArch"
-	flatpak install flathub org.libretro.RetroArch -y --system 
-	#flatpak override org.libretro.RetroArch --filesystem=host --user
-	#write out launcher
-	echo "#!/bin/sh
-	/usr/bin/flatpak run org.libretro.RetroArch" > "${toolsPath}"launchers/RetroArch.sh
-	chmod +x "${toolsPath}"launchers/RetroArch.sh	
+	installEmuFP RetroArch org.libretro.RetroArch		
+	#setMSG "Installing RetroArch"
+	#flatpak install flathub org.libretro.RetroArch -y --system 
+	##flatpak override org.libretro.RetroArch --filesystem=host --user
+	##write out launcher
+	#echo "#!/bin/sh
+	#/usr/bin/flatpak run org.libretro.RetroArch" > "${toolsPath}"launchers/RetroArch.sh
+	#chmod +x "${toolsPath}"launchers/RetroArch.sh	
 fi
 if [ $doInstallPPSSPP == "true" ]; then
-	setMSG "Installing PPSSPP"
-	flatpak install flathub org.ppsspp.PPSSPP -y --system 
-	#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
-	#write out launcher
-	echo "#!/bin/sh
-	/usr/bin/flatpak run org.ppsspp.PPSSPP" > "${toolsPath}"launchers/ppsspp.sh
-	chmod +x "${toolsPath}"launchers/ppsspp.sh
+	installEmuFP PPSSPP org.ppsspp.PPSSPP		
+	#setMSG "Installing PPSSPP"
+	#flatpak install flathub org.ppsspp.PPSSPP -y --system 
+	##flatpak override org.ppsspp.PPSSPP --filesystem=host --user
+	##write out launcher
+	#echo "#!/bin/sh
+	#/usr/bin/flatpak run org.ppsspp.PPSSPP" > "${toolsPath}"launchers/ppsspp.sh
+	#chmod +x "${toolsPath}"launchers/ppsspp.sh
 fi
 if [ $doInstallYuzu == "true" ]; then
-	setMSG "Installing Yuzu"
-	flatpak install flathub org.yuzu_emu.yuzu -y --system 
-	flatpak override org.yuzu_emu.yuzu --filesystem=host --user
-	#write out launcher
-	echo "#!/bin/sh
-	/usr/bin/flatpak run org.yuzu_emu.yuzu" > "${toolsPath}"launchers/yuzu.sh
-	chmod +x "${toolsPath}"launchers/yuzu.sh
+	installEmuFP Yuzu org.citra_emu.citra		
+	#setMSG "Installing Yuzu"
+	#flatpak install flathub org.yuzu_emu.yuzu -y --system 
+	#flatpak override org.yuzu_emu.yuzu --filesystem=host --user
+	##write out launcher
+	#echo "#!/bin/sh
+	#/usr/bin/flatpak run org.yuzu_emu.yuzu" > "${toolsPath}"launchers/yuzu.sh
+	#chmod +x "${toolsPath}"launchers/yuzu.sh
 fi
 if [ $doInstallXemu == "true" ]; then
-	setMSG "Installing Xemu"
-	flatpak install flathub app.xemu.xemu -y --system 
-	flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
-	flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
-	#write out launcher
-	echo "#!/bin/sh
-	/usr/bin/flatpak run app.xemu.xemu" > "${toolsPath}"launchers/xemu-emu.sh
-	chmod +x "${toolsPath}"launchers/xemu-emu.sh
+	installEmuFP Xemu app.xemu.xemu		
+	#setMSG "Installing Xemu"
+	#flatpak install flathub app.xemu.xemu -y --system 
+	#flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
+	#flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
+	##write out launcher
+	#echo "#!/bin/sh
+	#/usr/bin/flatpak run app.xemu.xemu" > "${toolsPath}"launchers/xemu-emu.sh
+	#chmod +x "${toolsPath}"launchers/xemu-emu.sh
 fi
 #if [ $doInstallMelon == "true" ]; then
 #	echo -e "Installing MelonDS"
@@ -965,124 +967,54 @@ fi
 echo -e ""
 setMSG "Applying Emu configurations..."
 if [ $doUpdatePrimeHacks == true ]; then
-	FOLDER=~/.var/app/io.github.shiiion.primehack/config_bak
-	if [ -d "$FOLDER" ]; then
-		echo "" 
-	else
-		setMSG "Backing up PrimeHacks..."
-		cp -r ~/.var/app/io.github.shiiion.primehack/config ~/.var/app/io.github.shiiion.primehack/config_bak 
-		echo -e "OK!"
-	fi
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/io.github.shiiion.primehack/ ~/.var/app/io.github.shiiion.primehack/ 
+	configEmuFP PrimeHack io.github.shiiion.primehack
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Dolphin.ini
 fi
 if [ $doUpdateDolphin == true ]; then
-
-	# Check if there's an existing MAC address and Analytics ID in the Dolphin config
-	#config_path=~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
-	#WirelessMacOld=$(grep -E "^WirelessMac" $config_path | cut -d\= -f2)
-	#AnalyticsIDold=$(grep -E "ID ?= ?[0-9a-f]{32}" $config_path | cut -d\= -f2)
-
-	FOLDER=~/.var/app/org.DolphinEmu.dolphin-emu/config_bak
-	if [ -d "$FOLDER" ]; then
-		echo "" 
-	else
-		setMSG "Backing up Dolphin..."
-		cp -r ~/.var/app/org.DolphinEmu.dolphin-emu/config ~/.var/app/org.DolphinEmu.dolphin-emu/config_bak 
-		echo -e "OK!"
-	fi
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.DolphinEmu.dolphin-emu/ ~/.var/app/org.DolphinEmu.dolphin-emu/ 
-	
-	
-	# We add the previous Mac address
-	#if [ $AnalyticsIDold != "" ]; then
-	#	 # Insert old analytics ID:
-	#	 sed -i "s|@@DOLPHIN_ANALYTICS_ID@@|${AnalyticsIDold}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
-	#fi
-	#
-	#if [ $WirelessMacOld != "" ]; then
-	#	 # Insert old MAC address:
-	#	 sed -i "s|@@WIRELESS_DEVICE_MAC@@|${WirelessMacOld}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
-	#fi
-		
+	configEmuFP Dolphin org.DolphinEmu.dolphin-emu
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
 fi
 if [ $doUpdatePCSX2 == true ]; then
-	FOLDER=~/.var/app/net.pcsx2.PCSX2/config_bak
-	if [ -d "$FOLDER" ]; then
-		echo "" 
-	else
-		setMSG "Backing up PCSX2..."
-		cp -r ~/.var/app/net.pcsx2.PCSX2/config ~/.var/app/net.pcsx2.PCSX2/config_bak 
-		echo -e "OK!"
-	fi
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.pcsx2.PCSX2/ ~/.var/app/net.pcsx2.PCSX2/ 
+	configEmuFP PCSX2 net.pcsx2.PCSX2
 	#Bios Fix
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios|${biosPath}|g" ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini 
 fi
 if [ $doUpdateRPCS3 == true ]; then
-	FOLDER=~/.var/app/net.rpcs3.RPCS3/config_bak
-	if [ -d "$FOLDER" ]; then
-		echo "" 
-	else
-		setMSG "Backing up RPCS3..."
-		cp -r ~/.var/app/net.rpcs3.RPCS3/config ~/.var/app/net.rpcs3.RPCS3/config_bak 
-		echo -e "OK!"
-	fi
-
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.rpcs3.RPCS3/ ~/.var/app/net.rpcs3.RPCS3/ 
+	configEmuFP RPCS3 net.rpcs3.RPCS3
+	#HDD Config
 	sed -i 's| $(EmulatorDir)dev_hdd0/| '$savesPath'/rpcs3/dev_hdd0/|g' /home/deck/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml 
 	mkdir -p $savesPath/rpcs3/ 
 fi
 if [ $doUpdateCitra == true ]; then
-	FOLDER=~/.var/app/org.citra_emu.citra/config_bak
-	if [ -d "$FOLDER" ]; then
-		echo "" 
-	else
-		setMSG "Backing up Citra..."
-		cp -r ~/.var/app/org.citra_emu.citra/config ~/.var/app/org.citra_emu.citra/config_bak 
-		echo -e "OK!"
-	fi
-
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.citra_emu.citra/ ~/.var/app/org.citra_emu.citra/ 
+	configEmuFP Citra org.citra_emu.citra
+	#Roms Path
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini
 fi
 if [ $doUpdateDuck == true ]; then
-	FOLDER=~/.var/app/org.duckstation.DuckStation/data_bak
-	if [ -d "$FOLDER" ]; then
-		echo "" 
-	else
-		setMSG "Backing up DuckStation..."
-		cp -r ~/.var/app/org.duckstation.DuckStation/data ~/.var/app/org.duckstation.DuckStation/data_bak 
-		echo -e "OK!"
-	fi
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.duckstation.DuckStation/ ~/.var/app/org.duckstation.DuckStation/ 
-	sleep 3
+	configEmuFP DuckStation org.duckstation.DuckStation
+	#Bios Path
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
 fi
 if [ $doUpdateYuzu == true ]; then
-	FOLDER=~/.var/app/org.yuzu_emu.yuzu/config
-	if [ -d "$FOLDER" ]; then
-		echo "" 
-	else
-		setMSG "Backing up Yuzu..."
-		cp -r ~/.var/app/org.yuzu_emu.yuzu/config ~/.var/app/org.yuzu_emu.yuzu/config_bak 
-		echo -e "OK!"
-	fi
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/ ~/.var/app/org.yuzu_emu.yuzu/ 
+	configEmuFP Yuzu org.yuzu_emu.yuzu
+	#Roms Path
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.yuzu_emu.yuzu/config/yuzu/qt-config.ini
 fi
-#if [ $doUpdateMelon == true ]; then
-#	FOLDER=~/.var/app/net.kuribo64.melonDS/config
-#	if [ -d "$FOLDER" ]; then
-#		echo "" 
-#	else
-#		echo -ne "Backing up MelonDS..."
-#		cp -r ~/.var/app/net.kuribo64.melonDS/config ~/.var/app/net.kuribo64.melonDS/config_bak 
-#		echo -e "OK!"
-#	fi
-#	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/net.kuribo64.melonDS/ ~/.var/app/net.kuribo64.melonDS/ 
-#fi
+
+
+
+if [ $doUpdatePPSSPP == true ]; then
+	configEmuFP PPSSPP org.ppsspp.PPSSPP
+fi
+if [ $doUpdateXemu == true ]; then
+	configEmuFP Xemu app.xemu.xemu	
+	#Bios Fix
+	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.ini
+	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml
+	sed -i "s|/run/media/mmcblk0p1/Emulation/saves/|${savesPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml
+fi
+
+#Proton Emus
 if [ $doUpdateCemu == true ]; then
 	echo "" 
 	#Commented until we get CEMU flatpak working
@@ -1093,35 +1025,6 @@ fi
 if [ $doUpdateXenia == true ]; then
 	echo "" 
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/xenia/ "$romsPath"/xbox360 
-fi
-if [ $doUpdateRyujinx == true ]; then
-	echo "" 
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ryujinx.Ryujinx/ ~/.var/app/org.ryujinx.Ryujinx/ 
-fi
-if [ $doUpdatePPSSPP == true ]; then
-	FOLDER=~/.var/app/org.ppsspp.PPSSPP/config_bak
-	if [ -d "$FOLDER" ]; then
-		echo "" 
-	else
-		setMSG "Backing up PPSSPP..."
-		cp -r ~/.var/app/org.ppsspp.PPSSPP/config ~/.var/app/org.ppsspp.PPSSPP/config_bak 
-		echo -e "OK!"
-	fi
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/org.ppsspp.PPSSPP/ ~/.var/app/org.ppsspp.PPSSPP/ 
-fi
-if [ $doUpdateXemu == true ]; then
-	FOLDER=~/.var/app/app.xemu.xemu/data/xemu/xemu_bak
-	if [ -d "$FOLDER" ]; then
-		echo "" 
-	else
-		setMSG "Backing up Xemu..."
-		cp -r ~/.var/app/app.xemu.xemu/data/xemu/xemu ~/.var/app/app.xemu.xemu/data/xemu/xemu_bak 
-		echo -e "OK!"
-	fi
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/app.xemu.xemu/ ~/.var/app/app.xemu.xemu/ 
-	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.ini
-	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml
-	sed -i "s|/run/media/mmcblk0p1/Emulation/saves/|${savesPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml
 fi
 echo -e "OK!"
 
@@ -1592,7 +1495,7 @@ if [ $branch == 'main' ];then
 fi
 
 setMSG "Cleaning up downloaded files..."	
-rm -rf ~/dragoonDoriseTools	
+#rm -rf ~/dragoonDoriseTools	
 clear
 
 # We mark the script as finished	
