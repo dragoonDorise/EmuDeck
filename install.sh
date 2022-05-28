@@ -114,10 +114,7 @@ fi
 ## Functions
 #
 
-source "$EMUDECKGIT"/functions/setMSG.sh
-source "$EMUDECKGIT"/functions/setESDEEmus.sh
-source "$EMUDECKGIT"/functions/testLocationValid.sh
-
+source "$EMUDECKGIT"/functions/all.sh
 
 #
 ## Splash screen
@@ -633,122 +630,17 @@ fi # end Expert if
 
 #ESDE Installation
 if [ $doInstallESDE == true ]; then
-		
-	setMSG "${installString} EmulationStation Desktop Edition"
-	curl https://gitlab.com/leonstyhre/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt --output "$toolsPath"/latesturl.txt 
-	latestURL=$(grep "https://gitlab" "$toolsPath"/latesturl.txt)
+	installESDE		
+fi
 	
-	#New repo if the other fails
-	if [ -z $latestURL ]; then
-		curl https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt --output "$toolsPath"/latesturl.txt 
-		latestURL=$(grep "https://gitlab" "$toolsPath"/latesturl.txt)
-	fi
-		curl $latestURL --output "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage 
-		rm "$toolsPath"/latesturl.txt
-		chmod +x "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage	
-	if [[ $doESDEThemePicker == true ]]; then
-		if [[ $expert == true ]]; then	
-			text="Which theme do you want to set as default on EmulationStation DE?"
-			esdeTheme=$(zenity --list \
-			--title="EmuDeck" \
-			--height=250 \
-			--width=250 \
-			--ok-label="OK" \
-			--cancel-label="Exit" \
-			--text="${text}" \
-			--radiolist \
-			--column="" \
-			--column="Theme" \
-			1 "EPICNOIR" \
-			2 "MODERN-DE" \
-			3 "RBSIMPLE-DE" 2>/dev/null)
-			clear
-			ans=$?	
-			if [ $ans -eq 0 ]; then
-				echo "Theme selected" 
-			fi
-		fi
-	fi
-	
-fi
-
-#We check if we have scrapped data on ESDE so we can move it to the SD card
-#We do this wether the user wants to install ESDE or not to account for old users that might have ESDE already installed and won't update
-#Leon requested we use his config instead of symlink
-
-originalESMediaFolder="$HOME/.emulationstation/downloaded_media"
-echo "processing $originalESMediaFolder"
-if [ -L ${originalESMediaFolder} ] ; then
-	echo "link found"
-	unlink ${originalESMediaFolder} && echo "unlinked"
-elif [ -e ${originalESMediaFolder} ] ; then
-	if [ -d "$HOME/.emulationstation/downloaded_media" ]; then		
-		echo -e ""
-		echo -e "Moving EmulationStation-DE downloaded_media to $toolsPath"			
-		echo -e ""
-		rsync -a $originalESMediaFolder $toolsPath  && rm -rf $originalESMediaFolder		#move it, merging files if in both locations
-	fi
-else
-	echo "downloaded_media not found on original location"
-fi
-
-
-
-#Configure Downloaded_media folder
-esDE_MediaDir="<string name=\"MediaDirectory\" value=\""${ESDEscrapData}"\" />"
-#search for media dir in xml, if not found, change to ours.
-mediaDirFound=$(grep -rnw $HOME/.emulationstation/es_settings.xml -e 'MediaDirectory')
-if [[ $mediaDirFound == '' ]]; then
-	sed -i -e '$a'"${esDE_MediaDir}"  ~/.emulationstation/es_settings.xml # use config file instead of link
-fi
-
-
 #SRM Installation
 if [ $doInstallSRM == true ]; then
-	setMSG "${installString} Steam Rom Manager"
-	rm -f ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
-	rm -f ~/Desktop/Steam-ROM-Manager.AppImage
-	mkdir -p "${toolsPath}"/srm
-	curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" > "${toolsPath}"srm/Steam-ROM-Manager.AppImage
-	#Nova fix'
-	echo "#!/usr/bin/env xdg-open
-	[Desktop Entry]
-	Name=Steam Rom Manager
-	Exec=kill -9 `pidof steam` & ${toolsPath}srm/Steam-ROM-Manager.AppImage
-	Icon=steamdeck-gaming-return
-	Terminal=false
-	Type=Application
-	StartupNotify=false" > ~/Desktop/SteamRomManager.desktop
-	chmod +x ~/Desktop/SteamRomManager.desktop
-	chmod +x "${toolsPath}"/srm/Steam-ROM-Manager.AppImage
+	installSRM
 fi
 
 #Support for non-valve hardware.
 if [[ $isRealDeck == false ]]; then
-
-# 	text="$(printf "Hey! This is not an SteamDeck. EmuDeck can work just fine, but you need to have a valid user account\n\nThe script will ask for your password to make sure everything works as expected.")"
-# 	zenity --info \
-#    --title="EmuDeck" \
-#    --width=450 \
-#    --text="${text}" 2>/dev/null
-
-	#Ensure the dependencies are installed before proceeding.
-	for package in packagekit-qt5 flatpak rsync unzip
-	do
-		pacman -Q ${package}  || sudo pacman -Sy --noconfirm ${package} 
-	done
-
-	#The user must be in the wheel group to install flatpaks successfully.
-	wheel=$(awk '/'${USER}'/ {if ($1 ~ /wheel/) print}' /etc/group)
-	if [[ ! "${wheel}" =~ ${USER} ]]; then
-		sudo usermod -a -G wheel ${USER} 
-		newgrp wheel
-	fi
-
-	#Ensure the Desktop directory isn't owned by root
-	if [[ "$(stat -c %U ${HOME}/Desktop)" =~ root ]]; then
-		sudo chown -R ${USER}:${USER} ~/Desktop 
-	fi
+	 setUpHolo
 fi
 
 #Emulators Installation
