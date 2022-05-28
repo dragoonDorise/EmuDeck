@@ -1,16 +1,12 @@
 #!/bin/bash
-NONE='\033[00m'
-RED='\033[01;31m'
-GREEN='\033[01;32m'
-YELLOW='\033[01;33m'
-PURPLE='\033[01;35m'
-CYAN='\033[01;36m'
-WHITE='\033[01;37m'
-BOLD='\033[1m'
-UNDERLINE='\033[4m'
-BLINK='\x1b[5m'
 
-#DEV MODE
+#
+##
+## Downloading files...
+##
+#
+
+# Which branch?
 devMode=$1
 case $devMode in
   "BETA")
@@ -24,27 +20,100 @@ case $devMode in
   ;;
 esac
 
-#Clean up from previous installations
+#Clean up previous installations
 rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
 rm -rf ~/dragoonDoriseTools
 mkdir -p ~/emudeck
+
 #Creating log file
 echo "" > ~/emudeck/emudeck.log
 LOGFILE=~/emudeck/emudeck.log
 exec > >(tee ${LOGFILE}) 2>&1
 
-#Mark as second time so we can detect previous users
-FOLDER=~/.var/app/io.github.shiiion.primehack/config_bak
+#Mark if this not a fresh install
+FOLDER=~/emudeck/
 if [ -d "$FOLDER" ]; then
 	echo "" > ~/emudeck/.finished
 fi
 sleep 1
 SECONDTIME=~/emudeck/.finished
 
-#Git folder
+# Seeting up the progress Bar for the rest of the installation
+finished=false
+echo "0" > ~/emudeck/msg.log
+echo "# Downloading files from $branch channel..." >> ~/emudeck/msg.log
+MSG=~/emudeck/msg.log
+(	
+	while [ $finished == false ]
+	do 
+		  cat $MSG		    
+		  if grep -q "100" "$MSG"; then
+			  finished=true
+			break
+		  fi
+							  
+	done &
+) |
+zenity --progress \
+  --title="Installing EmuDeck" \
+  --text="Downloading files from $branch channel..." \
+  --percentage=0 \
+  --no-cancel \
+  --pulsate \
+  --auto-close \
+  --width=300 \ &
+
+if [ "$?" = -1 ] ; then
+	zenity --error \
+	--text="Update canceled."
+fi
+
+#We create all the needed folders for installation
+mkdir -p dragoonDoriseTools
+mkdir -p dragoonDoriseTools/EmuDeck
+cd dragoonDoriseTools
+
+#Cloning EmuDeck files
+git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck 
+if [ ! -z "$devMode" ]; then
+	cd ~/dragoonDoriseTools/EmuDeck
+	git checkout $branch 
+fi
+
+#Test if we have a successful clone
 EMUDECKGIT=~/dragoonDoriseTools/EmuDeck
-#Exper mode off by default
+if [ -d "$EMUDECKGIT" ]; then
+	echo -e "Files Downloaded!"
+else
+	echo -e ""
+	echo -e "We couldn't download the needed files, exiting in a few seconds"
+	echo -e "Please close this window and try again in a few minutes"
+	sleep 999999
+	exit
+fi
+
+#
+##
+## EmuDeck is installed, start setting up stuff
+##
+#
+
+#Check for config file
+FILE=~/emudeck/config.sh
+if [ -f "$FILE" ]; then
+	echo "" > ~/emudeck/.finished
+	else
+	cp "$EMUDECKGIT"/config.sh ~/emudeck/config.sh	
+fi
+
+#
+## Vars
+#
+
+#Expert mode off by default
 expert=false
+
+
 
 #Update all systems by default
 doUpdateRA=true
@@ -105,100 +174,41 @@ savesPath=~/Emulation/saves/
 #Default ESDE Theme
 esdeTheme="EPICNOIR"
 
-#Progress Bar
-finished=false
-progressBar=0
 
-echo "0" > ~/emudeck/msg.log
-echo "# Starting Installation" >> ~/emudeck/msg.log
-MSG=~/emudeck/msg.log
-(	
-	while [ $finished == false ]
-	do 
-		  cat $MSG		    
-		  if grep -q "100" "$MSG"; then
-			  finished=true
-			break
-		  fi
-							  
-	done &
-) |
-zenity --progress \
-  --title="Installing EmuDeck" \
-  --text="Installing..." \
-  --percentage=0 \
-  --no-cancel \
-  --pulsate \
-  --auto-close \
-  --width=300 \ &
+#
+## Functions
+#
 
-if [ "$?" = -1 ] ; then
-		zenity --error \
-		  --text="Update canceled."
-fi
-
-#Functions
-echo "" > ~/emudeck/prog.log
 source "$EMUDECKGIT"/functions/setMSG.sh
 source "$EMUDECKGIT"/functions/setESDEEmus.sh
-source "$EMUDECKGIT"/EmuDeck/functions/testLocationValid.sh
-
-setMSG "Downloading files from $branch channel..."
-sleep 5
-
-#We create all the needed folders for installation
-mkdir -p dragoonDoriseTools
-mkdir -p dragoonDoriseTools/EmuDeck
-cd dragoonDoriseTools
+source "$EMUDECKGIT"/functions/testLocationValid.sh
 
 
-git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck 
-if [ ! -z "$devMode" ]; then
-	cd ~/dragoonDoriseTools/EmuDeck
-	git checkout $branch 
-fi
+#
+## Splash screen
+#
 
-clear
-cat ~/dragoonDoriseTools/EmuDeck/logo.ans
-version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
-echo -e "${BOLD}EmuDeck ${version}${NONE}"
-echo -e ""
-cat ~/dragoonDoriseTools/EmuDeck/latest.md
-
-FOLDER=~/dragoonDoriseTools/EmuDeck
-if [ -d "$FOLDER" ]; then
-	echo -e "OK!"
+latest=$(cat ~/dragoonDoriseTools/EmuDeck/latest.md)	
+if [ -f "$SECONDTIME" ]; then
+	 text="$(printf "<b>Hi, this is the changelog of the new features added in this version</b>\n\n${latest}")"
+	 width=1000
 else
-	echo -e ""
-	echo -e "We couldn't download the needed files, exiting in a few seconds"
-	echo -e "Please close this window and try again in a few minutes"
-	sleep 999999
-	exit
-fi
-
-	latest=$(cat ~/dragoonDoriseTools/EmuDeck/latest.md)
-	
-	if [ -f "$SECONDTIME" ]; then
-		 text="$(printf "<b>Hi, this is the changelog of the new features added in this version</b>\n\n${latest}")"
-		 width=1000
-	else
-		text="$(printf "<b>Welcome to EmuDeck!</b>")"
-		width=300
-	fi 
-	 zenity --info \
-	--title="EmuDeck" \
-	--width=${width} \
-	--text="${text}" 2>/dev/null
+	text="$(printf "<b>Welcome to EmuDeck!</b>")"
+	width=300
+fi 
+ zenity --info \
+--title="EmuDeck" \
+--width=${width} \
+--text="${text}" 2>/dev/null
 	
 #
-#Hardware Check
+#Hardware Check for Holo Users
 #
 if [[ "$(cat /sys/devices/virtual/dmi/id/product_name)" =~ Jupiter ]]; then
 	isRealDeck=true
 else
 	isRealDeck=false
 fi
-
 
 #
 # Initialize locations
@@ -236,6 +246,7 @@ if [ $ans -eq 0 ]; then
 else
 	expert=false
 fi
+
 #
 #Storage Selection
 #
@@ -275,8 +286,6 @@ if [[ $destination == "CUSTOM" ]]; then
 		exit
 	fi
 fi
-
-
 
 #New paths based on where the user picked.
 emulationPath="${destination}/Emulation/"
