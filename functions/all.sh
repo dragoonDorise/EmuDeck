@@ -19,3 +19,4 @@ source "$EMUDECKGIT"/functions/setMSG.sh
 source "$EMUDECKGIT"/functions/setUpHolo.sh
 source "$EMUDECKGIT"/functions/setWide.sh
 source "$EMUDECKGIT"/functions/testLocationValid.sh
+source "$EMUDECKGIT"/functions/setSetting.sh

@@ -220,11 +220,11 @@ if [[ $destination == "CUSTOM" ]]; then
 fi
 
 #New paths based on where the user picked.
-emulationPath="${destination}/Emulation/"
-romsPath="${destination}/Emulation/roms/"
-toolsPath="${destination}/Emulation/tools/"
-biosPath="${destination}/Emulation/bios/"
-savesPath="${destination}/Emulation/saves/"
+setSetting emulationPath "${destination}/Emulation/"
+setSetting romsPath "${destination}/Emulation/roms/"
+setSetting toolsPath "${destination}/Emulation/tools/"
+setSetting biosPath "${destination}/Emulation/bios/"
+setSetting savesPath "${destination}/Emulation/saves/"
 ESDEscrapData="${destination}/Emulation/tools/downloaded_media"
 
 #Folder creation...
@@ -952,7 +952,7 @@ if [ $branch == 'main' ];then
 fi
 
 setMSG "Cleaning up downloaded files..."	
-#rm -rf ~/dragoonDoriseTools	
+rm -rf ~/dragoonDoriseTools	
 clear
 
 # We mark the script as finished	
