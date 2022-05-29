@@ -9,7 +9,7 @@ installSRM(){
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
 	Name=Steam Rom Manager
-	Exec=kill -9 `pidof steam` & ${toolsPath}srm/Steam-ROM-Manager.AppImage
+	Exec=kill -15 `pidof steam` & ${toolsPath}srm/Steam-ROM-Manager.AppImage
 	Icon=steamdeck-gaming-return
 	Terminal=false
 	Type=Application
