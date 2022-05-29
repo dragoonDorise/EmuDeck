@@ -3,7 +3,7 @@ RAAchievment(){
 #if there is no rap file and we have said to enable retroachieve, we have to ask. Also if the user wants to change their sign  in, we ask.
 if [[ ! -f ~/emudeck/.rap && $doRAEnable == true ]] || [[ $doRASignIn == true ]]; then
 
-	text=$(printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>\n\nActivating RetroAchievments will disable save states unless you disable hardcore mode\n\n\n\nPress STEAM + X to get the onscreen Keyboard")
+	text=$(printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>\n\nActivating RetroAchievments will disable save states unless you disable hardcore mode\n\n\n\nPress STEAM + X to get the onscreen Keyboard\n\n<b>Make sure your RetroAchievments is validated on the website or RetroArch will crash</b>")
 	RAInput=$(zenity --forms \
 			--title="Retroachievements Sign in" \
 			--text="$text" \
