@@ -1574,14 +1574,16 @@ if [ ! -d "$savesPath/primehack/states" ]; then
 fi
 
 #Yuzu
+unlink $savesPath/yuzu/saves # Fix for previus bad symlink
 if [ ! -d "$savesPath/yuzu/saves" ]; then		
 	mkdir -p $savesPath/yuzu
 	echo -e ""
 	setMSG "Linking Yuzu Saves to the Emulation/saves folder"			
 	echo -e ""
 	
-	mkdir -p ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc
-	ln -sn ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc $savesPath/yuzu/saves	
+	mkdir -p ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/user/save/
+	
+	ln -sn ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/user/save/ $savesPath/yuzu/saves	
 fi
 
 #Duckstation
