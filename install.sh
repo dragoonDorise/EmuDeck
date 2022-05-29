@@ -334,7 +334,7 @@ if [ $expert == true ]; then
 		if [[ "$expertModeFeatureList" == *"snesAR"* ]]; then
 			SNESAR=43
 		else
-			SNESAR=83		
+			SNESAR=87		
 		fi
 		if [[ "$expertModeFeatureList" == *"selectWideScreen"* ]]; then
 			doSelectWideScreen=true			
