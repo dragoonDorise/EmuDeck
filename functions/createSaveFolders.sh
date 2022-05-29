@@ -18,7 +18,7 @@ createSaveFolders(){
 	linkToSaveFolder primehack states ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/states
 	
 	#Yuzu
-	linkToSaveFolder yuzu saves ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/sdmc #check this path
+	linkToSaveFolder yuzu saves ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/user/save/
 	
 	#Duckstation
 	linkToSaveFolder duckstation saves ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards
