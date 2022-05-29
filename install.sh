@@ -174,9 +174,11 @@ zenity --question \
 ans=$?
 if [ $ans -eq 0 ]; then
 	expert=true
+	echo "Mode selected: Expert"
 	locationTable+=(FALSE "Custom" "CUSTOM") #in expert mode we'll allow the user to pick an arbitrary place.
 else
 	expert=false
+	echo "Mode selected: Easy"
 fi
 
 #
