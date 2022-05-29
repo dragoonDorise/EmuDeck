@@ -682,7 +682,7 @@ if [ $doInstallYuzu == "true" ]; then
 	installEmuFP "Yuzu" "org.yuzu_emu.yuzu"		
 fi
 if [ $doInstallXemu == "true" ]; then
-	installEmuFP "Xemu" "app.xemu.xemu"		
+	installEmuFP "Xemu" "app.xemu.xemu"	
 fi
 
 
@@ -843,6 +843,11 @@ if [ $doUpdateXemu == true ]; then
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.ini
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml
 	sed -i "s|/run/media/mmcblk0p1/Emulation/saves/|${savesPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml
+	if [[ ! -f ${savesPath}xemu/xbox_hdd.qcow2 ]]; then
+		mkdir -p ${savesPath}xemu
+		cd ${savesPath}xemu
+		wget https://github.com/mborgerson/xemu-hdd-image/releases/latest/download/xbox_hdd.qcow2.zip && unzip -j xbox_hdd.qcow2.zip && rm -rf xbox_hdd.qcow2.zip
+	fi
 fi
 
 #Proton Emus
