@@ -1,6 +1,8 @@
 #!/bin/bash
 createSaveFolders(){		
 	
+	#linkToSaveFolder emuname foldername pathtolink
+
 	#RA
 	linkToSaveFolder retroarch states ~/.var/app/org.libretro.RetroArch/config/retroarch/states
 	linkToSaveFolder retroarch saves ~/.var/app/org.libretro.RetroArch/config/retroarch/saves
