@@ -261,10 +261,10 @@ if [ $expert == true ]; then
 		doInstallCHD=false
 		doInstallPowertools=false
 		doInstallGyro=false
-		doUpdateSRM=false
+		doSetupSRM=false
 		doInstallESDE=false
 		doSelectEmulators=false
-		doCustomEmulators=false
+		doResetEmulators=false
 		doSelectRABezels=false
 		doSelectRAAutoSave=false
 		doSNESAR87=false
@@ -312,9 +312,9 @@ if [ $expert == true ]; then
 			doInstallGyro=true
 		fi
 		if [[ "$expertModeFeatureList" == *"updateSRM"* ]]; then
-			doUpdateSRM=true
+			doSetupSRM=true
 		else
-			doUpdateSRM=false
+			doSetupSRM=false
 		fi
 		if [[ "$expertModeFeatureList" == *"updateESDE"* ]]; then
 			doInstallESDE=true
@@ -325,7 +325,7 @@ if [ $expert == true ]; then
 			doSelectEmulators=true
 		fi
 		if [[ "$expertModeFeatureList" == *"selectEmulatorConfig"* ]]; then
-			doCustomEmulators=true
+			doResetEmulators=true
 		fi
 		if [[ "$expertModeFeatureList" == *"selectRABezels"* ]]; then
 			RABezels=true
@@ -504,7 +504,7 @@ if [ $expert == true ]; then
 	#We mark we've made a custom configuration for future updates
 	echo "" > ~/emudeck/.custom
 	
-if [[ $doCustomEmulators == true ]]; then
+if [[ $doResetEmulators == true ]]; then
 	# Configuration that only appplies to previous users
 	if [ -f "$SECONDTIME" ]; then
 		#We make sure all the emus can write its saves outside its own folders.
@@ -539,7 +539,7 @@ if [[ $doCustomEmulators == true ]]; then
 		emuTable+=(TRUE "Steam Rom Manager")
 		emuTable+=(TRUE "EmulationStation DE")
 
-		text="`printf "<b>EmuDeck will overwrite the following Emulators configurations by default</b> \nWhich systems do you want <b>reconfigure</b>?\nWe recommend to keep all of them checked so everything gets updated and known issues are fixed.\n If you want to mantain any custom configuration on some emulator unselect its name on this list"`"
+		text="`printf "<b>EmuDeck will reset the following Emulator's configurations by default.</b>\nWhich systems do you want <b>reset</b> to the newest version of the defaults?\nWe recommend you keep all of them checked so everything gets updated and known issues are fixed.\nIf you want to mantain any custom configuration on an emulator unselect its name from this list."`"
 		emusToReset=$(zenity --list \
 							--title="EmuDeck" \
 							--height=500 \
@@ -548,7 +548,7 @@ if [[ $doCustomEmulators == true ]]; then
 							--cancel-label="Exit" \
 							--text="${text}" \
 							--checklist \
-							--column="Reconfigure?" \
+							--column="Reset?" \
 							--column="Emulator" \
 							"${emuTable[@]}"  2>/dev/null)
 		clear
@@ -558,49 +558,49 @@ if [[ $doCustomEmulators == true ]]; then
 		if [ $ans -eq 0 ]; then
 			
 			if [[ "$emusToReset" == *"RetroArch"* ]]; then
-				doUpdateRA=true
+				doSetupRA=true
 			fi
 			if [[ "$emusToReset" == *"PrimeHack"* ]]; then
-				doUpdatePrimeHacks=true
+				doSetupPrimeHacks=true
 			fi
 			if [[ "$emusToReset" == *"PCSX2"* ]]; then
-				doUpdatePCSX2=true
+				doSetupPCSX2=true
 			fi
 			if [[ "$emusToReset" == *"RPCS3"* ]]; then
-				doUpdateRPCS3=true
+				doSetupRPCS3=true
 			fi
 			if [[ "$emusToReset" == *"Citra"* ]]; then
-				doUpdateCitra=true
+				doSetupCitra=true
 			fi
 			if [[ "$emusToReset" == *"Dolphin"* ]]; then
-				doUpdateDolphin=true
+				doSetupDolphin=true
 			fi
 			if [[ "$emusToReset" == *"Duckstation"* ]]; then
-				doUpdateDuck=true
+				doSetupDuck=true
 			fi
 			if [[ "$emusToReset" == *"PPSSPP"* ]]; then
-				doUpdatePPSSPP=true
+				doSetupPPSSPP=true
 			fi
 			if [[ "$emusToReset" == *"Yuzu"* ]]; then
-				doUpdateYuzu=true
+				doSetupYuzu=true
 			fi
 			if [[ "$emusToReset" == *"Cemu"* ]]; then
-				doUpdateCemu=true
+				doSetupCemu=true
 			fi
 			if [[ "$emusToReset" == *"Xemu"* ]]; then
-				doUpdateXemu=true
+				doSetupXemu=true
 			fi
 			if [[ "$emusToReset" == *"Xenia"* ]]; then
-				doUpdateXenia=false #false until we add above
+				doSetupXenia=false #false until we add above
 			fi
 			#if [[ "$emusToReset" == *"MelonDS"* ]]; then
-			#	doUpdateMelon=false
+			#	doSetupMelon=false
 			#fi
 			if [[ "$emusToReset" == *"Steam Rom Manager"* ]]; then
-				doUpdateSRM=true
+				doSetupSRM=true
 			fi
 			if [[ "$emusToReset" == *"EmulationStation DE"* ]]; then
-				doUpdateESDE=true
+				doSetupESDE=true
 			fi
 			
 			
@@ -761,12 +761,12 @@ fi
 
 #Steam RomManager Config
 
-if [ $doUpdateSRM == true ]; then
+if [ $doSetupSRM == true ]; then
 	configSRM
 fi
 
 #ESDE Config
-if [ $doUpdateESDE == true ]; then
+if [ $doSetupESDE == true ]; then
 	configESDE
 fi	
 
@@ -776,7 +776,7 @@ rsync -r ~/dragoonDoriseTools/EmuDeck/configs/steam-input/ ~/.steam/steam/contro
 
 setMSG "Configuring emulators.."
 echo -e ""
-if [ $doUpdateRA == true ]; then
+if [ $doSetupRA == true ]; then
 
 	mkdir -p ~/.var/app/org.libretro.RetroArch
 	mkdir -p ~/.var/app/org.libretro.RetroArch/config
@@ -805,45 +805,45 @@ if [ $doUpdateRA == true ]; then
 fi
 echo -e ""
 setMSG "Applying Emu configurations..."
-if [ $doUpdatePrimeHacks == true ]; then
+if [ $doSetupPrimeHacks == true ]; then
 	configEmuFP "PrimeHack" "io.github.shiiion.primehack"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Dolphin.ini
 fi
-if [ $doUpdateDolphin == true ]; then
+if [ $doSetupDolphin == true ]; then
 	configEmuFP "Dolphin" "org.DolphinEmu.dolphin-emu"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
 fi
-if [ $doUpdatePCSX2 == true ]; then
+if [ $doSetupPCSX2 == true ]; then
 	configEmuFP "PCSX2" "net.pcsx2.PCSX2"
 	#Bios Fix
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios|${biosPath}|g" ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini 
 fi
-if [ $doUpdateRPCS3 == true ]; then
+if [ $doSetupRPCS3 == true ]; then
 	configEmuFP "RPCS3" "net.rpcs3.RPCS3"
 	#HDD Config
 	sed -i 's| $(EmulatorDir)dev_hdd0/| '$savesPath'/rpcs3/dev_hdd0/|g' /home/deck/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml 
 	mkdir -p $savesPath/rpcs3/ 
 fi
-if [ $doUpdateCitra == true ]; then
+if [ $doSetupCitra == true ]; then
 	configEmuFP "Citra" "org.citra_emu.citra"
 	#Roms Path
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini
 fi
-if [ $doUpdateDuck == true ]; then
+if [ $doSetupDuck == true ]; then
 	configEmuFP "DuckStation" "org.duckstation.DuckStation"
 	#Bios Path
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
 fi
-if [ $doUpdateYuzu == true ]; then
+if [ $doSetupYuzu == true ]; then
 	configEmuFP "Yuzu" "org.yuzu_emu.yuzu"
 	#Roms Path
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.yuzu_emu.yuzu/config/yuzu/qt-config.ini
 fi
 
-if [ $doUpdatePPSSPP == true ]; then
+if [ $doSetupPPSSPP == true ]; then
 	configEmuFP "PPSSPP" "org.ppsspp.PPSSPP"
 fi
-if [ $doUpdateXemu == true ]; then
+if [ $doSetupXemu == true ]; then
 	configEmuFP "Xemu" "app.xemu.xemu"	
 	#Bios Fix
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.ini
@@ -857,20 +857,20 @@ if [ $doUpdateXemu == true ]; then
 fi
 
 #Proton Emus
-if [ $doUpdateCemu == true ]; then
+if [ $doSetupCemu == true ]; then
 	echo "" 
 	#Commented until we get CEMU flatpak working
 	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ 
-	rsync -avhp --ignore-existing ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "$romsPath"/wiiu
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "$romsPath"/wiiu
 	cemuSettings="${romsPath}wiiu/settings.xml"
 	if [[ -f "${cemuSettings}" ]]; then
 		gamePathFound=$(grep -rnw $cemuSettings -e "${romsPath}")
 		if [[ $gamePathFound == '' ]]; then 
-			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}/wiiu/roms" settings.xml
+			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}/wiiu/roms" $cemuSettings
 		fi
 	fi
 fi
-if [ $doUpdateXenia == true ]; then
+if [ $doSetupXenia == true ]; then
 	echo "" 
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/xenia/ "$romsPath"/xbox360 
 fi
