@@ -120,6 +120,7 @@ source "$EMUDECKGIT"/functions/all.sh
 ## extra Binaries to path
 #
 export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
+chmod +x "${EMUDECKGIT}/tools/binaries/*"
 
 #
 ## Splash screen
