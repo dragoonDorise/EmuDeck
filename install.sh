@@ -120,7 +120,7 @@ source "$EMUDECKGIT"/functions/all.sh
 ## extra Binaries to path
 #
 export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
-chmod +x "${EMUDECKGIT}/tools/binaries/*"
+chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
 
 #
 ## Splash screen
