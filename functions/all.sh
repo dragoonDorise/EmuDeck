@@ -2,6 +2,7 @@
 source "$EMUDECKGIT"/functions/checkPSBIOS.sh
 source "$EMUDECKGIT"/functions/configEmuFP.sh
 source "$EMUDECKGIT"/functions/configESDE.sh
+source "$EMUDECKGIT"/functions/configSRM.sh
 source "$EMUDECKGIT"/functions/createDesktopIcons.sh
 source "$EMUDECKGIT"/functions/createSaveFolders.sh
 source "$EMUDECKGIT"/functions/installCHD.sh
