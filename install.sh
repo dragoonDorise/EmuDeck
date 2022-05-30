@@ -117,6 +117,11 @@ fi
 source "$EMUDECKGIT"/functions/all.sh
 
 #
+## extra Binaries to path
+#
+export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
+
+#
 ## Splash screen
 #
 
@@ -843,9 +848,9 @@ if [ $doUpdateXemu == true ]; then
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.ini
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml
 	sed -i "s|/run/media/mmcblk0p1/Emulation/saves/|${savesPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml
-	if [[ ! -f ${savesPath}xemu/xbox_hdd.qcow2 ]]; then
-		mkdir -p ${savesPath}xemu
-		cd ${savesPath}xemu
+	if [[ ! -f "${savesPath}xemu/xbox_hdd.qcow2" ]]; then
+		mkdir -p "${savesPath}xemu"
+		cd "${savesPath}xemu"
 		wget https://github.com/mborgerson/xemu-hdd-image/releases/latest/download/xbox_hdd.qcow2.zip && unzip -j xbox_hdd.qcow2.zip && rm -rf xbox_hdd.qcow2.zip
 	fi
 fi
@@ -855,8 +860,14 @@ if [ $doUpdateCemu == true ]; then
 	echo "" 
 	#Commented until we get CEMU flatpak working
 	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ 
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "$romsPath"/wiiu 
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" "$romsPath"/wiiu/settings.xml 
+	rsync -avhp --ignore-existing ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "$romsPath"/wiiu
+	cemuSettings="${romsPath}wiiu/settings.xml"
+	if [[ -f "${cemuSettings}" ]]; then
+		gamePathFound=$(grep -rnw $cemuSettings -e "${romsPath}")
+		if [[ $gamePathFound == '' ]]; then 
+			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}/wiiu/roms" settings.xml
+		fi
+	fi
 fi
 if [ $doUpdateXenia == true ]; then
 	echo "" 
@@ -968,7 +979,7 @@ echo "100" > ~/emudeck/msg.log
 echo "# Installation Complete" >> ~/emudeck/msg.log
 finished=true
 
-text="`printf "<b>Done!</b>\n\nRemember to add your games on every system folder created here:\n<b>${romsPath}</b>\n<b>Do not place your games in subdirectories, except for PS3, Switch and Wii U games</b>\nAdd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\n<b>Do not place your roms on subdirectories and do not delete the Yuzu subfolders, copy your firmare inside the already created folders</b>\n\nOpen Steam Rom Manager on your Desktop to add your games to your SteamUI Interface.\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!"`"
+text="`printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager on your Desktop to add your games to your SteamUI Interface.\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!"`"
 
 zenity --question \
 		 --title="EmuDeck" \
