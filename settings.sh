@@ -4,23 +4,23 @@ expert=false
 
 
 
-#Update all systems by default
-doUpdateRA=true
-doUpdateDolphin=true
-doUpdatePCSX2=true
-doUpdateRPCS3=true
-doUpdateYuzu=true
-doUpdateCitra=true
-doUpdateDuck=true
-doUpdateCemu=true
-doUpdateXenia=false
-doUpdateRyujinx=true
-doUpdatePrimeHacks=true
-doUpdatePPSSPP=true
-doUpdateXemu=true
-doUpdateESDE=true
-doUpdateSRM=true
-#doUpdateMelon=true
+#Default settings for all systems
+doSetupRA=true
+doSetupDolphin=true
+doSetupPCSX2=true
+doSetupRPCS3=true
+doSetupYuzu=true
+doSetupCitra=true
+doSetupDuck=true
+doSetupCemu=true
+doSetupXenia=false
+doSetupRyujinx=true
+doSetupPrimeHacks=true
+doSetupPPSSPP=true
+doSetupXemu=true
+doSetupESDE=true
+doSetupSRM=true
+#doSetupMelon=true
 
 #Install all systems by default
 doInstallSRM=true
