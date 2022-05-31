@@ -504,104 +504,104 @@ if [ $expert == "true" ]; then
 	#We mark we've made a custom configuration for future updates
 	echo "" > ~/emudeck/.custom
 	
-if [[ $doResetEmulators == "true" ]]; then
-	# Configuration that only appplies to previous users
-	if [ -f "$SECONDTIME" ]; then
-		#We make sure all the emus can write its saves outside its own folders.
-		#Also needed for certain emus to open certain menus for adding rom directories in the front end.
-		#flatpak override net.pcsx2.PCSX2 --filesystem=host --user
-		flatpak override net.pcsx2.PCSX2 --share=network --user # for network access / online play
-		flatpak override io.github.shiiion.primehack --filesystem=host --user
-		flatpak override net.rpcs3.RPCS3 --filesystem=host --user
-		flatpak override org.citra_emu.citra --filesystem=host --user
-		flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
-		#flatpak override org.duckstation.DuckStation --filesystem=host --user
-		#flatpak override org.libretro.RetroArch --filesystem=host --user
-		#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
-		flatpak override org.yuzu_emu.yuzu --filesystem=host --user
-		flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
-		flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
+	if [[ $doResetEmulators == "true" ]]; then
+		# Configuration that only appplies to previous users
+		if [ -f "$SECONDTIME" ]; then
+			#We make sure all the emus can write its saves outside its own folders.
+			#Also needed for certain emus to open certain menus for adding rom directories in the front end.
+			#flatpak override net.pcsx2.PCSX2 --filesystem=host --user
+			flatpak override net.pcsx2.PCSX2 --share=network --user # for network access / online play
+			flatpak override io.github.shiiion.primehack --filesystem=host --user
+			flatpak override net.rpcs3.RPCS3 --filesystem=host --user
+			flatpak override org.citra_emu.citra --filesystem=host --user
+			flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
+			#flatpak override org.duckstation.DuckStation --filesystem=host --user
+			#flatpak override org.libretro.RetroArch --filesystem=host --user
+			#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
+			flatpak override org.yuzu_emu.yuzu --filesystem=host --user
+			flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
+			flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
 
-		installString='Updating'
+			installString='Updating'
 
-		emuTable=()
-		emuTable+=(TRUE "RetroArch")
-		emuTable+=(TRUE "PrimeHack")
-		emuTable+=(TRUE "PCSX2")
-		emuTable+=(TRUE "RPCS3")
-		emuTable+=(TRUE "Citra")
-		emuTable+=(TRUE "Dolphin")
-		emuTable+=(TRUE "Duckstation")
-		emuTable+=(TRUE "PPSSPP")
-		emuTable+=(TRUE "Yuzu")
-		emuTable+=(TRUE "Cemu")
-		emuTable+=(TRUE "Xemu")
-		emuTable+=(TRUE "Steam Rom Manager")
-		emuTable+=(TRUE "EmulationStation DE")
+			emuTable=()
+			emuTable+=(TRUE "RetroArch")
+			emuTable+=(TRUE "PrimeHack")
+			emuTable+=(TRUE "PCSX2")
+			emuTable+=(TRUE "RPCS3")
+			emuTable+=(TRUE "Citra")
+			emuTable+=(TRUE "Dolphin")
+			emuTable+=(TRUE "Duckstation")
+			emuTable+=(TRUE "PPSSPP")
+			emuTable+=(TRUE "Yuzu")
+			emuTable+=(TRUE "Cemu")
+			emuTable+=(TRUE "Xemu")
+			emuTable+=(TRUE "Steam Rom Manager")
+			emuTable+=(TRUE "EmulationStation DE")
 
-		text="`printf "<b>EmuDeck will reset the following Emulator's configurations by default.</b>\nWhich systems do you want <b>reset</b> to the newest version of the defaults?\nWe recommend you keep all of them checked so everything gets updated and known issues are fixed.\nIf you want to mantain any custom configuration on an emulator unselect its name from this list."`"
-		emusToReset=$(zenity --list \
-							--title="EmuDeck" \
-							--height=500 \
-							--width=250 \
-							--ok-label="OK" \
-							--cancel-label="Exit" \
-							--text="${text}" \
-							--checklist \
-							--column="Reset?" \
-							--column="Emulator" \
-							"${emuTable[@]}"  2>/dev/null)
-		clear
-		cat ~/dragoonDoriseTools/EmuDeck/logo.ans
-		echo -e "EmuDeck ${version}"
-		ans=$?
-		if [ $ans -eq 0 ]; then
-			
-			if [[ "$emusToReset" == *"RetroArch"* ]]; then
-				doSetupRA=true
-			fi
-			if [[ "$emusToReset" == *"PrimeHack"* ]]; then
-				doSetupPrimeHacks=true
-			fi
-			if [[ "$emusToReset" == *"PCSX2"* ]]; then
-				doSetupPCSX2=true
-			fi
-			if [[ "$emusToReset" == *"RPCS3"* ]]; then
-				doSetupRPCS3=true
-			fi
-			if [[ "$emusToReset" == *"Citra"* ]]; then
-				doSetupCitra=true
-			fi
-			if [[ "$emusToReset" == *"Dolphin"* ]]; then
-				doSetupDolphin=true
-			fi
-			if [[ "$emusToReset" == *"Duckstation"* ]]; then
-				doSetupDuck=true
-			fi
-			if [[ "$emusToReset" == *"PPSSPP"* ]]; then
-				doSetupPPSSPP=true
-			fi
-			if [[ "$emusToReset" == *"Yuzu"* ]]; then
-				doSetupYuzu=true
-			fi
-			if [[ "$emusToReset" == *"Cemu"* ]]; then
-				doSetupCemu=true
-			fi
-			if [[ "$emusToReset" == *"Xemu"* ]]; then
-				doSetupXemu=true
-			fi
-			if [[ "$emusToReset" == *"Xenia"* ]]; then
-				doSetupXenia=false #false until we add above
-			fi
-			#if [[ "$emusToReset" == *"MelonDS"* ]]; then
-			#	doSetupMelon=false
-			#fi
-			if [[ "$emusToReset" == *"Steam Rom Manager"* ]]; then
-				doSetupSRM=true
-			fi
-			if [[ "$emusToReset" == *"EmulationStation DE"* ]]; then
-				doSetupESDE=true
-			fi
+			text="`printf "<b>EmuDeck will reset the following Emulator's configurations by default.</b>\nWhich systems do you want <b>reset</b> to the newest version of the defaults?\nWe recommend you keep all of them checked so everything gets updated and known issues are fixed.\nIf you want to mantain any custom configuration on an emulator unselect its name from this list."`"
+			emusToReset=$(zenity --list \
+								--title="EmuDeck" \
+								--height=500 \
+								--width=250 \
+								--ok-label="OK" \
+								--cancel-label="Exit" \
+								--text="${text}" \
+								--checklist \
+								--column="Reset?" \
+								--column="Emulator" \
+								"${emuTable[@]}"  2>/dev/null)
+			clear
+			cat ~/dragoonDoriseTools/EmuDeck/logo.ans
+			echo -e "EmuDeck ${version}"
+			ans=$?
+			if [ $ans -eq 0 ]; then
+				
+				if [[ "$emusToReset" == *"RetroArch"* ]]; then
+					doSetupRA=true
+				fi
+				if [[ "$emusToReset" == *"PrimeHack"* ]]; then
+					doSetupPrimeHacks=true
+				fi
+				if [[ "$emusToReset" == *"PCSX2"* ]]; then
+					doSetupPCSX2=true
+				fi
+				if [[ "$emusToReset" == *"RPCS3"* ]]; then
+					doSetupRPCS3=true
+				fi
+				if [[ "$emusToReset" == *"Citra"* ]]; then
+					doSetupCitra=true
+				fi
+				if [[ "$emusToReset" == *"Dolphin"* ]]; then
+					doSetupDolphin=true
+				fi
+				if [[ "$emusToReset" == *"Duckstation"* ]]; then
+					doSetupDuck=true
+				fi
+				if [[ "$emusToReset" == *"PPSSPP"* ]]; then
+					doSetupPPSSPP=true
+				fi
+				if [[ "$emusToReset" == *"Yuzu"* ]]; then
+					doSetupYuzu=true
+				fi
+				if [[ "$emusToReset" == *"Cemu"* ]]; then
+					doSetupCemu=true
+				fi
+				if [[ "$emusToReset" == *"Xemu"* ]]; then
+					doSetupXemu=true
+				fi
+				if [[ "$emusToReset" == *"Xenia"* ]]; then
+					doSetupXenia=false #false until we add above
+				fi
+				#if [[ "$emusToReset" == *"MelonDS"* ]]; then
+				#	doSetupMelon=false
+				#fi
+				if [[ "$emusToReset" == *"Steam Rom Manager"* ]]; then
+					doSetupSRM=true
+				fi
+				if [[ "$emusToReset" == *"EmulationStation DE"* ]]; then
+					doSetupESDE=true
+				fi
 			
 			
 			else
