@@ -861,12 +861,12 @@ if [ $doSetupCemu == "true" ]; then
 	echo "" 
 	#Commented until we get CEMU flatpak working
 	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ 
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "$romsPath"/wiiu
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "${romsPath}wiiu"
 	cemuSettings="${romsPath}wiiu/settings.xml"
 	if [[ -f "${cemuSettings}" ]]; then
-		gamePathFound=$(grep -rnw $cemuSettings -e "${romsPath}")
-		if [[ $gamePathFound == '' ]]; then 
-			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}/wiiu/roms" $cemuSettings
+		gamePathEntryFound=$(grep -rnw $cemuSettings -e "${romsPath}")
+		if [[ $gamePathEntryFound == '' ]]; then 
+			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}wiiu/roms" $cemuSettings
 		fi
 	fi
 fi
