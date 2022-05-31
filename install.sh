@@ -255,7 +255,7 @@ rsync -r --ignore-existing ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath"
 # out of the ordinary has to had its flag enabled/disabled on Expert mode
 #	
 
-if [ $expert == true ]; then
+if [ $expert == "true" ]; then
 
 		#set all features to false
 		doInstallCHD=false
@@ -356,7 +356,7 @@ if [ $expert == true ]; then
 		fi	
 		
 
-		if [[ $doInstallPowertools == true || $doInstallGyro == true || $isRealDeck == false ]]; then
+		if [[ $doInstallPowertools == "true" || $doInstallGyro == "true" || $isRealDeck == "false" ]]; then
 			hasPass=$(passwd -S $(whoami) | awk -F " " '{print $2}' )
 			if [[ $hasPass == "NP" ]]; then
 				echo "You don't have a password set. Please set one now. once set, you will be prompted to enter it in a new window."
@@ -367,7 +367,7 @@ if [ $expert == true ]; then
 		fi
 		
 	
-	if [[ $doSelectEmulators == true ]]; then
+	if [[ $doSelectEmulators == "true" ]]; then
 		
 		emuTable=()
 		emuTable+=(TRUE "RetroArch")
@@ -451,7 +451,7 @@ if [ $expert == true ]; then
 	fi	
 	
 
-	if [[ $doSelectWideScreen == true ]]; then
+	if [[ $doSelectWideScreen == "true" ]]; then
 		#Emulators screenHacks
 		emuTable=()
 		emuTable+=(TRUE "Dolphin")
@@ -504,7 +504,7 @@ if [ $expert == true ]; then
 	#We mark we've made a custom configuration for future updates
 	echo "" > ~/emudeck/.custom
 	
-if [[ $doResetEmulators == true ]]; then
+if [[ $doResetEmulators == "true" ]]; then
 	# Configuration that only appplies to previous users
 	if [ -f "$SECONDTIME" ]; then
 		#We make sure all the emus can write its saves outside its own folders.
@@ -645,12 +645,12 @@ fi # end Expert if
 
 
 #ESDE Installation
-if [ $doInstallESDE == true ]; then
+if [ $doInstallESDE == "true" ]; then
 	installESDE		
 fi
 	
 #SRM Installation
-if [ $doInstallSRM == true ]; then
+if [ $doInstallSRM == "true" ]; then
 	installSRM
 fi
 
@@ -761,12 +761,12 @@ fi
 
 #Steam RomManager Config
 
-if [ $doSetupSRM == true ]; then
+if [ $doSetupSRM == "true" ]; then
 	configSRM
 fi
 
 #ESDE Config
-if [ $doSetupESDE == true ]; then
+if [ $doSetupESDE == "true" ]; then
 	configESDE
 fi	
 
@@ -776,7 +776,7 @@ rsync -r ~/dragoonDoriseTools/EmuDeck/configs/steam-input/ ~/.steam/steam/contro
 
 setMSG "Configuring emulators.."
 echo -e ""
-if [ $doSetupRA == true ]; then
+if [ $doSetupRA == "true" ]; then
 
 	mkdir -p ~/.var/app/org.libretro.RetroArch
 	mkdir -p ~/.var/app/org.libretro.RetroArch/config
@@ -805,45 +805,45 @@ if [ $doSetupRA == true ]; then
 fi
 echo -e ""
 setMSG "Applying Emu configurations..."
-if [ $doSetupPrimeHacks == true ]; then
+if [ $doSetupPrimeHacks == "true" ]; then
 	configEmuFP "PrimeHack" "io.github.shiiion.primehack"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Dolphin.ini
 fi
-if [ $doSetupDolphin == true ]; then
+if [ $doSetupDolphin == "true" ]; then
 	configEmuFP "Dolphin" "org.DolphinEmu.dolphin-emu"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
 fi
-if [ $doSetupPCSX2 == true ]; then
+if [ $doSetupPCSX2 == "true" ]; then
 	configEmuFP "PCSX2" "net.pcsx2.PCSX2"
 	#Bios Fix
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios|${biosPath}|g" ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini 
 fi
-if [ $doSetupRPCS3 == true ]; then
+if [ $doSetupRPCS3 == "true" ]; then
 	configEmuFP "RPCS3" "net.rpcs3.RPCS3"
 	#HDD Config
 	sed -i 's| $(EmulatorDir)dev_hdd0/| '$savesPath'/rpcs3/dev_hdd0/|g' /home/deck/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml 
 	mkdir -p $savesPath/rpcs3/ 
 fi
-if [ $doSetupCitra == true ]; then
+if [ $doSetupCitra == "true" ]; then
 	configEmuFP "Citra" "org.citra_emu.citra"
 	#Roms Path
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini
 fi
-if [ $doSetupDuck == true ]; then
+if [ $doSetupDuck == "true" ]; then
 	configEmuFP "DuckStation" "org.duckstation.DuckStation"
 	#Bios Path
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
 fi
-if [ $doSetupYuzu == true ]; then
+if [ $doSetupYuzu == "true" ]; then
 	configEmuFP "Yuzu" "org.yuzu_emu.yuzu"
 	#Roms Path
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.yuzu_emu.yuzu/config/yuzu/qt-config.ini
 fi
 
-if [ $doSetupPPSSPP == true ]; then
+if [ $doSetupPPSSPP == "true" ]; then
 	configEmuFP "PPSSPP" "org.ppsspp.PPSSPP"
 fi
-if [ $doSetupXemu == true ]; then
+if [ $doSetupXemu == "true" ]; then
 	configEmuFP "Xemu" "app.xemu.xemu"	
 	#Bios Fix
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.ini
@@ -857,7 +857,7 @@ if [ $doSetupXemu == true ]; then
 fi
 
 #Proton Emus
-if [ $doSetupCemu == true ]; then
+if [ $doSetupCemu == "true" ]; then
 	echo "" 
 	#Commented until we get CEMU flatpak working
 	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ 
@@ -870,7 +870,7 @@ if [ $doSetupCemu == true ]; then
 		fi
 	fi
 fi
-if [ $doSetupXenia == true ]; then
+if [ $doSetupXenia == "true" ]; then
 	echo "" 
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/xenia/ "$romsPath"/xbox360 
 fi
@@ -953,16 +953,16 @@ createSaveFolders
 #RetroAchievments
 RAAchievment
 
-if [ $doInstallCHD == true ]; then
+if [ $doInstallCHD == "true" ]; then
 	installCHD
 fi
 
-if [ $doInstallGyro == true ]; then	
+if [ $doInstallGyro == "true" ]; then	
 		InstallGyro=$(bash <(curl -sL https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh))
 		echo $InstallGyro 
 fi
 
-if [ $doInstallPowertools == true ]; then
+if [ $doInstallPowertools == "true" ]; then
 	installPowerTools	
 fi
 
