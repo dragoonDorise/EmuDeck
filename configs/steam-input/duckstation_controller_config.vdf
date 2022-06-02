@@ -670,7 +670,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action empty_binding"
+							"binding"		"key_press F6, Change Disc, ghost_075_utility_020.png #232323 #ad0000"
 						}
 					}
 				}
