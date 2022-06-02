@@ -685,7 +685,7 @@ if [ $doInstallPPSSPP == "true" ]; then
 	installEmuFP "PPSSPP" "org.ppsspp.PPSSPP"		
 fi
 if [ $doInstallYuzu == "true" ]; then
-	installEmuFP "Yuzu" "org.yuzu_emu.yuzu"	
+	#installEmuFP "Yuzu" "org.yuzu_emu.yuzu"	
 	installEmuAI "Yuzu"  $(getLatestReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage")
 fi
 if [ $doInstallXemu == "true" ]; then
@@ -953,6 +953,20 @@ createSaveFolders
 
 #RetroAchievments
 RAAchievment
+
+#
+#migrate FP to AppImage
+#migrate config
+#
+#yuzu
+
+emu="yuzu"
+migrationTable=()
+ #From -- > to
+migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/" "$HOME/.local/share/yuzu/")
+migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu/" "$HOME/.config/yuzu/")
+
+migrateAndLinkConfig "yuzu" $migrationTable
 
 if [ $doInstallCHD == "true" ]; then
 	installCHD
