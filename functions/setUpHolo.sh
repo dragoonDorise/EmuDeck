@@ -7,7 +7,7 @@ setUpHolo(){
 	--text="${text}" 2>/dev/null
 	
 	#Ensure the dependencies are installed before proceeding.
-	for package in packagekit-qt5 flatpak rsync unzip
+	for package in packagekit-qt5 flatpak rsync unzip jq
 	do
 		pacman -Q ${package}  || sudo pacman -Sy --noconfirm ${package} 
 	done
