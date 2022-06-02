@@ -32,8 +32,7 @@ elif [[ -d ${migrationTable[0]} && ! -L ${migrationTable[0]} && -d ${migrationTa
 
                 #backup destination location, delete it, then sync original over
                 mv "$toDir" "$toDir.orig" && mkdir -p $toDir && rsync -av "${fromDir}/" "${toDir}"
-                cd ${fromDir}
-                cd ..
+                cd ${fromDir}/..
                 #backup and remove original
                 mv "${fromDir}" "${fromDir}.orig" && rm -rf "${fromDir}"
 
@@ -43,8 +42,7 @@ elif [[ -d ${migrationTable[0]} && ! -L ${migrationTable[0]} && -d ${migrationTa
             elif [[ $ans == "Keep AppImage Data" ]]; then
                 fromDir=${migrationTable[i+1]}
                 toDir=${migrationTable[i]}
-                cd ${toDir}
-                cd ..
+                cd ${toDir}/..
                 #backup flatpak data
                 mv "${toDir}" "${toDir}.orig"
                 #link appimage data to flatpak folder
@@ -70,8 +68,7 @@ elif [[ -d ${migrationTable[0]} && ! -e ${migrationTable[1]} ]]; then
             fromDir=${migrationTable[i]}
             toDir=${migrationTable[i+1]}
             echo  "Migrating ${fromDir} to ${toDir}"
-            cd ${fromDir}
-            cd ..
+            cd ${fromDir}/..
             #backup destination location, delete it, then sync original over
             mkdir -p ${toDir} && rsync -av "${fromDir}/" "${toDir}" --remove-source-files && rm -rf ${fromDir}
 
