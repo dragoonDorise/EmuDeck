@@ -686,7 +686,7 @@ if [ $doInstallPPSSPP == "true" ]; then
 fi
 if [ $doInstallYuzu == "true" ]; then
 	installEmuFP "Yuzu" "org.yuzu_emu.yuzu"	
-	installEmuAI "Yuzu"  "$(curl -sL https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases/latest | jq -r ".assets[].browser_download_url" | grep .AppImage$)"
+	installEmuAI "Yuzu"  $(getLatestReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage")
 fi
 if [ $doInstallXemu == "true" ]; then
 	installEmuFP "Xemu-Emu" "app.xemu.xemu"	

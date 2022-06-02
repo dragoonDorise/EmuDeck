@@ -23,3 +23,4 @@ source "$EMUDECKGIT"/functions/testLocationValid.sh
 source "$EMUDECKGIT"/functions/setSetting.sh
 source "$EMUDECKGIT"/functions/linkToSaveFolder.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
+source "$EMUDECKGIT"/functions/getLatestReleaseURLGH.sh
