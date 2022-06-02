@@ -961,10 +961,10 @@ RAAchievment
 #yuzu
 
 emu="yuzu"
+#From -- > to
 migrationTable=()
- #From -- > to
-migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/" "$HOME/.local/share/yuzu/")
-migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu/" "$HOME/.config/yuzu/")
+migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu" "$HOME/.local/share/yuzu")
+migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
 
 migrateAndLinkConfig "yuzu" $migrationTable
 
