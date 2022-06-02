@@ -78,6 +78,9 @@ We try to use the same hotkeys for every emulator but some of them have their ow
 Note that Nintendo-oriented emulators refer to "A" in the emulated sense (physical Steam Deck "B")
 \* You need to activate Steam Input to get those hotkeys to work https://www.emudeck.com/#steam_input
 
+For systems not listed above, you might need to exit them using Steam button inputs (for example, Steam-B(hold)), and/or
+bind Alt-F4 or other exit commands depending on the emulator, to some Steam Deck input.
+
 # Developers, developers, developers.
 
 If you wanna help us improve EmuDeck we are open to accept your PR! Just keep in mind this simple guide:
