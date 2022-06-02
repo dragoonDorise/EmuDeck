@@ -1,4 +1,3 @@
- 
 #!/bin/bash
 migrateAndLinkConfig(){
 
@@ -11,7 +10,7 @@ n=$(( ${#migrationTable[@]} - 1 ))
 if [[ ! -e ${migrationTable[0]} ]]; then
 #no flatpak data. nothing to do. (or should we link it?)
 echo "No flatpak data found, continuing."
-elif [[ -d ${migrationTable[0]} && -d ${migrationTable[1]}  ]]; then
+elif [[ -d ${migrationTable[0]} && ! -L ${migrationTable[0]} && -d ${migrationTable[1]}  ]]; then
 	#both locations exist as directories
 	#ask user which to keep
     text="`printf "Data was found for both the appimage and flatpak for ${emu}.\nWe will be using the AppImage from now on.\nPlease choose which data to keep."`"
@@ -33,21 +32,23 @@ elif [[ -d ${migrationTable[0]} && -d ${migrationTable[1]}  ]]; then
 
                 #backup destination location, delete it, then sync original over
                 mv "$toDir" "$toDir.orig" && mkdir -p $toDir && rsync -av "${fromDir}/" "${toDir}"
-
+                cd ${fromDir}
+                cd ..
                 #backup and remove original
                 mv "${fromDir}" "${fromDir}.orig" && rm -rf "${fromDir}"
 
                 #link .config to .var so flatpak still works
-                ln -sfn ${toDir} ${fromDir}
+                ln -sfn ${toDir} .
 
             elif [[ $ans == "Keep AppImage Data" ]]; then
                 fromDir=${migrationTable[i+1]}
                 toDir=${migrationTable[i]}
-
+                cd ${toDir}
+                cd ..
                 #backup flatpak data
                 mv "${toDir}" "${toDir}.orig"
                 #link appimage data to flatpak folder
-                ln -sfn "${fromDir}" "${toDir}"
+                ln -sfn "${fromDir}" .
 
             else
                 echo "Something went wrong"
@@ -59,7 +60,7 @@ elif [[ -d ${migrationTable[0]} && -d ${migrationTable[1]}  ]]; then
         echo "User doesn't want migration."
     fi
 
-elif [[ -L ${migrationTable[0]} && -d ${migrationTable[1]} ]]; then
+elif [[ -L ${migrationTable[0]} && -d ${migrationTable[0]} && -d ${migrationTable[1]} ]]; then
     echo "Flatpak already linked"
 elif [[ -d ${migrationTable[0]} && ! -e ${migrationTable[1]} ]]; then
     echo "No AppImage data found, but flatpak data found. New AppImage install."
@@ -69,13 +70,13 @@ elif [[ -d ${migrationTable[0]} && ! -e ${migrationTable[1]} ]]; then
             fromDir=${migrationTable[i]}
             toDir=${migrationTable[i+1]}
             echo  "Migrating ${fromDir} to ${toDir}"
-
+            cd ${fromDir}
+            cd ..
             #backup destination location, delete it, then sync original over
-            mkdir -p ${toDir} && rsync -av "${fromDir}/" "${toDir}" --remove-source-files
-
+            mkdir -p ${toDir} && rsync -av "${fromDir}/" "${toDir}" --remove-source-files && rm -rf ${fromDir}
 
             #link .config to .var so flatpak still works
-            ln -sfn ${toDir} ${fromDir}
+            ln -sfn ${toDir} .
 
     }
 else
@@ -83,11 +84,3 @@ else
 fi
 
 }
-
-emu="Yuzu"
-#From -- > to
-migrationTable=()
-migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu" "$HOME/.local/share/yuzu")
-migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
-
-migrateAndLinkConfig $emu $migrationTable
