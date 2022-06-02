@@ -1,3 +1,4 @@
+ 
 #!/bin/bash
 migrateAndLinkConfig(){
 
@@ -29,10 +30,10 @@ elif [[ -d ${migrationTable[0]} && -d ${migrationTable[1]}  ]]; then
                 fromDir=${migrationTable[i]}
                 toDir=${migrationTable[i+1]}
                 echo  "Migrating ${fromDir} to ${toDir}"
-                
+
                 #backup destination location, delete it, then sync original over
                 mv "$toDir" "$toDir.orig" && mkdir -p $toDir && rsync -av "${fromDir}/" "${toDir}"
-                
+
                 #backup and remove original
                 mv "${fromDir}" "${fromDir}.orig" && rm -rf "${fromDir}"
 
@@ -60,8 +61,33 @@ elif [[ -d ${migrationTable[0]} && -d ${migrationTable[1]}  ]]; then
 
 elif [[ -L ${migrationTable[0]} && -d ${migrationTable[1]} ]]; then
     echo "Flatpak already linked"
+elif [[ -d ${migrationTable[0]} && ! -e ${migrationTable[1]} ]]; then
+    echo "No AppImage data found, but flatpak data found. New AppImage install."
+    for ((i=0; i<=n; i=(i+2))) { # for each pair of dirs
+
+
+            fromDir=${migrationTable[i]}
+            toDir=${migrationTable[i+1]}
+            echo  "Migrating ${fromDir} to ${toDir}"
+
+            #backup destination location, delete it, then sync original over
+            mkdir -p ${toDir} && rsync -av "${fromDir}/" "${toDir}" --remove-source-files
+
+
+            #link .config to .var so flatpak still works
+            ln -sfn ${toDir} ${fromDir}
+
+    }
 else
     echo "do nothing"
 fi
 
 }
+
+emu="Yuzu"
+#From -- > to
+migrationTable=()
+migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu" "$HOME/.local/share/yuzu")
+migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
+
+migrateAndLinkConfig $emu $migrationTable
