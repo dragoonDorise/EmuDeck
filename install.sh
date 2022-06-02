@@ -960,13 +960,13 @@ RAAchievment
 #
 #yuzu
 
-emu="yuzu"
+emu="Yuzu"
 #From -- > to
 migrationTable=()
 migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu" "$HOME/.local/share/yuzu")
 migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
 
-migrateAndLinkConfig "yuzu" $migrationTable
+migrateAndLinkConfig $emu $migrationTable
 
 if [ $doInstallCHD == "true" ]; then
 	installCHD
