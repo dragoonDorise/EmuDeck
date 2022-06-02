@@ -3,11 +3,15 @@ installEmuAI(){
 	
 	name=$1
 	url=$2	
+    altName=$3
+    if [[ $altName == "" ]]; then
+        altName=$name
+    fi
 	
     mkdir -p $HOME/Applications
     cd $HOME/Applications
 
-    wget $url
+    wget -o "$altName.AppImage" "$url"
 	
     shName=$(echo "$name" | awk '{print tolower($0)}')
     
