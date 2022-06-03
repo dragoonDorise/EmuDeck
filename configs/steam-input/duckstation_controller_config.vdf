@@ -16,8 +16,8 @@
 	{
 		"english"
 		{
-			"title"		"Gamepad With Joystick Trackpad"
-			"description"		"This template is for most games that already have built-in gamepad support and have a first or third person controlled camera.  FPS or Third Person Adventure games, etc."
+			"title"		"DuckStation Menu Hotkeys"
+			"description"		"DuckStation Menu Hotkeys"
 		}
 		"czech"
 		{
@@ -638,7 +638,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F1, Load State, ghost_075_utility_010.png #232323 #0074ad"
+							"binding"		"controller_action empty_binding"
 						}
 					}
 				}
@@ -654,7 +654,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F3, Prev Slot, ghost_075_utility_020.png #232323 #ad0000"
+							"binding"		"key_press F1, Load State, ghost_075_utility_010.png #232323 #0074ad"
 						}
 					}
 				}
@@ -670,7 +670,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F6, Change Disc, ghost_075_utility_020.png #232323 #ad0000"
+							"binding"		"key_press Space, Pause/Play, ghost_090_media_0210.png #232323 #E4E4E4"
 						}
 					}
 				}
@@ -686,7 +686,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press Space, Pause/Play, ghost_090_media_0210.png #232323 #E4E4E4"
+							"binding"		"key_press F6, Quick Menu, ghost_070_setting_0030.png #232323 #ad0000"
 						}
 					}
 				}
@@ -702,7 +702,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action empty_binding"
+							"binding"		"key_press F7, Swap Disc, ghost_075_utility_040.png #232323 #E4E4E4"
 						}
 					}
 				}
@@ -718,7 +718,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F1, Load State, ghost_075_utility_010.png #232323 #0074ad"
+							"binding"		"key_press F3, Prev Slot, ghost_045_move_0409.png #232323 #ad0000"
 						}
 					}
 				}
@@ -734,7 +734,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press Tab, FFWD, ghost_075_utility_010.png #232323 #00ad00"
+							"binding"		"key_press Tab, FFWD, ghost_060_vehicle_0050.png #232323 #00ad00"
 						}
 					}
 				}
@@ -750,7 +750,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F4, Next Slot, ghost_075_utility_010.png #232323 #ad0000"
+							"binding"		"key_press F4, Next Slot, ghost_045_move_0408.png #232323 #ad0000"
 						}
 					}
 				}
