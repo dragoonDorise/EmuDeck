@@ -233,6 +233,7 @@ setSetting romsPath "${destination}/Emulation/roms/"
 setSetting toolsPath "${destination}/Emulation/tools/"
 setSetting biosPath "${destination}/Emulation/bios/"
 setSetting savesPath "${destination}/Emulation/saves/"
+setSetting storagePath "${destination}/Emulation/storage/"
 ESDEscrapData="${destination}/Emulation/tools/downloaded_media"
 
 #Folder creation...
@@ -240,7 +241,7 @@ mkdir -p "$emulationPath"
 mkdir -p "$toolsPath"launchers 
 mkdir -p "$savesPath"
 mkdir -p "$romsPath"
-mkdir -p "$biosPath"
+mkdir -p "$storagePath"
 mkdir -p "$biosPath"/yuzu/
 
 ##Generate rom folders
