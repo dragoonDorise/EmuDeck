@@ -60,6 +60,7 @@ romsPath=~/Emulation/roms/
 toolsPath=~/Emulation/tools/
 biosPath=~/Emulation/bios/
 savesPath=~/Emulation/saves/
+storagePath=~/Emulation/storage/
 
 #Default ESDE Theme
 esdeTheme="EPICNOIR"
