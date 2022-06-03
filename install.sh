@@ -643,7 +643,8 @@ fi # end Expert if
 ## Start of installation
 ##	
 ##
-
+## First up - migrate things that need to move.
+doMigrations
 
 #ESDE Installation
 if [ $doInstallESDE == "true" ]; then
