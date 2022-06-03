@@ -842,7 +842,7 @@ if [ $doSetupYuzu == "true" ]; then
 	configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
 	configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
 	#Roms Path
-	sed -i "s|/run/media/mmcblk0p1/|${destination}|g" "$HOME/.config/yuzu/qt-config.ini"
+	sed -i "s|/run/media/mmcblk0p1/|${destination}/|g" "$HOME/.config/yuzu/qt-config.ini"
 fi
 
 if [ $doSetupPPSSPP == "true" ]; then
