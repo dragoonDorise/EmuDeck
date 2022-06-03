@@ -15,6 +15,8 @@ doMigrations(){
 		flatpak override app.xemu.xemu --filesystem="$storagePath"xemu:rw --user
 
         mv -f $savesPath/xemu/* $storagePath/xemu/
+
+        sed -i "s|$savesPath|${storagePath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml
 	fi
 
 	#RPCS3 files to storage
