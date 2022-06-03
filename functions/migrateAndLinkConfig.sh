@@ -11,7 +11,7 @@ if [[ ! -e ${migrationTable[0]} ]]; then
 #no flatpak data. nothing to do. (or should we link it?)
 echo "No flatpak data found, continuing."
 elif [[ -d ${migrationTable[0]} && ! -L ${migrationTable[0]} && -d ${migrationTable[1]}  ]]; then
-	#both locations exist as directories
+	#both locations exist as directories, flatpak not a symlink
 	#ask user which to keep
     text="`printf "Data was found for both the appimage and flatpak for ${emu}.\nWe will be using the AppImage from now on.\nPlease choose which data to keep."`"
     ans=$(zenity --info --title "Migrate "${emu}" Data?" \
@@ -70,8 +70,8 @@ elif [[ -d ${migrationTable[0]} && ! -e ${migrationTable[1]} ]]; then
             echo  "Migrating ${fromDir} to ${toDir}"
             cd ${fromDir}/..
             #backup destination location, delete it, then sync original over
-            mkdir -p ${toDir} && rsync -av "${fromDir}/" "${toDir}" --remove-source-files && rm -rf ${fromDir}
-
+            mkdir -p ${toDir} && rmdir ${toDir} #make the path for todir, but remove the end folder
+            mv "${fromDir}" "${toDir}" #move the original to the new location
             #link .config to .var so flatpak still works
             ln -sfn ${toDir} .
 
