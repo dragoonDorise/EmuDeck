@@ -1,6 +1,6 @@
 #!/bin/bash
-configEmuAI(){		
-	
+configEmuAI(){
+
 	emu=$1
 	folderName=$2
     folderPath=$3
@@ -12,11 +12,12 @@ configEmuAI(){
     else
         overwrite=""
     fi
-    
-	setMSG "Backing up ${emu} ${folderName}..."
-	cp -r ${folderPath} ${folderPath}_bak		
 
-	
-	rsync -avhp $gitLocation $folderPath $overwrite	
-	
+	setMSG "Backing up ${emu} ${folderName}..."
+	rm -rf ${folderPath}_bak
+	cp -r ${folderPath} ${folderPath}_bak
+
+
+	rsync -avhp $gitLocation/ $folderPath $overwrite
+
 }
