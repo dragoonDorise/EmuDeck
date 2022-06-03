@@ -446,7 +446,7 @@ if [ $expert == "true" ]; then
 	fi
 	#We force new Cemu install if we detect an older version exists
 	DIR=$romsPath/wiiu/roms/
-	if [ -d "$DIR" ]; then	
+	if [ -d "$DIR" ]; then	#this is always true i think.
 		doInstallCemu=true	
 	fi	
 	
@@ -686,7 +686,7 @@ if [ $doInstallPPSSPP == "true" ]; then
 fi
 if [ $doInstallYuzu == "true" ]; then
 	#installEmuFP "Yuzu" "org.yuzu_emu.yuzu"	
-	installEmuAI "Yuzu"  $(getLatestReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage")
+	installEmuAI "yuzu"  $(getLatestReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage") #needs to be lowercase yuzu for EsDE to find it.
 fi
 if [ $doInstallXemu == "true" ]; then
 	installEmuFP "Xemu-Emu" "app.xemu.xemu"	
@@ -837,9 +837,10 @@ if [ $doSetupDuck == "true" ]; then
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
 fi
 if [ $doSetupYuzu == "true" ]; then
-	configEmuFP "Yuzu" "org.yuzu_emu.yuzu"
+	configEmuAI "yuzu" "config" "$HOME/.config/yuzu/" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/config/yuzu/" "true"
+	configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu/" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/data/yuzu/" "true"
 	#Roms Path
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.yuzu_emu.yuzu/config/yuzu/qt-config.ini
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" "$HOME/.config/yuzu/qt-config.ini"
 fi
 
 if [ $doSetupPPSSPP == "true" ]; then
@@ -955,12 +956,13 @@ createSaveFolders
 #RetroAchievments
 RAAchievment
 
+
+if [[ $installMode == "update" ]]; then
 #
 #migrate FP to AppImage
 #migrate config
 #
 #yuzu
-
 emu="Yuzu"
 #From -- > to
 migrationTable=()
@@ -968,6 +970,8 @@ migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu" "$HOME/.local/shar
 migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
 
 migrateAndLinkConfig $emu $migrationTable
+
+fi
 
 if [ $doInstallCHD == "true" ]; then
 	installCHD
