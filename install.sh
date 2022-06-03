@@ -834,6 +834,7 @@ if [ $doSetupDuck == "true" ]; then
 	configEmuFP "DuckStation" "org.duckstation.DuckStation"
 	#Bios Path
 	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
 fi
 if [ $doSetupYuzu == "true" ]; then
 	configEmuFP "Yuzu" "org.yuzu_emu.yuzu"
