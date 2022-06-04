@@ -889,13 +889,13 @@ fi
 
 
 #Setup Bios symlinks
-unlink keys
+unlink $biosPath/yuzu/keys
 mkdir -p "$HOME/.local/share/yuzu/keys/"
 ln -sn "$HOME/.local/share/yuzu/keys/" $biosPath/yuzu/keys
 
-unlink firmware
+unlink $biosPath/yuzu/firmware
 mkdir -p ${storagePath}yuzu/nand/system/Contents/registered/
-ln -sn ${storagePath}yuzu/nand/system/Contents/registered/ $biosPath/yuzu/firmware 
+ln -sn ${storagePath}yuzu/nand/system/Contents/registered/ $biosPath/yuzu/firmware
 
 #Fixes repeated Symlink for older installations
 cd ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/
