@@ -21,7 +21,7 @@ doMigrations(){
 	fi
 
 	#RPCS3 files to storage
-	if [ -d "$savesPath/rpcs3/dev_hdd0/savedata" ] || [ -d "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0" ]; then	
+	if [ -d "$savesPath/rpcs3/dev_hdd0" ] || [ -d "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0" ]; then	
 
     	echo -e ""
 		setMSG "Moving rpcs3 HDD to the Emulation/storage folder"			
