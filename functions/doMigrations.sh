@@ -44,6 +44,12 @@ doMigrations(){
     migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
 
     migrateAndLinkConfig $emu $migrationTable
+    mkdir -p ${storagePath}yuzu/dump
+	mkdir -p ${storagePath}yuzu/load
+	mkdir -p ${storagePath}yuzu/sdmc
+	mkdir -p ${storagePath}yuzu/nand
+	mkdir -p ${storagePath}yuzu/screenshots
+	mkdir -p ${storagePath}yuzu/tas
 
 
 }

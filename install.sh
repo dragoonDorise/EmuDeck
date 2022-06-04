@@ -824,13 +824,13 @@ fi
 if [ $doSetupRPCS3 == "true" ]; then
 	configEmuFP "RPCS3" "net.rpcs3.RPCS3"
 	#HDD Config
-	sed -i 's| $(EmulatorDir)dev_hdd0/| '$storagePath'/rpcs3/dev_hdd0/|g' /home/deck/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml 
+	sed -i 's| $(EmulatorDir)dev_hdd0/| '$storagePath'/rpcs3/dev_hdd0/|g' $HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml 
 	mkdir -p $storagePath/rpcs3/ 
 fi
 if [ $doSetupCitra == "true" ]; then
 	configEmuFP "Citra" "org.citra_emu.citra"
 	#Roms Path
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" $HOME/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini
 fi
 if [ $doSetupDuck == "true" ]; then
 	configEmuFP "DuckStation" "org.duckstation.DuckStation"
@@ -843,6 +843,12 @@ if [ $doSetupYuzu == "true" ]; then
 	configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
 	#Roms Path
 	sed -i "s|/run/media/mmcblk0p1/|${destination}/|g" "$HOME/.config/yuzu/qt-config.ini"
+	mkdir -p ${storagePath}yuzu/dump
+	mkdir -p ${storagePath}yuzu/load
+	mkdir -p ${storagePath}yuzu/sdmc
+	mkdir -p ${storagePath}yuzu/nand
+	mkdir -p ${storagePath}yuzu/screenshots
+	mkdir -p ${storagePath}yuzu/tas
 fi
 
 if [ $doSetupPPSSPP == "true" ]; then
@@ -885,8 +891,8 @@ fi
 
 cd $(echo $biosPath | tr -d '\r')
 cd yuzu
-ln -sn ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/ ./keys 
-ln -sn ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/ ./firmware 
+ln -sn "$HOME/.local/share/yuzu/keys/" ./keys 
+ln -sn ${storagePath}yuzu/nand/system/Contents/registered/ ./firmware 
 
 #Fixes repeated Symlink for older installations
 cd ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/
@@ -913,7 +919,7 @@ unlink registered
 checkPSBIOS
 
 #Yuzu Keys & Firmware
-FILE=~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/prod.keys
+FILE="$HOME/.local/share/yuzu/keys/prod.keys"
 if [ -f "$FILE" ]; then
 	echo -e "" 2>/dev/null
 else
@@ -958,22 +964,6 @@ createSaveFolders
 #RetroAchievments
 RAAchievment
 
-
-#if [[ $installMode == "update" ]]; then
-#
-#migrate FP to AppImage
-#migrate config
-#
-#yuzu
-emu="Yuzu"
-#From -- > to
-migrationTable=()
-migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu" "$HOME/.local/share/yuzu")
-migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
-
-migrateAndLinkConfig $emu $migrationTable
-
-#fi
 
 if [ $doInstallCHD == "true" ]; then
 	installCHD
