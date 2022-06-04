@@ -1,2 +1,2 @@
 #!/bin/bash
-source $1 && shift && "@a"
+source all.sh && "@a"
