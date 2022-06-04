@@ -10,8 +10,8 @@ doMigrations(){
 		echo -e ""
 		setMSG "Moving Xemu HDD and EEPROM to the Emulation/storage folder"			
 		echo -e ""
-		mv "$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xbox_hdd.qcow2" $storagePath/xemu
-		mv "$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/eeprom.bin" $storagePath/xemu
+		mv "$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xbox_hdd.qcow2" $storagePath/xemu/
+		mv "$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/eeprom.bin" $storagePath/xemu/
 
 		flatpak override app.xemu.xemu --filesystem="$storagePath"xemu:rw --user
 
@@ -44,6 +44,7 @@ doMigrations(){
     migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
 
     migrateAndLinkConfig $emu $migrationTable
+
     mkdir -p ${storagePath}yuzu/dump
 	mkdir -p ${storagePath}yuzu/load
 	mkdir -p ${storagePath}yuzu/sdmc
