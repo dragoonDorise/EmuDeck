@@ -10,7 +10,7 @@ if [[ ! -f ~/emudeck/.rap && $doRAEnable == true ]] || [[ $doRASignIn == true ]]
 			--add-entry="Username: " \
 			--add-password="Password: " \
 			--separator="," 2>/dev/null)
-			
+			ans=$?
 	if [ $ans -eq 0 ]; then
 		echo "RetroAchievment Login"
 		echo $RAInput | awk -F "," '{print $1}' > ~/emudeck/.rau
