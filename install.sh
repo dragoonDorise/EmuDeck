@@ -396,7 +396,6 @@ if [ $expert == "true" ]; then
 				--column="Select" \
 				--column="Emulator" \
 				"${emuTable[@]}" 2>/dev/null)
-		clear
 		ans=$?	
 		if [ $ans -eq 0 ]; then
 		
@@ -472,7 +471,6 @@ if [ $expert == "true" ]; then
 					--column="Widescreen?" \
 					--column="Emulator" \
 					"${emuTable[@]}"  2>/dev/null)
-		clear
 		ans=$?	
 		if [ $ans -eq 0 ]; then
 			
@@ -552,10 +550,9 @@ if [ $expert == "true" ]; then
 								--column="Reset?" \
 								--column="Emulator" \
 								"${emuTable[@]}"  2>/dev/null)
-			clear
+								ans=$?
 			cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 			echo -e "EmuDeck ${version}"
-			ans=$?
 			if [ $ans -eq 0 ]; then
 				
 				if [[ "$emusToReset" == *"RetroArch"* ]]; then
