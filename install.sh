@@ -626,6 +626,12 @@ else
 	doInstallXemu=true
 	#doInstallMelon=true
 
+	#widescreen off by default
+	duckWide=false
+	DolphinWide=false
+	DreamcastWide=false
+	BeetleWide=false
+	
 fi # end Expert if
 
 ##
