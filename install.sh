@@ -280,10 +280,10 @@ if [ $expert == "true" ]; then
 		table+=(TRUE "CHDScript" "Install the latest version of our CHD conversion script?")
 		table+=(TRUE "PowerTools" "Install Power Tools for CPU control? (password required)")
 		table+=(TRUE "SteamGyro" "Setup the SteamDeckGyroDSU for gyro control (password required)")
-		table+=(TRUE "updateSRM" "Install/Update Steam Rom Manager?")
-		table+=(TRUE "updateESDE" "Install/Update Emulation Station DE?")
+		table+=(TRUE "updateSRM" "Install/Update Steam Rom Manager? Customizations will not be reset.")
+		table+=(TRUE "updateESDE" "Install/Update Emulation Station DE? Customizations and scrapes will not be reset.")
 		table+=(TRUE "selectEmulators" "Select the emulators to install.")
-		table+=(TRUE "selectEmulatorConfig" "Customize the emulators who's config we override (note: Fixes will be skipped)")
+		table+=(TRUE "selectEmulatorConfig" "Customize the emulator configuration reset. (note: Fixes will be skipped if boxes are unchecked)")
 		table+=(TRUE "selectRABezels" "Turn on Bezels for Retroarch?")
 		table+=(TRUE "selectRAAutoSave" "Turn on Retroarch AutoSave/Restore state?")
 		table+=(TRUE "snesAR" "SNES 8:7 Aspect Ratio? (unchecked is 4:3)")
@@ -359,7 +359,7 @@ if [ $expert == "true" ]; then
 
 		if [[ $doInstallPowertools == "true" || $doInstallGyro == "true" || $isRealDeck == "false" ]]; then
 			hasPass=$(passwd -S $(whoami) | awk -F " " '{print $2}' )
-			if [[ $hasPass == "NP" ]]; then
+			if [[ ! $hasPass == "P" ]]; then
 				echo "You don't have a password set. Please set one now. once set, you will be prompted to enter it in a new window."
 				passwd 
 			fi
