@@ -19,7 +19,7 @@ createSaveFolders(){
 	
 	#Yuzu
 	unlink $savesPath/yuzu/saves # Fix for previous bad symlink
-	linkToSaveFolder yuzu saves ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/user/save/
+	linkToSaveFolder yuzu saves $storagePath/yuzu/nand/user/save/
 	
 	#Duckstation
 	linkToSaveFolder duckstation saves ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards
