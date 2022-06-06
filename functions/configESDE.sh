@@ -61,6 +61,48 @@ configESDE(){
 		sed -i "/<string name=\"MediaDirectory\" value=\"\" \/>/c\\${esDE_MediaDir}" $es_settingsFile
 	fi
 
+	#We check if we have downloaded_media data on ESDE so we can move it to the SD card
+
+	originalESMediaFolder="$HOME/.emulationstation/downloaded_media"
+	echo "processing $originalESMediaFolder"
+	if [ -L ${originalESMediaFolder} ] ; then
+		echo "link found"
+		unlink ${originalESMediaFolder} && echo "unlinked"
+	elif [ -e ${originalESMediaFolder} ] ; then
+		if [ -d "${originalESMediaFolder}" ]; then		
+			echo -e ""
+			echo -e "Moving EmulationStation-DE downloaded_media to $toolsPath"			
+			echo -e ""
+			rsync -a $originalESMediaFolder $toolsPath  && rm -rf $originalESMediaFolder		#move it, merging files if in both locations
+		fi
+	else
+		echo "downloaded_media not found on original location"
+	fi
+
+
+	if [[ $doESDEThemePicker == true ]]; then
+		if [[ $expert == true ]]; then	
+			text="Which theme do you want to set as default on EmulationStation DE?"
+			esdeTheme=$(zenity --list \
+			--title="EmuDeck" \
+			--height=250 \
+			--width=250 \
+			--ok-label="OK" \
+			--cancel-label="Exit" \
+			--text="${text}" \
+			--radiolist \
+			--column="" \
+			--column="Theme" \
+			1 "EPICNOIR" \
+			2 "MODERN-DE" \
+			3 "RBSIMPLE-DE" 2>/dev/null)
+			ans=$?	
+			if [ $ans -eq 0 ]; then
+				echo "Theme selected" 
+			fi
+		fi
+	fi
+
 	mkdir -p ~/.emulationstation/themes/
 	git clone https://github.com/dragoonDorise/es-theme-epicnoir.git ~/.emulationstation/themes/es-epicnoir &>> /dev/null
 	cd ~/.emulationstation/themes/es-epicnoir && git pull
