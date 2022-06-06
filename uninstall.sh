@@ -122,39 +122,39 @@ if [ "$doUninstall" == true ]; then
 	
 	#Uninstalling
 	if [[ "$doUninstallRA" == true ]]; then
-		flatpak uninstall org.libretro.RetroArch
+		flatpak uninstall org.libretro.RetroArch --system -y
 		rm -rf ~/.var/app/org.libretro.RetroArch &>> /dev/null	
 	fi
 	if [[ "$doUninstallPrimeHacks" == true ]]; then
-		flatpak uninstall io.github.shiiion.primehack
+		flatpak uninstall io.github.shiiion.primehack --system -y
 		rm -rf ~/.var/app/io.github.shiiion.primehack &>> /dev/null	
 	fi
 	if [[ "$doUninstallPCSX2" == true ]]; then
-		flatpak uninstall net.pcsx2.PCSX2
+		flatpak uninstall net.pcsx2.PCSX2 --system -y
 		rm -rf ~/.var/app/net.pcsx2.PCSX2 &>> /dev/null
 	fi
 	if [[ "$doUninstallRPCS3" == true ]]; then
-		flatpak uninstall net.rpcs3.RPCS3
+		flatpak uninstall net.rpcs3.RPCS3 --system -y
 		rm -rf ~/.var/app/net.rpcs3.RPCS3 &>> /dev/null
 	fi
 	if [[ "$doUninstallCitra" == true ]]; then
-		flatpak uninstall org.citra_emu.citra
+		flatpak uninstall org.citra_emu.citra --system -y
 		rm -rf ~/.var/app/org.citra_emu.citra &>> /dev/null
 	fi
 	if [[ "$doUninstallDolphin" == true ]]; then
-		flatpak uninstall org.DolphinEmu.dolphin-emu
+		flatpak uninstall org.DolphinEmu.dolphin-emu --system -y
 		rm -rf ~/.var/app/org.DolphinEmu.dolphin-emu &>> /dev/null
 	fi
 	if [[ "$doUninstallDuck" == true ]]; then
-		flatpak uninstall org.duckstation.DuckStation
+		flatpak uninstall org.duckstation.DuckStation --system -y
 		rm -rf ~/.var/app/org.duckstation.DuckStation &>> /dev/null
 	fi
 	if [[ "$doUninstallPPSSPP" == true ]]; then
-		flatpak uninstall org.ppsspp.PPSSPP
+		flatpak uninstall org.ppsspp.PPSSPP --system -y
 		rm -rf ~/.var/app/org.ppsspp.PPSSPP &>> /dev/null
 	fi
 	if [[ "$doUninstallYuzu" == true ]]; then
-		flatpak uninstall org.yuzu_emu.yuzu
+		flatpak uninstall org.yuzu_emu.yuzu --system -y
 		rm -rf ~/.var/app/org.yuzu_emu.yuzu &>> /dev/null
 	fi
 	if [[ "$doUninstallCemu" == true ]]; then
@@ -168,11 +168,11 @@ if [ "$doUninstall" == true ]; then
 	#	rm -f /run/media/mmcblk0p1/Emulation/roms/xbox360/* &>> /dev/null
 	#fi
 	if [[ "$doUninstallXemu" == true ]]; then
-		flatpak uninstall app.xemu.xemu
+		flatpak uninstall app.xemu.xemu --system -y
 		rm -rf ~/.var/app/app.xemu.xemu &>> /dev/null
 	fi
 	if [[ "$doUninstallSRM" == true ]]; then	
-		rm -rf ~/Desktop/Steam-ROM-Manager.AppImage &>> /dev/null
+		rm -rf ~/Desktop/SteamRomManager.desktop &>> /dev/null
 	fi
 	if [[ "$doUninstallESDE" == true ]]; then
 		rm -rf ~/.emulationstation &>> /dev/null	
