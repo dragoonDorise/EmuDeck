@@ -358,7 +358,7 @@ if [ $expert == "true" ]; then
 		
 
 		if [[ $doInstallPowertools == "true" || $doInstallGyro == "true" || $isRealDeck == "false" ]]; then
-			hasPass=$(passwd -S $(whoami) | awk -F " " '{print $2}' )
+			hasPass=$(passwd -S $(whoami) | awk -F " " '{print $2}')
 			if [[ ! $hasPass == "P" ]]; then
 				echo "You don't have a password set. Please set one now. once set, you will be prompted to enter it in a new window."
 				passwd 
@@ -371,17 +371,17 @@ if [ $expert == "true" ]; then
 	if [[ $doSelectEmulators == "true" ]]; then
 		
 		emuTable=()
-		emuTable+=(TRUE "RetroArch")
-		emuTable+=(TRUE "PrimeHack")
-		emuTable+=(TRUE "PCSX2")
-		emuTable+=(TRUE "RPCS3")
-		emuTable+=(TRUE "Citra")
-		emuTable+=(TRUE "Dolphin")
-		emuTable+=(TRUE "Duckstation")
-		emuTable+=(TRUE "PPSSPP")
-		emuTable+=(TRUE "Yuzu")
-		emuTable+=(TRUE "Cemu")
-		emuTable+=(TRUE "Xemu")
+		emuTable+=(TRUE "Multiple" "RetroArch")
+		emuTable+=(TRUE "Metroid Prime" "PrimeHack")
+		emuTable+=(TRUE "PS2" "PCSX2")
+		emuTable+=(TRUE "PS3" "RPCS3")
+		emuTable+=(TRUE "3DS" "Citra")
+		emuTable+=(TRUE "GC/Wii" "Dolphin")
+		emuTable+=(TRUE "PSX" "Duckstation")
+		emuTable+=(TRUE "PSP" "PPSSPP")
+		emuTable+=(TRUE "Switch" "Yuzu")
+		emuTable+=(TRUE "WiiU" "Cemu")
+		emuTable+=(TRUE "XBox" "Xemu")
 		
 		#Emulator selector
 		text="`printf "What emulators do you want to install?"`"
@@ -394,7 +394,9 @@ if [ $expert == "true" ]; then
 				--text="${text}" \
 				--checklist \
 				--column="Select" \
+				--column="System" \
 				--column="Emulator" \
+				--print-column=3 \
 				"${emuTable[@]}" 2>/dev/null)
 		ans=$?	
 		if [ $ans -eq 0 ]; then
