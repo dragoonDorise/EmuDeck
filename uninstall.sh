@@ -182,8 +182,8 @@ if [ "$doUninstall" == true ]; then
 	rm -rf ~/.steam/steam/controller_base/templates/cemu_controller_config.vdf
 	rm -rf ~/.steam/steam/controller_base/templates/citra_controller_config.vdf
 	rm -rf ~/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf
+	rm -rf ~/.steam/steam/controller_base/templates/duckstation_controller_config.vdf
 	rm -rf ~/emudeck &>> /dev/null	
-	rm -rf ~/Desktop/EmuDeckCHD.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeckCHD.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeckUninstall.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeck.desktop &>> /dev/null
