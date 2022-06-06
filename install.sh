@@ -631,7 +631,7 @@ else
 	DolphinWide=false
 	DreamcastWide=false
 	BeetleWide=false
-	
+
 fi # end Expert if
 
 ##
@@ -877,8 +877,11 @@ if [ $doSetupCemu == "true" ]; then
 	echo "" 
 	#Commented until we get CEMU flatpak working
 	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ 
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "${romsPath}wiiu"
 	cemuSettings="${romsPath}wiiu/settings.xml"
+	mv -f $cemuSettings $cemuSettings.bak #retain cemusettings if it exists to stop wiping peoples mods. Just insert our search path for installed games.
+	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "${romsPath}wiiu"
+	rm $cemuSettings
+	mv -f $cemuSettings.bak $cemuSettings
 	if [[ -f "${cemuSettings}" ]]; then
 		gamePathEntryFound=$(grep -rnw $cemuSettings -e "${romsPath}")
 		if [[ $gamePathEntryFound == '' ]]; then 
