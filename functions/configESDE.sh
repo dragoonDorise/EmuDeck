@@ -1,24 +1,61 @@
 #!/bin/bash
-configESDE(){			
-	setMSG "Configuring EmulationStation DE..."
+configESDE(){
+	reset=$1	
+
+	if [[ $reset == 'reset' ]]; then
+		setMSG "Resetting EmulationStation DE..."
+	else
+		setMSG "Configuring EmulationStation DE..."
+	fi
 	mkdir -p ~/.emulationstation/
-	#Cemu (Proton) commented until we get it right
 	mkdir -p ~/.emulationstation/custom_systems/
-	cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/custom_systems/es_systems.xml ~/.emulationstation/custom_systems/es_systems.xml
-	sed -i "s|/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh|${toolsPath}launchers/cemu.sh|" ~/.emulationstation/custom_systems/es_systems.xml
-	#Commented until we get CEMU flatpak working
-	#rsync -r ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/ ~/.emulationstation/
-	cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/es_settings.xml ~/.emulationstation/es_settings.xml
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.emulationstation/es_settings.xml
+	es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
+	es_settingsFile="$HOME/.emulationstation/es_settings.xml"
+
+	#Custom Systems config Begin
+	if [[ ! -f "$es_systemsFile" || $reset == "true" ]];  then
+		cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/custom_systems/es_systems.xml $es_systemsFile
+	fi
+
+	#update cemu custom system launcher to correct path by just replacing the line, if it exists.
+	commandString="/usr/bin/bash ${toolsPath}launchers/cemu.sh -f -g z:%ROM%"
+	xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Proton)"]' -v "$commandString" $es_systemsFile
+
+	#insert cemu custom system if it doesn't exist, but the file does
+	if [[ $(grep -rnw $es_systemsFile -e 'Cemu (Proton)') == "" ]]; then
+		xmlstarlet ed --inplace --subnode '/systemList' --type elem --name 'system' \
+		--var newSystem '$prev' \
+		--subnode '$newSystem' --type elem --name 'name' -v 'wiiu' \
+		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo Wii U' \
+		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/wiiu/roms' \
+		--subnode '$newSystem' --type elem --name 'extension' -v '.rpx .RPX .wud .WUD .wux .WUX .elf .ELF .iso .ISO .wad .WAD .wua .WUA' \
+		--subnode '$newSystem' --type elem --name 'command' -v "/usr/bin/bash ${toolsPath}launchers/cemu.sh -f -g z:%ROM%" \
+		--insert '$newSystem/command' --type attr --name 'label' --value "Cemu (Proton)" \
+		--subnode '$newSystem' --type elem --name 'platform' -v 'wiiu' \
+		--subnode '$newSystem' --type elem --name 'theme' -v 'wiiu' \
+		$es_systemsFile
+	fi
+	#Custom Systems config end
+
+	#update es_settings.xml
+	if [[ ! -f "$es_settingsFile" || $reset == 'reset' ]];  then
+		cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/es_settings.xml $es_settingsFile
+	fi
+
+	xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Proton)"]' -v "$commandString" $es_systemsFile
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" $es_settingsFile
 	
 	#Configure Downloaded_media folder
 	esDE_MediaDir="<string name=\"MediaDirectory\" value=\""${ESDEscrapData}"\" />"
-	#search for media dir in xml, if not found, change to ours.
-	mediaDirFound=$(grep -rnw  ~/.emulationstation/es_settings.xml -e 'MediaDirectory')
+	#search for media dir in xml, if not found, change to ours. If it's blank, also change to ours.
+	mediaDirFound=$(grep -rnw  $es_settingsFile -e 'MediaDirectory')
+	mediaDirEmpty=$(grep -rnw  $es_settingsFile -e '<string name="MediaDirectory" value="" />')
 	if [[ $mediaDirFound == '' ]]; then
-		sed -i -e '$a'"${esDE_MediaDir}"  ~/.emulationstation/es_settings.xml # use config file instead of link
+		sed -i -e '$a'"${esDE_MediaDir}"  $es_settingsFile # use config file instead of link
+	elif [[ ! $mediaDirEmpty == '' ]]; then
+		sed -i "/<string name=\"MediaDirectory\" value=\"\" \/>/c\\${esDE_MediaDir}" $es_settingsFile
 	fi
-	#sed -i "s|name=\"ROMDirectory\" value=\"/name=\"ROMDirectory\" value=\"${romsPathSed}/g" ~/.emulationstation/es_settings.xml
+
 	mkdir -p ~/.emulationstation/themes/
 	git clone https://github.com/dragoonDorise/es-theme-epicnoir.git ~/.emulationstation/themes/es-epicnoir &>> /dev/null
 	cd ~/.emulationstation/themes/es-epicnoir && git pull
@@ -26,32 +63,27 @@ configESDE(){
 	
 	#Do this properly with wildcards
 	if [[ "$esdeTheme" == *"EPICNOIR"* ]]; then
-		sed -i "s|rbsimple-DE|es-epicnoir|" ~/.emulationstation/es_settings.xml 
-		sed -i "s|modern-DE|es-epicnoir|" ~/.emulationstation/es_settings.xml 
-		sed -i "s|es-epicnoir|es-epicnoir|" ~/.emulationstation/es_settings.xml 
+		sed -i "s|rbsimple-DE|es-epicnoir|" $es_settingsFile 
+		sed -i "s|modern-DE|es-epicnoir|" $es_settingsFile 
+		sed -i "s|es-epicnoir|es-epicnoir|" $es_settingsFile 
 	fi
 	if [[ "$esdeTheme" == *"MODERN-DE"* ]]; then
-		sed -i "s|rbsimple-DE|modern-DE|" ~/.emulationstation/es_settings.xml 
-		sed -i "s|modern-DE|modern-DE|" ~/.emulationstation/es_settings.xml 
-		sed -i "s|es-epicnoir|modern-DE|" ~/.emulationstation/es_settings.xml 
+		sed -i "s|rbsimple-DE|modern-DE|" $es_settingsFile 
+		sed -i "s|modern-DE|modern-DE|" $es_settingsFile 
+		sed -i "s|es-epicnoir|modern-DE|" $es_settingsFile 
 	fi
 	if [[ "$esdeTheme" == *"RBSIMPLE-DE"* ]]; then
-		sed -i "s|rbsimple-DE|rbsimple-DE|" ~/.emulationstation/es_settings.xml 
-		sed -i "s|modern-DE|rbsimple-DE|" ~/.emulationstation/es_settings.xml 
-		sed -i "s|es-epicnoir|rbsimple-DE|" ~/.emulationstation/es_settings.xml 
+		sed -i "s|rbsimple-DE|rbsimple-DE|" $es_settingsFile 
+		sed -i "s|modern-DE|rbsimple-DE|" $es_settingsFile 
+		sed -i "s|es-epicnoir|rbsimple-DE|" $es_settingsFile 
 	fi
 	
 	
 	#ESDE default emulators
 	mkdir -p  ~/.emulationstation/gamelists/
-	setESDEEmus 'Genesis Plus GX' gamegear
-	setESDEEmus 'Gambatte' gb
-	setESDEEmus 'Gambatte' gbc
 	setESDEEmus 'Dolphin (Standalone)' gc
 	setESDEEmus 'PPSSPP (Standalone)' psp
 	setESDEEmus 'Dolphin (Standalone)' wii
-	setESDEEmus 'Mesen' nes
-	setESDEEmus 'DOSBox-Pure' dos
 	setESDEEmus 'PCSX2 (Standalone)' ps2
 	setESDEEmus 'melonDS' nds
 	setESDEEmus 'Citra (Standalone)' n3ds

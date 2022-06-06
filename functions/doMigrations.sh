@@ -32,7 +32,7 @@ doMigrations(){
         rsync -av "$savesPath"rpcs3/dev_hdd0 "$storagePath"rpcs3/ && rm -rf "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0"
 		#update config file for the new loc $(emulatorDir) is in the file. made this annoying.
 		sed -i 's|$(EmulatorDir)dev_hdd0/|'$storagePath'/rpcs3/dev_hdd0/|g' $HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml 
-        sed -i "'s|'$savesPath'/rpcs3/dev_hdd0/|'$storagePath'/rpcs3/dev_hdd0/|g'" $HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml
+        sed -i 's|'$savesPath'/rpcs3/dev_hdd0/|'$storagePath'/rpcs3/dev_hdd0/|g' $HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml
 	fi
 
 
