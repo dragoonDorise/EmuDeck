@@ -363,8 +363,24 @@ if [ $expert == "true" ]; then
 				echo "You don't have a password set. Please set one now. once set, you will be prompted to enter it in a new window."
 				passwd 
 			fi
-			PASSWD="$(zenity --password --title="Enter Deck User Password" 2>/dev/null)"
-			echo $PASSWD | sudo -v -S 
+			PASSWD="$(zenity --password --title="Enter Deck User Password (not Steam account!)" 2>/dev/null)"
+			echo $PASSWD | sudo -v -S
+			ans=$?
+			if [[ $ans == 1 ]]; then
+				#incorrect password
+				PASSWD="$(zenity --password --title="Password was incorrect. Try again. (Did you remember to set a password for linux before running this?)" 2>/dev/null)"
+				echo $PASSWD | sudo -v -S
+				ans=$?
+				if [[ $ans == 1 ]]; then
+						text="`printf "<b>Password not accepted.</b>\n Expert mode tools which require a password will not work. Disabling them."`"
+						zenity --error \
+						--title="EmuDeck" \
+						--width=400 \
+						--text="${text}" 2>/dev/null
+						doInstallPowertools=false
+						doInstallGyro=false
+				fi
+			fi
 		fi
 		
 	
