@@ -8,7 +8,6 @@
         and migrate the old Flatpak data, or you can use the existing AppImage data you have.
         Steam Rom Manager users will need to re-parse for Yuzu to use the new AppImage.
 - New - Storage folder to keep Xemu, Yuzu, and RPCS3 data in the Emulation folder
-
 - Fix - DuckStation rom path added. New hotkeys added to coincide with Steam Input Template.
 - Fix - Widescreen Hacks are now off by default for all emulators. 
 - Fix - PCSX2 Steam Input profile updated so it wont pause on RT. (Thanks Wintermute)
@@ -19,3 +18,5 @@
 - Fix - Expert Mode: Widescreen Hacks Selection.
 - Fix - Expert Mode: Emulator install Selection.
 - Fix - Expert Mode: Emulator reconfiguration selection.
+- Fix - Expert Mode: Entering a password wrong in the pop up will make it re-pop. 
+        You have 2 chances and then it will disable the Expert mode settings that require a password.
