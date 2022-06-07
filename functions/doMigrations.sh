@@ -36,9 +36,11 @@ doMigrations(){
 		rpcs3VFSConf="$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml"
 		rpcs3DevHDD0Line="/dev_hdd0/: ${storagePath}rpcs3/dev_hdd0/"
 		sed -i "/dev_hdd0/c\\${rpcs3DevHDD0Line}" $rpcs3VFSConf 
+
 		echo -e ""
 		setMSG "Moving rpcs3 HDD to the Emulation/storage folder"			
 		echo -e ""
+		
 		mkdir -p "$storagePath/rpcs3" 
 
 		if [ -d "$savesPath/rpcs3/dev_hdd0" ]; then
@@ -66,5 +68,12 @@ doMigrations(){
 	mkdir -p ${storagePath}yuzu/screenshots
 	mkdir -p ${storagePath}yuzu/tas
 
-	#TODO: move data from hidden folders out to these folders.
+	#move data from hidden folders out to these folders in case the user already put stuff here.
+	origPath="$HOME/.local/share/"
+	rsync -av ${origPath}yuzu/dump ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/dump
+	rsync -av ${origPath}yuzu/load ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/load
+	rsync -av ${origPath}yuzu/sdmc ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/sdmc
+	rsync -av ${origPath}yuzu/nand ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/nand
+	rsync -av ${origPath}yuzu/screenshots ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/screenshots
+	rsync -av ${origPath}yuzu/tas ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/tas
 }
