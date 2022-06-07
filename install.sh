@@ -360,7 +360,11 @@ if [ $expert == "true" ]; then
 		if [[ $doInstallPowertools == "true" || $doInstallGyro == "true" || $isRealDeck == "false" ]]; then
 			hasPass=$(passwd -S $(whoami) | awk -F " " '{print $2}')
 			if [[ ! $hasPass == "P" ]]; then
-				echo "You don't have a password set. Please set one now. once set, you will be prompted to enter it in a new window."
+				text="`printf "<b>Password not set.</b>\n Please set one now in the terminal.\nYou will not see text entry in the terminal for your password. This is normal.\n Once set, you will be prompted to enter it in a new window."`"
+				zenity --error \
+				--title="EmuDeck" \
+				--width=400 \
+				--text="${text}" 2>/dev/null
 				passwd 
 			fi
 			PASSWD="$(zenity --password --title="Enter Deck User Password (not Steam account!)" 2>/dev/null)"
