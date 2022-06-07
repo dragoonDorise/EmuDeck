@@ -1505,7 +1505,7 @@
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "executableArgs": "run org.yuzu_emu.yuzu -f -g \"${filePath}\"",
+    "executableArgs": "-f -g \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
@@ -1542,7 +1542,7 @@
       "removeBrackets": true
     },
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/yuzu.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
