@@ -734,7 +734,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press Tab, FFWD, ghost_060_vehicle_0050.png #232323 #00ad00"
+							"binding"		"key_press F5, FFWD, ghost_060_vehicle_0050.png #232323 #00ad00"
 						}
 					}
 				}
@@ -762,7 +762,7 @@
 		"settings"
 		{
 			"touch_menu_button_count"		"9"
-			"touch_menu_scale"		"125"
+			"touch_menu_scale"		"120"
 			"touch_menu_show_labels"		"0"
 		}
 	}
