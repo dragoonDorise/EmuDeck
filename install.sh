@@ -729,7 +729,7 @@ if [ $doInstallCemu == "true" ]; then
 	setMSG "Installing Cemu"		
 	FILE="${romsPath}/wiiu/Cemu.exe"	
 	if [ -f "$FILE" ]; then
-		echo "" 2>/dev/null
+		echo "Cemu.exe already exists"
 	else
 		curl https://cemu.info/releases/cemu_1.26.2.zip --output $romsPath/wiiu/cemu_1.26.2.zip 
 		mkdir -p $romsPath/wiiu/tmp
@@ -884,7 +884,7 @@ if [ $doSetupCemu == "true" ]; then
 	mv -f $cemuSettings.bak $cemuSettings
 	if [[ -f "${cemuSettings}" ]]; then
 		gamePathEntryFound=$(grep -rnw $cemuSettings -e "${romsPath}")
-		if [[ $gamePathEntryFound == '' ]]; then 
+		if [[ ! $gamePathEntryFound == '' ]]; then 
 			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}wiiu/roms" $cemuSettings
 		fi
 	fi
