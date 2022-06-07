@@ -293,7 +293,7 @@ if [ $expert == "true" ]; then
 		table+=(TRUE "doESDEThemePicker" "Choose your EmulationStation-DE Theme?")		
 		#table+=(TRUE "doXboxButtons" "Should facebutton letters match between Nintendo and Steamdeck? (default is matched location)")
 
-		declare -i height=(${#table[@]}*50)
+		declare -i height=(${#table[@]}*40)
 
 		expertModeFeatureList=$(zenity  --list --checklist --width=1000 --height=${height} \
 		--column="Select?"  \
@@ -360,7 +360,7 @@ if [ $expert == "true" ]; then
 		if [[ $doInstallPowertools == "true" || $doInstallGyro == "true" || $isRealDeck == "false" ]]; then
 			hasPass=$(passwd -S $(whoami) | awk -F " " '{print $2}')
 			if [[ ! $hasPass == "P" ]]; then
-				text="`printf "<b>Password not set.</b>\n Please set one now in the terminal.\nYou will not see text entry in the terminal for your password. This is normal.\n Once set, you will be prompted to enter it in a new window."`"
+				text="`printf "<b>Password not set.</b>\n Please set one now in the terminal.\nYou will not see text entry in the terminal for your password. This is normal.\nOnce set, you will be prompted to enter it in a new window."`"
 				zenity --error \
 				--title="EmuDeck" \
 				--width=400 \
