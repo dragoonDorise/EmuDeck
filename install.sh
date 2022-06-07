@@ -257,7 +257,7 @@ rsync -r --ignore-existing ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath"
 #	
 
 if [ $expert == "true" ]; then
-
+	echo "Expert mode begin"
 		#set all features to false
 		doInstallCHD=false
 		doInstallPowertools=false
@@ -301,7 +301,7 @@ if [ $expert == "true" ]; then
 		--column="Description" \
 		--hide-column=2 \
 		"${table[@]}" 2>/dev/null)
-
+		echo "user selected: $expertModeFeatureList"
 		#set flags to true for selected expert mode features
 		if [[ "$expertModeFeatureList" == *"CHDScript"* ]]; then
 			doInstallCHD=true
@@ -414,9 +414,10 @@ if [ $expert == "true" ]; then
 				--column="Emulator" \
 				--print-column=3 \
 				"${emuTable[@]}" 2>/dev/null)
-		ans=$?	
-		if [ $ans -eq 0 ]; then
+		ans=$?
 		
+		if [ $ans -eq 0 ]; then
+			echo "User selected: $emusToInstall"
 			if [[ "$emusToInstall" == *"RetroArch"* ]]; then
 				doInstallRA=true
 			fi
@@ -491,7 +492,7 @@ if [ $expert == "true" ]; then
 					"${emuTable[@]}"  2>/dev/null)
 		ans=$?	
 		if [ $ans -eq 0 ]; then
-			
+			echo "User selected: $wideToInstall"
 			if [[ "$wideToInstall" == *"Duckstation"* ]]; then
 				duckWide=true
 			else
@@ -572,7 +573,7 @@ if [ $expert == "true" ]; then
 			cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 			echo -e "EmuDeck ${version}"
 			if [ $ans -eq 0 ]; then
-				
+				echo "User selected: $emusToReset"
 				if [[ "$emusToReset" == *"RetroArch"* ]]; then
 					doSetupRA=true
 				fi
@@ -665,6 +666,7 @@ fi # end Expert if
 ##	
 ##
 ## First up - migrate things that need to move.
+echo "begin migrations"
 doMigrations
 
 #ESDE Installation
@@ -741,28 +743,6 @@ if [ $doInstallCemu == "true" ]; then
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/wiiu|${romsPath}wiiu|" "${toolsPath}"launchers/cemu.sh
 	chmod +x "${toolsPath}"launchers/cemu.sh
 
-	#Commented until we get CEMU flatpak working
-	#echo -e "EmuDeck will add Witherking25's flatpak repo to your Discorver App.this is required for cemu now"	
-	#flatpak remote-add --user --if-not-exists withertech https://repo.withertech.com/flatpak/withertech.flatpakrepo 
-	#flatpak install withertech info.cemu.Cemu -y 
-	#flatpak install flathub org.winehq.Wine -y 
-	#
-	##We move roms to the new path
-	#DIR=$romsPath/wiiu/roms/
-	#if [ -d "$DIR" ]; then			
-	#	echo -e "Moving your WiiU games and configuration to the new Cemu...This might take a while"
-	#	mv $romsPath/wiiu/roms/ $romsPath/wiiutemp 
-	#	mv $romsPath/wiiu/Cemu.exe $romsPath/wiiu/Cemu.bak 
-	#	rsync -ri $romsPath/wiiu/ ~/.var/app/info.cemu.Cemu/data/cemu/ 
-	#	mv $romsPath/wiiu/ $romsPath/wiiu_delete_me 
-	#	mv $romsPath/wiiutemp/ $romsPath/wiiu/ 
-	#	
-	#	zenity --info \
-	#	   --title="EmuDeck" \
-	#	   --width=250 \
-	#	   --text="We have updated your CEMU installation, you will need to open Steam Rom Manager and add your Wii U games again. This time you don't need to set CEMU to use Proton ever again :)" 2>/dev/null
-	#	   
-	#fi
 	
 fi
 
