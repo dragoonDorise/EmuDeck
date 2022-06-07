@@ -242,7 +242,7 @@ mkdir -p "$toolsPath"launchers
 mkdir -p "$savesPath"
 mkdir -p "$romsPath"
 mkdir -p "$storagePath"
-mkdir -p "$biosPath"/yuzu/
+mkdir -p "$biosPath"yuzu
 
 ##Generate rom folders
 setMSG "Creating roms folder in $destination"
