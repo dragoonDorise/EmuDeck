@@ -16,7 +16,7 @@ migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
 #check if we have a nomigrateflag for $emu
 if [ ! -f "$migrationFlag" ]; then
     #ask user before migrating data
-    text="`printf "We would like to migrate data from the flatpak to the AppImage for ${emu}."`"
+    text="`printf "We would like to migrate data from the flatpak to the AppImage for ${emu}. \nNew directories for this emulator will be made, and config changes will point to these folders regardless of this choice.."`"
     doMigrate=$(zenity --info --title "Migrate "${emu}" Data?" \
         --text="${text}" \
         --width=300 \
