@@ -1,15 +1,16 @@
 0.17.5
 - EmuDeck internal fixes and modularity.. setting it up for great things on the future...
-- New - Steam Input Template for DuckStation with Touchinput (Thanks Moskeeto)
+- New - Steam Input Template for DuckStation with left trackpad Touchinput (Thanks Moskeeto)
 - New - Yuzu appImage ( better performance than the one in discover store )
         It is VERY important you let Emudeck run the updates on Yuzu so the 
-        data migration can happen seamlessly. You will be notified if we 
-        find data in the default appimage location and can choose to keep 
-        and migrate the old Flatpak data, or you can use the existing AppImage data you have.
+        data migration can happen seamlessly. You will be notified if we find data in the default appimage location
+        and can choose to keep and migrate the old Flatpak data, or you can use the existing AppImage data you have.
         Steam Rom Manager users will need to re-parse for Yuzu to use the new AppImage.
-- New - Storage folder to keep Xemu, Yuzu, and RPCS3 data in the Emulation folder
+- New - Storage folder to keep Xemu, Yuzu, and RPCS3 data in the Emulation folder. Migration will happen at the start. 
+        You may need to re-parse for rpcs3 installed files.
+- Fix - Dolphin pointer is now right trackpad and works more smoothly. If you have SteamGyro setup, motion now works.
 - Fix - DuckStation rom path added. New hotkeys added to coincide with Steam Input Template.
-- Fix - Widescreen Hacks are now off by default for all emulators. 
+- Fix - Widescreen Hacks are now off by default for all emulators. They can be enabled by running in Expert Mode.
 - Fix - PCSX2 Steam Input profile updated so it wont pause on RT. (Thanks Wintermute)
 - Fix - Updates won't wipe out EmulationStation-DE custom systems.
 - Fix - Updates won't wipe out EmulationStation-DE scrapes.
