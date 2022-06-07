@@ -883,8 +883,8 @@ if [ $doSetupCemu == "true" ]; then
 	rm $cemuSettings
 	mv -f $cemuSettings.bak $cemuSettings
 	if [[ -f "${cemuSettings}" ]]; then
-		gamePathEntryFound=$(grep -rnw $cemuSettings -e "${romsPath}")
-		if [[ ! $gamePathEntryFound == '' ]]; then 
+		gamePathEntryFound=$(grep -rnw $cemuSettings -e "z:${romsPath}wiiu/roms")
+		if [[ $gamePathEntryFound == '' ]]; then 
 			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}wiiu/roms" $cemuSettings
 		fi
 	fi
