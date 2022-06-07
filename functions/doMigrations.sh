@@ -31,7 +31,7 @@ doMigrations(){
 
 	#RPCS3 files to storage
 	if [ ! -d "$storagePath"rpcs3/dev_hdd0 ] && [ -d "$HOME/.var/app/net.rpcs3.RPCS3/" ];then
-
+		echo "rpcs3 hdd does not exist in storagepath."
 		#update config file for the new loc $(emulatorDir) is in the file. made this annoying.
 		rpcs3VFSConf="$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml"
 		rpcs3DevHDD0Line="/dev_hdd0/: ${storagePath}rpcs3/dev_hdd0/"
