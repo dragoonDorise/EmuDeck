@@ -36,6 +36,8 @@ if [ ! -f "$migrationFlag" ]; then
         if [[ ! -e ${migrationTable[0]} ]]; then
         #no flatpak data. nothing to do. (or should we link it?)
         echo "No flatpak data found, continuing."
+        elif [[ -L ${migrationTable[0]} && -L ${migrationTable[1]} ]]; then
+            echo "Both sides of migration are symlinks. Stopping migration. User needs to manually resolve."
         elif [[ -d ${migrationTable[0]} && -d ${migrationTable[1]} ]]; then
             #both locations exist
             #ask user which to keep
