@@ -20,7 +20,7 @@ doMigrations(){
 		echo -e ""
 		
 		if [ -f "${savesPath}xemu/xbox_hdd.qcow2" ]; then
-			mv -f ${savesPath}xemu/* ${storagePath}xemu/ && rm -rf ${savesPath}xemu/
+			mv -fv ${savesPath}xemu/* ${storagePath}xemu/ && rm -rf ${savesPath}xemu/
 
 		elif [ -f "$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xbox_hdd.qcow2" ]; then
 			mv "$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xbox_hdd.qcow2" $storagePath/xemu/
@@ -66,5 +66,5 @@ doMigrations(){
 	mkdir -p ${storagePath}yuzu/screenshots
 	mkdir -p ${storagePath}yuzu/tas
 
-
+	#TODO: move data from hidden folders out to these folders.
 }
