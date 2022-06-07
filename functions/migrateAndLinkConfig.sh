@@ -24,6 +24,7 @@ if [ ! -f "$migrationFlag" ]; then
         --extra-button "Leave ${emu} alone forever" \
         --extra-button "Migrate Data" 2>/dev/null)
     rc=$?
+    echo "$emu Do migration? User chose: $doMigrate"
     if [ "$doMigrate" == "Migrate Data" ]; then
         n=$(( ${#migrationTable[@]} - 1 ))
         #odd should be flatpak
@@ -44,17 +45,18 @@ if [ ! -f "$migrationFlag" ]; then
             --extra-button "Migrate Flatpak Data" 2>/dev/null)
             rc=$?
             if [[ ! $ans == "" ]]; then #user didn't cancel
-                echo "User Chose: $ans"
+                echo "$emu flatpak/appimage data choice. User Chose: $ans"
                 for ((i=0; i<=n; i=(i+2))) { # for each pair of dirs
 
                     if [[ $ans == "Migrate Flatpak Data" ]]; then
                         fromDir=${migrationTable[i]}
                         toDir=${migrationTable[i+1]}
                         echo  "Migrating ${fromDir} to ${toDir}"
-
+                        unlink 
                         #backup destination location, delete it, then sync original over
                         mv "$toDir" "$toDir.orig" && mkdir -p $toDir && rsync -av "${fromDir}/" "${toDir}"
-                        cd ${fromDir}/..
+                        cd ${fromDir}
+                        cd ..
                         #backup and remove original
                         mv "${fromDir}" "${fromDir}.orig" && rm -rf "${fromDir}"
 
@@ -64,7 +66,8 @@ if [ ! -f "$migrationFlag" ]; then
                     elif [[ $ans == "Keep AppImage Data" ]]; then
                         fromDir=${migrationTable[i+1]}
                         toDir=${migrationTable[i]}
-                        cd ${toDir}/..
+                        cd ${toDir}
+                        cd ..
                         #backup flatpak data
                         mv "${toDir}" "${toDir}.orig"
                         #link appimage data to flatpak folder
