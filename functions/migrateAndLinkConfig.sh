@@ -10,7 +10,7 @@ n=$(( ${#migrationTable[@]} - 1 ))
 if [[ ! -e ${migrationTable[0]} ]]; then
 #no flatpak data. nothing to do. (or should we link it?)
 echo "No flatpak data found, continuing."
-elif [[ -d ${migrationTable[0]} && ! -L ${migrationTable[0]} && -d ${migrationTable[1]}  ]]; then
+elif [[ -d ${migrationTable[0]} && ! -L ${migrationTable[0]} && -d ${migrationTable[1]}  && ! -L ${migrationTable[1]} ]]; then
 	#both locations exist as directories, flatpak not a symlink
 	#ask user which to keep
     text="`printf "Data was found for both the appimage and flatpak for ${emu}.\nWe will be using the AppImage from now on.\nPlease choose which data to keep."`"
