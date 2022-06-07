@@ -903,6 +903,7 @@ ln -sn "$HOME/.local/share/yuzu/keys/" ${biosPath}yuzu/keys
 
 unlink ${biosPath}yuzu/firmware
 mkdir -p ${storagePath}yuzu/nand/system/Contents/registered/
+touch ${storagePath}yuzu/nand/system/Contents/registered/putfirmwarehere.txt
 ln -sn ${storagePath}yuzu/nand/system/Contents/registered/ ${biosPath}yuzu/firmware
 
 #Fixes repeated Symlink for older installations
