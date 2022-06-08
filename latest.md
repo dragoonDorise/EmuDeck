@@ -7,7 +7,7 @@
         and can choose to keep and migrate the old Flatpak data, or you can use the existing AppImage data you have.
         The chosen data will be migrated to the AppImage location, and linked back to the flatpak data location.
         Steam Rom Manager users will need to re-parse for Yuzu games to use the new AppImage.
-        The Flatpak intallation is NOT removed, but must be for EmulationStation-DE to use the AppImage instead.
+        The Flatpak installation is NOT removed, but must be for EmulationStation-DE to use the AppImage instead.
 - New - Storage folder to keep Xemu, Yuzu, and RPCS3 data in the Emulation folder. Migration will happen at the start. 
         You may need to re-parse for rpcs3 installed files.
 - New - CHD Script now handles wii / gc iso --> rvz conversion
