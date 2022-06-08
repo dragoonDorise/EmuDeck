@@ -107,13 +107,16 @@ if [ $ans -eq 0 ]; then
 	done
 
 	#rvz
-    for romfolder in ${romfolders[@]}; do
-        if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-            find "$romsPath$romfolder" -type f -iname "*.iso" | while read f; do echo "Converting: $f"; ${toolsPath}proton-launch.sh ${chdPath}DolphinTool.exe convert -f rvz -b 131072 -c zstd -l 5 -i "z:$f" -o "z:${f%.*}.rvz"  && rm -rf "$f"; done;
-            find "$romsPath$romfolder" -type f -iname "*.gcm" | while read f; do echo "Converting: $f"; ${toolsPath}proton-launch.sh ${chdPath}DolphinTool.exe convert -f rvz -b 131072 -c zstd -l 5 -i "z:$f" -o "z:${f%.*}.rvz"  && rm -rf "$f"; done;
-        fi
-	done
-
+	if [[ -f "${toolsPath}proton-launch.sh" && -f "${chdPath}DolphinTool.exe" ]]; then #ensure tools are in place
+		for romfolder in ${romfolders[@]}; do
+			if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+				find "$romsPath$romfolder" -type f -iname "*.iso" | while read f; do echo "Converting: $f"; ${toolsPath}proton-launch.sh ${chdPath}DolphinTool.exe convert -f rvz -b 131072 -c zstd -l 5 -i "z:$f" -o "z:${f%.*}.rvz"  && rm -rf "$f"; done;
+				find "$romsPath$romfolder" -type f -iname "*.gcm" | while read f; do echo "Converting: $f"; ${toolsPath}proton-launch.sh ${chdPath}DolphinTool.exe convert -f rvz -b 131072 -c zstd -l 5 -i "z:$f" -o "z:${f%.*}.rvz"  && rm -rf "$f"; done;
+			fi
+		done
+	else
+		echo "missing tools"
+	fi
 	#cso
 	#
 
