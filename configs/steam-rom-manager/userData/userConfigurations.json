@@ -75,7 +75,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": true,
+    "disabled": false,
     "advanced": false,
     "executable": {
       "path": "/usr/bin/bash",
@@ -1505,7 +1505,7 @@
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "executableArgs": "-f -g \\'${filePath}\\'",
+    "executableArgs": "-f -g \"'${filePath}'\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
