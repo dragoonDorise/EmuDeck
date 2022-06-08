@@ -686,7 +686,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F6, Quick Menu, ghost_070_setting_0030.png #232323 #ad0000"
+							"binding"		"key_press Escape, Quick Menu, ghost_070_setting_0030.png #232323 #ad0000"
 						}
 					}
 				}
