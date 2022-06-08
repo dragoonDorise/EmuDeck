@@ -13,7 +13,7 @@
 - New - CHD Script now handles wii / gc iso --> rvz conversion
 - Fix - Dolphin pointer is now right trackpad and works more smoothly. If you have SteamGyro setup, motion now works. 
         *You may need to set the controller to Default Gamepad With Mouse Trackpad if steam decided to use Touchpad as Joystick instead.
-- Fix - DuckStation rom path added. New hotkeys added to coincide with Steam Input Template.
+- Fix - DuckStation rom path added. New hotkeys added to coincide with Steam Input Template. Changed quickMenu to Esc. (Steam + Dpad Left)
 - Fix - Widescreen Hacks are now off by default for all emulators. They can be enabled by running in Expert Mode.
 - Fix - PCSX2 Steam Input profile updated so it wont pause on RT. (Thanks Wintermute)
 - Fix - Updates won't wipe out EmulationStation-DE custom systems and EmulationStation-DE metadata info anymore.
