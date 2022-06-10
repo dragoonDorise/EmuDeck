@@ -52,28 +52,34 @@ doMigrations(){
 		fi
 	fi
 
-    #yuzu flatpak to appimage
-    emu="Yuzu"
-    #From -- > to
-    migrationTable=()
-    migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu" "$HOME/.local/share/yuzu")
-    migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
+	emu="Yuzu"
+	migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
+	#check if we have a nomigrateflag for $emu
+	if [ ! -f "$migrationFlag" ]; then	
+		#yuzu flatpak to appimage
+		#From -- > to
+		migrationTable=()
+		migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu" "$HOME/.local/share/yuzu")
+		migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
 
-    migrateAndLinkConfig $emu $migrationTable
+		migrateAndLinkConfig $emu $migrationTable
+	fi
 
-    mkdir -p ${storagePath}yuzu/dump
+	#move data from hidden folders out to these folders in case the user already put stuff here.
+	origPath="$HOME/.local/share/"
+
+	mkdir -p ${storagePath}yuzu/dump
 	mkdir -p ${storagePath}yuzu/load
 	mkdir -p ${storagePath}yuzu/sdmc
 	mkdir -p ${storagePath}yuzu/nand
 	mkdir -p ${storagePath}yuzu/screenshots
 	mkdir -p ${storagePath}yuzu/tas
-
-	#move data from hidden folders out to these folders in case the user already put stuff here.
-	origPath="$HOME/.local/share/"
+	
 	rsync -av ${origPath}yuzu/dump ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/dump
 	rsync -av ${origPath}yuzu/load ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/load
 	rsync -av ${origPath}yuzu/sdmc ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/sdmc
 	rsync -av ${origPath}yuzu/nand ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/nand
 	rsync -av ${origPath}yuzu/screenshots ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/screenshots
 	rsync -av ${origPath}yuzu/tas ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/tas
+	
 }

@@ -69,9 +69,8 @@ if [ "$?" = -1 ] ; then
 fi
 
 #We create all the needed folders for installation
-mkdir -p dragoonDoriseTools
-mkdir -p dragoonDoriseTools/EmuDeck
-cd dragoonDoriseTools
+mkdir -p ~/dragoonDoriseTools/EmuDeck
+cd ~/dragoonDoriseTools
 
 #Cloning EmuDeck files
 git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck 
@@ -731,12 +730,12 @@ if [ $doInstallCemu == "true" ]; then
 	if [ -f "$FILE" ]; then
 		echo "Cemu.exe already exists"
 	else
-		curl https://cemu.info/releases/cemu_1.26.2.zip --output $romsPath/wiiu/cemu_1.26.2.zip 
-		mkdir -p $romsPath/wiiu/tmp
-		unzip -o "$romsPath"/wiiu/cemu_1.26.2.zip -d "$romsPath"/wiiu/tmp 
-		mv "$romsPath"/wiiu/tmp/*/* "$romsPath"/wiiu 
-		rm -rf "$romsPath"/wiiu/tmp 
-		rm -f "$romsPath"/wiiu/cemu_1.26.2.zip 		
+		curl https://cemu.info/releases/cemu_1.26.2.zip --output "$romsPath"wiiu/cemu_1.26.2.zip 
+		mkdir -p "$romsPath"wiiu/tmp
+		unzip -o "$romsPath"wiiu/cemu_1.26.2.zip -d "$romsPath"wiiu/tmp 
+		mv "$romsPath"wiiu/tmp/*/* "$romsPath"/wiiu 
+		rm -rf "$romsPath"wiiu/tmp 
+		rm -f "$romsPath"wiiu/cemu_1.26.2.zip 		
 	fi
 
 	#because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
@@ -753,16 +752,16 @@ fi
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ $doInstallXenia == "true" ]; then
 	setMSG "Installing Xenia"		
-	FILE="${romsPath}/xbox360/xenia.exe"	
+	FILE="${romsPath}xbox360/xenia.exe"	
 	if [ -f "$FILE" ]; then
 		echo "" 2>/dev/null
 	else
-		curl -L https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip --output $romsPath/xbox360/xenia_master.zip 
-		mkdir -p $romsPath/xbox360/tmp
-		unzip -o "$romsPath"/xbox360/xenia_master.zip -d "$romsPath"/xbox360/tmp 
-		mv "$romsPath"/xbox360/tmp/* "$romsPath"/xbox360 
-		rm -rf "$romsPath"/xbox360/tmp 
-		rm -f "$romsPath"/xbox360/xenia_master.zip 		
+		curl -L https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip --output "$romsPath"xbox360/xenia_master.zip 
+		mkdir -p "$romsPath"xbox360/tmp
+		unzip -o "$romsPath"xbox360/xenia_master.zip -d "$romsPath"xbox360/tmp 
+		mv "$romsPath"xbox360/tmp/* "$romsPath"xbox360 
+		rm -rf "$romsPath"xbox360/tmp 
+		rm -f "$romsPath"xbox360/xenia_master.zip 		
 	fi
 	
 fi
