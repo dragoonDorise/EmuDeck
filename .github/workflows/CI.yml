@@ -17,6 +17,12 @@ jobs:
         uses: ludeeus/action-shellcheck@master
         # env:
           # SHELLCHECK_OPTS: -e SC2059 -e SC2034 -e SC1090 -e SC2164 -e SC1091
+  shfmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: shfmt
+        uses: collin-miller/shfmt-action@v1
   markdownlint:
     runs-on: ubuntu-latest
     steps:
