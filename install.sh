@@ -69,9 +69,8 @@ if [ "$?" = -1 ] ; then
 fi
 
 #We create all the needed folders for installation
-mkdir -p dragoonDoriseTools
-mkdir -p dragoonDoriseTools/EmuDeck
-cd dragoonDoriseTools
+mkdir -p ~/dragoonDoriseTools/EmuDeck
+cd ~/dragoonDoriseTools
 
 #Cloning EmuDeck files
 git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck 
