@@ -17,3 +17,9 @@ jobs:
         uses: ludeeus/action-shellcheck@master
         # env:
           # SHELLCHECK_OPTS: -e SC2059 -e SC2034 -e SC1090 -e SC2164 -e SC1091
+  markdownlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: markdownlint-cli
+        uses: nosborn/github-action-markdown-cli@v3.1.0
