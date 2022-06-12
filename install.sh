@@ -401,6 +401,10 @@ if [ $expert == "true" ]; then
 		emuTable+=(TRUE "Switch" "Yuzu")
 		emuTable+=(TRUE "WiiU" "Cemu")
 		emuTable+=(TRUE "XBox" "Xemu")
+		#if we are in beta / dev install, allow Xenia. Still false by default though. Will only work on expert mode, and explicitly turned on.
+		if [[ $branch=="beta" || $branch=="dev" ]]; then
+			emuTable+=(FALSE "Xbox360" "Xenia")
+		fi
 		
 		#Emulator selector
 		text="`printf "What emulators do you want to install?"`"
@@ -455,7 +459,7 @@ if [ $expert == "true" ]; then
 				doInstallXemu=true
 			fi
 			if [[ "$emusToInstall" == *"Xenia"* ]]; then
-				doInstallXenia=false
+				doInstallXenia=true
 			fi
 			#if [[ "$emusToInstall" == *"MelonDS"* ]]; then
 			#	doInstallMelon=true
