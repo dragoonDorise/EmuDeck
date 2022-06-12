@@ -57,9 +57,16 @@ if [ ! -f "$migrationFlag" ]; then
                         fromDir=${migrationTable[i]}
                         toDir=${migrationTable[i+1]}
                         echo  "Migrating ${fromDir} to ${toDir}"
-                        unlink 
+                        #in case the destination is a symlink
+                        if [[ -L $toDir ]]; then
+                            unlink ${toDir}
+                            echo ${toDir}" is a symlink. Unlinked."
+                        else
                         #backup destination location, delete it, then sync original over
-                        mv "$toDir" "$toDir.orig" && mkdir -p $toDir && rsync -av "${fromDir}/" "${toDir}"
+                            mv "$toDir" "$toDir.orig"
+                            echo ${toDir}" is a directory. Backed up."
+                        fi
+                        mkdir -p $toDir && rsync -av "${fromDir}/" "${toDir}"
                         cd ${fromDir}
                         cd ..
                         #backup and remove original
@@ -88,7 +95,7 @@ if [ ! -f "$migrationFlag" ]; then
                 echo "User doesn't want migration at this time."
             fi
 
-        elif [[ -L ${migrationTable[0]} && -d ${migrationTable[0]} && -d ${migrationTable[1]} ]]; then
+        elif [[ -L ${migrationTable[0]} && -d ${migrationTable[0]} && -d ${migrationTable[1]} && ! -L ${migrationTable[1]} ]]; then
             echo "Flatpak already linked"
         elif [[ -d ${migrationTable[0]} && ! -e ${migrationTable[1]} ]]; then
             echo "No AppImage data found, but flatpak data found. New AppImage install."
