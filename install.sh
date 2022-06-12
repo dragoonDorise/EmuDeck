@@ -701,7 +701,7 @@ if [ $doInstallCitra == "true" ]; then
 	installEmuFP "Citra" "org.citra_emu.citra"		
 fi
 if [ $doInstallDolphin == "true" ]; then
-	installEmuFP "Dolphin" "org.DolphinEmu.dolphin-emu"		
+	installEmuFP "dolphin-emu" "org.DolphinEmu.dolphin-emu"
 fi
 if [ $doInstallDuck == "true" ]; then
 	installEmuFP "DuckStation" "org.duckstation.DuckStation"		
