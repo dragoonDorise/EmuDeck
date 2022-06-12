@@ -18,8 +18,8 @@ createSaveFolders(){
 	linkToSaveFolder primehack states ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/states
 	
 	#Yuzu
-	unlink ${savesPath}yuzu/saves # Fix for previous bad symlink
-	linkToSaveFolder yuzu saves $storagePath/yuzu/nand/user/save/
+	unlink "${savesPath}yuzu/saves" # Fix for previous bad symlink
+	linkToSaveFolder yuzu saves "${storagePath}yuzu/nand/user/save/"
 	
 	#Duckstation
 	linkToSaveFolder duckstation saves ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards
@@ -42,5 +42,6 @@ createSaveFolders(){
 
 	#rpcs3
 	#add links for the actual saves here.
+	linkToSaveFolder rpcs3 saves "${storagePath}rpcs3/dev_hdd0/home/00000001/savedata"
 
 }
