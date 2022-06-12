@@ -39,3 +39,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: Run PSScriptAnalyzer
         uses: microsoft/psscriptanalyzer-action@v1.0
+  toml-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: TOML linter
+        uses: yisonPylkita/gh-action-toml-linter@0.1.3
