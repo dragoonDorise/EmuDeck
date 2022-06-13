@@ -27,3 +27,4 @@ source "$EMUDECKGIT"/functions/installEmuAI.sh
 source "$EMUDECKGIT"/functions/getLatestReleaseURLGH.sh
 source "$EMUDECKGIT"/functions/migrateAndLinkConfig.sh
 source "$EMUDECKGIT"/functions/doMigrations.sh
+source "$EMUDECKGIT"/functions/installBinUp.sh

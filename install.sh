@@ -997,6 +997,8 @@ if [ $branch == 'main' ];then
 	createDesktopIcons
 fi
 
+installBinUp
+
 setMSG "Cleaning up downloaded files..."	
 rm -rf ~/dragoonDoriseTools	
 clear
