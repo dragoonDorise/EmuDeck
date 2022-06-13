@@ -1,5 +1,5 @@
 #!/bin/bash
-#while this is in testing, i'm copying in the functions.
+#while this is in testing, i'm copying in the functions. once we leave the original repo in place and don't delete it, i'd like to use the functions we already made.
 installESDE(){		
 
 
@@ -86,19 +86,21 @@ installSRM(){
             }
             }' | grep releases)
 
-            IFS=' ' read -r -a releases <<< "$releasesStr"
-            releaseTable()
-            for $release in ${releases[@]}; do
-                releaseTable+=(true "$release")
+            releases=($releasesStr)
+
+            releaseTable=()
+            for release in ${releases[@]}; do
+                releaseTable+=(false "$release")
+                echo "release: $release"
             done
 
             releaseChoice=$(zenity --list \
             --title="EmuDeck" \
             --height=500 \
-            --width=250 \
+            --width=500 \
             --ok-label="OK" \
             --cancel-label="Exit" \
-            --text="${text}" \
+            --text="Choose your Cemu version." \
             --radiolist \
             --column="Select" \
             --column="Release" \
@@ -108,8 +110,9 @@ installSRM(){
 
 
             mkdir -p "$romsPath"wiiu/tmp
-            unzip -o "$romsPath"wiiu/cemu.zip -d "$romsPath"wiiu/tmp 
-            mv "$romsPath"wiiu/tmp/*/* "$romsPath"/wiiu 
+            unzip -o "$romsPath"wiiu/cemu.zip -d "$romsPath"wiiu/tmp
+            mv "$romsPath"wiiu/tmp/cemu_*/ "$romsPath"wiiu/tmp/cemu/
+            rsync -avzh "$romsPath"wiiu/tmp/cemu/ "$romsPath"wiiu/
             rm -rf "$romsPath"wiiu/tmp 
             rm -f "$romsPath"wiiu/cemu.zip 	
         fi
