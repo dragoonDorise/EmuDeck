@@ -10,6 +10,8 @@
         The Flatpak installation is NOT removed, but must be for EmulationStation-DE to use the AppImage instead.
 - New - Storage folder to keep Xemu, Yuzu, and RPCS3 data in the Emulation folder. Migration will happen at the start. 
         You may need to re-parse for rpcs3 installed files.
+- New - Binary Updater tool added. Ths new tool can update EmulationStation-DE, SteamRomManager, Cemu, Yuzu, or Xenia 
+        to their latest versions without going through the EmuDeck install process.
 - New - CHD Script now handles wii / gc iso --> rvz conversion
 - Fix - Dolphin pointer is now right trackpad and works more smoothly. If you have SteamGyro setup, motion now works. 
         *You may need to set the controller to Default Gamepad With Mouse Trackpad if steam decided to use Touchpad as Joystick instead.
