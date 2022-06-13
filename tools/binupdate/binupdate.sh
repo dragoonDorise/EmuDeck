@@ -22,11 +22,9 @@ installSRM(){
 	curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" > "${toolsPath}"srm/Steam-ROM-Manager.AppImage
 	chmod +x "${toolsPath}"srm/Steam-ROM-Manager.AppImage	
 }
-
-    sdcardname="mmcblk0p1"
 	#paths update via sed in main script
-	romsPath="/run/media/${sdcardname}/Emulation/roms/"
-	toolsPath="/run/media/${sdcardname}/Emulation/tools/"
+	romsPath="/run/media/mmcblk0p1/Emulation/roms/"
+	toolsPath="/run/media/mmcblk0p1/Emulation/tools/"
 	scriptPath="${toolsPath}binupdate/"
 	
 	#initialize log
@@ -91,7 +89,7 @@ installSRM(){
             IFS=' ' read -r -a releases <<< "$releasesStr"
             releaseTable()
             for $release in ${releases[@]}; do
-                releaseTable()=+(true $release)
+                releaseTable+=(true "$release")
             done
 
             releaseChoice=$(zenity --list \
