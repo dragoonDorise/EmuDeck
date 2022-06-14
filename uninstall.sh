@@ -46,7 +46,7 @@ fi
 if [ "$doUninstall" == true ]; then 
 	
 	#Emulator selector
-	text="`printf " <b>This will delete Emudeck , the emulators and all of its configuration files</b>\n\n You can keep the Emulators installed, tell me which ones you want to keep.\n\nIf you select none of them, everything will be deleted, including your saved games<b>We won't delete your roms</b>"`"
+	text="`printf " <b>This will delete Emudeck , the emulators and all of its configuration files and saved games</b>\n\n You can keep the Emulators installed, tell me which ones you want to keep.\n\nIf you select none of them, everything will be deleted<b>We won't delete your roms, if you wanna keep your saved games go to the Emulation/saves folder and make a backup of its contents</b>"`"
 	emusToUninstall=$(zenity --list \
 				--title="EmuDeck" \
 				--height=500 \
@@ -192,9 +192,8 @@ if [ "$doUninstall" == true ]; then
 	#rm -rf ~/Emulation &>> /dev/null	
 	#rm -rf /run/media/mmcblk0p1/Emulation &>> /dev/null	
 	
-	text="$(printf "<b>Done!</b>\n\nWe are sad to see you go and we really hope you give us a chance on the future!\n\n<b>Your roms, saved games and bios are on your Emulation folder, please delete it manually</b>")"
-	
-	
+	text="$(printf "<b>Done!</b>\n\nWe are sad to see you go and we really hope you give us a chance on the future!\n\n<b>Your roms and bios are on your Emulation folder, please delete it manually if you want</b>")"
+
 	
 	zenity --info \
 			 --title="EmuDeck" \
