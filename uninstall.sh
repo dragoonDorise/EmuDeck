@@ -188,6 +188,7 @@ if [ "$doUninstall" == true ]; then
 	rm -rf ~/Desktop/EmuDeckUninstall.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeck.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeckSD.desktop &>> /dev/null
+	rm -rf ~/Desktop/EmuDeckBinUpdate.desktop &>> /dev/null
 	#rm -rf ~/Emulation &>> /dev/null	
 	#rm -rf /run/media/mmcblk0p1/Emulation &>> /dev/null	
 	
