@@ -79,10 +79,18 @@ if [ ! -z "$devMode" ]; then
 	git checkout $branch 
 fi
 
+
 #Test if we have a successful clone
 EMUDECKGIT=~/dragoonDoriseTools/EmuDeck
 if [ -d "$EMUDECKGIT" ]; then
 	echo -e "Files Downloaded!"
+clear
+cat ~/dragoonDoriseTools/EmuDeck/logo.ans
+version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
+echo -e "${BOLD}EmuDeck ${version}${NONE}"
+echo -e ""
+cat ~/dragoonDoriseTools/EmuDeck/latest.md
+
 else
 	echo -e ""
 	echo -e "We couldn't download the needed files, exiting in a few seconds"
@@ -964,11 +972,13 @@ RASNES
 RAautoSave
 
 
+
 ##
 ##
 ## Other Customizations.
 ##
 ##
+
 
 #Widescreen hacks
 setWide
@@ -988,6 +998,7 @@ if [ $doInstallGyro == "true" ]; then
 		InstallGyro=$(bash <(curl -sL https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh))
 		echo $InstallGyro 
 fi
+
 
 if [ $doInstallPowertools == "true" ]; then
 	installPowerTools	
