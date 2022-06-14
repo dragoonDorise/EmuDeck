@@ -191,7 +191,9 @@ if [ "$doUninstall" == true ]; then
 	#rm -rf ~/Emulation &>> /dev/null	
 	#rm -rf /run/media/mmcblk0p1/Emulation &>> /dev/null	
 	
-	text="`printf "<b>Done!</b>\n\nWe are sad to see you go and we really hope you give us a chance on the future!\n\n<b>Your roms, saved games and bios are on your Emulation folder, please delete it manually</b>"`"
+	text="$(printf "<b>Done!</b>\n\nWe are sad to see you go and we really hope you give us a chance on the future!\n\n<b>Your roms, saved games and bios are on your Emulation folder, please delete it manually</b>")"
+	
+	
 	
 	zenity --info \
 			 --title="EmuDeck" \
