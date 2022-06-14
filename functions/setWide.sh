@@ -7,8 +7,10 @@ setWide(){
 	fi
 	if [ $DolphinWide == true ]; then
 		sed -i "s|wideScreenHack = False|wideScreenHack = True|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini 
+		sed -i "s|AspectRatio = 0|AspectRatio = 1|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini 
 	else
 		sed -i "s|wideScreenHack = True|wideScreenHack = False|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini 
+		sed -i "s|AspectRatio = 1|AspectRatio = 0|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini 
 	fi
 	if [ $DreamcastWide == true ]; then
 		sed -i "s|reicast_widescreen_hack = \"disabled\"|reicast_widescreen_hack = \"enabled\"|g" ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Flycast/Flycast.opt 
