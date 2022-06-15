@@ -40,7 +40,7 @@ installSRM(){
     binTable+=(TRUE "Xbox 360 Emu - TESTING ONLY" "xenia")
 
 #Binary selector
-    text="`printf "What binaries do you want to get the latest version of?\n This tool will simply overwrite what you have with the newest available."`"
+    text="`printf "What tools do you want to get the latest version of?\n This tool will simply overwrite what you have with the newest available."`"
     binsToDL=$(zenity --list \
             --title="EmuDeck" \
             --height=500 \

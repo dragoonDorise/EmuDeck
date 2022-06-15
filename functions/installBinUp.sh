@@ -6,7 +6,7 @@ installBinUp(){
 	rm -rf ~/Desktop/EmuDeckBinUpdate.desktop 2>/dev/null
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
-	Name=EmuDeck Binary Updater
+	Name=EmuDeck Tool Updater
 	Exec=bash "$toolsPath"binupdate/binupdate.sh
 	Icon=steamdeck-gaming-return
 	Terminal=true
