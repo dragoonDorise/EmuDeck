@@ -738,7 +738,14 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press TAB"
+							"binding"        "key_press TAB"
+						}
+					}
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"        "key_press LEFT_CONTROL"
 						}
 					}
 				}

@@ -16,17 +16,21 @@ migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
 #check if we have a nomigrateflag for $emu
 if [ ! -f "$migrationFlag" ]; then
     #ask user before migrating data
-    text="`printf "We would like to migrate data from the flatpak to the AppImage for ${emu}. \
-    \nNew directories for this emulator will be made, and config changes will point to these new folders regardless of this choice.\
-    \nYou should allow this migration if you want to move your flatpak data and config to it's new home. \
-    \nIf you would like to move your files manually, you may decline."`"
-    doMigrate=$(zenity --info --title "Migrate "${emu}" Data?" \
-        --text="${text}" \
-        --width=300 \
-        --ok-label "Leave ${emu} alone this time" \
-        --extra-button "Leave ${emu} alone forever" \
-        --extra-button "Migrate Data" 2>/dev/null)
-    rc=$?
+    # text="`printf "We would like to migrate data from the flatpak to the AppImage for ${emu}. \
+    # \nThe AppImage version should perform better than the one you already have\nNew directories for this emulator will be made, and config changes will point to these new folders regardless of this choice.\
+    # \nYou should allow this migration if you want to move your flatpak data and config to it's new home. \
+    # \nIf you would like to move your files manually, you may decline.
+    # \nDon't forget to run Steam Rom Manager to update your games for ${emu}"`"
+    # doMigrate=$(zenity --info --title "Migrate "${emu}" Data?" \
+    #     --text="${text}" \
+    #     --width=300 \
+    #     --ok-label "Leave ${emu} alone this time" \
+    #     --extra-button "Leave ${emu} alone forever" \
+    #     --extra-button "Migrate Data" 2>/dev/null)
+    # rc=$?
+    
+    doMigrate="Migrate Data" 
+    
     echo "$emu Do migration? User chose: $doMigrate"
     if [ "$doMigrate" == "Migrate Data" ]; then
         n=$(( ${#migrationTable[@]} - 1 ))
@@ -41,7 +45,7 @@ if [ ! -f "$migrationFlag" ]; then
         elif [[ -d ${migrationTable[0]} && -d ${migrationTable[1]} ]]; then
             #both locations exist
             #ask user which to keep
-            text="`printf "Data was found for both the appimage and flatpak for ${emu}.\nWe will be using the AppImage from now on.\nPlease choose which data to keep."`"
+            text="`printf "Data was found for both the appimage and flatpak for ${emu}.\nWe will be using the AppImage from now on.\nPlease choose which data to keep.\nThe AppImage version should perform better than the one you already have\nDo not forget to run Steam Rom Manager to update your games for ${emu}"`"
             ans=$(zenity --info --title "Migrate "${emu}" Data?" \
             --text="${text}" \
             --width=300 \
