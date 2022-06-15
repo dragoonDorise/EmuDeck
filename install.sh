@@ -585,6 +585,7 @@ if [ $expert == "true" ]; then
 								--column="Emulator" \
 								"${emuTable[@]}"  2>/dev/null)
 								ans=$?
+			#Nova fix'								
 			cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 			echo -e "EmuDeck ${version}"
 			if [ $ans -eq 0 ]; then
@@ -1007,9 +1008,9 @@ fi
 if [ $branch == 'main' ];then
 	createDesktopIcons
 fi
-
-installBinUp
-
+if [ $expert == "true" ]; then
+	installBinUp
+fi
 setMSG "Cleaning up downloaded files..."	
 rm -rf ~/dragoonDoriseTools	
 clear
