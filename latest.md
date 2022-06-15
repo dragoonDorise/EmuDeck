@@ -1,6 +1,5 @@
 0.17.5
 
-- EmuDeck internal fixes and modularity.. setting it up for great things on the future...
 - New - Steam Input Template for DuckStation with left trackpad Touchinput (Thanks Moskeeto)
 - New - Yuzu AppImage ( Seemingly better performance than the one in discover store, also right click to open menus work! )
   It is VERY important you let Emudeck run the updates on Yuzu so the
@@ -25,7 +24,6 @@
 - Fix - EmulationStation-DE's hidden downloaded_media wouldn't get moved
   to the Emulation/tools directory if the setting existed but was blank.
 - Fix - Expert Mode: Widescreen Hacks Selection.
-- Fix - Expert Mode: Emulator install Selection.
-- Fix - Expert Mode: Emulator reconfiguration selection.
+- Fix - Expert Mode: Emulator install Selection & reconfiguration selection.
 - Fix - Expert Mode: Entering a password wrong in the pop up will make it re-pop.
   You have 2 chances and then it will disable the Expert mode settings that require a password.
