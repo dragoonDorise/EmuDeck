@@ -206,8 +206,9 @@
 - CHD script improvements - Godsbane
 - Fix PCSX2 Save/Load state mappings - LBRapid
 
-0.17.3
-- New ESDE Epic Noir Theme set as default & Theme Selector 
+  0.17.3
+
+- New ESDE Epic Noir Theme set as default & Theme Selector
 - Ability to launch WiiU Games from ESDE
 - Cemu Script added to installers. Adding WiiU games to SRM no longer requires proton to be set, it just works TM!
 - Widescreen Hacks for PS2 Games - Only US
@@ -241,3 +242,71 @@
 - Dolphin set as 16:9 by default on easy mode
 - Fix Sega Genesis missing extension and adds Commodore 64
 - Add support for holoISO
+
+  0.17.4
+
+- New user interface on install both on Easy and Expert modes
+- Rom folder creation will respect user's custom symlinks
+- When you first install EmuDeck an you Launch SteamRomManager we will get you back to GamingMode when closing SteamRomManager
+- SRM is now located on Emulation/tools and will close Steam automatically for you.
+- Fixed RPCS3 Controller not working on new install
+- Updated Mupen64Plus-Next defaults for N64. Should be much better now. more accurate, faster, and look better.
+- New tool added - proton-launch.sh (for all your non-steam windows app shenanigans, courtesy of Angel)
+- Citra left trackpad used now as mouse instead of D-pad on our SteamInput template
+- Fix Citra non exiting while pressing R5
+- PPSSPP Audio Fix when the Deck goes into Sleep Mode
+- Fixed 3ds bad symlink for older installations
+- PrimeHack Controller tweaks and performance gain
+- Fix PCSX2 Turbo Mode
+- Wii nkit.gcz support
+- FBNeo fixes on SteamRomManager
+- SD card is only available if one is inserted, writable, and supports symlinks
+- Expert mode - Fixes RA Autosave selection
+- Expert mode - Changed Cemu default controller to gamepad with gyro (gyro requires SteamDeckGyroDSU installation. See Expert mode for more details)
+- Expert mode - You can now chose a custom install location. It will be tested for the ability to both write and link, and rejected if either fail.
+
+0.17.5
+
+- EmuDeck internal fixes and modularity.. setting it up for great things on the future...
+- New - Steam Input Template for DuckStation with left trackpad Touch Menu (Thanks Moskeeto)
+- New - Yuzu AppImage ( Seemingly better performance than the one in discover store, also right click to open menus work! )  
+   It is VERY important you let Emudeck run the updates on Yuzu so the
+  data migration can happen seamlessly. You will be notified if we find data in the default appimage location
+  and can choose to keep and migrate the old Flatpak data, or you can use the existing AppImage data you have.  
+   The chosen data will be migrated to the AppImage location, and linked back to the flatpak data location.  
+   Steam Rom Manager users will need to re-parse for Yuzu games to use the new AppImage.  
+   The Flatpak installation is NOT removed, but must be for EmulationStation-DE to use the AppImage instead.
+- New - Storage folder to keep Xemu, Yuzu, and RPCS3 data in the Emulation folder. Migration will happen at the start.
+  You may need to re-parse for rpcs3 installed files.
+- New - Binary Updater tool added. Ths new tool can update EmulationStation-DE, SteamRomManager, Cemu, Yuzu, or Xenia
+  to their latest versions without going through the EmuDeck install process.
+- New - CHD Script now handles wii / gc iso --> rvz conversion
+- New - Citra now has the microphone mapped for games that need it.
+- New - Citra now has the gyro mapped for those that need it. (requires SteamDeckGyroDSU)
+- New - Citra has load textures and precache on by default. (for users who want custom texture packs)
+- New - Added a few properly labeled WiiMote profiles for dolphin
+- New - Wiimote 2,3,4 are mapped to steaminput devices 2,3,4 - but not connected by default to avoid phantom cursors
+- New - Auto download xbox hdd from xemu site on xemu install if it doesn't exist. User only needs to provide files in bios after this.
+- New - Dolphin load textures and precache is now on by default. (for users who want custom texture packs)
+- New - Dolphin Auto Change disc is now on by default.
+- New - Dolphin cursor is now hidden by default.
+- New - PCSX2 vsync is now on by default
+- New - DuckStation rom path added. New hotkeys added to coincide with Steam Input Template. Changed quickMenu to Esc. (Steam + Dpad Left)
+- Fix - Citra Steam Input. R5 only closes Citra after a long a press
+- Fix - Cemu is now at 100% volume instead of 50% volume by default for new installs
+- Fix - Dolphin pointer is now right trackpad and the joystick and works more smoothly.  
+   If you have SteamGyro setup, there is are extra Wiimote profiles included that can use it.  
+   _You may need to set the controller to Default Gamepad With Mouse Trackpad if steam decided to use Touchpad as Joystick instead._
+- Fix - Widescreen Hacks are now off by default for all emulators. They can be enabled by running in Expert Mode and choosing to customize Widescreen.
+- Fix - PCSX2 Steam Input profile updated so it wont pause on RT. (Thanks Wintermute)
+- Fix - Updates won't wipe out EmulationStation-DE custom systems and EmulationStation-DE metadata info anymore.
+- Fix - Updates won't wipe out Cemu graphics pack settings anymore.
+- Fix - EmulationStation-DE's hidden downloaded_media wouldn't get moved
+  to the Emulation/tools directory if the setting existed but was blank.
+- Fix - Expert Mode: Widescreen Hacks Selection.
+- Fix - Expert Mode: Emulator install Selection.
+- Fix - Expert Mode: Emulator reconfiguration selection.
+- Fix - Expert Mode: Entering a password wrong in the pop up will make it re-pop.
+  You have 2 chances and then it will disable the Expert mode settings that require a password.
+- Fix - Citra is now 2x instead of 3x res by default for performance reasons
+- Fix - Dolphin hotkey for Fast Forward has been updated from just Select to Select + R2 to match the other hotkeys

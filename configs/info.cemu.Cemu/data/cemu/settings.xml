@@ -45,7 +45,6 @@
     <RecentLaunchFiles/>
     <RecentNFCFiles/>
     <GamePaths>
-        <Entry>Z:/run/media/mmcblk0p1/Emulation/roms/wiiu/roms</Entry>
     </GamePaths>
     <GameCache/>
     <GraphicPack/>
@@ -87,7 +86,7 @@
         <delay>2</delay>
         <TVChannels>1</TVChannels>
         <PadChannels>1</PadChannels>
-        <TVVolume>50</TVVolume>
+        <TVVolume>100</TVVolume>
         <PadVolume>0</PadVolume>
         <TVDevice>default</TVDevice>
         <PadDevice></PadDevice>
