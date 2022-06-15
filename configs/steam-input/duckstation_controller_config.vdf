@@ -2,8 +2,8 @@
 {
 	"version"		"3"
 	"revision"		"21"
-	"title"		"DuckStation Menu Hotkeys"
-	"description"		"Long press hotkeys to activate."
+	"title"		"EmuDeck - DuckStation"
+	"description"		"Left Touchpad quick actions. Long press to perform an action"
 	"creator"		"76561198025051816"
 	"progenitor"		""
 	"url"		        "template://duckstation_controller_config.vdf"
