@@ -706,11 +706,15 @@
 			{
 				"activators"
 				{
-					"Full_Press"
+					"Long_Press"
 					{
 						"bindings"
 						{
-							"binding"		"key_press X"
+							"binding"        "key_press X"
+						}
+						"settings"
+						{
+							"long_press_time"        "750"
 						}
 					}
 				}
