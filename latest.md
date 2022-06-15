@@ -1,6 +1,5 @@
 0.17.5
 
-- EmuDeck internal fixes and modularity.. setting it up for great things on the future...
 - New - Steam Input Template for DuckStation with left trackpad Touchinput (Thanks Moskeeto)
 - New - Yuzu AppImage ( Seemingly better performance than the one in discover store, also right click to open menus work! )
   It is VERY important you let Emudeck run the updates on Yuzu so the
