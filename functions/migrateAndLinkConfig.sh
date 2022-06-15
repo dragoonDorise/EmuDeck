@@ -17,9 +17,10 @@ migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
 if [ ! -f "$migrationFlag" ]; then
     #ask user before migrating data
     text="`printf "We would like to migrate data from the flatpak to the AppImage for ${emu}. \
-    \nNew directories for this emulator will be made, and config changes will point to these new folders regardless of this choice.\
+    \nThe AppImage version should perform better than the one you already have\nNew directories for this emulator will be made, and config changes will point to these new folders regardless of this choice.\
     \nYou should allow this migration if you want to move your flatpak data and config to it's new home. \
-    \nIf you would like to move your files manually, you may decline."`"
+    \nIf you would like to move your files manually, you may decline.
+    \nDon't forget to run Steam Rom Manager to update your games for ${emu}"`"
     doMigrate=$(zenity --info --title "Migrate "${emu}" Data?" \
         --text="${text}" \
         --width=300 \
