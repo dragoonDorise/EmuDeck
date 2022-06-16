@@ -17,7 +17,7 @@ createDesktopIcons(){
 	rm -rf ~/Desktop/EmuDeckSD.desktop 2>/dev/null
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
-	Name=EmuDeck (${version})
+	Name=Update EmuDeck (${version})
 	Exec=curl https://raw.githubusercontent.com/dragoonDorise/EmuDeck/main/install.sh | bash -s -- SD
 	Icon=steamdeck-gaming-return
 	Terminal=true
