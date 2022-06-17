@@ -13,7 +13,7 @@ installEmuAI(){
     cd $HOME/Applications
 
     wget -c "$url" -O "$altName.AppImage" 
-	
+	chmod +x "$altName.AppImage"  
     shName=$(echo "$name" | awk '{print tolower($0)}')
     
     find "${toolsPath}"launchers/ -type f -iname $shName.sh | while read f; do echo "deleting $f"; rm -f "$f"; done;
