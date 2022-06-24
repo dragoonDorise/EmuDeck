@@ -38,6 +38,26 @@ initYuzu(){
     
 }
 
+#update
+updateYuzu(){
+	configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/config/yuzu"
+	configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/data/yuzu"
+    
+    setupStorageYuzu
+    
+    #Setup Bios symlinks
+    unlink ${biosPath}yuzu/keys
+    unlink ${biosPath}yuzu/firmware
+    mkdir -p "$HOME/.local/share/yuzu/keys/"
+    mkdir -p ${storagePath}yuzu/nand/system/Contents/registered/
+    ln -sn "$HOME/.local/share/yuzu/keys/" ${biosPath}yuzu/keys
+    ln -sn ${storagePath}yuzu/nand/system/Contents/registered/ ${biosPath}yuzu/firmware
+    
+    
+    touch ${storagePath}yuzu/nand/system/Contents/registered/putfirmwarehere.txt
+    
+}
+
 #ConfigurePaths
 setEmulationFolderYuzu(){
     #this, unfortunately, probabaly needs to change to search for the option, and then replace the entire line.
