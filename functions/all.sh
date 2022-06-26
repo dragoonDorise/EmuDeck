@@ -28,3 +28,6 @@ source "$EMUDECKGIT"/functions/getLatestReleaseURLGH.sh
 source "$EMUDECKGIT"/functions/migrateAndLinkConfig.sh
 source "$EMUDECKGIT"/functions/doMigrations.sh
 source "$EMUDECKGIT"/functions/installBinUp.sh
+
+#emuscripts
+source "$EMUDECKGIT"/EmuScripts/emuDeckYuzu.sh
