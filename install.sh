@@ -2,6 +2,39 @@
 
 #
 ##
+## Pid Lock...
+##
+#
+PIDFILE=$home/emudeck/install.pid
+
+if [ -f $PIDFILE ]
+then
+  PID=$(cat $PIDFILE)
+  ps -p $PID > /dev/null 2>&1
+  if [ $? -eq 0 ]
+  then
+    echo "Process already running"
+    exit 1
+  else
+    ## Process not found assume not running
+    echo $$ > $PIDFILE
+    if [ $? -ne 0 ]
+    then
+      echo "Could not create PID file"
+      exit 1
+    fi
+  fi
+else
+  echo $$ > $PIDFILE
+  if [ $? -ne 0 ]
+  then
+    echo "Could not create PID file"
+    exit 1
+  fi
+fi
+
+#
+##
 ## Downloading files...
 ##
 #
@@ -14,6 +47,9 @@ case $devMode in
   ;;
   "DEV")
 	  branch="dev"
+	;;  
+  "EmuReorg")
+	  branch="EmuReorg"
 	;;  
   *)
 	branch="main"
@@ -727,7 +763,7 @@ if [ $doInstallPPSSPP == "true" ]; then
 fi
 if [ $doInstallYuzu == "true" ]; then
 	#installEmuFP "Yuzu" "org.yuzu_emu.yuzu"	
-	installEmuAI "yuzu"  $(getLatestReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage") #needs to be lowercase yuzu for EsDE to find it.
+	installYuzu
 fi
 if [ $doInstallXemu == "true" ]; then
 	installEmuFP "Xemu-Emu" "app.xemu.xemu"	
@@ -1020,7 +1056,7 @@ echo "" > ~/emudeck/.finished
 echo "100" > ~/emudeck/msg.log
 echo "# Installation Complete" >> ~/emudeck/msg.log
 finished=true
-
+rm $PIDFILE
 text="`printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager on your Desktop to add your games to your SteamUI Interface.\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!"`"
 
 zenity --question \
