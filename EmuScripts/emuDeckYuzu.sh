@@ -6,6 +6,7 @@ emuPath="$HOME/Applications/yuzu.AppImage"
 
 #cleanupOlderThings
 cleanupYuzu(){
+    "Begin Yuzu Cleanup"
     #Fixes repeated Symlink for older installations
     cd ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/
     unlink keys 
@@ -15,15 +16,17 @@ cleanupYuzu(){
 
 #Install
 installYuzu(){
+    echo "Begin Yuzu Install"
     installEmuAI "yuzu"  $(getLatestReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage") #needs to be lowercase yuzu for EsDE to find it.
 }
 
 #ApplyInitialSettings
 initYuzu(){
+    echo "Begin Yuzu Init"
 	configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
 	configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
     
-    setupStorageYuzu
+    setEmulationFolderYuzu
     
     #Setup Bios symlinks
     unlink ${biosPath}yuzu/keys
@@ -35,15 +38,16 @@ initYuzu(){
     
     
     touch ${storagePath}yuzu/nand/system/Contents/registered/putfirmwarehere.txt
-    setEmulationFolderYuzu
+
 }
 
 #update
 updateYuzu(){
+    echo "Begin Yuzu update"
 	configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/config/yuzu"
 	configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/data/yuzu"
     
-    setupStorageYuzu
+    setEmulationFolderYuzu
     
     #Setup Bios symlinks
     unlink ${biosPath}yuzu/keys
@@ -55,12 +59,12 @@ updateYuzu(){
     
     
     touch ${storagePath}yuzu/nand/system/Contents/registered/putfirmwarehere.txt
-    setEmulationFolderYuzu
+    
 }
 
 #ConfigurePaths
 setEmulationFolderYuzu(){
-
+    echo "Begin Yuzu Path Config"
     configFile="$HOME/.config/yuzu/qt-config.ini"
     screenshotDirOpt='Screenshots\screenshot_path='
     gameDirOpt='Paths\gamedirs\4\path='
@@ -90,6 +94,7 @@ setEmulationFolderYuzu(){
 
 #SetupSaves
 setupSavesYuzu(){
+    echo "Begin Yuzu save link"
 	unlink "${savesPath}yuzu/saves" # Fix for previous bad symlink
 	linkToSaveFolder yuzu saves "${storagePath}yuzu/nand/user/save/"
 }
@@ -97,6 +102,7 @@ setupSavesYuzu(){
 
 #SetupStorage
 setupStorageYuzu(){
+    echo "Begin Yuzu storage config"
     mkdir -p ${storagePath}yuzu/dump
     mkdir -p ${storagePath}yuzu/load
     mkdir -p ${storagePath}yuzu/sdmc
@@ -108,6 +114,7 @@ setupStorageYuzu(){
 
 #WipeSettings
 wipeYuzu(){
+    echo "Begin Yuzu delete config directories"
     rm -rf "$HOME/.config/yuzu"
     rm -rf "$HOME/.local/share/yuzu"
 }
@@ -115,12 +122,14 @@ wipeYuzu(){
 
 #Uninstall
 uninstallYuzu(){
+    echo "Begin Yuzu uninstall"
     rm -rf $emuPath
 }
 
 
 #Migrate
 migrateYuzu(){
+    echo "Begin Yuzu Migration"
     emu="Yuzu"
 	migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
 	#check if we have a nomigrateflag for $emu
@@ -169,6 +178,7 @@ bezelOffYuzu(){
 
 #finalExec - Extra stuff
 finalizeYuzu(){
+    echo "Begin Yuzu finalize"
     cleanupYuzu
 }
 
