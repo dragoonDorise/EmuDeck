@@ -468,7 +468,7 @@ if [ $expert == "true" ]; then
 		ans=$?
 		
 		if [ $ans -eq 0 ]; then
-			echo "User selected: $emusToInstall"
+			echo "Emu Install selected: $emusToInstall"
 			if [[ "$emusToInstall" == *"RetroArch"* ]]; then
 				doInstallRA=true
 			fi
@@ -514,11 +514,6 @@ if [ $expert == "true" ]; then
 			exit
 		fi
 	fi
-	#We force new Cemu install if we detect an older version exists
-	DIR=$romsPath/wiiu/roms/
-	if [ -d "$DIR" ]; then	#this is always true i think.
-		doInstallCemu=true	
-	fi	
 	
 
 	if [[ $doSelectWideScreen == "true" ]]; then
@@ -543,7 +538,7 @@ if [ $expert == "true" ]; then
 					"${emuTable[@]}"  2>/dev/null)
 		ans=$?	
 		if [ $ans -eq 0 ]; then
-			echo "User selected: $wideToInstall"
+			echo "Widescreen choices: $wideToInstall"
 			if [[ "$wideToInstall" == *"Duckstation"* ]]; then
 				duckWide=true
 			else
@@ -625,7 +620,7 @@ if [ $expert == "true" ]; then
 			cat ~/dragoonDoriseTools/EmuDeck/logo.ans
 			echo -e "EmuDeck ${version}"
 			if [ $ans -eq 0 ]; then
-				echo "User selected: $emusToReset"
+				echo "Emulators to reinstall selected: $emusToReset"
 				if [[ "$emusToReset" == *"RetroArch"* ]]; then
 					doSetupRA=true
 				fi
@@ -721,6 +716,11 @@ fi # end Expert if
 echo "begin migrations"
 doMigrations
 
+#setup Proton-Launch.sh
+#because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
+cp ~/dragoonDoriseTools/EmuDeck/tools/proton-launch.sh "${toolsPath}"proton-launch.sh
+chmod +x "${toolsPath}"proton-launch.sh
+
 #ESDE Installation
 if [ $doInstallESDE == "true" ]; then
 	installESDE		
@@ -774,28 +774,7 @@ fi
 
 #Cemu - We need to install Cemu after creating the Roms folders!
 if [ $doInstallCemu == "true" ]; then
-	setMSG "Installing Cemu"		
-	FILE="${romsPath}/wiiu/Cemu.exe"	
-	if [ -f "$FILE" ]; then
-		echo "Cemu.exe already exists"
-	else
-		curl https://cemu.info/releases/cemu_1.26.2.zip --output "$romsPath"wiiu/cemu_1.26.2.zip 
-		mkdir -p "$romsPath"wiiu/tmp
-		unzip -o "$romsPath"wiiu/cemu_1.26.2.zip -d "$romsPath"wiiu/tmp 
-		mv "$romsPath"wiiu/tmp/*/* "$romsPath"/wiiu 
-		rm -rf "$romsPath"wiiu/tmp 
-		rm -f "$romsPath"wiiu/cemu_1.26.2.zip 		
-	fi
-
-	#because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
-	cp ~/dragoonDoriseTools/EmuDeck/tools/proton-launch.sh "${toolsPath}"proton-launch.sh
-	chmod +x "${toolsPath}"proton-launch.sh
-	cp ~/dragoonDoriseTools/EmuDeck/tools/launchers/cemu.sh "${toolsPath}"launchers/cemu.sh
-	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|" "${toolsPath}"launchers/cemu.sh
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/wiiu|${romsPath}wiiu|" "${toolsPath}"launchers/cemu.sh
-	chmod +x "${toolsPath}"launchers/cemu.sh
-
-	
+	installCemu
 fi
 
 #Xenia - We need to install Xenia after creating the Roms folders!
@@ -892,16 +871,7 @@ if [ $doSetupDuck == "true" ]; then
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini
 fi
 if [ $doSetupYuzu == "true" ]; then
-	configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
-	configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
-	#Roms Path
-	sed -i "s|/run/media/mmcblk0p1/|${destination}/|g" "$HOME/.config/yuzu/qt-config.ini"
-	mkdir -p ${storagePath}yuzu/dump
-	mkdir -p ${storagePath}yuzu/load
-	mkdir -p ${storagePath}yuzu/sdmc
-	mkdir -p ${storagePath}yuzu/nand
-	mkdir -p ${storagePath}yuzu/screenshots
-	mkdir -p ${storagePath}yuzu/tas
+	initYuzu
 fi
 
 if [ $doSetupPPSSPP == "true" ]; then
@@ -922,20 +892,7 @@ fi
 
 #Proton Emus
 if [ $doSetupCemu == "true" ]; then
-	echo "" 
-	#Commented until we get CEMU flatpak working
-	#rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/ ~/.var/app/info.cemu.Cemu/ 
-	cemuSettings="${romsPath}wiiu/settings.xml"
-	mv -f $cemuSettings $cemuSettings.bak #retain cemusettings if it exists to stop wiping peoples mods. Just insert our search path for installed games.
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "${romsPath}wiiu"
-	rm $cemuSettings
-	mv -f $cemuSettings.bak $cemuSettings
-	if [[ -f "${cemuSettings}" ]]; then
-		gamePathEntryFound=$(grep -rnw $cemuSettings -e "z:${romsPath}wiiu/roms")
-		if [[ $gamePathEntryFound == '' ]]; then 
-			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}wiiu/roms" $cemuSettings
-		fi
-	fi
+	initCemu
 fi
 if [ $doSetupXenia == "true" ]; then
 	echo "" 
@@ -944,21 +901,8 @@ fi
 
 
 
-#Setup Bios symlinks
-unlink ${biosPath}yuzu/keys
-mkdir -p "$HOME/.local/share/yuzu/keys/"
-ln -sn "$HOME/.local/share/yuzu/keys/" ${biosPath}yuzu/keys
-
-unlink ${biosPath}yuzu/firmware
-mkdir -p ${storagePath}yuzu/nand/system/Contents/registered/
-touch ${storagePath}yuzu/nand/system/Contents/registered/putfirmwarehere.txt
-ln -sn ${storagePath}yuzu/nand/system/Contents/registered/ ${biosPath}yuzu/firmware
-
 #Fixes repeated Symlink for older installations
-cd ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/
-unlink keys 
-cd ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/
-unlink registered 
+finalizeYuzu
 
 
 
