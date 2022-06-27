@@ -35,7 +35,7 @@ initYuzu(){
     
     
     touch ${storagePath}yuzu/nand/system/Contents/registered/putfirmwarehere.txt
-    
+    setEmulationFolderYuzu
 }
 
 #update
@@ -55,14 +55,37 @@ updateYuzu(){
     
     
     touch ${storagePath}yuzu/nand/system/Contents/registered/putfirmwarehere.txt
-    
+    setEmulationFolderYuzu
 }
 
 #ConfigurePaths
 setEmulationFolderYuzu(){
-    #this, unfortunately, probabaly needs to change to search for the option, and then replace the entire line.
-    # That way we can always update to the correct location.
-    sed -i "s|/run/media/mmcblk0p1/|${destination}/|g" "$HOME/.config/yuzu/qt-config.ini"
+
+    configFile="$HOME/.config/yuzu/qt-config.ini"
+    screenshotDirOpt='Screenshots\screenshot_path='
+    gameDirOpt='Paths\gamedirs\4\path='
+    dumpDirOpt='dump_directory='
+    loadDir='load_directory='
+    nandDirOpt='nand_directory='
+    sdmcDirOpt='sdmc_directory='
+    tasDirOpt='tas_directory='
+    newScreenshotDirOpt='Screenshots\screenshot_path='"${storagePath}yuzu/screenshots"
+    newGameDirOpt='Paths\gamedirs\4\path='"${romsPath}switch"
+    newDumpDirOpt='dump_directory='"${storagePath}yuzu/dump"
+    newLoadDir='load_directory='"${storagePath}yuzu/load"
+    newNandDirOpt='nand_directory='"${storagePath}yuzu/nand"
+    newSdmcDirOpt='sdmc_directory='"${storagePath}yuzu/sdmc"
+    newTasDirOpt='tas_directory='"${storagePath}yuzu/tas"
+
+    sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" $configFile
+    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" $configFile
+    sed -i "/${dumpDirOpt}/c\\${newDumpDirOpt}" $configFile
+    sed -i "/${loadDir}/c\\${newLoadDir}" $configFile
+    sed -i "/${nandDirOpt}/c\\${newNandDirOpt}" $configFile
+    sed -i "/${sdmcDirOpt}/c\\${newSdmcDirOpt}" $configFile
+    sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" $configFile
+
+    setupStorageYuzu
 }
 
 #SetupSaves
