@@ -156,6 +156,11 @@ migrateYuzu(){
 	rsync -av ${origPath}yuzu/tas ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/tas
 }
 
+#setABXYstyle
+setABXYstyleYuzu(){
+    
+}
+
 #WideScreenOn
 wideScreenOnYuzu(){
 #na
