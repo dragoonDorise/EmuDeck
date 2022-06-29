@@ -20,6 +20,19 @@ case $devMode in
   ;;
 esac
 
+# Ensure that only one copy of the script is running at a time
+LOCKFILE=/tmp/emudeck-install.lock
+
+if { set -C; 2>/dev/null >$LOCKFILE; }; then
+	trap "rm -f $LOCKFILE" EXIT
+else
+	echo "Lockfile exists - is another instance running?" >&1
+	echo "If you are sure that no other copy of Emudeck installer is running, run:" >&1
+	echo "rm -f $LOCKFILE" >&1
+
+	exit 1
+fi
+
 #Clean up previous installations
 rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
 rm -rf ~/dragoonDoriseTools
