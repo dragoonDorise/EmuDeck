@@ -7,17 +7,15 @@ configEmuAI(){
     gitLocation=$4
     overwrite=$5
 
-    if [[ ! $overwrite == 'true' ]]; then
-        overwrite="--ignore-existing"
+	if [[ $overwrite == 'true' ]]; then
+		overwrite="--backup --suffix=.bak"
     else
-        overwrite=""
+        overwrite="--ignore-existing"
     fi
+    
+	setMSG "Updating $emu $folderName using $overwrite"	
 
-	setMSG "Backing up ${emu} ${folderName}..."
-	rm -rf ${folderPath}_bak
-	cp -r ${folderPath} ${folderPath}_bak
+	rsync -avhp --mkpath $gitLocation/ $folderPath $overwrite
 
-
-	rsync -avhp $gitLocation/ $folderPath $overwrite
 
 }
