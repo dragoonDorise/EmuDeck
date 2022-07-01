@@ -68,7 +68,7 @@ installSRM(){
             mkdir -p $HOME/Applications
             cd $HOME/Applications
             url="$(curl -sL https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases/latest | jq -r ".assets[].browser_download_url" | grep .AppImage\$)"
-            wget -c "$url" -O "yuzu.AppImage" 
+            curl -L "$url" --output "yuzu.AppImage" 
         fi
         if [[ "$binsToDL" == *"cemu"* ]]; then
 
