@@ -738,7 +738,8 @@ fi
 
 #Emulators Installation
 if [ $doInstallPCSX2 == "true" ]; then	
-	installEmuFP "PCSX2" "net.pcsx2.PCSX2"		
+	#installEmuFP "PCSX2" "net.pcsx2.PCSX2"
+	installPcsx2	
 fi
 if [ $doInstallPrimeHacks == "true" ]; then
 	installEmuFP "PrimeHack" "io.github.shiiion.primehack"		
@@ -768,11 +769,6 @@ fi
 if [ $doInstallXemu == "true" ]; then
 	installEmuFP "Xemu-Emu" "app.xemu.xemu"	
 fi
-
-
-
-
-#Cemu - We need to install Cemu after creating the Roms folders!
 if [ $doInstallCemu == "true" ]; then
 	installCemu
 fi
@@ -849,9 +845,7 @@ if [ $doSetupDolphin == "true" ]; then
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
 fi
 if [ $doSetupPCSX2 == "true" ]; then
-	configEmuFP "PCSX2" "net.pcsx2.PCSX2"
-	#Bios Fix
-	sed -i "s|/run/media/mmcblk0p1/Emulation/bios|${biosPath}|g" ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini 
+	initPcsx2
 fi
 if [ $doSetupRPCS3 == "true" ]; then
 	configEmuFP "RPCS3" "net.rpcs3.RPCS3"

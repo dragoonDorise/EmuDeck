@@ -18,16 +18,14 @@ createSaveFolders(){
 	linkToSaveFolder primehack states ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/states
 	
 	#Yuzu
-	unlink "${savesPath}yuzu/saves" # Fix for previous bad symlink
-	linkToSaveFolder yuzu saves "${storagePath}yuzu/nand/user/save/"
+	setupSavesYuzu
 	
 	#Duckstation
 	linkToSaveFolder duckstation saves ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards
 	linkToSaveFolder duckstation states ~/.var/app/org.duckstation.DuckStation/data/duckstation/savestates
 	
 	#PCSX2
-	linkToSaveFolder pcsx2 saves ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards
-	linkToSaveFolder pcsx2 states ~/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates
+	#innewspot
 	
 	#Citra
 	linkToSaveFolder citra saves ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc
@@ -37,7 +35,8 @@ createSaveFolders(){
 	linkToSaveFolder ppsspp saves ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA
 	linkToSaveFolder ppsspp states ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE
 
-	#xemu
+	#Cemu
+	setupSavesCemu
 
 
 	#rpcs3

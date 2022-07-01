@@ -32,3 +32,4 @@ source "$EMUDECKGIT"/functions/installBinUp.sh
 #emuscripts
 source "$EMUDECKGIT"/EmuScripts/emuDeckYuzu.sh
 source "$EMUDECKGIT"/EmuScripts/emuDeckCemu.sh
+source "$EMUDECKGIT"/EmuScripts/emuDeckPcsx2.sh
