@@ -576,7 +576,6 @@ if [ $expert == "true" ]; then
 			#flatpak override net.pcsx2.PCSX2 --filesystem=host --user
 			flatpak override net.pcsx2.PCSX2 --share=network --user # for network access / online play
 			flatpak override io.github.shiiion.primehack --filesystem=host --user
-			flatpak override net.rpcs3.RPCS3 --filesystem=host --user
 			flatpak override org.citra_emu.citra --filesystem=host --user
 			flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
 			#flatpak override org.duckstation.DuckStation --filesystem=host --user
@@ -745,7 +744,7 @@ if [ $doInstallPrimeHacks == "true" ]; then
 	installEmuFP "PrimeHack" "io.github.shiiion.primehack"		
 fi
 if [ $doInstallRPCS3 == "true" ]; then
-	installEmuFP "RPCS3" "net.rpcs3.RPCS3"		
+	installRpcs3
 fi
 if [ $doInstallCitra == "true" ]; then
 	installEmuFP "Citra" "org.citra_emu.citra"		
@@ -848,10 +847,7 @@ if [ $doSetupPCSX2 == "true" ]; then
 	initPcsx2
 fi
 if [ $doSetupRPCS3 == "true" ]; then
-	configEmuFP "RPCS3" "net.rpcs3.RPCS3"
-	#HDD Config
-	sed -i 's| $(EmulatorDir)dev_hdd0/| '$storagePath'/rpcs3/dev_hdd0/|g' $HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml 
-	mkdir -p $storagePath/rpcs3/ 
+	initRpcs3
 fi
 if [ $doSetupCitra == "true" ]; then
 	configEmuFP "Citra" "org.citra_emu.citra"

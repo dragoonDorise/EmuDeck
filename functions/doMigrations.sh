@@ -30,27 +30,7 @@ doMigrations(){
 	fi
 
 	#RPCS3 files to storage
-	if [ ! -d "$storagePath"rpcs3/dev_hdd0 ] && [ -d "$HOME/.var/app/net.rpcs3.RPCS3/" ];then
-		echo "rpcs3 hdd does not exist in storagepath."
-		#update config file for the new loc $(emulatorDir) is in the file. made this annoying.
-		rpcs3VFSConf="$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/vfs.yml"
-		rpcs3DevHDD0Line="/dev_hdd0/: ${storagePath}rpcs3/dev_hdd0/"
-		sed -i "/dev_hdd0/c\\${rpcs3DevHDD0Line}" $rpcs3VFSConf 
-
-		echo -e ""
-		setMSG "Moving rpcs3 HDD to the Emulation/storage folder"			
-		echo -e ""
-		
-		mkdir -p "$storagePath/rpcs3" 
-
-		if [ -d "$savesPath/rpcs3/dev_hdd0" ]; then
-			mv -f "$savesPath"rpcs3/dev_hdd0 "$storagePath"rpcs3/
-
-		elif [ -d "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0" ]; then	
-			rsync -av "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0" "$storagePath"rpcs3/ && rm -rf "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0"
-
-		fi
-	fi
+	#moved to setupStorageRpcs3
 
 	emu="Yuzu"
 	migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
