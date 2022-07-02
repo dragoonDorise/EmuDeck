@@ -576,7 +576,7 @@ if [ $expert == "true" ]; then
 			#flatpak override net.pcsx2.PCSX2 --filesystem=host --user
 			flatpak override net.pcsx2.PCSX2 --share=network --user # for network access / online play
 			flatpak override io.github.shiiion.primehack --filesystem=host --user
-			flatpak override org.citra_emu.citra --filesystem=host --user
+			#flatpak override org.citra_emu.citra --filesystem=host --user
 			flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
 			#flatpak override org.duckstation.DuckStation --filesystem=host --user
 			#flatpak override org.libretro.RetroArch --filesystem=host --user
@@ -737,7 +737,6 @@ fi
 
 #Emulators Installation
 if [ $doInstallPCSX2 == "true" ]; then	
-	#installEmuFP "PCSX2" "net.pcsx2.PCSX2"
 	installPcsx2	
 fi
 if [ $doInstallPrimeHacks == "true" ]; then
@@ -747,7 +746,7 @@ if [ $doInstallRPCS3 == "true" ]; then
 	installRpcs3
 fi
 if [ $doInstallCitra == "true" ]; then
-	installEmuFP "Citra" "org.citra_emu.citra"		
+	installCitra		
 fi
 if [ $doInstallDolphin == "true" ]; then
 	installEmuFP "dolphin-emu" "org.DolphinEmu.dolphin-emu"
@@ -761,8 +760,7 @@ fi
 if [ $doInstallPPSSPP == "true" ]; then
 	installEmuFP "PPSSPP" "org.ppsspp.PPSSPP"		
 fi
-if [ $doInstallYuzu == "true" ]; then
-	#installEmuFP "Yuzu" "org.yuzu_emu.yuzu"	
+if [ $doInstallYuzu == "true" ]; then	
 	installYuzu
 fi
 if [ $doInstallXemu == "true" ]; then
@@ -808,8 +806,6 @@ setMSG "Configuring emulators.."
 echo -e ""
 if [ $doSetupRA == "true" ]; then
 
-	mkdir -p ~/.var/app/org.libretro.RetroArch
-	mkdir -p ~/.var/app/org.libretro.RetroArch/config
 	mkdir -p ~/.var/app/org.libretro.RetroArch/config/retroarch
 	
 	RACores
@@ -850,9 +846,7 @@ if [ $doSetupRPCS3 == "true" ]; then
 	initRpcs3
 fi
 if [ $doSetupCitra == "true" ]; then
-	configEmuFP "Citra" "org.citra_emu.citra"
-	#Roms Path
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" $HOME/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini
+	initCitra
 fi
 if [ $doSetupDuck == "true" ]; then
 	configEmuFP "DuckStation" "org.duckstation.DuckStation"
