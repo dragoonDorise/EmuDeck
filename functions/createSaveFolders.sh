@@ -18,7 +18,7 @@ createSaveFolders(){
 	linkToSaveFolder primehack states ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/states
 	
 	#Yuzu
-	setupSavesYuzu
+	#setupSavesYuzu
 	
 	#Duckstation
 	linkToSaveFolder duckstation saves ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards
@@ -28,19 +28,19 @@ createSaveFolders(){
 	#innewspot
 	
 	#Citra
-	linkToSaveFolder citra saves ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc
-	linkToSaveFolder citra states ~/.var/app/org.citra_emu.citra/data/citra-emu/states
+	#linkToSaveFolder citra saves ~/.var/app/org.citra_emu.citra/data/citra-emu/sdmc
+	#linkToSaveFolder citra states ~/.var/app/org.citra_emu.citra/data/citra-emu/states
 
 	#PPSSPP
 	linkToSaveFolder ppsspp saves ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA
 	linkToSaveFolder ppsspp states ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE
 
 	#Cemu
-	setupSavesCemu
+	#setupSavesCemu
 
 
 	#rpcs3
 	#add links for the actual saves here.
-	linkToSaveFolder rpcs3 saves "${storagePath}rpcs3/dev_hdd0/home/00000001/savedata"
+	#linkToSaveFolder rpcs3 saves "${storagePath}rpcs3/dev_hdd0/home/00000001/savedata"
 
 }
