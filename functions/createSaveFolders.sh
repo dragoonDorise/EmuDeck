@@ -21,8 +21,8 @@ createSaveFolders(){
 	#setupSavesYuzu
 	
 	#Duckstation
-	linkToSaveFolder duckstation saves ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards
-	linkToSaveFolder duckstation states ~/.var/app/org.duckstation.DuckStation/data/duckstation/savestates
+	#linkToSaveFolder duckstation saves ~/.var/app/org.duckstation.DuckStation/data/duckstation/memcards
+	#linkToSaveFolder duckstation states ~/.var/app/org.duckstation.DuckStation/data/duckstation/savestates
 	
 	#PCSX2
 	#innewspot

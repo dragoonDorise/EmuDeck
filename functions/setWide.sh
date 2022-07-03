@@ -1,9 +1,9 @@
 #!/bin/bash
 setWide(){		
 	if [ $duckWide == true ]; then	
-		sed -i "s|WidescreenHack = false|WidescreenHack = true|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini 
+		wideScreenOnDuckStation
 	else
-		sed -i "s|WidescreenHack = true|WidescreenHack = false|g" ~/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini 
+		wideScreenOffDuckStation
 	fi
 	if [ $DolphinWide == true ]; then
 		wideScreenOnDolphin
