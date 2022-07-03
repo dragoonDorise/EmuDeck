@@ -574,10 +574,10 @@ if [ $expert == "true" ]; then
 			#We make sure all the emus can write its saves outside its own folders.
 			#Also needed for certain emus to open certain menus for adding rom directories in the front end.
 			#flatpak override net.pcsx2.PCSX2 --filesystem=host --user
-			flatpak override net.pcsx2.PCSX2 --share=network --user # for network access / online play
-			flatpak override io.github.shiiion.primehack --filesystem=host --user
+			#flatpak override net.pcsx2.PCSX2 --share=network --user # for network access / online play
+			#flatpak override io.github.shiiion.primehack --filesystem=host --user
 			#flatpak override org.citra_emu.citra --filesystem=host --user
-			flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
+			#flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
 			#flatpak override org.duckstation.DuckStation --filesystem=host --user
 			#flatpak override org.libretro.RetroArch --filesystem=host --user
 			#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
@@ -737,16 +737,16 @@ fi
 
 #Emulators Installation
 if [ $doInstallPCSX2 == "true" ]; then	
-	installPcsx2	
+	installPcsx2
 fi
 if [ $doInstallPrimeHacks == "true" ]; then
-	installEmuFP "PrimeHack" "io.github.shiiion.primehack"		
+	installPrimehack
 fi
 if [ $doInstallRPCS3 == "true" ]; then
 	installRpcs3
 fi
 if [ $doInstallCitra == "true" ]; then
-	installCitra		
+	installCitra
 fi
 if [ $doInstallDolphin == "true" ]; then
 	installDolphin
@@ -832,8 +832,7 @@ fi
 echo -e ""
 setMSG "Applying Emu configurations..."
 if [ $doSetupPrimeHacks == "true" ]; then
-	configEmuFP "PrimeHack" "io.github.shiiion.primehack"
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Dolphin.ini
+	initPrimehack
 fi
 if [ $doSetupDolphin == "true" ]; then
 	initDolphin

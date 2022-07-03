@@ -13,9 +13,9 @@ createSaveFolders(){
 	#linkToSaveFolder dolphin states ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/states
 	
 	#PrimeHack
-	linkToSaveFolder primehack GC ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC
-	linkToSaveFolder primehack Wii ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii
-	linkToSaveFolder primehack states ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/states
+	#linkToSaveFolder primehack GC ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC
+	#linkToSaveFolder primehack Wii ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii
+	#linkToSaveFolder primehack states ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/states
 	
 	#Yuzu
 	#setupSavesYuzu
