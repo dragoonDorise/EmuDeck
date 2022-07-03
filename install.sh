@@ -758,7 +758,7 @@ if [ $doInstallRA == "true" ]; then
 	installEmuFP "RetroArch" "org.libretro.RetroArch"		
 fi
 if [ $doInstallPPSSPP == "true" ]; then
-	installEmuFP "PPSSPP" "org.ppsspp.PPSSPP"		
+	installPPSSPP	
 fi
 if [ $doInstallYuzu == "true" ]; then	
 	installYuzu
@@ -857,7 +857,7 @@ if [ $doSetupYuzu == "true" ]; then
 fi
 
 if [ $doSetupPPSSPP == "true" ]; then
-	configEmuFP "PPSSPP" "org.ppsspp.PPSSPP"
+	initPPSSPP
 fi
 if [ $doSetupXemu == "true" ]; then
 	configEmuFP "Xemu" "app.xemu.xemu"	

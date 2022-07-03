@@ -32,8 +32,8 @@ createSaveFolders(){
 	#linkToSaveFolder citra states ~/.var/app/org.citra_emu.citra/data/citra-emu/states
 
 	#PPSSPP
-	linkToSaveFolder ppsspp saves ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA
-	linkToSaveFolder ppsspp states ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE
+	#linkToSaveFolder ppsspp saves ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA
+	#linkToSaveFolder ppsspp states ~/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE
 
 	#Cemu
 	#setupSavesCemu
