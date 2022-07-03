@@ -737,13 +737,13 @@ fi
 
 #Emulators Installation
 if [ $doInstallPCSX2 == "true" ]; then	
-	installPcsx2
+	installPCSX2
 fi
 if [ $doInstallPrimeHacks == "true" ]; then
 	installPrimehack
 fi
 if [ $doInstallRPCS3 == "true" ]; then
-	installRpcs3
+	installRPCS3
 fi
 if [ $doInstallCitra == "true" ]; then
 	installCitra
@@ -838,10 +838,10 @@ if [ $doSetupDolphin == "true" ]; then
 	initDolphin
 fi
 if [ $doSetupPCSX2 == "true" ]; then
-	initPcsx2
+	initPCSX2
 fi
 if [ $doSetupRPCS3 == "true" ]; then
-	initRpcs3
+	initRPCS3
 fi
 if [ $doSetupCitra == "true" ]; then
 	initCitra

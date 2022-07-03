@@ -6,31 +6,31 @@ emuPath="net.pcsx2.PCSX2"
 releaseURL=""
 
 #cleanupOlderThings
-cleanupPcsx2(){
+cleanupPCSX2(){
  #na
 }
 
 #Install
-installPcsx2(){
+installPCSX2(){
 	installEmuFP "PCSX2" "net.pcsx2.PCSX2"	
 }
 
 #ApplyInitialSettings
-initPcsx2(){
+initPCSX2(){
 	configEmuFP "PCSX2" "net.pcsx2.PCSX2" "true"
 	setEmulationFolderPcsx2
 	setupSavesPcsx2
 }
 
 #update
-updatePcsx2(){
+updatePCSX2(){
 	configEmuFP "PCSX2" "net.pcsx2.PCSX2"
 	setEmulationFolderPcsx2
 	setupSavesPcsx2
 }
 
 #ConfigurePaths
-setEmulationFolderPcsx2(){
+setEmulationFolderPCSX2(){
 	configFile = "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini"
 	biosDirOpt='Bios=/'
 	newBiosDirOpt='Bios='"${biosPath}"
@@ -38,62 +38,62 @@ setEmulationFolderPcsx2(){
 }
 
 #SetupSaves
-setupSavesPcsx2(){
+setupSavesPCSX2(){
 	linkToSaveFolder pcsx2 saves $HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards
 	linkToSaveFolder pcsx2 states $HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates
 }
 
 
 #SetupStorage
-setupStoragePcsx2(){
+setupStoragePCSX2(){
  #na
 }
 
 
 #WipeSettings
-wipePcsx2(){
+wipePCSX2(){
    rm -rf "$HOME/.var/app/$emuPath"
    # prob not cause roms are here
 }
 
 
 #Uninstall
-uninstallPcsx2(){
+uninstallPCSX2(){
     flatpack uninstall $emuPath -y
 }
 
 #setABXYstyle
-setABXYstylePcsx2(){
+setABXYstylePCSX2(){
     
 }
 
 #Migrate
-migratePcsx2(){
+migratePCSX2(){
     
 }
 
 #WideScreenOn
-wideScreenOnPcsx2(){
+wideScreenOnPCSX2(){
 #na
 }
 
 #WideScreenOff
-wideScreenOffPcsx2(){
+wideScreenOffPCSX2(){
 #na
 }
 
 #BezelOn
-bezelOnPcsx2(){
+bezelOnPCSX2(){
 #na
 }
 
 #BezelOff
-bezelOffPcsx2(){
+bezelOffPCSX2(){
 #na
 }
 
 #finalExec - Extra stuff
-finalizePcsx2(){
+finalizePCSX2(){
 	#na
 }
 
