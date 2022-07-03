@@ -8,9 +8,9 @@ createSaveFolders(){
 	linkToSaveFolder retroarch saves ~/.var/app/org.libretro.RetroArch/config/retroarch/saves
 	
 	#Dolphin
-	linkToSaveFolder dolphin GC ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC
-	linkToSaveFolder dolphin Wii ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii
-	linkToSaveFolder dolphin states ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/states
+	#linkToSaveFolder dolphin GC ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC
+	#linkToSaveFolder dolphin Wii ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii
+	#linkToSaveFolder dolphin states ~/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/states
 	
 	#PrimeHack
 	linkToSaveFolder primehack GC ~/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC

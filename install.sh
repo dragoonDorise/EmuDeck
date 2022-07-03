@@ -749,7 +749,7 @@ if [ $doInstallCitra == "true" ]; then
 	installCitra		
 fi
 if [ $doInstallDolphin == "true" ]; then
-	installEmuFP "dolphin-emu" "org.DolphinEmu.dolphin-emu"
+	installDolphin
 fi
 if [ $doInstallDuck == "true" ]; then
 	installEmuFP "DuckStation" "org.duckstation.DuckStation"		
@@ -836,8 +836,7 @@ if [ $doSetupPrimeHacks == "true" ]; then
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Dolphin.ini
 fi
 if [ $doSetupDolphin == "true" ]; then
-	configEmuFP "Dolphin" "org.DolphinEmu.dolphin-emu"
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" ~/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini
+	initDolphin
 fi
 if [ $doSetupPCSX2 == "true" ]; then
 	initPcsx2
