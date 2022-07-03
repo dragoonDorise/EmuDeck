@@ -950,8 +950,8 @@ if [ $doInstallCHD == "true" ]; then
 fi
 
 if [ $doInstallGyro == "true" ]; then	
-		InstallGyro=$(bash <(curl -sL https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh))
-		echo $InstallGyro 
+	InstallGyro=$(bash <(curl -sL https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh))
+	echo $(printf "$InstallGyro" )
 fi
 
 
