@@ -521,8 +521,9 @@ if [ $expert == "true" ]; then
 		emuTable=()
 		emuTable+=(TRUE "Dolphin")
 		emuTable+=(TRUE "Duckstation")
-		emuTable+=(TRUE "BeetlePSX")
-		emuTable+=(TRUE "Dreamcast")
+		emuTable+=(TRUE "RA-BeetlePSX")
+		emuTable+=(TRUE "RA-Flycast")
+		emuTable+=(TRUE "Xemu")
 
 		text="`printf "Selected Emulators will use WideScreen Hacks"`"
 		wideToInstall=$(zenity --list \
@@ -549,17 +550,21 @@ if [ $expert == "true" ]; then
 			else
 				DolphinWide=false
 			fi
-			if [[ "$wideToInstall" == *"Dreamcast"* ]]; then
+			if [[ "$wideToInstall" == *"RA-Flycast"* ]]; then
 				DreamcastWide=true
 			else
 				DreamcastWide=false
 			fi		
 			if [[ "$wideToInstall" == *"BeetlePSX"* ]]; then
 				BeetleWide=true
-				else
+			else
 				BeetleWide=false
 			fi				
-					
+			if [[ "$wideToInstall" == *"Xemu"* ]]; then
+				XemuWide=true
+			else
+				XemuWide=false
+			fi			
 			
 		else		
 			exit		
@@ -581,9 +586,9 @@ if [ $expert == "true" ]; then
 			#flatpak override org.duckstation.DuckStation --filesystem=host --user
 			#flatpak override org.libretro.RetroArch --filesystem=host --user
 			#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
-			flatpak override org.yuzu_emu.yuzu --filesystem=host --user
-			flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
-			flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
+			#flatpak override org.yuzu_emu.yuzu --filesystem=host --user
+			#flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
+			#flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
 
 			installString='Updating'
 
@@ -694,6 +699,7 @@ else
 	DolphinWide=false
 	DreamcastWide=false
 	BeetleWide=false
+	XemuWide=false
 
 fi # end Expert if
 
@@ -711,9 +717,9 @@ fi # end Expert if
 ## Start of installation
 ##	
 ##
-## First up - migrate things that need to move.
-echo "begin migrations"
-doMigrations
+## First up - migrate things that need to move. Now in the update method.
+#echo "begin migrations"
+#doMigrations
 
 #setup Proton-Launch.sh
 #because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
@@ -764,7 +770,7 @@ if [ $doInstallYuzu == "true" ]; then
 	installYuzu
 fi
 if [ $doInstallXemu == "true" ]; then
-	installEmuFP "Xemu-Emu" "app.xemu.xemu"	
+	installXemu
 fi
 if [ $doInstallCemu == "true" ]; then
 	installCemu
@@ -856,18 +862,8 @@ if [ $doSetupPPSSPP == "true" ]; then
 	initPPSSPP
 fi
 if [ $doSetupXemu == "true" ]; then
-	configEmuFP "Xemu" "app.xemu.xemu"	
-	#Bios Fix
-	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.ini
-	sed -i "s|/run/media/mmcblk0p1/Emulation/bios/|${biosPath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml
-	sed -i "s|/run/media/mmcblk0p1/Emulation/saves/|${storagePath}|g" ~/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml
-	if [[ ! -f "${storagePath}xemu/xbox_hdd.qcow2" ]]; then
-		mkdir -p "${storagePath}xemu"
-		cd "${storagePath}xemu"
-		wget https://github.com/mborgerson/xemu-hdd-image/releases/latest/download/xbox_hdd.qcow2.zip && unzip -j xbox_hdd.qcow2.zip && rm -rf xbox_hdd.qcow2.zip
-	fi
+	initXemu
 fi
-
 #Proton Emus
 if [ $doSetupCemu == "true" ]; then
 	initCemu

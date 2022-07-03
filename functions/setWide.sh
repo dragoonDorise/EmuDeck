@@ -21,4 +21,9 @@ setWide(){
 	else
 		sed -i "s|beetle_psx_hw_widescreen_hack = \"enabled\"|beetle_psx_hw_widescreen_hack = \"disabled\"|g" "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle PSX HW/Beetle PSX HW.opt" 
 	fi
+	if [ $XemuWide == true ]; then
+		wideScreenOnXemu
+	else
+		wideScreenOffXemu
+	fi
 }

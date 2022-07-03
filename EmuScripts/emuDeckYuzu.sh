@@ -8,9 +8,9 @@ emuPath="$HOME/Applications/yuzu.AppImage"
 cleanupYuzu(){
     "Begin Yuzu Cleanup"
     #Fixes repeated Symlink for older installations
-    cd ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/
+    cd "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/"
     unlink keys 
-    cd ~/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/
+    cd "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/"
     unlink registered 
 }
 
@@ -18,11 +18,13 @@ cleanupYuzu(){
 installYuzu(){
     echo "Begin Yuzu Install"
     installEmuAI "yuzu"  $(getLatestReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage") #needs to be lowercase yuzu for EsDE to find it.
+    flatpak override org.yuzu_emu.yuzu --filesystem=host --user # still doing this, as we do link the appimage / flatpak config
 }
 
 #ApplyInitialSettings
 initYuzu(){
     echo "Begin Yuzu Init"
+    migrateYuzu
 	configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
 	configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
     
@@ -44,6 +46,7 @@ initYuzu(){
 #update
 updateYuzu(){
     echo "Begin Yuzu update"
+    migrateYuzu
 	configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/config/yuzu"
 	configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/data/yuzu"
     
