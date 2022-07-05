@@ -757,7 +757,7 @@ if [ $doInstallYuzu == "true" ]; then
 	installYuzu
 fi
 if [ $doInstallXemu == "true" ]; then
-	installXemu
+	Xemu.install
 fi
 if [ $doInstallCemu == "true" ]; then
 	Cemu.install
@@ -825,7 +825,7 @@ if [ $doSetupPPSSPP == "true" ]; then
 	PPSSPP.init
 fi
 if [ $doSetupXemu == "true" ]; then
-	initXemu
+	Xemu.init
 fi
 #Proton Emus
 if [ $doSetupCemu == "true" ]; then
