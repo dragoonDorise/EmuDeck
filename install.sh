@@ -736,7 +736,7 @@ if [ $doInstallPrimeHacks == "true" ]; then
 	Primehack.install
 fi
 if [ $doInstallRPCS3 == "true" ]; then
-	installRPCS3
+	RPCS3.install
 fi
 if [ $doInstallCitra == "true" ]; then
 	Citra.install
@@ -810,7 +810,7 @@ if [ $doSetupPCSX2 == "true" ]; then
 	PCSX2.init
 fi
 if [ $doSetupRPCS3 == "true" ]; then
-	initRPCS3
+	RPCS3.init
 fi
 if [ $doSetupCitra == "true" ]; then
 	Citra.init

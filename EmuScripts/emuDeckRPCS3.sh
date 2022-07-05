@@ -6,18 +6,18 @@ emuPath="net.rpcs3.RPCS3"
 releaseURL=""
 
 #cleanupOlderThings
-cleanupRPCS3(){
+RPCS3.cleanup(){
  #na
 }
 
 #Install
-installRPCS3(){
+RPCS3.install(){
 	installEmuFP "${emuName}" "${emuPath}"	
 	flatpak override ${emuPath} --filesystem=host --user	
 }
 
 #ApplyInitialSettings
-initRPCS3(){
+RPCS3.init(){
 	configEmuFP "${emuName}" "${emuPath}" "true"
 	setupStorageRpcs3
 	setEmulationFolderRpcs3
@@ -25,7 +25,7 @@ initRPCS3(){
 }
 
 #update
-updateRPCS3(){
+RPCS3.update(){
 	configEmuFP "${emuName}" "${emuPath}"
 	setupStorageRpcs3
 	setEmulationFolderRpcs3
@@ -33,18 +33,18 @@ updateRPCS3(){
 }
 
 #ConfigurePaths
-setEmulationFolderRPCS3(){
+RPCS3.setEmulationFolder(){
    #na
 }
 
 #SetupSaves
-setupSavesRPCS3(){
+RPCS3.setupSaves(){
 	linkToSaveFolder rpcs3 saves "${storagePath}rpcs3/dev_hdd0/home/00000001/savedata"
 }
 
 
 #SetupStorage
-setupStorageRPCS3(){
+RPCS3.setupStorage(){
  	sed -i 's| $(EmulatorDir)dev_hdd0/| '$storagePath'/rpcs3/dev_hdd0/|g' $HOME/.var/app/${emuPath}/config/rpcs3/vfs.yml 
 	mkdir -p $storagePath/rpcs3/
 
@@ -73,49 +73,49 @@ setupStorageRPCS3(){
 
 
 #WipeSettings
-wipeRPCS3(){
+RPCS3.wipe(){
    rm -rf "$HOME/.var/app/$emuPath"
    # prob not cause roms are here
 }
 
 
 #Uninstall
-uninstallRPCS3(){
+RPCS3.uninstall(){
     flatpack uninstall $emuPath -y
 }
 
 #setABXYstyle
-setABXYstyleRPCS3(){
+RPCS3.setABXYstyle(){
     
 }
 
 #Migrate
-migrateRPCS3(){
+RPCS3.migrate(){
     
 }
 
 #WideScreenOn
-wideScreenOnRPCS3(){
+RPCS3.wideScreenOn(){
 #na
 }
 
 #WideScreenOff
-wideScreenOffRPCS3(){
+RPCS3.wideScreenOff(){
 #na
 }
 
 #BezelOn
-bezelOnRPCS3(){
+RPCS3.bezelOn(){
 #na
 }
 
 #BezelOff
-bezelOffRPCS3(){
+RPCS3.bezelOff(){
 #na
 }
 
 #finalExec - Extra stuff
-finalizeRPCS3(){
+RPCS3.finalize(){
 	#na
 }
 
