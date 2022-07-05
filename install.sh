@@ -576,19 +576,6 @@ if [ $expert == "true" ]; then
 	if [[ $doResetEmulators == "true" ]]; then
 		# Configuration that only appplies to previous users
 		if [ -f "$SECONDTIME" ]; then
-			#We make sure all the emus can write its saves outside its own folders.
-			#Also needed for certain emus to open certain menus for adding rom directories in the front end.
-			#flatpak override net.pcsx2.PCSX2 --filesystem=host --user
-			#flatpak override net.pcsx2.PCSX2 --share=network --user # for network access / online play
-			#flatpak override io.github.shiiion.primehack --filesystem=host --user
-			#flatpak override org.citra_emu.citra --filesystem=host --user
-			#flatpak override org.DolphinEmu.dolphin-emu --filesystem=host --user
-			#flatpak override org.duckstation.DuckStation --filesystem=host --user
-			#flatpak override org.libretro.RetroArch --filesystem=host --user
-			#flatpak override org.ppsspp.PPSSPP --filesystem=host --user
-			#flatpak override org.yuzu_emu.yuzu --filesystem=host --user
-			#flatpak override app.xemu.xemu --filesystem=/run/media:rw --user
-			#flatpak override app.xemu.xemu --filesystem="$savesPath"xemu:rw --user
 
 			installString='Updating'
 
@@ -721,6 +708,11 @@ fi # end Expert if
 #echo "begin migrations"
 #doMigrations
 
+#Support for non-valve hardware.
+if [[ $isRealDeck == false ]]; then
+	 setUpHolo
+fi
+
 #setup Proton-Launch.sh
 #because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
 cp ~/dragoonDoriseTools/EmuDeck/tools/proton-launch.sh "${toolsPath}"proton-launch.sh
@@ -734,11 +726,6 @@ fi
 #SRM Installation
 if [ $doInstallSRM == "true" ]; then
 	installSRM
-fi
-
-#Support for non-valve hardware.
-if [[ $isRealDeck == false ]]; then
-	 setUpHolo
 fi
 
 #Emulators Installation
@@ -761,7 +748,7 @@ if [ $doInstallDuck == "true" ]; then
 	installDuckStation
 fi
 if [ $doInstallRA == "true" ]; then
-	installEmuFP "RetroArch" "org.libretro.RetroArch"		
+	RetroArch.install	
 fi
 if [ $doInstallPPSSPP == "true" ]; then
 	installPPSSPP	
@@ -811,32 +798,8 @@ rsync -r ~/dragoonDoriseTools/EmuDeck/configs/steam-input/ ~/.steam/steam/contro
 setMSG "Configuring emulators.."
 echo -e ""
 if [ $doSetupRA == "true" ]; then
-
-	mkdir -p ~/.var/app/org.libretro.RetroArch/config/retroarch
-	
-	RACores
-	
-	raConfigFile=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg
-	FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak
-	if [ -f "$FILE" ]; then
-		echo -e "" 2>/dev/null
-	else
-		setMSG "Backing up RA..."
-		cp ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg.bak 	
-	fi
-	#mkdir -p ~/.var/app/org.libretro.RetroArch/config/retroarch/overlays
-	
-	#Cleaning up cfg files that the user could have created on Expert mode
-	find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.cfg" | while read f; do rm -f "$f"; done 
-	find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.bak" | while read f; do rm -f "$f"; done 
-	
-	rsync -r ~/dragoonDoriseTools/EmuDeck/configs/org.libretro.RetroArch/config/ ~/.var/app/org.libretro.RetroArch/config/
-	
-	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" $raConfigFile	
-	
+	RetroArch.init
 fi
-echo -e ""
-setMSG "Applying Emu configurations..."
 if [ $doSetupPrimeHacks == "true" ]; then
 	initPrimehack
 fi

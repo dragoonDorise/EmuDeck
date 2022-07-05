@@ -27,7 +27,7 @@ Cemu.install(){
         rm -f "$romsPath"wiiu/cemu.zip
 	fi
 
-	cp ~/dragoonDoriseTools/EmuDeck/tools/launchers/cemu.sh "${toolsPath}"launchers/cemu.sh
+	cp "$HOME/dragoonDoriseTools/EmuDeck/tools/launchers/cemu.sh" "${toolsPath}"launchers/cemu.sh
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|" "${toolsPath}"launchers/cemu.sh
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/wiiu|${romsPath}wiiu|" "${toolsPath}"launchers/cemu.sh
 	chmod +x "${toolsPath}"launchers/cemu.sh
@@ -38,12 +38,13 @@ Cemu.init(){
 	setMSG "Setting up Cemu"	
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "${romsPath}wiiu"
     Cemu.setEmulationFolder
+	Cemu.setupSaves
 }
 
 #update
 Cemu.update(){
 	setMSG "Updating Cemu Config"	
-	#cemuSettings="${romsPath}wiiu/settings.xml"
+	cemuSettings="${romsPath}wiiu/settings.xml"
     if [ -f $cemuSettings ]; then
 	    mv -f $cemuSettings $cemuSettings.bak #retain cemusettings if it exists to stop wiping peoples mods. Just insert our search path for installed games.
 	fi
@@ -51,6 +52,7 @@ Cemu.update(){
 	rm $cemuSettings
 	mv -f $cemuSettings.bak $cemuSettings
     Cemu.setEmulationFolder
+	Cemu.setupSaves
 }
 
 #ConfigurePaths
