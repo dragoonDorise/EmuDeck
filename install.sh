@@ -739,7 +739,7 @@ if [ $doInstallRPCS3 == "true" ]; then
 	installRPCS3
 fi
 if [ $doInstallCitra == "true" ]; then
-	installCitra
+	Citra.install
 fi
 if [ $doInstallDolphin == "true" ]; then
 	installDolphin
@@ -813,7 +813,7 @@ if [ $doSetupRPCS3 == "true" ]; then
 	initRPCS3
 fi
 if [ $doSetupCitra == "true" ]; then
-	initCitra
+	Citra.init
 fi
 if [ $doSetupDuck == "true" ]; then
 	initDuckStation
