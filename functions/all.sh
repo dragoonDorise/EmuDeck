@@ -35,7 +35,7 @@ source "$EMUDECKGIT"/EmuScripts/emuDeckCemu.sh
 source "$EMUDECKGIT"/EmuScripts/emuDeckPCSX2.sh
 source "$EMUDECKGIT"/EmuScripts/emuDeckRPCS3.sh
 source "$EMUDECKGIT"/EmuScripts/emuDeckCitra.sh
-source "$EMUDECKGIT"/EmuScripts/emuDeckDolphin.sh 
+source "$EMUDECKGIT"/EmuScripts/emuDeckDolphin.sh
 source "$EMUDECKGIT"/EmuScripts/emuDeckPrimehack.sh
 source "$EMUDECKGIT"/EmuScripts/emuDeckRetroArch.sh
 source "$EMUDECKGIT"/EmuScripts/emuDeckPPSSPP.sh
@@ -48,4 +48,3 @@ source "$EMUDECKGIT"/EmuScripts/emuDeckXemu.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMgba.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMAMEProton.sh
-

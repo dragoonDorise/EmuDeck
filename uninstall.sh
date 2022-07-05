@@ -26,15 +26,14 @@ doUninstallPPSSPP=false
 doUninstallSRM=false
 doUninstallESDE=false
 
-
-#Wellcome
-text="`printf "<b>Hi!</b>\nDo you really want to uninstall Emudek?\n\nIf you are having issues please go to our Discord, Reddit so we can help you. You can see the links here: https://www.emudeck.com/#download"`"
+# Welcome
+text="$(printf "<b>Hi!</b>\nDo you really want to uninstall Emudek?\n\nIf you are having issues please go to our Discord, Reddit so we can help you. You can see the links here: https://www.emudeck.com/#download")"
 zenity --question \
-		 --title="EmuDeck" \
-		 --width=250 \
-		 --ok-label="Nope, I want to uninstall EmuDeck" \
-		 --cancel-label="Ok, I'll try one more time! Don't uninstall it yet" \
-		 --text="${text}" &>> /dev/null
+	--title="EmuDeck" \
+	--width=250 \
+	--ok-label="Nope, I want to uninstall EmuDeck" \
+	--cancel-label="Ok, I'll try one more time! Don't uninstall it yet" \
+	--text="${text}" &>>/dev/null
 ans=$?
 if [ $ans -eq 0 ]; then
 	doUninstall=true
@@ -42,37 +41,34 @@ else
 	exit
 fi
 
-
-if [ "$doUninstall" == true ]; then 
-	
+if [ "$doUninstall" == true ]; then
 	#Emulator selector
-	text="`printf " <b>This will delete Emudeck , the emulators and all of its configuration files and saved games</b>\n\n You can keep the Emulators installed, tell me which ones you want to keep.\n\nIf you select none of them, everything will be deleted<b>We won't delete your roms, if you wanna keep your saved games go to the Emulation/saves folder and make a backup of its contents</b>"`"
+	text="$(printf " <b>This will delete Emudeck , the emulators and all of its configuration files and saved games</b>\n\n You can keep the Emulators installed, tell me which ones you want to keep.\n\nIf you select none of them, everything will be deleted<b>We won't delete your roms, if you wanna keep your saved games go to the Emulation/saves folder and make a backup of its contents</b>")"
 	emusToUninstall=$(zenity --list \
-				--title="EmuDeck" \
-				--height=500 \
-				--width=250 \
-				--ok-label="OK" \
-				--cancel-label="Exit" \
-				--text="${text}" \
-				--checklist \
-				--column="" \
-				--column="Emulator" \
-				1 "RetroArch"\
-				2 "PrimeHack" \
-				3 "PCSX2" \
-				4 "RPCS3" \
-				5 "Citra" \
-				6 "Dolphin" \
-				7 "Duckstation" \
-				8 "PPSSPP" \
-				9 "Yuzu" \
-				10 "Xemu" \
-				11 "Cemu" \
-				12 "SteamRomManager" \
-				13 "EmulationStationDE")
-	ans=$?	
+		--title="EmuDeck" \
+		--height=500 \
+		--width=250 \
+		--ok-label="OK" \
+		--cancel-label="Exit" \
+		--text="$text" \
+		--checklist \
+		--column="" \
+		--column="Emulator" \
+		1 "RetroArch" \
+		2 "PrimeHack" \
+		3 "PCSX2" \
+		4 "RPCS3" \
+		5 "Citra" \
+		6 "Dolphin" \
+		7 "Duckstation" \
+		8 "PPSSPP" \
+		9 "Yuzu" \
+		10 "Xemu" \
+		11 "Cemu" \
+		12 "SteamRomManager" \
+		13 "EmulationStationDE")
+	ans=$?
 	if [ $ans -eq 0 ]; then
-		
 		if [[ "$emusToUninstall" == *"RetroArch"* ]]; then
 			doUninstallRA=true
 		fi
@@ -108,96 +104,93 @@ if [ "$doUninstall" == true ]; then
 		#fi
 		if [[ "$emusToUninstall" == *"Xemu"* ]]; then
 			doUninstallXemu=true
-		fi				
+		fi
 		if [[ "$emusToUninstall" == *"SteamRomManager"* ]]; then
 			doUninstallSRM=true
 		fi
 		if [[ "$emusToUninstall" == *"EmulationStationDE"* ]]; then
 			doUninstallESDE=true
-		fi		
-		
+		fi
 	else
 		exit
 	fi
-	
+
 	#Uninstalling
 	if [[ "$doUninstallRA" == true ]]; then
 		flatpak uninstall org.libretro.RetroArch --system -y
-		rm -rf ~/.var/app/org.libretro.RetroArch &>> /dev/null	
+		rm -rf "$HOME/.var/app/org.libretro.RetroArch &>>/dev/null"
 	fi
 	if [[ "$doUninstallPrimeHacks" == true ]]; then
 		flatpak uninstall io.github.shiiion.primehack --system -y
-		rm -rf ~/.var/app/io.github.shiiion.primehack &>> /dev/null	
+		rm -rf "$HOME/.var/app/io.github.shiiion.primehack &>>/dev/null"
 	fi
 	if [[ "$doUninstallPCSX2" == true ]]; then
 		flatpak uninstall net.pcsx2.PCSX2 --system -y
-		rm -rf ~/.var/app/net.pcsx2.PCSX2 &>> /dev/null
+		rm -rf "$HOME/.var/app/net.pcsx2.PCSX2 &>>/dev/null"
 	fi
 	if [[ "$doUninstallRPCS3" == true ]]; then
 		flatpak uninstall net.rpcs3.RPCS3 --system -y
-		rm -rf ~/.var/app/net.rpcs3.RPCS3 &>> /dev/null
+		rm -rf "$HOME/.var/app/net.rpcs3.RPCS3 &>>/dev/null"
 	fi
 	if [[ "$doUninstallCitra" == true ]]; then
 		flatpak uninstall org.citra_emu.citra --system -y
-		rm -rf ~/.var/app/org.citra_emu.citra &>> /dev/null
+		rm -rf "$HOME/.var/app/org.citra_emu.citra &>>/dev/null"
 	fi
 	if [[ "$doUninstallDolphin" == true ]]; then
 		flatpak uninstall org.DolphinEmu.dolphin-emu --system -y
-		rm -rf ~/.var/app/org.DolphinEmu.dolphin-emu &>> /dev/null
+		rm -rf "$HOME/.var/app/org.DolphinEmu.dolphin-emu &>>/dev/null"
 	fi
 	if [[ "$doUninstallDuck" == true ]]; then
 		flatpak uninstall org.duckstation.DuckStation --system -y
-		rm -rf ~/.var/app/org.duckstation.DuckStation &>> /dev/null
+		rm -rf "$HOME/.var/app/org.duckstation.DuckStation &>>/dev/null"
 	fi
 	if [[ "$doUninstallPPSSPP" == true ]]; then
 		flatpak uninstall org.ppsspp.PPSSPP --system -y
-		rm -rf ~/.var/app/org.ppsspp.PPSSPP &>> /dev/null
+		rm -rf "$HOME/.var/app/org.ppsspp.PPSSPP &>>/dev/null"
 	fi
 	if [[ "$doUninstallYuzu" == true ]]; then
 		flatpak uninstall org.yuzu_emu.yuzu --system -y
-		rm -rf ~/.var/app/org.yuzu_emu.yuzu &>> /dev/null
+		rm -rf "$HOME/.var/app/org.yuzu_emu.yuzu &>>/dev/null"
 	fi
 	if [[ "$doUninstallCemu" == true ]]; then
 		#flatpak uninstall info.cemu.Cemu
-		#rm -f ~/.var/app/info.cemu.Cemu &>> /dev/null
-		rm -f ~/Emulation/roms/wiiu/* &>> /dev/null
-		rm -f /run/media/mmcblk0p1/Emulation/roms/wiiu/* &>> /dev/null
+		#rm -f "$HOME/.var/app/info.cemu.Cemu &>> /dev/null"
+		rm -f "$HOME/Emulation/roms/wiiu/*" &>>/dev/null
+		rm -f /run/media/mmcblk0p1/Emulation/roms/wiiu/* &>>/dev/null
 	fi
-	#if [[ "$doUninstallXenia" == true ]]; then		
-	#	rm -f ~/Emulation/roms/xbox360/* &>> /dev/null
+	#if [[ "$doUninstallXenia" == true ]]; then
+	#	rm -f "$HOME/Emulation/roms/xbox360/*" &>> /dev/null
 	#	rm -f /run/media/mmcblk0p1/Emulation/roms/xbox360/* &>> /dev/null
 	#fi
 	if [[ "$doUninstallXemu" == true ]]; then
 		flatpak uninstall app.xemu.xemu --system -y
-		rm -rf ~/.var/app/app.xemu.xemu &>> /dev/null
+		rm -rf "$HOME/.var/app/app.xemu.xemu &>>/dev/null"
 	fi
-	if [[ "$doUninstallSRM" == true ]]; then	
-		rm -rf ~/Desktop/SteamRomManager.desktop &>> /dev/null
+	if [[ "$doUninstallSRM" == true ]]; then
+		rm -rf "$HOME/Desktop/SteamRomManager.desktop" &>>/dev/null
 	fi
 	if [[ "$doUninstallESDE" == true ]]; then
-		rm -rf ~/.emulationstation &>> /dev/null	
+		rm -rf "$HOME/.emulationstation" &>>/dev/null
 	fi
-	
-	#Emudeck's files	
-	rm -rf ~/.steam/steam/controller_base/templates/cemu_controller_config.vdf
-	rm -rf ~/.steam/steam/controller_base/templates/citra_controller_config.vdf
-	rm -rf ~/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf
-	rm -rf ~/.steam/steam/controller_base/templates/duckstation_controller_config.vdf
-	rm -rf ~/emudeck &>> /dev/null	
-	rm -rf ~/Desktop/EmuDeckCHD.desktop &>> /dev/null
-	rm -rf ~/Desktop/EmuDeckUninstall.desktop &>> /dev/null
-	rm -rf ~/Desktop/EmuDeck.desktop &>> /dev/null
-	rm -rf ~/Desktop/EmuDeckSD.desktop &>> /dev/null
-	rm -rf ~/Desktop/EmuDeckBinUpdate.desktop &>> /dev/null
-	#rm -rf ~/Emulation &>> /dev/null	
-	#rm -rf /run/media/mmcblk0p1/Emulation &>> /dev/null	
-	
+
+	#Emudeck's files
+	rm -rf "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
+	rm -rf "$HOME/.steam/steam/controller_base/templates/citra_controller_config.vdf"
+	rm -rf "$HOME/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf"
+	rm -rf "$HOME/.steam/steam/controller_base/templates/duckstation_controller_config.vdf"
+	rm -rf "$HOME/emudeck" &>>/dev/null
+	rm -rf "$HOME/Desktop/EmuDeckCHD.desktop" &>>/dev/null
+	rm -rf "$HOME/Desktop/EmuDeckUninstall.desktop" &>>/dev/null
+	rm -rf "$HOME/Desktop/EmuDeck.desktop" &>>/dev/null
+	rm -rf "$HOME/Desktop/EmuDeckSD.desktop" &>>/dev/null
+	rm -rf "$HOME/Desktop/EmuDeckBinUpdate.desktop" &>>/dev/null
+	#rm -rf "$HOME/Emulation" &>> /dev/null
+	#rm -rf /run/media/mmcblk0p1/Emulation &>> /dev/null
+
 	text="$(printf "<b>Done!</b>\n\nWe are sad to see you go and we really hope you give us a chance on the future!\n\n<b>Your roms and bios are on your Emulation folder, please delete it manually if you want</b>")"
 
-	
 	zenity --info \
-			 --title="EmuDeck" \
-			 --width=450 \			 
-			 --text="${text}" &>> /dev/null	
-
+		--title="EmuDeck" \
+		--width=450 \
+		--text="${text}" &>>/dev/null
 fi

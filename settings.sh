@@ -1,8 +1,5 @@
-
 #Expert mode off by default
 expert=false
-
-
 
 #Default settings for all systems
 doSetupRA=true
@@ -43,7 +40,7 @@ doInstallPowertools=false
 doInstallGyro=false
 installString='Installing'
 
-#Default RetroArch configuration 
+#Default RetroArch configuration
 RABezels=true
 RAautoSave=false
 SNESAR=43
@@ -55,13 +52,12 @@ DreamcastWide=true
 BeetleWide=true
 
 #Default installation folders
-emulationPath=~/Emulation/
-romsPath=~/Emulation/roms/
-toolsPath=~/Emulation/tools/
-biosPath=~/Emulation/bios/
-savesPath=~/Emulation/saves/
-storagePath=~/Emulation/storage/
+emulationPath="$HOME/Emulation/"
+romsPath="$HOME/Emulation/roms/"
+toolsPath="$HOME/Emulation/tools/"
+biosPath="$HOME/Emulation/bios/"
+savesPath="$HOME/Emulation/saves/"
+storagePath="$HOME/Emulation/storage/"
 
 #Default ESDE Theme
 esdeTheme="EPICNOIR"
-

@@ -1,8 +1,7 @@
 #!/bin/bash
-createDesktopIcons(){		
-	
+createDesktopIcons() {
 	#We create new icons
-	rm -rf ~/Desktop/EmuDeckUninstall.desktop 2>/dev/null
+	rm -rf "$HOME/Desktop/EmuDeckUninstall.desktop 2>/dev/null"
 	echo '#!/usr/bin/env xdg-open
 	[Desktop Entry]
 	Name=Uninstall EmuDeck
@@ -10,11 +9,11 @@ createDesktopIcons(){
 	Icon=delete
 	Terminal=true
 	Type=Application
-	StartupNotify=false' > ~/Desktop/EmuDeckUninstall.desktop
-	chmod +x ~/Desktop/EmuDeckUninstall.desktop
-	
-	rm -rf ~/Desktop/EmuDeck.desktop 2>/dev/null
-	rm -rf ~/Desktop/EmuDeckSD.desktop 2>/dev/null
+	StartupNotify=false' >"$HOME/Desktop/EmuDeckUninstall.desktop"
+	chmod +x "$HOME/Desktop/EmuDeckUninstall.desktop"
+
+	rm -rf "$HOME/Desktop/EmuDeck.desktop 2>/dev/null"
+	rm -rf "$HOME/Desktop/EmuDeckSD.desktop 2>/dev/null"
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
 	Name=Update EmuDeck (${version})
@@ -22,6 +21,6 @@ createDesktopIcons(){
 	Icon=steamdeck-gaming-return
 	Terminal=true
 	Type=Application
-	StartupNotify=false" > ~/Desktop/EmuDeck.desktop
-	chmod +x ~/Desktop/EmuDeck.desktop
+	StartupNotify=false" >"$HOME/Desktop/EmuDeck.desktop"
+	chmod +x "$HOME/Desktop/EmuDeck.desktop"
 }

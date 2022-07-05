@@ -1,16 +1,16 @@
 #!/bin/bash
-testLocationValid(){
+testLocationValid() {
 	testLocation=$2
-	touch $testLocation/testwrite
+	touch "$testLocation/testwrite"
 	return=""
-	if [ ! -f  $testLocation/testwrite ]; then
+	if [ ! -f "$testLocation/testwrite" ]; then
 		#echo "$testLocation not writeable"
 		return="invalid"
 	else
-		#echo "$testLocation writable" 
+		#echo "$testLocation writable"
 
-		ln -s $testLocation/testwrite $testLocation/testwrite.link
-		if [ ! -f  $testLocation/testwrite.link ]; then
+		ln -s "$testLocation/testwrite" "$testLocation/testwrite.link"
+		if [ ! -f "$testLocation/testwrite.link" ]; then
 			#echo "Symlink creation failed in $testLocation"
 			return="invalid"
 		else

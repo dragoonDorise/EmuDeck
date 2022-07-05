@@ -6,19 +6,19 @@ emuPath="org.ppsspp.PPSSPP"
 releaseURL=""
 
 #cleanupOlderThings
-cleanupPPSSPP(){
- #na
+cleanupPPSSPP() {
+	#na
 }
 
 #Install
-installPPSSPP(){
-	installEmuFP "${emuName}" "${emuPath}"	
+installPPSSPP() {
+	installEmuFP "${emuName}" "${emuPath}"
 	flatpak override "${emuPath}" --filesystem=host --user
 	flatpak override "${emuName}" --share=network --user
 }
 
 #ApplyInitialSettings
-initPPSSPP(){
+initPPSSPP() {
 	configEmuFP "${emuName}" "${emuPath}" "true"
 	setupStoragePPSSPP
 	setEmulationFolderPPSSPP
@@ -26,7 +26,7 @@ initPPSSPP(){
 }
 
 #update
-updatePPSSPP(){
+updatePPSSPP() {
 	configEmuFP "${emuName}" "${emuPath}"
 	setupStoragePPSSPP
 	setEmulationFolderPPSSPP
@@ -34,69 +34,65 @@ updatePPSSPP(){
 }
 
 #ConfigurePaths
-setEmulationFolderPPSSPP(){
-  	configFile="$HOME/.var/app/${emuPath}}/config/dolphin-emu/Dolphin.ini"
-    gameDirOpt='CurrentDirectory = '
-    newGameDirOpt='CurrentDirectory = '"${romsPath}PPSSPP"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
+setEmulationFolderPPSSPP() {
+	configFile="$HOME/.var/app/${emuPath}}/config/dolphin-emu/Dolphin.ini"
+	gameDirOpt='CurrentDirectory = '
+	newGameDirOpt='CurrentDirectory = '"${romsPath}PPSSPP"
+	sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
 }
 
 #SetupSaves
-setupSavesPPSSPP(){
+setupSavesPPSSPP() {
 	linkToSaveFolder ppsspp saves "$HOME/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA"
 	linkToSaveFolder ppsspp states "$HOME/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE"
 }
 
-
 #SetupStorage
-setupStoragePPSSPP(){
-    #TBD
+setupStoragePPSSPP() {
+	#TBD
 }
-
 
 #WipeSettings
-wipePPSSPP(){
-   rm -rf "$HOME/.var/app/$emuPath"
+wipePPSSPP() {
+	rm -rf "$HOME/.var/app/$emuPath"
 }
 
-
 #Uninstall
-uninstallPPSSPP(){
-    flatpack uninstall "$emuPath" -y
+uninstallPPSSPP() {
+	flatpack uninstall "$emuPath" -y
 }
 
 #setABXYstyle
-setABXYstylePPSSPP(){
-    
+setABXYstylePPSSPP() {
+
 }
 
 #Migrate
-migratePPSSPP(){
-    
+migratePPSSPP() {
+
 }
 
 #WideScreenOn
-wideScreenOnPPSSPP(){
+wideScreenOnPPSSPP() {
 
 }
 
 #WideScreenOff
-wideScreenOffPPSSPP(){
+wideScreenOffPPSSPP() {
 
 }
 
 #BezelOn
-bezelOnPPSSPP(){
-#na
-}
-
-#BezelOff
-bezelOffPPSSPP(){
-#na
-}
-
-#finalExec - Extra stuff
-finalizePPSSPP(){
+bezelOnPPSSPP() {
 	#na
 }
 
+#BezelOff
+bezelOffPPSSPP() {
+	#na
+}
+
+#finalExec - Extra stuff
+finalizePPSSPP() {
+	#na
+}
