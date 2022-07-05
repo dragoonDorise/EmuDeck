@@ -1,36 +1,38 @@
 #!/bin/bash
 #variables
-emuName="pcsx2"
+emuName="PCSX2"
 emuType="FlatPak"
 emuPath="net.pcsx2.PCSX2"
 releaseURL=""
 
 #cleanupOlderThings
-cleanupPCSX2(){
+PCSX2.cleanup(){
  #na
 }
 
 #Install
-installPCSX2(){
-	installEmuFP "PCSX2" "net.pcsx2.PCSX2"	
+PCSX2.install(){
+	installEmuFP "${emuName}" "${emuPath}"
+	flatpak override "${emuPath}" --filesystem=host --user
+	flatpak override "${emuPath}" --share=network --user 
 }
 
 #ApplyInitialSettings
-initPCSX2(){
-	configEmuFP "PCSX2" "net.pcsx2.PCSX2" "true"
+PCSX2.init(){
+	configEmuFP  "${emuName}" "${emuPath}" "true"
 	setEmulationFolderPcsx2
 	setupSavesPcsx2
 }
 
 #update
-updatePCSX2(){
-	configEmuFP "PCSX2" "net.pcsx2.PCSX2"
+PCSX2.update(){
+	configEmuFP  "${emuName}" "${emuPath}"
 	setEmulationFolderPcsx2
 	setupSavesPcsx2
 }
 
 #ConfigurePaths
-setEmulationFolderPCSX2(){
+PCSX2.setEmulationFolder(){
 	configFile = "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini"
 	biosDirOpt='Bios=/'
 	newBiosDirOpt='Bios='"${biosPath}"
@@ -38,62 +40,62 @@ setEmulationFolderPCSX2(){
 }
 
 #SetupSaves
-setupSavesPCSX2(){
-	linkToSaveFolder pcsx2 saves $HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards
-	linkToSaveFolder pcsx2 states $HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates
+PCSX2.setupSaves(){
+	linkToSaveFolder pcsx2 saves "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards"
+	linkToSaveFolder pcsx2 states "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates"
 }
 
 
 #SetupStorage
-setupStoragePCSX2(){
+PCSX2.setupStorage(){
  #na
 }
 
 
 #WipeSettings
-wipePCSX2(){
+PCSX2.wipe(){
    rm -rf "$HOME/.var/app/$emuPath"
    # prob not cause roms are here
 }
 
 
 #Uninstall
-uninstallPCSX2(){
+PCSX2.uninstall(){
     flatpack uninstall $emuPath -y
 }
 
 #setABXYstyle
-setABXYstylePCSX2(){
+PCSX2.setABXYstyle(){
     
 }
 
 #Migrate
-migratePCSX2(){
+PCSX2.migrate(){
     
 }
 
 #WideScreenOn
-wideScreenOnPCSX2(){
+PCSX2.wideScreenOn(){
 #na
 }
 
 #WideScreenOff
-wideScreenOffPCSX2(){
+PCSX2.wideScreenOff(){
 #na
 }
 
 #BezelOn
-bezelOnPCSX2(){
+PCSX2.bezelOn(){
 #na
 }
 
 #BezelOff
-bezelOffPCSX2(){
+PCSX2.bezelOff(){
 #na
 }
 
 #finalExec - Extra stuff
-finalizePCSX2(){
+PCSX2.finalize(){
 	#na
 }
 

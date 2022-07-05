@@ -730,7 +730,7 @@ fi
 
 #Emulators Installation
 if [ $doInstallPCSX2 == "true" ]; then	
-	installPCSX2
+	PCSX2.install
 fi
 if [ $doInstallPrimeHacks == "true" ]; then
 	installPrimehack
@@ -807,7 +807,7 @@ if [ $doSetupDolphin == "true" ]; then
 	initDolphin
 fi
 if [ $doSetupPCSX2 == "true" ]; then
-	initPCSX2
+	PCSX2.init
 fi
 if [ $doSetupRPCS3 == "true" ]; then
 	initRPCS3
