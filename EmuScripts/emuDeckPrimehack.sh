@@ -6,34 +6,34 @@ emuPath="io.github.shiiion.primehack"
 releaseURL=""
 
 #cleanupOlderThings
-cleanupPrimehack(){
+Primehack.cleanup(){
  #na
 }
 
 #Install
-installPrimehack(){
+Primehack.install(){
 	installEmuFP "${emuName}" "${emuPath}"	
 	flatpak override "${emuPath}" --filesystem=host --user	
 }
 
 #ApplyInitialSettings
-initPrimehack(){
+Primehack.init(){
 	configEmuFP "${emuName}" "${emuPath}" "true"
-	setupStoragePrimehack
-	setEmulationFolderPrimehack
-	setupSavesPrimehack
+	Primehack.setupStorage
+	Primehack.setEmulationFolder
+	Primehack.setupSaves
 }
 
 #update
-updatePrimehack(){
+Primehack.update(){
 	configEmuFP "${emuName}" "${emuPath}"
-	setupStoragePrimehack
-	setEmulationFolderPrimehack
-	setupSavesPrimehack
+	Primehack.setupStorage
+	Primehack.setEmulationFolder
+	Primehack.setupSaves
 }
 
 #ConfigurePaths
-setEmulationFolderPrimehack(){
+Primehack.setEmulationFolder(){
   	configFile="$HOME/.var/app/${emuPath}}/config/dolphin-emu/Dolphin.ini"
     gameDirOpt='ISOPath0 = '
     newGameDirOpt='ISOPath0 = '"${romsPath}primehacks"
@@ -41,7 +41,7 @@ setEmulationFolderPrimehack(){
 }
 
 #SetupSaves
-setupSavesPrimehack(){
+Primehack.setupSaves(){
 	linkToSaveFolder primehack GC "$HOME/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC"
 	linkToSaveFolder primehack Wii "$HOME/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii"
 	linkToSaveFolder primehack states "$HOME/.var/app/io.github.shiiion.primehack/data/dolphin-emu/states"
@@ -49,54 +49,54 @@ setupSavesPrimehack(){
 
 
 #SetupStorage
-setupStoragePrimehack(){
+Primehack.setupStorage(){
     #TBD
 }
 
 
 #WipeSettings
-wipePrimehack(){
+Primehack.wipe(){
    rm -rf "$HOME/.var/app/$emuPath"
 }
 
 
 #Uninstall
-uninstallPrimehack(){
+Primehack.uninstall(){
     flatpack uninstall "$emuPath" -y
 }
 
 #setABXYstyle
-setABXYstylePrimehack(){
+Primehack.setABXYstyle(){
     
 }
 
 #Migrate
-migratePrimehack(){
+Primehack.migrate(){
     
 }
 
 #WideScreenOn
-wideScreenOnPrimehack(){
+Primehack.wideScreenOn(){
 
 }
 
 #WideScreenOff
-wideScreenOffPrimehack(){
+Primehack.wideScreenOff(){
 
 }
 
 #BezelOn
-bezelOnPrimehack(){
+Primehack.bezelOn(){
 #na
 }
 
 #BezelOff
-bezelOffPrimehack(){
+Primehack.BezelOff(){
 #na
 }
 
 #finalExec - Extra stuff
-finalizePrimehack(){
+Primehack.finalize(){
 	#na
 }
 

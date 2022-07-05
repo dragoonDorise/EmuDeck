@@ -733,7 +733,7 @@ if [ $doInstallPCSX2 == "true" ]; then
 	PCSX2.install
 fi
 if [ $doInstallPrimeHacks == "true" ]; then
-	installPrimehack
+	Primehack.install
 fi
 if [ $doInstallRPCS3 == "true" ]; then
 	installRPCS3
@@ -801,7 +801,7 @@ if [ $doSetupRA == "true" ]; then
 	RetroArch.init
 fi
 if [ $doSetupPrimeHacks == "true" ]; then
-	initPrimehack
+	Primehack.init
 fi
 if [ $doSetupDolphin == "true" ]; then
 	Dolphin.init
