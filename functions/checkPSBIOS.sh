@@ -1,4 +1,5 @@
 #!/bin/bash
+
 checkPSBIOS() {
 	PSXBIOS="NULL"
 	PS2BIOS="NULL"

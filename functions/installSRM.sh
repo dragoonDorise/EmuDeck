@@ -1,4 +1,5 @@
 #!/bin/bash
+
 installSRM() {
 	setMSG "${installString} Steam Rom Manager"
 	rm -f "$HOME/Desktop/Steam-ROM-Manager-2.3.29.AppImage"

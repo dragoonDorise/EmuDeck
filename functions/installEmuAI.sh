@@ -1,4 +1,5 @@
 #!/bin/bash
+
 installEmuAI() {
 	name=$1
 	url=$2

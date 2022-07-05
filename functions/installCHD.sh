@@ -1,4 +1,5 @@
 #!/bin/bash
+
 installCHD() {
 	mkdir -p "${toolsPath}chdconv/"
 	rsync -avhp "$HOME/dragoonDoriseTools/EmuDeck/tools/chdconv/" "${toolsPath}chdconv/"

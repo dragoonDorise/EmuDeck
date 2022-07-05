@@ -1,4 +1,5 @@
 #!/bin/bash
+
 setSetting() {
 	var=$1
 	new_val=$2
@@ -12,5 +13,5 @@ setSetting() {
 		sed -i "s|^$var *= *.*|$var=$new_val|; s|^$var [^=]*$|$var $new_val|" "$file"
 	fi
 	#Update values
-	source ~/emudeck/settings.sh
+	source "$HOME/emudeck/settings.sh"
 }

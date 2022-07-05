@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #variables
 emuName="Xemu-Emu"
 emuType="FlatPak"

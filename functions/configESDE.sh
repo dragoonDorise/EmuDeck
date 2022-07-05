@@ -1,4 +1,5 @@
 #!/bin/bash
+
 configESDE() {
 	reset=$1
 

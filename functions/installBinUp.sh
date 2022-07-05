@@ -1,4 +1,5 @@
 #!/bin/bash
+
 installBinUp() {
 	mkdir -p "${toolsPath}binupdate/"
 	rsync -avhp "$HOME/dragoonDoriseTools/EmuDeck/tools/binupdate/" "${toolsPath}binupdate/"

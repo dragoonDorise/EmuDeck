@@ -1,4 +1,5 @@
 #!/bin/bash
+
 createDesktopIcons() {
 	#We create new icons
 	rm -rf "$HOME/Desktop/EmuDeckUninstall.desktop 2>/dev/null"

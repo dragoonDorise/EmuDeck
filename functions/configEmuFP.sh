@@ -1,6 +1,6 @@
 #!/bin/bash
-configEmuFP() {
 
+configEmuFP() {
 	name=$1
 	ID=$2
 	overwrite=$3

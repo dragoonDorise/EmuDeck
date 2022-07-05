@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #variables
 emuName="PPSSPP"
 emuType="FlatPak"

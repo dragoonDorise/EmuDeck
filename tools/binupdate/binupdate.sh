@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #while this is in testing, i'm copying in the functions. once we leave the original repo in place and don't delete it, i'd like to use the functions we already made.
 installESDE() {
 	#New repo
@@ -19,6 +20,7 @@ installSRM() {
 	curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" >"${toolsPath}"srm/Steam-ROM-Manager.AppImage
 	chmod +x "${toolsPath}srm/Steam-ROM-Manager.AppImage"
 }
+
 #paths update via sed in main script
 romsPath="/run/media/mmcblk0p1/Emulation/roms/"
 toolsPath="/run/media/mmcblk0p1/Emulation/tools/"

@@ -1,6 +1,6 @@
 #!/bin/bash
-configEmuAI() {
 
+configEmuAI() {
 	emu=$1
 	folderName=$2
 	folderPath=$3

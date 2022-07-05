@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #variables
 emuName="RetroArch"
 emuType="FlatPak"

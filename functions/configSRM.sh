@@ -1,4 +1,5 @@
 #!/bin/bash
+
 configSRM() {
 	setMSG "Configuring Steam Rom Manager..."
 	mkdir -p "$HOME/.config/steam-rom-manager/userData/"

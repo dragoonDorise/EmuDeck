@@ -1,6 +1,6 @@
 #!/bin/bash
-installESDE() {
 
+installESDE() {
 	setMSG "${installString} EmulationStation Desktop Edition"
 	curl https://gitlab.com/leonstyhre/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt --output "$toolsPath"/latesturl.txt
 	latestURL=$(grep "https://gitlab" "$toolsPath"/latesturl.txt)

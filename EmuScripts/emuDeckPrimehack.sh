@@ -1,4 +1,5 @@
 #!/bin/bashCitra
+
 #variables
 emuName="Primehack"
 emuType="FlatPak"

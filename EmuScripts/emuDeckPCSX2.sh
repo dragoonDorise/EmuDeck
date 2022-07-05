@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #variables
 emuName="pcsx2"
 emuType="FlatPak"

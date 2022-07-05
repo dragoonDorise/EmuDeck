@@ -1,4 +1,5 @@
 #!/bin/bash
+
 setWide() {
 	if [ "$duckWide" == true ]; then
 		wideScreenOnDuckStation

@@ -1,4 +1,5 @@
 #!/bin/bash
+
 setESDEEmus() {
 	emu=$1
 	system=$2

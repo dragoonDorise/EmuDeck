@@ -1,4 +1,5 @@
 #!/bin/bash
+
 linkToSaveFolder() {
 	emu=$1
 	folderName=$2

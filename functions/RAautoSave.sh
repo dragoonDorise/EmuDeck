@@ -1,4 +1,5 @@
 #!/bin/bash
+
 RAautoSave() {
 	if [ "$RAautoSave" == true ]; then
 		sed -i 's|savestate_auto_load = "false"|savestate_auto_load = "true"|g' "$raConfigFile"

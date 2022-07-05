@@ -1,4 +1,5 @@
 #!/bin/bash
+
 source "$EMUDECKGIT"/functions/checkPSBIOS.sh
 source "$EMUDECKGIT"/functions/configEmuAI.sh
 source "$EMUDECKGIT"/functions/configEmuFP.sh

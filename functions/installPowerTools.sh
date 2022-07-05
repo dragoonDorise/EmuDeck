@@ -1,4 +1,5 @@
 #!/bin/bash
+
 installPowerTools() {
 	#should use sudo password piped into cache earlier.
 	mkdir -p "$HOME/homebrew"

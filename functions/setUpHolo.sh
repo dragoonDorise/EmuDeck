@@ -1,6 +1,6 @@
 #!/bin/bash
-setUpHolo() {
 
+setUpHolo() {
 	#Ensure the dependencies are installed before proceeding.
 	for package in packagekit-qt5 flatpak rsync unzip jq; do
 		pacman -Q ${package} || sudo pacman -Sy --noconfirm ${package}
@@ -19,7 +19,7 @@ setUpHolo() {
 	fi
 
 	#Ensure the Desktop directory isn't owned by root
-	if [[ "$(stat -c %U ${HOME}/Desktop)" =~ root ]]; then
+	if [[ "$(stat -c %U "$HOME/Desktop")" =~ root ]]; then
 		sudo chown -R "${USER}:${USER}" ~/Desktop
 	fi
 }

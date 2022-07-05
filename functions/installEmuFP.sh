@@ -1,4 +1,5 @@
 #!/bin/bash
+
 installEmuFP() {
 	name=$1
 	ID=$2

@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #variables
 emuName="RPCS3"
 emuType="FlatPak"

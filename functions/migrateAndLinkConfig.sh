@@ -1,4 +1,5 @@
 #!/bin/bash
+
 migrateAndLinkConfig() {
     emu=$1
     migrationTable=$2
@@ -92,18 +93,15 @@ migrateAndLinkConfig() {
                             echo "Something went wrong"
                             exit
                         fi
-
                     done
                 else
                     echo "User doesn't want migration at this time."
                 fi
-
             elif [[ -L ${migrationTable[0]} && -d ${migrationTable[0]} && -d ${migrationTable[1]} && ! -L ${migrationTable[1]} ]]; then
                 echo "Flatpak already linked"
             elif [[ -d ${migrationTable[0]} && ! -e ${migrationTable[1]} ]]; then
                 echo "No AppImage data found, but flatpak data found. New AppImage install."
                 for ((i = 0; i <= n; i = (i + 2))); do # for each pair of dirs
-
                     fromDir=${migrationTable[i]}
                     toDir=${migrationTable[i + 1]}
                     echo "Migrating ${fromDir} to ${toDir}"
@@ -113,7 +111,6 @@ migrateAndLinkConfig() {
                     mv "${fromDir}" "${toDir}"          #move the original to the new location
                     #link .config to .var so flatpak still works
                     ln -sfn "$toDir" .
-
                 done
             else
                 echo "do nothing"

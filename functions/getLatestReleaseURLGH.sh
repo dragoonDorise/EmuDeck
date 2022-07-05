@@ -1,6 +1,6 @@
 #!/bin/bash
-getLatestReleaseURLGH() {
 
+getLatestReleaseURLGH() {
 	repository=$1
 	fileType=$2
 
