@@ -751,7 +751,7 @@ if [ $doInstallRA == "true" ]; then
 	RetroArch.install	
 fi
 if [ $doInstallPPSSPP == "true" ]; then
-	installPPSSPP	
+	PPSSPP.install	
 fi
 if [ $doInstallYuzu == "true" ]; then	
 	installYuzu
@@ -822,7 +822,7 @@ if [ $doSetupYuzu == "true" ]; then
 	initYuzu
 fi
 if [ $doSetupPPSSPP == "true" ]; then
-	initPPSSPP
+	PPSSPP.init
 fi
 if [ $doSetupXemu == "true" ]; then
 	initXemu
