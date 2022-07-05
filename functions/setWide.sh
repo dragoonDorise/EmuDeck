@@ -1,7 +1,7 @@
 #!/bin/bash
 setWide(){		
 	if [ $duckWide == true ]; then	
-		wideScreenOnDuckStation
+		DuckStation.wideScreenOn
 	else
 		wideScreenOffDuckStation
 	fi

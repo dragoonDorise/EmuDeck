@@ -745,7 +745,7 @@ if [ $doInstallDolphin == "true" ]; then
 	Dolphin.install
 fi
 if [ $doInstallDuck == "true" ]; then
-	installDuckStation
+	DuckStation.install
 fi
 if [ $doInstallRA == "true" ]; then
 	RetroArch.install	
@@ -816,7 +816,7 @@ if [ $doSetupCitra == "true" ]; then
 	Citra.init
 fi
 if [ $doSetupDuck == "true" ]; then
-	initDuckStation
+	DuckStation.init
 fi
 if [ $doSetupYuzu == "true" ]; then
 	initYuzu

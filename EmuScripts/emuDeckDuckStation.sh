@@ -6,34 +6,34 @@ emuPath="org.duckstation.DuckStation"
 releaseURL=""
 
 #cleanupOlderThings
-cleanupDuckStation(){
+DuckStation.cleanup(){
  #na
 }
 
 #Install
-installDuckStation(){
+DuckStation.install(){
 	installEmuFP "${emuName}" "${emuPath}"	
 	flatpak override "${emuPath}" --filesystem=host --user	
 }
 
 #ApplyInitialSettings
-initDuckStation(){
+DuckStation.init(){
 	configEmuFP "${emuName}" "${emuPath}" "true"
-	setupStorageDuckStation
-	setEmulationFolderDuckStation
-	setupSavesDuckStation
+	DuckStation.setupStorage
+	DuckStation.setEmulationFolder
+	DuckStation.setupSaves
 }
 
 #update
-updateDuckStation(){
+DuckStation.update(){
 	configEmuFP "${emuName}" "${emuPath}"
-	setupStorageDuckStation
-	setEmulationFolderDuckStation
-	setupSavesDuckStation
+	DuckStation.setupStorage
+	DuckStation.setEmulationFolder
+	DuckStation.setupSaves
 }
 
 #ConfigurePaths
-setEmulationFolderDuckStation(){
+DuckStation.setEmulationFolder(){
   	configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
     gameDirOpt='RecursivePaths = '
     newGameDirOpt="${gameDirOpt}""${romsPath}psx"
@@ -44,42 +44,42 @@ setEmulationFolderDuckStation(){
 }
 
 #SetupSaves
-setupSavesDuckStation(){
+DuckStation.setupSaves(){
 	linkToSaveFolder duckstation saves "$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/memcards"
 	linkToSaveFolder duckstation states "$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/savestates"
 }
 
 
 #SetupStorage
-setupStorageDuckStation(){
+DuckStation.setupStorage(){
     #TBD
 }
 
 
 #WipeSettings
-wipeDuckStation(){
+DuckStation.wipe(){
    rm -rf "$HOME/.var/app/$emuPath"
    # prob not cause roms are here
 }
 
 
 #Uninstall
-uninstallDuckStation(){
+DuckStation.uninstall(){
     flatpack uninstall "$emuPath" -y
 }
 
 #setABXYstyle
-setABXYstyleDuckStation(){
+DuckStation.setABXYstyleDuckStation(){
     
 }
 
 #Migrate
-migrateDuckStation(){
+DuckStation.migrate(){
     
 }
 
 #WideScreenOn
-wideScreenOnDuckStation(){
+DuckStation.wideScreenOn(){
     configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
     wideScreenHack='WidescreenHack = '
     wideScreenHackSetting='WidescreenHack = true'
@@ -90,7 +90,7 @@ wideScreenOnDuckStation(){
 }
 
 #WideScreenOff
-wideScreenOffDuckStation(){
+DuckStation.wideScreenOff(){
     configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
     wideScreenHack='WidescreenHack = '
     wideScreenHackSetting='WidescreenHack = false'
@@ -101,17 +101,17 @@ wideScreenOffDuckStation(){
 }
 
 #BezelOn
-bezelOnDuckStation(){
+DuckStation.bezelOn(){
 #na
 }
 
 #BezelOff
-bezelOffDuckStation(){
+DuckStation.bezelOff(){
 #na
 }
 
 #finalExec - Extra stuff
-finalizeDuckStation(){
+DuckStation.finalize(){
 	#na
 }
 
