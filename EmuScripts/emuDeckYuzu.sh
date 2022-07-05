@@ -5,7 +5,7 @@ emuType="AppImage"
 emuPath="$HOME/Applications/yuzu.AppImage"
 
 #cleanupOlderThings
-cleanupYuzu(){
+Yuzu.cleanup(){
     "Begin Yuzu Cleanup"
     #Fixes repeated Symlink for older installations
     cd "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/"
@@ -15,20 +15,20 @@ cleanupYuzu(){
 }
 
 #Install
-installYuzu(){
+Yuzu.install(){
     echo "Begin Yuzu Install"
     installEmuAI "yuzu"  $(getLatestReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage") #needs to be lowercase yuzu for EsDE to find it.
     flatpak override org.yuzu_emu.yuzu --filesystem=host --user # still doing this, as we do link the appimage / flatpak config
 }
 
 #ApplyInitialSettings
-initYuzu(){
+Yuzu.init(){
     echo "Begin Yuzu Init"
-    migrateYuzu
+    Yuzu.migrate
 	configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
 	configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
     
-    setEmulationFolderYuzu
+    Yuzu.setEmulationFolder
     
     #Setup Bios symlinks
     unlink ${biosPath}yuzu/keys
@@ -44,13 +44,13 @@ initYuzu(){
 }
 
 #update
-updateYuzu(){
+Yuzu.update(){
     echo "Begin Yuzu update"
-    migrateYuzu
+    Yuzu.migrate
 	configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/config/yuzu"
 	configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/data/yuzu"
     
-    setEmulationFolderYuzu
+    Yuzu.setEmulationFolder
     
     #Setup Bios symlinks
     unlink ${biosPath}yuzu/keys
@@ -66,7 +66,7 @@ updateYuzu(){
 }
 
 #ConfigurePaths
-setEmulationFolderYuzu(){
+Yuzu.setEmulationFolder(){
     echo "Begin Yuzu Path Config"
     configFile="$HOME/.config/yuzu/qt-config.ini"
     screenshotDirOpt='Screenshots\screenshot_path='
@@ -92,11 +92,11 @@ setEmulationFolderYuzu(){
     sed -i "/${sdmcDirOpt}/c\\${newSdmcDirOpt}" $configFile
     sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" $configFile
 
-    setupStorageYuzu
+    Yuzu.setupStorage
 }
 
 #SetupSaves
-setupSavesYuzu(){
+Yuzu.setupSaves(){
     echo "Begin Yuzu save link"
 	unlink "${savesPath}yuzu/saves" # Fix for previous bad symlink
 	linkToSaveFolder yuzu saves "${storagePath}yuzu/nand/user/save/"
@@ -104,7 +104,7 @@ setupSavesYuzu(){
 
 
 #SetupStorage
-setupStorageYuzu(){
+Yuzu.setupStorage(){
     echo "Begin Yuzu storage config"
     mkdir -p ${storagePath}yuzu/dump
     mkdir -p ${storagePath}yuzu/load
@@ -116,7 +116,7 @@ setupStorageYuzu(){
 
 
 #WipeSettings
-wipeYuzu(){
+Yuzu.wipe(){
     echo "Begin Yuzu delete config directories"
     rm -rf "$HOME/.config/yuzu"
     rm -rf "$HOME/.local/share/yuzu"
@@ -124,14 +124,14 @@ wipeYuzu(){
 
 
 #Uninstall
-uninstallYuzu(){
+Yuzu.uninstall(){
     echo "Begin Yuzu uninstall"
     rm -rf $emuPath
 }
 
 
 #Migrate
-migrateYuzu(){
+Yuzu.migrate(){
     echo "Begin Yuzu Migration"
     emu="Yuzu"
 	migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
@@ -149,7 +149,7 @@ migrateYuzu(){
 	#move data from hidden folders out to these folders in case the user already put stuff here.
 	origPath="$HOME/.local/share/"
 
-	setupStorageYuzu
+	Yuzu.setupStorage
 	
 	rsync -av ${origPath}yuzu/dump ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/dump
 	rsync -av ${origPath}yuzu/load ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/load
@@ -160,33 +160,33 @@ migrateYuzu(){
 }
 
 #setABXYstyle
-setABXYstyleYuzu(){
+Yuzu.setABXYstyle(){
     
 }
 
 #WideScreenOn
-wideScreenOnYuzu(){
+Yuzu.wideScreenOn(){
 #na
 }
 
 #WideScreenOff
-wideScreenOffYuzu(){
+Yuzu.wideScreenOff(){
 #na
 }
 
 #BezelOn
-bezelOnYuzu(){
+Yuzu.bezelOn(){
 #na
 }
 
 #BezelOff
-bezelOffYuzu(){
+Yuzu.bezelOff(){
 #na
 }
 
 #finalExec - Extra stuff
-finalizeYuzu(){
+Yuzu.finalize(){
     echo "Begin Yuzu finalize"
-    cleanupYuzu
+    Yuzu.cleanup
 }
 
