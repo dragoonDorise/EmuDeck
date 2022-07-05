@@ -7,108 +7,108 @@ emuPath="org.duckstation.DuckStation"
 releaseURL=""
 
 #cleanupOlderThings
-cleanupDuckStation() {
-    #na
+DuckStation.cleanup() {
+	#na
 }
 
 #Install
-installDuckStation() {
-    installEmuFP "${emuName}" "${emuPath}"
-    flatpak override "${emuPath}" --filesystem=host --user
+DuckStation.install() {
+	installEmuFP "${emuName}" "${emuPath}"
+	flatpak override "${emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
-initDuckStation() {
-    configEmuFP "${emuName}" "${emuPath}" "true"
-    setupStorageDuckStation
-    setEmulationFolderDuckStation
-    setupSavesDuckStation
+DuckStation.init() {
+	configEmuFP "${emuName}" "${emuPath}" "true"
+	DuckStation.setupStorage
+	DuckStation.setEmulationFolder
+	DuckStation.setupSaves
 }
 
 #update
-updateDuckStation() {
-    configEmuFP "${emuName}" "${emuPath}"
-    setupStorageDuckStation
-    setEmulationFolderDuckStation
-    setupSavesDuckStation
+DuckStation.update() {
+	configEmuFP "${emuName}" "${emuPath}"
+	DuckStation.setupStorage
+	DuckStation.setEmulationFolder
+	DuckStation.setupSaves
 }
 
 #ConfigurePaths
-setEmulationFolderDuckStation() {
-    configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
-    gameDirOpt='RecursivePaths = '
-    newGameDirOpt="${gameDirOpt}""${romsPath}psx"
-    biosDir='SearchDirectory = '
-    biosDirSetting="${biosDir}""${biosPath}"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
-    sed -i "/${biosDir}/c\\${biosDirSetting}" "$configFile"
+DuckStation.setEmulationFolder() {
+	configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
+	gameDirOpt='RecursivePaths = '
+	newGameDirOpt="${gameDirOpt}""${romsPath}psx"
+	biosDir='SearchDirectory = '
+	biosDirSetting="${biosDir}""${biosPath}"
+	sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
+	sed -i "/${biosDir}/c\\${biosDirSetting}" "$configFile"
 }
 
 #SetupSaves
-setupSavesDuckStation() {
-    linkToSaveFolder duckstation saves "$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/memcards"
-    linkToSaveFolder duckstation states "$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/savestates"
+DuckStation.setupSaves() {
+	linkToSaveFolder duckstation saves "$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/memcards"
+	linkToSaveFolder duckstation states "$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/savestates"
 }
 
 #SetupStorage
-setupStorageDuckStation() {
-    #TBD
+DuckStation.setupStorage() {
+	#TBD
 }
 
 #WipeSettings
-wipeDuckStation() {
-    rm -rf "$HOME/.var/app/$emuPath"
-    # prob not cause roms are here
+DuckStation.wipe() {
+	rm -rf "$HOME/.var/app/$emuPath"
+	# prob not cause roms are here
 }
 
 #Uninstall
-uninstallDuckStation() {
-    flatpack uninstall "$emuPath" -y
+DuckStation.uninstall() {
+	flatpack uninstall "$emuPath" -y
 }
 
 #setABXYstyle
-setABXYstyleDuckStation() {
+DuckStation.setABXYstyleDuckStation() {
 
 }
 
 #Migrate
-migrateDuckStation() {
+DuckStation.migrate() {
 
 }
 
 #WideScreenOn
-wideScreenOnDuckStation() {
-    configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
-    wideScreenHack='WidescreenHack = '
-    wideScreenHackSetting='WidescreenHack = true'
-    #aspectRatio='AspectRatio = '
-    #aspectRatioSetting='AspectRatio = 0'
-    sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$configFile"
-    #sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$configFile"
+DuckStation.wideScreenOn() {
+	configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
+	wideScreenHack='WidescreenHack = '
+	wideScreenHackSetting='WidescreenHack = true'
+	#aspectRatio='AspectRatio = '
+	#aspectRatioSetting='AspectRatio = 0'
+	sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$configFile"
+	#sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$configFile"
 }
 
 #WideScreenOff
-wideScreenOffDuckStation() {
-    configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
-    wideScreenHack='WidescreenHack = '
-    wideScreenHackSetting='WidescreenHack = false'
-    #aspectRatio='AspectRatio = '
-    #aspectRatioSetting='AspectRatio = 0'
-    sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$configFile"
-    #sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$configFile"
+DuckStation.wideScreenOff() {
+	configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
+	wideScreenHack='WidescreenHack = '
+	wideScreenHackSetting='WidescreenHack = false'
+	#aspectRatio='AspectRatio = '
+	#aspectRatioSetting='AspectRatio = 0'
+	sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$configFile"
+	#sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$configFile"
 }
 
 #BezelOn
-bezelOnDuckStation() {
-    #na
+DuckStation.bezelOn() {
+	#na
 }
 
 #BezelOff
-bezelOffDuckStation() {
-    #na
+DuckStation.bezelOff() {
+	#na
 }
 
 #finalExec - Extra stuff
-finalizeDuckStation() {
-    #na
+DuckStation.finalize() {
+	#na
 }

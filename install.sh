@@ -711,34 +711,34 @@ if [ $doInstallESDE == "true" ]; then
 fi
 
 #SRM Installation
-if [ $doInstallSRM == "true" ]; then
+if [ "$doInstallSRM" == "true" ]; then
 	installSRM
 fi
 
 #Emulators Installation
 if [ $doInstallPCSX2 == "true" ]; then
-	installPCSX2
+	PCSX2.install
 fi
 if [ $doInstallPrimeHacks == "true" ]; then
-	installPrimehack
+	Primehack.install
 fi
 if [ $doInstallRPCS3 == "true" ]; then
 	installRPCS3
 fi
 if [ $doInstallCitra == "true" ]; then
-	installCitra
+	Citra.install
 fi
 if [ $doInstallDolphin == "true" ]; then
-	installDolphin
+	Dolphin.install
 fi
 if [ $doInstallDuck == "true" ]; then
-	installDuckStation
+	DuckStation.install
 fi
 if [ $doInstallRA == "true" ]; then
 	RetroArch.install
 fi
 if [ $doInstallPPSSPP == "true" ]; then
-	installPPSSPP
+	PPSSPP.install
 fi
 if [ $doInstallYuzu == "true" ]; then
 	installYuzu
@@ -787,28 +787,28 @@ if [ $doSetupRA == "true" ]; then
 	RetroArch.init
 fi
 if [ $doSetupPrimeHacks == "true" ]; then
-	initPrimehack
+	Primehack.init
 fi
 if [ $doSetupDolphin == "true" ]; then
-	initDolphin
+	Dolphin.init
 fi
 if [ $doSetupPCSX2 == "true" ]; then
-	initPCSX2
+	PCSX2.init
 fi
 if [ $doSetupRPCS3 == "true" ]; then
 	initRPCS3
 fi
 if [ $doSetupCitra == "true" ]; then
-	initCitra
+	Citra.init
 fi
 if [ $doSetupDuck == "true" ]; then
-	initDuckStation
+	DuckStation.init
 fi
 if [ $doSetupYuzu == "true" ]; then
 	initYuzu
 fi
 if [ $doSetupPPSSPP == "true" ]; then
-	initPPSSPP
+	PPSSPP.init
 fi
 if [ $doSetupXemu == "true" ]; then
 	initXemu

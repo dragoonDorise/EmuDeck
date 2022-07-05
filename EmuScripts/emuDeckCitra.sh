@@ -6,34 +6,34 @@ emuPath="org.citra_emu.citra"
 releaseURL=""
 
 #cleanupOlderThings
-cleanupCitra() {
+Citra.finalize() {
 	#na
 }
 
 #Install
-installCitra() {
+Citra.install() {
 	installEmuFP "${emuName}" "${emuPath}"
 	flatpak override "${emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
-initCitra() {
+Citra.init() {
 	configEmuFP "${emuName}" "${emuPath}" "true"
-	setupStorageCitra
-	setEmulationFolderCitra
-	setupSavesCitra
+	Citra.setupStorage
+	Citra.setEmulationFolder
+	Citra.setupSaves
 }
 
 #update
-updateCitra() {
+Citra.update() {
 	configEmuFP "${emuName}" "${emuPath}"
-	setupStorageCitra
-	setEmulationFolderCitra
-	setupSavesCitra
+	Citra.setupStorage
+	Citra.setEmulationFolder
+	Citra.setupSaves
 }
 
 #ConfigurePaths
-setEmulationFolderCitra() {
+Citra.setEmulationFolder() {
 	configFile="$HOME/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini"
 	gameDirOpt='Paths\gamedirs\3\path='
 	newGameDirOpt='Paths\gamedirs\3\path='"${romsPath}3ds"
@@ -41,39 +41,59 @@ setEmulationFolderCitra() {
 }
 
 #SetupSaves
-setupSavesCitra() {
+Citra.setupSaves() {
 	linkToSaveFolder citra saves "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc"
 	linkToSaveFolder citra states "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/states"
 }
 
 #SetupStorage
-setupStorageCitra() {
+Citra.setupStorage() {
 	#TBD
 }
 
 #WipeSettings
-wipeCitra() {
+Citra.wipe() {
 	rm -rf "$HOME/.var/app/$emuPath"
 	# prob not cause roms are here
 }
 
 #Uninstall
-uninstallCitra() {
+Citra.uninstall() {
 	flatpack uninstall "$emuPath" -y
 }
 
 #setABXYstyle
-setABXYstyleCitra() {
+Citra.setABXYstyle() {
 
 }
 
 #Migrate
-migrateCitra() {
+Citra.migrate() {
 
 }
 
 #WideScreenOn
-wideScreenOnCitra() {
+Citra.wideScreenOn() {
+	#na
+}
+
+#WideScreenOff
+Citra.wideScreenOff() {
+	#na
+}
+
+#BezelOn
+Citra.bezelOn() {
+	#na
+}
+
+#BezelOff
+Citra.bezelOff() {
+	#na
+}
+
+#finalExec - Extra stuff
+Citra.finalize() {
 	#na
 }
 

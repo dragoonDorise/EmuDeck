@@ -7,109 +7,109 @@ emuPath="org.DolphinEmu.dolphin-emu"
 releaseURL=""
 
 #cleanupOlderThings
-cleanupDolphin() {
-    #na
+Dolphin.cleanup() {
+	#na
 }
 
 #Install
-installDolphin() {
-    installEmuFP "${emuName}" "${emuPath}"
-    flatpak override "${emuPath}" --filesystem=host --user
+Dolphin.install() {
+	installEmuFP "${emuName}" "${emuPath}"
+	flatpak override "${emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
-initDolphin() {
-    configEmuFP "${emuName}" "${emuPath}" "true"
-    setupStorageDolphin
-    setEmulationFolderDolphin
-    setupSavesDolphin
+Dolphin.init() {
+	configEmuFP "${emuName}" "${emuPath}" "true"
+	Dolphin.setupStorage
+	Dolphin.setEmulationFolder
+	Dolphin.setupSaves
 }
 
 #update
-updateDolphin() {
-    configEmuFP "${emuName}" "${emuPath}"
-    setupStorageDolphin
-    setEmulationFolderDolphin
-    setupSavesDolphin
+Dolphin.update() {
+	configEmuFP "${emuName}" "${emuPath}"
+	Dolphin.setupStorage
+	Dolphin.setEmulationFolder
+	Dolphin.setupSaves
 }
 
 #ConfigurePaths
-setEmulationFolderDolphin() {
-    configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
-    gameDirOpt1='ISOPath0 = '
-    newGameDirOpt1='ISOPath0 = '"${romsPath}gc"
-    gameDirOpt2='ISOPath1 = '
-    newGameDirOpt2='ISOPath1 = '"${romsPath}wii"
-    sed -i "/${gameDirOpt1}/c\\${newGameDirOpt1}" "$configFile"
-    sed -i "/${gameDirOpt2}/c\\${newGameDirOpt2}" "$configFile"
+Dolphin.setEmulationFolder() {
+	configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
+	gameDirOpt1='ISOPath0 = '
+	newGameDirOpt1='ISOPath0 = '"${romsPath}gc"
+	gameDirOpt2='ISOPath1 = '
+	newGameDirOpt2='ISOPath1 = '"${romsPath}wii"
+	sed -i "/${gameDirOpt1}/c\\${newGameDirOpt1}" "$configFile"
+	sed -i "/${gameDirOpt2}/c\\${newGameDirOpt2}" "$configFile"
 }
 
 #SetupSaves
-setupSavesDolphin() {
-    linkToSaveFolder dolphin GC "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC"
-    linkToSaveFolder dolphin Wii "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii"
-    linkToSaveFolder dolphin states "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/states"
+Dolphin.setupSaves() {
+	linkToSaveFolder dolphin GC "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC"
+	linkToSaveFolder dolphin Wii "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii"
+	linkToSaveFolder dolphin states "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/states"
 }
 
 #SetupStorage
-setupStorageDolphin() {
-    #TBD
+Dolphin.setupStorage() {
+	#TBD
 }
 
 #WipeSettings
-wipeDolphin() {
-    rm -rf "$HOME/.var/app/$emuPath"
-    # prob not cause roms are here
+Dolphin.wipe() {
+	rm -rf "$HOME/.var/app/$emuPath"
+	# prob not cause roms are here
 }
 
 #Uninstall
-uninstallDolphin() {
-    flatpack uninstall "$emuPath" -y
+Dolphin.uninstall() {
+	flatpack uninstall "$emuPath" -y
 }
 
 #setABXYstyle
-setABXYstyleDolphin() {
+Dolphin.setABXYstyle() {
 
 }
 
 #Migrate
-migrateDolphin() {
+Dolphin.migrate() {
 
 }
 
 #WideScreenOn
 wideScreenOnDolphin() {
-    configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
-    wideScreenHack='wideScreenHack = '
-    wideScreenHackSetting='wideScreenHack = True'
-    aspectRatio='AspectRatio = '
-    aspectRatioSetting='AspectRatio = 0'
-    sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$configFile"
-    sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$configFile"
+	configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
+	wideScreenHack='wideScreenHack = '
+	wideScreenHackSetting='wideScreenHack = True'
+	aspectRatio='AspectRatio = '
+	aspectRatioSetting='AspectRatio = 0'
+	sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$configFile"
+	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$configFile"
 }
 
 #WideScreenOff
-wideScreenOffDolphin() {
-    configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
-    wideScreenHack='wideScreenHack = '
-    wideScreenHackSetting='wideScreenHack = False'
-    aspectRatio='AspectRatio = '
-    aspectRatioSetting='AspectRatio = 1'
-    sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$configFile"
-    sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$configFile"
+Dolphin.wideScreenOff() {
+	configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
+	wideScreenHack='wideScreenHack = '
+	wideScreenHackSetting='wideScreenHack = False'
+	aspectRatio='AspectRatio = '
+	aspectRatioSetting='AspectRatio = 1'
+	sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$configFile"
+	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$configFile"
 }
 
 #BezelOn
-bezelOnDolphin() {
-    #na
+Dolphin.bezelOn() {
+	#na
 }
 
 #BezelOff
-bezelOffDolphin() {
-    #na
+Dolphin.bezelOff() {
+	#na
 }
 
 #finalExec - Extra stuff
-finalizeDolphin() {
-    #na
+Dolphin.finalize() {
+	#na
 }

@@ -7,35 +7,35 @@ emuPath="org.ppsspp.PPSSPP"
 releaseURL=""
 
 #cleanupOlderThings
-cleanupPPSSPP() {
+PPSSPP.cleanup() {
 	#na
 }
 
 #Install
-installPPSSPP() {
+PPSSPP.install() {
 	installEmuFP "${emuName}" "${emuPath}"
 	flatpak override "${emuPath}" --filesystem=host --user
 	flatpak override "${emuName}" --share=network --user
 }
 
 #ApplyInitialSettings
-initPPSSPP() {
+PPSSPP.init() {
 	configEmuFP "${emuName}" "${emuPath}" "true"
-	setupStoragePPSSPP
-	setEmulationFolderPPSSPP
-	setupSavesPPSSPP
+	PPSSPP.setupStorage
+	PPSSPP.setEmulationFolder
+	PPSSPP.setupSaves
 }
 
 #update
-updatePPSSPP() {
+PPSSPP.update() {
 	configEmuFP "${emuName}" "${emuPath}"
-	setupStoragePPSSPP
-	setEmulationFolderPPSSPP
-	setupSavesPPSSPP
+	PPSSPP.setupStorage
+	PPSSPP.setEmulationFolder
+	PPSSPP.setupSaves
 }
 
 #ConfigurePaths
-setEmulationFolderPPSSPP() {
+PPSSPP.setEmulationFolder() {
 	configFile="$HOME/.var/app/${emuPath}}/config/dolphin-emu/Dolphin.ini"
 	gameDirOpt='CurrentDirectory = '
 	newGameDirOpt='CurrentDirectory = '"${romsPath}PPSSPP"
@@ -43,48 +43,58 @@ setEmulationFolderPPSSPP() {
 }
 
 #SetupSaves
-setupSavesPPSSPP() {
+PPSSPP.setupSaves() {
 	linkToSaveFolder ppsspp saves "$HOME/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA"
 	linkToSaveFolder ppsspp states "$HOME/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE"
 }
 
 #SetupStorage
-setupStoragePPSSPP() {
+PPSSPP.setupStorage() {
 	#TBD
 }
 
 #WipeSettings
-wipePPSSPP() {
+PPSSPP.wipe() {
 	rm -rf "$HOME/.var/app/$emuPath"
 }
 
 #Uninstall
-uninstallPPSSPP() {
+PPSSPP.uninstall() {
 	flatpack uninstall "$emuPath" -y
 }
 
 #setABXYstyle
-setABXYstylePPSSPP() {
+PPSSPP.setABXYstyle() {
 
 }
 
 #Migrate
-migratePPSSPP() {
+PPSSPP.migrate() {
 
 }
 
 #WideScreenOn
-wideScreenOnPPSSPP() {
+PPSSPP.wideScreenOn() {
 
 }
 
 #WideScreenOff
-wideScreenOffPPSSPP() {
+PPSSPP.wideScreenOff() {
 
 }
 
 #BezelOn
-bezelOnPPSSPP() {
+PPSSPP.bezelOn() {
+	#na
+}
+
+#BezelOff
+PPSSPP.bezelOff() {
+	#na
+}
+
+#finalExec - Extra stuff
+PPSSPP.finalize() {
 	#na
 }
 
