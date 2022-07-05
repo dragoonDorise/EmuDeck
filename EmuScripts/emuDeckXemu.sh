@@ -7,36 +7,36 @@ emuPath="app.xemu.xemu"
 releaseURL=""
 
 #cleanupOlderThings
-cleanupXemu() {
+Xemu.cleanup() {
 	#na
 }
 
 #Install
-installXemu() {
+Xemu.install() {
 	installEmuFP "${emuName}" "${emuPath}"
 	flatpak override "${emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
-initXemu() {
+Xemu.init() {
 	configEmuFP "${emuName}" "${emuPath}" "true"
-	migrateXemu
-	setupStorageXemu
-	setEmulationFolderXemu
+	Xemu.migrate
+	Xemu.setupStorage
+	Xemu.setEmulationFolder
 	setupSavesXemu
 }
 
 #update
-updateXemu() {
+Xemu.update() {
 	configEmuFP "${emuName}" "${emuPath}"
-	migrateXemu
-	setupStorageXemu
-	setEmulationFolderXemu
+	Xemu.migrate
+	Xemu.setupStorage
+	Xemu.setEmulationFolder
 	setupSavesXemu
 }
 
 #ConfigurePaths
-setEmulationFolderXemu() {
+Xemu.setEmulationFolder() {
 	configFile="$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml"
 
 	bootrrom_path='bootrom_path = '
@@ -56,12 +56,12 @@ setEmulationFolderXemu() {
 }
 
 #SetupSaves
-setupSavesXemu() {
+Xemu.setupSaves() {
 
 }
 
 #SetupStorage
-setupStorageXemu() {
+Xemu.setupStorage() {
 	mkdir -p "${storagePath}xemu"
 	flatpak override app.xemu.xemu --filesystem="${storagePath}xemu":rw --user
 	if [[ ! -f "${storagePath}xemu/xbox_hdd.qcow2" ]]; then
@@ -72,23 +72,23 @@ setupStorageXemu() {
 }
 
 #WipeSettings
-wipeXemu() {
+Xemu.wipe() {
 	rm -rf "$HOME/.var/app/$emuPath"
 	# prob not cause roms are here
 }
 
 #Uninstall
-uninstallXemu() {
+Xemu.uninstall() {
 	flatpack uninstall "$emuPath" -y
 }
 
 #setABXYstyle
-setABXYstyleXemu() {
+Xemu.setABXYstyle() {
 
 }
 
 #Migrate
-migrateXemu() {
+Xemu.migrate() {
 	if [ ! -f "$storagePath/xemu/xbox_hdd.qcow2" ] && [ -d "$HOME/.var/app/app.xemu.xemu" ]; then
 
 		echo "xbox hdd does not exist in storagepath."
@@ -108,7 +108,7 @@ migrateXemu() {
 }
 
 #WideScreenOn
-wideScreenOnXemu() {
+Xemu.wideScreenOn() {
 	configFile="$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml"
 	fit='fit = '
 	fitSetting="${fit}""${fitSetting}scale_16_9"
@@ -116,7 +116,7 @@ wideScreenOnXemu() {
 }
 
 #WideScreenOff
-wideScreenOffXemu() {
+Xemu.wideScreenOf() {
 	configFile="$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml"
 	fit='fit = '
 	fitSetting="${fit}""${fitSetting}scale_4_3"
@@ -124,7 +124,17 @@ wideScreenOffXemu() {
 }
 
 #BezelOn
-bezelOnXemu() {
+Xemu.bezelOn() {
+	#na
+}
+
+#BezelOff
+Xemu.bezelOff() {
+	#na
+}
+
+#finalExec - Extra stuff
+Xemu.finalize() {
 	#na
 }
 

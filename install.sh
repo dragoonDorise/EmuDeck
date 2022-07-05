@@ -723,7 +723,7 @@ if [ $doInstallPrimeHacks == "true" ]; then
 	Primehack.install
 fi
 if [ $doInstallRPCS3 == "true" ]; then
-	installRPCS3
+	RPCS3.install
 fi
 if [ $doInstallCitra == "true" ]; then
 	Citra.install
@@ -744,7 +744,7 @@ if [ $doInstallYuzu == "true" ]; then
 	installYuzu
 fi
 if [ $doInstallXemu == "true" ]; then
-	installXemu
+	Xemu.install
 fi
 if [ $doInstallCemu == "true" ]; then
 	Cemu.install
@@ -796,7 +796,7 @@ if [ $doSetupPCSX2 == "true" ]; then
 	PCSX2.init
 fi
 if [ $doSetupRPCS3 == "true" ]; then
-	initRPCS3
+	RPCS3.init
 fi
 if [ $doSetupCitra == "true" ]; then
 	Citra.init
@@ -811,7 +811,7 @@ if [ $doSetupPPSSPP == "true" ]; then
 	PPSSPP.init
 fi
 if [ $doSetupXemu == "true" ]; then
-	initXemu
+	Xemu.init
 fi
 #Proton Emus
 if [ $doSetupCemu == "true" ]; then
