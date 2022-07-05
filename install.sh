@@ -741,7 +741,7 @@ if [ $doInstallPPSSPP == "true" ]; then
 	PPSSPP.install
 fi
 if [ $doInstallYuzu == "true" ]; then
-	installYuzu
+	Yuzu.install
 fi
 if [ $doInstallXemu == "true" ]; then
 	Xemu.install
@@ -805,7 +805,7 @@ if [ $doSetupDuck == "true" ]; then
 	DuckStation.init
 fi
 if [ $doSetupYuzu == "true" ]; then
-	initYuzu
+	Yuzu.init
 fi
 if [ $doSetupPPSSPP == "true" ]; then
 	PPSSPP.init
@@ -823,7 +823,7 @@ if [ $doSetupXenia == "true" ]; then
 fi
 
 #Fixes repeated Symlink for older installations
-finalizeYuzu
+Yuzu.finalize
 
 #
 ##
