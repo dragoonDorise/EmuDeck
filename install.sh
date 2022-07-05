@@ -742,7 +742,7 @@ if [ $doInstallCitra == "true" ]; then
 	Citra.install
 fi
 if [ $doInstallDolphin == "true" ]; then
-	installDolphin
+	Dolphin.install
 fi
 if [ $doInstallDuck == "true" ]; then
 	installDuckStation
@@ -804,7 +804,7 @@ if [ $doSetupPrimeHacks == "true" ]; then
 	initPrimehack
 fi
 if [ $doSetupDolphin == "true" ]; then
-	initDolphin
+	Dolphin.init
 fi
 if [ $doSetupPCSX2 == "true" ]; then
 	PCSX2.init

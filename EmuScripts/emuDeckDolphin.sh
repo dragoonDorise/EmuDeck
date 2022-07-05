@@ -6,34 +6,34 @@ emuPath="org.DolphinEmu.dolphin-emu"
 releaseURL=""
 
 #cleanupOlderThings
-cleanupDolphin(){
+Dolphin.cleanup(){
  #na
 }
 
 #Install
-installDolphin(){
+Dolphin.install(){
 	installEmuFP "${emuName}" "${emuPath}"	
 	flatpak override "${emuPath}" --filesystem=host --user	
 }
 
 #ApplyInitialSettings
-initDolphin(){
+Dolphin.init(){
 	configEmuFP "${emuName}" "${emuPath}" "true"
-	setupStorageDolphin
-	setEmulationFolderDolphin
-	setupSavesDolphin
+	Dolphin.setupStorage
+	Dolphin.setEmulationFolder
+	Dolphin.setupSaves
 }
 
 #update
-updateDolphin(){
+Dolphin.update(){
 	configEmuFP "${emuName}" "${emuPath}"
-	setupStorageDolphin
-	setEmulationFolderDolphin
-	setupSavesDolphin
+	Dolphin.setupStorage
+	Dolphin.setEmulationFolder
+	Dolphin.setupSaves
 }
 
 #ConfigurePaths
-setEmulationFolderDolphin(){
+Dolphin.setEmulationFolder(){
   	configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
     gameDirOpt1='ISOPath0 = '
     newGameDirOpt1='ISOPath0 = '"${romsPath}gc"
@@ -44,7 +44,7 @@ setEmulationFolderDolphin(){
 }
 
 #SetupSaves
-setupSavesDolphin(){
+Dolphin.setupSaves(){
 	linkToSaveFolder dolphin GC "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC"
 	linkToSaveFolder dolphin Wii "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii"
 	linkToSaveFolder dolphin states "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/states"
@@ -52,30 +52,30 @@ setupSavesDolphin(){
 
 
 #SetupStorage
-setupStorageDolphin(){
+Dolphin.setupStorage(){
     #TBD
 }
 
 
 #WipeSettings
-wipeDolphin(){
+Dolphin.wipe(){
    rm -rf "$HOME/.var/app/$emuPath"
    # prob not cause roms are here
 }
 
 
 #Uninstall
-uninstallDolphin(){
+Dolphin.uninstall(){
     flatpack uninstall "$emuPath" -y
 }
 
 #setABXYstyle
-setABXYstyleDolphin(){
+Dolphin.setABXYstyle(){
     
 }
 
 #Migrate
-migrateDolphin(){
+Dolphin.migrate(){
     
 }
 
@@ -91,7 +91,7 @@ wideScreenOnDolphin(){
 }
 
 #WideScreenOff
-wideScreenOffDolphin(){
+Dolphin.wideScreenOff(){
     configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
     wideScreenHack='wideScreenHack = '
     wideScreenHackSetting='wideScreenHack = False'
@@ -102,17 +102,17 @@ wideScreenOffDolphin(){
 }
 
 #BezelOn
-bezelOnDolphin(){
+Dolphin.bezelOn(){
 #na
 }
 
 #BezelOff
-bezelOffDolphin(){
+Dolphin.bezelOff(){
 #na
 }
 
 #finalExec - Extra stuff
-finalizeDolphin(){
+Dolphin.finalize(){
 	#na
 }
 
