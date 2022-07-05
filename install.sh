@@ -773,7 +773,7 @@ if [ $doInstallXemu == "true" ]; then
 	installXemu
 fi
 if [ $doInstallCemu == "true" ]; then
-	installCemu
+	Cemu.install
 fi
 
 #Xenia - We need to install Xenia after creating the Roms folders!
@@ -866,7 +866,7 @@ if [ $doSetupXemu == "true" ]; then
 fi
 #Proton Emus
 if [ $doSetupCemu == "true" ]; then
-	initCemu
+	Cemu.init
 fi
 if [ $doSetupXenia == "true" ]; then
 	echo "" 

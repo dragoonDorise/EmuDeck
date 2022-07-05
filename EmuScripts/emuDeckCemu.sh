@@ -7,12 +7,12 @@ releaseURL="https://cemu.info/releases/cemu_1.26.2.zip"
 cemuSettings="${romsPath}wiiu/settings.xml"
 
 #cleanupOlderThings
-cleanupCemu(){
+Cemu.cleanup(){
 
 }
 
 #Install
-installCemu(){
+Cemu.install(){
 	setMSG "Installing Cemu"		
 	FILE="${romsPath}/wiiu/Cemu.exe"	
 	if [ -f "$FILE" ]; then
@@ -34,14 +34,14 @@ installCemu(){
 }
 
 #ApplyInitialSettings
-initCemu(){
+Cemu.init(){
 	setMSG "Setting up Cemu"	
 	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "${romsPath}wiiu"
-    setEmulationFolderCemu
+    Cemu.setEmulationFolder
 }
 
 #update
-updateCemu(){
+Cemu.update(){
 	setMSG "Updating Cemu Config"	
 	#cemuSettings="${romsPath}wiiu/settings.xml"
     if [ -f $cemuSettings ]; then
@@ -50,11 +50,11 @@ updateCemu(){
     rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/info.cemu.Cemu/data/cemu/ "${romsPath}wiiu"
 	rm $cemuSettings
 	mv -f $cemuSettings.bak $cemuSettings
-    setEmulationFolderCemu
+    Cemu.setEmulationFolder
 }
 
 #ConfigurePaths
-setEmulationFolderCemu(){
+Cemu.setEmulationFolder(){
     #cemuSettings="${romsPath}wiiu/settings.xml"
 	if [[ -f "${cemuSettings}" ]]; then
 		gamePathEntryFound=$(grep -rnw $cemuSettings -e "z:${romsPath}wiiu/roms")
@@ -65,62 +65,62 @@ setEmulationFolderCemu(){
 }
 
 #SetupSaves
-setupSavesCemu(){
+Cemu.setupSaves(){
 	unlink "${savesPath}Cemu/saves" # Fix for previous bad symlink
 	linkToSaveFolder Cemu saves "${romsPath}wiiu/mlc01/usr/save"
 }
 
 
 #SetupStorage
-setupStorageCemu(){
+Cemu.setupStorage(){
 
 }
 
 
 #WipeSettings
-wipeCemu(){
+Cemu.wipeSettings(){
    # rm -rf "${romPath}wiiu/"
    # prob not cause roms are here
 }
 
 
 #Uninstall
-uninstallCemu(){
+Cemu.uninstall(){
     rm -rf $emuPath
 }
 
 #setABXYstyle
-setABXYstyleCemu(){
+Cemu.setABXYstyle(){
     
 }
 
 #Migrate
-migrateCemu(){
+Cemu.migrate(){
     
 }
 
 #WideScreenOn
-wideScreenOnCemu(){
+Cemu.wideScreenOn(){
 #na
 }
 
 #WideScreenOff
-wideScreenOffCemu(){
+Cemu.wideScreenOff(){
 #na
 }
 
 #BezelOn
-bezelOnCemu(){
+Cemu.bezelOn(){
 #na
 }
 
 #BezelOff
-bezelOffCemu(){
+Cemu.bezelOff(){
 #na
 }
 
 #finalExec - Extra stuff
-finalizeCemu(){
-    cleanupCemu
+Cemu.finalize(){
+    Cemu.cleanup
 }
 
