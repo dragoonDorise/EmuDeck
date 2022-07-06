@@ -8,7 +8,7 @@ Cemu_cemuSettings="${romsPath}wiiu/settings.xml"
 
 #cleanupOlderThings
 Cemu.cleanup(){
-
+	echo "NYI"
 }
 
 #Install
@@ -76,12 +76,13 @@ Cemu.setupSaves(){
 
 #SetupStorage
 Cemu.setupStorage(){
-
+	echo "NYI"
 }
 
 
 #WipeSettings
 Cemu.wipeSettings(){
+		echo "NYI"
    # rm -rf "${romPath}wiiu/"
    # prob not cause roms are here
 }
@@ -94,12 +95,12 @@ Cemu.uninstall(){
 
 #setABXYstyle
 Cemu.setABXYstyle(){
-    
+    	echo "NYI"
 }
 
 #Migrate
 Cemu.migrate(){
-    
+   	echo "NYI" 
 }
 
 #WideScreenOn

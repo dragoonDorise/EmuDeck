@@ -53,7 +53,7 @@ Dolphin.setupSaves(){
 
 #SetupStorage
 Dolphin.setupStorage(){
-    #TBD
+    echo "NYI"#TBD
 }
 
 
@@ -71,12 +71,12 @@ Dolphin.uninstall(){
 
 #setABXYstyle
 Dolphin.setABXYstyle(){
-    
+   	echo "NYI" 
 }
 
 #Migrate
 Dolphin.migrate(){
-    
+    	echo "NYI"
 }
 
 #WideScreenOn

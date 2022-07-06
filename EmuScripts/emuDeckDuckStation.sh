@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #variables
 DuckStation_emuName="DuckStation"
 DuckStation_emuType="FlatPak"
@@ -69,8 +70,8 @@ DuckStation.uninstall(){
 }
 
 #setABXYstyle
-DuckStation.setABXYstyleDuckStation(){
-    
+DuckStation.setABXYstyle(){
+    	echo "NYI"
 }
 
 #Migrate

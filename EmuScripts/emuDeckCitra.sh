@@ -49,7 +49,7 @@ Citra.setupSaves(){
 
 #SetupStorage
 Citra.setupStorage(){
-    #TBD
+    echo "NYI"#TBD
 }
 
 
@@ -67,12 +67,12 @@ Citra.uninstall(){
 
 #setABXYstyle
 Citra.setABXYstyle(){
-    
+    	echo "NYI"
 }
 
 #Migrate
 Citra.migrate(){
-    
+    	echo "NYI"
 }
 
 #WideScreenOn

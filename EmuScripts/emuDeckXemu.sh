@@ -55,7 +55,7 @@ Xemu.setEmulationFolder(){
 
 #SetupSaves
 Xemu.setupSaves(){
-
+	echo "NYI"
 }
 
 
@@ -85,7 +85,7 @@ Xemu.uninstall() {
 
 #setABXYstyle
 Xemu.setABXYstyle(){
-    
+    	echo "NYI"
 }
 
 #Migrate

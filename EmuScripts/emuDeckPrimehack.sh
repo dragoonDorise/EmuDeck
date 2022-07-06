@@ -68,22 +68,22 @@ Primehack.uninstall() {
 
 #setABXYstyle
 Primehack.setABXYstyle(){
-    
+    	echo "NYI"
 }
 
 #Migrate
 Primehack.migrate(){
-    
+    	echo "NYI"
 }
 
 #WideScreenOn
 Primehack.wideScreenOn(){
-
+	echo "NYI"
 }
 
 #WideScreenOff
 Primehack.wideScreenOff(){
-
+	echo "NYI"
 }
 
 #BezelOn
