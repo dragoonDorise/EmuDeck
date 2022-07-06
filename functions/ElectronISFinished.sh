@@ -3,6 +3,7 @@ finished=false
 while [ $finished == false ]
 do 		 
 	test=$(test -f ~/emudeck/.electron-finished && echo true)	
+	echo $test ~/emudeck/check.log
 	  if [[ $test == true ]]; then
 	  	  finished=true;
 		  clear	
