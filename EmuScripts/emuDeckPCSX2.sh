@@ -33,8 +33,8 @@ PCSX2.update(){
 
 #ConfigurePaths
 PCSX2.setEmulationFolder(){
-	configFile = "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini"
-	biosDirOpt='Bios=/'
+	configFile="$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini"
+	biosDirOpt='Bios=\/'
 	newBiosDirOpt='Bios='"${biosPath}"
 	sed -i "/${biosDirOpt}/c\\${newBiosDirOpt}" $configFile
 }

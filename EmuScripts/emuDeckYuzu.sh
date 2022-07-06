@@ -56,15 +56,15 @@ Yuzu.update(){
 Yuzu.setEmulationFolder(){
     echo "Begin Yuzu Path Config"
     configFile="$HOME/.config/yuzu/qt-config.ini"
-    screenshotDirOpt='Screenshots\screenshot_path='
-    gameDirOpt='Paths\gamedirs\4\path='
+    screenshotDirOpt='Screenshots\\screenshot_path='
+    gameDirOpt='Paths\\gamedirs\\4\\path='
     dumpDirOpt='dump_directory='
     loadDir='load_directory='
     nandDirOpt='nand_directory='
     sdmcDirOpt='sdmc_directory='
     tasDirOpt='tas_directory='
-    newScreenshotDirOpt='Screenshots\screenshot_path='"${storagePath}yuzu/screenshots"
-    newGameDirOpt='Paths\gamedirs\4\path='"${romsPath}switch"
+    newScreenshotDirOpt='Screenshots\\screenshot_path='"${storagePath}yuzu/screenshots"
+    newGameDirOpt='Paths\\gamedirs\\4\\path='"${romsPath}switch"
     newDumpDirOpt='dump_directory='"${storagePath}yuzu/dump"
     newLoadDir='load_directory='"${storagePath}yuzu/load"
     newNandDirOpt='nand_directory='"${storagePath}yuzu/nand"

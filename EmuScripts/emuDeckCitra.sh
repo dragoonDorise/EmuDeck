@@ -35,8 +35,8 @@ Citra.update(){
 #ConfigurePaths
 Citra.setEmulationFolder(){
   	configFile="$HOME/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini"
-    gameDirOpt='Paths\gamedirs\3\path='
-    newGameDirOpt='Paths\gamedirs\3\path='"${romsPath}3ds"
+    gameDirOpt='Paths\\gamedirs\\3\\path='
+    newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}3ds"
     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
 }
 
