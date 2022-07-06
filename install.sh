@@ -954,8 +954,8 @@ fi
 installBinUp
 
 
-setMSG "Cleaning up downloaded files..."	
-rm -rf ~/dragoonDoriseTools	
+# setMSG "Cleaning up downloaded files..."	
+# rm -rf ~/dragoonDoriseTools	
 clear
 
 # We mark the script as finished	
