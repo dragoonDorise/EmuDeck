@@ -97,13 +97,3 @@ PPSSPP.bezelOff() {
 PPSSPP.finalize() {
 	#na
 }
-
-#BezelOff
-bezelOffPPSSPP() {
-	#na
-}
-
-#finalExec - Extra stuff
-finalizePPSSPP() {
-	#na
-}

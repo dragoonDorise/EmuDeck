@@ -137,13 +137,3 @@ Xemu.bezelOff() {
 Xemu.finalize() {
 	#na
 }
-
-#BezelOff
-bezelOffXemu() {
-	#na
-}
-
-#finalExec - Extra stuff
-finalizeXemu() {
-	#na
-}

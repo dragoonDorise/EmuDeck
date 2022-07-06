@@ -116,23 +116,3 @@ RPCS3.bezelOff() {
 RPCS3.finalize() {
 	#na
 }
-
-#WideScreenOff
-wideScreenOffRPCS3() {
-	#na
-}
-
-#BezelOn
-bezelOnRPCS3() {
-	#na
-}
-
-#BezelOff
-bezelOffRPCS3() {
-	#na
-}
-
-#finalExec - Extra stuff
-finalizeRPCS3() {
-	#na
-}

@@ -97,13 +97,3 @@ Primehack.BezelOff() {
 Primehack.finalize() {
 	#na
 }
-
-#BezelOff
-bezelOffPrimehack() {
-	#na
-}
-
-#finalExec - Extra stuff
-finalizePrimehack() {
-	#na
-}
