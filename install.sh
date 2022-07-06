@@ -95,7 +95,7 @@ fi
 	
 #
 ##
-## Branch to download - Only for Zenity mode
+## Branch to download
 ##
 #
 devMode=$1
@@ -114,6 +114,24 @@ case $devMode in
   ;;
 esac	
 
+
+#
+##
+## Downloading files...
+##
+#
+
+#We create all the needed folders for installation
+mkdir -p ~/dragoonDoriseTools/EmuDeck
+cd ~/dragoonDoriseTools
+
+#Cloning EmuDeck files
+git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck 
+if [ ! -z "$devMode" ]; then
+	cd ~/dragoonDoriseTools/EmuDeck
+	git checkout $branch 
+fi
+
 #
 ##
 ## Do we need Zenity?...
@@ -131,22 +149,6 @@ if [ $zenity == true ]; then
 
 	#This part of the code is where all the settings are created
 
-	#
-	##
-	## Downloading files...
-	##
-	#
-	
-	#We create all the needed folders for installation
-	mkdir -p ~/dragoonDoriseTools/EmuDeck
-	cd ~/dragoonDoriseTools
-	
-	#Cloning EmuDeck files
-	git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck 
-	if [ ! -z "$devMode" ]; then
-		cd ~/dragoonDoriseTools/EmuDeck
-		git checkout $branch 
-	fi
 	
 	
 	#Test if we have a successful clone	
