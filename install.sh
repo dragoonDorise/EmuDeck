@@ -43,8 +43,7 @@ fi
 
 #Clean up previous installations
 rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
-#No need to clean up files anymore, just do a git pull to update
-#rm -rf ~/dragoonDoriseTools
+rm -rf ~/dragoonDoriseTools
 mkdir -p ~/emudeck
 
 #Creating log file
@@ -954,9 +953,9 @@ fi
 
 installBinUp
 
-#No need to clean up files anymore, just do a git pull to update
-#setMSG "Cleaning up downloaded files..."	
-#rm -rf ~/dragoonDoriseTools	
+
+setMSG "Cleaning up downloaded files..."	
+rm -rf ~/dragoonDoriseTools	
 clear
 
 # We mark the script as finished	
