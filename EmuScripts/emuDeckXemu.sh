@@ -1,9 +1,8 @@
 #!/bin/bash
 #variables
-emuName="Xemu-Emu"
-emuType="FlatPak"
-emuPath="app.xemu.xemu"
-releaseURL=""
+Xemu.emuName="Xemu-Emu"
+Xemu.emuType="FlatPak"
+Xemu.emuPath="app.xemu.xemu"
 
 #cleanupOlderThings
 Xemu.cleanup(){
@@ -11,14 +10,14 @@ Xemu.cleanup(){
 }
 
 #Install
-Xemu.install(){
-	installEmuFP "${emuName}" "${emuPath}"	
-	flatpak override "${emuPath}" --filesystem=host --user	
+Xemu.install() {
+	installEmuFP "${Xemu.emuName}" "${Xemu.emuPath}"
+	flatpak override "${Xemu.emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
-Xemu.init(){
-	configEmuFP "${emuName}" "${emuPath}" "true"
+Xemu.init() {
+	configEmuFP "${Xemu.emuName}" "${Xemu.emuPath}" "true"
 	Xemu.migrate
 	Xemu.setupStorage
 	Xemu.setEmulationFolder
@@ -26,8 +25,8 @@ Xemu.init(){
 }
 
 #update
-Xemu.update(){
-	configEmuFP "${emuName}" "${emuPath}"
+Xemu.update() {
+	configEmuFP "${Xemu.emuName}" "${Xemu.emuPath}"
 	Xemu.migrate
 	Xemu.setupStorage
 	Xemu.setEmulationFolder
@@ -73,15 +72,15 @@ Xemu.setupStorage(){
 
 
 #WipeSettings
-Xemu.wipe(){
-   rm -rf "$HOME/.var/app/$emuPath"
-   # prob not cause roms are here
+Xemu.wipe() {
+	rm -rf "$HOME/.var/app/$Xemu.emuPath"
+	# prob not cause roms are here
 }
 
 
 #Uninstall
-Xemu.uninstall(){
-    flatpack uninstall "$emuPath" -y
+Xemu.uninstall() {
+	flatpack uninstall "$Xemu.emuPath" -y
 }
 
 #setABXYstyle

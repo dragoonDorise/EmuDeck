@@ -1,8 +1,9 @@
 #!/bin/bash
+
 #variables
-emuName="yuzu"
-emuType="AppImage"
-emuPath="$HOME/Applications/yuzu.AppImage"
+Yuzu.emuName="Yuzu"
+Yuzu.emuType="AppImage"
+Yuzu.emuPath="$HOME/Applications/yuzu.AppImage"
 
 #cleanupOlderThings
 Yuzu.cleanup(){
@@ -18,52 +19,38 @@ Yuzu.cleanup(){
 Yuzu.install(){
     echo "Begin Yuzu Install"
     installEmuAI "yuzu"  $(getLatestReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage") #needs to be lowercase yuzu for EsDE to find it.
-    flatpak override org.yuzu_emu.yuzu --filesystem=host --user # still doing this, as we do link the appimage / flatpak config
+    flatpak override org.yuzu_emu.yuzu --filesystem=host --user # still doing this, as we do link the appimage / flatpak config. if the user ever decides to install the flatpak, we do want it to work.
 }
 
 #ApplyInitialSettings
 Yuzu.init(){
     echo "Begin Yuzu Init"
+    
     Yuzu.migrate
-	configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
+	
+    configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
 	configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
     
     Yuzu.setEmulationFolder
-    
-    #Setup Bios symlinks
-    unlink ${biosPath}yuzu/keys
-    unlink ${biosPath}yuzu/firmware
-    mkdir -p "$HOME/.local/share/yuzu/keys/"
-    mkdir -p ${storagePath}yuzu/nand/system/Contents/registered/
-    ln -sn "$HOME/.local/share/yuzu/keys/" ${biosPath}yuzu/keys
-    ln -sn ${storagePath}yuzu/nand/system/Contents/registered/ ${biosPath}yuzu/firmware
-    
-    
-    touch ${storagePath}yuzu/nand/system/Contents/registered/putfirmwarehere.txt
+    Yuzu.setupStorage
 
 }
 
 #update
 Yuzu.update(){
     echo "Begin Yuzu update"
+
     Yuzu.migrate
-	configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/config/yuzu"
+	
+    configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/config/yuzu"
 	configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$HOME/dragoonDoriseTools/EmuDeck/configs/org.yuzu_emu.yuzu/data/yuzu"
     
     Yuzu.setEmulationFolder
-    
-    #Setup Bios symlinks
-    unlink ${biosPath}yuzu/keys
-    unlink ${biosPath}yuzu/firmware
-    mkdir -p "$HOME/.local/share/yuzu/keys/"
-    mkdir -p ${storagePath}yuzu/nand/system/Contents/registered/
-    ln -sn "$HOME/.local/share/yuzu/keys/" ${biosPath}yuzu/keys
-    ln -sn ${storagePath}yuzu/nand/system/Contents/registered/ ${biosPath}yuzu/firmware
-    
-    
-    touch ${storagePath}yuzu/nand/system/Contents/registered/putfirmwarehere.txt
+    Yuzu.setupStorage
     
 }
+
+
 
 #ConfigurePaths
 Yuzu.setEmulationFolder(){
@@ -84,6 +71,7 @@ Yuzu.setEmulationFolder(){
     newSdmcDirOpt='sdmc_directory='"${storagePath}yuzu/sdmc"
     newTasDirOpt='tas_directory='"${storagePath}yuzu/tas"
 
+
     sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" $configFile
     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" $configFile
     sed -i "/${dumpDirOpt}/c\\${newDumpDirOpt}" $configFile
@@ -92,7 +80,18 @@ Yuzu.setEmulationFolder(){
     sed -i "/${sdmcDirOpt}/c\\${newSdmcDirOpt}" $configFile
     sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" $configFile
 
-    Yuzu.setupStorage
+    #Setup Bios symlinks
+    unlink "${biosPath}yuzu/keys"
+    unlink "${biosPath}yuzu/firmware"
+
+    mkdir -p "$HOME/.local/share/yuzu/keys/"
+    mkdir -p "${storagePath}yuzu/nand/system/Contents/registered/"
+
+    ln -sn "$HOME/.local/share/yuzu/keys/" "${biosPath}yuzu/keys"
+    ln -sn "${storagePath}yuzu/nand/system/Contents/registered/" "${biosPath}yuzu/firmware"
+
+    touch "${storagePath}yuzu/nand/system/Contents/registered/putfirmwarehere.txt"
+
 }
 
 #SetupSaves
