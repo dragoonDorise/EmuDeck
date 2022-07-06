@@ -302,22 +302,6 @@ rsync -r --ignore-existing ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath"
 
 if [ $expert == "true" ]; then
 	echo "Expert mode begin"
-		#set all features to false
-		doInstallCHD=false
-		doInstallPowertools=false
-		doInstallGyro=false
-		doSetupSRM=false
-		doInstallESDE=false
-		doSelectEmulators=false
-		doResetEmulators=false
-		doSelectRABezels=false
-		doSelectRAAutoSave=false
-		doSNESAR87=false
-		doSelectWideScreen=false
-		doRASignIn=false
-		doRAEnable=false
-		doESDEThemePicker=false
-		doXboxButtons=false		
 	
 		#one entry per expert mode feature
 		table=()
@@ -348,56 +332,46 @@ if [ $expert == "true" ]; then
 		echo "user selected: $expertModeFeatureList"
 		#set flags to true for selected expert mode features
 		if [[ "$expertModeFeatureList" == *"CHDScript"* ]]; then
-			doInstallCHD=true
+			setSetting doInstallCHD true
 		fi
 		if [[ "$expertModeFeatureList" == *"PowerTools"* ]]; then
-			doInstallPowertools=true
+			setSetting doInstallPowertools true
 		fi
 		if [[ "$expertModeFeatureList" == *"SteamGyro"* ]]; then
-			doInstallGyro=true
+			setSetting doInstallGyro true
 		fi
 		if [[ "$expertModeFeatureList" == *"updateSRM"* ]]; then
-			doSetupSRM=true
-		else
-			doSetupSRM=false
+			setSetting doSetupSRM true
 		fi
 		if [[ "$expertModeFeatureList" == *"updateESDE"* ]]; then
-			doInstallESDE=true
-		else
-			doInstallESDE=false
+			setSetting doInstallESDE true
 		fi
 		if [[ "$expertModeFeatureList" == *"selectEmulators"* ]]; then
-			doSelectEmulators=true
+			setSetting doSelectEmulators true
 		fi
 		if [[ "$expertModeFeatureList" == *"selectEmulatorConfig"* ]]; then
-			doResetEmulators=true
+			setSetting doResetEmulators true
 		fi
 		if [[ "$expertModeFeatureList" == *"selectRABezels"* ]]; then
-			RABezels=true
-		else
-			RABezels=false
+			setSetting RABezels true
 		fi
 		if [[ "$expertModeFeatureList" == *"selectRAAutoSave"* ]]; then
-			RAautoSave=true
-		else
-			RAautoSave=false
+			setSetting RAautoSave true
 		fi
 		if [[ "$expertModeFeatureList" == *"snesAR"* ]]; then
-			SNESAR=43
-		else
-			SNESAR=87		
+			setSetting SNESAR 43	
 		fi
 		if [[ "$expertModeFeatureList" == *"selectWideScreen"* ]]; then
-			doSelectWideScreen=true			
+			setSetting doSelectWideScreen true			
 		fi
 		if [[ "$expertModeFeatureList" == *"setRASignIn"* ]]; then
-			doRASignIn=true
+			setSetting doRASignIn true
 		fi
 		if [[ "$expertModeFeatureList" == *"setRAEnable"* ]]; then
-			doRAEnable=true
+			setSetting doRAEnable true
 		fi
 		if [[ "$expertModeFeatureList" == *"doESDEThemePicker"* ]]; then
-			doESDEThemePicker=true
+			setSetting doESDEThemePicker true
 		fi	
 		
 
@@ -425,8 +399,8 @@ if [ $expert == "true" ]; then
 						--title="EmuDeck" \
 						--width=400 \
 						--text="${text}" 2>/dev/null
-						doInstallPowertools=false
-						doInstallGyro=false
+						setSetting doInstallPowertools false
+						setSetting doInstallGyro false
 				fi
 			fi
 		fi
@@ -471,40 +445,40 @@ if [ $expert == "true" ]; then
 		if [ $ans -eq 0 ]; then
 			echo "Emu Install selected: $emusToInstall"
 			if [[ "$emusToInstall" == *"RetroArch"* ]]; then
-				doInstallRA=true
+				setSetting doInstallRA true
 			fi
 			if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
-				doInstallPrimeHacks=true
+				setSetting doInstallPrimeHacks true
 			fi
 			if [[ "$emusToInstall" == *"PCSX2"* ]]; then
-				doInstallPCSX2=true
+				setSetting doInstallPCSX2 true
 			fi
 			if [[ "$emusToInstall" == *"RPCS3"* ]]; then
-				doInstallRPCS3=true
+				setSetting doInstallRPCS3 true
 			fi
 			if [[ "$emusToInstall" == *"Citra"* ]]; then
-				doInstallCitra=true
+				setSetting doInstallCitra true
 			fi
 			if [[ "$emusToInstall" == *"Dolphin"* ]]; then
-				doInstallDolphin=true
+				setSetting doInstallDolphin true
 			fi
 			if [[ "$emusToInstall" == *"Duckstation"* ]]; then
-				doInstallDuck=true
+				setSetting doInstallDuck true
 			fi
 			if [[ "$emusToInstall" == *"PPSSPP"* ]]; then
-				doInstallPPSSPP=true
+				setSetting doInstallPPSSPP true
 			fi
 			if [[ "$emusToInstall" == *"Yuzu"* ]]; then
-				doInstallYuzu=true
+				setSetting doInstallYuzu true
 			fi
 			if [[ "$emusToInstall" == *"Cemu"* ]]; then
-				doInstallCemu=true
+				setSetting doInstallCemu true
 			fi
 			if [[ "$emusToInstall" == *"Xemu"* ]]; then
-				doInstallXemu=true
+				setSetting doInstallXemu true
 			fi
 			if [[ "$emusToInstall" == *"Xenia"* ]]; then
-				doInstallXenia=true
+				setSetting doInstallXenia true
 			fi
 			#if [[ "$emusToInstall" == *"MelonDS"* ]]; then
 			#	doInstallMelon=true
@@ -542,29 +516,29 @@ if [ $expert == "true" ]; then
 		if [ $ans -eq 0 ]; then
 			echo "Widescreen choices: $wideToInstall"
 			if [[ "$wideToInstall" == *"Duckstation"* ]]; then
-				duckWide=true
+				setSetting duckWide true
 			else
-				duckWide=false
+				setSetting duckWide false
 			fi
 			if [[ "$wideToInstall" == *"Dolphin"* ]]; then
-				DolphinWide=true
+				setSetting DolphinWide true
 			else
-				DolphinWide=false
+				setSetting DolphinWide false
 			fi
 			if [[ "$wideToInstall" == *"RA-Flycast"* ]]; then
-				DreamcastWide=true
+				setSetting DreamcastWide true
 			else
-				DreamcastWide=false
+				setSetting DreamcastWide false
 			fi		
 			if [[ "$wideToInstall" == *"BeetlePSX"* ]]; then
-				BeetleWide=true
+				setSetting BeetleWide true
 			else
-				BeetleWide=false
+				setSetting BeetleWide false
 			fi				
 			if [[ "$wideToInstall" == *"Xemu"* ]]; then
-				XemuWide=true
+				setSetting XemuWide true
 			else
-				XemuWide=false
+				setSetting XemuWide false
 			fi			
 			
 		else		
@@ -614,49 +588,49 @@ if [ $expert == "true" ]; then
 			if [ $ans -eq 0 ]; then
 				echo "Emulators to reinstall selected: $emusToReset"
 				if [[ "$emusToReset" == *"RetroArch"* ]]; then
-					doSetupRA=true
+					setSetting doSetupRA true
 				fi
 				if [[ "$emusToReset" == *"PrimeHack"* ]]; then
-					doSetupPrimeHacks=true
+					setSetting doSetupPrimeHacks true
 				fi
 				if [[ "$emusToReset" == *"PCSX2"* ]]; then
-					doSetupPCSX2=true
+					setSetting doSetupPCSX2 true
 				fi
 				if [[ "$emusToReset" == *"RPCS3"* ]]; then
-					doSetupRPCS3=true
+					setSetting doSetupRPCS3 true
 				fi
 				if [[ "$emusToReset" == *"Citra"* ]]; then
-					doSetupCitra=true
+					setSetting doSetupCitra true
 				fi
 				if [[ "$emusToReset" == *"Dolphin"* ]]; then
-					doSetupDolphin=true
+					setSetting doSetupDolphin true
 				fi
 				if [[ "$emusToReset" == *"Duckstation"* ]]; then
-					doSetupDuck=true
+					setSetting doSetupDuck true
 				fi
 				if [[ "$emusToReset" == *"PPSSPP"* ]]; then
-					doSetupPPSSPP=true
+					setSetting doSetupPPSSPP true
 				fi
 				if [[ "$emusToReset" == *"Yuzu"* ]]; then
-					doSetupYuzu=true
+					setSetting doSetupYuzu true
 				fi
 				if [[ "$emusToReset" == *"Cemu"* ]]; then
-					doSetupCemu=true
+					setSetting doSetupCemu true
 				fi
 				if [[ "$emusToReset" == *"Xemu"* ]]; then
-					doSetupXemu=true
+					setSetting doSetupXemu true
 				fi
 				if [[ "$emusToReset" == *"Xenia"* ]]; then
-					doSetupXenia=false #false until we add above
+					setSetting doSetupXenia false #false until we add above
 				fi
 				#if [[ "$emusToReset" == *"MelonDS"* ]]; then
 				#	doSetupMelon=false
 				#fi
 				if [[ "$emusToReset" == *"Steam Rom Manager"* ]]; then
-					doSetupSRM=true
+					setSetting doSetupSRM true
 				fi
 				if [[ "$emusToReset" == *"EmulationStation DE"* ]]; then
-					doSetupESDE=true
+					setSetting doSetupESDE true
 				fi
 			
 			
@@ -668,26 +642,26 @@ if [ $expert == "true" ]; then
 	fi
 else
 	#easy mode settings
-	doInstallRA=true
-	doInstallDolphin=true
-	doInstallPCSX2=true
-	doInstallRPCS3=true
-	doInstallYuzu=true
-	doInstallCitra=true
-	doInstallDuck=true
-	doInstallCemu=true
-	doInstallXenia=false
-	doInstallPrimeHacks=true
-	doInstallPPSSPP=true
-	doInstallXemu=true
+	setSetting doInstallRA true
+	setSetting doInstallDolphin true
+	setSetting doInstallPCSX2 true
+	setSetting doInstallRPCS3 true
+	setSetting doInstallYuzu true
+	setSetting doInstallCitra true
+	setSetting doInstallDuck true
+	setSetting doInstallCemu true
+	setSetting doInstallXenia false
+	setSetting doInstallPrimeHacks true
+	setSetting doInstallPPSSPP true
+	setSetting doInstallXemu true
 	#doInstallMelon=true
 
 	#widescreen off by default
-	duckWide=false
-	DolphinWide=false
-	DreamcastWide=false
-	BeetleWide=false
-	XemuWide=false
+	setSetting duckWide false
+	setSetting DolphinWide false
+	setSetting DreamcastWide false
+	setSetting BeetleWide false
+	setSetting XemuWide false	
 
 fi # end Expert if
 

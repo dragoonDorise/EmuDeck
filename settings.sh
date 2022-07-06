@@ -22,7 +22,7 @@ doSetupESDE=true
 doSetupSRM=true
 #doSetupMelon=true
 
-#Install all systems by default
+#Install all systems by fdefault
 doInstallSRM=true
 doInstallESDE=true
 doInstallRA=false
@@ -49,6 +49,7 @@ RAautoSave=false
 SNESAR=43
 
 #Default widescreen
+
 duckWide=true
 DolphinWide=true
 DreamcastWide=true
@@ -61,8 +62,17 @@ toolsPath=~/Emulation/tools/
 biosPath=~/Emulation/bios/
 savesPath=~/Emulation/saves/
 storagePath=~/Emulation/storage/
-ESDEscrapData=~/Emulation/tools/downloaded_media
+ESDEscrapData=~/Emulation/tools/downloaded_mediaf
 
 #Default ESDE Theme
 esdeTheme="EPICNOIR"
 
+
+#Advanced settings
+doSelectWideScreen=false##
+doRASignIn=false##
+doRAEnable=false##
+doESDEThemePicker=false##
+doSelectEmulators=false##
+doResetEmulators=false##
+XemuWide=false
