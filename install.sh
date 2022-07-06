@@ -278,7 +278,7 @@ setSetting toolsPath "${destination}/Emulation/tools/"
 setSetting biosPath "${destination}/Emulation/bios/"
 setSetting savesPath "${destination}/Emulation/saves/"
 setSetting storagePath "${destination}/Emulation/storage/"
-ESDEscrapData="${destination}/Emulation/tools/downloaded_media"
+setSetting ESDEscrapData "${destination}/Emulation/tools/downloaded_media/"
 
 #Folder creation...
 mkdir -p "$emulationPath"

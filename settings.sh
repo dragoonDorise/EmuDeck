@@ -61,6 +61,7 @@ toolsPath=~/Emulation/tools/
 biosPath=~/Emulation/bios/
 savesPath=~/Emulation/saves/
 storagePath=~/Emulation/storage/
+ESDEscrapData=~/Emulation/tools/downloaded_media
 
 #Default ESDE Theme
 esdeTheme="EPICNOIR"
