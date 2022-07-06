@@ -49,7 +49,7 @@ Citra.setupSaves(){
 
 #SetupStorage
 Citra.setupStorage(){
-    echo "NYI"#TBD
+    echo "NYI"
 }
 
 

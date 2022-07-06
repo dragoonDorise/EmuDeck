@@ -35,7 +35,7 @@ Primehack.update() {
 
 #ConfigurePaths
 Primehack.setEmulationFolder() {
-	configFile="$HOME/.var/app/${Primehack_emuPath}}/config/dolphin-emu/Dolphin.ini"
+	configFile="$HOME/.var/app/${Primehack_emuPath}/config/dolphin-emu/Dolphin.ini"
 	gameDirOpt='ISOPath0 = '
 	newGameDirOpt='ISOPath0 = '"${romsPath}primehacks"
 	sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"

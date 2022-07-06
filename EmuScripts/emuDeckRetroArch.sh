@@ -38,7 +38,7 @@ RetroArch.update(){
 
 #ConfigurePaths
 RetroArch.setEmulationFolder(){
-	configFile = "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
+	configFile="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
 	system_directory='system_directory = '
 	system_directorySetting="${system_directory}""\"${biosPath}\""
 	sed -i "/${system_directory}/c\\${system_directorySetting}" $configFile

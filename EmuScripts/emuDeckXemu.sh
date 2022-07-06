@@ -21,7 +21,6 @@ Xemu.init() {
 	Xemu.migrate
 	Xemu.setupStorage
 	Xemu.setEmulationFolder
-	setupSavesXemu
 }
 
 #update
@@ -30,7 +29,6 @@ Xemu.update() {
 	Xemu.migrate
 	Xemu.setupStorage
 	Xemu.setEmulationFolder
-	setupSavesXemu
 }
 
 #ConfigurePaths

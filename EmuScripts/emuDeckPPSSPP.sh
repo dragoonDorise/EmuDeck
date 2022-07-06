@@ -35,7 +35,7 @@ PPSSPP.update(){
 
 #ConfigurePaths
 PPSSPP.setEmulationFolder(){
-  	configFile="$HOME/.var/app/${PPSSPP_emuPath}}/config/dolphin-emu/Dolphin.ini"
+  	configFile="$HOME/.var/app/${PPSSPP_emuPath}/config/ppsspp/PSP/SYSTEM/ppsspp.ini"
     gameDirOpt='CurrentDirectory = '
     newGameDirOpt='CurrentDirectory = '"${romsPath}PPSSPP"
     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"

@@ -19,17 +19,17 @@ RPCS3.install(){
 #ApplyInitialSettings
 RPCS3.init(){
 	configEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}" "true"
-	setupStorageRpcs3
-	setEmulationFolderRpcs3
-	setupSavesRpcs3
+	RPCS3.setupStorage
+	RPCS3.setEmulationFolder
+	RPCS3.setupSaves
 }
 
 #update
 RPCS3.update(){
 	configEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}"
-	setupStorageRpcs3
-	setEmulationFolderRpcs3
-	setupSavesRpcs3
+	RPCS3.setupStorage
+	RPCS3.setEmulationFolder
+	RPCS3.setupSaves
 }
 
 #ConfigurePaths

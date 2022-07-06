@@ -7,7 +7,7 @@ Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
 
 #cleanupOlderThings
 Yuzu.cleanup(){
-    "Begin Yuzu Cleanup"
+    echo "Begin Yuzu Cleanup"
     #Fixes repeated Symlink for older installations
     cd "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/"
     unlink keys 

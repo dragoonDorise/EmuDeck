@@ -20,15 +20,15 @@ PCSX2.install(){
 #ApplyInitialSettings
 PCSX2.init(){
 	configEmuFP  "${PCSX2_emuName}" "${PCSX2_emuPath}" "true"
-	setEmulationFolderPcsx2
-	setupSavesPcsx2
+	PCSX2.setEmulationFolder
+	PCSX2.setupSaves
 }
 
 #update
 PCSX2.update(){
 	configEmuFP  "${PCSX2_emuName}" "${PCSX2_emuPath}"
-	setEmulationFolderPcsx2
-	setupSavesPcsx2
+	PCSX2.setEmulationFolder
+	PCSX2.setupSaves
 }
 
 #ConfigurePaths
