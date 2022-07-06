@@ -5,8 +5,9 @@ do
 	test=$(test -f ~/emudeck/.electron-finished && echo true)	
 	  if [ $test == true ]; then
 	  	  finished=true;
-		clear	
+		  clear	
 		  echo 'true';
+		  rm ~/emudeck/.electron-finished
 		break
 	  fi							  
 done
