@@ -34,32 +34,17 @@ else
   fi
 fi
 
-#
-##
-## Downloading files...
-##
-#
 
-# Which branch?
-devMode=$1
-case $devMode in
-  "BETA")
-	branch="beta"
-  ;;
-  "DEV")
-	  branch="dev"
-	;;  
-  "EmuReorg")
-	  branch="EmuReorg"
-	;;  
-  *)
-	branch="main"
-  ;;
-esac
+#
+##
+## Init... This code is needed for both Zenity and non Zenty modes
+##
+#
 
 #Clean up previous installations
 rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
-rm -rf ~/dragoonDoriseTools
+#No need to clean up files anymore, just do a git pull to update
+#rm -rf ~/dragoonDoriseTools
 mkdir -p ~/emudeck
 
 #Creating log file
@@ -74,11 +59,12 @@ if [ -d "$FOLDER" ]; then
 fi
 sleep 1
 SECONDTIME=~/emudeck/.finished
+EMUDECKGIT=~/dragoonDoriseTools/EmuDeck
 
 # Seeting up the progress Bar for the rest of the installation
 finished=false
 echo "0" > ~/emudeck/msg.log
-echo "# Downloading files from $branch channel..." >> ~/emudeck/msg.log
+echo "# Installing EmuDeck" >> ~/emudeck/msg.log
 MSG=~/emudeck/msg.log
 (	
 	while [ $finished == false ]
@@ -93,7 +79,7 @@ MSG=~/emudeck/msg.log
 ) |
 zenity --progress \
   --title="Installing EmuDeck" \
-  --text="Downloading files from $branch channel..." \
+  --text="Installing EmuDeck..." \
   --percentage=0 \
   --no-cancel \
   --pulsate \
@@ -105,403 +91,362 @@ if [ "$?" = -1 ] ; then
 	--text="Update canceled."
 fi
 
-#We create all the needed folders for installation
-mkdir -p ~/dragoonDoriseTools/EmuDeck
-cd ~/dragoonDoriseTools
 
-#Cloning EmuDeck files
-git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck 
-if [ ! -z "$devMode" ]; then
-	cd ~/dragoonDoriseTools/EmuDeck
-	git checkout $branch 
-fi
-
-
-#Test if we have a successful clone
-EMUDECKGIT=~/dragoonDoriseTools/EmuDeck
-if [ -d "$EMUDECKGIT" ]; then
-	echo -e "Files Downloaded!"
-clear
-cat ~/dragoonDoriseTools/EmuDeck/logo.ans
-version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
-echo -e "${BOLD}EmuDeck ${version}${NONE}"
-echo -e ""
-cat ~/dragoonDoriseTools/EmuDeck/latest.md
-
-else
-	echo -e ""
-	echo -e "We couldn't download the needed files, exiting in a few seconds"
-	echo -e "Please close this window and try again in a few minutes"
-	sleep 999999
-	exit
-fi
-
-#
-##
-## EmuDeck is installed, start setting up stuff
-##
-#
-
-
-#
-## Settings
-#
-#Check for config file
-FILE=~/emudeck/settings.sh
-if [ -f "$FILE" ]; then
-	source "$EMUDECKGIT"/settings.sh
-	else
-	cp "$EMUDECKGIT"/settings.sh ~/emudeck/settings.sh	
-fi
-
-#
-## Functions
-#
-
-source "$EMUDECKGIT"/functions/all.sh
-
-#
-## extra Binaries to path
-#
-export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
-chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
-
-#
-## Splash screen
-#
-
-latest=$(cat ~/dragoonDoriseTools/EmuDeck/latest.md)	
-if [ -f "$SECONDTIME" ]; then
-	 text="$(printf "<b>Hi, this is the changelog of the new features added in this version</b>\n\n${latest}")"
-	 width=1000
-else
-	text="$(printf "<b>Welcome to EmuDeck!</b>")"
-	width=300
-fi 
- zenity --info \
---title="EmuDeck" \
---width=${width} \
---text="${text}" 2>/dev/null
 	
 #
-#Hardware Check for Holo Users
+##
+## Branch to download - Only for Zenity mode
+##
 #
-if [[ "$(cat /sys/devices/virtual/dmi/id/product_name)" =~ Jupiter ]]; then
-	isRealDeck=true
+devMode=$1
+case $devMode in
+  "BETA")
+	branch="beta"
+  ;;
+  "DEV")
+	  branch="dev"
+	;;  
+  "EmuReorg")
+	  branch="EmuReorg"
+	;;  
+  *)
+	branch="main"
+  ;;
+esac	
+
+#
+##
+## Do we need Zenity?...
+##
+#
+if [ -z $2 ]; then
+	zenity=true
 else
-	isRealDeck=false
+	zenity=$2
 fi
 
-#
-# Initialize locations
-#
-locationTable=()
-locationTable+=(TRUE "Internal" "$HOME") #always valid
 
-#built in SD Card reader
-if [ -b "/dev/mmcblk0p1" ]; then	
-	#test if card is writable and linkable
-	sdCardFull="$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)"
-	echo "SD Card found; testing $sdCardFull for validity."
-	sdValid=$(testLocationValid "SD" $sdCardFull)
-	echo "SD Card at $sdCardFull is valid? Return val: $sdValid"
-	if [[ $sdValid == "valid" ]]; then
-		locationTable+=(FALSE "SD Card" "$sdCardFull") 
+
+if [ $zenity == true ]; then
+
+	#This part of the code is where all the settings are created
+
+	#
+	##
+	## Downloading files...
+	##
+	#
+	
+	#We create all the needed folders for installation
+	mkdir -p ~/dragoonDoriseTools/EmuDeck
+	cd ~/dragoonDoriseTools
+	
+	#Cloning EmuDeck files
+	git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck 
+	if [ ! -z "$devMode" ]; then
+		cd ~/dragoonDoriseTools/EmuDeck
+		git checkout $branch 
 	fi
-fi
+	
+	
+	#Test if we have a successful clone	
+	if [ -d "$EMUDECKGIT" ]; then
+		echo -e "Files Downloaded!"
+	clear
+	cat ~/dragoonDoriseTools/EmuDeck/logo.ans
+	version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
+	echo -e "${BOLD}EmuDeck ${version}${NONE}"
+	echo -e ""
+	cat ~/dragoonDoriseTools/EmuDeck/latest.md
+	
+	else
+		echo -e ""
+		echo -e "We couldn't download the needed files, exiting in a few seconds"
+		echo -e "Please close this window and try again in a few minutes"
+		sleep 999999
+		exit
+	fi
+	
+	#
+	##
+	## EmuDeck is installed, start setting up stuff
+	##
+	#
+	
+	#Functions and settings, this code is repeated outside of this conditional, remember to 
+	source "$EMUDECKGIT"/functions/all.sh
+	#Check for config file
+	FILE=~/emudeck/settings.sh
+	if [ -f "$FILE" ]; then
+		source "$EMUDECKGIT"/settings.sh
+		else
+		cp "$EMUDECKGIT"/settings.sh ~/emudeck/settings.sh	
+	fi
 
-#
-# Installation mode selection
-#
-
-text="`printf "<b>Hi!</b>\nDo you want to run EmuDeck on Easy or Expert mode?\n\n<b>Easy Mode</b> takes care of everything for you, it is an unattended installation.\n\n<b>Expert mode</b> gives you a bit more of control on how EmuDeck configures your system like giving you the option to install PowerTools or keep your custom configurations per Emulator"`"
-zenity --question \
-		 --title="EmuDeck" \
-		 --width=250 \
-		 --ok-label="Expert Mode" \
-		 --cancel-label="Easy Mode" \
-		 --text="${text}" 2>/dev/null
-ans=$?
-if [ $ans -eq 0 ]; then
-	setSetting expert true
-	echo "Mode selected: Expert"
-	locationTable+=(FALSE "Custom" "CUSTOM") #in expert mode we'll allow the user to pick an arbitrary place.
-else
-	setSetting expert false
-	echo "Mode selected: Easy"
-fi
-
-#
-#Storage Selection
-#
-
-if [[ ${#locationTable[@]} -gt 3 ]]; then # -gt 3 because there's 3 entries per row.
-	destination=$(zenity --list \
-	--title="Where would you like Emudeck to be installed?" \
-	--radiolist \
-	--width=400 --height=225 \
-	--column="" --column="Install Location" --column="value" \
-	--hide-column=3 --print-column=3 \
-		"${locationTable[@]}"  2>/dev/null)
+	
+	#
+	## Splash screen
+	#
+	
+	latest=$(cat ~/dragoonDoriseTools/EmuDeck/latest.md)	
+	if [ -f "$SECONDTIME" ]; then
+		 text="$(printf "<b>Hi, this is the changelog of the new features added in this version</b>\n\n${latest}")"
+		 width=1000
+	else
+		text="$(printf "<b>Welcome to EmuDeck!</b>")"
+		width=300
+	fi 
+	 zenity --info \
+	--title="EmuDeck" \
+	--width=${width} \
+	--text="${text}" 2>/dev/null
+		
+	#
+	#Hardware Check for Holo Users
+	#
+	if [[ "$(cat /sys/devices/virtual/dmi/id/product_name)" =~ Jupiter ]]; then
+		isRealDeck=true
+	else
+		isRealDeck=false
+	fi
+	
+	#
+	# Initialize locations
+	#
+	locationTable=()
+	locationTable+=(TRUE "Internal" "$HOME") #always valid
+	
+	#built in SD Card reader
+	if [ -b "/dev/mmcblk0p1" ]; then	
+		#test if card is writable and linkable
+		sdCardFull="$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)"
+		echo "SD Card found; testing $sdCardFull for validity."
+		sdValid=$(testLocationValid "SD" $sdCardFull)
+		echo "SD Card at $sdCardFull is valid? Return val: $sdValid"
+		if [[ $sdValid == "valid" ]]; then
+			locationTable+=(FALSE "SD Card" "$sdCardFull") 
+		fi
+	fi
+	
+	#
+	# Installation mode selection
+	#
+	
+	text="`printf "<b>Hi!</b>\nDo you want to run EmuDeck on Easy or Expert mode?\n\n<b>Easy Mode</b> takes care of everything for you, it is an unattended installation.\n\n<b>Expert mode</b> gives you a bit more of control on how EmuDeck configures your system like giving you the option to install PowerTools or keep your custom configurations per Emulator"`"
+	zenity --question \
+			 --title="EmuDeck" \
+			 --width=250 \
+			 --ok-label="Expert Mode" \
+			 --cancel-label="Easy Mode" \
+			 --text="${text}" 2>/dev/null
 	ans=$?
 	if [ $ans -eq 0 ]; then
-		echo "Storage: ${destination}"
+		setSetting expert true
+		echo "Mode selected: Expert"
+		locationTable+=(FALSE "Custom" "CUSTOM") #in expert mode we'll allow the user to pick an arbitrary place.
 	else
-		echo "No storage choice made"
-		exit
+		setSetting expert false
+		echo "Mode selected: Easy"
 	fi
-else
-	destination="$HOME"
-fi
-
-if [[ $destination == "CUSTOM" ]]; then
-	destination=$(zenity --file-selection --directory --title="Select a destination for the Emulation directory." 2>/dev/null)
-	if [[ $destination != "CUSTOM" ]]; then
-		echo "Storage: ${destination}"
-		customValid=$(testLocationValid "Custom" "${destination}")
-
-		if [[ $customValid != "valid" ]]; then
-			echo "Valid location not chosen. Exiting"
+	
+	#
+	#Storage Selection
+	#
+	
+	if [[ ${#locationTable[@]} -gt 3 ]]; then # -gt 3 because there's 3 entries per row.
+		destination=$(zenity --list \
+		--title="Where would you like Emudeck to be installed?" \
+		--radiolist \
+		--width=400 --height=225 \
+		--column="" --column="Install Location" --column="value" \
+		--hide-column=3 --print-column=3 \
+			"${locationTable[@]}"  2>/dev/null)
+		ans=$?
+		if [ $ans -eq 0 ]; then
+			echo "Storage: ${destination}"
+		else
+			echo "No storage choice made"
 			exit
 		fi
-
 	else
-		echo "User didn't choose. Exiting."
-		exit
+		destination="$HOME"
 	fi
-fi
-
-#New paths based on where the user picked.
-setSetting emulationPath "${destination}/Emulation/"
-setSetting romsPath "${destination}/Emulation/roms/"
-setSetting toolsPath "${destination}/Emulation/tools/"
-setSetting biosPath "${destination}/Emulation/bios/"
-setSetting savesPath "${destination}/Emulation/saves/"
-setSetting storagePath "${destination}/Emulation/storage/"
-setSetting ESDEscrapData "${destination}/Emulation/tools/downloaded_media/"
-
-#Folder creation...
-mkdir -p "$emulationPath"
-mkdir -p "$toolsPath"launchers 
-mkdir -p "$savesPath"
-mkdir -p "$romsPath"
-mkdir -p "$storagePath"
-mkdir -p "$biosPath"yuzu
-
-##Generate rom folders
-setMSG "Creating roms folder in $destination"
-
-sleep 3
-rsync -r --ignore-existing ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath" 
-
-#
-# Start of Expert mode configuration
-# The idea is that Easy mode is unatended, so everything that's out
-# out of the ordinary has to had its flag enabled/disabled on Expert mode
-#	
-
-if [ $expert == "true" ]; then
-	echo "Expert mode begin"
 	
-		#one entry per expert mode feature
-		table=()
-		table+=(TRUE "CHDScript" "Install the latest version of our CHD conversion script?")
-		table+=(TRUE "PowerTools" "Install Power Tools for CPU control? (password required)")
-		table+=(TRUE "SteamGyro" "Setup the SteamDeckGyroDSU for gyro control (password required)")
-		table+=(TRUE "updateSRM" "Install/Update Steam Rom Manager? Customizations will not be reset.")
-		table+=(TRUE "updateESDE" "Install/Update Emulation Station DE? Customizations and scrapes will not be reset.")
-		table+=(TRUE "selectEmulators" "Select the emulators to install.")
-		table+=(TRUE "selectEmulatorConfig" "Customize the emulator configuration reset. (note: Fixes will be skipped if boxes are unchecked)")
-		table+=(TRUE "selectRABezels" "Turn on Bezels for Retroarch?")
-		table+=(TRUE "selectRAAutoSave" "Turn on Retroarch AutoSave/Restore state?")
-		table+=(TRUE "snesAR" "SNES 8:7 Aspect Ratio? (unchecked is 4:3)")
-		table+=(TRUE "selectWideScreen" "Customize Emulator Widescreen Selection?")
-		table+=(TRUE "setRAEnabled" "Enable Retroachievments in Retroarch?")
-		table+=(TRUE "setRASignIn" "Change RetroAchievements Sign in?")
-		table+=(TRUE "doESDEThemePicker" "Choose your EmulationStation-DE Theme?")		
-		#table+=(TRUE "doXboxButtons" "Should facebutton letters match between Nintendo and Steamdeck? (default is matched location)")
-
-		declare -i height=(${#table[@]}*40)
-
-		expertModeFeatureList=$(zenity  --list --checklist --width=1000 --height=${height} \
-		--column="Select?"  \
-		--column="Features"  \
-		--column="Description" \
-		--hide-column=2 \
-		"${table[@]}" 2>/dev/null)
-		echo "user selected: $expertModeFeatureList"
-		#set flags to true for selected expert mode features
-		if [[ "$expertModeFeatureList" == *"CHDScript"* ]]; then
-			setSetting doInstallCHD true
-		fi
-		if [[ "$expertModeFeatureList" == *"PowerTools"* ]]; then
-			setSetting doInstallPowertools true
-		fi
-		if [[ "$expertModeFeatureList" == *"SteamGyro"* ]]; then
-			setSetting doInstallGyro true
-		fi
-		if [[ "$expertModeFeatureList" == *"updateSRM"* ]]; then
-			setSetting doSetupSRM true
-		fi
-		if [[ "$expertModeFeatureList" == *"updateESDE"* ]]; then
-			setSetting doInstallESDE true
-		fi
-		if [[ "$expertModeFeatureList" == *"selectEmulators"* ]]; then
-			setSetting doSelectEmulators true
-		fi
-		if [[ "$expertModeFeatureList" == *"selectEmulatorConfig"* ]]; then
-			setSetting doResetEmulators true
-		fi
-		if [[ "$expertModeFeatureList" == *"selectRABezels"* ]]; then
-			setSetting RABezels true
-		fi
-		if [[ "$expertModeFeatureList" == *"selectRAAutoSave"* ]]; then
-			setSetting RAautoSave true
-		fi
-		if [[ "$expertModeFeatureList" == *"snesAR"* ]]; then
-			setSetting SNESAR 43	
-		fi
-		if [[ "$expertModeFeatureList" == *"selectWideScreen"* ]]; then
-			setSetting doSelectWideScreen true			
-		fi
-		if [[ "$expertModeFeatureList" == *"setRASignIn"* ]]; then
-			setSetting doRASignIn true
-		fi
-		if [[ "$expertModeFeatureList" == *"setRAEnable"* ]]; then
-			setSetting doRAEnable true
-		fi
-		if [[ "$expertModeFeatureList" == *"doESDEThemePicker"* ]]; then
-			setSetting doESDEThemePicker true
-		fi	
-		
-
-		if [[ $doInstallPowertools == "true" || $doInstallGyro == "true" || $isRealDeck == "false" ]]; then
-			hasPass=$(passwd -S $(whoami) | awk -F " " '{print $2}')
-			if [[ ! $hasPass == "P" ]]; then
-				text="`printf "<b>Password not set.</b>\n Please set one now in the terminal.\nYou will not see text entry in the terminal for your password. This is normal.\nOnce set, you will be prompted to enter it in a new window."`"
-				zenity --error \
-				--title="EmuDeck" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
-				passwd 
+	if [[ $destination == "CUSTOM" ]]; then
+		destination=$(zenity --file-selection --directory --title="Select a destination for the Emulation directory." 2>/dev/null)
+		if [[ $destination != "CUSTOM" ]]; then
+			echo "Storage: ${destination}"
+			customValid=$(testLocationValid "Custom" "${destination}")
+	
+			if [[ $customValid != "valid" ]]; then
+				echo "Valid location not chosen. Exiting"
+				exit
 			fi
-			PASSWD="$(zenity --password --title="Enter Deck User Password (not Steam account!)" 2>/dev/null)"
-			echo $PASSWD | sudo -v -S
-			ans=$?
-			if [[ $ans == 1 ]]; then
-				#incorrect password
-				PASSWD="$(zenity --password --title="Password was incorrect. Try again. (Did you remember to set a password for linux before running this?)" 2>/dev/null)"
+	
+		else
+			echo "User didn't choose. Exiting."
+			exit
+		fi
+	fi
+	
+	#New paths based on where the user picked.
+	setSetting emulationPath "${destination}/Emulation/"
+	setSetting romsPath "${destination}/Emulation/roms/"
+	setSetting toolsPath "${destination}/Emulation/tools/"
+	setSetting biosPath "${destination}/Emulation/bios/"
+	setSetting savesPath "${destination}/Emulation/saves/"
+	setSetting storagePath "${destination}/Emulation/storage/"
+	setSetting ESDEscrapData "${destination}/Emulation/tools/downloaded_media/"
+
+	#Folder creation... This code is repeated outside of this if for the no zenity mode
+	mkdir -p "$emulationPath"
+	mkdir -p "$toolsPath"launchers 
+	mkdir -p "$savesPath"
+	mkdir -p "$romsPath"
+	mkdir -p "$storagePath"
+	mkdir -p "$biosPath"yuzu
+	
+	##Generate rom folders
+	setMSG "Creating roms folder in $destination"
+	
+	sleep 3
+	rsync -r --ignore-existing ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath" 
+	#End repeated code	
+	
+	#
+	# Start of Expert mode configuration
+	# The idea is that Easy mode is unatended, so everything that's out
+	# out of the ordinary has to had its flag enabled/disabled on Expert mode
+	#	
+	
+	if [ $expert == "true" ]; then
+		echo "Expert mode begin"
+		
+			#one entry per expert mode feature
+			table=()
+			table+=(TRUE "CHDScript" "Install the latest version of our CHD conversion script?")
+			table+=(TRUE "PowerTools" "Install Power Tools for CPU control? (password required)")
+			table+=(TRUE "SteamGyro" "Setup the SteamDeckGyroDSU for gyro control (password required)")
+			table+=(TRUE "updateSRM" "Install/Update Steam Rom Manager? Customizations will not be reset.")
+			table+=(TRUE "updateESDE" "Install/Update Emulation Station DE? Customizations and scrapes will not be reset.")
+			table+=(TRUE "selectEmulators" "Select the emulators to install.")
+			table+=(TRUE "selectEmulatorConfig" "Customize the emulator configuration reset. (note: Fixes will be skipped if boxes are unchecked)")
+			table+=(TRUE "selectRABezels" "Turn on Bezels for Retroarch?")
+			table+=(TRUE "selectRAAutoSave" "Turn on Retroarch AutoSave/Restore state?")
+			table+=(TRUE "snesAR" "SNES 8:7 Aspect Ratio? (unchecked is 4:3)")
+			table+=(TRUE "selectWideScreen" "Customize Emulator Widescreen Selection?")
+			table+=(TRUE "setRAEnabled" "Enable Retroachievments in Retroarch?")
+			table+=(TRUE "setRASignIn" "Change RetroAchievements Sign in?")
+			table+=(TRUE "doESDEThemePicker" "Choose your EmulationStation-DE Theme?")		
+			#table+=(TRUE "doXboxButtons" "Should facebutton letters match between Nintendo and Steamdeck? (default is matched location)")
+	
+			declare -i height=(${#table[@]}*40)
+	
+			expertModeFeatureList=$(zenity  --list --checklist --width=1000 --height=${height} \
+			--column="Select?"  \
+			--column="Features"  \
+			--column="Description" \
+			--hide-column=2 \
+			"${table[@]}" 2>/dev/null)
+			echo "user selected: $expertModeFeatureList"
+			#set flags to true for selected expert mode features
+			if [[ "$expertModeFeatureList" == *"CHDScript"* ]]; then
+				setSetting doInstallCHD true
+			fi
+			if [[ "$expertModeFeatureList" == *"PowerTools"* ]]; then
+				setSetting doInstallPowertools true
+			fi
+			if [[ "$expertModeFeatureList" == *"SteamGyro"* ]]; then
+				setSetting doInstallGyro true
+			fi
+			if [[ "$expertModeFeatureList" == *"updateSRM"* ]]; then
+				setSetting doSetupSRM true
+			fi
+			if [[ "$expertModeFeatureList" == *"updateESDE"* ]]; then
+				setSetting doInstallESDE true
+			fi
+			if [[ "$expertModeFeatureList" == *"selectEmulators"* ]]; then
+				setSetting doSelectEmulators true
+			fi
+			if [[ "$expertModeFeatureList" == *"selectEmulatorConfig"* ]]; then
+				setSetting doResetEmulators true
+			fi
+			if [[ "$expertModeFeatureList" == *"selectRABezels"* ]]; then
+				setSetting RABezels true
+			fi
+			if [[ "$expertModeFeatureList" == *"selectRAAutoSave"* ]]; then
+				setSetting RAautoSave true
+			fi
+			if [[ "$expertModeFeatureList" == *"snesAR"* ]]; then
+				setSetting SNESAR 43	
+			fi
+			if [[ "$expertModeFeatureList" == *"selectWideScreen"* ]]; then
+				setSetting doSelectWideScreen true			
+			fi
+			if [[ "$expertModeFeatureList" == *"setRASignIn"* ]]; then
+				setSetting doRASignIn true
+			fi
+			if [[ "$expertModeFeatureList" == *"setRAEnable"* ]]; then
+				setSetting doRAEnable true
+			fi
+			if [[ "$expertModeFeatureList" == *"doESDEThemePicker"* ]]; then
+				setSetting doESDEThemePicker true
+			fi	
+			
+	
+			if [[ $doInstallPowertools == "true" || $doInstallGyro == "true" || $isRealDeck == "false" ]]; then
+				hasPass=$(passwd -S $(whoami) | awk -F " " '{print $2}')
+				if [[ ! $hasPass == "P" ]]; then
+					text="`printf "<b>Password not set.</b>\n Please set one now in the terminal.\nYou will not see text entry in the terminal for your password. This is normal.\nOnce set, you will be prompted to enter it in a new window."`"
+					zenity --error \
+					--title="EmuDeck" \
+					--width=400 \
+					--text="${text}" 2>/dev/null
+					passwd 
+				fi
+				PASSWD="$(zenity --password --title="Enter Deck User Password (not Steam account!)" 2>/dev/null)"
 				echo $PASSWD | sudo -v -S
 				ans=$?
 				if [[ $ans == 1 ]]; then
-						text="`printf "<b>Password not accepted.</b>\n Expert mode tools which require a password will not work. Disabling them."`"
-						zenity --error \
-						--title="EmuDeck" \
-						--width=400 \
-						--text="${text}" 2>/dev/null
-						setSetting doInstallPowertools false
-						setSetting doInstallGyro false
+					#incorrect password
+					PASSWD="$(zenity --password --title="Password was incorrect. Try again. (Did you remember to set a password for linux before running this?)" 2>/dev/null)"
+					echo $PASSWD | sudo -v -S
+					ans=$?
+					if [[ $ans == 1 ]]; then
+							text="`printf "<b>Password not accepted.</b>\n Expert mode tools which require a password will not work. Disabling them."`"
+							zenity --error \
+							--title="EmuDeck" \
+							--width=400 \
+							--text="${text}" 2>/dev/null
+							setSetting doInstallPowertools false
+							setSetting doInstallGyro false
+					fi
 				fi
 			fi
-		fi
+			
 		
-	
-	if [[ $doSelectEmulators == "true" ]]; then
-		
-		emuTable=()
-		emuTable+=(TRUE "Multiple" "RetroArch")
-		emuTable+=(TRUE "Metroid Prime" "PrimeHack")
-		emuTable+=(TRUE "PS2" "PCSX2")
-		emuTable+=(TRUE "PS3" "RPCS3")
-		emuTable+=(TRUE "3DS" "Citra")
-		emuTable+=(TRUE "GC/Wii" "Dolphin")
-		emuTable+=(TRUE "PSX" "Duckstation")
-		emuTable+=(TRUE "PSP" "PPSSPP")
-		emuTable+=(TRUE "Switch" "Yuzu")
-		emuTable+=(TRUE "WiiU" "Cemu")
-		emuTable+=(TRUE "XBox" "Xemu")
-		#if we are in beta / dev install, allow Xenia. Still false by default though. Will only work on expert mode, and explicitly turned on.
-		if [[ $branch=="beta" || $branch=="dev" ]]; then
-			emuTable+=(FALSE "Xbox360" "Xenia")
-		fi
-		
-		#Emulator selector
-		text="`printf "What emulators do you want to install?"`"
-		emusToInstall=$(zenity --list \
-				--title="EmuDeck" \
-				--height=500 \
-				--width=250 \
-				--ok-label="OK" \
-				--cancel-label="Exit" \
-				--text="${text}" \
-				--checklist \
-				--column="Select" \
-				--column="System" \
-				--column="Emulator" \
-				--print-column=3 \
-				"${emuTable[@]}" 2>/dev/null)
-		ans=$?
-		
-		if [ $ans -eq 0 ]; then
-			echo "Emu Install selected: $emusToInstall"
-			if [[ "$emusToInstall" == *"RetroArch"* ]]; then
-				setSetting doInstallRA true
+		if [[ $doSelectEmulators == "true" ]]; then
+			
+			emuTable=()
+			emuTable+=(TRUE "Multiple" "RetroArch")
+			emuTable+=(TRUE "Metroid Prime" "PrimeHack")
+			emuTable+=(TRUE "PS2" "PCSX2")
+			emuTable+=(TRUE "PS3" "RPCS3")
+			emuTable+=(TRUE "3DS" "Citra")
+			emuTable+=(TRUE "GC/Wii" "Dolphin")
+			emuTable+=(TRUE "PSX" "Duckstation")
+			emuTable+=(TRUE "PSP" "PPSSPP")
+			emuTable+=(TRUE "Switch" "Yuzu")
+			emuTable+=(TRUE "WiiU" "Cemu")
+			emuTable+=(TRUE "XBox" "Xemu")
+			#if we are in beta / dev install, allow Xenia. Still false by default though. Will only work on expert mode, and explicitly turned on.
+			if [[ $branch=="beta" || $branch=="dev" ]]; then
+				emuTable+=(FALSE "Xbox360" "Xenia")
 			fi
-			if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
-				setSetting doInstallPrimeHacks true
-			fi
-			if [[ "$emusToInstall" == *"PCSX2"* ]]; then
-				setSetting doInstallPCSX2 true
-			fi
-			if [[ "$emusToInstall" == *"RPCS3"* ]]; then
-				setSetting doInstallRPCS3 true
-			fi
-			if [[ "$emusToInstall" == *"Citra"* ]]; then
-				setSetting doInstallCitra true
-			fi
-			if [[ "$emusToInstall" == *"Dolphin"* ]]; then
-				setSetting doInstallDolphin true
-			fi
-			if [[ "$emusToInstall" == *"Duckstation"* ]]; then
-				setSetting doInstallDuck true
-			fi
-			if [[ "$emusToInstall" == *"PPSSPP"* ]]; then
-				setSetting doInstallPPSSPP true
-			fi
-			if [[ "$emusToInstall" == *"Yuzu"* ]]; then
-				setSetting doInstallYuzu true
-			fi
-			if [[ "$emusToInstall" == *"Cemu"* ]]; then
-				setSetting doInstallCemu true
-			fi
-			if [[ "$emusToInstall" == *"Xemu"* ]]; then
-				setSetting doInstallXemu true
-			fi
-			if [[ "$emusToInstall" == *"Xenia"* ]]; then
-				setSetting doInstallXenia true
-			fi
-			#if [[ "$emusToInstall" == *"MelonDS"* ]]; then
-			#	doInstallMelon=true
-			#fi
-		
-		
-		else
-			exit
-		fi
-	fi
-	
-
-	if [[ $doSelectWideScreen == "true" ]]; then
-		#Emulators screenHacks
-		emuTable=()
-		emuTable+=(TRUE "Dolphin")
-		emuTable+=(TRUE "Duckstation")
-		emuTable+=(TRUE "RA-BeetlePSX")
-		emuTable+=(TRUE "RA-Flycast")
-		emuTable+=(TRUE "Xemu")
-
-		text="`printf "Selected Emulators will use WideScreen Hacks"`"
-		wideToInstall=$(zenity --list \
+			
+			#Emulator selector
+			text="`printf "What emulators do you want to install?"`"
+			emusToInstall=$(zenity --list \
 					--title="EmuDeck" \
 					--height=500 \
 					--width=250 \
@@ -509,169 +454,271 @@ if [ $expert == "true" ]; then
 					--cancel-label="Exit" \
 					--text="${text}" \
 					--checklist \
-					--column="Widescreen?" \
+					--column="Select" \
+					--column="System" \
 					--column="Emulator" \
-					"${emuTable[@]}"  2>/dev/null)
-		ans=$?	
-		if [ $ans -eq 0 ]; then
-			echo "Widescreen choices: $wideToInstall"
-			if [[ "$wideToInstall" == *"Duckstation"* ]]; then
-				setSetting duckWide true
-			else
-				setSetting duckWide false
-			fi
-			if [[ "$wideToInstall" == *"Dolphin"* ]]; then
-				setSetting DolphinWide true
-			else
-				setSetting DolphinWide false
-			fi
-			if [[ "$wideToInstall" == *"RA-Flycast"* ]]; then
-				setSetting DreamcastWide true
-			else
-				setSetting DreamcastWide false
-			fi		
-			if [[ "$wideToInstall" == *"BeetlePSX"* ]]; then
-				setSetting BeetleWide true
-			else
-				setSetting BeetleWide false
-			fi				
-			if [[ "$wideToInstall" == *"Xemu"* ]]; then
-				setSetting XemuWide true
-			else
-				setSetting XemuWide false
-			fi			
+					--print-column=3 \
+					"${emuTable[@]}" 2>/dev/null)
+			ans=$?
 			
-		else		
-			exit		
-		fi			
-	fi
-	#We mark we've made a custom configuration for future updates
-	echo "" > ~/emudeck/.custom
+			if [ $ans -eq 0 ]; then
+				echo "Emu Install selected: $emusToInstall"
+				if [[ "$emusToInstall" == *"RetroArch"* ]]; then
+					setSetting doInstallRA true
+				fi
+				if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
+					setSetting doInstallPrimeHacks true
+				fi
+				if [[ "$emusToInstall" == *"PCSX2"* ]]; then
+					setSetting doInstallPCSX2 true
+				fi
+				if [[ "$emusToInstall" == *"RPCS3"* ]]; then
+					setSetting doInstallRPCS3 true
+				fi
+				if [[ "$emusToInstall" == *"Citra"* ]]; then
+					setSetting doInstallCitra true
+				fi
+				if [[ "$emusToInstall" == *"Dolphin"* ]]; then
+					setSetting doInstallDolphin true
+				fi
+				if [[ "$emusToInstall" == *"Duckstation"* ]]; then
+					setSetting doInstallDuck true
+				fi
+				if [[ "$emusToInstall" == *"PPSSPP"* ]]; then
+					setSetting doInstallPPSSPP true
+				fi
+				if [[ "$emusToInstall" == *"Yuzu"* ]]; then
+					setSetting doInstallYuzu true
+				fi
+				if [[ "$emusToInstall" == *"Cemu"* ]]; then
+					setSetting doInstallCemu true
+				fi
+				if [[ "$emusToInstall" == *"Xemu"* ]]; then
+					setSetting doInstallXemu true
+				fi
+				if [[ "$emusToInstall" == *"Xenia"* ]]; then
+					setSetting doInstallXenia true
+				fi
+				#if [[ "$emusToInstall" == *"MelonDS"* ]]; then
+				#	doInstallMelon=true
+				#fi
+			
+			
+			else
+				exit
+			fi
+		fi
+		
 	
-	if [[ $doResetEmulators == "true" ]]; then
-		# Configuration that only appplies to previous users
-		if [ -f "$SECONDTIME" ]; then
-
-			installString='Updating'
-
+		if [[ $doSelectWideScreen == "true" ]]; then
+			#Emulators screenHacks
 			emuTable=()
-			emuTable+=(TRUE "RetroArch")
-			emuTable+=(TRUE "PrimeHack")
-			emuTable+=(TRUE "PCSX2")
-			emuTable+=(TRUE "RPCS3")
-			emuTable+=(TRUE "Citra")
 			emuTable+=(TRUE "Dolphin")
 			emuTable+=(TRUE "Duckstation")
-			emuTable+=(TRUE "PPSSPP")
-			emuTable+=(TRUE "Yuzu")
-			emuTable+=(TRUE "Cemu")
+			emuTable+=(TRUE "RA-BeetlePSX")
+			emuTable+=(TRUE "RA-Flycast")
 			emuTable+=(TRUE "Xemu")
-			emuTable+=(TRUE "Steam Rom Manager")
-			emuTable+=(TRUE "EmulationStation DE")
-
-			text="`printf "<b>EmuDeck will reset the following Emulator's configurations by default.</b>\nWhich systems do you want <b>reset</b> to the newest version of the defaults?\nWe recommend you keep all of them checked so everything gets updated and known issues are fixed.\nIf you want to mantain any custom configuration on an emulator unselect its name from this list."`"
-			emusToReset=$(zenity --list \
-								--title="EmuDeck" \
-								--height=500 \
-								--width=250 \
-								--ok-label="OK" \
-								--cancel-label="Exit" \
-								--text="${text}" \
-								--checklist \
-								--column="Reset?" \
-								--column="Emulator" \
-								"${emuTable[@]}"  2>/dev/null)
-								ans=$?
-			#Nova fix'								
-			cat ~/dragoonDoriseTools/EmuDeck/logo.ans
-			echo -e "EmuDeck ${version}"
+	
+			text="`printf "Selected Emulators will use WideScreen Hacks"`"
+			wideToInstall=$(zenity --list \
+						--title="EmuDeck" \
+						--height=500 \
+						--width=250 \
+						--ok-label="OK" \
+						--cancel-label="Exit" \
+						--text="${text}" \
+						--checklist \
+						--column="Widescreen?" \
+						--column="Emulator" \
+						"${emuTable[@]}"  2>/dev/null)
+			ans=$?	
 			if [ $ans -eq 0 ]; then
-				echo "Emulators to reinstall selected: $emusToReset"
-				if [[ "$emusToReset" == *"RetroArch"* ]]; then
-					setSetting doSetupRA true
+				echo "Widescreen choices: $wideToInstall"
+				if [[ "$wideToInstall" == *"Duckstation"* ]]; then
+					setSetting duckWide true
+				else
+					setSetting duckWide false
 				fi
-				if [[ "$emusToReset" == *"PrimeHack"* ]]; then
-					setSetting doSetupPrimeHacks true
+				if [[ "$wideToInstall" == *"Dolphin"* ]]; then
+					setSetting DolphinWide true
+				else
+					setSetting DolphinWide false
 				fi
-				if [[ "$emusToReset" == *"PCSX2"* ]]; then
-					setSetting doSetupPCSX2 true
-				fi
-				if [[ "$emusToReset" == *"RPCS3"* ]]; then
-					setSetting doSetupRPCS3 true
-				fi
-				if [[ "$emusToReset" == *"Citra"* ]]; then
-					setSetting doSetupCitra true
-				fi
-				if [[ "$emusToReset" == *"Dolphin"* ]]; then
-					setSetting doSetupDolphin true
-				fi
-				if [[ "$emusToReset" == *"Duckstation"* ]]; then
-					setSetting doSetupDuck true
-				fi
-				if [[ "$emusToReset" == *"PPSSPP"* ]]; then
-					setSetting doSetupPPSSPP true
-				fi
-				if [[ "$emusToReset" == *"Yuzu"* ]]; then
-					setSetting doSetupYuzu true
-				fi
-				if [[ "$emusToReset" == *"Cemu"* ]]; then
-					setSetting doSetupCemu true
-				fi
-				if [[ "$emusToReset" == *"Xemu"* ]]; then
-					setSetting doSetupXemu true
-				fi
-				if [[ "$emusToReset" == *"Xenia"* ]]; then
-					setSetting doSetupXenia false #false until we add above
-				fi
-				#if [[ "$emusToReset" == *"MelonDS"* ]]; then
-				#	doSetupMelon=false
-				#fi
-				if [[ "$emusToReset" == *"Steam Rom Manager"* ]]; then
-					setSetting doSetupSRM true
-				fi
-				if [[ "$emusToReset" == *"EmulationStation DE"* ]]; then
-					setSetting doSetupESDE true
-				fi
-			
-			
-			else
-				echo ""
-			fi
-			
+				if [[ "$wideToInstall" == *"RA-Flycast"* ]]; then
+					setSetting DreamcastWide true
+				else
+					setSetting DreamcastWide false
+				fi		
+				if [[ "$wideToInstall" == *"BeetlePSX"* ]]; then
+					setSetting BeetleWide true
+				else
+					setSetting BeetleWide false
+				fi				
+				if [[ "$wideToInstall" == *"Xemu"* ]]; then
+					setSetting XemuWide true
+				else
+					setSetting XemuWide false
+				fi			
+				
+			else		
+				exit		
+			fi			
 		fi
+		#We mark we've made a custom configuration for future updates
+		echo "" > ~/emudeck/.custom
+		
+		if [[ $doResetEmulators == "true" ]]; then
+			# Configuration that only appplies to previous users
+			if [ -f "$SECONDTIME" ]; then
+	
+				installString='Updating'
+	
+				emuTable=()
+				emuTable+=(TRUE "RetroArch")
+				emuTable+=(TRUE "PrimeHack")
+				emuTable+=(TRUE "PCSX2")
+				emuTable+=(TRUE "RPCS3")
+				emuTable+=(TRUE "Citra")
+				emuTable+=(TRUE "Dolphin")
+				emuTable+=(TRUE "Duckstation")
+				emuTable+=(TRUE "PPSSPP")
+				emuTable+=(TRUE "Yuzu")
+				emuTable+=(TRUE "Cemu")
+				emuTable+=(TRUE "Xemu")
+				emuTable+=(TRUE "Steam Rom Manager")
+				emuTable+=(TRUE "EmulationStation DE")
+	
+				text="`printf "<b>EmuDeck will reset the following Emulator's configurations by default.</b>\nWhich systems do you want <b>reset</b> to the newest version of the defaults?\nWe recommend you keep all of them checked so everything gets updated and known issues are fixed.\nIf you want to mantain any custom configuration on an emulator unselect its name from this list."`"
+				emusToReset=$(zenity --list \
+									--title="EmuDeck" \
+									--height=500 \
+									--width=250 \
+									--ok-label="OK" \
+									--cancel-label="Exit" \
+									--text="${text}" \
+									--checklist \
+									--column="Reset?" \
+									--column="Emulator" \
+									"${emuTable[@]}"  2>/dev/null)
+									ans=$?
+				#Nova fix'								
+				cat ~/dragoonDoriseTools/EmuDeck/logo.ans
+				echo -e "EmuDeck ${version}"
+				if [ $ans -eq 0 ]; then
+					echo "Emulators to reinstall selected: $emusToReset"
+					if [[ "$emusToReset" == *"RetroArch"* ]]; then
+						setSetting doSetupRA true
+					fi
+					if [[ "$emusToReset" == *"PrimeHack"* ]]; then
+						setSetting doSetupPrimeHacks true
+					fi
+					if [[ "$emusToReset" == *"PCSX2"* ]]; then
+						setSetting doSetupPCSX2 true
+					fi
+					if [[ "$emusToReset" == *"RPCS3"* ]]; then
+						setSetting doSetupRPCS3 true
+					fi
+					if [[ "$emusToReset" == *"Citra"* ]]; then
+						setSetting doSetupCitra true
+					fi
+					if [[ "$emusToReset" == *"Dolphin"* ]]; then
+						setSetting doSetupDolphin true
+					fi
+					if [[ "$emusToReset" == *"Duckstation"* ]]; then
+						setSetting doSetupDuck true
+					fi
+					if [[ "$emusToReset" == *"PPSSPP"* ]]; then
+						setSetting doSetupPPSSPP true
+					fi
+					if [[ "$emusToReset" == *"Yuzu"* ]]; then
+						setSetting doSetupYuzu true
+					fi
+					if [[ "$emusToReset" == *"Cemu"* ]]; then
+						setSetting doSetupCemu true
+					fi
+					if [[ "$emusToReset" == *"Xemu"* ]]; then
+						setSetting doSetupXemu true
+					fi
+					if [[ "$emusToReset" == *"Xenia"* ]]; then
+						setSetting doSetupXenia false #false until we add above
+					fi
+					#if [[ "$emusToReset" == *"MelonDS"* ]]; then
+					#	doSetupMelon=false
+					#fi
+					if [[ "$emusToReset" == *"Steam Rom Manager"* ]]; then
+						setSetting doSetupSRM true
+					fi
+					if [[ "$emusToReset" == *"EmulationStation DE"* ]]; then
+						setSetting doSetupESDE true
+					fi
+				
+				
+				else
+					echo ""
+				fi
+				
+			fi
+		fi
+	else
+		#easy mode settings
+		setSetting doInstallRA true
+		setSetting doInstallDolphin true
+		setSetting doInstallPCSX2 true
+		setSetting doInstallRPCS3 true
+		setSetting doInstallYuzu true
+		setSetting doInstallCitra true
+		setSetting doInstallDuck true
+		setSetting doInstallCemu true
+		setSetting doInstallXenia false
+		setSetting doInstallPrimeHacks true
+		setSetting doInstallPPSSPP true
+		setSetting doInstallXemu true
+		#doInstallMelon=true
+	
+		#widescreen off by default
+		setSetting duckWide false
+		setSetting DolphinWide false
+		setSetting DreamcastWide false
+		setSetting BeetleWide false
+		setSetting XemuWide false	
+	
+	fi # end Expert if
+	
+	
+	#Support for non-valve hardware.
+	if [[ $isRealDeck == false ]]; then
+		 setUpHolo
 	fi
+
 else
-	#easy mode settings
-	setSetting doInstallRA true
-	setSetting doInstallDolphin true
-	setSetting doInstallPCSX2 true
-	setSetting doInstallRPCS3 true
-	setSetting doInstallYuzu true
-	setSetting doInstallCitra true
-	setSetting doInstallDuck true
-	setSetting doInstallCemu true
-	setSetting doInstallXenia false
-	setSetting doInstallPrimeHacks true
-	setSetting doInstallPPSSPP true
-	setSetting doInstallXemu true
-	#doInstallMelon=true
+	#We only load functions and config when no Zenity selected
+	source "$EMUDECKGIT"/functions/all.sh
+	source ~/emudeck/settings.sh	
+	
+	#Folder creation... This code is repeated outside of this if for the yes zenity mode
+	mkdir -p "$emulationPath"
+	mkdir -p "$toolsPath"launchers 
+	mkdir -p "$savesPath"
+	mkdir -p "$romsPath"
+	mkdir -p "$storagePath"
+	mkdir -p "$biosPath"yuzu
+	
+	##Generate rom folders
+	setMSG "Creating roms folder in $destination"
+	
+	sleep 3
+	rsync -r --ignore-existing ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath" 
+	#End repeated code	
+fi
 
-	#widescreen off by default
-	setSetting duckWide false
-	setSetting DolphinWide false
-	setSetting DreamcastWide false
-	setSetting BeetleWide false
-	setSetting XemuWide false	
-
-fi # end Expert if
 
 ##
 ##
-## End of configuration
+## End of Zenity configuration
 ##	
 ##
-	
-	
+
+
 	
 	
 ##
@@ -683,10 +730,15 @@ fi # end Expert if
 #echo "begin migrations"
 #doMigrations
 
-#Support for non-valve hardware.
-if [[ $isRealDeck == false ]]; then
-	 setUpHolo
-fi
+
+
+#
+## extra Binaries to path
+#
+export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
+chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
+
+
 
 #setup Proton-Launch.sh
 #because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
@@ -900,8 +952,9 @@ fi
 
 installBinUp
 
-setMSG "Cleaning up downloaded files..."	
-rm -rf ~/dragoonDoriseTools	
+#No need to clean up files anymore, just do a git pull to update
+#setMSG "Cleaning up downloaded files..."	
+#rm -rf ~/dragoonDoriseTools	
 clear
 
 # We mark the script as finished	
