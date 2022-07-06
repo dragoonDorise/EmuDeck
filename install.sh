@@ -99,13 +99,13 @@ fi
 #
 devMode=$1
 case $devMode in
-  "BETA")
+  "beta")
 	branch="beta"
   ;;
-  "DEV")
+  "dev")
 	  branch="dev"
 	;;  
-  "EmuReorg")
+  "emureorg")
 	  branch="EmuReorg"
 	;;  
   *)
@@ -113,6 +113,7 @@ case $devMode in
   ;;
 esac	
 
+echo $branch > ~/branch.txt
 
 #
 ##
