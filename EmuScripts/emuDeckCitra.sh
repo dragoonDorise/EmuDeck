@@ -96,23 +96,3 @@ Citra.bezelOff() {
 Citra.finalize() {
 	#na
 }
-
-#WideScreenOff
-wideScreenOffCitra() {
-	#na
-}
-
-#BezelOn
-bezelOnCitra() {
-	#na
-}
-
-#BezelOff
-bezelOffCitra() {
-	#na
-}
-
-#finalExec - Extra stuff
-finalizeCitra() {
-	#na
-}
