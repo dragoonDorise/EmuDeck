@@ -961,6 +961,7 @@ clear
 
 # We mark the script as finished	
 echo "" > ~/emudeck/.finished
+echo "" > ~/emudeck/.electron-finished
 echo "100" > ~/emudeck/msg.log
 echo "# Installation Complete" >> ~/emudeck/msg.log
 finished=true
