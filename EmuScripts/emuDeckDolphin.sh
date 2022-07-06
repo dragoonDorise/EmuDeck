@@ -12,12 +12,16 @@ Dolphin.cleanup(){
 
 #Install
 Dolphin.install(){
+    echo "Dolphin: Install"
+    echo ""
 	installEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"	
 	flatpak override "${Dolphin_emuPath}" --filesystem=host --user	
 }
 
 #ApplyInitialSettings
 Dolphin.init(){
+    echo "Dolphin: Apply initial config"
+    echo ""
 	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}" "true"
 	Dolphin.setupStorage
 	Dolphin.setEmulationFolder
@@ -26,6 +30,8 @@ Dolphin.init(){
 
 #update
 Dolphin.update(){
+    echo "Dolphin: Apply configuration Update"
+    echo ""
 	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"
 	Dolphin.setupStorage
 	Dolphin.setEmulationFolder
@@ -34,6 +40,8 @@ Dolphin.update(){
 
 #ConfigurePaths
 Dolphin.setEmulationFolder(){
+    echo "Dolphin: Configure Emulation folder"
+    echo ""
   	configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
     gameDirOpt1='ISOPath0 = '
     newGameDirOpt1='ISOPath0 = '"${romsPath}gc"
@@ -45,6 +53,8 @@ Dolphin.setEmulationFolder(){
 
 #SetupSaves
 Dolphin.setupSaves(){
+    echo "Dolphin: setup Saves folder"
+    echo ""
 	linkToSaveFolder dolphin GC "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC"
 	linkToSaveFolder dolphin Wii "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii"
 	linkToSaveFolder dolphin states "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/states"
@@ -80,7 +90,9 @@ Dolphin.migrate(){
 }
 
 #WideScreenOn
-wideScreenOnDolphin(){
+Dolphin.wideScreenOn(){
+    echo "Dolphin: Widescreen On"
+    echo ""
     configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
     wideScreenHack='wideScreenHack = '
     wideScreenHackSetting='wideScreenHack = True'
@@ -92,6 +104,8 @@ wideScreenOnDolphin(){
 
 #WideScreenOff
 Dolphin.wideScreenOff(){
+    echo "Dolphin: Widescreen Off"
+    echo ""
     configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
     wideScreenHack='wideScreenHack = '
     wideScreenHackSetting='wideScreenHack = False'
