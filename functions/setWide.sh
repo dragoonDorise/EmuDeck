@@ -3,12 +3,12 @@ setWide(){
 	if [ $duckWide == true ]; then	
 		DuckStation.wideScreenOn
 	else
-		DuckStation.wideScreenOn
+		DuckStation.wideScreenOff
 	fi
 	if [ $DolphinWide == true ]; then
 		Dolphin.wideScreenOn
 	else
-		Dolphin.wideScreenOn
+		Dolphin.wideScreenOff
 	fi
 	if [ $DreamcastWide == true ]; then
 		sed -i "s|reicast_widescreen_hack = \"disabled\"|reicast_widescreen_hack = \"enabled\"|g" ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Flycast/Flycast.opt 
@@ -24,6 +24,6 @@ setWide(){
 	if [ $XemuWide == true ]; then
 		Xemu.wideScreenOn
 	else
-		Xemu.wideScreenOn
+		Xemu.wideScreenOff
 	fi
 }

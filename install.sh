@@ -902,9 +902,6 @@ RAautoSave
 #Widescreen hacks
 setWide
 
-#We move all the saved folders to the emulation path
-createSaveFolders
-
 #RetroAchievments
 RAAchievment
 

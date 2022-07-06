@@ -78,7 +78,7 @@ Xemu.wipe() {
 
 #Uninstall
 Xemu.uninstall() {
-	flatpack uninstall "$Xemu.emuPath" -y
+	flatpack uninstall "$Xemu_emuPath" -y
 }
 
 #setABXYstyle
@@ -110,7 +110,7 @@ Xemu.migrate(){
 Xemu.wideScreenOn(){
 	configFile="$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml"
     fit='fit = '
-    fitSetting="${fit}""${fitSetting}scale_16_9"
+    fitSetting="${fit}scale_16_9"
     sed -i "/${fit}/c\\${fitSetting}" "$configFile"
 }
 
@@ -118,7 +118,7 @@ Xemu.wideScreenOn(){
 Xemu.wideScreenOf(){
 	configFile="$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml"
     fit='fit = '
-    fitSetting="${fit}""${fitSetting}scale_4_3"
+    fitSetting="${fit}scale_4_3"
     sed -i "/${fit}/c\\${fitSetting}" "$configFile"
 }
 

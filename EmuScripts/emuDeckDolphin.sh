@@ -44,11 +44,11 @@ Dolphin.setEmulationFolder(){
     echo ""
   	configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
     gameDirOpt1='ISOPath0 = '
-    newGameDirOpt1='ISOPath0 = '"${romsPath}gc"
+    gameDirOpt1Setting='ISOPath0 = '"${romsPath}gc"
     gameDirOpt2='ISOPath1 = '
-    newGameDirOpt2='ISOPath1 = '"${romsPath}wii"
-    sed -i "/${gameDirOpt1}/c\\${newGameDirOpt1}" "$configFile"
-    sed -i "/${gameDirOpt2}/c\\${newGameDirOpt2}" "$configFile"
+    gameDirOpt2Setting='ISOPath1 = '"${romsPath}wii"
+    sed -i "/${gameDirOpt1}/c\\${gameDirOpt1Setting}" "$configFile"
+    sed -i "/${gameDirOpt2}/c\\${gameDirOpt2Setting}" "$configFile"
 }
 
 #SetupSaves
