@@ -1,9 +1,10 @@
 #!/bin/bash
 installPowerTools(){		
 #should use sudo password piped into cache earlier.
+releaseURL='https://github.com/SteamDeckHomebrew/PluginLoader/raw/legacy/dist/install_release.sh'
 mkdir -p $HOME/homebrew
 sudo chown -R deck:deck $HOME/homebrew
-curl -L https://github.com/SteamDeckHomebrew/PluginLoader/raw/main/dist/install_release.sh | sh	
+curl -L "$releaseURL" | sh	
 sudo rm -rf ~/homebrew/plugins/PowerTools
 sudo git clone https://github.com/NGnius/PowerTools.git ~/homebrew/plugins/PowerTools 
 sleep 1
