@@ -99,13 +99,13 @@ fi
 #
 devMode=$1
 case $devMode in
-  "beta")
+  "BETA")
 	branch="beta"
   ;;
-  "dev")
+  "DEV")
 	  branch="dev"
 	;;  
-  "emureorg")
+  "EmuReorg")
 	  branch="EmuReorg"
 	;;  
   *)
