@@ -17,11 +17,25 @@ createDesktopIcons(){
 	rm -rf ~/Desktop/EmuDeckSD.desktop 2>/dev/null
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
-	Name=Update EmuDeck (${version})
+	Name=Update EmuDeck
 	Exec=curl https://raw.githubusercontent.com/dragoonDorise/EmuDeck/main/install.sh | bash -s -- SD
 	Icon=steamdeck-gaming-return
 	Terminal=true
 	Type=Application
 	StartupNotify=false" > ~/Desktop/EmuDeck.desktop
 	chmod +x ~/Desktop/EmuDeck.desktop
+	
+	curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" > "${toolsPath}"srm/Steam-ROM-Manager.AppImage
+	#Nova fix'
+	echo "#!/usr/bin/env xdg-open
+	[Desktop Entry]
+	Name=EmuDeck AppImage
+	Exec=~/Applications/Steam-ROM-Manager.AppImage
+	Icon=steamdeck-gaming-return
+	Terminal=false
+	Type=Application
+	StartupNotify=false" > ~/Desktop/EmuDeckAppImage.desktop
+	chmod +x ~/Desktop/EmuDeckAppImage.desktop
+	chmod +x ~/Applications/Steam-ROM-Manager.AppImage
+	
 }
