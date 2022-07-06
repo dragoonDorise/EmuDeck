@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #variables
-Yuzu.emuName="Yuzu"
-Yuzu.emuType="AppImage"
-Yuzu.emuPath="$HOME/Applications/yuzu.AppImage"
+Yuzu_emuName="Yuzu"
+Yuzu_emuType="AppImage"
+Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
 
 #cleanupOlderThings
 Yuzu.cleanup(){

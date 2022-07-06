@@ -1,9 +1,9 @@
 #!/bin/bash
 #variables
-emuName="DuckStation"
-emuType="FlatPak"
-emuPath="org.duckstation.DuckStation"
-releaseURL=""
+DuckStation_emuName="DuckStation"
+DuckStation_emuType="FlatPak"
+DuckStation_emuPath="org.duckstation.DuckStation"
+DuckStation_releaseURL=""
 
 #cleanupOlderThings
 DuckStation.cleanup(){
@@ -12,13 +12,13 @@ DuckStation.cleanup(){
 
 #Install
 DuckStation.install(){
-	installEmuFP "${emuName}" "${emuPath}"	
-	flatpak override "${emuPath}" --filesystem=host --user	
+	installEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}"	
+	flatpak override "${DuckStation_emuPath}" --filesystem=host --user	
 }
 
 #ApplyInitialSettings
 DuckStation.init(){
-	configEmuFP "${emuName}" "${emuPath}" "true"
+	configEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}" "true"
 	DuckStation.setupStorage
 	DuckStation.setEmulationFolder
 	DuckStation.setupSaves
@@ -26,7 +26,7 @@ DuckStation.init(){
 
 #update
 DuckStation.update(){
-	configEmuFP "${emuName}" "${emuPath}"
+	configEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}"
 	DuckStation.setupStorage
 	DuckStation.setEmulationFolder
 	DuckStation.setupSaves
@@ -58,14 +58,14 @@ DuckStation.setupStorage(){
 
 #WipeSettings
 DuckStation.wipe(){
-   rm -rf "$HOME/.var/app/$emuPath"
+   rm -rf "$HOME/.var/app/$DuckStation_emuPath"
    # prob not cause roms are here
 }
 
 
 #Uninstall
 DuckStation.uninstall(){
-    flatpack uninstall "$emuPath" -y
+    flatpack uninstall "$DuckStation_emuPath" -y
 }
 
 #setABXYstyle

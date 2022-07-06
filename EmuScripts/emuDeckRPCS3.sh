@@ -1,9 +1,9 @@
 #!/bin/bash
 #variables
-emuName="RPCS3"
-emuType="FlatPak"
-emuPath="net.rpcs3.RPCS3"
-releaseURL=""
+RPCS3_remuName="RPCS3"
+RPCS3_emuType="FlatPak"
+RPCS3_emuPath="net.rpcs3.RPCS3"
+RPCS3_releaseURL=""
 
 #cleanupOlderThings
 RPCS3.cleanup(){
@@ -12,13 +12,13 @@ RPCS3.cleanup(){
 
 #Install
 RPCS3.install(){
-	installEmuFP "${emuName}" "${emuPath}"	
-	flatpak override ${emuPath} --filesystem=host --user	
+	installEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}"	
+	flatpak override ${RPCS3_emuPath} --filesystem=host --user	
 }
 
 #ApplyInitialSettings
 RPCS3.init(){
-	configEmuFP "${emuName}" "${emuPath}" "true"
+	configEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}" "true"
 	setupStorageRpcs3
 	setEmulationFolderRpcs3
 	setupSavesRpcs3
@@ -26,7 +26,7 @@ RPCS3.init(){
 
 #update
 RPCS3.update(){
-	configEmuFP "${emuName}" "${emuPath}"
+	configEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}"
 	setupStorageRpcs3
 	setEmulationFolderRpcs3
 	setupSavesRpcs3
@@ -45,13 +45,13 @@ RPCS3.setupSaves(){
 
 #SetupStorage
 RPCS3.setupStorage(){
- 	sed -i 's| $(EmulatorDir)dev_hdd0/| '$storagePath'/rpcs3/dev_hdd0/|g' $HOME/.var/app/${emuPath}/config/rpcs3/vfs.yml 
+ 	sed -i 's| $(EmulatorDir)dev_hdd0/| '$storagePath'/rpcs3/dev_hdd0/|g' $HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/vfs.yml 
 	mkdir -p $storagePath/rpcs3/
 
-	if [ ! -d "$storagePath"rpcs3/dev_hdd0 ] && [ -d "$HOME/.var/app/${emuPath}/" ];then
+	if [ ! -d "$storagePath"rpcs3/dev_hdd0 ] && [ -d "$HOME/.var/app/${RPCS3_emuPath}/" ];then
 		echo "rpcs3 hdd does not exist in storagepath."
 		#update config file for the new loc $(emulatorDir) is in the file. made this annoying.
-		rpcs3VFSConf="$HOME/.var/app/${emuPath}/config/rpcs3/vfs.yml"
+		rpcs3VFSConf="$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/vfs.yml"
 		rpcs3DevHDD0Line="/dev_hdd0/: ${storagePath}rpcs3/dev_hdd0/"
 		sed -i "/dev_hdd0/c\\${rpcs3DevHDD0Line}" $rpcs3VFSConf 
 
@@ -64,8 +64,8 @@ RPCS3.setupStorage(){
 		if [ -d "$savesPath/rpcs3/dev_hdd0" ]; then
 			mv -f "$savesPath"rpcs3/dev_hdd0 "$storagePath"rpcs3/
 
-		elif [ -d "$HOME/.var/app/${emuPath}/config/rpcs3/dev_hdd0" ]; then	
-			rsync -av "$HOME/.var/app/${emuPath}/config/rpcs3/dev_hdd0" "$storagePath"rpcs3/ && rm -rf "$HOME/.var/app/${emuPath}/config/rpcs3/dev_hdd0"
+		elif [ -d "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0" ]; then	
+			rsync -av "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0" "$storagePath"rpcs3/ && rm -rf "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0"
 
 		fi
 	fi
@@ -74,14 +74,14 @@ RPCS3.setupStorage(){
 
 #WipeSettings
 RPCS3.wipe(){
-   rm -rf "$HOME/.var/app/$emuPath"
+   rm -rf "$HOME/.var/app/$RPCS3_emuPath"
    # prob not cause roms are here
 }
 
 
 #Uninstall
 RPCS3.uninstall(){
-    flatpack uninstall $emuPath -y
+    flatpack uninstall $RPCS3_emuPath -y
 }
 
 #setABXYstyle

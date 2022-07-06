@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #variables
-Primehack.Primehack.emuName="Primehack"
-Primehack.emuType="FlatPak"
-Primehack.emuPath="io.github.shiiion.primehack"
+Primehack_emuName="Primehack"
+Primehack_emuType="FlatPak"
+Primehack_emuPath="io.github.shiiion.primehack"
 releaseURL=""
 
 #cleanupOlderThings
@@ -13,13 +13,13 @@ Primehack.cleanup(){
 
 #Install
 Primehack.install() {
-	installEmuFP "${Primehack.emuName}" "${Primehack.emuPath}"
-	flatpak override "${Primehack.emuPath}" --filesystem=host --user
+	installEmuFP "${Primehack_emuName}" "${Primehack_emuPath}"
+	flatpak override "${Primehack_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
 Primehack.init() {
-	configEmuFP "${Primehack.emuName}" "${Primehack.emuPath}" "true"
+	configEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" "true"
 	Primehack.setupStorage
 	Primehack.setEmulationFolder
 	Primehack.setupSaves
@@ -27,7 +27,7 @@ Primehack.init() {
 
 #update
 Primehack.update() {
-	configEmuFP "${Primehack.emuName}" "${Primehack.emuPath}"
+	configEmuFP "${Primehack_emuName}" "${Primehack_emuPath}"
 	Primehack.setupStorage
 	Primehack.setEmulationFolder
 	Primehack.setupSaves
@@ -35,7 +35,7 @@ Primehack.update() {
 
 #ConfigurePaths
 Primehack.setEmulationFolder() {
-	configFile="$HOME/.var/app/${Primehack.emuPath}}/config/dolphin-emu/Dolphin.ini"
+	configFile="$HOME/.var/app/${Primehack_emuPath}}/config/dolphin-emu/Dolphin.ini"
 	gameDirOpt='ISOPath0 = '
 	newGameDirOpt='ISOPath0 = '"${romsPath}primehacks"
 	sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
@@ -57,13 +57,13 @@ Primehack.setupStorage(){
 
 #WipeSettings
 Primehack.wipe() {
-	rm -rf "$HOME/.var/app/${Primehack.emuPath}"
+	rm -rf "$HOME/.var/app/${Primehack_emuPath}"
 }
 
 
 #Uninstall
 Primehack.uninstall() {
-	flatpack uninstall "${Primehack.emuPath}" -y
+	flatpack uninstall "${Primehack_emuPath}" -y
 }
 
 #setABXYstyle

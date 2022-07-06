@@ -1,9 +1,9 @@
 #!/bin/bash
 #variables
-emuName="PPSSPP"
-emuType="FlatPak"
-emuPath="org.ppsspp.PPSSPP"
-releaseURL=""
+PPSSPP_emuName="PPSSPP"
+PPSSPP_emuType="FlatPak"
+PPSSPP_emuPath="org.ppsspp.PPSSPP"
+PPSSPP_releaseURL=""
 
 #cleanupOlderThings
 PPSSPP.cleanup(){
@@ -12,14 +12,14 @@ PPSSPP.cleanup(){
 
 #Install
 PPSSPP.install(){
-	installEmuFP "${emuName}" "${emuPath}"	
-	flatpak override "${emuPath}" --filesystem=host --user
-	flatpak override "${emuName}" --share=network --user
+	installEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}"	
+	flatpak override "${PPSSPP_emuPath}" --filesystem=host --user
+	flatpak override "${PPSSPP_emuName}" --share=network --user
 }
 
 #ApplyInitialSettings
 PPSSPP.init(){
-	configEmuFP "${emuName}" "${emuPath}" "true"
+	configEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}" "true"
 	PPSSPP.setupStorage
 	PPSSPP.setEmulationFolder
 	PPSSPP.setupSaves
@@ -27,7 +27,7 @@ PPSSPP.init(){
 
 #update
 PPSSPP.update(){
-	configEmuFP "${emuName}" "${emuPath}"
+	configEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}"
 	PPSSPP.setupStorage
 	PPSSPP.setEmulationFolder
 	PPSSPP.setupSaves
@@ -35,7 +35,7 @@ PPSSPP.update(){
 
 #ConfigurePaths
 PPSSPP.setEmulationFolder(){
-  	configFile="$HOME/.var/app/${emuPath}}/config/dolphin-emu/Dolphin.ini"
+  	configFile="$HOME/.var/app/${PPSSPP_emuPath}}/config/dolphin-emu/Dolphin.ini"
     gameDirOpt='CurrentDirectory = '
     newGameDirOpt='CurrentDirectory = '"${romsPath}PPSSPP"
     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
@@ -56,13 +56,13 @@ PPSSPP.setupStorage(){
 
 #WipeSettings
 PPSSPP.wipe(){
-   rm -rf "$HOME/.var/app/$emuPath"
+   rm -rf "$HOME/.var/app/$PPSSPP_emuPath"
 }
 
 
 #Uninstall
 PPSSPP.uninstall(){
-    flatpack uninstall "$emuPath" -y
+    flatpack uninstall "$PPSSPP_emuPath" -y
 }
 
 #setABXYstyle

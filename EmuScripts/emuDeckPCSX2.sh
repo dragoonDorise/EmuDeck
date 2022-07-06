@@ -1,9 +1,9 @@
 #!/bin/bash
 #variables
-emuName="PCSX2"
-emuType="FlatPak"
-emuPath="net.pcsx2.PCSX2"
-releaseURL=""
+PCSX2_emuName="PCSX2"
+PCSX2_emuType="FlatPak"
+PCSX2_emuPath="net.pcsx2.PCSX2"
+PCSX2_releaseURL=""
 
 #cleanupOlderThings
 PCSX2.cleanup(){
@@ -12,21 +12,21 @@ PCSX2.cleanup(){
 
 #Install
 PCSX2.install(){
-	installEmuFP "${emuName}" "${emuPath}"
-	flatpak override "${emuPath}" --filesystem=host --user
-	flatpak override "${emuPath}" --share=network --user 
+	installEmuFP "${PCSX2_emuName}" "${PCSX2_emuPath}"
+	flatpak override "${PCSX2_emuPath}" --filesystem=host --user
+	flatpak override "${PCSX2_emuPath}" --share=network --user 
 }
 
 #ApplyInitialSettings
 PCSX2.init(){
-	configEmuFP  "${emuName}" "${emuPath}" "true"
+	configEmuFP  "${PCSX2_emuName}" "${PCSX2_emuPath}" "true"
 	setEmulationFolderPcsx2
 	setupSavesPcsx2
 }
 
 #update
 PCSX2.update(){
-	configEmuFP  "${emuName}" "${emuPath}"
+	configEmuFP  "${PCSX2_emuName}" "${PCSX2_emuPath}"
 	setEmulationFolderPcsx2
 	setupSavesPcsx2
 }
@@ -54,14 +54,14 @@ PCSX2.setupStorage(){
 
 #WipeSettings
 PCSX2.wipe(){
-   rm -rf "$HOME/.var/app/$emuPath"
+   rm -rf "$HOME/.var/app/$PCSX2_emuPath"
    # prob not cause roms are here
 }
 
 
 #Uninstall
 PCSX2.uninstall(){
-    flatpack uninstall $emuPath -y
+    flatpack uninstall $PCSX2_emuPath -y
 }
 
 #setABXYstyle

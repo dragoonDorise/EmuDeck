@@ -1,8 +1,8 @@
 #!/bin/bash
 #variables
-Xemu.emuName="Xemu-Emu"
-Xemu.emuType="FlatPak"
-Xemu.emuPath="app.xemu.xemu"
+Xemu_emuName="Xemu-Emu"
+Xemu_emuType="FlatPak"
+Xemu_emuPath="app.xemu.xemu"
 
 #cleanupOlderThings
 Xemu.cleanup(){
@@ -11,13 +11,13 @@ Xemu.cleanup(){
 
 #Install
 Xemu.install() {
-	installEmuFP "${Xemu.emuName}" "${Xemu.emuPath}"
-	flatpak override "${Xemu.emuPath}" --filesystem=host --user
+	installEmuFP "${Xemu_emuName}" "${Xemu_emuPath}"
+	flatpak override "${Xemu_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
 Xemu.init() {
-	configEmuFP "${Xemu.emuName}" "${Xemu.emuPath}" "true"
+	configEmuFP "${Xemu_emuName}" "${Xemu_emuPath}" "true"
 	Xemu.migrate
 	Xemu.setupStorage
 	Xemu.setEmulationFolder
@@ -26,7 +26,7 @@ Xemu.init() {
 
 #update
 Xemu.update() {
-	configEmuFP "${Xemu.emuName}" "${Xemu.emuPath}"
+	configEmuFP "${Xemu_emuName}" "${Xemu_emuPath}"
 	Xemu.migrate
 	Xemu.setupStorage
 	Xemu.setEmulationFolder
@@ -73,7 +73,7 @@ Xemu.setupStorage(){
 
 #WipeSettings
 Xemu.wipe() {
-	rm -rf "$HOME/.var/app/$Xemu.emuPath"
+	rm -rf "$HOME/.var/app/$Xemu_emuPath"
 	# prob not cause roms are here
 }
 

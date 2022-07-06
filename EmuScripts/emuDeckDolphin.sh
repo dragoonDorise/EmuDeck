@@ -1,9 +1,9 @@
 #!/bin/bash
 #variables
-emuName="Dolphin"
-emuType="FlatPak"
-emuPath="org.DolphinEmu.dolphin-emu"
-releaseURL=""
+Dolphin_emuName="Dolphin"
+Dolphin_emuType="FlatPak"
+Dolphin_emuPath="org.DolphinEmu.dolphin-emu"
+Dolphin_releaseURL=""
 
 #cleanupOlderThings
 Dolphin.cleanup(){
@@ -12,13 +12,13 @@ Dolphin.cleanup(){
 
 #Install
 Dolphin.install(){
-	installEmuFP "${emuName}" "${emuPath}"	
-	flatpak override "${emuPath}" --filesystem=host --user	
+	installEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"	
+	flatpak override "${Dolphin_emuPath}" --filesystem=host --user	
 }
 
 #ApplyInitialSettings
 Dolphin.init(){
-	configEmuFP "${emuName}" "${emuPath}" "true"
+	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}" "true"
 	Dolphin.setupStorage
 	Dolphin.setEmulationFolder
 	Dolphin.setupSaves
@@ -26,7 +26,7 @@ Dolphin.init(){
 
 #update
 Dolphin.update(){
-	configEmuFP "${emuName}" "${emuPath}"
+	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"
 	Dolphin.setupStorage
 	Dolphin.setEmulationFolder
 	Dolphin.setupSaves
@@ -59,14 +59,14 @@ Dolphin.setupStorage(){
 
 #WipeSettings
 Dolphin.wipe(){
-   rm -rf "$HOME/.var/app/$emuPath"
+   rm -rf "$HOME/.var/app/$Dolphin_emuPath"
    # prob not cause roms are here
 }
 
 
 #Uninstall
 Dolphin.uninstall(){
-    flatpack uninstall "$emuPath" -y
+    flatpack uninstall "$Dolphin_emuPath" -y
 }
 
 #setABXYstyle

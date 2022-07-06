@@ -1,9 +1,9 @@
 #!/bin/bash
 #variables
-emuName="RetroArch"
-emuType="FlatPak"
-emuPath="org.libretro.RetroArch"
-releaseURL=""
+RetroArch_emuName="RetroArch"
+RetroArch_emuType="FlatPak"
+RetroArch_emuPath="org.libretro.RetroArch"
+RetroArch_releaseURL=""
 
 #cleanupOlderThings
 RetroArch.cleanup(){
@@ -12,14 +12,14 @@ RetroArch.cleanup(){
 
 #Install
 RetroArch.install(){
-	installEmuFP "${emuName}" "${emuPath}"
-	flatpak override "${emuPath}" --filesystem=host --user	
+	installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
+	flatpak override "${RetroArch_emuPath}" --filesystem=host --user	
 }
 
 #ApplyInitialSettings
 RetroArch.init(){
 
-	configEmuFP "${emuName}" "${emuPath}" "true"
+	configEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "true"
 	RetroArch.setEmulationFolder
 	RetroArch.setupSaves
 	RetroArch.installCores
@@ -29,7 +29,7 @@ RetroArch.init(){
 #update
 RetroArch.update(){
 
-	configEmuFP "${emuName}" "${emuPath}"
+	configEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
 	RetroArch.setEmulationFolder
 	RetroArch.setupSaves
 	RetroArch.installCores
@@ -59,14 +59,14 @@ RetroArch.setupStorage(){
 
 #WipeSettings
 RetroArch.wipe(){
-   rm -rf "$HOME/.var/app/$emuPath"
+   rm -rf "$HOME/.var/app/$RetroArch_emuPath"
    # prob not cause roms are here
 }
 
 
 #Uninstall
 RetroArch.uninstall(){
-    flatpack uninstall $emuPath -y
+    flatpack uninstall $RetroArch_emuPath -y
 }
 
 #setABXYstyle

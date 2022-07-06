@@ -1,9 +1,9 @@
 #!/bin/bash
 #variables
-emuName="Citra"
-emuType="FlatPak"
-emuPath="org.citra_emu.citra"
-releaseURL=""
+Citra_emuName="Citra"
+Citra_emuType="FlatPak"
+Citra_emuPath="org.citra_emu.citra"
+Citra_releaseURL=""
 
 #cleanupOlderThings
 Citra.finalize(){
@@ -12,13 +12,13 @@ Citra.finalize(){
 
 #Install
 Citra.install(){
-	installEmuFP "${emuName}" "${emuPath}"	
-	flatpak override "${emuPath}" --filesystem=host --user	
+	installEmuFP "${Citra_emuName}" "${Citra_emuPath}"	
+	flatpak override "${Citra_emuPath}" --filesystem=host --user	
 }
 
 #ApplyInitialSettings
 Citra.init(){
-	configEmuFP "${emuName}" "${emuPath}" "true"
+	configEmuFP "${Citra_emuName}" "${Citra_emuPath}" "true"
 	Citra.setupStorage
 	Citra.setEmulationFolder
 	Citra.setupSaves
@@ -26,7 +26,7 @@ Citra.init(){
 
 #update
 Citra.update(){
-	configEmuFP "${emuName}" "${emuPath}"
+	configEmuFP "${Citra_emuName}" "${Citra_emuPath}"
 	Citra.setupStorage
 	Citra.setEmulationFolder
 	Citra.setupSaves
@@ -55,14 +55,14 @@ Citra.setupStorage(){
 
 #WipeSettings
 Citra.wipe(){
-   rm -rf "$HOME/.var/app/$emuPath"
+   rm -rf "$HOME/.var/app/$Citra_emuPath"
    # prob not cause roms are here
 }
 
 
 #Uninstall
 Citra.uninstall(){
-    flatpack uninstall "$emuPath" -y
+    flatpack uninstall "$Citra_emuPath" -y
 }
 
 #setABXYstyle
