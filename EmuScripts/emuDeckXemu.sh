@@ -115,7 +115,7 @@ Xemu.wideScreenOn(){
 }
 
 #WideScreenOff
-Xemu.wideScreenOf(){
+Xemu.WideScreenOff(){
 	configFile="$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml"
     fit='fit = '
     fitSetting="${fit}scale_4_3"
