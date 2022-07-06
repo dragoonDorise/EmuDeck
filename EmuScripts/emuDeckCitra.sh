@@ -7,7 +7,7 @@ Citra_releaseURL=""
 
 #cleanupOlderThings
 Citra.finalize(){
- #na
+ echo "NYI"
 }
 
 #Install
@@ -77,26 +77,26 @@ Citra.migrate(){
 
 #WideScreenOn
 Citra.wideScreenOn(){
-#na
+echo "NYI"
 }
 
 #WideScreenOff
 Citra.wideScreenOff(){
-#na
+echo "NYI"
 }
 
 #BezelOn
 Citra.bezelOn(){
-#na
+echo "NYI"
 }
 
 #BezelOff
 Citra.bezelOff(){
-#na
+echo "NYI"
 }
 
 #finalExec - Extra stuff
 Citra.finalize(){
-	#na
+	echo "NYI"
 }
 

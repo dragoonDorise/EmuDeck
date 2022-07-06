@@ -7,7 +7,7 @@ RetroArch_releaseURL=""
 
 #cleanupOlderThings
 RetroArch.cleanup(){
- #na
+ echo "NYI"
 }
 
 #Install
@@ -53,7 +53,7 @@ RetroArch.setupSaves(){
 
 #SetupStorage
 RetroArch.setupStorage(){
- #na
+ echo "NYI"
 }
 
 
@@ -71,37 +71,37 @@ RetroArch.uninstall(){
 
 #setABXYstyle
 RetroArch.setABXYstyle(){
-    
+	echo "NYI"    
 }
 
 #Migrate
 RetroArch.migrate(){
-    
+	echo "NYI"    
 }
 
 #WideScreenOn
 RetroArch.wideScreenOn(){
-#na
+echo "NYI"
 }
 
 #WideScreenOff
 RetroArch.wideScreenOff(){
-#na
+echo "NYI"
 }
 
 #BezelOn
 RetroArch.bezelOn(){
-#na
+echo "NYI"
 }
 
 #BezelOff
 RetroArch.bezelOff(){
-#na
+echo "NYI"
 }
 
 #finalExec - Extra stuff
 RetroArch.finalize(){
-	#na
+	echo "NYI"
 }
 
 RetroArch.installCores(){

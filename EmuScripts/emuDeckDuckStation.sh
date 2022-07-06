@@ -7,7 +7,7 @@ DuckStation_releaseURL=""
 
 #cleanupOlderThings
 DuckStation.cleanup(){
- #na
+ echo "NYI"
 }
 
 #Install
@@ -52,7 +52,7 @@ DuckStation.setupSaves(){
 
 #SetupStorage
 DuckStation.setupStorage(){
-    #TBD
+	echo "NYI"
 }
 
 
@@ -75,7 +75,7 @@ DuckStation.setABXYstyleDuckStation(){
 
 #Migrate
 DuckStation.migrate(){
-    
+	echo "NYI"
 }
 
 #WideScreenOn
@@ -102,16 +102,16 @@ DuckStation.wideScreenOff(){
 
 #BezelOn
 DuckStation.bezelOn(){
-#na
+echo "NYI"
 }
 
 #BezelOff
 DuckStation.bezelOff(){
-#na
+echo "NYI"
 }
 
 #finalExec - Extra stuff
 DuckStation.finalize(){
-	#na
+	echo "NYI"
 }
 

@@ -7,7 +7,7 @@ PPSSPP_releaseURL=""
 
 #cleanupOlderThings
 PPSSPP.cleanup(){
- #na
+ echo "NYI"
 }
 
 #Install
@@ -50,7 +50,7 @@ PPSSPP.setupSaves(){
 
 #SetupStorage
 PPSSPP.setupStorage(){
-    #TBD
+	echo "NYI"
 }
 
 
@@ -67,36 +67,36 @@ PPSSPP.uninstall(){
 
 #setABXYstyle
 PPSSPP.setABXYstyle(){
-    
+	echo "NYI"    
 }
 
 #Migrate
 PPSSPP.migrate(){
-    
+	echo "NYI"    
 }
 
 #WideScreenOn
 PPSSPP.wideScreenOn(){
-
+	echo "NYI"
 }
 
 #WideScreenOff
 PPSSPP.wideScreenOff(){
-
+	echo "NYI"
 }
 
 #BezelOn
 PPSSPP.bezelOn(){
-#na
+echo "NYI"
 }
 
 #BezelOff
 PPSSPP.bezelOff(){
-#na
+echo "NYI"
 }
 
 #finalExec - Extra stuff
 PPSSPP.finalize(){
-	#na
+	echo "NYI"
 }
 

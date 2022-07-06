@@ -7,7 +7,7 @@ RPCS3_releaseURL=""
 
 #cleanupOlderThings
 RPCS3.cleanup(){
- #na
+ echo "NYI"
 }
 
 #Install
@@ -34,7 +34,7 @@ RPCS3.update(){
 
 #ConfigurePaths
 RPCS3.setEmulationFolder(){
-   #na
+   echo "NYI"
 }
 
 #SetupSaves
@@ -86,36 +86,36 @@ RPCS3.uninstall(){
 
 #setABXYstyle
 RPCS3.setABXYstyle(){
-    
+ 	echo "NYI"   
 }
 
 #Migrate
 RPCS3.migrate(){
-    
+  	echo "NYI"  
 }
 
 #WideScreenOn
 RPCS3.wideScreenOn(){
-#na
+echo "NYI"
 }
 
 #WideScreenOff
 RPCS3.wideScreenOff(){
-#na
+echo "NYI"
 }
 
 #BezelOn
 RPCS3.bezelOn(){
-#na
+echo "NYI"
 }
 
 #BezelOff
 RPCS3.bezelOff(){
-#na
+echo "NYI"
 }
 
 #finalExec - Extra stuff
 RPCS3.finalize(){
-	#na
+	echo "NYI"
 }
 

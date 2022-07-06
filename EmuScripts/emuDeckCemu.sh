@@ -104,17 +104,17 @@ Cemu.migrate(){
 
 #WideScreenOn
 Cemu.wideScreenOn(){
-#na
+echo "NYI"
 }
 
 #WideScreenOff
 Cemu.wideScreenOff(){
-#na
+echo "NYI"
 }
 
 #BezelOn
 Cemu.bezelOn(){
-#na
+echo "NYI"
 }
 
 #BezelOff

@@ -7,7 +7,7 @@ PCSX2_releaseURL=""
 
 #cleanupOlderThings
 PCSX2.cleanup(){
- #na
+ echo "NYI"
 }
 
 #Install
@@ -48,7 +48,7 @@ PCSX2.setupSaves(){
 
 #SetupStorage
 PCSX2.setupStorage(){
- #na
+ echo "NYI"
 }
 
 
@@ -66,36 +66,36 @@ PCSX2.uninstall(){
 
 #setABXYstyle
 PCSX2.setABXYstyle(){
-    
+    echo "NYI"
 }
 
 #Migrate
 PCSX2.migrate(){
-    
+    echo "NYI"
 }
 
 #WideScreenOn
 PCSX2.wideScreenOn(){
-#na
+echo "NYI"
 }
 
 #WideScreenOff
 PCSX2.wideScreenOff(){
-#na
+echo "NYI"
 }
 
 #BezelOn
 PCSX2.bezelOn(){
-#na
+echo "NYI"
 }
 
 #BezelOff
 PCSX2.bezelOff(){
-#na
+echo "NYI"
 }
 
 #finalExec - Extra stuff
 PCSX2.finalize(){
-	#na
+	echo "NYI"
 }
 

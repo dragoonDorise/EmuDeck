@@ -5,7 +5,7 @@
 ## Pid Lock...
 ##
 #
-mkdir -p $HOME/emudeck/
+mkdir -p $HOME/emudeck
 PIDFILE=$HOME/emudeck/install.pid
 
 if [ -f $PIDFILE ]

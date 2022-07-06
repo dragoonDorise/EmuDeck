@@ -8,7 +8,7 @@ releaseURL=""
 
 #cleanupOlderThings
 Primehack.cleanup(){
- #na
+ echo "NYI"
 }
 
 #Install
@@ -88,16 +88,16 @@ Primehack.wideScreenOff(){
 
 #BezelOn
 Primehack.bezelOn(){
-#na
+echo "NYI"
 }
 
 #BezelOff
 Primehack.BezelOff(){
-#na
+echo "NYI"
 }
 
 #finalExec - Extra stuff
 Primehack.finalize(){
-	#na
+	echo "NYI"
 }
 

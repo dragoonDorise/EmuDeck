@@ -7,7 +7,7 @@ Dolphin_releaseURL=""
 
 #cleanupOlderThings
 Dolphin.cleanup(){
- #na
+ echo "NYI"
 }
 
 #Install
@@ -103,16 +103,16 @@ Dolphin.wideScreenOff(){
 
 #BezelOn
 Dolphin.bezelOn(){
-#na
+echo "NYI"
 }
 
 #BezelOff
 Dolphin.bezelOff(){
-#na
+echo "NYI"
 }
 
 #finalExec - Extra stuff
 Dolphin.finalize(){
-	#na
+	echo "NYI"
 }
 

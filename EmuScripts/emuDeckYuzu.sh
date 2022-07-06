@@ -160,27 +160,27 @@ Yuzu.migrate(){
 
 #setABXYstyle
 Yuzu.setABXYstyle(){
-    
+echo "NYI"
 }
 
 #WideScreenOn
 Yuzu.wideScreenOn(){
-#na
+echo "NYI"
 }
 
 #WideScreenOff
 Yuzu.wideScreenOff(){
-#na
+echo "NYI"
 }
 
 #BezelOn
 Yuzu.bezelOn(){
-#na
+echo "NYI"
 }
 
 #BezelOff
 Yuzu.bezelOff(){
-#na
+echo "NYI"
 }
 
 #finalExec - Extra stuff

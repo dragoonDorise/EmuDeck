@@ -6,7 +6,7 @@ Xemu_emuPath="app.xemu.xemu"
 
 #cleanupOlderThings
 Xemu.cleanup(){
- #na
+ echo "NYI"
 }
 
 #Install
@@ -126,16 +126,16 @@ Xemu.wideScreenOf(){
 
 #BezelOn
 Xemu.bezelOn(){
-#na
+echo "NYI"
 }
 
 #BezelOff
 Xemu.bezelOff(){
-#na
+echo "NYI"
 }
 
 #finalExec - Extra stuff
 Xemu.finalize(){
-	#na
+	echo "NYI"
 }
 
