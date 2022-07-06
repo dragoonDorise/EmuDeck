@@ -120,7 +120,7 @@ echo "NYI"
 
 #BezelOff
 Cemu.bezelOff(){
-#na
+	echo "NYI"
 }
 
 #finalExec - Extra stuff

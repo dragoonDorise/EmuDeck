@@ -51,7 +51,7 @@ Primehack.setupSaves(){
 
 #SetupStorage
 Primehack.setupStorage(){
-    #TBD
+   	echo "NYI"
 }
 
 
