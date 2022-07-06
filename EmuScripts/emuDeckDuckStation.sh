@@ -81,6 +81,8 @@ DuckStation.migrate(){
 
 #WideScreenOn
 DuckStation.wideScreenOn(){
+	echo "DuckStation: Widescreen On"
+    echo ""
     configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
     wideScreenHack='WidescreenHack = '
     wideScreenHackSetting='WidescreenHack = true'
@@ -92,6 +94,8 @@ DuckStation.wideScreenOn(){
 
 #WideScreenOff
 DuckStation.wideScreenOff(){
+	echo "DuckStation: Widescreen Off"
+    echo ""
     configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
     wideScreenHack='WidescreenHack = '
     wideScreenHackSetting='WidescreenHack = false'
