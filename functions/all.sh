@@ -3,7 +3,9 @@ if [[ "$EMUDECKGIT" == "" ]]; then
     EMUDECKGIT="$HOME/dragoonDoriseTools/EmuDeck"
 fi
 
-source "$EMUDECKGIT"/functions/settings.sh
+if [[ -f "$HOME/emudeck/settings.sh" ]]; then
+    source "$HOME/emudeck/settings.sh"
+fi
 
 source "$EMUDECKGIT"/functions/checkPSBIOS.sh
 source "$EMUDECKGIT"/functions/configEmuAI.sh
