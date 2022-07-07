@@ -1,4 +1,8 @@
 #!/bin/bash
+if [[ "$EMUDECKGIT" == "" ]]; then
+    EMUDECKGIT="$HOME/dragoonDoriseTools/Emudeck"
+fi
+
 source "$EMUDECKGIT"/functions/checkPSBIOS.sh
 source "$EMUDECKGIT"/functions/configEmuAI.sh
 source "$EMUDECKGIT"/functions/configEmuFP.sh
