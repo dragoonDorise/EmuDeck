@@ -1,6 +1,6 @@
 #!/bin/bash
 if [[ "$EMUDECKGIT" == "" ]]; then
-    EMUDECKGIT="$EMUDECKGIT"
+    EMUDECKGIT="$HOME/emudeck/git/EmuDeck"
 fi
 
 if [[ -f "$HOME/emudeck/settings.sh" ]]; then
