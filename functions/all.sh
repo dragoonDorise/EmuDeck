@@ -2,14 +2,9 @@
 source "$EMUDECKGIT"/functions/checkPSBIOS.sh
 source "$EMUDECKGIT"/functions/configEmuAI.sh
 source "$EMUDECKGIT"/functions/configEmuFP.sh
-source "$EMUDECKGIT"/functions/configESDE.sh
-source "$EMUDECKGIT"/functions/configSRM.sh
 source "$EMUDECKGIT"/functions/createDesktopIcons.sh
-source "$EMUDECKGIT"/functions/installCHD.sh
+source "$EMUDECKGIT"/functions/changeLine.sh
 source "$EMUDECKGIT"/functions/installEmuFP.sh
-source "$EMUDECKGIT"/functions/installESDE.sh
-source "$EMUDECKGIT"/functions/installPowerTools.sh
-source "$EMUDECKGIT"/functions/installSRM.sh
 source "$EMUDECKGIT"/functions/RAAchievment.sh
 source "$EMUDECKGIT"/functions/RAautoSave.sh
 source "$EMUDECKGIT"/functions/RABezels.sh
@@ -24,7 +19,14 @@ source "$EMUDECKGIT"/functions/linkToSaveFolder.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
 source "$EMUDECKGIT"/functions/getLatestReleaseURLGH.sh
 source "$EMUDECKGIT"/functions/migrateAndLinkConfig.sh
-source "$EMUDECKGIT"/functions/installBinUp.sh
+
+#toolScripts
+source "$EMUDECKGIT"/ToolScripts/emuDeckESDE.sh
+source "$EMUDECKGIT"/ToolScripts/configSRM.sh
+source "$EMUDECKGIT"/ToolScripts/installPowerTools.sh
+source "$EMUDECKGIT"/ToolScripts/installSRM.sh
+source "$EMUDECKGIT"/ToolScripts/installBinUp.sh
+source "$EMUDECKGIT"/ToolScripts/installCHD.sh
 
 #emuscripts
 source "$EMUDECKGIT"/EmuScripts/emuDeckYuzu.sh
@@ -38,6 +40,8 @@ source "$EMUDECKGIT"/EmuScripts/emuDeckRetroArch.sh
 source "$EMUDECKGIT"/EmuScripts/emuDeckPPSSPP.sh
 source "$EMUDECKGIT"/EmuScripts/emuDeckDuckStation.sh
 source "$EMUDECKGIT"/EmuScripts/emuDeckXemu.sh
+
+
 
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckXenia.sh

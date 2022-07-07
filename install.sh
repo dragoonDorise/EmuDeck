@@ -749,7 +749,7 @@ chmod +x "${toolsPath}"proton-launch.sh
 
 #ESDE Installation
 if [ $doInstallESDE == "true" ]; then
-	installESDE		
+	ESDE.install		
 fi
 	
 #SRM Installation
@@ -817,7 +817,7 @@ fi
 
 #ESDE Config
 if [ $doSetupESDE == "true" ]; then
-	configESDE
+	ESDE.config
 fi	
 
 #Emus config
