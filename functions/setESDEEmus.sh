@@ -4,7 +4,7 @@ setESDEEmus(){
 	system=$2
 	FILE=~/.emulationstation/gamelists/$system/gamelist.xml
 	if [ ! -f "$FILE" ]; then
-		mkdir -p ~/.emulationstation/gamelists/$system && cp ~/dragoonDoriseTools/EmuDeck/configs/emulationstation/gamelists/$system/gamelist.xml $FILE
+		mkdir -p ~/.emulationstation/gamelists/$system && cp $EMUDECKGIT/configs/emulationstation/gamelists/$system/gamelist.xml $FILE
 	else
 		gamelistFound=$(grep -rnw $FILE -e 'gameList')
 		if [[ $gamelistFound == '' ]]; then

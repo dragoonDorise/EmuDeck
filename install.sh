@@ -44,7 +44,6 @@ fi
 #Clean up previous installations
 rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
 rm -rf ~/dragoonDoriseTools
-mkdir -p ~/emudeck
 
 #Creating log file
 echo "" > ~/emudeck/emudeck.log
@@ -58,7 +57,7 @@ if [ -d "$FOLDER" ]; then
 fi
 sleep 1
 SECONDTIME=~/emudeck/.finished
-EMUDECKGIT=~/dragoonDoriseTools/EmuDeck
+EMUDECKGIT="$HOME/emudeck/git/EmuDeck"
 
 # Seeting up the progress Bar for the rest of the installation
 finished=false
@@ -122,14 +121,13 @@ echo $branch > ~/branch.txt
 #
 
 #We create all the needed folders for installation
-mkdir -p ~/dragoonDoriseTools/EmuDeck
-cd ~/dragoonDoriseTools
+mkdir -p "$EMUDECKGIT"
 
 #Cloning EmuDeck files
-git clone https://github.com/dragoonDorise/EmuDeck.git ~/dragoonDoriseTools/EmuDeck 
+git clone https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
 if [ ! -z "$devMode" ]; then
-	cd ~/dragoonDoriseTools/EmuDeck
-	git checkout $branch 
+	cd "$EMUDECKGIT"
+	git checkout "$branch" 
 fi
 
 #
@@ -155,11 +153,11 @@ if [ $zenity == true ]; then
 	if [ -d "$EMUDECKGIT" ]; then
 		echo -e "Files Downloaded!"
 	clear
-	cat ~/dragoonDoriseTools/EmuDeck/logo.ans
-	version=$(cat ~/dragoonDoriseTools/EmuDeck/version.md)
+	cat $EMUDECKGIT/logo.ans
+	version=$(cat $EMUDECKGIT/version.md)
 	echo -e "${BOLD}EmuDeck ${version}${NONE}"
 	echo -e ""
-	cat ~/dragoonDoriseTools/EmuDeck/latest.md
+	cat $EMUDECKGIT/latest.md
 	
 	else
 		echo -e ""
@@ -176,13 +174,13 @@ if [ $zenity == true ]; then
 	#
 	
 	#Functions and settings, this code is repeated outside of this conditional, remember to 
-	source "$EMUDECKGIT"/functions/all.sh
+	source "$EMUDECKGIT/functions/all.sh"
 	#Check for config file
-	FILE=~/emudeck/settings.sh
-	if [ -f "$FILE" ]; then
-		source "$EMUDECKGIT"/settings.sh
+	SETTINGSFILE="$HOME/emudeck/settings.sh"
+	if [ -f "$SETTINGSFILE" ]; then
+		source "$EMUDECKGIT/settings.sh"
 		else
-		cp "$EMUDECKGIT"/settings.sh ~/emudeck/settings.sh	
+		cp "$EMUDECKGIT/settings.sh" "$SETTINGSFILE"
 	fi
 
 	
@@ -190,7 +188,7 @@ if [ $zenity == true ]; then
 	## Splash screen
 	#
 	
-	latest=$(cat ~/dragoonDoriseTools/EmuDeck/latest.md)	
+	latest=$(cat $EMUDECKGIT/latest.md)	
 	if [ -f "$SECONDTIME" ]; then
 		 text="$(printf "<b>Hi, this is the changelog of the new features added in this version</b>\n\n${latest}")"
 		 width=1000
@@ -200,7 +198,7 @@ if [ $zenity == true ]; then
 	fi 
 	 zenity --info \
 	--title="EmuDeck" \
-	--width=${width} \
+	--width="${width}" \
 	--text="${text}" 2>/dev/null
 		
 	#
@@ -312,7 +310,7 @@ if [ $zenity == true ]; then
 	setMSG "Creating roms folder in $destination"
 	
 	sleep 3
-	rsync -r --ignore-existing ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath" 
+	rsync -r --ignore-existing $EMUDECKGIT/roms/ "$romsPath" 
 	#End repeated code	
 	
 	#
@@ -604,7 +602,7 @@ if [ $zenity == true ]; then
 									"${emuTable[@]}"  2>/dev/null)
 									ans=$?
 				#Nova fix'								
-				cat ~/dragoonDoriseTools/EmuDeck/logo.ans
+				cat $EMUDECKGIT/logo.ans
 				echo -e "EmuDeck ${version}"
 				if [ $ans -eq 0 ]; then
 					echo "Emulators to reinstall selected: $emusToReset"
@@ -645,7 +643,7 @@ if [ $zenity == true ]; then
 						setSetting doSetupXenia false #false until we add above
 					fi
 					#if [[ "$emusToReset" == *"MelonDS"* ]]; then
-					#	doSetupMelon=false
+					#	setSetting doSetupMelonDS true
 					#fi
 					if [[ "$emusToReset" == *"Steam Rom Manager"* ]]; then
 						setSetting doSetupSRM true
@@ -709,7 +707,7 @@ else
 	setMSG "Creating roms folder in $destination"
 	
 	sleep 3
-	rsync -r --ignore-existing ~/dragoonDoriseTools/EmuDeck/roms/ "$romsPath" 
+	rsync -r --ignore-existing $EMUDECKGIT/roms/ "$romsPath" 
 	#End repeated code	
 fi
 
@@ -744,7 +742,7 @@ chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
 
 #setup Proton-Launch.sh
 #because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
-cp ~/dragoonDoriseTools/EmuDeck/tools/proton-launch.sh "${toolsPath}"proton-launch.sh
+cp $EMUDECKGIT/tools/proton-launch.sh "${toolsPath}"proton-launch.sh
 chmod +x "${toolsPath}"proton-launch.sh
 
 #ESDE Installation
@@ -822,7 +820,7 @@ fi
 
 #Emus config
 setMSG "Configuring Steam Input for emulators.."
-rsync -r ~/dragoonDoriseTools/EmuDeck/configs/steam-input/ ~/.steam/steam/controller_base/templates/
+rsync -r $EMUDECKGIT/configs/steam-input/ ~/.steam/steam/controller_base/templates/
 
 setMSG "Configuring emulators.."
 echo -e ""
@@ -862,7 +860,7 @@ if [ $doSetupCemu == "true" ]; then
 fi
 if [ $doSetupXenia == "true" ]; then
 	echo "" 
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/configs/xenia/ "$romsPath"/xbox360 
+	rsync -avhp $EMUDECKGIT/configs/xenia/ "$romsPath"/xbox360 
 fi
 
 

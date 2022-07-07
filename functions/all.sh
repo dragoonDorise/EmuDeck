@@ -1,6 +1,6 @@
 #!/bin/bash
 if [[ "$EMUDECKGIT" == "" ]]; then
-    EMUDECKGIT="$HOME/dragoonDoriseTools/EmuDeck"
+    EMUDECKGIT="$EMUDECKGIT"
 fi
 
 if [[ -f "$HOME/emudeck/settings.sh" ]]; then

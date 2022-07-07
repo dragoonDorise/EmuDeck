@@ -33,8 +33,8 @@ ESDE.init(){
 
 	mkdir -p "$HOME/.emulationstation/custom_systems/"
 
-	rsync -avhp --mkpath "$HOME/dragoonDoriseTools/EmuDeck/configs/emulationstation/es_settings.xml" "$es_settingsFile" --backup --suffix=.bak
-	rsync -avhp --mkpath "$HOME/dragoonDoriseTools/EmuDeck/configs/emulationstation/custom_systems/es_systems.xml" "$es_systemsFile" --backup --suffix=.bak
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$es_settingsFile" --backup --suffix=.bak
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$es_systemsFile" --backup --suffix=.bak
 
     ESDE.addCustomSystems
     ESDE.setEmulationFolder
@@ -54,8 +54,8 @@ ESDE.update(){
 	mkdir -p "$HOME/.emulationstation/custom_systems/"
 
 	#update es_settings.xml
-	rsync -avhp --mkpath "$HOME/dragoonDoriseTools/EmuDeck/configs/emulationstation/es_settings.xml" "$es_settingsFile" --ignore-existing
-	rsync -avhp --mkpath "$HOME/dragoonDoriseTools/EmuDeck/configs/emulationstation/custom_systems/es_systems.xml" "$es_systemsFile" --ignore-existing
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$es_settingsFile" --ignore-existing
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$es_systemsFile" --ignore-existing
 
     ESDE.addCustomSystems
 	ESDE.setEmulationFolder

@@ -1,7 +1,7 @@
 #!/bin/bash
 installCHD(){		
 	mkdir -p  "$toolsPath"chdconv/
-	rsync -avhp ~/dragoonDoriseTools/EmuDeck/tools/chdconv/ "$toolsPath"chdconv/ 
+	rsync -avhp $EMUDECKGIT/tools/chdconv/ "$toolsPath"chdconv/ 
 	
 	rm -rf ~/Desktop/EmuDeckCHD.desktop 2>/dev/null
 	echo "#!/usr/bin/env xdg-open

@@ -12,7 +12,7 @@ configEmuFP(){
     fi	
 	setMSG "Updating $name Config using $overwrite"	
 	
-	rsync -avhp --mkpath "$HOME/dragoonDoriseTools/EmuDeck/configs/${ID}" "$HOME/.var/app/" $overwrite
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/${ID}" "$HOME/.var/app/" $overwrite
 	
 
 }
