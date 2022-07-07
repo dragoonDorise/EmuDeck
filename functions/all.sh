@@ -1,6 +1,6 @@
 #!/bin/bash
 if [[ "$EMUDECKGIT" == "" ]]; then
-    EMUDECKGIT="$HOME/dragoonDoriseTools/Emudeck"
+    EMUDECKGIT="$HOME/dragoonDoriseTools/EmuDeck"
 fi
 
 source "$EMUDECKGIT"/functions/checkPSBIOS.sh
