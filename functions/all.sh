@@ -28,9 +28,8 @@ source "$EMUDECKGIT"/functions/migrateAndLinkConfig.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
-source "$EMUDECKGIT"/functions/ToolScripts/configSRM.sh
 source "$EMUDECKGIT"/functions/ToolScripts/installPowerTools.sh
-source "$EMUDECKGIT"/functions/ToolScripts/installSRM.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSRM.sh
 source "$EMUDECKGIT"/functions/ToolScripts/installBinUp.sh
 source "$EMUDECKGIT"/functions/ToolScripts/installCHD.sh
 

@@ -812,12 +812,12 @@ fi
 #Steam RomManager Config
 
 if [ $doSetupSRM == "true" ]; then
-	configSRM
+	SRM.init
 fi
 
 #ESDE Config
 if [ $doSetupESDE == "true" ]; then
-	ESDE.config
+	ESDE.init
 fi	
 
 #Emus config
