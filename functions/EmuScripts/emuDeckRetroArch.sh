@@ -106,7 +106,12 @@ RetroArch.finalize(){
 
 RetroArch.installCores(){
 
-	mkdir -p ~/.var/app/org.libretro.RetroArch/config/retroarch/cores
+	#Requests for:
+	#GP32
+	#N-gage
+	#Game.com
+
+	mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores"
 	raUrl="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
 	RAcores=(bsnes_hd_beta_libretro.so flycast_libretro.so gambatte_libretro.so genesis_plus_gx_libretro.so genesis_plus_gx_wide_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_wswan_libretro.so melonds_libretro.so mesen_libretro.so mgba_libretro.so mupen64plus_next_libretro.so nestopia_libretro.so picodrive_libretro.so ppsspp_libretro.so snes9x_libretro.so stella_libretro.so yabasanshiro_libretro.so yabause_libretro.so yabause_libretro.so mame2003_plus_libretro.so mame2010_libretro.so mame_libretro.so melonds_libretro.so fbneo_libretro.so bluemsx_libretro.so desmume_libretro.so sameboy_libretro.so gearsystem_libretro.so mednafen_saturn_libretro.so opera_libretro.so dosbox_core_libretro.so dosbox_pure_libretro.so dosbox_svn_libretro.so puae_libretro.so)
 	setMSG "Downloading RetroArch Cores for EmuDeck"

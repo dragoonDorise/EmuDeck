@@ -90,6 +90,7 @@ if [ "$?" = -1 ] ; then
 fi
 
 
+
 	
 #
 ##
@@ -112,7 +113,7 @@ case $devMode in
   ;;
 esac	
 
-echo $branch > ~/branch.txt
+echo $branch > "$HOME/emudeck/branch.txt"
 
 #
 ##
@@ -121,14 +122,29 @@ echo $branch > ~/branch.txt
 #
 
 #We create all the needed folders for installation
-mkdir -p "$EMUDECKGIT"
+if [[ ! -e $EMUDECKGIT ]]; then
+	mkdir -p "$EMUDECKGIT"
 
-#Cloning EmuDeck files
-git clone https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
+	#Cloning EmuDeck files
+	git clone https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
+
+else
+	cd "$EMUDECKGIT"
+	git pull
+fi
+
 if [ ! -z "$devMode" ]; then
 	cd "$EMUDECKGIT"
 	git checkout "$branch" 
 fi
+
+#
+##
+## Source all functions and previous values if they exist.
+## We source the settings.sh from the emudeck folder if it exists, inside here too.
+#
+
+source "$EMUDECKGIT"/functions/all.sh
 
 #
 ##
@@ -692,8 +708,9 @@ if [ $zenity == true ]; then
 
 else
 	#We only load functions and config when no Zenity selected
-	source "$EMUDECKGIT"/functions/all.sh
-	source ~/emudeck/settings.sh	
+	#source "$EMUDECKGIT"/functions/all.sh - if we ALWAYS source, 
+	#then we can do stuff like having the settings exactly the way they were on second run.
+	#source $HOME/emudeck/settings.sh put it inside all.sh
 	
 	#Folder creation... This code is repeated outside of this if for the yes zenity mode
 	mkdir -p "$emulationPath"
@@ -732,11 +749,7 @@ fi
 
 
 
-#
-## extra Binaries to path
-#
-export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
-chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
+
 
 
 

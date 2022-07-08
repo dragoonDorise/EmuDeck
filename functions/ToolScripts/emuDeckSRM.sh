@@ -13,9 +13,11 @@ SRM.cleanup(){
 	rm -f $HOME/Desktop/Steam-ROM-Manager-2.3.29.AppImage
 	rm -f $HOME/Desktop/Steam-ROM-Manager.AppImage
 }
+
 SRM.install(){		
-	setMSG "${installString} Steam Rom Manager"
-	mkdir -p "${toolsPath}"/srm
+	setMSG "Installing Steam Rom Manager"
+	SRM.cleanup
+	mkdir -p "${toolsPath}srm"
 	curl -L $SRM_releaseURL -o $SRM_toolPath
 	chmod +x $SRM_toolPath
 	SRM.createDesktopShortcut

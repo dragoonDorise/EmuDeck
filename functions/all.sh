@@ -7,6 +7,10 @@ if [[ -f "$HOME/emudeck/settings.sh" ]]; then
     source "$HOME/emudeck/settings.sh"
 fi
 
+
+export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
+chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
+
 source "$EMUDECKGIT"/functions/checkPSBIOS.sh
 source "$EMUDECKGIT"/functions/configEmuAI.sh
 source "$EMUDECKGIT"/functions/configEmuFP.sh
