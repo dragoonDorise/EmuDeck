@@ -29,12 +29,12 @@ createDesktopIcons(){
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
 	Name=EmuDeck AppImage
-	Exec=~/Applications/Steam-ROM-Manager.AppImage
+	Exec=$HOME/Applications/EmuDeck.AppImage
 	Icon=steamdeck-gaming-return
 	Terminal=false
 	Type=Application
 	StartupNotify=false" > ~/Desktop/EmuDeckAppImage.desktop
 	chmod +x ~/Desktop/EmuDeckAppImage.desktop
-	chmod +x ~/Applications/Steam-ROM-Manager.AppImage
+	chmod +x ~/Applications/EmuDeck.AppImage
 	
 }
