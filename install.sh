@@ -946,7 +946,7 @@ RAAchievment
 
 
 if [ $doInstallCHD == "true" ]; then
-	installCHD
+	CHD.install
 fi
 
 if [ $doInstallGyro == "true" ]; then	
@@ -963,7 +963,7 @@ if [ $branch == 'main' ];then
 	createDesktopIcons
 fi
 
-installBinUp
+BINUP.install
 
 
 # setMSG "Cleaning up downloaded files..."	

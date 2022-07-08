@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BINUP_toolName="Steam Rom Manager"
+BINUP_toolName="EmuDeck Tool Updater"
 BINUP_toolType="script"
 BINUP_toolPath="${toolsPath}binupdate/binupdate.sh"
 
@@ -33,7 +33,7 @@ BINUP.createDesktopShortcut(){
 
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
-	Name=EmuDeck Tool Updater
+	Name="$BINUP_toolName"
 	Exec=bash "$BINUP_toolPath"
 	Icon=steamdeck-gaming-return
 	Terminal=true
