@@ -34,10 +34,10 @@ source "$EMUDECKGIT"/functions/migrateAndLinkConfig.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
-source "$EMUDECKGIT"/functions/ToolScripts/installPowerTools.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckPlugins.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSRM.sh
-source "$EMUDECKGIT"/functions/ToolScripts/installBinUp.sh
-source "$EMUDECKGIT"/functions/ToolScripts/installCHD.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCHD.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckBINUP.sh
 
 #emuscripts
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh
@@ -51,7 +51,6 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRetroArch.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPPSSPP.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDuckStation.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckXemu.sh
-
 
 
 #Soon

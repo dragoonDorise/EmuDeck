@@ -950,13 +950,13 @@ if [ $doInstallCHD == "true" ]; then
 fi
 
 if [ $doInstallGyro == "true" ]; then	
-	InstallGyro=$(bash <(curl -sL https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh))
-	echo $(printf "$InstallGyro" )
+	Plugins.installSteamDeckGyroDSU
 fi
 
 
 if [ $doInstallPowertools == "true" ]; then
-	installPowerTools	
+	Plugins.installPluginLoader
+	Plugins.installPowerTools
 fi
 
 if [ $branch == 'main' ];then
