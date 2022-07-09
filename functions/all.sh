@@ -1,15 +1,22 @@
 #!/bin/bash
+if [[ "$EMUDECKGIT" == "" ]]; then
+    EMUDECKGIT="$HOME/emudeck/git/EmuDeck"
+fi
+
+if [[ -f "$HOME/emudeck/settings.sh" ]]; then
+    source "$HOME/emudeck/settings.sh"
+fi
+
+
+export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
+chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
+
 source "$EMUDECKGIT"/functions/checkPSBIOS.sh
 source "$EMUDECKGIT"/functions/configEmuAI.sh
 source "$EMUDECKGIT"/functions/configEmuFP.sh
-source "$EMUDECKGIT"/functions/configESDE.sh
-source "$EMUDECKGIT"/functions/configSRM.sh
 source "$EMUDECKGIT"/functions/createDesktopIcons.sh
-source "$EMUDECKGIT"/functions/installCHD.sh
+source "$EMUDECKGIT"/functions/changeLine.sh
 source "$EMUDECKGIT"/functions/installEmuFP.sh
-source "$EMUDECKGIT"/functions/installESDE.sh
-source "$EMUDECKGIT"/functions/installPowerTools.sh
-source "$EMUDECKGIT"/functions/installSRM.sh
 source "$EMUDECKGIT"/functions/RAAchievment.sh
 source "$EMUDECKGIT"/functions/RAautoSave.sh
 source "$EMUDECKGIT"/functions/RABezels.sh
@@ -24,20 +31,27 @@ source "$EMUDECKGIT"/functions/linkToSaveFolder.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
 source "$EMUDECKGIT"/functions/getLatestReleaseURLGH.sh
 source "$EMUDECKGIT"/functions/migrateAndLinkConfig.sh
-source "$EMUDECKGIT"/functions/installBinUp.sh
+
+#toolScripts
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckPlugins.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSRM.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCHD.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckBINUP.sh
 
 #emuscripts
-source "$EMUDECKGIT"/EmuScripts/emuDeckYuzu.sh
-source "$EMUDECKGIT"/EmuScripts/emuDeckCemu.sh
-source "$EMUDECKGIT"/EmuScripts/emuDeckPCSX2.sh
-source "$EMUDECKGIT"/EmuScripts/emuDeckRPCS3.sh
-source "$EMUDECKGIT"/EmuScripts/emuDeckCitra.sh
-source "$EMUDECKGIT"/EmuScripts/emuDeckDolphin.sh 
-source "$EMUDECKGIT"/EmuScripts/emuDeckPrimehack.sh
-source "$EMUDECKGIT"/EmuScripts/emuDeckRetroArch.sh
-source "$EMUDECKGIT"/EmuScripts/emuDeckPPSSPP.sh
-source "$EMUDECKGIT"/EmuScripts/emuDeckDuckStation.sh
-source "$EMUDECKGIT"/EmuScripts/emuDeckXemu.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemu.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRPCS3.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCitra.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDolphin.sh 
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPrimehack.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRetroArch.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPPSSPP.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDuckStation.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckXemu.sh
+
 
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckXenia.sh
