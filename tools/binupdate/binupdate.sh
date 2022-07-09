@@ -67,12 +67,12 @@ installSRM(){
         if [[ "$binsToDL" == *"yuzu"* ]]; then
             mkdir -p $HOME/Applications
             cd $HOME/Applications
-            url="$(curl -sL https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases/latest | jq -r ".assets[].browser_download_url" | grep .AppImage\$)"
-            wget -c "$url" -O "yuzu.AppImage" 
+            url="$(curl -sL https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases/latest | jq -r ".assets[].browser_download_url" | grep .AppImage\$)"            
+            curl -Lo "yuzu.AppImage" "$url"
         fi
         if [[ "$binsToDL" == *"cemu"* ]]; then
 
-            releasesStr=$(wget -O - https://cemu.info | awk 'BEGIN{
+            releasesStr=$(curl -sL https://cemu.info | awk 'BEGIN{
             RS="</a>"
             IGNORECASE=1
             }
