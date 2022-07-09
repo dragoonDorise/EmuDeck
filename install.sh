@@ -880,6 +880,7 @@ if [ $doSetupXemu == "true" ]; then
 	if [[ ! -f "${storagePath}xemu/xbox_hdd.qcow2" ]]; then
 		mkdir -p "${storagePath}xemu"
 		cd "${storagePath}xemu"
+		curl -o "xbox_hdd.qcow2.zip" "https://github.com/mborgerson/xemu-hdd-image/releases/latest/download/xbox_hdd.qcow2.zip"
 		wget https://github.com/mborgerson/xemu-hdd-image/releases/latest/download/xbox_hdd.qcow2.zip && unzip -j xbox_hdd.qcow2.zip && rm -rf xbox_hdd.qcow2.zip
 	fi
 fi

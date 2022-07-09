@@ -12,7 +12,7 @@ installEmuAI(){
     mkdir -p $HOME/Applications
     cd $HOME/Applications
 
-    wget -c "$url" -O "$altName.AppImage" 
+    curl -o "$altName.AppImage" "$url"
 	chmod +x "$altName.AppImage"  
     shName=$(echo "$name" | awk '{print tolower($0)}')
     
