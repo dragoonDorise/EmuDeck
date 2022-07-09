@@ -72,7 +72,7 @@ installSRM(){
         fi
         if [[ "$binsToDL" == *"cemu"* ]]; then
 
-            releasesStr=$(wget -O - https://cemu.info | awk 'BEGIN{
+            releasesStr=$(curl -sL https://cemu.info | awk 'BEGIN{
             RS="</a>"
             IGNORECASE=1
             }
