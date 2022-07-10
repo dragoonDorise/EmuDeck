@@ -139,12 +139,12 @@ ESDE.setEmulationFolder(){
 ESDE.setDefaultEmulators(){
 	#ESDE default emulators
 	mkdir -p  "$HOME/.emulationstation/gamelists/"
-	setESDEEmus 'Dolphin (Standalone)' gc
-	setESDEEmus 'PPSSPP (Standalone)' psp
-	setESDEEmus 'Dolphin (Standalone)' wii
-	setESDEEmus 'PCSX2 (Standalone)' ps2
-	setESDEEmus 'melonDS' nds
-	setESDEEmus 'Citra (Standalone)' n3ds
+	ESDE.setEmu 'Dolphin (Standalone)' gc
+	ESDE.setEmu 'PPSSPP (Standalone)' psp
+	ESDE.setEmu 'Dolphin (Standalone)' wii
+	ESDE.setEmu 'PCSX2 (Standalone)' ps2
+	ESDE.setEmu 'melonDS' nds
+	ESDE.setEmu 'Citra (Standalone)' n3ds
 }
 
 
@@ -178,4 +178,25 @@ ESDE.finalize(){
 	ln -sn arcade mamecurrent 
 	ln -sn mame mame2003 
 	ln -sn lynx atarilynx 
+}
+
+
+
+ESDE.setEmu(){		
+	local emu=$1
+	local system=$2
+	local gamelistFile="$HOME/.emulationstation/gamelists/$system/gamelist.xml"
+	if [ ! -f "$gamelistFile" ]; then
+		mkdir -p "$HOME/.emulationstation/gamelists/$system" && cp "$EMUDECKGIT/configs/emulationstation/gamelists/$system/gamelist.xml" "$gamelistFile"
+	else
+		gamelistFound=$(grep -rnw $gamelistFile -e 'gameList')
+		if [[ $gamelistFound == '' ]]; then
+			sed -i -e '$a\<gameList />' $gamelistFile
+		fi
+		alternativeEmu=$(grep -rnw $gamelistFile -e 'alternativeEmulator')
+		if [[ $alternativeEmu == '' ]]; then
+			echo "<alternativeEmulator><label>$emu</label></alternativeEmulator>" >> $gamelistFile
+		fi
+		sed -i "s|<?xml version=\"1.0\">|<?xml version=\"1.0\"?>|g" $gamelistFile
+	fi
 }
