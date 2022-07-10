@@ -62,7 +62,7 @@ PPSSPP.wipe(){
 
 #Uninstall
 PPSSPP.uninstall(){
-    flatpack uninstall "$PPSSPP_emuPath" -y
+    flatpak uninstall "$PPSSPP_emuPath" -y
 }
 
 #setABXYstyle

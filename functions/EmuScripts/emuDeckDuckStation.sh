@@ -68,7 +68,7 @@ DuckStation.wipe(){
 
 #Uninstall
 DuckStation.uninstall(){
-    flatpack uninstall "$DuckStation_emuPath" -y
+    flatpak uninstall "$DuckStation_emuPath" -y
 }
 
 #setABXYstyle

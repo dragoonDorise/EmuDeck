@@ -64,7 +64,7 @@ Citra.wipe(){
 
 #Uninstall
 Citra.uninstall(){
-    flatpack uninstall "$Citra_emuPath" -y
+    flatpak uninstall "$Citra_emuPath" -y
 }
 
 #setABXYstyle

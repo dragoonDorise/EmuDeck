@@ -78,7 +78,7 @@ Xemu.wipe() {
 
 #Uninstall
 Xemu.uninstall() {
-	flatpack uninstall "$Xemu_emuPath" -y
+	flatpak uninstall "$Xemu_emuPath" -y
 }
 
 #setABXYstyle

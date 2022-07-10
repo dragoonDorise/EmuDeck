@@ -63,7 +63,7 @@ Primehack.wipe() {
 
 #Uninstall
 Primehack.uninstall() {
-	flatpack uninstall "${Primehack_emuPath}" -y
+	flatpak uninstall "${Primehack_emuPath}" -y
 }
 
 #setABXYstyle

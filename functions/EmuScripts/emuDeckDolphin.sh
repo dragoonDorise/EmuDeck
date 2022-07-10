@@ -76,7 +76,7 @@ Dolphin.wipe(){
 
 #Uninstall
 Dolphin.uninstall(){
-    flatpack uninstall "$Dolphin_emuPath" -y
+    flatpak uninstall "$Dolphin_emuPath" -y
 }
 
 #setABXYstyle
