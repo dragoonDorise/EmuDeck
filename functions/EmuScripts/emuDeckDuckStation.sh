@@ -13,12 +13,15 @@ DuckStation.cleanup(){
 
 #Install
 DuckStation.install(){
+	setMSG "Installing $DuckStation_emuName"		
+
 	installEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}"	
 	flatpak override "${DuckStation_emuPath}" --filesystem=host --user	
 }
 
 #ApplyInitialSettings
 DuckStation.init(){
+	setMSG "Initializing $DuckStation_emuName settings."
 	configEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}" "true"
 	DuckStation.setupStorage
 	DuckStation.setEmulationFolder
@@ -28,6 +31,7 @@ DuckStation.init(){
 
 #update
 DuckStation.update(){
+	setMSG "Updating $DuckStation_emuName settings."
 	configEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}"
 	DuckStation.setupStorage
 	DuckStation.setEmulationFolder
@@ -37,6 +41,7 @@ DuckStation.update(){
 
 #ConfigurePaths
 DuckStation.setEmulationFolder(){
+	setMSG "Setting $DuckStation_emuName Emulation Folder"	
   	configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
     gameDirOpt='RecursivePaths = '
     newGameDirOpt="${gameDirOpt}""${romsPath}psx"
@@ -61,13 +66,14 @@ DuckStation.setupStorage(){
 
 #WipeSettings
 DuckStation.wipe(){
-   rm -rf "$HOME/.var/app/$DuckStation_emuPath"
-   # prob not cause roms are here
+	setMSG "Wiping $DuckStation_emuName settings folder."	
+   	rm -rf "$HOME/.var/app/$DuckStation_emuPath"
 }
 
 
 #Uninstall
 DuckStation.uninstall(){
+	setMSG "Uninstalling ${DuckStation_emuName}."	
     flatpak uninstall "$DuckStation_emuPath" --user -y
 }
 
@@ -83,7 +89,7 @@ DuckStation.migrate(){
 
 #WideScreenOn
 DuckStation.wideScreenOn(){
-	echo "DuckStation: Widescreen On"
+	setMSG "${DuckStation_emuName}: Widescreen On"
     echo ""
     configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
     wideScreenHack='WidescreenHack = '
@@ -96,7 +102,7 @@ DuckStation.wideScreenOn(){
 
 #WideScreenOff
 DuckStation.wideScreenOff(){
-	echo "DuckStation: Widescreen Off"
+	setMSG "${DuckStation_emuName}: Widescreen Off"
     echo ""
     configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
     wideScreenHack='WidescreenHack = '
@@ -123,5 +129,6 @@ DuckStation.finalize(){
 }
 
 DuckStation.addSteamInputProfile(){
+	setMSG "Adding $DuckStation_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/duckstation_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

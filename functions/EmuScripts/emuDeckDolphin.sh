@@ -12,7 +12,7 @@ Dolphin.cleanup(){
 
 #Install
 Dolphin.install(){
-    echo "Dolphin: Install"
+    setMSG "${Dolphin_emuName}: Install"
     echo ""
 	installEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"	
 	flatpak override "${Dolphin_emuPath}" --filesystem=host --user	
@@ -20,7 +20,7 @@ Dolphin.install(){
 
 #ApplyInitialSettings
 Dolphin.init(){
-    echo "Dolphin: Apply initial config"
+    setMSG "${Dolphin_emuName}: Apply initial config"
     echo ""
 	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}" "true"
 	Dolphin.setupStorage
@@ -30,7 +30,7 @@ Dolphin.init(){
 
 #update
 Dolphin.update(){
-    echo "Dolphin: Apply configuration Update"
+    setMSG "${Dolphin_emuName}: Apply configuration Update"
     echo ""
 	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"
 	Dolphin.setupStorage
@@ -40,7 +40,7 @@ Dolphin.update(){
 
 #ConfigurePaths
 Dolphin.setEmulationFolder(){
-    echo "Dolphin: Configure Emulation folder"
+    setMSG "${Dolphin_emuName}: Configure Emulation folder"
     echo ""
   	configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
     gameDirOpt1='ISOPath0 = '
@@ -53,7 +53,7 @@ Dolphin.setEmulationFolder(){
 
 #SetupSaves
 Dolphin.setupSaves(){
-    echo "Dolphin: setup Saves folder"
+    setMSG "${Dolphin_emuName}: setup Saves folder"
     echo ""
 	linkToSaveFolder dolphin GC "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC"
 	linkToSaveFolder dolphin Wii "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii"
@@ -91,7 +91,7 @@ Dolphin.migrate(){
 
 #WideScreenOn
 Dolphin.wideScreenOn(){
-    echo "Dolphin: Widescreen On"
+    setMSG "${Dolphin_emuName}: Widescreen On"
     echo ""
     configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
     wideScreenHack='wideScreenHack = '
@@ -104,7 +104,7 @@ Dolphin.wideScreenOn(){
 
 #WideScreenOff
 Dolphin.wideScreenOff(){
-    echo "Dolphin: Widescreen Off"
+    setMSG "${Dolphin_emuName}: Widescreen Off"
     echo ""
     configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
     wideScreenHack='wideScreenHack = '

@@ -12,12 +12,14 @@ Citra.finalize(){
 
 #Install
 Citra.install(){
+	setMSG "Installing $Citra_emuName"	
 	installEmuFP "${Citra_emuName}" "${Citra_emuPath}"	
 	flatpak override "${Citra_emuPath}" --filesystem=host --user	
 }
 
 #ApplyInitialSettings
 Citra.init(){
+	setMSG "Initializing $Citra_emuName settings."	
 	configEmuFP "${Citra_emuName}" "${Citra_emuPath}" "true"
 	Citra.setupStorage
 	Citra.setEmulationFolder
@@ -27,6 +29,7 @@ Citra.init(){
 
 #update
 Citra.update(){
+	setMSG "Updating $Citra_emuName settings."	
 	configEmuFP "${Citra_emuName}" "${Citra_emuPath}"
 	Citra.setupStorage
 	Citra.setEmulationFolder
@@ -36,6 +39,7 @@ Citra.update(){
 
 #ConfigurePaths
 Citra.setEmulationFolder(){
+	setMSG "Setting $Citra_emuName Emulation Folder"	
   	configFile="$HOME/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini"
     gameDirOpt='Paths\\gamedirs\\3\\path='
     newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}3ds"
@@ -57,13 +61,14 @@ Citra.setupStorage(){
 
 #WipeSettings
 Citra.wipe(){
-   rm -rf "$HOME/.var/app/$Citra_emuPath"
-   # prob not cause roms are here
+	setMSG "Wiping $Citra_emuName config directory. (factory reset)"
+	rm -rf "$HOME/.var/app/$Citra_emuPath"
 }
 
 
 #Uninstall
 Citra.uninstall(){
+	setMSG "Uninstalling $Citra_emuName."
     flatpak uninstall "$Citra_emuPath" --user -y
 }
 

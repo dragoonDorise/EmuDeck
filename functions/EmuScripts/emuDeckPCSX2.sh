@@ -12,6 +12,8 @@ PCSX2.cleanup(){
 
 #Install
 PCSX2.install(){
+	setMSG "Installing $PCSX2_emuName"	
+
 	installEmuFP "${PCSX2_emuName}" "${PCSX2_emuPath}"
 	flatpak override "${PCSX2_emuPath}" --filesystem=host --user
 	flatpak override "${PCSX2_emuPath}" --share=network --user 
@@ -19,6 +21,7 @@ PCSX2.install(){
 
 #ApplyInitialSettings
 PCSX2.init(){
+	setMSG "Initializing $PCSX2_emuName settings."	
 	configEmuFP  "${PCSX2_emuName}" "${PCSX2_emuPath}" "true"
 	PCSX2.setEmulationFolder
 	PCSX2.setupSaves
@@ -27,6 +30,7 @@ PCSX2.init(){
 
 #update
 PCSX2.update(){
+	setMSG "Updating $PCSX2_emuName settings."
 	configEmuFP  "${PCSX2_emuName}" "${PCSX2_emuPath}"
 	PCSX2.setEmulationFolder
 	PCSX2.setupSaves
@@ -35,6 +39,7 @@ PCSX2.update(){
 
 #ConfigurePaths
 PCSX2.setEmulationFolder(){
+	setMSG "Setting $PCSX2_emuName Emulation Folder"
 	configFile="$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini"
 	biosDirOpt='Bios=\/'
 	newBiosDirOpt='Bios='"${biosPath}"
@@ -56,6 +61,7 @@ PCSX2.setupStorage(){
 
 #WipeSettings
 PCSX2.wipe(){
+	setMSG "Wiping $PCSX2_emuName settings."
    rm -rf "$HOME/.var/app/$PCSX2_emuPath"
    # prob not cause roms are here
 }
@@ -63,6 +69,7 @@ PCSX2.wipe(){
 
 #Uninstall
 PCSX2.uninstall(){
+	setMSG "Uninstalling $PCSX2_emuName."
     flatpak uninstall $PCSX2_emuPath --user -y
 }
 
@@ -102,5 +109,6 @@ PCSX2.finalize(){
 }
 
 PCSX2.addSteamInputProfile(){
+	setMSG "Adding $PCSX2_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/pcsx2_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
