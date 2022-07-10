@@ -5,8 +5,9 @@ fi
 
 SETTINGSFILE="$HOME/emudeck/settings.sh"
 if [ -f "$SETTINGSFILE" ]; then
-    source "$EMUDECKGIT/settings.sh"
-    else
+    source "$SETTINGSFILE"
+    echo "settings file loaded."
+else
     cp "$EMUDECKGIT/settings.sh" "$SETTINGSFILE"
 fi
 

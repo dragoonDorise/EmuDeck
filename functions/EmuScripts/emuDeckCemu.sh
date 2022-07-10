@@ -60,6 +60,7 @@ Cemu.update(){
 
 #ConfigurePaths
 Cemu.setEmulationFolder(){
+	setMSG "Setting Cemu Emulation Folder"	
     Cemu_cemuSettings="${romsPath}wiiu/settings.xml"
 	if [[ -f "${Cemu_cemuSettings}" ]]; then
 		gamePathEntryFound=$(grep -rnw $Cemu_cemuSettings -e "z:${romsPath}wiiu/roms")
@@ -71,6 +72,7 @@ Cemu.setEmulationFolder(){
 
 #SetupSaves
 Cemu.setupSaves(){
+	setMSG "Linking Cemu Saves to Emulation/saves"
 	unlink "${savesPath}Cemu/saves" # Fix for previous bad symlink
 	linkToSaveFolder Cemu saves "${romsPath}wiiu/mlc01/usr/save"
 }
