@@ -4,16 +4,19 @@ RetroArch_emuName="RetroArch"
 RetroArch_emuType="FlatPak"
 RetroArch_emuPath="org.libretro.RetroArch"
 RetroArch_releaseURL=""
+RetroArch_configFile="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
 
 #cleanupOlderThings
 RetroArch.cleanup(){
- echo "NYI"
+	echo "NYI"
 }
 
 #Install
 RetroArch.install(){
+
 	installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
-	flatpak override "${RetroArch_emuPath}" --filesystem=host --user	
+	flatpak override "${RetroArch_emuPath}" --filesystem=host --user
+
 }
 
 #ApplyInitialSettings
@@ -38,10 +41,11 @@ RetroArch.update(){
 
 #ConfigurePaths
 RetroArch.setEmulationFolder(){
-	configFile="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
+
 	system_directory='system_directory = '
 	system_directorySetting="${system_directory}""\"${biosPath}\""
 	sed -i "/${system_directory}/c\\${system_directorySetting}" $configFile
+
 }
 
 #SetupSaves
@@ -53,7 +57,7 @@ RetroArch.setupSaves(){
 
 #SetupStorage
 RetroArch.setupStorage(){
- echo "NYI"
+	echo "NYI"
 }
 
 
@@ -66,7 +70,7 @@ RetroArch.wipe(){
 
 #Uninstall
 RetroArch.uninstall(){
-    flatpack uninstall $RetroArch_emuPath -y
+    flatpack uninstall "$RetroArch_emuPath" -y
 }
 
 #setABXYstyle
@@ -156,3 +160,63 @@ RetroArch.installCores(){
 
 }
 
+RetroArch.autoSaveOn(){
+	changeLine 'savestate_auto_load = ' 'savestate_auto_load = "true"' "$RetroArch_configFile"
+	changeLine 'savestate_auto_save = ' 'savestate_auto_save = "true"' "$RetroArch_configFile"
+}
+RetroArch.autoSaveOn(){
+	changeLine 'savestate_auto_load = ' 'savestate_auto_load = "false"' "$RetroArch_configFile"
+	changeLine 'savestate_auto_save = ' 'savestate_auto_save = "false"' "$RetroArch_configFile"
+}
+RetroArch.retroAchievementsOn(){
+	changeLine 'cheevos_enable = ' 'cheevos_enable = "true"' "$RetroArch_configFile"
+}
+RetroArch.retroAchievementsOff(){
+	changeLine 'cheevos_enable = ' 'cheevos_enable = "false"' "$RetroArch_configFile"
+}
+RetroArch.retroAchievementsPromptLogin(){
+	text=$(printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>\n\nActivating RetroAchievments will disable save states unless you disable hardcore mode\n\n\n\nPress STEAM + X to get the onscreen Keyboard\n\n<b>Make sure your RetroAchievments account is validated on the website or RetroArch will crash</b>")	
+	RAInput=$(zenity --forms \
+			--title="Retroachievements Sign in" \
+			--text="$text" \
+			--add-entry="Username: " \
+			--add-password="Password: " \
+			--separator="," 2>/dev/null)
+			ans=$?
+	if [ $ans -eq 0 ]; then
+		echo "RetroAchievment Login"
+		echo $RAInput | awk -F "," '{print $1}' > "$HOME/emudeck/.rau"
+		echo $RAInput | awk -F "," '{print $2}' > "$HOME/emudeck/.rap"
+	else
+		echo "Cancel RetroAchievment Login" 
+	fi
+}
+RetroArch.retroAchievementsSetLogin(){
+	rap=$(cat ~/emudeck/.rap)
+	rau=$(cat ~/emudeck/.rau)
+	echo "Evaluate RetroAchievements Login."
+	if [ ${#rap} -lt 1 ]; then
+		echo "--No password."
+	elif [ ${#rau} -lt 1 ]; then
+		echo "--No username."
+	else
+		echo "Valid Retroachievements Username and Password length"
+		changeLine 'cheevos_username = ' 'cheevos_username = "'${rau}'"' "$RetroArch_configFile"
+		changeLine 'cheevos_password = ' 'cheevos_password = "'${rap}'"' "$RetroArch_configFile"
+	fi
+}
+RetroArch.setSNESAR(){
+	AR=$1
+	if [ $SNESAR == 43 ]; then	
+		cp ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes43.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes.cfg	
+	else
+		cp ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes87.cfg ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Snes9x/snes.cfg	
+	fi	
+}
+RetroArch.bezelOn(){
+	if [ $RABezels == true ]; then	
+		find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.bak" | while read f; do mv -v "$f" "${f%.*}.cfg"; done 
+	else
+		find ~/.var/app/org.libretro.RetroArch/config/retroarch/config/ -type f -name "*.cfg" | while read f; do mv -v "$f" "${f%.*}.bak"; done 
+	fi	
+}

@@ -19,10 +19,6 @@ source "$EMUDECKGIT"/functions/configEmuFP.sh
 source "$EMUDECKGIT"/functions/createDesktopIcons.sh
 source "$EMUDECKGIT"/functions/helperFunctions.sh
 source "$EMUDECKGIT"/functions/installEmuFP.sh
-source "$EMUDECKGIT"/functions/RAAchievment.sh
-source "$EMUDECKGIT"/functions/RAautoSave.sh
-source "$EMUDECKGIT"/functions/RABezels.sh
-source "$EMUDECKGIT"/functions/RASNES.sh
 source "$EMUDECKGIT"/functions/setESDEEmus.sh
 source "$EMUDECKGIT"/functions/setMSG.sh
 source "$EMUDECKGIT"/functions/setUpHolo.sh
