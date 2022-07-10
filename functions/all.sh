@@ -22,7 +22,6 @@ source "$EMUDECKGIT"/functions/installEmuFP.sh
 source "$EMUDECKGIT"/functions/setESDEEmus.sh
 source "$EMUDECKGIT"/functions/setMSG.sh
 source "$EMUDECKGIT"/functions/setUpHolo.sh
-source "$EMUDECKGIT"/functions/setWide.sh
 source "$EMUDECKGIT"/functions/setSetting.sh
 source "$EMUDECKGIT"/functions/linkToSaveFolder.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
