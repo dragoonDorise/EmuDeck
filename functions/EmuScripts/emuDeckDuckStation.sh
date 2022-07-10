@@ -23,6 +23,7 @@ DuckStation.init(){
 	DuckStation.setupStorage
 	DuckStation.setEmulationFolder
 	DuckStation.setupSaves
+	DuckStation.addSteamInputProfile
 }
 
 #update
@@ -31,6 +32,7 @@ DuckStation.update(){
 	DuckStation.setupStorage
 	DuckStation.setEmulationFolder
 	DuckStation.setupSaves
+	DuckStation.addSteamInputProfile
 }
 
 #ConfigurePaths
@@ -120,3 +122,6 @@ DuckStation.finalize(){
 	echo "NYI"
 }
 
+DuckStation.addSteamInputProfile(){
+	rsync -r "$EMUDECKGIT/configs/steam-input/duckstation_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+}

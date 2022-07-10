@@ -22,6 +22,7 @@ PCSX2.init(){
 	configEmuFP  "${PCSX2_emuName}" "${PCSX2_emuPath}" "true"
 	PCSX2.setEmulationFolder
 	PCSX2.setupSaves
+	PCSX2.addSteamInputProfile
 }
 
 #update
@@ -29,6 +30,7 @@ PCSX2.update(){
 	configEmuFP  "${PCSX2_emuName}" "${PCSX2_emuPath}"
 	PCSX2.setEmulationFolder
 	PCSX2.setupSaves
+	PCSX2.addSteamInputProfile
 }
 
 #ConfigurePaths
@@ -99,3 +101,6 @@ PCSX2.finalize(){
 	echo "NYI"
 }
 
+PCSX2.addSteamInputProfile(){
+	rsync -r "$EMUDECKGIT/configs/steam-input/pcsx2_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+}

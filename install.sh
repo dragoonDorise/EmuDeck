@@ -779,19 +779,7 @@ fi
 
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ $doInstallXenia == "true" ]; then
-	setMSG "Installing Xenia"		
-	FILE="${romsPath}xbox360/xenia.exe"	
-	if [ -f "$FILE" ]; then
-		echo "" 2>/dev/null
-	else
-		curl -L https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip --output "$romsPath"xbox360/xenia_master.zip 
-		mkdir -p "$romsPath"xbox360/tmp
-		unzip -o "$romsPath"xbox360/xenia_master.zip -d "$romsPath"xbox360/tmp 
-		mv "$romsPath"xbox360/tmp/* "$romsPath"xbox360 
-		rm -rf "$romsPath"xbox360/tmp 
-		rm -f "$romsPath"xbox360/xenia_master.zip 		
-	fi
-	
+	Xenia.install
 fi
 
 #Steam RomManager Config
@@ -806,8 +794,8 @@ if [ $doSetupESDE == "true" ]; then
 fi	
 
 #Emus config
-setMSG "Configuring Steam Input for emulators.."
-rsync -r $EMUDECKGIT/configs/steam-input/ ~/.steam/steam/controller_base/templates/
+#setMSG "Configuring Steam Input for emulators.." moved to emu install
+
 
 setMSG "Configuring emulators.."
 
@@ -846,7 +834,7 @@ if [ $doSetupCemu == "true" ]; then
 	Cemu.init
 fi
 if [ $doSetupXenia == "true" ]; then
-	rsync -avhp $EMUDECKGIT/configs/xenia/ "$romsPath"/xbox360 
+	Xenia.init
 fi
 
 
@@ -873,19 +861,31 @@ Yuzu.finalize
 
 
 #RA Bezels	
-RABezels
+RetroArch.bezelOn #needs to change
 
 #RA SNES Aspect Ratio
-RASNES
+RetroArch.setSNESAR #needs to change
 
 #RA AutoSave	
-RAautoSave
+if [ $RAautoSave == true ]; then
+	RetroArch.autoSaveOn
+else
+	RetroArch.autoSaveOff
+fi	
 
 #Widescreen hacks
 setWide
 
 #RetroAchievments
-RAAchievment
+if [ $doRASignIn == "true" ]; then
+	RetroArch.retroAchievementsPromptLogin
+	RetroArch.retroAchievementsSetLogin
+	RetroArch.retroAchievementsOn
+fi
+
+if [ $doRAEnable == "true" ]; then
+	RetroArch.retroAchievementsOn
+fi
 
 
 if [ $doInstallCHD == "true" ]; then

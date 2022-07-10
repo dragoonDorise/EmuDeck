@@ -22,6 +22,7 @@ Citra.init(){
 	Citra.setupStorage
 	Citra.setEmulationFolder
 	Citra.setupSaves
+	Citra.addSteamInputProfile
 }
 
 #update
@@ -30,6 +31,7 @@ Citra.update(){
 	Citra.setupStorage
 	Citra.setEmulationFolder
 	Citra.setupSaves
+	Citra.addSteamInputProfile
 }
 
 #ConfigurePaths
@@ -100,3 +102,6 @@ Citra.finalize(){
 	echo "NYI"
 }
 
+Citra.addSteamInputProfile(){
+	rsync -r "$EMUDECKGIT/configs/steam-input/citra_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+}

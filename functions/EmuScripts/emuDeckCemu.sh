@@ -40,6 +40,7 @@ Cemu.init(){
 	rsync -avhp $EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/ "${romsPath}wiiu"
     Cemu.setEmulationFolder
 	Cemu.setupSaves
+	Cemu.addSteamInputProfile
 }
 
 #update
@@ -54,6 +55,7 @@ Cemu.update(){
 	mv -f $Cemu_cemuSettings.bak $Cemu_cemuSettings
     Cemu.setEmulationFolder
 	Cemu.setupSaves
+	Cemu.addSteamInputProfile
 }
 
 #ConfigurePaths
@@ -128,3 +130,6 @@ Cemu.finalize(){
     Cemu.cleanup
 }
 
+Cemu.addSteamInputProfile(){
+	rsync -r "$EMUDECKGIT/configs/steam-input/cemu_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+}
