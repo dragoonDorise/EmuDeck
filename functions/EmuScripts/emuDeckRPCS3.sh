@@ -80,7 +80,7 @@ RPCS3.wipe(){
 
 #Uninstall
 RPCS3.uninstall(){
-    flatpak uninstall "$RPCS3_emuPath" -y
+    flatpak uninstall "$RPCS3_emuPath" --user -y
 }
 
 #setABXYstyle

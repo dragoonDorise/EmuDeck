@@ -70,7 +70,7 @@ RetroArch.wipe(){
 
 #Uninstall
 RetroArch.uninstall(){
-    flatpak uninstall "$RetroArch_emuPath" -y
+    flatpak uninstall "$RetroArch_emuPath" --user -y
 }
 
 #setABXYstyle

@@ -63,7 +63,7 @@ PCSX2.wipe(){
 
 #Uninstall
 PCSX2.uninstall(){
-    flatpak uninstall $PCSX2_emuPath -y
+    flatpak uninstall $PCSX2_emuPath --user -y
 }
 
 #setABXYstyle
