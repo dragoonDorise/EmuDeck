@@ -47,10 +47,9 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRetroArch.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPPSSPP.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDuckStation.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckXemu.sh
-
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckXenia.sh
 
 #Soon
-#source "$EMUDECKGIT"/EmuScripts/emuDeckXenia.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMelonDS.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMgba.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
