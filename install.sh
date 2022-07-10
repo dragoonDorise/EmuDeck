@@ -5,12 +5,12 @@
 ## Pid Lock...
 ##
 #
-mkdir -p $HOME/emudeck
-PIDFILE=$HOME/emudeck/install.pid
+mkdir -p "$HOME/emudeck"
+PIDFILE="$HOME/emudeck/install.pid"
 
 if [ -f $PIDFILE ]
 then
-  PID=$(cat $PIDFILE)
+  PID=$(cat "$PIDFILE")
   ps -p $PID > /dev/null 2>&1
   if [ $? -eq 0 ]
   then
@@ -18,7 +18,7 @@ then
     exit 1
   else
     ## Process not found assume not running
-    echo $$ > $PIDFILE
+    echo $$ > "$PIDFILE"
     if [ $? -ne 0 ]
     then
       echo "Could not create PID file"
@@ -26,7 +26,7 @@ then
     fi
   fi
 else
-  echo $$ > $PIDFILE
+  echo $$ > "$PIDFILE"
   if [ $? -ne 0 ]
   then
     echo "Could not create PID file"
@@ -37,7 +37,7 @@ fi
 
 #
 ##
-## Init... This code is needed for both Zenity and non Zenty modes
+## Init... This code is needed for both Zenity and non Zenity modes
 ##
 #
 
@@ -46,105 +46,120 @@ rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
 rm -rf ~/dragoonDoriseTools
 
 #Creating log file
-echo "" > ~/emudeck/emudeck.log
-LOGFILE=~/emudeck/emudeck.log
+mv "$HOME/emudeck/emudeck.log" "$HOME/emudeck/emudeck.last.log" #backup last log
+echo "${@}" > "$HOME/emudeck/emudeck.log" #might as well log out the parameters of the run
+LOGFILE="$HOME/emudeck/emudeck.log"
 exec > >(tee ${LOGFILE}) 2>&1
 
 #Mark if this not a fresh install
-FOLDER=~/emudeck/
+FOLDER="$HOME/emudeck/"
 if [ -d "$FOLDER" ]; then
-	echo "" > ~/emudeck/.finished
+	echo "" > "$HOME/emudeck/.finished"
 fi
 sleep 1
-SECONDTIME=~/emudeck/.finished
-EMUDECKGIT="$HOME/emudeck/git/EmuDeck"
+SECONDTIME="$HOME/emudeck/.finished"
 
-# Seeting up the progress Bar for the rest of the installation
-finished=false
-echo "0" > ~/emudeck/msg.log
-echo "# Installing EmuDeck" >> ~/emudeck/msg.log
-MSG=~/emudeck/msg.log
-(	
-	while [ $finished == false ]
-	do 
-		  cat $MSG		    
-		  if grep -q "100" "$MSG"; then
-			  finished=true
-			break
-		  fi
+
+# # Seeting up the progress Bar for the rest of the installation
+# finished=false
+# echo "0" > ~/emudeck/msg.log
+# echo "# Installing EmuDeck" >> ~/emudeck/msg.log
+# MSG=~/emudeck/msg.log
+# (	
+# 	while [ $finished == false ]
+# 	do 
+# 		  cat $MSG		    
+# 		  if grep -q "100" "$MSG"; then
+# 			  finished=true
+# 			break
+# 		  fi
 							  
-	done &
-) |
-zenity --progress \
-  --title="Installing EmuDeck" \
-  --text="Installing EmuDeck..." \
-  --percentage=0 \
-  --no-cancel \
-  --pulsate \
-  --auto-close \
-  --width=300 \ &
+# 	done &
+# ) |
+# zenity --progress \
+#   --title="Installing EmuDeck" \
+#   --text="Installing EmuDeck..." \
+#   --percentage=0 \
+#   --no-cancel \
+#   --pulsate \
+#   --auto-close \
+#   --width=300 \ &
 
-if [ "$?" = -1 ] ; then
-	zenity --error \
-	--text="Update canceled."
-fi
+# if [ "$?" = -1 ] ; then
+# 	zenity --error \
+# 	--text="Update canceled."
+# fi
 
 
 
 	
+# #
+# ##
+# ## Branch to download
+# ##
+# #
+# devMode=$1
+# case $devMode in
+#   "BETA")
+# 	branch="beta"
+#   ;;
+#   "DEV")
+# 	  branch="dev"
+# 	;;  
+#   "EmuReorg")
+# 	  branch="EmuReorg"
+# 	;;  
+#   *)
+# 	branch="main"
+#   ;;
+# esac	
+
+# echo $branch > "$HOME/emudeck/branch.txt"
+
+# #
+# ##
+# ## Downloading files...
+# ##
+# #
+
+# #We create all the needed folders for installation
+# if [[ ! -e $EMUDECKGIT ]]; then
+# 	mkdir -p "$EMUDECKGIT"
+
+# 	#Cloning EmuDeck files
+# 	git clone https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
+
+# else
+# 	cd "$EMUDECKGIT"
+# 	git pull
+# fi
+
+# if [ ! -z "$devMode" ]; then
+# 	cd "$EMUDECKGIT"
+# 	git checkout "$branch" 
+# fi
+
 #
 ##
-## Branch to download
+## set backend location
 ##
-#
-devMode=$1
-case $devMode in
-  "BETA")
-	branch="beta"
-  ;;
-  "DEV")
-	  branch="dev"
-	;;  
-  "EmuReorg")
-	  branch="EmuReorg"
-	;;  
-  *)
-	branch="main"
-  ;;
-esac	
-
-echo $branch > "$HOME/emudeck/branch.txt"
-
-#
-##
-## Downloading files...
-##
-#
-
-#We create all the needed folders for installation
-if [[ ! -e $EMUDECKGIT ]]; then
-	mkdir -p "$EMUDECKGIT"
-
-	#Cloning EmuDeck files
-	git clone https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
-
-else
-	cd "$EMUDECKGIT"
-	git pull
-fi
-
-if [ ! -z "$devMode" ]; then
-	cd "$EMUDECKGIT"
-	git checkout "$branch" 
-fi
+# I think this should just be in the source, so there's one spot for initialization.
+EMUDECKGIT="$HOME/emudeck/backend"
 
 #
 ##
 ## Source all functions and previous values if they exist.
 ## We source the settings.sh from the emudeck folder if it exists, inside here too.
+##
 #
 
-source "$EMUDECKGIT"/functions/all.sh
+source "$EMUDECKGIT/functions/all.sh"
+
+#
+#Hardware Check for Non SteamDeck Users
+#
+testRealDeck
+
 
 #
 ##
@@ -169,7 +184,7 @@ if [ $zenity == true ]; then
 	if [ -d "$EMUDECKGIT" ]; then
 		echo -e "Files Downloaded!"
 	clear
-	cat $EMUDECKGIT/logo.ans
+	#cat $EMUDECKGIT/logo.ans
 	version=$(cat $EMUDECKGIT/version.md)
 	echo -e "${BOLD}EmuDeck ${version}${NONE}"
 	echo -e ""
@@ -177,7 +192,7 @@ if [ $zenity == true ]; then
 	
 	else
 		echo -e ""
-		echo -e "We couldn't download the needed files, exiting in a few seconds"
+		echo -e "Backend Files are missing!"
 		echo -e "Please close this window and try again in a few minutes"
 		sleep 999999
 		exit
@@ -189,16 +204,6 @@ if [ $zenity == true ]; then
 	##
 	#
 	
-	#Functions and settings, this code is repeated outside of this conditional, remember to 
-	source "$EMUDECKGIT/functions/all.sh"
-	#Check for config file
-	SETTINGSFILE="$HOME/emudeck/settings.sh"
-	if [ -f "$SETTINGSFILE" ]; then
-		source "$EMUDECKGIT/settings.sh"
-		else
-		cp "$EMUDECKGIT/settings.sh" "$SETTINGSFILE"
-	fi
-
 	
 	#
 	## Splash screen
@@ -217,14 +222,7 @@ if [ $zenity == true ]; then
 	--width="${width}" \
 	--text="${text}" 2>/dev/null
 		
-	#
-	#Hardware Check for Holo Users
-	#
-	if [[ "$(cat /sys/devices/virtual/dmi/id/product_name)" =~ Jupiter ]]; then
-		isRealDeck=true
-	else
-		isRealDeck=false
-	fi
+	
 	
 	#
 	# Initialize locations
@@ -233,17 +231,13 @@ if [ $zenity == true ]; then
 	locationTable+=(TRUE "Internal" "$HOME") #always valid
 	
 	#built in SD Card reader
-	if [ -b "/dev/mmcblk0p1" ]; then	
-		#test if card is writable and linkable
-		sdCardFull="$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)"
-		echo "SD Card found; testing $sdCardFull for validity."
-		sdValid=$(testLocationValid "SD" $sdCardFull)
-		echo "SD Card at $sdCardFull is valid? Return val: $sdValid"
-		if [[ $sdValid == "valid" ]]; then
-			locationTable+=(FALSE "SD Card" "$sdCardFull") 
-		fi
+	sdCardFull=$(getSDPath)
+	sdValid=$(testLocationValid "SD" $sdCardFull)
+	echo "$sdCardFull $sdValid"
+    if [[ ! $sdValid =~ "Invalid" ]]; then
+		locationTable+=(FALSE "SD Card" "$sdCardFull") 
 	fi
-	
+
 	#
 	# Installation mode selection
 	#
@@ -289,18 +283,12 @@ if [ $zenity == true ]; then
 	fi
 	
 	if [[ $destination == "CUSTOM" ]]; then
-		destination=$(zenity --file-selection --directory --title="Select a destination for the Emulation directory." 2>/dev/null)
-		if [[ $destination != "CUSTOM" ]]; then
-			echo "Storage: ${destination}"
-			customValid=$(testLocationValid "Custom" "${destination}")
-	
-			if [[ $customValid != "valid" ]]; then
-				echo "Valid location not chosen. Exiting"
-				exit
-			fi
-	
-		else
-			echo "User didn't choose. Exiting."
+		destination=$(customLocation)
+		customValid=$(testLocationValid "Custom" "${destination}")
+		echo $customValid
+		if [[ $customValid =~ "Invalid" ]]; then
+			echo "User chose invalid location. Exiting."
+			#zenity pop up explaining why
 			exit
 		fi
 	fi
@@ -326,7 +314,7 @@ if [ $zenity == true ]; then
 	setMSG "Creating roms folder in $destination"
 	
 	sleep 3
-	rsync -r --ignore-existing $EMUDECKGIT/roms/ "$romsPath" 
+	rsync -r --ignore-existing "$EMUDECKGIT/roms/" "$romsPath" 
 	#End repeated code	
 	
 	#
@@ -418,6 +406,7 @@ if [ $zenity == true ]; then
 					--title="EmuDeck" \
 					--width=400 \
 					--text="${text}" 2>/dev/null
+					sleep 10
 					passwd 
 				fi
 				PASSWD="$(zenity --password --title="Enter Deck User Password (not Steam account!)" 2>/dev/null)"
@@ -456,7 +445,7 @@ if [ $zenity == true ]; then
 			emuTable+=(TRUE "WiiU" "Cemu")
 			emuTable+=(TRUE "XBox" "Xemu")
 			#if we are in beta / dev install, allow Xenia. Still false by default though. Will only work on expert mode, and explicitly turned on.
-			if [[ $branch=="beta" || $branch=="dev" ]]; then
+			if [[ $branch == "beta" || $branch == "dev" ]]; then
 				emuTable+=(FALSE "Xbox360" "Xenia")
 			fi
 			
@@ -580,14 +569,10 @@ if [ $zenity == true ]; then
 				exit		
 			fi			
 		fi
-		#We mark we've made a custom configuration for future updates
-		echo "" > ~/emudeck/.custom
 		
 		if [[ $doResetEmulators == "true" ]]; then
 			# Configuration that only appplies to previous users
 			if [ -f "$SECONDTIME" ]; then
-	
-				installString='Updating'
 	
 				emuTable=()
 				emuTable+=(TRUE "RetroArch")
@@ -699,12 +684,7 @@ if [ $zenity == true ]; then
 		setSetting XemuWide false	
 	
 	fi # end Expert if
-	
-	
-	#Support for non-valve hardware.
-	if [[ $isRealDeck == false ]]; then
-		 setUpHolo
-	fi
+
 
 else
 	#We only load functions and config when no Zenity selected
@@ -724,50 +704,44 @@ else
 	setMSG "Creating roms folder in $destination"
 	
 	sleep 3
-	rsync -r --ignore-existing $EMUDECKGIT/roms/ "$romsPath" 
+	rsync -r --ignore-existing "$EMUDECKGIT/roms/" "$romsPath" 
 	#End repeated code	
 fi
 
 
-##
+#
 ##
 ## End of Zenity configuration
 ##	
-##
+#
 
 
 	
 	
-##
+#
 ##
 ## Start of installation
 ##	
-##
-## First up - migrate things that need to move. Now in the update method.
-#echo "begin migrations"
-#doMigrations
+#
 
-
-
-
-
-
+#Support for non-valve hardware.
+if [[ $isRealDeck == false ]]; then
+	setUpHolo
+fi
 
 #setup Proton-Launch.sh
 #because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
-cp $EMUDECKGIT/tools/proton-launch.sh "${toolsPath}"proton-launch.sh
-chmod +x "${toolsPath}"proton-launch.sh
+cp "$EMUDECKGIT/tools/proton-launch.sh" "${toolsPath}proton-launch.sh"
+chmod +x "${toolsPath}proton-launch.sh"
 
 #ESDE Installation
 if [ $doInstallESDE == "true" ]; then
 	ESDE.install		
 fi
-	
 #SRM Installation
 if [ $doInstallSRM == "true" ]; then
-	installSRM
+	SRM.install
 fi
-
 #Emulators Installation
 if [ $doInstallPCSX2 == "true" ]; then	
 	PCSX2.install
@@ -836,7 +810,7 @@ setMSG "Configuring Steam Input for emulators.."
 rsync -r $EMUDECKGIT/configs/steam-input/ ~/.steam/steam/controller_base/templates/
 
 setMSG "Configuring emulators.."
-echo -e ""
+
 if [ $doSetupRA == "true" ]; then
 	RetroArch.init
 fi
@@ -872,7 +846,6 @@ if [ $doSetupCemu == "true" ]; then
 	Cemu.init
 fi
 if [ $doSetupXenia == "true" ]; then
-	echo "" 
 	rsync -avhp $EMUDECKGIT/configs/xenia/ "$romsPath"/xbox360 
 fi
 
@@ -890,32 +863,11 @@ Yuzu.finalize
 #
 
 
-#
-##
-##Validations
-##
-#
-
-#PS Bios
-checkPSBIOS
-
-#Yuzu Keys & Firmware
-FILE="$HOME/.local/share/yuzu/keys/prod.keys"
-if [ -f "$FILE" ]; then
-	echo -e "" 2>/dev/null
-else
-		
-	text="`printf "<b>Yuzu is not configured</b>\nYou need to copy your Keys and firmware to: \n${biosPath}yuzu/keys\n${biosPath}yuzu/firmware\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them</b>"`"
-	zenity --error \
-			--title="EmuDeck" \
-			--width=400 \
-			--text="${text}" 2>/dev/null
-fi
 
 
 ##
 ##
-## RetroArch Customizations.
+## Customizations.
 ##
 ##
 
@@ -928,15 +880,6 @@ RASNES
 
 #RA AutoSave	
 RAautoSave
-
-
-
-##
-##
-## Other Customizations.
-##
-##
-
 
 #Widescreen hacks
 setWide
@@ -966,15 +909,37 @@ fi
 BINUP.install
 
 
-# setMSG "Cleaning up downloaded files..."	
-# rm -rf ~/dragoonDoriseTools	
-clear
+#
+##
+##Validations
+##
+#
+
+#PS Bios
+checkPSBIOS
+
+#Yuzu Keys & Firmware
+FILE="$HOME/.local/share/yuzu/keys/prod.keys"
+if [ -f "$FILE" ]; then
+	echo -e "" 2>/dev/null
+else
+	if [ $zenity == true ]; then
+	text="`printf "<b>Yuzu is not configured</b>\nYou need to copy your Keys and firmware to: \n${biosPath}yuzu/keys\n${biosPath}yuzu/firmware\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them</b>"`"
+	zenity --error \
+			--title="EmuDeck" \
+			--width=400 \
+			--text="${text}" 2>/dev/null
+	else
+		echo $text
+	fi
+fi
+
 
 # We mark the script as finished	
-echo "" > ~/emudeck/.finished
-echo "" > ~/emudeck/.electron-finished
-echo "100" > ~/emudeck/msg.log
-echo "# Installation Complete" >> ~/emudeck/msg.log
+echo "" > "$HOME/emudeck/.finished"
+echo "" > "$HOME/emudeck/.electron-finished"
+echo "100" > "$HOME/emudeck/msg.log"
+echo "# Installation Complete" >> "$HOME/emudeck/msg.log"
 finished=true
 rm $PIDFILE
 
@@ -991,8 +956,7 @@ if [ $zenity == true ]; then
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		kill -15 `pidof steam`
-		cd ${toolsPath}/srm
-		./Steam-ROM-Manager.AppImage
+		${toolsPath}/srm/Steam-ROM-Manager.AppImage
 		zenity --question \
 		 	--title="EmuDeck" \
 		 	--width=350 \

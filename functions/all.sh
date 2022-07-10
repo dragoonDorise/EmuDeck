@@ -1,12 +1,14 @@
 #!/bin/bash
 if [[ "$EMUDECKGIT" == "" ]]; then
-    EMUDECKGIT="$HOME/emudeck/git/EmuDeck"
+    EMUDECKGIT="$HOME/emudeck/backend"
 fi
 
-if [[ -f "$HOME/emudeck/settings.sh" ]]; then
-    source "$HOME/emudeck/settings.sh"
+SETTINGSFILE="$HOME/emudeck/settings.sh"
+if [ -f "$SETTINGSFILE" ]; then
+    source "$EMUDECKGIT/settings.sh"
+    else
+    cp "$EMUDECKGIT/settings.sh" "$SETTINGSFILE"
 fi
-
 
 export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
 chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
@@ -15,7 +17,7 @@ source "$EMUDECKGIT"/functions/checkPSBIOS.sh
 source "$EMUDECKGIT"/functions/configEmuAI.sh
 source "$EMUDECKGIT"/functions/configEmuFP.sh
 source "$EMUDECKGIT"/functions/createDesktopIcons.sh
-source "$EMUDECKGIT"/functions/changeLine.sh
+source "$EMUDECKGIT"/functions/helperFunctions.sh
 source "$EMUDECKGIT"/functions/installEmuFP.sh
 source "$EMUDECKGIT"/functions/RAAchievment.sh
 source "$EMUDECKGIT"/functions/RAautoSave.sh
@@ -25,7 +27,6 @@ source "$EMUDECKGIT"/functions/setESDEEmus.sh
 source "$EMUDECKGIT"/functions/setMSG.sh
 source "$EMUDECKGIT"/functions/setUpHolo.sh
 source "$EMUDECKGIT"/functions/setWide.sh
-source "$EMUDECKGIT"/functions/testLocationValid.sh
 source "$EMUDECKGIT"/functions/setSetting.sh
 source "$EMUDECKGIT"/functions/linkToSaveFolder.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
