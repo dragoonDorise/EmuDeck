@@ -701,7 +701,7 @@ else
 	mkdir -p "$biosPath"yuzu
 	
 	##Generate rom folders
-	setMSG "Creating roms folder in $destination"
+	setMSG "Creating roms folder in $romsPath"
 	
 	sleep 3
 	rsync -r --ignore-existing "$EMUDECKGIT/roms/" "$romsPath" 
