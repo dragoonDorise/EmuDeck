@@ -1,8 +1,8 @@
 #!/bin/bash
-setUpHolo(){		
+OS.setupPrereqsArch(){		
 
 	#Ensure the dependencies are installed before proceeding.
-	for package in packagekit-qt5 flatpak rsync unzip jq
+	for package in packagekit-qt5 flatpak rsync unzip jq bash curl 
 	do
 		pacman -Q ${package}  || sudo pacman -Sy --noconfirm ${package} 
 	done

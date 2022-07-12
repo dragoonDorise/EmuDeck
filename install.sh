@@ -724,9 +724,9 @@ fi
 ##	
 #
 
-#Support for non-valve hardware.
+#Support for non-holo based OS's
 if [[ $isRealDeck == false ]]; then
-	setUpHolo
+	OS.setupPrereqsArch
 fi
 
 #setup Proton-Launch.sh
