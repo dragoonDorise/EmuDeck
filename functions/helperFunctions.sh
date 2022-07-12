@@ -33,11 +33,14 @@ function getSDPath(){
 }
 
 function testRealDeck(){
-    if [[ "$(cat /sys/devices/virtual/dmi/id/product_name)" =~ Jupiter ]]; then
+    case $(cat /sys/devices/virtual/dmi/id/product_name) in
+	  Win600|Jupiter)
 		isRealDeck=true
-	else
+	;;
+	  *)
 		isRealDeck=false
-	fi
+	;;
+	esac
 }
 
 function testLocationValid(){
