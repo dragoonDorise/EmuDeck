@@ -697,7 +697,7 @@ fi
 
 #Support for non-valve hardware.
 if [[ $isRealDeck == false ]]; then
-	 #setUpHolo
+	 setUpHolo
 fi
 
 #Emulators Installation
