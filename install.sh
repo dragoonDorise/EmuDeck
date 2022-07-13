@@ -696,9 +696,9 @@ if [ $doInstallSRM == "true" ]; then
 fi
 
 #Support for non-valve hardware.
-if [[ $isRealDeck == false ]]; then
-	 setUpHolo
-fi
+#if [[ $isRealDeck == false ]]; then
+#	 setUpHolo
+#fi
 
 #Emulators Installation
 if [ $doInstallPCSX2 == "true" ]; then	
