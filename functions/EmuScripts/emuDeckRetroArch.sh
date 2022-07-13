@@ -95,7 +95,72 @@ echo "NYI"
 
 #BezelOn
 RetroArch.bezelOn(){
-echo "NYI"
+		# case "folder" in
+		# 	3do)				override_file='' && loop=true ;;
+		# 	amiga)				override_file='' && loop=true ;;
+		# 	amigacd32)			override_file='' && loop=true ;;
+		# 	amstradcpc)			override_file='' && loop=true ;;
+		# 	apple2)				override_file='' && loop=true ;;
+		# 	atari800)			override_file='' && loop=true ;;
+		# 	atari2600)			override_file='' && loop=true ;;
+		# 	atari5200)			override_file='' && loop=true ;;
+		# 	atari7800)			override_file='' && loop=true ;;
+		# 	atarist)			override_file='' && loop=true ;;
+		# 	atomiswave)			override_file='' && loop=true ;;
+		# 	c64)				override_file='' && loop=true ;;
+		# 	cavestory)			override_file='' && loop=true ;;
+		# 	colecovision)		override_file='' && loop=true ;;
+		# 	dreamcast)			override_file='' && loop=true ;;
+		# 	fba)				override_file='' && loop=true ;;
+		# 	fds)				override_file='' && loop=true ;;
+		# 	gameandwatch)		override_file='' && loop=true ;;
+		# 	gamegear)			override_file='' && loop=true ;;
+		# 	gb)					override_file='' && loop=true ;;
+		# 	gba)				override_file='' && loop=true ;;
+		# 	gbc)				override_file='' && loop=true ;;
+		# 	gx4000)				override_file='' && loop=true ;;
+		# 	intellivision)		override_file='' && loop=true ;;
+		# 	jaguar)				override_file='' && loop=true ;;
+		# 	lynx)				override_file='' && loop=true ;;
+		# 	mame)				override_file='' && loop=true ;;
+		# 	mastersystem)		override_file='' && loop=true ;;
+		# 	megadrive)			override_file='' && loop=true ;;
+		# 	msx)				override_file='' && loop=true ;;
+		# 	n64)				override_file='' && loop=true ;;
+		# 	naomi)				override_file='' && loop=true ;;
+		# 	neogeo)				override_file='' && loop=true ;;
+		# 	neogeocd)			override_file='' && loop=true ;;
+		# 	nes)				override_file='' && loop=true ;;
+		# 	ngp)				override_file='' && loop=true ;;
+		# 	ngpc)				override_file='' && loop=true ;;
+		# 	o2em)				override_file='' && loop=true ;;
+		# 	pcenginecd)			override_file='' && loop=true ;;
+		# 	pcengine)			override_file='' && loop=true ;;
+		# 	pcfx)				override_file='' && loop=true ;;
+		# 	pokemini)			override_file='' && loop=true ;;
+		# 	prboom)				override_file='' && loop=true ;;
+		# 	psp)				override_file='' && loop=true ;;
+		# 	psx)				override_file='' && loop=true ;;
+		# 	satellaview)		override_file='' && loop=true ;;
+		# 	saturn)				override_file='' && loop=true ;;
+		# 	scummvm)			override_file='' && loop=true ;;
+		# 	sega32x)			override_file='' && loop=true ;;
+		# 	segacd)				override_file='' && loop=true ;;
+		# 	sg1000)				override_file='' && loop=true ;;
+		# 	snes)				override_file='' && loop=true ;;
+		# 	sufami)				override_file='' && loop=true ;;
+		# 	supergrafx)			override_file='' && loop=true ;;
+		# 	thomson)			override_file='' && loop=true ;;
+		# 	vectrex)			override_file='' && loop=true ;;
+		# 	virtualboy)			override_file='' && loop=true ;;
+		# 	wswan)				override_file='' && loop=true ;;
+		# 	wswanc)				override_file='' && loop=true ;;
+		# 	x68000)				override_file='' && loop=true ;;
+		# 	zx81)				override_file='' && loop=true ;;
+		# 	zxspectrum)			override_file='' && loop=true ;;
+		# 	*)
+		# esac
+		echo "NYI"
 }
 
 #BezelOff
