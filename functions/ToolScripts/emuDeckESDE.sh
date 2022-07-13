@@ -97,7 +97,7 @@ ESDE.applyTheme(){
     fi
     echo "ESDE: applyTheme $esdeTheme"
     mkdir -p "$HOME/.emulationstation/themes/"
-	git clone https://github.com/dragoonDorise/es-theme-epicnoir.git "$HOME/.emulationstation/themes/es-epicnoir" &>> /dev/null
+	git clone https://github.com/dragoonDorise/es-theme-epicnoir.git "$HOME/.emulationstation/themes/es-epicnoir" >> /dev/null
 	cd "$HOME/.emulationstation/themes/es-epicnoir" && git pull
 	echo -e "OK!"
 	
