@@ -2614,7 +2614,7 @@
       "configTitle": "Arcade - Naomi",
       "steamCategory": "${Arcade - Naomi}",
       "steamDirectory": "/home/deck/.steam/steam",
-      "romDirectory": "/home/deck/Emulation/roms/naomi",
+      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/naomi",
       "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}flycast_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
       "executableModifier": "\"${exePath}\"",
       "startInDirectory": "",
