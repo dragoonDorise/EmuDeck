@@ -1,2 +1,3 @@
 #!/bin/bash
-source "$HOME/emudeck/backend/functions/all.sh" -- "$var" "${@}"
+source "$HOME/emudeck/backend/functions/all.sh" 
+"${@}"
