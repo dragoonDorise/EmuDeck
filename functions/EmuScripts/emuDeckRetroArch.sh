@@ -5,6 +5,7 @@ RetroArch_emuType="FlatPak"
 RetroArch_emuPath="org.libretro.RetroArch"
 RetroArch_releaseURL=""
 RetroArch_configFile="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
+RetroArch_coreConfigFolders="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/config"
 
 #cleanupOlderThings
 RetroArch.cleanup(){
@@ -91,6 +92,322 @@ echo "NYI"
 #WideScreenOff
 RetroArch.wideScreenOff(){
 echo "NYI"
+}
+
+RetroArch.setOverride(){
+	local fileName=$1
+	local coreName=$2
+	local option=$3
+	local value=$4
+	
+	local fullPath="$RetroArch_coreConfigFolders/$coreName"
+	local configFile="$fullPath/$fileName"
+
+	mkdir -p "$fullPath"
+	touch "$configFile"
+	
+	local optionFound=$(grep -rnw  "$configFile" -e "$option")
+	if [[ "$optionFound" == '' ]]; then
+		echo "appending: $option = $value to $configFile"
+		echo "$option = $value" >> "$configFile"
+	else
+		echo "updating $option in $configFile to $value"
+		changeLine "$option" "$option = $value" "$configFile"
+	fi
+}
+
+RetroArch.Beetle_Cygne.bezelOn(){
+RetroArch.setOverride 'wswanc.cfg' 'Beetle Cygne'  'video_shader_enable' 'true'
+RetroArch.setOverride 'wswanc.cfg' 'Beetle Cygne'  'aspect_ratio_index' '"21"'
+RetroArch.setOverride 'wswanc.cfg' 'Beetle Cygne'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/wswanc.cfg"'
+RetroArch.setOverride 'wswanc.cfg' 'Beetle Cygne'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'wswanc.cfg' 'Beetle Cygne'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'wswanc.cfg' 'Beetle Cygne'  'input_overlay_opacity' '"0.700000"'
+RetroArch.setOverride 'wswanc.cfg' 'Beetle Cygne'  'input_overlay_scale_landscape' '"1.170000"'
+RetroArch.setOverride 'wswanc.cfg' 'Beetle Cygne'  'video_scale_integer' '"false"'
+}
+RetroArch.Beetle_Cygne.bezelOn(){
+RetroArch.setOverride 'wswan.cfg' 'Beetle Cygne'  'video_shader_enable' 'true'
+RetroArch.setOverride 'wswan.cfg' 'Beetle Cygne'  'aspect_ratio_index' '"21"'
+RetroArch.setOverride 'wswan.cfg' 'Beetle Cygne'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/wswan.cfg"'
+RetroArch.setOverride 'wswan.cfg' 'Beetle Cygne'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'wswan.cfg' 'Beetle Cygne'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'wswan.cfg' 'Beetle Cygne'  'input_overlay_opacity' '"0.700000"'
+RetroArch.setOverride 'wswan.cfg' 'Beetle Cygne'  'input_overlay_scale_landscape' '"1.170000"'
+RetroArch.setOverride 'wswan.cfg' 'Beetle Cygne'  'video_scale_integer' '"false"'
+}
+RetroArch.dolphin-emu.bezelOn(){
+RetroArch.setOverride 'dolphin-emu.cfg' 'dolphin-emu'  'video_driver' '"gl"'
+}
+RetroArch.PPSSPP.bezelOn(){
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_auto_frameskip' '"disabled"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_block_transfer_gpu' '"enabled"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_button_preference' '"Cross"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_cheats' '"disabled"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_cpu_core' '"JIT"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_disable_slow_framebuffer_effects' '"disabled"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_fast_memory' '"enabled"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_force_lag_sync' '"disabled"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_frameskip' '"Off"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_frameskiptype' '"Number'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_gpu_hardware_transform' '"enabled"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_ignore_bad_memory_access' '"enabled"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_inflight_frames' '"Up'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_internal_resolution' '"1440x816"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_io_timing_method' '"Fast"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_language' '"Automatic"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_lazy_texture_caching' '"disabled"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_locked_cpu_speed' '"off"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_lower_resolution_for_effects' '"Off"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_rendering_mode' '"Buffered"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_retain_changed_textures' '"disabled"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_software_skinning' '"enabled"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_spline_quality' '"Low"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_texture_anisotropic_filtering' '"off"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_texture_deposterize' '"disabled"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_texture_filtering' '"Auto"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_texture_replacement' '"enabled"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_texture_scaling_level' '"Off"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_texture_scaling_type' '"xbrz"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_texture_shader' '"Off"'
+RetroArch.setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_vertex_cache' '"disabled"'
+}
+RetroArch.Beetle_PCE_Fast.bezelOn(){
+RetroArch.setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'aspect_ratio_index' '"21"'
+RetroArch.setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'custom_viewport_height' '"1200"'
+RetroArch.setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'custom_viewport_x' '"0"'
+RetroArch.setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/pcengine.cfg"'
+RetroArch.setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'input_overlay_hide_in_menu' '"false"'
+RetroArch.setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'input_overlay_scale_landscape' '"1.025000"'
+}
+RetroArch.Mesen.bezelOn(){
+RetroArch.setOverride 'nes.cfg' 'Mesen'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/nes.cfg"'
+RetroArch.setOverride 'nes.cfg' 'Mesen'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'nes.cfg' 'Mesen'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'nes.cfg' 'Mesen'  'input_overlay_opacity' '"0.700000"'
+RetroArch.setOverride 'nes.cfg' 'Mesen'  'input_overlay_scale_landscape' '"1.070000"'
+RetroArch.setOverride 'nes.cfg' 'Mesen'  'video_scale_integer' '"false"'
+}
+RetroArch.Mupen64Plus-Next.bezelOn(){
+RetroArch.setOverride 'Mupen64Plus-Next.cfg' 'Mupen64Plus-Next'  'aspect_ratio_index' '"0"'
+RetroArch.setOverride 'Mupen64Plus-Next.cfg' 'Mupen64Plus-Next'  'video_crop_overscan' '"false"'
+RetroArch.setOverride 'Mupen64Plus-Next.cfg' 'Mupen64Plus-Next'  'video_shader_enable' '"false"'
+RetroArch.setOverride 'Mupen64Plus-Next.cfg' 'Mupen64Plus-Next'  'video_smooth' '"true"'
+}
+RetroArch.Beetle_Lynx.bezelOn(){
+RetroArch.setOverride 'lynx.cfg' 'Beetle Lynx'  'video_shader_enable' 'true'
+RetroArch.setOverride 'lynx.cfg' 'Beetle Lynx'  'aspect_ratio_index' '"21"'
+RetroArch.setOverride 'lynx.cfg' 'Beetle Lynx'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/lynx.cfg"'
+RetroArch.setOverride 'lynx.cfg' 'Beetle Lynx'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'lynx.cfg' 'Beetle Lynx'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'lynx.cfg' 'Beetle Lynx'  'input_overlay_opacity' '"0.700000"'
+RetroArch.setOverride 'lynx.cfg' 'Beetle Lynx'  'input_overlay_scale_landscape' '"1.170000"'
+RetroArch.setOverride 'lynx.cfg' 'Beetle Lynx'  'video_scale_integer' '"false"'
+}
+RetroArch.SameBoy.bezelOn(){
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_dark_filter_level' '"0"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_bootloader' '"enabled"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_colorization' '"internal"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_hwmode' '"Auto"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_internal_palette' '"GB'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_mode' '"Not'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_port' '"56400"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_1' '"0"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_10' '"0"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_11' '"0"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_12' '"0"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_2' '"0"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_3' '"0"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_4' '"0"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_5' '"0"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_6' '"0"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_7' '"0"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_8' '"0"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_9' '"0"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_palette_twb64_1' '"TWB64'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_palette_twb64_2' '"TWB64'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gbc_color_correction' '"GBC'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gbc_color_correction_mode' '"accurate"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_gbc_frontlight_position' '"central"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_mix_frames' '"disabled"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_rumble_level' '"10"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_show_gb_link_settings' '"disabled"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_turbo_period' '"4"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'gambatte_up_down_allowed' '"disabled"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'aspect_ratio_index' '"21"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/gb.cfg"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'input_overlay_scale_landscape' '"1.860000"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'input_overlay_y_offset_landscape' '"-0.150000"'
+RetroArch.setOverride 'gb.cfg' 'SameBoy'  'video_shader_enable' '"true"'
+}
+RetroArch.SameBoy.bezelOn(){
+RetroArch.setOverride 'gbc.cfg' 'SameBoy'  'aspect_ratio_index' '"21"'
+RetroArch.setOverride 'gbc.cfg' 'SameBoy'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/gbc.cfg"'
+RetroArch.setOverride 'gbc.cfg' 'SameBoy'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'gbc.cfg' 'SameBoy'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'gbc.cfg' 'SameBoy'  'input_overlay_scale_landscape' '"1.870000"'
+RetroArch.setOverride 'gbc.cfg' 'SameBoy'  'input_overlay_y_offset_landscape' '"-0.220000"'
+RetroArch.setOverride 'gbc.cfg' 'SameBoy'  'video_shader_enable' '"true"'
+}
+RetroArch.Beetle_NeoPop.bezelOn(){
+RetroArch.setOverride 'ngp.cfg' 'Beetle NeoPop'  'aspect_ratio_index' '"21"'
+RetroArch.setOverride 'ngp.cfg' 'Beetle NeoPop'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/ngpc.cfg"'
+RetroArch.setOverride 'ngp.cfg' 'Beetle NeoPop'  'input_overlay_aspect_adjust_landscape' '"-0.310000"'
+RetroArch.setOverride 'ngp.cfg' 'Beetle NeoPop'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'ngp.cfg' 'Beetle NeoPop'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'ngp.cfg' 'Beetle NeoPop'  'input_overlay_hide_in_menu' '"false"'
+RetroArch.setOverride 'ngp.cfg' 'Beetle NeoPop'  'input_overlay_scale_landscape' '"1.625000"'
+RetroArch.setOverride 'ngp.cfg' 'Beetle NeoPop'  'input_overlay_x_separation_portrait' '"-0.010000"'
+RetroArch.setOverride 'ngp.cfg' 'Beetle NeoPop'  'input_overlay_y_offset_landscape' '"-0.135000"'
+RetroArch.setOverride 'ngp.cfg' 'Beetle NeoPop'  'video_shader_enable' '"true"'
+}
+RetroArch.Beetle_NeoPop.bezelOn(){
+RetroArch.setOverride 'ngpc.cfg' 'Beetle NeoPop'  'aspect_ratio_index' '"21"'
+RetroArch.setOverride 'ngpc.cfg' 'Beetle NeoPop'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/ngpc.cfg"'
+RetroArch.setOverride 'ngpc.cfg' 'Beetle NeoPop'  'input_overlay_aspect_adjust_landscape' '"-0.170000"'
+RetroArch.setOverride 'ngpc.cfg' 'Beetle NeoPop'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'ngpc.cfg' 'Beetle NeoPop'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'ngpc.cfg' 'Beetle NeoPop'  'input_overlay_scale_landscape' '"1.615000"'
+RetroArch.setOverride 'ngpc.cfg' 'Beetle NeoPop'  'input_overlay_x_separation_portrait' '"-0.010000"'
+RetroArch.setOverride 'ngpc.cfg' 'Beetle NeoPop'  'input_overlay_y_offset_landscape' '"-0.135000"'
+RetroArch.setOverride 'ngpc.cfg' 'Beetle NeoPop'  'video_shader_enable' '"true"'
+}
+RetroArch.Stella.bezelOn(){
+RetroArch.setOverride 'atari2600.cfg' 'Stella'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/atari2600.cfg"'
+RetroArch.setOverride 'atari2600.cfg' 'Stella'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'atari2600.cfg' 'Stella'  'input_overlay_scale_landscape' '"1.0"'
+}
+RetroArch.MAME_2003-Plus.bezelOn(){
+RetroArch.setOverride 'mame.cfg' 'MAME 2003-Plus'  'video_shader_enable' 'true'
+RetroArch.setOverride 'mame.cfg' 'MAME 2003-Plus'  'aspect_ratio_index' '"21"'
+RetroArch.setOverride 'mame.cfg' 'MAME 2003-Plus'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/MAME_Horizontal.cfg"'
+RetroArch.setOverride 'mame.cfg' 'MAME 2003-Plus'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'mame.cfg' 'MAME 2003-Plus'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'mame.cfg' 'MAME 2003-Plus'  'input_overlay_opacity' '"0.700000"'
+RetroArch.setOverride 'mame.cfg' 'MAME 2003-Plus'  'input_overlay_scale_landscape' '"1.170000"'
+RetroArch.setOverride 'mame.cfg' 'MAME 2003-Plus'  'video_scale_integer' '"false"'
+}
+RetroArch.Genesis_Plus_GX.bezelOn(){
+RetroArch.setOverride 'megacd.cfg' 'Genesis Plus GX'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/SEGACD.cfg"'
+RetroArch.setOverride 'megacd.cfg' 'Genesis Plus GX'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'megacd.cfg' 'Genesis Plus GX'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'megacd.cfg' 'Genesis Plus GX'  'input_overlay_hide_in_menu' '"false"'
+RetroArch.setOverride 'megacd.cfg' 'Genesis Plus GX'  'input_overlay_scale_landscape' '"1.170000'
+}
+RetroArch.Genesis_Plus_GX.bezelOn(){
+RetroArch.setOverride 'segacd.cfg' 'Genesis Plus GX'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/SEGACD.cfg"'
+RetroArch.setOverride 'segacd.cfg' 'Genesis Plus GX'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'segacd.cfg' 'Genesis Plus GX'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'segacd.cfg' 'Genesis Plus GX'  'input_overlay_hide_in_menu' '"false"'
+RetroArch.setOverride 'segacd.cfg' 'Genesis Plus GX'  'input_overlay_scale_landscape' '"1.170000'
+}
+RetroArch.Genesis_Plus_GX.bezelOn(){
+RetroArch.setOverride 'genesis.cfg' 'Genesis Plus GX'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/genesis.cfg"'
+RetroArch.setOverride 'genesis.cfg' 'Genesis Plus GX'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'genesis.cfg' 'Genesis Plus GX'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'genesis.cfg' 'Genesis Plus GX'  'input_overlay_scale_landscape' '"1.170000"'
+RetroArch.setOverride 'genesis.cfg' 'Genesis Plus GX'  'video_shader_enable' '"true"'
+}
+RetroArch.Genesis_Plus_GX.bezelOn(){
+RetroArch.setOverride 'gamegear.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'
+RetroArch.setOverride 'gamegear.cfg' 'Genesis Plus GX'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/gg.cfg"'
+RetroArch.setOverride 'gamegear.cfg' 'Genesis Plus GX'  'input_overlay_aspect_adjust_landscape' '"-0.115000"'
+RetroArch.setOverride 'gamegear.cfg' 'Genesis Plus GX'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'gamegear.cfg' 'Genesis Plus GX'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'gamegear.cfg' 'Genesis Plus GX'  'input_overlay_scale_landscape' '"1.545000"'
+RetroArch.setOverride 'gamegear.cfg' 'Genesis Plus GX'  'video_shader_enable' '"true"'
+}
+RetroArch.Genesis_Plus_GX.bezelOn(){
+RetroArch.setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'
+RetroArch.setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/mastersystem.cfg"'
+RetroArch.setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'input_overlay_scale_landscape' '"1.170000"'
+}
+RetroArch.PicoDrive.bezelOn(){
+RetroArch.setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/sega32x.cfg"'
+RetroArch.setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay_hide_in_menu' '"false"'
+RetroArch.setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay_scale_landscape' '"1.250000"'
+}
+RetroArch.mGBA.bezelOn(){
+RetroArch.setOverride 'gba.cfg' 'mGBA'  'aspect_ratio_index' '"21"'
+RetroArch.setOverride 'gba.cfg' 'mGBA'  'video_shader_enable' '"true"'
+}
+RetroArch.Gearsystem.bezelOn(){
+RetroArch.setOverride 'gamegear.cfg' 'Gearsystem'  'aspect_ratio_index' '"21"'
+RetroArch.setOverride 'gamegear.cfg' 'Gearsystem'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/gg.cfg"'
+RetroArch.setOverride 'gamegear.cfg' 'Gearsystem'  'input_overlay_aspect_adjust_landscape' '"-0.115000"'
+RetroArch.setOverride 'gamegear.cfg' 'Gearsystem'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'gamegear.cfg' 'Gearsystem'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'gamegear.cfg' 'Gearsystem'  'input_overlay_scale_landscape' '"1.545000"'
+RetroArch.setOverride 'gamegear.cfg' 'Gearsystem'  'video_shader_enable' '"true"'
+}
+RetroArch.Gambatte.bezelOn(){
+RetroArch.setOverride 'gb.cfg' 'Gambatte'  'aspect_ratio_index' '"21"'
+RetroArch.setOverride 'gb.cfg' 'Gambatte'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/gb.cfg"'
+RetroArch.setOverride 'gb.cfg' 'Gambatte'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'gb.cfg' 'Gambatte'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'gb.cfg' 'Gambatte'  'input_overlay_scale_landscape' '"1.860000"'
+RetroArch.setOverride 'gb.cfg' 'Gambatte'  'input_overlay_y_offset_landscape' '"-0.150000"'
+RetroArch.setOverride 'gb.cfg' 'Gambatte'  'video_shader_enable' '"true"'
+}
+RetroArch.Gambatte.bezelOn(){
+RetroArch.setOverride 'gbc.cfg' 'Gambatte'  'aspect_ratio_index' '"21"'
+RetroArch.setOverride 'gbc.cfg' 'Gambatte'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/gbc.cfg"'
+RetroArch.setOverride 'gbc.cfg' 'Gambatte'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'gbc.cfg' 'Gambatte'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'gbc.cfg' 'Gambatte'  'input_overlay_scale_landscape' '"1.870000"'
+RetroArch.setOverride 'gbc.cfg' 'Gambatte'  'input_overlay_y_offset_landscape' '"-0.220000"'
+RetroArch.setOverride 'gbc.cfg' 'Gambatte'  'video_shader_enable' '"true"'
+}
+RetroArch.Snes9x.bezelOn(){
+RetroArch.setOverride 'snes43.cfg' 'Snes9x'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/snes.cfg"'
+RetroArch.setOverride 'snes43.cfg' 'Snes9x'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'snes43.cfg' 'Snes9x'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'snes43.cfg' 'Snes9x'  'input_overlay_opacity' '"0.700000"'
+RetroArch.setOverride 'snes43.cfg' 'Snes9x'  'input_overlay_scale_landscape' '"1.170000"'
+RetroArch.setOverride 'snes43.cfg' 'Snes9x'  'video_scale_integer' '"false"'
+}
+RetroArch.Snes9x.bezelOn(){
+RetroArch.setOverride 'snes87.cfg' 'Snes9x'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/snes87.cfg"'
+RetroArch.setOverride 'snes87.cfg' 'Snes9x'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'snes87.cfg' 'Snes9x'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'snes87.cfg' 'Snes9x'  'input_overlay_opacity' '"0.700000"'
+RetroArch.setOverride 'snes87.cfg' 'Snes9x'  'input_overlay_scale_landscape' '"1.380000"'
+RetroArch.setOverride 'snes87.cfg' 'Snes9x'  'video_scale_integer' '"false"'
+RetroArch.setOverride 'snes87.cfg' 'Snes9x'  'input_overlay_aspect_adjust_landscape' '"-0.170000"'
+RetroArch.setOverride 'snes87.cfg' 'Snes9x'  'aspect_ratio_index' '"21"'
+}
+RetroArch.Snes9x.bezelOn(){
+RetroArch.setOverride 'snes.cfg' 'Snes9x'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/snes.cfg"'
+RetroArch.setOverride 'snes.cfg' 'Snes9x'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'snes.cfg' 'Snes9x'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'snes.cfg' 'Snes9x'  'input_overlay_opacity' '"0.700000"'
+RetroArch.setOverride 'snes.cfg' 'Snes9x'  'input_overlay_scale_landscape' '"1.170000"'
+RetroArch.setOverride 'snes.cfg' 'Snes9x'  'video_scale_integer' '"false"'
+}
+RetroArch.Nestopia.bezelOn(){
+RetroArch.setOverride 'nes.cfg' 'Nestopia'  'input_overlay' '"/home/deck/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/nes.cfg"'
+RetroArch.setOverride 'nes.cfg' 'Nestopia'  'input_overlay_auto_scale' '"false"'
+RetroArch.setOverride 'nes.cfg' 'Nestopia'  'input_overlay_enable' '"true"'
+RetroArch.setOverride 'nes.cfg' 'Nestopia'  'input_overlay_opacity' '"0.700000"'
+RetroArch.setOverride 'nes.cfg' 'Nestopia'  'input_overlay_scale_landscape' '"1.070000"'
+RetroArch.setOverride 'nes.cfg' 'Nestopia'  'video_scale_integer' '"false"'
+}
+RetroArch.bsnes-hd_beta.bezelOn(){
+RetroArch.setOverride 'snes.cfg' 'bsnes-hd beta'  'video_scale_integer' '"false"'
+}
+
+RetroArch.Beetle_Cygne.shaderOn(){
+
+	RetroArch.setOverride 'wswan.cfg' 'Beetle Cygne' 'video_shader_enable' 'true'
+
 }
 
 #BezelOn
