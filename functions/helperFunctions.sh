@@ -72,13 +72,13 @@ function makeFunction(){
 			folderOverride="$(basename "${file}")"
 			foldername="$(dirname "${file}")"
 			coreName="$(basename "${foldername}")"
-			echo "RetroArch."${coreName// /_}".bezelOn(){"
+			echo "RetroArch_"${coreName// /_}"_bezelOn(){"
 			IFS=$'\n'
 			for line in $(cat "$file")
 			do
 				local option=$(echo "$line" | awk '{print $1}')
 				local value=$(echo "$line" | awk '{print $3}')
-				echo "RetroArch.setOverride '$folderOverride' '$coreName'  '$option' '$value'"
+				echo "RetroArch_setOverride '$folderOverride' '$coreName'  '$option' '$value'"
 			done
 			echo '}'
 		done
@@ -93,7 +93,7 @@ function refreshSource(){
 }
 
 function setAllEmuPaths(){
-	for func in $(compgen -A function | grep '.setEmulationFolder')
+	for func in $(compgen -A function | grep '_setEmulationFolder')
 		 do  $func
 	done
 }
@@ -101,14 +101,14 @@ function setAllEmuPaths(){
 
 
 function installAll(){
-	for func in $(compgen -A function | grep '\.install$')
+	for func in $(compgen -A function | grep '\_install$')
 		 do  $func
 	done
 }
 
 
 function initAll(){
-	for func in $(compgen -A function | grep '\.init$')
+	for func in $(compgen -A function | grep '\_init$')
 		 do  $func
 	done
 }
