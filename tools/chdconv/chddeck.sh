@@ -1,6 +1,6 @@
 #!/bin/bash
 
-text="$(printf "<b>Hi</b>\nWelcome to EmuDeck's CHD conversion script!\n\nThis is currently a <b>BETA</b> feature. Please be very careful and make sure you have backups of roms.\n\nThis script will scan the roms folder you choose and convert all your .cue/.bin and .gdi files to the superior CHD format.\n\n<b>This action will delete the old files if the conversion to chd succeeds</b>")"
+text="$(printf "<b>Hi</b>\nWelcome to EmuDeck's Game Compression script!\n\nPlease be very careful and make sure you have backups of roms.\n\nThis script will scan the roms folder you choose and will compress the files it can to the best available format.\n\n<b>This action will delete the old files if the compression succeeds</b>")"
 #Nova fix'
 zenity --question \
 		 --title="EmuDeck" \
@@ -154,7 +154,7 @@ if [ $ans -eq 0 ]; then
 
     for romfolder in ${romfolders[@]}; do
         if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-            find "$romsPath$romfolder" -type f -iname "*.gcm"  -o -type f -iname "*.iso" | while read f; do echo "Converting: $f"; /var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool convert -f rvz -b 131072 -c zstd -l 5 -i "z:$f" -o "z:${f%.*}.rvz"  && rm -rf "$f"; done;
+            find "$romsPath$romfolder" -type f -iname "*.gcm"  -o -type f -iname "*.iso" | while read f; do echo "Converting: $f"; /var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz"  && rm -rf "$f"; done;
         fi
     done
 
