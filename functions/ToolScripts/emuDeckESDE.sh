@@ -9,12 +9,12 @@ es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
 es_settingsFile="$HOME/.emulationstation/es_settings.xml"
 
 #cleanupOlderThings
-ESDE.cleanup(){
+ESDE_cleanup(){
 	echo "NYI"
 }
 
 #Install
-ESDE.install(){
+ESDE_install(){
 	setMSG "Installing $ESDE_toolName"		
 
     curl $ESDE_releaseURL --output "$toolsPath"latesturl.txt 
@@ -27,7 +27,7 @@ ESDE.install(){
 }
 
 #ApplyInitialSettings
-ESDE.init(){
+ESDE_init(){
 
 	setMSG "Setting up $ESDE_toolName"	
 
@@ -36,17 +36,17 @@ ESDE.init(){
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$es_settingsFile" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$es_systemsFile" --backup --suffix=.bak
 
-    ESDE.addCustomSystems
-    ESDE.setEmulationFolder
-    ESDE.setDefaultEmulators
-    ESDE.applyTheme "EPICNOIR"
-    ESDE.migrateDownloadedMedia
-    ESDE.finalize
+    ESDE_addCustomSystems
+    ESDE_setEmulationFolder
+    ESDE_setDefaultEmulators
+    ESDE_applyTheme "EPICNOIR"
+    ESDE_migrateDownloadedMedia
+    ESDE_finalize
 }
 
 
 
-ESDE.update(){
+ESDE_update(){
 
 
 	setMSG "Setting up $ESDE_toolName"	
@@ -57,15 +57,15 @@ ESDE.update(){
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$es_settingsFile" --ignore-existing
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$es_systemsFile" --ignore-existing
 
-    ESDE.addCustomSystems
-	ESDE.setEmulationFolder
-    ESDE.setDefaultEmulators
-    ESDE.applyTheme "EPICNOIR"
-    ESDE.migrateDownloadedMedia
-    ESDE.finalize
+    ESDE_addCustomSystems
+	ESDE_setEmulationFolder
+    ESDE_setDefaultEmulators
+    ESDE_applyTheme "EPICNOIR"
+    ESDE_migrateDownloadedMedia
+    ESDE_finalize
 }
 
-ESDE.addCustomSystems(){
+ESDE_addCustomSystems(){
 
 
 	#insert cemu custom system if it doesn't exist, but the file does
@@ -88,7 +88,7 @@ ESDE.addCustomSystems(){
 }
 
 #update
-ESDE.applyTheme(){
+ESDE_applyTheme(){
     defaultTheme="MODERN-DE"
     esdeTheme=$1
     if [[ "${esdeTheme}" == "" ]]; then
@@ -113,7 +113,7 @@ ESDE.applyTheme(){
 }
 
 #ConfigurePaths
-ESDE.setEmulationFolder(){
+ESDE_setEmulationFolder(){
 
     #update cemu custom system launcher to correct path by just replacing the line, if it exists.
 	commandString="/usr/bin/bash ${toolsPath}launchers/cemu.sh -f -g z:%ROM%"
@@ -136,19 +136,19 @@ ESDE.setEmulationFolder(){
 	fi
 }
 
-ESDE.setDefaultEmulators(){
+ESDE_setDefaultEmulators(){
 	#ESDE default emulators
 	mkdir -p  "$HOME/.emulationstation/gamelists/"
-	ESDE.setEmu 'Dolphin (Standalone)' gc
-	ESDE.setEmu 'PPSSPP (Standalone)' psp
-	ESDE.setEmu 'Dolphin (Standalone)' wii
-	ESDE.setEmu 'PCSX2 (Standalone)' ps2
-	ESDE.setEmu 'melonDS' nds
-	ESDE.setEmu 'Citra (Standalone)' n3ds
+	ESDE_setEmu 'Dolphin (Standalone)' gc
+	ESDE_setEmu 'PPSSPP (Standalone)' psp
+	ESDE_setEmu 'Dolphin (Standalone)' wii
+	ESDE_setEmu 'PCSX2 (Standalone)' ps2
+	ESDE_setEmu 'melonDS' nds
+	ESDE_setEmu 'Citra (Standalone)' n3ds
 }
 
 
-ESDE.migrateDownloadedMedia(){
+ESDE_migrateDownloadedMedia(){
 
     echo "ESDE: Migrate Downloaded Media."
 
@@ -170,7 +170,7 @@ ESDE.migrateDownloadedMedia(){
 }
 
 #finalExec - Extra stuff
-ESDE.finalize(){
+ESDE_finalize(){
    	#Symlinks for ESDE compatibility
 	cd $(echo $romsPath | tr -d '\r') 
 	ln -sn gamecube gc 
@@ -182,7 +182,7 @@ ESDE.finalize(){
 
 
 
-ESDE.setEmu(){		
+ESDE_setEmu(){		
 	local emu=$1
 	local system=$2
 	local gamelistFile="$HOME/.emulationstation/gamelists/$system/gamelist.xml"

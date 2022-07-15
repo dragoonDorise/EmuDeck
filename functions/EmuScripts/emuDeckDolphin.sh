@@ -6,12 +6,12 @@ Dolphin_emuPath="org.DolphinEmu.dolphin-emu"
 Dolphin_releaseURL=""
 
 #cleanupOlderThings
-Dolphin.cleanup(){
+Dolphin_cleanup(){
  echo "NYI"
 }
 
 #Install
-Dolphin.install(){
+Dolphin_install(){
     setMSG "${Dolphin_emuName}: Install"
     echo ""
 	installEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"	
@@ -19,30 +19,30 @@ Dolphin.install(){
 }
 
 #ApplyInitialSettings
-Dolphin.init(){
+Dolphin_init(){
     setMSG "${Dolphin_emuName}: Apply initial config"
     echo ""
 	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}" "true"
-	Dolphin.setupStorage
-	Dolphin.setEmulationFolder
-	Dolphin.setupSaves
+	Dolphin_setupStorage
+	Dolphin_setEmulationFolder
+	Dolphin_setupSaves
 }
 
 #update
-Dolphin.update(){
+Dolphin_update(){
     setMSG "${Dolphin_emuName}: Apply configuration Update"
     echo ""
 	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"
-	Dolphin.setupStorage
-	Dolphin.setEmulationFolder
-	Dolphin.setupSaves
+	Dolphin_setupStorage
+	Dolphin_setEmulationFolder
+	Dolphin_setupSaves
 }
 
 #ConfigurePaths
-Dolphin.setEmulationFolder(){
+Dolphin_setEmulationFolder(){
     setMSG "${Dolphin_emuName}: Configure Emulation folder"
     echo ""
-  	configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
+  	configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin_ini"
     gameDirOpt1='ISOPath0 = '
     gameDirOpt1Setting='ISOPath0 = '"${romsPath}gc"
     gameDirOpt2='ISOPath1 = '
@@ -52,7 +52,7 @@ Dolphin.setEmulationFolder(){
 }
 
 #SetupSaves
-Dolphin.setupSaves(){
+Dolphin_setupSaves(){
     setMSG "${Dolphin_emuName}: setup Saves folder"
     echo ""
 	linkToSaveFolder dolphin GC "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC"
@@ -62,35 +62,35 @@ Dolphin.setupSaves(){
 
 
 #SetupStorage
-Dolphin.setupStorage(){
+Dolphin_setupStorage(){
     echo "NYI"#TBD
 }
 
 
 #WipeSettings
-Dolphin.wipe(){
+Dolphin_wipe(){
    rm -rf "$HOME/.var/app/$Dolphin_emuPath"
    # prob not cause roms are here
 }
 
 
 #Uninstall
-Dolphin.uninstall(){
+Dolphin_uninstall(){
     flatpak uninstall "$Dolphin_emuPath" --user -y
 }
 
 #setABXYstyle
-Dolphin.setABXYstyle(){
+Dolphin_setABXYstyle(){
    	echo "NYI" 
 }
 
 #Migrate
-Dolphin.migrate(){
+Dolphin_migrate(){
     	echo "NYI"
 }
 
 #WideScreenOn
-Dolphin.wideScreenOn(){
+Dolphin_wideScreenOn(){
     setMSG "${Dolphin_emuName}: Widescreen On"
     echo ""
     configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
@@ -103,7 +103,7 @@ Dolphin.wideScreenOn(){
 }
 
 #WideScreenOff
-Dolphin.wideScreenOff(){
+Dolphin_wideScreenOff(){
     setMSG "${Dolphin_emuName}: Widescreen Off"
     echo ""
     configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
@@ -116,17 +116,17 @@ Dolphin.wideScreenOff(){
 }
 
 #BezelOn
-Dolphin.bezelOn(){
+Dolphin_bezelOn(){
 echo "NYI"
 }
 
 #BezelOff
-Dolphin.bezelOff(){
+Dolphin_bezelOff(){
 echo "NYI"
 }
 
 #finalExec - Extra stuff
-Dolphin.finalize(){
+Dolphin_finalize(){
 	echo "NYI"
 }
 

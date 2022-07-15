@@ -726,7 +726,7 @@ fi
 
 #Support for non-holo based OS's
 if [[ $isRealDeck == false ]]; then
-	OS.setupPrereqsArch
+	OS_setupPrereqsArch
 fi
 
 #setup Proton-Launch.sh
@@ -736,61 +736,61 @@ chmod +x "${toolsPath}proton-launch.sh"
 
 #ESDE Installation
 if [ $doInstallESDE == "true" ]; then
-	ESDE.install		
+	ESDE_install		
 fi
 #SRM Installation
 if [ $doInstallSRM == "true" ]; then
-	SRM.install
+	SRM_install
 fi
 #Emulators Installation
 if [ $doInstallPCSX2 == "true" ]; then	
-	PCSX2.install
+	PCSX2_install
 fi
 if [ $doInstallPrimeHacks == "true" ]; then
-	Primehack.install
+	Primehack_install
 fi
 if [ $doInstallRPCS3 == "true" ]; then
-	RPCS3.install
+	RPCS3_install
 fi
 if [ $doInstallCitra == "true" ]; then
-	Citra.install
+	Citra_install
 fi
 if [ $doInstallDolphin == "true" ]; then
-	Dolphin.install
+	Dolphin_install
 fi
 if [ $doInstallDuck == "true" ]; then
-	DuckStation.install
+	DuckStation_install
 fi
 if [ $doInstallRA == "true" ]; then
-	RetroArch.install	
+	RetroArch_install	
 fi
 if [ $doInstallPPSSPP == "true" ]; then
-	PPSSPP.install	
+	PPSSPP_install	
 fi
 if [ $doInstallYuzu == "true" ]; then	
-	Yuzu.install
+	Yuzu_install
 fi
 if [ $doInstallXemu == "true" ]; then
-	Xemu.install
+	Xemu_install
 fi
 if [ $doInstallCemu == "true" ]; then
-	Cemu.install
+	Cemu_install
 fi
 
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ $doInstallXenia == "true" ]; then
-	Xenia.install
+	Xenia_install
 fi
 
 #Steam RomManager Config
 
 if [ $doSetupSRM == "true" ]; then
-	SRM.init
+	SRM_init
 fi
 
 #ESDE Config
 if [ $doSetupESDE == "true" ]; then
-	ESDE.init
+	ESDE_init
 fi	
 
 #Emus config
@@ -800,47 +800,47 @@ fi
 setMSG "Configuring emulators.."
 
 if [ $doSetupRA == "true" ]; then
-	RetroArch.init
+	RetroArch_init
 fi
 if [ $doSetupPrimeHacks == "true" ]; then
-	Primehack.init
+	Primehack_init
 fi
 if [ $doSetupDolphin == "true" ]; then
-	Dolphin.init
+	Dolphin_init
 fi
 if [ $doSetupPCSX2 == "true" ]; then
-	PCSX2.init
+	PCSX2_init
 fi
 if [ $doSetupRPCS3 == "true" ]; then
-	RPCS3.init
+	RPCS3_init
 fi
 if [ $doSetupCitra == "true" ]; then
-	Citra.init
+	Citra_init
 fi
 if [ $doSetupDuck == "true" ]; then
-	DuckStation.init
+	DuckStation_init
 fi
 if [ $doSetupYuzu == "true" ]; then
-	Yuzu.init
+	Yuzu_init
 fi
 if [ $doSetupPPSSPP == "true" ]; then
-	PPSSPP.init
+	PPSSPP_init
 fi
 if [ $doSetupXemu == "true" ]; then
-	Xemu.init
+	Xemu_init
 fi
 #Proton Emus
 if [ $doSetupCemu == "true" ]; then
-	Cemu.init
+	Cemu_init
 fi
 if [ $doSetupXenia == "true" ]; then
-	Xenia.init
+	Xenia_init
 fi
 
 
 
 #Fixes repeated Symlink for older installations
-Yuzu.finalize
+Yuzu_finalize
 
 
 
@@ -861,33 +861,33 @@ Yuzu.finalize
 
 
 #RA Bezels	
-RetroArch.bezelOn #needs to change
+RetroArch_bezelOn #needs to change
 
 #RA SNES Aspect Ratio
-RetroArch.setSNESAR #needs to change
+RetroArch_setSNESAR #needs to change
 
 #RA AutoSave	
 if [ $RAautoSave == true ]; then
-	RetroArch.autoSaveOn
+	RetroArch_autoSaveOn
 else
-	RetroArch.autoSaveOff
+	RetroArch_autoSaveOff
 fi	
 
 #Widescreen hacks
 if [ $duckWide == true ]; then	
-	DuckStation.wideScreenOn
+	DuckStation_wideScreenOn
 else
-	DuckStation.wideScreenOff
+	DuckStation_wideScreenOff
 fi
 if [ $DolphinWide == true ]; then
-	Dolphin.wideScreenOn
+	Dolphin_wideScreenOn
 else
-	Dolphin.wideScreenOff
+	Dolphin_wideScreenOff
 fi
 if [ $XemuWide == true ]; then
-	Xemu.wideScreenOn
+	Xemu_wideScreenOn
 else
-	Xemu.wideScreenOff
+	Xemu_wideScreenOff
 fi
 if [ $DreamcastWide == true ]; then
 	sed -i "s|reicast_widescreen_hack = \"disabled\"|reicast_widescreen_hack = \"enabled\"|g" ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Flycast/Flycast.opt 
@@ -903,35 +903,35 @@ fi
 
 #RetroAchievments
 if [ $doRASignIn == "true" ]; then
-	RetroArch.retroAchievementsPromptLogin
-	RetroArch.retroAchievementsSetLogin
-	RetroArch.retroAchievementsOn
+	RetroArch_retroAchievementsPromptLogin
+	RetroArch_retroAchievementsSetLogin
+	RetroArch_retroAchievementsOn
 fi
 
 if [ $doRAEnable == "true" ]; then
-	RetroArch.retroAchievementsOn
+	RetroArch_retroAchievementsOn
 fi
 
 
 if [ $doInstallCHD == "true" ]; then
-	CHD.install
+	CHD_install
 fi
 
 if [ $doInstallGyro == "true" ]; then	
-	Plugins.installSteamDeckGyroDSU
+	Plugins_installSteamDeckGyroDSU
 fi
 
 
 if [ $doInstallPowertools == "true" ]; then
-	Plugins.installPluginLoader
-	Plugins.installPowerTools
+	Plugins_installPluginLoader
+	Plugins_installPowerTools
 fi
 
 if [ $branch == 'main' ];then
 	createDesktopIcons
 fi
 
-BINUP.install
+BINUP_install
 
 
 #

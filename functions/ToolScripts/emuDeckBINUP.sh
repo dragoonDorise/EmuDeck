@@ -6,7 +6,7 @@ BINUP_toolPath="${toolsPath}binupdate/binupdate.sh"
 
 
 
-BINUP.install(){		
+BINUP_install(){		
 	
 	rsync -avhp --mkpath "$EMUDECKGIT/tools/binupdate" "$toolsPath"
 
@@ -15,12 +15,12 @@ BINUP.install(){
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" "$BINUP_toolPath"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools/|${toolsPath}|g" "$BINUP_toolPath"	
 
-	BINUP.createDesktopShortcut
+	BINUP_createDesktopShortcut
 }
 
 
 
-BINUP.createDesktopShortcut(){
+BINUP_createDesktopShortcut(){
 
 	BINUP_Shortcutlocation=$1
 

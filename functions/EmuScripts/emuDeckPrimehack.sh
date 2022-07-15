@@ -7,34 +7,34 @@ Primehack_emuPath="io.github.shiiion.primehack"
 releaseURL=""
 
 #cleanupOlderThings
-Primehack.cleanup(){
+Primehack_cleanup(){
  echo "NYI"
 }
 
 #Install
-Primehack.install() {
+Primehack_install() {
 	installEmuFP "${Primehack_emuName}" "${Primehack_emuPath}"
 	flatpak override "${Primehack_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
-Primehack.init() {
+Primehack_init() {
 	configEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" "true"
-	Primehack.setupStorage
-	Primehack.setEmulationFolder
-	Primehack.setupSaves
+	Primehack_setupStorage
+	Primehack_setEmulationFolder
+	Primehack_setupSaves
 }
 
 #update
-Primehack.update() {
+Primehack_update() {
 	configEmuFP "${Primehack_emuName}" "${Primehack_emuPath}"
-	Primehack.setupStorage
-	Primehack.setEmulationFolder
-	Primehack.setupSaves
+	Primehack_setupStorage
+	Primehack_setEmulationFolder
+	Primehack_setupSaves
 }
 
 #ConfigurePaths
-Primehack.setEmulationFolder() {
+Primehack_setEmulationFolder() {
 	configFile="$HOME/.var/app/${Primehack_emuPath}/config/dolphin-emu/Dolphin.ini"
 	gameDirOpt='ISOPath0 = '
 	newGameDirOpt='ISOPath0 = '"${romsPath}primehacks"
@@ -42,7 +42,7 @@ Primehack.setEmulationFolder() {
 }
 
 #SetupSaves
-Primehack.setupSaves(){
+Primehack_setupSaves(){
 	linkToSaveFolder primehack GC "$HOME/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC"
 	linkToSaveFolder primehack Wii "$HOME/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii"
 	linkToSaveFolder primehack states "$HOME/.var/app/io.github.shiiion.primehack/data/dolphin-emu/states"
@@ -50,54 +50,54 @@ Primehack.setupSaves(){
 
 
 #SetupStorage
-Primehack.setupStorage(){
+Primehack_setupStorage(){
    	echo "NYI"
 }
 
 
 #WipeSettings
-Primehack.wipe() {
+Primehack_wipe() {
 	rm -rf "$HOME/.var/app/${Primehack_emuPath}"
 }
 
 
 #Uninstall
-Primehack.uninstall() {
+Primehack_uninstall() {
 	flatpak uninstall "${Primehack_emuPath}" -y
 }
 
 #setABXYstyle
-Primehack.setABXYstyle(){
+Primehack_setABXYstyle(){
     	echo "NYI"
 }
 
 #Migrate
-Primehack.migrate(){
+Primehack_migrate(){
     	echo "NYI"
 }
 
 #WideScreenOn
-Primehack.wideScreenOn(){
+Primehack_wideScreenOn(){
 	echo "NYI"
 }
 
 #WideScreenOff
-Primehack.wideScreenOff(){
+Primehack_wideScreenOff(){
 	echo "NYI"
 }
 
 #BezelOn
-Primehack.bezelOn(){
+Primehack_bezelOn(){
 echo "NYI"
 }
 
 #BezelOff
-Primehack.BezelOff(){
+Primehack_BezelOff(){
 echo "NYI"
 }
 
 #finalExec - Extra stuff
-Primehack.finalize(){
+Primehack_finalize(){
 	echo "NYI"
 }
 

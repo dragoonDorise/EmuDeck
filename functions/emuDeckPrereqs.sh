@@ -1,5 +1,5 @@
 #!/bin/bash
-OS.setupPrereqsArch(){		
+OS_setupPrereqsArch(){		
 
 	#Ensure the dependencies are installed before proceeding.
 	for package in packagekit-qt5 flatpak rsync unzip jq bash curl 

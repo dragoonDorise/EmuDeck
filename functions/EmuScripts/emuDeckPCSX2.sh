@@ -6,37 +6,37 @@ PCSX2_emuPath="net.pcsx2.PCSX2"
 PCSX2_releaseURL=""
 
 #cleanupOlderThings
-PCSX2.cleanup(){
+PCSX2_cleanup(){
  echo "NYI"
 }
 
 #Install
-PCSX2.install(){
+PCSX2_install(){
 	installEmuFP "${PCSX2_emuName}" "${PCSX2_emuPath}"
 	flatpak override "${PCSX2_emuPath}" --filesystem=host --user
 	flatpak override "${PCSX2_emuPath}" --share=network --user 
 }
 
 #ApplyInitialSettings
-PCSX2.init(){
+PCSX2_init(){
 	setMSG "Initializing $PCSX2_emuName settings."	
 	configEmuFP  "${PCSX2_emuName}" "${PCSX2_emuPath}" "true"
-	PCSX2.setEmulationFolder
-	PCSX2.setupSaves
-	PCSX2.addSteamInputProfile
+	PCSX2_setEmulationFolder
+	PCSX2_setupSaves
+	PCSX2_addSteamInputProfile
 }
 
 #update
-PCSX2.update(){
+PCSX2_update(){
 	setMSG "Updating $PCSX2_emuName settings."
 	configEmuFP  "${PCSX2_emuName}" "${PCSX2_emuPath}"
-	PCSX2.setEmulationFolder
-	PCSX2.setupSaves
-	PCSX2.addSteamInputProfile
+	PCSX2_setEmulationFolder
+	PCSX2_setupSaves
+	PCSX2_addSteamInputProfile
 }
 
 #ConfigurePaths
-PCSX2.setEmulationFolder(){
+PCSX2_setEmulationFolder(){
 	setMSG "Setting $PCSX2_emuName Emulation Folder"
 	configFile="$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini"
 	biosDirOpt='Bios=\/'
@@ -45,20 +45,20 @@ PCSX2.setEmulationFolder(){
 }
 
 #SetupSaves
-PCSX2.setupSaves(){
+PCSX2_setupSaves(){
 	linkToSaveFolder pcsx2 saves "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards"
 	linkToSaveFolder pcsx2 states "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates"
 }
 
 
 #SetupStorage
-PCSX2.setupStorage(){
+PCSX2_setupStorage(){
  echo "NYI"
 }
 
 
 #WipeSettings
-PCSX2.wipe(){
+PCSX2_wipe(){
 	setMSG "Wiping $PCSX2_emuName settings."
    rm -rf "$HOME/.var/app/$PCSX2_emuPath"
    # prob not cause roms are here
@@ -66,47 +66,47 @@ PCSX2.wipe(){
 
 
 #Uninstall
-PCSX2.uninstall(){
+PCSX2_uninstall(){
 	setMSG "Uninstalling $PCSX2_emuName."
     flatpak uninstall $PCSX2_emuPath --user -y
 }
 
 #setABXYstyle
-PCSX2.setABXYstyle(){
+PCSX2_setABXYstyle(){
     echo "NYI"
 }
 
 #Migrate
-PCSX2.migrate(){
+PCSX2_migrate(){
     echo "NYI"
 }
 
 #WideScreenOn
-PCSX2.wideScreenOn(){
+PCSX2_wideScreenOn(){
 echo "NYI"
 }
 
 #WideScreenOff
-PCSX2.wideScreenOff(){
+PCSX2_wideScreenOff(){
 echo "NYI"
 }
 
 #BezelOn
-PCSX2.bezelOn(){
+PCSX2_bezelOn(){
 echo "NYI"
 }
 
 #BezelOff
-PCSX2.bezelOff(){
+PCSX2_bezelOff(){
 echo "NYI"
 }
 
 #finalExec - Extra stuff
-PCSX2.finalize(){
+PCSX2_finalize(){
 	echo "NYI"
 }
 
-PCSX2.addSteamInputProfile(){
+PCSX2_addSteamInputProfile(){
 	setMSG "Adding $PCSX2_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/pcsx2_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

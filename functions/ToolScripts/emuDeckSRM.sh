@@ -9,21 +9,21 @@ es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
 es_settingsFile="$HOME/.emulationstation/es_settings.xml"
 
 #cleanupOlderThings
-SRM.cleanup(){
+SRM_cleanup(){
 	rm -f $HOME/Desktop/Steam-ROM-Manager-2.3.29.AppImage
 	rm -f $HOME/Desktop/Steam-ROM-Manager.AppImage
 }
 
-SRM.install(){		
+SRM_install(){		
 	setMSG "Installing Steam Rom Manager"
-	SRM.cleanup
+	SRM_cleanup
 	mkdir -p "${toolsPath}srm"
 	curl -L $SRM_releaseURL -o $SRM_toolPath
 	chmod +x $SRM_toolPath
-	SRM.createDesktopShortcut
+	SRM_createDesktopShortcut
 }
 
-SRM.createDesktopShortcut(){
+SRM_createDesktopShortcut(){
 	SRM_Shortcutlocation=$1
 
 	if [[ "$SRM_Shortcutlocation" == "" ]]; then
@@ -43,7 +43,7 @@ SRM.createDesktopShortcut(){
 	chmod +x "$SRM_Shortcutlocation"
 }
 
-SRM.init(){			
+SRM_init(){			
 	setMSG "Configuring Steam Rom Manager..."
 	mkdir -p "$HOME/.config/steam-rom-manager/userData/"
 	cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"

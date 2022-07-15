@@ -6,45 +6,45 @@ RPCS3_emuPath="net.rpcs3.RPCS3"
 RPCS3_releaseURL=""
 
 #cleanupOlderThings
-RPCS3.cleanup(){
+RPCS3_cleanup(){
  echo "NYI"
 }
 
 #Install
-RPCS3.install(){
+RPCS3_install(){
 	installEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}"	
 	flatpak override "${RPCS3_emuPath}" --filesystem=host --user	
 }
 
 #ApplyInitialSettings
-RPCS3.init(){
+RPCS3_init(){
 	configEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}" "true"
-	RPCS3.setupStorage
-	RPCS3.setEmulationFolder
-	RPCS3.setupSaves
+	RPCS3_setupStorage
+	RPCS3_setEmulationFolder
+	RPCS3_setupSaves
 }
 
 #update
-RPCS3.update(){
+RPCS3_update(){
 	configEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}"
-	RPCS3.setupStorage
-	RPCS3.setEmulationFolder
-	RPCS3.setupSaves
+	RPCS3_setupStorage
+	RPCS3_setEmulationFolder
+	RPCS3_setupSaves
 }
 
 #ConfigurePaths
-RPCS3.setEmulationFolder(){
+RPCS3_setEmulationFolder(){
    echo "NYI"
 }
 
 #SetupSaves
-RPCS3.setupSaves(){
+RPCS3_setupSaves(){
 	linkToSaveFolder rpcs3 saves "${storagePath}rpcs3/dev_hdd0/home/00000001/savedata"
 }
 
 
 #SetupStorage
-RPCS3.setupStorage(){
+RPCS3_setupStorage(){
 	rpcs3VFSConf="$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/vfs.yml"
 	rpcs3DevHDD0Line="/dev_hdd0/: ${storagePath}rpcs3/dev_hdd0/"
 	sed -i "/dev_hdd0/c\\${rpcs3DevHDD0Line}" $rpcs3VFSConf 
@@ -72,49 +72,49 @@ RPCS3.setupStorage(){
 
 
 #WipeSettings
-RPCS3.wipe(){
+RPCS3_wipe(){
    rm -rf "$HOME/.var/app/$RPCS3_emuPath"
    # prob not cause roms are here
 }
 
 
 #Uninstall
-RPCS3.uninstall(){
+RPCS3_uninstall(){
     flatpak uninstall "$RPCS3_emuPath" --user -y
 }
 
 #setABXYstyle
-RPCS3.setABXYstyle(){
+RPCS3_setABXYstyle(){
  	echo "NYI"   
 }
 
 #Migrate
-RPCS3.migrate(){
+RPCS3_migrate(){
   	echo "NYI"  
 }
 
 #WideScreenOn
-RPCS3.wideScreenOn(){
+RPCS3_wideScreenOn(){
 echo "NYI"
 }
 
 #WideScreenOff
-RPCS3.wideScreenOff(){
+RPCS3_wideScreenOff(){
 echo "NYI"
 }
 
 #BezelOn
-RPCS3.bezelOn(){
+RPCS3_bezelOn(){
 echo "NYI"
 }
 
 #BezelOff
-RPCS3.bezelOff(){
+RPCS3_bezelOff(){
 echo "NYI"
 }
 
 #finalExec - Extra stuff
-RPCS3.finalize(){
+RPCS3_finalize(){
 	echo "NYI"
 }
 

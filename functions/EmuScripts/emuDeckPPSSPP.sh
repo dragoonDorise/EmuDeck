@@ -6,35 +6,35 @@ PPSSPP_emuPath="org.ppsspp.PPSSPP"
 PPSSPP_releaseURL=""
 
 #cleanupOlderThings
-PPSSPP.cleanup(){
+PPSSPP_cleanup(){
  echo "NYI"
 }
 
 #Install
-PPSSPP.install(){
+PPSSPP_install(){
 	installEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}"	
 	flatpak override "${PPSSPP_emuPath}" --filesystem=host --user
 	flatpak override "${PPSSPP_emuName}" --share=network --user
 }
 
 #ApplyInitialSettings
-PPSSPP.init(){
+PPSSPP_init(){
 	configEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}" "true"
-	PPSSPP.setupStorage
-	PPSSPP.setEmulationFolder
-	PPSSPP.setupSaves
+	PPSSPP_setupStorage
+	PPSSPP_setEmulationFolder
+	PPSSPP_setupSaves
 }
 
 #update
-PPSSPP.update(){
+PPSSPP_update(){
 	configEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}"
-	PPSSPP.setupStorage
-	PPSSPP.setEmulationFolder
-	PPSSPP.setupSaves
+	PPSSPP_setupStorage
+	PPSSPP_setEmulationFolder
+	PPSSPP_setupSaves
 }
 
 #ConfigurePaths
-PPSSPP.setEmulationFolder(){
+PPSSPP_setEmulationFolder(){
   	configFile="$HOME/.var/app/${PPSSPP_emuPath}/config/ppsspp/PSP/SYSTEM/ppsspp.ini"
     gameDirOpt='CurrentDirectory = '
     newGameDirOpt='CurrentDirectory = '"${romsPath}PPSSPP"
@@ -42,61 +42,61 @@ PPSSPP.setEmulationFolder(){
 }
 
 #SetupSaves
-PPSSPP.setupSaves(){
+PPSSPP_setupSaves(){
 	linkToSaveFolder ppsspp saves "$HOME/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SAVEDATA"
 	linkToSaveFolder ppsspp states "$HOME/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/PPSSPP_STATE"
 }
 
 
 #SetupStorage
-PPSSPP.setupStorage(){
+PPSSPP_setupStorage(){
 	echo "NYI"
 }
 
 
 #WipeSettings
-PPSSPP.wipe(){
+PPSSPP_wipe(){
    rm -rf "$HOME/.var/app/$PPSSPP_emuPath"
 }
 
 
 #Uninstall
-PPSSPP.uninstall(){
+PPSSPP_uninstall(){
     flatpak uninstall "$PPSSPP_emuPath" --user -y
 }
 
 #setABXYstyle
-PPSSPP.setABXYstyle(){
+PPSSPP_setABXYstyle(){
 	echo "NYI"    
 }
 
 #Migrate
-PPSSPP.migrate(){
+PPSSPP_migrate(){
 	echo "NYI"    
 }
 
 #WideScreenOn
-PPSSPP.wideScreenOn(){
+PPSSPP_wideScreenOn(){
 	echo "NYI"
 }
 
 #WideScreenOff
-PPSSPP.wideScreenOff(){
+PPSSPP_wideScreenOff(){
 	echo "NYI"
 }
 
 #BezelOn
-PPSSPP.bezelOn(){
+PPSSPP_bezelOn(){
 echo "NYI"
 }
 
 #BezelOff
-PPSSPP.bezelOff(){
+PPSSPP_bezelOff(){
 echo "NYI"
 }
 
 #finalExec - Extra stuff
-PPSSPP.finalize(){
+PPSSPP_finalize(){
 	echo "NYI"
 }
 

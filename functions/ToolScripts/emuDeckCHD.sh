@@ -4,7 +4,7 @@ CHD_toolName="EmuDeck Compression Tool"
 CHD_toolType="script"
 CHD_toolPath="${toolsPath}/chdconv/chddeck.sh"
 
-CHD.install(){		
+CHD_install(){		
 	
 	rsync -avhp --mkpath "$EMUDECKGIT/tools/chdconv" "$toolsPath"
 
@@ -15,18 +15,18 @@ CHD.install(){
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" "$CHD_toolPath"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools/|${toolsPath}|g" "$CHD_toolPath"	
 
-	CHD.createDesktopShortcut
+	CHD_createDesktopShortcut
 }
 
 
 
-CHD.createDesktopShortcut(){
+CHD_createDesktopShortcut(){
 
 	CHD_Shortcutlocation=$1
 
 	if [[ "$CHD_Shortcutlocation" == "" ]]; then
 
-		CHD_Shortcutlocation="$HOME/Desktop/EmuDeckCHD.desktop"
+		CHD_Shortcutlocation="$HOME/Desktop/EmuDeckCHD_desktop"
 
 	fi
 

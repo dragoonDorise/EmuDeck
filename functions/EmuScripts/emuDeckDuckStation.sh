@@ -7,12 +7,12 @@ DuckStation_emuPath="org.duckstation.DuckStation"
 DuckStation_releaseURL=""
 
 #cleanupOlderThings
-DuckStation.cleanup(){
+DuckStation_cleanup(){
  echo "NYI"
 }
 
 #Install
-DuckStation.install(){
+DuckStation_install(){
 	setMSG "Installing $DuckStation_emuName"		
 
 	installEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}"	
@@ -20,27 +20,27 @@ DuckStation.install(){
 }
 
 #ApplyInitialSettings
-DuckStation.init(){
+DuckStation_init(){
 	setMSG "Initializing $DuckStation_emuName settings."
 	configEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}" "true"
-	DuckStation.setupStorage
-	DuckStation.setEmulationFolder
-	DuckStation.setupSaves
-	DuckStation.addSteamInputProfile
+	DuckStation_setupStorage
+	DuckStation_setEmulationFolder
+	DuckStation_setupSaves
+	DuckStation_addSteamInputProfile
 }
 
 #update
-DuckStation.update(){
+DuckStation_update(){
 	setMSG "Updating $DuckStation_emuName settings."
 	configEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}"
-	DuckStation.setupStorage
-	DuckStation.setEmulationFolder
-	DuckStation.setupSaves
-	DuckStation.addSteamInputProfile
+	DuckStation_setupStorage
+	DuckStation_setEmulationFolder
+	DuckStation_setupSaves
+	DuckStation_addSteamInputProfile
 }
 
 #ConfigurePaths
-DuckStation.setEmulationFolder(){
+DuckStation_setEmulationFolder(){
 	setMSG "Setting $DuckStation_emuName Emulation Folder"	
   	configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
     gameDirOpt='RecursivePaths = '
@@ -52,43 +52,43 @@ DuckStation.setEmulationFolder(){
 }
 
 #SetupSaves
-DuckStation.setupSaves(){
+DuckStation_setupSaves(){
 	linkToSaveFolder duckstation saves "$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/memcards"
 	linkToSaveFolder duckstation states "$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/savestates"
 }
 
 
 #SetupStorage
-DuckStation.setupStorage(){
+DuckStation_setupStorage(){
 	echo "NYI"
 }
 
 
 #WipeSettings
-DuckStation.wipe(){
+DuckStation_wipe(){
 	setMSG "Wiping $DuckStation_emuName settings folder."	
    	rm -rf "$HOME/.var/app/$DuckStation_emuPath"
 }
 
 
 #Uninstall
-DuckStation.uninstall(){
+DuckStation_uninstall(){
 	setMSG "Uninstalling ${DuckStation_emuName}."	
     flatpak uninstall "$DuckStation_emuPath" --user -y
 }
 
 #setABXYstyle
-DuckStation.setABXYstyle(){
+DuckStation_setABXYstyle(){
     	echo "NYI"
 }
 
 #Migrate
-DuckStation.migrate(){
+DuckStation_migrate(){
 	echo "NYI"
 }
 
 #WideScreenOn
-DuckStation.wideScreenOn(){
+DuckStation_wideScreenOn(){
 	setMSG "${DuckStation_emuName}: Widescreen On"
     echo ""
     configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
@@ -101,7 +101,7 @@ DuckStation.wideScreenOn(){
 }
 
 #WideScreenOff
-DuckStation.wideScreenOff(){
+DuckStation_wideScreenOff(){
 	setMSG "${DuckStation_emuName}: Widescreen Off"
     echo ""
     configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
@@ -114,21 +114,21 @@ DuckStation.wideScreenOff(){
 }
 
 #BezelOn
-DuckStation.bezelOn(){
+DuckStation_bezelOn(){
 echo "NYI"
 }
 
 #BezelOff
-DuckStation.bezelOff(){
+DuckStation_bezelOff(){
 echo "NYI"
 }
 
 #finalExec - Extra stuff
-DuckStation.finalize(){
+DuckStation_finalize(){
 	echo "NYI"
 }
 
-DuckStation.addSteamInputProfile(){
+DuckStation_addSteamInputProfile(){
 	setMSG "Adding $DuckStation_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/duckstation_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

@@ -7,12 +7,12 @@ Cemu_releaseURL="https://cemu.info/releases/cemu_1.26.2.zip"
 Cemu_cemuSettings="${romsPath}wiiu/settings.xml"
 
 #cleanupOlderThings
-Cemu.cleanup(){
+Cemu_cleanup(){
 	echo "NYI"
 }
 
 #Install
-Cemu.install(){
+Cemu_install(){
 	setMSG "Installing $Cemu_emuName"		
 
 	curl $Cemu_releaseURL --output "$romsPath"wiiu/cemu.zip 
@@ -31,16 +31,16 @@ Cemu.install(){
 }
 
 #ApplyInitialSettings
-Cemu.init(){
+Cemu_init(){
 	setMSG "Initializing $Cemu_emuName settings."	
 	rsync -avhp $EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/ "${romsPath}wiiu"
-    Cemu.setEmulationFolder
-	Cemu.setupSaves
-	Cemu.addSteamInputProfile
+    Cemu_setEmulationFolder
+	Cemu_setupSaves
+	Cemu_addSteamInputProfile
 }
 
 #update
-Cemu.update(){
+Cemu_update(){
 	setMSG "Updating $Cemu_emuName settings."	
 	Cemu_cemuSettings="${romsPath}wiiu/settings.xml"
     if [ -f $Cemu_cemuSettings ]; then
@@ -51,13 +51,13 @@ Cemu.update(){
 	   	rm $Cemu_cemuSettings
 		mv -f $Cemu_cemuSettings.bak $Cemu_cemuSettings
 	fi
-    Cemu.setEmulationFolder
-	Cemu.setupSaves
-	Cemu.addSteamInputProfile
+    Cemu_setEmulationFolder
+	Cemu_setupSaves
+	Cemu_addSteamInputProfile
 }
 
 #ConfigurePaths
-Cemu.setEmulationFolder(){
+Cemu_setEmulationFolder(){
 	setMSG "Setting $Cemu_emuName Emulation Folder"	
     Cemu_cemuSettings="${romsPath}wiiu/settings.xml"
 	if [[ -f "${Cemu_cemuSettings}" ]]; then
@@ -69,20 +69,20 @@ Cemu.setEmulationFolder(){
 }
 
 #SetupSaves
-Cemu.setupSaves(){
+Cemu_setupSaves(){
 	unlink "${savesPath}Cemu/saves" # Fix for previous bad symlink
 	linkToSaveFolder Cemu saves "${romsPath}wiiu/mlc01/usr/save"
 }
 
 
 #SetupStorage
-Cemu.setupStorage(){
+Cemu_setupStorage(){
 	echo "NYI"
 }
 
 
 #WipeSettings
-Cemu.wipeSettings(){
+Cemu_wipeSettings(){
 		echo "NYI"
    # rm -rf "${romPath}wiiu/"
    # prob not cause roms are here
@@ -90,47 +90,47 @@ Cemu.wipeSettings(){
 
 
 #Uninstall
-Cemu.uninstall(){
+Cemu_uninstall(){
 	setMSG "Uninstalling $Cemu_emuName."
     rm -rf "${Cemu_emuPath}"
 }
 
 #setABXYstyle
-Cemu.setABXYstyle(){
+Cemu_setABXYstyle(){
     	echo "NYI"
 }
 
 #Migrate
-Cemu.migrate(){
+Cemu_migrate(){
    	echo "NYI" 
 }
 
 #WideScreenOn
-Cemu.wideScreenOn(){
+Cemu_wideScreenOn(){
 echo "NYI"
 }
 
 #WideScreenOff
-Cemu.wideScreenOff(){
+Cemu_wideScreenOff(){
 echo "NYI"
 }
 
 #BezelOn
-Cemu.bezelOn(){
+Cemu_bezelOn(){
 echo "NYI"
 }
 
 #BezelOff
-Cemu.bezelOff(){
+Cemu_bezelOff(){
 	echo "NYI"
 }
 
 #finalExec - Extra stuff
-Cemu.finalize(){
-    Cemu.cleanup
+Cemu_finalize(){
+    Cemu_cleanup
 }
 
-Cemu.addSteamInputProfile(){
+Cemu_addSteamInputProfile(){
 	setMSG "Adding $Cemu_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/cemu_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

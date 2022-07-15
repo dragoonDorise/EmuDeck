@@ -7,12 +7,12 @@ Xenia_releaseURL="https://github.com/xenia-project/release-builds-windows/releas
 Xenia_XeniaSettings="${romsPath}xbox360/settings.xml"
 
 #cleanupOlderThings
-Xenia.cleanup(){
+Xenia_cleanup(){
 	echo "NYI"
 }
 
 #Install
-Xenia.install(){
+Xenia_install(){
 	setMSG "Installing Xenia"		
 
 	curl -L "$Xenia_releaseURL" --output "$romsPath"xbox360/xenia_master.zip 
@@ -24,76 +24,76 @@ Xenia.install(){
 }
 
 #ApplyInitialSettings
-Xenia.init(){
+Xenia_init(){
 	setMSG "Initializing Xenia Config"
 	rsync -avhp $EMUDECKGIT/configs/xenia/ "$romsPath"/xbox360 
 }
 
 #update
-Xenia.update(){
+Xenia_update(){
 	echo "NYI"
 }
 
 #ConfigurePaths
-Xenia.setEmulationFolder(){
+Xenia_setEmulationFolder(){
 	echo "NYI"
 }
 
 #SetupSaves
-Xenia.setupSaves(){
+Xenia_setupSaves(){
 	echo "NYI"
 }
 
 
 #SetupStorage
-Xenia.setupStorage(){
+Xenia_setupStorage(){
 	echo "NYI"
 }
 
 
 #WipeSettings
-Xenia.wipeSettings(){
+Xenia_wipeSettings(){
 	echo "NYI"
 }
 
 
 #Uninstall
-Xenia.uninstall(){
+Xenia_uninstall(){
     rm -rf "${Xenia_emuPath}"
 }
 
 #setABXYstyle
-Xenia.setABXYstyle(){
+Xenia_setABXYstyle(){
     echo "NYI"
 }
 
 #Migrate
-Xenia.migrate(){
+Xenia_migrate(){
    	echo "NYI" 
 }
 
 #WideScreenOn
-Xenia.wideScreenOn(){
+Xenia_wideScreenOn(){
 	echo "NYI"
 }
 
 #WideScreenOff
-Xenia.wideScreenOff(){
+Xenia_wideScreenOff(){
 	echo "NYI"
 }
 
 #BezelOn
-Xenia.bezelOn(){
+Xenia_bezelOn(){
 	echo "NYI"
 }
 
 #BezelOff
-Xenia.bezelOff(){
+Xenia_bezelOff(){
 	echo "NYI"
 }
 
 #finalExec - Extra stuff
-Xenia.finalize(){
-    Xenia.cleanup
+Xenia_finalize(){
+    Xenia_cleanup
 }
 
