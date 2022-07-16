@@ -1,17 +1,22 @@
 #!/bin/bash
 
 getScreenAR(){	
-	Xaxis=$(xrandr --current | grep '*' | uniq | awk '{print $1}' | cut -d 'x' -f1)
-	Yaxis=$(xrandr --current | grep '*' | uniq | awk '{print $1}' | cut -d 'x' -f2)
+	resolution=$(xrandr --current | grep 'primary' | uniq | awk '{print $4}'| cut -d '+' -f1)		
+	Xaxis=$(echo $resolution | awk '{print $1}' | cut -d 'x' -f2)
+	Yaxis=$(echo $resolution | awk '{print $1}' | cut -d 'x' -f1)		
 	
 	screenWidth=$Xaxis
 	screenHeight=$Yaxis
 	
-	#Is rotated?
+	
+	##Is rotated?
 	if [ $Yaxis > $Xaxis ]; then
 		screenWidth=$Yaxis
 		screenHeight=$Xaxis		
 	fi
+	
+	#echo $screenWidth
+	#echo $screenHeight
 	
 	aspectRatio=$(awk -v screenWidth=$screenWidth -v screenHeight=$screenHeight 'BEGIN{printf "%.2f\n", (screenWidth/screenHeight)}')
 	# 
@@ -23,5 +28,4 @@ getScreenAR(){
 		return=0	
 	fi
 	echo $return
-	
 }
