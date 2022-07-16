@@ -1014,6 +1014,75 @@ fi
 
 installBinUp
 
+
+#Fixes for 16:9 Screens
+
+if [ $(getScreenAR) == 169 ];then
+		
+	-----
+	RApath=~/.var/app/org.libretro.RetroArch/config/retroarch/config/	
+	
+	
+	#Mesen
+	#Nestopia
+	sed -i "s|input_overlay_scale_landscape = "1.070000"|input_overlay_scale_landscape = "1.100000"|" "${RApath}"Nestopia/nes.cfg
+	sed -i "s|input_overlay_aspect_adjust_landscape = "0.000000"|input_overlay_aspect_adjust_landscape = "-0.135000"|" "${RApath}"Nestopia/nes.cfg
+
+	sed -i "s|input_overlay_scale_landscape = "1.070000"|input_overlay_scale_landscape = "1.100000"|" "${RApath}"Mesen/nes.cfg
+	sed -i "s|input_overlay_aspect_adjust_landscape = "0.000000"|input_overlay_aspect_adjust_landscape = "-0.135000"|" "${RApath}"Mesen/nes.cfg
+	
+	#Beetle PCE Fast
+	#Beetle PCE
+
+	sed -i "s|aspect_ratio_index = "21"|aspect_ratio_index = "0"|" "${RApath}"Beetle PCE Fast/pcengine.cfg
+	sed -i "s|input_overlay_aspect_adjust_landscape = "-0.130000"|input_overlay_aspect_adjust_landscape = "-0.000000"|" "${RApath}"Beetle PCE Fast/pcengine.cfg
+	sed -i "s|input_overlay_scale_landscape = "1.060000"|input_overlay_scale_landscape = "1.055000"|" "${RApath}"Beetle PCE Fast/pcengine.cfg
+	sed -i "s|input_overlay_x_separation_landscape = "0.010000"|input_overlay_x_separation_landscape = "0.000000"|" "${RApath}"Beetle PCE Fast/pcengine.cfg
+	sed -i "s|aspect_ratio_index = "21"|aspect_ratio_index = "0"|" "${RApath}"Beetle PCE/pcengine.cfg
+	sed -i "s|input_overlay_aspect_adjust_landscape = "-0.130000"|input_overlay_aspect_adjust_landscape = "-0.000000"|" "${RApath}"Beetle PCEpcengine.cfg
+	sed -i "s|input_overlay_scale_landscape = "1.060000"|input_overlay_scale_landscape = "1.055000"|" "${RApath}"Beetle PCE/pcengine.cfg
+	sed -i "s|input_overlay_x_separation_landscape = "0.010000"|input_overlay_x_separation_landscape = "0.000000"|" "${RApath}"Beetle PCE/pcengine.cfg
+
+	#Stella
+	
+	sed -i "s|input_overlay_aspect_adjust_landscape = "0.000000"|input_overlay_aspect_adjust_landscape = "-0.025000"|" "${RApath}"Stella/atari800.cfg
+	sed -i "s|input_overlay_scale_landscape = "1.175000"|input_overlay_scale_landscape = "1.080000"|" "${RApath}"Stella/atari800.cfg
+	sed -i "s|input_overlay_aspect_adjust_landscape = "0.000000"|input_overlay_aspect_adjust_landscape = "-0.025000"|" "${RApath}"Stella/atari2600.cfg
+	sed -i "s|input_overlay_scale_landscape = "1.175000"|input_overlay_scale_landscape = "1.080000"|" "${RApath}"Stella/atari2600.cfg
+	sed -i "s|input_overlay_aspect_adjust_landscape = "0.000000"|input_overlay_aspect_adjust_landscape = "-0.025000"|" "${RApath}"Stella/atari5200.cfg
+	sed -i "s|input_overlay_scale_landscape = "1.175000"|input_overlay_scale_landscape = "1.080000"|" "${RApath}"Stella/atari5200.cfg
+	
+	#Beetle NeoPop
+	sed -i "s|input_overlay_scale_landscape = "1.615000"|input_overlay_scale_landscape = "1.575000"|" "${RApath}"Beetle NeoPop/ngpc.cfg
+	sed -i "s|input_overlay_x_separation_portrait = "-0.010000"|input_overlay_x_separation_portrait = "0.000000"|" "${RApath}"Beetle NeoPop/ngpc.cfg
+	sed -i "s|input_overlay_y_offset_landscape = "-0.135000"|input_overlay_y_offset_landscape = "-0.130000"|" "${RApath}"Beetle NeoPop/ngpc.cfg
+	sed -i "s|input_overlay_aspect_adjust_landscape = "-0.170000"|input_overlay_aspect_adjust_landscape = "-0.265000"|" "${RApath}"Beetle NeoPop/ngpc.cfg
+		
+	
+	#Gambatte
+	sed -i "s|input_overlay_scale_landscape = "1.860000"|input_overlay_scale_landscape = "1.670000"|" "${RApath}"Gambatte/gb.cfg
+	sed -i "s|input_overlay_scale_landscape = "1.870000"|input_overlay_scale_landscape = "1.680000"|" "${RApath}"Gambatte/gbc.cfg
+	
+	#Genesis Plus GX	
+	sed -i "s|input_overlay_aspect_adjust_landscape = "-0.115000"|input_overlay_aspect_adjust_landscape = "-0.200000"|" "${RApath}"Genesis Plus GX/gamegear.cfg
+	sed -i "s|input_overlay_scale_landscape = "1.545000"|input_overlay_scale_landscape = "1.500000"|" "${RApath}"Genesis Plus GX/gamegear.cfg	
+	sed -i "s|input_overlay_scale_landscape = "1.170000"|input_overlay_scale_landscape = "1.055000"|" "${RApath}"Genesis Plus GX/genesis.cfg
+	sed -i "s|input_overlay_scale_landscape = "1.170000"|input_overlay_scale_landscape = "1.055000"|" "${RApath}"Genesis Plus GX/mastersystem.cfg	
+	sed -i "s|input_overlay_scale_landscape = "1.170000"|input_overlay_scale_landscape = "1.055000"|" "${RApath}"Genesis Plus GX/megacd.cfg
+	sed -i "s|input_overlay_scale_landscape = "1.170000"|input_overlay_scale_landscape = "1.055000"|" "${RApath}"Genesis Plus GX/segacd.cfg
+	
+	#Gearsystem
+	sed -i "s|input_overlay_scale_landscape = "1.545000"|input_overlay_scale_landscape = "1.500000"|" "${RApath}"Gearsystem/gamegear.cfg
+	
+	#SameBoy
+	sed -i "s|input_overlay_scale_landscape = "1.860000"|input_overlay_scale_landscape = "1.670000"|" "${RApath}"SameBoy/gb.cfg
+	sed -i "s|input_overlay_scale_landscape = "1.870000"|input_overlay_scale_landscape = "1.680000"|" "${RApath}"SameBoy/gbc.cfg
+	
+	#Snes9x
+	sed -i "s|input_overlay_scale_landscape = "1.170000"|input_overlay_scale_landscape = "1.055000"|" "${RApath}"Snes9x/snes.cfg
+	
+fi
+
 setMSG "Cleaning up downloaded files..."	
 rm -rf ~/dragoonDoriseTools	
 clear
