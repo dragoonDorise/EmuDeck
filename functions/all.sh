@@ -27,6 +27,7 @@ source "$EMUDECKGIT"/functions/linkToSaveFolder.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
 source "$EMUDECKGIT"/functions/getLatestReleaseURLGH.sh
 source "$EMUDECKGIT"/functions/migrateAndLinkConfig.sh
+source "$EMUDECKGIT"/functions/nonDeck.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh

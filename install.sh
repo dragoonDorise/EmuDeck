@@ -959,8 +959,30 @@ else
 	fi
 fi
 
+#
+##
+## Overrides for non Steam hardware...
+##
+#
 
+
+#
+#Fixes for 16:9 Screens
+#
+
+if [ $(getScreenAR) == 169 ];then
+	nonDeck_169Screen		
+fi
+
+#Anbernic Win600 Special configuration
+if [ $(getProductName) == "Win600" ];then
+	nonDeck_win600		
+fi
+
+
+#
 # We mark the script as finished	
+#
 echo "" > "$HOME/emudeck/.finished"
 echo "" > "$HOME/emudeck/.electron-finished"
 echo "100" > "$HOME/emudeck/msg.log"
