@@ -11,7 +11,7 @@ function changeLine() {
     local OLD=$(escapeSedKeyword "$KEYWORD")
     local NEW=$(escapeSedValue "$REPLACE")
 
-    sed -i "/${OLD}/c\\${NEW}" $FILE
+    sed -i "/${OLD}/c\\${NEW}" "$FILE"
 
 }
 function escapeSedKeyword(){
@@ -66,13 +66,13 @@ function testLocationValid(){
 
 function makeFunction(){
 
-	find "/home/deck/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.cfg" | while read file
+	find "$HOME/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.cfg" | while read file
 		do
 			
 			folderOverride="$(basename "${file}")"
 			foldername="$(dirname "${file}")"
 			coreName="$(basename "${foldername}")"
-			echo "RetroArch_"${coreName// /_}"_bezelOn(){"
+			echo "RetroArch_"${coreName// /_}"_setUpCoreOpt(){"
 			IFS=$'\n'
 			for line in $(cat "$file")
 			do
@@ -84,6 +84,16 @@ function makeFunction(){
 		done
 }
 
+function deleteConfigs(){
+
+	find "$HOME/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.opt" | while read file
+		do
+			
+			rm "$file"
+		done
+}
+
+
 function customLocation(){
     echo $(zenity --file-selection --directory --title="Select a destination for the Emulation directory." 2>/dev/null)
 }
@@ -93,7 +103,7 @@ function refreshSource(){
 }
 
 function setAllEmuPaths(){
-	for func in $(compgen -A function | grep '_setEmulationFolder')
+	for func in $(compgen -A 'function' | grep '_setEmulationFolder')
 		 do  $func
 	done
 }
@@ -101,14 +111,14 @@ function setAllEmuPaths(){
 
 
 function installAll(){
-	for func in $(compgen -A function | grep '\_install$')
+	for func in $(compgen -A 'function' | grep '\_install$')
 		 do  $func
 	done
 }
 
 
 function initAll(){
-	for func in $(compgen -A function | grep '\_init$')
+	for func in $(compgen -A 'function' | grep '\_init$')
 		 do  $func
 	done
 }
