@@ -1068,8 +1068,7 @@ if [ $(getScreenAR) == 169 ];then
 	
 	#Genesis Plus GX	
 	GenesisPath="${RApath}Genesis Plus GX/"
-	sed -i "s|input_overlay_aspect_adjust_landscape = \"-0.115000\"|input_overlay_aspect_adjust_landscape = \"-0.200000\"|" "${GenesisPath}gamegear.cfg"
-	sed -i "s|input_overlay_scale_landscape = \"1.545000\"|input_overlay_scale_landscape = \"1.500000\"|" "${GenesisPath}gamegear.cfg"	
+	sed -i "s|input_overlay_aspect_adjust_landscape = \"-0.080000\"|input_overlay_aspect_adjust_landscape = \"-0.200000\"|" "${GenesisPath}gamegear.cfg"
 	sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${GenesisPath}genesis.cfg"
 	sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${GenesisPath}mastersystem.cfg"	
 	sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${GenesisPath}megacd.cfg"
