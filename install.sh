@@ -1110,9 +1110,9 @@ if [ $(getScreenAR) == 169 ];then
 	sed -i "s|input_overlay_aspect_adjust_landscape = \"0.110000\"|input_overlay_aspect_adjust_landscape = \"0.000000\"|" "${FlycastPath}dreamcast.cfg"
 	
 	#Beetle Saturn
-	BeetleSaturnPath="${RApath}Beetle Saturn/"
+	BeetleSaturnPath="${RApath}Yabause/"
 	sed -i "s|input_overlay_aspect_adjust_landscape = \"0.095000\"|input_overlay_aspect_adjust_landscape = \"0.000000\"|" "${BeetleSaturnPath}saturn.cfg"
-
+	
 fi
 
 setMSG "Cleaning up downloaded files..."	
