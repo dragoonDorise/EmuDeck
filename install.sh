@@ -1059,7 +1059,11 @@ if [ $(getScreenAR) == 169 ];then
 	sed -i "s|input_overlay_scale_landscape = \"1.615000\"|input_overlay_scale_landscape = \"1.575000\"|" "${NeoPopPath}ngpc.cfg"
 	sed -i "s|input_overlay_x_separation_portrait = \"-0.010000\"|input_overlay_x_separation_portrait = \"0.000000\"|" "${NeoPopPath}ngpc.cfg"
 	sed -i "s|input_overlay_y_offset_landscape = \"-0.135000\"|input_overlay_y_offset_landscape = \"-0.130000\"|" "${NeoPopPath}ngpc.cfg"
-	sed -i "s|input_overlay_aspect_adjust_landscape = \"-0.170000\"|input_overlay_aspect_adjust_landscape = \"-0.265000\"|" "${NeoPopPath}ngpc.cfg"
+	sed -i "s|input_overlay_aspect_adjust_landscape = \"-0.160000\"|input_overlay_aspect_adjust_landscape = \"-0.275000\"|" "${NeoPopPath}ngpc.cfg"
+	sed -i "s|input_overlay_scale_landscape = \"1.615000\"|input_overlay_scale_landscape = \"1.575000\"|" "${NeoPopPath}ngp.cfg"
+	sed -i "s|input_overlay_x_separation_portrait = \"-0.010000\"|input_overlay_x_separation_portrait = \"0.000000\"|" "${NeoPopPath}ngp.cfg"
+	sed -i "s|input_overlay_y_offset_landscape = \"-0.135000\"|input_overlay_y_offset_landscape = \"-0.130000\"|" "${NeoPopPath}ngp.cfg"
+	sed -i "s|input_overlay_aspect_adjust_landscape = \"-0.160000\"|input_overlay_aspect_adjust_landscape = \"-0.275000\"|" "${NeoPopPath}ngp.cfg"
 	
 	#Gambatte
 	GambattePath="${RApath}Gambatte/"
@@ -1070,14 +1074,15 @@ if [ $(getScreenAR) == 169 ];then
 	GenesisPath="${RApath}Genesis Plus GX/"
 	sed -i "s|input_overlay_aspect_adjust_landscape = \"-0.080000\"|input_overlay_aspect_adjust_landscape = \"-0.200000\"|" "${GenesisPath}gamegear.cfg"
 	sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${GenesisPath}genesis.cfg"
+	sed -i "s|input_overlay_aspect_adjust_landscape = \"0.095000\"|input_overlay_aspect_adjust_landscape = \"-0.010000\"|" "${GenesisPath}genesis.cfg"
+	
 	sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${GenesisPath}mastersystem.cfg"	
 	sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${GenesisPath}megacd.cfg"
 	sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${GenesisPath}segacd.cfg"
 	
-	sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.075000\"|" "${GenesisPath}megacd.cfg"
-	sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.075000\"|" "${GenesisPath}segacd.cfg"
-	sed -i "s|input_overlay_aspect_adjust_landscape = \"0.000000\"|input_overlay_aspect_adjust_landscape = \"-0.040000\"|" "${GenesisPath}megacd.cfg"
-	sed -i "s|input_overlay_aspect_adjust_landscape = \"0.000000\"|input_overlay_aspect_adjust_landscape = \"-0.040000\"|" "${GenesisPath}segacd.cfg"
+	
+	sed -i "s|input_overlay_aspect_adjust_landscape = \"0.000000\"|input_overlay_aspect_adjust_landscape = \"-0.110000\"|" "${GenesisPath}megacd.cfg"
+	sed -i "s|input_overlay_aspect_adjust_landscape = \"0.000000\"|input_overlay_aspect_adjust_landscape = \"-0.110000\"|" "${GenesisPath}segacd.cfg"
 	
 	#PicoDrive
 	PicoPath="${RApath}PicoDrive/"
@@ -1096,7 +1101,19 @@ if [ $(getScreenAR) == 169 ];then
 	Snes9xPath="${RApath}Snes9x/"
 	sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${Snes9xPath}snes.cfg"
 	
-fi	
+	#Mupen64
+	Mupen64Path="${RApath}Mupen64Plus-Next/"
+	sed -i "s|input_overlay_aspect_adjust_landscape = \"0.085000\"|input_overlay_aspect_adjust_landscape = \"-0.025000\"|" "${Mupen64Path}n64.cfg"
+	
+	#Flycast
+	FlycastPath="${RApath}Flycast/"
+	sed -i "s|input_overlay_aspect_adjust_landscape = \"0.110000\"|input_overlay_aspect_adjust_landscape = \"0.000000\"|" "${FlycastPath}dreamcast.cfg"
+	
+	#Beetle Saturn
+	BeetleSaturnPath="${RApath}Beetle Saturn/"
+	sed -i "s|input_overlay_aspect_adjust_landscape = \"0.095000\"|input_overlay_aspect_adjust_landscape = \"0.000000\"|" "${BeetleSaturnPath}saturn.cfg"
+
+fi
 
 setMSG "Cleaning up downloaded files..."	
 rm -rf ~/dragoonDoriseTools	
