@@ -1055,6 +1055,15 @@ RetroArch_installCores(){
 
 }
 
+function RetroArch_resetCoreConfigs(){
+
+	find "$RetroArch_coreConfigFolders" -type f -iname "*.cfg" -o -type f -iname "*.opt"| while read file
+		do
+			rm "$file"
+		done
+	RetroArch_init
+}
+
 RetroArch_autoSaveOn(){
 	changeLine 'savestate_auto_load = ' 'savestate_auto_load = "true"' "$RetroArch_configFile"
 	changeLine 'savestate_auto_save = ' 'savestate_auto_save = "true"' "$RetroArch_configFile"
