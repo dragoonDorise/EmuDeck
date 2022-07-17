@@ -890,15 +890,15 @@ else
 	Xemu_wideScreenOff
 fi
 if [ $DreamcastWide == true ]; then
-	sed -i "s|reicast_widescreen_hack = \"disabled\"|reicast_widescreen_hack = \"enabled\"|g" ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Flycast/Flycast.opt 
+	RetroArch_Flycast_wideScreenOn
 else
-	sed -i "s|reicast_widescreen_hack = \"enabled\"|reicast_widescreen_hack = \"disabled\"|g" ~/.var/app/org.libretro.RetroArch/config/retroarch/config/Flycast/Flycast.opt 
+	RetroArch_Flycast_wideScreenOff
 fi
 
 if [ $BeetleWide == true ]; then
-	sed -i "s|beetle_psx_hw_widescreen_hack = \"disabled\"|beetle_psx_hw_widescreen_hack = \"enabled\"|g" "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle PSX HW/Beetle PSX HW.opt" 
+	RetroArch_Beetle_PSX_HW_wideScreenOn
 else
-	sed -i "s|beetle_psx_hw_widescreen_hack = \"enabled\"|beetle_psx_hw_widescreen_hack = \"disabled\"|g" "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/config/Beetle PSX HW/Beetle PSX HW.opt" 
+	RetroArch_Beetle_PSX_HW_wideScreenOff
 fi
 
 #RetroAchievments

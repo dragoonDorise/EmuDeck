@@ -839,7 +839,7 @@ RetroArch_Flycast_setUpCoreOpt(){
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu4_screen_position' '"Upper'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu4_screen_size_mult' '"1x"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_volume_modifier_enable' '"enabled"'
-	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_cheats' '"disabled"'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_cheats' '"enabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_hack' '"enabled"'
 }
 
@@ -957,12 +957,27 @@ RetroArch_bsnes_hd_beta_setUpCoreOpt(){
 RetroArch_setUpCoreOptAll(){
 
 	for func in $(compgen -A 'function' | grep '\_setUpCoreOpt$')
-		do  $func
+		do echo  "$func" && "$func"
 	done
 }
 
+RetroArch_Flycast_wideScreenOn(){
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_cheats' '"enabled"'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_hack' '"enabled"'
+}
 
+RetroArch_Flycast_wideScreenOff(){
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_cheats' '"disabled"'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_hack' '"disabled"'
+}
 
+RetroArch_Beetle_PSX_HW_wideScreenOn(){
+	RetroArch_setOverride 'Beetle PSX HW.opt' 'Beetle PSX HW'  'beetle_psx_hw_widescreen_hack' '"enabled"'
+}
+
+RetroArch_Beetle_PSX_HW_wideScreenOff(){
+	RetroArch_setOverride 'Beetle PSX HW.opt' 'Beetle PSX HW'  'beetle_psx_hw_widescreen_hack' '"disabled"'
+}
 #BezelOn
 RetroArch_bezelOnAll(){
 	for func in $(compgen -A 'function' | grep '\_bezelOn$' | grep '^RetroArch_' | grep -v "RetroArch_bezelOn")
@@ -973,7 +988,7 @@ RetroArch_bezelOnAll(){
 #BezelOff
 RetroArch_bezelOffAll(){
 	for func in $(compgen -A 'function' | grep '\_bezelOff$' | grep '^RetroArch_')
-		do  $func
+		do echo  "$func" && "$func"
 	done
 }
 

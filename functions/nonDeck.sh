@@ -6,7 +6,7 @@ nonDeck_169Screen(){
 	#RetroArch_setOverride 'wswanc.cfg' 'Beetle Cygne'  'aspect_ratio_index' '"21"'
 	
 	setMSG "Applying RetroArch bezel corrections for 16:9 screens..."		
-	RApath=~/.var/app/org.libretro.RetroArch/config/retroarch/config/	
+	#RApath=~/.var/app/org.libretro.RetroArch/config/retroarch/config/	
 	
 	#Mesen
 	#Nestopia
@@ -105,51 +105,97 @@ nonDeck_169Screen(){
 	# sed -i "s|input_overlay_scale_landscape = \"1.870000\"|input_overlay_scale_landscape = \"1.680000\"|" "${SameBoyPath}gbc.cfg"
 	find $RetroArch_coreConfigFolders -type f -name "gb.cfg"| while read configFile
 	do
-		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = ""1.670000"'
+		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.670000"'
 	done
 
 	find $RetroArch_coreConfigFolders -type f -name "gbc.cfg"| while read configFile
 	do
-		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = ""1.680000"'
+		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.680000"'
 	done
 	
 	#Genesis Plus GX	
-	GenesisPath="${RApath}Genesis Plus GX/"
-		sed -i "s|input_overlay_aspect_adjust_landscape = \"-0.080000\"|input_overlay_aspect_adjust_landscape = \"-0.200000\"|" "${GenesisPath}gamegear.cfg"
-		sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${GenesisPath}genesis.cfg"
-		sed -i "s|input_overlay_aspect_adjust_landscape = \"0.095000\"|input_overlay_aspect_adjust_landscape = \"-0.010000\"|" "${GenesisPath}genesis.cfg"
-		
-		sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${GenesisPath}mastersystem.cfg"	
-		sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${GenesisPath}megacd.cfg"
-		sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${GenesisPath}segacd.cfg"
-		
-		
-		sed -i "s|input_overlay_aspect_adjust_landscape = \"0.000000\"|input_overlay_aspect_adjust_landscape = \"-0.110000\"|" "${GenesisPath}megacd.cfg"
-		sed -i "s|input_overlay_aspect_adjust_landscape = \"0.000000\"|input_overlay_aspect_adjust_landscape = \"-0.110000\"|" "${GenesisPath}segacd.cfg"
+	#GenesisPath="${RApath}Genesis Plus GX/"
+	#sed -i "s|input_overlay_aspect_adjust_landscape = \"-0.080000\"|input_overlay_aspect_adjust_landscape = \"-0.200000\"|" "${GenesisPath}gamegear.cfg"
+	#sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${GenesisPath}genesis.cfg"
+	#sed -i "s|input_overlay_aspect_adjust_landscape = \"0.095000\"|input_overlay_aspect_adjust_landscape = \"-0.010000\"|" "${GenesisPath}genesis.cfg"
 	
-	#PicoDrive
-	PicoPath="${RApath}PicoDrive/"
-	sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.075000\"|" "${PicoPath}sega32x.cfg"
+	#sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${GenesisPath}mastersystem.cfg"	
+	#sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${GenesisPath}megacd.cfg"
+	#sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${GenesisPath}segacd.cfg"
 	
+	
+	#sed -i "s|input_overlay_aspect_adjust_landscape = \"0.000000\"|input_overlay_aspect_adjust_landscape = \"-0.110000\"|" "${GenesisPath}megacd.cfg"
+	#sed -i "s|input_overlay_aspect_adjust_landscape = \"0.000000\"|input_overlay_aspect_adjust_landscape = \"-0.110000\"|" "${GenesisPath}segacd.cfg"
 	#Gearsystem
-	GearsystemPath="${RApath}Gearsystem/"
-	sed -i "s|input_overlay_scale_landscape = \"1.545000\"|input_overlay_scale_landscape = \"1.500000\"|" "${GearsystemPath}gamegear.cfg"			
+	#GearsystemPath="${RApath}Gearsystem/"
+	#sed -i "s|input_overlay_scale_landscape = \"1.545000\"|input_overlay_scale_landscape = \"1.500000\"|" "${GearsystemPath}gamegear.cfg"		### Why is this so different from the other gamegear one? Shouldn't they be using the same overlay? Doesn't make sense? Not implmemented yet.
+
+	find $RetroArch_coreConfigFolders -type f -name "gamegear.cfg"| while read configFile
+	do
+		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "-0.010000"'
+		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "-0.020000"'
+	done
+
+	find $RetroArch_coreConfigFolders -type f -name "mastersystem.cfg"| while read configFile
+	do
+		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.055000"'
+	done
+
+	find $RetroArch_coreConfigFolders -type f -name "genesis.cfg"  -o -type f -name "megadrive.cfg"| while read configFile
+	do
+		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.055000"'
+		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "-0.010000"'
+	done
+
+	find $RetroArch_coreConfigFolders -type f -name "megacd.cfg" -o -type f -name "segacd.cfg"| while read configFile
+	do
+		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.055000"'
+		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "-0.110000"'
+	done
+
+	#PicoDrive
+	#PicoPath="${RApath}PicoDrive/"
+	#sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.075000\"|" "${PicoPath}sega32x.cfg"
+	
+	find $RetroArch_coreConfigFolders -type f -name "sega32x.cfg"| while read configFile
+	do
+		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.075000"'
+	done
+
+	
 	
 	#Snes9x
-	Snes9xPath="${RApath}Snes9x/"
-	sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${Snes9xPath}snes.cfg"
+	#Snes9xPath="${RApath}Snes9x/"
+	#sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${Snes9xPath}snes.cfg"
+
+	find $RetroArch_coreConfigFolders -type f -name "snes.cfg"| while read configFile
+	do
+		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.055000"'
+	done
 	
 	#Mupen64
-	Mupen64Path="${RApath}Mupen64Plus-Next/"
-	sed -i "s|input_overlay_aspect_adjust_landscape = \"0.085000\"|input_overlay_aspect_adjust_landscape = \"-0.025000\"|" "${Mupen64Path}n64.cfg"
+	#Mupen64Path="${RApath}Mupen64Plus-Next/"
+	#sed -i "s|input_overlay_aspect_adjust_landscape = \"0.085000\"|input_overlay_aspect_adjust_landscape = \"-0.025000\"|" "${Mupen64Path}n64.cfg"
+	find $RetroArch_coreConfigFolders -type f -name "n64.cfg" | while read configFile
+	do
+		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "-0.025000"'
+	done
 	
 	#Flycast
-	FlycastPath="${RApath}Flycast/"
-	sed -i "s|input_overlay_aspect_adjust_landscape = \"0.110000\"|input_overlay_aspect_adjust_landscape = \"0.000000\"|" "${FlycastPath}dreamcast.cfg"
+	#FlycastPath="${RApath}Flycast/"
+	#sed -i "s|input_overlay_aspect_adjust_landscape = \"0.110000\"|input_overlay_aspect_adjust_landscape = \"0.000000\"|" "${FlycastPath}dreamcast.cfg"
+	find $RetroArch_coreConfigFolders -type f -name "dreamcast.cfg" | while read configFile
+	do
+		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "0"'
+	done
 	
 	#Beetle Saturn
-	BeetleSaturnPath="${RApath}Yabause/"
-	sed -i "s|input_overlay_aspect_adjust_landscape = \"0.095000\"|input_overlay_aspect_adjust_landscape = \"0.000000\"|" "${BeetleSaturnPath}saturn.cfg"
+	#BeetleSaturnPath="${RApath}Yabause/"
+	#sed -i "s|input_overlay_aspect_adjust_landscape = \"0.095000\"|input_overlay_aspect_adjust_landscape = \"0.000000\"|" "${BeetleSaturnPath}saturn.cfg"
+	find $RetroArch_coreConfigFolders -type f -name "saturn.cfg" | while read configFile
+	do
+		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "0"'
+	done
 
 }
 
