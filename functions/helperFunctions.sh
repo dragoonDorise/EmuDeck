@@ -158,7 +158,7 @@ updateOrAppendConfigLine(){
 	local option=$2
 	local replacement=$3
 
-	local fullPath=$(dirname $configFile)
+	local fullPath=$(dirname "$configFile")
 	mkdir -p "$fullPath"
 	touch "$configFile"
 	

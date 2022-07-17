@@ -105,7 +105,7 @@ RetroArch_setOverride(){
 	local fullPath="$RetroArch_coreConfigFolders/$coreName"
 	local configFile="$fullPath/$fileName"
 
-	updateOrAppendConfigLine "$configFile" "$option" "$settingLine" 
+	updateOrAppendConfigLine "$configFile" "$option =" "$settingLine" 
 }
 
 RetroArch_wswanc_bezelOn(){
@@ -965,8 +965,8 @@ RetroArch_setUpCoreOptAll(){
 
 #BezelOn
 RetroArch_bezelOnAll(){
-	for func in $(compgen -A 'function' | grep '\_bezelOn$' | grep '^RetroArch_')
-		do  $func
+	for func in $(compgen -A 'function' | grep '\_bezelOn$' | grep '^RetroArch_' | grep -v "RetroArch_bezelOn")
+		do echo  "$func" && "$func"
 	done
 }
 
@@ -1108,7 +1108,7 @@ RetroArch_setSNESAR(){
 		RetroArch_snes_ar87
 	fi	
 }
-RetroArch_bezelOn(){
+RetroArch_setBezels(){
 	if [ $RABezels == true ]; then	
 		RetroArch_bezelOnAll
 	else

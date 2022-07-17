@@ -861,7 +861,7 @@ Yuzu_finalize
 
 
 #RA Bezels	
-RetroArch_bezelOn #needs to change
+RetroArch_setBezels #needs to change
 
 #RA SNES Aspect Ratio
 RetroArch_setSNESAR #needs to change
