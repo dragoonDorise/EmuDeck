@@ -87,7 +87,7 @@ function testLocationValid(){
 		if [ ! -f  $testLocation/testwrite.link ]; then
 			return="Invalid: $locationName not Linkable"
 		else
-			return="Valid: $testLocation"
+			return="Valid"
 		fi
 	fi
 	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
@@ -96,13 +96,13 @@ function testLocationValid(){
 
 function makeFunction(){
 
-	find "$HOME/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.cfg" | while read file
+	find "$HOME/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/" -maxdepth 1 -type f -iname "*.cfg" | while read file
 		do
 			
 			folderOverride="$(basename "${file}")"
 			foldername="$(dirname "${file}")"
 			coreName="$(basename "${foldername}")"
-			echo "RetroArch_"${coreName// /_}"_setUpCoreOpt(){"
+			echo "RetroArch_mainConfig(){"
 			IFS=$'\n'
 			for line in $(cat "$file")
 			do
@@ -153,4 +153,36 @@ function initAll(){
 	done
 }
 
+updateOrAppendConfigLine(){
+	local configFile=$1
+	local option=$2
+	local replacement=$3
 
+	local fullPath=$(dirname $configFile)
+	mkdir -p "$fullPath"
+	touch "$configFile"
+	
+	local optionFound=$(grep -rnw  "$configFile" -e "$option")
+	if [[ "$optionFound" == '' ]]; then
+		echo "appending: $replacement to $configFile"
+		echo "$replacement" >> "$configFile"
+	else
+		echo "updating $option in $configFile to $replacement"
+		changeLine "$option" "$replacement" "$configFile"
+	fi
+}
+
+getEnvironmentDetails(){
+	local sdpath=$(getSDPath)
+	local sdValid=$(testLocationValid "sd" $sdpath)
+	if [ -f "$HOME/emudeck/.finished" ]; then
+		firstRun="false"
+	else
+		firstRun="true"
+	fi
+	local uname=$(uname -a)
+	local productName=$(getProductName)
+	local aspectRatio=$(getScreenAR)
+	local json="{ \"Home\": \"$HOME\", \"Hostname\": \"$HOSTNAME\", \"Username\": \"$USER\", \"SDPath\": \"$sdpath\", \"IsSDValid?\": \"$sdValid\", \"FirstRun?\": \"$firstRun\",\"ProductName\": \"$productName\",\"AspectRatio\": \"$aspectRatio\",\"UName\": \"$uname\" }"
+	jq <<< $json
+}

@@ -27,6 +27,7 @@ RetroArch_init(){
 	RetroArch_setEmulationFolder
 	RetroArch_setupSaves
 	RetroArch_installCores
+	RetroArch_setUpCoreOptAll
 
 }
 
@@ -37,6 +38,7 @@ RetroArch_update(){
 	RetroArch_setEmulationFolder
 	RetroArch_setupSaves
 	RetroArch_installCores
+	RetroArch_setUpCoreOptAll
 
 }
 
@@ -99,21 +101,11 @@ RetroArch_setOverride(){
 	local coreName=$2
 	local option=$3
 	local value=$4
-	
+	local settingLine="$option = $value"
 	local fullPath="$RetroArch_coreConfigFolders/$coreName"
 	local configFile="$fullPath/$fileName"
 
-	mkdir -p "$fullPath"
-	touch "$configFile"
-	
-	local optionFound=$(grep -rnw  "$configFile" -e "$option")
-	if [[ "$optionFound" == '' ]]; then
-		echo "appending: $option = $value to $configFile"
-		echo "$option = $value" >> "$configFile"
-	else
-		echo "updating $option in $configFile to $value"
-		changeLine "$option" "$option = $value" "$configFile"
-	fi
+	updateOrAppendConfigLine "$configFile" "$option" "$settingLine" 
 }
 
 RetroArch_wswanc_bezelOn(){
@@ -997,26 +989,26 @@ RetroArch_installCores(){
 	#N-gage
 	#Game.com
 
-	mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores"
-	raUrl="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
-	RAcores=(bsnes_hd_beta_libretro.so flycast_libretro.so gambatte_libretro.so genesis_plus_gx_libretro.so \
-			genesis_plus_gx_wide_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_wswan_libretro.so melonds_libretro.so \
-			mesen_libretro.so mgba_libretro.so mupen64Plus-Next_libretro.so nestopia_libretro.so picodrive_libretro.so ppsspp_libretro.so snes9x_libretro.so \
-			stella_libretro.so yabasanshiro_libretro.so yabause_libretro.so yabause_libretro.so mame2003_plus_libretro.so mame2010_libretro.so mame_libretro.so \
-			melonds_libretro.so fbneo_libretro.so bluemsx_libretro.so desmume_libretro.so sameboy_libretro.so gearsystem_libretro.so mednafen_saturn_libretro.so \
-			opera_libretro.so dosbox_core_libretro.so dosbox_pure_libretro.so dosbox_svn_libretro.so puae_libretro.so)
-	setMSG "Downloading RetroArch Cores for EmuDeck"
-	for i in "${RAcores[@]}"
-	do
-		FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
-		if [ -f "$FILE" ]; then
-			echo "${i}...Already Downloaded"
-		else
-			curl $raUrl$i.zip --output ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip 
-			#rm ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
-			echo "${i}...Downloaded!"
-		fi
-	done	
+	# mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores"
+	# raUrl="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
+	# RAcores=(bsnes_hd_beta_libretro.so flycast_libretro.so gambatte_libretro.so genesis_plus_gx_libretro.so \
+	# 		genesis_plus_gx_wide_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_wswan_libretro.so melonds_libretro.so \
+	# 		mesen_libretro.so mgba_libretro.so mupen64Plus-Next_libretro.so nestopia_libretro.so picodrive_libretro.so ppsspp_libretro.so snes9x_libretro.so \
+	# 		stella_libretro.so yabasanshiro_libretro.so yabause_libretro.so yabause_libretro.so mame2003_plus_libretro.so mame2010_libretro.so mame_libretro.so \
+	# 		melonds_libretro.so fbneo_libretro.so bluemsx_libretro.so desmume_libretro.so sameboy_libretro.so gearsystem_libretro.so mednafen_saturn_libretro.so \
+	# 		opera_libretro.so dosbox_core_libretro.so dosbox_pure_libretro.so dosbox_svn_libretro.so puae_libretro.so)
+	# setMSG "Downloading RetroArch Cores for EmuDeck"
+	# for i in "${RAcores[@]}"
+	# do
+	# 	FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
+	# 	if [ -f "$FILE" ]; then
+	# 		echo "${i}...Already Downloaded"
+	# 	else
+	# 		curl $raUrl$i.zip --output ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip 
+	# 		#rm ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
+	# 		echo "${i}...Downloaded!"
+	# 	fi
+	# done	
 	
 	#This is all the cores combined, and dupes taken out.
 	RAcores=(81_libretro.so a5200_libretro.so atari800_libretro.so blastem_libretro.so bluemsx_libretro.so bsnes_hd_beta_libretro.so bsnes_libretro.so \
@@ -1036,7 +1028,7 @@ RetroArch_installCores(){
 			stella_libretro.so swanstation_libretro.so tgbdual_libretro.so theodore_libretro.so uzem_libretro.so vba_next_libretro.so vbam_libretro.so vecx_libretro.so \
 			vice_x128_libretro.so vice_x64_libretro.so vice_x64sc_libretro.so vice_xscpu64_libretro.so vice_xvic_libretro.so virtualjaguar_libretro.so x1_libretro.so \
 			yabasanshiro_libretro.so yabause_libretro.so)
-	setMSG "Downloading RetroArch Cores for EmulationStation DE"
+	setMSG "Downloading RetroArch Cores for EmuDeck"
 	for i in "${RAcores[@]}"
 	do
 		FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
