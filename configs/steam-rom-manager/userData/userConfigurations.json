@@ -2,13 +2,15 @@
   {
     "parserType": "Glob",
     "configTitle": "EmulationStationDE",
-    "steamCategory": "${Emulation}",
+    "steamCategory": "${Emulation}${ROMs}",
     "executableArgs": "",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -55,13 +57,15 @@
   {
     "parserType": "Glob",
     "configTitle": "Emulators",
-    "steamCategory": "${Emulation}",
+    "steamCategory": "${Emulation}${ROMs}",
     "executableArgs": "\"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/launchers",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -108,7 +112,7 @@
   {
     "parserType": "Glob",
     "configTitle": "3DO",
-    "steamCategory": "${3DO}",
+    "steamCategory": "${3DO}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/3do",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -117,7 +121,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}opera_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -161,7 +167,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Amiga - Retroarch",
-    "steamCategory": "${Amiga}",
+    "steamCategory": "${Amiga}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/amiga",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -170,7 +176,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -214,7 +222,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Amiga 600 - Retroarch",
-    "steamCategory": "${Amiga 600}",
+    "steamCategory": "${Amiga 600}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/amiga600",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -223,7 +231,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -264,11 +274,10 @@
     "parserId": "164785598905398121",
     "version": 5
   },
-
   {
     "parserType": "Glob",
     "configTitle": "Amiga 1200 - Retroarch",
-    "steamCategory": "${Amiga 1200}",
+    "steamCategory": "${Amiga 1200}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/amiga1200",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -277,7 +286,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -321,7 +332,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Amiga CD - Retroarch",
-    "steamCategory": "${Amiga CD}",
+    "steamCategory": "${Amiga CD}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/amigacd32",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -330,7 +341,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -374,7 +387,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Arcade - MAME 2003 Plus",
-    "steamCategory": "${Arcade MAME 2003+}",
+    "steamCategory": "${Arcade MAME 2003+}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/mame",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -383,7 +396,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mame2003_plus_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -427,7 +442,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Arcade - MAME 2010",
-    "steamCategory": "${Arcade MAME 2010}",
+    "steamCategory": "${Arcade MAME 2010}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/mame2010",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -436,7 +451,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mame2010_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -480,7 +497,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Arcade - MAME Current",
-    "steamCategory": "${Arcade MAME Current}",
+    "steamCategory": "${Arcade MAME Current}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/arcade",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -489,7 +506,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mame_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -533,13 +552,15 @@
   {
     "parserType": "Glob",
     "configTitle": "Arcade FBNeo - Retroarch",
-    "steamCategory": "${Arcade - FBNeo}",
+    "steamCategory": "${Arcade - FBNeo}${ROMs}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}fbneo_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/fbneo",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -586,7 +607,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Atari 2600 - Retroarch - Stella",
-    "steamCategory": "${Atari 2600}",
+    "steamCategory": "${Atari 2600}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/atari2600",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -595,7 +616,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}stella_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -639,7 +662,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Atari Lynx - Retroarch - Beetle Handy",
-    "steamCategory": "${Atari Lynx}",
+    "steamCategory": "${Atari Lynx}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/lynx",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -648,7 +671,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_lynx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -692,7 +717,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Bandai WonderSwan/Color - Retroarch - Beetle Cygne",
-    "steamCategory": "${WonderSwan}",
+    "steamCategory": "${WonderSwan}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wonderswan",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -701,7 +726,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_wswan_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -745,7 +772,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Commodore 64 - Retroarch",
-    "steamCategory": "${Commodore 64}",
+    "steamCategory": "${Commodore 64}${ROMs}",
     "steamDirectory": "/home/deck/.steam/steam",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/c64",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}vice_x64_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -753,7 +780,7 @@
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "imageProviders": [
-        "SteamGridDB"
+      "SteamGridDB"
     ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -768,41 +795,41 @@
     "localLogoImages": "",
     "localIcons": "",
     "userAccounts": {
-        "specifiedAccounts": "",
-        "skipWithMissingDataDir": true,
-        "useCredentials": true
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
     },
     "executable": {
-        "path": "/usr/bin/flatpak",
-        "shortcutPassthrough": false,
-        "appendArgsToExecutable": true
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
-        "glob": "${title}@(.d64|.D64|.d71|.D71|.d80|.D80|.d81|.D81|.d82|.D82|.g64|.G64|.g41|.G41|.x64|.X64|.t64|.T64|.tap|.TAP|.prg|.PRG|.p00|.P00|.crt|.CRT|.bin|.BIN|.d6z|.D6Z|.d7z|.D7Z|.d8z|.D8Z|.g6z|.G6Z|.g4z|.G4Z|.x6z|.X6Z|.cmd|.CMD|.m3u|.M3U|.vsf|.VSF|.nib|.NIB|.nbz|.NBZ|.zip|.ZIP)"
+      "glob": "${title}@(.d64|.D64|.d71|.D71|.d80|.D80|.d81|.D81|.d82|.D82|.g64|.G64|.g41|.G41|.x64|.X64|.t64|.T64|.tap|.TAP|.prg|.PRG|.p00|.P00|.crt|.CRT|.bin|.BIN|.d6z|.D6Z|.d7z|.D7Z|.d8z|.D8Z|.g6z|.G6Z|.g4z|.G4Z|.x6z|.X6Z|.cmd|.CMD|.m3u|.M3U|.vsf|.VSF|.nib|.NIB|.nbz|.NBZ|.zip|.ZIP)"
     },
     "titleFromVariable": {
-        "limitToGroups": "",
-        "caseInsensitiveVariables": false,
-        "skipFileIfVariableWasNotFound": false,
-        "tryToMatchTitle": false
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-        "replaceDiacritics": true,
-        "removeCharacters": true,
-        "removeBrackets": true
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
     },
     "imageProviderAPIs": {
-        "SteamGridDB": {
-            "nsfw": false,
-            "humor": false,
-            "styles": [],
-            "stylesHero": [],
-            "stylesLogo": [],
-            "stylesIcon": [],
-            "imageMotionTypes": [
-                "static"
-            ]
-        }
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": [],
+        "imageMotionTypes": [
+          "static"
+        ]
+      }
     },
     "parserId": "164785598905497512",
     "version": 10
@@ -810,13 +837,15 @@
   {
     "parserType": "Glob",
     "configTitle": "DOS - Retroarch(Flatpak) - DOSBox Pure",
-    "steamCategory": "${DOS}",
+    "steamCategory": "${DOS}${ROMs}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}dosbox_pure_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/dos",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -863,13 +892,15 @@
   {
     "parserType": "Glob",
     "configTitle": "Microsoft XBox - Xemu",
-    "steamCategory": "${XBox}",
+    "steamCategory": "${XBox}${ROMs}",
     "executableArgs": "run app.xemu.xemu -full-screen -dvd_path \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/xbox",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -916,13 +947,15 @@
   {
     "parserType": "Glob",
     "configTitle": "Microsoft Xbox 360 - Xenia",
-    "steamCategory": "${Xbox 360}",
+    "steamCategory": "${Xbox 360}${ROMs}",
     "executableArgs": "\"Z:${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/xbox360/roms/",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -969,7 +1002,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo 3DS - Citra",
-    "steamCategory": "${Nintendo 3DS}",
+    "steamCategory": "${Nintendo 3DS}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/3ds",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -978,7 +1011,9 @@
     "executableArgs": "run org.citra_emu.citra \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1022,7 +1057,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo 64 - Retroarch - Mupen64Plus Next",
-    "steamCategory": "${Nintendo 64}",
+    "steamCategory": "${Nintendo 64}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/n64",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1031,7 +1066,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mupen64plus_next_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1075,7 +1112,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo GameBoy - Retroarch - Gambatte",
-    "steamCategory": "${GameBoy}",
+    "steamCategory": "${GameBoy}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/gb",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1084,7 +1121,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}gambatte_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1128,7 +1167,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo GameBoy Color - Retroarch - Gambatte",
-    "steamCategory": "${GameBoy Color}",
+    "steamCategory": "${GameBoy Color}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/gbc",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1137,7 +1176,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}gambatte_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1181,7 +1222,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo GameBoy Advance - Retroarch - mGBA",
-    "steamCategory": "${GameBoy Advance}",
+    "steamCategory": "${GameBoy Advance}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/gba",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1190,7 +1231,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mgba_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1234,13 +1277,15 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo GameCube - Dolphin",
-    "steamCategory": "${Gamecube}",
+    "steamCategory": "${Gamecube}${ROMs}",
     "executableArgs": "run org.DolphinEmu.dolphin-emu -b -e \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/gamecube",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -1287,7 +1332,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo NES - Retroarch - Nestopia UE",
-    "steamCategory": "${NES}",
+    "steamCategory": "${NES}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/nes",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1296,7 +1341,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mesen_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1340,13 +1387,15 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo DS - Retroarch - melonDS",
-    "steamCategory": "${DS}",
+    "steamCategory": "${DS}${ROMs}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}melonds_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/nds",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -1393,7 +1442,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo SNES - Retroarch - Snes9x",
-    "steamCategory": "${Super Nintendo}",
+    "steamCategory": "${Super Nintendo}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/snes",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1402,7 +1451,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}snes9x_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1446,7 +1497,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo SNES WideScreen - Retroarch - Snes9x",
-    "steamCategory": "${Super Nintendo WideScreen}",
+    "steamCategory": "${Super Nintendo WideScreen}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/sneshd",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1455,7 +1506,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}bsnes_hd_beta_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1499,7 +1552,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo Switch - Yuzu",
-    "steamCategory": "${Nintendo Switch - Yuzu}",
+    "steamCategory": "${Nintendo Switch - Yuzu}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/switch",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1508,7 +1561,9 @@
     "executableArgs": "-f -g \"'${filePath}'\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1552,13 +1607,15 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo Wii - Dolphin",
-    "steamCategory": "${Wii}",
+    "steamCategory": "${Wii}${ROMs}",
     "executableArgs": "run org.DolphinEmu.dolphin-emu -b -e \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wii",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -1605,13 +1662,15 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo WiiU - Cemu (.rpx)",
-    "steamCategory": "${WiiU}",
+    "steamCategory": "${WiiU}${ROMs}",
     "executableArgs": "-f -g \"Z:${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -1658,13 +1717,15 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo WiiU - Cemu (.wud, .wux, .wua)",
-    "steamCategory": "${WiiU}",
+    "steamCategory": "${WiiU}${ROMs}",
     "executableArgs": "-f -g \"Z:${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -1711,13 +1772,15 @@
   {
     "parserType": "Glob",
     "configTitle": "PrimeHack",
-    "steamCategory": "${PrimeHack}",
+    "steamCategory": "${PrimeHack}${ROMs}",
     "executableArgs": "run io.github.shiiion.primehack -b -e \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/primehacks",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -1764,7 +1827,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Sega 32X - Retroarch - PicoDrive",
-    "steamCategory": "${Sega 32X}",
+    "steamCategory": "${Sega 32X}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/sega32x",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1773,7 +1836,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}picodrive_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1817,7 +1882,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Sega CD/Mega CD - Retroarch - Genesis Plus GX",
-    "steamCategory": "${Sega CD}",
+    "steamCategory": "${Sega CD}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/segacd",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1826,7 +1891,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1870,7 +1937,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Sega Dreamcast - Retroarch - Flycast",
-    "steamCategory": "${Dreamcast}",
+    "steamCategory": "${Dreamcast}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/dreamcast",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1879,7 +1946,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}flycast_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1923,7 +1992,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Sega Game Gear - Retroarch - Genesis Plus GX",
-    "steamCategory": "${Game Gear}",
+    "steamCategory": "${Game Gear}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/gamegear",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1932,7 +2001,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1976,13 +2047,15 @@
   {
     "parserType": "Glob",
     "configTitle": "Sega Genesis/Mega Drive - Retroarch - Genesis Plus GX",
-    "steamCategory": "${Genesis/Mega Drive}",
+    "steamCategory": "${Genesis/Mega Drive}${ROMs}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/genesis",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -2029,13 +2102,15 @@
   {
     "parserType": "Glob",
     "configTitle": "Sega Genesis/Mega Drive WideScreen - Retroarch - Genesis Plus GX",
-    "steamCategory": "${Genesis WideScreen}",
+    "steamCategory": "${Genesis WideScreen}${ROMs}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_wide_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/genesiswide",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -2082,7 +2157,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Sega Master System - Retroarch - Genesis Plus GX",
-    "steamCategory": "${Master System}",
+    "steamCategory": "${Master System}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/mastersystem",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -2091,7 +2166,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -2135,7 +2212,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Sega Saturn - Retroarch - Yabause",
-    "steamCategory": "${Saturn}",
+    "steamCategory": "${Saturn}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/saturn",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -2144,7 +2221,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}yabause_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -2185,11 +2264,10 @@
     "parserId": "164785645253672240",
     "version": 5
   },
-
   {
     "parserType": "Glob",
     "configTitle": "SNK Neo Geo Pocket/Color - Retroarch - Beetle NeoPop",
-    "steamCategory": "${Neo Geo Pocket}",
+    "steamCategory": "${Neo Geo Pocket}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/ngpc",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -2198,7 +2276,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_ngp_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -2242,7 +2322,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Sony PlayStation - DuckStation",
-    "steamCategory": "${PlayStation}",
+    "steamCategory": "${PlayStation}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psx",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -2251,7 +2331,9 @@
     "executableArgs": "run org.duckstation.DuckStation -batch -fullscreen \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -2295,13 +2377,15 @@
   {
     "parserType": "Glob",
     "configTitle": "Sony PlayStation - Retroarch - Beetle PSX HW",
-    "steamCategory": "${PlayStation - Beetle}",
+    "steamCategory": "${PlayStation - Beetle}${ROMs}",
     "executableArgs": "run org.libretro.RetroArch -L /mednafen_psx_hw_libretro.so \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psx",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -2348,7 +2432,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Sony PlayStation 2 - PCSX2",
-    "steamCategory": "${Playstation 2}",
+    "steamCategory": "${Playstation 2}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/ps2",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -2357,7 +2441,9 @@
     "executableArgs": "run net.pcsx2.PCSX2 \"${filePath}\" --nogui --fullscreen",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -2401,7 +2487,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Sony PlayStation 3 - RPCS3 (Extracted ISO/PSN)",
-    "steamCategory": "${PlayStation 3}",
+    "steamCategory": "${PlayStation 3}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/ps3",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -2410,7 +2496,9 @@
     "executableArgs": "run net.rpcs3.RPCS3 --no-gui \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -2454,7 +2542,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Sony PlayStation Portable - Retroarch - PPSSPP",
-    "steamCategory": "${PSP}",
+    "steamCategory": "${PSP}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psp",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -2463,7 +2551,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}ppsspp_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -2507,7 +2597,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Sony PlayStation Portable - PPSSPP",
-    "steamCategory": "${PSP - Standalone PPSSPP}",
+    "steamCategory": "${PSP - Standalone PPSSPP}${ROMs}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psp",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -2516,7 +2606,9 @@
     "executableArgs": "run org.ppsspp.PPSSPP -f -g \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -2557,18 +2649,19 @@
     "parserId": "164785656634747068",
     "version": 5
   },
-
   {
     "parserType": "Glob",
     "configTitle": "Sony PlayStation 3 - RPCS3(Flatpak) (Installed PKG)",
-    "steamCategory": "${PS3}",
+    "steamCategory": "${PS3}${ROMs}",
     "steamDirectory": "/home/deck/.steam/steam",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/storage/rpcs3/dev_hdd0/game",
     "executableArgs": "run net.rpcs3.RPCS3 --no-gui \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
