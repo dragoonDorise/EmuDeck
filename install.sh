@@ -174,7 +174,7 @@ fi
 
 
 
-if [ $zenity == true ]; then
+if [ "$zenity" == true ]; then
 
 	#This part of the code is where all the settings are created
 
@@ -185,10 +185,10 @@ if [ $zenity == true ]; then
 		echo -e "Files Downloaded!"
 	clear
 	#cat $EMUDECKGIT/logo.ans
-	version=$(cat $EMUDECKGIT/version.md)
+	version=$(cat "$EMUDECKGIT/version.md")
 	echo -e "${BOLD}EmuDeck ${version}${NONE}"
 	echo -e ""
-	cat $EMUDECKGIT/latest.md
+	cat "$EMUDECKGIT/latest.md"
 	
 	else
 		echo -e ""
@@ -209,7 +209,7 @@ if [ $zenity == true ]; then
 	## Splash screen
 	#
 	
-	latest=$(cat $EMUDECKGIT/latest.md)	
+	latest=$(cat "$EMUDECKGIT/latest.md")	
 	if [ -f "$SECONDTIME" ]; then
 		 text="$(printf "<b>Hi, this is the changelog of the new features added in this version</b>\n\n${latest}")"
 		 width=1000
