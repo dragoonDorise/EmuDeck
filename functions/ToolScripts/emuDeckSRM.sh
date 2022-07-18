@@ -10,17 +10,17 @@ es_settingsFile="$HOME/.emulationstation/es_settings.xml"
 
 #cleanupOlderThings
 SRM_cleanup(){
-	rm -f $HOME/Desktop/Steam-ROM-Manager-2.3.29.AppImage
-	rm -f $HOME/Desktop/Steam-ROM-Manager.AppImage
+	rm -f "$HOME/Desktop/Steam-ROM-Manager-2.3.29.AppImage"
+	rm -f "$HOME/Desktop/Steam-ROM-Manager.AppImage"
 }
 
 SRM_install(){		
 	setMSG "Installing Steam Rom Manager"
 	SRM_cleanup
 	mkdir -p "${toolsPath}srm"
-	curl -L $SRM_releaseURL -o $SRM_toolPath
-	chmod +x $SRM_toolPath
-	SRM_createDesktopShortcut
+	curl -L "$SRM_releaseURL" -o "$SRM_toolPath"
+	chmod +x "$SRM_toolPath"
+	SRM_createDesktopShortcut "$HOME/Desktop/SteamRomManager.desktop"
 }
 
 SRM_createDesktopShortcut(){
@@ -32,14 +32,14 @@ SRM_createDesktopShortcut(){
 	
 	fi
 
-	echo "#!/usr/bin/env xdg-open
-	[Desktop Entry]
-	Name=Steam Rom Manager
-	Exec=kill -15 \`pidof steam\` & $SRM_toolPath
-	Icon=steamdeck-gaming-return
-	Terminal=false
-	Type=Application
-	StartupNotify=false" > "$SRM_Shortcutlocation"
+echo "#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Steam Rom Manager
+Exec=kill -15 \$(pidof steam) & $SRM_toolPath
+Icon=steamdeck-gaming-return
+Terminal=false
+Type=Application
+StartupNotify=false" > "$SRM_Shortcutlocation"
 	chmod +x "$SRM_Shortcutlocation"
 }
 

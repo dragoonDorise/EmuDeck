@@ -37,18 +37,18 @@ if [ $ans -eq 0 ]; then
 	export PATH="${chdPath}/:$PATH"
 
 	#find file types we support within whitelist of folders
-	for romfolder in ${chdfolderWhiteList[@]}; do
+	for romfolder in "${chdfolderWhiteList[@]}"; do
 		echo "Checking ${romsPath}${romfolder}/"
-		files=($(find "${romsPath}${romfolder}/" -type f -iname "*.gdi" -o -type f -iname "*.cue" -o -type f -iname "*.iso"))
+		mapfile -t files < <(find "${romsPath}${romfolder}/" -type f -iname "*.gdi" -o -type f -iname "*.cue" -o -type f -iname "*.iso")
 		if [ ${#files[@]} -gt 0 ]; then
 			echo "found in $romfolder"
 			searchFolderList+=("$romfolder")
 		fi
 	done
 	if [[ -f "/var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool" ]]; then #ensure tools are in place
-        for romfolder in ${rvzfolderWhiteList[@]}; do
+        for romfolder in "${rvzfolderWhiteList[@]}"; do
             echo "Checking ${romsPath}${romfolder}/"
-            files=($(find "${romsPath}${romfolder}/" -type f -iname "*.gcm"  -o -type f -iname "*.iso"))
+            mapfile -t files < <(find "${romsPath}${romfolder}/" -type f -iname "*.gcm"  -o -type f -iname "*.iso")
             if [ ${#files[@]} -gt 0 ]; then
                 echo "found in $romfolder"
                 searchFolderList+=("$romfolder")
@@ -74,14 +74,14 @@ if [ $ans -eq 0 ]; then
 	text="$(printf "What folders do you want to convert?")"
 	folderstoconvert=$(zenity --list \
 				--title="EmuDeck" \
-				--height=$height \
+				--height="$height" \
 				--width=250 \
 				--ok-label="OK" \
 				--cancel-label="Exit" \
 				--text="${text}" \
 				--checklist \
 				--column="" \
-				--column=${selectColumnStr})
+				--column="${selectColumnStr}")
 				echo "User selected $folderstoconvert" 2>/dev/null
 
 	IFS="|" read -r -a romfolders <<< "$folderstoconvert"
@@ -99,17 +99,17 @@ if [ $ans -eq 0 ]; then
 
 
 	#CHD
-	for romfolder in ${romfolders[@]}; do
+	for romfolder in "${romfolders[@]}"; do
         if [[ " ${chdfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
 
-            find "$romsPath$romfolder" -type f -iname "*.gdi" | while read f
+            find "$romsPath$romfolder" -type f -iname "*.gdi" | while read -r f
                 do
                     echo "Converting: $f"
                     CUEDIR="$(dirname "${f}")"
                     chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
                     if [[ $successful == "true" ]]; then
                         echo "successfully created ${f%.*}.chd"
-                        find "${CUEDIR}" -maxdepth 1 -type f | while read b
+                        find "${CUEDIR}" -maxdepth 1 -type f | while read -r b
                             do
                                 fileName="$(basename "${b}")"
                                 found=$(grep "${fileName}" "${f}")
@@ -124,14 +124,14 @@ if [ $ans -eq 0 ]; then
                     fi
 
                 done
-            find "$romsPath$romfolder" -type f -iname "*.cue" | while read f
+            find "$romsPath$romfolder" -type f -iname "*.cue" | while read -r f
                 do
                     echo "Converting: $f"
                     CUEDIR="$(dirname "${f}")"
                     chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
                     if [[ $successful == "true" ]]; then
                         echo "successfully created ${f%.*}.chd"
-                        find "${CUEDIR}" -maxdepth 1 -type f | while read b
+                        find "${CUEDIR}" -maxdepth 1 -type f | while read -r b
                             do
                                 fileName="$(basename "${b}")"
                                 found=$(grep "${fileName}" "${f}")
@@ -146,15 +146,15 @@ if [ $ans -eq 0 ]; then
                     fi
 
                 done
-            find "$romsPath$romfolder" -type f -iname "*.iso" | while read f; do echo "Converting: $f"; chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "$f"; done;
+            find "$romsPath$romfolder" -type f -iname "*.iso" | while read -r f; do echo "Converting: $f"; chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "$f"; done;
         fi
 	done
 
 	#rvz
 
-    for romfolder in ${romfolders[@]}; do
+    for romfolder in "${romfolders[@]}"; do
         if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-            find "$romsPath$romfolder" -type f -iname "*.gcm"  -o -type f -iname "*.iso" | while read f; do echo "Converting: $f"; /var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz"  && rm -rf "$f"; done;
+            find "$romsPath$romfolder" -type f -iname "*.gcm"  -o -type f -iname "*.iso" | while read -r f; do echo "Converting: $f"; /var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz"  && rm -rf "$f"; done;
         fi
     done
 
@@ -174,9 +174,8 @@ zenity --question \
 		 --text="${text}" 2>/dev/null
 ans=$?
 if [ $ans -eq 0 ]; then
-	cd ~/Desktop/
 	echo "user launched SRM"
-	./Steam-ROM-Manager.AppImage
+	"${toolsPath}srm/Steam-ROM-Manager.AppImage"
 	exit
 else
 	exit
