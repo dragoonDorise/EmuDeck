@@ -44,11 +44,9 @@ configESDE(){
 
 	#configure roms Directory
 	esDE_romDir="<string name=\"ROMDirectory\" value=\""${romsPath}"\" />"
-	romDirEmpty=$(grep -rnw  $es_settingsFile -e '<string name="ROMDirectory" value="" />')
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" $es_settingsFile
-	if [[ ! $romDirEmpty == '' ]]; then
-		sed -i "/<string name=\"ROMDirectory\" value=\"\" \/>/c\\${esDE_romDir}" $es_settingsFile
-	fi
+
+	sed -i "/<string name=\"ROMDirectory\"/c\\${esDE_romDir}" $es_settingsFile
+	
 	
 	#Configure Downloaded_media folder
 	esDE_MediaDir="<string name=\"MediaDirectory\" value=\""${ESDEscrapData}"\" />"
