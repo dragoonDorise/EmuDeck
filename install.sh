@@ -685,6 +685,9 @@ fi # end Expert if
 ##	
 ##
 ## First up - migrate things that need to move.
+
+source "$EMUDECKGIT"/settings.sh
+
 echo "begin migrations"
 doMigrations
 
