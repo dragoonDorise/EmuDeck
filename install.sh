@@ -8,10 +8,10 @@
 mkdir -p "$HOME/emudeck"
 PIDFILE="$HOME/emudeck/install.pid"
 
-if [ -f $PIDFILE ]
+if [ -f "$PIDFILE" ]
 then
   PID=$(cat "$PIDFILE")
-  ps -p $PID > /dev/null 2>&1
+  ps -p "$PID" > /dev/null 2>&1
   if [ $? -eq 0 ]
   then
     echo "Process already running"
@@ -49,7 +49,7 @@ rm -rf ~/dragoonDoriseTools
 mv "$HOME/emudeck/emudeck.log" "$HOME/emudeck/emudeck.last.log" #backup last log
 echo "${@}" > "$HOME/emudeck/emudeck.log" #might as well log out the parameters of the run
 LOGFILE="$HOME/emudeck/emudeck.log"
-exec > >(tee ${LOGFILE}) 2>&1
+exec > >(tee "${LOGFILE}") 2>&1
 
 #Mark if this not a fresh install
 FOLDER="$HOME/emudeck/"
@@ -232,7 +232,7 @@ if [ $zenity == true ]; then
 	
 	#built in SD Card reader
 	sdCardFull=$(getSDPath)
-	sdValid=$(testLocationValid "SD" $sdCardFull)
+	sdValid=$(testLocationValid "SD" "$sdCardFull")
 	echo "$sdCardFull $sdValid"
     if [[ ! $sdValid =~ "Invalid" ]]; then
 		locationTable+=(FALSE "SD Card" "$sdCardFull") 
@@ -242,7 +242,7 @@ if [ $zenity == true ]; then
 	# Installation mode selection
 	#
 	
-	text="`printf "<b>Hi!</b>\nDo you want to run EmuDeck on Easy or Expert mode?\n\n<b>Easy Mode</b> takes care of everything for you, it is an unattended installation.\n\n<b>Expert mode</b> gives you a bit more of control on how EmuDeck configures your system like giving you the option to install PowerTools or keep your custom configurations per Emulator"`"
+	text="$(printf "<b>Hi!</b>\nDo you want to run EmuDeck on Easy or Expert mode?\n\n<b>Easy Mode</b> takes care of everything for you, it is an unattended installation.\n\n<b>Expert mode</b> gives you a bit more of control on how EmuDeck configures your system like giving you the option to install PowerTools or keep your custom configurations per Emulator")"
 	zenity --question \
 			 --title="EmuDeck" \
 			 --width=250 \
@@ -285,7 +285,7 @@ if [ $zenity == true ]; then
 	if [[ $destination == "CUSTOM" ]]; then
 		destination=$(customLocation)
 		customValid=$(testLocationValid "Custom" "${destination}")
-		echo $customValid
+		echo "$customValid"
 		if [[ $customValid =~ "Invalid" ]]; then
 			echo "User chose invalid location. Exiting."
 			#zenity pop up explaining why
@@ -323,7 +323,7 @@ if [ $zenity == true ]; then
 	# out of the ordinary has to had its flag enabled/disabled on Expert mode
 	#	
 	
-	if [ $expert == "true" ]; then
+	if [ "$expert" == "true" ]; then
 		echo "Expert mode begin"
 		
 			#one entry per expert mode feature
@@ -399,9 +399,9 @@ if [ $zenity == true ]; then
 			
 	
 			if [[ $doInstallPowertools == "true" || $doInstallGyro == "true" || $isRealDeck == "false" ]]; then
-				hasPass=$(passwd -S $(whoami) | awk -F " " '{print $2}')
+				hasPass=$(passwd -S "$USER" | awk -F " " '{print $2}')
 				if [[ ! $hasPass == "P" ]]; then
-					text="`printf "<b>Password not set.</b>\n Please set one now in the terminal.\nYou will not see text entry in the terminal for your password. This is normal.\nOnce set, you will be prompted to enter it in a new window."`"
+					text="$(printf "<b>Password not set.</b>\n Please set one now in the terminal.\nYou will not see text entry in the terminal for your password. This is normal.\nOnce set, you will be prompted to enter it in a new window.")"
 					zenity --error \
 					--title="EmuDeck" \
 					--width=400 \
@@ -410,15 +410,15 @@ if [ $zenity == true ]; then
 					passwd 
 				fi
 				PASSWD="$(zenity --password --title="Enter Deck User Password (not Steam account!)" 2>/dev/null)"
-				echo $PASSWD | sudo -v -S
+				echo "$PASSWD" | sudo -v -S
 				ans=$?
 				if [[ $ans == 1 ]]; then
 					#incorrect password
 					PASSWD="$(zenity --password --title="Password was incorrect. Try again. (Did you remember to set a password for linux before running this?)" 2>/dev/null)"
-					echo $PASSWD | sudo -v -S
+					echo "$PASSWD" | sudo -v -S
 					ans=$?
 					if [[ $ans == 1 ]]; then
-							text="`printf "<b>Password not accepted.</b>\n Expert mode tools which require a password will not work. Disabling them."`"
+							text="$(printf "<b>Password not accepted.</b>\n Expert mode tools which require a password will not work. Disabling them.")"
 							zenity --error \
 							--title="EmuDeck" \
 							--width=400 \
@@ -450,7 +450,7 @@ if [ $zenity == true ]; then
 			fi
 			
 			#Emulator selector
-			text="`printf "What emulators do you want to install?"`"
+			text="$(printf "What emulators do you want to install?")"
 			emusToInstall=$(zenity --list \
 					--title="EmuDeck" \
 					--height=500 \
@@ -524,7 +524,7 @@ if [ $zenity == true ]; then
 			emuTable+=(TRUE "RA-Flycast")
 			emuTable+=(TRUE "Xemu")
 	
-			text="`printf "Selected Emulators will use WideScreen Hacks"`"
+			text="$(printf "Selected Emulators will use WideScreen Hacks")"
 			wideToInstall=$(zenity --list \
 						--title="EmuDeck" \
 						--height=500 \
@@ -589,7 +589,7 @@ if [ $zenity == true ]; then
 				emuTable+=(TRUE "Steam Rom Manager")
 				emuTable+=(TRUE "EmulationStation DE")
 	
-				text="`printf "<b>EmuDeck will reset the following Emulator's configurations by default.</b>\nWhich systems do you want <b>reset</b> to the newest version of the defaults?\nWe recommend you keep all of them checked so everything gets updated and known issues are fixed.\nIf you want to mantain any custom configuration on an emulator unselect its name from this list."`"
+				text="$(printf "<b>EmuDeck will reset the following Emulator's configurations by default.</b>\nWhich systems do you want <b>reset</b> to the newest version of the defaults?\nWe recommend you keep all of them checked so everything gets updated and known issues are fixed.\nIf you want to mantain any custom configuration on an emulator unselect its name from this list.")"
 				emusToReset=$(zenity --list \
 									--title="EmuDeck" \
 									--height=500 \
@@ -743,7 +743,7 @@ if [ $doInstallSRM == "true" ]; then
 	SRM_install
 fi
 #Emulators Installation
-if [ $doInstallPCSX2 == "true" ]; then	
+if [ "$doInstallPCSX2" == "true" ]; then	
 	PCSX2_install
 fi
 if [ $doInstallPrimeHacks == "true" ]; then
@@ -778,18 +778,18 @@ if [ $doInstallCemu == "true" ]; then
 fi
 
 #Xenia - We need to install Xenia after creating the Roms folders!
-if [ $doInstallXenia == "true" ]; then
+if [ "$doInstallXenia" == "true" ]; then
 	Xenia_install
 fi
 
 #Steam RomManager Config
 
-if [ $doSetupSRM == "true" ]; then
+if [ "$doSetupSRM" == "true" ]; then
 	SRM_init
 fi
 
 #ESDE Config
-if [ $doSetupESDE == "true" ]; then
+if [ "$doSetupESDE" == "true" ]; then
 	ESDE_init
 fi	
 
@@ -799,41 +799,41 @@ fi
 
 setMSG "Configuring emulators.."
 
-if [ $doSetupRA == "true" ]; then
+if [ "$doSetupRA" == "true" ]; then
 	RetroArch_init
 fi
-if [ $doSetupPrimeHacks == "true" ]; then
+if [ "$doSetupPrimeHacks" == "true" ]; then
 	Primehack_init
 fi
-if [ $doSetupDolphin == "true" ]; then
+if [ "$doSetupDolphin" == "true" ]; then
 	Dolphin_init
 fi
-if [ $doSetupPCSX2 == "true" ]; then
+if [ "$doSetupPCSX2" == "true" ]; then
 	PCSX2_init
 fi
-if [ $doSetupRPCS3 == "true" ]; then
+if [ "$doSetupRPCS3" == "true" ]; then
 	RPCS3_init
 fi
-if [ $doSetupCitra == "true" ]; then
+if [ "$doSetupCitra" == "true" ]; then
 	Citra_init
 fi
-if [ $doSetupDuck == "true" ]; then
+if [ "$doSetupDuck" == "true" ]; then
 	DuckStation_init
 fi
-if [ $doSetupYuzu == "true" ]; then
+if [ "$doSetupYuzu" == "true" ]; then
 	Yuzu_init
 fi
-if [ $doSetupPPSSPP == "true" ]; then
+if [ "$doSetupPPSSPP" == "true" ]; then
 	PPSSPP_init
 fi
-if [ $doSetupXemu == "true" ]; then
+if [ "$doSetupXemu" == "true" ]; then
 	Xemu_init
 fi
 #Proton Emus
-if [ $doSetupCemu == "true" ]; then
+if [ "$doSetupCemu" == "true" ]; then
 	Cemu_init
 fi
-if [ $doSetupXenia == "true" ]; then
+if [ "$doSetupXenia" == "true" ]; then
 	Xenia_init
 fi
 
@@ -867,67 +867,67 @@ RetroArch_setBezels #needs to change
 RetroArch_setSNESAR #needs to change
 
 #RA AutoSave	
-if [ $RAautoSave == true ]; then
+if [ "$RAautoSave" == true ]; then
 	RetroArch_autoSaveOn
 else
 	RetroArch_autoSaveOff
 fi	
 
 #Widescreen hacks
-if [ $duckWide == true ]; then	
+if [ "$duckWide" == true ]; then	
 	DuckStation_wideScreenOn
 else
 	DuckStation_wideScreenOff
 fi
-if [ $DolphinWide == true ]; then
+if [ "$DolphinWide" == true ]; then
 	Dolphin_wideScreenOn
 else
 	Dolphin_wideScreenOff
 fi
-if [ $XemuWide == true ]; then
+if [ "$XemuWide" == true ]; then
 	Xemu_wideScreenOn
 else
 	Xemu_wideScreenOff
 fi
-if [ $DreamcastWide == true ]; then
+if [ "$DreamcastWide" == true ]; then
 	RetroArch_Flycast_wideScreenOn
 else
 	RetroArch_Flycast_wideScreenOff
 fi
 
-if [ $BeetleWide == true ]; then
+if [ "$BeetleWide" == true ]; then
 	RetroArch_Beetle_PSX_HW_wideScreenOn
 else
 	RetroArch_Beetle_PSX_HW_wideScreenOff
 fi
 
 #RetroAchievments
-if [ $doRASignIn == "true" ]; then
+if [ "$doRASignIn" == "true" ]; then
 	RetroArch_retroAchievementsPromptLogin
 	RetroArch_retroAchievementsSetLogin
 	RetroArch_retroAchievementsOn
 fi
 
-if [ $doRAEnable == "true" ]; then
+if [ "$doRAEnable" == "true" ]; then
 	RetroArch_retroAchievementsOn
 fi
 
 
-if [ $doInstallCHD == "true" ]; then
+if [ "$doInstallCHD" == "true" ]; then
 	CHD_install
 fi
 
-if [ $doInstallGyro == "true" ]; then	
+if [ "$doInstallGyro" == "true" ]; then	
 	Plugins_installSteamDeckGyroDSU
 fi
 
 
-if [ $doInstallPowertools == "true" ]; then
+if [ "$doInstallPowertools" == "true" ]; then
 	Plugins_installPluginLoader
 	Plugins_installPowerTools
 fi
 
-if [ $branch == 'main' ];then
+if [ "$branch" == 'main' ];then
 	createDesktopIcons
 fi
 
@@ -948,14 +948,14 @@ FILE="$HOME/.local/share/yuzu/keys/prod.keys"
 if [ -f "$FILE" ]; then
 	echo -e "" 2>/dev/null
 else
-	if [ $zenity == true ]; then
-	text="`printf "<b>Yuzu is not configured</b>\nYou need to copy your Keys and firmware to: \n${biosPath}yuzu/keys\n${biosPath}yuzu/firmware\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them</b>"`"
+	if [ "$zenity" == true ]; then
+	text="$(printf "<b>Yuzu is not configured</b>\nYou need to copy your Keys and firmware to: \n${biosPath}yuzu/keys\n${biosPath}yuzu/firmware\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them</b>")"
 	zenity --error \
 			--title="EmuDeck" \
 			--width=400 \
 			--text="${text}" 2>/dev/null
 	else
-		echo $text
+		echo "$text"
 	fi
 fi
 
@@ -970,12 +970,12 @@ fi
 #Fixes for 16:9 Screens
 #
 
-if [ $(getScreenAR) == 169 ];then
+if [ "$(getScreenAR)" == 169 ];then
 	nonDeck_169Screen		
 fi
 
 #Anbernic Win600 Special configuration
-if [ $(getProductName) == "Win600" ];then
+if [ "$(getProductName)" == "Win600" ];then
 	nonDeck_win600		
 fi
 
@@ -988,11 +988,11 @@ echo "" > "$HOME/emudeck/.electron-finished"
 echo "100" > "$HOME/emudeck/msg.log"
 echo "# Installation Complete" >> "$HOME/emudeck/msg.log"
 finished=true
-rm $PIDFILE
+rm "$PIDFILE"
 
-if [ $zenity == true ]; then
+if [ "$zenity" == true ]; then
 
-	text="`printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager on your Desktop to add your games to your SteamUI Interface.\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!"`"
+	text="$(printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager on your Desktop to add your games to your SteamUI Interface.\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!")"
 	
 	zenity --question \
 		 	--title="EmuDeck" \
@@ -1002,8 +1002,8 @@ if [ $zenity == true ]; then
 		 	--text="${text}" 2>/dev/null
 	ans=$?
 	if [ $ans -eq 0 ]; then
-		kill -15 `pidof steam`
-		${toolsPath}/srm/Steam-ROM-Manager.AppImage
+		kill -15 "$(pidof steam)"
+		"${toolsPath}/srm/Steam-ROM-Manager.AppImage"
 		zenity --question \
 		 	--title="EmuDeck" \
 		 	--width=350 \

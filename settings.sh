@@ -1,3 +1,4 @@
+#!/bin/bash
 
 #Expert mode off by default
 expert=false

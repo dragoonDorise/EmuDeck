@@ -8,7 +8,7 @@ installESDE(){
     curl https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt --output "$toolsPath"/latesturl.txt 
     latestURL=$(grep "https://gitlab" "$toolsPath"/latesturl.txt)
 
-    curl $latestURL --output "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage 
+    curl "$latestURL" --output "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage 
     rm "$toolsPath"/latesturl.txt
     chmod +x "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage	
 
@@ -28,9 +28,9 @@ installSRM(){
 	scriptPath="${toolsPath}binupdate/"
 	
 	#initialize log
-	TIMESTAMP=`date "+%Y%m%d_%H%M%S"`
+	TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
 	LOGFILE="${scriptPath}binupdate-$TIMESTAMP.log"
-	exec > >(tee ${LOGFILE}) 2>&1
+	exec > >(tee "${LOGFILE}") 2>&1
 	
     binTable=()
     binTable+=(TRUE "EmulationStation-DE" "esde")
@@ -40,7 +40,7 @@ installSRM(){
     binTable+=(FALSE "Xbox 360 Emu - TESTING ONLY" "xenia")
 
 #Binary selector
-    text="`printf "What tools do you want to get the latest version of?\n This tool will simply overwrite what you have with the newest available."`"
+    text="$(printf "What tools do you want to get the latest version of?\n This tool will simply overwrite what you have with the newest available.")"
     binsToDL=$(zenity --list \
             --title="EmuDeck" \
             --height=500 \
@@ -65,8 +65,8 @@ installSRM(){
             installSRM
         fi
         if [[ "$binsToDL" == *"yuzu"* ]]; then
-            mkdir -p $HOME/Applications
-            cd $HOME/Applications
+            mkdir -p "$HOME"/Applications
+            cd "$HOME"/Applications || exit
             url="$(curl -sL https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases/latest | jq -r ".assets[].browser_download_url" | grep .AppImage\$)"            
             curl -Lo "yuzu.AppImage" "$url"
         fi
@@ -86,10 +86,10 @@ installSRM(){
             }
             }' | grep releases)
 
-            releases=($releasesStr)
+            mapfile -t releases <<< "$releasesStr"
 
             releaseTable=()
-            for release in ${releases[@]}; do
+            for release in "${releases[@]}"; do
                 releaseTable+=(false "$release")
                 echo "release: $release"
             done
@@ -106,7 +106,7 @@ installSRM(){
             --column="Release" \
             "${releaseTable[@]}" 2>/dev/null)
 
-            curl $releaseChoice --output "$romsPath"wiiu/cemu.zip 
+            curl "$releaseChoice" --output "$romsPath"wiiu/cemu.zip 
 
 
             mkdir -p "$romsPath"wiiu/tmp
