@@ -67,8 +67,8 @@ function getProductName(){
 }
 
 function testRealDeck(){
-    case getProductName in
-	  Win600|Jupiter)
+    case $(getProductName) in
+	  'Win600'|'Jupiter')
 		isRealDeck=true
 	;;
 	  *)
