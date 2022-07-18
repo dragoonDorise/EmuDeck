@@ -1,20 +1,21 @@
 #!/bin/bash
 
 getScreenAR(){
-	local productName=$(getProductName)
+	local productName
+	productName=$(getProductName)
 	case $productName in
 		Win600)			return=169		;;
 		Jupiter)		return=1610 	;;
 		*)				resolution=$(xrandr --current | grep 'primary' | uniq | awk '{print $4}'| cut -d '+' -f1)
-						Xaxis=$(echo $resolution | awk '{print $1}' | cut -d 'x' -f2)
-						Yaxis=$(echo $resolution | awk '{print $1}' | cut -d 'x' -f1)		
+						Xaxis=$(echo "$resolution" | awk '{print $1}' | cut -d 'x' -f2)
+						Yaxis=$(echo "$resolution" | awk '{print $1}' | cut -d 'x' -f1)		
 
 						screenWidth=$Xaxis
 						screenHeight=$Yaxis
 
 
 						##Is rotated?
-						if [ $Yaxis > $Xaxis ]; then
+						if [[ $Yaxis > $Xaxis ]]; then
 							screenWidth=$Yaxis
 							screenHeight=$Xaxis		
 						fi
@@ -27,7 +28,7 @@ getScreenAR(){
 						else
 							ar=0	
 						fi
-						return=ar 		;;
+						return=$ar 		;;
 	esac
 
 	echo $return
@@ -47,25 +48,22 @@ function changeLine() {
 }
 function escapeSedKeyword(){
     local INPUT=$1;
-    local OUTPUT=$(printf '%s\n' "$INPUT" | sed -e 's/[]\/$*.^[]/\\&/g')
-    echo $OUTPUT
+	printf '%s\n' "$INPUT" | sed -e 's/[]\/$*.^[]/\\&/g'
 }
 
 function escapeSedValue(){
     local INPUT=$1
-    local OUTPUT=$(printf '%s\n' "$INPUT" | sed -e 's/[\/&]/\\&/g')
-    echo $OUTPUT
+    printf '%s\n' "$INPUT" | sed -e 's/[\/&]/\\&/g'
 }
 
 function getSDPath(){
     if [ -b "/dev/mmcblk0p1" ]; then	    
-		echo "$(findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1)"
+		findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1
 	fi
 }
 
 function getProductName(){
-	productName=$(cat /sys/devices/virtual/dmi/id/product_name)
-	echo $productName;
+	cat /sys/devices/virtual/dmi/id/product_name
 }
 
 function testRealDeck(){
@@ -84,13 +82,13 @@ function testLocationValid(){
 	local testLocation=$2
 	local return=""
 
-    touch $testLocation/testwrite
+    touch "$testLocation/testwrite"
     
-	if [ ! -f  $testLocation/testwrite ]; then
+	if [ ! -f  "$testLocation/testwrite" ]; then
 		return="Invalid: $locationName not Writable"
 	else
-		ln -s $testLocation/testwrite $testLocation/testwrite.link
-		if [ ! -f  $testLocation/testwrite.link ]; then
+		ln -s "$testLocation/testwrite" "$testLocation/testwrite.link"
+		if [ ! -f  "$testLocation/testwrite.link" ]; then
 			return="Invalid: $locationName not Linkable"
 		else
 			return="Valid"
@@ -130,11 +128,11 @@ function deleteConfigs(){
 
 
 function customLocation(){
-    echo $(zenity --file-selection --directory --title="Select a destination for the Emulation directory." 2>/dev/null)
+    zenity --file-selection --directory --title="Select a destination for the Emulation directory." 2>/dev/null
 }
 
 function refreshSource(){
-	source $EMUDECKGIT/functions/all.sh
+	source "$EMUDECKGIT/functions/all.sh"
 }
 
 function setAllEmuPaths(){

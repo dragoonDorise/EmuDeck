@@ -601,8 +601,8 @@ RetroArch_melonDS_setUpCoreOpt(){
 	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_boot_directly' '"enabled"'
 	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_console_mode' '"DS"'
 	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_dsi_sdcard' '"disabled"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_hybrid_ratio' '"3"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_hybrid_small_screen' '"Bottom"'
+	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_hybrid_ratio' '"2"'
+	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_hybrid_small_screen' '"Duplicate"'
 	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_jit_block_size' '"32"'
 	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_jit_branch_optimisations' '"enabled"'
 	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_jit_enable' '"enabled"'
@@ -611,10 +611,10 @@ RetroArch_melonDS_setUpCoreOpt(){
 	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_opengl_better_polygons' '"enabled"'
 	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_opengl_filtering' '"nearest"'
 	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_opengl_renderer' '"enabled"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_opengl_resolution' '"5x'
+	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_opengl_resolution' '"5x native (1280x960)"'
 	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_randomize_mac_address' '"disabled"'
 	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_screen_gap' '"0"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_screen_layout' '"Hybrid'
+	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_screen_layout' '"Hybrid Bottom"'
 	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_swapscreen_mode' '"Toggle"'
 	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_threaded_renderer' '"disabled"'
 	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_touch_mode' '"Touch"'
@@ -624,7 +624,7 @@ RetroArch_Mupen64Plus_Next_setUpCoreOpt(){
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-169screensize' '"1920x1080"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-43screensize' '"1280x960"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-alt-map' '"False"'
-	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-angrylion-multithread' '"all'
+	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-angrylion-multithread' '"all threads"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-angrylion-overscan' '"disabled"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-angrylion-sync' '"Low"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-angrylion-vioverlay' '"Filtered"'
@@ -698,7 +698,7 @@ RetroArch_Mupen64Plus_Next_setUpCoreOpt(){
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-rsp-plugin' '"hle"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-ThreadedRenderer' '"True"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txCacheCompression' '"True"'
-	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txEnhancementMode' '"As'
+	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txEnhancementMode' '"As Is"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txFilterIgnoreBG' '"True"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txFilterMode' '"None"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txHiresEnable' '"False"'
@@ -777,7 +777,7 @@ RetroArch_Beetle_PSX_HW_setUpCoreOpt(){
 
 RetroArch_Flycast_setUpCoreOpt(){
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_allow_service_buttons' '"disabled"'
-	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_alpha_sorting' '"per-triangle'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_alpha_sorting' '"per-triangle (normal)"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_analog_stick_deadzone' '"15%"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_anisotropic_filtering' '"4"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_auto_skip_frame' '"disabled"'
@@ -814,29 +814,29 @@ RetroArch_Flycast_setUpCoreOpt(){
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_texupscale_max_filtered_texture_size' '"256"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_threaded_rendering' '"enabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_trigger_deadzone' '"0%"'
-	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu1_pixel_off_color' '"DEFAULT_OFF'
-	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu1_pixel_on_color' '"DEFAULT_ON'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu1_pixel_off_color' '"DEFAULT_OFF 01"'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu1_pixel_on_color' '"DEFAULT_ON 00"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu1_screen_display' '"disabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu1_screen_opacity' '"100%"'
-	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu1_screen_position' '"Upper'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu1_screen_position' '"Upper Left"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu1_screen_size_mult' '"1x"'
-	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu2_pixel_off_color' '"DEFAULT_OFF'
-	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu2_pixel_on_color' '"DEFAULT_ON'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu2_pixel_off_color' '"DEFAULT_OFF 01"'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu2_pixel_on_color' '"DEFAULT_ON 00"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu2_screen_display' '"disabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu2_screen_opacity' '"100%"'
-	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu2_screen_position' '"Upper'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu2_screen_position' '"Upper Left"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu2_screen_size_mult' '"1x"'
-	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu3_pixel_off_color' '"DEFAULT_OFF'
-	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu3_pixel_on_color' '"DEFAULT_ON'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu3_pixel_off_color' '"DEFAULT_OFF 01"'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu3_pixel_on_color' '"DEFAULT_ON 00"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu3_screen_display' '"disabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu3_screen_opacity' '"100%"'
-	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu3_screen_position' '"Upper'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu3_screen_position' '"Upper Left"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu3_screen_size_mult' '"1x"'
-	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu4_pixel_off_color' '"DEFAULT_OFF'
-	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu4_pixel_on_color' '"DEFAULT_ON'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu4_pixel_off_color' '"DEFAULT_OFF 01"'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu4_pixel_on_color' '"DEFAULT_ON 00"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu4_screen_display' '"disabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu4_screen_opacity' '"100%"'
-	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu4_screen_position' '"Upper'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu4_screen_position' '"Upper Left"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_vmu4_screen_size_mult' '"1x"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_volume_modifier_enable' '"enabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_cheats' '"enabled"'
@@ -1004,8 +1004,8 @@ RetroArch_installCores(){
 	#N-gage
 	#Game.com
 
-	# mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores"
-	# raUrl="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
+	mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores"
+	raUrl="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
 	# RAcores=(bsnes_hd_beta_libretro.so flycast_libretro.so gambatte_libretro.so genesis_plus_gx_libretro.so \
 	# 		genesis_plus_gx_wide_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_wswan_libretro.so melonds_libretro.so \
 	# 		mesen_libretro.so mgba_libretro.so mupen64Plus-Next_libretro.so nestopia_libretro.so picodrive_libretro.so ppsspp_libretro.so snes9x_libretro.so \
@@ -1104,8 +1104,8 @@ RetroArch_retroAchievementsPromptLogin(){
 			ans=$?
 	if [ $ans -eq 0 ]; then
 		echo "RetroAchievment Login"
-		echo $RAInput | awk -F "," '{print $1}' > "$HOME/emudeck/.rau"
-		echo $RAInput | awk -F "," '{print $2}' > "$HOME/emudeck/.rap"
+		echo "$RAInput" | awk -F "," '{print $1}' > "$HOME/emudeck/.rau"
+		echo "$RAInput" | awk -F "," '{print $2}' > "$HOME/emudeck/.rap"
 	else
 		echo "Cancel RetroAchievment Login" 
 	fi
@@ -1120,20 +1120,19 @@ RetroArch_retroAchievementsSetLogin(){
 		echo "--No username."
 	else
 		echo "Valid Retroachievements Username and Password length"
-		changeLine 'cheevos_username = ' 'cheevos_username = "'${rau}'"' "$RetroArch_configFile"
-		changeLine 'cheevos_password = ' 'cheevos_password = "'${rap}'"' "$RetroArch_configFile"
+		changeLine 'cheevos_username = ' 'cheevos_username = "'"${rau}"'"' "$RetroArch_configFile"
+		changeLine 'cheevos_password = ' 'cheevos_password = "'"${rap}"'"' "$RetroArch_configFile"
 	fi
 }
 RetroArch_setSNESAR(){
-	AR=$1
-	if [ $SNESAR == 43 ]; then	
+	if [ "$SNESAR" == 43 ]; then	
 		RetroArch_snes_ar43
 	else
 		RetroArch_snes_ar87
 	fi	
 }
 RetroArch_setBezels(){
-	if [ $RABezels == true ]; then	
+	if [ "$RABezels" == true ]; then	
 		RetroArch_bezelOnAll
 	else
 		RetroArch_bezelOffAll
