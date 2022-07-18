@@ -790,7 +790,7 @@ fi
 
 #ESDE Config
 if [ $doSetupESDE == "true" ]; then
-	configESDE
+	configESDE 'reset'
 fi	
 
 #Emus config
