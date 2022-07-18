@@ -385,9 +385,20 @@ RetroArch_segacd_bezelOn(){
 }
 RetroArch_segacd_bezelOff(){
 	RetroArch_setOverride 'megacd.cfg' 'Genesis Plus GX'  'input_overlay_enable' '"false"'
-
 	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'input_overlay_enable' '"false"'
 }
+
+RetroArch_segacd_ar32(){
+	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"7"'
+	RetroArch_setOverride 'megacd.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"7"'
+	RetroArch_segacd_bezelOff
+}
+RetroArch_segacd_ar43(){
+	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'	
+	RetroArch_setOverride 'megacd.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'	
+}
+
+
 
 RetroArch_genesis_bezelOn(){
 	RetroArch_setOverride 'genesis.cfg' 'Genesis Plus GX'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/genesis.cfg"'
@@ -402,10 +413,20 @@ RetroArch_genesis_bezelOn(){
 
 }
 
-RetroArch_segacd_bezelOff(){
+RetroArch_genesis_bezelOff(){
 	RetroArch_setOverride 'megadrive.cfg' 'Genesis Plus GX'  'input_overlay_enable' '"false"'
-
 	RetroArch_setOverride 'genesis.cfg' 'Genesis Plus GX'  'input_overlay_enable' '"false"'
+}
+
+RetroArch_genesis_ar32(){
+	RetroArch_setOverride 'genesis.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"7"'
+	RetroArch_setOverride 'megadrive.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"7"'
+	RetroArch_genesis_bezelOff
+}
+
+RetroArch_genesis_ar43(){
+	RetroArch_setOverride 'genesis.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'	
+	RetroArch_setOverride 'megadrive.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'		
 }
 
 RetroArch_genesis_shaderOn(){
@@ -435,12 +456,6 @@ RetroArch_gamegear_bezelOn(){
 	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'  'input_overlay_scale_landscape' '"1.545000"'
 }
 
-RetroArch_segacd_bezelOff(){
-	RetroArch_setOverride 'gamegear.cfg' 'Genesis Plus GX'  'input_overlay_enable' '"false"'
-
-	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'  'input_overlay_enable' '"false"'
-}
-
 RetroArch_gamegear_shaderOn(){
 	RetroArch_setOverride 'gamegear.cfg' 'Genesis Plus GX'  'video_shader_enable' '"true"'
 	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'  'video_shader_enable' '"true"'
@@ -463,6 +478,14 @@ RetroArch_mastersystem_bezelOff(){
 	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'input_overlay_enable' '"false"'
 }
 
+RetroArch_mastersystem_ar32(){
+	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"7"'
+	RetroArch_mastersystem_bezelOff
+}
+RetroArch_mastersystem_ar43(){
+	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'	
+}
+
 RetroArch_sega32x_bezelOn(){
 	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/sega32x.cfg"'
 	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay_auto_scale' '"false"'
@@ -473,6 +496,15 @@ RetroArch_sega32x_bezelOn(){
 
 RetroArch_sega32x_bezelOff(){
 	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay_enable' '"false"'
+}
+
+RetroArch_sega32x_ar32(){
+	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'aspect_ratio_index' '"7"'
+	RetroArch_sega32x_bezelOff
+}
+RetroArch_sega32x_ar43(){
+	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'aspect_ratio_index' '"21"'
+	RetroArch_snes_bezelOff
 }
 
 RetroArch_gba_bezelOn(){
@@ -588,6 +620,11 @@ RetroArch_snes_ar87(){
 	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'input_overlay_scale_landscape' '"1.380000"'
 	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'input_overlay_aspect_adjust_landscape' '"-0.170000"'
 	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'aspect_ratio_index' '"21"'
+}
+
+RetroArch_snes_ar32(){
+	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'aspect_ratio_index' '"7"'
+	RetroArch_snes_bezelOff
 }
 
 
@@ -971,6 +1008,14 @@ RetroArch_Flycast_wideScreenOff(){
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_hack' '"disabled"'
 }
 
+RetroArch_Flycast_bezelOn(){
+	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'input_overlay_enable' '"true"'
+}
+
+RetroArch_Flycast_bezelOff(){
+	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'input_overlay_enable' '"false"'
+}
+
 RetroArch_Beetle_PSX_HW_wideScreenOn(){
 	RetroArch_setOverride 'Beetle PSX HW.opt' 'Beetle PSX HW'  'beetle_psx_hw_widescreen_hack' '"enabled"'
 }
@@ -978,6 +1023,15 @@ RetroArch_Beetle_PSX_HW_wideScreenOn(){
 RetroArch_Beetle_PSX_HW_wideScreenOff(){
 	RetroArch_setOverride 'Beetle PSX HW.opt' 'Beetle PSX HW'  'beetle_psx_hw_widescreen_hack' '"disabled"'
 }
+
+RetroArch_Beetle_PSX_HW_bezelOn(){
+	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW'  'input_overlay_enable' '"true"'
+}
+
+RetroArch_Beetle_PSX_HW_bezelOff(){
+	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW'  'input_overlay_enable' '"false"'
+}
+
 #BezelOn
 RetroArch_bezelOnAll(){
 	for func in $(compgen -A 'function' | grep '\_bezelOn$' | grep '^RetroArch_' | grep -v "RetroArch_bezelOn")
@@ -1124,13 +1178,7 @@ RetroArch_retroAchievementsSetLogin(){
 		changeLine 'cheevos_password = ' 'cheevos_password = "'"${rap}"'"' "$RetroArch_configFile"
 	fi
 }
-RetroArch_setSNESAR(){
-	if [ "$SNESAR" == 43 ]; then	
-		RetroArch_snes_ar43
-	else
-		RetroArch_snes_ar87
-	fi	
-}
+
 RetroArch_setBezels(){
 	if [ "$RABezels" == true ]; then	
 		RetroArch_bezelOnAll

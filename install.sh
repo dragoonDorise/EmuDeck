@@ -863,8 +863,7 @@ Yuzu_finalize
 #RA Bezels	
 RetroArch_setBezels #needs to change
 
-#RA SNES Aspect Ratio
-RetroArch_setSNESAR #needs to change
+
 
 #RA AutoSave	
 if [ "$RAautoSave" == true ]; then
@@ -873,33 +872,121 @@ else
 	RetroArch_autoSaveOff
 fi	
 
-#Widescreen hacks
-if [ "$duckWide" == true ]; then	
-	DuckStation_wideScreenOn
+
+
+if [ "$zenity" == true ]; then
+	
+	#Old Widescreen hacks
+	if [ "$duckWide" == true ]; then	
+		DuckStation_wideScreenOn
+	else
+		DuckStation_wideScreenOff
+	fi
+	if [ "$DolphinWide" == true ]; then
+		Dolphin_wideScreenOn
+	else
+		Dolphin_wideScreenOff
+	fi
+	if [ "$XemuWide" == true ]; then
+		Xemu_wideScreenOn
+	else
+		Xemu_wideScreenOff
+	fi
+	if [ "$DreamcastWide" == true ]; then
+		RetroArch_Flycast_wideScreenOn
+	else
+		RetroArch_Flycast_wideScreenOff
+	fi
+
 else
-	DuckStation_wideScreenOff
-fi
-if [ "$DolphinWide" == true ]; then
-	Dolphin_wideScreenOn
-else
-	Dolphin_wideScreenOff
-fi
-if [ "$XemuWide" == true ]; then
-	Xemu_wideScreenOn
-else
-	Xemu_wideScreenOff
-fi
-if [ "$DreamcastWide" == true ]; then
-	RetroArch_Flycast_wideScreenOn
-else
-	RetroArch_Flycast_wideScreenOff
+
+	#
+	#New Aspect Ratios
+	#
+	
+	#Sega Games
+		#Master System
+		#Genesis
+		#Sega CD
+		#Sega 32X
+	
+	case $arSega in
+  	"32")	 
+		RetroArch_mastersystem_ar32
+		RetroArch_genesis_ar32
+		RetroArch_segacd_ar32
+	  	RetroArch_sega32x_ar32	
+		;;  
+  	*)
+		RetroArch_mastersystem_ar43
+		RetroArch_genesis_ar43
+	  	RetroArch_segacd_ar43
+	  	RetroArch_sega32x_ar43
+	  	if [ "$RABezels" == true ]; then	
+	  	RetroArch_mastersystem_bezelOn
+	  	RetroArch_genesis_bezelOn
+	  	RetroArch_segacd_bezelOn
+	  	RetroArch_sega32x_bezelOn
+		fi
+  	;;
+	esac	
+	
+	#Snes and NES
+	case $arSnes in
+  	"87")
+	  	if [ "$RABezels" == true ]; then	
+		  	RetroArch_snes_bezelOn
+	  	fi
+		RetroArch_snes_ar87
+  	;;
+  	"32")
+	  	RetroArch_snes_ar32
+		;;  
+  	*)
+		RetroArch_snes_ar43
+		if [ "$RABezels" == true ]; then	
+			RetroArch_snes_bezelOn
+		fi
+  	;;
+	esac
+	
+	# Classic 3D Games
+		#Dreamcast
+		#PSX
+		#Nintendo 64
+		#Saturn
+		#Xbox
+	if [ "$arClassic3D" == 169 ]; then		
+		RetroArch_Beetle_PSX_HW_wideScreenOn
+		DuckStation_wideScreenOn
+		RetroArch_Flycast_wideScreenOn
+		Xemu_wideScreenOn
+		#"Bezels off"
+		RetroArch_Flycast_bezelOff
+		RetroArch_Beetle_PSX_HW_bezelOff
+	else
+		#"SET 4:3"
+		RetroArch_Flycast_wideScreenOff
+		RetroArch_Beetle_PSX_HW_wideScreenOff
+		DuckStation_wideScreenOff
+		Xemu_wideScreenOff
+		#"Bezels on"
+		if [ "$RABezels" == true ]; then	
+			RetroArch_Flycast_bezelOn
+			RetroArch_Beetle_PSX_HW_bezelOn
+		fi			
+	fi
+	
+	# GameCube
+	if [ "$arDolphin" == 169 ]; then	
+		Dolphin_wideScreenOn
+	else
+		Dolphin_wideScreenOff
+	fi
+
+
 fi
 
-if [ "$BeetleWide" == true ]; then
-	RetroArch_Beetle_PSX_HW_wideScreenOn
-else
-	RetroArch_Beetle_PSX_HW_wideScreenOff
-fi
 
 #RetroAchievments
 if [ "$doRASignIn" == "true" ]; then
