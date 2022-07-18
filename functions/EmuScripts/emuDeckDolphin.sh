@@ -42,7 +42,7 @@ Dolphin_update(){
 Dolphin_setEmulationFolder(){
     setMSG "${Dolphin_emuName}: Configure Emulation folder"
     echo ""
-  	configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin_ini"
+  	configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
     gameDirOpt1='ISOPath0 = '
     gameDirOpt1Setting='ISOPath0 = '"${romsPath}gc"
     gameDirOpt2='ISOPath1 = '
