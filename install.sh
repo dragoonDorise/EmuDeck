@@ -60,84 +60,39 @@ sleep 1
 SECONDTIME="$HOME/emudeck/.finished"
 
 
-# # Seeting up the progress Bar for the rest of the installation
-# finished=false
-# echo "0" > ~/emudeck/msg.log
-# echo "# Installing EmuDeck" >> ~/emudeck/msg.log
-# MSG=~/emudeck/msg.log
-# (	
-# 	while [ $finished == false ]
-# 	do 
-# 		  cat $MSG		    
-# 		  if grep -q "100" "$MSG"; then
-# 			  finished=true
-# 			break
-# 		  fi
+# Seeting up the progress Bar for the rest of the installation
+finished=false
+echo "0" > ~/emudeck/msg.log
+echo "# Installing EmuDeck" >> ~/emudeck/msg.log
+MSG=~/emudeck/msg.log
+(	
+	while [ $finished == false ]
+	do 
+		  cat $MSG		    
+		  if grep -q "100" "$MSG"; then
+			  finished=true
+			break
+		  fi
 							  
-# 	done &
-# ) |
-# zenity --progress \
-#   --title="Installing EmuDeck" \
-#   --text="Installing EmuDeck..." \
-#   --percentage=0 \
-#   --no-cancel \
-#   --pulsate \
-#   --auto-close \
-#   --width=300 \ &
+	done &
+) |
+zenity --progress \
+  --title="Installing EmuDeck" \
+  --text="Installing EmuDeck..." \
+  --percentage=0 \
+  --no-cancel \
+  --pulsate \
+  --auto-close \
+  --width=300 \ &
 
-# if [ "$?" = -1 ] ; then
-# 	zenity --error \
-# 	--text="Update canceled."
-# fi
+if [ "$?" = -1 ] ; then
+	zenity --error \
+	--text="Update canceled."
+fi
 
 
 
 	
-# #
-# ##
-# ## Branch to download
-# ##
-# #
-# devMode=$1
-# case $devMode in
-#   "BETA")
-# 	branch="beta"
-#   ;;
-#   "DEV")
-# 	  branch="dev"
-# 	;;  
-#   "EmuReorg")
-# 	  branch="EmuReorg"
-# 	;;  
-#   *)
-# 	branch="main"
-#   ;;
-# esac	
-
-# echo $branch > "$HOME/emudeck/branch.txt"
-
-# #
-# ##
-# ## Downloading files...
-# ##
-# #
-
-# #We create all the needed folders for installation
-# if [[ ! -e $EMUDECKGIT ]]; then
-# 	mkdir -p "$EMUDECKGIT"
-
-# 	#Cloning EmuDeck files
-# 	git clone https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
-
-# else
-# 	cd "$EMUDECKGIT"
-# 	git pull
-# fi
-
-# if [ ! -z "$devMode" ]; then
-# 	cd "$EMUDECKGIT"
-# 	git checkout "$branch" 
-# fi
 
 #
 ##
@@ -177,8 +132,52 @@ fi
 if [ "$zenity" == true ]; then
 
 	#This part of the code is where all the settings are created
-
 	
+	#
+	##
+	## Branch to download
+	##
+	#
+	devMode=$1
+	case $devMode in
+	  "BETA")
+		branch="beta"
+	  ;;
+	  "DEV")
+		  branch="dev"
+		;;  
+	  "EmuReorg")
+		  branch="EmuReorg"
+		;;  
+	  *)
+		branch="main"
+	  ;;
+	esac	
+	
+	echo $branch > "$HOME/emudeck/branch.txt"
+	
+	#
+	##
+	## Downloading files...
+	##
+	#
+	
+	#We create all the needed folders for installation
+	if [[ ! -e $EMUDECKGIT ]]; then
+		mkdir -p "$EMUDECKGIT"
+	
+		#Cloning EmuDeck files
+		git clone https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
+	
+	else
+		cd "$EMUDECKGIT"
+		git pull
+	fi
+	
+	if [ ! -z "$devMode" ]; then
+		cd "$EMUDECKGIT"
+		git checkout "$branch" 
+	fi
 	
 	#Test if we have a successful clone	
 	if [ -d "$EMUDECKGIT" ]; then
@@ -926,10 +925,10 @@ else
 	  	RetroArch_segacd_ar43
 	  	RetroArch_sega32x_ar43
 	  	if [ "$RABezels" == true ]; then	
-	  	RetroArch_mastersystem_bezelOn
-	  	RetroArch_genesis_bezelOn
-	  	RetroArch_segacd_bezelOn
-	  	RetroArch_sega32x_bezelOn
+	  		RetroArch_mastersystem_bezelOn
+	  		RetroArch_genesis_bezelOn
+	  		RetroArch_segacd_bezelOn
+	  		RetroArch_sega32x_bezelOn
 		fi
   	;;
 	esac	
