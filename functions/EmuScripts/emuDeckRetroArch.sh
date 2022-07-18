@@ -121,11 +121,11 @@ RetroArch_wswanc_bezelOn(){
 RetroArch_wswanc_bezelOff(){
 	RetroArch_setOverride 'wswanc.cfg' 'Beetle Cygne'  'input_overlay_enable' '"false"'
 }
-RetroArch_wswanc_shaderOn(){
+RetroArch_wswanc_MATshaderOn(){
 	RetroArch_setOverride 'wswanc.cfg' 'Beetle Cygne'  'video_shader_enable' 'true'
 }
 
-RetroArch_wswanc_shaderOff(){
+RetroArch_wswanc_MATshaderOff(){
 	RetroArch_setOverride 'wswanc.cfg' 'Beetle Cygne'  'video_shader_enable' 'false'
 }
 
@@ -144,11 +144,11 @@ RetroArch_wswan_bezelOff(){
 	RetroArch_setOverride 'wswan.cfg' 'Beetle Cygne'  'input_overlay_enable' '"false"'
 }
 
-RetroArch_wswan_shaderOn(){
+RetroArch_wswan_MATshaderOn(){
 	RetroArch_setOverride 'wswan.cfg' 'Beetle Cygne'  'video_shader_enable' 'true'
 }
 
-RetroArch_wswanc_shaderOff(){
+RetroArch_wswanc_MATshaderOff(){
 	RetroArch_setOverride 'wswan.cfg' 'Beetle Cygne'  'video_shader_enable' 'false'
 }
 
@@ -233,11 +233,11 @@ RetroArch_Mupen64Plus_Next_setConfig(){
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_smooth' '"true"'
 }
 
-RetroArch_n64_shaderOn(){
+RetroArch_n64_CRTshaderOn(){
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_shader_enable' '"true"'
 }
 
-RetroArch_n64_shaderOff(){
+RetroArch_n64_CRTshaderOff(){
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_shader_enable' '"false"'
 }
 
@@ -253,11 +253,11 @@ RetroArch_lynx_bezelOn(){
 RetroArch_lynx_bezelOff(){
 	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'  'input_overlay_enable' '"false"'
 }
-RetroArch_lynx_shaderOn(){
+RetroArch_lynx_MATshaderOn(){
 	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'  'video_shader_enable' 'true'
 }
 
-RetroArch_lynx_shaderOff(){
+RetroArch_lynx_MATshaderOff(){
 	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'  'video_shader_enable' 'false'
 }
 
@@ -306,11 +306,11 @@ RetroArch_ngp_bezelOff(){
 	RetroArch_setOverride 'ngp.cfg' 'Beetle NeoPop'  'input_overlay_enable' '"false"'
 }
 
-RetroArch_ngp_shaderOn(){
+RetroArch_ngp_MATshaderOn(){
 	RetroArch_setOverride 'ngp.cfg' 'Beetle NeoPop'  'video_shader_enable' 'true'
 }
 
-RetroArch_ngp_shaderOff(){
+RetroArch_ngp_MATshaderOff(){
 	RetroArch_setOverride 'ngp.cfg' 'Beetle NeoPop'  'video_shader_enable' 'false'
 }
 
@@ -329,11 +329,11 @@ RetroArch_ngp_bezelOff(){
 	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'input_overlay_enable' '"false"'
 }
 
-RetroArch_ngpc_shaderOn(){
+RetroArch_ngpc_MATshaderOn(){
 	RetroArch_setOverride 'ngp.cfg' 'Beetle NeoPop'  'video_shader_enable' 'true'
 }
 
-RetroArch_ngpc_shaderOff(){
+RetroArch_ngpc_MATshaderOff(){
 	RetroArch_setOverride 'ngp.cfg' 'Beetle NeoPop'  'video_shader_enable' 'false'
 }
 
@@ -362,11 +362,11 @@ RetroArch_mame_bezelOff(){
 	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'  'input_overlay_enable' '"false"'
 }
 
-RetroArch_mame_shaderOn(){
+RetroArch_mame_CRTshaderOn(){
 	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'  'video_shader_enable' 'true'
 }
 
-RetroArch_mame_shaderOff(){
+RetroArch_mame_CRTshaderOff(){
 	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'  'video_shader_enable' 'false'
 }
 
@@ -429,12 +429,12 @@ RetroArch_genesis_ar43(){
 	RetroArch_setOverride 'megadrive.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'		
 }
 
-RetroArch_genesis_shaderOn(){
+RetroArch_genesis_CRTshaderOn(){
 	RetroArch_setOverride 'genesis.cfg' 'Genesis Plus GX'  'video_shader_enable' '"true"'
 	RetroArch_setOverride 'megadrive.cfg' 'Genesis Plus GX'  'video_shader_enable' '"true"'
 }
 
-RetroArch_genesis_shaderOff(){
+RetroArch_genesis_CRTshaderOff(){
 	RetroArch_setOverride 'genesis.cfg' 'Genesis Plus GX'  'video_shader_enable' '"false"'
 	RetroArch_setOverride 'megadrive.cfg' 'Genesis Plus GX'  'video_shader_enable' '"false"'
 }
@@ -456,12 +456,12 @@ RetroArch_gamegear_bezelOn(){
 	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'  'input_overlay_scale_landscape' '"1.545000"'
 }
 
-RetroArch_gamegear_shaderOn(){
+RetroArch_gamegear_MATshaderOn(){
 	RetroArch_setOverride 'gamegear.cfg' 'Genesis Plus GX'  'video_shader_enable' '"true"'
 	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'  'video_shader_enable' '"true"'
 }
 
-RetroArch_gamegear_shaderOff(){
+RetroArch_gamegear_MATshaderOff(){
 	RetroArch_setOverride 'gamegear.cfg' 'Genesis Plus GX'  'video_shader_enable' '"true"'
 	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'  'video_shader_enable' '"true"'
 }
@@ -512,11 +512,11 @@ RetroArch_gba_bezelOn(){
 	RetroArch_setOverride 'gba.cfg' 'mGBA'  'aspect_ratio_index' '"21"'
 }
 
-RetroArch_gba_shaderOn(){
+RetroArch_gba_MATshaderOn(){
 	RetroArch_setOverride 'gba.cfg' 'mGBA'  'video_shader_enable' '"true"'
 }
 
-RetroArch_gba_shaderOff(){
+RetroArch_gba_MATshaderOff(){
 	RetroArch_setOverride 'gba.cfg' 'mGBA'  'video_shader_enable' '"false"'
 }
 
@@ -543,13 +543,13 @@ RetroArch_gb_bezelOff(){
 	RetroArch_setOverride 'gb.cfg' 'Gambatte'  'input_overlay_enable' '"false"'
 }
 
-RetroArch_gb_shaderOn(){
+RetroArch_gb_MATshaderOn(){
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'video_shader_enable' 'true'
 
 	RetroArch_setOverride 'gb.cfg' 'Gambatte'  'video_shader_enable' '"true"'
 }
 
-RetroArch_gb_shaderOff(){
+RetroArch_gb_MATshaderOff(){
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'video_shader_enable' 'false'
 
 	RetroArch_setOverride 'gb.cfg' 'Gambatte'  'video_shader_enable' '"false"'
@@ -584,13 +584,13 @@ RetroArch_gbc_bezelOff(){
 	RetroArch_setOverride 'gbc.cfg' 'Gambatte'  'input_overlay_enable' '"false"'
 }
 
-RetroArch_gbc_shaderOn(){
+RetroArch_gbc_MATshaderOn(){
 	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'video_shader_enable' 'true'
 
 	RetroArch_setOverride 'gbc.cfg' 'Gambatte'  'video_shader_enable' 'true'
 }
 
-RetroArch_gbc_shaderOff(){
+RetroArch_gbc_MATshaderOff(){
 	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'video_shader_enable' 'false'
 
 	RetroArch_setOverride 'gbc.cfg' 'Gambatte'  'video_shader_enable' 'false'
@@ -1046,6 +1046,34 @@ RetroArch_bezelOffAll(){
 	done
 }
 
+#shadersCRTOn
+RetroArch_shadersCRTOnAll(){
+	for func in $(compgen -A 'function' | grep '\_setShadersCRTOn$' | grep '^RetroArch_' | grep -v "RetroArch_bezelOn")
+		do echo  "$func" && "$func"
+	done
+}
+
+#shadersCRTOff
+RetroArch_shadersCRTOffAll(){
+	for func in $(compgen -A 'function' | grep '\_setShadersCRTOff$' | grep '^RetroArch_')
+		do echo  "$func" && "$func"
+	done
+}
+
+#shadersMATOn
+RetroArch_shadersMATOnAll(){
+	for func in $(compgen -A 'function' | grep '\_setShadersMATOn$' | grep '^RetroArch_' | grep -v "RetroArch_bezelOn")
+		do echo  "$func" && "$func"
+	done
+}
+
+#shadersMATOff
+RetroArch_shadersMATOffAll(){
+	for func in $(compgen -A 'function' | grep '\_setShadersMATOff$' | grep '^RetroArch_')
+		do echo  "$func" && "$func"
+	done
+}
+
 #finalExec - Extra stuff
 RetroArch_finalize(){
 	echo "NYI"
@@ -1190,5 +1218,19 @@ RetroArch_setBezels(){
 		RetroArch_bezelOnAll
 	else
 		RetroArch_bezelOffAll
+	fi	
+}
+RetroArch_setShadersCRT(){
+	if [ "$RAHandClassic2D" == true ]; then	
+		RetroArch_shadersCRTOnAll
+	else
+		RetroArch_shadersCRTOffAll
+	fi	
+}
+RetroArch_setShadersMAT(){
+	if [ "$RAHandHeldShader" == true ]; then	
+		RetroArch_shadersMATOnAll
+	else
+		RetroArch_shadersMATOffAll
 	fi	
 }

@@ -85,3 +85,5 @@ arClassic3D=43
 arDolphin=43
 arSega=43
 arSnes=43
+RAHandClassic2D=false
+RAHandHeldShader=true
