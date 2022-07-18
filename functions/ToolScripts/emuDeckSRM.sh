@@ -5,9 +5,6 @@ SRM_toolType="AppImage"
 SRM_toolPath="${toolsPath}srm/Steam-ROM-Manager.AppImage"
 SRM_releaseURL="$(getLatestReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")"
 
-es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
-es_settingsFile="$HOME/.emulationstation/es_settings.xml"
-
 #cleanupOlderThings
 SRM_cleanup(){
 	rm -f "$HOME/Desktop/Steam-ROM-Manager-2.3.29.AppImage"
@@ -51,5 +48,6 @@ SRM_init(){
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools/|${toolsPath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/storage/|${storagePath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
+	sed -i "s|/home/deck|$HOME|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	echo -e "OK!"
 }
