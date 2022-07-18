@@ -15,6 +15,8 @@ installEmuAI(){
     
 	chmod +x "$HOME/Applications/$altName.AppImage" 
 
+    curl -Lo "$altName.AppImage" "$url"
+	chmod +x "$altName.AppImage"  
     shName=$(echo "$name" | awk '{print tolower($0)}')
     
     find "${toolsPath}launchers/" -type f -iname "$shName.sh" | while read f; do echo "deleting $f"; rm -f "$f"; done;
