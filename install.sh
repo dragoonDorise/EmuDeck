@@ -897,6 +897,9 @@ if [ "$zenity" == true ]; then
 	else
 		RetroArch_Flycast_wideScreenOff
 	fi
+	
+	#RA SNES Aspect Ratio
+	RetroArch_setSNESAR #needs to change
 
 else
 

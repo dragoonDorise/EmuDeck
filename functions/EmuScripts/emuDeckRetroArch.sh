@@ -1178,7 +1178,13 @@ RetroArch_retroAchievementsSetLogin(){
 		changeLine 'cheevos_password = ' 'cheevos_password = "'"${rap}"'"' "$RetroArch_configFile"
 	fi
 }
-
+RetroArch_setSNESAR(){
+	if [ "$SNESAR" == 43 ]; then	
+		RetroArch_snes_ar43
+	else
+		RetroArch_snes_ar87
+	fi	
+}
 RetroArch_setBezels(){
 	if [ "$RABezels" == true ]; then	
 		RetroArch_bezelOnAll
