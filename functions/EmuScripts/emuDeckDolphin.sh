@@ -97,7 +97,7 @@ Dolphin_wideScreenOn(){
     wideScreenHack='wideScreenHack = '
     wideScreenHackSetting='wideScreenHack = True'
     aspectRatio='AspectRatio = '
-    aspectRatioSetting='AspectRatio = 0'
+    aspectRatioSetting='AspectRatio = 1'
     sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$configFile"
 	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$configFile"
 }
@@ -110,7 +110,7 @@ Dolphin_wideScreenOff(){
     wideScreenHack='wideScreenHack = '
     wideScreenHackSetting='wideScreenHack = False'
     aspectRatio='AspectRatio = '
-    aspectRatioSetting='AspectRatio = 1'
+    aspectRatioSetting='AspectRatio = 0'
     sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$configFile"
 	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$configFile"
 }
