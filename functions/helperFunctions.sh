@@ -20,10 +20,10 @@ getScreenAR(){
 							screenHeight=$Xaxis		
 						fi
 
-						aspectRatio=$(awk -v screenWidth=$screenWidth -v screenHeight=$screenHeight 'BEGIN{printf "%.2f\n", (screenWidth/screenHeight)}')
-						if [ $aspectRatio == 1.60 ]; then
+						aspectRatio=$(awk -v screenWidth="$screenWidth" -v screenHeight="$screenHeight" 'BEGIN{printf "%.2f\n", (screenWidth/screenHeight)}')
+						if [ "$aspectRatio" == 1.60 ]; then
 							ar=1610
-						elif [ $aspectRatio == 1.78 ]; then
+						elif [ "$aspectRatio" == 1.78 ]; then
 							ar=169
 						else
 							ar=0	
@@ -187,5 +187,5 @@ getEnvironmentDetails(){
 	local productName=$(getProductName)
 	local aspectRatio=$(getScreenAR)
 	local json="{ \"Home\": \"$HOME\", \"Hostname\": \"$HOSTNAME\", \"Username\": \"$USER\", \"SDPath\": \"$sdpath\", \"IsSDValid?\": \"$sdValid\", \"FirstRun?\": \"$firstRun\",\"ProductName\": \"$productName\",\"AspectRatio\": \"$aspectRatio\",\"UName\": \"$uname\" }"
-	jq <<< $json
+	jq <<< "$json"
 }
