@@ -77,3 +77,11 @@ doESDEThemePicker=false##
 doSelectEmulators=false##
 doResetEmulators=false##
 XemuWide=false
+
+#New UI settings
+achievementsPass=false
+achievementsUser=false
+arClassic3D=43
+arDolphin=43
+arSega=43
+arSnes=43
