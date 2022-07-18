@@ -100,13 +100,13 @@ function testLocationValid(){
 
 function makeFunction(){
 
-	find "$HOME/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/" -maxdepth 1 -type f -iname "*.cfg" | while read file
+	find "$HOME/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.cfg" | while read file
 		do
 			
 			folderOverride="$(basename "${file}")"
 			foldername="$(dirname "${file}")"
 			coreName="$(basename "${foldername}")"
-			echo "RetroArch_mainConfig(){"
+			echo "RetroArch_${folderOverride%.*}_bezelOn(){"
 			IFS=$'\n'
 			for line in $(cat "$file")
 			do
