@@ -26,15 +26,15 @@ createDesktopIcons(){
 	chmod +x ~/Desktop/EmuDeck.desktop
 	
 	#Nova fix'
-	echo "#!/usr/bin/env xdg-open
-	[Desktop Entry]
-	Name=EmuDeck AppImage
-	Exec=$HOME/Applications/EmuDeck.AppImage
-	Icon=steamdeck-gaming-return
-	Terminal=false
-	Type=Application
-	StartupNotify=false" > ~/Desktop/EmuDeckAppImage.desktop
-	chmod +x ~/Desktop/EmuDeckAppImage.desktop
-	chmod +x ~/Applications/EmuDeck.AppImage
+	# echo "#!/usr/bin/env xdg-open
+	# [Desktop Entry]
+	# Name=EmuDeck AppImage
+	# Exec=$HOME/Applications/EmuDeck.AppImage
+	# Icon=steamdeck-gaming-return
+	# Terminal=false
+	# Type=Application
+	# StartupNotify=false" > ~/Desktop/EmuDeckAppImage.desktop
+	# chmod +x ~/Desktop/EmuDeckAppImage.desktop
+	# chmod +x ~/Applications/EmuDeck.AppImage
 	
 }
