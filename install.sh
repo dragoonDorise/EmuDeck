@@ -986,15 +986,14 @@ else
 		Dolphin_wideScreenOff
 	fi
 	
-
-	#
-	#New Shaders
-	#	
-	RetroArch_setShadersCRT
-	RetroArch_setShadersMAT
-
 fi
 
+
+#
+#New Shaders
+#	
+RetroArch_setShadersCRT
+RetroArch_setShadersMAT
 
 #RetroAchievments
 if [ "$doRASignIn" == "true" ]; then
