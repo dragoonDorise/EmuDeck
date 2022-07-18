@@ -1083,7 +1083,7 @@ RetroArch_autoSaveOn(){
 	changeLine 'savestate_auto_load = ' 'savestate_auto_load = "true"' "$RetroArch_configFile"
 	changeLine 'savestate_auto_save = ' 'savestate_auto_save = "true"' "$RetroArch_configFile"
 }
-RetroArch_autoSaveOn(){
+RetroArch_autoSaveOff(){
 	changeLine 'savestate_auto_load = ' 'savestate_auto_load = "false"' "$RetroArch_configFile"
 	changeLine 'savestate_auto_save = ' 'savestate_auto_save = "false"' "$RetroArch_configFile"
 }
