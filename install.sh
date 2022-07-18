@@ -112,7 +112,7 @@ fi
 #Check for config file
 FILE=~/emudeck/settings.sh
 if [ -f "$FILE" ]; then
-	source "$EMUDECKGIT"/settings.sh
+	source $FILE
 	else
 	cp "$EMUDECKGIT"/settings.sh ~/emudeck/settings.sh	
 fi
