@@ -1237,7 +1237,7 @@ RetroArch_installCores(){
 			kronos_libretro.so lutro_libretro.so mame2000_libretro.so mame2003_plus_libretro.so mame2010_libretro.so \
 			mame_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_pce_fast_libretro.so mednafen_pce_libretro.so mednafen_pcfx_libretro.so mednafen_psx_hw_libretro.so \
 			mednafen_psx_libretro.so mednafen_saturn_libretro.so mednafen_supafaust_libretro.so mednafen_supergrafx_libretro.so mednafen_vb_libretro.so mednafen_wswan_libretro.so \
-			melonds_libretro.so mesen-s_libretro.so mesen_libretro.so mgba_libretro.so mu_libretro.so mupen64plus-next_libretro.so \
+			melonds_libretro.so mesen-s_libretro.so mesen_libretro.so mgba_libretro.so mu_libretro.so mupen64plus_next_libretro.so \
 			nekop2_libretro.so neocd_libretro.so nestopia_libretro.so np2kai_libretro.so nxengine_libretro.so o2em_libretro.so \
 			opera_libretro.so parallel_n64_libretro.so pcsx2_libretro.so pcsx_rearmed_libretro.so picodrive_libretro.so pokemini_libretro.so ppsspp_libretro.so prboom_libretro.so \
 			prosystem_libretro.so puae_libretro.so px68k_libretro.so quasi88_libretro.so quicknes_libretro.so race_libretro.so \
