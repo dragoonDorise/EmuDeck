@@ -239,6 +239,27 @@ RetroArch_nes_bezelOff(){
 	RetroArch_setOverride 'nes.cfg' 'Mesen'  'input_overlay_enable' '"false"'
 }
 
+RetroArch_nes_ar43(){
+	RetroArch_nes_bezelOn
+	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'aspect_ratio_index' '"0"'
+	RetroArch_setOverride 'nes.cfg' 'Mesen'  'aspect_ratio_index' '"0"'
+}
+
+RetroArch_nes_ar87(){	
+	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'input_overlay_scale_landscape' '"1.380000"'
+	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'input_overlay_aspect_adjust_landscape' '"-0.170000"'
+	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'aspect_ratio_index' '"15"'
+	RetroArch_setOverride 'nes.cfg' 'Mesen'  'input_overlay_scale_landscape' '"1.380000"'
+	RetroArch_setOverride 'nes.cfg' 'Mesen'  'input_overlay_aspect_adjust_landscape' '"-0.170000"'
+	RetroArch_setOverride 'nes.cfg' 'Mesen'  'aspect_ratio_index' '"15"'
+}
+
+RetroArch_nes_ar32(){
+	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'aspect_ratio_index' '"7"'
+	RetroArch_setOverride 'nes.cfg' 'Mesen'  'aspect_ratio_index' '"7"'
+	RetroArch_nes_bezelOff
+}
+
 RetroArch_Mupen64Plus_Next_setConfig(){
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'aspect_ratio_index' '"0"'
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_crop_overscan' '"false"'
@@ -524,7 +545,7 @@ RetroArch_sega32x_ar32(){
 
 RetroArch_sega32x_ar43(){
 	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'aspect_ratio_index' '"21"'
-	RetroArch_snes_bezelOff
+	RetroArch_sega32x_bezelOff
 }
 
 #RetroArch_gba_bezelOn(){

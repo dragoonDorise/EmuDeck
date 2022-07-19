@@ -954,21 +954,24 @@ else
 	
 	#Snes and NES
 	case $arSnes in
-  	"87")
-	  	if [ "$RABezels" == true ]; then	
-		  	RetroArch_snes_bezelOn
-	  	fi
+	  "87")
+		  if [ "$RABezels" == true ]; then	
+			  RetroArch_snes_bezelOn
+		  fi
 		RetroArch_snes_ar87
-  	;;
-  	"32")
-	  	RetroArch_snes_ar32
+		RetroArch_nes_ar87
+	  ;;
+	  "32")
+			RetroArch_snes_ar32
+		  RetroArch_nes_ar32
 		;;  
-  	*)
+	  *)
 		RetroArch_snes_ar43
+		RetroArch_nes_ar43
 		if [ "$RABezels" == true ]; then	
 			RetroArch_snes_bezelOn
 		fi
-  	;;
+	  ;;
 	esac
 	
 	# Classic 3D Games
