@@ -7,3 +7,5 @@
 - Added bezels to Dreamcast, N64 and Saturn
 - Fixed Dolphin and Primehack from sending button presses as part of hotkeys as in-game button presses
 - CHDDeck now finds and removes files from gdi and cue
+- Added Naomi (flycast) parser for Steam Rom Manager. uses roms/naomi folder
+- fixed retroachievements not working for users with certain special characters in their passwords.
