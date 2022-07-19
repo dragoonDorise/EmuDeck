@@ -34,6 +34,11 @@ else
   fi
 fi
 
+function finish {
+  echo "Script terminating. Exit code $?"
+}
+trap finish EXIT
+
 
 #
 ##
@@ -113,6 +118,8 @@ source "$EMUDECKGIT/functions/all.sh"
 #
 #Hardware Check for Non SteamDeck Users
 #
+
+getEnvironmentDetails
 testRealDeck
 
 
