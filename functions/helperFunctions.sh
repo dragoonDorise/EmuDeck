@@ -188,3 +188,22 @@ getEnvironmentDetails(){
 	local json="{ \"Home\": \"$HOME\", \"Hostname\": \"$HOSTNAME\", \"Username\": \"$USER\", \"SDPath\": \"$sdpath\", \"IsSDValid?\": \"$sdValid\", \"FirstRun?\": \"$firstRun\",\"ProductName\": \"$productName\",\"AspectRatio\": \"$aspectRatio\",\"UName\": \"$uname\" }"
 	jq <<< "$json"
 }
+
+checkForFile(){
+	file=$1
+	delete=$2
+	finished=false	
+	while [ $finished == false ]
+	do 		 
+		test=$(test -f "$file" && echo true)			
+	  	if [[ $test == true ]]; then
+	  	  	finished=true;
+		  	clear			  	
+			if [[ $delete == 'delete' ]]; then  
+		  		rm "$file"
+			fi
+			echo 'true';			
+			break
+	  	fi							  
+	done
+}
