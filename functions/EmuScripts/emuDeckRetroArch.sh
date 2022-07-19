@@ -148,7 +148,7 @@ RetroArch_wswan_MATshaderOn(){
 	RetroArch_setOverride 'wswan.cfg' 'Beetle Cygne'  'video_shader_enable' 'true'
 }
 
-RetroArch_wswanc_MATshaderOff(){
+RetroArch_wswan_MATshaderOff(){
 	RetroArch_setOverride 'wswan.cfg' 'Beetle Cygne'  'video_shader_enable' 'false'
 }
 
@@ -199,11 +199,23 @@ RetroArch_pcengine_bezelOn(){
 	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'input_overlay_enable' '"true"'
 	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'input_overlay_hide_in_menu' '"false"'
 	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'input_overlay_scale_landscape' '"1.025000"'
+
+	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'aspect_ratio_index' '"21"'
+	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'custom_viewport_height' '"1200"'
+	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'custom_viewport_x' '"0"'
+	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/pcengine.cfg"'
+	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'input_overlay_aspect_adjust_landscape' '"-0.130000"'
+	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'input_overlay_enable' '"true"'
+	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'input_overlay_scale_landscape' '"1.060000"'
+	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'input_overlay_x_separation_landscape' '"0.010000"'
 }
 
 RetroArch_pcengine_bezelOff(){
 	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'input_overlay_enable' '"false"'
+
+	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'input_overlay_enable' '"false"'
 }
+
 
 RetroArch_nes_bezelOn(){
 	RetroArch_setOverride 'nes.cfg' 'Mesen'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/nes.cfg"'
@@ -325,7 +337,7 @@ RetroArch_ngpc_bezelOn(){
 	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'input_overlay_y_offset_landscape' '"-0.135000"'
 }
 
-RetroArch_ngp_bezelOff(){
+RetroArch_ngpc_bezelOff(){
 	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'input_overlay_enable' '"false"'
 }
 
@@ -455,6 +467,11 @@ RetroArch_gamegear_bezelOn(){
 	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'  'input_overlay_enable' '"true"'
 	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'  'input_overlay_scale_landscape' '"1.545000"'
 }
+RetroArch_gamegear_bezelOff(){
+	RetroArch_setOverride 'gamegear.cfg' 'Genesis Plus GX'  'input_overlay_enable' '"false"'
+
+	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'  'input_overlay_enable' '"false"'
+}
 
 RetroArch_gamegear_MATshaderOn(){
 	RetroArch_setOverride 'gamegear.cfg' 'Genesis Plus GX'  'video_shader_enable' '"true"'
@@ -507,10 +524,10 @@ RetroArch_sega32x_ar43(){
 	RetroArch_snes_bezelOff
 }
 
-RetroArch_gba_bezelOn(){
-	#missing stuff?
-	RetroArch_setOverride 'gba.cfg' 'mGBA'  'aspect_ratio_index' '"21"'
-}
+#RetroArch_gba_bezelOn(){
+#	#missing stuff?
+#	RetroArch_setOverride 'gba.cfg' 'mGBA'  'aspect_ratio_index' '"21"'
+#}
 
 RetroArch_gba_MATshaderOn(){
 	RetroArch_setOverride 'gba.cfg' 'mGBA'  'video_shader_enable' '"true"'
@@ -556,9 +573,9 @@ RetroArch_gb_MATshaderOff(){
 }
 
 RetroArch_SameBoy_gbc_setConfig(){
-	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gbc_color_correction' '"GBC'
-	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gbc_color_correction_mode' '"accurate"'
-	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gbc_frontlight_position' '"central"'
+	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'gambatte_gbc_color_correction' '"GBC'
+	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'gambatte_gbc_color_correction_mode' '"accurate"'
+	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'gambatte_gbc_frontlight_position' '"central"'
 }
 
 
@@ -604,6 +621,9 @@ RetroArch_n64_bezelOn(){
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'input_overlay_scale_landscape' '"1.065000"'
 }
 
+RetroArch_n64_bezelOff(){
+	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'input_overlay_enable' '"false"'
+}
 
 RetroArch_atari800_bezelOn(){
 	RetroArch_setOverride 'atari800.cfg' 'Stella'  'aspect_ratio_index' '"0"'
@@ -614,6 +634,9 @@ RetroArch_atari800_bezelOn(){
 	RetroArch_setOverride 'atari800.cfg' 'Stella'  'input_overlay_aspect_adjust_landscape' '"0.000000"'
 }
 
+RetroArch_atari800_bezelOff(){
+	RetroArch_setOverride 'atari800.cfg' 'Stella'  'input_overlay_enable' '"false"'
+}
 
 RetroArch_atari5200_bezelOn(){
 	RetroArch_setOverride 'atari5200.cfg' 'Stella'  'aspect_ratio_index' '"0"'
@@ -623,22 +646,22 @@ RetroArch_atari5200_bezelOn(){
 	RetroArch_setOverride 'atari5200.cfg' 'Stella'  'input_overlay_scale_landscape' '"1.175000"'
 	RetroArch_setOverride 'atari5200.cfg' 'Stella'  'input_overlay_aspect_adjust_landscape' '"0.000000"'
 }
-RetroArch_pcengine_bezelOn(){
-	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'aspect_ratio_index' '"21"'
-	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'custom_viewport_height' '"1200"'
-	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'custom_viewport_x' '"0"'
-	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/pcengine.cfg"'
-	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'input_overlay_aspect_adjust_landscape' '"-0.130000"'
-	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'input_overlay_enable' '"true"'
-	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'input_overlay_scale_landscape' '"1.060000"'
-	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'input_overlay_x_separation_landscape' '"0.010000"'
+
+RetroArch_atari5200_bezelOff(){
+	RetroArch_setOverride 'atari5200.cfg' 'Stella'  'input_overlay_enable' '"false"'
 }
+
+	
+
 RetroArch_dreamcast_bezelOn(){
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'aspect_ratio_index' '"0"'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/Dreamcast.cfg"'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'input_overlay_aspect_adjust_landscape' '"0.110000"'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'input_overlay_enable' '"true"'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'input_overlay_scale_landscape' '"1.054998"'
+}
+RetroArch_dreamcast_bezelOff(){
+	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'input_overlay_enable' '"false"'
 }
 RetroArch_saturn_bezelOn(){
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'aspect_ratio_index' '"0"'
@@ -648,7 +671,9 @@ RetroArch_saturn_bezelOn(){
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'input_overlay_aspect_adjust_landscape' '"0.095000"'
 }
 
-
+RetroArch_saturn_bezelOff(){
+	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'input_overlay_enable' '"false"'
+}
 
 RetroArch_snes_bezelOn(){
 	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/snes.cfg"'
@@ -679,33 +704,33 @@ RetroArch_snes_ar32(){
 }
 
 
-RetroArch_bsnes_hd_beta_bezelOn(){
-	RetroArch_setOverride 'sneshd.cfg' 'bsnes-hd beta'  'video_scale_integer' '"false"'
-}
+# RetroArch_bsnes_hd_beta_bezelOn(){
+# 	RetroArch_setOverride 'sneshd.cfg' 'bsnes-hd beta'  'video_scale_integer' '"false"'
+# }
 
 RetroArch_melonDS_setUpCoreOpt(){
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_audio_bitrate' '"Automatic"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_audio_interpolation' '"None"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_boot_directly' '"enabled"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_console_mode' '"DS"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_dsi_sdcard' '"disabled"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_hybrid_ratio' '"2"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_hybrid_small_screen' '"Duplicate"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_jit_block_size' '"32"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_jit_branch_optimisations' '"enabled"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_jit_enable' '"enabled"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_jit_fast_memory' '"enabled"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_jit_literal_optimisations' '"enabled"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_opengl_better_polygons' '"enabled"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_opengl_filtering' '"nearest"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_opengl_renderer' '"enabled"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_opengl_resolution' '"5x native (1280x960)"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_randomize_mac_address' '"disabled"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_screen_gap' '"0"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_screen_layout' '"Hybrid Bottom"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_swapscreen_mode' '"Toggle"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_threaded_renderer' '"disabled"'
-	RetroArch_setOverride 'nds.opt' 'melonDS'  'melonds_touch_mode' '"Touch"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_audio_bitrate' '"Automatic"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_audio_interpolation' '"None"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_boot_directly' '"enabled"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_console_mode' '"DS"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_dsi_sdcard' '"disabled"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_hybrid_ratio' '"2"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_hybrid_small_screen' '"Duplicate"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_jit_block_size' '"32"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_jit_branch_optimisations' '"enabled"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_jit_enable' '"enabled"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_jit_fast_memory' '"enabled"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_jit_literal_optimisations' '"enabled"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_opengl_better_polygons' '"enabled"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_opengl_filtering' '"nearest"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_opengl_renderer' '"enabled"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_opengl_resolution' '"5x native (1280x960)"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_randomize_mac_address' '"disabled"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_screen_gap' '"0"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_screen_layout' '"Hybrid Bottom"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_swapscreen_mode' '"Toggle"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_threaded_renderer' '"disabled"'
+	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_touch_mode' '"Touch"'
 }
 
 RetroArch_Mupen64Plus_Next_setUpCoreOpt(){
@@ -1057,14 +1082,6 @@ RetroArch_Flycast_wideScreenOn(){
 RetroArch_Flycast_wideScreenOff(){
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_cheats' '"disabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_hack' '"disabled"'
-}
-
-RetroArch_dreamcast_bezelOn(){
-	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'input_overlay_enable' '"true"'
-}
-
-RetroArch_dreamcast_bezelOff(){
-	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'input_overlay_enable' '"false"'
 }
 
 RetroArch_Beetle_PSX_HW_wideScreenOn(){
