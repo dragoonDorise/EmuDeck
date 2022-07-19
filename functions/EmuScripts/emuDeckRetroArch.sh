@@ -244,6 +244,16 @@ RetroArch_nes_bezelOff(){
 	RetroArch_setOverride 'nes.cfg' 'Mesen'  'input_overlay_enable' '"false"'
 }
 
+RetroArch_nes_CRTshaderOn(){
+	RetroArch_setOverride 'nes.cfg' 'Mesen'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'video_shader_enable' '"true"'
+}
+
+RetroArch_nes_CRTshaderOff(){
+	RetroArch_setOverride 'nes.cfg' 'Mesen'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'video_shader_enable' '"false"'
+}
+
 RetroArch_nes_ar43(){
 	RetroArch_nes_bezelOn
 	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'aspect_ratio_index' '"0"'
@@ -395,7 +405,15 @@ RetroArch_atari2600_bezelOn(){
 }
 
 RetroArch_atari2600_bezelOff(){
-	RetroArch_setOverride 'atari2600.cfg' 'Stella'  'input_overlay_enable' '"false"'
+	RetroArch_setOverride 'atari2600.cfg' 'Stella' 'input_overlay_enable' '"false"'
+}
+
+RetroArch_atari2600_CRTshaderOn(){
+	RetroArch_setOverride 'atari2600.cfg' 'Stella' 'video_shader_enable' 'true'
+}
+
+RetroArch_atari2600_CRTshaderOff(){
+	RetroArch_setOverride 'atari2600.cfg' 'Stella' 'video_shader_enable' '"false"'	
 }
 
 RetroArch_mame_bezelOn(){
@@ -437,6 +455,17 @@ RetroArch_segacd_bezelOff(){
 	RetroArch_setOverride 'megacd.cfg' 'Genesis Plus GX'  'input_overlay_enable' '"false"'
 	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'input_overlay_enable' '"false"'
 }
+
+RetroArch_segacd_CRTshaderOn(){
+	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'megacd.cfg' 'Genesis Plus GX'  'video_shader_enable' '"true"'
+}
+
+RetroArch_segacd_CRTshaderOff(){
+	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'megacd.cfg' 'Genesis Plus GX'  'video_shader_enable' '"false"'
+}
+
 
 RetroArch_segacd_ar32(){
 	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"7"'
@@ -541,6 +570,14 @@ RetroArch_mastersystem_ar32(){
 	RetroArch_mastersystem_bezelOff
 }
 
+RetroArch_mastersystem_CRTshaderOn(){
+	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'video_shader_enable' '"true"'
+}
+
+RetroArch_mastersystem_CRTshaderOff(){
+	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'video_shader_enable' '"false"'
+}
+
 RetroArch_mastersystem_ar43(){
 	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'	
 }
@@ -556,6 +593,14 @@ RetroArch_sega32x_bezelOn(){
 
 RetroArch_sega32x_bezelOff(){
 	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay_enable' '"false"'
+}
+
+RetroArch_sega32x_CRTshaderOn(){
+	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'video_shader_enable' '"true"'
+}
+
+RetroArch_sega32x_CRTshaderOff(){
+	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'video_shader_enable' '"false"'
 }
 
 RetroArch_sega32x_ar32(){
@@ -705,6 +750,14 @@ RetroArch_dreamcast_bezelOff(){
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'input_overlay_enable' '"false"'
 }
 
+RetroArch_dreamcast_CRTshaderOn(){
+	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"true"'
+}
+
+RetroArch_dreamcast_CRTshaderOff(){
+	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"false"'
+}
+
 RetroArch_saturn_bezelOn(){
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'aspect_ratio_index' '"0"'
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/saturn.cfg"'
@@ -721,8 +774,18 @@ RetroArch_saturn_bezelOn(){
 
 RetroArch_saturn_bezelOff(){
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'input_overlay_enable' '"false"'
-
 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'input_overlay_enable' '"false"'
+}
+
+RetroArch_saturn_CRTshaderOn(){
+	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'video_shader_enable' '"true"'
+	
+}
+
+RetroArch_saturn_CRTshaderOff(){
+	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'video_shader_enable' '"false"'
 }
 
 RetroArch_snes_bezelOn(){
@@ -735,6 +798,14 @@ RetroArch_snes_bezelOn(){
 
 RetroArch_snes_bezelOff(){
 	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'input_overlay_enable' '"false"'
+}
+
+RetroArch_snes_CRTshaderOn(){
+	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'video_shader_enable' '"true"'
+}
+
+RetroArch_snes_CRTshaderOff(){
+	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'video_shader_enable' '"false"'
 }
 
 RetroArch_snes_ar43(){
@@ -1192,28 +1263,28 @@ RetroArch_bezelOffAll(){
 }
 
 #shadersCRTOn
-RetroArch_shadersCRTOnAll(){
+RetroArch_CRTshaderOnAll(){
 	for func in $(compgen -A 'function' | grep '\_CRTshaderOn$' | grep '^RetroArch_' | grep -v "RetroArch_bezelOn")
 		do echo  "$func" && "$func"
 	done
 }
 
 #shadersCRTOff
-RetroArch_shadersCRTOffAll(){
+RetroArch_CRTshaderOffAll(){
 	for func in $(compgen -A 'function' | grep '\_CRTshaderOff$' | grep '^RetroArch_')
 		do echo  "$func" && "$func"
 	done
 }
 
 #shadersMATOn
-RetroArch_shadersMATOnAll(){
+RetroArch_MATshadersOnAll(){
 	for func in $(compgen -A 'function' | grep '\_MATshaderOn$' | grep '^RetroArch_' | grep -v "RetroArch_bezelOn")
 		do echo  "$func" && "$func"
 	done
 }
 
 #shadersMATOff
-RetroArch_shadersMATOffAll(){
+RetroArch_MATshadersOffAll(){
 	for func in $(compgen -A 'function' | grep '\_MATshaderOff$' | grep '^RetroArch_')
 		do echo  "$func" && "$func"
 	done
@@ -1368,15 +1439,15 @@ RetroArch_setBezels(){
 }
 RetroArch_setShadersCRT(){
 	if [ "$RAHandClassic2D" == true ]; then	
-		RetroArch_shadersCRTOnAll
+		RetroArch_CRTshaderOnAll
 	else
-		RetroArch_shadersCRTOffAll
+		RetroArch_CRTshaderOffAll
 	fi	
 }
 RetroArch_setShadersMAT(){
 	if [ "$RAHandHeldShader" == true ]; then	
-		RetroArch_shadersMATOnAll
+		RetroArch_MATshadersOnAll
 	else
-		RetroArch_shadersMATOffAll
+		RetroArch_MATshadersOffAll
 	fi	
 }
