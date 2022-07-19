@@ -1193,14 +1193,14 @@ RetroArch_bezelOffAll(){
 
 #shadersCRTOn
 RetroArch_shadersCRTOnAll(){
-	for func in $(compgen -A 'function' | grep '\_setShadersCRTOn$' | grep '^RetroArch_' | grep -v "RetroArch_bezelOn")
+	for func in $(compgen -A 'function' | grep '\_CRTshaderOn$' | grep '^RetroArch_' | grep -v "RetroArch_bezelOn")
 		do echo  "$func" && "$func"
 	done
 }
 
 #shadersCRTOff
 RetroArch_shadersCRTOffAll(){
-	for func in $(compgen -A 'function' | grep '\_setShadersCRTOff$' | grep '^RetroArch_')
+	for func in $(compgen -A 'function' | grep '\_CRTshaderOff$' | grep '^RetroArch_')
 		do echo  "$func" && "$func"
 	done
 }
