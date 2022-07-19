@@ -1272,12 +1272,12 @@ RetroArch_psx_bezelOff(){
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX'  'input_overlay_enable' '"false"'
 }
 
-RetroArch_psx_LCDshaderOn(){
+RetroArch_psx_CRTshaderOn(){
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW'  'video_shader_enable' 'true'
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX'  'video_shader_enable' 'true'
 }
 
-RetroArch_psx_LCDshaderOff(){
+RetroArch_psx_CRTshaderOff(){
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW'  'video_shader_enable' 'false'
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX'  'video_shader_enable' 'false'
 }
