@@ -63,19 +63,19 @@ toolsPath=~/Emulation/tools/
 biosPath=~/Emulation/bios/
 savesPath=~/Emulation/saves/
 storagePath=~/Emulation/storage/
-ESDEscrapData=~/Emulation/tools/downloaded_mediaf
+ESDEscrapData=~/Emulation/tools/downloaded_media
 
 #Default ESDE Theme
 esdeTheme="EPICNOIR"
 
 
 #Advanced settings
-doSelectWideScreen=false##
-doRASignIn=false##
-doRAEnable=false##
-doESDEThemePicker=false##
-doSelectEmulators=false##
-doResetEmulators=false##
+doSelectWideScreen=false
+doRASignIn=false
+doRAEnable=false
+doESDEThemePicker=false
+doSelectEmulators=false
+doResetEmulators=false
 XemuWide=false
 
 #New UI settings
