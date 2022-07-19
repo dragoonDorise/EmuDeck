@@ -36,6 +36,8 @@ fi
 
 function finish {
   echo "Script terminating. Exit code $?"
+  finished=true
+  rm -rf MSG
 }
 trap finish EXIT
 
@@ -55,7 +57,7 @@ mv "$HOME/emudeck/emudeck.log" "$HOME/emudeck/emudeck.last.log" #backup last log
 echo "${@}" > "$HOME/emudeck/emudeck.log" #might as well log out the parameters of the run
 LOGFILE="$HOME/emudeck/emudeck.log"
 exec > >(tee "${LOGFILE}") 2>&1
-
+date "+%Y.%m.%d-%H:%M:%S %Z"
 #Mark if this not a fresh install
 FOLDER="$HOME/emudeck/"
 if [ -d "$FOLDER" ]; then
@@ -67,33 +69,33 @@ SECONDTIME="$HOME/emudeck/.finished"
 
 # Seeting up the progress Bar for the rest of the installation
 finished=false
-echo "0" > ~/emudeck/msg.log
-echo "# Installing EmuDeck" >> ~/emudeck/msg.log
 MSG=~/emudeck/msg.log
+echo "0" > "$MSG"
+echo "# Installing EmuDeck" >> "$MSG"
+
 (	
 	while [ $finished == false ]
 	do 
-		  cat $MSG		    
+		  cat "$MSG"   
 		  if grep -q "100" "$MSG"; then
-			  finished=true
+			finished=true
 			break
 		  fi
-							  
-	done &
-) |
-zenity --progress \
-  --title="Installing EmuDeck" \
-  --text="Installing EmuDeck..." \
-  --percentage=0 \
-  --no-cancel \
-  --pulsate \
-  --auto-close \
-  --width=300 \ &
+		sleep 10
+	done
+) 	|	zenity --progress \
+  		--title="Installing EmuDeck" \
+  		--text="Installing EmuDeck..." \
+ 		--percentage=0 \
+  		--no-cancel \
+  		--pulsate \
+  		--auto-close \
+  		--width=300  2>/dev/null &
 
-if [ "$?" = -1 ] ; then
-	zenity --error \
-	--text="Update canceled."
-fi
+# if [ "$?" == -1 ] ; then
+# 	zenity --error \
+# 	--text="Update canceled." 2>/dev/null
+# fi
 
 
 
@@ -178,12 +180,22 @@ if [ "$zenity" == true ]; then
 	
 	else
 		cd "$EMUDECKGIT"
-		git pull
+		git status --porcelain
+		if [[ $(git status --porcelain) ]]; then
+			echo "modified files detected. not pulling."
+		else
+			git pull
+		fi
+		
 	fi
 	
-	if [ ! -z "$devMode" ]; then
-		cd "$EMUDECKGIT"
-		git checkout "$branch" 
+	if [ -n "$devMode" ]; then
+		if [[ $(git status --porcelain) ]]; then
+			echo "modified files detected. not changing branch."
+		else
+			cd "$EMUDECKGIT"
+			git checkout "$branch" 
+		fi
 	fi
 	
 	#Test if we have a successful clone	
@@ -276,7 +288,7 @@ if [ "$zenity" == true ]; then
 		--width=400 --height=225 \
 		--column="" --column="Install Location" --column="value" \
 		--hide-column=3 --print-column=3 \
-			"${locationTable[@]}"  2>/dev/null)
+		"${locationTable[@]}"  2>/dev/null)
 		ans=$?
 		if [ $ans -eq 0 ]; then
 			echo "Storage: ${destination}"
