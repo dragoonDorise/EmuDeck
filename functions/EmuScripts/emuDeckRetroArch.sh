@@ -110,49 +110,74 @@ RetroArch_setOverride(){
 
 RetroArch_wswanc_bezelOn(){
 
-	RetroArch_setOverride 'wswanc.cfg' 'Beetle Cygne'  'aspect_ratio_index' '"21"'
-	RetroArch_setOverride 'wswanc.cfg' 'Beetle Cygne'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/wswanc.cfg"'
-	RetroArch_setOverride 'wswanc.cfg' 'Beetle Cygne'  'input_overlay_auto_scale' '"false"'
-	RetroArch_setOverride 'wswanc.cfg' 'Beetle Cygne'  'input_overlay_enable' '"true"'
-	RetroArch_setOverride 'wswanc.cfg' 'Beetle Cygne'  'input_overlay_opacity' '"0.700000"'
-	RetroArch_setOverride 'wswanc.cfg' 'Beetle Cygne'  'input_overlay_scale_landscape' '"1.170000"'
-	RetroArch_setOverride 'wswanc.cfg' 'Beetle Cygne'  'video_scale_integer' '"false"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'aspect_ratio_index' '"21"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/wswanc.cfg"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_overlay_auto_scale' '"false"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_overlay_enable' '"true"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_overlay_opacity' '"0.700000"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_overlay_scale_landscape' '"1.170000"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'video_scale_integer' '"false"'
+	
+	
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'aspect_ratio_index' '"21"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/wswanc.cfg"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'input_overlay_auto_scale' '"false"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'input_overlay_enable' '"true"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'input_overlay_opacity' '"0.700000"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'input_overlay_scale_landscape' '"1.170000"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'video_scale_integer' '"false"'
 }
 RetroArch_wswanc_bezelOff(){
-	RetroArch_setOverride 'wswanc.cfg' 'Beetle Cygne'  'input_overlay_enable' '"false"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_overlay_enable' '"false"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'input_overlay_enable' '"false"'
 }
 RetroArch_wswanc_MATshaderOn(){
-	RetroArch_setOverride 'wswanc.cfg' 'Beetle Cygne'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'video_shader_enable' 'true'
 }
 
 RetroArch_wswanc_MATshaderOff(){
-	RetroArch_setOverride 'wswanc.cfg' 'Beetle Cygne'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'video_shader_enable' 'false'
 }
 
 RetroArch_wswan_bezelOn(){
 
-	RetroArch_setOverride 'wswan.cfg' 'Beetle Cygne'  'aspect_ratio_index' '"21"'
-	RetroArch_setOverride 'wswan.cfg' 'Beetle Cygne'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/wswan.cfg"'
-	RetroArch_setOverride 'wswan.cfg' 'Beetle Cygne'  'input_overlay_auto_scale' '"false"'
-	RetroArch_setOverride 'wswan.cfg' 'Beetle Cygne'  'input_overlay_enable' '"true"'
-	RetroArch_setOverride 'wswan.cfg' 'Beetle Cygne'  'input_overlay_opacity' '"0.700000"'
-	RetroArch_setOverride 'wswan.cfg' 'Beetle Cygne'  'input_overlay_scale_landscape' '"1.170000"'
-	RetroArch_setOverride 'wswan.cfg' 'Beetle Cygne'  'video_scale_integer' '"false"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'aspect_ratio_index' '"21"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/wswan.cfg"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'input_overlay_auto_scale' '"false"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'input_overlay_enable' '"true"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'input_overlay_opacity' '"0.700000"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'input_overlay_scale_landscape' '"1.170000"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'video_scale_integer' '"false"'
+	
+
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'aspect_ratio_index' '"21"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/wswan.cfg"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'input_overlay_auto_scale' '"false"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'input_overlay_enable' '"true"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'input_overlay_opacity' '"0.700000"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'input_overlay_scale_landscape' '"1.170000"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'video_scale_integer' '"false"'	
 }
 
 RetroArch_wswan_bezelOff(){
-	RetroArch_setOverride 'wswan.cfg' 'Beetle Cygne'  'input_overlay_enable' '"false"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'input_overlay_enable' '"false"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'input_overlay_enable' '"false"'
 }
 
 RetroArch_wswan_MATshaderOn(){
-	RetroArch_setOverride 'wswan.cfg' 'Beetle Cygne'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'video_shader_enable' 'true'
 }
 
 RetroArch_wswan_MATshaderOff(){
-	RetroArch_setOverride 'wswan.cfg' 'Beetle Cygne'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'video_shader_enable' 'false'
 }
 
 RetroArch_dolphin_emu_setConfig(){
+	RetroArch_setOverride 'dolphin_emu.cfg' 'dolphin_emu'  'video_driver' '"gl"'
 	RetroArch_setOverride 'dolphin_emu.cfg' 'dolphin_emu'  'video_driver' '"gl"'
 }
 
@@ -240,7 +265,6 @@ RetroArch_nes_bezelOn(){
 
 RetroArch_nes_bezelOff(){
 	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'input_overlay_enable' '"false"'
-
 	RetroArch_setOverride 'nes.cfg' 'Mesen'  'input_overlay_enable' '"false"'
 }
 
@@ -298,26 +322,26 @@ RetroArch_lynx_bezelOn(){
 	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'  'input_overlay_scale_landscape' '"1.170000"'
 	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'  'video_scale_integer' '"false"'
 	
-	RetroArch_setOverride 'lynx.cfg' 'Handy'  'aspect_ratio_index' '"21"'
-	RetroArch_setOverride 'lynx.cfg' 'Handy'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/lynx.cfg"'
-	RetroArch_setOverride 'lynx.cfg' 'Handy'  'input_overlay_auto_scale' '"false"'
-	RetroArch_setOverride 'lynx.cfg' 'Handy'  'input_overlay_enable' '"true"'
-	RetroArch_setOverride 'lynx.cfg' 'Handy'  'input_overlay_opacity' '"0.700000"'
-	RetroArch_setOverride 'lynx.cfg' 'Handy'  'input_overlay_scale_landscape' '"1.170000"'
-	RetroArch_setOverride 'lynx.cfg' 'Handy'  'video_scale_integer' '"false"'
+	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'aspect_ratio_index' '"21"'
+	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/lynx.cfg"'
+	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'input_overlay_auto_scale' '"false"'
+	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'input_overlay_enable' '"true"'
+	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'input_overlay_opacity' '"0.700000"'
+	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'input_overlay_scale_landscape' '"1.170000"'
+	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'video_scale_integer' '"false"'
 }
 RetroArch_lynx_bezelOff(){
 	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'  'input_overlay_enable' '"false"'
-	RetroArch_setOverride 'lynx.cfg' 'Handy'  'input_overlay_enable' '"false"'
+	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'input_overlay_enable' '"false"'
 }
 RetroArch_lynx_MATshaderOn(){
 	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'  'video_shader_enable' 'true'
-	RetroArch_setOverride 'lynx.cfg' 'Handy'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'video_shader_enable' 'true'
 }
 
 RetroArch_lynx_MATshaderOff(){
 	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'  'video_shader_enable' 'false'
-	RetroArch_setOverride 'lynx.cfg' 'Handy'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'video_shader_enable' 'false'
 }
 
 RetroArch_SameBoy_gb_setConfig(){
@@ -1239,13 +1263,13 @@ RetroArch_psx_bezelOff(){
 }
 
 RetroArch_psx_LCDshaderOn(){
-	RetroArch_setOverride 'wswanc.cfg' 'Beetle PSX HW'  'video_shader_enable' 'true'
-	RetroArch_setOverride 'wswanc.cfg' 'Beetle PSX'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'psx.cfg' 'Beetle PSX'  'video_shader_enable' 'true'
 }
 
 RetroArch_psx_LCDshaderOff(){
-	RetroArch_setOverride 'wswanc.cfg' 'Beetle PSX HW'  'video_shader_enable' 'false'
-	RetroArch_setOverride 'wswanc.cfg' 'Beetle PSX'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'psx.cfg' 'Beetle PSX'  'video_shader_enable' 'false'
 }
 
 #BezelOn
