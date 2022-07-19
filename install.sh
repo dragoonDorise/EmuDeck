@@ -743,10 +743,12 @@ fi
 #
 
 #Support for non-holo based OS's
-if [[ $isRealDeck == false ]]; then
-	OS_setupPrereqsArch
+#Only on Zenity for now
+if [ "$zenity" == true ]; then
+	if [[ $isRealDeck == false ]]; then
+		OS_setupPrereqsArch
+	fi
 fi
-
 #setup Proton-Launch.sh
 #because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
 cp "$EMUDECKGIT/tools/proton-launch.sh" "${toolsPath}proton-launch.sh"
