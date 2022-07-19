@@ -10,7 +10,7 @@ checkForFile(){
 	  	  	finished=true;
 		  	clear			  	
 			if [[ $delete == 'delete' ]]; then  
-		  		rm ~/emudeck/.electron-finished
+		  		rm $file
 			fi
 			echo 'true';			
 			break
