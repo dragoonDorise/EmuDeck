@@ -81,7 +81,7 @@ echo "# Installing EmuDeck" >> "$MSG"
 			finished=true
 			break
 		  fi
-		sleep 10
+		# sleep 10
 	done
 ) 	|	zenity --progress \
   		--title="Installing EmuDeck" \
@@ -92,10 +92,10 @@ echo "# Installing EmuDeck" >> "$MSG"
   		--auto-close \
   		--width=300  2>/dev/null &
 
-# if [ "$?" == -1 ] ; then
-# 	zenity --error \
-# 	--text="Update canceled." 2>/dev/null
-# fi
+if [ "$?" == -1 ] ; then
+	zenity --error \
+	--text="Update canceled." 2>/dev/null
+fi
 
 
 
