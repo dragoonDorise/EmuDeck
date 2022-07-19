@@ -35,7 +35,6 @@ getScreenAR(){
 }
 
 function changeLine() {
-
     local KEYWORD=$1; shift
     local REPLACE=$1; shift
     local FILE=$1
@@ -43,6 +42,7 @@ function changeLine() {
     local OLD=$(escapeSedKeyword "$KEYWORD")
     local NEW=$(escapeSedValue "$REPLACE")
 
+	#echo "Changing $OLD to $NEW in $FILE"
     sed -i "/${OLD}/c\\${NEW}" "$FILE"
 
 }
@@ -68,8 +68,7 @@ function getProductName(){
 
 function testRealDeck(){
     case $(getProductName) in
-	  'Win600'|'Jupiter')
-		isRealDeck=true
+	  'Win600'|'Jupiter') 	isRealDeck=true
 	;;
 	  *)
 		isRealDeck=false
@@ -177,7 +176,7 @@ updateOrAppendConfigLine(){
 
 getEnvironmentDetails(){
 	local sdpath=$(getSDPath)
-	local sdValid=$(testLocationValid "sd" $sdpath)
+	local sdValid=$(testLocationValid "sd" "$sdpath")
 	if [ -f "$HOME/emudeck/.finished" ]; then
 		firstRun="false"
 	else

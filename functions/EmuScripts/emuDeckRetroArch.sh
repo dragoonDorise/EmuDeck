@@ -47,7 +47,7 @@ RetroArch_setEmulationFolder(){
 
 	system_directory='system_directory = '
 	system_directorySetting="${system_directory}""\"${biosPath}\""
-	changeLine "$system_directory" "$system_directorySetting" "$configFile"
+	changeLine "$system_directory" "$system_directorySetting" "$RetroArch_configFile"
 
 }
 

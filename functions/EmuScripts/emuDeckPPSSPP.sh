@@ -14,7 +14,7 @@ PPSSPP_cleanup(){
 PPSSPP_install(){
 	installEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}"	
 	flatpak override "${PPSSPP_emuPath}" --filesystem=host --user
-	flatpak override "${PPSSPP_emuName}" --share=network --user
+	flatpak override "${PPSSPP_emuPath}" --share=network --user
 }
 
 #ApplyInitialSettings
