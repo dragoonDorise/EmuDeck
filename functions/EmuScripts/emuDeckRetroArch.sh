@@ -1207,17 +1207,18 @@ RetroArch_shadersCRTOffAll(){
 
 #shadersMATOn
 RetroArch_shadersMATOnAll(){
-	for func in $(compgen -A 'function' | grep '\_setShadersMATOn$' | grep '^RetroArch_' | grep -v "RetroArch_bezelOn")
+	for func in $(compgen -A 'function' | grep '\_MATshaderOn$' | grep '^RetroArch_' | grep -v "RetroArch_bezelOn")
 		do echo  "$func" && "$func"
 	done
 }
 
 #shadersMATOff
 RetroArch_shadersMATOffAll(){
-	for func in $(compgen -A 'function' | grep '\_setShadersMATOff$' | grep '^RetroArch_')
+	for func in $(compgen -A 'function' | grep '\_MATshaderOff$' | grep '^RetroArch_')
 		do echo  "$func" && "$func"
 	done
 }
+
 
 #finalExec - Extra stuff
 RetroArch_finalize(){
