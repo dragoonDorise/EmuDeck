@@ -48,6 +48,7 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPPSSPP.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDuckStation.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckXemu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckXenia.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2QT.sh
 
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMelonDS.sh

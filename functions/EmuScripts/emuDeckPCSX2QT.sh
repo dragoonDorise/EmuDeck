@@ -3,7 +3,6 @@
 PCSX2QT_emuName="PCSX2-QT"
 PCSX2QT_emuType="AppImage"
 PCSX2QT_emuPath="$HOME/Applications/pcsx2-Qt.AppImage"
-PCSX2QT_releaseURL=$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")
 
 #cleanupOlderThings
 PCSX2QT_cleanup(){
@@ -13,24 +12,25 @@ PCSX2QT_cleanup(){
 #Install
 PCSX2QT_install(){
 	echo "Begin PCSX2-QT Install"
-
-	installEmuAI "pcsx2-Qt" "${PCSX2QT_releaseURL}" #pcsx2-Qt.AppImage
+	installEmuAI "pcsx2-Qt" "$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")" #pcsx2-Qt.AppImage
 }
 
 #ApplyInitialSettings
 PCSX2QT_init(){
 	setMSG "Initializing $PCSX2QT_emuName settings."	
-	configEmuFP  "${PCSX2QT_emuName}" "${PCSX2QT_emuPath}" "true"
+	configEmuAI "$PCSX2QT_emuName" "config" "$HOME/.config/PCSX2" "$EMUDECKGIT/configs/pcsx2qt/.config/PCSX2" "true"
 	PCSX2QT_setEmulationFolder
-	PCSX2QT_setupSaves
-	PCSX2QT_addSteamInputProfile
+	PCSX2QT_setupStorage
+	PCSX2QT_setupSaves #
+	PCSX2QT_addSteamInputProfile #
 }
 
 #update
 PCSX2QT_update(){
 	setMSG "Updating $PCSX2QT_emuName settings."
-	configEmuFP  "${PCSX2QT_emuName}" "${PCSX2QT_emuPath}"
+	configEmuAI "$PCSX2QT_emuName" "config" "$HOME/.config/PCSX2" "$EMUDECKGIT/configs/pcsx2qt/.config/PCSX2"
 	PCSX2QT_setEmulationFolder
+	PCSX2QT_setupStorage
 	PCSX2QT_setupSaves
 	PCSX2QT_addSteamInputProfile
 }
@@ -38,29 +38,61 @@ PCSX2QT_update(){
 #ConfigurePaths
 PCSX2QT_setEmulationFolder(){
 	setMSG "Setting $PCSX2QT_emuName Emulation Folder"
-	configFile="$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2QT_ui.ini"
-	biosDirOpt='Bios=\/'
-	newBiosDirOpt='Bios='"${biosPath}"
-	sed -i "/${biosDirOpt}/c\\${newBiosDirOpt}" "$configFile"
+	configFile="$HOME/.config/PCSX2/inis/PCSX2.ini"
+	biosDirOpt='Bios = '
+	snapShotsDirOpt='Snapshots = '
+	saveStatesDirOpt='SaveStates = '
+	memoryCardsDirOpt='MemoryCards = '
+	cacheDirOpt='Cache = '
+	texturesDirOpt='Textures = '
+	coversDirOpt='Covers = '
+	recursivePathsDirOpt='RecursivePaths = '"${romsPath}ps2"
+
+	newBiosDirOpt='Bios = '"${biosPath}"
+	newsnapShotsDirOpt='Snapshots = '"${storagePath}pcsx2/snaps"
+	newsaveStatesDirOpt='SaveStates = '"${savesPath}pcsx2/states"
+	newmemoryCardsDirOpt='MemoryCards = '"${savesPath}pcsx2/saves"
+	newcacheDirOpt='Cache = '"${storagePath}pcsx2/cache"
+	newtexturesDirOpt='Textures = '"${storagePath}pcsx2/textures"
+	newcoversDirOpt='Covers = '"${storagePath}pcsx2/covers"
+	newrecursivePathsDirOpt='RecursivePaths = '"${romsPath}ps2"
+
+
+	changeLine "$biosDirOpt" "$newBiosDirOpt" "$configFile"
+	changeLine "$snapShotsDirOpt" "$newsnapShotsDirOpt" "$configFile"
+	changeLine "$saveStatesDirOpt" "$newsaveStatesDirOpt" "$configFile"
+	changeLine "$memoryCardsDirOpt" "$newmemoryCardsDirOpt" "$configFile"
+	changeLine "$cacheDirOpt" "$newcacheDirOpt" "$configFile"
+	changeLine "$texturesDirOpt" "$newtexturesDirOpt" "$configFile"
+	changeLine "$coversDirOpt" "$newcoversDirOpt" "$configFile"
+	changeLine "$recursivePathsDirOpt" "$newrecursivePathsDirOpt" "$configFile"
+
+
 }
 
 #SetupSaves
 PCSX2QT_setupSaves(){
-	linkToSaveFolder pcsx2 saves "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards"
-	linkToSaveFolder pcsx2 states "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates"
+	#link fp and ap saves / states?
+	mkdir -p "${storagePath}pcsx2/"
+	#linkToSaveFolder pcsx2 saves "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards"
+	#linkToSaveFolder pcsx2 states "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates"
 }
 
 
 #SetupStorage
 PCSX2QT_setupStorage(){
- echo "NYI"
+    echo "Begin PCSX2-QT storage config"
+    mkdir -p "${storagePath}pcsx2/snaps"
+    mkdir -p "${storagePath}pcsx2/cache"
+    mkdir -p "${storagePath}pcsx2/textures"
+    mkdir -p "${storagePath}pcsx2/covers"
 }
 
 
 #WipeSettings
 PCSX2QT_wipe(){
 	setMSG "Wiping $PCSX2QT_emuName settings."
-   rm -rf "$HOME/.var/app/$PCSX2QT_emuPath"
+   rm -rf "$HOME/.config/PCSX2"
    # prob not cause roms are here
 }
 
@@ -68,7 +100,7 @@ PCSX2QT_wipe(){
 #Uninstall
 PCSX2QT_uninstall(){
 	setMSG "Uninstalling $PCSX2QT_emuName."
-    flatpak uninstall $PCSX2QT_emuPath --user -y
+    rm -rf "$emuPath"
 }
 
 #setABXYstyle
