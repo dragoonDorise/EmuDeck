@@ -2608,5 +2608,70 @@
     },
     "parserId": "165182011334544893",
     "version": 6
+  },
+  {
+      "parserType": "Glob",
+      "configTitle": "Arcade - Naomi",
+      "steamCategory": "${Arcade - Naomi}",
+      "steamDirectory": "/home/deck/.steam/steam",
+      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/naomi",
+      "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}flycast_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+      "executableModifier": "\"${exePath}\"",
+      "startInDirectory": "",
+      "titleModifier": "${fuzzyTitle}",
+      "imageProviders": [
+          "SteamGridDB"
+      ],
+      "onlineImageQueries": "${${fuzzyTitle}}",
+      "imagePool": "${fuzzyTitle}",
+      "defaultImage": "",
+      "defaultTallImage": "",
+      "defaultHeroImage": "",
+      "defaultLogoImage": "",
+      "defaultIcon": "",
+      "localImages": "",
+      "localTallImages": "",
+      "localHeroImages": "",
+      "localLogoImages": "",
+      "localIcons": "",
+      "userAccounts": {
+          "specifiedAccounts": null,
+          "skipWithMissingDataDir": true,
+          "useCredentials": true
+      },
+      "executable": {
+          "path": "/usr/bin/flatpak",
+          "shortcutPassthrough": false,
+          "appendArgsToExecutable": true
+      },
+      "parserInputs": {
+          "glob": "${title}@(.zip|.ZIP)"
+      },
+      "titleFromVariable": {
+          "limitToGroups": "${MAME}",
+          "caseInsensitiveVariables": false,
+          "skipFileIfVariableWasNotFound": false,
+          "tryToMatchTitle": true
+      },
+      "fuzzyMatch": {
+          "replaceDiacritics": true,
+          "removeCharacters": true,
+          "removeBrackets": true
+      },
+      "imageProviderAPIs": {
+          "SteamGridDB": {
+              "nsfw": false,
+              "humor": false,
+              "styles": [],
+              "stylesHero": [],
+              "stylesLogo": [],
+              "stylesIcon": [],
+              "imageMotionTypes": [
+                  "static"
+              ]
+          }
+      },
+      "parserId": "165768545254166037",
+      "version": 10
   }
 ]

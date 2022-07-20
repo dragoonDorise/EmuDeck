@@ -1,3 +1,4 @@
+#!/bin/bash
 
 #Expert mode off by default
 expert=false
@@ -22,7 +23,7 @@ doSetupESDE=true
 doSetupSRM=true
 #doSetupMelon=true
 
-#Install all systems by default
+#Install all systems by fdefault
 doInstallSRM=true
 doInstallESDE=true
 doInstallRA=false
@@ -49,6 +50,7 @@ RAautoSave=false
 SNESAR=43
 
 #Default widescreen
+
 duckWide=true
 DolphinWide=true
 DreamcastWide=true
@@ -61,7 +63,27 @@ toolsPath=~/Emulation/tools/
 biosPath=~/Emulation/bios/
 savesPath=~/Emulation/saves/
 storagePath=~/Emulation/storage/
+ESDEscrapData=~/Emulation/tools/downloaded_media
 
 #Default ESDE Theme
 esdeTheme="EPICNOIR"
 
+
+#Advanced settings
+doSelectWideScreen=false
+doRASignIn=false
+doRAEnable=false
+doESDEThemePicker=false
+doSelectEmulators=false
+doResetEmulators=false
+XemuWide=false
+
+#New UI settings
+achievementsPass=false
+achievementsUser=false
+arClassic3D=43
+arDolphin=43
+arSega=43
+arSnes=43
+RAHandClassic2D=false
+RAHandHeldShader=true

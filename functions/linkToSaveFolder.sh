@@ -6,9 +6,7 @@ linkToSaveFolder(){
 
 	if [ ! -d "$savesPath/$emu/$folderName" ]; then		
 		mkdir -p $savesPath/$emu
-		echo -e ""
-		echo -e "Linking $emu $folderName to the Emulation/saves folder"			
-		echo -e ""	
+		setMSG "Linking $emu $folderName to the Emulation/saves folder"			
 		mkdir -p $path 
 		ln -sn $path $savesPath/$emu/$folderName 
 	fi
