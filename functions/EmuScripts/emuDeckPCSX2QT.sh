@@ -3,7 +3,7 @@
 PCSX2QT_emuName="PCSX2-QT"
 PCSX2QT_emuType="AppImage"
 PCSX2QT_emuPath="$HOME/Applications/pcsx2-Qt.AppImage"
-PCSX2QT_releaseURL=$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")
+
 
 #cleanupOlderThings
 PCSX2QT_cleanup(){
@@ -13,6 +13,7 @@ PCSX2QT_cleanup(){
 #Install
 PCSX2QT_install(){
 	echo "Begin PCSX2-QT Install"
+	PCSX2QT_releaseURL=$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")
 	installEmuAI "pcsx2-Qt" "${PCSX2QT_releaseURL}" #pcsx2-Qt.AppImage
 }
 
