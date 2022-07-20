@@ -81,6 +81,20 @@ main () {
                     echo "Proton Version: ${PROTONVER}" >> "${LOGFILE}"
                     echo "Proton Path: ${PROTON}" >> "${LOGFILE}"
                     echo "COMPATDATA: ${COMPATDATA}" >> "${LOGFILE}"
+                # Check for custom Proton versions
+                elif [ -f "${STEAMPATH}/compatibilitytools.d/${PROTONVER}/proton" ]; then
+                    PROTON="${STEAMPATH}/compatibilitytools.d/${PROTONVER}/proton"
+                    COMPATDATA="${STEAMPATH}/steamapps/compatdata"
+                    echo "Proton Version: ${PROTONVER}" >> "${LOGFILE}"
+                    echo "Proton Path: ${PROTON}" >> "${LOGFILE}"
+                    echo "COMPATDATA: ${COMPATDATA}" >> "${LOGFILE}"
+                # Check for custom Proton versions that were installed system-wide
+                elif [ -f "/usr/share/steam/compatibilitytools.d/${PROTONVER}/proton" ]; then
+                    PROTON="/usr/share/steam/compatibilitytools.d/${PROTONVER}/proton"
+                    COMPATDATA="${STEAMPATH}/steamapps/compatdata"
+                    echo "Proton Version: ${PROTONVER}" >> "${LOGFILE}"
+                    echo "Proton Path: ${PROTON}" >> "${LOGFILE}"
+                    echo "COMPATDATA: ${COMPATDATA}" >> "${LOGFILE}"
                 # If we can't find the default path, try the alternate one - loop here through all Steamapps?
                 elif [ ! -z ${ALTSTEAM+x} ] && [ -f "${ALTSTEAM}/common/Proton ${PROTONVER}/proton" ]; then
                     PROTON="${ALTSTEAM}/common/Proton ${PROTONVER}/proton"
