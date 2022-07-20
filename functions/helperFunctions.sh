@@ -1,6 +1,6 @@
 #!/bin/bash
 
-getScreenAR(){
+function getScreenAR(){
 	local productName
 	productName=$(getProductName)
 	case $productName in
@@ -155,7 +155,7 @@ function initAll(){
 	done
 }
 
-updateOrAppendConfigLine(){
+function updateOrAppendConfigLine(){
 	local configFile=$1
 	local option=$2
 	local replacement=$3
@@ -174,7 +174,7 @@ updateOrAppendConfigLine(){
 	fi
 }
 
-getEnvironmentDetails(){
+function getEnvironmentDetails(){
 	local sdpath=$(getSDPath)
 	local sdValid=$(testLocationValid "sd" "$sdpath")
 	if [ -f "$HOME/emudeck/.finished" ]; then
@@ -189,7 +189,7 @@ getEnvironmentDetails(){
 	jq <<< "$json"
 }
 
-checkForFile(){
+function checkForFile(){
 	file=$1
 	delete=$2
 	finished=false	
@@ -206,4 +206,30 @@ checkForFile(){
 			break
 	  	fi							  
 	done
+}
+
+
+function getLatestReleaseURLGH(){	
+    local repository=$1
+    local fileType=$2
+
+    if [ "$url" == "" ]; then
+        url="https://api.github.com/repos/${repository}/releases/latest"
+    fi
+
+    url="$(curl -sL $url | jq -r ".assets[].browser_download_url" | grep -ve 'i386' | grep .${fileType}\$)"
+
+    echo "$url"
+}
+
+function getReleaseURLGH(){	
+    local repository=$1
+    local fileType=$2
+
+    if [ "$url" == "" ]; then
+        url="https://api.github.com/repos/$repository/releases"
+    fi
+    curl -fSs "$url" | \
+    jq -r '[ .[].assets[] | select(.name | endswith("'"$fileType"'")).browser_download_url ][0]'
+    
 }
