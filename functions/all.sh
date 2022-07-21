@@ -25,10 +25,8 @@ source "$EMUDECKGIT"/functions/emuDeckPrereqs.sh
 source "$EMUDECKGIT"/functions/setSetting.sh
 source "$EMUDECKGIT"/functions/linkToSaveFolder.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
-source "$EMUDECKGIT"/functions/getLatestReleaseURLGH.sh
 source "$EMUDECKGIT"/functions/migrateAndLinkConfig.sh
 source "$EMUDECKGIT"/functions/nonDeck.sh
-source "$EMUDECKGIT"/functions/checkForFile.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
@@ -50,6 +48,7 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPPSSPP.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDuckStation.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckXemu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckXenia.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2QT.sh
 
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMelonDS.sh

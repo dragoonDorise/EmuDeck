@@ -72,13 +72,13 @@ Yuzu_setEmulationFolder(){
     newTasDirOpt='tas_directory='"${storagePath}yuzu/tas"
 
 
-    sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" $configFile
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" $configFile
-    sed -i "/${dumpDirOpt}/c\\${newDumpDirOpt}" $configFile
-    sed -i "/${loadDir}/c\\${newLoadDir}" $configFile
-    sed -i "/${nandDirOpt}/c\\${newNandDirOpt}" $configFile
-    sed -i "/${sdmcDirOpt}/c\\${newSdmcDirOpt}" $configFile
-    sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" $configFile
+    sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" "$configFile"
+    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
+    sed -i "/${dumpDirOpt}/c\\${newDumpDirOpt}" "$configFile"
+    sed -i "/${loadDir}/c\\${newLoadDir}" "$configFile"
+    sed -i "/${nandDirOpt}/c\\${newNandDirOpt}" "$configFile"
+    sed -i "/${sdmcDirOpt}/c\\${newSdmcDirOpt}" "$configFile"
+    sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "$configFile"
 
     #Setup Bios symlinks
     unlink "${biosPath}yuzu/keys"
@@ -105,12 +105,12 @@ Yuzu_setupSaves(){
 #SetupStorage
 Yuzu_setupStorage(){
     echo "Begin Yuzu storage config"
-    mkdir -p ${storagePath}yuzu/dump
-    mkdir -p ${storagePath}yuzu/load
-    mkdir -p ${storagePath}yuzu/sdmc
-    mkdir -p ${storagePath}yuzu/nand
-    mkdir -p ${storagePath}yuzu/screenshots
-    mkdir -p ${storagePath}yuzu/tas
+    mkdir -p "${storagePath}yuzu/dump"
+    mkdir -p "${storagePath}yuzu/load"
+    mkdir -p "${storagePath}yuzu/sdmc"
+    mkdir -p "${storagePath}yuzu/nand"
+    mkdir -p "${storagePath}yuzu/screenshots"
+    mkdir -p "${storagePath}yuzu/tas"
 }
 
 
@@ -125,7 +125,7 @@ Yuzu_wipe(){
 #Uninstall
 Yuzu_uninstall(){
     echo "Begin Yuzu uninstall"
-    rm -rf $emuPath
+    rm -rf "$emuPath"
 }
 
 
@@ -142,7 +142,7 @@ Yuzu_migrate(){
 		migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu" "$HOME/.local/share/yuzu")
 		migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
 
-		migrateAndLinkConfig $emu $migrationTable
+		migrateAndLinkConfig "$emu" "$migrationTable"
 	fi
 
 	#move data from hidden folders out to these folders in case the user already put stuff here.
@@ -150,12 +150,12 @@ Yuzu_migrate(){
 
 	Yuzu_setupStorage
 	
-	rsync -av ${origPath}yuzu/dump ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/dump
-	rsync -av ${origPath}yuzu/load ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/load
-	rsync -av ${origPath}yuzu/sdmc ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/sdmc
-	rsync -av ${origPath}yuzu/nand ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/nand
-	rsync -av ${origPath}yuzu/screenshots ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/screenshots
-	rsync -av ${origPath}yuzu/tas ${storagePath}yuzu/ && rm -rf ${origPath}yuzu/tas
+	rsync -av "${origPath}yuzu/dump" "${storagePath}yuzu/" && rm -rf "${origPath}yuzu/dump"
+	rsync -av "${origPath}yuzu/load" "${storagePath}yuzu/" && rm -rf "${origPath}yuzu/load"
+	rsync -av "${origPath}yuzu/sdmc" "${storagePath}yuzu/" && rm -rf "${origPath}yuzu/sdmc"
+	rsync -av "${origPath}yuzu/nand" "${storagePath}yuzu/" && rm -rf "${origPath}yuzu/nand"
+	rsync -av "${origPath}yuzu/screenshots" "${storagePath}yuzu/" && rm -rf "${origPath}yuzu/screenshots"
+	rsync -av "${origPath}yuzu/tas" "${storagePath}yuzu/" && rm -rf "${origPath}yuzu/tas"
 }
 
 #setABXYstyle

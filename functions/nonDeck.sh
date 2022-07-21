@@ -19,7 +19,7 @@ nonDeck_169Screen(){
 	# sed -i "s|input_overlay_scale_landscape = \"1.070000\"|input_overlay_scale_landscape = \"1.055000\"|" "${mesenPath}nes.cfg"
 	# sed -i "s|input_overlay_aspect_adjust_landscape = \"0.000000\"|input_overlay_aspect_adjust_landscape = \"-0.090000\"|" "${mesenPath}nes.cfg"
 
-	find $RetroArch_coreConfigFolders -type f -name "nes.cfg"| while read configFile
+	find "$RetroArch_coreConfigFolders" -type f -name "nes.cfg"| while read -r configFile
 	do
 
 		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.055000"'
@@ -42,7 +42,7 @@ nonDeck_169Screen(){
 	# sed -i "s|input_overlay_x_separation_landscape = \"0.010000\"|input_overlay_x_separation_landscape = \"0.000000\"|" "${PCEPath}pcengine.cfg"
 	
 
-	find $RetroArch_coreConfigFolders -type f -name "pcengine.cfg"| while read configFile
+	find "$RetroArch_coreConfigFolders" -type f -name "pcengine.cfg"| while read -r configFile
 	do
 
 		updateOrAppendConfigLine "$configFile" "aspect_ratio_index ="  'aspect_ratio_index = "0"'
@@ -62,7 +62,7 @@ nonDeck_169Screen(){
 	# sed -i "s|input_overlay_scale_landscape = \"1.175000\"|input_overlay_scale_landscape = \"1.080000\"|" "${StellaPath}atari5200.cfg"
 	
 
-	find $RetroArch_coreConfigFolders -type f -name "atari800.cfg" -o -type f -name "atari2600.cfg" -o -type f -name "atari5200.cfg"| while read configFile
+	find "$RetroArch_coreConfigFolders" -type f -name "atari800.cfg" -o -type f -name "atari2600.cfg" -o -type f -name "atari5200.cfg"| while read -r configFile
 	do
 
 		updateOrAppendConfigLine "$configFile" "aspect_ratio_index ="  'aspect_ratio_index = "0"'
@@ -85,7 +85,7 @@ nonDeck_169Screen(){
 	# sed -i "s|input_overlay_aspect_adjust_landscape = \"-0.160000\"|input_overlay_aspect_adjust_landscape = \"-0.275000\"|" "${NeoPopPath}ngp.cfg"
 	
 
-	find $RetroArch_coreConfigFolders -type f -name "ngpc.cfg" -o -type f -name "ngp.cfg"| while read configFile
+	find "$RetroArch_coreConfigFolders" -type f -name "ngpc.cfg" -o -type f -name "ngp.cfg"| while read -r configFile
 	do
 
 		updateOrAppendConfigLine "$configFile" "input_overlay_x_separation_portrait ="  'input_overlay_x_separation_portrait = "0"'
@@ -103,12 +103,12 @@ nonDeck_169Screen(){
 	# SameBoyPath="${RApath}SameBoy/"
 	# sed -i "s|input_overlay_scale_landscape = \"1.860000\"|input_overlay_scale_landscape = \"1.670000\"|" "${SameBoyPath}gb.cfg"
 	# sed -i "s|input_overlay_scale_landscape = \"1.870000\"|input_overlay_scale_landscape = \"1.680000\"|" "${SameBoyPath}gbc.cfg"
-	find $RetroArch_coreConfigFolders -type f -name "gb.cfg"| while read configFile
+	find "$RetroArch_coreConfigFolders" -type f -name "gb.cfg"| while read -r configFile
 	do
 		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.670000"'
 	done
 
-	find $RetroArch_coreConfigFolders -type f -name "gbc.cfg"| while read configFile
+	find "$RetroArch_coreConfigFolders" -type f -name "gbc.cfg"| while read -r configFile
 	do
 		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.680000"'
 	done
@@ -130,24 +130,24 @@ nonDeck_169Screen(){
 	#GearsystemPath="${RApath}Gearsystem/"
 	#sed -i "s|input_overlay_scale_landscape = \"1.545000\"|input_overlay_scale_landscape = \"1.500000\"|" "${GearsystemPath}gamegear.cfg"		### Why is this so different from the other gamegear one? Shouldn't they be using the same overlay? Doesn't make sense? Not implmemented yet.
 
-	find $RetroArch_coreConfigFolders -type f -name "gamegear.cfg"| while read configFile
+	find "$RetroArch_coreConfigFolders" -type f -name "gamegear.cfg"| while read -r configFile
 	do
 		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "-0.010000"'
 		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "-0.020000"'
 	done
 
-	find $RetroArch_coreConfigFolders -type f -name "mastersystem.cfg"| while read configFile
+	find "$RetroArch_coreConfigFolders" -type f -name "mastersystem.cfg"| while read -r configFile
 	do
 		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.055000"'
 	done
 
-	find $RetroArch_coreConfigFolders -type f -name "genesis.cfg"  -o -type f -name "megadrive.cfg"| while read configFile
+	find "$RetroArch_coreConfigFolders" -type f -name "genesis.cfg"  -o -type f -name "megadrive.cfg"| while read -r configFile
 	do
 		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.055000"'
 		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "-0.010000"'
 	done
 
-	find $RetroArch_coreConfigFolders -type f -name "megacd.cfg" -o -type f -name "segacd.cfg"| while read configFile
+	find "$RetroArch_coreConfigFolders" -type f -name "megacd.cfg" -o -type f -name "segacd.cfg"| while read -r configFile
 	do
 		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.055000"'
 		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "-0.110000"'
@@ -157,7 +157,7 @@ nonDeck_169Screen(){
 	#PicoPath="${RApath}PicoDrive/"
 	#sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.075000\"|" "${PicoPath}sega32x.cfg"
 	
-	find $RetroArch_coreConfigFolders -type f -name "sega32x.cfg"| while read configFile
+	find "$RetroArch_coreConfigFolders" -type f -name "sega32x.cfg"| while read -r configFile
 	do
 		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.075000"'
 	done
@@ -168,7 +168,7 @@ nonDeck_169Screen(){
 	#Snes9xPath="${RApath}Snes9x/"
 	#sed -i "s|input_overlay_scale_landscape = \"1.170000\"|input_overlay_scale_landscape = \"1.055000\"|" "${Snes9xPath}snes.cfg"
 
-	find $RetroArch_coreConfigFolders -type f -name "snes.cfg"| while read configFile
+	find "$RetroArch_coreConfigFolders" -type f -name "snes.cfg"| while read -r configFile
 	do
 		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.055000"'
 	done
@@ -176,7 +176,7 @@ nonDeck_169Screen(){
 	#Mupen64
 	#Mupen64Path="${RApath}Mupen64Plus-Next/"
 	#sed -i "s|input_overlay_aspect_adjust_landscape = \"0.085000\"|input_overlay_aspect_adjust_landscape = \"-0.025000\"|" "${Mupen64Path}n64.cfg"
-	find $RetroArch_coreConfigFolders -type f -name "n64.cfg" | while read configFile
+	find "$RetroArch_coreConfigFolders" -type f -name "n64.cfg" | while read -r configFile
 	do
 		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "-0.025000"'
 	done
@@ -184,7 +184,7 @@ nonDeck_169Screen(){
 	#Flycast
 	#FlycastPath="${RApath}Flycast/"
 	#sed -i "s|input_overlay_aspect_adjust_landscape = \"0.110000\"|input_overlay_aspect_adjust_landscape = \"0.000000\"|" "${FlycastPath}dreamcast.cfg"
-	find $RetroArch_coreConfigFolders -type f -name "dreamcast.cfg" | while read configFile
+	find "$RetroArch_coreConfigFolders" -type f -name "dreamcast.cfg" | while read -r configFile
 	do
 		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "0"'
 	done
@@ -192,7 +192,7 @@ nonDeck_169Screen(){
 	#Beetle Saturn
 	#BeetleSaturnPath="${RApath}Yabause/"
 	#sed -i "s|input_overlay_aspect_adjust_landscape = \"0.095000\"|input_overlay_aspect_adjust_landscape = \"0.000000\"|" "${BeetleSaturnPath}saturn.cfg"
-	find $RetroArch_coreConfigFolders -type f -name "saturn.cfg" | while read configFile
+	find "$RetroArch_coreConfigFolders" -type f -name "saturn.cfg" | while read -r configFile
 	do
 		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "0"'
 	done
