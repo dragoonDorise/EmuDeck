@@ -454,6 +454,7 @@ if [ "$zenity" == true ]; then
 			emuTable+=(TRUE "Multiple" "RetroArch")
 			emuTable+=(TRUE "Metroid Prime" "PrimeHack")
 			emuTable+=(TRUE "PS2" "PCSX2")
+			emuTable+=(TRUE "PS2" "PCSX2-QT")
 			emuTable+=(TRUE "PS3" "RPCS3")
 			emuTable+=(TRUE "3DS" "Citra")
 			emuTable+=(TRUE "GC/Wii" "Dolphin")
@@ -494,6 +495,9 @@ if [ "$zenity" == true ]; then
 				fi
 				if [[ "$emusToInstall" == *"PCSX2"* ]]; then
 					setSetting doInstallPCSX2 true
+				fi
+				if [[ "$emusToInstall" == *"PCSX2-QT"* ]]; then
+					setSetting doInstallPCSX2QT true
 				fi
 				if [[ "$emusToInstall" == *"RPCS3"* ]]; then
 					setSetting doInstallRPCS3 true
@@ -596,6 +600,7 @@ if [ "$zenity" == true ]; then
 				emuTable+=(TRUE "RetroArch")
 				emuTable+=(TRUE "PrimeHack")
 				emuTable+=(TRUE "PCSX2")
+				emuTable+=(TRUE "PCSX2-QT")
 				emuTable+=(TRUE "RPCS3")
 				emuTable+=(TRUE "Citra")
 				emuTable+=(TRUE "Dolphin")
@@ -621,7 +626,7 @@ if [ "$zenity" == true ]; then
 									"${emuTable[@]}"  2>/dev/null)
 									ans=$?
 				#Nova fix'								
-				cat $EMUDECKGIT/logo.ans
+				cat "$EMUDECKGIT/logo.ans"
 				echo -e "EmuDeck ${version}"
 				if [ $ans -eq 0 ]; then
 					echo "Emulators to reinstall selected: $emusToReset"
@@ -633,6 +638,9 @@ if [ "$zenity" == true ]; then
 					fi
 					if [[ "$emusToReset" == *"PCSX2"* ]]; then
 						setSetting doSetupPCSX2 true
+					fi
+					if [[ "$emusToReset" == *"PCSX2"* ]]; then
+						setSetting doSetupPCSX2QT true
 					fi
 					if [[ "$emusToReset" == *"RPCS3"* ]]; then
 						setSetting doSetupRPCS3 true
@@ -683,6 +691,7 @@ if [ "$zenity" == true ]; then
 		setSetting doInstallRA true
 		setSetting doInstallDolphin true
 		setSetting doInstallPCSX2 true
+		setSetting doInstallPCSX2QT true
 		setSetting doInstallRPCS3 true
 		setSetting doInstallYuzu true
 		setSetting doInstallCitra true
@@ -699,7 +708,8 @@ if [ "$zenity" == true ]; then
 		setSetting DolphinWide false
 		setSetting DreamcastWide false
 		setSetting BeetleWide false
-		setSetting XemuWide false	
+		setSetting XemuWide false
+		setSetting pcsx2QTWide false	
 	
 	fi # end Expert if
 
@@ -766,6 +776,9 @@ fi
 if [ "$doInstallPCSX2" == "true" ]; then	
 	PCSX2_install
 fi
+if [ "$doInstallPCSX2QT" == "true" ]; then	
+	PCSX2QT_install
+fi
 if [ $doInstallPrimeHacks == "true" ]; then
 	Primehack_install
 fi
@@ -830,6 +843,9 @@ if [ "$doSetupDolphin" == "true" ]; then
 fi
 if [ "$doSetupPCSX2" == "true" ]; then
 	PCSX2_init
+fi
+if [ "$doSetupPCSX2QT" == "true" ]; then
+	PCSX2QT_init
 fi
 if [ "$doSetupRPCS3" == "true" ]; then
 	RPCS3_init
@@ -901,6 +917,11 @@ if [ "$zenity" == true ]; then
 		DuckStation_wideScreenOn
 	else
 		DuckStation_wideScreenOff
+	fi
+	if [ "$pcsx2QTWide" == true ]; then	
+		PCSX2QT_wideScreenOn
+	else
+		PCSX2QT_wideScreenOff
 	fi
 	if [ "$DolphinWide" == true ]; then
 		Dolphin_wideScreenOn
