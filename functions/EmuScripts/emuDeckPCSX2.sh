@@ -3,7 +3,7 @@
 PCSX2_emuName="PCSX2"
 PCSX2_emuType="FlatPak"
 PCSX2_emuPath="net.pcsx2.PCSX2"
-PCSX2_releaseURL=""
+PCSX2_configFile="$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini"
 
 #cleanupOlderThings
 PCSX2_cleanup(){
@@ -38,16 +38,25 @@ PCSX2_update(){
 #ConfigurePaths
 PCSX2_setEmulationFolder(){
 	setMSG "Setting $PCSX2_emuName Emulation Folder"
-	configFile="$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini"
-	biosDirOpt='Bios=\/'
+	
+	biosDirOpt='Bios=/'
+	saveStatesDirOpt='Savestates=/'
+	memoryCardsDirOpt='MemoryCards=/'
+
 	newBiosDirOpt='Bios='"${biosPath}"
-	sed -i "/${biosDirOpt}/c\\${newBiosDirOpt}" $configFile
+	newsaveStatesDirOpt='Savestates='"${savesPath}pcsx2/states"
+	newmemoryCardsDirOpt='MemoryCards='"${savesPath}pcsx2/saves"
+
+	changeLine "$biosDirOpt" "$newBiosDirOpt" "$PCSX2_configFile"
+	changeLine "$saveStatesDirOpt" "$newsaveStatesDirOpt" "$PCSX2_configFile"
+	changeLine "$memoryCardsDirOpt" "$newmemoryCardsDirOpt" "$PCSX2_configFile"
 }
 
 #SetupSaves
 PCSX2_setupSaves(){
-	linkToSaveFolder pcsx2 saves "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards"
-	linkToSaveFolder pcsx2 states "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates"
+	moveSaveFolder pcsx2 saves "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards"
+	moveSaveFolder pcsx2 states "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates"
+	flatpak override "${PCSX2_emuPath}" --filesystem="${savesPath}pcsx2":rw --user
 }
 
 

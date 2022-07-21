@@ -3,6 +3,7 @@
 PCSX2QT_emuName="PCSX2-QT"
 PCSX2QT_emuType="AppImage"
 PCSX2QT_emuPath="$HOME/Applications/pcsx2-Qt.AppImage"
+PCSX2QT_configFile="$HOME/.config/PCSX2/inis/PCSX2.ini"
 
 #cleanupOlderThings
 PCSX2QT_cleanup(){
@@ -38,7 +39,7 @@ PCSX2QT_update(){
 #ConfigurePaths
 PCSX2QT_setEmulationFolder(){
 	setMSG "Setting $PCSX2QT_emuName Emulation Folder"
-	configFile="$HOME/.config/PCSX2/inis/PCSX2.ini"
+
 	biosDirOpt='Bios = '
 	snapShotsDirOpt='Snapshots = '
 	saveStatesDirOpt='SaveStates = '
@@ -58,14 +59,14 @@ PCSX2QT_setEmulationFolder(){
 	newrecursivePathsDirOpt='RecursivePaths = '"${romsPath}ps2"
 
 
-	changeLine "$biosDirOpt" "$newBiosDirOpt" "$configFile"
-	changeLine "$snapShotsDirOpt" "$newsnapShotsDirOpt" "$configFile"
-	changeLine "$saveStatesDirOpt" "$newsaveStatesDirOpt" "$configFile"
-	changeLine "$memoryCardsDirOpt" "$newmemoryCardsDirOpt" "$configFile"
-	changeLine "$cacheDirOpt" "$newcacheDirOpt" "$configFile"
-	changeLine "$texturesDirOpt" "$newtexturesDirOpt" "$configFile"
-	changeLine "$coversDirOpt" "$newcoversDirOpt" "$configFile"
-	changeLine "$recursivePathsDirOpt" "$newrecursivePathsDirOpt" "$configFile"
+	changeLine "$biosDirOpt" "$newBiosDirOpt" "$PCSX2QT_configFile"
+	changeLine "$snapShotsDirOpt" "$newsnapShotsDirOpt" "$PCSX2QT_configFile"
+	changeLine "$saveStatesDirOpt" "$newsaveStatesDirOpt" "$PCSX2QT_configFile"
+	changeLine "$memoryCardsDirOpt" "$newmemoryCardsDirOpt" "$PCSX2QT_configFile"
+	changeLine "$cacheDirOpt" "$newcacheDirOpt" "$PCSX2QT_configFile"
+	changeLine "$texturesDirOpt" "$newtexturesDirOpt" "$PCSX2QT_configFile"
+	changeLine "$coversDirOpt" "$newcoversDirOpt" "$PCSX2QT_configFile"
+	changeLine "$recursivePathsDirOpt" "$newrecursivePathsDirOpt" "$PCSX2QT_configFile"
 
 
 }
@@ -73,9 +74,8 @@ PCSX2QT_setEmulationFolder(){
 #SetupSaves
 PCSX2QT_setupSaves(){
 	#link fp and ap saves / states?
-	mkdir -p "${storagePath}pcsx2/"
-	#linkToSaveFolder pcsx2 saves "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards"
-	#linkToSaveFolder pcsx2 states "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates"
+	moveSaveFolder pcsx2 saves "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards"
+	moveSaveFolder pcsx2 states "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates"
 }
 
 
@@ -115,12 +115,20 @@ PCSX2QT_migrate(){
 
 #WideScreenOn
 PCSX2QT_wideScreenOn(){
-echo "NYI"
+
+	local EnableWideScreenPatches='EnableWideScreenPatches = '
+	local EnableWideScreenPatchesOpt='EnableWideScreenPatches = '"true"
+	
+	changeLine "$EnableWideScreenPatches" "$EnableWideScreenPatchesOpt" "$PCSX2QT_configFile"
+
 }
 
 #WideScreenOff
 PCSX2QT_wideScreenOff(){
-echo "NYI"
+	local EnableWideScreenPatches='EnableWideScreenPatches = '
+	local EnableWideScreenPatchesOpt='EnableWideScreenPatches = '"false"
+
+	changeLine "$EnableWideScreenPatches" "$EnableWideScreenPatchesOpt" "$PCSX2QT_configFile"
 }
 
 #BezelOn
