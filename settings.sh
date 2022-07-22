@@ -57,7 +57,7 @@ DreamcastWide=true
 BeetleWide=true
 
 #Default installation folders
-emulationPath=~/Emulation/
+emulationPath=~/Emulation
 romsPath=~/Emulation/roms/
 toolsPath=~/Emulation/tools/
 biosPath=~/Emulation/bios

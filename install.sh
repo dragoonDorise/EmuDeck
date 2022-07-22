@@ -312,7 +312,7 @@ if [ "$zenity" == true ]; then
 	fi
 	
 	#New paths based on where the user picked.
-	setSetting emulationPath "${destination}/Emulation/"
+	setSetting emulationPath "${destination}/Emulation"
 	setSetting romsPath "${destination}/Emulation/roms/"
 	setSetting toolsPath "${destination}/Emulation/tools/"
 	setSetting biosPath "${destination}/Emulation/bios"
