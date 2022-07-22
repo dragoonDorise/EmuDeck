@@ -40,8 +40,8 @@ Xemu_setEmulationFolder(){
 	eeprom_path='eeprom_path = '
 	hdd_path='hdd_path = '
 
-    bootrrom_pathSetting="${bootrrom_path}""${biosPath}mcpx_1.0.bin"
-	flashrom_pathSetting="${flashrom_path}""${biosPath}Complex_4627v1.03.bin"
+    bootrrom_pathSetting="${bootrrom_path}""${biosPath}/mcpx_1.0.bin"
+	flashrom_pathSetting="${flashrom_path}""${biosPath}/Complex_4627v1.03.bin"
 	eeprom_pathSetting="${eeprom_path}""${storagePath}xemu/eeprom.bin"
 	hdd_pathSetting="${hdd_path}""${storagePath}xemu/xbox_hdd.qcow2"
 

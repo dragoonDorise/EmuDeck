@@ -315,7 +315,7 @@ if [ "$zenity" == true ]; then
 	setSetting emulationPath "${destination}/Emulation/"
 	setSetting romsPath "${destination}/Emulation/roms/"
 	setSetting toolsPath "${destination}/Emulation/tools/"
-	setSetting biosPath "${destination}/Emulation/bios/"
+	setSetting biosPath "${destination}/Emulation/bios"
 	setSetting savesPath "${destination}/Emulation/saves/"
 	setSetting storagePath "${destination}/Emulation/storage/"
 	setSetting ESDEscrapData "${destination}/Emulation/tools/downloaded_media/"
@@ -326,7 +326,7 @@ if [ "$zenity" == true ]; then
 	mkdir -p "$savesPath"
 	mkdir -p "$romsPath"
 	mkdir -p "$storagePath"
-	mkdir -p "$biosPath"yuzu
+	mkdir -p "$biosPath"/yuzu
 	
 	##Generate rom folders
 	setMSG "Creating roms folder in $destination"
@@ -726,7 +726,7 @@ else
 	mkdir -p "$savesPath"
 	mkdir -p "$romsPath"
 	mkdir -p "$storagePath"
-	mkdir -p "$biosPath"yuzu
+	mkdir -p "$biosPath"/yuzu
 	
 	##Generate rom folders
 	setMSG "Creating roms folder in $romsPath"

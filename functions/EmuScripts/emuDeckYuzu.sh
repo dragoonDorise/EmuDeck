@@ -81,14 +81,14 @@ Yuzu_setEmulationFolder(){
     sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "$configFile"
 
     #Setup Bios symlinks
-    unlink "${biosPath}yuzu/keys"
-    unlink "${biosPath}yuzu/firmware"
+    unlink "${biosPath}/yuzu/keys"
+    unlink "${biosPath}/yuzu/firmware"
 
     mkdir -p "$HOME/.local/share/yuzu/keys/"
     mkdir -p "${storagePath}yuzu/nand/system/Contents/registered/"
 
-    ln -sn "$HOME/.local/share/yuzu/keys/" "${biosPath}yuzu/keys"
-    ln -sn "${storagePath}yuzu/nand/system/Contents/registered/" "${biosPath}yuzu/firmware"
+    ln -sn "$HOME/.local/share/yuzu/keys/" "${biosPath}/yuzu/keys"
+    ln -sn "${storagePath}yuzu/nand/system/Contents/registered/" "${biosPath}/yuzu/firmware"
 
     touch "${storagePath}yuzu/nand/system/Contents/registered/putfirmwarehere.txt"
 
