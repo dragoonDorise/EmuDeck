@@ -42,8 +42,10 @@ function changeLine() {
     local OLD=$(escapeSedKeyword "$KEYWORD")
     local NEW=$(escapeSedValue "$REPLACE")
 
-	#echo "Changing $OLD to $NEW in $FILE"
+	echo "Updating: $FILE"
+	echo "Old: "$(cat "$FILE" | grep "$OLD")
     sed -i "/${OLD}/c\\${NEW}" "$FILE"
+	echo "New: "$(cat "$FILE" | grep "$OLD")
 
 }
 function escapeSedKeyword(){
