@@ -171,7 +171,6 @@ function updateOrAppendConfigLine(){
 		echo "appending: $replacement to $configFile"
 		echo "$replacement" >> "$configFile"
 	else
-		echo "updating $option in $configFile to $replacement"
 		changeLine "$option" "$replacement" "$configFile"
 	fi
 }
