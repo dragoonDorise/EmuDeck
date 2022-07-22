@@ -13,7 +13,7 @@ if [ $ans -eq 0 ]; then
 
 
 	#paths update via sed in main script
-	romsPath="/run/media/mmcblk0p1/Emulation/roms/"
+	romsPath="/run/media/mmcblk0p1/Emulation/roms"
 	toolsPath="/run/media/mmcblk0p1/Emulation/tools/"
 	chdPath="${toolsPath}chdconv/"
 
@@ -38,8 +38,8 @@ if [ $ans -eq 0 ]; then
 
 	#find file types we support within whitelist of folders
 	for romfolder in "${chdfolderWhiteList[@]}"; do
-		echo "Checking ${romsPath}${romfolder}/"
-		mapfile -t files < <(find "${romsPath}${romfolder}/" -type f -iname "*.gdi" -o -type f -iname "*.cue" -o -type f -iname "*.iso")
+		echo "Checking ${romsPath}/${romfolder}/"
+		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.gdi" -o -type f -iname "*.cue" -o -type f -iname "*.iso")
 		if [ ${#files[@]} -gt 0 ]; then
 			echo "found in $romfolder"
 			searchFolderList+=("$romfolder")
@@ -47,8 +47,8 @@ if [ $ans -eq 0 ]; then
 	done
 	if [[ -f "/var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool" ]]; then #ensure tools are in place
         for romfolder in "${rvzfolderWhiteList[@]}"; do
-            echo "Checking ${romsPath}${romfolder}/"
-            mapfile -t files < <(find "${romsPath}${romfolder}/" -type f -iname "*.gcm"  -o -type f -iname "*.iso")
+            echo "Checking ${romsPath}/${romfolder}/"
+            mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.gcm"  -o -type f -iname "*.iso")
             if [ ${#files[@]} -gt 0 ]; then
                 echo "found in $romfolder"
                 searchFolderList+=("$romfolder")
@@ -102,7 +102,7 @@ if [ $ans -eq 0 ]; then
 	for romfolder in "${romfolders[@]}"; do
         if [[ " ${chdfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
 
-            find "$romsPath$romfolder" -type f -iname "*.gdi" | while read -r f
+            find "$romsPath/$romfolder" -type f -iname "*.gdi" | while read -r f
                 do
                     echo "Converting: $f"
                     CUEDIR="$(dirname "${f}")"
@@ -124,7 +124,7 @@ if [ $ans -eq 0 ]; then
                     fi
 
                 done
-            find "$romsPath$romfolder" -type f -iname "*.cue" | while read -r f
+            find "$romsPath/$romfolder" -type f -iname "*.cue" | while read -r f
                 do
                     echo "Converting: $f"
                     CUEDIR="$(dirname "${f}")"
@@ -146,7 +146,7 @@ if [ $ans -eq 0 ]; then
                     fi
 
                 done
-            find "$romsPath$romfolder" -type f -iname "*.iso" | while read -r f; do echo "Converting: $f"; chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "$f"; done;
+            find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do echo "Converting: $f"; chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "$f"; done;
         fi
 	done
 
@@ -154,7 +154,7 @@ if [ $ans -eq 0 ]; then
 
     for romfolder in "${romfolders[@]}"; do
         if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-            find "$romsPath$romfolder" -type f -iname "*.gcm"  -o -type f -iname "*.iso" | while read -r f; do echo "Converting: $f"; /var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz"  && rm -rf "$f"; done;
+            find "$romsPath/$romfolder" -type f -iname "*.gcm"  -o -type f -iname "*.iso" | while read -r f; do echo "Converting: $f"; /var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz"  && rm -rf "$f"; done;
         fi
     done
 

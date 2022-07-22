@@ -2,9 +2,9 @@
 #variables
 Xenia_emuName="Xenia"
 Xenia_emuType="windows"
-Xenia_emuPath="${romsPath}xbox360/Xenia.exe"
+Xenia_emuPath="${romsPath}/xbox360/Xenia.exe"
 Xenia_releaseURL="https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip"
-Xenia_XeniaSettings="${romsPath}xbox360/settings.xml"
+Xenia_XeniaSettings="${romsPath}/xbox360/settings.xml"
 
 #cleanupOlderThings
 Xenia_cleanup(){
@@ -15,12 +15,12 @@ Xenia_cleanup(){
 Xenia_install(){
 	setMSG "Installing Xenia"		
 
-	curl -L "$Xenia_releaseURL" --output "$romsPath"xbox360/xenia_master.zip 
-	mkdir -p "$romsPath"xbox360/tmp
-	unzip -o "$romsPath"xbox360/xenia_master.zip -d "$romsPath"xbox360/tmp 
-	mv "$romsPath"xbox360/tmp/* "$romsPath"xbox360 
-	rm -rf "$romsPath"xbox360/tmp 
-	rm -f "$romsPath"xbox360/xenia_master.zip 		
+	curl -L "$Xenia_releaseURL" --output "$romsPath"/xbox360/xenia_master.zip 
+	mkdir -p "$romsPath"/xbox360/tmp
+	unzip -o "$romsPath"/xbox360/xenia_master.zip -d "$romsPath"/xbox360/tmp 
+	mv "$romsPath"/xbox360/tmp/* "$romsPath"/xbox360 
+	rm -rf "$romsPath"/xbox360/tmp 
+	rm -f "$romsPath"/xbox360/xenia_master.zip 		
 }
 
 #ApplyInitialSettings

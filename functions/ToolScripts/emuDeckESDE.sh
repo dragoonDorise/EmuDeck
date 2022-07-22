@@ -120,7 +120,7 @@ ESDE_setEmulationFolder(){
 	xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Proton)"]' -v "$commandString" "$es_systemsFile"
 
 	#configure roms Directory
-	esDE_romDir="<string name=\"ROMDirectory\" value=\""${romsPath}"\" />"
+	esDE_romDir="<string name=\"ROMDirectory\" value=\""${romsPath}"\" />" #roms
 	changeLine '<string name="ROMDirectory"' "${esDE_romDir}" "$es_settingsFile"
 
 	

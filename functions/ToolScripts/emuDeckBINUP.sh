@@ -12,7 +12,7 @@ BINUP_install(){
 
 	chmod +x "$BINUP_toolPath"
 	#update the paths in the script
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" "$BINUP_toolPath"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$BINUP_toolPath"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools/|${toolsPath}|g" "$BINUP_toolPath"	
 
 	BINUP_createDesktopShortcut

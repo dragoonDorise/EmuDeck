@@ -23,7 +23,7 @@ installSRM(){
 	chmod +x "${toolsPath}"srm/Steam-ROM-Manager.AppImage	
 }
 	#paths update via sed in main script
-	romsPath="/run/media/mmcblk0p1/Emulation/roms/"
+	romsPath="/run/media/mmcblk0p1/Emulation/roms"
 	toolsPath="/run/media/mmcblk0p1/Emulation/tools/"
 	scriptPath="${toolsPath}binupdate/"
 	
@@ -106,23 +106,23 @@ installSRM(){
             --column="Release" \
             "${releaseTable[@]}" 2>/dev/null)
 
-            curl "$releaseChoice" --output "$romsPath"wiiu/cemu.zip 
+            curl "$releaseChoice" --output "$romsPath"/wiiu/cemu.zip 
 
 
-            mkdir -p "$romsPath"wiiu/tmp
-            unzip -o "$romsPath"wiiu/cemu.zip -d "$romsPath"wiiu/tmp
-            mv "$romsPath"wiiu/tmp/cemu_*/ "$romsPath"wiiu/tmp/cemu/
-            rsync -avzh "$romsPath"wiiu/tmp/cemu/ "$romsPath"wiiu/
-            rm -rf "$romsPath"wiiu/tmp 
-            rm -f "$romsPath"wiiu/cemu.zip 	
+            mkdir -p "$romsPath"/wiiu/tmp
+            unzip -o "$romsPath"/wiiu/cemu.zip -d "$romsPath"/wiiu/tmp
+            mv "$romsPath"/wiiu/tmp/cemu_*/ "$romsPath"/wiiu/tmp/cemu/
+            rsync -avzh "$romsPath"/wiiu/tmp/cemu/ "$romsPath"/wiiu/
+            rm -rf "$romsPath"/wiiu/tmp 
+            rm -f "$romsPath"/wiiu/cemu.zip 	
         fi
         if [[ "$binsToDL" == *"xenia"* ]]; then
-            curl -L https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip --output "$romsPath"xbox360/xenia_master.zip 
-            mkdir -p "$romsPath"xbox360/tmp
-            unzip -o "$romsPath"xbox360/xenia_master.zip -d "$romsPath"xbox360/tmp 
-            mv "$romsPath"xbox360/tmp/* "$romsPath"xbox360 
-            rm -rf "$romsPath"xbox360/tmp 
-            rm -f "$romsPath"xbox360/xenia_master.zip 	
+            curl -L https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip --output "$romsPath"/xbox360/xenia_master.zip 
+            mkdir -p "$romsPath"/xbox360/tmp
+            unzip -o "$romsPath"/xbox360/xenia_master.zip -d "$romsPath"/xbox360/tmp 
+            mv "$romsPath"/xbox360/tmp/* "$romsPath"/xbox360 
+            rm -rf "$romsPath"/xbox360/tmp 
+            rm -f "$romsPath"/xbox360/xenia_master.zip 	
         fi
     fi
 

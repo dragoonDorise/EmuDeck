@@ -64,7 +64,7 @@ Yuzu_setEmulationFolder(){
     sdmcDirOpt='sdmc_directory='
     tasDirOpt='tas_directory='
     newScreenshotDirOpt='Screenshots\\screenshot_path='"${storagePath}yuzu/screenshots"
-    newGameDirOpt='Paths\\gamedirs\\4\\path='"${romsPath}switch"
+    newGameDirOpt='Paths\\gamedirs\\4\\path='"${romsPath}/switch"
     newDumpDirOpt='dump_directory='"${storagePath}yuzu/dump"
     newLoadDir='load_directory='"${storagePath}yuzu/load"
     newNandDirOpt='nand_directory='"${storagePath}yuzu/nand"

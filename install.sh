@@ -313,7 +313,7 @@ if [ "$zenity" == true ]; then
 	
 	#New paths based on where the user picked.
 	setSetting emulationPath "${destination}/Emulation"
-	setSetting romsPath "${destination}/Emulation/roms/"
+	setSetting romsPath "${destination}/Emulation/roms"
 	setSetting toolsPath "${destination}/Emulation/tools/"
 	setSetting biosPath "${destination}/Emulation/bios"
 	setSetting savesPath "${destination}/Emulation/saves/"
@@ -332,7 +332,7 @@ if [ "$zenity" == true ]; then
 	setMSG "Creating roms folder in $destination"
 	
 	sleep 3
-	rsync -r --ignore-existing "$EMUDECKGIT/roms/" "$romsPath" 
+	rsync -r --ignore-existing "$EMUDECKGIT/roms/" "$romsPath"/ 
 	#End repeated code	
 	
 	#

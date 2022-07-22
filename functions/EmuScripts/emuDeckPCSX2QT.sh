@@ -47,7 +47,7 @@ PCSX2QT_setEmulationFolder(){
 	cacheDirOpt='Cache = '
 	texturesDirOpt='Textures = '
 	coversDirOpt='Covers = '
-	recursivePathsDirOpt='RecursivePaths = '"${romsPath}ps2"
+	recursivePathsDirOpt='RecursivePaths = '
 
 	newBiosDirOpt='Bios = '"${biosPath}"
 	newsnapShotsDirOpt='Snapshots = '"${storagePath}pcsx2/snaps"
@@ -56,7 +56,7 @@ PCSX2QT_setEmulationFolder(){
 	newcacheDirOpt='Cache = '"${storagePath}pcsx2/cache"
 	newtexturesDirOpt='Textures = '"${storagePath}pcsx2/textures"
 	newcoversDirOpt='Covers = '"${storagePath}pcsx2/covers"
-	newrecursivePathsDirOpt='RecursivePaths = '"${romsPath}ps2"
+	newrecursivePathsDirOpt='RecursivePaths = '"${romsPath}/ps2"
 
 
 	changeLine "$biosDirOpt" "$newBiosDirOpt" "$PCSX2QT_configFile"

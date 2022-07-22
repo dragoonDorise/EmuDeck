@@ -44,7 +44,7 @@ DuckStation_setEmulationFolder(){
 	setMSG "Setting $DuckStation_emuName Emulation Folder"	
   	configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
     gameDirOpt='RecursivePaths = '
-    newGameDirOpt="${gameDirOpt}""${romsPath}psx"
+    newGameDirOpt="${gameDirOpt}""${romsPath}/psx"
 	biosDir='SearchDirectory = '
 	biosDirSetting="${biosDir}""${biosPath}"
     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"

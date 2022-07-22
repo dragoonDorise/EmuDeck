@@ -12,7 +12,7 @@ CHD_install(){
 	chmod +x "$toolsPath"chdconv/chdman5
 
 	#update the paths in the script
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/|${romsPath}|g" "$CHD_toolPath"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$CHD_toolPath"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools/|${toolsPath}|g" "$CHD_toolPath"	
 
 	CHD_createDesktopShortcut

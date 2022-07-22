@@ -37,7 +37,7 @@ PPSSPP_update(){
 PPSSPP_setEmulationFolder(){
   	configFile="$HOME/.var/app/${PPSSPP_emuPath}/config/ppsspp/PSP/SYSTEM/ppsspp.ini"
     gameDirOpt='CurrentDirectory = '
-    newGameDirOpt='CurrentDirectory = '"${romsPath}PPSSPP"
+    newGameDirOpt='CurrentDirectory = '"${romsPath}/PPSSPP"
     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
 }
 
