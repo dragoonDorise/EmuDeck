@@ -40,15 +40,15 @@ Xemu_setEmulationFolder(){
 	eeprom_path='eeprom_path = '
 	hdd_path='hdd_path = '
 
-    bootrrom_pathSetting="${bootrrom_path}""${biosPath}/mcpx_1.0.bin"
-	flashrom_pathSetting="${flashrom_path}""${biosPath}/Complex_4627v1.03.bin"
-	eeprom_pathSetting="${eeprom_path}""${storagePath}xemu/eeprom.bin"
-	hdd_pathSetting="${hdd_path}""${storagePath}xemu/xbox_hdd.qcow2"
+    bootrrom_pathSetting="${bootrrom_path}""'${biosPath}/mcpx_1.0.bin'"
+	flashrom_pathSetting="${flashrom_path}""'${biosPath}/Complex_4627v1.03.bin'"
+	eeprom_pathSetting="${eeprom_path}""'${storagePath}xemu/eeprom.bin'"
+	hdd_pathSetting="${hdd_path}""'${storagePath}xemu/xbox_hdd.qcow2'"
 
-    sed -i "/${bootrrom_path}/c\\${bootrrom_pathSetting}" "$configFile"
-    sed -i "/${flashrom_path}/c\\${flashrom_pathSetting}" "$configFile"
-    sed -i "/${eeprom_path}/c\\${eeprom_pathSetting}" "$configFile"
-    sed -i "/${hdd_path}/c\\${hdd_pathSetting}" "$configFile"
+    changeLine "${bootrrom_path}" "${bootrrom_pathSetting}" "$configFile"
+    changeLine "${flashrom_path}" "${flashrom_pathSetting}" "$configFile"
+    changeLine "${eeprom_path}" "${eeprom_pathSetting}" "$configFile"
+    changeLine "${hdd_path}" "${hdd_pathSetting}" "$configFile"
 }
 
 #SetupSaves
@@ -111,7 +111,7 @@ Xemu_wideScreenOn(){
 	configFile="$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml"
     fit='fit = '
     fitSetting="${fit}scale_16_9"
-    sed -i "/${fit}/c\\${fitSetting}" "$configFile"
+    changeLine "${fit}" "${fitSetting}" "$configFile"
 }
 
 #WideScreenOff
@@ -119,7 +119,7 @@ Xemu_WideScreenOff(){
 	configFile="$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml"
     fit='fit = '
     fitSetting="${fit}scale_4_3"
-    sed -i "/${fit}/c\\${fitSetting}" "$configFile"
+    changeLine "${fit}" "${fitSetting}" "$configFile"
 }
 
 #BezelOn

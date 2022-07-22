@@ -34,6 +34,8 @@ function getScreenAR(){
 	echo $return
 }
 
+
+# keyword replacement file
 function changeLine() {
     local KEYWORD=$1; shift
     local REPLACE=$1; shift
