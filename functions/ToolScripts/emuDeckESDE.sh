@@ -116,11 +116,17 @@ ESDE_applyTheme(){
 ESDE_setEmulationFolder(){
 
     #update cemu custom system launcher to correct path by just replacing the line, if it exists.
+	echo "updating $es_systemsFile"
 	commandString="/usr/bin/bash ${toolsPath}launchers/cemu.sh -f -g z:%ROM%"
 	xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Proton)"]' -v "$commandString" "$es_systemsFile"
 
+
+
+
+	echo "updating $es_settingsFile"
 	#configure roms Directory
 	esDE_romDir="<string name=\"ROMDirectory\" value=\""${romsPath}"\" />" #roms
+	
 	changeLine '<string name="ROMDirectory"' "${esDE_romDir}" "$es_settingsFile"
 
 	
@@ -130,8 +136,10 @@ ESDE_setEmulationFolder(){
 	mediaDirFound=$(grep -rnw  "$es_settingsFile" -e 'MediaDirectory')
 	mediaDirEmpty=$(grep -rnw  "$es_settingsFile" -e '<string name="MediaDirectory" value="" />')
 	if [[ $mediaDirFound == '' ]]; then
+		echo "adding ES-DE ${esDE_MediaDir}"
 		sed -i -e '$a'"${esDE_MediaDir}"  "$es_settingsFile" # use config file instead of link
 	elif [[ ! $mediaDirEmpty == '' ]]; then
+		echo "setting ES-DE MediaDirectory to ${esDE_MediaDir}"
 		changeLine '<string name="MediaDirectory"' "${esDE_MediaDir}" "$es_settingsFile"
 	fi
 }
