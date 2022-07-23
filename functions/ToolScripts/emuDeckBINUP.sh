@@ -3,7 +3,7 @@
 BINUP_toolName="EmuDeck Tool Updater"
 BINUP_toolType="script"
 BINUP_toolPath="${toolsPath}/binupdate/binupdate.sh"
-BINUP_Shortcutlocation="$HOME/Desktop/SteamRomManager.desktop"
+BINUP_Shortcutlocation="$HOME/Desktop/EmuDeckBinUpdate.desktop"
 
 
 
