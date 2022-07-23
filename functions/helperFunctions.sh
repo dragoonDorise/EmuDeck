@@ -271,3 +271,21 @@ function moveSaveFolder(){
 	fi
 	
 }
+
+
+function createDesktopShortcut(){
+
+	local Shortcutlocation=$1
+	local name=$2
+	local exec=$3
+
+	echo "#!/usr/bin/env xdg-open
+	[Desktop Entry]
+	Name=$name
+	Exec=$exec
+	Icon=steamdeck-gaming-return
+	Terminal=true
+	Type=Application
+	StartupNotify=false" > "$Shortcutlocation"
+	chmod +x "$Shortcutlocation"
+}
