@@ -17,12 +17,12 @@ ESDE_cleanup(){
 ESDE_install(){
 	setMSG "Installing $ESDE_toolName"		
 
-    curl $ESDE_releaseURL --output "$toolsPath"latesturl.txt 
-    latestURL=$(grep "https://gitlab" "$toolsPath"latesturl.txt)
+    curl $ESDE_releaseURL --output "$toolsPath/latesturl.txt"
+    latestURL=$(grep "https://gitlab" "$toolsPath/latesturl.txt")
 
     curl "$latestURL" --output "$ESDE_toolPath"
-    rm "$toolsPath"/latesturl.txt
-    chmod +x "$ESDE_toolPath"	
+    rm "$toolsPath/latesturl.txt"
+    chmod +x "$ESDE_toolPath"
 	
 }
 
@@ -170,7 +170,7 @@ ESDE_migrateDownloadedMedia(){
             echo -e ""
             echo -e "Moving EmulationStation-DE downloaded_media to $toolsPath"			
             echo -e ""
-            rsync -a "$originalESMediaFolder" "$toolsPath"  && rm -rf "$originalESMediaFolder"		#move it, merging files if in both locations
+            rsync -a "$originalESMediaFolder" "$toolsPath/"  && rm -rf "$originalESMediaFolder"		#move it, merging files if in both locations
         fi
     else
         echo "downloaded_media not found on original location"

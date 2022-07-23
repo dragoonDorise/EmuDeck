@@ -5,12 +5,12 @@ installESDE(){
 
     #New repo
 
-    curl https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt --output "$toolsPath"/latesturl.txt 
-    latestURL=$(grep "https://gitlab" "$toolsPath"/latesturl.txt)
+    curl https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt --output "$toolsPath/latesturl.txt"
+    latestURL=$(grep "https://gitlab" "$toolsPath/latesturl.txt")
 
-    curl "$latestURL" --output "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage 
-    rm "$toolsPath"/latesturl.txt
-    chmod +x "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage	
+    curl "$latestURL" --output "$toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage"
+    rm "$toolsPath/latesturl.txt/"
+    chmod +x "$toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage"
 
 }
 
@@ -24,12 +24,12 @@ installSRM(){
 }
 	#paths update via sed in main script
 	romsPath="/run/media/mmcblk0p1/Emulation/roms"
-	toolsPath="/run/media/mmcblk0p1/Emulation/tools/"
-	scriptPath="${toolsPath}binupdate/"
+	toolsPath="/run/media/mmcblk0p1/Emulation/tools"
+	scriptPath="${toolsPath}/binupdate"
 	
 	#initialize log
 	TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
-	LOGFILE="${scriptPath}binupdate-$TIMESTAMP.log"
+	LOGFILE="${scriptPath}/binupdate-$TIMESTAMP.log"
 	exec > >(tee "${LOGFILE}") 2>&1
 	
     binTable=()
@@ -65,10 +65,10 @@ installSRM(){
             installSRM
         fi
         if [[ "$binsToDL" == *"yuzu"* ]]; then
-            mkdir -p "$HOME"/Applications
-            cd "$HOME"/Applications || exit
+            mkdir -p "$HOME/Applications"
+            rm "$HOME/Applications/yuzu.AppImage"
             url="$(curl -sL https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases/latest | jq -r ".assets[].browser_download_url" | grep .AppImage\$)"            
-            curl -Lo "yuzu.AppImage" "$url"
+            curl -Lo "$HOME/Applications/yuzu.AppImage" "$url"
         fi
         if [[ "$binsToDL" == *"cemu"* ]]; then
 
@@ -106,15 +106,15 @@ installSRM(){
             --column="Release" \
             "${releaseTable[@]}" 2>/dev/null)
 
-            curl "$releaseChoice" --output "$romsPath"/wiiu/cemu.zip 
+            curl "$releaseChoice" --output "$romsPath/wiiu/cemu.zip"
 
 
-            mkdir -p "$romsPath"/wiiu/tmp
-            unzip -o "$romsPath"/wiiu/cemu.zip -d "$romsPath"/wiiu/tmp
-            mv "$romsPath"/wiiu/tmp/cemu_*/ "$romsPath"/wiiu/tmp/cemu/
-            rsync -avzh "$romsPath"/wiiu/tmp/cemu/ "$romsPath"/wiiu/
-            rm -rf "$romsPath"/wiiu/tmp 
-            rm -f "$romsPath"/wiiu/cemu.zip 	
+            mkdir -p "$romsPath/wiiu/tmp"
+            unzip -o "$romsPath/wiiu/cemu.zip" -d "$romsPath/wiiu/tmp"
+            mv "$romsPath/wiiu/tmp/cemu_*/" "$romsPath/wiiu/tmp/cemu/"
+            rsync -avzh "$romsPath/wiiu/tmp/cemu/" "$romsPath/wiiu/"
+            rm -rf "$romsPath/wiiu/tmp" 
+            rm -f "$romsPath/wiiu/cemu.zip"	
         fi
         if [[ "$binsToDL" == *"xenia"* ]]; then
             curl -L https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip --output "$romsPath"/xbox360/xenia_master.zip 

@@ -315,7 +315,7 @@ if [ "$zenity" == true ]; then
 	#New paths based on where the user picked.
 	setSetting emulationPath "${destination}/Emulation"
 	setSetting romsPath "${destination}/Emulation/roms"
-	setSetting toolsPath "${destination}/Emulation/tools/"
+	setSetting toolsPath "${destination}/Emulation/tools"
 	setSetting biosPath "${destination}/Emulation/bios"
 	setSetting savesPath "${destination}/Emulation/saves/"
 	setSetting storagePath "${destination}/Emulation/storage/"
@@ -323,7 +323,7 @@ if [ "$zenity" == true ]; then
 
 	#Folder creation... This code is repeated outside of this if for the no zenity mode
 	mkdir -p "$emulationPath"
-	mkdir -p "$toolsPath"launchers 
+	mkdir -p "$toolsPath"/launchers 
 	mkdir -p "$savesPath"
 	mkdir -p "$romsPath"
 	mkdir -p "$storagePath"
@@ -730,7 +730,7 @@ else
 	
 	#Folder creation... This code is repeated outside of this if for the yes zenity mode
 	mkdir -p "$emulationPath"
-	mkdir -p "$toolsPath"launchers 
+	mkdir -p "$toolsPath"/launchers 
 	mkdir -p "$savesPath"
 	mkdir -p "$romsPath"
 	mkdir -p "$storagePath"
@@ -769,8 +769,8 @@ if [ "$zenity" == true ]; then
 fi
 #setup Proton-Launch.sh
 #because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
-cp "$EMUDECKGIT/tools/proton-launch.sh" "${toolsPath}proton-launch.sh"
-chmod +x "${toolsPath}proton-launch.sh"
+cp "$EMUDECKGIT/tools/proton-launch.sh" "${toolsPath}/proton-launch.sh"
+chmod +x "${toolsPath}/proton-launch.sh"
 
 #ESDE Installation
 if [ $doInstallESDE == "true" ]; then
