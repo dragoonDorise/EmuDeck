@@ -23,10 +23,10 @@ Cemu_install(){
 	rm -rf "$romsPath"/wiiu/tmp 
 	rm -f "$romsPath"/wiiu/cemu.zip
 	
-	cp "$EMUDECKGIT/tools/launchers/cemu.sh" "${toolsPath}"launchers/cemu.sh
-	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|" "${toolsPath}"launchers/cemu.sh
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/wiiu|${romsPath}/wiiu|" "${toolsPath}"launchers/cemu.sh
-	chmod +x "${toolsPath}"launchers/cemu.sh
+	cp "$EMUDECKGIT/tools/launchers/cemu.sh" "${toolsPath}"/launchers/cemu.sh
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|" "${toolsPath}"/launchers/cemu.sh
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/wiiu|${romsPath}/wiiu|" "${toolsPath}"/launchers/cemu.sh
+	chmod +x "${toolsPath}"/launchers/cemu.sh
 	
 }
 

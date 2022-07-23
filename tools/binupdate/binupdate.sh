@@ -18,9 +18,9 @@ installSRM(){
 	#setMSG "${installString} Steam Rom Manager"
 	rm -f ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
 	rm -f ~/Desktop/Steam-ROM-Manager.AppImage
-	mkdir -p "${toolsPath}"srm
-	curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" > "${toolsPath}"srm/Steam-ROM-Manager.AppImage
-	chmod +x "${toolsPath}"srm/Steam-ROM-Manager.AppImage	
+	mkdir -p "${toolsPath}"/srm
+	curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" --output "${toolsPath}/srm/Steam-ROM-Manager.AppImage"
+	chmod +x "${toolsPath}"/srm/Steam-ROM-Manager.AppImage	
 }
 	#paths update via sed in main script
 	romsPath="/run/media/mmcblk0p1/Emulation/roms"

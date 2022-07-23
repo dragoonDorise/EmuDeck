@@ -59,7 +59,7 @@ BeetleWide=true
 #Default installation folders
 emulationPath=~/Emulation
 romsPath=~/Emulation/roms
-toolsPath=~/Emulation/tools/
+toolsPath=~/Emulation/tools
 biosPath=~/Emulation/bios
 savesPath=~/Emulation/saves/
 storagePath=~/Emulation/storage/

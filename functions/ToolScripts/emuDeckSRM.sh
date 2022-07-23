@@ -2,7 +2,7 @@
 #variables
 SRM_toolName="Steam Rom Manager"
 SRM_toolType="AppImage"
-SRM_toolPath="${toolsPath}srm/Steam-ROM-Manager.AppImage"
+SRM_toolPath="${toolsPath}/srm/Steam-ROM-Manager.AppImage"
 SRM_releaseURL="$(getLatestReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")"
 
 #cleanupOlderThings
@@ -14,7 +14,7 @@ SRM_cleanup(){
 SRM_install(){		
 	setMSG "Installing Steam Rom Manager"
 	SRM_cleanup
-	mkdir -p "${toolsPath}srm"
+	mkdir -p "${toolsPath}/srm"
 	curl -L "$SRM_releaseURL" -o "$SRM_toolPath"
 	chmod +x "$SRM_toolPath"
 	SRM_createDesktopShortcut "$HOME/Desktop/SteamRomManager.desktop"
@@ -46,7 +46,7 @@ SRM_init(){
 	cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	sleep 3
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
-	sed -i "s|/run/media/mmcblk0p1/Emulation/tools/|${toolsPath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/storage/|${storagePath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	sed -i "s|/home/deck|$HOME|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	echo -e "OK!"

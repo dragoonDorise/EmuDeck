@@ -15,7 +15,7 @@ if [ $ans -eq 0 ]; then
 	#paths update via sed in main script
 	romsPath="/run/media/mmcblk0p1/Emulation/roms"
 	toolsPath="/run/media/mmcblk0p1/Emulation/tools/"
-	chdPath="${toolsPath}chdconv/"
+	chdPath="${toolsPath}/chdconv/"
 
 
 	#initialize log
@@ -175,7 +175,7 @@ zenity --question \
 ans=$?
 if [ $ans -eq 0 ]; then
 	echo "user launched SRM"
-	"${toolsPath}srm/Steam-ROM-Manager.AppImage"
+	"${toolsPath}/srm/Steam-ROM-Manager.AppImage"
 	exit
 else
 	exit

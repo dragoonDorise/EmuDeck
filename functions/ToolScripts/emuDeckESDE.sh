@@ -2,7 +2,7 @@
 #variables
 ESDE_toolName="EmulationStation-DE"
 ESDE_toolType="AppImage"
-ESDE_toolPath="${toolsPath}EmulationStation-DE-x64_SteamDeck.AppImage"
+ESDE_toolPath="${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
 ESDE_releaseURL="https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt"
 
 es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
@@ -76,7 +76,7 @@ ESDE_addCustomSystems(){
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo Wii U' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/wiiu/roms' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.rpx .RPX .wud .WUD .wux .WUX .elf .ELF .iso .ISO .wad .WAD .wua .WUA' \
-		--subnode '$newSystem' --type elem --name 'command' -v "/usr/bin/bash ${toolsPath}launchers/cemu.sh -f -g z:%ROM%" \
+		--subnode '$newSystem' --type elem --name 'command' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -f -g z:%ROM%" \
 		--insert '$newSystem/command' --type attr --name 'label' --value "Cemu (Proton)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'wiiu' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'wiiu' \
@@ -117,7 +117,7 @@ ESDE_setEmulationFolder(){
 
     #update cemu custom system launcher to correct path by just replacing the line, if it exists.
 	echo "updating $es_systemsFile"
-	commandString="/usr/bin/bash ${toolsPath}launchers/cemu.sh -f -g z:%ROM%"
+	commandString="/usr/bin/bash ${toolsPath}/launchers/cemu.sh -f -g z:%ROM%"
 	xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Proton)"]' -v "$commandString" "$es_systemsFile"
 
 
