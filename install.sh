@@ -38,6 +38,7 @@ function finish {
   echo "Script terminating. Exit code $?"
   finished=true
   rm -rf MSG
+  killall zenity
 }
 trap finish EXIT
 
@@ -424,15 +425,22 @@ if [ "$zenity" == true ]; then
 					--title="EmuDeck" \
 					--width=400 \
 					--text="${text}" 2>/dev/null
-					sleep 10
-					passwd 
+					sleep 1
+					clear
+					echo "Enter a new password for the local Deck account here. You will have to enter it twice. No visual indication of typing will occur."
+					echo "Please remember it."
+					passwd
+					ans=$?
+					if [[ $ans == 1 ]]; then
+						echo "Setting password failed."
+					fi
 				fi
-				PASSWD="$(zenity --password --title="Enter Deck User Password (not Steam account!)" 2>/dev/null)"
+				PASSWD="$(zenity --password --title="Password Entry" --text="Enter Deck User Password (not Steam account!)" 2>/dev/null)"
 				echo "$PASSWD" | sudo -v -S
 				ans=$?
 				if [[ $ans == 1 ]]; then
 					#incorrect password
-					PASSWD="$(zenity --password --title="Password was incorrect. Try again. (Did you remember to set a password for linux before running this?)" 2>/dev/null)"
+					PASSWD="$(zenity --password --title="Password Entry" --text="Password was incorrect. Try again. (Did you remember to set a password for linux before running this?)" 2>/dev/null)"
 					echo "$PASSWD" | sudo -v -S
 					ans=$?
 					if [[ $ans == 1 ]]; then
