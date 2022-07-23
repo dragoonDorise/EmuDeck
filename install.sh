@@ -8,6 +8,8 @@
 mkdir -p "$HOME/emudeck"
 PIDFILE="$HOME/emudeck/install.pid"
 
+devMode=$1
+
 if [ -f "$PIDFILE" ]
 then
   PID=$(cat "$PIDFILE")
@@ -49,6 +51,19 @@ trap finish EXIT
 ##
 #
 
+#
+##
+## Do we need Zenity?... Anything in the second param will skip zenity
+##
+#
+if [ -z "$2" ]; then
+	zenity=true
+else
+	zenity="$2"
+fi
+
+
+
 #Clean up previous installations
 rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
 rm -rf ~/dragoonDoriseTools
@@ -69,35 +84,37 @@ SECONDTIME="$HOME/emudeck/.finished"
 
 
 # Seeting up the progress Bar for the rest of the installation
-finished=false
-MSG=~/emudeck/msg.log
-echo "0" > "$MSG"
-echo "# Installing EmuDeck" >> "$MSG"
 
-(	
-	while [ $finished == false ]
-	do 
-		  cat "$MSG"   
-		  if grep -q "100" "$MSG"; then
-			finished=true
-			break
-		  fi
-		# sleep 10
-	done
-) 	|	zenity --progress \
-  		--title="Installing EmuDeck" \
-  		--text="Installing EmuDeck..." \
- 		--percentage=0 \
-  		--no-cancel \
-  		--pulsate \
-  		--auto-close \
-  		--width=300  2>/dev/null &
+if [[ $zenity == true ]]; then
+	finished=false
+	MSG=~/emudeck/msg.log
+	echo "0" > "$MSG"
+	echo "# Installing EmuDeck" >> "$MSG"
 
-if [ "$?" == -1 ] ; then
-	zenity --error \
-	--text="Update canceled." 2>/dev/null
+	(	
+		while [ $finished == false ]
+		do 
+			cat "$MSG"   
+			if grep -q "100" "$MSG"; then
+				finished=true
+				break
+			fi
+			# sleep 10
+		done
+	) 	|	zenity --progress \
+			--title="Installing EmuDeck" \
+			--text="Installing EmuDeck..." \
+			--percentage=0 \
+			--no-cancel \
+			--pulsate \
+			--auto-close \
+			--width=300  2>/dev/null &
+
+	if [ "$?" == -1 ] ; then
+		zenity --error \
+		--text="Update canceled." 2>/dev/null
+	fi
 fi
-
 
 
 	
@@ -106,9 +123,89 @@ fi
 ##
 ## set backend location
 ##
-# I think this should just be in the source, so there's one spot for initialization.
+# I think this should just be in the source, so there's one spot for initialization. hrm, no i'm wrong. Here is best.
 EMUDECKGIT="$HOME/emudeck/backend"
 
+#
+##
+echo 'Downloading files...'
+##
+#
+#
+##
+## Branch to download
+##
+#
+
+case $devMode in
+	"BETA")
+	branch="beta"
+	;;
+	"DEV")
+		branch="dev"
+	;;  
+	"EmuReorg")
+		branch="EmuReorg"
+	;;  
+	*)
+	branch="main"
+	;;
+esac	
+
+echo $branch > "$HOME/emudeck/branch.txt"
+
+
+
+#We create all the needed folders for installation
+if [[ ! -e $EMUDECKGIT ]]; then
+	mkdir -p "$EMUDECKGIT"
+
+	#Cloning EmuDeck files
+	git clone https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
+
+else
+	cd "$EMUDECKGIT"
+	git status --porcelain
+	if [[ $(git status --porcelain) ]]; then
+		echo "modified files detected. not pulling."
+	else
+		git pull
+	fi
+	
+fi
+
+if [ -n "$devMode" ]; then
+	if [[ $(git status --porcelain) ]]; then
+		echo "modified files detected. not changing branch."
+	else
+		cd "$EMUDECKGIT"
+		git checkout "$branch" 
+	fi
+fi
+
+#
+##
+## EmuDeck is installed, start setting up stuff
+##
+#
+
+#Test if we have a successful clone	
+if [ -d "$EMUDECKGIT" ]; then
+	echo -e "Files Downloaded!"
+clear
+#cat $EMUDECKGIT/logo.ans
+version=$(cat "$EMUDECKGIT/version.md")
+echo -e "${BOLD}EmuDeck ${version}${NONE}"
+echo -e ""
+cat "$EMUDECKGIT/latest.md"
+
+else
+	echo -e ""
+	echo -e "Backend Files are missing!"
+	echo -e "Please close this window and try again in a few minutes"
+	sleep 999999
+	exit
+fi
 #
 ##
 ## Source all functions and previous values if they exist.
@@ -119,109 +216,17 @@ EMUDECKGIT="$HOME/emudeck/backend"
 source "$EMUDECKGIT/functions/all.sh"
 
 #
-#Hardware Check for Non SteamDeck Users
+#Environment Check
 #
 
 getEnvironmentDetails
 testRealDeck
 
 
-#
-##
-## Do we need Zenity?...
-##
-#
-if [ -z $2 ]; then
-	zenity=true
-else
-	zenity=$2
-fi
-
-
-
 if [ "$zenity" == true ]; then
 
 	#This part of the code is where all the settings are created
 	
-	#
-	##
-	## Branch to download
-	##
-	#
-	devMode=$1
-	case $devMode in
-	  "BETA")
-		branch="beta"
-	  ;;
-	  "DEV")
-		  branch="dev"
-		;;  
-	  "EmuReorg")
-		  branch="EmuReorg"
-		;;  
-	  *)
-		branch="main"
-	  ;;
-	esac	
-	
-	echo $branch > "$HOME/emudeck/branch.txt"
-	
-	#
-	##
-	## Downloading files...
-	##
-	#
-	
-	#We create all the needed folders for installation
-	if [[ ! -e $EMUDECKGIT ]]; then
-		mkdir -p "$EMUDECKGIT"
-	
-		#Cloning EmuDeck files
-		git clone https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
-	
-	else
-		cd "$EMUDECKGIT"
-		git status --porcelain
-		if [[ $(git status --porcelain) ]]; then
-			echo "modified files detected. not pulling."
-		else
-			git pull
-		fi
-		
-	fi
-	
-	if [ -n "$devMode" ]; then
-		if [[ $(git status --porcelain) ]]; then
-			echo "modified files detected. not changing branch."
-		else
-			cd "$EMUDECKGIT"
-			git checkout "$branch" 
-		fi
-	fi
-	
-	#Test if we have a successful clone	
-	if [ -d "$EMUDECKGIT" ]; then
-		echo -e "Files Downloaded!"
-	clear
-	#cat $EMUDECKGIT/logo.ans
-	version=$(cat "$EMUDECKGIT/version.md")
-	echo -e "${BOLD}EmuDeck ${version}${NONE}"
-	echo -e ""
-	cat "$EMUDECKGIT/latest.md"
-	
-	else
-		echo -e ""
-		echo -e "Backend Files are missing!"
-		echo -e "Please close this window and try again in a few minutes"
-		sleep 999999
-		exit
-	fi
-	
-	#
-	##
-	## EmuDeck is installed, start setting up stuff
-	##
-	#
 	
 	
 	#
