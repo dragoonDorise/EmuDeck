@@ -38,7 +38,7 @@ function pause(){
    read -p "$*"
 }
 
-# keyword replacement file
+# keyword replacement file. Only matches start of word
 function changeLine() {
     local KEYWORD=$1; shift
     local REPLACE=$1; shift
@@ -48,9 +48,9 @@ function changeLine() {
     local NEW=$(escapeSedValue "$REPLACE")
 
 	echo "Updating: $FILE"
-	echo "Old: "$(cat "$FILE" | grep "$OLD")
-    sed -i "/${OLD}/c\\${NEW}" "$FILE"
-	echo "New: "$(cat "$FILE" | grep "$OLD")
+	echo "Old: "$(cat "$FILE" | grep "^$OLD")
+    sed -i "/^${OLD}/c\\${NEW}" "$FILE"
+	echo "New: "$(cat "$FILE" | grep "^$OLD")
 
 }
 function escapeSedKeyword(){
