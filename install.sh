@@ -741,7 +741,7 @@ fi
 ##	
 #
 
-
+source "$EMUDECKGIT/functions/all.sh"
 	
 	
 #
