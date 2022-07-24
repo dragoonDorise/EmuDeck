@@ -171,14 +171,14 @@ testRealDeck
 
 #This part of the code is where all the settings are created
 
-OPTIONS=(1 "Rerun Emudeck"
+STARTOPTIONS=(1 "Rerun Emudeck"
          2 "Change a Config Option"
          3 "Install or update an Emulator"
 		 4 "Full reset an Emulator")
 
-RUNCHOICE=$(dialogCLI "What should we do today?" "${OPTIONS[@]}")
+RUNCHOICE=$(dialogCLI "What should we do today?" "${STARTOPTIONS[@]}")
 
-clear
+
 case $RUNCHOICE in
         1) echo "You chose to rerun EmuDeck"
             ;;
@@ -193,7 +193,7 @@ case $RUNCHOICE in
 esac
 if [ -z "$RUNCHOICE" ]; then
 	echo "No choice made"
-	exit6
+	exit
 fi
 if [ "$RUNCHOICE" == 1 ]; then
 	
@@ -254,6 +254,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 			exit
 		fi
 	}
+	storageSelection
 	
 	#New paths based on where the user picked.
 	setSetting emulationPath "${destination}/Emulation"
@@ -290,30 +291,23 @@ if [ "$RUNCHOICE" == 1 ]; then
 		
 			#one entry per expert mode feature
 			table=()
-			table+=(TRUE "CHDScript" "Install the latest version of our CHD conversion script?")
-			table+=(TRUE "PowerTools" "Install Power Tools for CPU control? (password required)")
-			table+=(TRUE "SteamGyro" "Setup the SteamDeckGyroDSU for gyro control (password required)")
-			table+=(TRUE "updateSRM" "Install/Update Steam Rom Manager? Customizations will not be reset.")
-			table+=(TRUE "updateESDE" "Install/Update Emulation Station DE? Customizations and scrapes will not be reset.")
-			table+=(TRUE "selectEmulators" "Select the emulators to install.")
-			table+=(TRUE "selectEmulatorConfig" "Customize the emulator configuration reset. (note: Fixes will be skipped if boxes are unchecked)")
-			table+=(TRUE "selectRABezels" "Turn on Bezels for Retroarch?")
-			table+=(TRUE "selectRAAutoSave" "Turn on Retroarch AutoSave/Restore state?")
-			table+=(TRUE "snesAR" "SNES 8:7 Aspect Ratio? (unchecked is 4:3)")
-			table+=(TRUE "selectWideScreen" "Customize Emulator Widescreen Selection?")
-			table+=(TRUE "setRAEnabled" "Enable Retroachievments in Retroarch?")
-			table+=(TRUE "setRASignIn" "Change RetroAchievements Sign in?")
-			table+=(TRUE "doESDEThemePicker" "Choose your EmulationStation-DE Theme?")		
+			table+=( "CHDScript" "Install the latest version of our CHD conversion script?" ON )
+			table+=( "PowerTools" "Install Power Tools for CPU control? (password required)" ON )
+			table+=( "SteamGyro" "Setup the SteamDeckGyroDSU for gyro control (password required)" ON )
+			table+=( "updateSRM" "Install/Update Steam Rom Manager? Customizations will not be reset." ON )
+			table+=( "updateESDE" "Install/Update Emulation Station DE? Customizations and scrapes will not be reset." ON )
+			table+=( "selectEmulators" "Select the emulators to install." ON )
+			table+=( "selectEmulatorConfig" "Customize the emulator configuration reset. (note: Fixes will be skipped if boxes are unchecked)" ON )
+			table+=( "selectRABezels" "Turn on Bezels for Retroarch?" ON )
+			table+=( "selectRAAutoSave" "Turn on Retroarch AutoSave/Restore state?" ON )
+			table+=( "snesAR" "SNES 8:7 Aspect Ratio? (unchecked is 4:3)" ON )
+			table+=( "selectWideScreen" "Customize Emulator Widescreen Selection?" ON )
+			table+=( "setRAEnabled" "Enable Retroachievments in Retroarch?" ON )
+			table+=( "setRASignIn" "Change RetroAchievements Sign in?" ON )
+			table+=( "doESDEThemePicker" "Choose your EmulationStation-DE Theme?" ON )		
 			#table+=(TRUE "doXboxButtons" "Should facebutton letters match between Nintendo and Steamdeck? (default is matched location)")
-	
-			declare -i height=(${#table[@]}*40)
-	
-			expertModeFeatureList=$(zenity  --list --checklist --width=1000 --height="${height}" \
-			--column="Select?"  \
-			--column="Features"  \
-			--column="Description" \
-			--hide-column=2 \
-			"${table[@]}" 2>/dev/null)
+			expertModeFeatureList=$(whiptail --title "Check list example" --checklist "Choose user's permissions" 50 78 4 "${table[@]}")
+
 			echo "user selected: $expertModeFeatureList"
 			#set flags to true for selected expert mode features
 			if [[ "$expertModeFeatureList" == *"CHDScript"* ]]; then

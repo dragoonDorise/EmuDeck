@@ -26,6 +26,7 @@ source "$EMUDECKGIT"/functions/setSetting.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
 source "$EMUDECKGIT"/functions/migrateAndLinkConfig.sh
 source "$EMUDECKGIT"/functions/nonDeck.sh
+source "$EMUDECKGIT"/functions/dialogBox.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
