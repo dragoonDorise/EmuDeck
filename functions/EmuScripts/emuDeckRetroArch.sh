@@ -1361,9 +1361,9 @@ RetroArch_installCores(){
 	#This is all the cores combined, and dupes taken out.
 	RAcores=(81_libretro.so a5200_libretro.so atari800_libretro.so blastem_libretro.so bluemsx_libretro.so bsnes_hd_beta_libretro.so bsnes_libretro.so \
 			bsnes_mercury_accuracy_libretro.so cap32_libretro.so chailove_libretro.so citra2018_libretro.so citra_libretro.so crocods_libretro.so desmume2015_libretro.so \
-			desmume_libretro.so dolphin_libretro.so dosbox_core_libretro.so dosbox_pure_libretro.so dosbox_svn_libretro.so fbalpha2012_cps1_libretro.so fbalpha2012_cps2_libretro.so \
+			desmume_libretro.so dolphin_libretro.so dosbox_core_libretro.so dosbox_pure_libretro.so dosbox_svn_libretro.so libretro.so fbalpha2012_cps1_libretro.so \
 			fbalpha2012_cps3_libretro.so fbalpha2012_libretro.so fbalpha2012_neogeo_libretro.so fbneo_libretro.so fceumm_libretro.so flycast_libretro.so fmsx_libretro.so \
-			freechaf_libretro.so freeintv_libretro.so frodo_libretro.so fuse_libretro.so gambatte_libretro.so gearboy_libretro.so gearsystem_libretro.so \
+			fbalpha2012_cps2_libretro.so freechaf_libretro.so freeintv_libretro.so frodo_libretro.so fuse_libretro.so gambatte_libretro.so gearboy_libretro.so gearsystem_libretro.so \
 			genesis_plus_gx_libretro.so genesis_plus_gx_wide_libretro.so gpsp_libretro.so gw_libretro.so handy_libretro.so hatari_libretro.so \
 			kronos_libretro.so lutro_libretro.so mame2000_libretro.so mame2003_plus_libretro.so mame2010_libretro.so \
 			mame_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_pce_fast_libretro.so mednafen_pce_libretro.so mednafen_pcfx_libretro.so mednafen_psx_hw_libretro.so \
