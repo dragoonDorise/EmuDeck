@@ -10,27 +10,23 @@ PIDFILE="$HOME/emudeck/install.pid"
 
 devMode=$1
 
-if [ -f "$PIDFILE" ]
-then
+if [ -f "$PIDFILE" ]; then
   PID=$(cat "$PIDFILE")
   ps -p "$PID" > /dev/null 2>&1
-  if [ $? -eq 0 ]
-  then
+  if [ $? -eq 0 ]; then
     echo "Process already running"
     exit 1
   else
     ## Process not found assume not running
     echo $$ > "$PIDFILE"
-    if [ $? -ne 0 ]
-    then
+    if [ $? -ne 0 ]; then
       echo "Could not create PID file"
       exit 1
     fi
   fi
 else
   echo $$ > "$PIDFILE"
-  if [ $? -ne 0 ]
-  then
+  if [ $? -ne 0 ]; then
     echo "Could not create PID file"
     exit 1
   fi
@@ -39,7 +35,7 @@ fi
 function finish {
   echo "Script terminating. Exit code $?"
   finished=true
-  rm -rf MSG
+  rm "$MSG"
   killall zenity
 }
 trap finish EXIT
@@ -138,18 +134,10 @@ echo 'Downloading files...'
 #
 
 case $devMode in
-	"BETA")
-	branch="beta"
-	;;
-	"DEV")
-		branch="dev"
-	;;  
-	"EmuReorg")
-		branch="EmuReorg"
-	;;  
-	*)
-	branch="main"
-	;;
+	"BETA") 	branch="beta" 		;;
+	"DEV") 		branch="dev" 		;;  
+	"EmuReorg") branch="EmuReorg" 	;;  
+	*) 			branch="main" 		;;
 esac	
 
 echo $branch > "$HOME/emudeck/branch.txt"
@@ -164,12 +152,11 @@ if [[ ! -e $EMUDECKGIT ]]; then
 	git clone https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
 
 else
-	cd "$EMUDECKGIT"
-	git status --porcelain
+	git status "$EMUDECKGIT" --porcelain
 	if [[ $(git status --porcelain) ]]; then
 		echo "modified files detected. not pulling."
 	else
-		git pull
+		git fetch --all
 	fi
 	
 fi
@@ -178,7 +165,7 @@ if [ -n "$devMode" ]; then
 	if [[ $(git status --porcelain) ]]; then
 		echo "modified files detected. not changing branch."
 	else
-		cd "$EMUDECKGIT"
+		cd "$EMUDECKGIT" || exit
 		git checkout "$branch" 
 	fi
 fi
@@ -370,7 +357,7 @@ if [ "$zenity" == true ]; then
 	
 			declare -i height=(${#table[@]}*40)
 	
-			expertModeFeatureList=$(zenity  --list --checklist --width=1000 --height=${height} \
+			expertModeFeatureList=$(zenity  --list --checklist --width=1000 --height="${height}" \
 			--column="Select?"  \
 			--column="Features"  \
 			--column="Description" \

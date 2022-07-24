@@ -4,6 +4,7 @@
 DuckStation_emuName="DuckStation"
 DuckStation_emuType="FlatPak"
 DuckStation_emuPath="org.duckstation.DuckStation"
+DuckStation_configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
 DuckStation_releaseURL=""
 
 #cleanupOlderThings
@@ -42,13 +43,12 @@ DuckStation_update(){
 #ConfigurePaths
 DuckStation_setEmulationFolder(){
 	setMSG "Setting $DuckStation_emuName Emulation Folder"	
-  	configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
     gameDirOpt='RecursivePaths = '
     newGameDirOpt="${gameDirOpt}""${romsPath}/psx"
 	biosDir='SearchDirectory = '
 	biosDirSetting="${biosDir}""${biosPath}"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
-    sed -i "/${biosDir}/c\\${biosDirSetting}" "$configFile"
+    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$DuckStation_configFile"
+    sed -i "/${biosDir}/c\\${biosDirSetting}" "$DuckStation_configFile"
 }
 
 #SetupSaves
@@ -91,12 +91,11 @@ DuckStation_migrate(){
 DuckStation_wideScreenOn(){
 	setMSG "${DuckStation_emuName}: Widescreen On"
     echo ""
-    configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
     wideScreenHack='WidescreenHack = '
     wideScreenHackSetting='WidescreenHack = true'
     #aspectRatio='AspectRatio = '
     #aspectRatioSetting='AspectRatio = 0'
-    sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$configFile"
+    sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFile"
 	#sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$configFile"
 }
 
@@ -104,12 +103,11 @@ DuckStation_wideScreenOn(){
 DuckStation_wideScreenOff(){
 	setMSG "${DuckStation_emuName}: Widescreen Off"
     echo ""
-    configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
     wideScreenHack='WidescreenHack = '
     wideScreenHackSetting='WidescreenHack = false'
     #aspectRatio='AspectRatio = '
     #aspectRatioSetting='AspectRatio = 0'
-    sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$configFile"
+    sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFile"
 	#sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$configFile"
 }
 
