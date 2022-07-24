@@ -201,14 +201,14 @@ if [ "$RUNCHOICE" == 1 ]; then
 	# Initialize locations
 	#
 	locationTable=()
-	locationTable+=(TRUE "Internal" "$HOME") #always valid
+	locationTable+=("Internal" "$HOME") #always valid
 	
 	#built in SD Card reader
 	sdCardFull=$(getSDPath)
 	sdValid=$(testLocationValid "SD" "$sdCardFull")
 	echo "$sdCardFull $sdValid"
     if [[ ! $sdValid =~ "Invalid" ]]; then
-		locationTable+=(FALSE "SD Card" "$sdCardFull") 
+		locationTable+=("SD Card" "$sdCardFull") 
 	fi
 
 	#
@@ -222,7 +222,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 	if [ "$modeChoice" == "2" ]; then
 		setSetting expert true
 		echo "Mode selected: Expert"
-		locationTable+=(FALSE "Custom" "CUSTOM") #in expert mode we'll allow the user to pick an arbitrary place.
+		locationTable+=("Custom" "CUSTOM") #in expert mode we'll allow the user to pick an arbitrary place.
 	else
 		setSetting expert false
 		echo "Mode selected: Easy"
@@ -237,7 +237,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 
 		if [ -n "$destination" ]; then
 			echo "Storage: ${destination}"
-			if [[ $destination == "CUSTOM" ]]; then
+			if [[ $destination == "Custom" ]]; then
 				clear
 				echo "type your custom location. It will be tested for validity."
 				read -r destination
@@ -246,6 +246,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 				if [[ $customValid =~ "Invalid" ]]; then
 					echo "User chose invalid location. Retry."
 					#zenity pop up explaining why
+					pause
 					storageSelection
 				fi
 			fi
@@ -254,6 +255,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 			exit
 		fi
 	}
+	
 	storageSelection
 	
 	#New paths based on where the user picked.

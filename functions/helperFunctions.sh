@@ -34,6 +34,9 @@ function getScreenAR(){
 	echo $return
 }
 
+function pause(){
+   read -p "$*"
+}
 
 # keyword replacement file
 function changeLine() {

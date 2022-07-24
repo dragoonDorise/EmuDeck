@@ -9,6 +9,7 @@ mkdir -p "$HOME/emudeck"
 PIDFILE="$HOME/emudeck/install.pid"
 
 devMode=$1
+echo $devMode
 
 if [ -f "$PIDFILE" ]; then
   PID=$(cat "$PIDFILE")
@@ -150,16 +151,15 @@ if [[ ! -e $EMUDECKGIT ]]; then
 
 	#Cloning EmuDeck files
 	git clone https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
-
-else
-	git status "$EMUDECKGIT" --porcelain
-	if [[ ! $noPull == true ]]; then
-		git fetch origin
-		git reset --hard origin/$branch
-		git clean -ffdx
-	fi
-	
 fi
+
+git status "$EMUDECKGIT" --porcelain
+if [[ ! $noPull == true ]]; then
+	git fetch origin
+	git reset --hard origin/$branch
+	git clean -ffdx
+fi
+
 
 
 #
