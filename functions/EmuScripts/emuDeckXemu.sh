@@ -95,8 +95,8 @@ Xemu_migrate(){
 		setMSG "Moving Xemu HDD and EEPROM to the Emulation/storage folder"			
 		echo -e ""
 		
-		if [ -f "${savesPath}xemu/xbox_hdd.qcow2" ]; then
-			mv -fv ${savesPath}xemu/* ${storagePath}xemu/ && rm -rf ${savesPath}xemu/
+		if [ -f "${savesPath}/xemu/xbox_hdd.qcow2" ]; then
+			mv -fv ${savesPath}/xemu/* ${storagePath}xemu/ && rm -rf ${savesPath}/xemu/
 
 		elif [ -f "$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xbox_hdd.qcow2" ]; then
 			mv "$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xbox_hdd.qcow2" $storagePath/xemu/

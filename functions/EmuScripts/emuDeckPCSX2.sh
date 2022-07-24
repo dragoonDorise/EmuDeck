@@ -44,8 +44,8 @@ PCSX2_setEmulationFolder(){
 	memoryCardsDirOpt='MemoryCards=/'
 
 	newBiosDirOpt='Bios='"${biosPath}"
-	newsaveStatesDirOpt='Savestates='"${savesPath}pcsx2/states"
-	newmemoryCardsDirOpt='MemoryCards='"${savesPath}pcsx2/saves"
+	newsaveStatesDirOpt='Savestates='"${savesPath}/pcsx2/states"
+	newmemoryCardsDirOpt='MemoryCards='"${savesPath}/pcsx2/saves"
 
 	changeLine "$biosDirOpt" "$newBiosDirOpt" "$PCSX2_configFile"
 	changeLine "$saveStatesDirOpt" "$newsaveStatesDirOpt" "$PCSX2_configFile"
@@ -56,7 +56,7 @@ PCSX2_setEmulationFolder(){
 PCSX2_setupSaves(){
 	moveSaveFolder pcsx2 saves "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards"
 	moveSaveFolder pcsx2 states "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates"
-	flatpak override "${PCSX2_emuPath}" --filesystem="${savesPath}pcsx2":rw --user
+	flatpak override "${PCSX2_emuPath}" --filesystem="${savesPath}/pcsx2":rw --user
 }
 
 

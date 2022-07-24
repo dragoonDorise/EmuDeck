@@ -50,9 +50,9 @@ PCSX2QT_setEmulationFolder(){
 	recursivePathsDirOpt='RecursivePaths = '
 
 	newBiosDirOpt='Bios = '"${biosPath}"
-	newsnapShotsDirOpt='Snapshots = '"${storagePath}pcsx2/snaps"
-	newsaveStatesDirOpt='SaveStates = '"${savesPath}pcsx2/states"
-	newmemoryCardsDirOpt='MemoryCards = '"${savesPath}pcsx2/saves"
+	newsnapShotsDirOpt='Snapshots = '"${storagePath}/pcsx2/snaps"
+	newsaveStatesDirOpt='SaveStates = '"${savesPath}/pcsx2/states"
+	newmemoryCardsDirOpt='MemoryCards = '"${savesPath}/pcsx2/saves"
 	newcacheDirOpt='Cache = '"${storagePath}pcsx2/cache"
 	newtexturesDirOpt='Textures = '"${storagePath}pcsx2/textures"
 	newcoversDirOpt='Covers = '"${storagePath}pcsx2/covers"

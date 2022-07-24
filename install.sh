@@ -309,7 +309,7 @@ if [ "$zenity" == true ]; then
 	setSetting romsPath "${destination}/Emulation/roms"
 	setSetting toolsPath "${destination}/Emulation/tools"
 	setSetting biosPath "${destination}/Emulation/bios"
-	setSetting savesPath "${destination}/Emulation/saves/"
+	setSetting savesPath "${destination}/Emulation/saves"
 	setSetting storagePath "${destination}/Emulation/storage/"
 	setSetting ESDEscrapData "${destination}/Emulation/tools/downloaded_media/"
 

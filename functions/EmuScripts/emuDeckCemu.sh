@@ -70,7 +70,7 @@ Cemu_setEmulationFolder(){
 
 #SetupSaves
 Cemu_setupSaves(){
-	unlink "${savesPath}Cemu/saves" # Fix for previous bad symlink
+	unlink "${savesPath}/Cemu/saves" # Fix for previous bad symlink
 	linkToSaveFolder Cemu saves "${romsPath}/wiiu/mlc01/usr/save"
 }
 

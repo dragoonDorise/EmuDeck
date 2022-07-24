@@ -65,7 +65,7 @@ emulationPath=~/Emulation
 romsPath=~/Emulation/roms
 toolsPath=~/Emulation/tools
 biosPath=~/Emulation/bios
-savesPath=~/Emulation/saves/
+savesPath=~/Emulation/saves
 storagePath=~/Emulation/storage/
 ESDEscrapData=~/Emulation/tools/downloaded_media
 

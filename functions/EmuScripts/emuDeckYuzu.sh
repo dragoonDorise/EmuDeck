@@ -97,7 +97,7 @@ Yuzu_setEmulationFolder(){
 #SetupSaves
 Yuzu_setupSaves(){
     echo "Begin Yuzu save link"
-	unlink "${savesPath}yuzu/saves" # Fix for previous bad symlink
+	unlink "${savesPath}/yuzu/saves" # Fix for previous bad symlink
 	linkToSaveFolder yuzu saves "${storagePath}yuzu/nand/user/save/"
 }
 
