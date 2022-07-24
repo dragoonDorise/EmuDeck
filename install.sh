@@ -153,22 +153,14 @@ if [[ ! -e $EMUDECKGIT ]]; then
 
 else
 	git status "$EMUDECKGIT" --porcelain
-	if [[ $(git status --porcelain) ]]; then
-		echo "modified files detected. not pulling."
-	else
-		git fetch --all
+	if [[ ! $noPull == true ]]; then
+		git fetch origin
+		git reset --hard origin/$branch
+		git clean -ffdx
 	fi
 	
 fi
 
-if [ -n "$devMode" ]; then
-	if [[ $(git status --porcelain) ]]; then
-		echo "modified files detected. not changing branch."
-	else
-		cd "$EMUDECKGIT" || exit
-		git checkout "$branch" 
-	fi
-fi
 
 #
 ##
