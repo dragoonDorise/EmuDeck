@@ -14,6 +14,11 @@ installESDE(){
 
 }
 
+PCSX2QT_install(){
+	echo "Begin PCSX2-QT Install"
+	installEmuAI "pcsx2-Qt" "$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")" #pcsx2-Qt.AppImage
+}
+
 installSRM(){		
 	#setMSG "${installString} Steam Rom Manager"
 	rm -f ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
@@ -67,6 +72,12 @@ installSRM(){
         if [[ "$binsToDL" == *"yuzu"* ]]; then
             mkdir -p "$HOME/Applications"
             rm "$HOME/Applications/yuzu.AppImage"
+            url="$(curl -sL https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases/latest | jq -r ".assets[].browser_download_url" | grep .AppImage\$)"            
+            curl -Lo "$HOME/Applications/yuzu.AppImage" "$url"
+        fi
+        if [[ "$binsToDL" == *"pcsx2-qt"* ]]; then
+            mkdir -p "$HOME/Applications"
+            rm "$HOME/Applications/pcsx2-Qt.AppImage"
             url="$(curl -sL https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases/latest | jq -r ".assets[].browser_download_url" | grep .AppImage\$)"            
             curl -Lo "$HOME/Applications/yuzu.AppImage" "$url"
         fi
