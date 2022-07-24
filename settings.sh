@@ -21,9 +21,10 @@ doSetupPPSSPP=true
 doSetupXemu=true
 doSetupESDE=true
 doSetupSRM=true
+doSetupPCSX2QT=true
 #doSetupMelon=true
 
-#Install all systems by fdefault
+#Install all systems by default
 doInstallSRM=true
 doInstallESDE=true
 doInstallRA=false
@@ -38,10 +39,12 @@ doInstallXenia=false
 doInstallPrimeHacks=false
 doInstallPPSSPP=false
 doInstallXemu=false
+doInstallPCSX2QT=false
 #doInstallMelon=false
 doInstallCHD=false
 doInstallPowertools=false
 doInstallGyro=false
+
 installString='Installing'
 
 #Default RetroArch configuration 
@@ -51,10 +54,11 @@ SNESAR=43
 
 #Default widescreen
 
-duckWide=true
-DolphinWide=true
-DreamcastWide=true
-BeetleWide=true
+duckWide=false
+DolphinWide=false
+DreamcastWide=false
+BeetleWide=false
+pcsx2QTWide=false
 
 #Default installation folders
 emulationPath=~/Emulation
