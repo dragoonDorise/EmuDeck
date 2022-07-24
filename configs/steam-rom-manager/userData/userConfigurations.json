@@ -1286,7 +1286,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Nintendo NES - Retroarch - Nestopia UE",
+    "configTitle": "Nintendo NES - Retroarch - Mesen",
     "steamCategory": "${NES}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/nes",
