@@ -19,14 +19,14 @@ jobs:
           severity: error
         env:
          SHELLCHECK_OPTS: -x
-  markdownlint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: markdownlint-cli
-        uses: nosborn/github-action-markdown-cli@v3.1.0
-        with:
-          files: .
+#  markdownlint:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: markdownlint-cli
+#        uses: nosborn/github-action-markdown-cli@v3.1.0
+#        with:
+#          files: .
   PSScriptAnalyzer:
     runs-on: ubuntu-latest
     steps:
