@@ -42,8 +42,8 @@ Xemu_setEmulationFolder(){
 
     bootrrom_pathSetting="${bootrrom_path}""'${biosPath}/mcpx_1.0.bin'"
 	flashrom_pathSetting="${flashrom_path}""'${biosPath}/Complex_4627v1.03.bin'"
-	eeprom_pathSetting="${eeprom_path}""'${storagePath}xemu/eeprom.bin'"
-	hdd_pathSetting="${hdd_path}""'${storagePath}xemu/xbox_hdd.qcow2'"
+	eeprom_pathSetting="${eeprom_path}""'${storagePath}/xemu/eeprom.bin'"
+	hdd_pathSetting="${hdd_path}""'${storagePath}/xemu/xbox_hdd.qcow2'"
 
     changeLine "${bootrrom_path}" "${bootrrom_pathSetting}" "$configFile"
     changeLine "${flashrom_path}" "${flashrom_pathSetting}" "$configFile"
@@ -59,11 +59,11 @@ Xemu_setupSaves(){
 
 #SetupStorage
 Xemu_setupStorage(){
-	mkdir -p "${storagePath}xemu"
-	flatpak override app.xemu.xemu --filesystem="${storagePath}xemu":rw --user
-	if [[ ! -f "${storagePath}xemu/xbox_hdd.qcow2" ]]; then
-		mkdir -p "${storagePath}xemu"
-		cd "${storagePath}xemu"
+	mkdir -p "${storagePath}/xemu"
+	flatpak override app.xemu.xemu --filesystem="${storagePath}/xemu":rw --user
+	if [[ ! -f "${storagePath}/xemu/xbox_hdd.qcow2" ]]; then
+		mkdir -p "${storagePath}/xemu"
+		cd "${storagePath}/xemu"
 		curl -L https://github.com/mborgerson/xemu-hdd-image/releases/latest/download/xbox_hdd.qcow2.zip -o xbox_hdd.qcow2.zip && unzip -j xbox_hdd.qcow2.zip && rm -rf xbox_hdd.qcow2.zip
 	fi
 }
@@ -96,7 +96,7 @@ Xemu_migrate(){
 		echo -e ""
 		
 		if [ -f "${savesPath}/xemu/xbox_hdd.qcow2" ]; then
-			mv -fv ${savesPath}/xemu/* ${storagePath}xemu/ && rm -rf ${savesPath}/xemu/
+			mv -fv ${savesPath}/xemu/* ${storagePath}/xemu/ && rm -rf ${savesPath}/xemu/
 
 		elif [ -f "$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xbox_hdd.qcow2" ]; then
 			mv "$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xbox_hdd.qcow2" $storagePath/xemu/

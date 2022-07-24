@@ -53,9 +53,9 @@ PCSX2QT_setEmulationFolder(){
 	newsnapShotsDirOpt='Snapshots = '"${storagePath}/pcsx2/snaps"
 	newsaveStatesDirOpt='SaveStates = '"${savesPath}/pcsx2/states"
 	newmemoryCardsDirOpt='MemoryCards = '"${savesPath}/pcsx2/saves"
-	newcacheDirOpt='Cache = '"${storagePath}pcsx2/cache"
-	newtexturesDirOpt='Textures = '"${storagePath}pcsx2/textures"
-	newcoversDirOpt='Covers = '"${storagePath}pcsx2/covers"
+	newcacheDirOpt='Cache = '"${storagePath}/pcsx2/cache"
+	newtexturesDirOpt='Textures = '"${storagePath}/pcsx2/textures"
+	newcoversDirOpt='Covers = '"${storagePath}/pcsx2/covers"
 	newrecursivePathsDirOpt='RecursivePaths = '"${romsPath}/ps2"
 
 
@@ -82,10 +82,10 @@ PCSX2QT_setupSaves(){
 #SetupStorage
 PCSX2QT_setupStorage(){
     echo "Begin PCSX2-QT storage config"
-    mkdir -p "${storagePath}pcsx2/snaps"
-    mkdir -p "${storagePath}pcsx2/cache"
-    mkdir -p "${storagePath}pcsx2/textures"
-    mkdir -p "${storagePath}pcsx2/covers"
+    mkdir -p "${storagePath}/pcsx2/snaps"
+    mkdir -p "${storagePath}/pcsx2/cache"
+    mkdir -p "${storagePath}/pcsx2/textures"
+    mkdir -p "${storagePath}/pcsx2/covers"
 }
 
 

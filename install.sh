@@ -310,7 +310,7 @@ if [ "$zenity" == true ]; then
 	setSetting toolsPath "${destination}/Emulation/tools"
 	setSetting biosPath "${destination}/Emulation/bios"
 	setSetting savesPath "${destination}/Emulation/saves"
-	setSetting storagePath "${destination}/Emulation/storage/"
+	setSetting storagePath "${destination}/Emulation/storage"
 	setSetting ESDEscrapData "${destination}/Emulation/tools/downloaded_media/"
 
 	#Folder creation... This code is repeated outside of this if for the no zenity mode

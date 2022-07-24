@@ -39,19 +39,19 @@ RPCS3_setEmulationFolder(){
 
 #SetupSaves
 RPCS3_setupSaves(){
-	linkToSaveFolder rpcs3 saves "${storagePath}rpcs3/dev_hdd0/home/00000001/savedata"
+	linkToSaveFolder rpcs3 saves "${storagePath}/rpcs3/dev_hdd0/home/00000001/savedata"
 }
 
 
 #SetupStorage
 RPCS3_setupStorage(){
 	rpcs3VFSConf="$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/vfs.yml"
-	rpcs3DevHDD0Line="/dev_hdd0/: ${storagePath}rpcs3/dev_hdd0/"
+	rpcs3DevHDD0Line="/dev_hdd0/: ${storagePath}/rpcs3/dev_hdd0/"
 	sed -i "/dev_hdd0/c\\${rpcs3DevHDD0Line}" $rpcs3VFSConf 
 
 	mkdir -p $storagePath/rpcs3/
 
-	if [ ! -d "$storagePath"rpcs3/dev_hdd0 ] && [ -d "$HOME/.var/app/${RPCS3_emuPath}/" ];then
+	if [ ! -d "$storagePath"/rpcs3/dev_hdd0 ] && [ -d "$HOME/.var/app/${RPCS3_emuPath}/" ];then
 		echo "rpcs3 hdd does not exist in storagepath."
 
 		echo -e ""
@@ -61,10 +61,10 @@ RPCS3_setupStorage(){
 		mkdir -p "$storagePath/rpcs3" 
 
 		if [ -d "$savesPath/rpcs3/dev_hdd0" ]; then
-			mv -f "$savesPath"rpcs3/dev_hdd0 "$storagePath"rpcs3/
+			mv -f "$savesPath"/rpcs3/dev_hdd0 "$storagePath"/rpcs3/
 
 		elif [ -d "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0" ]; then	
-			rsync -av "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0" "$storagePath"rpcs3/ && rm -rf "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0"
+			rsync -av "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0" "$storagePath"/rpcs3/ && rm -rf "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0"
 
 		fi
 	fi

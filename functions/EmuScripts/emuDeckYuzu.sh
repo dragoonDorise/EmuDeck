@@ -63,13 +63,13 @@ Yuzu_setEmulationFolder(){
     nandDirOpt='nand_directory='
     sdmcDirOpt='sdmc_directory='
     tasDirOpt='tas_directory='
-    newScreenshotDirOpt='Screenshots\\screenshot_path='"${storagePath}yuzu/screenshots"
+    newScreenshotDirOpt='Screenshots\\screenshot_path='"${storagePath}/yuzu/screenshots"
     newGameDirOpt='Paths\\gamedirs\\4\\path='"${romsPath}/switch"
-    newDumpDirOpt='dump_directory='"${storagePath}yuzu/dump"
-    newLoadDir='load_directory='"${storagePath}yuzu/load"
-    newNandDirOpt='nand_directory='"${storagePath}yuzu/nand"
-    newSdmcDirOpt='sdmc_directory='"${storagePath}yuzu/sdmc"
-    newTasDirOpt='tas_directory='"${storagePath}yuzu/tas"
+    newDumpDirOpt='dump_directory='"${storagePath}/yuzu/dump"
+    newLoadDir='load_directory='"${storagePath}/yuzu/load"
+    newNandDirOpt='nand_directory='"${storagePath}/yuzu/nand"
+    newSdmcDirOpt='sdmc_directory='"${storagePath}/yuzu/sdmc"
+    newTasDirOpt='tas_directory='"${storagePath}/yuzu/tas"
 
 
     sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" "$configFile"
@@ -85,12 +85,12 @@ Yuzu_setEmulationFolder(){
     unlink "${biosPath}/yuzu/firmware"
 
     mkdir -p "$HOME/.local/share/yuzu/keys/"
-    mkdir -p "${storagePath}yuzu/nand/system/Contents/registered/"
+    mkdir -p "${storagePath}/yuzu/nand/system/Contents/registered/"
 
     ln -sn "$HOME/.local/share/yuzu/keys/" "${biosPath}/yuzu/keys"
-    ln -sn "${storagePath}yuzu/nand/system/Contents/registered/" "${biosPath}/yuzu/firmware"
+    ln -sn "${storagePath}/yuzu/nand/system/Contents/registered/" "${biosPath}/yuzu/firmware"
 
-    touch "${storagePath}yuzu/nand/system/Contents/registered/putfirmwarehere.txt"
+    touch "${storagePath}/yuzu/nand/system/Contents/registered/putfirmwarehere.txt"
 
 }
 
@@ -98,19 +98,19 @@ Yuzu_setEmulationFolder(){
 Yuzu_setupSaves(){
     echo "Begin Yuzu save link"
 	unlink "${savesPath}/yuzu/saves" # Fix for previous bad symlink
-	linkToSaveFolder yuzu saves "${storagePath}yuzu/nand/user/save/"
+	linkToSaveFolder yuzu saves "${storagePath}/yuzu/nand/user/save/"
 }
 
 
 #SetupStorage
 Yuzu_setupStorage(){
     echo "Begin Yuzu storage config"
-    mkdir -p "${storagePath}yuzu/dump"
-    mkdir -p "${storagePath}yuzu/load"
-    mkdir -p "${storagePath}yuzu/sdmc"
-    mkdir -p "${storagePath}yuzu/nand"
-    mkdir -p "${storagePath}yuzu/screenshots"
-    mkdir -p "${storagePath}yuzu/tas"
+    mkdir -p "${storagePath}/yuzu/dump"
+    mkdir -p "${storagePath}/yuzu/load"
+    mkdir -p "${storagePath}/yuzu/sdmc"
+    mkdir -p "${storagePath}/yuzu/nand"
+    mkdir -p "${storagePath}/yuzu/screenshots"
+    mkdir -p "${storagePath}/yuzu/tas"
 }
 
 
@@ -150,12 +150,12 @@ Yuzu_migrate(){
 
 	Yuzu_setupStorage
 	
-	rsync -av "${origPath}yuzu/dump" "${storagePath}yuzu/" && rm -rf "${origPath}yuzu/dump"
-	rsync -av "${origPath}yuzu/load" "${storagePath}yuzu/" && rm -rf "${origPath}yuzu/load"
-	rsync -av "${origPath}yuzu/sdmc" "${storagePath}yuzu/" && rm -rf "${origPath}yuzu/sdmc"
-	rsync -av "${origPath}yuzu/nand" "${storagePath}yuzu/" && rm -rf "${origPath}yuzu/nand"
-	rsync -av "${origPath}yuzu/screenshots" "${storagePath}yuzu/" && rm -rf "${origPath}yuzu/screenshots"
-	rsync -av "${origPath}yuzu/tas" "${storagePath}yuzu/" && rm -rf "${origPath}yuzu/tas"
+	rsync -av "${origPath}yuzu/dump" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/dump"
+	rsync -av "${origPath}yuzu/load" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/load"
+	rsync -av "${origPath}yuzu/sdmc" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/sdmc"
+	rsync -av "${origPath}yuzu/nand" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/nand"
+	rsync -av "${origPath}yuzu/screenshots" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/screenshots"
+	rsync -av "${origPath}yuzu/tas" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/tas"
 }
 
 #setABXYstyle
