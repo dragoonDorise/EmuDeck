@@ -555,6 +555,7 @@ if [ "$zenity" == true ]; then
 			emuTable=()
 			emuTable+=(TRUE "Dolphin")
 			emuTable+=(TRUE "Duckstation")
+			emuTable+=(TRUE "PCSX2-QT")
 			emuTable+=(TRUE "RA-BeetlePSX")
 			emuTable+=(TRUE "RA-Flycast")
 			emuTable+=(TRUE "Xemu")
@@ -599,7 +600,11 @@ if [ "$zenity" == true ]; then
 				else
 					setSetting XemuWide false
 				fi			
-				
+				if [[ "$wideToInstall" == *"PCSX2-QT"* ]]; then	
+					setSetting PCSX2QTWide true
+				else
+					setSetting PCSX2QTWide false
+				fi
 			else		
 				exit		
 			fi			
