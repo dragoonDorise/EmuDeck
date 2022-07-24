@@ -156,6 +156,7 @@ fi
 git status "$EMUDECKGIT" --porcelain
 if [[ ! $noPull == true ]]; then
 	git fetch origin
+	git checkout origin/$branch
 	git reset --hard origin/$branch
 	git clean -ffdx
 fi
