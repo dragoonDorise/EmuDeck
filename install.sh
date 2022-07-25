@@ -754,6 +754,7 @@ source "$EMUDECKGIT/functions/all.sh"
 #Only on Zenity for now
 if [ "$zenity" == true ]; then
 	if [[ $isRealDeck == false ]]; then
+		echo "OS_setupPrereqsArch"
 		OS_setupPrereqsArch
 	fi
 fi
@@ -764,63 +765,80 @@ chmod +x "${toolsPath}/proton-launch.sh"
 
 #ESDE Installation
 if [ $doInstallESDE == "true" ]; then
+	echo "install esde"
 	ESDE_install		
 fi
 #SRM Installation
 if [ $doInstallSRM == "true" ]; then
+	echo "install srm"
 	SRM_install
 fi
 #Emulators Installation
-if [ "$doInstallPCSX2" == "true" ]; then	
+if [ "$doInstallPCSX2" == "true" ]; then
+	echo "install pcsx2"
 	PCSX2_install
 fi
 if [ "$doInstallPCSX2QT" == "true" ]; then	
+	echo "install pcsx2Qt"
 	PCSX2QT_install
 fi
 if [ $doInstallPrimeHacks == "true" ]; then
+	echo "install primehack"
 	Primehack_install
 fi
 if [ $doInstallRPCS3 == "true" ]; then
+	echo "install rpcs3"
 	RPCS3_install
 fi
 if [ $doInstallCitra == "true" ]; then
+	echo "install Citra"
 	Citra_install
 fi
 if [ $doInstallDolphin == "true" ]; then
+	echo "install Dolphin"	
 	Dolphin_install
 fi
 if [ $doInstallDuck == "true" ]; then
+	echo "DuckStation_install"
 	DuckStation_install
 fi
 if [ $doInstallRA == "true" ]; then
+	echo "RetroArch_install"
 	RetroArch_install	
 fi
 if [ $doInstallPPSSPP == "true" ]; then
+	echo "PPSSPP_install"
 	PPSSPP_install	
 fi
 if [ $doInstallYuzu == "true" ]; then	
+	echo "Yuzu_install"
 	Yuzu_install
 fi
 if [ $doInstallXemu == "true" ]; then
+	echo "Xemu_install"
 	Xemu_install
 fi
 if [ $doInstallCemu == "true" ]; then
+	echo "Cemu_install"
 	Cemu_install
 fi
 
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ "$doInstallXenia" == "true" ]; then
+	echo "Xenia_install"
 	Xenia_install
 fi
 
 #Steam RomManager Config
 
 if [ "$doSetupSRM" == "true" ]; then
+	echo "SRM_init"
 	SRM_init
 fi
 
 #ESDE Config
 if [ "$doSetupESDE" == "true" ]; then
+	echo "ESDE_init"
 	ESDE_init
 fi	
 
@@ -831,43 +849,56 @@ fi
 setMSG "Configuring emulators.."
 
 if [ "$doSetupRA" == "true" ]; then
+	echo "RetroArch_init"
 	RetroArch_init
 fi
 if [ "$doSetupPrimeHacks" == "true" ]; then
+	echo "Primehack_init"
 	Primehack_init
 fi
 if [ "$doSetupDolphin" == "true" ]; then
+	echo "Dolphin_init"
 	Dolphin_init
 fi
 if [ "$doSetupPCSX2" == "true" ]; then
+	echo "PCSX2_init"
 	PCSX2_init
 fi
 if [ "$doSetupPCSX2QT" == "true" ]; then
+	echo "PCSX2QT_init"
 	PCSX2QT_init
 fi
 if [ "$doSetupRPCS3" == "true" ]; then
+	echo "RPCS3_init"
 	RPCS3_init
 fi
 if [ "$doSetupCitra" == "true" ]; then
+	echo "Citra_init"
 	Citra_init
 fi
 if [ "$doSetupDuck" == "true" ]; then
+	echo "DuckStation_init"
 	DuckStation_init
 fi
 if [ "$doSetupYuzu" == "true" ]; then
+	echo "Yuzu_init"
 	Yuzu_init
 fi
 if [ "$doSetupPPSSPP" == "true" ]; then
+	echo "PPSSPP_init"
 	PPSSPP_init
 fi
 if [ "$doSetupXemu" == "true" ]; then
+	echo "Xemu_init"
 	Xemu_init
 fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then
+	echo "Cemu_init"
 	Cemu_init
 fi
 if [ "$doSetupXenia" == "true" ]; then
+	echo "Xenia_init"
 	Xenia_init
 fi
 
