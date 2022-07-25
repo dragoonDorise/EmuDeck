@@ -1086,7 +1086,7 @@ if [ -f "$FILE" ]; then
 	echo -e "" 2>/dev/null
 else
 	if [ "$zenity" == true ]; then
-	text="$(printf "<b>Yuzu is not configured</b>\nYou need to copy your Keys and firmware to: \n${biosPath}yuzu/keys\n${biosPath}yuzu/firmware\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them</b>")"
+	text="$(printf "<b>Yuzu is not configured</b>\nYou need to copy your Keys and firmware to: \n${biosPath}\yuzu/keys\n${biosPath}\yuzu/firmware\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them</b>")"
 	zenity --error \
 			--title="EmuDeck" \
 			--width=400 \
