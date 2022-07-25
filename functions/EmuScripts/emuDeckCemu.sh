@@ -23,9 +23,9 @@ Cemu_install(){
 	rm -rf "$romsPath"/wiiu/tmp 
 	rm -f "$romsPath"/wiiu/cemu.zip
 	
-	cp "$EMUDECKGIT/tools/launchers/cemu.sh" "${toolsPath}"/launchers/cemu.sh
-	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|" "${toolsPath}"/launchers/cemu.sh
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/wiiu|${romsPath}/wiiu|" "${toolsPath}"/launchers/cemu.sh
+	cp "$EMUDECKGIT/tools/launchers/cemu.sh" "${toolsPath}/launchers/cemu.sh"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|" "${toolsPath}/launchers/cemu.sh"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms/wiiu|${romsPath}/wiiu|" "${toolsPath}/launchers/cemu.sh"
 	chmod +x "${toolsPath}"/launchers/cemu.sh
 	
 }
@@ -33,7 +33,7 @@ Cemu_install(){
 #ApplyInitialSettings
 Cemu_init(){
 	setMSG "Initializing $Cemu_emuName settings."	
-	rsync -avhp $EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/ "${romsPath}/wiiu"
+	rsync -avhp "$EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu"
     Cemu_setEmulationFolder
 	Cemu_setupSaves
 	Cemu_addSteamInputProfile
@@ -43,13 +43,13 @@ Cemu_init(){
 Cemu_update(){
 	setMSG "Updating $Cemu_emuName settings."	
 	
-    if [ -f $Cemu_cemuSettings ]; then
-	    mv -f $Cemu_cemuSettings $Cemu_cemuSettings.bak #retain cemusettings if it exists to stop wiping peoples mods. Just insert our search path for installed games.
+    if [ -f "$Cemu_cemuSettings" ]; then
+	    mv -f "$Cemu_cemuSettings" "$Cemu_cemuSettings".bak #retain cemusettings if it exists to stop wiping peoples mods. Just insert our search path for installed games.
 	fi
-    rsync -avhp $EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/ "${romsPath}/wiiu"
-	if [ -f $Cemu_cemuSettings.bak ]; then
-	   	rm $Cemu_cemuSettings
-		mv -f $Cemu_cemuSettings.bak $Cemu_cemuSettings
+    rsync -avhp "$EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu"
+	if [ -f "$Cemu_cemuSettings.bak" ]; then
+	   	rm "$Cemu_cemuSettings"
+		mv -f "$Cemu_cemuSettings.bak" "$Cemu_cemuSettings"
 	fi
     Cemu_setEmulationFolder
 	Cemu_setupSaves

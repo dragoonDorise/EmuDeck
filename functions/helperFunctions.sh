@@ -35,7 +35,7 @@ function getScreenAR(){
 }
 
 function pause(){
-   read -p "$*"
+   read -rp "$*"
 }
 
 # keyword replacement file. Only matches start of word
@@ -192,7 +192,7 @@ function getEnvironmentDetails(){
 	local productName=$(getProductName)
 	local aspectRatio=$(getScreenAR)
 	local json="{ \"Home\": \"$HOME\", \"Hostname\": \"$HOSTNAME\", \"Username\": \"$USER\", \"SDPath\": \"$sdpath\", \"IsSDValid?\": \"$sdValid\", \"FirstRun?\": \"$firstRun\",\"ProductName\": \"$productName\",\"AspectRatio\": \"$aspectRatio\",\"UName\": \"$uname\" }"
-	jq <<< "$json"
+	jq -r <<< "$json"
 }
 
 function checkForFile(){
