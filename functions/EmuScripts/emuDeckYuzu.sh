@@ -9,10 +9,9 @@ Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
 Yuzu_cleanup(){
     echo "Begin Yuzu Cleanup"
     #Fixes repeated Symlink for older installations
-    cd "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/"
-    unlink keys 
-    cd "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/"
-    unlink registered 
+    unlink "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys"
+    unlink "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/registered"
+    
 }
 
 #Install
@@ -125,7 +124,7 @@ Yuzu_wipe(){
 #Uninstall
 Yuzu_uninstall(){
     echo "Begin Yuzu uninstall"
-    rm -rf "$emuPath"
+    rm -rf "$Yuzu_emuPath"
 }
 
 
