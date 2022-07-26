@@ -1361,7 +1361,7 @@ RetroArch_installCores(){
 	#This is all the cores combined, and dupes taken out.
 	RAcores=(81_libretro.so a5200_libretro.so atari800_libretro.so blastem_libretro.so bluemsx_libretro.so bsnes_hd_beta_libretro.so bsnes_libretro.so \
 			bsnes_mercury_accuracy_libretro.so cap32_libretro.so chailove_libretro.so citra2018_libretro.so citra_libretro.so crocods_libretro.so desmume2015_libretro.so \
-			desmume_libretro.so dolphin_libretro.so dosbox_core_libretro.so dosbox_pure_libretro.so dosbox_svn_libretro.so libretro.so fbalpha2012_cps1_libretro.so \
+			desmume_libretro.so dolphin_libretro.so dosbox_core_libretro.so dosbox_pure_libretro.so dosbox_svn_libretro.so easyrpg_libretro.so fbalpha2012_cps1_libretro.so \
 			fbalpha2012_cps3_libretro.so fbalpha2012_libretro.so fbalpha2012_neogeo_libretro.so fbneo_libretro.so fceumm_libretro.so flycast_libretro.so fmsx_libretro.so \
 			fbalpha2012_cps2_libretro.so freechaf_libretro.so freeintv_libretro.so frodo_libretro.so fuse_libretro.so gambatte_libretro.so gearboy_libretro.so gearsystem_libretro.so \
 			genesis_plus_gx_libretro.so genesis_plus_gx_wide_libretro.so gpsp_libretro.so gw_libretro.so handy_libretro.so hatari_libretro.so \
@@ -1400,8 +1400,24 @@ RetroArch_installCores(){
 		 rm -f "$entry" 
 	done
 
+	RetroArch_dlAdditionalFiles
 
 }
+
+function RetroArch_dlAdditionalFiles(){
+	#EasyRPG
+	bios/rtp/2000 https://dl.degica.com/rpgmakerweb/run-time-packages/rpg2003_rtp_installer.zip
+	bios/rtp/2003 https://dl.degica.com/rpgmakerweb/run-time-packages/rpg2000_rtp_installer.exe
+
+	mkdir -p "$biosPath/rtp/2000"
+	mkdir -p "$biosPath/rtp/2003"
+
+	curl -L https://dl.degica.com/rpgmakerweb/run-time-packages/rpg2003_rtp_installer.zip --output "$biosPath/rtp/2003/rpg2003.zip"
+	curl -L https://dl.degica.com/rpgmakerweb/run-time-packages/rpg2000_rtp_installer.exe --output "$biosPath/rtp/2003/rpg2000.zip"
+
+
+}
+
 
 function RetroArch_resetCoreConfigs(){
 
