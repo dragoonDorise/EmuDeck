@@ -9,7 +9,6 @@ mkdir -p "$HOME/emudeck"
 PIDFILE="$HOME/emudeck/install.pid"
 
 devMode=$1
-echo $devMode
 
 if [ -f "$PIDFILE" ]; then
   PID=$(cat "$PIDFILE")
@@ -155,10 +154,9 @@ fi
 
 git status "$EMUDECKGIT" --porcelain
 if [[ ! $noPull == true ]]; then
-	git fetch origin
-	git checkout origin/$branch
-	git reset --hard origin/$branch
-	git clean -ffdx
+	cd "$EMUDECKGIT"
+	git fetch origin  && git checkout origin/$branch  &&	git reset --hard origin/$branch && git clean -ffdx
+	
 fi
 
 
