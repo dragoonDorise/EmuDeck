@@ -697,8 +697,24 @@ if [ "$zenity" == true ]; then
 		setSetting doInstallPrimeHacks true
 		setSetting doInstallPPSSPP true
 		setSetting doInstallXemu true
+		setSetting doInstallXenia true
 		#doInstallMelon=true
-	
+
+		setSetting doSetupRA true
+		setSetting doSetupPrimeHacks true
+		setSetting doSetupDolphin true
+		setSetting doSetupPCSX2 true
+		setSetting doSetupPCSX2QT true
+		setSetting doSetupRPCS3 true
+		setSetting doSetupCitra true
+		setSetting doSetupDuck true
+		setSetting doSetupYuzu true
+		setSetting doSetupPPSSPP true
+		setSetting doSetupXemu true
+		setSetting doSetupCemu true
+		setSetting doSetupXenia false
+
+
 		#widescreen off by default
 		setSetting duckWide false
 		setSetting DolphinWide false

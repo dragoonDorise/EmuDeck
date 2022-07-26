@@ -17,7 +17,7 @@ Yuzu_cleanup(){
 #Install
 Yuzu_install(){
     echo "Begin Yuzu Install"
-    installEmuAI "yuzu"  "$(getLatestReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage")" #needs to be lowercase yuzu for EsDE to find it.
+    installEmuAI "yuzu"  "$(getReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage")" #needs to be lowercase yuzu for EsDE to find it.
     flatpak override org.yuzu_emu.yuzu --filesystem=host --user # still doing this, as we do link the appimage / flatpak config. if the user ever decides to install the flatpak, we do want it to work.
 }
 

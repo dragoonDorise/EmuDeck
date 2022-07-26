@@ -218,19 +218,20 @@ function checkForFile(){
 function getLatestReleaseURLGH(){	
     local repository=$1
     local fileType=$2
+	local url
 
     if [ "$url" == "" ]; then
         url="https://api.github.com/repos/${repository}/releases/latest"
     fi
 
     url="$(curl -sL $url | jq -r ".assets[].browser_download_url" | grep -ve 'i386' | grep .${fileType}\$)"
-
     echo "$url"
 }
 
 function getReleaseURLGH(){	
     local repository=$1
     local fileType=$2
+	local url
 
     if [ "$url" == "" ]; then
         url="https://api.github.com/repos/$repository/releases"
