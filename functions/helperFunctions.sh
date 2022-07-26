@@ -298,7 +298,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("arSnes=43")
 	defaultSettingsList+=("RAHandClassic2D=false")
 	defaultSettingsList+=("RAHandHeldShader=false")
-	defaultSettingsList+=("FakeSetting=false")
+
 
 	for setting in "${defaultSettingsList[@]}"
 		do
