@@ -1400,20 +1400,17 @@ RetroArch_installCores(){
 		 rm -f "$entry" 
 	done
 
-	RetroArch_dlAdditionalFiles
+	#RetroArch_dlAdditionalFiles
 
 }
 
 function RetroArch_dlAdditionalFiles(){
 	#EasyRPG
-	bios/rtp/2000 https://dl.degica.com/rpgmakerweb/run-time-packages/rpg2003_rtp_installer.zip
-	bios/rtp/2003 https://dl.degica.com/rpgmakerweb/run-time-packages/rpg2000_rtp_installer.exe
-
 	mkdir -p "$biosPath/rtp/2000"
 	mkdir -p "$biosPath/rtp/2003"
 
 	curl -L https://dl.degica.com/rpgmakerweb/run-time-packages/rpg2003_rtp_installer.zip --output "$biosPath/rtp/2003/rpg2003.zip"
-	curl -L https://dl.degica.com/rpgmakerweb/run-time-packages/rpg2000_rtp_installer.exe --output "$biosPath/rtp/2003/rpg2000.zip"
+	curl -L https://dl.degica.com/rpgmakerweb/run-time-packages/rpg2000_rtp_installer.exe --output "$biosPath/rtp/2000/rpg2000.zip"
 
 
 }
