@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#Global variables
+emuDecksettingsFile="$HOME/emudeck/settings.sh"
+
 function getScreenAR(){
 	local productName
 	productName=$(getProductName)
@@ -147,7 +150,26 @@ function setAllEmuPaths(){
 	done
 }
 
-
+function setSetting () {
+	local var=$1
+	local new_val=$2	
+	settingExists=$(grep -rw "$emuDecksettingsFile" -e "$var")
+	if [[ $settingExists == '' ]]; then
+		#insert setting to end
+		echo "variable not found in settings. Adding $var=$new_val to $emuDecksettingsFile"
+		sed -i -e '$a\'"$var=$new_val" "$emuDecksettingsFile"
+	elif [[ ! $settingExists == '' ]]; then
+		echo "Old value $settingExists"
+			if [[ $settingExists == "$var=$new_val" ]]; then
+				echo "Setting unchanged, skipping"
+			else
+				changeLine "$var" "$var=$new_val" "$emuDecksettingsFile"
+			fi
+	fi
+	#Update values
+	# shellcheck source=settings.sh
+	source "$emuDecksettingsFile"
+}
 
 function installAll(){
 	for func in $(compgen -A 'function' | grep '\_install$')
@@ -193,6 +215,104 @@ function getEnvironmentDetails(){
 	local aspectRatio=$(getScreenAR)
 	local json="{ \"Home\": \"$HOME\", \"Hostname\": \"$HOSTNAME\", \"Username\": \"$USER\", \"SDPath\": \"$sdpath\", \"IsSDValid?\": \"$sdValid\", \"FirstRun?\": \"$firstRun\",\"ProductName\": \"$productName\",\"AspectRatio\": \"$aspectRatio\",\"UName\": \"$uname\" }"
 	jq -r <<< "$json"
+}
+
+function getSetting(){
+	local setting=$1
+	cut -d "=" -f2 <<< "$(grep -r "^${setting}=" "$emuDecksettingsFile")"
+}
+
+function createUpdateSettingsFile(){
+	#!/bin/bash
+
+	if [ ! -e "$emuDecksettingsFile" ]; then
+		echo "#!/bin/bash"> "$emuDecksettingsFile"
+	fi
+	local defaultSettingsList=()
+	defaultSettingsList+=("expert=false")
+	defaultSettingsList+=("doSetupRA=true")
+	defaultSettingsList+=("doSetupDolphin=true")
+	defaultSettingsList+=("doSetupPCSX2=true")
+	defaultSettingsList+=("doSetupRPCS3=true")
+	defaultSettingsList+=("doSetupYuzu=true")
+	defaultSettingsList+=("doSetupCitra=true")
+	defaultSettingsList+=("doSetupDuck=true")
+	defaultSettingsList+=("doSetupCemu=true")
+	defaultSettingsList+=("doSetupXenia=false")
+	defaultSettingsList+=("doSetupRyujinx=false")
+	defaultSettingsList+=("doSetupPrimeHacks=true")
+	defaultSettingsList+=("doSetupPPSSPP=true")
+	defaultSettingsList+=("doSetupXemu=true")
+	defaultSettingsList+=("doSetupESDE=true")
+	defaultSettingsList+=("doSetupSRM=true")
+	defaultSettingsList+=("doSetupPCSX2QT=true")
+	#defaultSettingsList+=("doSetupMelon=true")
+	defaultSettingsList+=("doInstallSRM=true")
+	defaultSettingsList+=("doInstallESDE=true")
+	defaultSettingsList+=("doInstallRA=true")
+	defaultSettingsList+=("doInstallDolphin=true")
+	defaultSettingsList+=("doInstallPCSX2=true")
+	defaultSettingsList+=("doInstallRPCS3=true")
+	defaultSettingsList+=("doInstallYuzu=true")
+	defaultSettingsList+=("doInstallCitra=true")
+	defaultSettingsList+=("doInstallDuck=true")
+	defaultSettingsList+=("doInstallCemu=true")
+	defaultSettingsList+=("doInstallXenia=true")
+	defaultSettingsList+=("doInstallPrimeHacks=true")
+	defaultSettingsList+=("doInstallPPSSPP=true")
+	defaultSettingsList+=("doInstallXemu=true")
+	defaultSettingsList+=("doInstallPCSX2QT=true")
+	#defaultSettingsList+=("doInstallMelon=false")
+	defaultSettingsList+=("doInstallCHD=true")
+	defaultSettingsList+=("doInstallPowertools=false")
+	defaultSettingsList+=("doInstallGyro=false")
+	defaultSettingsList+=("installString='Installing'")
+	defaultSettingsList+=("RABezels=true")
+	defaultSettingsList+=("RAautoSave=false")
+	defaultSettingsList+=("SNESAR=43")
+	defaultSettingsList+=("duckWide=false")
+	defaultSettingsList+=("DolphinWide=false")
+	defaultSettingsList+=("DreamcastWide=false")
+	defaultSettingsList+=("BeetleWide=false")
+	defaultSettingsList+=("pcsx2QTWide=false")
+	defaultSettingsList+=("emulationPath=$HOME/Emulation")
+	defaultSettingsList+=("romsPath=$HOME/Emulation/roms")
+	defaultSettingsList+=("toolsPath=$HOME/Emulation/tools")
+	defaultSettingsList+=("biosPath=$HOME/Emulation/bios")
+	defaultSettingsList+=("savesPath=$HOME/Emulation/saves")
+	defaultSettingsList+=("storagePath=$HOME/Emulation/storage")
+	defaultSettingsList+=("ESDEscrapData=$HOME/Emulation/tools/downloaded_media")
+	defaultSettingsList+=("esdeTheme=EPICNOIR")
+	defaultSettingsList+=("doSelectWideScreen=false")
+	defaultSettingsList+=("doRASignIn=false")
+	defaultSettingsList+=("doRAEnable=false")
+	defaultSettingsList+=("doESDEThemePicker=false")
+	defaultSettingsList+=("doSelectEmulators=false")
+	defaultSettingsList+=("doResetEmulators=false")
+	defaultSettingsList+=("XemuWide=false")
+	defaultSettingsList+=("achievementsPass=false")
+	defaultSettingsList+=("achievementsUser=false")
+	defaultSettingsList+=("arClassic3D=43")
+	defaultSettingsList+=("arDolphin=43")
+	defaultSettingsList+=("arSega=43")
+	defaultSettingsList+=("arSnes=43")
+	defaultSettingsList+=("RAHandClassic2D=false")
+	defaultSettingsList+=("RAHandHeldShader=false")
+	defaultSettingsList+=("FakeSetting=false")
+
+	for setting in "${defaultSettingsList[@]}"
+		do
+			local settingName=$(cut -d "=" -f1 <<< "$setting")
+			local settingVal=$(cut -d "=" -f2 <<< "$setting")
+			if grep -r "^${settingName}=" "$emuDecksettingsFile" &>/dev/null; then
+				echo "Setting: $settingName found. CurrentValue: $(getSetting "$settingName")"
+			else
+				echo "Setting: $settingName NOT found. adding to $emuDecksettingsFile with default value: $settingVal"
+				setSetting "$settingName" "$settingVal"
+			fi
+		done
+
+
 }
 
 function checkForFile(){

@@ -3,6 +3,9 @@ if [[ "$EMUDECKGIT" == "" ]]; then
     EMUDECKGIT="$HOME/emudeck/backend"
 fi
 
+#load helpers first, just in case
+source "$EMUDECKGIT"/functions/helperFunctions.sh
+
 SETTINGSFILE="$HOME/emudeck/settings.sh"
 if [ -f "$SETTINGSFILE" ]; then
     # shellcheck source=./settings.sh
@@ -18,7 +21,6 @@ source "$EMUDECKGIT"/functions/checkPSBIOS.sh
 source "$EMUDECKGIT"/functions/configEmuAI.sh
 source "$EMUDECKGIT"/functions/configEmuFP.sh
 source "$EMUDECKGIT"/functions/createDesktopIcons.sh
-source "$EMUDECKGIT"/functions/helperFunctions.sh
 source "$EMUDECKGIT"/functions/installEmuFP.sh
 source "$EMUDECKGIT"/functions/setMSG.sh
 source "$EMUDECKGIT"/functions/emuDeckPrereqs.sh

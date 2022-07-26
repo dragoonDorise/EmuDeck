@@ -65,9 +65,11 @@ rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
 rm -rf ~/dragoonDoriseTools
 
 #Creating log file
-mv "$HOME/emudeck/emudeck.log" "$HOME/emudeck/emudeck.last.log" #backup last log
-echo "${@}" > "$HOME/emudeck/emudeck.log" #might as well log out the parameters of the run
 LOGFILE="$HOME/emudeck/emudeck.log"
+
+mv "${LOGFILE}" "$HOME/emudeck/emudeck.last.log" #backup last log
+
+echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
 exec > >(tee "${LOGFILE}") 2>&1
 date "+%Y.%m.%d-%H:%M:%S %Z"
 #Mark if this not a fresh install
@@ -196,9 +198,16 @@ source "$EMUDECKGIT/functions/all.sh"
 #
 #Environment Check
 #
-
+echo ""
+echo "Env Details: "
 getEnvironmentDetails
 testRealDeck
+
+#this sets up the settings file with defaults, in case they don't have a new setting we've added.
+#also echos them all out so they are in the log.
+echo "Setup Settings File: "
+createUpdateSettingsFile
+
 
 
 if [ "$zenity" == true ]; then
@@ -697,7 +706,7 @@ if [ "$zenity" == true ]; then
 		setSetting doInstallPrimeHacks true
 		setSetting doInstallPPSSPP true
 		setSetting doInstallXemu true
-		setSetting doInstallXenia true
+		setSetting doInstallXenia false
 		#doInstallMelon=true
 
 		setSetting doSetupRA true
@@ -756,8 +765,9 @@ fi
 #
 
 source "$EMUDECKGIT/functions/all.sh"
-	
-	
+echo "Current Settings: "
+cat emuDecksettingsFile
+
 #
 ##
 ## Start of installation
