@@ -339,7 +339,7 @@ if [ "$zenity" == true ]; then
 		
 			#one entry per expert mode feature
 			table=()
-			table+=(TRUE "CHDScript" "Install the latest version of our CHD conversion script?")
+			#table+=(TRUE "CHDScript" "Install the latest version of our CHD conversion script?")
 			table+=(TRUE "PowerTools" "Install Power Tools for CPU control? (password required)")
 			table+=(TRUE "SteamGyro" "Setup the SteamDeckGyroDSU for gyro control (password required)")
 			table+=(TRUE "updateSRM" "Install/Update Steam Rom Manager? Customizations will not be reset.")
@@ -365,9 +365,9 @@ if [ "$zenity" == true ]; then
 			"${table[@]}" 2>/dev/null)
 			echo "user selected: $expertModeFeatureList"
 			#set flags to true for selected expert mode features
-			if [[ "$expertModeFeatureList" == *"CHDScript"* ]]; then
-				setSetting doInstallCHD true
-			fi
+			#if [[ "$expertModeFeatureList" == *"CHDScript"* ]]; then
+			#	setSetting doInstallCHD true
+			#fi
 			if [[ "$expertModeFeatureList" == *"PowerTools"* ]]; then
 				setSetting doInstallPowertools true
 			fi
