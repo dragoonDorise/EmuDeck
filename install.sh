@@ -1162,27 +1162,47 @@ if [ "$doRAEnable" == "true" ]; then
 	RetroArch_retroAchievementsOn
 fi
 
+#Sudo Required!
 
-if [ "$doInstallCHD" == "true" ]; then
-	CHD_install
+if [ "$expert" == "true" ]; then
+	if [ "$doInstallGyro" == "true" ]; then	
+		Plugins_installSteamDeckGyroDSU
+	fi
+
+	if [ "$doInstallPowertools" == "true" ]; then
+		Plugins_installPluginLoader
+		Plugins_installPowerTools
+	fi
 fi
 
-if [ "$doInstallGyro" == "true" ]; then	
-	Plugins_installSteamDeckGyroDSU
-fi
+#Always install
+BINUP_install
+CHD_install
+
+#
+##
+## Overrides for non Steam hardware...
+##
+#
 
 
-if [ "$doInstallPowertools" == "true" ]; then
-	Plugins_installPluginLoader
-	Plugins_installPowerTools
+#
+#Fixes for 16:9 Screens
+#
+
+if [ "$(getScreenAR)" == 169 ];then
+	nonDeck_169Screen		
 fi
+
+#Anbernic Win600 Special configuration
+if [ "$(getProductName)" == "Win600" ];then
+	nonDeck_win600		
+fi
+
 
 if [ "$branch" == 'main' ];then
 	createDesktopIcons
 fi
-
-BINUP_install
-
 
 #
 ##
@@ -1209,25 +1229,6 @@ else
 	fi
 fi
 
-#
-##
-## Overrides for non Steam hardware...
-##
-#
-
-
-#
-#Fixes for 16:9 Screens
-#
-
-if [ "$(getScreenAR)" == 169 ];then
-	nonDeck_169Screen		
-fi
-
-#Anbernic Win600 Special configuration
-if [ "$(getProductName)" == "Win600" ];then
-	nonDeck_win600		
-fi
 
 
 #
