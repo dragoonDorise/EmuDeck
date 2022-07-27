@@ -24,4 +24,9 @@ installEmuAI(){
 	cp -v "${EMUDECKGIT}/tools/launchers/${shName}.sh" "${toolsPath}/launchers/${shName}.sh"	
 	chmod +x "${toolsPath}/launchers/${shName}.sh"
     
+    createDesktopShortcut   "$HOME/.local/share/applications/$altName.desktop" \
+                            "$altName EmuDeck" \
+                            "${toolsPath}/launchers/${shName}.sh" \
+                            "false"
+                            
 }

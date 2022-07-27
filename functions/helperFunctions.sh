@@ -397,19 +397,46 @@ function moveSaveFolder(){
 }
 
 
+#
+#	local Shortcutlocation=$1
+#	local name=$2
+#	local exec=$3
+#	local terminal=$4 #Optional
+#	
+#
 function createDesktopShortcut(){
 
 	local Shortcutlocation=$1
 	local name=$2
 	local exec=$3
+	local terminal=$4
+	local icon
+	
+	mkdir -p "$HOME/.local/share/icons/emudeck/"
+	cp -v "$EMUDECKGIT/icons/$name."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null
+
+	icon=$(find "$HOME/.local/share/icons/emudeck/" -type f -name "$name.*")
+
+	if [ -z "$icon" ]; then
+		icon="steamdeck-gaming-return"
+	else
+		icon="$HOME/.local/share/icons/emudeck/$icon"
+	fi
+
+	if [ -z "$terminal" ]; then
+		terminal="False"
+	fi
 
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
 	Name=$name
 	Exec=$exec
-	Icon=steamdeck-gaming-return
-	Terminal=true
+	Icon=$icon
+	Terminal=$terminal
 	Type=Application
+	Categories=Game;
 	StartupNotify=false" > "$Shortcutlocation"
 	chmod +x "$Shortcutlocation"
+
+	echo "$Shortcutlocation created"
 }
