@@ -28,7 +28,12 @@ Cemu_install(){
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/cemu.sh"
 	chmod +x "${toolsPath}"/launchers/cemu.sh
 	
-}
+
+	createDesktopShortcut   "$HOME/.local/share/applications/Cemu.desktop" \
+							"Cemu EmuDeck" \
+							"${toolsPath}/launchers/cemu.sh" \
+							"false"
+	}
 
 #ApplyInitialSettings
 Cemu_init(){

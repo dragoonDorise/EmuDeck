@@ -406,6 +406,7 @@ function moveSaveFolder(){
 #
 function createDesktopShortcut(){
 
+	
 	local Shortcutlocation=$1
 	local name=$2
 	local exec=$3
@@ -413,14 +414,11 @@ function createDesktopShortcut(){
 	local icon
 	
 	mkdir -p "$HOME/.local/share/icons/emudeck/"
-	cp -v "$EMUDECKGIT/icons/$name."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null
-
-	icon=$(find "$HOME/.local/share/icons/emudeck/" -type f -name "$name.*")
+	cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name")."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null
+	icon=$(find "$HOME/.local/share/icons/emudeck/" -type f -iname "$(cut -d " " -f1 <<< "$name").*")
 
 	if [ -z "$icon" ]; then
 		icon="steamdeck-gaming-return"
-	else
-		icon="$HOME/.local/share/icons/emudeck/$icon"
 	fi
 
 	if [ -z "$terminal" ]; then
