@@ -489,42 +489,68 @@ if [ "$zenity" == true ]; then
 				echo "Emu Install selected: $emusToInstall"
 				if [[ "$emusToInstall" == *"RetroArch"* ]]; then
 					setSetting doInstallRA true
+				else
+					setSetting doInstallRA false
 				fi
 				if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
 					setSetting doInstallPrimeHacks true
+				else
+					setSetting doInstallPrimeHacks false
 				fi
 				if [[ "$emusToInstall" == *"PCSX2"* ]]; then
 					setSetting doInstallPCSX2 true
+				else
+					setSetting doInstallPCSX2 false
 				fi
 				if [[ "$emusToInstall" == *"PCSX2-QT"* ]]; then
 					setSetting doInstallPCSX2QT true
+				else
+					setSetting doInstallPCSX2QT false
 				fi
 				if [[ "$emusToInstall" == *"RPCS3"* ]]; then
 					setSetting doInstallRPCS3 true
+				else
+					setSetting doInstallRPCS3 false
 				fi
 				if [[ "$emusToInstall" == *"Citra"* ]]; then
 					setSetting doInstallCitra true
+				else
+					setSetting doInstallCitra false
 				fi
 				if [[ "$emusToInstall" == *"Dolphin"* ]]; then
 					setSetting doInstallDolphin true
+				else
+					setSetting doInstallDolphin false
 				fi
 				if [[ "$emusToInstall" == *"Duckstation"* ]]; then
 					setSetting doInstallDuck true
+				else
+					setSetting doInstallDuck false
 				fi
 				if [[ "$emusToInstall" == *"PPSSPP"* ]]; then
 					setSetting doInstallPPSSPP true
+				else
+					setSetting doInstallPPSSPP false
 				fi
 				if [[ "$emusToInstall" == *"Yuzu"* ]]; then
 					setSetting doInstallYuzu true
+				else
+					setSetting doInstallYuzu false
 				fi
 				if [[ "$emusToInstall" == *"Cemu"* ]]; then
 					setSetting doInstallCemu true
+				else
+					setSetting doInstallCemu false
 				fi
 				if [[ "$emusToInstall" == *"Xemu"* ]]; then
 					setSetting doInstallXemu true
+				else
+					setSetting doInstallXemu false
 				fi
 				if [[ "$emusToInstall" == *"Xenia"* ]]; then
 					setSetting doInstallXenia true
+				else
+					setSetting doInstallXenia false
 				fi
 				#if [[ "$emusToInstall" == *"MelonDS"* ]]; then
 				#	doInstallMelon=true
@@ -637,51 +663,83 @@ if [ "$zenity" == true ]; then
 					echo "Emulators to reinstall selected: $emusToReset"
 					if [[ "$emusToReset" == *"RetroArch"* ]]; then
 						setSetting doSetupRA true
+					else
+						setSetting doSetupRA false
 					fi
 					if [[ "$emusToReset" == *"PrimeHack"* ]]; then
 						setSetting doSetupPrimeHacks true
+					else
+						setSetting doSetupPrimeHacks false
 					fi
 					if [[ "$emusToReset" == *"PCSX2"* ]]; then
 						setSetting doSetupPCSX2 true
+					else
+						setSetting doSetupPCSX2 false
 					fi
 					if [[ "$emusToReset" == *"PCSX2"* ]]; then
 						setSetting doSetupPCSX2QT true
+					else
+						setSetting doSetupPCSX2QT false
 					fi
 					if [[ "$emusToReset" == *"RPCS3"* ]]; then
 						setSetting doSetupRPCS3 true
+					else
+						setSetting doSetupRPCS3 false
 					fi
 					if [[ "$emusToReset" == *"Citra"* ]]; then
 						setSetting doSetupCitra true
+					else
+						setSetting doSetupCitra false
 					fi
 					if [[ "$emusToReset" == *"Dolphin"* ]]; then
 						setSetting doSetupDolphin true
+					else
+						setSetting doSetupDolphin false
 					fi
 					if [[ "$emusToReset" == *"Duckstation"* ]]; then
 						setSetting doSetupDuck true
+					else
+						setSetting doSetupDuck false
 					fi
 					if [[ "$emusToReset" == *"PPSSPP"* ]]; then
 						setSetting doSetupPPSSPP true
+					else
+						setSetting doSetupPPSSPP false
 					fi
 					if [[ "$emusToReset" == *"Yuzu"* ]]; then
 						setSetting doSetupYuzu true
+					else
+						setSetting doSetupYuzu false
 					fi
 					if [[ "$emusToReset" == *"Cemu"* ]]; then
 						setSetting doSetupCemu true
+					else
+						setSetting doSetupCemu false
 					fi
 					if [[ "$emusToReset" == *"Xemu"* ]]; then
 						setSetting doSetupXemu true
+					else
+						setSetting doSetupXemu false
 					fi
 					if [[ "$emusToReset" == *"Xenia"* ]]; then
-						setSetting doSetupXenia false #false until we add above
+						setSetting doSetupXenia true #false until we add above
+					else
+						setSetting doSetupXenia false
 					fi
 					#if [[ "$emusToReset" == *"MelonDS"* ]]; then
 					#	setSetting doSetupMelonDS true
+					#else
+					#	setSetting doSetupRA false
 					#fi
 					if [[ "$emusToReset" == *"Steam Rom Manager"* ]]; then
 						setSetting doSetupSRM true
+					else
+						setSetting doSetupSRM false
 					fi
 					if [[ "$emusToReset" == *"EmulationStation DE"* ]]; then
 						setSetting doSetupESDE true
+					else
+						setSetting doSetupESDE false
 					fi
 				
 				
