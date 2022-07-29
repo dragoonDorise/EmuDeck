@@ -2347,8 +2347,8 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Sony PlayStation 2 - PCSX2",
-    "steamCategory": "${Playstation 2}",
+    "configTitle": "Sony PlayStation 2 - PCSX2 (old version)",
+    "steamCategory": "${Playstation 2 - Legacy}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/ps2",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -2395,7 +2395,7 @@
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
-    "parserId": "164785208872922785",
+    "parserId": "165837546068116314",
     "version": 5
   },
   {
@@ -2676,7 +2676,7 @@
   },
   {
       "parserType": "Glob",
-      "configTitle": "Sony PlayStation 2 - PCSX2-QT",
+      "configTitle": "Sony PlayStation 2 - PCSX2",
       "steamCategory": "${Playstation 2}",
       "steamDirectory": "/home/deck/.steam/steam",
       "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/ps2",
@@ -2736,7 +2736,7 @@
               ]
           }
       },
-      "parserId": "165837546068116314",
+      "parserId": "164785208872922785",
       "version": 10
   },
   {
