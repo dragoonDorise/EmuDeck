@@ -23,25 +23,39 @@ Cemu_install(){
 	rm -rf "$romsPath"/wiiu/tmp 
 	rm -f "$romsPath"/wiiu/cemu.zip
 	
+	if  [ -e "${toolsPath}/launchers/cemu.sh" ]; then #retain launch settings
+		local launchLine=$( tail -n 1 "${toolsPath}/launchers/cemu.sh" )
+		echo "cemu launch line found: $launchLine"
+	fi
+	
+
 	cp "$EMUDECKGIT/tools/launchers/cemu.sh" "${toolsPath}/launchers/cemu.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|" "${toolsPath}/launchers/cemu.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/cemu.sh"
-	chmod +x "${toolsPath}"/launchers/cemu.sh
+
+	if [[ "$launchLine"  == *"PROTONLAUNCH"* ]]; then
+		changeLine '"${PROTONLAUNCH}"' "$launchLine" "${toolsPath}/launchers/cemu.sh"
+	fi
+	chmod +x "${toolsPath}/launchers/cemu.sh"
 	
 
 	createDesktopShortcut   "$HOME/.local/share/applications/Cemu.desktop" \
 							"Cemu EmuDeck" \
 							"${toolsPath}/launchers/cemu.sh" \
-							"false"
+							"False"
 	}
 
 #ApplyInitialSettings
 Cemu_init(){
 	setMSG "Initializing $Cemu_emuName settings."	
-	rsync -avhp "$EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu"
+	rsync -avhp "$EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu" --backup --suffix=.bak
+	if [ -e "$Cemu_cemuSettings.bak" ]; then
+		mv -f "$Cemu_cemuSettings.bak" "$Cemu_cemuSettings" #retain cemuSettings
+	fi
     Cemu_setEmulationFolder
 	Cemu_setupSaves
 	Cemu_addSteamInputProfile
+
 }
 
 #update
@@ -52,6 +66,7 @@ Cemu_update(){
 	Cemu_setupSaves
 	Cemu_addSteamInputProfile
 }
+
 
 #ConfigurePaths
 Cemu_setEmulationFolder(){
