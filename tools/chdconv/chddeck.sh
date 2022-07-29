@@ -81,7 +81,7 @@ if [ $ans -eq 0 ]; then
 				--text="${text}" \
 				--checklist \
 				--column="" \
-				--column="${selectColumnStr}")
+				--column=${selectColumnStr}) #goddamnit shellcheck broke this. array! do not quote.
 				echo "User selected $folderstoconvert" 2>/dev/null
 
 	IFS="|" read -r -a romfolders <<< "$folderstoconvert"
