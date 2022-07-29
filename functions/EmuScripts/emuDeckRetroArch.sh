@@ -12,6 +12,14 @@ RetroArch_cleanup(){
 	echo "NYI"
 }
 
+RetroArch_backupConfigs(){
+	cp -vp "$RetroArch_configFile" "$RetroArch_configFile.bak"
+	find "$RetroArch_coreConfigFolders" -type f -name "*.cfg" -o -type f -name "*.opt" -o -type f -name "*.slangp" -o -type f -name "*.glslp"| while read -r backupfile
+	do
+		cp -vp "$backupfile" "$backupfile.bak"
+	done
+}
+
 #Install
 RetroArch_install(){
 
@@ -22,7 +30,7 @@ RetroArch_install(){
 
 #ApplyInitialSettings
 RetroArch_init(){
-
+	RetroArch_backupConfigs
 	configEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "true"
 	RetroArch_setEmulationFolder
 	RetroArch_setupSaves
@@ -33,7 +41,7 @@ RetroArch_init(){
 
 #update
 RetroArch_update(){
-
+	RetroArch_backupConfigs
 	configEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
 	RetroArch_setEmulationFolder
 	RetroArch_setupSaves
