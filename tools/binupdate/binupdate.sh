@@ -5,32 +5,37 @@ installESDE(){
 
     #New repo
 
-    curl https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt --output "$toolsPath"/latesturl.txt 
-    latestURL=$(grep "https://gitlab" "$toolsPath"/latesturl.txt)
+    curl https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt --output "$toolsPath/latesturl.txt"
+    latestURL=$(grep "https://gitlab" "$toolsPath/latesturl.txt")
 
-    curl $latestURL --output "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage 
-    rm "$toolsPath"/latesturl.txt
-    chmod +x "$toolsPath"/EmulationStation-DE-x64_SteamDeck.AppImage	
+    curl "$latestURL" --output "$toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage"
+    rm "$toolsPath/latesturl.txt/"
+    chmod +x "$toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage"
 
+}
+
+PCSX2QT_install(){
+	echo "Begin PCSX2-QT Install"
+	installEmuAI "pcsx2-Qt" "$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")" #pcsx2-Qt.AppImage
 }
 
 installSRM(){		
 	#setMSG "${installString} Steam Rom Manager"
 	rm -f ~/Desktop/Steam-ROM-Manager-2.3.29.AppImage
 	rm -f ~/Desktop/Steam-ROM-Manager.AppImage
-	mkdir -p "${toolsPath}"srm
-	curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" > "${toolsPath}"srm/Steam-ROM-Manager.AppImage
-	chmod +x "${toolsPath}"srm/Steam-ROM-Manager.AppImage	
+	mkdir -p "${toolsPath}"/srm
+	curl -L "$(curl -s https://api.github.com/repos/SteamGridDB/steam-rom-manager/releases/latest | grep -E 'browser_download_url.*AppImage' | grep -ve 'i386' | cut -d '"' -f 4)" --output "${toolsPath}/srm/Steam-ROM-Manager.AppImage"
+	chmod +x "${toolsPath}"/srm/Steam-ROM-Manager.AppImage	
 }
 	#paths update via sed in main script
-	romsPath="/run/media/mmcblk0p1/Emulation/roms/"
-	toolsPath="/run/media/mmcblk0p1/Emulation/tools/"
-	scriptPath="${toolsPath}binupdate/"
+	romsPath="/run/media/mmcblk0p1/Emulation/roms"
+	toolsPath="/run/media/mmcblk0p1/Emulation/tools"
+	scriptPath="${toolsPath}/binupdate"
 	
 	#initialize log
-	TIMESTAMP=`date "+%Y%m%d_%H%M%S"`
-	LOGFILE="${scriptPath}binupdate-$TIMESTAMP.log"
-	exec > >(tee ${LOGFILE}) 2>&1
+	TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
+	LOGFILE="${scriptPath}/binupdate-$TIMESTAMP.log"
+	exec > >(tee "${LOGFILE}") 2>&1
 	
     binTable=()
     binTable+=(TRUE "EmulationStation-DE" "esde")
@@ -40,7 +45,7 @@ installSRM(){
     binTable+=(FALSE "Xbox 360 Emu - TESTING ONLY" "xenia")
 
 #Binary selector
-    text="`printf "What tools do you want to get the latest version of?\n This tool will simply overwrite what you have with the newest available."`"
+    text="$(printf "What tools do you want to get the latest version of?\n This tool will simply overwrite what you have with the newest available.")"
     binsToDL=$(zenity --list \
             --title="EmuDeck" \
             --height=500 \
@@ -65,10 +70,16 @@ installSRM(){
             installSRM
         fi
         if [[ "$binsToDL" == *"yuzu"* ]]; then
-            mkdir -p $HOME/Applications
-            cd $HOME/Applications
+            mkdir -p "$HOME/Applications"
+            rm "$HOME/Applications/yuzu.AppImage"
             url="$(curl -sL https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases/latest | jq -r ".assets[].browser_download_url" | grep .AppImage\$)"            
-            curl -Lo "yuzu.AppImage" "$url"
+            curl -Lo "$HOME/Applications/yuzu.AppImage" "$url"
+        fi
+        if [[ "$binsToDL" == *"pcsx2-qt"* ]]; then
+            mkdir -p "$HOME/Applications"
+            rm "$HOME/Applications/pcsx2-Qt.AppImage"
+            url="$(curl -sL https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases/latest | jq -r ".assets[].browser_download_url" | grep .AppImage\$)"            
+            curl -Lo "$HOME/Applications/yuzu.AppImage" "$url"
         fi
         if [[ "$binsToDL" == *"cemu"* ]]; then
 
@@ -86,10 +97,10 @@ installSRM(){
             }
             }' | grep releases)
 
-            releases=($releasesStr)
+            mapfile -t releases <<< "$releasesStr"
 
             releaseTable=()
-            for release in ${releases[@]}; do
+            for release in "${releases[@]}"; do
                 releaseTable+=(false "$release")
                 echo "release: $release"
             done
@@ -106,23 +117,23 @@ installSRM(){
             --column="Release" \
             "${releaseTable[@]}" 2>/dev/null)
 
-            curl $releaseChoice --output "$romsPath"wiiu/cemu.zip 
+            curl "$releaseChoice" --output "$romsPath/wiiu/cemu.zip"
 
 
-            mkdir -p "$romsPath"wiiu/tmp
-            unzip -o "$romsPath"wiiu/cemu.zip -d "$romsPath"wiiu/tmp
-            mv "$romsPath"wiiu/tmp/cemu_*/ "$romsPath"wiiu/tmp/cemu/
-            rsync -avzh "$romsPath"wiiu/tmp/cemu/ "$romsPath"wiiu/
-            rm -rf "$romsPath"wiiu/tmp 
-            rm -f "$romsPath"wiiu/cemu.zip 	
+            mkdir -p "$romsPath/wiiu/tmp"
+            unzip -o "$romsPath/wiiu/cemu.zip" -d "$romsPath/wiiu/tmp"
+            mv "$romsPath/wiiu/tmp/cemu_*/" "$romsPath/wiiu/tmp/cemu/"
+            rsync -avzh "$romsPath/wiiu/tmp/cemu/" "$romsPath/wiiu/"
+            rm -rf "$romsPath/wiiu/tmp" 
+            rm -f "$romsPath/wiiu/cemu.zip"	
         fi
         if [[ "$binsToDL" == *"xenia"* ]]; then
-            curl -L https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip --output "$romsPath"xbox360/xenia_master.zip 
-            mkdir -p "$romsPath"xbox360/tmp
-            unzip -o "$romsPath"xbox360/xenia_master.zip -d "$romsPath"xbox360/tmp 
-            mv "$romsPath"xbox360/tmp/* "$romsPath"xbox360 
-            rm -rf "$romsPath"xbox360/tmp 
-            rm -f "$romsPath"xbox360/xenia_master.zip 	
+            curl -L https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip --output "$romsPath"/xbox360/xenia_master.zip 
+            mkdir -p "$romsPath"/xbox360/tmp
+            unzip -o "$romsPath"/xbox360/xenia_master.zip -d "$romsPath"/xbox360/tmp 
+            mv "$romsPath"/xbox360/tmp/* "$romsPath"/xbox360 
+            rm -rf "$romsPath"/xbox360/tmp 
+            rm -f "$romsPath"/xbox360/xenia_master.zip 	
         fi
     fi
 

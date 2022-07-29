@@ -1,3 +1,4 @@
+#!/bin/bash
 
 #Expert mode off by default
 expert=false
@@ -20,6 +21,7 @@ doSetupPPSSPP=true
 doSetupXemu=true
 doSetupESDE=true
 doSetupSRM=true
+doSetupPCSX2QT=true
 #doSetupMelon=true
 
 #Install all systems by default
@@ -37,10 +39,12 @@ doInstallXenia=false
 doInstallPrimeHacks=false
 doInstallPPSSPP=false
 doInstallXemu=false
+doInstallPCSX2QT=false
 #doInstallMelon=false
 doInstallCHD=false
 doInstallPowertools=false
 doInstallGyro=false
+
 installString='Installing'
 
 #Default RetroArch configuration 
@@ -49,19 +53,41 @@ RAautoSave=false
 SNESAR=43
 
 #Default widescreen
-duckWide=true
-DolphinWide=true
-DreamcastWide=true
-BeetleWide=true
+
+duckWide=false
+DolphinWide=false
+DreamcastWide=false
+BeetleWide=false
+pcsx2QTWide=false
 
 #Default installation folders
-emulationPath=~/Emulation/
-romsPath=~/Emulation/roms/
-toolsPath=~/Emulation/tools/
-biosPath=~/Emulation/bios/
-savesPath=~/Emulation/saves/
-storagePath=~/Emulation/storage/
+emulationPath=~/Emulation
+romsPath=~/Emulation/roms
+toolsPath=~/Emulation/tools
+biosPath=~/Emulation/bios
+savesPath=~/Emulation/saves
+storagePath=~/Emulation/storage
+ESDEscrapData=~/Emulation/tools/downloaded_media
 
 #Default ESDE Theme
 esdeTheme="EPICNOIR"
 
+
+#Advanced settings
+doSelectWideScreen=false
+doRASignIn=false
+doRAEnable=false
+doESDEThemePicker=false
+doSelectEmulators=false
+doResetEmulators=false
+XemuWide=false
+
+#New UI settings
+achievementsPass=false
+achievementsUser=false
+arClassic3D=43
+arDolphin=43
+arSega=43
+arSnes=43
+RAHandClassic2D=false
+RAHandHeldShader=true
