@@ -987,7 +987,7 @@ fi
 
 
 #Fixes repeated Symlink for older installations
-Yuzu_finalize
+# Yuzu_finalize move into update / init to clean up install script
 
 
 
