@@ -14,7 +14,7 @@ if [ $ans -eq 0 ]; then
 
 	#paths update via sed in main script
 	romsPath="/run/media/mmcblk0p1/Emulation/roms"
-	toolsPath="/run/media/mmcblk0p1/Emulation/tools/"
+	toolsPath="/run/media/mmcblk0p1/Emulation/tools"
 	chdPath="${toolsPath}/chdconv/"
 
 
