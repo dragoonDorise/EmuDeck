@@ -147,7 +147,7 @@ echo $branch > "$HOME/emudeck/branch.txt"
 
 
 #We create all the needed folders for installation
-if [[ ! -e $EMUDECKGIT ]]; then
+if [[ ! -e $EMUDECKGIT/.git/config ]]; then
 	mkdir -p "$EMUDECKGIT"
 
 	#Cloning EmuDeck files
