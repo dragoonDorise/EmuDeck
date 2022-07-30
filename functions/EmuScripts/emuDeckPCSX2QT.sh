@@ -24,6 +24,9 @@ PCSX2QT_init(){
 	PCSX2QT_setupStorage
 	PCSX2QT_setupSaves #
 	PCSX2QT_addSteamInputProfile #
+			
+	#WideScreen codes
+	#rsync -r --ignore-existing  "$EMUDECKGIT/configs/net.pcsx2.PCSX2/config/PCSX2/cheats_ws/" "$HOME/.config/PCSX2/cheats_ws/"
 }
 
 #update
@@ -67,7 +70,6 @@ PCSX2QT_setEmulationFolder(){
 	changeLine "$texturesDirOpt" "$newtexturesDirOpt" "$PCSX2QT_configFile"
 	changeLine "$coversDirOpt" "$newcoversDirOpt" "$PCSX2QT_configFile"
 	changeLine "$recursivePathsDirOpt" "$newrecursivePathsDirOpt" "$PCSX2QT_configFile"
-
 
 }
 
