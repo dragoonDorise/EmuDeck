@@ -137,8 +137,9 @@ echo 'Downloading files...'
 
 case $devMode in
 	"BETA") 	branch="beta" 		;;
+	"beta") 	branch="beta" 		;;
 	"DEV") 		branch="dev" 		;;  
-	"EmuReorg") branch="EmuReorg" 	;;  
+	"dev") 		branch="dev" 		;;
 	*) 			branch="main" 		;;
 esac	
 
