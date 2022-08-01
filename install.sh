@@ -377,7 +377,7 @@ if [ "$zenity" == true ]; then
 				setSetting doInstallGyro true
 			fi
 			if [[ "$expertModeFeatureList" == *"SaveSync"* ]]; then
-				doSetupSaveSync=true
+				setSetting doSetupSaveSync true
 			fi
 			if [[ "$expertModeFeatureList" == *"updateSRM"* ]]; then
 				setSetting doSetupSRM true
