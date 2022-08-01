@@ -377,7 +377,7 @@ if [ "$zenity" == true ]; then
 				setSetting doInstallGyro true
 			fi
 			if [[ "$expertModeFeatureList" == *"SaveSync"* ]]; then
-				doSetupSaveSync=true # don't think we want a perm variable for this
+				doSetupSaveSync=true
 			fi
 			if [[ "$expertModeFeatureList" == *"updateSRM"* ]]; then
 				setSetting doSetupSRM true
