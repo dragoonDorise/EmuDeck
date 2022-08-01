@@ -15,4 +15,5 @@
 - RetroArch settings will be backed up before update. Settings files for this are no longer replaced. The options are updated or appended.
 - Installing PluginLoader (powertools) now activates dev mode and installs the new version of the loader and plugin. Reboot may be required
 - CHD script Renamed to Emudeck Compression Tool. New support for Wii games to convert them to rvz format
+- Preserve custom Artwork on Steam Rom Manager on second scans
 - ... too much more to fit here!
