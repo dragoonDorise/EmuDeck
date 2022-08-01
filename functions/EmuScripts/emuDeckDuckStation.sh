@@ -93,10 +93,10 @@ DuckStation_wideScreenOn(){
     echo ""
     wideScreenHack='WidescreenHack = '
     wideScreenHackSetting='WidescreenHack = true'
-    #aspectRatio='AspectRatio = '
-    #aspectRatioSetting='AspectRatio = 0'
+    aspectRatio='AspectRatio = '
+    aspectRatioSetting='AspectRatio = 16:9'
     sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFile"
-	#sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$configFile"
+	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$configFile"
 }
 
 #WideScreenOff
@@ -105,10 +105,10 @@ DuckStation_wideScreenOff(){
     echo ""
     wideScreenHack='WidescreenHack = '
     wideScreenHackSetting='WidescreenHack = false'
-    #aspectRatio='AspectRatio = '
-    #aspectRatioSetting='AspectRatio = 0'
+    aspectRatio='AspectRatio = '
+    aspectRatioSetting='AspectRatio = 4:3'
     sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFile"
-	#sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$configFile"
+	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$configFile"
 }
 
 #BezelOn
