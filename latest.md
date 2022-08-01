@@ -1,5 +1,5 @@
 0.17.6
-
+- Added CloudSync so you can sync your saves using Dropbox, GoogleDrive, etc.
 - Added 16:9 bezel support for holoISO and Anbernic Win600 (or other 16:9 devices)
 - Left Analog stick mirrors the d-pad controls for older systems
 - Recursive SRM parsers. Now you can organize your games in folders
