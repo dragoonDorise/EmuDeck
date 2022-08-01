@@ -115,7 +115,10 @@ RetroArch_setOverride(){
 
 	updateOrAppendConfigLine "$configFile" "$option =" "$settingLine" 
 }
-
+RetroArch_wswanc_setConfig(){	
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'input_player1_analog_dpad_mode' '"1"'
+}
 RetroArch_wswanc_bezelOn(){
 	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_overlay_enable' '"false"'
 	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'input_overlay_enable' '"false"'	
@@ -134,6 +137,10 @@ RetroArch_wswanc_MATshaderOff(){
 	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'video_shader_enable' 'false'
 }
 
+RetroArch_wswan_setConfig(){	
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'input_player1_analog_dpad_mode' '"1"'
+}
 RetroArch_wswan_bezelOn(){
 	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'input_overlay_enable' '"false"'
 	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'input_overlay_enable' '"false"'
@@ -193,6 +200,10 @@ RetroArch_PPSSPP_setConfig(){
 	RetroArch_setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_vertex_cache' '"disabled"'
 }
 
+RetroArch_pcengine_setConfig(){	
+	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'input_player1_analog_dpad_mode' '"1"'
+}
 RetroArch_pcengine_bezelOn(){
 	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'aspect_ratio_index' '"21"'
 	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'custom_viewport_height' '"1200"'
@@ -228,6 +239,10 @@ RetroArch_npcengine_CRTshaderOff(){
 	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'video_shader_enable' '"false"'
 }
 
+RetroArch_nes_setConfig(){	
+	RetroArch_setOverride 'nes.cfg' 'Mesen'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'input_player1_analog_dpad_mode' '"1"'
+}
 
 RetroArch_nes_bezelOn(){
 	RetroArch_setOverride 'nes.cfg' 'Mesen'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/nes.cfg"'
@@ -301,6 +316,11 @@ RetroArch_n64_CRTshaderOff(){
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_shader_enable' '"false"'
 }
 
+RetroArch_lynx_setConfig(){	
+	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'input_player1_analog_dpad_mode' '"1"'
+}
+
 RetroArch_lynx_bezelOn(){
 	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'  'aspect_ratio_index' '"21"'
 	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/lynx.cfg"'
@@ -332,7 +352,8 @@ RetroArch_lynx_MATshaderOff(){
 	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'video_shader_enable' 'false'
 }
 
-RetroArch_SameBoy_gb_setConfig(){
+RetroArch_SameBoy_gb_setConfig(){	
+	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'input_player1_analog_dpad_mode' '"1"'
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_dark_filter_level' '"0"'
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_bootloader' '"enabled"'
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_colorization' '"internal"'
@@ -361,6 +382,10 @@ RetroArch_SameBoy_gb_setConfig(){
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_up_down_allowed' '"disabled"'
 }
 
+RetroArch_ngp_setConfig(){	
+	RetroArch_setOverride 'ngp.cfg' 'Beetle NeoPop'  'input_player1_analog_dpad_mode' '"1"'
+}
+
 RetroArch_ngp_bezelOn(){
 	RetroArch_setOverride 'ngp.cfg' 'Beetle NeoPop'  'aspect_ratio_index' '"21"'
 	RetroArch_setOverride 'ngp.cfg' 'Beetle NeoPop'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/ngpc.cfg"'
@@ -383,6 +408,10 @@ RetroArch_ngp_MATshaderOn(){
 
 RetroArch_ngp_MATshaderOff(){
 	RetroArch_setOverride 'ngp.cfg' 'Beetle NeoPop'  'video_shader_enable' 'false'
+}
+
+RetroArch_ngpc_setConfig(){	
+	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'input_player1_analog_dpad_mode' '"1"'
 }
 
 RetroArch_ngpc_bezelOn(){
@@ -408,6 +437,10 @@ RetroArch_ngpc_MATshaderOff(){
 	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'video_shader_enable' 'false'
 }
 
+RetroArch_atari2600_setConfig(){	
+	RetroArch_setOverride 'atari2600.cfg' 'Stella'  'input_player1_analog_dpad_mode' '"1"'
+}
+
 RetroArch_atari2600_bezelOn(){
 	RetroArch_setOverride 'atari2600.cfg' 'Stella'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/atari2600.cfg"'
 	RetroArch_setOverride 'atari2600.cfg' 'Stella'  'input_overlay_enable' '"true"'
@@ -428,6 +461,11 @@ RetroArch_atari2600_CRTshaderOff(){
 	RetroArch_setOverride 'atari2600.cfg' 'Stella' 'video_shader_enable' '"false"'	
 }
 
+RetroArch_mame_setConfig(){	
+	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'mame.cfg' 'MAME'  'input_player1_analog_dpad_mode' '"1"'
+}
+
 RetroArch_mame_bezelOn(){
 	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'  'input_overlay_enable' '"false"'
 	RetroArch_setOverride 'mame.cfg' 'MAME'  'input_overlay_enable' '"false"'
@@ -446,6 +484,11 @@ RetroArch_mame_CRTshaderOn(){
 RetroArch_mame_CRTshaderOff(){
 	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'  'video_shader_enable' 'false'
 	RetroArch_setOverride 'mame.cfg' 'MAME'  'video_shader_enable' 'false'
+}
+
+RetroArch_segacd_setConfig(){	
+	RetroArch_setOverride 'megacd.cfg' 'Genesis Plus GX'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'input_player1_analog_dpad_mode' '"1"'
 }
 
 RetroArch_segacd_bezelOn(){
@@ -489,7 +532,10 @@ RetroArch_segacd_ar43(){
 	RetroArch_setOverride 'megacd.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'	
 }
 
-
+RetroArch_genesis_setConfig(){	
+	RetroArch_setOverride 'genesis.cfg' 'Genesis Plus GX'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'megadrive.cfg' 'Genesis Plus GX'  'input_player1_analog_dpad_mode' '"1"'
+}
 
 RetroArch_genesis_bezelOn(){
 	RetroArch_setOverride 'genesis.cfg' 'Genesis Plus GX'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/genesis.cfg"'
@@ -532,6 +578,10 @@ RetroArch_genesis_CRTshaderOff(){
 	RetroArch_setOverride 'megadrive.cfg' 'Genesis Plus GX'  'video_shader_enable' '"false"'
 }
 
+RetroArch_gamegear_setConfig(){	
+	RetroArch_setOverride 'gamegear.cfg' 'Genesis Plus GX'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'  'input_player1_analog_dpad_mode' '"1"'
+}
 
 RetroArch_gamegear_bezelOn(){
 	RetroArch_setOverride 'gamegear.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'
@@ -565,6 +615,10 @@ RetroArch_gamegear_MATshaderOff(){
 	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'  'video_shader_enable' '"false"'
 }
 
+RetroArch_mastersystem_setConfig(){	
+	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'input_player1_analog_dpad_mode' '"1"'
+}
+
 RetroArch_mastersystem_bezelOn(){
 	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'
 	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/mastersystem.cfg"'
@@ -593,7 +647,9 @@ RetroArch_mastersystem_CRTshaderOff(){
 RetroArch_mastersystem_ar43(){
 	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'	
 }
-
+RetroArch_sega32x_setConfig(){	
+	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'input_player1_analog_dpad_mode' '"1"'
+}
 RetroArch_sega32x_bezelOn(){
 	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/sega32x.cfg"'
 	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay_auto_scale' '"false"'
@@ -630,7 +686,9 @@ RetroArch_sega32x_ar43(){
 #	#missing stuff?
 #	RetroArch_setOverride 'gba.cfg' 'mGBA'  'aspect_ratio_index' '"21"'
 #}
-
+RetroArch_gba_setConfig(){	
+	RetroArch_setOverride 'gba.cfg' 'mGBA'  'input_player1_analog_dpad_mode' '"1"'
+}
 RetroArch_gba_MATshaderOn(){
 	RetroArch_setOverride 'gba.cfg' 'mGBA'  'video_shader_enable' '"true"'
 }
@@ -674,6 +732,7 @@ RetroArch_gb_MATshaderOff(){
 }
 
 RetroArch_SameBoy_gbc_setConfig(){
+	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'input_player1_analog_dpad_mode' '"1"'
 	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'gambatte_gbc_color_correction' '"GBC'
 	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'gambatte_gbc_color_correction_mode' '"accurate"'
 	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'gambatte_gbc_frontlight_position' '"central"'
@@ -726,6 +785,10 @@ RetroArch_n64_bezelOff(){
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'input_overlay_enable' '"false"'
 }
 
+RetroArch_atari800_setConfig(){	
+	RetroArch_setOverride 'atari800.cfg' 'Stella'  'input_player1_analog_dpad_mode' '"1"'
+}
+
 RetroArch_atari800_bezelOn(){
 	RetroArch_setOverride 'atari800.cfg' 'Stella'  'aspect_ratio_index' '"0"'
 	RetroArch_setOverride 'atari800.cfg' 'Stella'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/atari800.cfg"'
@@ -737,6 +800,10 @@ RetroArch_atari800_bezelOn(){
 
 RetroArch_atari800_bezelOff(){
 	RetroArch_setOverride 'atari800.cfg' 'Stella'  'input_overlay_enable' '"false"'
+}
+
+RetroArch_atari5200_setConfig(){	
+	RetroArch_setOverride 'atari5200.cfg' 'Stella'  'input_player1_analog_dpad_mode' '"1"'
 }
 
 RetroArch_atari5200_bezelOn(){
@@ -771,6 +838,11 @@ RetroArch_dreamcast_CRTshaderOff(){
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"false"'
 }
 
+RetroArch_saturn_setConfig(){	
+	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'input_player1_analog_dpad_mode' '"1"'
+}
+
 RetroArch_saturn_bezelOn(){
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'aspect_ratio_index' '"0"'
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/saturn.cfg"'
@@ -799,6 +871,10 @@ RetroArch_saturn_CRTshaderOn(){
 RetroArch_saturn_CRTshaderOff(){
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'video_shader_enable' '"false"'
 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'video_shader_enable' '"false"'
+}
+
+RetroArch_snes_setConfig(){	
+	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'input_player1_analog_dpad_mode' '"1"'
 }
 
 RetroArch_snes_bezelOn(){
