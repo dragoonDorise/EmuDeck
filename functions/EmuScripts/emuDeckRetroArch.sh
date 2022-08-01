@@ -1418,9 +1418,15 @@ RetroArch_autoSaveOff(){
 }
 RetroArch_retroAchievementsOn(){
 	changeLine 'cheevos_enable = ' 'cheevos_enable = "true"' "$RetroArch_configFile"
+	#Mame fix
+	#RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'  'cheevos_enable' '"false"'
+	#RetroArch_setOverride 'mame.cfg' 'MAME'  'cheevos_enable' '"false"'
 }
 RetroArch_retroAchievementsOff(){
 	changeLine 'cheevos_enable = ' 'cheevos_enable = "false"' "$RetroArch_configFile"
+	#Mame fix
+	#RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'  'cheevos_enable' '"false"'
+	#RetroArch_setOverride 'mame.cfg' 'MAME'  'cheevos_enable' '"false"'
 }
 RetroArch_retroAchievementsPromptLogin(){
 	text=$(printf "Do you want to use RetroAchievments on Retroarch?\n\n<b>You need to have an account on https://retroachievements.org</b>\n\nActivating RetroAchievments will disable save states unless you disable hardcore mode\n\n\n\nPress STEAM + X to get the onscreen Keyboard\n\n<b>Make sure your RetroAchievments account is validated on the website or RetroArch will crash</b>")	
