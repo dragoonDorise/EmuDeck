@@ -2,7 +2,7 @@
 
 SAVESYNC_toolName="EmuDeck SaveSync"
 SAVESYNC_toolType="AppImage"
-SAVESYNC_toolPath="${toolsPath}/savesync/EmuDeck_SaveSync.AppImage"
+SAVESYNC_toolPath="$HOME/Applications/EmuDeck_SaveSync.AppImage"
 SAVESYNC_url="https://nightly.link/withertech/savesync/actions/runs/2517254418/EmuDeck-SaveSync-AppImage.zip"
 SAVESYNC_systemd_path="$HOME/.config/systemd/user"
 #SAVESYNC_Shortcutlocation="$HOME/Desktop/EmuDeckBinUpdate.desktop"
@@ -10,20 +10,33 @@ SAVESYNC_systemd_path="$HOME/.config/systemd/user"
 
 
 SAVESYNC_install(){		
-	rm "${toolsPath}/savesync/EmuDeck_SaveSync-0.0.1-x86_64.AppImage"
-    curl -L "$SAVESYNC_url" --output "${toolsPath}/savesync/savesync.zip"
-    unzip -j "${toolsPath}/savesync/savesync.zip" && rm "${toolsPath}/savesync/savesync.zip"
-    mv "${toolsPath}/savesync/EmuDeck_SaveSync-0.0.1-x86_64.AppImage" "$SAVESYNC_toolPath"
+	rm "$SAVESYNC_toolPath"
+    curl -L "$SAVESYNC_url" --output "$SAVESYNC_toolPath.zip"
+    unzip -j "$SAVESYNC_toolPath.zip" -d $(dirname "$SAVESYNC_toolPath.zip") && rm "$SAVESYNC_toolPath.zip"
+    mv "$HOME/Applications/EmuDeck_SaveSync-0.0.1-x86_64.AppImage" "$SAVESYNC_toolPath"
 	chmod +x "$SAVESYNC_toolPath"
 
 }
 
+#$1 = gdrive,dropbox,onedrive,box,nextcloud
 SAVESYNC_setup(){
-    systemctl --user stop emudeck_savesync.service
-    mv "${toolsPath}/savesync/config.yml" "${toolsPath}/savesync/config.yml.bak"
-    mv "$HOME/.config/rclone/rclone.conf"  "$HOME/.config/rclone/rclone.conf.bak"
+    local cloudProvider=$1
+    if [[ -z "$cloudProvider" ]]; then
+        echo "no cloud provider selected"
+    else
+        echo "cloud provider: $cloudProvider"
 
-    "$SAVESYNC_toolPath" "$emulationPath" --setup $cloudProvider
+        mv "${toolsPath}/savesync/config.yml" "${toolsPath}/savesync/config.yml.bak"
+        mv "$HOME/.config/rclone/rclone.conf"  "$HOME/.config/rclone/rclone.conf.bak"
+
+        "$SAVESYNC_toolPath" "$emulationPath" --setup $cloudProvider
+        SAVESYNC_createService
+    fi
+}
+
+SAVESYNC_createService(){
+    echo "Creating SaveSync service"
+    systemctl --user stop emudeck_savesync.service
 
     mkdir -p "$SAVESYNC_systemd_path"
     echo \
@@ -46,4 +59,3 @@ SAVESYNC_setup(){
     echo "Starting SaveSync Service. First run may take a while."
     systemctl --user start emudeck_savesync.service
 }
-
