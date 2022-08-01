@@ -2704,6 +2704,7 @@
       "skipWithMissingDataDir": true,
       "useCredentials": true
     },
+    "disabled": true,
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/ryujinx.sh",
       "shortcutPassthrough": false,
