@@ -16,4 +16,5 @@
 - Installing PluginLoader (powertools) now activates dev mode and installs the new version of the loader and plugin. Reboot may be required
 - CHD script Renamed to Emudeck Compression Tool. New support for Wii games to convert them to rvz format
 - Preserve custom Artwork on Steam Rom Manager on second scans
+- Support for Mesen HD Packs
 - ... too much more to fit here!

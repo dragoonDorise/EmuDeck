@@ -322,7 +322,8 @@ if [ "$zenity" == true ]; then
 	mkdir -p "$storagePath"
 	mkdir -p "$biosPath"/yuzu
 	mkdir -p "$biosPath"/HdPacks
-	ln -s "$biosPath"/HdPacks/ "$emulationPath"/HdPacks/Mesen/
+	mkdir -p "$emulationPath"/hdpacks
+	ln -s "$biosPath"/HdPacks/ "$emulationPath"/hdpacks/Mesen
 	echo "Put your Mesen HD Packs here. Remember to put the pack inside a folder here with the exact name of the rom" > "$biosPath"/HdPacks/readme.txt
 	
 	##Generate rom folders
@@ -815,7 +816,8 @@ else
 	mkdir -p "$storagePath"
 	mkdir -p "$biosPath"/yuzu
 	mkdir -p "$biosPath"/HdPacks
-	ln -s "$biosPath"/HdPacks/ "$emulationPath"/HdPacks/Mesen/
+	mkdir -p "$emulationPath"/hdpacks
+	ln -s "$biosPath"/HdPacks/ "$emulationPath"/hdpacks/Mesen
 	echo "Put your Mesen HD Packs here. Remember to put the pack inside a folder here with the exact name of the rom" > "$biosPath"/HdPacks/readme.txt
 	
 	##Generate rom folders
