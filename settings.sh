@@ -91,3 +91,4 @@ arSega=43
 arSnes=43
 RAHandClassic2D=false
 RAHandHeldShader=true
+doSetupSaveSync=false

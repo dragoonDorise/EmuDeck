@@ -343,6 +343,7 @@ if [ "$zenity" == true ]; then
 			#table+=(TRUE "CHDScript" "Install the latest version of our CHD conversion script?")
 			table+=(TRUE "PowerTools" "Install Power Tools for CPU control? (password required)")
 			table+=(TRUE "SteamGyro" "Setup the SteamDeckGyroDSU for gyro control (password required)")
+			table+=(TRUE "SaveSync" "Setup Save Synchronization for Emudeck to a cloud provider")
 			table+=(TRUE "updateSRM" "Install/Update Steam Rom Manager? Customizations will not be reset.")
 			table+=(TRUE "updateESDE" "Install/Update Emulation Station DE? Customizations and scrapes will not be reset.")
 			table+=(TRUE "selectEmulators" "Select the emulators to install.")
@@ -374,6 +375,9 @@ if [ "$zenity" == true ]; then
 			fi
 			if [[ "$expertModeFeatureList" == *"SteamGyro"* ]]; then
 				setSetting doInstallGyro true
+			fi
+			if [[ "$expertModeFeatureList" == *"SaveSync"* ]]; then
+				doSetupSaveSync=true
 			fi
 			if [[ "$expertModeFeatureList" == *"updateSRM"* ]]; then
 				setSetting doSetupSRM true
@@ -447,8 +451,8 @@ if [ "$zenity" == true ]; then
 					fi
 				fi
 			fi
-			
 		
+
 		if [[ $doSelectEmulators == "true" ]]; then
 			
 			emuTable=()
@@ -1161,6 +1165,32 @@ fi
 
 if [ "$doRAEnable" == "true" ]; then
 	RetroArch_retroAchievementsOn
+fi
+
+if [[ $doSetupSaveSync == "true" ]]; then
+
+	cloudProviders=()
+	cloudProviders+=(1 "gdrive")
+	cloudProviders+=(2 "dropbox")
+	cloudProviders+=(3 "onedrive")
+	cloudProviders+=(4 "box")
+	cloudProviders+=(5 "nextcloud")
+
+	syncProvider=$(zenity --list \
+            --title="EmuDeck SaveSync Host" \
+            --height=500 \
+            --width=500 \
+            --ok-label="OK" \
+            --cancel-label="Exit" \
+            --text="Choose the service you would like to use to host your cloud saves.\n\nKeep in mind they can take a fair amount of space.\n\nThis will open a browser window for you to sign into your chosen cloud provider." \
+            --radiolist \
+            --column="Select" \
+            --column="Provider" \
+            ${cloudProviders[@]})
+	if [[ -n "$syncProvider" ]]; then
+		SAVESYNC_install
+		SAVESYNC_setup "$syncProvider"
+	fi
 fi
 
 #Sudo Required!

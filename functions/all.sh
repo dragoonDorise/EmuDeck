@@ -28,6 +28,7 @@ source "$EMUDECKGIT"/functions/installEmuAI.sh
 source "$EMUDECKGIT"/functions/migrateAndLinkConfig.sh
 source "$EMUDECKGIT"/functions/nonDeck.sh
 source "$EMUDECKGIT"/functions/dialogBox.sh
+source "$EMUDECKGIT"/functions/updateEmuFP.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
@@ -35,6 +36,7 @@ source "$EMUDECKGIT"/functions/ToolScripts/emuDeckPlugins.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSRM.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCHD.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckBINUP.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSaveSync.sh
 
 #emuscripts
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh
