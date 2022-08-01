@@ -1,6 +1,7 @@
 0.17.6
 
 - Added 16:9 bezel support for holoISO and Anbernic Win600 (or other 16:9 devices)
+- Left Analog stick mirrors the d-pad controls for older systems
 - Recursive SRM parsers. Now you can organize your games in folders
 - Icon renamed to Update EmuDeck to avoid confusion
 - Fixed Atari Bezels. Added bezels to Dreamcast, N64 and Saturn
