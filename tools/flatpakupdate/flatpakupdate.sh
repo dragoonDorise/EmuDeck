@@ -16,7 +16,7 @@ if [[ $branch=="beta" || $branch=="dev" ]]; then
 fi
 
 #Emulator selector
-text="`printf "What emulators do you want to install?"`"
+text="`printf "What emulators do you want to update?"`"
 emusToInstall=$(zenity --list \
         --title="EmuDeck" \
         --height=500 \

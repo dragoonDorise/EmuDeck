@@ -6,7 +6,7 @@ updateEmuFP(){
 	
 	setMSG "Updating $name"
 	
-	flatpak update flathub $ID -y --system	
+	flatpak update $ID -y --system	
 	flatpak override $ID --filesystem=host --user
 	flatpak override $ID --share=network --user	
 	
