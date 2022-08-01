@@ -1213,11 +1213,15 @@ RetroArch_setUpCoreOptAll(){
 RetroArch_Flycast_wideScreenOn(){
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_cheats' '"enabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_hack' '"enabled"'
+	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'aspect_ratio_index' '"1"'	
+	RetroArch_dreamcast_bezelOff
 }
 
 RetroArch_Flycast_wideScreenOff(){
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_cheats' '"disabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_hack' '"disabled"'
+	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'aspect_ratio_index' '"0"'	
+	RetroArch_dreamcast_bezelOn
 }
 
 RetroArch_Beetle_PSX_HW_wideScreenOn(){
