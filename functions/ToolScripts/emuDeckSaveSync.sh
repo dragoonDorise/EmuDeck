@@ -47,7 +47,7 @@ SAVESYNC_createService(){
     Type=simple
     Restart=always
     RestartSec=1
-    ExecStart=$SAVESYNC_toolPath --sync
+    ExecStart=$SAVESYNC_toolPath --sync $emulationPath
 
     [Install]
     WantedBy=default.target" > "$SAVESYNC_systemd_path/emudeck_savesync.service"
