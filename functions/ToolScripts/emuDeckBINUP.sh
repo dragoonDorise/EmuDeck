@@ -16,5 +16,5 @@ BINUP_install(){
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$BINUP_toolPath"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$BINUP_toolPath"	
 
-	createDesktopShortcut "$BINUP_Shortcutlocation" "$BINUP_toolName" "bash $BINUP_toolPath"
+	createDesktopShortcut "$BINUP_Shortcutlocation" "$BINUP_toolName" "bash $BINUP_toolPath"  "True"
 }

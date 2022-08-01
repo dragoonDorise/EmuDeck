@@ -23,7 +23,7 @@ nonDeck_169Screen(){
 	do
 
 		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.055000"'
-		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "-0.090000"'	
+		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "0.000000"'	
 
 	done
 	
@@ -89,8 +89,8 @@ nonDeck_169Screen(){
 	do
 
 		updateOrAppendConfigLine "$configFile" "input_overlay_x_separation_portrait ="  'input_overlay_x_separation_portrait = "0"'
-		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "0"'
-		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.575000"'
+		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "-0.285000"'
+		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.605000"'
 		updateOrAppendConfigLine "$configFile" "input_overlay_y_offset_landscape ="  'input_overlay_y_offset_landscape = "-0.130000"'
 
 	done
@@ -150,7 +150,7 @@ nonDeck_169Screen(){
 	find "$RetroArch_coreConfigFolders" -type f -name "megacd.cfg" -o -type f -name "segacd.cfg"| while read -r configFile
 	do
 		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.055000"'
-		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "-0.110000"'
+		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "0.000000"'
 	done
 
 	#PicoDrive
@@ -159,7 +159,8 @@ nonDeck_169Screen(){
 	
 	find "$RetroArch_coreConfigFolders" -type f -name "sega32x.cfg"| while read -r configFile
 	do
-		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.075000"'
+		updateOrAppendConfigLine "$configFile" "input_overlay_scale_landscape ="  'input_overlay_scale_landscape = "1.070000"'
+		updateOrAppendConfigLine "$configFile" "input_overlay_aspect_adjust_landscape ="  'input_overlay_aspect_adjust_landscape = "-0.010000"'
 	done
 
 	

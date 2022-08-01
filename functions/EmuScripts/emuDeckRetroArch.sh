@@ -117,23 +117,8 @@ RetroArch_setOverride(){
 }
 
 RetroArch_wswanc_bezelOn(){
-
-	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'aspect_ratio_index' '"21"'
-	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/wswanc.cfg"'
-	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_overlay_auto_scale' '"false"'
-	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_overlay_enable' '"true"'
-	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_overlay_opacity' '"0.700000"'
-	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_overlay_scale_landscape' '"1.170000"'
-	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'video_scale_integer' '"false"'
-	
-	
-	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'aspect_ratio_index' '"21"'
-	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/wswanc.cfg"'
-	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'input_overlay_auto_scale' '"false"'
-	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'input_overlay_enable' '"true"'
-	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'input_overlay_opacity' '"0.700000"'
-	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'input_overlay_scale_landscape' '"1.170000"'
-	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'video_scale_integer' '"false"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_overlay_enable' '"false"'
+	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'input_overlay_enable' '"false"'	
 }
 RetroArch_wswanc_bezelOff(){
 	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_overlay_enable' '"false"'
@@ -150,23 +135,8 @@ RetroArch_wswanc_MATshaderOff(){
 }
 
 RetroArch_wswan_bezelOn(){
-
-	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'aspect_ratio_index' '"21"'
-	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/wswan.cfg"'
-	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'input_overlay_auto_scale' '"false"'
-	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'input_overlay_enable' '"true"'
-	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'input_overlay_opacity' '"0.700000"'
-	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'input_overlay_scale_landscape' '"1.170000"'
-	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'video_scale_integer' '"false"'
-	
-
-	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'aspect_ratio_index' '"21"'
-	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/wswan.cfg"'
-	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'input_overlay_auto_scale' '"false"'
-	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'input_overlay_enable' '"true"'
-	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'input_overlay_opacity' '"0.700000"'
-	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'input_overlay_scale_landscape' '"1.170000"'
-	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'video_scale_integer' '"false"'	
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'input_overlay_enable' '"false"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'input_overlay_enable' '"false"'
 }
 
 RetroArch_wswan_bezelOff(){
@@ -629,7 +599,8 @@ RetroArch_sega32x_bezelOn(){
 	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay_auto_scale' '"false"'
 	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay_enable' '"true"'
 	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay_hide_in_menu' '"false"'
-	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay_scale_landscape' '"1.250000"'
+	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay_scale_landscape' '"1.070000"'
+	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'input_overlay_aspect_adjust_landscape' '"0.095000"'
 	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'aspect_ratio_index' '"0"'
 }
 

@@ -32,6 +32,7 @@ Yuzu_init(){
     
     Yuzu_setEmulationFolder
     Yuzu_setupStorage
+    Yuzu_finalize
 
 }
 
@@ -46,7 +47,7 @@ Yuzu_update(){
     
     Yuzu_setEmulationFolder
     Yuzu_setupStorage
-    
+    Yuzu_finalize
 }
 
 
