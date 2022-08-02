@@ -2745,7 +2745,7 @@
     "steamCategory": "${Switch - Ryujinx}",
     "steamDirectory": "/home/deck/.steam/steam",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/switch",
-    "executableArgs": " -batch -fullscreen \"'${filePath}'\"",
+    "executableArgs": "--fullscreen \"'${filePath}'\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
