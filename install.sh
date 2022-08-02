@@ -1194,7 +1194,7 @@ if [[ $doSetupSaveSync == "true" ]]; then
             --radiolist \
             --column="Select" \
             --column="Provider" \
-            ${cloudProviders[@]})
+            "${cloudProviders[@]}" 2>/dev/null)
 	if [[ -n "$syncProvider" ]]; then
 		SAVESYNC_install
 		SAVESYNC_setup "$syncProvider"
