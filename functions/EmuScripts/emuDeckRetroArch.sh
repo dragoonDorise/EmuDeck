@@ -1471,7 +1471,9 @@ function RetroArch_dlAdditionalFiles(){
 	curl -L https://dl.degica.com/rpgmakerweb/run-time-packages/rpg2003_rtp_installer.zip --output "$biosPath/rtp/2003/rpg2003.zip"
 	curl -L https://dl.degica.com/rpgmakerweb/run-time-packages/rpg2000_rtp_installer.exe --output "$biosPath/rtp/2000/rpg2000.zip"
 
-
+	7z x "$biosPath/rtp/2003/rpg2003.zip" -o"$biosPath/rtp/2003" && rm "$biosPath/rtp/2003/rpg2003.zip"
+	7z x "$biosPath/rtp/2003/rpg2003_rtp_installer.exe" -o"$biosPath/rtp/2003" && rm "$biosPath/rtp/2003/rpg2003_rtp_installer.exe"
+	7z x "$biosPath/rtp/2000/rpg2000.zip" -o"$biosPath/rtp/2000" && rm "$biosPath/rtp/2000/rpg2000.zip"
 }
 
 
