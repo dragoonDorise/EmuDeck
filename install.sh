@@ -470,6 +470,7 @@ if [ "$zenity" == true ]; then
 			emuTable+=(TRUE "PSX" "Duckstation")
 			emuTable+=(TRUE "PSP" "PPSSPP")
 			emuTable+=(TRUE "Switch" "Yuzu")
+			emuTable+=(TRUE "Switch" "Ryujinx")
 			emuTable+=(TRUE "WiiU" "Cemu")
 			emuTable+=(TRUE "XBox" "Xemu")
 			#if we are in beta / dev install, allow Xenia. Still false by default though. Will only work on expert mode, and explicitly turned on.
@@ -545,6 +546,11 @@ if [ "$zenity" == true ]; then
 					setSetting doInstallYuzu true
 				else
 					setSetting doInstallYuzu false
+				fi
+				if [[ "$emusToInstall" == *"Ryujinx"* ]]; then
+					setSetting doInstallRyujinx true
+				else
+					setSetting doInstallRyujinx false
 				fi
 				if [[ "$emusToInstall" == *"Cemu"* ]]; then
 					setSetting doInstallCemu true
@@ -647,6 +653,7 @@ if [ "$zenity" == true ]; then
 				emuTable+=(TRUE "Duckstation")
 				emuTable+=(TRUE "PPSSPP")
 				emuTable+=(TRUE "Yuzu")
+				emuTable+=(TRUE "Ryujinx")
 				emuTable+=(TRUE "Cemu")
 				emuTable+=(TRUE "Xemu")
 				emuTable+=(TRUE "Steam Rom Manager")
@@ -720,6 +727,11 @@ if [ "$zenity" == true ]; then
 					else
 						setSetting doSetupYuzu false
 					fi
+					if [[ "$emusToReset" == *"Ryujinx"* ]]; then
+						setSetting doSetupRyujinx true
+					else
+						setSetting doSetupRyujinx false
+					fi
 					if [[ "$emusToReset" == *"Cemu"* ]]; then
 						setSetting doSetupCemu true
 					else
@@ -766,6 +778,7 @@ if [ "$zenity" == true ]; then
 		setSetting doInstallPCSX2QT true
 		setSetting doInstallRPCS3 true
 		setSetting doInstallYuzu true
+		setSetting doInstallRyujinx true
 		setSetting doInstallCitra true
 		setSetting doInstallDuck true
 		setSetting doInstallCemu true
@@ -785,6 +798,7 @@ if [ "$zenity" == true ]; then
 		setSetting doSetupCitra true
 		setSetting doSetupDuck true
 		setSetting doSetupYuzu true
+		setSetting doSetupRyujinx true
 		setSetting doSetupPPSSPP true
 		setSetting doSetupXemu true
 		setSetting doSetupCemu true
@@ -909,6 +923,10 @@ if [ $doInstallYuzu == "true" ]; then
 	echo "Yuzu_install"
 	Yuzu_install
 fi
+if [ $doInstallRyujinx == "true" ]; then	
+	echo "Ryujinx_install"
+	Riujinx_install
+fi
 if [ $doInstallXemu == "true" ]; then
 	echo "Xemu_install"
 	Xemu_install
@@ -978,6 +996,10 @@ fi
 if [ "$doSetupYuzu" == "true" ]; then
 	echo "Yuzu_init"
 	Yuzu_init
+fi
+if [ "$doSetupRyujinx" == "true" ]; then
+	echo "Ryujinx_init"
+	Ryujinx_init
 fi
 if [ "$doSetupPPSSPP" == "true" ]; then
 	echo "PPSSPP_init"
@@ -1268,7 +1290,20 @@ else
 	fi
 fi
 
-
+FILE="$HOME/.config/Ryujinx/system/prod.keys"
+if [ -f "$FILE" ]; then
+	echo -e "" 2>/dev/null
+else
+	if [ "$zenity" == true ]; then
+	text="$(printf "<b>Ryujinx is not configured</b>\nYou need to copy your Keys to: \n${biosPath}\ryujinx/keys\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them. You might need to install your firmware using the Ryujinx Install Firmware option inside the emulator</b>")"
+	zenity --error \
+			--title="EmuDeck" \
+			--width=400 \
+			--text="${text}" 2>/dev/null
+	else
+		echo "$text"
+	fi
+fi
 
 #
 # We mark the script as finished	
@@ -1282,7 +1317,7 @@ rm "$PIDFILE"
 
 if [ "$zenity" == true ]; then
 
-	text="$(printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager on your Desktop to add your games to your SteamUI Interface.\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!")"
+	text="$(printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu, Ryujinx) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager on your Desktop to add your games to your SteamUI Interface.\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!")"
 	
 	zenity --question \
 		 	--title="EmuDeck" \

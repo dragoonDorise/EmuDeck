@@ -25,6 +25,7 @@ source "$EMUDECKGIT"/functions/installEmuFP.sh
 source "$EMUDECKGIT"/functions/setMSG.sh
 source "$EMUDECKGIT"/functions/emuDeckPrereqs.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
+source "$EMUDECKGIT"/functions/installEmuBI.sh
 source "$EMUDECKGIT"/functions/migrateAndLinkConfig.sh
 source "$EMUDECKGIT"/functions/nonDeck.sh
 source "$EMUDECKGIT"/functions/dialogBox.sh

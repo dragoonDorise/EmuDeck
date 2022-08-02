@@ -36,6 +36,7 @@ doInstallCitra=false
 doInstallDuck=false
 doInstallCemu=false
 doInstallXenia=false
+doInstallRyujinx=false
 doInstallPrimeHacks=false
 doInstallPPSSPP=false
 doInstallXemu=false
