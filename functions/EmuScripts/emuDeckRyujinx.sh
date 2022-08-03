@@ -3,7 +3,7 @@
 #variables
 Ryujinx_emuName="Ryujinx"
 Ryujinx_emuType="Binary"
-Ryujinx_emuPath="$HOME/Applications/Ryujinx/"
+Ryujinx_emuPath="$HOME/Applications/publish/"
 
 #cleanupOlderThings
 Ryujinx_cleanup(){
@@ -14,9 +14,8 @@ Ryujinx_cleanup(){
 Ryujinx_install(){
     echo "Begin Ryujinx Install"
     installEmuBI "Ryujinx"  "$(getReleaseURLGH "Ryujinx/release-channel-master" "-linux_x64.tar.gz")" "Ryujinx" "tar.gz"
-    mkdir -p "$HOME/Applications/Ryujinx/"
-    tar -xvf "$HOME/Applications/Ryujinx.tar.gz" --strip-components=1 -C "$HOME/Applications/Ryujinx/"
-    chmod +x "$HOME/Applications/Ryujinx/Ryujinx"
+    tar -xvf "$HOME/Applications/Ryujinx.tar.gz" -C "$HOME/Applications/"
+    chmod +x "$HOME/Applications/publish/Ryujinx"
     rm -rf "$HOME/Applications/Ryujinx.tar.gz"
 }
 

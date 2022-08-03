@@ -925,7 +925,7 @@ if [ $doInstallYuzu == "true" ]; then
 fi
 if [ $doInstallRyujinx == "true" ]; then	
 	echo "Ryujinx_install"
-	Riujinx_install
+	Ryujinx_install
 fi
 if [ $doInstallXemu == "true" ]; then
 	echo "Xemu_install"

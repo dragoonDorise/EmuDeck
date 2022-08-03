@@ -1,6 +1,6 @@
 #!/bin/sh
 emuName="Ryujinx" #parameterize me
-emufolder="$HOME/Applications/Ryujinx" # has to be applications for ES-DE to find it
+emufolder="$HOME/Applications/publish" # has to be applications for ES-DE to find it
 
 #find full path to emu executable
 exe=$(find $emufolder -iname "${emuName}" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)

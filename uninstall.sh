@@ -164,7 +164,7 @@ if [ "$doUninstall" == true ]; then
 	fi
 	if [[ "$doUninstallRyujinx" == true ]]; then		
 		rm -rf ~/.config/Ryujinx &>> /dev/null
-		rm -rf ~/Applications/Ryujinx &>> /dev/null
+		rm -rf ~/Applications/publish &>> /dev/null
 	fi
 	if [[ "$doUninstallCemu" == true ]]; then
 		#flatpak uninstall info.cemu.Cemu
