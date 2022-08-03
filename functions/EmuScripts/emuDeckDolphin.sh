@@ -64,6 +64,9 @@ Dolphin_setupSaves(){
 #SetupStorage
 Dolphin_setupStorage(){
     echo "NYI"#TBD
+    texturesPathSource="$storagePath/dolphin/Textures"
+    texturesPathDestination="$HOME/.var/app/$Dolphin_emuPath/data/dolphin-emu/Load/Textures"
+    ln -s "$texturesPathSource" "$texturesPathDestination"
 }
 
 
