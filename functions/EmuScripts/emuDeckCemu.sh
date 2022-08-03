@@ -74,8 +74,10 @@ Cemu_setEmulationFolder(){
 	
 	if [[ -f "${Cemu_cemuSettings}" ]]; then
 		gamePathEntryFound=$(grep -rnw "$Cemu_cemuSettings" -e "z:${romsPath}/wiiu/roms")
-		if [[ $gamePathEntryFound == '' ]]; then 
-			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}/wiiu/roms" "$Cemu_cemuSettings"
+		if [[ $gamePathEntryFound == '' ]]; then
+			#Correct Folder seperators to windows based ones
+			WindowsRomPath=${echo "z:${romsPath}/wiiu/roms" | sed 's/\//\\/g'} 
+			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "${WindowsRomPath}" "$Cemu_cemuSettings"
 		fi
 	fi
 }
