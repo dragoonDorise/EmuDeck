@@ -24,10 +24,10 @@ installEmuBI(){
     find "${toolsPath}/launchers/" -type f -iname "$shName.sh" | while read -r f; do echo "deleting $f"; rm -f "$f"; done;
     cp -v "${EMUDECKGIT}/tools/launchers/${shName}.sh" "${toolsPath}/launchers/${shName}.sh"	
     chmod +x "${toolsPath}/launchers/${shName}.sh"
-
+    
     createDesktopShortcut   "$HOME/.local/share/applications/$altName.desktop" \
                             "$altName EmuDeck" \
                             "${toolsPath}/launchers/${shName}.sh" \
                             "false"
-                                                        
+
 }
