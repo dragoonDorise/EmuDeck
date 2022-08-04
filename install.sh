@@ -376,45 +376,73 @@ if [ "$zenity" == true ]; then
 			#fi
 			if [[ "$expertModeFeatureList" == *"PowerTools"* ]]; then
 				setSetting doInstallPowertools true
+			else
+				setSetting doInstallPowertools false
 			fi
 			if [[ "$expertModeFeatureList" == *"SteamGyro"* ]]; then
 				setSetting doInstallGyro true
+			else
+				setSetting doInstallGyro false
 			fi
 			if [[ "$expertModeFeatureList" == *"SaveSync"* ]]; then
 				setSetting doSetupSaveSync true
+			else
+				setSetting doSetupSaveSync false
 			fi
 			if [[ "$expertModeFeatureList" == *"updateSRM"* ]]; then
 				setSetting doSetupSRM true
+			else
+				setSetting doSetupSRM false
 			fi
 			if [[ "$expertModeFeatureList" == *"updateESDE"* ]]; then
 				setSetting doInstallESDE true
+			else
+				setSetting doInstallESDE false
 			fi
 			if [[ "$expertModeFeatureList" == *"selectEmulators"* ]]; then
 				setSetting doSelectEmulators true
+			else
+				setSetting doSelectEmulators false
 			fi
 			if [[ "$expertModeFeatureList" == *"selectEmulatorConfig"* ]]; then
 				setSetting doResetEmulators true
+			else
+				setSetting doResetEmulators false
 			fi
 			if [[ "$expertModeFeatureList" == *"selectRABezels"* ]]; then
 				setSetting RABezels true
+			else
+				setSetting RABezels false
 			fi
 			if [[ "$expertModeFeatureList" == *"selectRAAutoSave"* ]]; then
 				setSetting RAautoSave true
+			else
+				setSetting RAautoSave false
 			fi
 			if [[ "$expertModeFeatureList" == *"snesAR"* ]]; then
 				setSetting SNESAR 43	
+			else
+				setSetting SNESAR 87
 			fi
 			if [[ "$expertModeFeatureList" == *"selectWideScreen"* ]]; then
 				setSetting doSelectWideScreen true			
+			else
+				setSetting doSelectWideScreen false
 			fi
 			if [[ "$expertModeFeatureList" == *"setRASignIn"* ]]; then
 				setSetting doRASignIn true
+			else
+				setSetting doRASignIn false
 			fi
 			if [[ "$expertModeFeatureList" == *"setRAEnable"* ]]; then
 				setSetting doRAEnable true
+			else
+				setSetting doRAEnable false
 			fi
 			if [[ "$expertModeFeatureList" == *"doESDEThemePicker"* ]]; then
 				setSetting doESDEThemePicker true
+			else
+				setSetting doESDEThemePicker false
 			fi	
 			
 	
@@ -645,6 +673,7 @@ if [ "$zenity" == true ]; then
 	
 				emuTable=()
 				emuTable+=(TRUE "RetroArch")
+				emuTable+=(TRUE "MAME")
 				emuTable+=(TRUE "PrimeHack")
 				emuTable+=(TRUE "PCSX2")
 				emuTable+=(TRUE "PCSX2-QT")
