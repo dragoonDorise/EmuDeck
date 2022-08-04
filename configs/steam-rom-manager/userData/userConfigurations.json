@@ -372,6 +372,71 @@
     "version": 5
   },
   {
+      "parserType": "Glob",
+      "configTitle": "Arcade - MAME",
+      "steamCategory": "${Arcade}",
+      "steamDirectory": "${steamdirglobal}",
+      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/arcade",
+      "executableArgs": "run org.mamedev.MAME \"${fileName}\"",
+      "executableModifier": "\"${exePath}\"",
+      "startInDirectory": "",
+      "titleModifier": "${fuzzyTitle}",
+      "imageProviders": [
+          "SteamGridDB"
+      ],
+      "onlineImageQueries": "${${fuzzyTitle}}",
+      "imagePool": "${fuzzyTitle}",
+      "defaultImage": "",
+      "defaultTallImage": "",
+      "defaultHeroImage": "",
+      "defaultLogoImage": "",
+      "defaultIcon": "",
+      "localImages": "",
+      "localTallImages": "",
+      "localHeroImages": "",
+      "localLogoImages": "",
+      "localIcons": "",
+      "userAccounts": {
+          "specifiedAccounts": "",
+          "skipWithMissingDataDir": true,
+          "useCredentials": true
+      },
+      "executable": {
+          "path": "/usr/bin/flatpak",
+          "shortcutPassthrough": false,
+          "appendArgsToExecutable": true
+      },
+      "parserInputs": {
+          "glob": "${title}@(.zip|.ZIP)"
+      },
+      "titleFromVariable": {
+          "limitToGroups": "${MAME}",
+          "caseInsensitiveVariables": false,
+          "skipFileIfVariableWasNotFound": false,
+          "tryToMatchTitle": true
+      },
+      "fuzzyMatch": {
+          "replaceDiacritics": true,
+          "removeCharacters": true,
+          "removeBrackets": true
+      },
+      "imageProviderAPIs": {
+          "SteamGridDB": {
+              "nsfw": false,
+              "humor": false,
+              "styles": [],
+              "stylesHero": [],
+              "stylesLogo": [],
+              "stylesIcon": [],
+              "imageMotionTypes": [
+                  "static"
+              ]
+          }
+      },
+      "parserId": "165964954316677671",
+      "version": 10
+  },
+  {
     "parserType": "Glob",
     "configTitle": "Arcade - MAME 2003 Plus",
     "steamCategory": "${Arcade MAME 2003+}",
