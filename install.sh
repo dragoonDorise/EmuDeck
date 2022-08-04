@@ -1228,7 +1228,7 @@ fi
 
 if [[ $doESDEThemePicker == true ]]; then
 		if [[ $expert == true ]]; then	
-			text="Which theme do you want to set as default on EmulationStation DE?"
+			text="Which theme do you want to set for EmulationStation-DE?"
 			esdeTheme=$(zenity --list \
 			--title="EmuDeck" \
 			--height=250 \
@@ -1250,7 +1250,6 @@ if [[ $doESDEThemePicker == true ]]; then
 		fi
 	fi
 fi
-ESDE_applyTheme
 
 
 
