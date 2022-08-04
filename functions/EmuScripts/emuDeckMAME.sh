@@ -4,6 +4,7 @@ MAME_emuName="MAME"
 MAME_emuType="FlatPak"
 MAME_emuPath="org.mamedev.MAME"
 MAME_releaseURL=""
+MAME_configFile="$HOME/.mame/mame.ini"
 
 #cleanupOlderThings
 MAME_cleanup(){
@@ -19,7 +20,7 @@ MAME_install(){
 
 #ApplyInitialSettings
 MAME_init(){
-	configEmuFP "${MAME_emuName}" "${MAME_emuPath}" "true"
+	configEmuAI "${MAME_emuName}" "mame" "$HOME/.mame" "${EMUDECKGIT}/configs/mame" "true"
 	MAME_setupStorage
 	MAME_setEmulationFolder
 	MAME_setupSaves
@@ -27,7 +28,7 @@ MAME_init(){
 
 #update
 MAME_update(){
-	configEmuFP "${MAME_emuName}" "${MAME_emuPath}"
+	configEmuAI "${MAME_emuName}" "mame" "$HOME/.mame" "${EMUDECKGIT}/configs/mame" 
 	MAME_setupStorage
 	MAME_setEmulationFolder
 	MAME_setupSaves
@@ -35,16 +36,16 @@ MAME_update(){
 
 #ConfigurePaths
 MAME_setEmulationFolder(){
-  	configFile="$HOME/.var/app/${MAME_emuPath}/config/MAME/PSP/SYSTEM/MAME.ini"
-    gameDirOpt='CurrentDirectory = '
-    newGameDirOpt='CurrentDirectory = '"${romsPath}/psp"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
+  	
+    gameDirOpt='rompath                   '
+    newGameDirOpt="$gameDirOpt""${romsPath}/arcade"
+    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$MAME_configFile"
 }
 
 #SetupSaves
 MAME_setupSaves(){
-	linkToSaveFolder MAME saves "$HOME/.var/app/org.MAME.MAME/config/MAME/PSP/SAVEDATA"
-	linkToSaveFolder MAME states "$HOME/.var/app/org.MAME.MAME/config/MAME/PSP/MAME_STATE"
+	linkToSaveFolder MAME saves "$HOME/.mame/nvram"
+	linkToSaveFolder MAME states "$HOME/.mame/sta"
 }
 
 
@@ -56,7 +57,7 @@ MAME_setupStorage(){
 
 #WipeSettings
 MAME_wipe(){
-   rm -rf "$HOME/.var/app/$MAME_emuPath"
+   rm -rf "$HOME/.mame"
 }
 
 
