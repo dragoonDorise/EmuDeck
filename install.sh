@@ -1266,6 +1266,7 @@ fi
 #Sudo Required!
 
 if [ "$expert" == "true" ]; then
+	echo "$PASSWD" | sudo -v -S #refresh sudo cache
 	if [ "$doInstallGyro" == "true" ]; then	
 		Plugins_installSteamDeckGyroDSU
 	fi
