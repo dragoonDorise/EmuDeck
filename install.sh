@@ -888,7 +888,7 @@ fi
 
 source "$EMUDECKGIT/functions/all.sh"
 echo "Current Settings: "
-cat emuDecksettingsFile
+cat "$emuDecksettingsFile"
 
 #
 ##
