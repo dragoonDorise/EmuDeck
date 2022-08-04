@@ -133,21 +133,21 @@ Ryujinx_migrate(){
 #     fi
 
     #move data from hidden folders out to these folders in case the user already put stuff here.
-    origPath="$HOME/.config/"
+    origPath="$HOME/.config"
 
     Ryujinx_setupStorage
     
-    rsync -av "${origPath}Ryujinx/games" "${storagePath}/ryujinx/games" && rm -rf "${origPath}Ryujinx/games"
-    ln -s "${storagePath}/ryujinx/games" "${origPath}ryujinx/games" 
+    rsync -av "${origPath}/Ryujinx/games" "${storagePath}/ryujinx/games" && rm -rf "${origPath}/Ryujinx/games"
+    ln -s "${storagePath}/ryujinx/games" "${origPath}/ryujinx/games"  #may want to unlink this before hand?
 }
 
 Ryujinx_convertFromYuzu(){
     echo "Begin converting firmware from Yuzu"
-    for entry in $biosPath/yuzu/firmware/*.nca
+    for entry in "$biosPath"/yuzu/firmware/*.nca
     do
         folder=${entry##*/}
         mkdir -p "$HOME/.config/Ryujinx/bis/system/Contents/registered/$folder/"
-        cp $entry "$HOME/.config/Ryujinx/bis/system/Contents/registered/$folder/00"
+        cp "$entry" "$HOME/.config/Ryujinx/bis/system/Contents/registered/$folder/00"
         
     done
 }

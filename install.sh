@@ -323,6 +323,9 @@ if [ "$zenity" == true ]; then
 	mkdir -p "$biosPath"/yuzu
 	mkdir -p "$biosPath"/HdPacks
 	mkdir -p "$emulationPath"/hdpacks
+
+	
+	unlink "$emulationPath"/hdpacks/Mesen 2>/dev/null #refresh link if moved
 	ln -s "$biosPath"/HdPacks/ "$emulationPath"/hdpacks/Mesen
 	echo "Put your Mesen HD Packs here. Remember to put the pack inside a folder here with the exact name of the rom" > "$biosPath"/HdPacks/readme.txt
 	
@@ -863,6 +866,8 @@ else
 	mkdir -p "$biosPath"/yuzu
 	mkdir -p "$biosPath"/HdPacks
 	mkdir -p "$emulationPath"/hdpacks
+
+	unlink "$emulationPath"/hdpacks/Mesen 2>/dev/null #refresh link if moved
 	ln -s "$biosPath"/HdPacks/ "$emulationPath"/hdpacks/Mesen
 	echo "Put your Mesen HD Packs here. Remember to put the pack inside a folder here with the exact name of the rom" > "$biosPath"/HdPacks/readme.txt
 	
@@ -988,7 +993,7 @@ fi
 #ESDE Config
 if [ "$doSetupESDE" == "true" ]; then
 	echo "ESDE_init"
-	ESDE_init
+	ESDE_update
 fi	
 
 #Emus config
