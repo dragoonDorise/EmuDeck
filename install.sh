@@ -847,7 +847,7 @@ if [ "$zenity" == true ]; then
 		setSetting DreamcastWide false
 		setSetting BeetleWide false
 		setSetting XemuWide false
-		setSetting pcsx2QTWide false	
+		setSetting PCSX2QTWide false	
 	
 	fi # end Expert if
 
@@ -1110,7 +1110,7 @@ if [ "$zenity" == true ]; then
 	else
 		DuckStation_wideScreenOff
 	fi
-	if [ "$pcsx2QTWide" == true ]; then	
+	if [ "$PCSX2QTWide" == true ]; then	
 		PCSX2QT_wideScreenOn
 	else
 		PCSX2QT_wideScreenOff
