@@ -3,7 +3,7 @@
 #variables
 Ryujinx_emuName="Ryujinx"
 Ryujinx_emuType="Binary"
-Ryujinx_emuPath="$HOME/Applications/publish/"
+Ryujinx_emuPath="$HOME/Applications/publish"
 
 #cleanupOlderThings
 Ryujinx_cleanup(){
