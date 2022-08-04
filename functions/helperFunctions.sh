@@ -304,7 +304,9 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("RAHandHeldShader=false")
 
 	tmp=$(mktemp)
-	sort "$emuDecksettingsFile" | uniq -u > "$tmp" && mv "$tmp" "$emuDecksettingsFile"
+	#sort "$emuDecksettingsFile" | uniq -u > "$tmp" && mv "$tmp" "$emuDecksettingsFile"
+	
+	cat "$emuDecksettingsFile" | awk '!unique[$0]++' > "$tmp" && mv "$tmp" "$emuDecksettingsFile"
 	for setting in "${defaultSettingsList[@]}"
 		do
 			local settingName=$(cut -d "=" -f1 <<< "$setting")
