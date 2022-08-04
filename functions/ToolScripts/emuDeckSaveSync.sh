@@ -3,17 +3,15 @@
 SAVESYNC_toolName="EmuDeck SaveSync"
 SAVESYNC_toolType="AppImage"
 SAVESYNC_toolPath="$HOME/Applications/EmuDeck_SaveSync.AppImage"
-SAVESYNC_url="https://nightly.link/withertech/savesync/actions/runs/2517254418/EmuDeck-SaveSync-AppImage.zip"
 SAVESYNC_systemd_path="$HOME/.config/systemd/user"
 #SAVESYNC_Shortcutlocation="$HOME/Desktop/EmuDeckBinUpdate.desktop"
 
 
 
-SAVESYNC_install(){		
+SAVESYNC_install(){	
+
 	rm "$SAVESYNC_toolPath"
-    curl -L "$SAVESYNC_url" --output "$SAVESYNC_toolPath.zip"
-    unzip -j "$SAVESYNC_toolPath.zip" -d $(dirname "$SAVESYNC_toolPath.zip") && rm "$SAVESYNC_toolPath.zip"
-    mv "$HOME/Applications/EmuDeck_SaveSync-0.0.1-x86_64.AppImage" "$SAVESYNC_toolPath"
+    curl -L "$(getReleaseURLGH "withertech/savesync" "AppImage")" --output "$SAVESYNC_toolPath"
 	chmod +x "$SAVESYNC_toolPath"
 
 }
@@ -25,11 +23,14 @@ SAVESYNC_setup(){
         echo "no cloud provider selected"
     else
         echo "cloud provider: $cloudProvider"
+        systemctl --user stop emudeck_savesync.service
 
         mv "${toolsPath}/savesync/config.yml" "${toolsPath}/savesync/config.yml.bak"
         mv "$HOME/.config/rclone/rclone.conf"  "$HOME/.config/rclone/rclone.conf.bak"
 
-        "$SAVESYNC_toolPath" "$emulationPath" --setup $cloudProvider
+        "$SAVESYNC_toolPath" "$emulationPath" --setup "$cloudProvider"
+        echo "pausing before creating service"
+        sleep 20
         SAVESYNC_createService
     fi
 }
