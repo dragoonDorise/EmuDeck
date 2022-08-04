@@ -461,6 +461,7 @@ if [ "$zenity" == true ]; then
 			
 			emuTable=()
 			emuTable+=(TRUE "Multiple" "RetroArch")
+			emuTable+=(TRUE "Arcade" "MAME")
 			emuTable+=(TRUE "Metroid Prime" "PrimeHack")
 			emuTable+=(TRUE "PS2" "PCSX2")
 			emuTable+=(TRUE "PS2" "PCSX2-QT")
@@ -786,6 +787,7 @@ if [ "$zenity" == true ]; then
 		setSetting doInstallPrimeHacks true
 		setSetting doInstallPPSSPP true
 		setSetting doInstallXemu true
+		setSetting doInstallMAME true
 		setSetting doInstallXenia false
 		#doInstallMelon=true
 
@@ -801,6 +803,7 @@ if [ "$zenity" == true ]; then
 		setSetting doSetupRyujinx true
 		setSetting doSetupPPSSPP true
 		setSetting doSetupXemu true
+		setSetting doSetupMAME true
 		setSetting doSetupCemu true
 		setSetting doSetupXenia false
 
@@ -927,6 +930,10 @@ if [ $doInstallRyujinx == "true" ]; then
 	echo "Ryujinx_install"
 	Ryujinx_install
 fi
+if [ $doInstallMAME == "true" ]; then	
+	echo "MAME_install"
+	MAME_install
+fi
 if [ $doInstallXemu == "true" ]; then
 	echo "Xemu_install"
 	Xemu_install
@@ -1008,6 +1015,10 @@ fi
 if [ "$doSetupXemu" == "true" ]; then
 	echo "Xemu_init"
 	Xemu_init
+fi
+if [ "$doSetupMAME" == "true" ]; then
+	echo "MAME_init"
+	MAME_init
 fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then
