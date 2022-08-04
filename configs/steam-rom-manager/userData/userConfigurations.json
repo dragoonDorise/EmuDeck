@@ -35,7 +35,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.AppImage)"
+      "glob": "${title}@(.AppImage)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
