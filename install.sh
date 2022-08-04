@@ -323,6 +323,9 @@ if [ "$zenity" == true ]; then
 	mkdir -p "$biosPath"/yuzu
 	mkdir -p "$biosPath"/HdPacks
 	mkdir -p "$emulationPath"/hdpacks
+
+	
+	unlink "$emulationPath"/hdpacks/Mesen 2>/dev/null #refresh link if moved
 	ln -s "$biosPath"/HdPacks/ "$emulationPath"/hdpacks/Mesen
 	echo "Put your Mesen HD Packs here. Remember to put the pack inside a folder here with the exact name of the rom" > "$biosPath"/HdPacks/readme.txt
 	
@@ -376,45 +379,73 @@ if [ "$zenity" == true ]; then
 			#fi
 			if [[ "$expertModeFeatureList" == *"PowerTools"* ]]; then
 				setSetting doInstallPowertools true
+			else
+				setSetting doInstallPowertools false
 			fi
 			if [[ "$expertModeFeatureList" == *"SteamGyro"* ]]; then
 				setSetting doInstallGyro true
+			else
+				setSetting doInstallGyro false
 			fi
 			if [[ "$expertModeFeatureList" == *"SaveSync"* ]]; then
 				setSetting doSetupSaveSync true
+			else
+				setSetting doSetupSaveSync false
 			fi
 			if [[ "$expertModeFeatureList" == *"updateSRM"* ]]; then
 				setSetting doSetupSRM true
+			else
+				setSetting doSetupSRM false
 			fi
 			if [[ "$expertModeFeatureList" == *"updateESDE"* ]]; then
 				setSetting doInstallESDE true
+			else
+				setSetting doInstallESDE false
 			fi
 			if [[ "$expertModeFeatureList" == *"selectEmulators"* ]]; then
 				setSetting doSelectEmulators true
+			else
+				setSetting doSelectEmulators false
 			fi
 			if [[ "$expertModeFeatureList" == *"selectEmulatorConfig"* ]]; then
 				setSetting doResetEmulators true
+			else
+				setSetting doResetEmulators false
 			fi
 			if [[ "$expertModeFeatureList" == *"selectRABezels"* ]]; then
 				setSetting RABezels true
+			else
+				setSetting RABezels false
 			fi
 			if [[ "$expertModeFeatureList" == *"selectRAAutoSave"* ]]; then
 				setSetting RAautoSave true
+			else
+				setSetting RAautoSave false
 			fi
 			if [[ "$expertModeFeatureList" == *"snesAR"* ]]; then
 				setSetting SNESAR 43	
+			else
+				setSetting SNESAR 87
 			fi
 			if [[ "$expertModeFeatureList" == *"selectWideScreen"* ]]; then
 				setSetting doSelectWideScreen true			
+			else
+				setSetting doSelectWideScreen false
 			fi
 			if [[ "$expertModeFeatureList" == *"setRASignIn"* ]]; then
 				setSetting doRASignIn true
+			else
+				setSetting doRASignIn false
 			fi
 			if [[ "$expertModeFeatureList" == *"setRAEnable"* ]]; then
 				setSetting doRAEnable true
+			else
+				setSetting doRAEnable false
 			fi
 			if [[ "$expertModeFeatureList" == *"doESDEThemePicker"* ]]; then
 				setSetting doESDEThemePicker true
+			else
+				setSetting doESDEThemePicker false
 			fi	
 			
 	
@@ -461,6 +492,7 @@ if [ "$zenity" == true ]; then
 			
 			emuTable=()
 			emuTable+=(TRUE "Multiple" "RetroArch")
+			emuTable+=(TRUE "Arcade" "MAME")
 			emuTable+=(TRUE "Metroid Prime" "PrimeHack")
 			emuTable+=(TRUE "PS2" "PCSX2")
 			emuTable+=(TRUE "PS2" "PCSX2-QT")
@@ -470,6 +502,7 @@ if [ "$zenity" == true ]; then
 			emuTable+=(TRUE "PSX" "Duckstation")
 			emuTable+=(TRUE "PSP" "PPSSPP")
 			emuTable+=(TRUE "Switch" "Yuzu")
+			emuTable+=(TRUE "Switch" "Ryujinx")
 			emuTable+=(TRUE "WiiU" "Cemu")
 			emuTable+=(TRUE "XBox" "Xemu")
 			#if we are in beta / dev install, allow Xenia. Still false by default though. Will only work on expert mode, and explicitly turned on.
@@ -545,6 +578,11 @@ if [ "$zenity" == true ]; then
 					setSetting doInstallYuzu true
 				else
 					setSetting doInstallYuzu false
+				fi
+				if [[ "$emusToInstall" == *"Ryujinx"* ]]; then
+					setSetting doInstallRyujinx true
+				else
+					setSetting doInstallRyujinx false
 				fi
 				if [[ "$emusToInstall" == *"Cemu"* ]]; then
 					setSetting doInstallCemu true
@@ -638,6 +676,7 @@ if [ "$zenity" == true ]; then
 	
 				emuTable=()
 				emuTable+=(TRUE "RetroArch")
+				emuTable+=(TRUE "MAME")
 				emuTable+=(TRUE "PrimeHack")
 				emuTable+=(TRUE "PCSX2")
 				emuTable+=(TRUE "PCSX2-QT")
@@ -647,6 +686,7 @@ if [ "$zenity" == true ]; then
 				emuTable+=(TRUE "Duckstation")
 				emuTable+=(TRUE "PPSSPP")
 				emuTable+=(TRUE "Yuzu")
+				emuTable+=(TRUE "Ryujinx")
 				emuTable+=(TRUE "Cemu")
 				emuTable+=(TRUE "Xemu")
 				emuTable+=(TRUE "Steam Rom Manager")
@@ -720,6 +760,11 @@ if [ "$zenity" == true ]; then
 					else
 						setSetting doSetupYuzu false
 					fi
+					if [[ "$emusToReset" == *"Ryujinx"* ]]; then
+						setSetting doSetupRyujinx true
+					else
+						setSetting doSetupRyujinx false
+					fi
 					if [[ "$emusToReset" == *"Cemu"* ]]; then
 						setSetting doSetupCemu true
 					else
@@ -766,6 +811,7 @@ if [ "$zenity" == true ]; then
 		setSetting doInstallPCSX2QT true
 		setSetting doInstallRPCS3 true
 		setSetting doInstallYuzu true
+		setSetting doInstallRyujinx true
 		setSetting doInstallCitra true
 		setSetting doInstallDuck true
 		setSetting doInstallCemu true
@@ -773,6 +819,7 @@ if [ "$zenity" == true ]; then
 		setSetting doInstallPrimeHacks true
 		setSetting doInstallPPSSPP true
 		setSetting doInstallXemu true
+		setSetting doInstallMAME true
 		setSetting doInstallXenia false
 		#doInstallMelon=true
 
@@ -785,8 +832,10 @@ if [ "$zenity" == true ]; then
 		setSetting doSetupCitra true
 		setSetting doSetupDuck true
 		setSetting doSetupYuzu true
+		setSetting doSetupRyujinx true
 		setSetting doSetupPPSSPP true
 		setSetting doSetupXemu true
+		setSetting doSetupMAME true
 		setSetting doSetupCemu true
 		setSetting doSetupXenia false
 
@@ -817,6 +866,8 @@ else
 	mkdir -p "$biosPath"/yuzu
 	mkdir -p "$biosPath"/HdPacks
 	mkdir -p "$emulationPath"/hdpacks
+
+	unlink "$emulationPath"/hdpacks/Mesen 2>/dev/null #refresh link if moved
 	ln -s "$biosPath"/HdPacks/ "$emulationPath"/hdpacks/Mesen
 	echo "Put your Mesen HD Packs here. Remember to put the pack inside a folder here with the exact name of the rom" > "$biosPath"/HdPacks/readme.txt
 	
@@ -837,7 +888,7 @@ fi
 
 source "$EMUDECKGIT/functions/all.sh"
 echo "Current Settings: "
-cat emuDecksettingsFile
+cat "$emuDecksettingsFile"
 
 #
 ##
@@ -909,6 +960,14 @@ if [ $doInstallYuzu == "true" ]; then
 	echo "Yuzu_install"
 	Yuzu_install
 fi
+if [ $doInstallRyujinx == "true" ]; then	
+	echo "Ryujinx_install"
+	Ryujinx_install
+fi
+if [ $doInstallMAME == "true" ]; then	
+	echo "MAME_install"
+	MAME_install
+fi
 if [ $doInstallXemu == "true" ]; then
 	echo "Xemu_install"
 	Xemu_install
@@ -934,7 +993,7 @@ fi
 #ESDE Config
 if [ "$doSetupESDE" == "true" ]; then
 	echo "ESDE_init"
-	ESDE_init
+	ESDE_update
 fi	
 
 #Emus config
@@ -979,6 +1038,10 @@ if [ "$doSetupYuzu" == "true" ]; then
 	echo "Yuzu_init"
 	Yuzu_init
 fi
+if [ "$doSetupRyujinx" == "true" ]; then
+	echo "Ryujinx_init"
+	Ryujinx_init
+fi
 if [ "$doSetupPPSSPP" == "true" ]; then
 	echo "PPSSPP_init"
 	PPSSPP_init
@@ -986,6 +1049,10 @@ fi
 if [ "$doSetupXemu" == "true" ]; then
 	echo "Xemu_init"
 	Xemu_init
+fi
+if [ "$doSetupMAME" == "true" ]; then
+	echo "MAME_init"
+	MAME_init
 fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then
@@ -1204,6 +1271,7 @@ fi
 #Sudo Required!
 
 if [ "$expert" == "true" ]; then
+	echo "$PASSWD" | sudo -v -S #refresh sudo cache
 	if [ "$doInstallGyro" == "true" ]; then	
 		Plugins_installSteamDeckGyroDSU
 	fi
@@ -1268,7 +1336,20 @@ else
 	fi
 fi
 
-
+FILE="$HOME/.config/Ryujinx/system/prod.keys"
+if [ -f "$FILE" ]; then
+	echo -e "" 2>/dev/null
+else
+	if [ "$zenity" == true ]; then
+	text="$(printf "<b>Ryujinx is not configured</b>\nYou need to copy your Keys to: \n${biosPath}\ryujinx/keys\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them. You might need to install your firmware using the Ryujinx Install Firmware option inside the emulator</b>")"
+	zenity --error \
+			--title="EmuDeck" \
+			--width=400 \
+			--text="${text}" 2>/dev/null
+	else
+		echo "$text"
+	fi
+fi
 
 #
 # We mark the script as finished	
@@ -1282,7 +1363,7 @@ rm "$PIDFILE"
 
 if [ "$zenity" == true ]; then
 
-	text="$(printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager on your Desktop to add your games to your SteamUI Interface.\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!")"
+	text="$(printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu, Ryujinx) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager on your Desktop to add your games to your SteamUI Interface.\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!")"
 	
 	zenity --question \
 		 	--title="EmuDeck" \

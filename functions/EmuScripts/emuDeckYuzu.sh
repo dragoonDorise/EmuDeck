@@ -81,8 +81,8 @@ Yuzu_setEmulationFolder(){
     sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "$configFile"
 
     #Setup Bios symlinks
-    unlink "${biosPath}/yuzu/keys"
-    unlink "${biosPath}/yuzu/firmware"
+    unlink "${biosPath}/yuzu/keys" 2>/dev/null
+    unlink "${biosPath}/yuzu/firmware"2>/dev/null
 
     mkdir -p "$HOME/.local/share/yuzu/keys/"
     mkdir -p "${storagePath}/yuzu/nand/system/Contents/registered/"
@@ -97,7 +97,7 @@ Yuzu_setEmulationFolder(){
 #SetupSaves
 Yuzu_setupSaves(){
     echo "Begin Yuzu save link"
-	unlink "${savesPath}/yuzu/saves" # Fix for previous bad symlink
+	unlink "${savesPath}/yuzu/saves" 2>/dev/null # Fix for previous bad symlink2>/dev/null
 	linkToSaveFolder yuzu saves "${storagePath}/yuzu/nand/user/save/"
 }
 

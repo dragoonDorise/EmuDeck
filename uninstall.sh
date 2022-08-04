@@ -16,6 +16,7 @@ doUninstallDolphin=false
 doUninstallPCSX2=false
 doUninstallRPCS3=false
 doUninstallYuzu=false
+doUninstallRyujinx=false
 doUninstallCitra=false
 doUninstallDuck=false
 doUninstallCemu=false
@@ -66,10 +67,11 @@ if [ "$doUninstall" == true ]; then
 				7 "Duckstation" \
 				8 "PPSSPP" \
 				9 "Yuzu" \
-				10 "Xemu" \
-				11 "Cemu" \
-				12 "SteamRomManager" \
-				13 "EmulationStationDE")
+				10 "Ryujinx" \
+				11 "Xemu" \
+				12 "Cemu" \
+				13 "SteamRomManager" \
+				14 "EmulationStationDE")
 	ans=$?	
 	if [ $ans -eq 0 ]; then
 		
@@ -99,6 +101,9 @@ if [ "$doUninstall" == true ]; then
 		fi
 		if [[ "$emusToUninstall" == *"Yuzu"* ]]; then
 			doUninstallYuzu=true
+		fi
+		if [[ "$emusToUninstall" == *"Ryujinx"* ]]; then
+			doUninstallRyujinx=true
 		fi
 		if [[ "$emusToUninstall" == *"Cemu"* ]]; then
 			doUninstallCemu=true
@@ -156,6 +161,10 @@ if [ "$doUninstall" == true ]; then
 	if [[ "$doUninstallYuzu" == true ]]; then
 		flatpak uninstall org.yuzu_emu.yuzu --system -y
 		rm -rf ~/.var/app/org.yuzu_emu.yuzu &>> /dev/null
+	fi
+	if [[ "$doUninstallRyujinx" == true ]]; then		
+		rm -rf ~/.config/Ryujinx &>> /dev/null
+		rm -rf ~/Applications/publish &>> /dev/null
 	fi
 	if [[ "$doUninstallCemu" == true ]]; then
 		#flatpak uninstall info.cemu.Cemu
