@@ -66,6 +66,8 @@ Dolphin_setupStorage(){
     echo "Begin Dolphin storage config"
     texturesPathSource="$storagePath/dolphin/Textures"
     texturesPathDestination="$HOME/.var/app/$Dolphin_emuPath/data/dolphin-emu/Load/Textures"
+    mkdir -p "$texturesPathSource"
+    rm -rf "$texturesPathDestination"
     ln -s "$texturesPathSource" "$texturesPathDestination"
 }
 

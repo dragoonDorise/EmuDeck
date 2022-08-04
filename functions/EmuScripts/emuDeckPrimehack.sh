@@ -54,6 +54,8 @@ Primehack_setupStorage(){
     echo "Begin Primehack storage config"
     texturesPathSource="$storagePath/Primehack/Textures"
     texturesPathDestination="$HOME/.var/app/$Primehack_emuPath/data/dolphin-emu/Load/Textures"
+    mkdir -p "$texturesPathSource"
+    rm -rf "$texturesPathDestination"
     ln -s "$texturesPathSource" "$texturesPathDestination"
 }
 
