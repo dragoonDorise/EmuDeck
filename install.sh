@@ -804,10 +804,11 @@ if [ "$zenity" == true ]; then
 			fi
 		fi
 	else
+		echo "Applying Easy mode Settings"
 		#easy mode settings
 		setSetting doInstallRA true
 		setSetting doInstallDolphin true
-		setSetting doInstallPCSX2 true
+		setSetting doInstallPCSX2 false
 		setSetting doInstallPCSX2QT true
 		setSetting doInstallRPCS3 true
 		setSetting doInstallYuzu true
@@ -826,7 +827,7 @@ if [ "$zenity" == true ]; then
 		setSetting doSetupRA true
 		setSetting doSetupPrimeHacks true
 		setSetting doSetupDolphin true
-		setSetting doSetupPCSX2 true
+		setSetting doSetupPCSX2 false
 		setSetting doSetupPCSX2QT true
 		setSetting doSetupRPCS3 true
 		setSetting doSetupCitra true
