@@ -69,7 +69,7 @@ updateCemu(){
     binTable=()
     binTable+=(TRUE "EmulationStation-DE" "esde")
     binTable+=(TRUE "Steam Rom Manager" "srm")
-    binTable+=(TRUE "Nintendo Switch Emu" "yuzu")9
+    binTable+=(TRUE "Nintendo Switch Emu" "yuzu")
     binTable+=(TRUE "Nintendo Switch Emu" "ryujinx")
     binTable+=(TRUE "Sony PlayStation 2 Emu" "pcsx2-qt")
     binTable+=(TRUE "Nintendo WiiU Emu" "cemu")
