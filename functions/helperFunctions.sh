@@ -395,6 +395,63 @@ function moveSaveFolder(){
 	fi
 }
 
+function iniFieldUpdate(){
+	local iniFile="$1"
+	local iniSection="$2"
+	local iniKey="$3"
+	local iniValue="$4"
+
+	if [ -f "$iniFile" ]; then
+		# Create the section if it doesn't exist.
+		if ! grep -q "\[$iniSection\]" "$iniFile"; then
+			echo "[$iniSection]" >> "$iniFile"
+		fi
+
+		# If the key doesn't exist, create it one line below the $iniSection.
+		# Otherwise, just update the value.
+		if ! grep -q "$iniKey" "$iniFile"; then
+			echo "Creating key $iniKey = $iniValue"
+			local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
+			sed -i "$((sectionLineNumber + 1))i$iniKey = $iniValue" "$iniFile"
+		else
+			echo "Updating key $iniKey = $iniValue"
+			sed -i "s|$iniKey =.*|$iniKey = $iniValue|g" "$iniFile"
+		fi
+	else
+		echo "Can't update missing INI file: $iniFile"
+	fi
+}
+
+# Shared Dolphin/Primehack storage updates
+function setDolphinStorageIni(){
+	local emuName="$1"
+	local emuAppName="$2"
+
+	echo "Begin Dolphin storage config"
+	local iniFilePath="$HOME/.var/app/${emuAppName}/config/dolphin-emu/Dolphin.ini"
+
+	# Wii NAND Root
+	mkdir -p "$storagePath/$emuName/Wii"
+	iniFieldUpdate "$iniFilePath" "General" "NANDRootPath" "$storagePath/$emuName/Wii"
+
+	# Dump
+	mkdir -p "$storagePath/$emuName/Dump"
+	iniFieldUpdate "$iniFilePath" "General" "DumpPath" "$storagePath/$emuName/Dump"
+
+	# Load folder
+	mkdir -p "$storagePath/$emuName/Load/Textures"
+	mkdir -p "$storagePath/$emuName/Load/GraphicMods"
+	mkdir -p "$storagePath/$emuName/Load/Riivolution"
+	iniFieldUpdate "$iniFilePath" "General" "LoadPath" "$storagePath/$emuName/Load"
+
+	# ResourcePacks
+	mkdir -p "$storagePath/$emuName/ResourcePacks"
+	iniFieldUpdate "$iniFilePath" "General" "ResourcePackPath" "$storagePath/$emuName/ResourcePacks"
+
+	# WFS
+	mkdir -p "$storagePath/$emuName/WFS"
+	iniFieldUpdate "$iniFilePath" "General" "WFSPath" "$storagePath/$emuName/WFS"
+}
 
 #
 #	local Shortcutlocation=$1
