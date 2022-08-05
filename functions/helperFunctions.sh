@@ -426,17 +426,15 @@ function iniFieldUpdate(){
 function setDolphinStorageIni(){
 	local emuName="$1"
 	local emuAppName="$2"
-
-	echo "Begin Dolphin storage config"
 	local iniFilePath="$HOME/.var/app/${emuAppName}/config/dolphin-emu/Dolphin.ini"
 
-	# Wii NAND Root
-	mkdir -p "$storagePath/$emuName/Wii"
-	iniFieldUpdate "$iniFilePath" "General" "NANDRootPath" "$storagePath/$emuName/Wii"
+	# # Wii NAND Root
+	# mkdir -p "$storagePath/$emuName/Wii"
+	# iniFieldUpdate "$iniFilePath" "General" "NANDRootPath" "$storagePath/$emuName/Wii"
 
-	# Dump
-	mkdir -p "$storagePath/$emuName/Dump"
-	iniFieldUpdate "$iniFilePath" "General" "DumpPath" "$storagePath/$emuName/Dump"
+	# # Dump
+	# mkdir -p "$storagePath/$emuName/Dump"
+	# iniFieldUpdate "$iniFilePath" "General" "DumpPath" "$storagePath/$emuName/Dump"
 
 	# Load folder
 	mkdir -p "$storagePath/$emuName/Load/Textures"
@@ -448,9 +446,9 @@ function setDolphinStorageIni(){
 	mkdir -p "$storagePath/$emuName/ResourcePacks"
 	iniFieldUpdate "$iniFilePath" "General" "ResourcePackPath" "$storagePath/$emuName/ResourcePacks"
 
-	# WFS
-	mkdir -p "$storagePath/$emuName/WFS"
-	iniFieldUpdate "$iniFilePath" "General" "WFSPath" "$storagePath/$emuName/WFS"
+	# # WFS
+	# mkdir -p "$storagePath/$emuName/WFS"
+	# iniFieldUpdate "$iniFilePath" "General" "WFSPath" "$storagePath/$emuName/WFS"
 }
 
 #
