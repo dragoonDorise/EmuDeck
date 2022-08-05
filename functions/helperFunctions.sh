@@ -9,9 +9,12 @@ function getScreenAR(){
 	case $productName in
 		Win600)			return=169		;;
 		Jupiter)		return=1610 	;;
-		*)				resolution=$(xrandr --current | grep 'primary' | uniq | awk '{print $4}'| cut -d '+' -f1)
-						Xaxis=$(echo "$resolution" | awk '{print $1}' | cut -d 'x' -f2)
-						Yaxis=$(echo "$resolution" | awk '{print $1}' | cut -d 'x' -f1)
+		*)				resolution=$(xrandr --current | grep 'primary' | uniq | awk 
+'{print $4}'| cut -d '+' -f1)
+						Xaxis=$(echo "$resolution" | awk '{print $1}' | cut -d 'x' 
+-f2)
+						Yaxis=$(echo "$resolution" | awk '{print $1}' | cut -d 'x' 
+-f1)		
 
 						screenWidth=$Xaxis
 						screenHeight=$Yaxis
@@ -20,16 +23,17 @@ function getScreenAR(){
 						##Is rotated?
 						if [[ $Yaxis > $Xaxis ]]; then
 							screenWidth=$Yaxis
-							screenHeight=$Xaxis
+							screenHeight=$Xaxis		
 						fi
 
-						aspectRatio=$(awk -v screenWidth="$screenWidth" -v screenHeight="$screenHeight" 'BEGIN{printf "%.2f\n", (screenWidth/screenHeight)}')
+						aspectRatio=$(awk -v screenWidth="$screenWidth" -v 
+screenHeight="$screenHeight" 'BEGIN{printf "%.2f\n", (screenWidth/screenHeight)}')
 						if [ "$aspectRatio" == 1.60 ]; then
 							ar=1610
 						elif [ "$aspectRatio" == 1.78 ]; then
 							ar=169
 						else
-							ar=0
+							ar=0	
 						fi
 						return=$ar 		;;
 	esac
@@ -67,7 +71,7 @@ function escapeSedValue(){
 }
 
 function getSDPath(){
-    if [ -b "/dev/mmcblk0p1" ]; then
+    if [ -b "/dev/mmcblk0p1" ]; then	    
 		findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1
 	fi
 }
@@ -92,7 +96,7 @@ function testLocationValid(){
 	local return=""
 
     touch "$testLocation/testwrite"
-
+    
 	if [ ! -f  "$testLocation/testwrite" ]; then
 		return="Invalid: $locationName not Writable"
 	else
@@ -109,9 +113,10 @@ function testLocationValid(){
 
 function makeFunction(){
 
-	find "$HOME/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.cfg" | while read file
+	find "$HOME/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname 
+"*.cfg" | while read file
 		do
-
+			
 			folderOverride="$(basename "${file}")"
 			foldername="$(dirname "${file}")"
 			coreName="$(basename "${foldername}")"
@@ -121,7 +126,8 @@ function makeFunction(){
 			do
 				local option=$(echo "$line" | awk '{print $1}')
 				local value=$(echo "$line" | awk '{print $3}')
-				echo "RetroArch_setOverride '$folderOverride' '$coreName'  '$option' '$value'"
+				echo "RetroArch_setOverride '$folderOverride' '$coreName'  '$option' 
+'$value'"
 			done
 			echo '}'
 		done
@@ -129,7 +135,8 @@ function makeFunction(){
 
 function deleteConfigs(){
 
-	find "$HOME/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.opt" -o -type f -iname "*.cfg"| while read file
+	find "$HOME/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname 
+"*.opt" -o -type f -iname "*.cfg"| while read file
 		do
 			rm "$file"
 		done
@@ -137,7 +144,8 @@ function deleteConfigs(){
 
 
 function customLocation(){
-    zenity --file-selection --directory --title="Select a destination for the Emulation directory." 2>/dev/null
+    zenity --file-selection --directory --title="Select a destination for the Emulation directory." 
+2>/dev/null
 }
 
 function refreshSource(){
@@ -153,6 +161,7 @@ function setAllEmuPaths(){
 function setSetting () {
 	local var=$1
 	local new_val=$2
+
 	settingExists=$(grep -rw "$emuDecksettingsFile" -e "$var")
 	if [[ $settingExists == '' ]]; then
 		#insert setting to end
@@ -192,7 +201,7 @@ function updateOrAppendConfigLine(){
 	local fullPath=$(dirname "$configFile")
 	mkdir -p "$fullPath"
 	touch "$configFile"
-
+	
 	local optionFound=$(grep -rnw  "$configFile" -e "$option")
 	if [[ "$optionFound" == '' ]]; then
 		echo "appending: $replacement to $configFile"
@@ -213,7 +222,9 @@ function getEnvironmentDetails(){
 	local uname=$(uname -a)
 	local productName=$(getProductName)
 	local aspectRatio=$(getScreenAR)
-	local json="{ \"Home\": \"$HOME\", \"Hostname\": \"$HOSTNAME\", \"Username\": \"$USER\", \"SDPath\": \"$sdpath\", \"IsSDValid?\": \"$sdValid\", \"FirstRun?\": \"$firstRun\",\"ProductName\": \"$productName\",\"AspectRatio\": \"$aspectRatio\",\"UName\": \"$uname\" }"
+	local json="{ \"Home\": \"$HOME\", \"Hostname\": \"$HOSTNAME\", \"Username\": \"$USER\", \"SDPath\": 
+\"$sdpath\", \"IsSDValid?\": \"$sdValid\", \"FirstRun?\": \"$firstRun\",\"ProductName\": 
+\"$productName\",\"AspectRatio\": \"$aspectRatio\",\"UName\": \"$uname\" }"
 	jq -r <<< "$json"
 }
 
@@ -304,16 +315,18 @@ function createUpdateSettingsFile(){
 
 	tmp=$(mktemp)
 	#sort "$emuDecksettingsFile" | uniq -u > "$tmp" && mv "$tmp" "$emuDecksettingsFile"
-
+	
 	cat "$emuDecksettingsFile" | awk '!unique[$0]++' > "$tmp" && mv "$tmp" "$emuDecksettingsFile"
 	for setting in "${defaultSettingsList[@]}"
 		do
 			local settingName=$(cut -d "=" -f1 <<< "$setting")
 			local settingVal=$(cut -d "=" -f2 <<< "$setting")
 			if grep -r "^${settingName}=" "$emuDecksettingsFile" &>/dev/null; then
-				echo "Setting: $settingName found. CurrentValue: $(getSetting "$settingName")"
+				echo "Setting: $settingName found. CurrentValue: $(getSetting 
+"$settingName")"
 			else
-				echo "Setting: $settingName NOT found. adding to $emuDecksettingsFile with default value: $settingVal"
+				echo "Setting: $settingName NOT found. adding to $emuDecksettingsFile with 
+default value: $settingVal"
 				setSetting "$settingName" "$settingVal"
 			fi
 		done
@@ -324,25 +337,24 @@ function createUpdateSettingsFile(){
 function checkForFile(){
 	local file=$1
 	local delete=$2
-	local finished=false
-
+	local finished=false	
 	while [ $finished == false ]
-	do
-		test=$(test -f "$file" && echo true)
+	do 		 
+		test=$(test -f "$file" && echo true)			
 	  	if [[ $test == true ]]; then
 	  	  	finished=true;
-		  	clear
-			if [[ $delete == 'delete' ]]; then
+		  	clear			  	
+			if [[ $delete == 'delete' ]]; then  
 		  		rm "$file"
 			fi
-			echo 'true';
+			echo 'true';			
 			break
-	  	fi
+	  	fi							  
 	done
 }
 
 
-function getLatestReleaseURLGH(){
+function getLatestReleaseURLGH(){	
     local repository=$1
     local fileType=$2
 	local url
@@ -355,7 +367,7 @@ function getLatestReleaseURLGH(){
     echo "$url"
 }
 
-function getReleaseURLGH(){
+function getReleaseURLGH(){	
     local repository=$1
     local fileType=$2
 	local url
@@ -365,25 +377,25 @@ function getReleaseURLGH(){
     fi
     curl -fSs "$url" | \
     jq -r '[ .[].assets[] | select(.name | endswith("'"$fileType"'")).browser_download_url ][0]'
-
+    
 }
 
 
-function linkToSaveFolder(){
+function linkToSaveFolder(){	
     local emu=$1
     local folderName=$2
     local path=$3
 
-	if [ ! -d "$savesPath/$emu/$folderName" ]; then
+	if [ ! -d "$savesPath/$emu/$folderName" ]; then		
 		mkdir -p $savesPath/$emu
-		setMSG "Linking $emu $folderName to the Emulation/saves folder"
-		mkdir -p $path
-		ln -sn $path $savesPath/$emu/$folderName
+		setMSG "Linking $emu $folderName to the Emulation/saves folder"			
+		mkdir -p $path 
+		ln -sn $path $savesPath/$emu/$folderName 
 	fi
 
 }
 
-function moveSaveFolder(){
+function moveSaveFolder(){	
     local emu=$1
     local folderName=$2
     local path=$3
@@ -394,12 +406,13 @@ function moveSaveFolder(){
 
 	if [[ ! -e "$savesPath/$emu/$folderName" ]]; then
 		mkdir -p "$savesPath/$emu/$folderName"
-		if [[ "$linkedTarget" == "$path" ]]; then
-			setMSG "Moving $emu $folderName to the Emulation/saves/$emu/$folderName folder"
+		if [[ "$linkedTarget" == "$path" ]]; then		
+			setMSG "Moving $emu $folderName to the Emulation/saves/$emu/$folderName folder"	
 			rsync -avh "$path/" "$savesPath/$emu/$folderName" && rm -rf "${path:?}"
 			ln -sn  "$savesPath/$emu/$folderName" "$path"
 		fi
 	fi
+	
 }
 
 function iniFieldUpdate(){
@@ -463,19 +476,20 @@ function setDolphinStorageIni(){
 #	local name=$2
 #	local exec=$3
 #	local terminal=$4 #Optional
-#
+#	
 #
 function createDesktopShortcut(){
 
-
+	
 	local Shortcutlocation=$1
 	local name=$2
 	local exec=$3
 	local terminal=$4
 	local icon
-
+	
 	mkdir -p "$HOME/.local/share/icons/emudeck/"
-	cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name")."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null
+	cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name")."{svg,jpg,png} 
+"$HOME/.local/share/icons/emudeck/" 2>/dev/null
 	icon=$(find "$HOME/.local/share/icons/emudeck/" -type f -iname "$(cut -d " " -f1 <<< "$name").*")
 
 	if [ -z "$icon" ]; then
