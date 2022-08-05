@@ -486,7 +486,28 @@ if [ "$zenity" == true ]; then
 					fi
 				fi
 			fi
-		
+		if [[ $doESDEThemePicker == true ]]; then	
+			text="Which theme do you want to set for EmulationStation-DE?"
+			esdeTheme=$(zenity --list \
+			--title="EmuDeck" \
+			--height=250 \
+			--width=250 \
+			--ok-label="OK" \
+			--cancel-label="Exit" \
+			--text="${text}" \
+			--radiolist \
+			--column="" \
+			--column="Theme" \
+			1 "EPICNOIR" \
+			2 "MODERN-DE" \
+			3 "RBSIMPLE-DE" 2>/dev/null)
+			ans=$?	
+			if [ $ans -eq 0 ]; then
+				echo "Theme selected: $esdeTheme" 
+				setSetting esdeTheme $esdeTheme
+			fi
+		fi
+
 
 		if [[ $doSelectEmulators == "true" ]]; then
 			
@@ -1226,30 +1247,7 @@ else
 fi
 
 
-if [[ $doESDEThemePicker == true ]]; then
-		if [[ $expert == true ]]; then	
-			text="Which theme do you want to set for EmulationStation-DE?"
-			esdeTheme=$(zenity --list \
-			--title="EmuDeck" \
-			--height=250 \
-			--width=250 \
-			--ok-label="OK" \
-			--cancel-label="Exit" \
-			--text="${text}" \
-			--radiolist \
-			--column="" \
-			--column="Theme" \
-			1 "EPICNOIR" \
-			2 "MODERN-DE" \
-			3 "RBSIMPLE-DE" 2>/dev/null)
-			ans=$?	
-			if [ $ans -eq 0 ]; then
-				echo "Theme selected: $esdeTheme" 
-				ESDE_applyTheme "$esdeTheme"
-			fi
-		fi
-	fi
-fi
+
 
 
 
