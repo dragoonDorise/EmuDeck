@@ -163,7 +163,7 @@ function setSetting () {
 			if [[ $settingExists == "$var=$new_val" ]]; then
 				echo "Setting unchanged, skipping"
 			else
-				changeLine "$var" "$var=$new_val" "$emuDecksettingsFile"
+				changeLine "$var=" "$var=$new_val" "$emuDecksettingsFile"
 			fi
 	fi
 	#Update values
@@ -239,7 +239,8 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupDuck=true")
 	defaultSettingsList+=("doSetupCemu=true")
 	defaultSettingsList+=("doSetupXenia=false")
-	defaultSettingsList+=("doSetupRyujinx=false")
+	defaultSettingsList+=("doSetupRyujinx=true")
+	defaultSettingsList+=("doSetupMAME=true")
 	defaultSettingsList+=("doSetupPrimeHacks=true")
 	defaultSettingsList+=("doSetupPPSSPP=true")
 	defaultSettingsList+=("doSetupXemu=true")
@@ -252,6 +253,8 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doInstallRA=true")
 	defaultSettingsList+=("doInstallDolphin=true")
 	defaultSettingsList+=("doInstallPCSX2=true")
+	defaultSettingsList+=("doInstallMAME=true")
+	defaultSettingsList+=("doInstallRyujinx=true")
 	defaultSettingsList+=("doInstallRPCS3=true")
 	defaultSettingsList+=("doInstallYuzu=true")
 	defaultSettingsList+=("doInstallCitra=true")
@@ -299,7 +302,10 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("RAHandClassic2D=false")
 	defaultSettingsList+=("RAHandHeldShader=false")
 
+	tmp=$(mktemp)
+	#sort "$emuDecksettingsFile" | uniq -u > "$tmp" && mv "$tmp" "$emuDecksettingsFile"
 
+	cat "$emuDecksettingsFile" | awk '!unique[$0]++' > "$tmp" && mv "$tmp" "$emuDecksettingsFile"
 	for setting in "${defaultSettingsList[@]}"
 		do
 			local settingName=$(cut -d "=" -f1 <<< "$setting")
@@ -316,9 +322,10 @@ function createUpdateSettingsFile(){
 }
 
 function checkForFile(){
-	file=$1
-	delete=$2
-	finished=false
+	local file=$1
+	local delete=$2
+	local finished=false
+
 	while [ $finished == false ]
 	do
 		test=$(test -f "$file" && echo true)

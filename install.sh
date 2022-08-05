@@ -323,6 +323,9 @@ if [ "$zenity" == true ]; then
 	mkdir -p "$biosPath"/yuzu
 	mkdir -p "$biosPath"/HdPacks
 	mkdir -p "$emulationPath"/hdpacks
+
+	
+	unlink "$emulationPath"/hdpacks/Mesen 2>/dev/null #refresh link if moved
 	ln -s "$biosPath"/HdPacks/ "$emulationPath"/hdpacks/Mesen
 	echo "Put your Mesen HD Packs here. Remember to put the pack inside a folder here with the exact name of the rom" > "$biosPath"/HdPacks/readme.txt
 	
@@ -376,45 +379,73 @@ if [ "$zenity" == true ]; then
 			#fi
 			if [[ "$expertModeFeatureList" == *"PowerTools"* ]]; then
 				setSetting doInstallPowertools true
+			else
+				setSetting doInstallPowertools false
 			fi
 			if [[ "$expertModeFeatureList" == *"SteamGyro"* ]]; then
 				setSetting doInstallGyro true
+			else
+				setSetting doInstallGyro false
 			fi
 			if [[ "$expertModeFeatureList" == *"SaveSync"* ]]; then
 				setSetting doSetupSaveSync true
+			else
+				setSetting doSetupSaveSync false
 			fi
 			if [[ "$expertModeFeatureList" == *"updateSRM"* ]]; then
 				setSetting doSetupSRM true
+			else
+				setSetting doSetupSRM false
 			fi
 			if [[ "$expertModeFeatureList" == *"updateESDE"* ]]; then
 				setSetting doInstallESDE true
+			else
+				setSetting doInstallESDE false
 			fi
 			if [[ "$expertModeFeatureList" == *"selectEmulators"* ]]; then
 				setSetting doSelectEmulators true
+			else
+				setSetting doSelectEmulators false
 			fi
 			if [[ "$expertModeFeatureList" == *"selectEmulatorConfig"* ]]; then
 				setSetting doResetEmulators true
+			else
+				setSetting doResetEmulators false
 			fi
 			if [[ "$expertModeFeatureList" == *"selectRABezels"* ]]; then
 				setSetting RABezels true
+			else
+				setSetting RABezels false
 			fi
 			if [[ "$expertModeFeatureList" == *"selectRAAutoSave"* ]]; then
 				setSetting RAautoSave true
+			else
+				setSetting RAautoSave false
 			fi
 			if [[ "$expertModeFeatureList" == *"snesAR"* ]]; then
 				setSetting SNESAR 43	
+			else
+				setSetting SNESAR 87
 			fi
 			if [[ "$expertModeFeatureList" == *"selectWideScreen"* ]]; then
 				setSetting doSelectWideScreen true			
+			else
+				setSetting doSelectWideScreen false
 			fi
 			if [[ "$expertModeFeatureList" == *"setRASignIn"* ]]; then
 				setSetting doRASignIn true
+			else
+				setSetting doRASignIn false
 			fi
 			if [[ "$expertModeFeatureList" == *"setRAEnable"* ]]; then
 				setSetting doRAEnable true
+			else
+				setSetting doRAEnable false
 			fi
 			if [[ "$expertModeFeatureList" == *"doESDEThemePicker"* ]]; then
 				setSetting doESDEThemePicker true
+			else
+				setSetting doESDEThemePicker false
 			fi	
 			
 	
@@ -455,12 +486,34 @@ if [ "$zenity" == true ]; then
 					fi
 				fi
 			fi
-		
+		if [[ $doESDEThemePicker == true ]]; then	
+			text="Which theme do you want to set for EmulationStation-DE?"
+			esdeTheme=$(zenity --list \
+			--title="EmuDeck" \
+			--height=250 \
+			--width=250 \
+			--ok-label="OK" \
+			--cancel-label="Exit" \
+			--text="${text}" \
+			--radiolist \
+			--column="" \
+			--column="Theme" \
+			1 "EPICNOIR" \
+			2 "MODERN-DE" \
+			3 "RBSIMPLE-DE" 2>/dev/null)
+			ans=$?	
+			if [ $ans -eq 0 ]; then
+				echo "Theme selected: $esdeTheme" 
+				setSetting esdeTheme $esdeTheme
+			fi
+		fi
+
 
 		if [[ $doSelectEmulators == "true" ]]; then
 			
 			emuTable=()
 			emuTable+=(TRUE "Multiple" "RetroArch")
+			emuTable+=(TRUE "Arcade" "MAME")
 			emuTable+=(TRUE "Metroid Prime" "PrimeHack")
 			emuTable+=(TRUE "PS2" "PCSX2")
 			emuTable+=(TRUE "PS2" "PCSX2-QT")
@@ -644,6 +697,7 @@ if [ "$zenity" == true ]; then
 	
 				emuTable=()
 				emuTable+=(TRUE "RetroArch")
+				emuTable+=(TRUE "MAME")
 				emuTable+=(TRUE "PrimeHack")
 				emuTable+=(TRUE "PCSX2")
 				emuTable+=(TRUE "PCSX2-QT")
@@ -771,10 +825,11 @@ if [ "$zenity" == true ]; then
 			fi
 		fi
 	else
+		echo "Applying Easy mode Settings"
 		#easy mode settings
 		setSetting doInstallRA true
 		setSetting doInstallDolphin true
-		setSetting doInstallPCSX2 true
+		setSetting doInstallPCSX2 false
 		setSetting doInstallPCSX2QT true
 		setSetting doInstallRPCS3 true
 		setSetting doInstallYuzu true
@@ -786,13 +841,14 @@ if [ "$zenity" == true ]; then
 		setSetting doInstallPrimeHacks true
 		setSetting doInstallPPSSPP true
 		setSetting doInstallXemu true
+		setSetting doInstallMAME true
 		setSetting doInstallXenia false
 		#doInstallMelon=true
 
 		setSetting doSetupRA true
 		setSetting doSetupPrimeHacks true
 		setSetting doSetupDolphin true
-		setSetting doSetupPCSX2 true
+		setSetting doSetupPCSX2 false
 		setSetting doSetupPCSX2QT true
 		setSetting doSetupRPCS3 true
 		setSetting doSetupCitra true
@@ -801,6 +857,7 @@ if [ "$zenity" == true ]; then
 		setSetting doSetupRyujinx true
 		setSetting doSetupPPSSPP true
 		setSetting doSetupXemu true
+		setSetting doSetupMAME true
 		setSetting doSetupCemu true
 		setSetting doSetupXenia false
 
@@ -811,7 +868,7 @@ if [ "$zenity" == true ]; then
 		setSetting DreamcastWide false
 		setSetting BeetleWide false
 		setSetting XemuWide false
-		setSetting pcsx2QTWide false	
+		setSetting PCSX2QTWide false	
 	
 	fi # end Expert if
 
@@ -831,6 +888,8 @@ else
 	mkdir -p "$biosPath"/yuzu
 	mkdir -p "$biosPath"/HdPacks
 	mkdir -p "$emulationPath"/hdpacks
+
+	unlink "$emulationPath"/hdpacks/Mesen 2>/dev/null #refresh link if moved
 	ln -s "$biosPath"/HdPacks/ "$emulationPath"/hdpacks/Mesen
 	echo "Put your Mesen HD Packs here. Remember to put the pack inside a folder here with the exact name of the rom" > "$biosPath"/HdPacks/readme.txt
 	
@@ -851,7 +910,7 @@ fi
 
 source "$EMUDECKGIT/functions/all.sh"
 echo "Current Settings: "
-cat emuDecksettingsFile
+cat "$emuDecksettingsFile"
 
 #
 ##
@@ -927,6 +986,10 @@ if [ $doInstallRyujinx == "true" ]; then
 	echo "Ryujinx_install"
 	Ryujinx_install
 fi
+if [ $doInstallMAME == "true" ]; then	
+	echo "MAME_install"
+	MAME_install
+fi
 if [ $doInstallXemu == "true" ]; then
 	echo "Xemu_install"
 	Xemu_install
@@ -952,7 +1015,7 @@ fi
 #ESDE Config
 if [ "$doSetupESDE" == "true" ]; then
 	echo "ESDE_init"
-	ESDE_init
+	ESDE_update
 fi	
 
 #Emus config
@@ -1009,6 +1072,10 @@ if [ "$doSetupXemu" == "true" ]; then
 	echo "Xemu_init"
 	Xemu_init
 fi
+if [ "$doSetupMAME" == "true" ]; then
+	echo "MAME_init"
+	MAME_init
+fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then
 	echo "Cemu_init"
@@ -1045,7 +1112,7 @@ fi
 #RA Bezels	
 RetroArch_setBezels #needs to change
 
-
+ESDE_applyTheme "$esdeTheme"
 
 #RA AutoSave	
 if [ "$RAautoSave" == true ]; then
@@ -1064,7 +1131,7 @@ if [ "$zenity" == true ]; then
 	else
 		DuckStation_wideScreenOff
 	fi
-	if [ "$pcsx2QTWide" == true ]; then	
+	if [ "$PCSX2QTWide" == true ]; then	
 		PCSX2QT_wideScreenOn
 	else
 		PCSX2QT_wideScreenOff
@@ -1180,6 +1247,10 @@ else
 fi
 
 
+
+
+
+
 #
 #New Shaders
 #	
@@ -1226,6 +1297,7 @@ fi
 #Sudo Required!
 
 if [ "$expert" == "true" ]; then
+	echo "$PASSWD" | sudo -v -S #refresh sudo cache
 	if [ "$doInstallGyro" == "true" ]; then	
 		Plugins_installSteamDeckGyroDSU
 	fi
@@ -1280,7 +1352,7 @@ if [ -f "$FILE" ]; then
 	echo -e "" 2>/dev/null
 else
 	if [ "$zenity" == true ]; then
-	text="$(printf "<b>Yuzu is not configured</b>\nYou need to copy your Keys and firmware to: \n${biosPath}\yuzu/keys\n${biosPath}\yuzu/firmware\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them</b>")"
+	text="$(printf "<b>Yuzu is not configured</b>\nYou need to copy your Keys and firmware to: \n${biosPath}/yuzu/keys\n${biosPath}\yuzu/firmware\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them</b>")"
 	zenity --error \
 			--title="EmuDeck" \
 			--width=400 \
@@ -1295,7 +1367,7 @@ if [ -f "$FILE" ]; then
 	echo -e "" 2>/dev/null
 else
 	if [ "$zenity" == true ]; then
-	text="$(printf "<b>Ryujinx is not configured</b>\nYou need to copy your Keys to: \n${biosPath}\ryujinx/keys\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them. You might need to install your firmware using the Ryujinx Install Firmware option inside the emulator</b>")"
+	text="$(printf "<b>Ryujinx is not configured</b>\nYou need to copy your Keys to: \n${biosPath}/ryujinx/keys\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them. You might need to install your firmware using the Ryujinx Install Firmware option inside the emulator</b>")"
 	zenity --error \
 			--title="EmuDeck" \
 			--width=400 \

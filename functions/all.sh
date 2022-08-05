@@ -48,11 +48,13 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCitra.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDolphin.sh 
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPrimehack.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRetroArch.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRyujinx.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPPSSPP.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDuckStation.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckXemu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckXenia.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2QT.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMAME.sh
 
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMelonDS.sh
