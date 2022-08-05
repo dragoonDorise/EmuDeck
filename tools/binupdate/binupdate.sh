@@ -69,7 +69,8 @@ updateCemu(){
     binTable=()
     binTable+=(TRUE "EmulationStation-DE" "esde")
     binTable+=(TRUE "Steam Rom Manager" "srm")
-    binTable+=(TRUE "Nintendo Switch Emu" "yuzu")
+    binTable+=(TRUE "Nintendo Switch Emu" "yuzu")9
+    binTable+=(TRUE "Nintendo Switch Emu" "ryujinx")
     binTable+=(TRUE "Sony PlayStation 2 Emu" "pcsx2-qt")
     binTable+=(TRUE "Nintendo WiiU Emu" "cemu")
     binTable+=(FALSE "Xbox 360 Emu - TESTING ONLY" "xenia")
@@ -123,6 +124,14 @@ updateCemu(){
                 messages+=("PCSX2-QT Updated Successfully")
             else
                 messages+=("There was a problem updating PCSX2-QT")
+            fi
+        fi
+        if [[ "$binsToDL" == *"ryujinx"* ]]; then
+            Ryujinx_install
+            if [ "$?" == "0" ]; then
+                messages+=("Ryujinx Updated Successfully")
+            else
+                messages+=("There was a problem updating Ryujinx")
             fi
         fi
         if [[ "$binsToDL" == *"cemu"* ]]; then

@@ -19,13 +19,28 @@ installEmuAI(){
 
 
     shName=$(echo "$name" | awk '{print tolower($0)}')
-    local launcherFileName
-    find "${toolsPath}/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | while read -r f; do echo "deleting $f"; rm -f "$f"; done;
-    find "${EMUDECKGIT}/tools/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | while read -r l; do echo "deploying $l"; launcherFileName=$(basename $l); chmod +x "$l"; cp -v "$l" "${toolsPath}/launchers/"; done;
-    chmod +x "${toolsPath}/launchers/"*
-    createDesktopShortcut   "$HOME/.local/share/applications/$altName.desktop" \
-                            "$altName EmuDeck" \
-                            "${toolsPath}/launchers/$launcherFileName" \
-                            "false"
+    find "${toolsPath}/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
+    while read -r f
+    do 
+        echo "deleting $f"
+        rm -f "$f"
+    done
+
+    find "${EMUDECKGIT}/tools/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
+    while read -r l
+    do 
+        echo "deploying $l"
+        launcherFileName=$(basename "$l")
+        chmod +x "$l"
+        cp -v "$l" "${toolsPath}/launchers/"
+        chmod +x "${toolsPath}/launchers/"*
+
+        createDesktopShortcut   "$HOME/.local/share/applications/$altName.desktop" \
+                                "$altName EmuDeck" \
+                                "${toolsPath}/launchers/$launcherFileName" \
+                                "false"
+    done
+
+ 
                             
 }
