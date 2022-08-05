@@ -1112,7 +1112,7 @@ fi
 #RA Bezels	
 RetroArch_setBezels #needs to change
 
-
+ESDE_applyTheme "$esdeTheme"
 
 #RA AutoSave	
 if [ "$RAautoSave" == true ]; then
