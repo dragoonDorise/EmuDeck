@@ -439,9 +439,9 @@ function setDolphinStorageIni(){
 	# mkdir -p "$storagePath/$emuName/Wii"
 	# iniFieldUpdate "$iniFilePath" "General" "NANDRootPath" "$storagePath/$emuName/Wii"
 
-	# # Dump
-	# mkdir -p "$storagePath/$emuName/Dump"
-	# iniFieldUpdate "$iniFilePath" "General" "DumpPath" "$storagePath/$emuName/Dump"
+	# Texture Dump
+	mkdir -p "$storagePath/$emuName/Dump"
+	iniFieldUpdate "$iniFilePath" "General" "DumpPath" "$storagePath/$emuName/Dump"
 
 	# Load folder
 	mkdir -p "$storagePath/$emuName/Load/Textures"
