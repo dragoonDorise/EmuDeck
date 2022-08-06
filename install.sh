@@ -1112,7 +1112,7 @@ fi
 #RA Bezels	
 RetroArch_setBezels #needs to change
 
-ESDE_applyTheme "$esdeTheme"
+#ESDE_applyTheme "$esdeTheme" should apply in the init, from the setting
 
 #RA AutoSave	
 if [ "$RAautoSave" == true ]; then
