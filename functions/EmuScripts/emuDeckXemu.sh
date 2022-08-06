@@ -110,7 +110,7 @@ Xemu_migrate(){
 Xemu_wideScreenOn(){
 	configFile="$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml"
     fit='fit = '
-    fitSetting="${fit}scale_16_9"
+    fitSetting="${fit}'scale_16_9'"
     changeLine "${fit}" "${fitSetting}" "$configFile"
 }
 
@@ -118,7 +118,7 @@ Xemu_wideScreenOn(){
 Xemu_WideScreenOff(){
 	configFile="$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml"
     fit='fit = '
-    fitSetting="${fit}scale_4_3"
+    fitSetting="${fit}'scale_4_3'"
     changeLine "${fit}" "${fitSetting}" "$configFile"
 }
 
