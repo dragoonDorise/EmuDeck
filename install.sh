@@ -363,7 +363,7 @@ if [ "$zenity" == true ]; then
 			table+=(TRUE "doESDEThemePicker" "Choose your EmulationStation-DE Theme?")		
 			#table+=(TRUE "doXboxButtons" "Should facebutton letters match between Nintendo and Steamdeck? (default is matched location)")
 	
-			if [[ ! $devMode == "main" ]]; then 
+			if [[ ! $branch == "main" ]]; then 
 				table+=(TRUE "SaveSync" "Setup Save Synchronization for Emudeck to a cloud provider")
 			fi
 
@@ -1271,7 +1271,7 @@ if [ "$doRAEnable" == "true" ]; then
 	RetroArch_retroAchievementsOn
 fi
 
-if [[ ! $devMode == "main" ]]; then 
+if [[ ! $branch == "main" ]]; then 
 	if [[ $doSetupSaveSync == "true" ]]; then
 
 		cloudProviders=()
