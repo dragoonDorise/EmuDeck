@@ -39,7 +39,7 @@ ESDE_init(){
     ESDE_addCustomSystems
     ESDE_setEmulationFolder
     ESDE_setDefaultEmulators
-    ESDE_applyTheme "EPICNOIR"
+    ESDE_applyTheme "$esdeTheme"
     ESDE_migrateDownloadedMedia
     ESDE_finalize
 }
@@ -60,7 +60,7 @@ ESDE_update(){
     ESDE_addCustomSystems
 	ESDE_setEmulationFolder
     ESDE_setDefaultEmulators
-    ESDE_applyTheme "EPICNOIR"
+    ESDE_applyTheme "$esdeTheme"
     ESDE_migrateDownloadedMedia
     ESDE_finalize
 }
@@ -89,25 +89,25 @@ ESDE_addCustomSystems(){
 
 #update
 ESDE_applyTheme(){
-    defaultTheme="MODERN-DE"
-    esdeTheme=$1
-    if [[ "${esdeTheme}" == "" ]]; then
+    defaultTheme="EPICNOIR"
+    local theme=$1
+    if [[ "${theme}" == "" ]]; then
         echo "ESDE: applyTheme parameter not set."
-        esdeTheme="$defaultTheme"
+        theme="$defaultTheme"
     fi
-    echo "ESDE: applyTheme $esdeTheme"
+    echo "ESDE: applyTheme $theme"
     mkdir -p "$HOME/.emulationstation/themes/"
 	git clone https://github.com/dragoonDorise/es-theme-epicnoir.git "$HOME/.emulationstation/themes/es-epicnoir" >> /dev/null
-	cd "$HOME/.emulationstation/themes/es-epicnoir" && git pull
+	cd "$HOME/.emulationstation/themes/es-epicnoir" && git reset --hard HEAD && git clean -f -d && git pull
 	echo -e "OK!"
 	
-	if [[ "$esdeTheme" == *"EPICNOIR"* ]]; then
+	if [[ "$theme" == *"EPICNOIR"* ]]; then
 		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="es-epicnoir" />' "$es_settingsFile" 
 	fi
-	if [[ "$esdeTheme" == *"MODERN-DE"* ]]; then
+	if [[ "$theme" == *"MODERN-DE"* ]]; then
         changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="modern-DE" />' "$es_settingsFile" 
 	fi
-	if [[ "$esdeTheme" == *"RBSIMPLE-DE"* ]]; then
+	if [[ "$theme" == *"RBSIMPLE-DE"* ]]; then
         changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="rbsimple-DE" />' "$es_settingsFile" 
 	fi
 }

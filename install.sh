@@ -350,7 +350,6 @@ if [ "$zenity" == true ]; then
 			#table+=(TRUE "CHDScript" "Install the latest version of our CHD conversion script?")
 			table+=(TRUE "PowerTools" "Install Power Tools for CPU control? (password required)")
 			table+=(TRUE "SteamGyro" "Setup the SteamDeckGyroDSU for gyro control (password required)")
-			table+=(TRUE "SaveSync" "Setup Save Synchronization for Emudeck to a cloud provider")
 			table+=(TRUE "updateSRM" "Install/Update Steam Rom Manager? Customizations will not be reset.")
 			table+=(TRUE "updateESDE" "Install/Update Emulation Station DE? Customizations and scrapes will not be reset.")
 			table+=(TRUE "selectEmulators" "Select the emulators to install.")
@@ -364,6 +363,10 @@ if [ "$zenity" == true ]; then
 			table+=(TRUE "doESDEThemePicker" "Choose your EmulationStation-DE Theme?")		
 			#table+=(TRUE "doXboxButtons" "Should facebutton letters match between Nintendo and Steamdeck? (default is matched location)")
 	
+			if [[ ! $branch == "main" ]]; then 
+				table+=(TRUE "SaveSync" "Setup Save Synchronization for Emudeck to a cloud provider")
+			fi
+
 			declare -i height=(${#table[@]}*40)
 	
 			expertModeFeatureList=$(zenity  --list --checklist --width=1000 --height="${height}" \
@@ -515,7 +518,7 @@ if [ "$zenity" == true ]; then
 			emuTable+=(TRUE "Multiple" "RetroArch")
 			emuTable+=(TRUE "Arcade" "MAME")
 			emuTable+=(TRUE "Metroid Prime" "PrimeHack")
-			emuTable+=(TRUE "PS2" "PCSX2")
+			emuTable+=(TRUE "PS2" "PCSX2-Legacy")
 			emuTable+=(TRUE "PS2" "PCSX2-QT")
 			emuTable+=(TRUE "PS3" "RPCS3")
 			emuTable+=(TRUE "3DS" "Citra")
@@ -560,7 +563,7 @@ if [ "$zenity" == true ]; then
 				else
 					setSetting doInstallPrimeHacks false
 				fi
-				if [[ "$emusToInstall" == *"PCSX2"* ]]; then
+				if [[ "$emusToInstall" == *"PCSX2-Legacy"* ]]; then
 					setSetting doInstallPCSX2 true
 				else
 					setSetting doInstallPCSX2 false
@@ -699,7 +702,7 @@ if [ "$zenity" == true ]; then
 				emuTable+=(TRUE "RetroArch")
 				emuTable+=(TRUE "MAME")
 				emuTable+=(TRUE "PrimeHack")
-				emuTable+=(TRUE "PCSX2")
+				emuTable+=(TRUE "PCSX2-Legacy")
 				emuTable+=(TRUE "PCSX2-QT")
 				emuTable+=(TRUE "RPCS3")
 				emuTable+=(TRUE "Citra")
@@ -741,12 +744,12 @@ if [ "$zenity" == true ]; then
 					else
 						setSetting doSetupPrimeHacks false
 					fi
-					if [[ "$emusToReset" == *"PCSX2"* ]]; then
+					if [[ "$emusToReset" == *"PCSX2-Legacy"* ]]; then
 						setSetting doSetupPCSX2 true
 					else
 						setSetting doSetupPCSX2 false
 					fi
-					if [[ "$emusToReset" == *"PCSX2"* ]]; then
+					if [[ "$emusToReset" == *"PCSX2-QT"* ]]; then
 						setSetting doSetupPCSX2QT true
 					else
 						setSetting doSetupPCSX2QT false
@@ -1112,7 +1115,7 @@ fi
 #RA Bezels	
 RetroArch_setBezels #needs to change
 
-ESDE_applyTheme "$esdeTheme"
+#ESDE_applyTheme "$esdeTheme" should apply in the init, from the setting
 
 #RA AutoSave	
 if [ "$RAautoSave" == true ]; then
@@ -1268,32 +1271,33 @@ if [ "$doRAEnable" == "true" ]; then
 	RetroArch_retroAchievementsOn
 fi
 
-if [[ $doSetupSaveSync == "true" ]]; then
+if [[ ! $branch == "main" ]]; then 
+	if [[ $doSetupSaveSync == "true" ]]; then
 
-	cloudProviders=()
-	cloudProviders+=(1 "gdrive")
-	cloudProviders+=(2 "dropbox")
-	cloudProviders+=(3 "onedrive")
-	cloudProviders+=(4 "box")
-	cloudProviders+=(5 "nextcloud")
+		cloudProviders=()
+		cloudProviders+=(1 "gdrive")
+		cloudProviders+=(2 "dropbox")
+		cloudProviders+=(3 "onedrive")
+		cloudProviders+=(4 "box")
+		cloudProviders+=(5 "nextcloud")
 
-	syncProvider=$(zenity --list \
-            --title="EmuDeck SaveSync Host" \
-            --height=500 \
-            --width=500 \
-            --ok-label="OK" \
-            --cancel-label="Exit" \
-            --text="Choose the service you would like to use to host your cloud saves.\n\nKeep in mind they can take a fair amount of space.\n\nThis will open a browser window for you to sign into your chosen cloud provider." \
-            --radiolist \
-            --column="Select" \
-            --column="Provider" \
-            "${cloudProviders[@]}" 2>/dev/null)
-	if [[ -n "$syncProvider" ]]; then
-		SAVESYNC_install
-		SAVESYNC_setup "$syncProvider"
+		syncProvider=$(zenity --list \
+				--title="EmuDeck SaveSync Host" \
+				--height=500 \
+				--width=500 \
+				--ok-label="OK" \
+				--cancel-label="Exit" \
+				--text="Choose the service you would like to use to host your cloud saves.\n\nKeep in mind they can take a fair amount of space.\n\nThis will open a browser window for you to sign into your chosen cloud provider." \
+				--radiolist \
+				--column="Select" \
+				--column="Provider" \
+				"${cloudProviders[@]}" 2>/dev/null)
+		if [[ -n "$syncProvider" ]]; then
+			SAVESYNC_install
+			SAVESYNC_setup "$syncProvider"
+		fi
 	fi
-fi
-
+fi 
 #Sudo Required!
 
 if [ "$expert" == "true" ]; then

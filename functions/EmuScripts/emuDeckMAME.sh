@@ -38,7 +38,7 @@ MAME_update(){
 MAME_setEmulationFolder(){
   	
     gameDirOpt='rompath                   '
-    newGameDirOpt="$gameDirOpt""${romsPath}/arcade"
+    newGameDirOpt="$gameDirOpt""${romsPath}/arcade;${biosPath};${biosPath}/mame"
     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$MAME_configFile"
 }
 
