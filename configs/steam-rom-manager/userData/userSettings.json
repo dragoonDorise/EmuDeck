@@ -1,0 +1,31 @@
+{
+	"fuzzyMatcher": {
+		"timestamps": {
+			"check": 1659355215955,
+			"download": 1659355215955
+		},
+		"verbose": false,
+		"filterProviders": true
+	},
+	"environmentVariables": {
+		"steamDirectory": "",
+		"romsDirectory": "",
+		"retroarchPath": "",
+		"raCoresDirectory": "",
+		"localImagesDirectory": ""
+	},
+	"previewSettings": {
+		"retrieveCurrentSteamImages": true,
+		"deleteDisabledShortcuts": false,
+		"imageZoomPercentage": 40,
+		"preload": false
+	},
+	"enabledProviders": [
+		"SteamGridDB"
+	],
+	"language": "English",
+	"offlineMode": false,
+	"navigationWidth": 765,
+	"clearLogOnTest": false,
+	"version": 3
+}

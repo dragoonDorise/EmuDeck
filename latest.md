@@ -1,29 +1,21 @@
-0.17.5
-
-- New - Steam Input Template for DuckStation with left trackpad Touchinput (Thanks Moskeeto)
-- New - Yuzu AppImage ( Seemingly better performance than the one in discover store, also right click to open menus work! )
-  It is VERY important you let Emudeck run the updates on Yuzu so the
-  data migration can happen seamlessly. You will be notified if we find data in the default appimage location
-  and can choose to keep and migrate the old Flatpak data, or you can use the existing AppImage data you have.
-  The chosen data will be migrated to the AppImage location, and linked back to the flatpak data location.
-  Steam Rom Manager users will need to re-parse for Yuzu games to use the new AppImage.
-  The Flatpak installation is NOT removed, but must be for EmulationStation-DE to use the AppImage instead.
-- New - Storage folder to keep Xemu, Yuzu, and RPCS3 data in the Emulation folder. Migration will happen at the start.
-  You may need to re-parse for rpcs3 installed files.
-- New - Binary Updater tool added. Ths new tool can update EmulationStation-DE, SteamRomManager, Cemu, Yuzu, or Xenia
-  to their latest versions without going through the EmuDeck install process.
-- New - CHD Script now handles wii / gc iso --> rvz conversion
-- Fix - Dolphin pointer is now right trackpad and works more smoothly. If you have SteamGyro setup, motion now works.
-  \*You may need to set the controller to Default Gamepad With Mouse Trackpad if steam decided to use Touchpad as Joystick instead.
-- Fix - DuckStation rom path added. New hotkeys added to coincide with Steam Input Template. Changed quickMenu to Esc. (Steam + Dpad Left)
-- Fix - Widescreen Hacks are now off by default for all emulators. They can be enabled by running in Expert Mode.
-- Fix - PCSX2 Steam Input profile updated so it wont pause on RT. (Thanks Wintermute)
-- Fix - Citra Steam Input. R5 only closes Citra after a long a press
-- Fix - Updates won't wipe out EmulationStation-DE custom systems and EmulationStation-DE metadata info anymore.
-- Fix - Updates won't wipe out Cemu graphics pack settings anymore.
-- Fix - EmulationStation-DE's hidden downloaded_media wouldn't get moved
-  to the Emulation/tools directory if the setting existed but was blank.
-- Fix - Expert Mode: Widescreen Hacks Selection.
-- Fix - Expert Mode: Emulator install and reconfiguration selection.
-- Fix - Expert Mode: Entering a password wrong in the pop up will make it re-pop.
-  You have 2 chances and then it will disable the Expert mode settings that require a password.
+0.17.6
+- Added 16:9 bezel support for holoISO and Anbernic Win600 (or other 16:9 devices)
+- Left Analog stick mirrors the d-pad controls for older systems
+- Recursive SRM parsers. Now you can organize your games in folders
+- Icon renamed to Update EmuDeck to avoid confusion
+- Fixed Atari Bezels. Added bezels to Dreamcast, N64 and Saturn
+- Fixed Dolphin and Primehack from sending button presses as part of hotkeys as in-game button presses
+- Added Naomi (flycast) parser for Steam Rom Manager. Uses roms/naomi folder
+- Fixed retroachievements not working for users with certain special characters in their passwords.
+- Added easyRPG core to RA. Required additional files are not yet downloaded. You can add them manually.
+- Added PCSX2-Qt AppImage and Steam Rom Manager Parser. This can live side by side with your existing pcsx2, but it should be removed.
+- Migrate pcsx2 saves files to the Emulation folder. This is no longer a link.
+- Both versions of Pcsx2 use the same saves location in their config so no matter which, you can save / load state.
+- Expert mode settings are remembered.
+    If you run expert mode, and change a setting it will be retained and used on the next run of easy mode. (except install / reconfigure)
+- RetroArch settings will be backed up before update. Settings files for this are no longer replaced. The options are updated or appended.
+- Installing PluginLoader (powertools) now activates dev mode and installs the new version of the loader and plugin. Reboot may be required
+- CHD script Renamed to Emudeck Compression Tool. New support for Wii games to convert them to rvz format
+- Preserve custom Artwork on Steam Rom Manager on second scans
+- Support for Mesen HD Packs
+- ... too much more to fit here!

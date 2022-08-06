@@ -43,10 +43,11 @@ set_env () {
     if ! [ -d ${STEAM_COMPAT_DATA_PATH} ]; then
         install -d ${STEAM_COMPAT_DATA_PATH} || exit 1
     fi
-
-    echo "STEAM_COMPAT_DATA_PATH: ${STEAM_COMPAT_DATA_PATH}" >> "${LOGFILE}"
-    echo "SteamAppId: ${SteamAppId}" >> "${LOGFILE}"
-    echo "STEAM_COMPAT_CLIENT_INSTALL_PATH: ${STEAM_COMPAT_CLIENT_INSTALL_PATH}" >> "${LOGFILE}"
+    {
+        echo "STEAM_COMPAT_DATA_PATH: ${STEAM_COMPAT_DATA_PATH}"
+        echo "SteamAppId: ${SteamAppId}"
+        echo "STEAM_COMPAT_CLIENT_INSTALL_PATH: ${STEAM_COMPAT_CLIENT_INSTALL_PATH}"
+    } >> "${LOGFILE}"
 }
 
 # Main Start
@@ -78,16 +79,29 @@ main () {
                 if [ -f "${STEAMPATH}/steamapps/common/Proton ${PROTONVER}/proton" ]; then
                     PROTON="${STEAMPATH}/steamapps/common/Proton ${PROTONVER}/proton"
                     COMPATDATA="${STEAMPATH}/steamapps/compatdata"
-                    echo "Proton Version: ${PROTONVER}" >> "${LOGFILE}"
-                    echo "Proton Path: ${PROTON}" >> "${LOGFILE}"
-                    echo "COMPATDATA: ${COMPATDATA}" >> "${LOGFILE}"
+                    {
+                        echo "Proton Version: ${PROTONVER}"
+                        echo "Proton Path: ${PROTON}" 
+                        echo "COMPATDATA: ${COMPATDATA}" 
+                    } >> "${LOGFILE}"
+                # Check for Custom Proton paths
+                elif [ -f "${STEAMPATH}/compatibilitytools.d/${PROTONVER}/proton" ]; then
+                    PROTON="${STEAMPATH}/compatibilitytools.d/${PROTONVER}/proton"
+                    COMPATDATA="${STEAMPATH}/steamapps/compatdata"
+                    {
+                        echo "Proton Version: ${PROTONVER}"
+                        echo "Proton Path: ${PROTON}" 
+                        echo "COMPATDATA: ${COMPATDATA}" 
+                    } >> "${LOGFILE}"
                 # If we can't find the default path, try the alternate one - loop here through all Steamapps?
-                elif [ ! -z ${ALTSTEAM+x} ] && [ -f "${ALTSTEAM}/common/Proton ${PROTONVER}/proton" ]; then
+                elif [ -n "${ALTSTEAM+x}" ] && [ -f "${ALTSTEAM}/common/Proton ${PROTONVER}/proton" ]; then
                     PROTON="${ALTSTEAM}/common/Proton ${PROTONVER}/proton"
                     COMPATDATA="${ALTSTEAM}/compatdata"
-                    echo "Proton Version: ${PROTONVER}" >> "${LOGFILE}"
-                    echo "Proton Path: ${PROTON}" >> "${LOGFILE}"
-                    echo "COMPATDATA: ${COMPATDATA}" >> "${LOGFILE}"
+                    {
+                        echo "Proton Version: ${PROTONVER}"
+                        echo "Proton Path: ${PROTON}" 
+                        echo "COMPATDATA: ${COMPATDATA}" 
+                    } >> "${LOGFILE}"
                 # Couldn't find either path
                 else
                     echo "Proton version is not installed." >> "${LOGFILE}"
@@ -159,7 +173,7 @@ main () {
     set_env
 
     # Start application with Proton
-    echo "Running python ${PROTON} waitforexitandrun ${@}" >> "${LOGFILE}" # Send command to log just in case
+    echo "Running python ${PROTON} waitforexitandrun $*" >> "${LOGFILE}" # Send command to log just in case
     python "${PROTON}" waitforexitandrun "${@}"
 }
 

@@ -6,6 +6,7 @@ setMSG(){
 		progressBar=90
 	fi	
 	echo "$progressBar" > ~/emudeck/msg.log	
-	echo "# $1" >> ~/emudeck/msg.log	
+	echo "# $1" >> ~/emudeck/msg.log
+	echo "$1"
 	sleep 0.5
 }

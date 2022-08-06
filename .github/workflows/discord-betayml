@@ -1,0 +1,10 @@
+name: CI
+- name: Discord notification
+  on:
+    push:
+      branches: [beta]
+    env:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD }}
+    uses: Ilshidur/action-discord@master
+    with:
+      args: 'A new {{ EVENT_PAYLOAD.repository.full_name }} BETA has been deployed.'  

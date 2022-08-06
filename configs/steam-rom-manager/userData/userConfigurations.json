@@ -88,7 +88,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.sh)"
+      "glob": "**/${title}@(.sh)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -136,7 +136,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.iso|.ISO|.bin|.BIN|.chd|.CHD|.cue|.cue)"
+      "glob": "**/${title}@(.iso|.ISO|.bin|.BIN|.chd|.CHD|.cue|.cue)"
     },
     "titleFromVariable": {
       "limitToGroups": "${3DO}",
@@ -189,7 +189,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.adf|.ADF|.adz|.ADZ|.dms|.DMS|.fdi|.FDI|.ipf|.IPF|.hdf|.HDF|.hdz|.HDZ|.lha|.LHA|.slave|.SLAVE|.info|.INFO|.cue|.CUE|.ccd|.CCD|.chd|.CHD|.nrg|.NRG|.mds|.MDS|.iso|.ISO|.uae|.UAE|.m3u|.M3U|.zip|.ZIP|.7z|.7Z)"
+      "glob": "**/${title}@(.adf|.ADF|.adz|.ADZ|.dms|.DMS|.fdi|.FDI|.ipf|.IPF|.hdf|.HDF|.hdz|.HDZ|.lha|.LHA|.slave|.SLAVE|.info|.INFO|.cue|.CUE|.ccd|.CCD|.chd|.CHD|.nrg|.NRG|.mds|.MDS|.iso|.ISO|.uae|.UAE|.m3u|.M3U|.zip|.ZIP|.7z|.7Z)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -242,7 +242,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.adf|.ADF|.adz|.ADZ|.dms|.DMS|.fdi|.FDI|.ipf|.IPF|.hdf|.HDF|.hdz|.HDZ|.lha|.LHA|.slave|.SLAVE|.info|.INFO|.cue|.CUE|.ccd|.CCD|.chd|.CHD|.nrg|.NRG|.mds|.MDS|.iso|.ISO|.uae|.UAE|.m3u|.M3U|.zip|.ZIP|.7z|.7Z)"
+      "glob": "**/${title}@(.adf|.ADF|.adz|.ADZ|.dms|.DMS|.fdi|.FDI|.ipf|.IPF|.hdf|.HDF|.hdz|.HDZ|.lha|.LHA|.slave|.SLAVE|.info|.INFO|.cue|.CUE|.ccd|.CCD|.chd|.CHD|.nrg|.NRG|.mds|.MDS|.iso|.ISO|.uae|.UAE|.m3u|.M3U|.zip|.ZIP|.7z|.7Z)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -296,7 +296,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.adf|.ADF|.adz|.ADZ|.dms|.DMS|.fdi|.FDI|.ipf|.IPF|.hdf|.HDF|.hdz|.HDZ|.lha|.LHA|.slave|.SLAVE|.info|.INFO|.cue|.CUE|.ccd|.CCD|.chd|.CHD|.nrg|.NRG|.mds|.MDS|.iso|.ISO|.uae|.UAE|.m3u|.M3U|.zip|.ZIP|.7z|.7Z)"
+      "glob": "**/${title}@(.adf|.ADF|.adz|.ADZ|.dms|.DMS|.fdi|.FDI|.ipf|.IPF|.hdf|.HDF|.hdz|.HDZ|.lha|.LHA|.slave|.SLAVE|.info|.INFO|.cue|.CUE|.ccd|.CCD|.chd|.CHD|.nrg|.NRG|.mds|.MDS|.iso|.ISO|.uae|.UAE|.m3u|.M3U|.zip|.ZIP|.7z|.7Z)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -349,7 +349,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.adf|.ADF|.adz|.ADZ|.dms|.DMS|.fdi|.FDI|.ipf|.IPF|.hdf|.HDF|.hdz|.HDZ|.lha|.LHA|.slave|.SLAVE|.info|.INFO|.cue|.CUE|.ccd|.CCD|.chd|.CHD|.nrg|.NRG|.mds|.MDS|.iso|.ISO|.uae|.UAE|.m3u|.M3U|.zip|.ZIP|.7z|.7Z)"
+      "glob": "**/${title}@(.adf|.ADF|.adz|.ADZ|.dms|.DMS|.fdi|.FDI|.ipf|.IPF|.hdf|.HDF|.hdz|.HDZ|.lha|.LHA|.slave|.SLAVE|.info|.INFO|.cue|.CUE|.ccd|.CCD|.chd|.CHD|.nrg|.NRG|.mds|.MDS|.iso|.ISO|.uae|.UAE|.m3u|.M3U|.zip|.ZIP|.7z|.7Z)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -372,8 +372,73 @@
     "version": 5
   },
   {
+      "parserType": "Glob",
+      "configTitle": "Arcade - MAME (standalone)",
+      "steamCategory": "${Arcade}",
+      "steamDirectory": "/home/deck/.steam/steam",
+      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/arcade",
+      "executableArgs": "run org.mamedev.MAME \"${fileName}\"",
+      "executableModifier": "\"${exePath}\"",
+      "startInDirectory": "",
+      "titleModifier": "${fuzzyTitle}",
+      "imageProviders": [
+          "SteamGridDB"
+      ],
+      "onlineImageQueries": "${${fuzzyTitle}}",
+      "imagePool": "${fuzzyTitle}",
+      "defaultImage": "",
+      "defaultTallImage": "",
+      "defaultHeroImage": "",
+      "defaultLogoImage": "",
+      "defaultIcon": "",
+      "localImages": "",
+      "localTallImages": "",
+      "localHeroImages": "",
+      "localLogoImages": "",
+      "localIcons": "",
+      "userAccounts": {
+          "specifiedAccounts": "",
+          "skipWithMissingDataDir": true,
+          "useCredentials": true
+      },
+      "executable": {
+          "path": "/usr/bin/flatpak",
+          "shortcutPassthrough": false,
+          "appendArgsToExecutable": true
+      },
+      "parserInputs": {
+          "glob": "${title}@(.zip|.ZIP)"
+      },
+      "titleFromVariable": {
+          "limitToGroups": "${MAME}",
+          "caseInsensitiveVariables": false,
+          "skipFileIfVariableWasNotFound": false,
+          "tryToMatchTitle": true
+      },
+      "fuzzyMatch": {
+          "replaceDiacritics": true,
+          "removeCharacters": true,
+          "removeBrackets": true
+      },
+      "imageProviderAPIs": {
+          "SteamGridDB": {
+              "nsfw": false,
+              "humor": false,
+              "styles": [],
+              "stylesHero": [],
+              "stylesLogo": [],
+              "stylesIcon": [],
+              "imageMotionTypes": [
+                  "static"
+              ]
+          }
+      },
+      "parserId": "165964954316677671",
+      "version": 10
+  },
+  {
     "parserType": "Glob",
-    "configTitle": "Arcade - MAME 2003 Plus",
+    "configTitle": "Arcade - RetroArch MAME 2003 Plus",
     "steamCategory": "${Arcade MAME 2003+}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/mame",
@@ -402,7 +467,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.zip|.ZIP)"
+      "glob": "**/${title}@(.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "${MAME}",
@@ -426,7 +491,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Arcade - MAME 2010",
+    "configTitle": "Arcade - RetroArch MAME 2010",
     "steamCategory": "${Arcade MAME 2010}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/mame2010",
@@ -455,7 +520,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.zip|.ZIP)"
+      "glob": "**/${title}@(.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "${MAME}",
@@ -479,7 +544,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Arcade - MAME Current",
+    "configTitle": "Arcade - RetroArch MAME Current",
     "steamCategory": "${Arcade MAME Current}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/arcade",
@@ -508,7 +573,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.zip|.ZIP)"
+      "glob": "**/${title}@(.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "${MAME}",
@@ -566,7 +631,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(7z|7Z|.zip|.ZIP)"
+      "glob": "**/${title}@(7z|7Z|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "${MAME}",
@@ -614,7 +679,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.a26|.A26|.bin|.BIN|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.a26|.A26|.bin|.BIN|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -667,7 +732,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.lnx|.LNX|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.lnx|.LNX|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -720,7 +785,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.pc2|.PC2|.ws|.WS|.wsc|.WSC|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.pc2|.PC2|.ws|.WS|.wsc|.WSC|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -778,7 +843,7 @@
         "appendArgsToExecutable": true
     },
     "parserInputs": {
-        "glob": "${title}@(.d64|.D64|.d71|.D71|.d80|.D80|.d81|.D81|.d82|.D82|.g64|.G64|.g41|.G41|.x64|.X64|.t64|.T64|.tap|.TAP|.prg|.PRG|.p00|.P00|.crt|.CRT|.bin|.BIN|.d6z|.D6Z|.d7z|.D7Z|.d8z|.D8Z|.g6z|.G6Z|.g4z|.G4Z|.x6z|.X6Z|.cmd|.CMD|.m3u|.M3U|.vsf|.VSF|.nib|.NIB|.nbz|.NBZ|.zip|.ZIP)"
+        "glob": "**/${title}@(.d64|.D64|.d71|.D71|.d80|.D80|.d81|.D81|.d82|.D82|.g64|.G64|.g41|.G41|.x64|.X64|.t64|.T64|.tap|.TAP|.prg|.PRG|.p00|.P00|.crt|.CRT|.bin|.BIN|.d6z|.D6Z|.d7z|.D7Z|.d8z|.D8Z|.g6z|.G6Z|.g4z|.G4Z|.x6z|.X6Z|.cmd|.CMD|.m3u|.M3U|.vsf|.VSF|.nib|.NIB|.nbz|.NBZ|.zip|.ZIP)"
     },
     "titleFromVariable": {
         "limitToGroups": "",
@@ -843,7 +908,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -896,7 +961,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.iso|.ISO)"
+      "glob": "**/${title}@(.iso|.ISO)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -949,7 +1014,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.iso|.ISO|.xex|.XEX)"
+      "glob": "**/${title}@(.iso|.ISO|.xex|.XEX)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -997,7 +1062,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.3ds|.3DS|.3dsx|.3DSX|.app|.APP|.axf|.AXF|.cii|.CII|.cxi|.CXI|.elf|.ELF|.cci|.CCI)"
+      "glob": "**/${title}@(.3ds|.3DS|.3dsx|.3DSX|.app|.APP|.axf|.AXF|.cii|.CII|.cxi|.CXI|.elf|.ELF|.cci|.CCI)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1050,7 +1115,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.bin|.BIN|.n64|.N64|.ndd|.NDD|.u1|.U1|.v64|.V64|.z64|.Z64|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.bin|.BIN|.n64|.N64|.ndd|.NDD|.u1|.U1|.v64|.V64|.z64|.Z64|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1103,7 +1168,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.gb|.GB|.dmg|.DMG|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.gb|.GB|.dmg|.DMG|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1156,7 +1221,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.gb|.GB|.gbc|.GBC|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.gb|.GB|.gbc|.GBC|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1209,7 +1274,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.gba|.GBA|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.gba|.GBA|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1267,7 +1332,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.nkit.gcz|.NKIT.GCZ|.rvz|.RVZ|.wad|.WAD|.wia|.WIA)"
+      "glob": "**/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.nkit.gcz|.NKIT.GCZ|.rvz|.RVZ|.wad|.WAD|.wia|.WIA)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1286,7 +1351,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Nintendo NES - Retroarch - Nestopia UE",
+    "configTitle": "Nintendo NES - Retroarch - Mesen",
     "steamCategory": "${NES}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/nes",
@@ -1315,7 +1380,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.nes|.NES|.fds|.FDS|.unf|.UNF|.unif|.UNIF|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.nes|.NES|.fds|.FDS|.unf|.UNF|.unif|.UNIF|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1373,7 +1438,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.nds|.NDS|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.nds|.NDS|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1421,7 +1486,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.bs|.BS|.fig|.FIG|.sfc|.SFC|.smc|.SMC|.swc|.SWC|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.bs|.BS|.fig|.FIG|.sfc|.SFC|.smc|.SMC|.swc|.SWC|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1474,7 +1539,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.bs|.BS|.fig|.FIG|.sfc|.SFC|.smc|.SMC|.swc|.SWC|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.bs|.BS|.fig|.FIG|.sfc|.SFC|.smc|.SMC|.swc|.SWC|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1527,7 +1592,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.kip|.KIP|.nca|.NCA|.nro|.NRO|.nso|.NSO|.nsp|.NSP|.xci|.XCI)"
+      "glob": "**/${title}@(.kip|.KIP|.nca|.NCA|.nro|.NRO|.nso|.NSO|.nsp|.NSP|.xci|.XCI)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1585,7 +1650,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.wbfs)"
+      "glob": "**/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.wbfs)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1638,7 +1703,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}/**/*.rpx"
+      "glob": "**/${title}/**/*.rpx"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1691,7 +1756,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(7z|7Z|.zip|.ZIP|wux|wud|wua|wad|iso)"
+      "glob": "**/${title}@(.7z|.7Z|.zip|.ZIP|.wux|.WUX|.wud|.WUD|.wua|.WUA|.wad|.WAD|.iso|.ISO)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1744,7 +1809,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.wbfs|.WBFS)"
+      "glob": "**/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.wbfs|.WBFS)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1792,7 +1857,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.32x|.32X|.bin|.BIN|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.32x|.32X|.bin|.BIN|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1845,7 +1910,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.iso|.ISO|.cue|.CUE|.chd|.CHD|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.iso|.ISO|.cue|.CUE|.chd|.CHD|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1898,7 +1963,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.cdi|.CDI|.chd|.CHD|.cue|.CUE|.gdi|.GDI)"
+      "glob": "**/${title}@(.7z|.7Z|.cdi|.CDI|.chd|.CHD|.cue|.CUE|.gdi|.GDI)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1951,7 +2016,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.gg|.GG|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.gg|.GG|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2009,7 +2074,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.bin|.BIN|.gen|.GEN|.md|.MD|.smd|.SMD|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.bin|.BIN|.gen|.GEN|.md|.MD|.smd|.SMD|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2062,7 +2127,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.bin|.BIN|.gen|.GEN|.md|.MD|.smd|.SMD|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.bin|.BIN|.gen|.GEN|.md|.MD|.smd|.SMD|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2110,7 +2175,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.sms|.SMS|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.sms|.SMS|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2163,7 +2228,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.cue|.CUE|.iso|.ISO|.zip|ZIP|.chd)"
+      "glob": "**/${title}@(.7z|.7Z|.cue|.CUE|.iso|.ISO|.zip|ZIP|.chd)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2217,7 +2282,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.ngc|.NGC|.ngp|.NGP|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.ngc|.NGC|.ngp|.NGP|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2270,7 +2335,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.cue|.CUE|.img|.IMG|.chd|.CHD|.ecm|.ECM|.iso|.ISO|.m3u|.M3U|.mds|.MDS|.pbp|.PBP)"
+      "glob": "**/${title}@(.cue|.CUE|.img|.IMG|.chd|.CHD|.ecm|.ECM|.iso|.ISO|.m3u|.M3U|.mds|.MDS|.pbp|.PBP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2328,7 +2393,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.ccd|.CCD|.chd|.CHD|.cue|.CUE|.m3u|.M3U|.pbp|.PBP|.toc|.TOC)"
+      "glob": "**/${title}@(.ccd|.CCD|.chd|.CHD|.cue|.CUE|.m3u|.M3U|.pbp|.PBP|.toc|.TOC)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2349,6 +2414,71 @@
     "parserType": "Glob",
     "configTitle": "Sony PlayStation 2 - PCSX2",
     "steamCategory": "${Playstation 2}",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/ps2",
+    "executableArgs": " -batch -fullscreen \"'${filePath}'\"",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "imageProviders": [
+        "SteamGridDB"
+    ],
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "userAccounts": {
+        "specifiedAccounts": "",
+        "skipWithMissingDataDir": true,
+        "useCredentials": true
+    },
+    "executable": {
+        "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/pcsx2-qt.sh",
+        "shortcutPassthrough": false,
+        "appendArgsToExecutable": true
+    },
+    "parserInputs": {
+        "glob": "${title}@(.bin|.BIN|.chd|.CHD|.cso|.CSO|.dump|.DUMP|.gz|.GZ|.img|.IMG|.iso|.ISO|.mdf|.MDF|.nrg|.NRG)"
+    },
+    "titleFromVariable": {
+        "limitToGroups": "",
+        "caseInsensitiveVariables": false,
+        "skipFileIfVariableWasNotFound": false,
+        "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+        "replaceDiacritics": true,
+        "removeCharacters": true,
+        "removeBrackets": true
+    },
+    "imageProviderAPIs": {
+        "SteamGridDB": {
+            "nsfw": false,
+            "humor": false,
+            "styles": [],
+            "stylesHero": [],
+            "stylesLogo": [],
+            "stylesIcon": [],
+            "imageMotionTypes": [
+                "static"
+            ]
+        }
+    },
+    "parserId": "164785208872922785",
+    "version": 10
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "Sony PlayStation 2 - PCSX2 (old version)",
+    "steamCategory": "${Playstation 2 - Legacy}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/ps2",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -2376,7 +2506,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.bin|.BIN|.chd|.CHD|.cso|.CSO|.dump|.DUMP|.gz|.GZ|.img|.IMG|.iso|.ISO|.mdf|.MDF|.nrg|.NRG)"
+      "glob": "**/${title}@(.bin|.BIN|.chd|.CHD|.cso|.CSO|.dump|.DUMP|.gz|.GZ|.img|.IMG|.iso|.ISO|.mdf|.MDF|.nrg|.NRG)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2395,7 +2525,7 @@
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
-    "parserId": "164785208872922785",
+    "parserId": "165837546068116314",
     "version": 5
   },
   {
@@ -2429,7 +2559,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}/PS3_GAME/USRDIR/@(eboot.bin|EBOOT.BIN)"
+      "glob": "**/${title}/PS3_GAME/USRDIR/@(eboot.bin|EBOOT.BIN)"
     },
     "titleFromVariable": {
       "limitToGroups": "${PS3}",
@@ -2482,7 +2612,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.elf|.ELF|.cso|.CSO|.iso|.ISO|.pbp|.PBP|.prx|.PRX)"
+      "glob": "**/${title}@(.7z|.7Z|.elf|.ELF|.cso|.CSO|.iso|.ISO|.pbp|.PBP|.prx|.PRX)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2535,7 +2665,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.elf|.ELF|.cso|.CSO|.iso|.ISO|.pbp|.PBP|.prx|.PRX)"
+      "glob": "**/${title}@(.7z|.7Z|.elf|.ELF|.cso|.CSO|.iso|.ISO|.pbp|.PBP|.prx|.PRX)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2592,7 +2722,7 @@
       "appendArgsToExecutable": true
     },
     "parserInputs": {
-      "glob": "${title}/USRDIR/@(eboot.bin|EBOOT.BIN)"
+      "glob": "**/${title}/USRDIR/@(eboot.bin|EBOOT.BIN)"
     },
     "titleFromVariable": {
       "limitToGroups": "${PS3}",
@@ -2608,5 +2738,319 @@
     },
     "parserId": "165182011334544893",
     "version": 6
+  },
+  {
+      "parserType": "Glob",
+      "configTitle": "Arcade - Naomi",
+      "steamCategory": "${Arcade - Naomi}",
+      "steamDirectory": "/home/deck/.steam/steam",
+      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/naomi",
+      "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}flycast_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+      "executableModifier": "\"${exePath}\"",
+      "startInDirectory": "",
+      "titleModifier": "${fuzzyTitle}",
+      "imageProviders": [
+          "SteamGridDB"
+      ],
+      "onlineImageQueries": "${${fuzzyTitle}}",
+      "imagePool": "${fuzzyTitle}",
+      "defaultImage": "",
+      "defaultTallImage": "",
+      "defaultHeroImage": "",
+      "defaultLogoImage": "",
+      "defaultIcon": "",
+      "localImages": "",
+      "localTallImages": "",
+      "localHeroImages": "",
+      "localLogoImages": "",
+      "localIcons": "",
+      "userAccounts": {
+          "specifiedAccounts": null,
+          "skipWithMissingDataDir": true,
+          "useCredentials": true
+      },
+      "executable": {
+          "path": "/usr/bin/flatpak",
+          "shortcutPassthrough": false,
+          "appendArgsToExecutable": true
+      },
+      "parserInputs": {
+          "glob": "**/${title}@(.zip|.ZIP)"
+      },
+      "titleFromVariable": {
+          "limitToGroups": "${MAME}",
+          "caseInsensitiveVariables": false,
+          "skipFileIfVariableWasNotFound": false,
+          "tryToMatchTitle": true
+      },
+      "fuzzyMatch": {
+          "replaceDiacritics": true,
+          "removeCharacters": true,
+          "removeBrackets": true
+      },
+      "imageProviderAPIs": {
+          "SteamGridDB": {
+              "nsfw": false,
+              "humor": false,
+              "styles": [],
+              "stylesHero": [],
+              "stylesLogo": [],
+              "stylesIcon": [],
+              "imageMotionTypes": [
+                  "static"
+              ]
+          }
+      },
+      "parserId": "165768545254166037",
+      "version": 10
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "Nintendo Switch Ryujinx",
+    "steamCategory": "${Switch - Ryujinx}",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/switch",
+    "executableArgs": "--fullscreen \"'${filePath}'\"",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "imageProviders": [
+      "SteamGridDB"
+    ],
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "disabled": true,
+    "executable": {
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/ryujinx.sh",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "parserInputs": {
+      "glob": "**/${title}@(.kip|.KIP|.nca|.NCA|.nro|.NRO|.nso|.NSO|.nsp|.NSP|.xci|.XCI)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": [],
+        "imageMotionTypes": [
+          "static"
+        ]
+      }
+    },
+    "parserId": "164788906872922785",
+    "version": 10
+  },
+  {
+      "parserType": "Glob",
+      "configTitle": "NEC PC Engine/TurboGrafx 16 - Retroarch(Flatpak) - Beetle PCE FAST",
+      "steamCategory": "${PCE}",
+      "steamDirectory": "/home/deck/.steam/steam",
+      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/pcengine",
+      "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_pce_fast_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+      "executableModifier": "\"${exePath}\"",
+      "startInDirectory": "",
+      "titleModifier": "${fuzzyTitle}",
+      "imageProviders": [
+          "SteamGridDB"
+      ],
+      "onlineImageQueries": "${${fuzzyTitle}}",
+      "imagePool": "${fuzzyTitle}",
+      "defaultImage": "",
+      "defaultTallImage": "",
+      "defaultHeroImage": "",
+      "defaultLogoImage": "",
+      "defaultIcon": "",
+      "localImages": "",
+      "localTallImages": "",
+      "localHeroImages": "",
+      "localLogoImages": "",
+      "localIcons": "",
+      "userAccounts": {
+          "specifiedAccounts": "",
+          "skipWithMissingDataDir": true,
+          "useCredentials": true
+      },
+      "executable": {
+          "path": "/usr/bin/flatpak",
+          "shortcutPassthrough": false,
+          "appendArgsToExecutable": true
+      },
+      "parserInputs": {
+          "glob": "**/${title}@(.7z|.7Z|.bin|.BIN|.pce|.PCE|.zip|.ZIP)"
+      },
+      "titleFromVariable": {
+          "limitToGroups": "",
+          "caseInsensitiveVariables": false,
+          "skipFileIfVariableWasNotFound": false,
+          "tryToMatchTitle": false
+      },
+      "fuzzyMatch": {
+          "replaceDiacritics": true,
+          "removeCharacters": true,
+          "removeBrackets": true
+      },
+      "imageProviderAPIs": {
+          "SteamGridDB": {
+              "nsfw": false,
+              "humor": false,
+              "styles": [],
+              "stylesHero": [],
+              "stylesLogo": [],
+              "stylesIcon": [],
+              "imageMotionTypes": [
+                  "static"
+              ]
+          }
+      },
+      "parserId": "165855998563219386",
+      "version": 10
+  },
+  {
+      "parserType": "Glob",
+      "configTitle": "NEC PC Engine/TurboGrafx 16 - Retroarch(Flatpak) - Beetle PCE FAST",
+      "steamCategory": "${PCECD}",
+      "steamDirectory": "/home/deck/.steam/steam",
+      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/pcenginecd",
+      "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_pce_fast_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+      "executableModifier": "\"${exePath}\"",
+      "startInDirectory": "",
+      "titleModifier": "${fuzzyTitle}",
+      "imageProviders": [
+          "SteamGridDB"
+      ],
+      "onlineImageQueries": "${${fuzzyTitle}}",
+      "imagePool": "${fuzzyTitle}",
+      "defaultImage": "",
+      "defaultTallImage": "",
+      "defaultHeroImage": "",
+      "defaultLogoImage": "",
+      "defaultIcon": "",
+      "localImages": "",
+      "localTallImages": "",
+      "localHeroImages": "",
+      "localLogoImages": "",
+      "localIcons": "",
+      "userAccounts": {
+          "specifiedAccounts": "",
+          "skipWithMissingDataDir": true,
+          "useCredentials": true
+      },
+      "executable": {
+          "path": "/usr/bin/flatpak",
+          "shortcutPassthrough": false,
+          "appendArgsToExecutable": true
+      },
+      "parserInputs": {
+          "glob": "**/${title}@(.7z|.7Z|.ccd|.CCD|.chd|.CHD|.cue|.CUE|.iso|.ISO|.zip|.ZIP)"
+      },
+      "titleFromVariable": {
+          "limitToGroups": "",
+          "caseInsensitiveVariables": false,
+          "skipFileIfVariableWasNotFound": false,
+          "tryToMatchTitle": false
+      },
+      "fuzzyMatch": {
+          "replaceDiacritics": true,
+          "removeCharacters": true,
+          "removeBrackets": true
+      },
+      "imageProviderAPIs": {
+          "SteamGridDB": {
+              "nsfw": false,
+              "humor": false,
+              "styles": [],
+              "stylesHero": [],
+              "stylesLogo": [],
+              "stylesIcon": [],
+              "imageMotionTypes": [
+                  "static"
+              ]
+          }
+      },
+      "parserId": "165856080826916450",
+      "version": 10
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "ZX Spectrum - Retroarch - Fuse",
+    "steamCategory": "${ZX Spectrum}",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/zxspectrum",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}fuse_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": false,
+    "advanced": false,
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "**/${title}@(.7z|.tzx|.tap|.z80|.rzx|.scl|.trd|.TZX|.TAP|.Z80|.RZX|.SCL|.TRD|.zip|.ZIP)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "parserId": "164785583010740299",
+    "version": 5
   }
 ]
