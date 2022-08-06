@@ -373,9 +373,9 @@
   },
   {
       "parserType": "Glob",
-      "configTitle": "Arcade - MAME",
+      "configTitle": "Arcade - MAME (standalone)",
       "steamCategory": "${Arcade}",
-      "steamDirectory": "${steamdirglobal}",
+      "steamDirectory": "/home/deck/.steam/steam",
       "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/arcade",
       "executableArgs": "run org.mamedev.MAME \"${fileName}\"",
       "executableModifier": "\"${exePath}\"",
@@ -438,7 +438,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Arcade - MAME 2003 Plus",
+    "configTitle": "Arcade - RetroArch MAME 2003 Plus",
     "steamCategory": "${Arcade MAME 2003+}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/mame",
@@ -491,7 +491,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Arcade - MAME 2010",
+    "configTitle": "Arcade - RetroArch MAME 2010",
     "steamCategory": "${Arcade MAME 2010}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/mame2010",
@@ -544,7 +544,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Arcade - MAME Current",
+    "configTitle": "Arcade - RetroArch MAME Current",
     "steamCategory": "${Arcade MAME Current}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/arcade",
