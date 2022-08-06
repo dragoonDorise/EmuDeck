@@ -387,7 +387,7 @@ if [ "$zenity" == true ]; then
 			else
 				setSetting doInstallGyro false
 			fi
-			if [[ "$expertModeFeatureList" == *"SaveSync"* ]]; then
+			if [[ "$expertModeFeatureList" == *"SaveSync"* &&  ]]; then
 				setSetting doSetupSaveSync true
 			else
 				setSetting doSetupSaveSync false
@@ -515,7 +515,7 @@ if [ "$zenity" == true ]; then
 			emuTable+=(TRUE "Multiple" "RetroArch")
 			emuTable+=(TRUE "Arcade" "MAME")
 			emuTable+=(TRUE "Metroid Prime" "PrimeHack")
-			emuTable+=(TRUE "PS2" "PCSX2")
+			emuTable+=(TRUE "PS2" "PCSX2-Legacy")
 			emuTable+=(TRUE "PS2" "PCSX2-QT")
 			emuTable+=(TRUE "PS3" "RPCS3")
 			emuTable+=(TRUE "3DS" "Citra")
@@ -560,7 +560,7 @@ if [ "$zenity" == true ]; then
 				else
 					setSetting doInstallPrimeHacks false
 				fi
-				if [[ "$emusToInstall" == *"PCSX2"* ]]; then
+				if [[ "$emusToInstall" == *"PCSX2-Legacy"* ]]; then
 					setSetting doInstallPCSX2 true
 				else
 					setSetting doInstallPCSX2 false
@@ -699,7 +699,7 @@ if [ "$zenity" == true ]; then
 				emuTable+=(TRUE "RetroArch")
 				emuTable+=(TRUE "MAME")
 				emuTable+=(TRUE "PrimeHack")
-				emuTable+=(TRUE "PCSX2")
+				emuTable+=(TRUE "PCSX2-Legacy")
 				emuTable+=(TRUE "PCSX2-QT")
 				emuTable+=(TRUE "RPCS3")
 				emuTable+=(TRUE "Citra")
@@ -741,12 +741,12 @@ if [ "$zenity" == true ]; then
 					else
 						setSetting doSetupPrimeHacks false
 					fi
-					if [[ "$emusToReset" == *"PCSX2"* ]]; then
+					if [[ "$emusToReset" == *"PCSX2-Legacy"* ]]; then
 						setSetting doSetupPCSX2 true
 					else
 						setSetting doSetupPCSX2 false
 					fi
-					if [[ "$emusToReset" == *"PCSX2"* ]]; then
+					if [[ "$emusToReset" == *"PCSX2-QT"* ]]; then
 						setSetting doSetupPCSX2QT true
 					else
 						setSetting doSetupPCSX2QT false
