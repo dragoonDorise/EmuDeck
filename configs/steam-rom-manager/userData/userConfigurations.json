@@ -1756,7 +1756,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.zip|.ZIP|.wux|.WUX|.wud|.WUD|.wua|.WUA|.wad|.WAD|.iso|.ISO)"
+      "glob": "${title}@(.7z|.7Z|.zip|.ZIP|.wux|.WUX|.wud|.WUD|.wua|.WUA|.wad|.WAD|.iso|.ISO)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
