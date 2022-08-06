@@ -448,6 +448,7 @@ function setDolphinStorageIni(){
 	mkdir -p "$storagePath/$emuName/Load/GraphicMods"
 	mkdir -p "$storagePath/$emuName/Load/Riivolution"
 	iniFieldUpdate "$iniFilePath" "General" "LoadPath" "$storagePath/$emuName/Load"
+	ln -s "$storagePath/$emuName/Load/Textures" "$emulationPath/hdpacks/$emuName"
 
 	# ResourcePacks
 	mkdir -p "$storagePath/$emuName/ResourcePacks"
