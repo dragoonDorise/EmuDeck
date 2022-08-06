@@ -1703,7 +1703,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}/**/*.rpx"
+      "glob": "${title}/**/*.rpx"
     },
     "titleFromVariable": {
       "limitToGroups": "",
