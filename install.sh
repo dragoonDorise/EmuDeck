@@ -390,7 +390,7 @@ if [ "$zenity" == true ]; then
 			else
 				setSetting doInstallGyro false
 			fi
-			if [[ "$expertModeFeatureList" == *"SaveSync"* &&  ]]; then
+			if [[ "$expertModeFeatureList" == *"SaveSync"* ]]; then
 				setSetting doSetupSaveSync true
 			else
 				setSetting doSetupSaveSync false
