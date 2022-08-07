@@ -8,4 +8,4 @@ PROTONLAUNCH="/run/media/mmcblk0p1/Emulation/tools/proton-launch.sh"
 CEMU="/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe"
 
 # Call the Proton launcher script and give the arguments
-"${PROTONLAUNCH}" -p '7.0' -- "${CEMU}" "${@}"
+"${PROTONLAUNCH}" -i '10000' -p '7.0' -- "${CEMU}" "${@}"
