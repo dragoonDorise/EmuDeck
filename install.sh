@@ -836,7 +836,7 @@ if [ "$zenity" == true ]; then
 		setSetting doInstallPCSX2QT true
 		setSetting doInstallRPCS3 true
 		setSetting doInstallYuzu true
-		setSetting doInstallRyujinx false
+		setSetting doInstallRyujinx true
 		setSetting doInstallCitra true
 		setSetting doInstallDuck true
 		setSetting doInstallCemu true
@@ -857,7 +857,7 @@ if [ "$zenity" == true ]; then
 		setSetting doSetupCitra true
 		setSetting doSetupDuck true
 		setSetting doSetupYuzu true
-		setSetting doSetupRyujinx false
+		setSetting doSetupRyujinx true
 		setSetting doSetupPPSSPP true
 		setSetting doSetupXemu true
 		setSetting doSetupMAME true
