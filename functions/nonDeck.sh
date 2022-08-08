@@ -203,4 +203,5 @@ nonDeck_169Screen(){
 
 nonDeck_win600(){
 	echo "Fixes for Win600 Hardware"
+	updateOrAppendConfigLine "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini" "InternalResolution ="  'InternalResolution = 1'
 }
