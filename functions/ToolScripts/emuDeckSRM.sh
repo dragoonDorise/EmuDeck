@@ -29,14 +29,14 @@ SRM_createDesktopShortcut(){
 	
 	fi
 
-echo "#!/usr/bin/env xdg-open
-[Desktop Entry]
-Name=Steam Rom Manager
-Exec=kill -15 \$(pidof steam) & $SRM_toolPath
-Icon=steamdeck-gaming-return
-Terminal=false
-Type=Application
-StartupNotify=false" > "$SRM_Shortcutlocation"
+	echo "#!/usr/bin/env xdg-open
+	[Desktop Entry]
+	Name=Steam Rom Manager
+	Exec=kill -15 \$(pidof steam) & $SRM_toolPath
+	Icon=steamdeck-gaming-return
+	Terminal=false
+	Type=Application
+	StartupNotify=false" > "$SRM_Shortcutlocation"
 	chmod +x "$SRM_Shortcutlocation"
 }
 
