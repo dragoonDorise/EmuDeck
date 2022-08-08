@@ -629,7 +629,7 @@ else
 	setSetting doInstallPCSX2QT true
 	setSetting doInstallRPCS3 true
 	setSetting doInstallYuzu true
-	setSetting doInstallRyujinx true
+	setSetting doInstallRyujinx false
 	setSetting doInstallCitra true
 	setSetting doInstallDuck true
 	setSetting doInstallCemu true
@@ -650,7 +650,7 @@ else
 	setSetting doSetupCitra true
 	setSetting doSetupDuck true
 	setSetting doSetupYuzu true
-	setSetting doSetupRyujinx true
+	setSetting doSetupRyujinx false
 	setSetting doSetupPPSSPP true
 	setSetting doSetupXemu true
 	setSetting doSetupMAME true
