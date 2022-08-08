@@ -89,6 +89,23 @@ EMUDECKGIT="$HOME/emudeck/backend"
 echo 'Downloading files...'
 ##
 #
+if [ "$uiMode" == 'zenity' ] || [ "$uiMode" == 'whiptail']; then
+	#We create all the needed folders for installation
+	if [[ ! -e $EMUDECKGIT/.git/config ]]; then
+		mkdir -p "$EMUDECKGIT"
+	
+		#Cloning EmuDeck files
+		git clone https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
+	fi
+	
+	git status "$EMUDECKGIT" --porcelain
+	if [[ ! $noPull == true ]]; then
+		cd "$EMUDECKGIT"
+		git fetch origin  && git checkout origin/$branch  &&	git reset --hard origin/$branch && git clean -ffdx
+		
+	fi
+fi
+
 
 #
 ##
