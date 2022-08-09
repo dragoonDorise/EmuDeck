@@ -1303,11 +1303,13 @@ RetroArch_Flycast_wideScreenOff(){
 RetroArch_Beetle_PSX_HW_wideScreenOn(){
 	RetroArch_setOverride 'Beetle PSX HW.opt' 'Beetle PSX HW'  'beetle_psx_hw_widescreen_hack' '"enabled"'
 	RetroArch_setOverride 'Beetle PSX.opt' 'Beetle PSX'  'beetle_psx_hw_widescreen_hack' '"enabled"'
+	RetroArch_psx_bezelOff
 }
 
 RetroArch_Beetle_PSX_HW_wideScreenOff(){
 	RetroArch_setOverride 'Beetle PSX HW.opt' 'Beetle PSX HW'  'beetle_psx_hw_widescreen_hack' '"disabled"'
 	RetroArch_setOverride 'Beetle PSX.opt' 'Beetle PSX'  'beetle_psx_hw_widescreen_hack' '"disabled"'
+	RetroArch_psx_bezelOn
 }
 
 RetroArch_psx_bezelOn(){
