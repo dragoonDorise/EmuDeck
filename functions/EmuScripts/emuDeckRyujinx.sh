@@ -27,6 +27,7 @@ Ryujinx_init(){
     
     Ryujinx_setEmulationFolder
     Ryujinx_setupStorage
+    Ryujinx_setupSaves
     Ryujinx_finalize
 
 }
@@ -39,6 +40,7 @@ Ryujinx_update(){
     
     Ryujinx_setEmulationFolder
     Ryujinx_setupStorage
+    Ryujinx_setupSaves
     Ryujinx_finalize
 }
 
