@@ -87,9 +87,8 @@ Ryujinx_setEmulationFolder(){
 
 #SetupSaves
 Ryujinx_setupSaves(){
-    echo "Begin Ryujinx save link"
-    #Ryu saves the games in the same folder as the shaders...
-    #linkToSaveFolder ryujinx saves "${storagePath}/ryujinx/games/" 
+    echo "Begin Ryujinx save link" 
+    linkToSaveFolder ryujinx saves "$HOME/.config/Ryujinx/user/" 
 }
 
 
