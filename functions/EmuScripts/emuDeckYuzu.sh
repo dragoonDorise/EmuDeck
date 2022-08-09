@@ -26,12 +26,13 @@ Yuzu_init(){
     echo "Begin Yuzu Init"
     
     Yuzu_migrate
-	
+    
     configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
-	configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
+    configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
     
     Yuzu_setEmulationFolder
     Yuzu_setupStorage
+    Yuzu_setupSaves
     Yuzu_finalize
 
 }
@@ -41,12 +42,13 @@ Yuzu_update(){
     echo "Begin Yuzu update"
 
     Yuzu_migrate
-	
+    
     configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu"
-	configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu"
+    configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu"
     
     Yuzu_setEmulationFolder
     Yuzu_setupStorage
+    Yuzu_setupSaves
     Yuzu_finalize
 }
 
@@ -97,8 +99,8 @@ Yuzu_setEmulationFolder(){
 #SetupSaves
 Yuzu_setupSaves(){
     echo "Begin Yuzu save link"
-	unlink "${savesPath}/yuzu/saves" 2>/dev/null # Fix for previous bad symlink2>/dev/null
-	linkToSaveFolder yuzu saves "${storagePath}/yuzu/nand/user/save/"
+    unlink "${savesPath}/yuzu/saves" 2>/dev/null # Fix for previous bad symlink2>/dev/null
+    linkToSaveFolder yuzu saves "${storagePath}/yuzu/nand/user/save/"
 }
 
 
@@ -133,29 +135,29 @@ Yuzu_uninstall(){
 Yuzu_migrate(){
     echo "Begin Yuzu Migration"
     emu="Yuzu"
-	migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
-	#check if we have a nomigrateflag for $emu
-	if [ ! -f "$migrationFlag" ]; then	
-		#yuzu flatpak to appimage
-		#From -- > to
-		migrationTable=()
-		migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu" "$HOME/.local/share/yuzu")
-		migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
+    migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
+    #check if we have a nomigrateflag for $emu
+    if [ ! -f "$migrationFlag" ]; then	
+        #yuzu flatpak to appimage
+        #From -- > to
+        migrationTable=()
+        migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu" "$HOME/.local/share/yuzu")
+        migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
 
-		migrateAndLinkConfig "$emu" "$migrationTable"
-	fi
+        migrateAndLinkConfig "$emu" "$migrationTable"
+    fi
 
-	#move data from hidden folders out to these folders in case the user already put stuff here.
-	origPath="$HOME/.local/share/"
+    #move data from hidden folders out to these folders in case the user already put stuff here.
+    origPath="$HOME/.local/share/"
 
-	Yuzu_setupStorage
-	
-	rsync -av "${origPath}yuzu/dump" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/dump"
-	rsync -av "${origPath}yuzu/load" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/load"
-	rsync -av "${origPath}yuzu/sdmc" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/sdmc"
-	rsync -av "${origPath}yuzu/nand" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/nand"
-	rsync -av "${origPath}yuzu/screenshots" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/screenshots"
-	rsync -av "${origPath}yuzu/tas" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/tas"
+    Yuzu_setupStorage
+    
+    rsync -av "${origPath}yuzu/dump" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/dump"
+    rsync -av "${origPath}yuzu/load" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/load"
+    rsync -av "${origPath}yuzu/sdmc" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/sdmc"
+    rsync -av "${origPath}yuzu/nand" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/nand"
+    rsync -av "${origPath}yuzu/screenshots" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/screenshots"
+    rsync -av "${origPath}yuzu/tas" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/tas"
 }
 
 #setABXYstyle
