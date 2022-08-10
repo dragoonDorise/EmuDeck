@@ -110,7 +110,7 @@ esac
 
 echo $branch > "$HOME/emudeck/branch.txt"
 
-if [[ "$uiMode" != 'false' ]]; then
+if [[ "$uiMode" == 'zenity' || "$uiMode" == 'whiptail' ]]; then
 	#We create all the needed folders for installation
 	if [[ ! -e $EMUDECKGIT/.git/config ]]; then
 		mkdir -p "$EMUDECKGIT"
