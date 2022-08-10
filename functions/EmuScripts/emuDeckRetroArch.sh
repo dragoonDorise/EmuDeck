@@ -1321,6 +1321,7 @@ RetroArch_SwanStation_wideScreenOn(){
 RetroArch_SwanStation_wideScreenOff(){
 	RetroArch_setOverride 'SwanStation.opt' 'SwanStation'  'duckstation_GPU.WidescreenHack' '"false"'
 	RetroArch_setOverride 'SwanStation.opt' 'SwanStation'  'duckstation_Display.AspectRatio' '"auto"'
+	RetroArch_psx_bezelOn
 }
 
 RetroArch_psx_bezelOn(){
