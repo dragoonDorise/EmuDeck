@@ -2446,7 +2446,7 @@
         "appendArgsToExecutable": true
     },
     "parserInputs": {
-        "glob": "${title}@(.bin|.BIN|.chd|.CHD|.cso|.CSO|.dump|.DUMP|.gz|.GZ|.img|.IMG|.iso|.ISO|.mdf|.MDF|.nrg|.NRG)"
+        "glob": "**/${title}@(.bin|.BIN|.chd|.CHD|.cso|.CSO|.dump|.DUMP|.gz|.GZ|.img|.IMG|.iso|.ISO|.mdf|.MDF|.nrg|.NRG)"
     },
     "titleFromVariable": {
         "limitToGroups": "",
