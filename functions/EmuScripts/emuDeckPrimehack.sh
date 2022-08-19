@@ -23,6 +23,7 @@ Primehack_init() {
 	Primehack_setupStorage
 	Primehack_setEmulationFolder
 	Primehack_setupSaves
+	Primehack_addSteamInputProfile
 }
 
 #update
@@ -101,3 +102,6 @@ Primehack_finalize(){
 	echo "NYI"
 }
 
+Primehack_addSteamInputProfile(){
+	rsync -r "$EMUDECKGIT/configs/steam-input/dolphin_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/primehack_controller_config.vdf"
+}

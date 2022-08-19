@@ -191,6 +191,7 @@ if [ "$doUninstall" == true ]; then
 	rm -rf ~/.steam/steam/controller_base/templates/cemu_controller_config.vdf
 	rm -rf ~/.steam/steam/controller_base/templates/citra_controller_config.vdf
 	rm -rf ~/.steam/steam/controller_base/templates/dolphin_controller_config.vdf
+	rm -rf ~/.steam/steam/controller_base/templates/primehack_controller_config
 	rm -rf ~/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf
 	rm -rf ~/.steam/steam/controller_base/templates/duckstation_controller_config.vdf
 	rm -rf ~/emudeck &>> /dev/null
