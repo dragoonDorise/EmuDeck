@@ -44,8 +44,8 @@ else
 fi
 
 
-if [ "$doUninstall" == true ]; then 
-	
+if [ "$doUninstall" == true ]; then
+
 	#Emulator selector
 	text="`printf " <b>This will delete Emudeck , the emulators and all of its configuration files and saved games</b>\n\n You can keep the Emulators installed, tell me which ones you want to keep.\n\nIf you select none of them, everything will be deleted<b>We won't delete your roms, if you wanna keep your saved games go to the Emulation/saves folder and make a backup of its contents</b>"`"
 	emusToUninstall=$(zenity --list \
@@ -72,9 +72,9 @@ if [ "$doUninstall" == true ]; then
 				12 "Cemu" \
 				13 "SteamRomManager" \
 				14 "EmulationStationDE")
-	ans=$?	
+	ans=$?
 	if [ $ans -eq 0 ]; then
-		
+
 		if [[ "$emusToUninstall" == *"RetroArch"* ]]; then
 			doUninstallRA=true
 		fi
@@ -113,26 +113,26 @@ if [ "$doUninstall" == true ]; then
 		#fi
 		if [[ "$emusToUninstall" == *"Xemu"* ]]; then
 			doUninstallXemu=true
-		fi				
+		fi
 		if [[ "$emusToUninstall" == *"SteamRomManager"* ]]; then
 			doUninstallSRM=true
 		fi
 		if [[ "$emusToUninstall" == *"EmulationStationDE"* ]]; then
 			doUninstallESDE=true
-		fi		
-		
+		fi
+
 	else
 		exit
 	fi
-	
+
 	#Uninstalling
 	if [[ "$doUninstallRA" == true ]]; then
 		flatpak uninstall org.libretro.RetroArch --system -y
-		rm -rf ~/.var/app/org.libretro.RetroArch &>> /dev/null	
+		rm -rf ~/.var/app/org.libretro.RetroArch &>> /dev/null
 	fi
 	if [[ "$doUninstallPrimeHacks" == true ]]; then
 		flatpak uninstall io.github.shiiion.primehack --system -y
-		rm -rf ~/.var/app/io.github.shiiion.primehack &>> /dev/null	
+		rm -rf ~/.var/app/io.github.shiiion.primehack &>> /dev/null
 	fi
 	if [[ "$doUninstallPCSX2" == true ]]; then
 		flatpak uninstall net.pcsx2.PCSX2 --system -y
@@ -162,7 +162,7 @@ if [ "$doUninstall" == true ]; then
 		flatpak uninstall org.yuzu_emu.yuzu --system -y
 		rm -rf ~/.var/app/org.yuzu_emu.yuzu &>> /dev/null
 	fi
-	if [[ "$doUninstallRyujinx" == true ]]; then		
+	if [[ "$doUninstallRyujinx" == true ]]; then
 		rm -rf ~/.config/Ryujinx &>> /dev/null
 		rm -rf ~/Applications/publish &>> /dev/null
 	fi
@@ -172,7 +172,7 @@ if [ "$doUninstall" == true ]; then
 		rm -f ~/Emulation/roms/wiiu/* &>> /dev/null
 		rm -f /run/media/mmcblk0p1/Emulation/roms/wiiu/* &>> /dev/null
 	fi
-	#if [[ "$doUninstallXenia" == true ]]; then		
+	#if [[ "$doUninstallXenia" == true ]]; then
 	#	rm -f ~/Emulation/roms/xbox360/* &>> /dev/null
 	#	rm -f /run/media/mmcblk0p1/Emulation/roms/xbox360/* &>> /dev/null
 	#fi
@@ -180,33 +180,34 @@ if [ "$doUninstall" == true ]; then
 		flatpak uninstall app.xemu.xemu --system -y
 		rm -rf ~/.var/app/app.xemu.xemu &>> /dev/null
 	fi
-	if [[ "$doUninstallSRM" == true ]]; then	
+	if [[ "$doUninstallSRM" == true ]]; then
 		rm -rf ~/Desktop/SteamRomManager.desktop &>> /dev/null
 	fi
 	if [[ "$doUninstallESDE" == true ]]; then
-		rm -rf ~/.emulationstation &>> /dev/null	
+		rm -rf ~/.emulationstation &>> /dev/null
 	fi
-	
-	#Emudeck's files	
+
+	#Emudeck's files
 	rm -rf ~/.steam/steam/controller_base/templates/cemu_controller_config.vdf
 	rm -rf ~/.steam/steam/controller_base/templates/citra_controller_config.vdf
+	rm -rf ~/.steam/steam/controller_base/templates/dolphin_controller_config.vdf
 	rm -rf ~/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf
 	rm -rf ~/.steam/steam/controller_base/templates/duckstation_controller_config.vdf
-	rm -rf ~/emudeck &>> /dev/null	
+	rm -rf ~/emudeck &>> /dev/null
 	rm -rf ~/Desktop/EmuDeckCHD.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeckUninstall.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeck.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeckSD.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeckBinUpdate.desktop &>> /dev/null
-	#rm -rf ~/Emulation &>> /dev/null	
-	#rm -rf /run/media/mmcblk0p1/Emulation &>> /dev/null	
-	
+	#rm -rf ~/Emulation &>> /dev/null
+	#rm -rf /run/media/mmcblk0p1/Emulation &>> /dev/null
+
 	text="$(printf "<b>Done!</b>\n\nWe are sad to see you go and we really hope you give us a chance on the future!\n\n<b>Your roms and bios are on your Emulation folder, please delete it manually if you want</b>")"
 
-	
+
 	zenity --info \
 			 --title="EmuDeck" \
-			 --width=450 \			 
-			 --text="${text}" &>> /dev/null	
+			 --width=450 \
+			 --text="${text}" &>> /dev/null
 
 fi
