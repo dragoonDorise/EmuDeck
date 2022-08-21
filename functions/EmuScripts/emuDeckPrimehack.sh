@@ -74,7 +74,7 @@ Primehack_setABXYstyle(){
 
 #Migrate
 Primehack_migrate(){
-	migrateDolphinStates "io.github.shiiion.primehack"
+	migrateDolphinStates "primehack" "io.github.shiiion.primehack"
 }
 
 #WideScreenOn

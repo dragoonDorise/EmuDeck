@@ -448,14 +448,21 @@ function createDesktopShortcut(){
 
 # Migrate dolphin save states files from 0.17.6 location to new location
 function migrateDolphinStates() {
-	local emu=$1
-	local oldStatesPath="$HOME/.var/app/$emu/data/dolphin-emu/states"
-	local 
-newStatesPath="$HOME/.var/app/$emu/data/dolphin-emu/StateSaves/"
-	if [ -d "$oldStatesPath" ] && [ "$(ls -A $oldStatesPath)" ]; then
-		echo "Migrating Dolphin states from $oldStatesPath to 
-$newStatesPath"
+	local emuName=$1
+	local flatpakName=$2
+	local oldStatesPath="$HOME/.var/app/$flatpakName/data/dolphin-emu/states"
+	local newStatesPath="$HOME/.var/app/$flatpakName/data/dolphin-emu/StateSaves/"
+	local linkedTarget=$(readlink -f "$savesPath/$emuName/states")
+
+	if [[ -e "$oldStatesPath" && "$oldStatesPath" == "$linkedTarget" ]]; then
+		echo "Migrating $emuName states from $oldStatesPath to $newStatesPath"
+		if [[ ! -e "$newStatesPath" ]]; then
+			mkdir -p "$newStatesPath"
+		fi
+		
 		cp -r "$oldStatesPath/*" "$newStatesPath"
+		unlink "$savesPath/$emuName/states"
+		ln -sn "$newStatesPath" "$savesPath/$emuName/states"
 		rm -rf "$oldStatesPath"
 	fi
 }

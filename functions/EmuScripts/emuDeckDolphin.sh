@@ -87,7 +87,7 @@ Dolphin_setABXYstyle(){
 
 #Migrate
 Dolphin_migrate(){
-    migrateDolphinStates "org.DolphinEmu.dolphin-emu"
+    migrateDolphinStates "dolphin" "org.DolphinEmu.dolphin-emu"
 }
 
 #WideScreenOn
