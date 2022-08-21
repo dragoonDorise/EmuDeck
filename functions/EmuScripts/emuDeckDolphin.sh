@@ -14,8 +14,8 @@ Dolphin_cleanup(){
 Dolphin_install(){
     setMSG "${Dolphin_emuName}: Install"
     echo ""
-	installEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"	
-	flatpak override "${Dolphin_emuPath}" --filesystem=host --user	
+	installEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"
+	flatpak override "${Dolphin_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
@@ -26,6 +26,7 @@ Dolphin_init(){
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
+	Dolphin_migrate
 }
 
 #update
@@ -81,12 +82,12 @@ Dolphin_uninstall(){
 
 #setABXYstyle
 Dolphin_setABXYstyle(){
-   	echo "NYI" 
+   	echo "NYI"
 }
 
 #Migrate
 Dolphin_migrate(){
-    	echo "NYI"
+    migrateDolphinStates "org.DolphinEmu.dolphin-emu"
 }
 
 #WideScreenOn

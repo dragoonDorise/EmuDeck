@@ -445,3 +445,17 @@ function createDesktopShortcut(){
 
 	echo "$Shortcutlocation created"
 }
+
+# Migrate dolphin save states files from 0.17.6 location to new location
+function migrateDolphinStates() {
+	local emu=$1
+	local oldStatesPath="$HOME/.var/app/$emu/data/dolphin-emu/states"
+	local 
+newStatesPath="$HOME/.var/app/$emu/data/dolphin-emu/StateSaves/"
+	if [ -d "$oldStatesPath" ] && [ "$(ls -A $oldStatesPath)" ]; then
+		echo "Migrating Dolphin states from $oldStatesPath to 
+$newStatesPath"
+		cp -r "$oldStatesPath/*" "$newStatesPath"
+		rm -rf "$oldStatesPath"
+	fi
+}

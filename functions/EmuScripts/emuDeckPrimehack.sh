@@ -23,6 +23,7 @@ Primehack_init() {
 	Primehack_setupStorage
 	Primehack_setEmulationFolder
 	Primehack_setupSaves
+	Primehack_migrate
 }
 
 #update
@@ -73,7 +74,7 @@ Primehack_setABXYstyle(){
 
 #Migrate
 Primehack_migrate(){
-    	echo "NYI"
+	migrateDolphinStates "io.github.shiiion.primehack"
 }
 
 #WideScreenOn
