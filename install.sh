@@ -630,7 +630,7 @@ FILE="$HOME/.config/Ryujinx/system/prod.keys"
 if [ -f "$FILE" ]; then
 	echo -e "" 2>/dev/null
 else
-	if [ "$uiMode" != 'whiptail' ] && ["$expert" == "true"]; then
+	if [ "$uiMode" != 'whiptail' ] && [ "$expert" == "true" ]; then
 	text="$(printf "<b>Ryujinx is not configured</b>\nYou need to copy your Keys to: \n${biosPath}/ryujinx/keys\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them. You might need to install your firmware using the Ryujinx Install Firmware option inside the emulator</b>")"
 	zenity --error \
 			--title="EmuDeck" \
@@ -685,7 +685,7 @@ if [ "$uiMode" == 'zenity' ]; then
 		echo -e "Exit" 2>/dev/null
 	fi
 	
-elif ["$uiMode" == 'whiptail' ]; then
+elif [ "$uiMode" == 'whiptail' ]; then
 	echo "Finished on Whiptail"
 	sleep 9999
 fi
