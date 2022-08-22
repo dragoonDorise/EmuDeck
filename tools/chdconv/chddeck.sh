@@ -31,7 +31,7 @@ if [ $ans -eq 0 ]; then
 
 	#whitelist
 	declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
-	declare -a rvzfolderWhiteList=("gamecube" "wii")
+	declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
 	declare -a searchFolderList
 
 	export PATH="${chdPath}/:$PATH"
