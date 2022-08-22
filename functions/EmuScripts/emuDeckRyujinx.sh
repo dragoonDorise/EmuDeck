@@ -79,7 +79,7 @@ Ryujinx_setEmulationFolder(){
     mkdir -p "$HOME/.config/Ryujinx/system/"
     mkdir -p "${biosPath}/ryujinx/"
     ln -sn "$HOME/.config/Ryujinx/system" "${biosPath}/ryujinx/keys"
--
+
 
     sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/Ryujinx/Config.json"
 

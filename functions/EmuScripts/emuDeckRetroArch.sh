@@ -36,6 +36,7 @@ RetroArch_init(){
 	RetroArch_setupSaves
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
+	RetroArch_setConfigAll
 
 }
 
@@ -47,6 +48,7 @@ RetroArch_update(){
 	RetroArch_setupSaves
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
+	RetroArch_setConfigAll
 
 }
 
@@ -1282,6 +1284,13 @@ RetroArch_bsnes_hd_beta_setUpCoreOpt(){
 RetroArch_setUpCoreOptAll(){
 
 	for func in $(compgen -A 'function' | grep '\_setUpCoreOpt$')
+		do echo  "$func" && "$func"
+	done
+}
+
+RetroArch_setConfigAll(){
+
+	for func in $(compgen -A 'function' | grep '\_setConfig$' | grep '^RetroArch_' )
 		do echo  "$func" && "$func"
 	done
 }

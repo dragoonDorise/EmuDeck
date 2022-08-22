@@ -626,20 +626,21 @@ else
 	fi
 fi
 
-FILE="$HOME/.config/Ryujinx/system/prod.keys"
-if [ -f "$FILE" ]; then
-	echo -e "" 2>/dev/null
-else
-	if [ "$uiMode" != 'whiptail' ] && [ "$expert" == "true" ]; then
-	text="$(printf "<b>Ryujinx is not configured</b>\nYou need to copy your Keys to: \n${biosPath}/ryujinx/keys\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them. You might need to install your firmware using the Ryujinx Install Firmware option inside the emulator</b>")"
-	zenity --error \
-			--title="EmuDeck" \
-			--width=400 \
-			--text="${text}" 2>/dev/null
-	else
-		echo "Ryu is not configured"
-	fi
-fi
+
+# FILE="$HOME/.config/Ryujinx/system/prod.keys"
+# if [ -f "$FILE" ]; then
+# 	echo -e "" 2>/dev/null
+# else
+# 	if [ "$zenity" == true ]; then
+# 	text="$(printf "<b>Ryujinx is not configured</b>\nYou need to copy your Keys to: \n${biosPath}/ryujinx/keys\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them. You might need to install your firmware using the Ryujinx Install Firmware option inside the emulator</b>")"
+# 	zenity --error \
+# 			--title="EmuDeck" \
+# 			--width=400 \
+# 			--text="${text}" 2>/dev/null
+# 	else
+# 		echo "$text"
+# 	fi
+# fi
 
 #EmuDeck updater on gaming Mode
 cp -v "$EMUDECKGIT/tools/launchers/emudeck-updater.sh" "${toolsPath}/launchers/"
