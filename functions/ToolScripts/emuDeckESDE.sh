@@ -33,8 +33,8 @@ ESDE_init(){
 
 	mkdir -p "$HOME/.emulationstation/custom_systems/"
 
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$es_settingsFile" --backup --suffix=.bak
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$es_systemsFile" --backup --suffix=.bak
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
 
     ESDE_addCustomSystems
     ESDE_setEmulationFolder
@@ -54,8 +54,8 @@ ESDE_update(){
 	mkdir -p "$HOME/.emulationstation/custom_systems/"
 
 	#update es_settings.xml
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$es_settingsFile" --ignore-existing
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$es_systemsFile" --ignore-existing
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --ignore-existing
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --ignore-existing
 
     ESDE_addCustomSystems
 	ESDE_setEmulationFolder
