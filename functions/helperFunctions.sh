@@ -451,18 +451,14 @@ function migrateDolphinStates() {
 	local emuName=$1
 	local flatpakName=$2
 	local oldStatesPath="$HOME/.var/app/$flatpakName/data/dolphin-emu/states"
-	local newStatesPath="$HOME/.var/app/$flatpakName/data/dolphin-emu/StateSaves/"
+	local newStatesPath="$HOME/.var/app/$flatpakName/data/dolphin-emu/StateSaves"
 	local linkedTarget=$(readlink -f "$savesPath/$emuName/states")
 
 	if [[ -e "$oldStatesPath" && "$oldStatesPath" == "$linkedTarget" ]]; then
 		echo "Migrating $emuName states from $oldStatesPath to $newStatesPath"
-		if [[ ! -e "$newStatesPath" ]]; then
-			mkdir -p "$newStatesPath"
-		fi
-		
 		cp -r "$oldStatesPath/*" "$newStatesPath"
-		unlink "$savesPath/$emuName/states"
-		ln -sn "$newStatesPath" "$savesPath/$emuName/states"
 		rm -rf "$oldStatesPath"
+		unlink "$savesPath/$emuName/states"
+		moveSaveFolder dolphin states "$HOME/.var/app/$flatpakName/data/dolphin-emu/StateSaves"
 	fi
 }
