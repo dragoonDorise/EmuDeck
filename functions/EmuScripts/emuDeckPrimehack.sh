@@ -32,6 +32,7 @@ Primehack_update() {
 	Primehack_setupStorage
 	Primehack_setEmulationFolder
 	Primehack_setupSaves
+	Primehack_addSteamInputProfile
 }
 
 #ConfigurePaths

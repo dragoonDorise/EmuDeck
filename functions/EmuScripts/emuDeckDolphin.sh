@@ -37,6 +37,7 @@ Dolphin_update(){
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
+    Dolphin_addSteamInputProfile
 }
 
 #ConfigurePaths
