@@ -23,10 +23,10 @@ Dolphin_init(){
     setMSG "${Dolphin_emuName}: Apply initial config"
     echo ""
 	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}" "true"
+	Dolphin_migrate
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
-	Dolphin_migrate
 }
 
 #update
@@ -34,6 +34,7 @@ Dolphin_update(){
     setMSG "${Dolphin_emuName}: Apply configuration Update"
     echo ""
 	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"
+    Dolphin_migrate
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
