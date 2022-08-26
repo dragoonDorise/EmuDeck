@@ -34,7 +34,7 @@ Yuzu_init(){
     Yuzu_setupStorage
     Yuzu_setupSaves
     Yuzu_finalize
-
+    Yuzu_addSteamInputProfile
 }
 
 #update
@@ -50,6 +50,7 @@ Yuzu_update(){
     Yuzu_setupStorage
     Yuzu_setupSaves
     Yuzu_finalize
+    Yuzu_addSteamInputProfile
 }
 
 
@@ -191,3 +192,7 @@ Yuzu_finalize(){
     Yuzu_cleanup
 }
 
+Yuzu_addSteamInputProfile(){
+    rsync -r "$EMUDECKGIT/configs/steam-input/yuzu_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+    rsync -r "$EMUDECKGIT/configs/steam-input/dualsense/yuzu_dualsense_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+}
