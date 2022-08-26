@@ -49,7 +49,7 @@ updateCemu(){
 
             mkdir -p "$romsPath/wiiu/tmp"
             unzip -o "$romsPath/wiiu/cemu.zip" -d "$romsPath/wiiu/tmp"
-            mv "$romsPath"/wiiu/tmp/cemu_*/ "$romsPath/wiiu/tmp/cemu/" #don't quote the *
+            mv "$romsPath"/wiiu/tmp/*/ "$romsPath/wiiu/tmp/cemu/" #don't quote the *
             rsync -avzh "$romsPath/wiiu/tmp/cemu/" "$romsPath/wiiu/"
             rm -rf "$romsPath/wiiu/tmp" 
             rm -f "$romsPath/wiiu/cemu.zip"	
