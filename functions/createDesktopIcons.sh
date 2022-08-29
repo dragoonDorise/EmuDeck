@@ -28,7 +28,8 @@ createDesktopIcons(){
 	  Icon=steamdeck-gaming-return
 	  Terminal=false
 	  Type=Application
-	  StartupNotify=false" > $HOME/.local/share/applications/Cemu.desktop
-	  chmod +x $HOME/.local/share/applications/Cemu.desktop	
+	  Categories=Game
+	  StartupNotify=false" > $HOME/.local/share/applications/EmuDeck.desktop
+	  chmod +x $HOME/.local/share/applications/EmuDeck.desktop	
 	
 }
