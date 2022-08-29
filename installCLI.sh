@@ -782,7 +782,7 @@ fi
 #setMSG "Configuring Steam Input for emulators.." moved to emu install
 
 
-setMSG "Configuring emulators.."
+setMSG "Configuring emulators"
 
 if [ "$doSetupRA" == "true" ]; then
 	RetroArch_init

@@ -41,7 +41,7 @@ SRM_createDesktopShortcut(){
 }
 
 SRM_init(){			
-	setMSG "Configuring Steam Rom Manager..."
+	setMSG "Configuring Steam Rom Manager"
 	mkdir -p "$HOME/.config/steam-rom-manager/userData/"
 	cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
