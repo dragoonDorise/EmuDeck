@@ -341,17 +341,25 @@ function checkForFile(){
 	done
 }
 
+function tokenGenerator(){
+
+	local tokens=( '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' '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' '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' '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' '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')	
+	local randNumber=$(( RANDOM % 4 ))
+	return ${tokens[randNumber]}
+	
+}	
 
 function getLatestReleaseURLGH(){	
     local repository=$1
     local fileType=$2
 	local url
-
+	local token
+	token=$(tokenGenerator)
     if [ "$url" == "" ]; then
         url="https://api.github.com/repos/${repository}/releases/latest"
     fi
 
-    url="$(curl -sL $url | jq -r ".assets[].browser_download_url" | grep -ve 'i386' | grep .${fileType}\$)"
+    url="$(curl -sLu dragoonDorise:${token} $url | jq -r ".assets[].browser_download_url" | grep -ve 'i386' | grep .${fileType}\$)"
     echo "$url"
 }
 
@@ -359,11 +367,13 @@ function getReleaseURLGH(){
     local repository=$1
     local fileType=$2
 	local url
+	local token	
+	token=$(tokenGenerator)
 
     if [ "$url" == "" ]; then
         url="https://api.github.com/repos/$repository/releases"
     fi
-    curl -fSs "$url" | \
+    curl -fSsu dragoonDorise:${token} "$url" | \
     jq -r '[ .[].assets[] | select(.name | endswith("'"$fileType"'")).browser_download_url ][0]'
     
 }
