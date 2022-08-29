@@ -148,7 +148,7 @@ else
 	#App Image detection & launch so older user can update just using the same old .desktop
 	if [[ ! -e "~/Applications/EmuDeck.AppImage" ]]; then
 		mkdir -p ~/Applications
-		curl -L "$(curl -s https://api.github.com/repos/EmuDeck/emudeck-electron/releases/latest | grep -E 'browser_download_url.*AppImage' | cut -d '"' -f 4)" > ~/Applications/EmuDeck.AppImage && chmod +x ~/Applications/EmuDeck.AppImage && ~/Applications/EmuDeck.AppImage && exit
+		curl -L "$(curl -s https://api.github.com/repos/EmuDeck/emudeck-electron/releases/latest | grep -E 'browser_download_url.*AppImage' | cut -d '"' -f 4)" > ~/Applications/EmuDeck.AppImage && chmod +x ~/Applications/EmuDeck.AppImage && kill -15 $(pidof emudeck) && ~/Applications/EmuDeck.AppImage && exit
 	fi
 	#Nova fix'
 fi
