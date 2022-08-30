@@ -43,9 +43,10 @@ SRM_createDesktopShortcut(){
 SRM_init(){			
 	setMSG "Configuring Steam Rom Manager"
 	mkdir -p "$HOME/.config/steam-rom-manager/userData/"
+	mkdir -p "$HOME/.config/steam-rom-manager/userData/img"
 	cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
-
+	rsync -avzh "$EMUDECKGIT/configs/steam-rom-manager/img/" "$HOME/.config/steam-rom-manager/userData/img/"
 	sleep 3
 	tmp=$(mktemp)
 	jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
