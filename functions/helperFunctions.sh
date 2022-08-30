@@ -351,7 +351,8 @@ function getLatestReleaseURLGH(){
     local repository=$1
     local fileType=$2
 	local url
-	local token=tokenGenerator
+	tokenGenerator
+	local token=$?
 
     if [ "$url" == "" ]; then
         url="https://api.github.com/repos/${repository}/releases/latest"
@@ -365,7 +366,8 @@ function getReleaseURLGH(){
     local repository=$1
     local fileType=$2
 	local url
-	local token=tokenGenerator
+	tokenGenerator
+	local token=$?
 
     if [ "$url" == "" ]; then
         url="https://api.github.com/repos/$repository/releases"
