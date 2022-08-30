@@ -351,14 +351,14 @@ function getLatestReleaseURLGH(){
     local repository=$1
     local fileType=$2
 	local url
-	tokenGenerator
-	local token=$?
+	# tokenGenerator
+	# local token=$?
 
     if [ "$url" == "" ]; then
         url="https://api.github.com/repos/${repository}/releases/latest"
     fi
 
-    url="$(curl -sLu dragoonDorise:${token} $url | jq -r ".assets[].browser_download_url" | grep -ve 'i386' | grep .${fileType}\$)"
+    url="$(curl -sL $url | jq -r ".assets[].browser_download_url" | grep -ve 'i386' | grep .${fileType}\$)"
     echo "$url"
 }
 
@@ -366,13 +366,13 @@ function getReleaseURLGH(){
     local repository=$1
     local fileType=$2
 	local url
-	tokenGenerator
-	local token=$?
+	# tokenGenerator
+	# local token=$?
 
     if [ "$url" == "" ]; then
         url="https://api.github.com/repos/$repository/releases"
     fi
-    curl -fSsu dragoonDorise:${token} "$url" | \
+    curl -fSs "$url" | \
     jq -r '[ .[].assets[] | select(.name | endswith("'"$fileType"'")).browser_download_url ][0]'
     
 }
