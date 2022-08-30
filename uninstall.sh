@@ -27,6 +27,9 @@ doUninstallPPSSPP=false
 doUninstallSRM=false
 doUninstallESDE=false
 
+LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
+echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
+exec > >(tee "${LOGFILE}") 2>&1
 
 #Wellcome
 text="`printf "<b>Hi!</b>\nDo you really want to uninstall Emudek?\n\nIf you are having issues please go to our Discord, Reddit so we can help you. You can see the links here: https://www.emudeck.com/#download"`"
@@ -198,6 +201,7 @@ if [ "$doUninstall" == true ]; then
 	rm -rf ~/Desktop/EmuDeck.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeckSD.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeckBinUpdate.desktop &>> /dev/null
+	rm -rf ~/Applications/EmuDeck.AppImage &>> /dev/null
 	#rm -rf ~/Emulation &>> /dev/null	
 	#rm -rf /run/media/mmcblk0p1/Emulation &>> /dev/null	
 	
