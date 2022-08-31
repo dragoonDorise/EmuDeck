@@ -1,6 +1,5 @@
 #!/bin/bash
 setMSG(){		
-	curl -I https://api.github.com/rate_limit
 	progressBar=$((progressBar + 5))
 	#We prevent the zenity to close if we have too much MSG, the classic eternal 99%
 	if [ $progressBar == 95 ]; then
