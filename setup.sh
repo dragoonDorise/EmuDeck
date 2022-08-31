@@ -643,9 +643,9 @@ fi
 # fi
 
 #EmuDeck updater on gaming Mode
-mkdir -p "${toolsPath}/tools/updater"
-cp -v "$EMUDECKGIT/tools/updater/emudeck-updater.sh" "${toolsPath}/tools/updater/"
-chmod +x "${toolsPath}/tools/updater/emudeck-updater.sh"
+mkdir -p "${toolsPath}/updater"
+cp -v "$EMUDECKGIT/tools/updater/emudeck-updater.sh" "${toolsPath}/updater/"
+chmod +x "${toolsPath}/updater/emudeck-updater.sh"
 
 #RemotePlayWhatever
 installEmuAI "RemotePlayWhatever"  "$(getReleaseURLGH "m4dEngi/RemotePlayWhatever" "AppImage")" 
