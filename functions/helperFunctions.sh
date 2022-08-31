@@ -344,14 +344,14 @@ function checkForFile(){
 function tokenGenerator(){
 	local tokens=( 'Z2hwX2thd2xKQ3BqWERnMklxZVZYUWRjYkNvalo0SkNSZzBRRU94Mgo=' 'Z2hwX2dqODlmUWx3cW9Jakd6QldjdmdBaHZuajkwbkdCZzFHUzUxSA==' 'Z2hwX2FDcHFKNWlscko2YzNCWm1NSTBMQ3p4eGlldHRLTzJwSjB4VQ==' 'Z2hwX1BQYnRJT3Y2OVZUWDNQZ3FMT09SMnhmVENXRko2dzF0U0swZQ==' 'Z2hwX0g2RGdkQjB2blh2R25wa0RFaGFYdmNZYnVCaDVKTjJsOWRiWA==')	
 	local randNumber=$(( RANDOM % 5 ))
-	return ${tokens[randNumber]} | base64 --decode
+	echo ${tokens[randNumber]} | base64 --decode
 }	
 
 function getLatestReleaseURLGH(){	
     local repository=$1
     local fileType=$2
-	local url
-	local token=tokenGenerator
+	local url	
+	local token=$(tokenGenerator)
 
     if [ "$url" == "" ]; then
         url="https://api.github.com/repos/${repository}/releases/latest"
@@ -365,7 +365,7 @@ function getReleaseURLGH(){
     local repository=$1
     local fileType=$2
 	local url
-	local token=tokenGenerator
+	local token=$(tokenGenerator)
 
     if [ "$url" == "" ]; then
         url="https://api.github.com/repos/$repository/releases"

@@ -31,6 +31,7 @@ source "$EMUDECKGIT"/functions/nonDeck.sh
 source "$EMUDECKGIT"/functions/dialogBox.sh
 source "$EMUDECKGIT"/functions/updateEmuFP.sh
 source "$EMUDECKGIT"/functions/createFolders.sh
+source "$EMUDECKGIT"/functions/runSRM.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh

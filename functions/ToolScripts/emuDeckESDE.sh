@@ -153,6 +153,9 @@ ESDE_setDefaultEmulators(){
 	ESDE_setEmu 'PCSX2 (Standalone)' ps2
 	ESDE_setEmu 'melonDS' nds
 	ESDE_setEmu 'Citra (Standalone)' n3ds
+	ESDE_setEmu 'Beetle Lynx' atarilynx
+	ESDE_setEmu 'Duckstation (Standalone)' psx
+	ESDE_setEmu 'Yabause' saturn
 }
 
 
