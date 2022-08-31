@@ -3,7 +3,7 @@
 SRM_toolName="Steam Rom Manager"
 SRM_toolType="AppImage"
 SRM_toolPath="${toolsPath}/srm/Steam-ROM-Manager.AppImage"
-SRM_releaseURL="$(getLatestReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")"
+
 
 #cleanupOlderThings
 SRM_cleanup(){
@@ -12,6 +12,7 @@ SRM_cleanup(){
 }
 
 SRM_install(){		
+	local SRM_releaseURL="$(getLatestReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")"
 	setMSG "Installing Steam Rom Manager"
 	SRM_cleanup
 	mkdir -p "${toolsPath}/srm"
