@@ -2577,6 +2577,72 @@
   },
   {
     "parserType": "Glob",
+    "configTitle": "Sony PlayStation - Retroarch - SwanStation",
+    "steamCategory": "${PlayStation - SwanStation}",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psx",
+    "executableArgs": "run org.libretro.RetroArch -L /swanstation_libretro.so \"${filePath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "imageProviders": [
+        "SteamGridDB"
+    ],
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "disabled": true,
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "userAccounts": {
+        "specifiedAccounts": "",
+        "skipWithMissingDataDir": true,
+        "useCredentials": true
+    },
+    "executable": {
+        "path": "/usr/bin/flatpak",
+        "shortcutPassthrough": false,
+        "appendArgsToExecutable": true
+    },
+    "parserInputs": {
+        "glob": "**/${title}@(.ccd|.CCD|.chd|.CHD|.cue|.CUE|.m3u|.M3U|.pbp|.PBP|.toc|.TOC)"
+    },
+    "titleFromVariable": {
+        "limitToGroups": "",
+        "caseInsensitiveVariables": false,
+        "skipFileIfVariableWasNotFound": false,
+        "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+        "replaceDiacritics": true,
+        "removeCharacters": true,
+        "removeBrackets": true
+    },
+    "imageProviderAPIs": {
+        "SteamGridDB": {
+            "nsfw": false,
+            "humor": false,
+            "styles": [],
+            "stylesHero": [],
+            "stylesLogo": [],
+            "stylesIcon": [],
+            "imageMotionTypes": [
+                "static"
+            ]
+        }
+    },
+    "parserId": "166001743996365855",
+    "version": 10
+  },
+  {
+    "parserType": "Glob",
     "configTitle": "Sony PlayStation 2 - PCSX2",
     "steamCategory": "${Playstation 2}",
     "steamDirectory": "/home/deck/.steam/steam",
