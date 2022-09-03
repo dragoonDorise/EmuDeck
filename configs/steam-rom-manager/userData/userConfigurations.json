@@ -2430,6 +2430,7 @@
     "defaultHeroImage": "",
     "defaultLogoImage": "",
     "defaultIcon": "",
+    "disabled": true,
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
