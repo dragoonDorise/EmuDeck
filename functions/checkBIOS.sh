@@ -5,6 +5,7 @@ checkBIOS(){
 	checkPS2BIOS	
 	checkYuzuBios
 	checkSegaCDBios
+	checkSaturnBios
 }
 	
 checkPS1BIOS(){		
@@ -142,6 +143,46 @@ checkSegaCDBios(){
 				--text="${text}" 2>/dev/null
 	else
 		text="`printf "<b>Your SegaCD Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
+		zenity --error \
+				--title="EmuDeck" \
+				--width=400 \
+				--text="${text}" 2>/dev/null
+	fi	
+	
+}
+
+checkSaturnBios(){
+		
+	SATURNBIOS="NULL"
+	
+	for entry in $biosPath/*
+	do
+		if [ -f "$entry" ]; then		
+			md5=($(md5sum "$entry"))	
+			if [[ "$SATURNBIOS" != true ]]; then
+				SaturnBios=(af5828fdff51384f99b3c4926be27762 85ec9ca47d8f6807718151cbcca8b964 f273555d7d91e8a5a6bfd9bcf066331c 3240872c70984b6cbfda1586cab68dbe ac4e4b6522e200c0d23d371a8cecbfd3 3ea3202e2634cb47cb90f3a05c015010 cb2cebc1b6e573b7c44523d037edcd45 0306c0e408d6682dd2d86324bd4ac661)
+				for i in "${SaturnBios[@]}"
+				do
+				if [[ "$md5" == *"${i}"* ]]; then
+					SATURNBIOS=true
+					break
+				else
+					SATURNBIOS=false
+				fi
+				done	
+			fi		
+		fi
+	done	
+		
+	
+	if [ $SATURNBIOS == false ]; then		
+		text="`printf "<b>Saturn bios not detected</b>\nYou need to copy your BIOS to: \n${biosPath}\n\n<b>Make sure they are not in a subdirectory</b>"`"
+		zenity --error \
+				--title="EmuDeck" \
+				--width=400 \
+				--text="${text}" 2>/dev/null
+	else
+		text="`printf "<b>Your Saturn Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
 		zenity --error \
 				--title="EmuDeck" \
 				--width=400 \
