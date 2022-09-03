@@ -694,7 +694,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press E"
+							"binding"		"key_press E, Layout Toggle"
 						}
 					}
 				}
@@ -710,7 +710,7 @@
 					{
 						"bindings"
 						{
-							"binding"        "key_press X"
+							"binding"        "key_press X, Hold to Quit"
 						}
 						"settings"
 						{
@@ -730,7 +730,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F"
+							"binding"		"key_press F, Fullscreen Toggle"
 						}
 					}
 				}
@@ -746,7 +746,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press S"
+							"binding"		"key_press S, Swap Screens"
 						}
 					}
 				}
