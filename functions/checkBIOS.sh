@@ -1,8 +1,10 @@
 #!/bin/bash
 
-checkPSBIOS(){
+checkBIOS(){
 	checkPS1BIOS
 	checkPS2BIOS	
+	checkYuzuBios
+	checkSegaCDBios
 }
 	
 checkPS1BIOS(){		
@@ -36,7 +38,13 @@ checkPS1BIOS(){
 				--title="EmuDeck" \
 				--width=400 \
 				--text="${text}" 2>/dev/null
-	fi
+	else
+		text="`printf "<b>Your PS1 Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
+		zenity --error \
+				--title="EmuDeck" \
+				--width=400 \
+				--text="${text}" 2>/dev/null
+	fi	
 	
 
 		
@@ -73,5 +81,71 @@ checkPS2BIOS(){
 				--title="EmuDeck" \
 				--width=400 \
 				--text="${text}" 2>/dev/null
+	else
+		text="`printf "<b>Your PS2 Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
+		zenity --error \
+				--title="EmuDeck" \
+				--width=400 \
+				--text="${text}" 2>/dev/null
 	fi	
+}
+
+checkYuzuBios(){
+	FILE="$HOME/.local/share/yuzu/keys/prod.keys"
+	if [ -f "$FILE" ]; then
+		else
+			text="`printf "<b>Your Switch firmware seems right!\nIf you are still having issues, make sure you have both your firmware and prod.keys file on: \n${biosPath}/yuzu/keys\n${biosPath}\yuzu/firmware </b>"`"
+			zenity --error \
+					--title="EmuDeck" \
+					--width=400 \
+					--text="${text}" 2>/dev/null
+		fi	
+	else
+			text="$(printf "<b>Yuzu is not configured</b>\nYou need to copy your Keys and firmware to: \n${biosPath}/yuzu/keys\n${biosPath}\yuzu/firmware\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them</b>")"
+			zenity --error \
+					--title="EmuDeck" \
+					--width=400 \
+					--text="${text}" 2>/dev/null
+	fi
+}
+
+checkSegaCDBios(){
+		
+	SEGACDBIOS="NULL"
+	
+	for entry in $biosPath/*
+	do
+		if [ -f "$entry" ]; then		
+			md5=($(md5sum "$entry"))	
+			if [[ "$SEGACDBIOS" != true ]]; then
+				CDBios=(bc6ae4e1db01a2f349d9af392bf7e2bd 29ad9ce848b49d0f9cefc294137f653c cc049159d7e744c15eee080c241273b4 278a9397d192149e84e820ac621a8edd a3ddcc8483b0368141adfd99d9a1e466 bdeb4c47da613946d422d97d98b21cda 96ea588d647f2ab1f291279fc691663c 2efd74e3232ff260e371b99f84024f7f e66fa1dc5820d254611fdcdba0662372 683a8a9e273662561172468dfa2858eb 310a9081d2edf2d316ab38813136725e 9b562ebf2d095bf1dabadbc1881f519a 854b9150240a198070150e4566ae1290 b10c0a97abc57b758497d3fae6ab35a4 ecc837c31d77b774c6e27e38f828aa9a baca1df271d7c11fe50087c0358f4eb5)
+				for i in "${CDBios[@]}"
+				do
+				if [[ "$md5" == *"${i}"* ]]; then
+					SEGACDBIOS=true
+					break
+				else
+					SEGACDBIOS=false
+				fi
+				done	
+			fi		
+		fi
+	done	
+		
+	
+	if [ $SEGACDBIOS == false ]; then
+		#text="`printf "<b>PS1 bios not detected</b>\nYou need to copy your BIOS to: ${biosPath}"`"
+		text="`printf "<b>SegaCD bios not detected</b>\nYou need to copy your BIOS to: \n${biosPath}\n\n<b>Make sure they are not in a subdirectory</b>"`"
+		zenity --error \
+				--title="EmuDeck" \
+				--width=400 \
+				--text="${text}" 2>/dev/null
+	else
+		text="`printf "<b>Your SegaCD Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
+		zenity --error \
+				--title="EmuDeck" \
+				--width=400 \
+				--text="${text}" 2>/dev/null
+	fi	
+	
 }

@@ -607,24 +607,8 @@ createDesktopIcons
 ##
 #
 
-#PS Bios
-checkPSBIOS
-
-#Yuzu Keys & Firmware
-FILE="$HOME/.local/share/yuzu/keys/prod.keys"
-if [ -f "$FILE" ]; then
-	echo -e "" 2>/dev/null
-else
-	if [ "$uiMode" != 'whiptail' ]; then
-		text="$(printf "<b>Yuzu is not configured</b>\nYou need to copy your Keys and firmware to: \n${biosPath}/yuzu/keys\n${biosPath}\yuzu/firmware\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them</b>")"
-		zenity --error \
-				--title="EmuDeck" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
-	else
-		echo "Yuzu is not configured"
-	fi
-fi
+#Bios & Yuzu Firm
+checkBIOS
 
 
 # FILE="$HOME/.config/Ryujinx/system/prod.keys"

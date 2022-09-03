@@ -17,7 +17,7 @@ fi
 export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
 chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
 
-source "$EMUDECKGIT"/functions/checkPSBIOS.sh
+source "$EMUDECKGIT"/functions/checkBIOS.sh
 source "$EMUDECKGIT"/functions/configEmuAI.sh
 source "$EMUDECKGIT"/functions/configEmuFP.sh
 source "$EMUDECKGIT"/functions/createDesktopIcons.sh
