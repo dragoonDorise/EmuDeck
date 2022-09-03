@@ -16,6 +16,6 @@ CHD_install(){
     sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$CHD_toolPath"
     sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$CHD_toolPath"
     
-    createDesktopShortcut "$CHD_Shortcutlocation" "$CHD_toolName" "bash $CHD_toolPath" "True"
+    #createDesktopShortcut "$CHD_Shortcutlocation" "$CHD_toolName" "bash $CHD_toolPath" "True"
 }
 

@@ -715,6 +715,10 @@ RetroArch_gb_bezelOn(){
 	RetroArch_setOverride 'gb.cfg' 'Gambatte'  'input_overlay_y_offset_landscape' '"-0.150000"'
 }
 
+RetroArch_gb_setConfig(){	
+	RetroArch_setOverride 'gb.cfg' 'Gambatte'  'input_player1_analog_dpad_mode' '"1"'
+}
+
 RetroArch_gb_bezelOff(){
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'input_overlay_enable' '"false"'
 
@@ -738,6 +742,11 @@ RetroArch_SameBoy_gbc_setConfig(){
 	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'gambatte_gbc_color_correction' '"GBC'
 	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'gambatte_gbc_color_correction_mode' '"accurate"'
 	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'gambatte_gbc_frontlight_position' '"central"'
+}
+
+
+RetroArch_gbc_setConfig(){	
+	RetroArch_setOverride 'gbc.cfg' 'Gambatte'  'input_player1_analog_dpad_mode' '"1"'
 }
 
 RetroArch_gbc_bezelOn(){

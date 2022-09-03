@@ -3,7 +3,7 @@
 SRM_toolName="Steam Rom Manager"
 SRM_toolType="AppImage"
 SRM_toolPath="${toolsPath}/srm/Steam-ROM-Manager.AppImage"
-SRM_releaseURL="$(getLatestReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")"
+
 
 #cleanupOlderThings
 SRM_cleanup(){
@@ -12,6 +12,7 @@ SRM_cleanup(){
 }
 
 SRM_install(){		
+	local SRM_releaseURL="$(getLatestReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")"
 	setMSG "Installing Steam Rom Manager"
 	SRM_cleanup
 	mkdir -p "${toolsPath}/srm"
@@ -29,23 +30,22 @@ SRM_createDesktopShortcut(){
 	
 	fi
 
-echo "#!/usr/bin/env xdg-open
-[Desktop Entry]
-Name=Steam Rom Manager
-Exec=kill -15 \$(pidof steam) & $SRM_toolPath
-Icon=steamdeck-gaming-return
-Terminal=false
-Type=Application
-StartupNotify=false" > "$SRM_Shortcutlocation"
+	echo "#!/usr/bin/env xdg-open
+	[Desktop Entry]
+	Name=Steam Rom Manager
+	Exec=kill -15 \$(pidof steam) & $SRM_toolPath
+	Icon=steamdeck-gaming-return
+	Terminal=false
+	Type=Application
+	StartupNotify=false" > "$SRM_Shortcutlocation"
 	chmod +x "$SRM_Shortcutlocation"
 }
 
 SRM_init(){			
-	setMSG "Configuring Steam Rom Manager..."
-	mkdir -p "$HOME/.config/steam-rom-manager/userData/"
+	setMSG "Configuring Steam Rom Manager"
+	mkdir -p "$HOME/.config/steam-rom-manager/userData/"	
 	cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
-	cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
-
+	cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/userSettings.json"	
 	sleep 3
 	tmp=$(mktemp)
 	jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
