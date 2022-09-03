@@ -93,14 +93,12 @@ checkPS2BIOS(){
 
 checkYuzuBios(){
 	FILE="$HOME/.local/share/yuzu/keys/prod.keys"
-	if [ -f "$FILE" ]; then
-		else
+	if [ -f "$FILE" ]; then	
 			text="`printf "<b>Your Switch firmware seems right!\nIf you are still having issues, make sure you have both your firmware and prod.keys file on: \n${biosPath}/yuzu/keys\n${biosPath}\yuzu/firmware </b>"`"
 			zenity --error \
 					--title="EmuDeck" \
 					--width=400 \
 					--text="${text}" 2>/dev/null
-		fi	
 	else
 			text="$(printf "<b>Yuzu is not configured</b>\nYou need to copy your Keys and firmware to: \n${biosPath}/yuzu/keys\n${biosPath}\yuzu/firmware\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them</b>")"
 			zenity --error \
