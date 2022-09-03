@@ -41,7 +41,7 @@ checkPS1BIOS(){
 				--text="${text}" 2>/dev/null
 	else
 		text="`printf "<b>Your PS1 Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
-		zenity --error \
+		zenity --info \
 				--title="EmuDeck" \
 				--width=400 \
 				--text="${text}" 2>/dev/null
@@ -84,7 +84,7 @@ checkPS2BIOS(){
 				--text="${text}" 2>/dev/null
 	else
 		text="`printf "<b>Your PS2 Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
-		zenity --error \
+		zenity --info \
 				--title="EmuDeck" \
 				--width=400 \
 				--text="${text}" 2>/dev/null
@@ -95,7 +95,7 @@ checkYuzuBios(){
 	FILE="$HOME/.local/share/yuzu/keys/prod.keys"
 	if [ -f "$FILE" ]; then	
 			text="`printf "<b>Your Switch firmware seems right!\nIf you are still having issues, make sure you have both your firmware and prod.keys file on: \n${biosPath}/yuzu/keys\n${biosPath}\yuzu/firmware </b>"`"
-			zenity --error \
+			zenity --info \
 					--title="EmuDeck" \
 					--width=400 \
 					--text="${text}" 2>/dev/null
@@ -141,7 +141,7 @@ checkSegaCDBios(){
 				--text="${text}" 2>/dev/null
 	else
 		text="`printf "<b>Your SegaCD Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
-		zenity --error \
+		zenity --info \
 				--title="EmuDeck" \
 				--width=400 \
 				--text="${text}" 2>/dev/null
@@ -181,7 +181,7 @@ checkSaturnBios(){
 				--text="${text}" 2>/dev/null
 	else
 		text="`printf "<b>Your Saturn Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
-		zenity --error \
+		zenity --info \
 				--title="EmuDeck" \
 				--width=400 \
 				--text="${text}" 2>/dev/null
