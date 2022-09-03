@@ -21,7 +21,8 @@ doUninstallESDE=true
 # exec > >(tee "${LOGFILE}") 2>&1
 
 #Wellcome
-text="`printf "<b>Hi!</b>\nDo you really want to uninstall Emudek?\n\nIf you are having issues please go to our Discord or Reddit so we can help you. You can see the links here: https://www.emudeck.com/#download"`"
+text="`printf "<b>Hi!</b>\nDo you really want to uninstall EmuDeck?\n\nIf you are having issues please go to our Discord or Reddit so we can help you. You can see the links here: https://www.emudeck.com/#download"`"
+
 zenity --question \
 		 --title="EmuDeck" \
 		 --width=250 \
@@ -40,7 +41,8 @@ clear
 if [ "$doUninstall" == true ]; then 
 	
 	#Emulator selector
-	text="`printf " <b>This will delete Emudeck , the emulators and all of its configuration files and saved games</b>\n You can keep the Emulators installed, tell me which ones you want to keep.\n\nIf you select none of them, everything will be deleted\n<b>We will keep your your roms, if you wanna keep your saved games go to the Emulation/saves folder and make a backup of its contents</b>"`"
+	text="`printf " <b>This will delete EmuDeck , the emulators and all of its configuration files and saved games</b>\n\n You can keep the Emulators installed, tell me which ones you want to keep.\n\nIf you select none of them, everything will be deleted<b>We won't delete your roms, if you wanna keep your saved games go to the Emulation/saves folder and make a backup of its contents</b>"`"
+
 	emusToUninstall=$(zenity --list \
 				--title="EmuDeck" \
 				--height=500 \
