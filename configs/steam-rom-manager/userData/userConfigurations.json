@@ -1562,7 +1562,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo DS - Retroarch - melonDS",
-    "steamCategory": "${DS}",
+    "steamCategory": "${Nintendo DS}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}melonds_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/nds",
