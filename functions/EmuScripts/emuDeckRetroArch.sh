@@ -36,6 +36,7 @@ RetroArch_init(){
 	RetroArch_setupSaves
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
+	RetroArch_setConfigAll
 
 }
 
@@ -47,6 +48,7 @@ RetroArch_update(){
 	RetroArch_setupSaves
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
+	RetroArch_setConfigAll
 
 }
 
@@ -713,6 +715,10 @@ RetroArch_gb_bezelOn(){
 	RetroArch_setOverride 'gb.cfg' 'Gambatte'  'input_overlay_y_offset_landscape' '"-0.150000"'
 }
 
+RetroArch_gb_setConfig(){	
+	RetroArch_setOverride 'gb.cfg' 'Gambatte'  'input_player1_analog_dpad_mode' '"1"'
+}
+
 RetroArch_gb_bezelOff(){
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'input_overlay_enable' '"false"'
 
@@ -736,6 +742,11 @@ RetroArch_SameBoy_gbc_setConfig(){
 	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'gambatte_gbc_color_correction' '"GBC'
 	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'gambatte_gbc_color_correction_mode' '"accurate"'
 	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'gambatte_gbc_frontlight_position' '"central"'
+}
+
+
+RetroArch_gbc_setConfig(){	
+	RetroArch_setOverride 'gbc.cfg' 'Gambatte'  'input_player1_analog_dpad_mode' '"1"'
 }
 
 RetroArch_gbc_bezelOn(){
@@ -1286,6 +1297,13 @@ RetroArch_setUpCoreOptAll(){
 	done
 }
 
+RetroArch_setConfigAll(){
+
+	for func in $(compgen -A 'function' | grep '\_setConfig$' | grep '^RetroArch_' )
+		do echo  "$func" && "$func"
+	done
+}
+
 RetroArch_Flycast_wideScreenOn(){
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_cheats' '"enabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_hack' '"enabled"'
@@ -1312,6 +1330,18 @@ RetroArch_Beetle_PSX_HW_wideScreenOff(){
 	RetroArch_psx_bezelOn
 }
 
+RetroArch_SwanStation_wideScreenOn(){
+	RetroArch_setOverride 'SwanStation.opt' 'SwanStation'  'duckstation_GPU.WidescreenHack' '"true"'
+	RetroArch_setOverride 'SwanStation.opt' 'SwanStation'  'duckstation_Display.AspectRatio' '"16:9"'
+	RetroArch_psx_bezelOff	
+}
+
+RetroArch_SwanStation_wideScreenOff(){
+	RetroArch_setOverride 'SwanStation.opt' 'SwanStation'  'duckstation_GPU.WidescreenHack' '"false"'
+	RetroArch_setOverride 'SwanStation.opt' 'SwanStation'  'duckstation_Display.AspectRatio' '"auto"'
+	RetroArch_psx_bezelOn
+}
+
 RetroArch_psx_bezelOn(){
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW' 'input_overlay_enable' '"true"'
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW' 'aspect_ratio_index' '"0"'
@@ -1325,22 +1355,33 @@ RetroArch_psx_bezelOn(){
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX' 'input_overlay_aspect_adjust_landscape' '"0.100000"'
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX' 'input_overlay_enable' '"true"'
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX' 'input_overlay_scale_landscape' '"1.060000"'
-
+	RetroArch_setOverride 'psx.cfg' 'SwanStation' 'input_overlay_enable' '"true"'
+	RetroArch_setOverride 'psx.cfg' 'SwanStation' 'aspect_ratio_index' '"0"'
+	RetroArch_setOverride 'psx.cfg' 'SwanStation' 'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/psx.cfg"'
+	RetroArch_setOverride 'psx.cfg' 'SwanStation' 'input_overlay_aspect_adjust_landscape' '"0.100000"'
+	RetroArch_setOverride 'psx.cfg' 'SwanStation' 'input_overlay_enable' '"true"'
+	RetroArch_setOverride 'psx.cfg' 'SwanStation' 'input_overlay_scale_landscape' '"1.060000"'
 }
+
 
 RetroArch_psx_bezelOff(){
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW'  'input_overlay_enable' '"false"'
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX'  'input_overlay_enable' '"false"'
+	RetroArch_setOverride 'psx.cfg' 'SwanStation'  'input_overlay_enable' '"false"'
 }
 
 RetroArch_psx_CRTshaderOn(){
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW'  'video_shader_enable' 'true'
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'psx.cfg' 'SwanStation'  'video_shader_enable' 'true'
+
 }
 
 RetroArch_psx_CRTshaderOff(){
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW'  'video_shader_enable' 'false'
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'psx.cfg' 'SwanStation'  'video_shader_enable' 'false'
+
 }
 
 #BezelOn

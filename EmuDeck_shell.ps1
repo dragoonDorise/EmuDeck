@@ -22,13 +22,13 @@ function download($url, $output) {
 			$dir = -join($output.replace('.zip',''), "\");
 			WinRAR x -y $output $dir
 			waitForWinRar
-			del $output
+			Remove-Item $output
 		}
 		if ($extn -eq ".7z" ){
 			$dir = -join($output.replace('.7z',''), "\");
 			WinRAR x -y $output $dir
 			waitForWinRar
-			del $output
+			Remove-Item $output
 		}
 	}
 	Write-Host "Done!" -ForegroundColor green -BackgroundColor black
@@ -46,7 +46,7 @@ function downloadCore($url, $output) {
 		$extn = [IO.Path]::GetExtension($line)
 		if ($extn -eq ".zip" ){			
 			Expand-Archive -Path $zipFile -DestinationPath $destination -Force
-			del $zipFile
+			Remove-Item $zipFile
 		}
 		#if ($extn -eq ".7z" ){
 		#	$dir = -join($output.replace('.7z',''), "\");
@@ -68,13 +68,13 @@ function Show-Notification {
 		$ToastText
 	)
 	$echo = -join($ToastTitle,'...')
-	echo $echo
+	Write-Output $echo
 	[Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] > $null
 	$Template = [Windows.UI.Notifications.ToastNotificationManager]::GetTemplateContent([Windows.UI.Notifications.ToastTemplateType]::ToastText02)
 
 	$RawXml = [xml] $Template.GetXml()
-	($RawXml.toast.visual.binding.text|where {$_.id -eq "1"}).AppendChild($RawXml.CreateTextNode($ToastTitle)) > $null
-	($RawXml.toast.visual.binding.text|where {$_.id -eq "2"}).AppendChild($RawXml.CreateTextNode($ToastText)) > $null
+	($RawXml.toast.visual.binding.text|Where-Object {$_.id -eq "1"}).AppendChild($RawXml.CreateTextNode($ToastTitle)) > $null
+	($RawXml.toast.visual.binding.text|Where-Object {$_.id -eq "2"}).AppendChild($RawXml.CreateTextNode($ToastText)) > $null
 
 	$SerializedXml = New-Object Windows.Data.Xml.Dom.XmlDocument
 	$SerializedXml.LoadXml($RawXml.OuterXml)
@@ -127,28 +127,28 @@ $raConfigDir=-join($winPath,'\Emulation\tools\EmulationStation-DE\Emulators\Retr
 $raExe=-join($winPath,'\Emulation\\tools\\EmulationStation-DE\\Emulators\\RetroArch\\','retroarch.exe')
 
 Write-Host "Hi! Welcome to EmuDeck Windows Edition." -ForegroundColor blue -BackgroundColor black
-echo ""
-echo "This script will create an Emulation folder in the same folder as this file"
-echo "and in there it will download all the needed Emulators, EmulationStation and Steam Rom Manager."
+Write-Output ""
+Write-Output "This script will create an Emulation folder in the same folder as this file"
+Write-Output "and in there it will download all the needed Emulators, EmulationStation and Steam Rom Manager."
 Write-Host "If you want to install EmuDeck on another drive, just move Emudeck.bat there now and open it again." -ForegroundColor red -BackgroundColor black
-echo "Before you continue make sure you have WinRar installed"
-echo "You can download Winrar from https://www.win-rar.com/download.html"
-echo ""
+Write-Output "Before you continue make sure you have WinRar installed"
+Write-Output "You can download Winrar from https://www.win-rar.com/download.html"
+Write-Output ""
 waitForUser
 
-clear
+Clear-Host
 
 
 
 mkdir Emulation -ErrorAction SilentlyContinue
-cd Emulation
+Set-Location Emulation
 mkdir bios -ErrorAction SilentlyContinue
 mkdir tools -ErrorAction SilentlyContinue
 mkdir saves -ErrorAction SilentlyContinue
-clear
+Clear-Host
 
-echo "Installing, please stand by..."
-echo ""
+Write-Output "Installing, please stand by..."
+Write-Output ""
 #EmuDeck Download
 Show-Notification -ToastTitle "Downloading EmuDeck files"
 download "https://github.com/dragoonDorise/EmuDeck/archive/refs/heads/dev.zip" "temp.zip"
@@ -211,13 +211,13 @@ moveFromTemp "ra\RetroArch-Win64" "tools\EmulationStation-DE\Emulators\RetroArch
 moveFromTemp "pcsx2\PCSX2 1.6.0" "tools\EmulationStation-DE\Emulators\PCSX2"
 moveFromTemp "rpcs3" "tools\EmulationStation-DE\Emulators\RPCS3"
 moveFromTemp "dolphin\Dolphin-x64" "tools\EmulationStation-DE\Emulators\Dolphin-x64"
-rmdir cemu
-rmdir ra
-rmdir dolphin
-rmdir esde
-rmdir pcsx2
-rmdir yuzu
-rmdir temp
+Remove-Item cemu
+Remove-Item ra
+Remove-Item dolphin
+Remove-Item esde
+Remove-Item pcsx2
+Remove-Item yuzu
+Remove-Item temp
 Write-Host "Done!" -ForegroundColor green -BackgroundColor black
 #Emulators config
 Show-Notification -ToastTitle 'Configuring Emulators'
@@ -243,7 +243,7 @@ moveFromTemp "EmuDeck\configs\org.yuzu_emu.yuzu" $yuzuDir
 moveFromTemp "EmuDeck\configs\app.xemu.xemu\data\xemu\xemu" "tools\EmulationStation-DE\Emulators\xemu"
 moveFromTemp "EmuDeck\configs\xenia" "tools\EmulationStation-DE\Emulators\xenia"
 mkdir "tools\EmulationStation-DE\.emulationstation" -ErrorAction SilentlyContinue
-copy EmuDeck\configs\emulationstation\es_settings.xml tools\EmulationStation-DE\.emulationstation\es_settings.xml
+Copy-Item EmuDeck\configs\emulationstation\es_settings.xml tools\EmulationStation-DE\.emulationstation\es_settings.xml
 Write-Host "Done!" -ForegroundColor green -BackgroundColor black
 
 Show-Notification -ToastTitle 'Applying Windows Especial configurations'

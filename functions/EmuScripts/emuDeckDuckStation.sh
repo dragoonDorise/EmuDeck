@@ -5,7 +5,7 @@ DuckStation_emuName="DuckStation"
 DuckStation_emuType="FlatPak"
 DuckStation_emuPath="org.duckstation.DuckStation"
 DuckStation_configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
-DuckStation_releaseURL=""
+DuckStation_configFileNew="$HOME/.var/app/org.duckstation.DuckStation/config/duckstation/settings.ini"
 
 #cleanupOlderThings
 DuckStation_cleanup(){
@@ -49,12 +49,25 @@ DuckStation_setEmulationFolder(){
 	biosDirSetting="${biosDir}""${biosPath}"
     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$DuckStation_configFile"
     sed -i "/${biosDir}/c\\${biosDirSetting}" "$DuckStation_configFile"
+
+	statesDir='SaveStates = '
+	statesDirSetting="${statesDir}""${savesPath}/duckstation/states"
+	memCardDir='Directory = '
+	memCardDirSetting="${memCardDir}""${savesPath}/duckstation/saves"
+
+	changeLine "$gameDirOpt" "$newGameDirOpt" "$DuckStation_configFileNew"
+	changeLine "$biosDir" "$biosDirSetting" "$DuckStation_configFileNew"
+	changeLine "$statesDir" "$statesDirSetting" "$DuckStation_configFileNew"
+	changeLine "$memCardDir" "$memCardDirSetting" "$DuckStation_configFileNew"
+
 }
 
 #SetupSaves
 DuckStation_setupSaves(){
-	linkToSaveFolder duckstation saves "$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/memcards"
-	linkToSaveFolder duckstation states "$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/savestates"
+	moveSaveFolder duckstation saves "$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/memcards"
+	moveSaveFolder duckstation states "$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/savestates"
+	moveSaveFolder duckstation saves "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation/memcards"
+	moveSaveFolder duckstation states "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation/savestates"
 }
 
 
@@ -97,6 +110,8 @@ DuckStation_wideScreenOn(){
     aspectRatioSetting='AspectRatio = 16:9'
     sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFile"
 	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$DuckStation_configFile"
+	sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFileNew"
+	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$DuckStation_configFileNew"
 }
 
 #WideScreenOff
@@ -109,6 +124,9 @@ DuckStation_wideScreenOff(){
     aspectRatioSetting='AspectRatio = 4:3'
     sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFile"
 	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$DuckStation_configFile"
+	sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFileNew"
+	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$DuckStation_configFileNew"
+	
 }
 
 #BezelOn

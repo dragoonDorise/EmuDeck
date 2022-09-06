@@ -1,35 +1,28 @@
 #!/bin/bash
-NONE='\033[00m'
-RED='\033[01;31m'
-GREEN='\033[01;32m'
-YELLOW='\033[01;33m'
-PURPLE='\033[01;35m'
-CYAN='\033[01;36m'
-WHITE='\033[01;37m'
-BOLD='\033[1m'
-UNDERLINE='\033[4m'
-BLINK='\x1b[5m'
-
 doUninstall=false
-doUninstallRA=false
-doUninstallDolphin=false
-doUninstallPCSX2=false
-doUninstallRPCS3=false
-doUninstallYuzu=false
-doUninstallRyujinx=false
-doUninstallCitra=false
-doUninstallDuck=false
-doUninstallCemu=false
-doUninstallXemu=false
-doUninstallXenua=false
-doUninstallPrimeHacks=false
-doUninstallPPSSPP=false
-doUninstallSRM=false
-doUninstallESDE=false
+doUninstallRA=true
+doUninstallDolphin=true
+doUninstallPCSX2=true
+doUninstallRPCS3=true
+doUninstallYuzu=true
+doUninstallRyujinx=true
+doUninstallCitra=true
+doUninstallDuck=true
+doUninstallCemu=true
+doUninstallXemu=true
+doUninstallXenua=true
+doUninstallPrimeHacks=true
+doUninstallPPSSPP=true
+doUninstallSRM=true
+doUninstallESDE=true
 
+# LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
+# echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
+# exec > >(tee "${LOGFILE}") 2>&1
 
 #Wellcome
-text="`printf "<b>Hi!</b>\nDo you really want to uninstall Emudek?\n\nIf you are having issues please go to our Discord, Reddit so we can help you. You can see the links here: https://www.emudeck.com/#download"`"
+text="`printf "<b>Hi!</b>\nDo you really want to uninstall EmuDeck?\n\nIf you are having issues please go to our Discord or Reddit so we can help you. You can see the links here: https://www.emudeck.com/#download"`"
+
 zenity --question \
 		 --title="EmuDeck" \
 		 --width=250 \
@@ -43,11 +36,13 @@ else
 	exit
 fi
 
+clear
 
 if [ "$doUninstall" == true ]; then 
 	
 	#Emulator selector
-	text="`printf " <b>This will delete Emudeck , the emulators and all of its configuration files and saved games</b>\n\n You can keep the Emulators installed, tell me which ones you want to keep.\n\nIf you select none of them, everything will be deleted<b>We won't delete your roms, if you wanna keep your saved games go to the Emulation/saves folder and make a backup of its contents</b>"`"
+	text="`printf " <b>This will delete EmuDeck , the emulators and all of its configuration files and saved games</b>\n\n You can keep the Emulators installed, tell me which ones you want to keep.\n\nIf you select none of them, everything will be deleted<b>We won't delete your roms, if you wanna keep your saved games go to the Emulation/saves folder and make a backup of its contents</b>"`"
+
 	emusToUninstall=$(zenity --list \
 				--title="EmuDeck" \
 				--height=500 \
@@ -57,7 +52,7 @@ if [ "$doUninstall" == true ]; then
 				--text="${text}" \
 				--checklist \
 				--column="" \
-				--column="Emulator" \
+				--column="Keep this emulator and its configuration" \
 				1 "RetroArch"\
 				2 "PrimeHack" \
 				3 "PCSX2" \
@@ -76,57 +71,58 @@ if [ "$doUninstall" == true ]; then
 	if [ $ans -eq 0 ]; then
 		
 		if [[ "$emusToUninstall" == *"RetroArch"* ]]; then
-			doUninstallRA=true
+			doUninstallRA=false
 		fi
 		if [[ "$emusToUninstall" == *"PrimeHack"* ]]; then
-			doUninstallPrimeHacks=true
+			doUninstallPrimeHacks=false
 		fi
 		if [[ "$emusToUninstall" == *"PCSX2"* ]]; then
-			doUninstallPCSX2=true
+			doUninstallPCSX2=false
 		fi
 		if [[ "$emusToUninstall" == *"RPCS3"* ]]; then
-			doUninstallRPCS3=true
+			doUninstallRPCS3=false
 		fi
 		if [[ "$emusToUninstall" == *"Citra"* ]]; then
-			doUninstallCitra=true
+			doUninstallCitra=false
 		fi
 		if [[ "$emusToUninstall" == *"Dolphin"* ]]; then
-			doUninstallDolphin=true
+			doUninstallDolphin=false
 		fi
 		if [[ "$emusToUninstall" == *"Duckstation"* ]]; then
-			doUninstallDuck=true
+			doUninstallDuck=false
 		fi
 		if [[ "$emusToUninstall" == *"PPSSPP"* ]]; then
-			doUninstallPPSSPP=true
+			doUninstallPPSSPP=false
 		fi
 		if [[ "$emusToUninstall" == *"Yuzu"* ]]; then
-			doUninstallYuzu=true
+			doUninstallYuzu=false
 		fi
 		if [[ "$emusToUninstall" == *"Ryujinx"* ]]; then
-			doUninstallRyujinx=true
+			doUninstallRyujinx=false
 		fi
 		if [[ "$emusToUninstall" == *"Cemu"* ]]; then
-			doUninstallCemu=true
+			doUninstallCemu=false
 		fi
 		#if [[ "$emusToUninstall" == *"Xenia"* ]]; then
-		#	doUninstallXenia=true
+		#	doUninstallXenia=false
 		#fi
 		if [[ "$emusToUninstall" == *"Xemu"* ]]; then
-			doUninstallXemu=true
+			doUninstallXemu=false
 		fi				
 		if [[ "$emusToUninstall" == *"SteamRomManager"* ]]; then
-			doUninstallSRM=true
+			doUninstallSRM=false
 		fi
 		if [[ "$emusToUninstall" == *"EmulationStationDE"* ]]; then
-			doUninstallESDE=true
+			doUninstallESDE=false
 		fi		
 		
 	else
 		exit
 	fi
-	
+
 	#Uninstalling
 	if [[ "$doUninstallRA" == true ]]; then
+		echo "noRA"
 		flatpak uninstall org.libretro.RetroArch --system -y
 		rm -rf ~/.var/app/org.libretro.RetroArch &>> /dev/null	
 	fi
@@ -192,21 +188,20 @@ if [ "$doUninstall" == true ]; then
 	rm -rf ~/.steam/steam/controller_base/templates/citra_controller_config.vdf
 	rm -rf ~/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf
 	rm -rf ~/.steam/steam/controller_base/templates/duckstation_controller_config.vdf
-	rm -rf ~/emudeck &>> /dev/null	
+	#rm -rf ~/emudeck &>> /dev/null	
 	rm -rf ~/Desktop/EmuDeckCHD.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeckUninstall.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeck.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeckSD.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeckBinUpdate.desktop &>> /dev/null
+	rm -rf ~/Applications/EmuDeck.AppImage &>> /dev/null
 	#rm -rf ~/Emulation &>> /dev/null	
 	#rm -rf /run/media/mmcblk0p1/Emulation &>> /dev/null	
 	
 	text="$(printf "<b>Done!</b>\n\nWe are sad to see you go and we really hope you give us a chance on the future!\n\n<b>Your roms and bios are on your Emulation folder, please delete it manually if you want</b>")"
-
-	
 	zenity --info \
 			 --title="EmuDeck" \
 			 --width=450 \			 
-			 --text="${text}" &>> /dev/null	
+			 --text="${text}" 
 
 fi
