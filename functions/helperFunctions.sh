@@ -449,8 +449,8 @@ function createDesktopShortcut(){
 
 # Migrate dolphin save states files from 0.17.6 location to new location
 function migrateDolphinStates() {
-	local emuName=$1
-	local flatpakName=$2
+	local emuName=$1 # dolphin | primehack
+	local flatpakName=$2 # org.DolphinEmu.dolphin-emu | io.github.shiiion.primehack
 	local oldStatesPath="$HOME/.var/app/$flatpakName/data/dolphin-emu/states"
 	local newStatesPath="$HOME/.var/app/$flatpakName/data/dolphin-emu/StateSaves"
 	local linkedTarget=$(readlink -f "$savesPath/$emuName/states")
@@ -460,6 +460,6 @@ function migrateDolphinStates() {
 		cp -r "$oldStatesPath/*" "$newStatesPath"
 		rm -rf "$oldStatesPath"
 		unlink "$savesPath/$emuName/states"
-		moveSaveFolder dolphin states "$HOME/.var/app/$flatpakName/data/dolphin-emu/StateSaves"
+		moveSaveFolder "$emuName" states "$HOME/.var/app/$flatpakName/data/dolphin-emu/StateSaves"
 	fi
 }
