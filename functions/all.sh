@@ -40,6 +40,7 @@ source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSRM.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCHD.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckBINUP.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSaveSync.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckRemoteWhatever.sh
 
 #emuscripts
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh

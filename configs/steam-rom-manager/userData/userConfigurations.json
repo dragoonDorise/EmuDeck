@@ -110,7 +110,7 @@
     "steamCategory": "${Emulation}",
     "executableArgs": "",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/home/deck/Applications",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/remoteplaywhatever",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
@@ -130,7 +130,7 @@
     "disabled": false,
     "advanced": false,
     "executable": {
-      "path": "/home/deck/Applications/RemotePlayWhatever.AppImage",
+      "path": "/usr/bin/bash",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -140,7 +140,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.AppImage)"
+      "glob": "**/${title}@(.sh)"
     },
     "titleFromVariable": {
       "limitToGroups": "",

@@ -634,7 +634,7 @@ cp -v "$EMUDECKGIT/tools/updater/emudeck-updater.sh" "${toolsPath}/updater/"
 chmod +x "${toolsPath}/updater/emudeck-updater.sh"
 
 #RemotePlayWhatever
-installEmuAI "RemotePlayWhatever"  "$(getReleaseURLGH "m4dEngi/RemotePlayWhatever" "AppImage")" 
+RemoteWhatever_install
 
 #
 # We mark the script as finished	
