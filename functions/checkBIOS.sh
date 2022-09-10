@@ -1,15 +1,15 @@
 #!/bin/bash
 
 checkBIOS(){
-	checkPS1BIOS
-	checkPS2BIOS	
-	checkYuzuBios
-	checkSegaCDBios
-	checkSaturnBios
+	checkPS1BIOS true
+	checkPS2BIOS true	
+	checkYuzuBios true
+	checkSegaCDBios true
+	checkSaturnBios true
 }
 	
 checkPS1BIOS(){		
-		
+	local zenity=$1	
 	PSXBIOS="NULL"
 	
 	for entry in $biosPath/*
@@ -40,11 +40,13 @@ checkPS1BIOS(){
 				--width=400 \
 				--text="${text}" 2>/dev/null
 	else
-		text="`printf "<b>Your PS1 Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
-		zenity --info \
-				--title="EmuDeck" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
+		if [ $zenity == true ]; then
+			text="`printf "<b>Your PS1 Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
+			zenity --info \
+					--title="EmuDeck" \
+					--width=400 \
+					--text="${text}" 2>/dev/null
+		fi
 	fi	
 	
 
@@ -52,7 +54,7 @@ checkPS1BIOS(){
 }
 
 checkPS2BIOS(){
-	
+	local $zenity=$1
 	PS2BIOS="NULL"
 	
 	for entry in $biosPath/*
@@ -92,13 +94,16 @@ checkPS2BIOS(){
 }
 
 checkYuzuBios(){
+	local zenity=$1;
 	FILE="$HOME/.local/share/yuzu/keys/prod.keys"
 	if [ -f "$FILE" ]; then	
-			text="`printf "<b>Your Switch firmware seems right!\nIf you are still having issues, make sure you have both your firmware and prod.keys file on: \n${biosPath}/yuzu/keys\n${biosPath}\yuzu/firmware </b>"`"
-			zenity --info \
-					--title="EmuDeck" \
-					--width=400 \
-					--text="${text}" 2>/dev/null
+			if [ $zenity == true ]; then
+				text="`printf "<b>Your Switch firmware seems right!\nIf you are still having issues, make sure you have both your firmware and prod.keys file on: \n${biosPath}/yuzu/keys\n${biosPath}\yuzu/firmware </b>"`"
+				zenity --info \
+						--title="EmuDeck" \
+						--width=400 \
+						--text="${text}" 2>/dev/null
+			fi
 	else
 			text="$(printf "<b>Yuzu is not configured</b>\nYou need to copy your Keys and firmware to: \n${biosPath}/yuzu/keys\n${biosPath}\yuzu/firmware\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them</b>")"
 			zenity --error \
@@ -109,7 +114,7 @@ checkYuzuBios(){
 }
 
 checkSegaCDBios(){
-		
+	local zenity=$1
 	SEGACDBIOS="NULL"
 	
 	for entry in $biosPath/*
@@ -140,17 +145,19 @@ checkSegaCDBios(){
 				--width=400 \
 				--text="${text}" 2>/dev/null
 	else
-		text="`printf "<b>Your SegaCD Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
-		zenity --info \
-				--title="EmuDeck" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
+		if [ $zenity == true ]; then
+			text="`printf "<b>Your SegaCD Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
+			zenity --info \
+					--title="EmuDeck" \
+					--width=400 \
+					--text="${text}" 2>/dev/null
+		fi
 	fi	
 	
 }
 
 checkSaturnBios(){
-		
+	zenity=$1
 	SATURNBIOS="NULL"
 	
 	for entry in $biosPath/*
@@ -180,11 +187,13 @@ checkSaturnBios(){
 				--width=400 \
 				--text="${text}" 2>/dev/null
 	else
-		text="`printf "<b>Your Saturn Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
-		zenity --info \
-				--title="EmuDeck" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
+		if [ $zenity == true ]; then
+			text="`printf "<b>Your Saturn Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
+			zenity --info \
+					--title="EmuDeck" \
+					--width=400 \
+					--text="${text}" 2>/dev/null
+		fi
 	fi	
 	
 }
