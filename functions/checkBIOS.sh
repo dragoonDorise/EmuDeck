@@ -1,11 +1,11 @@
 #!/bin/bash
 
 checkBIOS(){
-	checkPS1BIOS true
-	checkPS2BIOS true	
-	checkYuzuBios true
-	checkSegaCDBios true
-	checkSaturnBios true
+	checkPS1BIOS false
+	checkPS2BIOS false	
+	checkYuzuBios false
+	checkSegaCDBios false
+	checkSaturnBios false
 }
 	
 checkPS1BIOS(){		
