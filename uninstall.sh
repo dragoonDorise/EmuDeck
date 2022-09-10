@@ -178,6 +178,7 @@ if [ "$doUninstall" == true ]; then
 		flatpak uninstall org.yuzu_emu.yuzu --system -y
 		rm -rf ~/.var/app/org.yuzu_emu.yuzu &>> /dev/null
 		rm -rf ~/Applications/yuzu.AppImage &>> /dev/null
+		rm -rf ~/.config/yuzu
 	fi
 	if [[ "$doUninstallRyujinx" == true ]]; then		
 		rm -rf ~/.config/Ryujinx &>> /dev/null
@@ -219,6 +220,11 @@ if [ "$doUninstall" == true ]; then
 	rm -rf ~/.local/share/applications/pcsx2-Qt.desktop &>> /dev/null
 	rm -rf ~/.local/share/applications/Ryujinx.desktop &>> /dev/null
 	rm -rf ~/.local/share/applications/yuzu.desktop &>> /dev/null
+	
+	
+	rm -rf ~/.config/steam-rom-manager
+	rm -rf ~/.config/EmuDeck
+	
 	
 	rm -rf ~/Emulation/bios &>> /dev/null
 	rm -rf ~/Emulation/hdpacks &>> /dev/null	
