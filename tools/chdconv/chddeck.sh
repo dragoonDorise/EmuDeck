@@ -106,6 +106,7 @@ if [ $ans -eq 0 ]; then
                 do
                     echo "Converting: $f"
                     CUEDIR="$(dirname "${f}")"
+					echo "Compressing ${f%.*}.chd" >  "$HOME/emudeck/chdtool.log"
                     chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
                     if [[ $successful == "true" ]]; then
                         echo "successfully created ${f%.*}.chd" >  "$HOME/emudeck/chdtool.log"
@@ -128,6 +129,7 @@ if [ $ans -eq 0 ]; then
                 do
                     echo "Converting: $f"
                     CUEDIR="$(dirname "${f}")"
+					echo "Compressing ${f%.*}.chd" >  "$HOME/emudeck/chdtool.log"
                     chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
                     if [[ $successful == "true" ]]; then
                         echo "successfully created ${f%.*}.chd" >  "$HOME/emudeck/chdtool.log"
@@ -153,7 +155,7 @@ if [ $ans -eq 0 ]; then
 	#rvz
 
     for romfolder in "${romfolders[@]}"; do
-        if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+        if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then			
             find "$romsPath/$romfolder" -type f -iname "*.gcm"  -o -type f -iname "*.iso" | while read -r f; do echo "Converting: $f"; /var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz" > "$HOME/emudeck/chdtool.log"  && rm -rf "$f"; done;
         fi
     done
@@ -165,9 +167,19 @@ else
 	exit
 fi
 
-sleep 2
+
 
 echo "All files compressed!" > "$HOME/emudeck/chdtool.log"
+
+if [ "$uiMode" != 'zenity' ]; then
+ text="`printf " <b>All files have been compressed!</b>)"`"
+zenity --info \
+	 --title="EmuDeck" \
+	 --width="450" \
+	 --text="${text}" 2>/dev/null	
+fi
+
+echo "Press the button to start..." > "$HOME/emudeck/chdtool.log"
 
 if [ "$uiMode" == 'zenity' ]; then
 
