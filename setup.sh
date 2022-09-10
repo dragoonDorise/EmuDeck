@@ -67,6 +67,8 @@ rm -rf ~/dragoonDoriseTools
 #Creating log file
 LOGFILE="$HOME/emudeck/emudeck.log"
 
+echo "Press the button to start..." > ~/emudeck/chdtool.log
+
 mv "${LOGFILE}" "$HOME/emudeck/emudeck.last.log" #backup last log
 
 echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run

@@ -165,7 +165,7 @@ else
 	exit
 fi
 
-echo 100 > "$HOME/emudeck/chdtool.log"
+echo "All files converted to CHD." > "$HOME/emudeck/chdtool.log"
 
 text="$(printf "<b>Done!</b>\n\n If you use Steam Rom Manager to catalog your games you will need to open it now to update your games")"
 zenity --question \
