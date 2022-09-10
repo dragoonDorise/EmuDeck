@@ -130,7 +130,7 @@ if [ $ans -eq 0 ]; then
                     CUEDIR="$(dirname "${f}")"
                     chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
                     if [[ $successful == "true" ]]; then
-                        echo "successfully created ${f%.*}.chd">  "$HOME/emudeck/chdtool.log"
+                        echo "successfully created ${f%.*}.chd" >  "$HOME/emudeck/chdtool.log"
                         find "${CUEDIR}" -maxdepth 1 -type f | while read -r b
                             do
                                 fileName="$(basename "${b}")"
@@ -165,23 +165,27 @@ else
 	exit
 fi
 
-echo "All files converted to CHD." > "$HOME/emudeck/chdtool.log"
+sleep 2
 
-text="$(printf "<b>Done!</b>\n\n If you use Steam Rom Manager to catalog your games you will need to open it now to update your games")"
-zenity --question \
-		 --title="EmuDeck" \
-		 --width=450 \
-		 --ok-label="Open Steam Rom Manager" \
-		 --cancel-label="Exit" \
-		 --text="${text}" 2>/dev/null
-ans=$?
-if [ $ans -eq 0 ]; then
-	echo "user launched SRM"
-	"${toolsPath}/srm/Steam-ROM-Manager.AppImage"
-	exit
-else
-	exit
-	echo -e "Exit" &>> /dev/null
+echo "All files compressed!" > "$HOME/emudeck/chdtool.log"
+
+if [ "$uiMode" == 'zenity' ]; then
+
+	text="$(printf "<b>Done!</b>\n\n If you use Steam Rom Manager to catalog your games you will need to open it now to update your games")"
+	zenity --question \
+		 	--title="EmuDeck" \
+		 	--width=450 \
+		 	--ok-label="Open Steam Rom Manager" \
+		 	--cancel-label="Exit" \
+		 	--text="${text}" 2>/dev/null
+	ans=$?
+	if [ $ans -eq 0 ]; then
+		echo "user launched SRM"
+		"${toolsPath}/srm/Steam-ROM-Manager.AppImage"
+		exit
+	else
+		exit
+		echo -e "Exit" &>> /dev/null
+	fi
+
 fi
-
-sleep 99999
