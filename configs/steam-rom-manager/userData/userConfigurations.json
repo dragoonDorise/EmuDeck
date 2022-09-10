@@ -110,7 +110,7 @@
     "steamCategory": "${Emulation}",
     "executableArgs": "",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/remotewhatever",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/remoteplaywhatever",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
