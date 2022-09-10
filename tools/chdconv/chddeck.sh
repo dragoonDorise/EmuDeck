@@ -108,7 +108,7 @@ if [ $ans -eq 0 ]; then
                     CUEDIR="$(dirname "${f}")"
                     chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
                     if [[ $successful == "true" ]]; then
-                        echo "successfully created ${f%.*}.chd"
+                        echo "successfully created ${f%.*}.chd" >  "$HOME/emudeck/chdtool.log"
                         find "${CUEDIR}" -maxdepth 1 -type f | while read -r b
                             do
                                 fileName="$(basename "${b}")"
@@ -120,7 +120,7 @@ if [ $ans -eq 0 ]; then
                             done
                             rm "${f}"
                     else
-                        echo "Conversion of ${f} failed."
+                        echo "Conversion of ${f} failed." >  "$HOME/emudeck/chdtool.log"
                     fi
 
                 done
@@ -130,7 +130,7 @@ if [ $ans -eq 0 ]; then
                     CUEDIR="$(dirname "${f}")"
                     chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
                     if [[ $successful == "true" ]]; then
-                        echo "successfully created ${f%.*}.chd"
+                        echo "successfully created ${f%.*}.chd">  "$HOME/emudeck/chdtool.log"
                         find "${CUEDIR}" -maxdepth 1 -type f | while read -r b
                             do
                                 fileName="$(basename "${b}")"
@@ -142,7 +142,7 @@ if [ $ans -eq 0 ]; then
                             done
                             rm "${f}"
                     else
-                        echo "Conversion of ${f} failed."
+                        echo "Conversion of ${f} failed." >  "$HOME/emudeck/chdtool.log"
                     fi
 
                 done
@@ -154,7 +154,7 @@ if [ $ans -eq 0 ]; then
 
     for romfolder in "${romfolders[@]}"; do
         if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-            find "$romsPath/$romfolder" -type f -iname "*.gcm"  -o -type f -iname "*.iso" | while read -r f; do echo "Converting: $f"; /var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz"  && rm -rf "$f"; done;
+            find "$romsPath/$romfolder" -type f -iname "*.gcm"  -o -type f -iname "*.iso" | while read -r f; do echo "Converting: $f"; /var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz" > "$HOME/emudeck/chdtool.log"  && rm -rf "$f"; done;
         fi
     done
 
@@ -164,6 +164,8 @@ if [ $ans -eq 0 ]; then
 else
 	exit
 fi
+
+echo 100 > "$HOME/emudeck/chdtool.log"
 
 text="$(printf "<b>Done!</b>\n\n If you use Steam Rom Manager to catalog your games you will need to open it now to update your games")"
 zenity --question \
