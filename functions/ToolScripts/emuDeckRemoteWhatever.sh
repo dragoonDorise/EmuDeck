@@ -8,7 +8,7 @@ RemoteWhatever_install(){
 
 RemoteWhatever_init(){			
 	setMSG "Configuring RemoteWhatever"
-	cp -v "$EMUDECKGIT/tools/remotewhatever/remotewhatever.sh" "${toolsPath}/remotewhatever/"
+	cp "$EMUDECKGIT/tools/remotewhatever/remotewhatever.sh" "${toolsPath}/remotewhatever/"
 	chmod +x "${toolsPath}/remotewhatever/remotewhatever.sh"
 	echo -e "OK!"
 }
