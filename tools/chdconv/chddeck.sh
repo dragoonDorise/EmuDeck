@@ -172,7 +172,7 @@ fi
 echo "All files compressed!" > "$HOME/emudeck/chdtool.log"
 
 if [ "$uiMode" != 'zenity' ]; then
- text="`printf " <b>All files have been compressed!</b>)"`"
+ text="`printf " <b>All files have been compressed!</b>"`"
 zenity --info \
 	 --title="EmuDeck" \
 	 --width="450" \
