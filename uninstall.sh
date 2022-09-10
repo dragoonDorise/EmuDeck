@@ -140,8 +140,7 @@ if [ "$doUninstall" == true ]; then
 	fi
 	
 	#Uninstalling
-	if [[ "$doUninstallRA" == true ]]; then
-		echo "noRA"
+	if [[ "$doUninstallRA" == true ]]; then		
 		flatpak uninstall org.libretro.RetroArch --system -y
 		rm -rf ~/.var/app/org.libretro.RetroArch &>> /dev/null	
 	fi
