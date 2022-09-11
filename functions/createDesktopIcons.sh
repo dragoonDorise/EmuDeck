@@ -31,5 +31,16 @@ createDesktopIcons(){
 	  Categories=Game
 	  StartupNotify=false" > $HOME/.local/share/applications/EmuDeck.desktop
 	  chmod +x $HOME/.local/share/applications/EmuDeck.desktop	
+	  
+	  
+	  echo "#!/usr/bin/env xdg-open
+	   [Desktop Entry]
+	   Name=EmuDeck SaveSync
+	   Exec=$HOME/emudeck/backend/tools/savesync.sh
+	   Icon=steamdeck-gaming-return
+	   Terminal=true
+	   Type=Application
+	   StartupNotify=false" > ~/Desktop/EmuDeckSaveSync.desktop
+	   chmod +x ~/Desktop/EmuDeckSaveSync.desktop
 	
 }
