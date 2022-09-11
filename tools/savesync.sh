@@ -74,7 +74,7 @@ SAVESYNC_createService(){
 	systemctl --user start emudeck_savesync.service
 }
 
-if [[ $doSetupSaveSync == "true" ]]; then
+#if [[ $doSetupSaveSync == "true" ]]; then
 
 	cloudProviders=()
 	cloudProviders+=(1 "gdrive")
@@ -98,5 +98,5 @@ if [[ $doSetupSaveSync == "true" ]]; then
 		SAVESYNC_install
 		SAVESYNC_setup "$syncProvider"
 	fi
-fi
+#fi
 
