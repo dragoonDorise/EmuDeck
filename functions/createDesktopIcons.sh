@@ -36,7 +36,7 @@ createDesktopIcons(){
 	  echo "#!/usr/bin/env xdg-open
 	   [Desktop Entry]
 	   Name=EmuDeck SaveSync
-	   Exec=$HOME/emudeck/backend/tools/savesync.sh
+	   Exec=chmod +x $HOME/emudeck/backend/tools/savesync.sh && $HOME/emudeck/backend/tools/savesync.sh
 	   Icon=steamdeck-gaming-return
 	   Terminal=true
 	   Type=Application
