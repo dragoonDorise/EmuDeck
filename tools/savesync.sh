@@ -5,10 +5,20 @@ SAVESYNC_toolPath="$HOME/Applications/EmuDeck_SaveSync.AppImage"
 SAVESYNC_systemd_path="$HOME/.config/systemd/user"
 #SAVESYNC_Shortcutlocation="$HOME/Desktop/EmuDeckBinUpdate.desktop"
 
-source $HOME/emudeck/backend/functions/all.sh
 
-source "/home/deck/emudeck/backend/functions/all.sh"
+function getReleaseURLGH(){	
+	local repository=$1
+	local fileType=$2
+	local url
+	#local token=$(tokenGenerator)
 
+	if [ "$url" == "" ]; then
+		url="https://api.github.com/repos/$repository/releases"
+	fi
+	curl -fSs "$url" | \
+	jq -r '[ .[].assets[] | select(.name | endswith("'"$fileType"'")).browser_download_url ][0]'
+	
+}
 
 
 SAVESYNC_install(){	
