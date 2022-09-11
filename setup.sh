@@ -577,13 +577,6 @@ fi
 createDesktopIcons
 
 
-if [[ ! $branch == "main" ]]; then 
-	if [[ $doSetupSaveSync == "true" ]]; then
-	
-		xdg-open $HOME/EmuDeckSaveSync.desktop
-
-	fi
-fi 
 
 #
 ##
@@ -609,6 +602,16 @@ checkBIOS
 # 		echo "$text"
 # 	fi
 # fi
+
+
+#SaveSync
+# if [[ ! $branch == "main" ]]; then 
+# 	if [[ $doSetupSaveSync == "true" ]]; then
+# 	
+# 		$HOME/Desktop/EmuDeckSaveSync.desktop
+# 
+# 	fi
+# fi 
 
 #EmuDeck updater on gaming Mode
 mkdir -p "${toolsPath}/updater"
