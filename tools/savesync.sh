@@ -3,8 +3,8 @@ SAVESYNC_toolName="EmuDeck SaveSync"
 SAVESYNC_toolType="AppImage"
 SAVESYNC_toolPath="$HOME/Applications/EmuDeck_SaveSync.AppImage"
 SAVESYNC_systemd_path="$HOME/.config/systemd/user"
-#SAVESYNC_Shortcutlocation="$HOME/Desktop/EmuDeckBinUpdate.desktop"
 
+source "$HOME/emudeck/backend/functions/all.sh"
 
 function getReleaseURLGH(){	
 	local repository=$1
@@ -42,7 +42,7 @@ SAVESYNC_setup(){
 		mv "$HOME/.config/rclone/rclone.conf"  "$HOME/.config/rclone/rclone.conf.bak"
 
 		"$SAVESYNC_toolPath" "$emulationPath" --setup "$cloudProvider"
-		echo "pausing before creating service"
+		echo "Creating service, please wait"
 		sleep 20
 		SAVESYNC_createService
 	fi
@@ -74,29 +74,26 @@ SAVESYNC_createService(){
 	systemctl --user start emudeck_savesync.service
 }
 
-#if [[ $doSetupSaveSync == "true" ]]; then
+cloudProviders=()
+cloudProviders+=(1 "gdrive")
+cloudProviders+=(2 "dropbox")
+cloudProviders+=(3 "onedrive")
+cloudProviders+=(4 "box")
+cloudProviders+=(5 "nextcloud")
 
-	cloudProviders=()
-	cloudProviders+=(1 "gdrive")
-	cloudProviders+=(2 "dropbox")
-	cloudProviders+=(3 "onedrive")
-	cloudProviders+=(4 "box")
-	cloudProviders+=(5 "nextcloud")
-
-	syncProvider=$(zenity --list \
-			--title="EmuDeck SaveSync Host" \
-			--height=500 \
-			--width=500 \
-			--ok-label="OK" \
-			--cancel-label="Exit" \
-			--text="Choose the service you would like to use to host your cloud saves.\n\nKeep in mind they can take a fair amount of space.\n\nThis will open a browser window for you to sign into your chosen cloud provider." \
-			--radiolist \
-			--column="Select" \
-			--column="Provider" \
-			"${cloudProviders[@]}" 2>/dev/null)
-	if [[ -n "$syncProvider" ]]; then
-		SAVESYNC_install
-		SAVESYNC_setup "$syncProvider"
-	fi
-#fi
+syncProvider=$(zenity --list \
+		--title="EmuDeck SaveSync Host" \
+		--height=500 \
+		--width=500 \
+		--ok-label="OK" \
+		--cancel-label="Exit" \
+		--text="Choose the service you would like to use to host your cloud saves.\n\nKeep in mind they can take a fair amount of space.\n\nThis will open a browser window for you to sign into your chosen cloud provider." \
+		--radiolist \
+		--column="Select" \
+		--column="Provider" \
+		"${cloudProviders[@]}" 2>/dev/null)
+if [[ -n "$syncProvider" ]]; then
+	SAVESYNC_install
+	SAVESYNC_setup "$syncProvider"
+fi
 
