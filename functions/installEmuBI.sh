@@ -15,7 +15,7 @@ installEmuBI(){
 
     rm -f "$HOME/Applications/$altName" 
     mkdir -p "$HOME/Applications"
-    curl -L "$url" -o "$HOME/Applications/$altName.$format" 
+    curl -L "$url" -o "$HOME/Applications/$altName.$format.temp"  && mv "$HOME/Applications/$altName.$format.temp" "$HOME/Applications/$altName.$format"
     
 
 

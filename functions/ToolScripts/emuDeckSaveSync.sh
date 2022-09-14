@@ -11,7 +11,7 @@ SAVESYNC_systemd_path="$HOME/.config/systemd/user"
 SAVESYNC_install(){	
 
 	rm "$SAVESYNC_toolPath"
-    curl -L "$(getReleaseURLGH "withertech/savesync" "AppImage")" --output "$SAVESYNC_toolPath"
+    curl -L "$(getReleaseURLGH "withertech/savesync" "AppImage")" --output "$SAVESYNC_toolPath.temp" && mv "$SAVESYNC_toolPath.temp" "$SAVESYNC_toolPath"
 	chmod +x "$SAVESYNC_toolPath"
 
 }
