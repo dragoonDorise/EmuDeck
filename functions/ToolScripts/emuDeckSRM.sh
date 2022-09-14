@@ -16,13 +16,13 @@ SRM_install(){
 	setMSG "Installing Steam Rom Manager"
 	SRM_cleanup
 	mkdir -p "${toolsPath}/srm"
-	curl -L "$SRM_releaseURL" -o "$SRM_toolPath"
+	curl -L "$SRM_releaseURL" -o "${SRM_toolPath}.temp" && mv "${SRM_toolPath}.temp" "${SRM_toolPath}"
 	chmod +x "$SRM_toolPath"
 	SRM_createDesktopShortcut "$HOME/Desktop/SteamRomManager.desktop"
 }
 
 SRM_createDesktopShortcut(){
-	SRM_Shortcutlocation=$1
+	local SRM_Shortcutlocation=$1
 
 	if [[ "$SRM_Shortcutlocation" == "" ]]; then
 
