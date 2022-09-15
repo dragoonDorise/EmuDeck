@@ -18,7 +18,7 @@ ESDE_install(){
 	setMSG "Installing $ESDE_toolName"		
 
     curl $ESDE_releaseURL --output "$toolsPath/latesturl.txt"
-    latestURL=$(grep "https://gitlab" "$toolsPath/latesturl.txt")
+    latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
 
     curl "$latestURL" --output "$ESDE_toolPath"
     rm "$toolsPath/latesturl.txt"
