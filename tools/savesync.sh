@@ -1,4 +1,4 @@
-
+#!/bin/bash
 SAVESYNC_toolName="EmuDeck SaveSync"
 SAVESYNC_toolType="AppImage"
 SAVESYNC_toolPath="$HOME/Applications/EmuDeck_SaveSync.AppImage"
