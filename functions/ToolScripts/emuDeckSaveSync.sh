@@ -6,8 +6,6 @@ SAVESYNC_toolPath="$HOME/Applications/EmuDeck_SaveSync.AppImage"
 SAVESYNC_systemd_path="$HOME/.config/systemd/user"
 #SAVESYNC_Shortcutlocation="$HOME/Desktop/EmuDeckBinUpdate.desktop"
 
-
-
 SAVESYNC_install(){	
 
 	rm "$SAVESYNC_toolPath"

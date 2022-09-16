@@ -5,7 +5,7 @@
 	<controller>
 		<api>DSUController</api>
 		<uuid>0</uuid>
-		<display_name>Controller 2</display_name>
+		<display_name>Controller 1</display_name>
 		<motion>true</motion>
 		<axis>
 			<deadzone>0.25</deadzone>
@@ -24,7 +24,7 @@
 	<controller>
 		<api>XInput</api>
 		<uuid>0</uuid>
-		<display_name>Controller 2</display_name>
+		<display_name>Controller 1</display_name>
 		<rumble>0</rumble>
 		<axis>
 			<deadzone>0.15</deadzone>

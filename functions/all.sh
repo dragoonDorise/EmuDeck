@@ -17,7 +17,7 @@ fi
 export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
 chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
 
-source "$EMUDECKGIT"/functions/checkPSBIOS.sh
+source "$EMUDECKGIT"/functions/checkBIOS.sh
 source "$EMUDECKGIT"/functions/configEmuAI.sh
 source "$EMUDECKGIT"/functions/configEmuFP.sh
 source "$EMUDECKGIT"/functions/createDesktopIcons.sh
@@ -39,7 +39,8 @@ source "$EMUDECKGIT"/functions/ToolScripts/emuDeckPlugins.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSRM.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCHD.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckBINUP.sh
-source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSaveSync.sh
+#source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSaveSync.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckRemotePlayWhatever.sh
 
 #emuscripts
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh

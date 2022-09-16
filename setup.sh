@@ -67,6 +67,8 @@ rm -rf ~/dragoonDoriseTools
 #Creating log file
 LOGFILE="$HOME/emudeck/emudeck.log"
 
+echo "Press the button to start..." > ~/emudeck/chdtool.log
+
 mv "${LOGFILE}" "$HOME/emudeck/emudeck.last.log" #backup last log
 
 echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
@@ -531,33 +533,7 @@ if [ "$doRAEnable" == "true" ]; then
 	RetroArch_retroAchievementsOn
 fi
 
-if [[ ! $branch == "main" ]]; then 
-	if [[ $doSetupSaveSync == "true" ]]; then
 
-		cloudProviders=()
-		cloudProviders+=(1 "gdrive")
-		cloudProviders+=(2 "dropbox")
-		cloudProviders+=(3 "onedrive")
-		cloudProviders+=(4 "box")
-		cloudProviders+=(5 "nextcloud")
-
-		syncProvider=$(zenity --list \
-				--title="EmuDeck SaveSync Host" \
-				--height=500 \
-				--width=500 \
-				--ok-label="OK" \
-				--cancel-label="Exit" \
-				--text="Choose the service you would like to use to host your cloud saves.\n\nKeep in mind they can take a fair amount of space.\n\nThis will open a browser window for you to sign into your chosen cloud provider." \
-				--radiolist \
-				--column="Select" \
-				--column="Provider" \
-				"${cloudProviders[@]}" 2>/dev/null)
-		if [[ -n "$syncProvider" ]]; then
-			SAVESYNC_install
-			SAVESYNC_setup "$syncProvider"
-		fi
-	fi
-fi 
 #Sudo Required!
 
 if [ "$expert" == "true" ]; then
@@ -601,30 +577,15 @@ fi
 createDesktopIcons
 
 
+
 #
 ##
 ##Validations
 ##
 #
 
-#PS Bios
-checkPSBIOS
-
-#Yuzu Keys & Firmware
-FILE="$HOME/.local/share/yuzu/keys/prod.keys"
-if [ -f "$FILE" ]; then
-	echo -e "" 2>/dev/null
-else
-	if [ "$uiMode" != 'whiptail' ]; then
-		text="$(printf "<b>Yuzu is not configured</b>\nYou need to copy your Keys and firmware to: \n${biosPath}/yuzu/keys\n${biosPath}\yuzu/firmware\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them</b>")"
-		zenity --error \
-				--title="EmuDeck" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
-	else
-		echo "Yuzu is not configured"
-	fi
-fi
+#Bios & Yuzu Firm
+checkBIOS
 
 
 # FILE="$HOME/.config/Ryujinx/system/prod.keys"
@@ -642,13 +603,25 @@ fi
 # 	fi
 # fi
 
+
+#SaveSync
+# if [[ ! $branch == "main" ]]; then 
+# 	if [[ $doSetupSaveSync == "true" ]]; then
+# 	
+# 		$HOME/Desktop/EmuDeckSaveSync.desktop
+# 
+# 	fi
+# fi 
+
 #EmuDeck updater on gaming Mode
 mkdir -p "${toolsPath}/updater"
 cp -v "$EMUDECKGIT/tools/updater/emudeck-updater.sh" "${toolsPath}/updater/"
 chmod +x "${toolsPath}/updater/emudeck-updater.sh"
 
 #RemotePlayWhatever
-installEmuAI "RemotePlayWhatever"  "$(getReleaseURLGH "m4dEngi/RemotePlayWhatever" "AppImage")" 
+if [[ ! $branch == "main" ]]; then 
+	RemotePlayWhatever_install
+fi
 
 #
 # We mark the script as finished	
