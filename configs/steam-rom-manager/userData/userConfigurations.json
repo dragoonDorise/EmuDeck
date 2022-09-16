@@ -3066,7 +3066,7 @@
       "appendArgsToExecutable": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.kip|.KIP|.nca|.NCA|.nro|.NRO|.nso|.NSO|.nsp|.NSP|.xci|.XCI)"
+      "glob": "**/${title}@(.kip|.KIP|.nca|.NCA|.nro|.NRO|.nso|.NSO|.nsp|.NSP|.nsz|.NSZ|.xci|.XCI)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
