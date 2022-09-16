@@ -106,7 +106,7 @@ checkSegaCDBios(){
 }
 
 checkSaturnBios(){
-	zenity=$1
+	
 	SATURNBIOS="NULL"
 	
 	for entry in $biosPath/*
