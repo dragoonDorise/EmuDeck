@@ -151,10 +151,10 @@ checkDreamcastBios(){
 				for i in "${hashes[@]}"
 				do
 				if [[ "$md5" == *"${i}"* ]]; then
-					$BIOS=true
+					BIOS=true
 					break
 				else
-					$BIOS=false
+					BIOS=false
 				fi
 				done	
 			fi		
@@ -183,10 +183,10 @@ checkDSBios(){
 				for i in "${hashes[@]}"
 				do
 				if [[ "$md5" == *"${i}"* ]]; then
-					$BIOS=true
+					BIOS=true
 					break
 				else
-					$BIOS=false
+					BIOS=false
 				fi
 				done	
 			fi		
