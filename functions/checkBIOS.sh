@@ -136,3 +136,68 @@ checkSaturnBios(){
 	fi	
 	
 }
+
+
+checkDreamcastBios(){
+	
+	local BIOS="NULL"
+	
+	for entry in $biosPath/*
+	do
+		if [ -f "$entry" ]; then		
+			md5=($(md5sum "$entry"))	
+			if [[ "$BIOS" != true ]]; then
+				local hashes=(d407fcf70b56acb84b8c77c93b0e5327 e10c53c2f8b90bab96ead2d368858623 93a9766f14159b403178ac77417c6b68 0a93f7940c455905bea6e392dfde92a4)
+				for i in "${hashes[@]}"
+				do
+				if [[ "$md5" == *"${i}"* ]]; then
+					$BIOS=true
+					break
+				else
+					$BIOS=false
+				fi
+				done	
+			fi		
+		fi
+	done	
+		
+	
+	if [ $BIOS == false ]; then		
+		clear && echo "false";
+	else
+		clear && echo "true";
+	fi	
+	
+}
+
+checkDSBios(){
+	
+	local BIOS="NULL"
+	
+	for entry in $biosPath/*
+	do
+		if [ -f "$entry" ]; then		
+			md5=($(md5sum "$entry"))	
+			if [[ "$BIOS" != true ]]; then
+				local hashes=(145eaef5bd3037cbc247c213bb3da1b3 df692a80a5b1bc90728bc3dfc76cd948 a392174eb3e572fed6447e956bde4b25)
+				for i in "${hashes[@]}"
+				do
+				if [[ "$md5" == *"${i}"* ]]; then
+					$BIOS=true
+					break
+				else
+					$BIOS=false
+				fi
+				done	
+			fi		
+		fi
+	done	
+		
+	
+	if [ $BIOS == false ]; then		
+		clear && echo "false";
+	else
+		clear && echo "true";
+	fi	
+	
+}
