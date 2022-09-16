@@ -584,9 +584,6 @@ createDesktopIcons
 ##
 #
 
-#Bios & Yuzu Firm
-checkBIOS
-
 
 # FILE="$HOME/.config/Ryujinx/system/prod.keys"
 # if [ -f "$FILE" ]; then

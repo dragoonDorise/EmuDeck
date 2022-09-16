@@ -1,15 +1,7 @@
 #!/bin/bash
 
-checkBIOS(){
-	checkPS1BIOS false
-	checkPS2BIOS false	
-	checkYuzuBios false
-	checkSegaCDBios false
-	checkSaturnBios false
-}
-	
 checkPS1BIOS(){		
-	local zenity=$1	
+	
 	PSXBIOS="NULL"
 	
 	for entry in $biosPath/*
@@ -33,28 +25,15 @@ checkPS1BIOS(){
 		
 	
 	if [ $PSXBIOS == false ]; then
-		#text="`printf "<b>PS1 bios not detected</b>\nYou need to copy your BIOS to: ${biosPath}"`"
-		text="`printf "<b>PS1 bios not detected</b>\nYou need to copy your BIOS to: \n${biosPath}\n\n<b>Make sure they are not in a subdirectory</b>"`"
-		zenity --error \
-				--title="EmuDeck" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
+		clear && echo "false";
 	else
-		if [ $zenity == true ]; then
-			text="`printf "<b>Your PS1 Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
-			zenity --info \
-					--title="EmuDeck" \
-					--width=400 \
-					--text="${text}" 2>/dev/null
-		fi
+		clear && echo "true";
 	fi	
-	
 
-		
 }
 
 checkPS2BIOS(){
-	local $zenity=$1
+	
 	PS2BIOS="NULL"
 	
 	for entry in $biosPath/*
@@ -78,43 +57,24 @@ checkPS2BIOS(){
 		
 		
 	if [ $PS2BIOS == false ]; then
-		#text="`printf "<b>PS1 bios not detected</b>\nYou need to copy your BIOS to: ${biosPath}"`"
-		text="`printf "<b>PS2 bios not detected</b>\nYou need to copy your BIOS to: \n${biosPath}\n\n<b>Make sure they are not in a subdirectory</b>"`"
-		zenity --error \
-				--title="EmuDeck" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
+		clear && echo "false";
 	else
-		text="`printf "<b>Your PS2 Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
-		zenity --info \
-				--title="EmuDeck" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
+		clear && echo "true";
 	fi	
 }
 
 checkYuzuBios(){
-	local zenity=$1;
+	
 	FILE="$HOME/.local/share/yuzu/keys/prod.keys"
 	if [ -f "$FILE" ]; then	
-			if [ $zenity == true ]; then
-				text="`printf "<b>Your Switch firmware seems right!\nIf you are still having issues, make sure you have both your firmware and prod.keys file on: \n${biosPath}/yuzu/keys\n${biosPath}\yuzu/firmware </b>"`"
-				zenity --info \
-						--title="EmuDeck" \
-						--width=400 \
-						--text="${text}" 2>/dev/null
-			fi
+			clear && echo "true";
 	else
-			text="$(printf "<b>Yuzu is not configured</b>\nYou need to copy your Keys and firmware to: \n${biosPath}/yuzu/keys\n${biosPath}\yuzu/firmware\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them</b>")"
-			zenity --error \
-					--title="EmuDeck" \
-					--width=400 \
-					--text="${text}" 2>/dev/null
+			clear && echo "false";
 	fi
 }
 
 checkSegaCDBios(){
-	local zenity=$1
+	
 	SEGACDBIOS="NULL"
 	
 	for entry in $biosPath/*
@@ -138,20 +98,9 @@ checkSegaCDBios(){
 		
 	
 	if [ $SEGACDBIOS == false ]; then
-		#text="`printf "<b>PS1 bios not detected</b>\nYou need to copy your BIOS to: ${biosPath}"`"
-		text="`printf "<b>SegaCD bios not detected</b>\nYou need to copy your BIOS to: \n${biosPath}\n\n<b>Make sure they are not in a subdirectory</b>"`"
-		zenity --error \
-				--title="EmuDeck" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
+		clear && echo "false";
 	else
-		if [ $zenity == true ]; then
-			text="`printf "<b>Your SegaCD Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
-			zenity --info \
-					--title="EmuDeck" \
-					--width=400 \
-					--text="${text}" 2>/dev/null
-		fi
+		clear && echo "true";
 	fi	
 	
 }
@@ -181,19 +130,9 @@ checkSaturnBios(){
 		
 	
 	if [ $SATURNBIOS == false ]; then		
-		text="`printf "<b>Saturn bios not detected</b>\nYou need to copy your BIOS to: \n${biosPath}\n\n<b>Make sure they are not in a subdirectory</b>"`"
-		zenity --error \
-				--title="EmuDeck" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
+		clear && echo "false";
 	else
-		if [ $zenity == true ]; then
-			text="`printf "<b>Your Saturn Bios seems right!\nIf you are still having issues, make sure your bios name is all lowercase</b>"`"
-			zenity --info \
-					--title="EmuDeck" \
-					--width=400 \
-					--text="${text}" 2>/dev/null
-		fi
+		clear && echo "true";
 	fi	
 	
 }
