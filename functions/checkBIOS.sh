@@ -25,9 +25,9 @@ checkPS1BIOS(){
 		
 	
 	if [ $PSXBIOS == false ]; then
-		clear && echo "false";
+		echo "false";
 	else
-		clear && echo "true";
+		echo "true";
 	fi	
 
 }
@@ -57,9 +57,9 @@ checkPS2BIOS(){
 		
 		
 	if [ $PS2BIOS == false ]; then
-		clear && echo "false";
+		echo "false";
 	else
-		clear && echo "true";
+		echo "true";
 	fi	
 }
 
@@ -67,9 +67,9 @@ checkYuzuBios(){
 	
 	FILE="$HOME/.local/share/yuzu/keys/prod.keys"
 	if [ -f "$FILE" ]; then	
-			clear && echo "true";
+			echo "true";
 	else
-			clear && echo "false";
+			echo "false";
 	fi
 }
 
@@ -98,9 +98,9 @@ checkSegaCDBios(){
 		
 	
 	if [ $SEGACDBIOS == false ]; then
-		clear && echo "false";
+		echo "false";
 	else
-		clear && echo "true";
+		echo "true";
 	fi	
 	
 }
@@ -130,9 +130,9 @@ checkSaturnBios(){
 		
 	
 	if [ $SATURNBIOS == false ]; then		
-		clear && echo "false";
+		echo "false";
 	else
-		clear && echo "true";
+		echo "true";
 	fi	
 	
 }
@@ -163,9 +163,9 @@ checkDreamcastBios(){
 		
 	
 	if [ $BIOS == false ]; then		
-		clear && echo "false";
+		echo "false";
 	else
-		clear && echo "true";
+		echo "true";
 	fi	
 	
 }
@@ -195,9 +195,9 @@ checkDSBios(){
 		
 	
 	if [ $BIOS == false ]; then		
-		clear && echo "false";
+		echo "false";
 	else
-		clear && echo "true";
+		echo "true";
 	fi	
 	
 }
