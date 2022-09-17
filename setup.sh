@@ -493,16 +493,22 @@ else
 		#"Bezels off"
 		RetroArch_Flycast_bezelOff
 		RetroArch_Beetle_PSX_HW_bezelOff
+		RetroArch_n64_wideScreenOn
+		RetroArch_SwanStation_wideScreenOn
 	else
 		#"SET 4:3"
 		RetroArch_Flycast_wideScreenOff
+		RetroArch_n64_wideScreenOff
 		RetroArch_Beetle_PSX_HW_wideScreenOff
+		RetroArch_SwanStation_wideScreenOff
+		
 		DuckStation_wideScreenOff
 		Xemu_wideScreenOff
 		#"Bezels on"
 		if [ "$RABezels" == true ]; then	
-			RetroArch_Flycast_bezelOn
-			RetroArch_Beetle_PSX_HW_bezelOn
+			RetroArch_Flycast_bezelOn			
+			RetroArch_n64_bezelOn
+			RetroArch_psx_bezelOn
 		fi			
 	fi
 	
