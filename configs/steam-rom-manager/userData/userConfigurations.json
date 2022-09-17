@@ -106,59 +106,6 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "RemotePlayWhatever",
-    "steamCategory": "${Emulation}",
-    "executableArgs": "",
-    "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/remoteplaywhatever",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
-    "titleModifier": "${fuzzyTitle}",
-    "onlineImageQueries": "${${fuzzyTitle}}",
-    "imagePool": "${fuzzyTitle}",
-    "defaultImage": "",
-    "defaultTallImage": "",
-    "defaultHeroImage": "",
-    "defaultLogoImage": "",
-    "defaultIcon": "",
-    "localImages": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/playwhatever/logo.png",
-    "localTallImages": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/playwhatever/poster.png",
-    "localHeroImages": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
-    "localLogoImages": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/playwhatever/logo.png",
-    "localIcons": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
-    "disabled": false,
-    "advanced": false,
-    "executable": {
-      "path": "/usr/bin/bash",
-      "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
-    },
-    "userAccounts": {
-      "specifiedAccounts": "",
-      "skipWithMissingDataDir": true,
-      "useCredentials": true
-    },
-    "parserInputs": {
-      "glob": "**/${title}@(.sh)"
-    },
-    "titleFromVariable": {
-      "limitToGroups": "",
-      "caseInsensitiveVariables": false,
-      "skipFileIfVariableWasNotFound": false,
-      "tryToMatchTitle": false
-    },
-    "fuzzyMatch": {
-      "use": true,
-      "replaceDiacritics": true,
-      "removeCharacters": true,
-      "removeBrackets": true
-    },
-    "parserId": "164822496556097858",
-    "version": 5
-  },
-  {
-    "parserType": "Glob",
     "configTitle": "Emulators",
     "steamCategory": "${Emulation}",
     "executableArgs": "\"${filePath}\"",
@@ -2585,9 +2532,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-        "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -2602,41 +2547,39 @@
     "localLogoImages": "",
     "localIcons": "",
     "userAccounts": {
-        "specifiedAccounts": "",
-        "skipWithMissingDataDir": true,
-        "useCredentials": true
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
     },
     "executable": {
-        "path": "/usr/bin/flatpak",
-        "shortcutPassthrough": false,
-        "appendArgsToExecutable": true
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
-        "glob": "**/${title}@(.ccd|.CCD|.chd|.CHD|.cue|.CUE|.m3u|.M3U|.pbp|.PBP|.toc|.TOC)"
+      "glob": "**/${title}@(.ccd|.CCD|.chd|.CHD|.cue|.CUE|.m3u|.M3U|.pbp|.PBP|.toc|.TOC)"
     },
     "titleFromVariable": {
-        "limitToGroups": "",
-        "caseInsensitiveVariables": false,
-        "skipFileIfVariableWasNotFound": false,
-        "tryToMatchTitle": false
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-        "replaceDiacritics": true,
-        "removeCharacters": true,
-        "removeBrackets": true
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
     },
     "imageProviderAPIs": {
-        "SteamGridDB": {
-            "nsfw": false,
-            "humor": false,
-            "styles": [],
-            "stylesHero": [],
-            "stylesLogo": [],
-            "stylesIcon": [],
-            "imageMotionTypes": [
-                "static"
-            ]
-        }
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": [],
+        "imageMotionTypes": ["static"]
+      }
     },
     "parserId": "166001743996365855",
     "version": 10
