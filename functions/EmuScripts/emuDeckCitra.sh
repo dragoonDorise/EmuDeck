@@ -7,19 +7,19 @@ Citra_releaseURL=""
 
 #cleanupOlderThings
 Citra_finalize(){
- echo "NYI"
+	echo "NYI"
 }
 
 #Install
 Citra_install(){
-	setMSG "Installing $Citra_emuName"	
-	installEmuFP "${Citra_emuName}" "${Citra_emuPath}"	
-	flatpak override "${Citra_emuPath}" --filesystem=host --user	
+	setMSG "Installing $Citra_emuName"
+	installEmuFP "${Citra_emuName}" "${Citra_emuPath}"
+	flatpak override "${Citra_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
 Citra_init(){
-	setMSG "Initializing $Citra_emuName settings."	
+	setMSG "Initializing $Citra_emuName settings."
 	configEmuFP "${Citra_emuName}" "${Citra_emuPath}" "true"
 	Citra_setupStorage
 	Citra_setEmulationFolder
@@ -29,7 +29,7 @@ Citra_init(){
 
 #update
 Citra_update(){
-	setMSG "Updating $Citra_emuName settings."	
+	setMSG "Updating $Citra_emuName settings."
 	configEmuFP "${Citra_emuName}" "${Citra_emuPath}"
 	Citra_setupStorage
 	Citra_setEmulationFolder
@@ -39,11 +39,11 @@ Citra_update(){
 
 #ConfigurePaths
 Citra_setEmulationFolder(){
-	setMSG "Setting $Citra_emuName Emulation Folder"	
-  	configFile="$HOME/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini"
-    gameDirOpt='Paths\\gamedirs\\3\\path='
-    newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/3ds"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
+	setMSG "Setting $Citra_emuName Emulation Folder"
+	configFile="$HOME/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini"
+	gameDirOpt='Paths\\gamedirs\\3\\path='
+	newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/3ds"
+	sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
 }
 
 #SetupSaves
@@ -55,7 +55,7 @@ Citra_setupSaves(){
 
 #SetupStorage
 Citra_setupStorage(){
-    echo "NYI"
+	echo "NYI"
 }
 
 
@@ -69,17 +69,17 @@ Citra_wipe(){
 #Uninstall
 Citra_uninstall(){
 	setMSG "Uninstalling $Citra_emuName."
-    flatpak uninstall "$Citra_emuPath" --user -y
+	flatpak uninstall "$Citra_emuPath" --user -y
 }
 
 #setABXYstyle
 Citra_setABXYstyle(){
-    	echo "NYI"
+	echo "NYI"
 }
 
 #Migrate
 Citra_migrate(){
-    	echo "NYI"
+	echo "NYI"
 }
 
 #WideScreenOn
