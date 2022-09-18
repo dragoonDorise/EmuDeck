@@ -4,6 +4,7 @@ Citra_emuName="Citra"
 Citra_emuType="FlatPak"
 Citra_emuPath="org.citra_emu.citra"
 Citra_releaseURL=""
+Citra_texturesPath="$HOME/.var/app/$Citra_emuPath/data/citra-emu/load/textures"
 
 #cleanupOlderThings
 Citra_finalize(){
@@ -55,7 +56,11 @@ Citra_setupSaves(){
 
 #SetupStorage
 Citra_setupStorage(){
-	echo "NYI"
+	local textureLink="$(readlink -f "$Citra_texturesPath")"
+	if [[ "$textureLink" != "$emulationPath/hdpacks/citra" ]]; then
+		rm -rf "$Citra_texturesPath"
+		ln -s "$Citra_texturesPath" "$emulationPath/hdpacks/citra"
+	fi
 }
 
 
