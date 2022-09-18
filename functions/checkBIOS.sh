@@ -4,7 +4,7 @@ checkPS1BIOS(){
 	
 	PSXBIOS="NULL"
 	
-	for entry in $biosPath/*
+	for entry in "$biosPath/"*
 	do
 		if [ -f "$entry" ]; then		
 			md5=($(md5sum "$entry"))	
@@ -36,7 +36,7 @@ checkPS2BIOS(){
 	
 	PS2BIOS="NULL"
 	
-	for entry in $biosPath/*
+	for entry in "$biosPath/"*
 	do
 		if [ -f "$entry" ]; then		
 			md5=($(md5sum "$entry"))			
@@ -77,7 +77,7 @@ checkSegaCDBios(){
 	
 	SEGACDBIOS="NULL"
 	
-	for entry in $biosPath/*
+	for entry in "$biosPath/"*
 	do
 		if [ -f "$entry" ]; then		
 			md5=($(md5sum "$entry"))	
@@ -109,7 +109,7 @@ checkSaturnBios(){
 	
 	SATURNBIOS="NULL"
 	
-	for entry in $biosPath/*
+	for entry in "$biosPath/"*
 	do
 		if [ -f "$entry" ]; then		
 			md5=($(md5sum "$entry"))	
@@ -142,7 +142,7 @@ checkDreamcastBios(){
 	
 	local BIOS="NULL"
 	
-	for entry in $biosPath/*
+	for entry in "$biosPath/dc/"*
 	do
 		if [ -f "$entry" ]; then		
 			md5=($(md5sum "$entry"))	
@@ -174,7 +174,7 @@ checkDSBios(){
 	
 	local BIOS="NULL"
 	
-	for entry in $biosPath/*
+	for entry in "$biosPath/"*
 	do
 		if [ -f "$entry" ]; then		
 			md5=($(md5sum "$entry"))	
