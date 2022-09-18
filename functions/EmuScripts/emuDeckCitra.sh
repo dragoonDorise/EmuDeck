@@ -57,6 +57,7 @@ Citra_setupSaves(){
 #SetupStorage
 Citra_setupStorage(){
 	local textureLink="$(readlink -f "$Citra_texturesPath")"
+	mkdir -p "$emulationPath/hdpacks/citra"
 	if [[ "$textureLink" != "$emulationPath/hdpacks/citra" ]]; then
 		rm -rf "$Citra_texturesPath"
 		ln -s "$Citra_texturesPath" "$emulationPath/hdpacks/citra"
