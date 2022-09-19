@@ -622,9 +622,9 @@ cp -v "$EMUDECKGIT/tools/updater/emudeck-updater.sh" "${toolsPath}/updater/"
 chmod +x "${toolsPath}/updater/emudeck-updater.sh"
 
 #RemotePlayWhatever
-if [[ ! $branch == "main" ]]; then 
-	RemotePlayWhatever_install
-fi
+# if [[ ! $branch == "main" ]]; then 
+# 	RemotePlayWhatever_install
+# fi
 
 #
 # We mark the script as finished	
