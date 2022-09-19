@@ -54,58 +54,6 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "EmuDeck Shortcut",
-    "steamCategory": "${Emulation}",
-    "executableArgs": "\"${filePath}\"",
-    "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/updater",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
-    "titleModifier": "${fuzzyTitle}",
-    "onlineImageQueries": "${${fuzzyTitle}}",
-    "imagePool": "${fuzzyTitle}",
-    "defaultImage": "",
-    "defaultTallImage": "",
-    "defaultHeroImage": "",
-    "defaultLogoImage": "",
-    "localImages": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/default/grid.png",
-    "localTallImages": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/updater/poster.png",
-    "localHeroImages": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
-    "localLogoImages": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/default/transparent.png",
-    "localIcons": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
-    "disabled": false,
-    "advanced": false,
-    "executable": {
-      "path": "/usr/bin/bash",
-      "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
-    },
-    "userAccounts": {
-      "specifiedAccounts": "",
-      "skipWithMissingDataDir": true,
-      "useCredentials": true
-    },
-    "parserInputs": {
-      "glob": "**/${title}@(.sh)"
-    },
-    "titleFromVariable": {
-      "limitToGroups": "",
-      "caseInsensitiveVariables": false,
-      "skipFileIfVariableWasNotFound": false,
-      "tryToMatchTitle": false
-    },
-    "fuzzyMatch": {
-      "use": true,
-      "replaceDiacritics": true,
-      "removeCharacters": true,
-      "removeBrackets": true
-    },
-    "parserId": "164874333516098458",
-    "version": 5
-  },
-  {
-    "parserType": "Glob",
     "configTitle": "Emulators",
     "steamCategory": "${Emulation}",
     "executableArgs": "\"${filePath}\"",
