@@ -19,7 +19,7 @@ def main():
     exe = sys.argv[1]
     appname = sys.argv[2]
 
-    print(get_app_id(f, exe, appname))
+    print(get_app_id(exe, appname))
 
 if __name__ == "__main__":
     # Make sure we have sufficient arguments
