@@ -22,7 +22,14 @@ function getReleaseURLGH(){
 
 
 SAVESYNC_install(){	
-
+	
+	text="`printf " <b>Have your login details ready!</b>\n\nA new browser windows will open for your cloud provider.\nMake sure you have your cretendials ready because you only have <b>20 seconds to enter them</b>. \n\n you can always reconfigure SaveSync in the future )"`"
+	 zenity --info \
+			 --title="EmuDeck" \
+			 --width="450" \
+			 --text="${text}" 2>/dev/null	
+	
+	
 	rm "$SAVESYNC_toolPath"
 	curl -L "$(getReleaseURLGH "EmuDeck/savesync" "AppImage")" --output "$SAVESYNC_toolPath"
 	chmod +x "$SAVESYNC_toolPath"
@@ -73,6 +80,7 @@ SAVESYNC_createService(){
 	echo "Starting SaveSync Service. First run may take a while."
 	systemctl --user start emudeck_savesync.service
 	rm -rf $HOME/Desktop/EmuDeckSaveSync.desktop &>> /dev/null	
+	zenity --info --width=400 --title="EmuDeck" --text="SaveSync configured!"
 }
 
 syncProvider=$(cat "$HOME/emudeck/.cloudprovider")
