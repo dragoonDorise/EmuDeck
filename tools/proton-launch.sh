@@ -34,6 +34,7 @@ set_env () {
             export SteamAppId="${APPID}"
         elif [ -z ${SteamAppId+x} ]; then
             export SteamAppId=0
+        fi
     fi
 
     # Set default Steam Client path if it isn't
