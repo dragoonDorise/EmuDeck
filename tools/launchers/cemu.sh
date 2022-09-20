@@ -1,11 +1,11 @@
 #!/usr/bin/bash
 # cemu.sh
 
-# Get PATH
-PATH="$( realpath "${BASH_SOURCE[0]}" )"
+# Get SELFPATH
+SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"
 
 # Get EXE
-EXE="\"/usr/bin/bash\" \"${PATH}\""
+EXE="\"/usr/bin/bash\" \"${SELFPATH}\""
 
 # NAME
 NAME="Cemu"
