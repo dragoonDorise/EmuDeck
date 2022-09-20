@@ -29,7 +29,7 @@ set_env () {
     fi
 
     # Set SteamAppId
-    if [ -z ${SteamAppId+x} ] && ! [ -z ${APPID+x} ]; then
+    if [ -z ${SteamAppId+x} ] && ! [ -z ${APPID+x} ] || [ "${SteamAppId}" == 0 ]; then
         export SteamAppId=${APPID}
     elif [ -z ${SteamAppId+x} ]; then
         export SteamAppId=0
@@ -181,7 +181,6 @@ main () {
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     # Set a LOGFILE to proton-launch.log in the same directory this script runs from
     LOGFILE="$(dirname "${BASH_SOURCE[0]}")/proton-launch.log"
-    
     echo "$(date +'%m/%d/%Y - %H:%I:%S') - Started" > "${LOGFILE}"
     
     # Exit if there aren't any arguments
