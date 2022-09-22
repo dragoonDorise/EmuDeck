@@ -1352,7 +1352,7 @@
     "configTitle": "Nintendo GameCube - Dolphin",
     "steamCategory": "${Gamecube}",
     "executableArgs": "run org.DolphinEmu.dolphin-emu -b -e \"${filePath}\"",
-    "executableModifier": "\"${exePath}\"",
+    "executableModifier": "vblank_mode=0 \"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/gamecube",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
