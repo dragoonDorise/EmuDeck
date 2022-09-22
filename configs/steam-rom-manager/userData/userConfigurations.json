@@ -1834,7 +1834,7 @@
     "configTitle": "PrimeHack",
     "steamCategory": "${PrimeHack}",
     "executableArgs": "run io.github.shiiion.primehack -b -e \"${filePath}\"",
-    "executableModifier": "\"${exePath}\"",
+    "executableModifier": "vblank_mode=0 \"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/primehacks",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
