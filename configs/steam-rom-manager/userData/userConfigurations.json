@@ -1351,7 +1351,7 @@
     "parserType": "Glob",
     "configTitle": "Nintendo GameCube - Dolphin",
     "steamCategory": "${Gamecube}",
-    "executableArgs": "run org.DolphinEmu.dolphin-emu -b -e \"${filePath}\"",
+    "executableArgs": "vblank_mode=0 %command% run org.DolphinEmu.dolphin-emu -b -e \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/gamecube",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1376,7 +1376,7 @@
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
+      "appendArgsToExecutable": false
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1623,7 +1623,7 @@
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "executableArgs": "-f -g \"'${filePath}'\"",
+    "executableArgs": "vblank_mode=0 %command% -f -g \"'${filePath}'\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
@@ -1662,7 +1662,7 @@
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/yuzu.sh",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
+      "appendArgsToExecutable": false
     },
     "parserId": "164785621855061650",
     "version": 5
@@ -1671,7 +1671,7 @@
     "parserType": "Glob",
     "configTitle": "Nintendo Wii - Dolphin",
     "steamCategory": "${Wii}",
-    "executableArgs": "run org.DolphinEmu.dolphin-emu -b -e \"${filePath}\"",
+    "executableArgs": "vblank_mode=0 %command% run org.DolphinEmu.dolphin-emu -b -e \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wii",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1696,7 +1696,7 @@
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
+      "appendArgsToExecutable": false
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1725,7 +1725,7 @@
     "parserType": "Glob",
     "configTitle": "Nintendo WiiU - Cemu (.rpx)",
     "steamCategory": "${WiiU}",
-    "executableArgs": "-f -g \"Z:${filePath}\"",
+    "executableArgs": "vblank_mode=0 %command% -f -g \"Z:${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1750,7 +1750,7 @@
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
+      "appendArgsToExecutable": false
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1779,7 +1779,7 @@
     "parserType": "Glob",
     "configTitle": "Nintendo WiiU - Cemu (.wud, .wux, .wua)",
     "steamCategory": "${WiiU}",
-    "executableArgs": "-f -g \"Z:${filePath}\"",
+    "executableArgs": "vblank_mode=0 %command% -f -g \"Z:${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
     "steamDirectory": "/home/deck/.steam/steam",
@@ -1804,7 +1804,7 @@
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
+      "appendArgsToExecutable": false
     },
     "userAccounts": {
       "specifiedAccounts": "",
