@@ -1618,7 +1618,7 @@
     "parserType": "Glob",
     "configTitle": "Nintendo Switch - Yuzu",
     "steamCategory": "${Nintendo Switch - Yuzu}",
-    "executableModifier": "\"${exePath}\"",
+    "executableModifier": "vblank_mode=0 \"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/switch",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
