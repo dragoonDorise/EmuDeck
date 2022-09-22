@@ -1833,16 +1833,17 @@
     "parserType": "Glob",
     "configTitle": "PrimeHack",
     "steamCategory": "${PrimeHack}",
-    "executableArgs": "run io.github.shiiion.primehack -b -e \"${filePath}\"",
-    "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/primehacks",
     "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/primehacks",
+    "executableArgs": "vblank_mode=0 %command% run io.github.shiiion.primehack -b -e \"${filePath}\"",
+    "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
+    "imageProviders": [
+        "SteamGridDB"
+    ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/systems/grid/wii.jpg",
     "defaultTallImage": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/systems/poster/wii.jpg",
     "defaultHeroImage": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
@@ -1853,36 +1854,46 @@
     "localHeroImages": "",
     "localLogoImages": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/default/transparent.png",
     "localIcons": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
-    "disabled": false,
-    "advanced": false,
-    "executable": {
-      "path": "/usr/bin/flatpak",
-      "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
-    },
     "userAccounts": {
-      "specifiedAccounts": "",
-      "skipWithMissingDataDir": true,
-      "useCredentials": true
+        "specifiedAccounts": "",
+        "skipWithMissingDataDir": true,
+        "useCredentials": true
+    },
+    "executable": {
+        "path": "/usr/bin/flatpak",
+        "shortcutPassthrough": false,
+        "appendArgsToExecutable": false
     },
     "parserInputs": {
-      "glob": "**/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.wbfs|.WBFS)"
+        "glob": "**/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.wbfs|.WBFS)"
     },
     "titleFromVariable": {
-      "limitToGroups": "",
-      "caseInsensitiveVariables": false,
-      "skipFileIfVariableWasNotFound": false,
-      "tryToMatchTitle": false
+        "limitToGroups": "",
+        "caseInsensitiveVariables": false,
+        "skipFileIfVariableWasNotFound": false,
+        "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
-      "replaceDiacritics": true,
-      "removeCharacters": true,
-      "removeBrackets": true
+        "replaceDiacritics": true,
+        "removeCharacters": true,
+        "removeBrackets": true
+    },
+    "imageProviderAPIs": {
+        "SteamGridDB": {
+            "nsfw": false,
+            "humor": false,
+            "styles": [],
+            "stylesHero": [],
+            "stylesLogo": [],
+            "stylesIcon": [],
+            "imageMotionTypes": [
+                "static"
+            ]
+        }
     },
     "parserId": "164770728884890305",
-    "version": 5
-  },
+    "version": 10
+},
   {
     "parserType": "Glob",
     "configTitle": "Sega 32X - Retroarch - PicoDrive",
