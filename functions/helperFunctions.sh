@@ -421,6 +421,8 @@ function createDesktopShortcut(){
 	local terminal=$4
 	local icon
 	
+	mkdir -p "$HOME/.local/share/applications/"
+	
 	mkdir -p "$HOME/.local/share/icons/emudeck/"
 	cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name")."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null
 	icon=$(find "$HOME/.local/share/icons/emudeck/" -type f -iname "$(cut -d " " -f1 <<< "$name").*")
