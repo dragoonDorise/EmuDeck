@@ -81,17 +81,14 @@ Ryujinx_setEmulationFolder(){
     unlink "$HOME/.config/Ryujinx/system"
     ln -sn "$HOME/.config/Ryujinx/system" "${biosPath}/ryujinx/keys"
 
-
     sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/Ryujinx/Config.json"
-
-
 
 }
 
 #SetupSaves
 Ryujinx_setupSaves(){
     echo "Begin Ryujinx save link" 
-    linkToSaveFolder ryujinx saves "$HOME/.config/Ryujinx/bis/user/" 
+    moveSaveFolder ryujinx saves "$HOME/.config/Ryujinx/bis/user/" 
 }
 
 
@@ -138,7 +135,7 @@ Ryujinx_migrate(){
 #     fi
 
     #move data from hidden folders out to these folders in case the user already put stuff here.
-    origPath="$HOME/.config"
+    local origPath="$HOME/.config"
 
     Ryujinx_setupStorage
     
