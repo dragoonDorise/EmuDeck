@@ -715,6 +715,7 @@ fi
 #because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
 cp "$EMUDECKGIT/tools/proton-launch.sh" "${toolsPath}/proton-launch.sh"
 chmod +x "${toolsPath}/proton-launch.sh"
+cp "$EMUDECKGIT/tools/appID.py" "${toolsPath}/appID.py"
 
 #ESDE Installation
 if [ $doInstallESDE == "true" ]; then
