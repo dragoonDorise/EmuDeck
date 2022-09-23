@@ -78,6 +78,7 @@ Ryujinx_setEmulationFolder(){
     unlink "${biosPath}/ryujinx/keys"    
     mkdir -p "$HOME/.config/Ryujinx/system/"
     mkdir -p "${biosPath}/ryujinx/"
+    unlink "$HOME/.config/Ryujinx/system"
     ln -sn "$HOME/.config/Ryujinx/system" "${biosPath}/ryujinx/keys"
 
 
@@ -98,9 +99,10 @@ Ryujinx_setupSaves(){
 Ryujinx_setupStorage(){
     echo "Begin Ryujinx storage config"
     
-    origPath="$HOME/.config/"
+    local origPath="$HOME/.config/"
     mkdir -p "${storagePath}/ryujinx/patchesAndDlc"
     rsync -av "${origPath}/Ryujinx/games/" "${storagePath}/ryujinx/games/" && rm -rf "${origPath}Ryujinx/games"
+    unlink "${origPath}/Ryujinx/games"
     ln -ns "${storagePath}/ryujinx/games/" "${origPath}/Ryujinx/games" 
         
 }
