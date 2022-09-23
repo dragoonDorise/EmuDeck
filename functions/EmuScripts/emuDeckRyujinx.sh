@@ -99,7 +99,7 @@ Ryujinx_setupStorage(){
     echo "Begin Ryujinx storage config"
     
     origPath="$HOME/.config/"
-    mkdir -p "${storagePath}/ryujinx/"
+    mkdir -p "${storagePath}/ryujinx/patchesAndDlc"
     rsync -av "${origPath}/Ryujinx/games/" "${storagePath}/ryujinx/games/" && rm -rf "${origPath}Ryujinx/games"
     ln -ns "${storagePath}/ryujinx/games/" "${origPath}/Ryujinx/games" 
         
