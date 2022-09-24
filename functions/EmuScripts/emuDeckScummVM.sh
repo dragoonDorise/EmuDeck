@@ -46,7 +46,7 @@ ScummVM_setEmulationFolder(){
 #SetupSaves
 ScummVM_setupSaves(){
 	savepath_directoryOpt='savepath='
-	newsavepath_directoryOpt="$nvram_directoryOpt""$savesPath/scummvm/saves"
+	newsavepath_directoryOpt="$savepath_directoryOpt""$savesPath/scummvm/saves"
 	changeLine "$savepath_directoryOpt" "$newsavepath_directoryOpt" "$ScummVM_configFile"
 
 	moveSaveFolder scummvm saves "$HOME/.var/app/org.scummvm.ScummVM/data/scummvm/saves"
