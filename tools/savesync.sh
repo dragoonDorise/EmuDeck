@@ -4,7 +4,7 @@ SAVESYNC_toolType="AppImage"
 SAVESYNC_toolPath="$HOME/Applications/EmuDeck_SaveSync.AppImage"
 SAVESYNC_systemd_path="$HOME/.config/systemd/user"
 
-source "$HOME/emudeck/backend/functions/all.sh"
+source "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
 function getReleaseURLGH(){	
 	local repository=$1
@@ -83,7 +83,7 @@ SAVESYNC_createService(){
 	zenity --info --width=400 --title="EmuDeck" --text="SaveSync configured!"
 }
 
-syncProvider=$(cat "$HOME/emudeck/.cloudprovider")
+syncProvider=$(cat "$HOME/.config/EmuDeck/.cloudprovider")
 		
 if [[ -n "$syncProvider" ]]; then
 	SAVESYNC_install

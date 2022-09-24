@@ -1,5 +1,6 @@
 #!/bin/bash
-
+MSG=$HOME/.config/EmuDeck/msg.log
+echo "0" > "$MSG"
 
 
 
@@ -18,8 +19,8 @@ else
 fi
 
 
-mkdir -p "$HOME/emudeck"
-PIDFILE="$HOME/emudeck/install.pid"
+mkdir -p "$HOME/.config/EmuDeck"
+PIDFILE="$HOME/.config/EmuDeck/install.pid"
 
 
 if [ -f "$PIDFILE" ]; then
@@ -63,24 +64,25 @@ trap finish EXIT
 #Clean up previous installations
 rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
 rm -rf ~/dragoonDoriseTools
+rm -rf ~/emudeck/backend
 
 #Creating log file
 LOGFILE="$HOME/emudeck/emudeck.log"
 
-echo "Press the button to start..." > ~/emudeck/chdtool.log
+echo "Press the button to start..." > $HOME/.config/EmuDeck/chdtool.log
 
-mv "${LOGFILE}" "$HOME/emudeck/emudeck.last.log" #backup last log
+mv "${LOGFILE}" "$HOME/.config/EmuDeck/emudeck.last.log" #backup last log
 
 echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
 exec > >(tee "${LOGFILE}") 2>&1
 date "+%Y.%m.%d-%H:%M:%S %Z"
 #Mark if this not a fresh install
-FOLDER="$HOME/emudeck/"
+FOLDER="$HOME/.config/EmuDeck/"
 if [ -d "$FOLDER" ]; then
-	echo "" > "$HOME/emudeck/.finished"
+	echo "" > "$HOME/.config/EmuDeck/.finished"
 fi
 sleep 1
-SECONDTIME="$HOME/emudeck/.finished"
+SECONDTIME="$HOME/.config/EmuDeck/.finished"
 
 
 #
@@ -88,7 +90,7 @@ SECONDTIME="$HOME/emudeck/.finished"
 ## set backend location
 ##
 # I think this should just be in the source, so there's one spot for initialization. hrm, no i'm wrong. Here is best.
-EMUDECKGIT="$HOME/emudeck/backend"
+EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 
 #
 ##
@@ -110,7 +112,7 @@ case $devMode in
 	*) 			branch="main" 		;;
 esac	
 
-echo $branch > "$HOME/emudeck/branch.txt"
+echo $branch > "$HOME/.config/EmuDeck/branch.txt"
 
 if [[ "$uiMode" == 'zenity' || "$uiMode" == 'whiptail' ]]; then
 	#We create all the needed folders for installation
@@ -645,10 +647,10 @@ chmod +x "${toolsPath}/updater/emudeck-updater.sh"
 #
 # We mark the script as finished	
 #
-echo "" > "$HOME/emudeck/.finished"
-echo "" > "$HOME/emudeck/.ui-finished"
-echo "100" > "$HOME/emudeck/msg.log"
-echo "# Installation Complete" >> "$HOME/emudeck/msg.log"
+echo "" > "$HOME/.config/EmuDeck/.finished"
+echo "" > "$HOME/.config/EmuDeck/.ui-finished"
+echo "100" > "$HOME/.config/EmuDeck/msg.log"
+echo "# Installation Complete" >> "$HOME/.config/EmuDeck/msg.log"
 finished=true
 rm "$PIDFILE"
 

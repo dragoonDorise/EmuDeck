@@ -106,10 +106,10 @@ if [ $ans -eq 0 ]; then
                 do
                     echo "Converting: $f"
                     CUEDIR="$(dirname "${f}")"
-					echo "Compressing ${f%.*}.chd" >  "$HOME/emudeck/chdtool.log"
+					echo "Compressing ${f%.*}.chd" >  "$HOME/.config/EmuDeck/chdtool.log"
                     chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
                     if [[ $successful == "true" ]]; then
-                        echo "successfully created ${f%.*}.chd" >  "$HOME/emudeck/chdtool.log"
+                        echo "successfully created ${f%.*}.chd" >  "$HOME/.config/EmuDeck/chdtool.log"
                         find "${CUEDIR}" -maxdepth 1 -type f | while read -r b
                             do
                                 fileName="$(basename "${b}")"
@@ -121,7 +121,7 @@ if [ $ans -eq 0 ]; then
                             done
                             rm "${f}"
                     else
-                        echo "Conversion of ${f} failed." >  "$HOME/emudeck/chdtool.log"
+                        echo "Conversion of ${f} failed." >  "$HOME/.config/EmuDeck/chdtool.log"
                     fi
 
                 done
@@ -129,10 +129,10 @@ if [ $ans -eq 0 ]; then
                 do
                     echo "Converting: $f"
                     CUEDIR="$(dirname "${f}")"
-					echo "Compressing ${f%.*}.chd" >  "$HOME/emudeck/chdtool.log"
+					echo "Compressing ${f%.*}.chd" >  "$HOME/.config/EmuDeck/chdtool.log"
                     chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
                     if [[ $successful == "true" ]]; then
-                        echo "successfully created ${f%.*}.chd" >  "$HOME/emudeck/chdtool.log"
+                        echo "successfully created ${f%.*}.chd" >  "$HOME/.config/EmuDeck/chdtool.log"
                         find "${CUEDIR}" -maxdepth 1 -type f | while read -r b
                             do
                                 fileName="$(basename "${b}")"
@@ -144,7 +144,7 @@ if [ $ans -eq 0 ]; then
                             done
                             rm "${f}"
                     else
-                        echo "Conversion of ${f} failed." >  "$HOME/emudeck/chdtool.log"
+                        echo "Conversion of ${f} failed." >  "$HOME/.config/EmuDeck/chdtool.log"
                     fi
 
                 done
@@ -156,7 +156,7 @@ if [ $ans -eq 0 ]; then
 
     for romfolder in "${romfolders[@]}"; do
         if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then			
-            find "$romsPath/$romfolder" -type f -iname "*.gcm"  -o -type f -iname "*.iso" | while read -r f; do echo "Converting: $f"; /var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz" > "$HOME/emudeck/chdtool.log"  && rm -rf "$f"; done;
+            find "$romsPath/$romfolder" -type f -iname "*.gcm"  -o -type f -iname "*.iso" | while read -r f; do echo "Converting: $f"; /var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz" > "$HOME/.config/EmuDeck/chdtool.log"  && rm -rf "$f"; done;
         fi
     done
 
@@ -169,7 +169,7 @@ fi
 
 
 
-echo "All files compressed!" > "$HOME/emudeck/chdtool.log"
+echo "All files compressed!" > "$HOME/.config/EmuDeck/chdtool.log"
 
 if [ "$uiMode" != 'zenity' ]; then
  text="`printf " <b>All files have been compressed!</b>"`"
@@ -179,7 +179,7 @@ zenity --info \
 	 --text="${text}" 2>/dev/null	
 fi
 
-echo "Press the button to start..." > "$HOME/emudeck/chdtool.log"
+echo "Press the button to start..." > "$HOME/.config/EmuDeck/chdtool.log"
 
 if [ "$uiMode" == 'zenity' ]; then
 

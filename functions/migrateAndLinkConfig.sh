@@ -11,7 +11,7 @@ migrationTable=$2
 #        unlink $path
 #    fi
 #done
-migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
+migrationFlag="$HOME/.config/EmuDeck/.${emu}MigrationCompleted"
 
 #check if we have a nomigrateflag for $emu
 if [ ! -f "$migrationFlag" ]; then

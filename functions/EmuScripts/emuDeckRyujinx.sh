@@ -122,7 +122,7 @@ Ryujinx_uninstall(){
 Ryujinx_migrate(){
     echo "Begin Ryujinx Migration"
     emu="Ryujinx"
-#     migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
+#     migrationFlag="$HOME/.config/EmuDeck/.${emu}MigrationCompleted"
 #     #check if we have a nomigrateflag for $emu
 #     if [ ! -f "$migrationFlag" ]; then	
 #         #yuzu flatpak to appimage

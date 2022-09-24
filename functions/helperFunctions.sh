@@ -109,7 +109,7 @@ function testLocationValid(){
 
 function makeFunction(){
 
-	find "$HOME/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.cfg" | while read file
+	find "$HOME/.config/EmuDeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.cfg" | while read file
 		do
 			
 			folderOverride="$(basename "${file}")"
@@ -129,7 +129,7 @@ function makeFunction(){
 
 function deleteConfigs(){
 
-	find "$HOME/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.opt" -o -type f -iname "*.cfg"| while read file
+	find "$HOME/.config/EmuDeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.opt" -o -type f -iname "*.cfg"| while read file
 		do
 			rm "$file"
 		done
@@ -206,7 +206,7 @@ function updateOrAppendConfigLine(){
 function getEnvironmentDetails(){
 	local sdpath=$(getSDPath)
 	local sdValid=$(testLocationValid "sd" "$sdpath")
-	if [ -f "$HOME/emudeck/.finished" ]; then
+	if [ -f "$HOME/.config/EmuDeck/.finished" ]; then
 		firstRun="false"
 	else
 		firstRun="true"

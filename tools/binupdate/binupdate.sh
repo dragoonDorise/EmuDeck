@@ -1,7 +1,7 @@
 #!/bin/bash
 #while this is in testing, i'm copying in the functions. once we leave the original repo in place and don't delete it, i'd like to use the functions we already made.
 
-source "$HOME/emudeck/backend/functions/all.sh"
+source "$HOME/.config/EmuDeck/backend/functions/all.sh"
 if [ "$?" == "1" ]; then
     echo "functions could not be loaded."
     zenity --error \

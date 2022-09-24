@@ -1575,15 +1575,15 @@ RetroArch_retroAchievementsPromptLogin(){
 			ans=$?
 	if [ $ans -eq 0 ]; then
 		echo "RetroAchievment Login"
-		echo "$RAInput" | awk -F "," '{print $1}' > "$HOME/emudeck/.rau"
-		echo "$RAInput" | awk -F "," '{print $2}' > "$HOME/emudeck/.rap"
+		echo "$RAInput" | awk -F "," '{print $1}' > "$HOME/.config/EmuDeck/.rau"
+		echo "$RAInput" | awk -F "," '{print $2}' > "$HOME/.config/EmuDeck/.rap"
 	else
 		echo "Cancel RetroAchievment Login" 
 	fi
 }
 RetroArch_retroAchievementsSetLogin(){
-	rap=$(cat ~/emudeck/.rap)
-	rau=$(cat ~/emudeck/.rau)
+	rap=$(cat $HOME/.config/EmuDeck/.rap)
+	rau=$(cat $HOME/.config/EmuDeck/.rau)
 	echo "Evaluate RetroAchievements Login."
 	if [ ${#rap} -lt 1 ]; then
 		echo "--No password."

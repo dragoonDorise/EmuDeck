@@ -1,6 +1,6 @@
 #!/bin/bash
 if [[ "$EMUDECKGIT" == "" ]]; then
-    EMUDECKGIT="$HOME/emudeck/backend"
+    EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 fi
 
 #load helpers first, just in case

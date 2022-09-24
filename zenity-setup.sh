@@ -2,7 +2,7 @@
 
 # Seeting up the progress Bar for the rest of the installation
 finished=false
-MSG=~/emudeck/msg.log
+MSG=$HOME/.config/EmuDeck/msg.log
 echo "0" > "$MSG"
 echo "# Installing EmuDeck" >> "$MSG"
 
