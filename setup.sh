@@ -214,10 +214,10 @@ if [ $doInstallSRM == "true" ]; then
 	SRM_install
 fi
 #Emulators Installation
-if [ "$doInstallPCSX2" == "true" ]; then
-	echo "install pcsx2"
-	PCSX2_install
-fi
+# if [ "$doInstallPCSX2" == "true" ]; then
+# 	echo "install pcsx2"
+# 	PCSX2_install
+# fi
 if [ "$doInstallPCSX2QT" == "true" ]; then	
 	echo "install pcsx2Qt"
 	PCSX2QT_install
@@ -315,10 +315,10 @@ if [ "$doSetupDolphin" == "true" ]; then
 	echo "Dolphin_init"
 	Dolphin_init
 fi
-if [ "$doSetupPCSX2" == "true" ]; then
-	echo "PCSX2_init"
-	PCSX2_init
-fi
+# if [ "$doSetupPCSX2" == "true" ]; then
+# 	echo "PCSX2_init"
+# 	PCSX2_init
+# fi
 if [ "$doSetupPCSX2QT" == "true" ]; then
 	echo "PCSX2QT_init"
 	PCSX2QT_init

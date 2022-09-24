@@ -2603,59 +2603,6 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Sony PlayStation 2 - PCSX2 (old version)",
-    "steamCategory": "${Playstation 2 - Legacy}",
-    "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/ps2",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "startInDirectory": "",
-    "titleModifier": "${fuzzyTitle}",
-    "executableArgs": "run net.pcsx2.PCSX2 \"${filePath}\" --nogui --fullscreen",
-    "onlineImageQueries": "${${fuzzyTitle}}",
-    "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
-    "defaultImage": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/systems/grid/ps2.jpg",
-    "defaultTallImage": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/systems/poster/ps2.jpg",
-    "defaultHeroImage": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
-    "defaultLogoImage": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
-    "defaultIcon": "/home/deck/emudeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
-    "localImages": "",
-    "localTallImages": "",
-    "localHeroImages": "",
-    "localLogoImages": "",
-    "localIcons": "",
-    "disabled": true,
-    "advanced": false,
-    "userAccounts": {
-      "specifiedAccounts": "",
-      "skipWithMissingDataDir": true,
-      "useCredentials": true
-    },
-    "parserInputs": {
-      "glob": "**/${title}@(.bin|.BIN|.chd|.CHD|.cso|.CSO|.dump|.DUMP|.gz|.GZ|.img|.IMG|.iso|.ISO|.mdf|.MDF|.nrg|.NRG)"
-    },
-    "titleFromVariable": {
-      "limitToGroups": "",
-      "caseInsensitiveVariables": false,
-      "skipFileIfVariableWasNotFound": false,
-      "tryToMatchTitle": false
-    },
-    "fuzzyMatch": {
-      "use": true,
-      "replaceDiacritics": true,
-      "removeCharacters": true,
-      "removeBrackets": true
-    },
-    "executable": {
-      "path": "/usr/bin/flatpak",
-      "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
-    },
-    "parserId": "165837546068116314",
-    "version": 5
-  },
-  {
-    "parserType": "Glob",
     "configTitle": "Sony PlayStation 3 - RPCS3 (Extracted ISO/PSN)",
     "steamCategory": "${PlayStation 3}",
     "executableModifier": "\"${exePath}\"",
@@ -3178,68 +3125,64 @@
     "disabled": false
   },
   {
-      "parserType": "Glob",
-      "configTitle": "ScummVM Flatpak",
-      "steamCategory": "${ScummVM}",
-      "steamDirectory": "/home/deck/.steam/steam",
-      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/scummvm",
-      "executableArgs": "run org.scummvm.ScummVM --path=\"${filePath}\" --auto-detect",
-      "executableModifier": "\"${exePath}\"",
-      "startInDirectory": "",
-      "titleModifier": "${fuzzyTitle}",
-      "imageProviders": [
-          "SteamGridDB"
-      ],
-      "onlineImageQueries": "${${fuzzyTitle}}",
-      "imagePool": "${fuzzyTitle}",
-      "defaultImage": "",
-      "defaultTallImage": "",
-      "defaultHeroImage": "",
-      "defaultLogoImage": "",
-      "defaultIcon": "",
-      "localImages": "",
-      "localTallImages": "",
-      "localHeroImages": "",
-      "localLogoImages": "",
-      "localIcons": "",
-      "userAccounts": {
-          "specifiedAccounts": null,
-          "skipWithMissingDataDir": true,
-          "useCredentials": true
-      },
-      "executable": {
-          "path": "/usr/bin/flatpak",
-          "shortcutPassthrough": false,
-          "appendArgsToExecutable": true
-      },
-      "parserInputs": {
-          "glob": "${title}.scummvm"
-      },
-      "titleFromVariable": {
-          "limitToGroups": "",
-          "caseInsensitiveVariables": false,
-          "skipFileIfVariableWasNotFound": false,
-          "tryToMatchTitle": false
-      },
-      "fuzzyMatch": {
-          "replaceDiacritics": true,
-          "removeCharacters": true,
-          "removeBrackets": true
-      },
-      "imageProviderAPIs": {
-          "SteamGridDB": {
-              "nsfw": false,
-              "humor": false,
-              "styles": [],
-              "stylesHero": [],
-              "stylesLogo": [],
-              "stylesIcon": [],
-              "imageMotionTypes": [
-                  "static"
-              ]
-          }
-      },
-      "parserId": "166399570436769358",
-      "version": 10
+    "parserType": "Glob",
+    "configTitle": "ScummVM Flatpak",
+    "steamCategory": "${ScummVM}",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/scummvm",
+    "executableArgs": "run org.scummvm.ScummVM --path=\"${filePath}\" --auto-detect",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "userAccounts": {
+      "specifiedAccounts": null,
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "parserInputs": {
+      "glob": "${title}.scummvm"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": [],
+        "imageMotionTypes": ["static"]
+      }
+    },
+    "parserId": "166399570436769358",
+    "version": 10
   }
 ]
