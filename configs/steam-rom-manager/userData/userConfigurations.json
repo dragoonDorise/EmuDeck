@@ -3182,7 +3182,7 @@
       "configTitle": "ScummVM Flatpak",
       "steamCategory": "${ScummVM}",
       "steamDirectory": "/home/deck/.steam/steam",
-      "romDirectory": "/run/media/external/Emulation/roms/scummvm",
+      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/scummvm",
       "executableArgs": "run org.scummvm.ScummVM --path=\"${filePath}\" --auto-detect",
       "executableModifier": "\"${exePath}\"",
       "startInDirectory": "",
