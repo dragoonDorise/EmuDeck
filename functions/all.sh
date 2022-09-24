@@ -58,6 +58,8 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckXemu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckXenia.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2QT.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMAME.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckScummVM.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckVita3K.sh
 
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMelonDS.sh

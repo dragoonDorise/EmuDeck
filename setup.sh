@@ -268,7 +268,14 @@ if [ $doInstallCemu == "true" ]; then
 	echo "Cemu_install"
 	Cemu_install
 fi
-
+if [ $doInstallScummVM == "true" ]; then
+	echo "ScummVM_install"
+	ScummVM_install
+fi
+if [ $doInstallVita3K == "true" ]; then
+	echo "Vita3K_install"
+	Vita3K_install
+fi
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ "$doInstallXenia" == "true" ]; then
 	echo "Xenia_install"
@@ -345,6 +352,14 @@ fi
 if [ "$doSetupMAME" == "true" ]; then
 	echo "MAME_init"
 	MAME_init
+fi
+if [ "$doSetupScummVM" == "true" ]; then
+	echo "ScummVM_init"
+	ScummVM_init
+fi
+if [ "$doSetupVita3K" == "true" ]; then
+	echo "Vita3K_init"
+	Vita3K_init
 fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then
