@@ -68,7 +68,7 @@ keyboard-button-psbutton: 19
 user-id: ""
 user-auto-connect: false
 dump-textures: false
-show-welcome: false
+show-welcome: true
 asia-font-support: false
 shader-cache: true
 spirv-shader: false
