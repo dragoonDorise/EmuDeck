@@ -61,8 +61,8 @@ rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
 rm -rf ~/dragoonDoriseTools
 
 #Creating log file
-LOGFILE="$HOME/.config/EmuDeck/emudeckCLI.log"
-mv "$LOGFILE" "$HOME/.config/EmuDeck/emudeckCLI.last.log" #backup last log
+LOGFILE="$HOME/emudeck/emudeckCLI.log"
+mv "$LOGFILE" "$HOME/emudeck/emudeckCLI.last.log" #backup last log
 echo "${@}" > "$LOGFILE" #might as well log out the parameters of the run
 
 exec > >(tee "${LOGFILE}") 2>&1

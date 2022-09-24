@@ -71,7 +71,7 @@ LOGFILE="$HOME/emudeck/emudeck.log"
 
 echo "Press the button to start..." > $HOME/.config/EmuDeck/chdtool.log
 
-mv "${LOGFILE}" "$HOME/.config/EmuDeck/emudeck.last.log" #backup last log
+mv "${LOGFILE}" "$HOME/emudeck/emudeck.last.log" #backup last log
 
 echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
 exec > >(tee "${LOGFILE}") 2>&1
