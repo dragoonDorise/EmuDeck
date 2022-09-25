@@ -22,7 +22,7 @@ updateCemu(){
                 print $(o)
                 }
             }
-            }' | grep releases)
+            }' | grep releases| grep -v github)
 
             mapfile -t releases <<< "$releasesStr"
 
@@ -31,6 +31,8 @@ updateCemu(){
                 releaseTable+=(false "$release")
                 echo "release: $release"
             done
+
+            releaseTable+=(false "$(getReleaseURLGH "cemu-project/Cemu" "windows-x64.zip")")
 
             releaseChoice=$(zenity --list \
             --title="EmuDeck" \
@@ -44,7 +46,7 @@ updateCemu(){
             --column="Release" \
             "${releaseTable[@]}" 2>/dev/null)
 
-            curl "$releaseChoice" --output "$romsPath/wiiu/cemu.zip"
+            curl -L "$releaseChoice" --output "$romsPath/wiiu/cemu.zip"
 
 
             mkdir -p "$romsPath/wiiu/tmp"
@@ -73,6 +75,7 @@ updateCemu(){
     binTable+=(TRUE "Nintendo Switch Emu" "ryujinx")
     binTable+=(TRUE "Sony PlayStation 2 Emu" "pcsx2-qt")
     binTable+=(TRUE "Nintendo WiiU Emu" "cemu")
+    binTable+=(TRUE "Sony PlayStation Vita Emu" "vita3k")
     binTable+=(FALSE "Xbox 360 Emu - TESTING ONLY" "xenia")
 
 #Binary selector
@@ -140,6 +143,14 @@ updateCemu(){
                 messages+=("Cemu Updated Successfully")
             else
                 messages+=("There was a problem updating Cemu")
+            fi
+        fi
+        if [[ "$binsToDL" == *"vita3k"* ]]; then
+            Vita3K_install
+            if [ "$?" == "0" ]; then
+                messages+=("Vita3K Updated Successfully")
+            else
+                messages+=("There was a problem updating Vita3K")
             fi
         fi
         if [[ "$binsToDL" == *"xenia"* ]]; then
