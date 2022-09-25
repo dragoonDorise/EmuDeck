@@ -2545,7 +2545,7 @@
     "steamCategory": "${Playstation 2}",
     "steamDirectory": "/home/deck/.steam/steam",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/ps2",
-    "executableArgs": " -batch -fullscreen \"'${filePath}'\"",
+    "executableArgs": "vblank_mode=0 %command% -batch -fullscreen \"'${filePath}'\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -2571,7 +2571,7 @@
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/pcsx2-qt.sh",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
+      "appendArgsToExecutable": false
     },
     "parserInputs": {
       "glob": "**/${title}@(.bin|.BIN|.chd|.CHD|.cso|.CSO|.dump|.DUMP|.gz|.GZ|.img|.IMG|.iso|.ISO|.mdf|.MDF|.nrg|.NRG)"
