@@ -14,7 +14,7 @@ Plugins_installPowerTools(){
    ptHash=$(curl https://beta.deckbrew.xyz/plugins | jq -r '.[] | select(.name=="PowerTools").versions[0].hash')
    local url="https://cdn.tzatzikiweeb.moe/file/steam-deck-homebrew/versions/$ptHash.zip"
    sudo rm -rf "$HOME/homebrew/plugins/PowerTools"
-   curl -l "$url" --output "$HOME/homebrew/PowerTools.zip" 
+   curl -l "$url" --output "$HOME/homebrew/PowerTools.zip.temp"  && mv "$HOME/homebrew/PowerTools.zip.temp" "$HOME/homebrew/PowerTools.zip" 
    sudo unzip "$HOME/homebrew/PowerTools.zip" -d "$HOME/homebrew/plugins/" && rm "$HOME/homebrew/PowerTools.zip"
 }
 

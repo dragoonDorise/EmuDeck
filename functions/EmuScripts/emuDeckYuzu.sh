@@ -135,7 +135,7 @@ Yuzu_uninstall(){
 Yuzu_migrate(){
     echo "Begin Yuzu Migration"
     emu="Yuzu"
-    migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
+    migrationFlag="$HOME/.config/EmuDeck/.${emu}MigrationCompleted"
     #check if we have a nomigrateflag for $emu
     if [ ! -f "$migrationFlag" ]; then	
         #yuzu flatpak to appimage

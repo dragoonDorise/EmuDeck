@@ -5,8 +5,8 @@
 ## Pid Lock...
 ##
 #
-mkdir -p "$HOME/emudeck"
-PIDFILE="$HOME/emudeck/installCLI.pid"
+mkdir -p "$HOME/.config/EmuDeck"
+PIDFILE="$HOME/.config/EmuDeck/installCLI.pid"
 
 devMode=$1
 
@@ -68,12 +68,12 @@ echo "${@}" > "$LOGFILE" #might as well log out the parameters of the run
 exec > >(tee "${LOGFILE}") 2>&1
 date "+%Y.%m.%d-%H:%M:%S %Z"
 #Mark if this not a fresh install
-FOLDER="$HOME/emudeck/"
+FOLDER="$HOME/.config/EmuDeck/"
 if [ -d "$FOLDER" ]; then
-	echo "" > "$HOME/emudeck/.finished"
+	echo "" > "$HOME/.config/EmuDeck/.finished"
 fi
 sleep 1
-SECONDTIME="$HOME/emudeck/.finished"
+SECONDTIME="$HOME/.config/EmuDeck/.finished"
 
 
 # Seeting up the progress Bar for the rest of the installation
@@ -84,7 +84,7 @@ SECONDTIME="$HOME/emudeck/.finished"
 ## set backend location
 ##
 # I think this should just be in the source, so there's one spot for initialization. hrm, no i'm wrong. Here is best.
-EMUDECKGIT="$HOME/emudeck/backend"
+EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 
 #
 ##
@@ -104,7 +104,7 @@ case $devMode in
 	*) 			branch="main" 		;;
 esac	
 
-echo $branch > "$HOME/emudeck/branch.txt"
+echo $branch > "$HOME/.config/EmuDeck/branch.txt"
 
 
 
@@ -715,6 +715,7 @@ fi
 #because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
 cp "$EMUDECKGIT/tools/proton-launch.sh" "${toolsPath}/proton-launch.sh"
 chmod +x "${toolsPath}/proton-launch.sh"
+cp "$EMUDECKGIT/tools/appID.py" "${toolsPath}/appID.py"
 
 #ESDE Installation
 if [ $doInstallESDE == "true" ]; then
@@ -1074,10 +1075,10 @@ fi
 #
 # We mark the script as finished	
 #
-echo "" > "$HOME/emudeck/.finished"
-echo "" > "$HOME/emudeck/.electron-finished"
-echo "100" > "$HOME/emudeck/msg.log"
-echo "# Installation Complete" >> "$HOME/emudeck/msg.log"
+echo "" > "$HOME/.config/EmuDeck/.finished"
+echo "" > "$HOME/.config/EmuDeck/.electron-finished"
+echo "100" > "$HOME/.config/EmuDeck/msg.log"
+echo "# Installation Complete" >> "$HOME/.config/EmuDeck/msg.log"
 finished=true
 rm "$PIDFILE"
 

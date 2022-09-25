@@ -16,13 +16,14 @@ SRM_install(){
 	setMSG "Installing Steam Rom Manager"
 	SRM_cleanup
 	mkdir -p "${toolsPath}/srm"
-	curl -L "$SRM_releaseURL" -o "$SRM_toolPath"
+	curl -L "$SRM_releaseURL" -o "${SRM_toolPath}.temp" && mv "${SRM_toolPath}.temp" "${SRM_toolPath}"
 	chmod +x "$SRM_toolPath"
-	SRM_createDesktopShortcut "$HOME/Desktop/SteamRomManager.desktop"
+	#SRM_createDesktopShortcut "$HOME/Desktop/SteamRomManager.desktop"
+	rm -rf ~/Desktop/SteamRomManager.desktop &>> /dev/null
 }
 
 SRM_createDesktopShortcut(){
-	SRM_Shortcutlocation=$1
+	local SRM_Shortcutlocation=$1
 
 	if [[ "$SRM_Shortcutlocation" == "" ]]; then
 
@@ -33,7 +34,7 @@ SRM_createDesktopShortcut(){
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
 	Name=Steam Rom Manager
-	Exec=kill -15 \$(pidof steam) & $SRM_toolPath
+	Exec=zenity --question --width 450 --title \"Close Steam/Steam Input?\" --text \"Exit Steam to launch Steam Rom Manager? Desktop controls will temporarily revert to touch/trackpad/L2/R2\" && (kill -15 \$(pidof steam) & $SRM_toolPath)
 	Icon=steamdeck-gaming-return
 	Terminal=false
 	Type=Application
@@ -43,9 +44,11 @@ SRM_createDesktopShortcut(){
 
 SRM_init(){			
 	setMSG "Configuring Steam Rom Manager"
-	mkdir -p "$HOME/.config/steam-rom-manager/userData/"	
-	cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
-	cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/userSettings.json"	
+	mkdir -p "$HOME/.config/steam-rom-manager/userData/"
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+	#cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
+	#cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/userSettings.json"	
 	sleep 3
 	tmp=$(mktemp)
 	jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \

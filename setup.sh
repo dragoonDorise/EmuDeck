@@ -1,5 +1,6 @@
 #!/bin/bash
-
+MSG=$HOME/.config/EmuDeck/msg.log
+echo "0" > "$MSG"
 
 
 
@@ -18,8 +19,8 @@ else
 fi
 
 
-mkdir -p "$HOME/emudeck"
-PIDFILE="$HOME/emudeck/install.pid"
+mkdir -p "$HOME/.config/EmuDeck"
+PIDFILE="$HOME/.config/EmuDeck/install.pid"
 
 
 if [ -f "$PIDFILE" ]; then
@@ -63,9 +64,12 @@ trap finish EXIT
 #Clean up previous installations
 rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
 rm -rf ~/dragoonDoriseTools
+rm -rf ~/emudeck/backend
 
 #Creating log file
 LOGFILE="$HOME/emudeck/emudeck.log"
+
+echo "Press the button to start..." > $HOME/.config/EmuDeck/chdtool.log
 
 mv "${LOGFILE}" "$HOME/emudeck/emudeck.last.log" #backup last log
 
@@ -73,12 +77,12 @@ echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
 exec > >(tee "${LOGFILE}") 2>&1
 date "+%Y.%m.%d-%H:%M:%S %Z"
 #Mark if this not a fresh install
-FOLDER="$HOME/emudeck/"
+FOLDER="$HOME/.config/EmuDeck/"
 if [ -d "$FOLDER" ]; then
-	echo "" > "$HOME/emudeck/.finished"
+	echo "" > "$HOME/.config/EmuDeck/.finished"
 fi
 sleep 1
-SECONDTIME="$HOME/emudeck/.finished"
+SECONDTIME="$HOME/.config/EmuDeck/.finished"
 
 
 #
@@ -86,7 +90,7 @@ SECONDTIME="$HOME/emudeck/.finished"
 ## set backend location
 ##
 # I think this should just be in the source, so there's one spot for initialization. hrm, no i'm wrong. Here is best.
-EMUDECKGIT="$HOME/emudeck/backend"
+EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 
 #
 ##
@@ -108,7 +112,7 @@ case $devMode in
 	*) 			branch="main" 		;;
 esac	
 
-echo $branch > "$HOME/emudeck/branch.txt"
+echo $branch > "$HOME/.config/EmuDeck/branch.txt"
 
 if [[ "$uiMode" == 'zenity' || "$uiMode" == 'whiptail' ]]; then
 	#We create all the needed folders for installation
@@ -197,6 +201,7 @@ fi
 #because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
 cp "$EMUDECKGIT/tools/proton-launch.sh" "${toolsPath}/proton-launch.sh"
 chmod +x "${toolsPath}/proton-launch.sh"
+cp "$EMUDECKGIT/tools/appID.py" "${toolsPath}/appID.py"
 
 #ESDE Installation
 if [ $doInstallESDE == "true" ]; then
@@ -209,10 +214,10 @@ if [ $doInstallSRM == "true" ]; then
 	SRM_install
 fi
 #Emulators Installation
-if [ "$doInstallPCSX2" == "true" ]; then
-	echo "install pcsx2"
-	PCSX2_install
-fi
+# if [ "$doInstallPCSX2" == "true" ]; then
+# 	echo "install pcsx2"
+# 	PCSX2_install
+# fi
 if [ "$doInstallPCSX2QT" == "true" ]; then	
 	echo "install pcsx2Qt"
 	PCSX2QT_install
@@ -265,7 +270,14 @@ if [ $doInstallCemu == "true" ]; then
 	echo "Cemu_install"
 	Cemu_install
 fi
-
+if [ $doInstallScummVM == "true" ]; then
+	echo "ScummVM_install"
+	ScummVM_install
+fi
+if [ $doInstallVita3K == "true" ]; then
+	echo "Vita3K_install"
+	Vita3K_install
+fi
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ "$doInstallXenia" == "true" ]; then
 	echo "Xenia_install"
@@ -303,10 +315,10 @@ if [ "$doSetupDolphin" == "true" ]; then
 	echo "Dolphin_init"
 	Dolphin_init
 fi
-if [ "$doSetupPCSX2" == "true" ]; then
-	echo "PCSX2_init"
-	PCSX2_init
-fi
+# if [ "$doSetupPCSX2" == "true" ]; then
+# 	echo "PCSX2_init"
+# 	PCSX2_init
+# fi
 if [ "$doSetupPCSX2QT" == "true" ]; then
 	echo "PCSX2QT_init"
 	PCSX2QT_init
@@ -342,6 +354,14 @@ fi
 if [ "$doSetupMAME" == "true" ]; then
 	echo "MAME_init"
 	MAME_init
+fi
+if [ "$doSetupScummVM" == "true" ]; then
+	echo "ScummVM_init"
+	ScummVM_init
+fi
+if [ "$doSetupVita3K" == "true" ]; then
+	echo "Vita3K_init"
+	Vita3K_init
 fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then
@@ -458,9 +478,6 @@ else
 	#Snes and NES
 	case $arSnes in
 	  "87")
-		  if [ "$RABezels" == true ]; then	
-			  RetroArch_snes_bezelOn
-		  fi
 		RetroArch_snes_ar87
 		RetroArch_nes_ar87
 	  ;;
@@ -491,16 +508,22 @@ else
 		#"Bezels off"
 		RetroArch_Flycast_bezelOff
 		RetroArch_Beetle_PSX_HW_bezelOff
+		RetroArch_n64_wideScreenOn
+		RetroArch_SwanStation_wideScreenOn
 	else
 		#"SET 4:3"
 		RetroArch_Flycast_wideScreenOff
+		RetroArch_n64_wideScreenOff
 		RetroArch_Beetle_PSX_HW_wideScreenOff
+		RetroArch_SwanStation_wideScreenOff
+		
 		DuckStation_wideScreenOff
 		Xemu_wideScreenOff
 		#"Bezels on"
 		if [ "$RABezels" == true ]; then	
-			RetroArch_Flycast_bezelOn
-			RetroArch_Beetle_PSX_HW_bezelOn
+			RetroArch_Flycast_bezelOn			
+			RetroArch_n64_bezelOn
+			RetroArch_psx_bezelOn
 		fi			
 	fi
 	
@@ -531,33 +554,7 @@ if [ "$doRAEnable" == "true" ]; then
 	RetroArch_retroAchievementsOn
 fi
 
-if [[ ! $branch == "main" ]]; then 
-	if [[ $doSetupSaveSync == "true" ]]; then
 
-		cloudProviders=()
-		cloudProviders+=(1 "gdrive")
-		cloudProviders+=(2 "dropbox")
-		cloudProviders+=(3 "onedrive")
-		cloudProviders+=(4 "box")
-		cloudProviders+=(5 "nextcloud")
-
-		syncProvider=$(zenity --list \
-				--title="EmuDeck SaveSync Host" \
-				--height=500 \
-				--width=500 \
-				--ok-label="OK" \
-				--cancel-label="Exit" \
-				--text="Choose the service you would like to use to host your cloud saves.\n\nKeep in mind they can take a fair amount of space.\n\nThis will open a browser window for you to sign into your chosen cloud provider." \
-				--radiolist \
-				--column="Select" \
-				--column="Provider" \
-				"${cloudProviders[@]}" 2>/dev/null)
-		if [[ -n "$syncProvider" ]]; then
-			SAVESYNC_install
-			SAVESYNC_setup "$syncProvider"
-		fi
-	fi
-fi 
 #Sudo Required!
 
 if [ "$expert" == "true" ]; then
@@ -601,30 +598,12 @@ fi
 createDesktopIcons
 
 
+
 #
 ##
 ##Validations
 ##
 #
-
-#PS Bios
-checkPSBIOS
-
-#Yuzu Keys & Firmware
-FILE="$HOME/.local/share/yuzu/keys/prod.keys"
-if [ -f "$FILE" ]; then
-	echo -e "" 2>/dev/null
-else
-	if [ "$uiMode" != 'whiptail' ]; then
-		text="$(printf "<b>Yuzu is not configured</b>\nYou need to copy your Keys and firmware to: \n${biosPath}/yuzu/keys\n${biosPath}\yuzu/firmware\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them</b>")"
-		zenity --error \
-				--title="EmuDeck" \
-				--width=400 \
-				--text="${text}" 2>/dev/null
-	else
-		echo "Yuzu is not configured"
-	fi
-fi
 
 
 # FILE="$HOME/.config/Ryujinx/system/prod.keys"
@@ -642,21 +621,33 @@ fi
 # 	fi
 # fi
 
+
+#SaveSync
+# if [[ ! $branch == "main" ]]; then 
+# 	if [[ $doSetupSaveSync == "true" ]]; then
+# 	
+# 		$HOME/Desktop/EmuDeckSaveSync.desktop
+# 
+# 	fi
+# fi 
+
 #EmuDeck updater on gaming Mode
 mkdir -p "${toolsPath}/updater"
 cp -v "$EMUDECKGIT/tools/updater/emudeck-updater.sh" "${toolsPath}/updater/"
 chmod +x "${toolsPath}/updater/emudeck-updater.sh"
 
 #RemotePlayWhatever
-installEmuAI "RemotePlayWhatever"  "$(getReleaseURLGH "m4dEngi/RemotePlayWhatever" "AppImage")" 
+# if [[ ! $branch == "main" ]]; then 
+# 	RemotePlayWhatever_install
+# fi
 
 #
 # We mark the script as finished	
 #
-echo "" > "$HOME/emudeck/.finished"
-echo "" > "$HOME/emudeck/.ui-finished"
-echo "100" > "$HOME/emudeck/msg.log"
-echo "# Installation Complete" >> "$HOME/emudeck/msg.log"
+echo "" > "$HOME/.config/EmuDeck/.finished"
+echo "" > "$HOME/.config/EmuDeck/.ui-finished"
+echo "100" > "$HOME/.config/EmuDeck/msg.log"
+echo "# Installation Complete" >> "$HOME/.config/EmuDeck/msg.log"
 finished=true
 rm "$PIDFILE"
 

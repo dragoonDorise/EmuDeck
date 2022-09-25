@@ -310,13 +310,16 @@ RetroArch_Mupen64Plus_Next_setConfig(){
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_smooth' '"true"'
 }
 
-RetroArch_n64_CRTshaderOn(){
-	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_shader_enable' '"true"'
-}
 
-RetroArch_n64_CRTshaderOff(){
-	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_shader_enable' '"false"'
-}
+
+
+# RetroArch_n64_CRTshaderOn(){
+# 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_shader_enable' '"true"'
+# }
+# 
+# RetroArch_n64_CRTshaderOff(){
+# 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_shader_enable' '"false"'
+# }
 
 RetroArch_lynx_setConfig(){	
 	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'  'input_player1_analog_dpad_mode' '"1"'
@@ -784,6 +787,18 @@ RetroArch_gbc_MATshaderOff(){
 	RetroArch_setOverride 'gbc.cfg' 'Gambatte'  'video_shader_enable' 'false'
 }
 
+RetroArch_n64_wideScreenOn(){
+	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-aspect = "16:9 adjusted"'	
+	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'aspect_ratio_index' '"1"'	
+	RetroArch_n64_bezelOff
+}
+
+RetroArch_n64_wideScreenOff(){
+	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-aspect = "4:3"'	
+	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'aspect_ratio_index' '"0"'	
+	RetroArch_n64_bezelOn
+}
+
 RetroArch_n64_bezelOn(){
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'aspect_ratio_index' '"0"'
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/N64.cfg"'
@@ -841,13 +856,13 @@ RetroArch_dreamcast_bezelOff(){
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'input_overlay_enable' '"false"'
 }
 
-RetroArch_dreamcast_CRTshaderOn(){
-	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"true"'
-}
-
-RetroArch_dreamcast_CRTshaderOff(){
-	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"false"'
-}
+# RetroArch_dreamcast_CRTshaderOn(){
+# 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"true"'
+# }
+# 
+# RetroArch_dreamcast_CRTshaderOff(){
+# 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"false"'
+# }
 
 RetroArch_saturn_setConfig(){	
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'input_player1_analog_dpad_mode' '"1"'
@@ -873,16 +888,16 @@ RetroArch_saturn_bezelOff(){
 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'input_overlay_enable' '"false"'
 }
 
-RetroArch_saturn_CRTshaderOn(){
-	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'video_shader_enable' '"true"'
-	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'video_shader_enable' '"true"'
-	
-}
-
-RetroArch_saturn_CRTshaderOff(){
-	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'video_shader_enable' '"false"'
-	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'video_shader_enable' '"false"'
-}
+# RetroArch_saturn_CRTshaderOn(){
+# 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'video_shader_enable' '"true"'
+# 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'video_shader_enable' '"true"'
+# 	
+# }
+# 
+# RetroArch_saturn_CRTshaderOff(){
+# 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'video_shader_enable' '"false"'
+# 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'video_shader_enable' '"false"'
+# }
 
 RetroArch_snes_setConfig(){	
 	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'input_player1_analog_dpad_mode' '"1"'
@@ -1133,7 +1148,7 @@ RetroArch_Flycast_setUpCoreOpt(){
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_gdrom_fast_loading' '"disabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_hle_bios' '"disabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_internal_resolution' '"960x720"'
-	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_language' '"Default"'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_language' '"English"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_lightgun1_crosshair' '"disabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_lightgun2_crosshair' '"disabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_lightgun3_crosshair' '"disabled"'
@@ -1142,7 +1157,7 @@ RetroArch_Flycast_setUpCoreOpt(){
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_oit_abuffer_size' '"512MB"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_per_content_vmus' '"disabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_pvr2_filtering' '"disabled"'
-	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_region' '"Default"'
+	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_region' '"USA"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_screen_rotation' '"horizontal"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_show_lightgun_settings' '"disabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_show_vmu_screen_settings' '"disabled"'
@@ -1370,19 +1385,19 @@ RetroArch_psx_bezelOff(){
 	RetroArch_setOverride 'psx.cfg' 'SwanStation'  'input_overlay_enable' '"false"'
 }
 
-RetroArch_psx_CRTshaderOn(){
-	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW'  'video_shader_enable' 'true'
-	RetroArch_setOverride 'psx.cfg' 'Beetle PSX'  'video_shader_enable' 'true'
-	RetroArch_setOverride 'psx.cfg' 'SwanStation'  'video_shader_enable' 'true'
-
-}
-
-RetroArch_psx_CRTshaderOff(){
-	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW'  'video_shader_enable' 'false'
-	RetroArch_setOverride 'psx.cfg' 'Beetle PSX'  'video_shader_enable' 'false'
-	RetroArch_setOverride 'psx.cfg' 'SwanStation'  'video_shader_enable' 'false'
-
-}
+# RetroArch_psx_CRTshaderOn(){
+# 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW'  'video_shader_enable' 'true'
+# 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX'  'video_shader_enable' 'true'
+# 	RetroArch_setOverride 'psx.cfg' 'SwanStation'  'video_shader_enable' 'true'
+# 
+# }
+# 
+# RetroArch_psx_CRTshaderOff(){
+# 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW'  'video_shader_enable' 'false'
+# 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX'  'video_shader_enable' 'false'
+# 	RetroArch_setOverride 'psx.cfg' 'SwanStation'  'video_shader_enable' 'false'
+# 
+# }
 
 #BezelOn
 RetroArch_bezelOnAll(){
@@ -1511,8 +1526,8 @@ function RetroArch_dlAdditionalFiles(){
 	mkdir -p "$biosPath/rtp/2000"
 	mkdir -p "$biosPath/rtp/2003"
 
-	curl -L https://dl.degica.com/rpgmakerweb/run-time-packages/rpg2003_rtp_installer.zip --output "$biosPath/rtp/2003/rpg2003.zip"
-	curl -L https://dl.degica.com/rpgmakerweb/run-time-packages/rpg2000_rtp_installer.exe --output "$biosPath/rtp/2000/rpg2000.zip"
+	curl -L https://dl.degica.com/rpgmakerweb/run-time-packages/rpg2003_rtp_installer.zip --output "$biosPath/rtp/2003/rpg2003.zip.tmp" && mv "$biosPath/rtp/2003/rpg2003.zip.tmp" "$biosPath/rtp/2003/rpg2003.zip" 
+	curl -L https://dl.degica.com/rpgmakerweb/run-time-packages/rpg2000_rtp_installer.exe --output "$biosPath/rtp/2000/rpg2000.zip.tmp" && mv "$biosPath/rtp/2000/rpg2000.zip.tmp" "$biosPath/rtp/2000/rpg2000.zip"
 
 	7z x "$biosPath/rtp/2003/rpg2003.zip" -o"$biosPath/rtp/2003" && rm "$biosPath/rtp/2003/rpg2003.zip"
 	7z x "$biosPath/rtp/2003/rpg2003_rtp_installer.exe" -o"$biosPath/rtp/2003" && rm "$biosPath/rtp/2003/rpg2003_rtp_installer.exe"
@@ -1560,15 +1575,15 @@ RetroArch_retroAchievementsPromptLogin(){
 			ans=$?
 	if [ $ans -eq 0 ]; then
 		echo "RetroAchievment Login"
-		echo "$RAInput" | awk -F "," '{print $1}' > "$HOME/emudeck/.rau"
-		echo "$RAInput" | awk -F "," '{print $2}' > "$HOME/emudeck/.rap"
+		echo "$RAInput" | awk -F "," '{print $1}' > "$HOME/.config/EmuDeck/.rau"
+		echo "$RAInput" | awk -F "," '{print $2}' > "$HOME/.config/EmuDeck/.rap"
 	else
 		echo "Cancel RetroAchievment Login" 
 	fi
 }
 RetroArch_retroAchievementsSetLogin(){
-	rap=$(cat ~/emudeck/.rap)
-	rau=$(cat ~/emudeck/.rau)
+	rap=$(cat $HOME/.config/EmuDeck/.rap)
+	rau=$(cat $HOME/.config/EmuDeck/.rau)
 	echo "Evaluate RetroAchievements Login."
 	if [ ${#rap} -lt 1 ]; then
 		echo "--No password."

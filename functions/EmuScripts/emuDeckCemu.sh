@@ -30,7 +30,7 @@ Cemu_install(){
 	
 
 	cp "$EMUDECKGIT/tools/launchers/cemu.sh" "${toolsPath}/launchers/cemu.sh"
-	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|" "${toolsPath}/launchers/cemu.sh"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/cemu.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/cemu.sh"
 
 	if [[ "$launchLine"  == *"PROTONLAUNCH"* ]]; then
@@ -52,7 +52,7 @@ Cemu_init(){
 	if [ -e "$Cemu_cemuSettings.bak" ]; then
 		mv -f "$Cemu_cemuSettings.bak" "$Cemu_cemuSettings" #retain cemuSettings
 	fi
-    Cemu_setEmulationFolder
+	Cemu_setEmulationFolder
 	Cemu_setupSaves
 	Cemu_addSteamInputProfile
 
@@ -61,8 +61,8 @@ Cemu_init(){
 #update
 Cemu_update(){
 	setMSG "Updating $Cemu_emuName settings."	
-    rsync -avhp "$EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu" --ignore-existing
-    Cemu_setEmulationFolder
+	rsync -avhp "$EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu" --ignore-existing
+	Cemu_setEmulationFolder
 	Cemu_setupSaves
 	Cemu_addSteamInputProfile
 }
@@ -73,11 +73,13 @@ Cemu_setEmulationFolder(){
 	setMSG "Setting $Cemu_emuName Emulation Folder"	
 	
 	if [[ -f "${Cemu_cemuSettings}" ]]; then
-		#Correct Folder seperators to windows based ones
-		WindowsRomPath=${echo "z:${romsPath}/wiiu/roms" | sed 's/\//\\/g'}
-		gamePathEntryFound=$(grep -rnw "$Cemu_cemuSettings" -e "${WindowsRomPath}")
+	#Correct Folder seperators to windows based ones
+		#WindowsRomPath=${echo "z:${romsPath}/wiiu/roms" | sed 's/\//\\/g'}
+		#gamePathEntryFound=$(grep -rnw "$Cemu_cemuSettings" -e "${WindowsRomPath}")
+		gamePathEntryFound=$(grep -rnw "$Cemu_cemuSettings" -e "z:${romsPath}/wiiu/roms")
 		if [[ $gamePathEntryFound == '' ]]; then 
-			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "${WindowsRomPath}" "$Cemu_cemuSettings"
+			#xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "${WindowsRomPath}" "$Cemu_cemuSettings"
+			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}/wiiu/roms" "$Cemu_cemuSettings"
 		fi
 	fi
 }
@@ -106,17 +108,17 @@ Cemu_wipeSettings(){
 #Uninstall
 Cemu_uninstall(){
 	setMSG "Uninstalling $Cemu_emuName."
-    rm -rf "${Cemu_emuPath}"
+	rm -rf "${Cemu_emuPath}"
 }
 
 #setABXYstyle
 Cemu_setABXYstyle(){
-    	echo "NYI"
+		echo "NYI"
 }
 
 #Migrate
 Cemu_migrate(){
-   	echo "NYI" 
+	   echo "NYI" 
 }
 
 #WideScreenOn
@@ -141,7 +143,7 @@ Cemu_bezelOff(){
 
 #finalExec - Extra stuff
 Cemu_finalize(){
-    Cemu_cleanup
+	Cemu_cleanup
 }
 
 Cemu_addSteamInputProfile(){

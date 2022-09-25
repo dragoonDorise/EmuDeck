@@ -31,5 +31,6 @@ createDesktopIcons(){
 	  Categories=Game
 	  StartupNotify=false" > $HOME/.local/share/applications/EmuDeck.desktop
 	  chmod +x $HOME/.local/share/applications/EmuDeck.desktop	
+	  
 	
 }

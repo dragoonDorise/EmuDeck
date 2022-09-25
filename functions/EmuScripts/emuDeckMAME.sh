@@ -39,19 +39,49 @@ MAME_setEmulationFolder(){
   	
     gameDirOpt='rompath                   '
     newGameDirOpt="$gameDirOpt""${romsPath}/arcade;${biosPath};${biosPath}/mame"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$MAME_configFile"
+	changeLine "$gameDirOpt" "$newGameDirOpt" "$MAME_configFile"
+
+	samplepathOpt='samplepath                '
+	newSamplepathOpt="$samplepathOpt""$storagePath/mame/samples;"'$HOME/.mame/samples;/app/share/mame/samples'
+	changeLine "$samplepathOpt" "$newSamplepathOpt" "$MAME_configFile"
+
+	artpathOpt='artpath                   '
+	newArtpathOpt="$artpathOpt""$storagePath/mame/artwork;"'$HOME/.mame/artwork;/app/share/mame/artwork'
+	changeLine "$artpathOpt" "$newArtpathOpt" "$MAME_configFile"
+
+	ctrlrpathOpt='ctrlrpath                 '
+	newctrlrpathOpt="$ctrlrpathOpt""$storagePath/mame/ctrlr;"'$HOME/.mame/ctrlr;/app/share/mame/ctrlr'
+	changeLine "$ctrlrpathOpt" "$newctrlrpathOpt" "$MAME_configFile"
+
+	inipathOpt='inipath                   '
+	newinipathOpt="$inipathOpt""$storagePath/mame/ini;"'$HOME/.mame/ini;/app/share/mame/ini'
+	changeLine "$inipathOpt" "$newinipathOpt" "$MAME_configFile"
+
 }
 
 #SetupSaves
 MAME_setupSaves(){
-	linkToSaveFolder MAME saves "$HOME/.mame/nvram"
-	linkToSaveFolder MAME states "$HOME/.mame/sta"
+
+	nvram_directoryOpt='nvram_directory           '
+	newnvram_directoryOpt="$nvram_directoryOpt""$savesPath/mame/saves"
+	changeLine "$nvram_directoryOpt" "$newnvram_directoryOpt" "$MAME_configFile"
+
+	state_directoryOpt='state_directory           '
+	newstate_directoryOpt="$state_directoryOpt""$savesPath/mame/states"
+	changeLine "$state_directoryOpt" "$newstate_directoryOpt" "$MAME_configFile"
+
+	moveSaveFolder MAME saves "$HOME/.mame/nvram"
+	moveSaveFolder MAME states "$HOME/.mame/sta"
 }
 
 
 #SetupStorage
 MAME_setupStorage(){
-	echo "NYI"
+	mkdir -p "$storagePath/mame/samples"
+	mkdir -p "$storagePath/mame/artwork"
+	mkdir -p "$storagePath/mame/ctrlr"
+	mkdir -p "$storagePath/mame/ini"
+
 }
 
 
