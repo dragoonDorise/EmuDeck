@@ -14,8 +14,8 @@ Dolphin_cleanup(){
 Dolphin_install(){
     setMSG "${Dolphin_emuName}: Install"
     echo ""
-	installEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"	
-	flatpak override "${Dolphin_emuPath}" --filesystem=host --user	
+	installEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"
+	flatpak override "${Dolphin_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
@@ -23,6 +23,7 @@ Dolphin_init(){
     setMSG "${Dolphin_emuName}: Apply initial config"
     echo ""
 	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}" "true"
+	Dolphin_migrate
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
@@ -33,6 +34,7 @@ Dolphin_update(){
     setMSG "${Dolphin_emuName}: Apply configuration Update"
     echo ""
 	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"
+    Dolphin_migrate
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
@@ -57,7 +59,7 @@ Dolphin_setupSaves(){
     echo ""
 	linkToSaveFolder dolphin GC "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC"
 	linkToSaveFolder dolphin Wii "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii"
-	linkToSaveFolder dolphin states "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/states"
+	moveSaveFolder dolphin states "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves"
 }
 
 
@@ -81,12 +83,12 @@ Dolphin_uninstall(){
 
 #setABXYstyle
 Dolphin_setABXYstyle(){
-   	echo "NYI" 
+   	echo "NYI"
 }
 
 #Migrate
 Dolphin_migrate(){
-    	echo "NYI"
+    migrateDolphinStates "dolphin" "org.DolphinEmu.dolphin-emu"
 }
 
 #WideScreenOn
