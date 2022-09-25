@@ -3191,7 +3191,7 @@
       "steamCategory": "${PlayStation Vita}",
       "steamDirectory": "/home/deck/.steam/steam",
       "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psvita",
-      "executableArgs": "-F -r\"${/.*\\/([^\\/]+)\\//|${filePath}}\"",
+      "executableArgs": "-Fr \"${/.*\\/([^\\/]+)\\//|${filePath}}\"",
       "executableModifier": "\"${exePath}\"",
       "startInDirectory": "",
       "titleModifier": "${fuzzyTitle}",
