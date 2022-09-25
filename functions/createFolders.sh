@@ -15,11 +15,11 @@ createFolders(){
 	
 	unlink "$emulationPath"/hdpacks/Mesen 2>/dev/null #refresh link if moved
 	ln -s "$biosPath"/HdPacks/ "$emulationPath"/hdpacks/Mesen
-	echo "Put your Mesen HD Packs here. Remember to put the pack inside a folder here with the exact name of the rom" > "$biosPath"/HdPacks/readme.txt
+	echo "Put your Mesen HD Packs here. Remember to put the pack inside a folder here with the exact name of the rom" > "$emulationPath"/hdpacks/Mesen/readme.txt
 	
-	unlink "$emulationPath"/hdpacks/mupen64plus_next 2>/dev/null #refresh link if moved
-	ln -s "$biosPath"/cache/ "$emulationPath"/hdpacks/mupen64plus_next
-	echo "Put your Nintendo64 HD Packs here in HTS format" > "$biosPath"/HdPacks/readme.txt
+	unlink "$emulationPath"/hdpacks/Mupen64plus_next 2>/dev/null #refresh link if moved
+	ln -s "$biosPath"/cache/ "$emulationPath"/hdpacks/Mupen64plus_next
+	echo "Put your Nintendo64 HD Packs here in HTS format. You can download them from https://emulationking.com/nintendo64/" > "$emulationPath"/hdpacks/Mupen64plus_next/readme.txt
 	
 	##Generate rom folders
 	setMSG "Creating roms folder in $romsPath"
