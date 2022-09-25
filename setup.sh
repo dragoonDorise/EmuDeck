@@ -69,7 +69,7 @@ rm -rf ~/emudeck/backend
 #Creating log file
 LOGFILE="$HOME/emudeck/emudeck.log"
 
-echo "Press the button to start..." > $HOME/.config/EmuDeck/chdtool.log
+echo "Press the button to start..." > "$LOGFILE"
 
 mv "${LOGFILE}" "$HOME/emudeck/emudeck.last.log" #backup last log
 
