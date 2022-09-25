@@ -3184,5 +3184,137 @@
     },
     "parserId": "166399570436769358",
     "version": 10
+  },
+  {
+      "parserType": "Glob",
+      "configTitle": "Sony PlayStation Vita Installed PKG",
+      "steamCategory": "${PlayStation Vita}",
+      "steamDirectory": "/home/deck/.steam/steam",
+      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psvita",
+      "executableArgs": "-F  -r  ${/.*\\/([^\\/]+)\\//|${filePath}}",
+      "executableModifier": "\"${exePath}\"",
+      "startInDirectory": "",
+      "titleModifier": "${fuzzyTitle}",
+      "imageProviders": [
+          "SteamGridDB"
+      ],
+      "onlineImageQueries": "${${fuzzyTitle}}",
+      "imagePool": "${fuzzyTitle}",
+      "defaultImage": "",
+      "defaultTallImage": "",
+      "defaultHeroImage": "",
+      "defaultLogoImage": "",
+      "defaultIcon": "",
+      "localImages": "",
+      "localTallImages": "",
+      "localHeroImages": "",
+      "localLogoImages": "",
+      "localIcons": "",
+      "userAccounts": {
+          "specifiedAccounts": "",
+          "skipWithMissingDataDir": true,
+          "useCredentials": true
+      },
+      "executable": {
+          "path": "/home/deck/Applications/Vita3K/Vita3K",
+          "shortcutPassthrough": false,
+          "appendArgsToExecutable": true
+      },
+      "parserInputs": {
+          "glob": "**/${title}/@(eboot.bin|EBOOT.BIN)"
+      },
+      "titleFromVariable": {
+          "limitToGroups": "${PSV}",
+          "caseInsensitiveVariables": true,
+          "skipFileIfVariableWasNotFound": false,
+          "tryToMatchTitle": true
+      },
+      "fuzzyMatch": {
+          "replaceDiacritics": true,
+          "removeCharacters": true,
+          "removeBrackets": true
+      },
+      "imageProviderAPIs": {
+          "SteamGridDB": {
+              "nsfw": false,
+              "humor": false,
+              "styles": [],
+              "stylesHero": [],
+              "stylesLogo": [],
+              "stylesIcon": [],
+              "imageMotionTypes": [
+                  "static"
+              ]
+          }
+      },
+      "parserId": "166409089761171238",
+      "version": 10,
+      "disabled": false
+  },
+  {
+      "parserType": "Glob",
+      "configTitle": "Sony PlayStation Vita vpk/zip",
+      "steamCategory": "${PlayStation Vita}",
+      "steamDirectory": "/home/deck/.steam/steam",
+      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psvita",
+      "executableArgs": "-F  ${filePath}",
+      "executableModifier": "\"${exePath}\"",
+      "startInDirectory": "",
+      "titleModifier": "${fuzzyTitle}",
+      "imageProviders": [
+          "SteamGridDB"
+      ],
+      "onlineImageQueries": "${${fuzzyTitle}}",
+      "imagePool": "${fuzzyTitle}",
+      "defaultImage": "",
+      "defaultTallImage": "",
+      "defaultHeroImage": "",
+      "defaultLogoImage": "",
+      "defaultIcon": "",
+      "localImages": "",
+      "localTallImages": "",
+      "localHeroImages": "",
+      "localLogoImages": "",
+      "localIcons": "",
+      "userAccounts": {
+          "specifiedAccounts": "",
+          "skipWithMissingDataDir": true,
+          "useCredentials": true
+      },
+      "executable": {
+          "path": "/home/deck/Applications/Vita3K/Vita3K",
+          "shortcutPassthrough": false,
+          "appendArgsToExecutable": true
+      },
+      "parserInputs": {
+          "glob": "**/${title}@(.zip|.ZIP|.vpk|.VPK)"
+      },
+      "titleFromVariable": {
+          "limitToGroups": "",
+          "caseInsensitiveVariables": false,
+          "skipFileIfVariableWasNotFound": false,
+          "tryToMatchTitle": false
+      },
+      "fuzzyMatch": {
+          "replaceDiacritics": true,
+          "removeCharacters": true,
+          "removeBrackets": true
+      },
+      "imageProviderAPIs": {
+          "SteamGridDB": {
+              "nsfw": false,
+              "humor": false,
+              "styles": [],
+              "stylesHero": [],
+              "stylesLogo": [],
+              "stylesIcon": [],
+              "imageMotionTypes": [
+                  "static"
+              ]
+          }
+      },
+      "parserId": "166413528824617122",
+      "version": 10,
+      "disabled": false
   }
 ]
