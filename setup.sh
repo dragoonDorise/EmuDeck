@@ -478,9 +478,6 @@ else
 	#Snes and NES
 	case $arSnes in
 	  "87")
-		  if [ "$RABezels" == true ]; then	
-			  RetroArch_snes_bezelOn
-		  fi
 		RetroArch_snes_ar87
 		RetroArch_nes_ar87
 	  ;;
