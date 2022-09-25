@@ -156,6 +156,7 @@ ESDE_setDefaultEmulators(){
 	ESDE_setEmu 'Beetle Lynx' atarilynx
 	ESDE_setEmu 'Duckstation (Standalone)' psx
 	ESDE_setEmu 'Yabause' saturn
+	ESDE_setEmu 'ScummVM (Standalone)' scummvm
 }
 
 
