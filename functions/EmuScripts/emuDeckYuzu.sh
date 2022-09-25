@@ -84,7 +84,7 @@ Yuzu_setEmulationFolder(){
 
     #Setup Bios symlinks
     unlink "${biosPath}/yuzu/keys" 2>/dev/null
-    unlink "${biosPath}/yuzu/firmware"2>/dev/null
+    unlink "${biosPath}/yuzu/firmware" 2>/dev/null
 
     mkdir -p "$HOME/.local/share/yuzu/keys/"
     mkdir -p "${storagePath}/yuzu/nand/system/Contents/registered/"
