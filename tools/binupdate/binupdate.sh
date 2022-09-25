@@ -46,7 +46,7 @@ updateCemu(){
             --column="Release" \
             "${releaseTable[@]}" 2>/dev/null)
 
-            curl "$releaseChoice" --output "$romsPath/wiiu/cemu.zip"
+            curl -L "$releaseChoice" --output "$romsPath/wiiu/cemu.zip"
 
 
             mkdir -p "$romsPath/wiiu/tmp"
