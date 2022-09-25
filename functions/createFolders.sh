@@ -19,7 +19,7 @@ createFolders(){
 	
 	unlink "$emulationPath"/hdpacks/mupen64plus_next 2>/dev/null #refresh link if moved
 	ln -s "$biosPath"/cache/ "$emulationPath"/hdpacks/mupen64plus_next
-	echo "Put your Nintendo64 HD Packs here. Remember to put the pack inside a folder here with the exact name of the rom" > "$biosPath"/HdPacks/readme.txt
+	echo "Put your Nintendo64 HD Packs here in HTS format" > "$biosPath"/HdPacks/readme.txt
 	
 	##Generate rom folders
 	setMSG "Creating roms folder in $romsPath"
