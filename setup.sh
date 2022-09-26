@@ -69,11 +69,18 @@ rm -rf ~/emudeck/backend
 #Creating log file
 LOGFILE="$HOME/emudeck/emudeck.log"
 
+mkdir -p "$HOME/emudeck"
+
 echo "Press the button to start..." > "$LOGFILE"
 
 mv "${LOGFILE}" "$HOME/emudeck/emudeck.last.log" #backup last log
 
-echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
+if echo "${@}" > "${LOGFILE}" ; then
+	echo "Log created"
+else
+	exit
+fi
+
 exec > >(tee "${LOGFILE}") 2>&1
 date "+%Y.%m.%d-%H:%M:%S %Z"
 #Mark if this not a fresh install
