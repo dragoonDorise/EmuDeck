@@ -11,7 +11,7 @@ if [ "$?" == "1" ]; then
 fi
 
 updateCemu(){
-     releasesStr=$(curl -sL https://cemu.info | awk 'BEGIN{
+    local releasesStr=$(curl -sL https://cemu.info | awk 'BEGIN{
             RS="</a>"
             IGNORECASE=1
             }
@@ -27,7 +27,7 @@ updateCemu(){
 
             mapfile -t releases <<< "$releasesStr"
 
-            releaseTable=()
+         local   releaseTable=()
             for release in "${releases[@]}"; do
                 releaseTable+=(false "$release")
                 echo "release: $release"
@@ -35,7 +35,7 @@ updateCemu(){
 
             releaseTable+=(false "$(getReleaseURLGH "cemu-project/Cemu" "windows-x64.zip")")
 
-            releaseChoice=$(zenity --list \
+         local   releaseChoice=$(zenity --list \
             --title="EmuDeck" \
             --height=500 \
             --width=500 \
@@ -99,64 +99,75 @@ updateCemu(){
     if [ $ans -eq 0 ]; then
         echo "User selected: $binsToDL"
         if [[ "$binsToDL" == *"esde"* ]]; then
-            ESDE_install
-            if [ "$?" == "0" ]; then
+            if ESDE_install; then
                 messages+=("EmulationStation-DE Updated Successfully")
             else
                 messages+=("There was a problem updating EmulationStation-DE")
             fi
         fi
         if [[ "$binsToDL" == *"srm"* ]]; then
-            SRM_install
-            if [ "$?" == "0" ]; then
+            if SRM_install; then
                 messages+=("SteamRomManager Updated Successfully")
             else
                 messages+=("There was a problem updating SteamRomManager")
             fi
         fi
         if [[ "$binsToDL" == *"yuzu"* ]]; then
-            Yuzu_install
-            if [ "$?" == "0" ]; then
+            if Yuzu_install; then
                 messages+=("Yuzu Updated Successfully")
             else
                 messages+=("There was a problem updating Yuzu")
             fi
         fi
         if [[ "$binsToDL" == *"pcsx2-qt"* ]]; then
-            PCSX2QT_install
-            if [ "$?" == "0" ]; then
+            if PCSX2QT_install; then
                 messages+=("PCSX2-QT Updated Successfully")
             else
                 messages+=("There was a problem updating PCSX2-QT")
             fi
         fi
         if [[ "$binsToDL" == *"ryujinx"* ]]; then
-            Ryujinx_install
-            if [ "$?" == "0" ]; then
+            if Ryujinx_install; then
                 messages+=("Ryujinx Updated Successfully")
             else
                 messages+=("There was a problem updating Ryujinx")
             fi
         fi
         if [[ "$binsToDL" == *"cemu"* ]]; then
-            updateCemu
-            if [ "$?" == "0" ]; then
+            
+            if updateCemu; then
                 messages+=("Cemu Updated Successfully")
             else
                 messages+=("There was a problem updating Cemu")
             fi
         fi
         if [[ "$binsToDL" == *"vita3k"* ]]; then
-            Vita3K_install
-            if [ "$?" == "0" ]; then
+
+            if  Vita3K_install; then
                 messages+=("Vita3K Updated Successfully")
             else
                 messages+=("There was a problem updating Vita3K")
             fi
         fi
         if [[ "$binsToDL" == *"xenia"* ]]; then
-            Xenia_install
-            if [ "$?" == "0" ]; then
+
+            zenity --question \
+                --title="Xenia Version" \
+                --width=250 \
+                --ok-label="Master (stable)" \
+                --cancel-label="Canary (experimental)" \
+                --text="Which build would you like? " 2>/dev/null
+                ans=$?
+            if [[ $ans == 0 ]]; then
+                Xenia_install "master"
+            else
+                Xenia_install "canary"
+            fi
+            if if [[ $ans == 0 ]]; then
+                Xenia_install "master"
+            else
+                Xenia_install "canary"
+            fi; then
                 messages+=("Xenia Updated Successfully")
             else
                 messages+=("There was a problem updating Xenia")
