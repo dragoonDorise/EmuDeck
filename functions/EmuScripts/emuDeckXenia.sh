@@ -3,7 +3,8 @@
 Xenia_emuName="Xenia"
 Xenia_emuType="windows"
 Xenia_emuPath="${romsPath}/xbox360/Xenia.exe"
-Xenia_releaseURL="https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip"
+Xenia_releaseURL_master="https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip"
+Xenia_releaseURL_canary="https://github.com/xenia-canary/xenia-canary/releases/latest/download/xenia_canary.zip"
 Xenia_XeniaSettings="${romsPath}/xbox360/settings.xml"
 
 #cleanupOlderThings
@@ -13,6 +14,16 @@ Xenia_cleanup(){
 
 #Install
 Xenia_install(){
+	local version
+	version=$1
+
+	if [[ "$version" == "master" ]]; then
+		Xenia_releaseURL="$Xenia_releaseURL_master"
+	else
+		Xenia_releaseURL="$Xenia_releaseURL_canary"
+	fi
+
+	
 	setMSG "Installing Xenia"		
 
 	curl -L "$Xenia_releaseURL" --output "$romsPath"/xbox360/xenia_master.zip 
@@ -26,7 +37,7 @@ Xenia_install(){
 #ApplyInitialSettings
 Xenia_init(){
 	setMSG "Initializing Xenia Config"
-	rsync -avhp $EMUDECKGIT/configs/xenia/ "$romsPath"/xbox360 
+	rsync -avhp "$EMUDECKGIT"/configs/xenia/ "$romsPath"/xbox360 
 }
 
 #update
