@@ -16,7 +16,7 @@ if [ $ans -eq 0 ]; then
 	romsPath="/run/media/mmcblk0p1/Emulation/roms"
 	toolsPath="/run/media/mmcblk0p1/Emulation/tools"
 	chdPath="${toolsPath}/chdconv/"
-
+	dolphinTool="/var/lib/flatpak/app/io.github.shiiion.primehack/current/active/files/bin/dolphin-tool"
 
 	#initialize log
 	TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
@@ -45,7 +45,7 @@ if [ $ans -eq 0 ]; then
 			searchFolderList+=("$romfolder")
 		fi
 	done
-	if [[ -f "/var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool" ]]; then #ensure tools are in place
+	if [[ -f "$dolphinTool" ]]; then #ensure tools are in place
         for romfolder in "${rvzfolderWhiteList[@]}"; do
             echo "Checking ${romsPath}/${romfolder}/"
             mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.gcm"  -o -type f -iname "*.iso")
@@ -156,7 +156,7 @@ if [ $ans -eq 0 ]; then
 
     for romfolder in "${romfolders[@]}"; do
         if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then			
-            find "$romsPath/$romfolder" -type f -iname "*.gcm"  -o -type f -iname "*.iso" | while read -r f; do echo "Converting: $f"; /var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz" > "$HOME/.config/EmuDeck/chdtool.log"  && rm -rf "$f"; done;
+            find "$romsPath/$romfolder" -type f -iname "*.gcm"  -o -type f -iname "*.iso" | while read -r f; do echo "Converting: $f"; "$dolphinTool" convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz" > "$HOME/.config/EmuDeck/chdtool.log"  && rm -rf "$f"; done;
         fi
     done
 
@@ -172,7 +172,7 @@ fi
 echo "All files compressed!" > "$HOME/.config/EmuDeck/chdtool.log"
 
 if [ "$uiMode" != 'zenity' ]; then
- text="`printf " <b>All files have been compressed!</b>"`"
+ text="$(printf " <b>All files have been compressed!</b>")"
 zenity --info \
 	 --title="EmuDeck" \
 	 --width="450" \
