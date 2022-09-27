@@ -1,4 +1,9 @@
 #!/bin/sh
+
+LC_ALL=en_US.UTF-8
+LANG=en_US.UTF-8
+LC_TIME=en_US.UTF-8
+
 emuName="Vita3K" #parameterize me
 emufolder="$HOME/Applications/Vita3K" # has to be applications for ES-DE to find it
 
