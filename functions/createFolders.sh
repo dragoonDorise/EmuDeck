@@ -9,7 +9,7 @@ createFolders(){
 	mkdir -p "$storagePath"
 	mkdir -p "$biosPath"/yuzu
 	mkdir -p "$biosPath"/HdPacks
-	mkdir -p "$biosPath"/cache
+	mkdir -p "$biosPath"/Mupen64plus/cache
 	mkdir -p "$emulationPath"/hdpacks
 	
 	
