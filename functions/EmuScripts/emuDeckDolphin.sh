@@ -106,7 +106,7 @@ Dolphin_setABXYstyle(){
 
 #Migrate
 Dolphin_migrate(){
-
+   	echo "NYI" 
 }
 
 #WideScreenOn
