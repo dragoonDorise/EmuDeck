@@ -22,17 +22,19 @@ Help () {
 set_env () {
     echo "Setting environment variables." >> "${LOGFILE}"
     # Set default data path if it isn't set, then include an appID
-    if [ -z ${STEAM_COMPAT_DATA_PATH+x} ] && ! [ -z ${PFX+x} ]; then
+    if [ -z ${STEAM_COMPAT_DATA_PATH+x} ] && [ -n "${PFX}" ]; then
         export STEAM_COMPAT_DATA_PATH="${PFX}"
     elif [ -z ${STEAM_COMPAT_DATA_PATH+x} ]; then
         export STEAM_COMPAT_DATA_PATH="${COMPATDATA}/${SteamAppId:-${APPID}}"
     fi
 
     # Set SteamAppId
-    if [ -z ${SteamAppId+x} ] && ! [ -z ${APPID+x} ]; then
-        export SteamAppId=${APPID}
-    elif [ -z ${SteamAppId+x} ]; then
-        export SteamAppId=0
+    if [ -z ${SteamAppId+x} ] || [ "${SteamAppId}" == 0 ]; then
+        if  [ -n "${APPID}" ]; then
+            export SteamAppId="${APPID}"
+        elif [ -z ${SteamAppId+x} ]; then
+            export SteamAppId=0
+        fi
     fi
 
     # Set default Steam Client path if it isn't
@@ -94,7 +96,7 @@ main () {
                         echo "COMPATDATA: ${COMPATDATA}" 
                     } >> "${LOGFILE}"
                 # If we can't find the default path, try the alternate one - loop here through all Steamapps?
-                elif [ -n "${ALTSTEAM+x}" ] && [ -f "${ALTSTEAM}/common/Proton ${PROTONVER}/proton" ]; then
+                elif [ -n "${ALTSTEAM}" ] && [ -f "${ALTSTEAM}/common/Proton ${PROTONVER}/proton" ]; then
                     PROTON="${ALTSTEAM}/common/Proton ${PROTONVER}/proton"
                     COMPATDATA="${ALTSTEAM}/compatdata"
                     {
@@ -132,7 +134,7 @@ main () {
         echo "Proton: ${PROTON}" >> "${LOGFILE}"
         echo "PFX: ${PFX}" >> "${LOGFILE}"
     # Try the Alt directory - loop here?
-    elif [ -z ${PROTON+x} ] && [ ! -z ${ALTSTEAM+x} ] && [ -f "${ALTSTEAM}/common/Proton 7.0/proton" ]; then
+    elif [ -z ${PROTON+x} ] && [ -n "${ALTSTEAM}" ] && [ -f "${ALTSTEAM}/common/Proton 7.0/proton" ]; then
         PROTON="${ALTSTEAM}/common/Proton 7.0/proton"
         PFX="${ALTSTEAM}/compatdata/${APPID}"
         echo "Proton: ${PROTON}" >> "${LOGFILE}"
@@ -146,7 +148,7 @@ main () {
     fi
 
     # Set PFX if not set
-    if [ -z ${PFX+x} ] && ! [ -z ${COMPATDATA+x} ]; then
+    if [ -z ${PFX+x} ] && [ -n "${COMPATDATA}" ]; then
         PFX="${COMPATDATA}/${APPID}"
         echo "PFX: ${PFX}" >> "${LOGFILE}"
     elif [ -z ${PFX+x} ]; then

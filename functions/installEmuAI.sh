@@ -14,7 +14,7 @@ installEmuAI(){
 
     rm -f "$HOME/Applications/$altName.AppImage" 
     mkdir -p "$HOME/Applications"
-    curl -L "$url" -o "$HOME/Applications/$altName.AppImage" 
+    curl -L "$url" -o "$HOME/Applications/$altName.AppImage.temp"  && mv "$HOME/Applications/$altName.AppImage.temp" "$HOME/Applications/$altName.AppImage" 
 	chmod +x "$HOME/Applications/$altName.AppImage" 
 
 

@@ -1,7 +1,8 @@
 #!/bin/bash
 #while this is in testing, i'm copying in the functions. once we leave the original repo in place and don't delete it, i'd like to use the functions we already made.
 
-source "$HOME/emudeck/backend/functions/all.sh"
+# shellcheck source=functions/all.sh
+source "$HOME/.config/EmuDeck/backend/functions/all.sh"
 if [ "$?" == "1" ]; then
     echo "functions could not be loaded."
     zenity --error \
@@ -10,7 +11,7 @@ if [ "$?" == "1" ]; then
 fi
 
 updateCemu(){
-     releasesStr=$(curl -sL https://cemu.info | awk 'BEGIN{
+    local releasesStr=$(curl -sL https://cemu.info | awk 'BEGIN{
             RS="</a>"
             IGNORECASE=1
             }
@@ -22,17 +23,19 @@ updateCemu(){
                 print $(o)
                 }
             }
-            }' | grep releases)
+            }' | grep releases| grep -v github)
 
             mapfile -t releases <<< "$releasesStr"
 
-            releaseTable=()
+         local   releaseTable=()
             for release in "${releases[@]}"; do
                 releaseTable+=(false "$release")
                 echo "release: $release"
             done
 
-            releaseChoice=$(zenity --list \
+            releaseTable+=(false "$(getReleaseURLGH "cemu-project/Cemu" "windows-x64.zip")")
+
+         local   releaseChoice=$(zenity --list \
             --title="EmuDeck" \
             --height=500 \
             --width=500 \
@@ -44,7 +47,7 @@ updateCemu(){
             --column="Release" \
             "${releaseTable[@]}" 2>/dev/null)
 
-            curl "$releaseChoice" --output "$romsPath/wiiu/cemu.zip"
+            curl -L "$releaseChoice" --output "$romsPath/wiiu/cemu.zip"
 
 
             mkdir -p "$romsPath/wiiu/tmp"
@@ -73,6 +76,7 @@ updateCemu(){
     binTable+=(TRUE "Nintendo Switch Emu" "ryujinx")
     binTable+=(TRUE "Sony PlayStation 2 Emu" "pcsx2-qt")
     binTable+=(TRUE "Nintendo WiiU Emu" "cemu")
+    binTable+=(TRUE "Sony PlayStation Vita Emu" "vita3k")
     binTable+=(FALSE "Xbox 360 Emu - TESTING ONLY" "xenia")
 
 #Binary selector
@@ -95,56 +99,75 @@ updateCemu(){
     if [ $ans -eq 0 ]; then
         echo "User selected: $binsToDL"
         if [[ "$binsToDL" == *"esde"* ]]; then
-            ESDE_install
-            if [ "$?" == "0" ]; then
+            if ESDE_install; then
                 messages+=("EmulationStation-DE Updated Successfully")
             else
                 messages+=("There was a problem updating EmulationStation-DE")
             fi
         fi
         if [[ "$binsToDL" == *"srm"* ]]; then
-            SRM_install
-            if [ "$?" == "0" ]; then
+            if SRM_install; then
                 messages+=("SteamRomManager Updated Successfully")
             else
                 messages+=("There was a problem updating SteamRomManager")
             fi
         fi
         if [[ "$binsToDL" == *"yuzu"* ]]; then
-            Yuzu_install
-            if [ "$?" == "0" ]; then
+            if Yuzu_install; then
                 messages+=("Yuzu Updated Successfully")
             else
                 messages+=("There was a problem updating Yuzu")
             fi
         fi
         if [[ "$binsToDL" == *"pcsx2-qt"* ]]; then
-            PCSX2QT_install
-            if [ "$?" == "0" ]; then
+            if PCSX2QT_install; then
                 messages+=("PCSX2-QT Updated Successfully")
             else
                 messages+=("There was a problem updating PCSX2-QT")
             fi
         fi
         if [[ "$binsToDL" == *"ryujinx"* ]]; then
-            Ryujinx_install
-            if [ "$?" == "0" ]; then
+            if Ryujinx_install; then
                 messages+=("Ryujinx Updated Successfully")
             else
                 messages+=("There was a problem updating Ryujinx")
             fi
         fi
         if [[ "$binsToDL" == *"cemu"* ]]; then
-            updateCemu
-            if [ "$?" == "0" ]; then
+            
+            if updateCemu; then
                 messages+=("Cemu Updated Successfully")
             else
                 messages+=("There was a problem updating Cemu")
             fi
         fi
+        if [[ "$binsToDL" == *"vita3k"* ]]; then
+
+            if  Vita3K_install; then
+                messages+=("Vita3K Updated Successfully")
+            else
+                messages+=("There was a problem updating Vita3K")
+            fi
+        fi
         if [[ "$binsToDL" == *"xenia"* ]]; then
-            Xenia_install
-            if [ "$?" == "0" ]; then
+
+            zenity --question \
+                --title="Xenia Version" \
+                --width=250 \
+                --ok-label="Master (stable)" \
+                --cancel-label="Canary (experimental)" \
+                --text="Which build would you like? " 2>/dev/null
+                ans=$?
+            if [[ $ans == 0 ]]; then
+                Xenia_install "master"
+            else
+                Xenia_install "canary"
+            fi
+            if if [[ $ans == 0 ]]; then
+                Xenia_install "master"
+            else
+                Xenia_install "canary"
+            fi; then
                 messages+=("Xenia Updated Successfully")
             else
                 messages+=("There was a problem updating Xenia")

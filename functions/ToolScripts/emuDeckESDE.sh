@@ -18,7 +18,7 @@ ESDE_install(){
 	setMSG "Installing $ESDE_toolName"		
 
     curl $ESDE_releaseURL --output "$toolsPath/latesturl.txt"
-    latestURL=$(grep "https://gitlab" "$toolsPath/latesturl.txt")
+    latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
 
     curl "$latestURL" --output "$ESDE_toolPath"
     rm "$toolsPath/latesturl.txt"
@@ -153,6 +153,10 @@ ESDE_setDefaultEmulators(){
 	ESDE_setEmu 'PCSX2 (Standalone)' ps2
 	ESDE_setEmu 'melonDS' nds
 	ESDE_setEmu 'Citra (Standalone)' n3ds
+	ESDE_setEmu 'Beetle Lynx' atarilynx
+	ESDE_setEmu 'Duckstation (Standalone)' psx
+	ESDE_setEmu 'Yabause' saturn
+	ESDE_setEmu 'ScummVM (Standalone)' scummvm
 }
 
 

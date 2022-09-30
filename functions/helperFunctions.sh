@@ -109,7 +109,7 @@ function testLocationValid(){
 
 function makeFunction(){
 
-	find "$HOME/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.cfg" | while read file
+	find "$HOME/.config/EmuDeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.cfg" | while read file
 		do
 			
 			folderOverride="$(basename "${file}")"
@@ -129,7 +129,7 @@ function makeFunction(){
 
 function deleteConfigs(){
 
-	find "$HOME/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.opt" -o -type f -iname "*.cfg"| while read file
+	find "$HOME/.config/EmuDeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.opt" -o -type f -iname "*.cfg"| while read file
 		do
 			rm "$file"
 		done
@@ -206,7 +206,7 @@ function updateOrAppendConfigLine(){
 function getEnvironmentDetails(){
 	local sdpath=$(getSDPath)
 	local sdValid=$(testLocationValid "sd" "$sdpath")
-	if [ -f "$HOME/emudeck/.finished" ]; then
+	if [ -f "$HOME/.config/EmuDeck/.finished" ]; then
 		firstRun="false"
 	else
 		firstRun="true"
@@ -248,6 +248,8 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupESDE=true")
 	defaultSettingsList+=("doSetupSRM=true")
 	defaultSettingsList+=("doSetupPCSX2QT=true")
+	defaultSettingsList+=("doSetupScummVM=true")
+	defaultSettingsList+=("doSetupVita3K=true")
 	#defaultSettingsList+=("doSetupMelon=true")
 	defaultSettingsList+=("doInstallSRM=true")
 	defaultSettingsList+=("doInstallESDE=true")
@@ -266,6 +268,8 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doInstallPPSSPP=true")
 	defaultSettingsList+=("doInstallXemu=true")
 	defaultSettingsList+=("doInstallPCSX2QT=true")
+	defaultSettingsList+=("doInstallScummVM=true")
+	defaultSettingsList+=("doInstallVita3K=true")
 	#defaultSettingsList+=("doInstallMelon=false")
 	defaultSettingsList+=("doInstallCHD=true")
 	defaultSettingsList+=("doInstallPowertools=false")
@@ -341,11 +345,11 @@ function checkForFile(){
 	done
 }
 
-
 function getLatestReleaseURLGH(){	
     local repository=$1
     local fileType=$2
-	local url
+	local url	
+	#local token=$(tokenGenerator)
 
     if [ "$url" == "" ]; then
         url="https://api.github.com/repos/${repository}/releases/latest"
@@ -359,6 +363,7 @@ function getReleaseURLGH(){
     local repository=$1
     local fileType=$2
 	local url
+	#local token=$(tokenGenerator)
 
     if [ "$url" == "" ]; then
         url="https://api.github.com/repos/$repository/releases"
@@ -419,6 +424,8 @@ function createDesktopShortcut(){
 	local exec=$3
 	local terminal=$4
 	local icon
+	
+	mkdir -p "$HOME/.local/share/applications/"
 	
 	mkdir -p "$HOME/.local/share/icons/emudeck/"
 	cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name")."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null

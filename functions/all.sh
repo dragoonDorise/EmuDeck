@@ -1,6 +1,6 @@
 #!/bin/bash
 if [[ "$EMUDECKGIT" == "" ]]; then
-    EMUDECKGIT="$HOME/emudeck/backend"
+    EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 fi
 
 #load helpers first, just in case
@@ -17,7 +17,7 @@ fi
 export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
 chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
 
-source "$EMUDECKGIT"/functions/checkPSBIOS.sh
+source "$EMUDECKGIT"/functions/checkBIOS.sh
 source "$EMUDECKGIT"/functions/configEmuAI.sh
 source "$EMUDECKGIT"/functions/configEmuFP.sh
 source "$EMUDECKGIT"/functions/createDesktopIcons.sh
@@ -30,6 +30,8 @@ source "$EMUDECKGIT"/functions/migrateAndLinkConfig.sh
 source "$EMUDECKGIT"/functions/nonDeck.sh
 source "$EMUDECKGIT"/functions/dialogBox.sh
 source "$EMUDECKGIT"/functions/updateEmuFP.sh
+source "$EMUDECKGIT"/functions/createFolders.sh
+source "$EMUDECKGIT"/functions/runSRM.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
@@ -37,7 +39,8 @@ source "$EMUDECKGIT"/functions/ToolScripts/emuDeckPlugins.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSRM.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCHD.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckBINUP.sh
-source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSaveSync.sh
+#source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSaveSync.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckRemotePlayWhatever.sh
 
 #emuscripts
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh
@@ -55,6 +58,8 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckXemu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckXenia.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2QT.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMAME.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckScummVM.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckVita3K.sh
 
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMelonDS.sh

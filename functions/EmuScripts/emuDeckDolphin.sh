@@ -7,7 +7,25 @@ Dolphin_releaseURL=""
 
 #cleanupOlderThings
 Dolphin_cleanup(){
- echo "NYI"
+    #backup old Dolphin input profiles, if the user wants to keep them
+    #wii
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/SD-GyroAccelTouch.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/SD-GyroAccelTouch.ini.old"
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/SD-PkmBtlRev.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/SD-PkmBtlRev.ini.old"
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/SD-Touch+Joy.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/SD-Touch+Joy.ini.old"
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/SD-xbox.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/SD-xbox.ini.old"
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/stdxbox.ini"  "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/stdxbox.ini.old"
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/steamxb2.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/steamxb2.ini.old"
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/steamxb3.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/steamxb3.ini.old"
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/steamxb4.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/steamxb4.ini.old"
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/stock with mouse.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/stock with mouse.ini.old"
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/stock.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/stock.ini.old"
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/wiigalaxy.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/Wiimote/wiigalaxy.ini.old"
+    #GC
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/base.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/base.ini.old"
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam1.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam1.ini.old"
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam2.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam2.ini.old" 
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam3.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam3.ini.old"
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam4.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam4.ini.old"
 }
 
 #Install
@@ -26,6 +44,7 @@ Dolphin_init(){
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
+    Dolphin_cleanup
 }
 
 #update
@@ -36,13 +55,14 @@ Dolphin_update(){
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
+    Dolphin_cleanup
 }
 
 #ConfigurePaths
 Dolphin_setEmulationFolder(){
     setMSG "${Dolphin_emuName}: Configure Emulation folder"
     echo ""
-  	configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
+  	local configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
     gameDirOpt1='ISOPath0 = '
     gameDirOpt1Setting='ISOPath0 = '"${romsPath}/gc"
     gameDirOpt2='ISOPath1 = '
@@ -86,7 +106,7 @@ Dolphin_setABXYstyle(){
 
 #Migrate
 Dolphin_migrate(){
-    	echo "NYI"
+   	echo "NYI" 
 }
 
 #WideScreenOn
@@ -106,7 +126,7 @@ Dolphin_wideScreenOn(){
 Dolphin_wideScreenOff(){
     setMSG "${Dolphin_emuName}: Widescreen Off"
     echo ""
-    configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
+    local configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
     wideScreenHack='wideScreenHack = '
     wideScreenHackSetting='wideScreenHack = False'
     aspectRatio='AspectRatio = '

@@ -84,7 +84,7 @@ Yuzu_setEmulationFolder(){
 
     #Setup Bios symlinks
     unlink "${biosPath}/yuzu/keys" 2>/dev/null
-    unlink "${biosPath}/yuzu/firmware"2>/dev/null
+    unlink "${biosPath}/yuzu/firmware" 2>/dev/null
 
     mkdir -p "$HOME/.local/share/yuzu/keys/"
     mkdir -p "${storagePath}/yuzu/nand/system/Contents/registered/"
@@ -135,7 +135,7 @@ Yuzu_uninstall(){
 Yuzu_migrate(){
     echo "Begin Yuzu Migration"
     emu="Yuzu"
-    migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
+    migrationFlag="$HOME/.config/EmuDeck/.${emu}MigrationCompleted"
     #check if we have a nomigrateflag for $emu
     if [ ! -f "$migrationFlag" ]; then	
         #yuzu flatpak to appimage

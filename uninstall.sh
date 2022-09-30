@@ -17,7 +17,9 @@ doUninstallMame=true
 doUninstallSRM=true
 doUninstallESDE=true
 
-
+# LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
+# echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
+# exec > >(tee "${LOGFILE}") 2>&1
 
 # LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
 # echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
@@ -140,7 +142,7 @@ if [ "$doUninstall" == true ]; then
 	fi
 	
 	#Uninstalling
-	if [[ "$doUninstallRA" == true ]]; then
+	if [[ "$doUninstallRA" == true ]]; then		
 		flatpak uninstall org.libretro.RetroArch --system -y
 		rm -rf ~/.var/app/org.libretro.RetroArch &>> /dev/null	
 	fi
@@ -178,6 +180,7 @@ if [ "$doUninstall" == true ]; then
 		flatpak uninstall org.yuzu_emu.yuzu --system -y
 		rm -rf ~/.var/app/org.yuzu_emu.yuzu &>> /dev/null
 		rm -rf ~/Applications/yuzu.AppImage &>> /dev/null
+		rm -rf ~/.config/yuzu
 	fi
 	if [[ "$doUninstallRyujinx" == true ]]; then		
 		rm -rf ~/.config/Ryujinx &>> /dev/null
@@ -211,6 +214,9 @@ if [ "$doUninstall" == true ]; then
 	rm -rf ~/Desktop/EmuDeckBinUpdate.desktop &>> /dev/null
 	rm -rf ~/Desktop/SteamRomManager.desktop &>> /dev/null
 
+	rm -rf ~/Applications/EmuDeck.AppImage &>> /dev/null
+	rm -rf ~/Applications/EmuDeck_SaveSync.AppImage &>> /dev/null	
+	rm -rf ~/Applications/RemotePlayWhatever.AppImage &>> /dev/null
 	
 	rm -rf ~/.local/share/applications/Cemu.desktop &>> /dev/null
 	rm -rf ~/.local/share/applications/EmuDeck.desktop &>> /dev/null
@@ -218,6 +224,9 @@ if [ "$doUninstall" == true ]; then
 	rm -rf ~/.local/share/applications/Ryujinx.desktop &>> /dev/null
 	rm -rf ~/.local/share/applications/yuzu.desktop &>> /dev/null
 	
+	rm -rf ~/.config/steam-rom-manager
+	rm -rf ~/.config/EmuDeck
+
 	rm -rf ~/Emulation/bios &>> /dev/null
 	rm -rf ~/Emulation/hdpacks &>> /dev/null	
 	rm -rf ~/Emulation/saves &>> /dev/null	
