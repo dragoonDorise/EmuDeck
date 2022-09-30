@@ -97,10 +97,10 @@ checkSegaCDBios(){
 	done	
 		
 	
-	if [ $SEGACDBIOS == false ]; then
-		echo "false";
-	else
+	if [ $SEGACDBIOS == true ]; then
 		echo "true";
+	else
+		echo "false";
 	fi	
 	
 }
