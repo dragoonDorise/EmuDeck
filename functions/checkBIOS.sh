@@ -24,10 +24,10 @@ checkPS1BIOS(){
 	done	
 		
 	
-	if [ $PSXBIOS == false ]; then
-		echo "false";
-	else
+	if [ $PSXBIOS == true ]; then
 		echo "true";
+	else
+		echo "false";
 	fi	
 
 }
@@ -56,10 +56,10 @@ checkPS2BIOS(){
 	done	
 		
 		
-	if [ $PS2BIOS == false ]; then
-		echo "false";
-	else
+	if [ $PS2BIOS == true ]; then
 		echo "true";
+	else
+		echo "false";
 	fi	
 }
 
@@ -129,10 +129,10 @@ checkSaturnBios(){
 	done	
 		
 	
-	if [ $SATURNBIOS == false ]; then		
-		echo "false";
-	else
+	if [ $SATURNBIOS == true ]; then		
 		echo "true";
+	else
+		echo "false";
 	fi	
 	
 }
@@ -162,10 +162,10 @@ checkDreamcastBios(){
 	done	
 		
 	
-	if [ $BIOS == false ]; then		
-		echo "false";
-	else
+	if [ $BIOS == true ]; then		
 		echo "true";
+	else
+		echo "false";
 	fi	
 	
 }
@@ -194,10 +194,10 @@ checkDSBios(){
 	done	
 		
 	
-	if [ $BIOS == false ]; then		
-		echo "false";
-	else
+	if [ $BIOS == true ]; then		
 		echo "true";
+	else
+		echo "false";
 	fi	
 	
 }
