@@ -54,7 +54,7 @@ MAME_setEmulationFolder(){
 	changeLine "$ctrlrpathOpt" "$newctrlrpathOpt" "$MAME_configFile"
 
 	inipathOpt='inipath                   '
-	newinipathOpt="$inipathOpt""$storagePath/mame/ini;"'$HOME/.mame/ini;/app/share/mame/ini'
+	newinipathOpt="$inipathOpt""$storagePath/mame/ini;"'$HOME/.mame/ini;$HOME/.mame;/app/share/mame/ini'
 	changeLine "$inipathOpt" "$newinipathOpt" "$MAME_configFile"
 
 }
