@@ -910,6 +910,8 @@ RetroArch_saturn_CRTshaderOff(){
 
 RetroArch_snes_setConfig(){	
 	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'snes.cfg' 'Snes9x'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'snes.cfg' 'Snes9x'	'video_smooth' '"true"'
 }
 
 RetroArch_snes_bezelOn(){
