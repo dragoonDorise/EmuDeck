@@ -486,10 +486,14 @@ RetroArch_atari2600_bezelOff(){
 
 RetroArch_atari2600_CRTshaderOn(){
 	RetroArch_setOverride 'atari2600.cfg' 'Stella' 'video_shader_enable' 'true'
+	RetroArch_setOverride 'atari2600.cfg' 'Stella'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'atari2600.cfg' 'Stella'	'video_smooth' '"false"'
 }
 
 RetroArch_atari2600_CRTshaderOff(){
-	RetroArch_setOverride 'atari2600.cfg' 'Stella' 'video_shader_enable' '"false"'	
+	RetroArch_setOverride 'atari2600.cfg' 'Stella' 'video_shader_enable' '"false"'
+	RetroArch_setOverride 'atari2600.cfg' 'Stella'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'atari2600.cfg' 'Stella'	'video_smooth' '"true"'
 }
 
 RetroArch_mame_setConfig(){	
@@ -509,12 +513,22 @@ RetroArch_mame_bezelOff(){
 
 RetroArch_mame_CRTshaderOn(){
 	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'   'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'	'video_smooth' '"false"'
+
 	RetroArch_setOverride 'mame.cfg' 'MAME'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'mame.cfg' 'MAME'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'mame.cfg' 'MAME'	'video_smooth' '"false"'
 }
 
 RetroArch_mame_CRTshaderOff(){
 	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'	'video_smooth' '"true"'
+
 	RetroArch_setOverride 'mame.cfg' 'MAME'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'mame.cfg' 'MAME'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'mame.cfg' 'MAME'	'video_smooth' '"true"'
 }
 
 RetroArch_segacd_setConfig(){	
@@ -601,12 +615,22 @@ RetroArch_genesis_ar43(){
 
 RetroArch_genesis_CRTshaderOn(){
 	RetroArch_setOverride 'genesis.cfg' 'Genesis Plus GX'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'genesis.cfg' 'Genesis Plus GX'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'genesis.cfg' 'Genesis Plus GX'	'video_smooth' '"false"'
+
 	RetroArch_setOverride 'megadrive.cfg' 'Genesis Plus GX'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'megadrive.cfg' 'Genesis Plus GX'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'megadrive.cfg' 'Genesis Plus GX'	'video_smooth' '"false"'
 }
 
 RetroArch_genesis_CRTshaderOff(){
 	RetroArch_setOverride 'genesis.cfg' 'Genesis Plus GX'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'genesis.cfg' 'Genesis Plus GX'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'genesis.cfg' 'Genesis Plus GX'	'video_smooth' '"true"'
+
 	RetroArch_setOverride 'megadrive.cfg' 'Genesis Plus GX'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'megadrive.cfg' 'Genesis Plus GX'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'megadrive.cfg' 'Genesis Plus GX'	'video_smooth' '"true"'
 }
 
 RetroArch_gamegear_setConfig(){	
@@ -669,10 +693,14 @@ RetroArch_mastersystem_ar32(){
 
 RetroArch_mastersystem_CRTshaderOn(){
 	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'	'video_smooth' '"false"'
 }
 
 RetroArch_mastersystem_CRTshaderOff(){
 	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'	'video_smooth' '"true"'
 }
 
 RetroArch_mastersystem_ar43(){
