@@ -115,7 +115,11 @@ RetroArch_setOverride(){
 	local fullPath="$RetroArch_coreConfigFolders/$coreName"
 	local configFile="$fullPath/$fileName"
 
-	updateOrAppendConfigLine "$configFile" "$option =" "$settingLine" 
+	if [[ $value == 'ED_RM_LINE' ]]; then
+		sed '/^'"$option"'/d' "$configFile"
+	else
+		updateOrAppendConfigLine "$configFile" "$option =" "$settingLine"
+	fi
 }
 RetroArch_wswanc_setConfig(){	
 	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_player1_analog_dpad_mode' '"1"'
@@ -911,8 +915,6 @@ RetroArch_saturn_CRTshaderOff(){
 
 RetroArch_snes_setConfig(){	
 	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'input_player1_analog_dpad_mode' '"1"'
-	RetroArch_setOverride 'snes.cfg' 'Snes9x'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
-	RetroArch_setOverride 'snes.cfg' 'Snes9x'	'video_smooth' '"true"'
 }
 
 RetroArch_snes_bezelOn(){
@@ -929,10 +931,14 @@ RetroArch_snes_bezelOff(){
 
 RetroArch_snes_CRTshaderOn(){
 	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'snes.cfg' 'Snes9x'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'snes.cfg' 'Snes9x'	'video_smooth' '"false"'
 }
 
 RetroArch_snes_CRTshaderOff(){
 	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'snes.cfg' 'Snes9x'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'snes.cfg' 'Snes9x'	'video_smooth' '"true"'
 }
 
 RetroArch_snes_ar43(){
