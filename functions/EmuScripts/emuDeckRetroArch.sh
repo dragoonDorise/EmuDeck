@@ -116,7 +116,8 @@ RetroArch_setOverride(){
 	local configFile="$fullPath/$fileName"
 
 	if [[ $value == 'ED_RM_LINE' ]]; then
-		sed '/^'"$option"'/d' "$configFile"
+		echo "Deleting $option from $configFile"
+		sed -i '/^'"$option"'/d' "$configFile"
 	else
 		updateOrAppendConfigLine "$configFile" "$option =" "$settingLine"
 	fi
