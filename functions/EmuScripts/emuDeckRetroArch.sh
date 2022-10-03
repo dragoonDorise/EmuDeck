@@ -290,12 +290,22 @@ RetroArch_nes_bezelOff(){
 
 RetroArch_nes_CRTshaderOn(){
 	RetroArch_setOverride 'nes.cfg' 'Mesen'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'nes.cfg' 'Mesen'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'nes.cfg' 'Mesen'	'video_smooth' '"false"'
+
 	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'nes.cfg' 'Nestopia'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'nes.cfg' 'Nestopia'	'video_smooth' '"false"'
 }
 
 RetroArch_nes_CRTshaderOff(){
 	RetroArch_setOverride 'nes.cfg' 'Mesen'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'nes.cfg' 'Mesen'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'nes.cfg' 'Mesen'	'video_smooth' '"true"'
+	
 	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'nes.cfg' 'Nestopia'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'nes.cfg' 'Nestopia'	'video_smooth' '"true"'
 }
 
 RetroArch_nes_ar43(){
