@@ -179,7 +179,7 @@ source "$EMUDECKGIT/functions/all.sh"
 createFolders
 
 echo "Current Settings: "
-cat "$emuDecksettingsFile"
+cat "$emuDecksettingsFile" | grep -vi pass
 
 
 
@@ -551,9 +551,14 @@ RetroArch_setShadersCRT
 RetroArch_setShadersMAT
 
 #RetroAchievments
+echo "$achievementsUser" > "$HOME/.config/EmuDeck/.rau"
+echo "$achievementsPass" > "$HOME/.config/EmuDeck/.rap"
+RetroArch_retroAchievementsSetLogin
 if [ "$doRASignIn" == "true" ]; then
-	RetroArch_retroAchievementsPromptLogin
-	RetroArch_retroAchievementsSetLogin
+	#RetroArch_retroAchievementsPromptLogin
+	#echo "$achievementsUser" > "$HOME/.config/EmuDeck/.rau"
+	#echo "$achievementsPass" > "$HOME/.config/EmuDeck/.rap"
+	#RetroArch_retroAchievementsSetLogin
 	RetroArch_retroAchievementsOn
 fi
 
