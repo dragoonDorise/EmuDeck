@@ -551,13 +551,9 @@ RetroArch_setShadersCRT
 RetroArch_setShadersMAT
 
 #RetroAchievments
-echo "$achievementsUser" > "$HOME/.config/EmuDeck/.rau"
-echo "$achievementsPass" > "$HOME/.config/EmuDeck/.rap"
 RetroArch_retroAchievementsSetLogin
 if [ "$doRASignIn" == "true" ]; then
 	#RetroArch_retroAchievementsPromptLogin
-	#echo "$achievementsUser" > "$HOME/.config/EmuDeck/.rau"
-	#echo "$achievementsPass" > "$HOME/.config/EmuDeck/.rap"
 	#RetroArch_retroAchievementsSetLogin
 	RetroArch_retroAchievementsOn
 fi
