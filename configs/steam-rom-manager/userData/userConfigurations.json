@@ -2656,6 +2656,58 @@
   },
   {
     "parserType": "Glob",
+    "configTitle": "Sony PlayStation 3 - RPCS3(Flatpak) (Installed PKG)",
+    "steamCategory": "${PS3}",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/storage/rpcs3/dev_hdd0/game",
+    "executableArgs": "run net.rpcs3.RPCS3 --no-gui \"${filePath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+
+    "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/ps3.jpg",
+    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/ps3.jpg",
+    "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
+    "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "parserInputs": {
+      "glob": "**/${title}/USRDIR/@(eboot.bin|EBOOT.BIN)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "${PS3}",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": true
+    },
+    "fuzzyMatch": {
+      "use": null,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "parserId": "165182011334544893",
+    "version": 6
+  },
+  {
+    "parserType": "Glob",
     "configTitle": "Sony PlayStation Portable - Retroarch - PPSSPP",
     "steamCategory": "${PSP}",
     "executableModifier": "\"${exePath}\"",
@@ -2759,59 +2811,6 @@
     },
     "parserId": "164785656634747068",
     "version": 5
-  },
-
-  {
-    "parserType": "Glob",
-    "configTitle": "Sony PlayStation 3 - RPCS3(Flatpak) (Installed PKG)",
-    "steamCategory": "${PS3}",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/storage/rpcs3/dev_hdd0/game",
-    "executableArgs": "run net.rpcs3.RPCS3 --no-gui \"${filePath}\"",
-    "executableModifier": "\"${exePath}\"",
-    "startInDirectory": "",
-    "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
-    "onlineImageQueries": "${${fuzzyTitle}}",
-    "imagePool": "${fuzzyTitle}",
-
-    "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/ps3.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/ps3.jpg",
-    "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
-    "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
-    "localImages": "",
-    "localTallImages": "",
-    "localHeroImages": "",
-    "localLogoImages": "",
-    "localIcons": "",
-    "userAccounts": {
-      "specifiedAccounts": "",
-      "skipWithMissingDataDir": true,
-      "useCredentials": true
-    },
-    "executable": {
-      "path": "/usr/bin/flatpak",
-      "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
-    },
-    "parserInputs": {
-      "glob": "**/${title}/USRDIR/@(eboot.bin|EBOOT.BIN)"
-    },
-    "titleFromVariable": {
-      "limitToGroups": "${PS3}",
-      "caseInsensitiveVariables": false,
-      "skipFileIfVariableWasNotFound": false,
-      "tryToMatchTitle": true
-    },
-    "fuzzyMatch": {
-      "use": null,
-      "replaceDiacritics": true,
-      "removeCharacters": true,
-      "removeBrackets": true
-    },
-    "parserId": "165182011334544893",
-    "version": 6
   },
   {
     "parserType": "Glob",
@@ -2940,7 +2939,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "NEC PC Engine/TurboGrafx 16 - Retroarch(Flatpak) - Beetle PCE",
+    "configTitle": "PC Engine/TurboGrafx 16 - RA - Beetle PCE",
     "steamCategory": "${PCE}",
     "steamDirectory": "/home/deck/.steam/steam",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/pcengine",
@@ -3002,7 +3001,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "NEC PC Engine/TurboGrafx 16 - Retroarch(Flatpak) - Beetle PCE",
+    "configTitle": "PCE/TurboGrafx 16 CD - RA - Beetle PCE",
     "steamCategory": "${PCECD}",
     "steamDirectory": "/home/deck/.steam/steam",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/pcenginecd",
@@ -3253,11 +3252,11 @@
   },
   {
       "parserType": "Glob",
-      "configTitle": "Sony PlayStation Vita vpk/zip",
-      "steamCategory": "${PlayStation Vita}",
+      "configTitle": "Amstrad CPC - RA - Caprice32",
+      "steamCategory": "${Amstrad CPC}",
       "steamDirectory": "/home/deck/.steam/steam",
-      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psvita",
-      "executableArgs": "-F ${filePath}",
+      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/amstradcpc",
+      "executableArgs": "run org.libretro.RetroArch -L /cap32_libretro.so \"${filePath}\"",
       "executableModifier": "\"${exePath}\"",
       "startInDirectory": "",
       "titleModifier": "${fuzzyTitle}",
@@ -3282,12 +3281,12 @@
           "useCredentials": true
       },
       "executable": {
-          "path": "/home/deck/Applications/Vita3K/Vita3K",
+          "path": "/usr/bin/flatpak",
           "shortcutPassthrough": false,
           "appendArgsToExecutable": true
       },
       "parserInputs": {
-          "glob": "**/${title}@(.zip|.ZIP|.vpk|.VPK)"
+          "glob": "${title}@(.7z|.7Z|.cdt|.CDT|.dsk|.DSK|.sna|.SNA|.tap|.TAP|.voc|.VOC|.zip|.ZIP)"
       },
       "titleFromVariable": {
           "limitToGroups": "",
@@ -3313,8 +3312,7 @@
               ]
           }
       },
-      "parserId": "166413528824617122",
-      "version": 10,
-      "disabled": false
+      "parserId": "166486574949993186",
+      "version": 10
   }
 ]
