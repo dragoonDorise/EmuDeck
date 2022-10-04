@@ -1,0 +1,17 @@
+System name:
+psvita
+
+Full system name:
+Sony PlayStation Vita
+
+Supported file extensions:
+.psvita
+
+Launch command:
+%EMULATOR_VITA3K% -r %INJECT%=%BASENAME%.psvita
+
+Platform (for scraping):
+psvita
+
+Theme folder:
+psvita

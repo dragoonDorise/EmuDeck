@@ -1,0 +1,17 @@
+System name:
+odyssey2
+
+Full system name:
+Magnavox Odyssey2
+
+Supported file extensions:
+.bin .BIN .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/o2em_libretro.so %ROM%
+
+Platform (for scraping):
+odyssey2
+
+Theme folder:
+odyssey2

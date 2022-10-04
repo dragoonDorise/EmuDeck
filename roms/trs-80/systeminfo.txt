@@ -1,0 +1,21 @@
+System name:
+trs-80
+
+Full system name:
+Tandy TRS-80
+
+Supported file extensions:
+.cmd .CMD .dsk .DSK
+
+Launch command:
+%STARTDIR%=%GAMEDIR% %EMULATOR_SDL2TRS% -rom %ROMPATH%/trs-80/level2.rom -disk0 %ROMPATH%/trs-80/boot.dsk -disk1 %ROM%
+
+Alternative launch commands:
+%STARTDIR%=%GAMEDIR% %EMULATOR_SDL2TRS% -rom %ROMPATH%/trs-80/level2.rom -disk0 %ROM%
+%STARTDIR%=%GAMEDIR% %EMULATOR_SDL2TRS% -rom %ROMPATH%/trs-80/level2.rom %ROM%
+
+Platform (for scraping):
+trs-80
+
+Theme folder:
+trs-80

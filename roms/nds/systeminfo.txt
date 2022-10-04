@@ -1,0 +1,23 @@
+System name:
+nds
+
+Full system name:
+Nintendo DS
+
+Supported file extensions:
+.bin .BIN .nds .NDS .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/desmume_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/desmume2015_libretro.so %ROM%
+%EMULATOR_DESMUME% %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/melonds_libretro.so %ROM%
+%EMULATOR_MELONDS% %ROM%
+
+Platform (for scraping):
+nds
+
+Theme folder:
+nds
