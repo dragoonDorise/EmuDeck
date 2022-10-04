@@ -1628,11 +1628,12 @@ function RetroArch_dlAdditionalFiles(){
 
 function RetroArch_resetCoreConfigs(){
 
-	find "$RetroArch_coreConfigFolders" -type f -iname "*.cfg" -o -type f -iname "*.opt"| while read file
+	find "$RetroArch_coreConfigFolders" -type f -iname "*.cfg" -o -type f -iname "*.opt"| while read -r file
 		do
 			rm "$file"
 		done
 	RetroArch_init
+	echo "true"
 }
 
 RetroArch_autoSaveOn(){
