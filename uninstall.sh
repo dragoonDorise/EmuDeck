@@ -21,10 +21,6 @@ doUninstallESDE=true
 # echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
 # exec > >(tee "${LOGFILE}") 2>&1
 
-# LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
-# echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
-# exec > >(tee "${LOGFILE}") 2>&1
-
 #Wellcome
 text="`printf "<b>Hi!</b>\nDo you really want to uninstall EmuDeck?\n\nIf you are having issues please go to our Discord or Reddit so we can help you. You can see the links here: https://www.emudeck.com/#download"`"
 
@@ -213,7 +209,6 @@ if [ "$doUninstall" == true ]; then
 	rm -rf ~/Desktop/EmuDeckSD.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeckBinUpdate.desktop &>> /dev/null
 	rm -rf ~/Desktop/SteamRomManager.desktop &>> /dev/null
-
 	rm -rf ~/Applications/EmuDeck.AppImage &>> /dev/null
 	rm -rf ~/Applications/EmuDeck_SaveSync.AppImage &>> /dev/null	
 	rm -rf ~/Applications/RemotePlayWhatever.AppImage &>> /dev/null
@@ -226,7 +221,6 @@ if [ "$doUninstall" == true ]; then
 	
 	rm -rf ~/.config/steam-rom-manager
 	rm -rf ~/.config/EmuDeck
-
 	rm -rf ~/Emulation/bios &>> /dev/null
 	rm -rf ~/Emulation/hdpacks &>> /dev/null	
 	rm -rf ~/Emulation/saves &>> /dev/null	
