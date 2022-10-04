@@ -566,6 +566,12 @@ if [ "$doRAEnable" == "true" ]; then
 	RetroArch_retroAchievementsOn
 fi
 
+if [ "$achievementsHardcore" == "true" ]; then
+	RetroArch_retroAchievementsHardCoreOn
+else
+	RetroArch_retroAchievementsHardCoreOff
+fi
+
 
 #Sudo Required!
 
