@@ -8,7 +8,7 @@ expert=false
 #Default settings for all systems
 doSetupRA=true
 doSetupDolphin=true
-doSetupPCSX2=true
+doSetupPCSX2=false
 doSetupRPCS3=true
 doSetupYuzu=true
 doSetupCitra=true
@@ -16,7 +16,7 @@ doSetupDuck=true
 doSetupCemu=true
 doSetupXenia=false
 doSetupRyujinx=true
-doSetupMame=true
+doSetupMAME=true
 doSetupPrimeHacks=true
 doSetupPPSSPP=true
 doSetupXemu=true
