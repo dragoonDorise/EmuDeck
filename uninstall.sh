@@ -17,8 +17,6 @@ doUninstallMame=true
 doUninstallSRM=true
 doUninstallESDE=true
 
-
-
 # LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
 # echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
 # exec > >(tee "${LOGFILE}") 2>&1
@@ -221,11 +219,8 @@ if [ "$doUninstall" == true ]; then
 	rm -rf ~/.local/share/applications/Ryujinx.desktop &>> /dev/null
 	rm -rf ~/.local/share/applications/yuzu.desktop &>> /dev/null
 	
-	
 	rm -rf ~/.config/steam-rom-manager
 	rm -rf ~/.config/EmuDeck
-	
-	
 	rm -rf ~/Emulation/bios &>> /dev/null
 	rm -rf ~/Emulation/hdpacks &>> /dev/null	
 	rm -rf ~/Emulation/saves &>> /dev/null	
