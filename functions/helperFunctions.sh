@@ -109,7 +109,7 @@ function testLocationValid(){
 
 function makeFunction(){
 
-	find "$HOME/.config/EmuDeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.cfg" | while read file
+	find "$1" -type f -iname "$2" | while read -r file
 		do
 			
 			folderOverride="$(basename "${file}")"
