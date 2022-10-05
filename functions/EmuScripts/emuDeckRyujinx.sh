@@ -184,3 +184,15 @@ echo "NYI"
 Ryujinx_finalize(){
     echo "Begin Ryujinx finalize"
 }
+
+Ryujinx_IsInstalled(){
+	if [ -e "$Ryujinx_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+Ryujinx_resetConfig(){
+	Ryujinx_init &>/dev/null && echo "true" || echo "false"
+}
