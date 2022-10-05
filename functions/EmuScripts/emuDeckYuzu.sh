@@ -191,3 +191,14 @@ Yuzu_finalize(){
     Yuzu_cleanup
 }
 
+Yuzu_IsInstalled(){
+	if [ -e "$Yuzu_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+Yuzu_resetConfig(){
+	Yuzu_init &>/dev/null && echo "true" || echo "false"
+}
