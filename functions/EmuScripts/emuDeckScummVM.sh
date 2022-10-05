@@ -105,3 +105,14 @@ ScummVM_finalize(){
 	echo "NYI"
 }
 
+ScummVM_IsInstalled(){
+	if [ "$(flatpak --columns=app list | grep "$ScummVM_emuPath")" == "$ScummVM_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+ScummVM_resetConfig(){
+	ScummVM_init &>/dev/null && echo "true" || echo "false"
+}
