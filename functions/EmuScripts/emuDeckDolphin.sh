@@ -145,6 +145,17 @@ Dolphin_bezelOff(){
 echo "NYI"
 }
 
+Dolphin_IsInstalled(){
+	if [ "$(flatpak --columns=app list | grep "$Dolphin_emuPath")" == "$Dolphin_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+Dolphin_resetConfig(){
+	Dolphin_init &>/dev/null && echo "true" || echo "false"
+}
 #finalExec - Extra stuff
 Dolphin_finalize(){
 	echo "NYI"
