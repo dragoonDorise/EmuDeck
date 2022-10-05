@@ -122,3 +122,15 @@ echo "NYI"
 Vita3K_finalize(){
     echo "Begin Vita3K finalize"
 }
+
+Vita3K_IsInstalled(){
+	if [ -e "$Vita3K_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+Vita3K_resetConfig(){
+	Vita3K_init &>/dev/null && echo "true" || echo "false"
+}
