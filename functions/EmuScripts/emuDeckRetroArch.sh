@@ -1723,3 +1723,15 @@ RetroArch_setShadersMAT(){
 		RetroArch_MATshadersOffAll
 	fi	
 }
+
+RetroArch_IsInstalled(){
+	if [ "$(flatpak --columns=app list | grep "$RetroArch_emuPath")" == "$RetroArch_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+RetroArch_resetConfig(){
+	RetroArch_resetCoreConfigs &>/dev/null && RetroArch_init &>/dev/null && echo "true" || echo "false"
+}
