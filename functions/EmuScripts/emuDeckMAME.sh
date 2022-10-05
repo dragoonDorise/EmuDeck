@@ -126,6 +126,18 @@ MAME_bezelOff(){
 echo "NYI"
 }
 
+MAME_IsInstalled(){
+	if [ "$(flatpak --columns=app list | grep "$MAME_emuPath")" == "$MAME_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+MAME_resetConfig(){
+	MAME_init &>/dev/null && echo "true" || echo "false"
+}
+
 #finalExec - Extra stuff
 MAME_finalize(){
 	echo "NYI"
