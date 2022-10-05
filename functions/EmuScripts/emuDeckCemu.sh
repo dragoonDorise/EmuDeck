@@ -146,6 +146,19 @@ Cemu_finalize(){
 	Cemu_cleanup
 }
 
+Cemu_IsInstalled(){
+	if [ -e "$Cemu_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+Cemu_resetConfig(){
+	mv  "$Cemu_cemuSettings" "$Cemu_cemuSettings.bak" &>/dev/null
+	Cemu_init &>/dev/null && echo "true" || echo "false"
+}
+
 Cemu_addSteamInputProfile(){
 	setMSG "Adding $Cemu_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/cemu_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
