@@ -137,3 +137,14 @@ Xemu_finalize(){
 	echo "NYI"
 }
 
+Xemu_IsInstalled(){
+	if [ "$(flatpak --columns=app list | grep "$Xemu_emuPath")" == "$Xemu_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+Xemu_resetConfig(){
+	Xemu_init &>/dev/null && echo "true" || echo "false"
+}
