@@ -95,6 +95,18 @@ PPSSPP_bezelOff(){
 echo "NYI"
 }
 
+PPSSPP_IsInstalled(){
+	if [ "$(flatpak --columns=app list | grep "$PPSSPP_emuPath")" == "$PPSSPP_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+PPSSPP_resetConfig(){
+	PPSSPP_init &>/dev/null && echo "true" || echo "false"
+}
+
 #finalExec - Extra stuff
 PPSSPP_finalize(){
 	echo "NYI"
