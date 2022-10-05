@@ -118,3 +118,14 @@ RPCS3_finalize(){
 	echo "NYI"
 }
 
+RPCS3_IsInstalled(){
+	if [ "$(flatpak --columns=app list | grep "$RPCS3_emuPath")" == "$RPCS3_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+RPCS3_resetConfig(){
+	RPCS3_init &>/dev/null && echo "true" || echo "false"
+}
