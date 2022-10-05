@@ -107,6 +107,18 @@ Citra_finalize(){
 	echo "NYI"
 }
 
+Citra_IsInstalled(){
+	if [ "$(flatpak --columns=app list | grep "$Citra_emuPath")" == "$Citra_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+Citra_resetConfig(){
+	Citra_init &>/dev/null && echo "true" || echo "false"
+}
+
 Citra_addSteamInputProfile(){
 	rsync -r "$EMUDECKGIT/configs/steam-input/citra_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
