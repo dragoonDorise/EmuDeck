@@ -2,7 +2,7 @@
 #variables
 Cemu_emuName="Cemu"
 Cemu_emuType="windows"
-Cemu_emuPath="${romsPath}/wiiu/cemu.exe"
+Cemu_emuPath="${romsPath}/wiiu/Cemu.exe"
 Cemu_releaseURL="https://cemu.info/releases/cemu_1.27.1.zip"
 Cemu_cemuSettings="${romsPath}/wiiu/settings.xml"
 
