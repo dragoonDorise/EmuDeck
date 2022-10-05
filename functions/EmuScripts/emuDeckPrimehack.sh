@@ -96,6 +96,18 @@ Primehack_BezelOff(){
 echo "NYI"
 }
 
+Primehack_IsInstalled(){
+	if [ "$(flatpak --columns=app list | grep "$Primehack_emuPath")" == "$Primehack_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+Primehack_resetConfig(){
+	Primehack_init &>/dev/null && echo "true" || echo "false"
+}
+
 #finalExec - Extra stuff
 Primehack_finalize(){
 	echo "NYI"
