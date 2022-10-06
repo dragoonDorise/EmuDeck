@@ -97,9 +97,8 @@ ESDE_applyTheme(){
     fi
     echo "ESDE: applyTheme $theme"
     mkdir -p "$HOME/.emulationstation/themes/"
-	git clone https://github.com/dragoonDorise/es-theme-epicnoir.git "$HOME/.emulationstation/themes/es-epicnoir" >> /dev/null
-	cd "$HOME/.emulationstation/themes/es-epicnoir" && git reset --hard HEAD && git clean -f -d && git pull
-	echo -e "OK!"
+	git clone https://github.com/dragoonDorise/es-theme-epicnoir.git "$HOME/.emulationstation/themes/es-epicnoir" --depth=1
+	cd "$HOME/.emulationstation/themes/es-epicnoir" && git reset --hard HEAD && git clean -f -d && git pull && echo  "epicnoir up to date!" || echo "problem pulling epicnoir theme"
 	
 	if [[ "$theme" == *"EPICNOIR"* ]]; then
 		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="es-epicnoir" />' "$es_settingsFile" 
@@ -125,13 +124,13 @@ ESDE_setEmulationFolder(){
 
 	echo "updating $es_settingsFile"
 	#configure roms Directory
-	esDE_romDir="<string name=\"ROMDirectory\" value=\""${romsPath}"\" />" #roms
+	esDE_romDir="<string name=\"ROMDirectory\" value=\"${romsPath}\" />" #roms
 	
 	changeLine '<string name="ROMDirectory"' "${esDE_romDir}" "$es_settingsFile"
 
 	
 	#Configure Downloaded_media folder
-	esDE_MediaDir="<string name=\"MediaDirectory\" value=\""${ESDEscrapData}"\" />"
+	esDE_MediaDir="<string name=\"MediaDirectory\" value=\"${ESDEscrapData}\" />"
 	#search for media dir in xml, if not found, change to ours. If it's blank, also change to ours.
 	mediaDirFound=$(grep -rnw  "$es_settingsFile" -e 'MediaDirectory')
 	mediaDirEmpty=$(grep -rnw  "$es_settingsFile" -e '<string name="MediaDirectory" value="" />')
@@ -155,7 +154,7 @@ ESDE_setDefaultEmulators(){
 	ESDE_setEmu 'Citra (Standalone)' n3ds
 	ESDE_setEmu 'Beetle Lynx' atarilynx
 	ESDE_setEmu 'Duckstation (Standalone)' psx
-	ESDE_setEmu 'Yabause' saturn
+	ESDE_setEmu 'Beetle Saturn' saturn
 	ESDE_setEmu 'ScummVM (Standalone)' scummvm
 }
 
@@ -184,7 +183,7 @@ ESDE_migrateDownloadedMedia(){
 #finalExec - Extra stuff
 ESDE_finalize(){
    	#Symlinks for ESDE compatibility
-	cd $(echo $romsPath | tr -d '\r') 
+	cd $(echo $romsPath | tr -d '\r')
 	ln -sn gamecube gc 
 	ln -sn 3ds n3ds 
 	ln -sn arcade mamecurrent 
@@ -201,14 +200,14 @@ ESDE_setEmu(){
 	if [ ! -f "$gamelistFile" ]; then
 		mkdir -p "$HOME/.emulationstation/gamelists/$system" && cp "$EMUDECKGIT/configs/emulationstation/gamelists/$system/gamelist.xml" "$gamelistFile"
 	else
-		gamelistFound=$(grep -rnw $gamelistFile -e 'gameList')
+		gamelistFound=$(grep -rnw "$gamelistFile" -e 'gameList')
 		if [[ $gamelistFound == '' ]]; then
-			sed -i -e '$a\<gameList />' $gamelistFile
+			sed -i -e '$a\<gameList />' "$gamelistFile"
 		fi
-		alternativeEmu=$(grep -rnw $gamelistFile -e 'alternativeEmulator')
+		alternativeEmu=$(grep -rnw "$gamelistFile" -e 'alternativeEmulator')
 		if [[ $alternativeEmu == '' ]]; then
-			echo "<alternativeEmulator><label>$emu</label></alternativeEmulator>" >> $gamelistFile
+			echo "<alternativeEmulator><label>$emu</label></alternativeEmulator>" >> "$gamelistFile"
 		fi
-		sed -i "s|<?xml version=\"1.0\">|<?xml version=\"1.0\"?>|g" $gamelistFile
+		sed -i "s|<?xml version=\"1.0\">|<?xml version=\"1.0\"?>|g" "$gamelistFile"
 	fi
 }
