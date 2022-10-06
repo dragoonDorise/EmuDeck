@@ -23,6 +23,8 @@ createFolders(){
 	
 	##Generate rom folders
 	setMSG "Creating roms folder in $romsPath"
+	##remove old readme.txt
+	find "$romsPath" -name readme.txt -type f -delete -maxdepth 2
 	
 	sleep 3
 	rsync -r --ignore-existing "$EMUDECKGIT/roms/" "$romsPath" 
