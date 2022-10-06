@@ -578,17 +578,21 @@ fi
 
 
 #Sudo Required!
+if [ -n "$PASSWD" ]; then
+	pwstatus=0
+	echo "$PASSWD" | sudo -v -S &>/dev/null && pwstatus=1 || echo "sudo password was incorrect" #refresh sudo cache
+	if [ $pwstatus == 1 ]; then
+		if [ "$doInstallGyro" == "true" ]; then	
+			Plugins_installSteamDeckGyroDSU
+		fi
 
-if [ "$expert" == "true" ]; then
-	echo "$PASSWD" | sudo -v -S #refresh sudo cache
-	if [ "$doInstallGyro" == "true" ]; then	
-		Plugins_installSteamDeckGyroDSU
+		if [ "$doInstallPowertools" == "true" ]; then
+			Plugins_installPluginLoader
+			Plugins_installPowerTools
+		fi
 	fi
-
-	if [ "$doInstallPowertools" == "true" ]; then
-		Plugins_installPluginLoader
-		Plugins_installPowerTools
-	fi
+else
+	echo "no password supplied. Skipping gyro / powertools."
 fi
 
 #Always install
