@@ -127,7 +127,7 @@ if [[ "$uiMode" == 'zenity' || "$uiMode" == 'whiptail' ]]; then
 		mkdir -p "$EMUDECKGIT"
 	
 		#Cloning EmuDeck files
-		git clone https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
+		git clone --depth 1 --no-single-branch https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
 	fi
 	
 	git status "$EMUDECKGIT" --porcelain
