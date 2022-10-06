@@ -176,11 +176,14 @@ fi
 
 source "$EMUDECKGIT/functions/all.sh"
 
-createFolders
+
+#after sourcing functins, check if path is empty.
+[[ -z "$emulationPath" ]] && { echo "emulationPath is Empty!" ; exit 1; }
+
+
 
 echo "Current Settings: "
-cat "$emuDecksettingsFile" | grep -vi pass
-
+grep -vi pass "$emuDecksettingsFile"
 
 
 #
@@ -204,6 +207,11 @@ if [ "$uiMode" == 'zenity' ]; then
 		OS_setupPrereqsArch
 	fi
 fi
+
+
+#create folders after tests!
+createFolders
+
 #setup Proton-Launch.sh
 #because this path gets updated by sed, we really should be installing it every time and allowing it to be updated every time. In case the user changes their path.
 cp "$EMUDECKGIT/tools/proton-launch.sh" "${toolsPath}/proton-launch.sh"
