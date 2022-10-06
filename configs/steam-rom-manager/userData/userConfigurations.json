@@ -2286,7 +2286,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": false,
+    "disabled": true,
     "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
@@ -2316,7 +2316,72 @@
     "parserId": "164785645253672240",
     "version": 5
   },
-
+  {
+      "parserType": "Glob",
+      "configTitle": "Sega Saturn - RA - Beetle",
+      "steamCategory": "${Saturn}",
+      "steamDirectory": "/home/deck/.steam/steam",
+      "romDirectory": "/run/media/external/Emulation/roms/saturn",
+      "executableArgs": "run org.libretro.RetroArch -L /mednafen_saturn_libretro.so \"${filePath}\"",
+      "executableModifier": "\"${exePath}\"",
+      "startInDirectory": "",
+      "titleModifier": "${fuzzyTitle}",
+      "imageProviders": [
+          "SteamGridDB"
+      ],
+      "onlineImageQueries": "${${fuzzyTitle}}",
+      "imagePool": "${fuzzyTitle}",
+      "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/saturn.jpg",
+      "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/saturn.jpg",
+      "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
+      "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
+      "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+      "localImages": "",
+      "localTallImages": "",
+      "localHeroImages": "",
+      "localLogoImages": "",
+      "localIcons": "",
+      "disabled": false,
+      "userAccounts": {
+          "specifiedAccounts": "",
+          "skipWithMissingDataDir": true,
+          "useCredentials": true
+      },
+      "executable": {
+          "path": "/usr/bin/flatpak",
+          "shortcutPassthrough": false,
+          "appendArgsToExecutable": true
+      },
+      "parserInputs": {
+          "glob": "**/${title}@(.7z|.7Z|.cue|.CUE|.iso|.ISO|.zip|ZIP|.chd|.m3u|.M3U)"
+      },
+      "titleFromVariable": {
+          "limitToGroups": "",
+          "caseInsensitiveVariables": false,
+          "skipFileIfVariableWasNotFound": false,
+          "tryToMatchTitle": false
+      },
+      "fuzzyMatch": {
+          "replaceDiacritics": true,
+          "removeCharacters": true,
+          "removeBrackets": true
+      },
+      "imageProviderAPIs": {
+          "SteamGridDB": {
+              "nsfw": false,
+              "humor": false,
+              "styles": [],
+              "stylesHero": [],
+              "stylesLogo": [],
+              "stylesIcon": [],
+              "imageMotionTypes": [
+                  "static"
+              ]
+          }
+      },
+      "parserId": "166502992463815988",
+      "version": 10
+  },
   {
     "parserType": "Glob",
     "configTitle": "SNK Neo Geo Pocket/Color - Retroarch - Beetle NeoPop",
