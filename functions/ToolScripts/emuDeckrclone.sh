@@ -101,8 +101,14 @@ rclone_runcopy(){
 
 rclone_createJob(){
 echo '#!/bin/bash'>"$toolsPath/rclone/run_rclone_job.sh"
-echo "PIDFILE=\"$toolsPath/rclone/rclone.pid\"
-source ~/emudeck/settings.sh
+echo "source ~/emudeck/settings.sh
+PIDFILE=\"\$toolsPath/rclone/rclone.pid\"
+
+function finish {
+  echo \"Script terminating. Exit code \$?\"
+  rm \$PIDFILE
+}
+trap finish EXIT
 
 if [ -z \"\$savesPath\" ] || [ -z \"\$savesPath\" ]; then
     echo \"You need to setup your cloudprovider first.\"
