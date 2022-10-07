@@ -89,7 +89,7 @@ rclone_setup(){
         elif [ "$ans" == "Login" ]; then
             rclone_updateProvider
         elif [ "$ans" == "Run Backup" ]; then
-            rclone_runcopy
+            rclone_createJob
         fi
     done
 
@@ -100,9 +100,14 @@ rclone_runcopy(){
 }
 
 rclone_createJob(){
-    echo "#!/bin/bash
-PIDFILE=\"$toolspath/rclone/rclone.pid\"
+echo '#!/bin/bash'>"$toolsPath/rclone/run_rclone_job.sh"
+echo "PIDFILE=\"$toolsPath/rclone/rclone.pid\"
+source ~/emudeck/settings.sh
 
+if [ -z \"\$savesPath\" ] || [ -z \"\$savesPath\" ]; then
+    echo \"You need to setup your cloudprovider first.\"
+    exit
+fi
 
 if [ -f \"\$PIDFILE\" ]; then
   PID=$(cat \"\$PIDFILE\")
@@ -112,22 +117,22 @@ if [ -f \"\$PIDFILE\" ]; then
     exit 1
   else
     ## Process not found assume not running
-    echo \$$ > \"\$PIDFILE\"
+    echo \$\$ > \"\$PIDFILE\"
     if [ \$? -ne 0 ]; then
       echo \"Could not create PID file\"
       exit 1
     fi
   fi
 else
-  echo \$$ > \"\$PIDFILE\"
+  echo \$\$ > \"\$PIDFILE\"
   if [ \$? -ne 0 ]; then
     echo \"Could not create PID file\"
     exit 1
   fi
 fi
 
-./rclone copy -L "$savesPath" "$rclone_provider":Emudeck/saves -P
+./rclone copy -L \"$savesPath\" \"$rclone_provider\":Emudeck/saves -P > rclone_job.log
 
-">"$toolsPath/rclone/run_rclone_job.sh"
+">>"$toolsPath/rclone/run_rclone_job.sh"
 chmod +x "$toolsPath/rclone/run_rclone_job.sh"
 }
