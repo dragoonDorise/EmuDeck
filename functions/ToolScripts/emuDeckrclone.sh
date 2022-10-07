@@ -137,7 +137,7 @@ else
   fi
 fi
 
-./rclone copy -L \"$savesPath\" \"$rclone_provider\":Emudeck/saves -P > rclone_job.log
+\"\$toolsPath/rclone/rclone\" copy -L \"\$savesPath\" \"\$rclone_provider\":Emudeck/saves -P > \"\$toolsPath/rclone/rclone_job.log
 
 ">>"$toolsPath/rclone/run_rclone_job.sh"
 chmod +x "$toolsPath/rclone/run_rclone_job.sh"
