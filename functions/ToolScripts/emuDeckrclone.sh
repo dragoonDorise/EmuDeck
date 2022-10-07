@@ -60,7 +60,7 @@ rclone_setup(){
                         --width=50 \
                         --ok-label Exit \
                         --extra-button "Install rclone" 2>/dev/null  )
-        elif [ -n "$rclone_provider" ]; then
+        elif [ -z "$rclone_provider" ]; then
             ans=$(zenity --info --title 'Rclone Setup!' \
                         --text 'Backup to cloud' \
                         --width=50 \
