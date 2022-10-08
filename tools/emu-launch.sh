@@ -10,7 +10,7 @@ getEmuPath () {
     # Check if APPIMAGE is unset or empty, and that the file exists
     if [ -z ${APPIMAGE+x} ] || ! [ -f "${APPIMAGE}" ]; then
         # Set Flatpak
-        FLATPAK="$( flatpak list --app --columns=application | grep "${EMU}" )"
+        FLATPAK="$( flatpak list --app --columns=application | grep -i "${EMU}" )"
         EMUPATH="/usr/bin/flatpak run ${FLATPAK}"
     elif [ -f "${APPIMAGE}" ]; then
         EMUPATH="${APPIMAGE}"
