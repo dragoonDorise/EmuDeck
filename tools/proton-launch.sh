@@ -42,8 +42,8 @@ set_env () {
         export STEAM_COMPAT_CLIENT_INSTALL_PATH="${STEAMPATH}"
     fi
     # Create prefix if it doesn't exist
-    if ! [ -d ${STEAM_COMPAT_DATA_PATH} ]; then
-        install -d ${STEAM_COMPAT_DATA_PATH} || exit 1
+    if ! [ -d "${STEAM_COMPAT_DATA_PATH}" ]; then
+        install -d "${STEAM_COMPAT_DATA_PATH}" || exit 1
     fi
     {
         echo "STEAM_COMPAT_DATA_PATH: ${STEAM_COMPAT_DATA_PATH}"
