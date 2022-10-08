@@ -1,2 +1,6 @@
-#!/bin/sh
-/usr/bin/flatpak run net.pcsx2.PCSX2
+#!/usr/bin/bash
+
+EMU="pcsx2"
+LAUNCH="../emu-launch.sh"
+
+"${LAUNCH}" "${EMU}" "${@}"

@@ -1,2 +1,6 @@
-#!/bin/sh
-/usr/bin/flatpak run io.github.shiiion.primehack
+#!/usr/bin/bash
+
+EMU="Primehack"
+LAUNCH="../emu-launch.sh"
+
+"${LAUNCH}" "${EMU}" "${@}"

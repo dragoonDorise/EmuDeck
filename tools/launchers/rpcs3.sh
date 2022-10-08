@@ -1,2 +1,6 @@
-#!/bin/sh
-/usr/bin/flatpak run net.rpcs3.RPCS3
+#!/usr/bin/bash
+
+EMU="RPCS3"
+LAUNCH="../emu-launch.sh"
+
+"${LAUNCH}" "${EMU}" "${@}"

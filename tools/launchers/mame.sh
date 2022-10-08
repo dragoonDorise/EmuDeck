@@ -1,2 +1,6 @@
-#!/bin/sh
-/usr/bin/flatpak run org.mamedev.MAME
+#!/usr/bin/bash
+
+EMU="MAME"
+LAUNCH="../emu-launch.sh"
+
+"${LAUNCH}" "${EMU}" "${@}"

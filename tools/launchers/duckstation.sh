@@ -1,2 +1,6 @@
-#!/bin/sh
-/usr/bin/flatpak run org.duckstation.DuckStation
+#!/usr/bin/bash
+
+EMU="DuckStation"
+LAUNCH="../emu-launch.sh"
+
+"${LAUNCH}" "${EMU}" "${@}"

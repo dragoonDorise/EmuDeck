@@ -1,2 +1,6 @@
-#!/bin/sh
-/usr/bin/flatpak run org.ppsspp.PPSSPP
+#!/usr/bin/bash
+
+EMU="PPSSPP"
+LAUNCH="../emu-launch.sh"
+
+"${LAUNCH}" "${EMU}" "${@}"

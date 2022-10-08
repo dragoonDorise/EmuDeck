@@ -1,2 +1,6 @@
-#!/bin/sh
-/usr/bin/flatpak run org.DolphinEmu.dolphin-emu
+#!/usr/bin/bash
+
+EMU="Dolphin-emu"
+LAUNCH="../emu-launch.sh"
+
+"${LAUNCH}" "${EMU}" "${@}"

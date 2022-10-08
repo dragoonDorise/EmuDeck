@@ -1,2 +1,6 @@
-#!/bin/sh
-/usr/bin/flatpak run app.xemu.xemu
+#!/usr/bin/bash
+
+EMU="Xemu"
+LAUNCH="../emu-launch.sh"
+
+"${LAUNCH}" "${EMU}" "${@}"
