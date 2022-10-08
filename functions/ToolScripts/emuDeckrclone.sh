@@ -74,9 +74,8 @@ rclone_setup(){
                 --width=50 \
                 --ok-label Exit \
                 --extra-button "Reinstall rclone" \
-                --extra-button "Pick Provider" \
-                --extra-button "Login" \
-                --extra-button "Run Backup" 2>/dev/null ) 
+                --extra-button "Login to your cloud provider" \
+                --extra-button "Create Backup" 2>/dev/null ) 
         fi
         rc=$?
         if [ "$rc" == 0 ] || [ "$ans" == "" ]; then
