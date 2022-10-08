@@ -17,6 +17,7 @@ rclone_install(){
 
     cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
 
+    rclone_createJob
 }
 
 rclone_pickProvider(){
@@ -26,7 +27,7 @@ rclone_pickProvider(){
     cloudProviders+=(2 "Emudeck-DropBox")
     cloudProviders+=(3 "Emudeck-OneDrive")
     cloudProviders+=(4 "Emudeck-Box")
-    cloudProviders+=(5 "Emudeck-NextCloud")
+    #cloudProviders+=(5 "Emudeck-NextCloud")
 
     rclone_provider=$(zenity --list \
         --title="EmuDeck SaveSync Host" \
@@ -54,7 +55,7 @@ rclone_updateProvider(){
 rclone_setup(){
 
     while true; do
-        if [ ! -e "$rclone_bin" ]; then
+        if [ ! -e "$rclone_bin" ] || [ ! -e "$toolsPath/rclone/run_rclone_job.sh" ];  then
             ans=$(zenity --info --title 'Rclone Setup!' \
                         --text 'Backup to cloud' \
                         --width=50 \
@@ -78,9 +79,7 @@ rclone_setup(){
                 --extra-button "Run Backup" 2>/dev/null ) 
         fi
         rc=$?
-        if [ "$rc" == 0 ]; then
-            break
-        elif [ "$ans" == "" ]; then
+        if [ "$rc" == 0 ] || [ "$ans" == "" ]; then
             break
         elif [ "$ans" == "Install rclone" ] || [ "$ans" == "Reinstall rclone" ]; then
             rclone_install
@@ -89,7 +88,7 @@ rclone_setup(){
         elif [ "$ans" == "Login" ]; then
             rclone_updateProvider
         elif [ "$ans" == "Run Backup" ]; then
-            rclone_createJob
+            "$toolsPath/rclone/run_rclone_job.sh"
         fi
     done
 
@@ -101,7 +100,7 @@ rclone_runcopy(){
 
 rclone_createJob(){
 echo '#!/bin/bash'>"$toolsPath/rclone/run_rclone_job.sh"
-echo "source ~/emudeck/settings.sh
+echo "source \$HOME/emudeck/settings.sh
 PIDFILE=\"\$toolsPath/rclone/rclone.pid\"
 
 function finish {
@@ -115,7 +114,7 @@ if [ -z \"\$savesPath\" ] || [ -z \"\$rclone_provider\" ]; then
 fi
 
 if [ -f \"\$PIDFILE\" ]; then
-  PID=$(cat \"\$PIDFILE\")
+  PID=\$(cat \"\$PIDFILE\")
   ps -p \"\$PID\" > /dev/null 2>&1
   if [ \$? -eq 0 ]; then
     echo \"Process already running\"
