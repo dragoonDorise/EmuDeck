@@ -79,9 +79,7 @@ rclone_setup(){
                 --extra-button "Run Backup" 2>/dev/null ) 
         fi
         rc=$?
-        if [ "$rc" == 0 ]; then
-            break
-        elif [ "$ans" == "" ]; then
+        if [ "$rc" == 0 ] || [ "$ans" == "" ]; then
             break
         elif [ "$ans" == "Install rclone" ] || [ "$ans" == "Reinstall rclone" ]; then
             rclone_install
