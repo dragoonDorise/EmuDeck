@@ -183,7 +183,7 @@ main () {
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     # Set a LOGFILE to proton-launch.log in the same directory this script runs from
     LOGFILE="$(dirname "${BASH_SOURCE[0]}")/proton-launch.log"
-    echo "$(date +'%m/%d/%Y - %H:%I:%S') - Started" > "${LOGFILE}"
+    echo "$(date +'%m/%d/%Y - %H:%M:%S') - Started" > "${LOGFILE}"
     
     # Exit if there aren't any arguments
     if ! [[ "${1}" ]]; then
