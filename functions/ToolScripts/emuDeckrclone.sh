@@ -16,7 +16,7 @@ rclone_install(){
     chmod +x "$rclone_bin"
 
     cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
-    
+
     rclone_createJob
 }
 
@@ -90,7 +90,7 @@ rclone_setup(){
         elif [ "$ans" == "Login" ]; then
             rclone_updateProvider
         elif [ "$ans" == "Run Backup" ]; then
-            rclone_createJob
+            "$toolsPath/rclone/run_rclone_job.sh"
         fi
     done
 
