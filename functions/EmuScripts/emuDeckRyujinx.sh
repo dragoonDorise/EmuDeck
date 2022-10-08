@@ -12,14 +12,12 @@ Ryujinx_cleanup(){
 
 #Install
 Ryujinx_install(){
-    echo "Begin Ryujinx Install" > "$HOME/emudeck/emuinstallation.log"
-    installEmuBI "Ryujinx"  "$(getReleaseURLGH "Ryujinx/release-channel-master" "-linux_x64.tar.gz")" "Ryujinx" "tar.gz"  >> "$HOME/emudeck/emuinstallation.log"
-    tar -xvf "$HOME/Applications/Ryujinx.tar.gz" -C "$HOME/Applications/"  >> "$HOME/emudeck/emuinstallation.log"
-    chmod +x "$HOME/Applications/publish/Ryujinx"  >> "$HOME/emudeck/emuinstallation.log"
-    rm -rf "$HOME/Applications/Ryujinx.tar.gz"  >> "$HOME/emudeck/emuinstallation.log"
-    Ryujinx_IsInstalled
+    echo "Begin Ryujinx Install"
+    installEmuBI "Ryujinx"  "$(getReleaseURLGH "Ryujinx/release-channel-master" "-linux_x64.tar.gz")" "Ryujinx" "tar.gz"
+    tar -xvf "$HOME/Applications/Ryujinx.tar.gz" -C "$HOME/Applications/"
+    chmod +x "$HOME/Applications/publish/Ryujinx"
+    rm -rf "$HOME/Applications/Ryujinx.tar.gz"
 }
-
 
 #ApplyInitialSettings
 Ryujinx_init(){
@@ -188,13 +186,13 @@ Ryujinx_finalize(){
 }
 
 Ryujinx_IsInstalled(){
-    if [ -e "$Ryujinx_emuPath" ]; then
-        echo "true"
-    else
-        echo "false"
-    fi
+	if [ -e "$Ryujinx_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
 }
 
 Ryujinx_resetConfig(){
-    Ryujinx_init &>/dev/null && echo "true" || echo "false"
+	Ryujinx_init &>/dev/null && echo "true" || echo "false"
 }
