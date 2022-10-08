@@ -106,11 +106,10 @@ PIDFILE=\"\$toolsPath/rclone/rclone.pid\"
 
 function finish {
   echo \"Script terminating. Exit code \$?\"
-  rm \$PIDFILE
 }
 trap finish EXIT
 
-if [ -z \"\$savesPath\" ] || [ -z \"\$savesPath\" ]; then
+if [ -z \"\$savesPath\" ] || [ -z \"\$rclone_provider\" ]; then
     echo \"You need to setup your cloudprovider first.\"
     exit
 fi
@@ -137,7 +136,7 @@ else
   fi
 fi
 
-\"\$toolsPath/rclone/rclone\" copy -L \"\$savesPath\" \"\$rclone_provider\":Emudeck/saves -P > \"\$toolsPath/rclone/rclone_job.log
+\"\$toolsPath/rclone/rclone\" copy -L \"\$savesPath\" \"\$rclone_provider\":Emudeck/saves -P > \"\$toolsPath/rclone/rclone_job.log\"
 
 ">>"$toolsPath/rclone/run_rclone_job.sh"
 chmod +x "$toolsPath/rclone/run_rclone_job.sh"
