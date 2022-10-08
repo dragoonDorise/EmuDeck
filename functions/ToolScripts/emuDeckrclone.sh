@@ -26,7 +26,7 @@ rclone_pickProvider(){
     cloudProviders+=(2 "Emudeck-DropBox")
     cloudProviders+=(3 "Emudeck-OneDrive")
     cloudProviders+=(4 "Emudeck-Box")
-    cloudProviders+=(5 "Emudeck-NextCloud")
+    #cloudProviders+=(5 "Emudeck-NextCloud")
 
     rclone_provider=$(zenity --list \
         --title="EmuDeck SaveSync Host" \
@@ -101,7 +101,7 @@ rclone_runcopy(){
 
 rclone_createJob(){
 echo '#!/bin/bash'>"$toolsPath/rclone/run_rclone_job.sh"
-echo "source ~/emudeck/settings.sh
+echo "source \$HOME/emudeck/settings.sh
 PIDFILE=\"\$toolsPath/rclone/rclone.pid\"
 
 function finish {
@@ -115,7 +115,7 @@ if [ -z \"\$savesPath\" ] || [ -z \"\$rclone_provider\" ]; then
 fi
 
 if [ -f \"\$PIDFILE\" ]; then
-  PID=$(cat \"\$PIDFILE\")
+  PID=\$(cat \"\$PIDFILE\")
   ps -p \"\$PID\" > /dev/null 2>&1
   if [ \$? -eq 0 ]; then
     echo \"Process already running\"
