@@ -17,11 +17,9 @@ Ryujinx_install(){
     tar -xvf "$HOME/Applications/Ryujinx.tar.gz" -C "$HOME/Applications/"  >> "$HOME/emudeck/emuinstallation.log"
     chmod +x "$HOME/Applications/publish/Ryujinx"  >> "$HOME/emudeck/emuinstallation.log"
     rm -rf "$HOME/Applications/Ryujinx.tar.gz"  >> "$HOME/emudeck/emuinstallation.log"
+    Ryujinx_IsInstalled
 }
 
-Ryujinx_TestInstall(){
-    FOLDER=$(test -d $HOME/Applications/publish/Ryujinx && echo -n "true")
-}
 
 #ApplyInitialSettings
 Ryujinx_init(){
@@ -190,13 +188,13 @@ Ryujinx_finalize(){
 }
 
 Ryujinx_IsInstalled(){
-	if [ -e "$Ryujinx_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+    if [ -e "$Ryujinx_emuPath" ]; then
+        echo "true"
+    else
+        echo "false"
+    fi
 }
 
 Ryujinx_resetConfig(){
-	Ryujinx_init &>/dev/null && echo "true" || echo "false"
+    Ryujinx_init &>/dev/null && echo "true" || echo "false"
 }
