@@ -56,37 +56,37 @@ rclone_setup(){
 
     while true; do
         if [ ! -e "$rclone_bin" ] || [ ! -e "$toolsPath/rclone/run_rclone_job.sh" ];  then
-            ans=$(zenity --info --title 'Rclone Setup!' \
-                        --text 'Backup to cloud' \
+            ans=$(zenity --info --title 'SaveBackup' \
+                        --text 'Click on Install to continue' \
                         --width=50 \
                         --ok-label Exit \
-                        --extra-button "Install rclone" 2>/dev/null  )
+                        --extra-button "Install SaveBackup" 2>/dev/null  )
         elif [ -z "$rclone_provider" ]; then
-            ans=$(zenity --info --title 'Rclone Setup!' \
-                        --text 'Backup to cloud' \
+            ans=$(zenity --info --title 'SaveBackup' \
+                        --text 'Cloud provider not found. Please click on "Pick Provider' \
                         --width=50 \
                         --ok-label Exit \
-                        --extra-button "Reinstall rclone" \
+                        --extra-button "Reinstall SaveBackup" \
                         --extra-button "Pick Provider" 2>/dev/null  )
         else
-            ans=$(zenity --info --title 'Rclone Setup!' \
-                --text 'Backup to cloud' \
+            ans=$(zenity --info --title 'SaveBackup' \
+                --text 'If this is your first setup click on "Login to your cloud provider" before clicking on "Create Backup"' \
                 --width=50 \
-                --ok-label Exit \
-                --extra-button "Reinstall rclone" \
+                --extra-button "Reinstall SaveBackup" \
                 --extra-button "Login to your cloud provider" \
-                --extra-button "Create Backup" 2>/dev/null ) 
+                --extra-button "Create Backup" \
+                --ok-label Exit 2>/dev/null ) 
         fi
         rc=$?
         if [ "$rc" == 0 ] || [ "$ans" == "" ]; then
             break
-        elif [ "$ans" == "Install rclone" ] || [ "$ans" == "Reinstall rclone" ]; then
+        elif [ "$ans" == "Install SaveBackup" ] || [ "$ans" == "Reinstall SaveBackup" ]; then
             rclone_install
         elif [ "$ans" == "Pick Provider" ]; then
             rclone_pickProvider
-        elif [ "$ans" == "Login" ]; then
+        elif [ "$ans" == "Login to your cloud provider" ]; then
             rclone_updateProvider
-        elif [ "$ans" == "Run Backup" ]; then
+        elif [ "$ans" == "Create Backup" ]; then
             "$toolsPath/rclone/run_rclone_job.sh"
         fi
     done
