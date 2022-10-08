@@ -16,7 +16,8 @@ rclone_install(){
     chmod +x "$rclone_bin"
 
     cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
-
+    
+    rclone_createJob
 }
 
 rclone_pickProvider(){
