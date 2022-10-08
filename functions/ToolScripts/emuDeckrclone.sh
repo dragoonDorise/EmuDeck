@@ -55,7 +55,7 @@ rclone_updateProvider(){
 rclone_setup(){
 
     while true; do
-        if [ ! -e "$rclone_bin" ]; then
+        if [ ! -e "$rclone_bin" ] || [ ! -e "$toolsPath/rclone/run_rclone_job.sh" ];  then
             ans=$(zenity --info --title 'Rclone Setup!' \
                         --text 'Backup to cloud' \
                         --width=50 \
