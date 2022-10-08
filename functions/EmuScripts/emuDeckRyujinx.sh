@@ -12,11 +12,15 @@ Ryujinx_cleanup(){
 
 #Install
 Ryujinx_install(){
-    echo "Begin Ryujinx Install"
-    installEmuBI "Ryujinx"  "$(getReleaseURLGH "Ryujinx/release-channel-master" "-linux_x64.tar.gz")" "Ryujinx" "tar.gz"
-    tar -xvf "$HOME/Applications/Ryujinx.tar.gz" -C "$HOME/Applications/"
-    chmod +x "$HOME/Applications/publish/Ryujinx"
-    rm -rf "$HOME/Applications/Ryujinx.tar.gz"
+    echo "Begin Ryujinx Install" > "$HOME/emudeck/emuinstallation.log"
+    installEmuBI "Ryujinx"  "$(getReleaseURLGH "Ryujinx/release-channel-master" "-linux_x64.tar.gz")" "Ryujinx" "tar.gz"  >> "$HOME/emudeck/emuinstallation.log"
+    tar -xvf "$HOME/Applications/Ryujinx.tar.gz" -C "$HOME/Applications/"  >> "$HOME/emudeck/emuinstallation.log"
+    chmod +x "$HOME/Applications/publish/Ryujinx"  >> "$HOME/emudeck/emuinstallation.log"
+    rm -rf "$HOME/Applications/Ryujinx.tar.gz"  >> "$HOME/emudeck/emuinstallation.log"
+}
+
+Ryujinx_TestInstall(){
+    FOLDER=$(test -d $HOME/Applications/publish/Ryujinx && echo -n "true")
 }
 
 #ApplyInitialSettings
