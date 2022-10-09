@@ -3,6 +3,7 @@
 rclone_path="$toolsPath/rclone"
 rclone_bin="$rclone_path/rclone"
 rclone_config="$rclone_path/rclone.conf"
+rclone_jobScript="$toolsPath/rclone/run_rclone_job.sh"
 
 rclone_install(){	
 
@@ -55,7 +56,7 @@ rclone_updateProvider(){
 rclone_setup(){
 
     while true; do
-        if [ ! -e "$rclone_bin" ] || [ ! -e "$toolsPath/rclone/run_rclone_job.sh" ];  then
+        if [ ! -e "$rclone_bin" ] || [ ! -e "$rclone_jobScript" ];  then
             ans=$(zenity --info --title 'SaveBackup' \
                         --text 'Click on Install to continue' \
                         --width=50 \
@@ -87,18 +88,14 @@ rclone_setup(){
         elif [ "$ans" == "Login to your cloud provider" ]; then
             rclone_updateProvider
         elif [ "$ans" == "Create Backup" ]; then
-            "$toolsPath/rclone/run_rclone_job.sh"
+            rclone_createBackup
         fi
     done
 
 }
 
-rclone_runcopy(){
-    $rclone_bin copy -L "$savesPath" "$rclone_provider":Emudeck/saves -P
-}
-
 rclone_createJob(){
-echo '#!/bin/bash'>"$toolsPath/rclone/run_rclone_job.sh"
+echo '#!/bin/bash'>"$rclone_jobScript"
 echo "source \$HOME/emudeck/settings.sh
 PIDFILE=\"\$toolsPath/rclone/rclone.pid\"
 
@@ -136,6 +133,86 @@ fi
 
 \"\$toolsPath/rclone/rclone\" copy -L \"\$savesPath\" \"\$rclone_provider\":Emudeck/saves -P > \"\$toolsPath/rclone/rclone_job.log\"
 
-">>"$toolsPath/rclone/run_rclone_job.sh"
-chmod +x "$toolsPath/rclone/run_rclone_job.sh"
+">>"$rclone_jobScript"
+chmod +x "$rclone_jobScript"
+}
+
+rclone_createService(){
+    echo "Creating SaveBackup service"
+    rclone_stopService
+
+    mkdir -p "$HOME/.config/systemd/user"
+    echo \
+"[Unit]
+Description=Emudeck SaveBackup service
+
+[Service]
+Type=simple
+ExecStart=\"$rclone_jobScript\"
+CPUWeight=20
+CPUQuota=50%
+IOWeight=20
+
+[Install]
+WantedBy=default.target" > "$HOME/.config/systemd/user/emudeck_saveBackup.service"
+chmod +x "$HOME/.config/systemd/user/emudeck_saveBackup.service"
+
+#create timer
+echo "[Unit]
+Description=Runs EmuDeck SaveBackup Every 15 minutes
+Requires=emudeck_saveBackup.service
+After=network-online.target
+Wants=network-online.target
+
+[Timer]
+OnBootSec=5min
+Unit=emudeck_saveBackup.service
+OnUnitActiveSec=15m
+
+[Install]
+WantedBy=timers.target"> "$HOME/.config/systemd/user/emudeck_saveBackup.timer"
+chmod +x "$HOME/.config/systemd/user/emudeck_saveBackup.timer"
+
+
+    echo "Setting SaveSync service to start on boot"
+    systemctl --user enable emudeck_saveBackup.timer
+
+    echo "Starting SaveSync Service. First run may take a while."
+    rclone_startService
+}
+
+
+rclone_stopService(){
+    systemctl --user stop emudeck_saveBackup.timer
+}
+
+rclone_startService(){
+    systemctl --user start emudeck_saveBackup.timer
+}
+
+rclone_runJobOnce(){
+    "$rclone_jobScript"
+}
+
+rclone_createBackup(){
+     ans=$(zenity --info --title 'SaveBackup' \
+                --text 'Use Create Service to backup your saves directory every 15 minutes' \
+                --width=50 \
+                --extra-button "Create Service" \
+                --extra-button "Start Service" \
+                --extra-button "Stop Service" \
+                --extra-button "Run Backup Once" \
+                --ok-label Exit 2>/dev/null )
+            rc=$?
+        if [ "$rc" == 0 ] || [ "$ans" == "" ]; then
+            echo "nothing chosen"
+        elif [ "$ans" == "Create Service" ]; then
+            rclone_createService
+        elif [ "$ans" == "Start Service" ]; then
+            rclone_startService
+        elif [ "$ans" == "Stop Service" ]; then
+            rclone_stopService
+        elif [ "$ans" == "Run Backup Once" ]; then
+            rclone_runJobOnce
+        fi
 }
