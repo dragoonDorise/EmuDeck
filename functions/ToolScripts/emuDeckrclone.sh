@@ -155,7 +155,7 @@ IOWeight=20
 
 [Install]
 WantedBy=default.target" > "$HOME/.config/systemd/user/emudeck_saveBackup.service"
-chmod +x "$HOME/.config/systemd/user/emudeck_saveBackup.service"
+#chmod +x "$HOME/.config/systemd/user/emudeck_saveBackup.service"
 
 #create timer
 echo "[Unit]
@@ -171,8 +171,8 @@ OnUnitActiveSec=15m
 
 [Install]
 WantedBy=timers.target"> "$HOME/.config/systemd/user/emudeck_saveBackup.timer"
-chmod +x "$HOME/.config/systemd/user/emudeck_saveBackup.timer"
-
+#chmod +x "$HOME/.config/systemd/user/emudeck_saveBackup.timer"
+#enabling services seems to want to symlink to a place it doesn't have access to, even with --user. Maybe needs sudo...
 
     echo "Setting SaveSync service to start on boot"
     systemctl --user enable emudeck_saveBackup.timer
