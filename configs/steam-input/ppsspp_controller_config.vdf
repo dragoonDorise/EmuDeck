@@ -139,6 +139,7 @@
 	{
 		"id"		"0"
 		"mode"		"four_buttons"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -212,6 +213,7 @@
 	{
 		"id"		"1"
 		"mode"		"dpad"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -301,6 +303,7 @@
 	{
 		"id"		"2"
 		"mode"		"joystick_move"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -326,6 +329,7 @@
 	{
 		"id"		"3"
 		"mode"		"joystick_move"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -359,6 +363,7 @@
 	{
 		"id"		"4"
 		"mode"		"trigger"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -372,6 +377,7 @@
 	{
 		"id"		"5"
 		"mode"		"trigger"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -385,6 +391,7 @@
 	{
 		"id"		"6"
 		"mode"		"joystick_move"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -410,6 +417,7 @@
 	{
 		"id"		"8"
 		"mode"		"joystick_move"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -435,6 +443,7 @@
 	{
 		"id"		"9"
 		"mode"		"dpad"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -529,6 +538,7 @@
 	{
 		"id"		"10"
 		"mode"		"single_button"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -554,6 +564,7 @@
 	{
 		"id"		"11"
 		"mode"		"single_button"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -579,6 +590,7 @@
 	{
 		"id"		"12"
 		"mode"		"mouse_joystick"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -602,12 +614,6 @@
 	}
 	"group"
 	{
-		"id"		"13"
-		"mode"		"disabled"
-		"description"		""
-	}
-	"group"
-	{
 		"id"		"14"
 		"mode"		"radial_menu"
 		"name"		"PPSSPP Hotkeys"
@@ -618,7 +624,7 @@
 			{
 				"activators"
 				{
-					"Long_Press"
+					"Full_Press"
 					{
 						"bindings"
 						{
@@ -654,7 +660,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F5, FFWD, ghost_090_media_0190.png #232323 #00ad00"
+							"binding"		"key_press F5, Fast Forward, ghost_090_media_0190.png #232323 #00ad00"
+						}
+						"settings"
+						{
+							"toggle"		"1"
 						}
 					}
 				}
@@ -662,7 +672,7 @@
 				{
 				}
 			}
-			"touch_menu_button_7"
+			"touch_menu_button_4"
 			{
 				"activators"
 				{
@@ -670,7 +680,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F4, Next Slot, ghost_045_move_0400.png #232323 #ada700"
+							"binding"		"controller_action empty_binding"
 						}
 					}
 				}
@@ -678,7 +688,7 @@
 				{
 				}
 			}
-			"touch_menu_button_8"
+			"touch_menu_button_5"
 			{
 				"activators"
 				{
@@ -686,7 +696,23 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F2, Save State, ghost_075_utility_020.png #232323 #0074ad"
+							"binding"		"key_press F4, Next Save Slot, ghost_045_move_0400.png #232323 #ADA200"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_6"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F2, Save State, ghost_075_utility_020.png #232323 #0045AD"
 						}
 					}
 				}
@@ -697,9 +723,11 @@
 		}
 		"settings"
 		{
+			"touchmenu_button_fire_type"		"2"
 			"touch_menu_button_count"		"9"
+			"touch_menu_opacity"		"75"
+			"touch_menu_position_y"		"70"
 			"touch_menu_scale"		"120"
-			"touch_menu_show_labels"		"0"
 		}
 	}
 	"group"
@@ -707,95 +735,6 @@
 		"id"		"7"
 		"mode"		"switches"
 		"name"		""
-		"description"		""
-		"inputs"
-		{
-			"button_escape"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button start"
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"button_menu"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button select"
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"left_bumper"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button shoulder_left"
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"right_bumper"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button shoulder_right"
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"button_capture"
-			{
-				"activators"
-				{
-					"release"
-					{
-						"bindings"
-						{
-							"binding"		"controller_action system_key_1"
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-		}
-	}
-	"group"
-	{
-		"id"		"7"
-		"mode"		"switches"
 		"description"		""
 		"inputs"
 		{
@@ -901,7 +840,6 @@
 			"5"		"right_trigger active"
 			"8"		"right_joystick active"
 			"9"		"dpad active"
-			"13"		"gyro inactive"
 		}
 	}
 	"settings"
