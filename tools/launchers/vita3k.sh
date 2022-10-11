@@ -1,10 +1,18 @@
 #!/usr/bin/bash
 
+# Set Unicode options for Vita3K
 LC_ALL=en_US.UTF-8
 LANG=en_US.UTF-8
 LC_TIME=en_US.UTF-8
 
-EMU="Vita3K"
-LAUNCH="../emu-launch.sh"
+# shellcheck disable=SC1091
+. "${HOME}/emudeck/settings.sh"
 
-"${LAUNCH}" "${EMU}" "${@}"
+# shellcheck disable=SC2154
+LAUNCH="${toolsPath}/emu-launch.sh"
+
+# Set emulator name
+EMU="Vita3K"
+
+# Launch emu-launch.sh
+"${LAUNCH}" -e "${EMU}" -- "${@}"

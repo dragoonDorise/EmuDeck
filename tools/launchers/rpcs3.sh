@@ -1,6 +1,13 @@
 #!/usr/bin/bash
 
-EMU="RPCS3"
-LAUNCH="../emu-launch.sh"
+# shellcheck disable=SC1091
+. "${HOME}/emudeck/settings.sh"
 
-"${LAUNCH}" "${EMU}" "${@}"
+# shellcheck disable=SC2154
+LAUNCH="${toolsPath}/emu-launch.sh"
+
+# Set emulator name
+EMU="RPCS3"
+
+# Launch emu-launch.sh
+"${LAUNCH}" -e "${EMU}" -- "${@}"

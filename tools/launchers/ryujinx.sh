@@ -1,6 +1,16 @@
 #!/usr/bin/bash
 
-EMU="Ryujinx"
-LAUNCH="../emu-launch.sh"
+# shellcheck disable=SC1091
+. "${HOME}/emudeck/settings.sh"
 
-"${LAUNCH}" "${EMU}" "${@}"
+# shellcheck disable=SC2154
+LAUNCH="${toolsPath}/emu-launch.sh"
+
+# Set emulator name
+EMU="Ryujinx"
+
+# Ryujinx needs a specific path
+EMUPATH="${HOME}/Applications/product/Ryujinx"
+
+# Launch emu-launch.sh
+"${LAUNCH}" -e "${EMU}" -p "${EMUPATH}" -- "${@}"
