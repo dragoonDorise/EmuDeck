@@ -47,7 +47,6 @@ SRM_init(){
 	mkdir -p "$HOME/.config/steam-rom-manager/userData/"
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
-	rsync -avhp --mkpath "${EMUDECKGIT}/configs/steam-rom/manager/userData/img" "${HOME}/.config/steam-rom-manager/userData/" --backup --suffix=.bak
 	#cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	#cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/userSettings.json"	
 	sleep 3
