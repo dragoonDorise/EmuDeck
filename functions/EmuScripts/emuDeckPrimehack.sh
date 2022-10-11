@@ -23,6 +23,7 @@ Primehack_init() {
 	Primehack_setupStorage
 	Primehack_setEmulationFolder
 	Primehack_setupSaves
+	Primehack_migrate
 }
 
 #update
@@ -45,7 +46,7 @@ Primehack_setEmulationFolder() {
 Primehack_setupSaves(){
 	linkToSaveFolder primehack GC "$HOME/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC"
 	linkToSaveFolder primehack Wii "$HOME/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii"
-	linkToSaveFolder primehack states "$HOME/.var/app/io.github.shiiion.primehack/data/dolphin-emu/states"
+	moveSaveFolder primehack states "$HOME/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves/"
 }
 
 
@@ -73,7 +74,7 @@ Primehack_setABXYstyle(){
 
 #Migrate
 Primehack_migrate(){
-    	echo "NYI"
+	migrateDolphinStates "primehack" "io.github.shiiion.primehack"
 }
 
 #WideScreenOn
