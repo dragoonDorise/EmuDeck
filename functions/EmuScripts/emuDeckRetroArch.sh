@@ -34,6 +34,7 @@ RetroArch_init(){
 	configEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "true"
 	RetroArch_setEmulationFolder
 	RetroArch_setupSaves
+	RetroArch_setupStorage
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
@@ -46,6 +47,7 @@ RetroArch_update(){
 	configEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
 	RetroArch_setEmulationFolder
 	RetroArch_setupSaves
+	RetroArch_setupStorage
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
@@ -70,7 +72,7 @@ RetroArch_setupSaves(){
 
 #SetupStorage
 RetroArch_setupStorage(){
-	echo "NYI"
+	mkdir -p "$storagePath/retroarch/cheats"
 }
 
 
@@ -930,7 +932,7 @@ RetroArch_dreamcast_bezelOff(){
 # RetroArch_dreamcast_CRTshaderOn(){
 # 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"true"'
 # }
-# 
+
 RetroArch_dreamcast_CRTshaderOff(){
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"false"'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
