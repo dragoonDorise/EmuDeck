@@ -2398,7 +2398,7 @@
     "configTitle": "Sega Saturn - RA - Beetle",
     "steamCategory": "${Saturn}",
     "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/external/Emulation/roms/saturn",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/saturn",
     "executableArgs": "run org.libretro.RetroArch -L /mednafen_saturn_libretro.so \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
