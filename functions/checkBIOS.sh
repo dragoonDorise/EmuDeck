@@ -26,7 +26,7 @@ checkPS1BIOS(){
 		
 	
 	if [ $PSXBIOS == true ]; then
-		echo "true";
+		echo "$entry true";
 	else
 		echo "false";
 	fi	
