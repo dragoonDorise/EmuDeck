@@ -1,45 +1,118 @@
 #!/usr/bin/bash
 
-getEmuPath () {
-    EMUDIR="${HOME}/Applications"
-    EMU="${1}"
+getAppImage () {
+    local EMUDIR="${HOME}/Applications"
 
     # Check for AppImage
-    APPIMAGE="$( find "${EMUDIR}" -type f -iname "${EMU}*.AppImage" | sort -n | cut -d ' ' -f 2- | tail -n 1 2>/dev/null )"
+    local APPIMAGE
+    APPIMAGE="$( find "${EMUDIR}" -type f -iname "${EMUNAME}*.AppImage" | sort -n | cut -d ' ' -f 2- | tail -n 1 2>/dev/null )"
 
     # Check if APPIMAGE is unset or empty, and that the file exists
-    if [ -z ${APPIMAGE+x} ] || ! [ -f "${APPIMAGE}" ]; then
-        # Set Flatpak
-        FLATPAK="$( flatpak list --app --columns=application | grep -i "${EMU}" )"
-        EMUPATH="/usr/bin/flatpak run ${FLATPAK}"
+    if [ -z ${APPIMAGE+x} ] || [ ! -f "${APPIMAGE}" ]; then
+        echo "Error: AppImage not found." >> "${LOGFILE}"
+        return 1
     elif [ -f "${APPIMAGE}" ]; then
         EMUPATH="${APPIMAGE}"
-    else
-        echo "Can't find emulator: ${EMU}" >> "${LOGFILE}"; exit 1
     fi
+}
 
-    echo "${EMUPATH}"
+getFlatpak () {
+    # Set Flatpak
+    local FLATPAK
+    FLATPAK="$( flatpak list --app --columns=application | grep -i "${EMUNAME}" )"
+    if [ -z "${FLATPAK}" ]; then
+        echo "Error: Flatpak not found." >> "${LOGFILE}"
+        return 1
+    else
+        EMUPATH="/usr/bin/flatpak run ${FLATPAK}"
+    fi
 }
 
 main () {
-    # Set EMU to the first argument, and shift to clear it
-    EMU="${1}"
-    shift
-    echo "Emulator: ${EMU}" >> "${LOGFILE}"
+    ISAPPIMAGE="false"
+    ISFLATPAK="false"
+    EMUPATH="false"
 
-    # Get the full emulator path, if possible (either AppImage or Flatpak)
-    EMUPATH=$( getEmuPath "${EMU}" )
-    echo "Emulator Path: ${EMUPATH}" >> "${LOGFILE}"
+    # Check for options -h help -p Proton Version -i AppID
+    while getopts "e:afp:" option; do
+        case ${option} in
+            e) # Emulator Name
+                EMUNAME="${OPTARG}"
+                ;;
+            a) # AppImage
+                ISAPPIMAGE="true"
+                ;;
+            f) # FlatPak
+                ISFLATPAK="true"
+                ;;
+            p) # Full path
+                EMUPATH="${OPTARG}"
+                if ! [ -f "${EMUPATH}" ]; then
+                    echo "Error: ${EMUPATH} is not a valid file." >> "${LOGFILE}"
+                    exit 1
+                fi
+                ;;
+            \?) # Invalid option
+                echo "Error: Invalid option - ${OPTARG}" >> "${LOGFILE}"
+                exit
+                ;;
+        esac
+    done
+    shift "$(( OPTIND - 1 ))"
 
-    # Make sure EXE is executable
-    if ! [[ -x "${EMUPATH}" ]]; then
+    # Make sure both AppImage and Flatpak aren't selected
+    if [ "${ISAPPIMAGE}" = "true" ] && [ "${ISFLATPAK}" = "true" ]; then
+        echo "Error: Can't select both -a and -f" >> "${LOGFILE}"
+        exit 1
+    fi
+
+    # Check if EMUNAME is set
+    if [ -z ${EMUNAME+x} ]; then
+        echo "Error: -e flag not set. Please set an emulator name." >> "${EMU}"
+    fi
+
+    {
+        echo "Emulator: ${EMUNAME}"
+        echo "Is AppImage: ${ISAPPIMAGE}"
+        echo "Is Flatpak: ${ISFLATPAK}"
+        echo "Emu Path: ${EMUPATH}"
+    } >> "${LOGFILE}"
+
+    # Get the full emulator path, if it is not set (either AppImage or Flatpak)
+    if [ "${EMUPATH}" = "false" ]; then
+        if [ "${ISAPPIMAGE}" = "false" ] && [ "${ISFLATPAK}" = "false" ]; then
+            if ! getAppImage; then
+                if ! getFlatpak; then
+                    echo "Error: Could not find either an AppImage nor a Flatpak." >> "${LOGFILE}"
+                    exit 1
+                fi
+            fi
+        elif [ "${ISAPPIMAGE}" = "true" ] && ! getAppImage; then
+            echo "Error: AppImage not found." >> "${LOGFILE}"
+            exit 1
+        elif [ "${ISFLATPAK}" = "true" ] && ! getFlatpak; then
+            echo "Error: Flatpak not found." >> "${LOGFILE}"
+            exit 1
+        fi
+    fi
+
+    echo "EMUPATH: ${EMUPATH}" >> "${LOGFILE}"
+
+    # Last check to make sure there's an EMUPATH
+    if [ "${EMUPATH}" = "false" ] || [ -z "${EMUPATH}" ]; then
+        echo "Error: Unable to resolve a path to the emulator." >> "${LOGFILE}"
+        exit 1
+    fi
+
+    # Make sure EXE is executable, if it is a file
+    if [ -f "${EMUPATH}" ] && [[ ! -x "${EMUPATH}" ]]; then
         chmod +x "${EMUPATH}"
     fi
 
     # Remove single quotes from ARGS
     ARGS="${*//\'/\"}"
 
-    # Run Emulator, remove single quotes from ARGS
+    # Run Emulator
     echo "Running eval ${EMUPATH} ${ARGS}" >> "${LOGFILE}"
     eval "${EMUPATH}" "${ARGS}"
 }
