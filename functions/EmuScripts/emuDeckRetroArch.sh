@@ -61,6 +61,13 @@ RetroArch_setEmulationFolder(){
 	system_directorySetting="${system_directory}""\"${biosPath}\""
 	changeLine "$system_directory" "$system_directorySetting" "$RetroArch_configFile"
 
+	rgui_browser_directory='rgui_browser_directory = '
+	rgui_browser_directorySetting="${rgui_browser_directory}""\"${romsPath}\""
+	changeLine "$rgui_browser_directory" "$rgui_browser_directorySetting" "$RetroArch_configFile"
+
+	cheat_database_path='cheat_database_path = '
+	cheat_database_pathSetting="${cheat_database_path}""\"${storagePath}/retroarch/cheats\""
+	changeLine "$cheat_database_path" "$cheat_database_pathSetting" "$RetroArch_configFile"
 }
 
 #SetupSaves
@@ -73,6 +80,7 @@ RetroArch_setupSaves(){
 #SetupStorage
 RetroArch_setupStorage(){
 	mkdir -p "$storagePath/retroarch/cheats"
+	rsync -av --ignore-existing '/var/lib/flatpak/app/org.libretro.RetroArch/current/active/files/share/libretro/database/cht/' "$storagePath/retroarch/cheats"
 }
 
 
