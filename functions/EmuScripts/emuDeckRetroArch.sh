@@ -932,6 +932,8 @@ RetroArch_dreamcast_bezelOff(){
 # 
 RetroArch_dreamcast_CRTshaderOff(){
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'	'video_smooth' '"true"'
 }
 
 RetroArch_saturn_setConfig(){	
