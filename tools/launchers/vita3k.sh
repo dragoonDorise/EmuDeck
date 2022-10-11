@@ -14,5 +14,8 @@ LAUNCH="${toolsPath}/emu-launch.sh"
 # Set emulator name
 EMU="Vita3K"
 
+# Vita3k needs a specific path
+EMUPATH="${HOME}/Applications/Vita3K/Vita3K"
+
 # Launch emu-launch.sh
 "${LAUNCH}" -e "${EMU}" -- "${@}"
