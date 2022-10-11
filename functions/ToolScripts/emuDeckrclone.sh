@@ -4,6 +4,7 @@ rclone_path="$toolsPath/rclone"
 rclone_bin="$rclone_path/rclone"
 rclone_config="$rclone_path/rclone.conf"
 rclone_jobScript="$toolsPath/rclone/run_rclone_job.sh"
+rclone_restoreScript="$toolsPath/rclone/run_rclone_restore.sh"
 
 rclone_install(){	
 
@@ -95,6 +96,7 @@ rclone_setup(){
 }
 
 rclone_createJob(){
+
 echo '#!/bin/bash'>"$rclone_jobScript"
 echo "source \$HOME/emudeck/settings.sh
 PIDFILE=\"\$toolsPath/rclone/rclone.pid\"
@@ -132,9 +134,48 @@ else
 fi
 
 \"\$toolsPath/rclone/rclone\" copy -L \"\$savesPath\" \"\$rclone_provider\":Emudeck/saves -P > \"\$toolsPath/rclone/rclone_job.log\"
-
 ">>"$rclone_jobScript"
 chmod +x "$rclone_jobScript"
+
+echo '#!/bin/bash'>"$rclone_restoreScript"
+echo "source \$HOME/emudeck/settings.sh
+PIDFILE=\"\$toolsPath/rclone/rclone.pid\"
+
+function finish {
+  echo \"Script terminating. Exit code \$?\"
+}
+trap finish EXIT
+
+if [ -z \"\$savesPath\" ] || [ -z \"\$rclone_provider\" ]; then
+    echo \"You need to setup your cloudprovider first.\"
+    exit
+fi
+
+if [ -f \"\$PIDFILE\" ]; then
+  PID=\$(cat \"\$PIDFILE\")
+  ps -p \"\$PID\" > /dev/null 2>&1
+  if [ \$? -eq 0 ]; then
+    echo \"Process already running\"
+    exit 1
+  else
+    ## Process not found assume not running
+    echo \$\$ > \"\$PIDFILE\"
+    if [ \$? -ne 0 ]; then
+      echo \"Could not create PID file\"
+      exit 1
+    fi
+  fi
+else
+  echo \$\$ > \"\$PIDFILE\"
+  if [ \$? -ne 0 ]; then
+    echo \"Could not create PID file\"
+    exit 1
+  fi
+fi
+
+\"\$toolsPath/rclone/rclone\" copy -L \"\$rclone_provider\":Emudeck/saves \"\$savesPath\" -P > \"\$toolsPath/rclone/rclone_job.log\"
+">>"$rclone_restoreScript"
+chmod +x "$rclone_restoreScript"
 }
 
 rclone_createService(){
@@ -181,7 +222,6 @@ WantedBy=timers.target"> "$HOME/.config/systemd/user/emudeck_saveBackup.timer"
     rclone_startService
 }
 
-
 rclone_stopService(){
     systemctl --user stop emudeck_saveBackup.timer
 }
@@ -194,6 +234,10 @@ rclone_runJobOnce(){
     "$rclone_jobScript"
 }
 
+rclone_downloadFiles(){
+    "$rclone_restoreScript"
+}
+
 rclone_createBackup(){
      ans=$(zenity --info --title 'SaveBackup' \
                 --text 'Use Create Service to backup your saves directory every 15 minutes' \
@@ -201,6 +245,7 @@ rclone_createBackup(){
                 --extra-button "Create Service" \
                 --extra-button "Start Service" \
                 --extra-button "Stop Service" \
+                --extra-button "Restore Cloud Files" \
                 --extra-button "Run Backup Once" \
                 --ok-label Exit 2>/dev/null )
             rc=$?
@@ -212,6 +257,8 @@ rclone_createBackup(){
             rclone_startService
         elif [ "$ans" == "Stop Service" ]; then
             rclone_stopService
+        elif [ "$ans" == "Restore Cloud Files" ]; then
+            rclone_downloadFiles
         elif [ "$ans" == "Run Backup Once" ]; then
             rclone_runJobOnce
         fi
