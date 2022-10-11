@@ -63,7 +63,7 @@
     "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/launchers",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
-    "imagePro=rs": [
+    "imageProviders": [
       "SteamGridDB"
     ],
     "titleModifier": "${fuzzyTitle}",
