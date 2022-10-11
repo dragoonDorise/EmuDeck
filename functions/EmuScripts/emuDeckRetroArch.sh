@@ -938,6 +938,7 @@ RetroArch_saturn_setConfig(){
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'input_player1_analog_dpad_mode' '"1"'
 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'input_player1_analog_dpad_mode' '"1"'
 	RetroArch_setOverride 'saturn.cfg' 'Kronos'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'saturn.cfg' 'Beetle Saturn'  'input_player1_analog_dpad_mode' '"1"'
 }
 
 RetroArch_saturn_bezelOn(){
@@ -959,23 +960,44 @@ RetroArch_saturn_bezelOn(){
 	RetroArch_setOverride 'saturn.cfg' 'Kronos'  'input_overlay_enable' '"true"'
 	RetroArch_setOverride 'saturn.cfg' 'Kronos'  'input_overlay_scale_landscape' '"1.070000"'
 	RetroArch_setOverride 'saturn.cfg' 'Kronos'  'input_overlay_aspect_adjust_landscape' '"0.095000"'
+
+	RetroArch_setOverride 'saturn.cfg' 'Beetle Saturn'  'aspect_ratio_index' '"0"'
+	RetroArch_setOverride 'saturn.cfg' 'Beetle Saturn'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/saturn.cfg"'
+	RetroArch_setOverride 'saturn.cfg' 'Beetle Saturn'  'input_overlay_enable' '"true"'
+	RetroArch_setOverride 'saturn.cfg' 'Beetle Saturn'  'input_overlay_scale_landscape' '"1.070000"'
+	RetroArch_setOverride 'saturn.cfg' 'Beetle Saturn'  'input_overlay_aspect_adjust_landscape' '"0.095000"'
 }
 
 RetroArch_saturn_bezelOff(){
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'input_overlay_enable' '"false"'
 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'input_overlay_enable' '"false"'
 	RetroArch_setOverride 'saturn.cfg' 'Kronos'  'input_overlay_enable' '"false"'
+	RetroArch_setOverride 'saturn.cfg' 'Beetle Saturn'  'input_overlay_enable' '"false"'
 }
 
-# RetroArch_saturn_CRTshaderOn(){
+# RetroArch_saturn_3DCRTshaderOn(){
 # 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'video_shader_enable' '"true"'
 # 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'video_shader_enable' '"true"'
 # 	
 # }
-# 
+
 RetroArch_saturn_CRTshaderOff(){
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'video_shader_enable' '"false"'
 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'saturn.cfg' 'Kronos'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'saturn.cfg' 'Beetle Saturn'  'video_shader_enable' '"false"'
+
+	RetroArch_setOverride 'saturn.cfg' 'Yabause'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'saturn.cfg' 'Yabause'	'video_smooth' '"true"'
+
+	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'	'video_smooth' '"true"'
+
+	RetroArch_setOverride 'saturn.cfg' 'Kronos'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'saturn.cfg' 'Kronos'	'video_smooth' '"true"'
+
+	RetroArch_setOverride 'saturn.cfg' 'Beetle Saturn'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'saturn.cfg' 'Beetle Saturn'	'video_smooth' '"true"'
 }
 
 RetroArch_snes_setConfig(){	
