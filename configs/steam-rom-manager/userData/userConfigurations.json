@@ -1219,7 +1219,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.gb|.GB|.dmg|.DMG|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.gb|.GB|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
