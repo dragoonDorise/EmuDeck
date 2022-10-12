@@ -117,7 +117,7 @@ main () {
     fi
 
     # Check for single quotes around the last argument
-    if [[ "${@:$#}" =~ ^\'.*\'$ ]]; then
+    if [[ "${*:$#}" =~ ^\'.*\'$ ]]; then
         ARGS=("${@}")
         LASTARG="${ARGS[-1]#\'}"
         ARGS[-1]="${LASTARG%\'}"
