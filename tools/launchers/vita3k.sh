@@ -18,4 +18,4 @@ EMU="Vita3K"
 EMUPATH="${HOME}/Applications/Vita3K/Vita3K"
 
 # Launch emu-launch.sh
-"${LAUNCH}" -e "${EMU}" -- "${@}"
+"${LAUNCH}" -e "${EMU}" -p "${EMUPATH}" -- "${@}"
