@@ -55,8 +55,8 @@ set_env () {
 # Main Start
 main () {
     # Steam Application Path
-    if [ -d "$HOME/.local/share/Steam" ]; then
-        STEAMPATH="$HOME/.local/share/Steam"
+    if [ -d "${HOME}/.local/share/Steam" ]; then
+        STEAMPATH="${HOME}/.local/share/Steam"
         echo "STEAMPATH: ${STEAMPATH}" >> "${LOGFILE}"
     else # Fail if Steam path isn't a directory
         echo "Steam path not found." >> "${LOGFILE}"; exit 1
