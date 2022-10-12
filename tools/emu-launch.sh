@@ -1,5 +1,12 @@
 #!/usr/bin/bash
 
+showArguments () {
+    local arg
+    for arg; do
+        echo "Argument:  $arg" >> "${LOGFILE}"
+    done
+}
+
 getAppImage () {
     local EMUDIR="${HOME}/Applications"
 
@@ -24,7 +31,7 @@ getFlatpak () {
         echo "Error: Flatpak not found." >> "${LOGFILE}"
         return 1
     else
-        EMUPATH="/usr/bin/flatpak run ${FLATPAK}"
+        EMUPATH=("/usr/bin/flatpak" "run" "${FLATPAK}")
     fi
 }
 
@@ -75,7 +82,7 @@ main () {
         echo "Emulator: ${EMUNAME}"
         echo "Is AppImage: ${ISAPPIMAGE}"
         echo "Is Flatpak: ${ISFLATPAK}"
-        echo "Emu Path: ${EMUPATH}"
+        echo "Emu Path: ${EMUPATH[*]}"
     } >> "${LOGFILE}"
 
     # Get the full emulator path, if it is not set (either AppImage or Flatpak)
@@ -96,7 +103,7 @@ main () {
         fi
     fi
 
-    echo "EMUPATH: ${EMUPATH}" >> "${LOGFILE}"
+    echo "EMUPATH: ${EMUPATH[*]}" >> "${LOGFILE}"
 
     # Last check to make sure there's an EMUPATH
     if [ "${EMUPATH}" = "false" ] || [ -z "${EMUPATH}" ]; then
@@ -109,12 +116,21 @@ main () {
         chmod +x "${EMUPATH}"
     fi
 
-    # Remove single quotes from ARGS
-    ARGS="${*//\'/\"}"
+    # Check for single quotes around the last argument
+    if [[ "${@:$#}" =~ ^\'.*\'$ ]]; then
+        ARGS=("${@}")
+        LASTARG="${ARGS[-1]#\'}"
+        ARGS[-1]="${LASTARG%\'}"
+        set -- "${ARGS[@]}"
+    fi
+
+    # Report arguments
+    echo "Arguments -" >> "${LOGFILE}"
+    showArguments "${@}"
 
     # Run Emulator
-    echo "Running eval ${EMUPATH} ${ARGS}" >> "${LOGFILE}"
-    eval "${EMUPATH}" "${ARGS}"
+    echo "${EMUPATH[@]}" "${@}" >> "${LOGFILE}"
+    "${EMUPATH[@]}" "${@}"
 }
 
 # Only run if run directly
