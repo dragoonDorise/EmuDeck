@@ -80,7 +80,7 @@ RetroArch_setupSaves(){
 #SetupStorage
 RetroArch_setupStorage(){
 	mkdir -p "$storagePath/retroarch/cheats"
-	#rsync -av --ignore-existing '/var/lib/flatpak/app/org.libretro.RetroArch/current/active/files/share/libretro/database/cht/' "$storagePath/retroarch/cheats"
+	rsync -a --ignore-existing '/var/lib/flatpak/app/org.libretro.RetroArch/current/active/files/share/libretro/database/cht/' "$storagePath/retroarch/cheats"
 }
 
 
