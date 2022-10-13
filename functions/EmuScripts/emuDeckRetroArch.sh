@@ -1018,6 +1018,10 @@ RetroArch_dreamcast_bezelOff(){
 # 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"true"'
 # }
 
+RetroArch_dreamcast_setConfig(){
+	RetroArch_dreamcast_CRTshaderOff
+}
+
 RetroArch_dreamcast_CRTshaderOff(){
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"false"'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
@@ -1065,13 +1069,25 @@ RetroArch_saturn_bezelOff(){
 	RetroArch_setOverride 'saturn.cfg' 'Beetle Saturn'  'input_overlay_enable' '"false"'
 }
 
-# RetroArch_saturn_3DCRTshaderOn(){
-# 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'video_shader_enable' '"true"'
-# 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'video_shader_enable' '"true"'
-# 	
-# }
+ RetroArch_saturn_3DCRTshaderOn(){
+ 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'saturn.cfg' 'Yabause'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'saturn.cfg' 'Yabause'	'video_smooth' '"false"'
 
-RetroArch_saturn_CRTshaderOff(){
+ 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'	'video_smooth' '"false"'
+
+	RetroArch_setOverride 'saturn.cfg' 'Kronos'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'saturn.cfg' 'Kronos'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'saturn.cfg' 'Kronos'	'video_smooth' '"false"'
+
+ 	RetroArch_setOverride 'saturn.cfg' 'Beetle Saturn'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'saturn.cfg' 'Beetle Saturn'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'saturn.cfg' 'Beetle Saturn'	'video_smooth' '"false"'
+ }
+
+RetroArch_saturn_3DCRTshaderOff(){
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'video_shader_enable' '"false"'
 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'video_shader_enable' '"false"'
 	RetroArch_setOverride 'saturn.cfg' 'Kronos'  'video_shader_enable' '"false"'
