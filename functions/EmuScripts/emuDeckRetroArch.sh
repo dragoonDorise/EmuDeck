@@ -731,12 +731,22 @@ RetroArch_gamegear_bezelOff(){
 
 RetroArch_gamegear_MATshaderOn(){
 	RetroArch_setOverride 'gamegear.cfg' 'Genesis Plus GX'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'gamegear.cfg' 'Genesis Plus GX'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'gamegear.cfg' 'Genesis Plus GX'	'video_smooth' '"false"'
+
 	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'	'video_smooth' '"false"'
 }
 
 RetroArch_gamegear_MATshaderOff(){
 	RetroArch_setOverride 'gamegear.cfg' 'Genesis Plus GX'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'gamegear.cfg' 'Genesis Plus GX'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'gamegear.cfg' 'Genesis Plus GX'	'video_smooth' '"true"'
+
 	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'gamegear.cfg' 'Gearsystem'	'video_smooth' '"true"'
 }
 
 RetroArch_mastersystem_setConfig(){	
