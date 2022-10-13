@@ -1021,7 +1021,7 @@ RetroArch_dreamcast_bezelOff(){
  }
 
 RetroArch_dreamcast_setConfig(){
-	RetroArch_dreamcast_CRTshaderOff
+	RetroArch_dreamcast_3DCRTshaderOff
 }
 
 RetroArch_dreamcast_3DCRTshaderOff(){
