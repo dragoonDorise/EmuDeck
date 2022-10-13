@@ -23,19 +23,19 @@ Cemu_install(){
 	rm -rf "$romsPath"/wiiu/tmp 
 	rm -f "$romsPath"/wiiu/cemu.zip
 	
-	if  [ -e "${toolsPath}/launchers/cemu.sh" ]; then #retain launch settings
-		local launchLine=$( tail -n 1 "${toolsPath}/launchers/cemu.sh" )
-		echo "cemu launch line found: $launchLine"
-	fi
+#	if  [ -e "${toolsPath}/launchers/cemu.sh" ]; then #retain launch settings
+#		local launchLine=$( tail -n 1 "${toolsPath}/launchers/cemu.sh" )
+#		echo "cemu launch line found: $launchLine"
+#	fi
 	
 
 	cp "$EMUDECKGIT/tools/launchers/cemu.sh" "${toolsPath}/launchers/cemu.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/cemu.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/cemu.sh"
 
-	if [[ "$launchLine"  == *"PROTONLAUNCH"* ]]; then
-		changeLine '"${PROTONLAUNCH}"' "$launchLine" "${toolsPath}/launchers/cemu.sh"
-	fi
+#	if [[ "$launchLine"  == *"PROTONLAUNCH"* ]]; then
+#		changeLine '"${PROTONLAUNCH}"' "$launchLine" "${toolsPath}/launchers/cemu.sh"
+#	fi
 	chmod +x "${toolsPath}/launchers/cemu.sh"
 	
 
