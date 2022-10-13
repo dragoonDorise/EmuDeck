@@ -1041,6 +1041,7 @@ RetroArch_saturn_setConfig(){
 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'input_player1_analog_dpad_mode' '"1"'
 	RetroArch_setOverride 'saturn.cfg' 'Kronos'  'input_player1_analog_dpad_mode' '"1"'
 	RetroArch_setOverride 'saturn.cfg' 'Beetle Saturn'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_saturn_3DCRTshaderOff
 }
 
 RetroArch_saturn_bezelOn(){
