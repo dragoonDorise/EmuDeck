@@ -804,10 +804,14 @@ RetroArch_sega32x_bezelOff(){
 
 RetroArch_sega32x_CRTshaderOn(){
 	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'	 'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'	 'video_smooth' '"false"'
 }
 
 RetroArch_sega32x_CRTshaderOff(){
 	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'	 'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'	 'video_smooth' '"true"'
 }
 
 RetroArch_sega32x_ar32(){
@@ -864,6 +868,7 @@ RetroArch_gb_bezelOff(){
 
 RetroArch_gb_MATshaderOn(){
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'video_shader_enable' 'true'
+
 	RetroArch_setOverride 'gb.cfg' 'Gambatte'  'video_shader_enable' '"true"'
 }
 
