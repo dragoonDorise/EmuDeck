@@ -386,13 +386,16 @@ RetroArch_Mupen64Plus_Next_setConfig(){
 
 
 
-# RetroArch_n64_CRTshaderOn(){
-# 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_shader_enable' '"true"'
-# }
+ RetroArch_n64_3DCRTshaderOn(){
+ 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_smooth' '"false"'
+ }
 
-RetroArch_n64_CRTshaderOff(){
-	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_smooth' '"true"'
+RetroArch_n64_3DCRTshaderOff(){
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_smooth' '"true"'
 }
 
 RetroArch_lynx_setConfig(){	
