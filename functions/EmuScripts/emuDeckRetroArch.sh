@@ -397,6 +397,9 @@ RetroArch_n64_3DCRTshaderOff(){
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_smooth' '"true"'
 }
+RetroArch_n64_setConfig(){
+	RetroArch_n64_3DCRTshaderOff
+}
 
 RetroArch_lynx_setConfig(){	
 	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'  'input_player1_analog_dpad_mode' '"1"'
@@ -1635,6 +1638,10 @@ RetroArch_psx_3DCRTshaderOff(){
 	RetroArch_setOverride 'psx.cfg' 'SwanStation'  'video_shader_enable' 'false'
 	RetroArch_setOverride 'psx.cfg' 'SwanStation'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
 	RetroArch_setOverride 'psx.cfg' 'SwanStation'	'video_smooth' '"true"'
+}
+
+RetroArch_psx_setConfig(){
+	RetroArch_psx_3DCRTshaderOff
 }
 
 #BezelOn
