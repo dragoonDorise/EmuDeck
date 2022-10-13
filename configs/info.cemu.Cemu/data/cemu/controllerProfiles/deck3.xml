@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <emulated_controller>
 	<type>Wii U Pro Controller</type>
-	<profile>Deck3</profile>
+	<profile>deck3</profile>
 	<controller>
 		<api>XInput</api>
 		<uuid>2</uuid>
