@@ -872,14 +872,22 @@ RetroArch_gb_bezelOff(){
 
 RetroArch_gb_MATshaderOn(){
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'gb.cfg' 'SameBoy'	 'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'gb.cfg' 'SameBoy'	 'video_smooth' '"false"'
 
 	RetroArch_setOverride 'gb.cfg' 'Gambatte'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'gb.cfg' 'Gambatte'	 'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'gb.cfg' 'Gambatte'	 'video_smooth' '"false"'
 }
 
 RetroArch_gb_MATshaderOff(){
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'gb.cfg' 'SameBoy'	 'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'gb.cfg' 'SameBoy'	 'video_smooth' '"true"'
 
 	RetroArch_setOverride 'gb.cfg' 'Gambatte'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'gb.cfg' 'Gambatte'	 'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'gb.cfg' 'Gambatte'	 'video_smooth' '"true"'
 }
 
 RetroArch_SameBoy_gbc_setConfig(){
@@ -919,14 +927,22 @@ RetroArch_gbc_bezelOff(){
 
 RetroArch_gbc_MATshaderOn(){
 	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'gbc.cfg' 'SameBoy'	 'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'gbc.cfg' 'SameBoy'	 'video_smooth' '"false"'
 
 	RetroArch_setOverride 'gbc.cfg' 'Gambatte'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'gbc.cfg' 'Gambatte'	 'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'gbc.cfg' 'Gambatte'	 'video_smooth' '"false"'
 }
 
 RetroArch_gbc_MATshaderOff(){
 	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'gbc.cfg' 'SameBoy'	 'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'gbc.cfg' 'SameBoy'	 'video_smooth' '"true"'	
 	
 	RetroArch_setOverride 'gbc.cfg' 'Gambatte'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'gbc.cfg' 'Gambatte'	 'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'gbc.cfg' 'Gambatte'	 'video_smooth' '"true"'	
 }
 
 RetroArch_n64_wideScreenOn(){
