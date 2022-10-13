@@ -833,10 +833,14 @@ RetroArch_gba_setConfig(){
 }
 RetroArch_gba_MATshaderOn(){
 	RetroArch_setOverride 'gba.cfg' 'mGBA'  'video_shader_enable' '"true"'
+	RetroArch_setOverride 'gba.cfg' 'mGBA'	 'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'gba.cfg' 'mGBA'	 'video_smooth' '"false"'
 }
 
 RetroArch_gba_MATshaderOff(){
 	RetroArch_setOverride 'gba.cfg' 'mGBA'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'gba.cfg' 'mGBA'	 'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'gba.cfg' 'mGBA'	 'video_smooth' '"true"'	
 }
 
 RetroArch_gb_bezelOn(){
