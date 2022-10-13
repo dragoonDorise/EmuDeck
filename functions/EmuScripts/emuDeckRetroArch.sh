@@ -1609,13 +1609,13 @@ RetroArch_psx_bezelOff(){
 	RetroArch_setOverride 'psx.cfg' 'SwanStation'  'input_overlay_enable' '"false"'
 }
 
-# RetroArch_psx_CRTshaderOn(){
-# 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW'  'video_shader_enable' 'true'
-# 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX'  'video_shader_enable' 'true'
-# 	RetroArch_setOverride 'psx.cfg' 'SwanStation'  'video_shader_enable' 'true'
-# 
-# }
-# 
+ RetroArch_psx_CRTshaderOn(){
+ 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW'  'video_shader_enable' 'true'
+ 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX'  'video_shader_enable' 'true'
+ 	RetroArch_setOverride 'psx.cfg' 'SwanStation'  'video_shader_enable' 'true'
+ 
+ }
+ 
 RetroArch_psx_CRTshaderOff(){
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX HW'  'video_shader_enable' 'false'
 	RetroArch_setOverride 'psx.cfg' 'Beetle PSX'  'video_shader_enable' 'false'
@@ -1651,6 +1651,19 @@ RetroArch_CRTshaderOffAll(){
 	done
 }
 
+#shaders3DCRTOn
+RetroArch_3DCRTshaderOnAll(){
+	for func in $(compgen -A 'function' | grep '\_3DCRTshaderOn$' | grep '^RetroArch_' | grep -v "RetroArch_bezelOn")
+		do echo  "$func" && "$func"
+	done
+}
+
+#shaders3DCRTOff
+RetroArch_3DCRTshaderOffAll(){
+	for func in $(compgen -A 'function' | grep '\_3DCRTshaderOff$' | grep '^RetroArch_')
+		do echo  "$func" && "$func"
+	done
+}
 #shadersMATOn
 RetroArch_MATshadersOnAll(){
 	for func in $(compgen -A 'function' | grep '\_MATshaderOn$' | grep '^RetroArch_' | grep -v "RetroArch_bezelOn")
