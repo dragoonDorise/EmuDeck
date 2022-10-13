@@ -180,12 +180,22 @@ RetroArch_wswan_bezelOff(){
 
 RetroArch_wswan_MATshaderOn(){
 	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'	'video_smooth' '"false"'
+
 	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'	 'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'	 'video_smooth' '"false"'
 }
 
 RetroArch_wswan_MATshaderOff(){
 	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle Cygne'	'video_smooth' '"true"'
+
 	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'	 'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'wonderswan.cfg' 'Beetle WonderSwan'	 'video_smooth' '"true"'
 }
 
 RetroArch_dolphin_emu_setConfig(){
@@ -406,19 +416,32 @@ RetroArch_lynx_bezelOn(){
 	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'input_overlay_scale_landscape' '"1.170000"'
 	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'video_scale_integer' '"false"'
 }
+
 RetroArch_lynx_bezelOff(){
 	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'  'input_overlay_enable' '"false"'
 	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'input_overlay_enable' '"false"'
 }
+
 RetroArch_lynx_MATshaderOn(){
 	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'	'video_smooth' '"false"'
+
 	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'atarilynx.cfg' 'Handy'	'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'atarilynx.cfg' 'Handy'	'video_smooth' '"false"'
 }
 
 RetroArch_lynx_MATshaderOff(){
 	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'lynx.cfg' 'Beetle Lynx'	'video_smooth' '"true"'
+
 	RetroArch_setOverride 'atarilynx.cfg' 'Handy'  'video_shader_enable' 'false'
+	RetroArch_setOverride 'atarilynx.cfg' 'Handy'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'atarilynx.cfg' 'Handy'	'video_smooth' '"true"'
 }
+
 
 RetroArch_SameBoy_gb_setConfig(){	
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'input_player1_analog_dpad_mode' '"1"'
