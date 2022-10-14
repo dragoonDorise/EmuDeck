@@ -776,7 +776,8 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F5, Fast Forward, ghost_090_media_0190.png #434343 #00ADAD"
+							"binding"		"key_press LEFT_CONTROL, Fast Forward, ghost_090_media_0190.png #434343 #00ADAD"
+							"binding"		"key_press Z, Fast Forward, ghost_090_media_0190.png #434343 #00ADAD"
 						}
 					}
 				}
@@ -1019,8 +1020,8 @@
 			"10"		"right_trackpad inactive"
 			"12"		"right_trackpad active"
 			"13"		"right_trackpad inactive"
-			"3"		"joystick inactive"
-			"16"		"joystick active"
+			"3"		"joystick active"
+			"16"		"joystick inactive"
 			"4"		"left_trigger active"
 			"5"		"right_trigger active"
 			"8"		"right_joystick active"
