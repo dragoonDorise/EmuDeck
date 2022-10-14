@@ -679,6 +679,12 @@ echo "# Installation Complete" >> "$HOME/.config/EmuDeck/msg.log"
 finished=true
 rm "$PIDFILE"
 
+#
+## We check all the selected emulators are installed
+#
+
+checkInstalledEmus
+
 if [ "$uiMode" == 'zenity' ]; then
 
 	text="$(printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu, Ryujinx) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager on your Desktop to add your games to your SteamUI Interface.\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!")"
