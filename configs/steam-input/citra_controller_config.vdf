@@ -139,6 +139,7 @@
 	{
 		"id"		"0"
 		"mode"		"four_buttons"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -212,6 +213,7 @@
 	{
 		"id"		"1"
 		"mode"		"dpad"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -301,6 +303,7 @@
 	{
 		"id"		"2"
 		"mode"		"joystick_move"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -326,6 +329,7 @@
 	{
 		"id"		"3"
 		"mode"		"joystick_move"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -359,6 +363,7 @@
 	{
 		"id"		"4"
 		"mode"		"trigger"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -372,6 +377,7 @@
 	{
 		"id"		"5"
 		"mode"		"trigger"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -385,6 +391,7 @@
 	{
 		"id"		"6"
 		"mode"		"joystick_move"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -410,6 +417,7 @@
 	{
 		"id"		"8"
 		"mode"		"joystick_move"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -435,6 +443,7 @@
 	{
 		"id"		"9"
 		"mode"		"dpad"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -529,6 +538,7 @@
 	{
 		"id"		"10"
 		"mode"		"single_button"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -554,6 +564,7 @@
 	{
 		"id"		"11"
 		"mode"		"single_button"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -579,6 +590,7 @@
 	{
 		"id"		"12"
 		"mode"		"absolute_mouse"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -604,6 +616,7 @@
 	{
 		"id"		"13"
 		"mode"		"joystick_camera"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -611,14 +624,231 @@
 	}
 	"group"
 	{
-		"id"		"14"
-		"mode"		"disabled"
+		"id"		"15"
+		"mode"		"absolute_mouse"
+		"name"		""
 		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mouse_button LEFT"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"16"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"dpad_north"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_UP"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"dpad_west"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_LEFT"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+		"settings"
+		{
+			"requires_click"		"0"
+		}
+	}
+	"group"
+	{
+		"id"		"18"
+		"mode"		"touch_menu"
+		"name"		"Citra Hotkeys"
+		"description"		""
+		"inputs"
+		{
+			"touch_menu_button_0"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press LEFT_SHIFT, Save State, ghost_075_utility_020.png #232323 #00AD3D"
+							"binding"		"key_press L, Save State, ghost_075_utility_020.png #232323 #00AD3D"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_1"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F4, Pause, ghost_090_media_0210.png #232323 #00ADAD"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_2"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press LEFT_CONTROL, Load State, ghost_075_utility_010.png #232323 #00AD00"
+							"binding"		"key_press V, Load State, ghost_075_utility_010.png #232323 #00AD00"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_3"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F, Fullscreen, ghost_090_media_0050.png #232323 #ADA200"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_5"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F5, Fast Forward, ghost_090_media_0190.png #434343 #00ADAD"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_6"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press S, Swap Screens, ghost_075_utility_040.png #232323 #FFFFFF"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_7"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press E, Change Layout, ghost_070_setting_0303.png"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_8"
+			{
+				"activators"
+				{
+					"Double_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press X, Double Tap Exit, ghost_050_menu_0303.png #232323 #AD0000"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+		"settings"
+		{
+			"mouse_smoothing"		"0"
+			"touch_menu_button_count"		"9"
+			"touch_menu_opacity"		"95"
+			"touch_menu_position_x"		"1"
+			"touch_menu_position_y"		"99"
+			"touch_menu_scale"		"140"
+			"touchmenu_button_fire_type"		"1"
+		}
 	}
 	"group"
 	{
 		"id"		"7"
 		"mode"		"switches"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -710,11 +940,11 @@
 					{
 						"bindings"
 						{
-							"binding"        "key_press X, Hold to Quit"
+							"binding"		"key_press X, Hold to Quit"
 						}
 						"settings"
 						{
-							"long_press_time"        "750"
+							"long_press_time"		"750"
 						}
 					}
 				}
@@ -772,34 +1002,6 @@
 			}
 		}
 	}
-	"group"
-	{
-		"id"		"15"
-		"mode"		"absolute_mouse"
-		"description"		""
-		"inputs"
-		{
-			"click"
-			{
-				"activators"
-				{
-					"Soft_Press"
-					{
-						"bindings"
-						{
-							"binding"		"mouse_button LEFT"
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-		}
-		"gameactions"
-		{
-		}
-	}
 	"preset"
 	{
 		"id"		"0"
@@ -810,18 +1012,19 @@
 			"0"		"button_diamond active"
 			"1"		"left_trackpad inactive"
 			"11"		"left_trackpad inactive"
-			"15"		"left_trackpad active"
+			"15"		"left_trackpad inactive"
+			"18"		"left_trackpad active"
 			"2"		"right_trackpad inactive"
 			"6"		"right_trackpad inactive"
 			"10"		"right_trackpad inactive"
 			"12"		"right_trackpad active"
 			"13"		"right_trackpad inactive"
-			"3"		"joystick active"
+			"3"		"joystick inactive"
+			"16"		"joystick active"
 			"4"		"left_trigger active"
 			"5"		"right_trigger active"
 			"8"		"right_joystick active"
 			"9"		"dpad active"
-			"14"		"gyro inactive"
 		}
 	}
 	"settings"
