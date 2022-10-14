@@ -71,6 +71,10 @@ LOGFILE="$HOME/emudeck/emudeck.log"
 
 mkdir -p "$HOME/emudeck"
 
+#Custom Scripts
+mkdir -p "$HOME/emudeck/custom_scripts"
+echo $'#!/bin/bash\nEMUDECKGIT="$HOME/.config/EmuDeck/backend"\nsource "$EMUDECKGIT/functions/all.sh"' > "$HOME/emudeck/custom_scripts/example.sh"
+
 echo "Press the button to start..." > "$LOGFILE"
 
 mv "${LOGFILE}" "$HOME/emudeck/emudeck.last.log" #backup last log
@@ -684,6 +688,16 @@ rm "$PIDFILE"
 #
 
 checkInstalledEmus
+
+
+#
+# Run custom scripts... shhh for now ;)
+#
+
+for entry in "$HOME/emudeck/custom_scripts/*.sh"
+do
+	 bash $entry
+done
 
 if [ "$uiMode" == 'zenity' ]; then
 
