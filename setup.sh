@@ -694,7 +694,7 @@ checkInstalledEmus
 # Run custom scripts... shhh for now ;)
 #
 
-for entry in "$HOME/emudeck/custom_scripts/*.sh"
+for entry in "$HOME"/emudeck/custom_scripts/*.sh
 do
 	 bash $entry
 done
