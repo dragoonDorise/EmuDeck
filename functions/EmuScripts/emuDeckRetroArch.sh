@@ -1884,6 +1884,13 @@ RetroArch_setShadersCRT(){
 		RetroArch_CRTshaderOffAll
 	fi	
 }
+RetroArch_setShadersCRT(){
+	if [ "$RAHandClassic3D" == true ]; then	
+		RetroArch_3DCRTshaderOnAll
+	else
+		RetroArch_3DCRTshaderOffAll
+	fi	
+}
 RetroArch_setShadersMAT(){
 	if [ "$RAHandHeldShader" == true ]; then	
 		RetroArch_MATshadersOnAll

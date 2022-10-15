@@ -561,6 +561,7 @@ fi
 #	
 if [ "$doSetupRA" == "true" ]; then
 	RetroArch_setShadersCRT
+	RetroArch_setShaders3DCRT
 	RetroArch_setShadersMAT
 fi
 
