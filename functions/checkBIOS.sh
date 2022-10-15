@@ -14,6 +14,7 @@ checkPS1BIOS(){
 				do
 				if [[ "$md5" == *"${i}"* ]]; then
 					PSXBIOS=true
+					mv "$entry" "${entry,,}"
 					break
 				else
 					PSXBIOS=false
@@ -25,7 +26,7 @@ checkPS1BIOS(){
 		
 	
 	if [ $PSXBIOS == true ]; then
-		echo "true";
+		echo "$entry true";
 	else
 		echo "false";
 	fi	
@@ -46,6 +47,7 @@ checkPS2BIOS(){
 				do
 					if [[ "$md5" == *"${i}"* ]]; then
 						PS2BIOS=true
+						mv "$entry" "${entry,,}"
 						break
 					else
 						PS2BIOS=false

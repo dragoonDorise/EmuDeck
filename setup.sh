@@ -71,6 +71,10 @@ LOGFILE="$HOME/emudeck/emudeck.log"
 
 mkdir -p "$HOME/emudeck"
 
+#Custom Scripts
+mkdir -p "$HOME/emudeck/custom_scripts"
+echo $'#!/bin/bash\nEMUDECKGIT="$HOME/.config/EmuDeck/backend"\nsource "$EMUDECKGIT/functions/all.sh"' > "$HOME/emudeck/custom_scripts/example.sh"
+
 echo "Press the button to start..." > "$LOGFILE"
 
 mv "${LOGFILE}" "$HOME/emudeck/emudeck.last.log" #backup last log
@@ -481,7 +485,7 @@ else
 		RetroArch_genesis_ar43
 	  	RetroArch_segacd_ar43
 	  	RetroArch_sega32x_ar43
-	  	if [ "$RABezels" == true ]; then	
+	  	if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then
 	  		RetroArch_mastersystem_bezelOn
 	  		RetroArch_genesis_bezelOn
 	  		RetroArch_segacd_bezelOn
@@ -503,7 +507,7 @@ else
 	  *)
 		RetroArch_snes_ar43
 		RetroArch_nes_ar43
-		if [ "$RABezels" == true ]; then	
+		if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then	
 			RetroArch_snes_bezelOn
 		fi
 	  ;;
@@ -535,7 +539,7 @@ else
 		DuckStation_wideScreenOff
 		Xemu_wideScreenOff
 		#"Bezels on"
-		if [ "$RABezels" == true ]; then	
+		if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then
 			RetroArch_Flycast_bezelOn			
 			RetroArch_n64_bezelOn
 			RetroArch_psx_bezelOn
@@ -555,8 +559,11 @@ fi
 #
 #New Shaders
 #	
-RetroArch_setShadersCRT
-RetroArch_setShadersMAT
+if [ "$doSetupRA" == "true" ]; then
+	RetroArch_setShadersCRT
+	RetroArch_setShaders3DCRT
+	RetroArch_setShadersMAT
+fi
 
 #RetroAchievments
 RetroArch_retroAchievementsSetLogin
@@ -676,6 +683,22 @@ echo "100" > "$HOME/.config/EmuDeck/msg.log"
 echo "# Installation Complete" >> "$HOME/.config/EmuDeck/msg.log"
 finished=true
 rm "$PIDFILE"
+
+#
+## We check all the selected emulators are installed
+#
+
+checkInstalledEmus
+
+
+#
+# Run custom scripts... shhh for now ;)
+#
+
+for entry in "$HOME"/emudeck/custom_scripts/*.sh
+do
+	 bash $entry
+done
 
 if [ "$uiMode" == 'zenity' ]; then
 
