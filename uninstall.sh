@@ -48,7 +48,7 @@ if [ "$doUninstall" == true ]; then
 		 --width=450 \
 		 --ok-label="Launch SRM" \
 		 --cancel-label="Continue" \
-		 --text="${text}" 2>/dev/null
+		 --text="${text}"
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		kill -15 "$(pidof steam)"
@@ -57,7 +57,7 @@ if [ "$doUninstall" == true ]; then
 		
 				
 	else		
-		echo -e "No" 2>/dev/null
+		echo -e "No"
 	fi
 
 	
@@ -243,7 +243,7 @@ if [ "$doUninstall" == true ]; then
 		 zenity --info \
 				 --title="EmuDeck" \
 				 --width="450" \
-				 --text="${text}" 2>/dev/null	
+				 --text="${text}"
 				 
 	exit
 
