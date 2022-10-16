@@ -611,7 +611,7 @@ RetroArch_neogeo_bezelOn(){
 	RetroArch_setOverride 'neogeo.cfg' 'FinalBurn Neo'  'input_overlay_auto_scale' '"false"'
 	RetroArch_setOverride 'neogeo.cfg' 'FinalBurn Neo'  'input_overlay_enable' '"true"'
 	RetroArch_setOverride 'neogeo.cfg' 'FinalBurn Neo'  'input_overlay_hide_in_menu' '"false"'
-	RetroArch_setOverride 'neogeo.cfg' 'FinalBurn Neo'  'input_overlay_scale_landscape' '"1.055000'
+	RetroArch_setOverride 'neogeo.cfg' 'FinalBurn Neo'  'input_overlay_scale_landscape' '"1.170000'
 }
 
 RetroArch_neogeo_bezelOff(){
@@ -631,11 +631,11 @@ RetroArch_neogeo_CRTshaderOff(){
 }
 
 RetroArch_fbneo_bezelOn(){
-	#RetroArch_setOverride 'fbneo.cfg' 'FinalBurn Neo'  'input_overlay' "~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/neogeo.cfg"
+	RetroArch_setOverride 'fbneo.cfg' 'FinalBurn Neo'  'input_overlay' "~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/neogeo.cfg"
 	RetroArch_setOverride 'fbneo.cfg' 'FinalBurn Neo'  'input_overlay_auto_scale' '"false"'
 	RetroArch_setOverride 'fbneo.cfg' 'FinalBurn Neo'  'input_overlay_enable' '"true"'
 	RetroArch_setOverride 'fbneo.cfg' 'FinalBurn Neo'  'input_overlay_hide_in_menu' '"false"'
-	RetroArch_setOverride 'fbneo.cfg' 'FinalBurn Neo'  'input_overlay_scale_landscape' '"1.055000'
+	RetroArch_setOverride 'neogeo.cfg' 'FinalBurn Neo'  'input_overlay_scale_landscape' '"1.170000'
 }
 
 RetroArch_fbneo_bezelOff(){
