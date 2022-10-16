@@ -525,8 +525,8 @@ else
 		RetroArch_Flycast_wideScreenOn
 		Xemu_wideScreenOn
 		#"Bezels off"
-		RetroArch_Flycast_bezelOff
-		RetroArch_Beetle_PSX_HW_bezelOff
+		RetroArch_dreamcast_bezelOff
+		RetroArch_psx_bezelOff
 		RetroArch_n64_wideScreenOn
 		RetroArch_SwanStation_wideScreenOn
 	else
@@ -540,7 +540,7 @@ else
 		Xemu_wideScreenOff
 		#"Bezels on"
 		if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then
-			RetroArch_Flycast_bezelOn			
+			RetroArch_dreamcast_bezelOn			
 			RetroArch_n64_bezelOn
 			RetroArch_psx_bezelOn
 		fi			

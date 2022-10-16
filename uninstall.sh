@@ -197,7 +197,11 @@ if [ "$doUninstall" == true ]; then
 		rm -rf ~/.var/app/org.mamedev.MAME &>> /dev/null
 	fi
 
+	#Backup Service
+	systemctl --user disable emudeck_saveBackup.timer && rm "$HOME/.config/systemd/user/emudeck_saveBackup.timer" && rm "$HOME/.config/systemd/user/emudeck_saveBackup.service"
+	
 	#Emudeck's files	
+	
 	rm -rf ~/.steam/steam/controller_base/templates/cemu_controller_config.vdf
 	rm -rf ~/.steam/steam/controller_base/templates/citra_controller_config.vdf
 	rm -rf ~/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf
