@@ -1,5 +1,5 @@
 {
-  "version": 37,
+  "version": 40,
   "enable_file_log": true,
   "backend_threading": "Auto",
   "res_scale": 1,
@@ -28,6 +28,7 @@
   "hide_cursor_on_idle": false,
   "enable_vsync": true,
   "enable_shader_cache": true,
+  "enable_texture_recompression": false,
   "enable_ptc": true,
   "enable_internet_access": false,
   "enable_fs_integrity_checks": true,
@@ -50,13 +51,22 @@
     "path_column": true
   },
   "column_sort": {
-    "sort_column_id": 2,
+    "sort_column_id": 7,
     "sort_ascending": true
   },
-  "game_dirs": [],
+  "game_dirs": [
+    "/run/media/mmcblk0p1/Emulation/roms/switch"
+  ],
+  "language_code": "en_US",
   "enable_custom_theme": false,
   "custom_theme_path": "",
-  "start_fullscreen": false,
+  "base_style": "Dark",
+  "game_list_view_mode": 0,
+  "show_names": true,
+  "grid_size": 2,
+  "application_sort": 0,
+  "is_ascending_order": true,
+  "start_fullscreen": true,
   "show_console": true,
   "enable_keyboard": false,
   "enable_mouse": false,
@@ -65,7 +75,9 @@
     "screenshot": "F8",
     "show_ui": "F4",
     "pause": "F5",
-    "toggle_mute": "F2"
+    "toggle_mute": "F2",
+    "res_scale_up": "Unbound",
+    "res_scale_down": "Unbound"
   },
   "keyboard_config": [],
   "controller_config": [],
@@ -87,7 +99,71 @@
       },
       "deadzone_left": 0,
       "deadzone_right": 0,
-      "range_left": 1,
+      "range_left": 1.2,
+      "range_right": 1,
+      "trigger_threshold": 0,
+      "motion": {
+        "slot": 0,
+        "alt_slot": 0,
+        "mirror_input": false,
+        "dsu_server_host": "127.0.0.1",
+        "dsu_server_port": 26760,
+        "motion_backend": "CemuHook",
+        "sensitivity": 100,
+        "gyro_deadzone": 1,
+        "enable_motion": true
+      },
+      "rumble": {
+        "strong_rumble": 2.1,
+        "weak_rumble": 1,
+        "enable_rumble": true
+      },
+      "left_joycon": {
+        "button_minus": "Minus",
+        "button_l": "LeftShoulder",
+        "button_zl": "LeftTrigger",
+        "button_sl": "Unbound",
+        "button_sr": "Unbound",
+        "dpad_up": "DpadUp",
+        "dpad_down": "DpadDown",
+        "dpad_left": "DpadLeft",
+        "dpad_right": "DpadRight"
+      },
+      "right_joycon": {
+        "button_plus": "Plus",
+        "button_r": "RightShoulder",
+        "button_zr": "RightTrigger",
+        "button_sl": "Unbound",
+        "button_sr": "Unbound",
+        "button_x": "Y",
+        "button_b": "A",
+        "button_y": "X",
+        "button_a": "B"
+      },
+      "version": 1,
+      "backend": "GamepadSDL2",
+      "id": "0-00000003-28de-0000-ff11-000001000000",
+      "controller_type": "JoyconPair",
+      "player_index": "Player1"
+    },
+    {
+      "left_joycon_stick": {
+        "joystick": "Left",
+        "invert_stick_x": false,
+        "invert_stick_y": false,
+        "rotate90_cw": false,
+        "stick_button": "LeftStick"
+      },
+      "right_joycon_stick": {
+        "joystick": "Right",
+        "invert_stick_x": false,
+        "invert_stick_y": false,
+        "rotate90_cw": false,
+        "stick_button": "RightStick"
+      },
+      "deadzone_left": 0,
+      "deadzone_right": 0,
+      "range_left": 1.2,
       "range_right": 1,
       "trigger_threshold": 0,
       "motion": {
@@ -125,9 +201,129 @@
       },
       "version": 1,
       "backend": "GamepadSDL2",
-      "id": "0-00000003-28de-0000-ff11-000001000000",
-      "controller_type": "JoyconPair",
-      "player_index": "Player1"
+      "id": "1-00000003-28de-0000-ff11-000001000000",
+      "controller_type": "ProController",
+      "player_index": "Player2"
+    },
+    {
+      "left_joycon_stick": {
+        "joystick": "Left",
+        "invert_stick_x": false,
+        "invert_stick_y": false,
+        "rotate90_cw": false,
+        "stick_button": "LeftStick"
+      },
+      "right_joycon_stick": {
+        "joystick": "Right",
+        "invert_stick_x": false,
+        "invert_stick_y": false,
+        "rotate90_cw": false,
+        "stick_button": "RightStick"
+      },
+      "deadzone_left": 0,
+      "deadzone_right": 0,
+      "range_left": 1.2,
+      "range_right": 1,
+      "trigger_threshold": 0,
+      "motion": {
+        "motion_backend": "GamepadDriver",
+        "sensitivity": 100,
+        "gyro_deadzone": 1,
+        "enable_motion": false
+      },
+      "rumble": {
+        "strong_rumble": 1,
+        "weak_rumble": 1,
+        "enable_rumble": true
+      },
+      "left_joycon": {
+        "button_minus": "Minus",
+        "button_l": "LeftShoulder",
+        "button_zl": "LeftTrigger",
+        "button_sl": "Unbound",
+        "button_sr": "Unbound",
+        "dpad_up": "DpadUp",
+        "dpad_down": "DpadDown",
+        "dpad_left": "DpadLeft",
+        "dpad_right": "DpadRight"
+      },
+      "right_joycon": {
+        "button_plus": "Plus",
+        "button_r": "RightShoulder",
+        "button_zr": "RightTrigger",
+        "button_sl": "Unbound",
+        "button_sr": "Unbound",
+        "button_x": "Y",
+        "button_b": "A",
+        "button_y": "X",
+        "button_a": "B"
+      },
+      "version": 1,
+      "backend": "GamepadSDL2",
+      "id": "2-00000003-28de-0000-ff11-000001000000",
+      "controller_type": "ProController",
+      "player_index": "Player3"
+    },
+    {
+      "left_joycon_stick": {
+        "joystick": "Left",
+        "invert_stick_x": false,
+        "invert_stick_y": false,
+        "rotate90_cw": false,
+        "stick_button": "LeftStick"
+      },
+      "right_joycon_stick": {
+        "joystick": "Right",
+        "invert_stick_x": false,
+        "invert_stick_y": false,
+        "rotate90_cw": false,
+        "stick_button": "RightStick"
+      },
+      "deadzone_left": 0,
+      "deadzone_right": 0,
+      "range_left": 1.2,
+      "range_right": 1,
+      "trigger_threshold": 0,
+      "motion": {
+        "motion_backend": "GamepadDriver",
+        "sensitivity": 100,
+        "gyro_deadzone": 1,
+        "enable_motion": false
+      },
+      "rumble": {
+        "strong_rumble": 1,
+        "weak_rumble": 1,
+        "enable_rumble": true
+      },
+      "left_joycon": {
+        "button_minus": "Minus",
+        "button_l": "LeftShoulder",
+        "button_zl": "LeftTrigger",
+        "button_sl": "Unbound",
+        "button_sr": "Unbound",
+        "dpad_up": "DpadUp",
+        "dpad_down": "DpadDown",
+        "dpad_left": "DpadLeft",
+        "dpad_right": "DpadRight"
+      },
+      "right_joycon": {
+        "button_plus": "Plus",
+        "button_r": "RightShoulder",
+        "button_zr": "RightTrigger",
+        "button_sl": "Unbound",
+        "button_sr": "Unbound",
+        "button_x": "Y",
+        "button_b": "A",
+        "button_y": "X",
+        "button_a": "B"
+      },
+      "version": 1,
+      "backend": "GamepadSDL2",
+      "id": "3-00000003-28de-0000-ff11-000001000000",
+      "controller_type": "ProController",
+      "player_index": "Player4"
     }
-  ]
+  ],
+  "graphics_backend": "Vulkan",
+  "preferred_gpu": "0x1002_0x163F"
 }

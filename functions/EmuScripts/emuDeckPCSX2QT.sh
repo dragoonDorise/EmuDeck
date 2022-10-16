@@ -146,6 +146,18 @@ PCSX2QT_finalize(){
 	echo "NYI"
 }
 
+PCSX2QT_IsInstalled(){
+	if [ -e "$PCSX2QT_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+PCSX2QT_resetConfig(){
+	PCSX2QT_init &>/dev/null && echo "true" || echo "false"
+}
+
 PCSX2QT_addSteamInputProfile(){
 	setMSG "Adding $PCSX2QT_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/PCSX2QT_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"

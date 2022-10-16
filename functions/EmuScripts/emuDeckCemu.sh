@@ -2,8 +2,8 @@
 #variables
 Cemu_emuName="Cemu"
 Cemu_emuType="windows"
-Cemu_emuPath="${romsPath}/wiiu/cemu.exe"
-Cemu_releaseURL="https://cemu.info/releases/cemu_1.26.2.zip"
+Cemu_emuPath="${romsPath}/wiiu/Cemu.exe"
+Cemu_releaseURL="https://cemu.info/releases/cemu_1.27.1.zip"
 Cemu_cemuSettings="${romsPath}/wiiu/settings.xml"
 
 #cleanupOlderThings
@@ -23,19 +23,19 @@ Cemu_install(){
 	rm -rf "$romsPath"/wiiu/tmp 
 	rm -f "$romsPath"/wiiu/cemu.zip
 	
-	if  [ -e "${toolsPath}/launchers/cemu.sh" ]; then #retain launch settings
-		local launchLine=$( tail -n 1 "${toolsPath}/launchers/cemu.sh" )
-		echo "cemu launch line found: $launchLine"
-	fi
+#	if  [ -e "${toolsPath}/launchers/cemu.sh" ]; then #retain launch settings
+#		local launchLine=$( tail -n 1 "${toolsPath}/launchers/cemu.sh" )
+#		echo "cemu launch line found: $launchLine"
+#	fi
 	
 
 	cp "$EMUDECKGIT/tools/launchers/cemu.sh" "${toolsPath}/launchers/cemu.sh"
-	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|" "${toolsPath}/launchers/cemu.sh"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/cemu.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/cemu.sh"
 
-	if [[ "$launchLine"  == *"PROTONLAUNCH"* ]]; then
-		changeLine '"${PROTONLAUNCH}"' "$launchLine" "${toolsPath}/launchers/cemu.sh"
-	fi
+#	if [[ "$launchLine"  == *"PROTONLAUNCH"* ]]; then
+#		changeLine '"${PROTONLAUNCH}"' "$launchLine" "${toolsPath}/launchers/cemu.sh"
+#	fi
 	chmod +x "${toolsPath}/launchers/cemu.sh"
 	
 
@@ -52,17 +52,26 @@ Cemu_init(){
 	if [ -e "$Cemu_cemuSettings.bak" ]; then
 		mv -f "$Cemu_cemuSettings.bak" "$Cemu_cemuSettings" #retain cemuSettings
 	fi
-    Cemu_setEmulationFolder
+	Cemu_setEmulationFolder
 	Cemu_setupSaves
 	Cemu_addSteamInputProfile
 
+	if [ -e "${romsPath}/wiiu/controllerProfiles/controller1.xml" ];then 
+		mv "${romsPath}/wiiu/controllerProfiles/controller1.xml" "${romsPath}/wiiu/controllerProfiles/controller1.xml.bak"
+	fi
+	if [ -e "${romsPath}/wiiu/controllerProfiles/controller2.xml" ];then 
+		mv "${romsPath}/wiiu/controllerProfiles/controller2.xml" "${romsPath}/wiiu/controllerProfiles/controller2.xml.bak"
+	fi
+	if [ -e "${romsPath}/wiiu/controllerProfiles/controller3.xml" ];then 
+		mv "${romsPath}/wiiu/controllerProfiles/controller3.xml" "${romsPath}/wiiu/controllerProfiles/controller3.xml.bak"
+	fi
 }
 
 #update
 Cemu_update(){
 	setMSG "Updating $Cemu_emuName settings."	
-    rsync -avhp "$EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu" --ignore-existing
-    Cemu_setEmulationFolder
+	rsync -avhp "$EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu" --ignore-existing
+	Cemu_setEmulationFolder
 	Cemu_setupSaves
 	Cemu_addSteamInputProfile
 }
@@ -73,8 +82,12 @@ Cemu_setEmulationFolder(){
 	setMSG "Setting $Cemu_emuName Emulation Folder"	
 	
 	if [[ -f "${Cemu_cemuSettings}" ]]; then
+	#Correct Folder seperators to windows based ones
+		#WindowsRomPath=${echo "z:${romsPath}/wiiu/roms" | sed 's/\//\\/g'}
+		#gamePathEntryFound=$(grep -rnw "$Cemu_cemuSettings" -e "${WindowsRomPath}")
 		gamePathEntryFound=$(grep -rnw "$Cemu_cemuSettings" -e "z:${romsPath}/wiiu/roms")
 		if [[ $gamePathEntryFound == '' ]]; then 
+			#xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "${WindowsRomPath}" "$Cemu_cemuSettings"
 			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}/wiiu/roms" "$Cemu_cemuSettings"
 		fi
 	fi
@@ -104,17 +117,17 @@ Cemu_wipeSettings(){
 #Uninstall
 Cemu_uninstall(){
 	setMSG "Uninstalling $Cemu_emuName."
-    rm -rf "${Cemu_emuPath}"
+	rm -rf "${Cemu_emuPath}"
 }
 
 #setABXYstyle
 Cemu_setABXYstyle(){
-    	echo "NYI"
+		echo "NYI"
 }
 
 #Migrate
 Cemu_migrate(){
-   	echo "NYI" 
+	   echo "NYI" 
 }
 
 #WideScreenOn
@@ -139,7 +152,20 @@ Cemu_bezelOff(){
 
 #finalExec - Extra stuff
 Cemu_finalize(){
-    Cemu_cleanup
+	Cemu_cleanup
+}
+
+Cemu_IsInstalled(){
+	if [ -e "$Cemu_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+Cemu_resetConfig(){
+	mv  "$Cemu_cemuSettings" "$Cemu_cemuSettings.bak" &>/dev/null
+	Cemu_init &>/dev/null && echo "true" || echo "false"
 }
 
 Cemu_addSteamInputProfile(){

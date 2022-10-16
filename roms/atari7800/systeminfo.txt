@@ -1,0 +1,17 @@
+System name:
+atari7800
+
+Full system name:
+Atari 7800 ProSystem
+
+Supported file extensions:
+.a78 .A78 .bin .BIN .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/prosystem_libretro.so %ROM%
+
+Platform (for scraping):
+atari7800
+
+Theme folder:
+atari7800

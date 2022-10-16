@@ -3,15 +3,14 @@
 SAVESYNC_toolName="EmuDeck SaveSync"
 SAVESYNC_toolType="AppImage"
 SAVESYNC_toolPath="$HOME/Applications/EmuDeck_SaveSync.AppImage"
+rclone_toolPath="$HOME/Applications/rclone/rclone"
 SAVESYNC_systemd_path="$HOME/.config/systemd/user"
 #SAVESYNC_Shortcutlocation="$HOME/Desktop/EmuDeckBinUpdate.desktop"
-
-
 
 SAVESYNC_install(){	
 
 	rm "$SAVESYNC_toolPath"
-    curl -L "$(getReleaseURLGH "withertech/savesync" "AppImage")" --output "$SAVESYNC_toolPath"
+    curl -L "$(getReleaseURLGH "EmuDeck/savesync" "AppImage")" --output "$SAVESYNC_toolPath.temp" && mv "$SAVESYNC_toolPath.temp" "$SAVESYNC_toolPath"
 	chmod +x "$SAVESYNC_toolPath"
 
 }
@@ -43,12 +42,14 @@ SAVESYNC_createService(){
     echo \
     "[Unit]
     Description=Emudeck SaveSync service
+    After=network-online.target
+    Wants=network-online.target
 
     [Service]
     Type=simple
     Restart=always
     RestartSec=1
-    ExecStart=$SAVESYNC_toolPath --sync $emulationPath
+    ExecStart=$rclone_toolPath --copy $savesPath
 
     [Install]
     WantedBy=default.target" > "$SAVESYNC_systemd_path/emudeck_savesync.service"

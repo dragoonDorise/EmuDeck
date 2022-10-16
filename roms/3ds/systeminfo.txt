@@ -1,0 +1,21 @@
+System name:
+n3ds
+
+Full system name:
+Nintendo 3DS
+
+Supported file extensions:
+.3ds .3DS .3dsx .3DSX .app .APP .axf .AXF .cci .CCI .cxi .CXI .elf .ELF .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/citra_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/citra2018_libretro.so %ROM%
+%EMULATOR_CITRA% %ROM%
+
+Platform (for scraping):
+n3ds
+
+Theme folder:
+n3ds

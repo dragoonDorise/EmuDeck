@@ -1,0 +1,17 @@
+System name:
+model2
+
+Full system name:
+Sega Model 2
+
+Supported file extensions:
+.7z .7Z .zip .ZIP
+
+Launch command:
+PLACEHOLDER %ROM%
+
+Platform (for scraping):
+arcade
+
+Theme folder:
+model2

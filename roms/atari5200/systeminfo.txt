@@ -1,0 +1,21 @@
+System name:
+atari5200
+
+Full system name:
+Atari 5200
+
+Supported file extensions:
+.xfd .XFD .atr .ATR .atx .ATX .cdm .CDM .cas .CAS .bin .BIN .a52 .A52 .xex .XEX .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/a5200_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/atari800_libretro.so %ROM%
+%EMULATOR_ATARI800% %ROM%
+
+Platform (for scraping):
+atari5200
+
+Theme folder:
+atari5200

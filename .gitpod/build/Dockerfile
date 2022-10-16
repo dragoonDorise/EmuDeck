@@ -17,10 +17,10 @@ RUN useradd -l -u 33333 -G wheel -md /home/gitpod -s /bin/bash -p gitpod gitpod 
     && echo "gitpod ALL = NOPASSWD : ALL" >> /etc/sudoers \
     # To emulate the workspace-session behavior within dazzle build env
     && mkdir /workspace && chown -hR gitpod:gitpod /workspace \
-    && mkdir -p $HOME/emudeck/backend
+    && mkdir -p $HOME/.config/EmuDeck/backend
 
 ENV HOME=/home/gitpod
-WORKDIR $HOME/emudeck/backend
+WORKDIR $HOME/.config/EmuDeck/backend
 # custom Bash prompt
 RUN { echo && echo "PS1='\[\033[01;32m\]\u\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\]\$(__git_ps1 \" (%s)\") $ '" ; } >> .bashrc
 

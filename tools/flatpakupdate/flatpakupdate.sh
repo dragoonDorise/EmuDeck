@@ -1,5 +1,5 @@
 #!/bin/bash
-source "$HOME/emudeck/backend/functions/all.sh"
+source "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emuTable=()
 emuTable+=(TRUE "Multiple" "RetroArch")
 emuTable+=(TRUE "Metroid Prime" "PrimeHack")

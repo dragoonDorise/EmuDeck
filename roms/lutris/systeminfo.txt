@@ -1,0 +1,17 @@
+System name:
+lutris
+
+Full system name:
+Lutris Open Gaming Platform
+
+Supported file extensions:
+.desktop .sh
+
+Launch command:
+%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%
+
+Platform (for scraping):
+pc, pcwindows
+
+Theme folder:
+lutris

@@ -1,0 +1,22 @@
+System name:
+ps2
+
+Full system name:
+Sony PlayStation 2
+
+Supported file extensions:
+.bin .BIN .chd .CHD .ciso .CISO .cso .CSO .dump .DUMP .elf .ELF .gz .GZ .m3u .M3U .mdf .MDF .img .IMG .iso .ISO .isz .ISZ .ngr .NRG
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/pcsx2_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_PCSX2% -batch %ROM%
+%EMULATOR_PCSX2-LEGACY% --nogui %ROM%
+%EMULATOR_PLAY!% --disc %ROM%
+
+Platform (for scraping):
+ps2
+
+Theme folder:
+ps2

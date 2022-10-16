@@ -78,19 +78,17 @@ Ryujinx_setEmulationFolder(){
     unlink "${biosPath}/ryujinx/keys"    
     mkdir -p "$HOME/.config/Ryujinx/system/"
     mkdir -p "${biosPath}/ryujinx/"
+    unlink "$HOME/.config/Ryujinx/system"
     ln -sn "$HOME/.config/Ryujinx/system" "${biosPath}/ryujinx/keys"
 
-
     sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/Ryujinx/Config.json"
-
-
 
 }
 
 #SetupSaves
 Ryujinx_setupSaves(){
     echo "Begin Ryujinx save link" 
-    linkToSaveFolder ryujinx saves "$HOME/.config/Ryujinx/bis/user/" 
+    moveSaveFolder ryujinx saves "$HOME/.config/Ryujinx/bis/user/" 
 }
 
 
@@ -98,9 +96,10 @@ Ryujinx_setupSaves(){
 Ryujinx_setupStorage(){
     echo "Begin Ryujinx storage config"
     
-    origPath="$HOME/.config/"
-    mkdir -p "${storagePath}/ryujinx/"
+    local origPath="$HOME/.config/"
+    mkdir -p "${storagePath}/ryujinx/patchesAndDlc"
     rsync -av "${origPath}/Ryujinx/games/" "${storagePath}/ryujinx/games/" && rm -rf "${origPath}Ryujinx/games"
+    unlink "${origPath}/Ryujinx/games"
     ln -ns "${storagePath}/ryujinx/games/" "${origPath}/Ryujinx/games" 
         
 }
@@ -123,7 +122,7 @@ Ryujinx_uninstall(){
 Ryujinx_migrate(){
     echo "Begin Ryujinx Migration"
     emu="Ryujinx"
-#     migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
+#     migrationFlag="$HOME/.config/EmuDeck/.${emu}MigrationCompleted"
 #     #check if we have a nomigrateflag for $emu
 #     if [ ! -f "$migrationFlag" ]; then	
 #         #yuzu flatpak to appimage
@@ -136,7 +135,7 @@ Ryujinx_migrate(){
 #     fi
 
     #move data from hidden folders out to these folders in case the user already put stuff here.
-    origPath="$HOME/.config"
+    local origPath="$HOME/.config"
 
     Ryujinx_setupStorage
     
@@ -184,4 +183,16 @@ echo "NYI"
 #finalExec - Extra stuff
 Ryujinx_finalize(){
     echo "Begin Ryujinx finalize"
+}
+
+Ryujinx_IsInstalled(){
+	if [ -e "$Ryujinx_emuPath/Ryujinx" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+Ryujinx_resetConfig(){
+	Ryujinx_init &>/dev/null && echo "true" || echo "false"
 }

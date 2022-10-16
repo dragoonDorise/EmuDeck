@@ -16,7 +16,7 @@ if [ $ans -eq 0 ]; then
 	romsPath="/run/media/mmcblk0p1/Emulation/roms"
 	toolsPath="/run/media/mmcblk0p1/Emulation/tools"
 	chdPath="${toolsPath}/chdconv/"
-
+	dolphinTool="/var/lib/flatpak/app/io.github.shiiion.primehack/current/active/files/bin/dolphin-tool"
 
 	#initialize log
 	TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
@@ -31,7 +31,7 @@ if [ $ans -eq 0 ]; then
 
 	#whitelist
 	declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
-	declare -a rvzfolderWhiteList=("gamecube" "wii")
+	declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
 	declare -a searchFolderList
 
 	export PATH="${chdPath}/:$PATH"
@@ -45,7 +45,7 @@ if [ $ans -eq 0 ]; then
 			searchFolderList+=("$romfolder")
 		fi
 	done
-	if [[ -f "/var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool" ]]; then #ensure tools are in place
+	if [[ -f "$dolphinTool" ]]; then #ensure tools are in place
         for romfolder in "${rvzfolderWhiteList[@]}"; do
             echo "Checking ${romsPath}/${romfolder}/"
             mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.gcm"  -o -type f -iname "*.iso")
@@ -106,9 +106,10 @@ if [ $ans -eq 0 ]; then
                 do
                     echo "Converting: $f"
                     CUEDIR="$(dirname "${f}")"
+					echo "Compressing ${f%.*}.chd" >  "$HOME/.config/EmuDeck/chdtool.log"
                     chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
                     if [[ $successful == "true" ]]; then
-                        echo "successfully created ${f%.*}.chd"
+                        echo "successfully created ${f%.*}.chd" >  "$HOME/.config/EmuDeck/chdtool.log"
                         find "${CUEDIR}" -maxdepth 1 -type f | while read -r b
                             do
                                 fileName="$(basename "${b}")"
@@ -120,7 +121,7 @@ if [ $ans -eq 0 ]; then
                             done
                             rm "${f}"
                     else
-                        echo "Conversion of ${f} failed."
+                        echo "Conversion of ${f} failed." >  "$HOME/.config/EmuDeck/chdtool.log"
                     fi
 
                 done
@@ -128,9 +129,10 @@ if [ $ans -eq 0 ]; then
                 do
                     echo "Converting: $f"
                     CUEDIR="$(dirname "${f}")"
+					echo "Compressing ${f%.*}.chd" >  "$HOME/.config/EmuDeck/chdtool.log"
                     chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
                     if [[ $successful == "true" ]]; then
-                        echo "successfully created ${f%.*}.chd"
+                        echo "successfully created ${f%.*}.chd" >  "$HOME/.config/EmuDeck/chdtool.log"
                         find "${CUEDIR}" -maxdepth 1 -type f | while read -r b
                             do
                                 fileName="$(basename "${b}")"
@@ -142,7 +144,7 @@ if [ $ans -eq 0 ]; then
                             done
                             rm "${f}"
                     else
-                        echo "Conversion of ${f} failed."
+                        echo "Conversion of ${f} failed." >  "$HOME/.config/EmuDeck/chdtool.log"
                     fi
 
                 done
@@ -153,8 +155,8 @@ if [ $ans -eq 0 ]; then
 	#rvz
 
     for romfolder in "${romfolders[@]}"; do
-        if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-            find "$romsPath/$romfolder" -type f -iname "*.gcm"  -o -type f -iname "*.iso" | while read -r f; do echo "Converting: $f"; /var/lib/flatpak/app/org.DolphinEmu.dolphin-emu/current/active/files/bin/dolphin-tool convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz"  && rm -rf "$f"; done;
+        if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then			
+            find "$romsPath/$romfolder" -type f -iname "*.gcm"  -o -type f -iname "*.iso" | while read -r f; do echo "Converting: $f"; "$dolphinTool" convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz" > "$HOME/.config/EmuDeck/chdtool.log"  && rm -rf "$f"; done;
         fi
     done
 
@@ -165,21 +167,37 @@ else
 	exit
 fi
 
-text="$(printf "<b>Done!</b>\n\n If you use Steam Rom Manager to catalog your games you will need to open it now to update your games")"
-zenity --question \
-		 --title="EmuDeck" \
-		 --width=450 \
-		 --ok-label="Open Steam Rom Manager" \
-		 --cancel-label="Exit" \
-		 --text="${text}" 2>/dev/null
-ans=$?
-if [ $ans -eq 0 ]; then
-	echo "user launched SRM"
-	"${toolsPath}/srm/Steam-ROM-Manager.AppImage"
-	exit
-else
-	exit
-	echo -e "Exit" &>> /dev/null
+
+
+echo "All files compressed!" > "$HOME/.config/EmuDeck/chdtool.log"
+
+if [ "$uiMode" != 'zenity' ]; then
+ text="$(printf " <b>All files have been compressed!</b>")"
+zenity --info \
+	 --title="EmuDeck" \
+	 --width="450" \
+	 --text="${text}" 2>/dev/null	
 fi
 
-sleep 99999
+echo "Press the button to start..." > "$HOME/.config/EmuDeck/chdtool.log"
+
+if [ "$uiMode" == 'zenity' ]; then
+
+	text="$(printf "<b>Done!</b>\n\n If you use Steam Rom Manager to catalog your games you will need to open it now to update your games")"
+	zenity --question \
+		 	--title="EmuDeck" \
+		 	--width=450 \
+		 	--ok-label="Open Steam Rom Manager" \
+		 	--cancel-label="Exit" \
+		 	--text="${text}" 2>/dev/null
+	ans=$?
+	if [ $ans -eq 0 ]; then
+		echo "user launched SRM"
+		"${toolsPath}/srm/Steam-ROM-Manager.AppImage"
+		exit
+	else
+		exit
+		echo -e "Exit" &>> /dev/null
+	fi
+
+fi

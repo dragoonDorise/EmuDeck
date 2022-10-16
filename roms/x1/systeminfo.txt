@@ -1,0 +1,17 @@
+System name:
+x1
+
+Full system name:
+Sharp X1
+
+Supported file extensions:
+.dx1 .DX1 .2d .2D .2hd .2HD .tfd .TFD .d88 .D88 .88d .88D .hdm .HDM .xdf .XDF .dup .DUP .tap .TAP .cmd .CMD .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/x1_libretro.so %ROM%
+
+Platform (for scraping):
+x1
+
+Theme folder:
+x1

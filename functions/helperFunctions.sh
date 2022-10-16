@@ -50,10 +50,10 @@ function changeLine() {
     local OLD=$(escapeSedKeyword "$KEYWORD")
     local NEW=$(escapeSedValue "$REPLACE")
 
-	echo "Updating: $FILE"
-	echo "Old: "$(cat "$FILE" | grep "^$OLD")
+	echo "Updating: $FILE - $OLD to $NEW"
+	#echo "Old: ""$(cat "$FILE" | grep "^$OLD")"
     sed -i "/^${OLD}/c\\${NEW}" "$FILE"
-	echo "New: "$(cat "$FILE" | grep "^$OLD")
+	#echo "New: ""$(cat "$FILE" | grep "^$OLD")"
 
 }
 function escapeSedKeyword(){
@@ -109,7 +109,7 @@ function testLocationValid(){
 
 function makeFunction(){
 
-	find "$HOME/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.cfg" | while read file
+	find "$1" -type f -iname "$2" | while read -r file
 		do
 			
 			folderOverride="$(basename "${file}")"
@@ -129,7 +129,7 @@ function makeFunction(){
 
 function deleteConfigs(){
 
-	find "$HOME/emudeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.opt" -o -type f -iname "*.cfg"| while read file
+	find "$HOME/.config/EmuDeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.opt" -o -type f -iname "*.cfg"| while read file
 		do
 			rm "$file"
 		done
@@ -206,7 +206,7 @@ function updateOrAppendConfigLine(){
 function getEnvironmentDetails(){
 	local sdpath=$(getSDPath)
 	local sdValid=$(testLocationValid "sd" "$sdpath")
-	if [ -f "$HOME/emudeck/.finished" ]; then
+	if [ -f "$HOME/.config/EmuDeck/.finished" ]; then
 		firstRun="false"
 	else
 		firstRun="true"
@@ -233,7 +233,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("expert=false")
 	defaultSettingsList+=("doSetupRA=true")
 	defaultSettingsList+=("doSetupDolphin=true")
-	defaultSettingsList+=("doSetupPCSX2=true")
+	#defaultSettingsList+=("doSetupPCSX2=true")
 	defaultSettingsList+=("doSetupRPCS3=true")
 	defaultSettingsList+=("doSetupYuzu=true")
 	defaultSettingsList+=("doSetupCitra=true")
@@ -248,12 +248,14 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupESDE=true")
 	defaultSettingsList+=("doSetupSRM=true")
 	defaultSettingsList+=("doSetupPCSX2QT=true")
+	defaultSettingsList+=("doSetupScummVM=true")
+	defaultSettingsList+=("doSetupVita3K=true")
 	#defaultSettingsList+=("doSetupMelon=true")
 	defaultSettingsList+=("doInstallSRM=true")
 	defaultSettingsList+=("doInstallESDE=true")
 	defaultSettingsList+=("doInstallRA=true")
 	defaultSettingsList+=("doInstallDolphin=true")
-	defaultSettingsList+=("doInstallPCSX2=true")
+	#defaultSettingsList+=("doInstallPCSX2=true")
 	defaultSettingsList+=("doInstallMAME=true")
 	defaultSettingsList+=("doInstallRyujinx=true")
 	defaultSettingsList+=("doInstallRPCS3=true")
@@ -266,6 +268,8 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doInstallPPSSPP=true")
 	defaultSettingsList+=("doInstallXemu=true")
 	defaultSettingsList+=("doInstallPCSX2QT=true")
+	defaultSettingsList+=("doInstallScummVM=true")
+	defaultSettingsList+=("doInstallVita3K=true")
 	#defaultSettingsList+=("doInstallMelon=false")
 	defaultSettingsList+=("doInstallCHD=true")
 	defaultSettingsList+=("doInstallPowertools=false")
@@ -294,13 +298,14 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSelectEmulators=false")
 	defaultSettingsList+=("doResetEmulators=false")
 	defaultSettingsList+=("XemuWide=false")
-	defaultSettingsList+=("achievementsPass=false")
-	defaultSettingsList+=("achievementsUser=false")
+	#defaultSettingsList+=("achievementsPass=false")
+	#defaultSettingsList+=("achievementsUser=false")
 	defaultSettingsList+=("arClassic3D=43")
 	defaultSettingsList+=("arDolphin=43")
 	defaultSettingsList+=("arSega=43")
 	defaultSettingsList+=("arSnes=43")
 	defaultSettingsList+=("RAHandClassic2D=false")
+	defaultSettingsList+=("RAHandClassic3D=false")
 	defaultSettingsList+=("RAHandHeldShader=false")
 
 	tmp=$(mktemp)
@@ -341,11 +346,11 @@ function checkForFile(){
 	done
 }
 
-
 function getLatestReleaseURLGH(){	
     local repository=$1
     local fileType=$2
-	local url
+	local url	
+	#local token=$(tokenGenerator)
 
     if [ "$url" == "" ]; then
         url="https://api.github.com/repos/${repository}/releases/latest"
@@ -359,6 +364,7 @@ function getReleaseURLGH(){
     local repository=$1
     local fileType=$2
 	local url
+	#local token=$(tokenGenerator)
 
     if [ "$url" == "" ]; then
         url="https://api.github.com/repos/$repository/releases"
@@ -375,10 +381,10 @@ function linkToSaveFolder(){
     local path=$3
 
 	if [ ! -d "$savesPath/$emu/$folderName" ]; then		
-		mkdir -p $savesPath/$emu
+		mkdir -p "$savesPath/$emu"
 		setMSG "Linking $emu $folderName to the Emulation/saves folder"			
-		mkdir -p $path 
-		ln -sn $path $savesPath/$emu/$folderName 
+		mkdir -p "$path"
+		ln -sn "$path" "$savesPath/$emu/$folderName"
 	fi
 
 }
@@ -419,6 +425,8 @@ function createDesktopShortcut(){
 	local exec=$3
 	local terminal=$4
 	local icon
+	
+	mkdir -p "$HOME/.local/share/applications/"
 	
 	mkdir -p "$HOME/.local/share/icons/emudeck/"
 	cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name")."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null

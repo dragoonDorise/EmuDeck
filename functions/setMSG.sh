@@ -5,8 +5,8 @@ setMSG(){
 	if [ $progressBar == 95 ]; then
 		progressBar=90
 	fi	
-	echo "$progressBar" > ~/emudeck/msg.log	
-	echo "# $1" >> ~/emudeck/msg.log
+	echo "$progressBar" > $HOME/.config/EmuDeck/msg.log	
+	echo "# $1" >> $HOME/.config/EmuDeck/msg.log
 	echo "$1"
 	sleep 0.5
 }

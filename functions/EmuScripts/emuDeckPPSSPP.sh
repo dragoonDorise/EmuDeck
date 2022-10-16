@@ -23,6 +23,7 @@ PPSSPP_init(){
 	PPSSPP_setupStorage
 	PPSSPP_setEmulationFolder
 	PPSSPP_setupSaves
+	PPSSPP_addSteamInputProfile
 }
 
 #update
@@ -31,6 +32,7 @@ PPSSPP_update(){
 	PPSSPP_setupStorage
 	PPSSPP_setEmulationFolder
 	PPSSPP_setupSaves
+	PPSSPP_addSteamInputProfile
 }
 
 #ConfigurePaths
@@ -95,8 +97,24 @@ PPSSPP_bezelOff(){
 echo "NYI"
 }
 
+PPSSPP_IsInstalled(){
+	if [ "$(flatpak --columns=app list | grep "$PPSSPP_emuPath")" == "$PPSSPP_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+PPSSPP_resetConfig(){
+	PPSSPP_init &>/dev/null && echo "true" || echo "false"
+}
+
 #finalExec - Extra stuff
 PPSSPP_finalize(){
 	echo "NYI"
 }
 
+PPSSPP_addSteamInputProfile(){
+	setMSG "Adding $PPSSPP_emuName Steam Input Profile."
+	rsync -r "$EMUDECKGIT/configs/steam-input/ppsspp_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+}

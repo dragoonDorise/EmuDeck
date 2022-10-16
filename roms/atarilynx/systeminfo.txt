@@ -1,0 +1,21 @@
+System name:
+atarilynx
+
+Full system name:
+Atari Lynx
+
+Supported file extensions:
+.lnx .LNX .o .O .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/handy_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mednafen_lynx_libretro.so %ROM%
+%EMULATOR_MEDNAFEN% -force_module lynx %ROM%
+
+Platform (for scraping):
+atarilynx
+
+Theme folder:
+atarilynx
