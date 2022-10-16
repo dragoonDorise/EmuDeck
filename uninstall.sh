@@ -17,9 +17,9 @@ doUninstallMame=true
 doUninstallSRM=true
 doUninstallESDE=true
 
-# LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
-# echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
-# exec > >(tee "${LOGFILE}") 2>&1
+LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
+echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
+exec > >(tee "${LOGFILE}") 2>&1
 
 #Wellcome
 text="`printf "<b>Hi!</b>\nDo you really want to uninstall EmuDeck?\n\nIf you are having issues please go to our Discord or Reddit so we can help you. You can see the links here: https://www.emudeck.com/#download"`"
@@ -46,8 +46,8 @@ if [ "$doUninstall" == true ]; then
 	zenity --question \
 		 --title="EmuDeck" \
 		 --width=450 \
-		 --ok-label="Yes" \
-		 --cancel-label="No" \
+		 --ok-label="Launch SRM" \
+		 --cancel-label="Continue" \
 		 --text="${text}" 2>/dev/null
 	ans=$?
 	if [ $ans -eq 0 ]; then
