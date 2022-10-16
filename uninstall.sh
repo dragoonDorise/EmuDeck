@@ -198,8 +198,7 @@ if [ "$doUninstall" == true ]; then
 	fi
 
 	#Backup Service
-	systemctl --user disable emudeck_saveBackup.timer && rm "$HOME/.config/systemd/user/emudeck_saveBackup.timer"
-	systemctl --user stop emudeck_saveBackup.timer && rm "$HOME/.config/systemd/user/emudeck_saveBackup.service"
+	systemctl --user disable emudeck_saveBackup.timer && rm "$HOME/.config/systemd/user/emudeck_saveBackup.timer" && rm "$HOME/.config/systemd/user/emudeck_saveBackup.service"
 	
 	#Emudeck's files	
 	
