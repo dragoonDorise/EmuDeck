@@ -18,13 +18,7 @@ SRM_install(){
 	mkdir -p "${toolsPath}/srm"
 	curl -L "$SRM_releaseURL" -o "${SRM_toolPath}.temp" && mv "${SRM_toolPath}.temp" "${SRM_toolPath}"
 	chmod +x "$SRM_toolPath"
-	#SRM_createDesktopShortcut "$HOME/Desktop/SteamRomManager.desktop"
-		
-	createDesktopShortcut   "$HOME/.local/share/applications/SRM.desktop" \
-	"Steam Rom Manager" \
-	"$SRM_toolPath" \
-	"False"
-	
+	SRM_createDesktopShortcut
 	rm -rf ~/Desktop/SteamRomManager.desktop &>> /dev/null
 }
 
@@ -33,7 +27,7 @@ SRM_createDesktopShortcut(){
 
 	if [[ "$SRM_Shortcutlocation" == "" ]]; then
 
-		SRM_Shortcutlocation="$HOME/Desktop/SteamRomManager.desktop"
+		SRM_Shortcutlocation="$HOME/.local/share/applications/SRM.desktop"
 	
 	fi
 
