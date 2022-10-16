@@ -1933,7 +1933,7 @@ RetroArch_setShadersCRT(){
 		RetroArch_CRTshaderOffAll
 	fi	
 }
-RetroArch_setShadersCRT(){
+RetroArch_setShaders3DCRT(){
 	if [ "$RAHandClassic3D" == true ]; then	
 		RetroArch_3DCRTshaderOnAll
 	else
