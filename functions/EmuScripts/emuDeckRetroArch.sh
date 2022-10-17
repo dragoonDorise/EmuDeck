@@ -1010,7 +1010,7 @@ RetroArch_n64_wideScreenOn(){
 RetroArch_n64_wideScreenOff(){
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-aspect = "4:3"'	
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'aspect_ratio_index' '"0"'	
-	RetroArch_n64_bezelOn
+	#RetroArch_n64_bezelOn
 }
 
 RetroArch_n64_bezelOn(){
@@ -1605,7 +1605,6 @@ RetroArch_Flycast_wideScreenOff(){
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_cheats' '"disabled"'
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_hack' '"disabled"'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'aspect_ratio_index' '"0"'	
-	RetroArch_dreamcast_bezelOn
 }
 
 RetroArch_Beetle_PSX_HW_wideScreenOn(){
@@ -1617,7 +1616,6 @@ RetroArch_Beetle_PSX_HW_wideScreenOn(){
 RetroArch_Beetle_PSX_HW_wideScreenOff(){
 	RetroArch_setOverride 'Beetle PSX HW.opt' 'Beetle PSX HW'  'beetle_psx_hw_widescreen_hack' '"disabled"'
 	RetroArch_setOverride 'Beetle PSX.opt' 'Beetle PSX'  'beetle_psx_hw_widescreen_hack' '"disabled"'
-	RetroArch_psx_bezelOn
 }
 
 
@@ -1636,7 +1634,6 @@ RetroArch_SwanStation_wideScreenOff(){
 	RetroArch_setOverride 'SwanStation.opt' 'SwanStation'  'duckstation_GPU.WidescreenHack' '"false"'
 	RetroArch_setOverride 'SwanStation.opt' 'SwanStation'  'duckstation_Display.AspectRatio' '"auto"'
 	RetroArch_setOverride 'psx.cfg' 'SwanStation'  'aspect_ratio_index' '"0"'	
-	RetroArch_psx_bezelOn
 }
 
 RetroArch_psx_bezelOn(){
