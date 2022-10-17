@@ -18,6 +18,14 @@ Help () {
     exit
 }
 
+# Report all current arguments to the LOGFILE
+showArguments () {
+    local arg
+    for arg; do
+        echo "Argument:  $arg" >> "${LOGFILE}"
+    done
+}
+
 # Set environment variables
 set_env () {
     echo "Setting environment variables." >> "${LOGFILE}"
@@ -54,9 +62,12 @@ set_env () {
 
 # Main Start
 main () {
+    # Report all $@ to LOGFILE for troubleshooting
+    showArguments "${@}"
+    
     # Steam Application Path
-    if [ -d "$HOME/.local/share/Steam" ]; then
-        STEAMPATH="$HOME/.local/share/Steam"
+    if [ -d "${HOME}/.local/share/Steam" ]; then
+        STEAMPATH="${HOME}/.local/share/Steam"
         echo "STEAMPATH: ${STEAMPATH}" >> "${LOGFILE}"
     else # Fail if Steam path isn't a directory
         echo "Steam path not found." >> "${LOGFILE}"; exit 1
@@ -111,12 +122,26 @@ main () {
                 fi;;
             i) # Proton AppID
                 APPID="${OPTARG}"
+                # Check for non-integer option arguments
+                if [[ ! ${APPID} =~ ^[0-9]+$ ]]; then
+                    echo "Error: -i ${APPID} invalid. -i requires an integer" >> "${LOGFILE}"
+                    exit 1
+                fi
                 echo "AppID: ${APPID}" >> "${LOGFILE}";;
             \?) # Invalid option
                 echo "Error: Invalid option - ${OPTARG}" >> "${LOGFILE}"
                 exit;;
         esac
     done
+
+    # Remove opt arguments from $@ before --
+    shift "$(( OPTIND - 1 ))"
+
+    # Make sure there were any odd arguments in the options
+    if [[ "${*}" == *"--"* ]]; then
+        echo "Error: Invalid argument in options." >> "${LOGFILE}"
+        exit 1
+    fi
 
     # Check if AppID is set, if not, set it to 0
     if [ -z ${APPID+x} ]; then
@@ -154,9 +179,6 @@ main () {
     elif [ -z ${PFX+x} ]; then
         echo "No PFX." >> "${LOGFILE}"
     fi
-
-    # Remove opt arguments from $@ before --
-    shift "$(( OPTIND - 1 ))"
 
     # Check for mandatory target
     if [ -z ${1+x} ]; then
