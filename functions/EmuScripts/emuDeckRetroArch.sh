@@ -1216,6 +1216,10 @@ RetroArch_snes_ar32(){
 # 	RetroArch_setOverride 'sneshd.cfg' 'bsnes-hd beta'  'video_scale_integer' '"false"'
 # }
 
+RetroArch_melonDS_setConfig(){	
+	RetroArch_setOverride 'nds.cfg' 'melonDS'  'rewind_enable' '"false"'
+}
+
 RetroArch_melonDS_setUpCoreOpt(){
 	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_audio_bitrate' '"Automatic"'
 	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_audio_interpolation' '"None"'
