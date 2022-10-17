@@ -2610,7 +2610,7 @@
     "steamCategory": "${Playstation 2}",
     "steamDirectory": "/home/deck/.steam/steam",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/ps2",
-    "executableArgs": "vblank_mode=0 %command% -batch -fullscreen \"'${filePath}'\"",
+    "executableArgs": "-batch -fullscreen \"'${filePath}'\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
