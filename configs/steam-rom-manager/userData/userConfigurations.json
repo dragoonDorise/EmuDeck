@@ -119,7 +119,7 @@
     "imageProviders": ["SteamGridDB"],
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/3do.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/3do.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -225,7 +225,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/amiga600.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/amiga600.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -279,7 +279,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/amiga1200.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/amiga1200.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -332,7 +332,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/amigacd32.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/amigacd32.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -386,7 +386,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/mame.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/mame.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -447,7 +447,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/mame.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/mame.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -500,7 +500,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/mame2010.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/mame2010.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -553,7 +553,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/mame.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/mame.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -607,7 +607,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/fbneo.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/fbneo.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -660,7 +660,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/atari2600.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/atari2600.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -713,7 +713,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/lynx.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/lynx.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -766,7 +766,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/wonderswan.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/wonderswan.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -820,7 +820,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/c64.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/c64.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -881,7 +881,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/dos.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/dos.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -935,7 +935,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/dos.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/dos.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -989,7 +989,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/xbox.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/xbox.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1043,7 +1043,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/xbox360.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/xbox360.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1096,7 +1096,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/3ds.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/3ds.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1149,7 +1149,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/n64.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/n64.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1202,7 +1202,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/gb.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/gb.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1255,7 +1255,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/gbc.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/gbc.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1308,7 +1308,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/gba.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/gba.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1362,7 +1362,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/gc.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/gc.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1415,7 +1415,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/nes.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/nes.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1469,7 +1469,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/nds.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/nds.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1522,7 +1522,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/snes.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/snes.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1575,7 +1575,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/snes.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/snes.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1628,7 +1628,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/switch.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/switch.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1682,7 +1682,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/wii.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/wii.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1736,7 +1736,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/wiiu.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/wiiu.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1790,7 +1790,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/wiiu.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/wiiu.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1843,7 +1843,7 @@
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/wii.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/wii.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1904,7 +1904,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/sega32x.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/sega32x.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -1957,7 +1957,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/segacd.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/segacd.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -2010,7 +2010,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/dreamcast.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/dreamcast.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -2063,7 +2063,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/gamegear.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/gamegear.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -2117,7 +2117,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/genesis.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/genesis.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -2171,7 +2171,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/genesis.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/genesis.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -2224,7 +2224,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/mastersystem.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/mastersystem.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -2277,7 +2277,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/saturn.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/saturn.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -2317,70 +2317,66 @@
     "version": 5
   },
   {
-      "parserType": "Glob",
-      "configTitle": "Sega Saturn - RA - Beetle",
-      "steamCategory": "${Saturn}",
-      "steamDirectory": "/home/deck/.steam/steam",
-      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/saturn",
-      "executableArgs": "run org.libretro.RetroArch -L /mednafen_saturn_libretro.so \"${filePath}\"",
-      "executableModifier": "\"${exePath}\"",
-      "startInDirectory": "",
-      "titleModifier": "${fuzzyTitle}",
-      "imageProviders": [
-          "SteamGridDB"
-      ],
-      "onlineImageQueries": "${${fuzzyTitle}}",
-      "imagePool": "${fuzzyTitle}",
-      "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/saturn.jpg",
-      "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/saturn.jpg",
-      "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
-      "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
-      "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
-      "localImages": "",
-      "localTallImages": "",
-      "localHeroImages": "",
-      "localLogoImages": "",
-      "localIcons": "",
-      "disabled": false,
-      "userAccounts": {
-          "specifiedAccounts": "",
-          "skipWithMissingDataDir": true,
-          "useCredentials": true
-      },
-      "executable": {
-          "path": "/usr/bin/flatpak",
-          "shortcutPassthrough": false,
-          "appendArgsToExecutable": true
-      },
-      "parserInputs": {
-          "glob": "**/${title}@(.7z|.7Z|.cue|.CUE|.iso|.ISO|.zip|ZIP|.chd|.m3u|.M3U)"
-      },
-      "titleFromVariable": {
-          "limitToGroups": "",
-          "caseInsensitiveVariables": false,
-          "skipFileIfVariableWasNotFound": false,
-          "tryToMatchTitle": false
-      },
-      "fuzzyMatch": {
-          "replaceDiacritics": true,
-          "removeCharacters": true,
-          "removeBrackets": true
-      },
-      "imageProviderAPIs": {
-          "SteamGridDB": {
-              "nsfw": false,
-              "humor": false,
-              "styles": [],
-              "stylesHero": [],
-              "stylesLogo": [],
-              "stylesIcon": [],
-              "imageMotionTypes": [
-                  "static"
-              ]
-          }
-      },
-      "parserId": "166502992463815988",
-      "version": 10
+    "parserType": "Glob",
+    "configTitle": "Sega Saturn - RA - Beetle",
+    "steamCategory": "${Saturn}",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/saturn",
+    "executableArgs": "run org.libretro.RetroArch -L /mednafen_saturn_libretro.so \"${filePath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/saturn.jpg",
+    "defaultTallImage": "",
+    "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
+    "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": false,
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "parserInputs": {
+      "glob": "**/${title}@(.7z|.7Z|.cue|.CUE|.iso|.ISO|.zip|ZIP|.chd|.m3u|.M3U)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": [],
+        "imageMotionTypes": ["static"]
+      }
+    },
+    "parserId": "166502992463815988",
+    "version": 10
   },
   {
     "parserType": "Glob",
@@ -2396,7 +2392,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/ngpc.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/ngpc.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -2449,7 +2445,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/psx.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/psx.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -2503,7 +2499,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/psx.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/psx.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -2619,7 +2615,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/ps2.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/ps2.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -2680,7 +2676,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/ps3.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/ps3.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -2734,7 +2730,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/ps3.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/ps3.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -2785,7 +2781,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/psp.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/psp.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -2838,7 +2834,7 @@
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/psp.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/psp.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -2892,7 +2888,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/naomi.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/naomi.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -2954,7 +2950,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/switch.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/switch.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -3017,7 +3013,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/pcengine.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/pcengine.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -3079,7 +3075,7 @@
     "imagePool": "${fuzzyTitle}",
 
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/pcengine.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/pcengine.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -3140,7 +3136,7 @@
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/zxspectrum.jpg",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/poster/zxspectrum.jpg",
+    "defaultTallImage": "",
     "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
     "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -3250,134 +3246,126 @@
     "version": 10
   },
   {
-      "parserType": "Glob",
-      "configTitle": "Sony PlayStation Vita Installed PKG",
-      "steamCategory": "${PlayStation Vita}",
-      "steamDirectory": "/home/deck/.steam/steam",
-      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psvita",
-      "executableArgs": "-Fr \"${/.*\\/([^\\/]+)\\//|${filePath}}\"",
-      "executableModifier": "\"${exePath}\"",
-      "startInDirectory": "",
-      "titleModifier": "${fuzzyTitle}",
-      "imageProviders": [
-          "SteamGridDB"
-      ],
-      "onlineImageQueries": "${${fuzzyTitle}}",
-      "imagePool": "${fuzzyTitle}",
-      "defaultImage": "",
-      "defaultTallImage": "",
-      "defaultHeroImage": "",
-      "defaultLogoImage": "",
-      "defaultIcon": "",
-      "localImages": "",
-      "localTallImages": "",
-      "localHeroImages": "",
-      "localLogoImages": "",
-      "localIcons": "",
-      "userAccounts": {
-          "specifiedAccounts": "",
-          "skipWithMissingDataDir": true,
-          "useCredentials": true
-      },
-      "executable": {
-          "path": "/home/deck/Applications/Vita3K/Vita3K",
-          "shortcutPassthrough": false,
-          "appendArgsToExecutable": true
-      },
-      "parserInputs": {
-          "glob": "**/${title}/@(eboot.bin|EBOOT.BIN)"
-      },
-      "titleFromVariable": {
-          "limitToGroups": "${PSV}",
-          "caseInsensitiveVariables": true,
-          "skipFileIfVariableWasNotFound": false,
-          "tryToMatchTitle": true
-      },
-      "fuzzyMatch": {
-          "replaceDiacritics": true,
-          "removeCharacters": true,
-          "removeBrackets": true
-      },
-      "imageProviderAPIs": {
-          "SteamGridDB": {
-              "nsfw": false,
-              "humor": false,
-              "styles": [],
-              "stylesHero": [],
-              "stylesLogo": [],
-              "stylesIcon": [],
-              "imageMotionTypes": [
-                  "static"
-              ]
-          }
-      },
-      "parserId": "166409089761171238",
-      "version": 10,
-      "disabled": false
+    "parserType": "Glob",
+    "configTitle": "Sony PlayStation Vita Installed PKG",
+    "steamCategory": "${PlayStation Vita}",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psvita",
+    "executableArgs": "-Fr \"${/.*\\/([^\\/]+)\\//|${filePath}}\"",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "executable": {
+      "path": "/home/deck/Applications/Vita3K/Vita3K",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "parserInputs": {
+      "glob": "**/${title}/@(eboot.bin|EBOOT.BIN)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "${PSV}",
+      "caseInsensitiveVariables": true,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": true
+    },
+    "fuzzyMatch": {
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": [],
+        "imageMotionTypes": ["static"]
+      }
+    },
+    "parserId": "166409089761171238",
+    "version": 10,
+    "disabled": false
   },
   {
-      "parserType": "Glob",
-      "configTitle": "Amstrad CPC - RA - Caprice32",
-      "steamCategory": "${Amstrad CPC}",
-      "steamDirectory": "/home/deck/.steam/steam",
-      "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/amstradcpc",
-      "executableArgs": "run org.libretro.RetroArch -L /cap32_libretro.so \"${filePath}\"",
-      "executableModifier": "\"${exePath}\"",
-      "startInDirectory": "",
-      "titleModifier": "${fuzzyTitle}",
-      "imageProviders": [
-          "SteamGridDB"
-      ],
-      "onlineImageQueries": "${${fuzzyTitle}}",
-      "imagePool": "${fuzzyTitle}",
-      "defaultImage": "",
-      "defaultTallImage": "",
-      "defaultHeroImage": "",
-      "defaultLogoImage": "",
-      "defaultIcon": "",
-      "localImages": "",
-      "localTallImages": "",
-      "localHeroImages": "",
-      "localLogoImages": "",
-      "localIcons": "",
-      "userAccounts": {
-          "specifiedAccounts": "",
-          "skipWithMissingDataDir": true,
-          "useCredentials": true
-      },
-      "executable": {
-          "path": "/usr/bin/flatpak",
-          "shortcutPassthrough": false,
-          "appendArgsToExecutable": true
-      },
-      "parserInputs": {
-          "glob": "${title}@(.7z|.7Z|.cdt|.CDT|.dsk|.DSK|.sna|.SNA|.tap|.TAP|.voc|.VOC|.zip|.ZIP)"
-      },
-      "titleFromVariable": {
-          "limitToGroups": "",
-          "caseInsensitiveVariables": false,
-          "skipFileIfVariableWasNotFound": false,
-          "tryToMatchTitle": false
-      },
-      "fuzzyMatch": {
-          "replaceDiacritics": true,
-          "removeCharacters": true,
-          "removeBrackets": true
-      },
-      "imageProviderAPIs": {
-          "SteamGridDB": {
-              "nsfw": false,
-              "humor": false,
-              "styles": [],
-              "stylesHero": [],
-              "stylesLogo": [],
-              "stylesIcon": [],
-              "imageMotionTypes": [
-                  "static"
-              ]
-          }
-      },
-      "parserId": "166486574949993186",
-      "version": 10
+    "parserType": "Glob",
+    "configTitle": "Amstrad CPC - RA - Caprice32",
+    "steamCategory": "${Amstrad CPC}",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/amstradcpc",
+    "executableArgs": "run org.libretro.RetroArch -L /cap32_libretro.so \"${filePath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "executable": {
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.7z|.7Z|.cdt|.CDT|.dsk|.DSK|.sna|.SNA|.tap|.TAP|.voc|.VOC|.zip|.ZIP)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": [],
+        "imageMotionTypes": ["static"]
+      }
+    },
+    "parserId": "166486574949993186",
+    "version": 10
   }
 ]
