@@ -153,7 +153,7 @@ ESDE_setDefaultEmulators(){
 	ESDE_setEmu 'melonDS' nds
 	ESDE_setEmu 'Citra (Standalone)' n3ds
 	ESDE_setEmu 'Beetle Lynx' atarilynx
-	ESDE_setEmu 'Duckstation (Standalone)' psx
+	ESDE_setEmu 'DuckStation (Standalone)' psx
 	ESDE_setEmu 'Beetle Saturn' saturn
 	ESDE_setEmu 'ScummVM (Standalone)' scummvm
 }
