@@ -1242,6 +1242,10 @@ RetroArch_melonDS_setUpCoreOpt(){
 	RetroArch_setOverride 'melonDS.opt' 'melonDS'  'melonds_touch_mode' '"Touch"'
 }
 
+RetroArch_melonDS_setConfig(){	
+	RetroArch_setOverride 'nds.cfg' 'melonDS'  'rewind_enable' '"false"'
+}
+
 RetroArch_Mupen64Plus_Next_setUpCoreOpt(){
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-169screensize' '"1920x1080"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-43screensize' '"1280x960"'
