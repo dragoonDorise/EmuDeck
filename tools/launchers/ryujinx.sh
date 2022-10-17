@@ -10,7 +10,7 @@ LAUNCH="${toolsPath}/emu-launch.sh"
 EMU="Ryujinx"
 
 # Ryujinx needs a specific path
-EMUPATH="${HOME}/Applications/product/Ryujinx"
+EMUPATH="${HOME}/Applications/publish/Ryujinx"
 
 # Launch emu-launch.sh
 "${LAUNCH}" -e "${EMU}" -p "${EMUPATH}" -- "${@}"
