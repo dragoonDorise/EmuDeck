@@ -1069,12 +1069,6 @@ RetroArch_dreamcast_bezelOff(){
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'input_overlay_enable' '"false"'
 }
 
- RetroArch_dreamcast_3DCRTshaderOn(){
- 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"true"'
-	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'	'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
-	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'	'video_smooth' '"false"'
- }
-
 RetroArch_dreamcast_setConfig(){
 	RetroArch_dreamcast_3DCRTshaderOff
 }
