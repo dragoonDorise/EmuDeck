@@ -1751,7 +1751,7 @@
     "disabled": false,
     "advanced": false,
     "executable": {
-      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/dolpin-emu.sh",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/dolphin-emu.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
