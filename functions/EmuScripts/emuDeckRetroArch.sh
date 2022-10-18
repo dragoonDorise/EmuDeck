@@ -378,7 +378,7 @@ RetroArch_nes_ar32(){
 RetroArch_Mupen64Plus_Next_setConfig(){
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'aspect_ratio_index' '"0"'
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_crop_overscan' '"false"'
-	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_smooth' '"true"'
+	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_smooth' 'ED_RM_LINE'
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_shader_enable' '"false"'
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'input_overlay_auto_scale'  '"false"'
 }
@@ -389,7 +389,7 @@ RetroArch_Mupen64Plus_Next_setConfig(){
  RetroArch_n64_3DCRTshaderOn(){
  	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_shader_enable' '"true"'
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_filter' 'ED_RM_LINE'
-	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_smooth' '"false"'
+	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'video_smooth' 'ED_RM_LINE'
  }
 
 RetroArch_n64_3DCRTshaderOff(){
