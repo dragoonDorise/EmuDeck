@@ -51,7 +51,10 @@ set_env () {
     fi
     # Create prefix if it doesn't exist
     if ! [ -d "${STEAM_COMPAT_DATA_PATH}" ]; then
-        install -d "${STEAM_COMPAT_DATA_PATH}" || exit 1
+        install -d "${STEAM_COMPAT_DATA_PATH}" || {
+            echo "Error: Failed to create STEAM_COMPAT_DATA_PATH: ${STEAM_COMPAT_DATA_PATH}" >> "${LOGFILE}"
+            exit 1 # Output this error
+        }
     fi
     {
         echo "STEAM_COMPAT_DATA_PATH: ${STEAM_COMPAT_DATA_PATH}"
