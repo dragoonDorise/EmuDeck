@@ -1912,6 +1912,7 @@ RetroArch_retroAchievementsSetLogin(){
 		echo "Valid Retroachievements Username and Password length"
 		changeLine 'cheevos_username = ' 'cheevos_username = "'"${rau}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements Username set.' || echo 'RetroAchievements Username not set.' 
 		changeLine 'cheevos_password = ' 'cheevos_password = "'"${rap}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements password set.' || echo 'RetroAchievements password not set.' 
+		RetroArch_retroAchievementsOn
 	fi
 }
 RetroArch_setSNESAR(){
