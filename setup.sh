@@ -182,7 +182,7 @@ source "$EMUDECKGIT/functions/all.sh"
 
 
 #after sourcing functins, check if path is empty.
-[[ -z "$emulationPath" ]] && { echo "emulationPath is Empty!" ; exit 1; }
+[[ -z "$emulationPath" ]] && { echo "emulationPath is Empty!"; setMSG "There's been an issue, please restart the app"; exit 1; }
 
 
 
