@@ -75,9 +75,10 @@ Dolphin_setEmulationFolder(){
 Dolphin_setupSaves(){
     setMSG "${Dolphin_emuName}: setup Saves folder"
     echo ""
+    unlink "$savesPath/dolphin/states"
 	linkToSaveFolder dolphin GC "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC"
 	linkToSaveFolder dolphin Wii "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii"
-	linkToSaveFolder dolphin states "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/states"
+	linkToSaveFolder dolphin StateSaves "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves"
 }
 
 
