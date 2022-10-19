@@ -5,7 +5,9 @@
 reportError () {
     echo "${1}" >> "${LOGFILE}"
     if [ "${2}" == "true" ]; then
-        zenity --error --message "${1}"
+        zenity --error \
+            --text="${1}" \
+            --width=250
     fi
     if [ "${3}" == "true" ]; then
         exit 1
@@ -16,7 +18,7 @@ reportError () {
 checkFile () {
     echo "Checking for file: ${1}" >> "${LOGFILE}"
     if [ ! -f "${1}" ]; then
-        reportError "Error: Unable to find ${1##*/}" "true" "true"
+        reportError "Error: Unable to find ${1##*/} in\n ${1%/*}" "true" "true"
     fi
 }
 
