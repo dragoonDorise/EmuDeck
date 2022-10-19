@@ -37,6 +37,14 @@ Help () {
     exit
 }
 
+# Report all current arguments to the LOGFILE
+showArguments () {
+    local arg
+    for arg; do
+        echo "Argument:  $arg" >> "${LOGFILE}"
+    done
+}
+
 # Set environment variables
 set_env () {
     echo "Setting environment variables." >> "${LOGFILE}"
@@ -62,7 +70,13 @@ set_env () {
     fi
     # Create prefix if it doesn't exist
     if ! [ -d "${STEAM_COMPAT_DATA_PATH}" ]; then
-        install -d "${STEAM_COMPAT_DATA_PATH}" || exit 1
+        installOutput="$( install -d "${STEAM_COMPAT_DATA_PATH}" )" || {
+            {
+                echo "Error: Failed to create STEAM_COMPAT_DATA_PATH: ${STEAM_COMPAT_DATA_PATH}"
+                echo "Error: ${installOutput}"
+            } >> "${LOGFILE}"
+            exit 1
+        }
     fi
     {
         echo "STEAM_COMPAT_DATA_PATH: ${STEAM_COMPAT_DATA_PATH}"
@@ -73,9 +87,12 @@ set_env () {
 
 # Main Start
 main () {
+    # Report all $@ to LOGFILE for troubleshooting
+    showArguments "${@}"
+    
     # Steam Application Path
-    if [ -d "$HOME/.local/share/Steam" ]; then
-        STEAMPATH="$HOME/.local/share/Steam"
+    if [ -d "${HOME}/.local/share/Steam" ]; then
+        STEAMPATH="${HOME}/.local/share/Steam"
         echo "STEAMPATH: ${STEAMPATH}" >> "${LOGFILE}"
     else # Fail if Steam path isn't a directory
         reportError "Steam path not found." "true" "true"
@@ -129,11 +146,25 @@ main () {
                 fi;;
             i) # Proton AppID
                 APPID="${OPTARG}"
+                # Check for non-integer option arguments
+                if [[ ! ${APPID} =~ ^[0-9]+$ ]]; then
+                    echo "Error: -i ${APPID} invalid. -i requires an integer" >> "${LOGFILE}"
+                    exit 1
+                fi
                 echo "AppID: ${APPID}" >> "${LOGFILE}";;
             \?) # Invalid option
                 reportError "Error: Invalid option - ${OPTARG}" "true" "true"
         esac
     done
+
+    # Remove opt arguments from $@ before --
+    shift "$(( OPTIND - 1 ))"
+
+    # Make sure there were any odd arguments in the options
+    if [[ "${*}" == *"--"* ]]; then
+        echo "Error: Invalid argument in options." >> "${LOGFILE}"
+        exit 1
+    fi
 
     # Check if AppID is set, if not, set it to 0
     if [ -z ${APPID+x} ]; then
@@ -169,9 +200,6 @@ main () {
     elif [ -z ${PFX+x} ]; then
         echo "No PFX." >> "${LOGFILE}"
     fi
-
-    # Remove opt arguments from $@ before --
-    shift "$(( OPTIND - 1 ))"
 
     # Check for mandatory target
     if [ -z ${1+x} ]; then
