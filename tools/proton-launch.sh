@@ -2,6 +2,25 @@
 
 ## proton-launch.sh
 
+# Report Errors
+reportError () {
+    echo "${1}" >> "${LOGFILE}"
+    if [ "${2}" == "true" ]; then
+        zenity --error --message "${1}"
+    fi
+    if [ "${3}" == "true" ]; then
+        exit 1
+    fi
+}
+
+# Check for file
+checkFile () {
+    echo "Checking for file: ${1}" >> "${LOGFILE}"
+    if [ ! -f "${1}" ]; then
+        reportError "Error: Unable to find ${1##*/}" "true" "true"
+    fi
+}
+
 ############################################################
 # Help                                                     #
 ############################################################
@@ -59,7 +78,7 @@ main () {
         STEAMPATH="$HOME/.local/share/Steam"
         echo "STEAMPATH: ${STEAMPATH}" >> "${LOGFILE}"
     else # Fail if Steam path isn't a directory
-        echo "Steam path not found." >> "${LOGFILE}"; exit 1
+        reportError "Steam path not found." "true" "true"
     fi
 
     # Alt steamapps path - need a way to pull all available steamapps directories own by Steam
@@ -106,15 +125,13 @@ main () {
                     } >> "${LOGFILE}"
                 # Couldn't find either path
                 else
-                    echo "Proton version is not installed." >> "${LOGFILE}"
-                    exit 1
+                    reportError "Error: Proton version ${PROTONVER} is not installed." "true" "true"
                 fi;;
             i) # Proton AppID
                 APPID="${OPTARG}"
                 echo "AppID: ${APPID}" >> "${LOGFILE}";;
             \?) # Invalid option
-                echo "Error: Invalid option - ${OPTARG}" >> "${LOGFILE}"
-                exit;;
+                reportError "Error: Invalid option - ${OPTARG}" "true" "true"
         esac
     done
 
@@ -123,8 +140,7 @@ main () {
         APPID=0
         echo "AppID: ${APPID}" >> "${LOGFILE}"
     elif ! [[ ${APPID} =~ ^[0-9]+$ ]]; then # Make sure AppID is an integer
-        echo "AppID must be an integer." >> "${LOGFILE}"
-        exit 1
+        reportError "Error: AppID must be an integer" "true" "true"
     fi
 
     # Check if Proton is set, if not, set it to 7.0 by default
@@ -143,8 +159,7 @@ main () {
 
     # Cancel if PROTON is still not set.
     if [ -z ${PROTON+x} ]; then
-        echo "Proton is not set." >> "${LOGFILE}"
-        exit 1
+        reportError "Error: Proton is not set." "true" "true"
     fi
 
     # Set PFX if not set
@@ -160,15 +175,9 @@ main () {
 
     # Check for mandatory target
     if [ -z ${1+x} ]; then
-        echo "Target application must be set." >> "${LOGFILE}"
-        echo
-        Help
-        exit 1
+        reportError "Error: Target application must be set." "true" "true"
     elif ! [ -f "${1}" ]; then
-        echo "Target application not found. - ${1}" >> "${LOGFILE}"
-        echo
-        Help
-        exit 1
+        reportError "Target application not found. - ${1}" "true" "true"
     fi
     
     # Call set_env function
@@ -188,8 +197,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     # Exit if there aren't any arguments
     if ! [[ "${1}" ]]; then
         Help
-        echo "No arguments provided." >> "${LOGFILE}"
-        exit 1
+        reportError "Error: No arguments provided" "true" "true"
     fi
 
     # Continue to main()
