@@ -47,7 +47,214 @@
     <GamePaths>
     </GamePaths>
     <GameCache/>
-    <GraphicPack/>
+    <GraphicPack>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/BreathOfTheWild/Graphics/rules.txt">
+            <Preset>
+                <category>Shadows</category>
+                <preset>Medium (100%, Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Ultrawide HUD Mode</category>
+                <preset>Edge HUD (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Aspect Ratio</category>
+                <preset>16:9 (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Resolution</category>
+                <preset>3840x2160 (4K)</preset>
+            </Preset>
+            <Preset>
+                <category>Shadow Draw Distance</category>
+                <preset>High (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Anti-Aliasing</category>
+                <preset>Normal FXAA (Default)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/BreathOfTheWild/Mods/FPS++/rules.txt">
+            <Preset>
+                <category>Fence Type</category>
+                <preset>Performance Fence (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Mode</category>
+                <preset>Normal Settings</preset>
+            </Preset>
+            <Preset>
+                <category>FPS Limit</category>
+                <preset>60FPS Limit (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Framerate Limit</category>
+                <preset>60FPS (ideal for 240/120/60Hz displays)</preset>
+            </Preset>
+            <Preset>
+                <category>Cutscene FPS Limit</category>
+                <preset>Automatically Limit In Few Cutscenes (Recommended)</preset>
+            </Preset>
+            <Preset>
+                <category>Debug Options</category>
+                <preset>Disabled (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Static Mode</category>
+                <preset>Disabled (Default, dynamically adjust game speed)</preset>
+            </Preset>
+            <Preset>
+                <category>Frame Average</category>
+                <preset>8 Frames Averaged (Default)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/CaptainToad_Resolution/rules.txt">
+            <Preset>
+                <preset>3840x2160</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/NewSuperMarioBrosU/Workarounds/CrashFix/rules.txt"/>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/ColorSplash_Resolution/rules.txt">
+            <Preset>
+                <preset>3840x2160</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/DonkeyKongTropicalFreeze_Resolution/rules.txt">
+            <Preset>
+                <preset>3840x2160</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/HyruleWarriors_Resolution/rules.txt">
+            <Preset>
+                <preset>3840x2160 (4k - Native x3)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/MarioKart8/Enhancements/Contrasty/rules.txt">
+            <Preset>
+                <preset>Default</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/SuperMario3DWorld_Resolution/rules.txt">
+            <Preset>
+                <preset>3840x2160</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/MarioKart8/Graphics/rules.txt">
+            <Preset>
+                <category>Shadows</category>
+                <preset>Medium (100%, Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Aspect Ratio</category>
+                <preset>16:9 (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>TV Resolution</category>
+                <preset>3840x2160 (4K)</preset>
+            </Preset>
+            <Preset>
+                <category>Gamepad Resolution</category>
+                <preset>854x480 (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Anisotropic Filtering</category>
+                <preset>1x (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Advanced Options</category>
+                <preset>Disabled</preset>
+            </Preset>
+            <Preset>
+                <category>Anti-Aliasing</category>
+                <preset>On (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Bloom Intensity</category>
+                <preset>100% (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Motion Blur Quality</category>
+                <preset>Normal (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Level of Detail</category>
+                <preset>Normal (Default)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/SuperMario3DWorld_Contrasty/rules.txt">
+            <Preset>
+                <preset>Default</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/MarioKart8/Mods/60FPSMultiplayer/rules.txt"/>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/NewSuperMarioBrosU/Graphics/rules.txt">
+            <Preset>
+                <category>TV Resolution</category>
+                <preset>3840x2160</preset>
+            </Preset>
+            <Preset>
+                <category>Gamepad Resolution</category>
+                <preset>854x480</preset>
+            </Preset>
+            <Preset>
+                <category>Shadow Quality</category>
+                <preset>Medium</preset>
+            </Preset>
+            <Preset>
+                <category>Blur Quality</category>
+                <preset>Medium</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/Pikmin3_Resolution/rules.txt">
+            <Preset>
+                <preset>3840x2160</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/SkylandersSwapForce/Workarounds/PortalStabilityFix/rules.txt"/>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/SuperSmashBros/Graphics/rules.txt">
+            <Preset>
+                <category>Additional Downsampling Resolutions</category>
+                <preset>Disabled</preset>
+            </Preset>
+            <Preset>
+                <category>Shadows</category>
+                <preset>Medium (100%, Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Aspect Ratio</category>
+                <preset>16:9 (Default)</preset>
+            </Preset>
+            <Preset>
+                <category>Resolution</category>
+                <preset>3840x2160 (4K)</preset>
+            </Preset>
+            <Preset>
+                <category>Anisotropic Filtering</category>
+                <preset>1x (Default)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/TwilightPrincessHD_Resolution/rules.txt">
+            <Preset>
+                <preset>3840x2160 (4k - Native x2)</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/WindWakerHD_Contrasty/rules.txt">
+            <Preset>
+                <preset>Default</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/YoshisWoollyWorld_60fpsMap/rules.txt"/>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/WindWakerHD_Resolution/rules.txt">
+            <Preset>
+                <preset>3840x2160</preset>
+            </Preset>
+        </Entry>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/YoshisWoollyWorld_Resolution/rules.txt">
+            <Preset>
+                <preset>3840x2160</preset>
+            </Preset>
+        </Entry>
+    </GraphicPack>
     <Graphic>
         <api>1</api>
         <device>00000000040000000000000000000000</device>
