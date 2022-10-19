@@ -291,7 +291,7 @@
     <Audio>
         <api>0</api>
         <delay>2</delay>
-        <TVChannels>1</TVChannels>
+        <TVChannels>2</TVChannels>
         <PadChannels>1</PadChannels>
         <TVVolume>100</TVVolume>
         <PadVolume>0</PadVolume>
