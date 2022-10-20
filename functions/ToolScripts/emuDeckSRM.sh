@@ -38,6 +38,7 @@ SRM_createDesktopShortcut(){
 	Icon=steamdeck-gaming-return
 	Terminal=false
 	Type=Application
+	Categories=Game;
 	StartupNotify=false" > "$SRM_Shortcutlocation"
 	chmod +x "$SRM_Shortcutlocation"
 }
