@@ -416,16 +416,17 @@ fi
 
 
 #RA Bezels	
-if [ "$doSetupRA" == "true" ]; then
-	RetroArch_setBezels #needs to change
-	
-	#RA AutoSave	
-	if [ "$RAautoSave" == true ]; then
-		RetroArch_autoSaveOn
-	else
-		RetroArch_autoSaveOff
-	fi	
-fi
+RetroArch_setBezels #needs to change
+
+#ESDE_applyTheme "$esdeTheme" should apply in the init, from the setting
+
+#RA AutoSave	
+if [ "$RAautoSave" == true ]; then
+	RetroArch_autoSaveOn
+else
+	RetroArch_autoSaveOff
+fi	
+
 
 # Old bezels and widescreen modes
 if [ "$uiMode" == 'zenity' ]; then
@@ -471,83 +472,72 @@ else
 		#Genesis
 		#Sega CD
 		#Sega 32X
-	if [ "$doSetupRA" == "true" ]; then
-		case $arSega in
-  		"32")	 
-			RetroArch_mastersystem_ar32
-			RetroArch_genesis_ar32
-			RetroArch_segacd_ar32
-	  		RetroArch_sega32x_ar32	
-			;;  
-  		*)
-			RetroArch_mastersystem_ar43
-			RetroArch_genesis_ar43
-	  		RetroArch_segacd_ar43
-	  		RetroArch_sega32x_ar43
-	  		if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then
-	  			RetroArch_mastersystem_bezelOn
-	  			RetroArch_genesis_bezelOn
-	  			RetroArch_segacd_bezelOn
-	  			RetroArch_sega32x_bezelOn
-			fi
-  		;;
-		esac	
-		
-		#Snes and NES
-		case $arSnes in
-	  	"87")
-			RetroArch_snes_ar87
-			RetroArch_nes_ar87
-	  	;;
-	  	"32")
-				RetroArch_snes_ar32
-		  	RetroArch_nes_ar32
-			;;  
-	  	*)
-			RetroArch_snes_ar43
-			RetroArch_nes_ar43
-			if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then	
-				RetroArch_snes_bezelOn
-			fi
-	  	;;
-		esac
-	fi
+	
+	case $arSega in
+  	"32")	 
+		RetroArch_mastersystem_ar32
+		RetroArch_genesis_ar32
+		RetroArch_segacd_ar32
+	  	RetroArch_sega32x_ar32	
+		;;  
+  	*)
+		RetroArch_mastersystem_ar43
+		RetroArch_genesis_ar43
+	  	RetroArch_segacd_ar43
+	  	RetroArch_sega32x_ar43
+	  	if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then
+	  		RetroArch_mastersystem_bezelOn
+	  		RetroArch_genesis_bezelOn
+	  		RetroArch_segacd_bezelOn
+	  		RetroArch_sega32x_bezelOn
+		fi
+  	;;
+	esac	
+	
+	#Snes and NES
+	case $arSnes in
+	  "87")
+		RetroArch_snes_ar87
+		RetroArch_nes_ar87
+	  ;;
+	  "32")
+			RetroArch_snes_ar32
+		  RetroArch_nes_ar32
+		;;  
+	  *)
+		RetroArch_snes_ar43
+		RetroArch_nes_ar43
+		if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then	
+			RetroArch_snes_bezelOn
+		fi
+	  ;;
+	esac
+	
 	# Classic 3D Games
 		#Dreamcast
 		#PSX
 		#Nintendo 64
 		#Saturn
 		#Xbox
-	if [ "$arClassic3D" == 169 ]; then	
-		if [ "$doSetupRA" == "true" ]; then	
-			RetroArch_Beetle_PSX_HW_wideScreenOn
-			RetroArch_Flycast_wideScreenOn
-			#"Bezels off"
-			RetroArch_dreamcast_bezelOff
-			RetroArch_psx_bezelOff
-			RetroArch_n64_wideScreenOn
-			RetroArch_SwanStation_wideScreenOn
-		fi
-		if [ "$doSetupDuck" == "true" ]; then
-			DuckStation_wideScreenOn
-		fi
-		if [ "$doSetupXemu" == "true" ]; then
-			Xemu_wideScreenOn
-		fi
+	if [ "$arClassic3D" == 169 ]; then		
+		RetroArch_Beetle_PSX_HW_wideScreenOn
+		DuckStation_wideScreenOn
+		RetroArch_Flycast_wideScreenOn
+		Xemu_wideScreenOn
+		#"Bezels off"
+		RetroArch_dreamcast_bezelOff
+		RetroArch_psx_bezelOff
+		RetroArch_n64_wideScreenOn
+		RetroArch_SwanStation_wideScreenOn
 	else
-		if [ "$doSetupRA" == "true" ]; then
-			#"SET 4:3"
-			RetroArch_Flycast_wideScreenOff
-			RetroArch_n64_wideScreenOff
-			RetroArch_Beetle_PSX_HW_wideScreenOff
-			RetroArch_SwanStation_wideScreenOff
-		fi
-		if [ "$doSetupDuck" == "true" ]; then
-			DuckStation_wideScreenOff
-		fi
-		if [ "$doSetupXemu" == "true" ]; then
-			Xemu_wideScreenOff
-		fi
+		#"SET 4:3"
+		RetroArch_Flycast_wideScreenOff
+		RetroArch_n64_wideScreenOff
+		RetroArch_Beetle_PSX_HW_wideScreenOff
+		RetroArch_SwanStation_wideScreenOff
+		
+		DuckStation_wideScreenOff
+		Xemu_wideScreenOff
 		#"Bezels on"
 		if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then
 			RetroArch_dreamcast_bezelOn			
@@ -557,12 +547,10 @@ else
 	fi
 	
 	# GameCube
-	if [ "$doSetupDolphin" == "true" ]; then
-		if [ "$arDolphin" == 169 ]; then	
-			Dolphin_wideScreenOn
-		else
-			Dolphin_wideScreenOff
-		fi
+	if [ "$arDolphin" == 169 ]; then	
+		Dolphin_wideScreenOn
+	else
+		Dolphin_wideScreenOff
 	fi
 	
 fi
@@ -578,24 +566,23 @@ if [ "$doSetupRA" == "true" ]; then
 fi
 
 #RetroAchievments
-if [ "$doSetupRA" == "true" ]; then
-	RetroArch_retroAchievementsSetLogin
-	if [ "$doRASignIn" == "true" ]; then
-		#RetroArch_retroAchievementsPromptLogin
-		#RetroArch_retroAchievementsSetLogin
-		RetroArch_retroAchievementsOn
-	fi
-	
-	if [ "$doRAEnable" == "true" ]; then
-		RetroArch_retroAchievementsOn
-	fi
-	
-	if [ "$achievementsHardcore" == "true" ]; then
-		RetroArch_retroAchievementsHardCoreOn
-	else
-		RetroArch_retroAchievementsHardCoreOff
-	fi
+RetroArch_retroAchievementsSetLogin
+if [ "$doRASignIn" == "true" ]; then
+	#RetroArch_retroAchievementsPromptLogin
+	#RetroArch_retroAchievementsSetLogin
+	RetroArch_retroAchievementsOn
 fi
+
+if [ "$doRAEnable" == "true" ]; then
+	RetroArch_retroAchievementsOn
+fi
+
+if [ "$achievementsHardcore" == "true" ]; then
+	RetroArch_retroAchievementsHardCoreOn
+else
+	RetroArch_retroAchievementsHardCoreOff
+fi
+
 
 #Sudo Required!
 if [ -n "$PASSWD" ]; then
@@ -629,16 +616,16 @@ CHD_install
 #
 #Fixes for 16:9 Screens
 #
-if [ "$doSetupRA" == "true" ]; then
-	if [ "$(getScreenAR)" == 169 ];then
-		nonDeck_169Screen		
-	fi
-	
-	#Anbernic Win600 Special configuration
-	if [ "$(getProductName)" == "Win600" ];then
-		nonDeck_win600		
-	fi
+
+if [ "$(getScreenAR)" == 169 ];then
+	nonDeck_169Screen		
 fi
+
+#Anbernic Win600 Special configuration
+if [ "$(getProductName)" == "Win600" ];then
+	nonDeck_win600		
+fi
+
 
 
 createDesktopIcons
