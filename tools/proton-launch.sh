@@ -51,9 +51,9 @@ showArguments () {
 set_env () {
     echo "Setting environment variables." >> "${LOGFILE}"
     # Set default data path if it isn't set, then include an appID
-    if [ -z ${STEAM_COMPAT_DATA_PATH+x} ] && [ -n "${PFX}" ]; then
+    if [ -n "${PFX}" ]; then
         export STEAM_COMPAT_DATA_PATH="${PFX}"
-    elif [ -z ${STEAM_COMPAT_DATA_PATH+x} ]; then
+    elif [ -z ${STEAM_COMPAT_DATA_PATH+x} ] && [ -z ${PFX+x} ]; then
         export STEAM_COMPAT_DATA_PATH="${COMPATDATA}/${SteamAppId:-${APPID}}"
     fi
 
