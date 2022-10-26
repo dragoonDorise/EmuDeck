@@ -355,7 +355,7 @@ RetroArch_nes_CRTshaderOff(){
 }
 
 RetroArch_nes_ar43(){
-	RetroArch_nes_bezelOn
+	#RetroArch_nes_bezelOn
 	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'aspect_ratio_index' '"0"'
 	RetroArch_setOverride 'nes.cfg' 'Mesen'  'aspect_ratio_index' '"0"'
 }
