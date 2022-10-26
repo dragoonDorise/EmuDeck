@@ -1067,8 +1067,26 @@ RetroArch_dreamcast_bezelOn(){
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'input_overlay_enable' '"true"'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'input_overlay_scale_landscape' '"1.054998"'
 }
+
 RetroArch_dreamcast_bezelOff(){
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'input_overlay_enable' '"false"'
+}
+
+#temporary
+RetroArch_Flycast_bezelOff(){
+	RetroArch_dreamcast_bezelOff
+}
+
+RetroArch_Flycast_bezelOn(){
+	RetroArch_dreamcast_bezelOn
+}
+
+RetroArch_Beetle_PSX_HW_bezelOff(){
+	RetroArch_psx_bezelOff
+}
+
+RetroArch_Beetle_PSX_HW_bezelOn(){
+	RetroArch_psx_bezelOn
 }
 
  RetroArch_dreamcast_3DCRTshaderOn(){
