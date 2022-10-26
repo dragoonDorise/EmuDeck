@@ -1005,6 +1005,7 @@ RetroArch_n64_wideScreenOn(){
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-aspect = "16:9 adjusted"'	
 	RetroArch_setOverride 'n64.cfg' 'Mupen64Plus-Next'  'aspect_ratio_index' '"1"'	
 	RetroArch_n64_bezelOff
+	RetroArch_n64_3DCRTshaderOff
 }
 
 RetroArch_n64_wideScreenOff(){
@@ -1599,6 +1600,7 @@ RetroArch_Flycast_wideScreenOn(){
 	RetroArch_setOverride 'Flycast.opt' 'Flycast'  'reicast_widescreen_hack' '"enabled"'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'aspect_ratio_index' '"1"'	
 	RetroArch_dreamcast_bezelOff
+	RetroArch_dreamcast_3DCRTshaderOff
 }
 
 RetroArch_Flycast_wideScreenOff(){
