@@ -427,6 +427,15 @@ else
 	RetroArch_autoSaveOff
 fi	
 
+#
+#New Shaders
+#Moved before widescreen, so widescreen disabled if needed.
+#	
+if [ "$doSetupRA" == "true" ]; then
+	RetroArch_setShadersCRT
+	RetroArch_setShaders3DCRT
+	RetroArch_setShadersMAT
+fi
 
 # Old bezels and widescreen modes
 if [ "$uiMode" == 'zenity' ]; then
@@ -556,14 +565,6 @@ else
 fi
 
 
-#
-#New Shaders
-#	
-if [ "$doSetupRA" == "true" ]; then
-	RetroArch_setShadersCRT
-	RetroArch_setShaders3DCRT
-	RetroArch_setShadersMAT
-fi
 
 #RetroAchievments
 RetroArch_retroAchievementsSetLogin
