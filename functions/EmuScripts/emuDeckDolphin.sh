@@ -26,6 +26,7 @@ Dolphin_cleanup(){
     mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam2.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam2.ini.old" 
     mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam3.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam3.ini.old"
     mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam4.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam4.ini.old"
+    echo "Old EmuDeck profiles, if they existed backed up to .bak"
 }
 
 #Install
@@ -75,9 +76,10 @@ Dolphin_setEmulationFolder(){
 Dolphin_setupSaves(){
     setMSG "${Dolphin_emuName}: setup Saves folder"
     echo ""
+    unlink "$savesPath/dolphin/states"
 	linkToSaveFolder dolphin GC "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC"
 	linkToSaveFolder dolphin Wii "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii"
-	linkToSaveFolder dolphin states "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/states"
+	linkToSaveFolder dolphin StateSaves "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves"
 }
 
 

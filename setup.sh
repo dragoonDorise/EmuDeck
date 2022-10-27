@@ -71,6 +71,10 @@ LOGFILE="$HOME/emudeck/emudeck.log"
 
 mkdir -p "$HOME/emudeck"
 
+#Custom Scripts
+mkdir -p "$HOME/emudeck/custom_scripts"
+echo $'#!/bin/bash\nEMUDECKGIT="$HOME/.config/EmuDeck/backend"\nsource "$EMUDECKGIT/functions/all.sh"' > "$HOME/emudeck/custom_scripts/example.sh"
+
 echo "Press the button to start..." > "$LOGFILE"
 
 mv "${LOGFILE}" "$HOME/emudeck/emudeck.last.log" #backup last log
@@ -178,7 +182,7 @@ source "$EMUDECKGIT/functions/all.sh"
 
 
 #after sourcing functins, check if path is empty.
-[[ -z "$emulationPath" ]] && { echo "emulationPath is Empty!" ; exit 1; }
+[[ -z "$emulationPath" ]] && { echo "emulationPath is Empty!"; setMSG "There's been an issue, please restart the app"; exit 1; }
 
 
 
@@ -423,6 +427,15 @@ else
 	RetroArch_autoSaveOff
 fi	
 
+#
+#New Shaders
+#Moved before widescreen, so widescreen disabled if needed.
+#	
+if [ "$doSetupRA" == "true" ]; then
+	RetroArch_setShadersCRT
+	RetroArch_setShaders3DCRT
+	RetroArch_setShadersMAT
+fi
 
 # Old bezels and widescreen modes
 if [ "$uiMode" == 'zenity' ]; then
@@ -521,8 +534,8 @@ else
 		RetroArch_Flycast_wideScreenOn
 		Xemu_wideScreenOn
 		#"Bezels off"
-		RetroArch_Flycast_bezelOff
-		RetroArch_Beetle_PSX_HW_bezelOff
+		RetroArch_dreamcast_bezelOff
+		RetroArch_psx_bezelOff
 		RetroArch_n64_wideScreenOn
 		RetroArch_SwanStation_wideScreenOn
 	else
@@ -536,7 +549,7 @@ else
 		Xemu_wideScreenOff
 		#"Bezels on"
 		if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then
-			RetroArch_Flycast_bezelOn			
+			RetroArch_dreamcast_bezelOn			
 			RetroArch_n64_bezelOn
 			RetroArch_psx_bezelOn
 		fi			
@@ -552,13 +565,6 @@ else
 fi
 
 
-#
-#New Shaders
-#	
-if [ "$doSetupRA" == "true" ]; then
-	RetroArch_setShadersCRT
-	RetroArch_setShadersMAT
-fi
 
 #RetroAchievments
 RetroArch_retroAchievementsSetLogin
@@ -678,6 +684,22 @@ echo "100" > "$HOME/.config/EmuDeck/msg.log"
 echo "# Installation Complete" >> "$HOME/.config/EmuDeck/msg.log"
 finished=true
 rm "$PIDFILE"
+
+#
+## We check all the selected emulators are installed
+#
+
+checkInstalledEmus
+
+
+#
+# Run custom scripts... shhh for now ;)
+#
+
+for entry in "$HOME"/emudeck/custom_scripts/*.sh
+do
+	 bash $entry
+done
 
 if [ "$uiMode" == 'zenity' ]; then
 

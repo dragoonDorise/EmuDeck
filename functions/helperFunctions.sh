@@ -305,6 +305,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("arSega=43")
 	defaultSettingsList+=("arSnes=43")
 	defaultSettingsList+=("RAHandClassic2D=false")
+	defaultSettingsList+=("RAHandClassic3D=false")
 	defaultSettingsList+=("RAHandHeldShader=false")
 
 	tmp=$(mktemp)

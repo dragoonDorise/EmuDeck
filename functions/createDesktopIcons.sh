@@ -6,8 +6,9 @@ createDesktopIcons(){
 	rm -rf ~/Desktop/EmuDeckCHD.desktop 2>/dev/null
 	rm -rf ~/Desktop/EmuDeck.desktop 2>/dev/null
 	rm -rf ~/Desktop/EmuDeckSD.desktop 2>/dev/null
-	rm -rf ~/Desktop/EmuDeckBinUpdate 2>/dev/null
+	rm -rf ~/Desktop/EmuDeckBinUpdate.desktop 2>/dev/null
 	rm -rf ~/Desktop/EmuDeckApp.desktop 2>/dev/null
+	rm -rf ~/Desktop/EmuDeckAppImage.desktop 2>/dev/null
 	rm -rf ~/Desktop/EmuDeckAppImage.desktop 2>/dev/null
 
 	#New EmuDeck icon, same place so people won't get confused

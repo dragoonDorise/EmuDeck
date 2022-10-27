@@ -144,7 +144,7 @@ Yuzu_migrate(){
         migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu" "$HOME/.local/share/yuzu")
         migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
 
-        migrateAndLinkConfig "$emu" "$migrationTable"
+      # migrateAndLinkConfig "$emu" "$migrationTable"
     fi
 
     #move data from hidden folders out to these folders in case the user already put stuff here.

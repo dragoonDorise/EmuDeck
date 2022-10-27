@@ -17,9 +17,9 @@ doUninstallMame=true
 doUninstallSRM=true
 doUninstallESDE=true
 
-# LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
-# echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
-# exec > >(tee "${LOGFILE}") 2>&1
+LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
+echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
+exec > >(tee "${LOGFILE}") 2>&1
 
 #Wellcome
 text="`printf "<b>Hi!</b>\nDo you really want to uninstall EmuDeck?\n\nIf you are having issues please go to our Discord or Reddit so we can help you. You can see the links here: https://www.emudeck.com/#download"`"
@@ -46,9 +46,9 @@ if [ "$doUninstall" == true ]; then
 	zenity --question \
 		 --title="EmuDeck" \
 		 --width=450 \
-		 --ok-label="Yes" \
-		 --cancel-label="No" \
-		 --text="${text}" 2>/dev/null
+		 --ok-label="Launch SRM" \
+		 --cancel-label="Continue" \
+		 --text="${text}"
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		kill -15 "$(pidof steam)"
@@ -57,7 +57,7 @@ if [ "$doUninstall" == true ]; then
 		
 				
 	else		
-		echo -e "No" 2>/dev/null
+		echo -e "No"
 	fi
 
 	
@@ -197,7 +197,11 @@ if [ "$doUninstall" == true ]; then
 		rm -rf ~/.var/app/org.mamedev.MAME &>> /dev/null
 	fi
 
+	#Backup Service
+	systemctl --user disable emudeck_saveBackup.timer && rm "$HOME/.config/systemd/user/emudeck_saveBackup.timer" && rm "$HOME/.config/systemd/user/emudeck_saveBackup.service"
+	
 	#Emudeck's files	
+	
 	rm -rf ~/.steam/steam/controller_base/templates/cemu_controller_config.vdf
 	rm -rf ~/.steam/steam/controller_base/templates/citra_controller_config.vdf
 	rm -rf ~/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf
@@ -239,7 +243,7 @@ if [ "$doUninstall" == true ]; then
 		 zenity --info \
 				 --title="EmuDeck" \
 				 --width="450" \
-				 --text="${text}" 2>/dev/null	
+				 --text="${text}"
 				 
 	exit
 

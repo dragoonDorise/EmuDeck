@@ -186,7 +186,7 @@ Ryujinx_finalize(){
 }
 
 Ryujinx_IsInstalled(){
-	if [ -e "$Ryujinx_emuPath" ]; then
+	if [ -e "$Ryujinx_emuPath/Ryujinx" ]; then
 		echo "true"
 	else
 		echo "false"

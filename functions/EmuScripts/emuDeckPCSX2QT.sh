@@ -23,7 +23,7 @@ PCSX2QT_init(){
 	PCSX2QT_setEmulationFolder
 	PCSX2QT_setupStorage
 	PCSX2QT_setupSaves #
-	PCSX2QT_addSteamInputProfile #
+	# PCSX2QT_addSteamInputProfile #
 }
 
 #update
