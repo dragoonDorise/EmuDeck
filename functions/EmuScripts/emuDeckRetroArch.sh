@@ -1921,8 +1921,8 @@ RetroArch_retroAchievementsPromptLogin(){
 	fi
 }
 RetroArch_retroAchievementsSetLogin(){
-	rap=$(cat "$HOME/.config/EmuDeck/.rap")
-	rau=$(cat "$HOME/.config/EmuDeck/.rau")
+	rap="$( cat "${HOME}/.config/EmuDeck/.rap" )"
+	rau="$( cat "${HOME}/.config/EmuDeck/.rau" )"
 	echo "Evaluate RetroAchievements Login."
 	if [ ${#rap} -lt 1 ]; then
 		echo "--No password."
