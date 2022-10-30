@@ -102,7 +102,7 @@ findProton () {
     if [ -z ${proton+x} ]; then
         # Report to log but don't error to user
         reportError "Error: Unable to find Proton version ${1}."
-        # Check if an install was already attempted, if not, attempt
+        # Attempt to install Proton version
         installProton "${1}"
     else
         # Return found proton path
