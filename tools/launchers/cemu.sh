@@ -64,6 +64,9 @@ if [ -z "${APPID}" ]; then
     reportError "Unable to calculate AppID" "true" "true"
 fi
 
+# PROTONVER
+PROTONVER="7.0"
+
 # Call the Proton launcher script and give the arguments
-echo "${PROTONLAUNCH}" -p '7.0' -i "${APPID}" -- "${CEMU}" "${@}" >> "${LOGFILE}"
-"${PROTONLAUNCH}" -p '7.0' -i "${APPID}" -- "${CEMU}" "${@}"
+echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${CEMU}" "${@}" >> "${LOGFILE}"
+"${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${CEMU}" "${@}"
