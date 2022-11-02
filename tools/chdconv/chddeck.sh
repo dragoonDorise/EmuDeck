@@ -1,4 +1,5 @@
 #!/bin/bash
+shopt -s expand_aliases
 
 text="$(printf "<b>Hi</b>\nWelcome to EmuDeck's Game Compression script!\n\nPlease be very careful and make sure you have backups of roms.\n\nThis script will scan the roms folder you choose and will compress the files it can to the best available format.\n\n<b>This action will delete the old files if the compression succeeds</b>")"
 #Nova fix'
@@ -16,7 +17,7 @@ if [ $ans -eq 0 ]; then
 	romsPath="/run/media/mmcblk0p1/Emulation/roms"
 	toolsPath="/run/media/mmcblk0p1/Emulation/tools"
 	chdPath="${toolsPath}/chdconv/"
-	dolphinTool="/var/lib/flatpak/app/io.github.shiiion.primehack/current/active/files/bin/dolphin-tool"
+	alias dolphin-tool='flatpak run --command=dolphin-tool org.DolphinEmu.dolphin-emu'
 
 	#initialize log
 	TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
