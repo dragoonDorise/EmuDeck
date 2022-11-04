@@ -1,30 +1,6 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 ## proton-launch.sh
-
-# Report Errors
-reportError () {
-    # Report error to logfile
-    echo "${1}" >> "${LOGFILE}"
-    # Open a Zenity dialog for the user
-    if [ "${2}" == "true" ]; then
-        zenity --error \
-            --text="${1}"\
-            --width=250
-    fi
-    # Exit the script
-    if [ "${3}" == "true" ]; then
-        exit 1
-    fi
-}
-
-# Check for file
-checkFile () {
-    echo "Checking for file: ${1}" >> "${LOGFILE}"
-    if [ ! -f "${1}" ]; then
-        reportError "Error: Unable to find ${1##*/} in\n ${1%/*}" "true" "true"
-    fi
-}
 
 ############################################################
 # Help                                                     #
@@ -40,14 +16,6 @@ Help () {
     echo "i     Proton AppID"
     echo
     exit
-}
-
-# Report all current arguments to the LOGFILE
-showArguments () {
-    local arg
-    for arg; do
-        echo "Argument:  $arg" >> "${LOGFILE}"
-    done
 }
 
 # Attempt to send a request to install Proton version
@@ -249,8 +217,15 @@ main () {
 
 # Only run if run directly
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    # Get own directory
+    selfDir="$( dirname "${BASH_SOURCE[0]}" )"
+
+    # Source the launcherFunctions.sh
+    # shellcheck disable=SC1091
+    . "${selfDir}/launcherFunctions.sh"
+    
     # Set a LOGFILE to proton-launch.log in the same directory this script runs from
-    LOGFILE="$(dirname "${BASH_SOURCE[0]}")/proton-launch.log"
+    LOGFILE="${selfDir}/proton-launch.log"
     echo "$(date +'%m/%d/%Y - %H:%M:%S') - Started" > "${LOGFILE}"
     
     # Exit if there aren't any arguments
