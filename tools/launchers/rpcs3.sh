@@ -1,2 +1,13 @@
-#!/bin/sh
-/usr/bin/flatpak run net.rpcs3.RPCS3
+#!/usr/bin/bash
+
+# shellcheck disable=SC1091
+. "${HOME}/emudeck/settings.sh"
+
+# shellcheck disable=SC2154
+LAUNCH="${toolsPath}/emu-launch.sh"
+
+# Set emulator name
+EMU="RPCS3"
+
+# Launch emu-launch.sh
+"${LAUNCH}" -e "${EMU}" -- "${@}"

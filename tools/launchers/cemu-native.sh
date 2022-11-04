@@ -7,10 +7,7 @@
 LAUNCH="${toolsPath}/emu-launch.sh"
 
 # Set emulator name
-EMU="Ryujinx"
-
-# Ryujinx needs a specific path
-EMUPATH="${HOME}/Applications/publish/Ryujinx"
+EMU="Cemu"
 
 # Launch emu-launch.sh
-"${LAUNCH}" -e "${EMU}" -p "${EMUPATH}" -- "${@}"
+"${LAUNCH}" -e "${EMU}" -- "${@}"
