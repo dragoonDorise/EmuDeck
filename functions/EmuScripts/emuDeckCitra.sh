@@ -4,6 +4,7 @@ Citra_emuName="Citra"
 Citra_emuType="FlatPak"
 Citra_emuPath="org.citra_emu.citra"
 Citra_releaseURL=""
+Citra_configFile="$HOME/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini"
 
 #cleanupOlderThings
 Citra_finalize(){
@@ -40,7 +41,7 @@ Citra_update(){
 #ConfigurePaths
 Citra_setEmulationFolder(){
 	setMSG "Setting $Citra_emuName Emulation Folder"	
-  	configFile="$HOME/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini"
+  	Citra_configFile="$HOME/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini"
     gameDirOpt='Paths\\gamedirs\\3\\path='
     newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/3ds"
     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
