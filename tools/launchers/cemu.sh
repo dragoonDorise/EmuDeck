@@ -1,32 +1,33 @@
 #!/usr/bin/bash
 # cemu.sh
 
-# Report Errors
-reportError () {
-    echo "${1}" >> "${LOGFILE}"
-    if [ "${2}" == "true" ]; then
-        zenity --error \
-            --text="${1}" \
-            --width=250
-    fi
-    if [ "${3}" == "true" ]; then
-        exit 1
-    fi
-}
-
-# Check for file
-checkFile () {
-    echo "Checking for file: ${1}" >> "${LOGFILE}"
-    if [ ! -f "${1}" ]; then
-        reportError "Error: Unable to find ${1##*/} in\n ${1%/*}" "true" "true"
-    fi
-}
-
 # LogFile
 LOGFILE="$(dirname "${BASH_SOURCE[0]}")/cemu-launch.log"
 
 # Report start time to log
 echo "$(date +'%m/%d/%Y - %H:%M:%S') - Started" > "${LOGFILE}"
+
+# Settings file
+settingsFile="${HOME}/emudeck/settings.sh"
+if [ -f "${settingsFile}" ]; then
+    # Source the settings file
+    # shellcheck disable=SC1091
+    # shellcheck source="${HOME}/emudeck/settings.sh"
+    . "${settingsFile}"
+else
+    reportError "Error: Unable to find ${settingsFile}." "true" "true"
+fi
+
+# launcherFunctions.sh
+launcherFunctions="${toolsPath}/launcherFunctions.sh"
+if [ -f "${launcherFunctions}" ]; then
+    # Source the launcherFunctions.sh
+    # shellcheck disable=SC1091
+    # shellcheck source="${toolsPath}/launcherfunctions.sh"
+    . "${launcherFunctions}"
+else
+    reportError "Error: Unable to find ${launcherFunctions}." "true" "true"
+fi
 
 # Get SELFPATH
 SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"

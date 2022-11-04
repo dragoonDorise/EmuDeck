@@ -32,9 +32,7 @@ fi
 
 # Set emu-launch.sh
 launch="${toolsPath}/emu-launch.sh"
-if [ ! -f "${launch}" ]; then
-    reportError "Error: Unable to find ${launch}." "true" "true"
-fi
+checkFile "${launch}"
 
 # Set emulator name
 EMU="Cemu"
