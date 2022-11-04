@@ -123,6 +123,13 @@ main () {
         set -- "${ARGS[@]}"
     fi
 
+    # Check for "z:" or "Z:" in the last argument
+    if [[ "${*:$#}" =~ [zZ]: ]]; then
+        ARGS=("${@}")
+        ARGS[-1]="${LASTARG//[zZ]:/}"
+        set -- "${ARGS[@]}"
+    fi
+
     # Report arguments
     echo "Arguments -" >> "${LOGFILE}"
     showArguments "${@}"
