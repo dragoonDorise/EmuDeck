@@ -51,7 +51,34 @@ rclone_pickProvider(){
 }
 
 rclone_updateProvider(){
-    $rclone_bin config update "$rclone_provider"
+    if [ $rclone_provider == "Emudeck-NextCloud" ]; then
+
+        local url
+        local username
+        local password
+
+        NCInput=$(zenity --forms \
+                --title="Nextcloud Sign in" \
+                --text="Please enter your Nextcloud information here. URL is your webdav url. Use HTTP:// or HTTPS:// please." \
+                --width=300 \
+                --add-entry="URL: " \
+                --add-entry="Username: " \
+                --add-password="Password: " \
+                --separator="," 2>/dev/null)
+                ans=$?
+        if [ $ans -eq 0 ]; then
+            echo "Nextcloud Login"
+            url="$(echo "$NCInput" | awk -F "," '{print $1}')"
+            username="$(echo "$NCInput" | awk -F "," '{print $2}')"
+            password="$(echo "$NCInput" | awk -F "," '{print $3}')"
+            
+            $rclone_bin config update "$rclone_provider" vendor="nextcloud" url=$url  user=$username pass="$($rclone_bin obscure $password)"
+        else
+            echo "Cancel Nextcloud Login" 
+        fi
+    else
+        $rclone_bin config update "$rclone_provider" 
+    fi
 }
 
 rclone_setup(){
@@ -215,15 +242,19 @@ WantedBy=timers.target"> "$HOME/.config/systemd/user/emudeck_saveBackup.timer"
 #chmod +x "$HOME/.config/systemd/user/emudeck_saveBackup.timer"
 #enabling services seems to want to symlink to a place it doesn't have access to, even with --user. Maybe needs sudo...
 
-    echo "Setting SaveSync service to start on boot"
-    systemctl --user enable emudeck_saveBackup.timer
+    echo "Enabling SaveBackup"
+    systemctl --user enable emudeck_saveBackup.service
 
-    echo "Starting SaveSync Service. First run may take a while."
+    echo "Enabling SaveBackup 15 minute timer service"
+    systemctl --user enable emudeck_saveBackup.timer
+ 
+    echo "Enabling SaveBackup Timer."
     rclone_startService
 }
 
 rclone_stopService(){
     systemctl --user stop emudeck_saveBackup.timer
+    systemctl --user stop emudeck_saveBackup.service
 }
 
 rclone_startService(){

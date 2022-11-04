@@ -124,7 +124,7 @@ Vita3K_finalize(){
 }
 
 Vita3K_IsInstalled(){
-	if [ -e "$Vita3K_emuPath" ]; then
+	if [ -e "$Vita3K_emuPath/Vita3K" ]; then
 		echo "true"
 	else
 		echo "false"

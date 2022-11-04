@@ -93,5 +93,6 @@ arDolphin=43
 arSega=43
 arSnes=43
 RAHandClassic2D=false
+RAHandClassic3D=false
 RAHandHeldShader=true
 doSetupSaveSync=false

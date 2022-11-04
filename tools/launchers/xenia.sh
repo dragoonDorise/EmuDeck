@@ -1,35 +1,69 @@
-#!/bin/sh
-## Config
-PROTONVERSION='Proton - Experimental'
-# App Path
-APPPATH="/run/media/mmcblk0p1/Emulation/roms/xbox360"
-# Steam Path
-STEAMPATH="${HOME}/.local/share/Steam"
-# Proton Path
-PROTON="${STEAMPATH}/steamapps/common/${PROTONVERSION}/proton"
-# Prefix
-PFX="${STEAMPATH}/steamapps/compatdata/pfx"
-# AppID
-APPID=0
+#!/usr/bin/bash
+# xenia.sh
 
-# Set environment variables
-set_env() {
-    # Set default data path if it isn't set, then include an appID
-    if [ -z ${STEAM_COMPAT_DATA_PATH+x} ]; then
-        export STEAM_COMPAT_DATA_PATH="${PFX}"/${SteamAppId:-${APPID}}
-    elif ! [ ${SteamGameId} -ge 0 ] 2>/dev/null && ! [ ${SteamAppId} -ge 0 ] 2>/dev/null && ! [ $(basename ${STEAM_COMPAT_DATA_PATH}) -ge 0 ] 2>/dev/null; then
-        export SteamAppId=${APPID}
+# Report Errors
+reportError () {
+    echo "${1}" >> "${LOGFILE}"
+    if [ "${2}" == "true" ]; then
+        zenity --error \
+            --text="${1}" \
+            --width=250
     fi
-    # Set default Steam Client path if it isn't
-    if [ -z ${STEAM_COMPAT_CLIENT_INSTALL_PATH+x} ]; then
-        export STEAM_COMPAT_CLIENT_INSTALL_PATH="${STEAMPATH}"
-    fi
-    # Create prefix if it doesn't exist
-    if ! [ -d ${STEAM_COMPAT_DATA_PATH} ]; then
-        install -d ${STEAM_COMPAT_DATA_PATH} || exit 1
+    if [ "${3}" == "true" ]; then
+        exit 1
     fi
 }
-cd $apppath
-# Main
-set_env
-python "${PROTON}" waitforexitandrun "${APPPATH}/xenia.exe" "${@}"
+
+# Check for file
+checkFile () {
+    echo "Checking for file: ${1}" >> "${LOGFILE}"
+    if [ ! -f "${1}" ]; then
+        reportError "Error: Unable to find ${1##*/} in\n ${1%/*}" "true" "true"
+    fi
+}
+
+# LogFile
+LOGFILE="$(dirname "${BASH_SOURCE[0]}")/cemu-launch.log"
+
+# Report start time to log
+echo "$(date +'%m/%d/%Y - %H:%M:%S') - Started" > "${LOGFILE}"
+
+# Get SELFPATH
+SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"
+
+if [ -z "${SELFPATH}" ]; then
+    reportError "Error: Unable to get own path" "true" "true"
+else
+    echo "SELFPATH: ${SELFPATH}" >> "${LOGFILE}"
+fi
+
+# Get EXE
+EXE="\"/usr/bin/bash\" \"${SELFPATH}\""
+echo "EXE: ${EXE}" >> "${LOGFILE}"
+
+# NAME
+NAME="Xenia"
+echo "NAME: ${NAME}" >> "${LOGFILE}"
+
+# AppID.py
+APPIDPY="/run/media/mmcblk0p1/Emulation/tools/appID.py"
+checkFile "${APPIDPY}"
+
+# Proton Launcher Script
+PROTONLAUNCH="/run/media/mmcblk0p1/Emulation/tools/proton-launch.sh"
+checkFile "${PROTONLAUNCH}"
+
+# Cemu.exe location
+XENIA="/run/media/mmcblk0p1/Emulation/roms/xbox360/xenia.exe"
+checkFile "${XENIA}"
+
+# APPID
+APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
+echo "APPID: ${APPID}" >> "${LOGFILE}"
+if [ -z "${APPID}" ]; then
+    reportError "Unable to calculate AppID" "true" "true"
+fi
+
+# Call the Proton launcher script and give the arguments
+echo "${PROTONLAUNCH}" -p '7.0' -i "${APPID}" -- "${XENIA}" "${@}" >> "${LOGFILE}"
+"${PROTONLAUNCH}" -p '7.0' -i "${APPID}" -- "${XENIA}" "${@}"

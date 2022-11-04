@@ -138,7 +138,7 @@
       "version": 1,
       "backend": "GamepadSDL2",
       "id": "0-00000003-28de-0000-ff11-000001000000",
-      "controller_type": "ProController",
+      "controller_type": "JoyconPair",
       "player_index": "Player1"
     }
   ],

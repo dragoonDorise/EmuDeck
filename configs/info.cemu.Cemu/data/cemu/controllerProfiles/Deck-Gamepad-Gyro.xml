@@ -135,6 +135,10 @@
 				<mapping>24</mapping>
 				<button>40</button>
 			</entry>
+			<entry>
+				<mapping>25</mapping>
+				<button>7</button>
+			</entry>
 		</mappings>
 	</controller>
 </emulated_controller>
