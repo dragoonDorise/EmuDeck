@@ -1347,7 +1347,7 @@
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}sameboy_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+    "executableArgs": " -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}sameboy_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": [
@@ -1386,7 +1386,7 @@
       "removeBrackets": true
     },
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -1402,7 +1402,7 @@
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}sameboy_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+    "executableArgs": " -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}sameboy_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": [
@@ -1441,7 +1441,7 @@
       "removeBrackets": true
     },
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
