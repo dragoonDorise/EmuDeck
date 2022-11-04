@@ -126,7 +126,7 @@ main () {
     # Check for "z:" or "Z:" in the last argument
     if [[ "${*:$#}" =~ [zZ]: ]]; then
         ARGS=("${@}")
-        ARGS[-1]="${LASTARG//[zZ]:/}"
+        ARGS[-1]="${ARGS[-1]//[zZ]:/}"
         set -- "${ARGS[@]}"
     fi
 
