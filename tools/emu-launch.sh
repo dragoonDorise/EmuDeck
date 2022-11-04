@@ -1,5 +1,32 @@
 #!/usr/bin/bash
 
+## emu-launch.sh
+
+# Report Errors
+reportError () {
+    # Report error to logfile
+    echo "${1}" >> "${LOGFILE}"
+    # Open a Zenity dialog for the user
+    if [ "${2}" == "true" ]; then
+        zenity --error \
+            --text="${1}"\
+            --width=250
+    fi
+    # Exit the script
+    if [ "${3}" == "true" ]; then
+        exit 1
+    fi
+}
+
+# Check for file
+checkFile () {
+    echo "Checking for file: ${1}" >> "${LOGFILE}"
+    if [ ! -f "${1}" ]; then
+        reportError "Error: Unable to find ${1##*/} in\n ${1%/*}" "true" "true"
+    fi
+}
+
+# Report all current arguments to the LOGFILE
 showArguments () {
     local arg
     for arg; do
@@ -7,6 +34,7 @@ showArguments () {
     done
 }
 
+# Attempt to find the given program as an AppImage
 getAppImage () {
     local EMUDIR="${HOME}/Applications"
 
@@ -17,24 +45,26 @@ getAppImage () {
     # Check if APPIMAGE is unset or empty, and that the file exists
     if [ -z ${APPIMAGE+x} ] || [ ! -f "${APPIMAGE}" ]; then
         echo "Error: AppImage not found." >> "${LOGFILE}"
-        return 1
+        reportError "Error: AppImage not found." "true" "true"
     elif [ -f "${APPIMAGE}" ]; then
         EMUPATH="${APPIMAGE}"
     fi
 }
 
+# Attempt to find the given program as a Flatpak
 getFlatpak () {
     # Set Flatpak
     local FLATPAK
     FLATPAK="$( flatpak list --app --columns=application | grep -i "${EMUNAME}" )"
     if [ -z "${FLATPAK}" ]; then
         echo "Error: Flatpak not found." >> "${LOGFILE}"
-        return 1
+        reportError "Error: Flatpak not found." "true" "true"
     else
         EMUPATH=("/usr/bin/flatpak" "run" "${FLATPAK}")
     fi
 }
 
+# Main
 main () {
     ISAPPIMAGE="false"
     ISFLATPAK="false"
@@ -56,12 +86,12 @@ main () {
                 EMUPATH="${OPTARG}"
                 if ! [ -f "${EMUPATH}" ]; then
                     echo "Error: ${EMUPATH} is not a valid file." >> "${LOGFILE}"
-                    exit 1
+                    reportError "Error: ${EMUPATH} is not a valid file." "true" "true"
                 fi
                 ;;
             \?) # Invalid option
                 echo "Error: Invalid option - ${OPTARG}" >> "${LOGFILE}"
-                exit
+                reportError "Error: Invalid option - ${OPTARG}" "true" "true"
                 ;;
         esac
     done
@@ -70,12 +100,13 @@ main () {
     # Make sure both AppImage and Flatpak aren't selected
     if [ "${ISAPPIMAGE}" = "true" ] && [ "${ISFLATPAK}" = "true" ]; then
         echo "Error: Can't select both -a and -f" >> "${LOGFILE}"
-        exit 1
+        reportError "Error: Can't select both -a and -f" "true" "true"
     fi
 
     # Check if EMUNAME is set
     if [ -z ${EMUNAME+x} ]; then
-        echo "Error: -e flag not set. Please set an emulator name." >> "${EMU}"
+        echo "Error: -e flag not set. Please set an emulator name." >> "${LOGFILE}"
+        reportError "Error: -e flag not set. Please set an emulator name." "true" "true"
     fi
 
     {
@@ -90,16 +121,16 @@ main () {
         if [ "${ISAPPIMAGE}" = "false" ] && [ "${ISFLATPAK}" = "false" ]; then
             if ! getAppImage; then
                 if ! getFlatpak; then
-                    echo "Error: Could not find either an AppImage nor a Flatpak." >> "${LOGFILE}"
-                    exit 1
+                    echo "Error: Could not find either an AppImage nor a Flatpak with the name ${EMUNAME}." >> "${LOGFILE}"
+                    reportError "Error: Could not find either an AppImage nor a Flatpak with the name ${EMUNAME}." "true" "true"
                 fi
             fi
         elif [ "${ISAPPIMAGE}" = "true" ] && ! getAppImage; then
             echo "Error: AppImage not found." >> "${LOGFILE}"
-            exit 1
+            reportError "Error: AppImage not found." "true" "true"
         elif [ "${ISFLATPAK}" = "true" ] && ! getFlatpak; then
             echo "Error: Flatpak not found." >> "${LOGFILE}"
-            exit 1
+            reportError "Error: Flatpak not found." "true" "true"
         fi
     fi
 
@@ -108,12 +139,12 @@ main () {
     # Last check to make sure there's an EMUPATH
     if [ "${EMUPATH}" = "false" ] || [ -z "${EMUPATH}" ]; then
         echo "Error: Unable to resolve a path to the emulator." >> "${LOGFILE}"
-        exit 1
+        reportError "Error: Unable to resolve a path to the emulator." "true" "true"
     fi
 
     # Make sure EXE is executable, if it is a file
     if [ -f "${EMUPATH}" ] && [[ ! -x "${EMUPATH}" ]]; then
-        chmod +x "${EMUPATH}"
+        chmod +x "${EMUPATH}" || reportError "Error: ${EMUPATH} cannot be made executable" "true" "true"
     fi
 
     # Check for single quotes around the last argument
@@ -141,8 +172,8 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     
     # Exit if there aren't any arguments
     if ! [[ "${1}" ]]; then
-        echo "No arguments provided." >> "${LOGFILE}"
-        exit 1
+        echo "Error: No arguments provided." >> "${LOGFILE}"
+        reportError "Error: No arguments provided." "true" "true"
     fi
 
     # Continue to main()
