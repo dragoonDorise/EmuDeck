@@ -15,11 +15,12 @@ source "${EMUDECKGIT}/functions/helperFunctions.sh"
 
 # Settings File
 SETTINGSFILE="${HOME}/emudeck/settings.sh"
-if [ ! -f "${SETTINGSFILE}" ]; then
+if [ -f "${SETTINGSFILE}" ]; then
+    # shellcheck source=./settings.sh
+    source "${SETTINGSFILE}"
+else
     cp "${EMUDECKGIT}/settings.sh" "${SETTINGSFILE}"
 fi
-
-source "${SETTINGSFILE}"
 
 export PATH="${EMUDECKGIT}/tools/binaries/:${PATH}"
 
