@@ -133,3 +133,98 @@ CemuNative_functions () {
 
 	"${1}" # Call the above functions
 }
+
+# Cleanup older things
+CemuNative_cleanup () {
+	CemuNative_functions "cleanup"
+}
+
+# Finalize
+CemuNative_finalize () {
+	CemuNative_functions "finalize"
+}
+
+# Set ABXY Style
+CemuNative_setABXYstyle () {
+	CemuNative_functions "setABXYstyle"
+}
+
+# Migrate
+CemuNative_migrate () {
+	CemuNative_functions "migrate"
+}
+
+# Widescreen ON
+CemuNative_widescreenOn () {
+	CemuNative_functions "widescreenOn"
+}
+
+# Widescreen OFF
+CemuNative_widescreenOff () {
+	CemuNative_functions "widescreenOff"
+}
+
+# Bezels ON
+CemuNative_bezelOn () {
+	CemuNative_functions "bezelOn"
+}
+
+# Bezels OFF
+CemuNative_bezelOff () {
+	CemuNative_functions "bezelOff"
+}
+
+# Configure Paths
+CemuNative_setEmulationFolder () {
+	CemuNative_functions "setEmulationFolder"
+}
+
+# Set Saves
+CemuNative_setupSaves () {
+	CemuNative_functions "setupSaves"
+}
+
+# Setup Storage
+CemuNative_setupStorage () {
+	CemuNative_functions "setupStorage"
+}
+
+# Wipe Settings
+CemuNative_wipeSettings () {
+	CemuNative_functions "wipeSettings"
+}
+
+# Uninstall
+CemuNative_uninstall () {
+	CemuNative_functions "uninstall"
+}
+
+# Install
+CemuNative_install () {
+	CemuNative_functions "install"
+}
+
+# Apply initial settings
+CemuNative_init () {
+	CemuNative_functions "init"
+}
+
+# Update
+CemuNative_update () {
+	CemuNative_functions "update"
+}
+
+# Is Installed
+CemuNative_isInstalled () {
+	CemuNative_functions "isInstalled"
+}
+
+# Reset Config
+CemuNative_resetConfig () {
+	CemuNative_functions "resetConfig"
+}
+
+# Add Steam Input Profile
+CemuNative_addSteamInputProfile () {
+	CemuNative_functions "addSteamInputProfile"
+}
