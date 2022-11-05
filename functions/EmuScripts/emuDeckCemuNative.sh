@@ -1,15 +1,15 @@
 #!/usr/bin/bash
 
-# Parameters
-declare -A CemuNative=(
-	[emuName]="CemuNative"
-	[emuType]="AppImage"
-	[emuPath]="${HOME}/Applications/Cemu.AppImage"
-	[configDir]="${HOME}/.config/Cemu"
-	[configFile]="${HOME}/.config/Cemu/settings.xml"
-)
-
 CemuNative_functions () {
+	# Parameters
+	declare -A CemuNative=(
+		[emuName]="CemuNative"
+		[emuType]="AppImage"
+		[emuPath]="${HOME}/Applications/Cemu.AppImage"
+		[configDir]="${HOME}/.config/Cemu"
+		[configFile]="${HOME}/.config/Cemu/settings.xml"
+	)
+	
 	# Cleanup older things
 	cleanup () {
 		echo "NYI"
