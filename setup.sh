@@ -222,6 +222,10 @@ cp "$EMUDECKGIT/tools/proton-launch.sh" "${toolsPath}/proton-launch.sh"
 chmod +x "${toolsPath}/proton-launch.sh"
 cp "$EMUDECKGIT/tools/appID.py" "${toolsPath}/appID.py"
 
+# Setup emu-launch.sh
+cp "${EMUDECKGIT}/tools/emu-launch.sh" "${toolsPath}/emu-launch.sh"
+chmod +x "${toolsPath}/emu-launch.sh"
+
 #ESDE Installation
 if [ $doInstallESDE == "true" ]; then
 	echo "install esde"
