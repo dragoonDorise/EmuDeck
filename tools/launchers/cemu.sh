@@ -147,9 +147,13 @@ main () {
             reportError "Unable to calculate AppID" "true" "true"
         fi
 
+        # PROTONVER
+        PROTONVER="7.0"
+        echo "PROTONVER: ${PROTONVER}"
+
         # Call the Proton launcher script and give the arguments
-        echo "${PROTONLAUNCH}" -p '7.0' -i "${APPID}" -- "${CEMU}" "${@}"
-        "${PROTONLAUNCH}" -p '7.0' -i "${APPID}" -- "${CEMU}" "${@}"
+        echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${CEMU}" "${@}"
+        "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${CEMU}" "${@}"
     fi
 
 }
