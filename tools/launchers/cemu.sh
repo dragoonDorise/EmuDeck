@@ -82,17 +82,6 @@ main () {
         fi
     fi
 
-    # If doProton is false, check that EMUPATH was set correctly
-    if [[ "${doProton}" == "false" ]] && ( [[ "${EMUPATH}" == "false" ]] || [[ -z "${EMUPATH}" ]] ); then
-        echo "Error: Unable to emulator path."
-        reportError "Error: Unable to emulator path." "true" "true"
-    fi
-
-    # If doProton is false, check that EMUPATH is executable
-    if [[ "${doProton}" == "false" ]] && ( [ -f "${EMUPATH}" ] && [[ ! -x "${EMUPATH}" ]] ); then
-        chmod +x "${EMUPATH}" || reportError "Error: ${EMUPATH} cannot be made executable" "true" "true"
-    fi
-
     # Check for single quotes around the last argument
     if [[ "${*:$#}" =~ ^\'.*\'$ ]]; then
         ARGS=("${@}")
@@ -101,18 +90,28 @@ main () {
         set -- "${ARGS[@]}"
     fi
 
-    # If doProton is false, check for "z:" or "Z:" in the last argument and remove it
-    if [[ "${doProton}" == "false" ]] && [[ "${*:$#}" =~ ^[zZ]: ]]; then
-        ARGS=("${@}")
-        ARGS[-1]="${ARGS[-1]#[zZ]:}"
-        set -- "${ARGS[@]}"
-    fi
-
     # Report arguments
     showArguments "${@}"
 
     # Run Emulator
     if [[ "${doProton}" == "false" ]]; then
+        #If doProton is false, check that EMUPATH was set correctly
+        if [[ "${EMUPATH}" == "false" ]] || [[ -z "${EMUPATH}" ]]; then
+            echo "Error: Unable to emulator path."
+            reportError "Error: Unable to emulator path." "true" "true"
+        fi
+
+        # If doProton is false, check that EMUPATH is executable
+        if [ -f "${EMUPATH}" ] && [[ ! -x "${EMUPATH}" ]]; then
+            chmod +x "${EMUPATH}" || reportError "Error: ${EMUPATH} cannot be made executable" "true" "true"
+        fi
+        # Check for "z:" or "Z:" in the last argument and remove it
+        if [[ "${*:$#}" =~ ^[zZ]: ]]; then
+            ARGS=("${@}")
+            ARGS[-1]="${ARGS[-1]#[zZ]:}"
+            set -- "${ARGS[@]}"
+        fi
+
         echo "${EMUPATH[@]}" "${@}"
         "${EMUPATH[@]}" "${@}"
     else
