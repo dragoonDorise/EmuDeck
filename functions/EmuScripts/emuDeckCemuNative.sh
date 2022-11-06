@@ -65,7 +65,8 @@ CemuNative_functions () {
 	# Set Saves
 	setupSaves () {
 		unlink "${savesPath}/Cemu/saves" # Fix for previous bad symlink
-		linkToSaveFolder Cemu saves "${romsPath}/wiiu/mlc01/usr/save"
+		# linkToSaveFolder Cemu saves "${romsPath}/wiiu/mlc01/usr/save"
+		ln -sn "${romsPath}/wiiu/mlc01" "${HOME}/.local/share/Cemu/mlc01" # Symlink from Proton directory until we move it.
 	}
 
 	# Setup Storage
@@ -94,7 +95,7 @@ CemuNative_functions () {
 	# Apply initial settings
 	init () {
 		setMSG "Initialising ${CemuNative[emuName]} settings."
-		configEmuAI "${CemuNative[emuName]}" "config" "${HOME}/.config/Cemu" "${EMUDECKGIT}/configs/cemu/.config/cemu" "true"
+		configEmuAI "${CemuNative[emuName]}" "config" "${HOME}/.config/Cemu" "${EMUDECKGIT}/configs/Cemu" "true"
 		setEmulationFolder
 		setupStorage
 		setupSaves
