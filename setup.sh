@@ -293,6 +293,10 @@ if [ $doInstallCemu == "true" ]; then
 	echo "Cemu_install"
 	Cemu_install
 fi
+if [ "${doInstallCemuNative}" == "true" ]; then
+	echo "CemuNative_install"
+	CemuNative_install
+fi
 if [ $doInstallScummVM == "true" ]; then
 	echo "ScummVM_install"
 	ScummVM_install
@@ -385,6 +389,10 @@ fi
 if [ "$doSetupVita3K" == "true" ]; then
 	echo "Vita3K_init"
 	Vita3K_init
+fi
+if [ "${doSetupCemuNative}" == "true" ]; then
+	echo "CemuNative_init"
+	CemuNative_init
 fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then
