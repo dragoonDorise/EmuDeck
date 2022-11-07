@@ -28,7 +28,24 @@ CemuNative_functions () {
 
 	# Migrate
 	migrate () {
-		echo "NYI"
+		echo "Begin Cemu migration"
+		migrationFlag="${HOME}/.config/EmuDeck/.${CemuNative[emuName]}MigrationCompleted"
+		if [ ! -f "${migrationFlag}" ]; then	
+			# Move mlc01 to storage
+			if [ -d "${CemuNative[shareDir]}/mlc01" ] && [ ! -d "${storagePath}/cemu/mlc01" ]; then
+				mv "${CemuNative[shareDir]}/mlc01" "${storagePath}/cemu/mlc01"
+			fi
+			if [ -d "${romsPath}/wiiu/mlc01" ] && [ ! -d "${storagePath}/cemu/mlc01" ]; then
+				mv "${romsPath}/wiiu/mlc01" "${storagePath}/cemu/mlc01"
+			fi
+			# Move graphicPacks
+			if [ -d "${CemuNative[shareDir]}/graphicPacks" ] && [ ! -d "${storagePath}/cemu/graphicPacks" ]; then
+				mv -r "${CemuNative[shareDir]}/graphicPacks" "${storagePath}/cemu/graphicPacks"
+			fi
+			if [ -d "${romsPath}/wiiu/graphicPacks" ] && [ ! -d "${storagePath}/cemu/graphicPacks" ]; then
+				mv -r "${romsPath}/wiiu/graphicPacks" "${storagePath}/cemu/graphicPacks"
+			fi
+		fi
 	}
 
 	# Widescreen ON
@@ -67,22 +84,13 @@ CemuNative_functions () {
 	# Set Saves
 	setupSaves () {
 		unlink "${savesPath}/Cemu/saves" # Fix for previous bad symlink
-		# Move mlc01 to saves
-		if [ -d "${romsPath}/wiiu/mlc01" ] && [ ! -d "${CemuNative[shareDir]}/mlc01" ]; then
-			mv "${romsPath}/wiiu/mlc01" "${CemuNative[shareDir]}/mlc01"
-		fi
-		linkToSaveFolder Cemu saves "${CemuNative[shareDir]}/mlc01/usr/save"
+		linkToSaveFolder Cemu saves "${storagePath}/cemu/mlc01/usr/save"
 	}
 
 	# Setup Storage
 	setupStorage () {
 		install -d "${storagePath}/cemu"
-		# Move graphicPacks
-		if [ -d "${romsPath}/wiiu/graphicPacks" ] && [ ! -d "${storagePath}/cemu/graphicPacks" ]; then
-			cp -r "${romsPath}/wiiu/graphicPacks" "${storagePath}/cemu/graphicPacks"
-		else
-			install -d "${storagePath}/cemu/graphicPacks"
-		fi
+		ln -sn "${storagePath}/cemu/mlc01" "${CemuNative[shareDir]}/mlc01"
 		ln -sn "${storagePath}/cemu/graphicPacks" "${CemuNative[shareDir]}/graphicPacks"
 	}
 
@@ -108,7 +116,7 @@ CemuNative_functions () {
 	init () {
 		setMSG "Initialising ${CemuNative[emuName]} settings."
 		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/config/cemu" "true"
-		configEmuAI "cemu" "data" "${CemuNative[shareDir]}" "${EMUDECKGIT}/configs/cemu/data/cemu" "true"
+		configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu" "true"
 		setEmulationFolder
 		setupStorage
 		setupSaves
@@ -117,8 +125,9 @@ CemuNative_functions () {
 	# Update
 	update () {
 		setMSG "Updating ${CemuNative[emuName]} settings."
+		migrate
 		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/.config/cemu"
-		configEmuAI "cemu" "data" "${CemuNative[shareDir]}" "${EMUDECKGIT}/configs/cemu/data/cemu"
+		configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu"
 		setEmulationFolder
 		setupStorage
 		setupSaves
