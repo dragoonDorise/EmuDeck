@@ -57,7 +57,7 @@ CemuNative_functions () {
 		if [ -f "${CemuNative[configFile]}" ]; then
 			gamePathEntryFound="$( xmlstarlet sel -t -m "//root/content/GamePaths/Entry" -v . -n "${CemuNative[configFile]}" )"
 
-			if [[ ! "${gamePathEntryFound}" == *"${romsPath}/wiiu/roms"* ]]; then
+			if [[ ! "${gamePathEntryFound}" == *"${romsPath}/wiiu"* ]]; then
 				xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "${romsPath}/wiiu/roms" "${CemuNative[configFile]}"
 				xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "${romsPath}/wiiu/" "${CemuNative[configFile]}"
 			fi
