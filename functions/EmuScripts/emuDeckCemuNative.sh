@@ -8,6 +8,7 @@ CemuNative_functions () {
 		[emuPath]="${HOME}/Applications/Cemu.AppImage"
 		[configDir]="${HOME}/.config/Cemu"
 		[configFile]="${HOME}/.config/Cemu/settings.xml"
+		[shareDir]="${HOME}/.local/share/Cemu"
 	)
 	
 	# Cleanup older things
@@ -66,13 +67,23 @@ CemuNative_functions () {
 	# Set Saves
 	setupSaves () {
 		unlink "${savesPath}/Cemu/saves" # Fix for previous bad symlink
-		# linkToSaveFolder Cemu saves "${romsPath}/wiiu/mlc01/usr/save"
-		ln -sn "${romsPath}/wiiu/mlc01" "${HOME}/.local/share/Cemu/mlc01" # Symlink from Proton directory until we move it.
+		# Move mlc01 to saves
+		if [ -d "${romsPath}/wiiu/mlc01" ] && [ ! -d "${CemuNative[shareDir]}/mlc01" ]; then
+			mv "${romsPath}/wiiu/mlc01" "${CemuNative[shareDir]}/mlc01"
+		fi
+		linkToSaveFolder Cemu saves "${CemuNative[shareDir]}/mlc01/usr/save"
 	}
 
 	# Setup Storage
 	setupStorage () {
-		echo "NYI"
+		install -d "${storagePath}/cemu"
+		# Move graphicPacks
+		if [ -d "${romsPath}/wiiu/graphicPacks" ] && [ ! -d "${storagePath}/cemu/graphicPacks" ]; then
+			cp -r "${romsPath}/wiiu/graphicPacks" "${storagePath}/cemu/graphicPacks"
+		else
+			install -d "${storagePath}/cemu/graphicPacks"
+		fi
+		ln -sn "${storagePath}/cemu/graphicPacks" "${CemuNative[shareDir]}/graphicPacks"
 	}
 
 	# Wipe Settings
@@ -96,7 +107,7 @@ CemuNative_functions () {
 	# Apply initial settings
 	init () {
 		setMSG "Initialising ${CemuNative[emuName]} settings."
-		configEmuAI "${CemuNative[emuName]}" "config" "${HOME}/.config/Cemu" "${EMUDECKGIT}/configs/Cemu" "true"
+		configEmuAI "${CemuNative[emuName]}" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/.configs/Cemu" "true"
 		setEmulationFolder
 		setupStorage
 		setupSaves
@@ -105,7 +116,7 @@ CemuNative_functions () {
 	# Update
 	update () {
 		setMSG "Updating ${CemuNative[emuName]} settings."
-		configEmuAI "${CemuNative[emuName]}" "config" "${HOME}/.config/cemu" "${EMUDECKGIT}/configs/cemu/.config/cemu"
+		configEmuAI "${CemuNative[emuName]}" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/.config/cemu"
 		setEmulationFolder
 		setupStorage
 		setupSaves
