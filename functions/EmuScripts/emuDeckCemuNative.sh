@@ -107,7 +107,8 @@ CemuNative_functions () {
 	# Apply initial settings
 	init () {
 		setMSG "Initialising ${CemuNative[emuName]} settings."
-		configEmuAI "${CemuNative[emuName]}" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/.configs/Cemu" "true"
+		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/config/cemu" "true"
+		configEmuAI "cemu" "data" "${CemuNative[shareDir]}" "${EMUDECKGIT}/configs/cemu/data/cemu" "true"
 		setEmulationFolder
 		setupStorage
 		setupSaves
@@ -116,7 +117,8 @@ CemuNative_functions () {
 	# Update
 	update () {
 		setMSG "Updating ${CemuNative[emuName]} settings."
-		configEmuAI "${CemuNative[emuName]}" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/.config/cemu"
+		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/.config/cemu"
+		configEmuAI "cemu" "data" "${CemuNative[shareDir]}" "${EMUDECKGIT}/configs/cemu/data/cemu"
 		setEmulationFolder
 		setupStorage
 		setupSaves
