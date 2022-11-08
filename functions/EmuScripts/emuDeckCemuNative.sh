@@ -30,21 +30,92 @@ CemuNative_functions () {
 	migrate () {
 		echo "Begin Cemu migration"
 		migrationFlag="${HOME}/.config/EmuDeck/.${CemuNative[emuName]}MigrationCompleted"
-		if [ ! -f "${migrationFlag}" ]; then	
-			# Move mlc01 to storage
-			if [ -d "${CemuNative[shareDir]}/mlc01" ] && [ ! -d "${storagePath}/cemu/mlc01" ]; then
-				mv -f "${CemuNative[shareDir]}/mlc01" "${storagePath}/cemu/mlc01"
-			fi
-			if [ -d "${romsPath}/wiiu/mlc01" ] && [ ! -d "${storagePath}/cemu/mlc01" ]; then
+		if [ ! -f "${migrationFlag}" ]; then
+			# Check for Windows version mlc01
+			if [ -d "${romsPath}/wiiu/mlc01" ]; then
+				# Make sure we don't overwrite anything
+				if [ -d "${storagePath}/cemu/mlc01" ]; then
+					mv -f "${storagePath}/cemu/mlc01"{,.bak}
+				fi
+				# Move mlc01 to storage
 				mv -f "${romsPath}/wiiu/mlc01" "${storagePath}/cemu/mlc01"
 			fi
-			# Move graphicPacks
-			if [ -d "${CemuNative[shareDir]}/graphicPacks" ] && [ ! -d "${storagePath}/cemu/graphicPacks" ]; then
-				mv -f "${CemuNative[shareDir]}/graphicPacks" "${storagePath}/cemu/graphicPacks"
-			fi
-			if [ -d "${romsPath}/wiiu/graphicPacks" ] && [ ! -d "${storagePath}/cemu/graphicPacks" ]; then
+			# Check for Windows version graphicPacks
+			if [ -d "${romsPath}/wiiu/graphicPacks" ]; then
+				# Make sure we don't overwrite existing graphicPacks
+				if [ -d "${storagePath}/cemu/graphicPacks" ]; then
+					mv -f "${storagePath}/cemu/graphicPacks"{,.bak}
+				fi
+				# Move graphicPacks to storage
 				mv -f "${romsPath}/wiiu/graphicPacks" "${storagePath}/cemu/graphicPacks"
 			fi
+			# Move Windows version keys.txt
+			if [ -f "${romsPath}/wiiu/keys.txt" ]; then
+				# Make sure we don't overwrite anything
+				if [ -f "${CemuNative[configDir]}/keys.txt" ]; then
+					mv -f "${CemuNative[configDir]}/keys.txt"{,.bak}
+				fi
+				mv -f "${romsPath}/wiiu/keys.txt" "${CemuNative[configDir]}/keys.txt"
+			fi
+			# Move Windows version wiiu_commonkey
+			if [ -f "${romsPath}/wiiu/wiiu_commonkey" ]; then
+				# Make sure we don't overwrite anything
+				if [ -f "${CemuNative[configDir]}/wiiu_commonkey" ]; then
+					mv -f "${CemuNative[configDir]}/wiiu_commonkey"{,.bak}
+				fi
+				mv -f "${romsPath}/wiiu/wiiu_commonkey" "${CemuNative[configDir]}/wiiu_commonkey"
+			fi
+			# Move Windows version gameProfiles
+			if [ -d "${romsPath}/wiiu/gameProfiles" ]; then
+				# Make sure we don't overwrite anything
+				if [ -d "${CemuNative[configDir]}/gameProfiles" ]; then
+					mv -f "${CemuNative[configDir]}/gameProfiles"{,.bak}
+				fi
+				mv -f "${romsPath}/wiiu/gameProfiles" "${CemuNative[configDir]}/gameProfiles"
+			fi
+			# Remove Windows version crashdump directory
+			if [ -d "${romsPath}/wiiu/crashdump" ]; then
+				rm -rf "${romsPath}/wiiu/crashdump"
+			fi
+			# Remove Windows version controllerProfiles directory
+			if [ -d "${romsPath}/wiiu/controllerProfiles" ]; then
+				rm -rf "${romsPath}/wiiu/controllerProfiles"
+			fi
+			# Remove Windows version shaderCache directory
+			if [ -d "${romsPath}/wiiu/shaderCache" ]; then
+				rm -rf "${romsPath}/wiiu/shaderCache"
+			fi
+			# Remove Windows version resources directory
+			if [ -d "${romsPath}/wiiu/resources" ]; then
+				rm -rf "${romsPath}/wiiu/resources"
+			fi
+			# Remove Windows version memorySearcher directory
+			if [ -d "${romsPath}/wiiu/memorySearcher" ]; then
+				rm -rf "${romsPath}/wiiu/memorySearcher"
+			fi
+			# Remove Windows version title list cache
+			if [ -f "${romsPath}/wiiu/title_list_cache.xml" ]; then
+				rm -rf "${romsPath}/wiiu/title_list_cache.xml"
+			fi
+			# Remove Windows executable
+			if [ -f "${romsPath}/wiiu/Cemu.exe" ]; then
+				rm -rf "${romsPath}/wiiu/Cemu.exe"
+			fi
+			# Remove Windows version settings.xml
+			if [ -f "${romsPath}/wiiu/settings.xml" ]; then
+				rm -rf "${romsPath}/wiiu/settings.xml"
+			fi
+			# Remove Windows version log.txt
+			if [ -f "${romsPath}/wiiu/log.txt" ]; then
+				rm -rf "${romsPath}/wiiu/log.txt"
+			fi
+			# Move ROMs out of the roms subdirectory
+			if [ -d "${romsPath}/wiiu/roms" ]; then
+				mv -f "${romsPath}/wiiu/roms/"* "${romsPath}/wiiu/"
+				rmdir "${romsPath}/wiiu/roms" # Make sure this only gets removed if empty
+			fi
+			# Create the migration flag file
+			touch "${HOME}/.config/EmuDeck/.${CemuNative[emuName]}MigrationCompleted"
 		fi
 	}
 
@@ -75,7 +146,6 @@ CemuNative_functions () {
 			gamePathEntryFound="$( xmlstarlet sel -t -m "//root/content/GamePaths/Entry" -v . -n "${CemuNative[configFile]}" )"
 
 			if [[ ! "${gamePathEntryFound}" == *"${romsPath}/wiiu"* ]]; then
-				xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "${romsPath}/wiiu/roms" "${CemuNative[configFile]}"
 				xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "${romsPath}/wiiu/" "${CemuNative[configFile]}"
 			fi
 		fi
@@ -125,9 +195,9 @@ CemuNative_functions () {
 	# Update
 	update () {
 		setMSG "Updating ${CemuNative[emuName]} settings."
-		migrate
 		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/.config/cemu"
 		configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu"
+		migrate
 		setEmulationFolder
 		setupStorage
 		setupSaves
