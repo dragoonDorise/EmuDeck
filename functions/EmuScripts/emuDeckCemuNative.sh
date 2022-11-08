@@ -33,17 +33,17 @@ CemuNative_functions () {
 		if [ ! -f "${migrationFlag}" ]; then	
 			# Move mlc01 to storage
 			if [ -d "${CemuNative[shareDir]}/mlc01" ] && [ ! -d "${storagePath}/cemu/mlc01" ]; then
-				mv "${CemuNative[shareDir]}/mlc01" "${storagePath}/cemu/mlc01"
+				mv -f "${CemuNative[shareDir]}/mlc01" "${storagePath}/cemu/mlc01"
 			fi
 			if [ -d "${romsPath}/wiiu/mlc01" ] && [ ! -d "${storagePath}/cemu/mlc01" ]; then
-				mv "${romsPath}/wiiu/mlc01" "${storagePath}/cemu/mlc01"
+				mv -f "${romsPath}/wiiu/mlc01" "${storagePath}/cemu/mlc01"
 			fi
 			# Move graphicPacks
 			if [ -d "${CemuNative[shareDir]}/graphicPacks" ] && [ ! -d "${storagePath}/cemu/graphicPacks" ]; then
-				mv -r "${CemuNative[shareDir]}/graphicPacks" "${storagePath}/cemu/graphicPacks"
+				mv -f "${CemuNative[shareDir]}/graphicPacks" "${storagePath}/cemu/graphicPacks"
 			fi
 			if [ -d "${romsPath}/wiiu/graphicPacks" ] && [ ! -d "${storagePath}/cemu/graphicPacks" ]; then
-				mv -r "${romsPath}/wiiu/graphicPacks" "${storagePath}/cemu/graphicPacks"
+				mv -f "${romsPath}/wiiu/graphicPacks" "${storagePath}/cemu/graphicPacks"
 			fi
 		fi
 	}
