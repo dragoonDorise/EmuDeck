@@ -26,6 +26,7 @@ Plugins_installDeckyControls(){
    sudo curl -L "$DeckyControls_releaseURL" -o "${destinationFolder}/emudeck-decky-controls.zip"
    sudo unzip "$destinationFolder/emudeck-decky-controls.zip" -d "$destinationFolder" && sudo rm "$destinationFolder/emudeck-decky-controls.zip"
    sudo chown deck:deck -R $HOME/homebrew/plugins/emudeck-decky-controls
+   chmod 555 -R $HOME/homebrew/plugins/emudeck-decky-controls
 }
 
 Plugins_installSteamDeckGyroDSU(){
