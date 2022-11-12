@@ -19,11 +19,11 @@ Plugins_installPowerTools(){
 }
 
 Plugins_installDeckyControls(){
-   local destinationFolder="$HOME/homebrew/emudeck-decky-controls"
+   local destinationFolder="$HOME/homebrew/plugins/emudeck-decky-controls"
    local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/emudeck-decky-controls" ".zip")"
    sudo rm -rf $destinationFolder
    sudo mkdir -p $destinationFolder
-   sudo curl -L "$DeckyControls_releaseURL" -o "${destinationFolder}"
+   sudo curl -L "$DeckyControls_releaseURL" -o "${destinationFolder}/emudeck-decky-controls.zip"
    sudo unzip "$destinationFolder/emudeck-decky-controls.zip" -d "$destinationFolder" && sudo rm "$destinationFolder/emudeck-decky-controls.zip"
 }
 
