@@ -22,9 +22,9 @@ Plugins_installDeckyControls(){
    local destinationFolder="$HOME/homebrew/emudeck-decky-controls"
    local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/emudeck-decky-controls" ".zip")"
    sudo rm -rf $destinationFolder
-   mkdir -p $destinationFolder
-   curl -L "$DeckyControls_releaseURL" -o "${destinationFolder}"
-   sudo unzip "$destinationFolder/emudeck-decky-controls.zip" -d "$destinationFolder" && rm "$destinationFolder/emudeck-decky-controls.zip"
+   sudo mkdir -p $destinationFolder
+   sudo curl -L "$DeckyControls_releaseURL" -o "${destinationFolder}"
+   sudo unzip "$destinationFolder/emudeck-decky-controls.zip" -d "$destinationFolder" && sudo rm "$destinationFolder/emudeck-decky-controls.zip"
 }
 
 Plugins_installSteamDeckGyroDSU(){
