@@ -45,6 +45,10 @@ Citra_setEmulationFolder(){
     gameDirOpt='Paths\\gamedirs\\3\\path='
     newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/3ds"
     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
+
+	#Setup symlink for AES keys
+	mkdir -p "${biosPath}/citra/"
+    ln -sn "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sysdata" "${biosPath}/citra/keys"
 }
 
 #SetupSaves
