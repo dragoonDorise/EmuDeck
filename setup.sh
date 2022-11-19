@@ -401,6 +401,7 @@ fi
 if [ "$doSetupMGBA" == "true" ]; then
 	echo "mGBA_init"
 	mGBA_init
+fi
 if [ "${doSetupCemuNative}" == "true" ]; then
 	echo "CemuNative_init"
 	CemuNative_init
