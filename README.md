@@ -1,11 +1,3 @@
-## To Do:
-- mGBA
-- Snes9x
-- bsnes
-- Parallel Launcher
-- ares
-- Flycast
-
 # EmuDeck
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-908a85?logo=gitpod)](https://gitpod.io/from-referrer/)
 <img src="https://www.emudeck.com/img/hero.png">
