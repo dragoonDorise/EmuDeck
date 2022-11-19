@@ -48,6 +48,7 @@ Citra_setEmulationFolder(){
 
 	#Setup symlink for AES keys
 	mkdir -p "${biosPath}/citra/"
+	mkdir -p "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sysdata"
     ln -sn "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sysdata" "${biosPath}/citra/keys"
 }
 
