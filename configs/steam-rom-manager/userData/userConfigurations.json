@@ -3150,8 +3150,8 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Nintendo Switch Ryujinx",
-    "steamCategory": "${Switch - Ryujinx}",
+    "configTitle": "Nintendo Switch - Ryujinx",
+    "steamCategory": "${Nintendo Switch - Ryujinx}",
     "steamDirectory": "/home/deck/.steam/steam",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/switch",
     "executableArgs": " --fullscreen \"${filePath}\"",
