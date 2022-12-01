@@ -58,10 +58,8 @@ if [ $ans -eq 0 ]; then
 	fi
 	for romfolder in "${3dsfolderWhiteList[@]}"; do
 		echo "Checking ${romsPath}/${romfolder}/"
-		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.3ds")
-		# TO FIX: Will always trigger if 3ds files exist
-		# Counting lines isn't a viable solution due to edge cases
-		# Call cross reference with log file here too? Seems slow.
+		# ignore trimmed files
+		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.3ds" ! -name "*.trimmed*")
 		if [ ${#files[@]} -gt 0 ]; then
 			echo "found in $romfolder"
 			searchFolderList+=("$romfolder")
@@ -195,17 +193,11 @@ if [ $ans -eq 0 ]; then
 	#3ds
 	for romfolder in "${romfolders[@]}"; do
 		if [[ " ${3dsfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-			find "$romsPath/$romfolder" -type f -iname "*.3ds" | while read -r f; do
-				# Keep a log of all trimmed files to avoid re-trimming
-			    if ! grep -Fxq "$f" "3ds-trimmed.log"; then
-					echo "Converting: $f"
-					# 3dstool modifies files, doesn't replace
-					3dstool -r -f "$f" >"$HOME/.config/EmuDeck/chdtool.log"
-					# Append filename of trimmed roms to list
-					echo "$f">> "3ds-trimmed.log"
-				else
-					echo "$f already trimmed, skipping..."
-				fi
+			# Ignore trimmed files
+			find "$romsPath/$romfolder" -type f -iname "*.3ds" ! -name '*.trimmed*' | while read -r f; do
+				echo "Converting: $f"
+				# Rename trimmed files to *.trimmed.3ds
+				3dstool -r -f "$f" >"$HOME/.config/EmuDeck/chdtool.log" && mv "$f" "${f%%.*}.trimmed.3ds"
 			done
 		fi
 	done
