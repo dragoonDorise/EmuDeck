@@ -176,7 +176,7 @@ if [ $ans -eq 0 ]; then
 		if [[ " ${csofolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
 			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
 				echo "Converting: $f"
-				ciso 9 "$f" "${f%.*}.cso" && rm -rf "$f"
+				ciso 9 "$f" "${f%.*}.cso" >"$HOME/.config/EmuDeck/chdtool.log" && rm -rf "$f"
 			done
 		fi
 	done
