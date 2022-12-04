@@ -31,6 +31,7 @@ if [ $ans -eq 0 ]; then
 	#whitelist
 	declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
 	declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
+	declare -a 7zfolderWhiteList=("gb" "gba" "gbc" "n64" "n64dd" "nds" "nes" "snes" "sega32x" "sega32xjp" "sega32xna" "gamegear" "genesis" "mastersystem" "atarilynx" "atari2600" "ngp" "ngc" "wonderswan" "wonderswancolor")
 	declare -a csofolderWhiteList=("psp")
 	declare -a searchFolderList
 
@@ -39,7 +40,7 @@ if [ $ans -eq 0 ]; then
 	#find file types we support within whitelist of folders
 	for romfolder in "${chdfolderWhiteList[@]}"; do
 		echo "Checking ${romsPath}/${romfolder}/"
-		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.gdi" -o -type f -iname "*.cue" -o -type f -iname "*.iso")
+		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -regex ".*/.*\.\(gdi\|cue\|iso\)")
 		if [ ${#files[@]} -gt 0 ]; then
 			echo "found in $romfolder"
 			searchFolderList+=("$romfolder")
@@ -48,13 +49,21 @@ if [ $ans -eq 0 ]; then
 	if [[ -n "$flatpaktool" ]]; then #ensure tools are in place
 		for romfolder in "${rvzfolderWhiteList[@]}"; do
 			echo "Checking ${romsPath}/${romfolder}/"
-			mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.gcm" -o -type f -iname "*.iso")
+			mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -regex ".*/.*\.\(gcm\|iso\)")
 			if [ ${#files[@]} -gt 0 ]; then
 				echo "found in $romfolder"
 				searchFolderList+=("$romfolder")
 			fi
 		done
 	fi
+	for romfolder in "${chdfolderWhiteList[@]}"; do
+		echo "Checking ${romsPath}/${romfolder}/"
+		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -regex ".*/.*\.\(gb\|gba\|gbc\|nds\|sfc\|smc\|nes\|32x\|md\|gg\|gen\|sms\|z64\|n64\|v64\|ndd\|ws\|wsc\|ngp\|ngc\|lnx\|a26\)")
+		if [ ${#files[@]} -gt 0 ]; then
+			echo "found in $romfolder"
+			searchFolderList+=("$romfolder")
+		fi
+	done
 	for romfolder in "${csofolderWhiteList[@]}"; do
 		echo "Checking ${romsPath}/${romfolder}/"
 		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.iso")
@@ -163,7 +172,7 @@ if [ $ans -eq 0 ]; then
 
 	for romfolder in "${romfolders[@]}"; do
 		if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-			find "$romsPath/$romfolder" -type f -iname "*.gcm" -o -type f -iname "*.iso" | while read -r f; do
+			find "$romsPath/$romfolder" -type f -regex ".*/.*\.\(gcm\|iso\)" | while read -r f; do
 				echo "Converting: $f"
 				${dolphintool} convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz" && rm -rf "$f"
 			done
@@ -177,6 +186,16 @@ if [ $ans -eq 0 ]; then
 			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
 				echo "Converting: $f"
 				ciso 9 "$f" "${f%.*}.cso" && rm -rf "$f"
+			done
+		fi
+	done
+
+	#7z	
+	for romfolder in "${romfolders[@]}"; do
+		if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+			find "$romsPath/$romfolder" -type f -regex ".*/.*\.\(gb\|gba\|gbc\|nds\|sfc\|smc\|nes\|32x\|md\|gg\|gen\|sms\|z64\|n64\|v64\|ndd\|ws\|wsc\|ngp\|ngc\|lnx\|a26\)" | while read -r f; do
+				echo "Converting: $f"
+				7z a "${f%%.*}.7z" "$f" >"$HOME/.config/EmuDeck/chdtool.log" && rm -rf "$f"
 			done
 		fi
 	done
