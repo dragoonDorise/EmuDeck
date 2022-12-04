@@ -30,6 +30,7 @@ if [ $ans -eq 0 ]; then
 	#whitelist
 	declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
 	declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
+	declare -a ndsfolderWhiteList=("nds")
 	declare -a searchFolderList
 
 	export PATH="${chdPath}/:$PATH"
@@ -53,6 +54,14 @@ if [ $ans -eq 0 ]; then
 			fi
 		done
 	fi
+	for romfolder in "${ndsfolderWhiteList[@]}"; do
+		echo "Checking ${romsPath}/${romfolder}/"
+		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.nds" ! -name "*.trimmed*")
+		if [ ${#files[@]} -gt 0 ]; then
+			echo "found in $romfolder"
+			searchFolderList+=("$romfolder")
+		fi
+	done
 
 	if ((${#searchFolderList[@]} == 0)); then
 		echo "No eligible files found."
@@ -162,6 +171,18 @@ if [ $ans -eq 0 ]; then
 
 	#cso
 	#
+
+	#nds
+	for romfolder in "${romfolders[@]}"; do
+		if [[ " ${ndsfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+			# Ignore trimmed files
+			find "$romsPath/$romfolder" -type f -iname "*.nds" ! -name '*.trimmed*' | while read -r f; do
+				echo "Converting: $f"
+				# Rename trimmed files to *.trimmed.nds
+				ndstrim "$f" >"$HOME/.config/EmuDeck/chdtool.log" && mv "$f" "${f%%.*}.trimmed.nds"
+			done
+		fi
+	done
 
 else
 	exit
