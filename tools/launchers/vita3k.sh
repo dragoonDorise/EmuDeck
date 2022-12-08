@@ -1,23 +1,21 @@
-#!/bin/sh
+#!/usr/bin/bash
 
+# Set Unicode options for Vita3K
 LC_ALL=en_US.UTF-8
 LANG=en_US.UTF-8
 LC_TIME=en_US.UTF-8
 
-emuName="Vita3K" #parameterize me
-emufolder="$HOME/Applications/Vita3K" # has to be applications for ES-DE to find it
+# shellcheck disable=SC1091
+. "${HOME}/emudeck/settings.sh"
 
-#find full path to emu executable
-exe=$(find "$emufolder" -iname "${emuName}" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
+# shellcheck disable=SC2154
+LAUNCH="${toolsPath}/emu-launch.sh"
 
-#make sure that file is executable
-chmod +x "$exe"
+# Set emulator name
+EMU="Vita3K"
 
-#run the executable with the params.
-#Fix first '
-param="${@}"
-substituteWith='"'
-param=${param/\'/"$substituteWith"}
-#Fix last ' on command
-param=$(echo "$param" | sed 's/.$/"/')
-eval "${exe} ${param}"
+# Vita3k needs a specific path
+EMUPATH="${HOME}/Applications/Vita3K/Vita3K"
+
+# Launch emu-launch.sh
+"${LAUNCH}" -e "${EMU}" -p "${EMUPATH}" -- "${@}"
