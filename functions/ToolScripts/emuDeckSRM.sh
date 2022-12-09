@@ -67,3 +67,7 @@ SRM_init(){
 	sed -i "s|/home/deck|$HOME|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	echo -e "OK!"
 }
+
+SRM_resetConfig(){
+	SRM_init
+}
