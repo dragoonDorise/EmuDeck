@@ -2782,7 +2782,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}/PS3_GAME/USRDIR/@(eboot.bin|EBOOT.BIN)"
+      "glob": "**/${title}/PS3_GAME/USRDIR/@(eboot.bin|EBOOT.BIN|ISO.BIN.EDAT|iso.bin.edat)"
     },
     "titleFromVariable": {
       "limitToGroups": "${PS3}",
