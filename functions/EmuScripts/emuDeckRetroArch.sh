@@ -1599,6 +1599,10 @@ RetroArch_bsnes_hd_beta_setUpCoreOpt(){
 	RetroArch_setOverride 'bsnes-hd beta.opt' 'bsnes-hd beta'  'bsnes_video_saturation' '"100"'
 }
 
+RetroArch_dos_box_setUpCoreOpt(){
+	RetroArch_setOverride 'DOSBox-pure.opt' 'DOSBox Pure'  'dosbox_pure_conf' '"inside"'
+}
+
 RetroArch_setUpCoreOptAll(){
 
 	for func in $(compgen -A 'function' | grep '\_setUpCoreOpt$')
