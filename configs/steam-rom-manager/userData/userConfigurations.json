@@ -3031,7 +3031,7 @@
     "executableArgs": " --fullscreen \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
-    "titleModifier": "${fuzzyTitle}",
+    "titleModifier": "${fuzzyTitle} (Ryujinx)",
     "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
