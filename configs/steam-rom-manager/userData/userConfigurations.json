@@ -1481,7 +1481,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.nkit.gcz|.NKIT.GCZ|.rvz|.RVZ|.wad|.WAD|.wia|.WIA)"
+      "glob": "**/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.nkit.gcz|.NKIT.GCZ|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.m3u|.M3U)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1799,7 +1799,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.wbfs)"
+      "glob": "**/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.wbfs|.m3u|.M3U)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
