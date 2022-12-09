@@ -700,7 +700,7 @@
     "configTitle": "Atari Lynx - Retroarch - Beetle Handy",
     "steamCategory": "${Atari Lynx}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/lynx",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/atarilynx",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
