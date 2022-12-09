@@ -1223,7 +1223,7 @@ RetroArch_snes_ar87(){
 	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/snes87.cfg"'
 	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'input_overlay_scale_landscape' '"1.380000"'
 	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'input_overlay_aspect_adjust_landscape' '"-0.170000"'
-	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'aspect_ratio_index' '"21"'
+	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'aspect_ratio_index' '"15"'
 }
 
 RetroArch_snes_ar32(){
