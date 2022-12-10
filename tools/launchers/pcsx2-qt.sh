@@ -21,4 +21,4 @@ substituteWith='"'
 param=${param/\'/"$substituteWith"}
 #Fix last ' on command
 param=$(echo "$param" | sed 's/.$/"/')
-eval "${exe} ${param}"
+eval "${exe} ${param} -bigpicture -fullscreen"
