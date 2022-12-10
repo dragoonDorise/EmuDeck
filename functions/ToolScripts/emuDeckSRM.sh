@@ -1,4 +1,4 @@
-#!/bin/bash
+f#!/bin/bash
 #variables
 SRM_toolName="Steam Rom Manager"
 SRM_toolType="AppImage"
@@ -61,10 +61,16 @@ SRM_init(){
 	"$HOME/.config/steam-rom-manager/userData/userSettings.json"  > "$tmp" \
 	&& mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
 
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
+	#sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	sed -i "s|/home/deck|$HOME|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
+	
+	sed -i "s|/home/deck|$HOME|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+	
+	
 	echo -e "OK!"
 }
 
