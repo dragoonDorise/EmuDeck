@@ -6,7 +6,7 @@
     "executableArgs": "",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
@@ -16,14 +16,13 @@
     "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/poster.png",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/EmulationStation-DE-x64_SteamDeck.AppImage",
       "shortcutPassthrough": false,
@@ -44,13 +43,23 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
     },
     "parserId": "164824496516097458",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
@@ -59,7 +68,7 @@
     "executableArgs": "\"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/launchers",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
@@ -75,7 +84,6 @@
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "executable": {
       "path": "/usr/bin/bash",
       "shortcutPassthrough": false,
@@ -96,40 +104,48 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
     },
     "parserId": "164824333516097458",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "3DO",
     "steamCategory": "${3DO}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/3do",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/3do",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}opera_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -145,7 +161,6 @@
       "tryToMatchTitle": true
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -156,15 +171,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785580114332556",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Amiga - Retroarch",
     "steamCategory": "${Amiga}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/amiga",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/amiga",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -175,14 +201,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -198,7 +223,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -209,15 +233,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785598905398120",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Amiga 600 - Retroarch",
     "steamCategory": "${Amiga 600}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/amiga600",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/amiga600",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -228,14 +263,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -251,7 +285,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -262,16 +295,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785598905398121",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
-
   {
     "parserType": "Glob",
     "configTitle": "Amiga 1200 - Retroarch",
     "steamCategory": "${Amiga 1200}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/amiga1200",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/amiga1200",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -282,14 +325,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -305,7 +347,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -316,15 +357,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785598905398122",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Amiga CD - Retroarch",
     "steamCategory": "${Amiga CD}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/amigacd32",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/amigacd32",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -335,14 +387,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -358,7 +409,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -369,14 +419,25 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785598905398123",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Arcade - MAME (standalone)",
     "steamCategory": "${Arcade}",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/arcade",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/arcade",
     "executableArgs": "run org.mamedev.MAME \"${fileName}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -384,12 +445,11 @@
     "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -438,8 +498,8 @@
     "configTitle": "Arcade - RetroArch MAME 2003 Plus",
     "steamCategory": "${Arcade MAME 2003+}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/mame",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/mame",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mame2003_plus_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -450,14 +510,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -473,7 +532,6 @@
       "tryToMatchTitle": true
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -484,15 +542,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785580134372556",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Arcade - RetroArch MAME 2010",
     "steamCategory": "${Arcade MAME 2010}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/mame2010",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/mame2010",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mame2010_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -503,14 +572,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -526,7 +594,6 @@
       "tryToMatchTitle": true
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -537,15 +604,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164585567134532556",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Arcade - RetroArch MAME Current",
     "steamCategory": "${Arcade MAME Current}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/arcade",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/arcade",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mame_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -556,14 +634,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -579,7 +656,6 @@
       "tryToMatchTitle": true
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -590,7 +666,18 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785567134372556",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
@@ -598,26 +685,24 @@
     "steamCategory": "${Arcade - FBNeo}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}fbneo_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/fbneo",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/fbneo",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
@@ -638,21 +723,31 @@
       "tryToMatchTitle": true
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
     },
     "parserId": "164824416516097457",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Atari 2600 - Retroarch - Stella",
     "steamCategory": "${Atari 2600}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/atari2600",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/atari2600",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}stella_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -663,14 +758,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -686,7 +780,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -697,15 +790,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785583010740299",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Atari Lynx - Retroarch - Beetle Handy",
     "steamCategory": "${Atari Lynx}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/atarilynx",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/atarilynx",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_lynx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -716,14 +820,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -739,7 +842,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -750,15 +852,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785590686474494",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Bandai WonderSwan/Color - Retroarch - Beetle Cygne",
     "steamCategory": "${WonderSwan}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wonderswan",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/wonderswan",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_wswan_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -769,14 +882,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -792,7 +904,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -803,14 +914,25 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785595449272606",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Commodore 64 - Retroarch",
     "steamCategory": "${Commodore 64}",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/c64",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/c64",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}vice_x64_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -818,12 +940,11 @@
     "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -872,8 +993,8 @@
     "configTitle": "DooM - Retroarch - PrBoom",
     "steamCategory": "${DooM}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/doom",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/doom",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}prboom_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -884,14 +1005,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -907,7 +1027,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -918,7 +1037,18 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785092749272606",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
@@ -926,26 +1056,24 @@
     "steamCategory": "${DOS}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}dosbox_pure_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/dos",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/dos",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
@@ -966,13 +1094,23 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
     },
     "parserId": "165155371770791847",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
@@ -980,26 +1118,24 @@
     "steamCategory": "${XBox}",
     "executableArgs": "run app.xemu.xemu -full-screen -dvd_path \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/xbox",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/xbox",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
@@ -1020,13 +1156,23 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
     },
     "parserId": "165103607715056732",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
@@ -1034,26 +1180,24 @@
     "steamCategory": "${Xbox 360}",
     "executableArgs": "\"Z:${filePath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/xbox360/roms/",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/xbox360/roms/",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": true,
-    "advanced": false,
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh",
       "shortcutPassthrough": false,
@@ -1074,21 +1218,31 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
     },
     "parserId": "135113607715086732",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Nintendo 3DS - Citra",
     "steamCategory": "${Nintendo 3DS}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/3ds",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/3ds",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.citra_emu.citra \"${filePath}\"",
@@ -1099,14 +1253,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -1122,7 +1275,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -1133,15 +1285,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "16478559884003904",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Nintendo 64 - Retroarch - Mupen64Plus Next",
     "steamCategory": "${Nintendo 64}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/n64",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/n64",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mupen64plus_next_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -1152,14 +1315,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -1175,7 +1337,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -1186,15 +1347,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785598905398114",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Nintendo GameBoy - Retroarch - Gambatte",
     "steamCategory": "${GameBoy}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/gb",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/gb",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}gambatte_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -1205,14 +1377,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -1228,7 +1399,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -1239,15 +1409,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785598952083233",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Nintendo GameBoy Color - Retroarch - Gambatte",
     "steamCategory": "${GameBoy Color}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/gbc",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/gbc",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}gambatte_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -1258,14 +1439,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -1281,7 +1461,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -1292,15 +1471,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785598936495323",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Nintendo GameBoy Advance - Retroarch - mGBA",
     "steamCategory": "${GameBoy Advance}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/gba",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/gba",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mgba_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -1311,14 +1501,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -1334,7 +1523,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -1345,7 +1533,18 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785598920514822",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
@@ -1353,26 +1552,24 @@
     "steamCategory": "${Gamecube}",
     "executableArgs": "vblank_mode=0 %command% run org.DolphinEmu.dolphin-emu -b -e \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/gamecube",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/gamecube",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
@@ -1393,21 +1590,31 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
     },
     "parserId": "164770728884890304",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Nintendo NES - Retroarch - Mesen",
     "steamCategory": "${NES}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/nes",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/nes",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mesen_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -1418,14 +1625,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -1441,7 +1647,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -1452,7 +1657,18 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785621824841888",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
@@ -1460,26 +1676,24 @@
     "steamCategory": "${Nintendo DS}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}melonds_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/nds",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/nds",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
@@ -1500,21 +1714,31 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
     },
     "parserId": "164823604520657522",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Nintendo SNES - Retroarch - Snes9x",
     "steamCategory": "${Super Nintendo}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/snes",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/snes",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}snes9x_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -1525,14 +1749,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -1548,7 +1771,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -1559,15 +1781,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785621840217949",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Nintendo SNES WideScreen - Retroarch - Snes9x",
     "steamCategory": "${Super Nintendo WideScreen}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/sneshd",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/sneshd",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}bsnes_hd_beta_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -1578,14 +1811,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -1601,7 +1833,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -1612,15 +1843,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "166785621840217949",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Nintendo Switch - Yuzu",
     "steamCategory": "${Nintendo Switch - Yuzu}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/switch",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/switch",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "vblank_mode=0 %command% -f -g \"'${filePath}'\"",
@@ -1631,14 +1873,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -1654,7 +1895,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -1665,7 +1905,18 @@
       "appendArgsToExecutable": false
     },
     "parserId": "164785621855061650",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
@@ -1673,26 +1924,24 @@
     "steamCategory": "${Wii}",
     "executableArgs": "vblank_mode=0 %command% run org.DolphinEmu.dolphin-emu -b -e \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wii",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/wii",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
@@ -1713,13 +1962,23 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
     },
     "parserId": "164770823452964732",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
@@ -1727,26 +1986,24 @@
     "steamCategory": "${WiiU}",
     "executableArgs": "vblank_mode=0 %command% -f -g \"Z:${filePath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/wiiu/roms/",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
       "shortcutPassthrough": false,
@@ -1767,13 +2024,23 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
     },
     "parserId": "164824416516097458",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
@@ -1781,26 +2048,24 @@
     "steamCategory": "${WiiU}",
     "executableArgs": "vblank_mode=0 %command% -f -g \"Z:${filePath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/wiiu/roms/",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
       "shortcutPassthrough": false,
@@ -1821,20 +2086,30 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
     },
     "parserId": "164824416518097458",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "PrimeHack",
     "steamCategory": "${PrimeHack}",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/primehacks",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/primehacks",
     "executableArgs": "vblank_mode=0 %command% run io.github.shiiion.primehack -b -e \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -1846,7 +2121,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -1895,8 +2170,8 @@
     "configTitle": "Sega 32X - Retroarch - PicoDrive",
     "steamCategory": "${Sega 32X}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/sega32x",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/sega32x",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}picodrive_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -1907,14 +2182,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -1930,7 +2204,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -1941,15 +2214,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785621902111196",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Sega CD/Mega CD - Retroarch - Genesis Plus GX",
     "steamCategory": "${Sega CD}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/segacd",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/segacd",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -1960,14 +2244,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -1983,7 +2266,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -1994,15 +2276,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785622132332421",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Sega Dreamcast - Retroarch - Flycast",
     "steamCategory": "${Dreamcast}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/dreamcast",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/dreamcast",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}flycast_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -2013,14 +2306,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -2036,7 +2328,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -2047,15 +2338,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785622173694320",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Sega Game Gear - Retroarch - Genesis Plus GX",
     "steamCategory": "${Game Gear}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/gamegear",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/gamegear",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -2066,14 +2368,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -2089,7 +2390,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -2100,7 +2400,18 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785645224239563",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
@@ -2108,26 +2419,24 @@
     "steamCategory": "${Genesis/Mega Drive}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/genesis",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/genesis",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
@@ -2148,13 +2457,23 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
     },
     "parserId": "164806160364417694",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
@@ -2162,26 +2481,24 @@
     "steamCategory": "${Genesis WideScreen}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_wide_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/genesiswide",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/genesiswide",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
@@ -2202,21 +2519,31 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
     },
     "parserId": "164806164364417694",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Sega Master System - Retroarch - Genesis Plus GX",
     "steamCategory": "${Master System}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/mastersystem",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/mastersystem",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -2227,14 +2554,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -2250,7 +2576,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -2261,15 +2586,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "16478564523883851",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Sega Saturn - Retroarch - Yabause",
     "steamCategory": "${Saturn}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/saturn",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/saturn",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}yabause_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -2280,14 +2616,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": true,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -2303,7 +2638,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -2314,14 +2648,25 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785645253672240",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Sega Saturn - RA - Beetle",
     "steamCategory": "${Saturn}",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/saturn",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/saturn",
     "executableArgs": "run org.libretro.RetroArch -L /mednafen_saturn_libretro.so \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -2333,7 +2678,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -2383,8 +2728,8 @@
     "configTitle": "SNK Neo Geo Pocket/Color - Retroarch - Beetle NeoPop",
     "steamCategory": "${Neo Geo Pocket}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/ngpc",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/ngpc",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_ngp_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -2395,14 +2740,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -2418,7 +2762,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -2429,15 +2772,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785621885441701",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Sony PlayStation - DuckStation",
     "steamCategory": "${PlayStation}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psx",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/psx",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.duckstation.DuckStation -batch -fullscreen -bigpicture \"${filePath}\"",
@@ -2448,14 +2802,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -2471,7 +2824,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -2482,7 +2834,18 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785656699856393",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
@@ -2490,26 +2853,24 @@
     "steamCategory": "${PlayStation - Beetle}",
     "executableArgs": "run org.libretro.RetroArch -L /mednafen_psx_hw_libretro.so \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psx",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/psx",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": true,
-    "advanced": false,
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
@@ -2530,20 +2891,30 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
     },
     "parserId": "165153198040340580",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Sony PlayStation - Retroarch - SwanStation",
     "steamCategory": "${PlayStation - SwanStation}",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psx",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/psx",
     "executableArgs": "run org.libretro.RetroArch -L /swanstation_libretro.so \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -2555,7 +2926,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "disabled": true,
     "localImages": "",
     "localTallImages": "",
@@ -2604,8 +2975,8 @@
     "parserType": "Glob",
     "configTitle": "Sony PlayStation 2 - PCSX2",
     "steamCategory": "${Playstation 2}",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/ps2",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/ps2",
     "executableArgs": "-batch -fullscreen -bigpicture \"'${filePath}'\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -2613,12 +2984,11 @@
     "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -2667,8 +3037,8 @@
     "configTitle": "Sony PlayStation 3 - RPCS3 (Extracted ISO/PSN)",
     "steamCategory": "${PlayStation 3}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/ps3",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/ps3",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run net.rpcs3.RPCS3 --no-gui \"${filePath}\"",
@@ -2679,14 +3049,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -2702,7 +3071,6 @@
       "tryToMatchTitle": true
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -2713,13 +3081,24 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785645271669680",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Sony PlayStation 3 - RPCS3(Flatpak) (Installed PKG)",
     "steamCategory": "${PS3}",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "steamDirectory": "${steamdirglobal}",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/storage/rpcs3/dev_hdd0/game",
     "executableArgs": "run net.rpcs3.RPCS3 --no-gui \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
@@ -2728,12 +3107,11 @@
     "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -2759,21 +3137,31 @@
       "tryToMatchTitle": true
     },
     "fuzzyMatch": {
-      "use": null,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
     },
     "parserId": "165182011334544893",
-    "version": 6
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Sony PlayStation Portable - Retroarch - PPSSPP",
     "steamCategory": "${PSP}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psp",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/psp",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}ppsspp_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -2784,14 +3172,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": true,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -2807,7 +3194,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -2818,15 +3204,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785656684747068",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Sony PlayStation Portable - PPSSPP",
     "steamCategory": "${PSP - Standalone PPSSPP}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psp",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/psp",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.ppsspp.PPSSPP -f -g \"${filePath}\"",
@@ -2837,14 +3234,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -2860,7 +3256,6 @@
       "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -2871,14 +3266,25 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785656634747068",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Arcade - Naomi",
     "steamCategory": "${Arcade - Naomi}",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/naomi",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/naomi",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}flycast_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -2886,19 +3292,18 @@
     "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "userAccounts": {
-      "specifiedAccounts": null,
+      "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
       "useCredentials": true
     },
@@ -2939,8 +3344,8 @@
     "parserType": "Glob",
     "configTitle": "Nintendo Switch Ryujinx",
     "steamCategory": "${Switch - Ryujinx}",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/switch",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/switch",
     "executableArgs": "--fullscreen \"'${filePath}'\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -2948,12 +3353,11 @@
     "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -3002,8 +3406,8 @@
     "parserType": "Glob",
     "configTitle": "PC Engine/TurboGrafx 16 - RA - Beetle PCE",
     "steamCategory": "${PCE}",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/pcengine",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/pcengine",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_pce_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -3011,12 +3415,11 @@
     "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -3064,8 +3467,8 @@
     "parserType": "Glob",
     "configTitle": "PCE/TurboGrafx 16 CD - RA - Beetle PCE",
     "steamCategory": "${PCECD}",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/pcenginecd",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/pcenginecd",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_pce_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -3073,12 +3476,11 @@
     "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -3126,8 +3528,8 @@
     "parserType": "Glob",
     "configTitle": "ZX Spectrum - Retroarch - Fuse",
     "steamCategory": "${ZX Spectrum}",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/zxspectrum",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/zxspectrum",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}fuse_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -3139,7 +3541,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -3188,8 +3590,8 @@
     "parserType": "Glob",
     "configTitle": "ScummVM Flatpak",
     "steamCategory": "${ScummVM}",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/scummvm",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/scummvm",
     "executableArgs": "run org.scummvm.ScummVM --path=\"${filePath}\" --auto-detect",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -3208,7 +3610,7 @@
     "localLogoImages": "",
     "localIcons": "",
     "userAccounts": {
-      "specifiedAccounts": null,
+      "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
       "useCredentials": true
     },
@@ -3249,8 +3651,8 @@
     "parserType": "Glob",
     "configTitle": "Sony PlayStation Vita Installed PKG",
     "steamCategory": "${PlayStation Vita}",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/psvita",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/psvita",
     "executableArgs": "-Fr \"${/.*\\/([^\\/]+)\\//|${filePath}}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -3311,8 +3713,8 @@
     "parserType": "Glob",
     "configTitle": "Amstrad CPC - RA - Caprice32",
     "steamCategory": "${Amstrad CPC}",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/amstradcpc",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/amstradcpc",
     "executableArgs": "run org.libretro.RetroArch -L /cap32_libretro.so \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -3373,8 +3775,8 @@
     "configTitle": "Sharp X68000 - RetroArch",
     "steamCategory": "${Sharp X68000}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/x68000",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/x68000",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}px68k_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -3385,14 +3787,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -3408,7 +3809,6 @@
       "tryToMatchTitle": true
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -3419,15 +3819,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785127823332556",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Commodore Vic-20 - RetroArch",
     "steamCategory": "${Commodore Vic-20}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/vic20",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/vic20",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}vice_xvic_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -3438,14 +3849,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -3461,7 +3871,6 @@
       "tryToMatchTitle": true
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -3472,15 +3881,26 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785127820983556",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "NEC - PC-98 - RetroArch",
     "steamCategory": "${NEC - PC-98}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/vic20",
-    "steamDirectory": "/home/deck/.steam/steam",
+    "romDirectory": "${romsdirglobal}/vic20",
+    "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}vice_xvic_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -3491,14 +3911,13 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
     "disabled": false,
-    "advanced": false,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -3514,7 +3933,6 @@
       "tryToMatchTitle": true
     },
     "fuzzyMatch": {
-      "use": true,
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
@@ -3525,14 +3943,25 @@
       "appendArgsToExecutable": true
     },
     "parserId": "1647850989120983556",
-    "version": 5
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
   },
   {
     "parserType": "Glob",
     "configTitle": "Commodore 16 - Retroarch",
     "steamCategory": "${Commodore 16}",
-    "steamDirectory": "/home/deck/.steam/steam",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/c16",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/c16",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}vice_x64_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -3544,7 +3973,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
