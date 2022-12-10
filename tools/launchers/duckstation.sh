@@ -10,4 +10,4 @@ LAUNCH="${toolsPath}/emu-launch.sh"
 EMU="Duckstation"
 
 # Launch emu-launch.sh
-"${LAUNCH}" -e "${EMU}" -- "${@}"
+"${LAUNCH}" -e "${EMU}" -bigpicture -- "${@}"

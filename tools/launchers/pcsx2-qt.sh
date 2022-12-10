@@ -10,4 +10,4 @@ LAUNCH="${toolsPath}/emu-launch.sh"
 EMU="pcsx2-Qt"
 
 # Launch emu-launch.sh
-"${LAUNCH}" -e "${EMU}" -- "${@}"
+"${LAUNCH}" -e "${EMU}" -bigpicture -- "${@}"
