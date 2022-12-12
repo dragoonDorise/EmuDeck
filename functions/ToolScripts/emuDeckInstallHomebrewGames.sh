@@ -2,6 +2,7 @@
 emuDeckInstallHomebrewGames(){
 	setMSG "Installing HomeBrew Games"		
 	mkdir -p "$toolsPath/homebrew/roms/"
+	mkdir -p "$toolsPath/downloaded_media/"
 	git clone https://github.com/EmuDeck/emudeck-homebrew.git "$toolsPath/homebrew/roms/" --depth=1
 	cd "$toolsPath/homebrew/roms/" && git reset --hard HEAD && git clean -f -d && git pull && echo  "Homebrew Games up to date!" || echo "problem pulling Homebrew Games"
 	
@@ -15,4 +16,7 @@ emuDeckInstallHomebrewGames(){
 	ln -sn "$toolsPath/homebrew/roms/mastersystem"  "${romsPath}/mastersystem/homebrew"
 	ln -sn "$toolsPath/homebrew/roms/nes"  "${romsPath}/nes/homebrew"
 	ln -sn "$toolsPath/homebrew/roms/snes" "${romsPath}/snes/homebrew"
+	
+	rsync -r --ignore-existing "${toolsPath}//homebrew/roms/downloaded_media/" "${toolsPath}/downloaded_media/" && rm -rf "${toolsPath}//homebrew/roms/downloaded_media/"
+	
 }
