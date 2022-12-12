@@ -47,6 +47,7 @@ doInstallMAME=true
 doInstallCHD=false
 doInstallPowertools=false
 doInstallGyro=false
+$doInstallHomeBrewGames=false
 
 installString='Installing'
 
