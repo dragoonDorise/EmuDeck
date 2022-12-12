@@ -1390,7 +1390,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.gb|.GB|.dmg|.DMG|.zip|.ZIP)"
+      "glob": "${title}@(.7z|.7Z|.gb|.GB|.dmg|.DMG|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1452,7 +1452,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.gb|.GB|.gbc|.GBC|.zip|.ZIP)"
+      "glob": "${title}@(.7z|.7Z|.gb|.GB|.gbc|.GBC|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1514,7 +1514,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.gba|.GBA|.zip|.ZIP)"
+      "glob": "${title}@(.7z|.7Z|.gba|.GBA|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1638,7 +1638,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.nes|.NES|.fds|.FDS|.unf|.UNF|.unif|.UNIF|.zip|.ZIP)"
+      "glob": "${title}@(.7z|.7Z|.nes|.NES|.fds|.FDS|.unf|.UNF|.unif|.UNIF|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1762,7 +1762,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.bs|.BS|.fig|.FIG|.sfc|.SFC|.smc|.SMC|.swc|.SWC|.zip|.ZIP)"
+      "glob": "${title}@(.7z|.7Z|.bs|.BS|.fig|.FIG|.sfc|.SFC|.smc|.SMC|.swc|.SWC|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2381,7 +2381,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.gg|.GG|.zip|.ZIP)"
+      "glob": "${title}@(.7z|.7Z|.gg|.GG|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2448,7 +2448,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.bin|.BIN|.gen|.GEN|.md|.MD|.smd|.SMD|.zip|.ZIP)"
+      "glob": "${title}@(.7z|.7Z|.bin|.BIN|.gen|.GEN|.md|.MD|.smd|.SMD|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2567,7 +2567,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.sms|.SMS|.zip|.ZIP)"
+      "glob": "${title}@(.7z|.7Z|.sms|.SMS|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
