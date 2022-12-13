@@ -142,10 +142,10 @@ Yuzu_setLanguage(){
 		if [ ${Yuzu_languages[$language]+_} ]; then
             newLanguageOpt='language_index='"${Yuzu_languages[$language]}"
             newRegionOpt='region_index='"${Yuzu_regions[$language]}"
-            sed -i "/${languageOpt}/c\\${newLanguageOpt}" "$Yuzu_configFile"
-            sed -i "/${languageDefaultOpt}/c\\${newLanguageDefaultOpt}" "$Yuzu_configFile"
-            sed -i "/${regionOpt}/c\\${newRegionOpt}" "$Yuzu_configFile"
-            sed -i "/${regionDefaultOpt}/c\\${newRegionDefaultOpt}" "$Yuzu_configFile"
+            changeLine "$languageOpt" "$newLanguageOpt" "$Yuzu_configFile"
+            changeLine "$languageDefaultOpt" "$newLanguageDefaultOpt" "$Yuzu_configFile"
+            changeLine "$regionOpt" "$newRegionOpt" "$Yuzu_configFile"
+            changeLine "$regionDefaultOpt" "$newRegionDefaultOpt" "$Yuzu_configFile"
 		fi
 	fi
 }
