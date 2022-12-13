@@ -6,6 +6,21 @@ Cemu_emuPath="${romsPath}/wiiu/Cemu.exe"
 Cemu_releaseURL="https://cemu.info/releases/cemu_1.27.1.zip"
 Cemu_cemuSettings="${romsPath}/wiiu/settings.xml"
 
+# https://github.com/cemu-project/Cemu/blob/main/src/config/CemuConfig.h#L158-L172
+declare -A Cemu_languages=(
+["ja"]=0
+["en"]=1
+["fr"]=2
+["de"]=3
+["it"]=4
+["es"]=5
+["zh"]=6
+["ko"]=7
+["nl"]=8
+["pt"]=9
+["ru"]=10
+["tw"]=11)
+
 #cleanupOlderThings
 Cemu_cleanup(){
 	echo "NYI"
@@ -89,6 +104,17 @@ Cemu_setEmulationFolder(){
 		if [[ $gamePathEntryFound == '' ]]; then 
 			#xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "${WindowsRomPath}" "$Cemu_cemuSettings"
 			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}/wiiu/roms" "$Cemu_cemuSettings"
+		fi
+	fi
+}
+
+#SetLanguage
+Cemu_setLanguage(){
+	setMSG "Setting $Cemu_emuName Language"	
+	#TODO: call this somewhere, and input the $language from somewhere (args?)
+	if [[ -f "${Cemu_cemuSettings}" ]]; then
+		if [ ${Cemu_languages[$language]+_} ]; then
+			xmlstarlet ed --inplace  --subnode "content" --type elem -n "console_language" -v "${Cemu_languages[$language]}" "$Cemu_cemuSettings"
 		fi
 	fi
 }
