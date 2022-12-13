@@ -67,7 +67,7 @@ Xemu_setEmulationFolder(){
 Xemu_setLanguage(){
     setMSG "Setting Xemu Language"	
 
-    $eepromPath="${storagePath}/xemu/eeprom.bin"
+    eepromPath="${storagePath}/xemu/eeprom.bin"
 	#TODO: call this somewhere, and input the $language from somewhere (args?)
 	if [[ -f "${eepromPath}" ]]; then # TODO: if not generate the eeprom?
 		if [ ${Xemu_languages[$language]+_} ]; then
