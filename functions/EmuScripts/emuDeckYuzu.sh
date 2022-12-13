@@ -34,7 +34,8 @@ declare -A Yuzu_regions=(
 ["nl"]=2 # Europe
 ["pt"]=2 # Europe
 ["ru"]=2 # Europe?
-["tw"]=6 # Taiwan) # TODO: split lang from region?
+["tw"]=6 # Taiwan
+) # TODO: split lang from region?
 
 #cleanupOlderThings
 Yuzu_cleanup(){
