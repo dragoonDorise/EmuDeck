@@ -4,6 +4,18 @@ Xemu_emuName="Xemu-Emu"
 Xemu_emuType="FlatPak"
 Xemu_emuPath="app.xemu.xemu"
 
+# https://xboxdevwiki.net/EEPROM
+declare -A Xemu_languages=(
+["en"]=1
+["ja"]=2
+["de"]=3
+["fr"]=4
+["es"]=5
+["it"]=6
+["ko"]=7
+["zh"]=8
+["pt"]=9)
+
 #cleanupOlderThings
 Xemu_cleanup(){
  echo "NYI"
@@ -49,6 +61,21 @@ Xemu_setEmulationFolder(){
     changeLine "${flashrom_path}" "${flashrom_pathSetting}" "$configFile"
     changeLine "${eeprom_path}" "${eeprom_pathSetting}" "$configFile"
     changeLine "${hdd_path}" "${hdd_pathSetting}" "$configFile"
+}
+
+#SetLanguage
+Xemu_setLanguage(){
+    setMSG "Setting Xemu Language"	
+
+    $eepromPath="${storagePath}/xemu/eeprom.bin"
+	#TODO: call this somewhere, and input the $language from somewhere (args?)
+	if [[ -f "${eepromPath}" ]]; then # TODO: if not generate the eeprom?
+		if [ ${Xemu_languages[$language]+_} ]; then
+			# write the language as a byte to the file at the given offset
+			printf "%02x" "${Xemu_languages[$language]}" | xxd -r -p - | dd of=$eepromPath obs=1 seek=$((16#90)) conv=block,notrunc
+			#TODO: also do region? its rc4 encoded
+		fi
+	fi
 }
 
 #SetupSaves
