@@ -1,4 +1,4 @@
-f#!/bin/bash
+#!/bin/bash
 #variables
 SRM_toolName="Steam Rom Manager"
 SRM_toolType="AppImage"
