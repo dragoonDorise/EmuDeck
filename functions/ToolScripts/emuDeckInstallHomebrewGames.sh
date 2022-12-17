@@ -16,13 +16,11 @@ emuDeckInstallHomebrewGames(){
 	ln -sn "$toolsPath/homebrew/roms/nes"  "${romsPath}/nes/homebrew"
 	ln -sn "$toolsPath/homebrew/roms/snes" "${romsPath}/snes/homebrew"
 	
-	rsync -r --ignore-existing "${toolsPath}//homebrew/roms/downloaded_media/" "${toolsPath}/downloaded_media/" && rm -rf "${toolsPath}//homebrew/roms/downloaded_media/" && echo "true"
+	rsync -r --ignore-existing "${toolsPath}/homebrew/roms/downloaded_media/" "${toolsPath}/downloaded_media/" && rm -rf "${toolsPath}/homebrew/roms/downloaded_media/" && echo "true"
 	
 }
 
 emuDeckUninstallHomebrewGames(){	
-	rm -rf -p "$toolsPath/homebrew/roms/"
-	
 	#Symlinks	
 	unlink "${romsPath}/gamegear/homebrew"
 	unlink "${romsPath}/gb/homebrew"
@@ -33,5 +31,5 @@ emuDeckUninstallHomebrewGames(){
 	unlink "${romsPath}/nes/homebrew"
 	unlink "${romsPath}/snes/homebrew"
 
-	rm -rf -p "$toolsPath/homebrew/roms/" && echo "true"
+	rm -rf "$toolsPath/homebrew/roms/" && echo "true"
 }
