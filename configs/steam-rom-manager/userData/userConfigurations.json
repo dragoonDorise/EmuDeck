@@ -9,7 +9,7 @@
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
-    "titleModifier": "${fuzzyTitle}",
+    "titleModifier": "EmulationStation DE",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
