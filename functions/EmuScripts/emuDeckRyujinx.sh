@@ -88,7 +88,7 @@ Ryujinx_setEmulationFolder(){
 #SetupSaves
 Ryujinx_setupSaves(){
     echo "Begin Ryujinx save link" 
-    moveSaveFolder ryujinx saves "$HOME/.config/Ryujinx/bis/user/" 
+    moveSaveFolder ryujinx saves "$HOME/.config/Ryujinx/bis/user/save" 
 }
 
 
