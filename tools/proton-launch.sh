@@ -92,8 +92,8 @@ findProton () {
         if [ -f "${path}/steamapps/common/Proton ${1}/proton" ]; then
             local proton="${path}/steamapps/common/Proton ${1}/proton"
             break
-        elif [ -f "${path}/compatabilitytools.d/${1}/proton" ]; then
-            local proton="${path}/compatabilitytools.d/${1}/proton"
+        elif [ -f "${path}/compatibilitytools.d/${1}/proton" ]; then
+            local proton="${path}/compatibilitytools.d/${1}/proton"
             break
         fi
     done
