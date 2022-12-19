@@ -173,8 +173,8 @@ if [ "$doUninstall" == true ]; then
 		rm -rf ~/.var/app/org.ppsspp.PPSSPP &>> /dev/null
 	fi
 	if [[ "$doUninstallYuzu" == true ]]; then
-		flatpak uninstall org.yuzu_emu.yuzu --system -y
-		rm -rf ~/.var/app/org.yuzu_emu.yuzu &>> /dev/null
+		#flatpak uninstall org.yuzu_emu.yuzu --system -y
+		#rm -rf ~/.var/app/org.yuzu_emu.yuzu &>> /dev/null
 		rm -rf ~/Applications/yuzu.AppImage &>> /dev/null
 		rm -rf ~/.config/yuzu
 	fi

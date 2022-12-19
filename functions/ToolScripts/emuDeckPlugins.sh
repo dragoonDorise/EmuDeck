@@ -18,7 +18,20 @@ Plugins_installPowerTools(){
    sudo unzip "$HOME/homebrew/PowerTools.zip" -d "$HOME/homebrew/plugins/" && rm "$HOME/homebrew/PowerTools.zip"
 }
 
+Plugins_installDeckyControls(){
+   local destinationFolder="$HOME/homebrew/plugins/emudeck-decky-controls"
+   local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/emudeck-decky-controls" ".zip")"
+   sudo rm -rf $destinationFolder
+   sudo mkdir -p $destinationFolder
+   sudo curl -L "$DeckyControls_releaseURL" -o "${destinationFolder}/emudeck-decky-controls.zip"
+   sudo unzip "$destinationFolder/emudeck-decky-controls.zip" -d "$destinationFolder" && sudo rm "$destinationFolder/emudeck-decky-controls.zip"
+   sudo chown deck:deck -R $HOME/homebrew/plugins/emudeck-decky-controls
+   chmod 555 -R $HOME/homebrew/plugins/emudeck-decky-controls
+}
+
 Plugins_installSteamDeckGyroDSU(){
    InstallGyro=$(bash <(curl -sL https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh))
 	printf '%s' "$InstallGyro"
 }
+
+

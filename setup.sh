@@ -655,7 +655,9 @@ fi
 
 createDesktopIcons
 
-
+if [ "$doInstallHomeBrewGames" == "true" ]; then	
+	emuDeckInstallHomebrewGames
+fi
 
 #
 ##

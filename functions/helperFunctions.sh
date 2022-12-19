@@ -276,6 +276,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doInstallCHD=true")
 	defaultSettingsList+=("doInstallPowertools=false")
 	defaultSettingsList+=("doInstallGyro=false")
+	defaultSettingsList+=("doInstallHomeBrewGames=false")
 	defaultSettingsList+=("installString='Installing'")
 	defaultSettingsList+=("RABezels=true")
 	defaultSettingsList+=("RAautoSave=false")

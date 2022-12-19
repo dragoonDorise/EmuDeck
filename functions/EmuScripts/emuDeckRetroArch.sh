@@ -1223,7 +1223,7 @@ RetroArch_snes_ar87(){
 	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/snes87.cfg"'
 	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'input_overlay_scale_landscape' '"1.380000"'
 	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'input_overlay_aspect_adjust_landscape' '"-0.170000"'
-	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'aspect_ratio_index' '"21"'
+	RetroArch_setOverride 'snes.cfg' 'Snes9x'  'aspect_ratio_index' '"15"'
 }
 
 RetroArch_snes_ar32(){
@@ -1597,6 +1597,10 @@ RetroArch_bsnes_hd_beta_setUpCoreOpt(){
 	RetroArch_setOverride 'bsnes-hd beta.opt' 'bsnes-hd beta'  'bsnes_video_gamma' '"100"'
 	RetroArch_setOverride 'bsnes-hd beta.opt' 'bsnes-hd beta'  'bsnes_video_luminance' '"100"'
 	RetroArch_setOverride 'bsnes-hd beta.opt' 'bsnes-hd beta'  'bsnes_video_saturation' '"100"'
+}
+
+RetroArch_dos_box_setUpCoreOpt(){
+	RetroArch_setOverride 'DOSBox-pure.opt' 'DOSBox Pure'  'dosbox_pure_conf' '"inside"'
 }
 
 RetroArch_setUpCoreOptAll(){
