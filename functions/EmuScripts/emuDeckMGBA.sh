@@ -37,7 +37,7 @@ mGBA_update(){
 
 #ConfigurePaths
 mGBA_setEmulationFolder(){
-  	configFile="$HOME/.var/app/${mGBA_emuPath}/config/mGBA/PSP/SYSTEM/mGBA.ini"
+  	configFile="$HOME/.var/app/${mGBA_emuPath}/config/mgba/config.ini"
     gameDirOpt='CurrentDirectory = '
     newGameDirOpt='CurrentDirectory = '"${romsPath}/gba"
     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
@@ -45,14 +45,18 @@ mGBA_setEmulationFolder(){
 
 #SetupSaves
 mGBA_setupSaves(){
-	linkToSaveFolder mGBA saves "$HOME/.var/app/io.mgba.mGBA/config/mGBA/PSP/SAVEDATA"
-	linkToSaveFolder mGBA states "$HOME/.var/app/io.mgba.mGBA/config/mGBA/PSP/mGBA_STATE"
+	mkdir -p "$savesPath/mgba/saves"
+	mkdir -p "$savesPath/mgba/states"
+	flatpak override "${mGBA_emuPath}" --filesystem="${savesPath}/mgba":rw --user
 }
 
 
 #SetupStorage
 mGBA_setupStorage(){
-	echo "NYI"
+	mkdir -p "$storagePath/mgba/cheats"
+	mkdir -p "$storagePath/mgba/patches"
+	mkdir -p "$storagePath/mgba/screenshots"
+	flatpak override "${mGBA_emuPath}" --filesystem="${storagePath}/mgba":rw --user
 }
 
 
