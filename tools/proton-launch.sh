@@ -172,6 +172,8 @@ main () {
         for p in $( grep path "${steamLibraryFolders}" | awk '{print $2}' | sed 's|\"||g' ); do
             if [ -d "${p}" ]; then
                 steamPaths+=("${p}")
+            else
+                echo "INFO: ${steamLibraryFolders} contains invalid directory ${p}." >> "${LOGFILE}"
             fi
         done
         
