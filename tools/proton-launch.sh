@@ -39,7 +39,6 @@ Help () {
     echo "p     Proton version"
     echo "i     Proton AppID"
     echo
-    exit
 }
 
 # Report all current arguments to the LOGFILE
