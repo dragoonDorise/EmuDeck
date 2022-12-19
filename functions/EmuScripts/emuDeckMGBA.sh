@@ -4,6 +4,7 @@ mGBA_emuName="mGBA"
 mGBA_emuType="FlatPak"
 mGBA_emuPath="io.mgba.mGBA"
 mGBA_releaseURL=""
+mGBA_configFile="$HOME/.var/app/io.mgba.mGBA/config/mgba/config.ini"
 
 #cleanupOlderThings
 mGBA_cleanup(){
@@ -37,10 +38,7 @@ mGBA_update(){
 
 #ConfigurePaths
 mGBA_setEmulationFolder(){
-  	configFile="$HOME/.var/app/${mGBA_emuPath}/config/mgba/config.ini"
-    gameDirOpt='CurrentDirectory = '
-    newGameDirOpt='CurrentDirectory = '"${romsPath}/gba"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
+	echo "NYI"
 }
 
 #SetupSaves
