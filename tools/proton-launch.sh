@@ -155,8 +155,17 @@ main () {
     # Report all $@ to LOGFILE for troubleshooting
     showArguments "${@}"
 
-    # Get all available Steam paths
-    steamLibraryFolders="${HOME}/.local/share/Steam/steamapps/libraryfolders.vdf"
+    # Set main STEAMPATH
+    if [ -d "${HOME}/.local/share/Steam" ]; then
+        STEAMPATH="${HOME}/.local/share/Steam"
+    else
+        reportError "Error: ${STEAMPATH} does not exist." "true" "true"
+    fi
+    
+    echo "STEAMPATH: ${STEAMPATH}" >> "${LOGFILE}"
+    
+    #Get all available Steam paths
+    steamLibraryFolders="${STEAMPATH}/steamapps/libraryfolders.vdf"
     if [ -f "${steamLibraryFolders}" ]; then
         # shellcheck disable=SC2207
         steamPaths=( $( grep path "${steamLibraryFolders}" | awk '{print $2}' | sed 's|\"||g' ) )
@@ -169,9 +178,6 @@ main () {
     else
         reportError "Error: ${steamLibraryFolders} is not a file." "true" "true"
     fi
-
-    STEAMPATH="${steamPaths[1]}"
-    echo "STEAMPATH: ${STEAMPATH}" >> "${LOGFILE}"
 
     # Check for options -h help -p Proton Version -i AppID
     while getopts "h:p:i:" option; do
