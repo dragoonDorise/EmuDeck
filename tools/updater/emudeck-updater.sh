@@ -1,2 +1,3 @@
-#!/bin/sh
+#!/bin/bash
 ~/Applications/EmuDeck.AppImage --isGameMode
+
