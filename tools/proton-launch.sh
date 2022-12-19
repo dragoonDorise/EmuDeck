@@ -167,7 +167,19 @@ main () {
     steamLibraryFolders="${STEAMPATH}/steamapps/libraryfolders.vdf"
     if [ -f "${steamLibraryFolders}" ]; then
         # shellcheck disable=SC2207
-        steamPaths=( $( grep path "${steamLibraryFolders}" | awk '{print $2}' | sed 's|\"||g' ) )
+        steamPaths=()
+        # Make sure all paths are valid directories
+        for p in $( grep path "${steamLibraryFolders}" | awk '{print $2}' | sed 's|\"||g' ); do
+            if [ -d "${p}" ]; then
+                steamPaths+=("${p}")
+            fi
+        done
+        
+        # Exit if there are no paths found.
+        if [[ "${#steamPaths[@]}" -eq 0 ]]; then
+            reportError "Error: No Steam library paths found in ${steamLibraryFolders}." "true" "true"
+        fi
+        
         {
             echo "Steam Paths:"
             for path in "${steamPaths[@]}"; do
