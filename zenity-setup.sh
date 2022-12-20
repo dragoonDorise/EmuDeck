@@ -324,6 +324,7 @@ if [ "$expert" == "true" ]; then
 		emuTable+=(TRUE "XBox" "Xemu")
 		#if we are in beta / dev install, allow Xenia. Still false by default though. Will only work on expert mode, and explicitly turned on.
 		if [[ $branch == "beta" || $branch == "dev" ]]; then
+			emuTable+=(FALSE "GameBoy Advance" "mGBA")
 			emuTable+=(FALSE "Xbox360" "Xenia")
 		fi
 		
@@ -391,6 +392,11 @@ if [ "$expert" == "true" ]; then
 			else
 				setSetting doInstallPPSSPP false
 			fi
+			if [[ "$emusToInstall" == *"mGBA"* ]]; then
+				setSetting doInstallMGBA true
+			else
+				setSetting doInstallMGBA false
+			fi
 			if [[ "$emusToInstall" == *"Yuzu"* ]]; then
 				setSetting doInstallYuzu true
 			else
@@ -401,11 +407,6 @@ if [ "$expert" == "true" ]; then
 			else
 				setSetting doInstallRyujinx false
 			fi
-			fi
-			if [[ "$emusToInstall" == *"mGBA"* ]]; then
-				setSetting doInstallMGBA true
-			else
-				setSetting doInstallMGBA false
 			fi
 			if [[ "$emusToInstall" == *"Cemu"* ]]; then
 				setSetting doInstallCemu true
@@ -578,6 +579,11 @@ if [ "$expert" == "true" ]; then
 				else
 					setSetting doSetupPPSSPP false
 				fi
+				if [[ "$emusToReset" == *"mGBA"* ]]; then
+					setSetting doSetupMGBA true
+				else
+					setSetting doSetupMGBA false
+				fi
 				if [[ "$emusToReset" == *"Yuzu"* ]]; then
 					setSetting doSetupYuzu true
 				else
@@ -639,12 +645,12 @@ else
 	setSetting doInstallCitra true
 	setSetting doInstallDuck true
 	setSetting doInstallCemu true
-	setSetting doInstallXenia false
 	setSetting doInstallPrimeHacks true
 	setSetting doInstallPPSSPP true
 	setSetting doInstallXemu true
 	setSetting doInstallMAME true
 	setSetting doInstallXenia false
+	setSetting doInstallMGBA false
 	#doInstallMelon=true
 
 	setSetting doSetupRA true
@@ -662,6 +668,7 @@ else
 	setSetting doSetupMAME true
 	setSetting doSetupCemu true
 	setSetting doSetupXenia false
+	setSetting doSetupMGBA false
 
 
 	#widescreen off by default
