@@ -1,10 +1,9 @@
 #!/bin/bash
 #variables
 mGBA_emuName="mGBA"
-mGBA_emuType="FlatPak"
-mGBA_emuPath="io.mgba.mGBA"
-mGBA_releaseURL=""
-mGBA_configFile="$HOME/.var/app/io.mgba.mGBA/config/mgba/config.ini"
+mGBA_emuType="AppImage"
+mGBA_emuPath="$HOME/Applications/mGBA.AppImage"
+mGBA_configFile="$HOME/.config/mgba/config.ini"
 
 #cleanupOlderThings
 mGBA_cleanup(){
@@ -13,14 +12,14 @@ mGBA_cleanup(){
 
 #Install
 mGBA_install(){
-	installEmuFP "${mGBA_emuName}" "${mGBA_emuPath}"	
-	flatpak override "${mGBA_emuPath}" --filesystem=host --user
-	flatpak override "${mGBA_emuPath}" --share=network --user
+	echo "Begin mGBA Install"
+	installEmuAI "mGBA" "$(getReleaseURLGH "mgba-emu/mgba" "x64.appimage")" #mgba.AppImage
 }
 
 #ApplyInitialSettings
 mGBA_init(){
-	configEmuFP "${mGBA_emuName}" "${mGBA_emuPath}" "true"
+	setMSG "Initializing $mGBA_emuName settings."	
+	configEmuAI "$mGBA_emuName" "config" "$HOME/.config/mgba" "$EMUDECKGIT/configs/mgba" "true"
 	mGBA_setupStorage
 	mGBA_setEmulationFolder
 	mGBA_setupSaves
@@ -29,7 +28,8 @@ mGBA_init(){
 
 #update
 mGBA_update(){
-	configEmuFP "${mGBA_emuName}" "${mGBA_emuPath}"
+	setMSG "Updating $mGBA_emuName settings."	
+	configEmuAI "$mGBA_emuName" "config" "$HOME/.config/mgba" "$EMUDECKGIT/configs/mgba"
 	mGBA_setupStorage
 	mGBA_setEmulationFolder
 	mGBA_setupSaves
@@ -45,7 +45,6 @@ mGBA_setEmulationFolder(){
 mGBA_setupSaves(){
 	mkdir -p "$savesPath/mgba/saves"
 	mkdir -p "$savesPath/mgba/states"
-	flatpak override "${mGBA_emuPath}" --filesystem="${savesPath}/mgba":rw --user
 }
 
 
@@ -54,19 +53,20 @@ mGBA_setupStorage(){
 	mkdir -p "$storagePath/mgba/cheats"
 	mkdir -p "$storagePath/mgba/patches"
 	mkdir -p "$storagePath/mgba/screenshots"
-	flatpak override "${mGBA_emuPath}" --filesystem="${storagePath}/mgba":rw --user
 }
 
 
 #WipeSettings
 mGBA_wipe(){
-   rm -rf "$HOME/.var/app/$mGBA_emuPath"
+	setMSG "Wiping $mGBA_emuName settings."
+	rm -rf "$HOME/.config/mgba"
 }
 
 
 #Uninstall
 mGBA_uninstall(){
-    flatpak uninstall "$mGBA_emuPath" --user -y
+	setMSG "Uninstalling $mGBA_emuName."
+    rm -rf "$emuPath"
 }
 
 #setABXYstyle
@@ -100,7 +100,7 @@ echo "NYI"
 }
 
 mGBA_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$mGBA_emuPath")" == "$mGBA_emuPath" ]; then
+	if [ -e "$mGBA_emuPath" ]; then
 		echo "true"
 	else
 		echo "false"
@@ -117,6 +117,7 @@ mGBA_finalize(){
 }
 
 mGBA_addSteamInputProfile(){
-	setMSG "Adding $mGBA_emuName Steam Input Profile."
-	rsync -r "$EMUDECKGIT/configs/steam-input/mGBA_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	echo "NYI"
+	# setMSG "Adding $mGBA_emuName Steam Input Profile."
+	# rsync -r "$EMUDECKGIT/configs/steam-input/mGBA_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
