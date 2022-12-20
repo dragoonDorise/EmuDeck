@@ -410,11 +410,6 @@ if [ "$expert" == "true" ]; then
 				setSetting doInstallRyujinx false
 			fi
 			fi
-			if [[ "$emusToInstall" == *"mGBA"* ]]; then
-				setSetting doInstallMGBA true
-			else
-				setSetting doInstallMGBA false
-			fi
 			if [[ "$emusToInstall" == *"Cemu"* ]]; then
 				setSetting doInstallCemu true
 			else
