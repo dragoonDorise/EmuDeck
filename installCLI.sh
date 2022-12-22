@@ -398,6 +398,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 		if [[ $doSelectEmulators == "true" ]]; then
 			
 			emuTable=()
+			emuTable+=(TRUE "Dreamcast" "Flycast")
 			emuTable+=(TRUE "Multiple" "RetroArch")
 			emuTable+=(TRUE "Metroid Prime" "PrimeHack")
 			emuTable+=(TRUE "PS2" "PCSX2")
@@ -434,6 +435,9 @@ if [ "$RUNCHOICE" == 1 ]; then
 			
 			if [ $ans -eq 0 ]; then
 				echo "Emu Install selected: $emusToInstall"
+				if [[ "$emusToInstall" == *"Flycast"* ]]; then
+					setSetting doInstallFlycast true
+				fi
 				if [[ "$emusToInstall" == *"RetroArch"* ]]; then
 					setSetting doInstallRA true
 				fi
@@ -549,6 +553,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 			if [ -f "$SECONDTIME" ]; then
 	
 				emuTable=()
+				emuTable+=(TRUE "Flycast")
 				emuTable+=(TRUE "RetroArch")
 				emuTable+=(TRUE "PrimeHack")
 				emuTable+=(TRUE "PCSX2")
@@ -582,6 +587,9 @@ if [ "$RUNCHOICE" == 1 ]; then
 				echo -e "EmuDeck ${version}"
 				if [ $ans -eq 0 ]; then
 					echo "Emulators to reinstall selected: $emusToReset"
+					if [[ "$emusToReset" == *"Flycast"* ]]; then
+						setSetting doSetupFlycast true
+					fi
 					if [[ "$emusToReset" == *"RetroArch"* ]]; then
 						setSetting doSetupRA true
 					fi
@@ -640,6 +648,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 		fi
 	else
 		#easy mode settings
+		setSetting doInstallFLycast true
 		setSetting doInstallRA true
 		setSetting doInstallDolphin true
 		setSetting doInstallPCSX2 true
@@ -751,6 +760,9 @@ fi
 if [ $doInstallDuck == "true" ]; then
 	DuckStation_install
 fi
+if [ $doInstallFlycast == "true" ]; then
+	Flycast_install
+fi
 if [ $doInstallRA == "true" ]; then
 	RetroArch_install	
 fi
@@ -789,6 +801,9 @@ fi
 
 setMSG "Configuring emulators"
 
+if [ "$doSetupFlycast" == "true" ]; then
+	Flycast_init
+fi
 if [ "$doSetupRA" == "true" ]; then
 	RetroArch_init
 fi

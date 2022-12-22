@@ -23,6 +23,7 @@ doSetupXemu=true
 doSetupESDE=true
 doSetupSRM=true
 doSetupPCSX2QT=true
+doSetupFlycast=true
 #doSetupMelon=true
 
 #Install all systems by default
@@ -44,6 +45,7 @@ doInstallXemu=false
 doInstallPCSX2QT=false
 doInstallMAME=true
 #doInstallMelon=false
+doInstallFlycast=true
 doInstallCHD=false
 doInstallPowertools=false
 doInstallGyro=false

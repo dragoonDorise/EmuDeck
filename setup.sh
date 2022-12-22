@@ -261,6 +261,10 @@ if [ $doInstallDuck == "true" ]; then
 	echo "DuckStation_install"
 	DuckStation_install
 fi
+if [ $doInstallFlycast == "true" ]; then
+	echo "Flycast_install"
+	Flycast_install
+fi
 if [ $doInstallRA == "true" ]; then
 	echo "RetroArch_install"
 	RetroArch_install	
@@ -353,6 +357,10 @@ fi
 if [ "$doSetupDuck" == "true" ]; then
 	echo "DuckStation_init"
 	DuckStation_init
+fi
+if [ "$doSetupFlycast" == "true" ]; then
+	echo "Flycast_init"
+	Flycast_init
 fi
 if [ "$doSetupYuzu" == "true" ]; then
 	echo "Yuzu_init"

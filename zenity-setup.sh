@@ -310,6 +310,7 @@ if [ "$expert" == "true" ]; then
 		emuTable=()
 		emuTable+=(TRUE "Multiple" "RetroArch")
 		emuTable+=(TRUE "Arcade" "MAME")
+		emuTable+=(TRUE "Dreamcast" "Flycast")
 		emuTable+=(TRUE "Metroid Prime" "PrimeHack")
 		emuTable+=(TRUE "PS2" "PCSX2-Legacy")
 		emuTable+=(TRUE "PS2" "PCSX2-QT")
@@ -355,6 +356,11 @@ if [ "$expert" == "true" ]; then
 				setSetting doInstallPrimeHacks true
 			else
 				setSetting doInstallPrimeHacks false
+			fi
+			if [[ "$emusToInstall" == *"Flycast"* ]]; then
+				setSetting doInstallFlycast true
+			else
+				setSetting doInstallFlycast false
 			fi
 			if [[ "$emusToInstall" == *"PCSX2-Legacy"* ]]; then
 				setSetting doInstallPCSX2 true
@@ -494,6 +500,7 @@ if [ "$expert" == "true" ]; then
 			emuTable=()
 			emuTable+=(TRUE "RetroArch")
 			emuTable+=(TRUE "MAME")
+			emuTable+=(TRUE "Flycast")
 			emuTable+=(TRUE "PrimeHack")
 			emuTable+=(TRUE "PCSX2-Legacy")
 			emuTable+=(TRUE "PCSX2-QT")
@@ -625,6 +632,7 @@ else
 	#easy mode settings
 	setSetting doInstallRA true
 	setSetting doInstallDolphin true
+	setSetting doInstallFlycast true
 	setSetting doInstallPCSX2 false
 	setSetting doInstallPCSX2QT true
 	setSetting doInstallRPCS3 true
@@ -644,6 +652,7 @@ else
 	setSetting doSetupRA true
 	setSetting doSetupPrimeHacks true
 	setSetting doSetupDolphin true
+	setSetting doSetupFlycast true
 	setSetting doSetupPCSX2 false
 	setSetting doSetupPCSX2QT true
 	setSetting doSetupRPCS3 true

@@ -16,6 +16,7 @@ doUninstallPPSSPP=true
 doUninstallMame=true
 doUninstallSRM=true
 doUninstallESDE=true
+doUninstallFlycast=true
 
 LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
 echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
@@ -90,6 +91,9 @@ if [ "$doUninstall" == true ]; then
 	ans=$?	
 	if [ $ans -eq 0 ]; then
 		
+		if [[ "$emusToUninstall" == *"Flycast"* ]]; then
+			doUninstallFlycast=false
+		fi
 		if [[ "$emusToUninstall" == *"RetroArch"* ]]; then
 			doUninstallRA=false
 		fi
@@ -138,6 +142,10 @@ if [ "$doUninstall" == true ]; then
 	fi
 	
 	#Uninstalling
+	if [[ "$doUninstallFlycast" == true ]]; then		
+		flatpak uninstall org.flycast.Flycast  --system -y
+		rm -rf ~/.var/app/org.flycast.Flycast  &>> /dev/null	
+	fi
 	if [[ "$doUninstallRA" == true ]]; then		
 		flatpak uninstall org.libretro.RetroArch --system -y
 		rm -rf ~/.var/app/org.libretro.RetroArch &>> /dev/null	
