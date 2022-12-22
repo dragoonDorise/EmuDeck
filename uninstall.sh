@@ -217,6 +217,7 @@ if [ "$doUninstall" == true ]; then
 	if [[ "$doUninstallMGBA" == true ]]; then
 		rm -rf ~/Applications/mGBA.AppImage &>> /dev/null
 		rm -rf ~/.config/mgba
+	fi
 	if [[ "$doUninstallRMG" == true ]]; then
 		flatpak uninstall org.com.github.Rosalie241.RMG --system -y
 		rm -rf ~/.var/app/com.github.Rosalie241.RMG &>> /dev/null
