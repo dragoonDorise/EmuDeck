@@ -16,6 +16,7 @@ doUninstallPPSSPP=true
 doUninstallMame=true
 doUninstallSRM=true
 doUninstallESDE=true
+doUninstallMGBA=true
 
 LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
 echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
@@ -132,6 +133,9 @@ if [ "$doUninstall" == true ]; then
 		if [[ "$emusToUninstall" == *"Mame"* ]]; then
 			doUninstallMame=false
 		fi		
+		if [[ "$emusToUninstall" == *"mGBA"* ]]; then
+			doUninstallMGBA=false
+		fi		
 		
 	else
 		exit
@@ -195,6 +199,10 @@ if [ "$doUninstall" == true ]; then
 	if [[ "$doUninstallMame" == true ]]; then
 		flatpak uninstall org.mamedev.MAME --system -y
 		rm -rf ~/.var/app/org.mamedev.MAME &>> /dev/null
+	fi
+	if [[ "$doUninstallMGBA" == true ]]; then
+		rm -rf ~/Applications/mGBA.AppImage &>> /dev/null
+		rm -rf ~/.config/mgba
 	fi
 
 	#Backup Service
