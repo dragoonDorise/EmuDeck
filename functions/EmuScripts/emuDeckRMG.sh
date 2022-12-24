@@ -74,7 +74,8 @@ RMG_setupStorage(){
 	mkdir -p "${storagePath}/RMG/"
 	mkdir -p "$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/data/RMG/hires_texture"
     ln -sn "$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/data/RMG/hires_texture"
-
+	mkdir -p "$HOME/.var/app/com.github.Rosalie241.RMG/cache/RMG/cache"
+    ln -sn "$HOME/.var/app/com.github.Rosalie241.RMG/cache/RMG/cache"
 
 }
 
