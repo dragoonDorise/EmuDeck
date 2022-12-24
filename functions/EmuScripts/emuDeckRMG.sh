@@ -13,14 +13,20 @@ RMG_cleanup(){
 }
 
 #Install
-RMG_install(){
-	installEmuFP "${RMG_emuName}" "${RMG_emuPath}"	
+RMG_install() {
+	setMSG "Installing $RMG_emuName"	
+
+	installEmuFP "${RMG_emuName}" "${RMG_emuPath}"
 	flatpak override "${RMG_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
-RMG_init(){
-	configEmuAI "${RMG_emuName}" "RMG" "$HOME/.RMG" "${EMUDECKGIT}/configs/RMG" "true"
+
+RMG_init() {
+
+    setMSG "Initializing $RMG_emuName settings."
+
+	configEmuFP "${RMG_emuName}" "${RMG_emuPath}" "true"
 	RMG_setupStorage
 	RMG_setEmulationFolder
 	RMG_setupSaves
@@ -29,8 +35,10 @@ RMG_init(){
 }
 
 #update
-RMG_update(){
-	configEmuAI "${RMG_emuName}" "RMG" "$HOME/.RMG" "${EMUDECKGIT}/configs/RMG" 
+RMG_update() {
+	setMSG "Installing $RMG_emuName"		
+
+	configEmuFP "${RMG_emuName}" "${RMG_emuPath}"
 	RMG_setupStorage
 	RMG_setEmulationFolder
 	RMG_setupSaves
@@ -82,7 +90,7 @@ RMG_setupStorage(){
 	mkdir -p "${storagePath}/RMG/"
 
     # Configure Settings
-    HiResTextureSetting='textureFilter\txHiresEnable = '
+    HiResTextureSetting='textureFilter\txHiresEnable= '
     enableHiResTextures="${HiResTextureSetting}'1'"
     changeLine "${HiResTextureSetting}" "${enableHiResTextures}" "$RMG_gliden64File"
 
