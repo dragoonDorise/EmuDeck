@@ -5,6 +5,7 @@ RMG_emuType="FlatPak"
 RMG_emuPath="com.github.Rosalie241.RMG"
 RMG_releaseURL=""
 RMG_configFile="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/mupen64plus.cfg"
+RMG_gliden64File="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/GLideN64.ini"
 
 #cleanupOlderThings
 RMG_cleanup(){
@@ -41,21 +42,28 @@ RMG_update(){
 RMG_setEmulationFolder(){
 	setMSG "Setting $RMG_emuName Emulation Folder"
 
-  	RMG_configFile="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/mupen64plus.cfg"
-    gameDirOpt1='Paths\\gamedirs\\3\\path='
-    newGameDirOpt1='Paths\\gamedirs\\3\\path='"${romsPath}/n64"
-	gameDirOpt2='Paths\\gamedirs\\3\\path='
-    newGameDirOpt2='Paths\\gamedirs\\3\\path='"${romsPath}/n64dd"
-    sed -i "/${gameDirOpt1}/c\\${newGameDirOpt1}" "$configFile"
-    sed -i "/${gameDirOpt2}/c\\${newGameDirOpt2}" "$configFile"
+    # N64 ROMs
+	gameDirOpt='Directory='
+    newGameDirOpt="$gameDirOpt""${romsPath}/n64"
+	changeLine "$gameDirOpt" "$newGameDirOpt" "$RMG_configFile"
 
-	SaveStatePath='SaveStates = '
-	SaveStateSetting="${SaveStatePath}""${savesPath}/RMG/states"
-	SaveSRAMPath='Directory = '
-	SaveSRAMPathSetting="${SaveSRAMPath}""${savesPath}/RMG/saves"
+	# N64DD ROMs, if possible
+    
+	# Saves and Save States
+	Saves='SaveSRAMPath = '
+	SavesSetting="${Saves}""${savesPath}/RMG/saves"
+	SaveStates='SaveStatePath = '
+	SaveStatesSetting="${SaveStates}""${savesPath}/RMG/states"
 
-	changeLine "$SaveStatePath" "$SaveStateSetting" "$RMG_configFile"
-	changeLine "$SaveSRAMPath" "$SaveSRAMPathSetting" "$RMG_configFile"
+	changeLine "$Saves" "$SavesSetting" "$RMG_configFile"
+	changeLine "$SaveStates" "$SaveStatesSetting" "$RMG_configFile"
+
+    # Configure Settings
+    RMGOverRide='OverrideUserDirectories = '
+    RMGOverRideSetting="${RMGOverRide}'False'"
+    changeLine "${RMGOverRide}" "${RMGOverRideSetting}" "$RMG_configFile"
+
+ 
 
 }
 
@@ -70,12 +78,23 @@ RMG_setupSaves(){
 #SetupStorage
 RMG_setupStorage(){
 	
-	#Setup symlink for texture packs
+	RMG_gliden64File="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/GLideN64.ini"
 	mkdir -p "${storagePath}/RMG/"
-	mkdir -p "$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/data/RMG/hires_texture"
-    ln -sn "$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/data/RMG/hires_texture"
-	mkdir -p "$HOME/.var/app/com.github.Rosalie241.RMG/cache/RMG/cache"
-    ln -sn "$HOME/.var/app/com.github.Rosalie241.RMG/cache/RMG/cache"
+
+    # Configure Settings
+    HiResTextureSetting='textureFilter\txHiresEnable = '
+    enableHiResTextures="${HiResTextureSetting}'1'"
+    changeLine "${HiResTextureSetting}" "${enableHiResTextures}" "$RMG_gliden64File"
+
+    # Configure Paths
+	HiResTextures='textureFilter\txPath= '
+	cache='textureFilter\txCachePath= '
+
+	newHiResTextures='textureFilter\txPath= '"${storagePath}/RMG/HiResTextures"
+	newcache='Snapshots= '"${storagePath}/RMG/cache"
+
+	changeLine "$HiResTextures" "$newHiResTextures" "$RMG_gliden64File"
+	changeLine "$cache" "$newcache" "$RMG_gliden64File"
 
 }
 
