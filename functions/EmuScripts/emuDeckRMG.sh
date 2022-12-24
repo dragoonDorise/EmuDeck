@@ -73,7 +73,7 @@ RMG_setupStorage(){
 	#Setup symlink for texture packs
 	mkdir -p "${storagePath}/RMG/"
 	mkdir -p "$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/data/RMG/hires_texture"
-    ln -sn "$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/data/RMG/hires_texture" "${biosPath}/citra/keys"
+    ln -sn "$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/data/RMG/hires_texture"
 
 
 }
