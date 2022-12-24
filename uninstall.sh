@@ -16,6 +16,7 @@ doUninstallPPSSPP=true
 doUninstallMame=true
 doUninstallSRM=true
 doUninstallESDE=true
+doUninstallRMG=true
 
 LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
 echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
@@ -86,7 +87,8 @@ if [ "$doUninstall" == true ]; then
 				10 "Ryujinx" \
 				11 "Xemu" \
 				12 "Cemu" \
-				12 "Mame" )
+				12 "Mame" \
+				13 "RMG"  )
 	ans=$?	
 	if [ $ans -eq 0 ]; then
 		
@@ -131,7 +133,10 @@ if [ "$doUninstall" == true ]; then
 		fi			
 		if [[ "$emusToUninstall" == *"Mame"* ]]; then
 			doUninstallMame=false
-		fi		
+		fi
+		if [[ "$emusToUninstall" == *"RMG"* ]]; then
+			doUninstallRMG=false
+		fi			
 		
 	else
 		exit
@@ -195,6 +200,10 @@ if [ "$doUninstall" == true ]; then
 	if [[ "$doUninstallMame" == true ]]; then
 		flatpak uninstall org.mamedev.MAME --system -y
 		rm -rf ~/.var/app/org.mamedev.MAME &>> /dev/null
+	fi
+	if [[ "$doUninstallRMG" == true ]]; then
+		flatpak uninstall org.com.github.Rosalie241.RMG --system -y
+		rm -rf ~/.var/app/com.github.Rosalie241.RMG &>> /dev/null
 	fi
 
 	#Backup Service
