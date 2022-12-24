@@ -665,7 +665,7 @@ else
 	setSetting doSetupMAME true
 	setSetting doSetupCemu true
 	setSetting doSetupXenia false
-	setSetting doSetupXenia true
+	setSetting doSetupRMG true
 
 	#widescreen off by default
 	setSetting duckWide false
