@@ -30,6 +30,7 @@ if [ $ans -eq 0 ]; then
 	#whitelist
 	declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
 	declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
+	declare -a csofolderWhiteList=("psp")
 	declare -a searchFolderList
 
 	export PATH="${chdPath}/:$PATH"
@@ -53,6 +54,14 @@ if [ $ans -eq 0 ]; then
 			fi
 		done
 	fi
+	for romfolder in "${csofolderWhiteList[@]}"; do
+		echo "Checking ${romsPath}/${romfolder}/"
+		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.iso")
+		if [ ${#files[@]} -gt 0 ]; then
+			echo "found in $romfolder"
+			searchFolderList+=("$romfolder")
+		fi
+	done
 
 	if ((${#searchFolderList[@]} == 0)); then
 		echo "No eligible files found."
@@ -161,7 +170,15 @@ if [ $ans -eq 0 ]; then
 	done
 
 	#cso
-	#
+	
+	for romfolder in "${romfolders[@]}"; do
+		if [[ " ${csofolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
+				echo "Converting: $f"
+				ciso 9 "$f" "${f%.*}.cso" >"$HOME/.config/EmuDeck/chdtool.log" && rm -rf "$f"
+			done
+		fi
+	done
 
 else
 	exit
