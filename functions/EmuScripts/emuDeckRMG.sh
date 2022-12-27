@@ -55,7 +55,7 @@ RMG_setEmulationFolder(){
     newGameDirOpt="$gameDirOpt""${romsPath}/n64"
 	changeLine "$gameDirOpt" "$newGameDirOpt" "$RMG_configFile"
 
-	# N64DD ROMs, if possible
+	# N64DD ROMs, pending RMG update
     
 	# Saves and Save States
 	Saves='SaveSRAMPath = '
@@ -66,10 +66,7 @@ RMG_setEmulationFolder(){
 	changeLine "$Saves" "$SavesSetting" "$RMG_configFile"
 	changeLine "$SaveStates" "$SaveStatesSetting" "$RMG_configFile"
 
-    # Configure Settings
-    RMGOverRide='OverrideUserDirectories = '
-    RMGOverRideSetting="${RMGOverRide}'False'"
-    changeLine "${RMGOverRide}" "${RMGOverRideSetting}" "$RMG_configFile"
+
 
  
 
