@@ -57,6 +57,16 @@ RMG_setEmulationFolder(){
 
 	# N64DD ROMs, pending RMG update
     
+	# N64DD ROMs Path, pending RMG update
+	
+	# N64DD IPL Paths
+	AmericanIPL= = '64DD_AmericanIPL = '
+    NewAmericanIPLPath="${AmericanIPL}""${biosPath}/64DD_IPL_US.n64"
+	JapaneseIPL= = '64DD_JapaneseIPL = '
+	NewJapaneseIPLPath="${JapaneseIPL}""${biosPath}/64DD_IPL_J.n64"
+	DevelopmentIPL='64DD_DevelopmentIPL = '
+	NewDevelopmentIPLPath="${DevelopmentIPL}""${biosPath}/64DD_IPL_DEV.n64"
+    
 	# Saves and Save States
 	Saves='SaveSRAMPath = '
 	SavesSetting="${Saves}""${savesPath}/RMG/saves"
