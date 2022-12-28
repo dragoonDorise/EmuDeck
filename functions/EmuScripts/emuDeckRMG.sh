@@ -5,7 +5,7 @@ RMG_emuType="FlatPak"
 RMG_emuPath="com.github.Rosalie241.RMG"
 RMG_releaseURL=""
 RMG_configFile="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/mupen64plus.cfg"
-RMG_gliden64File="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/GLideN64.ini"
+RMG_glideN64File="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/GLideN64.ini"
 
 #cleanupOlderThings
 RMG_cleanup(){
@@ -55,16 +55,11 @@ RMG_setEmulationFolder(){
     newGameDirOpt="$gameDirOpt""${romsPath}/n64"
 	changeLine "$gameDirOpt" "$newGameDirOpt" "$RMG_configFile"
 
-	# N64DD ROMs, pending RMG update
-
-	# N64DD ROMs Path
-	ln -sn "${romsPath}/n64dd" "${romsPath}/n64"
-
 	# N64DD IPL Paths
 	AmericanIPL='64DD_AmericanIPL = '
     NewAmericanIPLPath="${AmericanIPL}""${biosPath}/64DD_IPL_US.n64"
 	JapaneseIPL='64DD_JapaneseIPL = '
-	NewJapaneseIPLPath="${JapaneseIPL}""${biosPath}/64DD_IPL_J.n64"
+	NewJapaneseIPLPath="${JapaneseIPL}""${biosPath}/64DD_IPL_JP.n64"
 	DevelopmentIPL='64DD_DevelopmentIPL = '
 	NewDevelopmentIPLPath="${DevelopmentIPL}""${biosPath}/64DD_IPL_DEV.n64"
 	changeLine "$AmericanIPL" "$NewAmericanIPLPath" "$RMG_configFile"
@@ -95,7 +90,7 @@ RMG_setupSaves(){
 #SetupStorage
 RMG_setupStorage(){
 	
-	RMG_gliden64File="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/GLideN64.ini"
+	RMG_glideN64File="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/GLideN64.ini"
 	RMG_configFile="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/mupen64plus.cfg"
 	mkdir -p "${storagePath}/RMG/"
 	mkdir -p "${storagePath}/RMG/cache"
@@ -104,21 +99,21 @@ RMG_setupStorage(){
 
     # Configure Settings
     # HiResTextures
-    HiResTextureSetting='textureFilter\txHiresEnable= '
-    enableHiResTextures="${HiResTextureSetting}'1'"
-    changeLine "${HiResTextureSetting}" "${enableHiResTextures}" "$RMG_gliden64File"
+    HiResTextureSetting='textureFilter\txHiresEnable='
+    enableHiResTextures="${HiResTextureSetting}1"
+    changeLine "${HiResTextureSetting}" "${enableHiResTextures}" "$RMG_glideN64File"
 
     # Configure Paths
-	HiResTextures='textureFilter\\txPath= '
-	cache='textureFilter\txCachePath= '
+	HiResTextures='textureFilter\txPath='
+	cache='textureFilter\txCachePath='
 	screenshots='ScreenshotPath = '
 
-	newHiResTextures='textureFilter\\txPath= '"${storagePath}/RMG/HiResTextures"
-	newcache='cache= '"${storagePath}/RMG/cache"
+	newHiResTextures='textureFilter\txPath='"${storagePath}/RMG/HiResTextures"
+	newcache='textureFilter\txCachePath='"${storagePath}/RMG/cache"
     newscreenshots='ScreenshotPath = '"${storagePath}/RMG/screenshots"
 
-	changeLine "$HiResTextures" "$newHiResTextures" "$RMG_gliden64File"
-	changeLine "$cache" "$newcache" "$RMG_gliden64File"
+	changeLine "$HiResTextures" "$newHiResTextures" "$RMG_glideN64File"
+	changeLine "$cache" "$newcache" "$RMG_glideN64File"
 	changeLine "$screenshots" "$newscreenshots" "$RMG_configFile"
 
 
@@ -187,5 +182,4 @@ RMG_addSteamInputProfile(){
 RMG_finalize(){
 	echo "NYI"
 }
-
 
