@@ -17,7 +17,7 @@ APPIDPY="/run/media/mmcblk0p1/Emulation/tools/appID.py"
 PROTONLAUNCH="/run/media/mmcblk0p1/Emulation/tools/proton-launch.sh"
 
 # Xenia.exe location
-XENIA="/run/media/mmcblk0p1/Emulation/roms/xbox360/xenia.exe"
+XENIA="/run/media/mmcblk0p1/Emulation/roms/xbox360/xenia_canary.exe"
 
 # APPID
 APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
