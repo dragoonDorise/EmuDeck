@@ -6,7 +6,7 @@ Plugins_installPluginLoader(){
    sudo chown -R deck:deck "$HOME/homebrew"
    curl -L $PluginLoader_releaseURL | sh
    touch "$HOME/.steam/steam/.cef-enable-remote-debugging"
-   sudo systemctl disable --now steam-web-debug-portforward.service
+   #sudo systemctl disable --now steam-web-debug-portforward.service
 }
 
 Plugins_installPowerTools(){
@@ -30,8 +30,6 @@ Plugins_installDeckyControls(){
 }
 
 Plugins_installSteamDeckGyroDSU(){
-   InstallGyro=$(bash <(curl -sL https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh))
-	printf '%s' "$InstallGyro"
+   local SDGyro_releaseURL="https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh"
+   curl -L $SDGyro_releaseURL --output /tmp/sdgyro.sh && chmod +x /tmp/sdgyro.sh && /tmp/sdgyro.sh && rm /tmp/sdgyro.sh
 }
-
-
