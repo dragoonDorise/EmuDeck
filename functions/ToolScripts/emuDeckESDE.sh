@@ -20,7 +20,8 @@ ESDE_install(){
 
     curl $ESDE_releaseURL --output "$toolsPath/latesturl.txt"
     local latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
-
+	
+	echo "downloading $latestURL"
     curl "$latestURL" --output "$ESDE_toolPath"
     rm "$toolsPath/latesturl.txt"
     chmod +x "$ESDE_toolPath"
@@ -33,6 +34,7 @@ ESDE_installPreRel(){
     curl $ESDE_prereleaseURL --output "$toolsPath/latesturl.txt"
     local latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
 
+	echo "downloading $latestURL"
 	if [[ $latestURL != "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then 
 		curl "$latestURL" --output "$ESDE_toolPath"
 		rm "$toolsPath/latesturl.txt"
