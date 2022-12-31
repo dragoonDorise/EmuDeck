@@ -4,7 +4,7 @@ ESDE_toolName="EmulationStation-DE"
 ESDE_toolType="AppImage"
 ESDE_toolPath="${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
 ESDE_releaseURL="https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt"
-ESDE_prereleaseURL="https://gitlab.com/es-de/emulationstation-de/-/blob/master/es-app/assets/latest_steam_deck_prerelease_appimage.txt"
+ESDE_prereleaseURL="https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_prerelease_appimage.txt"
 
 es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
 es_settingsFile="$HOME/.emulationstation/es_settings.xml"
