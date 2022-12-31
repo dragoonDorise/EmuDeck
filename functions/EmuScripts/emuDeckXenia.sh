@@ -29,9 +29,9 @@ Xenia_install(){
 	#need to look at standardizing exe name; or download both?  let the user choose at runtime?
 	curl -L "$Xenia_releaseURL" --output "$romsPath"/xbox360/xenia.zip 
 	mkdir -p "$romsPath"/xbox360/tmp
-	unzip -o "$romsPath"/xbox360/xenia.zip -d "$romsPath"/xbox360/tmp 
-	mv "$romsPath"/xbox360/tmp/ "$romsPath"/xbox360 
-	rm -rf "$romsPath"/xbox360/tmp 
+	unzip -o "$romsPath"/xbox360/xenia.zip -d "$romsPath"/xbox360/tmp
+	rsync -avzh "$romsPath"/xbox360/tmp/ "$romsPath"/xbox360/
+	rm -rf "$romsPath"/xbox360/tmp
 	rm -f "$romsPath"/xbox360/xenia.zip 		
 }
 
