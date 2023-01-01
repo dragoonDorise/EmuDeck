@@ -16,7 +16,8 @@ if [ $ans -eq 0 ]; then
 	romsPath="/run/media/mmcblk0p1/Emulation/roms"
 	toolsPath="/run/media/mmcblk0p1/Emulation/tools"
 	chdPath="${toolsPath}/chdconv/"
-	alias dolphin-tool='flatpak run --command=dolphin-tool org.DolphinEmu.dolphin-emu'
+	flatpaktool=$(flatpak list --columns=application | grep -E dolphin\|primehack |head -1)
+	alias dolphin-tool='flatpak run --command=dolphin-tool $flatpaktool'
 
 	#initialize log
 	TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
@@ -44,7 +45,7 @@ if [ $ans -eq 0 ]; then
 			searchFolderList+=("$romfolder")
 		fi
 	done
-	if [[ -f "$dolphinTool" ]]; then #ensure tools are in place
+	if [[ -n "$flatpaktool" ]]; then #ensure tools are in place
 		for romfolder in "${rvzfolderWhiteList[@]}"; do
 			echo "Checking ${romsPath}/${romfolder}/"
 			mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.gcm" -o -type f -iname "*.iso")
