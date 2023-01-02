@@ -2232,7 +2232,7 @@
     "configTitle": "Sega CD/Mega CD - Retroarch - Genesis Plus GX",
     "steamCategory": "${Sega CD}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "${romsdirglobal}/segacd",
+    "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -2257,7 +2257,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.iso|.ISO|.cue|.CUE|.chd|.CHD|.zip|.ZIP)"
+      "glob": "(segacd|megacd)/**/${title}@(.7z|.7Z|.iso|.ISO|.cue|.CUE|.chd|.CHD|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2419,7 +2419,7 @@
     "steamCategory": "${Genesis/Mega Drive}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "${romsdirglobal}/genesis",
+    "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
@@ -2448,7 +2448,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.bin|.BIN|.gen|.GEN|.md|.MD|.smd|.SMD|.zip|.ZIP)"
+      "glob": "{genesis/**/!(homebrew),genesis,megadrive/**}/${title}@(.7z|.7Z|.bin|.BIN|.gen|.GEN|.md|.MD|.smd|.SMD|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -3407,7 +3407,7 @@
     "configTitle": "PC Engine/TurboGrafx 16 - RA - Beetle PCE",
     "steamCategory": "${PCE}",
     "steamDirectory": "${steamdirglobal}",
-    "romDirectory": "${romsdirglobal}/pcengine",
+    "romDirectory": "${romsdirglobal}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_pce_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -3436,7 +3436,7 @@
       "appendArgsToExecutable": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.bin|.BIN|.pce|.PCE|.zip|.ZIP)"
+      "glob": "(pcengine|tg16)**/${title}@(.7z|.7Z|.bin|.BIN|.pce|.PCE|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -3468,7 +3468,7 @@
     "configTitle": "PCE/TurboGrafx 16 CD - RA - Beetle PCE",
     "steamCategory": "${PCECD}",
     "steamDirectory": "${steamdirglobal}",
-    "romDirectory": "${romsdirglobal}/pcenginecd",
+    "romDirectory": "${romsdirglobal}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_pce_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -3497,7 +3497,7 @@
       "appendArgsToExecutable": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.ccd|.CCD|.chd|.CHD|.cue|.CUE|.iso|.ISO|.zip|.ZIP)"
+      "glob": "(pcenginecd|tg-cd)/**/${title}@(.7z|.7Z|.ccd|.CCD|.chd|.CHD|.cue|.CUE|.iso|.ISO|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
