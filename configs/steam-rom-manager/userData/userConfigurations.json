@@ -2257,7 +2257,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "(segacd|megacd)/**/${title}@(.7z|.7Z|.iso|.ISO|.cue|.CUE|.chd|.CHD|.zip|.ZIP)"
+      "glob": "@(segacd|megacd)/**/${title}@(.7z|.7Z|.iso|.ISO|.cue|.CUE|.chd|.CHD|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -3436,7 +3436,7 @@
       "appendArgsToExecutable": true
     },
     "parserInputs": {
-      "glob": "(pcengine|tg16)**/${title}@(.7z|.7Z|.bin|.BIN|.pce|.PCE|.zip|.ZIP)"
+      "glob": "@(pcengine|tg16)**/${title}@(.7z|.7Z|.bin|.BIN|.pce|.PCE|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -3497,7 +3497,7 @@
       "appendArgsToExecutable": true
     },
     "parserInputs": {
-      "glob": "(pcenginecd|tg-cd)/**/${title}@(.7z|.7Z|.ccd|.CCD|.chd|.CHD|.cue|.CUE|.iso|.ISO|.zip|.ZIP)"
+      "glob": "@(pcenginecd|tg-cd)/**/${title}@(.7z|.7Z|.ccd|.CCD|.chd|.CHD|.cue|.CUE|.iso|.ISO|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
