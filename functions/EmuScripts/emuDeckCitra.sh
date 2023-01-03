@@ -61,7 +61,24 @@ Citra_setupSaves(){
 
 #SetupStorage
 Citra_setupStorage(){
-    echo "NYI"
+
+	if [ ! -f "$storagePath/citra/nand" ] && [ -d "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/nand/" ]; then 
+
+		echo "citra nand does not exist in storagepath."
+		echo -e ""
+		setMSG "Moving Citra nand to the Emulation/storage folder"			
+		echo -e ""
+
+		mv "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/nand/" $storagePath/citra/nand/
+		mv "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/sdmc/" $storagePath/citra/sdmc/	
+	
+		unlink "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/nand/"
+		unlink "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/sdmc/" 
+	
+		ln -ns "${storagePath}/citra/nand/" "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/nand/"
+		ln -ns "${storagePath}/citra/sdmc/" "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/sdmc/"
+	fi
+
 }
 
 
@@ -85,7 +102,7 @@ Citra_setABXYstyle(){
 
 #Migrate
 Citra_migrate(){
-    	echo "NYI"
+echo "NYI"
 }
 
 #WideScreenOn

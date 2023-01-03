@@ -49,7 +49,7 @@ updateCemu() {
         "${releaseTable[@]}" 2>/dev/null
     )
 
-    curl -L "$releaseChoice" --output "$romsPath/wiiu/cemu.zip"
+    curl -L "$releaseChoice" --output "$romsPath/wiiu/cemu.zip" 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null
 
     mkdir -p "$romsPath/wiiu/tmp"
     unzip -o "$romsPath/wiiu/cemu.zip" -d "$romsPath/wiiu/tmp"
@@ -104,7 +104,7 @@ if [ $ans -eq 0 ]; then
     let pct=$(expr 100 / $(awk -F'|' '{print NF}' <<<"$binsToDL"))
     echo $pct
     let progresspct=0
-    (
+
 
         echo "User selected: $binsToDL"
         if [[ "$binsToDL" == *"esde"* ]]; then
@@ -161,7 +161,7 @@ if [ $ans -eq 0 ]; then
             let progresspct+=$pct
             echo "$progresspct"
             echo "# Updating cemu"
-            if updateCemu 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+            if updateCemu; then
                 messages+=("Cemu Updated Successfully")
             else
                 messages+=("There was a problem updating Cemu")
@@ -206,12 +206,7 @@ if [ $ans -eq 0 ]; then
             echo "$progresspct"
             echo "# Complete!"
         fi
-    ) |
-        zenity --progress \
-    --title="Update Emudeck Tools and Emuluators" \
-    --text="Beginning..." \
-    --percentage=0 \
-    --width=600 2>/dev/null
+
 
     if [ "$?" = -1 ]; then
         zenity --error \

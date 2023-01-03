@@ -1,16 +1,24 @@
-#!/usr/bin/bash
+#!/bin/sh
+emuName="Ryujinx" #parameterize me
+emufolder="$HOME/Applications/publish" # has to be applications for ES-DE to find it
 
-# shellcheck disable=SC1091
-. "${HOME}/emudeck/settings.sh"
+#find full path to emu executable
+exe=$(find $emufolder -iname "${emuName}" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
 
-# shellcheck disable=SC2154
-LAUNCH="${toolsPath}/emu-launch.sh"
-
-# Set emulator name
-EMU="Ryujinx"
-
-# Ryujinx needs a specific path
-EMUPATH="${HOME}/Applications/publish/Ryujinx"
-
-# Launch emu-launch.sh
-"${LAUNCH}" -e "${EMU}" -p "${EMUPATH}" -- "${@}"
+#if appimage doesn't exist fall back to flatpak.
+if [[ $exe == '' ]]; then
+    #flatpak
+    flatpakApp=$(flatpak list --app --columns=application | grep $emuName)
+    exe="/usr/bin/flatpak run "$flatpakApp
+else
+#make sure that file is executable
+    chmod +x $exe
+fi
+#run the executable with the params.
+#Fix first '
+param="${@}"
+substituteWith='"'
+param=${param/\'/"$substituteWith"}
+#Fix last ' on command
+param=$(echo "$param" | sed 's/.$/"/')
+eval "${exe} ${param}"

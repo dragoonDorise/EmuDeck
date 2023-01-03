@@ -1,13 +1,24 @@
-#!/usr/bin/bash
+#!/bin/sh
+emuName="pcsx2-Qt" #parameterize me
+emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
 
-# shellcheck disable=SC1091
-. "${HOME}/emudeck/settings.sh"
+#find full path to emu executable
+exe=$(find $emufolder -iname "${emuName}*.AppImage" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
 
-# shellcheck disable=SC2154
-LAUNCH="${toolsPath}/emu-launch.sh"
-
-# Set emulator name
-EMU="pcsx2-Qt"
-
-# Launch emu-launch.sh
-"${LAUNCH}" -e "${EMU}" -- "${@}"
+#if appimage doesn't exist fall back to flatpak.
+if [[ $exe == '' ]]; then
+    #flatpak
+    flatpakApp=$(flatpak list --app --columns=application | grep $emuName)
+    exe="/usr/bin/flatpak run "$flatpakApp
+else
+#make sure that file is executable
+    chmod +x $exe
+fi
+#run the executable with the params.
+#Fix first '
+param="${@}"
+substituteWith='"'
+param=${param/\'/"$substituteWith"}
+#Fix last ' on command
+param=$(echo "$param" | sed 's/.$/"/')
+eval "${exe} ${param} -bigpicture -fullscreen"

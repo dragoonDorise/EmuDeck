@@ -16,7 +16,8 @@ if [ $ans -eq 0 ]; then
 	romsPath="/run/media/mmcblk0p1/Emulation/roms"
 	toolsPath="/run/media/mmcblk0p1/Emulation/tools"
 	chdPath="${toolsPath}/chdconv/"
-	alias dolphin-tool='flatpak run --command=dolphin-tool org.DolphinEmu.dolphin-emu'
+	flatpaktool=$(flatpak list --columns=application | grep -E dolphin\|primehack |head -1)
+	alias dolphin-tool='flatpak run --command=dolphin-tool $flatpaktool'
 
 	#initialize log
 	TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
@@ -30,6 +31,7 @@ if [ $ans -eq 0 ]; then
 	#whitelist
 	declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
 	declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
+	declare -a csofolderWhiteList=("psp")
 	declare -a searchFolderList
 
 	export PATH="${chdPath}/:$PATH"
@@ -43,7 +45,7 @@ if [ $ans -eq 0 ]; then
 			searchFolderList+=("$romfolder")
 		fi
 	done
-	if [[ -f "$dolphinTool" ]]; then #ensure tools are in place
+	if [[ -n "$flatpaktool" ]]; then #ensure tools are in place
 		for romfolder in "${rvzfolderWhiteList[@]}"; do
 			echo "Checking ${romsPath}/${romfolder}/"
 			mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.gcm" -o -type f -iname "*.iso")
@@ -53,6 +55,14 @@ if [ $ans -eq 0 ]; then
 			fi
 		done
 	fi
+	for romfolder in "${csofolderWhiteList[@]}"; do
+		echo "Checking ${romsPath}/${romfolder}/"
+		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.iso")
+		if [ ${#files[@]} -gt 0 ]; then
+			echo "found in $romfolder"
+			searchFolderList+=("$romfolder")
+		fi
+	done
 
 	if ((${#searchFolderList[@]} == 0)); then
 		echo "No eligible files found."
@@ -161,7 +171,15 @@ if [ $ans -eq 0 ]; then
 	done
 
 	#cso
-	#
+	
+	for romfolder in "${romfolders[@]}"; do
+		if [[ " ${csofolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
+				echo "Converting: $f"
+				ciso 9 "$f" "${f%.*}.cso" >"$HOME/.config/EmuDeck/chdtool.log" && rm -rf "$f"
+			done
+		fi
+	done
 
 else
 	exit
