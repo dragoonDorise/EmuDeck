@@ -4082,5 +4082,70 @@
     "parserId": "167174183584229566",
     "version": 10,
     "disabled": false
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "Nintendo 64 - RMG",
+    "steamCategory": "${N64}",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}",
+    "executableArgs": "run com.github.Rosalie241.RMG --fullscreen \"${filePath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "imageProviders": [
+        "SteamGridDB"
+    ],
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "userAccounts": {
+        "specifiedAccounts": "",
+        "skipWithMissingDataDir": true,
+        "useCredentials": true
+    },
+    "executable": {
+        "path": "/usr/bin/flatpak",
+        "shortcutPassthrough": false,
+        "appendArgsToExecutable": true
+    },
+    "parserInputs": {
+      "glob": "@(n64|n64dd)/**/${title}@(.7z|.7Z|.bin|.BIN|.n64|.N64|.ndd|.NDD|.u1|.U1|.v64|.V64|.z64|.Z64|.zip|.ZIP)"
+  },
+    "titleFromVariable": {
+        "limitToGroups": "",
+        "caseInsensitiveVariables": false,
+        "skipFileIfVariableWasNotFound": false,
+        "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+        "replaceDiacritics": true,
+        "removeCharacters": true,
+        "removeBrackets": true
+    },
+    "imageProviderAPIs": {
+        "SteamGridDB": {
+            "nsfw": false,
+            "humor": false,
+            "styles": [],
+            "stylesHero": [],
+            "stylesLogo": [],
+            "stylesIcon": [],
+            "imageMotionTypes": [
+                "static"
+            ]
+        }
+    },
+    "parserId": "167184642099963041",
+    "version": 10 
   }
 ]
