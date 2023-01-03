@@ -2,7 +2,7 @@
 #variables
 Xenia_emuName="Xenia"
 Xenia_emuType="windows"
-Xenia_emuPath="${romsPath}/xbox360/Xenia.exe"
+Xenia_emuPath="${romsPath}/xbox360/xenia_canary.exe"
 Xenia_releaseURL_master="https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip"
 Xenia_releaseURL_canary="https://github.com/xenia-canary/xenia-canary/releases/latest/download/xenia_canary.zip"
 Xenia_XeniaSettings="${romsPath}/xbox360/settings.xml"
@@ -29,10 +29,25 @@ Xenia_install(){
 	#need to look at standardizing exe name; or download both?  let the user choose at runtime?
 	curl -L "$Xenia_releaseURL" --output "$romsPath"/xbox360/xenia.zip 
 	mkdir -p "$romsPath"/xbox360/tmp
-	unzip -o "$romsPath"/xbox360/xenia.zip -d "$romsPath"/xbox360/tmp 
-	mv "$romsPath"/xbox360/tmp/ "$romsPath"/xbox360 
-	rm -rf "$romsPath"/xbox360/tmp 
-	rm -f "$romsPath"/xbox360/xenia.zip 		
+	unzip -o "$romsPath"/xbox360/xenia.zip -d "$romsPath"/xbox360/tmp
+	rsync -avzh "$romsPath"/xbox360/tmp/ "$romsPath"/xbox360/
+	rm -rf "$romsPath"/xbox360/tmp
+	rm -f "$romsPath"/xbox360/xenia.zip 	
+
+	cp "$EMUDECKGIT/tools/launchers/xenia.sh" "${toolsPath}/launchers/xenia.sh"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/xenia.sh"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/xenia.sh"
+
+#	if [[ "$launchLine"  == *"PROTONLAUNCH"* ]]; then
+#		changeLine '"${PROTONLAUNCH}"' "$launchLine" "${toolsPath}/launchers/xenia.sh"
+#	fi
+	chmod +x "${toolsPath}/launchers/xenia.sh"
+	
+
+	createDesktopShortcut   "$HOME/.local/share/applications/xenia.desktop" \
+							"xenia EmuDeck" \
+							"${toolsPath}/launchers/xenia.sh" \
+							"False"
 }
 
 #ApplyInitialSettings
@@ -109,3 +124,10 @@ Xenia_finalize(){
     Xenia_cleanup
 }
 
+Xenia_IsInstalled(){
+	if [ -e "$Xenia_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}

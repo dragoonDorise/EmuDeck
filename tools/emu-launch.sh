@@ -13,7 +13,7 @@ getAppImage () {
     # Check if APPIMAGE is unset or empty, and that the file exists
     if [ -z ${APPIMAGE+x} ] || [ ! -f "${APPIMAGE}" ]; then
         echo "Error: AppImage not found." >> "${LOGFILE}"
-        reportError "Error: AppImage not found." "true" "true"
+        return 1
     elif [ -f "${APPIMAGE}" ]; then
         EMUPATH="${APPIMAGE}"
     fi
@@ -26,7 +26,7 @@ getFlatpak () {
     FLATPAK="$( flatpak list --app --columns=application | grep -i "${EMUNAME}" )"
     if [ -z "${FLATPAK}" ]; then
         echo "Error: Flatpak not found." >> "${LOGFILE}"
-        reportError "Error: Flatpak not found." "true" "true"
+        return 1
     else
         EMUPATH=("/usr/bin/flatpak" "run" "${FLATPAK}")
     fi
