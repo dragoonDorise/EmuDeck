@@ -250,6 +250,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupPCSX2QT=true")
 	defaultSettingsList+=("doSetupScummVM=true")
 	defaultSettingsList+=("doSetupVita3K=true")
+	defaultSettingsList+=("doSetupRMG=true")
 	#defaultSettingsList+=("doSetupMelon=true")
 	defaultSettingsList+=("doInstallSRM=true")
 	defaultSettingsList+=("doInstallESDE=true")

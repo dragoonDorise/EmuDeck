@@ -273,6 +273,10 @@ if [ $doInstallRA == "true" ]; then
 	echo "RetroArch_install"
 	RetroArch_install	
 fi
+if [ $doInstallRMG == "true" ]; then
+	echo "RMG_install"
+	RMG_install	
+fi
 if [ $doInstallPPSSPP == "true" ]; then
 	echo "PPSSPP_install"
 	PPSSPP_install	
