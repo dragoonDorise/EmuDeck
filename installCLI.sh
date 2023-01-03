@@ -398,7 +398,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 		if [[ $doSelectEmulators == "true" ]]; then
 			
 			emuTable=()
-			emuTable+=(TRUE "GameBoy Advance" "mGBA")
+			emuTable+=(TRUE "GameBoy / Color / Advance" "mGBA")
 			emuTable+=(TRUE "Multiple" "RetroArch")
 			emuTable+=(TRUE "Metroid Prime" "PrimeHack")
 			emuTable+=(TRUE "PS2" "PCSX2")

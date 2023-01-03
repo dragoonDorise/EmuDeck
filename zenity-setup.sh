@@ -324,7 +324,7 @@ if [ "$expert" == "true" ]; then
 		emuTable+=(TRUE "XBox" "Xemu")
 		#if we are in beta / dev install, allow Xenia. Still false by default though. Will only work on expert mode, and explicitly turned on.
 		if [[ $branch == "beta" || $branch == "dev" ]]; then
-			emuTable+=(FALSE "GameBoy Advance" "mGBA")
+			emuTable+=(FALSE "GameBoy / Color / Advance" "mGBA")
 			emuTable+=(FALSE "Xbox360" "Xenia")
 		fi
 		
