@@ -118,6 +118,6 @@ mGBA_finalize(){
 
 mGBA_addSteamInputProfile(){
 	echo "NYI"
-	# setMSG "Adding $mGBA_emuName Steam Input Profile."
-	# rsync -r "$EMUDECKGIT/configs/steam-input/mGBA_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	setMSG "Adding $mGBA_emuName Steam Input Profile."
+	rsync -r "$EMUDECKGIT/configs/steam-input/mGBA_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
