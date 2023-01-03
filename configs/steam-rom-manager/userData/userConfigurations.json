@@ -1425,7 +1425,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo GameBoy - mGBA",
-    "steamCategory": "${GameBoy Advance}",
+    "steamCategory": "${GameBoy}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/gb",
     "steamDirectory": "${steamdirglobal}",
@@ -1549,7 +1549,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo GameBoy Color - mGBA",
-    "steamCategory": "${GameBoy Advance}",
+    "steamCategory": "${GameBoy Color}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/gbc",
     "steamDirectory": "${steamdirglobal}",
