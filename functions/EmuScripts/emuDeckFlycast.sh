@@ -42,29 +42,17 @@ Flycast_update(){
 #ConfigurePaths
 Flycast_setEmulationFolder(){
 	setMSG "Setting $Flycast_emuName Emulation Folder"	
-    gameDirOpt='RecursivePaths = '
-    newGameDirOpt="${gameDirOpt}""${romsPath}/dreamcast"
-	biosDir='SearchDirectory = '
-	biosDirSetting="${biosDir}""${biosPath}"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Flycast_configFile"
-    sed -i "/${biosDir}/c\\${biosDirSetting}" "$Flycast_configFile"
 
-	statesDir='SaveStates = '
-	statesDirSetting="${statesDir}""${savesPath}/Flycast/states"
-	memCardDir='Directory = '
-	memCardDirSetting="${memCardDir}""${savesPath}/Flycast/saves"
-
-	changeLine "$gameDirOpt" "$newGameDirOpt" "$Flycast_configFileNew"
-	changeLine "$biosDir" "$biosDirSetting" "$Flycast_configFileNew"
-	changeLine "$statesDir" "$statesDirSetting" "$Flycast_configFileNew"
-	changeLine "$memCardDir" "$memCardDirSetting" "$Flycast_configFileNew"
-
+	#Setup symlink for bios
+	mkdir -p "${biosPath}/flycast/"
+	mkdir -p "$HOME/.var/app/org.flycast.Flycast/data/flycast/"
+    ln -sn "$HOME/.var/app/org.flycast.Flycast/data/flycast/" "${biosPath}/flycast/bios"
 }
 
 #SetupSaves
 Flycast_setupSaves(){
-    linkToSaveFolder citra saves "$HOME/.var/app/org.flycast.Flycast/data/flycast/"
-	linkToSaveFolder citra states "$HOME/.var/app/org.flycast.Flycast/config/data/flycast/"
+    linkToSaveFolder flycast saves "$HOME/.var/app/org.flycast.Flycast/data/flycast/"
+	linkToSaveFolder flycast states "$HOME/.var/app/org.flycast.Flycast/config/data/flycast/"
 }
 
 
@@ -101,29 +89,24 @@ Flycast_migrate(){
 Flycast_wideScreenOn(){
 	setMSG "${Flycast_emuName}: Widescreen On"
     echo ""
-    wideScreenHack='WidescreenHack = '
-    wideScreenHackSetting='WidescreenHack = true'
-    aspectRatio='AspectRatio = '
-    aspectRatioSetting='AspectRatio = 16:9'
+    wideScreenHack='rend.WidescreenGameHacks = '
+    wideScreenHackSetting='rend.WidescreenGameHacks = yes'
+    aspectRatio='rend.WideScreen = '
+    aspectRatioSetting='rend.WideScreen = yes'
     sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$Flycast_configFile"
 	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$Flycast_configFile"
-	sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$Flycast_configFileNew"
-	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$Flycast_configFileNew"
 }
 
 #WideScreenOff
 Flycast_wideScreenOff(){
 	setMSG "${Flycast_emuName}: Widescreen Off"
     echo ""
-    wideScreenHack='WidescreenHack = '
-    wideScreenHackSetting='WidescreenHack = false'
-    aspectRatio='AspectRatio = '
-    aspectRatioSetting='AspectRatio = 4:3'
+    wideScreenHack='rend.WidescreenGameHacks = '
+    wideScreenHackSetting='rend.WidescreenGameHacks = no'
+    aspectRatio='rend.WideScreen = '
+    aspectRatioSetting='rend.WideScreen = no'
     sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$Flycast_configFile"
 	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$Flycast_configFile"
-	sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$Flycast_configFileNew"
-	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$Flycast_configFileNew"
-	
 }
 
 #BezelOn
@@ -154,6 +137,7 @@ Flycast_resetConfig(){
 }
 
 Flycast_addSteamInputProfile(){
-	setMSG "Adding $Flycast_emuName Steam Input Profile."
-	rsync -r "$EMUDECKGIT/configs/steam-input/Flycast_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	echo "NYI"
+	# setMSG "Adding $Flycast_emuName Steam Input Profile."
+	# rsync -r "$EMUDECKGIT/configs/steam-input/Flycast_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
