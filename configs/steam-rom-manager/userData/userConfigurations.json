@@ -4022,7 +4022,7 @@
     "configTitle": "Nintendo 64 - RMG",
     "steamCategory": "${N64}",
     "steamDirectory": "${steamdirglobal}",
-    "romDirectory": "${romsdirglobal}/n64",
+    "romDirectory": "${romsdirglobal}",
     "executableArgs": "run com.github.Rosalie241.RMG --fullscreen \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -4053,8 +4053,8 @@
         "appendArgsToExecutable": true
     },
     "parserInputs": {
-        "glob": "**/${title}@(.7z|.7Z|.bin|.BIN|.n64|.N64|.ndd|.NDD|.u1|.U1|.v64|.V64|.z64|.Z64|.zip|.ZIP)"
-    },
+      "glob": "@(n64|n64dd)/**/${title}@(.7z|.7Z|.bin|.BIN|.n64|.N64|.ndd|.NDD|.u1|.U1|.v64|.V64|.z64|.Z64|.zip|.ZIP)"
+  },
     "titleFromVariable": {
         "limitToGroups": "",
         "caseInsensitiveVariables": false,
