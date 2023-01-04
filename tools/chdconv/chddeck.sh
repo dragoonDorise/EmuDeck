@@ -17,7 +17,7 @@ if [ $ans -eq 0 ]; then
 	toolsPath="/run/media/mmcblk0p1/Emulation/tools"
 	chdPath="${toolsPath}/chdconv/"
 	flatpaktool=$(flatpak list --columns=application | grep -E dolphin\|primehack |head -1)
-	alias dolphin-tool='flatpak run --command=dolphin-tool $flatpaktool'
+	dolphintool='flatpak run --command=dolphin-tool $flatpaktool'
 
 #initialize log
 	TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
