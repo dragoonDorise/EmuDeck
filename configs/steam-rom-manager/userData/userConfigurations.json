@@ -3095,9 +3095,9 @@
     }
   },
   {
-    "parserType": "Glob",
-    "configTitle": "Sony PlayStation 3 - RPCS3(Flatpak) (Installed PKG)",
-    "steamCategory": "${PS3}",
+    "parserType": "Glob-regex",
+    "configTitle": "Sony PlayStation 3 - RPCS3 (Installed PKG)",
+    "steamCategory": "${PlayStation 3}",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/storage/rpcs3/dev_hdd0/game",
     "executableArgs": "run net.rpcs3.RPCS3 --no-gui \"${filePath}\"",
@@ -3128,7 +3128,7 @@
       "appendArgsToExecutable": true
     },
     "parserInputs": {
-      "glob": "**/${title}/USRDIR/@(eboot.bin|EBOOT.BIN)"
+      "glob": "${/(^[NP].+)/}/USRDIR/@(eboot.bin|EBOOT.BIN)"
     },
     "titleFromVariable": {
       "limitToGroups": "${PS3}",
