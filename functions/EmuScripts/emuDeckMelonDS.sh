@@ -25,7 +25,6 @@ MelonDS_init(){
 	MelonDS_setupStorage
 	MelonDS_setEmulationFolder
 	MelonDS_setupSaves
-	MelonDS_addSteamInputProfile
 }
 
 #update
@@ -35,50 +34,58 @@ MelonDS_update(){
 	MelonDS_setupStorage
 	MelonDS_setEmulationFolder
 	MelonDS_setupSaves
-	MelonDS_addSteamInputProfile
 }
 
 #ConfigurePaths
 MelonDS_setEmulationFolder(){
 	setMSG "Setting $MelonDS_emuName Emulation Folder"	
 
-    gameDirOpt='Paths\\gamedirs\\3\\path='
-    newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/3ds"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$MelonDS_configFile"
+	BIOS9PathSetting='BIOS9Path='
+	BIOS7PathSetting='BIOS7Path='
+	FirmwarePathSetting='FirmwarePath='
+	DSiBIOS9PathSetting='DSiBIOS9Path='
+	DSiBIOS7PathSetting='DSiBIOS7Path='
+	DSiFirmwarePathSetting='DSiFirmwarePath='
+	DSiNANDPathSetting='DSiNANDPath='
+	LastROMFolderSetting='LastROMFolder='
 
-	#Setup symlink for AES keys
-	mkdir -p "${biosPath}/MelonDS/"
-	mkdir -p "$HOME/.var/app/org.MelonDS_emu.MelonDS/data/MelonDS-emu/sysdata"
-    ln -sn "$HOME/.var/app/org.MelonDS_emu.MelonDS/data/MelonDS-emu/sysdata" "${biosPath}/MelonDS/keys"
+	changeLine "$BIOS9PathSetting" "${BIOS9PathSetting}${biosPath}/bios9.bin" "${MelonDS_configFile}"
+	changeLine "$BIOS7PathSetting" "${BIOS7PathSetting}${biosPath}/bios7.bin" "${MelonDS_configFile}"
+	changeLine "$FirmwarePathSetting" "${FirmwarePathSetting}${biosPath}/firmware.bin" "${MelonDS_configFile}"
+	changeLine "$DSiBIOS9PathSetting" "${DSiBIOS9PathSetting}${biosPath}/dsi_bios9.bin" "${MelonDS_configFile}"
+	changeLine "$DSiBIOS7PathSetting" "${DSiBIOS7PathSetting}${biosPath}/dsi_bios7.bin" "${MelonDS_configFile}"
+	changeLine "$DSiFirmwarePathSetting" "${DSiFirmwarePathSetting}${biosPath}/dsi_firmware.bin" "${MelonDS_configFile}"
+	changeLine "$DSiNANDPathSetting" "${DSiNANDPathSetting}${biosPath}/dsi_nand.bin" "${MelonDS_configFile}"
+	changeLine "$LastROMFolderSetting" "${LastROMFolderSetting}${romsPath}/ds" "${MelonDS_configFile}"
+
 }
 
 #SetupSaves
 MelonDS_setupSaves(){
-	linkToSaveFolder MelonDS saves "$HOME/.var/app/org.MelonDS_emu.MelonDS/data/MelonDS-emu/sdmc"
-	linkToSaveFolder MelonDS states "$HOME/.var/app/org.MelonDS_emu.MelonDS/data/MelonDS-emu/states"
+	setMSG "Setting $MelonDS_emuName Saves Folder"	
+
+	mkdir -p "${savesPath}/melonds/saves"
+	mkdir -p "${savesPath}/melonds/states"
+	
+	SaveFilePathSetting='SaveFilePath='
+	SavestatePathSetting='SavestatePath='
+
+	changeLine "$SaveFilePathSetting" "${SaveFilePathSetting}${savesPath}/melonds/saves" "${MelonDS_configFile}"
+	changeLine "$SavestatePathSetting" "${SavestatePathSetting}${savesPath}/melonds/states" "${MelonDS_configFile}"
+	
 }
 
 
 #SetupStorage
 MelonDS_setupStorage(){
+	setMSG "Setting $MelonDS_emuName Storage Folder"	
 
-	if [ ! -f "$storagePath/MelonDS/nand" ] && [ -d "$HOME/.var/app/org.ctira_emu.MelonDS/data/MelonDS-emu/nand/" ]; then 
+	mkdir -p "$storagePath/melonDS/cheats"
 
-		echo "MelonDS nand does not exist in storagepath."
-		echo -e ""
-		setMSG "Moving MelonDS nand to the Emulation/storage folder"			
-		echo -e ""
+	CheatFilePathSetting='CheatFilePath='
 
-		mv "$HOME/.var/app/org.ctira_emu.MelonDS/data/MelonDS-emu/nand/" $storagePath/MelonDS/nand/
-		mv "$HOME/.var/app/org.ctira_emu.MelonDS/data/MelonDS-emu/sdmc/" $storagePath/MelonDS/sdmc/	
+	changeLine "$CheatFilePathSetting" "${CheatFilePathSetting}${storagePath}/melonds/cheats" "${MelonDS_configFile}"
 	
-		unlink "$HOME/.var/app/org.ctira_emu.MelonDS/data/MelonDS-emu/nand/"
-		unlink "$HOME/.var/app/org.ctira_emu.MelonDS/data/MelonDS-emu/sdmc/" 
-	
-		ln -ns "${storagePath}/MelonDS/nand/" "$HOME/.var/app/org.ctira_emu.MelonDS/data/MelonDS-emu/nand/"
-		ln -ns "${storagePath}/MelonDS/sdmc/" "$HOME/.var/app/org.ctira_emu.MelonDS/data/MelonDS-emu/sdmc/"
-	fi
-
 }
 
 
@@ -122,7 +129,7 @@ echo "NYI"
 
 #BezelOff
 MelonDS_bezelOff(){
-echo "NYI"
+decho "NYI"
 }
 
 #finalExec - Extra stuff
@@ -143,5 +150,5 @@ MelonDS_resetConfig(){
 }
 
 MelonDS_addSteamInputProfile(){
-	rsync -r "$EMUDECKGIT/configs/steam-input/MelonDS_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	echo "nyi"
 }
