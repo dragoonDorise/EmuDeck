@@ -4,7 +4,7 @@ MelonDS_emuName="MelonDS"
 MelonDS_emuType="FlatPak"
 MelonDS_emuPath="net.kuribo64.melonDS"
 MelonDS_releaseURL=""
-MelonDS_configFile="$HOME/.var/app/net.kuribo64.melonDS/config/MelonDS/melonDS.ini"
+MelonDS_configFile="$HOME/.var/app/net.kuribo64.melonDS/config/melonDS/melonDS.ini"
 
 #cleanupOlderThings
 MelonDS_finalize(){
@@ -56,7 +56,7 @@ MelonDS_setEmulationFolder(){
 	changeLine "$DSiBIOS7PathSetting" "${DSiBIOS7PathSetting}${biosPath}/dsi_bios7.bin" "${MelonDS_configFile}"
 	changeLine "$DSiFirmwarePathSetting" "${DSiFirmwarePathSetting}${biosPath}/dsi_firmware.bin" "${MelonDS_configFile}"
 	changeLine "$DSiNANDPathSetting" "${DSiNANDPathSetting}${biosPath}/dsi_nand.bin" "${MelonDS_configFile}"
-	changeLine "$LastROMFolderSetting" "${LastROMFolderSetting}${romsPath}/ds" "${MelonDS_configFile}"
+	changeLine "$LastROMFolderSetting" "${LastROMFolderSetting}${romsPath}/nds" "${MelonDS_configFile}"
 
 }
 
