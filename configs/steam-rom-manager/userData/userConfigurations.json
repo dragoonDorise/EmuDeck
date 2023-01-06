@@ -2977,7 +2977,7 @@
     "steamCategory": "${Playstation 2}",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "${romsdirglobal}/ps2",
-    "executableArgs": "-batch -fullscreen -bigpicture \"'${filePath}'\"",
+    "executableArgs": "-batch -fullscreen \"'${filePath}'\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
