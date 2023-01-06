@@ -1600,7 +1600,7 @@ RetroArch_bsnes_hd_beta_setUpCoreOpt(){
 }
 
 RetroArch_dos_box_setUpCoreOpt(){
-	RetroArch_setOverride 'DOSBox-pure.opt' 'DOSBox Pure'  'dosbox_pure_conf' '"inside"'
+	RetroArch_setOverride 'DOSBox-pure.opt' 'DOSBox-pure'  'dosbox_pure_conf' '"inside"'
 }
 
 RetroArch_setUpCoreOptAll(){
