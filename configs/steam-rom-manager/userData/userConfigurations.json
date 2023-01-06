@@ -4089,7 +4089,7 @@
     "steamCategory": "${Nintendo 64 - RMG}",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "${romsdirglobal}",
-    "executableArgs": "run com.github.Rosalie241.RMG --fullscreen \"${filePath}\"",
+    "executableArgs": "run com.github.Rosalie241.RMG --fullscreen --quit-after-emulation \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
