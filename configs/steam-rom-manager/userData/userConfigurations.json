@@ -2794,7 +2794,7 @@
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "executableArgs": "run org.duckstation.DuckStation -batch -fullscreen -bigpicture \"${filePath}\"",
+    "executableArgs": "run org.duckstation.DuckStation -batch -fullscreen \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
