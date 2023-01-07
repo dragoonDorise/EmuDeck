@@ -9,6 +9,7 @@ doUninstallRyujinx=true
 doUninstallCitra=true
 doUninstallDuck=true
 doUninstallCemu=true
+doUninstallCemuNative=true
 doUninstallXemu=true
 doUninstallXenia=true
 doUninstallPrimeHacks=true
@@ -87,8 +88,9 @@ if [ "$doUninstall" == true ]; then
 				10 "Ryujinx" \
 				11 "Xemu" \
 				12 "Cemu" \
-				12 "Mame" \
-				13 "RMG"  )
+				13 "Cemu Native" \
+				14 "Mame" )
+				15 "RMG"  )
 	ans=$?	
 	if [ $ans -eq 0 ]; then
 		
@@ -124,6 +126,9 @@ if [ "$doUninstall" == true ]; then
 		fi
 		if [[ "$emusToUninstall" == *"Cemu"* ]]; then
 			doUninstallCemu=false
+		fi
+		if [[ "${emusToUninstall}" == *"Cemu Native"* ]]; then
+			doUninstallCemuNative="false"
 		fi
 		#if [[ "$emusToUninstall" == *"Xenia"* ]]; then
 		#	doUninstallXenia=false
@@ -192,7 +197,10 @@ if [ "$doUninstall" == true ]; then
 		rm -f ~/Emulation/roms/wiiu/* &>> /dev/null
 		rm -f /run/media/mmcblk0p1/Emulation/roms/wiiu/* &>> /dev/null
 	fi
-
+	if [[ "${doUninstallCemuNative}" == "true" ]]; then
+		rm -rf ~/Applications/Cemu*.AppImage &>> /dev/null
+		rm -rf ~/.config/cemu &>> /dev/null
+	fi
 	if [[ "$doUninstallXemu" == true ]]; then
 		flatpak uninstall app.xemu.xemu --system -y
 		rm -rf ~/.var/app/app.xemu.xemu &>> /dev/null
