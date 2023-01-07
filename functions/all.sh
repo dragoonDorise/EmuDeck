@@ -43,6 +43,7 @@ source "$EMUDECKGIT"/functions/ToolScripts/emuDeckBINUP.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSaveSync.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckrclone.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckRemotePlayWhatever.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckInstallHomebrewGames.sh
 
 #emuscripts
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh
@@ -63,6 +64,8 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2QT.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMAME.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckScummVM.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckVita3K.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRMG.sh
+
 
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMelonDS.sh

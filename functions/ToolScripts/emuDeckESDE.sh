@@ -4,6 +4,7 @@ ESDE_toolName="EmulationStation-DE"
 ESDE_toolType="AppImage"
 ESDE_toolPath="${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
 ESDE_releaseURL="https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt"
+ESDE_prereleaseURL="https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_prerelease_appimage.txt"
 
 es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
 es_settingsFile="$HOME/.emulationstation/es_settings.xml"
@@ -18,12 +19,30 @@ ESDE_install(){
 	setMSG "Installing $ESDE_toolName"		
 
     curl $ESDE_releaseURL --output "$toolsPath/latesturl.txt"
-    latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
+    local latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
 
+	echo "downloading $latestURL"
     curl "$latestURL" --output "$ESDE_toolPath"
     rm "$toolsPath/latesturl.txt"
     chmod +x "$ESDE_toolPath"
 	
+}
+
+ESDE_installPreRel(){
+	setMSG "Installing $ESDE_toolName PreRelease"
+
+    curl $ESDE_prereleaseURL --output "$toolsPath/latesturl.txt"
+    local latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
+
+	echo "downloading $latestURL"
+	if [[ $latestURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then 
+		curl "$latestURL" --output "$ESDE_toolPath"
+		rm "$toolsPath/latesturl.txt"
+		chmod +x "$ESDE_toolPath"
+	else
+		setMSG "$ESDE_toolName PreRelease not found, installing stable"
+		ESDE_install
+	fi
 }
 
 #ApplyInitialSettings

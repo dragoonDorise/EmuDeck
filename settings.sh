@@ -19,6 +19,7 @@ doSetupRyujinx=true
 doSetupMAME=true
 doSetupPrimeHacks=true
 doSetupPPSSPP=true
+doSetupRMG=true
 doSetupXemu=true
 doSetupESDE=true
 doSetupSRM=true
@@ -40,6 +41,7 @@ doInstallXenia=false
 doInstallRyujinx=false
 doInstallPrimeHacks=false
 doInstallPPSSPP=false
+doInstallRMG=false
 doInstallXemu=false
 doInstallPCSX2QT=false
 doInstallMAME=true
@@ -47,6 +49,7 @@ doInstallMAME=true
 doInstallCHD=false
 doInstallPowertools=false
 doInstallGyro=false
+doInstallHomeBrewGames=false
 
 installString='Installing'
 

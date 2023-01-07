@@ -17,6 +17,7 @@ doUninstallPPSSPP=true
 doUninstallMame=true
 doUninstallSRM=true
 doUninstallESDE=true
+doUninstallRMG=true
 
 LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
 echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
@@ -89,6 +90,7 @@ if [ "$doUninstall" == true ]; then
 				12 "Cemu" \
 				13 "Cemu Native" \
 				14 "Mame" )
+				15 "RMG"  )
 	ans=$?	
 	if [ $ans -eq 0 ]; then
 		
@@ -136,7 +138,10 @@ if [ "$doUninstall" == true ]; then
 		fi			
 		if [[ "$emusToUninstall" == *"Mame"* ]]; then
 			doUninstallMame=false
-		fi		
+		fi
+		if [[ "$emusToUninstall" == *"RMG"* ]]; then
+			doUninstallRMG=false
+		fi			
 		
 	else
 		exit
@@ -178,8 +183,8 @@ if [ "$doUninstall" == true ]; then
 		rm -rf ~/.var/app/org.ppsspp.PPSSPP &>> /dev/null
 	fi
 	if [[ "$doUninstallYuzu" == true ]]; then
-		flatpak uninstall org.yuzu_emu.yuzu --system -y
-		rm -rf ~/.var/app/org.yuzu_emu.yuzu &>> /dev/null
+		#flatpak uninstall org.yuzu_emu.yuzu --system -y
+		#rm -rf ~/.var/app/org.yuzu_emu.yuzu &>> /dev/null
 		rm -rf ~/Applications/yuzu.AppImage &>> /dev/null
 		rm -rf ~/.config/yuzu
 	fi
@@ -203,6 +208,10 @@ if [ "$doUninstall" == true ]; then
 	if [[ "$doUninstallMame" == true ]]; then
 		flatpak uninstall org.mamedev.MAME --system -y
 		rm -rf ~/.var/app/org.mamedev.MAME &>> /dev/null
+	fi
+	if [[ "$doUninstallRMG" == true ]]; then
+		flatpak uninstall org.com.github.Rosalie241.RMG --system -y
+		rm -rf ~/.var/app/com.github.Rosalie241.RMG &>> /dev/null
 	fi
 
 	#Backup Service
