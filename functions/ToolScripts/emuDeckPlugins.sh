@@ -1,7 +1,7 @@
 #!/bin/bash
 
 Plugins_installPluginLoader(){
-   local PluginLoader_releaseURL="https://github.com/SteamDeckHomebrew/PluginLoader/raw/main/dist/install_release.sh"
+   local PluginLoader_releaseURL="https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/install_release.sh"
    mkdir -p "$HOME/homebrew"
    sudo chown -R deck:deck "$HOME/homebrew"
    curl -L $PluginLoader_releaseURL | sh
