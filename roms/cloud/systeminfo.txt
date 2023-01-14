@@ -1,0 +1,23 @@
+System name:
+cloud
+
+Full system name:
+Cloud Services
+
+Supported file extensions:
+.sh
+
+Launch command:
+/bin/bash %ROM%
+
+Platform (for scraping):
+cloud
+
+Theme folder:
+cloud
+
+
+
+Note: To enable controller support in Game Mode, go to Desktop mode and run the following in the konsole:
+
+flatpak –user override –filesystem=/run/udev:ro com.google.Chrome
