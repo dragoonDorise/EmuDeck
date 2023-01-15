@@ -971,7 +971,7 @@
     },
     "fuzzyMatch": {
       "replaceDiacritics": true,
-      "removeCharacters": true,
+      "removeCharacters": false,
       "removeBrackets": true
     },
     "imageProviderAPIs": {
