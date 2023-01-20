@@ -62,8 +62,8 @@
     }
   },
   {
-    "parserType": "Glob",
-    "configTitle": "EmuDeck Configurator",
+    "parserType": "Glob-regex",
+    "configTitle": "EmuDeck Beta",
     "steamCategory": "${Emulation}",
     "executableArgs": "--no-sandbox",
     "executableModifier": "\"${exePath}\"",
@@ -71,7 +71,7 @@
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
-    "titleModifier": "EmuDeck Configurator",
+    "titleModifier": "EmuDeck Beta",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -96,7 +96,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.AppImage)"
+      "glob-regex": "${/(^(.*?(\\bEmuDeck-beta\\b)[^$]*)$)/}@(.AppImage)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
