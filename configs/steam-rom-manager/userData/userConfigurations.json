@@ -13,7 +13,7 @@
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
-    "defaultTallImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/poster.png",
+    "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
     "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
@@ -48,6 +48,68 @@
       "removeBrackets": true
     },
     "parserId": "164824496516097458",
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "EmuDeck Configurator",
+    "steamCategory": "${Emulation}",
+    "executableArgs": "--no-sandbox",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/home/deck/Applications/",
+    "steamDirectory": "${steamdirglobal}",
+    "startInDirectory": "",
+    "imageProviders": ["SteamGridDB"],
+    "titleModifier": "EmuDeck Configurator",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "",
+    "localImages": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/grid.png",
+    "localTallImages": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/poster.png",
+    "localHeroImages": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
+    "localLogoImages": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
+    "localIcons": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "disabled": false,
+    "executable": {
+      "path": "",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.AppImage)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "parserId": "164224436516097450",
     "version": 10,
     "imageProviderAPIs": {
       "SteamGridDB": {
@@ -1741,9 +1803,7 @@
     "romDirectory": "${romsdirglobal}/nds",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": [
-        "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -1759,45 +1819,43 @@
     "localIcons": "",
     "disabled": true,
     "executable": {
-        "path": "/usr/bin/flatpak",
-        "shortcutPassthrough": false,
-        "appendArgsToExecutable": true
+      "path": "/usr/bin/flatpak",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
     },
     "userAccounts": {
-        "specifiedAccounts": "",
-        "skipWithMissingDataDir": true,
-        "useCredentials": true
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
     },
     "parserInputs": {
-        "glob": "**/${title}@(.nds|.NDS)"
+      "glob": "**/${title}@(.nds|.NDS)"
     },
     "titleFromVariable": {
-        "limitToGroups": "",
-        "caseInsensitiveVariables": false,
-        "skipFileIfVariableWasNotFound": false,
-        "tryToMatchTitle": false
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
     },
     "fuzzyMatch": {
-        "replaceDiacritics": true,
-        "removeCharacters": true,
-        "removeBrackets": true
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
     },
     "parserId": "164823604520657523",
     "version": 10,
     "imageProviderAPIs": {
-        "SteamGridDB": {
-            "nsfw": false,
-            "humor": false,
-            "imageMotionTypes": [
-                "static"
-            ],
-            "styles": [],
-            "stylesHero": [],
-            "stylesLogo": [],
-            "stylesIcon": []
-        }
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
     }
-},
+  },
   {
     "parserType": "Glob",
     "configTitle": "Nintendo SNES - Retroarch - Snes9x",
