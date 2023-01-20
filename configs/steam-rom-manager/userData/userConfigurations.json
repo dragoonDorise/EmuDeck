@@ -3252,7 +3252,7 @@
       "appendArgsToExecutable": true
     },
     "parserInputs": {
-      "glob": "${/(^[NP].+)/}/USRDIR/@(eboot.bin|EBOOT.BIN)"
+      "glob-regex": "${/(^[NP].+)/}/USRDIR/@(eboot.bin|EBOOT.BIN)"
     },
     "titleFromVariable": {
       "limitToGroups": "${PS3}",
