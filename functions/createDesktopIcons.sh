@@ -16,13 +16,11 @@ createDesktopIcons(){
 	"EmuDeck" \
 	"$HOME/Applications/EmuDeck.AppImage" \
 	"false"
-	 #App list
-	 
-	 desktop-file-install "$HOME/Desktop/EmuDeck.desktop"
-	 # 
-	 # createDesktopShortcut "$HOME/.local/share/applications/" \
-	 #  "EmuDeck" \
-	 #  "$HOME/Applications/EmuDeck.AppImage" \
-	 #  "false"
+	 #App list	 
+	 #desktop-file-install --dir --delete-original "$HOME/Desktop/EmuDeck.desktop"	  
+	 createDesktopShortcut "$HOME/.local/share/applications/EmuDeck.desktop" \
+	 "EmuDeck" \
+	 "$HOME/Applications/EmuDeck.AppImage" \
+	 "false"
 	 
 }
