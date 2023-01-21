@@ -12,7 +12,7 @@ createDesktopIcons(){
 	rm -rf ~/Desktop/EmuDeckAppImage.desktop 2>/dev/null
 
 	#New EmuDeck icon, same place so people won't get confused
-	createDesktopShortcut "$HOME/Desktop" \
+	createDesktopShortcut "$HOME/Desktop/EmuDeck.desktop" \
 	"EmuDeck" \
 	"$HOME/Applications/EmuDeck.AppImage" \
 	"false"
