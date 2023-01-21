@@ -12,26 +12,15 @@ createDesktopIcons(){
 	rm -rf ~/Desktop/EmuDeckAppImage.desktop 2>/dev/null
 
 	#New EmuDeck icon, same place so people won't get confused
-	 echo "#!/usr/bin/env xdg-open
-	 [Desktop Entry]
-	 Name=EmuDeck
-	 Exec=$HOME/Applications/EmuDeck.AppImage
-	 Icon=steamdeck-gaming-return
-	 Terminal=false
-	 Type=Application
-	 StartupNotify=false" > ~/Desktop/EmuDeck.desktop
-	 chmod +x ~/Desktop/EmuDeck.desktop
+	createDesktopShortcut "$HOME/Desktop/EmuDeck.desktop" \
+	"EmuDeck" \
+	"$HOME/Applications/EmuDeck.AppImage" \
+	"false"
+	 #App list	 
+	 #desktop-file-install --dir --delete-original "$HOME/Desktop/EmuDeck.desktop"	  
+	 createDesktopShortcut "$HOME/.local/share/applications/EmuDeck.desktop" \
+	 "EmuDeck" \
+	 "$HOME/Applications/EmuDeck.AppImage" \
+	 "false"
 	 
-	 echo "#!/usr/bin/env xdg-open
-	  [Desktop Entry]
-	  Name=EmuDeck
-	  Exec=$HOME/Applications/EmuDeck.AppImage
-	  Icon=steamdeck-gaming-return
-	  Terminal=false
-	  Type=Application
-	  Categories=Game
-	  StartupNotify=false" > $HOME/.local/share/applications/EmuDeck.desktop
-	  chmod +x $HOME/.local/share/applications/EmuDeck.desktop	
-	  
-	
 }

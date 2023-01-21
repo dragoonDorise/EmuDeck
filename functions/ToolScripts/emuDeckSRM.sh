@@ -71,7 +71,7 @@ SRM_init(){
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
 	
 	
-	echo -e "OK!"
+	echo -e "true"
 }
 
 SRM_resetConfig(){

@@ -144,6 +144,11 @@ DuckStation_finalize(){
 	echo "NYI"
 }
 
+DuckStation_retroAchievementsSetLogin(){
+	rat=$(cat "$HOME/.config/EmuDeck/.rat")
+	changeLine 'Token = ' 'Token = "'"${rat}"'"' "$DuckStation_configFile" &>/dev/null && echo 'RetroAchievements Token set.' || echo 'RetroAchievements Token not set.'
+}
+
 DuckStation_IsInstalled(){
 	if [ "$(flatpak --columns=app list | grep "$DuckStation_emuPath")" == "$DuckStation_emuPath" ]; then
 		echo "true"
