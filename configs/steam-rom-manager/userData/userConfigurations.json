@@ -63,7 +63,7 @@
   },
   {
     "parserType": "Glob-regex",
-    "configTitle": "EmuDeck Beta",
+    "configTitle": "EmuDeck Configurator Beta",
     "steamCategory": "${Emulation}",
     "executableArgs": "--no-sandbox",
     "executableModifier": "\"${exePath}\"",
@@ -71,7 +71,7 @@
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
-    "titleModifier": "EmuDeck Beta",
+    "titleModifier": "EmuDeck Configurator Beta",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
