@@ -159,7 +159,7 @@ CemuNative_functions () {
 
 	# Setup Storage
 	setupStorage () {
-		install -d "${storagePath}/cemu"
+		#install -d "${storagePath}/cemu"
 		ln -sn "${storagePath}/cemu/mlc01" "${CemuNative[shareDir]}/mlc01"
 		ln -sn "${storagePath}/cemu/graphicPacks" "${CemuNative[shareDir]}/graphicPacks"
 	}
