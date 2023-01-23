@@ -164,7 +164,7 @@ CemuNative_functions () {
 	# Set Saves
 	setupSaves () {
 		unlink "${savesPath}/Cemu/saves" # Fix for previous bad symlink
-		linkToSaveFolder Cemu saves "${storagePath}/cemu/mlc01/usr/save"
+		linkToSaveFolder Cemu saves "${romsPath}/wiiu/mlc01/usr/save" #while we use both native and proton, i don't want to change the wiiu folder structure. I'm repeating myself now. 
 	}
 
 	# Setup Storage
@@ -196,17 +196,18 @@ CemuNative_functions () {
 	init () {
 		setMSG "Initialising ${CemuNative[emuName]} settings."
 		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/config/cemu" "true"
-		configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu" "true"
+		#configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu" "true" #seems unneeded? maybe?
 		setEmulationFolder
 		setupStorage
 		setupSaves
+		addSteamInputProfile
 	}
 
 	# Update
 	update () {
 		setMSG "Updating ${CemuNative[emuName]} settings."
 		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/.config/cemu"
-		configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu"
+		#configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu" #seems unneeded? maybe?
 		#migrate
 		setEmulationFolder
 		setupStorage
