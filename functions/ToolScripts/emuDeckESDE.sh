@@ -100,9 +100,7 @@ ESDE_addCustomSystems(){
 		--subnode '$newSystem' --type elem --name 'platform' -v 'wiiu' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'wiiu' \
 		"$es_systemsFile"
-	else
-		#put update here to add -w
-		echo "soon"
+
 	fi
 	if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Native)') == "" ]]; then
 		xmlstarlet ed --inplace --subnode '/systemList' --type elem --name 'system' \
@@ -153,7 +151,7 @@ ESDE_setEmulationFolder(){
 	echo "updating $es_systemsFile"
 	cemuProtonCommandString="/usr/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%"
 	xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Proton)"]' -v "$cemuProtonCommandString" "$es_systemsFile"
-	
+
 	cemuNativeCommandString="/usr/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%"
     xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Native)"]' -v "$cemuNativeCommandString" "$es_systemsFile"
 
@@ -171,10 +169,11 @@ ESDE_setEmulationFolder(){
 	#search for media dir in xml, if not found, change to ours. If it's blank, also change to ours.
 	mediaDirFound=$(grep -rnw  "$es_settingsFile" -e 'MediaDirectory')
 	mediaDirEmpty=$(grep -rnw  "$es_settingsFile" -e '<string name="MediaDirectory" value="" />')
+	mediaDirEmulation=$(grep -rnw  "$es_settingsFile" -e 'Emulation/tools/downloaded_media')
 	if [[ $mediaDirFound == '' ]]; then
 		echo "adding ES-DE ${esDE_MediaDir}"
 		sed -i -e '$a'"${esDE_MediaDir}"  "$es_settingsFile" # use config file instead of link
-	elif [[ ! $mediaDirEmpty == '' ]]; then
+	elif [[ -z $mediaDirEmpty || -n $mediaDirEmulation ]]; then
 		echo "setting ES-DE MediaDirectory to ${esDE_MediaDir}"
 		changeLine '<string name="MediaDirectory"' "${esDE_MediaDir}" "$es_settingsFile"
 	fi
