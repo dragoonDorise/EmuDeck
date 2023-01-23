@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+
 # cemu.sh
 
 # Report Errors
@@ -63,6 +64,8 @@ getFlatpak () {
 
 # Main
 main () {
+    source ~/emudeck/settings.sh
+
     # NAME - Cemu
     NAME="Cemu"
 
@@ -71,6 +74,12 @@ main () {
 
     # doProton
     doProton="false"
+
+    # Check for -W Flag override to windows version
+    if [ "$1" == "-w" ]; then
+        doProton="true"
+        shift
+    fi
 
     # Check for an AppImage or Flatpak, and run through Proton if neither
     echo "Checking for AppImage."
@@ -92,11 +101,7 @@ main () {
 
     # Report arguments
     showArguments "${@}"
-    if [ $0 == w ]; then
-        doProton="true"
-        shift
-    fi
-    
+
     # Run Emulator
     if [[ "${doProton}" == "false" ]]; then
         #If doProton is false, check that EMUPATH was set correctly
@@ -133,15 +138,15 @@ main () {
         echo "EXE: ${EXE}"
 
         # AppID.py
-        APPIDPY="/run/media/mmcblk0p1/Emulation/tools/appID.py"
+        APPIDPY="$emulationPath/tools/appID.py"
         checkFile "${APPIDPY}"
 
         # Proton Launcher Script
-        PROTONLAUNCH="/run/media/mmcblk0p1/Emulation/tools/proton-launch.sh"
+        PROTONLAUNCH="$emulationPath/tools/proton-launch.sh"
         checkFile "${PROTONLAUNCH}"
 
         # Cemu.exe location
-        CEMU="/run/media/mmcblk0p1/Emulation/roms/wiiu/Cemu.exe"
+        CEMU="$emulationPath/roms/wiiu/Cemu.exe"
         checkFile "${CEMU}"
 
         # APPID
