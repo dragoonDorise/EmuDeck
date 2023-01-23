@@ -37,7 +37,7 @@ installEmuBI(){
         chmod +x "${toolsPath}/launchers/"*
 
         createDesktopShortcut   "$HOME/.local/share/applications/$altName.desktop" \
-                                "$altName EmuDeck" \
+                                "$altName Binary" \
                                 "${toolsPath}/launchers/$launcherFileName" \
                                 "false"
     done
