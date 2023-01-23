@@ -92,7 +92,11 @@ main () {
 
     # Report arguments
     showArguments "${@}"
-
+    if [ $0 == w ]; then
+        doProton="true"
+        shift
+    fi
+    
     # Run Emulator
     if [[ "${doProton}" == "false" ]]; then
         #If doProton is false, check that EMUPATH was set correctly
