@@ -28,7 +28,7 @@ ESDE_install(){
 	
 }
 
-ESDE_installPreRel(){
+ESDE_install_alt(){
 	setMSG "Installing $ESDE_toolName PreRelease"
 
     curl $ESDE_prereleaseURL --output "$toolsPath/latesturl.txt"
@@ -61,6 +61,10 @@ ESDE_init(){
     ESDE_applyTheme "$esdeTheme"
     ESDE_migrateDownloadedMedia
     ESDE_finalize
+}
+
+ESDE_init_alt(){
+	ESDE_init
 }
 
 
