@@ -89,7 +89,7 @@ if [ "$doUninstall" == true ]; then
 				11 "Xemu" \
 				12 "Cemu" \
 				13 "Cemu Native" \
-				14 "Mame" )
+				14 "Mame"  \
 				15 "RMG"  )
 	ans=$?	
 	if [ $ans -eq 0 ]; then
