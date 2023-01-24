@@ -132,7 +132,9 @@
     "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/launchers",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -258,7 +260,9 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -504,7 +508,9 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -549,7 +555,9 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": ["static"]
+        "imageMotionTypes": [
+          "static"
+        ]
       }
     },
     "parserId": "165964954316677671",
@@ -750,7 +758,9 @@
     "romDirectory": "${romsdirglobal}/fbneo",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -999,7 +1009,9 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -1044,7 +1056,9 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": ["static"]
+        "imageMotionTypes": [
+          "static"
+        ]
       }
     },
     "parserId": "164785598905497512",
@@ -1121,7 +1135,9 @@
     "romDirectory": "${romsdirglobal}/dos",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -1183,7 +1199,9 @@
     "romDirectory": "${romsdirglobal}/xbox",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -1245,7 +1263,9 @@
     "romDirectory": "${romsdirglobal}/xbox360/roms/",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -1617,7 +1637,9 @@
     "romDirectory": "${romsdirglobal}/gamecube",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -1741,7 +1763,9 @@
     "romDirectory": "${romsdirglobal}/nds",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -2051,7 +2075,9 @@
     "romDirectory": "${romsdirglobal}/wii",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -2106,14 +2132,16 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Nintendo WiiU - Cemu (.rpx)",
+    "configTitle": "Nintendo WiiU - Cemu (.rpx) - Proton",
     "steamCategory": "${WiiU}",
     "executableArgs": "vblank_mode=0 %command% -f -g \"Z:${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/wiiu/roms/",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -2168,14 +2196,16 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Nintendo WiiU - Cemu (.wud, .wux, .wua)",
+    "configTitle": "Nintendo WiiU - Cemu (.wud, .wux, .wua) - Proton",
     "steamCategory": "${WiiU}",
     "executableArgs": "vblank_mode=0 %command% -f -g \"Z:${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/wiiu/roms/",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -2230,6 +2260,116 @@
   },
   {
     "parserType": "Glob",
+    "configTitle": "Nintendo WiiU - Cemu (.rpx) - Native",
+    "steamCategory": "${WiiU}",
+    "executableArgs": "vblank_mode=0 %command% -f -g \"${filePath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "imageProviders": [
+      "SteamGridDB"
+    ],
+    "titleModifier": "${fuzzyTitle}",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/wiiu.jpg",
+    "defaultTallImage": "",
+    "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
+    "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": false,
+    "advanced": false,
+    "executable": {
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": false
+    },
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}/**/*.rpx"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "parserId": "166758881839575782",
+    "version": 5
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "Nintendo WiiU - Cemu (.wud, .wux, .wua) - Native",
+    "steamCategory": "${WiiU}",
+    "executableArgs": "vblank_mode=0 %command% -f -g \"${filePath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
+    "steamDirectory": "/home/deck/.steam/steam",
+    "startInDirectory": "",
+    "imageProviders": [
+      "SteamGridDB"
+    ],
+    "titleModifier": "${fuzzyTitle}",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/wiiu.jpg",
+    "defaultTallImage": "",
+    "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
+    "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": false,
+    "advanced": false,
+    "executable": {
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": false
+    },
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.7z|.7Z|.zip|.ZIP|.wux|.WUX|.wud|.WUD|.wua|.WUA|.wad|.WAD|.iso|.ISO)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "use": true,
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "parserId": "166758882107057128",
+    "version": 5
+  },
+  {
+    "parserType": "Glob",
     "configTitle": "PrimeHack",
     "steamCategory": "${PrimeHack}",
     "steamDirectory": "${steamdirglobal}",
@@ -2238,7 +2378,9 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -2283,7 +2425,9 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": ["static"]
+        "imageMotionTypes": [
+          "static"
+        ]
       }
     },
     "parserId": "164770728884890305",
@@ -2546,7 +2690,9 @@
     "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -2608,7 +2754,9 @@
     "romDirectory": "${romsdirglobal}/genesiswide",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -2795,7 +2943,9 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -2841,7 +2991,9 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": ["static"]
+        "imageMotionTypes": [
+          "static"
+        ]
       }
     },
     "parserId": "166502992463815988",
@@ -2980,7 +3132,9 @@
     "romDirectory": "${romsdirglobal}/psx",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -3043,7 +3197,9 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -3089,7 +3245,9 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": ["static"]
+        "imageMotionTypes": [
+          "static"
+        ]
       }
     },
     "parserId": "166001743996365855",
@@ -3105,7 +3263,9 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -3150,7 +3310,9 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": ["static"]
+        "imageMotionTypes": [
+          "static"
+        ]
       }
     },
     "parserId": "164785208872922785",
@@ -3228,7 +3390,9 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -3413,7 +3577,9 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -3458,7 +3624,9 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": ["static"]
+        "imageMotionTypes": [
+          "static"
+        ]
       }
     },
     "parserId": "165768545254166037",
@@ -3520,7 +3688,9 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": ["static"]
+        "imageMotionTypes": [
+          "static"
+        ]
       }
     },
     "parserId": "164788906872922785",
@@ -3536,7 +3706,9 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -3581,7 +3753,9 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": ["static"]
+        "imageMotionTypes": [
+          "static"
+        ]
       }
     },
     "parserId": "165855998563219386",
@@ -3597,7 +3771,9 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -3642,7 +3818,9 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": ["static"]
+        "imageMotionTypes": [
+          "static"
+        ]
       }
     },
     "parserId": "165856080826916450",
@@ -3658,7 +3836,9 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -3703,7 +3883,9 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": ["static"]
+        "imageMotionTypes": [
+          "static"
+        ]
       }
     },
     "parserId": "164785583010740300",
@@ -3720,7 +3902,9 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -3765,7 +3949,9 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": ["static"]
+        "imageMotionTypes": [
+          "static"
+        ]
       }
     },
     "parserId": "166399570436769358",
@@ -3781,7 +3967,9 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -3826,7 +4014,9 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": ["static"]
+        "imageMotionTypes": [
+          "static"
+        ]
       }
     },
     "parserId": "166409089761171238",
@@ -3843,7 +4033,9 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
+    "imageProviders": [
+      "SteamGridDB"
+    ],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -3888,7 +4080,9 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": ["static"]
+        "imageMotionTypes": [
+          "static"
+        ]
       }
     },
     "parserId": "166486574949993186",
