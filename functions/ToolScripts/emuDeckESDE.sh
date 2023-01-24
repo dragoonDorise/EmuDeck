@@ -88,32 +88,24 @@ ESDE_addCustomSystems(){
 
 
 	#insert cemu custom system if it doesn't exist, but the file does
-	if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Proton)') == "" ]]; then
-		xmlstarlet ed --inplace --subnode '/systemList' --type elem --name 'system' \
+	if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu') == "" ]]; then
+		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
 		--subnode '$newSystem' --type elem --name 'name' -v 'wiiu' \
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo Wii U' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/wiiu/roms' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.rpx .RPX .wud .WUD .wux .WUX .elf .ELF .iso .ISO .wad .WAD .wua .WUA' \
-		--subnode '$newSystem' --type elem --name 'command' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%" \
-		--insert '$newSystem/command' --type attr --name 'label' --value "Cemu (Proton)" \
+		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%" \
+		--insert '$newSystem/commandP' --type attr --name 'label' --value "Cemu (Proton)" \
+ 		--subnode '$newSystem' --type elem --name 'commandN' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%" \
+		--insert '$newSystem/commandN' --type attr --name 'label' --value "Cemu (Native)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'wiiu' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'wiiu' \
+		-r 'systemList/system/commandP' -v 'command' \
+		-r 'systemList/system/commandN' -v 'command' \
 		"$es_systemsFile"
 
-	fi
-	if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Native)') == "" ]]; then
-		xmlstarlet ed --inplace --subnode '/systemList' --type elem --name 'system' \
-		--var newSystem '$prev' \
-		--subnode '$newSystem' --type elem --name 'name' -v 'wiiu' \
-		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo Wii U' \
-		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/wiiu/roms' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.rpx .RPX .wud .WUD .wux .WUX .elf .ELF .iso .ISO .wad .WAD .wua .WUA' \
-		--subnode '$newSystem' --type elem --name 'command' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%" \
-		--insert '$newSystem/command' --type attr --name 'label' --value "Cemu (Native)" \
-		--subnode '$newSystem' --type elem --name 'platform' -v 'wiiu' \
-		--subnode '$newSystem' --type elem --name 'theme' -v 'wiiu' \
-		"$es_systemsFile"
+		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 	fi
 	#Custom Systems config end
 
@@ -152,7 +144,7 @@ ESDE_setEmulationFolder(){
 	cemuProtonCommandString="/usr/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%"
 	xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Proton)"]' -v "$cemuProtonCommandString" "$es_systemsFile"
 
-	cemuNativeCommandString="/usr/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%"
+	cemuNativeCommandString="/usr/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%"
     xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Native)"]' -v "$cemuNativeCommandString" "$es_systemsFile"
 
 
