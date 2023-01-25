@@ -608,6 +608,10 @@ if [ "$doSetupRA" == "true" ]; then
 	fi
 fi
 
+if [ "$doRASignIn" == "true" ]; then
+	DuckStation_retroAchievementsSetLogin
+	PCSX2_retroAchievementsSetLogin
+fi
 
 #Sudo Required!
 if [ -n "$PASSWD" ]; then
