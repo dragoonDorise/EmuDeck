@@ -409,7 +409,6 @@ if [ "$expert" == "true" ]; then
 			else
 				setSetting doInstallRyujinx false
 			fi
-			fi
 			if [[ "$emusToInstall" == *"Cemu"* ]]; then
 				setSetting doInstallCemu true
 			else
