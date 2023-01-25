@@ -48,6 +48,7 @@ source "$EMUDECKGIT"/functions/ToolScripts/emuDeckInstallHomebrewGames.sh
 #emuscripts
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemu.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemuNative.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRPCS3.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCitra.sh
@@ -63,10 +64,11 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2QT.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMAME.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckScummVM.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckVita3K.sh
-source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMGBA.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRMG.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMelonDS.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMgba.sh
 
 #Soon
-#source "$EMUDECKGIT"/EmuScripts/emuDeckMelonDS.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMAMEProton.sh
 

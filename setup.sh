@@ -269,6 +269,10 @@ if [ $doInstallRA == "true" ]; then
 	echo "RetroArch_install"
 	RetroArch_install	
 fi
+if [ $doInstallRMG == "true" ]; then
+	echo "RMG_install"
+	RMG_install	
+fi
 if [ $doInstallPPSSPP == "true" ]; then
 	echo "PPSSPP_install"
 	PPSSPP_install	
@@ -292,6 +296,10 @@ fi
 if [ $doInstallCemu == "true" ]; then
 	echo "Cemu_install"
 	Cemu_install
+fi
+if [ "${doInstallCemuNative}" == "true" ]; then
+	echo "CemuNative_install"
+	CemuNative_install
 fi
 if [ $doInstallScummVM == "true" ]; then
 	echo "ScummVM_install"
@@ -393,6 +401,9 @@ fi
 if [ "$doSetupMGBA" == "true" ]; then
 	echo "mGBA_init"
 	mGBA_init
+if [ "${doSetupCemuNative}" == "true" ]; then
+	echo "CemuNative_init"
+	CemuNative_init
 fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then

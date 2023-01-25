@@ -41,10 +41,10 @@ Citra_update(){
 #ConfigurePaths
 Citra_setEmulationFolder(){
 	setMSG "Setting $Citra_emuName Emulation Folder"	
-  	Citra_configFile="$HOME/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini"
+
     gameDirOpt='Paths\\gamedirs\\3\\path='
     newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/3ds"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
+    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_configFile"
 
 	#Setup symlink for AES keys
 	mkdir -p "${biosPath}/citra/"

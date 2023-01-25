@@ -250,6 +250,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupPCSX2QT=true")
 	defaultSettingsList+=("doSetupScummVM=true")
 	defaultSettingsList+=("doSetupVita3K=true")
+	defaultSettingsList+=("doSetupRMG=true")
 	#defaultSettingsList+=("doSetupMelon=true")
 	defaultSettingsList+=("doSetupMGBA=true")
 	defaultSettingsList+=("doInstallSRM=true")
@@ -453,6 +454,8 @@ function createDesktopShortcut(){
 	Categories=Game;
 	StartupNotify=false" > "$Shortcutlocation"
 	chmod +x "$Shortcutlocation"
+
+	balooctl disable && balooctl purge && balooctl enable
 
 	echo "$Shortcutlocation created"
 }

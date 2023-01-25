@@ -1,6 +1,6 @@
 #!/bin/bash
 #variables
-Cemu_emuName="Cemu"
+Cemu_emuName="Cemu (proton)"
 Cemu_emuType="windows"
 Cemu_emuPath="${romsPath}/wiiu/Cemu.exe"
 Cemu_releaseURL="https://cemu.info/releases/cemu_1.27.1.zip"
@@ -39,9 +39,9 @@ Cemu_install(){
 	chmod +x "${toolsPath}/launchers/cemu.sh"
 	
 
-	createDesktopShortcut   "$HOME/.local/share/applications/Cemu.desktop" \
-							"Cemu EmuDeck" \
-							"${toolsPath}/launchers/cemu.sh" \
+	createDesktopShortcut   "$HOME/.local/share/applications/Cemu (Proton).desktop" \
+							"Cemu (Proton)" \
+							"${toolsPath}/launchers/cemu.sh -w"  \
 							"False"
 	}
 
