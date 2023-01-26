@@ -48,6 +48,7 @@ source "$EMUDECKGIT"/functions/ToolScripts/emuDeckInstallHomebrewGames.sh
 #emuscripts
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemu.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemuNative.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRPCS3.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCitra.sh

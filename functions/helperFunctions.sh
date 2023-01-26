@@ -453,5 +453,7 @@ function createDesktopShortcut(){
 	StartupNotify=false" > "$Shortcutlocation"
 	chmod +x "$Shortcutlocation"
 
+	balooctl disable && balooctl purge && balooctl enable
+
 	echo "$Shortcutlocation created"
 }
