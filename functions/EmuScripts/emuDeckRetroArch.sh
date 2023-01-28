@@ -1927,6 +1927,7 @@ RetroArch_retroAchievementsPromptLogin(){
 RetroArch_retroAchievementsSetLogin(){
 	rap=$(cat "$HOME/.config/EmuDeck/.rap")
 	rau=$(cat "$HOME/.config/EmuDeck/.rau")
+	rat=$(cat "$HOME/.config/EmuDeck/.rat")
 	echo "Evaluate RetroAchievements Login."
 	if [ ${#rap} -lt 1 ]; then
 		echo "--No password."
@@ -1934,8 +1935,9 @@ RetroArch_retroAchievementsSetLogin(){
 		echo "--No username."
 	else
 		echo "Valid Retroachievements Username and Password length"
-		changeLine 'cheevos_username = ' 'cheevos_username = "'"${rau}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements Username set.' || echo 'RetroAchievements Username not set.' 
-		changeLine 'cheevos_password = ' 'cheevos_password = "'"${rap}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements password set.' || echo 'RetroAchievements password not set.' 
+		changeLine 'cheevos_token = ' 'cheevos_token = "'"${rat}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements Token set.' || echo 'RetroAchievements Token not set.'
+		
+
 		RetroArch_retroAchievementsOn
 	fi
 }
