@@ -1929,8 +1929,8 @@ RetroArch_retroAchievementsSetLogin(){
 	rau=$(cat "$HOME/.config/EmuDeck/.rau")
 	rat=$(cat "$HOME/.config/EmuDeck/.rat")
 	echo "Evaluate RetroAchievements Login."
-	if [ ${#rap} -lt 1 ]; then
-		echo "--No password."
+	if [ ${#rat} -lt 1 ]; then
+		echo "--No token."
 	elif [ ${#rau} -lt 1 ]; then
 		echo "--No username."
 	else
