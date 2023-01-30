@@ -143,7 +143,6 @@ if [ "$doUninstall" == true ]; then
 		if [[ "$emusToUninstall" == *"mGBA"* ]]; then
 			doUninstallMGBA=false
 		fi		
-		fi
 		if [[ "$emusToUninstall" == *"RMG"* ]]; then
 			doUninstallRMG=false
 		fi			
