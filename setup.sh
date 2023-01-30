@@ -599,27 +599,18 @@ fi
 #RetroAchievments
 if [ "$doSetupRA" == "true" ]; then
 	RetroArch_retroAchievementsSetLogin
-	if [ "$doRASignIn" == "true" ]; then
-		#RetroArch_retroAchievementsPromptLogin
-		#RetroArch_retroAchievementsSetLogin
-		RetroArch_retroAchievementsOn
-	fi
-	
-	if [ "$doRAEnable" == "true" ]; then
-		RetroArch_retroAchievementsOn
-	fi
-	
 	if [ "$achievementsHardcore" == "true" ]; then
 		RetroArch_retroAchievementsHardCoreOn
 	else
 		RetroArch_retroAchievementsHardCoreOff
 	fi
 fi
-
-if [ "$doRASignIn" == "true" ]; then
-	DuckStation_retroAchievementsSetLogin
-	PCSX2_retroAchievementsSetLogin
-fi
+#if [ "$doSetupDuck" == "true" ]; then
+#	DuckStation_retroAchievementsSetLogin
+#fi
+#if [ "$doSetupPCSX2QT" == "true" ]; then
+#	PCSX2_retroAchievementsSetLogin
+#fi
 
 #Sudo Required!
 if [ -n "$PASSWD" ]; then

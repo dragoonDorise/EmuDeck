@@ -115,10 +115,6 @@ PCSX2_finalize(){
 	echo "NYI"
 }
 
-PCSX2_retroAchievementsSetLogin(){
-	rat=$(cat "$HOME/.config/EmuDeck/.rat")
-	changeLine 'Token = ' 'Token = "'"${rat}"'"' "$PCSX2_configFile" &>/dev/null && echo 'RetroAchievements Token set.' || echo 'RetroAchievements Token not set.'
-}
 
 PCSX2_addSteamInputProfile(){
 	setMSG "Adding $PCSX2_emuName Steam Input Profile."
