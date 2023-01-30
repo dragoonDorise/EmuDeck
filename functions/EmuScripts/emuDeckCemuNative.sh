@@ -170,8 +170,10 @@ CemuNative_functions () {
 	# Setup Storage
 	setupStorage () {
 		#install -d "${storagePath}/cemu"
-		ln -sn "${storagePath}/cemu/mlc01" "${CemuNative[shareDir]}/mlc01"
-		ln -sn "${storagePath}/cemu/graphicPacks" "${CemuNative[shareDir]}/graphicPacks"
+		unlink "${CemuNative[shareDir]}/mlc01"
+		unlink "${CemuNative[shareDir]}/graphicPacks"
+		ln -sn "${romsPath}/wiiu/mlc01" "${CemuNative[shareDir]}/mlc01"
+		ln -sn "${romsPath}/wiiu/graphicPacks" "${CemuNative[shareDir]}/graphicPacks"
 	}
 
 	# Wipe Settings
