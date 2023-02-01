@@ -95,6 +95,9 @@ fi
 sleep 1
 SECONDTIME="$HOME/.config/EmuDeck/.finished"
 
+#Lets log github API limits just in case
+echo 'Github API limits:'
+curl -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28"  "https://api.github.com/rate_limit"
 
 #
 ##
