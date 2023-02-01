@@ -164,9 +164,34 @@ PCSX2QT_addSteamInputProfile(){
 }
 
 
-PCSX2QT_retroAchievementsSetLogin(){
-	rat=$(cat "$HOME/.config/EmuDeck/.rat")
+PCSX2QT_retroAchievementsOn(){
+	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Enabled" "True"
+}
+PCSX2QT_retroAchievementsOff(){
+	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Enabled" "False"
+}
+
+PCSX2QT_retroAchievementsHardCoreOn(){
+	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "ChallengeMode" "True"
+	
+}
+PCSX2QT_retroAchievementsHardCoreOff(){
+	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "ChallengeMode" "False"
+}
+
+
+PCSX2QT_retroAchievementsSetLogin(){	
 	rau=$(cat "$HOME/.config/EmuDeck/.rau")
-	changeLine 'Token = ' 'Token = "'"${rat}"'"' "$PCSX2QT_configFile" &>/dev/null && echo 'RetroAchievements Token set.' || echo 'RetroAchievements Token not set.'
-	changeLine 'Username = ' 'Username = "'"${rau}"'"' "$PCSX2QT_configFile" &>/dev/null && echo 'RetroAchievements User set.' || echo 'RetroAchievements User not set.'
+	rat=$(cat "$HOME/.config/EmuDeck/.rat")
+	echo "Evaluate RetroAchievements Login."
+	if [ ${#rat} -lt 1 ]; then
+		echo "--No token."
+	elif [ ${#rau} -lt 1 ]; then
+		echo "--No username."
+	else
+		echo "Valid Retroachievements Username and Password length"
+		iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Username" "$rau"
+		iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Token" "$rat"
+		PCSX2QT_retroAchievementsOn
+	fi
 }

@@ -457,3 +457,31 @@ function createDesktopShortcut(){
 
 	echo "$Shortcutlocation created"
 }
+
+#iniFieldUpdate "$iniFilePath" "General" "LoadPath" "$storagePath/$emuName/Load"
+function iniFieldUpdate(){
+	local iniFile="$1"
+	local iniSection="$2"
+	local iniKey="$3"
+	local iniValue="$4"
+
+	if [ -f "$iniFile" ]; then
+		# Create the section if it doesn't exist.
+		if ! grep -q "\[$iniSection\]" "$iniFile"; then
+			echo "[$iniSection]" >> "$iniFile"
+		fi
+
+		# If the key doesn't exist, create it one line below the $iniSection.
+		# Otherwise, just update the value.
+		if ! grep -q "$iniKey" "$iniFile"; then
+			echo "Creating key $iniKey = $iniValue"
+			local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
+			sed -i "$((sectionLineNumber + 1))i$iniKey = $iniValue" "$iniFile"
+		else
+			echo "Updating key $iniKey = $iniValue"
+			sed -i "s|$iniKey =.*|$iniKey = $iniValue|g" "$iniFile"
+		fi
+	else
+		echo "Can't update missing INI file: $iniFile"
+	fi
+}
