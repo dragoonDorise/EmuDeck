@@ -7,8 +7,8 @@ Migration_init(){
 	#File Size on target
 	neededSpace=$(du -s "$emulationPath" | cut -f1)
 
-	#File Size on target
-	freeSpace=$(df -s "$emulationPath" |  cut -d' ' -f8)
+	#File Size on destination
+	freeSpace=$(df -s "$destination" |  cut -d' ' -f8)
 	difference=$(($freeSpace - $neededSpace))
 	if [ $difference -gt 0 ]; then
 		Migration_move "$emulationPath" "$destination"
