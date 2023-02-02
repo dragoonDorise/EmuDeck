@@ -64,12 +64,11 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2QT.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMAME.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckScummVM.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckVita3K.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMGBA.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRMG.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMelonDS.sh
 
-
 #Soon
-#source "$EMUDECKGIT"/EmuScripts/emuDeckMgba.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMAMEProton.sh
 

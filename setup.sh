@@ -312,6 +312,10 @@ if [ $doInstallVita3K == "true" ]; then
 	echo "Vita3K_install"
 	Vita3K_install
 fi
+if [ $doInstallMGBA == "true" ]; then
+	echo "mGBA_install"
+	mGBA_install
+fi
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ "$doInstallXenia" == "true" ]; then
 	echo "Xenia_install"
@@ -396,6 +400,10 @@ fi
 if [ "$doSetupVita3K" == "true" ]; then
 	echo "Vita3K_init"
 	Vita3K_init
+fi
+if [ "$doSetupMGBA" == "true" ]; then
+	echo "mGBA_init"
+	mGBA_init
 fi
 if [ "${doSetupCemuNative}" == "true" ]; then
 	echo "CemuNative_init"

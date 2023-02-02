@@ -17,6 +17,7 @@ doUninstallPPSSPP=true
 doUninstallMame=true
 doUninstallSRM=true
 doUninstallESDE=true
+doUninstallMGBA=true
 doUninstallRMG=true
 
 LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
@@ -138,7 +139,10 @@ if [ "$doUninstall" == true ]; then
 		fi			
 		if [[ "$emusToUninstall" == *"Mame"* ]]; then
 			doUninstallMame=false
-		fi
+		fi		
+		if [[ "$emusToUninstall" == *"mGBA"* ]]; then
+			doUninstallMGBA=false
+		fi		
 		if [[ "$emusToUninstall" == *"RMG"* ]]; then
 			doUninstallRMG=false
 		fi			
@@ -208,6 +212,10 @@ if [ "$doUninstall" == true ]; then
 	if [[ "$doUninstallMame" == true ]]; then
 		flatpak uninstall org.mamedev.MAME --system -y
 		rm -rf ~/.var/app/org.mamedev.MAME &>> /dev/null
+	fi
+	if [[ "$doUninstallMGBA" == true ]]; then
+		rm -rf ~/Applications/mGBA.AppImage &>> /dev/null
+		rm -rf ~/.config/mgba
 	fi
 	if [[ "$doUninstallRMG" == true ]]; then
 		flatpak uninstall org.com.github.Rosalie241.RMG --system -y

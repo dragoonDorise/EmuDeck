@@ -25,6 +25,7 @@ doSetupESDE=true
 doSetupSRM=true
 doSetupPCSX2QT=true
 #doSetupMelon=true
+doSetupMGBA=true
 
 #Install all systems by default
 doInstallSRM=true
@@ -46,6 +47,7 @@ doInstallXemu=false
 doInstallPCSX2QT=false
 doInstallMAME=true
 #doInstallMelon=false
+doInstallMGBA=false
 doInstallCHD=false
 doInstallPowertools=false
 doInstallGyro=false

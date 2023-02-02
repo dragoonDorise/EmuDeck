@@ -1506,6 +1506,68 @@
   },
   {
     "parserType": "Glob",
+    "configTitle": "Nintendo GameBoy - mGBA",
+    "steamCategory": "${GameBoy}",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "${romsdirglobal}/gb",
+    "steamDirectory": "${steamdirglobal}",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "executableArgs": "-f \"'${filePath}'\"",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": true,
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.7z|.7Z|.gb|.GB|.dmg|.DMG|.zip|.ZIP)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "executable": {
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mgba.sh",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": false
+    },
+    "parserId": "164785621855061650",
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
+  },
+  {
+    "parserType": "Glob",
     "configTitle": "Nintendo GameBoy Color - Retroarch - Gambatte",
     "steamCategory": "${GameBoy Color}",
     "executableModifier": "\"${exePath}\"",
@@ -1568,6 +1630,68 @@
   },
   {
     "parserType": "Glob",
+    "configTitle": "Nintendo GameBoy Color - mGBA",
+    "steamCategory": "${GameBoy Color}",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "${romsdirglobal}/gbc",
+    "steamDirectory": "${steamdirglobal}",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "executableArgs": "-f \"'${filePath}'\"",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": true,
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.7z|.7Z|.gb|.GB|.gbc|.GBC|.zip|.ZIP)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "executable": {
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mgba.sh",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": false
+    },
+    "parserId": "164785621855061650",
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
+  },
+  {
+    "parserType": "Glob",
     "configTitle": "Nintendo GameBoy Advance - Retroarch - mGBA",
     "steamCategory": "${GameBoy Advance}",
     "executableModifier": "\"${exePath}\"",
@@ -1615,6 +1739,68 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785598920514822",
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "Nintendo GameBoy Advance - mGBA (Standalone)",
+    "steamCategory": "${GameBoy Advance}",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "${romsdirglobal}/gba",
+    "steamDirectory": "${steamdirglobal}",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "executableArgs": "-f \"'${filePath}'\"",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": true,
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "${title}@(.7z|.7Z|.gba|.GBA|.zip|.ZIP)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "executable": {
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mgba.sh",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": false
+    },
+    "parserId": "164785621855061652",
     "version": 10,
     "imageProviderAPIs": {
       "SteamGridDB": {
