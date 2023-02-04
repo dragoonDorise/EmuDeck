@@ -31,7 +31,7 @@ manageServices() {
 	# Delete all old scripts that match file names from the github repo
 	cd "$romsPath/cloud"
 	for i in "${arrAll[@]}"; do
-		rm "./$i"
+		rm "./$i" 
 	done
 
 	# Setup selected scripts
@@ -129,8 +129,9 @@ cleanUp() {
 
 mainMenu() {
 	# Ask to install new services or change settings
+	menuText=$(printf "<b>Main Menu</b>\n Currently Set Browser: $FILEFORWARDING\n")
 	CHOICE=$(zenity --list \
-		--title="Cloud Services Manager" --text="Main Menu" \
+		--title="Cloud Services Manager" --text="$menuText" \
         --width=300  --height=300 \
 		--column="" --column="Select an option:" --radiolist \
 			"" "Manage Cloud Services" \
@@ -165,7 +166,7 @@ CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
 
 # Show current browser
 source "$romsPath/cloud/cloud.conf"
-showCurrentBrowser
+#showCurrentBrowser
 
 # Load Menu
 mainMenu
