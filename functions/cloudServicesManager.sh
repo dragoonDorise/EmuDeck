@@ -3,13 +3,14 @@
 # GIT URL for downloads
 EMUDECKGIT=https://github.com/dragoonDorise/EmuDeck.git
 EMUDECKGITBRANCH=main #Add-cloud-gaming
+LOCALCLOUDFILES="$HOME/.config/EmuDeck/backend/tools/cloud"
 
 manageServices() {
 	# Download all cloud service scripts
-	sparseCheckoutLocal
+	#sparseCheckoutLocal
 	
 	# Create array of files
-	cd ~/Downloads/EmuDeck_temp/tools/cloud
+	cd $LOCALCLOUDFILES
 	declare -a arrAll
 	declare -a arrServ
 	for file in *.sh; do
@@ -35,7 +36,7 @@ manageServices() {
 
 	# Setup selected scripts
 	IFS='|' read -r -a arrChosen <<< "$SERVICES"
-    cd ~/Downloads/EmuDeck_temp/tools/cloud
+    cd $LOCALCLOUDFILES
 	for i in "${arrChosen[@]}"; do
 		chmod +x "./$i"
 		cp "./$i" "$romsPath/cloud"
@@ -157,8 +158,8 @@ source $HOME/emudeck/settings.sh
 # Check for exsisting cloud.conf or download fresh
 mkdir -p "$romsPath/cloud"
 if [ ! -f "$romsPath/cloud/cloud.conf" ]; then
-	sparseCheckoutLocal
-	cp ~/Downloads/EmuDeck_temp/tools/cloud/cloud.conf "$romsPath/cloud"
+	#sparseCheckoutLocal
+	cp "$HOME/.config/EmuDeck/backend/tools/cloud/cloud.conf" "$romsPath/cloud"
 fi
 CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
 
