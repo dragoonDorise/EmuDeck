@@ -929,67 +929,6 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Cloud Services",
-    "steamCategory": "${Cloud Services}",
-    "steamDirectory": "${steamdirglobal}",
-    "romDirectory": "${romsdirglobal}/cloud",
-    "executableArgs": "/bin/bash \"${filePath}\"",
-    "executableModifier": "\"${exePath}\"",
-    "startInDirectory": "",
-    "titleModifier": "${fuzzyTitle}",
-    "imageProviders": ["SteamGridDB"],
-    "onlineImageQueries": "${${fuzzyTitle}}",
-    "imagePool": "${fuzzyTitle}",
-    "defaultImage": "",
-    "defaultTallImage": "",
-    "defaultHeroImage": "",
-    "defaultLogoImage": "",
-    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
-    "localImages": "",
-    "localTallImages": "",
-    "localHeroImages": "",
-    "localLogoImages": "",
-    "localIcons": "",
-    "userAccounts": {
-      "specifiedAccounts": "",
-      "skipWithMissingDataDir": true,
-      "useCredentials": true
-    },
-    "executable": {
-      "path": "",
-      "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
-    },
-    "parserInputs": {
-      "glob": "**/${title}@(.sh)"
-    },
-    "titleFromVariable": {
-      "limitToGroups": "",
-      "caseInsensitiveVariables": false,
-      "skipFileIfVariableWasNotFound": false,
-      "tryToMatchTitle": false
-    },
-    "fuzzyMatch": {
-      "replaceDiacritics": true,
-      "removeCharacters": false,
-      "removeBrackets": true
-    },
-    "imageProviderAPIs": {
-      "SteamGridDB": {
-        "nsfw": false,
-        "humor": false,
-        "styles": [],
-        "stylesHero": [],
-        "stylesLogo": [],
-        "stylesIcon": [],
-        "imageMotionTypes": ["static"]
-      }
-    },
-    "parserId": "164785598905497513",
-    "version": 1
-  },
-  {
-    "parserType": "Glob",
     "configTitle": "Commodore 64 - Retroarch",
     "steamCategory": "${Commodore 64}",
     "steamDirectory": "${steamdirglobal}",
