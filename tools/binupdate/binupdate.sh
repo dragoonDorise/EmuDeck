@@ -72,10 +72,11 @@ exec > >(tee "${LOGFILE}") 2>&1
 binTable=()
 binTable+=(TRUE "EmulationStation-DE" "esde")
 binTable+=(TRUE "Steam Rom Manager" "srm")
+binTable+=(TRUE "GameBoy / Color / Advance" "mgba")
 binTable+=(TRUE "Nintendo Switch Emu" "yuzu")
 binTable+=(TRUE "Nintendo Switch Emu" "ryujinx")
 binTable+=(TRUE "Sony PlayStation 2 Emu" "pcsx2-qt")
-binTable+=(TRUE "Nintendo WiiU Emu" "cemu")
+binTable+=(TRUE "Nintendo WiiU Emu (Proton)" "cemu")
 binTable+=(TRUE "Sony PlayStation Vita Emu" "vita3k")
 binTable+=(FALSE "Xbox 360 Emu - TESTING ONLY" "xenia")
 
@@ -125,6 +126,16 @@ if [ $ans -eq 0 ]; then
                 messages+=("SteamRomManager Updated Successfully")
             else
                 messages+=("There was a problem updating SteamRomManager")
+            fi
+        fi
+        if [[ "$binsToDL" == *"mgba"* ]]; then
+            let progresspct+=$pct
+            echo "$progresspct"
+            echo "# Updating mgba"
+            if MGBA_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+                messages+=("mGBA Updated Successfully")
+            else
+                messages+=("There was a problem updating mGBA")
             fi
         fi
         if [[ "$binsToDL" == *"yuzu"* ]]; then
