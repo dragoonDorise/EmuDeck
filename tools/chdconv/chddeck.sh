@@ -59,7 +59,7 @@ if [ $ans -eq 0 ]; then
 	for romfolder in "${3dsfolderWhiteList[@]}"; do
 		echo "Checking ${romsPath}/${romfolder}/"
 		# ignore trimmed files
-		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.3ds" ! -name "*.trimmed*")
+		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.3ds" ! -name "*(Trimmed)*")
 		if [ ${#files[@]} -gt 0 ]; then
 			echo "found in $romfolder"
 			searchFolderList+=("$romfolder")
@@ -196,8 +196,8 @@ if [ $ans -eq 0 ]; then
 			# Ignore trimmed files
 			find "$romsPath/$romfolder" -type f -iname "*.3ds" ! -name '*.trimmed*' | while read -r f; do
 				echo "Converting: $f"
-				# Rename trimmed files to *.trimmed.3ds
-				3dstool -r -f "$f" >"$HOME/.config/EmuDeck/chdtool.log" && mv "$f" "${f%%.*}.trimmed.3ds"
+				# Rename trimmed files to *(Trimmed).3ds
+				3dstool -r -f "$f" >"$HOME/.config/EmuDeck/chdtool.log" && mv "$f" "${f%%.*}(Trimmed).3ds"
 			done
 		fi
 	done
