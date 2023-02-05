@@ -31,6 +31,7 @@ if [ $ans -eq 0 ]; then
 	#whitelist
 	declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
 	declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
+	declare -a 3dsfolderWhiteList=("3ds")
 	declare -a csofolderWhiteList=("psp")
 	declare -a searchFolderList
 
@@ -55,6 +56,17 @@ if [ $ans -eq 0 ]; then
 			fi
 		done
 	fi
+	for romfolder in "${3dsfolderWhiteList[@]}"; do
+		echo "Checking ${romsPath}/${romfolder}/"
+		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.3ds")
+		# TO FIX: Will always trigger if 3ds files exist
+		# Counting lines isn't a viable solution due to edge cases
+		# Call cross reference with log file here too? Seems slow.
+		if [ ${#files[@]} -gt 0 ]; then
+			echo "found in $romfolder"
+			searchFolderList+=("$romfolder")
+		fi
+	done
 	for romfolder in "${csofolderWhiteList[@]}"; do
 		echo "Checking ${romsPath}/${romfolder}/"
 		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.iso")
@@ -171,12 +183,29 @@ if [ $ans -eq 0 ]; then
 	done
 
 	#cso
-	
 	for romfolder in "${romfolders[@]}"; do
 		if [[ " ${csofolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
 			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
 				echo "Converting: $f"
 				ciso 9 "$f" "${f%.*}.cso" && rm -rf "$f"
+			done
+		fi
+	done
+
+	#3ds
+	for romfolder in "${romfolders[@]}"; do
+		if [[ " ${3dsfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+			find "$romsPath/$romfolder" -type f -iname "*.3ds" | while read -r f; do
+				# Keep a log of all trimmed files to avoid re-trimming
+			    if ! grep -Fxq "$f" "$chdPath/3ds-trimmed.log"; then
+					echo "Converting: $f"
+					# 3dstool modifies files, doesn't replace
+					3dstool -r -f "$f" >"$HOME/.config/EmuDeck/chdtool.log"
+					# Append filename of trimmed roms to list
+					echo "$f">> "$chdPath/3ds-trimmed.log"
+				else
+					echo "$(basename $f) already trimmed, skipping..."
+				fi
 			done
 		fi
 	done
