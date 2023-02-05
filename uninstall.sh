@@ -19,6 +19,7 @@ doUninstallSRM=true
 doUninstallESDE=true
 doUninstallMGBA=true
 doUninstallRMG=true
+doUninstallFlycast=true
 
 LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
 echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
@@ -91,7 +92,8 @@ if [ "$doUninstall" == true ]; then
 				12 "Cemu" \
 				13 "Cemu Native" \
 				14 "Mame"  \
-				15 "RMG"  )
+				15 "RMG"  \
+				16 "Flycast")
 	ans=$?	
 	if [ $ans -eq 0 ]; then
 		
@@ -145,7 +147,10 @@ if [ "$doUninstall" == true ]; then
 		fi		
 		if [[ "$emusToUninstall" == *"RMG"* ]]; then
 			doUninstallRMG=false
-		fi			
+		fi
+		if [[ "$emusToUninstall" == *"Flycast"* ]]; then
+			doUninstallRMG=false
+		fi				
 		
 	else
 		exit
@@ -220,6 +225,10 @@ if [ "$doUninstall" == true ]; then
 	if [[ "$doUninstallRMG" == true ]]; then
 		flatpak uninstall org.com.github.Rosalie241.RMG --system -y
 		rm -rf ~/.var/app/com.github.Rosalie241.RMG &>> /dev/null
+	fi
+	if [[ "$doUninstallFlycast" == true ]]; then		
+		flatpak uninstall org.flycast.Flycast  --system -y
+		rm -rf ~/.var/app/org.flycast.Flycast  &>> /dev/null	
 	fi
 
 	#Backup Service
