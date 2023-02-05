@@ -194,7 +194,7 @@ if [ $ans -eq 0 ]; then
 	for romfolder in "${romfolders[@]}"; do
 		if [[ " ${3dsfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
 			# Ignore trimmed files
-			find "$romsPath/$romfolder" -type f -iname "*.3ds" ! -name '*.trimmed*' | while read -r f; do
+			find "$romsPath/$romfolder" -type f -iname "*.3ds" ! -name '*(Trimmed)*' | while read -r f; do
 				echo "Converting: $f"
 				# Rename trimmed files to *(Trimmed).3ds
 				3dstool -r -f "$f" >"$HOME/.config/EmuDeck/chdtool.log" && mv "$f" "${f%%.*}(Trimmed).3ds"
