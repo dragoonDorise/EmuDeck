@@ -1007,7 +1007,7 @@
         "romDirectory": "${romsdirglobal}/cloud",
         "executableArgs": "\"${filePath}\"",
         "executableModifier": "\"${exePath}\"",
-        "startInDirectory": "",
+        "startInDirectory": "${romsdirglobal}/cloud",
         "titleModifier": "${fuzzyTitle}",
         "imageProviders": [
             "SteamGridDB"
