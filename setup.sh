@@ -315,7 +315,7 @@ if [ $doInstallRMG == "true" ]; then
 	echo "RMG_install"
 	RMG_install
 fi
-if [ $doInstallMelonDS == "true" ]; then
+if [ $doInstallmelonDS == "true" ]; then
 	echo "MelonDS_install"
 	MelonDS_install
 fi
@@ -404,7 +404,7 @@ if [ "$doSetupRMG" == "true" ]; then
 	echo "RMG_init"
 	RMG_init
 fi
-if [ "$doSetupMelonDS" == "true" ]; then
+if [ "$doSetupmelonDS" == "true" ]; then
 	echo "MelonDS_init"
 	MelonDS_init
 fi
