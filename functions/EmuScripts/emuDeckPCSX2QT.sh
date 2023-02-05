@@ -162,3 +162,36 @@ PCSX2QT_addSteamInputProfile(){
 	setMSG "Adding $PCSX2QT_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/PCSX2QT_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
+
+
+PCSX2QT_retroAchievementsOn(){
+	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Enabled" "True"
+}
+PCSX2QT_retroAchievementsOff(){
+	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Enabled" "False"
+}
+
+PCSX2QT_retroAchievementsHardCoreOn(){
+	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "ChallengeMode" "True"
+	
+}
+PCSX2QT_retroAchievementsHardCoreOff(){
+	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "ChallengeMode" "False"
+}
+
+
+PCSX2QT_retroAchievementsSetLogin(){	
+	rau=$(cat "$HOME/.config/EmuDeck/.rau")
+	rat=$(cat "$HOME/.config/EmuDeck/.rat")
+	echo "Evaluate RetroAchievements Login."
+	if [ ${#rat} -lt 1 ]; then
+		echo "--No token."
+	elif [ ${#rau} -lt 1 ]; then
+		echo "--No username."
+	else
+		echo "Valid Retroachievements Username and Password length"
+		iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Username" "$rau"
+		iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Token" "$rat"
+		PCSX2QT_retroAchievementsOn
+	fi
+}

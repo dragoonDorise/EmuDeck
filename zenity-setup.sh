@@ -324,7 +324,8 @@ if [ "$expert" == "true" ]; then
 		emuTable+=(TRUE "WiiU" "Cemu")
 		emuTable+=(TRUE "XBox" "Xemu")
 		emuTable+=(TRUE "N64" "RMG")
-
+		emuTable+=(FALSE "GameBoy / Color / Advance" "mGBA")
+		
 		#if we are in beta / dev install, allow Xenia. Still false by default though. Will only work on expert mode, and explicitly turned on.
 		if [[ $branch == "beta" || $branch == "dev" ]]; then
 			emuTable+=(FALSE "Xbox360" "Xenia")
@@ -398,6 +399,11 @@ if [ "$expert" == "true" ]; then
 				setSetting doInstallPPSSPP true
 			else
 				setSetting doInstallPPSSPP false
+			fi
+			if [[ "$emusToInstall" == *"mGBA"* ]]; then
+				setSetting doInstallMGBA true
+			else
+				setSetting doInstallMGBA false
 			fi
 			if [[ "$emusToInstall" == *"Yuzu"* ]]; then
 				setSetting doInstallYuzu true
@@ -587,6 +593,11 @@ if [ "$expert" == "true" ]; then
 				else
 					setSetting doSetupPPSSPP false
 				fi
+				if [[ "$emusToReset" == *"mGBA"* ]]; then
+					setSetting doSetupMGBA true
+				else
+					setSetting doSetupMGBA false
+				fi
 				if [[ "$emusToReset" == *"Yuzu"* ]]; then
 					setSetting doSetupYuzu true
 				else
@@ -649,12 +660,12 @@ else
 	setSetting doInstallCitra true
 	setSetting doInstallDuck true
 	setSetting doInstallCemu true
-	setSetting doInstallXenia false
 	setSetting doInstallPrimeHacks true
 	setSetting doInstallPPSSPP true
 	setSetting doInstallXemu true
 	setSetting doInstallMAME true
 	setSetting doInstallXenia false
+	setSetting doInstallMGBA false
 	setSetting doInstallRMG true
 	#doInstallMelon=true
 
@@ -674,6 +685,7 @@ else
 	setSetting doSetupMAME true
 	setSetting doSetupCemu true
 	setSetting doSetupXenia false
+	setSetting doSetupMGBA false
 	setSetting doSetupRMG true
 
 	#widescreen off by default

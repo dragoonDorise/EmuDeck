@@ -399,6 +399,8 @@ if [ "$RUNCHOICE" == 1 ]; then
 			
 			emuTable=()
 			emuTable+=(TRUE "Dreamcast" "Flycast")
+			emuTable+=(TRUE "GameBoy / Color / Advance" "mGBA")
+			emuTable+=(TRUE "Dreamcast" "Flycast")
 			emuTable+=(TRUE "Multiple" "RetroArch")
 			emuTable+=(TRUE "Metroid Prime" "PrimeHack")
 			emuTable+=(TRUE "PS2" "PCSX2")
@@ -436,6 +438,12 @@ if [ "$RUNCHOICE" == 1 ]; then
 			
 			if [ $ans -eq 0 ]; then
 				echo "Emu Install selected: $emusToInstall"
+				if [[ "$emusToInstall" == *"Flycast"* ]]; then
+					setSetting doInstallFlycast true
+				fi
+				if [[ "$emusToInstall" == *"mGBA"* ]]; then
+					setSetting doInstallMGBA true
+				fi
 				if [[ "$emusToInstall" == *"Flycast"* ]]; then
 					setSetting doInstallFlycast true
 				fi
@@ -558,6 +566,8 @@ if [ "$RUNCHOICE" == 1 ]; then
 	
 				emuTable=()
 				emuTable+=(TRUE "Flycast")
+				emuTable+=(TRUE "mGBA")
+				emuTable+=(TRUE "Flycast")
 				emuTable+=(TRUE "RetroArch")
 				emuTable+=(TRUE "PrimeHack")
 				emuTable+=(TRUE "PCSX2")
@@ -592,6 +602,12 @@ if [ "$RUNCHOICE" == 1 ]; then
 				echo -e "EmuDeck ${version}"
 				if [ $ans -eq 0 ]; then
 					echo "Emulators to reinstall selected: $emusToReset"
+					if [[ "$emusToReset" == *"Flycast"* ]]; then
+						setSetting doSetupFlycast true
+					fi
+					if [[ "$emusToReset" == *"mGBA"* ]]; then
+						setSetting doSetupMGBA true
+					fi
 					if [[ "$emusToReset" == *"Flycast"* ]]; then
 						setSetting doSetupFlycast true
 					fi
@@ -656,6 +672,8 @@ if [ "$RUNCHOICE" == 1 ]; then
 		fi
 	else
 		#easy mode settings
+		setSetting doInstallFLycast true
+		setSetting doInstallMGBA true
 		setSetting doInstallFLycast true
 		setSetting doInstallRA true
 		setSetting doInstallDolphin true
@@ -747,6 +765,9 @@ if [ $doInstallSRM == "true" ]; then
 	SRM_install
 fi
 #Emulators Installation
+if [ "$doInstallMGBA" == "true" ]; then	
+	MGBA_install
+fi
 if [ "$doInstallPCSX2" == "true" ]; then	
 	PCSX2_install
 fi
@@ -820,6 +841,9 @@ if [ "$doSetupPrimeHacks" == "true" ]; then
 fi
 if [ "$doSetupDolphin" == "true" ]; then
 	Dolphin_init
+fi
+if [ "$doSetupMGBA" == "true" ]; then
+	mGBA_init
 fi
 if [ "$doSetupPCSX2" == "true" ]; then
 	PCSX2_init
