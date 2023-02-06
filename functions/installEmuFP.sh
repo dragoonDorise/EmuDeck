@@ -2,7 +2,7 @@
 installEmuFP(){		
 	
 	local name="$1"
-	local ID="$2	"
+	local ID="$2"
 	
 	setMSG "Installing $name"
 	
