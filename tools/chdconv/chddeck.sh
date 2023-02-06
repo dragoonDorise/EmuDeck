@@ -16,9 +16,10 @@ if [ $ans -eq 0 ]; then
 	romsPath="/run/media/mmcblk0p1/Emulation/roms"
 	toolsPath="/run/media/mmcblk0p1/Emulation/tools"
 	chdPath="${toolsPath}/chdconv/"
-	alias dolphin-tool='flatpak run --command=dolphin-tool org.DolphinEmu.dolphin-emu'
+	flatpaktool=$(flatpak list --columns=application | grep -E dolphin\|primehack |head -1)
+	dolphintool="flatpak run --command=dolphin-tool $flatpaktool"
 
-	#initialize log
+#initialize log
 	TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
 	LOGFILE="$chdPath/chdman-$TIMESTAMP.log"
 	exec > >(tee "${LOGFILE}") 2>&1
@@ -30,6 +31,7 @@ if [ $ans -eq 0 ]; then
 	#whitelist
 	declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
 	declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
+	declare -a csofolderWhiteList=("psp")
 	declare -a searchFolderList
 
 	export PATH="${chdPath}/:$PATH"
@@ -43,7 +45,7 @@ if [ $ans -eq 0 ]; then
 			searchFolderList+=("$romfolder")
 		fi
 	done
-	if [[ -f "$dolphinTool" ]]; then #ensure tools are in place
+	if [[ -n "$flatpaktool" ]]; then #ensure tools are in place
 		for romfolder in "${rvzfolderWhiteList[@]}"; do
 			echo "Checking ${romsPath}/${romfolder}/"
 			mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.gcm" -o -type f -iname "*.iso")
@@ -53,6 +55,14 @@ if [ $ans -eq 0 ]; then
 			fi
 		done
 	fi
+	for romfolder in "${csofolderWhiteList[@]}"; do
+		echo "Checking ${romsPath}/${romfolder}/"
+		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.iso")
+		if [ ${#files[@]} -gt 0 ]; then
+			echo "found in $romfolder"
+			searchFolderList+=("$romfolder")
+		fi
+	done
 
 	if ((${#searchFolderList[@]} == 0)); then
 		echo "No eligible files found."
@@ -103,10 +113,10 @@ if [ $ans -eq 0 ]; then
 			find "$romsPath/$romfolder" -type f -iname "*.gdi" | while read -r f; do
 				echo "Converting: $f"
 				CUEDIR="$(dirname "${f}")"
-				echo "Compressing ${f%.*}.chd" >"$HOME/.config/EmuDeck/chdtool.log"
+				echo "Compressing ${f%.*}.chd"
 				chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
 				if [[ $successful == "true" ]]; then
-					echo "successfully created ${f%.*}.chd" >"$HOME/.config/EmuDeck/chdtool.log"
+					echo "successfully created ${f%.*}.chd"
 					find "${CUEDIR}" -maxdepth 1 -type f | while read -r b; do
 						fileName="$(basename "${b}")"
 						found=$(grep "${fileName}" "${f}")
@@ -117,17 +127,17 @@ if [ $ans -eq 0 ]; then
 					done
 					rm "${f}"
 				else
-					echo "Conversion of ${f} failed." >"$HOME/.config/EmuDeck/chdtool.log"
+					echo "Conversion of ${f} failed."
 				fi
 
 			done
 			find "$romsPath/$romfolder" -type f -iname "*.cue" | while read -r f; do
 				echo "Converting: $f"
 				CUEDIR="$(dirname "${f}")"
-				echo "Compressing ${f%.*}.chd" >"$HOME/.config/EmuDeck/chdtool.log"
+				echo "Compressing ${f%.*}.chd"
 				chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
 				if [[ $successful == "true" ]]; then
-					echo "successfully created ${f%.*}.chd" >"$HOME/.config/EmuDeck/chdtool.log"
+					echo "successfully created ${f%.*}.chd"
 					find "${CUEDIR}" -maxdepth 1 -type f | while read -r b; do
 						fileName="$(basename "${b}")"
 						found=$(grep "${fileName}" "${f}")
@@ -138,7 +148,7 @@ if [ $ans -eq 0 ]; then
 					done
 					rm "${f}"
 				else
-					echo "Conversion of ${f} failed." >"$HOME/.config/EmuDeck/chdtool.log"
+					echo "Conversion of ${f} failed."
 				fi
 
 			done
@@ -155,19 +165,27 @@ if [ $ans -eq 0 ]; then
 		if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
 			find "$romsPath/$romfolder" -type f -iname "*.gcm" -o -type f -iname "*.iso" | while read -r f; do
 				echo "Converting: $f"
-				dolphin-tool convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz" >"$HOME/.config/EmuDeck/chdtool.log" && rm -rf "$f"
+				${dolphintool} convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz" && rm -rf "$f"
 			done
 		fi
 	done
 
 	#cso
-	#
+	
+	for romfolder in "${romfolders[@]}"; do
+		if [[ " ${csofolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
+				echo "Converting: $f"
+				ciso 9 "$f" "${f%.*}.cso" && rm -rf "$f"
+			done
+		fi
+	done
 
 else
 	exit
 fi
 
-echo "All files compressed!" >"$HOME/.config/EmuDeck/chdtool.log"
+echo "All files compressed!"
 
 if [ "$uiMode" != 'zenity' ]; then
 	text="$(printf " <b>All files have been compressed!</b>")"
@@ -177,7 +195,7 @@ if [ "$uiMode" != 'zenity' ]; then
 	--text="${text}" 2>/dev/null
 fi
 
-echo "Press the button to start..." >"$HOME/.config/EmuDeck/chdtool.log"
+echo "Press the button to start..."
 
 if [ "$uiMode" == 'zenity' ]; then
 

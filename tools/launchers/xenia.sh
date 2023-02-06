@@ -17,7 +17,7 @@ APPIDPY="/run/media/mmcblk0p1/Emulation/tools/appID.py"
 PROTONLAUNCH="/run/media/mmcblk0p1/Emulation/tools/proton-launch.sh"
 
 # Xenia.exe location
-XENIA="/run/media/mmcblk0p1/Emulation/roms/xbox360/xenia.exe"
+XENIA="/run/media/mmcblk0p1/Emulation/roms/xbox360/xenia_canary.exe"
 
 # APPID
 APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
@@ -25,5 +25,11 @@ APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
 # Proton Version
 PROTONVER="- Experimental"
 
+# PROTONVER
+PROTONVER="7.0"
+
 # Call the Proton launcher script and give the arguments
+
+echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${XENIA}" "${@}" >> "${LOGFILE}"
+
 "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${XENIA}" "${@}"

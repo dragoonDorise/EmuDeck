@@ -1,19 +1,19 @@
 #!/bin/bash
 installEmuBI(){		
     
-    name=$1
-    url=$2	
-    altName=$3
-    format=$4
+    local name="$1"
+    local url="$2"
+    local altName="$3"
+    local format="$4"
 
-    if [[ $altName == "" ]]; then
-        altName=$name
+    if [[ "$altName" == "" ]]; then
+        altName="$name"
     fi
-    echo $name
-    echo $url
-    echo $altName
+    echo "$name"
+    echo "$url"
+    echo "$altName"
 
-    rm -f "$HOME/Applications/$altName" 
+    rm -f "$HOME/Applications/$altName.$format"
     mkdir -p "$HOME/Applications"
     curl -L "$url" -o "$HOME/Applications/$altName.$format.temp"  && mv "$HOME/Applications/$altName.$format.temp" "$HOME/Applications/$altName.$format"
     
@@ -37,7 +37,7 @@ installEmuBI(){
         chmod +x "${toolsPath}/launchers/"*
 
         createDesktopShortcut   "$HOME/.local/share/applications/$altName.desktop" \
-                                "$altName EmuDeck" \
+                                "$altName Binary" \
                                 "${toolsPath}/launchers/$launcherFileName" \
                                 "false"
     done

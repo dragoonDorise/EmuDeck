@@ -4,6 +4,7 @@ ESDE_toolName="EmulationStation-DE"
 ESDE_toolType="AppImage"
 ESDE_toolPath="${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
 ESDE_releaseURL="https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt"
+ESDE_prereleaseURL="https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_prerelease_appimage.txt"
 
 es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
 es_settingsFile="$HOME/.emulationstation/es_settings.xml"
@@ -18,12 +19,30 @@ ESDE_install(){
 	setMSG "Installing $ESDE_toolName"		
 
     curl $ESDE_releaseURL --output "$toolsPath/latesturl.txt"
-    latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
+    local latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
 
+	echo "downloading $latestURL"
     curl "$latestURL" --output "$ESDE_toolPath"
     rm "$toolsPath/latesturl.txt"
     chmod +x "$ESDE_toolPath"
 	
+}
+
+ESDE20_install(){
+	setMSG "Installing $ESDE_toolName PreRelease"
+
+    curl $ESDE_prereleaseURL --output "$toolsPath/latesturl.txt"
+    local latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
+
+	echo "downloading $latestURL"
+	if [[ $latestURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then 
+		curl "$latestURL" --output "$ESDE_toolPath"
+		rm "$toolsPath/latesturl.txt"
+		chmod +x "$ESDE_toolPath"
+	else
+		setMSG "$ESDE_toolName PreRelease not found, installing stable"
+		ESDE_install
+	fi
 }
 
 #ApplyInitialSettings
@@ -42,6 +61,10 @@ ESDE_init(){
     ESDE_applyTheme "$esdeTheme"
     ESDE_migrateDownloadedMedia
     ESDE_finalize
+}
+
+ESDE20_init(){
+	ESDE_init
 }
 
 
@@ -69,18 +92,25 @@ ESDE_addCustomSystems(){
 
 
 	#insert cemu custom system if it doesn't exist, but the file does
-	if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Proton)') == "" ]]; then
-		xmlstarlet ed --inplace --subnode '/systemList' --type elem --name 'system' \
+	if [[ $(grep -rnw "$es_systemsFile" -e 'wiiu') == "" ]]; then
+		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
 		--subnode '$newSystem' --type elem --name 'name' -v 'wiiu' \
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo Wii U' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/wiiu/roms' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.rpx .RPX .wud .WUD .wux .WUX .elf .ELF .iso .ISO .wad .WAD .wua .WUA' \
-		--subnode '$newSystem' --type elem --name 'command' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -f -g z:%ROM%" \
-		--insert '$newSystem/command' --type attr --name 'label' --value "Cemu (Proton)" \
+		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%" \
+		--insert '$newSystem/commandP' --type attr --name 'label' --value "Cemu (Proton)" \
+ 		--subnode '$newSystem' --type elem --name 'commandN' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%" \
+		--insert '$newSystem/commandN' --type attr --name 'label' --value "Cemu (Native)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'wiiu' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'wiiu' \
+		-r 'systemList/system/commandP' -v 'command' \
+		-r 'systemList/system/commandN' -v 'command' \
 		"$es_systemsFile"
+
+		#format doc to make it look nice
+		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 	fi
 	#Custom Systems config end
 
@@ -116,10 +146,38 @@ ESDE_setEmulationFolder(){
 
     #update cemu custom system launcher to correct path by just replacing the line, if it exists.
 	echo "updating $es_systemsFile"
-	commandString="/usr/bin/bash ${toolsPath}/launchers/cemu.sh -f -g z:%ROM%"
-	xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Proton)"]' -v "$commandString" "$es_systemsFile"
 
+	#insert new commands
+	if [[ ! $(grep -rnw "$es_systemsFile" -e 'wiiu') == "" ]]; then
+		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Proton)') == "" ]]; then
+			#insert
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%" \
+			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Cemu (Proton)" \
+			-r 'systemList/system/commandP' -v 'command' \
+			"$es_systemsFile"
 
+			#format doc to make it look nice
+			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		else
+			#update
+			cemuProtonCommandString="/usr/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%"
+			xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Proton)"]' -v "$cemuProtonCommandString" "$es_systemsFile"
+		fi
+		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Native)') == "" ]]; then
+			#insert
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandN' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%" \
+			--insert 'systemList/system/commandN' --type attr --name 'label' --value "Cemu (Native)" \
+			-r 'systemList/system/commandN' -v 'command' \
+			"$es_systemsFile"
+
+			#format doc to make it look nice
+			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		else
+			#update
+			cemuNativeCommandString="/usr/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%"
+    		xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Native)"]' -v "$cemuNativeCommandString" "$es_systemsFile"
+		fi
+	fi
 
 
 	echo "updating $es_settingsFile"
@@ -134,10 +192,11 @@ ESDE_setEmulationFolder(){
 	#search for media dir in xml, if not found, change to ours. If it's blank, also change to ours.
 	mediaDirFound=$(grep -rnw  "$es_settingsFile" -e 'MediaDirectory')
 	mediaDirEmpty=$(grep -rnw  "$es_settingsFile" -e '<string name="MediaDirectory" value="" />')
+	mediaDirEmulation=$(grep -rnw  "$es_settingsFile" -e 'Emulation/tools/downloaded_media')
 	if [[ $mediaDirFound == '' ]]; then
 		echo "adding ES-DE ${esDE_MediaDir}"
 		sed -i -e '$a'"${esDE_MediaDir}"  "$es_settingsFile" # use config file instead of link
-	elif [[ ! $mediaDirEmpty == '' ]]; then
+	elif [[ -z $mediaDirEmpty || -n $mediaDirEmulation ]]; then
 		echo "setting ES-DE MediaDirectory to ${esDE_MediaDir}"
 		changeLine '<string name="MediaDirectory"' "${esDE_MediaDir}" "$es_settingsFile"
 	fi

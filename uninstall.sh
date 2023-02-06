@@ -9,6 +9,7 @@ doUninstallRyujinx=true
 doUninstallCitra=true
 doUninstallDuck=true
 doUninstallCemu=true
+doUninstallCemuNative=true
 doUninstallXemu=true
 doUninstallXenia=true
 doUninstallPrimeHacks=true
@@ -16,6 +17,8 @@ doUninstallPPSSPP=true
 doUninstallMame=true
 doUninstallSRM=true
 doUninstallESDE=true
+doUninstallMGBA=true
+doUninstallRMG=true
 
 LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
 echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
@@ -86,7 +89,9 @@ if [ "$doUninstall" == true ]; then
 				10 "Ryujinx" \
 				11 "Xemu" \
 				12 "Cemu" \
-				12 "Mame" )
+				13 "Cemu Native" \
+				14 "Mame"  \
+				15 "RMG"  )
 	ans=$?	
 	if [ $ans -eq 0 ]; then
 		
@@ -123,6 +128,9 @@ if [ "$doUninstall" == true ]; then
 		if [[ "$emusToUninstall" == *"Cemu"* ]]; then
 			doUninstallCemu=false
 		fi
+		if [[ "${emusToUninstall}" == *"Cemu Native"* ]]; then
+			doUninstallCemuNative="false"
+		fi
 		#if [[ "$emusToUninstall" == *"Xenia"* ]]; then
 		#	doUninstallXenia=false
 		#fi
@@ -132,6 +140,12 @@ if [ "$doUninstall" == true ]; then
 		if [[ "$emusToUninstall" == *"Mame"* ]]; then
 			doUninstallMame=false
 		fi		
+		if [[ "$emusToUninstall" == *"mGBA"* ]]; then
+			doUninstallMGBA=false
+		fi		
+		if [[ "$emusToUninstall" == *"RMG"* ]]; then
+			doUninstallRMG=false
+		fi			
 		
 	else
 		exit
@@ -187,7 +201,10 @@ if [ "$doUninstall" == true ]; then
 		rm -f ~/Emulation/roms/wiiu/* &>> /dev/null
 		rm -f /run/media/mmcblk0p1/Emulation/roms/wiiu/* &>> /dev/null
 	fi
-
+	if [[ "${doUninstallCemuNative}" == "true" ]]; then
+		rm -rf ~/Applications/Cemu*.AppImage &>> /dev/null
+		rm -rf ~/.config/cemu &>> /dev/null
+	fi
 	if [[ "$doUninstallXemu" == true ]]; then
 		flatpak uninstall app.xemu.xemu --system -y
 		rm -rf ~/.var/app/app.xemu.xemu &>> /dev/null
@@ -195,6 +212,14 @@ if [ "$doUninstall" == true ]; then
 	if [[ "$doUninstallMame" == true ]]; then
 		flatpak uninstall org.mamedev.MAME --system -y
 		rm -rf ~/.var/app/org.mamedev.MAME &>> /dev/null
+	fi
+	if [[ "$doUninstallMGBA" == true ]]; then
+		rm -rf ~/Applications/mGBA.AppImage &>> /dev/null
+		rm -rf ~/.config/mgba
+	fi
+	if [[ "$doUninstallRMG" == true ]]; then
+		flatpak uninstall org.com.github.Rosalie241.RMG --system -y
+		rm -rf ~/.var/app/com.github.Rosalie241.RMG &>> /dev/null
 	fi
 
 	#Backup Service

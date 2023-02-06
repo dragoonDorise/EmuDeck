@@ -1,20 +1,16 @@
 #!/bin/bash
-source ./all.sh
-source ./setMSG.sh #dev
-source ./RemotePlayClientScripts/remotePlayChiaki.sh #dev
-source ./RemotePlayClientScripts/remotePlayParsec.sh #dev
-source ./RemotePlayClientScripts/remotePlayMoonlight.sh #dev
 
-# GIT Variables
+# GIT URL for downloads
 EMUDECKGITURL=https://github.com/dragoonDorise/EmuDeck.git
-EMUDECKGITBRANCH=main #Add-cloud-gaming
+EMUDECKGITBRANCH=main
+LOCALCLOUDFILES="$HOME/.config/EmuDeck/backend/tools/cloud"
 
 manageServices() {
 	# Download all cloud service scripts
-	sparseCheckoutLocal
+	#sparseCheckoutLocal
 	
 	# Create array of files
-	cd ~/Downloads/EmuDeck_temp/tools/cloud
+	cd $LOCALCLOUDFILES
 	declare -a arrAll
 	declare -a arrServ
 	for file in *.sh; do
@@ -35,12 +31,12 @@ manageServices() {
 	# Delete all old scripts that match file names from the github repo
 	cd "$romsPath/cloud"
 	for i in "${arrAll[@]}"; do
-		rm "./$i"
+		rm "./$i" 
 	done
 
 	# Setup selected scripts
 	IFS='|' read -r -a arrChosen <<< "$SERVICES"
-    cd ~/Downloads/EmuDeck_temp/tools/cloud
+    cd $LOCALCLOUDFILES
 	for i in "${arrChosen[@]}"; do
 		chmod +x "./$i"
 		cp "./$i" "$romsPath/cloud"
@@ -259,8 +255,9 @@ cleanUp() {
 
 mainMenu() {
 	# Ask to install new services or change settings
+	menuText=$(printf "<b>Main Menu</b>\n Currently Set Browser: $FILEFORWARDING\n")
 	CHOICE=$(zenity --list \
-		--title="Cloud Services Manager" --text="Main Menu" \
+		--title="Cloud Services Manager" --text="$menuText" \
         --width=300  --height=300 \
 		--column="" --column="Select an option:" --radiolist \
 			"" "Manage Cloud Services" \
@@ -286,18 +283,17 @@ mainMenu() {
 ##################
 # Initialization #
 ##################
+source $HOME/emudeck/settings.sh
 
 # Check for exsisting cloud.conf or download fresh
 mkdir -p "$romsPath/cloud"
 if [ ! -f "$romsPath/cloud/cloud.conf" ]; then
-	sparseCheckoutLocal
-	cp ~/Downloads/EmuDeck_temp/tools/cloud/cloud.conf "$romsPath/cloud"
+	cp "$HOME/.config/EmuDeck/backend/tools/cloud/cloud.conf" "$romsPath/cloud"
 fi
 CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
-source "$CLOUDSETTINGSFILE"
 
 # Show current browser
-showCurrentBrowser
+source "$romsPath/cloud/cloud.conf"
 
 # Load Menu
 mainMenu

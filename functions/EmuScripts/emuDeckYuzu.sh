@@ -4,6 +4,7 @@
 Yuzu_emuName="Yuzu"
 Yuzu_emuType="AppImage"
 Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
+YuzuEA_emuPath="$HOME/Applications/yuzu-ea.AppImage"
 
 #cleanupOlderThings
 Yuzu_cleanup(){
@@ -18,7 +19,59 @@ Yuzu_cleanup(){
 Yuzu_install(){
     echo "Begin Yuzu Install"
     installEmuAI "yuzu"  "$(getReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage")" #needs to be lowercase yuzu for EsDE to find it.
-    flatpak override org.yuzu_emu.yuzu --filesystem=host --user # still doing this, as we do link the appimage / flatpak config. if the user ever decides to install the flatpak, we do want it to work.
+    YuzuEA_install # call the EA install. If the user has the token in the right spot, it will download EA as well for them.
+}
+
+YuzuEA_install(){
+
+local jwtHost="https://api.yuzu-emu.org/jwt/installer/"
+local yuzuEaHost="https://api.yuzu-emu.org/downloads/earlyaccess/"
+local fileToDownload=$(curl ${yuzuEaHost} | jq -r '.files[] | select(.name|test(".*.AppImage")).url')
+local currentVer=$(curl ${yuzuEaHost} | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
+local tokenFile="$HOME/emudeck/yuzu-ea-token.txt"
+local lastDL="$HOME/emudeck/yuzu-ea.ver"
+
+if [ -e "$tokenFile" ]; then
+
+    if [ "$currentVer" == "$(cat ${lastDL})" ] ;then
+
+        echo "no need to update."
+
+    else
+
+        echo "updating"
+        read user auth <<< $( base64 -d -i "${tokenFile}" | awk -F":" '{print $1" "$2}' )
+
+        if [[ -n "$user" && -n "$auth" ]]; then
+
+            echo "get bearer token"
+            BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
+
+            echo "download ea appimage"
+            response=$(curl -f -X GET ${fileToDownload} --write-out '%{http_code}' -H "Accept: application/json" -H "Authorization: Bearer ${BEARERTOKEN}" -o "${HOME}/Applications/yuzu-ea.AppImage")
+            
+            if [ "$response" = "200" ] ; then
+                echo "EA downloaded successfully"
+                echo ${currentVer} > ${lastDL}
+            elif [ "$response" = "401" ] ; then
+                echo "Not authorized. Check your patreon status."
+            else
+                echo "EA Download errored with code $response"
+            fi
+        
+        else
+
+            echo "Token malformed"
+
+        fi
+
+    fi
+    
+else
+
+	echo "Token Not Found"
+    
+fi
 }
 
 #ApplyInitialSettings
@@ -193,6 +246,14 @@ Yuzu_finalize(){
 
 Yuzu_IsInstalled(){
 	if [ -e "$Yuzu_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+YuzuEA_IsInstalled(){
+	if [ -e "$YuzuEA_emuPath" ]; then
 		echo "true"
 	else
 		echo "false"

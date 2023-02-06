@@ -160,3 +160,35 @@ DuckStation_addSteamInputProfile(){
 	setMSG "Adding $DuckStation_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/duckstation_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
+
+DuckStation_retroAchievementsOn(){
+	iniFieldUpdate "$DuckStation_configFileNew" "Achievements" "Enabled" "True"
+}
+DuckStation_retroAchievementsOff(){
+	iniFieldUpdate "$DuckStation_configFileNew" "Achievements" "Enabled" "False"
+}
+
+DuckStation_retroAchievementsHardCoreOn(){
+	iniFieldUpdate "$DuckStation_configFileNew" "Achievements" "ChallengeMode" "True"
+	
+}
+DuckStation_retroAchievementsHardCoreOff(){
+	iniFieldUpdate "$DuckStation_configFileNew" "Achievements" "ChallengeMode" "False"
+}
+
+
+DuckStation_retroAchievementsSetLogin(){	
+	rau=$(cat "$HOME/.config/EmuDeck/.rau")
+	rat=$(cat "$HOME/.config/EmuDeck/.rat")
+	echo "Evaluate RetroAchievements Login."
+	if [ ${#rat} -lt 1 ]; then
+		echo "--No token."
+	elif [ ${#rau} -lt 1 ]; then
+		echo "--No username."
+	else
+		echo "Valid Retroachievements Username and Password length"
+		iniFieldUpdate "$DuckStation_configFileNew" "Achievements" "Username" "$rau"
+		iniFieldUpdate "$DuckStation_configFileNew" "Achievements" "Token" "$rat"
+		PCSX2QT_retroAchievementsOn
+	fi
+}
