@@ -1,10 +1,10 @@
 #!/bin/bash
 installEmuBI(){		
     
-    local name=$1
-    local url=$2	
-    local altName=$3
-    local format=$4
+    local name="$1"
+    local url="$2"
+    local altName="$3"
+    local format="$4"
 
     if [[ "$altName" == "" ]]; then
         altName="$name"
