@@ -1,9 +1,8 @@
 #!/bin/bash
 #variables
-RMG_emuName="RMG"
+RMG_emuName="RosaliesMupenGui"
 RMG_emuType="FlatPak"
 RMG_emuPath="com.github.Rosalie241.RMG"
-RMG_releaseURL=""
 RMG_configFile="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/mupen64plus.cfg"
 RMG_glideN64File="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/GLideN64.ini"
 
