@@ -1,16 +1,20 @@
 #!/bin/bash
+source ./all.sh
+source ./setMSG.sh #dev
+source ./RemotePlayClientScripts/remotePlayChiaki.sh #dev
+source ./RemotePlayClientScripts/remotePlayParsec.sh #dev
+source ./RemotePlayClientScripts/remotePlayMoonlight.sh #dev
 
-# GIT URL for downloads
+# GIT Variables
 EMUDECKGITURL=https://github.com/dragoonDorise/EmuDeck.git
-EMUDECKGITBRANCH=main
-LOCALCLOUDFILES="$HOME/.config/EmuDeck/backend/tools/cloud"
+EMUDECKGITBRANCH=main #Add-cloud-gaming
 
 manageServices() {
 	# Download all cloud service scripts
-	#sparseCheckoutLocal
+	sparseCheckoutLocal
 	
 	# Create array of files
-	cd $LOCALCLOUDFILES
+	cd ~/Downloads/EmuDeck_temp/tools/cloud
 	declare -a arrAll
 	declare -a arrServ
 	for file in *.sh; do
@@ -31,12 +35,12 @@ manageServices() {
 	# Delete all old scripts that match file names from the github repo
 	cd "$romsPath/cloud"
 	for i in "${arrAll[@]}"; do
-		rm "./$i" 
+		rm "./$i"
 	done
 
 	# Setup selected scripts
 	IFS='|' read -r -a arrChosen <<< "$SERVICES"
-    cd $LOCALCLOUDFILES
+    cd ~/Downloads/EmuDeck_temp/tools/cloud
 	for i in "${arrChosen[@]}"; do
 		chmod +x "./$i"
 		cp "./$i" "$romsPath/cloud"
@@ -75,7 +79,6 @@ manageRPS() {
 		arrAllRP+=(false "Parsec")
 	fi
 
-	progressStarted="false"
 	# Dynamically build list of scripts
 	RP=$(zenity --list  \
 	--title="Cloud Services Manager" \
@@ -85,6 +88,8 @@ manageRPS() {
     --width=300 --height=300 --checklist "${arrAllRP[@]}")
 
 	# Setup progress bar and perform install/update/uninstall of selected items
+	progressStarted="false"
+
     (
 		IFS='|' read -r -a arrChosen <<< "$RP"
 		for i in "${arrChosen[@]}"; do
@@ -93,69 +98,60 @@ manageRPS() {
 				Chiaki_IsInstalled
 				ans=$?
 				if [ "$ans" == "1" ]; then
-					progressStartFunc
 					Chiaki_update
 				else
-					progressStartFunc
 					Chiaki_install
 				fi
 			elif [ "$i" == "Moonlight" ]; then
 				Moonlight_IsInstalled
 				ans=$?
 				if [ "$ans" == "1" ]; then
-					progressStartFunc
 					Moonlight_update
 				else
-					progressStartFunc
 					Moonlight_install
 				fi
 			elif [ "$i" == "Parsec" ]; then
 				Parsec_IsInstalled
 				ans=$?
 				if [ "$ans" == "1" ]; then
-					progressStartFunc
 					Parsec_update
 				else
-					progressStartFunc
 					Parsec_install
 				fi
 			fi
-
-			# Uninstall those not selected
-			if [[ ! "${arrChosen[*]}" =~ "Chiaki" ]]; then
-				Chiaki_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					progressStartFunc
-					Chiaki_uninstall
-				fi
-			elif [[ ! "${arrChosen[*]}" =~ "Moonlight" ]]; then
-				Moonlight_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					progressStartFunc
-					Moonlight_uninstall
-				fi
-			elif [[ ! "${arrChosen[*]}" =~ "Parsec" ]]; then
-					zenity --info --width=200 --text="Attempting to uninstall Parsec" #dev
-				Parsec_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					progressStartFunc
-					Parsec_uninstall
-				fi
-			else
-				zenity --info --width=200 --text="checking" #dev
-			fi
 		done
-	) 	|	zenity --progress \
+		
+		# Uninstall those not selected
+		if [[ ! "${arrChosen[*]}" =~ "Chiaki" ]]; then
+			Chiaki_IsInstalled
+			ans=$?
+			if [ "$ans" == "1" ]; then
+				Chiaki_uninstall
+			fi
+		elif [[ ! "${arrChosen[*]}" =~ "Moonlight" ]]; then
+			Moonlight_IsInstalled
+			ans=$?
+			if [ "$ans" == "1" ]; then
+				Moonlight_uninstall
+			fi
+		elif [[ ! "${arrChosen[*]}" =~ "Parsec" ]]; then
+				zenity --info --width=200 --text="Attempting to uninstall Parsec" #dev
+			Parsec_IsInstalled
+			ans=$?
+			if [ "$ans" == "1" ]; then
+				Parsec_uninstall
+			fi
+		else
+			zenity --info --width=200 --text="checking" #dev
+		fi
+	) 	|	(zenity --progress \
             --title="Cloud Services Manager" \
             --text="Processing..." \
             --percentage=0 \
             --no-cancel \
             --pulsate \
             --auto-close \
-            --width=300
+            --width=300 && progressStarted="true")
 			
 	zenity --info --width=200 --text="$progressStarted"
 	
@@ -166,10 +162,6 @@ manageRPS() {
 		# Return to menu
 		mainMenu
 	fi
-}
-
-progressStartFunc() {
-	progressStarted="true"
 }
 
 showCurrentBrowser() {
@@ -255,9 +247,8 @@ cleanUp() {
 
 mainMenu() {
 	# Ask to install new services or change settings
-	menuText=$(printf "<b>Main Menu</b>\n Currently Set Browser: $FILEFORWARDING\n")
 	CHOICE=$(zenity --list \
-		--title="Cloud Services Manager" --text="$menuText" \
+		--title="Cloud Services Manager" --text="Main Menu" \
         --width=300  --height=300 \
 		--column="" --column="Select an option:" --radiolist \
 			"" "Manage Cloud Services" \
@@ -283,17 +274,18 @@ mainMenu() {
 ##################
 # Initialization #
 ##################
-source $HOME/emudeck/settings.sh
 
 # Check for exsisting cloud.conf or download fresh
 mkdir -p "$romsPath/cloud"
 if [ ! -f "$romsPath/cloud/cloud.conf" ]; then
-	cp "$HOME/.config/EmuDeck/backend/tools/cloud/cloud.conf" "$romsPath/cloud"
+	sparseCheckoutLocal
+	cp ~/Downloads/EmuDeck_temp/tools/cloud/cloud.conf "$romsPath/cloud"
 fi
 CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
+source "$CLOUDSETTINGSFILE"
 
 # Show current browser
-source "$romsPath/cloud/cloud.conf"
+showCurrentBrowser
 
 # Load Menu
 mainMenu
