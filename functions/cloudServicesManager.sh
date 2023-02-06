@@ -1,14 +1,7 @@
 #!/bin/bash
+#source ./all.sh #dev
 
-# GIT URL for downloads
-EMUDECKGITURL=https://github.com/dragoonDorise/EmuDeck.git
-EMUDECKGITBRANCH=main
-LOCALCLOUDFILES="$HOME/.config/EmuDeck/backend/tools/cloud"
-
-manageServices() {
-	# Download all cloud service scripts
-	#sparseCheckoutLocal
-	
+manageServices() {	
 	# Create array of files
 	cd $LOCALCLOUDFILES
 	declare -a arrAll
@@ -46,10 +39,28 @@ manageServices() {
 	mainMenu
 }
 
+# Check if installed
+isInstalled() {
+	local ID="$1"
+	if [ "$(flatpak --columns=app list | grep "$1")" == "$1" ]; then
+		return 1
+	else
+		return 0
+	fi
+}
+
+# Install Flatpak
+installFP(){
+	local ID="$1"
+	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
+	flatpak install flathub "$ID" -y --user
+	flatpak override "$ID" --filesystem=host --user
+	flatpak override "$ID" --share=network --user
+}
+
 manageRPS() {
 	# Create array of all Remote Play clients
-	#cd "${EMUDECKGIT}"/functions/RemotePlayClientScripts/
-	cd "$HOME/github/EmuDeck/functions/RemotePlayClientScripts" #(dev)
+	cd "$EMUDECKGIT/functions/RemotePlayClientScripts"
 	declare -a arrAllRP
 	Chiaki_IsInstalled
 	ans=$?
@@ -75,7 +86,6 @@ manageRPS() {
 		arrAllRP+=(false "Parsec")
 	fi
 
-	progressStarted="false"
 	# Dynamically build list of scripts
 	RP=$(zenity --list  \
 	--title="Cloud Services Manager" \
@@ -83,9 +93,13 @@ manageRPS() {
 	--ok-label="Start" --cancel-label="Return to Main Menu" \
 	--column="" --column="Disable to uninstall" \
     --width=300 --height=300 --checklist "${arrAllRP[@]}")
+    if [ $? != 0 ]; then
+        mainMenu
+    fi
 
 	# Setup progress bar and perform install/update/uninstall of selected items
     (
+		arrChosen=()
 		IFS='|' read -r -a arrChosen <<< "$RP"
 		for i in "${arrChosen[@]}"; do
 			# Install/Update selected
@@ -93,62 +107,40 @@ manageRPS() {
 				Chiaki_IsInstalled
 				ans=$?
 				if [ "$ans" == "1" ]; then
-					progressStartFunc
 					Chiaki_update
 				else
-					progressStartFunc
 					Chiaki_install
 				fi
 			elif [ "$i" == "Moonlight" ]; then
 				Moonlight_IsInstalled
 				ans=$?
 				if [ "$ans" == "1" ]; then
-					progressStartFunc
 					Moonlight_update
 				else
-					progressStartFunc
 					Moonlight_install
 				fi
 			elif [ "$i" == "Parsec" ]; then
 				Parsec_IsInstalled
 				ans=$?
 				if [ "$ans" == "1" ]; then
-					progressStartFunc
 					Parsec_update
 				else
-					progressStartFunc
 					Parsec_install
 				fi
 			fi
-
-			# Uninstall those not selected
-			if [[ ! "${arrChosen[*]}" =~ "Chiaki" ]]; then
-				Chiaki_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					progressStartFunc
-					Chiaki_uninstall
-				fi
-			elif [[ ! "${arrChosen[*]}" =~ "Moonlight" ]]; then
-				Moonlight_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					progressStartFunc
-					Moonlight_uninstall
-				fi
-			elif [[ ! "${arrChosen[*]}" =~ "Parsec" ]]; then
-					zenity --info --width=200 --text="Attempting to uninstall Parsec" #dev
-				Parsec_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					progressStartFunc
-					Parsec_uninstall
-				fi
-			else
-				zenity --info --width=200 --text="checking" #dev
-			fi
 		done
-	) 	|	zenity --progress \
+
+		# Uninstall those not selected
+		if [[ ! "${arrChosen[*]}" =~ "Chiaki" ]]; then
+			Chiaki_uninstall
+		fi
+		if [[ ! "${arrChosen[*]}" =~ "Moonlight" ]]; then
+			Moonlight_uninstall
+		fi
+		if [[ ! "${arrChosen[*]}" =~ "Parsec" ]]; then
+			Parsec_uninstall
+		fi
+	)	|	zenity --progress \
             --title="Cloud Services Manager" \
             --text="Processing..." \
             --percentage=0 \
@@ -156,47 +148,71 @@ manageRPS() {
             --pulsate \
             --auto-close \
             --width=300
-			
-	zenity --info --width=200 --text="$progressStarted"
 	
-	if [[ $progressStarted == 'true' ]]; then
-		# Return to Manager RP Services selection
-		manageRPS
-	else
-		# Return to menu
-		mainMenu
-	fi
-}
-
-progressStartFunc() {
-	progressStarted="true"
-}
-
-showCurrentBrowser() {
-	zenity --info --width=200 --text="Currently Set Browser: $FILEFORWARDING"
+	# Return to RPS Manager
+	manageRPS
 }
 
 changeSettings() {
+	# Supported browsers:
+	declare -a arrSupBrows=("com.google.Chrome" "com.microsoft.Edge" "org.mozilla.firefox")
+	declare -a arrBrowsOpts
+	for brows in "${arrSupBrows[@]}"; do
+		if [ "$(flatpak --columns=app list | grep "$brows")" == "$brows" ]; then
+			arrBrowsOpts+=(false "$brows" true)
+		else
+			arrBrowsOpts+=(false "$brows" false)
+		fi
+	done
+
 	local BROWSER=$(zenity --list \
 	--title="Cloud Services Manager" \
-    --width=300 --height=300 --text="Set default web browser:" \
-	--column="" --column="Description" --radiolist \
-		"" "Google Chrome" \
-		"" "Microsoft Edge" \
-		"" "Mozilla Firefox")
-	
-	if [[ $BROWSER == 'Google Chrome' ]]; then
-		setCloudSetting COMMAND "/app/bin/chrome"
-		setCloudSetting FILEFORWARDING "com.google.Chrome"
-	elif [[ $BROWSER == 'Microsoft Edge' ]]; then
-		setCloudSetting COMMAND "/app/bin/edge"
-		setCloudSetting FILEFORWARDING "com.microsoft.Edge"
-	elif [[ $BROWSER == 'Mozilla Firefox' ]]; then
-		setCloudSetting COMMAND "firefox"
-		setCloudSetting FILEFORWARDING "org.mozilla.firefox"
-	fi
-    
-	showCurrentBrowser
+    --width=400 --height=300 --text="Set default web browser:" \
+	--column="" --column="Application" --column="Installed" \
+	--radiolist "${arrBrowsOpts[@]}")
+
+	# Setup progress bar and perform install & setup
+    (
+		arrChosen=()
+		IFS='|' read -r -a arrChosen <<< "$BROWSER"
+		for BROWSER in "${arrChosen[@]}"; do
+			if [[ $BROWSER == 'com.google.Chrome' ]]; then
+				isInstalled "$BROWSER"
+				ans=$?
+				if [ "$ans" == "0" ]; then
+					installFP "$BROWSER"
+				fi
+				setCloudSetting COMMAND "/app/bin/chrome"
+				setCloudSetting FILEFORWARDING "$BROWSER"
+				flatpak --user override --filesystem=/run/udev:ro "$BROWSER"
+			elif [[ $BROWSER == 'com.microsoft.Edge' ]]; then
+				isInstalled "$BROWSER"
+				ans=$?
+				if [ "$ans" == "0" ]; then
+					installFP "$BROWSER"
+				fi
+				setCloudSetting COMMAND "/app/bin/edge"
+				setCloudSetting FILEFORWARDING "$BROWSER"
+				flatpak --user override --filesystem=/run/udev:ro "$BROWSER"
+			elif [[ $BROWSER == 'org.mozilla.firefox' ]]; then
+				isInstalled "$BROWSER"
+				ans=$?
+				if [ "$ans" == "0" ]; then
+					installFP "$BROWSER"
+				fi
+				setCloudSetting COMMAND "firefox"
+				setCloudSetting FILEFORWARDING "$BROWSER"
+				flatpak --user override --filesystem=/run/udev:ro "$BROWSER"
+			fi
+		done
+	)	|	zenity --progress \
+            --title="Cloud Services Manager" \
+            --text="Installing..." \
+            --percentage=0 \
+            --no-cancel \
+            --pulsate \
+            --auto-close \
+            --width=300
 
 	# Return to menu
 	mainMenu
@@ -224,38 +240,12 @@ setCloudSetting() {
 	source "$CLOUDSETTINGSFILE"
 }
 
-# Create a temp folder in the Downloads folder and only pull "tools/cloud" directory.
-sparseCheckoutLocal() {
-    (
-        cd ~/Downloads
-        git init EmuDeck_temp
-        cd EmuDeck_temp
-        git remote add -f origin $EMUDECKGITURL
-        git config core.sparseCheckout true
-        echo "tools/cloud" >> .git/info/sparse-checkout
-        git pull origin $EMUDECKGITBRANCH
-    ) 	|	zenity --progress \
-            --title="Cloud Services Manager" \
-            --text="Downloading scripts..." \
-            --percentage=0 \
-            --no-cancel \
-            --pulsate \
-            --auto-close \
-            --width=300
-        
-    if [ "$?" = -1 ] ; then
-        zenity --error --text="Update canceled."
-    fi
-}
-
-cleanUp() {
-	rm -fdr ~/Downloads/EmuDeck_temp
-    exit
-}
-
 mainMenu() {
+	# Update values
+	source "$CLOUDSETTINGSFILE"
+
 	# Ask to install new services or change settings
-	menuText=$(printf "<b>Main Menu</b>\n Currently Set Browser: $FILEFORWARDING\n")
+	menuText=$(printf "<b>Main Menu</b>\n\n Currently Set Browser: $FILEFORWARDING\n")
 	CHOICE=$(zenity --list \
 		--title="Cloud Services Manager" --text="$menuText" \
         --width=300  --height=300 \
@@ -265,7 +255,7 @@ mainMenu() {
 			"" "Change Settings" \
 			"" "Quit")
     if [ $? != 0 ]; then
-        cleanUp
+        exit
     fi
 
 	if [[ $CHOICE == 'Manage Cloud Services' ]]; then
@@ -275,7 +265,7 @@ mainMenu() {
 	elif [[ $CHOICE == 'Change Settings' ]]; then
 		changeSettings
 	elif [[ $CHOICE == 'Quit' ]]; then
-		cleanUp
+		exit
 	fi
 	exit
 }
@@ -283,16 +273,16 @@ mainMenu() {
 ##################
 # Initialization #
 ##################
-source $HOME/emudeck/settings.sh
+
+LOCALCLOUDFILES="$HOME/.config/EmuDeck/backend/tools/cloud"
 
 # Check for exsisting cloud.conf or download fresh
 mkdir -p "$romsPath/cloud"
+mkdir -p "$romsPath/remoteplay"
 if [ ! -f "$romsPath/cloud/cloud.conf" ]; then
 	cp "$HOME/.config/EmuDeck/backend/tools/cloud/cloud.conf" "$romsPath/cloud"
 fi
 CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
-
-# Show current browser
 source "$romsPath/cloud/cloud.conf"
 
 # Load Menu

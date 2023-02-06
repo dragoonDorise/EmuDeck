@@ -6,16 +6,16 @@ Parsec_emuType="FlatPak"
 Parsec_emuPath="com.parsecgaming.parsec"
 Parsec_releaseURL=""
 
-# Cleanup
-Parsec_finalize() {
-	echo "NYI"
-}
-
 # Install
 Parsec_install() {
 	setMSG "Installing $Parsec_emuName."
-	installEmuFP "$Parsec_emuName" "$Parsec_emuPath"
-
+	local ID="$Parsec_emuPath"
+	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
+	flatpak install flathub "$ID" -y --user
+	flatpak override "$ID" --filesystem=host --user
+	flatpak override "$ID" --share=network --user
+	cp "${EMUDECKGIT}/tools/remoteplayclients/Parsec.sh" "$romsPath/remoteplay"
+	chmod +x "$romsPath/remoteplay/Parsec.sh"
 	Parsec_addSteamInputProfile
 }
 
@@ -28,8 +28,11 @@ Parsec_init() {
 
 # Update flatpak
 Parsec_update() {
-	setMSG "Updating $Parsec_emuName settings."	
-	updateEmuFP "$Parsec_emuName" "$Parsec_emuPath"
+	setMSG "Updating $Parsec_emuName settings."
+	local ID="$Parsec_emuPath"
+	flatpak update $ID -y --user	
+	flatpak override $ID --filesystem=host --user
+	flatpak override $ID --share=network --user	
 }
 
 # Uninstall

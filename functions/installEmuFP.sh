@@ -2,12 +2,12 @@
 installEmuFP(){		
 	
 	local name="$1"
-	local ID="$2	"
+	local ID="$2"
 	
 	setMSG "Installing $name"
 	
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
-	flatpak install flathub "$ID" -y --user	
+	flatpak install flathub "$ID" -y --system	
 	flatpak override "$ID" --filesystem=host --user
 	flatpak override "$ID" --share=network --user	
 	
