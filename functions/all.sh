@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# Dev variables (normally commented out)
+HOME="/home/deck" #dev
+EMUDECKGIT="$HOME/github/EmuDeck" #dev
+
+# Set GIT location
 if [[ "$EMUDECKGIT" == "" ]]; then
     EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 fi
@@ -23,6 +29,7 @@ source "$EMUDECKGIT"/functions/configEmuAI.sh
 source "$EMUDECKGIT"/functions/configEmuFP.sh
 source "$EMUDECKGIT"/functions/createDesktopIcons.sh
 source "$EMUDECKGIT"/functions/installEmuFP.sh
+source "$EMUDECKGIT"/functions/uninstallEmuFP.sh
 source "$EMUDECKGIT"/functions/setMSG.sh
 source "$EMUDECKGIT"/functions/emuDeckPrereqs.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
@@ -64,9 +71,13 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMAME.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckScummVM.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckVita3K.sh
 
+#remoteplayclientscripts
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayParsec.sh
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayMoonlight.sh
+
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMelonDS.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMgba.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMAMEProton.sh
-
