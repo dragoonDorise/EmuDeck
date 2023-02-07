@@ -316,8 +316,8 @@ if [ $doInstallRMG == "true" ]; then
 	RMG_install
 fi
 if [ $doInstallmelonDS == "true" ]; then
-	echo "MelonDS_install"
-	MelonDS_install
+	echo "melonDS_install"
+	melonDS_install
 fi
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ "$doInstallXenia" == "true" ]; then
@@ -405,8 +405,8 @@ if [ "$doSetupRMG" == "true" ]; then
 	RMG_init
 fi
 if [ "$doSetupmelonDS" == "true" ]; then
-	echo "MelonDS_init"
-	MelonDS_init
+	echo "melonDS_init"
+	melonDS_init
 fi
 if [ "$doSetupMGBA" == "true" ]; then
 	echo "mGBA_init"
