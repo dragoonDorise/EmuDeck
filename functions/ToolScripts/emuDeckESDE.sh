@@ -270,3 +270,15 @@ ESDE_setEmu(){
 		sed -i "s|<?xml version=\"1.0\">|<?xml version=\"1.0\"?>|g" "$gamelistFile"
 	fi
 }
+
+ESDE_IsInstalled(){
+	if [ -e "$ESDE_toolPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+EmulationStation_IsInstalled(){ # because appimage is calling it this way for some reason
+	ESDE_IsInstalled 
+}
