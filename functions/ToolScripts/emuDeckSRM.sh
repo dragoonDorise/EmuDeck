@@ -25,6 +25,11 @@ SRM_install(){
 SRM_createDesktopShortcut(){
 	local SRM_Shortcutlocation=$1
 
+	mkdir -p "$HOME/.local/share/applications/"
+	
+	mkdir -p "$HOME/.local/share/icons/emudeck/"
+	cp -v "$EMUDECKGIT/icons/srm.png" "$HOME/.local/share/icons/emudeck/"
+
 	if [[ "$SRM_Shortcutlocation" == "" ]]; then
 
 		SRM_Shortcutlocation="$HOME/.local/share/applications/SRM.desktop"
@@ -33,9 +38,9 @@ SRM_createDesktopShortcut(){
 
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
-	Name=Steam Rom Manager
+	Name=Steam Rom Manager AppImage
 	Exec=zenity --question --width 450 --title \"Close Steam/Steam Input?\" --text \"Exit Steam to launch Steam Rom Manager? Desktop controls will temporarily revert to touch/trackpad/L2/R2\" && (kill -15 \$(pidof steam) & $SRM_toolPath)
-	Icon=steamdeck-gaming-return
+	Icon=$HOME/.local/share/icons/emudeck/srm.png
 	Terminal=false
 	Type=Application
 	Categories=Game;
