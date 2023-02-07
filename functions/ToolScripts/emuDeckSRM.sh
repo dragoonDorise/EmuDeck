@@ -82,3 +82,11 @@ SRM_init(){
 SRM_resetConfig(){
 	SRM_init
 }
+
+SRM_IsInstalled(){
+	if [ -e "$SRM_toolPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
