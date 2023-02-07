@@ -278,7 +278,3 @@ ESDE_IsInstalled(){
 		echo "false"
 	fi
 }
-
-EmulationStation_IsInstalled(){ # because appimage is calling it this way for some reason
-	ESDE_IsInstalled 
-}
