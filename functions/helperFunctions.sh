@@ -429,6 +429,10 @@ function createDesktopShortcut(){
 	local exec=$3
 	local terminal=$4
 	local icon
+
+	rm -f "$Shortcutlocation"
+	
+	balooctl check
 	
 	mkdir -p "$HOME/.local/share/applications/"
 	
@@ -455,7 +459,7 @@ function createDesktopShortcut(){
 	StartupNotify=false" > "$Shortcutlocation"
 	chmod +x "$Shortcutlocation"
 
-	balooctl disable && balooctl purge && balooctl enable
+	balooctl check
 
 	echo "$Shortcutlocation created"
 }
