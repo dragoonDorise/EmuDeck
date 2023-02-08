@@ -54,5 +54,5 @@ Parsec_IsInstalled() {
 
 # Import steam profile
 Parsec_addSteamInputProfile() {
-	rsync -r "$EMUDECKGIT/configs/steam-input/Parsec_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_parsec_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

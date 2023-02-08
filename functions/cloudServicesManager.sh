@@ -35,6 +35,9 @@ manageServices() {
 		cp "./$i" "$romsPath/cloud"
 	done
 
+	# Import steam profile
+	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_cloud_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+
 	# Return to menu
 	mainMenu
 }

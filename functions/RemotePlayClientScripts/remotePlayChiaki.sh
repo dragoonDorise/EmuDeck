@@ -54,5 +54,5 @@ Chiaki_IsInstalled() {
 
 # Import steam profile
 Chiaki_addSteamInputProfile() {
-	rsync -r "$EMUDECKGIT/configs/steam-input/Chiaki_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_chiaki_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

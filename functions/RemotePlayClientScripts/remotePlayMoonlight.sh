@@ -54,5 +54,5 @@ Moonlight_IsInstalled() {
 
 # Import steam profile
 Moonlight_addSteamInputProfile() {
-	rsync -r "$EMUDECKGIT/configs/steam-input/Moonlight_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_moonlight_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
