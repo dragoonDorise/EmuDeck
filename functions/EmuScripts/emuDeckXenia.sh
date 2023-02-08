@@ -45,7 +45,7 @@ Xenia_install(){
 	
 
 	createDesktopShortcut   "$HOME/.local/share/applications/xenia.desktop" \
-							"xenia EmuDeck" \
+							"Xenia (Proton)" \
 							"${toolsPath}/launchers/xenia.sh" \
 							"False"
 }

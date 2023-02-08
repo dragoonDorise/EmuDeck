@@ -218,7 +218,7 @@ CemuNative_functions () {
 	}
 
 	# Is Installed
-	isInstalled () {
+	IsInstalled () {
 		if [ -e "${CemuNative[emuPath]}" ]; then
 			echo "true"
 		else
@@ -322,8 +322,8 @@ CemuNative_update () {
 }
 
 # Is Installed
-CemuNative_isInstalled () {
-	CemuNative_functions "isInstalled"
+CemuNative_IsInstalled () {
+	CemuNative_functions "IsInstalled"
 }
 
 # Reset Config

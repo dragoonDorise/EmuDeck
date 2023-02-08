@@ -384,11 +384,26 @@ function linkToSaveFolder(){
     local folderName=$2
     local path=$3
 
-	if [ ! -d "$savesPath/$emu/$folderName" ]; then		
-		mkdir -p "$savesPath/$emu"
-		setMSG "Linking $emu $folderName to the Emulation/saves folder"			
-		mkdir -p "$path"
-		ln -sn "$path" "$savesPath/$emu/$folderName"
+	if [ ! -d "$savesPath/$emu/$folderName" ]; then
+		if [ ! -L "$savesPath/$emu/$folderName" ]; then		
+			mkdir -p "$savesPath/$emu"
+			setMSG "Linking $emu $folderName to the Emulation/saves folder"			
+			mkdir -p "$path"
+			ln -snv "$path" "$savesPath/$emu/$folderName"
+		fi
+	else
+		if [ ! -L "$savesPath/$emu/$folderName" ]; then	
+			echo "$savesPath/$emu/$folderName is not a link. Please check it."
+		else
+			if [ $(readlink $savesPath/$emu/$folderName) == $path ]; then
+				echo "$savesPath/$emu/$folderName is already linked."
+				echo "     Target: $(readlink $savesPath/$emu/$folderName)"
+			else
+				echo "$savesPath/$emu/$folderName not linked correctly."
+				unlink "$savesPath/$emu/$folderName"
+				linkToSaveFolder "$emu" "$folderName" "$path"
+			fi
+ 		fi
 	fi
 
 }
@@ -429,6 +444,10 @@ function createDesktopShortcut(){
 	local exec=$3
 	local terminal=$4
 	local icon
+
+	rm -f "$Shortcutlocation"
+	
+	balooctl check
 	
 	mkdir -p "$HOME/.local/share/applications/"
 	
@@ -455,7 +474,7 @@ function createDesktopShortcut(){
 	StartupNotify=false" > "$Shortcutlocation"
 	chmod +x "$Shortcutlocation"
 
-	balooctl disable && balooctl purge && balooctl enable
+	balooctl check
 
 	echo "$Shortcutlocation created"
 }
