@@ -1,11 +1,10 @@
 #!/bin/bash
 #source ./all.sh #dev
 
-manageServices() {	
-	# Create array of files
+manageServices() {
 	cd $LOCALCLOUDFILES
-	declare -a arrAll
-	declare -a arrServ
+	declare -a arrAll # All supported services (excludes user-created scripts based on file name)
+	declare -a arrServ # Services with install state for zenity
 	for file in *.sh; do
     	arrAll+=("$file")
 		if [ -f "$romsPath/cloud/$file" ]; then
@@ -16,10 +15,14 @@ manageServices() {
 	done
 
 	# Dynamically build list of scripts
-	local SERVICES=$(zenity --list \
+	menuText=$(printf "Select Services to Install/Update: \n\n Uncheck to uninstall\n")
+	SERVICES=$(zenity --list \
 	--title="Cloud Services Manager" \
-    --width=300 --height=600 --text="Select Services to Install:" \
+    --width=350 --height=600 --text="$menuText" \
 	--column="" --column="Description" --checklist "${arrServ[@]}")
+    if [ $? != 0 ]; then
+        mainMenu
+    fi
 	
 	# Delete all old scripts that match file names from the github repo
 	cd "$romsPath/cloud"
@@ -168,11 +171,14 @@ changeSettings() {
 		fi
 	done
 
-	local BROWSER=$(zenity --list \
+	BROWSER=$(zenity --list \
 	--title="Cloud Services Manager" \
     --width=400 --height=300 --text="Set default web browser:" \
 	--column="" --column="Application" --column="Installed" \
 	--radiolist "${arrBrowsOpts[@]}")
+    if [ $? != 0 ]; then
+        mainMenu
+    fi
 
 	# Setup progress bar and perform install & setup
     (
@@ -186,7 +192,7 @@ changeSettings() {
 					installFP "$BROWSER"
 				fi
 				setCloudSetting COMMAND "/app/bin/chrome"
-				setCloudSetting FILEFORWARDING "$BROWSER"
+				setCloudSetting BROWSERAPP "$BROWSER"
 				flatpak --user override --filesystem=/run/udev:ro "$BROWSER"
 			elif [[ $BROWSER == 'com.microsoft.Edge' ]]; then
 				isInstalled "$BROWSER"
@@ -195,7 +201,7 @@ changeSettings() {
 					installFP "$BROWSER"
 				fi
 				setCloudSetting COMMAND "/app/bin/edge"
-				setCloudSetting FILEFORWARDING "$BROWSER"
+				setCloudSetting BROWSERAPP "$BROWSER"
 				flatpak --user override --filesystem=/run/udev:ro "$BROWSER"
 			elif [[ $BROWSER == 'org.mozilla.firefox' ]]; then
 				isInstalled "$BROWSER"
@@ -204,7 +210,7 @@ changeSettings() {
 					installFP "$BROWSER"
 				fi
 				setCloudSetting COMMAND "firefox"
-				setCloudSetting FILEFORWARDING "$BROWSER"
+				setCloudSetting BROWSERAPP "$BROWSER"
 				flatpak --user override --filesystem=/run/udev:ro "$BROWSER"
 			fi
 		done
@@ -248,7 +254,7 @@ mainMenu() {
 	source "$CLOUDSETTINGSFILE"
 
 	# Ask to install new services or change settings
-	menuText=$(printf "<b>Main Menu</b>\n\n Currently Set Browser: $FILEFORWARDING\n")
+	menuText=$(printf "<b>Main Menu</b>\n\n Currently Set Browser: $BROWSERAPP\n")
 	CHOICE=$(zenity --list \
 		--title="Cloud Services Manager" --text="$menuText" \
         --width=300  --height=300 \
@@ -283,7 +289,7 @@ LOCALCLOUDFILES="$HOME/.config/EmuDeck/backend/tools/cloud"
 mkdir -p "$romsPath/cloud"
 mkdir -p "$romsPath/remoteplay"
 if [ ! -f "$romsPath/cloud/cloud.conf" ]; then
-	cp "$HOME/.config/EmuDeck/backend/tools/cloud/cloud.conf" "$romsPath/cloud"
+	cp "$LOCALCLOUDFILES/cloud.conf" "$romsPath/cloud"
 fi
 CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
 source "$romsPath/cloud/cloud.conf"
