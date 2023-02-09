@@ -19,7 +19,7 @@ EmuDeck has preloaded configurations for Steam Rom Manager for the following sys
 | ------------------------- | --------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Atari 2600                | Retroarch Stella core                         | .7z .a26 .bin .zip                                                  |                                                                                                                                                                                                                           |
 | Atari Lynx                | Retroarch Beetle Lynx core                    | .7z .lnx .bin .zip                                                  |                                                                                                                                                                                                                           |
-| Cloud Services            | Web Browser                                   | .sh                                                                 | Requires 'cloud.conf' to be inside the %romsdirglobal%/cloud directory                                                                                                                                                    |
+| Cloud Services            | Web Browser                                   | .sh                                                                 | cloud/cloud.conf                                                                                                                                                                                                          |
 | Final Burn Neo            | Retroarch Fbn core                            | .zip .7z                                                            | Bioses will be searched through 3 folders :<br>\* the folder of the current romset<br>\* the Emulation/bios/fbneo/<br>\* the Emulation/bios/                                                                              |
 | Mame 2003 Plus            | Retroarch Mame 2003 Plus core                 | .zip                                                                |                                                                                                                                                                                                                           |
 | Mame 2010                 | Retroarch Mame 2010 core                      | .zip                                                                |                                                                                                                                                                                                                           |
@@ -65,20 +65,22 @@ EmuDeck configures EmulationStation DE to use the same rom folders that EmuDeck 
 
 We try to use the same hotkeys for every emulator but some of them have their own different hotkeys, shown here:
 
-|  Hotkey                 | RetroArch      | Dolphin        | Citra \* | Cemu \*        | Yuzu           | PCSX2 \*     | RPCS3        |
-| ----------------------- | -------------- | -------------- | -------- | -------------- | -------------- | ------------ | ------------ |
-| Menu                    | L3 + R3        | -              | -        | -              | -              | -            | -            |
-| Exit                    | Select + Start | Select + Start | R5       | Select + Start | Select + Start | STEAM Button | STEAM Button |
-| Pause/Unpause Emulation | Select + A     | Select + A     | -        | -              | Select + A     |              | -            |
-| Fast Forward            | Select + R2    | Select + R2    | -        | -              | Select + R2    | Select + R2  | -            |
-| Load State              | Select + L1    | Select + L1    | -        | -              | -              | Select + L1  | -            |
-| Save State              | Select + R1    | Select + R1    | -        | -              | -              | Select + R1  | -            |
-| Full Screen             | -              | -              | L4       | -              | -              | -            | -            |
-| Swap Screens            | -              | -              | R4       | R4             | -              | -            | -            |
-| Toggle Layout           | -              | -              | L5       | -              | -              | -            | -            |
+|  Hotkey                 | RetroArch      | Dolphin        | Citra\*  | Cemu\*         | Yuzu           | PCSX2\*      | RPCS3        | Cloud\*        |
+| ----------------------- | -------------- | -------------- | -------- | -------------- | -------------- | ------------ | ------------ | -------------- |
+| Menu                    | L3 + R3        | -              | -        | -              | -              | -            | -            | -              |
+| Exit                    | Select + Start | Select + Start | R5       | Select + Start | Select + Start | STEAM Button | STEAM Button | Select + Start |
+| Pause/Unpause Emulation | Select + A     | Select + A     | -        | -              | Select + A     |              | -            | -              |
+| Fast Forward            | Select + R2    | Select + R2    | -        | -              | Select + R2    | Select + R2  | -            | -              |
+| Load State              | Select + L1    | Select + L1    | -        | -              | -              | Select + L1  | -            | -              |
+| Save State              | Select + R1    | Select + R1    | -        | -              | -              | Select + R1  | -            | -              |
+| Full Screen             | -              | -              | L4       | -              | -              | -            | -            | -              |
+| Swap Screens            | -              | -              | R4       | R4             | -              | -            | -            | -              |
+| Toggle Layout           | -              | -              | L5       | -              | -              | -            | -            | -              |
+| Hold Action Set\*       | -              | -              | -        | -              | -              | -            | -            | L4             |
+
+\* You need to activate Steam Input to get those hotkeys to work https://www.emudeck.com/#steam_input
 
 Note that Nintendo-oriented emulators refer to "A" in the emulated sense (physical Steam Deck "B")
-\* You need to activate Steam Input to get those hotkeys to work https://www.emudeck.com/#steam_input
 
 # Developers, developers, developers.
 
