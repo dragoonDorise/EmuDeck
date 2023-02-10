@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Dev variables (normally commented out)
+#HOME="/home/deck" #dev
+#EMUDECKGIT="$HOME/github/EmuDeck" #dev
 #source ./all.sh #dev
 
 manageServices() {
@@ -276,7 +280,6 @@ mainMenu() {
 	elif [[ $CHOICE == 'Quit' ]]; then
 		exit
 	fi
-	exit
 }
 
 ##################

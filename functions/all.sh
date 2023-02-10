@@ -1,10 +1,4 @@
 #!/bin/bash
-
-# Dev variables (normally commented out)
-#HOME="/home/deck" #dev
-#EMUDECKGIT="$HOME/github/EmuDeck" #dev
-
-# Set GIT location
 if [[ "$EMUDECKGIT" == "" ]]; then
     EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 fi
