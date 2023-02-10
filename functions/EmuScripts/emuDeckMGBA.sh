@@ -38,7 +38,10 @@ mGBA_update(){
 
 #ConfigurePaths
 mGBA_setEmulationFolder(){
-	echo "NYI"
+	setMSG "Setting $mGBA_emuName Emulation Folder"	
+
+	LastROMFolderSetting='lastDirectory='
+	changeLine "$LastROMFolderSetting" "${LastROMFolderSetting}${romsPath}/gba" "${mGBA_configFile}"
 }
 
 #SetupSaves
@@ -63,12 +66,10 @@ mGBA_setupStorage(){
 	CheatsPathSetting='cheatsPath='
 	PatchesPathSetting='patchPath='
 	ScreenshotsPathSetting='screenshotPath='
-	LastROMFolderSetting='lastDirectory='
 
 	changeLine "$CheatsPathSetting" "${CheatsPathSetting}${storagePath}/mgba/cheats" "${mGBA_configFile}"
 	changeLine "$PatchesPathSetting" "${PatchesPathSetting}${storagePath}/mgba/patches" "${mGBA_configFile}"
 	changeLine "$ScreenshotsPathSetting" "${ScreenshotsPathSetting}${storagePath}/mgba/screenshots" "${mGBA_configFile}"
-	changeLine "$LastROMFolderSetting" "${LastROMFolderSetting}${romsPath}/gba" "${mGBA_configFile}"
 }
 
 
