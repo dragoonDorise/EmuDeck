@@ -23,6 +23,7 @@ source "$EMUDECKGIT"/functions/configEmuAI.sh
 source "$EMUDECKGIT"/functions/configEmuFP.sh
 source "$EMUDECKGIT"/functions/createDesktopIcons.sh
 source "$EMUDECKGIT"/functions/installEmuFP.sh
+source "$EMUDECKGIT"/functions/uninstallEmuFP.sh
 source "$EMUDECKGIT"/functions/setMSG.sh
 source "$EMUDECKGIT"/functions/emuDeckPrereqs.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
@@ -68,7 +69,11 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMGBA.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRMG.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMelonDS.sh
 
+#remoteplayclientscripts
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayParsec.sh
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayMoonlight.sh
+
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMAMEProton.sh
-

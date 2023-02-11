@@ -1,8 +1,8 @@
 System name:
-cloud
+remoteplay
 
 Full system name:
-Cloud Services
+Remote Play Clients
 
 Supported file extensions:
 .sh
@@ -11,10 +11,7 @@ Launch command:
 /bin/bash %ROM%
 
 Platform (for scraping):
-cloud
+remoteplay
 
 Theme folder:
-cloud
-
-Requires:
-cloud.conf
+remoteplay
