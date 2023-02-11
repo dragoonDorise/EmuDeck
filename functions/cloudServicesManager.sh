@@ -284,7 +284,7 @@ mainMenu() {
 }
 
 fixCloudScripts() {
-	# Substitute "FILEFORWARDING" for "BROWSERAPP" in cloud scripts and cloud.conf
+	# Substitute "BROWSERAPP" for "BROWSERAPP" in cloud scripts and cloud.conf
 	cd "$romsPath/cloud"
 	for file in ./*.sh; do
 		sed -i 's/FILEFORWARDING/BROWSERAPP/g' "$file"
