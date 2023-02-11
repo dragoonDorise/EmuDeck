@@ -2,8 +2,8 @@
 
 # Dev variables (normally commented out)
 # HOME="/home/deck" #dev
-# EMUDECKGIT="$HOME/github/EmuDeck" #dev
-# source ./all.sh #dev
+  EMUDECKGIT="$HOME/.config/EmuDeck/backend" #dev
+  source "$EMUDECKGIT/functions/all.sh" #dev
 
 manageServices() {
 	cd $LOCALCLOUDFILES
