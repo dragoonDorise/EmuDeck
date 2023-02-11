@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Dev variables (normally commented out)
-#HOME="/home/deck" #dev
-#EMUDECKGIT="$HOME/github/EmuDeck" #dev
-#source ./all.sh #dev
+HOME="/home/deck" #dev
+EMUDECKGIT="$HOME/github/EmuDeck" #dev
+source ./all.sh #dev
 
 manageServices() {
 	cd $LOCALCLOUDFILES
@@ -41,6 +41,7 @@ manageServices() {
 		chmod +x "./$i"
 		cp "./$i" "$romsPath/cloud"
 	done
+	fixCloudScripts
 
 	# Import steam profile
 	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_cloud_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
@@ -282,6 +283,16 @@ mainMenu() {
 	fi
 }
 
+fixCloudScripts() {
+	# Substitute "FILEFORWARDING" for "BROWSERAPP" in cloud scripts and cloud.conf
+	cd "$romsPath/cloud"
+	for file in ./*.sh; do
+		sed -i 's/FILEFORWARDING/BROWSERAPP/g' "$file"
+	done
+
+	sed -i 's/FILEFORWARDING/BROWSERAPP/g' "$CLOUDSETTINGSFILE"
+}
+
 ##################
 # Initialization #
 ##################
@@ -296,6 +307,9 @@ if [ ! -f "$romsPath/cloud/cloud.conf" ]; then
 fi
 CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
 source "$romsPath/cloud/cloud.conf"
+
+# Fix old scripts
+fixCloudScripts
 
 # Load Menu
 mainMenu
