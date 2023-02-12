@@ -1,7 +1,32 @@
 #!/bin/bash
 
-# Dev variables
+# Dev variables (normally commented out)
 #EMUDECKGIT="$HOME/github/EmuDeck" #dev
+
+CloudScripts_update() {
+	fixCloudScripts
+
+	# Refresh scripts
+	cd $LOCALCLOUDFILES
+	arrAll=() # All supported scripts
+	for file in *.sh; do
+    	arrAll+=("$file")
+	done
+	cd "$romsPath/cloud"
+	arrExisting=() # Existing user selected scripts
+	for file in *.sh; do
+    	arrExisting+=("$file")
+	done
+	# Remove old scripts, excluding user renamed scripts
+	for i in "${arrAll[@]}"; do
+		rm "$romsPath/cloud/$i"
+	done
+	# Install updated scripts
+	for i in "${arrExisting[@]}"; do
+		cp "$LOCALCLOUDFILES/$i" "$romsPath/cloud"
+		chmod +x "$romsPath/cloud/$i"
+	done
+}
 
 manageServicesMenu() {
 	cd $LOCALCLOUDFILES
@@ -23,29 +48,26 @@ manageServicesMenu() {
     --width=350 --height=600 --text="$menuText" \
 	--column="" --column="Description" --checklist "${arrServ[@]}")
     if [ $? != 0 ]; then
-        mainMenu
+        csmMainMenu
     fi
 	
 	# Delete all old scripts that match file names from the github repo
-	cd "$romsPath/cloud"
 	for i in "${arrAll[@]}"; do
-		rm "./$i" 
+		rm "$romsPath/cloud/$i" 
 	done
 
 	# Setup selected scripts
 	IFS='|' read -r -a arrChosen <<< "$SERVICES"
-    cd $LOCALCLOUDFILES
 	for i in "${arrChosen[@]}"; do
-		chmod +x "./$i"
-		cp "./$i" "$romsPath/cloud"
+		cp "$LOCALCLOUDFILES/$i" "$romsPath/cloud"
+		chmod +x "$romsPath/cloud/$i"
 	done
-	fixCloudScripts
 
 	# Import steam profile
 	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_cloud_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 
 	# Return to menu
-	mainMenu
+	csmMainMenu
 }
 
 # Check if installed
@@ -59,7 +81,7 @@ isInstalled() {
 }
 
 # Install Flatpak
-installFP(){
+installFP() {
 	local ID="$1"
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
 	flatpak install flathub "$ID" -y --user
@@ -70,7 +92,7 @@ installFP(){
 manageRPSMenu() {
 	# Create array of all Remote Play clients
 	cd "$EMUDECKGIT/functions/RemotePlayClientScripts"
-	declare -a arrAllRP
+	declare -a arrAllRP=()
 	Chiaki_IsInstalled
 	ans=$?
 	if [ "$ans" == "1" ]; then
@@ -103,7 +125,7 @@ manageRPSMenu() {
 	--column="" --column="Disable to uninstall" \
     --width=300 --height=300 --checklist "${arrAllRP[@]}")
     if [ $? != 0 ]; then
-        mainMenu
+        csmMainMenu
     fi
 
 	# Setup progress bar and perform install/update/uninstall of selected items
@@ -164,7 +186,7 @@ manageRPSMenu() {
 
 changeSettingsMenu() {
 	declare -a arrSupBrows=("com.google.Chrome" "com.microsoft.Edge" "org.mozilla.firefox" "com.brave.Browser" "org.chromium.Chromium")
-	declare -a arrBrowsOpts
+	declare -a arrBrowsOpts=()
 
 	# Include system default browser and verify it is is installed
 	defaultBrowser=$(
@@ -196,7 +218,7 @@ changeSettingsMenu() {
 	--column="" --column="Application" --column="Installed" \
 	--radiolist "${arrBrowsOpts[@]}")
     if [ $? != 0 ]; then
-        mainMenu
+        csmMainMenu
     fi
 
 	# Setup progress bar and perform install & setup
@@ -224,7 +246,7 @@ changeSettingsMenu() {
 		done
 	)	|	zenity --progress \
             --title="Cloud Services Manager" \
-            --text="Installing..." \
+            --text="Processing..." \
             --percentage=0 \
             --no-cancel \
             --pulsate \
@@ -232,7 +254,7 @@ changeSettingsMenu() {
             --width=300
 
 	# Return to menu
-	mainMenu
+	csmMainMenu
 }
 
 # Keyword replacement file. Only matches start of word
@@ -257,7 +279,7 @@ setCloudSetting() {
 	source "$CLOUDSETTINGSFILE"
 }
 
-mainMenu() {
+csmMainMenu() {
 	# Update values
 	source "$CLOUDSETTINGSFILE"
 
@@ -297,29 +319,28 @@ fixCloudScripts() {
 		sed -i 's/FILEFORWARDING/BROWSERAPP/g' "$CLOUDSETTINGSFILE"
 
 		### Removed "COMMAND" variable and reworked conf file
-		# Refrsh scripts
+		# Refresh scripts
 		cd $LOCALCLOUDFILES
 		arrAll=() # All supported scripts
 		for file in *.sh; do
     		arrAll+=("$file")
 		done
 		cd "$romsPath/cloud"
-		arrExsisting=() # Exsisting user selected scripts
+		arrExisting=() # Existing user selected scripts
 		for file in *.sh; do
-    		arrExsisting+=("$file")
+    		arrExisting+=("$file")
 		done
 		# Remove old scripts, excluding user renamed scripts
 		for i in "${arrAll[@]}"; do
-			rm "./$i"
+			rm "$romsPath/cloud/$i"
 		done
 		# Install updated scripts
-		cd $LOCALCLOUDFILES
-		for i in "${arrExsisting[@]}"; do
-			chmod +x "./$i"
-			cp "./$i" "$romsPath/cloud"
+		for i in "${arrExisting[@]}"; do
+			cp "$LOCALCLOUDFILES/$i" "$romsPath/cloud"
+			chmod +x "$romsPath/cloud/$i"
 		done
 
-		# Recreate conf file while preserving exsisting settings
+		# Recreate conf file while preserving existing settings
 		BROWSERAPP_temp="$BROWSERAPP"
 		WINDOWSIZE_temp="$WINDOWSIZE"
 		DEVICESCALEFACTOR_temp="$DEVICESCALEFACTOR"
@@ -344,7 +365,7 @@ LOCALCLOUDFILES="$EMUDECKGIT/tools/cloud"
 
 source "$EMUDECKGIT/functions/all.sh"
 
-# Check for exsisting cloud.conf or download & setup
+# Check for existing cloud.conf or install & setup
 mkdir -p "$romsPath/cloud"
 mkdir -p "$romsPath/remoteplay"
 if [ ! -f "$romsPath/cloud/cloud.conf" ]; then
@@ -370,4 +391,4 @@ source "$CLOUDSETTINGSFILE"
 fixCloudScripts
 
 # Load Menu
-mainMenu
+csmMainMenu
