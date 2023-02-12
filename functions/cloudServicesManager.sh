@@ -1,14 +1,12 @@
 #!/bin/bash
 
-# Dev variables (normally commented out)
-# HOME="/home/deck" #dev
-  EMUDECKGIT="$HOME/.config/EmuDeck/backend" #dev
-  source "$EMUDECKGIT/functions/all.sh" #dev
+# Dev variables
+#EMUDECKGIT="$HOME/github/EmuDeck" #dev
 
-manageServices() {
+manageServicesMenu() {
 	cd $LOCALCLOUDFILES
-	declare -a arrAll # All supported services (excludes user-created scripts based on file name)
-	declare -a arrServ # Services with install state for zenity
+	declare -a arrAll=() # All supported services (excludes user-created scripts based on file name)
+	declare -a arrServ=() # Services with install state for zenity
 	for file in *.sh; do
     	arrAll+=("$file")
 		if [ -f "$romsPath/cloud/$file" ]; then
@@ -69,7 +67,7 @@ installFP(){
 	flatpak override "$ID" --share=network --user
 }
 
-manageRPS() {
+manageRPSMenu() {
 	# Create array of all Remote Play clients
 	cd "$EMUDECKGIT/functions/RemotePlayClientScripts"
 	declare -a arrAllRP
@@ -161,15 +159,31 @@ manageRPS() {
             --width=300
 	
 	# Return to RPS Manager
-	manageRPS
+	manageRPSMenu
 }
 
-changeSettings() {
-	# Supported browsers:
-	declare -a arrSupBrows=("com.google.Chrome" "com.microsoft.Edge" "org.mozilla.firefox")
+changeSettingsMenu() {
+	declare -a arrSupBrows=("com.google.Chrome" "com.microsoft.Edge" "org.mozilla.firefox" "com.brave.Browser" "org.chromium.Chromium")
 	declare -a arrBrowsOpts
+
+	# Include system default browser and verify it is is installed
+	defaultBrowser=$(
+       	APP=$(xdg-settings get default-web-browser)
+       	EXT=".desktop"
+		# Exclude extension
+       	echo "${APP%"$EXT"}"
+    )
+	isInstalled "$defaultBrowser"
+	ans=$?
+	if [ "$ans" == "1" ]; then
+		arrBrowsOpts+=(false "System Default: $defaultBrowser" true)
+	else
+		arrBrowsOpts+=(false "System Default: $defaultBrowser" false)
+	fi
+	
+	# Add supported browsers to selection list
 	for brows in "${arrSupBrows[@]}"; do
-		if [ "$(flatpak --columns=app list | grep "$brows")" == "$brows" ]; then
+		if [[ "$(flatpak --columns=app list | grep "${brows}")" == *"${brows}"* ]]; then
 			arrBrowsOpts+=(false "$brows" true)
 		else
 			arrBrowsOpts+=(false "$brows" false)
@@ -178,7 +192,7 @@ changeSettings() {
 
 	BROWSER=$(zenity --list \
 	--title="Cloud Services Manager" \
-    --width=400 --height=300 --text="Set default web browser:" \
+    --width=420 --height=320 --text="Select web browser:" \
 	--column="" --column="Application" --column="Installed" \
 	--radiolist "${arrBrowsOpts[@]}")
     if [ $? != 0 ]; then
@@ -190,31 +204,20 @@ changeSettings() {
 		arrChosen=()
 		IFS='|' read -r -a arrChosen <<< "$BROWSER"
 		for BROWSER in "${arrChosen[@]}"; do
-			if [[ $BROWSER == 'com.google.Chrome' ]]; then
+			if [ "$BROWSER" == "System Default: $defaultBrowser" ]; then
+				isInstalled "$defaultBrowser"
+				ans=$?
+				if [ "$ans" == "0" ]; then
+					installFP "$defaultBrowser"
+				fi
+				setCloudSetting BROWSERAPP "$defaultBrowser"
+				flatpak --user override --filesystem=/run/udev:ro "$defaultBrowser"
+			else
 				isInstalled "$BROWSER"
 				ans=$?
 				if [ "$ans" == "0" ]; then
 					installFP "$BROWSER"
 				fi
-				setCloudSetting COMMAND "/app/bin/chrome"
-				setCloudSetting BROWSERAPP "$BROWSER"
-				flatpak --user override --filesystem=/run/udev:ro "$BROWSER"
-			elif [[ $BROWSER == 'com.microsoft.Edge' ]]; then
-				isInstalled "$BROWSER"
-				ans=$?
-				if [ "$ans" == "0" ]; then
-					installFP "$BROWSER"
-				fi
-				setCloudSetting COMMAND "/app/bin/edge"
-				setCloudSetting BROWSERAPP "$BROWSER"
-				flatpak --user override --filesystem=/run/udev:ro "$BROWSER"
-			elif [[ $BROWSER == 'org.mozilla.firefox' ]]; then
-				isInstalled "$BROWSER"
-				ans=$?
-				if [ "$ans" == "0" ]; then
-					installFP "$BROWSER"
-				fi
-				setCloudSetting COMMAND "firefox"
 				setCloudSetting BROWSERAPP "$BROWSER"
 				flatpak --user override --filesystem=/run/udev:ro "$BROWSER"
 			fi
@@ -272,41 +275,96 @@ mainMenu() {
         exit
     fi
 
-	if [[ $CHOICE == 'Manage Cloud Services' ]]; then
-		manageServices
-	elif [[ $CHOICE == 'Manage Remote Play Clients' ]]; then
-		manageRPS
-	elif [[ $CHOICE == 'Change Settings' ]]; then
-		changeSettings
-	elif [[ $CHOICE == 'Quit' ]]; then
+	if [ "$CHOICE" == "Manage Cloud Services" ]; then
+		manageServicesMenu
+	elif [ "$CHOICE" == "Manage Remote Play Clients" ]; then
+		manageRPSMenu
+	elif [ "$CHOICE" == "Change Settings" ]; then
+		changeSettingsMenu
+	elif [ "$CHOICE" == "Quit" ]; then
 		exit
 	fi
 }
 
 fixCloudScripts() {
-	# Substitute "BROWSERAPP" for "BROWSERAPP" in cloud scripts and cloud.conf
-	cd "$romsPath/cloud"
-	for file in ./*.sh; do
-		sed -i 's/FILEFORWARDING/BROWSERAPP/g' "$file"
-	done
+	###v1.0 Fixes
+	if [ "$cloudconfversion" == "" ]; then
+		### Substitute "BROWSERAPP" for "FILEFORWARDING" in cloud scripts and cloud.conf
+		cd "$romsPath/cloud"
+		for file in ./*.sh; do
+			sed -i 's/FILEFORWARDING/BROWSERAPP/g' "$file"
+		done
+		sed -i 's/FILEFORWARDING/BROWSERAPP/g' "$CLOUDSETTINGSFILE"
 
-	sed -i 's/FILEFORWARDING/BROWSERAPP/g' "$CLOUDSETTINGSFILE"
+		### Removed "COMMAND" variable and reworked conf file
+		# Refrsh scripts
+		cd $LOCALCLOUDFILES
+		arrAll=() # All supported scripts
+		for file in *.sh; do
+    		arrAll+=("$file")
+		done
+		cd "$romsPath/cloud"
+		arrExsisting=() # Exsisting user selected scripts
+		for file in *.sh; do
+    		arrExsisting+=("$file")
+		done
+		# Remove old scripts, excluding user renamed scripts
+		for i in "${arrAll[@]}"; do
+			rm "./$i"
+		done
+		# Install updated scripts
+		cd $LOCALCLOUDFILES
+		for i in "${arrExsisting[@]}"; do
+			chmod +x "./$i"
+			cp "./$i" "$romsPath/cloud"
+		done
+
+		# Recreate conf file while preserving exsisting settings
+		BROWSERAPP_temp="$BROWSERAPP"
+		WINDOWSIZE_temp="$WINDOWSIZE"
+		DEVICESCALEFACTOR_temp="$DEVICESCALEFACTOR"
+		rm "$romsPath/cloud/cloud.conf"
+		cp "$LOCALCLOUDFILES/cloud.conf" "$romsPath/cloud"
+		CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
+		source "$CLOUDSETTINGSFILE"
+		setCloudSetting BROWSERAPP "$BROWSERAPP_temp"
+		setCloudSetting WINDOWSIZE "$WINDOWSIZE_temp"
+		setCloudSetting DEVICESCALEFACTOR "$DEVICESCALEFACTOR_temp"
+	fi
 }
 
 ##################
 # Initialization #
 ##################
 
-LOCALCLOUDFILES="$HOME/.config/EmuDeck/backend/tools/cloud"
+if [[ "$EMUDECKGIT" == "" ]]; then
+    EMUDECKGIT="$HOME/.config/EmuDeck/backend"
+fi
+LOCALCLOUDFILES="$EMUDECKGIT/tools/cloud"
 
-# Check for exsisting cloud.conf or download fresh
+source "$EMUDECKGIT/functions/all.sh"
+
+# Check for exsisting cloud.conf or download & setup
 mkdir -p "$romsPath/cloud"
 mkdir -p "$romsPath/remoteplay"
 if [ ! -f "$romsPath/cloud/cloud.conf" ]; then
 	cp "$LOCALCLOUDFILES/cloud.conf" "$romsPath/cloud"
+	CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
+	source "$CLOUDSETTINGSFILE"
+
+	# Set web browser to system default browser
+	defaultBrowser=$(
+        APP=$(xdg-settings get default-web-browser)
+        EXT=".desktop"
+		# Exclude extension
+        echo "${APP%"$EXT"}"
+    )
+	setCloudSetting BROWSERAPP "$defaultBrowser"
+	flatpak --user override --filesystem=/run/udev:ro "$defaultBrowser"
 fi
+
 CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
-source "$romsPath/cloud/cloud.conf"
+source "$CLOUDSETTINGSFILE"
 
 # Fix old scripts
 fixCloudScripts
