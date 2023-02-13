@@ -14,7 +14,7 @@ Moonlight_install() {
 	flatpak install flathub "$ID" -y --user
 	flatpak override "$ID" --filesystem=host --user
 	flatpak override "$ID" --share=network --user
-	cp "${EMUDECKGIT}/tools/remoteplayclients/Moonlight Game Streaming.sh" "$romsPath/remoteplay"
+	cp "$EMUDECKGIT/tools/remoteplayclients/Moonlight Game Streaming.sh" "$romsPath/remoteplay"
 	chmod +x "$romsPath/remoteplay/Moonlight Game Streaming.sh"
 	Moonlight_addSteamInputProfile
 }
@@ -26,19 +26,23 @@ Moonlight_init() {
 	$Moonlight_addSteamInputProfile
 }
 
-# Update flatpak
+# Update flatpak & launcher script
 Moonlight_update() {
 	setMSG "Updating $Moonlight_emuName settings."
 	local ID="$Moonlight_emuPath"
 	flatpak update $ID -y --user	
 	flatpak override $ID --filesystem=host --user
-	flatpak override $ID --share=network --user	
+	flatpak override $ID --share=network --user
+	rm "$romsPath/remoteplay/Moonlight Game Streaming.sh"
+	cp "$EMUDECKGIT/tools/remoteplayclients/Moonlight Game Streaming.sh" "$romsPath/remoteplay"
+	chmod +x "$romsPath/remoteplay/Moonlight Game Streaming.sh"
 }
 
 # Uninstall
 Moonlight_uninstall() {
 	setMSG "Uninstalling $Moonlight_emuName."
     uninstallEmuFP "$Moonlight_emuPath"
+	rm "$romsPath/remoteplay/Moonlight Game Streaming.sh"
 }
 
 # Check if installed
