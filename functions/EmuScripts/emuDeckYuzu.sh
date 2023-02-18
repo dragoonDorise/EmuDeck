@@ -78,19 +78,20 @@ if [ -e "$tokenFile" ]; then
 
     fi
 
-    # if we have yuzu-ea.AppImage, launcher will use that instead of mainline one so we can decorate shortcut
-    if [ -e "$YuzuEA_emuPath" ]; then
-        yuzuShortcut="$HOME/.local/share/applications/yuzu.desktop"
-        if [ -e "$yuzuShortcut" ]; then
-            desktopShortcutFieldUpdate "$yuzuShortcut" "Name" "yuzu-EA AppImage"
-        fi
-    fi
-
 else
 
 	echo "Token Not Found"
     
 fi
+
+# if we have yuzu-ea.AppImage, launcher will use that instead of mainline one so we can decorate shortcut
+if [ -e "$YuzuEA_emuPath" ]; then
+    yuzuShortcut="$HOME/.local/share/applications/yuzu.desktop"
+    if [ -e "$yuzuShortcut" ]; then
+        desktopShortcutFieldUpdate "$yuzuShortcut" "Name" "yuzu-EA AppImage"
+    fi
+fi
+
 }
 
 #ApplyInitialSettings
