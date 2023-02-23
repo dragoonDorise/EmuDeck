@@ -29,11 +29,11 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     sudo pacman -Syu 
     sudo pacman -S $ARCH_DEPS
   else
-    log_err"Your Linux distro '$(lsb_release -s -d)' is not supported by this script. We invite to open a PR or help us with adding your OS to this script. https://github.com/dragoonDorise/EmuDeck/issues"
+    log_err "Your Linux distro '$(lsb_release -s -d)' is not supported by this script. We invite to open a PR or help us with adding your OS to this script. https://github.com/dragoonDorise/EmuDeck/issues"
     exit 1
   fi
 else 
-  log_err"Your operating system '$(OSTYPE)' is not supported by this script. We invite to open a PR or help us with adding your OS to this script. https://github.com/dragoonDorise/EmuDeck/issues"
+  log_err "Your operating system '$(OSTYPE)' is not supported by this script. We invite to open a PR or help us with adding your OS to this script. https://github.com/dragoonDorise/EmuDeck/issues"
   exit 1
 fi
 
