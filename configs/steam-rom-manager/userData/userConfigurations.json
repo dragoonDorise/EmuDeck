@@ -1573,7 +1573,7 @@
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
+      "appendArgsToExecutable": false
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1902,7 +1902,7 @@
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/yuzu.sh",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
+      "appendArgsToExecutable": false
     },
     "parserId": "164785621855061650",
     "version": 10,
@@ -1945,7 +1945,7 @@
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
+      "appendArgsToExecutable": false
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -2007,7 +2007,7 @@
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
+      "appendArgsToExecutable": false
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -2069,7 +2069,7 @@
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
+      "appendArgsToExecutable": false
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -2135,7 +2135,7 @@
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
+      "appendArgsToExecutable": false
     },
     "parserInputs": {
       "glob": "**/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.wbfs|.WBFS)"
@@ -3002,7 +3002,7 @@
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/pcsx2-qt.sh",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": true
+      "appendArgsToExecutable": false
     },
     "parserInputs": {
       "glob": "**/${title}@(.bin|.BIN|.chd|.CHD|.cso|.CSO|.dump|.DUMP|.gz|.GZ|.img|.IMG|.iso|.ISO|.mdf|.MDF|.nrg|.NRG)"
