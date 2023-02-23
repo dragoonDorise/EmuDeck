@@ -6,7 +6,7 @@
 CloudScripts_update() {
 	fixCloudScripts
 
-	# Refresh scripts
+	### Refresh cloud scripts
 	cd $LOCALCLOUDFILES
 	arrAll=() # All supported scripts
 	for file in *.sh; do
@@ -26,6 +26,32 @@ CloudScripts_update() {
 		cp "$LOCALCLOUDFILES/$i" "$romsPath/cloud"
 		chmod +x "$romsPath/cloud/$i"
 	done
+
+	### Refresh remoteplay scripts
+	cd $LOCALRPFILES
+	arrAll=() # All supported scripts
+	for file in *.sh; do
+    	arrAll+=("$file")
+	done
+	cd "$romsPath/remoteplay"
+	arrExisting=() # Existing user selected scripts
+	for file in *.sh; do
+    	arrExisting+=("$file")
+	done
+	# Remove old scripts, excluding user renamed scripts
+	for i in "${arrAll[@]}"; do
+		rm "$romsPath/remoteplay/$i"
+	done
+	# Install updated scripts
+	for i in "${arrExisting[@]}"; do
+		cp "$LOCALRPFILES/$i" "$romsPath/remoteplay"
+		chmod +x "$romsPath/remoteplay/$i"
+	done
+}
+
+csmSRMNotification() {
+	TEXT=$(printf "<b>ATTENTION:</b>\nYou must update and run 'Steam Rom Manager' (the same as you would when adding or removing ROMS) for changes to take effect in Steam.\n")
+	zenity --info --width=400 --text="$TEXT"
 }
 
 manageServicesMenu() {
@@ -65,6 +91,9 @@ manageServicesMenu() {
 
 	# Import steam profile
 	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_cloud_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	
+	# Notify to update & run SRM
+	csmSRMNotification
 
 	# Return to menu
 	csmMainMenu
@@ -180,6 +209,9 @@ manageRPSMenu() {
             --auto-close \
             --width=300
 	
+	# Notify to update & run SRM
+	csmSRMNotification
+
 	# Return to RPS Manager
 	manageRPSMenu
 }
@@ -362,6 +394,7 @@ if [[ "$EMUDECKGIT" == "" ]]; then
     EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 fi
 LOCALCLOUDFILES="$EMUDECKGIT/tools/cloud"
+LOCALRPFILES="$EMUDECKGIT/tools/remoteplayclients"
 
 source "$EMUDECKGIT/functions/all.sh"
 
@@ -387,8 +420,8 @@ fi
 CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
 source "$CLOUDSETTINGSFILE"
 
-# Fix old scripts
-fixCloudScripts
+# Fix old scripts & update
+CloudScripts_update
 
 # Load Menu
 csmMainMenu
