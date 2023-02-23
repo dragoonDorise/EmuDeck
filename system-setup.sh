@@ -9,6 +9,7 @@ function log_err {
 
 function script_failure {
   log_err "An error occurred: $([-z "$1"] && "on line $1" || "(unknown)")."
+  log_err "Installation failed!"
 }
 
 trap 'script_failure $LINENO' ERR
