@@ -41,7 +41,10 @@ Flycast_update(){
 
 #ConfigurePaths
 Flycast_setEmulationFolder(){
-	setMSG "Setting $Flycast_emuName Emulation Folder"	
+	setMSG "Setting $Flycast_emuName Emulation Folder"
+
+	ContentPathSetting='Dreamcast.ContentPath = '
+	changeLine "$ContentPathSetting" "${ContentPathSetting}${romsPath}/dreamcast" "${Flycast_configFile}"
 
 	#Setup symlink for bios
 	mkdir -p "${biosPath}/flycast/"
