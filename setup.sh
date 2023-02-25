@@ -85,7 +85,9 @@ else
 	exit
 fi
 
-exec > >(tee "${LOGFILE}") 2>&1
+#exec > >(tee "${LOGFILE}") 2>&1
+#Installation log
+{
 date "+%Y.%m.%d-%H:%M:%S %Z"
 #Mark if this not a fresh install
 FOLDER="$HOME/.config/EmuDeck/"
@@ -792,3 +794,4 @@ elif [ "$uiMode" == 'whiptail' ]; then
 	echo "Finished on Whiptail"
 	sleep 9999
 fi
+} | tee "${LOGFILE}" 2>&1
