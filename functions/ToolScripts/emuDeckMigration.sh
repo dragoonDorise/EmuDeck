@@ -11,7 +11,7 @@ Migration_init(){
 	freeSpace=$(df -s "$destination" |  cut -d' ' -f8)
 	difference=$(($freeSpace - $neededSpace))
 	if [ $difference -gt 0 ]; then
-		Migration_move "$emulationPath" "$destination"	
+		Migration_move "$emulationPath" "$destination/Emulation"	
 	else
 		text="$(printf "<b>Not enough space</b>\nYou need to have at least ${neededSpace} on ${destination}")"
 	 	zenity --error \
@@ -26,23 +26,23 @@ Migration_init(){
 Migration_move(){
 	origin=$1
 	destination=$2
+	mkdir -p "$destination"
 	rsync -avzh --dry-run "$origin" "$destination" && Migration_updatePaths "$origin" "$destination"
 }
 
 
 Migration_updatePaths(){
 	origin=$1
-	destination=$2
-		
+	destination=$2		
 	
 	#New settings
-	setSetting emulationPath "${origin}Emulation"
-	setSetting toolsPath "${origin}Emulation/tools"
-	setSetting romsPath "${origin}Emulation/roms"
-	setSetting biosPath "${origin}Emulation/bios"
-	setSetting savesPath "${origin}Emulation/saves"
-	setSetting storagePath "${origin}Emulation/storage"
-	setSetting ESDEscrapData "${origin}Emulation/tools/downloaded_media"
+	setSetting emulationPath "${destination}"
+	setSetting toolsPath "${destination}/tools"
+	setSetting romsPath "${destination}/roms"
+	setSetting biosPath "${destination}/bios"
+	setSetting savesPath "${destination}/saves"
+	setSetting storagePath "${destination}/storage"
+	setSetting ESDEscrapData "${destination}/tools/downloaded_media"
 
 	#Emu configs
 	#Cemu
@@ -83,6 +83,10 @@ Migration_updatePaths(){
 	sed -i "/${origin}/c\\${destination}" "$Xenia_XeniaSettings"
 	#Yuzu
 	sed -i "/${origin}/c\\${destination}" "$HOME/.config/yuzu/qt-config.ini"
+	
+	#SRM
+	shotcutsPath=$(find "$HOME/.local/share/Steam/userdata" -name "shortcuts.vd")
+	sed -i "/${origin}/c\\${destination}" "$shotcutsPath"
 	
 	
 	text="$(printf "<b>Success</b>\nYour library has been moved to ${destination}")"	
