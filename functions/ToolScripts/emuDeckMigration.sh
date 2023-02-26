@@ -101,6 +101,7 @@ Migration_updateSRM(){
 }
 
 Migration_fixSRMArgs(){
+	#grep -Pa '\x00' --color=never shortcuts.vdf | cat -vET	
 	firstSearch="/usr/bin\x00\x00LaunchOptions\x00\x00"
 	firstReplace="/usr/bin\x00\x00"
 	secondSearch='flatpak" run org.libretro.RetroArch'
