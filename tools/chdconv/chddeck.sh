@@ -29,7 +29,7 @@ if [ $ans -eq 0 ]; then
 	echo "Checking $romsPath for files eligible for conversion."
 
 	#whitelist
-	declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
+	declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2" "cdimono1")
 	declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
 	declare -a csofolderWhiteList=("psp")
 	declare -a searchFolderList
