@@ -386,11 +386,26 @@ function linkToSaveFolder(){
     local folderName=$2
     local path=$3
 
-	if [ ! -d "$savesPath/$emu/$folderName" ]; then		
-		mkdir -p "$savesPath/$emu"
-		setMSG "Linking $emu $folderName to the Emulation/saves folder"			
-		mkdir -p "$path"
-		ln -sn "$path" "$savesPath/$emu/$folderName"
+	if [ ! -d "$savesPath/$emu/$folderName" ]; then
+		if [ ! -L "$savesPath/$emu/$folderName" ]; then		
+			mkdir -p "$savesPath/$emu"
+			setMSG "Linking $emu $folderName to the Emulation/saves folder"			
+			mkdir -p "$path"
+			ln -snv "$path" "$savesPath/$emu/$folderName"
+		fi
+	else
+		if [ ! -L "$savesPath/$emu/$folderName" ]; then	
+			echo "$savesPath/$emu/$folderName is not a link. Please check it."
+		else
+			if [ $(readlink $savesPath/$emu/$folderName) == $path ]; then
+				echo "$savesPath/$emu/$folderName is already linked."
+				echo "     Target: $(readlink $savesPath/$emu/$folderName)"
+			else
+				echo "$savesPath/$emu/$folderName not linked correctly."
+				unlink "$savesPath/$emu/$folderName"
+				linkToSaveFolder "$emu" "$folderName" "$path"
+			fi
+ 		fi
 	fi
 
 }
@@ -431,6 +446,10 @@ function createDesktopShortcut(){
 	local exec=$3
 	local terminal=$4
 	local icon
+
+	rm -f "$Shortcutlocation"
+	
+	balooctl check
 	
 	mkdir -p "$HOME/.local/share/applications/"
 	
@@ -457,9 +476,33 @@ function createDesktopShortcut(){
 	StartupNotify=false" > "$Shortcutlocation"
 	chmod +x "$Shortcutlocation"
 
-	balooctl disable && balooctl purge && balooctl enable
+	balooctl check
 
 	echo "$Shortcutlocation created"
+}
+
+#desktopShortcutFieldUpdate "$shortcutFile" "Name" "NewName"
+function desktopShortcutFieldUpdate(){
+	local shortcutFile=$1
+	local shortcutKey=$2
+	local shortcutValue=$3
+	local name
+	local icon
+
+	if [ -f "$shortcutFile" ]; then
+		# update icon if name is updated
+		if [ "$shortcutKey" == "Name" ]; then
+			name=$shortcutValue
+			cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name")."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null
+			icon=$(find "$HOME/.local/share/icons/emudeck/" -type f -iname "$(cut -d " " -f1 <<< "$name").*")
+			if [ ! -z "$icon" ]; then
+				desktopShortcutFieldUpdate "$shortcutFile" "Icon" "$icon"
+				sed -i "s|Icon\s*?=.*|Icon=$icon|g" "$shortcutFile"
+			fi
+		fi
+		sed -E -i "s|$shortcutKey\s*?=.*|$shortcutKey=$shortcutValue|g" "$shortcutFile"
+		balooctl check
+	fi
 }
 
 #iniFieldUpdate "$iniFilePath" "General" "LoadPath" "$storagePath/$emuName/Load"

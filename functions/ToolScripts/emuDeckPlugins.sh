@@ -3,7 +3,7 @@
 Plugins_installPluginLoader(){
    local PluginLoader_releaseURL="https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/install_release.sh"
    mkdir -p "$HOME/homebrew"
-   sudo chown -R deck:deck "$HOME/homebrew"
+   sudo chown -R $USER:$USER "$HOME/homebrew"
    curl -L $PluginLoader_releaseURL | sh
    touch "$HOME/.steam/steam/.cef-enable-remote-debugging"
    #sudo systemctl disable --now steam-web-debug-portforward.service
@@ -25,7 +25,7 @@ Plugins_installDeckyControls(){
    sudo mkdir -p $destinationFolder
    sudo curl -L "$DeckyControls_releaseURL" -o "${destinationFolder}/emudeck-decky-controls.zip"
    sudo unzip "$destinationFolder/emudeck-decky-controls.zip" -d "$destinationFolder" && sudo rm "$destinationFolder/emudeck-decky-controls.zip"
-   sudo chown deck:deck -R $HOME/homebrew/plugins/emudeck-decky-controls
+   sudo chown $USER:$USER -R $HOME/homebrew/plugins/emudeck-decky-controls
    chmod 555 -R $HOME/homebrew/plugins/emudeck-decky-controls
 }
 

@@ -3,8 +3,6 @@
 #Expert mode off by default
 expert=false
 
-
-
 #Default settings for all systems
 doSetupRA=true
 doSetupDolphin=true
@@ -63,7 +61,6 @@ RAautoSave=false
 SNESAR=43
 
 #Default widescreen
-
 duckWide=false
 DolphinWide=false
 DreamcastWide=false
@@ -81,7 +78,6 @@ ESDEscrapData=~/Emulation/tools/downloaded_media
 
 #Default ESDE Theme
 esdeTheme="EPICNOIR"
-
 
 #Advanced settings
 doSelectWideScreen=false
