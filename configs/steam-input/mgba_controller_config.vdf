@@ -656,7 +656,18 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action empty_binding, , "
+							"binding"		"key_press LEFT_CONTROL, Cheats, EmuDeck_Cheats.png, #232323 #33AD69"
+						}
+					}
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press C, , "
+						}
+						"settings"
+						{
+							"delay_start"		"25"
 						}
 					}
 				}
@@ -742,18 +753,14 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, Reset, EmuDeck_Reset.png, #232323 #AD0000"
-						}
-						"settings"
-						{
-							"long_press_time"		"3000"
+							"binding"		"key_press LEFT_SHIFT, Fast Forward, EmuDeck_FastForward.png, #232323 #E4E4E4"
 						}
 					}
 					"Long_Press"
 					{
 						"bindings"
 						{
-							"binding"		"key_press R, , "
+							"binding"		"key_press TAB, , "
 						}
 						"settings"
 						{
@@ -773,17 +780,22 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, Cheats, EmuDeck_Cheats.png, #232323 #33AD69"
+							"binding"		"key_press LEFT_CONTROL, Shut Down Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
+						}
+						"settings"
+						{
+							"long_press_time"		"3000"
 						}
 					}
 					"Long_Press"
 					{
 						"bindings"
 						{
-							"binding"		"key_press C, , "
+							"binding"		"key_press Q, , "
 						}
 						"settings"
 						{
+							"long_press_time"		"3000"
 							"delay_start"		"25"
 						}
 					}
@@ -800,18 +812,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_SHIFT, Fast Forward, EmuDeck_FastForward.png, #232323 #00AD00"
-						}
-					}
-					"Long_Press"
-					{
-						"bindings"
-						{
-							"binding"		"key_press TAB, , "
-						}
-						"settings"
-						{
-							"delay_start"		"25"
+							"binding"		"key_press F12, Screenshot, EmuDeck_Screenshot.png, #232323 #33AD69"
 						}
 					}
 				}
@@ -827,7 +828,22 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F, Screenshot, EmuDeck_Screenshot.png, #232323 #33AD69"
+							"binding"		"key_press LEFT_CONTROL, Reset, EmuDeck_Reset.png, #232323 #AD0000"
+						}
+						"settings"
+						{
+							"long_press_time"		"3000"
+						}
+					}
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press R, , "
+						}
+						"settings"
+						{
+							"delay_start"		"25"
 						}
 					}
 				}
