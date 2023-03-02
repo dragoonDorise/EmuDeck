@@ -3,7 +3,7 @@
 	"version"		"3"
 	"revision"		"46"
 	"title"		"EmuDeck - mGBA"
-	"description"		"Your modified layout for this game."
+	"description"		"Left Touchpad - Quick Actions. Long press to perform an action."
 	"creator"		"76561199036238022"
 	"progenitor"		""
 	"url"		"template://mgba_controller_config.vdf"
@@ -12,13 +12,13 @@
 	"controller_caps"		"23117823"
 	"major_revision"		"0"
 	"minor_revision"		"0"
-	"Timestamp"		"-136895680"
+	"Timestamp"		"4"
 	"localization"
 	{
 		"english"
 		{
-			"title"		"mGBA Menu Hotkeys"
-			"description"		"mGBA Menu Hotkeys"
+			"title"		"DuckStation Menu Hotkeys"
+			"description"		"DuckStation Menu Hotkeys"
 		}
 		"czech"
 		{
@@ -629,7 +629,18 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press A, Save State, ghost_075_utility_020.png, #232323 #0074ad"
+							"binding"		"key_press LEFT_SHIFT, Save State, EmuDeck_SaveState.png, #232323 #0045AD"
+						}
+					}
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F10, , "
+						}
+						"settings"
+						{
+							"delay_start"		"25"
 						}
 					}
 				}
@@ -661,7 +672,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press B, Load State, ghost_075_utility_010.png, #232323 #0074ad"
+							"binding"		"key_press F10, Load State, EmuDeck_LoadState.png, #232323 #0045AD"
 						}
 					}
 				}
@@ -677,7 +688,18 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press D, Pause/Play, ghost_090_media_0210.png, #232323 #E4E4E4"
+							"binding"		"key_press LEFT_CONTROL, Pause/Play, EmuDeck_Pause.png, #232323 #E4E4E4"
+						}
+					}
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press P, , "
+						}
+						"settings"
+						{
+							"delay_start"		"25"
 						}
 					}
 				}
@@ -693,7 +715,18 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press Z, Menu, ghost_070_setting_0030.png, #232323 #E4E4E4"
+							"binding"		"key_press LEFT_CONTROL, Menu, EmuDeck_Menu.png, #232323 #E4E4E4"
+						}
+					}
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press M, , "
+						}
+						"settings"
+						{
+							"delay_start"		"25"
 						}
 					}
 				}
@@ -709,7 +742,22 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press X, Reset, ghost_075_utility_040.png, #232323 #E4E4E4"
+							"binding"		"key_press LEFT_CONTROL, Reset, EmuDeck_Reset.png, #232323 #AD0000"
+						}
+						"settings"
+						{
+							"long_press_time"		"3000"
+						}
+					}
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press R, , "
+						}
+						"settings"
+						{
+							"delay_start"		"25"
 						}
 					}
 				}
@@ -725,7 +773,18 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press G, Rewind, ghost_090_media_0200.png, #232323 #00AD00"
+							"binding"		"key_press LEFT_CONTROL, Cheats, EmuDeck_Cheats.png, #232323 #33AD69"
+						}
+					}
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press C, , "
+						}
+						"settings"
+						{
+							"delay_start"		"25"
 						}
 					}
 				}
@@ -737,11 +796,22 @@
 			{
 				"activators"
 				{
-					"Full_Press"
+					"Long_Press"
 					{
 						"bindings"
 						{
-							"binding"		"controller_action empty_sub_command, , "
+							"binding"		"key_press LEFT_SHIFT, Fast Forward, EmuDeck_FastForward.png, #232323 #00AD00"
+						}
+					}
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press TAB, , "
+						}
+						"settings"
+						{
+							"delay_start"		"25"
 						}
 					}
 				}
@@ -757,7 +827,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F, Fast Forward, ghost_090_media_0190.png, #232323 #00AD3D"
+							"binding"		"key_press F, Screenshot, EmuDeck_Screenshot.png, #232323 #33AD69"
 						}
 					}
 				}
