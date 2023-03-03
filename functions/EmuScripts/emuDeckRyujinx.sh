@@ -13,10 +13,13 @@ Ryujinx_cleanup(){
 #Install
 Ryujinx_install(){
     echo "Begin Ryujinx Install"
-    installEmuBI "Ryujinx"  "$(getReleaseURLGH "Ryujinx/release-channel-master" "-linux_x64.tar.gz")" "Ryujinx" "tar.gz"
-    tar -xvf "$HOME/Applications/Ryujinx.tar.gz" -C "$HOME/Applications/"
-    chmod +x "$HOME/Applications/publish/Ryujinx"
-    rm -rf "$HOME/Applications/Ryujinx.tar.gz"
+    local showProgress=$1
+    if installEmuBI "Ryujinx" "$(getReleaseURLGH "Ryujinx/release-channel-master" "-linux_x64.tar.gz")" "Ryujinx" "tar.gz" "$showProgress"; then
+        tar -xvf "$HOME/Applications/Ryujinx.tar.gz" -C "$HOME/Applications/" && rm -rf "$HOME/Applications/Ryujinx.tar.gz"
+        chmod +x "$HOME/Applications/publish/Ryujinx"
+    else
+        return 1
+    fi
 }
 
 #ApplyInitialSettings
@@ -29,7 +32,6 @@ Ryujinx_init(){
     Ryujinx_setupStorage
     Ryujinx_setupSaves
     Ryujinx_finalize
-
 }
 
 #update
@@ -43,8 +45,6 @@ Ryujinx_update(){
     Ryujinx_setupSaves
     Ryujinx_finalize
 }
-
-
 
 #ConfigurePaths
 Ryujinx_setEmulationFolder(){
@@ -82,7 +82,6 @@ Ryujinx_setEmulationFolder(){
     ln -sn "$HOME/.config/Ryujinx/system" "${biosPath}/ryujinx/keys"
 
     sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/Ryujinx/Config.json"
-
 }
 
 #SetupSaves
@@ -90,7 +89,6 @@ Ryujinx_setupSaves(){
     echo "Begin Ryujinx save link" 
     moveSaveFolder ryujinx saves "$HOME/.config/Ryujinx/bis/user/save" 
 }
-
 
 #SetupStorage
 Ryujinx_setupStorage(){
@@ -100,17 +98,14 @@ Ryujinx_setupStorage(){
     mkdir -p "${storagePath}/ryujinx/patchesAndDlc"
     rsync -av "${origPath}/Ryujinx/games/" "${storagePath}/ryujinx/games/" && rm -rf "${origPath}Ryujinx/games"
     unlink "${origPath}/Ryujinx/games"
-    ln -ns "${storagePath}/ryujinx/games/" "${origPath}/Ryujinx/games" 
-        
+    ln -ns "${storagePath}/ryujinx/games/" "${origPath}/Ryujinx/games"  
 }
-
 
 #WipeSettings
 Ryujinx_wipe(){
     echo "Begin Ryujinx delete config directories"
     rm -rf "$HOME/.config/Ryujinx"
 }
-
 
 #Uninstall
 Ryujinx_uninstall(){
@@ -153,7 +148,6 @@ Ryujinx_convertFromYuzu(){
         
     done
 }
-
 
 #setABXYstyle
 Ryujinx_setABXYstyle(){

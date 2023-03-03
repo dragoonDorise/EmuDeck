@@ -13,16 +13,23 @@ Cemu_cleanup(){
 
 #Install
 Cemu_install(){
-	setMSG "Installing $Cemu_emuName"		
+	setMSG "Installing $Cemu_emuName"
 
-	curl $Cemu_releaseURL --output "$romsPath"/wiiu/cemu.zip 
-	mkdir -p "$romsPath"/wiiu/tmp
-	unzip -o "$romsPath"/wiiu/cemu.zip -d "$romsPath"/wiiu/tmp
-	mv "$romsPath"/wiiu/tmp/cemu_*/ "$romsPath"/wiiu/tmp/cemu/
-	rsync -avzh "$romsPath"/wiiu/tmp/cemu/ "$romsPath"/wiiu/
-	rm -rf "$romsPath"/wiiu/tmp 
-	rm -f "$romsPath"/wiiu/cemu.zip
-	
+	local showProgress="$1"
+
+	#curl $Cemu_releaseURL --output "$romsPath"/wiiu/cemu.zip 
+	if safeDownload "cemu" "$Cemu_releaseURL" "$romsPath/wiiu/cemu.zip" "$showProgress"; then
+		mkdir -p "$romsPath/wiiu/tmp"
+		unzip -o "$romsPath/wiiu/cemu.zip" -d "$romsPath/wiiu/tmp"
+		mv "$romsPath"/wiiu/tmp/[Cc]emu_*/ "$romsPath/wiiu/tmp/cemu/" #don't quote the *
+		rsync -avzh "$romsPath/wiiu/tmp/cemu/" "$romsPath/wiiu/"
+		rm -rf "$romsPath/wiiu/tmp"
+		rm -f "$romsPath/wiiu/cemu.zip"
+	else
+		return 1
+	fi
+
+
 #	if  [ -e "${toolsPath}/launchers/cemu.sh" ]; then #retain launch settings
 #		local launchLine=$( tail -n 1 "${toolsPath}/launchers/cemu.sh" )
 #		echo "cemu launch line found: $launchLine"

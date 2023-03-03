@@ -13,7 +13,12 @@ mGBA_cleanup(){
 #Install
 mGBA_install(){
 	echo "Begin mGBA Install"
-	installEmuAI "mGBA" "$(getReleaseURLGH "mgba-emu/mgba" "x64.appimage")" #mgba.AppImage
+	local showProgress="$1"
+	if installEmuAI "mGBA" "$(getReleaseURLGH "mgba-emu/mgba" "x64.appimage")" "" "$showProgress"; then #mgba.AppImage
+		:
+	else
+		return 1
+	fi
 }
 
 #ApplyInitialSettings

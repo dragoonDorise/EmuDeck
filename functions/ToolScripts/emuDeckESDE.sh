@@ -16,32 +16,52 @@ ESDE_cleanup(){
 
 #Install
 ESDE_install(){
-	setMSG "Installing $ESDE_toolName"		
+	setMSG "Installing $ESDE_toolName"
+
+	local showProgress="$1"
 
     curl $ESDE_releaseURL --output "$toolsPath/latesturl.txt"
     local latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
 
-	echo "downloading $latestURL"
-    curl "$latestURL" --output "$ESDE_toolPath"
-    rm "$toolsPath/latesturl.txt"
-    chmod +x "$ESDE_toolPath"
-	
+	if [[ $latestURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
+		echo "downloading $latestURL"
+		#curl "$latestURL" --output "$ESDE_toolPath"
+		if safeDownload "$ESDE_toolName" "$latestURL" "$ESDE_toolPath" "$showProgress"; then
+			rm "$toolsPath/latesturl.txt"
+			chmod +x "$ESDE_toolPath"
+		else
+			return 1
+		fi
+	else
+		setMSG "$ESDE_toolName not found"
+		return 1
+	fi	
 }
 
 ESDE20_install(){
 	setMSG "Installing $ESDE_toolName PreRelease"
 
-    curl $ESDE_prereleaseURL --output "$toolsPath/latesturl.txt"
-    local latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
+	local showProgress="$1"
 
-	echo "downloading $latestURL"
+	curl $ESDE_prereleaseURL --output "$toolsPath/latesturl.txt"
+	local latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
+
 	if [[ $latestURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then 
-		curl "$latestURL" --output "$ESDE_toolPath"
-		rm "$toolsPath/latesturl.txt"
-		chmod +x "$ESDE_toolPath"
+		echo "downloading $latestURL"
+		#curl "$latestURL" --output "$ESDE_toolPath"
+		if safeDownload "$ESDE_toolName PreRelease" "$latestURL" "$ESDE_toolPath" "$showProgress"; then
+			rm "$toolsPath/latesturl.txt"
+			chmod +x "$ESDE_toolPath"
+		else
+			return 1
+		fi
 	else
 		setMSG "$ESDE_toolName PreRelease not found, installing stable"
-		ESDE_install
+		if ESDE_install; then
+			:
+		else
+			return 1
+		fi
 	fi
 }
 

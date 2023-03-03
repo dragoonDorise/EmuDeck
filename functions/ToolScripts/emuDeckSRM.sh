@@ -12,14 +12,19 @@ SRM_cleanup(){
 }
 
 SRM_install(){		
-	local SRM_releaseURL="$(getLatestReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")"
 	setMSG "Installing Steam Rom Manager"
+	local showProgress="$1"
+	local SRM_releaseURL="$(getLatestReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")"
 	SRM_cleanup
 	mkdir -p "${toolsPath}/srm"
-	curl -L "$SRM_releaseURL" -o "${SRM_toolPath}.temp" && mv "${SRM_toolPath}.temp" "${SRM_toolPath}"
-	chmod +x "$SRM_toolPath"
-	SRM_createDesktopShortcut
-	rm -rf ~/Desktop/SteamRomManager.desktop &>> /dev/null
+	#curl -L "$SRM_releaseURL" -o "${SRM_toolPath}.temp" && mv "${SRM_toolPath}.temp" "${SRM_toolPath}"
+	if safeDownload "$SRM_toolName" "$SRM_releaseURL" "${SRM_toolPath}" "$showProgress"; then
+		chmod +x "$SRM_toolPath"
+		SRM_createDesktopShortcut
+		rm -rf ~/Desktop/SteamRomManager.desktop &>> /dev/null
+	else
+		return 1
+	fi
 }
 
 SRM_createDesktopShortcut(){
