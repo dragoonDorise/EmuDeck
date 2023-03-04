@@ -7,7 +7,7 @@
 	"creator"		"76561199036238022"
 	"progenitor"		""
 	"url"		"template://emulationstation-de_controller_config.vdf"
-	"export_type"		"personal_cloud"
+	"export_type"		"template"
 	"controller_type"		"controller_neptune"
 	"controller_caps"		"23117823"
 	"major_revision"		"0"
@@ -5206,7 +5206,8 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press E, , "
+							"binding"		"key_press LEFT_CONTROL, Swap Screens, , "
+							"binding"		"key_press TAB, Swap Screens, , "
 						}
 					}
 				}
@@ -5239,7 +5240,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F, , "
+							"binding"		"key_press TAB, Layout Toggle, , "
 						}
 					}
 				}
