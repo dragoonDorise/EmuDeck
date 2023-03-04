@@ -6,14 +6,16 @@ Migration_init(){
 	destination=$1
 	#File Size on target
 	neededSpace=$(du -s "$emulationPath" | cut -f1)
+	neededSpaceInHuman=$(du -sh "$emulationPath" | cut -f1)
 
 	#File Size on destination
 	freeSpace=$(df -k $destination | tail -1 | cut -d' ' -f6)
+	freeSpaceInHuman=$(df -kh $destination | tail -1 | cut -d' ' -f6)
 	difference=$(($freeSpace - $neededSpace))
 	if [ $difference -gt 0 ]; then
 		Migration_move "$emulationPath" "$destination/Emulation"	
 	else
-		text="$(printf "<b>Not enough space</b>\nYou need to have at least ${neededSpace} on ${destination}")"
+		text="$(printf "<b>Not enough space</b>\nYou need to have at least ${neededSpaceInHuman} on ${destination}\nYou only have ${freeSpaceInHuman}")"
 		 zenity --error \
 				 --title="EmuDeck" \
 				 --width=400 \
