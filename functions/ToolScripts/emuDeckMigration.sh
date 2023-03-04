@@ -27,7 +27,8 @@ Migration_move(){
 	origin=$1
 	destination=$2
 	mkdir -p "$destination"
-	rsync --remove-source-files -avzh "$origin" "$destination" && Migration_updatePaths "$origin" "$destination"
+	rsync --remove-source-files -avzh "$origin" "$destination" && Migration_updatePaths "$origin" "$destination" | \
+	stdbuf -i0 -o0 -e0 tr '\r' '\n' | stdbuf -i0 -o0 -e0  awk -W interactive -f /path/to/rsync.awk |  zenity --progress  --width=400   --text="Moving...." --auto-close --title="Migrating your installation"
 }
 
 
