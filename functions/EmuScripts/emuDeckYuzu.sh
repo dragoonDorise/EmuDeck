@@ -12,13 +12,12 @@ Yuzu_cleanup(){
     #Fixes repeated Symlink for older installations
     unlink "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys"
     unlink "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/registered"
-    
 }
 
 #Install
 Yuzu_install(){
     echo "Begin Yuzu Install"
-    
+
     local showProgress=$1
     local lastVerFile="$HOME/emudeck/yuzu.ver"
     local latestVer=$(curl -fSs "https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases" | jq -r '[ .[].tag_name ][0]')
@@ -55,7 +54,7 @@ if [ -e "$tokenFile" ]; then
         echo "no need to update."
 
     elif [ -z $currentVer ]; then
-        
+
         echo "couldn't get metadata."
         return 1
 
@@ -91,7 +90,7 @@ if [ -e "$tokenFile" ]; then
 else
 
 	echo "Token Not Found"
-    
+
 fi
 
 # if we have yuzu-ea.AppImage, launcher will use that instead of mainline one so we can decorate shortcut
@@ -107,12 +106,12 @@ fi
 #ApplyInitialSettings
 Yuzu_init(){
     echo "Begin Yuzu Init"
-    
+
     Yuzu_migrate
-    
+
     configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
     configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
-    
+
     Yuzu_setEmulationFolder
     Yuzu_setupStorage
     Yuzu_setupSaves
@@ -125,10 +124,10 @@ Yuzu_update(){
     echo "Begin Yuzu update"
 
     Yuzu_migrate
-    
+
     configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu"
     configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu"
-    
+
     Yuzu_setEmulationFolder
     Yuzu_setupStorage
     Yuzu_setupSaves
@@ -239,7 +238,7 @@ Yuzu_migrate(){
     origPath="$HOME/.local/share/"
 
     Yuzu_setupStorage
-    
+
     rsync -av "${origPath}yuzu/dump" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/dump"
     rsync -av "${origPath}yuzu/load" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/load"
     rsync -av "${origPath}yuzu/sdmc" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/sdmc"

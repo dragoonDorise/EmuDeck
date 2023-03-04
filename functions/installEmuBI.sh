@@ -1,6 +1,5 @@
 #!/bin/bash
 installEmuBI(){
-
     local name="$1"
     local url="$2"
     local altName="$3"
@@ -55,5 +54,4 @@ installEmuBI(){
                                 "${toolsPath}/launchers/$launcherFileName" \
                                 "false"
     done
-
 }

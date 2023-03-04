@@ -20,8 +20,8 @@ ESDE_install(){
 
 	local showProgress="$1"
 
-    curl $ESDE_releaseURL --output "$toolsPath/latesturl.txt"
-    local latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
+	curl $ESDE_releaseURL --output "$toolsPath/latesturl.txt"
+	local latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
 
 	if [[ $latestURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
 		echo "downloading $latestURL"
@@ -46,7 +46,7 @@ ESDE20_install(){
 	curl $ESDE_prereleaseURL --output "$toolsPath/latesturl.txt"
 	local latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
 
-	if [[ $latestURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then 
+	if [[ $latestURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
 		echo "downloading $latestURL"
 		#curl "$latestURL" --output "$ESDE_toolPath"
 		if safeDownload "$ESDE_toolName PreRelease" "$latestURL" "$ESDE_toolPath" "$showProgress"; then
@@ -67,7 +67,6 @@ ESDE20_install(){
 
 #ApplyInitialSettings
 ESDE_init(){
-
 	setMSG "Setting up $ESDE_toolName"	
 
 	mkdir -p "$HOME/.emulationstation/custom_systems/"
@@ -75,23 +74,19 @@ ESDE_init(){
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
 
-    ESDE_addCustomSystems
-    ESDE_setEmulationFolder
-    ESDE_setDefaultEmulators
-    ESDE_applyTheme "$esdeTheme"
-    ESDE_migrateDownloadedMedia
-    ESDE_finalize
+	ESDE_addCustomSystems
+	ESDE_setEmulationFolder
+	ESDE_setDefaultEmulators
+	ESDE_applyTheme "$esdeTheme"
+	ESDE_migrateDownloadedMedia
+	ESDE_finalize
 }
 
 ESDE20_init(){
 	ESDE_init
 }
 
-
-
 ESDE_update(){
-
-
 	setMSG "Setting up $ESDE_toolName"	
 
 	mkdir -p "$HOME/.emulationstation/custom_systems/"
@@ -100,17 +95,15 @@ ESDE_update(){
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --ignore-existing
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --ignore-existing
 
-    ESDE_addCustomSystems
+	ESDE_addCustomSystems
 	ESDE_setEmulationFolder
-    ESDE_setDefaultEmulators
-    ESDE_applyTheme "$esdeTheme"
-    ESDE_migrateDownloadedMedia
-    ESDE_finalize
+	ESDE_setDefaultEmulators
+	ESDE_applyTheme "$esdeTheme"
+	ESDE_migrateDownloadedMedia
+	ESDE_finalize
 }
 
 ESDE_addCustomSystems(){
-
-
 	#insert cemu custom system if it doesn't exist, but the file does
 	if [[ $(grep -rnw "$es_systemsFile" -e 'wiiu') == "" ]]; then
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
@@ -121,7 +114,7 @@ ESDE_addCustomSystems(){
 		--subnode '$newSystem' --type elem --name 'extension' -v '.rpx .RPX .wud .WUD .wux .WUX .elf .ELF .iso .ISO .wad .WAD .wua .WUA' \
 		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%" \
 		--insert '$newSystem/commandP' --type attr --name 'label' --value "Cemu (Proton)" \
- 		--subnode '$newSystem' --type elem --name 'commandN' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%" \
+		--subnode '$newSystem' --type elem --name 'commandN' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%" \
 		--insert '$newSystem/commandN' --type attr --name 'label' --value "Cemu (Native)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'wiiu' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'wiiu' \
@@ -133,38 +126,35 @@ ESDE_addCustomSystems(){
 		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 	fi
 	#Custom Systems config end
-
-
 }
 
 #update
 ESDE_applyTheme(){
-    defaultTheme="EPICNOIR"
-    local theme=$1
-    if [[ "${theme}" == "" ]]; then
-        echo "ESDE: applyTheme parameter not set."
-        theme="$defaultTheme"
-    fi
-    echo "ESDE: applyTheme $theme"
-    mkdir -p "$HOME/.emulationstation/themes/"
+	defaultTheme="EPICNOIR"
+	local theme=$1
+	if [[ "${theme}" == "" ]]; then
+		echo "ESDE: applyTheme parameter not set."
+		theme="$defaultTheme"
+	fi
+	echo "ESDE: applyTheme $theme"
+	mkdir -p "$HOME/.emulationstation/themes/"
 	git clone https://github.com/dragoonDorise/es-theme-epicnoir.git "$HOME/.emulationstation/themes/es-epicnoir" --depth=1
 	cd "$HOME/.emulationstation/themes/es-epicnoir" && git reset --hard HEAD && git clean -f -d && git pull && echo  "epicnoir up to date!" || echo "problem pulling epicnoir theme"
 	
 	if [[ "$theme" == *"EPICNOIR"* ]]; then
-		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="es-epicnoir" />' "$es_settingsFile" 
+		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="es-epicnoir" />' "$es_settingsFile"
 	fi
 	if [[ "$theme" == *"MODERN-DE"* ]]; then
-        changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="modern-DE" />' "$es_settingsFile" 
+		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="modern-DE" />' "$es_settingsFile"
 	fi
 	if [[ "$theme" == *"RBSIMPLE-DE"* ]]; then
-        changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="rbsimple-DE" />' "$es_settingsFile" 
+		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="rbsimple-DE" />' "$es_settingsFile"
 	fi
 }
 
 #ConfigurePaths
 ESDE_setEmulationFolder(){
-
-    #update cemu custom system launcher to correct path by just replacing the line, if it exists.
+	#update cemu custom system launcher to correct path by just replacing the line, if it exists.
 	echo "updating $es_systemsFile"
 
 	#insert new commands
@@ -195,17 +185,15 @@ ESDE_setEmulationFolder(){
 		else
 			#update
 			cemuNativeCommandString="/usr/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%"
-    		xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Native)"]' -v "$cemuNativeCommandString" "$es_systemsFile"
+			xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Native)"]' -v "$cemuNativeCommandString" "$es_systemsFile"
 		fi
 	fi
-
 
 	echo "updating $es_settingsFile"
 	#configure roms Directory
 	esDE_romDir="<string name=\"ROMDirectory\" value=\"${romsPath}\" />" #roms
 	
 	changeLine '<string name="ROMDirectory"' "${esDE_romDir}" "$es_settingsFile"
-
 	
 	#Configure Downloaded_media folder
 	esDE_MediaDir="<string name=\"MediaDirectory\" value=\"${ESDEscrapData}\" />"
@@ -237,40 +225,36 @@ ESDE_setDefaultEmulators(){
 	ESDE_setEmu 'ScummVM (Standalone)' scummvm
 }
 
-
 ESDE_migrateDownloadedMedia(){
+	echo "ESDE: Migrate Downloaded Media."
 
-    echo "ESDE: Migrate Downloaded Media."
-
-    originalESMediaFolder="$HOME/.emulationstation/downloaded_media"
-    echo "processing $originalESMediaFolder"
-    if [ -L "${originalESMediaFolder}" ] ; then
-        echo "link found"
-        unlink "${originalESMediaFolder}" && echo "unlinked"
-    elif [ -e "${originalESMediaFolder}" ] ; then
-        if [ -d "${originalESMediaFolder}" ]; then		
-            echo -e ""
-            echo -e "Moving EmulationStation-DE downloaded_media to $toolsPath"			
-            echo -e ""
-            rsync -a "$originalESMediaFolder" "$toolsPath/"  && rm -rf "$originalESMediaFolder"		#move it, merging files if in both locations
-        fi
-    else
-        echo "downloaded_media not found on original location"
-    fi
+	originalESMediaFolder="$HOME/.emulationstation/downloaded_media"
+	echo "processing $originalESMediaFolder"
+	if [ -L "${originalESMediaFolder}" ] ; then
+		echo "link found"
+		unlink "${originalESMediaFolder}" && echo "unlinked"
+	elif [ -e "${originalESMediaFolder}" ] ; then
+		if [ -d "${originalESMediaFolder}" ]; then		
+			echo -e ""
+			echo -e "Moving EmulationStation-DE downloaded_media to $toolsPath"			
+			echo -e ""
+			rsync -a "$originalESMediaFolder" "$toolsPath/"  && rm -rf "$originalESMediaFolder"		#move it, merging files if in both locations
+		fi
+	else
+		echo "downloaded_media not found on original location"
+	fi
 }
 
 #finalExec - Extra stuff
 ESDE_finalize(){
-   	#Symlinks for ESDE compatibility
+	#Symlinks for ESDE compatibility
 	cd $(echo $romsPath | tr -d '\r')
-	ln -sn gamecube gc 
-	ln -sn 3ds n3ds 
-	ln -sn arcade mamecurrent 
-	ln -sn mame mame2003 
-	ln -sn lynx atarilynx 
+	ln -sn gamecube gc
+	ln -sn 3ds n3ds
+	ln -sn arcade mamecurrent
+	ln -sn mame mame2003
+	ln -sn lynx atarilynx
 }
-
-
 
 ESDE_setEmu(){		
 	local emu=$1

@@ -7,7 +7,7 @@ mGBA_configFile="$HOME/.config/mgba/config.ini"
 
 #cleanupOlderThings
 mGBA_cleanup(){
- echo "NYI"
+	echo "NYI"
 }
 
 #Install
@@ -88,17 +88,17 @@ mGBA_wipe(){
 #Uninstall
 mGBA_uninstall(){
 	setMSG "Uninstalling $mGBA_emuName."
-    rm -rf "$emuPath"
+	rm -rf "$emuPath"
 }
 
 #setABXYstyle
 mGBA_setABXYstyle(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #Migrate
 mGBA_migrate(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #WideScreenOn

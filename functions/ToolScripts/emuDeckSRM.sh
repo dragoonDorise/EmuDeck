@@ -63,12 +63,12 @@ SRM_init(){
 	sleep 3
 	tmp=$(mktemp)
 	jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
-	"$HOME/.config/steam-rom-manager/userData/userSettings.json"  > "$tmp"\
+	"$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp"\
 	 && mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
 	
 	tmp=$(mktemp)
 	jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
-	"$HOME/.config/steam-rom-manager/userData/userSettings.json"  > "$tmp" \
+	"$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
 	&& mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
 
 	#sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"

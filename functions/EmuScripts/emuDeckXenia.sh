@@ -23,13 +23,13 @@ Xenia_install(){
 	else
 		Xenia_releaseURL="$Xenia_releaseURL_canary"
 	fi
-    local name="$Xenia_emuName-$version"
-	
+	local name="$Xenia_emuName-$version"
+
 	setMSG "Installing Xenia $version"		
 
 	#need to look at standardizing exe name; or download both?  let the user choose at runtime?
-	#curl -L "$Xenia_releaseURL" --output "$romsPath"/xbox360/xenia.zip 
-    if safeDownload "$name" "$Xenia_releaseURL" "$romsPath"/xbox360/xenia.zip" "$showProgress"; then
+	#curl -L "$Xenia_releaseURL" --output "$romsPath"/xbox360/xenia.zip
+	if safeDownload "$name" "$Xenia_releaseURL" "$romsPath"/xbox360/xenia.zip" "$showProgress"; then
 		mkdir -p "$romsPath"/xbox360/tmp
 		unzip -o "$romsPath"/xbox360/xenia.zip -d "$romsPath"/xbox360/tmp
 		rsync -avzh "$romsPath"/xbox360/tmp/ "$romsPath"/xbox360/
@@ -57,7 +57,7 @@ Xenia_install(){
 #ApplyInitialSettings
 Xenia_init(){
 	setMSG "Initializing Xenia Config"
-	rsync -avhp "$EMUDECKGIT"/configs/xenia/ "$romsPath"/xbox360 
+	rsync -avhp "$EMUDECKGIT"/configs/xenia/ "$romsPath"/xbox360
 }
 
 #update
@@ -90,17 +90,17 @@ Xenia_wipeSettings(){
 
 #Uninstall
 Xenia_uninstall(){
-    rm -rf "${Xenia_emuPath}"
+	rm -rf "${Xenia_emuPath}"
 }
 
 #setABXYstyle
 Xenia_setABXYstyle(){
-    echo "NYI"
+	echo "NYI"
 }
 
 #Migrate
 Xenia_migrate(){
-   	echo "NYI" 
+	echo "NYI"
 }
 
 #WideScreenOn
@@ -125,7 +125,7 @@ Xenia_bezelOff(){
 
 #finalExec - Extra stuff
 Xenia_finalize(){
-    Xenia_cleanup
+	Xenia_cleanup
 }
 
 Xenia_IsInstalled(){

@@ -67,7 +67,7 @@ function escapeSedValue(){
 }
 
 function getSDPath(){
-    if [ -b "/dev/mmcblk0p1" ]; then	    
+    if [ -b "/dev/mmcblk0p1" ]; then
 		findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1
 	fi
 }
@@ -92,7 +92,7 @@ function testLocationValid(){
 	local return=""
 
     touch "$testLocation/testwrite"
-    
+
 	if [ ! -f  "$testLocation/testwrite" ]; then
 		return="Invalid: $locationName not Writable"
 	else
@@ -336,17 +336,17 @@ function checkForFile(){
 	local delete=$2
 	local finished=false	
 	while [ $finished == false ]
-	do 		 
+	do
 		test=$(test -f "$file" && echo true)			
 	  	if [[ $test == true ]]; then
 	  	  	finished=true;
 		  	clear			  	
-			if [[ $delete == 'delete' ]]; then  
+			if [[ $delete == 'delete' ]]; then
 		  		rm "$file"
 			fi
 			echo 'true';			
 			break
-	  	fi							  
+	  	fi
 	done
 }
 
@@ -375,9 +375,7 @@ function getReleaseURLGH(){
     fi
     curl -fSs "$url" | \
     jq -r '[ .[].assets[] | select(.name | endswith("'"$fileType"'")).browser_download_url ][0]'
-    
 }
-
 
 function linkToSaveFolder(){	
     local emu=$1

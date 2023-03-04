@@ -1,6 +1,5 @@
 #!/bin/bash
 installEmuAI(){
-
     local name="$1"
     local url="$2"
     local altName="$3"
@@ -54,5 +53,4 @@ installEmuAI(){
                                 "${toolsPath}/launchers/$launcherFileName" \
                                 "false"
     done
-
 }

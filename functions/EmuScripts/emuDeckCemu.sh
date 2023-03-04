@@ -17,7 +17,7 @@ Cemu_install(){
 
 	local showProgress="$1"
 
-	#curl $Cemu_releaseURL --output "$romsPath"/wiiu/cemu.zip 
+	#curl $Cemu_releaseURL --output "$romsPath"/wiiu/cemu.zip
 	if safeDownload "cemu" "$Cemu_releaseURL" "$romsPath/wiiu/cemu.zip" "$showProgress"; then
 		mkdir -p "$romsPath/wiiu/tmp"
 		unzip -o "$romsPath/wiiu/cemu.zip" -d "$romsPath/wiiu/tmp"
@@ -63,13 +63,13 @@ Cemu_init(){
 	Cemu_setupSaves
 	Cemu_addSteamInputProfile
 
-	if [ -e "${romsPath}/wiiu/controllerProfiles/controller1.xml" ];then 
+	if [ -e "${romsPath}/wiiu/controllerProfiles/controller1.xml" ];then
 		mv "${romsPath}/wiiu/controllerProfiles/controller1.xml" "${romsPath}/wiiu/controllerProfiles/controller1.xml.bak"
 	fi
-	if [ -e "${romsPath}/wiiu/controllerProfiles/controller2.xml" ];then 
+	if [ -e "${romsPath}/wiiu/controllerProfiles/controller2.xml" ];then
 		mv "${romsPath}/wiiu/controllerProfiles/controller2.xml" "${romsPath}/wiiu/controllerProfiles/controller2.xml.bak"
 	fi
-	if [ -e "${romsPath}/wiiu/controllerProfiles/controller3.xml" ];then 
+	if [ -e "${romsPath}/wiiu/controllerProfiles/controller3.xml" ];then
 		mv "${romsPath}/wiiu/controllerProfiles/controller3.xml" "${romsPath}/wiiu/controllerProfiles/controller3.xml.bak"
 	fi
 }
@@ -93,7 +93,7 @@ Cemu_setEmulationFolder(){
 		#WindowsRomPath=${echo "z:${romsPath}/wiiu/roms" | sed 's/\//\\/g'}
 		#gamePathEntryFound=$(grep -rnw "$Cemu_cemuSettings" -e "${WindowsRomPath}")
 		gamePathEntryFound=$(grep -rnw "$Cemu_cemuSettings" -e "z:${romsPath}/wiiu/roms")
-		if [[ $gamePathEntryFound == '' ]]; then 
+		if [[ $gamePathEntryFound == '' ]]; then
 			#xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "${WindowsRomPath}" "$Cemu_cemuSettings"
 			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}/wiiu/roms" "$Cemu_cemuSettings"
 		fi
@@ -115,9 +115,9 @@ Cemu_setupStorage(){
 
 #WipeSettings
 Cemu_wipeSettings(){
-		echo "NYI"
-   # rm -rf "${romPath}wiiu/"
-   # prob not cause roms are here
+	echo "NYI"
+	#rm -rf "${romPath}wiiu/"
+	# prob not cause roms are here
 }
 
 
@@ -134,7 +134,7 @@ Cemu_setABXYstyle(){
 
 #Migrate
 Cemu_migrate(){
-	   echo "NYI" 
+	   echo "NYI"
 }
 
 #WideScreenOn
