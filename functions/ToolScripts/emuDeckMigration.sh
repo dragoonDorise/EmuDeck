@@ -10,7 +10,7 @@ Migration_init(){
 
 	#File Size on destination
 	freeSpace=$(df -k $destination | tail -1 | cut -d' ' -f6)
-	freeSpaceInHuman=$(df -kh $destination | tail -1 | cut -d' ' -f6)
+	freeSpaceInHuman=$(df -kh $destination | tail -1 | cut -d' ' -f10)
 	difference=$(($freeSpace - $neededSpace))
 	if [ $difference -gt 0 ]; then
 		Migration_move "$emulationPath" "$destination/Emulation"	
