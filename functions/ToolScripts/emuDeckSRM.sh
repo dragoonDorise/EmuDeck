@@ -19,7 +19,7 @@ SRM_install(){
 	curl -L "$SRM_releaseURL" -o "${SRM_toolPath}.temp" && mv "${SRM_toolPath}.temp" "${SRM_toolPath}"
 	chmod +x "$SRM_toolPath"
 	SRM_createDesktopShortcut
-	rm -rf ~/Desktop/SteamRomManager.desktop &>> /dev/null
+	rm -rf ~/Desktop/SteamRomManager.desktop
 }
 
 SRM_createDesktopShortcut(){
