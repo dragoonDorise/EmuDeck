@@ -28,7 +28,6 @@ Migration_init(){
 Migration_move(){
 	origin=$1
 	destination=$2
-	mkdir -p "$destination"
 	rsync --dry-run -avzh "$origin" "$destination" && Migration_updatePaths "$origin" "$destination" | \
 	stdbuf -i0 -o0 -e0 tr '\r' '\n' | stdbuf -i0 -o0 -e0  awk -W interactive '/^ /{ print int(+$2); fflush();  next}$0{ print "# " $0}' |  zenity --progress  --width=400   --text="Moving...." --auto-close --title="Migrating your installation"
 }
