@@ -13,7 +13,7 @@ Migration_init(){
 	freeSpaceInHuman=$(df -kh $destination | tail -1 | cut -d' ' -f10)
 	difference=$(($freeSpace - $neededSpace))
 	if [ $difference -gt 0 ]; then
-		Migration_move "$emulationPath" "$destination/Emulation/" && Migration_updatePaths "$emulationPath" "$destination/Emulation/"
+		Migration_move "$emulationPath" "$destination/Emulation" && Migration_updatePaths "$emulationPath" "$destination/Emulation/"
 	else
 		text="$(printf "<b>Not enough space</b>\nYou need to have at least ${neededSpaceInHuman} on ${destination}\nYou only have ${freeSpaceInHuman}")"
 		 zenity --error \
