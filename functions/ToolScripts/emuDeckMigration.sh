@@ -28,8 +28,10 @@ Migration_init(){
 Migration_move(){
 	origin=$1
 	destination=$2
-	rsync --dry-run -avzh "$origin" "$destination" && Migration_updatePaths "$origin" "$destination" | \
-	stdbuf -i0 -o0 -e0 tr '\r' '\n' | stdbuf -i0 -o0 -e0  awk -W interactive '/^ /{ print int(+$2); fflush();  next}$0{ print "# " $0}' |  zenity --progress  --width=400   --text="Moving...." --auto-close --title="Migrating your installation"
+	rsync -av --progress --dry-run "$origin" "$destination" |
+	awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
+	zenity --progress --title "Migrating your installation to $destination" \
+	--text="Scanning..." --width=400 --percentage=0 --auto-kill
 }
 
 
