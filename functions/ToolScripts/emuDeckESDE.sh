@@ -272,6 +272,7 @@ ESDE_setEmu(){
 }
 
 ESDE_addSteamInputProfile(){
+	addSteamInputCustomIcons
 	setMSG "Adding $ESDE_toolName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/emulationstation-de_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
