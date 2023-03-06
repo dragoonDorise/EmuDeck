@@ -13,16 +13,23 @@ Cemu_cleanup(){
 
 #Install
 Cemu_install(){
-	setMSG "Installing $Cemu_emuName"		
+	setMSG "Installing $Cemu_emuName"
 
-	curl $Cemu_releaseURL --output "$romsPath"/wiiu/cemu.zip 
-	mkdir -p "$romsPath"/wiiu/tmp
-	unzip -o "$romsPath"/wiiu/cemu.zip -d "$romsPath"/wiiu/tmp
-	mv "$romsPath"/wiiu/tmp/cemu_*/ "$romsPath"/wiiu/tmp/cemu/
-	rsync -avzh "$romsPath"/wiiu/tmp/cemu/ "$romsPath"/wiiu/
-	rm -rf "$romsPath"/wiiu/tmp 
-	rm -f "$romsPath"/wiiu/cemu.zip
-	
+	local showProgress="$1"
+
+	#curl $Cemu_releaseURL --output "$romsPath"/wiiu/cemu.zip
+	if safeDownload "cemu" "$Cemu_releaseURL" "$romsPath/wiiu/cemu.zip" "$showProgress"; then
+		mkdir -p "$romsPath/wiiu/tmp"
+		unzip -o "$romsPath/wiiu/cemu.zip" -d "$romsPath/wiiu/tmp"
+		mv "$romsPath"/wiiu/tmp/[Cc]emu_*/ "$romsPath/wiiu/tmp/cemu/" #don't quote the *
+		rsync -avzh "$romsPath/wiiu/tmp/cemu/" "$romsPath/wiiu/"
+		rm -rf "$romsPath/wiiu/tmp"
+		rm -f "$romsPath/wiiu/cemu.zip"
+	else
+		return 1
+	fi
+
+
 #	if  [ -e "${toolsPath}/launchers/cemu.sh" ]; then #retain launch settings
 #		local launchLine=$( tail -n 1 "${toolsPath}/launchers/cemu.sh" )
 #		echo "cemu launch line found: $launchLine"
@@ -56,13 +63,13 @@ Cemu_init(){
 	Cemu_setupSaves
 	Cemu_addSteamInputProfile
 
-	if [ -e "${romsPath}/wiiu/controllerProfiles/controller1.xml" ];then 
+	if [ -e "${romsPath}/wiiu/controllerProfiles/controller1.xml" ];then
 		mv "${romsPath}/wiiu/controllerProfiles/controller1.xml" "${romsPath}/wiiu/controllerProfiles/controller1.xml.bak"
 	fi
-	if [ -e "${romsPath}/wiiu/controllerProfiles/controller2.xml" ];then 
+	if [ -e "${romsPath}/wiiu/controllerProfiles/controller2.xml" ];then
 		mv "${romsPath}/wiiu/controllerProfiles/controller2.xml" "${romsPath}/wiiu/controllerProfiles/controller2.xml.bak"
 	fi
-	if [ -e "${romsPath}/wiiu/controllerProfiles/controller3.xml" ];then 
+	if [ -e "${romsPath}/wiiu/controllerProfiles/controller3.xml" ];then
 		mv "${romsPath}/wiiu/controllerProfiles/controller3.xml" "${romsPath}/wiiu/controllerProfiles/controller3.xml.bak"
 	fi
 }
@@ -86,7 +93,7 @@ Cemu_setEmulationFolder(){
 		#WindowsRomPath=${echo "z:${romsPath}/wiiu/roms" | sed 's/\//\\/g'}
 		#gamePathEntryFound=$(grep -rnw "$Cemu_cemuSettings" -e "${WindowsRomPath}")
 		gamePathEntryFound=$(grep -rnw "$Cemu_cemuSettings" -e "z:${romsPath}/wiiu/roms")
-		if [[ $gamePathEntryFound == '' ]]; then 
+		if [[ $gamePathEntryFound == '' ]]; then
 			#xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "${WindowsRomPath}" "$Cemu_cemuSettings"
 			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}/wiiu/roms" "$Cemu_cemuSettings"
 		fi
@@ -108,9 +115,9 @@ Cemu_setupStorage(){
 
 #WipeSettings
 Cemu_wipeSettings(){
-		echo "NYI"
-   # rm -rf "${romPath}wiiu/"
-   # prob not cause roms are here
+	echo "NYI"
+	#rm -rf "${romPath}wiiu/"
+	# prob not cause roms are here
 }
 
 
@@ -127,7 +134,7 @@ Cemu_setABXYstyle(){
 
 #Migrate
 Cemu_migrate(){
-	   echo "NYI" 
+	   echo "NYI"
 }
 
 #WideScreenOn

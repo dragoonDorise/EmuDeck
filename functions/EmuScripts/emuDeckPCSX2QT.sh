@@ -7,13 +7,18 @@ PCSX2QT_configFile="$HOME/.config/PCSX2/inis/PCSX2.ini"
 
 #cleanupOlderThings
 PCSX2QT_cleanup(){
- echo "NYI"
+	echo "NYI"
 }
 
 #Install
 PCSX2QT_install(){
 	echo "Begin PCSX2-QT Install"
-	installEmuAI "pcsx2-Qt" "$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")" #pcsx2-Qt.AppImage
+	local showProgress="$1"
+	if installEmuAI "pcsx2-Qt" "$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")" "" "$showProgress"; then #pcsx2-Qt.AppImage
+		:
+	else
+		return 1
+	fi
 }
 
 #ApplyInitialSettings
@@ -81,36 +86,36 @@ PCSX2QT_setupSaves(){
 
 #SetupStorage
 PCSX2QT_setupStorage(){
-    echo "Begin PCSX2-QT storage config"
-    mkdir -p "${storagePath}/pcsx2/snaps"
-    mkdir -p "${storagePath}/pcsx2/cache"
-    mkdir -p "${storagePath}/pcsx2/textures"
-    mkdir -p "${storagePath}/pcsx2/covers"
+	echo "Begin PCSX2-QT storage config"
+	mkdir -p "${storagePath}/pcsx2/snaps"
+	mkdir -p "${storagePath}/pcsx2/cache"
+	mkdir -p "${storagePath}/pcsx2/textures"
+	mkdir -p "${storagePath}/pcsx2/covers"
 }
 
 
 #WipeSettings
 PCSX2QT_wipe(){
 	setMSG "Wiping $PCSX2QT_emuName settings."
-   rm -rf "$HOME/.config/PCSX2"
-   # prob not cause roms are here
+	rm -rf "$HOME/.config/PCSX2"
+	# prob not cause roms are here
 }
 
 
 #Uninstall
 PCSX2QT_uninstall(){
 	setMSG "Uninstalling $PCSX2QT_emuName."
-    rm -rf "$emuPath"
+	rm -rf "$emuPath"
 }
 
 #setABXYstyle
 PCSX2QT_setABXYstyle(){
-    echo "NYI"
+	echo "NYI"
 }
 
 #Migrate
 PCSX2QT_migrate(){
-    echo "NYI"
+	echo "NYI"
 }
 
 #WideScreenOn
