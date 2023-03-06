@@ -1720,6 +1720,10 @@ RetroArch_psx_setConfig(){
 	RetroArch_psx_3DCRTshaderOff
 }
 
+RetroArch_cdi_setConfig(){
+	mkdir -p "${biosPath}/same_cdi/bios"
+}
+
 #BezelOn
 RetroArch_bezelOnAll(){
 	for func in $(compgen -A 'function' | grep '\_bezelOn$' | grep '^RetroArch_' | grep -v "RetroArch_bezelOn")
