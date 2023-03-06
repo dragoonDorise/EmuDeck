@@ -155,6 +155,6 @@ melonDS_resetConfig(){
 
 melonDS_addSteamInputProfile(){
 	addSteamInputCustomIcons
-	setMSG "Adding $RMG_emuName Steam Input Profile."
+	setMSG "Adding $melonDS_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/melonds_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
