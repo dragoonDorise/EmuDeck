@@ -25,6 +25,8 @@ melonDS_init(){
 	melonDS_setupStorage
 	melonDS_setEmulationFolder
 	melonDS_setupSaves
+	melonDS_addSteamInputProfile
+
 }
 
 #update
@@ -34,6 +36,8 @@ melonDS_update(){
 	melonDS_setupStorage
 	melonDS_setEmulationFolder
 	melonDS_setupSaves
+	melonDS_addSteamInputProfile
+
 }
 
 #ConfigurePaths
@@ -151,5 +155,6 @@ melonDS_resetConfig(){
 
 melonDS_addSteamInputProfile(){
 	addSteamInputCustomIcons
-	echo "nyi"
+	setMSG "Adding $RMG_emuName Steam Input Profile."
+	rsync -r "$EMUDECKGIT/configs/steam-input/melonds_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
