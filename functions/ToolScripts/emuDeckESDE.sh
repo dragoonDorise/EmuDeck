@@ -80,6 +80,7 @@ ESDE_init(){
 	ESDE_applyTheme "$esdeTheme"
 	ESDE_migrateDownloadedMedia
 	ESDE_finalize
+	ESDE_addSteamInputProfile
 }
 
 ESDE20_init(){
@@ -101,6 +102,7 @@ ESDE_update(){
 	ESDE_applyTheme "$esdeTheme"
 	ESDE_migrateDownloadedMedia
 	ESDE_finalize
+	ESDE_addSteamInputProfile
 }
 
 ESDE_addCustomSystems(){
