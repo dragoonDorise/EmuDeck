@@ -2,7 +2,9 @@
 emuName="yuzu" #parameterize me
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
 emuExeFile=$(find $emufolder -iname "${emuName}*.AppImage" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
-emuDontUpdate="$HOME/emudeck/yuzu.noupdate"
+emuDontUpdate="$HOME/emudeck/${emuName}.noupdate"
+#source the helpers for safeDownload
+. ~/.config/EmuDeck/backend/functions/helperFunctions.sh
 
 # update check only if we're not launching yuzu-ea...
 isMainline=true
@@ -33,8 +35,8 @@ if [ -z "$1" ] && [ "$isMainline" = true ] && [ ! -e "${emuDontUpdate}" ]; then
             echo "download ${currentVer} appimage: ${fileToDownload}"
 
             #response=$(curl -L -X GET ${fileToDownload} --write-out '%{http_code}' -H "Accept: application/json" -o "${HOME}/Applications/${emuName}.AppImage")
-            if safeDownload "yuzu" "${fileToDownload}" "$HOME/Applications/${emuName}.AppImage" "true"; then
-                chmod +x "$HOME/Applications/$altName.AppImage"
+            if safeDownload "yuzu" "${fileToDownload}" "$emufolder/$emuName.AppImage" "true"; then
+                chmod +x "$emufolder/$emuName.AppImage"
                 echo "latest version $currentVer > $lastVerFile"
                 echo ${currentVer} > ${lastDL}
             else
