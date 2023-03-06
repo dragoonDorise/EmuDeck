@@ -1548,7 +1548,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo GameBoy - mGBA",
-    "steamCategory": "${GameBoy}",
+    "steamCategory": "${GameBoy - mGBA}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/gb",
     "steamDirectory": "${steamdirglobal}",
@@ -1672,7 +1672,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo GameBoy Color - mGBA",
-    "steamCategory": "${GameBoy Color}",
+    "steamCategory": "${GameBoy Color - mGBA}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/gbc",
     "steamDirectory": "${steamdirglobal}",
@@ -1717,7 +1717,7 @@
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
-    "parserId": "164785621855061650",
+    "parserId": "164785621855061661",
     "version": 10,
     "imageProviderAPIs": {
       "SteamGridDB": {
@@ -1796,7 +1796,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo GameBoy Advance - mGBA (Standalone)",
-    "steamCategory": "${GameBoy Advance}",
+    "steamCategory": "${GameBoy Advance - mGBA}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/gba",
     "steamDirectory": "${steamdirglobal}",
