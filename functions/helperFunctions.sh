@@ -565,3 +565,7 @@ safeDownload() {
 		return 1
 	fi
 }
+
+addSteamInputCustomIcons() {
+	rsync -av "$EMUDECKGIT/configs/steam-input/Icons/" "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons"
+}
