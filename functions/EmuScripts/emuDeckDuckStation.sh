@@ -157,6 +157,7 @@ DuckStation_resetConfig(){
 }
 
 DuckStation_addSteamInputProfile(){
+	addSteamInputCustomIcons
 	setMSG "Adding $DuckStation_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/duckstation_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

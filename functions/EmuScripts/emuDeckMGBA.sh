@@ -139,7 +139,7 @@ mGBA_finalize(){
 }
 
 mGBA_addSteamInputProfile(){
-	echo "NYI"
+	addSteamInputCustomIcons
 	setMSG "Adding $mGBA_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/mGBA_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

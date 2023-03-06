@@ -164,8 +164,7 @@ PCSX2QT_resetConfig(){
 }
 
 PCSX2QT_addSteamInputProfile(){
-	setMSG "Adding $PCSX2QT_emuName Steam Input Profile."
-	rsync -r "$EMUDECKGIT/configs/steam-input/PCSX2QT_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	echo "NYI"
 }
 
 

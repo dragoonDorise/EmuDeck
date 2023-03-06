@@ -150,5 +150,6 @@ melonDS_resetConfig(){
 }
 
 melonDS_addSteamInputProfile(){
+	addSteamInputCustomIcons
 	echo "nyi"
 }

@@ -176,6 +176,7 @@ Cemu_resetConfig(){
 }
 
 Cemu_addSteamInputProfile(){
+	addSteamInputCustomIcons
 	setMSG "Adding $Cemu_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/cemu_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
