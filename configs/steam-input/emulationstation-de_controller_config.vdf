@@ -2662,7 +2662,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press TAB, Swap Screens, EmuDeck_SwapScreen.png, "
+							"binding"		"key_press LEFT_CONTROL, Swap Screens, EmuDeck_SwapScreen.png, "
 							"binding"		"key_press TAB, Swap Screens, EmuDeck_SwapScreen.png, "
 						}
 						"settings"
