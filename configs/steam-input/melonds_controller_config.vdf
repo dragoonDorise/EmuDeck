@@ -1372,7 +1372,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_RIGHT, , "
+							"binding"		"mouse_button LEFT, , "
 						}
 					}
 				}
@@ -1798,6 +1798,84 @@
 	}
 	"group"
 	{
+		"id"		"50"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mouse_button LEFT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"51"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mouse_button LEFT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"52"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mouse_button LEFT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
 		"id"		"7"
 		"mode"		"switches"
 		"name"		""
@@ -2082,7 +2160,8 @@
 			"2"		"right_trackpad inactive"
 			"6"		"right_trackpad inactive"
 			"10"		"right_trackpad inactive"
-			"12"		"right_trackpad active"
+			"12"		"right_trackpad inactive"
+			"50"		"right_trackpad active"
 			"3"		"joystick active"
 			"31"		"joystick inactive"
 			"46"		"joystick inactive"
@@ -2101,7 +2180,8 @@
 			"18"		"switch active"
 			"19"		"button_diamond active"
 			"48"		"left_trackpad active"
-			"21"		"right_trackpad active"
+			"21"		"right_trackpad inactive"
+			"51"		"right_trackpad active"
 			"22"		"joystick active"
 			"23"		"left_trigger active"
 			"24"		"right_trigger active"
@@ -2118,7 +2198,8 @@
 			"33"		"switch active"
 			"34"		"button_diamond active"
 			"44"		"left_trackpad active"
-			"36"		"right_trackpad active"
+			"36"		"right_trackpad inactive"
+			"52"		"right_trackpad active"
 			"37"		"joystick active"
 			"38"		"left_trigger active"
 			"39"		"right_trigger active"
