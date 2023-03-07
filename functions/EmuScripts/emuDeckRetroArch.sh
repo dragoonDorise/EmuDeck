@@ -132,6 +132,20 @@ RetroArch_setOverride(){
 		updateOrAppendConfigLine "$configFile" "$option =" "$settingLine"
 	fi
 }
+
+RetroArch_vice_xvic_setConfig(){	
+	RetroArch_setOverride 'VICE xvic.cfg' 'VICE xvic'  'video_driver' '"glcore"'	
+}
+RetroArch_vice_xscpu64_setConfig(){	
+	RetroArch_setOverride 'VICE xscpu64.cfg' 'VICE xscpu64'  'video_driver' '"glcore"'	
+}
+RetroArch_vice_x64sc_setConfig(){	
+	RetroArch_setOverride 'VICE x64sc.cfg' 'VICE x64sc'  'video_driver' '"glcore"'	
+}
+RetroArch_vice_x64_setConfig(){	
+	RetroArch_setOverride 'VICE x64.cfg' 'VICE x64'  'video_driver' '"glcore"'	
+}
+
 RetroArch_wswanc_setConfig(){	
 	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle Cygne'  'input_player1_analog_dpad_mode' '"1"'
 	RetroArch_setOverride 'wonderswancolor.cfg' 'Beetle WonderSwan'  'input_player1_analog_dpad_mode' '"1"'
