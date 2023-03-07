@@ -1,0 +1,17 @@
+System name:
+arcadia
+
+Full system name:
+Emerson Arcadia 2001
+
+Supported file extensions:
+.bin .BIN .7z .7Z .zip .ZIP
+
+Launch command:
+%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/arcadia arcadia -cart %ROM%
+
+Platform (for scraping):
+arcadia
+
+Theme folder:
+arcadia
