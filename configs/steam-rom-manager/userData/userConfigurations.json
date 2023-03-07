@@ -26,7 +26,7 @@
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/EmulationStation-DE-x64_SteamDeck.AppImage",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -87,7 +87,7 @@
     "executable": {
       "path": "/usr/bin/bash",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -168,7 +168,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785580114332556",
     "version": 10,
@@ -230,7 +230,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785598905398120",
     "version": 10,
@@ -292,7 +292,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785598905398121",
     "version": 10,
@@ -354,7 +354,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785598905398122",
     "version": 10,
@@ -416,7 +416,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785598905398123",
     "version": 10,
@@ -463,7 +463,7 @@
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
       "glob": "${title}@(.zip|.ZIP)"
@@ -539,7 +539,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785580134372556",
     "version": 10,
@@ -601,7 +601,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164585567134532556",
     "version": 10,
@@ -663,7 +663,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785567134372556",
     "version": 10,
@@ -706,7 +706,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -787,7 +787,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785583010740299",
     "version": 10,
@@ -849,7 +849,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785590686474494",
     "version": 10,
@@ -911,7 +911,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785595449272606",
     "version": 10,
@@ -958,7 +958,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
       "glob": "**/${title}@(.d64|.D64|.d71|.D71|.d80|.D80|.d81|.D81|.d82|.D82|.g64|.G64|.g41|.G41|.x64|.X64|.t64|.T64|.tap|.TAP|.prg|.PRG|.p00|.P00|.crt|.CRT|.bin|.BIN|.d6z|.D6Z|.d7z|.D7Z|.d8z|.D8Z|.g6z|.G6Z|.g4z|.G4Z|.x6z|.X6Z|.cmd|.CMD|.m3u|.M3U|.vsf|.VSF|.nib|.NIB|.nbz|.NBZ|.zip|.ZIP)"
@@ -1034,7 +1034,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785092749272606",
     "version": 10,
@@ -1077,7 +1077,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1139,7 +1139,7 @@
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1201,7 +1201,7 @@
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1282,7 +1282,7 @@
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "16478559884003904",
     "version": 10,
@@ -1344,7 +1344,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785598905398114",
     "version": 10,
@@ -1406,7 +1406,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785598952083233",
     "version": 10,
@@ -1468,7 +1468,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785598936495323",
     "version": 10,
@@ -1530,7 +1530,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785598920514822",
     "version": 10,
@@ -1654,7 +1654,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785621824841888",
     "version": 10,
@@ -1697,7 +1697,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -1778,7 +1778,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785621840217949",
     "version": 10,
@@ -1840,7 +1840,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "166785621840217949",
     "version": 10,
@@ -2211,7 +2211,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785621902111196",
     "version": 10,
@@ -2273,7 +2273,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785622132332421",
     "version": 10,
@@ -2335,7 +2335,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785622173694320",
     "version": 10,
@@ -2397,7 +2397,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785645224239563",
     "version": 10,
@@ -2440,7 +2440,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -2502,7 +2502,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -2583,7 +2583,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "16478564523883851",
     "version": 10,
@@ -2645,7 +2645,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785645253672240",
     "version": 10,
@@ -2693,7 +2693,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
       "glob": "**/${title}@(.7z|.7Z|.cue|.CUE|.iso|.ISO|.zip|ZIP|.chd|.m3u|.M3U)"
@@ -2769,7 +2769,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785621885441701",
     "version": 10,
@@ -2831,7 +2831,7 @@
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785656699856393",
     "version": 10,
@@ -2874,7 +2874,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "userAccounts": {
       "specifiedAccounts": "",
@@ -2941,7 +2941,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
       "glob": "**/${title}@(.ccd|.CCD|.chd|.CHD|.cue|.CUE|.m3u|.M3U|.pbp|.PBP|.toc|.TOC)"
@@ -3078,7 +3078,7 @@
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785645271669680",
     "version": 10,
@@ -3125,7 +3125,7 @@
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
       "glob": "**/${title}/USRDIR/@(eboot.bin|EBOOT.BIN)"
@@ -3201,7 +3201,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785656684747068",
     "version": 10,
@@ -3263,7 +3263,7 @@
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785656634747068",
     "version": 10,
@@ -3310,7 +3310,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
       "glob": "**/${title}@(.zip|.ZIP)"
@@ -3372,7 +3372,7 @@
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/ryujinx.sh",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
       "glob": "**/${title}@(.kip|.KIP|.nca|.NCA|.nro|.NRO|.nso|.NSO|.nsp|.NSP|.nsz|.NSZ|.xci|.XCI)"
@@ -3433,7 +3433,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
       "glob": "**/${title}@(.7z|.7Z|.bin|.BIN|.pce|.PCE|.zip|.ZIP)"
@@ -3494,7 +3494,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
       "glob": "**/${title}@(.7z|.7Z|.ccd|.CCD|.chd|.CHD|.cue|.CUE|.iso|.ISO|.zip|.ZIP)"
@@ -3555,7 +3555,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
       "glob": "**/${title}@(.7z|.tzx|.tap|.z80|.rzx|.scl|.trd|.TZX|.TAP|.Z80|.RZX|.SCL|.TRD|.zip|.ZIP)"
@@ -3617,7 +3617,7 @@
     "executable": {
       "path": "/usr/bin/flatpak",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
       "glob": "${title}.scummvm"
@@ -3678,7 +3678,7 @@
     "executable": {
       "path": "/home/deck/Applications/Vita3K/Vita3K",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
       "glob": "**/${title}/@(eboot.bin|EBOOT.BIN)"
@@ -3740,7 +3740,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
       "glob": "${title}@(.7z|.7Z|.cdt|.CDT|.dsk|.DSK|.sna|.SNA|.tap|.TAP|.voc|.VOC|.zip|.ZIP)"
@@ -3816,7 +3816,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785127823332556",
     "version": 10,
@@ -3878,7 +3878,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "164785127820983556",
     "version": 10,
@@ -3940,7 +3940,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserId": "1647850989120983556",
     "version": 10,
@@ -3987,7 +3987,7 @@
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
+      "appendArgsToExecutable": true
     },
     "parserInputs": {
       "glob": "**/${title}@(.d64|.D64|.d71|.D71|.d80|.D80|.d81|.D81|.d82|.D82|.g64|.G64|.g41|.G41|.x64|.X64|.t64|.T64|.tap|.TAP|.prg|.PRG|.p00|.P00|.crt|.CRT|.bin|.BIN|.d6z|.D6Z|.d7z|.D7Z|.d8z|.D8Z|.g6z|.G6Z|.g4z|.G4Z|.x6z|.X6Z|.cmd|.CMD|.m3u|.M3U|.vsf|.VSF|.nib|.NIB|.nbz|.NBZ|.zip|.ZIP)"
