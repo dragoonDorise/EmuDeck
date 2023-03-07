@@ -1826,7 +1826,7 @@ RetroArch_installCores(){
 			sameboy_libretro.so same_cdi_libretro.so scummvm_libretro.so smsplus_libretro.so snes9x2010_libretro.so snes9x_libretro.so squirreljme_libretro.so stella2014_libretro.so \
 			stella_libretro.so swanstation_libretro.so tgbdual_libretro.so theodore_libretro.so uzem_libretro.so vba_next_libretro.so vbam_libretro.so vecx_libretro.so \
 			vice_x128_libretro.so vice_x64_libretro.so vice_x64sc_libretro.so vice_xscpu64_libretro.so vice_xvic_libretro.so virtualjaguar_libretro.so x1_libretro.so \
-			yabasanshiro_libretro.so yabause_libretro.so)
+			yabasanshiro_libretro.so yabause_libretro.so arduous_libretro.so tyrquake_libretro.so vitaquake2_libretro.so vitaquake2-rogue_libretro.so vitaquake2-xatrix_libretro.so vitaquake2-zaero_libretro.so vitaquake3_libretro.so wasm4_libretro.so)
 	setMSG "Downloading RetroArch Cores for EmuDeck"
 	for i in "${RAcores[@]}"
 	do
