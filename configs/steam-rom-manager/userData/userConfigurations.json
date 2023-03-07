@@ -127,7 +127,7 @@
     "parserType": "Glob",
     "configTitle": "Emulators",
     "steamCategory": "${Emulation}",
-    "executableArgs": "\"${filePath}\"",
+    "executableArgs": "",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/launchers",
     "steamDirectory": "${steamdirglobal}",
@@ -147,7 +147,7 @@
     "localIcons": "",
     "disabled": false,
     "executable": {
-      "path": "/usr/bin/bash",
+      "path": "",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -995,7 +995,7 @@
     "steamCategory": "${Cloud Services}",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "${romsdirglobal}/cloud",
-    "executableArgs": "/bin/bash \"${filePath}\"",
+    "executableArgs": "",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "${romsdirglobal}/cloud",
     "titleModifier": "${fuzzyTitle}",
@@ -1364,7 +1364,7 @@
     "configTitle": "Nintendo 3DS - Citra",
     "steamCategory": "${Nintendo 3DS}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "${romsdirglobal}/3ds",
+    "romDirectory": "${romsdirglobal}/n3ds",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -1488,7 +1488,7 @@
     "configTitle": "Nintendo GameBoy - Retroarch - Gambatte",
     "steamCategory": "${GameBoy}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "${romsdirglobal}/gb",
+    "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -1513,7 +1513,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.gb|.GB|.dmg|.DMG|.zip|.ZIP)"
+      "glob": "{gb/**/!(homebrew),gb}/${title}@(.7z|.7Z|.gb|.GB|.dmg|.DMG|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1548,9 +1548,9 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo GameBoy - mGBA",
-    "steamCategory": "${GameBoy}",
+    "steamCategory": "${GameBoy - mGBA}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "${romsdirglobal}/gb",
+    "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -1575,7 +1575,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.gb|.GB|.dmg|.DMG|.zip|.ZIP)"
+      "glob": "{gb/**/!(homebrew),gb}/${title}@(.7z|.7Z|.gb|.GB|.dmg|.DMG|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1612,7 +1612,7 @@
     "configTitle": "Nintendo GameBoy Color - Retroarch - Gambatte",
     "steamCategory": "${GameBoy Color}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "${romsdirglobal}/gbc",
+    "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -1637,7 +1637,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.gb|.GB|.gbc|.GBC|.zip|.ZIP)"
+      "glob": "{gbc/**/!(homebrew),gbc}/${title}@(.7z|.7Z|.gb|.GB|.gbc|.GBC|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1672,9 +1672,9 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo GameBoy Color - mGBA",
-    "steamCategory": "${GameBoy Color}",
+    "steamCategory": "${GameBoy Color - mGBA}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "${romsdirglobal}/gbc",
+    "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -1699,7 +1699,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.gb|.GB|.gbc|.GBC|.zip|.ZIP)"
+      "glob": "{gbc/**/!(homebrew),gbc}/${title}@(.7z|.7Z|.gb|.GB|.gbc|.GBC|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1717,7 +1717,7 @@
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
-    "parserId": "164785621855061650",
+    "parserId": "164785621855061661",
     "version": 10,
     "imageProviderAPIs": {
       "SteamGridDB": {
@@ -1736,7 +1736,7 @@
     "configTitle": "Nintendo GameBoy Advance - Retroarch - mGBA",
     "steamCategory": "${GameBoy Advance}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "${romsdirglobal}/gba",
+    "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -1761,7 +1761,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.gba|.GBA|.zip|.ZIP)"
+      "glob": "{gba/**/!(homebrew),gba}/${title}@(.7z|.7Z|.gba|.GBA|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1796,9 +1796,9 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo GameBoy Advance - mGBA (Standalone)",
-    "steamCategory": "${GameBoy Advance}",
+    "steamCategory": "${GameBoy Advance - mGBA}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "${romsdirglobal}/gba",
+    "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -1823,7 +1823,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.gba|.GBA|.zip|.ZIP)"
+      "glob": "{gba/**/!(homebrew),gba}/${title}@(.7z|.7Z|.gba|.GBA|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -1922,7 +1922,7 @@
     "configTitle": "Nintendo NES - Retroarch - Mesen",
     "steamCategory": "${NES}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "${romsdirglobal}/nes",
+    "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -1947,7 +1947,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.nes|.NES|.fds|.FDS|.unf|.UNF|.unif|.UNIF|.zip|.ZIP)"
+      "glob": "{nes/**/!(homebrew),nes,famicom/**}/${title}@(.7z|.7Z|.nes|.NES|.fds|.FDS|.unf|.UNF|.unif|.UNIF|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2108,7 +2108,7 @@
     "configTitle": "Nintendo SNES - Retroarch - Snes9x",
     "steamCategory": "${Super Nintendo}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "${romsdirglobal}/snes",
+    "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -2133,7 +2133,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.bs|.BS|.fig|.FIG|.sfc|.SFC|.smc|.SMC|.swc|.SWC|.zip|.ZIP)"
+      "glob": "{snes/**/!(homebrew),snes,snesna/**}/${title}@(.7z|.7Z|.bs|.BS|.fig|.FIG|.sfc|.SFC|.smc|.SMC|.swc|.SWC|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2354,8 +2354,8 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo WiiU - Cemu (.rpx) - Proton",
-    "steamCategory": "${WiiU}",
-    "executableArgs": "vblank_mode=0 %command% -f -g \"Z:${filePath}\"",
+    "steamCategory": "${WiiU - Proton}",
+    "executableArgs": "vblank_mode=0 %command% -w -f -g \"Z:${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/wiiu/roms/",
     "steamDirectory": "${steamdirglobal}",
@@ -2416,8 +2416,8 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo WiiU - Cemu (.wud, .wux, .wua) - Proton",
-    "steamCategory": "${WiiU}",
-    "executableArgs": "vblank_mode=0 %command% -f -g \"Z:${filePath}\"",
+    "steamCategory": "${WiiU - Proton}",
+    "executableArgs": "vblank_mode=0 %command% -w -f -g \"Z:${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/wiiu/roms/",
     "steamDirectory": "${steamdirglobal}",
@@ -2481,7 +2481,7 @@
     "steamCategory": "${WiiU}",
     "executableArgs": "vblank_mode=0 %command% -f -g \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
+    "romDirectory": "${romsdirglobal}/wiiu/roms/",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
@@ -2498,7 +2498,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": false,
+    "disabled": true,
     "advanced": false,
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
@@ -2534,7 +2534,7 @@
     "steamCategory": "${WiiU}",
     "executableArgs": "vblank_mode=0 %command% -f -g \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/run/media/mmcblk0p1/Emulation/roms/wiiu/roms/",
+    "romDirectory": "${romsdirglobal}/wiiu/roms/",
     "steamDirectory": "/home/deck/.steam/steam",
     "startInDirectory": "",
     "imageProviders": ["SteamGridDB"],
@@ -2551,7 +2551,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": false,
+    "disabled": true,
     "advanced": false,
     "executable": {
       "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
@@ -2648,7 +2648,7 @@
     "steamCategory": "${Remote Play Clients}",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "${romsdirglobal}/remoteplay",
-    "executableArgs": "/bin/bash \"${filePath}\"",
+    "executableArgs": "",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "${romsdirglobal}/remoteplay",
     "titleModifier": "${fuzzyTitle}",
@@ -2894,7 +2894,7 @@
     "configTitle": "Sega Game Gear - Retroarch - Genesis Plus GX",
     "steamCategory": "${Game Gear}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "${romsdirglobal}/gamegear",
+    "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -2919,7 +2919,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.gg|.GG|.zip|.ZIP)"
+      "glob": "{gamegear/**/!(homebrew),gamegear}/${title}@(.7z|.7Z|.gg|.GG|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -3080,7 +3080,7 @@
     "configTitle": "Sega Master System - Retroarch - Genesis Plus GX",
     "steamCategory": "${Master System}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "${romsdirglobal}/mastersystem",
+    "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -3105,7 +3105,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "${title}@(.7z|.7Z|.sms|.SMS|.zip|.ZIP)"
+      "glob": "{mastersystem/**/!(homebrew),mastersystem}/${title}@(.7z|.7Z|.sms|.SMS|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",

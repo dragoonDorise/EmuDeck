@@ -2,6 +2,9 @@
 emuName="yuzu" #parameterize me
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
 emuExeFile=$(find $emufolder -iname "${emuName}*.AppImage" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
+emuDontUpdate="$HOME/emudeck/${emuName}.noupdate"
+#source the helpers for safeDownload
+. ~/.config/EmuDeck/backend/functions/helperFunctions.sh
 
 # update check only if we're not launching yuzu-ea...
 isMainline=true
@@ -9,7 +12,7 @@ if [ ! "$emuExeFile" == "$emufolder/$emuName.AppImage" ]; then
     isMainline=false
 fi
 
-if [ -z "$1" ] && [ "$isMainline" = true ]; then
+if [ -z "$1" ] && [ "$isMainline" = true ] && [ ! -e "${emuDontUpdate}" ]; then
     echo "Yuzu mainline detected, checking connectivity"
 
     if : >/dev/tcp/8.8.8.8/53; then
@@ -30,15 +33,14 @@ if [ -z "$1" ] && [ "$isMainline" = true ]; then
         zenity --question --title="Yuzu update available!" --width 200 --text "Yuzu ${currentVer} available. Would you like to update?" --ok-label="Yes" --cancel-label="No" 2>/dev/null
         if [[ $? == 0 ]]; then
             echo "download ${currentVer} appimage: ${fileToDownload}"
-            response=$(curl -L -X GET ${fileToDownload} --write-out '%{http_code}' -H "Accept: application/json" -o "${HOME}/Applications/${emuName}.AppImage")
-            if [ "$response" = "200" ] ; then
-                echo "downloaded successfully"
+
+            #response=$(curl -L -X GET ${fileToDownload} --write-out '%{http_code}' -H "Accept: application/json" -o "${HOME}/Applications/${emuName}.AppImage")
+            if safeDownload "yuzu" "${fileToDownload}" "$emufolder/$emuName.AppImage" "true"; then
+                chmod +x "$emufolder/$emuName.AppImage"
+                echo "latest version $currentVer > $lastVerFile"
                 echo ${currentVer} > ${lastDL}
-                chmod +x "${HOME}/Applications/${emuName}.AppImage"
-            elif [ "$response" = "401" ] ; then
-                echo "Not authorized."
             else
-                echo "Download errored with code $response"
+                zenity --error --text "Error updating yuzu!" --width=250 2>/dev/null
             fi
         fi
     fi

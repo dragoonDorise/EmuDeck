@@ -12,14 +12,19 @@ SRM_cleanup(){
 }
 
 SRM_install(){		
-	local SRM_releaseURL="$(getLatestReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")"
 	setMSG "Installing Steam Rom Manager"
+	local showProgress="$1"
+	local SRM_releaseURL="$(getLatestReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")"
 	SRM_cleanup
 	mkdir -p "${toolsPath}/srm"
-	curl -L "$SRM_releaseURL" -o "${SRM_toolPath}.temp" && mv "${SRM_toolPath}.temp" "${SRM_toolPath}"
-	chmod +x "$SRM_toolPath"
-	SRM_createDesktopShortcut
-	rm -rf ~/Desktop/SteamRomManager.desktop
+	#curl -L "$SRM_releaseURL" -o "${SRM_toolPath}.temp" && mv "${SRM_toolPath}.temp" "${SRM_toolPath}"
+	if safeDownload "$SRM_toolName" "$SRM_releaseURL" "${SRM_toolPath}" "$showProgress"; then
+		chmod +x "$SRM_toolPath"
+		SRM_createDesktopShortcut
+		rm -rf ~/Desktop/SteamRomManager.desktop &>> /dev/null
+	else
+		return 1
+	fi
 }
 
 SRM_createDesktopShortcut(){
@@ -58,12 +63,12 @@ SRM_init(){
 	sleep 3
 	tmp=$(mktemp)
 	jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
-	"$HOME/.config/steam-rom-manager/userData/userSettings.json"  > "$tmp"\
+	"$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp"\
 	 && mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
 	
 	tmp=$(mktemp)
 	jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
-	"$HOME/.config/steam-rom-manager/userData/userSettings.json"  > "$tmp" \
+	"$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
 	&& mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
 
 	#sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"

@@ -7,13 +7,18 @@ mGBA_configFile="$HOME/.config/mgba/config.ini"
 
 #cleanupOlderThings
 mGBA_cleanup(){
- echo "NYI"
+	echo "NYI"
 }
 
 #Install
 mGBA_install(){
 	echo "Begin mGBA Install"
-	installEmuAI "mGBA" "$(getReleaseURLGH "mgba-emu/mgba" "x64.appimage")" #mgba.AppImage
+	local showProgress="$1"
+	if installEmuAI "mGBA" "$(getReleaseURLGH "mgba-emu/mgba" "x64.appimage")" "" "$showProgress"; then #mgba.AppImage
+		:
+	else
+		return 1
+	fi
 }
 
 #ApplyInitialSettings
@@ -83,17 +88,17 @@ mGBA_wipe(){
 #Uninstall
 mGBA_uninstall(){
 	setMSG "Uninstalling $mGBA_emuName."
-    rm -rf "$emuPath"
+	rm -rf "$emuPath"
 }
 
 #setABXYstyle
 mGBA_setABXYstyle(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #Migrate
 mGBA_migrate(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #WideScreenOn
@@ -134,7 +139,7 @@ mGBA_finalize(){
 }
 
 mGBA_addSteamInputProfile(){
-	echo "NYI"
+	addSteamInputCustomIcons
 	setMSG "Adding $mGBA_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/mGBA_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

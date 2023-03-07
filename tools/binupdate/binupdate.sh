@@ -11,6 +11,8 @@ if [ "$?" == "1" ]; then
 fi
 
 updateCemu() {
+    local showProgress="$1"
+
     local releasesStr=$(curl -sL https://cemu.info | awk 'BEGIN{
             RS="</a>"
             IGNORECASE=1
@@ -35,28 +37,37 @@ updateCemu() {
 
     releaseTable+=(false "$(getReleaseURLGH "cemu-project/Cemu" "windows-x64.zip")")
 
-    local releaseChoice=$(
-        zenity --list \
-        --title="EmuDeck" \
-        --height=500 \
-        --width=500 \
-        --ok-label="OK" \
-        --cancel-label="Exit" \
-        --text="Choose your Cemu version." \
-        --radiolist \
-        --column="Select" \
-        --column="Release" \
-        "${releaseTable[@]}" 2>/dev/null
-    )
+    local releaseChoice=""
+    if [ ${#releaseTable[@]} != 0 ]; then
+        releaseChoice=$(
+            zenity --list \
+            --title="EmuDeck" \
+            --height=500 \
+            --width=500 \
+            --ok-label="OK" \
+            --cancel-label="Exit" \
+            --text="Choose your Cemu version." \
+            --radiolist \
+            --column="Select" \
+            --column="Release" \
+            "${releaseTable[@]}" 2>/dev/null
+        )
+    fi
 
-    curl -L "$releaseChoice" --output "$romsPath/wiiu/cemu.zip" 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null
+    if [ ! -z "$releaseChoice" ]; then
+        #curl -L "$releaseChoice" --output "$romsPath/wiiu/cemu.zip" 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null
+        if safeDownload "cemu" "$releaseChoice" "$romsPath/wiiu/cemu.zip" "$showProgress"; then
+            mkdir -p "$romsPath/wiiu/tmp"
+            unzip -o "$romsPath/wiiu/cemu.zip" -d "$romsPath/wiiu/tmp"
+            mv "$romsPath"/wiiu/tmp/[Cc]emu_*/ "$romsPath/wiiu/tmp/cemu/" #don't quote the *
+            rsync -avzh "$romsPath/wiiu/tmp/cemu/" "$romsPath/wiiu/"
+            rm -rf "$romsPath/wiiu/tmp"
+            rm -f "$romsPath/wiiu/cemu.zip"
+            return 0
+        fi
+    fi
 
-    mkdir -p "$romsPath/wiiu/tmp"
-    unzip -o "$romsPath/wiiu/cemu.zip" -d "$romsPath/wiiu/tmp"
-    mv "$romsPath"/wiiu/tmp/*/ "$romsPath/wiiu/tmp/cemu/" #don't quote the *
-    rsync -avzh "$romsPath/wiiu/tmp/cemu/" "$romsPath/wiiu/"
-    rm -rf "$romsPath/wiiu/tmp"
-    rm -f "$romsPath/wiiu/cemu.zip"
+    return 1
 }
 
 #begin script
@@ -113,7 +124,8 @@ if [ $ans -eq 0 ]; then
             let progresspct+=$pct
             echo "$progresspct"
             echo "# Updating esde"
-            if ESDE_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+            #if ESDE_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+            if ESDE_install "true" 2>&1; then
                 messages+=("EmulationStation-DE Updated Successfully")
             else
                 messages+=("There was a problem updating EmulationStation-DE")
@@ -123,7 +135,8 @@ if [ $ans -eq 0 ]; then
             let progresspct+=$pct
             echo "$progresspct"
             echo "# Updating srm"
-            if SRM_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+            #if SRM_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+            if SRM_install "true" 2>&1; then
                 messages+=("SteamRomManager Updated Successfully")
             else
                 messages+=("There was a problem updating SteamRomManager")
@@ -133,7 +146,8 @@ if [ $ans -eq 0 ]; then
             let progresspct+=$pct
             echo "$progresspct"
             echo "# Updating mgba"
-            if MGBA_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+            #if MGBA_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+            if mGBA_install "true" 2>&1; then
                 messages+=("mGBA Updated Successfully")
             else
                 messages+=("There was a problem updating mGBA")
@@ -143,7 +157,8 @@ if [ $ans -eq 0 ]; then
             let progresspct+=$pct
             echo "$progresspct"
             echo "# Updating yuzu"
-            if Yuzu_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+            ##if Yuzu_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+            if Yuzu_install "true" 2>&1; then
                 messages+=("Yuzu Updated Successfully")
             else
                 messages+=("There was a problem updating Yuzu")
@@ -153,7 +168,8 @@ if [ $ans -eq 0 ]; then
             let progresspct+=$pct
             echo "$progresspct"
             echo "# Updating pcsx2-qt"
-            if PCSX2QT_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+            #if PCSX2QT_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+            if PCSX2QT_install "true" 2>&1; then
                 messages+=("PCSX2-QT Updated Successfully")
             else
                 messages+=("There was a problem updating PCSX2-QT")
@@ -163,7 +179,8 @@ if [ $ans -eq 0 ]; then
             let progresspct+=$pct
             echo "$progresspct"
             echo "# Updating ryujinx"
-            if Ryujinx_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+            #if Ryujinx_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+            if Ryujinx_install "true" 2>&1; then
                 messages+=("Ryujinx Updated Successfully")
             else
                 messages+=("There was a problem updating Ryujinx")
@@ -173,7 +190,7 @@ if [ $ans -eq 0 ]; then
             let progresspct+=$pct
             echo "$progresspct"
             echo "# Updating cemu"
-            if updateCemu; then
+            if updateCemu "true" 2>&1; then
                 messages+=("Cemu (win/proton) Updated Successfully")
             else
                 messages+=("There was a problem updating Cemu (win/proton")
@@ -183,7 +200,7 @@ if [ $ans -eq 0 ]; then
             let progresspct+=$pct
             echo "$progresspct"
             echo "# Updating cemu"
-            if CemuNative_install; then
+            if CemuNative_install "true" 2>&1; then
                 messages+=("Cemu (Native) Updated Successfully")
             else
                 messages+=("There was a problem updating Cemu (Native)")
@@ -193,7 +210,7 @@ if [ $ans -eq 0 ]; then
             let progresspct+=$pct
             echo "$progresspct"
             echo "# Updating vita3k"
-            if Vita3K_install; then
+            if Vita3K_install "true" 2>&1; then
                 messages+=("Vita3K Updated Successfully")
             else
                 messages+=("There was a problem updating Vita3K")
@@ -211,13 +228,15 @@ if [ $ans -eq 0 ]; then
             --text="Which build would you like? " 2>/dev/null
             ans=$?
             if [[ $ans == 0 ]]; then
-                if Xenia_install "master" 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+                #if Xenia_install "master" 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+                if Xenia_install "master" "true" 2>&1; then
                     messages+=("Xenia Updated Successfully")
                 else
                     messages+=("There was a problem updating Xenia")
                 fi
             else
-                if Xenia_install "canary" 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+                #if Xenia_install "canary" 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+                if Xenia_install "canary" "true" 2>&1; then
                     messages+=("Xenia Updated Successfully")
                 else
                     messages+=("There was a problem updating Xenia")

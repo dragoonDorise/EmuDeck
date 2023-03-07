@@ -1,6 +1,9 @@
 #!/usr/bin/bash
 
 CemuNative_functions () {
+	local function="$1"
+	local showProgress="$2"
+
 	# Parameters
 	declare -A CemuNative=(
 		[emuName]="CemuNative"
@@ -148,7 +151,7 @@ CemuNative_functions () {
 			gamePathEntryFound="$( xmlstarlet sel -t -m "content/GamePaths/Entry" -v . -n "${CemuNative[configFile]}" )"
 
 			if [[ ! "${gamePathEntryFound}" == *"${romsPath}/wiiu/roms"* ]]; then
-				xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "${romsPath}/wiiu/roms/" "${CemuNative[configFile]}" #while we use both native and proton, i don't want to change the wiiu folder structure.
+				xmlstarlet ed --inplace --subnode "content/GamePaths" --type elem -n Entry -v "${romsPath}/wiiu/roms/" "${CemuNative[configFile]}" #while we use both native and proton, i don't want to change the wiiu folder structure.
 			fi
 
 			#mlc01 folder
@@ -156,7 +159,7 @@ CemuNative_functions () {
 			local mlcPath="${romsPath}/wiiu/mlc01"
 
 			if [[ ! "${mlcEntryFound}" == *"${mlcPath}"* ]]; then
-				xmlstarlet ed --inplace  -u "content/mlc_path" -v "${romsPath}/wiiu/mlc01" "${CemuNative[configFile]}" #while we use both native and proton, i don't want to change the wiiu folder structure.
+				xmlstarlet ed --inplace -u "content/mlc_path" -v "${romsPath}/wiiu/mlc01" "${CemuNative[configFile]}" #while we use both native and proton, i don't want to change the wiiu folder structure.
 			fi
 		fi
 	}
@@ -164,7 +167,7 @@ CemuNative_functions () {
 	# Set Saves
 	setupSaves () {
 		unlink "${savesPath}/Cemu/saves" # Fix for previous bad symlink
-		linkToSaveFolder Cemu saves "${romsPath}/wiiu/mlc01/usr/save" #while we use both native and proton, i don't want to change the wiiu folder structure. I'm repeating myself now. 
+		linkToSaveFolder Cemu saves "${romsPath}/wiiu/mlc01/usr/save" #while we use both native and proton, i don't want to change the wiiu folder structure. I'm repeating myself now.
 	}
 
 	# Setup Storage
@@ -191,7 +194,12 @@ CemuNative_functions () {
 	# Install
 	install () {
 		echo "Begin Cemu - Native Install"
-		installEmuAI "Cemu" "$( getReleaseURLGH "cemu-project/Cemu" ".AppImage" )" # Cemu.AppImage
+		local showProgress="$1"
+		if installEmuAI "Cemu" "$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")" "" "$showProgress"; then # Cemu.AppImage
+			:
+		else
+			return 1
+		fi
 	}
 
 	# Apply initial settings
@@ -238,7 +246,7 @@ CemuNative_functions () {
 		rsync -r "${EMUDECKGIT}/configs/steam-input/cemu_controller_config.vdf" "${HOME}/.steam/steam/controller_base/templates/"
 	}
 
-	"${1}" # Call the above functions
+	$function "$showProgress" # Call the above functions
 }
 
 # Cleanup older things
@@ -308,7 +316,8 @@ CemuNative_uninstall () {
 
 # Install
 CemuNative_install () {
-	CemuNative_functions "install"
+	local showProgress="$1"
+	CemuNative_functions "install" "$showProgress"
 }
 
 # Apply initial settings

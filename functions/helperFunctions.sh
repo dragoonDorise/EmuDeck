@@ -67,7 +67,7 @@ function escapeSedValue(){
 }
 
 function getSDPath(){
-    if [ -b "/dev/mmcblk0p1" ]; then	    
+    if [ -b "/dev/mmcblk0p1" ]; then
 		findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1
 	fi
 }
@@ -92,7 +92,7 @@ function testLocationValid(){
 	local return=""
 
     touch "$testLocation/testwrite"
-    
+
 	if [ ! -f  "$testLocation/testwrite" ]; then
 		return="Invalid: $locationName not Writable"
 	else
@@ -336,17 +336,17 @@ function checkForFile(){
 	local delete=$2
 	local finished=false	
 	while [ $finished == false ]
-	do 		 
+	do
 		test=$(test -f "$file" && echo true)			
 	  	if [[ $test == true ]]; then
 	  	  	finished=true;
 		  	clear			  	
-			if [[ $delete == 'delete' ]]; then  
+			if [[ $delete == 'delete' ]]; then
 		  		rm "$file"
 			fi
 			echo 'true';			
 			break
-	  	fi							  
+	  	fi
 	done
 }
 
@@ -375,9 +375,7 @@ function getReleaseURLGH(){
     fi
     curl -fSs "$url" | \
     jq -r '[ .[].assets[] | select(.name | endswith("'"$fileType"'")).browser_download_url ][0]'
-    
 }
-
 
 function linkToSaveFolder(){	
     local emu=$1
@@ -529,4 +527,45 @@ function iniFieldUpdate(){
 	else
 		echo "Can't update missing INI file: $iniFile"
 	fi
+}
+
+safeDownload() {
+	local name="$1"
+	local url="$2"
+	local outFile="$3"
+	local showProgress="$4"
+	local headers="$5"
+
+	echo "safeDownload()"
+	echo "- $name"
+	echo "- $url"
+	echo "- $outFile"
+	echo "- $showProgress"
+	echo "- $headers"
+
+	if [ "$showProgress" == "true" ] || [[ $showProgress -eq 1 ]]; then
+		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 | tee >(stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null) && echo $'\2'${PIPESTATUS[0]})
+	else
+		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 && echo $'\2'0 || echo $'\2'$?)
+	fi
+	requestInfo=$(sed -z s/.$// <<< "${request%$'\1'*}")
+	returnCodes="${request#*$'\1'}"
+	httpCode="${returnCodes%$'\2'*}"
+	exitCode="${returnCodes#*$'\2'}"
+	echo "$requestInfo"
+	echo "HTTP response code: $httpCode"
+	echo "CURL exit code: $exitCode"
+	if [ "$httpCode" = "200" ] && [ "$exitCode" == "0" ]; then
+		echo "$name downloaded successfully";
+		mv -v "$outFile.temp" "$outFile"
+		return 0
+	else
+		echo "$name download failed"
+		rm -f "$outFile.temp"
+		return 1
+	fi
+}
+
+addSteamInputCustomIcons() {
+	rsync -av "$EMUDECKGIT/configs/steam-input/Icons/" "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons"
 }
