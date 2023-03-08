@@ -121,5 +121,6 @@ Migration_fixSRMArgs(){
 
 
 Migration_fix_SDPaths(){
-	Migration_updateSRM "$emulationPath" "$(getSDPath)/Emulation/"
+	Migration_updateSRM "$emulationPath" "$(getSDPath)/Emulation"
+	Migration_updatePaths "$emulationPath" "$(getSDPath)/Emulation"
 }
