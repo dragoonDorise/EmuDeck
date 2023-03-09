@@ -126,7 +126,7 @@ Migration_fixSRMArgs(){
 
 Migration_fix_SDPaths(){
 	
-	if [ $(getSDPath) ]; then		
+	if [ $(echo getSDPath) ]; then		
 		newPath="$(getSDPath)"
 				
 		oldPath=$(echo $emulationPath | grep -Po "^.*run\/[A-Za-z0-9]+\/[A-Za-z0-9]+\/[A-Za-z0-9]+")		
