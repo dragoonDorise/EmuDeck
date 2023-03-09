@@ -2795,7 +2795,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "@(segacd|megacd)/**/${title}@(.7z|.7Z|.iso|.ISO|.cue|.CUE|.chd|.CHD|.zip|.ZIP)"
+      "glob": "@(segacd|megacd)/**/${title}@(.m3u|.M3U|.7z|.7Z|.iso|.ISO|.cue|.CUE|.chd|.CHD|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
