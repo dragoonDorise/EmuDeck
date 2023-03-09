@@ -122,26 +122,24 @@ Migration_fixSRMArgs(){
 	find "$HOME/.local/share/Steam/userdata" -name "shortcuts.vdf" -exec sed -i "s|${secondSearch}|${properLaunch}|g" {} +
 }
 
- emulationPath=/run/media/deck/FANCYGUIDTHATSWAYTOOLONG/gaming/emulation/ilovegames/Emulation
-
 Migration_fix_SDPaths(){
 	
-	if [ $(echo getSDPath) ]; then		
+	if [ $(getSDPath) ]; then		
 		newPath="$(getSDPath)"
-				
+		#emulationPath=/run/media/deck/FANCYGUIDTHATSWAYTOOLONG/gaming/emulation/ilovegames/Emulation
 		oldPath=$(echo $emulationPath | grep -Po "^.*run\/[A-Za-z0-9]+\/[A-Za-z0-9]+\/[A-Za-z0-9]+")		
 		firstString=$oldPath
 		secondString=""
-		oldPath="${firstString/Emulation\//"$secondString"}" 
-		echo $oldPath
+		oldPath="${firstString/Emulation/"$secondString"}" 
+	
 		
-		text="$(printf "<b>Only use this if you have your roms on your SDCard and SteamOS 3.5 has been released and your Steam shortcuts no longer work.</b>\n\nYour old path was:\n${emulationPath}\n\nYour new path is:\n${newPath}\n\nDo you want me to change it?")"	
+		text="$(printf "<b>Only use this if you have your roms on your SDCard and SteamOS 3.5 has been released and your Steam shortcuts no longer work.</b>\n\nYour old path was:\n${oldPath}\n\nYour new path is:\n${newPath}/\n\nDo you want me to change it?")"	
 		zenity --question --title="Confirm path fix" --width 400 --text="${text}"  --ok-label="Yes" --cancel-label="No" 2>/dev/null
 		if [[ $? == 0 ]]; then
-			Migration_updateSRM "$oldPath" "$newPath" && Migration_updatePaths "$oldPath" "$newPath" && Migration_updateParsers "$oldPath" "$newPath" && echo "true"			
+			Migration_updateSRM "$oldPath" "$newPath/" && Migration_updatePaths "$oldPath" "$newPath/" && Migration_updateParsers "$oldPath" "$newPath/" && echo "true"			
 		fi	
 	else
-		text="`printf " <b>SD Card error</b>\n\n Please check that your SD Card is properly inserted and recognized by SteamOS"`"
+		text="`printf " <b>SD Card error</b>\n\nPlease check that your SD Card is properly inserted and recognized by SteamOS"`"
 	 zenity --info \
 			 --title="EmuDeck" \
 			 --width="450" \
