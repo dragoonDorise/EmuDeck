@@ -68,7 +68,7 @@ Migration_updatePaths(){
 	#PPSSPP
 	sed -i "s|${origin}|${destination}|g" "$HOME/.var/app/${PPSSPP_emuPath}/config/ppsspp/PSP/SYSTEM/ppsspp.ini"
 	#Primehack
-	sed -i "s|${origin}|${destination}|g" ""$HOME/.var/app/${Primehack_emuPath}/config/dolphin-emu/Dolphin.ini""
+	sed -i "s|${origin}|${destination}|g" "$HOME/.var/app/${Primehack_emuPath}/config/dolphin-emu/Dolphin.ini"
 	#RetroArch
 	sed -i "s|${origin}|${destination}|g" "$RetroArch_configFile"
 	#RMG
@@ -76,7 +76,7 @@ Migration_updatePaths(){
 	#RPCS3
 	sed -i "s|${origin}|${destination}|g" "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/vfs.yml"
 	#Ryujinx
-	sed -i "s|${origin}|${destination}|g" "$$HOME/.config/Ryujinx/Config.json"
+	sed -i "s|${origin}|${destination}|g" "$HOME/.config/Ryujinx/Config.json"
 	#ScummVM
 	sed -i "s|${origin}|${destination}|g" "$ScummVM_configFile"
 	#Vita3K
