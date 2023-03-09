@@ -104,6 +104,10 @@ Migration_updateSRM(){
 	find "$HOME/.local/share/Steam/userdata" -name "shortcuts.vdf" -exec sed -i "s|${origin}|${destination}|g" {} +
 }
 
+Migration_updateParsers(){
+	sed -i "s|${origin}|${destination}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"	
+}
+
 Migration_fixSRMArgs(){
 	#grep -Pa '\x00' --color=never shortcuts.vdf | cat -vET	
 	firstSearch="/usr/bin\x00\x00LaunchOptions\x00\x00"
@@ -121,6 +125,10 @@ Migration_fixSRMArgs(){
 
 
 Migration_fix_SDPaths(){
-	Migration_updateSRM "$emulationPath" "$(getSDPath)/Emulation"
-	Migration_updatePaths "$emulationPath" "$(getSDPath)/Emulation"
+	newPath="$(getSDPath)/Emulation"
+	text="$(printf "Your old path was: ${emulationPath}\nYour new path is: ${newPath}\nDo you want me to change it?")"	
+	zenity --question --title="Confirm migration" --width 400 --text="${text}"  --ok-label="Yes" --cancel-label="No" 2>/dev/null
+	if [[ $? == 0 ]]; then
+		Migration_updateSRM "$emulationPath" "$newPath" && Migration_updatePaths "$emulationPath" "$newPath" && Migration_updateParsers "$emulationPath" "$newPath" && echo "true"			
+	fi	
 }
