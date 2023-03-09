@@ -126,7 +126,7 @@ Migration_fixSRMArgs(){
 
 Migration_fix_SDPaths(){
 	
-	if [ -z "$(getSDPath)" ]; then		
+	if [ $(getSDPath) ]; then		
 		newPath="$(getSDPath)"
 				
 		oldPath=$(echo $emulationPath | grep -Po "^.*run\/[A-Za-z0-9]+\/[A-Za-z0-9]+\/[A-Za-z0-9]+")		
@@ -135,13 +135,13 @@ Migration_fix_SDPaths(){
 		oldPath="${firstString/Emulation\//"$secondString"}" 
 		echo $oldPath
 		
-		text="$(printf "<b>Only use this if you have your roms on your SDCard and SteamOS 3.5 has been released and your Steam shortcuts no longer work.</b>\n\n Your old path was: ${emulationPath}\nYour new path is: ${newPath}\nDo you want me to change it?")"	
-		zenity --question --title="Confirm paths fix" --width 400 --text="${text}"  --ok-label="Yes" --cancel-label="No" 2>/dev/null
+		text="$(printf "<b>Only use this if you have your roms on your SDCard and SteamOS 3.5 has been released and your Steam shortcuts no longer work.</b>\n\nYour old path was:\n${emulationPath}\n\nYour new path is:\n${newPath}\n\nDo you want me to change it?")"	
+		zenity --question --title="Confirm path fix" --width 400 --text="${text}"  --ok-label="Yes" --cancel-label="No" 2>/dev/null
 		if [[ $? == 0 ]]; then
 			Migration_updateSRM "$oldPath" "$newPath" && Migration_updatePaths "$oldPath" "$newPath" && Migration_updateParsers "$oldPath" "$newPath" && echo "true"			
 		fi	
 	else
-		text="`printf " <b>SD Card error</b>\n\n Please check that your SD Card is properly inserted and recognized by SteamOS)"`"
+		text="`printf " <b>SD Card error</b>\n\n Please check that your SD Card is properly inserted and recognized by SteamOS"`"
 	 zenity --info \
 			 --title="EmuDeck" \
 			 --width="450" \
