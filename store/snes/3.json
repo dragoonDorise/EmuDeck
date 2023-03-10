@@ -1,0 +1,17 @@
+{
+  "system": "snes",
+  "status": "true",
+  "logo": "logo_snes",
+  "title": "Jet Pilot Rising",
+  "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/snes/Jet Pilot Rising.zip",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "pictures": {
+    "screenshots": [
+      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/snes/screenshots/homebrew/Jet Pilot Rising.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/snes/titlescreens/homebrew/Jet Pilot Rising.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

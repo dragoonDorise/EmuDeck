@@ -1,0 +1,22 @@
+{
+"system": "gba",
+"status": "true",
+"name": "GameBoy Advance",
+"games": [
+  {
+    "system": "gba",
+    "status": "true",
+    "logo": "logo_gba",
+    "title": "BlastArenaAdvance",
+    "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gba/BlastArenaAdvance.zip",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+    "pictures": {
+      "screenshots": [
+        "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gba/screenshots/homebrew/BlastArenaAdvance.png?raw=true"
+      ],
+      "titlescreens": [
+        "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gba/titlescreens/homebrew/BlastArenaAdvance.png?raw=true"
+      ]
+    },
+    "tags": ["action", "platform"]
+  }

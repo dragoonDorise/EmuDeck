@@ -1,0 +1,17 @@
+{
+  "system": "nes",
+  "status": "true",
+  "logo": "logo_nes",
+  "title": "Lawn_Mower",
+  "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/nes/Lawn_Mower.zip",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "pictures": {
+    "screenshots": [
+      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/nes/screenshots/homebrew/Lawn_Mower.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/nes/titlescreens/homebrew/Lawn_Mower.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

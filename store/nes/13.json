@@ -1,0 +1,17 @@
+{
+  "system": "nes",
+  "status": "true",
+  "logo": "logo_nes",
+  "title": "Lan Master",
+  "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/nes/Lan_Master.zip",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "pictures": {
+    "screenshots": [
+      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/nes/screenshots/homebrew/Lan_Master.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/nes/titlescreens/homebrew/Lan_Master.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

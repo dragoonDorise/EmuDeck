@@ -1,0 +1,17 @@
+{
+  "system": "gba",
+  "status": "true",
+  "logo": "logo_gba",
+  "title": "Another World",
+  "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gba/Another_world.zip",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "pictures": {
+    "screenshots": [
+      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gba/screenshots/homebrew/Another_world.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gba/titlescreens/homebrew/Another_world.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

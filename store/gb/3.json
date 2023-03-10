@@ -1,0 +1,17 @@
+{
+  "system": "gb",
+  "status": "true",
+  "logo": "logo_gb",
+  "title": "Into the Blue",
+  "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gb/Into%20the%20Blue.zip",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "pictures": {
+    "screenshots": [
+      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gb/screenshots/homebrew/Into%20the%20Blue.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gb/titlescreens/homebrew/Into%20the%20Blue.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}
