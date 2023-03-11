@@ -104,12 +104,10 @@ ESDE_applyTheme(){
 		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="es-epicnoir" />' "$es_settingsFile" 
 	fi
 	if [[ "$theme" == *"MODERN-DE"* ]]; then
-        changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="modern-DE" />' "$es_settingsFile" 
-		#changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="modern-es-de" />' "$es_settingsFile" 
+		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="modern-es-de" />' "$es_settingsFile" 
 	fi
 	if [[ "$theme" == *"RBSIMPLE-DE"* ]]; then
-        changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="rbsimple-DE" />' "$es_settingsFile" 
-		#changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="slate-es-de" />' "$es_settingsFile" 
+		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="slate-es-de" />' "$es_settingsFile" 
 	fi
 }
 
