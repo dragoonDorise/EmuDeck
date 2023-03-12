@@ -107,6 +107,22 @@ function testLocationValid(){
 	echo $return
 }
 
+function testLocationValidRelaxed(){
+	local locationName=$1
+	local testLocation=$2
+	local return=""
+
+	touch "$testLocation/testwrite"
+
+	if [ ! -f  "$testLocation/testwrite" ]; then
+		return="Invalid: $locationName not Writable"
+	else
+		return="Valid"
+	fi
+	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
+	echo $return
+}
+
 function makeFunction(){
 
 	find "$1" -type f -iname "$2" | while read -r file
