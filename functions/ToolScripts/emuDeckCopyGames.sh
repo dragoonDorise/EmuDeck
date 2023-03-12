@@ -22,7 +22,7 @@ CopyGames(){
 	zenity --progress --title "Importing your games to $romsPath" \
 	--text="Scanning..." --width=400 --percentage=0 --auto-kill
 	
-	rsync -rav --ignore-existing --progress "$origin/bios" "$biosPath" |
+	rsync -rav --ignore-existing --progress "$origin/bios/" "$biosPath/" |
 	awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
 	zenity --progress --title "Importing your games to $biosPath" \
 	--text="Scanning..." --width=400 --percentage=0 --auto-kill
