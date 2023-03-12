@@ -17,7 +17,7 @@ CreateStructureUSB(){
 
 CopyGames(){
 	origin=$1
-	rsync -rav --ignore-existing --progress "$origin/roms" "$romsPath" |
+	rsync -rav --ignore-existing --progress "$origin/roms/" "$romsPath/" |
 	awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
 	zenity --progress --title "Importing your games to $romsPath" \
 	--text="Scanning..." --width=400 --percentage=0 --auto-kill
