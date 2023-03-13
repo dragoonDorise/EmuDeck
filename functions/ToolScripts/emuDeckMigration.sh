@@ -32,7 +32,7 @@ Migration_move(){
 	rsync -av --progress "$origin" "$destination" |
 	awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
 	zenity --progress --title "Migrating your current ${size} Emulation folder to $destination" \
-	--text="Scanning..." --width=400 --percentage=0 --auto-kill
+	--text="Scanning..." --width=400 --percentage=0 --auto-close
 }
 
 
