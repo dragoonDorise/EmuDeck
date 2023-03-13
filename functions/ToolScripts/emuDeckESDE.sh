@@ -297,7 +297,7 @@ ESDE_IsInstalled(){
 ESDE_migrateEpicNoir(){
 	$FOLDER="$HOME/.emulationstation/themes/es-epicnoir"
 	
-	if[ -f $FOLDER ]; then
+	if [ -f "$FOLDER" ]; then
 		rm -rf $FOLDER;
 		git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited" --depth=1
 		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="epic-noir-revisited-es-de" />' "$es_settingsFile"	
