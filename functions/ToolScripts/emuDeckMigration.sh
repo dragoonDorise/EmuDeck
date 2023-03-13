@@ -13,7 +13,7 @@ Migration_init(){
 	freeSpaceInHuman=$(df -kh $destination | tail -1 | cut -d' ' -f10)
 	difference=$(($freeSpace - $neededSpace))
 	if [ $difference -gt 0 ]; then
-		Migration_move "$emulationPath" "$destination" && Migration_updatePaths "$emulationPath" "$destination/Emulation/"
+		Migration_move "$emulationPath" "$destination" "$neededSpaceInHuman" && Migration_updatePaths "$emulationPath" "$destination/Emulation/"
 	else
 		text="$(printf "<b>Not enough space</b>\nYou need to have at least ${neededSpaceInHuman} on ${destination}\nYou only have ${freeSpaceInHuman}")"
 		 zenity --error \
@@ -28,9 +28,10 @@ Migration_init(){
 Migration_move(){
 	origin=$1
 	destination=$2
+	size=$3
 	rsync -av --progress "$origin" "$destination" |
 	awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
-	zenity --progress --title "Migrating your installation to $destination" \
+	zenity --progress --title "Migrating your current ${size} Emulation folder to $destination" \
 	--text="Scanning..." --width=400 --percentage=0 --auto-kill
 }
 
@@ -106,20 +107,6 @@ Migration_updateSRM(){
 
 Migration_updateParsers(){
 	sed -i "s|${origin}|${destination}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"	
-}
-
-Migration_fixSRMArgs(){
-	#grep -Pa '\x00' --color=never shortcuts.vdf | cat -vET	
-	firstSearch="/usr/bin\x00\x00LaunchOptions\x00\x00"
-	firstReplace="/usr/bin\x00\x00"
-	secondSearch='flatpak" run org.libretro.RetroArch'
-	properLaunch="flatpak\"\x00\x00LaunchOptions\x00run org.libretro.RetroArch"
-	
-	#Cleanup LaunchOptions
-	find "$HOME/.local/share/Steam/userdata" -name "shortcuts.vdf" -exec sed -i "s|${firstSearch}|${firstReplace}|g" {} +
-	
-	#New LaunchOptions
-	find "$HOME/.local/share/Steam/userdata" -name "shortcuts.vdf" -exec sed -i "s|${secondSearch}|${properLaunch}|g" {} +
 }
 
 Migration_fix_SDPaths(){
