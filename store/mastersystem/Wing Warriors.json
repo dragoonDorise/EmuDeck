@@ -2,9 +2,10 @@
   "system": "mastersystem",
   "status": "true",
   "logo": "logo_mastersystem",
-  "title": "WingWarriors",  "url": "XXXX",
+  "title": "Wing Warriors",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/mastersystem/WingWarriors.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Wing Warriors is a multi-platform game developed in 2015 for MSX and in 2019 for Master System, Game Gear, and Gameboy. It’s a classic shooting game with some bullet-hell reminiscences. 6 stages with 3 bosses, 3 different players to choose from, and a lot of bullets to avoid.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/mastersystem/screenshots/homebrew/WingWarriors.png?raw=true"

@@ -2,9 +2,10 @@
   "system": "mastersystem",
   "status": "true",
   "logo": "logo_mastersystem",
-  "title": "BaraBuruu",  "url": "XXXX",
+  "title": "BaraBuruu",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/mastersystem/BaraBuruu.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Seemingly out of the blue, vile sea creatures start attacking peaceful coastal towns, as a strange tower-like structure rises from the icy depths of the ocean. Guide master ninjas Bara and Burū through thirty levels of the mysterious tower and vanquish the evil that dwells within!",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/mastersystem/screenshots/homebrew/BaraBuruu.png?raw=true"
@@ -13,5 +14,5 @@
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/mastersystem/titlescreens/homebrew/BaraBuruu.png?raw=true"
     ]
   },
-  "tags": ["action", "platform"]
+  "tags": ["puzzle", "platform"]
 }
