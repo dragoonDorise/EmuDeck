@@ -2,9 +2,10 @@
   "system": "gba",
   "status": "true",
   "logo": "logo_gba",
-  "title": "Simonchu",  "url": "XXXX",
+  "title": "Simonchu",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gba/simonchu.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "An evil villain tries to conquer Simonchu Land, and has sent his hordes of monsters to terrify the little animals that live there peacefully. Simonchu, the hamster, must not allow that to happen.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gba/screenshots/homebrew/simonchu.png?raw=true"
@@ -13,5 +14,5 @@
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gba/titlescreens/homebrew/simonchu.png?raw=true"
     ]
   },
-  "tags": ["action", "platform"]
+  "tags": ["platform"]
 }

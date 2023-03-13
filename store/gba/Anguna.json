@@ -2,9 +2,10 @@
   "system": "gba",
   "status": "true",
   "logo": "logo_gba",
-  "title": "Anguna",  "url": "XXXX",
+  "title": "Anguna",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gba/anguna.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "A top-down fantasy action-adventure game, with 5 dungeons to explore. Anguna is a homebrew game for Gameboy Advance and Nintendo DS, featuring art by Chris Hildenbrand.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gba/screenshots/homebrew/anguna.png?raw=true"
@@ -13,5 +14,5 @@
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gba/titlescreens/homebrew/anguna.png?raw=true"
     ]
   },
-  "tags": ["action", "platform"]
+  "tags": ["action", "puzzle"]
 }

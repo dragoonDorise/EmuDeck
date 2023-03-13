@@ -2,9 +2,10 @@
   "system": "gba",
   "status": "true",
   "logo": "logo_gba",
-  "title": "Motocross Challenge (Proto)",  "url": "XXXX",
+  "title": "Motocross Challenge",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gba/Motocross%20Challenge%20(Proto).zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "The gameplay in Motocross Challenge is very similar to that of Excitebike. Players race on a track made up of different track pieces. There are gas and boost buttons. Boosting will drain the boost meter. Using normal gas replenishes the meter.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gba/screenshots/homebrew/Motocross%20Challenge%20(Proto).png?raw=true"
@@ -13,5 +14,5 @@
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gba/titlescreens/homebrew/Motocross%20Challenge%20(Proto).png?raw=true"
     ]
   },
-  "tags": ["action", "platform"]
+  "tags": ["action"]
 }

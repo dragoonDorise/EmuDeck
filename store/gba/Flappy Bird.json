@@ -2,9 +2,10 @@
   "system": "gba",
   "status": "true",
   "logo": "logo_gba",
-  "title": "flappybird",  "url": "XXXX",
+  "title": "Flappy Bird",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gba/flappybird.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Flappy Bird GBA is a port of the insanely popular mobile game Flappy Bird. The developer wanted to make Flappy Bird for GBA as close to the original as possible. He achieved this by making the game operate in portrait mode, meaning the console must to be tilted sideways to be played.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gba/screenshots/homebrew/flappybird.png?raw=true"
@@ -13,5 +14,5 @@
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gba/titlescreens/homebrew/flappybird.png?raw=true"
     ]
   },
-  "tags": ["action", "platform"]
+  "tags": ["puzzle"]
 }
