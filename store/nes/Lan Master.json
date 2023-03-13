@@ -2,9 +2,10 @@
   "system": "nes",
   "status": "true",
   "logo": "logo_nes",
-  "title": "Lan Master",  "url": "XXXX",
+  "title": "Lan Master",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/nes/Lan_Master.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Your goal is to connect a set of computers with the provided fragments of wires. To accomplish this, you need to rotate the wires and computers appropriately within the alloted time limit.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/nes/screenshots/homebrew/Lan_Master.png?raw=true"

@@ -2,9 +2,10 @@
   "system": "nes",
   "status": "true",
   "logo": "logo_nes",
-  "title": "Sir Ababol",  "url": "XXXX",
+  "title": "Sir Ababol",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/nes/Sir Ababol.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Sir Ababol is a 2D platform game about Sir Ababol, a young crusader from Manchester City who lives in the 11th century. He witnesses the courage of St. George from Capadocia against the infidels and stumbles over a rock, falling into the Alcoraz River that carries him to the Monegros' Desert. When he wakes up he realizes he has lost his sword.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/nes/screenshots/homebrew/Sir Ababol.png?raw=true"

@@ -3,8 +3,9 @@
   "status": "true",
   "logo": "logo_nes",
   "title": "Streemerz",
+  "url": "https://www.fauxgame.com/",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/nes/Streemerz.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Try climbing to the top of this one by throwing streamers and climbing them. On your way up you better watch out for the various pie throwing clowns, burning candles and bouncing balls, because if they get you, you’ll die a little each time.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/nes/screenshots/homebrew/Streemerz.png?raw=true"

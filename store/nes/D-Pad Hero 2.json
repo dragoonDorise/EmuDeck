@@ -2,9 +2,10 @@
   "system": "nes",
   "status": "true",
   "logo": "logo_nes",
-  "title": "dpadhero2",  "url": "XXXX",
+  "title": "D-Pad Hero 2",
+  "url": "https://www.dpadhero.com/Home.html",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/nes/dpadhero2.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "D-Pad Hero pays homage to our own favorite NES games and popular music artists. It's our vision of what music games might have been like in the NES heyday. Now, through the wonders of emulation, you get to experience it yourself!",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/nes/screenshots/homebrew/dpadhero2.png?raw=true"
@@ -13,5 +14,5 @@
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/nes/titlescreens/homebrew/dpadhero2.png?raw=true"
     ]
   },
-  "tags": ["action", "platform"]
+  "tags": ["puzzle"]
 }

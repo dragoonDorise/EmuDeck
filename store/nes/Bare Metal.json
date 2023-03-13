@@ -2,9 +2,10 @@
   "system": "nes",
   "status": "true",
   "logo": "logo_nes",
-  "title": "Bare Metal",  "url": "XXXX",
+  "title": "Bare Metal",
+  "url": "https://wendelscardua.itch.io/bare-metal",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/nes/Bare Metal.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "A little robot is activated in a lab and it must go through different test rooms in order to find an exit.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/nes/screenshots/homebrew/Bare Metal.png?raw=true"
@@ -13,5 +14,5 @@
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/nes/titlescreens/homebrew/Bare Metal.png?raw=true"
     ]
   },
-  "tags": ["action", "platform"]
+  "tags": ["puzzle", "platform"]
 }

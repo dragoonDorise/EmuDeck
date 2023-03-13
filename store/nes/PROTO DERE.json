@@ -2,9 +2,10 @@
   "system": "nes",
   "status": "true",
   "logo": "logo_nes",
-  "title": "PROTO DERE",  "url": "XXXX",
+  "title": "PROTO DERE",
+  "url": "https://www.appsirgames.com/p/nes-game.html",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/nes/PROTO DERE.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "In ‘PROTO DERE .NES’, you play as a character trying to escape a burning underground mine. Use your athletic prowess to jump over fires and climb ladders to reach the exit.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/nes/screenshots/homebrew/PROTO DERE.png?raw=true"

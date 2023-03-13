@@ -3,8 +3,9 @@
   "status": "true",
   "logo": "logo_nes",
   "title": "The Ninja of the 4 Seasons",
+  "url": "https://www.nesmakers.com/index.php?threads/the-ninja-of-the-4-seasons.6853/",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/nes/The Ninja of the 4 Seasons.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "You play a ninja who crosses the 4 seasons to be the best ninja.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/nes/screenshots/homebrew/The Ninja of the 4 Seasons.png?raw=true"
