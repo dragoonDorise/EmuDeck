@@ -538,7 +538,8 @@ function iniFieldUpdate(){
 			sed -i "$((sectionLineNumber + 1))i$iniKey = $iniValue" "$iniFile"
 		else
 			echo "Updating key $iniKey = $iniValue"
-			sed -i "s|$iniKey =.*|$iniKey = $iniValue|g" "$iniFile"
+			local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
+			sed -i "$((sectionLineNumber + 1))is|$iniKey =.*|$iniKey = $iniValue|g" "$iniFile"
 		fi
 	else
 		echo "Can't update missing INI file: $iniFile"
