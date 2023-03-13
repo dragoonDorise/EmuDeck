@@ -2,9 +2,10 @@
   "system": "gbc",
   "status": "true",
   "logo": "logo_gbc",
-  "title": "Infinity",  "url": "XXXX",
+  "title": "Infinity ( Demo )",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gbc/infinity.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Infinity is a role-playing game for the Game Boy Color handheld game console, developed by Affinix Software primarily between the years 1999 and 2001. The game is incomplete and should be considered alpha/preview quality. In 2021, development on the game resumed and will hopefully see a commercial release soon.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gbc/screenshots/homebrew/infinity.png?raw=true"
@@ -13,5 +14,5 @@
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gbc/titlescreens/homebrew/infinity.png?raw=true"
     ]
   },
-  "tags": ["action", "platform"]
+  "tags": ["rpg"]
 }

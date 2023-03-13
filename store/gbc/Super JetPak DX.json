@@ -2,9 +2,10 @@
   "system": "gbc",
   "status": "true",
   "logo": "logo_gbc",
-  "title": "JetPakDX",  "url": "XXXX",
+  "title": "Super JetPak DX",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gbc/JetPakDX.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Your Astronaut is lost out at the furthest edges of an alien galaxy. Help him return home by deftly maneuvering over each planet's surface with your jet pack. Build the rocket ship, fuel it, and take off to the next planet.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gbc/screenshots/homebrew/JetPakDX.png?raw=true"
@@ -13,5 +14,5 @@
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gbc/titlescreens/homebrew/JetPakDX.png?raw=true"
     ]
   },
-  "tags": ["action", "platform"]
+  "tags": ["action", "platform", "puzzle"]
 }

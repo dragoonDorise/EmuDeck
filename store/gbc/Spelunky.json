@@ -2,9 +2,10 @@
   "system": "gbc",
   "status": "true",
   "logo": "logo_gbc",
-  "title": "Spelunky",  "url": "XXXX",
+  "title": "Spelunky",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gbc/Spelunky.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "An attempt to demake Spelunky 2 for the Game Boy Color. In Spelunky players journey deep underground and explore amazing places filled with traps, treasure, and secrets.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gbc/screenshots/homebrew/Spelunky.png?raw=true"
@@ -13,5 +14,5 @@
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gbc/titlescreens/homebrew/Spelunky.png?raw=true"
     ]
   },
-  "tags": ["action", "platform"]
+  "tags": ["action", "platform", "puzzle"]
 }
