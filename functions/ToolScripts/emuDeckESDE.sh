@@ -295,7 +295,7 @@ ESDE_IsInstalled(){
 
 
 ESDE_migrateEpicNoir(){
-	$FOLDER="$HOME/.emulationstation/themes/es-epicnoir"
+	FOLDER="$HOME/.emulationstation/themes/es-epicnoir"
 	
 	if [ -f "$FOLDER" ]; then
 		rm -rf $FOLDER;
