@@ -1,0 +1,17 @@
+{
+  "system": "gb",
+  "status": "true",
+  "logo": "logo_gb",
+  "title": "Fire Track by Ben Ryves",
+  "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gamegear/Fire Track by Ben Ryves.zip",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "pictures": {
+    "screenshots": [
+      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gamegear/screenshots/homebrew/Fire Track by Ben Ryves.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gamegear/titlescreens/homebrew/Fire Track by Ben Ryves.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}
