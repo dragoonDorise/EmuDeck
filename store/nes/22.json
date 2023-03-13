@@ -2,7 +2,8 @@
   "system": "nes",
   "status": "true",
   "logo": "logo_nes",
-  "title": "Space Gulls",
+  "title": "Space Gulls",  "url": "XXXX",
+  "url": "https://morphcatgames.itch.io/spacegulls",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/nes/Space Gulls.zip",
   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
   "pictures": {
