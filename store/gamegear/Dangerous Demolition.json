@@ -2,9 +2,10 @@
   "system": "gb",
   "status": "true",
   "logo": "logo_gb",
-  "title": "DangerousDemolition",  "url": "XXXX",
+  "title": "Dangerous Demolition",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gamegear/dangerousdemolition.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Dangerous Demolition is a small arcade/action game for the Game Gear. It's a mix between breakout and a shooter. The balls help you destroy bricks walls, but they can also kill you! Hopefully, you can shoot them to guide them in the right direction.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gamegear/screenshots/homebrew/dangerousdemolition.png?raw=true"

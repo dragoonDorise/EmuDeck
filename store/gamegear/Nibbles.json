@@ -2,9 +2,10 @@
   "system": "gb",
   "status": "true",
   "logo": "logo_gb",
-  "title": "NIBBLES",  "url": "XXXX",
+  "title": "Nibbles",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gamegear/NIBBLES.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Nibbles is a snake-like game developed by Martin Konrad for the Sega Game Gear. Eat the fruits, avoid the obstacles, and don't run into your growing body.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gamegear/screenshots/homebrew/NIBBLES.png?raw=true"
@@ -13,5 +14,5 @@
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gamegear/titlescreens/homebrew/NIBBLES.png?raw=true"
     ]
   },
-  "tags": ["action", "platform"]
+  "tags": ["puzzle"]
 }
