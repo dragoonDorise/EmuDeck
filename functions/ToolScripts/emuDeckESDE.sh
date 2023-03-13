@@ -81,6 +81,8 @@ ESDE_init(){
 	ESDE_migrateDownloadedMedia
 	ESDE_finalize
 	ESDE_addSteamInputProfile
+	
+	ESDE_migrateEpicNoir
 }
 
 ESDE20_init(){
@@ -140,8 +142,8 @@ ESDE_applyTheme(){
 	fi
 	echo "ESDE: applyTheme $theme"
 	mkdir -p "$HOME/.emulationstation/themes/"
-	git clone https://github.com/dragoonDorise/es-theme-epicnoir.git "$HOME/.emulationstation/themes/es-epicnoir" --depth=1
-	cd "$HOME/.emulationstation/themes/es-epicnoir" && git reset --hard HEAD && git clean -f -d && git pull && echo  "epicnoir up to date!" || echo "problem pulling epicnoir theme"
+	git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited" --depth=1
+	cd "$HOME/.emulationstation/themes/epic-noir-revisited" && git reset --hard HEAD && git clean -f -d && git pull && echo  "epicnoir up to date!" || echo "problem pulling epicnoir theme"
 	
 	if [[ "$theme" == *"EPICNOIR"* ]]; then
 		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="es-epicnoir" />' "$es_settingsFile"
@@ -288,5 +290,16 @@ ESDE_IsInstalled(){
 		echo "true"
 	else
 		echo "false"
+	fi
+}
+
+
+ESDE_migrateEpicNoir(){
+	$FOLDER="$HOME/.emulationstation/themes/es-epicnoir"
+	
+	if[ -f $FOLDER ]; then
+		rm -rf $FOLDER;
+		git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited" --depth=1
+		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="epic-noir-revisited-es-de" />' "$es_settingsFile"	
 	fi
 }
