@@ -3,8 +3,9 @@
   "status": "true",
   "logo": "logo_snes",
   "title": "Uwol Quest for Money",
+  "url": "https://www.mojontwins.com/juegos_mojonos/uwol-quest-for-money/",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/snes/Uwol Quest for Money.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Uwol enjoys a quiet retirement at his cozy house in the beach of Pepinoni (province of Badajoz), so he doesn’t realize that somebody has stolen all his money from the bank. Luckly, his good ol’ friend Meemaid, the evil sorceress-turned-super heroine learned about the incident as she was using the ATM in the very moment the bank was being robbed. That’s why they decide to head back over to the new and refurnished Storm Palace to regain the lost fortune.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/snes/screenshots/homebrew/Uwol Quest for Money.png?raw=true"
