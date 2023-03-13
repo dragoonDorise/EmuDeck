@@ -2,9 +2,10 @@
   "system": "gb",
   "status": "true",
   "logo": "logo_gb",
-  "title": "SuperPrincess",  "url": "XXXX",
+  "title": "Super Princess",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gb/SuperPrincess.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "The evil Lord Zurrapa has stolen the kingdom's crown and now our Super Princess has to take it back! Unveil the secrets of the maze, kill all enemies and bring the glory back to the country!",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gb/screenshots/homebrew/SuperPrincess.png?raw=true"

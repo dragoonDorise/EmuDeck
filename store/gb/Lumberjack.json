@@ -2,9 +2,10 @@
   "system": "gb",
   "status": "true",
   "logo": "logo_gb",
-  "title": "LumberJack",  "url": "XXXX",
+  "title": "Lumberjack",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gb/Lumberjack.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Lumberjack is a Game Boy homebrew where you help the world's most fragile lumberjack cut down an endless tree while avoiding getting killed by little owls, flimsy branches, or just standing still for too long.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gb/screenshots/homebrew/Lumberjack.png?raw=true"

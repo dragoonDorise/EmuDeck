@@ -2,9 +2,10 @@
   "system": "gb",
   "status": "true",
   "logo": "logo_gb",
-  "title": "Into the Blue",  "url": "XXXX",
+  "title": "Into the Blue",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gb/Into%20the%20Blue.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "This game consists of a vertical play field with panels rising from the bottom. The panels can be rearranged and will disappear if three (or more) matching panels are lined up in a horizontal or vertical row. This game is inspired by the Sega Genesis title Megapanel.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gb/screenshots/homebrew/Into%20the%20Blue.png?raw=true"
