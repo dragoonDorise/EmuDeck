@@ -2,9 +2,10 @@
   "system": "genesis",
   "status": "true",
   "logo": "logo_genesis",
-  "title": "Cavestory",  "url": "XXXX",
+  "title": "Cave Story",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/genesis/cavestory.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Cave Story (Japanese: 洞窟物語, Hepburn: Dōkutsu Monogatari) is a 2004 Metroidvania platform-adventure game. It was developed over five years by Japanese developer Daisuke Pixel Amaya in his free time. Cave Story features 2D platform mechanics and is reminiscent of the games Amaya played in his youth, such as Metroid and Castlevania (both released in 1986).",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/screenshots/homebrew/cavestory.png?raw=true"

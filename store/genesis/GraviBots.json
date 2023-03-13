@@ -2,9 +2,10 @@
   "system": "genesis",
   "status": "true",
   "logo": "logo_genesis",
-  "title": "GraviBots",  "url": "XXXX",
+  "title": "GraviBots",
+  "url": "https://retrosouls.itch.io/gravibots16bit",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/genesis/GraviBots.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "The purpose of the experiments in the laboratory chambers was to study the nature of gravitational fields.As a result of numerous experiments, a universal bot able to easily change the local gravitational field was created.Your task is driving the latest model of the gravibot, clearing all the rooms of the old bots by using abandoned and forgotten gravitational traps.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/screenshots/homebrew/GraviBots.png?raw=true"

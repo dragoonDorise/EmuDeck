@@ -2,9 +2,10 @@
   "system": "genesis",
   "status": "true",
   "logo": "logo_genesis",
-  "title": "Arkagis Revolution",  "url": "XXXX",
+  "title": "Arkagis Revolution",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/genesis/Arkagis%20Revolution.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "A top-down shooter for Sega Genesis/Mega Drive with mode 7 style rotation! Year 2612. Humans have started to travel space and colonizing other planets. For decades, the nation of Arkagis has been under the power of a dictator. The United Space Colonies have sent an army to bring down the dictator and free Arkagis.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/screenshots/homebrew/Arkagis%20Revolution.png?raw=true"

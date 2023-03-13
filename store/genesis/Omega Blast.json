@@ -2,9 +2,10 @@
   "system": "genesis",
   "status": "true",
   "logo": "logo_genesis",
-  "title": "Omega Blast",  "url": "XXXX",
+  "title": "Omega Blast",
+  "url": "https://www.homebrewlegends.com/omega-blast/",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/genesis/Omega%20Blast.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Omega Blast was created by homebrew developer Nendo. It is a bullet hell shooter in which you have 2 minutes to blast everything you possibly can to achieve the highest score.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/screenshots/homebrew/Omega Blast.png?raw=true"
@@ -13,5 +14,5 @@
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/titlescreens/homebrew/Omega Blast.png?raw=true"
     ]
   },
-  "tags": ["action", "platform"]
+  "tags": ["action"]
 }

@@ -2,9 +2,10 @@
   "system": "genesis",
   "status": "true",
   "logo": "logo_genesis",
-  "title": "TANGLEWD",  "url": "XXXX",
+  "title": "Tanglewood (Demo)",
+  "url": "https://tanglewoodgame.com/index.html",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/genesis/TANGLEWD.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Set in a fictional world, the game follows a young creature, Nymn, who is separated from the family pack after the sun sets. Unable to get back to the safety of the underground home, Nymn must find a way to survive the night terrors and get to morning.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/screenshots/homebrew/TANGLEWD.png?raw=true"

@@ -2,9 +2,10 @@
   "system": "genesis",
   "status": "true",
   "logo": "logo_genesis",
-  "title": "Phantom Gear",  "url": "XXXX",
+  "title": "Phantom Gear",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/genesis/Phantom%20Gear.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Phantom Gear mixes elements from a variety of classic action platformers for a unique and exciting package, and allows players to approach the game how they see fit. Lock ‘n’ load to power through levels, or use your skills and abilities to search for Gears and Orbs.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/screenshots/homebrew/Phantom Gear.png?raw=true"

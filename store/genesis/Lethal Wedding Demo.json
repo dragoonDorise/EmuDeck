@@ -2,9 +2,10 @@
   "system": "genesis",
   "status": "true",
   "logo": "logo_genesis",
-  "title": "Lethal Wedding",  "url": "XXXX",
+  "title": "Lethal Wedding ( Demo )",
+  "url": "https://megacatstudios.com/products/lethal-wedding",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/genesis/Lethal%20Wedding.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Get ready to Bride Hard as you fight through insane odds and some mother-daughter issues! Say I do to bullets and blood in this top-down RPG shooter!",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/screenshots/homebrew/Lethal Wedding.png?raw=true"

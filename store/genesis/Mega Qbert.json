@@ -2,9 +2,10 @@
   "system": "genesis",
   "status": "true",
   "logo": "logo_genesis",
-  "title": "Mega Qbert",  "url": "XXXX",
+  "title": "Mega Qbert",
+  "url": "XXXX",
   "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/genesis/Mega%20Qbert.zip",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare ex vitae diam aliquet, ut fringilla lectus cursus. Duis ac quam vel urna congue ullamcorper.",
+  "description": "Mega Q*bert is a new game for Sega Mega Drive/Sega Genesis. Featured are 2 different game modes. Mega mode contains 80 levels to beat, often filled with new irregular blocks that make things harder and more complex enemies, while Arcade mode is a recreation of original arcade game (based on the NES iteration, to be more exact). Both modes offer simultaneous cooperative gameplay.",
   "pictures": {
     "screenshots": [
       "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/screenshots/homebrew/Mega%20Qbert.png?raw=true"
