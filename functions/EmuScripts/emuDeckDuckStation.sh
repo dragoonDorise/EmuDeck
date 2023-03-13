@@ -158,18 +158,18 @@ DuckStation_addSteamInputProfile(){
 }
 
 DuckStation_retroAchievementsOn(){
-	iniFieldUpdate "$DuckStation_configFileNew" "Achievements" "Enabled" "True"
+	iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "Enabled" "True"
 }
 DuckStation_retroAchievementsOff(){
-	iniFieldUpdate "$DuckStation_configFileNew" "Achievements" "Enabled" "False"
+	iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "Enabled" "False"
 }
 
 DuckStation_retroAchievementsHardCoreOn(){
-	iniFieldUpdate "$DuckStation_configFileNew" "Achievements" "ChallengeMode" "True"
+	iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "ChallengeMode" "True"
 	
 }
 DuckStation_retroAchievementsHardCoreOff(){
-	iniFieldUpdate "$DuckStation_configFileNew" "Achievements" "ChallengeMode" "False"
+	iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "ChallengeMode" "False"
 }
 
 
