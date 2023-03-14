@@ -6,20 +6,64 @@
 		<api>SDLController</api>
 		<uuid>0_03000000de280000ff11000001000000</uuid>
 		<display_name>Steam Virtual Gamepad</display_name>
-		<rumble>0</rumble>
+		<rumble>1</rumble>
 		<axis>
-			<deadzone>0.25</deadzone>
+			<deadzone>0.2</deadzone>
 			<range>1</range>
 		</axis>
 		<rotation>
-			<deadzone>0.25</deadzone>
+			<deadzone>0.2</deadzone>
 			<range>1</range>
 		</rotation>
 		<trigger>
-			<deadzone>0.25</deadzone>
+			<deadzone>0.2</deadzone>
 			<range>1</range>
 		</trigger>
 		<mappings>
+			<entry>
+				<mapping>1</mapping>
+				<button>1</button>
+			</entry>
+			<entry>
+				<mapping>2</mapping>
+				<button>0</button>
+			</entry>
+			<entry>
+				<mapping>3</mapping>
+				<button>3</button>
+			</entry>
+			<entry>
+				<mapping>4</mapping>
+				<button>2</button>
+			</entry>
+			<entry>
+				<mapping>5</mapping>
+				<button>9</button>
+			</entry>
+			<entry>
+				<mapping>6</mapping>
+				<button>10</button>
+			</entry>
+			<entry>
+				<mapping>7</mapping>
+				<button>42</button>
+			</entry>
+			<entry>
+				<mapping>8</mapping>
+				<button>43</button>
+			</entry>
+			<entry>
+				<mapping>9</mapping>
+				<button>6</button>
+			</entry>
+			<entry>
+				<mapping>10</mapping>
+				<button>4</button>
+			</entry>
+			<entry>
+				<mapping>12</mapping>
+				<button>11</button>
+			</entry>
 			<entry>
 				<mapping>25</mapping>
 				<button>40</button>
@@ -71,50 +115,6 @@
 			<entry>
 				<mapping>13</mapping>
 				<button>12</button>
-			</entry>
-			<entry>
-				<mapping>12</mapping>
-				<button>11</button>
-			</entry>
-			<entry>
-				<mapping>10</mapping>
-				<button>4</button>
-			</entry>
-			<entry>
-				<mapping>9</mapping>
-				<button>6</button>
-			</entry>
-			<entry>
-				<mapping>8</mapping>
-				<button>43</button>
-			</entry>
-			<entry>
-				<mapping>7</mapping>
-				<button>42</button>
-			</entry>
-			<entry>
-				<mapping>6</mapping>
-				<button>10</button>
-			</entry>
-			<entry>
-				<mapping>5</mapping>
-				<button>9</button>
-			</entry>
-			<entry>
-				<mapping>4</mapping>
-				<button>2</button>
-			</entry>
-			<entry>
-				<mapping>3</mapping>
-				<button>3</button>
-			</entry>
-			<entry>
-				<mapping>2</mapping>
-				<button>0</button>
-			</entry>
-			<entry>
-				<mapping>1</mapping>
-				<button>1</button>
 			</entry>
 		</mappings>
 	</controller>
