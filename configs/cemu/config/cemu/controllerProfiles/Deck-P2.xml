@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <emulated_controller>
 	<type>Wii U Pro Controller</type>
-	<profile>Deck</profile>
+	<profile>Deck-P2</profile>
 	<controller>
 		<api>SDLController</api>
 		<uuid>1_03000000de280000ff11000001000000</uuid>
