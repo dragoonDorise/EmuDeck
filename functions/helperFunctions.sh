@@ -589,100 +589,14 @@ addSteamInputCustomIcons() {
 
 #add new emu entries here!
 getEmuInstallStatus() {
-	# emuArray=(	"Cemu" "CemuNative" "Citra" "Dolphin" "DuckStation" "MAME" "melonDS" "mGBA"\
-	# 			"PCSX2QT" "PPSSPP" "Primehack" "RetroArch" "RMG" "RPCS3" "Ryujinx" "ScummVM"\
-	# 			"Vita3K" "Xemu" "Xenia" "Yuzu")
-	# installStatus=()
-	# for emu in ${emuArray[@]}; do
-	# 	installStatus+=($("${emu}_IsInstalled"))
-	# done
-	# 
-	# paste <(printf "%s\n" "${emuArray[@]}") <(printf "%s\n" "${installStatus[@]}") |
-    # jq -nR '{ Emulators: [inputs] | map(split("\t") | { Name: .[0], Installed: .[1] }) }'
-	echo '{
-	  "Emulators": [
-		{
-		  "Name": "Cemu",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "CemuNative",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "Citra",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "Dolphin",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "DuckStation",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "MAME",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "melonDS",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "mGBA",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "PCSX2QT",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "PPSSPP",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "Primehack",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "RetroArch",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "RMG",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "RPCS3",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "Ryujinx",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "ScummVM",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "Vita3K",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "Xemu",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "Xenia",
-		  "Installed": "true"
-		},
-		{
-		  "Name": "Yuzu",
-		  "Installed": "true"
-		}
-	  ]
-	}
-';
+	emuArray=(	"Cemu" "CemuNative" "Citra" "Dolphin" "DuckStation" "MAME" "melonDS" "mGBA"\
+				"PCSX2QT" "PPSSPP" "Primehack" "RetroArch" "RMG" "RPCS3" "Ryujinx" "ScummVM"\
+				"Vita3K" "Xemu" "Xenia" "Yuzu")
+	installStatus=()
+	for emu in ${emuArray[@]}; do
+		installStatus+=($("${emu}_IsInstalled"))
+	done
 	
+	paste <(printf "%s\n" "${emuArray[@]}") <(printf "%s\n" "${installStatus[@]}") |
+    jq -nR '{ Emulators: [inputs] | map(split("\t") | { Name: .[0], Installed: .[1] }) }'
 }
