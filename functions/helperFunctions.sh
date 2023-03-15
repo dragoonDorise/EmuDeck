@@ -594,7 +594,8 @@ getEmuInstallStatus() {
 				"Vita3K" "Xemu" "Xenia" "Yuzu")
 	installStatus=()
 	for emu in "${emuArray[@]}"; do
-		installStatus+=($("${emu}_IsInstalled"))
+		#installStatus+=($("${emu}_IsInstalled"))	
+		installStatus+="true"
 	done
 	
 	paste <(printf "%s\n" "${emuArray[@]}") <(printf "%s\n" "${installStatus[@]}") |
