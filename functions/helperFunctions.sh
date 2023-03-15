@@ -589,7 +589,7 @@ addSteamInputCustomIcons() {
 
 #add new emu entries here!
 getEmuInstallStatus() {
-	emuArray=(	"Cemu" "CemuNative" "Citra" "Dolphin" "DuckStation" "MAME" "melonDS" "mGBA"\
+	emuArray=("Cemu" "CemuNative" "Citra" "Dolphin" "DuckStation" "MAME" "melonDS" "mGBA"\
 				"PCSX2QT" "PPSSPP" "Primehack" "RetroArch" "RMG" "RPCS3" "Ryujinx" "ScummVM"\
 				"Vita3K" "Xemu" "Xenia" "Yuzu")
 	installStatus=()

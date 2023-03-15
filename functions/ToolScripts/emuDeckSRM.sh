@@ -21,7 +21,7 @@ SRM_install(){
 	if safeDownload "$SRM_toolName" "$SRM_releaseURL" "${SRM_toolPath}" "$showProgress"; then
 		chmod +x "$SRM_toolPath"
 		SRM_createDesktopShortcut
-		rm -rf ~/Desktop/SteamRomManager.desktop &>> /dev/null
+		rm -rf ~/Desktop/SteamRomManager.desktop
 	else
 		return 1
 	fi
