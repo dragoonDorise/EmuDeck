@@ -85,7 +85,8 @@ ESDE_init(){
 	ESDE_migrateEpicNoir
 }
 
-ESDE_reset(){
+
+ESDE_resetConfig(){
 	ESDE_init &>/dev/null && echo "true" || echo "false"
 }
 
