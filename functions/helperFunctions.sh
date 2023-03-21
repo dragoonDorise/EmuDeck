@@ -593,7 +593,7 @@ getEmuInstallStatus() {
 				"PCSX2QT" "PPSSPP" "Primehack" "RetroArch" "RMG" "RPCS3" "Ryujinx" "ScummVM"\
 				"Vita3K" "Xemu" "Xenia" "Yuzu")
 	installStatus=()
-	for emu in ${emuArray[@]}; do
+	for emu in "${emuArray[@]}"; do
 		installStatus+=($("${emu}_IsInstalled"))
 	done
 	
