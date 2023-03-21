@@ -18,7 +18,7 @@ Core:
   SPU delay penalty: 3
   SPU loop detection: false
   Max SPURS Threads: 6
-  SPU Block Size: Safe
+  SPU Block Size: Mega
   Accurate GETLLAR: false
   Accurate SPU DMA: false
   Accurate Cache Line Stores: false
@@ -74,7 +74,7 @@ Video:
   Read Color Buffers: false
   Read Depth Buffer: false
   Log shader programs: false
-  VSync: false
+  VSync: true
   Debug output: false
   Debug overlay: false
   Renderdoc Compatibility Mode: false
@@ -92,7 +92,7 @@ Video:
   Use full RGB output range: true
   Strict Texture Flushing: false
   Disable native float16 support: false
-  Multithreaded RSX: false
+  Multithreaded RSX: true
   Relaxed ZCULL Sync: false
   Enable 3D: false
   Debug Program Analyser: false
@@ -112,13 +112,14 @@ Video:
   Allow Host GPU Labels: false
   Disable MSL Fast Math: false
   Software VkSemaphore: false
+  Output Scaling Mode: FidelityFX Super Resolution
   Vulkan:
     Adapter: AMD RADV VANGOGH
     Force FIFO present mode: false
     Force primitive restart flag: false
     Force Disable Exclusive Fullscreen Mode: false
     Asynchronous Texture Streaming 2: false
-    Enable FidelityFX Super Resolution Upscaling: false
+    Enable FidelityFX Super Resolution Upscaling: true
     FidelityFX CAS Sharpening Intensity: 50
     Asynchronous Queue Scheduler: Safe
   Performance Overlay:
