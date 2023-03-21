@@ -27,6 +27,11 @@ SRM_install(){
 	fi
 }
 
+SRM_uninstall(){
+	rm -rf "${toolsPath}/srm"
+	rm -rf $HOME/.local/share/applications/SRM.desktop
+}
+
 SRM_createDesktopShortcut(){
 	local SRM_Shortcutlocation=$1
 
