@@ -39,11 +39,14 @@ emuDeckInstallHomebrewGame(){
 	gameName=$2
 	game=$3
 	
+	
+	gameNameUrl="${gameName//[ ]/%20}"           
+
 	mkdir -p ${romsPath}/${system}/homebrew/ && \
 	mkdir -p ${toolsPath}/downloaded_media/${system}/screenshots/homebrew/ && \
-	mkdir -p ${toolsPath}/downloaded_media/${system}/titlescreens/homebrew/ && \
+	mkdir -p ${toolsPath}/downloaded_media/${system}/titlescreens/homebrew/ #&& \
 	curl ${game} -o "${romsPath}/${system}/homebrew/${gameName}.zip" && \
-	curl "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/screenshots/homebrew/${gameName}.png" -o "${toolsPath}/downloaded_media/${system}/screenshots/homebrew/${gameName}.png" && \
-	curl "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/titlescreens/homebrew/${gameName}.png" -o "${toolsPath}/downloaded_media/${system}/titlescreens/homebrew/${gameName}.png" && echo 'true'
+	curl "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/screenshots/homebrew/${gameNameUrl}.png" -o "${toolsPath}/downloaded_media/${system}/screenshots/homebrew/${gameName}.png" && \
+	curl "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/titlescreens/homebrew/${gameNameUrl}.png" -o "${toolsPath}/downloaded_media/${system}/titlescreens/homebrew/${gameName}.png" && echo 'true'
 
 }
