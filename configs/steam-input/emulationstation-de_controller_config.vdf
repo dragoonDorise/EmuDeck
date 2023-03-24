@@ -88,8 +88,8 @@
 	{
 		"english"
 		{
-			"title"		"Gamepad with Mouse Trackpad"
-			"description"		"The template works best for games that are designed with a gamepad in mind. The right trackpad will be bound to mouse emulation which may not work in all games."
+			"title"		"EmuDeck - EmulationStation-DE"
+			"description"		"Left Touchpad - Quick Actions. Long press to perform an action."
 		}
 		"czech"
 		{
