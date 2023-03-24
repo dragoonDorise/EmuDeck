@@ -33,3 +33,17 @@ emuDeckUninstallHomebrewGames(){
 
 	rm -rf "$toolsPath/homebrew/roms/" && echo "true"
 }
+
+emuDeckInstallHomebrewGame(){
+	system=$1
+	gameName=$2
+	game=$3
+	
+	mkdir -p ${romsPath}/${system}/homebrew/ && \
+	mkdir -p ${toolsPath}/downloaded_media/${system}/screenshots/homebrew/ && \
+	mkdir -p ${toolsPath}/downloaded_media/${system}/titlescreens/homebrew/ && \
+	curl '${game}' -o ${romsPath}/${system}/homebrew/${gameName}.zip && \
+	curl 'https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/screenshots/homebrew/${gameName}.png' -o ${toolsPath}/downloaded_media/${system}/screenshots/homebrew/${gameName}.png && \
+	curl 'https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/titlescreens/homebrew/${gameName}.png' -o ${toolsPath}/downloaded_media/${system}/titlescreens/homebrew/${gameName}.png && echo 'true'
+
+}
