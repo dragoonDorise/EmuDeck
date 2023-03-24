@@ -2,7 +2,7 @@
 {
 	"version"		"3"
 	"revision"		"14"
-	"title"		"EmuDeck - PCSX2 PS2 (SRM)"
+	"title"		"EmuDeck - PCSX2 PS2"
 	"description"		"Amber Elec Keys"
 	"creator"		"76561197971521082"
 	"progenitor"		"template://pcsx2_controller_config.vdf"
