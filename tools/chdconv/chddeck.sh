@@ -1,17 +1,33 @@
 #!/bin/bash
 . ~/emudeck/settings.sh 
 
+#whitelist
+declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
+declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
+declare -a csofolderWhiteList=("psp")
+declare -a searchFolderList
 
-#comprssion functions
+#executables
+chdPath="${toolsPath}/chdconv/"
+export PATH="${chdPath}/:$PATH"
+flatpaktool=$(flatpak list --columns=application | grep -E dolphin\|primehack |head -1)
+dolphintool="flatpak run --command=dolphin-tool $flatpaktool"
+
+#initialize log
+TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
+LOGFILE="$chdPath/chdman-$TIMESTAMP.log"
+exec > >(tee "${LOGFILE}") 2>&1
+
+#compression functions
 compressCHD(){
 	local file=$1
 	local fileType="${file##*.}"
 	local CUEDIR="$(dirname "${file}")"
 	local successful=''
 	echo "Compressing ${file%.*}.chd"
-	chdman5 createcd -i "$file" -o "${file%.*}.chd" && successful="true"
+	chdman5 createcd -i "$file" -o "${file%.*}.chd" && successful="true" 
 	if [[ $successful == "true" ]]; then
-		echo "successfully created ${file%.*}.chd"
+	echo "successfully created ${file%.*}.chd"
 		if [[ ! ("$fileType" == 'iso' || "$fileType" == 'ISO') ]]; then
 			find "${CUEDIR}" -maxdepth 1 -type f | while read -r b; do
 				fileName="$(basename "${b}")"
@@ -59,39 +75,27 @@ compressCSO(){
 
 #main
 text="$(printf "<b>Hi</b>\nWelcome to EmuDeck's Game Compression script!\n\nPlease be very careful and make sure you have backups of roms.\n\nThis script will scan the roms folder you choose and will compress the files it can to the best available format.\n\n<b>This action will delete the old files if the compression succeeds</b>")"
-
-zenity --question \
+selection=$(zenity --question \
 --title="EmuDeck" \
 --width=250 \
---ok-label="Ok, let's start" \
+--ok-label="Bulk Compress" \
+--extra-button="Pick a file" \
 --cancel-label="Exit" \
---text="${text}" 2>/dev/null
-ans=$?
-if [ $ans -eq 0 ]; then
+--text="${text}" 2>/dev/null && echo "bulk")
 
+if [ "$selection" == "bulk" ]; then
+
+	
 	#paths update via sed in main script 
 	#romsPath="/run/media/mmcblk0p1/Emulation/roms" #use path from settings
 	#toolsPath="/run/media/mmcblk0p1/Emulation/tools"
-	chdPath="${toolsPath}/chdconv/"
-	flatpaktool=$(flatpak list --columns=application | grep -E dolphin\|primehack |head -1)
-	dolphintool="flatpak run --command=dolphin-tool $flatpaktool"
 
-#initialize log
-	TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
-	LOGFILE="$chdPath/chdman-$TIMESTAMP.log"
-	exec > >(tee "${LOGFILE}") 2>&1
 
 	#ask user if they want to pick manually or run a search for eligible files. Manual will need to ask the user to pick a file, and then it will need to ask the type to convert to. (chd, rvz, cso)
 
 	echo "Checking $romsPath for files eligible for conversion."
 
-	#whitelist
-	declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
-	declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
-	declare -a csofolderWhiteList=("psp")
-	declare -a searchFolderList
 
-	export PATH="${chdPath}/:$PATH"
 
 	#find file types we support within whitelist of folders
 	for romfolder in "${chdfolderWhiteList[@]}"; do
@@ -209,6 +213,31 @@ if [ $ans -eq 0 ]; then
 		fi
 	done
 
+elif [ "$selection" == "Pick a file" ]; then
+
+#/bin/bash
+	f=$(zenity --file-selection --file-filter='Discs (cue,gdi,iso,gcm) | *.cue *.gdi *.iso *.gcm' --file-filter='All files | *' 2>/dev/null )
+	ext=$(echo "${f##*.}" | awk '{print tolower($0)}')
+	case $ext in
+
+	gcm)
+		echo gcm
+		;;
+
+	iso)
+		echo iso
+		;;
+
+	gdi)
+		echo gdi
+		;;
+
+	cue)
+		echo cue
+		;;
+	esac
+
+	compressCHD "$f"
 else
 	exit
 fi
@@ -222,8 +251,6 @@ if [ "$uiMode" != 'zenity' ]; then
 	--width="450" \
 	--text="${text}" 2>/dev/null
 fi
-
-echo "Press the button to start..."
 
 if [ "$uiMode" == 'zenity' ]; then
 
