@@ -60,6 +60,10 @@ Xenia_init(){
 	rsync -avhp "$EMUDECKGIT"/configs/xenia/ "$romsPath"/xbox360
 }
 
+Xenia_resetConfig(){
+	rsync -avhp "$EMUDECKGIT"/configs/xenia/ "$romsPath"/xbox360
+}
+
 #update
 Xenia_update(){
 	echo "NYI"
