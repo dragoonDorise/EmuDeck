@@ -151,6 +151,9 @@ if [ $ans -eq 0 ]; then
 					else
 						echo "Conversion of ${f} failed."
 					fi
+				else
+					echo "Sorry - at this time dreamcast games cannot be cue / bin for chd compression"
+					echo "Skipping $f"
 				fi
 			done
 			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
