@@ -7,11 +7,12 @@ compressCHD(){
 	local file=$1
 	local fileType="${file##*.}"
 	local CUEDIR="$(dirname "${file}")"
+	local successful=''
 	echo "Compressing ${file%.*}.chd"
 	chdman5 createcd -i "$file" -o "${file%.*}.chd" && successful="true"
 	if [[ $successful == "true" ]]; then
 		echo "successfully created ${file%.*}.chd"
-		if [[ !("$fileType" == 'iso' || "$fileType" == 'ISO') ]]; then
+		if [[ ! ("$fileType" == 'iso' || "$fileType" == 'ISO') ]]; then
 			find "${CUEDIR}" -maxdepth 1 -type f | while read -r b; do
 				fileName="$(basename "${b}")"
 				found=$(grep "${fileName}" "${file}")
@@ -30,12 +31,28 @@ compressCHD(){
 
 compressRVZ(){
 	local file=$1
-	${dolphintool} convert -f rvz -b 131072 -c zstd -l 5 -i "$file" -o "${file%.*}.rvz" && rm -rf "$file" || rm -f "${file%.*}.rvz"
+	local successful=''
+	${dolphintool} convert -f rvz -b 131072 -c zstd -l 5 -i "$file" -o "${file%.*}.rvz" && successful="true" 
+	if [[ $successful == "true" ]]; then
+		echo "$file succesfully converted to ${file%.*}.rvz"
+		rm -f "$file" 
+	else
+		echo "error converting $file"
+		rm -f "${file%.*}.rvz"
+	fi
 }
 
 compressCSO(){
 	local file=$1
-	ciso 9 "$file" "${file%.*}.cso" && rm -rf "$file" || rm -f "${file%.*}.cso"
+	local successful=''
+	ciso 9 "$file" "${file%.*}.cso" && successful="true" 
+	if [[ $successful == "true" ]]; then
+		echo "$file succesfully converted to ${file%.*}.cso"
+		rm -f "$file" 
+	else
+		echo "error converting $file"
+		rm -f "${file%.*}.cso"
+	fi
 
 }
 
