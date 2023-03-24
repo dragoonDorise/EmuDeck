@@ -4,14 +4,14 @@
   "logo": "logo_mastersystem",
   "title": "Silver Valley",
   "url": "XXXX",
-  "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/mastersystem/silvervalley.sms.zip",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/mastersystem/silvervalley.sms.zip",
   "description": "Silver Valley is a mash of other games such as Castlevania or Wonderboy and features not just platforming but also flying, shooting and even sailing through 64 or more levels, all contained with a story driving the action.",
   "pictures": {
     "screenshots": [
-      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/mastersystem/screenshots/homebrew/silvervalley.png?raw=true"
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/mastersystem/screenshots/homebrew/silvervalley.png?raw=true"
     ],
     "titlescreens": [
-      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/mastersystem/titlescreens/homebrew/silvervalley.png?raw=true"
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/mastersystem/titlescreens/homebrew/silvervalley.png?raw=true"
     ]
   },
   "tags": ["action", "platform"]

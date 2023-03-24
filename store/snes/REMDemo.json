@@ -4,14 +4,14 @@
   "logo": "logo_snes",
   "title": "REM (Demo)",
   "url": "https://github.com/rmn0/rem",
-  "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/snes/rem.zip",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/snes/rem.zip",
   "description": "A single level demo of an eery homebrew platform game for the Super Nintendo.",
   "pictures": {
     "screenshots": [
-      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/snes/screenshots/homebrew/rem.png?raw=true"
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/screenshots/homebrew/rem.png?raw=true"
     ],
     "titlescreens": [
-      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/snes/titlescreens/homebrew/rem.png?raw=true"
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/titlescreens/homebrew/rem.png?raw=true"
     ]
   },
   "tags": ["action", "platform"]

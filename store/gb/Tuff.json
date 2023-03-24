@@ -4,14 +4,14 @@
   "logo": "logo_gb",
   "title": "Tuff",
   "url": "XXXX",
-  "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gb/tuff.zip",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/gb/tuff.zip",
   "description": "Tuff is an original game for Nintendo's black and white Game Boy, based on a mix of Jump'n'Run and Metroidvania style game elements.",
   "pictures": {
     "screenshots": [
-      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gb/screenshots/homebrew/tuff.png?raw=true"
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gb/screenshots/homebrew/tuff.png?raw=true"
     ],
     "titlescreens": [
-      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gb/titlescreens/homebrew/tuff.png?raw=true"
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gb/titlescreens/homebrew/tuff.png?raw=true"
     ]
   },
   "tags": ["action", "platform"]

@@ -4,14 +4,14 @@
   "logo": "logo_gba",
   "title": "Sushi the Cat",
   "url": "XXXX",
-  "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/gba/sushi.zip",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/gba/sushi.zip",
   "description": "Sushi the Cat is a neat but short platformer for the GBA. Collect stars and avoid being touched by enemies.",
   "pictures": {
     "screenshots": [
-      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gba/screenshots/homebrew/sushi.png?raw=true"
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gba/screenshots/homebrew/sushi.png?raw=true"
     ],
     "titlescreens": [
-      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/gba/titlescreens/homebrew/sushi.png?raw=true"
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gba/titlescreens/homebrew/sushi.png?raw=true"
     ]
   },
   "tags": ["platform"]
