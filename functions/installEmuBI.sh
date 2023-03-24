@@ -24,9 +24,9 @@ installEmuBI(){
 
     #curl -L "$url" -o "$HOME/Applications/$altName.$format.temp" && mv "$HOME/Applications/$altName.$format.temp" "$HOME/Applications/$altName.$format"
     if safeDownload "$name" "$url" "$HOME/Applications/$altName.$format" "$showProgress"; then
-        if [[ ! -z $lastVerFile ]] && [[ ! -z $latestVer ]]; then
+        if [[ -n $lastVerFile ]] && [[ -n $latestVer ]]; then
             echo "latest version $latestVer > $lastVerFile"
-            echo $latestVer > "$lastVerFile"
+            echo "$latestVer" > "$lastVerFile"
         fi
     else
         return 1
