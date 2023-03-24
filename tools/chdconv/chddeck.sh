@@ -132,25 +132,26 @@ if [ $ans -eq 0 ]; then
 
 			done
 			find "$romsPath/$romfolder" -type f -iname "*.cue" | while read -r f; do
-				echo "Converting: $f"
-				CUEDIR="$(dirname "${f}")"
-				echo "Compressing ${f%.*}.chd"
-				chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
-				if [[ $successful == "true" ]]; then
-					echo "successfully created ${f%.*}.chd"
-					find "${CUEDIR}" -maxdepth 1 -type f | while read -r b; do
-						fileName="$(basename "${b}")"
-						found=$(grep "${fileName}" "${f}")
-						if [[ ! $found = '' ]]; then
-							echo "Deleting ${b}"
-							rm "${b}"
-						fi
-					done
-					rm "${f}"
-				else
-					echo "Conversion of ${f} failed."
+				if [ "$romfolder" != "dreamcast" ]; then #disallow dreamcast for cue / bin
+					echo "Converting: $f"
+					CUEDIR="$(dirname "${f}")"
+					echo "Compressing ${f%.*}.chd"
+					chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
+					if [[ $successful == "true" ]]; then
+						echo "successfully created ${f%.*}.chd"
+						find "${CUEDIR}" -maxdepth 1 -type f | while read -r b; do
+							fileName="$(basename "${b}")"
+							found=$(grep "${fileName}" "${f}")
+							if [[ ! $found = '' ]]; then
+								echo "Deleting ${b}"
+								rm "${b}"
+							fi
+						done
+						rm "${f}"
+					else
+						echo "Conversion of ${f} failed."
+					fi
 				fi
-
 			done
 			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
 				echo "Converting: $f"
