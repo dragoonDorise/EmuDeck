@@ -5,15 +5,15 @@
       "status": "true",
       "logo": "logo_genesis",
       "title": "Phantom Gear",
-      "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/genesis/Phantom%20Gear.zip",
+      "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/genesis/Phantom Gear.zip",
       "description": "Phantom Gear mixes elements from a variety of classic action platformers for a unique and exciting package, and allows players to approach the game how they see fit. Lock ‘n’ load to power through levels, or use your skills and abilities to search for Gears and Orbs.",
       "pictures": {
         "screenshots": [
-          "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/screenshots/homebrew/Phantom%20Gear.png?raw=true"
+          "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/screenshots/homebrew/Phantom Gear.png?raw=true"
         ],
 
         "titlescreens": [
-          "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/titlescreens/homebrew/Phantom%20Gear.png?raw=true"
+          "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/titlescreens/homebrew/Phantom Gear.png?raw=true"
         ]
       },
       "tags": ["action", "platform"]
@@ -23,15 +23,15 @@
       "status": "true",
       "logo": "logo_genesis",
       "title": "Xump 2",
-      "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/genesis/Xump%202.zip",
+      "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/genesis/Xump 2.zip",
       "description": "Xump 2 is a simple multi-platform puzzler by Retroguru. Help Misuki clean up deserted space fields. Obstacles like mines, teleport sectors and arrow walkways appear progressively throughout the game.",
       "pictures": {
         "screenshots": [
-          "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/screenshots/homebrew/Xump%202.png?raw=true"
+          "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/screenshots/homebrew/Xump 2.png?raw=true"
         ],
 
         "titlescreens": [
-          "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/titlescreens/homebrew/Xump%202.png?raw=true"
+          "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/titlescreens/homebrew/Xump 2.png?raw=true"
         ]
       },
       "tags": ["action"]

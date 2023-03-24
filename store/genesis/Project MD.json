@@ -4,14 +4,14 @@
   "logo": "logo_genesis",
   "title": "Project MD",
   "url": "XXXX",
-  "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/genesis/Project%20MD.zip",
+  "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/genesis/Project MD.zip",
   "description": "In this game, you play as Stephany, who loves playing games. She finds everyday life boring, so she creates a virtual world to roam around in and enjoy. However, she will soon realize that not all is happy in this realm.",
   "pictures": {
     "screenshots": [
-      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/screenshots/homebrew/Project%20MD.png?raw=true"
+      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/screenshots/homebrew/Project MD.png?raw=true"
     ],
     "titlescreens": [
-      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/titlescreens/homebrew/Project%20MD.png?raw=true"
+      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/titlescreens/homebrew/Project MD.png?raw=true"
     ]
   },
   "tags": ["action", "platform"]

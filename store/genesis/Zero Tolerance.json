@@ -4,14 +4,14 @@
   "logo": "logo_genesis",
   "title": "Zero Tolerance",
   "url": "XXXX",
-  "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/genesis/Zero%20Tolerance.zip",
+  "file": "https://github.com/EmuDeck/emudeck-homebrew/blob/main/genesis/Zero Tolerance.zip",
   "description": "",
   "pictures": {
     "screenshots": [
-      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/screenshots/homebrew/Zero%20Tolerance.png?raw=true"
+      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/screenshots/homebrew/Zero Tolerance.png?raw=true"
     ],
     "titlescreens": [
-      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/titlescreens/homebrew/Zero%20Tolerance.png?raw=true"
+      "https://github.com/EmuDeck/emudeck-homebrew/blob/main/downloaded_media/genesis/titlescreens/homebrew/Zero Tolerance.png?raw=true"
     ]
   },
   "tags": ["action", "platform"]
