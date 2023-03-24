@@ -1,5 +1,5 @@
 #!/bin/bash
-shopt -s expand_aliases
+. ~/emudeck/settings.sh 
 
 text="$(printf "<b>Hi</b>\nWelcome to EmuDeck's Game Compression script!\n\nPlease be very careful and make sure you have backups of roms.\n\nThis script will scan the roms folder you choose and will compress the files it can to the best available format.\n\n<b>This action will delete the old files if the compression succeeds</b>")"
 #Nova fix'
@@ -12,9 +12,9 @@ zenity --question \
 ans=$?
 if [ $ans -eq 0 ]; then
 
-	#paths update via sed in main script
-	romsPath="/run/media/mmcblk0p1/Emulation/roms"
-	toolsPath="/run/media/mmcblk0p1/Emulation/tools"
+	#paths update via sed in main script 
+	#romsPath="/run/media/mmcblk0p1/Emulation/roms" #use path from settings
+	#toolsPath="/run/media/mmcblk0p1/Emulation/tools"
 	chdPath="${toolsPath}/chdconv/"
 	flatpaktool=$(flatpak list --columns=application | grep -E dolphin\|primehack |head -1)
 	dolphintool="flatpak run --command=dolphin-tool $flatpaktool"
