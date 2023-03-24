@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck source=/home/deck/emudeck/settings.sh 
 . ~/emudeck/settings.sh 
 
 #whitelist
@@ -22,8 +23,9 @@ exec > >(tee "${LOGFILE}") 2>&1
 compressCHD(){
 	local file=$1
 	local fileType="${file##*.}"
-	local CUEDIR="$(dirname "${file}")"
+	local CUEDIR=""
 	local successful=''
+	CUEDIR="$(dirname "${file}")"
 	echo "Compressing ${file%.*}.chd"
 	chdman5 createcd -i "$file" -o "${file%.*}.chd" && successful="true" 
 	if [[ $successful == "true" ]]; then
@@ -93,7 +95,7 @@ if [ "$selection" == "bulk" ]; then
 
 	#ask user if they want to pick manually or run a search for eligible files. Manual will need to ask the user to pick a file, and then it will need to ask the type to convert to. (chd, rvz, cso)
 
-	echo "Checking $romsPath for files eligible for conversion."
+	echo "Checking ${romsPath:?} for files eligible for conversion."
 
 
 
