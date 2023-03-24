@@ -1,8 +1,48 @@
 #!/bin/bash
 . ~/emudeck/settings.sh 
 
+
+#comprssion functions
+compressCHD(){
+	local file=$1
+	local fileType="${file##*.}"
+	local CUEDIR="$(dirname "${file}")"
+	echo "Compressing ${file%.*}.chd"
+	chdman5 createcd -i "$file" -o "${file%.*}.chd" && successful="true"
+	if [[ $successful == "true" ]]; then
+		echo "successfully created ${file%.*}.chd"
+		if [[ !("$fileType" == 'iso' || "$fileType" == 'ISO') ]]; then
+			find "${CUEDIR}" -maxdepth 1 -type f | while read -r b; do
+				fileName="$(basename "${b}")"
+				found=$(grep "${fileName}" "${file}")
+				if [[ ! $found = '' ]]; then
+					echo "Deleting ${b}"
+					rm "${b}"
+				fi
+			done
+		fi
+		rm -f "${file}"
+	else
+		echo "Conversion of ${file} failed."
+		rm -f "${file%.*}.chd"
+	fi
+}
+
+compressRVZ(){
+	local file=$1
+	${dolphintool} convert -f rvz -b 131072 -c zstd -l 5 -i "$file" -o "${file%.*}.rvz" && rm -rf "$file" || rm -f "${file%.*}.rvz"
+}
+
+compressCSO(){
+	local file=$1
+	ciso 9 "$file" "${file%.*}.cso" && rm -rf "$file" || rm -f "${file%.*}.cso"
+
+}
+
+
+#main
 text="$(printf "<b>Hi</b>\nWelcome to EmuDeck's Game Compression script!\n\nPlease be very careful and make sure you have backups of roms.\n\nThis script will scan the roms folder you choose and will compress the files it can to the best available format.\n\n<b>This action will delete the old files if the compression succeeds</b>")"
-#Nova fix'
+
 zenity --question \
 --title="EmuDeck" \
 --width=250 \
@@ -112,45 +152,12 @@ if [ $ans -eq 0 ]; then
 
 			find "$romsPath/$romfolder" -type f -iname "*.gdi" | while read -r f; do
 				echo "Converting: $f"
-				CUEDIR="$(dirname "${f}")"
-				echo "Compressing ${f%.*}.chd"
-				chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
-				if [[ $successful == "true" ]]; then
-					echo "successfully created ${f%.*}.chd"
-					find "${CUEDIR}" -maxdepth 1 -type f | while read -r b; do
-						fileName="$(basename "${b}")"
-						found=$(grep "${fileName}" "${f}")
-						if [[ ! $found = '' ]]; then
-							echo "Deleting ${b}"
-							rm "${b}"
-						fi
-					done
-					rm "${f}"
-				else
-					echo "Conversion of ${f} failed."
-				fi
-
+				compressCHD "$f"
 			done
 			find "$romsPath/$romfolder" -type f -iname "*.cue" | while read -r f; do
 				if [ "$romfolder" != "dreamcast" ]; then #disallow dreamcast for cue / bin
 					echo "Converting: $f"
-					CUEDIR="$(dirname "${f}")"
-					echo "Compressing ${f%.*}.chd"
-					chdman5 createcd -i "$f" -o "${f%.*}.chd" && successful="true"
-					if [[ $successful == "true" ]]; then
-						echo "successfully created ${f%.*}.chd"
-						find "${CUEDIR}" -maxdepth 1 -type f | while read -r b; do
-							fileName="$(basename "${b}")"
-							found=$(grep "${fileName}" "${f}")
-							if [[ ! $found = '' ]]; then
-								echo "Deleting ${b}"
-								rm "${b}"
-							fi
-						done
-						rm "${f}"
-					else
-						echo "Conversion of ${f} failed."
-					fi
+					compressCHD "$f"
 				else
 					echo "Sorry - at this time dreamcast games cannot be cue / bin for chd compression"
 					echo "Skipping $f"
@@ -158,7 +165,7 @@ if [ $ans -eq 0 ]; then
 			done
 			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
 				echo "Converting: $f"
-				chdman5 createcd -i "$f" -o "${f%.*}.chd" && rm -rf "$f"
+				compressCHD "$f"
 			done
 		fi
 	done
@@ -169,7 +176,7 @@ if [ $ans -eq 0 ]; then
 		if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
 			find "$romsPath/$romfolder" -type f -iname "*.gcm" -o -type f -iname "*.iso" | while read -r f; do
 				echo "Converting: $f"
-				${dolphintool} convert -f rvz -b 131072 -c zstd -l 5 -i "$f" -o "${f%.*}.rvz" && rm -rf "$f"
+				compressRVZ "$f"
 			done
 		fi
 	done
@@ -180,7 +187,7 @@ if [ $ans -eq 0 ]; then
 		if [[ " ${csofolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
 			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
 				echo "Converting: $f"
-				ciso 9 "$f" "${f%.*}.cso" && rm -rf "$f"
+				compressCSO "$f"
 			done
 		fi
 	done
@@ -221,3 +228,4 @@ if [ "$uiMode" == 'zenity' ]; then
 	fi
 
 fi
+
