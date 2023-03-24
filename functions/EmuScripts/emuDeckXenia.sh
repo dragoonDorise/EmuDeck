@@ -135,3 +135,8 @@ Xenia_IsInstalled(){
 		echo "false"
 	fi
 }
+
+Xenia_resetConfig(){
+	mv  "$Xenia_XeniaSettings" "$Xenia_XeniaSettings.bak" &>/dev/null
+	Xenia_init &>/dev/null && echo "true" || echo "false"
+}
