@@ -131,7 +131,7 @@ Migration_fix_SDPaths(){
 		text="$(printf "<b>Only use this if you have your roms on your SDCard and SteamOS 3.5 has been released and your Steam shortcuts no longer work.</b>\n\nYour old path was:\n${oldPath}\n\nYour new path is:\n${newPath}/\n\nDo you want me to change it?")"	
 		zenity --question --title="Confirm path fix" --width 400 --text="${text}"  --ok-label="Yes" --cancel-label="No" 2>/dev/null
 		if [[ $? == 0 ]]; then
-			Migration_updateSRM "$oldPath" "$newPath/" && Migration_updatePaths "$oldPath" "$newPath/" && Migration_updateParsers "$oldPath" "$newPath/" && echo "true"	
+			Migration_updateSRM "$oldPath" "$newPath/" && Migration_updatePaths "$oldPath/Emulation" "$newPath/Emulation" && Migration_updateParsers "$oldPath" "$newPath/" && echo "true"	
 			Migration_ESDE 		
 		fi	
 	else
