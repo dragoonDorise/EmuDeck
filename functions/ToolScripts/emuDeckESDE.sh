@@ -197,6 +197,22 @@ ESDE_setEmulationFolder(){
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Native)"]' -v "$cemuNativeCommandString" "$es_systemsFile"
 		fi
 	fi
+	if [[ ! $(grep -rnw "$es_systemsFile" -e 'xbox360') == "" ]]; then
+		if [[ $(grep -rnw "$es_systemsFile" -e 'Xenia (Proton)') == "" ]]; then
+			#insert
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="xbox360"]' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/xenia.sh %ROM%" \
+			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Xenia (Proton)" \
+			-r 'systemList/system/commandP' -v 'command' \
+			"$es_systemsFile"
+
+			#format doc to make it look nice
+			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		else
+			#update
+			xeniaProtonCommandString="/usr/bin/bash ${toolsPath}/launchers/xenia.sh %ROM%"
+			xmlstarlet ed -L -u '/systemList/system/command[@label="Xenia (Proton)"]' -v "$xeniaProtonCommandString" "$es_systemsFile"
+		fi
+	fi
 
 	echo "updating $es_settingsFile"
 	#configure roms Directory
@@ -303,7 +319,7 @@ ESDE_migrateEpicNoir(){
 	FOLDER="$HOME/.emulationstation/themes/es-epicnoir"
 	
 	if [ -f "$FOLDER" ]; then
-		rm -rf $FOLDER;
+		rm -rf "$FOLDER"
 		git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited" --depth=1
 		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="epic-noir-revisited-es-de" />' "$es_settingsFile"	
 	fi
