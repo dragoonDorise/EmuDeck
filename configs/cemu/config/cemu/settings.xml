@@ -88,8 +88,9 @@
         <PadChannels>1</PadChannels>
         <TVVolume>100</TVVolume>
         <PadVolume>0</PadVolume>
-        <TVDevice>default</TVDevice>
+        <TVDevice>alsa_output.pci-0000_04_00.5-platform-acp5x_mach.0.HiFi__hw_acp5x_1__sink</TVDevice>
         <PadDevice></PadDevice>
+        <InputDevice>alsa_input.pci-0000_04_00.5-platform-acp5x_mach.0.HiFi__hw_acp5x_0__source</InputDevice>
     </Audio>
     <Account>
         <PersistentId>2147483649</PersistentId>
