@@ -252,6 +252,11 @@ Yuzu_setABXYstyle(){
 echo "NYI"
 }
 
+#setABXYstyle
+Yuzu_setABXYstyle(){
+echo "NYI"
+}
+
 #WideScreenOn
 Yuzu_wideScreenOn(){
 echo "NYI"
@@ -276,6 +281,16 @@ echo "NYI"
 Yuzu_finalize(){
     echo "Begin Yuzu finalize"
     Yuzu_cleanup
+}
+
+#finalExec - Extra stuff
+YuzuEA_addToken(){
+    text=$(printf "Enter your Yuzu Early Access Token to automatically download and update Yuzu Early Access. \
+     \nYou can get this from your Yuzu Patreon. \
+     \n https://yuzu-emu.org/help/early-access/\
+     \nOnce you have entered your token in this window it will be saved to ~/emudeck/yuzu-ea-token.txt")
+    eaToken=$(zenity --title="Enter Yuzu EA Patreon Code" --entry --text="$text" --html --url="https://yuzu-emu.org/help/early-access/")
+    echo "$eaToken" >"$HOME/emudeck/yuzu-ea-token.txt"
 }
 
 Yuzu_IsInstalled(){
