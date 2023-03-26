@@ -79,9 +79,9 @@ ESDE_init(){
 	ESDE_setDefaultEmulators
 	ESDE_applyTheme "$esdeTheme"
 	ESDE_migrateDownloadedMedia
-	ESDE_finalize
 	ESDE_addSteamInputProfile
-	
+	ESDE_symlinkGamelists
+	ESDE_finalize
 	ESDE_migrateEpicNoir
 }
 
@@ -108,8 +108,9 @@ ESDE_update(){
 	ESDE_setDefaultEmulators
 	ESDE_applyTheme "$esdeTheme"
 	ESDE_migrateDownloadedMedia
-	ESDE_finalize
 	ESDE_addSteamInputProfile
+	ESDE_symlinkGamelists
+	ESDE_finalize
 }
 
 ESDE_addCustomSystems(){
@@ -312,6 +313,10 @@ ESDE_IsInstalled(){
 	else
 		echo "false"
 	fi
+}
+
+ESDE_symlinkGamelists(){
+		linkToSaveFolder es-de gamelists "$HOME/.emulationstation/gamelists/"
 }
 
 
