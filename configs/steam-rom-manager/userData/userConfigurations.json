@@ -2151,7 +2151,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.nds|.NDS)"
+      "glob": "**/${title}@(.nds|.NDS|.app|.APP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
