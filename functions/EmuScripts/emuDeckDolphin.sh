@@ -46,6 +46,7 @@ Dolphin_init(){
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
     Dolphin_cleanup
+    Dolphin_DynamicInputTextures
 }
 
 #update
@@ -163,3 +164,22 @@ Dolphin_finalize(){
 	echo "NYI"
 }
 
+
+Dolphin_DynamicInputTextures(){
+  local DIT_releaseURL="$(getLatestReleaseURLGH "Venomalia/UniversalDynamicInput" "7z")"
+  
+  if [[ ! -e "$storagePath/dolphin/Load" ]]; then
+    mkdir -p "$storagePath/dolphin/Load"
+    ln -s "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Load/" "$storagePath/dolphin/Load/"
+  fi
+  
+  
+  if safeDownload "UniversalDynamicInput" "$DIT_releaseURL" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Load/DynamicInputTextures.7z" "false"; then
+      
+    7z "$storagePath/dolphin/Load/DynamicInputTextures.7z" -o"$storagePath/dolphin/Load/" && rm -rf "$storagePath/Dolphin/Load/DynamicInputTextures.7z"
+    
+  else
+    return 1
+  fi
+  
+}
