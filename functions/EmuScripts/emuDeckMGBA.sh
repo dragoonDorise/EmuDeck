@@ -7,13 +7,18 @@ mGBA_configFile="$HOME/.config/mgba/config.ini"
 
 #cleanupOlderThings
 mGBA_cleanup(){
- echo "NYI"
+	echo "NYI"
 }
 
 #Install
 mGBA_install(){
 	echo "Begin mGBA Install"
-	installEmuAI "mGBA" "$(getReleaseURLGH "mgba-emu/mgba" "x64.appimage")" #mgba.AppImage
+	local showProgress="$1"
+	if installEmuAI "mGBA" "$(getReleaseURLGH "mgba-emu/mgba" "x64.appimage")" "" "$showProgress"; then #mgba.AppImage
+		:
+	else
+		return 1
+	fi
 }
 
 #ApplyInitialSettings
@@ -38,13 +43,22 @@ mGBA_update(){
 
 #ConfigurePaths
 mGBA_setEmulationFolder(){
-	echo "NYI"
+	setMSG "Setting $mGBA_emuName Emulation Folder"	
+
+	LastROMFolderSetting='lastDirectory='
+	changeLine "$LastROMFolderSetting" "${LastROMFolderSetting}${romsPath}/gba" "${mGBA_configFile}"
 }
 
 #SetupSaves
 mGBA_setupSaves(){
 	mkdir -p "$savesPath/mgba/saves"
 	mkdir -p "$savesPath/mgba/states"
+
+	SaveFilePathSetting='savegamePath='
+	SavestatePathSetting='savestatePath='
+
+	changeLine "$SaveFilePathSetting" "${SaveFilePathSetting}${savesPath}/mgba/saves" "${mGBA_configFile}"
+	changeLine "$SavestatePathSetting" "${SavestatePathSetting}${savesPath}/mgba/states" "${mGBA_configFile}"
 }
 
 
@@ -53,6 +67,14 @@ mGBA_setupStorage(){
 	mkdir -p "$storagePath/mgba/cheats"
 	mkdir -p "$storagePath/mgba/patches"
 	mkdir -p "$storagePath/mgba/screenshots"
+
+	CheatsPathSetting='cheatsPath='
+	PatchesPathSetting='patchPath='
+	ScreenshotsPathSetting='screenshotPath='
+
+	changeLine "$CheatsPathSetting" "${CheatsPathSetting}${storagePath}/mgba/cheats" "${mGBA_configFile}"
+	changeLine "$PatchesPathSetting" "${PatchesPathSetting}${storagePath}/mgba/patches" "${mGBA_configFile}"
+	changeLine "$ScreenshotsPathSetting" "${ScreenshotsPathSetting}${storagePath}/mgba/screenshots" "${mGBA_configFile}"
 }
 
 
@@ -66,17 +88,17 @@ mGBA_wipe(){
 #Uninstall
 mGBA_uninstall(){
 	setMSG "Uninstalling $mGBA_emuName."
-    rm -rf "$emuPath"
+	rm -rf "$emuPath"
 }
 
 #setABXYstyle
 mGBA_setABXYstyle(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #Migrate
 mGBA_migrate(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #WideScreenOn
@@ -117,7 +139,7 @@ mGBA_finalize(){
 }
 
 mGBA_addSteamInputProfile(){
-	echo "NYI"
+	addSteamInputCustomIcons
 	setMSG "Adding $mGBA_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/mGBA_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

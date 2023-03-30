@@ -1,0 +1,18 @@
+{
+  "system": "gbc",
+  "status": "true",
+  "logo": "logo_gbc",
+  "title": "Himes Quest",
+  "url": "https://www.crunchyroll.com/himesquest/",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/gbc/himes-quest.zip",
+  "description": "It’s 1999, and something electric is in the air. A malevolent force has crept into New Crunchy City, wreaking havoc on its technology and tragically destroying the Anime Club’s DVD / VCR combo player. Enter Hime to save the day!",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gbc/screenshots/homebrew/himes-quest.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gbc/titlescreens/homebrew/himes-quest.png?raw=true"
+    ]
+  },
+  "tags": ["rpg"]
+}

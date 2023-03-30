@@ -1,0 +1,18 @@
+{
+  "system": "gb",
+  "status": "true",
+  "logo": "logo_gb",
+  "title": "The Bouncing Ball",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/gb/THEBOUNCINGBALL.zip",
+  "description": "In this game you are in control of a little ball, which is constantly bouncing around. Your goal is to bounce through all 50 unique levels by collecting every heart you can find on your way.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gb/screenshots/homebrew/THEBOUNCINGBALL.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gb/titlescreens/homebrew/THEBOUNCINGBALL.png?raw=true"
+    ]
+  },
+  "tags": ["puzzle", "platform"]
+}

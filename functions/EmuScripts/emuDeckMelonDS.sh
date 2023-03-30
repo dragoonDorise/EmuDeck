@@ -1,44 +1,48 @@
 #!/bin/bash
 #variables
-MelonDS_emuName="MelonDS"
-MelonDS_emuType="FlatPak"
-MelonDS_emuPath="net.kuribo64.melonDS"
-MelonDS_releaseURL=""
-MelonDS_configFile="$HOME/.var/app/net.kuribo64.melonDS/config/melonDS/melonDS.ini"
+melonDS_emuName="MelonDS"
+melonDS_emuType="FlatPak"
+melonDS_emuPath="net.kuribo64.melonDS"
+melonDS_releaseURL=""
+melonDS_configFile="$HOME/.var/app/net.kuribo64.melonDS/config/melonDS/melonDS.ini"
 
 #cleanupOlderThings
-MelonDS_finalize(){
+melonDS_finalize(){
  echo "NYI"
 }
 
 #Install
-MelonDS_install(){
-	setMSG "Installing $MelonDS_emuName"	
-	installEmuFP "${MelonDS_emuName}" "${MelonDS_emuPath}"	
-	flatpak override "${MelonDS_emuPath}" --filesystem=host --user	
+melonDS_install(){
+	setMSG "Installing $melonDS_emuName"	
+	installEmuFP "${melonDS_emuName}" "${melonDS_emuPath}"	
+	flatpak override "${melonDS_emuPath}" --filesystem=host --user	
 }
 
 #ApplyInitialSettings
-MelonDS_init(){
-	setMSG "Initializing $MelonDS_emuName settings."	
-	configEmuFP "${MelonDS_emuName}" "${MelonDS_emuPath}" "true"
-	MelonDS_setupStorage
-	MelonDS_setEmulationFolder
-	MelonDS_setupSaves
+melonDS_init(){
+	setMSG "Initializing $melonDS_emuName settings."	
+	configEmuFP "${melonDS_emuName}" "${melonDS_emuPath}" "true"
+	melonDS_setupStorage
+	melonDS_setEmulationFolder
+	melonDS_setupSaves
+	melonDS_addSteamInputProfile
+
 }
 
 #update
-MelonDS_update(){
-	setMSG "Updating $MelonDS_emuName settings."	
-	configEmuFP "${MelonDS_emuName}" "${MelonDS_emuPath}"
-	MelonDS_setupStorage
-	MelonDS_setEmulationFolder
-	MelonDS_setupSaves
+melonDS_update(){
+	setMSG "Updating $melonDS_emuName settings."	
+	configEmuFP "${melonDS_emuName}" "${melonDS_emuPath}"
+	melonDS_setupStorage
+	melonDS_setEmulationFolder
+	melonDS_setupSaves
+	melonDS_addSteamInputProfile
+
 }
 
 #ConfigurePaths
-MelonDS_setEmulationFolder(){
-	setMSG "Setting $MelonDS_emuName Emulation Folder"	
+melonDS_setEmulationFolder(){
+	setMSG "Setting $melonDS_emuName Emulation Folder"	
 
 	BIOS9PathSetting='BIOS9Path='
 	BIOS7PathSetting='BIOS7Path='
@@ -49,20 +53,20 @@ MelonDS_setEmulationFolder(){
 	DSiNANDPathSetting='DSiNANDPath='
 	LastROMFolderSetting='LastROMFolder='
 
-	changeLine "$BIOS9PathSetting" "${BIOS9PathSetting}${biosPath}/bios9.bin" "${MelonDS_configFile}"
-	changeLine "$BIOS7PathSetting" "${BIOS7PathSetting}${biosPath}/bios7.bin" "${MelonDS_configFile}"
-	changeLine "$FirmwarePathSetting" "${FirmwarePathSetting}${biosPath}/firmware.bin" "${MelonDS_configFile}"
-	changeLine "$DSiBIOS9PathSetting" "${DSiBIOS9PathSetting}${biosPath}/dsi_bios9.bin" "${MelonDS_configFile}"
-	changeLine "$DSiBIOS7PathSetting" "${DSiBIOS7PathSetting}${biosPath}/dsi_bios7.bin" "${MelonDS_configFile}"
-	changeLine "$DSiFirmwarePathSetting" "${DSiFirmwarePathSetting}${biosPath}/dsi_firmware.bin" "${MelonDS_configFile}"
-	changeLine "$DSiNANDPathSetting" "${DSiNANDPathSetting}${biosPath}/dsi_nand.bin" "${MelonDS_configFile}"
-	changeLine "$LastROMFolderSetting" "${LastROMFolderSetting}${romsPath}/nds" "${MelonDS_configFile}"
+	changeLine "$BIOS9PathSetting" "${BIOS9PathSetting}${biosPath}/bios9.bin" "${melonDS_configFile}"
+	changeLine "$BIOS7PathSetting" "${BIOS7PathSetting}${biosPath}/bios7.bin" "${melonDS_configFile}"
+	changeLine "$FirmwarePathSetting" "${FirmwarePathSetting}${biosPath}/firmware.bin" "${melonDS_configFile}"
+	changeLine "$DSiBIOS9PathSetting" "${DSiBIOS9PathSetting}${biosPath}/dsi_bios9.bin" "${melonDS_configFile}"
+	changeLine "$DSiBIOS7PathSetting" "${DSiBIOS7PathSetting}${biosPath}/dsi_bios7.bin" "${melonDS_configFile}"
+	changeLine "$DSiFirmwarePathSetting" "${DSiFirmwarePathSetting}${biosPath}/dsi_firmware.bin" "${melonDS_configFile}"
+	changeLine "$DSiNANDPathSetting" "${DSiNANDPathSetting}${biosPath}/dsi_nand.bin" "${melonDS_configFile}"
+	changeLine "$LastROMFolderSetting" "${LastROMFolderSetting}${romsPath}/nds" "${melonDS_configFile}"
 
 }
 
 #SetupSaves
-MelonDS_setupSaves(){
-	setMSG "Setting $MelonDS_emuName Saves Folder"	
+melonDS_setupSaves(){
+	setMSG "Setting $melonDS_emuName Saves Folder"	
 
 	mkdir -p "${savesPath}/melonds/saves"
 	mkdir -p "${savesPath}/melonds/states"
@@ -70,85 +74,87 @@ MelonDS_setupSaves(){
 	SaveFilePathSetting='SaveFilePath='
 	SavestatePathSetting='SavestatePath='
 
-	changeLine "$SaveFilePathSetting" "${SaveFilePathSetting}${savesPath}/melonds/saves" "${MelonDS_configFile}"
-	changeLine "$SavestatePathSetting" "${SavestatePathSetting}${savesPath}/melonds/states" "${MelonDS_configFile}"
+	changeLine "$SaveFilePathSetting" "${SaveFilePathSetting}${savesPath}/melonds/saves" "${melonDS_configFile}"
+	changeLine "$SavestatePathSetting" "${SavestatePathSetting}${savesPath}/melonds/states" "${melonDS_configFile}"
 	
 }
 
 
 #SetupStorage
-MelonDS_setupStorage(){
-	setMSG "Setting $MelonDS_emuName Storage Folder"	
+melonDS_setupStorage(){
+	setMSG "Setting $melonDS_emuName Storage Folder"	
 
 	mkdir -p "$storagePath/melonDS/cheats"
 
 	CheatFilePathSetting='CheatFilePath='
 
-	changeLine "$CheatFilePathSetting" "${CheatFilePathSetting}${storagePath}/melonds/cheats" "${MelonDS_configFile}"
+	changeLine "$CheatFilePathSetting" "${CheatFilePathSetting}${storagePath}/melonds/cheats" "${melonDS_configFile}"
 	
 }
 
 
 #WipeSettings
-MelonDS_wipe(){
-	setMSG "Wiping $MelonDS_emuName config directory. (factory reset)"
-	rm -rf "$HOME/.var/app/$MelonDS_emuPath"
+melonDS_wipe(){
+	setMSG "Wiping $melonDS_emuName config directory. (factory reset)"
+	rm -rf "$HOME/.var/app/$melonDS_emuPath"
 }
 
 
 #Uninstall
-MelonDS_uninstall(){
-	setMSG "Uninstalling $MelonDS_emuName."
-    flatpak uninstall "$MelonDS_emuPath" --user -y
+melonDS_uninstall(){
+	setMSG "Uninstalling $melonDS_emuName."
+    flatpak uninstall "$melonDS_emuPath" --user -y
 }
 
 #setABXYstyle
-MelonDS_setABXYstyle(){
+melonDS_setABXYstyle(){
     	echo "NYI"
 }
 
 #Migrate
-MelonDS_migrate(){
+melonDS_migrate(){
 echo "NYI"
 }
 
 #WideScreenOn
-MelonDS_wideScreenOn(){
+melonDS_wideScreenOn(){
 echo "NYI"
 }
 
 #WideScreenOff
-MelonDS_wideScreenOff(){
+melonDS_wideScreenOff(){
 echo "NYI"
 }
 
 #BezelOn
-MelonDS_bezelOn(){
+melonDS_bezelOn(){
 echo "NYI"
 }
 
 #BezelOff
-MelonDS_bezelOff(){
+melonDS_bezelOff(){
 decho "NYI"
 }
 
 #finalExec - Extra stuff
-MelonDS_finalize(){
+melonDS_finalize(){
 	echo "NYI"
 }
 
-MelonDS_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$MelonDS_emuPath")" == "$MelonDS_emuPath" ]; then
+melonDS_IsInstalled(){
+	if [ "$(flatpak --columns=app list | grep "$melonDS_emuPath")" == "$melonDS_emuPath" ]; then
 		echo "true"
 	else
 		echo "false"
 	fi
 }
 
-MelonDS_resetConfig(){
-	MelonDS_init &>/dev/null && echo "true" || echo "false"
+melonDS_resetConfig(){
+	melonDS_init &>/dev/null && echo "true" || echo "false"
 }
 
-MelonDS_addSteamInputProfile(){
-	echo "nyi"
+melonDS_addSteamInputProfile(){
+	addSteamInputCustomIcons
+	setMSG "Adding $melonDS_emuName Steam Input Profile."
+	rsync -r "$EMUDECKGIT/configs/steam-input/melonds_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

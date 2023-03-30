@@ -1,4 +1,6 @@
 #!/bin/bash
+source "$EMUDECKGIT/functions/all.sh"
+
 doUninstall=false
 doUninstallRA=true
 doUninstallDolphin=true
@@ -250,18 +252,12 @@ if [ "$doUninstall" == true ]; then
 	
 	rm -rf ~/.config/steam-rom-manager
 	rm -rf ~/.config/EmuDeck
-	rm -rf ~/Emulation/bios &>> /dev/null
-	rm -rf ~/Emulation/hdpacks &>> /dev/null	
-	rm -rf ~/Emulation/saves &>> /dev/null	
-	rm -rf ~/Emulation/storage &>> /dev/null	
-	rm -rf ~/Emulation/tools &>> /dev/null
 	
-	
-	rm -rf /run/media/mmcblk0p1/Emulation/bios &>> /dev/null
-	rm -rf /run/media/mmcblk0p1/Emulation/hdpacks &>> /dev/null	
-	rm -rf /run/media/mmcblk0p1/Emulation/saves &>> /dev/null	
-	rm -rf /run/media/mmcblk0p1/Emulation/storage &>> /dev/null	
-	rm -rf /run/media/mmcblk0p1/Emulation/tools &>> /dev/null	
+	rm -rf "toolsPath"
+	rm -rf "biosPath"
+	rm -rf "savesPath"
+	rm -rf "storagePath"
+	rm -rf "ESDEscrapData"
 
 	
 	 text="`printf " <b>Done!</b>\n\n We are sad to see you go and we really hope you give us a chance on the future\n\nYour roms are still on your Emulation folder, please delete it manually if you want"`"

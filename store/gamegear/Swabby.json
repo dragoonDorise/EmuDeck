@@ -1,0 +1,18 @@
+{
+  "system": "gb",
+  "status": "true",
+  "logo": "logo_gb",
+  "title": "Swabby",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/gamegear/Swabby.zip",
+  "description": "You must take control of Swabby as he travels through three challenging rounds of 8-bit craziness. Start on Altered Beast's graveyard, and proceed to Sonic's Green Zone. Then prepare for the last stage, which is set in the unforgiving streets of Shinobi.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gamegear/screenshots/homebrew/Swabby.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gamegear/titlescreens/homebrew/Swabby.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

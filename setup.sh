@@ -85,7 +85,9 @@ else
 	exit
 fi
 
-exec > >(tee "${LOGFILE}") 2>&1
+#exec > >(tee "${LOGFILE}") 2>&1
+#Installation log
+{
 date "+%Y.%m.%d-%H:%M:%S %Z"
 #Mark if this not a fresh install
 FOLDER="$HOME/.config/EmuDeck/"
@@ -239,11 +241,6 @@ if [ $doInstallSRM == "true" ]; then
 	echo "install srm"
 	SRM_install
 fi
-#Emulators Installation
-# if [ "$doInstallPCSX2" == "true" ]; then
-# 	echo "install pcsx2"
-# 	PCSX2_install
-# fi
 if [ "$doInstallPCSX2QT" == "true" ]; then	
 	echo "install pcsx2Qt"
 	PCSX2QT_install
@@ -316,6 +313,14 @@ if [ $doInstallMGBA == "true" ]; then
 	echo "mGBA_install"
 	mGBA_install
 fi
+if [ $doInstallRMG == "true" ]; then
+	echo "RMG_install"
+	RMG_install
+fi
+if [ $doInstallmelonDS == "true" ]; then
+	echo "melonDS_install"
+	melonDS_install
+fi
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ "$doInstallXenia" == "true" ]; then
 	echo "Xenia_install"
@@ -353,10 +358,6 @@ if [ "$doSetupDolphin" == "true" ]; then
 	echo "Dolphin_init"
 	Dolphin_init
 fi
-# if [ "$doSetupPCSX2" == "true" ]; then
-# 	echo "PCSX2_init"
-# 	PCSX2_init
-# fi
 if [ "$doSetupPCSX2QT" == "true" ]; then
 	echo "PCSX2QT_init"
 	PCSX2QT_init
@@ -400,6 +401,14 @@ fi
 if [ "$doSetupVita3K" == "true" ]; then
 	echo "Vita3K_init"
 	Vita3K_init
+fi
+if [ "$doSetupRMG" == "true" ]; then
+	echo "RMG_init"
+	RMG_init
+fi
+if [ "$doSetupmelonDS" == "true" ]; then
+	echo "melonDS_init"
+	melonDS_init
 fi
 if [ "$doSetupMGBA" == "true" ]; then
 	echo "mGBA_init"
@@ -785,3 +794,4 @@ elif [ "$uiMode" == 'whiptail' ]; then
 	echo "Finished on Whiptail"
 	sleep 9999
 fi
+} | tee "${LOGFILE}" 2>&1

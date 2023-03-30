@@ -1,0 +1,18 @@
+{
+  "system": "snes",
+  "status": "true",
+  "logo": "logo_snes",
+  "title": "GunmanClive (Demo)",
+  "url": "http://www.gunmanclive.com/snes/",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/snes/GunmanClive.zip",
+  "description": "Gunman Clive is a platform game developed and published by Swedish indie video game development studio Hörberg Productions. The game follows a lone gunslinger in a futuristic Wild West as he tries to save the mayor's daughter from a group of technologically well-armed bandits.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/screenshots/homebrew/GunmanClive.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/titlescreens/homebrew/GunmanClive.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

@@ -1,0 +1,18 @@
+{
+  "system": "snes",
+  "status": "true",
+  "logo": "logo_snes",
+  "title": "Sure Instinct",
+  "url": "https://bennysnesdev.itch.io/sure-instinct",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/snes/Sure Instinct.zip",
+  "description": "Sure Instinct is a skill based puzzle-game. Steer a ball through challenging maps to the goal of each stage.By changing the perspective, you can reach objects on two different sides of each map. Avoid falling down into the abyss or to lose your health on dangerous objects. Collect items to reach new sections or to find hidden paths.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/screenshots/homebrew/Sure Instinct.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/titlescreens/homebrew/Sure Instinct.png?raw=true"
+    ]
+  },
+  "tags": ["puzzle"]
+}

@@ -11,7 +11,10 @@
     <save_screenshot>true</save_screenshot>
     <vk_warning>false</vk_warning>
     <gp_download>true</gp_download>
+    <macos_disclaimer>false</macos_disclaimer>
     <fullscreen>false</fullscreen>
+    <proxy_server></proxy_server>
+    <disable_screensaver>true</disable_screensaver>
     <console_language>1</console_language>
     <window_position>
         <x>-1</x>
@@ -35,12 +38,12 @@
     <GameList>
         <style>0</style>
         <order>{0, 1, 2, 3, 4, 5, 6, 7}</order>
-        <name_width>-3</name_width>
-        <version_width>-3</version_width>
-        <dlc_width>-3</dlc_width>
-        <game_time_width>-3</game_time_width>
-        <game_started_width>-3</game_started_width>
-        <region_width>-3</region_width>
+        <name_width>500</name_width>
+        <version_width>60</version_width>
+        <dlc_width>50</dlc_width>
+        <game_time_width>140</game_time_width>
+        <game_started_width>160</game_started_width>
+        <region_width>300</region_width>
     </GameList>
     <RecentLaunchFiles/>
     <RecentNFCFiles/>
@@ -58,7 +61,7 @@
         <DownscaleFilter>0</DownscaleFilter>
         <FullscreenScaling>0</FullscreenScaling>
         <AsyncCompile>true</AsyncCompile>
-        <VulkanAccurateBarriers>false</VulkanAccurateBarriers>
+        <vkAccurateBarriers>true</vkAccurateBarriers>
         <Overlay>
             <Position>0</Position>
             <TextColor>4294967295</TextColor>
@@ -82,21 +85,26 @@
         </Notification>
     </Graphic>
     <Audio>
-        <api>0</api>
+        <api>3</api>
         <delay>2</delay>
         <TVChannels>1</TVChannels>
         <PadChannels>1</PadChannels>
+        <InputChannels>1</InputChannels>
         <TVVolume>100</TVVolume>
         <PadVolume>0</PadVolume>
-        <TVDevice>default</TVDevice>
+        <InputVolume>20</InputVolume>
+        <TVDevice>alsa_output.pci-0000_04_00.5-platform-acp5x_mach.0.HiFi__hw_acp5x_1__sink</TVDevice>
         <PadDevice></PadDevice>
+        <InputDevice>alsa_input.pci-0000_04_00.5-platform-acp5x_mach.0.HiFi__hw_acp5x_0__source</InputDevice>
     </Audio>
     <Account>
         <PersistentId>2147483649</PersistentId>
         <OnlineEnabled>false</OnlineEnabled>
+        <ActiveService>0</ActiveService>
     </Account>
     <Debug>
-        <CrashDump>0</CrashDump>
+        <CrashDumpUnix>0</CrashDumpUnix>
+        <GDBPort>1337</GDBPort>
     </Debug>
     <Input>
         <DSUC host="127.0.0.1" port="26760"/>

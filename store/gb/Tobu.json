@@ -1,0 +1,18 @@
+{
+  "system": "gb",
+  "status": "true",
+  "logo": "logo_gb",
+  "title": "Tobu",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/gb/tobu.zip",
+  "description": "Your cat is floating into the atmosphere and you are the only one who can save it. Jump, dash, and flap your arms to maneuver around perilous obstacles racing against the clock to retrieve your pet friend before it is too late!",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gb/screenshots/homebrew/tobu.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gb/titlescreens/homebrew/tobu.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}
