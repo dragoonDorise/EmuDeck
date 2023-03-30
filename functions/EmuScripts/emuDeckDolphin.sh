@@ -45,8 +45,8 @@ Dolphin_init(){
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
-    Dolphin_cleanup
-    Dolphin_DynamicInputTextures
+  Dolphin_cleanup
+  #Dolphin_DynamicInputTextures
 }
 
 #update
@@ -173,13 +173,9 @@ Dolphin_DynamicInputTextures(){
     ln -s "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Load/" "$storagePath/dolphin/Load/"
   fi
   
-  
-  if safeDownload "UniversalDynamicInput" "$DIT_releaseURL" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Load/DynamicInputTextures.7z" "false"; then
-      
-    7z "$storagePath/dolphin/Load/DynamicInputTextures.7z" -o"$storagePath/dolphin/Load/" && rm -rf "$storagePath/Dolphin/Load/DynamicInputTextures.7z"
-    
+  if safeDownload "UniversalDynamicInput" "$DIT_releaseURL" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Load/DynamicInputTextures.7z" "false"; then      
+    7z "$storagePath/dolphin/Load/DynamicInputTextures.7z" -o"$storagePath/dolphin/Load/" && rm -rf "$storagePath/Dolphin/Load/DynamicInputTextures.7z"    
   else
     return 1
   fi
-  
 }
