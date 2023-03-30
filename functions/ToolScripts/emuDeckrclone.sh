@@ -294,3 +294,17 @@ rclone_createBackup(){
             rclone_runJobOnce
         fi
 }
+
+rclone_uploadEmu(){
+  emuName=$1
+  if [ -e "$toolsPath/rclone/rclone" ]; then
+    "$toolsPath/rclone/rclone" sync -P -L "$savesPath"/$emuName "$rclone_provider":Emudeck/saves/$emuName | zenity --progress --title="Uploading saves" --text="Please stand by..." --auto-close --width 600 --height 300 --pulsate
+  fi
+}
+
+rclone_downloadEmu(){
+  emuName=$1
+  if [ -e "$toolsPath/rclone/rclone" ]; then
+    "$toolsPath/rclone/rclone" sync -P -L "$rclone_provider":Emudeck/saves/$emuName "$savesPath"/$emuName  
+  fi
+}
