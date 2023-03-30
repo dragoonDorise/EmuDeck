@@ -62,68 +62,6 @@
     }
   },
   {
-    "parserType": "Glob-regex",
-    "configTitle": "EmuDeck Configurator Beta",
-    "steamCategory": "${Emulation}",
-    "executableArgs": "--no-sandbox",
-    "executableModifier": "\"${exePath}\"",
-    "romDirectory": "/home/deck/Applications/",
-    "steamDirectory": "${steamdirglobal}",
-    "startInDirectory": "",
-    "imageProviders": ["SteamGridDB"],
-    "titleModifier": "EmuDeck Configurator Beta",
-    "onlineImageQueries": "${${fuzzyTitle}}",
-    "imagePool": "${fuzzyTitle}",
-    "defaultImage": "",
-    "defaultTallImage": "",
-    "defaultHeroImage": "",
-    "defaultLogoImage": "",
-    "defaultIcon": "",
-    "localImages": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/grid.png",
-    "localTallImages": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/poster.png",
-    "localHeroImages": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
-    "localLogoImages": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
-    "localIcons": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
-    "disabled": false,
-    "executable": {
-      "path": "",
-      "shortcutPassthrough": false,
-      "appendArgsToExecutable": false
-    },
-    "userAccounts": {
-      "specifiedAccounts": "",
-      "skipWithMissingDataDir": true,
-      "useCredentials": true
-    },
-    "parserInputs": {
-      "glob-regex": "${/(^(.*?(\\bEmuDeck-beta\\b)[^$]*)$)/}@(.AppImage)"
-    },
-    "titleFromVariable": {
-      "limitToGroups": "",
-      "caseInsensitiveVariables": false,
-      "skipFileIfVariableWasNotFound": false,
-      "tryToMatchTitle": false
-    },
-    "fuzzyMatch": {
-      "replaceDiacritics": true,
-      "removeCharacters": true,
-      "removeBrackets": true
-    },
-    "parserId": "164224436516097450",
-    "version": 10,
-    "imageProviderAPIs": {
-      "SteamGridDB": {
-        "nsfw": false,
-        "humor": false,
-        "imageMotionTypes": ["static"],
-        "styles": [],
-        "stylesHero": [],
-        "stylesLogo": [],
-        "stylesIcon": []
-      }
-    }
-  },
-  {
     "parserType": "Glob",
     "configTitle": "Emulators",
     "steamCategory": "${Emulation}",
@@ -1360,79 +1298,75 @@
     }
   },
   {
-      "parserType": "Glob",
-      "configTitle": "Microsoft Xbox 360 - Xenia - XBLA",
-      "steamCategory": "${Xbox 360}",
-      "steamDirectory": "${steamdirglobal}",
-      "romDirectory": "${romsdirglobal}/xbox360/roms/",
-      "executableArgs": "\"Z:${filePath}\"",
-      "executableModifier": "\"${exePath}\"",
-      "startInDirectory": "",
-      "titleModifier": "${fuzzyTitle}",
-      "fetchControllersButton": null,
-      "imageProviders": [
-          "SteamGridDB"
-      ],
-      "onlineImageQueries": "${${fuzzyTitle}}",
-      "imagePool": "${fuzzyTitle}",
-      "defaultImage": "",
-      "defaultTallImage": "",
-      "defaultHeroImage": "",
-      "defaultLogoImage": "",
-      "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
-      "localImages": "",
-      "localTallImages": "",
-      "localHeroImages": "",
-      "localLogoImages": "",
-      "localIcons": "",
-      "userAccounts": {
-          "specifiedAccounts": "",
-          "skipWithMissingDataDir": true,
-          "useCredentials": true
-      },
-      "executable": {
-          "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh",
-          "shortcutPassthrough": false,
-          "appendArgsToExecutable": true
-      },
-      "parserInputs": {
-          "glob": "xbla/**/${title}"
-      },
-      "titleFromVariable": {
-          "limitToGroups": "",
-          "caseInsensitiveVariables": false,
-          "skipFileIfVariableWasNotFound": false,
-          "tryToMatchTitle": false
-      },
-      "fuzzyMatch": {
-          "replaceDiacritics": true,
-          "removeCharacters": true,
-          "removeBrackets": true
-      },
-      "controllers": {
-          "ps4": null,
-          "ps5": null,
-          "xbox360": null,
-          "xboxone": null,
-          "switch_joycon": null,
-          "switch_pro": null,
-          "neptune": null
-      },
-      "imageProviderAPIs": {
-          "SteamGridDB": {
-              "nsfw": false,
-              "humor": false,
-              "styles": [],
-              "stylesHero": [],
-              "stylesLogo": [],
-              "stylesIcon": [],
-              "imageMotionTypes": [
-                  "static"
-              ]
-          }
-      },
-      "parserId": "167851246183635366",
-      "version": 11
+    "parserType": "Glob",
+    "configTitle": "Microsoft Xbox 360 - Xenia - XBLA",
+    "steamCategory": "${Xbox 360}",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/xbox360/roms/",
+    "executableArgs": "\"Z:${filePath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "fetchControllersButton": null,
+    "imageProviders": ["SteamGridDB"],
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "executable": {
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "parserInputs": {
+      "glob": "xbla/**/${title}"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "controllers": {
+      "ps4": null,
+      "ps5": null,
+      "xbox360": null,
+      "xboxone": null,
+      "switch_joycon": null,
+      "switch_pro": null,
+      "neptune": null
+    },
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": [],
+        "imageMotionTypes": ["static"]
+      }
+    },
+    "parserId": "167851246183635366",
+    "version": 11
   },
   {
     "parserType": "Glob",
@@ -1607,6 +1541,68 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785598952083233",
+    "version": 10,
+    "imageProviderAPIs": {
+      "SteamGridDB": {
+        "nsfw": false,
+        "humor": false,
+        "imageMotionTypes": ["static"],
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": []
+      }
+    }
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "Nintendo GameBoy - Retroarch - Sameboy",
+    "steamCategory": "${GameBoy}",
+    "executableModifier": "\"${exePath}\"",
+    "romDirectory": "${romsdirglobal}",
+    "steamDirectory": "${steamdirglobal}",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}sameboy_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "imageProviders": ["SteamGridDB"],
+    "defaultImage": "",
+    "defaultTallImage": "",
+    "defaultHeroImage": "",
+    "defaultLogoImage": "",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "localImages": "",
+    "localTallImages": "",
+    "localHeroImages": "",
+    "localLogoImages": "",
+    "localIcons": "",
+    "disabled": true,
+    "userAccounts": {
+      "specifiedAccounts": "",
+      "skipWithMissingDataDir": true,
+      "useCredentials": true
+    },
+    "parserInputs": {
+      "glob": "{gb/**/!(homebrew),gb}/${title}@(.7z|.7Z|.gb|.GB|.dmg|.DMG|.zip|.ZIP)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false,
+      "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "executable": {
+      "path": "${retroarchpath}",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": true
+    },
+    "parserId": "164785590985613233",
     "version": 10,
     "imageProviderAPIs": {
       "SteamGridDB": {
@@ -4266,7 +4262,7 @@
     "steamCategory": "${PlayStation Vita}",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "${romsdirglobal}${/}psvita",
-    "executableArgs": "-Fr \"${/.*[\/\\]([^\/\\]+)[\/\\]/|${filePath}}\"",
+    "executableArgs": "-Fr \"${/.*[/\\]([^/\\]+)[/\\]/|${filePath}}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
