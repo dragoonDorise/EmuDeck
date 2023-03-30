@@ -56,9 +56,10 @@ emuDeckUnInstallHomebrewGame(){
 	system=$1
 	gameName=$2
 	game=$3
-
-	rm -rf ${romsPath}/${system}/homebrew/${gameName}.zip && \
-	rm -rf  ${toolsPath}/downloaded_media/${system}/screenshots/homebrew/${gameName}.zip && \
-	rm -rf  ${toolsPath}/downloaded_media/${system}/titlescreens/homebrew/${gameName}.zip && echo 'true'
+	echo ${romsPath}/${system}/homebrew/${gameName}.zip;
+	
+	rm -rf "${romsPath}/${system}/homebrew/${gameName}.zip" && \
+	rm -rf  "${toolsPath}/downloaded_media/${system}/screenshots/homebrew/${gameName}.png" && \
+	rm -rf "${toolsPath}/downloaded_media/${system}/titlescreens/homebrew/${gameName}.png" && echo 'true'
 
 }
