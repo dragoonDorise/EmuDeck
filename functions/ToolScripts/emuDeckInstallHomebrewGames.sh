@@ -51,3 +51,14 @@ emuDeckInstallHomebrewGame(){
 	curl "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/titlescreens/homebrew/${gameNameUrl}.png" -o "${toolsPath}/downloaded_media/${system}/titlescreens/homebrew/${gameName}.png" && echo 'true'
 
 }
+
+emuDeckUnInstallHomebrewGame(){
+	system=$1
+	gameName=$2
+	game=$3
+
+	rm -rf ${romsPath}/${system}/homebrew/${gameName}.zip && \
+	rm -rf  ${toolsPath}/downloaded_media/${system}/screenshots/homebrew/${gameName}.zip && \
+	rm -rf  ${toolsPath}/downloaded_media/${system}/titlescreens/homebrew/${gameName}.zip && echo 'true'
+
+}
