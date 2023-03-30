@@ -589,6 +589,7 @@ RetroArch_atari2600_CRTshaderOff(){
 RetroArch_mame_setConfig(){	
 	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'  'input_player1_analog_dpad_mode' '"1"'
 	RetroArch_setOverride 'mame.cfg' 'MAME'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'mame.cfg' 'MAME'  'cheevos_enable = "false"'
 }
 
 RetroArch_mame_bezelOn(){
