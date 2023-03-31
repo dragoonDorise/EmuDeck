@@ -6,6 +6,7 @@
 declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
 declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
 declare -a csofolderWhiteList=("psp")
+declare -a 3dsfolderWhiteList=("3ds")
 declare -a searchFolderList
 
 #executables
@@ -70,6 +71,20 @@ compressCSO() {
 	else
 		echo "error converting $file"
 		rm -f "${file%.*}.cso"
+	fi
+
+}
+
+trim3ds() {
+	local file=$1
+	local successful=''
+	# Rename trimmed files to *(Trimmed).3ds
+	3dstool -r -f "$file" && successful="true"
+	if [[ $successful == "true" ]]; then
+		echo "$file succesfully converted to ${file%.*}.cso"
+		mv "$file" "${file%%.*}(Trimmed).3ds"
+	else
+		echo "error converting $file"
 	fi
 
 }
@@ -209,7 +224,6 @@ if [ "$selection" == "bulk" ]; then
 	done
 
 	#cso
-
 	for romfolder in "${romfolders[@]}"; do
 		if [[ " ${csofolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
 			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
@@ -219,10 +233,21 @@ if [ "$selection" == "bulk" ]; then
 		fi
 	done
 
+	#3ds
+	for romfolder in "${romfolders[@]}"; do
+		if [[ " ${3dsfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+			# Ignore trimmed files
+			find "$romsPath/$romfolder" -type f -iname "*.3ds" ! -name '*(Trimmed)*' | while read -r f; do
+				echo "Converting: $f"
+				trim3ds "$f"
+			done
+		fi
+	done
+
 elif [ "$selection" == "Pick a file" ]; then
 
 	#/bin/bash
-	f=$(zenity --file-selection --file-filter='Discs (cue,gdi,iso,gcm) | *.cue *.gdi *.iso *.gcm' --file-filter='All files | *' 2>/dev/null)
+	f=$(zenity --file-selection --file-filter='Discs (cue,gdi,iso,gcm) | *.cue *.gdi *.iso *.gcm *.3ds' --file-filter='All files | *' 2>/dev/null)
 	ext=$(echo "${f##*.}" | awk '{print tolower($0)}')
 	case $ext in
 
@@ -240,6 +265,10 @@ elif [ "$selection" == "Pick a file" ]; then
 
 	cue)
 		echo cue
+		;;
+
+	3ds)
+		echo 3ds
 		;;
 	esac
 
