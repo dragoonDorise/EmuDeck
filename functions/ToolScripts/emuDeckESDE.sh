@@ -97,7 +97,7 @@ ESDE_applyTheme(){
     fi
     echo "ESDE: applyTheme $theme"
     mkdir -p "$HOME/.emulationstation/themes/"
-	git clone https://github.com/dragoonDorise/es-theme-epicnoir.git "$HOME/.emulationstation/themes/es-epicnoir" --depth=1
+	git clone https://github.com/dragoonDorise/es-theme-epicnoir.git "$HOME/.emulationstation/themes/es-epicnoir"
 	cd "$HOME/.emulationstation/themes/es-epicnoir" && git reset --hard HEAD && git clean -f -d && git pull && echo  "epicnoir up to date!" || echo "problem pulling epicnoir theme"
 	
 	if [[ "$theme" == *"EPICNOIR"* ]]; then
