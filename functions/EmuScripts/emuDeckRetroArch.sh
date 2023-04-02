@@ -1921,6 +1921,7 @@ RetroArch_installCores(){
 				dosbox_core_libretro.so \
 				dosbox_pure_libretro.so \
 				easyrpg_libretro.so \
+				fbalpha2012_libretro.so \
 				fbneo_libretro.so \
 				flycast_libretro.so \
 				freechaf_libretro.so \
@@ -1932,6 +1933,7 @@ RetroArch_installCores(){
 				genesis_plus_gx_libretro.so \
 				genesis_plus_gx_wide_libretro.so \
 				gw_libretro.so \
+				handy_libretro.so \
 				hatari_libretro.so \
 				kronos_libretro.so \
 				lutro_libretro.so \
@@ -1949,10 +1951,12 @@ RetroArch_installCores(){
 				mednafen_wswan_libretro.so \
 				melonds_libretro.so \
 				mesen_libretro.so \
+				mesen-s_libretro.so \
 				mgba_libretro.so \
 				minivmac_libretro.so \
 				mu_libretro.so \
 				mupen64plus_next_libretro.so \
+				neocd_libretro.so \
 				nestopia_libretro.so \
 				np2kai_libretro.so \
 				nxengine_libretro.so \
@@ -1960,6 +1964,7 @@ RetroArch_installCores(){
 				opera_libretro.so \
 				picodrive_libretro.so \
 				pokemini_libretro.so \
+				potator_libretro.so \
 				ppsspp_libretro.so \
 				prboom_libretro.so \
 				prosystem_libretro.so \
@@ -1969,6 +1974,7 @@ RetroArch_installCores(){
 				retro8_libretro.so \
 				same_cdi_libretro.so \
 				sameboy_libretro.so \
+				sameduck_libretro.so \
 				scummvm_libretro.so \
 				snes9x_libretro.so \
 				squirreljme_libretro.so \
@@ -1976,6 +1982,7 @@ RetroArch_installCores(){
 				swanstation_libretro.so \
 				theodore_libretro.so \
 				tic80_libretro.so \
+				tyrquake_libretro.so \
 				uzem_libretro.so \
 				vbam_libretro.so \
 				vecx_libretro.so \
@@ -1984,6 +1991,12 @@ RetroArch_installCores(){
 				vice_xscpu64_libretro.so \
 				vice_xvic_libretro.so \
 				virtualjaguar_libretro.so \
+				vitaquake2_libretro.so \
+				vitaquake2-rogue_libretro.so \
+				vitaquake2-xatrix_libretro.so \
+				vitaquake2-zaero_libretro.so \
+				vitaquake3_libretro.so \
+				wasm4_libretro.so \
 				x1_libretro.so \
 			)
 	setMSG "Downloading RetroArch Cores for EmuDeck"
