@@ -26,4 +26,7 @@ APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
 PROTONVER="- Experimental"
 
 # Call the Proton launcher script and give the arguments
+
+echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${XENIA}" "${@}" >> "${LOGFILE}"
+
 "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${XENIA}" "${@}"

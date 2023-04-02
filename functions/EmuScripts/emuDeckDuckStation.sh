@@ -4,7 +4,6 @@
 DuckStation_emuName="DuckStation"
 DuckStation_emuType="FlatPak"
 DuckStation_emuPath="org.duckstation.DuckStation"
-DuckStation_configFile="$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/settings.ini"
 DuckStation_configFileNew="$HOME/.var/app/org.duckstation.DuckStation/config/duckstation/settings.ini"
 
 #cleanupOlderThings
@@ -45,13 +44,13 @@ DuckStation_setEmulationFolder(){
 	setMSG "Setting $DuckStation_emuName Emulation Folder"	
     gameDirOpt='RecursivePaths = '
     newGameDirOpt="${gameDirOpt}""${romsPath}/psx"
+
 	biosDir='SearchDirectory = '
 	biosDirSetting="${biosDir}""${biosPath}"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$DuckStation_configFile"
-    sed -i "/${biosDir}/c\\${biosDirSetting}" "$DuckStation_configFile"
 
 	statesDir='SaveStates = '
 	statesDirSetting="${statesDir}""${savesPath}/duckstation/states"
+
 	memCardDir='Directory = '
 	memCardDirSetting="${memCardDir}""${savesPath}/duckstation/saves"
 
@@ -108,8 +107,6 @@ DuckStation_wideScreenOn(){
     wideScreenHackSetting='WidescreenHack = true'
     aspectRatio='AspectRatio = '
     aspectRatioSetting='AspectRatio = 16:9'
-    sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFile"
-	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$DuckStation_configFile"
 	sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFileNew"
 	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$DuckStation_configFileNew"
 }
@@ -122,8 +119,6 @@ DuckStation_wideScreenOff(){
     wideScreenHackSetting='WidescreenHack = false'
     aspectRatio='AspectRatio = '
     aspectRatioSetting='AspectRatio = 4:3'
-    sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFile"
-	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$DuckStation_configFile"
 	sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFileNew"
 	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$DuckStation_configFileNew"
 	
@@ -144,11 +139,6 @@ DuckStation_finalize(){
 	echo "NYI"
 }
 
-DuckStation_retroAchievementsSetLogin(){
-	rat=$(cat "$HOME/.config/EmuDeck/.rat")
-	changeLine 'Token = ' 'Token = "'"${rat}"'"' "$DuckStation_configFile" &>/dev/null && echo 'RetroAchievements Token set.' || echo 'RetroAchievements Token not set.'
-}
-
 DuckStation_IsInstalled(){
 	if [ "$(flatpak --columns=app list | grep "$DuckStation_emuPath")" == "$DuckStation_emuPath" ]; then
 		echo "true"
@@ -162,6 +152,39 @@ DuckStation_resetConfig(){
 }
 
 DuckStation_addSteamInputProfile(){
+	addSteamInputCustomIcons
 	setMSG "Adding $DuckStation_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/duckstation_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+}
+
+DuckStation_retroAchievementsOn(){
+	iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "Enabled" "True"
+}
+DuckStation_retroAchievementsOff(){
+	iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "Enabled" "False"
+}
+
+DuckStation_retroAchievementsHardCoreOn(){
+	iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "ChallengeMode" "True"
+	
+}
+DuckStation_retroAchievementsHardCoreOff(){
+	iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "ChallengeMode" "False"
+}
+
+
+DuckStation_retroAchievementsSetLogin(){	
+	rau=$(cat "$HOME/.config/EmuDeck/.rau")
+	rat=$(cat "$HOME/.config/EmuDeck/.rat")
+	echo "Evaluate RetroAchievements Login."
+	if [ ${#rat} -lt 1 ]; then
+		echo "--No token."
+	elif [ ${#rau} -lt 1 ]; then
+		echo "--No username."
+	else
+		echo "Valid Retroachievements Username and Password length"
+		iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "Username" "$rau"
+		iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "Token" "$rat"
+		PCSX2QT_retroAchievementsOn
+	fi
 }

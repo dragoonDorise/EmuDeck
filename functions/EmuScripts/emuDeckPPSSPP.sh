@@ -115,6 +115,7 @@ PPSSPP_finalize(){
 }
 
 PPSSPP_addSteamInputProfile(){
+	addSteamInputCustomIcons
 	setMSG "Adding $PPSSPP_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/ppsspp_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

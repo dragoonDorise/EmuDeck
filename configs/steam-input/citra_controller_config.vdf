@@ -3,12 +3,13 @@
 	"version"		"3"
 	"revision"		"7"
 	"title"		"EmuDeck - Citra 3DS"
-	"description"		"L4 Full Screen. R4 Swap Screens. L5 Toggle Layout. R5 Exit"
+	"description"		"L4 Full Screen. R4 Swap Screens. L5 Toggle Layout. R5 Exit."
 	"creator"		"76561197971521082"
 	"progenitor"		""
-	"url"		"workshop://2785450154"
-	"export_type"		"personal_cloud"
+	"url"		 "template://citra_controller_config.vdf"
+	"export_type"		"template"
 	"controller_type"		"controller_neptune"
+	"controller_caps"		"23117823"
 	"major_revision"		"0"
 	"minor_revision"		"0"
 	"Timestamp"		"4"
@@ -16,8 +17,8 @@
 	{
 		"english"
 		{
-			"title"		"Gamepad with Mouse Trackpad"
-			"description"		"The template works best for games that are designed with a gamepad in mind. The right trackpad will be bound to mouse emulation which may not work in all games."
+			"title"		"EmuDeck - Citra 3DS"
+			"description"		"L4 Full Screen. R4 Swap Screens. L5 Toggle Layout. R5 Exit."
 		}
 		"czech"
 		{
@@ -151,7 +152,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button A"
+							"binding"		"xinput_button A, , "
 						}
 					}
 				}
@@ -167,7 +168,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button B"
+							"binding"		"xinput_button B, , "
 						}
 					}
 				}
@@ -183,7 +184,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button X"
+							"binding"		"xinput_button X, , "
 						}
 					}
 				}
@@ -199,7 +200,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button Y"
+							"binding"		"xinput_button Y, , "
 						}
 					}
 				}
@@ -225,7 +226,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button dpad_up"
+							"binding"		"xinput_button dpad_up, , "
 						}
 						"settings"
 						{
@@ -245,7 +246,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button dpad_down"
+							"binding"		"xinput_button dpad_down, , "
 						}
 						"settings"
 						{
@@ -265,7 +266,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button dpad_right"
+							"binding"		"xinput_button dpad_right, , "
 						}
 						"settings"
 						{
@@ -285,7 +286,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button dpad_left"
+							"binding"		"xinput_button dpad_left, , "
 						}
 						"settings"
 						{
@@ -315,7 +316,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_RIGHT"
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
 						}
 					}
 				}
@@ -341,7 +342,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_LEFT"
+							"binding"		"xinput_button JOYSTICK_LEFT, , "
 						}
 						"settings"
 						{
@@ -403,7 +404,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_RIGHT"
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
 						}
 					}
 				}
@@ -429,7 +430,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_RIGHT"
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
 						}
 					}
 				}
@@ -455,7 +456,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_UP"
+							"binding"		"xinput_button DPAD_UP, , "
 						}
 						"settings"
 						{
@@ -475,7 +476,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_DOWN"
+							"binding"		"xinput_button DPAD_DOWN, , "
 						}
 						"settings"
 						{
@@ -495,7 +496,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_RIGHT"
+							"binding"		"xinput_button DPAD_RIGHT, , "
 						}
 						"settings"
 						{
@@ -515,7 +516,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_LEFT"
+							"binding"		"xinput_button DPAD_LEFT, , "
 						}
 						"settings"
 						{
@@ -550,7 +551,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button START"
+							"binding"		"xinput_button START, , "
 						}
 					}
 				}
@@ -576,7 +577,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button SELECT"
+							"binding"		"xinput_button SELECT, , "
 						}
 					}
 				}
@@ -602,7 +603,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"mouse_button LEFT"
+							"binding"		"mouse_button LEFT, , "
 						}
 					}
 				}
@@ -638,7 +639,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"mouse_button LEFT"
+							"binding"		"mouse_button LEFT, , "
 						}
 					}
 				}
@@ -664,7 +665,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_UP"
+							"binding"		"xinput_button DPAD_UP, , "
 						}
 					}
 				}
@@ -680,7 +681,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_LEFT"
+							"binding"		"xinput_button DPAD_LEFT, , "
 						}
 					}
 				}
@@ -710,8 +711,8 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_SHIFT, Save State, ghost_075_utility_020.png #232323 #00AD3D"
-							"binding"		"key_press L, Save State, ghost_075_utility_020.png #232323 #00AD3D"
+							"binding"		"key_press LEFT_SHIFT, Save State, EmuDeck_SaveState.png, #232323 #00AD00"
+							"binding"		"key_press L, Save State, EmuDeck_SaveState.png, #232323 #00AD00"
 						}
 					}
 				}
@@ -727,7 +728,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F4, Pause, ghost_090_media_0210.png #232323 #00ADAD"
+							"binding"		"key_press F4, Pause, EmuDeck_Pause.png, #232323 #00ADAD"
 						}
 					}
 				}
@@ -743,8 +744,8 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, Load State, ghost_075_utility_010.png #232323 #00AD00"
-							"binding"		"key_press V, Load State, ghost_075_utility_010.png #232323 #00AD00"
+							"binding"		"key_press LEFT_CONTROL, Load State, EmuDeck_LoadState.png, #232323 #00AD00"
+							"binding"		"key_press V, Load State, EmuDeck_LoadState.png, #232323 #00AD00"
 						}
 					}
 				}
@@ -760,7 +761,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F, Fullscreen, ghost_090_media_0050.png #232323 #ADA200"
+							"binding"		"key_press F, Fullscreen, EmuDeck_Menu.png, #232323 #ADA200"
 						}
 					}
 				}
@@ -776,8 +777,8 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, Fast Forward, ghost_090_media_0190.png #434343 #00ADAD"
-							"binding"		"key_press Z, Fast Forward, ghost_090_media_0190.png #434343 #00ADAD"
+							"binding"		"key_press LEFT_CONTROL, Fast Forward, EmuDeck_FastForward.png, #232323 #00ADAD"
+							"binding"		"key_press Z, Fast Forward, EmuDeck_FastForward.png, #232323 #00ADAD"
 						}
 					}
 				}
@@ -793,7 +794,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press S, Swap Screens, ghost_075_utility_040.png #232323 #FFFFFF"
+							"binding"		"key_press S, Swap Screens, EmuDeck_Reset.png, #232323 #FFFFFF"
 						}
 					}
 				}
@@ -809,7 +810,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press E, Change Layout, ghost_070_setting_0303.png"
+							"binding"		"key_press E, Change Layout, EmuDeck_SwapScreen.png, "
 						}
 					}
 				}
@@ -825,7 +826,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press X, Double Tap Exit, ghost_050_menu_0303.png #232323 #AD0000"
+							"binding"		"key_press X, Double Tap Exit, EmuDeck_Quit-Exit.png, #232323 #AD0000"
 						}
 					}
 				}
@@ -861,7 +862,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button start"
+							"binding"		"xinput_button start, , "
 						}
 					}
 				}
@@ -877,7 +878,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button select"
+							"binding"		"xinput_button select, , "
 						}
 					}
 				}
@@ -893,7 +894,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button shoulder_left"
+							"binding"		"xinput_button shoulder_left, , "
 						}
 					}
 				}
@@ -909,7 +910,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button shoulder_right"
+							"binding"		"xinput_button shoulder_right, , "
 						}
 					}
 				}
@@ -925,7 +926,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press E, Layout Toggle"
+							"binding"		"key_press E, Layout Toggle, , "
 						}
 					}
 				}
@@ -941,7 +942,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press X, Hold to Quit"
+							"binding"		"key_press X, Hold to Quit, , "
 						}
 						"settings"
 						{
@@ -961,7 +962,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F, Fullscreen Toggle"
+							"binding"		"key_press F, Fullscreen Toggle, , "
 						}
 					}
 				}
@@ -977,7 +978,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press S, Swap Screens"
+							"binding"		"key_press S, Swap Screens, , "
 						}
 					}
 				}
@@ -993,7 +994,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action system_key_1"
+							"binding"		"controller_action system_key_1, , "
 						}
 					}
 				}

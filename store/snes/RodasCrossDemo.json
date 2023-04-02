@@ -1,0 +1,18 @@
+{
+  "system": "snes",
+  "status": "true",
+  "logo": "logo_snes",
+  "title": "Rodas Cross (Demo)",
+  "url": "https://kaffeeware.github.io/",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/snes/Rodas Cross.zip",
+  "description": "Demo release of an action-adventure game with RPG elements for the Super Nintendo developed by Kaffeeware.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/screenshots/homebrew/Rodas Cross.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/titlescreens/homebrew/Rodas Cross.png?raw=true"
+    ]
+  },
+  "tags": ["rpg"]
+}

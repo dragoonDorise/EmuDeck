@@ -3,12 +3,13 @@
 	"version"		"3"
 	"revision"		"15"
 	"title"		"EmuDeck - Cemu"
-	"description"		"L5 Swap Screens. Amber Elec Hotkeys"
+	"description"		"L4/R4 - Toggle Screens. L5/R5 - Swap Screens."
 	"creator"		"76561197971521082"
-	"progenitor"		"template://cemu_controller_config.vdf"
+	"progenitor"		""
 	"url"		"template://cemu_controller_config.vdf"
-	"export_type"		"personal_cloud"
+	"export_type"		"template"
 	"controller_type"		"controller_neptune"
+	"controller_caps"		"23117823"
 	"major_revision"		"0"
 	"minor_revision"		"0"
 	"Timestamp"		"4"
@@ -16,8 +17,8 @@
 	{
 		"english"
 		{
-			"title"		"Gamepad with Mouse Trackpad"
-			"description"		"The template works best for games that are designed with a gamepad in mind. The right trackpad will be bound to mouse emulation which may not work in all games."
+			"title"		"EmuDeck - Cemu"
+			"description"		"L4/R4 - Toggle Screens. L5/R5 - Swap Screens."
 		}
 		"czech"
 		{
@@ -139,6 +140,7 @@
 	{
 		"id"		"0"
 		"mode"		"four_buttons"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -150,7 +152,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button A"
+							"binding"		"xinput_button A, , "
 						}
 					}
 				}
@@ -166,7 +168,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button B"
+							"binding"		"xinput_button B, , "
 						}
 					}
 				}
@@ -182,7 +184,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button X"
+							"binding"		"xinput_button X, , "
 						}
 					}
 				}
@@ -198,7 +200,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button Y"
+							"binding"		"xinput_button Y, , "
 						}
 					}
 				}
@@ -212,6 +214,7 @@
 	{
 		"id"		"1"
 		"mode"		"dpad"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -223,7 +226,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button dpad_up"
+							"binding"		"xinput_button dpad_up, , "
 						}
 						"settings"
 						{
@@ -243,7 +246,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button dpad_down"
+							"binding"		"xinput_button dpad_down, , "
 						}
 						"settings"
 						{
@@ -263,7 +266,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button dpad_right"
+							"binding"		"xinput_button dpad_right, , "
 						}
 						"settings"
 						{
@@ -283,7 +286,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button dpad_left"
+							"binding"		"xinput_button dpad_left, , "
 						}
 						"settings"
 						{
@@ -301,6 +304,7 @@
 	{
 		"id"		"2"
 		"mode"		"joystick_move"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -312,7 +316,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_RIGHT"
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
 						}
 					}
 				}
@@ -326,6 +330,7 @@
 	{
 		"id"		"3"
 		"mode"		"joystick_move"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -337,7 +342,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_LEFT"
+							"binding"		"xinput_button JOYSTICK_LEFT, , "
 						}
 						"settings"
 						{
@@ -359,6 +364,7 @@
 	{
 		"id"		"4"
 		"mode"		"trigger"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -372,6 +378,7 @@
 	{
 		"id"		"5"
 		"mode"		"trigger"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -385,6 +392,7 @@
 	{
 		"id"		"6"
 		"mode"		"joystick_move"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -396,7 +404,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_RIGHT"
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
 						}
 					}
 				}
@@ -410,6 +418,7 @@
 	{
 		"id"		"8"
 		"mode"		"joystick_move"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -421,7 +430,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_RIGHT"
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
 						}
 					}
 				}
@@ -435,6 +444,7 @@
 	{
 		"id"		"9"
 		"mode"		"dpad"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -446,7 +456,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_UP"
+							"binding"		"xinput_button DPAD_UP, , "
 						}
 						"settings"
 						{
@@ -466,7 +476,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_DOWN"
+							"binding"		"xinput_button DPAD_DOWN, , "
 						}
 						"settings"
 						{
@@ -486,7 +496,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_RIGHT"
+							"binding"		"xinput_button DPAD_RIGHT, , "
 						}
 						"settings"
 						{
@@ -506,7 +516,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_LEFT"
+							"binding"		"xinput_button DPAD_LEFT, , "
 						}
 						"settings"
 						{
@@ -529,6 +539,7 @@
 	{
 		"id"		"10"
 		"mode"		"single_button"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -540,7 +551,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button START"
+							"binding"		"xinput_button START, , "
 						}
 					}
 				}
@@ -554,6 +565,7 @@
 	{
 		"id"		"11"
 		"mode"		"single_button"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -565,7 +577,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button SELECT"
+							"binding"		"xinput_button SELECT, , "
 						}
 					}
 				}
@@ -579,6 +591,7 @@
 	{
 		"id"		"12"
 		"mode"		"absolute_mouse"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -590,7 +603,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_RIGHT"
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
 						}
 					}
 				}
@@ -604,6 +617,7 @@
 	{
 		"id"		"13"
 		"mode"		"joystick_camera"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -611,14 +625,9 @@
 	}
 	"group"
 	{
-		"id"		"14"
-		"mode"		"disabled"
-		"description"		""
-	}
-	"group"
-	{
 		"id"		"7"
 		"mode"		"switches"
+		"name"		""
 		"description"		""
 		"inputs"
 		{
@@ -630,14 +639,14 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button start"
+							"binding"		"xinput_button start, , "
 						}
 					}
 					"Full_Press"
 					{
 						"bindings"
 						{
-							"binding"		"key_press F4"
+							"binding"		"key_press F4, , "
 						}
 					}
 				}
@@ -653,14 +662,14 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button select"
+							"binding"		"xinput_button select, , "
 						}
 					}
 					"Full_Press"
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_ALT"
+							"binding"		"key_press LEFT_ALT, , "
 						}
 					}
 				}
@@ -676,14 +685,14 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button shoulder_left"
+							"binding"		"xinput_button shoulder_left, , "
 						}
 					}
 					"Full_Press"
 					{
 						"bindings"
 						{
-							"binding"		"key_press K"
+							"binding"		"key_press K, , "
 						}
 					}
 				}
@@ -699,14 +708,14 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button shoulder_right"
+							"binding"		"xinput_button shoulder_right, , "
 						}
 					}
 					"Full_Press"
 					{
 						"bindings"
 						{
-							"binding"		"key_press L"
+							"binding"		"key_press L, , "
 						}
 					}
 				}
@@ -722,7 +731,8 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press E"
+							"binding"		"key_press LEFT_CONTROL, Swap Screens, , "
+							"binding"		"key_press TAB, Swap Screens, , "
 						}
 					}
 				}
@@ -738,14 +748,14 @@
 					{
 						"bindings"
 						{
-							"binding"        "key_press TAB"
+							"binding"		"key_press TAB, Swap Screens, , "
 						}
 					}
 					"Full_Press"
 					{
 						"bindings"
 						{
-							"binding"        "key_press LEFT_CONTROL"
+							"binding"		"key_press LEFT_CONTROL, , "
 						}
 					}
 				}
@@ -761,7 +771,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F"
+							"binding"		"key_press TAB, Layout Toggle, , "
 						}
 					}
 				}
@@ -777,7 +787,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press TAB"
+							"binding"		"key_press TAB, Layout Toggle, , "
 						}
 					}
 				}
@@ -793,7 +803,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action system_key_1"
+							"binding"		"controller_action system_key_1, , "
 						}
 					}
 				}
@@ -823,7 +833,6 @@
 			"5"		"right_trigger active"
 			"8"		"right_joystick active"
 			"9"		"dpad active"
-			"14"		"gyro inactive"
 		}
 	}
 	"settings"

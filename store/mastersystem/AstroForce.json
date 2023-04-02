@@ -1,0 +1,18 @@
+{
+  "system": "mastersystem",
+  "status": "true",
+  "logo": "logo_mastersystem",
+  "title": "AstroForce",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/mastersystem/AstroForce.sms.zip",
+  "description": "Astro Force is a nod to classic Shoot ’em ups from back in the day. Heavily inspired by Thunder force, RSG, Aleste, Gaiares, MSX Nemesis, and R-Type. Astro Force features 6 stages, 30+ enemy types, and 11 bosses.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/mastersystem/screenshots/homebrew/AstroForce.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/mastersystem/titlescreens/homebrew/AstroForce.png?raw=true"
+    ]
+  },
+  "tags": ["action"]
+}

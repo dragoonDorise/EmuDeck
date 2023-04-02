@@ -1,9 +1,8 @@
 #!/bin/bash
 #variables
-RMG_emuName="RMG"
+RMG_emuName="RosaliesMupenGui"
 RMG_emuType="FlatPak"
 RMG_emuPath="com.github.Rosalie241.RMG"
-RMG_releaseURL=""
 RMG_configFile="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/mupen64plus.cfg"
 RMG_glideN64File="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/GLideN64.ini"
 
@@ -90,8 +89,6 @@ RMG_setupSaves(){
 #SetupStorage
 RMG_setupStorage(){
 	
-	RMG_glideN64File="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/GLideN64.ini"
-	RMG_configFile="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/mupen64plus.cfg"
 	mkdir -p "${storagePath}/RMG/"
 	mkdir -p "${storagePath}/RMG/cache"
 	mkdir -p "${storagePath}/RMG/HiResTextures"
@@ -107,15 +104,20 @@ RMG_setupStorage(){
 	HiResTextures='textureFilter\txPath='
 	cache='textureFilter\txCachePath='
 	screenshots='ScreenshotPath = '
+	UserDataDirectory='UserDataDirectory = '
+	UserCacheDirectory='UserCacheDirectory = ' 
 
 	newHiResTextures='textureFilter\txPath='"${storagePath}/RMG/HiResTextures"
 	newcache='textureFilter\txCachePath='"${storagePath}/RMG/cache"
     newscreenshots='ScreenshotPath = '"${storagePath}/RMG/screenshots"
-
+	newUserDataDirectory="${UserDataDirectory}\"$HOME/.var/app/com.github.Rosalie241.RMG/data/RMG\""
+	newUserCacheDirectory="${UserCacheDirectory}\"$HOME/.var/app/com.github.Rosalie241.RMG/cache/RMG\""
+	
 	changeLine "$HiResTextures" "$newHiResTextures" "$RMG_glideN64File"
 	changeLine "$cache" "$newcache" "$RMG_glideN64File"
 	changeLine "$screenshots" "$newscreenshots" "$RMG_configFile"
-
+	changeLine "$UserDataDirectory" "$newUserDataDirectory" "$RMG_configFile"
+	changeLine "$UserCacheDirectory" "$newUserCacheDirectory" "$RMG_configFile"
 
 }
 
@@ -174,6 +176,7 @@ RMG_resetConfig(){
 }
 
 RMG_addSteamInputProfile(){
+	addSteamInputCustomIcons
 	setMSG "Adding $RMG_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/rmg_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

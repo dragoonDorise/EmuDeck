@@ -85,7 +85,9 @@ else
 	exit
 fi
 
-exec > >(tee "${LOGFILE}") 2>&1
+#exec > >(tee "${LOGFILE}") 2>&1
+#Installation log
+{
 date "+%Y.%m.%d-%H:%M:%S %Z"
 #Mark if this not a fresh install
 FOLDER="$HOME/.config/EmuDeck/"
@@ -95,6 +97,9 @@ fi
 sleep 1
 SECONDTIME="$HOME/.config/EmuDeck/.finished"
 
+#Lets log github API limits just in case
+echo 'Github API limits:'
+curl -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28"  "https://api.github.com/rate_limit"
 
 #
 ##
@@ -236,11 +241,6 @@ if [ $doInstallSRM == "true" ]; then
 	echo "install srm"
 	SRM_install
 fi
-#Emulators Installation
-# if [ "$doInstallPCSX2" == "true" ]; then
-# 	echo "install pcsx2"
-# 	PCSX2_install
-# fi
 if [ "$doInstallPCSX2QT" == "true" ]; then	
 	echo "install pcsx2Qt"
 	PCSX2QT_install
@@ -297,6 +297,10 @@ if [ $doInstallCemu == "true" ]; then
 	echo "Cemu_install"
 	Cemu_install
 fi
+if [ "${doInstallCemuNative}" == "true" ]; then
+	echo "CemuNative_install"
+	CemuNative_install
+fi
 if [ $doInstallScummVM == "true" ]; then
 	echo "ScummVM_install"
 	ScummVM_install
@@ -304,6 +308,18 @@ fi
 if [ $doInstallVita3K == "true" ]; then
 	echo "Vita3K_install"
 	Vita3K_install
+fi
+if [ $doInstallMGBA == "true" ]; then
+	echo "mGBA_install"
+	mGBA_install
+fi
+if [ $doInstallRMG == "true" ]; then
+	echo "RMG_install"
+	RMG_install
+fi
+if [ $doInstallmelonDS == "true" ]; then
+	echo "melonDS_install"
+	melonDS_install
 fi
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ "$doInstallXenia" == "true" ]; then
@@ -342,10 +358,6 @@ if [ "$doSetupDolphin" == "true" ]; then
 	echo "Dolphin_init"
 	Dolphin_init
 fi
-# if [ "$doSetupPCSX2" == "true" ]; then
-# 	echo "PCSX2_init"
-# 	PCSX2_init
-# fi
 if [ "$doSetupPCSX2QT" == "true" ]; then
 	echo "PCSX2QT_init"
 	PCSX2QT_init
@@ -389,6 +401,22 @@ fi
 if [ "$doSetupVita3K" == "true" ]; then
 	echo "Vita3K_init"
 	Vita3K_init
+fi
+if [ "$doSetupRMG" == "true" ]; then
+	echo "RMG_init"
+	RMG_init
+fi
+if [ "$doSetupmelonDS" == "true" ]; then
+	echo "melonDS_init"
+	melonDS_init
+fi
+if [ "$doSetupMGBA" == "true" ]; then
+	echo "mGBA_init"
+	mGBA_init
+fi
+if [ "${doSetupCemuNative}" == "true" ]; then
+	echo "CemuNative_init"
+	CemuNative_init
 fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then
@@ -591,23 +619,28 @@ fi
 #RetroAchievments
 if [ "$doSetupRA" == "true" ]; then
 	RetroArch_retroAchievementsSetLogin
-	if [ "$doRASignIn" == "true" ]; then
-		#RetroArch_retroAchievementsPromptLogin
-		#RetroArch_retroAchievementsSetLogin
-		RetroArch_retroAchievementsOn
-	fi
-	
-	if [ "$doRAEnable" == "true" ]; then
-		RetroArch_retroAchievementsOn
-	fi
-	
 	if [ "$achievementsHardcore" == "true" ]; then
 		RetroArch_retroAchievementsHardCoreOn
 	else
 		RetroArch_retroAchievementsHardCoreOff
 	fi
 fi
-
+if [ "$doSetupDuck" == "true" ]; then
+	DuckStation_retroAchievementsSetLogin
+	if [ "$achievementsHardcore" == "true" ]; then
+		DuckStation_retroAchievementsHardCoreOn
+	else
+		DuckStation_retroAchievementsHardCoreOff
+	fi
+fi
+if [ "$doSetupPCSX2QT" == "true" ]; then
+	PCSX2_retroAchievementsSetLogin
+	if [ "$achievementsHardcore" == "true" ]; then
+		PCSX2_retroAchievementsHardCoreOn
+	else
+		PCSX2_retroAchievementsHardCoreOff
+	fi
+fi
 
 #Sudo Required!
 if [ -n "$PASSWD" ]; then
@@ -761,3 +794,4 @@ elif [ "$uiMode" == 'whiptail' ]; then
 	echo "Finished on Whiptail"
 	sleep 9999
 fi
+} | tee "${LOGFILE}" 2>&1

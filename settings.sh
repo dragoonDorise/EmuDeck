@@ -3,8 +3,6 @@
 #Expert mode off by default
 expert=false
 
-
-
 #Default settings for all systems
 doSetupRA=true
 doSetupDolphin=true
@@ -25,6 +23,7 @@ doSetupESDE=true
 doSetupSRM=true
 doSetupPCSX2QT=true
 #doSetupMelon=true
+doSetupMGBA=true
 
 #Install all systems by default
 doInstallSRM=true
@@ -46,6 +45,7 @@ doInstallXemu=false
 doInstallPCSX2QT=false
 doInstallMAME=true
 #doInstallMelon=false
+doInstallMGBA=false
 doInstallCHD=false
 doInstallPowertools=false
 doInstallGyro=false
@@ -59,7 +59,6 @@ RAautoSave=false
 SNESAR=43
 
 #Default widescreen
-
 duckWide=false
 DolphinWide=false
 DreamcastWide=false
@@ -77,7 +76,6 @@ ESDEscrapData=~/Emulation/tools/downloaded_media
 
 #Default ESDE Theme
 esdeTheme="EPICNOIR"
-
 
 #Advanced settings
 doSelectWideScreen=false

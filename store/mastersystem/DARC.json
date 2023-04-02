@@ -1,0 +1,18 @@
+{
+  "system": "mastersystem",
+  "status": "true",
+  "logo": "logo_mastersystem",
+  "title": "DARC",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/mastersystem/DARC.zip",
+  "description": "DARC is a jetpack shooter game inspired several games (Air fortress(NES), H.E.R.O. and Hero Core(PC)). The protagonist can fly and shoot in separate directions. Each of the gamepad keys represent a shooting direction. Your goal is to infiltrate the alien fortress. Destroy the cores to disable force fields and advance through the game.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/mastersystem/screenshots/homebrew/DARC.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/mastersystem/titlescreens/homebrew/DARC.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

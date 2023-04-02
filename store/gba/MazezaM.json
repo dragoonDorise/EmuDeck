@@ -1,0 +1,18 @@
+{
+  "system": "gba",
+  "status": "true",
+  "logo": "logo_gba",
+  "title": "MazezaM",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/gba/MazezaM.zip",
+  "description": "MazezaM Challenge (pronounced may-zam) is a simple puzzle game based on MazezaM from Malcolm Tyrrell. You will have to go through 33 levels of mazes. You enter the maze on the left and you have to get to the exit on the right by pushing rows of blocks left and right.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gba/screenshots/homebrew/MazezaM.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gba/titlescreens/homebrew/MazezaM.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

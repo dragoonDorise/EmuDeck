@@ -67,7 +67,7 @@ function escapeSedValue(){
 }
 
 function getSDPath(){
-    if [ -b "/dev/mmcblk0p1" ]; then	    
+    if [ -b "/dev/mmcblk0p1" ]; then
 		findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1
 	fi
 }
@@ -92,7 +92,7 @@ function testLocationValid(){
 	local return=""
 
     touch "$testLocation/testwrite"
-    
+
 	if [ ! -f  "$testLocation/testwrite" ]; then
 		return="Invalid: $locationName not Writable"
 	else
@@ -102,6 +102,22 @@ function testLocationValid(){
 		else
 			return="Valid"
 		fi
+	fi
+	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
+	echo $return
+}
+
+function testLocationValidRelaxed(){
+	local locationName=$1
+	local testLocation=$2
+	local return=""
+
+	touch "$testLocation/testwrite"
+
+	if [ ! -f  "$testLocation/testwrite" ]; then
+		return="Invalid: $locationName not Writable"
+	else
+		return="Valid"
 	fi
 	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
 	echo $return
@@ -252,6 +268,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupVita3K=true")
 	defaultSettingsList+=("doSetupRMG=true")
 	#defaultSettingsList+=("doSetupMelon=true")
+	defaultSettingsList+=("doSetupMGBA=true")
 	defaultSettingsList+=("doInstallSRM=true")
 	defaultSettingsList+=("doInstallESDE=true")
 	defaultSettingsList+=("doInstallRA=true")
@@ -272,6 +289,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doInstallScummVM=true")
 	defaultSettingsList+=("doInstallVita3K=true")
 	#defaultSettingsList+=("doInstallMelon=false")
+	defaultSettingsList+=("doInstallMGBA=false")
 	defaultSettingsList+=("doInstallCHD=true")
 	defaultSettingsList+=("doInstallPowertools=false")
 	defaultSettingsList+=("doInstallGyro=false")
@@ -334,17 +352,17 @@ function checkForFile(){
 	local delete=$2
 	local finished=false	
 	while [ $finished == false ]
-	do 		 
+	do
 		test=$(test -f "$file" && echo true)			
 	  	if [[ $test == true ]]; then
 	  	  	finished=true;
 		  	clear			  	
-			if [[ $delete == 'delete' ]]; then  
+			if [[ $delete == 'delete' ]]; then
 		  		rm "$file"
 			fi
 			echo 'true';			
 			break
-	  	fi							  
+	  	fi
 	done
 }
 
@@ -373,20 +391,33 @@ function getReleaseURLGH(){
     fi
     curl -fSs "$url" | \
     jq -r '[ .[].assets[] | select(.name | endswith("'"$fileType"'")).browser_download_url ][0]'
-    
 }
-
 
 function linkToSaveFolder(){	
     local emu=$1
     local folderName=$2
     local path=$3
 
-	if [ ! -d "$savesPath/$emu/$folderName" ]; then		
-		mkdir -p "$savesPath/$emu"
-		setMSG "Linking $emu $folderName to the Emulation/saves folder"			
-		mkdir -p "$path"
-		ln -sn "$path" "$savesPath/$emu/$folderName"
+	if [ ! -d "$savesPath/$emu/$folderName" ]; then
+		if [ ! -L "$savesPath/$emu/$folderName" ]; then		
+			mkdir -p "$savesPath/$emu"
+			setMSG "Linking $emu $folderName to the Emulation/saves folder"			
+			mkdir -p "$path"
+			ln -snv "$path" "$savesPath/$emu/$folderName"
+		fi
+	else
+		if [ ! -L "$savesPath/$emu/$folderName" ]; then	
+			echo "$savesPath/$emu/$folderName is not a link. Please check it."
+		else
+			if [ $(readlink $savesPath/$emu/$folderName) == $path ]; then
+				echo "$savesPath/$emu/$folderName is already linked."
+				echo "     Target: $(readlink $savesPath/$emu/$folderName)"
+			else
+				echo "$savesPath/$emu/$folderName not linked correctly."
+				unlink "$savesPath/$emu/$folderName"
+				linkToSaveFolder "$emu" "$folderName" "$path"
+			fi
+ 		fi
 	fi
 
 }
@@ -427,6 +458,10 @@ function createDesktopShortcut(){
 	local exec=$3
 	local terminal=$4
 	local icon
+
+	rm -f "$Shortcutlocation"
+	
+	balooctl check
 	
 	mkdir -p "$HOME/.local/share/applications/"
 	
@@ -453,5 +488,115 @@ function createDesktopShortcut(){
 	StartupNotify=false" > "$Shortcutlocation"
 	chmod +x "$Shortcutlocation"
 
+	balooctl check
+
 	echo "$Shortcutlocation created"
+}
+
+#desktopShortcutFieldUpdate "$shortcutFile" "Name" "NewName"
+function desktopShortcutFieldUpdate(){
+	local shortcutFile=$1
+	local shortcutKey=$2
+	local shortcutValue=$3
+	local name
+	local icon
+
+	if [ -f "$shortcutFile" ]; then
+		# update icon if name is updated
+		if [ "$shortcutKey" == "Name" ]; then
+			name=$shortcutValue
+			cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name")."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null
+			icon=$(find "$HOME/.local/share/icons/emudeck/" -type f -iname "$(cut -d " " -f1 <<< "$name").*")
+			if [ ! -z "$icon" ]; then
+				desktopShortcutFieldUpdate "$shortcutFile" "Icon" "$icon"
+				sed -i "s|Icon\s*?=.*|Icon=$icon|g" "$shortcutFile"
+			fi
+		fi
+		sed -E -i "s|$shortcutKey\s*?=.*|$shortcutKey=$shortcutValue|g" "$shortcutFile"
+		balooctl check
+	fi
+}
+
+#iniFieldUpdate "$iniFilePath" "General" "LoadPath" "$storagePath/$emuName/Load"
+function iniFieldUpdate(){
+	local iniFile="$1"
+	local iniSection="$2"
+	local iniKey="$3"
+	local iniValue="$4"
+
+	if [ -f "$iniFile" ]; then
+		# Create the section if it doesn't exist.
+		if ! grep -q "\[$iniSection\]" "$iniFile"; then
+			echo "[$iniSection]" >> "$iniFile"
+		fi
+
+		# If the key doesn't exist, create it one line below the $iniSection.
+		# Otherwise, just update the value.
+		if ! grep -q "$iniKey" "$iniFile"; then
+			echo "Creating key $iniKey = $iniValue"
+			local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
+			sed -i "$((sectionLineNumber + 1))i$iniKey = $iniValue" "$iniFile"
+		else
+			echo "Updating key $iniKey = $iniValue"
+			local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
+			sed -i "$((sectionLineNumber + 1))is|$iniKey =.*|$iniKey = $iniValue|g" "$iniFile"
+		fi
+	else
+		echo "Can't update missing INI file: $iniFile"
+	fi
+}
+
+safeDownload() {
+	local name="$1"
+	local url="$2"
+	local outFile="$3"
+	local showProgress="$4"
+	local headers="$5"
+
+	echo "safeDownload()"
+	echo "- $name"
+	echo "- $url"
+	echo "- $outFile"
+	echo "- $showProgress"
+	echo "- $headers"
+
+	if [ "$showProgress" == "true" ] || [[ $showProgress -eq 1 ]]; then
+		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 | tee >(stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading $name" --width 600 --auto-close --no-cancel 2>/dev/null) && echo $'\2'${PIPESTATUS[0]})
+	else
+		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 && echo $'\2'0 || echo $'\2'$?)
+	fi
+	requestInfo=$(sed -z s/.$// <<< "${request%$'\1'*}")
+	returnCodes="${request#*$'\1'}"
+	httpCode="${returnCodes%$'\2'*}"
+	exitCode="${returnCodes#*$'\2'}"
+	echo "$requestInfo"
+	echo "HTTP response code: $httpCode"
+	echo "CURL exit code: $exitCode"
+	if [ "$httpCode" = "200" ] && [ "$exitCode" == "0" ]; then
+		echo "$name downloaded successfully";
+		mv -v "$outFile.temp" "$outFile"
+		return 0
+	else
+		echo "$name download failed"
+		rm -f "$outFile.temp"
+		return 1
+	fi
+}
+
+addSteamInputCustomIcons() {
+	rsync -av "$EMUDECKGIT/configs/steam-input/Icons/" "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons"
+}
+
+#add new emu entries here!
+getEmuInstallStatus() {
+	emuArray=(	"Cemu" "CemuNative" "Citra" "Dolphin" "DuckStation" "MAME" "melonDS" "mGBA"\
+				"PCSX2QT" "PPSSPP" "Primehack" "RetroArch" "RMG" "RPCS3" "Ryujinx" "ScummVM"\
+				"Vita3K" "Xemu" "Xenia" "Yuzu")
+	installStatus=()
+	for emu in "${emuArray[@]}"; do
+		installStatus+=($("${emu}_IsInstalled"))
+	done
+	
+	paste <(printf "%s\n" "${emuArray[@]}") <(printf "%s\n" "${installStatus[@]}") |
+    jq -nR '{ Emulators: [inputs] | map(split("\t") | { Name: .[0], Installed: .[1] }) }'
 }
