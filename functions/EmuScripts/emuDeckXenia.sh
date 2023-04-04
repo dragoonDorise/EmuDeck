@@ -42,6 +42,7 @@ Xenia_install(){
 	cp "$EMUDECKGIT/tools/launchers/xenia.sh" "${toolsPath}/launchers/xenia.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/xenia.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/xenia.sh"
+	mkdir -p "$romsPath/xbox360/roms/xbla"
 
 #	if [[ "$launchLine"  == *"PROTONLAUNCH"* ]]; then
 #		changeLine '"${PROTONLAUNCH}"' "$launchLine" "${toolsPath}/launchers/xenia.sh"
@@ -58,7 +59,7 @@ Xenia_install(){
 Xenia_init(){
 	setMSG "Initializing Xenia Config"
 	rsync -avhp "$EMUDECKGIT/configs/xenia/" "$romsPath/xbox360"
-	mkdir -p "$romsPath/xbox360/xbla"
+	mkdir -p "$romsPath/xbox360/roms/xbla"
 	Xenia_addESConfig
 }
 
