@@ -81,16 +81,43 @@ LOGFILE="${scriptPath}/binupdate-$TIMESTAMP.log"
 exec > >(tee "${LOGFILE}") 2>&1
 
 binTable=()
-binTable+=(TRUE "EmulationStation-DE" "esde")
-binTable+=(TRUE "Steam Rom Manager" "srm")
-binTable+=(TRUE "GameBoy / Color / Advance" "mgba")
-binTable+=(TRUE "Nintendo Switch Emu" "yuzu")
-binTable+=(TRUE "Nintendo Switch Emu" "ryujinx")
-binTable+=(TRUE "Sony PlayStation 2 Emu" "pcsx2-qt")
-binTable+=(TRUE "Nintendo WiiU Emu (Proton)" "cemu (win/proton)")
-binTable+=(TRUE "Nintendo WiiU Emu (Native)" "cemu (native)")
-binTable+=(TRUE "Sony PlayStation Vita Emu" "vita3k")
-binTable+=(FALSE "Xbox 360 Emu - TESTING ONLY" "xenia")
+if ESDE_IsInstalled ; then 
+    binTable+=(TRUE "EmulationStation-DE" "esde")
+fi
+if SRM_IsInstalled ; then 
+    binTable+=(TRUE "Steam Rom Manager" "srm")
+fi
+if mGBA_IsInstalled ; then 
+    binTable+=(TRUE "GameBoy / Color / Advance Emu" "mgba")
+fi
+if Yuzu_IsInstalled ; then 
+    binTable+=(TRUE "Nintendo Switch Emu" "yuzu")
+fi
+if YuzuEA_IsInstalled ; then 
+    binTable+=(TRUE "Nintendo Switch Emu" "yuzu(early access)")
+fi
+if Ryujinx_IsInstalled ; then 
+    binTable+=(TRUE "Nintendo Switch Emu" "ryujinx")
+fi
+if PCSX2QT_IsInstalled ; then 
+    binTable+=(TRUE "Sony PlayStation 2 Emu" "pcsx2-qt")
+fi
+if Cemu_IsInstalled ; then 
+    binTable+=(TRUE "Nintendo WiiU Emu (Proton)" "cemu (win/proton)")
+fi
+if CemuNative_IsInstalled ; then 
+    binTable+=(TRUE "Nintendo WiiU Emu (Native)" "cemu (native)")
+fi
+if Vita3K_IsInstalled ; then 
+    binTable+=(TRUE "Sony PlayStation Vita Emu" "vita3k")
+fi
+if Xenia_IsInstalled ; then 
+    binTable+=(FALSE "Xbox 360 Emu" "xenia")
+fi
+
+
+
+
 
 #Binary selector
 text="$(printf "What tools do you want to get the latest version of?\n This tool will simply overwrite what you have with the newest available.")"
