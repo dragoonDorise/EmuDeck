@@ -112,7 +112,7 @@ if Vita3K_IsInstalled ; then
     binTable+=(TRUE "Sony PlayStation Vita Emu" "vita3k")
 fi
 if Xenia_IsInstalled ; then 
-    binTable+=(FALSE "Xbox 360 Emu" "xenia")
+    binTable+=(TRUE "Xbox 360 Emu" "xenia")
 fi
 
 
