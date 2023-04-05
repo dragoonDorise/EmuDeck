@@ -6,7 +6,7 @@
 if [ "$?" == "1" ]; then
     echo "functions could not be loaded."
     zenity --error \
-    --text="EmuDeck Functions could not be loaded. Please re-run Emudeck install." 2>/dev/null
+        --text="EmuDeck Functions could not be loaded. Please re-run Emudeck install." 2>/dev/null
     exit
 fi
 
@@ -41,20 +41,20 @@ updateCemu() {
     if [ ${#releaseTable[@]} != 0 ]; then
         releaseChoice=$(
             zenity --list \
-            --title="EmuDeck" \
-            --height=500 \
-            --width=500 \
-            --ok-label="OK" \
-            --cancel-label="Exit" \
-            --text="Choose your Cemu version." \
-            --radiolist \
-            --column="Select" \
-            --column="Release" \
-            "${releaseTable[@]}" 2>/dev/null
+                --title="EmuDeck" \
+                --height=500 \
+                --width=500 \
+                --ok-label="OK" \
+                --cancel-label="Exit" \
+                --text="Choose your Cemu version." \
+                --radiolist \
+                --column="Select" \
+                --column="Release" \
+                "${releaseTable[@]}" 2>/dev/null
         )
     fi
 
-    if [ ! -z "$releaseChoice" ]; then
+    if [ -n "$releaseChoice" ]; then
         #curl -L "$releaseChoice" --output "$romsPath/wiiu/cemu.zip" 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null
         if safeDownload "cemu" "$releaseChoice" "$romsPath/wiiu/cemu.zip" "$showProgress"; then
             mkdir -p "$romsPath/wiiu/tmp"
@@ -81,70 +81,66 @@ LOGFILE="${scriptPath}/binupdate-$TIMESTAMP.log"
 exec > >(tee "${LOGFILE}") 2>&1
 
 binTable=()
-if ESDE_IsInstalled ; then 
+if ESDE_IsInstalled; then
     binTable+=(TRUE "EmulationStation-DE" "esde")
 fi
-if SRM_IsInstalled ; then 
+if SRM_IsInstalled; then
     binTable+=(TRUE "Steam Rom Manager" "srm")
 fi
-if mGBA_IsInstalled ; then 
+if mGBA_IsInstalled; then
     binTable+=(TRUE "GameBoy / Color / Advance Emu" "mgba")
 fi
-if Yuzu_IsInstalled ; then 
-    binTable+=(TRUE "Nintendo Switch Emu" "yuzu")
+if Yuzu_IsInstalled; then
+    binTable+=(TRUE "Nintendo Switch Emu" "yuzu(mainline)")
 fi
-if YuzuEA_IsInstalled ; then 
+if YuzuEA_IsInstalled; then
     binTable+=(TRUE "Nintendo Switch Emu" "yuzu(early access)")
 fi
-if Ryujinx_IsInstalled ; then 
+if Ryujinx_IsInstalled; then
     binTable+=(TRUE "Nintendo Switch Emu" "ryujinx")
 fi
-if PCSX2QT_IsInstalled ; then 
+if PCSX2QT_IsInstalled; then
     binTable+=(TRUE "Sony PlayStation 2 Emu" "pcsx2-qt")
 fi
-if Cemu_IsInstalled ; then 
+if Cemu_IsInstalled; then
     binTable+=(TRUE "Nintendo WiiU Emu (Proton)" "cemu (win/proton)")
 fi
-if CemuNative_IsInstalled ; then 
+if CemuNative_IsInstalled; then
     binTable+=(TRUE "Nintendo WiiU Emu (Native)" "cemu (native)")
 fi
-if Vita3K_IsInstalled ; then 
+if Vita3K_IsInstalled; then
     binTable+=(TRUE "Sony PlayStation Vita Emu" "vita3k")
 fi
-if Xenia_IsInstalled ; then 
+if Xenia_IsInstalled; then
     binTable+=(TRUE "Xbox 360 Emu" "xenia")
 fi
 
-
-
-
-
-#Binary selector
-text="$(printf "What tools do you want to get the latest version of?\n This tool will simply overwrite what you have with the newest available.")"
-binsToDL=$(
-    zenity --list \
-    --title="EmuDeck" \
-    --height=500 \
-    --width=250 \
-    --ok-label="OK" \
-    --cancel-label="Exit" \
-    --text="${text}" \
-    --checklist \
-    --column="Select" \
-    --column="System" \
-    --column="Name" \
-    --print-column=3 \
-    "${binTable[@]}" 2>/dev/null
-)
-ans=$?
-messages=()
-if [ $ans -eq 0 ]; then
-    echo $binsToDL
-    awk -F'|' '{print NF}' <<<"$binsToDL"
-    let pct=$(expr 100 / $(awk -F'|' '{print NF}' <<<"$binsToDL"))
-    echo $pct
-    let progresspct=0
-
+if [ "${#binTable[@]}" -gt 0 ]; then
+    #Binary selector
+    text="$(printf "What tools do you want to get the latest version of?\n This tool will simply overwrite what you have with the newest available.")"
+    binsToDL=$(
+        zenity --list \
+            --title="EmuDeck" \
+            --height=500 \
+            --width=250 \
+            --ok-label="OK" \
+            --cancel-label="Exit" \
+            --text="${text}" \
+            --checklist \
+            --column="Select" \
+            --column="System" \
+            --column="Name" \
+            --print-column=3 \
+            "${binTable[@]}" 2>/dev/null
+    )
+    ans=$?
+    messages=()
+    if [ $ans -eq 0 ]; then
+        echo $binsToDL
+        awk -F'|' '{print NF}' <<<"$binsToDL"
+        let pct=$(expr 100 / $(awk -F'|' '{print NF}' <<<"$binsToDL"))
+        echo $pct
+        let progresspct=0
 
         echo "User selected: $binsToDL"
         if [[ "$binsToDL" == *"esde"* ]]; then
@@ -180,7 +176,18 @@ if [ $ans -eq 0 ]; then
                 messages+=("There was a problem updating mGBA")
             fi
         fi
-        if [[ "$binsToDL" == *"yuzu"* ]]; then
+        if [[ "$binsToDL" == *"yuzu(early access)"* ]]; then
+            let progresspct+=$pct
+            echo "$progresspct"
+            echo "# Updating yuzu early access"
+            ##if Yuzu_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+            if YuzuEA_install "true" 2>&1; then
+                messages+=("Yuzu Early Access Updated Successfully")
+            else
+                messages+=("There was a problem updating Yuzu Early Access")
+            fi
+        fi
+        if [[ "$binsToDL" == *"yuzu(mainline)"* ]]; then
             let progresspct+=$pct
             echo "$progresspct"
             echo "# Updating yuzu"
@@ -247,44 +254,32 @@ if [ $ans -eq 0 ]; then
             let progresspct+=$pct
             echo "$progresspct"
             echo "# Updating xenia"
-            zenity --question \
-            --title="Xenia Version" \
-            --width=250 \
-            --ok-label="Master (stable)" \
-            --cancel-label="Canary (experimental)" \
-            --text="Which build would you like? " 2>/dev/null
-            ans=$?
-            if [[ $ans == 0 ]]; then
-                #if Xenia_install "master" 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
-                if Xenia_install "master" "true" 2>&1; then
-                    messages+=("Xenia Updated Successfully")
-                else
-                    messages+=("There was a problem updating Xenia")
-                fi
+            #if Xenia_install "canary" 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+            if Xenia_install "canary" "true" 2>&1; then
+                messages+=("Xenia Updated Successfully")
             else
-                #if Xenia_install "canary" 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
-                if Xenia_install "canary" "true" 2>&1; then
-                    messages+=("Xenia Updated Successfully")
-                else
-                    messages+=("There was a problem updating Xenia")
-                fi
+                messages+=("There was a problem updating Xenia")
             fi
-
-            progresspct=100
-            echo "$progresspct"
-            echo "# Complete!"
         fi
 
+        progresspct=100
+        echo "$progresspct"
+        echo "# Complete!"
 
-    if [ "$?" = -1 ]; then
+        if [ "$?" = -1 ]; then
+            zenity --error \
+                --text="Update canceled." 2>/dev/null
+        fi
+        if [[ ${#messages[@]} -gt 0 ]]; then
+            zenity --list \
+                --title="Update Status" \
+                --text="" \
+                --column="Messages" \
+                "${messages[@]}" 2>/dev/null
+        fi
+    fi
+else
+    
         zenity --error \
-        --text="Update canceled." 2>/dev/null
-    fi
-    if [[ ${#messages[@]} -gt 0 ]]; then
-        zenity --list \
-        --title="Update Status" \
-        --text="" \
-        --column="Messages" \
-        "${messages[@]}" 2>/dev/null
-    fi
+            --text="Nothing available to be updated." 2>/dev/null
 fi
