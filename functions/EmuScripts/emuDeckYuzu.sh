@@ -6,6 +6,7 @@ Yuzu_emuType="AppImage"
 Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
 YuzuEA_emuPath="$HOME/Applications/yuzu-ea.AppImage"
 YuzuEA_tokenFile="$HOME/emudeck/yuzu-ea-token.txt"
+YuzuEA_lastVerFile="$HOME/emudeck/yuzu-ea.ver"
 
 #cleanupOlderThings
 Yuzu_cleanup(){
@@ -39,12 +40,11 @@ local yuzuEaHost="https://api.yuzu-emu.org/downloads/earlyaccess/"
 local yuzuEaMetadata=$(curl -fSs ${yuzuEaHost})
 local fileToDownload=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).url')
 local currentVer=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
-local lastVerFile="$HOME/emudeck/yuzu-ea.ver"
 local showProgress="$1"
 
 if [ -e "$YuzuEA_tokenFile" ]; then
 
-    if [ "$currentVer" == "$(cat "${lastVerFile}")" ]; then
+    if [ "$currentVer" == "$(cat "${YuzuEA_lastVerFile}")" ]; then
 
         echo "no need to update."
 
@@ -67,8 +67,8 @@ if [ -e "$YuzuEA_tokenFile" ]; then
             #response=$(curl -f -X GET ${fileToDownload} --write-out '%{http_code}' -H "Accept: application/json" -H "Authorization: Bearer ${BEARERTOKEN}" -o "${YuzuEA_emuPath}.temp")
             if safeDownload "yuzu-ea" "$fileToDownload" "${YuzuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
                 chmod +x "$YuzuEA_emuPath"
-                echo "latest version $currentVer > $lastVerFile"
-                echo "${currentVer}" > "${lastVerFile}"
+                echo "latest version $currentVer > $YuzuEA_lastVerFile"
+                echo "${currentVer}" > "${YuzuEA_lastVerFile}"
             else
                 return 1
             fi
@@ -279,7 +279,7 @@ YuzuEA_addToken(){
      \nYou can get this from your Yuzu Patreon. \
      \n https://yuzu-emu.org/help/early-access/\
      \nOnce you have entered your token in this window it will be saved to ~/emudeck/yuzu-ea-token.txt")
-    eaToken=$(zenity --title="Enter Yuzu EA Patreon Code" --entry --text="$text" --html --url="https://yuzu-emu.org/help/early-access/")
+    eaToken=$(zenity --title="Enter Yuzu EA Patreon Code" --entry --text="$text")
     echo "$eaToken" >"$HOME/emudeck/yuzu-ea-token.txt"
 }
 
