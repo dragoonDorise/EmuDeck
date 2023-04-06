@@ -37,18 +37,18 @@ YuzuEA_install(){
 local jwtHost="https://api.yuzu-emu.org/jwt/installer/"
 local yuzuEaHost="https://api.yuzu-emu.org/downloads/earlyaccess/"
 local yuzuEaMetadata=$(curl -fSs ${yuzuEaHost})
-local fileToDownload=$(echo $yuzuEaMetadata | jq -r '.files[] | select(.name|test(".*.AppImage")).url')
-local currentVer=$(echo $yuzuEaMetadata | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
+local fileToDownload=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).url')
+local currentVer=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
 local lastVerFile="$HOME/emudeck/yuzu-ea.ver"
 local showProgress="$1"
 
 if [ -e "$YuzuEA_tokenFile" ]; then
 
-    if [ "$currentVer" == "$(cat ${lastVerFile})" ]; then
+    if [ "$currentVer" == "$(cat "${lastVerFile}")" ]; then
 
         echo "no need to update."
 
-    elif [ -z $currentVer ]; then
+    elif [ -z  "$currentVer" ]; then
 
         echo "couldn't get metadata."
         return 1
@@ -56,7 +56,7 @@ if [ -e "$YuzuEA_tokenFile" ]; then
     else
 
         echo "updating"
-        read user auth <<< "$( base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}' )"
+        read -r user auth <<< "$( base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}' )"
 
         if [[ -n "$user" && -n "$auth" ]]; then
 
@@ -240,11 +240,6 @@ Yuzu_migrate(){
     rsync -av "${origPath}yuzu/nand" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/nand"
     rsync -av "${origPath}yuzu/screenshots" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/screenshots"
     rsync -av "${origPath}yuzu/tas" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/tas"
-}
-
-#setABXYstyle
-Yuzu_setABXYstyle(){
-echo "NYI"
 }
 
 #setABXYstyle
