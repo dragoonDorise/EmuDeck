@@ -9,14 +9,15 @@ declare -a csofolderWhiteList=("psp")
 declare -a searchFolderList
 
 #executables
-chdPath="${toolsPath}/chdconv/"
+chdPath="$HOME/.config/EmuDeck/backend/tools/chdconv"
 export PATH="${chdPath}/:$PATH"
 flatpaktool=$(flatpak list --columns=application | grep -E dolphin\|primehack | head -1)
 dolphintool="flatpak run --command=dolphin-tool $flatpaktool"
 
 #initialize log
 TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
-LOGFILE="$chdPath/chdman-$TIMESTAMP.log"
+mkdir -p "$HOME/emudeck/logs/compression"
+LOGFILE="$HOME/emudeck/logs/compression/chdman-$TIMESTAMP.log"
 exec > >(tee "${LOGFILE}") 2>&1
 
 #compression functions
@@ -265,7 +266,6 @@ if [ "$uiMode" == 'zenity' ]; then
 		exit
 	else
 		exit
-		echo -e "Exit" &>>/dev/null
 	fi
 
 fi
