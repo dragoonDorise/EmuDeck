@@ -93,7 +93,7 @@ fi
 if Yuzu_IsInstalled; then
     binTable+=(TRUE "Nintendo Switch Emu" "yuzu(mainline)")
 fi
-if [ "$(YuzuEA_IsInstalled)" = "true" ]  &&  [ -e "$tokenFile" ]; then
+if [ "$(YuzuEA_IsInstalled)" = "true" ]  &&  [ -e "$YuzuEA_tokenFile" ]; then
     binTable+=(TRUE "Nintendo Switch Emu" "yuzu(early access)")
 fi
 if Ryujinx_IsInstalled; then
