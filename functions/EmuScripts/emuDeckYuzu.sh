@@ -61,7 +61,7 @@ if [ -e "$YuzuEA_tokenFile" ]; then
     else
 
         echo "updating"
-        read user auth <<< $( base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}' )
+        read user auth <<< "$( base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}' )"
 
         if [[ -n "$user" && -n "$auth" ]]; then
 
