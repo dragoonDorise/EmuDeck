@@ -5,6 +5,7 @@ Yuzu_emuName="Yuzu"
 Yuzu_emuType="AppImage"
 Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
 YuzuEA_emuPath="$HOME/Applications/yuzu-ea.AppImage"
+YuzuEA_tokenFile="$HOME/emudeck/yuzu-ea-token.txt"
 
 #cleanupOlderThings
 Yuzu_cleanup(){
@@ -43,11 +44,10 @@ local yuzuEaHost="https://api.yuzu-emu.org/downloads/earlyaccess/"
 local yuzuEaMetadata=$(curl -fSs ${yuzuEaHost})
 local fileToDownload=$(echo $yuzuEaMetadata | jq -r '.files[] | select(.name|test(".*.AppImage")).url')
 local currentVer=$(echo $yuzuEaMetadata | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
-local tokenFile="$HOME/emudeck/yuzu-ea-token.txt"
 local lastVerFile="$HOME/emudeck/yuzu-ea.ver"
 local showProgress="$1"
 
-if [ -e "$tokenFile" ]; then
+if [ -e "$YuzuEA_tokenFile" ]; then
 
     if [ "$currentVer" == "$(cat ${lastVerFile})" ]; then
 
@@ -61,7 +61,7 @@ if [ -e "$tokenFile" ]; then
     else
 
         echo "updating"
-        read user auth <<< $( base64 -d -i "${tokenFile}" | awk -F":" '{print $1" "$2}' )
+        read user auth <<< $( base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}' )
 
         if [[ -n "$user" && -n "$auth" ]]; then
 
@@ -73,7 +73,7 @@ if [ -e "$tokenFile" ]; then
             if safeDownload "$yuzu-ea" "$fileToDownload" "${YuzuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
                 chmod +x "$YuzuEA_emuPath"
                 echo "latest version $currentVer > $lastVerFile"
-                echo ${currentVer} > "${lastVerFile}"
+                echo "${currentVer}" > "${lastVerFile}"
             else
                 return 1
             fi
