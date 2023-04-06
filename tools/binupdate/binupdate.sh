@@ -43,10 +43,10 @@ updateCemu() {
             zenity --list \
                 --title="EmuDeck" \
                 --height=500 \
-                --width=500 \
+                --width=800 \
                 --ok-label="OK" \
                 --cancel-label="Exit" \
-                --text="Choose your Cemu version." \
+                --text="Choose your Cemu (windows) version. 2.0 is now recommended" \
                 --radiolist \
                 --column="Select" \
                 --column="Release" \
@@ -93,7 +93,7 @@ fi
 if Yuzu_IsInstalled; then
     binTable+=(TRUE "Nintendo Switch Emu" "yuzu(mainline)")
 fi
-if YuzuEA_IsInstalled; then
+if [ "$(YuzuEA_IsInstalled)" = "true" ]  &&  [ -e "$tokenFile" ]; then
     binTable+=(TRUE "Nintendo Switch Emu" "yuzu(early access)")
 fi
 if Ryujinx_IsInstalled; then
@@ -143,6 +143,7 @@ if [ "${#binTable[@]}" -gt 0 ]; then
         let progresspct=0
 
         echo "User selected: $binsToDL"
+
         if [[ "$binsToDL" == *"esde"* ]]; then
             let progresspct+=$pct
             echo "$progresspct"
