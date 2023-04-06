@@ -27,12 +27,7 @@ Yuzu_install(){
         success="true"
     fi
 
-    local successEA="false"
-    if YuzuEA_install "$showProgress"; then # call the EA install. If the user has the token in the right spot, it will download EA as well for them.
-        successEA="true"
-    fi
-
-    if [ "$success" != "true" ] || [ "$successEA" != "true" ]; then
+    if [ "$success" != "true" ]; then
         return 1
     fi
 }
@@ -70,7 +65,7 @@ if [ -e "$YuzuEA_tokenFile" ]; then
 
             echo "download ea appimage"
             #response=$(curl -f -X GET ${fileToDownload} --write-out '%{http_code}' -H "Accept: application/json" -H "Authorization: Bearer ${BEARERTOKEN}" -o "${YuzuEA_emuPath}.temp")
-            if safeDownload "$yuzu-ea" "$fileToDownload" "${YuzuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
+            if safeDownload "yuzu-ea" "$fileToDownload" "${YuzuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
                 chmod +x "$YuzuEA_emuPath"
                 echo "latest version $currentVer > $lastVerFile"
                 echo "${currentVer}" > "${lastVerFile}"
