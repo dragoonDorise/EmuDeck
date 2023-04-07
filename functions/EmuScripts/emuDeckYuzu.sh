@@ -275,12 +275,20 @@ Yuzu_finalize(){
 
 #finalExec - Extra stuff
 YuzuEA_addToken(){
+    local tokenValue
+    if [ -e "$YuzuEA_tokenFile" ]; then
+        tokenValue=$(cat "$YuzuEA_tokenFile")
+    fi
     text=$(printf "Enter your Yuzu Early Access Token to automatically download and update Yuzu Early Access. \
      \nYou can get this from your Yuzu Patreon. \
      \n https://yuzu-emu.org/help/early-access/\
-     \nOnce you have entered your token in this window it will be saved to ~/emudeck/yuzu-ea-token.txt")
+     \nOnce you have entered your token in this window it will be saved to ~/emudeck/yuzu-ea-token.txt\
+     \n \
+     \nCurrent Token:%s" "$tokenValue")
     eaToken=$(zenity --title="Enter Yuzu EA Patreon Code" --entry --text="$text")
-    echo "$eaToken" >"$HOME/emudeck/yuzu-ea-token.txt"
+    echo "$eaToken" >"$YuzuEA_tokenFile"
+
+    YuzuEA_install "true"
 }
 
 Yuzu_IsInstalled(){
