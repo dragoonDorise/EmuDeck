@@ -309,7 +309,7 @@ YuzuEA_addToken() {
         if [ -n "$user" ] && [ -n "$auth" ]; then
             text=$(printf "Token parsed.\n\
             Yuzu Patreon Username: %s\n\
-            Downlaod EA now?" "$user")
+            Download EA now?" "$user")
             zenity --title="Download Early Access?" --question --text="$text" 2>/dev/null
             if [ "$?" = 1 ]; then
                 exit
@@ -317,6 +317,16 @@ YuzuEA_addToken() {
                 if ! YuzuEA_install "true"; then
                     echo error?
                 fi
+            fi
+        else
+            text=$(printf "Token Error.\n\
+            \n\
+            Try again?")
+            zenity --title="Try again?" --question --text="$text" 2>/dev/null
+            if [ "$?" = 1 ]; then
+                exit
+            else
+                YuzuEA_addToken
             fi
         fi
     fi
