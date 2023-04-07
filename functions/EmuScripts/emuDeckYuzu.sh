@@ -289,13 +289,24 @@ YuzuEA_addToken() {
             user=""
             auth=""
         fi
+        text=$(printf "Token parsed.\
+            \nYuzu Patreon Username: %s\
+            \nDownload EA now?" "$user")
+            zenity --title="Download Early Access?" --question --text="$text" --width 300 2>/dev/null
+            if [ "$?" = 1 ]; then
+                exit
+            else
+                if ! YuzuEA_install "true"; then
+                    echo error?
+                fi
+            fi
 
     fi
 
     if $updateToken; then
         text=$(printf "Enter your Yuzu Early Access Token to automatically download and update Yuzu Early Access. \
         \nYou can get this from your Yuzu Patreon. \
-        \n https://yuzu-emu.org/help/early-access/\
+        \nhttps://yuzu-emu.org/help/early-access/\
         \nOnce you have entered your token in this window it will be saved to ~/emudeck/yuzu-ea-token.txt\
         \n ")
         eaToken=$(zenity --title="Enter Yuzu EA Patreon Code" --entry --text="$text" 2>/dev/null)
@@ -307,10 +318,10 @@ YuzuEA_addToken() {
 
         read -r user auth <<<"$(base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}')"
         if [ -n "$user" ] && [ -n "$auth" ]; then
-            text=$(printf "Token parsed.\n\
-            Yuzu Patreon Username: %s\n\
-            Download EA now?" "$user")
-            zenity --title="Download Early Access?" --question --text="$text" 2>/dev/null
+            text=$(printf "Token parsed.\
+            \nYuzu Patreon Username: %s\
+            \nDownload EA now?" "$user")
+            zenity --title="Download Early Access?" --question --text="$text" --width 300 2>/dev/null
             if [ "$?" = 1 ]; then
                 exit
             else
@@ -319,10 +330,8 @@ YuzuEA_addToken() {
                 fi
             fi
         else
-            text=$(printf "Token Error.\n\
-            \n\
-            Try again?")
-            zenity --title="Try again?" --question --text="$text" 2>/dev/null
+            text=$(printf "Token Error.\nTry again?")
+            zenity --title="Try again?" --question --text="$text" --width 300 2>/dev/null
             if [ "$?" = 1 ]; then
                 exit
             else
