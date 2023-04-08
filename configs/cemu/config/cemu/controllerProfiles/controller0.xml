@@ -4,22 +4,26 @@
 	<profile>Deck-Gamepad</profile>
 	<controller>
 		<api>SDLController</api>
-		<uuid>0_03000000de280000ff11000001000000</uuid>
+		<uuid>0_030079f6de280000ff11000001000000</uuid>
 		<display_name>Steam Virtual Gamepad</display_name>
-		<rumble>1</rumble>
+		<rumble>0</rumble>
 		<axis>
-			<deadzone>0.2</deadzone>
+			<deadzone>0.25</deadzone>
 			<range>1</range>
 		</axis>
 		<rotation>
-			<deadzone>0.2</deadzone>
+			<deadzone>0.25</deadzone>
 			<range>1</range>
 		</rotation>
 		<trigger>
-			<deadzone>0.2</deadzone>
+			<deadzone>0.25</deadzone>
 			<range>1</range>
 		</trigger>
 		<mappings>
+			<entry>
+				<mapping>25</mapping>
+				<button>8</button>
+			</entry>
 			<entry>
 				<mapping>24</mapping>
 				<button>40</button>
@@ -65,12 +69,8 @@
 				<button>14</button>
 			</entry>
 			<entry>
-				<mapping>1</mapping>
-				<button>1</button>
-			</entry>
-			<entry>
-				<mapping>25</mapping>
-				<button>8</button>
+				<mapping>13</mapping>
+				<button>13</button>
 			</entry>
 			<entry>
 				<mapping>12</mapping>
@@ -117,8 +117,8 @@
 				<button>0</button>
 			</entry>
 			<entry>
-				<mapping>13</mapping>
-				<button>13</button>
+				<mapping>1</mapping>
+				<button>1</button>
 			</entry>
 		</mappings>
 	</controller>
