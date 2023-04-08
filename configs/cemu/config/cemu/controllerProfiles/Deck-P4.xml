@@ -4,7 +4,7 @@
 	<profile>Deck-P4</profile>
 	<controller>
 		<api>SDLController</api>
-		<uuid>3_0300b836de280000ff11000001000000</uuid>
+		<uuid>0_0300b836de280000ff11000001000000</uuid>
 		<display_name>Steam Virtual Gamepad</display_name>
 		<rumble>1</rumble>
 		<axis>
