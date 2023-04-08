@@ -9,7 +9,7 @@ emuTable+=(TRUE "GC/Wii" "Dolphin")
 emuTable+=(TRUE "PSX" "Duckstation")
 emuTable+=(TRUE "PSP" "PPSSPP")
 emuTable+=(TRUE "XBox" "Xemu")
-
+emuTable+=(TRUE "Scumm/DOS" "ScummVM")
 
 #Emulator selector
 text="$(printf "Which emulators do you want to update?")"
@@ -54,38 +54,41 @@ if [ $ans -eq 0 ]; then
     if [[ "$emusToInstall" == *"Xemu"* ]]; then
         doUpdateXemu=true
     fi
+    if [[ "$emusToInstall" == *"ScummVM"* ]]; then
+        doUpdateScummVM=true
+    fi
     #if [[ "$emusToInstall" == *"MelonDS"* ]]; then
     #	doUpdateMelon=true
     #fi
-
-
 else
     exit
 fi
 
 
-if [ $doUpdatePrimeHacks == "true" ]; then
-    updateEmuFP "PrimeHack" "io.github.shiiion.primehack"		
+if [ "$doUpdatePrimeHacks" == "true" ]; then
+    updateEmuFP "PrimeHack" "io.github.shiiion.primehack"
 fi
-if [ $doUpdateRPCS3 == "true" ]; then
-    updateEmuFP "RPCS3" "net.rpcs3.RPCS3"		
+if [ "$doUpdateRPCS3" == "true" ]; then
+    updateEmuFP "RPCS3" "net.rpcs3.RPCS3"
 fi
-if [ $doUpdateCitra == "true" ]; then
-    updateEmuFP "Citra" "org.citra_emu.citra"		
+if [ "$doUpdateCitra" == "true" ]; then
+    updateEmuFP "Citra" "org.citra_emu.citra"
 fi
-if [ $doUpdateDolphin == "true" ]; then
+if [ "$doUpdateDolphin" == "true" ]; then
     updateEmuFP "dolphin-emu" "org.DolphinEmu.dolphin-emu"
 fi
-if [ $doUpdateDuck == "true" ]; then
-    updateEmuFP "DuckStation" "org.duckstation.DuckStation"		
+if [ "$doUpdateDuck" == "true" ]; then
+    updateEmuFP "DuckStation" "org.duckstation.DuckStation"
 fi
-if [ $doUpdateRA == "true" ]; then
-    updateEmuFP "RetroArch" "org.libretro.RetroArch"		
+if [ "$doUpdateRA" == "true" ]; then
+    updateEmuFP "RetroArch" "org.libretro.RetroArch"
 fi
-if [ $doUpdatePPSSPP == "true" ]; then
-    updateEmuFP "PPSSPP" "org.ppsspp.PPSSPP"		
+if [ "$doUpdatePPSSPP" == "true" ]; then
+    updateEmuFP "PPSSPP" "org.ppsspp.PPSSPP"
 fi
-
-if [ $doUpdateXemu == "true" ]; then
-    updateEmuFP "Xemu-Emu" "app.xemu.xemu"	
+if [ "$doUpdateXemu" == "true" ]; then
+    updateEmuFP "Xemu-Emu" "app.xemu.xemu"
+fi
+if [ "$doUpdateScummVM" == "true" ]; then
+    updateEmuFP "ScummVM" "org.scummvm.ScummVM"
 fi
