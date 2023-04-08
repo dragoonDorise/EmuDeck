@@ -81,37 +81,37 @@ LOGFILE="${scriptPath}/binupdate-$TIMESTAMP.log"
 exec > >(tee "${LOGFILE}") 2>&1
 
 binTable=()
-if ESDE_IsInstalled; then
+if [ "$(ESDE_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "EmulationStation-DE" "esde")
 fi
-if SRM_IsInstalled; then
+if [ "$(SRM_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Steam Rom Manager" "srm")
 fi
-if mGBA_IsInstalled; then
+if [ "$(mGBA_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "GameBoy / Color / Advance Emu" "mgba")
 fi
-if Yuzu_IsInstalled; then
-    binTable+=(TRUE "Nintendo Switch Emu" "yuzu(mainline)")
+if [ "$(Yuzu_IsInstalled)" == "true" ]; then
+    binTable+=(TRUE "Nintendo Switch Emu" "yuzu (mainline)")
 fi
-if [ "$(YuzuEA_IsInstalled)" = "true" ]  &&  [ -e "$YuzuEA_tokenFile" ]; then
-    binTable+=(TRUE "Nintendo Switch Emu" "yuzu(early access)")
+if [ "$(YuzuEA_IsInstalled)" == "true" ] && [ -e "$YuzuEA_tokenFile" ]; then
+    binTable+=(TRUE "Nintendo Switch Emu" "yuzu (early access)")
 fi
-if Ryujinx_IsInstalled; then
+if [ "$(Ryujinx_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Nintendo Switch Emu" "ryujinx")
 fi
-if PCSX2QT_IsInstalled; then
+if [ "$(PCSX2QT_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Sony PlayStation 2 Emu" "pcsx2-qt")
 fi
-if Cemu_IsInstalled; then
+if [ "$(Cemu_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Nintendo WiiU Emu (Proton)" "cemu (win/proton)")
 fi
-if CemuNative_IsInstalled; then
+if [ "$(CemuNative_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Nintendo WiiU Emu (Native)" "cemu (native)")
 fi
-if Vita3K_IsInstalled; then
+if [ "$(Vita3K_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Sony PlayStation Vita Emu" "vita3k")
 fi
-if Xenia_IsInstalled; then
+if [ "$(Xenia_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Xbox 360 Emu" "xenia")
 fi
 
