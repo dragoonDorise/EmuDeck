@@ -13,7 +13,7 @@ updateEmuFP(){
 	shName=$(echo "$name" | awk '{print tolower($0)}')
 	
 	find "${toolsPath}"/launchers/ -type f -iname $shName.sh | while read f; do echo "deleting $f"; rm -f "$f"; done;
-	cp "${EMUDECKGIT}"/tools/launchers/"${shName}".sh "${toolsPath}"/launchers/"${shName}".sh
+	cp -v "${EMUDECKGIT}"/tools/launchers/"${shName}".sh "${toolsPath}"/launchers/"${shName}".sh
 	chmod +x "${toolsPath}"/launchers/"${shName}".sh
 	
 }
