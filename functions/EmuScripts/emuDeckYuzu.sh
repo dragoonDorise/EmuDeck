@@ -303,7 +303,7 @@ YuzuEA_addToken() {
 
     fi
 
-    if $updateToken; then
+    if [ $updateToken = "true" ]; then
         text=$(printf "Enter your Yuzu Early Access Token to automatically download and update Yuzu Early Access. \
         \nYou can get this from your Yuzu Patreon. \
         \nhttps://yuzu-emu.org/help/early-access/\
