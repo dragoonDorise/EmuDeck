@@ -546,6 +546,24 @@ function iniFieldUpdate(){
 	fi
 }
 
+iniSectionUpdate() {
+  local iniFile=$1  # path to the ini file
+  local iniHeader=$2 # header of the section to update
+  local section_data=$3 # new data for the section
+  
+  # Escape special characters in the header
+  local escaped_header=$(printf '%s\n' "$iniHeader" | sed 's/[[\.*^$/]/\\&/g')
+
+  # Check if the section exists in the ini file
+  if grep -q "^$escaped_header" "$iniFile"; then
+    # Update the section
+    sed -i "/^$escaped_header/,/^\[/c$section_data" "$iniFile"
+  else
+    # Add the section to the end of the file
+    echo -e "\n[$iniHeader]\n$section_data" >> "$iniFile"
+  fi
+}
+
 safeDownload() {
 	local name="$1"
 	local url="$2"
@@ -591,7 +609,7 @@ addSteamInputCustomIcons() {
 getEmuInstallStatus() {
 	emuArray=(	"Cemu" "CemuNative" "Citra" "Dolphin" "DuckStation" "MAME" "melonDS" "mGBA"\
 				"PCSX2QT" "PPSSPP" "Primehack" "RetroArch" "RMG" "RPCS3" "Ryujinx" "ScummVM"\
-				"Vita3K" "Xemu" "Xenia" "Yuzu")
+				"Vita3K" "Xemu" "Xenia" "Yuzu" "YuzuEA")
 	installStatus=()
 	for emu in "${emuArray[@]}"; do
 		installStatus+=($("${emu}_IsInstalled"))
