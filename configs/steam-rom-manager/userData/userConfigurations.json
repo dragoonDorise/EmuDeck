@@ -1635,7 +1635,7 @@
     "configTitle": "Nintendo GameBoy - mGBA",
     "steamCategory": "${GameBoy - mGBA}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "${romsdirglobal}/gba",
+    "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
