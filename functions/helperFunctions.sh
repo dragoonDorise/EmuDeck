@@ -546,20 +546,16 @@ function iniFieldUpdate(){
 	fi
 }
 
-iniSectionUpdate() {
+function iniSectionUpdate() {
   local iniFile=$1  # path to the ini file
   local iniHeader=$2 # header of the section to update
   local section_data=$3 # new data for the section
   
-  # Escape special characters in the header
-  local escaped_header=$(printf '%s\n' "$iniHeader" | sed 's/[[\.*^$/]/\\&/g')
+  local escaped_header=$(printf '%s\n' "$iniheader" | sed 's/[\[\].*^$/\\&/g')
 
-  # Check if the section exists in the ini file
   if grep -q "^$escaped_header" "$iniFile"; then
-    # Update the section
     sed -i "/^$escaped_header/,/^\[/c$section_data" "$iniFile"
   else
-    # Add the section to the end of the file
     echo -e "\n[$iniHeader]\n$section_data" >> "$iniFile"
   fi
 }
