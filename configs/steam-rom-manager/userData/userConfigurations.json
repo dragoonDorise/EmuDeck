@@ -1000,7 +1000,7 @@
       }
     },
     "parserId": "164785598905497513",
-    "version": 10
+    "version": 13
   },
   {
     "parserType": "Glob",
@@ -1431,7 +1431,7 @@
       "appendArgsToExecutable": true
     },
     "parserId": "16478559884003904",
-    "version": 10,
+    "version": 13,
     "controllers": {
       "ps4": null,
       "ps5": null,
@@ -1446,6 +1446,8 @@
         "profileType": "template"
       }
     },
+    "fetchControllerTemplatesButton": null,
+    "removeControllersButton": null,
     "imageProviderAPIs": {
       "SteamGridDB": {
         "nsfw": false,
@@ -1693,7 +1695,7 @@
       "appendArgsToExecutable": false
     },
     "parserId": "164385421865061350",
-    "version": 10,
+    "version": 13,
     "controllers": {
       "ps4": null,
       "ps5": null,
@@ -2203,7 +2205,7 @@
       "removeBrackets": true
     },
     "parserId": "164823604520657523",
-    "version": 10,
+    "version": 13,
     "controllers": {
       "ps4": null,
       "ps5": null,
@@ -2527,7 +2529,7 @@
       "removeBrackets": true
     },
     "parserId": "164824416516097458",
-    "version": 10,
+    "version": 13,
     "controllers": {
       "ps4": null,
       "ps5": null,
@@ -2603,7 +2605,7 @@
       "removeBrackets": true
     },
     "parserId": "164824416518097458",
-    "version": 10,
+    "version": 13,
     "controllers": {
       "ps4": null,
       "ps5": null,
@@ -3527,7 +3529,7 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785656699856393",
-    "version": 10,
+    "version": 13,
     "controllers": {
       "ps4": null,
       "ps5": null,
@@ -3973,7 +3975,7 @@
       "appendArgsToExecutable": true
     },
     "parserId": "164785656634747068",
-    "version": 10,
+    "version": 13,
     "controllers": {
       "ps4": null,
       "ps5": null,
@@ -4997,6 +4999,6 @@
       }
     },
     "parserId": "167184642099963041",
-    "version": 10
+    "version": 13
   }
 ]
