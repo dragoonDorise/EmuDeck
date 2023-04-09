@@ -44,7 +44,7 @@ YuzuEA_install() {
 
     if [ -e "$YuzuEA_tokenFile" ]; then
 
-        if [ "$currentVer" == "$(cat "${YuzuEA_lastVerFile}")" ]; then
+        if [ "$currentVer" == "$(cat "${YuzuEA_lastVerFile}")" ] && [ -e "$YuzuEA_emuPath" ]; then
 
             echo "no need to update."
 
