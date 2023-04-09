@@ -974,6 +974,13 @@
       "removeCharacters": false,
       "removeBrackets": true
     },
+    "controllers": {
+      "neptune": {
+        "title": "EmuDeck - Cloud",
+        "mappingId": "emudeck_cloud_controller_config.vdf",
+        "profileType": "template"
+      }
+    },
     "imageProviderAPIs": {
       "SteamGridDB": {
         "nsfw": false,
@@ -1418,6 +1425,13 @@
     },
     "parserId": "16478559884003904",
     "version": 10,
+    "controllers": {
+      "neptune": {
+        "title": "EmuDeck - Citra 3DS",
+        "mappingId": "citra_controller_config.vdf",
+        "profileType": "template"
+      }
+    },
     "imageProviderAPIs": {
       "SteamGridDB": {
         "nsfw": false,
@@ -1621,7 +1635,7 @@
     "configTitle": "Nintendo GameBoy - mGBA",
     "steamCategory": "${GameBoy - mGBA}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "${romsdirglobal}",
+    "romDirectory": "${romsdirglobal}/gba",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -1666,6 +1680,13 @@
     },
     "parserId": "164385421865061350",
     "version": 10,
+    "controllers": {
+      "neptune": {
+        "title": "EmuDeck - mGBA",
+        "mappingId": "mGBA_controller_config.vdf",
+        "profileType": "template"
+      }
+    },
     "imageProviderAPIs": {
       "SteamGridDB": {
         "nsfw": false,
@@ -2162,6 +2183,13 @@
     },
     "parserId": "164823604520657523",
     "version": 10,
+    "controllers": {
+      "neptune": {
+        "title": "EmuDeck - melonDS",
+        "mappingId": "melonds_controller_config.vdf",
+        "profileType": "template"
+      }
+    },
     "imageProviderAPIs": {
       "SteamGridDB": {
         "nsfw": false,
@@ -2472,6 +2500,13 @@
     },
     "parserId": "164824416516097458",
     "version": 10,
+    "controllers": {
+      "neptune": {
+        "title": "EmuDeck - Cemu",
+        "mappingId": "cemu_controller_config.vdf",
+        "profileType": "template"
+      }
+    },
     "imageProviderAPIs": {
       "SteamGridDB": {
         "nsfw": false,
@@ -2534,6 +2569,13 @@
     },
     "parserId": "164824416518097458",
     "version": 10,
+    "controllers": {
+      "neptune": {
+        "title": "EmuDeck - Cemu",
+        "mappingId": "cemu_controller_config.vdf",
+        "profileType": "template"
+      }
+    },
     "imageProviderAPIs": {
       "SteamGridDB": {
         "nsfw": false,
@@ -3444,6 +3486,13 @@
     },
     "parserId": "164785656699856393",
     "version": 10,
+    "controllers": {
+      "neptune": {
+        "title": "EmuDeck - DuckStation",
+        "mappingId": "duckstation_controller_config.vdf",
+        "profileType": "template"
+      }
+    },
     "imageProviderAPIs": {
       "SteamGridDB": {
         "nsfw": false,
@@ -3876,6 +3925,13 @@
     },
     "parserId": "164785656634747068",
     "version": 10,
+    "controllers": {
+      "neptune": {
+        "title": "EmuDeck - PPSSPP Standalone",
+        "mappingId": "ppsspp_controller_config.vdf",
+        "profileType": "template"
+      }
+    },
     "imageProviderAPIs": {
       "SteamGridDB": {
         "nsfw": false,
@@ -4858,6 +4914,13 @@
       "replaceDiacritics": true,
       "removeCharacters": true,
       "removeBrackets": true
+    },
+    "controllers": {
+      "neptune": {
+        "title": "EmuDeck - RMG",
+        "mappingId": "rmg_controller_config.vdf",
+        "profileType": "template"
+      }
     },
     "imageProviderAPIs": {
       "SteamGridDB": {
