@@ -32,7 +32,7 @@ installEmuAI(){
     fi
 
     shName=$(echo "$name" | awk '{print tolower($0)}')
-    find "${toolsPath}/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
+    find "${toolsPath}/launchers/" -maxdepth 1 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
     while read -r f
     do
         echo "deleting $f"
