@@ -276,6 +276,8 @@ if [ "${#binTable[@]}" -gt 0 ]; then
                 zenity --list \
                     --title="Update Status" \
                     --text="" \
+                    --width=400 \
+                    --height=500 \
                     --column="Messages" \
                     "${messages[@]}" 2>/dev/null
             fi
