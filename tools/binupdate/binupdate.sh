@@ -178,7 +178,7 @@ if [ "${#binTable[@]}" -gt 0 ]; then
                     messages+=("There was a problem updating mGBA")
                 fi
             fi
-            if [[ "$binsToDL" == *"yuzu(early access)"* ]]; then
+            if [[ "$binsToDL" == *"yuzu (early access)"* ]]; then
                 let progresspct+=$pct
                 echo "$progresspct"
                 echo "# Updating yuzu early access"
@@ -189,7 +189,7 @@ if [ "${#binTable[@]}" -gt 0 ]; then
                     messages+=("There was a problem updating Yuzu Early Access")
                 fi
             fi
-            if [[ "$binsToDL" == *"yuzu(mainline)"* ]]; then
+            if [[ "$binsToDL" == *"yuzu (mainline)"* ]]; then
                 let progresspct+=$pct
                 echo "$progresspct"
                 echo "# Updating yuzu"
