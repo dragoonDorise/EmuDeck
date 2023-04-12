@@ -6,6 +6,7 @@ Plugins_installPluginLoader(){
    sudo chown -R $USER:$USER "$HOME/homebrew"
    curl -L $PluginLoader_releaseURL | sh
    touch "$HOME/.steam/steam/.cef-enable-remote-debugging"
+   sudo chown $USER:$USER ~/.steam/steam/.cef-enable-remote-debugging
    #sudo systemctl disable --now steam-web-debug-portforward.service
 }
 
