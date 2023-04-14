@@ -185,6 +185,7 @@ DuckStation_retroAchievementsSetLogin(){
 		echo "Valid Retroachievements Username and Password length"
 		iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "Username" "$rau"
 		iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "Token" "$rat"
-		PCSX2QT_retroAchievementsOn
+		iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "LoginTimestamp" "$(date +%s)"
+		DuckStation_retroAchievementsOn
 	fi
 }

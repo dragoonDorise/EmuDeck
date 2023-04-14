@@ -1982,13 +1982,13 @@ RetroArch_autoSaveOff(){
 	changeLine 'savestate_auto_save = ' 'savestate_auto_save = "false"' "$RetroArch_configFile"
 }
 RetroArch_retroAchievementsOn(){
-	changeLine 'cheevos_enable = ' 'cheevos_enable = "true"' "$RetroArch_configFile"
+	iniFieldUpdate "$RetroArch_configFile" "" "cheevos_enable" "true"
 	#Mame fix
 	#RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'  'cheevos_enable' '"false"'
 	#RetroArch_setOverride 'mame.cfg' 'MAME'  'cheevos_enable' '"false"'
 }
 RetroArch_retroAchievementsOff(){
-	changeLine 'cheevos_enable = ' 'cheevos_enable = "false"' "$RetroArch_configFile"
+	iniFieldUpdate "$RetroArch_configFile" "" "cheevos_enable" "false"
 	#Mame fix
 	#RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'  'cheevos_enable' '"false"'
 	#RetroArch_setOverride 'mame.cfg' 'MAME'  'cheevos_enable' '"false"'
@@ -2033,6 +2033,10 @@ RetroArch_retroAchievementsSetLogin(){
 		changeLine 'cheevos_token = ' 'cheevos_token = "'"${rat}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements Token set.' || echo 'RetroAchievements Token not set.'
 
 		RetroArch_retroAchievementsOn
+
+		iniFieldUpdate "$RetroArch_configFile" "" "cheevos_username" "$rau"
+		iniFieldUpdate "$RetroArch_configFile" "" "cheevos_token" "$rat"
+
 	fi
 }
 RetroArch_setSNESAR(){

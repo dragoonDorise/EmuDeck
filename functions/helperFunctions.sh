@@ -517,29 +517,38 @@ function desktopShortcutFieldUpdate(){
 	fi
 }
 
-#iniFieldUpdate "$iniFilePath" "General" "LoadPath" "$storagePath/$emuName/Load"
-function iniFieldUpdate(){
+#iniFieldUpdate "$iniFilePath" "General" "LoadPath" "$storagePath/$emuName/Load" "separator!"
+function iniFieldUpdate() {
 	local iniFile="$1"
-	local iniSection="$2"
+	local iniSection="${2:-}"
 	local iniKey="$3"
 	local iniValue="$4"
+	local separator="${5:- = }"
 
 	if [ -f "$iniFile" ]; then
 		# Create the section if it doesn't exist.
-		if ! grep -q "\[$iniSection\]" "$iniFile"; then
+		if [ -n "$iniSection" ] && ! grep -q "\[$iniSection\]" "$iniFile"; then
 			echo "[$iniSection]" >> "$iniFile"
 		fi
 
 		# If the key doesn't exist, create it one line below the $iniSection.
 		# Otherwise, just update the value.
-		if ! grep -q "$iniKey" "$iniFile"; then
-			echo "Creating key $iniKey = $iniValue"
-			local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
-			sed -i "$((sectionLineNumber + 1))i$iniKey = $iniValue" "$iniFile"
+		if ! grep -q "^$iniKey$separator" "$iniFile"; then
+			echo "Creating key $iniKey$separator$iniValue"
+			if [ -n "$iniSection" ]; then
+				local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
+				sed -i "$((sectionLineNumber + 1))i$iniKey$separator$iniValue" "$iniFile"
+			else
+				echo "$iniKey$separator$iniValue" >> "$iniFile"
+			fi
 		else
-			echo "Updating key $iniKey = $iniValue"
-			local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
-			sed -i "$((sectionLineNumber + 1))is|$iniKey =.*|$iniKey = $iniValue|g" "$iniFile"
+			echo "Updating key $iniKey$separator$iniValue"
+			if [ -n "$iniSection" ]; then
+				local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
+				sed -i "$((sectionLineNumber + 1))is|$iniKey$separator.*|$iniKey$separator$iniValue|g" "$iniFile"
+			else
+				sed -i "s|^$iniKey$separator.*$|$iniKey$separator$iniValue|g" "$iniFile"
+			fi
 		fi
 	else
 		echo "Can't update missing INI file: $iniFile"
@@ -551,7 +560,7 @@ function iniSectionUpdate() {
   local iniHeader=$2 # header of the section to update
   local section_data=$3 # new data for the section
   
-  local escaped_header=$(printf '%s\n' "$iniheader" | sed 's/[\[\].*^$/\\&/g')
+  local escaped_header=$(printf '%s\n' "$iniHeader" | sed 's/[\[\].*^$/\\&/g')
 
   if grep -q "^$escaped_header" "$iniFile"; then
     sed -i "/^$escaped_header/,/^\[/c$section_data" "$iniFile"

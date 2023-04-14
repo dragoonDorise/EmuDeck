@@ -196,6 +196,7 @@ PCSX2QT_retroAchievementsSetLogin(){
 		echo "Valid Retroachievements Username and Password length"
 		iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Username" "$rau"
 		iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Token" "$rat"
+		iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "LoginTimestamp" "$(date +%s)"
 		PCSX2QT_retroAchievementsOn
 	fi
 }
