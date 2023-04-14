@@ -545,15 +545,16 @@ function iniFieldUpdate() {
 			echo "Updating key $iniKey$separator$iniValue"
 			if [ -n "$iniSection" ]; then
 				local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
-				sed -i "$((sectionLineNumber + 1))is|$iniKey$separator.*|$iniKey$separator$iniValue|g" "$iniFile"
+				sed -i "/^\[$iniSection\]/,/^\[/ s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
 			else
-				sed -i "s|^$iniKey$separator.*$|$iniKey$separator$iniValue|g" "$iniFile"
+				sed -i "s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
 			fi
 		fi
 	else
 		echo "Can't update missing INI file: $iniFile"
 	fi
 }
+
 
 function iniSectionUpdate() {
   local iniFile=$1  # path to the ini file
