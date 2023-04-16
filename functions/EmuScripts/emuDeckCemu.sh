@@ -3,7 +3,6 @@
 Cemu_emuName="Cemu (proton)"
 Cemu_emuType="windows"
 Cemu_emuPath="${romsPath}/wiiu/Cemu.exe"
-Cemu_releaseURL="https://cemu.info/releases/cemu_1.27.1.zip"
 Cemu_cemuSettings="${romsPath}/wiiu/settings.xml"
 
 #cleanupOlderThings
@@ -16,7 +15,7 @@ Cemu_install(){
 	setMSG "Installing $Cemu_emuName"
 
 	local showProgress="$1"
-
+	Cemu_releaseURL="$(getReleaseURLGH "cemu-project/Cemu" "windows-x64.zip")"
 	#curl $Cemu_releaseURL --output "$romsPath"/wiiu/cemu.zip
 	if safeDownload "cemu" "$Cemu_releaseURL" "$romsPath/wiiu/cemu.zip" "$showProgress"; then
 		mkdir -p "$romsPath/wiiu/tmp"
