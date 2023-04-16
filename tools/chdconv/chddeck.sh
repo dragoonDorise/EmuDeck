@@ -2,6 +2,10 @@
 # shellcheck source=/home/deck/emudeck/settings.sh
 . ~/emudeck/settings.sh
 
+if [[ "$EMUDECKGIT" == "" ]]; then
+    EMUDECKGIT="$HOME/.config/EmuDeck/backend"
+fi
+
 #whitelist
 declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
 declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
@@ -9,7 +13,9 @@ declare -a csofolderWhiteList=("psp")
 declare -a searchFolderList
 
 #executables
-chdPath="$HOME/.config/EmuDeck/backend/tools/chdconv"
+chdPath="$EMUDECKGIT/tools/chdconv"
+chmod +x "$chdPath/chdman5"
+chmod +x "$chdPath/ciso"
 export PATH="${chdPath}/:$PATH"
 flatpaktool=$(flatpak list --columns=application | grep -E dolphin\|primehack | head -1)
 dolphintool="flatpak run --command=dolphin-tool $flatpaktool"
