@@ -10,6 +10,31 @@ if [ "$?" == "1" ]; then
     exit
 fi
 
+# Define the Tcl/Tk script
+TCL_SCRIPT='
+package require Tk
+
+# Define a proc to update the progress bar
+proc update_progress { value } {
+    .progress_bar configure -value $value
+}
+
+# Create the progress bar
+ttk::progressbar .progress_bar -orient horizontal -length 200
+.pack .progress_bar
+
+# Read the data from standard input
+set data [read stdin]
+
+# Do something with the data and update the progress bar
+set total_steps 100
+foreach item $data {
+    # Do some processing...
+    incr progress
+    update_progress [expr {$progress * 100 / $total_steps}]
+}
+'
+
 updateCemu() {
     local showProgress="$1"
 
@@ -68,6 +93,137 @@ updateCemu() {
     fi
 
     return 1
+}
+
+function runBinDownloads {
+    local binsToDL=$1
+
+    progresspct=0
+
+    numBins=$(awk -F'|' '{print NF}' <<<"$binsToDL")
+    pct=$((100 / ( numBins + 1 )))
+
+    echo "User selected: $binsToDL"
+
+    if [[ "$binsToDL" == *"esde"* ]]; then
+        echo "0"
+        echo "# Updating esde"
+        #if ESDE_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+        if ESDE_install "true" 2>&1; then
+            messages+=("EmulationStation-DE Updated Successfully")
+        else
+            messages+=("There was a problem updating EmulationStation-DE")
+        fi
+    fi
+    if [[ "$binsToDL" == *"srm"* ]]; then
+        (( progresspct+=pct )) || true
+        echo "$progresspct"
+        echo "# Updating srm"
+        #if SRM_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+        if SRM_install "true" 2>&1; then
+            messages+=("SteamRomManager Updated Successfully")
+        else
+            messages+=("There was a problem updating SteamRomManager")
+        fi
+    fi
+    if [[ "$binsToDL" == *"mgba"* ]]; then
+        (( progresspct+=pct )) || true
+        echo "$progresspct"
+        echo "# Updating mgba"
+        #if MGBA_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+        if mGBA_install "true" 2>&1; then
+            messages+=("mGBA Updated Successfully")
+        else
+            messages+=("There was a problem updating mGBA")
+        fi
+    fi
+    if [[ "$binsToDL" == *"yuzu (early access)"* ]]; then
+        (( progresspct+=pct )) || true
+        echo "$progresspct"
+        echo "# Updating yuzu early access"
+        ##if Yuzu_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+        if YuzuEA_install "true" 2>&1; then
+            messages+=("Yuzu Early Access Updated Successfully")
+        else
+            messages+=("There was a problem updating Yuzu Early Access")
+        fi
+    fi
+    if [[ "$binsToDL" == *"yuzu (mainline)"* ]]; then
+        (( progresspct+=pct )) || true
+        echo "$progresspct"
+        echo "# Updating yuzu"
+        ##if Yuzu_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+        if Yuzu_install "true" 2>&1; then
+            messages+=("Yuzu Updated Successfully")
+        else
+            messages+=("There was a problem updating Yuzu")
+        fi
+    fi
+    if [[ "$binsToDL" == *"pcsx2-qt"* ]]; then
+        (( progresspct+=pct )) || true
+        echo "$progresspct"
+        echo "# Updating pcsx2-qt"
+        #if PCSX2QT_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+        if PCSX2QT_install "true" 2>&1; then
+            messages+=("PCSX2-QT Updated Successfully")
+        else
+            messages+=("There was a problem updating PCSX2-QT")
+        fi
+    fi
+    if [[ "$binsToDL" == *"ryujinx"* ]]; then
+        (( progresspct+=pct )) || true
+        echo "$progresspct"
+        echo "# Updating ryujinx"
+        #if Ryujinx_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+        if Ryujinx_install "true" 2>&1; then
+            messages+=("Ryujinx Updated Successfully")
+        else
+            messages+=("There was a problem updating Ryujinx")
+        fi
+    fi
+    if [[ "$binsToDL" == *"cemu (win/proton)"* ]]; then
+        (( progresspct+=pct )) || true
+        echo "$progresspct"
+        echo "# Updating cemu"
+        if updateCemu "true" 2>&1; then
+            messages+=("Cemu (win/proton) Updated Successfully")
+        else
+            messages+=("There was a problem updating Cemu (win/proton")
+        fi
+    fi
+    if [[ "$binsToDL" == *"cemu (native)"* ]]; then
+        (( progresspct+=pct )) || true
+        echo "$progresspct"
+        echo "# Updating cemu"
+        if CemuNative_install "true" 2>&1; then
+            messages+=("Cemu (Native) Updated Successfully")
+        else
+            messages+=("There was a problem updating Cemu (Native)")
+        fi
+    fi
+    if [[ "$binsToDL" == *"vita3k"* ]]; then
+        (( progresspct+=pct )) || true
+        echo "$progresspct"
+        echo "# Updating vita3k"
+        if Vita3K_install "true" 2>&1; then
+            messages+=("Vita3K Updated Successfully")
+        else
+            messages+=("There was a problem updating Vita3K")
+        fi
+    fi
+    if [[ "$binsToDL" == *"xenia"* ]]; then
+        (( progresspct+=pct )) || true
+        echo "$progresspct"
+        echo "# Updating xenia"
+        #if Xenia_install "canary" 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
+        if Xenia_install "canary" "true" 2>&1; then
+            messages+=("Xenia Updated Successfully")
+        else
+            messages+=("There was a problem updating Xenia")
+        fi
+    fi
+    echo "100"
+    echo "# Complete!"
 }
 
 #begin script
@@ -137,136 +293,8 @@ if [ "${#binTable[@]}" -gt 0 ]; then
     messages=()
     if [ $ans -eq 0 ]; then
         if [ -n "$binsToDL" ]; then
-            echo "$binsToDL"
-            awk -F'|' '{print NF}' <<<"$binsToDL"
-            let pct=$(expr 100 / $(awk -F'|' '{print NF}' <<<"$binsToDL"))
-            echo $pct
-            let progresspct=0
 
-            echo "User selected: $binsToDL"
-
-            if [[ "$binsToDL" == *"esde"* ]]; then
-                let progresspct+=$pct
-                echo "$progresspct"
-                echo "# Updating esde"
-                #if ESDE_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
-                if ESDE_install "true" 2>&1; then
-                    messages+=("EmulationStation-DE Updated Successfully")
-                else
-                    messages+=("There was a problem updating EmulationStation-DE")
-                fi
-            fi
-            if [[ "$binsToDL" == *"srm"* ]]; then
-                let progresspct+=$pct
-                echo "$progresspct"
-                echo "# Updating srm"
-                #if SRM_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
-                if SRM_install "true" 2>&1; then
-                    messages+=("SteamRomManager Updated Successfully")
-                else
-                    messages+=("There was a problem updating SteamRomManager")
-                fi
-            fi
-            if [[ "$binsToDL" == *"mgba"* ]]; then
-                let progresspct+=$pct
-                echo "$progresspct"
-                echo "# Updating mgba"
-                #if MGBA_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
-                if mGBA_install "true" 2>&1; then
-                    messages+=("mGBA Updated Successfully")
-                else
-                    messages+=("There was a problem updating mGBA")
-                fi
-            fi
-            if [[ "$binsToDL" == *"yuzu (early access)"* ]]; then
-                let progresspct+=$pct
-                echo "$progresspct"
-                echo "# Updating yuzu early access"
-                ##if Yuzu_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
-                if YuzuEA_install "true" 2>&1; then
-                    messages+=("Yuzu Early Access Updated Successfully")
-                else
-                    messages+=("There was a problem updating Yuzu Early Access")
-                fi
-            fi
-            if [[ "$binsToDL" == *"yuzu (mainline)"* ]]; then
-                let progresspct+=$pct
-                echo "$progresspct"
-                echo "# Updating yuzu"
-                ##if Yuzu_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
-                if Yuzu_install "true" 2>&1; then
-                    messages+=("Yuzu Updated Successfully")
-                else
-                    messages+=("There was a problem updating Yuzu")
-                fi
-            fi
-            if [[ "$binsToDL" == *"pcsx2-qt"* ]]; then
-                let progresspct+=$pct
-                echo "$progresspct"
-                echo "# Updating pcsx2-qt"
-                #if PCSX2QT_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
-                if PCSX2QT_install "true" 2>&1; then
-                    messages+=("PCSX2-QT Updated Successfully")
-                else
-                    messages+=("There was a problem updating PCSX2-QT")
-                fi
-            fi
-            if [[ "$binsToDL" == *"ryujinx"* ]]; then
-                let progresspct+=$pct
-                echo "$progresspct"
-                echo "# Updating ryujinx"
-                #if Ryujinx_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
-                if Ryujinx_install "true" 2>&1; then
-                    messages+=("Ryujinx Updated Successfully")
-                else
-                    messages+=("There was a problem updating Ryujinx")
-                fi
-            fi
-            if [[ "$binsToDL" == *"cemu (win/proton)"* ]]; then
-                let progresspct+=$pct
-                echo "$progresspct"
-                echo "# Updating cemu"
-                if updateCemu "true" 2>&1; then
-                    messages+=("Cemu (win/proton) Updated Successfully")
-                else
-                    messages+=("There was a problem updating Cemu (win/proton")
-                fi
-            fi
-            if [[ "$binsToDL" == *"cemu (native)"* ]]; then
-                let progresspct+=$pct
-                echo "$progresspct"
-                echo "# Updating cemu"
-                if CemuNative_install "true" 2>&1; then
-                    messages+=("Cemu (Native) Updated Successfully")
-                else
-                    messages+=("There was a problem updating Cemu (Native)")
-                fi
-            fi
-            if [[ "$binsToDL" == *"vita3k"* ]]; then
-                let progresspct+=$pct
-                echo "$progresspct"
-                echo "# Updating vita3k"
-                if Vita3K_install "true" 2>&1; then
-                    messages+=("Vita3K Updated Successfully")
-                else
-                    messages+=("There was a problem updating Vita3K")
-                fi
-            fi
-            if [[ "$binsToDL" == *"xenia"* ]]; then
-                let progresspct+=$pct
-                echo "$progresspct"
-                echo "# Updating xenia"
-                #if Xenia_install "canary" 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
-                if Xenia_install "canary" "true" 2>&1; then
-                    messages+=("Xenia Updated Successfully")
-                else
-                    messages+=("There was a problem updating Xenia")
-                fi
-            fi
-
-            progresspct=100
-            echo "$progresspct"
-            echo "# Complete!"
+            runBinDownloads "$binsToDL" | zenity --progress --pulsate --title="Updating!" --width=600 --height=250 2>/dev/null
 
             if [ "$?" = -1 ]; then
                 zenity --error \
