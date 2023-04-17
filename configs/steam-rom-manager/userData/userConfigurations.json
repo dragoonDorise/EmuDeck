@@ -4418,7 +4418,7 @@
     "steamCategory": "${PlayStation Vita}",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "${romsdirglobal}${/}psvita",
-    "executableArgs": "-Fr \"${/.*[/\\]([^/\\]+)[/\\]/|${filePath}}\"",
+    "executableArgs": "-Fr \"${/.*[/\\\\]([^/\\\\]+)[/\\\\]/|${filePath}}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
