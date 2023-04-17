@@ -10,31 +10,6 @@ if [ "$?" == "1" ]; then
     exit
 fi
 
-# Define the Tcl/Tk script
-TCL_SCRIPT='
-package require Tk
-
-# Define a proc to update the progress bar
-proc update_progress { value } {
-    .progress_bar configure -value $value
-}
-
-# Create the progress bar
-ttk::progressbar .progress_bar -orient horizontal -length 200
-.pack .progress_bar
-
-# Read the data from standard input
-set data [read stdin]
-
-# Do something with the data and update the progress bar
-set total_steps 100
-foreach item $data {
-    # Do some processing...
-    incr progress
-    update_progress [expr {$progress * 100 / $total_steps}]
-}
-'
-
 updateCemu() {
     local showProgress="$1"
 
@@ -59,7 +34,7 @@ updateCemu() {
         releaseTable+=(false "$release")
         echo "release: $release"
     done
-
+    releaseTable+=(false "https://cemu.info/releases/cemu_1.27.1.zip")
     releaseTable+=(false "$(getReleaseURLGH "cemu-project/Cemu" "windows-x64.zip")")
 
     local releaseChoice=""
@@ -80,7 +55,6 @@ updateCemu() {
     fi
 
     if [ -n "$releaseChoice" ]; then
-        #curl -L "$releaseChoice" --output "$romsPath/wiiu/cemu.zip" 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null
         if safeDownload "cemu" "$releaseChoice" "$romsPath/wiiu/cemu.zip" "$showProgress"; then
             mkdir -p "$romsPath/wiiu/tmp"
             unzip -o "$romsPath/wiiu/cemu.zip" -d "$romsPath/wiiu/tmp"
@@ -101,14 +75,13 @@ function runBinDownloads {
     progresspct=0
 
     numBins=$(awk -F'|' '{print NF}' <<<"$binsToDL")
-    pct=$((100 / ( numBins + 1 )))
+    pct=$((100 / (numBins + 1)))
 
     echo "User selected: $binsToDL"
 
     if [[ "$binsToDL" == *"esde"* ]]; then
         echo "0"
         echo "# Updating esde"
-        #if ESDE_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
         if ESDE_install "true" 2>&1; then
             messages+=("EmulationStation-DE Updated Successfully")
         else
@@ -116,10 +89,9 @@ function runBinDownloads {
         fi
     fi
     if [[ "$binsToDL" == *"srm"* ]]; then
-        (( progresspct+=pct )) || true
+        ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating srm"
-        #if SRM_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
         if SRM_install "true" 2>&1; then
             messages+=("SteamRomManager Updated Successfully")
         else
@@ -127,10 +99,9 @@ function runBinDownloads {
         fi
     fi
     if [[ "$binsToDL" == *"mgba"* ]]; then
-        (( progresspct+=pct )) || true
+        ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating mgba"
-        #if MGBA_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
         if mGBA_install "true" 2>&1; then
             messages+=("mGBA Updated Successfully")
         else
@@ -138,10 +109,9 @@ function runBinDownloads {
         fi
     fi
     if [[ "$binsToDL" == *"yuzu (early access)"* ]]; then
-        (( progresspct+=pct )) || true
+        ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating yuzu early access"
-        ##if Yuzu_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
         if YuzuEA_install "true" 2>&1; then
             messages+=("Yuzu Early Access Updated Successfully")
         else
@@ -149,10 +119,9 @@ function runBinDownloads {
         fi
     fi
     if [[ "$binsToDL" == *"yuzu (mainline)"* ]]; then
-        (( progresspct+=pct )) || true
+        ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating yuzu"
-        ##if Yuzu_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
         if Yuzu_install "true" 2>&1; then
             messages+=("Yuzu Updated Successfully")
         else
@@ -160,10 +129,9 @@ function runBinDownloads {
         fi
     fi
     if [[ "$binsToDL" == *"pcsx2-qt"* ]]; then
-        (( progresspct+=pct )) || true
+        ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating pcsx2-qt"
-        #if PCSX2QT_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
         if PCSX2QT_install "true" 2>&1; then
             messages+=("PCSX2-QT Updated Successfully")
         else
@@ -171,10 +139,9 @@ function runBinDownloads {
         fi
     fi
     if [[ "$binsToDL" == *"ryujinx"* ]]; then
-        (( progresspct+=pct )) || true
+        ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating ryujinx"
-        #if Ryujinx_install 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
         if Ryujinx_install "true" 2>&1; then
             messages+=("Ryujinx Updated Successfully")
         else
@@ -182,7 +149,7 @@ function runBinDownloads {
         fi
     fi
     if [[ "$binsToDL" == *"cemu (win/proton)"* ]]; then
-        (( progresspct+=pct )) || true
+        ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating cemu"
         if updateCemu "true" 2>&1; then
@@ -192,7 +159,7 @@ function runBinDownloads {
         fi
     fi
     if [[ "$binsToDL" == *"cemu (native)"* ]]; then
-        (( progresspct+=pct )) || true
+        ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating cemu"
         if CemuNative_install "true" 2>&1; then
@@ -202,7 +169,7 @@ function runBinDownloads {
         fi
     fi
     if [[ "$binsToDL" == *"vita3k"* ]]; then
-        (( progresspct+=pct )) || true
+        ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating vita3k"
         if Vita3K_install "true" 2>&1; then
@@ -212,10 +179,9 @@ function runBinDownloads {
         fi
     fi
     if [[ "$binsToDL" == *"xenia"* ]]; then
-        (( progresspct+=pct )) || true
+        ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating xenia"
-        #if Xenia_install "canary" 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading" --width 600 --auto-close --no-cancel 2>/dev/null; then
         if Xenia_install "canary" "true" 2>&1; then
             messages+=("Xenia Updated Successfully")
         else
@@ -227,7 +193,6 @@ function runBinDownloads {
 }
 
 #begin script
-#paths update via sed in main script
 #source the all.sh, these should be pulled correctly!
 scriptPath="${toolsPath}/binupdate"
 
@@ -312,7 +277,7 @@ if [ "${#binTable[@]}" -gt 0 ]; then
         fi
     fi
 else
-    
-        zenity --error \
-            --text="Nothing available to be updated." 2>/dev/null
+
+    zenity --error \
+        --text="Nothing available to be updated." 2>/dev/null
 fi
