@@ -528,7 +528,7 @@ iniFieldUpdate() {
   iniSection=$2
   iniKey=$3
   iniValue=$4
-  separator=${5:-" = "}
+  separator=${5:- = }
 
   # Get the line number of the section header
   sectionLine=$(awk -v section="$iniSection" '$0 ~ ("^\\["section"\\]$") {print NR; exit}' "$iniFile")
