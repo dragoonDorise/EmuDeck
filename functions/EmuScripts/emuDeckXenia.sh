@@ -5,7 +5,7 @@ Xenia_emuType="windows"
 Xenia_emuPath="${romsPath}/xbox360/xenia_canary.exe"
 Xenia_releaseURL_master="https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip"
 Xenia_releaseURL_canary="https://github.com/xenia-canary/xenia-canary/releases/latest/download/xenia_canary.zip"
-Xenia_XeniaSettings="${romsPath}/xbox360/settings.xml"
+Xenia_XeniaSettings="${romsPath}/xbox360/xenia-canary.config.toml"
 
 #cleanupOlderThings
 Xenia_cleanup(){
