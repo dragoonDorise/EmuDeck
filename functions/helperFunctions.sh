@@ -523,42 +523,43 @@ function desktopShortcutFieldUpdate(){
 }
 
 #iniFieldUpdate "$iniFilePath" "General" "LoadPath" "$storagePath/$emuName/Load" "separator!"
-iniFieldUpdate() {
-  iniFile=$1
-  iniSection=$2
-  iniKey=$3
-  iniValue=$4
-  separator=${5:- = }
+#!/bin/bash
 
-  # Get the line number of the section header
-  sectionLine=$(awk -v section="$iniSection" '$0 ~ ("^\\["section"\\]$") {print NR; exit}' "$iniFile")
+function iniFieldUpdate() {
+	local iniFile="$1"
+	local iniSection="${2:-}"
+	local iniKey="$3"
+	local iniValue="$4"
+	local separator="${5:- = }"
 
-  if [[ -z $sectionLine ]]; then
-    # If section doesn't exist, create it at the end of the file
-    printf "\n[%s]\n%s%s\n" "$iniSection" "$iniKey" "$separator$iniValue" >> "$iniFile"
-    printf "Added new section [%s] with key [%s]%s%s to %s\n" "$iniSection" "$iniKey" "$separator" "$iniValue" "$iniFile"
-  else
-    # Get the line number of the next section header or end of file
-    nextSectionLine=$(awk -v start="$sectionLine" 'NR>start && $0~/^\[.*\]$/{print NR; exit} END{print NR+1}' "$iniFile")
-
-    # Use sed to print only the lines between the section header and the next section header or end of file
-    sedScript="${sectionLine},${nextSectionLine}p; ${nextSectionLine}q"
-
-    # Check if key already exists in section
-    keyExists=$(awk -v FS="$separator" -v key="$iniKey" -v script="$sedScript" 'NR==start{next} NR>start && $1==key{print NR; exit}' start="$sectionLine" "$iniFile")
-
-    if [[ -n $keyExists ]]; then
-      # Update existing key
-      sed -i "${keyExists}s/.*/$iniKey$separator$iniValue/" "$iniFile"
-      printf "Updated key [%s]%s%s in section [%s] in %s\n" "$iniKey" "$separator" "$iniValue" "$iniSection" "$iniFile"
-    else
-      # Append new key to section
-      sed -i "${nextSectionLine-1}i $iniKey$separator$iniValue" "$iniFile"
-      printf "Added new key [%s]%s%s to section [%s] in %s\n" "$iniKey" "$separator" "$iniValue" "$iniSection" "$iniFile"
-    fi
-  fi
+	if [ -f "$iniFile" ]; then
+		# Create the section if it doesn't exist.
+		if [ -n "$iniSection" ] && ! grep -q "\[$iniSection\]" "$iniFile"; then
+			echo "[$iniSection]" >> "$iniFile"
+		fi
+		# If the key doesn't exist, create it one line below the $iniSection.
+		# Otherwise, just update the value.
+		if ! grep -q "^$iniKey$separator" "$iniFile"; then
+			echo "Creating key $iniKey$separator$iniValue"
+			if [ -n "$iniSection" ]; then
+				local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
+				sed -i "$((sectionLineNumber + 1))i$iniKey$separator$iniValue" "$iniFile"
+			else
+				echo "$iniKey$separator$iniValue" >> "$iniFile"
+			fi
+		else
+			echo "Updating key $iniKey$separator$iniValue"
+			if [ -n "$iniSection" ]; then
+				local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
+				sed -i "/^\[$iniSection\]/,/^\[/ s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
+			else
+				sed -i "s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
+			fi
+		fi
+	else
+		echo "Can't update missing INI file: $iniFile"
+	fi
 }
-
 
 
 
