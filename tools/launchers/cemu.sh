@@ -1,5 +1,6 @@
 #!/usr/bin/bash
-
+source $HOME/.config/EmuDeck/backend/functions/all.sh
+rclone_downloadEmu cemu
 # cemu.sh
 
 # Report Errors
@@ -182,3 +183,4 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     # Continue to main()
     main "${@}"
 fi
+rclone_uploadEmu cemu

@@ -85,7 +85,8 @@ SRM_init(){
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
 	
-	
+	#Reseting launchers
+	SRM_resetLaunchers
 	echo -e "true"
 }
 

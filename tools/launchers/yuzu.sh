@@ -1,4 +1,6 @@
 #!/bin/bash
+source $HOME/.config/EmuDeck/backend/functions/all.sh
+rclone_downloadEmu yuzu
 emuName="yuzu" #parameterize me
 useEAifFound="true" # set to false to simply use the newest file found
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
@@ -136,3 +138,4 @@ param=${param/\'/"$substituteWith"}
 #Fix last ' on command
 param=$(echo "$param" | sed 's/.$/"/')
 eval "${exe} ${param}"
+rclone_uploadEmu yuzu

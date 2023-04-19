@@ -1,4 +1,6 @@
 #!/bin/sh
+source $HOME/.config/EmuDeck/backend/functions/all.sh
+rclone_downloadEmu pcsx2-qt
 emuName="pcsx2-Qt" #parameterize me
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
 
@@ -22,3 +24,4 @@ param=${param/\'/"$substituteWith"}
 #Fix last ' on command
 param=$(echo "$param" | sed 's/.$/"/')
 eval "${exe} ${param} -bigpicture -fullscreen"
+rclone_uploadEmu pcsx2-qt
