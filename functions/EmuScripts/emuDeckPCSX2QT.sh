@@ -120,20 +120,14 @@ PCSX2QT_migrate(){
 
 #WideScreenOn
 PCSX2QT_wideScreenOn(){
-
-	local EnableWideScreenPatches='EnableWideScreenPatches = '
-	local EnableWideScreenPatchesOpt='EnableWideScreenPatches = '"true"
-	
-	changeLine "$EnableWideScreenPatches" "$EnableWideScreenPatchesOpt" "$PCSX2QT_configFile"
-
+	iniFieldUpdate "$PCSX2QT_configFile" "EmuCore" "EnableWideScreenPatches" "True"
+	iniFieldUpdate "$PCSX2QT_configFile" "EmuCore/GS" "AspectRatio" "16:9"
 }
 
 #WideScreenOff
 PCSX2QT_wideScreenOff(){
-	local EnableWideScreenPatches='EnableWideScreenPatches = '
-	local EnableWideScreenPatchesOpt='EnableWideScreenPatches = '"false"
-
-	changeLine "$EnableWideScreenPatches" "$EnableWideScreenPatchesOpt" "$PCSX2QT_configFile"
+	iniFieldUpdate "$PCSX2QT_configFile" "EmuCore" "EnableWideScreenPatches" "false"
+	iniFieldUpdate "$PCSX2QT_configFile" "EmuCore/GS" "AspectRatio" "Auto 4:3/3:2"
 }
 
 #BezelOn
