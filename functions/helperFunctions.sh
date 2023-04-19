@@ -88,24 +88,29 @@ function testRealDeck(){
 
 function testLocationValid(){
     local locationName=$1
-	local testLocation=$2
-	local return=""
+    local testLocation=$2
+    local result=""
 
-    touch "$testLocation/testwrite"
-
-	if [ ! -f  "$testLocation/testwrite" ]; then
-		return="Invalid: $locationName not Writable"
-	else
-		ln -s "$testLocation/testwrite" "$testLocation/testwrite.link"
-		if [ ! -f  "$testLocation/testwrite.link" ]; then
-			return="Invalid: $locationName not Linkable"
-		else
-			return="Valid"
-		fi
-	fi
-	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
-	echo $return
+    if [[ "$testLocation" == *" "* ]]; then
+        result="Invalid: $locationName contains spaces"
+    else
+        touch "$testLocation/testwrite"
+        if [ ! -f  "$testLocation/testwrite" ]; then
+            result="Invalid: $locationName not Writable"
+        else
+            ln -s "$testLocation/testwrite" "$testLocation/testwrite.link"
+            if [ ! -f  "$testLocation/testwrite.link" ]; then
+                result="Invalid: $locationName not Linkable"
+            else
+                result="Valid"
+            fi
+            rm -f "$testLocation/testwrite.link"
+        fi
+        rm -f "$testLocation/testwrite"
+    fi
+    echo "$result"
 }
+
 
 function testLocationValidRelaxed(){
 	local locationName=$1
