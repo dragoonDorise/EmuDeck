@@ -526,40 +526,67 @@ function desktopShortcutFieldUpdate(){
 #!/bin/bash
 
 function iniFieldUpdate() {
-	local iniFile="$1"
-	local iniSection="${2:-}"
-	local iniKey="$3"
-	local iniValue="$4"
-	local separator="${5:- = }"
+    local iniFile="$1"
+    local iniSection="${2:-}"
+    local iniKey="$3"
+    local iniValue="$4"
+    local separator="${5:- = }"
 
-	if [ -f "$iniFile" ]; then
-		# Create the section if it doesn't exist.
-		if [ -n "$iniSection" ] && ! grep -q "\[$iniSection\]" "$iniFile"; then
-			echo "[$iniSection]" >> "$iniFile"
-		fi
-		# If the key doesn't exist, create it one line below the $iniSection.
-		# Otherwise, just update the value.
-		if ! grep -q "^$iniKey$separator" "$iniFile"; then
-			echo "Creating key $iniKey$separator$iniValue"
-			if [ -n "$iniSection" ]; then
-				local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
-				sed -i "$((sectionLineNumber + 1))i$iniKey$separator$iniValue" "$iniFile"
-			else
-				echo "$iniKey$separator$iniValue" >> "$iniFile"
-			fi
-		else
-			echo "Updating key $iniKey$separator$iniValue"
-			if [ -n "$iniSection" ]; then
-				local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
-				sed -i "/^\[$iniSection\]/,/^\[/ s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
-			else
-				sed -i "s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
-			fi
-		fi
-	else
-		echo "Can't update missing INI file: $iniFile"
-	fi
+    if [ -f "$iniFile" ]; then
+        # Create the section if it doesn't exist.
+        if [ -n "$iniSection" ] && ! grep -q "\[$iniSection\]" "$iniFile"; then
+            echo "Creating Header [$iniSection]"
+            echo "[$iniSection]" >> "$iniFile"
+        fi
+
+        # If the key doesn't exist, create it one line below the $iniSection.
+        # Otherwise, just update the value.
+        if ! grep -q "^$iniKey$separator" "$iniFile"; then
+            echo "Creating [$iniSection] key $iniKey$separator$iniValue"
+            if [ -n "$iniSection" ]; then
+                local sectionLineNumber=$(awk -v section="$iniSection" 'BEGIN{FS=OFS="|"} $0=="["section"]"{print NR; exit}' "$iniFile")
+                echo "startLineNumber: $sectionLineNumber"
+				if [ -n "$sectionLineNumber" ]; then
+				#this needs work
+                    sed -i "$((sectionLineNumber + 1))i$iniKey$separator$iniValue" "$iniFile"
+                else
+                    echo "[$iniSection]" >> "$iniFile"
+                    echo "$iniKey$separator$iniValue" >> "$iniFile"
+                fi
+            else
+                echo "$iniKey$separator$iniValue" >> "$iniFile"
+            fi
+        else
+            echo "Updating [$iniSection] key $iniKey$separator$iniValue"
+            if [ -n "$iniSection" ]; then
+                local startLineNumber=''
+                startLineNumber=$(awk -v section="$iniSection" 'BEGIN{FS=OFS="|"} $0=="["section"]"{print NR; exit}' "$iniFile")
+                echo "startLineNumber: $startLineNumber"
+                if [ -n "$startLineNumber" ]; then
+                    local endLineNumber=''
+                    endLineNumber=$(awk -v start="$startLineNumber" -F ']' 'NR > start && /^\[/ {print NR-1; exit}' "$iniFile")
+                    echo "end: $endLineNumber"
+                    if [ -n "$endLineNumber" ]; then
+                        endLineNumber=$((endLineNumber + 1))
+                        sed -i "$startLineNumber,$endLineNumber{s|^$iniKey$separator.*|$iniKey$separator$iniValue|}" "$iniFile"
+                    else
+                        sed -i "$startLineNumber,\$s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
+                    fi
+                else
+                    echo "[$iniSection]" >> "$iniFile"
+                    echo "$iniKey$separator$iniValue" >> "$iniFile"
+                fi
+            else
+                sed -i "s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
+            fi
+        fi
+    else
+        echo "Can't update missing INI file: $iniFile"
+    fi
 }
+
+
+
 
 
 
