@@ -49,6 +49,8 @@ Xenia_install(){
 #	fi
 	chmod +x "${toolsPath}/launchers/xenia.sh"	
 
+    Xenia_getPatches
+
 	createDesktopShortcut   "$HOME/.local/share/applications/xenia.desktop" \
 							"Xenia (Proton)" \
 							"${toolsPath}/launchers/xenia.sh" \
@@ -83,6 +85,53 @@ Xenia_addESConfig(){
 	fi
 	#Custom Systems config end
 }
+
+function Xenia_getPatches() {
+  local patches_dir="${romsPath}/xbox360/patches"
+  local patches_repo="https://github.com/xenia-canary/game-patches.git"
+  local patches_branch="main"
+
+  # Create the patches directory if it doesn't exist
+  if [ ! -d "$patches_dir" ]; then
+    mkdir -p "$patches_dir"
+  fi
+
+  # Initialize a new Git repository in the patches directory
+  cd "$patches_dir" || exit
+  if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    git init
+  fi
+
+  # Set up a remote origin for the repository
+  if ! git remote get-url origin > /dev/null 2>&1; then
+    git remote add origin "$patches_repo"
+  fi
+
+  # Configure Git to perform a sparse checkout of the patches folder
+  if ! git config core.sparsecheckout > /dev/null 2>&1; then
+    git config core.sparsecheckout true
+  fi
+  if ! grep -Fxq "patches/*" .git/info/sparse-checkout; then
+    echo "patches/*" >> .git/info/sparse-checkout
+  fi
+
+  # Pull the latest changes from the remote repository
+  git fetch origin "$patches_branch"
+  if git merge FETCH_HEAD > /dev/null 2>&1; then
+    echo "Patches updated successfully"
+  else
+    # If the merge failed, reset the local changes and try again
+    git reset --hard HEAD > /dev/null 2>&1
+    git clean -fd > /dev/null 2>&1
+    git fetch origin "$patches_branch"
+    if git merge FETCH_HEAD > /dev/null 2>&1; then
+      echo "Patches updated successfully"
+    else
+      echo "Error: Failed to update patches"
+    fi
+  fi
+}
+
 
 #update
 Xenia_update(){
