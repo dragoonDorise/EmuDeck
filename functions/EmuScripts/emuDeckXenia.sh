@@ -87,7 +87,7 @@ Xenia_addESConfig(){
 }
 
 function Xenia_getPatches() {
-  local patches_dir="${romsPath}/xbox360/patches"
+  local patches_dir="${romsPath}/xbox360/"
   local patches_repo="https://github.com/xenia-canary/game-patches.git"
   local patches_branch="main"
 
@@ -116,14 +116,14 @@ function Xenia_getPatches() {
   fi
 
   # Pull the latest changes from the remote repository
-  git fetch origin "$patches_branch"
+  git fetch --depth=1 origin "$patches_branch"
   if git merge FETCH_HEAD > /dev/null 2>&1; then
     echo "Patches updated successfully"
   else
     # If the merge failed, reset the local changes and try again
     git reset --hard HEAD > /dev/null 2>&1
     git clean -fd > /dev/null 2>&1
-    git fetch origin "$patches_branch"
+    git fetch --depth=1 origin "$patches_branch"
     if git merge FETCH_HEAD > /dev/null 2>&1; then
       echo "Patches updated successfully"
     else
