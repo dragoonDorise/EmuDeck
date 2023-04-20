@@ -536,47 +536,42 @@ function iniFieldUpdate() {
         # Create the section if it doesn't exist.
         if [ -n "$iniSection" ] && ! grep -q "\[$iniSection\]" "$iniFile"; then
             echo "Creating Header [$iniSection]"
-            echo "[$iniSection]" >> "$iniFile"
-        fi
-
-        # If the key doesn't exist, create it one line below the $iniSection.
-        # Otherwise, just update the value.
-        if ! grep -q "^$iniKey$separator" "$iniFile"; then
-            echo "Creating [$iniSection] key $iniKey$separator$iniValue"
-            if [ -n "$iniSection" ]; then
-                local sectionLineNumber=$(awk -v section="$iniSection" 'BEGIN{FS=OFS="|"} $0=="["section"]"{print NR; exit}' "$iniFile")
-                echo "startLineNumber: $sectionLineNumber"
-				if [ -n "$sectionLineNumber" ]; then
-				#this needs work
-                    sed -i "$((sectionLineNumber + 1))i$iniKey$separator$iniValue" "$iniFile"
-                else
-                    echo "[$iniSection]" >> "$iniFile"
-                    echo "$iniKey$separator$iniValue" >> "$iniFile"
-                fi
-            else
-                echo "$iniKey$separator$iniValue" >> "$iniFile"
+            if [ "$(wc -l < "$iniFile")" -gt 0 ]; then
+                # Append a newline before adding the new section
+                echo >> "$iniFile"
             fi
+            # Escape special characters in the section header
+            escapedSection=$(echo "$iniSection" | sed 's/[&/\]/\\&/g')
+            echo "[$escapedSection]" >> "$iniFile"
+			echo "Creating [$iniSection] key $iniKey$separator$iniValue"
+            echo "$iniKey$separator$iniValue" >> "$iniFile"
         else
-            echo "Updating [$iniSection] key $iniKey$separator$iniValue"
+            # If the key doesn't exist in the section, create it one line below the section.
+            # Otherwise, update the value.
+            local startLineNumber=''
+            local endLineNumber=''
             if [ -n "$iniSection" ]; then
-                local startLineNumber=''
-                startLineNumber=$(awk -v section="$iniSection" 'BEGIN{FS=OFS="|"} $0=="["section"]"{print NR; exit}' "$iniFile")
-                echo "startLineNumber: $startLineNumber"
+                # Escape special characters in the section header
+                escapedSection=$(echo "$iniSection" | sed 's/[&/\]/\\&/g')
+                startLineNumber=$(awk -v section="$escapedSection" 'BEGIN{FS=OFS="|"} $0=="["section"]"{print NR; exit}' "$iniFile")
                 if [ -n "$startLineNumber" ]; then
-                    local endLineNumber=''
                     endLineNumber=$(awk -v start="$startLineNumber" -F ']' 'NR > start && /^\[/ {print NR-1; exit}' "$iniFile")
-                    echo "end: $endLineNumber"
-                    if [ -n "$endLineNumber" ]; then
-                        endLineNumber=$((endLineNumber + 1))
-                        sed -i "$startLineNumber,$endLineNumber{s|^$iniKey$separator.*|$iniKey$separator$iniValue|}" "$iniFile"
-                    else
-                        sed -i "$startLineNumber,\$s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
-                    fi
-                else
-                    echo "[$iniSection]" >> "$iniFile"
-                    echo "$iniKey$separator$iniValue" >> "$iniFile"
                 fi
+            fi
+
+            if [ -n "$startLineNumber" ] && [ -n "$endLineNumber" ]; then
+                if ! grep -q "^$iniKey$separator" <(sed -n "${startLineNumber},${endLineNumber}p" "$iniFile"); then
+                    echo "Creating [$iniSection] key $iniKey$separator$iniValue"
+                    sed -i "${startLineNumber}a$iniKey$separator$iniValue" "$iniFile"
+                else
+                    echo "Updating [$iniSection] key $iniKey$separator$iniValue"
+                    sed -i "/^\[$escapedSection\]/,/^\[/ s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
+                fi
+            elif ! grep -q "^$iniKey$separator" "$iniFile"; then
+                echo "Creating key $iniKey$separator$iniValue"
+                echo "$iniKey$separator$iniValue" >> "$iniFile"
             else
+                echo "Updating key $iniKey$separator$iniValue"
                 sed -i "s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
             fi
         fi
@@ -584,6 +579,10 @@ function iniFieldUpdate() {
         echo "Can't update missing INI file: $iniFile"
     fi
 }
+
+
+
+
 
 
 
