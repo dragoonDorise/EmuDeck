@@ -523,8 +523,6 @@ function desktopShortcutFieldUpdate(){
 }
 
 #iniFieldUpdate "$iniFilePath" "General" "LoadPath" "$storagePath/$emuName/Load" "separator!"
-#!/bin/bash
-
 function iniFieldUpdate() {
     local iniFile="$1"
     local iniSection="${2:-}"
@@ -581,29 +579,45 @@ function iniFieldUpdate() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 function iniSectionUpdate() {
-  local iniFile=$1  # path to the ini file
-  local iniHeader=$2 # header of the section to update
-  local section_data=$3 # new data for the section
-  
-  local escaped_header=$(printf '%s\n' "$iniHeader" | sed 's/[\[\].*^$/\\&/g')
+    local file="$1"
+    local section_name="$2"
+    local new_content="$3"
+    local tmp_file=$(mktemp)
 
-  if grep -q "^$escaped_header" "$iniFile"; then
-    sed -i "/^$escaped_header/,/^\[/c$section_data" "$iniFile"
-  else
-    echo -e "\n[$iniHeader]\n$section_data" >> "$iniFile"
-  fi
+    local inside_section=0
+
+    while IFS= read -r line; do
+
+        if [[ "$line" =~ ^\[$section_name\] ]]; then
+            inside_section=1
+            echo "$line"
+            echo "$new_content"
+            continue
+        fi
+
+        if [[ "$line" =~ ^\[ ]] && [[ ! "$line" =~ ^\[$section_name\] ]] && [[ $inside_section -eq 1 ]]; then
+            echo "$old_content"
+            inside_section=0
+        fi
+
+        if [[ $inside_section -eq 1 ]]; then
+            continue
+        fi
+
+        echo "$line"
+
+    local old_content="$line"
+
+    done < "$file" > "$tmp_file"
+
+    if [[ $inside_section -eq 1 ]]; then
+        echo "$old_content"
+    fi
+
+    mv "$tmp_file" "$file"
 }
+
 
 safeDownload() {
 	local name="$1"
