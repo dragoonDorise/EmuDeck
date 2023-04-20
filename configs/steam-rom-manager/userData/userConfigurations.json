@@ -1288,7 +1288,7 @@
     "localIcons": "",
     "disabled": true,
     "executable": {
-      "path": "/home/deck/.config/EmuDeck/backend/tools/launchers/xenia.sh",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -1355,7 +1355,7 @@
       "useCredentials": true
     },
     "executable": {
-      "path": "/home/deck/.config/EmuDeck/backend/tools/launchers/xenia.sh",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -1704,7 +1704,7 @@
       "removeBrackets": true
     },
     "executable": {
-      "path": "/home/deck/.config/EmuDeck/backend/tools/launchers/mgba.sh",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mgba.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
@@ -1842,7 +1842,7 @@
       "removeBrackets": true
     },
     "executable": {
-      "path": "/home/deck/.config/EmuDeck/backend/tools/launchers/mgba.sh",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mgba.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
@@ -1980,7 +1980,7 @@
       "removeBrackets": true
     },
     "executable": {
-      "path": "/home/deck/.config/EmuDeck/backend/tools/launchers/mgba.sh",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mgba.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
@@ -2442,7 +2442,7 @@
       "removeBrackets": true
     },
     "executable": {
-      "path": "/home/deck/.config/EmuDeck/backend/tools/launchers/yuzu.sh",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/yuzu.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
@@ -2547,7 +2547,7 @@
     "localIcons": "",
     "disabled": false,
     "executable": {
-      "path": "/home/deck/.config/EmuDeck/backend/tools/launchers/cemu.sh",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
@@ -2623,7 +2623,7 @@
     "localIcons": "",
     "disabled": false,
     "executable": {
-      "path": "/home/deck/.config/EmuDeck/backend/tools/launchers/cemu.sh",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
@@ -2700,7 +2700,7 @@
     "disabled": true,
     "advanced": false,
     "executable": {
-      "path": "/home/deck/.config/EmuDeck/backend/tools/launchers/cemu.sh",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
@@ -2753,7 +2753,7 @@
     "disabled": true,
     "advanced": false,
     "executable": {
-      "path": "/home/deck/.config/EmuDeck/backend/tools/launchers/cemu.sh",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
@@ -3751,7 +3751,7 @@
       "useCredentials": true
     },
     "executable": {
-      "path": "/home/deck/.config/EmuDeck/backend/tools/launchers/pcsx2-qt.sh",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/pcsx2-qt.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
@@ -4135,7 +4135,7 @@
     },
     "disabled": true,
     "executable": {
-      "path": "/home/deck/.config/EmuDeck/backend/tools/launchers/ryujinx.sh",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/ryujinx.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
