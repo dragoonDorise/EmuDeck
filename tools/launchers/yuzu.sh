@@ -1,6 +1,4 @@
 #!/bin/bash
-source $HOME/.config/EmuDeck/backend/functions/all.sh
-rclone_downloadEmu yuzu
 emuName="yuzu" #parameterize me
 useEAifFound="true" # set to false to simply use the newest file found
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
@@ -10,10 +8,10 @@ YuzuEA_emuPath="$HOME/Applications/yuzu-ea.AppImage"
 YuzuEA_tokenFile="$HOME/emudeck/yuzu-ea-token.txt"
 YuzuEA_lastVerFile="$HOME/emudeck/yuzu-ea.ver"
 Yuzu_lastVerFile="$HOME/emudeck/yuzu.ver"
+showProgress="true"
 
 #source the helpers for safeDownload
-. ~/.config/EmuDeck/backend/functions/helperFunctions.sh
-
+. "$HOME/.config/EmuDeck/backend/functions/helperFunctions.sh"
 
 #force ea if available
 if [ "$useEAifFound" = "true" ]; then
@@ -61,7 +59,7 @@ if [ -z "$1" ];then
                     if [ $? = 0 ]; then
                         echo "download ${currentVer} appimage: ${fileToDownload}"
 
-                        if safeDownload "$emuName" "${fileToDownload}" "$Yuzu_emuPath" "true"; then
+                        if safeDownload "$emuName" "${fileToDownload}" "$Yuzu_emuPath" "$showProgress"; then
                             chmod +x "$emufolder/$emuName.AppImage"
                             echo "latest version $currentVer > $Yuzu_lastVerFile"
                             echo "${currentVer}" > "${Yuzu_lastVerFile}"
@@ -78,7 +76,6 @@ if [ -z "$1" ];then
                     yuzuEaMetadata=$(curl -fSs ${yuzuEaHost})
                     fileToDownload=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).url')
                     currentVer=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
-                    showProgress="$1"
 
                     if [ -e "$YuzuEA_tokenFile" ]; then
 
@@ -138,4 +135,3 @@ param=${param/\'/"$substituteWith"}
 #Fix last ' on command
 param=$(echo "$param" | sed 's/.$/"/')
 eval "${exe} ${param}"
-rclone_uploadEmu yuzu
