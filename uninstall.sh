@@ -293,7 +293,7 @@ if [ "$doUninstall" == true ]; then
 	echo "# Removing EmuDeck folders";
 	rm -rf $toolsPath
 	#rm -rf $biosPath
-	#rm -rf "savesPath"
+	rm -rf $savesPath
 	rm -rf $storagePath
 	rm -rf $ESDEscrapData
 	rm -rf "$emulationPath/hdpacks"
