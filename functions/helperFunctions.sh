@@ -660,16 +660,13 @@ addSteamInputCustomIcons() {
 	rsync -av "$EMUDECKGIT/configs/steam-input/Icons/" "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons"
 }
 
-#add new emu entries here!
 getEmuInstallStatus() {
-	emuArray=(	"Cemu" "CemuNative" "Citra" "Dolphin" "DuckStation" "MAME" "melonDS" "mGBA"\
-				"PCSX2QT" "PPSSPP" "Primehack" "RetroArch" "RMG" "RPCS3" "Ryujinx" "ScummVM"\
-				"Vita3K" "Xemu" "Xenia" "Yuzu" "YuzuEA")
+	emuArray=(	"$@")
 	installStatus=()
 	for emu in "${emuArray[@]}"; do
 		installStatus+=($("${emu}_IsInstalled"))
 	done
 	
 	paste <(printf "%s\n" "${emuArray[@]}") <(printf "%s\n" "${installStatus[@]}") |
-    jq -nR '{ Emulators: [inputs] | map(split("\t") | { Name: .[0], Installed: .[1] }) }'
+	jq -nR '{ Emulators: [inputs] | map(split("\t") | { Name: .[0], Installed: .[1] }) }'
 }
