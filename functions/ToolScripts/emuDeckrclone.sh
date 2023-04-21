@@ -342,18 +342,18 @@ rclone_createBackup(){
 
 rclone_uploadEmu(){
   echo ""
-  #emuName=$1
-  #rclone_provider=$2
-  #if [ -f "$toolsPath/rclone/rclone" ]; then
-  #  "$toolsPath/rclone/rclone" sync -P -L "$savesPath"/$emuName/ "$rclone_provider":Emudeck/saves/$emuName/ | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 300 --pulsate
-  #fi
+  emuName=$1
+  rclone_provider=$2
+  if [ -f "$toolsPath/rclone/rclone" ]; then
+    "$toolsPath/rclone/rclone" sync -P -L "$savesPath"/$emuName/ "$rclone_provider":Emudeck/saves/$emuName/ | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 300 --pulsate
+  fi
 }
 
 rclone_downloadEmu(){
   echo ""
-  #emuName=$1
-  #rclone_provider=$2
-  #if [ -f "$toolsPath/rclone/rclone" ]; then
-  #  "$toolsPath/rclone/rclone" copy -P -L "$rclone_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 300 --pulsate
-  #fi
+  emuName=$1
+  rclone_provider=$2
+  if [ -f "$toolsPath/rclone/rclone" ]; then
+    "$toolsPath/rclone/rclone" copy -P -L "$rclone_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 300 --pulsate
+  fi
 }
