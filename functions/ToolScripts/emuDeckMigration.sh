@@ -15,6 +15,7 @@ Migration_init(){
 	if [ $difference -gt 0 ]; then
 		Migration_move "$emulationPath" "$destination" "$neededSpaceInHuman" && Migration_updatePaths "$emulationPath" "$destination/Emulation/"
 	else
+		echo "abort"
 		text="$(printf "<b>Not enough space</b>\nYou need to have at least ${neededSpaceInHuman} on ${destination}\nYou only have ${freeSpaceInHuman}")"
 		 zenity --error \
 				 --title="EmuDeck" \
@@ -32,7 +33,7 @@ Migration_move(){
 	rsync -av --progress "$origin" "$destination" |
 	awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
 	zenity --progress --title "Migrating your current ${size} Emulation folder to $destination" \
-	--text="Scanning..." --width=400 --percentage=0 --auto-close
+	--text="Scanning..." --width=400 --percentage=0 --auto-close	
 }
 
 
@@ -96,6 +97,8 @@ Migration_updatePaths(){
 		 --title="EmuDeck" \
 		 --width=400 \
 		 --text="${text}" 2>/dev/null	
+		 
+	echo "Valid"	 
 }
 
 #SRM path update for when 3.5 comes...
