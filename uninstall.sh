@@ -307,7 +307,7 @@ if [ "$doUninstall" == true ]; then
 	  --text="..." \
 	  --percentage=0
 	  --auto-close
-	  --width="250" \
+	  --width="250"
 	
 	if [ "$?" = -1 ] ; then
 			zenity --error \
