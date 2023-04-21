@@ -1,5 +1,5 @@
 #!/bin/bash
-source "$EMUDECKGIT/functions/all.sh"
+source "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
 doUninstall=false
 doUninstallRA=true
