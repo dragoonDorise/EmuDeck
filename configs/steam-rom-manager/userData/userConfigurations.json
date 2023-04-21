@@ -93,11 +93,11 @@
     "defaultHeroImage": "",
     "defaultLogoImage": "",
     "localImages": {
-      "long": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_banner.@(png|jpg)",
-      "tall": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_portrait.@(png|jpg)",
-      "hero": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_hero.@(png|jpg)",
-      "logo": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_logo.@(png|jpg)",
-      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_icon.@(png|jpg)"
+      "long": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/rmg/${title}_banner.@(png|jpg)",
+      "tall": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/rmg/${title}_portrait.@(png|jpg)",
+      "hero": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/rmg/${title}_hero.@(png|jpg)",
+      "logo": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/rmg/${title}_logo.@(png|jpg)",
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/rmg/${title}_icon.@(png|jpg)"
     },
     "localIcons": "",
     "disabled": false,
