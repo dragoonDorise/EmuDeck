@@ -23,9 +23,7 @@ rclone_install(){
 }
 
 rclone_install_and_config(){	
-    local rclone_provider=$1
-    
-    rclone_stopService
+    local rclone_provider=$1  
     rm -rf "$HOME/.config/systemd/user/emudeck_saveBackup.service" > /dev/null 
     mkdir -p "$rclone_path"/tmp
     curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip"
@@ -66,7 +64,7 @@ rclone_install_and_config(){
     else
         $rclone_bin config update "$rclone_provider" 
     fi
-    
+    rclone_stopService
 }
 
 rclone_pickProvider(){
