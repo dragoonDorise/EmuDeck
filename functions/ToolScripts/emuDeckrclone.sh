@@ -22,6 +22,51 @@ rclone_install(){
     rclone_createJob
 }
 
+rclone_install_and_config(){	
+    local rclone_provider=$1  
+    rm -rf "$HOME/.config/systemd/user/emudeck_saveBackup.service" > /dev/null 
+    mkdir -p "$rclone_path"/tmp
+    curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip"
+
+    unzip -o "$rclone_path/tmp/rclone.zip" -d "$rclone_path/tmp/" && rm "$rclone_path/tmp/rclone.zip"
+    mv "$rclone_path"/tmp/* "$rclone_path/tmp/rclone" #don't quote the *
+    mv  "$rclone_path/tmp/rclone/rclone" "$rclone_bin"
+    rm -rf "$rclone_path/tmp"
+    chmod +x "$rclone_bin"
+
+    cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
+    
+    if [ $rclone_provider == "Emudeck-NextCloud" ]; then
+    
+        local url
+        local username
+        local password
+    
+        NCInput=$(zenity --forms \
+                --title="Nextcloud Sign in" \
+                --text="Please enter your Nextcloud information here. URL is your webdav url. Use HTTP:// or HTTPS:// please." \
+                --width=300 \
+                --add-entry="URL: " \
+                --add-entry="Username: " \
+                --add-password="Password: " \
+                --separator="," 2>/dev/null)
+                ans=$?
+        if [ $ans -eq 0 ]; then
+            echo "Nextcloud Login"
+            url="$(echo "$NCInput" | awk -F "," '{print $1}')"
+            username="$(echo "$NCInput" | awk -F "," '{print $2}')"
+            password="$(echo "$NCInput" | awk -F "," '{print $3}')"
+            
+            $rclone_bin config update "$rclone_provider" vendor="nextcloud" url=$url  user=$username pass="$($rclone_bin obscure $password)"
+        else
+            echo "Cancel Nextcloud Login" 
+        fi
+    else
+        $rclone_bin config update "$rclone_provider" 
+    fi
+    rclone_stopService
+}
+
 rclone_pickProvider(){
 
     cloudProviders=()
@@ -296,17 +341,19 @@ rclone_createBackup(){
 }
 
 rclone_uploadEmu(){
-  echo "";
+  echo ""
   #emuName=$1
-  ##if [ -e "$toolsPath/rclone/rclone" ]; then
-  ##  "$toolsPath/rclone/rclone" sync -P -L "$savesPath"/$emuName/ "$rclone_provider":Emudeck/saves/$emuName/ | zenity --progress --title="Uploading saves" --text="Please stand by..." --auto-close --width 600 --height 300 --pulsate
-  ##fi
+  #rclone_provider=$2
+  #if [ -f "$toolsPath/rclone/rclone" ]; then
+  #  "$toolsPath/rclone/rclone" sync -P -L "$savesPath"/$emuName/ "$rclone_provider":Emudeck/saves/$emuName/ | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 300 --pulsate
+  #fi
 }
 
 rclone_downloadEmu(){
-  echo "";
-  ##emuName=$1
-  ##if [ -e "$toolsPath/rclone/rclone" ]; then
-  ##  "$toolsPath/rclone/rclone" sync -P -L "$rclone_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ 
-  ##fi
+  echo ""
+  #emuName=$1
+  #rclone_provider=$2
+  #if [ -f "$toolsPath/rclone/rclone" ]; then
+  #  "$toolsPath/rclone/rclone" copy -P -L "$rclone_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 300 --pulsate
+  #fi
 }
