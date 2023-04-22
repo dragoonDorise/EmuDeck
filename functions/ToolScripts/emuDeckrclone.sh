@@ -24,6 +24,7 @@ rclone_install(){
 
 rclone_install_and_config(){	
     local rclone_provider=$1  
+    setSetting rclone_provider "$rclone_provider"
     rm -rf "$HOME/.config/systemd/user/emudeck_saveBackup.service" > /dev/null 
     mkdir -p "$rclone_path"/tmp
     curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip"
@@ -342,6 +343,7 @@ rclone_createBackup(){
 
 rclone_uploadEmu(){
   echo ""
+
   #emuName=$1
   #rclone_provider=$2
   #if [ -f "$toolsPath/rclone/rclone" ]; then
@@ -351,9 +353,11 @@ rclone_uploadEmu(){
 
 rclone_downloadEmu(){
   echo ""
+
   #emuName=$1
   #rclone_provider=$2
   #if [ -f "$toolsPath/rclone/rclone" ]; then
   #  "$toolsPath/rclone/rclone" copy -P -L "$rclone_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 300 --pulsate
   #fi
+
 }
