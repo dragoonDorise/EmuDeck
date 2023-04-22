@@ -23,6 +23,9 @@ doUninstallMGBA=true
 doUninstallRMG=true
 doUninstallVita3K=true
 
+
+
+
 LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
 echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
 exec > >(tee "${LOGFILE}") 2>&1
@@ -214,6 +217,7 @@ if [ "$doUninstall" == true ]; then
 
 		rm -f ~/Emulation/roms/wiiu/* &>> /dev/null
 		rm -f /run/media/mmcblk0p1/Emulation/roms/wiiu/* &>> /dev/null
+		rm -rf ~/.local/share/applications/Cemu (Proton).desktop &>> /dev/null
 	fi
 	if [[ "${doUninstallCemuNative}" == "true" ]]; then
 		rm -rf ~/Applications/Cemu*.AppImage &>> /dev/null
@@ -230,6 +234,7 @@ if [ "$doUninstall" == true ]; then
 	if [[ "$doUninstallMGBA" == true ]]; then
 		rm -rf ~/Applications/mGBA.AppImage &>> /dev/null
 		rm -rf ~/.config/mgba
+		rm -rf ~/.local/share/applications/mGBA.desktop &>> /dev/null
 	fi
 	if [[ "$doUninstallRMG" == true ]]; then
 		flatpak uninstall org.com.github.Rosalie241.RMG --system -y
@@ -237,7 +242,14 @@ if [ "$doUninstall" == true ]; then
 	fi
 	if [[ "$doUninstallVita3K" == true ]]; then
 		rm -rf ~/Applications/Vita3K &>> /dev/null
+		rm -rf ~/.local/share/applications/Vita3K.desktop &>> /dev/null
 	fi
+	# if [[ "$doUninstallXenia" == true ]]; then
+	# 	rm -rf ~/Applications/Vita3K &>> /dev/null
+	# 	rm -rf ~/.local/share/applications/xenia.desktop &>> /dev/null
+	# fi
+	
+	
 
 	echo "55"
 	echo "# Removing Cloud Backup";
@@ -288,6 +300,8 @@ if [ "$doUninstall" == true ]; then
 	echo "80"
 	echo "# Removing SRM configurations";
 	rm -rf ~/.config/steam-rom-manager
+	rm -rf ~/.local/share/applications/SRM.desktop &>> /dev/null
+
 
 	echo "90"
 	echo "# Removing EmuDeck folders";
