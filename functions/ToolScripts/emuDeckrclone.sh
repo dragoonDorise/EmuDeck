@@ -68,6 +68,10 @@ rclone_install_and_config(){
     rclone_stopService
 }
 
+rclone_uninstall(){
+  rm -rf $rclone_bin && rm -rf $rclone_config && echo "tru"
+}
+
 rclone_pickProvider(){
 
     cloudProviders=()
