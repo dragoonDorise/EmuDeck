@@ -358,6 +358,6 @@ rclone_downloadEmu(){
   emuName=$1
   if [ -f "$toolsPath/rclone/rclone" ]; then
     watch -n1 "find "$savesPath"/$emuName/ -type f -mmin -1 -exec sh -c '. $HOME/.config/EmuDeck/backend/functions/all.sh && rclone_uploadEmu \"\$emuName\"' {} \;" &
-    "$toolsPath/rclone/rclone" copy -P -L "$rclone_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 300 --pulsate
+    "$toolsPath/rclone/rclone" copy -P -L "$rclone_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ | zenity --progress --title="Downloading saves" --text="Syncing saves..." --auto-close --width 300 --height 300 --pulsate
   fi
 }
