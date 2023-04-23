@@ -455,7 +455,7 @@
     "steamCategory": "${Arcade}",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "${romsdirglobal}/arcade",
-    "executableArgs": "run org.mamedev.MAME \"${fileName}\"",
+    "executableArgs": " \"${fileName}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -478,7 +478,7 @@
       "useCredentials": true
     },
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mame.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -1208,7 +1208,7 @@
     "parserType": "Glob",
     "configTitle": "Microsoft XBox - Xemu",
     "steamCategory": "${XBox}",
-    "executableArgs": "run app.xemu.xemu -full-screen -dvd_path \"${filePath}\"",
+    "executableArgs": " -full-screen -dvd_path \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/xbox",
     "steamDirectory": "${steamdirglobal}",
@@ -1229,7 +1229,7 @@
     "localIcons": "",
     "disabled": false,
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/xemu.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -1408,7 +1408,7 @@
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "executableArgs": "run org.citra_emu.citra \"${filePath}\"",
+    "executableArgs": " \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
@@ -1443,7 +1443,7 @@
       "removeBrackets": true
     },
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/citra.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -2040,7 +2040,7 @@
     "localIcons": "",
     "disabled": false,
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/dolphin-emu.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
@@ -2226,7 +2226,7 @@
     "localIcons": "",
     "disabled": true,
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/melonds.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
@@ -2488,7 +2488,7 @@
     "localIcons": "",
     "disabled": false,
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/dolphin-emu.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
@@ -2812,7 +2812,7 @@
       "useCredentials": true
     },
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/primehack.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
@@ -3534,7 +3534,7 @@
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "executableArgs": "run org.duckstation.DuckStation -batch -fullscreen \"${filePath}\"",
+    "executableArgs": "-batch -fullscreen \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
@@ -3569,7 +3569,7 @@
       "removeBrackets": true
     },
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/duckstation.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -3795,7 +3795,7 @@
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "executableArgs": "run net.rpcs3.RPCS3 --no-gui \"${filePath}\"",
+    "executableArgs": "--no-gui \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
@@ -3830,7 +3830,7 @@
       "removeBrackets": true
     },
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/rpcs3.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -3854,7 +3854,7 @@
     "steamCategory": "${PlayStation 3}",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "/run/media/mmcblk0p1/Emulation/storage/rpcs3/dev_hdd0/game",
-    "executableArgs": "run net.rpcs3.RPCS3 --no-gui \"${filePath}\"",
+    "executableArgs": "--no-gui \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -3877,7 +3877,7 @@
       "useCredentials": true
     },
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/rpcs3.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -3980,7 +3980,7 @@
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "executableArgs": "run org.ppsspp.PPSSPP -f -g \"${filePath}\"",
+    "executableArgs": "-f -g \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
@@ -4015,7 +4015,7 @@
       "removeBrackets": true
     },
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/ppsspp.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -4360,7 +4360,7 @@
     "steamCategory": "${ScummVM}",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "${romsdirglobal}/scummvm",
-    "executableArgs": "run org.scummvm.ScummVM --path=\"${filePath}\" --auto-detect",
+    "executableArgs": "--path=\"${filePath}\" --auto-detect",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -4383,7 +4383,7 @@
       "useCredentials": true
     },
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/scummvm.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -4977,7 +4977,7 @@
     "steamCategory": "${Nintendo 64 - RMG}",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "${romsdirglobal}",
-    "executableArgs": "run com.github.Rosalie241.RMG --fullscreen --nogui --quit-after-emulation \"${filePath}\"",
+    "executableArgs": "--fullscreen --nogui --quit-after-emulation \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -5000,7 +5000,7 @@
       "useCredentials": true
     },
     "executable": {
-      "path": "/usr/bin/flatpak",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/rosaliesmupengui.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": false
     },
