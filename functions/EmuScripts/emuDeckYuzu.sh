@@ -358,5 +358,16 @@ YuzuEA_IsInstalled() {
 }
 
 Yuzu_resetConfig() {
-    Yuzu_init &>/dev/null && echo "true" || echo "false"
+    {
+        Yuzu_migrate
+        
+        configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
+        configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
+        
+        Yuzu_setEmulationFolder
+        Yuzu_setupStorage
+        Yuzu_setupSaves
+    
+    } && echo "true" || echo "false"
 }
+

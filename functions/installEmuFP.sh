@@ -7,7 +7,7 @@ installEmuFP(){
 	setMSG "Installing $name"
 	
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
-	flatpak install flathub "$ID" -y --system
+	flatpak install flathub "$ID" -y --user
 	flatpak override "$ID" --filesystem=host --user
 	flatpak override "$ID" --share=network --user	
 	
