@@ -105,4 +105,8 @@ SRM_IsInstalled(){
 }
 SRM_resetLaunchers(){
 	rsync -av --existing $HOME/.config/EmuDeck/backend/tools/launchers/ $toolsPath/launchers/	
+	for entry in $toolsPath/launchers/*.sh
+	do
+		 chmod +x "$entry"
+	done
 }
