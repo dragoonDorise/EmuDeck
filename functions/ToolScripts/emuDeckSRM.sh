@@ -85,13 +85,15 @@ SRM_init(){
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
 	
-	#Reseting launchers
-	SRM_resetLaunchers
+	
 	echo -e "true"
 }
 
 SRM_resetConfig(){
 	SRM_init
+	#Reseting launchers
+	SRM_resetLaunchers
+	echo "true"
 }
 
 SRM_IsInstalled(){
@@ -100,4 +102,7 @@ SRM_IsInstalled(){
 	else
 		echo "false"
 	fi
+}
+SRM_resetLaunchers(){
+	rsync -av --existing $HOME/.config/EmuDeck/backend/tools/launchers/ $toolsPath/launchers/	
 }
