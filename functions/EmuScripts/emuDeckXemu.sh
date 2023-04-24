@@ -138,11 +138,7 @@ Xemu_finalize(){
 }
 
 Xemu_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$Xemu_emuPath")" == "$Xemu_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$Xemu_emuPath"
 }
 
 Xemu_resetConfig(){

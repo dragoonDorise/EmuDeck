@@ -131,11 +131,7 @@ Citra_finalize(){
 }
 
 Citra_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$Citra_emuPath")" == "$Citra_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$Citra_emuPath"
 }
 
 Citra_resetConfig(){

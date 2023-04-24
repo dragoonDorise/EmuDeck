@@ -118,11 +118,7 @@ RPCS3_finalize(){
 }
 
 RPCS3_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$RPCS3_emuPath")" == "$RPCS3_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$RPCS3_emuPath"
 }
 
 RPCS3_resetConfig(){

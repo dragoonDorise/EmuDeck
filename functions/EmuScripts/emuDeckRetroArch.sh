@@ -2076,11 +2076,7 @@ RetroArch_setShadersMAT(){
 }
 
 RetroArch_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$RetroArch_emuPath")" == "$RetroArch_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$RetroArch_emuPath"
 }
 
 RetroArch_resetConfig(){
