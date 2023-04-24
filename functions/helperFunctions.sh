@@ -670,3 +670,12 @@ getEmuInstallStatus() {
 	paste <(printf "%s\n" "${emuArray[@]}") <(printf "%s\n" "${installStatus[@]}") |
 	jq -nR '{ Emulators: [inputs] | map(split("\t") | { Name: .[0], Installed: .[1] }) }'
 }
+
+isFpInstalled(){
+	flatPakID=$1
+	if [ "$(flatpak --columns=app list --user | grep "$flatPakID")" == "$flatPakID" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}

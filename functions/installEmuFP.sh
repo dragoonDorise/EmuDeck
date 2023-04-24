@@ -9,8 +9,12 @@ installEmuFP(){
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
 	flatpak install flathub "$ID" -y --user
 	flatpak override "$ID" --filesystem=host --user
-	flatpak override "$ID" --share=network --user	
-	
+	flatpak override "$ID" --share=network --user
+	#remove old system flatpak after we detect user flatpak is isntalled
+	if [ "$(isFpInstalled "$ID")" == "true" ]; then
+		flatpak uninstall "$ID" --system -y
+	fi
+ 	
 	shName=$(echo "$name" | awk '{print tolower($0)}')
 	
    	find "${toolsPath}/launchers/" -maxdepth 1 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | while read -r f; do echo "deleting old: $f"; rm -f "$f"; done;

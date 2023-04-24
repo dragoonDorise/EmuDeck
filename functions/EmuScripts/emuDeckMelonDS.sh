@@ -142,11 +142,7 @@ melonDS_finalize(){
 }
 
 melonDS_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$melonDS_emuPath")" == "$melonDS_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$melonDS_emuPath"
 }
 
 melonDS_resetConfig(){
