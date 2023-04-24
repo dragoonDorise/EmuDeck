@@ -5,12 +5,12 @@
 Migration_init(){
 	destination=$1
 	#File Size on target
-	neededSpace=$(du -s "$emulationPath" | cut -f1)
-	neededSpaceInHuman=$(du -sh "$emulationPath" | cut -f1)
+	neededSpace=$(du -s "$emulationPath" | awk '{print $1}')
+	neededSpaceInHuman=$(du -sh "$emulationPath" | awk '{print $1}')
 
 	#File Size on destination
-	freeSpace=$(df -k $destination | tail -1 | cut -d' ' -f6)
-	freeSpaceInHuman=$(df -kh $destination | tail -1 | cut -d' ' -f10)
+	freeSpace=$(df -k $destination --output=avail | tail -1)
+	freeSpaceInHuman=$(df -kh $destination --output=avail | tail -1)
 	difference=$(($freeSpace - $neededSpace))
 	if [ $difference -gt 0 ]; then
 		Migration_move "$emulationPath" "$destination" "$neededSpaceInHuman" && Migration_updatePaths "$emulationPath" "$destination/Emulation/"
