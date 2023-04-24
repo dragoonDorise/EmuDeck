@@ -217,7 +217,7 @@ if [ "$doUninstall" == true ]; then
 
 		rm -f ~/Emulation/roms/wiiu/* &>> /dev/null
 		rm -f /run/media/mmcblk0p1/Emulation/roms/wiiu/* &>> /dev/null
-		rm -rf ~/.local/share/applications/Cemu (Proton).desktop &>> /dev/null
+		rm -f "$HOME/.local/share/applications/Cemu (Proton).desktop" &>> /dev/null
 	fi
 	if [[ "${doUninstallCemuNative}" == "true" ]]; then
 		rm -rf ~/Applications/Cemu*.AppImage &>> /dev/null
