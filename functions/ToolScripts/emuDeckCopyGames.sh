@@ -23,7 +23,7 @@ CopyGames(){
 	
 	#File Size on destination
 	freeSpace=$(df -k $emulationPath | tail -1 | cut -d' ' -f6)
-	freeSpaceInHuman=$(df -kh $emulationPath | tail -1 | cut -d' ' -f10)
+	freeSpaceInHuman=$(df -kh $emulationPath | tail -1 | cut -d' ' -f7)
 	difference=$(($freeSpace - $neededSpace))
 
 	if [ $difference -gt 0 ]; then
