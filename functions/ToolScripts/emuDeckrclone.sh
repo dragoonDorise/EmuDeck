@@ -23,11 +23,11 @@ rclone_install(){
 }
 
 rclone_config(){	
-  {
+ 
   kill -15 $(pidof rclone)
   local rclone_provider=$1  
    cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
-  
+  rclone_stopService
   if [ $rclone_provider == "Emudeck-NextCloud" ]; then
   
       local url
@@ -56,34 +56,37 @@ rclone_config(){
   else
       $rclone_bin config update "$rclone_provider" 
   fi
-  rclone_stopService
-  } > /dev/null
-  data=$(cat $rclone_config);
-  response=$(curl --request POST --url "https://patreon.emudeck.com/hastebin.php" --header "content-type: application/x-www-form-urlencoded" --data-urlencode "data=${data}")
-    
-  text="$(printf "<b>CloudSync Configured!</b>\nIf you want to set CloudSync on another EmuDeck installation you need to use this code:\n\n<b>${response}</b>")"
-    
-    zenity --info \
-   --text="${text}" 2>/dev/null
-  
-  clean_response=$(echo -n "$response" | tr -d '\n')
 
-  echo "$clean_response"
-
+  zenity --info --text --width=200 "Press OK when you are logged into your Cloud Provider"
+ 
+    data=$(cat $rclone_config);
+    response=$(curl --request POST --url "https://patreon.emudeck.com/hastebin.php" --header "content-type: application/x-www-form-urlencoded" --data-urlencode "data=${data}")
+      
+    text="$(printf "<b>CloudSync Configured!</b>\nIf you want to set CloudSync on another EmuDeck installation you need to use this code:\n\n<b>${response}</b>")"
+      
+      zenity --info --width=300 \
+     --text="${text}" 2>/dev/null
+    
+    clean_response=$(echo -n "$response" | tr -d '\n')
+    
+    echo "$clean_response"
   
 }
 
 rclone_config_with_code(){	
-  local code="hosijabuco"
-  
-  rclone_stopService
-  
-  curl -s "https://patreon.emudeck.com/hastebin.php?code=$code" > $rclone_config
-
-  text="$(printf "<b>CloudSync Configured!")"
+  local code=$(zenity --entry --text="What is your CloudSync code?")
+  if [ $code ]; then
+    rclone_stopService
     
-    zenity --info \
-   --text="${text}" 2>/dev/null
+    curl -s "https://patreon.emudeck.com/hastebin.php?code=$code" > $rclone_config
+    
+    text="$(printf "<b>CloudSync Configured!")"
+      
+      zenity --info \
+     --text="${text}" 2>/dev/null
+  else
+    exit
+  fi
   
 }
 
