@@ -24,6 +24,7 @@ rclone_install(){
 
 rclone_config(){	
   {
+  kill -15 $(pidof rclone)
   local rclone_provider=$1  
    cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
   
