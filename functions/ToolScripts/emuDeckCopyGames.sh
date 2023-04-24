@@ -18,13 +18,14 @@ CreateStructureUSB(){
 CopyGames(){
 	origin=$1
 	
-	neededSpace=$(du -s "$origin" | cut -f1)
-	neededSpaceInHuman=$(du -sh "$origin" | cut -f1)
-	
+	neededSpace=$(du -s "$origin" | awk '{print $1}')
+	neededSpaceInHuman=$(du -sh "$origin" | awk '{print $1}')
+
 	#File Size on destination
-	freeSpace=$(df -k $emulationPath | tail -1 | cut -d' ' -f6)
-	freeSpaceInHuman=$(df -kh $emulationPath | tail -1 | cut -d' ' -f7)
+	freeSpace=$(df -k $emulationPath --output=avail | tail -1)
+	freeSpaceInHuman=$(df -kh $emulationPath --output=avail | tail -1)
 	difference=$(($freeSpace - $neededSpace))
+	
 
 	if [ $difference -gt 0 ]; then
 		rsync -rav --ignore-existing --progress "$origin/roms/" "$romsPath/" |
