@@ -74,7 +74,7 @@ rclone_config(){
 }
 
 rclone_config_with_code(){	
-  local code=$(zenity --entry --text="What is your CloudSync code?")
+  local code=$1
   if [ $code ]; then
     rclone_stopService
     
