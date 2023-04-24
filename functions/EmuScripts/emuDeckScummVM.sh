@@ -106,11 +106,7 @@ ScummVM_finalize(){
 }
 
 ScummVM_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$ScummVM_emuPath")" == "$ScummVM_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$ScummVM_emuPath"
 }
 
 ScummVM_resetConfig(){

@@ -149,11 +149,7 @@ echo "NYI"
 }
 
 Dolphin_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$Dolphin_emuPath")" == "$Dolphin_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$Dolphin_emuPath"
 }
 
 Dolphin_resetConfig(){

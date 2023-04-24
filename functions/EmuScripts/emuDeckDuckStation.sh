@@ -140,11 +140,7 @@ DuckStation_finalize(){
 }
 
 DuckStation_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$DuckStation_emuPath")" == "$DuckStation_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$DuckStation_emuPath"
 }
 
 DuckStation_resetConfig(){
