@@ -88,18 +88,6 @@
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "defaultImage": "",
-    "defaultTallImage": "",
-    "defaultHeroImage": "",
-    "defaultLogoImage": "",
-    "localImages": {
-      "long": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/rmg/${title}_banner.@(png|jpg)",
-      "tall": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/rmg/${title}_portrait.@(png|jpg)",
-      "hero": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/rmg/${title}_hero.@(png|jpg)",
-      "logo": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/rmg/${title}_logo.@(png|jpg)",
-      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/rmg/${title}_icon.@(png|jpg)"
-    },
-    "localIcons": "",
     "disabled": false,
     "executable": {
       "path": "",
@@ -107,9 +95,7 @@
       "appendArgsToExecutable": true
     },
     "userAccounts": {
-      "specifiedAccounts": "",
-      "skipWithMissingDataDir": true,
-      "useCredentials": true
+      "specifiedAccounts": ""
     },
     "parserInputs": {
       "glob": "**/${title}@(.sh)"
@@ -126,7 +112,7 @@
       "removeBrackets": true
     },
     "parserId": "164824333516097458",
-    "version": 10,
+    "version": 15,
     "imageProviderAPIs": {
       "SteamGridDB": {
         "nsfw": false,
@@ -137,6 +123,30 @@
         "stylesLogo": [],
         "stylesIcon": []
       }
+    },
+    "controllers": {
+      "ps4": null,
+      "ps5": null,
+      "xbox360": null,
+      "xboxone": null,
+      "switch_joycon_left": null,
+      "switch_joycon_right": null,
+      "switch_pro": null,
+      "neptune": null
+    },
+    "defaultImage": {
+      "long": "",
+      "tall": "",
+      "hero": "",
+      "logo": "",
+      "icon": ""
+    },
+    "localImages": {
+      "tall": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/rmg/${title}_portrait.@(png|jpg)",
+      "long": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/rmg/${title}_banner.@(png|jpg)",
+      "hero": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/rmg/${title}_portrait.@(png|jpg)",
+      "logo": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/rmg/${title}_logo.@(png|jpg)",
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/rmg/${title}_icon.@(png|jpg)"
     }
   },
   {
