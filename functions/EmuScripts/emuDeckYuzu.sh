@@ -12,8 +12,15 @@ YuzuEA_lastVerFile="$HOME/emudeck/yuzu-ea.ver"
 Yuzu_cleanup() {
     echo "Begin Yuzu Cleanup"
     #Fixes repeated Symlink for older installations
-    unlink "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys"
-    unlink "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/registered"
+    
+    if [ -f  "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys" ]; then
+        unlink "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys"
+    fi
+    
+    if [ -f  "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys" ]; then
+        unlink "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/registered"
+    fi
+    
 }
 
 #Install
@@ -358,16 +365,6 @@ YuzuEA_IsInstalled() {
 }
 
 Yuzu_resetConfig() {
-    {
-        Yuzu_migrate
-        
-        configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
-        configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
-        
-        Yuzu_setEmulationFolder
-        Yuzu_setupStorage
-        Yuzu_setupSaves
-    
-    } && echo "true" || echo "false"
+    Yuzu_init &>/dev/null && echo "true" || echo "false"
 }
 
