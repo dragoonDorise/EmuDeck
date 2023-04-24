@@ -78,9 +78,7 @@ rclone_config_with_code(){
   if [ $code ]; then
     rclone_stopService
     
-    $config=$(curl -s "https://patreon.emudeck.com/hastebin.php?code=$code")
-    
-    tr -d '\r' < $config > $rclone_config
+    curl -s "https://patreon.emudeck.com/hastebin.php?code=$code" > $rclone_config
     
     text="$(printf "<b>CloudSync Configured!")"
       
