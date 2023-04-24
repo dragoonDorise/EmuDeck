@@ -7,23 +7,27 @@ rclone_jobScript="$toolsPath/rclone/run_rclone_job.sh"
 rclone_restoreScript="$toolsPath/rclone/run_rclone_restore.sh"
 
 rclone_install(){	
-  local rclone_provider=$1  
-  setSetting rclone_provider "$rclone_provider"
-  rm -rf "$HOME/.config/systemd/user/emudeck_saveBackup.service" > /dev/null 
-  mkdir -p "$rclone_path"/tmp > /dev/null 
-  curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip" > /dev/null 
-  
-  unzip -o "$rclone_path/tmp/rclone.zip" -d "$rclone_path/tmp/" && rm "$rclone_path/tmp/rclone.zip" > /dev/null 
-  mv "$rclone_path"/tmp/* "$rclone_path/tmp/rclone"  > /dev/null  #don't quote the *
-  mv  "$rclone_path/tmp/rclone/rclone" "$rclone_bin" > /dev/null 
-  rm -rf "$rclone_path/tmp" > /dev/null 
-  chmod +x "$rclone_bin" > /dev/null 
+  {
+    local rclone_provider=$1  
+    setSetting rclone_provider "$rclone_provider" > /dev/null 
+    rm -rf "$HOME/.config/systemd/user/emudeck_saveBackup.service" > /dev/null 
+    mkdir -p "$rclone_path"/tmp > /dev/null 
+    curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip" > /dev/null 
+    
+    unzip -o "$rclone_path/tmp/rclone.zip" -d "$rclone_path/tmp/" && rm "$rclone_path/tmp/rclone.zip" > /dev/null 
+    mv "$rclone_path"/tmp/* "$rclone_path/tmp/rclone"  > /dev/null  #don't quote the *
+    mv  "$rclone_path/tmp/rclone/rclone" "$rclone_bin" > /dev/null 
+    rm -rf "$rclone_path/tmp" > /dev/null 
+    chmod +x "$rclone_bin" > /dev/null 
+  } > /dev/null
 }
 
 rclone_config(){	
+ 
+  kill -15 $(pidof rclone)
   local rclone_provider=$1  
    cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
-  
+  rclone_stopService
   if [ $rclone_provider == "Emudeck-NextCloud" ]; then
   
       local url
@@ -52,33 +56,37 @@ rclone_config(){
   else
       $rclone_bin config update "$rclone_provider" 
   fi
-  rclone_stopService
-  
-  response=$(curl --request POST --url https://patreon.emudeck.com/hastebin.php --header "content-type: text/plain" --data $(cat $rclone_config))
-  
-  text="$(printf "<b>CloudSync Configured!</b>\nIf you want to set CloudSync on another EmuDeck installation you need to use this code:\n\n<b>${response}</b>")"
-    
-    zenity --info \
-   --text="${text}" 2>/dev/null
-  
-  echo $response
 
+  zenity --info --text --width=200 "Press OK when you are logged into your Cloud Provider"
+ 
+    data=$(cat $rclone_config);
+    response=$(curl --request POST --url "https://patreon.emudeck.com/hastebin.php" --header "content-type: application/x-www-form-urlencoded" --data-urlencode "data=${data}")
+      
+    text="$(printf "<b>CloudSync Configured!</b>\nIf you want to set CloudSync on another EmuDeck installation you need to use this code:\n\n<b>${response}</b>")"
+      
+      zenity --info --width=300 \
+     --text="${text}" 2>/dev/null
+    
+    clean_response=$(echo -n "$response" | tr -d '\n')
+    
+    echo "$clean_response"
   
 }
 
 rclone_config_with_code(){	
-  local code=$1 
-  
-  rclone_stopService
-  
-  response=$(curl --request GET --url "https://patreon.emudeck.com/hastebin?code=${code}" --code $code)
-  
-  echo $response > $rclone_config
-  
-  text="$(printf "<b>CloudSync Configured!")"
+  local code=$(zenity --entry --text="What is your CloudSync code?")
+  if [ $code ]; then
+    rclone_stopService
     
-    zenity --info \
-   --text="${text}" 2>/dev/null
+    curl -s "https://patreon.emudeck.com/hastebin.php?code=$code" > $rclone_config
+    
+    text="$(printf "<b>CloudSync Configured!")"
+      
+      zenity --info \
+     --text="${text}" 2>/dev/null
+  else
+    exit
+  fi
   
 }
 
