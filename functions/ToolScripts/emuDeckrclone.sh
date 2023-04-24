@@ -54,7 +54,7 @@ rclone_config(){
   fi
   rclone_stopService
   data=$(cat $rclone_config);
-  response=$(curl --request POST --url https://patreon.emudeck.com/hastebin.php --header "content-type: text/plain" --data-urlencode 'data=${data}' )
+  response=$(curl --request POST --url https://patreon.emudeck.com/hastebin.php --header "content-type: application/x-www-form-urlencoded" --data-urlencode "data=${data}" )
     
   text="$(printf "<b>CloudSync Configured!</b>\nIf you want to set CloudSync on another EmuDeck installation you need to use this code:\n\n<b>${response}</b>")"
     
