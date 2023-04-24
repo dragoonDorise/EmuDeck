@@ -634,11 +634,11 @@ if [ "$doSetupDuck" == "true" ]; then
 	fi
 fi
 if [ "$doSetupPCSX2QT" == "true" ]; then
-	PCSX2_retroAchievementsSetLogin
+	PCSX2QT_retroAchievementsSetLogin
 	if [ "$achievementsHardcore" == "true" ]; then
-		PCSX2_retroAchievementsHardCoreOn
+		PCSX2QT_retroAchievementsHardCoreOn
 	else
-		PCSX2_retroAchievementsHardCoreOff
+		PCSX2QT_retroAchievementsHardCoreOff
 	fi
 fi
 
