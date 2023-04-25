@@ -23,7 +23,7 @@
   "enabledProviders": ["SteamGridDB"],
   "language": "en-US",
   "offlineMode": false,
-  "navigationWidth": 394,
+  "navigationWidth": 256,
   "clearLogOnTest": false,
   "version": 5,
   "theme": "EmuDeck"
