@@ -59,9 +59,33 @@ rclone_config(){
 
   zenity --info --text --width=200 "Press OK when you are logged into your Cloud Provider"
  
-    data=$(cat $rclone_config);
-    response=$(curl --request POST --url "https://patreon.emudeck.com/hastebin.php" --header "content-type: application/x-www-form-urlencoded" --data-urlencode "data=${data}")
-      
+  #Lets search for that token
+   while read line
+   do
+      if [[ "$line" == *"[Emudeck"* ]]
+      then
+        section=$line
+      elif [[ "$line" == *"token = "* ]]; then
+        token=$line
+        break     
+      fi
+   
+   done < $rclone_config
+   
+   replace_with=""
+   
+   # Cleanup
+   token=${token/"token = "/$replace_with}
+   token=$(echo "$token" | sed "s/\"/'/g")
+   section=$(echo "$section" | sed 's/[][]//g; s/"//g')  
+   
+   json='{"section":"'"$section"'","token":"'"$token"'"}'
+   
+   #json=$token
+   
+   response=$(curl --request POST --url "https://patreon.emudeck.com/hastebin.php" --header "content-type: application/x-www-form-urlencoded" --data-urlencode "data=${json}")
+   
+     
     text="$(printf "<b>CloudSync Configured!</b>\nIf you want to set CloudSync on another EmuDeck installation you need to use this code:\n\n<b>${response}</b>")"
       
       zenity --info --width=300 \
@@ -73,22 +97,34 @@ rclone_config(){
   
 }
 
-rclone_config_with_code(){	
-  local code=$1
-  if [ $code ]; then
-    rclone_stopService
+ rclone_config_with_code(){	
+   local code=$1
+   if [ $code ]; then
+     rclone_stopService
+     
+     json=$(curl -s "https://patreon.emudeck.com/hastebin.php?code=$code")     
+     json_object=$(echo $json | jq .)
+     
+     section=$(echo $json | jq .section)
+     token=$(echo $json | jq .token)
     
-    curl -s "https://patreon.emudeck.com/hastebin.php?code=$code" > $rclone_config
-    
-    text="$(printf "<b>CloudSync Configured!")"
+      # Cleanup
+      token=$(echo "$token" | sed "s/\"//g")
+      token=$(echo "$token" | sed "s/'/\"/g")            
+      #section=$(echo "$section" | sed 's/[][]//g; s/"//g')     
       
-      zenity --info \
-     --text="${text}" 2>/dev/null
-  else
-    exit
-  fi
-  
-}
+     cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
+     
+     iniFieldUpdate "$rclone_config" "$section" "token" "$token"     
+     
+     text="$(printf "<b>CloudSync Configured!")"      
+       zenity --info \
+      --text="${text}" 2>/dev/null
+   else
+     exit
+   fi
+   
+ }
 
 rclone_install_and_config(){	
     local rclone_provider=$1
