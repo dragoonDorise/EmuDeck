@@ -333,7 +333,9 @@ YuzuEA_addToken() {
                 exit
             else
                 if ! YuzuEA_install "true"; then
-                    echo error?
+                    zenity --title="Download failure!" --error --text="Download failed! Please contact support." --width 400 2>/dev/null
+                else
+                    zenity --title="Download complete" --info --text="Your AppList entry should change to yuzu-EA AppImage.\n\nThe Yuzu entry will ask to update the Yuzu-EA appimage when you run it, and it detects that an update is available.\n\nDon't worry, it won't bother you if you launch a game." --width 400 2>/dev/null
                 fi
             fi
         else
