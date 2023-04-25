@@ -16,8 +16,8 @@ def_srm_userdata = '/home/deck/.config/steam-rom-manager/userData'
 # no edits should be required below this line
 # -------------------------------------------
 
-def log(type, message, quiet = False):
-    if not quiet:
+def log(type, message, show = True):
+    if show:
         print(f'[{type}] {message}')
 
 # empty config, to be filled
@@ -35,7 +35,7 @@ parser.add_argument('-g', '--gamelist-root', type=str, default=def_gamelist_root
 parser.add_argument('-o', '--output', type=str, default=def_output, help='specify output destination for manifest.json')
 parser.add_argument('-d', '--dump-config', type=str, help='dump config to specied destination and exit')
 parser.add_argument('-p', '--pause', help='wait after finishing process', action='store_true')
-parser.add_argument('-q', '--quiet', help='suppress most on screen output', action='store_true')
+parser.add_argument('-v', '--verbose', help='verbose on screen output', action='store_true')
 args = parser.parse_args()
 
 # take over config from arguments
@@ -83,9 +83,9 @@ if not (('gamelist_root' in cfg) and cfg['gamelist_root']):
     cfg['gamelist_root'] = cfg['roms_root']
 
 # config summary
-log('config', f'{cfg["roms_root"]} (roms root)', args.quiet)
-log('config', f'{cfg["gamelist_root"]} (gamelist root)', args.quiet)
-log('config', f'{len(cfg["manifest_templates"])} manifest templates loaded', args.quiet)
+log('config', f'{cfg["roms_root"]} (roms root)', args.verbose)
+log('config', f'{cfg["gamelist_root"]} (gamelist root)', args.verbose)
+log('config', f'{len(cfg["manifest_templates"])} manifest templates loaded', args.verbose)
 
 # dump config if specified
 if args.dump_config:
@@ -105,7 +105,7 @@ for system in cfg["manifest_templates"]:
     if subdir in processed_subddirs:
         continue
     cfaves = 0
-    log(f'{subdir}', f'System: {system}', args.quiet)
+    log(f'{subdir}', f'System: {system}', args.verbose)
     
     # fetch gamelist (with a workaround for non standard compliant XML files)
     gamelist = []
@@ -117,7 +117,7 @@ for system in cfg["manifest_templates"]:
     except Exception as e:
         pass    
     if not gamelist:
-        log(f'{subdir}', 'missing or bad gamelist.xml', args.quiet)
+        log(f'{subdir}', 'missing or bad gamelist.xml', args.verbose)
         continue
         
     # process favourites
@@ -129,7 +129,7 @@ for system in cfg["manifest_templates"]:
         filename = os.path.basename(glpath.text)
         filepath = os.path.normpath(os.path.join(cfg['roms_root'], subdir, filename))
         title = re.sub("\(.*?\)|\[.*?\]","", os.path.splitext(filename)[0]).strip()
-        log(f'{subdir}', f'{title}', args.quiet)
+        log(f'{subdir}', f'{title}', args.verbose)
         m = {}
         m['title'] = title
         m['target'] = emulator
@@ -138,7 +138,7 @@ for system in cfg["manifest_templates"]:
         manifests.append(m)
         cfaves = cfaves + 1
 
-    log(f'{subdir}', f'{cfaves} favorites found', args.quiet and not cfaves)
+    log(f'{subdir}', f'{cfaves} favorites found', args.verbose or cfaves)
     processed_subddirs.append(subdir)
     
 # write JSON file
