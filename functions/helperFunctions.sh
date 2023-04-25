@@ -498,7 +498,7 @@ function createDesktopShortcut(){
 	echo "$Shortcutlocation created"
 }
 
-#desktopShortcutFieldUpdate "$shortcutFile" "Name" "NewName"
+#desktopShortcutFieldUpdate "$shortcutFile" "Field" "NewValue"
 function desktopShortcutFieldUpdate(){
 	local shortcutFile=$1
 	local shortcutKey=$2
@@ -510,17 +510,20 @@ function desktopShortcutFieldUpdate(){
 		# update icon if name is updated
 		if [ "$shortcutKey" == "Name" ]; then
 			name=$shortcutValue
-			cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name")."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null
-			icon=$(find "$HOME/.local/share/icons/emudeck/" -type f -iname "$(cut -d " " -f1 <<< "$name").*")
-			if [ ! -z "$icon" ]; then
-				desktopShortcutFieldUpdate "$shortcutFile" "Icon" "$icon"
-				sed -i "s|Icon\s*?=.*|Icon=$icon|g" "$shortcutFile"
+			cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name").{svg,jpg,png}" "$HOME/.local/share/icons/emudeck/" 2>/dev/null
+			icon=$(find "$HOME/.local/share/icons/emudeck/" -type f \( -iname "$(cut -d " " -f1 <<< "$name").svg" -o -iname "$(cut -d " " -f1 <<< "$name").jpg" -o -iname "$(cut -d " " -f1 <<< "$name").png" \) -print -quit)
+			echo "Icon Found: $icon"
+			if [ -n "$icon" ]; then
+				#desktopShortcutFieldUpdate "$shortcutFile" "Icon" "$icon"
+				sed -i "s#Icon\\s*=\\s*.*#Icon=$icon#g" "$shortcutFile"
+				sed -E -i "s|Icon\\s*=\\s*.*|Icon=$icon|g" "$shortcutFile"
 			fi
 		fi
-		sed -E -i "s|$shortcutKey\s*?=.*|$shortcutKey=$shortcutValue|g" "$shortcutFile"
+		sed -E -i "s|$shortcutKey\\s*=\\s*.*|$shortcutKey=$shortcutValue|g" "$shortcutFile"
 		balooctl check
 	fi
 }
+
 
 #iniFieldUpdate "$iniFilePath" "General" "LoadPath" "$storagePath/$emuName/Load" "separator!"
 function iniFieldUpdate() {
