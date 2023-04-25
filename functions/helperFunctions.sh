@@ -120,12 +120,12 @@ function testLocationValidRelaxed(){
 	touch "$testLocation/testwrite"
 
 	if [ ! -f  "$testLocation/testwrite" ]; then
-		return="Invalid: $locationName not Writable"
+		result="Invalid: $locationName not Writable"
 	else
-		return="Valid"
+		result="Valid"
 	fi
-	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
-	echo $return
+	rm -f "$testLocation/testwrite"
+	echo $result
 }
 
 function makeFunction(){
