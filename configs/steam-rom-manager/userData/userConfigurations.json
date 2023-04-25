@@ -1216,8 +1216,8 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Microsoft XBox - Xemu",
-    "steamCategory": "${XBox}",
+    "configTitle": "Microsoft Xbox - Xemu",
+    "steamCategory": "${Xbox}",
     "executableArgs": "run app.xemu.xemu -full-screen -dvd_path \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/xbox",
@@ -2028,7 +2028,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo GameCube - Dolphin",
-    "steamCategory": "${Gamecube}",
+    "steamCategory": "${GameCube}",
     "executableArgs": "vblank_mode=0 %command% run org.DolphinEmu.dolphin-emu -b -e \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/gamecube",
@@ -2290,7 +2290,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo SNES - Retroarch - Snes9x",
-    "steamCategory": "${Super Nintendo}",
+    "steamCategory": "${SNES}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
@@ -2352,7 +2352,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo SNES WideScreen - Retroarch - Snes9x",
-    "steamCategory": "${Super Nintendo WideScreen}",
+    "steamCategory": "${SNES WideScreen}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/sneshd",
     "steamDirectory": "${steamdirglobal}",
@@ -2414,7 +2414,7 @@
   {
     "parserType": "Glob",
     "configTitle": "Nintendo Switch - Yuzu",
-    "steamCategory": "${Nintendo Switch - Yuzu}",
+    "steamCategory": "${Switch - Yuzu}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/switch",
     "steamDirectory": "${steamdirglobal}",
@@ -2537,8 +2537,8 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Nintendo WiiU - Cemu (.rpx) - Proton",
-    "steamCategory": "${WiiU - Proton}",
+    "configTitle": "Nintendo Wii U - Cemu (.rpx) - Proton",
+    "steamCategory": "${Wii U - Proton}",
     "executableArgs": "vblank_mode=0 %command% -w -f -g \"Z:${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/wiiu/roms/",
@@ -2613,8 +2613,8 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Nintendo WiiU - Cemu (.wud, .wux, .wua) - Proton",
-    "steamCategory": "${WiiU - Proton}",
+    "configTitle": "Nintendo Wii U - Cemu (.wud, .wux, .wua) - Proton",
+    "steamCategory": "${Wii U - Proton}",
     "executableArgs": "vblank_mode=0 %command% -w -f -g \"Z:${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/wiiu/roms/",
@@ -2689,8 +2689,8 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Nintendo WiiU - Cemu (.rpx) - Native",
-    "steamCategory": "${WiiU}",
+    "configTitle": "Nintendo Wii U - Cemu (.rpx) - Native",
+    "steamCategory": "${Wii U}",
     "executableArgs": "vblank_mode=0 %command% -f -g \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/wiiu/roms/",
@@ -2742,8 +2742,8 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Nintendo WiiU - Cemu (.wud, .wux, .wua) - Native",
-    "steamCategory": "${WiiU}",
+    "configTitle": "Nintendo Wii U - Cemu (.wud, .wux, .wua) - Native",
+    "steamCategory": "${Wii U}",
     "executableArgs": "vblank_mode=0 %command% -f -g \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/wiiu/roms/",
@@ -4183,7 +4183,7 @@
   {
     "parserType": "Glob",
     "configTitle": "PC Engine/TurboGrafx 16 - RA - Beetle PCE",
-    "steamCategory": "${PCE}",
+    "steamCategory": "${PC Engine}",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "${romsdirglobal}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_pce_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -4244,7 +4244,7 @@
   {
     "parserType": "Glob",
     "configTitle": "PCE/TurboGrafx 16 CD - RA - Beetle PCE",
-    "steamCategory": "${PCECD}",
+    "steamCategory": "${PC Engine CD}",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "${romsdirglobal}",
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_pce_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -4675,7 +4675,7 @@
   {
     "parserType": "Glob",
     "configTitle": "NEC - PC-98 - RetroArch",
-    "steamCategory": "${NEC - PC-98}",
+    "steamCategory": "${PC-98}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/pc98",
     "steamDirectory": "${steamdirglobal}",
