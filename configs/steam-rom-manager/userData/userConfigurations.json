@@ -170,7 +170,7 @@
 		"appendArgsToExecutable": false
 	},
 	"parserInputs": {
-		"manualManifests": "/run/media/mmcblk0p1/Emulation/tools/srmmangen/manifests"
+		"manualManifests": "/run/media/mmcblk0p1/Emulation/tools/srmmangen"
 	},
 	"titleFromVariable": {
 		"limitToGroups": "",
