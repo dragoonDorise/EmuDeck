@@ -676,7 +676,7 @@ getEmuInstallStatus() {
 
 isFpInstalled(){
 	flatPakID=$1
-	if [ "$(flatpak --columns=app list --user | grep "$flatPakID")" == "$flatPakID" ]; then
+	if [ "$(flatpak --columns=app list --user | grep "$flatPakID")" == "$flatPakID" ] || [ "$(flatpak --columns=app list --system | grep "$flatPakID")" == "$flatPakID" ]; then
 		echo "true"
 	else
 		echo "false"
