@@ -76,6 +76,8 @@ YuzuEA_install() {
                     chmod +x "$YuzuEA_emuPath"
                     echo "latest version $currentVer > $YuzuEA_lastVerFile"
                     echo "${currentVer}" >"${YuzuEA_lastVerFile}"
+                    cp -v "${EMUDECKGIT}/tools/launchers/yuzu.sh" "${toolsPath}/launchers/"
+                    chmod +x "${toolsPath}/launchers/yuzu.sh"
                 else
                     return 1
                 fi
@@ -275,11 +277,20 @@ Yuzu_finalize() {
 }
 
 #finalExec - Extra stuff
+YuzuEA_addToken_install() {
+    if ! YuzuEA_install "true"; then
+        zenity --title="Download failure!" --error --text="Download failed! Please contact support." --width 400 2>/dev/null
+    else
+        zenity --title="Download complete" --info --text="Your AppList entry should change to yuzu-EA AppImage.\n\nThe Yuzu entry will ask to update the Yuzu-EA appimage when you run it, and it detects that an update is available.\n\nDon't worry, it won't bother you if you launch a game." --width 400 2>/dev/null
+    fi
+} 
+
 YuzuEA_addToken() {
     local tokenValue=""
     local updateToken="true"
     local user=""
     local auth=""
+
 
     if [ -e "$YuzuEA_tokenFile" ]; then
         tokenValue=$(cat "$YuzuEA_tokenFile")
@@ -292,22 +303,19 @@ YuzuEA_addToken() {
         zenity --title="Update EA Token?" --question --text="$text" 2>/dev/null
         if [ "$?" = 1 ]; then
             updateToken="false"
-        else
-            user=""
-            auth=""
-        fi
-        text=$(printf "Token parsed.\
+            text=$(printf "Token parsed.\
             \nYuzu Patreon Username: %s\
             \nDownload EA now?" "$user")
             zenity --title="Download Early Access?" --question --text="$text" --width 300 2>/dev/null
             if [ "$?" = 1 ]; then
                 exit
             else
-                if ! YuzuEA_install "true"; then
-                    echo error?
-                fi
+                YuzuEA_addToken_install
             fi
-
+        else
+            user=""
+            auth=""
+        fi
     fi
 
     if [ $updateToken = "true" ]; then
@@ -332,11 +340,7 @@ YuzuEA_addToken() {
             if [ "$?" = 1 ]; then
                 exit
             else
-                if ! YuzuEA_install "true"; then
-                    zenity --title="Download failure!" --error --text="Download failed! Please contact support." --width 400 2>/dev/null
-                else
-                    zenity --title="Download complete" --info --text="Your AppList entry should change to yuzu-EA AppImage.\n\nThe Yuzu entry will ask to update the Yuzu-EA appimage when you run it, and it detects that an update is available.\n\nDon't worry, it won't bother you if you launch a game." --width 400 2>/dev/null
-                fi
+                YuzuEA_addToken_install
             fi
         else
             text=$(printf "Token Error.\nTry again?")

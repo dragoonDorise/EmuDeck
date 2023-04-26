@@ -3,11 +3,22 @@
 ESDE_toolName="EmulationStation-DE"
 ESDE_toolType="AppImage"
 ESDE_toolPath="${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
-ESDE_releaseURL="https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_appimage.txt"
-ESDE_prereleaseURL="https://gitlab.com/es-de/emulationstation-de/-/raw/master/es-app/assets/latest_steam_deck_prerelease_appimage.txt"
-
+ESDE_releaseURL="https://gitlab.com/es-de/emulationstation-de/-/package_files/76389058/download" #default URl in case of issues parsing json
+ESDE_releaseMD5="b749b927d61317fde0250af9492a4b9f" #default hash
+ESDE_prereleaseURL=""
+ESDE_prereleaseMD5=""
+ESDE_releaseJSON="https://gitlab.com/es-de/emulationstation-de/-/raw/master/latest_release.json"
 es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
 es_settingsFile="$HOME/.emulationstation/es_settings.xml"
+
+
+ESDE_SetAppImageURLS() {
+    local json="$(curl -s $ESDE_releaseJSON)"
+    ESDE_releaseURL=$(echo "$json" | jq -r '.stable.packages[] | select(.name == "LinuxSteamDeckAppImage") | .url')
+	ESDE_releaseMD5=$(echo "$json" | jq -r '.stable.packages[] | select(.name == "LinuxSteamDeckAppImage") | .md5')
+	ESDE_prereleaseURL=$(echo "$json" | jq -r '.prerelease.packages[] | select(.name == "LinuxSteamDeckAppImage") | .url')
+	ESDE_prereleaseMD5=$(echo "$json" | jq -r '.prerelease.packages[] | select(.name == "LinuxSteamDeckAppImage") | .md5')
+}
 
 #cleanupOlderThings
 ESDE_cleanup(){
@@ -16,19 +27,21 @@ ESDE_cleanup(){
 
 #Install
 ESDE_install(){
+	ESDE_SetAppImageURLS
 	setMSG "Installing $ESDE_toolName"
 
 	local showProgress="$1"
 
-	curl $ESDE_releaseURL --output "$toolsPath/latesturl.txt"
-	local latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
+	if [[ $ESDE_releaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
 
-	if [[ $latestURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
-		echo "downloading $latestURL"
-		#curl "$latestURL" --output "$ESDE_toolPath"
-		if safeDownload "$ESDE_toolName" "$latestURL" "$ESDE_toolPath" "$showProgress"; then
-			rm "$toolsPath/latesturl.txt"
-			chmod +x "$ESDE_toolPath"
+		if safeDownload "$ESDE_toolName" "$ESDE_releaseURL" "$ESDE_toolPath" "$showProgress"; then
+			ESDE_md5sum=($(md5sum $ESDE_toolPath)) # get first element
+			if [ "$ESDE_md5sum" == "$ESDE_releaseMD5" ]; then
+				echo "ESDE PASSED HASH CHECK."
+				chmod +x "$ESDE_toolPath"
+			else
+				echo "ESDE FAILED HASH CHECK. Expected $ESDE_releaseMD5, got $ESDE_md5sum"
+			fi
 		else
 			return 1
 		fi
@@ -39,19 +52,21 @@ ESDE_install(){
 }
 
 ESDE20_install(){
+	ESDE_SetAppImageURLS
 	setMSG "Installing $ESDE_toolName PreRelease"
 
 	local showProgress="$1"
 
-	curl $ESDE_prereleaseURL --output "$toolsPath/latesturl.txt"
-	local latestURL=$(grep "https://gitlab.com/es-de/emulationstation-de/-/package_files/" "$toolsPath/latesturl.txt")
+	if [[ $ESDE_prereleaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
 
-	if [[ $latestURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
-		echo "downloading $latestURL"
-		#curl "$latestURL" --output "$ESDE_toolPath"
-		if safeDownload "$ESDE_toolName PreRelease" "$latestURL" "$ESDE_toolPath" "$showProgress"; then
-			rm "$toolsPath/latesturl.txt"
-			chmod +x "$ESDE_toolPath"
+		if safeDownload "$ESDE_toolName" "$ESDE_prereleaseURL" "$ESDE_toolPath" "$showProgress"; then
+			ESDE_md5sum=($(md5sum $ESDE_toolPath)) # get first element
+			if [ "$ESDE_md5sum" == "$ESDE_prereleaseMD5" ]; then
+				echo "ESDE PASSED HASH CHECK."
+				chmod +x "$ESDE_toolPath"
+			else
+				echo "ESDE FAILED HASH CHECK. Expected $ESDE_prereleaseMD5, got $ESDE_md5sum"
+			fi
 		else
 			return 1
 		fi
@@ -142,14 +157,23 @@ ESDE_addCustomSystems(){
 ESDE_applyTheme(){
 	defaultTheme="EPICNOIR"
 	local theme=$1
+	
 	if [[ "${theme}" == "" ]]; then
 		echo "ESDE: applyTheme parameter not set."
 		theme="$defaultTheme"
 	fi
+
 	echo "ESDE: applyTheme $theme"
 	mkdir -p "$HOME/.emulationstation/themes/"
-	git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited"
-	cd "$HOME/.emulationstation/themes/epic-noir-revisited" && git reset --hard HEAD && git clean -f -d && git pull && echo  "epicnoir up to date!" || echo "problem pulling epicnoir theme"
+
+	if [ -e "$HOME/.emulationstation/themes/epic-noir-revisited" ] && [ ! -e "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" ]; then
+		mv -v "$HOME/.emulationstation/themes/epic-noir-revisited" "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" #update theme path to esde naming convention
+	fi
+
+	git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" 
+	rm -rf "$HOME/.emulationstation/themes/epic-noir-revisited" #remove old themes
+	rm -rf "$HOME/.emulationstation/themes/es-epicnoir" #remove old themes
+	cd "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" && git reset --hard HEAD && git clean -f -d && git pull && echo  "epicnoir up to date!" || echo "problem pulling epicnoir theme"
 	
 	if [[ "$theme" == *"EPICNOIR"* ]]; then
 		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="es-epicnoir" />' "$es_settingsFile"
