@@ -1,0 +1,18 @@
+{
+  "system": "nes",
+  "status": "true",
+  "logo": "logo_nes",
+  "title": "Nomolos Storming the Castle",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/nes/nomolos.zip",
+  "description": "Guide Nomolos through 12 action packed levels and defeat 4 of Boulder's most fearsome henchmen before finally confronting the evil Hippo in her lair, the Catsle.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/screenshots/homebrew/nomolos.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/titlescreens/homebrew/nomolos.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

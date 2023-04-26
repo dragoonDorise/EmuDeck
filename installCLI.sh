@@ -398,6 +398,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 		if [[ $doSelectEmulators == "true" ]]; then
 			
 			emuTable=()
+			emuTable+=(TRUE "GameBoy / Color / Advance" "mGBA")
 			emuTable+=(TRUE "Multiple" "RetroArch")
 			emuTable+=(TRUE "Metroid Prime" "PrimeHack")
 			emuTable+=(TRUE "PS2" "PCSX2")
@@ -407,6 +408,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 			emuTable+=(TRUE "GC/Wii" "Dolphin")
 			emuTable+=(TRUE "PSX" "Duckstation")
 			emuTable+=(TRUE "PSP" "PPSSPP")
+			emuTable+=(TRUE "N64" "RMG")
 			emuTable+=(TRUE "Switch" "Yuzu")
 			emuTable+=(TRUE "WiiU" "Cemu")
 			emuTable+=(TRUE "XBox" "Xemu")
@@ -434,11 +436,14 @@ if [ "$RUNCHOICE" == 1 ]; then
 			
 			if [ $ans -eq 0 ]; then
 				echo "Emu Install selected: $emusToInstall"
+				if [[ "$emusToInstall" == *"mGBA"* ]]; then
+					setSetting doInstallMGBA true
+				fi
 				if [[ "$emusToInstall" == *"RetroArch"* ]]; then
 					setSetting doInstallRA true
 				fi
 				if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
-					setSetting doInstallPrimeHacks true
+					setSetting doInstallPrimeHack true
 				fi
 				if [[ "$emusToInstall" == *"PCSX2"* ]]; then
 					setSetting doInstallPCSX2 true
@@ -460,6 +465,9 @@ if [ "$RUNCHOICE" == 1 ]; then
 				fi
 				if [[ "$emusToInstall" == *"PPSSPP"* ]]; then
 					setSetting doInstallPPSSPP true
+				fi
+				if [[ "$emusToInstall" == *"RMG"* ]]; then
+					setSetting doInstallRMG true
 				fi
 				if [[ "$emusToInstall" == *"Yuzu"* ]]; then
 					setSetting doInstallYuzu true
@@ -549,6 +557,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 			if [ -f "$SECONDTIME" ]; then
 	
 				emuTable=()
+				emuTable+=(TRUE "mGBA")
 				emuTable+=(TRUE "RetroArch")
 				emuTable+=(TRUE "PrimeHack")
 				emuTable+=(TRUE "PCSX2")
@@ -558,6 +567,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 				emuTable+=(TRUE "Dolphin")
 				emuTable+=(TRUE "Duckstation")
 				emuTable+=(TRUE "PPSSPP")
+				emuTable+=(TRUE "RMG")
 				emuTable+=(TRUE "Yuzu")
 				emuTable+=(TRUE "Cemu")
 				emuTable+=(TRUE "Xemu")
@@ -582,11 +592,14 @@ if [ "$RUNCHOICE" == 1 ]; then
 				echo -e "EmuDeck ${version}"
 				if [ $ans -eq 0 ]; then
 					echo "Emulators to reinstall selected: $emusToReset"
+					if [[ "$emusToReset" == *"mGBA"* ]]; then
+						setSetting doSetupMGBA true
+					fi
 					if [[ "$emusToReset" == *"RetroArch"* ]]; then
 						setSetting doSetupRA true
 					fi
 					if [[ "$emusToReset" == *"PrimeHack"* ]]; then
-						setSetting doSetupPrimeHacks true
+						setSetting doSetupPrimehack true
 					fi
 					if [[ "$emusToReset" == *"PCSX2"* ]]; then
 						setSetting doSetupPCSX2 true
@@ -608,6 +621,9 @@ if [ "$RUNCHOICE" == 1 ]; then
 					fi
 					if [[ "$emusToReset" == *"PPSSPP"* ]]; then
 						setSetting doSetupPPSSPP true
+					fi
+					if [[ "$emusToReset" == *"RMG"* ]]; then
+						setSetting doSetupRMG true
 					fi
 					if [[ "$emusToReset" == *"Yuzu"* ]]; then
 						setSetting doSetupYuzu true
@@ -640,6 +656,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 		fi
 	else
 		#easy mode settings
+		setSetting doInstallMGBA true
 		setSetting doInstallRA true
 		setSetting doInstallDolphin true
 		setSetting doInstallPCSX2 true
@@ -650,7 +667,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 		setSetting doInstallDuck true
 		setSetting doInstallCemu true
 		setSetting doInstallXenia false
-		setSetting doInstallPrimeHacks true
+		setSetting doInstallPrimeHack true
 		setSetting doInstallPPSSPP true
 		setSetting doInstallXemu true
 		#doInstallMelon=true
@@ -730,13 +747,16 @@ if [ $doInstallSRM == "true" ]; then
 	SRM_install
 fi
 #Emulators Installation
+if [ "$doInstallMGBA" == "true" ]; then	
+	MGBA_install
+fi
 if [ "$doInstallPCSX2" == "true" ]; then	
 	PCSX2_install
 fi
 if [ "$doInstallPCSX2QT" == "true" ]; then	
 	PCSX2QT_install
 fi
-if [ $doInstallPrimeHacks == "true" ]; then
+if [ $doInstallPrimeHack == "true" ]; then
 	Primehack_install
 fi
 if [ $doInstallRPCS3 == "true" ]; then
@@ -792,11 +812,14 @@ setMSG "Configuring emulators"
 if [ "$doSetupRA" == "true" ]; then
 	RetroArch_init
 fi
-if [ "$doSetupPrimeHacks" == "true" ]; then
+if [ "$doSetupPrimehack" == "true" ]; then
 	Primehack_init
 fi
 if [ "$doSetupDolphin" == "true" ]; then
 	Dolphin_init
+fi
+if [ "$doSetupMGBA" == "true" ]; then
+	mGBA_init
 fi
 if [ "$doSetupPCSX2" == "true" ]; then
 	PCSX2_init

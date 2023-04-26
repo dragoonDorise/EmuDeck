@@ -1,0 +1,18 @@
+{
+  "system": "snes",
+  "status": "true",
+  "logo": "logo_snes",
+  "title": "Supercooked",
+  "url": "https://goldlocke.itch.io/supercooked",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/snes/Supercooked.zip",
+  "description": "Cook your way to the top by beating eight exciting stages alone or with up to three friends in this action-packed new title for your SNES inspired by Ghost Town Games' Overcooked!",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/screenshots/homebrew/Supercooked.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/titlescreens/homebrew/Supercooked.png?raw=true"
+    ]
+  },
+  "tags": ["puzzle"]
+}

@@ -1,9 +1,8 @@
 #!/bin/bash
 #variables
-Cemu_emuName="Cemu"
+Cemu_emuName="Cemu (proton)"
 Cemu_emuType="windows"
 Cemu_emuPath="${romsPath}/wiiu/Cemu.exe"
-Cemu_releaseURL="https://cemu.info/releases/cemu_1.27.1.zip"
 Cemu_cemuSettings="${romsPath}/wiiu/settings.xml"
 
 #cleanupOlderThings
@@ -13,16 +12,23 @@ Cemu_cleanup(){
 
 #Install
 Cemu_install(){
-	setMSG "Installing $Cemu_emuName"		
+	setMSG "Installing $Cemu_emuName"
 
-	curl $Cemu_releaseURL --output "$romsPath"/wiiu/cemu.zip 
-	mkdir -p "$romsPath"/wiiu/tmp
-	unzip -o "$romsPath"/wiiu/cemu.zip -d "$romsPath"/wiiu/tmp
-	mv "$romsPath"/wiiu/tmp/cemu_*/ "$romsPath"/wiiu/tmp/cemu/
-	rsync -avzh "$romsPath"/wiiu/tmp/cemu/ "$romsPath"/wiiu/
-	rm -rf "$romsPath"/wiiu/tmp 
-	rm -f "$romsPath"/wiiu/cemu.zip
-	
+	local showProgress="$1"
+	Cemu_releaseURL="$(getReleaseURLGH "cemu-project/Cemu" "windows-x64.zip")"
+	#curl $Cemu_releaseURL --output "$romsPath"/wiiu/cemu.zip
+	if safeDownload "cemu" "$Cemu_releaseURL" "$romsPath/wiiu/cemu.zip" "$showProgress"; then
+		mkdir -p "$romsPath/wiiu/tmp"
+		unzip -o "$romsPath/wiiu/cemu.zip" -d "$romsPath/wiiu/tmp"
+		mv "$romsPath"/wiiu/tmp/[Cc]emu_*/ "$romsPath/wiiu/tmp/cemu/" #don't quote the *
+		rsync -avzh "$romsPath/wiiu/tmp/cemu/" "$romsPath/wiiu/"
+		rm -rf "$romsPath/wiiu/tmp"
+		rm -f "$romsPath/wiiu/cemu.zip"
+	else
+		return 1
+	fi
+
+
 #	if  [ -e "${toolsPath}/launchers/cemu.sh" ]; then #retain launch settings
 #		local launchLine=$( tail -n 1 "${toolsPath}/launchers/cemu.sh" )
 #		echo "cemu launch line found: $launchLine"
@@ -39,9 +45,9 @@ Cemu_install(){
 	chmod +x "${toolsPath}/launchers/cemu.sh"
 	
 
-	createDesktopShortcut   "$HOME/.local/share/applications/Cemu.desktop" \
-							"Cemu EmuDeck" \
-							"${toolsPath}/launchers/cemu.sh" \
+	createDesktopShortcut   "$HOME/.local/share/applications/Cemu (Proton).desktop" \
+							"Cemu (Proton)" \
+							"${toolsPath}/launchers/cemu.sh -w"  \
 							"False"
 	}
 
@@ -56,13 +62,13 @@ Cemu_init(){
 	Cemu_setupSaves
 	Cemu_addSteamInputProfile
 
-	if [ -e "${romsPath}/wiiu/controllerProfiles/controller1.xml" ];then 
+	if [ -e "${romsPath}/wiiu/controllerProfiles/controller1.xml" ];then
 		mv "${romsPath}/wiiu/controllerProfiles/controller1.xml" "${romsPath}/wiiu/controllerProfiles/controller1.xml.bak"
 	fi
-	if [ -e "${romsPath}/wiiu/controllerProfiles/controller2.xml" ];then 
+	if [ -e "${romsPath}/wiiu/controllerProfiles/controller2.xml" ];then
 		mv "${romsPath}/wiiu/controllerProfiles/controller2.xml" "${romsPath}/wiiu/controllerProfiles/controller2.xml.bak"
 	fi
-	if [ -e "${romsPath}/wiiu/controllerProfiles/controller3.xml" ];then 
+	if [ -e "${romsPath}/wiiu/controllerProfiles/controller3.xml" ];then
 		mv "${romsPath}/wiiu/controllerProfiles/controller3.xml" "${romsPath}/wiiu/controllerProfiles/controller3.xml.bak"
 	fi
 }
@@ -86,7 +92,7 @@ Cemu_setEmulationFolder(){
 		#WindowsRomPath=${echo "z:${romsPath}/wiiu/roms" | sed 's/\//\\/g'}
 		#gamePathEntryFound=$(grep -rnw "$Cemu_cemuSettings" -e "${WindowsRomPath}")
 		gamePathEntryFound=$(grep -rnw "$Cemu_cemuSettings" -e "z:${romsPath}/wiiu/roms")
-		if [[ $gamePathEntryFound == '' ]]; then 
+		if [[ $gamePathEntryFound == '' ]]; then
 			#xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "${WindowsRomPath}" "$Cemu_cemuSettings"
 			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}/wiiu/roms" "$Cemu_cemuSettings"
 		fi
@@ -108,9 +114,9 @@ Cemu_setupStorage(){
 
 #WipeSettings
 Cemu_wipeSettings(){
-		echo "NYI"
-   # rm -rf "${romPath}wiiu/"
-   # prob not cause roms are here
+	echo "NYI"
+	#rm -rf "${romPath}wiiu/"
+	# prob not cause roms are here
 }
 
 
@@ -127,7 +133,7 @@ Cemu_setABXYstyle(){
 
 #Migrate
 Cemu_migrate(){
-	   echo "NYI" 
+	   echo "NYI"
 }
 
 #WideScreenOn
@@ -169,6 +175,7 @@ Cemu_resetConfig(){
 }
 
 Cemu_addSteamInputProfile(){
+	addSteamInputCustomIcons
 	setMSG "Adding $Cemu_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/cemu_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

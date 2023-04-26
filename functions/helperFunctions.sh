@@ -67,7 +67,7 @@ function escapeSedValue(){
 }
 
 function getSDPath(){
-    if [ -b "/dev/mmcblk0p1" ]; then	    
+    if [ -b "/dev/mmcblk0p1" ]; then
 		findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1
 	fi
 }
@@ -88,23 +88,44 @@ function testRealDeck(){
 
 function testLocationValid(){
     local locationName=$1
+    local testLocation=$2
+    local result=""
+
+    if [[ "$testLocation" == *" "* ]]; then
+        result="Invalid: $locationName contains spaces"
+    else
+        touch "$testLocation/testwrite"
+        if [ ! -f  "$testLocation/testwrite" ]; then
+            result="Invalid: $locationName not Writable"
+        else
+            ln -s "$testLocation/testwrite" "$testLocation/testwrite.link"
+            if [ ! -f  "$testLocation/testwrite.link" ]; then
+                result="Invalid: $locationName not Linkable"
+            else
+                result="Valid"
+            fi
+            rm -f "$testLocation/testwrite.link"
+        fi
+        rm -f "$testLocation/testwrite"
+    fi
+    echo "$result"
+}
+
+
+function testLocationValidRelaxed(){
+	local locationName=$1
 	local testLocation=$2
 	local return=""
 
-    touch "$testLocation/testwrite"
-    
+	touch "$testLocation/testwrite"
+
 	if [ ! -f  "$testLocation/testwrite" ]; then
-		return="Invalid: $locationName not Writable"
+		result="Invalid: $locationName not Writable"
 	else
-		ln -s "$testLocation/testwrite" "$testLocation/testwrite.link"
-		if [ ! -f  "$testLocation/testwrite.link" ]; then
-			return="Invalid: $locationName not Linkable"
-		else
-			return="Valid"
-		fi
+		result="Valid"
 	fi
-	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
-	echo $return
+	rm -f "$testLocation/testwrite"
+	echo $result
 }
 
 function makeFunction(){
@@ -242,7 +263,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupXenia=false")
 	defaultSettingsList+=("doSetupRyujinx=true")
 	defaultSettingsList+=("doSetupMAME=true")
-	defaultSettingsList+=("doSetupPrimeHacks=true")
+	defaultSettingsList+=("doSetupPrimehack=true")
 	defaultSettingsList+=("doSetupPPSSPP=true")
 	defaultSettingsList+=("doSetupXemu=true")
 	defaultSettingsList+=("doSetupESDE=true")
@@ -250,7 +271,9 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupPCSX2QT=true")
 	defaultSettingsList+=("doSetupScummVM=true")
 	defaultSettingsList+=("doSetupVita3K=true")
+	defaultSettingsList+=("doSetupRMG=true")
 	#defaultSettingsList+=("doSetupMelon=true")
+	defaultSettingsList+=("doSetupMGBA=true")
 	defaultSettingsList+=("doInstallSRM=true")
 	defaultSettingsList+=("doInstallESDE=true")
 	defaultSettingsList+=("doInstallRA=true")
@@ -264,13 +287,14 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doInstallDuck=true")
 	defaultSettingsList+=("doInstallCemu=true")
 	defaultSettingsList+=("doInstallXenia=true")
-	defaultSettingsList+=("doInstallPrimeHacks=true")
+	defaultSettingsList+=("doInstallPrimeHack=true")
 	defaultSettingsList+=("doInstallPPSSPP=true")
 	defaultSettingsList+=("doInstallXemu=true")
 	defaultSettingsList+=("doInstallPCSX2QT=true")
 	defaultSettingsList+=("doInstallScummVM=true")
 	defaultSettingsList+=("doInstallVita3K=true")
 	#defaultSettingsList+=("doInstallMelon=false")
+	defaultSettingsList+=("doInstallMGBA=false")
 	defaultSettingsList+=("doInstallCHD=true")
 	defaultSettingsList+=("doInstallPowertools=false")
 	defaultSettingsList+=("doInstallGyro=false")
@@ -333,17 +357,17 @@ function checkForFile(){
 	local delete=$2
 	local finished=false	
 	while [ $finished == false ]
-	do 		 
+	do
 		test=$(test -f "$file" && echo true)			
 	  	if [[ $test == true ]]; then
 	  	  	finished=true;
 		  	clear			  	
-			if [[ $delete == 'delete' ]]; then  
+			if [[ $delete == 'delete' ]]; then
 		  		rm "$file"
 			fi
 			echo 'true';			
 			break
-	  	fi							  
+	  	fi
 	done
 }
 
@@ -372,20 +396,33 @@ function getReleaseURLGH(){
     fi
     curl -fSs "$url" | \
     jq -r '[ .[].assets[] | select(.name | endswith("'"$fileType"'")).browser_download_url ][0]'
-    
 }
-
 
 function linkToSaveFolder(){	
     local emu=$1
     local folderName=$2
     local path=$3
 
-	if [ ! -d "$savesPath/$emu/$folderName" ]; then		
-		mkdir -p "$savesPath/$emu"
-		setMSG "Linking $emu $folderName to the Emulation/saves folder"			
-		mkdir -p "$path"
-		ln -sn "$path" "$savesPath/$emu/$folderName"
+	if [ ! -d "$savesPath/$emu/$folderName" ]; then
+		if [ ! -L "$savesPath/$emu/$folderName" ]; then		
+			mkdir -p "$savesPath/$emu"
+			setMSG "Linking $emu $folderName to the Emulation/saves folder"			
+			mkdir -p "$path"
+			ln -snv "$path" "$savesPath/$emu/$folderName"
+		fi
+	else
+		if [ ! -L "$savesPath/$emu/$folderName" ]; then	
+			echo "$savesPath/$emu/$folderName is not a link. Please check it."
+		else
+			if [ $(readlink $savesPath/$emu/$folderName) == $path ]; then
+				echo "$savesPath/$emu/$folderName is already linked."
+				echo "     Target: $(readlink $savesPath/$emu/$folderName)"
+			else
+				echo "$savesPath/$emu/$folderName not linked correctly."
+				unlink "$savesPath/$emu/$folderName"
+				linkToSaveFolder "$emu" "$folderName" "$path"
+			fi
+ 		fi
 	fi
 
 }
@@ -426,6 +463,10 @@ function createDesktopShortcut(){
 	local exec=$3
 	local terminal=$4
 	local icon
+
+	rm -f "$Shortcutlocation"
+	
+	balooctl check
 	
 	mkdir -p "$HOME/.local/share/applications/"
 	
@@ -452,5 +493,192 @@ function createDesktopShortcut(){
 	StartupNotify=false" > "$Shortcutlocation"
 	chmod +x "$Shortcutlocation"
 
+	balooctl check
+
 	echo "$Shortcutlocation created"
+}
+
+#desktopShortcutFieldUpdate "$shortcutFile" "Field" "NewValue"
+function desktopShortcutFieldUpdate(){
+	local shortcutFile=$1
+	local shortcutKey=$2
+	local shortcutValue=$3
+	local name
+	local icon
+
+	if [ -f "$shortcutFile" ]; then
+		# update icon if name is updated
+		if [ "$shortcutKey" == "Name" ]; then
+			name=$shortcutValue
+			cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name").{svg,jpg,png}" "$HOME/.local/share/icons/emudeck/" 2>/dev/null
+			icon=$(find "$HOME/.local/share/icons/emudeck/" -type f \( -iname "$(cut -d " " -f1 <<< "$name").svg" -o -iname "$(cut -d " " -f1 <<< "$name").jpg" -o -iname "$(cut -d " " -f1 <<< "$name").png" \) -print -quit)
+			echo "Icon Found: $icon"
+			if [ -n "$icon" ]; then
+				#desktopShortcutFieldUpdate "$shortcutFile" "Icon" "$icon"
+				sed -i "s#Icon\\s*=\\s*.*#Icon=$icon#g" "$shortcutFile"
+				sed -E -i "s|Icon\\s*=\\s*.*|Icon=$icon|g" "$shortcutFile"
+			fi
+		fi
+		sed -E -i "s|$shortcutKey\\s*=\\s*.*|$shortcutKey=$shortcutValue|g" "$shortcutFile"
+		balooctl check
+	fi
+}
+
+
+#iniFieldUpdate "$iniFilePath" "General" "LoadPath" "$storagePath/$emuName/Load" "separator!"
+function iniFieldUpdate() {
+    local iniFile="$1"
+    local iniSection="${2:-}"
+    local iniKey="$3"
+    local iniValue="$4"
+    local separator="${5:- = }"
+
+    if [ -f "$iniFile" ]; then
+        # Create the section if it doesn't exist.
+        if [ -n "$iniSection" ] && ! grep -q "\[$iniSection\]" "$iniFile"; then
+            echo "Creating Header [$iniSection]"
+            if [ "$(wc -l < "$iniFile")" -gt 0 ]; then
+                # Append a newline before adding the new section
+                echo >> "$iniFile"
+            fi
+            # Escape special characters in the section header
+            escapedSection=$(echo "$iniSection" | sed 's/[&/\]/\\&/g')
+            echo "[$escapedSection]" >> "$iniFile"
+			echo "Creating [$iniSection] key $iniKey$separator$iniValue"
+            echo "$iniKey$separator$iniValue" >> "$iniFile"
+        else
+            # If the key doesn't exist in the section, create it one line below the section.
+            # Otherwise, update the value.
+            local startLineNumber=''
+            local endLineNumber=''
+            if [ -n "$iniSection" ]; then
+                # Escape special characters in the section header
+                escapedSection=$(echo "$iniSection" | sed 's/[&/\]/\\&/g')
+                startLineNumber=$(awk -v section="$escapedSection" 'BEGIN{FS=OFS="|"} $0=="["section"]"{print NR; exit}' "$iniFile")
+                if [ -n "$startLineNumber" ]; then
+                    endLineNumber=$(awk -v start="$startLineNumber" -F ']' 'NR > start && /^\[/ {print NR-1; exit}' "$iniFile")
+                fi
+            fi
+
+            if [ -n "$startLineNumber" ] && [ -n "$endLineNumber" ]; then
+                if ! grep -q "^$iniKey$separator" <(sed -n "${startLineNumber},${endLineNumber}p" "$iniFile"); then
+                    echo "Creating [$iniSection] key $iniKey$separator$iniValue"
+                    sed -i "${startLineNumber}a$iniKey$separator$iniValue" "$iniFile"
+                else
+                    echo "Updating [$iniSection] key $iniKey$separator$iniValue"
+                    sed -i "/^\[$escapedSection\]/,/^\[/ s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
+                fi
+            elif ! grep -q "^$iniKey$separator" "$iniFile"; then
+                echo "Creating key $iniKey$separator$iniValue"
+                echo "$iniKey$separator$iniValue" >> "$iniFile"
+            else
+                echo "Updating key $iniKey$separator$iniValue"
+                sed -i "s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
+            fi
+        fi
+    else
+        echo "Can't update missing INI file: $iniFile"
+    fi
+}
+
+
+function iniSectionUpdate() {
+    local file="$1"
+    local section_name="$2"
+    local new_content="$3"
+    local tmp_file=$(mktemp)
+
+    local inside_section=0
+
+    while IFS= read -r line; do
+
+        if [[ "$line" =~ ^\[$section_name\] ]]; then
+            inside_section=1
+            echo "$line"
+            echo "$new_content"
+            continue
+        fi
+
+        if [[ "$line" =~ ^\[ ]] && [[ ! "$line" =~ ^\[$section_name\] ]] && [[ $inside_section -eq 1 ]]; then
+            echo "$old_content"
+            inside_section=0
+        fi
+
+        if [[ $inside_section -eq 1 ]]; then
+            continue
+        fi
+
+        echo "$line"
+
+    local old_content="$line"
+
+    done < "$file" > "$tmp_file"
+
+    if [[ $inside_section -eq 1 ]]; then
+        echo "$old_content"
+    fi
+
+    mv "$tmp_file" "$file"
+}
+
+
+safeDownload() {
+	local name="$1"
+	local url="$2"
+	local outFile="$3"
+	local showProgress="$4"
+	local headers="$5"
+
+	echo "safeDownload()"
+	echo "- $name"
+	echo "- $url"
+	echo "- $outFile"
+	echo "- $showProgress"
+	echo "- $headers"
+
+	if [ "$showProgress" == "true" ] || [[ $showProgress -eq 1 ]]; then
+		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 | tee >(stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading $name" --width 600 --auto-close --no-cancel 2>/dev/null) && echo $'\2'${PIPESTATUS[0]})
+	else
+		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 && echo $'\2'0 || echo $'\2'$?)
+	fi
+	requestInfo=$(sed -z s/.$// <<< "${request%$'\1'*}")
+	returnCodes="${request#*$'\1'}"
+	httpCode="${returnCodes%$'\2'*}"
+	exitCode="${returnCodes#*$'\2'}"
+	echo "$requestInfo"
+	echo "HTTP response code: $httpCode"
+	echo "CURL exit code: $exitCode"
+	if [ "$httpCode" = "200" ] && [ "$exitCode" == "0" ]; then
+		echo "$name downloaded successfully";
+		mv -v "$outFile.temp" "$outFile"
+		return 0
+	else
+		echo "$name download failed"
+		rm -f "$outFile.temp"
+		return 1
+	fi
+}
+
+addSteamInputCustomIcons() {
+	rsync -av "$EMUDECKGIT/configs/steam-input/Icons/" "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons"
+}
+
+getEmuInstallStatus() {
+	emuArray=(	"$@")
+	installStatus=()
+	for emu in "${emuArray[@]}"; do
+		installStatus+=($("${emu}_IsInstalled"))
+	done
+	
+	paste <(printf "%s\n" "${emuArray[@]}") <(printf "%s\n" "${installStatus[@]}") |
+	jq -nR '{ Emulators: [inputs] | map(split("\t") | { Name: .[0], Installed: .[1] }) }'
+}
+
+isFpInstalled(){
+	flatPakID=$1
+	if [ "$(flatpak --columns=app list --user | grep "$flatPakID")" == "$flatPakID" ] || [ "$(flatpak --columns=app list --system | grep "$flatPakID")" == "$flatPakID" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
 }

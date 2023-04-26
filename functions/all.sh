@@ -19,10 +19,12 @@ chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
 
 source "$EMUDECKGIT"/functions/checkBIOS.sh
 source "$EMUDECKGIT"/functions/checkInstalledEmus.sh
+#source "$EMUDECKGIT"/functions/cloudServicesManager.sh
 source "$EMUDECKGIT"/functions/configEmuAI.sh
 source "$EMUDECKGIT"/functions/configEmuFP.sh
 source "$EMUDECKGIT"/functions/createDesktopIcons.sh
 source "$EMUDECKGIT"/functions/installEmuFP.sh
+source "$EMUDECKGIT"/functions/uninstallEmuFP.sh
 source "$EMUDECKGIT"/functions/setMSG.sh
 source "$EMUDECKGIT"/functions/emuDeckPrereqs.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
@@ -44,10 +46,15 @@ source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSaveSync.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckrclone.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckRemotePlayWhatever.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckInstallHomebrewGames.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckMigration.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSaveSync.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCopyGames.sh
+
 
 #emuscripts
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemu.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemuNative.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRPCS3.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCitra.sh
@@ -63,10 +70,15 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2QT.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMAME.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckScummVM.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckVita3K.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMGBA.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRMG.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMelonDS.sh
+
+#remoteplayclientscripts
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayParsec.sh
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayMoonlight.sh
 
 #Soon
-#source "$EMUDECKGIT"/EmuScripts/emuDeckMelonDS.sh
-#source "$EMUDECKGIT"/EmuScripts/emuDeckMgba.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMAMEProton.sh
-

@@ -21,9 +21,10 @@
     "preload": false
   },
   "enabledProviders": ["SteamGridDB"],
-  "language": "English",
+  "language": "en-US",
   "offlineMode": false,
-  "navigationWidth": 765,
+  "navigationWidth": 256,
   "clearLogOnTest": false,
-  "version": 3
+  "version": 5,
+  "theme": "EmuDeck"
 }

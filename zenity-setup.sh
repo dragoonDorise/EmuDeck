@@ -322,6 +322,9 @@ if [ "$expert" == "true" ]; then
 		emuTable+=(TRUE "Switch" "Ryujinx")
 		emuTable+=(TRUE "WiiU" "Cemu")
 		emuTable+=(TRUE "XBox" "Xemu")
+		emuTable+=(TRUE "N64" "RMG")
+		emuTable+=(FALSE "GameBoy / Color / Advance" "mGBA")
+		
 		#if we are in beta / dev install, allow Xenia. Still false by default though. Will only work on expert mode, and explicitly turned on.
 		if [[ $branch == "beta" || $branch == "dev" ]]; then
 			emuTable+=(FALSE "Xbox360" "Xenia")
@@ -352,9 +355,9 @@ if [ "$expert" == "true" ]; then
 				setSetting doInstallRA false
 			fi
 			if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
-				setSetting doInstallPrimeHacks true
+				setSetting doInstallPrimeHack true
 			else
-				setSetting doInstallPrimeHacks false
+				setSetting doInstallPrimeHack false
 			fi
 			if [[ "$emusToInstall" == *"PCSX2-Legacy"* ]]; then
 				setSetting doInstallPCSX2 true
@@ -391,6 +394,11 @@ if [ "$expert" == "true" ]; then
 			else
 				setSetting doInstallPPSSPP false
 			fi
+			if [[ "$emusToInstall" == *"mGBA"* ]]; then
+				setSetting doInstallMGBA true
+			else
+				setSetting doInstallMGBA false
+			fi
 			if [[ "$emusToInstall" == *"Yuzu"* ]]; then
 				setSetting doInstallYuzu true
 			else
@@ -419,7 +427,11 @@ if [ "$expert" == "true" ]; then
 			#if [[ "$emusToInstall" == *"MelonDS"* ]]; then
 			#	doInstallMelon=true
 			#fi
-		
+			if [[ "$emusToInstall" == *"RMG"* ]]; then
+				setSetting doInstallRMG true
+			else
+				setSetting doInstallRMG false
+			fi		
 		
 		else
 			exit
@@ -508,6 +520,8 @@ if [ "$expert" == "true" ]; then
 			emuTable+=(TRUE "Xemu")
 			emuTable+=(TRUE "Steam Rom Manager")
 			emuTable+=(TRUE "EmulationStation DE")
+			emuTable+=(TRUE "RMG")
+
 
 			text="$(printf "<b>EmuDeck will reset the following Emulator's configurations by default.</b>\nWhich systems do you want <b>reset</b> to the newest version of the defaults?\nWe recommend you keep all of them checked so everything gets updated and known issues are fixed.\nIf you want to mantain any custom configuration on an emulator unselect its name from this list.")"
 			emusToReset=$(zenity --list \
@@ -533,9 +547,9 @@ if [ "$expert" == "true" ]; then
 					setSetting doSetupRA false
 				fi
 				if [[ "$emusToReset" == *"PrimeHack"* ]]; then
-					setSetting doSetupPrimeHacks true
+					setSetting doSetupPrimehack true
 				else
-					setSetting doSetupPrimeHacks false
+					setSetting doSetupPrimehack false
 				fi
 				if [[ "$emusToReset" == *"PCSX2-Legacy"* ]]; then
 					setSetting doSetupPCSX2 true
@@ -571,6 +585,11 @@ if [ "$expert" == "true" ]; then
 					setSetting doSetupPPSSPP true
 				else
 					setSetting doSetupPPSSPP false
+				fi
+				if [[ "$emusToReset" == *"mGBA"* ]]; then
+					setSetting doSetupMGBA true
+				else
+					setSetting doSetupMGBA false
 				fi
 				if [[ "$emusToReset" == *"Yuzu"* ]]; then
 					setSetting doSetupYuzu true
@@ -633,16 +652,17 @@ else
 	setSetting doInstallCitra true
 	setSetting doInstallDuck true
 	setSetting doInstallCemu true
-	setSetting doInstallXenia false
-	setSetting doInstallPrimeHacks true
+	setSetting doInstallPrimeHack true
 	setSetting doInstallPPSSPP true
 	setSetting doInstallXemu true
 	setSetting doInstallMAME true
 	setSetting doInstallXenia false
+	setSetting doInstallMGBA false
+	setSetting doInstallRMG true
 	#doInstallMelon=true
 
 	setSetting doSetupRA true
-	setSetting doSetupPrimeHacks true
+	setSetting doSetupPrimehack true
 	setSetting doSetupDolphin true
 	setSetting doSetupPCSX2 false
 	setSetting doSetupPCSX2QT true
@@ -656,7 +676,8 @@ else
 	setSetting doSetupMAME true
 	setSetting doSetupCemu true
 	setSetting doSetupXenia false
-
+	setSetting doSetupMGBA false
+	setSetting doSetupRMG true
 
 	#widescreen off by default
 	setSetting duckWide false

@@ -41,10 +41,10 @@ Citra_update(){
 #ConfigurePaths
 Citra_setEmulationFolder(){
 	setMSG "Setting $Citra_emuName Emulation Folder"	
-  	Citra_configFile="$HOME/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini"
+
     gameDirOpt='Paths\\gamedirs\\3\\path='
     newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/3ds"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
+    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_configFile"
 
 	#Setup symlink for AES keys
 	mkdir -p "${biosPath}/citra/"
@@ -131,11 +131,7 @@ Citra_finalize(){
 }
 
 Citra_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$Citra_emuPath")" == "$Citra_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$Citra_emuPath"
 }
 
 Citra_resetConfig(){
@@ -143,5 +139,6 @@ Citra_resetConfig(){
 }
 
 Citra_addSteamInputProfile(){
+	addSteamInputCustomIcons
 	rsync -r "$EMUDECKGIT/configs/steam-input/citra_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

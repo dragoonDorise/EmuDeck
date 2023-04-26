@@ -1,0 +1,18 @@
+{
+  "system": "nes",
+  "status": "true",
+  "logo": "logo_nes",
+  "title": "Driar",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/nes/Driar.zip",
+  "description": "Driar is a platform-game for the Nintendo Entertainment System/Famicom written by Stefan Adolfsson and David Eriksson. Take control of Driar and collect all the stars on each level to progress. You can walk around the screen (if you exit the screen on the right side you will reappear on the left side). There are 38 levels in total.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/screenshots/homebrew/Driar.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/titlescreens/homebrew/Driar.png?raw=true"
+    ]
+  },
+  "tags": ["platform"]
+}

@@ -1,8 +1,7 @@
 #!/bin/sh
-
-LC_ALL=en_US.UTF-8
-LANG=en_US.UTF-8
-LC_TIME=en_US.UTF-8
+source $HOME/.config/EmuDeck/backend/functions/all.sh
+rclone_downloadEmu vita3k
+export LC_ALL="C"
 
 emuName="Vita3K" #parameterize me
 emufolder="$HOME/Applications/Vita3K" # has to be applications for ES-DE to find it
@@ -13,11 +12,5 @@ exe=$(find "$emufolder" -iname "${emuName}" | sort -n | cut -d' ' -f 2- | tail -
 #make sure that file is executable
 chmod +x "$exe"
 
-#run the executable with the params.
-#Fix first '
-param="${@}"
-substituteWith='"'
-param=${param/\'/"$substituteWith"}
-#Fix last ' on command
-param=$(echo "$param" | sed 's/.$/"/')
 eval "${exe} ${param}"
+rclone_uploadEmu vita3k

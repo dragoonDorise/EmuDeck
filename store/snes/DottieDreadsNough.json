@@ -1,0 +1,18 @@
+{
+  "system": "snes",
+  "status": "true",
+  "logo": "logo_snes",
+  "title": "Dottie Dreads Nought",
+  "url": "https://goldlocke.itch.io/dottie-dreads-nought",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/snes/Dottie Dreads Nought.zip",
+  "description": "Can you help Dottie on her hiking adventure to find the legendary Edelweiß flower? Along for the ride is her friend Ernesto. By using the magic mirror, you can shift perspective to him and reveal secrets previously hidden.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/screenshots/homebrew/Dottie Dreads Nought.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/titlescreens/homebrew/Dottie Dreads Nought.png?raw=true"
+    ]
+  },
+  "tags": ["platform"]
+}

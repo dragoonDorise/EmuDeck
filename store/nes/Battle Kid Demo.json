@@ -1,0 +1,18 @@
+{
+  "system": "nes",
+  "status": "true",
+  "logo": "logo_nes",
+  "title": "Battle Kid: Fortress of Peril (Demo)",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/nes/BattleKid.zip",
+  "description": "Battle Kid is very similar to I Wanna Be the Guy, an indie freeware game for the PC, in terms of the design of the main character and the projectile weapon he possesses, the trial-and-error difficulty, and instant death mechanics of all enemies and hazards. However, the similarities end here as the actual gameplay and control is much more in the likeness of Mega Man games on the NES and the boss fights at the end of each major stage.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/screenshots/homebrew/BattleKid.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/titlescreens/homebrew/BattleKid.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

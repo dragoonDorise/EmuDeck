@@ -115,6 +115,7 @@ PCSX2_finalize(){
 	echo "NYI"
 }
 
+
 PCSX2_addSteamInputProfile(){
 	setMSG "Adding $PCSX2_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/pcsx2_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"

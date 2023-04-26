@@ -1,0 +1,18 @@
+{
+  "system": "genesis",
+  "status": "true",
+  "logo": "logo_genesis",
+  "title": "Demons of Asteborg (Demo 2)",
+  "url": "https://www.demonsofasteborg.com/",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/genesis/Demons of Asteborg.zip",
+  "description": "Demons Of Asteborg is a new original title for the Sega Genesis which will be released both as a physical cartridge and as a downloadable ROM for emulators and flash cards. It is a platform-based game with some metroidvania elements inspired by a lot of others MegaDrive/Genesis titles like Ghouls’n Ghosts, Castlevania, Mickey Mania, Space Harrier or Panzer Dragoon.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/screenshots/homebrew/Demons of Asteborg.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/titlescreens/homebrew/Demons of Asteborg.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

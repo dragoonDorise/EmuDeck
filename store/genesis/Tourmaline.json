@@ -1,0 +1,18 @@
+{
+  "system": "genesis",
+  "status": "true",
+  "logo": "logo_genesis",
+  "title": "Tourmaline",
+  "url": "https://retrosouls.itch.io/tourmaline",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/genesis/Tourmaline.zip",
+  "description": "Caves full of Tourmaline crystals have always attracted treasure hunters. With an anti-gravity suit and some quality dynamite you are going to join their ranks. Be warned, the ancient inhabitants of these caves do not appreciate the company of the likes of you. They will do their best to hide the crystals and to destroy you!",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/screenshots/homebrew/Tourmaline.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/titlescreens/homebrew/Tourmaline.png?raw=true"
+    ]
+  },
+  "tags": ["puzzle"]
+}

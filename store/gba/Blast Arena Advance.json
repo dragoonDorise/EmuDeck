@@ -1,0 +1,18 @@
+{
+  "system": "gba",
+  "status": "true",
+  "logo": "logo_gba",
+  "title": "Blast Arena Advance",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/gba/BlastArenaAdvance.zip",
+  "description": "The objective of Blast Arena Advance is to collect as many jittering yellow squares as possible, while avoiding the shrapnel thrown out by the explosions. Using your cunning and skill, ricochet the cursor against the walls of your Game Boy to outwit and evade the deadly shrapnel.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gba/screenshots/homebrew/BlastArenaAdvance.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gba/titlescreens/homebrew/BlastArenaAdvance.png?raw=true"
+    ]
+  },
+  "tags": ["action"]
+}

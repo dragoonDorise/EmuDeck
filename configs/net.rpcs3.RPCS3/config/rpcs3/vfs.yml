@@ -7,3 +7,4 @@ $(EmulatorDir): ""
 /dev_usb000/: $(EmulatorDir)dev_usb000/
 /dev_bdvd/: ""
 /app_home/: ""
+/games/: $(EmulatorDir)games/

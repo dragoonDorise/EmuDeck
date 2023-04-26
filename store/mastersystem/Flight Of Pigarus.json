@@ -1,0 +1,18 @@
+{
+  "system": "mastersystem",
+  "status": "true",
+  "logo": "logo_mastersystem",
+  "title": "Flight Of Pigarus",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/mastersystem/Flight Of Pigarus.zip",
+  "description": "You are Pigarus, the flying pig. Score as many points as you can in the allotted time.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/mastersystem/screenshots/homebrew/Flight Of Pigarus.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/mastersystem/titlescreens/homebrew/Flight Of Pigarus.png?raw=true"
+    ]
+  },
+  "tags": ["action"]
+}

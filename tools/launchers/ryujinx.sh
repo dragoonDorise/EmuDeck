@@ -1,4 +1,6 @@
 #!/bin/sh
+source $HOME/.config/EmuDeck/backend/functions/all.sh
+rclone_downloadEmu ryujinx
 emuName="Ryujinx" #parameterize me
 emufolder="$HOME/Applications/publish" # has to be applications for ES-DE to find it
 
@@ -22,3 +24,4 @@ param=${param/\'/"$substituteWith"}
 #Fix last ' on command
 param=$(echo "$param" | sed 's/.$/"/')
 eval "${exe} ${param}"
+rclone_uploadEmu ryujinx
