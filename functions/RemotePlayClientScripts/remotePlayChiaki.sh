@@ -8,7 +8,7 @@ Chiaki_releaseURL=""
 
 # Install
 Chiaki_install() {
-	setMSG "Installing $Moonlight_emuName."
+	setMSG "Installing $Chiaki_emuName."
 	local ID="$Chiaki_emuPath"
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
 	flatpak install flathub "$ID" -y --user
