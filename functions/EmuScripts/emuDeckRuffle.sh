@@ -12,7 +12,7 @@ Ruffle_cleanup(){
 }
 
 #Install
-Ruffle_install(){c
+Ruffle_install(){
     echo "Begin Ruffle Install"
     local showProgress="$1"
     if installEmuBI "Ruffle" "$(getReleaseURLGH "ruffle-rs/ruffle" "linux-x86_64.tar.gz")" "Ruffle" "tar.gz" "$showProgress"; then
