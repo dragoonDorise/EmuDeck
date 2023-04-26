@@ -157,15 +157,19 @@ ESDE_addCustomSystems(){
 ESDE_applyTheme(){
 	defaultTheme="EPICNOIR"
 	local theme=$1
+	
 	if [[ "${theme}" == "" ]]; then
 		echo "ESDE: applyTheme parameter not set."
 		theme="$defaultTheme"
 	fi
+
 	echo "ESDE: applyTheme $theme"
 	mkdir -p "$HOME/.emulationstation/themes/"
+
 	if [ -e "$HOME/.emulationstation/themes/epic-noir-revisited" ] && [ ! -e "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" ]; then
 		mv -v "$HOME/.emulationstation/themes/epic-noir-revisited" "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" #update theme path to esde naming convention
 	fi
+
 	git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" 
 	rm -rf "$HOME/.emulationstation/themes/epic-noir-revisited" #remove old themes
 	rm -rf "$HOME/.emulationstation/themes/es-epicnoir" #remove old themes
