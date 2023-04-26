@@ -76,6 +76,8 @@ YuzuEA_install() {
                     chmod +x "$YuzuEA_emuPath"
                     echo "latest version $currentVer > $YuzuEA_lastVerFile"
                     echo "${currentVer}" >"${YuzuEA_lastVerFile}"
+                    cp -v "${EMUDECKGIT}/tools/launchers/yuzu.sh" "${toolsPath}/launchers/"
+                    chmod +x "${toolsPath}/launchers/yuzu.sh"
                 else
                     return 1
                 fi
@@ -288,6 +290,7 @@ YuzuEA_addToken() {
     local updateToken="true"
     local user=""
     local auth=""
+
 
     if [ -e "$YuzuEA_tokenFile" ]; then
         tokenValue=$(cat "$YuzuEA_tokenFile")
