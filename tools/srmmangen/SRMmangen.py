@@ -24,7 +24,12 @@ def log(type, message, show = True):
 cfg = {}
 
 # say hello
-print('<SRM manifest.json generator 0.3 (c) 2023 d0k3>')
+print('<SRM manifest.json generator 0.4 (c) 2023 d0k3>')
+
+# check Python version
+if not sys.version_info >= (3, 7):
+    print('This requires Python 3.7 or above!')
+    sys.exit(0)
 
 # parse arguments
 parser = argparse.ArgumentParser()
@@ -48,7 +53,7 @@ if args.gamelist_root:
     cfg['gamelist_root'] = args.gamelist_root
 output_path = args.output
 
-# if specified: take over manifest templates from SRM userConfigurations.json
+# if specified: take over manifest templates from SRM userSettings.json and userConfigurations.json
 if args.srm_userdata and not args.config:
     retroarchPath = ''
     raCoresDirectory = ''
@@ -67,11 +72,13 @@ if args.srm_userdata and not args.config:
             if not p['executableArgs'] or not s:
                 # most likely not an emulator
                 continue
+            subdir = s.group(1)
+            if not subdir in  cfg['manifest_templates'].keys():
+                cfg['manifest_templates'][subdir] = {}
             e = {}
-            e['subdir'] = s.group(1)
             e['emulator'] = p ['executable']['path'].replace('${retroarchpath}', retroarchPath)
             e['args'] = p['executableArgs'].replace('${racores}', raCoresDirectory)
-            cfg['manifest_templates'][p['configTitle']] = e
+            cfg['manifest_templates'][subdir][p['configTitle']] = e
                 
 # sanity check
 if not (('roms_root' in cfg) and cfg['roms_root']):
@@ -96,16 +103,10 @@ if args.dump_config:
 
 manifests = [] # one entry per game
 processed_subddirs = [] # used to keep track of already processed subdirs
-for system in cfg["manifest_templates"]:
+for subdir in cfg["manifest_templates"]:
     # basic parameters
-    template = cfg["manifest_templates"][system]
-    subdir = template['subdir']
-    emulator = template['emulator']
-    options = template['args']
-    if subdir in processed_subddirs:
-        continue
-    cfaves = 0
-    log(f'{subdir}', f'System: {system}', args.verbose)
+    templates = cfg["manifest_templates"][subdir]
+    template_default_str = list(templates.keys())[0]
     
     # fetch gamelist (with a workaround for non standard compliant XML files)
     gamelist = []
@@ -113,28 +114,43 @@ for system in cfg["manifest_templates"]:
         gamelist_path = os.path.join(cfg['gamelist_root'], subdir, 'gamelist.xml')
         with open(gamelist_path, mode = 'r', encoding = 'utf-8') as fp:
             fp.readline()
-            gamelist = ET.fromstring('<?xml version="1.0"?>\n<root>' + fp.read() + '\n</root>').find('gameList').findall('game')
+            gamelist_root = ET.fromstring('<?xml version="1.0"?>\n<root>' + fp.read() + '\n</root>')
+            gamelist = gamelist_root.find('gameList').findall('game')
+            altEmulator = gamelist_root.find('alternativeEmulator')
+            if altEmulator is not None:
+                altEmulatorLabel = altEmulator.find('label').text
+                if altEmulatorLabel in templates:
+                    template_default_str = altEmulatorLabel
     except Exception as e:
         pass    
     if not gamelist:
         log(f'{subdir}', 'missing or bad gamelist.xml', args.verbose)
         continue
+
+    # set default template for system
+    template_default = templates[template_default_str]
+    log(f'{subdir}', f'default config: {template_default_str}', args.verbose)
         
     # process favourites
+    cfaves = 0
     for entry in gamelist:
+        template = template_default
         glfav = entry.find('favorite')
         glpath = entry.find('path')
         if (glpath is None) or (glfav is None) or (glfav.text != 'true'):
             continue
+        glaltemu = entry.find('altemulator')
+        if (glaltemu is not None) and (glaltemu.text in templates):
+            template = templates[glaltemu.text]
         filename = os.path.basename(glpath.text)
         filepath = os.path.normpath(os.path.join(cfg['roms_root'], subdir, filename))
         title = re.sub("\(.*?\)|\[.*?\]","", os.path.splitext(filename)[0]).strip()
         log(f'{subdir}', f'{title}', args.verbose)
         m = {}
         m['title'] = title
-        m['target'] = emulator
-        m['startIn'] = os.path.dirname(emulator)
-        m['launchOptions'] = options.replace('${filePath}', filepath)
+        m['target'] = template['emulator']
+        m['startIn'] = os.path.dirname(template['emulator'])
+        m['launchOptions'] = template['args'].replace('${filePath}', filepath)
         manifests.append(m)
         cfaves = cfaves + 1
 
