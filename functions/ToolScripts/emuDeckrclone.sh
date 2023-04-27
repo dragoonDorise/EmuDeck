@@ -111,7 +111,7 @@ rclone_config(){
       # Cleanup
       token=$(echo "$token" | sed "s/\"//g")
       token=$(echo "$token" | sed "s/'/\"/g")            
-      #section=$(echo "$section" | sed 's/[][]//g; s/"//g')     
+      section=$(echo "$section" | sed 's/[][]//g; s/"//g')     
       
      cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
      
