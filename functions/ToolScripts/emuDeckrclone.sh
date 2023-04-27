@@ -29,7 +29,10 @@ rclone_pickProvider(){
     cloudProviders+=(2 "Emudeck-DropBox")
     cloudProviders+=(3 "Emudeck-OneDrive")
     cloudProviders+=(4 "Emudeck-Box")
-    #cloudProviders+=(5 "Emudeck-NextCloud")
+    cloudProviders+=(5 "Emudeck-NextCloud")
+    cloudProviders+=(6 "Emudeck-pCloud")
+    cloudProviders+=(7 "Emudeck-Mega")
+
 
     rclone_provider=$(zenity --list \
         --title="EmuDeck SaveSync Host" \

@@ -36,7 +36,7 @@ SAVESYNC_install(){
 
 }
 
-#$1 = gdrive,dropbox,onedrive,box,nextcloud
+#$1 = gdrive,dropbox,onedrive,box,nextcloud,pcloud,mega
 SAVESYNC_setup(){
 	local cloudProvider=$1
 	if [[ -z "$cloudProvider" ]]; then
