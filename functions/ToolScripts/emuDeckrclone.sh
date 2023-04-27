@@ -119,8 +119,8 @@ rclone_config(){
      
      #Bad Temp fix:
      
-     sed -i 's/=\([^ ]\)/\1/g' $rclone_config
-
+     sed -i "s/token =/''/g" $rclone_config
+     sed -i 's/  /token = /g' $rclone_config
      
      text="$(printf "<b>CloudSync Configured!")"      
        zenity --info \
