@@ -10,8 +10,8 @@ installEmuFP(){
 	flatpak install flathub "$ID" -y --user
 	flatpak override "$ID" --filesystem=host --user
 	flatpak override "$ID" --share=network --user
-	#remove old system flatpak after we detect user flatpak is isntalled
-	if [ "$(isFpInstalled "$ID")" == "true" ]; then
+	#remove old system flatpak after we detect user flatpak is installed
+	if [ "$(flatpak --columns=app list --user | grep "$ID")" == "$ID" ]; then
 		flatpak uninstall "$ID" --system -y
 	fi
  	

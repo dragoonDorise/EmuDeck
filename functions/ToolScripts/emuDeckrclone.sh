@@ -111,11 +111,16 @@ rclone_config(){
       # Cleanup
       token=$(echo "$token" | sed "s/\"//g")
       token=$(echo "$token" | sed "s/'/\"/g")            
-      #section=$(echo "$section" | sed 's/[][]//g; s/"//g')     
+      section=$(echo "$section" | sed 's/[][]//g; s/"//g')     
       
      cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
      
      iniFieldUpdate "$rclone_config" "$section" "token" "$token"     
+     
+     #Bad Temp fix:
+     
+     sed -i "s/token =/''/g" $rclone_config
+     sed -i 's/  /token = /g' $rclone_config
      
      text="$(printf "<b>CloudSync Configured!")"      
        zenity --info \
