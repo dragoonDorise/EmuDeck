@@ -54,7 +54,8 @@ EmuDeck has preloaded configurations for Steam Rom Manager for the following sys
 | Super Nintendo            | Retroarch Snes9x Current core                 | .7z .bs .fig .sfc .smc .swx .zip                                    |                                                                                                                                                                                                                           |
 | Super Nintendo Widescreen | Retroarch bsnes hd beta Current core          | .7z .bs .fig .sfc .smc .swx .zip                                    |                                                                                                                                                                                                                           |
 | Wonderswan & Color        | Retroarch Beetle Cygne core                   | .7z .pc2 .ws .wsc .zip                                              |
-For a list of systems that are currently unsupported, see [here](UNSUPPORTED.md)
+
+For a list of systems that are currently unsupported, see [here](UNSUPPORTED.txt)
 
 ## Using EmulationStation DE
 
