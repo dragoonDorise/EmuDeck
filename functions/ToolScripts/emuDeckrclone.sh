@@ -117,6 +117,11 @@ rclone_config(){
      
      iniFieldUpdate "$rclone_config" "$section" "token" "$token"     
      
+     #Bad Temp fix:
+     
+     sed -i 's/=\([^ ]\)/\1/g' $rclone_config
+
+     
      text="$(printf "<b>CloudSync Configured!")"      
        zenity --info \
       --text="${text}" 2>/dev/null
