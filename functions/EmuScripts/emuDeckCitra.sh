@@ -43,7 +43,7 @@ Citra_setEmulationFolder(){
 	setMSG "Setting $Citra_emuName Emulation Folder"	
 
     gameDirOpt='Paths\\gamedirs\\3\\path='
-    newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/3ds"
+    newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/n3ds"
     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_configFile"
 
 	#Setup symlink for AES keys
@@ -61,6 +61,33 @@ Citra_setupSaves(){
 
 #SetupStorage
 Citra_setupStorage(){
+
+
+if [[ -L "$romsPath/n3ds" && ! $(readlink -f "$romsPath/n3ds") =~ ^"$romsPath" ]] || [[ -L "$romsPath/3ds" && ! $(readlink -f "$romsPath/3ds") =~ ^"$romsPath" ]]; then
+    echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
+else
+	if [[ ! -e "$romsPath/3ds" && ! -e "$romsPath/n3ds" ]]; then
+		mkdir -p "$romsPath/n3ds"
+		ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
+	elif [[ -d "$romsPath/3ds" && -L "$romsPath/n3ds" ]]; then
+		echo "Converting n3ds symlink to a regular directory..."
+		unlink "$romsPath/n3ds"
+		mv "$romsPath/3ds" "$romsPath/n3ds"
+		ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
+		echo "3ds symlink updated to point to n3ds"
+	elif [[ -d "$romsPath/3ds" && ! -e "$romsPath/n3ds" ]]; then
+		echo "Creating n3ds directory and updating 3ds symlink..."
+		mv "$romsPath/3ds" "$romsPath/n3ds"
+		ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
+		echo "3ds symlink updated to point to n3ds"
+	elif [[ -d "$romsPath/n3ds" && ! -e "$romsPath/3ds" ]]; then
+		echo "3ds symlink not found, creating..."
+		ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
+		echo "3ds symlink created"
+	fi
+fi
+
+
 
 	if [ ! -f "$storagePath/citra/nand" ] && [ -d "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/nand/" ]; then 
 
