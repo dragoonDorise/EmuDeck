@@ -86,4 +86,4 @@ If you wanna help us improve EmuDeck we are open to accept your PR! Just keep in
 - User input is non recommended, everything should be done with no mouse or keyboard input. If input is a must then you have to code your feature only on expert mode.
 - Things using sudo are a big no no, there are exceptions but always try to find a way of prevent using sudo.
 - Every Emulator added has to be included on this readme file, have a SRM profile and follow the AmberElec hotkey mapping ( just check the previous table)
-- Always do your PR to the dev branch.
+- Always do your PR to the **beta** branch.
