@@ -324,6 +324,7 @@ if [ "$expert" == "true" ]; then
 		emuTable+=(TRUE "XBox" "Xemu")
 		emuTable+=(TRUE "N64" "RMG")
 		emuTable+=(FALSE "GameBoy / Color / Advance" "mGBA")
+		emuTable+=(FALSE "Flash Player" "Ruffle")
 		
 		#if we are in beta / dev install, allow Xenia. Still false by default though. Will only work on expert mode, and explicitly turned on.
 		if [[ $branch == "beta" || $branch == "dev" ]]; then
@@ -431,6 +432,11 @@ if [ "$expert" == "true" ]; then
 				setSetting doInstallRMG true
 			else
 				setSetting doInstallRMG false
+			fi	
+			if [[ "$emusToInstall" == *"Ruffle"* ]]; then
+				setSetting doInstallRuffle true
+			else
+				setSetting doInstallRuffle false
 			fi		
 		
 		else
@@ -521,6 +527,7 @@ if [ "$expert" == "true" ]; then
 			emuTable+=(TRUE "Steam Rom Manager")
 			emuTable+=(TRUE "EmulationStation DE")
 			emuTable+=(TRUE "RMG")
+			emuTable+=(TRUE "Ruffle")
 
 
 			text="$(printf "<b>EmuDeck will reset the following Emulator's configurations by default.</b>\nWhich systems do you want <b>reset</b> to the newest version of the defaults?\nWe recommend you keep all of them checked so everything gets updated and known issues are fixed.\nIf you want to mantain any custom configuration on an emulator unselect its name from this list.")"
@@ -601,6 +608,11 @@ if [ "$expert" == "true" ]; then
 				else
 					setSetting doSetupRyujinx false
 				fi
+				if [[ "$emusToReset" == *"Ruffle"* ]]; then
+					setSetting doSetupRuffle true
+				else
+					setSetting doSetupRuffle false
+				fi
 				if [[ "$emusToReset" == *"Cemu"* ]]; then
 					setSetting doSetupCemu true
 				else
@@ -659,6 +671,7 @@ else
 	setSetting doInstallXenia false
 	setSetting doInstallMGBA false
 	setSetting doInstallRMG true
+	setSetting doInstallRuffle true
 	#doInstallMelon=true
 
 	setSetting doSetupRA true
@@ -678,6 +691,7 @@ else
 	setSetting doSetupXenia false
 	setSetting doSetupMGBA false
 	setSetting doSetupRMG true
+	setSetting doSetupRuffle true
 
 	#widescreen off by default
 	setSetting duckWide false
