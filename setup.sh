@@ -321,6 +321,10 @@ if [ $doInstallmelonDS == "true" ]; then
 	echo "melonDS_install"
 	melonDS_install
 fi
+if [ $doInstalRuffle == "true" ]; then
+	echo "ruffle_install"
+	Ruffle_install
+fi
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ "$doInstallXenia" == "true" ]; then
 	echo "Xenia_install"
@@ -417,6 +421,10 @@ fi
 if [ "${doSetupCemuNative}" == "true" ]; then
 	echo "CemuNative_init"
 	CemuNative_init
+fi
+if [ "${doSetupRuffle}" == "true" ]; then
+	echo "Ruffle_init"
+	Ruffle_init
 fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then
