@@ -4214,7 +4214,7 @@
       "appendArgsToExecutable": true
     },
     "parserInputs": {
-      "glob": "@(pcengine|tg16)**/${title}@(.7z|.7Z|.bin|.BIN|.pce|.PCE|.zip|.ZIP)"
+      "glob": "@(pcengine|tg16)/**/${title}@(.7z|.7Z|.bin|.BIN|.pce|.PCE|.zip|.ZIP)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
