@@ -398,6 +398,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 		if [[ $doSelectEmulators == "true" ]]; then
 			
 			emuTable=()
+			emuTable+=(TRUE "Flash Player" "Ruffle")
 			emuTable+=(TRUE "GameBoy / Color / Advance" "mGBA")
 			emuTable+=(TRUE "Multiple" "RetroArch")
 			emuTable+=(TRUE "Metroid Prime" "PrimeHack")
@@ -480,6 +481,9 @@ if [ "$RUNCHOICE" == 1 ]; then
 				fi
 				if [[ "$emusToInstall" == *"Xenia"* ]]; then
 					setSetting doInstallXenia true
+				fi
+				if [[ "$emusToInstall" == *"Ruffle"* ]]; then
+					setSetting doInstallRuffle true
 				fi
 				#if [[ "$emusToInstall" == *"MelonDS"* ]]; then
 				#	doInstallMelon=true
@@ -568,6 +572,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 				emuTable+=(TRUE "Duckstation")
 				emuTable+=(TRUE "PPSSPP")
 				emuTable+=(TRUE "RMG")
+				emuTable+=(TRUE "Ruffle")
 				emuTable+=(TRUE "Yuzu")
 				emuTable+=(TRUE "Cemu")
 				emuTable+=(TRUE "Xemu")
@@ -625,6 +630,9 @@ if [ "$RUNCHOICE" == 1 ]; then
 					if [[ "$emusToReset" == *"RMG"* ]]; then
 						setSetting doSetupRMG true
 					fi
+					if [[ "$emusToReset" == *"Ruffle"* ]]; then
+						setSetting doSetupRuffle true
+					fi
 					if [[ "$emusToReset" == *"Yuzu"* ]]; then
 						setSetting doSetupYuzu true
 					fi
@@ -667,6 +675,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 		setSetting doInstallDuck true
 		setSetting doInstallCemu true
 		setSetting doInstallXenia false
+		setSetting doInstallRuffle false
 		setSetting doInstallPrimeHacks true
 		setSetting doInstallPPSSPP true
 		setSetting doInstallXemu true
@@ -780,6 +789,9 @@ fi
 if [ $doInstallYuzu == "true" ]; then	
 	Yuzu_install
 fi
+if [ $doInstallRuffle == "true" ]; then	
+	Ruffle_install
+fi
 if [ $doInstallXemu == "true" ]; then
 	Xemu_install
 fi
@@ -844,6 +856,9 @@ if [ "$doSetupPPSSPP" == "true" ]; then
 fi
 if [ "$doSetupXemu" == "true" ]; then
 	Xemu_init
+fi
+if [ "$doSetupRuffle" == "true" ]; then
+	Ruffle_init
 fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then
