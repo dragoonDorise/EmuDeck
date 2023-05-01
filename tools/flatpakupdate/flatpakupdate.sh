@@ -36,6 +36,14 @@ if [ "$(ScummVM_IsInstalled)" == "true" ]; then
     emuTable+=(TRUE "Scumm/DOS" "ScummVM")
 fi
 
+if [ "$(RMG_IsInstalled)" == "true" ]; then
+    emuTable+=(TRUE "N64" "RMG")
+fi
+
+if [ "$(melonDS_IsInstalled)" == "true" ]; then
+    emuTable+=(TRUE "DS" "melonDS")
+fi
+
 if [ "${#emuTable[@]}" -gt 0 ]; then
     #Emulator selector
     text="$(printf "Which Flatpak emulators do you want to update?")"
@@ -90,9 +98,12 @@ if [ "${#emuTable[@]}" -gt 0 ]; then
             if [[ "$emusToInstall" == *"ScummVM"* ]]; then
                 doUpdateScummVM=true
             fi
-            #if [[ "$emusToInstall" == *"MelonDS"* ]]; then
-            #	doUpdateMelon=true
-            #fi
+            if [[ "$emusToInstall" == *"MelonDS"* ]]; then
+            	doUpdateMelonDS=true
+            fi
+            if [[ "$emusToInstall" == *"RMG"* ]]; then
+            	doUpdateRMG=true
+            fi
 
             (
                 progressInstalled=""
@@ -132,6 +143,16 @@ if [ "${#emuTable[@]}" -gt 0 ]; then
                     echo "###Updating ScummVM..."
                     (updateEmuFP "ScummVM" "org.scummvm.ScummVM" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|ScummVM" && echo "&&&$progressInstalled"
                 fi
+                if [ "$doUpdateMelonDS" == "true" ]; then
+                    echo "###Updating melonDS..."
+                    (updateEmuFP "melonDS" "net.kuribo64.melonDS" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|melonDS" && echo "&&&$progressInstalled"
+                fi
+
+                if [ "$doUpdateRMG" == "true" ]; then
+                    echo "###Updating RMG..."
+                    (updateEmuFP "RMG" "com.github.Rosalie241.RMG" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|RMG" && echo "&&&$progressInstalled"
+                fi
+
                 if [ $progresspct != 100 ]; then
                     progresspct=100
                     echo "%%%$progresspct"
