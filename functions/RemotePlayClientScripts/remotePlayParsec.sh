@@ -16,7 +16,7 @@ Parsec_install() {
 	flatpak override "$ID" --share=network --user
 	cp "$EMUDECKGIT/tools/remoteplayclients/Parsec.sh" "$romsPath/remoteplay"
 	chmod +x "$romsPath/remoteplay/Parsec.sh"
-	Parsec_addSteamInputProfile
+	#Parsec_addSteamInputProfile
 }
 
 # ApplyInitialSettings

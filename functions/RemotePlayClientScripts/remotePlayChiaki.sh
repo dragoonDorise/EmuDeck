@@ -16,7 +16,7 @@ Chiaki_install() {
 	flatpak override "$ID" --share=network --user
 	cp "$EMUDECKGIT/tools/remoteplayclients/Chiaki Remote Play Client.sh" "$romsPath/remoteplay"
 	chmod +x "$romsPath/remoteplay/Chiaki Remote Play Client.sh"
-	Chiaki_addSteamInputProfile
+	#Chiaki_addSteamInputProfile
 }
 
 # ApplyInitialSettings

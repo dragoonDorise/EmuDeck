@@ -16,7 +16,7 @@ Moonlight_install() {
 	flatpak override "$ID" --share=network --user
 	cp "$EMUDECKGIT/tools/remoteplayclients/Moonlight Game Streaming.sh" "$romsPath/remoteplay"
 	chmod +x "$romsPath/remoteplay/Moonlight Game Streaming.sh"
-	Moonlight_addSteamInputProfile
+	#Moonlight_addSteamInputProfile
 }
 
 # ApplyInitialSettings
