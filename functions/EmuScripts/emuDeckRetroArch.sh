@@ -376,6 +376,20 @@ RetroArch_nes_bezelOn(){
 	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'input_overlay_aspect_adjust_landscape' '"0.100000"'
 	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'video_scale_integer' '"false"'
 	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'aspect_ratio_index' '"0"'
+	
+	case $arSnes in
+	  "87")
+		RetroArch_nes_ar87
+	  ;;
+	  "32")		
+		  RetroArch_nes_ar32
+		;;  
+	  *)	
+		RetroArch_nes_ar43
+	  ;;
+	esac
+	
+	
 }
 
 RetroArch_nes_bezelOff(){
@@ -407,7 +421,7 @@ RetroArch_nes_ar43(){
 	#RetroArch_nes_bezelOn
 	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'aspect_ratio_index' '"0"'
 	RetroArch_setOverride 'nes.cfg' 'Mesen'  'aspect_ratio_index' '"0"'
-}
+}	
 
 RetroArch_nes_ar87(){	
 	RetroArch_setOverride 'nes.cfg' 'Nestopia'  'input_overlay_scale_landscape' '"1.380000"'
@@ -1268,6 +1282,18 @@ RetroArch_snes_bezelOn(){
 	RetroArch_setOverride 'snesna.cfg' 'Snes9x'  'input_overlay_enable' '"true"'
 	RetroArch_setOverride 'snesna.cfg' 'Snes9x'  'input_overlay_opacity' '"0.700000"'
 	RetroArch_setOverride 'snesna.cfg' 'Snes9x'  'video_scale_integer' '"false"'
+	
+	case $arSnes in
+	  "87")
+		RetroArch_snes_ar87
+	  ;;
+	  "32")
+			RetroArch_snes_ar32
+		;;  
+	  *)
+		RetroArch_snes_ar43		
+	  ;;
+	esac	
 }
 
 RetroArch_snes_bezelOff(){
