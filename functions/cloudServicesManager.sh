@@ -146,6 +146,14 @@ manageRPSMenu() {
 		arrAllRP+=(false "Parsec")
 	fi
 
+	ShadowPC_IsInstalled
+	ans=$?
+	if [ "$ans" == "1" ]; then
+		arrAllRP+=(true "ShadowPC")
+	else
+		arrAllRP+=(false "ShadowPC")
+	fi
+
 	# Dynamically build list of scripts
 	RP=$(zenity --list  \
 	--title="Cloud Services Manager" \
@@ -188,6 +196,15 @@ manageRPSMenu() {
 					Parsec_install
 				fi
 			fi
+			elif [ "$i" == "ShadowPC" ]; then
+				ShadowPC_IsInstalled
+				ans=$?
+				if [ "$ans" == "1" ]; then
+					ShadowPC_update
+				else
+					ShadowPC_install
+				fi
+			fi
 		done
 
 		# Uninstall those not selected
@@ -199,6 +216,9 @@ manageRPSMenu() {
 		fi
 		if [[ ! "${arrChosen[*]}" =~ "Parsec" ]]; then
 			Parsec_uninstall
+		fi
+		if [[ ! "${arrChosen[*]}" =~ "ShadowPC" ]]; then
+			ShadowPC_uninstall
 		fi
 	)	|	zenity --progress \
             --title="Cloud Services Manager" \
