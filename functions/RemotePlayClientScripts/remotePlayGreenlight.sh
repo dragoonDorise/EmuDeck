@@ -11,9 +11,9 @@ Greenlight_install() {
 
 	local showProgress="$1"
 	if installEmuAI "Greenlight" "$(getReleaseURLGH "unknownskl/greenlight" ".AppImage")" "" "$showProgress"; then
-		:
-	else
 		return 1
+	else
+		return 0
 	fi
 }
 
