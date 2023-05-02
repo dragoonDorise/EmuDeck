@@ -195,7 +195,6 @@ manageRPSMenu() {
 				else
 					Parsec_install
 				fi
-			fi
 			elif [ "$i" == "ShadowPC" ]; then
 				ShadowPC_IsInstalled
 				ans=$?

@@ -12,8 +12,10 @@ ShadowPC_install() {
 
     local showProgress=$1
 	local installShadowPC=$(wget -q $ShadowPC_releaseURL -P $ShadowPC_emuPath)
-    if installShadowPC;
-        return 1
+    if installShadowPC; then
+		return 1
+	else
+        return 0
     fi
 }
 
