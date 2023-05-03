@@ -3198,7 +3198,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "{genesis/**/!(homebrew),genesis,megadrive/**}/${title}@(.7z|.7Z|.bin|.BIN|.gen|.GEN|.md|.MD|.smd|.SMD|.zip|.ZIP)"
+      "glob": "{genesis/**/!(homebrew),genesis,megadrive/**}/${title}@(.7z|.7Z|.bin|.BIN|.gen|.GEN|.md|.MD|.smd|.SMD|.zip|.ZIP|.cue|.CUE)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
