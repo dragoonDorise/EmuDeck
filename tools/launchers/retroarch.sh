@@ -1,5 +1,5 @@
 #!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-rclone_downloadEmu retroarch
+cloud_sync_downloadEmu retroarch
 /usr/bin/flatpak run org.libretro.RetroArch "${@}"
-rclone_uploadEmu retroarch
+cloud_sync_uploadEmu retroarch

@@ -1,5 +1,5 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-rclone_downloadEmu duckstation
+cloud_sync_downloadEmu duckstation
 /usr/bin/flatpak run org.duckstation.DuckStation "${@}"
-rclone_uploadEmu duckstation
+cloud_sync_uploadEmu duckstation
