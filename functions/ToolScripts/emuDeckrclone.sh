@@ -7,146 +7,295 @@ rclone_jobScript="$toolsPath/rclone/run_rclone_job.sh"
 rclone_restoreScript="$toolsPath/rclone/run_rclone_restore.sh"
 
 rclone_install(){	
-  {
-    local rclone_provider=$1  
-    setSetting rclone_provider "$rclone_provider" > /dev/null 
-    rm -rf "$HOME/.config/systemd/user/emudeck_saveBackup.service" > /dev/null 
-    mkdir -p "$rclone_path"/tmp > /dev/null 
-    curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip" > /dev/null 
-    
-    unzip -o "$rclone_path/tmp/rclone.zip" -d "$rclone_path/tmp/" && rm "$rclone_path/tmp/rclone.zip" > /dev/null 
-    mv "$rclone_path"/tmp/* "$rclone_path/tmp/rclone"  > /dev/null  #don't quote the *
-    mv  "$rclone_path/tmp/rclone/rclone" "$rclone_bin" > /dev/null 
-    rm -rf "$rclone_path/tmp" > /dev/null 
-    chmod +x "$rclone_bin" > /dev/null 
-  } > /dev/null
+
+    mkdir -p "$rclone_path"/tmp
+    curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip"
+
+    unzip -o "$rclone_path/tmp/rclone.zip" -d "$rclone_path/tmp/" && rm "$rclone_path/tmp/rclone.zip"
+    mv "$rclone_path"/tmp/* "$rclone_path/tmp/rclone" #don't quote the *
+    mv  "$rclone_path/tmp/rclone/rclone" "$rclone_bin"
+    rm -rf "$rclone_path/tmp"
+    chmod +x "$rclone_bin"
+
+    cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
+
+    rclone_createJob
 }
-
-rclone_config(){	
- 
-  kill -15 $(pidof rclone)
-  local rclone_provider=$1  
-   cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
-  rclone_stopService
-  if [ $rclone_provider == "Emudeck-NextCloud" ]; then
-  
-      local url
-      local username
-      local password
-  
-      NCInput=$(zenity --forms \
-              --title="Nextcloud Sign in" \
-              --text="Please enter your Nextcloud information here. URL is your webdav url. Use HTTP:// or HTTPS:// please." \
-              --width=300 \
-              --add-entry="URL: " \
-              --add-entry="Username: " \
-              --add-password="Password: " \
-              --separator="," 2>/dev/null)
-              ans=$?
-      if [ $ans -eq 0 ]; then
-          echo "Nextcloud Login"
-          url="$(echo "$NCInput" | awk -F "," '{print $1}')"
-          username="$(echo "$NCInput" | awk -F "," '{print $2}')"
-          password="$(echo "$NCInput" | awk -F "," '{print $3}')"
-          
-          $rclone_bin config update "$rclone_provider" vendor="nextcloud" url=$url  user=$username pass="$($rclone_bin obscure $password)"
-      else
-          echo "Cancel Nextcloud Login" 
-      fi
-  else
-      $rclone_bin config update "$rclone_provider" 
-  fi
-
-  zenity --info --text --width=200 "Press OK when you are logged into your Cloud Provider"
- 
-  #Lets search for that token
-   while read line
-   do
-      if [[ "$line" == *"[Emudeck"* ]]
-      then
-        section=$line
-      elif [[ "$line" == *"token = "* ]]; then
-        token=$line
-        break     
-      fi
-   
-   done < $rclone_config
-   
-   replace_with=""
-   
-   # Cleanup
-   token=${token/"token = "/$replace_with}
-   token=$(echo "$token" | sed "s/\"/'/g")
-   section=$(echo "$section" | sed 's/[][]//g; s/"//g')  
-   
-   json='{"section":"'"$section"'","token":"'"$token"'"}'
-   
-   #json=$token
-   
-   response=$(curl --request POST --url "https://patreon.emudeck.com/hastebin.php" --header "content-type: application/x-www-form-urlencoded" --data-urlencode "data=${json}")
-   
-     
-    text="$(printf "<b>CloudSync Configured!</b>\nIf you want to set CloudSync on another EmuDeck installation you need to use this code:\n\n<b>${response}</b>")"
-      
-      zenity --info --width=300 \
-     --text="${text}" 2>/dev/null
-    
-    clean_response=$(echo -n "$response" | tr -d '\n')
-    
-    echo "$clean_response"
-  
-}
-
- rclone_config_with_code(){	
-   local code=$1
-   if [ $code ]; then
-     rclone_stopService
-     
-     json=$(curl -s "https://patreon.emudeck.com/hastebin.php?code=$code")     
-     json_object=$(echo $json | jq .)
-     
-     section=$(echo $json | jq .section)
-     token=$(echo $json | jq .token)
-    
-      # Cleanup
-      token=$(echo "$token" | sed "s/\"//g")
-      token=$(echo "$token" | sed "s/'/\"/g")            
-      section=$(echo "$section" | sed 's/[][]//g; s/"//g')     
-      
-     cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
-     
-     iniFieldUpdate "$rclone_config" "$section" "token" "$token"     
-     
-     #Bad Temp fix:
-     
-     sed -i "s/token =/''/g" $rclone_config
-     sed -i 's/  /token = /g' $rclone_config
-     
-     text="$(printf "<b>CloudSync Configured!")"      
-       zenity --info \
-      --text="${text}" 2>/dev/null
-   else
-     exit
-   fi
-   
- }
 
 rclone_install_and_config(){	
-    local rclone_provider=$1
-    rclone_install $rclone_provider
-    rclone_config $rclone_provider
+    local rclone_provider=$1  
+    setSetting rclone_provider "$rclone_provider"
+    rm -rf "$HOME/.config/systemd/user/emudeck_saveBackup.service" > /dev/null 
+    mkdir -p "$rclone_path"/tmp
+    curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip"
+
+    unzip -o "$rclone_path/tmp/rclone.zip" -d "$rclone_path/tmp/" && rm "$rclone_path/tmp/rclone.zip"
+    mv "$rclone_path"/tmp/* "$rclone_path/tmp/rclone" #don't quote the *
+    mv  "$rclone_path/tmp/rclone/rclone" "$rclone_bin"
+    rm -rf "$rclone_path/tmp"
+    chmod +x "$rclone_bin"
+
+    cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
+    
+    if [ $rclone_provider == "Emudeck-NextCloud" ]; then
+    
+        local url
+        local username
+        local password
+    
+        NCInput=$(zenity --forms \
+                --title="Nextcloud Sign in" \
+                --text="Please enter your Nextcloud information here. URL is your webdav url. Use HTTP:// or HTTPS:// please." \
+                --width=300 \
+                --add-entry="URL: " \
+                --add-entry="Username: " \
+                --add-password="Password: " \
+                --separator="," 2>/dev/null)
+                ans=$?
+        if [ $ans -eq 0 ]; then
+            echo "Nextcloud Login"
+            url="$(echo "$NCInput" | awk -F "," '{print $1}')"
+            username="$(echo "$NCInput" | awk -F "," '{print $2}')"
+            password="$(echo "$NCInput" | awk -F "," '{print $3}')"
+            
+            $rclone_bin config update "$rclone_provider" vendor="nextcloud" url=$url  user=$username pass="$($rclone_bin obscure $password)"
+        else
+            echo "Cancel Nextcloud Login" 
+        fi
+    else
+        $rclone_bin config update "$rclone_provider" 
+    fi
+    rclone_stopService
 }
 
-rclone_install_and_config_with_code(){	
-    local rclone_provider=$1    
-    code=$(zenity --entry --text="Please enter your SaveSync code")
-    rclone_install $rclone_provider
-    rclone_config_with_code $code
+rclone_pickProvider(){
+
+    cloudProviders=()
+    cloudProviders+=(1 "Emudeck-GDrive")
+    cloudProviders+=(2 "Emudeck-DropBox")
+    cloudProviders+=(3 "Emudeck-OneDrive")
+    cloudProviders+=(4 "Emudeck-Box")
+    #cloudProviders+=(5 "Emudeck-NextCloud")
+
+    rclone_provider=$(zenity --list \
+        --title="EmuDeck SaveSync Host" \
+        --height=500 \
+        --width=500 \
+        --ok-label="OK" \
+        --cancel-label="Exit" \
+        --text="Choose the service you would like to use to host your cloud saves.\n\nKeep in mind they can take a fair amount of space.\n\nThis will open a browser window for you to sign into your chosen cloud provider." \
+        --radiolist \
+        --column="Select" \
+        --column="Provider" \
+        "${cloudProviders[@]}" 2>/dev/null)
+    if [[ -n "$rclone_provider" ]]; then
+        setSetting rclone_provider "$rclone_provider"
+        return 0
+    else
+        return 1
+    fi
 }
 
+rclone_updateProvider(){
+    if [ $rclone_provider == "Emudeck-NextCloud" ]; then
 
-rclone_uninstall(){
-  rm -rf $rclone_bin && rm -rf $rclone_config && echo "true"
+        local url
+        local username
+        local password
+
+        NCInput=$(zenity --forms \
+                --title="Nextcloud Sign in" \
+                --text="Please enter your Nextcloud information here. URL is your webdav url. Use HTTP:// or HTTPS:// please." \
+                --width=300 \
+                --add-entry="URL: " \
+                --add-entry="Username: " \
+                --add-password="Password: " \
+                --separator="," 2>/dev/null)
+                ans=$?
+        if [ $ans -eq 0 ]; then
+            echo "Nextcloud Login"
+            url="$(echo "$NCInput" | awk -F "," '{print $1}')"
+            username="$(echo "$NCInput" | awk -F "," '{print $2}')"
+            password="$(echo "$NCInput" | awk -F "," '{print $3}')"
+            
+            $rclone_bin config update "$rclone_provider" vendor="nextcloud" url=$url  user=$username pass="$($rclone_bin obscure $password)"
+        else
+            echo "Cancel Nextcloud Login" 
+        fi
+    else
+        $rclone_bin config update "$rclone_provider" 
+    fi
+}
+
+rclone_setup(){
+
+    while true; do
+        if [ ! -e "$rclone_bin" ] || [ ! -e "$rclone_jobScript" ];  then
+            ans=$(zenity --info --title 'SaveBackup' \
+                        --text 'Click on Install to continue' \
+                        --width=50 \
+                        --ok-label Exit \
+                        --extra-button "Install SaveBackup" 2>/dev/null  )
+        elif [ -z "$rclone_provider" ]; then
+            ans=$(zenity --info --title 'SaveBackup' \
+                        --text 'Cloud provider not found. Please click on "Pick Provider' \
+                        --width=50 \
+                        --ok-label Exit \
+                        --extra-button "Reinstall SaveBackup" \
+                        --extra-button "Pick Provider" 2>/dev/null  )
+        else
+            ans=$(zenity --info --title 'SaveBackup' \
+                --text 'If this is your first setup click on "Login to your cloud provider" before clicking on "Create Backup"' \
+                --width=50 \
+                --extra-button "Reinstall SaveBackup" \
+                --extra-button "Login to your cloud provider" \
+                --extra-button "Create Backup" \
+                --ok-label Exit 2>/dev/null ) 
+        fi
+        rc=$?
+        if [ "$rc" == 0 ] || [ "$ans" == "" ]; then
+            break
+        elif [ "$ans" == "Install SaveBackup" ] || [ "$ans" == "Reinstall SaveBackup" ]; then
+            rclone_install
+        elif [ "$ans" == "Pick Provider" ]; then
+            rclone_pickProvider
+        elif [ "$ans" == "Login to your cloud provider" ]; then
+            rclone_updateProvider
+        elif [ "$ans" == "Create Backup" ]; then
+            rclone_createBackup
+        fi
+    done
+
+}
+
+rclone_createJob(){
+
+echo '#!/bin/bash'>"$rclone_jobScript"
+echo "source \$HOME/emudeck/settings.sh
+PIDFILE=\"\$toolsPath/rclone/rclone.pid\"
+
+function finish {
+  echo \"Script terminating. Exit code \$?\"
+}
+trap finish EXIT
+
+if [ -z \"\$savesPath\" ] || [ -z \"\$rclone_provider\" ]; then
+    echo \"You need to setup your cloudprovider first.\"
+    exit
+fi
+
+if [ -f \"\$PIDFILE\" ]; then
+  PID=\$(cat \"\$PIDFILE\")
+  ps -p \"\$PID\" > /dev/null 2>&1
+  if [ \$? -eq 0 ]; then
+    echo \"Process already running\"
+    exit 1
+  else
+    ## Process not found assume not running
+    echo \$\$ > \"\$PIDFILE\"
+    if [ \$? -ne 0 ]; then
+      echo \"Could not create PID file\"
+      exit 1
+    fi
+  fi
+else
+  echo \$\$ > \"\$PIDFILE\"
+  if [ \$? -ne 0 ]; then
+    echo \"Could not create PID file\"
+    exit 1
+  fi
+fi
+
+\"\$toolsPath/rclone/rclone\" copy -L \"\$savesPath\" \"\$rclone_provider\":Emudeck/saves -P > \"\$toolsPath/rclone/rclone_job.log\"
+">>"$rclone_jobScript"
+chmod +x "$rclone_jobScript"
+
+echo '#!/bin/bash'>"$rclone_restoreScript"
+echo "source \$HOME/emudeck/settings.sh
+PIDFILE=\"\$toolsPath/rclone/rclone.pid\"
+
+function finish {
+  echo \"Script terminating. Exit code \$?\"
+}
+trap finish EXIT
+
+if [ -z \"\$savesPath\" ] || [ -z \"\$rclone_provider\" ]; then
+    echo \"You need to setup your cloudprovider first.\"
+    exit
+fi
+
+if [ -f \"\$PIDFILE\" ]; then
+  PID=\$(cat \"\$PIDFILE\")
+  ps -p \"\$PID\" > /dev/null 2>&1
+  if [ \$? -eq 0 ]; then
+    echo \"Process already running\"
+    exit 1
+  else
+    ## Process not found assume not running
+    echo \$\$ > \"\$PIDFILE\"
+    if [ \$? -ne 0 ]; then
+      echo \"Could not create PID file\"
+      exit 1
+    fi
+  fi
+else
+  echo \$\$ > \"\$PIDFILE\"
+  if [ \$? -ne 0 ]; then
+    echo \"Could not create PID file\"
+    exit 1
+  fi
+fi
+
+\"\$toolsPath/rclone/rclone\" copy -L \"\$rclone_provider\":Emudeck/saves \"\$savesPath\" -P > \"\$toolsPath/rclone/rclone_job.log\"
+">>"$rclone_restoreScript"
+chmod +x "$rclone_restoreScript"
+}
+
+rclone_createService(){
+    echo "Creating SaveBackup service"
+    rclone_stopService
+
+    mkdir -p "$HOME/.config/systemd/user"
+    echo \
+"[Unit]
+Description=Emudeck SaveBackup service
+
+[Service]
+Type=simple
+ExecStart=\"$rclone_jobScript\"
+CPUWeight=20
+CPUQuota=50%
+IOWeight=20
+
+[Install]
+WantedBy=default.target" > "$HOME/.config/systemd/user/emudeck_saveBackup.service"
+#chmod +x "$HOME/.config/systemd/user/emudeck_saveBackup.service"
+
+#create timer
+echo "[Unit]
+Description=Runs EmuDeck SaveBackup Every 15 minutes
+Requires=emudeck_saveBackup.service
+After=network-online.target
+Wants=network-online.target
+
+[Timer]
+OnBootSec=5min
+Unit=emudeck_saveBackup.service
+OnUnitActiveSec=15m
+
+[Install]
+WantedBy=timers.target"> "$HOME/.config/systemd/user/emudeck_saveBackup.timer"
+#chmod +x "$HOME/.config/systemd/user/emudeck_saveBackup.timer"
+#enabling services seems to want to symlink to a place it doesn't have access to, even with --user. Maybe needs sudo...
+
+    echo "Enabling SaveBackup"
+    systemctl --user enable emudeck_saveBackup.service
+
+    echo "Enabling SaveBackup 15 minute timer service"
+    systemctl --user enable emudeck_saveBackup.timer
+ 
+    echo "Enabling SaveBackup Timer."
+    rclone_startService
 }
 
 rclone_stopService(){
@@ -154,108 +303,61 @@ rclone_stopService(){
     systemctl --user stop emudeck_saveBackup.service
 }
 
-rclone_upload(){
-  local emuName=$1
-  "$toolsPath/rclone/rclone" copy -P -L "$savesPath"/$emuName/ "$rclone_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate     
+rclone_startService(){
+    systemctl --user start emudeck_saveBackup.timer
 }
 
-rclone_download(){
-  local emuName=$1
-  "$toolsPath/rclone/rclone" copy -P -L "$rclone_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download | zenity --progress --title="Downloading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate
+rclone_runJobOnce(){
+    "$rclone_jobScript"
 }
 
+rclone_downloadFiles(){
+    "$rclone_restoreScript"
+}
+
+rclone_createBackup(){
+     ans=$(zenity --info --title 'SaveBackup' \
+                --text 'Use Create Service to backup your saves directory every 15 minutes' \
+                --width=50 \
+                --extra-button "Create Service" \
+                --extra-button "Start Service" \
+                --extra-button "Stop Service" \
+                --extra-button "Restore Cloud Files" \
+                --extra-button "Run Backup Once" \
+                --ok-label Exit 2>/dev/null )
+            rc=$?
+        if [ "$rc" == 0 ] || [ "$ans" == "" ]; then
+            echo "nothing chosen"
+        elif [ "$ans" == "Create Service" ]; then
+            rclone_createService
+        elif [ "$ans" == "Start Service" ]; then
+            rclone_startService
+        elif [ "$ans" == "Stop Service" ]; then
+            rclone_stopService
+        elif [ "$ans" == "Restore Cloud Files" ]; then
+            rclone_downloadFiles
+        elif [ "$ans" == "Run Backup Once" ]; then
+            rclone_runJobOnce
+        fi
+}
 
 rclone_uploadEmu(){
-  local emuName=$1
-  if [ -f "$toolsPath/rclone/rclone" ]; then    
-    local timestamp=$(date +%s)
-  
-    #We check for internet connection
-    if [[ $(check_internet_connection) == true ]]; then
-      
-      #Do we have a failed upload?
-      if [ -f $savesPath/$emuName/.fail_upload ]; then
-          
-        while true; do
-          ans=$(zenity --question \
-             --title="CloudSync conflict" \
-             --text="We've detected a previously failed upload, do you want us to upload your saves and overwrite your saves in the cloud?" \
-             --extra-button "No, download from the cloud and overwrite my local saves" \
-             --cancel-label="Skip for now" \
-             --ok-label="Yes, upload them" \
-             --width=400)
-          rc=$?
-          response="${rc}-${ans}"
-          break
-        done
-        
-        if [[ $response =~ "download" ]]; then
-          #Download - Extra
-          rclone_download $emuName
-        elif [[ $response =~ "0-" ]]; then
-          #Upload - OK
-          rclone_upload $emuName
-        else
-          #Skip - Cancel
-          return
-        fi
-      
-      else        
-      #Upload
-       rclone_upload $emuName 
-      fi  
-    
-    else
-    # No internet? We mark it as failed
-      echo $timestamp > $savesPath/$emuName/.fail_upload
-    fi   
-    
-  fi
+  echo ""
+
+  #emuName=$1
+  #rclone_provider=$2
+  #if [ -f "$toolsPath/rclone/rclone" ]; then
+  #  "$toolsPath/rclone/rclone" sync -P -L "$savesPath"/$emuName/ "$rclone_provider":Emudeck/saves/$emuName/ | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 300 --pulsate
+  #fi
 }
 
 rclone_downloadEmu(){
-  local emuName=$1
-  if [ -f "$toolsPath/rclone/rclone" ]; then    
-    local timestamp=$(date +%s)
-    
-    #We check for internet connection
-    if [[ $(check_internet_connection) == true ]]; then
-      
-      #Do we have a failed download?
-      if [ -f $savesPath/$emuName/.fail_download ]; then
-        
-        while true; do
-          ans=$(zenity --question \
-             --title="CloudSync conflict" \
-             --text="We've detected a previously failed download, do you want us to download your saves from the cloud and overwrite your local saves?" \
-             --extra-button "No, upload to the cloud and overwrite my cloud saves" \
-             --cancel-label="Skip for now" \
-             --ok-label="Yes, download them" \
-             --width=400)
-          rc=$?
-          response="${rc}-${ans}"
-          break
-        done
-      
-        if [[ $response =~ "upload" ]]; then
-          #Upload - Extra button
-          rclone_upload $emuName
-        elif [[ $response =~ "0-" ]]; then
-          #Download - OK
-          rclone_download $emuName
-        else
-          #Skip - Cancel
-          return
-        fi
+  echo ""
 
-        
-      else        
-      #Download
-       rclone_download $emuName
-      fi
-    else
-    # No internet? We mark it as failed
-      echo $timestamp > "$savesPath"/$emuName/.fail_download
-    fi  
-  fi
+  #emuName=$1
+  #rclone_provider=$2
+  #if [ -f "$toolsPath/rclone/rclone" ]; then
+  #  "$toolsPath/rclone/rclone" copy -P -L "$rclone_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 300 --pulsate
+  #fi
+
 }
