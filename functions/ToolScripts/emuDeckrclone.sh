@@ -154,18 +154,108 @@ rclone_stopService(){
     systemctl --user stop emudeck_saveBackup.service
 }
 
+rclone_upload(){
+  local emuName=$1
+  "$toolsPath/rclone/rclone" copy -P -L "$savesPath"/$emuName/ "$rclone_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate     
+}
+
+rclone_download(){
+  local emuName=$1
+  "$toolsPath/rclone/rclone" copy -P -L "$rclone_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download | zenity --progress --title="Downloading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate
+}
+
+
 rclone_uploadEmu(){
-  emuName=$1
-  if [ -f "$toolsPath/rclone/rclone" ]; then     
-    "$toolsPath/rclone/rclone" copy -P -L "$savesPath"/$emuName/ "$rclone_provider":Emudeck/saves/$emuName/ | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate
+  local emuName=$1
+  if [ -f "$toolsPath/rclone/rclone" ]; then    
+    local timestamp=$(date +%s)
+  
+    #We check for internet connection
+    if [[ $(check_internet_connection) == true ]]; then
+      
+      #Do we have a failed upload?
+      if [ -f $savesPath/$emuName/.fail_upload ]; then
+          
+        while true; do
+          ans=$(zenity --question \
+             --title="CloudSync conflict" \
+             --text="We've detected a previously failed upload, do you want us to upload your saves and overwrite your saves in the cloud?" \
+             --extra-button "No, download from the cloud and overwrite my local saves" \
+             --cancel-label="Skip for now" \
+             --ok-label="Yes, upload them" \
+             --width=400)
+          rc=$?
+          response="${rc}-${ans}"
+          break
+        done
+        
+        if [[ $response =~ "download" ]]; then
+          #Download - Extra
+          rclone_download $emuName
+        elif [[ $response =~ "0-" ]]; then
+          #Upload - OK
+          rclone_upload $emuName
+        else
+          #Skip - Cancel
+          return
+        fi
+      
+      else        
+      #Upload
+       rclone_upload $emuName 
+      fi  
+    
+    else
+    # No internet? We mark it as failed
+      echo $timestamp > $savesPath/$emuName/.fail_upload
+    fi   
+    
   fi
 }
 
 rclone_downloadEmu(){
-  echo ""
-  emuName=$1
-  if [ -f "$toolsPath/rclone/rclone" ]; then
-    #watch -n1 "find "$savesPath"/$emuName/ -type f -mmin -1 -exec sh -c '. $HOME/.config/EmuDeck/backend/functions/all.sh && rclone_uploadEmu \"\$emuName\"' {} \;" &
-    "$toolsPath/rclone/rclone" copy -P -L "$rclone_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ | zenity --progress --title="Downloading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate
+  local emuName=$1
+  if [ -f "$toolsPath/rclone/rclone" ]; then    
+    local timestamp=$(date +%s)
+    
+    #We check for internet connection
+    if [[ $(check_internet_connection) == true ]]; then
+      
+      #Do we have a failed download?
+      if [ -f $savesPath/$emuName/.fail_download ]; then
+        
+        while true; do
+          ans=$(zenity --question \
+             --title="CloudSync conflict" \
+             --text="We've detected a previously failed download, do you want us to download your saves from the cloud and overwrite your local saves?" \
+             --extra-button "No, upload to the cloud and overwrite my cloud saves" \
+             --cancel-label="Skip for now" \
+             --ok-label="Yes, download them" \
+             --width=400)
+          rc=$?
+          response="${rc}-${ans}"
+          break
+        done
+      
+        if [[ $response =~ "upload" ]]; then
+          #Upload - Extra button
+          rclone_upload $emuName
+        elif [[ $response =~ "0-" ]]; then
+          #Download - OK
+          rclone_download $emuName
+        else
+          #Skip - Cancel
+          return
+        fi
+
+        
+      else        
+      #Download
+       rclone_download $emuName
+      fi
+    else
+    # No internet? We mark it as failed
+      echo $timestamp > "$savesPath"/$emuName/.fail_download
+    fi  
   fi
 }
