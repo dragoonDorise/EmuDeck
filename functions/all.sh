@@ -47,7 +47,6 @@ source "$EMUDECKGIT"/functions/ToolScripts/emuDeckrclone.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckRemotePlayWhatever.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckInstallHomebrewGames.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckMigration.sh
-source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSaveSync.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCopyGames.sh
 
 
