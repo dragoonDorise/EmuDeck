@@ -1,5 +1,6 @@
 #!/bin/bash
 CreateStructureUSB(){
+	destination=$1
 	mkdir -p "$destination/bios/"
 	mkdir -p "$destination/roms/"
 	rsync -rav --ignore-existing "$EMUDECKGIT/roms/" "$destination/roms/"|
