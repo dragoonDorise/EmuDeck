@@ -173,16 +173,18 @@ cloud_sync_uploadEmu(){
       #Do we have a failed upload?
       if [ -f $savesPath/$emuName/.fail_upload ]; then
           
-        while true; do
-          ans=$(zenity --question \
-             --title="CloudSync conflict" \
-             --text="We've detected a previously failed upload, do you want us to upload your saves and overwrite your saves in the cloud?" \
-             --extra-button "No, download from the cloud and overwrite my local saves" \
-             --cancel-label="Skip for now" \
-             --ok-label="Yes, upload them" \
-             --width=400)
-          rc=$?
-          response="${rc}-${ans}"
+       time_stamp=$(cat $savesPath/$emuName/.fail_upload)
+       date=$(date -d @$time_stamp +'%x')
+       while true; do
+         ans=$(zenity --question \
+            --title="CloudSync conflict" \
+            --text="We've detected a previously failed upload, do you want us to upload your saves and overwrite your saves in the cloud? Your latest upload was on $date" \
+            --extra-button "No, download from the cloud and overwrite my local saves" \
+            --cancel-label="Skip for now" \
+            --ok-label="Yes, upload them" \
+            --width=400)
+         rc=$?
+         response="${rc}-${ans}"
           break
         done
         
@@ -220,17 +222,18 @@ cloud_sync_downloadEmu(){
       
       #Do we have a failed download?
       if [ -f $savesPath/$emuName/.fail_download ]; then
-        
-        while true; do
-          ans=$(zenity --question \
-             --title="CloudSync conflict" \
-             --text="We've detected a previously failed download, do you want us to download your saves from the cloud and overwrite your local saves?" \
-             --extra-button "No, upload to the cloud and overwrite my cloud saves" \
-             --cancel-label="Skip for now" \
-             --ok-label="Yes, download them" \
-             --width=400)
-          rc=$?
-          response="${rc}-${ans}"
+      time_stamp=$(cat $savesPath/$emuName/.fail_download)
+      date=$(date -d @$time_stamp +'%x')
+      while true; do
+        ans=$(zenity --question \
+           --title="CloudSync conflict" \
+           --text="We've detected a previously failed download, do you want us to download your saves from the cloud and overwrite your local saves? Your latest download was on $date" \
+           --extra-button "No, upload to the cloud and overwrite my cloud saves" \
+           --cancel-label="Skip for now" \
+           --ok-label="Yes, download them" \
+           --width=400)
+        rc=$?
+        response="${rc}-${ans}"
           break
         done
       
