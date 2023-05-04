@@ -51,46 +51,42 @@ cloud_sync_config(){
           echo "Cancel Nextcloud Login" 
       fi
   else
-      $cloud_sync_bin config update "$cloud_sync_provider" 
+      $cloud_sync_bin config update "$cloud_sync_provider" && echo "true"
   fi
 
-  zenity --info --text --width=200 "Press OK when you are logged into your Cloud Provider"
- 
-  #Lets search for that token
-   while read line
-   do
-      if [[ "$line" == *"[Emudeck"* ]]
-      then
-        section=$line
-      elif [[ "$line" == *"token = "* ]]; then
-        token=$line
-        break     
-      fi
+  #OLD TOKEN upload, not needed for now
    
-   done < $cloud_sync_config
-   
-   replace_with=""
-   
-   # Cleanup
-   token=${token/"token = "/$replace_with}
-   token=$(echo "$token" | sed "s/\"/'/g")
-   section=$(echo "$section" | sed 's/[][]//g; s/"//g')  
-   
-   json='{"section":"'"$section"'","token":"'"$token"'"}'
-   
-   #json=$token
-   
-   response=$(curl --request POST --url "https://patreon.emudeck.com/hastebin.php" --header "content-type: application/x-www-form-urlencoded" --data-urlencode "data=${json}")
-   
-     
-    text="$(printf "<b>CloudSync Configured!</b>\nIf you want to set CloudSync on another EmuDeck installation you need to use this code:\n\n<b>${response}</b>")"
-      
-      zenity --info --width=300 \
-     --text="${text}" 2>/dev/null
-    
-    clean_response=$(echo -n "$response" | tr -d '\n')
-    
-    echo "$clean_response"
+  ##Lets search for that token
+  # while read line
+  # do
+  #    if [[ "$line" == *"[Emudeck"* ]]
+  #    then
+  #      section=$line
+  #    elif [[ "$line" == *"token = "* ]]; then
+  #      token=$line
+  #      break     
+  #    fi
+  # 
+  # done < $cloud_sync_config
+  # 
+  # replace_with=""
+  # 
+  # # Cleanup
+  # token=${token/"token = "/$replace_with}
+  # token=$(echo "$token" | sed "s/\"/'/g")
+  # section=$(echo "$section" | sed 's/[][]//g; s/"//g')  
+  # 
+  # json='{"section":"'"$section"'","token":"'"$token"'"}'
+  # 
+  # #json=$token
+  # 
+  # response=$(curl --request POST --url "https://patreon.emudeck.com/hastebin.php" --header "content-type: #application/x-www-form-urlencoded" --data-urlencode "data=${json}")
+  #text="$(printf "<b>CloudSync Configured!</b>\nIf you want to set CloudSync on another EmuDeck installation you need to use #this code:\n\n<b>${response}</b>")"
+  #  
+  #  zenity --info --width=300 \
+  # --text="${text}" 2>/dev/null
+  #
+  #clean_response=$(echo -n "$response" | tr -d '\n')
   
 }
 
@@ -153,12 +149,14 @@ cloud_sync_stopService(){
 
 cloud_sync_upload(){
   local emuName=$1
-  "$toolsPath/rclone/rclone" copy -P -L "$savesPath"/$emuName/ "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate     
+  local timestamp=$(date +%s)
+  ("$toolsPath/rclone/rclone" copy -P -L "$savesPath"/$emuName/ "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload) | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate     
 }
 
 cloud_sync_download(){
   local emuName=$1
-  "$toolsPath/rclone/rclone" copy -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download | zenity --progress --title="Downloading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate
+  local timestamp=$(date +%s)
+  ("$toolsPath/rclone/rclone" copy -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
 }
 
 
