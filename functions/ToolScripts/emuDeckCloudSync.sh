@@ -51,7 +51,7 @@ cloud_sync_config(){
           echo "Cancel Nextcloud Login" 
       fi
   else
-      $cloud_sync_bin config update "$cloud_sync_provider" --rc-serve
+      $cloud_sync_bin config update "$cloud_sync_provider" && echo "true"
   fi
 
   #OLD TOKEN upload, not needed for now
