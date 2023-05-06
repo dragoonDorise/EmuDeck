@@ -188,10 +188,14 @@ cloud_sync_uploadEmu(){
         
         if [[ $response =~ "download" ]]; then
           #Download - Extra
+          rm -rf $savesPath/$emuName/.pending_upload
           cloud_sync_download $emuName
+          
         elif [[ $response =~ "0-" ]]; then
           #Upload - OK
+          rm -rf $savesPath/$emuName/.pending_upload
           cloud_sync_upload $emuName
+          
         else
           #Skip - Cancel
           return
@@ -218,6 +222,45 @@ cloud_sync_downloadEmu(){
     #We check for internet connection
     if [[ $(check_internet_connection) == true ]]; then
       
+      #Do we have a pending upload?
+      if [ -f $savesPath/$emuName/.pending_upload ]; then
+      time_stamp=$(cat $savesPath/$emuName/.pending_upload)
+      date=$(date -d @$time_stamp +'%x')
+      while true; do
+        ans=$(zenity --question \
+           --title="CloudSync conflict" \
+           --text="We've detected a pending upload, make sure you dont close the Emulator using the Steam Button, do you want us to upload your saves to the cloud and overwrite them? This upload should have happened on $date" \
+           --extra-button "No, download from the cloud and overwrite my local saves" \
+           --cancel-label="Skip for now" \
+           --ok-label="Yes, upload them" \
+           --width=400)
+        rc=$?
+        response="${rc}-${ans}"
+          break
+        done
+      
+        if [[ $response =~ "download" ]]; then
+          #Download - OK
+          cloud_sync_download $emuName
+          echo $timestamp > "$savesPath"/$emuName/.pending_upload
+        elif [[ $response =~ "0-" ]]; then
+          
+          #Upload - Extra button
+          cloud_sync_upload $emuName
+          rm -rf $savesPath/$emuName/.pending_upload
+        else
+          #Skip - Cancel
+          return
+        fi
+      
+        
+      else        
+      #Download
+       cloud_sync_download $emuName
+       echo $timestamp > "$savesPath"/$emuName/.pending_upload
+      fi
+      
+      
       #Do we have a failed download?
       if [ -f $savesPath/$emuName/.fail_download ]; then
       time_stamp=$(cat $savesPath/$emuName/.fail_download)
@@ -238,6 +281,7 @@ cloud_sync_downloadEmu(){
         if [[ $response =~ "upload" ]]; then
           #Upload - Extra button
           cloud_sync_upload $emuName
+          rm -rf $savesPath/$emuName/.pending_upload
         elif [[ $response =~ "0-" ]]; then
           #Download - OK
           cloud_sync_download $emuName
