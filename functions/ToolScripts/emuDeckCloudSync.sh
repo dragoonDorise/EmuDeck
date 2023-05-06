@@ -203,6 +203,7 @@ cloud_sync_uploadEmu(){
       
       else        
       #Upload
+        rm -rf $savesPath/$emuName/.pending_upload
        cloud_sync_upload $emuName 
       fi  
     
