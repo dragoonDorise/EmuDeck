@@ -246,8 +246,8 @@ cloud_sync_downloadEmu(){
         elif [[ $response =~ "0-" ]]; then
           
           #Upload - Extra button
-          cloud_sync_upload $emuName
           rm -rf $savesPath/$emuName/.pending_upload
+          cloud_sync_upload $emuName
         else
           #Skip - Cancel
           return
@@ -275,8 +275,8 @@ cloud_sync_downloadEmu(){
       
         if [[ $response =~ "upload" ]]; then
           #Upload - Extra button
-          cloud_sync_upload $emuName
           rm -rf $savesPath/$emuName/.pending_upload
+          cloud_sync_upload $emuName
         elif [[ $response =~ "0-" ]]; then
           #Download - OK
           cloud_sync_download $emuName
