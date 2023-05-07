@@ -184,6 +184,7 @@ Yuzu_setupSaves() {
     echo "Begin Yuzu save link"
     unlink "${savesPath}/yuzu/saves" 2>/dev/null # Fix for previous bad symlink2>/dev/null
     linkToSaveFolder yuzu saves "${storagePath}/yuzu/nand/user/save/"
+    linkToSaveFolder yuzu saves "${storagePath}/yuzu/nand/user/save/"
 }
 
 #SetupStorage
@@ -195,6 +196,8 @@ Yuzu_setupStorage() {
     mkdir -p "${storagePath}/yuzu/nand"
     mkdir -p "${storagePath}/yuzu/screenshots"
     mkdir -p "${storagePath}/yuzu/tas"
+    #Symlink to saves for CloudSync
+    ln -s "${storagePath}/yuzu/nand/system/save/8000000000000010/su/avators" "${savesPath}/yuzu/saves/profiles"
 }
 
 #WipeSettings
