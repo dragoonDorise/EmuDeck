@@ -197,7 +197,7 @@ Yuzu_setupStorage() {
     mkdir -p "${storagePath}/yuzu/screenshots"
     mkdir -p "${storagePath}/yuzu/tas"
     #Symlink to saves for CloudSync
-    ln -s "${storagePath}/yuzu/nand/system/save/8000000000000010/su/avators" "${savesPath}/yuzu/saves/profiles"
+    ln -s "${storagePath}/yuzu/nand/system/save/8000000000000010/su/avators/" "${savesPath}/yuzu/profiles"
 }
 
 #WipeSettings
