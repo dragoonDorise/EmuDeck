@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu cemu
+cloud_sync_downloadEmu Cemu
 # cemu.sh
 
 # Report Errors
@@ -183,4 +183,4 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     # Continue to main()
     main "${@}"
 fi
-cloud_sync_uploadEmu cemu
+cloud_sync_uploadEmu Cemu
