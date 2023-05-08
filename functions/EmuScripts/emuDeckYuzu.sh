@@ -184,6 +184,7 @@ Yuzu_setupSaves() {
     echo "Begin Yuzu save link"
     unlink "${savesPath}/yuzu/saves" 2>/dev/null # Fix for previous bad symlink2>/dev/null
     linkToSaveFolder yuzu saves "${storagePath}/yuzu/nand/user/save/"
+    linkToSaveFolder yuzu profiles "${storagePath}/yuzu/nand/system/save/8000000000000010/su/avators/"
 }
 
 #SetupStorage
