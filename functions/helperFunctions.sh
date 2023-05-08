@@ -440,7 +440,7 @@ function moveSaveFolder(){
 		mkdir -p "$savesPath/$emu/$folderName"
 		if [[ "$linkedTarget" == "$path" ]]; then		
 			setMSG "Moving $emu $folderName to the Emulation/saves/$emu/$folderName folder"	
-			rsync -avh "$path/" "$savesPath/$emu/$folderName" && rm -rf "${path:?}"
+			rsync -avh "$path/" "$savesPath/$emu/$folderName" && mv "$path" "${path}.bak"
 			ln -sn  "$savesPath/$emu/$folderName" "$path"
 		fi
 	fi
