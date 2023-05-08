@@ -60,7 +60,7 @@ Vita3K_setEmulationFolder(){
 #SetupSaves
 Vita3K_setupSaves(){
     echo "Begin Vita3K save link"
-    #moveSaveFolder Vita3K saves ??????
+    linkToSaveFolder Vita3K saves "$storagePath/Vita3K/ux0/user/00/savedata"
 }
 
 
