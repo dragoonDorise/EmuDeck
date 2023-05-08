@@ -1,5 +1,5 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-rclone_downloadEmu mame
-/usr/bin/flatpak run org.mamedev.MAME
-rclone_uploadEmu mame
+cloud_sync_downloadEmu mame
+/usr/bin/flatpak run org.mamedev.MAME "${@}"
+cloud_sync_uploadEmu mame
