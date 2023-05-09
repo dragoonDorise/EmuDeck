@@ -254,8 +254,8 @@ RetroArch_PPSSPP_setConfig(){
 RetroArch_pcengine_setConfig(){	
 	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'input_player1_analog_dpad_mode' '"1"'
 	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'input_player1_analog_dpad_mode' '"1"'
-	RetroArch_setOverride 'tb16.cfg' 'Beetle PCE Fast'  'input_player1_analog_dpad_mode' '"1"'
-	RetroArch_setOverride 'tb16.cfg' 'Beetle PCE'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'tg16.cfg' 'Beetle PCE Fast'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'tg16.cfg' 'Beetle PCE'  'input_player1_analog_dpad_mode' '"1"'
 }
 RetroArch_pcengine_bezelOn(){
 	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE Fast'  'aspect_ratio_index' '"21"'
@@ -274,21 +274,21 @@ RetroArch_pcengine_bezelOn(){
 	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'input_overlay_enable' '"true"'
 	RetroArch_setOverride 'pcengine.cfg' 'Beetle PCE'  'input_overlay_scale_landscape' '"1.075000"'
 	
-	RetroArch_setOverride 'tb16.cfg' 'Beetle PCE Fast'  'aspect_ratio_index' '"21"'
-	RetroArch_setOverride 'tb16.cfg' 'Beetle PCE Fast'  'custom_viewport_height' '"1200"'
-	RetroArch_setOverride 'tb16.cfg' 'Beetle PCE Fast'  'custom_viewport_x' '"0"'
-	RetroArch_setOverride 'tb16.cfg' 'Beetle PCE Fast'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/pcengine.cfg"'
-	RetroArch_setOverride 'tb16.cfg' 'Beetle PCE Fast'  'input_overlay_aspect_adjust_landscape' '"-0.150000"'
-	RetroArch_setOverride 'tb16.cfg' 'Beetle PCE Fast'  'input_overlay_enable' '"true"'
-	RetroArch_setOverride 'tb16.cfg' 'Beetle PCE Fast'  'input_overlay_scale_landscape' '"1.075000"'
+	RetroArch_setOverride 'tg16.cfg' 'Beetle PCE Fast'  'aspect_ratio_index' '"21"'
+	RetroArch_setOverride 'tg16.cfg' 'Beetle PCE Fast'  'custom_viewport_height' '"1200"'
+	RetroArch_setOverride 'tg16.cfg' 'Beetle PCE Fast'  'custom_viewport_x' '"0"'
+	RetroArch_setOverride 'tg16.cfg' 'Beetle PCE Fast'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/pcengine.cfg"'
+	RetroArch_setOverride 'tg16.cfg' 'Beetle PCE Fast'  'input_overlay_aspect_adjust_landscape' '"-0.150000"'
+	RetroArch_setOverride 'tg16.cfg' 'Beetle PCE Fast'  'input_overlay_enable' '"true"'
+	RetroArch_setOverride 'tg16.cfg' 'Beetle PCE Fast'  'input_overlay_scale_landscape' '"1.075000"'
 	
-	RetroArch_setOverride 'tb16.cfg' 'Beetle PCE'  'aspect_ratio_index' '"21"'
-	RetroArch_setOverride 'tb16.cfg' 'Beetle PCE'  'custom_viewport_height' '"1200"'
-	RetroArch_setOverride 'tb16.cfg' 'Beetle PCE'  'custom_viewport_x' '"0"'
-	RetroArch_setOverride 'tb16.cfg' 'Beetle PCE'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/pcengine.cfg"'
-	RetroArch_setOverride 'tb16.cfg' 'Beetle PCE'  'input_overlay_aspect_adjust_landscape' '"-0.150000"'
-	RetroArch_setOverride 'tb16.cfg' 'Beetle PCE'  'input_overlay_enable' '"true"'
-	RetroArch_setOverride 'tb16.cfg' 'Beetle PCE'  'input_overlay_scale_landscape' '"1.075000"'
+	RetroArch_setOverride 'tg16.cfg' 'Beetle PCE'  'aspect_ratio_index' '"21"'
+	RetroArch_setOverride 'tg16.cfg' 'Beetle PCE'  'custom_viewport_height' '"1200"'
+	RetroArch_setOverride 'tg16.cfg' 'Beetle PCE'  'custom_viewport_x' '"0"'
+	RetroArch_setOverride 'tg16.cfg' 'Beetle PCE'  'input_overlay' '"~/.var/app/org.libretro.RetroArch/config/retroarch/overlays/pegasus/pcengine.cfg"'
+	RetroArch_setOverride 'tg16.cfg' 'Beetle PCE'  'input_overlay_aspect_adjust_landscape' '"-0.150000"'
+	RetroArch_setOverride 'tg16.cfg' 'Beetle PCE'  'input_overlay_enable' '"true"'
+	RetroArch_setOverride 'tg16.cfg' 'Beetle PCE'  'input_overlay_scale_landscape' '"1.075000"'
 
 }
 
