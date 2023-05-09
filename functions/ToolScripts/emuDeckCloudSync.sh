@@ -54,41 +54,42 @@ cloud_sync_config(){
       $cloud_sync_bin config update "$cloud_sync_provider" && echo "true"
   fi
 
-  #OLD TOKEN upload, not needed for now
-   
-  ##Lets search for that token
-  # while read line
-  # do
-  #    if [[ "$line" == *"[Emudeck"* ]]
-  #    then
-  #      section=$line
-  #    elif [[ "$line" == *"token = "* ]]; then
-  #      token=$line
-  #      break     
-  #    fi
-  # 
-  # done < $cloud_sync_config
-  # 
-  # replace_with=""
-  # 
-  # # Cleanup
-  # token=${token/"token = "/$replace_with}
-  # token=$(echo "$token" | sed "s/\"/'/g")
-  # section=$(echo "$section" | sed 's/[][]//g; s/"//g')  
-  # 
-  # json='{"section":"'"$section"'","token":"'"$token"'"}'
-  # 
-  # #json=$token
-  # 
-  # response=$(curl --request POST --url "https://patreon.emudeck.com/hastebin.php" --header "content-type: #application/x-www-form-urlencoded" --data-urlencode "data=${json}")
-  #text="$(printf "<b>CloudSync Configured!</b>\nIf you want to set CloudSync on another EmuDeck installation you need to use #this code:\n\n<b>${response}</b>")"
-  #  
-  #  zenity --info --width=300 \
-  # --text="${text}" 2>/dev/null
-  #
-  #clean_response=$(echo -n "$response" | tr -d '\n')
   
 }
+
+ cloud_sync_generate_code(){
+   #Lets search for that token
+   while read line
+   do
+      if [[ "$line" == *"[Emudeck"* ]]
+      then
+        section=$line
+      elif [[ "$line" == *"token = "* ]]; then
+        token=$line
+        break     
+      fi
+   
+   done < $cloud_sync_config
+   
+   replace_with=""
+   
+   # Cleanup
+   token=${token/"token = "/$replace_with}
+   token=$(echo "$token" | sed "s/\"/'/g")
+   section=$(echo "$section" | sed 's/[][]//g; s/"//g')  
+   
+   json='{"section":"'"$section"'","token":"'"$token"'"}'
+   
+   #json=$token
+   
+   response=$(curl --request POST --url "https://patreon.emudeck.com/hastebin.php" --header "content-type: #application/x-www-form-urlencoded" --data-urlencode "data=${json}")
+   text="$(printf "<b>CloudSync Configured!</b>\nIf you want to set CloudSync on another EmuDeck installation you need to use #this code:\n\n<b>${response}</b>")"
+    
+    zenity --info --width=300 \
+   --text="${text}" 2>/dev/null
+   
+   clean_response=$(echo -n "$response" | tr -d '\n')
+ }
 
  cloud_sync_config_with_code(){	
    local code=$1
@@ -295,5 +296,155 @@ cloud_sync_downloadEmu(){
     # No internet? We mark it as failed
       echo $timestamp > "$savesPath"/$emuName/.fail_download
     fi  
+  fi
+}
+
+cloud_sync_downloadEmuAll(){
+  if [ "$doInstallRA" = "true" ]; then
+      cloud_sync_downloadEmu retroarch
+  fi
+  
+  if [ "$doInstallDolphin" = "true" ]; then
+      cloud_sync_downloadEmu dolphin
+  fi
+  
+  if [ "$doInstallPCSX2QT" = "true" ]; then
+      cloud_sync_downloadEmu pcsx2
+  fi
+  
+  if [ "$doInstallRPCS3" = "true" ]; then
+      cloud_sync_downloadEmu rpcs3
+  fi
+  
+  if [ "$doInstallYuzu" = "true" ]; then
+      cloud_sync_downloadEmu yuzu
+  fi
+  
+  if [ "$doInstallCitra" = "true" ]; then
+      cloud_sync_downloadEmu citra
+  fi
+  
+  if [ "$doInstallRyujinx" = "true" ]; then
+      cloud_sync_downloadEmu ryujinx
+  fi
+  
+  if [ "$doInstallDuck" = "true" ]; then
+      cloud_sync_downloadEmu duckstation
+  fi
+  
+  if [ "$doInstallCemu" = "true" ]; then
+      cloud_sync_downloadEmu Cemu
+  fi
+  
+  if [ "$doInstallXenia" = "true" ]; then
+      cloud_sync_downloadEmu xenia
+  fi
+  
+  if [ "$doInstallPPSSPP" = "true" ]; then
+      cloud_sync_downloadEmu ppsspp
+  fi
+  
+  if [ "$doInstallXemu" = "true" ]; then
+      cloud_sync_downloadEmu xemu
+  fi
+  
+  if [ "$doInstallMGBA" = "true" ]; then
+      cloud_sync_downloadEmu mgba
+  fi  
+    
+  if [ "$doInstallMAME" = "true" ]; then
+      cloud_sync_downloadEmu MAME
+  fi
+  
+  if [ "$doInstallRMG" = "true" ]; then
+      cloud_sync_downloadEmu RMG
+  fi
+  
+  if [ "$doInstallPrimeHack" = "true" ]; then
+      cloud_sync_downloadEmu primehack
+  fi
+  
+  if [ "$doInstallScummVM" = "true" ]; then
+      cloud_sync_downloadEmu scummvm
+  fi
+  
+  if [ "$doInstallmelonDS" = "true" ]; then
+      cloud_sync_downloadEmu melonds
+  fi
+  
+  
+}
+
+cloud_sync_uploadEmuAll(){
+  if [ "$doInstallRA" = "true" ]; then
+    cloud_sync_uploadEmu retroarch
+  fi
+  
+  if [ "$doInstallDolphin" = "true" ]; then
+    cloud_sync_uploadEmu dolphin
+  fi
+  
+  if [ "$doInstallPCSX2QT" = "true" ]; then
+    cloud_sync_uploadEmu pcsx2
+  fi
+  
+  if [ "$doInstallRPCS3" = "true" ]; then
+    cloud_sync_uploadEmu rpcs3
+  fi
+  
+  if [ "$doInstallYuzu" = "true" ]; then
+    cloud_sync_uploadEmu yuzu
+  fi
+  
+  if [ "$doInstallCitra" = "true" ]; then
+    cloud_sync_uploadEmu citra
+  fi
+  
+  if [ "$doInstallRyujinx" = "true" ]; then
+    cloud_sync_uploadEmu ryujinx
+  fi
+  
+  if [ "$doInstallDuck" = "true" ]; then
+    cloud_sync_uploadEmu duckstation
+  fi
+  
+  if [ "$doInstallCemu" = "true" ]; then
+    cloud_sync_uploadEmu Cemu
+  fi
+  
+  if [ "$doInstallXenia" = "true" ]; then
+    cloud_sync_uploadEmu xenia
+  fi
+  
+  if [ "$doInstallPPSSPP" = "true" ]; then
+    cloud_sync_uploadEmu ppsspp
+  fi
+  
+  if [ "$doInstallXemu" = "true" ]; then
+    cloud_sync_uploadEmu xemu
+  fi
+  
+  if [ "$doInstallMGBA" = "true" ]; then
+    cloud_sync_uploadEmu mgba
+  fi  
+  
+  if [ "$doInstallMAME" = "true" ]; then
+    cloud_sync_uploadEmu MAME
+  fi
+  
+  if [ "$doInstallRMG" = "true" ]; then
+    cloud_sync_uploadEmu RMG
+  fi
+  
+  if [ "$doInstallPrimeHack" = "true" ]; then
+    cloud_sync_uploadEmu primehack
+  fi
+  
+  if [ "$doInstallScummVM" = "true" ]; then
+    cloud_sync_uploadEmu scummvm
+  fi
+  
+  if [ "$doInstallmelonDS" = "true" ]; then
+    cloud_sync_uploadEmu melonds
   fi
 }
