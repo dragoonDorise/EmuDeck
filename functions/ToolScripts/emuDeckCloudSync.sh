@@ -50,6 +50,52 @@ cloud_sync_config(){
       else
           echo "Cancel Nextcloud Login" 
       fi
+  elif [ $cloud_sync_provider == "Emudeck-SFTP" ]; then
+  
+    NCInput=$(zenity --forms \
+            --title="SFTP Sign in" \
+            --text="Please enter your SFTP information here." \
+            --width=300 \
+            --add-entry="Host: " \
+            --add-entry="Username: " \
+            --add-password="Password: " \
+            --add-entry="Port: " \
+            --separator="," 2>/dev/null)
+            ans=$?
+    if [ $ans -eq 0 ]; then
+        echo "SFTP Login"
+        host="$(echo "$NCInput" | awk -F "," '{print $1}')"
+        username="$(echo "$NCInput" | awk -F "," '{print $2}')"
+        password="$(echo "$NCInput" | awk -F "," '{print $3}')"
+        port="$(echo "$NCInput" | awk -F "," '{print $4}')"
+        
+        $cloud_sync_bin config update "$cloud_sync_provider" host=$host user=$username port=$port pass="$($cloud_sync_bin obscure $password)"
+    else
+        echo "Cancel Nextcloud Login" 
+    fi
+
+  
+  elif [ $cloud_sync_provider == "Emudeck-mega" ]; then
+  
+    NCInput=$(zenity --forms \
+            --title="Mega Sign in" \
+            --text="Please enter your Mega information here." \
+            --width=300 \
+            --add-entry="Username: " \
+            --add-password="Password: " \
+            --separator="," 2>/dev/null)
+            ans=$?
+    if [ $ans -eq 0 ]; then
+        echo "SFTP Login"
+        host="$(echo "$NCInput" | awk -F "," '{print $1}')"
+        username="$(echo "$NCInput" | awk -F "," '{print $2}')"
+        password="$(echo "$NCInput" | awk -F "," '{print $3}')"
+        
+        $cloud_sync_bin config update "$cloud_sync_provider" user=$username pass="$($cloud_sync_bin obscure $password)"
+    else
+        echo "Cancel Nextcloud Login" 
+    fi
+    
   else
       $cloud_sync_bin config update "$cloud_sync_provider" && echo "true"
   fi
