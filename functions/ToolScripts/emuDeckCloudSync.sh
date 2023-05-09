@@ -77,29 +77,30 @@ cloud_sync_setup_providers(){
         
         $cloud_sync_bin config update "$cloud_sync_provider" host=$host user=$username port=$port pass="$($cloud_sync_bin obscure $password)"
       else
-        echo "Cancel Nextcloud Login" 
+        echo "Cancel SFTP Login" 
       fi
     
     
-    elif [ $cloud_sync_provider == "Emudeck-mega" ]; then
+    elif [ $cloud_sync_provider == "Emudeck-SMB" ]; then
     
       NCInput=$(zenity --forms \
-          --title="Mega Sign in" \
-          --text="Please enter your Mega information here." \
+          --title="SMB Sign in" \
+          --text="Please enter your SMB information here." \
           --width=300 \
+          --add-entry="Host: " \
           --add-entry="Username: " \
           --add-password="Password: " \
           --separator="," 2>/dev/null)
           ans=$?
       if [ $ans -eq 0 ]; then
-        echo "SFTP Login"
+        echo "SMB Login"
         host="$(echo "$NCInput" | awk -F "," '{print $1}')"
         username="$(echo "$NCInput" | awk -F "," '{print $2}')"
         password="$(echo "$NCInput" | awk -F "," '{print $3}')"
         
-        $cloud_sync_bin config update "$cloud_sync_provider" user=$username pass="$($cloud_sync_bin obscure $password)"
+        $cloud_sync_bin config update "$cloud_sync_provider" host=$host user=$username pass="$($cloud_sync_bin obscure $password)"
       else
-        echo "Cancel Nextcloud Login" 
+        echo "Cancel SMB Login" 
       fi
       
     else
