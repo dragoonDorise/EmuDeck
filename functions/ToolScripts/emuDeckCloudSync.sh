@@ -298,3 +298,153 @@ cloud_sync_downloadEmu(){
     fi  
   fi
 }
+
+cloud_sync_downloadEmuAll(){
+  if [ "$doInstallRA" = "true" ]; then
+      cloud_sync_downloadEmu retroarch
+  fi
+  
+  if [ "$doInstallDolphin" = "true" ]; then
+      cloud_sync_downloadEmu dolphin
+  fi
+  
+  if [ "$doInstallPCSX2QT" = "true" ]; then
+      cloud_sync_downloadEmu pcsx2
+  fi
+  
+  if [ "$doInstallRPCS3" = "true" ]; then
+      cloud_sync_downloadEmu rpcs3
+  fi
+  
+  if [ "$doInstallYuzu" = "true" ]; then
+      cloud_sync_downloadEmu yuzu
+  fi
+  
+  if [ "$doInstallCitra" = "true" ]; then
+      cloud_sync_downloadEmu citra
+  fi
+  
+  if [ "$doInstallRyujinx" = "true" ]; then
+      cloud_sync_downloadEmu ryujinx
+  fi
+  
+  if [ "$doInstallDuck" = "true" ]; then
+      cloud_sync_downloadEmu duckstation
+  fi
+  
+  if [ "$doInstallCemu" = "true" ]; then
+      cloud_sync_downloadEmu Cemu
+  fi
+  
+  if [ "$doInstallXenia" = "true" ]; then
+      cloud_sync_downloadEmu xenia
+  fi
+  
+  if [ "$doInstallPPSSPP" = "true" ]; then
+      cloud_sync_downloadEmu ppsspp
+  fi
+  
+  if [ "$doInstallXemu" = "true" ]; then
+      cloud_sync_downloadEmu xemu
+  fi
+  
+  if [ "$doInstallMGBA" = "true" ]; then
+      cloud_sync_downloadEmu mgba
+  fi  
+    
+  if [ "$doInstallMAME" = "true" ]; then
+      cloud_sync_downloadEmu MAME
+  fi
+  
+  if [ "$doInstallRMG" = "true" ]; then
+      cloud_sync_downloadEmu RMG
+  fi
+  
+  if [ "$doInstallPrimeHack" = "true" ]; then
+      cloud_sync_downloadEmu primehack
+  fi
+  
+  if [ "$doInstallScummVM" = "true" ]; then
+      cloud_sync_downloadEmu scummvm
+  fi
+  
+  if [ "$doInstallmelonDS" = "true" ]; then
+      cloud_sync_downloadEmu melonds
+  fi
+  
+  
+}
+
+cloud_sync_uploadEmuAll(){
+  if [ "$doInstallRA" = "true" ]; then
+    cloud_sync_uploadEmu retroarch
+  fi
+  
+  if [ "$doInstallDolphin" = "true" ]; then
+    cloud_sync_uploadEmu dolphin
+  fi
+  
+  if [ "$doInstallPCSX2QT" = "true" ]; then
+    cloud_sync_uploadEmu pcsx2
+  fi
+  
+  if [ "$doInstallRPCS3" = "true" ]; then
+    cloud_sync_uploadEmu rpcs3
+  fi
+  
+  if [ "$doInstallYuzu" = "true" ]; then
+    cloud_sync_uploadEmu yuzu
+  fi
+  
+  if [ "$doInstallCitra" = "true" ]; then
+    cloud_sync_uploadEmu citra
+  fi
+  
+  if [ "$doInstallRyujinx" = "true" ]; then
+    cloud_sync_uploadEmu ryujinx
+  fi
+  
+  if [ "$doInstallDuck" = "true" ]; then
+    cloud_sync_uploadEmu duckstation
+  fi
+  
+  if [ "$doInstallCemu" = "true" ]; then
+    cloud_sync_uploadEmu Cemu
+  fi
+  
+  if [ "$doInstallXenia" = "true" ]; then
+    cloud_sync_uploadEmu xenia
+  fi
+  
+  if [ "$doInstallPPSSPP" = "true" ]; then
+    cloud_sync_uploadEmu ppsspp
+  fi
+  
+  if [ "$doInstallXemu" = "true" ]; then
+    cloud_sync_uploadEmu xemu
+  fi
+  
+  if [ "$doInstallMGBA" = "true" ]; then
+    cloud_sync_uploadEmu mgba
+  fi  
+  
+  if [ "$doInstallMAME" = "true" ]; then
+    cloud_sync_uploadEmu MAME
+  fi
+  
+  if [ "$doInstallRMG" = "true" ]; then
+    cloud_sync_uploadEmu RMG
+  fi
+  
+  if [ "$doInstallPrimeHack" = "true" ]; then
+    cloud_sync_uploadEmu primehack
+  fi
+  
+  if [ "$doInstallScummVM" = "true" ]; then
+    cloud_sync_uploadEmu scummvm
+  fi
+  
+  if [ "$doInstallmelonDS" = "true" ]; then
+    cloud_sync_uploadEmu melonds
+  fi
+}
