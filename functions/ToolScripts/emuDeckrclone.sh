@@ -75,7 +75,7 @@ rclone_updateProvider(){
 }
 
 rclone_providersSetup(){
-  if [ $cloud_sync_provider == "Emudeck-NextCloud" ]; then
+  if [ $rclone_provider == "Emudeck-NextCloud" ]; then
   
     local url
     local username
@@ -96,11 +96,11 @@ rclone_providersSetup(){
       username="$(echo "$NCInput" | awk -F "," '{print $2}')"
       password="$(echo "$NCInput" | awk -F "," '{print $3}')"
       
-      $cloud_sync_bin config update "$cloud_sync_provider" vendor="nextcloud" url=$url  user=$username pass="$($cloud_sync_bin obscure $password)"
+      $rclone_bin config update "$rclone_provider" vendor="nextcloud" url=$url  user=$username pass="$($rclone_bin obscure $password)"
     else
       echo "Cancel Nextcloud Login" 
     fi
-  elif [ $cloud_sync_provider == "Emudeck-SFTP" ]; then
+  elif [ $rclone_provider == "Emudeck-SFTP" ]; then
   
     NCInput=$(zenity --forms \
         --title="SFTP Sign in" \
@@ -119,13 +119,13 @@ rclone_providersSetup(){
       password="$(echo "$NCInput" | awk -F "," '{print $3}')"
       port="$(echo "$NCInput" | awk -F "," '{print $4}')"
       
-      $cloud_sync_bin config update "$cloud_sync_provider" host=$host user=$username port=$port pass="$($cloud_sync_bin obscure $password)"
+      $rclone_bin config update "$rclone_provider" host=$host user=$username port=$port pass="$($rclone_bin obscure $password)"
     else
       echo "Cancel Nextcloud Login" 
     fi
   
   
-  elif [ $cloud_sync_provider == "Emudeck-mega" ]; then
+  elif [ $rclone_provider == "Emudeck-mega" ]; then
   
     NCInput=$(zenity --forms \
         --title="Mega Sign in" \
@@ -141,13 +141,13 @@ rclone_providersSetup(){
       username="$(echo "$NCInput" | awk -F "," '{print $2}')"
       password="$(echo "$NCInput" | awk -F "," '{print $3}')"
       
-      $cloud_sync_bin config update "$cloud_sync_provider" user=$username pass="$($cloud_sync_bin obscure $password)"
+      $rclone_bin config update "$rclone_provider" user=$username pass="$($rclone_bin obscure $password)"
     else
       echo "Cancel Nextcloud Login" 
     fi
     
   else
-    $cloud_sync_bin config update "$cloud_sync_provider" && echo "true"
+    $rclone_bin config update "$rclone_provider" && echo "true"
   fi
 }
 
