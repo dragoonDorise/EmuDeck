@@ -31,7 +31,6 @@ cloud_sync_config(){
 }
 
 cloud_sync_setup_providers(){
-  rclone_providersSetup(){
     if [ $cloud_sync_provider == "Emudeck-NextCloud" ]; then
     
       local url
@@ -106,7 +105,6 @@ cloud_sync_setup_providers(){
     else
       $cloud_sync_bin config update "$cloud_sync_provider" && echo "true"
     fi
-  }
 }
 
  cloud_sync_generate_code(){
