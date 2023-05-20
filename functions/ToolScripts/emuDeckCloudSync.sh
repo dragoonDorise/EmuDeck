@@ -32,7 +32,6 @@ cloud_sync_config(){
 
 cloud_sync_setup_providers(){
   
-    sleep 5
     if [ $cloud_sync_provider == "Emudeck-NextCloud" ]; then
     
       local url
