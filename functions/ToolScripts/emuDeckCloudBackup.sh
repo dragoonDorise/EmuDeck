@@ -75,6 +75,13 @@ cloud_backup_updateProvider(){
 }
 
 cloud_backup_providersSetup(){
+  
+  browser=$(xdg-settings get default-web-browser)
+  
+  if [ $browser != 'com.google.Chrome.desktop' ];then
+    xdg-settings set default-web-browser com.google.Chrome.desktop
+  fi
+  
   if [ $rclone_provider == "Emudeck-NextCloud" ]; then
   
     local url
@@ -148,6 +155,10 @@ cloud_backup_providersSetup(){
     
   else
     $rclone_bin config update "$rclone_provider" && echo "true"
+  fi
+  #We get the previous default browser back
+  if [ $browser != 'com.google.Chrome.desktop' ];then
+    xdg-settings set default-web-browser $browser
   fi
 }
 

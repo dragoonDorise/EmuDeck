@@ -5,6 +5,7 @@ cloud_sync_config="$cloud_sync_path/rclone.conf"
 
 cloud_sync_install(){	
   {
+    
     local cloud_sync_provider=$1  
     setSetting cloud_sync_provider "$cloud_sync_provider" > /dev/null 
     setSetting cloud_sync_status "true" > /dev/null 
@@ -184,8 +185,23 @@ cloud_sync_setup_providers(){
 
 cloud_sync_install_and_config(){	
     local cloud_sync_provider=$1
-    cloud_sync_install $cloud_sync_provider
+    #We force Chrome to be used as the default
+    browser=$(xdg-settings get default-web-browser)
+    
+    if [ $browser != 'com.google.Chrome.desktop' ];then
+      xdg-settings set default-web-browser com.google.Chrome.desktop
+    fi
+    
+    if [ ! -f $cloud_sync_bin ]; then
+      cloud_sync_install $cloud_sync_provider
+    fi
+    
     cloud_sync_config $cloud_sync_provider
+    
+    #We get the previous default browser back
+    if [ $browser != 'com.google.Chrome.desktop' ];then
+      xdg-settings set default-web-browser $browser
+    fi
 }
 
 cloud_sync_install_and_config_with_code(){	
