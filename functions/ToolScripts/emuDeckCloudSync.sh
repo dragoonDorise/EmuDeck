@@ -10,14 +10,20 @@ cloud_sync_install(){
     setSetting cloud_sync_provider "$cloud_sync_provider" > /dev/null 
     setSetting cloud_sync_status "true" > /dev/null 
     rm -rf "$HOME/.config/systemd/user/emudeck_saveBackup.service" > /dev/null 
-    mkdir -p "$cloud_sync_path"/tmp > /dev/null 
-    curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$cloud_sync_path/tmp/rclone.temp" && mv "$cloud_sync_path/tmp/rclone.temp" "$cloud_sync_path/tmp/rclone.zip" > /dev/null 
     
-    unzip -o "$cloud_sync_path/tmp/rclone.zip" -d "$cloud_sync_path/tmp/" && rm "$cloud_sync_path/tmp/rclone.zip" > /dev/null 
-    mv "$cloud_sync_path"/tmp/* "$cloud_sync_path/tmp/rclone"  > /dev/null  #don't quote the *
-    mv  "$cloud_sync_path/tmp/rclone/rclone" "$cloud_sync_bin" > /dev/null 
-    rm -rf "$cloud_sync_path/tmp" > /dev/null 
-    chmod +x "$cloud_sync_bin" > /dev/null 
+    
+    if [ ! -f $cloud_sync_bin ]; then
+      mkdir -p "$cloud_sync_path"/tmp > /dev/null
+      curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$cloud_sync_path/tmp/rclone.temp" && mv "$cloud_sync_path/tmp/rclone.temp" "$cloud_sync_path/tmp/rclone.zip" > /dev/null 
+      
+      unzip -o "$cloud_sync_path/tmp/rclone.zip" -d "$cloud_sync_path/tmp/" && rm "$cloud_sync_path/tmp/rclone.zip" > /dev/null 
+      mv "$cloud_sync_path"/tmp/* "$cloud_sync_path/tmp/rclone"  > /dev/null  #don't quote the *
+      mv  "$cloud_sync_path/tmp/rclone/rclone" "$cloud_sync_bin" > /dev/null 
+      rm -rf "$cloud_sync_path/tmp" > /dev/null 
+      chmod +x "$cloud_sync_bin" > /dev/null 
+    fi
+    
+    
   } > /dev/null
 }
 
