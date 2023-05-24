@@ -8,17 +8,29 @@ cloud_sync_install(){
     
     local cloud_sync_provider=$1  
     setSetting cloud_sync_provider "$cloud_sync_provider" > /dev/null 
+    setSetting cloud_sync_status "true" > /dev/null 
     rm -rf "$HOME/.config/systemd/user/emudeck_saveBackup.service" > /dev/null 
-    mkdir -p "$cloud_sync_path"/tmp > /dev/null 
-    curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$cloud_sync_path/tmp/rclone.temp" && mv "$cloud_sync_path/tmp/rclone.temp" "$cloud_sync_path/tmp/rclone.zip" > /dev/null 
     
-    unzip -o "$cloud_sync_path/tmp/rclone.zip" -d "$cloud_sync_path/tmp/" && rm "$cloud_sync_path/tmp/rclone.zip" > /dev/null 
-    mv "$cloud_sync_path"/tmp/* "$cloud_sync_path/tmp/rclone"  > /dev/null  #don't quote the *
-    mv  "$cloud_sync_path/tmp/rclone/rclone" "$cloud_sync_bin" > /dev/null 
-    rm -rf "$cloud_sync_path/tmp" > /dev/null 
-    chmod +x "$cloud_sync_bin" > /dev/null 
+    
+    if [ ! -f $cloud_sync_bin ]; then
+      mkdir -p "$cloud_sync_path"/tmp > /dev/null
+      curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$cloud_sync_path/tmp/rclone.temp" && mv "$cloud_sync_path/tmp/rclone.temp" "$cloud_sync_path/tmp/rclone.zip" > /dev/null 
+      
+      unzip -o "$cloud_sync_path/tmp/rclone.zip" -d "$cloud_sync_path/tmp/" && rm "$cloud_sync_path/tmp/rclone.zip" > /dev/null 
+      mv "$cloud_sync_path"/tmp/* "$cloud_sync_path/tmp/rclone"  > /dev/null  #don't quote the *
+      mv  "$cloud_sync_path/tmp/rclone/rclone" "$cloud_sync_bin" > /dev/null 
+      rm -rf "$cloud_sync_path/tmp" > /dev/null 
+      chmod +x "$cloud_sync_bin" > /dev/null 
+    fi
+    
+    
   } > /dev/null
 }
+
+cloud_sync_toggle(){
+  local status=$1  
+  setSetting cloud_sync_status $status > /dev/null 
+}	
 
 cloud_sync_config(){	
  
@@ -208,6 +220,7 @@ cloud_sync_install_and_config_with_code(){
 
 
 cloud_sync_uninstall(){
+  setSetting cloud_sync_status "false" > /dev/null 
   rm -rf $cloud_sync_bin && rm -rf $cloud_sync_config && echo "true"
 }
 
@@ -219,20 +232,25 @@ cloud_sync_stopService(){
 cloud_sync_upload(){
   local emuName=$1
   local timestamp=$(date +%s)
-  ("$toolsPath/rclone/rclone" copy -P -L "$savesPath"/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload) | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate     
+  
+  if [ $cloud_sync_status = "true" ]; then  
+    ("$toolsPath/rclone/rclone" copy -P -L "$savesPath"/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload) | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate     
+  fi
 }
 
 cloud_sync_download(){
   local emuName=$1
   local timestamp=$(date +%s)
-  ("$toolsPath/rclone/rclone" copy -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
+  if [ $cloud_sync_status = "true" ]; then
+    ("$toolsPath/rclone/rclone" copy -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
+  fi
 }
 
 
 cloud_sync_uploadEmu(){
   local emuName=$1
+  local time_stamp
   if [ -f "$toolsPath/rclone/rclone" ]; then    
-    local timestamp=$(date +%s)
   
     #We check for internet connection
     if [[ $(check_internet_connection) == true ]]; then
@@ -240,12 +258,13 @@ cloud_sync_uploadEmu(){
       #Do we have a failed upload?
       if [ -f $savesPath/$emuName/.fail_upload ]; then
           
-       time_stamp=$(cat $savesPath/$emuName/.fail_upload)
-       date=$(date -d @$time_stamp +'%x')
+       time_stamp=$(cat $savesPath/$emuName/.fail_upload)       
+       date=$(date -d @"$timestamp" +"%Y-%m-%d")
+       hour=$(date -d @"$timestamp" +"%H:%M:%S")
        while true; do
          ans=$(zenity --question \
             --title="CloudSync conflict" \
-            --text="We've detected a previously failed upload, do you want us to upload your saves and overwrite your saves in the cloud? Your latest upload was on $date" \
+            --text="We've detected a previously failed upload, do you want us to upload your saves and overwrite your saves in the cloud? Your latest upload was on $date $hour" \
             --extra-button "No, download from the cloud and overwrite my local saves" \
             --cancel-label="Skip for now" \
             --ok-label="Yes, upload them" \
@@ -295,11 +314,12 @@ cloud_sync_downloadEmu(){
       #Do we have a pending upload?
       if [ -f $savesPath/$emuName/.pending_upload ]; then
         time_stamp=$(cat $savesPath/$emuName/.pending_upload)
-        date=$(date -d @$time_stamp +'%x')
+        date=$(date -d @"$timestamp" +"%Y-%m-%d")
+        hour=$(date -d @"$timestamp" +"%H:%M:%S")        
         while true; do
           ans=$(zenity --question \
              --title="CloudSync conflict" \
-             --text="We've detected a pending upload, make sure you dont close the Emulator using the Steam Button, do you want us to upload your saves to the cloud and overwrite them? This upload should have happened on $date" \
+             --text="We've detected a pending upload, make sure you dont close the Emulator using the Steam Button, do you want us to upload your saves to the cloud and overwrite them? This upload should have happened on $date $hour" \
              --extra-button "No, download from the cloud and overwrite my local saves" \
              --cancel-label="Skip for now" \
              --ok-label="Yes, upload them" \
