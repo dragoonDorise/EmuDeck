@@ -26,16 +26,18 @@ cloud_backup_install(){
 cloud_backup_install_and_config(){	
     local rclone_provider=$1  
     setSetting rclone_provider "$rclone_provider"
+    setSetting cloud_sync_status "false" > /dev/null 
     rm -rf "$HOME/.config/systemd/user/emudeck_cloud_backup.service" > /dev/null 
-    mkdir -p "$rclone_path"/tmp
-    curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip"
-
-    unzip -o "$rclone_path/tmp/rclone.zip" -d "$rclone_path/tmp/" && rm "$rclone_path/tmp/rclone.zip"
-    mv "$rclone_path"/tmp/* "$rclone_path/tmp/rclone" #don't quote the *
-    mv  "$rclone_path/tmp/rclone/rclone" "$rclone_bin"
-    rm -rf "$rclone_path/tmp"
-    chmod +x "$rclone_bin"
-
+    if [ ! -f $rclone_bin ]; then     
+      mkdir -p "$rclone_path"/tmp
+      curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip"
+      
+      unzip -o "$rclone_path/tmp/rclone.zip" -d "$rclone_path/tmp/" && rm "$rclone_path/tmp/rclone.zip"
+      mv "$rclone_path"/tmp/* "$rclone_path/tmp/rclone" #don't quote the *
+      mv  "$rclone_path/tmp/rclone/rclone" "$rclone_bin"
+      rm -rf "$rclone_path/tmp"
+      chmod +x "$rclone_bin"
+    fi
     cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
     
     cloud_backup_providersSetup
