@@ -7,18 +7,19 @@ cloud_backup_jobScript="$toolsPath/rclone/run_cloud_backup_job.sh"
 cloud_backup_restoreScript="$toolsPath/rclone/run_cloud_backup_restore.sh"
 
 cloud_backup_install(){	
-
-    mkdir -p "$rclone_path"/tmp
-    curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip"
-
-    unzip -o "$rclone_path/tmp/rclone.zip" -d "$rclone_path/tmp/" && rm "$rclone_path/tmp/rclone.zip"
-    mv "$rclone_path"/tmp/* "$rclone_path/tmp/rclone" #don't quote the *
-    mv  "$rclone_path/tmp/rclone/rclone" "$rclone_bin"
-    rm -rf "$rclone_path/tmp"
-    chmod +x "$rclone_bin"
-
+    setSetting cloud_sync_status "false" > /dev/null 
+    
+    if [ ! -f $rclone_bin ]; then
+      mkdir -p "$rclone_path"/tmp
+      curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip"
+      unzip -o "$rclone_path/tmp/rclone.zip" -d "$rclone_path/tmp/" && rm "$rclone_path/tmp/rclone.zip"
+      mv "$rclone_path"/tmp/* "$rclone_path/tmp/rclone" #don't quote the *
+      mv  "$rclone_path/tmp/rclone/rclone" "$rclone_bin"
+      rm -rf "$rclone_path/tmp"
+      chmod +x "$rclone_bin"
+    fi
     cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
-
+    
     cloud_backup_createJob
 }
 
