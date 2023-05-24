@@ -35,6 +35,7 @@ source "$EMUDECKGIT"/functions/dialogBox.sh
 source "$EMUDECKGIT"/functions/updateEmuFP.sh
 source "$EMUDECKGIT"/functions/createFolders.sh
 source "$EMUDECKGIT"/functions/runSRM.sh
+source "$EMUDECKGIT"/functions/appImageInit.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
