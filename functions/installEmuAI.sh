@@ -1,34 +1,47 @@
 #!/bin/bash
-installEmuAI(){		
-	
-	name=$1
-	url=$2	
-    altName=$3
+installEmuAI(){
+    local name="$1"
+    local url="$2"
+    local altName="$3"
+    local showProgress="$4"
+    local lastVerFile="$5"
+    local latestVer="$6"
 
-    if [[ $altName == "" ]]; then
-        altName=$name
+    if [[ "$altName" == "" ]]; then
+        altName="$name"
     fi
-	echo $name
-    echo $url
-    echo $altName
+    echo "$name"
+    echo "$url"
+    echo "$altName"
+    echo "$showProgress"
+    echo "$lastVerFile"
+    echo "$latestVer"
 
-    rm -f "$HOME/Applications/$altName.AppImage" 
+    #rm -f "$HOME/Applications/$altName.AppImage" # mv in safeDownload will overwrite...
     mkdir -p "$HOME/Applications"
-    curl -L "$url" -o "$HOME/Applications/$altName.AppImage.temp"  && mv "$HOME/Applications/$altName.AppImage.temp" "$HOME/Applications/$altName.AppImage" 
-	chmod +x "$HOME/Applications/$altName.AppImage" 
 
+    #curl -L "$url" -o "$HOME/Applications/$altName.AppImage.temp" && mv "$HOME/Applications/$altName.AppImage.temp" "$HOME/Applications/$altName.AppImage"
+    if safeDownload "$name" "$url" "$HOME/Applications/$altName.AppImage" "$showProgress"; then
+        chmod +x "$HOME/Applications/$altName.AppImage"
+        if [[ -n $lastVerFile ]] && [[ -n $latestVer ]]; then
+            echo "latest version $latestVer > $lastVerFile"
+            echo "$latestVer" > "$lastVerFile"
+        fi
+    else
+        return 1
+    fi
 
     shName=$(echo "$name" | awk '{print tolower($0)}')
-    find "${toolsPath}/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
+    find "${toolsPath}/launchers/" -maxdepth 1 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
     while read -r f
-    do 
+    do
         echo "deleting $f"
         rm -f "$f"
     done
 
     find "${EMUDECKGIT}/tools/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
     while read -r l
-    do 
+    do
         echo "deploying $l"
         launcherFileName=$(basename "$l")
         chmod +x "$l"
@@ -36,11 +49,8 @@ installEmuAI(){
         chmod +x "${toolsPath}/launchers/"*
 
         createDesktopShortcut   "$HOME/.local/share/applications/$altName.desktop" \
-                                "$altName EmuDeck" \
+                                "$altName AppImage" \
                                 "${toolsPath}/launchers/$launcherFileName" \
                                 "false"
     done
-
- 
-                            
 }

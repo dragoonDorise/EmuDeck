@@ -1,0 +1,18 @@
+{
+  "system": "mastersystem",
+  "status": "true",
+  "logo": "logo_mastersystem",
+  "title": "Galactic Revenge",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/mastersystem/Galactic Revenge.sms.zip",
+  "description": "It's the year 33XXX. Dirty aliens from a faraway galaxy emptied your refrigerator and killed your boyfriend. Confident in their superiority, they also had the nerve to steal your beloved Master System. Your are Olivia Gun. Get your blastin' shoes on and pick from three killer outfits. Wield fire, spread shots, lasers, and even shurikens.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/mastersystem/screenshots/homebrew/Galactic Revenge.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/mastersystem/titlescreens/homebrew/Galactic Revenge.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

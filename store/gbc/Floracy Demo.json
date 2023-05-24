@@ -1,0 +1,18 @@
+{
+  "system": "gbc",
+  "status": "true",
+  "logo": "logo_gbc",
+  "title": "Floracy ( Demo )",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/gbc/Floracy.zip",
+  "description": "Floracy is a roleplaying game with elements of strategy and action games, in which the player breeds plantlike creatures for exciting animated combats. Felix, hero of the video game Felix und die Rache der Null, spends his time growing plants on his farm, which will develop into creatures after a while, the Floracy.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gbc/screenshots/homebrew/Floracy.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gbc/titlescreens/homebrew/Floracy.png?raw=true"
+    ]
+  },
+  "tags": ["rpg"]
+}

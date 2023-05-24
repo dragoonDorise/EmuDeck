@@ -1,0 +1,18 @@
+{
+  "system": "nes",
+  "status": "true",
+  "logo": "logo_nes",
+  "title": "Space Gulls",
+  "url": "https://morphcatgames.itch.io/spacegulls",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/nes/Space Gulls.zip",
+  "description": "Spacegulls is a short platformer for the NES.  It is best described as a combination of Joust and Mega Man. ",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/screenshots/homebrew/Space Gulls.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/titlescreens/homebrew/Space Gulls.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

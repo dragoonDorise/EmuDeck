@@ -1,0 +1,18 @@
+{
+  "system": "gb",
+  "status": "true",
+  "logo": "logo_gb",
+  "title": "Rocket Man ( Demo )",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/gb/Rocket Man.zip",
+  "description": "Rocket man is a young aspiring hero with great passion for technology. One day he runs into Light, a villain with telekinetic powers who plans to take control of the city. Accompanied by his virtual assistant Ellie, Rocket Man must defeat Light and his robot henchmen to bring peace back to the city.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gb/screenshots/homebrew/Rocket Man.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gb/titlescreens/homebrew/Rocket Man.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

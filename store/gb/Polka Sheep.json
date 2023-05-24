@@ -1,0 +1,18 @@
+{
+  "system": "gb",
+  "status": "true",
+  "logo": "logo_gb",
+  "title": "Polka Sheep",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/gb/PolkaSheep.zip",
+  "description": "All the sheep of the flock have been captured in mysterious giant bubbles! Help Polka Sheep rescue his friends using his velcro powers! He can fasten himself to all velcro surfaces within the environments. Avoid hundreds of evil wolves, thousands of kawaii parrots and millions of poisoned spikes to liberate all your friends! It’s an epic fight to restore peace in the flock.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gb/titlescreens/homebrew/PolkaSheep.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gb/titlescreens/homebrew/PolkaSheep.png?raw=true"
+    ]
+  },
+  "tags": ["puzzle", "platform"]
+}

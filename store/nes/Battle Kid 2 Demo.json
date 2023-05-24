@@ -1,0 +1,18 @@
+{
+  "system": "nes",
+  "status": "true",
+  "logo": "logo_nes",
+  "title": "Battle Kid 2: Mountain of Torment (Demo)",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/nes/BattleKid2.zip",
+  "description": "The next phase of the vile group's plan has begun! The Supermech have have been destroyed, but that was only the beginning. You must venture through a giant mountain base and overcome its many dangers. Along the way, items will be found to allow access to new areas and grant you new abilities. An even bigger game than before awaits! Will the torment get to you?",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/screenshots/homebrew/BattleKid2.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/titlescreens/homebrew/BattleKid2.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

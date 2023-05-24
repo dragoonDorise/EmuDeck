@@ -1,0 +1,18 @@
+{
+  "system": "snes",
+  "status": "true",
+  "logo": "logo_snes",
+  "title": "Jet Pilot Rising",
+  "url": "https://snescentral.com/article.php?id=1091",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/snes/Jet Pilot Rising.zip",
+  "description": "Jet Pilot Rising is a homebrew game created by Dieter Von Laser. The game itself is a one button affair. You guide a cat riding a rocket, collecting coins and avoiding enemies and obstacles.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/screenshots/homebrew/Jet Pilot Rising.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/titlescreens/homebrew/Jet Pilot Rising.png?raw=true"
+    ]
+  },
+  "tags": ["action"]
+}

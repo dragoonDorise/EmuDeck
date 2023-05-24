@@ -1,0 +1,18 @@
+{
+  "system": "snes",
+  "status": "true",
+  "logo": "logo_snes",
+  "title": "Super Boss Gaiden",
+  "url": "https://superbossgaiden.superfamicom.org/",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/snes/Super Boss Gaiden.zip",
+  "description": "The very last Nintendo PlayStation prototype has fallen in the hands of the public, and homebrew enthusiasts have already managed to fully emulate the system. Instead of calmly discussing the situation and planning out the proper legal counter action, the boss promptly switches to rampage mode and proceeds to punch, kick and throw everything in sight, including employees and PlayStation mascots.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/screenshots/homebrew/Super Boss Gaiden.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/titlescreens/homebrew/Super Boss Gaiden.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

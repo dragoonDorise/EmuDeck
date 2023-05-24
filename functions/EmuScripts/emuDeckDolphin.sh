@@ -45,7 +45,8 @@ Dolphin_init(){
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
-    Dolphin_cleanup
+  Dolphin_cleanup
+  #Dolphin_DynamicInputTextures
 }
 
 #update
@@ -148,11 +149,7 @@ echo "NYI"
 }
 
 Dolphin_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$Dolphin_emuPath")" == "$Dolphin_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$Dolphin_emuPath"
 }
 
 Dolphin_resetConfig(){
@@ -163,3 +160,18 @@ Dolphin_finalize(){
 	echo "NYI"
 }
 
+
+Dolphin_DynamicInputTextures(){
+  local DIT_releaseURL="$(getLatestReleaseURLGH "Venomalia/UniversalDynamicInput" "7z")"
+  
+  if [[ ! -e "$storagePath/dolphin/Load" ]]; then
+    mkdir -p "$storagePath/dolphin/Load"
+    ln -s "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Load/" "$storagePath/dolphin/Load/"
+  fi
+  
+  if safeDownload "UniversalDynamicInput" "$DIT_releaseURL" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Load/DynamicInputTextures.7z" "false"; then      
+    7z "$storagePath/dolphin/Load/DynamicInputTextures.7z" -o"$storagePath/dolphin/Load/" && rm -rf "$storagePath/Dolphin/Load/DynamicInputTextures.7z"    
+  else
+    return 1
+  fi
+}

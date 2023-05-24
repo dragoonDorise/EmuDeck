@@ -22,6 +22,25 @@ rclone_install(){
     rclone_createJob
 }
 
+rclone_install_and_config(){	
+    local rclone_provider=$1  
+    setSetting rclone_provider "$rclone_provider"
+    rm -rf "$HOME/.config/systemd/user/emudeck_saveBackup.service" > /dev/null 
+    mkdir -p "$rclone_path"/tmp
+    curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip"
+
+    unzip -o "$rclone_path/tmp/rclone.zip" -d "$rclone_path/tmp/" && rm "$rclone_path/tmp/rclone.zip"
+    mv "$rclone_path"/tmp/* "$rclone_path/tmp/rclone" #don't quote the *
+    mv  "$rclone_path/tmp/rclone/rclone" "$rclone_bin"
+    rm -rf "$rclone_path/tmp"
+    chmod +x "$rclone_bin"
+
+    cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
+    
+    rclone_providersSetup
+    rclone_stopService
+}
+
 rclone_pickProvider(){
 
     cloudProviders=()
@@ -50,35 +69,86 @@ rclone_pickProvider(){
     fi
 }
 
+
 rclone_updateProvider(){
-    if [ $rclone_provider == "Emudeck-NextCloud" ]; then
+    rclone_providersSetup
+}
 
-        local url
-        local username
-        local password
-
-        NCInput=$(zenity --forms \
-                --title="Nextcloud Sign in" \
-                --text="Please enter your Nextcloud information here. URL is your webdav url. Use HTTP:// or HTTPS:// please." \
-                --width=300 \
-                --add-entry="URL: " \
-                --add-entry="Username: " \
-                --add-password="Password: " \
-                --separator="," 2>/dev/null)
-                ans=$?
-        if [ $ans -eq 0 ]; then
-            echo "Nextcloud Login"
-            url="$(echo "$NCInput" | awk -F "," '{print $1}')"
-            username="$(echo "$NCInput" | awk -F "," '{print $2}')"
-            password="$(echo "$NCInput" | awk -F "," '{print $3}')"
-            
-            $rclone_bin config update "$rclone_provider" vendor="nextcloud" url=$url  user=$username pass="$($rclone_bin obscure $password)"
-        else
-            echo "Cancel Nextcloud Login" 
-        fi
+rclone_providersSetup(){
+  if [ $rclone_provider == "Emudeck-NextCloud" ]; then
+  
+    local url
+    local username
+    local password
+  
+    NCInput=$(zenity --forms \
+        --title="Nextcloud Sign in" \
+        --text="Please enter your Nextcloud information here. URL is your webdav url. Use HTTP:// or HTTPS:// please." \
+        --width=300 \
+        --add-entry="URL: " \
+        --add-entry="Username: " \
+        --add-password="Password: " \
+        --separator="," 2>/dev/null)
+        ans=$?
+    if [ $ans -eq 0 ]; then
+      echo "Nextcloud Login"
+      url="$(echo "$NCInput" | awk -F "," '{print $1}')"
+      username="$(echo "$NCInput" | awk -F "," '{print $2}')"
+      password="$(echo "$NCInput" | awk -F "," '{print $3}')"
+      
+      $rclone_bin config update "$rclone_provider" vendor="nextcloud" url=$url  user=$username pass="$($rclone_bin obscure $password)"
     else
-        $rclone_bin config update "$rclone_provider" 
+      echo "Cancel Nextcloud Login" 
     fi
+  elif [ $rclone_provider == "Emudeck-SFTP" ]; then
+  
+    NCInput=$(zenity --forms \
+        --title="SFTP Sign in" \
+        --text="Please enter your SFTP information here." \
+        --width=300 \
+        --add-entry="Host: " \
+        --add-entry="Username: " \
+        --add-password="Password: " \
+        --add-entry="Port: " \
+        --separator="," 2>/dev/null)
+        ans=$?
+    if [ $ans -eq 0 ]; then
+      echo "SFTP Login"
+      host="$(echo "$NCInput" | awk -F "," '{print $1}')"
+      username="$(echo "$NCInput" | awk -F "," '{print $2}')"
+      password="$(echo "$NCInput" | awk -F "," '{print $3}')"
+      port="$(echo "$NCInput" | awk -F "," '{print $4}')"
+      
+      $rclone_bin config update "$rclone_provider" host=$host user=$username port=$port pass="$($rclone_bin obscure $password)"
+    else
+      echo "Cancel SFTP Login" 
+    fi
+  
+    elif [ $cloud_sync_provider == "Emudeck-SMB" ]; then
+    
+    NCInput=$(zenity --forms \
+        --title="SMB Sign in" \
+        --text="Please enter your SMB information here." \
+        --width=300 \
+        --add-entry="Host: " \
+        --add-entry="Username: " \
+        --add-password="Password: " \
+        --separator="," 2>/dev/null)
+        ans=$?
+    if [ $ans -eq 0 ]; then
+      echo "SMB Login"
+      host="$(echo "$NCInput" | awk -F "," '{print $1}')"
+      username="$(echo "$NCInput" | awk -F "," '{print $2}')"
+      password="$(echo "$NCInput" | awk -F "," '{print $3}')"
+      
+      $cloud_sync_bin config update "$cloud_sync_provider" host=$host user=$username pass="$($cloud_sync_bin obscure $password)"
+    else
+      echo "Cancel SMB Login" 
+    fi
+    
+  else
+    $rclone_bin config update "$rclone_provider" && echo "true"
+  fi
 }
 
 rclone_setup(){
@@ -293,4 +363,25 @@ rclone_createBackup(){
         elif [ "$ans" == "Run Backup Once" ]; then
             rclone_runJobOnce
         fi
+}
+
+rclone_uploadEmu(){
+  echo ""
+
+  #emuName=$1
+  #rclone_provider=$2
+  #if [ -f "$toolsPath/rclone/rclone" ]; then
+  #  "$toolsPath/rclone/rclone" sync -P -L "$savesPath"/$emuName/ "$rclone_provider":Emudeck/saves/$emuName/ | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 300 --pulsate
+  #fi
+}
+
+rclone_downloadEmu(){
+  echo ""
+
+  #emuName=$1
+  #rclone_provider=$2
+  #if [ -f "$toolsPath/rclone/rclone" ]; then
+  #  "$toolsPath/rclone/rclone" copy -P -L "$rclone_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 300 --pulsate
+  #fi
+
 }
