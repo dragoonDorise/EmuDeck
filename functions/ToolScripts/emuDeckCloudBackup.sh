@@ -3,52 +3,55 @@
 rclone_path="$toolsPath/rclone"
 rclone_bin="$rclone_path/rclone"
 rclone_config="$rclone_path/rclone.conf"
-rclone_jobScript="$toolsPath/rclone/run_rclone_job.sh"
-rclone_restoreScript="$toolsPath/rclone/run_rclone_restore.sh"
+cloud_backup_jobScript="$toolsPath/rclone/run_cloud_backup_job.sh"
+cloud_backup_restoreScript="$toolsPath/rclone/run_cloud_backup_restore.sh"
 
-rclone_install(){	
-
-    mkdir -p "$rclone_path"/tmp
-    curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip"
-
-    unzip -o "$rclone_path/tmp/rclone.zip" -d "$rclone_path/tmp/" && rm "$rclone_path/tmp/rclone.zip"
-    mv "$rclone_path"/tmp/* "$rclone_path/tmp/rclone" #don't quote the *
-    mv  "$rclone_path/tmp/rclone/rclone" "$rclone_bin"
-    rm -rf "$rclone_path/tmp"
-    chmod +x "$rclone_bin"
-
-    cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
-
-    rclone_createJob
-}
-
-rclone_install_and_config(){	
-    local rclone_provider=$1  
-    setSetting rclone_provider "$rclone_provider"
-    rm -rf "$HOME/.config/systemd/user/emudeck_saveBackup.service" > /dev/null 
-    mkdir -p "$rclone_path"/tmp
-    curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip"
-
-    unzip -o "$rclone_path/tmp/rclone.zip" -d "$rclone_path/tmp/" && rm "$rclone_path/tmp/rclone.zip"
-    mv "$rclone_path"/tmp/* "$rclone_path/tmp/rclone" #don't quote the *
-    mv  "$rclone_path/tmp/rclone/rclone" "$rclone_bin"
-    rm -rf "$rclone_path/tmp"
-    chmod +x "$rclone_bin"
-
+cloud_backup_install(){	
+    setSetting cloud_sync_status "false" > /dev/null 
+    
+    if [ ! -f $rclone_bin ]; then
+      mkdir -p "$rclone_path"/tmp
+      curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip"
+      unzip -o "$rclone_path/tmp/rclone.zip" -d "$rclone_path/tmp/" && rm "$rclone_path/tmp/rclone.zip"
+      mv "$rclone_path"/tmp/* "$rclone_path/tmp/rclone" #don't quote the *
+      mv  "$rclone_path/tmp/rclone/rclone" "$rclone_bin"
+      rm -rf "$rclone_path/tmp"
+      chmod +x "$rclone_bin"
+    fi
     cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
     
-    rclone_providersSetup
-    rclone_stopService
+    cloud_backup_createJob
 }
 
-rclone_pickProvider(){
+cloud_backup_install_and_config(){	
+    local rclone_provider=$1  
+    setSetting rclone_provider "$rclone_provider"
+    setSetting cloud_sync_status "false" > /dev/null 
+    rm -rf "$HOME/.config/systemd/user/emudeck_cloud_backup.service" > /dev/null 
+    if [ ! -f $rclone_bin ]; then     
+      mkdir -p "$rclone_path"/tmp
+      curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$rclone_path/tmp/rclone.temp" && mv "$rclone_path/tmp/rclone.temp" "$rclone_path/tmp/rclone.zip"
+      
+      unzip -o "$rclone_path/tmp/rclone.zip" -d "$rclone_path/tmp/" && rm "$rclone_path/tmp/rclone.zip"
+      mv "$rclone_path"/tmp/* "$rclone_path/tmp/rclone" #don't quote the *
+      mv  "$rclone_path/tmp/rclone/rclone" "$rclone_bin"
+      rm -rf "$rclone_path/tmp"
+      chmod +x "$rclone_bin"
+    fi
+    cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
+    
+    cloud_backup_providersSetup
+    cloud_backup_stopService
+}
+
+cloud_backup_pickProvider(){
 
     cloudProviders=()
     cloudProviders+=(1 "Emudeck-GDrive")
     cloudProviders+=(2 "Emudeck-DropBox")
     cloudProviders+=(3 "Emudeck-OneDrive")
     cloudProviders+=(4 "Emudeck-Box")
-    #cloudProviders+=(5 "Emudeck-NextCloud")
+    cloudProviders+=(5 "Emudeck-NextCloud")
 
     rclone_provider=$(zenity --list \
         --title="EmuDeck SaveSync Host" \
@@ -70,11 +73,18 @@ rclone_pickProvider(){
 }
 
 
-rclone_updateProvider(){
-    rclone_providersSetup
+cloud_backup_updateProvider(){
+    cloud_backup_providersSetup
 }
 
-rclone_providersSetup(){
+cloud_backup_providersSetup(){
+  
+  browser=$(xdg-settings get default-web-browser)
+  
+  if [ $browser != 'com.google.Chrome.desktop' ];then
+    xdg-settings set default-web-browser com.google.Chrome.desktop
+  fi
+  
   if [ $rclone_provider == "Emudeck-NextCloud" ]; then
   
     local url
@@ -149,29 +159,33 @@ rclone_providersSetup(){
   else
     $rclone_bin config update "$rclone_provider" && echo "true"
   fi
+  #We get the previous default browser back
+  if [ $browser != 'com.google.Chrome.desktop' ];then
+    xdg-settings set default-web-browser $browser
+  fi
 }
 
-rclone_setup(){
+cloud_backup_etup(){
 
     while true; do
         if [ ! -e "$rclone_bin" ] || [ ! -e "$rclone_jobScript" ];  then
-            ans=$(zenity --info --title 'SaveBackup' \
+            ans=$(zenity --info --title 'cloud_backup' \
                         --text 'Click on Install to continue' \
                         --width=50 \
                         --ok-label Exit \
-                        --extra-button "Install SaveBackup" 2>/dev/null  )
+                        --extra-button "Install cloud_backup" 2>/dev/null  )
         elif [ -z "$rclone_provider" ]; then
-            ans=$(zenity --info --title 'SaveBackup' \
+            ans=$(zenity --info --title 'cloud_backup' \
                         --text 'Cloud provider not found. Please click on "Pick Provider' \
                         --width=50 \
                         --ok-label Exit \
-                        --extra-button "Reinstall SaveBackup" \
+                        --extra-button "Reinstall cloud_backup" \
                         --extra-button "Pick Provider" 2>/dev/null  )
         else
-            ans=$(zenity --info --title 'SaveBackup' \
+            ans=$(zenity --info --title 'cloud_backup' \
                 --text 'If this is your first setup click on "Login to your cloud provider" before clicking on "Create Backup"' \
                 --width=50 \
-                --extra-button "Reinstall SaveBackup" \
+                --extra-button "Reinstall cloud_backup" \
                 --extra-button "Login to your cloud provider" \
                 --extra-button "Create Backup" \
                 --ok-label Exit 2>/dev/null ) 
@@ -179,7 +193,7 @@ rclone_setup(){
         rc=$?
         if [ "$rc" == 0 ] || [ "$ans" == "" ]; then
             break
-        elif [ "$ans" == "Install SaveBackup" ] || [ "$ans" == "Reinstall SaveBackup" ]; then
+        elif [ "$ans" == "Install cloud_backup" ] || [ "$ans" == "Reinstall cloud_backup" ]; then
             rclone_install
         elif [ "$ans" == "Pick Provider" ]; then
             rclone_pickProvider
@@ -192,7 +206,7 @@ rclone_setup(){
 
 }
 
-rclone_createJob(){
+cloud_backup_reateJob(){
 
 echo '#!/bin/bash'>"$rclone_jobScript"
 echo "source \$HOME/emudeck/settings.sh
@@ -275,14 +289,14 @@ fi
 chmod +x "$rclone_restoreScript"
 }
 
-rclone_createService(){
-    echo "Creating SaveBackup service"
-    rclone_stopService
+cloud_backup_reateService(){
+    echo "Creating cloud_backup service"
+    cloud_backup_stopService
 
     mkdir -p "$HOME/.config/systemd/user"
     echo \
 "[Unit]
-Description=Emudeck SaveBackup service
+Description=Emudeck cloud_backup service
 
 [Service]
 Type=simple
@@ -292,55 +306,55 @@ CPUQuota=50%
 IOWeight=20
 
 [Install]
-WantedBy=default.target" > "$HOME/.config/systemd/user/emudeck_saveBackup.service"
-#chmod +x "$HOME/.config/systemd/user/emudeck_saveBackup.service"
+WantedBy=default.target" > "$HOME/.config/systemd/user/emudeck_cloud_backup.service"
+#chmod +x "$HOME/.config/systemd/user/emudeck_cloud_backup.service"
 
 #create timer
 echo "[Unit]
-Description=Runs EmuDeck SaveBackup Every 15 minutes
-Requires=emudeck_saveBackup.service
+Description=Runs EmuDeck cloud_backup Every 15 minutes
+Requires=emudeck_cloud_backup.service
 After=network-online.target
 Wants=network-online.target
 
 [Timer]
 OnBootSec=5min
-Unit=emudeck_saveBackup.service
+Unit=emudeck_cloud_backup.service
 OnUnitActiveSec=15m
 
 [Install]
-WantedBy=timers.target"> "$HOME/.config/systemd/user/emudeck_saveBackup.timer"
-#chmod +x "$HOME/.config/systemd/user/emudeck_saveBackup.timer"
+WantedBy=timers.target"> "$HOME/.config/systemd/user/emudeck_cloud_backup.timer"
+#chmod +x "$HOME/.config/systemd/user/emudeck_cloud_backup.timer"
 #enabling services seems to want to symlink to a place it doesn't have access to, even with --user. Maybe needs sudo...
 
-    echo "Enabling SaveBackup"
-    systemctl --user enable emudeck_saveBackup.service
+    echo "Enabling cloud_backup"
+    systemctl --user enable emudeck_cloud_backup.service
 
-    echo "Enabling SaveBackup 15 minute timer service"
-    systemctl --user enable emudeck_saveBackup.timer
+    echo "Enabling cloud_backup 15 minute timer service"
+    systemctl --user enable emudeck_cloud_backup.timer
  
-    echo "Enabling SaveBackup Timer."
-    rclone_startService
+    echo "Enabling cloud_backup Timer."
+    cloud_backup_startService
 }
 
-rclone_stopService(){
-    systemctl --user stop emudeck_saveBackup.timer
-    systemctl --user stop emudeck_saveBackup.service
+cloud_backup_stopService(){
+    systemctl --user stop emudeck_cloud_backup.timer
+    systemctl --user stop emudeck_cloud_backup.service
 }
 
-rclone_startService(){
-    systemctl --user start emudeck_saveBackup.timer
+cloud_backup_startService(){
+    systemctl --user start emudeck_cloud_backup.timer
 }
 
-rclone_runJobOnce(){
-    "$rclone_jobScript"
+cloud_backup_runJobOnce(){
+    "$cloud_backup_jobScript"
 }
 
-rclone_downloadFiles(){
-    "$rclone_restoreScript"
+cloud_backup_downloadFiles(){
+    "$cloud_backup_restoreScript"
 }
 
-rclone_createBackup(){
-     ans=$(zenity --info --title 'SaveBackup' \
+cloud_backup_createBackup(){
+     ans=$(zenity --info --title 'cloud_backup' \
                 --text 'Use Create Service to backup your saves directory every 15 minutes' \
                 --width=50 \
                 --extra-button "Create Service" \
@@ -353,35 +367,14 @@ rclone_createBackup(){
         if [ "$rc" == 0 ] || [ "$ans" == "" ]; then
             echo "nothing chosen"
         elif [ "$ans" == "Create Service" ]; then
-            rclone_createService
+            cloud_backup_createService
         elif [ "$ans" == "Start Service" ]; then
-            rclone_startService
+            cloud_backup_startService
         elif [ "$ans" == "Stop Service" ]; then
-            rclone_stopService
+            cloud_backup_stopService
         elif [ "$ans" == "Restore Cloud Files" ]; then
-            rclone_downloadFiles
+            cloud_backup_downloadFiles
         elif [ "$ans" == "Run Backup Once" ]; then
-            rclone_runJobOnce
+            cloud_backup_runJobOnce
         fi
-}
-
-rclone_uploadEmu(){
-  echo ""
-
-  #emuName=$1
-  #rclone_provider=$2
-  #if [ -f "$toolsPath/rclone/rclone" ]; then
-  #  "$toolsPath/rclone/rclone" sync -P -L "$savesPath"/$emuName/ "$rclone_provider":Emudeck/saves/$emuName/ | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 300 --pulsate
-  #fi
-}
-
-rclone_downloadEmu(){
-  echo ""
-
-  #emuName=$1
-  #rclone_provider=$2
-  #if [ -f "$toolsPath/rclone/rclone" ]; then
-  #  "$toolsPath/rclone/rclone" copy -P -L "$rclone_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 300 --pulsate
-  #fi
-
 }
