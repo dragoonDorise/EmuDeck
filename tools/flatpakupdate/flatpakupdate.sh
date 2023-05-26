@@ -44,6 +44,10 @@ if [ "$(melonDS_IsInstalled)" == "true" ]; then
     emuTable+=(TRUE "DS" "melonDS")
 fi
 
+if [ "$(ares_IsInstalled)" == "true" ]; then
+    emuTable+=(TRUE "Multi-System Emulator" "ares")
+fi
+
 if [ "${#emuTable[@]}" -gt 0 ]; then
     #Emulator selector
     text="$(printf "Which Flatpak emulators do you want to update?")"
@@ -104,6 +108,9 @@ if [ "${#emuTable[@]}" -gt 0 ]; then
             if [[ "$emusToInstall" == *"RMG"* ]]; then
             	doUpdateRMG=true
             fi
+            if [[ "$emusToInstall" == *"ares"* ]]; then
+            	doUpdateares=true
+            fi
 
             (
                 progressInstalled=""
@@ -151,6 +158,11 @@ if [ "${#emuTable[@]}" -gt 0 ]; then
                 if [ "$doUpdateRMG" == "true" ]; then
                     echo "###Updating RMG..."
                     (updateEmuFP "RMG" "com.github.Rosalie241.RMG" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|RMG" && echo "&&&$progressInstalled"
+                fi
+
+                if [ "$doUpdateares" == "true" ]; then
+                    echo "###Updating ares..."
+                    (updateEmuFP "ares" "dev.ares.ares" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|ares" && echo "&&&$progressInstalled"
                 fi
 
                 if [ $progresspct != 100 ]; then

@@ -1,0 +1,359 @@
+Video
+  Driver: OpenGL 3.2
+  Monitor: Primary
+  Format: ARGB24
+  Exclusive: false
+  Blocking: false
+  Flush: false
+  Shader: None
+  Multiplier: 5
+  Output: Scale
+  AspectCorrection: true
+  AdaptiveSizing: true
+  AutoCentering: true
+  Luminance: 1.0
+  Saturation: 1.0
+  Gamma: 1.0
+  ColorBleed: false
+  ColorEmulation: true
+  InterframeBlending: true
+  Overscan: false
+  PixelAccuracy: false
+  Quality: SD
+  Supersampling: false
+  EnableVulkan: true
+  DisableVideoInterfaceProcessing: false
+Audio
+  Driver: PulseAudio
+  Device: Default
+  Frequency: 48000
+  Latency: 40
+  Exclusive: false
+  Blocking: true
+  Dynamic: false
+  Mute: false
+  Volume: 1.0
+  Balance: 0.0
+Input
+  Driver: SDL
+  Defocus: Pause
+Boot
+  Fast: false
+  Debugger: false
+  Prefer: NTSC-U
+General
+  ShowStatusBar: true
+  Rewind: false
+  RunAhead: false
+  AutoSaveMemory: true
+Rewind
+  Length: 100
+  Frequency: 10
+Paths
+  Home
+  Saves: /home/deck/Emulation/saves/ares/
+  Screenshots: /home/deck/Emulation/storage/ares/screenshots/
+  Debugging
+  SuperFamicom
+    GameBoy: /home/deck/Emulation/roms/gb/
+    BSMemory: /home/deck/Emulation/roms/satellaview/
+    SufamiTurbo: /home/deck/Emulation/roms/sufami/
+Recent
+  Game-1
+  Game-2
+  Game-3
+  Game-4
+  Game-5
+  Game-6
+  Game-7
+  Game-8
+  Game-9
+VirtualPad1
+  Pad.Up: 0x3/1/1/Lo;;
+  Pad.Down: 0x3/1/1/Hi;;
+  Pad.Left: 0x3/1/0/Lo;;
+  Pad.Right: 0x3/1/0/Hi;;
+  Select: 0x3/3/6;;
+  Start: 0x3/3/7;;
+  A..South: 0x3/3/0;;
+  B..East: 0x3/3/1;;
+  X..West: 0x3/3/2;;
+  Y..North: 0x3/3/3;;
+  L-Bumper: 0x3/3/4;;
+  R-Bumper: 0x3/3/5;;
+  L-Trigger: 0x3/0/2/Hi;;
+  R-Trigger: 0x3/0/5/Hi;;
+  L-Stick..Click: 0x3/3/9;;
+  R-Stick..Click: 0x3/3/10;;
+  L-Up: 0x3/0/1/Lo;;
+  L-Down: 0x3/0/1/Hi;;
+  L-Left: 0x3/0/0/Lo;;
+  L-Right: 0x3/0/0/Hi;;
+  R-Up: 0x3/0/4/Lo;;
+  R-Down: 0x3/0/4/Hi;;
+  R-Left: 0x3/0/3/Lo;;
+  R-Right: 0x3/0/3/Hi;;
+  Rumble: ;;
+VirtualMouse1
+  X: 0x2/0/0;;
+  Y: 0x2/0/1;;
+  Left: 0x2/1/0;;
+  Middle: 0x2/1/1;;
+  Right: 0x2/1/1;;
+  Extra: ;;
+VirtualPad2
+  Pad.Up: 0x100000003/1/1/Lo;;
+  Pad.Down: 0x100000003/1/1/Hi;;
+  Pad.Left: 0x100000003/1/0/Lo;;
+  Pad.Right: 0x100000003/1/0/Hi;;
+  Select: 0x100000003/3/6;;
+  Start: 0x100000003/3/7;;
+  A..South: 0x100000003/3/1;;
+  B..East: 0x100000003/3/0;;
+  X..West: 0x100000003/3/3;;
+  Y..North: 0x100000003/3/2;;
+  L-Bumper: 0x100000003/3/4;;
+  R-Bumper: 0x100000003/3/5;;
+  L-Trigger: 0x100000003/0/2/Hi;;
+  R-Trigger: 0x100000003/0/5/Hi;;
+  L-Stick..Click: 0x100000003/3/9;;
+  R-Stick..Click: 0x100000003/3/10;;
+  L-Up: 0x100000003/0/1/Lo;;
+  L-Down: 0x100000003/0/1/Hi;;
+  L-Left: 0x100000003/0/0/Lo;;
+  L-Right: 0x100000003/0/0/Hi;;
+  R-Up: 0x100000003/0/4/Lo;;
+  R-Down: 0x100000003/0/4/Hi;;
+  R-Left: 0x100000003/0/3/Lo;;
+  R-Right: 0x100000003/0/3/Hi;;
+  Rumble: ;;
+VirtualMouse2
+  X: ;;
+  Y: ;;
+  Left: ;;
+  Middle: ;;
+  Right: ;;
+  Extra: ;;
+VirtualPad3
+  Pad.Up: 0x200000003/1/1/Lo;;
+  Pad.Down: 0x200000003/1/1/Hi;;
+  Pad.Left: 0x200000003/1/0/Lo;;
+  Pad.Right: 0x200000003/1/0/Hi;;
+  Select: 0x200000003/3/6;;
+  Start: 0x200000003/3/7;;
+  A..South: 0x200000003/3/1;;
+  B..East: 0x200000003/3/0;;
+  X..West: 0x200000003/3/3;;
+  Y..North: 0x200000003/3/2;;
+  L-Bumper: 0x200000003/3/4;;
+  R-Bumper: 0x200000003/3/5;;
+  L-Trigger: 0x200000003/0/2/Hi;;
+  R-Trigger: 0x200000003/0/5/Hi;;
+  L-Stick..Click: 0x200000003/3/9;;
+  R-Stick..Click: 0x200000003/3/10;;
+  L-Up: 0x200000003/0/1/Lo;;
+  L-Down: 0x200000003/0/1/Hi;;
+  L-Left: 0x200000003/0/0/Lo;;
+  L-Right: 0x200000003/0/0/Hi;;
+  R-Up: 0x200000003/0/4/Lo;;
+  R-Down: 0x200000003/0/4/Hi;;
+  R-Left: 0x200000003/0/3/Lo;;
+  R-Right: 0x200000003/0/3/Hi;;
+  Rumble: ;;
+VirtualMouse3
+  X: ;;
+  Y: ;;
+  Left: ;;
+  Middle: ;;
+  Right: ;;
+  Extra: ;;
+VirtualPad4
+  Pad.Up: 0x300000003/1/1/Lo;;
+  Pad.Down: 0x300000003/1/1/Hi;;
+  Pad.Left: 0x300000003/1/0/Lo;;
+  Pad.Right: 0x300000003/1/0/Hi;;
+  Select: 0x300000003/3/6;;
+  Start: 0x300000003/3/7;;
+  A..South: 0x300000003/3/1;;
+  B..East: 0x300000003/3/0;;
+  X..West: 0x300000003/3/3;;
+  Y..North: 0x300000003/3/2;;
+  L-Bumper: 0x300000003/3/4;;
+  R-Bumper: 0x300000003/3/5;;
+  L-Trigger: 0x300000003/0/2/Hi;;
+  R-Trigger: 0x300000003/0/5/Hi;;
+  L-Stick..Click: 0x300000003/3/9;;
+  R-Stick..Click: 0x300000003/3/10;;
+  L-Up: 0x300000003/0/1/Lo;;
+  L-Down: 0x300000003/0/1/Hi;;
+  L-Left: 0x300000003/0/0/Lo;;
+  L-Right: 0x300000003/0/0/Hi;;
+  R-Up: 0x300000003/0/4/Lo;;
+  R-Down: 0x300000003/0/4/Hi;;
+  R-Left: 0x300000003/0/3/Lo;;
+  R-Right: 0x300000003/0/3/Hi;;
+  Rumble: ;;
+VirtualMouse4
+  X: ;;
+  Y: ;;
+  Left: ;;
+  Middle: ;;
+  Right: ;;
+  Extra: ;;
+VirtualPad5
+  Pad.Up: 0x400000003/1/1/Lo;;
+  Pad.Down: 0x400000003/1/1/Hi;;
+  Pad.Left: 0x400000003/1/0/Lo;;
+  Pad.Right: 0x400000003/1/0/Hi;;
+  Select: 0x400000003/3/6;;
+  Start: 0x400000003/3/7;;
+  A..South: 0x400000003/3/1;;
+  B..East: 0x400000003/3/0;;
+  X..West: 0x400000003/3/3;;
+  Y..North: 0x400000003/3/2;;
+  L-Bumper: 0x400000003/3/4;;
+  R-Bumper: 0x400000003/3/5;;
+  L-Trigger: 0x400000003/0/2/Hi;;
+  R-Trigger: 0x400000003/0/5/Hi;;
+  L-Stick..Click: 0x400000003/3/9;;
+  R-Stick..Click: 0x400000003/3/10;;
+  L-Up: 0x400000003/0/1/Lo;;
+  L-Down: 0x400000003/0/1/Hi;;
+  L-Left: 0x400000003/0/0/Lo;;
+  L-Right: 0x400000003/0/0/Hi;;
+  R-Up: 0x400000003/0/4/Lo;;
+  R-Down: 0x400000003/0/4/Hi;;
+  R-Left: 0x400000003/0/3/Lo;;
+  R-Right: 0x400000003/0/3/Hi;;
+  Rumble: ;;
+VirtualMouse5
+  X: ;;
+  Y: ;;
+  Left: ;;
+  Middle: ;;
+  Right: ;;
+  Extra: ;;
+Hotkey
+  ToggleFullscreen: 0x1/0/1;;
+  ToggleMouseCapture: 0x1/0/2;;
+  ToggleKeyboardCapture: 0x1/0/3;;
+  FastForward: 0x1/0/4;;
+  ToggleFastForward: 0x1/0/5;;
+  Rewind: 0x1/0/6;;
+  FrameAdvance: 0x1/0/7;;
+  CaptureScreenshot: 0x1/0/8;;
+  SaveState: 0x1/0/9;;
+  LoadState: 0x1/0/10;;
+  DecrementStateSlot: 0x1/0/11;;
+  IncrementStateSlot: 0x1/0/12;;
+  PauseEmulation: 0x1/0/31;;
+  ReloadCurrentGame: 0x1/0/32;;
+  QuitEmulator: 0x1/0/29;;
+Atari2600
+  Path: /home/deck/Emulation/roms/atari2600/
+WonderSwan
+  Path: /home/deck/Emulation/roms/wonderswan/
+WonderSwanColor
+  Path: /home/deck/Emulation/roms/wonderswancolor/
+PocketChallengeV2
+  Path: /home/deck/Emulation/roms/pocketchallengev2/
+ColecoVision
+  Path: /home/deck/Emulation/roms/colecovision/
+  Firmware
+    BIOS.World: /home/deck/Emulation/bios/colecovision.rom
+MSX
+  Path: /home/deck/Emulation/roms/msx/
+  Firmware
+    BIOS.Japan: /home/deck/Emulation/bios/MSX.ROM
+MSX2
+  Path: /home/deck/Emulation/roms/msx2/
+  Firmware
+    BIOS.Japan: /home/deck/Emulation/bios/MSX2.ROM
+PCEngine
+  Path: /home/deck/Emulation/roms/pcengine/
+PCEngineCD
+  Path: /home/deck/Emulation/roms/pcenginecd/
+  Firmware
+    BIOS.US: /home/deck/Emulation/bios/syscard3u.pce
+    BIOS.Japan: /home/deck/Emulation/bios/syscard3.pce
+SuperGrafx
+  Path: /home/deck/Emulation/roms/supergrafx/
+SuperGrafxCD
+  Path: /home/deck/Emulation/roms/supergrafx/
+  Firmware
+    BIOS.Japan: /home/deck/Emulation/bios/syscard3.pce
+Famicom
+  Path: /home/deck/Emulation/roms/nes/
+FamicomDiskSystem
+  Path: /home/deck/Emulation/roms/fds/
+  Firmware
+    BIOS.Japan: /home/deck/Emulation/bios/disksys.rom
+SuperFamicom
+  Path: /home/deck/Emulation/roms/snes/
+Nintendo64
+  Path: /home/deck/Emulation/roms/n64/
+Nintendo64DD
+  Path: /home/deck/Emulation/roms/n64dd/
+  Firmware
+    BIOS.Japan: /home/deck/Emulation/bios/64DD_IPL_JP.n64
+    BIOS.US: /home/deck/Emulation/bios/64DD_IPL_US.n64
+    BIOS.DEV: /home/deck/Emulation/bios/64DD_IPL_DEV.n64
+GameBoy
+  Path: /home/deck/Emulation/roms/gb/
+GameBoyColor
+  Path: /home/deck/Emulation/roms/gbc/
+GameBoyAdvance
+  Path: /home/deck/Emulation/roms/gba/
+  Firmware
+    BIOS.World: /home/deck/Emulation/bios/gba_bios.bin
+SG-1000
+  Path: /home/deck/Emulation/roms/sg-1000/
+MasterSystem
+  Path: /home/deck/Emulation/roms/mastersystem/
+  Firmware
+    BIOS.US: /home/deck/Emulation/bios/bios_U.sms
+    BIOS.Japan: /home/deck/Emulation/bios/bios_J.sms
+    BIOS.Europe: /home/deck/Emulation/bios/bios_E.sms
+GameGear
+  Path: /home/deck/Emulation/roms/gamegear/
+  Firmware
+    BIOS.World: /home/deck/Emulation/bios/bios.gg
+MegaDrive
+  Path: /home/deck/Emulation/roms/genesis/
+Mega32X
+  Path: /home/deck/Emulation/roms/sega32x/
+MegaCD
+  Path: /home/deck/Emulation/roms/segacd/
+  Firmware
+    BIOS.US: /home/deck/Emulation/bios/bios_CD_U.bin
+    BIOS.Japan: /home/deck/Emulation/bios/bios_CD_J.bin
+    BIOS.Europe: /home/deck/Emulation/bios/bios_CD_E.bin
+MegaCD32X
+  Path: /home/deck/Emulation/roms/segacd/
+NeoGeoAES
+  Path: /home/deck/Emulation/roms/arcade/
+  Firmware
+    BIOS.World: /home/deck/Emulation/bios/neo-po.bin
+NeoGeoMVS
+  Path: /home/deck/Emulation/roms/arcade/
+  Firmware
+    BIOS.World
+NeoGeoPocket
+  Path: /home/deck/Emulation/roms/ngp/
+  Firmware
+    BIOS.World: /home/deck/Emulation/bios/[BIOS] SNK Neo Geo Pocket (Japan, Europe).ngp
+NeoGeoPocketColor
+  Path: /home/deck/Emulation/roms/ngpc/
+  Firmware
+    BIOS.World: /home/deck/Emulation/bios/[BIOS] SNK Neo Geo Pocket Color (World) (En,Ja).ngp
+PlayStation
+  Path: /home/deck/Emulation/roms/psx/
+  Firmware
+    BIOS.US: /home/deck/Emulation/bios/scph5501.bin
+    BIOS.Japan: /home/deck/Emulation/bios/scph5500.bin
+    BIOS.Europe: /home/deck/Emulation/bios/scph5502.bin
+ZXSpectrum
+  Path: /home/deck/Emulation/roms/zxspectrum/
+ZXSpectrum128
+  Path: /home/deck/Emulation/roms/zxspectrum/
+  
