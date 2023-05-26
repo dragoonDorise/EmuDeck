@@ -1,0 +1,358 @@
+Video
+  Driver: OpenGL 3.2
+  Monitor: Primary
+  Format: ARGB24
+  Exclusive: false
+  Blocking: false
+  Flush: false
+  Shader: None
+  Multiplier: 2
+  Output: Scale
+  AspectCorrection: true
+  AdaptiveSizing: true
+  AutoCentering: false
+  Luminance: 1.0
+  Saturation: 1.0
+  Gamma: 1.0
+  ColorBleed: false
+  ColorEmulation: true
+  InterframeBlending: true
+  Overscan: false
+  PixelAccuracy: false
+  Quality: SD
+  Supersampling: false
+  EnableVulkan: true
+  DisableVideoInterfaceProcessing: false
+Audio
+  Driver: PulseAudio
+  Device: Default
+  Frequency: 48000
+  Latency: 40
+  Exclusive: false
+  Blocking: true
+  Dynamic: false
+  Mute: false
+  Volume: 1.0
+  Balance: 0.0
+Input
+  Driver: udev
+  Defocus: Pause
+Boot
+  Fast: false
+  Debugger: false
+  Prefer: NTSC-U
+General
+  ShowStatusBar: true
+  Rewind: false
+  RunAhead: false
+  AutoSaveMemory: true
+Rewind
+  Length: 100
+  Frequency: 10
+Paths
+  Home
+  Saves
+  Screenshots
+  Debugging
+  SuperFamicom
+    GameBoy
+    BSMemory
+    SufamiTurbo
+Recent
+  Game-1
+  Game-2
+  Game-3
+  Game-4
+  Game-5
+  Game-6
+  Game-7
+  Game-8
+  Game-9
+VirtualPad1
+  Pad.Up: ;;
+  Pad.Down: ;;
+  Pad.Left: ;;
+  Pad.Right: ;;
+  Select: ;;
+  Start: ;;
+  A..South: ;;
+  B..East: ;;
+  X..West: ;;
+  Y..North: ;;
+  L-Bumper: ;;
+  R-Bumper: ;;
+  L-Trigger: ;;
+  R-Trigger: ;;
+  L-Stick..Click: ;;
+  R-Stick..Click: ;;
+  L-Up: ;;
+  L-Down: ;;
+  L-Left: ;;
+  L-Right: ;;
+  R-Up: ;;
+  R-Down: ;;
+  R-Left: ;;
+  R-Right: ;;
+  Rumble: ;;
+VirtualMouse1
+  X: ;;
+  Y: ;;
+  Left: ;;
+  Middle: ;;
+  Right: ;;
+  Extra: ;;
+VirtualPad2
+  Pad.Up: ;;
+  Pad.Down: ;;
+  Pad.Left: ;;
+  Pad.Right: ;;
+  Select: ;;
+  Start: ;;
+  A..South: ;;
+  B..East: ;;
+  X..West: ;;
+  Y..North: ;;
+  L-Bumper: ;;
+  R-Bumper: ;;
+  L-Trigger: ;;
+  R-Trigger: ;;
+  L-Stick..Click: ;;
+  R-Stick..Click: ;;
+  L-Up: ;;
+  L-Down: ;;
+  L-Left: ;;
+  L-Right: ;;
+  R-Up: ;;
+  R-Down: ;;
+  R-Left: ;;
+  R-Right: ;;
+  Rumble: ;;
+VirtualMouse2
+  X: ;;
+  Y: ;;
+  Left: ;;
+  Middle: ;;
+  Right: ;;
+  Extra: ;;
+VirtualPad3
+  Pad.Up: ;;
+  Pad.Down: ;;
+  Pad.Left: ;;
+  Pad.Right: ;;
+  Select: ;;
+  Start: ;;
+  A..South: ;;
+  B..East: ;;
+  X..West: ;;
+  Y..North: ;;
+  L-Bumper: ;;
+  R-Bumper: ;;
+  L-Trigger: ;;
+  R-Trigger: ;;
+  L-Stick..Click: ;;
+  R-Stick..Click: ;;
+  L-Up: ;;
+  L-Down: ;;
+  L-Left: ;;
+  L-Right: ;;
+  R-Up: ;;
+  R-Down: ;;
+  R-Left: ;;
+  R-Right: ;;
+  Rumble: ;;
+VirtualMouse3
+  X: ;;
+  Y: ;;
+  Left: ;;
+  Middle: ;;
+  Right: ;;
+  Extra: ;;
+VirtualPad4
+  Pad.Up: ;;
+  Pad.Down: ;;
+  Pad.Left: ;;
+  Pad.Right: ;;
+  Select: ;;
+  Start: ;;
+  A..South: ;;
+  B..East: ;;
+  X..West: ;;
+  Y..North: ;;
+  L-Bumper: ;;
+  R-Bumper: ;;
+  L-Trigger: ;;
+  R-Trigger: ;;
+  L-Stick..Click: ;;
+  R-Stick..Click: ;;
+  L-Up: ;;
+  L-Down: ;;
+  L-Left: ;;
+  L-Right: ;;
+  R-Up: ;;
+  R-Down: ;;
+  R-Left: ;;
+  R-Right: ;;
+  Rumble: ;;
+VirtualMouse4
+  X: ;;
+  Y: ;;
+  Left: ;;
+  Middle: ;;
+  Right: ;;
+  Extra: ;;
+VirtualPad5
+  Pad.Up: ;;
+  Pad.Down: ;;
+  Pad.Left: ;;
+  Pad.Right: ;;
+  Select: ;;
+  Start: ;;
+  A..South: ;;
+  B..East: ;;
+  X..West: ;;
+  Y..North: ;;
+  L-Bumper: ;;
+  R-Bumper: ;;
+  L-Trigger: ;;
+  R-Trigger: ;;
+  L-Stick..Click: ;;
+  R-Stick..Click: ;;
+  L-Up: ;;
+  L-Down: ;;
+  L-Left: ;;
+  L-Right: ;;
+  R-Up: ;;
+  R-Down: ;;
+  R-Left: ;;
+  R-Right: ;;
+  Rumble: ;;
+VirtualMouse5
+  X: ;;
+  Y: ;;
+  Left: ;;
+  Middle: ;;
+  Right: ;;
+  Extra: ;;
+Hotkey
+  ToggleFullscreen: ;;
+  ToggleMouseCapture: ;;
+  ToggleKeyboardCapture: ;;
+  FastForward: ;;
+  ToggleFastForward: ;;
+  Rewind: ;;
+  FrameAdvance: ;;
+  CaptureScreenshot: ;;
+  SaveState: ;;
+  LoadState: ;;
+  DecrementStateSlot: ;;
+  IncrementStateSlot: ;;
+  PauseEmulation: ;;
+  ReloadCurrentGame: ;;
+  QuitEmulator: ;;
+Atari2600
+  Path
+WonderSwan
+  Path
+WonderSwanColor
+  Path
+PocketChallengeV2
+  Path
+ColecoVision
+  Path
+  Firmware
+    BIOS.World
+MSX
+  Path
+  Firmware
+    BIOS.Japan
+MSX2
+  Path
+  Firmware
+    BIOS.Japan
+PCEngine
+  Path
+PCEngineCD
+  Path
+  Firmware
+    BIOS.US
+    BIOS.Japan
+SuperGrafx
+  Path
+SuperGrafxCD
+  Path
+  Firmware
+    BIOS.Japan
+Famicom
+  Path
+FamicomDiskSystem
+  Path
+  Firmware
+    BIOS.Japan
+SuperFamicom
+  Path
+Nintendo64
+  Path
+Nintendo64DD
+  Path
+  Firmware
+    BIOS.Japan
+    BIOS.US
+    BIOS.DEV
+GameBoy
+  Path
+GameBoyColor
+  Path
+GameBoyAdvance
+  Path
+  Firmware
+    BIOS.World
+SG-1000
+  Path
+MasterSystem
+  Path
+  Firmware
+    BIOS.US
+    BIOS.Japan
+    BIOS.Europe
+GameGear
+  Path
+  Firmware
+    BIOS.World
+MegaDrive
+  Path
+Mega32X
+  Path
+MegaCD
+  Path
+  Firmware
+    BIOS.US
+    BIOS.Japan
+    BIOS.Europe
+MegaCD32X
+  Path
+NeoGeoAES
+  Path
+  Firmware
+    BIOS.World
+NeoGeoMVS
+  Path
+  Firmware
+    BIOS.World
+NeoGeoPocket
+  Path
+  Firmware
+    BIOS.World
+NeoGeoPocketColor
+  Path
+  Firmware
+    BIOS.World
+PlayStation
+  Path
+  Firmware
+    BIOS.US
+    BIOS.Japan
+    BIOS.Europe
+ZXSpectrum
+  Path
+ZXSpectrum128
+  Path

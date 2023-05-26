@@ -22,6 +22,8 @@ doUninstallESDE=true
 doUninstallMGBA=true
 doUninstallRMG=true
 doUninstallVita3K=true
+doUninstallares=true
+
 
 
 
@@ -99,7 +101,7 @@ if [ "$doUninstall" == true ]; then
 				14 "Mame"  \
 				15 "RMG"  \
 				16 "Vita3K"  )
-	ans=$?	
+				17 "ares"  )
 	if [ $ans -eq 0 ]; then
 		
 		if [[ "$emusToUninstall" == *"RetroArch"* ]]; then
@@ -155,7 +157,10 @@ if [ "$doUninstall" == true ]; then
 		fi
 		if [[ "$emusToUninstall" == *"Vita3K"* ]]; then
 			doUninstallVita3K=false
-		fi				
+		fi
+		if [[ "$emusToUninstall" == *"ares"* ]]; then
+			doUninstallares=false
+		fi					
 		
 	else
 		exit
@@ -244,6 +249,10 @@ if [ "$doUninstall" == true ]; then
 		rm -rf ~/Applications/Vita3K &>> /dev/null
 		rm -rf ~/.local/share/applications/Vita3K.desktop &>> /dev/null
 	fi
+	if [[ "$doUninstallares" == true ]]; then
+		flatpak uninstall dev.ares.ares --system -y
+		rm -rf ~/.var/app/dev.ares.ares &>> /dev/null
+	fi
 	# if [[ "$doUninstallXenia" == true ]]; then
 	# 	rm -rf ~/Applications/Vita3K &>> /dev/null
 	# 	rm -rf ~/.local/share/applications/xenia.desktop &>> /dev/null
@@ -272,7 +281,8 @@ if [ "$doUninstall" == true ]; then
 	rm -rf ~/.steam/steam/controller_base/templates/mGBA_controller_config.vdf  &>> /dev/null
 	rm -rf ~/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf  &>> /dev/null
 	rm -rf ~/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf  &>> /dev/null
-	rm -rf ~/.steam/steam/controller_base/templates/rmg_controller_config.vdf  &>> /dev/null	
+	rm -rf ~/.steam/steam/controller_base/templates/rmg_controller_config.vdf  &>> /dev/null
+	rm -rf ~/.steam/steam/controller_base/templates/ares_controller_config.vdf  &>> /dev/null		
 	find  "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons" -name 'EmuDeck*' -exec rm {} \;
 	
 	echo "65"
