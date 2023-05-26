@@ -6,15 +6,15 @@ Video
   Blocking: false
   Flush: false
   Shader: None
-  Multiplier: 2
+  Multiplier: 5
   Output: Scale
   AspectCorrection: true
   AdaptiveSizing: true
-  AutoCentering: false
+  AutoCentering: true
   Luminance: 1.0
   Saturation: 1.0
   Gamma: 1.0
-  ColorBleed: false
+  ColorBleed: true
   ColorEmulation: true
   InterframeBlending: true
   Overscan: false
@@ -35,7 +35,7 @@ Audio
   Volume: 1.0
   Balance: 0.0
 Input
-  Driver: udev
+  Driver: SDL
   Defocus: Pause
 Boot
   Fast: false
@@ -59,8 +59,8 @@ Paths
     BSMemory
     SufamiTurbo
 Recent
-  Game-1
-  Game-2
+  Game-1: Super Famicom;/run/media/Latte/Emulation/roms/snes/Super Metroid.sfc
+  Game-2: Super Famicom;/run/media/Latte/Emulation/roms/snes/EarthBound (USA).sfc
   Game-3
   Game-4
   Game-5
@@ -69,30 +69,30 @@ Recent
   Game-8
   Game-9
 VirtualPad1
-  Pad.Up: ;;
-  Pad.Down: ;;
-  Pad.Left: ;;
-  Pad.Right: ;;
-  Select: ;;
-  Start: ;;
-  A..South: ;;
-  B..East: ;;
-  X..West: ;;
-  Y..North: ;;
-  L-Bumper: ;;
-  R-Bumper: ;;
-  L-Trigger: ;;
-  R-Trigger: ;;
-  L-Stick..Click: ;;
-  R-Stick..Click: ;;
-  L-Up: ;;
-  L-Down: ;;
-  L-Left: ;;
-  L-Right: ;;
-  R-Up: ;;
-  R-Down: ;;
-  R-Left: ;;
-  R-Right: ;;
+  Pad.Up: 0x3/1/1/Lo;;
+  Pad.Down: 0x3/1/1/Hi;;
+  Pad.Left: 0x3/1/0/Lo;;
+  Pad.Right: 0x3/1/0/Hi;;
+  Select: 0x3/3/6;;
+  Start: 0x3/3/7;;
+  A..South: 0x3/3/0;;
+  B..East: 0x3/3/1;;
+  X..West: 0x3/3/2;;
+  Y..North: 0x3/3/3;;
+  L-Bumper: 0x3/3/4;;
+  R-Bumper: 0x3/3/5;;
+  L-Trigger: 0x3/0/2/Hi;;
+  R-Trigger: 0x3/0/5/Hi;;
+  L-Stick..Click: 0x3/3/9;;
+  R-Stick..Click: 0x3/3/10;;
+  L-Up: 0x3/0/1/Lo;;
+  L-Down: 0x3/0/1/Hi;;
+  L-Left: 0x3/0/0/Lo;;
+  L-Right: 0x3/0/0/Hi;;
+  R-Up: 0x3/0/4/Lo;;
+  R-Down: 0x3/0/4/Hi;;
+  R-Left: 0x3/0/3/Lo;;
+  R-Right: 0x3/0/3/Hi;;
   Rumble: ;;
 VirtualMouse1
   X: ;;
@@ -234,21 +234,21 @@ VirtualMouse5
   Right: ;;
   Extra: ;;
 Hotkey
-  ToggleFullscreen: ;;
-  ToggleMouseCapture: ;;
-  ToggleKeyboardCapture: ;;
-  FastForward: ;;
-  ToggleFastForward: ;;
-  Rewind: ;;
-  FrameAdvance: ;;
-  CaptureScreenshot: ;;
-  SaveState: ;;
-  LoadState: ;;
-  DecrementStateSlot: ;;
-  IncrementStateSlot: ;;
-  PauseEmulation: ;;
-  ReloadCurrentGame: ;;
-  QuitEmulator: ;;
+  ToggleFullscreen: 0x1/0/1;;
+  ToggleMouseCapture: 0x1/0/2;;
+  ToggleKeyboardCapture: 0x1/0/3;;
+  FastForward: 0x1/0/4;;
+  ToggleFastForward: 0x1/0/5;;
+  Rewind: 0x1/0/6;;
+  FrameAdvance: 0x1/0/7;;
+  CaptureScreenshot: 0x1/0/8;;
+  SaveState: 0x1/0/9;;
+  LoadState: 0x1/0/10;;
+  DecrementStateSlot: 0x1/0/11;;
+  IncrementStateSlot: 0x1/0/12;;
+  PauseEmulation: 0x1/0/31;;
+  ReloadCurrentGame: 0x1/0/32;;
+  QuitEmulator: 0x1/0/29;;
 Atari2600
   Path
 WonderSwan
@@ -289,7 +289,7 @@ FamicomDiskSystem
   Firmware
     BIOS.Japan
 SuperFamicom
-  Path
+  Path: /run/media/Latte/Emulation/roms/snes/
 Nintendo64
   Path
 Nintendo64DD
