@@ -44,6 +44,7 @@ cloud_sync_config(){
 }
 
 cloud_sync_setup_providers(){
+  
     if [ $cloud_sync_provider == "Emudeck-NextCloud" ]; then
     
       local url
