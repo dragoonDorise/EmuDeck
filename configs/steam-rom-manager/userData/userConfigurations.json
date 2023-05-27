@@ -7606,7 +7606,7 @@
     },
     {
         "parserType": "Glob",
-        "configTitle": "Sega 32x - Ares",
+        "configTitle": "Sega 32X - Ares",
         "steamDirectory": "${steamdirglobal}",
         "steamCategory": "${Genesis/Mega Drive - Ares}",
         "romDirectory": "${romsdirglobal}",
