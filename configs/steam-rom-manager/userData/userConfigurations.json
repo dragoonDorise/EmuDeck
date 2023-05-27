@@ -7035,7 +7035,7 @@
         "configTitle": "NEC PC Engine SuperGrafx - Ares",
         "steamDirectory": "${steamdirglobal}",
         "steamCategory": "${NEC PC Engine SuperGrafx - Ares}",
-        "romDirectory": "${romsdirglobal}/supergrafx",
+        "romDirectory": "${romsdirglobal}",
         "executableArgs": "run dev.ares.ares --fullscreen --system \"SuperGrafx\" \"${filePath}\"",
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
@@ -7054,7 +7054,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|.7Z|.ccd|.CCD|.chd|.CHD|.cue|.CUE|.pce|.PCE|.sgx|.SGX|.zip|.ZIP)"
+            "glob": "@(pcengine|tg16)/**/${title}@(.7z|.7Z|.ccd|.CCD|.chd|.CHD|.cue|.CUE|.pce|.PCE|.sgx|.SGX|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
