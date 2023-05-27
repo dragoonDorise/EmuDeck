@@ -6622,7 +6622,7 @@
     },
     {
         "parserType": "Glob",
-        "configTitle": "ColecoVision - Ares",
+        "configTitle": "Coleco ColecoVision - Ares",
         "steamDirectory": "${steamdirglobal}",
         "steamCategory": "${ColecoVision - Ares}",
         "romDirectory": "${romsdirglobal}/colecovision",
@@ -6704,7 +6704,7 @@
     },
     {
         "parserType": "Glob",
-        "configTitle": "MSX 1 - Ares",
+        "configTitle": "Microsoft MSX 1 - Ares",
         "steamDirectory": "${steamdirglobal}",
         "steamCategory": "${MSX 1 - Ares}",
         "romDirectory": "${romsdirglobal}",
@@ -6786,7 +6786,7 @@
     },
     {
         "parserType": "Glob",
-        "configTitle": "MSX 2 - Ares",
+        "configTitle": "Microsoft MSX 2 - Ares",
         "steamDirectory": "${steamdirglobal}",
         "steamCategory": "${MSX 2 - Ares}",
         "romDirectory": "${romsdirglobal}/msx2",
