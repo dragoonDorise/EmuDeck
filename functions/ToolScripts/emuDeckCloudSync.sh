@@ -196,6 +196,7 @@ cloud_sync_install_and_config(){
     browser=$(xdg-settings get default-web-browser)
     
     if [ $browser != 'com.google.Chrome.desktop' ];then
+      flatpak install flathub com.google.Chrome -y
       xdg-settings set default-web-browser com.google.Chrome.desktop
     fi
     
