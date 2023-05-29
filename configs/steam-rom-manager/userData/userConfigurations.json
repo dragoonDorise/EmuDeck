@@ -5654,7 +5654,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "@(msx|msx1)/**/${title}@(.7z|7Z|.bin|.BIN|.cas|.CAS|.col|.COL|.cv|.CV|.dsk|.DSK|.m3u|.M3U|.mx1|.MX1|.mx2|.MX2|.ri|.RI|.rom|.ROM|.sc|.SC|.sg|.SG|.zip|.ZIP)"
+            "glob": "**/${title}@(.7z|7Z|.bin|.BIN|.cas|.CAS|.col|.COL|.cv|.CV|.dsk|.DSK|.m3u|.M3U|.mx1|.MX1|.mx2|.MX2|.ri|.RI|.rom|.ROM|.sc|.SC|.sg|.SG|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -6453,7 +6453,7 @@
     {
         "parserType": "Glob",
         "configTitle": "Sega 32X - Ares",
-        "steamDirectory": "${steamdirglobal}",
+        "steamDirectory": "${steamdirglobal}/sega32x",
         "steamCategory": "${Genesis/Mega Drive - Ares}",
         "romDirectory": "${romsdirglobal}",
         "executableArgs": "run dev.ares.ares --fullscreen --system \"Mega 32X\" \"${filePath}\"",
@@ -6474,7 +6474,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "{genesis/**/!(homebrew),genesis,megadrive/**}/${title}@(.7z|.7Z|.bin|.BIN|.gen|.GEN|.md|.MD|.smd|.SMD|.zip|.ZIP|.cue|.CUE)"
+          "glob": "**/${title}@(.7z|.7Z|.32x|.32X|.bin|.BIN|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",

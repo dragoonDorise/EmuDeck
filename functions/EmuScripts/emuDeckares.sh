@@ -48,60 +48,14 @@ ares_update() {
 ares_setEmulationFolder(){
 	setMSG "Setting $ares_emuName Emulation Folder"
 
-    # ROM Paths
-	iniFieldUpdate "$ares_configFile" "Atari2600" "Path" "${romsPath}/atari2600"
-	iniFieldUpdate "$ares_configFile" "WonderSwan" "Path" "${romsPath}/wonderswan"
-	iniFieldUpdate "$ares_configFile" "WonderSwanColor" "Path" "${romsPath}/wonderswancolor"
-	iniFieldUpdate "$ares_configFile" "PocketChallengeV2" "Path" "${romsPath}/pocketchallengev2"
-	iniFieldUpdate "$ares_configFile" "MSX" "Path" "${romsPath}/msx"
-	iniFieldUpdate "$ares_configFile" "MSX2" "Path" "${romsPath}/msx2"
-	iniFieldUpdate "$ares_configFile" "PCEngine" "Path" "${romsPath}/pcengine"
-	iniFieldUpdate "$ares_configFile" "PCEngineCD" "Path" "${romsPath}/pcenginecd"
-	iniFieldUpdate "$ares_configFile" "SuperGrafx" "Path" "${romsPath}/pcengine"
-	iniFieldUpdate "$ares_configFile" "Famicom" "Path" "${romsPath}/nes"
-	iniFieldUpdate "$ares_configFile" "FamicomDiskSystem" "Path" "${romsPath}/fdc"
-	iniFieldUpdate "$ares_configFile" "Nintendo64" "Path" "${romsPath}/n64"
-	iniFieldUpdate "$ares_configFile" "Nintendo64DD" "Path" "${romsPath}/n64dd"
-	iniFieldUpdate "$ares_configFile" "GameBoy" "Path" "${romsPath}/gb"
-	iniFieldUpdate "$ares_configFile" "GameBoyColor" "Path" "${romsPath}/gbc"
-	iniFieldUpdate "$ares_configFile" "GameBoyAdvance" "Path" "${romsPath}/gba"
-	iniFieldUpdate "$ares_configFile" "SG-1000" "Path" "${romsPath}/sg-1000"
-	iniFieldUpdate "$ares_configFile" "MasterSystem" "Path" "${romsPath}/mastersystem"
-	iniFieldUpdate "$ares_configFile" "GameGear" "Path" "${romsPath}/gamegear"
-	iniFieldUpdate "$ares_configFile" "MegaDrive" "Path" "${romsPath}/genesis"
-	iniFieldUpdate "$ares_configFile" "Mega32X" "Path" "${romsPath}/genesis"
-	iniFieldUpdate "$ares_configFile" "MegaCD" "Path" "${romsPath}/segacd"
-	iniFieldUpdate "$ares_configFile" "MegaCD32X" "Path" "${romsPath}/segacd"
-	iniFieldUpdate "$ares_configFile" "NeoGeoAES" "Path" "${romsPath}/arcade"
-	iniFieldUpdate "$ares_configFile" "NeoGeoMVS" "Path" "${romsPath}/arcade"
-	iniFieldUpdate "$ares_configFile" "NeoGeoPocket" "Path" "${romsPath}/ngp"
-	iniFieldUpdate "$ares_configFile" "NeoGeoPocketColor" "Path" "${romsPath}/ngpc"
-	iniFieldUpdate "$ares_configFile" "PlayStation" "Path" "${romsPath}/psx"
-	iniFieldUpdate "$ares_configFile" "ZXSpectrum" "Path" "${romsPath}/zxspectrum"
-	iniFieldUpdate "$ares_configFile" "ZXSpectrum128" "Path" "${romsPath}/zxspectrum"
-	iniFieldUpdate "$ares_configFile" "SuperFamicom" "GameBoy" "${romsPath}/gb"
-	iniFieldUpdate "$ares_configFile" "SuperFamicom" "SufamiTurbo" "${romsPath}/sufami"
 
-	# BIOS Path
-	iniFieldUpdate "$ares_configFile" "ColecoVision" "Firmware" "${biosPath}/colecovision.rom"
-	iniFieldUpdate "$ares_configFile" "MSX" "Firmware" "${biosPath}/MSX.ROM"
-	iniFieldUpdate "$ares_configFile" "MSX2" "BIOS.Japan" "${biosPath}/MSX2.ROM"
-	iniFieldUpdate "$ares_configFile" "PCEngineCD" "BIOS.US" "${biosPath}/syscard3u.pce"
-	iniFieldUpdate "$ares_configFile" "PCEngineCD" "BIOS.JAPAN" "${biosPath}/syscard3.pce"
-	iniFieldUpdate "$ares_configFile" "SuperGrafxCD" "BIOS.Japan" "${biosPath}/syscard3.pce"
-	iniFieldUpdate "$ares_configFile" "FamicomDiskSystem" "BIOS.Japan" "${biosPath}/disksys.rom"
-	iniFieldUpdate "$ares_configFile" "Nintendo64DD" "BIOS.Japan" "${biosPath}/64DD_IPL_US.n64"
-	iniFieldUpdate "$ares_configFile" "Nintendo64DD" "BIOS.US" "${biosPath}/64DD_IPL_JP.n64"
-	iniFieldUpdate "$ares_configFile" "Nintendo64DD" "BIOS.DEV" "${biosPath}/64DD_IPL_DEV.n64"
-	iniFieldUpdate "$ares_configFile" "MasterSystem" "BIOS.US" "${biosPath}/bios_CD_U.bin"
-	iniFieldUpdate "$ares_configFile" "MasterSystem" "BIOS.Japan" "${biosPath}/bios_CD_J.bin"
-	iniFieldUpdate "$ares_configFile" "MasterSystem" "BIOS.Europe" "${biosPath}/bios_CD_E.bin"
-	iniFieldUpdate "$ares_configFile" "NeoGeoAES" "BIOS.World" "${biosPath}/neo-po.bin"
-	iniFieldUpdate "$ares_configFile" "NeoGeoPocket" "BIOS.World" "${biosPath}/[BIOS] SNK Neo Geo Pocket (Japan, Europe).ngp"
-	iniFieldUpdate "$ares_configFile" "NeoGeoPocketColor" "BIOS.World" "${biosPath}/[BIOS] SNK Neo Geo Pocket Color (World) (En,Ja).ngp"
-	iniFieldUpdate "$ares_configFile" "PlayStation" "BIOS.US" "${biosPath}/scph5501.bin"
-	iniFieldUpdate "$ares_configFile" "PlayStation" "BIOS.JAPAN" "${biosPath}/scph5500.bin"
-	iniFieldUpdate "$ares_configFile" "PlayStation" "BIOS.EUROPE" "${biosPath}/scph5502.bin"
+    # ROM Paths
+	UserROMsPath='/home/deck/Emulation/roms/'
+	sed -i "s|$UserROMsPath|${romsPath}\/|g" "$ares_configFile"
+
+	# BIOS Paths
+	UserBIOSPath='/home/deck/Emulation/bios/'
+	sed -i "s|$UserBIOSPath|${biosPath}\/|g" "$ares_configFile"
 
 }
 
@@ -112,8 +66,8 @@ ares_setupSaves(){
  	mkdir -p "${savesPath}/ares/"
     
 	# Set saves path
-	iniFieldUpdate "$ares_configFile" "Paths" "Saves" "${savesPath}"
-
+	UserSavesPath='/home/deck/Emulation/saves'
+	sed -i "s|$UserSavesPath|${savesPath}|g" "$ares_configFile"
 }
 
 
@@ -124,8 +78,9 @@ ares_setupStorage(){
 	mkdir -p "${storagePath}/ares/"
 	mkdir -p "${storagePath}/ares/screenshots"
 
-    # Set screenshots path
-	iniFieldUpdate "$ares_configFile" "Paths" "Screenshots" "${storagePath}/ares/screenshots"
+	# Set Storage path
+	UserStoragePath='/home/deck/Emulation/storage'
+	sed -i "s|$UserStoragePath|${storagePath}|g" "$ares_configFile"
 }
 
 
