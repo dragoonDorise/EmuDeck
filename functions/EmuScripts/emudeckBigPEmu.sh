@@ -2,8 +2,8 @@
 #variables
 BigPEmu_emuName="BigPEmu (proton)"
 BigPEmu_emuType="windows"
-BigPEmu_emuPath="${romsPath}/atarijaguar/BigPEmu.exe"
-BigPEmu_BigPEmuSettings="${romsPath}/atarijaguar/settings.xml"
+BigPEmu_emuPath="${romsPath}/Applications/BigPEmu/BigPEmu.exe"
+BigPEmu_BigPEmuSettings="${HOME}/.steam/steam/steamapps/compatdata/4158790633/pfx/drive_c/users/steamuser/AppData/Roaming/BigPEmu/BigPEmuConfig.bigpcfg"
 
 #cleanupOlderThings
 BigPEmu_cleanup(){
@@ -15,41 +15,25 @@ BigPEmu_install(){
 	setMSG "Installing $BigPEmu_emuName"
 
 	local showProgress="$1"
-	BigPEmu_releaseURL="$(getReleaseURLGH "BigPEmu-project/BigPEmu" "windows-x64.zip")"
-	#curl $BigPEmu_releaseURL --output "$romsPath"/atarijaguar/BigPEmu.zip
-	if safeDownload "BigPEmu" "$BigPEmu_releaseURL" "$romsPath/atarijaguar/BigPEmu.zip" "$showProgress"; then
-		mkdir -p "$romsPath/atarijaguar/tmp"
-		unzip -o "$romsPath/atarijaguar/BigPEmu.zip" -d "$romsPath/atarijaguar/tmp"
-		mv "$romsPath"/atarijaguar/tmp/[Cc]emu_*/ "$romsPath/atarijaguar/tmp/BigPEmu/" #don't quote the *
-		rsync -avzh "$romsPath/atarijaguar/tmp/BigPEmu/" "$romsPath/atarijaguar/"
-		rm -rf "$romsPath/atarijaguar/tmp"
-		rm -f "$romsPath/atarijaguar/BigPEmu.zip"
+    if wget -m -nd -A "BigPEmu_*.zip" -O "$HOME/Applications/BigPEmu.zip" "https://www.richwhitehouse.com/jaguar/index.php?content=download"; then
+		mkdir -p "$HOME/Applications/BigPEmu"
+		unzip -o "$HOME/Applications/BigPEmu.zip" -d "$HOME/Applications/BigPEmu"
+		rm -f "$HOME/Applications/BigPEmu.zip"
 	else
 		return 1
 	fi
 
-
-#	if  [ -e "${toolsPath}/launchers/BigPEmu.sh" ]; then #retain launch settings
-#		local launchLine=$( tail -n 1 "${toolsPath}/launchers/BigPEmu.sh" )
-#		echo "BigPEmu launch line found: $launchLine"
-#	fi
-	
-
-	cp "$EMUDECKGIT/tools/launchers/BigPEmu.sh" "${toolsPath}/launchers/BigPEmu.sh"
+	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "${toolsPath}/launchers/bigpemu.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/BigPEmu.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/BigPEmu.sh"
 
-#	if [[ "$launchLine"  == *"PROTONLAUNCH"* ]]; then
-#		changeLine '"${PROTONLAUNCH}"' "$launchLine" "${toolsPath}/launchers/BigPEmu.sh"
-#	fi
-	chmod +x "${toolsPath}/launchers/BigPEmu.sh"
-	
+	chmod +x "${toolsPath}/launchers/bigpemu.sh"
 
 	createDesktopShortcut   "$HOME/.local/share/applications/BigPEmu (Proton).desktop" \
 							"BigPEmu (Proton)" \
-							"${toolsPath}/launchers/BigPEmu.sh -w"  \
+							"${toolsPath}/launchers/bigpemu.sh -w"  \
 							"False"
-	}
+}
 
 #ApplyInitialSettings
 BigPEmu_init(){
@@ -114,9 +98,7 @@ BigPEmu_setupStorage(){
 
 #WipeSettings
 BigPEmu_wipeSettings(){
-	echo "NYI"
-	#rm -rf "${romPath}atarijaguar/"
-	# prob not cause roms are here
+	rm -rf $BigPEmu_BigPEmuSettings
 }
 
 
@@ -124,36 +106,12 @@ BigPEmu_wipeSettings(){
 BigPEmu_uninstall(){
 	setMSG "Uninstalling $BigPEmu_emuName."
 	rm -rf "${BigPEmu_emuPath}"
+    BigPEmu_wipeSettings
 }
 
 #setABXYstyle
 BigPEmu_setABXYstyle(){
 		echo "NYI"
-}
-
-#Migrate
-BigPEmu_migrate(){
-	   echo "NYI"
-}
-
-#WideScreenOn
-BigPEmu_wideScreenOn(){
-echo "NYI"
-}
-
-#WideScreenOff
-BigPEmu_wideScreenOff(){
-echo "NYI"
-}
-
-#BezelOn
-BigPEmu_bezelOn(){
-echo "NYI"
-}
-
-#BezelOff
-BigPEmu_bezelOff(){
-	echo "NYI"
 }
 
 #finalExec - Extra stuff
@@ -175,7 +133,8 @@ BigPEmu_resetConfig(){
 }
 
 BigPEmu_addSteamInputProfile(){
-	addSteamInputCustomIcons
-	setMSG "Adding $BigPEmu_emuName Steam Input Profile."
-	rsync -r "$EMUDECKGIT/configs/steam-input/BigPEmu_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+    echo "NYI"
+	# addSteamInputCustomIcons
+	# setMSG "Adding $BigPEmu_emuName Steam Input Profile."
+	# rsync -r "$EMUDECKGIT/configs/steam-input/BigPEmu_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
