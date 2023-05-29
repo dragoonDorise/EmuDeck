@@ -5881,7 +5881,7 @@
         "configTitle": "NEC PC Engine SuperGrafx - Ares",
         "steamDirectory": "${steamdirglobal}",
         "steamCategory": "${NEC PC Engine SuperGrafx - Ares}",
-        "romDirectory": "${romsdirglobal}",
+        "romDirectory": "${romsdirglobal}/supergrafx",
         "executableArgs": "run dev.ares.ares --fullscreen --system \"SuperGrafx\" \"${filePath}\"",
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
@@ -5900,7 +5900,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "@(pcengine|tg16)/**/${title}@(.7z|.7Z|.ccd|.CCD|.chd|.CHD|.cue|.CUE|.pce|.PCE|.sgx|.SGX|.zip|.ZIP)"
+            "glob": "**/${title}@(.7z|.7Z|.ccd|.CCD|.chd|.CHD|.cue|.CUE|.pce|.PCE|.sgx|.SGX|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -6209,7 +6209,7 @@
         "configTitle": "Nintendo Famicom Disk System - Ares",
         "steamDirectory": "${steamdirglobal}",
         "steamCategory": "${Nintendo Famicom Disk System - Ares}",
-        "romDirectory": "${romsdirglobal}",
+        "romDirectory": "${romsdirglobal}/fds",
         "executableArgs": "run dev.ares.ares --fullscreen --system \"Famicom Disk System\" \"${filePath}\"",
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
@@ -6228,7 +6228,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "{nes/**/!(homebrew),nes,famicom,fds/**}/${title}@(.7z|.7Z|.nes|.NES|.fds|.FDS|.unf|.UNF|.unif|.UNIF|.zip|.ZIP)"
+            "glob": "**/${title}@(.7z|.7Z|.nes|.NES|.fds|.FDS|.unf|.UNF|.unif|.UNIF|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -6282,7 +6282,7 @@
             "logo": "",
             "icon": ""
         },
-        "parserId": "168507930609669312",
+        "parserId": "168507930609669499",
         "version": 15,
         "disabled": true
     },
@@ -6453,9 +6453,9 @@
     {
         "parserType": "Glob",
         "configTitle": "Sega 32X - Ares",
-        "steamDirectory": "${steamdirglobal}/sega32x",
+        "steamDirectory": "${steamdirglobal}",
         "steamCategory": "${Genesis/Mega Drive - Ares}",
-        "romDirectory": "${romsdirglobal}",
+        "romDirectory": "${romsdirglobal}/sega32x",
         "executableArgs": "run dev.ares.ares --fullscreen --system \"Mega 32X\" \"${filePath}\"",
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
@@ -6692,7 +6692,7 @@
             "logo": "",
             "icon": ""
         },
-        "parserId": "168507930609669316",
+        "parserId": "168507930609669339",
         "version": 15,
         "disabled": true
     },
@@ -6774,7 +6774,7 @@
             "logo": "",
             "icon": ""
         },
-        "parserId": "168507930609669316",
+        "parserId": "168507930609669381",
         "version": 15,
         "disabled": true
     },

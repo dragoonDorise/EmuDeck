@@ -277,9 +277,9 @@ PCEngineCD
     BIOS.US: /home/deck/Emulation/bios/syscard3u.pce
     BIOS.Japan: /home/deck/Emulation/bios/syscard3.pce
 SuperGrafx
-  Path: /home/deck/Emulation/roms/pcengine
+  Path: /home/deck/Emulation/roms/supergrafx
 SuperGrafxCD
-  Path: /home/deck/Emulation/roms/pcenginecd
+  Path: /home/deck/Emulation/roms/supergrafx
   Firmware
     BIOS.Japan: /home/deck/Emulation/bios/syscard3.pce
 Famicom
