@@ -144,9 +144,9 @@
     "localImages": {
       "tall": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_portrait.@(png|jpg)",
       "long": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_banner.@(png|jpg)",
-      "hero": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_portrait.@(png|jpg)",
+      "hero": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_hero.@(png|jpg)",
       "logo": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_logo.@(png|jpg)",
-      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_icon.@(png|jpg)"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_ico.@(png|jpg)"
     }
   },
   {
