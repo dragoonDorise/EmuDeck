@@ -14,7 +14,7 @@ Video
   Luminance: 1.0
   Saturation: 1.0
   Gamma: 1.0
-  ColorBleed: true
+  ColorBleed: false
   ColorEmulation: true
   InterframeBlending: true
   Overscan: false
@@ -51,13 +51,13 @@ Rewind
   Frequency: 10
 Paths
   Home
-  Saves: /home/deck/Emulation/saves/ares
-  Screenshots: /home/deck/Emulation/storage/ares/screenshots
+  Saves: /home/deck/Emulation/saves/ares/
+  Screenshots: /home/deck/Emulation/storage/ares/screenshots/
   Debugging
   SuperFamicom
     GameBoy
     BSMemory
-    SufamiTurbo: /home/deck/Emulation/roms/sufami
+    SufamiTurbo
 Recent
   Game-1
   Game-2
@@ -250,109 +250,110 @@ Hotkey
   ReloadCurrentGame: 0x1/0/32;;
   QuitEmulator: 0x1/0/29;;
 Atari2600
-  Path: /home/deck/Emulation/roms/atari2600
+  Path: /home/deck/Emulation/roms/atari2600/
 WonderSwan
-  Path: /home/deck/Emulation/roms/wonderswan
+  Path: /home/deck/Emulation/roms/wonderswan/
 WonderSwanColor
-  Path: /home/deck/Emulation/roms/wonderswancolor
+  Path: /home/deck/Emulation/roms/wonderswancolor/
 PocketChallengeV2
-  Path: /home/deck/Emulation/roms/pocketchallengev2
+  Path: /home/deck/Emulation/roms/pocketchallengev2/
 ColecoVision
-  Path: /home/deck/Emulation/roms/colecovision
+  Path: /home/deck/Emulation/roms/colecovision/
   Firmware
     BIOS.World: /home/deck/Emulation/bios/colecovision.rom
 MSX
-  Path: /home/deck/Emulation/roms/msx
+  Path: /home/deck/Emulation/roms/msx/
   Firmware
     BIOS.Japan: /home/deck/Emulation/bios/MSX.ROM
 MSX2
-  Path: /home/deck/Emulation/roms/msx2
+  Path: /home/deck/Emulation/roms/msx2/
   Firmware
     BIOS.Japan: /home/deck/Emulation/bios/MSX2.ROM
 PCEngine
-  Path: /home/deck/Emulation/roms/pcengine
+  Path: /home/deck/Emulation/roms/pcengine/
 PCEngineCD
-  Path: /home/deck/Emulation/roms/pcenginecd
+  Path: /home/deck/Emulation/roms/pcenginecd/
   Firmware
     BIOS.US: /home/deck/Emulation/bios/syscard3u.pce
     BIOS.Japan: /home/deck/Emulation/bios/syscard3.pce
 SuperGrafx
-  Path: /home/deck/Emulation/roms/supergrafx
+  Path: /home/deck/Emulation/roms/supergrafx/
 SuperGrafxCD
-  Path: /home/deck/Emulation/roms/supergrafx
+  Path: /home/deck/Emulation/roms/supergrafx/
   Firmware
     BIOS.Japan: /home/deck/Emulation/bios/syscard3.pce
 Famicom
-  Path: /home/deck/Emulation/roms/nes
+  Path: /home/deck/Emulation/roms/nes/
 FamicomDiskSystem
-  Path: /home/deck/Emulation/roms/fds
+  Path: /home/deck/Emulation/roms/fds/
   Firmware
     BIOS.Japan: /home/deck/Emulation/bios/disksys.rom
 SuperFamicom
   Path: /home/deck/Emulation/roms/snes/
 Nintendo64
-  Path: /home/deck/Emulation/roms/n64
+  Path: /home/deck/Emulation/roms/n64/
 Nintendo64DD
-  Path: /home/deck/Emulation/roms/n64dd
+  Path: /home/deck/Emulation/roms/n64dd/
   Firmware
     BIOS.Japan: /home/deck/Emulation/bios/64DD_IPL_JP.n64
     BIOS.US: /home/deck/Emulation/bios/64DD_IPL_US.n64
     BIOS.DEV: /home/deck/Emulation/bios/64DD_IPL_DEV.n64
 GameBoy
-  Path: /home/deck/Emulation/roms/gb
+  Path: /home/deck/Emulation/roms/gb/
 GameBoyColor
-  Path: /home/deck/Emulation/roms/gbc
+  Path: /home/deck/Emulation/roms/gbc/
 GameBoyAdvance
-  Path: /home/deck/Emulation/roms/gba
+  Path: /home/deck/Emulation/roms/gba/
   Firmware
     BIOS.World: /home/deck/Emulation/bios/gba_bios.bin
 SG-1000
-  Path: /home/deck/Emulation/roms/sg-1000
+  Path: /home/deck/Emulation/roms/sg-1000/
 MasterSystem
-  Path: /home/deck/Emulation/roms/mastersystem
+  Path: /home/deck/Emulation/roms/mastersystem/
   Firmware
     BIOS.US: /home/deck/Emulation/bios/bios_U.sms
     BIOS.Japan: /home/deck/Emulation/bios/bios_J.sms
     BIOS.Europe: /home/deck/Emulation/bios/bios_E.sms
 GameGear
-  Path: /home/deck/Emulation/roms/gamegear
+  Path: /home/deck/Emulation/roms/gamegear/
   Firmware
     BIOS.World: /home/deck/Emulation/bios/bios.gg
 MegaDrive
-  Path: /home/deck/Emulation/roms/genesis
+  Path: /home/deck/Emulation/roms/genesis/
 Mega32X
-  Path: /home/deck/Emulation/roms/sega32x
+  Path: /home/deck/Emulation/roms/sega32x/
 MegaCD
-  Path: /home/deck/Emulation/roms/segacd
+  Path: /home/deck/Emulation/roms/segacd/
   Firmware
     BIOS.US: /home/deck/Emulation/bios/bios_CD_U.bin
     BIOS.Japan: /home/deck/Emulation/bios/bios_CD_J.bin
     BIOS.Europe: /home/deck/Emulation/bios/bios_CD_E.bin
 MegaCD32X
-  Path: /home/deck/Emulation/roms/segacd
+  Path: /home/deck/Emulation/roms/segacd/
 NeoGeoAES
-  Path: /home/deck/Emulation/roms/arcade
+  Path: /home/deck/Emulation/roms/arcade/
   Firmware
     BIOS.World: /home/deck/Emulation/bios/neo-po.bin
 NeoGeoMVS
-  Path: /home/deck/Emulation/roms/arcade
+  Path: /home/deck/Emulation/roms/arcade/
   Firmware
     BIOS.World
 NeoGeoPocket
-  Path: /home/deck/Emulation/roms/ngp
+  Path: /home/deck/Emulation/roms/ngp/
   Firmware
     BIOS.World: /home/deck/Emulation/bios/[BIOS] SNK Neo Geo Pocket (Japan, Europe).ngp
 NeoGeoPocketColor
-  Path: /home/deck/Emulation/roms/ngpc
+  Path: /home/deck/Emulation/roms/ngpc/
   Firmware
     BIOS.World: /home/deck/Emulation/bios/[BIOS] SNK Neo Geo Pocket Color (World) (En,Ja).ngp
 PlayStation
-  Path: /home/deck/Emulation/roms/psx
+  Path: /home/deck/Emulation/roms/psx/
   Firmware
     BIOS.US: /home/deck/Emulation/bios/scph5501.bin
     BIOS.Japan: /home/deck/Emulation/bios/scph5500.bin
     BIOS.Europe: /home/deck/Emulation/bios/scph5502.bin
 ZXSpectrum
-  Path: /home/deck/Emulation/roms/zxspectrum
+  Path: /home/deck/Emulation/roms/zxspectrum/
 ZXSpectrum128
-  Path: /home/deck/Emulation/roms/zxspectrum
+  Path: /home/deck/Emulation/roms/zxspectrum/
+  
