@@ -5080,7 +5080,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|.7Z|.a26|.A26|.bin|.BIN|.zip|.ZIP)"
+            "glob": "**/${title}@(.a26|.A26|.bin|.BIN|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -5162,7 +5162,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|.7Z|.bs|.BS|.fig|.FIG|.sfc|.SFC|.smc|.st|.ST|.zip|.ZIP)"
+            "glob": "**/${title}@(.bs|.BS|.fig|.FIG|.sfc|.SFC|.smc|.st|.ST|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -5244,7 +5244,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|.7Z|.pc2|.PC2|.ws|.WS|.wsc|.WSC|.zip|.ZIP)"
+            "glob": "**/${title}@(.pc2|.PC2|.ws|.WS|.wsc|.WSC|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -5326,7 +5326,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|.7Z|.pc2|.PC2|.ws|.WS|.wsc|.WSC|.zip|.ZIP)"
+            "glob": "**/${title}@(.pc2|.PC2|.ws|.WS|.wsc|.WSC|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -5408,7 +5408,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|.7Z|.pc2|.PC2|.ws|.WS|.wsc|.WSC|.zip|.ZIP)"
+            "glob": "**/${title}@(.pc2|.PC2|.ws|.WS|.wsc|.WSC|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -5490,7 +5490,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|7Z|.bin|.BIN|.cas|.CAS|.col|.COL|.cv|.CV|.dsk|.DSK|.m3u|.M3U|.mx1|.MX1|.mx2|.MX2|.ri|.RI|.rom|.ROM|.sc|.SC|.sg|.SG|.zip|.ZIP)"
+            "glob": "**/${title}@(.bin|.BIN|.cas|.CAS|.col|.COL|.cv|.CV|.dsk|.DSK|.m3u|.M3U|.mx1|.MX1|.mx2|.MX2|.ri|.RI|.rom|.ROM|.sc|.SC|.sg|.SG|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -5572,7 +5572,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "@(msx|msx1)/**/${title}@(.7z|7Z|.bin|.BIN|.cas|.CAS|.col|.COL|.cv|.CV|.dsk|.DSK|.m3u|.M3U|.mx1|.MX1|.mx2|.MX2|.ri|.RI|.rom|.ROM|.sc|.SC|.sg|.SG|.zip|.ZIP)"
+            "glob": "@(msx|msx1)/**/${title}@(.bin|.BIN|.cas|.CAS|.col|.COL|.cv|.CV|.dsk|.DSK|.m3u|.M3U|.mx1|.MX1|.mx2|.MX2|.ri|.RI|.rom|.ROM|.sc|.SC|.sg|.SG|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -5654,7 +5654,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|7Z|.bin|.BIN|.cas|.CAS|.col|.COL|.cv|.CV|.dsk|.DSK|.m3u|.M3U|.mx1|.MX1|.mx2|.MX2|.ri|.RI|.rom|.ROM|.sc|.SC|.sg|.SG|.zip|.ZIP)"
+            "glob": "**/${title}@(.bin|.BIN|.cas|.CAS|.col|.COL|.cv|.CV|.dsk|.DSK|.m3u|.M3U|.mx1|.MX1|.mx2|.MX2|.ri|.RI|.rom|.ROM|.sc|.SC|.sg|.SG|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -5736,7 +5736,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "@(pcengine|tg16)/**/${title}@(.7z|.7Z|.bin|.BIN|.pce|.PCE|.zip|.ZIP)"
+            "glob": "@(pcengine|tg16)/**/${title}@(.bin|.BIN|.pce|.PCE|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -5818,7 +5818,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "@(pcenginecd|tg-cd)/**/${title}@(.7z|.7Z|.ccd|.CCD|.chd|.CHD|.cue|.CUE|.iso|.ISO|.zip|.ZIP)"
+            "glob": "@(pcenginecd|tg-cd)/**/${title}@(.ccd|.CCD|.chd|.CHD|.cue|.CUE|.iso|.ISO)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -5900,7 +5900,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|.7Z|.ccd|.CCD|.chd|.CHD|.cue|.CUE|.pce|.PCE|.sgx|.SGX|.zip|.ZIP)"
+            "glob": "**/${title}@(.ccd|.CCD|.chd|.CHD|.cue|.CUE|.pce|.PCE|.sgx|.SGX|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -5982,7 +5982,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|.7Z|.bin|.BIN|.n64|.N64|.ndd|.NDD|.u1|.U1|.v64|.V64|.z64|.Z64|.zip|.ZIP)"
+            "glob": "**/${title}@(.bin|.BIN|.n64|.N64|.ndd|.NDD|.u1|.U1|.v64|.V64|.z64|.Z64|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -6064,7 +6064,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|.7Z|.bin|.BIN|.n64|.N64|.ndd|.NDD|.u1|.U1|.v64|.V64|.z64|.Z64|.zip|.ZIP)"
+            "glob": "**/${title}@(.bin|.BIN|.n64|.N64|.ndd|.NDD|.u1|.U1|.v64|.V64|.z64|.Z64|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -6146,7 +6146,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "{nes/**/!(homebrew),nes,famicom/**}/${title}@(.7z|.7Z|.nes|.NES|.fds|.FDS|.unf|.UNF|.unif|.UNIF|.zip|.ZIP)"
+            "glob": "{nes/**/!(homebrew),nes,famicom/**}/${title}@(.nes|.NES|.fds|.FDS|.unf|.UNF|.unif|.UNIF|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -6228,7 +6228,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|.7Z|.nes|.NES|.fds|.FDS|.unf|.UNF|.unif|.UNIF|.zip|.ZIP)"
+            "glob": "**/${title}@(.nes|.NES|.fds|.FDS|.unf|.UNF|.unif|.UNIF|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -6310,7 +6310,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|.7Z|.bs|.BS|.fig|.FIG|.sfc|.SFC|.smc|.SMC|.swc|.SWC|.zip|.ZIP)"
+            "glob": "**/${title}@(.bs|.BS|.fig|.FIG|.sfc|.SFC|.smc|.SMC|.swc|.SWC|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -6392,7 +6392,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "{snes/**/!(homebrew),sfc,snes,snesna/**}/${title}@(.7z|.7Z|.bs|.BS|.fig|.FIG|.sfc|.SFC|.smc|.SMC|.swc|.SWC|.zip|.ZIP)"
+            "glob": "{snes/**/!(homebrew),sfc,snes,snesna/**}/${title}@(.bs|.BS|.fig|.FIG|.sfc|.SFC|.smc|.SMC|.swc|.SWC|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -6474,7 +6474,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-          "glob": "**/${title}@(.7z|.7Z|.32x|.32X|.bin|.BIN|.zip|.ZIP)"
+          "glob": "**/${title}@(.32x|.32X|.bin|.BIN|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -6556,7 +6556,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "@(segacd|megacd)/**/${title}@(.m3u|.M3U|.7z|.7Z|.iso|.ISO|.cue|.CUE|.chd|.CHD|.zip|.ZIP)"
+            "glob": "@(segacd|megacd)/**/${title}@(.m3u|.M3U|.iso|.ISO|.cue|.CUE|.chd|.CHD)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -6638,7 +6638,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-          "glob": "{gamegear/**/!(homebrew),gamegear}/${title}@(.7z|.7Z|.gg|.GG|.zip|.ZIP)"
+          "glob": "{gamegear/**/!(homebrew),gamegear}/${title}@(.gg|.GG|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -6720,7 +6720,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "@(segacd|megacd)/**/${title}@(.m3u|.M3U|.7z|.7Z|.iso|.ISO|.cue|.CUE|.chd|.CHD|.zip|.ZIP)"
+            "glob": "@(segacd|megacd)/**/${title}@(.m3u|.M3U|.iso|.ISO|.cue|.CUE|.chd|.CHD|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -6802,7 +6802,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "{genesis/**/!(homebrew),genesis,megadrive/**}/${title}@(.7z|.7Z|.bin|.BIN|.gen|.GEN|.md|.MD|.smd|.SMD|.zip|.ZIP|.cue|.CUE)"
+            "glob": "{genesis/**/!(homebrew),genesis,megadrive/**}/${title}@(.bin|.BIN|.gen|.GEN|.md|.MD|.smd|.SMD|.zip|.ZIP|.cue|.CUE)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -6884,7 +6884,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "{mastersystem/**/!(homebrew),mastersystem}/${title}@(.7z|.7Z|.sms|.SMS|.zip|.ZIP)"
+            "glob": "{mastersystem/**/!(homebrew),mastersystem}/${title}@(.sms|.SMS|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -6966,7 +6966,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|7Z|.bin|.BIN|.gg|.GG|.rom|.ROM|.sg|.SG|.sms|.SMS|.zip|.ZIP)"
+            "glob": "**/${title}@(.bin|.BIN|.gg|.GG|.rom|.ROM|.sg|.SG|.sms|.SMS|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -7048,7 +7048,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|.7Z|.ngc|.NGC|.ngp|.NGP|.zip|.ZIP)"
+            "glob": "**/${title}@(.ngc|.NGC|.ngp|.NGP|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -7130,7 +7130,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|.7Z|.ngc|.NGC|.ngp|.NGP|.zip|.ZIP)"
+            "glob": "**/${title}@(.ngc|.NGC|.ngp|.NGP|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
@@ -7212,7 +7212,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.7z|.tzx|.tap|.z80|.rzx|.scl|.trd|.TZX|.TAP|.Z80|.RZX|.SCL|.TRD|.zip|.ZIP)"
+            "glob": "**/${title}@(.tzx|.tap|.z80|.rzx|.scl|.trd|.TZX|.TAP|.Z80|.RZX|.SCL|.TRD|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
