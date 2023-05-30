@@ -63,10 +63,12 @@ installProton () {
         [5.13]="1420170"
         [6.3]="1580130"
         [7.0]="1887720"
-        [- Experimental]="1493710"
+        [8.0]="2348590"
+        [Experimental]="1493710"
         [Hotfix]="2180100"
         [EasyAntiCheat Runtime]="1826330"
         [BattlEye Runtime]="1161040"
+        [Next]="2230260"
     )
 
     # If Proton Version is known, attempt to prompt the user to install it
