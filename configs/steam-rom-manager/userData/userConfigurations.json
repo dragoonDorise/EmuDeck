@@ -6474,7 +6474,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "{snes/**/!(homebrew),sfc,snes,snesna/**}/${title}@(.bs|.BS|.fig|.FIG|.sfc|.SFC|.smc|.SMC|.swc|.SWC|.zip|.ZIP)"
+            "glob": "{snes/**/!(homebrew),sfc,snes,snesna/**}/${title}@(.bin|.BIN|.bs|.BS|.fig|.FIG|.sfc|.SFC|.smc|.SMC|.swc|.SWC|.zip|.ZIP)"
         },
         "titleFromVariable": {
             "limitToGroups": "",

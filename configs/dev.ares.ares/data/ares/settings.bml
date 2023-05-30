@@ -55,9 +55,9 @@ Paths
   Screenshots: /home/deck/Emulation/storage/ares/screenshots/
   Debugging
   SuperFamicom
-    GameBoy
-    BSMemory
-    SufamiTurbo
+    GameBoy: /home/deck/Emulation/roms/gb/
+    BSMemory: /home/deck/Emulation/roms/satellaview/
+    SufamiTurbo: /home/deck/Emulation/roms/sufami/
 Recent
   Game-1
   Game-2
