@@ -6042,6 +6042,252 @@
     },
     {
         "parserType": "Glob",
+        "configTitle": "Nintendo GameBoy - Ares",
+        "steamDirectory": "${steamdirglobal}",
+        "steamCategory": "${Nintendo GameBoy - Ares}",
+        "romDirectory": "${romsdirglobal}",
+        "executableArgs": "run dev.ares.ares --fullscreen --system \"Game Boy\" \"${filePath}\"",
+        "executableModifier": "\"${exePath}\"",
+        "startInDirectory": "",
+        "titleModifier": "${fuzzyTitle}",
+        "imageProviders": [
+            "SteamGridDB"
+        ],
+        "onlineImageQueries": "${${fuzzyTitle}}",
+        "imagePool": "${fuzzyTitle}",
+        "userAccounts": {
+            "specifiedAccounts": ""
+        },
+        "executable": {
+            "path": "/usr/bin/flatpak",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": false
+        },
+        "parserInputs": {
+          "glob": "{gb/**/!(homebrew),gb}/${title}@(.gb|.GB|.dmg|.DMG|.zip|.ZIP)"
+        },
+        "titleFromVariable": {
+            "limitToGroups": "",
+            "caseInsensitiveVariables": false,
+            "skipFileIfVariableWasNotFound": false,
+            "tryToMatchTitle": false
+        },
+        "fuzzyMatch": {
+            "replaceDiacritics": true,
+            "removeCharacters": true,
+            "removeBrackets": true
+        },
+        "controllers": {
+            "ps4": null,
+            "ps5": null,
+            "xbox360": null,
+            "xboxone": null,
+            "switch_joycon_left": null,
+            "switch_joycon_right": null,
+            "switch_pro": null,
+            "neptune": {
+                "title": "EmuDeck - ares",
+                "mappingId": "ares_controller_config.vdf",
+                "profileType": "template"
+            }
+        },
+        "imageProviderAPIs": {
+            "SteamGridDB": {
+                "nsfw": false,
+                "humor": false,
+                "styles": [],
+                "stylesHero": [],
+                "stylesLogo": [],
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ]
+            }
+        },
+        "defaultImage": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+        },
+        "localImages": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "parserId": "168507930609669370",
+        "version": 15,
+        "disabled": true
+    },
+    {
+        "parserType": "Glob",
+        "configTitle": "Nintendo GameBoy Color - Ares",
+        "steamDirectory": "${steamdirglobal}",
+        "steamCategory": "${Nintendo GameBoy Color - Ares}",
+        "romDirectory": "${romsdirglobal}",
+        "executableArgs": "run dev.ares.ares --fullscreen --system \"Game Boy Color\" \"${filePath}\"",
+        "executableModifier": "\"${exePath}\"",
+        "startInDirectory": "",
+        "titleModifier": "${fuzzyTitle}",
+        "imageProviders": [
+            "SteamGridDB"
+        ],
+        "onlineImageQueries": "${${fuzzyTitle}}",
+        "imagePool": "${fuzzyTitle}",
+        "userAccounts": {
+            "specifiedAccounts": ""
+        },
+        "executable": {
+            "path": "/usr/bin/flatpak",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": false
+        },
+        "parserInputs": {
+          "glob": "{gbc/**/!(homebrew),gbc}/${title}@(.gb|.GB|.gbc|.GBC|.zip|.ZIP)"
+        },
+        "titleFromVariable": {
+            "limitToGroups": "",
+            "caseInsensitiveVariables": false,
+            "skipFileIfVariableWasNotFound": false,
+            "tryToMatchTitle": false
+        },
+        "fuzzyMatch": {
+            "replaceDiacritics": true,
+            "removeCharacters": true,
+            "removeBrackets": true
+        },
+        "controllers": {
+            "ps4": null,
+            "ps5": null,
+            "xbox360": null,
+            "xboxone": null,
+            "switch_joycon_left": null,
+            "switch_joycon_right": null,
+            "switch_pro": null,
+            "neptune": {
+                "title": "EmuDeck - ares",
+                "mappingId": "ares_controller_config.vdf",
+                "profileType": "template"
+            }
+        },
+        "imageProviderAPIs": {
+            "SteamGridDB": {
+                "nsfw": false,
+                "humor": false,
+                "styles": [],
+                "stylesHero": [],
+                "stylesLogo": [],
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ]
+            }
+        },
+        "defaultImage": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+        },
+        "localImages": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "parserId": "168507930609669371",
+        "version": 15,
+        "disabled": true
+    },
+    {
+        "parserType": "Glob",
+        "configTitle": "Nintendo GameBoy Advance - Ares",
+        "steamDirectory": "${steamdirglobal}",
+        "steamCategory": "${Nintendo GameBoy Advance - Ares}",
+        "romDirectory": "${romsdirglobal}",
+        "executableArgs": "run dev.ares.ares --fullscreen --system \"Game Boy Advance\" \"${filePath}\"",
+        "executableModifier": "\"${exePath}\"",
+        "startInDirectory": "",
+        "titleModifier": "${fuzzyTitle}",
+        "imageProviders": [
+            "SteamGridDB"
+        ],
+        "onlineImageQueries": "${${fuzzyTitle}}",
+        "imagePool": "${fuzzyTitle}",
+        "userAccounts": {
+            "specifiedAccounts": ""
+        },
+        "executable": {
+            "path": "/usr/bin/flatpak",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": false
+        },
+        "parserInputs": {
+          "glob": "{gba/**/!(homebrew),gba}/${title}@(.gba|.GBA|.zip|.ZIP)"
+        },
+        "titleFromVariable": {
+            "limitToGroups": "",
+            "caseInsensitiveVariables": false,
+            "skipFileIfVariableWasNotFound": false,
+            "tryToMatchTitle": false
+        },
+        "fuzzyMatch": {
+            "replaceDiacritics": true,
+            "removeCharacters": true,
+            "removeBrackets": true
+        },
+        "controllers": {
+            "ps4": null,
+            "ps5": null,
+            "xbox360": null,
+            "xboxone": null,
+            "switch_joycon_left": null,
+            "switch_joycon_right": null,
+            "switch_pro": null,
+            "neptune": {
+                "title": "EmuDeck - ares",
+                "mappingId": "ares_controller_config.vdf",
+                "profileType": "template"
+            }
+        },
+        "imageProviderAPIs": {
+            "SteamGridDB": {
+                "nsfw": false,
+                "humor": false,
+                "styles": [],
+                "stylesHero": [],
+                "stylesLogo": [],
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ]
+            }
+        },
+        "defaultImage": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+        },
+        "localImages": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "parserId": "168507930609669372",
+        "version": 15,
+        "disabled": true
+    },
+    {
+        "parserType": "Glob",
         "configTitle": "Nintendo Entertainment System - Ares",
         "steamDirectory": "${steamdirglobal}",
         "steamCategory": "${Nintendo Entertainment System - Ares}",
