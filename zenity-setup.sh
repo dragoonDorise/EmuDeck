@@ -324,6 +324,7 @@ if [ "$expert" == "true" ]; then
 		emuTable+=(TRUE "XBox" "Xemu")
 		emuTable+=(TRUE "N64" "RMG")
 		emuTable+=(FALSE "GameBoy / Color / Advance" "mGBA")
+		emuTable+=(FALSE "Jaguar" "BigPEmu")		
 		
 		#if we are in beta / dev install, allow Xenia. Still false by default though. Will only work on expert mode, and explicitly turned on.
 		if [[ $branch == "beta" || $branch == "dev" ]]; then
@@ -432,6 +433,11 @@ if [ "$expert" == "true" ]; then
 			else
 				setSetting doInstallRMG false
 			fi		
+			if [[ "$emusToInstall" == *"BigPEmu"* ]]; then
+				setSetting doInstallBigPEmu true
+			else
+				setSetting doInstallBigPEmufalse
+			fi		
 		
 		else
 			exit
@@ -521,6 +527,7 @@ if [ "$expert" == "true" ]; then
 			emuTable+=(TRUE "Steam Rom Manager")
 			emuTable+=(TRUE "EmulationStation DE")
 			emuTable+=(TRUE "RMG")
+			emuTable+=(TRUE "BigPEmu")			
 
 
 			text="$(printf "<b>EmuDeck will reset the following Emulator's configurations by default.</b>\nWhich systems do you want <b>reset</b> to the newest version of the defaults?\nWe recommend you keep all of them checked so everything gets updated and known issues are fixed.\nIf you want to mantain any custom configuration on an emulator unselect its name from this list.")"
@@ -621,6 +628,11 @@ if [ "$expert" == "true" ]; then
 				#else
 				#	setSetting doSetupRA false
 				#fi
+				if [[ "$emusToReset" == *"BigPEmu"* ]]; then
+					setSetting doSetupBigPEmu true
+				else
+					setSetting doSetupBigPEmu false
+				fi
 				if [[ "$emusToReset" == *"Steam Rom Manager"* ]]; then
 					setSetting doSetupSRM true
 				else
@@ -659,6 +671,7 @@ else
 	setSetting doInstallXenia false
 	setSetting doInstallMGBA false
 	setSetting doInstallRMG true
+	setSetting doInstallBigPEmu false	
 	#doInstallMelon=true
 
 	setSetting doSetupRA true
@@ -678,6 +691,7 @@ else
 	setSetting doSetupXenia false
 	setSetting doSetupMGBA false
 	setSetting doSetupRMG true
+	setSetting doSetupBigPEmu false	
 
 	#widescreen off by default
 	setSetting duckWide false

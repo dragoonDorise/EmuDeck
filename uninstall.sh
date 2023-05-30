@@ -22,7 +22,7 @@ doUninstallESDE=true
 doUninstallMGBA=true
 doUninstallRMG=true
 doUninstallVita3K=true
-
+doUninstallBigPEmu=true
 
 
 
@@ -98,7 +98,9 @@ if [ "$doUninstall" == true ]; then
 				13 "Cemu Native" \
 				14 "Mame"  \
 				15 "RMG"  \
-				16 "Vita3K"  )
+				16 "Vita3K"  \
+				17 "BigPEmu" \
+				)
 	ans=$?	
 	if [ $ans -eq 0 ]; then
 		
@@ -155,6 +157,9 @@ if [ "$doUninstall" == true ]; then
 		fi
 		if [[ "$emusToUninstall" == *"Vita3K"* ]]; then
 			doUninstallVita3K=false
+		fi		
+		if [[ "$emusToUninstall" == *"BigPEmu"* ]]; then
+			doUninstallBigPEmu=false
 		fi				
 		
 	else
@@ -248,6 +253,10 @@ if [ "$doUninstall" == true ]; then
 	# 	rm -rf ~/Applications/Vita3K &>> /dev/null
 	# 	rm -rf ~/.local/share/applications/xenia.desktop &>> /dev/null
 	# fi
+	if [[ "$doUninstallVita3K" == true ]]; then
+		rm -rf ~/Applications/BigPEmu &>> /dev/null
+		rm -rf ~/.local/share/applications/BigPEmu.desktop &>> /dev/null
+	fi
 	
 	
 

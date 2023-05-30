@@ -412,6 +412,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 			emuTable+=(TRUE "Switch" "Yuzu")
 			emuTable+=(TRUE "WiiU" "Cemu")
 			emuTable+=(TRUE "XBox" "Xemu")
+			emuTable+=(TRUE "Jaguar" "BigPEmu")
 			#if we are in beta / dev install, allow Xenia. Still false by default though. Will only work on expert mode, and explicitly turned on.
 			if [[ $branch == "beta" || $branch == "dev" ]]; then
 				emuTable+=(FALSE "Xbox360" "Xenia")
@@ -484,6 +485,9 @@ if [ "$RUNCHOICE" == 1 ]; then
 				#if [[ "$emusToInstall" == *"MelonDS"* ]]; then
 				#	doInstallMelon=true
 				#fi
+				if [[ "$emusToInstall" == *"BigPEmu"* ]]; then
+					setSetting doInstallBigPEmu true
+				fi
 			
 			
 			else
@@ -571,6 +575,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 				emuTable+=(TRUE "Yuzu")
 				emuTable+=(TRUE "Cemu")
 				emuTable+=(TRUE "Xemu")
+				emuTable+=(TRUE "BigPEmu")
 				emuTable+=(TRUE "Steam Rom Manager")
 				emuTable+=(TRUE "EmulationStation DE")
 	
@@ -640,6 +645,9 @@ if [ "$RUNCHOICE" == 1 ]; then
 					#if [[ "$emusToReset" == *"MelonDS"* ]]; then
 					#	setSetting doSetupMelonDS true
 					#fi
+					if [[ "$emusToReset" == *"BigPEmu"* ]]; then
+						setSetting doSetupBigPEmu true
+					fi
 					if [[ "$emusToReset" == *"Steam Rom Manager"* ]]; then
 						setSetting doSetupSRM true
 					fi
@@ -670,6 +678,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 		setSetting doInstallPrimeHack true
 		setSetting doInstallPPSSPP true
 		setSetting doInstallXemu true
+		setSetting doInstallBigPEmu false		
 		#doInstallMelon=true
 	
 		#widescreen off by default
@@ -786,6 +795,9 @@ fi
 if [ $doInstallCemu == "true" ]; then
 	Cemu_install
 fi
+if [ $doInstallBigPEmu == "true" ]; then
+	BigPEmu_install
+fi
 
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ "$doInstallXenia" == "true" ]; then
@@ -848,6 +860,9 @@ fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then
 	Cemu_init
+fi
+if [ "$doSetupBigPEmu" == "true" ]; then
+	BigPEmu_init
 fi
 if [ "$doSetupXenia" == "true" ]; then
 	Xenia_init

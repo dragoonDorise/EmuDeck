@@ -3,7 +3,8 @@
 BigPEmu_emuName="BigPEmu (proton)"
 BigPEmu_emuType="windows"
 BigPEmu_emuPath="${romsPath}/Applications/BigPEmu/BigPEmu.exe"
-BigPEmu_BigPEmuSettings="${HOME}/.steam/steam/steamapps/compatdata/4158790633/pfx/drive_c/users/steamuser/AppData/Roaming/BigPEmu/BigPEmuConfig.bigpcfg"
+BigPEmu_appData="${HOME}/.steam/steam/steamapps/compatdata/4158790633/pfx/drive_c/users/steamuser/AppData/Roaming/BigPEmu"
+BigPEmu_BigPEmuSettings="${BigPEmu_appData}/BigPEmuConfig.bigpcfg"
 
 #cleanupOlderThings
 BigPEmu_cleanup(){
@@ -24,8 +25,8 @@ BigPEmu_install(){
 	fi
 
 	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "${toolsPath}/launchers/bigpemu.sh"
-	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/BigPEmu.sh"
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/BigPEmu.sh"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/bigpemu.sh"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/bigpemu.sh"
 
 	chmod +x "${toolsPath}/launchers/bigpemu.sh"
 
@@ -38,29 +39,19 @@ BigPEmu_install(){
 #ApplyInitialSettings
 BigPEmu_init(){
 	setMSG "Initializing $BigPEmu_emuName settings."	
-	rsync -avhp "$EMUDECKGIT/configs/info.BigPEmu.BigPEmu/data/BigPEmu/" "${romsPath}/atarijaguar" --backup --suffix=.bak
+	rsync -avhp "$EMUDECKGIT/configs/bigpemu/" "$BigPEmu_appData" --backup --suffix=.bak
 	if [ -e "$BigPEmu_BigPEmuSettings.bak" ]; then
 		mv -f "$BigPEmu_BigPEmuSettings.bak" "$BigPEmu_BigPEmuSettings" #retain BigPEmuSettings
 	fi
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
 	BigPEmu_addSteamInputProfile
-
-	if [ -e "${romsPath}/atarijaguar/controllerProfiles/controller1.xml" ];then
-		mv "${romsPath}/atarijaguar/controllerProfiles/controller1.xml" "${romsPath}/atarijaguar/controllerProfiles/controller1.xml.bak"
-	fi
-	if [ -e "${romsPath}/atarijaguar/controllerProfiles/controller2.xml" ];then
-		mv "${romsPath}/atarijaguar/controllerProfiles/controller2.xml" "${romsPath}/atarijaguar/controllerProfiles/controller2.xml.bak"
-	fi
-	if [ -e "${romsPath}/atarijaguar/controllerProfiles/controller3.xml" ];then
-		mv "${romsPath}/atarijaguar/controllerProfiles/controller3.xml" "${romsPath}/atarijaguar/controllerProfiles/controller3.xml.bak"
-	fi
 }
 
 #update
 BigPEmu_update(){
 	setMSG "Updating $BigPEmu_emuName settings."	
-	rsync -avhp "$EMUDECKGIT/configs/info.BigPEmu.BigPEmu/data/BigPEmu/" "${romsPath}/atarijaguar" --ignore-existing
+	rsync -avhp "$EMUDECKGIT/configs/bigpemu/" "$BigPEmu_appData" --ignore-existing
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
 	BigPEmu_addSteamInputProfile
