@@ -323,6 +323,7 @@ if [ "$expert" == "true" ]; then
 		emuTable+=(TRUE "WiiU" "Cemu")
 		emuTable+=(TRUE "XBox" "Xemu")
 		emuTable+=(TRUE "N64" "RMG")
+		emuTable+=(TRUE "Multi-Systems Emulator" "ares")
 		emuTable+=(FALSE "GameBoy / Color / Advance" "mGBA")
 		
 		#if we are in beta / dev install, allow Xenia. Still false by default though. Will only work on expert mode, and explicitly turned on.
@@ -432,6 +433,11 @@ if [ "$expert" == "true" ]; then
 			else
 				setSetting doInstallRMG false
 			fi		
+			if [[ "$emusToInstall" == *"ares"* ]]; then
+				setSetting doInstallares true
+			else
+				setSetting doInstallares false
+			fi		
 		
 		else
 			exit
@@ -521,6 +527,7 @@ if [ "$expert" == "true" ]; then
 			emuTable+=(TRUE "Steam Rom Manager")
 			emuTable+=(TRUE "EmulationStation DE")
 			emuTable+=(TRUE "RMG")
+			emuTable+=(TRUE "ares")
 
 
 			text="$(printf "<b>EmuDeck will reset the following Emulator's configurations by default.</b>\nWhich systems do you want <b>reset</b> to the newest version of the defaults?\nWe recommend you keep all of them checked so everything gets updated and known issues are fixed.\nIf you want to mantain any custom configuration on an emulator unselect its name from this list.")"
@@ -659,6 +666,7 @@ else
 	setSetting doInstallXenia false
 	setSetting doInstallMGBA false
 	setSetting doInstallRMG true
+	setSetting doInstallares true
 	#doInstallMelon=true
 
 	setSetting doSetupRA true
@@ -678,6 +686,7 @@ else
 	setSetting doSetupXenia false
 	setSetting doSetupMGBA false
 	setSetting doSetupRMG true
+	setSetting doSetupares true
 
 	#widescreen off by default
 	setSetting duckWide false

@@ -273,6 +273,10 @@ if [ $doInstallRMG == "true" ]; then
 	echo "RMG_install"
 	RMG_install	
 fi
+if [ $doInstallares == "true" ]; then
+	echo "ares_install"
+	ares_install	
+fi
 if [ $doInstallPPSSPP == "true" ]; then
 	echo "PPSSPP_install"
 	PPSSPP_install	
@@ -316,6 +320,10 @@ fi
 if [ $doInstallRMG == "true" ]; then
 	echo "RMG_install"
 	RMG_install
+fi
+if [ $doInstallares == "true" ]; then
+	echo "ares_install"
+	ares_install
 fi
 if [ $doInstallmelonDS == "true" ]; then
 	echo "melonDS_install"
@@ -405,6 +413,10 @@ fi
 if [ "$doSetupRMG" == "true" ]; then
 	echo "RMG_init"
 	RMG_init
+fi
+if [ "$doSetupares" == "true" ]; then
+	echo "ares_init"
+	ares_init
 fi
 if [ "$doSetupmelonDS" == "true" ]; then
 	echo "melonDS_init"

@@ -409,6 +409,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 			emuTable+=(TRUE "PSX" "Duckstation")
 			emuTable+=(TRUE "PSP" "PPSSPP")
 			emuTable+=(TRUE "N64" "RMG")
+			emuTable+=(TRUE "Multi-Systems Emulator" "ares")
 			emuTable+=(TRUE "Switch" "Yuzu")
 			emuTable+=(TRUE "WiiU" "Cemu")
 			emuTable+=(TRUE "XBox" "Xemu")
@@ -468,6 +469,9 @@ if [ "$RUNCHOICE" == 1 ]; then
 				fi
 				if [[ "$emusToInstall" == *"RMG"* ]]; then
 					setSetting doInstallRMG true
+				fi
+				if [[ "$emusToInstall" == *"ares"* ]]; then
+					setSetting doInstallares true
 				fi
 				if [[ "$emusToInstall" == *"Yuzu"* ]]; then
 					setSetting doInstallYuzu true
@@ -568,6 +572,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 				emuTable+=(TRUE "Duckstation")
 				emuTable+=(TRUE "PPSSPP")
 				emuTable+=(TRUE "RMG")
+				emuTable+=(TRUE "ares")
 				emuTable+=(TRUE "Yuzu")
 				emuTable+=(TRUE "Cemu")
 				emuTable+=(TRUE "Xemu")
@@ -624,6 +629,9 @@ if [ "$RUNCHOICE" == 1 ]; then
 					fi
 					if [[ "$emusToReset" == *"RMG"* ]]; then
 						setSetting doSetupRMG true
+					fi
+					if [[ "$emusToReset" == *"ares"* ]]; then
+						setSetting doSetupares true
 					fi
 					if [[ "$emusToReset" == *"Yuzu"* ]]; then
 						setSetting doSetupYuzu true

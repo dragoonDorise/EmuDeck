@@ -460,6 +460,9 @@ cloud_sync_downloadEmuAll(){
   if [ "$doInstallmelonDS" = "true" ]; then
       cloud_sync_downloadEmu melonds
   fi
+  if [ "$doInstallares" = "true" ]; then
+      cloud_sync_downloadEmu ares
+  fi
   
   
 }
@@ -535,5 +538,9 @@ cloud_sync_uploadEmuAll(){
   
   if [ "$doInstallmelonDS" = "true" ]; then
     cloud_sync_uploadEmu melonds
+  fi
+
+  if [ "$doInstallares" = "true" ]; then
+    cloud_sync_uploadEmu ares
   fi
 }
