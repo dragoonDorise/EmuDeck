@@ -14,7 +14,7 @@ Video
   Luminance: 1.0
   Saturation: 1.0
   Gamma: 1.0
-  ColorBleed: true
+  ColorBleed: false
   ColorEmulation: true
   InterframeBlending: true
   Overscan: false
@@ -51,16 +51,16 @@ Rewind
   Frequency: 10
 Paths
   Home
-  Saves
-  Screenshots
+  Saves: /home/deck/Emulation/saves/ares/
+  Screenshots: /home/deck/Emulation/storage/ares/screenshots/
   Debugging
   SuperFamicom
-    GameBoy
-    BSMemory
-    SufamiTurbo
+    GameBoy: /home/deck/Emulation/roms/gb/
+    BSMemory: /home/deck/Emulation/roms/satellaview/
+    SufamiTurbo: /home/deck/Emulation/roms/sufami/
 Recent
-  Game-1: Super Famicom;/run/media/Latte/Emulation/roms/snes/Super Metroid.sfc
-  Game-2: Super Famicom;/run/media/Latte/Emulation/roms/snes/EarthBound (USA).sfc
+  Game-1
+  Game-2
   Game-3
   Game-4
   Game-5
@@ -95,37 +95,37 @@ VirtualPad1
   R-Right: 0x3/0/3/Hi;;
   Rumble: ;;
 VirtualMouse1
-  X: ;;
-  Y: ;;
-  Left: ;;
-  Middle: ;;
-  Right: ;;
+  X: 0x2/0/0;;
+  Y: 0x2/0/1;;
+  Left: 0x2/1/0;;
+  Middle: 0x2/1/1;;
+  Right: 0x2/1/1;;
   Extra: ;;
 VirtualPad2
-  Pad.Up: ;;
-  Pad.Down: ;;
-  Pad.Left: ;;
-  Pad.Right: ;;
-  Select: ;;
-  Start: ;;
-  A..South: ;;
-  B..East: ;;
-  X..West: ;;
-  Y..North: ;;
-  L-Bumper: ;;
-  R-Bumper: ;;
-  L-Trigger: ;;
-  R-Trigger: ;;
-  L-Stick..Click: ;;
-  R-Stick..Click: ;;
-  L-Up: ;;
-  L-Down: ;;
-  L-Left: ;;
-  L-Right: ;;
-  R-Up: ;;
-  R-Down: ;;
-  R-Left: ;;
-  R-Right: ;;
+  Pad.Up: 0x100000003/1/1/Lo;;
+  Pad.Down: 0x100000003/1/1/Hi;;
+  Pad.Left: 0x100000003/1/0/Lo;;
+  Pad.Right: 0x100000003/1/0/Hi;;
+  Select: 0x100000003/3/6;;
+  Start: 0x100000003/3/7;;
+  A..South: 0x100000003/3/1;;
+  B..East: 0x100000003/3/0;;
+  X..West: 0x100000003/3/3;;
+  Y..North: 0x100000003/3/2;;
+  L-Bumper: 0x100000003/3/4;;
+  R-Bumper: 0x100000003/3/5;;
+  L-Trigger: 0x100000003/0/2/Hi;;
+  R-Trigger: 0x100000003/0/5/Hi;;
+  L-Stick..Click: 0x100000003/3/9;;
+  R-Stick..Click: 0x100000003/3/10;;
+  L-Up: 0x100000003/0/1/Lo;;
+  L-Down: 0x100000003/0/1/Hi;;
+  L-Left: 0x100000003/0/0/Lo;;
+  L-Right: 0x100000003/0/0/Hi;;
+  R-Up: 0x100000003/0/4/Lo;;
+  R-Down: 0x100000003/0/4/Hi;;
+  R-Left: 0x100000003/0/3/Lo;;
+  R-Right: 0x100000003/0/3/Hi;;
   Rumble: ;;
 VirtualMouse2
   X: ;;
@@ -135,30 +135,30 @@ VirtualMouse2
   Right: ;;
   Extra: ;;
 VirtualPad3
-  Pad.Up: ;;
-  Pad.Down: ;;
-  Pad.Left: ;;
-  Pad.Right: ;;
-  Select: ;;
-  Start: ;;
-  A..South: ;;
-  B..East: ;;
-  X..West: ;;
-  Y..North: ;;
-  L-Bumper: ;;
-  R-Bumper: ;;
-  L-Trigger: ;;
-  R-Trigger: ;;
-  L-Stick..Click: ;;
-  R-Stick..Click: ;;
-  L-Up: ;;
-  L-Down: ;;
-  L-Left: ;;
-  L-Right: ;;
-  R-Up: ;;
-  R-Down: ;;
-  R-Left: ;;
-  R-Right: ;;
+  Pad.Up: 0x200000003/1/1/Lo;;
+  Pad.Down: 0x200000003/1/1/Hi;;
+  Pad.Left: 0x200000003/1/0/Lo;;
+  Pad.Right: 0x200000003/1/0/Hi;;
+  Select: 0x200000003/3/6;;
+  Start: 0x200000003/3/7;;
+  A..South: 0x200000003/3/1;;
+  B..East: 0x200000003/3/0;;
+  X..West: 0x200000003/3/3;;
+  Y..North: 0x200000003/3/2;;
+  L-Bumper: 0x200000003/3/4;;
+  R-Bumper: 0x200000003/3/5;;
+  L-Trigger: 0x200000003/0/2/Hi;;
+  R-Trigger: 0x200000003/0/5/Hi;;
+  L-Stick..Click: 0x200000003/3/9;;
+  R-Stick..Click: 0x200000003/3/10;;
+  L-Up: 0x200000003/0/1/Lo;;
+  L-Down: 0x200000003/0/1/Hi;;
+  L-Left: 0x200000003/0/0/Lo;;
+  L-Right: 0x200000003/0/0/Hi;;
+  R-Up: 0x200000003/0/4/Lo;;
+  R-Down: 0x200000003/0/4/Hi;;
+  R-Left: 0x200000003/0/3/Lo;;
+  R-Right: 0x200000003/0/3/Hi;;
   Rumble: ;;
 VirtualMouse3
   X: ;;
@@ -168,30 +168,30 @@ VirtualMouse3
   Right: ;;
   Extra: ;;
 VirtualPad4
-  Pad.Up: ;;
-  Pad.Down: ;;
-  Pad.Left: ;;
-  Pad.Right: ;;
-  Select: ;;
-  Start: ;;
-  A..South: ;;
-  B..East: ;;
-  X..West: ;;
-  Y..North: ;;
-  L-Bumper: ;;
-  R-Bumper: ;;
-  L-Trigger: ;;
-  R-Trigger: ;;
-  L-Stick..Click: ;;
-  R-Stick..Click: ;;
-  L-Up: ;;
-  L-Down: ;;
-  L-Left: ;;
-  L-Right: ;;
-  R-Up: ;;
-  R-Down: ;;
-  R-Left: ;;
-  R-Right: ;;
+  Pad.Up: 0x300000003/1/1/Lo;;
+  Pad.Down: 0x300000003/1/1/Hi;;
+  Pad.Left: 0x300000003/1/0/Lo;;
+  Pad.Right: 0x300000003/1/0/Hi;;
+  Select: 0x300000003/3/6;;
+  Start: 0x300000003/3/7;;
+  A..South: 0x300000003/3/1;;
+  B..East: 0x300000003/3/0;;
+  X..West: 0x300000003/3/3;;
+  Y..North: 0x300000003/3/2;;
+  L-Bumper: 0x300000003/3/4;;
+  R-Bumper: 0x300000003/3/5;;
+  L-Trigger: 0x300000003/0/2/Hi;;
+  R-Trigger: 0x300000003/0/5/Hi;;
+  L-Stick..Click: 0x300000003/3/9;;
+  R-Stick..Click: 0x300000003/3/10;;
+  L-Up: 0x300000003/0/1/Lo;;
+  L-Down: 0x300000003/0/1/Hi;;
+  L-Left: 0x300000003/0/0/Lo;;
+  L-Right: 0x300000003/0/0/Hi;;
+  R-Up: 0x300000003/0/4/Lo;;
+  R-Down: 0x300000003/0/4/Hi;;
+  R-Left: 0x300000003/0/3/Lo;;
+  R-Right: 0x300000003/0/3/Hi;;
   Rumble: ;;
 VirtualMouse4
   X: ;;
@@ -201,30 +201,30 @@ VirtualMouse4
   Right: ;;
   Extra: ;;
 VirtualPad5
-  Pad.Up: ;;
-  Pad.Down: ;;
-  Pad.Left: ;;
-  Pad.Right: ;;
-  Select: ;;
-  Start: ;;
-  A..South: ;;
-  B..East: ;;
-  X..West: ;;
-  Y..North: ;;
-  L-Bumper: ;;
-  R-Bumper: ;;
-  L-Trigger: ;;
-  R-Trigger: ;;
-  L-Stick..Click: ;;
-  R-Stick..Click: ;;
-  L-Up: ;;
-  L-Down: ;;
-  L-Left: ;;
-  L-Right: ;;
-  R-Up: ;;
-  R-Down: ;;
-  R-Left: ;;
-  R-Right: ;;
+  Pad.Up: 0x400000003/1/1/Lo;;
+  Pad.Down: 0x400000003/1/1/Hi;;
+  Pad.Left: 0x400000003/1/0/Lo;;
+  Pad.Right: 0x400000003/1/0/Hi;;
+  Select: 0x400000003/3/6;;
+  Start: 0x400000003/3/7;;
+  A..South: 0x400000003/3/1;;
+  B..East: 0x400000003/3/0;;
+  X..West: 0x400000003/3/3;;
+  Y..North: 0x400000003/3/2;;
+  L-Bumper: 0x400000003/3/4;;
+  R-Bumper: 0x400000003/3/5;;
+  L-Trigger: 0x400000003/0/2/Hi;;
+  R-Trigger: 0x400000003/0/5/Hi;;
+  L-Stick..Click: 0x400000003/3/9;;
+  R-Stick..Click: 0x400000003/3/10;;
+  L-Up: 0x400000003/0/1/Lo;;
+  L-Down: 0x400000003/0/1/Hi;;
+  L-Left: 0x400000003/0/0/Lo;;
+  L-Right: 0x400000003/0/0/Hi;;
+  R-Up: 0x400000003/0/4/Lo;;
+  R-Down: 0x400000003/0/4/Hi;;
+  R-Left: 0x400000003/0/3/Lo;;
+  R-Right: 0x400000003/0/3/Hi;;
   Rumble: ;;
 VirtualMouse5
   X: ;;
@@ -250,109 +250,110 @@ Hotkey
   ReloadCurrentGame: 0x1/0/32;;
   QuitEmulator: 0x1/0/29;;
 Atari2600
-  Path
+  Path: /home/deck/Emulation/roms/atari2600/
 WonderSwan
-  Path
+  Path: /home/deck/Emulation/roms/wonderswan/
 WonderSwanColor
-  Path
+  Path: /home/deck/Emulation/roms/wonderswancolor/
 PocketChallengeV2
-  Path
+  Path: /home/deck/Emulation/roms/pocketchallengev2/
 ColecoVision
-  Path
+  Path: /home/deck/Emulation/roms/colecovision/
   Firmware
-    BIOS.World
+    BIOS.World: /home/deck/Emulation/bios/colecovision.rom
 MSX
-  Path
+  Path: /home/deck/Emulation/roms/msx/
   Firmware
-    BIOS.Japan
+    BIOS.Japan: /home/deck/Emulation/bios/MSX.ROM
 MSX2
-  Path
+  Path: /home/deck/Emulation/roms/msx2/
   Firmware
-    BIOS.Japan
+    BIOS.Japan: /home/deck/Emulation/bios/MSX2.ROM
 PCEngine
-  Path
+  Path: /home/deck/Emulation/roms/pcengine/
 PCEngineCD
-  Path
+  Path: /home/deck/Emulation/roms/pcenginecd/
   Firmware
-    BIOS.US
-    BIOS.Japan
+    BIOS.US: /home/deck/Emulation/bios/syscard3u.pce
+    BIOS.Japan: /home/deck/Emulation/bios/syscard3.pce
 SuperGrafx
-  Path
+  Path: /home/deck/Emulation/roms/supergrafx/
 SuperGrafxCD
-  Path
+  Path: /home/deck/Emulation/roms/supergrafx/
   Firmware
-    BIOS.Japan
+    BIOS.Japan: /home/deck/Emulation/bios/syscard3.pce
 Famicom
-  Path
+  Path: /home/deck/Emulation/roms/nes/
 FamicomDiskSystem
-  Path
+  Path: /home/deck/Emulation/roms/fds/
   Firmware
-    BIOS.Japan
+    BIOS.Japan: /home/deck/Emulation/bios/disksys.rom
 SuperFamicom
-  Path: /run/media/Latte/Emulation/roms/snes/
+  Path: /home/deck/Emulation/roms/snes/
 Nintendo64
-  Path
+  Path: /home/deck/Emulation/roms/n64/
 Nintendo64DD
-  Path
+  Path: /home/deck/Emulation/roms/n64dd/
   Firmware
-    BIOS.Japan
-    BIOS.US
-    BIOS.DEV
+    BIOS.Japan: /home/deck/Emulation/bios/64DD_IPL_JP.n64
+    BIOS.US: /home/deck/Emulation/bios/64DD_IPL_US.n64
+    BIOS.DEV: /home/deck/Emulation/bios/64DD_IPL_DEV.n64
 GameBoy
-  Path
+  Path: /home/deck/Emulation/roms/gb/
 GameBoyColor
-  Path
+  Path: /home/deck/Emulation/roms/gbc/
 GameBoyAdvance
-  Path
+  Path: /home/deck/Emulation/roms/gba/
   Firmware
-    BIOS.World
+    BIOS.World: /home/deck/Emulation/bios/gba_bios.bin
 SG-1000
-  Path
+  Path: /home/deck/Emulation/roms/sg-1000/
 MasterSystem
-  Path
+  Path: /home/deck/Emulation/roms/mastersystem/
   Firmware
-    BIOS.US
-    BIOS.Japan
-    BIOS.Europe
+    BIOS.US: /home/deck/Emulation/bios/bios_U.sms
+    BIOS.Japan: /home/deck/Emulation/bios/bios_J.sms
+    BIOS.Europe: /home/deck/Emulation/bios/bios_E.sms
 GameGear
-  Path
+  Path: /home/deck/Emulation/roms/gamegear/
   Firmware
-    BIOS.World
+    BIOS.World: /home/deck/Emulation/bios/bios.gg
 MegaDrive
-  Path
+  Path: /home/deck/Emulation/roms/genesis/
 Mega32X
-  Path
+  Path: /home/deck/Emulation/roms/sega32x/
 MegaCD
-  Path
+  Path: /home/deck/Emulation/roms/segacd/
   Firmware
-    BIOS.US
-    BIOS.Japan
-    BIOS.Europe
+    BIOS.US: /home/deck/Emulation/bios/bios_CD_U.bin
+    BIOS.Japan: /home/deck/Emulation/bios/bios_CD_J.bin
+    BIOS.Europe: /home/deck/Emulation/bios/bios_CD_E.bin
 MegaCD32X
-  Path
+  Path: /home/deck/Emulation/roms/segacd/
 NeoGeoAES
-  Path
+  Path: /home/deck/Emulation/roms/arcade/
   Firmware
-    BIOS.World
+    BIOS.World: /home/deck/Emulation/bios/neo-po.bin
 NeoGeoMVS
-  Path
+  Path: /home/deck/Emulation/roms/arcade/
   Firmware
     BIOS.World
 NeoGeoPocket
-  Path
+  Path: /home/deck/Emulation/roms/ngp/
   Firmware
-    BIOS.World
+    BIOS.World: /home/deck/Emulation/bios/[BIOS] SNK Neo Geo Pocket (Japan, Europe).ngp
 NeoGeoPocketColor
-  Path
+  Path: /home/deck/Emulation/roms/ngpc/
   Firmware
-    BIOS.World
+    BIOS.World: /home/deck/Emulation/bios/[BIOS] SNK Neo Geo Pocket Color (World) (En,Ja).ngp
 PlayStation
-  Path
+  Path: /home/deck/Emulation/roms/psx/
   Firmware
-    BIOS.US
-    BIOS.Japan
-    BIOS.Europe
+    BIOS.US: /home/deck/Emulation/bios/scph5501.bin
+    BIOS.Japan: /home/deck/Emulation/bios/scph5500.bin
+    BIOS.Europe: /home/deck/Emulation/bios/scph5502.bin
 ZXSpectrum
-  Path
+  Path: /home/deck/Emulation/roms/zxspectrum/
 ZXSpectrum128
-  Path
+  Path: /home/deck/Emulation/roms/zxspectrum/
+  
