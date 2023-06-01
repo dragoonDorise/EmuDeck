@@ -3,7 +3,8 @@
 BigPEmu_emuName="BigPEmu (proton)"
 BigPEmu_emuType="windows"
 BigPEmu_emuPath="${romsPath}/Applications/BigPEmu/BigPEmu.exe"
-BigPEmu_appData="${HOME}/.steam/steam/steamapps/compatdata/4158790633/pfx/drive_c/users/steamuser/AppData/Roaming/BigPEmu"
+BigPEmu_appID=
+BigPEmu_appData="${HOME}/.steam/steam/steamapps/compatdata/${BigPEmu_appID}/pfx/drive_c/users/steamuser/AppData/Roaming/BigPEmu"
 BigPEmu_BigPEmuSettings="${BigPEmu_appData}/BigPEmuConfig.bigpcfg"
 
 #cleanupOlderThings
@@ -25,8 +26,6 @@ BigPEmu_install(){
 	fi
 
 	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "${toolsPath}/launchers/bigpemu.sh"
-	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/bigpemu.sh"
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/bigpemu.sh"
 
 	chmod +x "${toolsPath}/launchers/bigpemu.sh"
 
@@ -97,6 +96,7 @@ BigPEmu_wipeSettings(){
 BigPEmu_uninstall(){
 	setMSG "Uninstalling $BigPEmu_emuName."
 	rm -rf "${BigPEmu_emuPath}"
+    rm -rf "$HOME/.local/share/applications/BigPEmu (Proton).desktop"
     BigPEmu_wipeSettings
 }
 
