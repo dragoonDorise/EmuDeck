@@ -64,7 +64,7 @@ installProton () {
         [6.3]="1580130"
         [7.0]="1887720"
         [8.0]="2348590"
-        [Experimental]="1493710"
+        [- Experimental]="1493710"
         [Hotfix]="2180100"
         [EasyAntiCheat Runtime]="1826330"
         [BattlEye Runtime]="1161040"
