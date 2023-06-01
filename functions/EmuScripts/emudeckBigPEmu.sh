@@ -75,14 +75,18 @@ BigPEmu_setEmulationFolder(){
 
 #SetupSaves
 BigPEmu_setupSaves(){
-	unlink "${savesPath}/BigPEmu/saves" # Fix for previous bad symlink
-	linkToSaveFolder BigPEmu saves "${romsPath}/atarijaguar/mlc01/usr/save"
+	unlink "${savesPath}/BigPEmu/saves"
+	linkToSaveFolder BigPEmu saves "${BigPEmu_appData}"
+	
+	unlink "${savesPath}/BigPEmu/states"
+	linkToSaveFolder BigPEmu states "${BigPEmu_appData}"
 }
 
 
 #SetupStorage
 BigPEmu_setupStorage(){
-	echo "NYI"
+	unlink "${storagePath}/BigPEmu/screenshots"
+	linkToStorageFolder BigPEmu screenshots "${BigPEmu_appData}"
 }
 
 
