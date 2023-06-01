@@ -48,63 +48,39 @@ ares_update() {
 ares_setEmulationFolder(){
 	setMSG "Setting $ares_emuName Emulation Folder"
 
-	iniFieldUpdate "$ares_configFile" "Atari2600" "Path" "${romsPath}/atari2600"
-	iniFieldUpdate "$ares_configFile" "SuperFamicom" "Path" "${romsPath}/snes"
-	iniFieldUpdate "$ares_configFile" "PCEngine" "Path" "${romsPath}/pcengine"
 
- 
+    # ROM Paths
+	UserROMsPath='/home/deck/Emulation/roms/'
+	sed -i "s|$UserROMsPath|${romsPath}\/|g" "$ares_configFile"
+
+	# BIOS Paths
+	UserBIOSPath='/home/deck/Emulation/bios/'
+	sed -i "s|$UserBIOSPath|${biosPath}\/|g" "$ares_configFile"
 
 }
 
 #SetupSaves
 ares_setupSaves(){
 
-	# Saves and Save States
-	Saves='SaveSRAMPath = '
-	SavesSetting="${Saves}""${savesPath}/ares/saves"
-	SaveStates='SaveStatePath = '
-	SaveStatesSetting="${SaveStates}""${savesPath}/ares/states"
-
-	changeLine "$Saves" "$SavesSetting" "$ares_configFile"
-	changeLine "$SaveStates" "$SaveStatesSetting" "$ares_configFile"
-
-
+    # Create saves folder
+ 	mkdir -p "${savesPath}/ares/"
+    
+	# Set saves path
+	UserSavesPath='/home/deck/Emulation/saves'
+	sed -i "s|$UserSavesPath|${savesPath}|g" "$ares_configFile"
 }
 
 
 #SetupStorage
 ares_setupStorage(){
 	
+	# Create storage folder
 	mkdir -p "${storagePath}/ares/"
-	mkdir -p "${storagePath}/ares/cache"
-	mkdir -p "${storagePath}/ares/HiResTextures"
 	mkdir -p "${storagePath}/ares/screenshots"
 
-    # Configure Settings
-    # HiResTextures
-    HiResTextureSetting='textureFilter\txHiresEnable='
-    enableHiResTextures="${HiResTextureSetting}1"
-    changeLine "${HiResTextureSetting}" "${enableHiResTextures}" "$ares_glideN64File"
-
-    # Configure Paths
-	HiResTextures='textureFilter\txPath='
-	cache='textureFilter\txCachePath='
-	screenshots='ScreenshotPath = '
-	UserDataDirectory='UserDataDirectory = '
-	UserCacheDirectory='UserCacheDirectory = ' 
-
-	newHiResTextures='textureFilter\txPath='"${storagePath}/ares/HiResTextures"
-	newcache='textureFilter\txCachePath='"${storagePath}/ares/cache"
-    newscreenshots='ScreenshotPath = '"${storagePath}/ares/screenshots"
-	newUserDataDirectory="${UserDataDirectory}\"$HOME/.var/app/com.github.Rosalie241.ares/data/ares\""
-	newUserCacheDirectory="${UserCacheDirectory}\"$HOME/.var/app/com.github.Rosalie241.ares/cache/ares\""
-	
-	changeLine "$HiResTextures" "$newHiResTextures" "$ares_glideN64File"
-	changeLine "$cache" "$newcache" "$ares_glideN64File"
-	changeLine "$screenshots" "$newscreenshots" "$ares_configFile"
-	changeLine "$UserDataDirectory" "$newUserDataDirectory" "$ares_configFile"
-	changeLine "$UserCacheDirectory" "$newUserCacheDirectory" "$ares_configFile"
-
+	# Set Storage path
+	UserStoragePath='/home/deck/Emulation/storage'
+	sed -i "s|$UserStoragePath|${storagePath}|g" "$ares_configFile"
 }
 
 
@@ -160,7 +136,7 @@ ares_resetConfig(){
 ares_addSteamInputProfile(){
 	addSteamInputCustomIcons
 	setMSG "Adding $ares_emuName Steam Input Profile."
-	rsync -r "$EMUDECKGIT/configs/steam-input/rmg_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r "$EMUDECKGIT/configs/steam-input/ares_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 #finalExec - Extra stuff
