@@ -10,7 +10,7 @@
   "environmentVariables": {
     "steamDirectory": "/home/deck/.steam/steam",
     "romsDirectory": "/run/media/mmcblk0p1/Emulation/roms",
-    "retroarchPath": "/run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh",
+    "retroarchPath": "/usr/bin/flatpak",
     "raCoresDirectory": "",
     "localImagesDirectory": ""
   },

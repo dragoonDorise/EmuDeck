@@ -149,11 +149,7 @@ echo "NYI"
 }
 
 Dolphin_IsInstalled(){
-  if [[ $macos == true ]]; then
-	echo "true"
-  else
-    isFpInstalled "$Dolphin_emuPath"
-  fi
+	isFpInstalled "$Dolphin_emuPath"
 }
 
 Dolphin_resetConfig(){

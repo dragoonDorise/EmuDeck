@@ -88,9 +88,7 @@ ESDE_init(){
 
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
-	
-	cp -r "$EMUDECKGIT/tools/launchers/esde/" "$toolsPath/launchers/" && chmod + x "$toolsPath/launchers/esde/emulationstationde.sh"
-	
+
 	ESDE_addCustomSystems
 	ESDE_setEmulationFolder
 	ESDE_setDefaultEmulators

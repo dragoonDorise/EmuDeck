@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu cemu-native
+rclone_downloadEmu cemu-native
 # shellcheck disable=SC1091
 . "${HOME}/emudeck/settings.sh"
 
@@ -12,4 +12,4 @@ EMU="Cemu"
 
 # Launch emu-launch.sh
 "${LAUNCH}" -e "${EMU}" -- "${@}"
-cloud_sync_uploadEmu cemu-native
+rclone_uploadEmu cemu-native

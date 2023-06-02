@@ -1,7 +1,4 @@
 #!/bin/bash
-source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu yuzu
-
 emuName="yuzu" #parameterize me
 useEAifFound="true" # set to false to simply use the newest file found
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
@@ -138,5 +135,3 @@ param=${param/\'/"$substituteWith"}
 #Fix last ' on command
 param=$(echo "$param" | sed 's/.$/"/')
 eval "${exe} ${param}"
-
-cloud_sync_uploadEmu yuzu
