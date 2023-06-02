@@ -31,7 +31,7 @@ echo "APPID: ${APPID}"
 changeLine "BigPEmu_appID=" "BigPEmu_appID=${APPID}" "${HOME}/.config/EmuDeck/backend/functions/EmuScripts/emudeckBigPEmu.sh"
 
 # Proton Version
-PROTONVER="8.0"
+PROTONVER="7.0"
 
 # Call the Proton launcher script and give the arguments
 
