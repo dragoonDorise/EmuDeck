@@ -10,6 +10,7 @@ SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"
 
 # Get EXE
 EXE="\"/usr/bin/bash\" \"${SELFPATH}\""
+echo "EXE: ${EXE}"
 
 # NAME
 NAME="BigPEmu"
@@ -25,11 +26,12 @@ BIGPEMU="${HOME}/Applications/BigPEmu/BigPEmu.exe"
 
 # APPID
 APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
-# Set APPID in Config
-changeLine "BigPEmu_appID=" "BigPEmu_appID=${APPID}" "${HOME}/.config/EmuDeck/backend/functions/EmuScripts/emuDeckBigPEmu.sh"
+echo "APPID: ${APPID}"
+# Set APPID in Config as I am pretty sure this isn't a static number
+changeLine "BigPEmu_appID=" "BigPEmu_appID=${APPID}" "${HOME}/.config/EmuDeck/backend/functions/EmuScripts/emudeckBigPEmu.sh"
 
 # Proton Version
-PROTONVER="Experimental"
+PROTONVER="7.0"
 
 # Call the Proton launcher script and give the arguments
 
