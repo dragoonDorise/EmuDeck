@@ -1,10 +1,10 @@
 #!/bin/bash
 #variables
 RPCS3_remuName="RPCS3"
-RPCS3_emuType="AppImage"
-RPCS3_releaseURL="https://rpcs3.net/latest-appimage"
-RPCS3_emuPath="$HOME/Applications/rpcs3.AppImage"
-RPCS3_VFSConf="$HOME/.config/rpcs3/vfs.yml"
+RPCS3_emuType="FlatPak"
+RPCS3_emuPath="net.rpcs3.RPCS3"
+RPCS3_releaseURL=""
+RPCS3_VFSConf="$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/vfs.yml"
 
 #cleanupOlderThings
 RPCS3_cleanup(){
@@ -13,38 +13,13 @@ RPCS3_cleanup(){
 
 #Install
 RPCS3_install(){
-	setMSG "Installing RPCS3"
-
-	# RPCS3 does not use a "latest" tag on their GitHub, copied and modified the below from the ES-DE script
-	RPCS3_releaseMD5="$(curl -sL https://rpcs3.net/latest-appimage | md5sum | cut -d ' ' -f 1)"
-
-	local showProgress="$1"
-
-	if [[ $RPCS3_releaseURL = "https://rpcs3.net/latest-appimage"* ]]; then
-
-		if safeDownload "$RPCS3_remuName" "$RPCS3_releaseURL" "$RPCS3_emuPath" "$showProgress"; then
-			RPCS3_md5sum=($(md5sum $RPCS3_emuPath)) # get first element
-			if [ "$RPCS3_md5sum" == "$RPCS3_releaseMD5" ]; then
-				echo "RPCS3 PASSED HASH CHECK."
-				chmod +x "$RPCS3_emuPath"
-			else
-				echo "RPCS3 FAILED HASH CHECK. Expected $RPCS3_releaseMD5, got $RPCS3_md5sum"
-			fi
-		else
-			return 1
-		fi
-	else
-		setMSG "$RPCS3_remuName not found"
-		return 1
-	fi	
-
-	# Preserve permissions on flatpak installs 
-	flatpak override net.rpcs3.RPCS3 --filesystem=host --user
+	installEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}"	
+	flatpak override "${RPCS3_emuPath}" --filesystem=host --user	
 }
 
 #ApplyInitialSettings
 RPCS3_init(){
-	configEmuAI "$RPCS3_emuName" "config" "$HOME/.config/rpcs3" "$EMUDECKGIT/configs/rpcs3" "true"
+	configEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}" "true"
 	RPCS3_setupStorage
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
@@ -52,7 +27,7 @@ RPCS3_init(){
 
 #update
 RPCS3_update(){
-	configEmuAI "$RPCS3_emuName" "config" "$HOME/.config/rpcs3" "$EMUDECKGIT/configs/rpcs3"
+	configEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}"
 	RPCS3_setupStorage
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
@@ -75,7 +50,7 @@ RPCS3_setupStorage(){
 
 	mkdir -p "$storagePath/rpcs3/"
 
-	if [ ! -d "$storagePath"/rpcs3/dev_hdd0 ] && [ -d "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/" -o -d "$HOME/.config/rpcs3/" ]; then
+	if [ ! -d "$storagePath"/rpcs3/dev_hdd0 ] && [ -d "$HOME/.var/app/${RPCS3_emuPath}/" ];then
 		echo "rpcs3 hdd does not exist in storagepath."
 
 		echo -e ""
@@ -87,11 +62,8 @@ RPCS3_setupStorage(){
 		if [ -d "$savesPath/rpcs3/dev_hdd0" ]; then
 			mv -f "$savesPath"/rpcs3/dev_hdd0 "$storagePath"/rpcs3/
 
-		elif [ -d "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0" ]; then	
-			rsync -av "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0" "$storagePath"/rpcs3/ && rm -rf "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0"
-
-		elif [ -d "$HOME/.config/rpcs3/dev_hdd0" ]; then
-			rsync -av "$HOME/.config/rpcs3/dev_hdd0" "$storagePath"/rpcs3/ && rm -rf "$HOME/.config/rpcs3/dev_hdd0"
+		elif [ -d "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0" ]; then	
+			rsync -av "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0" "$storagePath"/rpcs3/ && rm -rf "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0"
 
 		fi
 	fi
@@ -100,16 +72,14 @@ RPCS3_setupStorage(){
 
 #WipeSettings
 RPCS3_wipe(){
-	setMSG "Wiping $RPCS3_emuName settings."
-	rm -rf "$HOME/.config/rpcs3"
+   rm -rf "$HOME/.var/app/$RPCS3_emuPath"
+   # prob not cause roms are here
 }
 
 
 #Uninstall
 RPCS3_uninstall(){
-	setMSG "Uninstalling $RPCS3_emuName."
-	rm -rf "$RPCS3_emuPath"
-	RPCS3AppImage_wipe
+    flatpak uninstall "$RPCS3_emuPath" --user -y
 }
 
 #setABXYstyle
@@ -119,19 +89,7 @@ RPCS3_setABXYstyle(){
 
 #Migrate
 RPCS3_migrate(){
-   echo "Begin RPCS3 Migration"
-    emu="RPCS3"
-	migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
-	#check if we have a nomigrateflag for $emu
-	if [ ! -f "$migrationFlag" ]; then	
-		#RPCS3 flatpak to appimage
-		#From -- > to
-		migrationTable=()
-		migrationTable+=("$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3" "$HOME/.config/rpcs3")
-
-		migrateAndLinkConfig "$emu" "$migrationTable"
-	fi
-
+  	echo "NYI"  
 }
 
 #WideScreenOn

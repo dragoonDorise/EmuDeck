@@ -1,4 +1,11 @@
 #!/bin/bash
+
+if [ -d "/Library" ]; then
+    macos=true
+else
+    macos=false
+fi
+
 if [[ "$EMUDECKGIT" == "" ]]; then
     EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 fi
@@ -35,6 +42,7 @@ source "$EMUDECKGIT"/functions/dialogBox.sh
 source "$EMUDECKGIT"/functions/updateEmuFP.sh
 source "$EMUDECKGIT"/functions/createFolders.sh
 source "$EMUDECKGIT"/functions/runSRM.sh
+source "$EMUDECKGIT"/functions/appImageInit.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
@@ -42,12 +50,11 @@ source "$EMUDECKGIT"/functions/ToolScripts/emuDeckPlugins.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSRM.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCHD.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckBINUP.sh
-source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSaveSync.sh
-source "$EMUDECKGIT"/functions/ToolScripts/emuDeckrclone.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCloudBackup.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCloudSync.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckRemotePlayWhatever.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckInstallHomebrewGames.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckMigration.sh
-source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSaveSync.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCopyGames.sh
 
 
