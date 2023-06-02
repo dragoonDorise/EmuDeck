@@ -834,7 +834,7 @@
     "parserType": "Glob",
     "configTitle": "Atari Jaguar - BigPEmu - Proton",
     "steamCategory": "${Atari Jaguar}",
-    "executableArgs": "vblank_mode=0 %command% \"Z:${filePath}\"",
+    "executableArgs": "vblank_mode=0 %command% \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/atarijaguar",
     "steamDirectory": "${steamdirglobal}",
