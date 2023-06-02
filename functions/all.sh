@@ -1,4 +1,11 @@
 #!/bin/bash
+
+if [ -d "/Library" ]; then
+    macos=true
+else
+    macos=false
+fi
+
 if [[ "$EMUDECKGIT" == "" ]]; then
     EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 fi
