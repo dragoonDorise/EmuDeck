@@ -10,4 +10,15 @@
         <platform>wiiu</platform>
         <theme>wiiu</theme>
     </system>
+    <system>
+        <name>pico8</name>
+        <fullname>PICO-8 Fantasy Console</fullname>
+        <path>%ROMPATH%/pico8</path>
+        <extension>.p8 .P8 .png .PNG</extension>
+        <command label="retro8">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/retro8_libretro.so %ROM%</command>        
+        <command label="PICO-8 (Standalone)">%EMULATOR_PICO-8% -root_path %GAMEDIR% -run %ROM%</command>
+        <command label="PICO-8 Splore (Standalone)">%EMULATOR_PICO-8% -root_path %GAMEDIR% -splore</command>
+        <platform>pico8</platform>
+        <theme>pico8</theme>
+    </system>
 </systemList>
