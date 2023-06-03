@@ -188,6 +188,16 @@ function runBinDownloads {
             messages+=("There was a problem updating Xenia")
         fi
     fi
+    if [[ "$binsToDL" == *"RPCS3"* ]]; then
+        ((progresspct += pct)) || true
+        echo "$progresspct"
+        echo "# Updating RPCS3"
+        if RPCS3_install "true" 2>&1; then
+            messages+=("RPCS3 Updated Successfully")
+        else
+            messages+=("There was a problem updating RPCS3")
+        fi
+    fi
     echo "100"
     echo "# Complete!"
 }
