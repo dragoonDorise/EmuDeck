@@ -2,8 +2,11 @@
 
 linuxID=$(lsb_release -si)
 
+if [ $linuxID != "chimeraos" ]; then 
 
-if [ $linuxID != "SteamOS" ]; then
+echo "installing EmuDeck"
+
+elif [ $linuxID != "SteamOS" ]; then
 
     
     zenityAvailable=$(command -v zenity &> /dev/null  && echo true)
