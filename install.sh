@@ -1,13 +1,12 @@
 #!/bin/bash
 
-linuxID=$(lsb_release -i)
+linuxID=$(lsb_release -si)
 
 
 if [ $linuxID != "SteamOS" ]; then
 
-    set -e
     
-    zenityAvailable=$(command -v jq &> /dev/null  && echo true)
+    zenityAvailable=$(command -v zenity &> /dev/null  && echo true)
     
     if [[ $zenityAvailable = true ]];then 
         PASSWD="$(zenity --password --title="Password Entry" --text="Enter you user sudo password to install required depencies" 2>/dev/null)"
@@ -39,33 +38,32 @@ if [ $linuxID != "SteamOS" ]; then
     function script_failure {
       log_err "An error occurred:$([ -z "$1" ] && " on line $1" || "(unknown)")."
       log_err "Installation failed!"
+      exit
     }
     
-    trap 'script_failure $LINENO' ERR
+    #trap 'script_failure $LINENO' ERR
     
     echo "Installing EmuDeck dependencies..."
     
-    if [[ "$linuxID" == "Ubuntu"* ]]; then 
-      if command -v apt-get >/dev/null; then
-        echo "Installing packages with apt..."
-        DEBIAN_DEPS="steam jq zenity flatpak unzip bash libfuse2"
     
+    if command -v apt-get >/dev/null; then
+        echo "Installing packages with apt..."
+        DEBIAN_DEPS="jq zenity flatpak unzip bash libfuse2 git"
+        
+        sudo killall apt apt-get        
         sudo apt-get -y update
         sudo apt-get -y install $DEBIAN_DEPS
-      elif command -v pacman >/dev/null; then
+    elif command -v pacman >/dev/null; then
         echo "Installing packages with pacman..."
-        ARCH_DEPS="steam jq zenity flatpak unzip bash libfuse2"
+        ARCH_DEPS="steam jq zenity flatpak unzip bash libfuse2 git"
         
         sudo pacman -Syu 
         sudo pacman -S $ARCH_DEPS
-      else
-        log_err "Your Linux distro '$(lsb_release -s -d)' is not supported by this script. We invite to open a PR or help us with adding your OS to this script. https://github.com/dragoonDorise/EmuDeck/issues"
+    else
+        log_err "Your Linux distro $linuxID is not supported by this script. We invite to open a PR or help us with adding your OS to this script. https://github.com/dragoonDorise/EmuDeck/issues"
         exit 1
-      fi
-    else 
-      log_err "Your operating system is not supported by this script. We invite to open a PR or help us with adding your OS to this script. https://github.com/dragoonDorise/EmuDeck/issues"
-      exit 1
     fi
+
     
     # this could be replaced to immediately start the EmuDeck setup script
     
@@ -83,7 +81,7 @@ report_error() {
 
 trap report_error ERR
 
-EMUDECK_GITHUB_URL="https://api.github.com/repos/EmuDeck/emudeck-electron/releases/latest"
+EMUDECK_GITHUB_URL="https://api.github.com/repos/EmuDeck/emudeck-electron-early/releases/latest"
 EMUDECK_URL="$(curl -s ${EMUDECK_GITHUB_URL} | grep -E 'browser_download_url.*AppImage' | cut -d '"' -f 4)"
 
 mkdir -p ~/Applications

@@ -1,9 +1,9 @@
 #!/bin/bash
 
 if [ -d "/Library" ]; then
-    macos=true
+    deviceOS="macos"
 else
-    macos=false
+    deviceOS=$(lsb_release -si)
 fi
 
 if [[ "$EMUDECKGIT" == "" ]]; then
