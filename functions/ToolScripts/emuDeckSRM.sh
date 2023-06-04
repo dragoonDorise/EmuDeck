@@ -60,11 +60,18 @@ SRM_createDesktopShortcut(){
 
 SRM_init(){			
 	setMSG "Configuring Steam Rom Manager"
+	local jsonPaths="$HOME/.config/steam-rom-manager/userData/parsers/"
+	#local files=$1
+	local files="$jsonPaths/*.json" #this will become an array of the files to add to the parsers
 	mkdir -p "$HOME/.config/steam-rom-manager/userData/"
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/parsers/" "$HOME/.config/steam-rom-manager/userData/parsers/"
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
 	#cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	#cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/userSettings.json"	
+	cp "$HOME/.config/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.bak"
+	jq -s 'reduce .[] as $item ({}; . * $item)' $files > $HOME/.config/steam-rom-manager/userData/userConfigurations.json
+
+	
 	sleep 3
 	tmp=$(mktemp)
 	jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
