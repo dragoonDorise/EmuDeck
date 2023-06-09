@@ -69,7 +69,7 @@ SRM_init(){
 	#cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	#cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/userSettings.json"	
 	cp "$HOME/.config/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.bak"
-	jq -s 'reduce .[] as $item ({}; . * $item)' $files > $HOME/.config/steam-rom-manager/userData/userConfigurations.json
+	jq -s 'reduce .[] as $item ({}; . * $item)' $jsonPaths**/*.json > $HOME/.config/steam-rom-manager/userData/userConfigurations.json
 
 	
 	sleep 3
