@@ -72,16 +72,7 @@ SRM_init(){
 	cp "$HOME/.config/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.bak"
 	
 	
-	sorted_files=$(find "$json_directory" -name "*.json" | sort)
-	
-	echo '{}' > "$output_file"
-	
-	for file in $sorted_files; do
-		filename=$(basename "$file")
-		jq --argfile content "$file" '. += {($filename): $content}' "$output_file" | sponge "$output_file"
-	done
-	
-	#jq -s '.' $(find "$json_directory" -name "*.json") > "$output_file"
+	jq -s '.' $(find "$json_directory" -name "*.json" | sort) > "$output_file"
 
 	
 	sleep 3
