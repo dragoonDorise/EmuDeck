@@ -71,7 +71,8 @@ SRM_init(){
 	#cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/userSettings.json"	
 	cp "$HOME/.config/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.bak"
 	
-	jq -s '.' $(find "$json_directory" -name "*.json") > "$output_file"
+	
+	jq -s '.' $(find "$json_directory" -name "*.json" | sort) > "$output_file"
 
 	
 	sleep 3
