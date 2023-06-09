@@ -149,7 +149,7 @@ echo "NYI"
 }
 
 Dolphin_IsInstalled(){
-	isFpInstalled "$Dolphin_emuPath"
+    isFpInstalled "$Dolphin_emuPath"
 }
 
 Dolphin_resetConfig(){

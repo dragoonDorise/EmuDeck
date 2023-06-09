@@ -1,4 +1,11 @@
 #!/bin/bash
+
+if [ -d "/Library" ]; then
+    deviceOS="macos"
+else
+    deviceOS=$(lsb_release -si)
+fi
+
 if [[ "$EMUDECKGIT" == "" ]]; then
     EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 fi
