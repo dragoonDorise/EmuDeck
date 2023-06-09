@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "3DO",
+  "configTitle": "Panasonic 3DO",
   "steamCategory": "${3DO}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/3do",
