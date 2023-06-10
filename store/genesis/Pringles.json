@@ -1,0 +1,18 @@
+{
+  "system": "genesis",
+  "status": "true",
+  "logo": "logo_genesis",
+  "title": "PRINGLES",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/genesis/PRINGLES.zip",
+  "description": "There are three worlds with three levels each. Collect all the Pringles you can and don’t jump in the wrong direction!",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/screenshots/homebrew/PRINGLES.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/titlescreens/homebrew/PRINGLES.png?raw=true"
+    ]
+  },
+  "tags": ["platform"]
+}

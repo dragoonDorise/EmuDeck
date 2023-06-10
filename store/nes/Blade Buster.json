@@ -1,0 +1,18 @@
+{
+  "system": "nes",
+  "status": "true",
+  "logo": "logo_nes",
+  "title": "Blade Buster",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/nes/BladeBuster.zip",
+  "description": "Blade Buster is a score attack shmup that comes with two game modes; two and five minutes, each ending with an epic boss battle.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/screenshots/homebrew/BladeBuster.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/titlescreens/homebrew/BladeBuster.png?raw=true"
+    ]
+  },
+  "tags": ["action"]
+}

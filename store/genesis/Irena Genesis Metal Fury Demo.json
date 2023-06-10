@@ -1,0 +1,18 @@
+{
+  "system": "genesis",
+  "status": "true",
+  "logo": "logo_genesis",
+  "title": "Irena Genesis Metal Fury (Demo)",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/genesis/Irena Genesis Metal Fury (Proto).zip",
+  "description": "Switch into battle mode to control the ultimate warship and battle the mighty Emperor Zerox's army who reign with an iron fist on planet Xellia. Find and destroy the magnetic field source which holds the intergalactic ship that you escort or become the leader of the rebellion by releasing the enslaved population for millennia. Help Major Celina Pelinsky accomplish this most perilous mission, but are you really ready to fight for freedom?",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/screenshots/homebrew/Irena Genesis Metal Fury (Proto).png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/titlescreens/homebrew/Irena Genesis Metal Fury (Proto).png?raw=true"
+    ]
+  },
+  "tags": ["action"]
+}

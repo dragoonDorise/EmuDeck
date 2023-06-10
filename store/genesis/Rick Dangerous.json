@@ -1,0 +1,18 @@
+{
+  "system": "genesis",
+  "status": "true",
+  "logo": "logo_genesis",
+  "title": "Rick Dangerous",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/genesis/rickdangerous.zip",
+  "description": "Will Rick Dangerous, intrepid Super Hero and part-time stamp collector, survive his first mission in the Aztec temple of the tribe? Should he do so, Rick will face new hazards in the Egyptian tomb and the enemy fortress.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/screenshots/homebrew/rickdangerous.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/titlescreens/homebrew/rickdangerous.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

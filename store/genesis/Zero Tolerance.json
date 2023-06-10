@@ -1,0 +1,18 @@
+{
+  "system": "genesis",
+  "status": "true",
+  "logo": "logo_genesis",
+  "title": "Zero Tolerance",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/genesis/Zero Tolerance.zip",
+  "description": "",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/screenshots/homebrew/Zero Tolerance.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/titlescreens/homebrew/Zero Tolerance.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

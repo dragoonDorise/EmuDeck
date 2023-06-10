@@ -131,11 +131,7 @@ Citra_finalize(){
 }
 
 Citra_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$Citra_emuPath")" == "$Citra_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$Citra_emuPath"
 }
 
 Citra_resetConfig(){
@@ -143,5 +139,6 @@ Citra_resetConfig(){
 }
 
 Citra_addSteamInputProfile(){
+	addSteamInputCustomIcons
 	rsync -r "$EMUDECKGIT/configs/steam-input/citra_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

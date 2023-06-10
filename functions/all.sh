@@ -1,4 +1,11 @@
 #!/bin/bash
+
+if [ -d "/Library" ]; then
+    deviceOS="macos"
+else
+    deviceOS=$(lsb_release -si)
+fi
+
 if [[ "$EMUDECKGIT" == "" ]]; then
     EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 fi
@@ -19,10 +26,12 @@ chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
 
 source "$EMUDECKGIT"/functions/checkBIOS.sh
 source "$EMUDECKGIT"/functions/checkInstalledEmus.sh
+#source "$EMUDECKGIT"/functions/cloudServicesManager.sh
 source "$EMUDECKGIT"/functions/configEmuAI.sh
 source "$EMUDECKGIT"/functions/configEmuFP.sh
 source "$EMUDECKGIT"/functions/createDesktopIcons.sh
 source "$EMUDECKGIT"/functions/installEmuFP.sh
+source "$EMUDECKGIT"/functions/uninstallEmuFP.sh
 source "$EMUDECKGIT"/functions/setMSG.sh
 source "$EMUDECKGIT"/functions/emuDeckPrereqs.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
@@ -33,6 +42,7 @@ source "$EMUDECKGIT"/functions/dialogBox.sh
 source "$EMUDECKGIT"/functions/updateEmuFP.sh
 source "$EMUDECKGIT"/functions/createFolders.sh
 source "$EMUDECKGIT"/functions/runSRM.sh
+source "$EMUDECKGIT"/functions/appImageInit.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
@@ -40,10 +50,13 @@ source "$EMUDECKGIT"/functions/ToolScripts/emuDeckPlugins.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSRM.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCHD.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckBINUP.sh
-source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSaveSync.sh
-source "$EMUDECKGIT"/functions/ToolScripts/emuDeckrclone.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCloudBackup.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCloudSync.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckRemotePlayWhatever.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckInstallHomebrewGames.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckMigration.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCopyGames.sh
+
 
 #emuscripts
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh
@@ -69,7 +82,11 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRMG.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMelonDS.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckFlycast.sh
 
+#remoteplayclientscripts
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayParsec.sh
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayMoonlight.sh
+
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMAMEProton.sh
-

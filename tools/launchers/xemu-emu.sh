@@ -1,2 +1,5 @@
 #!/bin/sh
-/usr/bin/flatpak run app.xemu.xemu
+source $HOME/.config/EmuDeck/backend/functions/all.sh
+cloud_sync_downloadEmu xemu
+/usr/bin/flatpak run app.xemu.xemu "${@}"
+cloud_sync_uploadEmu xemu 

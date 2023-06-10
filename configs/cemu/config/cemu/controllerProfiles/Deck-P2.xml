@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <emulated_controller>
 	<type>Wii U Pro Controller</type>
-	<profile>Deck</profile>
+	<profile>Deck-P2</profile>
 	<controller>
 		<api>SDLController</api>
-		<uuid>1_03000000de280000ff11000001000000</uuid>
+		<uuid>0_0300b836de280000ff11000001000000</uuid>
 		<display_name>Steam Virtual Gamepad</display_name>
-		<rumble>0</rumble>
+		<rumble>1</rumble>
 		<axis>
 			<deadzone>0.25</deadzone>
 			<range>1</range>

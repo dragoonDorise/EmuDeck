@@ -361,9 +361,9 @@ if [ "$expert" == "true" ]; then
 				setSetting doInstallFlycast false
 			fi
 			if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
-				setSetting doInstallPrimeHacks true
+				setSetting doInstallPrimeHack true
 			else
-				setSetting doInstallPrimeHacks false
+				setSetting doInstallPrimeHack false
 			fi
 			if [[ "$emusToInstall" == *"PCSX2-Legacy"* ]]; then
 				setSetting doInstallPCSX2 true
@@ -559,9 +559,9 @@ if [ "$expert" == "true" ]; then
 					setSetting doSetupRA false
 				fi
 				if [[ "$emusToReset" == *"PrimeHack"* ]]; then
-					setSetting doSetupPrimeHacks true
+					setSetting doSetupPrimehack true
 				else
-					setSetting doSetupPrimeHacks false
+					setSetting doSetupPrimehack false
 				fi
 				if [[ "$emusToReset" == *"PCSX2-Legacy"* ]]; then
 					setSetting doSetupPCSX2 true
@@ -664,7 +664,7 @@ else
 	setSetting doInstallCitra true
 	setSetting doInstallDuck true
 	setSetting doInstallCemu true
-	setSetting doInstallPrimeHacks true
+	setSetting doInstallPrimeHack true
 	setSetting doInstallPPSSPP true
 	setSetting doInstallXemu true
 	setSetting doInstallMAME true
@@ -675,7 +675,7 @@ else
 	#doInstallMelon=true
 
 	setSetting doSetupRA true
-	setSetting doSetupPrimeHacks true
+	setSetting doSetupPrimehack true
 	setSetting doSetupDolphin true
 	setSetting doSetupPCSX2 false
 	setSetting doSetupPCSX2QT true

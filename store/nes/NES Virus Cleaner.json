@@ -1,0 +1,18 @@
+{
+  "system": "nes",
+  "status": "true",
+  "logo": "logo_nes",
+  "title": "NES Virus Cleaner",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/nes/nes_virus_cleaner.zip",
+  "description": "In this game, you take on the role of a virus cleaning program, collecting bugs and avoiding hazards.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/screenshots/homebrew/nes_virus_cleaner.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/titlescreens/homebrew/nes_virus_cleaner.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

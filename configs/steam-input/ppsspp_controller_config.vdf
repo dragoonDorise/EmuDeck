@@ -3,12 +3,13 @@
 	"version"		"3"
 	"revision"		"21"
 	"title"		"EmuDeck - PPSSPP Standalone"
-	"description"		"Left Touchpad quick actions. Long press to perform an action"
+	"description"		"Left Touchpad - Quick Actions. Long press to perform an action."
 	"creator"		"76561198025051816"
 	"progenitor"		""
-	"url"		        "template://ppsspp_controller_config.vdf"
+	"url"		 "template://ppsspp_controller_config.vdf"
 	"export_type"		"template"
 	"controller_type"		"controller_neptune"
+	"controller_caps"		"23117823"
 	"major_revision"		"0"
 	"minor_revision"		"0"
 	"Timestamp"		"4"
@@ -16,8 +17,8 @@
 	{
 		"english"
 		{
-			"title"		"PPSSPP Menu Hotkeys"
-			"description"		"PPSSPP Menu Hotkeys"
+			"title"		"EmuDeck - PPSSPP Standalone"
+			"description"		"Left Touchpad - Quick Actions. Long press to perform an action."
 		}
 		"czech"
 		{
@@ -151,7 +152,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button A"
+							"binding"		"xinput_button A, , "
 						}
 					}
 				}
@@ -167,7 +168,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button B"
+							"binding"		"xinput_button B, , "
 						}
 					}
 				}
@@ -183,7 +184,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button X"
+							"binding"		"xinput_button X, , "
 						}
 					}
 				}
@@ -199,7 +200,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button Y"
+							"binding"		"xinput_button Y, , "
 						}
 					}
 				}
@@ -225,7 +226,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button dpad_up"
+							"binding"		"xinput_button dpad_up, , "
 						}
 						"settings"
 						{
@@ -245,7 +246,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button dpad_down"
+							"binding"		"xinput_button dpad_down, , "
 						}
 						"settings"
 						{
@@ -265,7 +266,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button dpad_right"
+							"binding"		"xinput_button dpad_right, , "
 						}
 						"settings"
 						{
@@ -285,7 +286,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button dpad_left"
+							"binding"		"xinput_button dpad_left, , "
 						}
 						"settings"
 						{
@@ -315,7 +316,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_RIGHT"
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
 						}
 					}
 				}
@@ -341,7 +342,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_LEFT"
+							"binding"		"xinput_button JOYSTICK_LEFT, , "
 						}
 						"settings"
 						{
@@ -403,7 +404,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_RIGHT"
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
 						}
 					}
 				}
@@ -429,7 +430,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_RIGHT"
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
 						}
 					}
 				}
@@ -455,7 +456,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_UP"
+							"binding"		"xinput_button DPAD_UP, , "
 						}
 						"settings"
 						{
@@ -475,7 +476,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_DOWN"
+							"binding"		"xinput_button DPAD_DOWN, , "
 						}
 						"settings"
 						{
@@ -495,7 +496,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_RIGHT"
+							"binding"		"xinput_button DPAD_RIGHT, , "
 						}
 						"settings"
 						{
@@ -515,7 +516,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_LEFT"
+							"binding"		"xinput_button DPAD_LEFT, , "
 						}
 						"settings"
 						{
@@ -550,7 +551,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button START"
+							"binding"		"xinput_button START, , "
 						}
 					}
 				}
@@ -576,7 +577,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button SELECT"
+							"binding"		"xinput_button SELECT, , "
 						}
 					}
 				}
@@ -602,7 +603,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_RIGHT"
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
 						}
 					}
 				}
@@ -628,7 +629,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press Escape, Quick Menu, ghost_070_setting_0030.png #232323 #E4E4E4"
+							"binding"		"key_press ESCAPE, Quick Menu, EmuDeck_Menu.png, #232323 #E4E4E4"
 						}
 					}
 				}
@@ -644,7 +645,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F1, Load State, ghost_075_utility_010.png #232323 #0074ad"
+							"binding"		"key_press F1, Load State, EmuDeck_LoadState.png, #232323 #0045AD"
 						}
 					}
 				}
@@ -660,7 +661,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F5, Fast Forward, ghost_090_media_0190.png #232323 #00ad00"
+							"binding"		"key_press F5, Fast Forward, EmuDeck_FastForward.png, #232323 #00AD00"
 						}
 						"settings"
 						{
@@ -680,7 +681,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action empty_binding"
+							"binding"		"controller_action empty_binding, , "
 						}
 					}
 				}
@@ -696,7 +697,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F4, Next Save Slot, ghost_045_move_0400.png #232323 #ADA200"
+							"binding"		"key_press F4, Next Save Slot, EmuDeck_SaveSlotUp.png, #232323 #ADA200"
 						}
 					}
 				}
@@ -712,7 +713,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F2, Save State, ghost_075_utility_020.png #232323 #0045AD"
+							"binding"		"key_press F2, Save State, EmuDeck_SaveState.png, #232323 #0045AD"
 						}
 					}
 				}
@@ -746,7 +747,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button start"
+							"binding"		"xinput_button start, , "
 						}
 					}
 				}
@@ -762,7 +763,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button select"
+							"binding"		"xinput_button select, , "
 						}
 					}
 				}
@@ -778,7 +779,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button shoulder_left"
+							"binding"		"xinput_button shoulder_left, , "
 						}
 					}
 				}
@@ -794,7 +795,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button shoulder_right"
+							"binding"		"xinput_button shoulder_right, , "
 						}
 					}
 				}
@@ -810,7 +811,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action system_key_1"
+							"binding"		"controller_action system_key_1, , "
 						}
 					}
 				}

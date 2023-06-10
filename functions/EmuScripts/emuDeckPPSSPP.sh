@@ -98,11 +98,7 @@ echo "NYI"
 }
 
 PPSSPP_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$PPSSPP_emuPath")" == "$PPSSPP_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$PPSSPP_emuPath"
 }
 
 PPSSPP_resetConfig(){
@@ -115,6 +111,7 @@ PPSSPP_finalize(){
 }
 
 PPSSPP_addSteamInputProfile(){
+	addSteamInputCustomIcons
 	setMSG "Adding $PPSSPP_emuName Steam Input Profile."
 	rsync -r "$EMUDECKGIT/configs/steam-input/ppsspp_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

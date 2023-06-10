@@ -85,7 +85,9 @@ else
 	exit
 fi
 
-exec > >(tee "${LOGFILE}") 2>&1
+#exec > >(tee "${LOGFILE}") 2>&1
+#Installation log
+{
 date "+%Y.%m.%d-%H:%M:%S %Z"
 #Mark if this not a fresh install
 FOLDER="$HOME/.config/EmuDeck/"
@@ -239,16 +241,11 @@ if [ $doInstallSRM == "true" ]; then
 	echo "install srm"
 	SRM_install
 fi
-#Emulators Installation
-# if [ "$doInstallPCSX2" == "true" ]; then
-# 	echo "install pcsx2"
-# 	PCSX2_install
-# fi
 if [ "$doInstallPCSX2QT" == "true" ]; then	
 	echo "install pcsx2Qt"
 	PCSX2QT_install
 fi
-if [ $doInstallPrimeHacks == "true" ]; then
+if [ $doInstallPrimeHack == "true" ]; then
 	echo "install primehack"
 	Primehack_install
 fi
@@ -316,9 +313,19 @@ if [ $doInstallMGBA == "true" ]; then
 	echo "mGBA_install"
 	mGBA_install
 fi
+<<<<<<< HEAD
 if [ $doInstallFlycast == "true" ]; then
 	echo "Flycast_install"
 	Flycast_install
+=======
+if [ $doInstallRMG == "true" ]; then
+	echo "RMG_install"
+	RMG_install
+fi
+if [ $doInstallmelonDS == "true" ]; then
+	echo "melonDS_install"
+	melonDS_install
+>>>>>>> 51fbd683fbd5e85627ec74dfee9ba45bfe0033fa
 fi
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ "$doInstallXenia" == "true" ]; then
@@ -349,7 +356,7 @@ if [ "$doSetupRA" == "true" ]; then
 	echo "RetroArch_init"
 	RetroArch_init
 fi
-if [ "$doSetupPrimeHacks" == "true" ]; then
+if [ "$doSetupPrimehack" == "true" ]; then
 	echo "Primehack_init"
 	Primehack_init
 fi
@@ -357,10 +364,6 @@ if [ "$doSetupDolphin" == "true" ]; then
 	echo "Dolphin_init"
 	Dolphin_init
 fi
-# if [ "$doSetupPCSX2" == "true" ]; then
-# 	echo "PCSX2_init"
-# 	PCSX2_init
-# fi
 if [ "$doSetupPCSX2QT" == "true" ]; then
 	echo "PCSX2QT_init"
 	PCSX2QT_init
@@ -404,6 +407,14 @@ fi
 if [ "$doSetupVita3K" == "true" ]; then
 	echo "Vita3K_init"
 	Vita3K_init
+fi
+if [ "$doSetupRMG" == "true" ]; then
+	echo "RMG_init"
+	RMG_init
+fi
+if [ "$doSetupmelonDS" == "true" ]; then
+	echo "melonDS_init"
+	melonDS_init
 fi
 if [ "$doSetupMGBA" == "true" ]; then
 	echo "mGBA_init"
@@ -635,11 +646,11 @@ if [ "$doSetupDuck" == "true" ]; then
 	fi
 fi
 if [ "$doSetupPCSX2QT" == "true" ]; then
-	PCSX2_retroAchievementsSetLogin
+	PCSX2QT_retroAchievementsSetLogin
 	if [ "$achievementsHardcore" == "true" ]; then
-		PCSX2_retroAchievementsHardCoreOn
+		PCSX2QT_retroAchievementsHardCoreOn
 	else
-		PCSX2_retroAchievementsHardCoreOff
+		PCSX2QT_retroAchievementsHardCoreOff
 	fi
 fi
 
@@ -795,3 +806,4 @@ elif [ "$uiMode" == 'whiptail' ]; then
 	echo "Finished on Whiptail"
 	sleep 9999
 fi
+} | tee "${LOGFILE}" 2>&1

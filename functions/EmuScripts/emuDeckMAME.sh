@@ -127,11 +127,7 @@ echo "NYI"
 }
 
 MAME_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$MAME_emuPath")" == "$MAME_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$MAME_emuPath"
 }
 
 MAME_resetConfig(){

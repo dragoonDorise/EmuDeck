@@ -12,18 +12,33 @@ SRM_cleanup(){
 }
 
 SRM_install(){		
-	local SRM_releaseURL="$(getLatestReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")"
 	setMSG "Installing Steam Rom Manager"
+	local showProgress="$1"
+	local SRM_releaseURL="$(getLatestReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")"
 	SRM_cleanup
 	mkdir -p "${toolsPath}/srm"
-	curl -L "$SRM_releaseURL" -o "${SRM_toolPath}.temp" && mv "${SRM_toolPath}.temp" "${SRM_toolPath}"
-	chmod +x "$SRM_toolPath"
-	SRM_createDesktopShortcut
-	rm -rf ~/Desktop/SteamRomManager.desktop &>> /dev/null
+	#curl -L "$SRM_releaseURL" -o "${SRM_toolPath}.temp" && mv "${SRM_toolPath}.temp" "${SRM_toolPath}"
+	if safeDownload "$SRM_toolName" "$SRM_releaseURL" "${SRM_toolPath}" "$showProgress"; then
+		chmod +x "$SRM_toolPath"
+		SRM_createDesktopShortcut
+		rm -rf ~/Desktop/SteamRomManager.desktop
+	else
+		return 1
+	fi
+}
+
+SRM_uninstall(){
+	rm -rf "${toolsPath}/srm"
+	rm -rf $HOME/.local/share/applications/SRM.desktop
 }
 
 SRM_createDesktopShortcut(){
 	local SRM_Shortcutlocation=$1
+
+	mkdir -p "$HOME/.local/share/applications/"
+	
+	mkdir -p "$HOME/.local/share/icons/emudeck/"
+	cp -v "$EMUDECKGIT/icons/srm.png" "$HOME/.local/share/icons/emudeck/"
 
 	if [[ "$SRM_Shortcutlocation" == "" ]]; then
 
@@ -33,9 +48,9 @@ SRM_createDesktopShortcut(){
 
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
-	Name=Steam Rom Manager
-	Exec=zenity --question --width 450 --title \"Close Steam/Steam Input?\" --text \"Exit Steam to launch Steam Rom Manager? Desktop controls will temporarily revert to touch/trackpad/L2/R2\" && (kill -15 \$(pidof steam) & $SRM_toolPath)
-	Icon=steamdeck-gaming-return
+	Name=Steam Rom Manager AppImage
+	Exec=zenity --question --width 450 --title \"Close Steam/Steam Input?\" --text \"Exit Steam to launch Steam Rom Manager? Desktop controls will temporarily revert to touch/trackpad/L2/R2 until you open Steam again.\" && (kill -15 \$(pidof steam) & $SRM_toolPath)
+	Icon=$HOME/.local/share/icons/emudeck/srm.png
 	Terminal=false
 	Type=Application
 	Categories=Game;
@@ -44,21 +59,31 @@ SRM_createDesktopShortcut(){
 }
 
 SRM_init(){			
-	setMSG "Configuring Steam Rom Manager"
+	setMSG "Configuring Steam Rom Manager"	
+	local json_directory="$HOME/.config/steam-rom-manager/userData/parsers/"
+	local output_file="$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
+	#local files=$1
+	
 	mkdir -p "$HOME/.config/steam-rom-manager/userData/"
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/parsers/" "$HOME/.config/steam-rom-manager/userData/parsers/"
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
 	#cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	#cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/userSettings.json"	
+	cp "$HOME/.config/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.bak"
+	
+	
+	jq -s '.' $(find "$json_directory" -name "*.json" | sort) > "$output_file"
+
+	
 	sleep 3
 	tmp=$(mktemp)
 	jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
-	"$HOME/.config/steam-rom-manager/userData/userSettings.json"  > "$tmp"\
+	"$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp"\
 	 && mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
 	
 	tmp=$(mktemp)
 	jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
-	"$HOME/.config/steam-rom-manager/userData/userSettings.json"  > "$tmp" \
+	"$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
 	&& mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
 
 	#sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
@@ -76,4 +101,22 @@ SRM_init(){
 
 SRM_resetConfig(){
 	SRM_init
+	#Reseting launchers
+	SRM_resetLaunchers
+	echo "true"
+}
+
+SRM_IsInstalled(){
+	if [ -e "$SRM_toolPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+SRM_resetLaunchers(){
+	rsync -av --existing $HOME/.config/EmuDeck/backend/tools/launchers/ $toolsPath/launchers/	
+	for entry in $toolsPath/launchers/*.sh
+	do
+		 chmod +x "$entry"
+	done
 }

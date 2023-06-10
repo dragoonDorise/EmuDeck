@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 # xenia.sh
-
+source $HOME/.config/EmuDeck/backend/functions/all.sh
+cloud_sync_downloadEmu xenia
 # Get SELFPATH
 SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"
 
@@ -25,11 +26,9 @@ APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
 # Proton Version
 PROTONVER="- Experimental"
 
-# PROTONVER
-PROTONVER="7.0"
-
 # Call the Proton launcher script and give the arguments
 
 echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${XENIA}" "${@}" >> "${LOGFILE}"
 
 "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${XENIA}" "${@}"
+cloud_sync_uploadEmu xenia
