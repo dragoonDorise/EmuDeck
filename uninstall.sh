@@ -242,7 +242,7 @@ if [ "$doUninstall" == true ]; then
 		flatpak uninstall org.com.github.Rosalie241.RMG --system -y
 		rm -rf ~/.var/app/com.github.Rosalie241.RMG &>> /dev/null
 	fi
-		if [[ "$doUninstallVita3K" == true ]]; then
+	if [[ "$doUninstallVita3K" == true ]]; then
 		rm -rf ~/Applications/Vita3K &>> /dev/null
 		rm -rf ~/.local/share/applications/Vita3K.desktop &>> /dev/null
 	fi
