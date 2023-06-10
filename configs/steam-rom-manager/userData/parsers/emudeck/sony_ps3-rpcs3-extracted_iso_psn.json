@@ -1,13 +1,13 @@
 {
   "parserType": "Glob",
-  "configTitle": "Phillips CD-i - Retroarch",
-  "steamCategory": "${CD-i}",
+  "configTitle": "Sony PlayStation 3 - RPCS3 (Extracted ISO/PSN)",
+  "steamCategory": "${Sony PlayStation 3}",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/cdimono1",
+  "romDirectory": "${romsdirglobal}/ps3",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}same_cdi_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "executableArgs": "--no-gui \"${filePath}\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
@@ -28,13 +28,13 @@
     "useCredentials": true
   },
   "parserInputs": {
-    "glob": "**/${title}@(.iso|.ISO|.chd|.CHD)"
+    "glob": "**/${title}/PS3_GAME/USRDIR/@(eboot.bin|EBOOT.BIN|ISO.BIN.EDAT|iso.bin.edat)"
   },
   "titleFromVariable": {
-    "limitToGroups": "",
+    "limitToGroups": "${PS3}",
     "caseInsensitiveVariables": false,
     "skipFileIfVariableWasNotFound": false,
-    "tryToMatchTitle": false
+    "tryToMatchTitle": true
   },
   "fuzzyMatch": {
     "replaceDiacritics": true,
@@ -42,11 +42,11 @@
     "removeBrackets": true
   },
   "executable": {
-    "path": "${retroarchpath}",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/rpcs3.sh",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },
-  "parserId": "164785621902122397",
+  "parserId": "164785645271669680",
   "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {

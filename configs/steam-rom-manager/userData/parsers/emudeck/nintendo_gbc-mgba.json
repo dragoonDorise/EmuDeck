@@ -1,16 +1,16 @@
 {
   "parserType": "Glob",
-  "configTitle": "PrimeHack",
-  "steamCategory": "${PrimeHack}",
-  "steamDirectory": "${steamdirglobal}",
-  "romDirectory": "${romsdirglobal}/primehacks",
-  "executableArgs": "vblank_mode=0 %command% run io.github.shiiion.primehack -b -e \"${filePath}\"",
+  "configTitle": "Nintendo Game Boy Color - mGBA (Standalone)",
+  "steamCategory": "${Nintendo Game Boy Color - mGBA (Standalone)}",
   "executableModifier": "\"${exePath}\"",
+  "romDirectory": "${romsdirglobal}",
+  "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "imageProviders": ["SteamGridDB"],
+  "executableArgs": "-f \"'${filePath}'\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
+  "imageProviders": ["SteamGridDB"],
   "defaultImage": "",
   "defaultTallImage": "",
   "defaultHeroImage": "",
@@ -21,18 +21,14 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
+  "disabled": true,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,
     "useCredentials": true
   },
-  "executable": {
-    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/primehack.sh",
-    "shortcutPassthrough": false,
-    "appendArgsToExecutable": false
-  },
   "parserInputs": {
-    "glob": "**/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.wbfs|.WBFS)"
+    "glob": "{gbc/**/!(homebrew),gbc}/${title}@(.7z|.7Z|.gb|.GB|.gbc|.GBC|.zip|.ZIP)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
@@ -45,17 +41,36 @@
     "removeCharacters": true,
     "removeBrackets": true
   },
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mgba.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": false
+  },
+  "parserId": "164785621855061661",
+  "version": 13,
+  "controllers": {
+    "ps4": null,
+    "ps5": null,
+    "xbox360": null,
+    "xboxone": null,
+    "switch_joycon_left": null,
+    "switch_joycon_right": null,
+    "switch_pro": null,
+    "neptune": {
+      "title": "EmuDeck - mGBA",
+      "mappingId": "mGBA_controller_config.vdf",
+      "profileType": "template"
+    }
+  },
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,
       "humor": false,
+      "imageMotionTypes": ["static"],
       "styles": [],
       "stylesHero": [],
       "stylesLogo": [],
-      "stylesIcon": [],
-      "imageMotionTypes": ["static"]
+      "stylesIcon": []
     }
-  },
-  "parserId": "164770728884890305",
-  "version": 10
+  }
 }

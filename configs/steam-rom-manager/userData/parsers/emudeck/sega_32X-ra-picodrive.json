@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sega 32X - Retroarch - PicoDrive",
+  "configTitle": "Sega 32X - RetroArch PicoDrive",
   "steamCategory": "${Sega 32X}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/sega32x",

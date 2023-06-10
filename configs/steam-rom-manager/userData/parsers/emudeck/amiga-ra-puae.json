@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Amiga - Retroarch",
+  "configTitle": "Amiga - RetroArch PUAE",
   "steamCategory": "${Amiga}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/amiga",

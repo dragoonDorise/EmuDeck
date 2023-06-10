@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Amstrad CPC - RetroArch - Caprice32",
+  "configTitle": "Amstrad CPC - RetroArch Caprice32",
   "steamCategory": "${Amstrad CPC}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/amstradcpc",

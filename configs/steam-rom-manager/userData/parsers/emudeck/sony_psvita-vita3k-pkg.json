@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sony PlayStation Vita Installed PKG - Vita3k",
-  "steamCategory": "${PlayStation Vita}",
+  "configTitle": "Sony PlayStation Vita - Vita3k (Installed PKG)",
+  "steamCategory": "${Sony PlayStation Vita}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}${/}psvita",
   "executableArgs": "-Fr \"${/.*[/\\\\]([^/\\\\]+)[/\\\\]/|${filePath}}\"",

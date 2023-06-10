@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo SNES WideScreen - Retroarch - Snes9x",
-  "steamCategory": "${Super Nintendo WideScreen}",
+  "configTitle": "Nintendo SNES HD - RetroArch bsnes-hd",
+  "steamCategory": "${Nintendo SNES HD - bsnes-hd}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/sneshd",
   "steamDirectory": "${steamdirglobal}",

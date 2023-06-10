@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Atari Lynx - Retroarch - Beetle Handy",
+  "configTitle": "Atari Lynx - RetroArch Beetle Handy",
   "steamCategory": "${Atari Lynx}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/atarilynx",

@@ -1,10 +1,10 @@
 {
-  "parserType": "Glob",
-  "configTitle": "PC Engine/TurboGrafx 16 - RetroArch - Beetle PCE",
-  "steamCategory": "${PCE}",
+  "parserType": "Glob-regex",
+  "configTitle": "Sony PlayStation 3 - RPCS3 (Installed PKG)",
+  "steamCategory": "${Sony PlayStation 3}",
   "steamDirectory": "${steamdirglobal}",
-  "romDirectory": "${romsdirglobal}",
-  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_pce_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "romDirectory": "/run/media/mmcblk0p1/Emulation/storage/rpcs3/dev_hdd0/game",
+  "executableArgs": "--no-gui \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
@@ -27,35 +27,35 @@
     "useCredentials": true
   },
   "executable": {
-    "path": "${retroarchpath}",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/rpcs3.sh",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },
   "parserInputs": {
-    "glob": "@(pcengine|tg16)/**/${title}@(.7z|.7Z|.bin|.BIN|.pce|.PCE|.zip|.ZIP)"
+    "glob-regex": "${/(^[NP].+)/}/USRDIR/@(eboot.bin|EBOOT.BIN)"
   },
   "titleFromVariable": {
-    "limitToGroups": "",
+    "limitToGroups": "${PS3}",
     "caseInsensitiveVariables": false,
     "skipFileIfVariableWasNotFound": false,
-    "tryToMatchTitle": false
+    "tryToMatchTitle": true
   },
   "fuzzyMatch": {
     "replaceDiacritics": true,
     "removeCharacters": true,
     "removeBrackets": true
   },
+  "parserId": "165182011334544893",
+  "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,
       "humor": false,
+      "imageMotionTypes": ["static"],
       "styles": [],
       "stylesHero": [],
       "stylesLogo": [],
-      "stylesIcon": [],
-      "imageMotionTypes": ["static"]
+      "stylesIcon": []
     }
-  },
-  "parserId": "165855998563219386",
-  "version": 10
+  }
 }

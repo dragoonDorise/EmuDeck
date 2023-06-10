@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
   "configTitle": "Nintendo Wii - Dolphin",
-  "steamCategory": "${Wii}",
+  "steamCategory": "${Nintendo Wii}",
   "executableArgs": "vblank_mode=0 %command% run org.DolphinEmu.dolphin-emu -b -e \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/wii",

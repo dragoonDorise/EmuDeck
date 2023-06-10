@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Amiga CD - Retroarch",
+  "configTitle": "Amiga CD - RetroArch PUAE",
   "steamCategory": "${Amiga CD}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/amigacd32",

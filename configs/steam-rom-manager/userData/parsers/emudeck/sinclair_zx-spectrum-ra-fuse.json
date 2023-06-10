@@ -1,16 +1,16 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sony PlayStation 3 - RPCS3 (Extracted ISO/PSN)",
-  "steamCategory": "${PlayStation 3}",
-  "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/ps3",
+  "configTitle": "Sinclair ZX Spectrum - RetroArch Fuse",
+  "steamCategory": "${Sinclair ZX Spectrum}",
   "steamDirectory": "${steamdirglobal}",
+  "romDirectory": "${romsdirglobal}/zxspectrum",
+  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}fuse_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "--no-gui \"${filePath}\"",
+  "imageProviders": ["SteamGridDB"],
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
-  "imageProviders": ["SteamGridDB"],
   "defaultImage": "",
   "defaultTallImage": "",
   "defaultHeroImage": "",
@@ -21,42 +21,42 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
-  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,
     "useCredentials": true
   },
+  "executable": {
+    "path": "${retroarchpath}",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
   "parserInputs": {
-    "glob": "**/${title}/PS3_GAME/USRDIR/@(eboot.bin|EBOOT.BIN|ISO.BIN.EDAT|iso.bin.edat)"
+    "glob": "**/${title}@(.7z|.tzx|.tap|.z80|.rzx|.scl|.trd|.TZX|.TAP|.Z80|.RZX|.SCL|.TRD|.zip|.ZIP)"
   },
   "titleFromVariable": {
-    "limitToGroups": "${PS3}",
+    "limitToGroups": "",
     "caseInsensitiveVariables": false,
     "skipFileIfVariableWasNotFound": false,
-    "tryToMatchTitle": true
+    "tryToMatchTitle": false
   },
   "fuzzyMatch": {
     "replaceDiacritics": true,
     "removeCharacters": true,
     "removeBrackets": true
   },
-  "executable": {
-    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/rpcs3.sh",
-    "shortcutPassthrough": false,
-    "appendArgsToExecutable": true
-  },
-  "parserId": "164785645271669680",
-  "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,
       "humor": false,
-      "imageMotionTypes": ["static"],
       "styles": [],
       "stylesHero": [],
       "stylesLogo": [],
-      "stylesIcon": []
+      "stylesIcon": [],
+      "imageMotionTypes": ["static"]
     }
-  }
+  },
+  "parserId": "164785583010740300",
+  "version": 10,
+  "disabled": false
 }

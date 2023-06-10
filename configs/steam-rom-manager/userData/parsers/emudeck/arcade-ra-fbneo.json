@@ -1,16 +1,16 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sony PlayStation Portable - PPSSPP",
-  "steamCategory": "${PSP - Standalone PPSSPP}",
+  "configTitle": "Arcade - RetroArch FBNeo",
+  "steamCategory": "${Arcade - FBNeo}",
+  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}fbneo_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/psp",
+  "romDirectory": "${romsdirglobal}/fbneo",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
+  "imageProviders": ["SteamGridDB"],
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "-f -g \"${filePath}\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
-  "imageProviders": ["SteamGridDB"],
   "defaultImage": "",
   "defaultTallImage": "",
   "defaultHeroImage": "",
@@ -22,46 +22,32 @@
   "localLogoImages": "",
   "localIcons": "",
   "disabled": false,
+  "executable": {
+    "path": "${retroarchpath}",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,
     "useCredentials": true
   },
   "parserInputs": {
-    "glob": "**/${title}@(.7z|.7Z|.elf|.ELF|.cso|.CSO|.iso|.ISO|.pbp|.PBP|.prx|.PRX)"
+    "glob": "**/${title}@(7z|7Z|.zip|.ZIP)"
   },
   "titleFromVariable": {
-    "limitToGroups": "",
+    "limitToGroups": "${MAME}",
     "caseInsensitiveVariables": false,
     "skipFileIfVariableWasNotFound": false,
-    "tryToMatchTitle": false
+    "tryToMatchTitle": true
   },
   "fuzzyMatch": {
     "replaceDiacritics": true,
     "removeCharacters": true,
     "removeBrackets": true
   },
-  "executable": {
-    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/ppsspp.sh",
-    "shortcutPassthrough": false,
-    "appendArgsToExecutable": true
-  },
-  "parserId": "164785656634747068",
-  "version": 13,
-  "controllers": {
-    "ps4": null,
-    "ps5": null,
-    "xbox360": null,
-    "xboxone": null,
-    "switch_joycon_left": null,
-    "switch_joycon_right": null,
-    "switch_pro": null,
-    "neptune": {
-      "title": "EmuDeck - PPSSPP Standalone",
-      "mappingId": "ppsspp_controller_config.vdf",
-      "profileType": "template"
-    }
-  },
+  "parserId": "164824416516097457",
+  "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,
