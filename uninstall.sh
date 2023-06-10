@@ -98,12 +98,7 @@ if [ "$doUninstall" == true ]; then
 				12 "Cemu" \
 				13 "Cemu Native" \
 				14 "Mame"  \
-				15 "RMG"  \
-<<<<<<< HEAD
-				16 "Flycast")
-=======
-				16 "Vita3K"  )
->>>>>>> 51fbd683fbd5e85627ec74dfee9ba45bfe0033fa
+				15 "RMG"  )
 	ans=$?	
 	if [ $ans -eq 0 ]; then
 		
@@ -157,15 +152,7 @@ if [ "$doUninstall" == true ]; then
 		fi		
 		if [[ "$emusToUninstall" == *"RMG"* ]]; then
 			doUninstallRMG=false
-		fi
-<<<<<<< HEAD
-		if [[ "$emusToUninstall" == *"Flycast"* ]]; then
-			doUninstallRMG=false
-=======
-		if [[ "$emusToUninstall" == *"Vita3K"* ]]; then
-			doUninstallVita3K=false
->>>>>>> 51fbd683fbd5e85627ec74dfee9ba45bfe0033fa
-		fi				
+		fi			
 		
 	else
 		exit
@@ -250,26 +237,6 @@ if [ "$doUninstall" == true ]; then
 		flatpak uninstall org.com.github.Rosalie241.RMG --system -y
 		rm -rf ~/.var/app/com.github.Rosalie241.RMG &>> /dev/null
 	fi
-<<<<<<< HEAD
-	if [[ "$doUninstallFlycast" == true ]]; then		
-		flatpak uninstall org.flycast.Flycast  --system -y
-		rm -rf ~/.var/app/org.flycast.Flycast  &>> /dev/null	
-	fi
-=======
-	if [[ "$doUninstallVita3K" == true ]]; then
-		rm -rf ~/Applications/Vita3K &>> /dev/null
-		rm -rf ~/.local/share/applications/Vita3K.desktop &>> /dev/null
-	fi
-	# if [[ "$doUninstallXenia" == true ]]; then
-	# 	rm -rf ~/Applications/Vita3K &>> /dev/null
-	# 	rm -rf ~/.local/share/applications/xenia.desktop &>> /dev/null
-	# fi
-	
-	
-
-	echo "55"
-	echo "# Removing Cloud Backup";
->>>>>>> 51fbd683fbd5e85627ec74dfee9ba45bfe0033fa
 
 	#Backup Service
 	systemctl --user disable emudeck_saveBackup.timer && rm "$HOME/.config/systemd/user/emudeck_saveBackup.timer" && rm "$HOME/.config/systemd/user/emudeck_saveBackup.service"

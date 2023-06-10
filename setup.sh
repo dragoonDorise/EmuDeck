@@ -314,17 +314,11 @@ if [ $doInstallMGBA == "true" ]; then
 	mGBA_install
 fi
 <<<<<<< HEAD
-<<<<<<< HEAD
-if [ $doInstallFlycast == "true" ]; then
-	echo "Flycast_install"
-	Flycast_install
-=======
-=======
 if [ $doInstallFlycast == "true" ]; then
 	echo "Flycast_install"
 	Flycast_install
 fi
->>>>>>> 29e6330fecc062ae71f73efcb691b29762216c06
+=======
 if [ $doInstallRMG == "true" ]; then
 	echo "RMG_install"
 	RMG_install
@@ -332,10 +326,6 @@ fi
 if [ $doInstallmelonDS == "true" ]; then
 	echo "melonDS_install"
 	melonDS_install
-<<<<<<< HEAD
->>>>>>> 51fbd683fbd5e85627ec74dfee9ba45bfe0033fa
-=======
->>>>>>> 29e6330fecc062ae71f73efcb691b29762216c06
 fi
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ "$doInstallXenia" == "true" ]; then
