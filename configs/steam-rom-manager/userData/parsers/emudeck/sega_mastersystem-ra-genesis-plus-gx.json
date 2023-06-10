@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sega Master System - Retroarch - Genesis Plus GX",
-  "steamCategory": "${Master System}",
+  "configTitle": "Sega Master System - RetroArch Genesis Plus GX",
+  "steamCategory": "${Sega Master System}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}",
   "steamDirectory": "${steamdirglobal}",

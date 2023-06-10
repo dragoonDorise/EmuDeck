@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sega Genesis/Mega Drive - Retroarch - Genesis Plus GX",
-  "steamCategory": "${Genesis/Mega Drive}",
+  "configTitle": "Sega Genesis/Mega Drive - RetroArch Genesis Plus GX",
+  "steamCategory": "${Sega Genesis/Mega Drive}",
   "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}",

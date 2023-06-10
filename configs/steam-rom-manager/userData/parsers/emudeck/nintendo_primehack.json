@@ -1,14 +1,14 @@
 {
   "parserType": "Glob",
-  "configTitle": "Arcade FBNeo - Retroarch",
-  "steamCategory": "${Arcade - FBNeo}",
-  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}fbneo_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
-  "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/fbneo",
+  "configTitle": "Nintendo Metroid Prime Trilogy - PrimeHack",
+  "steamCategory": "${Nintendo Wii}",
   "steamDirectory": "${steamdirglobal}",
+  "romDirectory": "${romsdirglobal}/primehacks",
+  "executableArgs": "vblank_mode=0 %command% run io.github.shiiion.primehack -b -e \"${filePath}\"",
+  "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
-  "imageProviders": ["SteamGridDB"],
   "titleModifier": "${fuzzyTitle}",
+  "imageProviders": ["SteamGridDB"],
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "defaultImage": "",
@@ -21,42 +21,41 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
-  "disabled": false,
-  "executable": {
-    "path": "${retroarchpath}",
-    "shortcutPassthrough": false,
-    "appendArgsToExecutable": true
-  },
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,
     "useCredentials": true
   },
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/primehack.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": false
+  },
   "parserInputs": {
-    "glob": "**/${title}@(7z|7Z|.zip|.ZIP)"
+    "glob": "**/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.wbfs|.WBFS)"
   },
   "titleFromVariable": {
-    "limitToGroups": "${MAME}",
+    "limitToGroups": "",
     "caseInsensitiveVariables": false,
     "skipFileIfVariableWasNotFound": false,
-    "tryToMatchTitle": true
+    "tryToMatchTitle": false
   },
   "fuzzyMatch": {
     "replaceDiacritics": true,
     "removeCharacters": true,
     "removeBrackets": true
   },
-  "parserId": "164824416516097457",
-  "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,
       "humor": false,
-      "imageMotionTypes": ["static"],
       "styles": [],
       "stylesHero": [],
       "stylesLogo": [],
-      "stylesIcon": []
+      "stylesIcon": [],
+      "imageMotionTypes": ["static"]
     }
-  }
+  },
+  "parserId": "164770728884890305",
+  "version": 10
 }

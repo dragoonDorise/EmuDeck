@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sega Saturn - Retroarch - Yabause",
-  "steamCategory": "${Saturn}",
+  "configTitle": "Sega Saturn - RetroArch Yabause",
+  "steamCategory": "${Sega Saturn - Yabause}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/saturn",
   "steamDirectory": "${steamdirglobal}",

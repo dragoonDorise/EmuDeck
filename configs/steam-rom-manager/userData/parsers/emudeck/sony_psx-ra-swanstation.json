@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sony PlayStation - Retroarch - SwanStation",
-  "steamCategory": "${PlayStation - SwanStation}",
+  "configTitle": "Sony PlayStation - RetroArch SwanStation",
+  "steamCategory": "${Sony PlayStation - SwanStation}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/psx",
   "executableArgs": "-L /swanstation_libretro.so \"${filePath}\"",

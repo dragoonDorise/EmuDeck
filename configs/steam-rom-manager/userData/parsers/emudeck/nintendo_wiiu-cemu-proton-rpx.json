@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo WiiU - Cemu (.rpx) - Proton",
-  "steamCategory": "${WiiU - Proton}",
+  "configTitle": "Nintendo Wii U - Cemu Proton (.rpx)",
+  "steamCategory": "${Nintendo Wii U - Cemu Proton}",
   "executableArgs": "vblank_mode=0 %command% -w -f -g \"Z:${filePath}\"",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/wiiu/roms/",

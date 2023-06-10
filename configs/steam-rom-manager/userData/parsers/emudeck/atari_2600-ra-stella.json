@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Atari 2600 - Retroarch - Stella",
+  "configTitle": "Atari 2600 - RetroArch Stella",
   "steamCategory": "${Atari 2600}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/atari2600",

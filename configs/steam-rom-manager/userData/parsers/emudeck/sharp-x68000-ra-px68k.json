@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sharp X68000 - RetroArch",
+  "configTitle": "Sharp X68000 - RetroArch PX68k",
   "steamCategory": "${Sharp X68000}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/x68000",

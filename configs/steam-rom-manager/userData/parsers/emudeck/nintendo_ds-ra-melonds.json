@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo DS - Retroarch - melonDS",
+  "configTitle": "Nintendo DS - RetroArch melonDS",
   "steamCategory": "${Nintendo DS}",
   "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}melonds_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
