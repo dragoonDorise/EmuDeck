@@ -313,12 +313,10 @@ if [ $doInstallMGBA == "true" ]; then
 	echo "mGBA_install"
 	mGBA_install
 fi
-<<<<<<< HEAD
 if [ $doInstallFlycast == "true" ]; then
 	echo "Flycast_install"
 	Flycast_install
 fi
-=======
 if [ $doInstallRMG == "true" ]; then
 	echo "RMG_install"
 	RMG_install
