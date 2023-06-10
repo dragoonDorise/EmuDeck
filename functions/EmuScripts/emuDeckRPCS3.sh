@@ -4,6 +4,7 @@ RPCS3_remuName="RPCS3"
 RPCS3_emuType="FlatPak"
 RPCS3_emuPath="net.rpcs3.RPCS3"
 RPCS3_releaseURL=""
+RPCS3_VFSConf="$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/vfs.yml"
 
 #cleanupOlderThings
 RPCS3_cleanup(){
@@ -34,7 +35,8 @@ RPCS3_update(){
 
 #ConfigurePaths
 RPCS3_setEmulationFolder(){
-   echo "NYI"
+   iniFieldUpdate "$RPCS3_VFSConf" "" "/dev_hdd0/" "$storagePath/rpcs3/dev_hdd0/" ": "
+   iniFieldUpdate "$RPCS3_VFSConf" "" "/games/" "$romsPath/ps3/" ": "
 }
 
 #SetupSaves
@@ -45,11 +47,8 @@ RPCS3_setupSaves(){
 
 #SetupStorage
 RPCS3_setupStorage(){
-	rpcs3VFSConf="$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/vfs.yml"
-	rpcs3DevHDD0Line="/dev_hdd0/: ${storagePath}/rpcs3/dev_hdd0/"
-	sed -i "/dev_hdd0/c\\${rpcs3DevHDD0Line}" $rpcs3VFSConf 
 
-	mkdir -p $storagePath/rpcs3/
+	mkdir -p "$storagePath/rpcs3/"
 
 	if [ ! -d "$storagePath"/rpcs3/dev_hdd0 ] && [ -d "$HOME/.var/app/${RPCS3_emuPath}/" ];then
 		echo "rpcs3 hdd does not exist in storagepath."
@@ -119,11 +118,7 @@ RPCS3_finalize(){
 }
 
 RPCS3_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$RPCS3_emuPath")" == "$RPCS3_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$RPCS3_emuPath"
 }
 
 RPCS3_resetConfig(){

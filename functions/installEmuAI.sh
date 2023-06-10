@@ -23,16 +23,16 @@ installEmuAI(){
     #curl -L "$url" -o "$HOME/Applications/$altName.AppImage.temp" && mv "$HOME/Applications/$altName.AppImage.temp" "$HOME/Applications/$altName.AppImage"
     if safeDownload "$name" "$url" "$HOME/Applications/$altName.AppImage" "$showProgress"; then
         chmod +x "$HOME/Applications/$altName.AppImage"
-        if [[ ! -z $lastVerFile ]] && [[ ! -z $latestVer ]]; then
+        if [[ -n $lastVerFile ]] && [[ -n $latestVer ]]; then
             echo "latest version $latestVer > $lastVerFile"
-            echo $latestVer > "$lastVerFile"
+            echo "$latestVer" > "$lastVerFile"
         fi
     else
         return 1
     fi
 
     shName=$(echo "$name" | awk '{print tolower($0)}')
-    find "${toolsPath}/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
+    find "${toolsPath}/launchers/" -maxdepth 1 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
     while read -r f
     do
         echo "deleting $f"

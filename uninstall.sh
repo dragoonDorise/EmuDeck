@@ -1,5 +1,5 @@
 #!/bin/bash
-source "$EMUDECKGIT/functions/all.sh"
+source "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
 doUninstall=false
 doUninstallRA=true
@@ -21,6 +21,10 @@ doUninstallSRM=true
 doUninstallESDE=true
 doUninstallMGBA=true
 doUninstallRMG=true
+doUninstallVita3K=true
+
+
+
 
 LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
 echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
@@ -67,7 +71,7 @@ if [ "$doUninstall" == true ]; then
 
 	
 	#Emulator selector
-	text="`printf " <b>This will delete EmuDeck , all the installed emulators and all of its configuration files, bios and saved games</b>\n\n You can keep the Emulators installed, tell me which ones you want to <b>keep</b>.\n\nIf you select none of them, everything will be deleted except your roms, if you wanna keep your saved games go to the Emulation/saves folder <b>now</b> and make a backup of its contents"`"
+	text="`printf " <b>This will delete EmuDeck , all the installed emulators and all of its configuration files,saved games</b>\n\n You can keep the Emulators installed, tell me which ones you want to <b>keep</b>.\n\nIf you select none of them, everything will be deleted except your roms and bios ( Yuzu firmware will be deleted)"`"
 
 	emusToUninstall=$(zenity --list \
 				--title="EmuDeck" \
@@ -93,7 +97,8 @@ if [ "$doUninstall" == true ]; then
 				12 "Cemu" \
 				13 "Cemu Native" \
 				14 "Mame"  \
-				15 "RMG"  )
+				15 "RMG"  \
+				16 "Vita3K"  )
 	ans=$?	
 	if [ $ans -eq 0 ]; then
 		
@@ -133,9 +138,9 @@ if [ "$doUninstall" == true ]; then
 		if [[ "${emusToUninstall}" == *"Cemu Native"* ]]; then
 			doUninstallCemuNative="false"
 		fi
-		#if [[ "$emusToUninstall" == *"Xenia"* ]]; then
-		#	doUninstallXenia=false
-		#fi
+		if [[ "$emusToUninstall" == *"Xenia"* ]]; then
+			doUninstallXenia=false
+		fi
 		if [[ "$emusToUninstall" == *"Xemu"* ]]; then
 			doUninstallXemu=false
 		fi			
@@ -147,13 +152,22 @@ if [ "$doUninstall" == true ]; then
 		fi		
 		if [[ "$emusToUninstall" == *"RMG"* ]]; then
 			doUninstallRMG=false
-		fi			
+		fi
+		if [[ "$emusToUninstall" == *"Vita3K"* ]]; then
+			doUninstallVita3K=false
+		fi				
 		
 	else
 		exit
 	fi
 	
 	#Uninstalling
+	
+	(
+	
+		echo "10"
+		echo "# Removing selected Emulators" ;
+	
 	if [[ "$doUninstallRA" == true ]]; then		
 		flatpak uninstall org.libretro.RetroArch --system -y
 		rm -rf ~/.var/app/org.libretro.RetroArch &>> /dev/null	
@@ -167,6 +181,7 @@ if [ "$doUninstall" == true ]; then
 		flatpak uninstall net.pcsx2.PCSX2 --system -y
 		rm -rf ~/Applications/pcsx2-Qt.AppImage &>> /dev/null
 		rm -rf ~/.var/app/net.pcsx2.PCSX2 &>> /dev/null
+		rm -rf ~/.config/PCSX2 &>> /dev/null
 	fi
 	if [[ "$doUninstallRPCS3" == true ]]; then
 		flatpak uninstall net.rpcs3.RPCS3 --system -y
@@ -202,6 +217,7 @@ if [ "$doUninstall" == true ]; then
 
 		rm -f ~/Emulation/roms/wiiu/* &>> /dev/null
 		rm -f /run/media/mmcblk0p1/Emulation/roms/wiiu/* &>> /dev/null
+		rm -f "$HOME/.local/share/applications/Cemu (Proton).desktop" &>> /dev/null
 	fi
 	if [[ "${doUninstallCemuNative}" == "true" ]]; then
 		rm -rf ~/Applications/Cemu*.AppImage &>> /dev/null
@@ -218,21 +234,49 @@ if [ "$doUninstall" == true ]; then
 	if [[ "$doUninstallMGBA" == true ]]; then
 		rm -rf ~/Applications/mGBA.AppImage &>> /dev/null
 		rm -rf ~/.config/mgba
+		rm -rf ~/.local/share/applications/mGBA.desktop &>> /dev/null
 	fi
 	if [[ "$doUninstallRMG" == true ]]; then
 		flatpak uninstall org.com.github.Rosalie241.RMG --system -y
 		rm -rf ~/.var/app/com.github.Rosalie241.RMG &>> /dev/null
 	fi
+	if [[ "$doUninstallVita3K" == true ]]; then
+		rm -rf ~/Applications/Vita3K &>> /dev/null
+		rm -rf ~/.local/share/applications/Vita3K.desktop &>> /dev/null
+	fi
+	# if [[ "$doUninstallXenia" == true ]]; then
+	# 	rm -rf ~/Applications/Vita3K &>> /dev/null
+	# 	rm -rf ~/.local/share/applications/xenia.desktop &>> /dev/null
+	# fi
+	
+	
+
+	echo "55"
+	echo "# Removing Cloud Backup";
 
 	#Backup Service
 	systemctl --user disable emudeck_saveBackup.timer && rm "$HOME/.config/systemd/user/emudeck_saveBackup.timer" && rm "$HOME/.config/systemd/user/emudeck_saveBackup.service"
-	
+	rm -rf "$HOME/Desktop/SaveBackup.desktop" &>> /dev/null
 	#Emudeck's files	
 	
-	rm -rf ~/.steam/steam/controller_base/templates/cemu_controller_config.vdf
-	rm -rf ~/.steam/steam/controller_base/templates/citra_controller_config.vdf
-	rm -rf ~/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf
-	rm -rf ~/.steam/steam/controller_base/templates/duckstation_controller_config.vdf
+	
+	echo "60"
+	echo "# Removing Steam Input files";
+	
+	rm -rf ~/.steam/steam/controller_base/templates/cemu_controller_config.vdf  &>> /dev/null
+	rm -rf ~/.steam/steam/controller_base/templates/citra_controller_config.vdf  &>> /dev/null
+	rm -rf ~/.steam/steam/controller_base/templates/duckstation_controller_config.vdf  &>> /dev/null
+	rm -rf ~/.steam/steam/controller_base/templates/emudeck_cloud_controller_config.vdf  &>> /dev/null
+	rm -rf ~/.steam/steam/controller_base/templates/emulationstation-de_controller_config.vdf  &>> /dev/null
+	rm -rf ~/.steam/steam/controller_base/templates/melonds_controller_config.vdf  &>> /dev/null
+	rm -rf ~/.steam/steam/controller_base/templates/mGBA_controller_config.vdf  &>> /dev/null
+	rm -rf ~/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf  &>> /dev/null
+	rm -rf ~/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf  &>> /dev/null
+	rm -rf ~/.steam/steam/controller_base/templates/rmg_controller_config.vdf  &>> /dev/null	
+	find  "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons" -name 'EmuDeck*' -exec rm {} \;
+	
+	echo "65"
+	echo "# Removing EmuDeck AppImage";
 	rm -rf ~/emudeck &>> /dev/null	
 	rm -rf ~/Desktop/EmuDeckCHD.desktop &>> /dev/null
 	rm -rf ~/Desktop/EmuDeckUninstall.desktop &>> /dev/null
@@ -243,24 +287,49 @@ if [ "$doUninstall" == true ]; then
 	rm -rf ~/Applications/EmuDeck.AppImage &>> /dev/null
 	rm -rf ~/Applications/EmuDeck_SaveSync.AppImage &>> /dev/null	
 	rm -rf ~/Applications/RemotePlayWhatever.AppImage &>> /dev/null
+	rm -rf ~/.config/EmuDeck
 	
+	echo "70"
+	echo "# Removing Emulators Custom Shortcuts";
 	rm -rf ~/.local/share/applications/Cemu.desktop &>> /dev/null
 	rm -rf ~/.local/share/applications/EmuDeck.desktop &>> /dev/null
 	rm -rf ~/.local/share/applications/pcsx2-Qt.desktop &>> /dev/null
 	rm -rf ~/.local/share/applications/Ryujinx.desktop &>> /dev/null
 	rm -rf ~/.local/share/applications/yuzu.desktop &>> /dev/null
 	
+	echo "80"
+	echo "# Removing SRM configurations";
 	rm -rf ~/.config/steam-rom-manager
-	rm -rf ~/.config/EmuDeck
+	rm -rf ~/.local/share/applications/SRM.desktop &>> /dev/null
+
+
+	echo "90"
+	echo "# Removing EmuDeck folders";
+	rm -rf $toolsPath
+	#rm -rf $biosPath
+	rm -rf $savesPath
+	rm -rf $storagePath
+	rm -rf $ESDEscrapData
+	rm -rf "$emulationPath/hdpacks"
+	rm -rf "$emulationPath/storage"
 	
-	rm -rf "toolsPath"
-	rm -rf "biosPath"
-	rm -rf "savesPath"
-	rm -rf "storagePath"
-	rm -rf "ESDEscrapData"
+	echo "100"
+	echo "# Done";
+	) |
+	zenity --progress \
+	  --title="Removing EmuDeck..." \
+	  --text="..." \
+	  --percentage=0
+	  --auto-close
+	  --width="250"
+	
+	if [ "$?" = -1 ] ; then
+			zenity --error \
+			  --text="Uninstall canceled."
+	fi
 
 	
-	 text="`printf " <b>Done!</b>\n\n We are sad to see you go and we really hope you give us a chance on the future\n\nYour roms are still on your Emulation folder, please delete it manually if you want"`"
+	 text="`printf " <b>Done!</b>\n\n We are sad to see you go and we really hope you give us a chance on the future\n\nYour roms are still on your Emulation folder, please delete it manually if you want. Now close the EmuDeck App to complete the process"`"
 		 zenity --info \
 				 --title="EmuDeck" \
 				 --width="450" \
