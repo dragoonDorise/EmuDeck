@@ -1,6 +1,6 @@
 #!/bin/bash
 CreateStructureUSB(){
-	destination=$1	
+	destination=$1
 	mkdir -p "$destination/bios/"
 	mkdir -p "$destination/roms/"
 	rsync -rav --ignore-existing "$EMUDECKGIT/roms/" "$destination/roms/"|
@@ -28,15 +28,22 @@ CopyGames(){
 	
 
 	if [ $difference -gt 0 ]; then
-		rsync -rav --ignore-existing --progress "$origin/roms/" "$romsPath/" |
+		(
+		rsync -rav --ignore-existing --progress --exclude=".*" "$origin/roms/" "$romsPath/" |
 		awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
 		zenity --progress --title "Importing your games to $romsPath" \
 		--text="Scanning..." --width=400 --percentage=0 --auto-close
 		
-		rsync -rav --ignore-existing --progress "$origin/bios/" "$biosPath/" |
+		rsync -rav --ignore-existing --progress --exclude=".*" "$origin/bios/" "$biosPath/" |
 		awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
 		zenity --progress --title "Importing your games to $biosPath" \
 		--text="Scanning..." --width=400 --percentage=0 --auto-close
+		) && 
+		text="`printf " <b>Success!</b>\n\nThe contents of your USB Drive have been copied to your Emulation folder)"`"
+		 zenity --info \
+				 --title="EmuDeck" \
+				 --width="450" \
+				 --text="${text}" 2>/dev/null && echo "true"	
 	else
 		text="$(printf "<b>Not enough space</b>\nYou need to have at least ${neededSpaceInHuman} on ${emulationPath}\nYou only have ${freeSpaceInHuman}")"
 		 zenity --error \
