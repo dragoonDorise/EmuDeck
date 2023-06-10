@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "RPG Maker - Retroarch - EasyRPG",
+  "configTitle": "RPG Maker - RetroArch EasyRPG",
   "steamCategory": "${RPG Maker}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/easyrpg",

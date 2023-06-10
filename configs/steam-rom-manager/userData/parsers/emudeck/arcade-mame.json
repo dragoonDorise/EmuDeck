@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Arcade - MAME (standalone)",
+  "configTitle": "Arcade - MAME (Standalone)",
   "steamCategory": "${Arcade}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/arcade",

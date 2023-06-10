@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo 64 - Retroarch - Mupen64Plus Next",
+  "configTitle": "Nintendo 64 - RetroArch Mupen64Plus Next",
   "steamCategory": "${Nintendo 64}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/n64",

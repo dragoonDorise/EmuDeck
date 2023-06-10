@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Philips CD-i - RetroArch",
+  "configTitle": "Philips CD-i - RetroArch SAME CDi",
   "steamCategory": "${Philips CD-i}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/cdimono1",

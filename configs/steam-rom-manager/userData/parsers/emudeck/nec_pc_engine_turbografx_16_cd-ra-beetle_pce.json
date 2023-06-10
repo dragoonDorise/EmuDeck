@@ -1,10 +1,10 @@
 {
   "parserType": "Glob",
-  "configTitle": "ZX Spectrum - RetroArch - Fuse",
-  "steamCategory": "${ZX Spectrum}",
+  "configTitle": "NEC PC Engine/TurboGrafx 16 CD - RetroArch Beetle PCE",
+  "steamCategory": "${NEC PC Engine/TurboGrafx 16 CD}",
   "steamDirectory": "${steamdirglobal}",
-  "romDirectory": "${romsdirglobal}/zxspectrum",
-  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}fuse_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "romDirectory": "${romsdirglobal}",
+  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_pce_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
@@ -32,7 +32,7 @@
     "appendArgsToExecutable": true
   },
   "parserInputs": {
-    "glob": "**/${title}@(.7z|.tzx|.tap|.z80|.rzx|.scl|.trd|.TZX|.TAP|.Z80|.RZX|.SCL|.TRD|.zip|.ZIP)"
+    "glob": "@(pcenginecd|tg-cd)/**/${title}@(.7z|.7Z|.ccd|.CCD|.chd|.CHD|.cue|.CUE|.iso|.ISO|.zip|.ZIP)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
@@ -56,7 +56,6 @@
       "imageMotionTypes": ["static"]
     }
   },
-  "parserId": "164785583010740300",
-  "version": 10,
-  "disabled": false
+  "parserId": "165856080826916450",
+  "version": 10
 }

@@ -1,16 +1,16 @@
 {
   "parserType": "Glob",
-  "configTitle": "PrimeHack",
-  "steamCategory": "${PrimeHack}",
-  "steamDirectory": "${steamdirglobal}",
-  "romDirectory": "${romsdirglobal}/primehacks",
-  "executableArgs": "vblank_mode=0 %command% run io.github.shiiion.primehack -b -e \"${filePath}\"",
+  "configTitle": "Atari Lynx - RetroArch Beetle Handy",
+  "steamCategory": "${Atari Lynx}",
   "executableModifier": "\"${exePath}\"",
+  "romDirectory": "${romsdirglobal}/atarilynx",
+  "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "imageProviders": ["SteamGridDB"],
+  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_lynx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
+  "imageProviders": ["SteamGridDB"],
   "defaultImage": "",
   "defaultTallImage": "",
   "defaultHeroImage": "",
@@ -21,18 +21,14 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
+  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,
     "useCredentials": true
   },
-  "executable": {
-    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/primehack.sh",
-    "shortcutPassthrough": false,
-    "appendArgsToExecutable": false
-  },
   "parserInputs": {
-    "glob": "**/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.wbfs|.WBFS)"
+    "glob": "**/${title}@(.7z|.7Z|.lnx|.LNX|.zip|.ZIP)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
@@ -45,17 +41,22 @@
     "removeCharacters": true,
     "removeBrackets": true
   },
+  "executable": {
+    "path": "${retroarchpath}",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "parserId": "164785590686474494",
+  "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,
       "humor": false,
+      "imageMotionTypes": ["static"],
       "styles": [],
       "stylesHero": [],
       "stylesLogo": [],
-      "stylesIcon": [],
-      "imageMotionTypes": ["static"]
+      "stylesIcon": []
     }
-  },
-  "parserId": "164770728884890305",
-  "version": 10
+  }
 }

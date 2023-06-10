@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
   "configTitle": "Nintendo Switch - Ryujinx",
-  "steamCategory": "${Switch - Ryujinx}",
+  "steamCategory": "${Nintendo Switch - Ryujinx}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/switch",
   "executableArgs": "--fullscreen \"'${filePath}'\"",

@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sega CD/Mega CD - Retroarch - Genesis Plus GX",
-  "steamCategory": "${Sega CD}",
+  "configTitle": "Sega CD/Mega CD - RetroArch Genesis Plus GX",
+  "steamCategory": "${Sega CD/Mega CD}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}",
   "steamDirectory": "${steamdirglobal}",
