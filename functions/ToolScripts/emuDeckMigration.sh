@@ -106,6 +106,10 @@ Migration_updateSRM(){
 	origin=$1
 	destination=$2		
 	find "$HOME/.local/share/Steam/userdata" -name "shortcuts.vdf" -exec sed -i "s|${origin}|${destination}|g" {} +
+	tmp=$(mktemp)
+	jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
+	"$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
+	&& mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
 }
 
 Migration_updateParsers(){
