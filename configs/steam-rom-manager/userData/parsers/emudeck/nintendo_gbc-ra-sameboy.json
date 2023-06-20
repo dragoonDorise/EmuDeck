@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo GameBoy Color - Retroarch - Sameboy",
-  "steamCategory": "${GameBoy Color}",
+  "configTitle": "Nintendo GameBoy Color - Retroarch SameBoy",
+  "steamCategory": "${Nintendo Game Boy Color - SameBoy}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}",
   "steamDirectory": "${steamdirglobal}",
