@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
   "configTitle": "Sega Saturn - Retroarch Kronos",
-  "steamCategory": "${Saturn}",
+  "steamCategory": "${Sega Saturn}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/saturn",
   "steamDirectory": "${steamdirglobal}",
