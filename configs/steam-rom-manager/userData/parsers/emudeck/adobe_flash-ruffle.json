@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
   "configTitle": "Adobe Flash - Ruffle",
-  "steamCategory": "${Flash}",
+  "steamCategory": "${Adobe Flash}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/flash",
   "executableArgs": " \"${fileName}\"",
