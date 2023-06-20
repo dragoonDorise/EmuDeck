@@ -1,2 +1,5 @@
 #!/bin/sh
-/usr/bin/flatpak run io.github.shiiion.primehack
+source $HOME/.config/EmuDeck/backend/functions/all.sh
+cloud_sync_downloadEmu primehack
+/usr/bin/flatpak run io.github.shiiion.primehack "${@}"
+cloud_sync_uploadEmu primehack

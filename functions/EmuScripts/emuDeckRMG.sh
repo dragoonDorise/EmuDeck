@@ -164,11 +164,7 @@ echo "NYI"
 }
 
 RMG_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$RMG_emuPath")" == "$RMG_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$RMG_emuPath"
 }
 
 RMG_resetConfig(){

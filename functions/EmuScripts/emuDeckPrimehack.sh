@@ -99,11 +99,7 @@ echo "NYI"
 }
 
 Primehack_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$Primehack_emuPath")" == "$Primehack_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$Primehack_emuPath"
 }
 
 Primehack_resetConfig(){

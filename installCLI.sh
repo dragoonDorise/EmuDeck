@@ -444,7 +444,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 					setSetting doInstallRA true
 				fi
 				if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
-					setSetting doInstallPrimeHacks true
+					setSetting doInstallPrimeHack true
 				fi
 				if [[ "$emusToInstall" == *"PCSX2"* ]]; then
 					setSetting doInstallPCSX2 true
@@ -604,7 +604,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 						setSetting doSetupRA true
 					fi
 					if [[ "$emusToReset" == *"PrimeHack"* ]]; then
-						setSetting doSetupPrimeHacks true
+						setSetting doSetupPrimehack true
 					fi
 					if [[ "$emusToReset" == *"PCSX2"* ]]; then
 						setSetting doSetupPCSX2 true
@@ -676,7 +676,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 		setSetting doInstallCemu true
 		setSetting doInstallXenia false
 		setSetting doInstallRuffle false
-		setSetting doInstallPrimeHacks true
+		setSetting doInstallPrimeHack true
 		setSetting doInstallPPSSPP true
 		setSetting doInstallXemu true
 		#doInstallMelon=true
@@ -765,7 +765,7 @@ fi
 if [ "$doInstallPCSX2QT" == "true" ]; then	
 	PCSX2QT_install
 fi
-if [ $doInstallPrimeHacks == "true" ]; then
+if [ $doInstallPrimeHack == "true" ]; then
 	Primehack_install
 fi
 if [ $doInstallRPCS3 == "true" ]; then
@@ -824,7 +824,7 @@ setMSG "Configuring emulators"
 if [ "$doSetupRA" == "true" ]; then
 	RetroArch_init
 fi
-if [ "$doSetupPrimeHacks" == "true" ]; then
+if [ "$doSetupPrimehack" == "true" ]; then
 	Primehack_init
 fi
 if [ "$doSetupDolphin" == "true" ]; then

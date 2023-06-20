@@ -88,24 +88,29 @@ function testRealDeck(){
 
 function testLocationValid(){
     local locationName=$1
-	local testLocation=$2
-	local return=""
+    local testLocation=$2
+    local result=""
 
-    touch "$testLocation/testwrite"
-
-	if [ ! -f  "$testLocation/testwrite" ]; then
-		return="Invalid: $locationName not Writable"
-	else
-		ln -s "$testLocation/testwrite" "$testLocation/testwrite.link"
-		if [ ! -f  "$testLocation/testwrite.link" ]; then
-			return="Invalid: $locationName not Linkable"
-		else
-			return="Valid"
-		fi
-	fi
-	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
-	echo $return
+    if [[ "$testLocation" == *" "* ]]; then
+        result="Invalid: $locationName contains spaces"
+    else
+        touch "$testLocation/testwrite"
+        if [ ! -f  "$testLocation/testwrite" ]; then
+            result="Invalid: $locationName not Writable"
+        else
+            ln -s "$testLocation/testwrite" "$testLocation/testwrite.link"
+            if [ ! -f  "$testLocation/testwrite.link" ]; then
+                result="Invalid: $locationName not Linkable"
+            else
+                result="Valid"
+            fi
+            rm -f "$testLocation/testwrite.link"
+        fi
+        rm -f "$testLocation/testwrite"
+    fi
+    echo "$result"
 }
+
 
 function testLocationValidRelaxed(){
 	local locationName=$1
@@ -115,12 +120,12 @@ function testLocationValidRelaxed(){
 	touch "$testLocation/testwrite"
 
 	if [ ! -f  "$testLocation/testwrite" ]; then
-		return="Invalid: $locationName not Writable"
+		result="Invalid: $locationName not Writable"
 	else
-		return="Valid"
+		result="Valid"
 	fi
-	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
-	echo $return
+	rm -f "$testLocation/testwrite"
+	echo $result
 }
 
 function makeFunction(){
@@ -258,7 +263,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupXenia=false")
 	defaultSettingsList+=("doSetupRyujinx=true")
 	defaultSettingsList+=("doSetupMAME=true")
-	defaultSettingsList+=("doSetupPrimeHacks=true")
+	defaultSettingsList+=("doSetupPrimehack=true")
 	defaultSettingsList+=("doSetupPPSSPP=true")
 	defaultSettingsList+=("doSetupXemu=true")
 	defaultSettingsList+=("doSetupESDE=true")
@@ -282,7 +287,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doInstallDuck=true")
 	defaultSettingsList+=("doInstallCemu=true")
 	defaultSettingsList+=("doInstallXenia=true")
-	defaultSettingsList+=("doInstallPrimeHacks=true")
+	defaultSettingsList+=("doInstallPrimeHack=true")
 	defaultSettingsList+=("doInstallPPSSPP=true")
 	defaultSettingsList+=("doInstallXemu=true")
 	defaultSettingsList+=("doInstallPCSX2QT=true")
@@ -435,7 +440,7 @@ function moveSaveFolder(){
 		mkdir -p "$savesPath/$emu/$folderName"
 		if [[ "$linkedTarget" == "$path" ]]; then		
 			setMSG "Moving $emu $folderName to the Emulation/saves/$emu/$folderName folder"	
-			rsync -avh "$path/" "$savesPath/$emu/$folderName" && rm -rf "${path:?}"
+			rsync -avh "$path/" "$savesPath/$emu/$folderName" && mv "$path" "${path}.bak"
 			ln -sn  "$savesPath/$emu/$folderName" "$path"
 		fi
 	fi
@@ -493,7 +498,7 @@ function createDesktopShortcut(){
 	echo "$Shortcutlocation created"
 }
 
-#desktopShortcutFieldUpdate "$shortcutFile" "Name" "NewName"
+#desktopShortcutFieldUpdate "$shortcutFile" "Field" "NewValue"
 function desktopShortcutFieldUpdate(){
 	local shortcutFile=$1
 	local shortcutKey=$2
@@ -505,46 +510,117 @@ function desktopShortcutFieldUpdate(){
 		# update icon if name is updated
 		if [ "$shortcutKey" == "Name" ]; then
 			name=$shortcutValue
-			cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name")."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null
-			icon=$(find "$HOME/.local/share/icons/emudeck/" -type f -iname "$(cut -d " " -f1 <<< "$name").*")
-			if [ ! -z "$icon" ]; then
-				desktopShortcutFieldUpdate "$shortcutFile" "Icon" "$icon"
-				sed -i "s|Icon\s*?=.*|Icon=$icon|g" "$shortcutFile"
+			cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name").{svg,jpg,png}" "$HOME/.local/share/icons/emudeck/" 2>/dev/null
+			icon=$(find "$HOME/.local/share/icons/emudeck/" -type f \( -iname "$(cut -d " " -f1 <<< "$name").svg" -o -iname "$(cut -d " " -f1 <<< "$name").jpg" -o -iname "$(cut -d " " -f1 <<< "$name").png" \) -print -quit)
+			echo "Icon Found: $icon"
+			if [ -n "$icon" ]; then
+				#desktopShortcutFieldUpdate "$shortcutFile" "Icon" "$icon"
+				sed -i "s#Icon\\s*=\\s*.*#Icon=$icon#g" "$shortcutFile"
+				sed -E -i "s|Icon\\s*=\\s*.*|Icon=$icon|g" "$shortcutFile"
 			fi
 		fi
-		sed -E -i "s|$shortcutKey\s*?=.*|$shortcutKey=$shortcutValue|g" "$shortcutFile"
+		sed -E -i "s|$shortcutKey\\s*=\\s*.*|$shortcutKey=$shortcutValue|g" "$shortcutFile"
 		balooctl check
 	fi
 }
 
-#iniFieldUpdate "$iniFilePath" "General" "LoadPath" "$storagePath/$emuName/Load"
-function iniFieldUpdate(){
-	local iniFile="$1"
-	local iniSection="$2"
-	local iniKey="$3"
-	local iniValue="$4"
 
-	if [ -f "$iniFile" ]; then
-		# Create the section if it doesn't exist.
-		if ! grep -q "\[$iniSection\]" "$iniFile"; then
-			echo "[$iniSection]" >> "$iniFile"
-		fi
+#iniFieldUpdate "$iniFilePath" "General" "LoadPath" "$storagePath/$emuName/Load" "separator!"
+function iniFieldUpdate() {
+    local iniFile="$1"
+    local iniSection="${2:-}"
+    local iniKey="$3"
+    local iniValue="$4"
+    local separator="${5:- = }"
 
-		# If the key doesn't exist, create it one line below the $iniSection.
-		# Otherwise, just update the value.
-		if ! grep -q "$iniKey" "$iniFile"; then
-			echo "Creating key $iniKey = $iniValue"
-			local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
-			sed -i "$((sectionLineNumber + 1))i$iniKey = $iniValue" "$iniFile"
-		else
-			echo "Updating key $iniKey = $iniValue"
-			local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
-			sed -i "$((sectionLineNumber + 1))is|$iniKey =.*|$iniKey = $iniValue|g" "$iniFile"
-		fi
-	else
-		echo "Can't update missing INI file: $iniFile"
-	fi
+    if [ -f "$iniFile" ]; then
+        # Create the section if it doesn't exist.
+        if [ -n "$iniSection" ] && ! grep -q "\[$iniSection\]" "$iniFile"; then
+            echo "Creating Header [$iniSection]"
+            if [ "$(wc -l < "$iniFile")" -gt 0 ]; then
+                # Append a newline before adding the new section
+                echo >> "$iniFile"
+            fi
+            # Escape special characters in the section header
+            escapedSection=$(echo "$iniSection" | sed 's/[&/\]/\\&/g')
+            echo "[$escapedSection]" >> "$iniFile"
+			echo "Creating [$iniSection] key $iniKey$separator$iniValue"
+            echo "$iniKey$separator$iniValue" >> "$iniFile"
+        else
+            # If the key doesn't exist in the section, create it one line below the section.
+            # Otherwise, update the value.
+            local startLineNumber=''
+            local endLineNumber=''
+            if [ -n "$iniSection" ]; then
+                # Escape special characters in the section header
+                escapedSection=$(echo "$iniSection" | sed 's/[&/\]/\\&/g')
+                startLineNumber=$(awk -v section="$escapedSection" 'BEGIN{FS=OFS="|"} $0=="["section"]"{print NR; exit}' "$iniFile")
+                if [ -n "$startLineNumber" ]; then
+                    endLineNumber=$(awk -v start="$startLineNumber" -F ']' 'NR > start && /^\[/ {print NR-1; exit}' "$iniFile")
+                fi
+            fi
+
+            if [ -n "$startLineNumber" ] && [ -n "$endLineNumber" ]; then
+                if ! grep -q "^$iniKey$separator" <(sed -n "${startLineNumber},${endLineNumber}p" "$iniFile"); then
+                    echo "Creating [$iniSection] key $iniKey$separator$iniValue"
+                    sed -i "${startLineNumber}a$iniKey$separator$iniValue" "$iniFile"
+                else
+                    echo "Updating [$iniSection] key $iniKey$separator$iniValue"
+                    sed -i "/^\[$escapedSection\]/,/^\[/ s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
+                fi
+            elif ! grep -q "^$iniKey$separator" "$iniFile"; then
+                echo "Creating key $iniKey$separator$iniValue"
+                echo "$iniKey$separator$iniValue" >> "$iniFile"
+            else
+                echo "Updating key $iniKey$separator$iniValue"
+                sed -i "s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
+            fi
+        fi
+    else
+        echo "Can't update missing INI file: $iniFile"
+    fi
 }
+
+
+function iniSectionUpdate() {
+    local file="$1"
+    local section_name="$2"
+    local new_content="$3"
+    local tmp_file=$(mktemp)
+
+    local inside_section=0
+
+    while IFS= read -r line; do
+
+        if [[ "$line" =~ ^\[$section_name\] ]]; then
+            inside_section=1
+            echo "$line"
+            echo "$new_content"
+            continue
+        fi
+
+        if [[ "$line" =~ ^\[ ]] && [[ ! "$line" =~ ^\[$section_name\] ]] && [[ $inside_section -eq 1 ]]; then
+            echo "$old_content"
+            inside_section=0
+        fi
+
+        if [[ $inside_section -eq 1 ]]; then
+            continue
+        fi
+
+        echo "$line"
+
+    local old_content="$line"
+
+    done < "$file" > "$tmp_file"
+
+    if [[ $inside_section -eq 1 ]]; then
+        echo "$old_content"
+    fi
+
+    mv "$tmp_file" "$file"
+}
+
 
 safeDownload() {
 	local name="$1"
@@ -587,16 +663,27 @@ addSteamInputCustomIcons() {
 	rsync -av "$EMUDECKGIT/configs/steam-input/Icons/" "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons"
 }
 
-#add new emu entries here!
 getEmuInstallStatus() {
-	emuArray=(	"Cemu" "CemuNative" "Citra" "Dolphin" "DuckStation" "MAME" "melonDS" "mGBA"\
-				"PCSX2QT" "PPSSPP" "Primehack" "RetroArch" "RMG" "RPCS3" "Ryujinx" "ScummVM"\
-				"Vita3K" "Xemu" "Xenia" "Yuzu")
+	emuArray=(	"$@")
 	installStatus=()
 	for emu in "${emuArray[@]}"; do
 		installStatus+=($("${emu}_IsInstalled"))
 	done
 	
 	paste <(printf "%s\n" "${emuArray[@]}") <(printf "%s\n" "${installStatus[@]}") |
-    jq -nR '{ Emulators: [inputs] | map(split("\t") | { Name: .[0], Installed: .[1] }) }'
+	jq -nR '{ Emulators: [inputs] | map(split("\t") | { Name: .[0], Installed: .[1] }) }'
+}
+
+isFpInstalled(){
+	flatPakID=$1
+	if [ "$(flatpak --columns=app list --user | grep "$flatPakID")" == "$flatPakID" ] || [ "$(flatpak --columns=app list --system | grep "$flatPakID")" == "$flatPakID" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+
+check_internet_connection(){
+  ping -q -c 1 -W 1 8.8.8.8 > /dev/null 2>&1 && echo true || echo false
 }

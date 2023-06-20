@@ -245,7 +245,7 @@ if [ "$doInstallPCSX2QT" == "true" ]; then
 	echo "install pcsx2Qt"
 	PCSX2QT_install
 fi
-if [ $doInstallPrimeHacks == "true" ]; then
+if [ $doInstallPrimeHack == "true" ]; then
 	echo "install primehack"
 	Primehack_install
 fi
@@ -354,7 +354,7 @@ if [ "$doSetupRA" == "true" ]; then
 	echo "RetroArch_init"
 	RetroArch_init
 fi
-if [ "$doSetupPrimeHacks" == "true" ]; then
+if [ "$doSetupPrimehack" == "true" ]; then
 	echo "Primehack_init"
 	Primehack_init
 fi
@@ -642,11 +642,11 @@ if [ "$doSetupDuck" == "true" ]; then
 	fi
 fi
 if [ "$doSetupPCSX2QT" == "true" ]; then
-	PCSX2_retroAchievementsSetLogin
+	PCSX2QT_retroAchievementsSetLogin
 	if [ "$achievementsHardcore" == "true" ]; then
-		PCSX2_retroAchievementsHardCoreOn
+		PCSX2QT_retroAchievementsHardCoreOn
 	else
-		PCSX2_retroAchievementsHardCoreOff
+		PCSX2QT_retroAchievementsHardCoreOff
 	fi
 fi
 

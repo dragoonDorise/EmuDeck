@@ -98,11 +98,7 @@ echo "NYI"
 }
 
 PPSSPP_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$PPSSPP_emuPath")" == "$PPSSPP_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$PPSSPP_emuPath"
 }
 
 PPSSPP_resetConfig(){

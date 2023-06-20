@@ -49,7 +49,7 @@ SRM_createDesktopShortcut(){
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
 	Name=Steam Rom Manager AppImage
-	Exec=zenity --question --width 450 --title \"Close Steam/Steam Input?\" --text \"Exit Steam to launch Steam Rom Manager? Desktop controls will temporarily revert to touch/trackpad/L2/R2\" && (kill -15 \$(pidof steam) & $SRM_toolPath)
+	Exec=zenity --question --width 450 --title \"Close Steam/Steam Input?\" --text \"Exit Steam to launch Steam Rom Manager? Desktop controls will temporarily revert to touch/trackpad/L2/R2 until you open Steam again.\" && (kill -15 \$(pidof steam) & $SRM_toolPath)
 	Icon=$HOME/.local/share/icons/emudeck/srm.png
 	Terminal=false
 	Type=Application
@@ -59,12 +59,22 @@ SRM_createDesktopShortcut(){
 }
 
 SRM_init(){			
-	setMSG "Configuring Steam Rom Manager"
+	setMSG "Configuring Steam Rom Manager"	
+	local json_directory="$HOME/.config/steam-rom-manager/userData/parsers/"
+	local output_file="$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
+	#local files=$1
+	
 	mkdir -p "$HOME/.config/steam-rom-manager/userData/"
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/parsers/" "$HOME/.config/steam-rom-manager/userData/parsers/"
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
 	#cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 	#cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/userSettings.json"	
+	cp "$HOME/.config/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.bak"
+	
+	
+	jq -s '.' $(find "$json_directory" -name "*.json" | sort) > "$output_file"
+
+	
 	sleep 3
 	tmp=$(mktemp)
 	jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
@@ -91,6 +101,9 @@ SRM_init(){
 
 SRM_resetConfig(){
 	SRM_init
+	#Reseting launchers
+	SRM_resetLaunchers
+	echo "true"
 }
 
 SRM_IsInstalled(){
@@ -99,4 +112,11 @@ SRM_IsInstalled(){
 	else
 		echo "false"
 	fi
+}
+SRM_resetLaunchers(){
+	rsync -av --existing $HOME/.config/EmuDeck/backend/tools/launchers/ $toolsPath/launchers/	
+	for entry in $toolsPath/launchers/*.sh
+	do
+		 chmod +x "$entry"
+	done
 }
