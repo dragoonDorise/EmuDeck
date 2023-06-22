@@ -18,7 +18,7 @@ Core:
   SPU delay penalty: 3
   SPU loop detection: false
   Max SPURS Threads: 6
-  SPU Block Size: Mega
+  SPU Block Size: Safe
   Accurate GETLLAR: false
   Accurate SPU DMA: false
   Accurate Cache Line Stores: false
@@ -92,7 +92,7 @@ Video:
   Use full RGB output range: true
   Strict Texture Flushing: false
   Disable native float16 support: false
-  Multithreaded RSX: true
+  Multithreaded RSX: false
   Relaxed ZCULL Sync: false
   Enable 3D: false
   Debug Program Analyser: false
