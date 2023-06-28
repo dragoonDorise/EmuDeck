@@ -2,7 +2,7 @@
       "parserType": "Glob",
       "configTitle": "Atari Jaguar/Jaguar CD - BigPEmu Proton",
       "steamCategory": "${Atari Jaguar}",
-      "executableArgs": "vblank_mode=0 %command% \"${filePath}\"",
+      "executableArgs": "%command% \"${filePath}\"",
       "executableModifier": "\"${exePath}\"",
       "romDirectory": "${romsdirglobal}/",
       "steamDirectory": "${steamdirglobal}",
