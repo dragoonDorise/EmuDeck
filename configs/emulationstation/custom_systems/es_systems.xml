@@ -11,7 +11,7 @@
         <theme>wiiu</theme>
     </system>
     <system>
-        <name>atartijaguar</name>
+        <name>atarijaguar</name>
         <fullname>Atari Jaguar</fullname>
         <path>%ROMPATH%/atarijaguar</path>
         <extension>.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP</extension>
