@@ -253,7 +253,7 @@ if [ "$doUninstall" == true ]; then
 	# 	rm -rf ~/Applications/Vita3K &>> /dev/null
 	# 	rm -rf ~/.local/share/applications/xenia.desktop &>> /dev/null
 	# fi
-	if [[ "$doUninstallVita3K" == true ]]; then
+	if [[ "$doUninstallBigPEmu" == true ]]; then
 		rm -rf ~/Applications/BigPEmu &>> /dev/null
 		rm -rf ~/.local/share/applications/BigPEmu.desktop &>> /dev/null
 	fi
