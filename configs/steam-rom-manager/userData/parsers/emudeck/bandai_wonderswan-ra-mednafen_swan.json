@@ -2,7 +2,7 @@
   "parserType": "Glob",
   "configTitle": "Bandai WonderSwan - RetroArch Beetle Cygne",
   "steamCategory": "${Bandai WonderSwan}",
-  "executableModifier": "\"$s{exePath}\"",
+  "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/wonderswan",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
