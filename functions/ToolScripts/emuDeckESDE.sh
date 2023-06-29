@@ -135,6 +135,29 @@ ESDE_addCustomSystems(){
 		#format doc to make it look nice
 		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 	fi
+	#insert pico8 custom system if it doesn't exist, but the file does	
+	if [[ $(grep -rnw "$es_systemsFile" -e 'pico8') == "" ]]; then
+		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
+		--var newSystem '$prev' \
+		--subnode '$newSystem' --type elem --name 'name' -v 'pico8' \
+		--subnode '$newSystem' --type elem --name 'fullname' -v 'PICO-8 Fantasy Console' \
+		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/pico8' \
+		--subnode '$newSystem' --type elem --name 'extension' -v '.p8 .P8 .png .PNG' \
+		--subnode '$newSystem' --type elem --name 'commandP' -v "%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/retro8_libretro.so %ROM%" \
+		--insert '$newSystem/commandP' --type attr --name 'label' --value "retro8" \
+		--subnode '$newSystem' --type elem --name 'commandN' -v "%EMULATOR_PICO-8% -root_path %GAMEDIR% -run %ROM%" \
+		--insert '$newSystem/commandN' --type attr --name 'label' --value "PICO-8 (Standalone)" \
+		--subnode '$newSystem' --type elem --name 'commandN' -v "%EMULATOR_PICO-8% -root_path %GAMEDIR% -splore" \
+		--insert '$newSystem/commandN' --type attr --name 'label' --value "PICO-8 Splore (Standalone)" \
+		--subnode '$newSystem' --type elem --name 'platform' -v 'pico8' \
+		--subnode '$newSystem' --type elem --name 'theme' -v 'pico8' \
+		-r 'systemList/system/commandP' -v 'command' \
+		-r 'systemList/system/commandN' -v 'command' \
+		"$es_systemsFile"
+
+		#format doc to make it look nice
+		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+	fi
 	#Custom Systems config end
 }
 
