@@ -18,7 +18,7 @@
         <command label="BigPEmu (Proton)">/usr/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/bigpemu.sh %ROM%</command>        
         <command label="Virtual Jaguar">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/virtualjaguar_libretro.so %ROM%</command>
         <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/atarijaguar jaguar -cart %ROM%</command>        
-        <platform>atarijaguar, atarijaguarcd</platform>
+        <platform>atarijaguar</platform>
         <theme>atarijaguar</theme>
     </system>
     <system>
