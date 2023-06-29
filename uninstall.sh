@@ -21,6 +21,7 @@ doUninstallSRM=true
 doUninstallESDE=true
 doUninstallMGBA=true
 doUninstallRMG=true
+doUninstallFlycast=true
 doUninstallVita3K=true
 
 
@@ -98,7 +99,8 @@ if [ "$doUninstall" == true ]; then
 				13 "Cemu Native" \
 				14 "Mame"  \
 				15 "RMG"  \
-				16 "Vita3K"  )
+				16 "Vita3K" \
+				)
 	ans=$?	
 	if [ $ans -eq 0 ]; then
 		
@@ -155,7 +157,7 @@ if [ "$doUninstall" == true ]; then
 		fi
 		if [[ "$emusToUninstall" == *"Vita3K"* ]]; then
 			doUninstallVita3K=false
-		fi				
+		fi	
 		
 	else
 		exit
@@ -248,8 +250,8 @@ if [ "$doUninstall" == true ]; then
 	# 	rm -rf ~/Applications/Vita3K &>> /dev/null
 	# 	rm -rf ~/.local/share/applications/xenia.desktop &>> /dev/null
 	# fi
-	
-	
+
+
 
 	echo "55"
 	echo "# Removing Cloud Backup";

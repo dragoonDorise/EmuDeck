@@ -310,6 +310,7 @@ if [ "$expert" == "true" ]; then
 		emuTable=()
 		emuTable+=(TRUE "Multiple" "RetroArch")
 		emuTable+=(TRUE "Arcade" "MAME")
+		emuTable+=(TRUE "Dreamcast" "Flycast")
 		emuTable+=(TRUE "Metroid Prime" "PrimeHack")
 		emuTable+=(TRUE "PS2" "PCSX2-Legacy")
 		emuTable+=(TRUE "PS2" "PCSX2-QT")
@@ -353,6 +354,11 @@ if [ "$expert" == "true" ]; then
 				setSetting doInstallRA true
 			else
 				setSetting doInstallRA false
+			fi
+			if [[ "$emusToInstall" == *"Flycast"* ]]; then
+				setSetting doInstallFlycast true
+			else
+				setSetting doInstallFlycast false
 			fi
 			if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
 				setSetting doInstallPrimeHack true
@@ -444,6 +450,7 @@ if [ "$expert" == "true" ]; then
 		emuTable=()
 		emuTable+=(TRUE "Dolphin")
 		emuTable+=(TRUE "Duckstation")
+		emuTable+=(TRUE "Flycast")
 		emuTable+=(TRUE "PCSX2-QT")
 		emuTable+=(TRUE "RA-BeetlePSX")
 		emuTable+=(TRUE "RA-Flycast")
@@ -475,6 +482,11 @@ if [ "$expert" == "true" ]; then
 				setSetting DolphinWide false
 			fi
 			if [[ "$wideToInstall" == *"RA-Flycast"* ]]; then
+				setSetting DreamcastWide true
+			else
+				setSetting DreamcastWide false
+			fi
+			if [[ "$wideToInstall" == *"Flycast"* ]]; then
 				setSetting DreamcastWide true
 			else
 				setSetting DreamcastWide false
@@ -659,6 +671,7 @@ else
 	setSetting doInstallXenia false
 	setSetting doInstallMGBA false
 	setSetting doInstallRMG true
+	setSetting doInstallFlycast true
 	#doInstallMelon=true
 
 	setSetting doSetupRA true
@@ -678,11 +691,13 @@ else
 	setSetting doSetupXenia false
 	setSetting doSetupMGBA false
 	setSetting doSetupRMG true
+	setSetting doSetupFlycast true
 
 	#widescreen off by default
 	setSetting duckWide false
 	setSetting DolphinWide false
 	setSetting DreamcastWide false
+	setSetting FlycastWide false
 	setSetting BeetleWide false
 	setSetting XemuWide false
 	setSetting PCSX2QTWide false	

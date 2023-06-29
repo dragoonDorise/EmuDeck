@@ -1,13 +1,13 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sega Dreamcast - Retroarch - Flycast",
-  "steamCategory": "${Sega Dreamcast}",
+  "configTitle": "Sega Dreamcast - Flycast (Standalone)",
+  "steamCategory": "${Dreamcast}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/dreamcast",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}flycast_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "executableArgs": "run org.flycast.Flycast \"${filePath}\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
@@ -42,12 +42,12 @@
     "removeBrackets": true
   },
   "executable": {
-    "path": "${retroarchpath}",
+    "path": "/usr/bin/flatpak",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },
-  "parserId": "164785622173694320",
-  "version": 10,
+  "parserId": "164785622173694321",
+  "version": 2,
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,
