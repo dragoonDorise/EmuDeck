@@ -58,9 +58,9 @@ MAME_setEmulationFolder(){
 	changeLine "$inipathOpt" "$newinipathOpt" "$MAME_configFile"
 
 					
-	cheatspathOpt='cheatpath                 '
-	newcheatspathOpt="$cheatspathOpt""$storagePath/mame/cheats;"'$HOME/.mame/cheats;/app/share/mame/cheats'
-	changeLine "$cheatspathOpt" "$newcheatspathOpt" "$MAME_configFile"
+	cheatpathOpt='cheatpath                 '
+	newcheatpathOpt="$cheatpathOpt""$storagePath/mame/cheat;"'$HOME/.mame/cheat;/app/share/mame/cheat'
+	changeLine "$cheatpathOpt" "$newcheatpathOpt" "$MAME_configFile"
 
 }
 
