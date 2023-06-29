@@ -241,6 +241,7 @@ ESDE_setEmulationFolder(){
 	echo "updating $es_settingsFile"
 	#configure roms Directory
 	esDE_romDir="<string name=\"ROMDirectory\" value=\"${romsPath}\" />" #roms
+	
 	changeLine '<string name="ROMDirectory"' "${esDE_romDir}" "$es_settingsFile"
 
 	#Configure Downloaded_media folder
@@ -254,7 +255,7 @@ ESDE_setEmulationFolder(){
 		sed -i -e '$a'"${esDE_MediaDir}"  "$es_settingsFile" # use config file instead of link
 	elif [[ -z $mediaDirEmpty || -n $mediaDirEmulation ]]; then
 		echo "setting ES-DE MediaDirectory to ${esDE_MediaDir}"
-		changeLine '<string name="MediaDirectory"' "${esDE_MediaDir}" "$es_settingsFile"	
+		changeLine '<string name="MediaDirectory"' "${esDE_MediaDir}" "$es_settingsFile"
 	fi
 }
 
