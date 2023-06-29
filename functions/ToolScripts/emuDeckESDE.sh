@@ -230,8 +230,31 @@ ESDE_setEmulationFolder(){
 			"$es_systemsFile"
 
 			#format doc to make it look nice
-		" && git reset --hard HEAD && git clean -f -d && git pull && echo  "epicnoir up to date!" || echo "problem pulling epicnoir theme"
-	
+			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		else
+			#update
+			xeniaProtonCommandString="/usr/bin/bash ${toolsPath}/launchers/xenia.sh %ROM%"
+			xmlstarlet ed -L -u '/systemList/system/command[@label="Xenia (Proton)"]' -v "$xeniaProtonCommandString" "$es_systemsFile"
+		fi
+	fi
+
+	echo "updating $es_settingsFile"
+	#configure roms Directory
+	esDE_romDir="<string name=\"ROMDirectory\" value=\"${romsPath}\" />" #roms
+	changeLine '<string name="ROMDirectory"' "${esDE_romDir}" "$es_settingsFile"
+
+	#Configure Downloaded_media folder
+	esDE_MediaDir="<string name=\"MediaDirectory\" value=\"${ESDEscrapData}\" />"
+	#search for media dir in xml, if not found, change to ours. If it's blank, also change to ours.
+	mediaDirFound=$(grep -rnw  "$es_settingsFile" -e 'MediaDirectory')
+	mediaDirEmpty=$(grep -rnw  "$es_settingsFile" -e '<string name="MediaDirectory" value="" />')
+	mediaDirEmulation=$(grep -rnw  "$es_settingsFile" -e 'Emulation/tools/downloaded_media')
+	if [[ $mediaDirFound == '' ]]; then
+		echo "adding ES-DE ${esDE_MediaDir}"
+		sed -i -e '$a'"${esDE_MediaDir}"  "$es_settingsFile" # use config file instead of link
+	elif [[ -z $mediaDirEmpty || -n $mediaDirEmulation ]]; then
+		echo "setting ES-DE MediaDirectory to ${esDE_MediaDir}"
+		changeLine '<string name="MediaDirectory"' "${esDE_MediaDir}" "$es_settingsFile"	
 	if [[ "$theme" == *"EPICNOIR"* ]]; then
 		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="es-epicnoir" />' "$es_settingsFile"
 	fi
@@ -243,22 +266,6 @@ ESDE_setEmulationFolder(){
 	fi
 }
 
-#ConfigurePaths
-ESDE_setEmulationFolder(){
-	#update cemu custom system launcher to correct path by just replacing the line, if it exists.
-	echo "updating $es_systemsFile"
-
-	#insert new commands
-	if [[ ! $(grep -rnw "$es_systemsFile" -e 'wiiu') == "" ]]; then
-		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Proton)') == "" ]]; then
-			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%" \
-			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Cemu (Proton)" \
-			-r 'systemList/system/commandP' -v 'command' \
-			"$es_systemsFile"
-
-			#format doc to make it look nice
-			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".
 ESDE_setDefaultEmulators(){
 	#ESDE default emulators
 	mkdir -p  "$HOME/.emulationstation/gamelists/"
