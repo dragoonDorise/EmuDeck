@@ -86,6 +86,7 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckFlycast.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayParsec.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayMoonlight.sh
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayGreenlight.sh
 
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
