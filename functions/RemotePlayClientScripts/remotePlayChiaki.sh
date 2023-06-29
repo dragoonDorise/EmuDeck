@@ -16,7 +16,7 @@ Chiaki_install() {
 	flatpak override "$ID" --share=network --user
 	cp "$EMUDECKGIT/tools/remoteplayclients/Chiaki Remote Play Client.sh" "$romsPath/remoteplay"
 	chmod +x "$romsPath/remoteplay/Chiaki Remote Play Client.sh"
-	Chiaki_addSteamInputProfile
+	#Chiaki_addSteamInputProfile
 }
 
 # ApplyInitialSettings
@@ -48,6 +48,12 @@ Chiaki_uninstall() {
 # Check if installed
 Chiaki_IsInstalled() {
 	if [ "$(flatpak --columns=app list | grep "$Chiaki_emuPath")" == "$Chiaki_emuPath" ]; then
+		# Uninstall if previously installed to the "system" level
+		flatpak list | grep "$Chiaki_emuPath" | grep "system"
+		if [ $? == 0 ]; then
+			Chiaki_uninstall
+			Chiaki_install
+		fi
 		echo true
 		return 1
 	else
