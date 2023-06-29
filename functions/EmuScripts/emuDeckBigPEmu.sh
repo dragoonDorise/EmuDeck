@@ -49,7 +49,7 @@ BigPEmu_init(){
 }
 
 BigPEmu_addESConfig(){
-	if [[ $(grep -rnw "$es_systemsFile" -e 'xbox360') == "" ]]; then
+	if [[ $(grep -rnw "$es_systemsFile" -e 'atarijaguar') == "" ]]; then
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
 		--subnode '$newSystem' --type elem --name 'name' -v 'atarijaguar' \
