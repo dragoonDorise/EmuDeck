@@ -86,7 +86,7 @@ MAME_setupStorage(){
 	mkdir -p "$storagePath/mame/artwork"
 	mkdir -p "$storagePath/mame/ctrlr"
 	mkdir -p "$storagePath/mame/ini"
-	mkdir -p "$storagePath/mame/cheats"
+	mkdir -p "$storagePath/mame/cheat"
 
 
 }
