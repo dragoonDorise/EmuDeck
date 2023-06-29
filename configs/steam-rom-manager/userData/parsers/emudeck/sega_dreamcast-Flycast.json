@@ -1,16 +1,16 @@
 {
   "parserType": "Glob",
-  "configTitle": "Remote Play Clients",
-  "steamCategory": "${Remote Play Clients}",
-  "steamDirectory": "${steamdirglobal}",
-  "romDirectory": "${romsdirglobal}/remoteplay",
-  "executableArgs": "",
+  "configTitle": "Sega Dreamcast - Flycast (Standalone)",
+  "steamCategory": "${Dreamcast}",
   "executableModifier": "\"${exePath}\"",
-  "startInDirectory": "${romsdirglobal}/remoteplay",
+  "romDirectory": "${romsdirglobal}/dreamcast",
+  "steamDirectory": "${steamdirglobal}",
+  "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "imageProviders": ["SteamGridDB"],
+  "executableArgs": "run org.flycast.Flycast \"${filePath}\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
+  "imageProviders": ["SteamGridDB"],
   "defaultImage": "",
   "defaultTallImage": "",
   "defaultHeroImage": "",
@@ -21,18 +21,14 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
+  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,
     "useCredentials": true
   },
-  "executable": {
-    "path": "",
-    "shortcutPassthrough": false,
-    "appendArgsToExecutable": false
-  },
   "parserInputs": {
-    "glob": "**/${title}@(.sh|.AppImage)"
+    "glob": "**/${title}@(.7z|.7Z|.cdi|.CDI|.chd|.CHD|.cue|.CUE|.gdi|.GDI|.m3u|.M3U)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
@@ -42,20 +38,25 @@
   },
   "fuzzyMatch": {
     "replaceDiacritics": true,
-    "removeCharacters": false,
+    "removeCharacters": true,
     "removeBrackets": true
   },
+  "executable": {
+    "path": "/usr/bin/flatpak",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "parserId": "164785622173694321",
+  "version": 2,
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,
       "humor": false,
+      "imageMotionTypes": ["static"],
       "styles": [],
       "stylesHero": [],
       "stylesLogo": [],
-      "stylesIcon": [],
-      "imageMotionTypes": ["static"]
+      "stylesIcon": []
     }
-  },
-  "parserId": "164785598905497514",
-  "version": 10
+  }
 }

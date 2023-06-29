@@ -1,12 +1,12 @@
 {
   "parserType": "Glob",
-  "configTitle": "Remote Play Clients",
-  "steamCategory": "${Remote Play Clients}",
+  "configTitle": "SNK Neo Geo CD - MAME (Standalone)",
+  "steamCategory": "${SNK Neo Geo CD}",
   "steamDirectory": "${steamdirglobal}",
-  "romDirectory": "${romsdirglobal}/remoteplay",
-  "executableArgs": "",
+  "romDirectory": "${romsdirglobal}",
+  "executableArgs": "neocdz -cdrm \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
-  "startInDirectory": "${romsdirglobal}/remoteplay",
+  "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
   "onlineImageQueries": "${${fuzzyTitle}}",
@@ -27,22 +27,22 @@
     "useCredentials": true
   },
   "executable": {
-    "path": "",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mame.sh",
     "shortcutPassthrough": false,
-    "appendArgsToExecutable": false
+    "appendArgsToExecutable": true
   },
   "parserInputs": {
-    "glob": "**/${title}@(.sh|.AppImage)"
+    "glob": "@(neogeocd|neogeocdjp)/**/${title}@(.chd|.CHD)"
   },
   "titleFromVariable": {
-    "limitToGroups": "",
+    "limitToGroups": "${MAME}",
     "caseInsensitiveVariables": false,
     "skipFileIfVariableWasNotFound": false,
-    "tryToMatchTitle": false
+    "tryToMatchTitle": true
   },
   "fuzzyMatch": {
     "replaceDiacritics": true,
-    "removeCharacters": false,
+    "removeCharacters": true,
     "removeBrackets": true
   },
   "imageProviderAPIs": {
@@ -56,6 +56,6 @@
       "imageMotionTypes": ["static"]
     }
   },
-  "parserId": "164785598905497514",
+  "parserId": "168642641869935597",
   "version": 10
 }

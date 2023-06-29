@@ -317,6 +317,10 @@ if [ $doInstallMGBA == "true" ]; then
 	echo "mGBA_install"
 	mGBA_install
 fi
+if [ $doInstallFlycast == "true" ]; then
+	echo "Flycast_install"
+	Flycast_install
+fi
 if [ $doInstallRMG == "true" ]; then
 	echo "RMG_install"
 	RMG_install
@@ -430,6 +434,10 @@ if [ "${doSetupCemuNative}" == "true" ]; then
 	echo "CemuNative_init"
 	CemuNative_init
 fi
+if [ "$doSetupFlycast" == "true" ]; then
+	echo "Flycast_init"
+	Flycast_init
+fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then
 	echo "Cemu_init"
@@ -511,8 +519,10 @@ if [ "$uiMode" == 'zenity' ]; then
 	fi
 	if [ "$DreamcastWide" == true ]; then
 		RetroArch_Flycast_wideScreenOn
+		Flycast_wideScreenOn
 	else
 		RetroArch_Flycast_wideScreenOff
+		Flycast_wideScreenOff
 	fi
 	
 	#RA SNES Aspect Ratio

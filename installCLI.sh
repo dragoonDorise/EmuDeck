@@ -398,6 +398,8 @@ if [ "$RUNCHOICE" == 1 ]; then
 		if [[ $doSelectEmulators == "true" ]]; then
 			
 			emuTable=()
+
+			emuTable+=(TRUE "Dreamcast" "Flycast")
 			emuTable+=(TRUE "GameBoy / Color / Advance" "mGBA")
 			emuTable+=(TRUE "Multiple" "RetroArch")
 			emuTable+=(TRUE "Metroid Prime" "PrimeHack")
@@ -437,6 +439,9 @@ if [ "$RUNCHOICE" == 1 ]; then
 			
 			if [ $ans -eq 0 ]; then
 				echo "Emu Install selected: $emusToInstall"
+				if [[ "$emusToInstall" == *"Flycast"* ]]; then
+					setSetting doInstallFlycast true
+				fi
 				if [[ "$emusToInstall" == *"mGBA"* ]]; then
 					setSetting doInstallMGBA true
 				fi
@@ -501,6 +506,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 			emuTable=()
 			emuTable+=(TRUE "Dolphin")
 			emuTable+=(TRUE "Duckstation")
+			emuTable+=(TRUE "Flycast")
 			emuTable+=(TRUE "PCSX2-QT")
 			emuTable+=(TRUE "RA-BeetlePSX")
 			emuTable+=(TRUE "RA-Flycast")
@@ -531,6 +537,11 @@ if [ "$RUNCHOICE" == 1 ]; then
 				else
 					setSetting DolphinWide false
 				fi
+				if [[ "$wideToInstall" == *"Flycast"* ]]; then
+					setSetting DreamcastWide true
+				else
+					setSetting DreamcastWide false
+				fi	
 				if [[ "$wideToInstall" == *"RA-Flycast"* ]]; then
 					setSetting DreamcastWide true
 				else
@@ -562,6 +573,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 	
 				emuTable=()
 				emuTable+=(TRUE "mGBA")
+				emuTable+=(TRUE "Flycast")
 				emuTable+=(TRUE "RetroArch")
 				emuTable+=(TRUE "PrimeHack")
 				emuTable+=(TRUE "PCSX2")
@@ -597,6 +609,9 @@ if [ "$RUNCHOICE" == 1 ]; then
 				echo -e "EmuDeck ${version}"
 				if [ $ans -eq 0 ]; then
 					echo "Emulators to reinstall selected: $emusToReset"
+					if [[ "$emusToReset" == *"Flycast"* ]]; then
+						setSetting doSetupFlycast true
+					fi
 					if [[ "$emusToReset" == *"mGBA"* ]]; then
 						setSetting doSetupMGBA true
 					fi
@@ -664,6 +679,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 		fi
 	else
 		#easy mode settings
+		setSetting doInstallFlycast true
 		setSetting doInstallMGBA true
 		setSetting doInstallRA true
 		setSetting doInstallDolphin true
@@ -755,6 +771,9 @@ if [ $doInstallSRM == "true" ]; then
 	SRM_install
 fi
 #Emulators Installation
+if [ $doInstallFlycast == "true" ]; then
+	Flycast_install
+fi
 if [ "$doInstallMGBA" == "true" ]; then	
 	MGBA_install
 fi
@@ -825,6 +844,9 @@ if [ "$doSetupPrimehack" == "true" ]; then
 fi
 if [ "$doSetupDolphin" == "true" ]; then
 	Dolphin_init
+fi
+if [ "$doSetupFlycast" == "true" ]; then
+	Flycast_init
 fi
 if [ "$doSetupMGBA" == "true" ]; then
 	mGBA_init

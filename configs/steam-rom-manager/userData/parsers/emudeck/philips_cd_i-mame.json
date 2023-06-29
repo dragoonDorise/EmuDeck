@@ -1,12 +1,12 @@
 {
   "parserType": "Glob",
-  "configTitle": "Remote Play Clients",
-  "steamCategory": "${Remote Play Clients}",
+  "configTitle": "Philips CD-i - MAME (Standalone)",
+  "steamCategory": "${Philips CD-i - MAME (Standalone)}",
   "steamDirectory": "${steamdirglobal}",
-  "romDirectory": "${romsdirglobal}/remoteplay",
-  "executableArgs": "",
+  "romDirectory": "${romsdirglobal}/cdimono1",
+  "executableArgs": "cdimono1 -cdrom \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
-  "startInDirectory": "${romsdirglobal}/remoteplay",
+  "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
   "onlineImageQueries": "${${fuzzyTitle}}",
@@ -27,22 +27,22 @@
     "useCredentials": true
   },
   "executable": {
-    "path": "",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mame.sh",
     "shortcutPassthrough": false,
-    "appendArgsToExecutable": false
+    "appendArgsToExecutable": true
   },
   "parserInputs": {
-    "glob": "**/${title}@(.sh|.AppImage)"
+    "glob": "${title}@(.chd|.CHD)"
   },
   "titleFromVariable": {
-    "limitToGroups": "",
+    "limitToGroups": "${MAME}",
     "caseInsensitiveVariables": false,
     "skipFileIfVariableWasNotFound": false,
-    "tryToMatchTitle": false
+    "tryToMatchTitle": true
   },
   "fuzzyMatch": {
     "replaceDiacritics": true,
-    "removeCharacters": false,
+    "removeCharacters": true,
     "removeBrackets": true
   },
   "imageProviderAPIs": {
@@ -56,6 +56,6 @@
       "imageMotionTypes": ["static"]
     }
   },
-  "parserId": "164785598905497514",
+  "parserId": "168541242505111076",
   "version": 10
 }
