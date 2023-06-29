@@ -181,7 +181,7 @@ function runBinDownloads {
     if [[ "$binsToDL" == *"xenia"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
-        echo "# Updating Xenia"
+        echo "# Updating Xenia-Canary"
         if Xenia_install "canary" "true" 2>&1; then
             messages+=("Xenia Updated Successfully")
         else
