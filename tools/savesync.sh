@@ -6,21 +6,6 @@ SAVESYNC_systemd_path="$HOME/.config/systemd/user"
 
 source "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
-function getReleaseURLGH(){	
-	local repository=$1
-	local fileType=$2
-	local url
-	#local token=$(tokenGenerator)
-
-	if [ "$url" == "" ]; then
-		url="https://api.github.com/repos/$repository/releases"
-	fi
-	curl -fSs "$url" | \
-	jq -r '[ .[].assets[] | select(.name | endswith("'"$fileType"'")).browser_download_url ][0]'
-	
-}
-
-
 SAVESYNC_install(){	
 	
 	text="`printf " <b>Have your login details ready!</b>\n\nA new browser windows will open for your cloud provider.\nMake sure you have your cretendials ready because you only have <b>20 seconds to enter them</b>. \n\n you can always reconfigure SaveSync in the future )"`"
