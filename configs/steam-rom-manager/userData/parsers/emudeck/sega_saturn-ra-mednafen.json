@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sega Saturn - RetroArch - Beetle",
-  "steamCategory": "${Saturn}",
+  "configTitle": "Sega Saturn - RetroArch Beetle",
+  "steamCategory": "${Sega Saturn}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/saturn",
   "executableArgs": "-L /mednafen_saturn_libretro.so \"${filePath}\"",

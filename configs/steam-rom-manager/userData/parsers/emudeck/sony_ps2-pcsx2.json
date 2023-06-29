@@ -1,16 +1,16 @@
 {
   "parserType": "Glob",
-  "configTitle": "Pico 8 - RetroArch Retro8",
-  "steamCategory": "${Pico 8}",
-  "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/pico8",
+  "configTitle": "Sony PlayStation 2 - PCSX2",
+  "steamCategory": "${Sony PlayStation 2}",
   "steamDirectory": "${steamdirglobal}",
+  "romDirectory": "${romsdirglobal}/ps2",
+  "executableArgs": "-batch -fullscreen \"'${filePath}'\"",
+  "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}retro8_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "imageProviders": ["SteamGridDB"],
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
-  "imageProviders": ["SteamGridDB"],
   "defaultImage": "",
   "defaultTallImage": "",
   "defaultHeroImage": "",
@@ -21,14 +21,18 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
-  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,
     "useCredentials": true
   },
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/pcsx2-qt.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": false
+  },
   "parserInputs": {
-    "glob": "**/${title}@(.7z|.7Z|.zip|.ZIP|.p8|.P8|.png|.PNG)"
+    "glob": "**/${title}@(.bin|.BIN|.chd|.CHD|.cso|.CSO|.dump|.DUMP|.gz|.GZ|.img|.IMG|.iso|.ISO|.mdf|.MDF|.nrg|.NRG)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
@@ -41,22 +45,17 @@
     "removeCharacters": true,
     "removeBrackets": true
   },
-  "executable": {
-    "path": "${retroarchpath}",
-    "shortcutPassthrough": false,
-    "appendArgsToExecutable": false
-  },
-  "parserId": "164785621902122396",
-  "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,
       "humor": false,
-      "imageMotionTypes": ["static"],
       "styles": [],
       "stylesHero": [],
       "stylesLogo": [],
-      "stylesIcon": []
+      "stylesIcon": [],
+      "imageMotionTypes": ["static"]
     }
-  }
+  },
+  "parserId": "164785208872922785",
+  "version": 10
 }

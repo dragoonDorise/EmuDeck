@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo WiiU - Cemu (.rpx) - Native",
-  "steamCategory": "${WiiU}",
+  "configTitle": "Nintendo Wii U - Cemu Native (.rpx)",
+  "steamCategory": "${Nintendo Wii U - Cemu Native}",
   "executableArgs": "vblank_mode=0 %command% -f -g \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/wiiu/roms/",

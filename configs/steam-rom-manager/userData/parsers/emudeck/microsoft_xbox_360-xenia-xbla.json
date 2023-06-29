@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Microsoft Xbox 360 - Xenia - XBLA",
-  "steamCategory": "${Xbox 360}",
+  "configTitle": "Microsoft Xbox 360 - Xbox Live Arcade - Xenia",
+  "steamCategory": "${Microsoft Xbox 360 - Xbox Live Arcade}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/xbox360/roms/",
   "executableArgs": "\"Z:${filePath}\"",
