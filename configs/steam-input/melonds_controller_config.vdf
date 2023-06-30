@@ -2,7 +2,7 @@
 {
 	"version"		"3"
 	"revision"		"42"
-	"title"		"EmuDeck - melonDS"
+	"title"		"EmuDeck - melonDS (Standalone)"
 	"description"		"Left Touchpad - Quick Actions. Long press to perform an action."
 	"creator"		"76561199036238022"
 	"progenitor"		""
@@ -38,7 +38,7 @@
 	{
 		"english"
 		{
-			"title"		"EmuDeck - melonDS"
+			"title"		"EmuDeck - melonDS (Standalone)"
 			"description"		"Left Touchpad - Quick Actions. Long press to perform an action."
 		}
 		"czech"
@@ -698,7 +698,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press PERIOD, Fullscreen, EmuDeck_Menu.png, #232323 #E4E4E4"
+							"binding"		"key_press PERIOD, Toggle Full Screen, EmuDeck_Menu.png, #232323 #E4E4E4"
 						}
 					}
 				}

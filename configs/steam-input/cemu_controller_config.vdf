@@ -3,7 +3,7 @@
 	"version"		"3"
 	"revision"		"15"
 	"title"		"EmuDeck - Cemu"
-	"description"		"L4/R4 - Toggle Screens. L5/R5 - Swap Screens."
+	"description"		"L4/R4 - Toggle Screens. L5/R5 - Swap Screens. L5/R5 (Long Press) - Toggle Full Screen."
 	"creator"		"76561197971521082"
 	"progenitor"		""
 	"url"		"template://cemu_controller_config.vdf"
@@ -18,7 +18,7 @@
 		"english"
 		{
 			"title"		"EmuDeck - Cemu"
-			"description"		"L4/R4 - Toggle Screens. L5/R5 - Swap Screens."
+			"description"		"L4/R4 - Toggle Screens. L5/R5 - Swap Screens. L5/R5 (Long Press) - Toggle Full Screen."
 		}
 		"czech"
 		{
@@ -625,6 +625,20 @@
 	}
 	"group"
 	{
+		"id"		"15"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"requires_click"		"0"
+		}
+	}
+	"group"
+	{
 		"id"		"7"
 		"mode"		"switches"
 		"name"		""
@@ -731,8 +745,15 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, Swap Screens, , "
-							"binding"		"key_press TAB, Swap Screens, , "
+							"binding"		"key_press LEFT_CONTROL, Swap Screens/Full Screen, , "
+							"binding"		"key_press TAB, Swap Screens/Full Screen, , "
+						}
+					}
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F11, , "
 						}
 					}
 				}
@@ -748,14 +769,15 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press TAB, Swap Screens, , "
+							"binding"		"key_press LEFT_CONTROL, Swap Screens/Full Screen, , "
+							"binding"		"key_press TAB, Swap Screens/Full Screen, , "
 						}
 					}
-					"Full_Press"
+					"Long_Press"
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, , "
+							"binding"		"key_press F11, , "
 						}
 					}
 				}
@@ -833,6 +855,7 @@
 			"5"		"right_trigger active"
 			"8"		"right_joystick active"
 			"9"		"dpad active"
+			"15"		"gyro active"
 		}
 	}
 	"settings"
