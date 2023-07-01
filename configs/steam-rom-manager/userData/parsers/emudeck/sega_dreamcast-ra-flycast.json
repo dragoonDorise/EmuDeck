@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
   "configTitle": "Sega Dreamcast - Retroarch - Flycast",
-  "steamCategory": "${Dreamcast}",
+  "steamCategory": "${Sega Dreamcast}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/dreamcast",
   "steamDirectory": "${steamdirglobal}",

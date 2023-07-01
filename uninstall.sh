@@ -21,8 +21,10 @@ doUninstallSRM=true
 doUninstallESDE=true
 doUninstallMGBA=true
 doUninstallRMG=true
+doUninstallares=true
+doUninstallFlycast=true
 doUninstallVita3K=true
-
+doUninstallFlycast=true
 
 
 
@@ -98,7 +100,9 @@ if [ "$doUninstall" == true ]; then
 				13 "Cemu Native" \
 				14 "Mame"  \
 				15 "RMG"  \
-				16 "Vita3K"  )
+				16 "Vita3K"  \
+				17 "Flycast" \
+				18 "ares"  )
 	ans=$?	
 	if [ $ans -eq 0 ]; then
 		
@@ -153,9 +157,15 @@ if [ "$doUninstall" == true ]; then
 		if [[ "$emusToUninstall" == *"RMG"* ]]; then
 			doUninstallRMG=false
 		fi
+		if [[ "$emusToUninstall" == *"ares"* ]]; then
+			doUninstallares=false
+		fi
 		if [[ "$emusToUninstall" == *"Vita3K"* ]]; then
 			doUninstallVita3K=false
 		fi				
+		if [[ "$emusToUninstall" == *"Flycast"* ]]; then
+			doUninstallFlycast=false
+		fi
 		
 	else
 		exit
@@ -236,20 +246,24 @@ if [ "$doUninstall" == true ]; then
 		rm -rf ~/.config/mgba
 		rm -rf ~/.local/share/applications/mGBA.desktop &>> /dev/null
 	fi
-	if [[ "$doUninstallRMG" == true ]]; then
-		flatpak uninstall org.com.github.Rosalie241.RMG --system -y
-		rm -rf ~/.var/app/com.github.Rosalie241.RMG &>> /dev/null
+	if [[ "$doUninstallares" == true ]]; then
+		flatpak uninstall org.dev.ares.ares --system -y
+		rm -rf ~/.var/app/dev.ares.ares &>> /dev/null
 	fi
 	if [[ "$doUninstallVita3K" == true ]]; then
 		rm -rf ~/Applications/Vita3K &>> /dev/null
 		rm -rf ~/.local/share/applications/Vita3K.desktop &>> /dev/null
 	fi
+	if [[ "$doUninstallFlycast" == true ]]; then
+		flatpak uninstall org.flycast.Flycast --system -y
+		rm -rf ~/.var/app/org.flycast.Flycast &>> /dev/null
+	fi
 	# if [[ "$doUninstallXenia" == true ]]; then
 	# 	rm -rf ~/Applications/Vita3K &>> /dev/null
 	# 	rm -rf ~/.local/share/applications/xenia.desktop &>> /dev/null
 	# fi
-	
-	
+
+
 
 	echo "55"
 	echo "# Removing Cloud Backup";
@@ -272,7 +286,7 @@ if [ "$doUninstall" == true ]; then
 	rm -rf ~/.steam/steam/controller_base/templates/mGBA_controller_config.vdf  &>> /dev/null
 	rm -rf ~/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf  &>> /dev/null
 	rm -rf ~/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf  &>> /dev/null
-	rm -rf ~/.steam/steam/controller_base/templates/rmg_controller_config.vdf  &>> /dev/null	
+	rm -rf ~/.steam/steam/controller_base/templates/ares_controller_config.vdf  &>> /dev/null	
 	find  "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons" -name 'EmuDeck*' -exec rm {} \;
 	
 	echo "65"

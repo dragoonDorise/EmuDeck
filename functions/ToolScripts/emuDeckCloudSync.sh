@@ -235,7 +235,7 @@ cloud_sync_upload(){
   local timestamp=$(date +%s)
   
   if [ $cloud_sync_status = "true" ]; then  
-    ("$toolsPath/rclone/rclone" copy -P -L "$savesPath"/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload) | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate     
+    ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath"/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload) | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate     
   fi
 }
 
@@ -243,7 +243,7 @@ cloud_sync_download(){
   local emuName=$1
   local timestamp=$(date +%s)
   if [ $cloud_sync_status = "true" ]; then
-    ("$toolsPath/rclone/rclone" copy -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
+    ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
   fi
 }
 
@@ -460,6 +460,9 @@ cloud_sync_downloadEmuAll(){
   if [ "$doInstallmelonDS" = "true" ]; then
       cloud_sync_downloadEmu melonds
   fi
+  if [ "$doInstallares" = "true" ]; then
+      cloud_sync_downloadEmu ares
+  fi
   
   
 }
@@ -535,5 +538,9 @@ cloud_sync_uploadEmuAll(){
   
   if [ "$doInstallmelonDS" = "true" ]; then
     cloud_sync_uploadEmu melonds
+  fi
+
+  if [ "$doInstallares" = "true" ]; then
+    cloud_sync_uploadEmu ares
   fi
 }

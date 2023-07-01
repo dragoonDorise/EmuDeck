@@ -32,7 +32,7 @@
     "appendArgsToExecutable": false
   },
   "parserInputs": {
-    "glob": "**/${title}@(.sh)"
+    "glob": "**/${title}@(.sh|.AppImage)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
