@@ -274,6 +274,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupRMG=true")
 	#defaultSettingsList+=("doSetupMelon=true")
 	defaultSettingsList+=("doSetupMGBA=true")
+	defaultSettingsList+=("doSetupFlycast=true")
 	defaultSettingsList+=("doInstallSRM=true")
 	defaultSettingsList+=("doInstallESDE=true")
 	defaultSettingsList+=("doInstallRA=true")
@@ -295,6 +296,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doInstallVita3K=true")
 	#defaultSettingsList+=("doInstallMelon=false")
 	defaultSettingsList+=("doInstallMGBA=false")
+	defaultSettingsList+=("doInstallFlycast=true")
 	defaultSettingsList+=("doInstallCHD=true")
 	defaultSettingsList+=("doInstallPowertools=false")
 	defaultSettingsList+=("doInstallGyro=false")
@@ -371,31 +373,34 @@ function checkForFile(){
 	done
 }
 
-function getLatestReleaseURLGH(){	
-    local repository=$1
-    local fileType=$2
-	local url	
-	#local token=$(tokenGenerator)
-
-    if [ "$url" == "" ]; then
-        url="https://api.github.com/repos/${repository}/releases/latest"
-    fi
-
-    url="$(curl -sL $url | jq -r ".assets[].browser_download_url" | grep -ve 'i386' | grep .${fileType}\$)"
-    echo "$url"
-}
-
-function getReleaseURLGH(){	
-    local repository=$1
-    local fileType=$2
+function getLatestReleaseURLGH(){
+	local repository=$1
+	local fileType=$2
+	local fileNameContains=$3
 	local url
 	#local token=$(tokenGenerator)
 
-    if [ "$url" == "" ]; then
-        url="https://api.github.com/repos/$repository/releases"
-    fi
-    curl -fSs "$url" | \
-    jq -r '[ .[].assets[] | select(.name | endswith("'"$fileType"'")).browser_download_url ][0]'
+	if [ "$url" == "" ]; then
+		url="https://api.github.com/repos/${repository}/releases/latest"
+	fi
+
+	curl -u -fSs "$url" | \
+		jq -r '[ .assets[] | select(.name | contains("'"$fileNameContains"'") and endswith("'"$fileType"'")).browser_download_url ][0] // empty'
+}
+
+function getReleaseURLGH(){
+	local repository=$1
+	local fileType=$2
+	local url
+	local fileNameContains=$3
+	#local token=$(tokenGenerator)
+
+	if [ "$url" == "" ]; then
+		url="https://api.github.com/repos/$repository/releases"
+	fi
+
+	curl -fSs "$url" | \
+		jq -r '[ .[].assets[] | select(.name | contains("'"$fileNameContains"'") and endswith("'"$fileType"'")).browser_download_url ][0] // empty'
 }
 
 function linkToSaveFolder(){	

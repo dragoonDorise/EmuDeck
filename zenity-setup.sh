@@ -310,6 +310,7 @@ if [ "$expert" == "true" ]; then
 		emuTable=()
 		emuTable+=(TRUE "Multiple" "RetroArch")
 		emuTable+=(TRUE "Arcade" "MAME")
+		emuTable+=(TRUE "Dreamcast" "Flycast")
 		emuTable+=(TRUE "Metroid Prime" "PrimeHack")
 		emuTable+=(TRUE "PS2" "PCSX2-Legacy")
 		emuTable+=(TRUE "PS2" "PCSX2-QT")
@@ -323,6 +324,7 @@ if [ "$expert" == "true" ]; then
 		emuTable+=(TRUE "WiiU" "Cemu")
 		emuTable+=(TRUE "XBox" "Xemu")
 		emuTable+=(TRUE "N64" "RMG")
+		emuTable+=(TRUE "Multi-Systems Emulator" "ares")
 		emuTable+=(FALSE "GameBoy / Color / Advance" "mGBA")
 		emuTable+=(FALSE "Jaguar" "BigPEmu")		
 		
@@ -354,6 +356,11 @@ if [ "$expert" == "true" ]; then
 				setSetting doInstallRA true
 			else
 				setSetting doInstallRA false
+			fi
+			if [[ "$emusToInstall" == *"Flycast"* ]]; then
+				setSetting doInstallFlycast true
+			else
+				setSetting doInstallFlycast false
 			fi
 			if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
 				setSetting doInstallPrimeHack true
@@ -437,6 +444,10 @@ if [ "$expert" == "true" ]; then
 				setSetting doInstallBigPEmu true
 			else
 				setSetting doInstallBigPEmufalse
+			if [[ "$emusToInstall" == *"ares"* ]]; then
+				setSetting doInstallares true
+			else
+				setSetting doInstallares false
 			fi		
 		
 		else
@@ -450,6 +461,7 @@ if [ "$expert" == "true" ]; then
 		emuTable=()
 		emuTable+=(TRUE "Dolphin")
 		emuTable+=(TRUE "Duckstation")
+		emuTable+=(TRUE "Flycast")
 		emuTable+=(TRUE "PCSX2-QT")
 		emuTable+=(TRUE "RA-BeetlePSX")
 		emuTable+=(TRUE "RA-Flycast")
@@ -481,6 +493,11 @@ if [ "$expert" == "true" ]; then
 				setSetting DolphinWide false
 			fi
 			if [[ "$wideToInstall" == *"RA-Flycast"* ]]; then
+				setSetting DreamcastWide true
+			else
+				setSetting DreamcastWide false
+			fi
+			if [[ "$wideToInstall" == *"Flycast"* ]]; then
 				setSetting DreamcastWide true
 			else
 				setSetting DreamcastWide false
@@ -528,7 +545,7 @@ if [ "$expert" == "true" ]; then
 			emuTable+=(TRUE "EmulationStation DE")
 			emuTable+=(TRUE "RMG")
 			emuTable+=(TRUE "BigPEmu")			
-
+			emuTable+=(TRUE "ares")
 
 			text="$(printf "<b>EmuDeck will reset the following Emulator's configurations by default.</b>\nWhich systems do you want <b>reset</b> to the newest version of the defaults?\nWe recommend you keep all of them checked so everything gets updated and known issues are fixed.\nIf you want to mantain any custom configuration on an emulator unselect its name from this list.")"
 			emusToReset=$(zenity --list \
@@ -672,6 +689,8 @@ else
 	setSetting doInstallMGBA false
 	setSetting doInstallRMG true
 	setSetting doInstallBigPEmu false	
+	setSetting doInstallares true
+	setSetting doInstallFlycast true
 	#doInstallMelon=true
 
 	setSetting doSetupRA true
@@ -692,11 +711,14 @@ else
 	setSetting doSetupMGBA false
 	setSetting doSetupRMG true
 	setSetting doSetupBigPEmu false	
+	setSetting doSetupares true
+	setSetting doSetupFlycast true
 
 	#widescreen off by default
 	setSetting duckWide false
 	setSetting DolphinWide false
 	setSetting DreamcastWide false
+	setSetting FlycastWide false
 	setSetting BeetleWide false
 	setSetting XemuWide false
 	setSetting PCSX2QTWide false	

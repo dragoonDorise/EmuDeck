@@ -1,13 +1,13 @@
 {
   "parserType": "Glob",
-  "configTitle": "Phillips CD-i - Retroarch",
-  "steamCategory": "${CD-i}",
+  "configTitle": "Sega 32X - ares",
+  "steamCategory": "${Sega 32X - ares}",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/cdimono1",
+  "romDirectory": "${romsdirglobal}/sega32x",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}same_cdi_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "executableArgs": "--fullscreen --system \"Mega 32X\" \"${filePath}\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
@@ -21,14 +21,19 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
-  "disabled": false,
+  "disabled": true,
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/ares (Emulator).sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": false
+  },
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,
     "useCredentials": true
   },
   "parserInputs": {
-    "glob": "**/${title}@(.iso|.ISO|.chd|.CHD)"
+    "glob": "**/${title}@(.32x|.32X|.bin|.BIN|.zip|.ZIP)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
@@ -41,13 +46,22 @@
     "removeCharacters": true,
     "removeBrackets": true
   },
-  "executable": {
-    "path": "${retroarchpath}",
-    "shortcutPassthrough": false,
-    "appendArgsToExecutable": true
+  "parserId": "168507930609669315",
+  "version": 13,
+  "controllers": {
+    "ps4": null,
+    "ps5": null,
+    "xbox360": null,
+    "xboxone": null,
+    "switch_joycon_left": null,
+    "switch_joycon_right": null,
+    "switch_pro": null,
+    "neptune": {
+      "title": "EmuDeck - ares",
+      "mappingId": "ares_controller_config.vdf",
+      "profileType": "template"
+    }
   },
-  "parserId": "164785621902122397",
-  "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,

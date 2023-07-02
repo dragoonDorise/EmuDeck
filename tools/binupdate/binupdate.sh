@@ -81,7 +81,7 @@ function runBinDownloads {
 
     if [[ "$binsToDL" == *"esde"* ]]; then
         echo "0"
-        echo "# Updating esde"
+        echo "# Updating EmulationStation-DE"
         if ESDE_install "true" 2>&1; then
             messages+=("EmulationStation-DE Updated Successfully")
         else
@@ -91,7 +91,7 @@ function runBinDownloads {
     if [[ "$binsToDL" == *"srm"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
-        echo "# Updating srm"
+        echo "# Updating SteamRomManager"
         if SRM_install "true" 2>&1; then
             messages+=("SteamRomManager Updated Successfully")
         else
@@ -101,7 +101,7 @@ function runBinDownloads {
     if [[ "$binsToDL" == *"mgba"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
-        echo "# Updating mgba"
+        echo "# Updating mGBA"
         if mGBA_install "true" 2>&1; then
             messages+=("mGBA Updated Successfully")
         else
@@ -111,7 +111,7 @@ function runBinDownloads {
     if [[ "$binsToDL" == *"yuzu (early access)"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
-        echo "# Updating yuzu early access"
+        echo "# Updating Yuzu Early Access"
         if YuzuEA_install "true" 2>&1; then
             messages+=("Yuzu Early Access Updated Successfully")
         else
@@ -121,7 +121,7 @@ function runBinDownloads {
     if [[ "$binsToDL" == *"yuzu (mainline)"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
-        echo "# Updating yuzu"
+        echo "# Updating Yuzu"
         if Yuzu_install "true" 2>&1; then
             messages+=("Yuzu Updated Successfully")
         else
@@ -131,7 +131,7 @@ function runBinDownloads {
     if [[ "$binsToDL" == *"pcsx2-qt"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
-        echo "# Updating pcsx2-qt"
+        echo "# Updating PCSX2-QT"
         if PCSX2QT_install "true" 2>&1; then
             messages+=("PCSX2-QT Updated Successfully")
         else
@@ -141,7 +141,7 @@ function runBinDownloads {
     if [[ "$binsToDL" == *"ryujinx"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
-        echo "# Updating ryujinx"
+        echo "# Updating Ryujinx"
         if Ryujinx_install "true" 2>&1; then
             messages+=("Ryujinx Updated Successfully")
         else
@@ -151,7 +151,7 @@ function runBinDownloads {
     if [[ "$binsToDL" == *"cemu (win/proton)"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
-        echo "# Updating cemu"
+        echo "# Updating Cemu (win/proton)"
         if updateCemu "true" 2>&1; then
             messages+=("Cemu (win/proton) Updated Successfully")
         else
@@ -161,7 +161,7 @@ function runBinDownloads {
     if [[ "$binsToDL" == *"cemu (native)"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
-        echo "# Updating cemu"
+        echo "# Updating Cemu (Native)"
         if CemuNative_install "true" 2>&1; then
             messages+=("Cemu (Native) Updated Successfully")
         else
@@ -171,7 +171,7 @@ function runBinDownloads {
     if [[ "$binsToDL" == *"vita3k"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
-        echo "# Updating vita3k"
+        echo "# Updating Vita3K"
         if Vita3K_install "true" 2>&1; then
             messages+=("Vita3K Updated Successfully")
         else
@@ -181,7 +181,7 @@ function runBinDownloads {
     if [[ "$binsToDL" == *"xenia"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
-        echo "# Updating xenia"
+        echo "# Updating Xenia-Canary"
         if Xenia_install "canary" "true" 2>&1; then
             messages+=("Xenia Updated Successfully")
         else
