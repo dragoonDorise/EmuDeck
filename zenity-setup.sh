@@ -444,6 +444,7 @@ if [ "$expert" == "true" ]; then
 				setSetting doInstallBigPEmu true
 			else
 				setSetting doInstallBigPEmufalse
+			fi
 			if [[ "$emusToInstall" == *"ares"* ]]; then
 				setSetting doInstallares true
 			else
