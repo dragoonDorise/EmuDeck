@@ -76,7 +76,7 @@ BigPEmu_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/atarijaguarcd' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP' \
 		--subnode '$newSystem' --type elem --name 'commandB' -v "/usr/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
-		--insert '$newSystem/commandP' --type attr --name 'label' --value "BigPEmu (Proton)" \
+		--insert '$newSystem/commandB' --type attr --name 'label' --value "BigPEmu (Proton)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'atarijaguarcd' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'atarijaguarcd' \
 		-r 'systemList/system/commandB' -v 'command' \	
