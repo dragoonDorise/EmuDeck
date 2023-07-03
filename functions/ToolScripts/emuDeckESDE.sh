@@ -144,11 +144,11 @@ ESDE_addCustomSystems(){
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/pico8' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.p8 .P8 .png .PNG' \
 		--subnode '$newSystem' --type elem --name 'commandR' -v "%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/retro8_libretro.so %ROM%" \
-		--insert '$newSystem/commandP' --type attr --name 'label' --value "retro8" \
+		--insert '$newSystem/commandR' --type attr --name 'label' --value "retro8" \
 		--subnode '$newSystem' --type elem --name 'commandP' -v "%EMULATOR_PICO-8% -root_path %GAMEDIR% -run %ROM%" \
-		--insert '$newSystem/commandN' --type attr --name 'label' --value "PICO-8 (Standalone)" \
+		--insert '$newSystem/commandP' --type attr --name 'label' --value "PICO-8 (Standalone)" \
 		--subnode '$newSystem' --type elem --name 'commandS' -v "%EMULATOR_PICO-8% -root_path %GAMEDIR% -splore" \
-		--insert '$newSystem/commandN' --type attr --name 'label' --value "PICO-8 Splore (Standalone)" \
+		--insert '$newSystem/commandS' --type attr --name 'label' --value "PICO-8 Splore (Standalone)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'pico8' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'pico8' \
 		-r 'systemList/system/commandR' -v 'command' \
