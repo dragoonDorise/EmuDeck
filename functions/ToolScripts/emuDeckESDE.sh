@@ -151,8 +151,9 @@ ESDE_addCustomSystems(){
 		--insert '$newSystem/commandN' --type attr --name 'label' --value "PICO-8 Splore (Standalone)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'pico8' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'pico8' \
+		-r 'systemList/system/commandR' -v 'command' \
 		-r 'systemList/system/commandP' -v 'command' \
-		-r 'systemList/system/commandN' -v 'command' \
+		-r 'systemList/system/commandS' -v 'command' \		
 		"$es_systemsFile"
 
 		#format doc to make it look nice
