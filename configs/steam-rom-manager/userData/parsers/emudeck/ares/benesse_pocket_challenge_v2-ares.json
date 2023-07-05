@@ -3,7 +3,7 @@
   "configTitle": "Benesse - Pocket Challenge V2 - ares",
   "steamCategory": "${Bandai WonderSwan Color - ares}",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/pocketchallengev2",
+  "romDirectory": "${romsdirglobal}/wonderswan",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
