@@ -384,7 +384,7 @@ function getLatestReleaseURLGH(){
 		url="https://api.github.com/repos/${repository}/releases/latest"
 	fi
 
-	curl -u -fSs "$url" | \
+	curl -fSs "$url" | \
 		jq -r '[ .assets[] | select(.name | contains("'"$fileNameContains"'") and endswith("'"$fileType"'")).browser_download_url ][0] // empty'
 }
 
