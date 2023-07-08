@@ -119,16 +119,7 @@ BigPEmu_update(){
 BigPEmu_setEmulationFolder(){
 	setMSG "Setting $BigPEmu_emuName Emulation Folder"	
 	
-	if [[ -f "${BigPEmu_BigPEmuSettings}" ]]; then
-	#Correct Folder seperators to windows based ones
-		#WindowsRomPath=${echo "z:${romsPath}/atarijaguar/roms" | sed 's/\//\\/g'}
-		#gamePathEntryFound=$(grep -rnw "$BigPEmu_BigPEmuSettings" -e "${WindowsRomPath}")
-		gamePathEntryFound=$(grep -rnw "$BigPEmu_BigPEmuSettings" -e "z:${romsPath}/atarijaguar/roms")
-		if [[ $gamePathEntryFound == '' ]]; then
-			#xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "${WindowsRomPath}" "$BigPEmu_BigPEmuSettings"
-			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}/atarijaguar/roms" "$BigPEmu_BigPEmuSettings"
-		fi
-	fi
+	echo "NYI"
 }
 
 #SetupSaves
