@@ -15,8 +15,7 @@ PCSX2QT_install() {
 	echo "Begin PCSX2-QT Install"
 	local showProgress="$1"
 	
-	if installEmuAI "pcsx2-Qt" "https://github.com/PCSX2/pcsx2/releases/download/v1.7.4749/pcsx2-v1.7.4749-linux-appimage-x64-Qt.AppImage" "" "$showProgress"; then #pcsx2-Qt.AppImage	
-	#if installEmuAI "pcsx2-Qt" "$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")" "" "$showProgress"; then #pcsx2-Qt.AppImage
+	if installEmuAI "pcsx2-Qt" "$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")" "" "$showProgress"; then #pcsx2-Qt.AppImage
 		:
 	else
 		return 1
