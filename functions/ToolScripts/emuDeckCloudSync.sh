@@ -464,10 +464,10 @@ cloud_sync_downloadEmuAll(){
          if [[ $response =~ "upload" ]]; then
            #Upload - Extra button
            rm -rf $savesPath/$emuName/.pending_upload
-           cloud_sync_upload $emuName
+           cloud_sync_upload 'all'
          elif [[ $response =~ "0-" ]]; then
            #Download - OK
-           cloud_sync_download $emuName
+           cloud_sync_download 'all'
          else
            #Skip - Cancel
            return
@@ -476,7 +476,7 @@ cloud_sync_downloadEmuAll(){
          
        else        
        #Download       
-        cloud_sync_download $emuName
+        cloud_sync_download 'all'
        fi
      else
      # No internet? We mark it as failed
@@ -522,7 +522,7 @@ cloud_sync_uploadEmuAll(){
           elif [[ $response =~ "0-" ]]; then
             #Upload - OK
             rm -rf $savesPath/$emuName/.pending_upload
-            cloud_sync_upload $emuName
+            cloud_sync_upload 'all'
             
           else
             #Skip - Cancel
