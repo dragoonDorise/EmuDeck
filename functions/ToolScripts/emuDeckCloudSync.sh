@@ -490,7 +490,6 @@ cloud_sync_downloadEmuAll(){
 cloud_sync_uploadEmuAll(){
  local baseFolder="$savesPath/"
  for emuName in $baseFolder
- for emuName in $savesPath
    do
     if [ -d "$emuName" ]; then
       #We check for internet connection
