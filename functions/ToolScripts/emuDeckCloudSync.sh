@@ -181,9 +181,6 @@ cloud_sync_setup_providers(){
      sed -i "s/token =/''/g" $cloud_sync_config
      sed -i 's/  /token = /g' $cloud_sync_config
      
-     text="$(printf "<b>CloudSync Configured!")"      
-       zenity --info \
-      --text="${text}" 2>/dev/null
    else
      exit
    fi
