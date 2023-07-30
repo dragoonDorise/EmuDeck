@@ -235,10 +235,19 @@ cloud_sync_upload(){
   local timestamp=$(date +%s)
   
   if [ $cloud_sync_status = "true" ]; then
-    if [ $emuName = 'all' ]; then    
-        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath"/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload) | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate   
+    if [ $emuName = 'all' ]; then   
+        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath"/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/ && (          
+          local baseFolder="$savesPath/"
+           for folder in $baseFolder*/
+            do
+              if [ -d "$folder" ]; then
+               emuName=$(basename "$folder")
+               echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload
+              fi
+          done          
+        )) | zenity --progress --title="Uploading saves - All systems" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate   
     else      
-        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath"/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload) | zenity --progress --title="Uploading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate   
+        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath"/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload) | zenity --progress --title="Uploading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate   
     fi
   fi
 }
@@ -248,17 +257,27 @@ cloud_sync_download(){
   local timestamp=$(date +%s)
   if [ $cloud_sync_status = "true" ]; then
     if [ $emuName = 'all' ]; then    
-        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
+ 
+        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$savesPath" && (          
+          local baseFolder="$savesPath/"
+           for folder in $baseFolder*/
+            do
+              if [ -d "$folder" ]; then
+               emuName=$(basename "$folder")
+               echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
+              fi
+          done          
+        )) | zenity --progress --title="Downloading saves - All systems" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
     else      
-        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
+        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$savesPath"/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
     fi
   fi
 
 }
 
-
 cloud_sync_uploadEmu(){
   local emuName=$1
+  local mode=$2
   local time_stamp
   if [ -f "$toolsPath/rclone/rclone" ]; then    
   
@@ -301,8 +320,12 @@ cloud_sync_uploadEmu(){
       
       else        
       #Upload
-        rm -rf $savesPath/$emuName/.pending_upload
-       cloud_sync_upload $emuName 
+        rm -rf $savesPath/$emuName/.pending_upload       
+       #Download 
+       if [ -z $mode ];then
+         echo "downloading one"
+         cloud_sync_upload $emuName 
+       fi
       fi  
     
     else
@@ -315,6 +338,7 @@ cloud_sync_uploadEmu(){
 
 cloud_sync_downloadEmu(){
   local emuName=$1
+  local mode=$2
   if [ -f "$toolsPath/rclone/rclone" ]; then    
     local timestamp=$(date +%s)
     
@@ -354,7 +378,7 @@ cloud_sync_downloadEmu(){
         fi
       fi    
       
-      echo $timestamp > "$savesPath"/$emuName/.pending_upload      
+      echo $timestamp > "$savesPath/$emuName/.pending_upload"
       
       #Do we have a failed download?
       if [ -f $savesPath/$emuName/.fail_download ]; then
@@ -387,8 +411,11 @@ cloud_sync_downloadEmu(){
 
         
       else        
-      #Download       
-       cloud_sync_download $emuName
+        #Download 
+        if [ -z $mode ];then
+          echo "downloading one"
+          cloud_sync_download $emuName        
+        fi
       fi
     else
     # No internet? We mark it as failed
@@ -399,144 +426,25 @@ cloud_sync_downloadEmu(){
 
 cloud_sync_downloadEmuAll(){
  local baseFolder="$savesPath/"
- for emuName in $baseFolder
+ for folder in $baseFolder*/
   do
-  if [ -d "$emuName" ]; then
-     #do something
-     local timestamp=$(date +%s)
-     
-     #We check for internet connection
-     if [[ $(check_internet_connection) == true ]]; then
-       
-       #Do we have a pending upload?
-       if [ -f $savesPath/$emuName/.pending_upload ]; then
-         time_stamp=$(cat $savesPath/$emuName/.pending_upload)
-         date=$(date -d @"$timestamp" +"%Y-%m-%d")
-         hour=$(date -d @"$timestamp" +"%H:%M:%S")        
-         while true; do
-           ans=$(zenity --question \
-              --title="CloudSync conflict $emuName" \
-              --text="We've detected a pending upload, make sure you dont close the Emulator using the Steam Button, do you want us to upload your saves to the cloud and overwrite them? This upload should have happened on $date $hour" \
-              --extra-button "No, download from the cloud and overwrite my local saves" \
-              --cancel-label="Skip for now" \
-              --ok-label="Yes, upload them" \
-              --width=400)
-           rc=$?
-           response="${rc}-${ans}"
-             break
-         done
-         
-         if [[ $response =~ "download" ]]; then
-           #Download - OK
-           cloud_sync_download 'all'
-           echo $timestamp > "$savesPath"/$emuName/.pending_upload
-         elif [[ $response =~ "0-" ]]; then           
-           #Upload - Extra button
-           rm -rf $savesPath/$emuName/.pending_upload
-           cloud_sync_upload  'all'
-         else
-           #Skip - Cancel
-           return
-         fi
-       fi    
-       
-       echo $timestamp > "$savesPath"/$emuName/.pending_upload      
-       
-       #Do we have a failed download?
-       if [ -f $savesPath/$emuName/.fail_download ]; then
-       time_stamp=$(cat $savesPath/$emuName/.fail_download)
-       date=$(date -d @$time_stamp +'%x')
-       while true; do
-         ans=$(zenity --question \
-            --title="CloudSync conflict $emuName" \
-            --text="We've detected a previously failed download, do you want us to download your saves from the cloud and overwrite your local saves? Your latest download was on $date" \
-            --extra-button "No, upload to the cloud and overwrite my cloud saves" \
-            --cancel-label="Skip for now" \
-            --ok-label="Yes, download them" \
-            --width=400)
-         rc=$?
-         response="${rc}-${ans}"
-           break
-         done
-       
-         if [[ $response =~ "upload" ]]; then
-           #Upload - Extra button
-           rm -rf $savesPath/$emuName/.pending_upload
-           cloud_sync_upload 'all'
-         elif [[ $response =~ "0-" ]]; then
-           #Download - OK
-           cloud_sync_download 'all'
-         else
-           #Skip - Cancel
-           return
-         fi
-     
-         
-       else        
-       #Download       
-        cloud_sync_download 'all'
-       fi
-     else
-     # No internet? We mark it as failed
-       echo $timestamp > "$savesPath"/$emuName/.fail_download
-     fi  
+    if [ -d "$folder" ]; then
+      emuName=$(basename "$folder")
+      cloud_sync_downloadEmu $emuName 'all'
     fi
   done
-  
+  cloud_sync_download 'all'
 }
+
 
 cloud_sync_uploadEmuAll(){
  local baseFolder="$savesPath/"
- for emuName in $baseFolder
-   do
-    if [ -d "$emuName" ]; then
-      #We check for internet connection
-      if [[ $(check_internet_connection) == true ]]; then
-        
-        #Do we have a failed upload?
-        if [ -f $savesPath/$emuName/.fail_upload ]; then
-            
-         time_stamp=$(cat $savesPath/$emuName/.fail_upload)       
-         date=$(date -d @"$timestamp" +"%Y-%m-%d")
-         hour=$(date -d @"$timestamp" +"%H:%M:%S")
-         while true; do
-           ans=$(zenity --question \
-              --title="CloudSync conflict $emuName" \
-              --text="We've detected a previously failed upload, do you want us to upload your saves and overwrite your saves in the cloud? Your latest upload was on $date $hour" \
-              --extra-button "No, download from the cloud and overwrite my local saves" \
-              --cancel-label="Skip for now" \
-              --ok-label="Yes, upload them" \
-              --width=400)
-           rc=$?
-           response="${rc}-${ans}"
-            break
-          done
-          
-          if [[ $response =~ "download" ]]; then
-            #Download - Extra
-            rm -rf $savesPath/$emuName/.pending_upload
-            cloud_sync_download 'all' 
-            
-          elif [[ $response =~ "0-" ]]; then
-            #Upload - OK
-            rm -rf $savesPath/$emuName/.pending_upload
-            cloud_sync_upload 'all'
-            
-          else
-            #Skip - Cancel
-            return
-          fi
-        
-        else        
-        #Upload
-          rm -rf $savesPath/$emuName/.pending_upload
-         cloud_sync_upload 'all' 
-        fi  
-      
-      else
-      # No internet? We mark it as failed
-        echo $timestamp > $savesPath/$emuName/.fail_upload
-      fi  
+ for folder in $baseFolder*/
+  do
+    if [ -d "$folder" ]; then
+      emuName=$(basename "$folder")
+      cloud_sync_uploadEmu $emuName 'all'
     fi
-   done
+  done
+  cloud_sync_upload 'all'
 }
