@@ -269,7 +269,7 @@ cloud_sync_download(){
           done          
         )) | zenity --progress --title="Downloading saves - All systems" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
     else      
-        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$savesPath"/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
+        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download--exclude=/.pending_upload "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
     fi
   fi
 
@@ -430,7 +430,7 @@ cloud_sync_downloadEmuAll(){
   do
     if [ -d "$folder" ]; then
       emuName=$(basename "$folder")
-      cloud_sync_downloadEmu $emuName 'all'
+      cloud_sync_downloadEmu $emuName 'check-conflicts'
     fi
   done
   cloud_sync_download 'all'
@@ -443,7 +443,7 @@ cloud_sync_uploadEmuAll(){
   do
     if [ -d "$folder" ]; then
       emuName=$(basename "$folder")
-      cloud_sync_uploadEmu $emuName 'all'
+      cloud_sync_uploadEmu $emuName 'check-conflicts'
     fi
   done
   cloud_sync_upload 'all'
