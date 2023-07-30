@@ -400,8 +400,8 @@ cloud_sync_downloadEmu(){
 }
 
 cloud_sync_downloadEmuAll(){
- 
- for emuName in $savesPath
+ local baseFolder="$savesPath/"
+ for emuName in $baseFolder
   do
   if [ -d "$emuName" ]; then
      #do something
@@ -488,6 +488,8 @@ cloud_sync_downloadEmuAll(){
 }
 
 cloud_sync_uploadEmuAll(){
+ local baseFolder="$savesPath/"
+ for emuName in $baseFolder
  for emuName in $savesPath
    do
     if [ -d "$emuName" ]; then
