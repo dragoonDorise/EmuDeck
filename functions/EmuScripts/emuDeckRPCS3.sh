@@ -42,6 +42,7 @@ RPCS3_setEmulationFolder(){
 #SetupSaves
 RPCS3_setupSaves(){
 	linkToSaveFolder rpcs3 saves "${storagePath}/rpcs3/dev_hdd0/home/00000001/savedata"
+	linkToSaveFolder rpcs3 trophy "${storagePath}/rpcs3/dev_hdd0/home/00000001/trophy"
 }
 
 
