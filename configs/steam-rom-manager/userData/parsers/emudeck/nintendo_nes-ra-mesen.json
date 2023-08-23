@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo NES - Retroarch - Mesen",
-  "steamCategory": "${NES}",
+  "configTitle": "Nintendo Entertainment System - RetroArch Mesen",
+  "steamCategory": "${Nintendo Entertainment System}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}",
   "steamDirectory": "${steamdirglobal}",

@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "DooM - Retroarch - PrBoom",
+  "configTitle": "DooM - RetroArch PrBoom",
   "steamCategory": "${DooM}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/doom",

@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
   "configTitle": "Arcade - RetroArch MAME Current",
-  "steamCategory": "${Arcade MAME Current}",
+  "steamCategory": "${Arcade - MAME Current}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/arcade",
   "steamDirectory": "${steamdirglobal}",

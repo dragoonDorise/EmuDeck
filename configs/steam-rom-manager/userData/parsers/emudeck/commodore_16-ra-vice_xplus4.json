@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Commodore 16 - Retroarch",
+  "configTitle": "Commodore 16 - RetroArch VICE",
   "steamCategory": "${Commodore 16}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/c16",

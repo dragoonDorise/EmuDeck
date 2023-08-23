@@ -1,16 +1,16 @@
 {
-  "parserType": "Glob",
-  "configTitle": "Pico 8 - RetroArch Retro8",
-  "steamCategory": "${Pico 8}",
-  "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/pico8",
+  "parserType": "Glob-regex",
+  "configTitle": "Sony PlayStation 3 - RPCS3 (Installed PKG)",
+  "steamCategory": "${Sony PlayStation 3}",
   "steamDirectory": "${steamdirglobal}",
+  "romDirectory": "/run/media/mmcblk0p1/Emulation/storage/rpcs3/dev_hdd0/game",
+  "executableArgs": "--no-gui \"${filePath}\"",
+  "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}retro8_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "imageProviders": ["SteamGridDB"],
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
-  "imageProviders": ["SteamGridDB"],
   "defaultImage": "",
   "defaultTallImage": "",
   "defaultHeroImage": "",
@@ -21,32 +21,31 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
-  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,
     "useCredentials": true
   },
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/rpcs3.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
   "parserInputs": {
-    "glob": "**/${title}@(.7z|.7Z|.zip|.ZIP|.p8|.P8|.png|.PNG)"
+    "glob-regex": "${/(^[NP].+)/}/USRDIR/@(eboot.bin|EBOOT.BIN)"
   },
   "titleFromVariable": {
-    "limitToGroups": "",
+    "limitToGroups": "${PS3}",
     "caseInsensitiveVariables": false,
     "skipFileIfVariableWasNotFound": false,
-    "tryToMatchTitle": false
+    "tryToMatchTitle": true
   },
   "fuzzyMatch": {
     "replaceDiacritics": true,
     "removeCharacters": true,
     "removeBrackets": true
   },
-  "executable": {
-    "path": "${retroarchpath}",
-    "shortcutPassthrough": false,
-    "appendArgsToExecutable": false
-  },
-  "parserId": "164785621902122396",
+  "parserId": "165182011334544893",
   "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {

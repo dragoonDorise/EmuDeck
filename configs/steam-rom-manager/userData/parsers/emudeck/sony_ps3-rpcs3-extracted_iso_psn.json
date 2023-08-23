@@ -1,13 +1,13 @@
 {
   "parserType": "Glob",
-  "configTitle": "Pico 8 - RetroArch Retro8",
-  "steamCategory": "${Pico 8}",
+  "configTitle": "Sony PlayStation 3 - RPCS3 (Extracted ISO/PSN)",
+  "steamCategory": "${Sony PlayStation 3}",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/pico8",
+  "romDirectory": "${romsdirglobal}/ps3",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}retro8_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "executableArgs": "--no-gui \"${filePath}\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
@@ -28,13 +28,13 @@
     "useCredentials": true
   },
   "parserInputs": {
-    "glob": "**/${title}@(.7z|.7Z|.zip|.ZIP|.p8|.P8|.png|.PNG)"
+    "glob": "**/${title}/PS3_GAME/USRDIR/@(eboot.bin|EBOOT.BIN|ISO.BIN.EDAT|iso.bin.edat)"
   },
   "titleFromVariable": {
-    "limitToGroups": "",
+    "limitToGroups": "${PS3}",
     "caseInsensitiveVariables": false,
     "skipFileIfVariableWasNotFound": false,
-    "tryToMatchTitle": false
+    "tryToMatchTitle": true
   },
   "fuzzyMatch": {
     "replaceDiacritics": true,
@@ -42,11 +42,11 @@
     "removeBrackets": true
   },
   "executable": {
-    "path": "${retroarchpath}",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/rpcs3.sh",
     "shortcutPassthrough": false,
-    "appendArgsToExecutable": false
+    "appendArgsToExecutable": true
   },
-  "parserId": "164785621902122396",
+  "parserId": "164785645271669680",
   "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {

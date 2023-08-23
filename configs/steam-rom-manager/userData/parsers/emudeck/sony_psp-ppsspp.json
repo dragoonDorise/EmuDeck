@@ -1,13 +1,13 @@
 {
   "parserType": "Glob",
-  "configTitle": "Pico 8 - RetroArch Retro8",
-  "steamCategory": "${Pico 8}",
+  "configTitle": "Sony PlayStation Portable - PPSSPP (Standalone)",
+  "steamCategory": "${Sony PlayStation Portable}",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/pico8",
+  "romDirectory": "${romsdirglobal}/psp",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}retro8_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "executableArgs": "-f -g \"${filePath}\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
@@ -28,7 +28,7 @@
     "useCredentials": true
   },
   "parserInputs": {
-    "glob": "**/${title}@(.7z|.7Z|.zip|.ZIP|.p8|.P8|.png|.PNG)"
+    "glob": "**/${title}@(.7z|.7Z|.elf|.ELF|.cso|.CSO|.iso|.ISO|.pbp|.PBP|.prx|.PRX)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
@@ -42,12 +42,26 @@
     "removeBrackets": true
   },
   "executable": {
-    "path": "${retroarchpath}",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/ppsspp.sh",
     "shortcutPassthrough": false,
-    "appendArgsToExecutable": false
+    "appendArgsToExecutable": true
   },
-  "parserId": "164785621902122396",
-  "version": 10,
+  "parserId": "164785656634747068",
+  "version": 13,
+  "controllers": {
+    "ps4": null,
+    "ps5": null,
+    "xbox360": null,
+    "xboxone": null,
+    "switch_joycon_left": null,
+    "switch_joycon_right": null,
+    "switch_pro": null,
+    "neptune": {
+      "title": "EmuDeck - PPSSPP Standalone",
+      "mappingId": "ppsspp_controller_config.vdf",
+      "profileType": "template"
+    }
+  },
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,

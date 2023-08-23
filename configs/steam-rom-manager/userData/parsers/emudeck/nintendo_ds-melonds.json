@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo DS - melonDS",
-  "steamCategory": "${Nintendo DS - melonDS Standalone}",
+  "configTitle": "Nintendo DS - melonDS (Standalone)",
+  "steamCategory": "${Nintendo DS - melonDS (Standalone)}",
   "executableArgs": "run net.kuribo64.melonDS \"${filePath}\" -f",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/nds",
