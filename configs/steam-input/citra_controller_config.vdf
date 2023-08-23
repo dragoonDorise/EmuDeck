@@ -761,7 +761,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F, Fullscreen, EmuDeck_Menu.png, #232323 #ADA200"
+							"binding"		"key_press F, Toggle Full Screen, EmuDeck_Menu.png, #232323 #ADA200"
 						}
 					}
 				}
@@ -844,6 +844,20 @@
 			"touch_menu_position_y"		"99"
 			"touch_menu_scale"		"140"
 			"touchmenu_button_fire_type"		"1"
+		}
+	}
+	"group"
+	{
+		"id"		"20"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"requires_click"		"0"
 		}
 	}
 	"group"
@@ -1027,6 +1041,7 @@
 			"5"		"right_trigger active"
 			"8"		"right_joystick active"
 			"9"		"dpad active"
+			"20"		"gyro active"
 		}
 	}
 	"settings"
