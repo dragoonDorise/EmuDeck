@@ -23,7 +23,7 @@
   "localIcons": "",
   "disabled": true,
   "executable": {
-    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/ares (Emulator).sh",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/ares-emu.sh",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": false
   },
