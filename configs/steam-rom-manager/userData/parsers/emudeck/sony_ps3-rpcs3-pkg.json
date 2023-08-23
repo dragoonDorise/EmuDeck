@@ -4,7 +4,7 @@
   "steamCategory": "${Sony PlayStation 3}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "/run/media/mmcblk0p1/Emulation/storage/rpcs3/dev_hdd0/game",
-  "executableArgs": "--no-gui \"${filePath}\"",
+  "executableArgs": "--no-gui \"'${filePath}'\"",
   "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
