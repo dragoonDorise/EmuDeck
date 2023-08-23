@@ -27,18 +27,7 @@ EmuDeck configures EmulationStation DE to use the same rom folders that EmuDeck 
 
 We try to use the same hotkeys for every emulator but some of them have their own different hotkeys, shown here:
 
-|  Hotkey                 | RetroArch      | Dolphin        | Citra\*  | Cemu\*         | Yuzu           | PCSX2\*      | RPCS3        | Cloud\*        |
-| ----------------------- | -------------- | -------------- | -------- | -------------- | -------------- | ------------ | ------------ | -------------- |
-| Menu                    | L3 + R3        | -              | -        | -              | -              | -            | -            | -              |
-| Exit                    | Select + Start | Select + Start | R5       | Select + Start | Select + Start | STEAM Button | STEAM Button | Select + Start |
-| Pause/Unpause Emulation | Select + A     | Select + A     | -        | -              | Select + A     |              | -            | -              |
-| Fast Forward            | Select + R2    | Select + R2    | -        | -              | Select + R2    | Select + R2  | -            | -              |
-| Load State              | Select + L1    | Select + L1    | -        | -              | -              | Select + L1  | -            | -              |
-| Save State              | Select + R1    | Select + R1    | -        | -              | -              | Select + R1  | -            | -              |
-| Full Screen             | -              | -              | L4       | -              | -              | -            | -            | -              |
-| Swap Screens            | -              | -              | R4       | R4             | -              | -            | -            | -              |
-| Toggle Layout           | -              | -              | L5       | -              | -              | -            | -            | -              |
-| Hold Action Set\*       | -              | -              | -        | -              | -              | -            | -            | L4             |
+https://emudeck.github.io/controls-and-hotkeys/windows/hotkeys/?h=hotkeys
 
 \* You need to activate Steam Input to get those hotkeys to work https://www.emudeck.com/#steam_input
 
