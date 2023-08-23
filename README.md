@@ -29,8 +29,6 @@ We try to use the same hotkeys for every emulator but some of them have their ow
 
 https://emudeck.github.io/controls-and-hotkeys/windows/hotkeys/?h=hotkeys
 
-\* You need to activate Steam Input to get those hotkeys to work https://www.emudeck.com/#steam_input
-
 Note that Nintendo-oriented emulators refer to "A" in the emulated sense (physical Steam Deck "B")
 
 # Developers, developers, developers.
