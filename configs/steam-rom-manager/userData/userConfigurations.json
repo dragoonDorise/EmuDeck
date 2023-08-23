@@ -3354,7 +3354,7 @@
     "configTitle": "Sega Saturn - Retroarch - Yabause",
     "steamCategory": "${Saturn}",
     "executableModifier": "\"${exePath}\"",
-    "romDirectory": "${romsdirglobal}/saturn",
+    "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -3379,7 +3379,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.cue|.CUE|.iso|.ISO|.zip|ZIP|.chd|.m3u|.M3U)"
+      "glob": "@(saturn|saturnjp)/**/${title}@(.7z|.7Z|.cue|.CUE|.iso|.ISO|.zip|.ZIP|.chd|.CHD|.m3u|.M3U)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -3416,7 +3416,7 @@
     "configTitle": "Sega Saturn - RA - Beetle",
     "steamCategory": "${Saturn}",
     "steamDirectory": "${steamdirglobal}",
-    "romDirectory": "${romsdirglobal}/saturn",
+    "romDirectory": "${romsdirglobal}",
     "executableArgs": "run org.libretro.RetroArch -L /mednafen_saturn_libretro.so \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -3446,7 +3446,7 @@
       "appendArgsToExecutable": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.cue|.CUE|.iso|.ISO|.zip|ZIP|.chd|.m3u|.M3U)"
+      "glob": "@(saturn|saturnjp)/**/${title}@(.7z|.7Z|.cue|.CUE|.iso|.ISO|.zip|.ZIP|.chd|.CHD|.m3u|.M3U)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
