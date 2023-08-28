@@ -1,8 +1,12 @@
 #!/bin/bash
 LOGFILE="$HOME/emudeck/cloudSync.log"
-mv "${LOGFILE}" "$HOME/emudeck/cloudSync.last.log" #backup last log
+if [ -f "$LOGFILE" ]; then
+  mv "${LOGFILE}" "$HOME/emudeck/cloudSync.last.log" #backup last log
+fi
 {
 source "$HOME/.config/EmuDeck/backend/functions/all.sh"
+
+touch "$savesPath/.watching"
 
 # Declare an array to store current hashes
 declare -A current_hashes
