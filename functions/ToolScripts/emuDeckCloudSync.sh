@@ -228,9 +228,9 @@ cloud_sync_upload(){
   local emuName=$1
   local timestamp=$(date +%s)
   
-  if [ $cloud_sync_status = "true" ]; then
+  if [[ $cloud_sync_status = "true" ]]; then
     cloud_sync_lock
-    if [ $emuName = 'all' ]; then           
+    if [[ $emuName = 'all' ]]; then           
         ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath" --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/ && (          
           local baseFolder="$savesPath/"
            for folder in $baseFolder*/
@@ -252,11 +252,11 @@ cloud_sync_upload(){
 cloud_sync_download(){
   local emuName=$1
   local timestamp=$(date +%s)
-  if [ $cloud_sync_status = "true" ]; then
+  if [[ $cloud_sync_status = "true" ]]; then
   
     #We wait for any upload in progress in the background
     cloud_sync_check_lock
-    if [ $emuName = 'all' ]; then
+    if [[ $emuName = 'all' ]]; then
         #We check the hashes
         local filePath="$savesPath/.hash"
         local hash=$(cat "$savesPath/.hash")
@@ -266,7 +266,7 @@ cloud_sync_download(){
         hashCloud=$(cat "$savesPath\.hash")
                 
         if [ -f "$savesPath/.hash" ];then           
-          if [ $hash = $hashCloud ]; then
+          if [[ $hash = $hashCloud ]]; then
             echo "up to date"
             else
              ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/ --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$savesPath" && (          
@@ -303,7 +303,7 @@ cloud_sync_download(){
         hashCloud=$(cat "$savesPath\.hash")
                 
         if [ -f "$savesPath/.hash" ];then           
-          if [ $hash = $hashCloud ]; then
+          if [[ $hash = $hashCloud ]]; then
             echo "nothig to download"
           else
             ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
