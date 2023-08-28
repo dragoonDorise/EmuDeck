@@ -394,7 +394,7 @@ cloud_sync_downloadEmu(){
         while true; do
           ans=$(zenity --question \
              --title="CloudSync conflict $emuName" \
-             --text="We've detected a pending upload, make sure you dont close the Emulator using the Steam Button, do you want us to upload your saves to the cloud and overwrite them? This upload should have happened on $date $hour" \
+             --text="We've detected a pending upload, make sure you don't close $emuName using the Steam Button. Do you want us to upload your saves to the cloud and overwrite them? This upload should have happened on $date $hour" \
              --extra-button "No, download from the cloud and overwrite my local saves" \
              --cancel-label="Skip for now" \
              --ok-label="Yes, upload them" \
@@ -523,6 +523,7 @@ EOF
 }
 
 cloud_sync_startService(){
+  systemctl --user stop "EmuDeckCloudSync.service"
   systemctl --user start "EmuDeckCloudSync.service"
 }
 
