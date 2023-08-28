@@ -550,7 +550,7 @@ cloud_sync_check_lock(){
      local zenity_pid=$!
   fi
   
-  while [ ! -f $lockedFile ]
+  while [ -f $lockedFile ]
   do
     sleep 1
   done
