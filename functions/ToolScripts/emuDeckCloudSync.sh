@@ -240,11 +240,9 @@ cloud_sync_upload(){
                echo $timestamp > "$savesPath"/.last_upload && rm -rf $savesPath/.fail_upload
               fi
           done          
-        )) | zenity --progress --title="Uploading saves - All systems" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate   
-        cloud_sync_save_hash "$savesPath"
+        ))
     else
-        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath/$emuName/" --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload) | zenity --progress --title="Uploading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate   
-        cloud_sync_save_hash "$savesPath/$emuName/"
+        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath/$emuName/" --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload)
     fi
   fi
   
@@ -277,7 +275,7 @@ cloud_sync_download(){
                  do
                    if [ -d "$folder" ]; then
                     emuName=$(basename "$folder")
-                    echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
+                    echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download && rm -rf $savesPath/$emuName/.pending_upload
                    fi
                done          
              )) | zenity --progress --title="Downloading saves - All systems" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  

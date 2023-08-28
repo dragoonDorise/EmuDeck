@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 # xenia.sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu xenia
+cloud_sync_downloadEmu xenia && cloud_sync_startService
 # Get SELFPATH
 SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"
 
@@ -30,5 +30,5 @@ PROTONVER="- Experimental"
 
 echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${XENIA}" "${@}" >> "${LOGFILE}"
 
-"${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${XENIA}" "${@}" & cloud_sync_startService
+"${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${XENIA}" "${@}"
 rm -rf "$savesPath/.watching"

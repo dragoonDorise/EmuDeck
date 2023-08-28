@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu Cemu
+cloud_sync_downloadEmu Cemu && cloud_sync_startService
 # cemu.sh
 
 # Report Errors
@@ -123,7 +123,7 @@ main () {
         fi
 
         echo "${EMUPATH[@]}" "${@}"
-        "${EMUPATH[@]}" "${@}" & cloud_sync_startService 
+        "${EMUPATH[@]}" "${@}"
     else
         # Get SELFPATH
         SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"

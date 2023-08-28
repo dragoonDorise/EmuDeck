@@ -1,5 +1,5 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu ppsspp
-/usr/bin/flatpak run org.ppsspp.PPSSPP "${@}" & cloud_sync_startService
+cloud_sync_downloadEmu ppsspp && cloud_sync_startService
+/usr/bin/flatpak run org.ppsspp.PPSSPP "${@}"
 rm -rf "$savesPath/.watching"

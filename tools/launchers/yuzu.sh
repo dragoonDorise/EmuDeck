@@ -1,6 +1,6 @@
 #!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu yuzu
+cloud_sync_downloadEmu yuzu && cloud_sync_startService
 
 emuName="yuzu" #parameterize me
 useEAifFound="true" # set to false to simply use the newest file found
@@ -134,5 +134,5 @@ substituteWith='"'
 param=${param/\'/"$substituteWith"}
 #Fix last ' on command
 param=$(echo "$param" | sed 's/.$/"/')
-eval "${exe} ${param}"  & cloud_sync_startService
+eval "${exe} ${param}"
 rm -rf "$savesPath/.watching"

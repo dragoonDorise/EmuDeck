@@ -1,6 +1,6 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu ryujinx
+cloud_sync_downloadEmu ryujinx && cloud_sync_startService
 emuName="Ryujinx" #parameterize me
 emufolder="$HOME/Applications/publish" # has to be applications for ES-DE to find it
 
@@ -23,5 +23,5 @@ substituteWith='"'
 param=${param/\'/"$substituteWith"}
 #Fix last ' on command
 param=$(echo "$param" | sed 's/.$/"/')
-eval "${exe} ${param}" & cloud_sync_startService
+eval "${exe} ${param}"
 rm -rf "$savesPath/.watching"
