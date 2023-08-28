@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 # xenia.sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu xenia && cloud_sync_startService
+cloud_sync_downloadEmu "xenia" && cloud_sync_startService
 # Get SELFPATH
 SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"
 

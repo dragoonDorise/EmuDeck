@@ -1,6 +1,6 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu rpcs3 && cloud_sync_startService
+cloud_sync_downloadEmu "rpcs3" && cloud_sync_startService
 emuName="rpcs3" #parameterize me
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
 

@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu Cemu && cloud_sync_startService
+cloud_sync_downloadEmu "Cemu" && cloud_sync_startService
 # cemu.sh
 
 # Report Errors
