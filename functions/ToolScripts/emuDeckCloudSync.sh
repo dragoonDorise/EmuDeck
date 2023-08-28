@@ -11,6 +11,7 @@ cloud_sync_install(){
     setSetting cloud_sync_status "true" > /dev/null 
     rm -rf "$HOME/.config/systemd/user/emudeck_saveBackup.service" > /dev/null 
     
+    cloud_sync_createService
     
     if [ ! -f $cloud_sync_bin ]; then
       mkdir -p "$cloud_sync_path"/tmp > /dev/null
@@ -222,10 +223,6 @@ cloud_sync_uninstall(){
   rm -rf $cloud_sync_bin && rm -rf $cloud_sync_config && echo "true"
 }
 
-cloud_sync_stopService(){
-    systemctl --user stop emudeck_saveBackup.timer
-    systemctl --user stop emudeck_saveBackup.service
-}
 
 cloud_sync_upload(){
   local emuName=$1
