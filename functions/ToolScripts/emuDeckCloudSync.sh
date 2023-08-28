@@ -9,7 +9,7 @@ cloud_sync_install(){
     local cloud_sync_provider=$1  
     setSetting cloud_sync_provider "$cloud_sync_provider" > /dev/null 
     setSetting cloud_sync_status "true" > /dev/null 
-    rm -rf "$HOME/.config/systemd/user/emudeck_saveBackup.service" > /dev/null 
+    rm -rf "$HOME/.config/systemd/user/EmuDeckCloudSync.service" > /dev/null 
     
     cloud_sync_createService
     
