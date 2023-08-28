@@ -1,5 +1,7 @@
 #!/bin/bash
-
+LOGFILE="$HOME/emudeck/cloudSync.log"
+mv "${LOGFILE}" "$HOME/emudeck/cloudSync.last.log" #backup last log
+{
 source "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
 # Declare an array to store current hashes
@@ -54,3 +56,4 @@ while true; do
   
   sleep 1  # Wait for 1 second before the next iteration
 done
+} | tee "${LOGFILE}" 2>&1

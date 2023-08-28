@@ -231,20 +231,23 @@ cloud_sync_upload(){
   if [ $cloud_sync_status = "true" ]; then
     cloud_sync_lock
     if [ $emuName = 'all' ]; then           
-        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath"/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/ && (          
+        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath" --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/ && (          
           local baseFolder="$savesPath/"
            for folder in $baseFolder*/
             do
               if [ -d "$folder" ]; then
                emuName=$(basename "$folder")
-               echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload
+               echo $timestamp > "$savesPath"/.last_upload && rm -rf $savesPath/.fail_upload
               fi
           done          
         )) | zenity --progress --title="Uploading saves - All systems" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate   
-    else      
-        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath"/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload) | zenity --progress --title="Uploading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate   
+        cloud_sync_save_hash "$savesPath"
+    else
+        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath/$emuName/" --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload) | zenity --progress --title="Uploading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate   
+        cloud_sync_save_hash "$savesPath/$emuName/"
     fi
   fi
+  
   cloud_sync_unlock
 }
 
@@ -363,7 +366,7 @@ cloud_sync_uploadEmu(){
         rm -rf $savesPath/$emuName/.pending_upload       
        #Download 
        if [ -z $mode ];then
-         echo "downloading one"
+         echo "uploading one"
          cloud_sync_upload $emuName 
        fi
       fi  
@@ -491,7 +494,7 @@ cloud_sync_uploadEmuAll(){
 
 
 
-function cloud_sync_hash(){
+function cloud_sync_save_hash(){
   local $dir
   hash=$(find "$dir" -maxdepth 1 -type f -exec sha256sum {} + | sha256sum | awk '{print $1}')
   echo "$hash"  
