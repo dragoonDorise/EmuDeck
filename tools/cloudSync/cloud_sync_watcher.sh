@@ -1,4 +1,7 @@
 #!/bin/bash
+
+zenity --info --width=400 --title="EmuDeck" --text="CloudSync Watcher Started"
+
 LOGFILE="$HOME/emudeck/cloudSync.log"
 if [ -f "$LOGFILE" ]; then
   mv "${LOGFILE}" "$HOME/emudeck/cloudSync.last.log" #backup last log
@@ -41,8 +44,7 @@ while true; do
     if [ "${current_hashes[$dir]}" != "$new_hash" ]; then
       # Show the name of the folder immediately behind "saves"
       emuName=$(get_parent_folder_name "$dir")
-      echo "Change detected in $emuName"
-      
+      zenity --info --width=400 --title="EmuDeck" --text="Change detected in $emuName"
       #cloud_sync_update
       cloud_sync_uploadEmu $emuName
       
@@ -54,7 +56,9 @@ while true; do
   #Autostop service when everything has finished
   if [ ! -f "$savesPath/.watching" ]; then    
     if [ ! -f "$HOME/emudeck/cloud.lock" ]; then
+      zenity --info --width=400 --title="EmuDeck" --text="CloudSync Watcher Stopping"
       cloud_sync_stopService
+      zenity --info --width=400 --title="EmuDeck" --text="CloudSync Watcher Stopped"
     fi
   fi
   
