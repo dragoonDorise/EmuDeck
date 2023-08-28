@@ -12,5 +12,5 @@ exe=$(find "$emufolder" -iname "${emuName}" | sort -n | cut -d' ' -f 2- | tail -
 #make sure that file is executable
 chmod +x "$exe"
 
-eval "${exe} ${param}"
-cloud_sync_uploadEmu vita3k
+eval "${exe} ${param}" & cloud_sync_startService
+rm -rf "$savesPath/.watching"

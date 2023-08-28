@@ -23,5 +23,5 @@ substituteWith='"'
 param=${param/\'/"$substituteWith"}
 #Fix last ' on command
 param=$(echo "$param" | sed 's/.$/"/')
-eval "${exe} ${param}"
-cloud_sync_uploadEmu ryujinx
+eval "${exe} ${param}" & cloud_sync_startService
+rm -rf "$savesPath/.watching"

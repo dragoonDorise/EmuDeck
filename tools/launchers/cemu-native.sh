@@ -11,5 +11,5 @@ LAUNCH="${toolsPath}/emu-launch.sh"
 EMU="Cemu"
 
 # Launch emu-launch.sh
-"${LAUNCH}" -e "${EMU}" -- "${@}"
-cloud_sync_uploadEmu cemu-native
+"${LAUNCH}" -e "${EMU}" -- "${@}" & cloud_sync_startService 
+rm -rf "$savesPath/.watching"-native

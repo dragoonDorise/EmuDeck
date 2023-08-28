@@ -123,7 +123,7 @@ main () {
         fi
 
         echo "${EMUPATH[@]}" "${@}"
-        "${EMUPATH[@]}" "${@}"
+        "${EMUPATH[@]}" "${@}" & cloud_sync_startService 
     else
         # Get SELFPATH
         SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"
@@ -183,4 +183,5 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     # Continue to main()
     main "${@}"
 fi
-cloud_sync_uploadEmu Cemu
+
+rm -rf "$savesPath/.watching"

@@ -30,5 +30,5 @@ PROTONVER="- Experimental"
 
 echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${XENIA}" "${@}" >> "${LOGFILE}"
 
-"${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${XENIA}" "${@}"
-cloud_sync_uploadEmu xenia
+"${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${XENIA}" "${@}" & cloud_sync_startService
+rm -rf "$savesPath/.watching"

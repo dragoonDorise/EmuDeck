@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-
+source $HOME/.config/EmuDeck/backend/functions/all.sh
 # shellcheck disable=SC1091
 . "${HOME}/emudeck/settings.sh"
 
@@ -10,4 +10,5 @@ LAUNCH="${toolsPath}/emu-launch.sh"
 EMU="Flycast"
 
 # Launch emu-launch.sh
-"${LAUNCH}" -e "${EMU}" -- "${@}"
+"${LAUNCH}" -e "${EMU}" -- "${@}" & cloud_sync_startService
+rm -rf "$savesPath/.watching"
