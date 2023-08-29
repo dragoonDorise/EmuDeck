@@ -13,7 +13,7 @@ cloud_sync_install(){
     
     cloud_sync_createService
     
-    if [ ! -f $cloud_sync_bin ]; then
+    if [ ! -f "$cloud_sync_bin" ]; then
       mkdir -p "$cloud_sync_path"/tmp > /dev/null
       curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$cloud_sync_path/tmp/rclone.temp" && mv "$cloud_sync_path/tmp/rclone.temp" "$cloud_sync_path/tmp/rclone.zip" > /dev/null 
       
@@ -30,7 +30,7 @@ cloud_sync_install(){
 
 cloud_sync_toggle(){
   local status=$1  
-  setSetting cloud_sync_status $status > /dev/null 
+  setSetting cloud_sync_status "$status" > /dev/null 
 }	
 
 cloud_sync_config(){	
@@ -67,7 +67,7 @@ cloud_sync_setup_providers(){
         username="$(echo "$NCInput" | awk -F "," '{print $2}')"
         password="$(echo "$NCInput" | awk -F "," '{print $3}')"
         
-        $cloud_sync_bin config update "$cloud_sync_provider" vendor="nextcloud" url=$url  user=$username pass="$($cloud_sync_bin obscure $password)"
+        "$cloud_sync_bin" config update "$cloud_sync_provider" vendor="nextcloud" url="$url"  user="$username" pass="$("$cloud_sync_bin" obscure $password)"
       else
         echo "Cancel Nextcloud Login" 
       fi
@@ -90,7 +90,7 @@ cloud_sync_setup_providers(){
         password="$(echo "$NCInput" | awk -F "," '{print $3}')"
         port="$(echo "$NCInput" | awk -F "," '{print $4}')"
         
-        $cloud_sync_bin config update "$cloud_sync_provider" host=$host user=$username port=$port pass="$($cloud_sync_bin obscure $password)"
+        "$cloud_sync_bin" config update "$cloud_sync_provider" host="$host" user="$username" port="$port" pass="$("$cloud_sync_bin" obscure $password)"
       else
         echo "Cancel SFTP Login" 
       fi
@@ -113,13 +113,13 @@ cloud_sync_setup_providers(){
         username="$(echo "$NCInput" | awk -F "," '{print $2}')"
         password="$(echo "$NCInput" | awk -F "," '{print $3}')"
         
-        $cloud_sync_bin config update "$cloud_sync_provider" host=$host user=$username pass="$($cloud_sync_bin obscure $password)"
+        "$cloud_sync_bin" config update "$cloud_sync_provider" host=$host user=$username pass="$("$cloud_sync_bin" obscure $password)"
       else
         echo "Cancel SMB Login" 
       fi
       
     else
-      $cloud_sync_bin config update "$cloud_sync_provider" && echo "true"
+      "$cloud_sync_bin" config update "$cloud_sync_provider" && echo "true"
     fi
 }
 
@@ -130,7 +130,7 @@ cloud_sync_setup_providers(){
       if [[ "$line" == *"[Emudeck"* ]]
       then
         section=$line
-      elif [[ "$line" == *"token = "* ]]; then
+      elif [[ "$line" == *"token == "* ]]; then
         token=$line
         break     
       fi
@@ -140,7 +140,7 @@ cloud_sync_setup_providers(){
    replace_with=""
    
    # Cleanup
-   token=${token/"token = "/$replace_with}
+   token=${token/"token == "/$replace_with}
    token=$(echo "$token" | sed "s/\"/'/g")
    section=$(echo "$section" | sed 's/[][]//g; s/"//g')  
    
@@ -193,19 +193,19 @@ cloud_sync_install_and_config(){
     #We force Chrome to be used as the default
     browser=$(xdg-settings get default-web-browser)
     
-    if [ $browser != 'com.google.Chrome.desktop' ];then
+    if [ "$browser" != 'com.google.Chrome.desktop' ];then
       flatpak install flathub com.google.Chrome -y
       xdg-settings set default-web-browser com.google.Chrome.desktop
     fi
     
-    if [ ! -f $cloud_sync_bin ]; then
+    if [ ! -f "$cloud_sync_bin" ]; then
       cloud_sync_install $cloud_sync_provider
     fi
     
-    cloud_sync_config $cloud_sync_provider
+    cloud_sync_config "$cloud_sync_provider"
     
     #We get the previous default browser back
-    if [ $browser != 'com.google.Chrome.desktop' ];then
+    if [ "$browser" != 'com.google.Chrome.desktop' ];then
       xdg-settings set default-web-browser $browser
     fi
 }
@@ -213,14 +213,14 @@ cloud_sync_install_and_config(){
 cloud_sync_install_and_config_with_code(){	
     local cloud_sync_provider=$1    
     code=$(zenity --entry --text="Please enter your SaveSync code")
-    cloud_sync_install $cloud_sync_provider
+    cloud_sync_install "$cloud_sync_provider"
     cloud_sync_config_with_code $code
 }
 
 
 cloud_sync_uninstall(){
   setSetting cloud_sync_status "false" > /dev/null 
-  rm -rf $cloud_sync_bin && rm -rf $cloud_sync_config && echo "true"
+  rm -rf "$cloud_sync_bin" && rm -rf "$cloud_sync_config" && echo "true"
 }
 
 
@@ -228,9 +228,9 @@ cloud_sync_upload(){
   local emuName=$1
   local timestamp=$(date +%s)
   
-  if [[ $cloud_sync_status = "true" ]]; then
+  if [ "$cloud_sync_status" == "true" ]; then
     cloud_sync_lock
-    if [[ $emuName = 'all' ]]; then           
+    if [ "$emuName" = 'all' ]; then           
         ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath" --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/ && (          
           local baseFolder="$savesPath/"
            for folder in $baseFolder*/
@@ -252,21 +252,21 @@ cloud_sync_upload(){
 cloud_sync_download(){
   local emuName=$1
   local timestamp=$(date +%s)
-  if [[ $cloud_sync_status = "true" ]]; then
+  if [ "$cloud_sync_status" == "true" ]; then
   
     #We wait for any upload in progress in the background
     cloud_sync_check_lock
-    if [[ $emuName = 'all' ]]; then
+    if [ "$emuName" == "all" ]; then
         #We check the hashes
         local filePath="$savesPath/.hash"
         local hash=$(cat "$savesPath/.hash")
         
-        $cloud_sync_bin  --progress copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck\saves\.hash "$filePath" 
+        "$cloud_sync_bin"  --progress copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck\saves\.hash "$filePath" 
                         
         hashCloud=$(cat "$savesPath\.hash")
                 
         if [ -f "$savesPath/.hash" ];then           
-          if [[ $hash = $hashCloud ]]; then
+          if [ "$hash" == "$hashCloud" ]; then
             echo "up to date"
             else
              ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/ --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$savesPath" && (          
@@ -298,12 +298,12 @@ cloud_sync_download(){
         local filePath="$savesPath/.hash"
         local hash=$(cat "$savesPath/.hash")
         
-        $cloud_sync_bin  --progress copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck\saves\.hash "$filePath" 
+        "$cloud_sync_bin"  --progress copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck\saves\.hash "$filePath" 
                         
         hashCloud=$(cat "$savesPath\.hash")
                 
         if [ -f "$savesPath/.hash" ];then           
-          if [[ $hash = $hashCloud ]]; then
+          if [ "$hash" == "$hashCloud" ]; then
             echo "nothig to download"
           else
             ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
@@ -323,7 +323,7 @@ cloud_sync_uploadEmu(){
   if [ -f "$toolsPath/rclone/rclone" ]; then    
   
     #We check for internet connection
-    if [[ $(check_internet_connection) == true ]]; then
+    if [ $(check_internet_connection) == "true" ]; then
       
       #Do we have a failed upload?
       if [ -f $savesPath/$emuName/.fail_upload ]; then
@@ -384,7 +384,7 @@ cloud_sync_downloadEmu(){
     local timestamp=$(date +%s)
     
     #We check for internet connection
-    if [[ $(check_internet_connection) == true ]]; then
+    if [ $(check_internet_connection) == "true" ]; then
       
       #Do we have a pending upload?
       if [ -f $savesPath/$emuName/.pending_upload ]; then
