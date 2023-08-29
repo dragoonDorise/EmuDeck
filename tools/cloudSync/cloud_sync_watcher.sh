@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "SERVICE - START" >> $HOME/log.log
+echo "SERVICE - START" > $HOME/log.log
 
 source "$HOME/emudeck/settings.sh"
 source "$HOME/.config/EmuDeck/backend/functions/functions/helperFunctions.sh"
