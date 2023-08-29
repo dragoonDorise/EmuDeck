@@ -245,7 +245,7 @@ cloud_sync_upload(){
         ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath/$emuName/" --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload)
     fi
   fi
-  
+  cloud_sync_save_hash
   cloud_sync_unlock
 }
 
@@ -261,9 +261,9 @@ cloud_sync_download(){
         local filePath="$savesPath/.hash"
         local hash=$(cat "$savesPath/.hash")
         
-        "$cloud_sync_bin"  --progress copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck\saves\.hash "$filePath" 
+        "$cloud_sync_bin"  --progress copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/.hash "$filePath" 
                         
-        hashCloud=$(cat "$savesPath\.hash")
+        hashCloud=$(cat "$savesPath/.hash")
                 
         if [ -f "$savesPath/.hash" ];then           
           if [ "$hash" == "$hashCloud" ]; then
@@ -298,9 +298,9 @@ cloud_sync_download(){
         local filePath="$savesPath/.hash"
         local hash=$(cat "$savesPath/.hash")
         
-        "$cloud_sync_bin"  --progress copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck\saves\.hash "$filePath" 
+        "$cloud_sync_bin"  --progress copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/.hash "$filePath" 
                         
-        hashCloud=$(cat "$savesPath\.hash")
+        hashCloud=$(cat "$savesPath/.hash")
                 
         if [ -f "$savesPath/.hash" ];then           
           if [ "$hash" == "$hashCloud" ]; then
