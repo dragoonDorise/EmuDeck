@@ -2,7 +2,9 @@
 
 echo "SERVICE - START" >> $HOME/log.log
 
-source "$HOME/.config/EmuDeck/backend/functions/all.sh"
+source "$HOME/emudeck/settings.sh"
+source "$HOME/.config/EmuDeck/backend/functions/functions/helperFunctions.sh"
+source "$HOME/.config/EmuDeck/backend/functions/ToolScripts/emuDeckCloudSync.sh"
 
 touch "$savesPath/.watching"
 
