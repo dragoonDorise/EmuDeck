@@ -295,14 +295,14 @@ cloud_sync_download(){
       #Single Emu
       else          
         #We check the hashes
-        local filePath="$savesPath/.hash"
-        local hash=$(cat "$savesPath/.hash")
+        local filePath="$savesPath/$emuName/.hash"
+        local hash=$(cat "$savesPath/$emuName/.hash")
         
-        "$cloud_sync_bin"  --progress copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/.hash "$filePath" 
+        "$cloud_sync_bin"  --progress copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/$emuName/.hash "$filePath" 
                         
-        hashCloud=$(cat "$savesPath/.hash")
+        hashCloud=$(cat "$savesPath/$emuName/.hash")
                 
-        if [ -f "$savesPath/.hash" ];then           
+        if [ -f "$savesPath/$emuName/.hash" ];then           
           if [ "$hash" == "$hashCloud" ]; then
             echo "nothig to download"
           else
