@@ -36,14 +36,15 @@ for dir in "$savesPath"/*/*; do
 done
 
 # Loop that runs every second
-while true; do
+while true
+do
   echo "SERVICE - LOOP" >> $HOME/log.log
   # Check for changes in hashes
   for dir in "${!current_hashes[@]}"; do
     new_hash=$(calculate_hash "$dir")
     echo ${OLD - ${current_hashes[$dir]}}
     echo ${NEW - $new_hash}
-    
+    echo "SERVICE - HASH CHECK START" >> $HOME/log.log
     if [ "${current_hashes[$dir]}" != "$new_hash" ]; then
       # Show the name of the folder immediately behind "saves"
       emuName=$(get_parent_folder_name "$dir")
@@ -54,10 +55,9 @@ while true; do
       echo "SERVICE - UPLOAD?" >> $HOME/log.log
       cloud_sync_uploadEmu $emuName && rm -rf "$savesPath/$emuName/.pending_upload"
       echo "SERVICE - UPLOADED" >> $HOME/log.log      
-    fi
-    
+    fi    
   done
-  
+  echo "SERVICE - HASH CHECK END" >> $HOME/log.log
   #Autostop service when everything has finished
   if [ ! -f "$savesPath/.watching" ]; then 
     echo "SERVICE - NO WATCHING" >> $HOME/log.log   
