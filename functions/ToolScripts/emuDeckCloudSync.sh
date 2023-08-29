@@ -527,6 +527,7 @@ EOF
 }
 
 cloud_sync_startService(){
+  echo "SERVICE - FUNC LOAD" >> $HOME/log.log
   systemctl --user stop "EmuDeckCloudSync.service"
   systemctl --user start "EmuDeckCloudSync.service"
 }

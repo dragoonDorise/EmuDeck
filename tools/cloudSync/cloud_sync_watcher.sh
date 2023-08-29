@@ -11,8 +11,7 @@ echo "SERVICE - declare" >> $HOME/log.log
 declare -A current_hashes
 
 # Function to calculate the hash of a directory
-calculate_hash() {
-  echo "SERVICE - calculate hash" >> $HOME/log.log
+calculate_hash() {  
   dir="$1"
   hash=$(find "$dir" -maxdepth 1 -type f -exec sha256sum {} + | sha256sum | awk '{print $1}')
   echo "$hash"
@@ -40,6 +39,9 @@ while true; do
   # Check for changes in hashes
   for dir in "${!current_hashes[@]}"; do
     new_hash=$(calculate_hash "$dir")
+    echo ${OLD - ${current_hashes[$dir]}}
+    echo ${NEW - $new_hash}
+    
     if [ "${current_hashes[$dir]}" != "$new_hash" ]; then
       # Show the name of the folder immediately behind "saves"
       emuName=$(get_parent_folder_name "$dir")
@@ -49,9 +51,9 @@ while true; do
       echo $timestamp > "$savesPath/$emuName/.pending_upload"
       echo "SERVICE - UPLOAD?" >> $HOME/log.log
       cloud_sync_uploadEmu $emuName && rm -rf "$savesPath/$emuName/.pending_upload"
-      echo "SERVICE - UPLOADED" >> $HOME/log.log
-      current_hashes["$dir"]=$new_hash
+      echo "SERVICE - UPLOADED" >> $HOME/log.log      
     fi
+    
   done
   
   #Autostop service when everything has finished
