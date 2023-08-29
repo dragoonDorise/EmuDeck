@@ -247,9 +247,10 @@ cloud_sync_upload(){
         cloud_sync_save_hash "$savesPath/$emuName"
         ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath/$emuName/" --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload)
     fi
+    cloud_sync_unlock
   fi
   
-  cloud_sync_unlock
+  
 }
 
 cloud_sync_download(){
@@ -517,7 +518,6 @@ Description=$description
 
 [Service]
 ExecStart=/bin/bash $script_path
-Restart=always
 
 [Install]
 WantedBy=default.target
@@ -527,7 +527,6 @@ EOF
 }
 
 cloud_sync_startService(){
-  echo "SERVICE - FUNC LOAD" >> $HOME/log.log
   systemctl --user stop "EmuDeckCloudSync.service"
   systemctl --user start "EmuDeckCloudSync.service"
 }
