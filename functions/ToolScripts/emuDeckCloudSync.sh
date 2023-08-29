@@ -231,7 +231,7 @@ cloud_sync_upload(){
   if [ "$cloud_sync_status" == "true" ]; then
     cloud_sync_lock
     if [ "$emuName" = 'all' ]; then           
-        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath" --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/ && (          
+        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath" --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/ && (          
           local baseFolder="$savesPath/"
            for folder in $baseFolder*/
             do
@@ -242,7 +242,7 @@ cloud_sync_upload(){
           done          
         ))
     else
-        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath/$emuName/" --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload)
+        ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath/$emuName/" --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload)
     fi
   fi
   cloud_sync_save_hash
@@ -269,7 +269,7 @@ cloud_sync_download(){
           if [ "$hash" == "$hashCloud" ]; then
             echo "up to date"
             else
-             ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/ --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$savesPath" && (          
+             ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/ --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$savesPath" && (          
                local baseFolder="$savesPath/"
                 for folder in $baseFolder*/
                  do
@@ -281,7 +281,7 @@ cloud_sync_download(){
              )) | zenity --progress --title="Downloading saves - All systems" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
           fi
         else
-          ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/ --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$savesPath" && (          
+          ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/ --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$savesPath" && (          
              local baseFolder="$savesPath/"
               for folder in $baseFolder*/
                do
@@ -306,10 +306,10 @@ cloud_sync_download(){
           if [ "$hash" == "$hashCloud" ]; then
             echo "nothig to download"
           else
-            ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
+            ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
           fi          
         else
-          ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
+          ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
         fi
     fi
   fi
