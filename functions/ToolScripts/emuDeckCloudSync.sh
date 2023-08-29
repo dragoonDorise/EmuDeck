@@ -227,10 +227,12 @@ cloud_sync_uninstall(){
 cloud_sync_upload(){
   local emuName=$1
   local timestamp=$(date +%s)
-  
+    
   if [ "$cloud_sync_status" == "true" ]; then
     cloud_sync_lock
-    if [ "$emuName" = 'all' ]; then           
+    
+    if [ "$emuName" = 'all' ]; then    
+        cloud_sync_save_hash $savesPath       
         ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath" --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/ && (          
           local baseFolder="$savesPath/"
            for folder in $baseFolder*/
@@ -242,10 +244,11 @@ cloud_sync_upload(){
           done          
         ))
     else
+        cloud_sync_save_hash "$savesPath/$emuName"
         ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$savesPath/$emuName/" --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload)
     fi
   fi
-  cloud_sync_save_hash
+  
   cloud_sync_unlock
 }
 
@@ -304,7 +307,7 @@ cloud_sync_download(){
                 
         if [ -f "$savesPath/$emuName/.hash" ];then           
           if [ "$hash" == "$hashCloud" ]; then
-            echo "nothig to download"
+            echo "nothing to download"
           else
             ("$toolsPath/rclone/rclone" copy --fast-list --checkers=50 -P -L "$cloud_sync_provider":Emudeck/saves/$emuName/ --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
           fi          
@@ -492,12 +495,11 @@ cloud_sync_uploadEmuAll(){
 
 
 
-function cloud_sync_save_hash(){
-  local $dir
+cloud_sync_save_hash(){  
+  local dir=$1 
   hash=$(find "$dir" -maxdepth 1 -type f -exec sha256sum {} + | sha256sum | awk '{print $1}')
-  echo "$hash"  
+  echo "$hash" > "$dir/.hash"
 }
-
 
 
 cloud_sync_createService(){
