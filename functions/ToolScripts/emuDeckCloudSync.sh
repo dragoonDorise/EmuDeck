@@ -46,7 +46,7 @@ cloud_sync_config(){
 
 cloud_sync_setup_providers(){
   
-    if [ $cloud_sync_provider == "Emudeck-NextCloud" ]; then
+    if [ "$cloud_sync_provider" == "Emudeck-NextCloud" ]; then
     
       local url
       local username
@@ -71,7 +71,7 @@ cloud_sync_setup_providers(){
       else
         echo "Cancel Nextcloud Login" 
       fi
-    elif [ $cloud_sync_provider == "Emudeck-SFTP" ]; then
+    elif [ "$cloud_sync_provider" == "Emudeck-SFTP" ]; then
     
       NCInput=$(zenity --forms \
           --title="SFTP Sign in" \
@@ -96,7 +96,7 @@ cloud_sync_setup_providers(){
       fi
     
     
-    elif [ $cloud_sync_provider == "Emudeck-SMB" ]; then
+    elif [ "$cloud_sync_provider" == "Emudeck-SMB" ]; then
     
       NCInput=$(zenity --forms \
           --title="SMB Sign in" \
