@@ -6,6 +6,7 @@ LOGFILE="$HOME/emudeck/cloudSync.log"
 if [ -f "$LOGFILE" ]; then
   mv "${LOGFILE}" "$HOME/emudeck/cloudSync.last.log" #backup last log
 fi
+echo "Starting CloudSync LOG" > $LOGFILE
 {
 source "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
@@ -46,9 +47,9 @@ while true; do
       emuName=$(get_parent_folder_name "$dir")
       zenity --info --width=400 --title="EmuDeck" --text="Change detected in $emuName"
       #cloud_sync_update
-      cloud_sync_uploadEmu $emuName
-      
-      
+      timestamp=$(date +%s)
+      echo $timestamp > "$savesPath/$emuName/.pending_upload"
+      cloud_sync_uploadEmu $emuName && rm -rf "$savesPath/$emuName/.pending_upload"   
       current_hashes["$dir"]=$new_hash
     fi
   done
@@ -65,3 +66,4 @@ while true; do
   sleep 1  # Wait for 1 second before the next iteration
 done
 } | tee "${LOGFILE}" 2>&1
+echo "Ending CloudSync LOG" >> $LOGFILE
