@@ -477,7 +477,7 @@ cloud_sync_downloadEmuAll(){
       cloud_sync_downloadEmu $emuName 'check-conflicts'
     fi
   done
-  cloud_sync_download 'all'
+  cloud_sync_download 'all' && echo "true"
 }
 
 
@@ -490,7 +490,7 @@ cloud_sync_uploadEmuAll(){
       cloud_sync_uploadEmu $emuName 'check-conflicts'
     fi
   done
-  cloud_sync_upload 'all'
+  cloud_sync_upload 'all' && echo "true"
 }
 
 
