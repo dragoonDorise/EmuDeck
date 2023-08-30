@@ -194,8 +194,7 @@ if [ "$doUninstall" == true ]; then
 		rm -rf $HOME/.var/app/dev.ares.ares &>> /dev/null
 	fi
 	if [[ "$doUninstallCemu" == true ]]; then
-		mv ${romsPath}/wiiu/roms ${romsPath}/wiiuroms
-		rm -rf ${romsPath}/wiiu/* &>> /dev/null
+		find ${romsPath}/wiiu -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \;
 		rm -f "$HOME/.local/share/applications/Cemu (Proton).desktop" &>> /dev/null
 	fi
 	if [[ "${doUninstallCemuNative}" == "true" ]]; then
@@ -278,8 +277,7 @@ if [ "$doUninstall" == true ]; then
 		rm -rf $HOME/.var/app/app.xemu.xemu &>> /dev/null
 	fi
 	if [[ "$doUninstallXenia" == true ]]; then
-		mv ${romsPath}/xbox360/roms ${romsPath}/xbox360roms
-		rm -rf ${romsPath}/xbox360/* &>> /dev/null
+		find ${romsPath}/xbox360 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \; &>> /dev/null
 	 	rm -rf $HOME/.local/share/applications/xenia.desktop &>> /dev/null
 	fi
 	if [[ "$doUninstallYuzu" == true ]]; then
