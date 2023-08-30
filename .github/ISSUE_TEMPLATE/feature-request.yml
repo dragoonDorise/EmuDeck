@@ -1,0 +1,70 @@
+name: Feature Request
+description: Submit a feature request
+title: "[Feature Request] "
+labels: ["feature-request"]
+body:
+  - type: checkboxes
+    id: low-effort-checks
+    attributes:
+      label: Prerequisite Steps
+      description: Please confirm that you have done the following
+      options:
+        - label: I have searched existing issues
+        - label: This issue is not a duplicate of an existing one
+        - label: I have checked the [EmuDeck Wiki](https://emudeck.github.io/)
+
+  - type: dropdown
+    id: type-of-feature
+    attributes:
+      label: Feature Request
+      description: What type of feature are you requesting?
+      options:
+        - New Emulator
+        - Steam ROM Manager Parser
+        - Emulator Configuration Feedback
+        - New Cloud Services  
+        - EmuDeck Feedback
+        - EmuDeck Application Feedback
+      default: 0
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        * New Emulator: Request an emulator to be added to EmuDeck. Make sure it runs on the Steam Deck first!
+        * Steam ROM Manager Parser: Typically used for RetroArch cores or MAME drivers. If it is a standalone emulator, use the "Standalone Emulator" option instead.
+        * Emulator Configuration Feedback: Have any feedback on how emulators are configured in EmuDeck? For example, should a setting be turned on or off in a specific emulator?
+        * New Cloud Services: Want a new cloud service to be added to EmuDeck? These specifically refer to streaming services such as Netflix or Hulu.
+        * EmuDeck Feedback: Want a new feature in EmuDeck or have any feedback on the EmuDeck suite as a whole?
+        * EmuDeck Application Feedback: Have any feedback on the EmuDeck application?
+  
+  - type: textarea
+    id: feature-request
+    attributes:
+      label: Elaborate on the feature you would like to see added to EmuDeck.
+      description: Include as much information as possible. Include links and why it would be a good addition to EmuDeck.
+      placeholder: Feature Request
+      value: Could Citra be added to EmuDeck? It's one of the best 3DS emulators. It has a Flatpak in Discover and runs great on Steam Deck. For the website, see https://citra-emu.org/. 
+    validations:
+      required: true
+
+  - type: textarea
+    id: websites
+    attributes:
+      label: Include any websites or links that may support your feature request. 
+      description: Links to the website for the feature, links that support the feature, links that show how to run the feature on Steam Deck or Linux. If it is a cloud service, make sure to include the link in this section. With cloud services, do keep in mind that some streaming services have regional specific links.
+      placeholder: Feature Request
+      value: https://citra-emu.org/ and https://flathub.org/apps/org.citra_emu.citra
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature-test
+    attributes:
+      label: Does this feature work on the Steam Deck?
+      description: Have you tested this feature on the Steam Deck? If it is a new emulator, does it run well natively or through Proton? If it is configuration feedback, have you tested it thoroughly?
+      placeholder: Feature Test
+      value: Yes, I downloaded Citra from Discover and tested it on my Steam Deck. It works great!
+    validations:
+      required: false
