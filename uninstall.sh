@@ -255,8 +255,13 @@ if [ "$doUninstall" == true ]; then
 		rm -rf $HOME/.var/app/com.github.Rosalie241.RMG &>> /dev/null
 	fi
 	if [[ "$doUninstallRPCS3" == true ]]; then
+		# Flatpak
 		flatpak uninstall net.rpcs3.RPCS3 -y
 		rm -rf $HOME/.var/app/net.rpcs3.RPCS3 &>> /dev/null
+		# AppImage
+		rm -rf "$HOME/.config/rpcs3" &>> /dev/null
+		rm -rf "$HOME/.cache/rpcs3" &>> /dev/null
+		rm -rf $HOME/.local/share/applications/RPCS3.desktop &>> /dev/null
 	fi
 	if [[ "$doUninstallRyujinx" == true ]]; then		
 		rm -rf $HOME/.config/Ryujinx &>> /dev/null
