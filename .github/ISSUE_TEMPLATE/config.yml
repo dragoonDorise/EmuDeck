@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Read the Docs
+    url: https://emudeck.github.io/
+    about: Do not use GitHub Issues for support. Read the docs or join the EmuDeck Discord.
+  - name: EmuDeck Discord
+    url: https://discord.gg/b9F7GpXtFP
+    about: Do not use GitHub Issues for support. Please ask and answer questions in the Discord.
+  - name: EmuDeck for Windows
+    url: https://github.com/EmuDeck/emudeck-we
+    about: Visit the EmuDeck for Windows repository or join the Discord to report any Windows specific issues. 
