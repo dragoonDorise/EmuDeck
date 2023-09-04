@@ -13,4 +13,4 @@ exe=$(find "$emufolder" -iname "${emuName}" | sort -n | cut -d' ' -f 2- | tail -
 chmod +x "$exe"
 
 eval "${exe} ${param}"
-rm -rf "$savesPath/.watching"
+rm -rf "$savesPath/.gaming"

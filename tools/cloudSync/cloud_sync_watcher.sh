@@ -5,7 +5,9 @@ source "$HOME/emudeck/settings.sh"
 source "$HOME/.config/EmuDeck/backend/functions/helperFunctions.sh"
 source "$HOME/.config/EmuDeck/backend/functions/ToolScripts/emuDeckCloudSync.sh"
 
+touch "$savesPath/.gaming"
 touch "$savesPath/.watching"
+
 
 # Declare an array to store current hashes
 echo "SERVICE - declare" >> $HOME/emudeck/CloudSync.log
@@ -71,13 +73,16 @@ do
   done
 
   #Autostop service when everything has finished
-  if [ ! -f "$savesPath/.watching" ]; then 
-  echo "SERVICE - NO WATCHING" >> $HOME/emudeck/CloudSync.log   
-  if [ ! -f "$HOME/emudeck/cloud.lock" ]; then 
-  echo "SERVICE - NO LOCK - KILLING SERVICE" >> $HOME/emudeck/CloudSync.log     
-    cloud_sync_stopService      
-  fi
+  if [ ! -f "$savesPath/.gaming" ]; then
+    echo "SERVICE - NO GAMING" >> $HOME/emudeck/CloudSync.log
+    if [ ! -f "$HOME/emudeck/cloud.lock" ]; then 
+      echo "SERVICE - STOP WATCHING" >> $HOME/emudeck/CloudSync.log     
+      rm -rf "$savesPath/.watching"
+      echo "SERVICE - NO LOCK - KILLING SERVICE" >> $HOME/emudeck/CloudSync.log     
+      cloud_sync_stopService      
+    fi
   fi
   
   sleep 1  # Wait for 1 second before the next iteration
 done
+echo "SERVICE - END" >> $HOME/emudeck/CloudSync.log

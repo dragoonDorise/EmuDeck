@@ -24,4 +24,4 @@ param=${param/\'/"$substituteWith"}
 #Fix last ' on command
 param=$(echo "$param" | sed 's/.$/"/')
 eval "${exe} ${param} -bigpicture -fullscreen"
-rm -rf "$savesPath/.watching"
+rm -rf "$savesPath/.gaming"

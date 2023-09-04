@@ -31,4 +31,4 @@ PROTONVER="- Experimental"
 echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${XENIA}" "${@}" >> "${LOGFILE}"
 
 "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${XENIA}" "${@}"
-rm -rf "$savesPath/.watching"
+rm -rf "$savesPath/.gaming"

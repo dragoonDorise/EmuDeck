@@ -12,4 +12,4 @@ EMU="Cemu"
 
 # Launch emu-launch.sh
 "${LAUNCH}" -e "${EMU}" -- "${@}" 
-rm -rf "$savesPath/.watching"-native
+rm -rf "$savesPath/.gaming"-native

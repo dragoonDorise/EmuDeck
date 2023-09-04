@@ -184,4 +184,4 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     main "${@}"
 fi
 
-rm -rf "$savesPath/.watching"
+rm -rf "$savesPath/.gaming"
