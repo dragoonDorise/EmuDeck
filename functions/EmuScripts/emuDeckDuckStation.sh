@@ -27,6 +27,9 @@ DuckStation_init(){
 	DuckStation_setEmulationFolder
 	DuckStation_setupSaves
 	DuckStation_addSteamInputProfile
+	DuckStation_retroAchievementsSetLogin
+	DuckStation_setCustomizations
+	RetroArch_setRetroAchievements
 }
 
 #update
@@ -183,5 +186,22 @@ DuckStation_retroAchievementsSetLogin(){
 		iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "Token" "$rat"
 		iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "LoginTimestamp" "$(date +%s)"
 		DuckStation_retroAchievementsOn
+	fi
+}
+
+DuckStation_setRetroAchievements(){
+	DuckStation_retroAchievementsSetLogin
+	if [ "$achievementsHardcore" == "true" ]; then
+		DuckStation_retroAchievementsHardCoreOn
+	else
+		DuckStation_retroAchievementsHardCoreOff
+	fi
+}
+
+DuckStation_setCustomizations(){
+	if [ "$arClassic3D" == 169 ]; then		
+			DuckStation_wideScreenOn
+	else
+			DuckStation_wideScreenOff
 	fi
 }

@@ -21,6 +21,7 @@ Xemu_init() {
 	Xemu_migrate
 	Xemu_setupStorage
 	Xemu_setEmulationFolder
+	Xemu_setCustomizations
 }
 
 #update
@@ -143,4 +144,12 @@ Xemu_IsInstalled(){
 
 Xemu_resetConfig(){
 	Xemu_init &>/dev/null && echo "true" || echo "false"
+}
+
+Xemu_setCustomizations(){
+	if [ "$arClassic3D" == 169 ]; then	
+	  Xemu_wideScreenOn
+	else
+	  Xemu_wideScreenOff
+	fi
 }
