@@ -14,7 +14,6 @@ DuckStation_cleanup(){
 #Install
 DuckStation_install(){
 	setMSG "Installing $DuckStation_emuName"		
-
 	installEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}"	
 	flatpak override "${DuckStation_emuPath}" --filesystem=host --user	
 }
