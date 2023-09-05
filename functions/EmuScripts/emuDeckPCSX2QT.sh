@@ -40,6 +40,8 @@ PCSX2QT_init() {
 	PCSX2QT_setupStorage
 	PCSX2QT_setupSaves
 	PCSX2QT_setupControllers
+	PCSX2QT_setCustomizations
+	PCSX2QT_setRetroAchievements
 
 }
 
@@ -51,6 +53,7 @@ PCSX2QT_update() {
 	PCSX2QT_setupStorage
 	PCSX2QT_setupSaves
 	PCSX2QT_setupControllers
+
 
 }
 
@@ -306,4 +309,17 @@ PCSX2QT_retroAchievementsSetLogin() {
 		iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "LoginTimestamp" "$(date +%s)"
 		PCSX2QT_retroAchievementsOn
 	fi
+}
+
+PCSX2QT_setRetroAchievements(){
+	PCSX2QT_retroAchievementsSetLogin
+	if [ "$achievementsHardcore" == "true" ]; then
+		PCSX2QT_retroAchievementsHardCoreOn
+	else
+		PCSX2QT_retroAchievementsHardCoreOff
+	fi
+}
+
+PCSX2QT_setCustomizations(){
+	echo "NYI"
 }

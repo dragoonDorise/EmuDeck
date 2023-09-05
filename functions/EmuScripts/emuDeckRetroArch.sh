@@ -38,8 +38,108 @@ RetroArch_init(){
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
+	
+	RetroArch_setCustomizations
+	RetroArch_autoSave
+	RetroArch_setRetroAchievements
 
+	
 }
+
+RetroArch_setCustomizations(){
+	# User customizations
+	RetroArch_setShadersCRT
+	RetroArch_setShaders3DCRT
+	RetroArch_setShadersMAT	
+	RetroArch_setBezels
+	
+	#
+	#New Aspect Ratios
+	#
+	
+	#Sega Games
+		#Master System
+		#Genesis
+		#Sega CD
+		#Sega 32X
+	
+	case $arSega in
+	  "32")	 
+		RetroArch_mastersystem_ar32
+		RetroArch_genesis_ar32
+		RetroArch_segacd_ar32
+		  RetroArch_sega32x_ar32	
+		;;  
+	  *)
+		RetroArch_mastersystem_ar43
+		RetroArch_genesis_ar43
+		  RetroArch_segacd_ar43
+		  RetroArch_sega32x_ar43
+		  if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then
+			  RetroArch_mastersystem_bezelOn
+			  RetroArch_genesis_bezelOn
+			  RetroArch_segacd_bezelOn
+			  RetroArch_sega32x_bezelOn
+		fi
+	  ;;
+	esac	
+	
+	#Snes and NES
+	case $arSnes in
+	  "87")
+		RetroArch_snes_ar87
+		RetroArch_nes_ar87
+	  ;;
+	  "32")
+			RetroArch_snes_ar32
+		  RetroArch_nes_ar32
+		;;  
+	  *)
+		RetroArch_snes_ar43
+		RetroArch_nes_ar43
+		if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then	
+			RetroArch_snes_bezelOn
+		fi
+	  ;;
+	esac		
+	# Classic 3D Games
+		#Dreamcast
+		#PSX
+		#Nintendo 64
+		#Saturn
+		#Xbox
+	if [ "$arClassic3D" == 169 ]; then		
+			RetroArch_Beetle_PSX_HW_wideScreenOn
+			RetroArch_Flycast_wideScreenOn			
+			RetroArch_dreamcast_bezelOff
+			RetroArch_psx_bezelOff
+			RetroArch_n64_wideScreenOn
+			RetroArch_SwanStation_wideScreenOn
+	else
+			RetroArch_Flycast_wideScreenOff
+			RetroArch_n64_wideScreenOff
+			RetroArch_Beetle_PSX_HW_wideScreenOff
+			RetroArch_SwanStation_wideScreenOff
+		#"Bezels on"
+		if [ "$RABezels" == true ]; then
+			RetroArch_dreamcast_bezelOn			
+			RetroArch_n64_bezelOn
+			RetroArch_psx_bezelOn
+		fi			
+	fi	
+}
+
+RetroArch_setRetroAchievements(){
+	#RetroAchievments	
+	RetroArch_retroAchievementsSetLogin
+	if [ "$achievementsHardcore" == "true" ]; then
+		RetroArch_retroAchievementsHardCoreOn
+	else
+		RetroArch_retroAchievementsHardCoreOff
+	fi	
+}
+
+
 
 #update
 RetroArch_update(){
@@ -2099,6 +2199,15 @@ RetroArch_setShadersMAT(){
 	else
 		RetroArch_MATshadersOffAll
 	fi	
+}
+
+RetroArch_autoSave(){
+	if [ "$RAautoSave" == true ]; then	
+		RetroArch_autoSaveOn
+	else
+		RetroArch_autoSaveOf
+	fi	
+	
 }
 
 RetroArch_IsInstalled(){
