@@ -49,10 +49,18 @@ Decky_ar_snes(){
 }
 
 
-Decky_set_AR(){
+Decky_setAR(){
 	RetroArch_setCustomizations
 	Xemu_setCustomizations
 	DuckStation_setCustomizations
 	PCSX2QT_setCustomizations
 	Dolphin_setCustomizations
+}
+
+Decky_setClourd(){
+  if [ $cloud_sync_status == "false" ]; then
+	setSetting cloud_sync_status "true" > /dev/null 
+  else
+  	setSetting cloud_sync_status "false" > /dev/null 
+  fi
 }
