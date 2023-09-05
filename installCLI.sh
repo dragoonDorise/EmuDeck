@@ -302,7 +302,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 			table+=( "selectEmulatorConfig" "Customize the emulator configuration reset. (note: Fixes will be skipped if boxes are unchecked)" ON )
 			table+=( "selectRABezels" "Turn on Bezels for Retroarch?" ON )
 			table+=( "selectRAAutoSave" "Turn on Retroarch AutoSave/Restore state?" ON )
-			table+=( "snesAR" "SNES 8:7 Aspect Ratio? (unchecked is 4:3)" ON )
+			table+=( "arSnes" "SNES 8:7 Aspect Ratio? (unchecked is 4:3)" ON )
 			table+=( "selectWideScreen" "Customize Emulator Widescreen Selection?" ON )
 			table+=( "setRAEnabled" "Enable Retroachievments in Retroarch?" ON )
 			table+=( "setRASignIn" "Change RetroAchievements Sign in?" ON )
@@ -339,8 +339,8 @@ if [ "$RUNCHOICE" == 1 ]; then
 			if [[ "$expertModeFeatureList" == *"selectRAAutoSave"* ]]; then
 				setSetting RAautoSave true
 			fi
-			if [[ "$expertModeFeatureList" == *"snesAR"* ]]; then
-				setSetting SNESAR 43	
+			if [[ "$expertModeFeatureList" == *"arSnes"* ]]; then
+				setSetting arSnes 43	
 			fi
 			if [[ "$expertModeFeatureList" == *"selectWideScreen"* ]]; then
 				setSetting doSelectWideScreen true			
@@ -949,8 +949,6 @@ if [ "$zenity" == true ]; then
 		RetroArch_Flycast_wideScreenOff
 	fi
 	
-	#RA SNES Aspect Ratio
-	RetroArch_setSNESAR #needs to change
 
 else
 
