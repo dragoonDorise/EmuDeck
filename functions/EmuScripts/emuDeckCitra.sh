@@ -103,7 +103,31 @@ Citra_setABXYstyle(){
 
 #Migrate
 Citra_migrate(){
-echo "NYI"
+echo "Begin Citra Migration"
+    emu="Citra"
+    migrationFlag="$HOME/.config/EmuDeck/.${emu}MigrationCompleted"
+    #check if we have a nomigrateflag for $emu
+    if [ ! -f "$migrationFlag" ]; then
+        #citra flatpak to appimage
+        #From -- > to
+        migrationTable=()
+        migrationTable+=("$HOME/.var/app/org.citra_emu.citra/data/citra-emu" "$HOME/.local/share/citra-emu")
+        migrationTable+=("$HOME/.var/app/org.citra_emu.citra/config/citra-emu" "$HOME/.config/citra-emu")
+
+        # migrateAndLinkConfig "$emu" "$migrationTable"
+    fi
+
+    #move data from hidden folders out to these folders in case the user already put stuff here.
+    origPath="$HOME/.var/app/"
+
+    citra_setupStorage
+
+    rsync -av "${origPath}citra/dump" "${storagePath}/citra/" && rm -rf "${origPath}citra/dump"
+    rsync -av "${origPath}citra/load" "${storagePath}/citra/" && rm -rf "${origPath}citra/load"
+    rsync -av "${origPath}citra/sdmc" "${storagePath}/citra/" && rm -rf "${origPath}citra/sdmc"
+    rsync -av "${origPath}citra/nand" "${storagePath}/citra/" && rm -rf "${origPath}citra/nand"
+    rsync -av "${origPath}citra/screenshots" "${storagePath}/citra/" && rm -rf "${origPath}citra/screenshots"
+    rsync -av "${origPath}citra/tas" "${storagePath}/citra/" && rm -rf "${origPath}citra/tas"
 }
 
 #WideScreenOn
