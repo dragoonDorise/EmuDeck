@@ -39,7 +39,7 @@ Decky_shaders_3D(){
 }
 
 Decky_ar_snes(){
-	if [ "$SNESAR" == 87 ]; then	
+	if [ "$arSnes" == 87 ]; then	
 		RetroArch_snes_ar87
 		RetroArch_nes_ar87
 	else

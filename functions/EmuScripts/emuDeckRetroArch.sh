@@ -2165,13 +2165,7 @@ RetroArch_retroAchievementsSetLogin(){
 
 	fi
 }
-RetroArch_setSNESAR(){
-	if [ "$SNESAR" == 87 ]; then	
-		RetroArch_snes_ar87
-	else
-		RetroArch_snes_ar43
-	fi	
-}
+
 RetroArch_setBezels(){
 	if [ "$RABezels" == true ]; then	
 		RetroArch_bezelOnAll
