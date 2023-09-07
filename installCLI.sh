@@ -148,10 +148,10 @@ if [[ ! -e $EMUDECKGIT/.git/config ]]; then
 
 	#Cloning EmuDeck files
 	git clone --depth 1 --no-single-branch https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
-	git checkout dev
+	git checkout $branch
 else
 	cd "$EMUDECKGIT"
-	git fetch origin  && git checkout origin/$branch  &&	git reset --hard origin/$branch && git clean -ffdx
+	git fetch origin  && git checkout origin/$branch  && git reset --hard origin/$branch && git clean -ffdx
 fi
 
 
@@ -163,14 +163,14 @@ setDefaults
 #
 
 # Welcome, Quick or custom?
-source "$EMUDECKGIT"/pages/WelcomePage.sh
+source "$EMUDECKGIT"/whiptail/WelcomePage.sh
 
 if [ $expert == 'false' ]; then 
 	cp "$EMUDECKGIT/settings.sh" "$emuDecksettingsFile"
 fi
 
 # Location
-source "$EMUDECKGIT"/pages/RomStoragePage.sh
+source "$EMUDECKGIT"/whiptail/RomStoragePage.sh
 
 
 
@@ -181,45 +181,45 @@ source "$EMUDECKGIT"/pages/RomStoragePage.sh
 if [ $expert == 'true' ]; then 
 	
 	# Emulators	
-	source $EMUDECKGIT/pages/EmulatorSelectorPage.sh
+	source $EMUDECKGIT/whiptail/EmulatorSelectorPage.sh
  
 	# if [ $second == true ]; then
 	# 	# Overwrite configuration?		
-	# 	source "$EMUDECKGIT"/pages/EmulatorConfigurationPage.sh
+	# 	source "$EMUDECKGIT"/whiptail/EmulatorConfigurationPage.sh
 	# fi
 	
 	# Retroachievements
-	#source "$EMUDECKGIT"/pages/RAAchievementsPage.sh
+	#source "$EMUDECKGIT"/whiptail/RAAchievementsPage.sh
 	
 	# Bezels
-	source "$EMUDECKGIT"/pages/RABezelsPage.sh
+	source "$EMUDECKGIT"/whiptail/RABezelsPage.sh
 
 	#  if [ $deviceAR != 43 ]; then 
 	# 	 # AR Sega Classic
-		 source "$EMUDECKGIT"/pages/AspectRatioSegaPage.sh
+		 source "$EMUDECKGIT"/whiptail/AspectRatioSegaPage.sh
 	# 	
 	# 	 # AR SNES + NES
-		  source "$EMUDECKGIT"/pages/AspectRatioSNESPage.sh
+		  source "$EMUDECKGIT"/whiptail/AspectRatioSNESPage.sh
 	# 	 
 	# 	# AR 3D Classics
-	# 	source "$EMUDECKGIT"/pages/AspectRatio3DPage.sh
+	# 	source "$EMUDECKGIT"/whiptail/AspectRatio3DPage.sh
 	# 	
 	# 	# AR Gamecube
-	# 	source "$EMUDECKGIT"/pages/AspectRatioDolphinPage.sh
+	# 	source "$EMUDECKGIT"/whiptail/AspectRatioDolphinPage.sh
 	# fi 
 	
 	# LCD Shader Handhelds
-	#source "$EMUDECKGIT"/pages/ShadersHandheldsPage.sh
+	#source "$EMUDECKGIT"/whiptail/ShadersHandheldsPage.sh
 	
 	# CRT Shader Handhelds
-	#source "$EMUDECKGIT"/pages/Shaders2DPage.sh
+	#source "$EMUDECKGIT"/whiptail/Shaders2DPage.sh
 	
 	# Frontend
-	source "$EMUDECKGIT"/pages/PegasusInstallPage.sh
+	source "$EMUDECKGIT"/whiptail/PegasusInstallPage.sh
 	
 	# Pegasus Theme
 	if [ $doInstallPegasus == true ]; then
-		source "$EMUDECKGIT"/pages/PegasusThemePage.sh
+		source "$EMUDECKGIT"/whiptail/PegasusThemePage.sh
 	fi
 
 fi
