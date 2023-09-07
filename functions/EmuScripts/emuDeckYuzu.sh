@@ -314,7 +314,7 @@ YuzuEA_addToken(){
     local auth=""
     echo $tokenValue >"$YuzuEA_tokenFile"
    
-    read -r user auth <<<"$(base64 -d -i "${tokenValue}" | awk -F":" '{print $1" "$2}')" 2>/dev/null || echo "invalid"
+    read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')"
 
         
     if [ -n "$user" ] && [ -n "$auth" ]; then
