@@ -88,6 +88,7 @@ YuzuEA_install() {
             fi
     
         fi
+    else
         read -r user auth <<<"$(base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}')"
         
         if [[ -n "$user" && -n "$auth" ]]; then
@@ -104,6 +105,7 @@ YuzuEA_install() {
                 cp -v "${EMUDECKGIT}/tools/launchers/yuzu.sh" "${toolsPath}/launchers/"
                 chmod +x "${toolsPath}/launchers/yuzu.sh"
             else
+                echo "true"
                 return 1
             fi
     
