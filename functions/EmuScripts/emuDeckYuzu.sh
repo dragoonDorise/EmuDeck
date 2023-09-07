@@ -49,53 +49,46 @@ YuzuEA_install() {
     local currentVer=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
     local showProgress="$1"
 
-    if [ -e "$YuzuEA_tokenFile" ]; then
+    if [ "$currentVer" == "$(cat "${YuzuEA_lastVerFile}")" ] && [ -e "$YuzuEA_emuPath" ]; then
 
-        if [ "$currentVer" == "$(cat "${YuzuEA_lastVerFile}")" ] && [ -e "$YuzuEA_emuPath" ]; then
+        echo "true"
 
-            echo "no need to update."
+    elif [ -z "$currentVer" ]; then
 
-        elif [ -z "$currentVer" ]; then
-
-            echo "couldn't get metadata."
-            return 1
-
-        else
-
-            echo "updating"
-            read -r user auth <<<"$(base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}')"
-
-            if [[ -n "$user" && -n "$auth" ]]; then
-
-                echo "get bearer token"
-                BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
-
-                echo "download ea appimage"
-                #response=$(curl -f -X GET ${fileToDownload} --write-out '%{http_code}' -H "Accept: application/json" -H "Authorization: Bearer ${BEARERTOKEN}" -o "${YuzuEA_emuPath}.temp")
-                if safeDownload "yuzu-ea" "$fileToDownload" "${YuzuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
-                    chmod +x "$YuzuEA_emuPath"
-                    echo "latest version $currentVer > $YuzuEA_lastVerFile"
-                    echo "${currentVer}" >"${YuzuEA_lastVerFile}"
-                    cp -v "${EMUDECKGIT}/tools/launchers/yuzu.sh" "${toolsPath}/launchers/"
-                    chmod +x "${toolsPath}/launchers/yuzu.sh"
-                else
-                    return 1
-                fi
-
-            else
-
-                echo "Token malformed"
-                return 1
-
-            fi
-
-        fi
+        echo "fail"
+        return 1
 
     else
 
-        echo "Token Not Found"
+        #echo "updating"
+        read -r user auth <<<"$(base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}')"
+
+        if [[ -n "$user" && -n "$auth" ]]; then
+
+            #echo "get bearer token"
+            BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
+
+            #echo "download ea appimage"
+            #response=$(curl -f -X GET ${fileToDownload} --write-out '%{http_code}' -H "Accept: application/json" -H "Authorization: Bearer ${BEARERTOKEN}" -o "${YuzuEA_emuPath}.temp")
+            if safeDownload "yuzu-ea" "$fileToDownload" "${YuzuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
+                chmod +x "$YuzuEA_emuPath"
+                echo "latest version $currentVer > $YuzuEA_lastVerFile"
+                echo "${currentVer}" >"${YuzuEA_lastVerFile}"
+                cp -v "${EMUDECKGIT}/tools/launchers/yuzu.sh" "${toolsPath}/launchers/"
+                chmod +x "${toolsPath}/launchers/yuzu.sh"
+            else
+                return 1
+            fi
+
+        else
+
+            echo "fail"
+            return 1
+
+        fi
 
     fi
+
 
     # if we have yuzu-ea.AppImage, launcher will use that instead of mainline one so we can decorate shortcut
     if [ -e "$YuzuEA_emuPath" ]; then
