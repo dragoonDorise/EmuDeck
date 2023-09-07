@@ -51,7 +51,7 @@ YuzuEA_install() {
     if [ -f "$YuzuEA_lastVerFile" ]; then
         if [ "$currentVer" == "$(cat "${YuzuEA_lastVerFile}")" ] && [ -e "$YuzuEA_emuPath" ]; then
     
-            echo "true"
+            echo "true1"
     
         elif [ -z "$currentVer" ]; then
     
@@ -105,7 +105,7 @@ YuzuEA_install() {
                 echo "${currentVer}" >"${YuzuEA_lastVerFile}"
                 cp -v "${EMUDECKGIT}/tools/launchers/yuzu.sh" "${toolsPath}/launchers/"
                 chmod +x "${toolsPath}/launchers/yuzu.sh"
-                echo "true"
+                echo "true2"
             else
                 echo "fail"
                 return 1
@@ -303,7 +303,7 @@ YuzuEA_addToken_install() {
         echo "fail"
         # zenity --title="Download failure!" --error --text="Download failed! Please contact support." --width 400 2>/dev/null
     else
-        echo "true"
+        echo "true3"
         # zenity --title="Download complete" --info --text="Your AppList entry should change to yuzu-EA AppImage.\n\nThe Yuzu entry will ask to update the Yuzu-EA appimage when you run it, and it detects that an update is available.\n\nDon't worry, it won't bother you if you launch a game." --width 400 2>/dev/null
     fi
 } 
