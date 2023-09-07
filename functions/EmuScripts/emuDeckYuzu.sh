@@ -77,6 +77,7 @@ YuzuEA_install() {
                     cp -v "${EMUDECKGIT}/tools/launchers/yuzu.sh" "${toolsPath}/launchers/"
                     chmod +x "${toolsPath}/launchers/yuzu.sh"
                 else
+                    echo "fail"
                     return 1
                 fi
     
@@ -104,8 +105,9 @@ YuzuEA_install() {
                 echo "${currentVer}" >"${YuzuEA_lastVerFile}"
                 cp -v "${EMUDECKGIT}/tools/launchers/yuzu.sh" "${toolsPath}/launchers/"
                 chmod +x "${toolsPath}/launchers/yuzu.sh"
-            else
                 echo "true"
+            else
+                echo "fail"
                 return 1
             fi
     
