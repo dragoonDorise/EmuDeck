@@ -282,19 +282,38 @@ Yuzu_finalize() {
 #finalExec - Extra stuff
 YuzuEA_addToken_install() {
     if ! YuzuEA_install "true"; then
-        zenity --title="Download failure!" --error --text="Download failed! Please contact support." --width 400 2>/dev/null
+        echo "fail"
+        # zenity --title="Download failure!" --error --text="Download failed! Please contact support." --width 400 2>/dev/null
     else
-        zenity --title="Download complete" --info --text="Your AppList entry should change to yuzu-EA AppImage.\n\nThe Yuzu entry will ask to update the Yuzu-EA appimage when you run it, and it detects that an update is available.\n\nDon't worry, it won't bother you if you launch a game." --width 400 2>/dev/null
+        echo "true"
+        # zenity --title="Download complete" --info --text="Your AppList entry should change to yuzu-EA AppImage.\n\nThe Yuzu entry will ask to update the Yuzu-EA appimage when you run it, and it detects that an update is available.\n\nDon't worry, it won't bother you if you launch a game." --width 400 2>/dev/null
     fi
 } 
 
-YuzuEA_addToken() {
+YuzuEA_addToken(){    
+    local tokenValue=$1
+    local user=""
+    local auth=""
+    echo $tokenValue >"$YuzuEA_tokenFile" && echo "true"
+   
+    read -r user auth <<<"$(base64 -d -i "${tokenValue}" | awk -F":" '{print $1" "$2}')"
+
+        
+    if [ -n "$user" ] && [ -n "$auth" ]; then
+        echo "invalid"
+    else
+        YuzuEA_addToken_install
+    fi
+}
+
+YuzuEA_addToken_legacy() {
     local tokenValue=""
     local updateToken="true"
     local user=""
     local auth=""
 
 
+    
     if [ -e "$YuzuEA_tokenFile" ]; then
         tokenValue=$(cat "$YuzuEA_tokenFile")
         read -r user auth <<<"$(base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}')"
