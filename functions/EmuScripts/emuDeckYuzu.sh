@@ -308,7 +308,7 @@ YuzuEA_addToken(){
     local tokenValue=$1
     local user=""
     local auth=""
-    echo $tokenValue >"$YuzuEA_tokenFile" && echo "true"
+    echo $tokenValue >"$YuzuEA_tokenFile"
    
     read -r user auth <<<"$(base64 -d -i "${tokenValue}" | awk -F":" '{print $1" "$2}')"
 
