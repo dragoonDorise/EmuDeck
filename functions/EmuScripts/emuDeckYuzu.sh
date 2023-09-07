@@ -63,7 +63,7 @@ YuzuEA_install() {
             #echo "updating"
             read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')"
     
-            if [[ -n "$user" && -n "$auth" ]]; then
+            if [[ -z "$user" && -z "$auth" ]]; then
     
                 #echo "get bearer token"
                 BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
@@ -92,7 +92,7 @@ YuzuEA_install() {
     else
         read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')"
         
-        if [[ -n "$user" && -n "$auth" ]]; then
+        if [[ -z "$user" && -z "$auth" ]]; then
         
             #echo "get bearer token"
             BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
@@ -318,9 +318,7 @@ YuzuEA_addToken(){
     read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')"
 
         
-    if [ -n "$user" ] && [ -n "$auth" ]; then
-        echo "invalid"
-    else
+    if [ -z "$user" ] && [ -z "$auth" ]; then echo "invalid"; else
         YuzuEA_addToken_install $tokenValue
     fi
 }
@@ -338,7 +336,7 @@ YuzuEA_addToken_legacy() {
         read -r user auth <<<"$(base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}')"
     fi
 
-    if [ -n "$user" ] && [ -n "$auth" ]; then
+    if [ -z "$user" ] && [ -z "$auth" ]; then
         text=$(printf "Current Token: %s\n\
         Would you like to update your token, %s?" "$tokenValue" "$user")
         zenity --title="Update EA Token?" --question --text="$text" 2>/dev/null
@@ -373,7 +371,7 @@ YuzuEA_addToken_legacy() {
         fi
 
         read -r user auth <<<"$(base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}')"
-        if [ -n "$user" ] && [ -n "$auth" ]; then
+        if [ -z "$user" ] && [ -z "$auth" ]; then
             text=$(printf "Token parsed.\
             \nYuzu Patreon Username: %s\
             \nDownload EA now?" "$user")
