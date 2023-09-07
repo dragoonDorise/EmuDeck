@@ -153,6 +153,7 @@ if [[ ! -e $EMUDECKGIT/.git/config ]]; then
 
 	#Cloning EmuDeck files
 	git clone --depth 1 --no-single-branch https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
+	git checkout dev
 else
 	cd "$EMUDECKGIT"
 	git fetch origin  && git checkout origin/$branch  &&	git reset --hard origin/$branch && git clean -ffdx
