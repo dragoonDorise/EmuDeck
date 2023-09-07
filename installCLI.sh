@@ -17,7 +17,7 @@ emuDecksettingsFile="$HOME/emudeck/settings.sh"
 
 #Functions
 
-function setSetting () {
+function setSetting() {
 	local var=$1
 	local new_val=$2
 
