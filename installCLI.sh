@@ -5,13 +5,8 @@
 ## Branch to download
 ##
 #
-case $devMode in
-	"BETA") 	branch="beta" 		;;
-	"beta") 	branch="beta" 		;;
-	"DEV") 		branch="dev" 		;;  
-	"dev") 		branch="dev" 		;;
-	*) 			branch="main" 		;;
-esac	
+
+branch="dev"
 echo $branch > "$HOME/.config/EmuDeck/branch.txt"
 
 #VARS
@@ -157,15 +152,8 @@ if [[ ! -e $EMUDECKGIT/.git/config ]]; then
 else
 	cd "$EMUDECKGIT"
 	git fetch origin  && git checkout origin/$branch  &&	git reset --hard origin/$branch && git clean -ffdx
-
 fi
 
-git status "$EMUDECKGIT" --porcelain
-if [[ ! $noPull == true ]]; then
-	cd "$EMUDECKGIT"
-	git fetch origin  && git checkout origin/$branch  &&	git reset --hard origin/$branch && git clean -ffdx
-	
-fi
 
 #Default settings per system on Easy mode
 setDefaults
