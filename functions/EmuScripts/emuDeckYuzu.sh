@@ -48,26 +48,53 @@ YuzuEA_install() {
     local fileToDownload=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).url')
     local currentVer=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
     local showProgress="$1"
-
-    if [ "$currentVer" == "$(cat "${YuzuEA_lastVerFile}")" ] && [ -e "$YuzuEA_emuPath" ]; then
-
-        echo "true"
-
-    elif [ -z "$currentVer" ]; then
-
-        echo "fail"
-        return 1
-
-    else
-
-        #echo "updating"
+    if [ -f "$YuzuEA_lastVerFile" ]; then
+        if [ "$currentVer" == "$(cat "${YuzuEA_lastVerFile}")" ] && [ -e "$YuzuEA_emuPath" ]; then
+    
+            echo "true"
+    
+        elif [ -z "$currentVer" ]; then
+    
+            echo "fail"
+            return 1
+    
+        else
+    
+            #echo "updating"
+            read -r user auth <<<"$(base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}')"
+    
+            if [[ -n "$user" && -n "$auth" ]]; then
+    
+                #echo "get bearer token"
+                BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
+    
+                #echo "download ea appimage"
+                #response=$(curl -f -X GET ${fileToDownload} --write-out '%{http_code}' -H "Accept: application/json" -H "Authorization: Bearer ${BEARERTOKEN}" -o "${YuzuEA_emuPath}.temp")
+                if safeDownload "yuzu-ea" "$fileToDownload" "${YuzuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
+                    chmod +x "$YuzuEA_emuPath"
+                    echo "latest version $currentVer > $YuzuEA_lastVerFile"
+                    echo "${currentVer}" >"${YuzuEA_lastVerFile}"
+                    cp -v "${EMUDECKGIT}/tools/launchers/yuzu.sh" "${toolsPath}/launchers/"
+                    chmod +x "${toolsPath}/launchers/yuzu.sh"
+                else
+                    return 1
+                fi
+    
+            else
+    
+                echo "fail"
+                return 1
+    
+            fi
+    
+        fi
         read -r user auth <<<"$(base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}')"
-
+        
         if [[ -n "$user" && -n "$auth" ]]; then
-
+        
             #echo "get bearer token"
             BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
-
+        
             #echo "download ea appimage"
             #response=$(curl -f -X GET ${fileToDownload} --write-out '%{http_code}' -H "Accept: application/json" -H "Authorization: Bearer ${BEARERTOKEN}" -o "${YuzuEA_emuPath}.temp")
             if safeDownload "yuzu-ea" "$fileToDownload" "${YuzuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
@@ -79,14 +106,8 @@ YuzuEA_install() {
             else
                 return 1
             fi
-
-        else
-
-            echo "fail"
-            return 1
-
+    
         fi
-
     fi
 
 
