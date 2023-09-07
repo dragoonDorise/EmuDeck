@@ -41,13 +41,13 @@ Yuzu_install() {
 }
 
 YuzuEA_install() {
-
     local jwtHost="https://api.yuzu-emu.org/jwt/installer/"
     local yuzuEaHost="https://api.yuzu-emu.org/downloads/earlyaccess/"
     local yuzuEaMetadata=$(curl -fSs ${yuzuEaHost})
     local fileToDownload=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).url')
     local currentVer=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
     local showProgress="$1"
+    local tokenValue="$2"
     if [ -f "$YuzuEA_lastVerFile" ]; then
         if [ "$currentVer" == "$(cat "${YuzuEA_lastVerFile}")" ] && [ -e "$YuzuEA_emuPath" ]; then
     
@@ -61,7 +61,7 @@ YuzuEA_install() {
         else
     
             #echo "updating"
-            read -r user auth <<<"$(base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}')"
+            read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')"
     
             if [[ -n "$user" && -n "$auth" ]]; then
     
@@ -90,7 +90,7 @@ YuzuEA_install() {
     
         fi
     else
-        read -r user auth <<<"$(base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}')"
+        read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')"
         
         if [[ -n "$user" && -n "$auth" ]]; then
         
@@ -299,7 +299,8 @@ Yuzu_finalize() {
 
 #finalExec - Extra stuff
 YuzuEA_addToken_install() {
-    if ! YuzuEA_install "true"; then
+    local tokenValue=$1
+    if ! YuzuEA_install "true" $tokenValue; then
         echo "fail"
         # zenity --title="Download failure!" --error --text="Download failed! Please contact support." --width 400 2>/dev/null
     else
@@ -320,7 +321,7 @@ YuzuEA_addToken(){
     if [ -n "$user" ] && [ -n "$auth" ]; then
         echo "invalid"
     else
-        YuzuEA_addToken_install
+        YuzuEA_addToken_install $tokenValue
     fi
 }
 
