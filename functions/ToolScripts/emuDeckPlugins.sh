@@ -34,9 +34,9 @@ Plugins_installPowerTools(){
    Plugins_checkPassword $password
    ptHash=$(curl https://beta.deckbrew.xyz/plugins | jq -r '.[] | select(.name=="PowerTools").versions[0].hash')
    local url="https://cdn.tzatzikiweeb.moe/file/steam-deck-homebrew/versions/$ptHash.zip"
-   echo $password |  sudo rm -rf "$HOME/homebrew/plugins/PowerTools"
+   echo $password |  sudo -S rm -rf "$HOME/homebrew/plugins/PowerTools"
    curl -l "$url" --output "$HOME/homebrew/PowerTools.zip.temp"  && mv "$HOME/homebrew/PowerTools.zip.temp" "$HOME/homebrew/PowerTools.zip" 
-   echo $password |  sudo unzip "$HOME/homebrew/PowerTools.zip" -d "$HOME/homebrew/plugins/" && rm "$HOME/homebrew/PowerTools.zip"
+   echo $password |  sudo -S unzip "$HOME/homebrew/PowerTools.zip" -d "$HOME/homebrew/plugins/" && rm "$HOME/homebrew/PowerTools.zip"
    Plugins_install_cleanup $password
 }
 
@@ -46,7 +46,6 @@ Plugins_installDeckyControls(){
    local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/emudeck-decky-controls" ".zip")"
    Plugins_checkPassword $password
    echo $password |  sudo -S rm -rf $destinationFolder
-   #echo $password |  sudo mkdir -p $destinationFolder
    echo $password |  sudo -S curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/emudeck-decky-controls.zip"
    echo $password |  sudo -S unzip "$HOME/homebrew/plugins/emudeck-decky-controls.zip" -d "$HOME/homebrew/plugins/" && echo $password |  sudo -S rm "$HOME/homebrew/plugins/emudeck-decky-controls.zip"
    echo $password |  sudo -S chown $USER:$USER -R $HOME/homebrew/plugins/emudeck-decky-controls
