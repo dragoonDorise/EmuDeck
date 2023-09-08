@@ -41,15 +41,15 @@ Yuzu_install() {
 }
 
 YuzuEA_install() {
-    jwtHost="https://api.yuzu-emu.org/jwt/installer/"
-    yuzuEaHost="https://api.yuzu-emu.org/downloads/earlyaccess/"
-    yuzuEaMetadata=$(curl -fSs ${yuzuEaHost})
-    fileToDownload=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).url')
-    currentVer=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
+    local jwtHost="https://api.yuzu-emu.org/jwt/installer/"
+    local yuzuEaHost="https://api.yuzu-emu.org/downloads/earlyaccess/"
+    local yuzuEaMetadata=$(curl -fSs ${yuzuEaHost})
+    local fileToDownload=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).url')
+    local currentVer=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
     local showProgress="$1"
     local tokenValue="$2"
     
-    if [[ -z "$user" && -z "$auth" ]]; then
+    if [[ -n "$user" && -n "$auth" ]]; then
     
         #echo "get bearer token"
         BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
@@ -77,7 +77,7 @@ YuzuEA_install() {
 #     
 #             echo "true1"
 #     
-#         elif [ -z "$currentVer" ]; then
+#         elif [ -n "$currentVer" ]; then
 #     
 #             echo "fail"
 #             return 1
@@ -87,7 +87,7 @@ YuzuEA_install() {
 #             #echo "updating"
 #             read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')"
 #     
-#             if [[ -z "$user" && -z "$auth" ]]; then
+#             if [[ -n "$user" && -n "$auth" ]]; then
 #     
 #                 #echo "get bearer token"
 #                 BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
@@ -116,7 +116,7 @@ YuzuEA_install() {
 #     else
 #         read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')"
 #         
-#         if [[ -z "$user" && -z "$auth" ]]; then
+#         if [[ -n "$user" && -n "$auth" ]]; then
 #         
 #             #echo "get bearer token"
 #             BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
@@ -342,78 +342,8 @@ YuzuEA_addToken(){
     read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')"
 
         
-    if [ -z "$user" ] && [ -z "$auth" ]; then echo "invalid"; else
+    if [ -n "$user" ] && [ -n "$auth" ]; then echo "invalid"; else
         YuzuEA_addToken_install $tokenValue
-    fi
-}
-
-YuzuEA_addToken_legacy() {
-    local tokenValue=""
-    local updateToken="true"
-    local user=""
-    local auth=""
-
-
-    
-    if [ -e "$YuzuEA_tokenFile" ]; then
-        tokenValue=$(cat "$YuzuEA_tokenFile")
-        read -r user auth <<<"$(base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}')"
-    fi
-
-    if [ -z "$user" ] && [ -z "$auth" ]; then
-        text=$(printf "Current Token: %s\n\
-        Would you like to update your token, %s?" "$tokenValue" "$user")
-        zenity --title="Update EA Token?" --question --text="$text" 2>/dev/null
-        if [ "$?" = 1 ]; then
-            updateToken="false"
-            text=$(printf "Token parsed.\
-            \nYuzu Patreon Username: %s\
-            \nDownload EA now?" "$user")
-            zenity --title="Download Early Access?" --question --text="$text" --width 300 2>/dev/null
-            if [ "$?" = 1 ]; then
-                exit
-            else
-                YuzuEA_addToken_install
-            fi
-        else
-            user=""
-            auth=""
-        fi
-    fi
-
-    if [ $updateToken = "true" ]; then
-        text=$(printf "Enter your Yuzu Early Access Token to automatically download and update Yuzu Early Access. \
-        \nYou can get this from your Yuzu Patreon. \
-        \nhttps://yuzu-emu.org/help/early-access/\
-        \nOnce you have entered your token in this window it will be saved to ~/emudeck/yuzu-ea-token.txt\
-        \n ")
-        eaToken=$(zenity --title="Enter Yuzu EA Patreon Code" --entry --text="$text" 2>/dev/null)
-        if [ "$?" = 1 ]; then
-            exit
-        else
-            echo "$eaToken" >"$YuzuEA_tokenFile"
-        fi
-
-        read -r user auth <<<"$(base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}')"
-        if [ -z "$user" ] && [ -z "$auth" ]; then
-            text=$(printf "Token parsed.\
-            \nYuzu Patreon Username: %s\
-            \nDownload EA now?" "$user")
-            zenity --title="Download Early Access?" --question --text="$text" --width 300 2>/dev/null
-            if [ "$?" = 1 ]; then
-                exit
-            else
-                YuzuEA_addToken_install
-            fi
-        else
-            text=$(printf "Token Error.\nTry again?")
-            zenity --title="Try again?" --question --text="$text" --width 300 2>/dev/null
-            if [ "$?" = 1 ]; then
-                exit
-            else
-                YuzuEA_addToken
-            fi
-        fi
     fi
 }
 
