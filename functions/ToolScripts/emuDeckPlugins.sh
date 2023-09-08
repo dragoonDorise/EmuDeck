@@ -39,7 +39,10 @@ Plugins_installPowerTools(){
    echo $password |  sudo -S unzip "$HOME/homebrew/PowerTools.zip" -d "$HOME/homebrew/plugins/" && rm "$HOME/homebrew/PowerTools.zip"
    Plugins_install_cleanup $password
 }
-
+Plugins_installEmuDecky(){
+  local password=$1
+  Plugins_installDeckyControls $password
+}
 Plugins_installDeckyControls(){
    local password=$1
    local destinationFolder="$HOME/homebrew/plugins/emudeck-decky-controls"
