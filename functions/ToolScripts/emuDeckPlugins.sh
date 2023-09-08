@@ -18,13 +18,13 @@ Plugins_checkPassword(){
 
 Plugins_installPluginLoader(){
    local password=$1
-   Plugins_checkPassword $password   
+    
    local PluginLoader_releaseURL="https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/install_release.sh"
    mkdir -p "$HOME/homebrew"
-   echo $password |  sudo chown -R $USER:$USER "$HOME/homebrew"
+   Plugins_checkPassword $password  && echo $password | sudo -S chown -R $USER:$USER "$HOME/homebrew"
    curl -L $PluginLoader_releaseURL | sh
    touch "$HOME/.steam/steam/.cef-enable-remote-debugging"
-   echo $password |  sudo chown $USER:$USER ~/.steam/steam/.cef-enable-remote-debugging
+   echo $password |  sudo -S chown $USER:$USER ~/.steam/steam/.cef-enable-remote-debugging
    Plugins_install_cleanup $password
 }
 
@@ -45,11 +45,11 @@ Plugins_installDeckyControls(){
    local destinationFolder="$HOME/homebrew/plugins/emudeck-decky-controls"
    local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/emudeck-decky-controls" ".zip")"
    Plugins_checkPassword $password
-   echo $password |  sudo rm -rf $destinationFolder
+   echo $password |  sudo -S rm -rf $destinationFolder
    #echo $password |  sudo mkdir -p $destinationFolder
-   echo $password |  sudo curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/emudeck-decky-controls.zip"
-   echo $password |  sudo unzip "$HOME/homebrew/plugins/emudeck-decky-controls.zip" -d "$HOME/homebrew/plugins/" && echo $password |  sudo rm "$HOME/homebrew/plugins/emudeck-decky-controls.zip"
-   echo $password |  sudo chown $USER:$USER -R $HOME/homebrew/plugins/emudeck-decky-controls
+   echo $password |  sudo -S curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/emudeck-decky-controls.zip"
+   echo $password |  sudo -S unzip "$HOME/homebrew/plugins/emudeck-decky-controls.zip" -d "$HOME/homebrew/plugins/" && echo $password |  sudo -S rm "$HOME/homebrew/plugins/emudeck-decky-controls.zip"
+   echo $password |  sudo -S chown $USER:$USER -R $HOME/homebrew/plugins/emudeck-decky-controls
    chmod 555 -R $HOME/homebrew/plugins/emudeck-decky-controls
    Plugins_install_cleanup $password
 }
@@ -57,7 +57,7 @@ Plugins_installDeckyControls(){
 Plugins_installSteamDeckGyroDSU(){
    local password=$1
    Plugins_checkPassword $password
-   sudo pwd
+   echo $password | sudo -S pwd
    local SDGyro_releaseURL="https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh"   
    curl -L $SDGyro_releaseURL --output /tmp/sdgyro.sh && chmod +x /tmp/sdgyro.sh && /tmp/sdgyro.sh && rm /tmp/sdgyro.sh   
    Plugins_install_cleanup $password
