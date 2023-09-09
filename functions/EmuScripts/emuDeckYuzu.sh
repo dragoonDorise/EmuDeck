@@ -230,8 +230,8 @@ YuzuEA_install() {
     local yuzuEaMetadata=$(curl -fSs ${yuzuEaHost})
     local fileToDownload=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).url')
     local currentVer=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
-    local showProgress="$1"
-    local tokenValue="$2"
+    local tokenValue="$1"
+    local showProgress="$2"
     
     #echo "get bearer token"
     BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
