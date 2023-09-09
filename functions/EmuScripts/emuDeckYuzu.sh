@@ -5,8 +5,6 @@ Yuzu_emuName="Yuzu"
 Yuzu_emuType="AppImage"
 Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
 YuzuEA_emuPath="$HOME/Applications/yuzu-ea.AppImage"
-YuzuEA_tokenFile="$HOME/emudeck/yuzu-ea-token.txt"
-YuzuEA_lastVerFile="$HOME/emudeck/yuzu-ea.ver"
 
 #cleanupOlderThings
 Yuzu_cleanup() {
@@ -239,11 +237,10 @@ YuzuEA_install() {
     BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
 
     #echo "download ea appimage"
-    #response=$(curl -f -X GET ${fileToDownload} --write-out '%{http_code}' -H "Accept: application/json" -H "Authorization: Bearer ${BEARERTOKEN}" -o "${YuzuEA_emuPath}.temp")
+
     if safeDownload "yuzu-ea" "$fileToDownload" "${YuzuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
         chmod +x "$YuzuEA_emuPath"
-        # echo "latest version $currentVer > $YuzuEA_lastVerFile"
-        # echo "${currentVer}" >"${YuzuEA_lastVerFile}"
+
         cp -v "${EMUDECKGIT}/tools/launchers/yuzu.sh" "${toolsPath}/launchers/" &>/dev/null
         chmod +x "${toolsPath}/launchers/yuzu.sh"
         echo "true"
@@ -259,7 +256,6 @@ YuzuEA_addToken(){
     local tokenValue=$1
     local user=""
     local auth=""
-    echo $tokenValue >"$YuzuEA_tokenFile"
    
    read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')" && YuzuEA_install $tokenValue || echo "invalid"
 }
