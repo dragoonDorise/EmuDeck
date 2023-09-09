@@ -1,3 +1,5 @@
+#!/bin/bash
+
 Decky_autoSave(){
 	if [ "$RABezels" == true ]; then	
 		RetroArch_bezelOnAll
