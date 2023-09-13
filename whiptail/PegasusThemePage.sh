@@ -1,4 +1,4 @@
-##!/bin/bash
+#!/bin/bash
 # themesQ=$(whiptail --title "Pegasus Theme" \
 # --checklist "What Pegasus theme do you want to install" 10 80 4 \
 # "EPIC" "RP - Epic Noir" ON \

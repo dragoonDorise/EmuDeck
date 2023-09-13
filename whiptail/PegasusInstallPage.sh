@@ -22,7 +22,7 @@ if [ $android -gt 10 ]; then
  mapfile -t settingsFrontends <<< $frontends
  
  
- for settingsFrontend in ${settingsFrontends[@]};
+ for settingsFrontend in "${settingsFrontends[@]}";
   do
 	  if [[ $settingsFrontend == *"PEGASUS"* ]]; then
 		 setSetting doInstallPegasus true

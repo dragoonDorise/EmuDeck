@@ -12,7 +12,7 @@ setSetting doSetupDrastic false
 case $devicePower in
 "0")	
 	
-		emulators==$(whiptail --title "Overwrrite Emulators Settings?" \
+		emulators=$(whiptail --title "Overwrrite Emulators Settings?" \
 	   --checklist "If you want to keep your custom setting for some emus, leave them unchecked. Checked means we will overwrite your configuration" 10 80 4 \
 		"RA" "RetroArch - Classic 2D and 3D Games" ON \
 		"DOLPHIN" "Dolphin - GameCube and Wii" ON \
@@ -26,7 +26,7 @@ case $devicePower in
 ;;
 "1")	
 	
-		emulators==$(whiptail --title "Overwrrite Emulators Settings?" \
+		emulators=$(whiptail --title "Overwrrite Emulators Settings?" \
 	   --checklist "If you want to keep your custom setting for some emus, leave them unchecked. Checked means we will overwrite your configuration" 10 80 4 \
 		"RA" "RetroArch - Classic 2D and 3D Games" ON \
 		"DOLPHIN" "Dolphin - GameCube and Wii" ON \
@@ -40,7 +40,7 @@ case $devicePower in
 ;;
 "2")
 	
-		emulators==$(whiptail --title "Overwrrite Emulators Settings?" \
+		emulators=$(whiptail --title "Overwrrite Emulators Settings?" \
 	   --checklist "If you want to keep your custom setting for some emus, leave them unchecked. Checked means we will overwrite your configuration" 10 80 4 \
 		"RA" "RetroArch - Classic 2D and 3D Games" ON \
 		"DOLPHIN" "Dolphin - GameCube and Wii" ON \
@@ -61,25 +61,25 @@ mapfile -t settingsEmus <<< $emulators
 
 for settingsEmu in ${settingsEmus[@]};
  do
-	 if [[ $settingsEmu == *"RA"* ]]; then
+	 if [[ $settingsEmu = *"RA"* ]]; then
 		setSetting doSetupRA true
 	fi
-	if [[ $settingsEmu == *"DOLPHIN"* ]]; then
+	if [[ $settingsEmu = *"DOLPHIN"* ]]; then
 		setSetting doSetupDolphin true
 	fi
-	if [[ $settingsEmu == *"DUCK"* ]]; then
+	if [[ $settingsEmu = *"DUCK"* ]]; then
 		setSetting doSetupDuck true
 	fi
-	if [[ $settingsEmu == *"AETHERSX2"* ]]; then
+	if [[ $settingsEmu = *"AETHERSX2"* ]]; then
 		setSetting doSetupPCSX2 true
 	fi
-	if [[ $settingsEmu == *"CITRA"* ]]; then
+	if [[ $settingsEmu = *"CITRA"* ]]; then
 		setSetting doSetupCitra true
 	fi
-	if [[ $settingsEmu == *"PPSSPP"* ]]; then
+	if [[ $settingsEmu = *"PPSSPP"* ]]; then
 		setSetting doSetupPPSSPP true
 	fi
-	if [[ $settingsEmu == *"SKYLINE"* ]]; then
+	if [[ $settingsEmu = *"SKYLINE"* ]]; then
 		setSetting doSetupSkyline true
 	fi	
  done
