@@ -37,6 +37,7 @@ RetroArch_init(){
 	RetroArch_setEmulationFolder
 	RetroArch_setupSaves
 	RetroArch_setupStorage
+	RetroArch_setupConfigurations
 	RetroArch_setupChimera
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
@@ -151,6 +152,7 @@ RetroArch_update(){
 	RetroArch_setEmulationFolder
 	RetroArch_setupSaves
 	RetroArch_setupStorage
+	RetroArch_setupConfigurations
 	RetroArch_setupChimera
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
@@ -187,15 +189,21 @@ RetroArch_setupStorage(){
 	rsync -a --ignore-existing '/var/lib/flatpak/app/org.libretro.RetroArch/current/active/files/share/libretro/database/cht/' "$storagePath/retroarch/cheats"
 }
 
+RetroArch_setupConfigurations(){
+
+	# Set input driver to SDL. X input driver does not seem to work ootb on some non-SteamOS distributions including ChimeraOS. 
+	input_driver='input_driver = '
+	input_driverSetting="${input_driver}"\""sdl"\"
+	changeLine "$input_driver" "$input_driverSetting" "$RetroArch_configFile"
+
+}
+
 #Set ChimeraOS Specific Settings
 RetroArch_setupChimera(){
 
 	if [ $linuxID == "chimeraos" ]; then 
 
-		# Set input driver to SDL. X input driver does not seem to work ootb on ChimeraOS. 
-		input_driver='input_driver = '
-		input_driverSetting="${input_driver}"\""sdl"\"
-		changeLine "$input_driver" "$input_driverSetting" "$RetroArch_configFile"
+
 
 		# ChimeraOS includes its own version of RetroArch. This uses xmlstarlet in case the user already has a find_rules file in place.
 		if [[ $(grep -rnw "$es_rulesFile" -e 'RETROARCH') == "" ]]; then
