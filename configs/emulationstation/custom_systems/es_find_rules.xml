@@ -1,0 +1,9 @@
+<!-- This file is only intended for ChimeraOS. ChimeraOS includes its own version of RetroArch. These find rules prioritize the RetroArch Flatpak over ChimeraOS' bundled RetroArch.-->
+<ruleList>
+    <emulator name="RETROARCH">
+        <rule type="systempath">
+            <entry>org.libretro.RetroArch</entry>
+            <entry>retroarch</entry>
+        </rule>
+    </emulator>
+</ruleList>

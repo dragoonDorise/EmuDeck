@@ -6,6 +6,8 @@ RetroArch_emuPath="org.libretro.RetroArch"
 RetroArch_releaseURL=""
 RetroArch_configFile="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
 RetroArch_coreConfigFolders="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/config"
+linuxID=$(lsb_release -si)
+es_rulesFile="$HOME/.emulationstation/custom_systems/es_find_rules.xml"
 
 #cleanupOlderThings
 RetroArch_cleanup(){
@@ -35,6 +37,7 @@ RetroArch_init(){
 	RetroArch_setEmulationFolder
 	RetroArch_setupSaves
 	RetroArch_setupStorage
+	RetroArch_setupChimera
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
@@ -148,6 +151,7 @@ RetroArch_update(){
 	RetroArch_setEmulationFolder
 	RetroArch_setupSaves
 	RetroArch_setupStorage
+	RetroArch_setupChimera
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
@@ -183,6 +187,36 @@ RetroArch_setupStorage(){
 	rsync -a --ignore-existing '/var/lib/flatpak/app/org.libretro.RetroArch/current/active/files/share/libretro/database/cht/' "$storagePath/retroarch/cheats"
 }
 
+#Set ChimeraOS Specific Settings
+RetroArch_setupChimera(){
+
+	if [ $linuxID == "chimeraos" ]; then 
+
+		# Set input driver to SDL. X input driver does not seem to work ootb on ChimeraOS. 
+		input_driver='input_driver = '
+		input_driverSetting="${input_driver}"\""sdl"\"
+		changeLine "$input_driver" "$input_driverSetting" "$RetroArch_configFile"
+
+		# ChimeraOS includes its own version of RetroArch. This uses xmlstarlet in case the user already has a find_rules file in place.
+		if [[ $(grep -rnw "$es_rulesFile" -e 'RETROARCH') == "" ]]; then
+			xmlstarlet ed -S --inplace --subnode '/ruleList' --type elem --name 'ruleList' \
+			--var newRules '$prev' \
+			--subnode '$newRules' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%" \
+			--insert '$newRules/commandP' --type attr --name ' name' \
+			--subnode '$newRules' --type elem --name 'emulatorname' -v 'RETROARCH' \
+			--subnode '$newRules' --type elem --name 'ruletype' -v 'systempath' \
+			--subnode '$newRules' --type elem --name 'entry' -v 'org.libretro.RetroArch' \
+			--subnode '$newRules' --type elem --name 'entry' -v 'retroarch' \
+			"$es_rulesFile"
+		
+			#format doc to make it look nice
+			xmlstarlet fo "$es_rulesFile" > "$es_rulesFile".tmp && mv "$es_rulesFile".tmp "$es_rulesFile"
+				
+		fi
+	fi
+
+
+}
 
 #WipeSettings
 RetroArch_wipe(){

@@ -10,7 +10,7 @@ ESDE_prereleaseMD5=""
 ESDE_releaseJSON="https://gitlab.com/es-de/emulationstation-de/-/raw/master/latest_release.json"
 es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
 es_settingsFile="$HOME/.emulationstation/es_settings.xml"
-
+linuxID=$(lsb_release -si)
 
 ESDE_SetAppImageURLS() {
     local json="$(curl -s $ESDE_releaseJSON)"
@@ -89,6 +89,11 @@ ESDE_init(){
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
 	
+	# ChimeraOS includes its own version of RetroArch. This rsyncs a es_find_rules file to prioritize the RetroArch Flatpak over ChimeraOS' bundled RetroArch. 
+	if [ $linuxID == "chimeraos" ]; then
+		rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
+	fi
+
 	cp -r "$EMUDECKGIT/tools/launchers/esde/" "$toolsPath/launchers/" && chmod + x "$toolsPath/launchers/esde/emulationstationde.sh"
 	
 	ESDE_addCustomSystems
