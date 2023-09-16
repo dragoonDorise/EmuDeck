@@ -237,6 +237,7 @@ if [ "$doUninstall" == true ]; then
 		rm -rf $HOME/Applications/pcsx2-Qt.AppImage &>> /dev/null
 		rm -rf $HOME/.config/PCSX2 &>> /dev/null
 		rm -rf $HOME/.local/share/applications/pcsx2-Qt.desktop &>> /dev/null
+		rm -rf $HOME/.local/share/applications/PCSX2-Qt.desktop &>> /dev/null
 	fi
 	if [[ "$doUninstallPPSSPP" == true ]]; then
 		flatpak uninstall org.ppsspp.PPSSPP -y
