@@ -59,7 +59,7 @@ esac
 
 mapfile -t settingsEmus <<< $emulators
 
-for settingsEmu in ${settingsEmus[@]};
+for settingsEmu in "${settingsEmus[@]}";
  do
 	 if [[ $settingsEmu = *"RA"* ]]; then
 		setSetting doSetupRA true

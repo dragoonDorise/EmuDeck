@@ -29,12 +29,17 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     
     sudo pacman -Syu 
     sudo pacman -S $ARCH_DEPS
+  elif command -v dnf >/dev/null; then
+    echo "Installing packages with dnf..."
+    FEDORA_DEPS="steam jq zenity flatpak unzip bash"
+
+    sudo dnf install -y $FEDORA_DEPS
   else
-    log_err "Your Linux distro '$(lsb_release -s -d)' is not supported by this script. We invite to open a PR or help us with adding your OS to this script. https://github.com/dragoonDorise/EmuDeck/issues"
+    log_err "Your Linux distro '$(lsb_release -s -d)' is not supported by this script. We invite to open an issue or help us with adding your distro to this script. https://github.com/dragoonDorise/EmuDeck/issues"
     exit 1
   fi
 else 
-  log_err "Your operating system '$(OSTYPE)' is not supported by this script. We invite to open a PR or help us with adding your OS to this script. https://github.com/dragoonDorise/EmuDeck/issues"
+  log_err "Your operating system '$(OSTYPE)' is not supported by this script. We invite to open an issue or help us with adding your OS to this script. https://github.com/dragoonDorise/EmuDeck/issues"
   exit 1
 fi
 

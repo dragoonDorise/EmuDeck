@@ -2,28 +2,28 @@
 installEmuBI(){
     local name="$1"
     local url="$2"
-    local altName="$3"
+    local fileName="$3"
     local format="$4"
     local showProgress="$5"
     local lastVerFile="$6"
     local latestVer="$7"
 
-    if [[ "$altName" == "" ]]; then
-        altName="$name"
+    if [[ "$fileName" == "" ]]; then
+        fileName="$name"
     fi
     echo "$name"
     echo "$url"
-    echo "$altName"
+    echo "$fileName"
     echo "$format"
     echo "$showProgress"
     echo "$lastVerFile"
     echo "$latestVer"
 
-    #rm -f "$HOME/Applications/$altName.$format" # mv below will overwrite...
+    #rm -f "$HOME/Applications/$fileName.$format" # mv below will overwrite...
     mkdir -p "$HOME/Applications"
 
-    #curl -L "$url" -o "$HOME/Applications/$altName.$format.temp" && mv "$HOME/Applications/$altName.$format.temp" "$HOME/Applications/$altName.$format"
-    if safeDownload "$name" "$url" "$HOME/Applications/$altName.$format" "$showProgress"; then
+    #curl -L "$url" -o "$HOME/Applications/$fileName.$format.temp" && mv "$HOME/Applications/$fileName.$format.temp" "$HOME/Applications/$fileName.$format"
+    if safeDownload "$name" "$url" "$HOME/Applications/$fileName.$format" "$showProgress"; then
         if [[ -n $lastVerFile ]] && [[ -n $latestVer ]]; then
             echo "latest version $latestVer > $lastVerFile"
             echo "$latestVer" > "$lastVerFile"
@@ -49,8 +49,8 @@ installEmuBI(){
         cp -v "$l" "${toolsPath}/launchers/"
         chmod +x "${toolsPath}/launchers/"*
 
-        createDesktopShortcut   "$HOME/.local/share/applications/$altName.desktop" \
-                                "$altName Binary" \
+        createDesktopShortcut   "$HOME/.local/share/applications/$name.desktop" \
+                                "$name Binary" \
                                 "${toolsPath}/launchers/$launcherFileName" \
                                 "false"
     done

@@ -16,7 +16,7 @@ SRM_install(){
 	local showProgress="$1"
 	local SRM_releaseURL="$(getLatestReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")"
 	SRM_cleanup
-	mkdir -p "${toolsPath}/srm"
+	rsync -av "$EMUDECKGIT/tools/srm/" "$toolsPath/srm/"
 	#curl -L "$SRM_releaseURL" -o "${SRM_toolPath}.temp" && mv "${SRM_toolPath}.temp" "${SRM_toolPath}"
 	if safeDownload "$SRM_toolName" "$SRM_releaseURL" "${SRM_toolPath}" "$showProgress"; then
 		chmod +x "$SRM_toolPath"
@@ -49,7 +49,7 @@ SRM_createDesktopShortcut(){
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
 	Name=Steam Rom Manager AppImage
-	Exec=zenity --question --width 450 --title \"Close Steam/Steam Input?\" --text \"Exit Steam to launch Steam Rom Manager? Desktop controls will temporarily revert to touch/trackpad/L2/R2 until you open Steam again.\" && (kill -15 \$(pidof steam) & $SRM_toolPath)
+	Exec="${toolsPath}/srm/srm.sh"
 	Icon=$HOME/.local/share/icons/emudeck/srm.png
 	Terminal=false
 	Type=Application

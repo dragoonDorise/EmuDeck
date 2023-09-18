@@ -188,7 +188,7 @@ function runBinDownloads {
             messages+=("There was a problem updating Xenia")
         fi
     fi
-    if [[ "$binsToDL" == *"RPCS3"* ]]; then
+    if [[ "$binsToDL" == *"rpcs3"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating RPCS3"
@@ -244,6 +244,9 @@ if [ "$(Vita3K_IsInstalled)" == "true" ]; then
 fi
 if [ "$(Xenia_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Xbox 360 Emu" "xenia")
+fi
+if [ "$(RPCS3_IsInstalled)" == "true" ]; then
+    binTable+=(TRUE "PlayStation 3 Emu" "rpcs3")
 fi
 
 if [ "${#binTable[@]}" -gt 0 ]; then
