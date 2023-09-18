@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "SNK Neo Geo Pocket- ares",
+  "configTitle": "SNK Neo Geo Pocket - ares",
   "steamCategory": "${SNK Neo Geo Pocket - ares}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/ngp",
