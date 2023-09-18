@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Tools - Remote Play Clients",
+  "configTitle": "Remote Play Clients - Remote Play Clients",
   "steamCategory": "${Remote Play Clients}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/remoteplay",
