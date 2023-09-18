@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Cloud Services",
+  "configTitle": "Tools - Cloud Services",
   "steamCategory": "${Cloud Services}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/cloud",
