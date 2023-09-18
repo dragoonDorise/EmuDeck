@@ -21,7 +21,7 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
-  "disabled": true,
+  "disabled": false,
   "executable": {
     "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/ares-emu.sh",
     "shortcutPassthrough": false,
