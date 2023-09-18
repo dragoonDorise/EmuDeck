@@ -1,6 +1,6 @@
 #!/bin/bash
 #variables
-RPCS3_emuName="rpcs3"
+RPCS3_emuName="RPCS3"
 RPCS3_emuType="AppImage"
 RPCS3_releaseURL="https://rpcs3.net/latest-appimage"
 RPCS3_emuPath="$HOME/Applications/rpcs3.AppImage"
@@ -21,7 +21,7 @@ RPCS3_install(){
 
 	local showProgress="$1"
 
-	if installEmuAI "$RPCS3_emuName" "$RPCS3_releaseURL" "" "$showProgress"; then #rpcs3.AppImage
+	if installEmuAI "$RPCS3_emuName" "$RPCS3_releaseURL" "rpcs3" "$showProgress"; then # rpcs3.AppImage - needs to be lowercase yuzu for EsDE to find it		:
 		:
 	else
 		return 1
