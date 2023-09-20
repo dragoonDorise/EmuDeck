@@ -1,0 +1,62 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Sony PlayStation Vita - Vita3k (Installed PKG)",
+  "steamCategory": "${Sony PlayStation Vita}",
+  "steamDirectory": "${steamdirglobal}",
+  "romDirectory": "${romsdirglobal}${/}psvita",
+  "executableArgs": "-Fr \"${/.*[/\\\\]([^/\\\\]+)[/\\\\]/|${filePath}}\"",
+  "executableModifier": "\"${exePath}\"",
+  "startInDirectory": "",
+  "titleModifier": "${fuzzyTitle}",
+  "imageProviders": ["SteamGridDB"],
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "defaultImage": "",
+  "defaultTallImage": "",
+  "defaultHeroImage": "",
+  "defaultLogoImage": "",
+  "defaultIcon": "",
+  "localImages": "",
+  "localTallImages": "",
+  "localHeroImages": "",
+  "localLogoImages": "",
+  "localIcons": "",
+  "userAccounts": {
+    "specifiedAccounts": "",
+    "skipWithMissingDataDir": true,
+    "useCredentials": true
+  },
+  "executable": {
+    "path": "/home/deck/Applications/Vita3K/Vita3K",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "parserInputs": {
+    "glob": "**/${title}/@(eboot.bin|EBOOT.BIN)"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "${PSV}",
+    "caseInsensitiveVariables": true,
+    "skipFileIfVariableWasNotFound": false,
+    "tryToMatchTitle": true
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "imageProviderAPIs": {
+    "SteamGridDB": {
+      "nsfw": false,
+      "humor": false,
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": [],
+      "imageMotionTypes": ["static"]
+    }
+  },
+  "parserId": "166409089761171238",
+  "version": 10,
+  "disabled": false
+}

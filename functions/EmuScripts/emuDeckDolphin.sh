@@ -45,8 +45,9 @@ Dolphin_init(){
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
-  Dolphin_cleanup
-  #Dolphin_DynamicInputTextures
+    Dolphin_cleanup
+    Dolphin_setCustomizations
+    #Dolphin_DynamicInputTextures
 }
 
 #update
@@ -149,7 +150,7 @@ echo "NYI"
 }
 
 Dolphin_IsInstalled(){
-	isFpInstalled "$Dolphin_emuPath"
+    isFpInstalled "$Dolphin_emuPath"
 }
 
 Dolphin_resetConfig(){
@@ -174,4 +175,12 @@ Dolphin_DynamicInputTextures(){
   else
     return 1
   fi
+}
+
+Dolphin_setCustomizations(){
+    if [ "$arDolphin" == 169 ]; then	
+      Dolphin_wideScreenOn
+    else
+      Dolphin_wideScreenOff
+    fi
 }

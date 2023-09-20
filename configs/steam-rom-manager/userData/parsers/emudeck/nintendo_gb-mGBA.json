@@ -1,0 +1,76 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Nintendo Game Boy - mGBA (Standalone)",
+  "steamCategory": "${Nintendo Game Boy - mGBA (Standalone)}",
+  "executableModifier": "\"${exePath}\"",
+  "romDirectory": "${romsdirglobal}",
+  "steamDirectory": "${steamdirglobal}",
+  "startInDirectory": "",
+  "titleModifier": "${fuzzyTitle}",
+  "executableArgs": "-f \"'${filePath}'\"",
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "imageProviders": ["SteamGridDB"],
+  "defaultImage": "",
+  "defaultTallImage": "",
+  "defaultHeroImage": "",
+  "defaultLogoImage": "",
+  "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+  "localImages": "",
+  "localTallImages": "",
+  "localHeroImages": "",
+  "localLogoImages": "",
+  "localIcons": "",
+  "disabled": false,
+  "userAccounts": {
+    "specifiedAccounts": "",
+    "skipWithMissingDataDir": true,
+    "useCredentials": true
+  },
+  "parserInputs": {
+    "glob": "{gb/**/!(homebrew),gb}/${title}@(.7z|.7Z|.gb|.GB|.dmg|.DMG|.zip|.ZIP)"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false,
+    "tryToMatchTitle": false
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mgba.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": false
+  },
+  "parserId": "164385421865061350",
+  "version": 13,
+  "controllers": {
+    "ps4": null,
+    "ps5": null,
+    "xbox360": null,
+    "xboxone": null,
+    "switch_joycon_left": null,
+    "switch_joycon_right": null,
+    "switch_pro": null,
+    "neptune": {
+      "title": "EmuDeck - mGBA",
+      "mappingId": "mGBA_controller_config.vdf",
+      "profileType": "template"
+    }
+  },
+  "imageProviderAPIs": {
+    "SteamGridDB": {
+      "nsfw": false,
+      "humor": false,
+      "imageMotionTypes": ["static"],
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": []
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Nintendo DS - melonDS (Standalone)",
+  "steamCategory": "${Nintendo DS - melonDS (Standalone)}",
+  "executableArgs": "run net.kuribo64.melonDS \"${filePath}\" -f",
+  "executableModifier": "\"${exePath}\"",
+  "romDirectory": "${romsdirglobal}/nds",
+  "steamDirectory": "${steamdirglobal}",
+  "startInDirectory": "",
+  "imageProviders": ["SteamGridDB"],
+  "titleModifier": "${fuzzyTitle}",
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "defaultImage": "",
+  "defaultTallImage": "",
+  "defaultHeroImage": "",
+  "defaultLogoImage": "",
+  "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+  "localImages": "",
+  "localTallImages": "",
+  "localHeroImages": "",
+  "localLogoImages": "",
+  "localIcons": "",
+  "disabled": false,
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/melonds.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": false
+  },
+  "userAccounts": {
+    "specifiedAccounts": "",
+    "skipWithMissingDataDir": true,
+    "useCredentials": true
+  },
+  "parserInputs": {
+    "glob": "**/${title}@(.nds|.NDS|.app|.APP)"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false,
+    "tryToMatchTitle": false
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "parserId": "164823604520657523",
+  "version": 13,
+  "controllers": {
+    "ps4": null,
+    "ps5": null,
+    "xbox360": null,
+    "xboxone": null,
+    "switch_joycon_left": null,
+    "switch_joycon_right": null,
+    "switch_pro": null,
+    "neptune": {
+      "title": "EmuDeck - melonDS",
+      "mappingId": "melonds_controller_config.vdf",
+      "profileType": "template"
+    }
+  },
+  "imageProviderAPIs": {
+    "SteamGridDB": {
+      "nsfw": false,
+      "humor": false,
+      "imageMotionTypes": ["static"],
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": []
+    }
+  }
+}

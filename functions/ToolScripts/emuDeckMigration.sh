@@ -91,6 +91,21 @@ Migration_updatePaths(){
 	sed -i "s|${origin}|${destination}|g" "$HOME/.config/yuzu/qt-config.ini"	
 	#SRM
 	Migration_updateSRM $origin $destination
+
+
+
+	#Saves location reload	
+	for func in $(compgen -A 'function' | grep '\_IsInstalled$')
+		do echo  "$func"
+		if $func; then
+			setup_func="${func%_IsInstalled}_setupSaves"
+			echo $setup_func
+			if type "$setup_func" >/dev/null 2>&1; then
+				"$setup_func"
+			fi
+		fi
+	done
+		
 	
 	text="$(printf "<b>Success</b>\nYour library has been moved to ${destination}\nPlease restart your Deck now to apply the changes")"	
 	zenity --info \
@@ -106,6 +121,10 @@ Migration_updateSRM(){
 	origin=$1
 	destination=$2		
 	find "$HOME/.local/share/Steam/userdata" -name "shortcuts.vdf" -exec sed -i "s|${origin}|${destination}|g" {} +
+	tmp=$(mktemp)
+	jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
+	"$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
+	&& mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
 }
 
 Migration_updateParsers(){

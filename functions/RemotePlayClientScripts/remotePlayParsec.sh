@@ -16,7 +16,7 @@ Parsec_install() {
 	flatpak override "$ID" --share=network --user
 	cp "$EMUDECKGIT/tools/remoteplayclients/Parsec.sh" "$romsPath/remoteplay"
 	chmod +x "$romsPath/remoteplay/Parsec.sh"
-	Parsec_addSteamInputProfile
+	#Parsec_addSteamInputProfile
 }
 
 # ApplyInitialSettings
@@ -48,6 +48,12 @@ Parsec_uninstall() {
 # Check if installed
 Parsec_IsInstalled() {
 	if [ "$(flatpak --columns=app list | grep "$Parsec_emuPath")" == "$Parsec_emuPath" ]; then
+		# Uninstall if previously installed to the "system" level
+		flatpak list | grep "$Parsec_emuPath" | grep "system"
+		if [ $? == 0 ]; then
+			Parsec_uninstall
+			Parsec_install
+		fi
 		echo true
 		return 1
 	else

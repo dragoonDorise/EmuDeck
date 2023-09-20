@@ -1,0 +1,62 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Nintendo 64 - RetroArch Mupen64Plus Next",
+  "steamCategory": "${Nintendo 64}",
+  "executableModifier": "\"${exePath}\"",
+  "romDirectory": "${romsdirglobal}/n64",
+  "steamDirectory": "${steamdirglobal}",
+  "startInDirectory": "",
+  "titleModifier": "${fuzzyTitle}",
+  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mupen64plus_next_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "imageProviders": ["SteamGridDB"],
+  "defaultImage": "",
+  "defaultTallImage": "",
+  "defaultHeroImage": "",
+  "defaultLogoImage": "",
+  "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+  "localImages": "",
+  "localTallImages": "",
+  "localHeroImages": "",
+  "localLogoImages": "",
+  "localIcons": "",
+  "disabled": false,
+  "userAccounts": {
+    "specifiedAccounts": "",
+    "skipWithMissingDataDir": true,
+    "useCredentials": true
+  },
+  "parserInputs": {
+    "glob": "**/${title}@(.7z|.7Z|.bin|.BIN|.n64|.N64|.ndd|.NDD|.u1|.U1|.v64|.V64|.z64|.Z64|.zip|.ZIP)"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false,
+    "tryToMatchTitle": false
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "executable": {
+    "path": "${retroarchpath}",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "parserId": "164785598905398114",
+  "version": 10,
+  "imageProviderAPIs": {
+    "SteamGridDB": {
+      "nsfw": false,
+      "humor": false,
+      "imageMotionTypes": ["static"],
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": []
+    }
+  }
+}

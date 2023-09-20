@@ -57,6 +57,11 @@ MAME_setEmulationFolder(){
 	newinipathOpt="$inipathOpt""$storagePath/mame/ini;"'$HOME/.mame/ini;$HOME/.mame;/app/share/mame/ini'
 	changeLine "$inipathOpt" "$newinipathOpt" "$MAME_configFile"
 
+					
+	cheatpathOpt='cheatpath                 '
+	newcheatpathOpt="$cheatpathOpt""$storagePath/mame/cheat;"'$HOME/.mame/cheat;/app/share/mame/cheat'
+	changeLine "$cheatpathOpt" "$newcheatpathOpt" "$MAME_configFile"
+
 }
 
 #SetupSaves
@@ -81,6 +86,8 @@ MAME_setupStorage(){
 	mkdir -p "$storagePath/mame/artwork"
 	mkdir -p "$storagePath/mame/ctrlr"
 	mkdir -p "$storagePath/mame/ini"
+	mkdir -p "$storagePath/mame/cheat"
+
 
 }
 
