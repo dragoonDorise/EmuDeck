@@ -171,7 +171,7 @@ SRM_init(){
 	
 	rm -rf "$HOME/.config/steam-rom-manager/userData/parsers/emudeck/"
 		
-	rsync -avz --mkpath --exclude-from="$HOME/exclude.txt" "configs/steam-rom-manager/userData/parsers/emudeck/" "$HOME/.config/steam-rom-manager/userData/parsers/emudeck/"
+	rsync -avz --mkpath --exclude-from="$HOME/exclude.txt" "$EMUDECKGIT/configs/steam-rom-manager/userData/parsers/emudeck/" "$HOME/.config/steam-rom-manager/userData/parsers/emudeck/"
 	echo "Put your custom parsers here" "$HOME/.config/steam-rom-manager/userData/parsers/custom/readme.txt"
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
 	#cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
