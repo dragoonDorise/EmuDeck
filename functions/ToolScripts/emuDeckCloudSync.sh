@@ -337,6 +337,14 @@ cloud_sync_download(){
 
 }
 
+cloud_sync_createBackup(){
+  local $emuName=$1
+  local date=$(date +"%D");
+  cp -r "$savesPath/$emuName" "$toolsPath/save-backups/$emuName/"
+  #We delete backups older than one month
+  find $toolsPath/save-backups -maxdepth 1 -type d -mtime +30 -delete
+}
+
 cloud_sync_uploadEmu(){
   local emuName=$1
   local mode=$2
@@ -368,11 +376,13 @@ cloud_sync_uploadEmu(){
         if [[ $response =~ "download" ]]; then
           #Download - Extra
           #rm -rf $savesPath/$emuName/.pending_upload
+          cloud_sync_createBackup "$emuName"
           cloud_sync_download $emuName
           
         elif [[ $response =~ "0-" ]]; then
           #Upload - OK
           #rm -rf $savesPath/$emuName/.pending_upload
+          cloud_sync_createBackup "$emuName"
           cloud_sync_upload $emuName
           
         else
@@ -427,12 +437,14 @@ cloud_sync_downloadEmu(){
         
         if [[ $response =~ "download" ]]; then
           #Download - OK
+          cloud_sync_createBackup "$emuName"
           cloud_sync_download $emuName
           #echo $timestamp > "$savesPath"/$emuName/.pending_upload
         elif [[ $response =~ "0-" ]]; then
           
           #Upload - Extra button
           #rm -rf $savesPath/$emuName/.pending_upload
+          cloud_sync_createBackup "$emuName"
           cloud_sync_upload $emuName
         else
           #Skip - Cancel
@@ -462,9 +474,11 @@ cloud_sync_downloadEmu(){
         if [[ $response =~ "upload" ]]; then
           #Upload - Extra button
           #rm -rf $savesPath/$emuName/.pending_upload
+          cloud_sync_createBackup "$emuName"
           cloud_sync_upload $emuName
         elif [[ $response =~ "0-" ]]; then
           #Download - OK
+          cloud_sync_createBackup "$emuName"
           cloud_sync_download $emuName
         else
           #Skip - Cancel
