@@ -10,10 +10,24 @@ Plugins_install_cleanup() {
 Plugins_checkPassword(){
    local password=$1      
    if [ $password = "Decky!" ]; then
-     PASS=$password
      #We create the password
-     yes $password | passwd deck   
-   fi   
+     yes $password | passwd deck       
+   else  
+      if ( echo "$PASS" | sudo -S -k true ); then
+        echo "true"
+      else
+          PASS=$(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password")
+          if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
+              exit 1
+          fi          
+          if ( echo "$PASS" | sudo -S -k true ); then
+              password=$PASS
+          else
+              zen_nospam --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
+          fi 
+        fi
+   fi
+   
 }
 
 Plugins_installPluginLoader(){
@@ -45,14 +59,14 @@ Plugins_installEmuDecky(){
 }
 Plugins_installDeckyControls(){
    local password=$1
-   local destinationFolder="$HOME/homebrew/plugins/emudeck-decky-controls"
-   local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/emudeck-decky-controls" ".zip")"
+   local destinationFolder="$HOME/homebrew/plugins/EmuDecky"
+   local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/EmuDecky" ".zip")"
    Plugins_checkPassword $password
    echo $password |  sudo -S rm -rf $destinationFolder
-   echo $password |  sudo -S curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/emudeck-decky-controls.zip"
-   echo $password |  sudo -S unzip "$HOME/homebrew/plugins/emudeck-decky-controls.zip" -d "$HOME/homebrew/plugins/" && echo $password |  sudo -S rm "$HOME/homebrew/plugins/emudeck-decky-controls.zip"
-   echo $password |  sudo -S chown $USER:$USER -R $HOME/homebrew/plugins/emudeck-decky-controls
-   chmod 555 -R $HOME/homebrew/plugins/emudeck-decky-controls
+   echo $password |  sudo -S curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/EmuDecky.zip"
+   echo $password |  sudo -S unzip "$HOME/homebrew/plugins/EmuDecky.zip" -d "$HOME/homebrew/plugins/" && echo $password |  sudo -S rm "$HOME/homebrew/plugins/EmuDecky.zip"
+   echo $password |  sudo -S chown $USER:$USER -R $HOME/homebrew/plugins/EmuDecky
+   chmod 555 -R $HOME/homebrew/plugins/EmuDecky
    Plugins_install_cleanup $password
 }
 
