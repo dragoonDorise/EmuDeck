@@ -34,7 +34,7 @@ RetroArch_backupConfigs(){
 #Install
 RetroArch_install(){
 	if [ "$system" = 'darwin' ]; then		
-		installEmuAI "RetroArch" "https://buildbot.libretro.com/stable/1.15.0/apple/osx/universal/RetroArch_Metal.dmg"		
+		darwin_installEmuDMG "RetroArch" "https://buildbot.libretro.com/nightly/apple/osx/universal/RetroArch_Metal.dmg"		
 	else
 		installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
 		flatpak override "${RetroArch_emuPath}" --filesystem=host --user

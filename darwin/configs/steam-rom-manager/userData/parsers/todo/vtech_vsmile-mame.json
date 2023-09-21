@@ -1,0 +1,61 @@
+{
+  "parserType": "Glob",
+  "configTitle": "VTech V.Smile - MAME (Standalone)",
+  "steamCategory": "${VTech V.Smile}",
+  "steamDirectory": "${steamdirglobal}",
+  "romDirectory": "${romsdirglobal}/vsmile",
+  "executableArgs": "vsmile -cart \"${filePath}\"",
+  "executableModifier": "\"${exePath}\"",
+  "startInDirectory": "",
+  "titleModifier": "${fuzzyTitle}",
+  "imageProviders": ["SteamGridDB"],
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "defaultImage": "",
+  "defaultTallImage": "",
+  "defaultHeroImage": "",
+  "defaultLogoImage": "",
+  "defaultIcon": "",
+  "localImages": "",
+  "localTallImages": "",
+  "localHeroImages": "",
+  "localLogoImages": "",
+  "localIcons": "",
+  "userAccounts": {
+    "specifiedAccounts": "",
+    "skipWithMissingDataDir": true,
+    "useCredentials": true
+  },
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mame.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "parserInputs": {
+    "glob": "${title}@(.zip|.ZIP)"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "${MAME}",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false,
+    "tryToMatchTitle": true
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "imageProviderAPIs": {
+    "SteamGridDB": {
+      "nsfw": false,
+      "humor": false,
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": [],
+      "imageMotionTypes": ["static"]
+    }
+  },
+  "parserId": "168541420924650278",
+  "version": 10
+}

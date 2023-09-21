@@ -1,0 +1,61 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Philips CD-i - MAME (Standalone)",
+  "steamCategory": "${Philips CD-i - MAME (Standalone)}",
+  "steamDirectory": "${steamdirglobal}",
+  "romDirectory": "${romsdirglobal}/cdimono1",
+  "executableArgs": "cdimono1 -cdrom \"${filePath}\"",
+  "executableModifier": "\"${exePath}\"",
+  "startInDirectory": "",
+  "titleModifier": "${fuzzyTitle}",
+  "imageProviders": ["SteamGridDB"],
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "defaultImage": "",
+  "defaultTallImage": "",
+  "defaultHeroImage": "",
+  "defaultLogoImage": "",
+  "defaultIcon": "",
+  "localImages": "",
+  "localTallImages": "",
+  "localHeroImages": "",
+  "localLogoImages": "",
+  "localIcons": "",
+  "userAccounts": {
+    "specifiedAccounts": "",
+    "skipWithMissingDataDir": true,
+    "useCredentials": true
+  },
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mame.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "parserInputs": {
+    "glob": "${title}@(.chd|.CHD)"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "${MAME}",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false,
+    "tryToMatchTitle": true
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "imageProviderAPIs": {
+    "SteamGridDB": {
+      "nsfw": false,
+      "humor": false,
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": [],
+      "imageMotionTypes": ["static"]
+    }
+  },
+  "parserId": "168541242505111076",
+  "version": 10
+}

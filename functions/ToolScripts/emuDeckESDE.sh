@@ -11,10 +11,15 @@ ESDE_releaseJSON="https://gitlab.com/es-de/emulationstation-de/-/raw/master/late
 es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
 es_settingsFile="$HOME/.emulationstation/es_settings.xml"
 
+if [ "$system" = 'darwin' ]; then	
+	ESDE_toolPath="$HOME/Application/EmulationStation Desktop Edition.app"
+fi
 
 ESDE_SetAppImageURLS() {
     local json="$(curl -s $ESDE_releaseJSON)"
     ESDE_releaseURL=$(echo "$json" | jq -r '.stable.packages[] | select(.name == "LinuxSteamDeckAppImage") | .url')
+	ESDE_darwin_releaseURL=$(echo "$json" | jq -r '.stable.packages[] | select(.name == "macOSApple") | .url')
+	ESDE_darwin_x86_releaseURL=$(echo "$json" | jq -r '.stable.packages[] | select(.name == "macOSIntel") | .url')
 	ESDE_releaseMD5=$(echo "$json" | jq -r '.stable.packages[] | select(.name == "LinuxSteamDeckAppImage") | .md5')
 	ESDE_prereleaseURL=$(echo "$json" | jq -r '.prerelease.packages[] | select(.name == "LinuxSteamDeckAppImage") | .url')
 	ESDE_prereleaseMD5=$(echo "$json" | jq -r '.prerelease.packages[] | select(.name == "LinuxSteamDeckAppImage") | .md5')
@@ -34,6 +39,7 @@ ESDE_install(){
 
 	if [[ $ESDE_releaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
 
+	if [ $system != "darwin" ]; then
 		if safeDownload "$ESDE_toolName" "$ESDE_releaseURL" "$ESDE_toolPath" "$showProgress"; then
 			ESDE_md5sum=($(md5sum $ESDE_toolPath)) # get first element
 			if [ "$ESDE_md5sum" == "$ESDE_releaseMD5" ]; then
@@ -45,6 +51,10 @@ ESDE_install(){
 		else
 			return 1
 		fi
+	else
+		darwin_installEmuDMG "EmulationStation" "$ESDE_darwin_releaseURL"	
+	fi
+		
 	else
 		setMSG "$ESDE_toolName not found"
 		return 1

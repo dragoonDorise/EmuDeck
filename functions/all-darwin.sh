@@ -1,8 +1,6 @@
 #!/bin/bash
 
-if [[ "$EMUDECKGIT" == "" ]]; then
-    EMUDECKGIT="$HOME/.config/EmuDeck/backend"
-fi
+EMUDECKGIT="."
 
 #load helpers first, just in case
 source "$EMUDECKGIT"/functions/helperFunctions.sh
