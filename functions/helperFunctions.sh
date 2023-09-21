@@ -640,24 +640,36 @@ safeDownload() {
 		echo "- $showProgress"
 		echo "- $headers"
 	fi
-
-	if [ "$showProgress" == "true" ] || [[ $showProgress -eq 1 ]]; then
-		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 | tee >(stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading $name" --width 600 --auto-close --no-cancel 2>/dev/null) && echo $'\2'${PIPESTATUS[0]})
-	else
+	
+	if [ $system == "darwin" ]; then
 		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 && echo $'\2'0 || echo $'\2'$?)
+	else
+		if [ "$showProgress" == "true" ] || [[ $showProgress -eq 1 ]]; then
+			request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 | tee >(stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading $name" --width 600 --auto-close --no-cancel 2>/dev/null) && echo $'\2'${PIPESTATUS[0]})
+		else
+			request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 && echo $'\2'0 || echo $'\2'$?)
+		fi
 	fi
-	requestInfo=$(sed -z s/.$// <<< "${request%$'\1'*}")
+	
 	returnCodes="${request#*$'\1'}"
 	httpCode="${returnCodes%$'\2'*}"
 	exitCode="${returnCodes#*$'\2'}"
 	if [ "$showProgress" == "true" ]; then
+		requestInfo=$(sed -z s/.$// <<< "${request%$'\1'*}")
 		echo "$requestInfo"
 		echo "HTTP response code: $httpCode"
 		echo "CURL exit code: $exitCode"
 	fi
+	echo $outFile;
+	echo $httpCode;
+	echo $exitCode;
+	
 	if [ "$httpCode" = "200" ] && [ "$exitCode" == "0" ]; then
 		#echo "$name downloaded successfully";
 		mv -v "$outFile.temp" "$outFile" &>/dev/null
+		volumeName=$(hdiutil attach "$outFile" | grep -o '/Volumes/.*$')
+		
+		cp -r $volumeName/*.app "$HOME/Applications" && hdiutil detach "$volumeName" && rm -rf $outFile
 		return 0
 	else
 		#echo "$name download failed"
