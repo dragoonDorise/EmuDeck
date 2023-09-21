@@ -5,12 +5,27 @@ cloud_sync_config="$cloud_sync_path/rclone.conf"
 
 cloud_sync_install(){	
   {
-    
     local cloud_sync_provider=$1  
     setSetting cloud_sync_provider "$cloud_sync_provider" > /dev/null 
     setSetting cloud_sync_status "true" > /dev/null 
     rm -rf "$HOME/.config/systemd/user/EmuDeckCloudSync.service" > /dev/null 
     
+    if [ ! -f "$HOME/.steam/steam/.cef-enable-remote-debugging" ]; then    
+      PASS_STATUS=$(passwd -S deck 2> /dev/null)
+      if [ "${PASS_STATUS:5:2}" = "NP" ]; then
+        Plugins_installPluginLoader "Decky!" && Plugins_installEmuDecky "Decky!"
+      else
+        PASS=$(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password")
+        if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
+            exit 1
+        fi
+        if ( echo "$PASS" | sudo -S -k true ); then
+            Plugins_installPluginLoader "$PASS" && Plugins_installEmuDecky "$PASS"
+        else
+            zen_nospam --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
+        fi
+      fi
+    fi
     cloud_sync_createService
     
     if [ ! -f "$cloud_sync_bin" ]; then
@@ -322,6 +337,14 @@ cloud_sync_download(){
 
 }
 
+cloud_sync_createBackup(){
+  local $emuName=$1
+  local date=$(date +"%D");
+  cp -r "$savesPath/$emuName" "$toolsPath/save-backups/$emuName/"
+  #We delete backups older than one month
+  find $toolsPath/save-backups -maxdepth 1 -type d -mtime +30 -delete
+}
+
 cloud_sync_uploadEmu(){
   local emuName=$1
   local mode=$2
@@ -353,11 +376,13 @@ cloud_sync_uploadEmu(){
         if [[ $response =~ "download" ]]; then
           #Download - Extra
           #rm -rf $savesPath/$emuName/.pending_upload
+          cloud_sync_createBackup "$emuName"
           cloud_sync_download $emuName
           
         elif [[ $response =~ "0-" ]]; then
           #Upload - OK
           #rm -rf $savesPath/$emuName/.pending_upload
+          cloud_sync_createBackup "$emuName"
           cloud_sync_upload $emuName
           
         else
@@ -412,12 +437,14 @@ cloud_sync_downloadEmu(){
         
         if [[ $response =~ "download" ]]; then
           #Download - OK
+          cloud_sync_createBackup "$emuName"
           cloud_sync_download $emuName
           #echo $timestamp > "$savesPath"/$emuName/.pending_upload
         elif [[ $response =~ "0-" ]]; then
           
           #Upload - Extra button
           #rm -rf $savesPath/$emuName/.pending_upload
+          cloud_sync_createBackup "$emuName"
           cloud_sync_upload $emuName
         else
           #Skip - Cancel
@@ -447,9 +474,11 @@ cloud_sync_downloadEmu(){
         if [[ $response =~ "upload" ]]; then
           #Upload - Extra button
           #rm -rf $savesPath/$emuName/.pending_upload
+          cloud_sync_createBackup "$emuName"
           cloud_sync_upload $emuName
         elif [[ $response =~ "0-" ]]; then
           #Download - OK
+          cloud_sync_createBackup "$emuName"
           cloud_sync_download $emuName
         else
           #Skip - Cancel
