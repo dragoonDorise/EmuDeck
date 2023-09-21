@@ -23,7 +23,7 @@ fi
 
 #Brew dependencies
 echo "Installing EmuDeck dependencies..."
-brew install zenity gnu-sed -y
+brew install zenity gnu-sed rsync xmlstarlet -y
 
 
 

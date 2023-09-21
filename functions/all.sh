@@ -93,5 +93,6 @@ source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayGreenlight.sh
 if [ $system == "darwin" ]; then
     
     source "$EMUDECKGIT/darwin/functions/helperFunctions.sh"
+    source "$EMUDECKGIT/darwin/functions/overrides.sh"
     
 fi

@@ -8,7 +8,6 @@ RetroArch_path="$HOME/.var/app/org.libretro.RetroArch/config/retroarch"
 RetroArch_configFile="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
 RetroArch_coreConfigFolders="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/config"
 RetroArch_cores="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores"
-appleChip=$(uname -m)
 
 
 if [ "$system" = 'darwin' ]; then
@@ -2024,56 +2023,57 @@ RetroArch_installCores(){
 	
 	local coreExtension
 	local raUrl
-	if [ $system = 'darwin' ]; then
-		raUrl="https://buildbot.libretro.com/nightly/osx/${appleChip}/latest/"
-		coreExtension="zip"
+	if [ $system == 'darwin' ]; then
+		raUrl="https://buildbot.libretro.com/nightly/apple/osx/${appleChip}/latest/"
+		
+		coreExtension="dylib.zip"
 	else
 		raUrl="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
-		coreExtension="so"
+		coreExtension="so.zip"
 	fi
-	
 
 	mkdir -p "$RetroArch_cores"
 	
 	
 	#This is all the cores combined, and dupes taken out.
-	RAcores=(81_libretro.$coreExtension a5200_libretro.$coreExtension atari800_libretro.$coreExtension blastem_libretro.$coreExtension bluemsx_libretro.$coreExtension bsnes_hd_beta_libretro.$coreExtension bsnes_libretro.$coreExtension \
-			bsnes_mercury_accuracy_libretro.$coreExtension cap32_libretro.$coreExtension chailove_libretro.$coreExtension citra2018_libretro.$coreExtension citra_libretro.$coreExtension crocods_libretro.$coreExtension desmume2015_libretro.$coreExtension \
-			desmume_libretro.$coreExtension dolphin_libretro.$coreExtension dosbox_core_libretro.$coreExtension dosbox_pure_libretro.$coreExtension dosbox_svn_libretro.$coreExtension easyrpg_libretro.$coreExtension fbalpha2012_cps1_libretro.$coreExtension \
-			fbalpha2012_cps3_libretro.$coreExtension fbalpha2012_libretro.$coreExtension fbalpha2012_neogeo_libretro.$coreExtension fbneo_libretro.$coreExtension fceumm_libretro.$coreExtension flycast_libretro.$coreExtension fmsx_libretro.$coreExtension \
-			fbalpha2012_cps2_libretro.$coreExtension freechaf_libretro.$coreExtension freeintv_libretro.$coreExtension frodo_libretro.$coreExtension fuse_libretro.$coreExtension gambatte_libretro.$coreExtension gearboy_libretro.$coreExtension gearsystem_libretro.$coreExtension \
-			genesis_plus_gx_libretro.$coreExtension genesis_plus_gx_wide_libretro.$coreExtension gpsp_libretro.$coreExtension gw_libretro.$coreExtension handy_libretro.$coreExtension hatari_libretro.$coreExtension \
-			kronos_libretro.$coreExtension lutro_libretro.$coreExtension mame2000_libretro.$coreExtension mame2003_plus_libretro.$coreExtension mame2010_libretro.$coreExtension \
-			mame_libretro.$coreExtension mednafen_lynx_libretro.$coreExtension mednafen_ngp_libretro.$coreExtension mednafen_pce_fast_libretro.$coreExtension mednafen_pce_libretro.$coreExtension mednafen_pcfx_libretro.$coreExtension mednafen_psx_hw_libretro.$coreExtension \
-			mednafen_psx_libretro.$coreExtension mednafen_saturn_libretro.$coreExtension mednafen_supafaust_libretro.$coreExtension mednafen_supergrafx_libretro.$coreExtension mednafen_vb_libretro.$coreExtension mednafen_wswan_libretro.$coreExtension \
-			melonds_libretro.$coreExtension mesen-s_libretro.$coreExtension mesen_libretro.$coreExtension mgba_libretro.$coreExtension mu_libretro.$coreExtension mupen64plus_next_libretro.$coreExtension \
-			nekop2_libretro.$coreExtension neocd_libretro.$coreExtension nestopia_libretro.$coreExtension np2kai_libretro.$coreExtension nxengine_libretro.$coreExtension o2em_libretro.$coreExtension \
-			opera_libretro.$coreExtension parallel_n64_libretro.$coreExtension pcsx2_libretro.$coreExtension pcsx_rearmed_libretro.$coreExtension picodrive_libretro.$coreExtension pokemini_libretro.$coreExtension ppsspp_libretro.$coreExtension prboom_libretro.$coreExtension \
-			prosystem_libretro.$coreExtension puae_libretro.$coreExtension px68k_libretro.$coreExtension quasi88_libretro.$coreExtension quicknes_libretro.$coreExtension race_libretro.$coreExtension retro8_libretro.$coreExtension \
-			sameboy_libretro.$coreExtension same_cdi_libretro.$coreExtension scummvm_libretro.$coreExtension smsplus_libretro.$coreExtension snes9x2010_libretro.$coreExtension snes9x_libretro.$coreExtension squirreljme_libretro.$coreExtension stella2014_libretro.$coreExtension \
-			stella_libretro.$coreExtension swanstation_libretro.$coreExtension tgbdual_libretro.$coreExtension theodore_libretro.$coreExtension tic80_libretro.$coreExtension uzem_libretro.$coreExtension vba_next_libretro.$coreExtension vbam_libretro.$coreExtension vecx_libretro.$coreExtension \
-			vice_x128_libretro.$coreExtension vice_x64_libretro.$coreExtension vice_x64sc_libretro.$coreExtension vice_xscpu64_libretro.$coreExtension vice_xvic_libretro.$coreExtension virtualjaguar_libretro.$coreExtension x1_libretro.$coreExtension \
-			yabasanshiro_libretro.$coreExtension yabause_libretro.$coreExtension arduous_libretro.$coreExtension tyrquake_libretro.$coreExtension vitaquake2_libretro.$coreExtension vitaquake2-rogue_libretro.$coreExtension vitaquake2-xatrix_libretro.$coreExtension vitaquake2-zaero_libretro.$coreExtension vitaquake3_libretro.$coreExtension wasm4_libretro.$coreExtension)
+	RAcores=(81_libretro a5200_libretro atari800_libretro blastem_libretro bluemsx_libretro bsnes_hd_beta_libretro bsnes_libretro \
+			bsnes_mercury_accuracy_libretro cap32_libretro chailove_libretro citra2018_libretro citra_libretro crocods_libretro desmume2015_libretro \
+			desmume_libretro dolphin_libretro dosbox_core_libretro dosbox_pure_libretro dosbox_svn_libretro easyrpg_libretro fbalpha2012_cps1_libretro \
+			fbalpha2012_cps3_libretro fbalpha2012_libretro fbalpha2012_neogeo_libretro fbneo_libretro fceumm_libretro flycast_libretro fmsx_libretro \
+			fbalpha2012_cps2_libretro freechaf_libretro freeintv_libretro frodo_libretro fuse_libretro gambatte_libretro gearboy_libretro gearsystem_libretro \
+			genesis_plus_gx_libretro genesis_plus_gx_wide_libretro gpsp_libretro gw_libretro handy_libretro hatari_libretro \
+			kronos_libretro lutro_libretro mame2000_libretro mame2003_plus_libretro mame2010_libretro \
+			mame_libretro mednafen_lynx_libretro mednafen_ngp_libretro mednafen_pce_fast_libretro mednafen_pce_libretro mednafen_pcfx_libretro mednafen_psx_hw_libretro \
+			mednafen_psx_libretro mednafen_saturn_libretro mednafen_supafaust_libretro mednafen_supergrafx_libretro mednafen_vb_libretro mednafen_wswan_libretro \
+			melonds_libretro mesen-s_libretro mesen_libretro mgba_libretro mu_libretro mupen64plus_next_libretro \
+			nekop2_libretro neocd_libretro nestopia_libretro np2kai_libretro nxengine_libretro o2em_libretro \
+			opera_libretro parallel_n64_libretro pcsx2_libretro pcsx_rearmed_libretro picodrive_libretro pokemini_libretro ppsspp_libretro prboom_libretro \
+			prosystem_libretro puae_libretro px68k_libretro quasi88_libretro quicknes_libretro race_libretro retro8_libretro \
+			sameboy_libretro same_cdi_libretro scummvm_libretro smsplus_libretro snes9x2010_libretro snes9x_libretro squirreljme_libretro stella2014_libretro \
+			stella_libretro swanstation_libretro tgbdual_libretro theodore_libretro tic80_libretro uzem_libretro vba_next_libretro vbam_libretro vecx_libretro \
+			vice_x128_libretro vice_x64_libretro vice_x64sc_libretro vice_xscpu64_libretro vice_xvic_libretro virtualjaguar_libretro x1_libretro \
+			yabasanshiro_libretro yabause_libretro arduous_libretro tyrquake_libretro vitaquake2_libretro vitaquake2-rogue_libretro vitaquake2-xatrix_libretro vitaquake2-zaero_libretro vitaquake3_libretro wasm4_libretro)
 	setMSG "Downloading RetroArch Cores for EmuDeck"
 	for i in "${RAcores[@]}"
 	do
-		FILE="${RetroArch_cores}/${i}"
+		FILE="${RetroArch_cores}/${i}.*"
 		if [ -f "$FILE" ]; then
 			echo "${i}...Already Downloaded"
 		else
-			curl $raUrl$i.zip --output "$RetroArch_cores/${i}.zip "
+			curl "$raUrl$i.$coreExtension" --output "$RetroArch_cores/${i}.zip"
+			echo "$raUrl$i.$coreExtension"
 			#rm ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
 			echo "${i}...Downloaded!"
 		fi
 	done
 
 	
-	for entry in $RetroArch_cores/*.zip
+	for entry in "$RetroArch_cores"/*.zip
 	do
-		 unzip -o "$entry" -d "$RetroArch_cores/cores/"
+		 unzip -o "$entry" -d "$RetroArch_cores"
 	done
 	
-	for entry in $RetroArch_cores/*.zip
+	for entry in "$RetroArch_cores"/*.zip
 	do
 		 rm -f "$entry" 
 	done

@@ -52,7 +52,11 @@ ESDE_install(){
 			return 1
 		fi
 	else
-		darwin_installEmuDMG "EmulationStation" "$ESDE_darwin_releaseURL"	
+		if [ appleChip == 'arm64' ]; then
+			darwin_installEmuDMG "EmulationStation" "$ESDE_darwin_releaseURL"	
+		else
+			darwin_installEmuDMG "EmulationStation" "$ESDE_darwin_x86_releaseURL"	
+		fi
 	fi
 		
 	else
@@ -61,34 +65,34 @@ ESDE_install(){
 	fi	
 }
 
-ESDE20_install(){
-	ESDE_SetAppImageURLS
-	setMSG "Installing $ESDE_toolName PreRelease"
-
-	local showProgress="$1"
-
-	if [[ $ESDE_prereleaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
-
-		if safeDownload "$ESDE_toolName" "$ESDE_prereleaseURL" "$ESDE_toolPath" "$showProgress"; then
-			ESDE_md5sum=($(md5sum $ESDE_toolPath)) # get first element
-			if [ "$ESDE_md5sum" == "$ESDE_prereleaseMD5" ]; then
-				echo "ESDE PASSED HASH CHECK."
-				chmod +x "$ESDE_toolPath"
-			else
-				echo "ESDE FAILED HASH CHECK. Expected $ESDE_prereleaseMD5, got $ESDE_md5sum"
-			fi
-		else
-			return 1
-		fi
-	else
-		setMSG "$ESDE_toolName PreRelease not found, installing stable"
-		if ESDE_install; then
-			:
-		else
-			return 1
-		fi
-	fi
-}
+# ESDE20_install(){
+# 	ESDE_SetAppImageURLS
+# 	setMSG "Installing $ESDE_toolName PreRelease"
+# 
+# 	local showProgress="$1"
+# 
+# 	if [[ $ESDE_prereleaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
+# 
+# 		if safeDownload "$ESDE_toolName" "$ESDE_prereleaseURL" "$ESDE_toolPath" "$showProgress"; then
+# 			ESDE_md5sum=($(md5sum $ESDE_toolPath)) # get first element
+# 			if [ "$ESDE_md5sum" == "$ESDE_prereleaseMD5" ]; then
+# 				echo "ESDE PASSED HASH CHECK."
+# 				chmod +x "$ESDE_toolPath"
+# 			else
+# 				echo "ESDE FAILED HASH CHECK. Expected $ESDE_prereleaseMD5, got $ESDE_md5sum"
+# 			fi
+# 		else
+# 			return 1
+# 		fi
+# 	else
+# 		setMSG "$ESDE_toolName PreRelease not found, installing stable"
+# 		if ESDE_install; then
+# 			:
+# 		else
+# 			return 1
+# 		fi
+# 	fi
+# }
 
 #ApplyInitialSettings
 ESDE_init(){
@@ -98,8 +102,8 @@ ESDE_init(){
 
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
-	
-	cp -r "$EMUDECKGIT/tools/launchers/esde/" "$toolsPath/launchers/" && chmod + x "$toolsPath/launchers/esde/emulationstationde.sh"
+
+	cp -r "$EMUDECKGIT/tools/launchers/esde/" "$toolsPath/launchers/esde/" && chmod +x "$toolsPath/launchers/esde/emulationstationde.sh"
 	
 	ESDE_addCustomSystems
 	ESDE_setEmulationFolder
@@ -107,9 +111,9 @@ ESDE_init(){
 	ESDE_applyTheme "$esdeTheme"
 	ESDE_migrateDownloadedMedia
 	ESDE_addSteamInputProfile
-	ESDE_symlinkGamelists
-	ESDE_finalize
-	ESDE_migrateEpicNoir
+	# ESDE_symlinkGamelists
+	# ESDE_finalize
+	# ESDE_migrateEpicNoir
 }
 
 
@@ -117,9 +121,9 @@ ESDE_resetConfig(){
 	ESDE_init &>/dev/null && echo "true" || echo "false"
 }
 
-ESDE20_init(){
-	ESDE_init
-}
+# ESDE20_init(){
+# 	ESDE_init
+# }
 
 ESDE_update(){
 	setMSG "Setting up $ESDE_toolName"	
@@ -340,7 +344,11 @@ ESDE_setEmu(){
 ESDE_addSteamInputProfile(){
 	addSteamInputCustomIcons
 	setMSG "Adding $ESDE_toolName Steam Input Profile."
-	rsync -r "$EMUDECKGIT/configs/steam-input/emulationstation-de_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	if [ "$system" != 'darwin' ]; then	
+		rsync -r "$EMUDECKGIT/configs/steam-input/emulationstation-de_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	else
+		rsync -r "$EMUDECKGIT/darwin/configs/steam-input/emulationstation-de_controller_config.vdf" "$HOME/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/controller_base/templates/"
+	fi
 }
 
 ESDE_IsInstalled(){
