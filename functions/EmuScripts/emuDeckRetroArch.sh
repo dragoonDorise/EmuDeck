@@ -8,14 +8,8 @@ RetroArch_path="$HOME/.var/app/org.libretro.RetroArch/config/retroarch"
 RetroArch_configFile="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
 RetroArch_coreConfigFolders="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/config"
 RetroArch_cores="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores"
-
-
-if [ "$system" = 'darwin' ]; then
-	RetroArch_configFile="$HOME/Library/Application Support/RetroArch/config/retroarch.cfg"
-	RetroArch_coreConfigFolders="$HOME/Library/Application Support/RetroArch/config"	
-	RetroArch_cores="$HOME/Library/Application Support/RetroArch/cores"	
-	RetroArch_path="$HOME/Library/Application Support/RetroArch"
-fi
+RetroArch_coresURL="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
+RetroArch_coresExtension="so.zip"
 
 #cleanupOlderThings
 RetroArch_cleanup(){
@@ -33,7 +27,7 @@ RetroArch_backupConfigs(){
 #Install
 RetroArch_install(){
 	if [ "$system" = 'darwin' ]; then		
-		darwin_installEmuDMG "RetroArch" "https://buildbot.libretro.com/nightly/apple/osx/universal/RetroArch_Metal.dmg"		
+		darwin_installEmuDMG "${RetroArch_emuName}" "https://buildbot.libretro.com/nightly/apple/osx/universal/RetroArch_Metal.dmg"		
 	else
 		installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
 		flatpak override "${RetroArch_emuPath}" --filesystem=host --user
@@ -172,21 +166,25 @@ RetroArch_setEmulationFolder(){
 
 	system_directory='system_directory = '
 	system_directorySetting="${system_directory}""\"${biosPath}\""
-	changeLine "$system_directory" "$system_directorySetting" "$RetroArch_configFile"
+	RetroArch_setConfigOverride "$system_directory" "$system_directorySetting" "$RetroArch_configFile"
 
 	rgui_browser_directory='rgui_browser_directory = '
 	rgui_browser_directorySetting="${rgui_browser_directory}""\"${romsPath}\""
-	changeLine "$rgui_browser_directory" "$rgui_browser_directorySetting" "$RetroArch_configFile"
+	RetroArch_setConfigOverride "$rgui_browser_directory" "$rgui_browser_directorySetting" "$RetroArch_configFile"
 
 	cheat_database_path='cheat_database_path = '
 	cheat_database_pathSetting="${cheat_database_path}""\"${storagePath}/retroarch/cheats\""
-	changeLine "$cheat_database_path" "$cheat_database_pathSetting" "$RetroArch_configFile"
+	RetroArch_setConfigOverride "$cheat_database_path" "$cheat_database_pathSetting" "$RetroArch_configFile"
 }
 
 #SetupSaves
 RetroArch_setupSaves(){
 	moveSaveFolder retroarch states "$RetroArch_path/states"
 	moveSaveFolder retroarch saves "$RetroArch_path/saves"
+	
+	RetroArch_setConfigOverride 'savestate_directory = ' "savestate_directory = $savesPath/retroarch/states" "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savefile_directory = ' "savefile_directory = $savesPath/retroarch/states" "$RetroArch_configFile"
+
 }
 
 
@@ -243,6 +241,21 @@ RetroArch_setOverride(){
 		sed -i '/^'"$option"'/d' "$configFile"
 	else
 		updateOrAppendConfigLine "$configFile" "$option =" "$settingLine"
+	fi
+}
+
+
+RetroArch_setConfigOverride(){
+	local option=$1
+	local value=$2	
+	local configFile=$3	
+	local settingLine="$option = $value"
+	
+	if [[ $value == 'ED_RM_LINE' ]]; then
+		echo "Deleting $option from $configFile"
+		sed -i '/^'"$option"'/d' "$configFile"
+	else
+		updateOrAppendConfigLine "$configFile" "$option =" "$value"
 	fi
 }
 
@@ -2020,17 +2033,6 @@ RetroArch_installCores(){
 	#GP32
 	#N-gage
 	#Game.com
-	
-	local coreExtension
-	local raUrl
-	if [ $system == 'darwin' ]; then
-		raUrl="https://buildbot.libretro.com/nightly/apple/osx/${appleChip}/latest/"
-		
-		coreExtension="dylib.zip"
-	else
-		raUrl="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
-		coreExtension="so.zip"
-	fi
 
 	mkdir -p "$RetroArch_cores"
 	
@@ -2060,8 +2062,8 @@ RetroArch_installCores(){
 		if [ -f "$FILE" ]; then
 			echo "${i}...Already Downloaded"
 		else
-			curl "$raUrl$i.$coreExtension" --output "$RetroArch_cores/${i}.zip"
-			echo "$raUrl$i.$coreExtension"
+			curl "$RetroArch_coresURL$i.$RetroArch_coresExtension" --output "$RetroArch_cores/${i}.zip"
+			echo "$RetroArch_coresURL$i.$RetroArch_coresExtension"
 			#rm ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
 			echo "${i}...Downloaded!"
 		fi
@@ -2107,12 +2109,12 @@ function RetroArch_resetCoreConfigs(){
 }
 
 RetroArch_autoSaveOn(){
-	changeLine 'savestate_auto_load = ' 'savestate_auto_load = "true"' "$RetroArch_configFile"
-	changeLine 'savestate_auto_save = ' 'savestate_auto_save = "true"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savestate_auto_load = ' 'savestate_auto_load = "true"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savestate_auto_save = ' 'savestate_auto_save = "true"' "$RetroArch_configFile"
 }
 RetroArch_autoSaveOff(){
-	changeLine 'savestate_auto_load = ' 'savestate_auto_load = "false"' "$RetroArch_configFile"
-	changeLine 'savestate_auto_save = ' 'savestate_auto_save = "false"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savestate_auto_load = ' 'savestate_auto_load = "false"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savestate_auto_save = ' 'savestate_auto_save = "false"' "$RetroArch_configFile"
 }
 RetroArch_retroAchievementsOn(){
 	iniFieldUpdate "$RetroArch_configFile" "" "cheevos_enable" "true"
@@ -2128,10 +2130,10 @@ RetroArch_retroAchievementsOff(){
 }
 
 RetroArch_retroAchievementsHardCoreOn(){
-	changeLine 'cheevos_hardcore_mode_enable = ' 'cheevos_hardcore_mode_enable = "true"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'cheevos_hardcore_mode_enable = ' 'cheevos_hardcore_mode_enable = "true"' "$RetroArch_configFile"
 }
 RetroArch_retroAchievementsHardCoreOff(){
-	changeLine 'cheevos_hardcore_mode_enable = ' 'cheevos_hardcore_mode_enable = "false"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'cheevos_hardcore_mode_enable = ' 'cheevos_hardcore_mode_enable = "false"' "$RetroArch_configFile"
 }
 
 RetroArch_retroAchievementsPromptLogin(){
@@ -2162,8 +2164,8 @@ RetroArch_retroAchievementsSetLogin(){
 		echo "--No username."
 	else
 		echo "Valid Retroachievements Username and Password length"
-		changeLine 'cheevos_username = ' 'cheevos_username = "'"${rau}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements Username set.' || echo 'RetroAchievements Username not set.'
-		changeLine 'cheevos_token = ' 'cheevos_token = "'"${rat}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements Token set.' || echo 'RetroAchievements Token not set.'
+		RetroArch_setConfigOverride 'cheevos_username = ' 'cheevos_username = "'"${rau}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements Username set.' || echo 'RetroAchievements Username not set.'
+		RetroArch_setConfigOverride 'cheevos_token = ' 'cheevos_token = "'"${rat}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements Token set.' || echo 'RetroAchievements Token not set.'
 
 		RetroArch_retroAchievementsOn
 
@@ -2206,7 +2208,7 @@ RetroArch_autoSave(){
 	if [ "$RAautoSave" == true ]; then	
 		RetroArch_autoSaveOn
 	else
-		RetroArch_autoSaveOf
+		RetroArch_autoSaveOff
 	fi	
 	
 }
