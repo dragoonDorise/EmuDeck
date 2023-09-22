@@ -32,10 +32,9 @@ safeDownload() {
 		appName=$(find "$volumeName" -name "*.app" -exec basename {} \;)				
 		chmod +x  "$HOME/Applications/EmuDeck/$appName"	
 		
-		find "$HOME/Applications/EmuDeck/" -name "*.app" -exec ln -s {} /Applications/ \;		
+		find "$HOME/Applications/EmuDeck/" -maxdepth 1 -name "*.app" -exec ln -s {} /Applications/ \;		
 		#chmod +x  "/Applications/$appName"
-		hdiutil detach "$volumeName" && rm -rf $outFile
-
+		hdiutil detach "$volumeName" && rm -rf "$outFile"
 		return 0
 	else
 		#echo "$name download failed"
