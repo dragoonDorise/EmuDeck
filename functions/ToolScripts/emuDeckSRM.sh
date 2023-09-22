@@ -3,34 +3,19 @@
 SRM_toolName="Steam Rom Manager"
 SRM_toolType="AppImage"
 SRM_toolPath="${toolsPath}/srm/Steam-ROM-Manager.AppImage"
-
-if [ "$system" == 'darwin' ]; then
-  SRM_toolPath="Applications/Steam ROM Manager.app"
-fi
-
+SRM_userData_directory="configs/steam-rom-manager/userData"
 #cleanupOlderThings
 
 SRM_install(){		
   setMSG "Installing Steam Rom Manager"
   local showProgress="$1"
   
-  
-  if [ "$system" != "darwin" ]; then
-	local SRM_releaseURL="$(getLatestReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")"	
-	mkdir -p "${toolsPath}/srm"
-	#curl -L "$SRM_releaseURL" -o "${SRM_toolPath}.temp" && mv "${SRM_toolPath}.temp" "${SRM_toolPath}"
-	if safeDownload "$SRM_toolName" "$SRM_releaseURL" "${SRM_toolPath}" "$showProgress"; then
-	  chmod +x "$SRM_toolPath"
-	  SRM_createDesktopShortcut
-	  rm -rf ~/Desktop/SteamRomManager.desktop
-	else
-	  return 1
-	fi
-  else		
-	local SRM_releaseURL="$(getLatestReleaseURLGH "SteamGridDB/steam-rom-manager" "dmg")"
-	echo $SRM_releaseURL
-	darwin_installEmuDMG "SteamRomManager" $SRM_releaseURL
+  if installEmuAI "$SRM_toolName" "$(getReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")" "" "$showProgress"; then
+    :
+  else
+    return 1
   fi
+  
 }
 
 SRM_uninstall(){
@@ -69,10 +54,7 @@ SRM_init(){
   local json_directory="$HOME/.config/steam-rom-manager/userData/parsers/"
   local output_file="$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
   #local files=$1
-  local userData_directory="configs/steam-rom-manager/userData"
-  if [ "$system" = 'darwin' ]; then
-	userData_directory="darwin/configs/steam-rom-manager/userData"
-  fi
+
   mkdir -p "$HOME/.config/steam-rom-manager/userData/"	
 
   #Multiemulator?
@@ -179,9 +161,9 @@ SRM_init(){
   
   rm -rf "$HOME/.config/steam-rom-manager/userData/parsers/emudeck/"
 	
-  rsync -avz --mkpath --exclude-from="$HOME/exclude.txt" "$EMUDECKGIT/$userData_directory/parsers/emudeck/" "$HOME/.config/steam-rom-manager/userData/parsers/emudeck/"
+  rsync -avz --mkpath --exclude-from="$HOME/exclude.txt" "$EMUDECKGIT/$SRM_userData_directory/parsers/emudeck/" "$HOME/.config/steam-rom-manager/userData/parsers/emudeck/"
   echo "Put your custom parsers here" "$HOME/.config/steam-rom-manager/userData/parsers/custom/readme.txt"
-  rsync -avhp --mkpath "$EMUDECKGIT/$userData_directory/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  rsync -avhp --mkpath "$EMUDECKGIT/$SRM_userData_directory/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
   
   cp "$HOME/.config/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.bak"
   

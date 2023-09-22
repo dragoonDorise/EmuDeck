@@ -393,6 +393,10 @@ function getReleaseURLGH(){
 	local url
 	local fileNameContains=$3
 	#local token=$(tokenGenerator)
+	
+	if [ $system == "darwin" ]; then
+		fileType="dmg"	
+	fi
 
 	if [ "$url" == "" ]; then
 		url="https://api.github.com/repos/$repository/releases"
@@ -641,15 +645,13 @@ safeDownload() {
 		echo "- $headers"
 	fi
 	
-	if [ $system == "darwin" ]; then
-		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 && echo $'\2'0 || echo $'\2'$?)
+
+	if [ "$showProgress" == "true" ] || [[ $showProgress -eq 1 ]]; then
+		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 | tee >(stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading $name" --width 600 --auto-close --no-cancel 2>/dev/null) && echo $'\2'${PIPESTATUS[0]})
 	else
-		if [ "$showProgress" == "true" ] || [[ $showProgress -eq 1 ]]; then
-			request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 | tee >(stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading $name" --width 600 --auto-close --no-cancel 2>/dev/null) && echo $'\2'${PIPESTATUS[0]})
-		else
-			request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 && echo $'\2'0 || echo $'\2'$?)
-		fi
+		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 && echo $'\2'0 || echo $'\2'$?)
 	fi
+
 	
 	returnCodes="${request#*$'\1'}"
 	httpCode="${returnCodes%$'\2'*}"

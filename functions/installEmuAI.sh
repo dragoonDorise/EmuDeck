@@ -6,7 +6,13 @@ installEmuAI(){
     local showProgress="$4"
     local lastVerFile="$5"
     local latestVer="$6"
-
+    
+    #OSX? We redirect to their function
+    if [ $system == "darwin" ]; then
+        darwin_installEmuDMG "$name" "$url" "$fileName"
+    fi
+    
+    
     if [[ "$fileName" == "" ]]; then
         fileName="$name"
     fi

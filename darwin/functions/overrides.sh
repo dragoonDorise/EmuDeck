@@ -1,5 +1,23 @@
 #!/bin/bash
 #We set the proper sed
+
+#Override Vars
+SRM_toolPath="Applications/Steam ROM Manager.app"
+
+RetroArch_configFile="$HOME/Library/Application Support/RetroArch/config/retroarch.cfg"
+RetroArch_coreConfigFolders="$HOME/Library/Application Support/RetroArch/config"	
+RetroArch_cores="$HOME/Library/Application Support/RetroArch/cores"	
+RetroArch_path="$HOME/Library/Application Support/RetroArch"
+RetroArch_coresURL="https://buildbot.libretro.com/nightly/apple/osx/${appleChip}/latest/"
+RetroArch_coresExtension="dylib.zip"
+
+
+ESDE_toolPath="$HOME/Application/EmulationStation Desktop Edition.app"
+ESDE_addSteamInputFile="$EMUDECKGIT/darwin/configs/steam-input/emulationstation-de_controller_config.vdf"
+steam_input_templateFolder="$HOME/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/controller_base/templates/"
+
+SRM_userData_directory="darwin/configs/steam-rom-manager/userData"
+
 safeDownload() {
 	local name="$1"
 	local url="$2"
@@ -46,4 +64,16 @@ safeDownload() {
 
 addSteamInputCustomIcons() {
 	rsync -av "$EMUDECKGIT/darwin/configs/steam-input/Icons/" "$HOME/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/tenfoot/resource/images/library/controller/binding_icons/"
+}
+
+
+#!/bin/bash
+configEmuFP(){		
+	
+	local name=$1
+	
+	setMSG "Updating $name Config"	
+	
+	rsync -avhpL --mkpath "$EMUDECKGIT/darwin/configs/${name}/" "$HOME/Library/Application Support/${name}/"
+
 }
