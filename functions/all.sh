@@ -17,7 +17,7 @@ fi
 
 if [ $system != "darwin" ]; then
     export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
-]
+fi
 chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
 
 source "$EMUDECKGIT"/functions/checkBIOS.sh
