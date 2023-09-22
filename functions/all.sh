@@ -15,8 +15,9 @@ else
     cp "$EMUDECKGIT/settings.sh" "$SETTINGSFILE"
 fi
 
-
-export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
+if [ $system != "darwin" ]; then
+    export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
+]
 chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
 
 source "$EMUDECKGIT"/functions/checkBIOS.sh
@@ -31,6 +32,7 @@ source "$EMUDECKGIT"/functions/setMSG.sh
 source "$EMUDECKGIT"/functions/emuDeckPrereqs.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
 source "$EMUDECKGIT"/functions/installEmuBI.sh
+source "$EMUDECKGIT"/functions/installToolAI.sh
 source "$EMUDECKGIT"/functions/migrateAndLinkConfig.sh
 source "$EMUDECKGIT"/functions/nonDeck.sh
 source "$EMUDECKGIT"/functions/dialogBox.sh

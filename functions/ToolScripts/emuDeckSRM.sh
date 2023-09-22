@@ -2,7 +2,7 @@
 #variables
 SRM_toolName="Steam Rom Manager"
 SRM_toolType="AppImage"
-SRM_toolPath="${toolsPath}/srm/Steam-ROM-Manager.AppImage"
+SRM_toolPath="${toolsPath}/Steam-ROM-Manager.AppImage"
 SRM_userData_directory="configs/steam-rom-manager/userData"
 #cleanupOlderThings
 
@@ -10,16 +10,17 @@ SRM_install(){
   setMSG "Installing Steam Rom Manager"
   local showProgress="$1"
   
-  if installEmuAI "$SRM_toolName" "$(getReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")" "" "$showProgress"; then
+  if installToolAI "$SRM_toolName" "$(getReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")" "" "$showProgress"; then
     :
   else
     return 1
   fi
   
-}
+} 
+
 
 SRM_uninstall(){
-  rm -rf "${toolsPath}/srm"
+  rm -rf "${toolsPath}/Steam-ROM-Manager.AppImage"
   rm -rf $HOME/.local/share/applications/SRM.desktop
 }
 

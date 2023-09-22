@@ -8,18 +8,14 @@ ESDE_releaseMD5="b749b927d61317fde0250af9492a4b9f" #default hash
 ESDE_prereleaseURL=""
 ESDE_prereleaseMD5=""
 ESDE_releaseJSON="https://gitlab.com/es-de/emulationstation-de/-/raw/master/latest_release.json"
+ESDE_addSteamInputFile="$EMUDECKGIT/configs/steam-input/emulationstation-de_controller_config.vdf"
+steam_input_templateFolder="$HOME/.steam/steam/controller_base/templates/"
 es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
 es_settingsFile="$HOME/.emulationstation/es_settings.xml"
-
-if [ "$system" = 'darwin' ]; then	
-	ESDE_toolPath="$HOME/Application/EmulationStation Desktop Edition.app"
-fi
 
 ESDE_SetAppImageURLS() {
     local json="$(curl -s $ESDE_releaseJSON)"
     ESDE_releaseURL=$(echo "$json" | jq -r '.stable.packages[] | select(.name == "LinuxSteamDeckAppImage") | .url')
-	ESDE_darwin_releaseURL=$(echo "$json" | jq -r '.stable.packages[] | select(.name == "macOSApple") | .url')
-	ESDE_darwin_x86_releaseURL=$(echo "$json" | jq -r '.stable.packages[] | select(.name == "macOSIntel") | .url')
 	ESDE_releaseMD5=$(echo "$json" | jq -r '.stable.packages[] | select(.name == "LinuxSteamDeckAppImage") | .md5')
 	ESDE_prereleaseURL=$(echo "$json" | jq -r '.prerelease.packages[] | select(.name == "LinuxSteamDeckAppImage") | .url')
 	ESDE_prereleaseMD5=$(echo "$json" | jq -r '.prerelease.packages[] | select(.name == "LinuxSteamDeckAppImage") | .md5')
@@ -38,27 +34,13 @@ ESDE_install(){
 	local showProgress="$1"
 
 	if [[ $ESDE_releaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
-
-	if [ $system != "darwin" ]; then
-		if safeDownload "$ESDE_toolName" "$ESDE_releaseURL" "$ESDE_toolPath" "$showProgress"; then
-			ESDE_md5sum=($(md5sum $ESDE_toolPath)) # get first element
-			if [ "$ESDE_md5sum" == "$ESDE_releaseMD5" ]; then
-				echo "ESDE PASSED HASH CHECK."
-				chmod +x "$ESDE_toolPath"
-			else
-				echo "ESDE FAILED HASH CHECK. Expected $ESDE_releaseMD5, got $ESDE_md5sum"
-			fi
-		else
-			return 1
-		fi
-	else
-		if [ appleChip == 'arm64' ]; then
-			darwin_installEmuDMG "EmulationStation" "$ESDE_darwin_releaseURL"	
-		else
-			darwin_installEmuDMG "EmulationStation" "$ESDE_darwin_x86_releaseURL"	
-		fi
-	fi
-		
+	
+			if installToolAI "$ESDE_toolName" "$ESDE_releaseURL" "" "$showProgress"; then
+				:
+		 	else
+				return 1
+		 	fi
+			
 	else
 		setMSG "$ESDE_toolName not found"
 		return 1
@@ -344,11 +326,7 @@ ESDE_setEmu(){
 ESDE_addSteamInputProfile(){
 	addSteamInputCustomIcons
 	setMSG "Adding $ESDE_toolName Steam Input Profile."
-	if [ "$system" != 'darwin' ]; then	
-		rsync -r "$EMUDECKGIT/configs/steam-input/emulationstation-de_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
-	else
-		rsync -r "$EMUDECKGIT/darwin/configs/steam-input/emulationstation-de_controller_config.vdf" "$HOME/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/controller_base/templates/"
-	fi
+		rsync -r "$ESDE_addSteamInputFile" "$steam_input_templateFolder"
 }
 
 ESDE_IsInstalled(){

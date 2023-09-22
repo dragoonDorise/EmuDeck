@@ -1,5 +1,5 @@
 #!/bin/bash
-installEmuAI(){
+installToolAI(){
     local name="$1"
     local url="$2"
     local fileName="$3"
@@ -17,12 +17,10 @@ installEmuAI(){
     echo "$lastVerFile"
     echo "$latestVer"
 
-    #rm -f "$HOME/Applications/$fileName.AppImage" # mv in safeDownload will overwrite...
-    mkdir -p "$HOME/Applications"
 
-    #curl -L "$url" -o "$HOME/Applications/$fileName.AppImage.temp" && mv "$HOME/Applications/$fileName.AppImage.temp" "$HOME/Applications/$fileName.AppImage"
-    if safeDownload "$name" "$url" "$HOME/Applications/$fileName.AppImage" "$showProgress"; then
-        chmod +x "$HOME/Applications/$fileName.AppImage"
+    #curl -L "$url" -o "$toolsPath/$fileName.AppImage.temp" && mv "$toolsPath/$fileName.AppImage.temp" "$toolsPath/$fileName.AppImage"
+    if safeDownload "$name" "$url" "$toolsPath/$fileName.AppImage" "$showProgress"; then
+        chmod +x "$toolsPath/$fileName.AppImage"
         if [[ -n $lastVerFile ]] && [[ -n $latestVer ]]; then
             echo "latest version $latestVer > $lastVerFile"
             echo "$latestVer" > "$lastVerFile"
