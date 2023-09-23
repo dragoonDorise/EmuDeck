@@ -10,7 +10,7 @@ cloud_sync_install(){
     setSetting cloud_sync_status "true" > /dev/null 
     rm -rf "$HOME/.config/systemd/user/EmuDeckCloudSync.service" > /dev/null 
     
-    if [ ! -f "$HOME/.steam/steam/.cef-enable-remote-debugging" ]; then    
+    #if [ ! -f "$HOME/.steam/steam/.cef-enable-remote-debugging" ]; then    
       PASS_STATUS=$(passwd -S deck 2> /dev/null)
       if [ "${PASS_STATUS:5:2}" = "NP" ]; then
         Plugins_installPluginLoader "Decky!" && Plugins_installEmuDecky "Decky!"
@@ -25,7 +25,7 @@ cloud_sync_install(){
             zen_nospam --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
         fi
       fi
-    fi
+    #fi
     cloud_sync_createService
     
     if [ ! -f "$cloud_sync_bin" ]; then
