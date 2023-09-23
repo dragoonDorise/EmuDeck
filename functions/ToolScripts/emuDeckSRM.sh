@@ -4,6 +4,7 @@ SRM_toolName="Steam Rom Manager"
 SRM_toolType="AppImage"
 SRM_toolPath="${toolsPath}/Steam-ROM-Manager.AppImage"
 SRM_userData_directory="configs/steam-rom-manager/userData"
+SRM_userData_configDir="$HOME/.config/steam-rom-manager/userData"
 #cleanupOlderThings
 
 SRM_install(){		
@@ -52,11 +53,11 @@ SRM_createDesktopShortcut(){
 
 SRM_init(){			
   setMSG "Configuring Steam Rom Manager"	
-  local json_directory="$HOME/.config/steam-rom-manager/userData/parsers/"
-  local output_file="$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
+  local json_directory="$SRM_userData_configDir/parsers/"
+  local output_file="$SRM_userData_configDir/userConfigurations.json"
   #local files=$1
 
-  mkdir -p "$HOME/.config/steam-rom-manager/userData/"	
+  mkdir -p "$SRM_userData_configDir/"	
 
   #Multiemulator?
   exclusionList=""
@@ -160,13 +161,13 @@ SRM_init(){
   
   echo -e $exclusionList > "$HOME/exclude.txt"
   
-  rm -rf "$HOME/.config/steam-rom-manager/userData/parsers/emudeck/"
+  rm -rf "$SRM_userData_configDir/parsers/emudeck/"
 	
-  rsync -avz --mkpath --exclude-from="$HOME/exclude.txt" "$EMUDECKGIT/$SRM_userData_directory/parsers/emudeck/" "$HOME/.config/steam-rom-manager/userData/parsers/emudeck/"
-  echo "Put your custom parsers here" "$HOME/.config/steam-rom-manager/userData/parsers/custom/readme.txt"
-  rsync -avhp --mkpath "$EMUDECKGIT/$SRM_userData_directory/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  rsync -avz --mkpath --exclude-from="$HOME/exclude.txt" "$EMUDECKGIT/$SRM_userData_directory/parsers/emudeck/" "$SRM_userData_configDir/parsers/emudeck/"
+  echo "Put your custom parsers here" "$SRM_userData_configDir/parsers/custom/readme.txt"
+  rsync -avhp --mkpath "$EMUDECKGIT/$SRM_userData_directory/userSettings.json" "$SRM_userData_configDir/" --backup --suffix=.bak
   
-  cp "$HOME/.config/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.bak"
+  cp "$SRM_userData_configDir/userConfigurations.json" "$SRM_userData_configDir/userConfigurations.bak"
   
   rm -rf "$HOME/exclude.txt"
   
@@ -176,21 +177,21 @@ SRM_init(){
   sleep 3
   tmp=$(mktemp)
   jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
-  "$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp"\
-   && mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+  "$SRM_userData_configDir/userSettings.json" > "$tmp"\
+   && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
   
   tmp=$(mktemp)
   jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
-  "$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
-  && mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+  "$SRM_userData_configDir/userSettings.json" > "$tmp" \
+  && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
 
-  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
-  sed -i "s|/home/deck|$HOME|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userConfigurations.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$SRM_userData_configDir/userConfigurations.json"
+  sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userConfigurations.json"
   
-  sed -i "s|/home/deck|$HOME|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+  sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userSettings.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$SRM_userData_configDir/userSettings.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userSettings.json"
   
   
   echo -e "true"

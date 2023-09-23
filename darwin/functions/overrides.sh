@@ -3,7 +3,6 @@
 PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 appleChip=$(uname -m)
 
-
 #Override Vars
 SRM_toolPath="Applications/Steam ROM Manager.app"
 RetroArch_configFile="$HOME/Library/Application Support/RetroArch/config/retroarch.cfg"
@@ -16,7 +15,7 @@ ESDE_toolPath="$HOME/Application/EmulationStation Desktop Edition.app"
 ESDE_addSteamInputFile="$EMUDECKGIT/darwin/configs/steam-input/emulationstation-de_controller_config.vdf"
 steam_input_templateFolder="$HOME/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/controller_base/templates/"
 SRM_userData_directory="darwin/configs/steam-rom-manager/userData"
-
+SRM_userData_configDir="$HOME/Library/Application Support/steam-rom-manager/userData"
 
 source "$EMUDECKGIT/darwin/functions/overrides/configEmuFP.sh"
 source "$EMUDECKGIT/darwin/functions/overrides/helperFunctions.sh"

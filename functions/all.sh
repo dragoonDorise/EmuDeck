@@ -15,7 +15,7 @@ else
     cp "$EMUDECKGIT/settings.sh" "$SETTINGSFILE"
 fi
 
-if [ $system != "darwin" ]; then
+if [ "$system" != "darwin" ]; then
     export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
 fi
 chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
@@ -92,7 +92,7 @@ source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayGreenlight.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMAMEProton.sh
 
 # Darwin ovewrites
-if [ $system == "darwin" ]; then
+if [ "$system" == "darwin" ]; then
     
     source "$EMUDECKGIT/darwin/functions/helperFunctions.sh"
     source "$EMUDECKGIT/darwin/functions/overrides.sh"
