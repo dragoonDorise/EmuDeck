@@ -8,7 +8,7 @@
     "filterProviders": true
   },
   "environmentVariables": {
-    "steamDirectory": "$HOME/Library/Application Support/Steam",
+    "steamDirectory": "/Users/WHOAMI/Library/Application Support/Steam",
     "romsDirectory": "/run/media/mmcblk0p1/Emulation/roms",
     "retroarchPath": "/run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh",
     "raCoresDirectory": "",

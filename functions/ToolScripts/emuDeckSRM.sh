@@ -53,9 +53,12 @@ SRM_createDesktopShortcut(){
 
 SRM_init(){			
   setMSG "Configuring Steam Rom Manager"	
-  local json_directory="$SRM_userData_configDir/parsers/"
+  local json_directory="$SRM_userData_configDir/parsers"
   local output_file="$SRM_userData_configDir/userConfigurations.json"
   #local files=$1
+
+
+  
 
   mkdir -p "$SRM_userData_configDir/"	
 
@@ -171,20 +174,33 @@ SRM_init(){
   
   rm -rf "$HOME/exclude.txt"
   
-  jq -s '.' $(find "$json_directory" -name "*.json" | sort) > "$output_file"
-
+  # jq -s '.' $(find "\"$json_directory"\" -name "*.json" | sort) > "$output_file"
+  rm -rf "$HOME/temp_parser"
+  ln -s "$json_directory" "$HOME/temp_parser"
+  files=$(find "$HOME/temp_parser/emudeck" -name "*.json" | sort)
+  jq -s '.' $files > "$output_file"
+  rm -rf "$HOME/temp_parser"
   
-  sleep 3
-  tmp=$(mktemp)
-  jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
-  "$SRM_userData_configDir/userSettings.json" > "$tmp"\
-   && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
+  sleep 1
+  if [ $system != "darwin" ]; then
+    tmp=$(mktemp)
+    jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
+    "$SRM_userData_configDir/userSettings.json" > "$tmp"\
+     && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
+    
+    tmp=$(mktemp)
+    jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
+    "$SRM_userData_configDir/userSettings.json" > "$tmp" \
+    && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
+  fi
   
-  tmp=$(mktemp)
-  jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
-  "$SRM_userData_configDir/userSettings.json" > "$tmp" \
-  && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
-
+  if [ $system == "darwin" ]; then
+  
+    whoami=$(whoami)
+    sed -i "s|WHOAMI|${whoami}|g" "$SRM_userData_configDir/userSettings.json"
+   
+  fi
+  
   sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userConfigurations.json"
   sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$SRM_userData_configDir/userConfigurations.json"
   sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userConfigurations.json"
