@@ -10,12 +10,15 @@ cloud_sync_install(){
     setSetting cloud_sync_status "true" > /dev/null 
     rm -rf "$HOME/.config/systemd/user/EmuDeckCloudSync.service" > /dev/null 
     
-    if [ ! -f "$HOME/.steam/steam/.cef-enable-remote-debugging" ]; then    
+    #if [ ! -f "$HOME/.steam/steam/.cef-enable-remote-debugging" ]; then    
       PASS_STATUS=$(passwd -S deck 2> /dev/null)
       if [ "${PASS_STATUS:5:2}" = "NP" ]; then
         Plugins_installPluginLoader "Decky!" && Plugins_installEmuDecky "Decky!"
       else
-        PASS=$(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password")
+      
+        text="$(printf "We need to install our Decky Plugin so you can use CloudSync on Gaming Mode.\nPlease enter your sudo/admin password so we can install it.")"              
+         
+        PASS=$(zenity --title="Decky CloudSync Plugin Installer" --width=300 --height=100 --entry --hide-text --text="${text}")
         if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
             exit 1
         fi
@@ -25,7 +28,7 @@ cloud_sync_install(){
             zen_nospam --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
         fi
       fi
-    fi
+    #fi
     cloud_sync_createService
     
     if [ ! -f "$cloud_sync_bin" ]; then
@@ -413,6 +416,13 @@ cloud_sync_downloadEmu(){
   local mode=$2
   if [ -f "$toolsPath/rclone/rclone" ]; then    
     local timestamp=$(date +%s)
+    
+    if [[ $cloud_sync_provider != *"Emudeck"* ]]; then
+    
+      text="$(printf "CloudSync is not properly configured, please configure it again from EmuDeck")"                    
+      zenity --title="CloudSync Error" --width=300 --height=100 --info --text="${text}"
+      
+    fi
     
     #We check for internet connection
     if [ $(check_internet_connection) == "true" ]; then

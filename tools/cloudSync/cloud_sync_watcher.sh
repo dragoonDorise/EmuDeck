@@ -8,7 +8,7 @@ source "$HOME/.config/EmuDeck/backend/functions/ToolScripts/emuDeckCloudSync.sh"
 touch "$savesPath/.gaming"
 touch "$savesPath/.watching"
 
-notify-send "Ready!" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync" 
+#notify-send "Ready!" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync" 
 
 # Declare an array to store current hashes
 echo "SERVICE - declare" >> $HOME/emudeck/CloudSync.log
@@ -46,7 +46,15 @@ do
   
   for dir in "${!current_hashes[@]}"; do
   #echo -ne "." >> $HOME/emudeck/CloudSync.log
-  new_hash=$(calculate_hash "$dir")
+  
+  if [ -h "$dir" ]; then
+    realDir=$(readlink -f "$dir")
+    new_hash=$(calculate_hash "$realDir")
+  else
+    new_hash=$(calculate_hash "$dir")
+  fi
+  
+ 
   # if [[ $dir == *"retroarch/states"* ]]; then
   #   echo "$dir - ${current_hashes[$dir]}" >> $HOME/emudeck/CloudSync.log
   #   echo "$dir - $new_hash" >> $HOME/emudeck/CloudSync.log
@@ -61,7 +69,7 @@ do
     echo "SERVICE - $emuName CHANGES DETECTED" >> $HOME/emudeck/CloudSync.log
     echo $timestamp > "$savesPath/$emuName/.pending_upload"
     echo "SERVICE - UPLOAD" >> $HOME/emudeck/CloudSync.log
-    notify-send "Uploading from $emuName" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"    
+    #notify-send "Uploading from $emuName" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"    
     cloud_sync_uploadEmu $emuName
     rm -rf "$savesPath/$emuName/.pending_upload"
     echo "SERVICE - UPLOADED" >> $HOME/emudeck/CloudSync.log   
@@ -77,11 +85,11 @@ do
   #Autostop service when everything has finished
   if [ ! -f "$savesPath/.gaming" ]; then
     echo "SERVICE - NO GAMING" >> $HOME/emudeck/CloudSync.log
-    notify-send "Uploading... don't turn off your device" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
+    #notify-send "Uploading... don't turn off your device" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
     if [ ! -f "$HOME/emudeck/cloud.lock" ]; then
       echo "SERVICE - STOP WATCHING" >> $HOME/emudeck/CloudSync.log  
-      notify-send "Uploading... don't turn off your device" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
-      notify-send "Sync Completed! You can safely turn off your device" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
+      #notify-send "Uploading... don't turn off your device" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
+      #notify-send "Sync Completed! You can safely turn off your device" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
       rm -rf "$savesPath/.watching"
       echo "SERVICE - NO LOCK - KILLING SERVICE" >> $HOME/emudeck/CloudSync.log     
       cloud_sync_stopService      
