@@ -417,6 +417,13 @@ cloud_sync_downloadEmu(){
   if [ -f "$toolsPath/rclone/rclone" ]; then    
     local timestamp=$(date +%s)
     
+    if [[ $cloud_sync_provider != *"Emudeck"* ]]; then
+    
+      text="$(printf "CloudSync is not properly configured, please configure it again from EmuDeck")"                    
+      zenity --title="CloudSync Error" --width=300 --height=100 --info --text="${text}"
+      
+    fi
+    
     #We check for internet connection
     if [ $(check_internet_connection) == "true" ]; then
       
