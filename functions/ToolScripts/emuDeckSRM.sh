@@ -182,25 +182,9 @@ SRM_init(){
   rm -rf "$HOME/temp_parser"
   
   sleep 1
-  if [ $system != "darwin" ]; then
-    tmp=$(mktemp)
-    jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
-    "$SRM_userData_configDir/userSettings.json" > "$tmp"\
-     && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
-    
-    tmp=$(mktemp)
-    jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
-    "$SRM_userData_configDir/userSettings.json" > "$tmp" \
-    && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
-  fi
   
-  if [ $system == "darwin" ]; then
-  
-    whoami=$(whoami)
-    sed -i "s|WHOAMI|${whoami}|g" "$SRM_userData_configDir/userSettings.json"
-   
-  fi
-  
+  SRM_setEnv
+
   sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userConfigurations.json"
   sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$SRM_userData_configDir/userConfigurations.json"
   sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userConfigurations.json"
@@ -211,6 +195,18 @@ SRM_init(){
   
   
   echo -e "true"
+}
+
+SRM_setEnv(){
+  tmp=$(mktemp)
+  jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
+  "$SRM_userData_configDir/userSettings.json" > "$tmp"\
+   && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
+  
+  tmp=$(mktemp)
+  jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
+  "$SRM_userData_configDir/userSettings.json" > "$tmp" \
+  && mv "$tmp" "$SRM_userData_configDir/userSettings.json"  
 }
 
 SRM_resetConfig(){
