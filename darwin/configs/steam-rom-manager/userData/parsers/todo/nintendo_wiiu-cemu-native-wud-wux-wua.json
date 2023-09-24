@@ -5,7 +5,7 @@
   "executableArgs": "vblank_mode=0 %command% -f -g \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/wiiu/roms/",
-  "steamDirectory": "/home/deck/.steam/steam",
+  "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "imageProviders": ["SteamGridDB"],
   "titleModifier": "${fuzzyTitle}",
