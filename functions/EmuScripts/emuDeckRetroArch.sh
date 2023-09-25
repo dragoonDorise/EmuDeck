@@ -172,8 +172,8 @@ RetroArch_setEmulationFolder(){
 
 #SetupSaves
 RetroArch_setupSaves(){
-	moveSaveFolder retroarch states "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/states"
-	moveSaveFolder retroarch saves "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/saves"
+	linkToSaveFolder retroarch states "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/states"
+	linkToSaveFolder retroarch saves "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/saves"
 }
 
 
