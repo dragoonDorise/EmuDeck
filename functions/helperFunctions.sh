@@ -727,7 +727,7 @@ scriptConfigFileGetVar() {
     local configVar=$2
     local configVarDefaultValue=$3
 
-    local configVarValue="$((grep -E "^${configVar}=" -m 1 "${configFile}" 2>/dev/null || echo "_=__UNDEFINED__") | head -n 1 | cut -d '=' -f 2- | xargs)"
+    local configVarValue="$( (grep -E "^${configVar}=" -m 1 "${configFile}" 2>/dev/null || echo "_=__UNDEFINED__") | head -n 1 | cut -d '=' -f 2- | xargs )"
     if [ "${configVarValue}" = "__UNDEFINED__" ]; then
         configVarValue="${configVarDefaultValue}"
     fi
