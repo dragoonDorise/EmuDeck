@@ -62,21 +62,25 @@ do
   if [ "${current_hashes[$dir]}" != "$new_hash" ]; then
     # Show the name of the folder immediately behind "saves"
      echo "SERVICE - CHANGES DETECTED, LETS CHECK IF ITS A DUPLICATE" >> $HOME/emudeck/CloudSync.log
-    if [ "$lastSavedDir" != "$dir" ]; then  
-    emuName=$(get_parent_folder_name "$dir")
-    #cloud_sync_update
-    timestamp=$(date +%s)
-    echo "SERVICE - $emuName CHANGES DETECTED" >> $HOME/emudeck/CloudSync.log
-    echo $timestamp > "$savesPath/$emuName/.pending_upload"
-    echo "SERVICE - UPLOAD" >> $HOME/emudeck/CloudSync.log
-    #notify-send "Uploading from $emuName" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"    
-    cloud_sync_uploadEmu $emuName
-    rm -rf "$savesPath/$emuName/.pending_upload"
-    echo "SERVICE - UPLOADED" >> $HOME/emudeck/CloudSync.log   
-    lastSavedDir=$dir      
+     timestamp=$(date +%s)
+     
+     echo $((timestamp - lastSavedTime)) >> $HOME/emudeck/CloudSync.log
+     
+    if [ $((timestamp - lastSavedTime)) -ge 1 ]; then
+      emuName=$(get_parent_folder_name "$dir")
+      #cloud_sync_update
+     
+      echo "SERVICE - $emuName CHANGES DETECTED" >> $HOME/emudeck/CloudSync.log
+      echo $timestamp > "$savesPath/$emuName/.pending_upload"
+      echo "SERVICE - UPLOAD" >> $HOME/emudeck/CloudSync.log
+      #notify-send "Uploading from $emuName" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"    
+      cloud_sync_uploadEmu $emuName
+      rm -rf "$savesPath/$emuName/.pending_upload"
+      echo "SERVICE - UPLOADED" >> $HOME/emudeck/CloudSync.log   
+      lastSavedTime=$(date +%s)     
     else    
       echo "SERVICE - IGNORED" >> $HOME/emudeck/CloudSync.log   
-      lastSavedDir=''
+      lastSavedTime=''
     fi
     current_hashes["$dir"]=$new_hash
   fi    
