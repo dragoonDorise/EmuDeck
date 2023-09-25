@@ -287,16 +287,11 @@ cloud_sync_download(){
                         
         hashCloud=$(cat "$savesPath/.hash")
                 
-        if [ -f "$savesPath/.hash" ];then           
-                  
-          if [ "$hash" == "$hashCloud" ]; then
-            echo "up to date"
-            else
+        if [ -f "$savesPath/.hash" ] && [ "$hash" != "$hashCloud" ]; then
+
              ("$cloud_sync_bin" copy --fast-list --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/ "$savesPath") | zenity --progress --title="Downloading saves - All systems" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
 
-          fi
         else
-          cloud_sync_save_hash "$savesPath"
           ("$cloud_sync_bin" copy --fast-list --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/ "$savesPath" && (          
              local baseFolder="$savesPath/"
               for folder in $baseFolder*/
@@ -318,14 +313,9 @@ cloud_sync_download(){
                         
         hashCloud=$(cat "$savesPath/$emuName/.hash")
                 
-        if [ -f "$savesPath/$emuName/.hash" ];then           
-          if [ "$hash" == "$hashCloud" ]; then
-            echo "nothing to download"
-          else
-            ("$cloud_sync_bin" copy --fast-list --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
-          fi          
+        if [ -f "$savesPath/$emuName/.hash" ] && [ "$hash" != "$hashCloud" ];then           
+            ("$cloud_sync_bin" copy --fast-list --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate          
         else
-          cloud_sync_save_hash "$savesPath/$emuName"
           ("$cloud_sync_bin" copy --fast-list --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate  
         fi
     fi
