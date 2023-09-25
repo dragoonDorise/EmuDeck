@@ -134,6 +134,9 @@ main () {
             echo "SELFPATH: ${SELFPATH}" 
         fi
 
+        # Set script CONFIG_FILE
+        CONFIG_FILE="${SELFPATH}.config"
+
         # Get EXE
         EXE="\"/usr/bin/bash\" \"${SELFPATH}\""
         echo "EXE: ${EXE}"
@@ -157,9 +160,19 @@ main () {
             reportError "Unable to calculate AppID" "true" "true"
         fi
 
-        # PROTONVER
-        PROTONVER="7.0"
-        echo "PROTONVER: ${PROTONVER}"
+        # Proton Version:
+        # - use env FORCED_PROTON_VER if set (FORCED_PROTON_VER="GE-Proton8-16" ./xenia.sh)
+        # - if not set, try to use config file (xenia.sh.config, FORCED_PROTON_VER="GE-Proton8-16")
+        # - if stil not set, use default
+        DEFAULT_PROTON_VER="7.0"
+        if [[ -z "${FORCED_PROTON_VER}" ]]; then
+            FORCED_PROTON_VER="$(scriptConfigFileGetVar "$CONFIG_FILE" "FORCED_PROTON_VER")"
+        fi
+        if [[ -z "${FORCED_PROTON_VER}" ]]; then
+            PROTONVER="${DEFAULT_PROTON_VER}"
+        else
+            PROTONVER="${FORCED_PROTON_VER}"
+        fi
 
         # Call the Proton launcher script and give the arguments
         echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${CEMU}" "${@}"
