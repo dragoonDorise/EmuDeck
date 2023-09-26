@@ -251,7 +251,7 @@ cloud_sync_upload(){
     
     if [ "$emuName" = "all" ]; then    
         cloud_sync_save_hash $savesPath       
-        ("$cloud_sync_bin" copy --fast-list --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$savesPath" "$cloud_sync_provider":Emudeck/saves/ && (          
+        ("$cloud_sync_bin" copy --fast-list --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$savesPath" "$cloud_sync_provider":Emudeck/saves/ && (          
           local baseFolder="$savesPath/"
            for folder in $baseFolder*/
             do
@@ -402,6 +402,9 @@ cloud_sync_uploadEmu(){
 cloud_sync_downloadEmu(){
   local emuName=$1
   local mode=$2
+  
+  echo $emuName > "$savesPath/.emuName"
+  
   if [ -f "$cloud_sync_bin" ]; then    
     local timestamp=$(date +%s)
     if [ -f "$cloud_sync_bin" ] && [ "$cloud_sync_status" == "true" ]; then
