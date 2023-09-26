@@ -52,15 +52,15 @@ SRM_createDesktopShortcut(){
 }
 
 SRM_init(){			
-  setMSG "Configuring Steam Rom Manager"	
-  local json_directory="$SRM_userData_configDir/parsers"
-  local output_file="$SRM_userData_configDir/userConfigurations.json"
-  #local files=$1
-
-
-  
-
-  mkdir -p "$SRM_userData_configDir/"	
+	setMSG "Configuring Steam Rom Manager"		
+	local json_directory="$HOME/.config/steam-rom-manager/userData/parsers/"
+	local output_file="$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
+	#local files=$1
+	
+	mkdir -p "$HOME/.config/steam-rom-manager/userData/"
+	
+	# Add External Controller Steam Input Profiles
+	SRM_addSteamInputProfile
 
   #Multiemulator?
   exclusionList=""
@@ -214,6 +214,19 @@ SRM_resetConfig(){
   #Reseting launchers
   SRM_resetLaunchers
   echo "true"
+}
+
+SRM_addSteamInputProfile(){
+	setMSG "Adding External Controller Steam Input Profiles."
+	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_controller_ps4.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_controller_ps5.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_controller_switch_pro.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_controller_xbox360.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_controller_xboxone.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_controller_steam_deck.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_controller_generic.vdf" "$HOME/.steam/steam/controller_base/templates/"
+
+
 }
 
 SRM_IsInstalled(){

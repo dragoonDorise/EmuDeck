@@ -318,7 +318,14 @@ if [ "$doUninstall" == true ]; then
 	rm -rf $HOME/.steam/steam/controller_base/templates/mGBA_controller_config.vdf  &>> /dev/null
 	rm -rf $HOME/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf  &>> /dev/null
 	rm -rf $HOME/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf  &>> /dev/null	
+	rm -rf $HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_ps4.vdf  &>> /dev/null	
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_ps5.vdf  &>> /dev/null	
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_steam_deck.vdf  &>> /dev/null	
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_switch_pro.vdf  &>> /dev/null	
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_xbox360.vdf  &>> /dev/null	
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_xboxone.vdf  &>> /dev/null	
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_generic.vdf	&>> /dev/null	
 	find  "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons" -name 'EmuDeck*' -exec rm {} \;
 	
 	echo "65"
