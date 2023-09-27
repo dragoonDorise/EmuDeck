@@ -17,6 +17,15 @@ function getLatestReleaseURLGH(){
 		jq -r '[ .assets[] | select(.name | contains("'"$fileNameContains"'") and endswith("'"$fileType"'")).browser_download_url ][0] // empty'
 }
 
+function alert() {
+  osascript <<EOT
+	tell app "System Events"
+	  display dialog "$1" buttons {"OK"} default button 1 with icon caution with title "Flying Pigs - Mac Setup"
+	  return  -- Suppress result
+	end tell
+EOT
+}
+
 safeDownload() {
 	local name="$1"
 	local url="$2"
@@ -31,13 +40,13 @@ safeDownload() {
 		echo "- $showProgress"
 		echo "- $headers"
 	fi
-	
+
 	request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 && echo $'\2'0 || echo $'\2'$?)
 
 	returnCodes="${request#*$'\1'}"
 	httpCode="${returnCodes%$'\2'*}"
 	exitCode="${returnCodes#*$'\2'}"
-	
+
 	if [ "$httpCode" = "200" ] && [ "$exitCode" == "0" ]; then
 		#echo "$name downloaded successfully";
 		mv -v "$outFile.temp" "$outFile" &>/dev/null
@@ -69,29 +78,35 @@ if [ $hasBrew == "false" ]; then
 	pass="$(prompt 'EmuDeck needs to install Brew, and for that you need to input your password:' '')"
 	echo $pass | sudo -v -S && {
 		NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSLk https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-	}	
-	
+	}
+
 	if [ $appleChip == "arm64" ];then
 		echo "export PATH=/opt/homebrew/bin:$PATH" >> ~/.bash_profile && source ~/.bash_profile
-		echo "export PATH=/opt/homebrew/bin:$PATH" >> ~/.zshrc && source ~/.zshrc	
+		echo "export PATH=/opt/homebrew/bin:$PATH" >> ~/.zshrc && source ~/.zshrc
 	else
 		echo "export PATH=/usr/local/bin:$PATH" >> ~/.bash_profile && source ~/.bash_profile
-		echo "export PATH=/usr/local/bin:$PATH" >> ~/.zshrc && source ~/.zshrc			
+		echo "export PATH=/usr/local/bin:$PATH" >> ~/.zshrc && source ~/.zshrc
 	fi
-	
+
 fi
 
 #Brew dependencies
 echo "Installing EmuDeck dependencies..."
 brew install zenity gnu-sed rsync xmlstarlet
+if ! command -v xcode-select &>/dev/null; then
+	xcode-select --install
+	wait
+fi
 
-echo "All prerequisite packages have been installed. EmuDeck will be installed now!"
+
+alert "All prerequisite packages have been installed. EmuDeck's DMG will be installed now!"
+
 if [ $appleChip == "arm64" ];then
 	EmuDeckURL="$(getLatestReleaseURLGH "EmuDeck/emudeck-electron-early" "arm64.dmg")"
 else
 	EmuDeckURL="$(getLatestReleaseURLGH "EmuDeck/emudeck-electron-early" ".dmg")"
 fi
 
-safeDownload "EmuDeck" "$EmuDeckURL" "$HOME/Downloads/EmuDeck.dmg"
+safeDownload "EmuDeck" "$EmuDeckURL" "$HOME/Downloads/EmuDeck.dmg" && open "$HOME/Downloads/EmuDeck.dmg"
 
 exit
