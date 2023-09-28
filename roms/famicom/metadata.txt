@@ -1,4 +1,4 @@
 shortname: famicom
 collection: Nintendo Family Computer
 extensions: fds, FDS, nes, NES, unf, UNF, unif, UNIF, 7z, 7Z, zip, ZIP
-launch: RETROARCHPATH -L CORESPATH/mesen_libretro.so %ROM%
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/mesen_libretro.so %ROM%

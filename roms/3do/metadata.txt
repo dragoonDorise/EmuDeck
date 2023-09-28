@@ -1,6 +1,6 @@
 shortname: 3do
 collection: 3DO
 extensions: iso, ISO, bin, BIN, chd, CHD, cue, CUE, 7z, 7Z, zip, ZIP
-launch: RETROARCHPATH -L CORESPATH/opera_libretro.so %ROM%
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/opera_libretro.so %ROM%
 
 

@@ -1,6 +1,6 @@
 shortname: chailove
 collection: ChaiLove Game Engine
 extensions: chai, CHAI, chailove, CHAILOVE, 7z, 7Z, zip, ZIP
-launch: RETROARCHPATH -L CORESPATH/chailove_libretro.so %ROM%
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/chailove_libretro.so %ROM%
 
 

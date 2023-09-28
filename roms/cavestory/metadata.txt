@@ -1,6 +1,6 @@
 shortname: cavestory
 collection: Cave Story (NXEngine)
 extensions: exe, EXE, 7z, 7Z, zip, ZIP
-launch: RETROARCHPATH -L CORESPATH/nxengine_libretro.so %ROM%
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/nxengine_libretro.so %ROM%
 
 

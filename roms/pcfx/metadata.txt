@@ -1,7 +1,7 @@
 shortname: pcfx
 collection: NEC PC-FX
 extensions: cue CUE, ccd, CCD, toc, TOC, chd, CHD, 7z, 7Z, zip, ZIP
-launch: RETROARCHPATH -L CORESPATH/mednafen_pcfx_libretro.so %ROM%
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/mednafen_pcfx_libretro.so %ROM%
 
 
 
