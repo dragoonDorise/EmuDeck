@@ -8,7 +8,7 @@ source "$HOME/.config/EmuDeck/backend/functions/ToolScripts/emuDeckCloudSync.sh"
 touch "$savesPath/.gaming"
 touch "$savesPath/.watching"
 
-notify-send "Ready!" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync" 
+#notify-send "Ready!" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync" 
 
 # Declare an array to store current hashes
 echo "SERVICE - declare" >> $HOME/emudeck/CloudSync.log
@@ -17,17 +17,21 @@ declare -A current_hashes
 # Function to calculate the hash of a directory
 calculate_hash() { 
   dir="$1"
-  hash=$(find "$dir" -maxdepth 1 -type f -exec sha256sum {} + | sha256sum | awk '{print $1}')
+  hash=$(find "$dir" -type f -exec sha256sum {} + | sha256sum | awk '{print $1}')
   echo "$hash"
 }
 
 # Extract the name of the folder immediately behind "saves"
-get_parent_folder_name() {
-  echo "SERVICE - get_parent_folder_name" >> $HOME/emudeck/CloudSync.log
+get_parent_folder_name() { 
   dir="$1"
   parent_dir=$(dirname "$dir")
   folder_name=$(basename "$parent_dir")
   echo "$folder_name"
+}
+
+get_emulator() { 
+  local currentEmu=$(cat "$savesPath/.emuName")
+  echo $currentEmu  
 }
 
 # Initialize current hashes
@@ -46,44 +50,69 @@ do
   
   for dir in "${!current_hashes[@]}"; do
   #echo -ne "." >> $HOME/emudeck/CloudSync.log
-  new_hash=$(calculate_hash "$dir")
-  # if [[ $dir == *"retroarch/states"* ]]; then
+  
+  if [ -h "$dir" ]; then
+    realDir=$(readlink -f "$dir")
+    new_hash=$(calculate_hash "$realDir")
+  else
+    new_hash=$(calculate_hash "$dir")
+  fi
+  
+ 
+  # if [[ $dir == *"citra/saves"* ]]; then
   #   echo "$dir - ${current_hashes[$dir]}" >> $HOME/emudeck/CloudSync.log
   #   echo "$dir - $new_hash" >> $HOME/emudeck/CloudSync.log
   # fi
-  if [ "${current_hashes[$dir]}" != "$new_hash" ]; then
+  
+  currentEmu=$(get_emulator)
+  if [ $currentEmu == 'all' ]; then
+    currentEmu=$dir
+  fi  
+  
+  # echo $currentEmu >> $HOME/emudeck/CloudSync.log
+  # echo $dir >> $HOME/emudeck/CloudSync.log 
+  
+  if [ "${current_hashes[$dir]}" != "$new_hash" ] && [[ $dir == *"$currentEmu"* ]]; then
     # Show the name of the folder immediately behind "saves"
-     echo "SERVICE - CHANGES DETECTED, LETS CHECK IF ITS A DUPLICATE" >> $HOME/emudeck/CloudSync.log
-    if [ "$lastSavedDir" != "$dir" ]; then  
-    emuName=$(get_parent_folder_name "$dir")
-    #cloud_sync_update
-    timestamp=$(date +%s)
-    echo "SERVICE - $emuName CHANGES DETECTED" >> $HOME/emudeck/CloudSync.log
-    echo $timestamp > "$savesPath/$emuName/.pending_upload"
-    echo "SERVICE - UPLOAD" >> $HOME/emudeck/CloudSync.log
-    notify-send "Uploading from $emuName" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"    
-    cloud_sync_uploadEmu $emuName
-    rm -rf "$savesPath/$emuName/.pending_upload"
-    echo "SERVICE - UPLOADED" >> $HOME/emudeck/CloudSync.log   
-    lastSavedDir=$dir      
-    else    
-      echo "SERVICE - IGNORED" >> $HOME/emudeck/CloudSync.log   
-      lastSavedDir=''
+     echo "SERVICE - CHANGES DETECTED on $dir, LETS CHECK IF ITS A DUPLICATE" >> $HOME/emudeck/CloudSync.log
+     timestamp=$(date +%s)
+     
+     if [ $((timestamp - lastSavedTime)) == 0 ]; then
+      echo "SERVICE - IGNORED, same timestamp" >> $HOME/emudeck/CloudSync.log   
+     fi
+     echo $((timestamp - lastSavedTime)) >> $HOME/emudeck/CloudSync.log
+     
+    if [ $((timestamp - lastSavedTime)) -ge 1 ]; then
+      emuName=$(get_parent_folder_name "$dir")
+      #cloud_sync_update
+     
+      echo "SERVICE - $emuName CHANGES CONFIRMED" >> $HOME/emudeck/CloudSync.log
+      echo $timestamp > "$savesPath/$emuName/.pending_upload"
+      echo "SERVICE - UPLOADING" >> $HOME/emudeck/CloudSync.log
+      #notify-send "Uploading from $emuName" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"    
+      cloud_sync_uploadEmu $emuName
+      rm -rf "$savesPath/$emuName/.pending_upload"
+      echo "SERVICE - UPLOADED!" >> $HOME/emudeck/CloudSync.log   
+      lastSavedTime=$(date +%s)     
+    else          
+      lastSavedTime=''
     fi
-    current_hashes["$dir"]=$new_hash
+    current_hashes["$dir"]=$new_hash  
   fi    
   done
 
   #Autostop service when everything has finished
   if [ ! -f "$savesPath/.gaming" ]; then
     echo "SERVICE - NO GAMING" >> $HOME/emudeck/CloudSync.log
-    notify-send "Uploading... don't turn off your device" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
+    #notify-send "Uploading... don't turn off your device" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
     if [ ! -f "$HOME/emudeck/cloud.lock" ]; then
       echo "SERVICE - STOP WATCHING" >> $HOME/emudeck/CloudSync.log  
-      notify-send "Uploading... don't turn off your device" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
-      notify-send "Sync Completed! You can safely turn off your device" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
+      #notify-send "Uploading... don't turn off your device" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
+      #notify-send "Sync Completed! You can safely turn off your device" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
       rm -rf "$savesPath/.watching"
-      echo "SERVICE - NO LOCK - KILLING SERVICE" >> $HOME/emudeck/CloudSync.log     
+      rm -rf "$savesPath/.emuName"
+      echo "SERVICE - NO LOCK - KILLING SERVICE" >> $HOME/emudeck/CloudSync.log   
+        
       cloud_sync_stopService      
     fi
   fi
