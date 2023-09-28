@@ -1,0 +1,5 @@
+shortname: lutris
+collection: Lutris Open Gaming Platform
+extensions: desktop, sh
+launch: PLACEHOLDER %ROM%
+

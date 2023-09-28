@@ -1,0 +1,4 @@
+shortname: ps2
+collection: Sony PlayStation 2
+extensions: bin, BIN, chd, CHD, ciso, CISO, cso, CSO, dump, DUMP, elf, ELF, gz, GZ, m3u, M3U, mdf, MDF, img, IMG, iso, ISO, isz, ISZ, ngr, NRG
+launch: /bin/bash TOOLSPATH/launchers/pcsx2-qt.sh -batch -fullscreen %ROM%

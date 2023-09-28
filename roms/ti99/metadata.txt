@@ -1,0 +1,6 @@
+shortname: ti99
+collection: Texas Instruments TI-99
+extensions: rpk, RPK, 7z, 7Z, zip, ZIP
+launch: PLACEHOLDER %ROM%
+
+

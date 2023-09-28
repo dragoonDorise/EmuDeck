@@ -1,0 +1,4 @@
+shortname: gbc
+collection: Nintendo Game Boy Color
+extensions: bs, BS, cgb, CGB, dmg, DMG, gb, GB, gbc, GBC, sgb, SGB, sfc, SFC, smc, SMC, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/gambatte_libretro.so %ROM%

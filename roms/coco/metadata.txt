@@ -1,0 +1,7 @@
+shortname: coco
+collection: Tandy Color Computer
+extensions: cas, CAS, ccc, CCC, dsk, DSK, rom, ROM
+launch: PLACEHOLDER %ROM%
+
+
+

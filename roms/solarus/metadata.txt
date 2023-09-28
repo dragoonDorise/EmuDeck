@@ -1,0 +1,6 @@
+shortname: solarus
+collection: Solarus Game Engine
+extensions: solarus
+launch: PLACEHOLDER %ROM%
+
+

@@ -1,0 +1,6 @@
+shortname: apple2gs
+collection: Apple IIGS
+extensions: 2mg, 2MG
+launch: PLACEHOLDER %ROM%
+
+

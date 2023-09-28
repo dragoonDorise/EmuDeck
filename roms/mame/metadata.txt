@@ -1,0 +1,4 @@
+shortname: mame
+collection: Multiple Arcade Machine Emulator
+extensions: cmd, CMD, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/mame2003_plus_libretro.so %ROM%

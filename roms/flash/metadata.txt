@@ -1,0 +1,4 @@
+shortname: flash
+collection: Adobe Flash
+extensions: swf, SWF
+launch: launch: /bin/bash TOOLSPATH/launchers/ruffle.sh --fullscreen %ROM%

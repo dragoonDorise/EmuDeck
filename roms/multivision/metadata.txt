@@ -1,0 +1,4 @@
+shortname: multivision
+collection: Othello Multivision
+extensions: bin, BIN, gg, GG, rom, ROM, sg, SG, sms, SMS, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/gearsystem_libretro.so %ROM%

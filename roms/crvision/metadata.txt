@@ -1,0 +1,6 @@
+shortname: crvision
+collection: VTech CreatiVision
+extensions: bin, BIN, rom, ROM, 7z, 7Z, zip, ZIP
+launch: PLACEHOLDER %ROM%
+
+

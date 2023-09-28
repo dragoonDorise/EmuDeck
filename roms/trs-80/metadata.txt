@@ -1,0 +1,4 @@
+shortname: trs-80
+collection: Tandy TRS-80
+extensions: cmd, CMD, dsk, DSK
+launch: PLACEHOLDER %ROM%

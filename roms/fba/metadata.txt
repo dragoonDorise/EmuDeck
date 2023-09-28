@@ -1,0 +1,4 @@
+shortname: fba
+collection: FinalBurn Alpha
+extensions: iso, ISO, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/fbalpha2012_libretro.so %ROM%

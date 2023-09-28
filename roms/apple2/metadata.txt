@@ -1,0 +1,6 @@
+shortname: apple2
+collection: Apple II
+extensions: do, DO, dsk, DSK, nib, NIB, po, PO
+launch: PLACEHOLDER %ROM%
+
+

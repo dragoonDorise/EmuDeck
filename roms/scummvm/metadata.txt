@@ -1,0 +1,4 @@
+shortname: scummvm
+collection: ScummVM Game Engine
+extensions: scummvm, SCUMMVM, svm, SVM
+launch: /bin/bash TOOLSPATH/launchers/scummvm.sh --path="%ROM%" --auto-detect

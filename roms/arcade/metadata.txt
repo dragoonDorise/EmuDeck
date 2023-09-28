@@ -1,0 +1,4 @@
+shortname: arcade
+collection: Arcade
+extensions: cmd, CMD, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/mame_libretro.so %ROM%

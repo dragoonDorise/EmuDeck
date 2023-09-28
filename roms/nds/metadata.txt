@@ -1,0 +1,4 @@
+shortname: nds
+collection: Nintendo DS
+extensions: bin, BIN, nds, NDS, 7z, 7Z, zip, ZIP
+launch: TOOLSPATH/launchers/melonds.sh %ROM% -f

@@ -1,0 +1,4 @@
+shortname: macintosh
+collection: Apple Macintosh
+extensions: dsk, img, zip ,hvf ,cmd
+launch: RETROARCHPATH -L CORESPATH/minivmac.so %ROM%

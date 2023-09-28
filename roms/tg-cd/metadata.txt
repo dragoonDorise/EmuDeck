@@ -1,0 +1,4 @@
+shortname: tg-cd
+collection: NEC TurboGrafx-CD
+extensions: ccd, CCD, chd, CHD, cue, CUE, img, IMG, iso, ISO, m3u, M3U, pce, PCE, sgx, SGX, toc, TOC, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/mednafen_pce_libretro.so %ROM%

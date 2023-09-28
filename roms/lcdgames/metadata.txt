@@ -1,0 +1,4 @@
+shortname: lcdgames
+collection: LCD Handheld Games
+extensions: mgw, MGW, 7z, 7Z, zip, ZIP
+launch:RETROARCHPATH -L CORESPATH/gw_libretro.so %ROM%

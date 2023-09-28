@@ -1,0 +1,6 @@
+shortname: zmachine
+collection: Infocom Z-machine
+extensions: 7z, 7Z, zip, ZIP
+launch: PLACEHOLDER %ROM%
+
+

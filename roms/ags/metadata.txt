@@ -1,0 +1,6 @@
+shortname: ags
+collection: Adventure Game Studio Game Engine
+extensions: desktop
+launch: PLACEHOLDER %ROM%
+
+

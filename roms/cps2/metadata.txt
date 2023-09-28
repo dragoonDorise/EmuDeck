@@ -1,0 +1,4 @@
+shortname: cps2
+collection: Capcom Play System II
+extensions: 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/mame_libretro.so %ROM%

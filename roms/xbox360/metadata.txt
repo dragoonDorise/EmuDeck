@@ -1,0 +1,4 @@
+shortname: xbox360
+collection: Microsoft Xbox 360
+extensions: iso, ISO, xex, XEX
+launch: /bin/bash TOOLSPATH/launchers/xenia.sh "Z:%ROM%"

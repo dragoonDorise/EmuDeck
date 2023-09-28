@@ -1,0 +1,4 @@
+shortname: nes
+collection: Nintendo Entertainment System
+extensions: fds, FDS, nes, NES, unf, UNF, unif, UNIF, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/mesen_libretro.so %ROM%

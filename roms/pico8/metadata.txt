@@ -1,0 +1,4 @@
+shortname: pico8
+collection: PICO-8 Fantasy Console
+extensions: p8, P8, png, PNG, zip, ZIP, 7z, 7Z
+launch: RETROARCHPATH -L CORESPATH/retro8_libretro.so %ROM%

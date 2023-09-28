@@ -1,0 +1,4 @@
+shortname: ngpc
+collection: SNK Neo Geo Pocket Color
+extensions: ngp, NGP, ngc, NGC, ngpc, NGPC, npc, NPC, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/mednafen_ngp_libretro.so %ROM%

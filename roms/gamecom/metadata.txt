@@ -1,0 +1,6 @@
+shortname: gamecom
+collection: Tiger Electronics Game, com
+extensions: tgc, TGC, 7z, 7Z, zip, ZIP
+launch: PLACEHOLDER %ROM%
+
+

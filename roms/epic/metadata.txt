@@ -1,0 +1,6 @@
+shortname: epic
+collection: Epic Games Store
+extensions: desktop, sh
+launch: PLACEHOLDER %ROM%
+
+

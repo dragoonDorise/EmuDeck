@@ -1,0 +1,4 @@
+shortname: doom
+collection: Doom
+extensions: desktop, iwad, IWAD, pk4, PK4, pwad, PWAD, sh, wad, WAD
+launch: RETROARCHPATH -L CORESPATH/prboom_libretro.so %ROM%

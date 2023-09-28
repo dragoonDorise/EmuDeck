@@ -1,0 +1,7 @@
+shortname: desktop
+collection: Desktop Applications
+extensions: desktop, sh
+launch: PLACEHOLDER %ROM%
+
+
+

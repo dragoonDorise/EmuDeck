@@ -1,0 +1,4 @@
+shortname: atarijaguar
+collection: Atari Jaguar
+extensions: j64, J64, jag, JAG, rom, ROM, abs, ABS, cof, COF, bin, BIN, prg, PRG, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/virtualjaguar_libretro.so %ROM%

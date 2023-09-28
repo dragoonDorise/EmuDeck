@@ -1,0 +1,6 @@
+shortname: arcadia
+collection: Emerson Arcadia 2001
+extensions: bin, BIN, 7z, 7Z, zip, ZIP
+launch: PLACEHOLDER %ROM%
+
+

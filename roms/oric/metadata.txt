@@ -1,0 +1,6 @@
+shortname: oric
+collection: Tangerine Computer Systems Oric
+extensions: dsk, DSK, ort, ORT, tap, TAP, wav, WAV
+launch: PLACEHOLDER %ROM%
+
+

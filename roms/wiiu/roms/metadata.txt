@@ -1,0 +1,6 @@
+shortname: wiiu (custom system)
+collection: Nintendo Wii U
+extensions: rpx, RPX, wud, WUD, wux, WUX, elf, ELF, iso, ISO, wad, WAD, wua, WUA
+launch: /bin/bash TOOLSPATH/launchers/cemu.sh -f -g z:%ROM%
+
+

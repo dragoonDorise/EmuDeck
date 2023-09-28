@@ -1,0 +1,6 @@
+shortname: bbcmicro
+collection: BBC Micro
+extensions: 7z, 7Z, zip, ZIP
+launch: PLACEHOLDER %ROM%
+
+

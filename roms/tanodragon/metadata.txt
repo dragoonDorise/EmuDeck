@@ -1,0 +1,6 @@
+shortname: tanodragon
+collection: Tano Dragon
+extensions: cas, CAS, ccc, CCC, dsk, DSK, rom, ROM
+launch: PLACEHOLDER %ROM%
+
+

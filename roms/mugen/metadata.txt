@@ -1,0 +1,6 @@
+shortname: mugen
+collection: M, U, G, E, N Game Engine
+extensions: 7z, 7Z, zip, ZIP
+launch: PLACEHOLDER %ROM%
+
+

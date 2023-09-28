@@ -1,0 +1,4 @@
+shortname: easyrpg
+collection: EasyRPG Game Engine
+extensions: easyrpg, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/easyrpg_libretro.so %ROM%

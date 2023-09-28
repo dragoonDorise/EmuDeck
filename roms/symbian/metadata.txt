@@ -1,0 +1,6 @@
+shortname: symbian
+collection: Symbian
+extensions: 7z, 7Z, zip, ZIP
+launch: PLACEHOLDER %ROM%
+
+

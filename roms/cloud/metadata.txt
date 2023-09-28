@@ -1,0 +1,4 @@
+shortname: cloud
+collection: Cloud Services
+extensions: sh
+launch: /bin/bash %ROM%

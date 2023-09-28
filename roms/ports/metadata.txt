@@ -1,0 +1,4 @@
+shortname: ports
+collection: Ports
+extensions: desktop, sh
+launch: PLACEHOLDER %ROM%

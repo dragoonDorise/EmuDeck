@@ -1,0 +1,6 @@
+shortname: satellaview
+collection: Nintendo Satellaview
+extensions: bml, BML, bs, BS, fig, FIG, sfc, SFC, smc, SMC, swc, SWC, st, ST, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/snes9x_libretro.so %ROM%
+
+
