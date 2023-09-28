@@ -1,0 +1,6 @@
+shortname: lutro
+collection: Lutro Game Engine
+extensions: lua, LUA, lutro, LUTRO, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/lutro_libretro.so %ROM%
+
+

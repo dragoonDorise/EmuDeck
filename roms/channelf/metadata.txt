@@ -1,0 +1,6 @@
+shortname: channelf
+collection: Fairchild Channel F
+extensions: bin, BIN, chf, CHF, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/freechaf_libretro.so %ROM%
+
+

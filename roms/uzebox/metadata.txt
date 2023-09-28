@@ -1,0 +1,6 @@
+shortname: uzebox
+collection: Uzebox
+extensions: uze, UZE, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/uzem_libretro.so %ROM%
+
+

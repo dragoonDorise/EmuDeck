@@ -1,0 +1,7 @@
+shortname: atari2600
+collection: Atari 2600
+extensions: a26, A26, bin, BIN, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/stella_libretro.so %ROM%
+
+
+

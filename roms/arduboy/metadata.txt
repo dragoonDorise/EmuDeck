@@ -1,0 +1,6 @@
+shortname: arduboy
+collection: Arduboy Miniature Game System
+extensions: hex, HEX, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/arduous_libretro.so %ROM%
+
+

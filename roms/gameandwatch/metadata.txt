@@ -1,0 +1,6 @@
+shortname: gameandwatch
+collection: Nintendo Game and Watch
+extensions: mgw, MGW, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/gw_libretro.so %ROM%
+
+

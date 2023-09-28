@@ -1,0 +1,7 @@
+shortname: wonderswan
+collection: Bandai WonderSwan
+extensions: ws, WS, pc2, PC2, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/mednafen_wswan_libretro.so %ROM%
+
+
+

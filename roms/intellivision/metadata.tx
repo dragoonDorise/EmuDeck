@@ -1,0 +1,6 @@
+shortname: intellivision
+collection: Mattel Electronics Intellivision
+extensions: int, INT, bin, BIN, rom, ROM, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/freeintv_libretro.so %ROM%
+
+

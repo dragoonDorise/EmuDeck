@@ -1,0 +1,6 @@
+shortname: tic80
+collection: TIC-80 Game Engine
+extensions: tic, TIC
+launch: RETROARCHPATH -L CORESPATH/tic80_libretro.so %ROM%
+
+

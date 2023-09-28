@@ -1,0 +1,6 @@
+shortname: fbneo
+collection: FinalBurn Neo
+extensions: ccd, CCD, cue, CUE, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/fbneo_libretro.so %ROM%
+
+

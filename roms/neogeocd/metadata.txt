@@ -1,0 +1,6 @@
+shortname: neogeocd
+collection: SNK Neo Geo CD
+extensions: chd, CHD, cue, CUE, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/neocd_libretro.so %ROM%
+
+

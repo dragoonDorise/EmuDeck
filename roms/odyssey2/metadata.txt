@@ -1,0 +1,6 @@
+shortname: odyssey2
+collection: Magnavox Odyssey2
+extensions: bin, BIN, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/o2em_libretro.so %ROM%
+
+

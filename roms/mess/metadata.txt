@@ -1,0 +1,6 @@
+shortname: mess
+collection: Multi Emulator Super System
+extensions: chd, CHD, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/mess2015_libretro.so %ROM%
+
+

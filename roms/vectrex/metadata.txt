@@ -1,0 +1,6 @@
+shortname: vectrex
+collection: Vectrex
+extensions: bin, BIN, vec, VEC, gam, GAM, vc, VC, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/vecx_libretro.so %ROM%
+
+

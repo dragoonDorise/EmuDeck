@@ -1,0 +1,6 @@
+shortname: palm
+collection: Palm OS
+extensions: prc, PRC, pqa, PQA, img, IMG, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/mu_libretro.so %ROM%
+
+

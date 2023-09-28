@@ -1,0 +1,7 @@
+shortname: cdimono1
+collection: Philips CD-i
+extensions: chd, CHD, cue, CUE, iso, ISO
+launch: RETROARCHPATH -L CORESPATH/same_cdi_libretro.so %ROM%
+
+
+

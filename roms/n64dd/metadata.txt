@@ -1,0 +1,7 @@
+shortname: n64dd
+collection: Nintendo 64DD
+extensions: bin, BIN, n64, N64, ndd, NDD, u1, U1, v64, V64, z64, Z64, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/parallel_n64_libretro.so %ROM%
+
+
+

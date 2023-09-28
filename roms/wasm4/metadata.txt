@@ -1,0 +1,6 @@
+shortname: wasm4
+collection: WASM-4 Fantasy Console
+extensions: wasm, WASM
+launch: RETROARCHPATH -L CORESPATH/wasm4_libretro.so %ROM%
+
+

@@ -1,0 +1,6 @@
+shortname: megaduck
+collection: Creatronic Mega Duck
+extensions: bin, BIN, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/sameduck_libretro.so %ROM%
+
+

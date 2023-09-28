@@ -1,0 +1,6 @@
+shortname: zx81
+collection: Sinclair ZX81
+extensions: tzx, TZX, p, P, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/81_libretro.so %ROM%
+
+

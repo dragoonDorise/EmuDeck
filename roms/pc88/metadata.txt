@@ -1,0 +1,6 @@
+shortname: pc88
+collection: NEC PC-8800 Series
+extensions: d88, D88, u88, U88, m3u, M3U, 7z, 7Z, zip, ZIP
+launch: RETROARCHPATH -L CORESPATH/quasi88_libretro.so %ROM%
+
+
