@@ -174,12 +174,12 @@ RetroArch_setEmulationFolder(){
 
 #SetupSaves
 RetroArch_setupSaves(){
+
 	linkToSaveFolder retroarch states "$RetroArch_path/states"
 	linkToSaveFolder retroarch saves "$RetroArch_path/saves"
 	
-	RetroArch_setConfigOverride 'savestate_directory = ' "savestate_directory = $savesPath/retroarch/states" "$RetroArch_configFile"
-	RetroArch_setConfigOverride 'savefile_directory = ' "savefile_directory = $savesPath/retroarch/states" "$RetroArch_configFile"
-
+	#RetroArch_setConfigOverride 'savestate_directory = ' "savestate_directory = $savesPath/retroarch/states" "$RetroArch_configFile"
+	#RetroArch_setConfigOverride 'savefile_directory = ' "savefile_directory = $savesPath/retroarch/states" "$RetroArch_configFile"
 }
 
 

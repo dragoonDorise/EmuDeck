@@ -6,7 +6,7 @@ installEmuAI(){
     local showProgress="$4"
     local lastVerFile="$5"
     local latestVer="$6"
-    
+
     if [[ "$fileName" == "" ]]; then
         fileName="$name"
     fi
