@@ -1,4 +1,4 @@
-shortname: ports
 collection: Ports
+shortname: ports
 extensions: desktop, sh
 launch: PLACEHOLDER %ROM%

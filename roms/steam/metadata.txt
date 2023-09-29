@@ -1,5 +1,5 @@
-shortname: steam
 collection: Valve Steam
+shortname: steam
 extensions: desktop, sh
 launch: /bin/bash %ROM%
 

@@ -1,5 +1,5 @@
-shortname: oric
 collection: Tangerine Computer Systems Oric
+shortname: oric
 extensions: dsk, DSK, ort, ORT, tap, TAP, wav, WAV
 launch: PLACEHOLDER %ROM%
 

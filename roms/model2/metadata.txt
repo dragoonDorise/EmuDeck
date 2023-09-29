@@ -1,5 +1,5 @@
-shortname: model2
 collection: Sega Model 2
+shortname: model2
 extensions: 7z, 7Z, zip, ZIP
 launch: PLACEHOLDER %ROM%
 

@@ -1,5 +1,5 @@
-shortname: daphne
 collection: Daphne Arcade LaserDisc Emulator
+shortname: daphne
 extensions: daphne, singe
 launch: PLACEHOLDER %ROM%
 

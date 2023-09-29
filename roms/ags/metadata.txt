@@ -1,5 +1,5 @@
-shortname: ags
 collection: Adventure Game Studio Game Engine
+shortname: ags
 extensions: desktop
 launch: PLACEHOLDER %ROM%
 

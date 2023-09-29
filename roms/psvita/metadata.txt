@@ -1,4 +1,4 @@
-shortname: psvita
 collection: Sony PlayStation Vita
+shortname: psvita
 extensions: eboot.bin
 launch: /bin/bash TOOLSPATH/launchers/vita3k.sh -Fr %ROM%

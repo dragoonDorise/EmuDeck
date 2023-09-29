@@ -1,5 +1,5 @@
-shortname: epic
 collection: Epic Games Store
+shortname: epic
 extensions: desktop, sh
 launch: PLACEHOLDER %ROM%
 

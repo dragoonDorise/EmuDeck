@@ -1,5 +1,5 @@
-shortname: bbcmicro
 collection: BBC Micro
+shortname: bbcmicro
 extensions: 7z, 7Z, zip, ZIP
 launch: PLACEHOLDER %ROM%
 

@@ -1,5 +1,5 @@
-shortname: openbor
 collection: OpenBOR Game Engine
+shortname: openbor
 extensions: AppImage
 launch: PLACEHOLDER %ROM%
 

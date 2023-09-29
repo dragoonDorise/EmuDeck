@@ -1,5 +1,5 @@
-shortname: xbox
 collection: Microsoft Xbox
+shortname: xbox
 extensions: iso, ISO
 launch: /bin/bash TOOLSPATH/launchers/xemu.sh -full-screen -dvd_path %ROM%
 

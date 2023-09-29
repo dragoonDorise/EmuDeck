@@ -1,5 +1,5 @@
-shortname: samcoupe
 collection: SAM Coupé
+shortname: samcoupe
 extensions: dsk, DSK, mgt, MGT, sbt, SBT, sad, SAD, 7z, 7Z, zip, ZIP
 launch: PLACEHOLDER %ROM%
 

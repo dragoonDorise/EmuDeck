@@ -1,5 +1,5 @@
-shortname: dragon32
 collection: Dragon 32
+shortname: dragon32
 extensions: cas, CAS, ccc, CCC, dsk, DSK, rom, ROM
 launch: %EMULATOR_XROAR% -fs -default-machine dragon32 %ROM%
 

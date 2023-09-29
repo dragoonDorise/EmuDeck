@@ -1,5 +1,5 @@
-shortname: model3
 collection: Sega Model 3
+shortname: model3
 extensions: 7z, 7Z, zip, ZIP
 launch: PLACEHOLDER %ROM%
 
