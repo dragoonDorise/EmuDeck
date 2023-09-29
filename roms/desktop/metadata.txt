@@ -1,7 +1,7 @@
 collection: Desktop Applications
 shortname: desktop
 extensions: desktop, sh
-launch: PLACEHOLDER %ROM%
+launch: PLACEHOLDER {file.path}
 
 
 

@@ -32,7 +32,8 @@ Pegasus_init(){
 
 	#metadata and cores paths
 	rsync -r  "$EMUDECKGIT/roms/" "$romsPath"
-	find $romsPath -type f -name "metadata.txt" -exec sed -i 's/CORESPATH/$RetroArch_cores/g' {} \;
+	find $romsPath -type f -name "metadata.txt" -exec sed -i "s|CORESPATH|${RetroArch_cores}|g" {} \;
+
 
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$Pegasus_dir_file"
 

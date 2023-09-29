@@ -1,6 +1,6 @@
 collection: Apple II
 shortname: apple2
 extensions: do, DO, dsk, DSK, nib, NIB, po, PO
-launch: PLACEHOLDER %ROM%
+launch: PLACEHOLDER {file.path}
 
 

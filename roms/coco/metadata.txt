@@ -1,7 +1,7 @@
 collection: Tandy Color Computer
 shortname: coco
 extensions: cas, CAS, ccc, CCC, dsk, DSK, rom, ROM
-launch: PLACEHOLDER %ROM%
+launch: PLACEHOLDER {file.path}
 
 
 

@@ -1,4 +1,4 @@
 collection: Ports
 shortname: ports
 extensions: desktop, sh
-launch: PLACEHOLDER %ROM%
+launch: PLACEHOLDER {file.path}
