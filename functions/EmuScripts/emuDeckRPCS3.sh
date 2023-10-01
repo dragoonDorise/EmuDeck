@@ -127,6 +127,8 @@ RPCS3_migrate(){
 		migrateAndLinkConfig "$RPCS3_emuName" "$migrationTable"
 	fi
 
+	echo "true"
+
 }
 
 #WideScreenOn
