@@ -792,7 +792,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -808,11 +808,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F4, Pause, EmuDeck_Pause.png, #232323 #00ADAD"
+							"binding"		"key_press F4, Pause/Play, EmuDeck_Pause.png, #232323 #00ADAD"
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -833,7 +833,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -849,11 +849,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F, Fullscreen, EmuDeck_Menu.png, #232323 #ADA200"
+							"binding"		"key_press F, Toggle Full Screen, EmuDeck_Menu.png, #232323 #ADA200"
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -894,7 +894,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -914,7 +914,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -934,7 +934,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -950,7 +950,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press X, Shut Down Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
+							"binding"		"key_press X, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
 						}
 						"settings"
 						{
@@ -967,16 +967,16 @@
 		{
 			"mouse_smoothing"		"0"
 			"touch_menu_button_count"		"9"
-			"touch_menu_opacity"		"95"
-			"touch_menu_position_x"		"1"
-			"touch_menu_position_y"		"99"
+			"touch_menu_opacity"		"100"
+			"touch_menu_position_x"		"10"
+			"touch_menu_position_y"		"80"
 			"touch_menu_scale"		"140"
 		}
 	}
 	"group"
 	{
 		"id"		"20"
-		"mode"		"touch_menu"
+		"mode"		"radial_menu"
 		"name"		"Emulators"
 		"description"		""
 		"inputs"
@@ -989,27 +989,12 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action CHANGE_PRESET 14 1 1, ares, EmuDeck_ControlConfig.png, #665200 #FFFFFF"
+							"binding"		"key_press KEYPAD_PERIOD, How to Use: Long press to activate. Some emulators may use combo hotkeys instead., ghost_030_inv_0312.png, #420058 #FFFFFF"
 						}
 						"settings"
 						{
 							"haptic_intensity"		"2"
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"touch_menu_button_1"
-			{
-				"activators"
-				{
-					"Long_Press"
-					{
-						"bindings"
-						{
-							"binding"		"controller_action CHANGE_PRESET 2 1 1, Cemu, EmuDeck_ControlConfig.png, #210063 #FFFFFF"
+							"toggle"		"1"
 						}
 					}
 				}
@@ -1025,7 +1010,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action CHANGE_PRESET 3 1 1, Citra, EmuDeck_ControlConfig.png, #4D004C #FFFFFF"
+							"binding"		"controller_action CHANGE_PRESET 14 1 1, ares, EmuDeck_ControlConfig.png, #665200 #FFFFFF"
 						}
 					}
 				}
@@ -1041,7 +1026,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action CHANGE_PRESET 5 1 1, DuckStation, EmuDeck_ControlConfig.png, #4D0000 #FFFFFF"
+							"binding"		"controller_action CHANGE_PRESET 2 1 1, Cemu, EmuDeck_ControlConfig.png, #210063 #FFFFFF"
 						}
 					}
 				}
@@ -1057,7 +1042,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action CHANGE_PRESET 6 1 1, No Profile, EmuDeck_ControlConfig.png, #145252 #FFFFFF"
+							"binding"		"controller_action CHANGE_PRESET 3 1 1, Citra, EmuDeck_ControlConfig.png, #4D004C #FFFFFF"
 						}
 					}
 				}
@@ -1073,7 +1058,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action CHANGE_PRESET 8 1 1, mGBA, EmuDeck_ControlConfig.png, #2D4400 #FFFFFF"
+							"binding"		"controller_action CHANGE_PRESET 5 1 1, DuckStation, EmuDeck_ControlConfig.png, #4D0000 #FFFFFF"
 						}
 					}
 				}
@@ -1089,7 +1074,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action CHANGE_PRESET 11 1 1, melonDS, EmuDeck_ControlConfig.png, #58002C #FFFFFF"
+							"binding"		"controller_action CHANGE_PRESET 8 1 1, mGBA (Standalone), EmuDeck_ControlConfig.png, #2D4400 #FFFFFF"
 						}
 					}
 				}
@@ -1105,7 +1090,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action CHANGE_PRESET 4 1 1, PPSSPP, EmuDeck_ControlConfig.png, #00663D #FFFFFF"
+							"binding"		"controller_action CHANGE_PRESET 11 1 1, melonDS (Standalone), EmuDeck_ControlConfig.png, #58002C #FFFFFF"
 						}
 					}
 				}
@@ -1114,6 +1099,38 @@
 				}
 			}
 			"touch_menu_button_8"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action CHANGE_PRESET 6 1 1, No Profile, EmuDeck_ControlConfig.png, #145252 #FFFFFF"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_9"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action CHANGE_PRESET 4 1 1, PPSSSPP (Standalone), EmuDeck_ControlConfig.png, #00663D #FFFFFF"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_10"
 			{
 				"activators"
 				{
@@ -1132,7 +1149,9 @@
 		}
 		"settings"
 		{
+			"touchmenu_button_fire_type"		"0"
 			"touch_menu_opacity"		"100"
+			"touch_menu_scale"		"150"
 		}
 	}
 	"group"
@@ -2327,7 +2346,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -2347,7 +2366,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -2367,7 +2386,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -2407,7 +2426,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -2427,7 +2446,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -2439,6 +2458,9 @@
 		"settings"
 		{
 			"touchmenu_button_fire_type"		"0"
+			"touch_menu_opacity"		"100"
+			"touch_menu_position_x"		"10"
+			"touch_menu_position_y"		"80"
 		}
 	}
 	"group"
@@ -2471,7 +2493,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"475"
 						}
 					}
 				}
@@ -2511,7 +2533,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -2531,7 +2553,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -2551,7 +2573,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -2571,7 +2593,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -2591,7 +2613,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"150"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -2611,7 +2633,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -2631,7 +2653,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"150"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -2639,6 +2661,12 @@
 				{
 				}
 			}
+		}
+		"settings"
+		{
+			"touch_menu_opacity"		"100"
+			"touch_menu_position_x"		"10"
+			"touch_menu_position_y"		"80"
 		}
 	}
 	"group"
@@ -2671,7 +2699,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -2692,7 +2720,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -2701,6 +2729,26 @@
 				}
 			}
 			"touch_menu_button_2"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F11, Toggle Full Screen, EmuDeck_Menu.png, #232323 #FFFFFF"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_3"
 			{
 				"activators"
 				{
@@ -2720,6 +2768,12 @@
 				{
 				}
 			}
+		}
+		"settings"
+		{
+			"touch_menu_opacity"		"100"
+			"touch_menu_position_x"		"10"
+			"touch_menu_position_y"		"80"
 		}
 	}
 	"group"
@@ -3687,7 +3741,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 					"Long_Press"
@@ -3698,7 +3752,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 							"delay_start"		"25"
 						}
 					}
@@ -3719,7 +3773,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 					"Long_Press"
@@ -3730,7 +3784,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 							"delay_start"		"25"
 						}
 					}
@@ -3751,7 +3805,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -3767,11 +3821,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, Pause, EmuDeck_Pause.png, #232323 #E4E4E4"
+							"binding"		"key_press LEFT_CONTROL, Pause/Play, EmuDeck_Pause.png, #232323 #E4E4E4"
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 					"Long_Press"
@@ -3782,7 +3836,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 							"delay_start"		"25"
 						}
 					}
@@ -3803,7 +3857,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 					"Long_Press"
@@ -3814,7 +3868,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 							"delay_start"		"25"
 						}
 					}
@@ -3855,7 +3909,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 					"Long_Press"
@@ -3866,7 +3920,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -3882,7 +3936,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, Shut Down Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
+							"binding"		"key_press LEFT_CONTROL, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
 						}
 						"settings"
 						{
@@ -3920,7 +3974,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -3960,6 +4014,12 @@
 				{
 				}
 			}
+		}
+		"settings"
+		{
+			"touch_menu_opacity"		"100"
+			"touch_menu_position_x"		"10"
+			"touch_menu_position_y"		"80"
 		}
 	}
 	"group"
@@ -4012,7 +4072,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 					"Long_Press"
@@ -4023,7 +4083,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 							"delay_start"		"25"
 						}
 					}
@@ -4044,7 +4104,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -4060,11 +4120,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F2, Pause, EmuDeck_Pause.png, #232323 #00ADAD"
+							"binding"		"key_press F2, Pause/Play, EmuDeck_Pause.png, #232323 #00ADAD"
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -4084,7 +4144,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 					"Long_Press"
@@ -4095,7 +4155,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 							"delay_start"		"25"
 						}
 					}
@@ -4116,7 +4176,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -4132,7 +4192,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_SHIFT, Hard Reset, EmuDeck_Reset.png, #232323 #AD0000"
+							"binding"		"key_press LEFT_SHIFT, Reset, EmuDeck_Reset.png, #232323 #AD0000"
 						}
 						"settings"
 						{
@@ -4184,7 +4244,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F12, Shut Down Emulation, EmuDeck_QuitExit.png, #232323 #AD0000"
+							"binding"		"key_press F12, Stop Emulation, EmuDeck_QuitExit.png, #232323 #AD0000"
 						}
 						"settings"
 						{
@@ -4208,7 +4268,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 					"Long_Press"
@@ -4219,7 +4279,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 							"delay_start"		"25"
 						}
 					}
@@ -4240,7 +4300,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 					"Long_Press"
@@ -4251,7 +4311,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -4271,7 +4331,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -4291,7 +4351,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -4304,6 +4364,8 @@
 		{
 			"touchmenu_button_fire_type"		"0"
 			"touch_menu_opacity"		"100"
+			"touch_menu_position_x"		"10"
+			"touch_menu_position_y"		"80"
 		}
 	}
 	"group"
@@ -4326,7 +4388,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -4629,6 +4691,8 @@
 		{
 			"touchmenu_button_fire_type"		"0"
 			"touch_menu_opacity"		"100"
+			"touch_menu_position_x"		"10"
+			"touch_menu_position_y"		"80"
 		}
 	}
 	"group"
@@ -5297,7 +5361,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -5317,7 +5381,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -5333,11 +5397,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press PERIOD, Fullscreen, EmuDeck_Menu.png, #232323 #E4E4E4"
+							"binding"		"key_press PERIOD, Toggle Full Screen, EmuDeck_Menu.png, #232323 #E4E4E4"
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -5357,7 +5421,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -5397,7 +5461,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -5417,7 +5481,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -5433,11 +5497,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_BRACKET, Pause/Resume, EmuDeck_Pause.png, #232323 #E4E4E4"
+							"binding"		"key_press LEFT_BRACKET, Pause/Play, EmuDeck_Pause.png, #232323 #E4E4E4"
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -5457,7 +5521,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -5470,6 +5534,9 @@
 		{
 			"touchmenu_button_fire_type"		"0"
 			"touch_menu_button_count"		"13"
+			"touch_menu_opacity"		"100"
+			"touch_menu_position_x"		"10"
+			"touch_menu_position_y"		"80"
 		}
 	}
 	"group"
@@ -5492,7 +5559,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -5652,6 +5719,9 @@
 		"settings"
 		{
 			"touchmenu_button_fire_type"		"0"
+			"touch_menu_opacity"		"100"
+			"touch_menu_position_x"		"10"
+			"touch_menu_position_y"		"80"
 		}
 	}
 	"group"
@@ -6573,7 +6643,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -6741,6 +6811,9 @@
 		"settings"
 		{
 			"touchmenu_button_fire_type"		"0"
+			"touch_menu_opacity"		"100"
+			"touch_menu_position_x"		"10"
+			"touch_menu_position_y"		"80"
 		}
 	}
 	"group"
@@ -6813,7 +6886,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -6833,7 +6906,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -6853,7 +6926,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -6873,7 +6946,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -6889,7 +6962,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press INSERT, Reset Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
+							"binding"		"key_press INSERT, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
 						}
 						"settings"
 						{
@@ -6909,11 +6982,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F3, Enable Keyboard, ghost_080_input_0140.png, #232323 #FFFFFF"
+							"binding"		"key_press F3, Enable/Disable Keyboard, ghost_080_input_0140.png, #232323 #FFFFFF"
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -6929,11 +7002,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F2, Enable Mouse, ghost_080_input_0040.png, #232323 #FFFFFF"
+							"binding"		"key_press F2, Enable/Disable Mouse, ghost_080_input_0040.png, #232323 #FFFFFF"
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -6949,7 +7022,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press END, Stop Emulation, EmuDeck_Reset.png, #232323 #AD0000"
+							"binding"		"key_press END, Reset, EmuDeck_Reset.png, #232323 #AD0000"
 						}
 						"settings"
 						{
@@ -6973,7 +7046,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -6989,11 +7062,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F1, Quick Menu, EmuDeck_Menu.png, "
+							"binding"		"key_press F1, Toggle Full Screen, EmuDeck_Menu.png, "
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -7013,7 +7086,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -7033,7 +7106,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"1000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -7045,6 +7118,9 @@
 		"settings"
 		{
 			"touchmenu_button_fire_type"		"0"
+			"touch_menu_opacity"		"100"
+			"touch_menu_position_x"		"10"
+			"touch_menu_position_y"		"80"
 		}
 	}
 	"group"
@@ -7326,6 +7402,90 @@
 	}
 	"group"
 	{
+		"id"		"194"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"requires_click"		"0"
+		}
+	}
+	"group"
+	{
+		"id"		"195"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"requires_click"		"0"
+		}
+	}
+	"group"
+	{
+		"id"		"196"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"requires_click"		"0"
+		}
+	}
+	"group"
+	{
+		"id"		"197"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"requires_click"		"0"
+		}
+	}
+	"group"
+	{
+		"id"		"198"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"requires_click"		"0"
+		}
+	}
+	"group"
+	{
+		"id"		"199"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"requires_click"		"0"
+		}
+	}
+	"group"
+	{
 		"id"		"7"
 		"mode"		"switches"
 		"name"		""
@@ -7494,8 +7654,15 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, Swap Screens, , "
-							"binding"		"key_press TAB, Swap Screens, , "
+							"binding"		"key_press LEFT_CONTROL, Swap Screens/Full Screen, , "
+							"binding"		"key_press TAB, Swap Screens/Full Screen, , "
+						}
+					}
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F11, , "
 						}
 					}
 				}
@@ -7511,8 +7678,15 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, Swap Screens, , "
-							"binding"		"key_press TAB, Swap Screens, , "
+							"binding"		"key_press LEFT_CONTROL, Swap Screens/Full Screen, , "
+							"binding"		"key_press TAB, Swap Screens/Full Screen, , "
+						}
+					}
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F11, , "
 						}
 					}
 				}
@@ -7686,7 +7860,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F, Fullscreen Toggle, , "
+							"binding"		"key_press F, Toggle Full Screen, , "
 						}
 					}
 				}
@@ -8738,7 +8912,6 @@
 			"13"		"right_trackpad inactive"
 			"3"		"joystick active"
 			"16"		"joystick inactive"
-			"20"		"joystick inactive"
 			"69"		"joystick inactive"
 			"83"		"joystick inactive"
 			"106"		"joystick inactive"
@@ -8748,10 +8921,12 @@
 			"178"		"joystick inactive"
 			"137"		"joystick inactive"
 			"182"		"joystick inactive"
+			"20"		"joystick inactive"
 			"4"		"left_trigger active"
 			"5"		"right_trigger active"
 			"8"		"right_joystick active"
 			"9"		"dpad active"
+			"194"		"gyro active"
 		}
 	}
 	"preset"
@@ -8770,6 +8945,7 @@
 			"28"		"right_trigger active"
 			"29"		"right_joystick active"
 			"30"		"dpad active"
+			"195"		"gyro active"
 		}
 	}
 	"preset"
@@ -8787,6 +8963,7 @@
 			"38"		"right_trigger active"
 			"39"		"right_joystick active"
 			"40"		"dpad active"
+			"196"		"gyro active"
 		}
 	}
 	"preset"
@@ -8805,6 +8982,7 @@
 			"47"		"right_trigger active"
 			"48"		"right_joystick active"
 			"49"		"dpad active"
+			"197"		"gyro inactive"
 		}
 	}
 	"preset"
@@ -8833,14 +9011,15 @@
 		{
 			"74"		"switch active"
 			"75"		"button_diamond active"
-			"76"		"left_trackpad inactive"
 			"85"		"left_trackpad active"
+			"76"		"left_trackpad inactive"
 			"77"		"right_trackpad inactive"
 			"78"		"joystick active"
 			"79"		"left_trigger active"
 			"80"		"right_trigger active"
 			"81"		"right_joystick active"
 			"82"		"dpad active"
+			"198"		"gyro active"
 		}
 	}
 	"preset"
@@ -8851,8 +9030,8 @@
 		{
 			"87"		"switch active"
 			"88"		"button_diamond active"
-			"89"		"left_trackpad inactive"
 			"124"		"left_trackpad active"
+			"89"		"left_trackpad inactive"
 			"90"		"right_trackpad inactive"
 			"91"		"joystick active"
 			"92"		"left_trigger active"
@@ -8869,8 +9048,8 @@
 		{
 			"96"		"switch active"
 			"97"		"button_diamond active"
-			"98"		"left_trackpad inactive"
 			"108"		"left_trackpad active"
+			"98"		"left_trackpad inactive"
 			"99"		"right_trackpad inactive"
 			"100"		"joystick active"
 			"101"		"left_trigger active"
@@ -8887,8 +9066,8 @@
 		{
 			"114"		"switch active"
 			"115"		"button_diamond active"
-			"116"		"left_trackpad inactive"
 			"125"		"left_trackpad active"
+			"116"		"left_trackpad inactive"
 			"117"		"right_trackpad inactive"
 			"118"		"joystick active"
 			"119"		"left_trigger active"
@@ -8912,6 +9091,7 @@
 			"133"		"right_trigger active"
 			"134"		"right_joystick active"
 			"135"		"dpad active"
+			"199"		"gyro active"
 		}
 	}
 	"preset"
@@ -8940,8 +9120,8 @@
 		{
 			"152"		"switch active"
 			"153"		"button_diamond active"
-			"154"		"left_trackpad inactive"
 			"180"		"left_trackpad active"
+			"154"		"left_trackpad inactive"
 			"155"		"right_trackpad active"
 			"156"		"joystick active"
 			"157"		"left_trigger active"
@@ -8958,8 +9138,8 @@
 		{
 			"167"		"switch active"
 			"168"		"button_diamond active"
-			"169"		"left_trackpad inactive"
 			"176"		"left_trackpad active"
+			"169"		"left_trackpad inactive"
 			"170"		"right_trackpad active"
 			"171"		"joystick active"
 			"172"		"left_trigger active"

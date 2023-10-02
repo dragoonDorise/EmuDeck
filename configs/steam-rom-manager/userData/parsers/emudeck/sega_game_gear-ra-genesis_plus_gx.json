@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sega Game Gear - Retroarch - Genesis Plus GX",
-  "steamCategory": "${Game Gear}",
+  "configTitle": "Sega Game Gear - RetroArch Genesis Plus GX",
+  "steamCategory": "${Sega Game Gear}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}",
   "steamDirectory": "${steamdirglobal}",

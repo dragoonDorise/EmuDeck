@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sony PlayStation - Retroarch - Beetle PSX HW",
-  "steamCategory": "${PlayStation - Beetle}",
+  "configTitle": "Sony PlayStation - RetroArch Beetle PSX HW",
+  "steamCategory": "${Sony PlayStation - Beetle PSX HW}",
   "executableArgs": "-L /mednafen_psx_hw_libretro.so \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/psx",
@@ -21,7 +21,7 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
-  "disabled": true,
+  "disabled": false,
   "executable": {
     "path": "${retroarchpath}",
     "shortcutPassthrough": false,

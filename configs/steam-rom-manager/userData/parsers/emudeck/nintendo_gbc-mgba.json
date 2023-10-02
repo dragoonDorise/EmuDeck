@@ -1,13 +1,13 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sony PlayStation Portable - PPSSPP",
-  "steamCategory": "${PSP - Standalone PPSSPP}",
+  "configTitle": "Nintendo Game Boy Color - mGBA (Standalone)",
+  "steamCategory": "${Nintendo Game Boy Color - mGBA (Standalone)}",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/psp",
+  "romDirectory": "${romsdirglobal}",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "-f -g \"${filePath}\"",
+  "executableArgs": "-f \"'${filePath}'\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
@@ -28,7 +28,7 @@
     "useCredentials": true
   },
   "parserInputs": {
-    "glob": "**/${title}@(.7z|.7Z|.elf|.ELF|.cso|.CSO|.iso|.ISO|.pbp|.PBP|.prx|.PRX)"
+    "glob": "{gbc/**/!(homebrew),gbc}/${title}@(.7z|.7Z|.gb|.GB|.gbc|.GBC|.zip|.ZIP)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
@@ -42,11 +42,11 @@
     "removeBrackets": true
   },
   "executable": {
-    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/ppsspp.sh",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mgba.sh",
     "shortcutPassthrough": false,
-    "appendArgsToExecutable": true
+    "appendArgsToExecutable": false
   },
-  "parserId": "164785656634747068",
+  "parserId": "164785621855061661",
   "version": 13,
   "controllers": {
     "ps4": null,
@@ -57,8 +57,8 @@
     "switch_joycon_right": null,
     "switch_pro": null,
     "neptune": {
-      "title": "EmuDeck - PPSSPP Standalone",
-      "mappingId": "ppsspp_controller_config.vdf",
+      "title": "EmuDeck - mGBA",
+      "mappingId": "mGBA_controller_config.vdf",
       "profileType": "template"
     }
   },

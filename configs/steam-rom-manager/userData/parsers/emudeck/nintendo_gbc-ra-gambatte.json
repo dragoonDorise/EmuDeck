@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo GameBoy Color - Retroarch - Gambatte",
-  "steamCategory": "${GameBoy Color}",
+  "configTitle": "Nintendo Game Boy Color - RetroArch Gambatte",
+  "steamCategory": "${Nintendo Game Boy Color}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}",
   "steamDirectory": "${steamdirglobal}",

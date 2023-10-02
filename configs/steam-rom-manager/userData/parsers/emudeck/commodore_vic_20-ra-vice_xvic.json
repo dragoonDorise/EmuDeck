@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Commodore Vic-20 - RetroArch",
-  "steamCategory": "${Commodore Vic-20}",
+  "configTitle": "Commodore VIC-20 - RetroArch VICE",
+  "steamCategory": "${Commodore VIC-20}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/vic20",
   "steamDirectory": "${steamdirglobal}",

@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo 64 - RMG",
-  "steamCategory": "${Nintendo 64 - RMG}",
+  "configTitle": "Nintendo 64 - Rosalie's Mupen GUI",
+  "steamCategory": "${Nintendo 64 - Rosalie's Mupen GUI}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}",
   "executableArgs": "--fullscreen --nogui --quit-after-emulation \"${filePath}\"",
@@ -21,6 +21,7 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
+  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,

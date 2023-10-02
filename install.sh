@@ -51,32 +51,32 @@ elif [ $linuxID != "SteamOS" ]; then
     
     if command -v apt-get >/dev/null; then
         echo "Installing packages with apt..."
-        DEBIAN_DEPS="jq zenity flatpak unzip bash libfuse2 git rsync"
+        DEBIAN_DEPS="jq zenity flatpak unzip bash libfuse2 git rsync whiptail"
         
         sudo killall apt apt-get        
         sudo apt-get -y update
         sudo apt-get -y install $DEBIAN_DEPS
     elif command -v pacman >/dev/null; then
         echo "Installing packages with pacman..."
-        ARCH_DEPS="steam jq zenity flatpak unzip bash fuse2 git rsync"
+        ARCH_DEPS="steam jq zenity flatpak unzip bash fuse2 git rsync whiptail"
         
         sudo pacman --noconfirm -Syu 
         sudo pacman --noconfirm -S $ARCH_DEPS
     elif command -v dnf >/dev/null; then
         echo "Installing packages with dnf..."
-        FEDORA_DEPS="jq zenity flatpak unzip bash fuse git rsync"
+        FEDORA_DEPS="jq zenity flatpak unzip bash fuse git rsync whiptail"
         
         sudo dnf -y upgrade
         sudo dnf -y install $FEDORA_DEPS
     elif command -v zypper >/dev/null; then
         echo "Installing packages with zypper..."
-        SUSE_DEPS="steam jq zenity flatpak unzip bash libfuse2 git rsync"
+        SUSE_DEPS="steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail"
         
         sudo zypper --non-interactive up
         sudo zypper --non-interactive install $SUSE_DEPS
     elif command -v xbps-install >/dev/null; then
         echo "Installing packages with xbps..."
-        VOID_DEPS="steam jq zenity flatpak unzip bash fuse git rsync"
+        VOID_DEPS="steam jq zenity flatpak unzip bash fuse git rsync whiptail"
         
         sudo xbps-install -Syu
         sudo xbps-install -Sy $VOID_DEPS

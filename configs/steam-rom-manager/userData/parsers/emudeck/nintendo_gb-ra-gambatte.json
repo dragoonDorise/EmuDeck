@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo GameBoy - Retroarch - Gambatte",
-  "steamCategory": "${GameBoy}",
+  "configTitle": "Nintendo Game Boy - RetroArch Gambatte",
+  "steamCategory": "${Nintendo Game Boy}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}",
   "steamDirectory": "${steamdirglobal}",

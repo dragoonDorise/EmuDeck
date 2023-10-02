@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "EmulationStationDE",
+  "configTitle": "ESDE - EmulationStationDE",
   "steamCategory": "${Emulation}",
   "executableArgs": "",
   "executableModifier": "\"${exePath}\"",

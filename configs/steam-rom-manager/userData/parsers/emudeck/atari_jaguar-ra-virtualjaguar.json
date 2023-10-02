@@ -1,13 +1,13 @@
 {
   "parserType": "Glob",
-  "configTitle": "Atari Lynx - Retroarch - Beetle Handy",
-  "steamCategory": "${Atari Lynx}",
+  "configTitle": "Atari Jaguar - RetroArch Virtual Jaguar",
+  "steamCategory": "${Atari Jaguar}",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/atarilynx",
+  "romDirectory": "${romsdirglobal}/atarijaguar",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_lynx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}virtualjaguar_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
@@ -28,7 +28,7 @@
     "useCredentials": true
   },
   "parserInputs": {
-    "glob": "**/${title}@(.7z|.7Z|.lnx|.LNX|.zip|.ZIP)"
+    "glob": "**/${title}@(.j64|.J64|.jag|.JAG|.rom|.ROM|.abs|.ABS|.cof|.COF|.bin|.BIN|.prg|.PRG|.7z|.7Z|.zip|.ZIP)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
@@ -46,7 +46,7 @@
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },
-  "parserId": "164785590686474494",
+  "parserId": "16476758151010299",
   "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {

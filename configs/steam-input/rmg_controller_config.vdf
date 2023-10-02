@@ -688,7 +688,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F2, Pause, EmuDeck_Pause.png, #232323 #00ADAD"
+							"binding"		"key_press F2, Pause/Play, EmuDeck_Pause.png, #232323 #00ADAD"
 						}
 						"settings"
 						{
@@ -751,7 +751,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_SHIFT, Hard Reset, EmuDeck_Reset.png, #232323 #AD0000"
+							"binding"		"key_press LEFT_SHIFT, Reset, EmuDeck_Reset.png, #232323 #AD0000"
 						}
 						"settings"
 						{
@@ -800,7 +800,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F12, Shut Down Emulation, EmuDeck_QuitExit.png, #232323 #AD0000"
+							"binding"		"key_press F12, Stop Emulation, EmuDeck_QuitExit.png, #232323 #AD0000"
 						}
 						"settings"
 						{

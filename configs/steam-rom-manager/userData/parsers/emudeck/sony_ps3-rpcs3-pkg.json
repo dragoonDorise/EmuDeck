@@ -1,16 +1,16 @@
 {
-  "parserType": "Glob",
-  "configTitle": "Nintendo GameBoy Color - mGBA",
-  "steamCategory": "${GameBoy Color - mGBA}",
-  "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}",
+  "parserType": "Glob-regex",
+  "configTitle": "Sony PlayStation 3 - RPCS3 (Installed PKG)",
+  "steamCategory": "${Sony PlayStation 3}",
   "steamDirectory": "${steamdirglobal}",
+  "romDirectory": "/run/media/mmcblk0p1/Emulation/storage/rpcs3/dev_hdd0/game",
+  "executableArgs": "--no-gui \"'${filePath}'\"",
+  "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "-f \"'${filePath}'\"",
+  "imageProviders": ["SteamGridDB"],
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
-  "imageProviders": ["SteamGridDB"],
   "defaultImage": "",
   "defaultTallImage": "",
   "defaultHeroImage": "",
@@ -21,47 +21,32 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
-  "disabled": true,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,
     "useCredentials": true
   },
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/rpcs3.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
   "parserInputs": {
-    "glob": "{gbc/**/!(homebrew),gbc}/${title}@(.7z|.7Z|.gb|.GB|.gbc|.GBC|.zip|.ZIP)"
+    "glob-regex": "${/(^[NP].+)/}/USRDIR/@(eboot.bin|EBOOT.BIN)"
   },
   "titleFromVariable": {
-    "limitToGroups": "",
+    "limitToGroups": "${PS3}",
     "caseInsensitiveVariables": false,
     "skipFileIfVariableWasNotFound": false,
-    "tryToMatchTitle": false
+    "tryToMatchTitle": true
   },
   "fuzzyMatch": {
     "replaceDiacritics": true,
     "removeCharacters": true,
     "removeBrackets": true
   },
-  "executable": {
-    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mgba.sh",
-    "shortcutPassthrough": false,
-    "appendArgsToExecutable": false
-  },
-  "parserId": "164785621855061661",
-  "version": 13,
-  "controllers": {
-    "ps4": null,
-    "ps5": null,
-    "xbox360": null,
-    "xboxone": null,
-    "switch_joycon_left": null,
-    "switch_joycon_right": null,
-    "switch_pro": null,
-    "neptune": {
-      "title": "EmuDeck - mGBA",
-      "mappingId": "mGBA_controller_config.vdf",
-      "profileType": "template"
-    }
-  },
+  "parserId": "165182011334544893",
+  "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,

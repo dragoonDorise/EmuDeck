@@ -1,5 +1,5 @@
 #!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmuAll
+cloud_sync_downloadEmuAll && cloud_sync_startService
 $toolsPath/EmulationStation-DE-x64_SteamDeck.AppImage "${@}"
-cloud_sync_uploadEmuAll
+rm -rf "$savesPath/.gaming"

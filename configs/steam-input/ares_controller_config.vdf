@@ -797,7 +797,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F1, Quick Menu, EmuDeck_Menu.png, #232323 #E4E4E4"
+							"binding"		"key_press F1, Toggle Full Screen, EmuDeck_Menu.png, #232323 #E4E4E4"
 						}
 					}
 				}

@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
   "configTitle": "Arcade - RetroArch MAME 2010",
-  "steamCategory": "${Arcade MAME 2010}",
+  "steamCategory": "${Arcade - MAME 2010}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/mame2010",
   "steamDirectory": "${steamdirglobal}",
@@ -21,7 +21,7 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
-  "disabled": false,
+  "disabled": true,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,

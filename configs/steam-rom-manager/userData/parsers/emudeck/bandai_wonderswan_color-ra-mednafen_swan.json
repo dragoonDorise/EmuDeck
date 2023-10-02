@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Bandai WonderSwan Color - Retroarch Beetle Cygne",
-  "steamCategory": "${WonderSwan}",
+  "configTitle": "Bandai WonderSwan Color - RetroArch Beetle Cygne",
+  "steamCategory": "${Bandai WonderSwan Color}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/wonderswancolor",
   "steamDirectory": "${steamdirglobal}",

@@ -1,10 +1,10 @@
 {
   "parserType": "Glob",
-  "configTitle": "PC Engine/TurboGrafx 16 - RetroArch - Beetle PCE",
-  "steamCategory": "${PCE}",
+  "configTitle": "Sony PlayStation 2 - PCSX2",
+  "steamCategory": "${Sony PlayStation 2}",
   "steamDirectory": "${steamdirglobal}",
-  "romDirectory": "${romsdirglobal}",
-  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_pce_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "romDirectory": "${romsdirglobal}/ps2",
+  "executableArgs": "-batch -fullscreen \"'${filePath}'\"",
   "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
@@ -27,12 +27,12 @@
     "useCredentials": true
   },
   "executable": {
-    "path": "${retroarchpath}",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/pcsx2-qt.sh",
     "shortcutPassthrough": false,
-    "appendArgsToExecutable": true
+    "appendArgsToExecutable": false
   },
   "parserInputs": {
-    "glob": "@(pcengine|tg16)/**/${title}@(.7z|.7Z|.bin|.BIN|.pce|.PCE|.zip|.ZIP)"
+    "glob": "**/${title}@(.bin|.BIN|.chd|.CHD|.cso|.CSO|.dump|.DUMP|.gz|.GZ|.img|.IMG|.iso|.ISO|.mdf|.MDF|.nrg|.NRG)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
@@ -56,6 +56,6 @@
       "imageMotionTypes": ["static"]
     }
   },
-  "parserId": "165855998563219386",
+  "parserId": "164785208872922785",
   "version": 10
 }

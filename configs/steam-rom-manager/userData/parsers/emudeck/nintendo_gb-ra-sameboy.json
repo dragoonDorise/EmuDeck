@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo GameBoy - Retroarch - Sameboy",
-  "steamCategory": "${GameBoy}",
+  "configTitle": "Nintendo Game Boy - RetroArch SameBoy",
+  "steamCategory": "${Nintendo Game Boy - SameBoy}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}",
   "steamDirectory": "${steamdirglobal}",
@@ -21,7 +21,7 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
-  "disabled": true,
+  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,
