@@ -1,16 +1,16 @@
 {
   "parserType": "Glob",
-  "configTitle": "3DO",
-  "steamCategory": "${3DO}",
-  "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/3do",
+  "configTitle": "Tiger Electronics Game.com - MAME (Standalone)",
+  "steamCategory": "${Tiger Electronics Game.com}",
   "steamDirectory": "${steamdirglobal}",
+  "romDirectory": "${romsdirglobal}/gamecom",
+  "executableArgs": "gamecom -cartridge1 \"${filePath}\"",
+  "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}opera_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "imageProviders": ["SteamGridDB"],
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
-  "imageProviders": ["SteamGridDB"],
   "defaultImage": "",
   "defaultTallImage": "",
   "defaultHeroImage": "",
@@ -21,17 +21,21 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
-  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,
     "useCredentials": true
   },
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mame.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
   "parserInputs": {
-    "glob": "**/${title}@(.iso|.ISO|.bin|.BIN|.chd|.CHD|.cue|.cue)"
+    "glob": "${title}@(.zip|.ZIP)"
   },
   "titleFromVariable": {
-    "limitToGroups": "${3DO}",
+    "limitToGroups": "${MAME}",
     "caseInsensitiveVariables": false,
     "skipFileIfVariableWasNotFound": false,
     "tryToMatchTitle": true
@@ -41,22 +45,17 @@
     "removeCharacters": true,
     "removeBrackets": true
   },
-  "executable": {
-    "path": "${retroarchpath}",
-    "shortcutPassthrough": false,
-    "appendArgsToExecutable": true
-  },
-  "parserId": "164785580114332556",
-  "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,
       "humor": false,
-      "imageMotionTypes": ["static"],
       "styles": [],
       "stylesHero": [],
       "stylesLogo": [],
-      "stylesIcon": []
+      "stylesIcon": [],
+      "imageMotionTypes": ["static"]
     }
-  }
+  },
+  "parserId": "168540950876229866",
+  "version": 10
 }

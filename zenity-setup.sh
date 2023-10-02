@@ -149,7 +149,7 @@ if [ "$expert" == "true" ]; then
 		table+=(TRUE "selectEmulatorConfig" "Customize the emulator configuration reset. (note: Fixes will be skipped if boxes are unchecked)")
 		table+=(TRUE "selectRABezels" "Turn on Bezels for Retroarch?")
 		table+=(TRUE "selectRAAutoSave" "Turn on Retroarch AutoSave/Restore state?")
-		table+=(TRUE "snesAR" "SNES 8:7 Aspect Ratio? (unchecked is 4:3)")
+		table+=(TRUE "arSnes" "SNES 8:7 Aspect Ratio? (unchecked is 4:3)")
 		table+=(TRUE "selectWideScreen" "Customize Emulator Widescreen Selection?")
 		table+=(TRUE "setRAEnabled" "Enable Retroachievments in Retroarch?")
 		table+=(TRUE "setRASignIn" "Change RetroAchievements Sign in?")
@@ -218,10 +218,10 @@ if [ "$expert" == "true" ]; then
 		else
 			setSetting RAautoSave false
 		fi
-		if [[ "$expertModeFeatureList" == *"snesAR"* ]]; then
-			setSetting SNESAR 43	
+		if [[ "$expertModeFeatureList" == *"arSnes"* ]]; then
+			setSetting arSnes 43	
 		else
-			setSetting SNESAR 87
+			setSetting arSnes 87
 		fi
 		if [[ "$expertModeFeatureList" == *"selectWideScreen"* ]]; then
 			setSetting doSelectWideScreen true			
@@ -310,6 +310,7 @@ if [ "$expert" == "true" ]; then
 		emuTable=()
 		emuTable+=(TRUE "Multiple" "RetroArch")
 		emuTable+=(TRUE "Arcade" "MAME")
+		emuTable+=(TRUE "Dreamcast" "Flycast")
 		emuTable+=(TRUE "Metroid Prime" "PrimeHack")
 		emuTable+=(TRUE "PS2" "PCSX2-Legacy")
 		emuTable+=(TRUE "PS2" "PCSX2-QT")
@@ -323,6 +324,7 @@ if [ "$expert" == "true" ]; then
 		emuTable+=(TRUE "WiiU" "Cemu")
 		emuTable+=(TRUE "XBox" "Xemu")
 		emuTable+=(TRUE "N64" "RMG")
+		emuTable+=(TRUE "Multi-Systems Emulator" "ares")
 		emuTable+=(FALSE "GameBoy / Color / Advance" "mGBA")
 		
 		#if we are in beta / dev install, allow Xenia. Still false by default though. Will only work on expert mode, and explicitly turned on.
@@ -353,6 +355,11 @@ if [ "$expert" == "true" ]; then
 				setSetting doInstallRA true
 			else
 				setSetting doInstallRA false
+			fi
+			if [[ "$emusToInstall" == *"Flycast"* ]]; then
+				setSetting doInstallFlycast true
+			else
+				setSetting doInstallFlycast false
 			fi
 			if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
 				setSetting doInstallPrimeHack true
@@ -432,6 +439,11 @@ if [ "$expert" == "true" ]; then
 			else
 				setSetting doInstallRMG false
 			fi		
+			if [[ "$emusToInstall" == *"ares"* ]]; then
+				setSetting doInstallares true
+			else
+				setSetting doInstallares false
+			fi		
 		
 		else
 			exit
@@ -444,6 +456,7 @@ if [ "$expert" == "true" ]; then
 		emuTable=()
 		emuTable+=(TRUE "Dolphin")
 		emuTable+=(TRUE "Duckstation")
+		emuTable+=(TRUE "Flycast")
 		emuTable+=(TRUE "PCSX2-QT")
 		emuTable+=(TRUE "RA-BeetlePSX")
 		emuTable+=(TRUE "RA-Flycast")
@@ -475,6 +488,11 @@ if [ "$expert" == "true" ]; then
 				setSetting DolphinWide false
 			fi
 			if [[ "$wideToInstall" == *"RA-Flycast"* ]]; then
+				setSetting DreamcastWide true
+			else
+				setSetting DreamcastWide false
+			fi
+			if [[ "$wideToInstall" == *"Flycast"* ]]; then
 				setSetting DreamcastWide true
 			else
 				setSetting DreamcastWide false
@@ -521,6 +539,7 @@ if [ "$expert" == "true" ]; then
 			emuTable+=(TRUE "Steam Rom Manager")
 			emuTable+=(TRUE "EmulationStation DE")
 			emuTable+=(TRUE "RMG")
+			emuTable+=(TRUE "ares")
 
 
 			text="$(printf "<b>EmuDeck will reset the following Emulator's configurations by default.</b>\nWhich systems do you want <b>reset</b> to the newest version of the defaults?\nWe recommend you keep all of them checked so everything gets updated and known issues are fixed.\nIf you want to mantain any custom configuration on an emulator unselect its name from this list.")"
@@ -659,6 +678,8 @@ else
 	setSetting doInstallXenia false
 	setSetting doInstallMGBA false
 	setSetting doInstallRMG true
+	setSetting doInstallares true
+	setSetting doInstallFlycast true
 	#doInstallMelon=true
 
 	setSetting doSetupRA true
@@ -678,11 +699,14 @@ else
 	setSetting doSetupXenia false
 	setSetting doSetupMGBA false
 	setSetting doSetupRMG true
+	setSetting doSetupares true
+	setSetting doSetupFlycast true
 
 	#widescreen off by default
 	setSetting duckWide false
 	setSetting DolphinWide false
 	setSetting DreamcastWide false
+	setSetting FlycastWide false
 	setSetting BeetleWide false
 	setSetting XemuWide false
 	setSetting PCSX2QTWide false	

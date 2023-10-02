@@ -273,6 +273,10 @@ if [ $doInstallRMG == "true" ]; then
 	echo "RMG_install"
 	RMG_install	
 fi
+if [ $doInstallares == "true" ]; then
+	echo "ares_install"
+	ares_install	
+fi
 if [ $doInstallPPSSPP == "true" ]; then
 	echo "PPSSPP_install"
 	PPSSPP_install	
@@ -313,9 +317,17 @@ if [ $doInstallMGBA == "true" ]; then
 	echo "mGBA_install"
 	mGBA_install
 fi
+if [ $doInstallFlycast == "true" ]; then
+	echo "Flycast_install"
+	Flycast_install
+fi
 if [ $doInstallRMG == "true" ]; then
 	echo "RMG_install"
 	RMG_install
+fi
+if [ $doInstallares == "true" ]; then
+	echo "ares_install"
+	ares_install
 fi
 if [ $doInstallmelonDS == "true" ]; then
 	echo "melonDS_install"
@@ -406,6 +418,10 @@ if [ "$doSetupRMG" == "true" ]; then
 	echo "RMG_init"
 	RMG_init
 fi
+if [ "$doSetupares" == "true" ]; then
+	echo "ares_init"
+	ares_init
+fi
 if [ "$doSetupmelonDS" == "true" ]; then
 	echo "melonDS_init"
 	melonDS_init
@@ -417,6 +433,10 @@ fi
 if [ "${doSetupCemuNative}" == "true" ]; then
 	echo "CemuNative_init"
 	CemuNative_init
+fi
+if [ "$doSetupFlycast" == "true" ]; then
+	echo "Flycast_init"
+	Flycast_init
 fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then
@@ -442,205 +462,6 @@ fi
 #
 
 
-
-
-##
-##
-## Customizations.
-##
-##
-
-
-#RA Bezels	
-if [ "$doSetupRA" == "true" ]; then
-	RetroArch_setBezels #needs to change
-	
-	#RA AutoSave	
-	if [ "$RAautoSave" == true ]; then
-		RetroArch_autoSaveOn
-	else
-		RetroArch_autoSaveOff
-	fi	
-fi
-
-#
-#New Shaders
-#Moved before widescreen, so widescreen disabled if needed.
-#	
-if [ "$doSetupRA" == "true" ]; then
-	RetroArch_setShadersCRT
-	RetroArch_setShaders3DCRT
-	RetroArch_setShadersMAT
-fi
-
-# Old bezels and widescreen modes
-if [ "$uiMode" == 'zenity' ]; then
-	
-	#Old Widescreen hacks
-	if [ "$duckWide" == true ]; then	
-		DuckStation_wideScreenOn
-	else
-		DuckStation_wideScreenOff
-	fi
-	if [ "$PCSX2QTWide" == true ]; then	
-		PCSX2QT_wideScreenOn
-	else
-		PCSX2QT_wideScreenOff
-	fi
-	if [ "$DolphinWide" == true ]; then
-		Dolphin_wideScreenOn
-	else
-		Dolphin_wideScreenOff
-	fi
-	if [ "$XemuWide" == true ]; then
-		Xemu_wideScreenOn
-	else
-		Xemu_wideScreenOff
-	fi
-	if [ "$DreamcastWide" == true ]; then
-		RetroArch_Flycast_wideScreenOn
-	else
-		RetroArch_Flycast_wideScreenOff
-	fi
-	
-	#RA SNES Aspect Ratio
-	RetroArch_setSNESAR #needs to change
-
-else
-
-	#
-	#New Aspect Ratios
-	#
-	
-	#Sega Games
-		#Master System
-		#Genesis
-		#Sega CD
-		#Sega 32X
-	if [ "$doSetupRA" == "true" ]; then
-		case $arSega in
-  		"32")	 
-			RetroArch_mastersystem_ar32
-			RetroArch_genesis_ar32
-			RetroArch_segacd_ar32
-	  		RetroArch_sega32x_ar32	
-			;;  
-  		*)
-			RetroArch_mastersystem_ar43
-			RetroArch_genesis_ar43
-	  		RetroArch_segacd_ar43
-	  		RetroArch_sega32x_ar43
-	  		if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then
-	  			RetroArch_mastersystem_bezelOn
-	  			RetroArch_genesis_bezelOn
-	  			RetroArch_segacd_bezelOn
-	  			RetroArch_sega32x_bezelOn
-			fi
-  		;;
-		esac	
-		
-		#Snes and NES
-		case $arSnes in
-	  	"87")
-			RetroArch_snes_ar87
-			RetroArch_nes_ar87
-	  	;;
-	  	"32")
-				RetroArch_snes_ar32
-		  	RetroArch_nes_ar32
-			;;  
-	  	*)
-			RetroArch_snes_ar43
-			RetroArch_nes_ar43
-			if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then	
-				RetroArch_snes_bezelOn
-			fi
-	  	;;
-		esac
-	fi
-	# Classic 3D Games
-		#Dreamcast
-		#PSX
-		#Nintendo 64
-		#Saturn
-		#Xbox
-	if [ "$arClassic3D" == 169 ]; then		
-		if [ "$doSetupRA" == "true" ]; then	
-			RetroArch_Beetle_PSX_HW_wideScreenOn
-			RetroArch_Flycast_wideScreenOn
-			#"Bezels off"
-			RetroArch_dreamcast_bezelOff
-			RetroArch_psx_bezelOff
-			RetroArch_n64_wideScreenOn
-			RetroArch_SwanStation_wideScreenOn
-		fi
-		if [ "$doSetupDuck" == "true" ]; then
-			DuckStation_wideScreenOn
-		fi
-		if [ "$doSetupXemu" == "true" ]; then
-			Xemu_wideScreenOn
-		fi
-
-	else
-		if [ "$doSetupRA" == "true" ]; then
-			#"SET 4:3"
-			RetroArch_Flycast_wideScreenOff
-			RetroArch_n64_wideScreenOff
-			RetroArch_Beetle_PSX_HW_wideScreenOff
-			RetroArch_SwanStation_wideScreenOff
-		fi
-		if [ "$doSetupDuck" == "true" ]; then
-			DuckStation_wideScreenOff
-		fi
-		if [ "$doSetupXemu" == "true" ]; then
-			Xemu_wideScreenOff
-		fi
-		#"Bezels on"
-		if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then
-			RetroArch_dreamcast_bezelOn			
-			RetroArch_n64_bezelOn
-			RetroArch_psx_bezelOn
-		fi			
-	fi
-	
-	# GameCube
-	if [ "$doSetupDolphin" == "true" ]; then
-		if [ "$arDolphin" == 169 ]; then	
-			Dolphin_wideScreenOn
-		else
-			Dolphin_wideScreenOff
-		fi
-	fi
-	
-fi
-
-
-
-#RetroAchievments
-if [ "$doSetupRA" == "true" ]; then
-	RetroArch_retroAchievementsSetLogin
-	if [ "$achievementsHardcore" == "true" ]; then
-		RetroArch_retroAchievementsHardCoreOn
-	else
-		RetroArch_retroAchievementsHardCoreOff
-	fi
-fi
-if [ "$doSetupDuck" == "true" ]; then
-	DuckStation_retroAchievementsSetLogin
-	if [ "$achievementsHardcore" == "true" ]; then
-		DuckStation_retroAchievementsHardCoreOn
-	else
-		DuckStation_retroAchievementsHardCoreOff
-	fi
-fi
-if [ "$doSetupPCSX2QT" == "true" ]; then
-	PCSX2QT_retroAchievementsSetLogin
-	if [ "$achievementsHardcore" == "true" ]; then
-		PCSX2QT_retroAchievementsHardCoreOn
-	else
-		PCSX2QT_retroAchievementsHardCoreOff
-	fi
-fi
 
 #Sudo Required!
 if [ -n "$PASSWD" ]; then

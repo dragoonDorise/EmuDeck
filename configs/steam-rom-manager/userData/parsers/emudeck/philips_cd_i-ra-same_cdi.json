@@ -1,13 +1,13 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sega Dreamcast - Retroarch - Flycast",
-  "steamCategory": "${Sega Dreamcast}",
+  "configTitle": "Philips CD-i - RetroArch",
+  "steamCategory": "${Philips CD-i}",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/dreamcast",
+  "romDirectory": "${romsdirglobal}/cdimono1",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}flycast_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}same_cdi_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
@@ -28,7 +28,7 @@
     "useCredentials": true
   },
   "parserInputs": {
-    "glob": "**/${title}@(.7z|.7Z|.cdi|.CDI|.chd|.CHD|.cue|.CUE|.gdi|.GDI|.m3u|.M3U)"
+    "glob": "**/${title}@(.iso|.ISO|.chd|.CHD)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
@@ -46,7 +46,7 @@
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },
-  "parserId": "164785622173694320",
+  "parserId": "164785621902122397",
   "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {

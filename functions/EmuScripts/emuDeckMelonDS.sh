@@ -83,12 +83,14 @@ melonDS_setupSaves(){
 #SetupStorage
 melonDS_setupStorage(){
 	setMSG "Setting $melonDS_emuName Storage Folder"	
-
+    
+	# Leaving this so user can still place database files here if need be
 	mkdir -p "$storagePath/melonDS/cheats"
+	
+	# Breaks saving cheats in melonDS, commenting out for now
+	# CheatFilePathSetting='CheatFilePath='
 
-	CheatFilePathSetting='CheatFilePath='
-
-	changeLine "$CheatFilePathSetting" "${CheatFilePathSetting}${storagePath}/melonds/cheats" "${melonDS_configFile}"
+	# changeLine "$CheatFilePathSetting" "${CheatFilePathSetting}${storagePath}/melonds/cheats" "${melonDS_configFile}"
 	
 }
 

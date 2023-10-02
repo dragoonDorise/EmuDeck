@@ -302,7 +302,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 			table+=( "selectEmulatorConfig" "Customize the emulator configuration reset. (note: Fixes will be skipped if boxes are unchecked)" ON )
 			table+=( "selectRABezels" "Turn on Bezels for Retroarch?" ON )
 			table+=( "selectRAAutoSave" "Turn on Retroarch AutoSave/Restore state?" ON )
-			table+=( "snesAR" "SNES 8:7 Aspect Ratio? (unchecked is 4:3)" ON )
+			table+=( "arSnes" "SNES 8:7 Aspect Ratio? (unchecked is 4:3)" ON )
 			table+=( "selectWideScreen" "Customize Emulator Widescreen Selection?" ON )
 			table+=( "setRAEnabled" "Enable Retroachievments in Retroarch?" ON )
 			table+=( "setRASignIn" "Change RetroAchievements Sign in?" ON )
@@ -339,8 +339,8 @@ if [ "$RUNCHOICE" == 1 ]; then
 			if [[ "$expertModeFeatureList" == *"selectRAAutoSave"* ]]; then
 				setSetting RAautoSave true
 			fi
-			if [[ "$expertModeFeatureList" == *"snesAR"* ]]; then
-				setSetting SNESAR 43	
+			if [[ "$expertModeFeatureList" == *"arSnes"* ]]; then
+				setSetting arSnes 43	
 			fi
 			if [[ "$expertModeFeatureList" == *"selectWideScreen"* ]]; then
 				setSetting doSelectWideScreen true			
@@ -398,6 +398,8 @@ if [ "$RUNCHOICE" == 1 ]; then
 		if [[ $doSelectEmulators == "true" ]]; then
 			
 			emuTable=()
+
+			emuTable+=(TRUE "Dreamcast" "Flycast")
 			emuTable+=(TRUE "GameBoy / Color / Advance" "mGBA")
 			emuTable+=(TRUE "Multiple" "RetroArch")
 			emuTable+=(TRUE "Metroid Prime" "PrimeHack")
@@ -409,6 +411,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 			emuTable+=(TRUE "PSX" "Duckstation")
 			emuTable+=(TRUE "PSP" "PPSSPP")
 			emuTable+=(TRUE "N64" "RMG")
+			emuTable+=(TRUE "Multi-Systems Emulator" "ares")
 			emuTable+=(TRUE "Switch" "Yuzu")
 			emuTable+=(TRUE "WiiU" "Cemu")
 			emuTable+=(TRUE "XBox" "Xemu")
@@ -436,6 +439,9 @@ if [ "$RUNCHOICE" == 1 ]; then
 			
 			if [ $ans -eq 0 ]; then
 				echo "Emu Install selected: $emusToInstall"
+				if [[ "$emusToInstall" == *"Flycast"* ]]; then
+					setSetting doInstallFlycast true
+				fi
 				if [[ "$emusToInstall" == *"mGBA"* ]]; then
 					setSetting doInstallMGBA true
 				fi
@@ -469,6 +475,9 @@ if [ "$RUNCHOICE" == 1 ]; then
 				if [[ "$emusToInstall" == *"RMG"* ]]; then
 					setSetting doInstallRMG true
 				fi
+				if [[ "$emusToInstall" == *"ares"* ]]; then
+					setSetting doInstallares true
+				fi
 				if [[ "$emusToInstall" == *"Yuzu"* ]]; then
 					setSetting doInstallYuzu true
 				fi
@@ -497,6 +506,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 			emuTable=()
 			emuTable+=(TRUE "Dolphin")
 			emuTable+=(TRUE "Duckstation")
+			emuTable+=(TRUE "Flycast")
 			emuTable+=(TRUE "PCSX2-QT")
 			emuTable+=(TRUE "RA-BeetlePSX")
 			emuTable+=(TRUE "RA-Flycast")
@@ -527,6 +537,11 @@ if [ "$RUNCHOICE" == 1 ]; then
 				else
 					setSetting DolphinWide false
 				fi
+				if [[ "$wideToInstall" == *"Flycast"* ]]; then
+					setSetting DreamcastWide true
+				else
+					setSetting DreamcastWide false
+				fi	
 				if [[ "$wideToInstall" == *"RA-Flycast"* ]]; then
 					setSetting DreamcastWide true
 				else
@@ -558,6 +573,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 	
 				emuTable=()
 				emuTable+=(TRUE "mGBA")
+				emuTable+=(TRUE "Flycast")
 				emuTable+=(TRUE "RetroArch")
 				emuTable+=(TRUE "PrimeHack")
 				emuTable+=(TRUE "PCSX2")
@@ -568,6 +584,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 				emuTable+=(TRUE "Duckstation")
 				emuTable+=(TRUE "PPSSPP")
 				emuTable+=(TRUE "RMG")
+				emuTable+=(TRUE "ares")
 				emuTable+=(TRUE "Yuzu")
 				emuTable+=(TRUE "Cemu")
 				emuTable+=(TRUE "Xemu")
@@ -592,6 +609,9 @@ if [ "$RUNCHOICE" == 1 ]; then
 				echo -e "EmuDeck ${version}"
 				if [ $ans -eq 0 ]; then
 					echo "Emulators to reinstall selected: $emusToReset"
+					if [[ "$emusToReset" == *"Flycast"* ]]; then
+						setSetting doSetupFlycast true
+					fi
 					if [[ "$emusToReset" == *"mGBA"* ]]; then
 						setSetting doSetupMGBA true
 					fi
@@ -625,6 +645,9 @@ if [ "$RUNCHOICE" == 1 ]; then
 					if [[ "$emusToReset" == *"RMG"* ]]; then
 						setSetting doSetupRMG true
 					fi
+					if [[ "$emusToReset" == *"ares"* ]]; then
+						setSetting doSetupares true
+					fi
 					if [[ "$emusToReset" == *"Yuzu"* ]]; then
 						setSetting doSetupYuzu true
 					fi
@@ -656,6 +679,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 		fi
 	else
 		#easy mode settings
+		setSetting doInstallFlycast true
 		setSetting doInstallMGBA true
 		setSetting doInstallRA true
 		setSetting doInstallDolphin true
@@ -747,6 +771,9 @@ if [ $doInstallSRM == "true" ]; then
 	SRM_install
 fi
 #Emulators Installation
+if [ $doInstallFlycast == "true" ]; then
+	Flycast_install
+fi
 if [ "$doInstallMGBA" == "true" ]; then	
 	MGBA_install
 fi
@@ -817,6 +844,9 @@ if [ "$doSetupPrimehack" == "true" ]; then
 fi
 if [ "$doSetupDolphin" == "true" ]; then
 	Dolphin_init
+fi
+if [ "$doSetupFlycast" == "true" ]; then
+	Flycast_init
 fi
 if [ "$doSetupMGBA" == "true" ]; then
 	mGBA_init
@@ -919,8 +949,6 @@ if [ "$zenity" == true ]; then
 		RetroArch_Flycast_wideScreenOff
 	fi
 	
-	#RA SNES Aspect Ratio
-	RetroArch_setSNESAR #needs to change
 
 else
 
