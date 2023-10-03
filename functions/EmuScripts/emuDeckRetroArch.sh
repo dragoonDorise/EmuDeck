@@ -38,7 +38,7 @@ RetroArch_init(){
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
-	
+	RetroArch_setupConfigurations
 	RetroArch_setCustomizations
 	RetroArch_autoSave
 	RetroArch_setRetroAchievements
@@ -148,6 +148,7 @@ RetroArch_update(){
 	RetroArch_setEmulationFolder
 	RetroArch_setupSaves
 	RetroArch_setupStorage
+ 	RetroArch_setupConfigurations
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
@@ -183,6 +184,15 @@ RetroArch_setupStorage(){
 	rsync -a --ignore-existing '/var/lib/flatpak/app/org.libretro.RetroArch/current/active/files/share/libretro/database/cht/' "$storagePath/retroarch/cheats"
 }
 
+#SetupConfigurations
+RetroArch_setupConfigurations(){
+
+	# Set input driver to SDL. X input driver does not seem to work ootb on some non-SteamOS distributions including ChimeraOS. 
+	input_driver='input_driver = '
+	input_driverSetting="${input_driver}"\""sdl"\"
+	changeLine "$input_driver" "$input_driverSetting" "$RetroArch_configFile"
+
+}
 
 #WipeSettings
 RetroArch_wipe(){
