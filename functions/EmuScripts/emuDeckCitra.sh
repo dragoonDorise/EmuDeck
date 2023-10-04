@@ -4,7 +4,7 @@ Citra_emuName="Citra"
 Citra_emuType="AppImage"
 Citra_emuPath="citra_emu"
 Citra_releaseURL=""
-Citra_configFile="$HOME/.confid//citra-emu/qt-config.ini"
+Citra_configFile="$HOME/.config/citra-emu/qt-config.ini"
 
 #cleanupOlderThings
 Citra_finalize(){
@@ -93,7 +93,7 @@ Citra_wipe(){
 #Uninstall
 Citra_uninstall(){
 	setMSG "Uninstalling $Citra_emuName."
-    cd ./citra && ./maintenancetool purge
+    cd $HOME/citra && ./maintenancetool purge
 }
 
 #setABXYstyle
@@ -118,7 +118,7 @@ echo "Begin Citra Migration"
     fi
 
     #move data from hidden folders out to these folders in case the user already put stuff here.
-    origPath="$HOME/.var/app/"
+    origPath="$HOME/.var/app/org.citra_emu.citra/data/citra_emu/"
 
     citra_setupStorage
 
