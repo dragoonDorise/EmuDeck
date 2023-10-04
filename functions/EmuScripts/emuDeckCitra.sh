@@ -93,7 +93,7 @@ Citra_wipe(){
 #Uninstall
 Citra_uninstall(){
 	setMSG "Uninstalling $Citra_emuName."
-    cd $HOME/citra && ./maintenancetool purge
+    cd $HOME/.citra && ./maintenancetool purge
 }
 
 #setABXYstyle
