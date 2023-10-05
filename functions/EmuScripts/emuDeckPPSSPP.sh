@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 PPSSPP_emuName="PPSSPP"
-PPSSPP_emuType="FlatPak"
+PPSSPP_emuType="$emuDeckEmuTypeFlatpak"
 PPSSPP_emuPath="org.ppsspp.PPSSPP"
 PPSSPP_releaseURL=""
 

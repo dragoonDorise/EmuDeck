@@ -2,7 +2,7 @@
 
 #variables
 Vita3K_emuName="Vita3K"
-Vita3K_emuType="Binary"
+Vita3K_emuType="$emuDeckEmuTypeBinary"
 Vita3K_emuPath="$HOME/Applications/Vita3K"
 Vita3K_configFile="$HOME/Applications/Vita3K/config.yml"
 

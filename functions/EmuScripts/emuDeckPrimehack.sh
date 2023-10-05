@@ -2,7 +2,7 @@
 
 #variables
 Primehack_emuName="Primehack"
-Primehack_emuType="FlatPak"
+Primehack_emuType="$emuDeckEmuTypeFlatpak"
 Primehack_emuPath="io.github.shiiion.primehack"
 releaseURL=""
 

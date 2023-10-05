@@ -2,7 +2,7 @@
 
 #variables
 Flycast_emuName="Flycast"
-Flycast_emuType="FlatPak"
+Flycast_emuType="$emuDeckEmuTypeFlatpak"
 Flycast_emuPath="org.flycast.Flycast"
 Flycast_configFile="$HOME/.var/app/org.flycast.Flycast/config/flycast/emu.cfg"
 
@@ -128,11 +128,7 @@ Flycast_finalize(){
 }
 
 Flycast_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$Flycast_emuPath")" == "$Flycast_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$Flycast_emuPath"
 }
 
 Flycast_resetConfig(){

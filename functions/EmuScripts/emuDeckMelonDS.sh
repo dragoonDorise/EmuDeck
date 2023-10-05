@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 melonDS_emuName="MelonDS"
-melonDS_emuType="FlatPak"
+melonDS_emuType="$emuDeckEmuTypeFlatpak"
 melonDS_emuPath="net.kuribo64.melonDS"
 melonDS_releaseURL=""
 melonDS_configFile="$HOME/.var/app/net.kuribo64.melonDS/config/melonDS/melonDS.ini"

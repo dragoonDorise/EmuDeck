@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 RetroArch_emuName="RetroArch"
-RetroArch_emuType="FlatPak"
+RetroArch_emuType="$emuDeckEmuTypeFlatpak"
 RetroArch_emuPath="org.libretro.RetroArch"
 RetroArch_releaseURL=""
 RetroArch_configFile="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"

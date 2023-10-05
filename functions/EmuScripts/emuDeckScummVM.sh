@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 ScummVM_emuName="ScummVM"
-ScummVM_emuType="FlatPak"
+ScummVM_emuType="$emuDeckEmuTypeFlatpak"
 ScummVM_emuPath="org.scummvm.ScummVM"
 ScummVM_releaseURL=""
 ScummVM_configFile="$HOME/.var/app/org.scummvm.ScummVM/config/scummvm/scummvm.ini"

@@ -2,7 +2,7 @@
 
 #variables
 DuckStation_emuName="DuckStation"
-DuckStation_emuType="FlatPak"
+DuckStation_emuType="$emuDeckEmuTypeFlatpak"
 DuckStation_emuPath="org.duckstation.DuckStation"
 DuckStation_configFileNew="$HOME/.var/app/org.duckstation.DuckStation/config/duckstation/settings.ini"
 

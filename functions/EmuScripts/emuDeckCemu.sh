@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 Cemu_emuName="Cemu (proton)"
-Cemu_emuType="windows"
+Cemu_emuType="$emuDeckEmuTypeWindows"
 Cemu_emuPath="${romsPath}/wiiu/Cemu.exe"
 Cemu_cemuSettings="${romsPath}/wiiu/settings.xml"
 

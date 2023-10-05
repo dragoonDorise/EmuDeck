@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 PCSX2_emuName="PCSX2"
-PCSX2_emuType="FlatPak"
+PCSX2_emuType="$emuDeckEmuTypeFlatpak"
 PCSX2_emuPath="net.pcsx2.PCSX2"
 PCSX2_configFile="$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini"
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 Xemu_emuName="Xemu-Emu"
-Xemu_emuType="FlatPak"
+Xemu_emuType="$emuDeckEmuTypeFlatpak"
 Xemu_emuPath="app.xemu.xemu"
 
 #cleanupOlderThings

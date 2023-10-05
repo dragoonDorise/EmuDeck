@@ -3,6 +3,12 @@
 #Global variables
 emuDecksettingsFile="$HOME/emudeck/settings.sh"
 
+emuDeckEmuTypeFlatpak="Flatpak"
+emuDeckEmuTypeAppImage="AppImage"
+emuDeckEmuTypeBinary="Binary"
+emuDeckEmuTypeWindows="Windows"
+emuDeckEmuTypeOther="Other"
+
 function getScreenAR(){
 	local productName
 	productName=$(getProductName)
