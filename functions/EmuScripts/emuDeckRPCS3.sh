@@ -1,6 +1,6 @@
 #!/bin/bash
 #variables
-RPCS3_emuName="RPCS3"
+RPCS3_remuName="RPCS3"
 RPCS3_emuType="AppImage"
 RPCS3_releaseURL="https://rpcs3.net/latest-appimage"
 RPCS3_emuPath="$HOME/Applications/rpcs3.AppImage"
@@ -19,11 +19,26 @@ RPCS3_install(){
 	# Migrates configurations to RPCS3 AppImage
 	RPCS3_migrate
 
+	# RPCS3 does not have a "latest" tag on their GitHub repo. Open issue said to use the below URL instead. Modified from ES-DE script
+	RPCS3_releaseMD5="$(curl -sL https://rpcs3.net/latest-appimage | md5sum | cut -d ' ' -f 1)"
+
 	local showProgress="$1"
 
-	if installEmuAI "$RPCS3_emuName" "$RPCS3_releaseURL" "rpcs3" "$showProgress"; then # rpcs3.AppImage - needs to be lowercase yuzu for EsDE to find it
-		:
+	if [[ $RPCS3_releaseURL = "https://rpcs3.net/latest-appimage"* ]]; then
+
+		if safeDownload "$RPCS3_remuName" "$RPCS3_releaseURL" "$RPCS3_emuPath" "$showProgress"; then
+			RPCS3_md5sum=($(md5sum $RPCS3_emuPath)) # get first element
+			if [ "$RPCS3_md5sum" == "$RPCS3_releaseMD5" ]; then
+				echo "RPCS3 PASSED HASH CHECK."
+				chmod +x "$RPCS3_emuPath"
+			else
+				echo "RPCS3 FAILED HASH CHECK. Expected $RPCS3_releaseMD5, got $RPCS3_md5sum"
+			fi
+		else
+			return 1
+		fi
 	else
+		setMSG "$RPCS3_remuName not found"
 		return 1
 	fi
 
@@ -39,6 +54,7 @@ RPCS3_init(){
 	RPCS3_setupStorage
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
+	RPCS3_createDesktopShortcut
 }
 
 #update
@@ -90,6 +106,15 @@ RPCS3_setupStorage(){
 	fi
 }
 
+# Create desktop shortcut
+RPCS3_createDesktopShortcut(){
+
+createDesktopShortcut   "$HOME/.local/share/applications/$RPCS3_remuName.desktop" \
+						"$RPCS3_remuName AppImage" \
+						"${toolsPath}/launchers/rpcs3.sh" \
+						"false"
+}
+
 #WipeSettings
 RPCS3_wipe(){
 	setMSG "Wiping $RPCS3_emuName settings."
@@ -113,10 +138,9 @@ RPCS3_setABXYstyle(){
 
 #Migrate
 RPCS3_migrate(){
-	echo "Begin RPCS3 Migration"
-	
-	# Migration
-	migrationFlag="$HOME/.config/EmuDeck/.${RPCS3_emuName}MigrationCompleted"
+   echo "Begin RPCS3 Migration"
+	emu="RPCS3"
+	migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
 	#check if we have a nomigrateflag for $emu
 	if [ ! -f "$migrationFlag" ]; then
 		#RPCS3 flatpak to appimage
@@ -124,10 +148,8 @@ RPCS3_migrate(){
 		migrationTable=()
 		migrationTable+=("$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3" "$HOME/.config/rpcs3")
 	
-		migrateAndLinkConfig "$RPCS3_emuName" "$migrationTable"
+		migrateAndLinkConfig "$emu" "$migrationTable"
 	fi
-
-	echo "true"
 
 }
 
