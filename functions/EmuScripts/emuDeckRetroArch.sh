@@ -164,6 +164,7 @@ RetroArch_update(){
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
+	RetroArch_setupConfigurations
 
 }
 
@@ -2192,7 +2193,6 @@ RetroArch_retroAchievementsSetLogin(){
 
 	fi
 }
-
 RetroArch_setBezels(){
 	if [ "$RABezels" == true ]; then
 		RetroArch_bezelOnAll
