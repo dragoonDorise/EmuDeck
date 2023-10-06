@@ -1,0 +1,6 @@
+collection: SNK Neo Geo CD
+shortname: neogeocdjp
+extensions: chd, CHD, cue, CUE, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/neocd_libretro.so {file.path}
+
+

@@ -267,6 +267,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupPPSSPP=true")
 	defaultSettingsList+=("doSetupXemu=true")
 	defaultSettingsList+=("doSetupESDE=true")
+	defaultSettingsList+=("doSetupPegasus=false")
 	defaultSettingsList+=("doSetupSRM=true")
 	defaultSettingsList+=("doSetupPCSX2QT=true")
 	defaultSettingsList+=("doSetupScummVM=true")
@@ -277,6 +278,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupFlycast=true")
 	defaultSettingsList+=("doInstallSRM=true")
 	defaultSettingsList+=("doInstallESDE=true")
+	defaultSettingsList+=("doInstallPegasus=false")
 	defaultSettingsList+=("doInstallRA=true")
 	defaultSettingsList+=("doInstallDolphin=true")
 	#defaultSettingsList+=("doInstallPCSX2=true")
@@ -396,6 +398,10 @@ function getReleaseURLGH(){
 	
 	if [ $system == "darwin" ]; then
 		fileType="dmg"	
+	fi
+
+	if [ $system == "darwin" ]; then
+		fileType="dmg"
 	fi
 
 	if [ "$url" == "" ]; then
@@ -646,13 +652,14 @@ safeDownload() {
 	fi
 	
 
+
 	if [ "$showProgress" == "true" ] || [[ $showProgress -eq 1 ]]; then
 		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 | tee >(stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading $name" --width 600 --auto-close --no-cancel 2>/dev/null) && echo $'\2'${PIPESTATUS[0]})
 	else
 		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 && echo $'\2'0 || echo $'\2'$?)
 	fi
 
-	
+
 	returnCodes="${request#*$'\1'}"
 	httpCode="${returnCodes%$'\2'*}"
 	exitCode="${returnCodes#*$'\2'}"
@@ -665,12 +672,12 @@ safeDownload() {
 	echo $outFile;
 	echo $httpCode;
 	echo $exitCode;
-	
+
 	if [ "$httpCode" = "200" ] && [ "$exitCode" == "0" ]; then
 		#echo "$name downloaded successfully";
 		mv -v "$outFile.temp" "$outFile" &>/dev/null
 		volumeName=$(hdiutil attach "$outFile" | grep -o '/Volumes/.*$')
-		
+
 		cp -r $volumeName/*.app "$HOME/Applications" && hdiutil detach "$volumeName" && rm -rf $outFile
 		return 0
 	else

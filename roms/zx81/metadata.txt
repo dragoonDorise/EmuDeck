@@ -1,0 +1,6 @@
+collection: Sinclair ZX81
+shortname: zx81
+extensions: tzx, TZX, p, P, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/81_libretro.so {file.path}
+
+

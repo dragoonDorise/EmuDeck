@@ -150,6 +150,11 @@ if [ $doInstallESDE == "true" ]; then
 	echo "install esde"
 	ESDE_install
 fi
+#Pegasus Installation
+if [ $doInstallPegasus == "true" ]; then
+	echo "install Pegasus"
+	Pegasus_install
+fi
 #SRM Installation
 if [ $doInstallSRM == "true" ]; then
 	echo "install srm"
@@ -264,6 +269,12 @@ fi
 if [ "$doSetupESDE" == "true" ]; then
 	echo "ESDE_init"
 	ESDE_update
+fi
+
+#Pegasus Config
+if [ $doSetupPegasus == "true" ]; then
+	echo "Pegasus_init"
+	Pegasus_init
 fi
 
 #Emus config
