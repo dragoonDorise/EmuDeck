@@ -1,5 +1,5 @@
 #!/bin/bash
-
+clear
 appleChip=$(uname -m)
 
 function getLatestReleaseURLGH(){
@@ -92,7 +92,7 @@ fi
 
 #Brew dependencies
 alert "Let's install EmuDeck dependencies... This could take some time. Please press OK"
-brew install zenity gnu-sed rsync xmlstarlet jq
+brew install zenity gnu-sed rsync xmlstarlet jq steam
 if ! command -v xcode-select &>/dev/null; then
 	xcode-select --install
 	wait

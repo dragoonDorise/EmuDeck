@@ -11,6 +11,7 @@ ESDE_releaseJSON="https://gitlab.com/es-de/emulationstation-de/-/raw/master/late
 ESDE_addSteamInputFile="$EMUDECKGIT/configs/steam-input/emulationstation-de_controller_config.vdf"
 steam_input_templateFolder="$HOME/.steam/steam/controller_base/templates/"
 es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
+es_rulesFile="$HOME/.emulationstation/custom_systems/es_find_rules.xml"
 es_settingsFile="$HOME/.emulationstation/es_settings.xml"
 
 ESDE_SetAppImageURLS() {
@@ -44,7 +45,7 @@ ESDE_install(){
 	else
 		setMSG "$ESDE_toolName not found"
 		return 1
-	fi	
+	fi
 }
 
 # ESDE20_install(){
@@ -78,7 +79,7 @@ ESDE_install(){
 
 #ApplyInitialSettings
 ESDE_init(){
-	setMSG "Setting up $ESDE_toolName"	
+	setMSG "Setting up $ESDE_toolName"
 
 	mkdir -p "$HOME/.emulationstation/custom_systems/"
 
@@ -93,9 +94,10 @@ ESDE_init(){
 	ESDE_applyTheme "$esdeTheme"
 	ESDE_migrateDownloadedMedia
 	ESDE_addSteamInputProfile
-	# ESDE_symlinkGamelists
-	# ESDE_finalize
-	# ESDE_migrateEpicNoir
+	ESDE_symlinkGamelists
+	ESDE_finalize
+	ESDE_migrateEpicNoir
+
 }
 
 
@@ -108,7 +110,7 @@ ESDE_resetConfig(){
 # }
 
 ESDE_update(){
-	setMSG "Setting up $ESDE_toolName"	
+	setMSG "Setting up $ESDE_toolName"
 
 	mkdir -p "$HOME/.emulationstation/custom_systems/"
 
@@ -155,7 +157,7 @@ ESDE_addCustomSystems(){
 ESDE_applyTheme(){
 	defaultTheme="EPICNOIR"
 	local theme=$1
-	
+
 	if [[ "${theme}" == "" ]]; then
 		echo "ESDE: applyTheme parameter not set."
 		theme="$defaultTheme"
@@ -168,11 +170,11 @@ ESDE_applyTheme(){
 		mv -v "$HOME/.emulationstation/themes/epic-noir-revisited" "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" #update theme path to esde naming convention
 	fi
 
-	git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" 
+	git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited-es-de"
 	rm -rf "$HOME/.emulationstation/themes/epic-noir-revisited" #remove old themes
 	rm -rf "$HOME/.emulationstation/themes/es-epicnoir" #remove old themes
 	cd "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" && git reset --hard HEAD && git clean -f -d && git pull && echo  "epicnoir up to date!" || echo "problem pulling epicnoir theme"
-	
+
 	if [[ "$theme" == *"EPICNOIR"* ]]; then
 		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="es-epicnoir" />' "$es_settingsFile"
 	fi
@@ -240,9 +242,9 @@ ESDE_setEmulationFolder(){
 	echo "updating $es_settingsFile"
 	#configure roms Directory
 	esDE_romDir="<string name=\"ROMDirectory\" value=\"${romsPath}\" />" #roms
-	
+
 	changeLine '<string name="ROMDirectory"' "${esDE_romDir}" "$es_settingsFile"
-	
+
 	#Configure Downloaded_media folder
 	esDE_MediaDir="<string name=\"MediaDirectory\" value=\"${ESDEscrapData}\" />"
 	#search for media dir in xml, if not found, change to ours. If it's blank, also change to ours.
@@ -282,9 +284,9 @@ ESDE_migrateDownloadedMedia(){
 		echo "link found"
 		unlink "${originalESMediaFolder}" && echo "unlinked"
 	elif [ -e "${originalESMediaFolder}" ] ; then
-		if [ -d "${originalESMediaFolder}" ]; then		
+		if [ -d "${originalESMediaFolder}" ]; then
 			echo -e ""
-			echo -e "Moving EmulationStation-DE downloaded_media to $toolsPath"			
+			echo -e "Moving EmulationStation-DE downloaded_media to $toolsPath"
 			echo -e ""
 			rsync -a "$originalESMediaFolder" "$toolsPath/"  && rm -rf "$originalESMediaFolder"		#move it, merging files if in both locations
 		fi
@@ -304,7 +306,7 @@ ESDE_finalize(){
 	ln -sn lynx atarilynx
 }
 
-ESDE_setEmu(){		
+ESDE_setEmu(){
 	local emu=$1
 	local system=$2
 	local gamelistFile="$HOME/.emulationstation/gamelists/$system/gamelist.xml"
@@ -344,10 +346,10 @@ ESDE_symlinkGamelists(){
 
 ESDE_migrateEpicNoir(){
 	FOLDER="$HOME/.emulationstation/themes/es-epicnoir"
-	
+
 	if [ -f "$FOLDER" ]; then
 		rm -rf "$FOLDER"
 		git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited" --depth=1
-		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="epic-noir-revisited-es-de" />' "$es_settingsFile"	
+		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="epic-noir-revisited-es-de" />' "$es_settingsFile"
 	fi
 }
