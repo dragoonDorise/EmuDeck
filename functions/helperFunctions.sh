@@ -395,6 +395,10 @@ function getReleaseURLGH(){
 	local url
 	local fileNameContains=$3
 	#local token=$(tokenGenerator)
+	
+	if [ $system == "darwin" ]; then
+		fileType="dmg"	
+	fi
 
 	if [ $system == "darwin" ]; then
 		fileType="dmg"
@@ -646,6 +650,7 @@ safeDownload() {
 		echo "- $showProgress"
 		echo "- $headers"
 	fi
+	
 
 
 	if [ "$showProgress" == "true" ] || [[ $showProgress -eq 1 ]]; then
