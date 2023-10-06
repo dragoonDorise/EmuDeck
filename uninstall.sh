@@ -65,7 +65,7 @@ if [ "$doUninstall" == true ]; then
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		kill -15 "$(pidof steam)"
-		$toolsPath/srm/Steam-ROM-Manager.AppImage
+		$toolsPath/Steam-ROM-Manager.AppImage
 				
 	else		
 		echo -e "No"
@@ -237,6 +237,7 @@ if [ "$doUninstall" == true ]; then
 		rm -rf $HOME/Applications/pcsx2-Qt.AppImage &>> /dev/null
 		rm -rf $HOME/.config/PCSX2 &>> /dev/null
 		rm -rf $HOME/.local/share/applications/pcsx2-Qt.desktop &>> /dev/null
+		rm -rf $HOME/.local/share/applications/PCSX2-Qt.desktop &>> /dev/null
 	fi
 	if [[ "$doUninstallPPSSPP" == true ]]; then
 		flatpak uninstall org.ppsspp.PPSSPP -y
@@ -255,8 +256,13 @@ if [ "$doUninstall" == true ]; then
 		rm -rf $HOME/.var/app/com.github.Rosalie241.RMG &>> /dev/null
 	fi
 	if [[ "$doUninstallRPCS3" == true ]]; then
+		# Flatpak
 		flatpak uninstall net.rpcs3.RPCS3 -y
 		rm -rf $HOME/.var/app/net.rpcs3.RPCS3 &>> /dev/null
+		# AppImage
+		rm -rf "$HOME/.config/rpcs3" &>> /dev/null
+		rm -rf "$HOME/.cache/rpcs3" &>> /dev/null
+		rm -rf $HOME/.local/share/applications/RPCS3.desktop &>> /dev/null
 	fi
 	if [[ "$doUninstallRyujinx" == true ]]; then		
 		rm -rf $HOME/.config/Ryujinx &>> /dev/null
@@ -337,7 +343,7 @@ if [ "$doUninstall" == true ]; then
 	echo "# Removing Steam ROM Manager and EmulationStation-DE";
 	# Steam ROM Manager
 	rm -rf $HOME/.config/steam-rom-manager
-	rm -rf "$toolsPath/srm/Steam-ROM-Manager.AppImage"
+	rm -rf "$toolsPath/Steam-ROM-Manager.AppImage"
 	rm -rf $HOME/.local/share/applications/SRM.desktop &>> /dev/null
 	# EmulationStation-DE
 	rm -rf $HOME/.emulationstation
