@@ -1,5 +1,5 @@
 #!/bin/bash
-
+clear
 appleChip=$(uname -m)
 
 function getLatestReleaseURLGH(){
