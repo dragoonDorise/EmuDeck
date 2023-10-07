@@ -12,10 +12,7 @@ SRM_install(){
   local showProgress="$1"
 
   if installToolAI "$SRM_toolName" "$(getReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")" "" "$showProgress"; then
-    createDesktopShortcut   "$HOME/.local/share/applications/$SRM_toolName.desktop" \
-    "$SRM_toolName AppImage" \
-    "${toolsPath}/launchers/srm/steamrommanager.sh" \
-    "false"
+    :
   else
     return 1
   fi
