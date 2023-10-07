@@ -58,7 +58,12 @@ SRM_init(){
   #local files=$1
 
   #old SRM
-  rm -rf "${toolsPath}/srm"
+
+  if [ -e "${toolsPath}/srm" ]; then
+    cp "${toolsPath}"/srm/*.AppImage "${toolsPath}"
+  fi
+
+
 
   mkdir -p "$SRM_userData_configDir/"
 
@@ -217,6 +222,12 @@ SRM_resetConfig(){
 }
 
 SRM_IsInstalled(){
+
+  if [ -e "${toolsPath}/srm" ]; then
+    cp "${toolsPath}"/srm/*.AppImage "${toolsPath}"
+    mv "${toolsPath}/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage"
+  fi
+
   if [ -e "$SRM_toolPath" ]; then
 	echo "true"
   else
