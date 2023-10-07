@@ -7,17 +7,20 @@ SRM_userData_directory="configs/steam-rom-manager/userData"
 SRM_userData_configDir="$HOME/.config/steam-rom-manager/userData"
 #cleanupOlderThings
 
-SRM_install(){		
+SRM_install(){
   setMSG "Installing Steam Rom Manager"
   local showProgress="$1"
-  
+
   if installToolAI "$SRM_toolName" "$(getReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")" "" "$showProgress"; then
-    :
+    createDesktopShortcut   "$HOME/.local/share/applications/$SRM_toolName.desktop" \
+    "$SRM_toolName AppImage" \
+    "${toolsPath}/launchers/srm/steamrommanager.sh" \
+    "false"
   else
     return 1
   fi
-  
-} 
+
+}
 
 
 SRM_uninstall(){
@@ -29,14 +32,14 @@ SRM_createDesktopShortcut(){
   local SRM_Shortcutlocation=$1
 
   mkdir -p "$HOME/.local/share/applications/"
-  
+
   mkdir -p "$HOME/.local/share/icons/emudeck/"
   cp -v "$EMUDECKGIT/icons/srm.png" "$HOME/.local/share/icons/emudeck/"
 
   if [[ "$SRM_Shortcutlocation" == "" ]]; then
 
 	SRM_Shortcutlocation="$HOME/.local/share/applications/SRM.desktop"
-  
+
   fi
 
   echo "#!/usr/bin/env xdg-open
@@ -51,16 +54,16 @@ SRM_createDesktopShortcut(){
   chmod +x "$SRM_Shortcutlocation"
 }
 
-SRM_init(){			
-  setMSG "Configuring Steam Rom Manager"	
+SRM_init(){
+  setMSG "Configuring Steam Rom Manager"
   local json_directory="$SRM_userData_configDir/parsers"
   local output_file="$SRM_userData_configDir/userConfigurations.json"
   #local files=$1
 
+  #old SRM
+  rm -rf "${toolsPath}/srm"
 
-  
-
-  mkdir -p "$SRM_userData_configDir/"	
+  mkdir -p "$SRM_userData_configDir/"
 
   #Multiemulator?
   exclusionList=""
@@ -92,7 +95,7 @@ SRM_init(){
 	  exclusionList=$exclusionList"sega_mastersystem-ra-genesis-plus-gx.json\n";
 	  exclusionList=$exclusionList"sinclair_zx-spectrum-ra-fuse.json\n";
 	  exclusionList=$exclusionList"snk_neo_geo_pocket_color-ra-beetle_neopop.json\n";
-	  exclusionList=$exclusionList"snk_neo_geo_pocket-ra-beetle_neopop.json\n";		 
+	  exclusionList=$exclusionList"snk_neo_geo_pocket-ra-beetle_neopop.json\n";
 	fi
   fi
   #N64?
@@ -112,7 +115,7 @@ SRM_init(){
 	  exclusionList=$exclusionList"sony_psx-ra-swanstation.json\n"
 	  exclusionList=$exclusionList"nintendo_64dd-ares.json\n"
 	else
-	  exclusionList=$exclusionList"sony_psx-duckstation.json\n"	
+	  exclusionList=$exclusionList"sony_psx-duckstation.json\n"
 	fi
   fi
   #gba?
@@ -120,7 +123,7 @@ SRM_init(){
 	if [ "$emuGBA" = "mgba" ]; then
 	  exclusionList=$exclusionList"nintendo_gameboy-advance-ares.json\n"
 	  exclusionList=$exclusionList"nintendo_gba-ra-mgba.json\n"
-	else		
+	else
 	  exclusionList=$exclusionList"nintendo_gba-mgba.json\n"
 	fi
   fi
@@ -129,7 +132,7 @@ SRM_init(){
 	if [ "$emuPSP" = "ppsspp" ]; then
 	  exclusionList=$exclusionList"sony_psp-ra-ppsspp.json\n"
 	else
-	  exclusionList=$exclusionList"sony_psp-ppsspp.json\n"		
+	  exclusionList=$exclusionList"sony_psp-ppsspp.json\n"
 	fi
   fi
   #melonDS
@@ -142,7 +145,7 @@ SRM_init(){
   fi
   #mame
   if [ "$emuMAME" != "both" ]; then
-	if [ "$emuMAME" = "mame" ]; then	
+	if [ "$emuMAME" = "mame" ]; then
 	  exclusionList=$exclusionList"arcade-ra-mame_2010.json\n"
 	  exclusionList=$exclusionList"arcade-ra-mame.json\n"
 	  exclusionList=$exclusionList"arcade-ra-mame_2003_plus.json\n"
@@ -151,7 +154,7 @@ SRM_init(){
 	  exclusionList=$exclusionList"tiger_electronics_gamecom-mame.json\n"
 	  exclusionList=$exclusionList"vtech_vsmile-mame.json\n"
 	  exclusionList=$exclusionList"snk_neo_geo_cd-mame.json\n"
-	  exclusionList=$exclusionList"philips_cd_i-mame.json\n"		
+	  exclusionList=$exclusionList"philips_cd_i-mame.json\n"
 	fi
   fi
   #Optional parsers
@@ -161,39 +164,39 @@ SRM_init(){
   exclusionList=$exclusionList"sony_psx-ra-swanstation.json\n"
   exclusionList=$exclusionList"nintendo_gbc-mgba.json\n"
   exclusionList=$exclusionList"nintendo_gb-mGBA.json\n"
-  
+
   echo -e $exclusionList > "$HOME/exclude.txt"
-  
+
   rm -rf "$SRM_userData_configDir/parsers/emudeck/"
-	
+
   rsync -avz --mkpath --exclude-from="$HOME/exclude.txt" "$EMUDECKGIT/$SRM_userData_directory/parsers/emudeck/" "$SRM_userData_configDir/parsers/emudeck/"
   echo "Put your custom parsers here" "$SRM_userData_configDir/parsers/custom/readme.txt"
   rsync -avhp --mkpath "$EMUDECKGIT/$SRM_userData_directory/userSettings.json" "$SRM_userData_configDir/" --backup --suffix=.bak
-  
+
   cp "$SRM_userData_configDir/userConfigurations.json" "$SRM_userData_configDir/userConfigurations.bak"
-  
+
   rm -rf "$HOME/exclude.txt"
-  
+
   # jq -s '.' $(find "\"$json_directory"\" -name "*.json" | sort) > "$output_file"
   rm -rf "$HOME/temp_parser"
   ln -s "$json_directory" "$HOME/temp_parser"
   files=$(find "$HOME/temp_parser/emudeck" -name "*.json" | sort)
   jq -s '.' $files > "$output_file"
   rm -rf "$HOME/temp_parser"
-  
+
   sleep 1
-  
+
   SRM_setEnv
 
   sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userConfigurations.json"
   sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$SRM_userData_configDir/userConfigurations.json"
   sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userConfigurations.json"
-  
+
   sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userSettings.json"
   sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$SRM_userData_configDir/userSettings.json"
   sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userSettings.json"
-  
-  
+
+
   echo -e "true"
 }
 
@@ -202,11 +205,11 @@ SRM_setEnv(){
   jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
   "$SRM_userData_configDir/userSettings.json" > "$tmp"\
    && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
-  
+
   tmp=$(mktemp)
   jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
   "$SRM_userData_configDir/userSettings.json" > "$tmp" \
-  && mv "$tmp" "$SRM_userData_configDir/userSettings.json"  
+  && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
 }
 
 SRM_resetConfig(){
@@ -224,7 +227,7 @@ SRM_IsInstalled(){
   fi
 }
 SRM_resetLaunchers(){
-  rsync -av --existing $HOME/.config/EmuDeck/backend/tools/launchers/ $toolsPath/launchers/	
+  rsync -av --existing $HOME/.config/EmuDeck/backend/tools/launchers/ $toolsPath/launchers/
   for entry in $toolsPath/launchers/*.sh
   do
 	 chmod +x "$entry"
