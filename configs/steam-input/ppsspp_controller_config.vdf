@@ -17,7 +17,7 @@
 	{
 		"english"
 		{
-			"title"		"EmuDeck - PPSSPP (Standalone)"
+			"title"		"EmuDeck - PPSSPP Standalone"
 			"description"		"Left Touchpad - Quick Actions. Long press to perform an action."
 		}
 		"czech"
@@ -625,11 +625,15 @@
 			{
 				"activators"
 				{
-					"Full_Press"
+					"Long_Press"
 					{
 						"bindings"
 						{
 							"binding"		"key_press ESCAPE, Quick Menu, EmuDeck_Menu.png, #232323 #E4E4E4"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -641,11 +645,15 @@
 			{
 				"activators"
 				{
-					"Full_Press"
+					"Long_Press"
 					{
 						"bindings"
 						{
 							"binding"		"key_press F1, Load State, EmuDeck_LoadState.png, #232323 #0045AD"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -657,7 +665,7 @@
 			{
 				"activators"
 				{
-					"Full_Press"
+					"Long_Press"
 					{
 						"bindings"
 						{
@@ -665,6 +673,7 @@
 						}
 						"settings"
 						{
+							"long_press_time"		"300"
 							"toggle"		"1"
 						}
 					}
@@ -693,11 +702,15 @@
 			{
 				"activators"
 				{
-					"Full_Press"
+					"Long_Press"
 					{
 						"bindings"
 						{
-							"binding"		"key_press F4, Next Save Slot, EmuDeck_SaveSlotUp.png, #232323 #ADA200"
+							"binding"		"key_press F4, Next Save State Slot, EmuDeck_SaveSlotUp.png, #232323 #ADA200"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -709,11 +722,15 @@
 			{
 				"activators"
 				{
-					"Full_Press"
+					"Long_Press"
 					{
 						"bindings"
 						{
 							"binding"		"key_press F2, Save State, EmuDeck_SaveState.png, #232323 #0045AD"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}

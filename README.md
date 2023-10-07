@@ -96,3 +96,44 @@ If it is a RetroArch core, replace `emulatorname` with `ra`.
     * `nintendo_64-rmg.json`
     * `nintendo_gba-ra-mgba.json`
     * `sega_saturn-ra-mednafen.json`
+
+# Steam Input Profiles
+
+If you would like to submit a PR request for a Steam Input profile, use the following guidelines:
+
+* Use `Touch Menu` as the input style
+* Set inputs to Long Press with a Long Press time of 300
+    * Exceptions:
+        * Pause: Regular Press
+        * Reset and Stop Emulation: Long Press with a Long Press time of 1000
+* Naming Conventions:
+    * To stop/quit/exit emulation:
+        * `Stop Emulation`
+    * To toggle full screen/see menu bars:
+        * `Toggle Full Screen`
+    * To pause/resume emulation:
+        * `Pause/Play`
+    * To reset emulation:
+        * `Reset Emulation`
+    * To enter the quick menu/menu of an emulator:
+        * `Quick Menu`
+    * Fast Forward/FFWD:
+        * `Fast Forward`
+    * To increase save state slots:
+        * `Next Save State Slot`
+    * To decrease save state slots:
+        * `Prev Save State Slot`
+    * Save State:
+        * `Save State` 
+    * Load State
+        * `Load State`
+    * Swap Discs
+        * `Swap Discs`
+    * Layout Toggles (Cemu, Citra, etc.)
+        * `Toggle Screen Layout` 
+    * Screenshot/Take Picture
+        * `Screenshot`
+    * Cheats
+        * `Cheats Menu`
+
+To export and share Steam Input profiles, see [https://emudeck.github.io/how-to-contribute/#steam-input-profiles](https://emudeck.github.io/how-to-contribute/#steam-input-profiles).

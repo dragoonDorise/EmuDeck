@@ -616,11 +616,31 @@
 	"group"
 	{
 		"id"		"14"
-		"mode"		"radial_menu"
+		"mode"		"touch_menu"
 		"name"		"ares Radial Menu"
 		"description"		""
 		"inputs"
 		{
+			"touch_menu_button_0"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F10, Load State, EmuDeck_LoadState.png, #232323 #0045AD"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
 			"touch_menu_button_1"
 			{
 				"activators"
@@ -629,7 +649,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action empty_sub_command, , "
+							"binding"		"key_press HOME, Pause/Play, EmuDeck_Pause.png, #232323 #00AD3D"
 						}
 					}
 				}
@@ -645,7 +665,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F10, Load State, EmuDeck_LoadState.png, #232323 #0045AD"
+							"binding"		"key_press F5, Fast Forward, EmuDeck_FastForward.png, #232323 #00AD3D"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -661,7 +685,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F11, Prev Slot, EmuDeck_SaveSlotDown.png, #232323 #ADA200"
+							"binding"		"key_press F9, Save State, EmuDeck_SaveState.png, #232323 #0045AD"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -677,7 +705,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F8, Screenshot, EmuDeck_Screenshot.png, "
+							"binding"		"key_press F12, Next Slot, EmuDeck_SaveSlotUp.png, #232323 #ADA200"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -693,7 +725,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press HOME, Pause/Play, EmuDeck_Pause.png, #232323 #00AD3D"
+							"binding"		"key_press F8, Screenshot, EmuDeck_Screenshot.png, "
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -709,11 +745,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press INSERT, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
+							"binding"		"key_press F1, Toggle Full Screen, EmuDeck_Menu.png, #232323 #E4E4E4"
 						}
 						"settings"
 						{
-							"long_press_time"		"3000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -729,7 +765,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F3, Enable Keyboard, ghost_080_input_0140.png, #232323 #FFFFFF"
+							"binding"		"key_press F11, Prev Slot, EmuDeck_SaveSlotDown.png, #232323 #ADA200"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -745,7 +785,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F2, Enable Mouse, ghost_080_input_0040.png, #232323 #FFFFFF"
+							"binding"		"key_press END, Reset Emulation, EmuDeck_Reset.png, #232323 #AD0000"
+						}
+						"settings"
+						{
+							"long_press_time"		"1000"
 						}
 					}
 				}
@@ -761,11 +805,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press END, Reset Emulation, EmuDeck_Reset.png, #232323 #AD0000"
+							"binding"		"key_press F2, Enable Mouse, ghost_080_input_0040.png, #232323 #FFFFFF"
 						}
 						"settings"
 						{
-							"long_press_time"		"3000"
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -781,7 +825,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F5, Fast Forward, EmuDeck_FastForward.png, #232323 #00AD3D"
+							"binding"		"key_press F3, Enable Keyboard, ghost_080_input_0140.png, #232323 #FFFFFF"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -797,39 +845,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F1, Toggle Full Screen, EmuDeck_Menu.png, #232323 #E4E4E4"
+							"binding"		"key_press INSERT, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
 						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"touch_menu_button_12"
-			{
-				"activators"
-				{
-					"Long_Press"
-					{
-						"bindings"
+						"settings"
 						{
-							"binding"		"key_press F12, Next Slot, EmuDeck_SaveSlotUp.png, #232323 #ADA200"
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"touch_menu_button_13"
-			{
-				"activators"
-				{
-					"Long_Press"
-					{
-						"bindings"
-						{
-							"binding"		"key_press F9, Save State, EmuDeck_SaveState.png, #232323 #0045AD"
+							"long_press_time"		"1000"
 						}
 					}
 				}
@@ -840,7 +860,7 @@
 		}
 		"settings"
 		{
-			"touch_menu_button_count"		"9"
+			"mouse_smoothing"		"0"
 			"touch_menu_scale"		"120"
 			"touch_menu_show_labels"		"0"
 		}

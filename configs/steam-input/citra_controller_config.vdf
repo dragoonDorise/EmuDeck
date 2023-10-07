@@ -707,12 +707,16 @@
 			{
 				"activators"
 				{
-					"Full_Press"
+					"Long_Press"
 					{
 						"bindings"
 						{
 							"binding"		"key_press LEFT_SHIFT, Save State, EmuDeck_SaveState.png, #232323 #00AD00"
 							"binding"		"key_press L, Save State, EmuDeck_SaveState.png, #232323 #00AD00"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -728,7 +732,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F4, Pause, EmuDeck_Pause.png, #232323 #00ADAD"
+							"binding"		"key_press F4, Pause/Play, EmuDeck_Pause.png, #232323 #00ADAD"
 						}
 					}
 				}
@@ -740,12 +744,16 @@
 			{
 				"activators"
 				{
-					"Full_Press"
+					"Long_Press"
 					{
 						"bindings"
 						{
 							"binding"		"key_press LEFT_CONTROL, Load State, EmuDeck_LoadState.png, #232323 #00AD00"
 							"binding"		"key_press V, Load State, EmuDeck_LoadState.png, #232323 #00AD00"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -757,11 +765,15 @@
 			{
 				"activators"
 				{
-					"Full_Press"
+					"Long_Press"
 					{
 						"bindings"
 						{
 							"binding"		"key_press F, Toggle Full Screen, EmuDeck_Menu.png, #232323 #ADA200"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -773,12 +785,16 @@
 			{
 				"activators"
 				{
-					"Full_Press"
+					"Long_Press"
 					{
 						"bindings"
 						{
 							"binding"		"key_press LEFT_CONTROL, Fast Forward, EmuDeck_FastForward.png, #232323 #00ADAD"
 							"binding"		"key_press Z, Fast Forward, EmuDeck_FastForward.png, #232323 #00ADAD"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -790,11 +806,15 @@
 			{
 				"activators"
 				{
-					"Full_Press"
+					"Long_Press"
 					{
 						"bindings"
 						{
 							"binding"		"key_press S, Swap Screens, EmuDeck_Reset.png, #232323 #FFFFFF"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -806,11 +826,15 @@
 			{
 				"activators"
 				{
-					"Full_Press"
+					"Long_Press"
 					{
 						"bindings"
 						{
-							"binding"		"key_press E, Change Layout, EmuDeck_SwapScreen.png, "
+							"binding"		"key_press E, Toggle Screen Layout, EmuDeck_SwapScreen.png, "
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -822,11 +846,15 @@
 			{
 				"activators"
 				{
-					"Double_Press"
+					"Long_Press"
 					{
 						"bindings"
 						{
-							"binding"		"key_press X, Double Tap Exit, EmuDeck_Quit-Exit.png, #232323 #AD0000"
+							"binding"		"key_press X, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
+						}
+						"settings"
+						{
+							"long_press_time"		"1000"
 						}
 					}
 				}
@@ -844,20 +872,6 @@
 			"touch_menu_position_y"		"99"
 			"touch_menu_scale"		"140"
 			"touchmenu_button_fire_type"		"1"
-		}
-	}
-	"group"
-	{
-		"id"		"20"
-		"mode"		"dpad"
-		"name"		""
-		"description"		""
-		"inputs"
-		{
-		}
-		"settings"
-		{
-			"requires_click"		"0"
 		}
 	}
 	"group"
@@ -976,7 +990,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F, Fullscreen Toggle, , "
+							"binding"		"key_press F, Toggle Full Screen, , "
 						}
 					}
 				}
@@ -1041,7 +1055,6 @@
 			"5"		"right_trigger active"
 			"8"		"right_joystick active"
 			"9"		"dpad active"
-			"20"		"gyro active"
 		}
 	}
 	"settings"

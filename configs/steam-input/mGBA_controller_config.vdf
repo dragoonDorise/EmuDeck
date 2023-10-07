@@ -656,7 +656,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, Cheats, EmuDeck_Cheats.png, #232323 #33AD69"
+							"binding"		"key_press LEFT_CONTROL, Cheats Menu, EmuDeck_Cheats.png, #232323 #33AD69"
 						}
 					}
 					"Long_Press"
@@ -726,7 +726,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, Menu, EmuDeck_Menu.png, #232323 #E4E4E4"
+							"binding"		"key_press LEFT_CONTROL, Quick Menu, EmuDeck_Menu.png, #232323 #E4E4E4"
 						}
 					}
 					"Long_Press"
@@ -828,7 +828,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, Reset, EmuDeck_Reset.png, #232323 #AD0000"
+							"binding"		"key_press LEFT_CONTROL, Reset Emulation, EmuDeck_Reset.png, #232323 #AD0000"
 						}
 						"settings"
 						{

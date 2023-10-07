@@ -730,7 +730,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press RIGHT_BRACKET, Reset, EmuDeck_Reset.png, #232323 #AD0000"
+							"binding"		"key_press RIGHT_BRACKET, Reset Emulation, EmuDeck_Reset.png, #232323 #AD0000"
 						}
 						"settings"
 						{
@@ -767,7 +767,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press EQUALS, Swap Screens, EmuDeck_SwapScreen.png, #232323 #E4E4E4"
+							"binding"		"key_press EQUALS, Toggle Screen Layout, EmuDeck_SwapScreen.png, #232323 #E4E4E4"
 						}
 					}
 				}
@@ -799,7 +799,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"controller_action CHANGE_PRESET 2 1 1, Save States Menu, EmuDeck_SaveStatesMenu.png, #232323 #00ADAD"
+							"binding"		"controller_action CHANGE_PRESET 2 1 1, Save State Menu, EmuDeck_SaveStatesMenu.png, #232323 #00ADAD"
 						}
 					}
 				}
