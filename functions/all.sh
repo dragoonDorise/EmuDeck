@@ -1,11 +1,5 @@
 #!/bin/bash
 
-if [ -d "/Library" ]; then
-    deviceOS="macos"
-else
-    deviceOS=$(lsb_release -si)
-fi
-
 if [[ "$EMUDECKGIT" == "" ]]; then
     EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 fi
@@ -21,7 +15,9 @@ else
     cp "$EMUDECKGIT/settings.sh" "$SETTINGSFILE"
 fi
 
-export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
+if [ "$system" != "darwin" ]; then
+    export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
+fi
 chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
 
 source "$EMUDECKGIT"/functions/checkBIOS.sh
@@ -36,6 +32,7 @@ source "$EMUDECKGIT"/functions/setMSG.sh
 source "$EMUDECKGIT"/functions/emuDeckPrereqs.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
 source "$EMUDECKGIT"/functions/installEmuBI.sh
+source "$EMUDECKGIT"/functions/installToolAI.sh
 source "$EMUDECKGIT"/functions/migrateAndLinkConfig.sh
 source "$EMUDECKGIT"/functions/nonDeck.sh
 source "$EMUDECKGIT"/functions/dialogBox.sh
@@ -93,3 +90,11 @@ source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayGreenlight.sh
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMAMEProton.sh
+
+# Darwin ovewrites
+if [ "$system" == "darwin" ]; then
+    
+    source "$EMUDECKGIT/darwin/functions/helperFunctions.sh"
+    source "$EMUDECKGIT/darwin/functions/overrides.sh"
+    
+fi
