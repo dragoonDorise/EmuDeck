@@ -65,7 +65,7 @@ if [ "$doUninstall" == true ]; then
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		kill -15 "$(pidof steam)"
-		$toolsPath/Steam-ROM-Manager.AppImage
+		$toolsPath/Steam ROM Manager.AppImage
 				
 	else		
 		echo -e "No"
@@ -343,7 +343,7 @@ if [ "$doUninstall" == true ]; then
 	echo "# Removing Steam ROM Manager and EmulationStation-DE";
 	# Steam ROM Manager
 	rm -rf $HOME/.config/steam-rom-manager
-	rm -rf "$toolsPath/Steam-ROM-Manager.AppImage"
+	rm -rf "$toolsPath/Steam ROM Manager.AppImage"
 	rm -rf $HOME/.local/share/applications/SRM.desktop &>> /dev/null
 	# EmulationStation-DE
 	rm -rf $HOME/.emulationstation

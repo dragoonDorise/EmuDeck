@@ -268,7 +268,7 @@ if [ "$uiMode" == 'zenity' ]; then
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		echo "user launched SRM"
-		"${toolsPath}/Steam-ROM-Manager.AppImage"
+		"${toolsPath}/Steam ROM Manager.AppImage"
 		exit
 	else
 		exit
