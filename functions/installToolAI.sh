@@ -51,7 +51,7 @@ installToolAI(){
         chmod +x "${toolsPath}/launchers/$folderName/"*
 
         createDesktopShortcut   "$HOME/.local/share/applications/$name.desktop" \
-                                "$name AppImage" \
+                                "$name" \
                                 "${toolsPath}/launchers/$folderName/$launcherFileName" \
                                 "false"
     done
