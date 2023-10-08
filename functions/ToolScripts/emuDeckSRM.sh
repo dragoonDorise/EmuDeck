@@ -1,6 +1,6 @@
 #!/bin/bash
 #variables
-SRM_toolName="Steam Rom Manager"
+SRM_toolName="Steam ROM Manager"
 SRM_toolType="AppImage"
 SRM_toolPath="${toolsPath}/Steam ROM Manager.AppImage"
 SRM_userData_directory="configs/steam-rom-manager/userData"
@@ -8,7 +8,7 @@ SRM_userData_configDir="$HOME/.config/steam-rom-manager/userData"
 #cleanupOlderThings
 
 SRM_install(){
-  setMSG "Installing Steam Rom Manager"
+  setMSG "Installing Steam ROM Manager"
   local showProgress="$1"
 
   if installToolAI "$SRM_toolName" "$(getReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")" "" "$showProgress"; then
@@ -41,8 +41,8 @@ SRM_createDesktopShortcut(){
 
   echo "#!/usr/bin/env xdg-open
   [Desktop Entry]
-  Name=Steam Rom Manager AppImage
-  Exec=zenity --question --width 450 --title \"Close Steam/Steam Input?\" --text \"Exit Steam to launch Steam Rom Manager? Desktop controls will temporarily revert to touch/trackpad/L2/R2 until you open Steam again.\" && (kill -15 \$(pidof steam) & $SRM_toolPath)
+  Name=Steam ROM Manager AppImage
+  Exec=zenity --question --width 450 --title \"Close Steam/Steam Input?\" --text \"Exit Steam to launch Steam ROM Manager? Desktop controls will temporarily revert to touch/trackpad/L2/R2 until you open Steam again.\" && (kill -15 \$(pidof steam) & $SRM_toolPath)
   Icon=$HOME/.local/share/icons/emudeck/srm.png
   Terminal=false
   Type=Application
@@ -52,7 +52,7 @@ SRM_createDesktopShortcut(){
 }
 
 SRM_init(){
-  setMSG "Configuring Steam Rom Manager"
+  setMSG "Configuring Steam ROM Manager"
   local json_directory="$SRM_userData_configDir/parsers"
   local output_file="$SRM_userData_configDir/userConfigurations.json"
   #local files=$1
