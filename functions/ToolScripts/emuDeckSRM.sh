@@ -226,6 +226,7 @@ SRM_IsInstalled(){
   if [ -d "${toolsPath}/srm" ]; then
     cp "${toolsPath}"/srm/*.AppImage "${toolsPath}"
     mv "${toolsPath}/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" && rm -rf "${toolsPath}"/srm/
+    rm -rf $HOME/.local/share/applications/SRM.desktop
   fi
 
   if [ -f "$SRM_toolPath" ]; then
