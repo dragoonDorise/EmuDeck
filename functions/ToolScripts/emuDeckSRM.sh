@@ -51,6 +51,18 @@ SRM_createDesktopShortcut(){
   chmod +x "$SRM_Shortcutlocation"
 }
 
+SRM_migration(){
+  if [ -d "${toolsPath}/srm" ]; then
+    cp "${toolsPath}"/srm/*.AppImage "${toolsPath}"
+    mv "${toolsPath}/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" && rm -rf "${toolsPath}"/srm/
+    rm -rf $HOME/.local/share/applications/SRM.desktop
+    createDesktopShortcut   "$HOME/.local/share/applications/Steam ROM Manager.desktop" \
+    "Steam ROM Manager AppImage" \
+    "${toolsPath}/launchers/srm/steamrommanager.sh" \
+    "false"
+  fi
+}
+
 SRM_init(){
   setMSG "Configuring Steam ROM Manager"
   local json_directory="$SRM_userData_configDir/parsers"
@@ -58,10 +70,7 @@ SRM_init(){
   #local files=$1
 
   #old SRM
-
-  if [ -e "${toolsPath}/srm" ]; then
-    cp "${toolsPath}"/srm/*.AppImage "${toolsPath}"
-  fi
+  SRM_migration
 
 
 
@@ -222,12 +231,6 @@ SRM_resetConfig(){
 }
 
 SRM_IsInstalled(){
-
-  if [ -d "${toolsPath}/srm" ]; then
-    cp "${toolsPath}"/srm/*.AppImage "${toolsPath}"
-    mv "${toolsPath}/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" && rm -rf "${toolsPath}"/srm/
-    rm -rf $HOME/.local/share/applications/SRM.desktop
-  fi
 
   if [ -f "$SRM_toolPath" ]; then
 	echo "true"

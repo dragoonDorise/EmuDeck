@@ -1,4 +1,4 @@
 #!/bin/bash
 appImageInit() {
-	echo "NYI"
+	SRM_migration
 }
