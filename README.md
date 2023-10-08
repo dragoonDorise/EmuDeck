@@ -2,18 +2,18 @@
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-908a85?logo=gitpod)](https://gitpod.io/from-referrer/)
 <img src="https://www.emudeck.com/img/hero.png">
 
-EmuDeck is a collection of scripts that allows you to autoconfigure your Steam Deck, it creates your roms directory structure and downloads all of the needed Emulators for you along with the best configurations for each of them. EmuDeck works great with [Steam Rom Manager](https://github.com/SteamGridDB/steam-rom-manager) or with [EmulationStation DE](https://es-de.org)
+EmuDeck is a collection of scripts that allows you to autoconfigure your Steam Deck, it creates your roms directory structure and downloads all of the needed Emulators for you along with the best configurations for each of them. EmuDeck works great with [Steam ROM Manager](https://github.com/SteamGridDB/steam-rom-manager) or with [EmulationStation DE](https://es-de.org)
 
 ** If you are a dev please read till the bottom **
 
 There are two ways of using EmuDeck:
 
-## Using Steam Rom Manager
+## Using Steam ROM Manager
 
 <img src="https://www.emudeck.com/img/ss1.png">
 
 This option gives you all your games presented with their box arts as if they were a regular Steam Game.
-EmuDeck has preloaded configurations for Steam Rom Manager for the following systems:
+EmuDeck has preloaded configurations for Steam ROM Manager for the following systems:
 
 https://emudeck.github.io/emulators/steamos/supported-emulators/
 
