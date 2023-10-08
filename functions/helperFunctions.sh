@@ -395,9 +395,9 @@ function getReleaseURLGH(){
 	local url
 	local fileNameContains=$3
 	#local token=$(tokenGenerator)
-	
+
 	if [ $system == "darwin" ]; then
-		fileType="dmg"	
+		fileType="dmg"
 	fi
 
 	if [ $system == "darwin" ]; then
@@ -642,15 +642,13 @@ safeDownload() {
 	local outFile="$3"
 	local showProgress="$4"
 	local headers="$5"
-	if [ "$showProgress" == "true" ]; then
-		echo "safeDownload()"
-		echo "- $name"
-		echo "- $url"
-		echo "- $outFile"
-		echo "- $showProgress"
-		echo "- $headers"
-	fi
-	
+
+	echo "safeDownload()"
+	echo "- $name"
+	echo "- $url"
+	echo "- $outFile"
+	echo "- $showProgress"
+	echo "- $headers"
 
 
 	if [ "$showProgress" == "true" ] || [[ $showProgress -eq 1 ]]; then
@@ -658,34 +656,22 @@ safeDownload() {
 	else
 		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 && echo $'\2'0 || echo $'\2'$?)
 	fi
-
-
+	requestInfo=$(sed -z s/.$// <<< "${request%$'\1'*}")
 	returnCodes="${request#*$'\1'}"
 	httpCode="${returnCodes%$'\2'*}"
 	exitCode="${returnCodes#*$'\2'}"
-	if [ "$showProgress" == "true" ]; then
-		requestInfo=$(sed -z s/.$// <<< "${request%$'\1'*}")
-		echo "$requestInfo"
-		echo "HTTP response code: $httpCode"
-		echo "CURL exit code: $exitCode"
-	fi
-	echo $outFile;
-	echo $httpCode;
-	echo $exitCode;
-
+	echo "$requestInfo"
+	echo "HTTP response code: $httpCode"
+	echo "CURL exit code: $exitCode"
 	if [ "$httpCode" = "200" ] && [ "$exitCode" == "0" ]; then
-		#echo "$name downloaded successfully";
-		mv -v "$outFile.temp" "$outFile" &>/dev/null
-		volumeName=$(hdiutil attach "$outFile" | grep -o '/Volumes/.*$')
-
-		cp -r $volumeName/*.app "$HOME/Applications" && hdiutil detach "$volumeName" && rm -rf $outFile
+		echo "$name downloaded successfully";
+		mv -v "$outFile.temp" "$outFile"
 		return 0
 	else
-		#echo "$name download failed"
+		echo "$name download failed"
 		rm -f "$outFile.temp"
 		return 1
 	fi
-
 }
 
 addSteamInputCustomIcons() {
