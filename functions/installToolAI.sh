@@ -42,17 +42,14 @@ installToolAI(){
     do
         echo "deploying $l"
         launcherFileName=$(basename "$l")
-        folderName=$(dirname "$l" | sed 's!.*/!!')
-        if [ $folderName == "launchers" ]; then
-            folderName=""
-        fi
+        folderName=$(dirname "$l" | sed 's!.*/!!') # Obtiene el nombre de la subcarpeta
         chmod +x "$l"
-        cp -v "$l" "${toolsPath}/launchers/$folderName/"
-        chmod +x "${toolsPath}/launchers/$folderName/"*
+        cp -v "$l" "${toolsPath}/launchers/${folderName}_$launcherFileName" # Usar '_' para separar la subcarpeta del nombre del archivo
+        chmod +x "${toolsPath}/launchers/${folderName}_$launcherFileName"*
 
         createDesktopShortcut   "$HOME/.local/share/applications/$name.desktop" \
-                                "$name" \
-                                "${toolsPath}/launchers/$folderName/$launcherFileName" \
+                                "$name AppImage" \
+                                "${toolsPath}/launchers/${folderName}_$launcherFileName" \ # Usa la subcarpeta en la ruta destino
                                 "false"
     done
 }
