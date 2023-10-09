@@ -266,7 +266,7 @@ RetroArch_setConfigOverride(){
 		echo "Deleting $option from $configFile"
 		sed -i '/^'"$option"'/d' "$configFile"
 	else
-		updateOrAppendConfigLine "$configFile" "$option =" "$value"
+		updateOrAppendConfigLine "$configFile" "$option =" "$settingLine"
 	fi
 }
 
