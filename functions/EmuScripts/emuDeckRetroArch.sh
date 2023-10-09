@@ -25,7 +25,7 @@ RetroArch_backupConfigs(){
 }
 
 #Install
-RetroArch_install(){	
+RetroArch_install(){
 	installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
 	flatpak override "${RetroArch_emuPath}" --filesystem=host --user
 }
@@ -184,9 +184,9 @@ RetroArch_setupSaves(){
 
 	linkToSaveFolder retroarch states "$RetroArch_path/states"
 	linkToSaveFolder retroarch saves "$RetroArch_path/saves"
-	
-	RetroArch_setConfigOverride 'savestate_directory = ' "savestate_directory = $savesPath/retroarch/states" "$RetroArch_configFile"
-	RetroArch_setConfigOverride 'savefile_directory = ' "savefile_directory = $savesPath/retroarch/states" "$RetroArch_configFile"
+
+	RetroArch_setConfigOverride 'savestate_directory' "$savesPath/retroarch/states" "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savefile_directory' "$savesPath/retroarch/states" "$RetroArch_configFile"
 
 }
 
@@ -200,7 +200,7 @@ RetroArch_setupStorage(){
 #SetupConfigurations
 RetroArch_setupConfigurations(){
 
-	# Set input driver to SDL. X input driver does not seem to work ootb on some non-SteamOS distributions including ChimeraOS. 
+	# Set input driver to SDL. X input driver does not seem to work ootb on some non-SteamOS distributions including ChimeraOS.
 	input_driver='input_driver = '
 	input_driverSetting="${input_driver}"\""sdl"\"
 	changeLine "$input_driver" "$input_driverSetting" "$RetroArch_configFile"
@@ -258,10 +258,10 @@ RetroArch_setOverride(){
 
 RetroArch_setConfigOverride(){
 	local option=$1
-	local value=$2	
-	local configFile=$3	
+	local value=$2
+	local configFile=$3
 	local settingLine="$option = $value"
-	
+
 	if [[ $value == 'ED_RM_LINE' ]]; then
 		echo "Deleting $option from $configFile"
 		sed -i '/^'"$option"'/d' "$configFile"
@@ -270,17 +270,17 @@ RetroArch_setConfigOverride(){
 	fi
 }
 
-RetroArch_vice_xvic_setConfig(){	
-	RetroArch_setOverride 'VICE xvic.cfg' 'VICE xvic'  'video_driver' '"glcore"'	
+RetroArch_vice_xvic_setConfig(){
+	RetroArch_setOverride 'xvic.cfg' 'VICE xvic'  'video_driver' '"glcore"'
 }
 RetroArch_vice_xscpu64_setConfig(){
-	RetroArch_setOverride 'VICE xscpu64.cfg' 'VICE xscpu64'  'video_driver' '"glcore"'
+	RetroArch_setOverride 'xscpu64.cfg' 'VICE xscpu64'  'video_driver' '"glcore"'
 }
 RetroArch_vice_x64sc_setConfig(){
-	RetroArch_setOverride 'VICE x64sc.cfg' 'VICE x64sc'  'video_driver' '"glcore"'
+	RetroArch_setOverride 'x64sc.cfg' 'VICE x64sc'  'video_driver' '"glcore"'
 }
 RetroArch_vice_x64_setConfig(){
-	RetroArch_setOverride 'VICE x64.cfg' 'VICE x64'  'video_driver' '"glcore"'
+	RetroArch_setOverride 'x64.cfg' 'VICE x64'  'video_driver' '"glcore"'
 }
 
 RetroArch_wswanc_setConfig(){
@@ -2085,9 +2085,9 @@ RetroArch_installCores(){
 	do
 		 unzip -o "$entry" -d "$RetroArch_cores"
 	done
-	
+
 	for entry in "$RetroArch_cores"/*.zip
-  
+
 	do
 		 rm -f "$entry"
 	done
@@ -2123,12 +2123,12 @@ function RetroArch_resetCoreConfigs(){
 }
 
 RetroArch_autoSaveOn(){
-	RetroArch_setConfigOverride 'savestate_auto_load = ' 'savestate_auto_load = "true"' "$RetroArch_configFile"
-	RetroArch_setConfigOverride 'savestate_auto_save = ' 'savestate_auto_save = "true"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savestate_auto_load' '"true"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savestate_auto_save' '"true"' "$RetroArch_configFile"
 }
 RetroArch_autoSaveOff(){
-	RetroArch_setConfigOverride 'savestate_auto_load = ' 'savestate_auto_load = "false"' "$RetroArch_configFile"
-	RetroArch_setConfigOverride 'savestate_auto_save = ' 'savestate_auto_save = "false"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savestate_auto_load' '"false"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savestate_auto_save' '"false"' "$RetroArch_configFile"
 }
 RetroArch_retroAchievementsOn(){
 	iniFieldUpdate "$RetroArch_configFile" "" "cheevos_enable" "true"
@@ -2144,10 +2144,10 @@ RetroArch_retroAchievementsOff(){
 }
 
 RetroArch_retroAchievementsHardCoreOn(){
-	RetroArch_setConfigOverride 'cheevos_hardcore_mode_enable = ' 'cheevos_hardcore_mode_enable = "true"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'cheevos_hardcore_mode_enable' '"true"' "$RetroArch_configFile"
 }
 RetroArch_retroAchievementsHardCoreOff(){
-	RetroArch_setConfigOverride 'cheevos_hardcore_mode_enable = ' 'cheevos_hardcore_mode_enable = "false"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'cheevos_hardcore_mode_enable' '"false"' "$RetroArch_configFile"
 }
 
 RetroArch_retroAchievementsPromptLogin(){
@@ -2178,8 +2178,8 @@ RetroArch_retroAchievementsSetLogin(){
 		echo "--No username."
 	else
 		echo "Valid Retroachievements Username and Password length"
-		RetroArch_setConfigOverride 'cheevos_username = ' 'cheevos_username = "'"${rau}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements Username set.' || echo 'RetroAchievements Username not set.'
-		RetroArch_setConfigOverride 'cheevos_token = ' 'cheevos_token = "'"${rat}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements Token set.' || echo 'RetroAchievements Token not set.'
+		RetroArch_setConfigOverride 'cheevos_username' '"'"${rau}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements Username set.' || echo 'RetroAchievements Username not set.'
+		RetroArch_setConfigOverride 'cheevos_token' '"'"${rat}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements Token set.' || echo 'RetroAchievements Token not set.'
 
 		RetroArch_retroAchievementsOn
 
@@ -2223,7 +2223,7 @@ RetroArch_autoSave(){
 		RetroArch_autoSaveOn
 	else
 		RetroArch_autoSaveOff
-	fi	
+	fi
 }
 
 RetroArch_IsInstalled(){
