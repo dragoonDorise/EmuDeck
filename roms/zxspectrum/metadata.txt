@@ -1,0 +1,6 @@
+collection: Sinclair ZX Spectrum
+shortname: zxspectrum
+extensions: tzx, TZX, tap, TAP, z80, Z80, rzx, RZX, scl, SCL, trd, TRD, sh, SH, sna, SNA, szx, SZX, udi, UDI, mgt, MGT, img, IMG, dsk, DSK, gz, GZ, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/fuse_libretro.so {file.path}
+
+

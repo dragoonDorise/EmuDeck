@@ -1,0 +1,7 @@
+collection: Nintendo Virtual Boy
+shortname: virtualboy
+extensions: vb, VB, vboy, VBOY, bin, BIN, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/mednafen_vb_libretro.so {file.path}
+
+
+

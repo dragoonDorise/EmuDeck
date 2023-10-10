@@ -168,12 +168,14 @@ ESDE_applyTheme(){
 
 	echo "ESDE: applyTheme $themeName"
 	mkdir -p "$HOME/.emulationstation/themes/"
-	cd "$HOME/.emulationstation/themes/"
-	git clone $themeUrl
-
-	xmlstarlet ed --inplace  --subnode "ThemeSet" --type elem -n Entry -v "z:$themeName" "$es_settingsFile"
-
+	if [ -d "$HOME/.emulationstation/themes/$themeName" ]; then
+		cd "$HOME/.emulationstation/themes/$themeName" && git pull
+	else
+		git clone $themeUrl "$HOME/.emulationstation/themes/"
+	fi
+	sed -i "s/<string name=\"ThemeSet\" value=\"[^\"]*\"/<string name=\"ThemeSet\" value=\"$themeName\"/" "$es_settingsFile"
 }
+
 
 #ConfigurePaths
 ESDE_setEmulationFolder(){
