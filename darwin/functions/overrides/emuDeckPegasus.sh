@@ -6,4 +6,6 @@ Pegasus_install(){
 
 	installEmuZip "{$Pegasus_toolName}" "${PegasusURL}" "pegasus"
 
+	Pegasus_init
+
 }
