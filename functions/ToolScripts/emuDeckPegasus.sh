@@ -20,8 +20,8 @@ Pegasus_install(){
 
 	installEmuFP "${Pegasus_toolName}" "${Pegasus_emuPath}"
 	flatpak override "${Pegasus_emuPath}" --filesystem=host --user
-
 	Pegasus_init
+
 }
 
 #ApplyInitialSettings
@@ -58,6 +58,7 @@ Pegasus_addCustomSystems(){
 
 Pegasus_applyTheme(){
 	pegasusTheme=$1
+
 	local themeName=$(basename "$(echo $pegasusTheme | rev | cut -d'/' -f1 | rev)")
 	themeName="${themeName/.git/""}"
 
