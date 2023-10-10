@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo GameBoy Color - Retroarch SameBoy",
+  "configTitle": "Nintendo Game Boy Color - RetroArch SameBoy",
   "steamCategory": "${Nintendo Game Boy Color - SameBoy}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}",
@@ -21,7 +21,7 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
-  "disabled": true,
+  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,

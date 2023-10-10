@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
   "configTitle": "Arcade - RetroArch MAME 2003 Plus",
-  "steamCategory": "${Arcade MAME 2003+}",
+  "steamCategory": "${Arcade - MAME 2003 Plus}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/mame",
   "steamDirectory": "${steamdirglobal}",

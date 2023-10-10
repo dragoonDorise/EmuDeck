@@ -1,8 +1,8 @@
 {
   "parserType": "Glob",
   "configTitle": "Nintendo GameCube - Dolphin",
-  "steamCategory": "${Gamecube}",
-  "executableArgs": "vblank_mode=0 %command% run org.DolphinEmu.dolphin-emu -b -e \"${filePath}\"",
+  "steamCategory": "${Nintendo GameCube}",
+  "executableArgs": "vblank_mode=0 %command% -b -e \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/gamecube",
   "steamDirectory": "${steamdirglobal}",

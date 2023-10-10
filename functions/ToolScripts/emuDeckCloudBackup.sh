@@ -207,7 +207,7 @@ cloud_backup_etup(){
 
 }
 
-cloud_backup_reateJob(){
+cloud_backup_createJob(){
 
 echo '#!/bin/bash'>"$rclone_jobScript"
 echo "source \$HOME/emudeck/settings.sh
@@ -290,14 +290,14 @@ fi
 chmod +x "$rclone_restoreScript"
 }
 
-cloud_backup_reateService(){
+cloud_backup_createService(){
     echo "Creating cloud_backup service"
     cloud_backup_stopService
 
     mkdir -p "$HOME/.config/systemd/user"
     echo \
 "[Unit]
-Description=Emudeck cloud_backup service
+Description=EmuDeck cloud_backup service
 
 [Service]
 Type=simple

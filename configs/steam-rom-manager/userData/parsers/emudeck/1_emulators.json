@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Emulators",
+  "configTitle": "Emulators - Emulators",
   "steamCategory": "${Emulation}",
   "executableArgs": "",
   "executableModifier": "\"${exePath}\"",

@@ -1,11 +1,11 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo WiiU - Cemu (.wud, .wux, .wua) - Native",
-  "steamCategory": "${WiiU}",
+  "configTitle": "Nintendo Wii U - Cemu Native (.wud, .wux, .wua)",
+  "steamCategory": "${Nintendo Wii U - Cemu Native}",
   "executableArgs": "vblank_mode=0 %command% -f -g \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/wiiu/roms/",
-  "steamDirectory": "/home/deck/.steam/steam",
+  "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "imageProviders": ["SteamGridDB"],
   "titleModifier": "${fuzzyTitle}",
@@ -21,7 +21,7 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
-  "disabled": true,
+  "disabled": false,
   "advanced": false,
   "executable": {
     "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",

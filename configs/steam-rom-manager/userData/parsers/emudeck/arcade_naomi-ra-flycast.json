@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Arcade - Naomi",
+  "configTitle": "Arcade - Naomi - RetroArch Flycast",
   "steamCategory": "${Arcade - Naomi}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/naomi",

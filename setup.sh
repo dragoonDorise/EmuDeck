@@ -2,22 +2,11 @@
 MSG=$HOME/.config/EmuDeck/msg.log
 echo "0" > "$MSG"
 
-
-
-
 #
 ##
 ## Pid Lock...
 ##
 #
-devMode=$1
-#We force the UI mode if we don't get any parameter for legacy installations
-if [ -z "$2" ]; then
-	uiMode='zenity'
-else
-	uiMode="$2"
-fi
-
 
 mkdir -p "$HOME/.config/EmuDeck"
 PIDFILE="$HOME/.config/EmuDeck/install.pid"
@@ -49,14 +38,14 @@ function finish {
   echo "Script terminating. Exit code $?"
   finished=true
   rm "$MSG"
-  killall zenity
+
 }
 trap finish EXIT
 
 
 #
 ##
-## Init... This code is needed for both Zenity and non Zenity modes
+## Init...
 ##
 #
 
@@ -108,76 +97,11 @@ curl -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-
 # I think this should just be in the source, so there's one spot for initialization. hrm, no i'm wrong. Here is best.
 EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 
-#
-##
-echo 'Downloading files...'
-##
-#
-
-#
-##
-## Branch to download
-##
-#
-
-case $devMode in
-	"BETA") 	branch="beta" 		;;
-	"beta") 	branch="beta" 		;;
-	"DEV") 		branch="dev" 		;;  
-	"dev") 		branch="dev" 		;;
-	*) 			branch="main" 		;;
-esac	
-
-echo $branch > "$HOME/.config/EmuDeck/branch.txt"
-
-if [[ "$uiMode" == 'zenity' || "$uiMode" == 'whiptail' ]]; then
-	#We create all the needed folders for installation
-	if [[ ! -e $EMUDECKGIT/.git/config ]]; then
-		mkdir -p "$EMUDECKGIT"
-	
-		#Cloning EmuDeck files
-		git clone --depth 1 --no-single-branch https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
-	fi
-	
-	git status "$EMUDECKGIT" --porcelain
-	if [[ ! $noPull == true ]]; then
-		cd "$EMUDECKGIT"
-		git fetch origin  && git checkout origin/$branch  &&	git reset --hard origin/$branch && git clean -ffdx
-		
-	fi
-fi
-
-
-#
-##
-## UI Selection
-##	
-#
-
-
-if [ "$uiMode" == 'zenity' ]; then
-	
-	source "$EMUDECKGIT/zenity-setup.sh"
-	
-elif [ "$uiMode" == 'whiptail' ]; then
-
-	source "$EMUDECKGIT/whiptail-setup.sh"
-	
-else	
-	echo "Electron UI"	
-	#App Image detection & launch so older user can update just using the same old .desktop
-	# if [[ ! -e "~/Applications/EmuDeck.AppImage" ]]; then
-	# 	mkdir -p ~/Applications
-	# 	curl -L "$(curl -s https://api.github.com/repos/EmuDeck/emudeck-electron/releases/latest | grep -E 'browser_download_url.*AppImage' | cut -d '"' -f 4)" > ~/Applications/EmuDeck.AppImage && chmod +x ~/Applications/EmuDeck.AppImage && kill -15 $(pidof emudeck) && ~/Applications/EmuDeck.AppImage && exit
-	# fi
-	#Nova fix'
-fi
-
 
 #
 ##
 ## Start of installation
-##	
+##
 #
 
 
@@ -206,17 +130,7 @@ testRealDeck
 #this sets up the settings file with defaults, in case they don't have a new setting we've added.
 #also echos them all out so they are in the log.
 echo "Setup Settings File: "
-createUpdateSettingsFile	
-
-#Support for non-holo based OS's
-#Only on Zenity for now
-if [ "$uiMode" == 'zenity' ]; then
-	if [[ $isRealDeck == false ]]; then
-		echo "OS_setupPrereqsArch"
-		OS_setupPrereqsArch
-	fi
-fi
-
+createUpdateSettingsFile
 
 #create folders after tests!
 createFolders
@@ -234,14 +148,14 @@ chmod +x "${toolsPath}/emu-launch.sh"
 #ESDE Installation
 if [ $doInstallESDE == "true" ]; then
 	echo "install esde"
-	ESDE_install		
+	ESDE_install
 fi
 #SRM Installation
 if [ $doInstallSRM == "true" ]; then
 	echo "install srm"
 	SRM_install
 fi
-if [ "$doInstallPCSX2QT" == "true" ]; then	
+if [ "$doInstallPCSX2QT" == "true" ]; then
 	echo "install pcsx2Qt"
 	PCSX2QT_install
 fi
@@ -258,7 +172,7 @@ if [ $doInstallCitra == "true" ]; then
 	Citra_install
 fi
 if [ $doInstallDolphin == "true" ]; then
-	echo "install Dolphin"	
+	echo "install Dolphin"
 	Dolphin_install
 fi
 if [ $doInstallDuck == "true" ]; then
@@ -267,29 +181,29 @@ if [ $doInstallDuck == "true" ]; then
 fi
 if [ $doInstallRA == "true" ]; then
 	echo "RetroArch_install"
-	RetroArch_install	
+	RetroArch_install
 fi
 if [ $doInstallRMG == "true" ]; then
 	echo "RMG_install"
-	RMG_install	
+	RMG_install
 fi
 if [ $doInstallares == "true" ]; then
 	echo "ares_install"
-	ares_install	
+	ares_install
 fi
 if [ $doInstallPPSSPP == "true" ]; then
 	echo "PPSSPP_install"
-	PPSSPP_install	
+	PPSSPP_install
 fi
-if [ $doInstallYuzu == "true" ]; then	
+if [ $doInstallYuzu == "true" ]; then
 	echo "Yuzu_install"
 	Yuzu_install
 fi
-if [ $doInstallRyujinx == "true" ]; then	
+if [ $doInstallRyujinx == "true" ]; then
 	echo "Ryujinx_install"
 	Ryujinx_install
 fi
-if [ $doInstallMAME == "true" ]; then	
+if [ $doInstallMAME == "true" ]; then
 	echo "MAME_install"
 	MAME_install
 fi
@@ -350,7 +264,7 @@ fi
 if [ "$doSetupESDE" == "true" ]; then
 	echo "ESDE_init"
 	ESDE_update
-fi	
+fi
 
 #Emus config
 #setMSG "Configuring Steam Input for emulators.." moved to emu install
@@ -468,7 +382,7 @@ if [ -n "$PASSWD" ]; then
 	pwstatus=0
 	echo "$PASSWD" | sudo -v -S &>/dev/null && pwstatus=1 || echo "sudo password was incorrect" #refresh sudo cache
 	if [ $pwstatus == 1 ]; then
-		if [ "$doInstallGyro" == "true" ]; then	
+		if [ "$doInstallGyro" == "true" ]; then
 			Plugins_installSteamDeckGyroDSU
 		fi
 
@@ -497,19 +411,19 @@ CHD_install
 #
 if [ "$doSetupRA" == "true" ]; then
 	if [ "$(getScreenAR)" == 169 ];then
-		nonDeck_169Screen		
+		nonDeck_169Screen
 	fi
-	
+
 	#Anbernic Win600 Special configuration
 	if [ "$(getProductName)" == "Win600" ];then
-		nonDeck_win600		
+		nonDeck_win600
 	fi
 fi
 
 
 createDesktopIcons
 
-if [ "$doInstallHomeBrewGames" == "true" ]; then	
+if [ "$doInstallHomeBrewGames" == "true" ]; then
 	emuDeckInstallHomebrewGames
 fi
 
@@ -520,30 +434,6 @@ fi
 #
 
 
-# FILE="$HOME/.config/Ryujinx/system/prod.keys"
-# if [ -f "$FILE" ]; then
-# 	echo -e "" 2>/dev/null
-# else
-# 	if [ "$zenity" == true ]; then
-# 	text="$(printf "<b>Ryujinx is not configured</b>\nYou need to copy your Keys to: \n${biosPath}/ryujinx/keys\n\nMake sure to copy your files inside the folders. <b>Do not overwrite them. You might need to install your firmware using the Ryujinx Install Firmware option inside the emulator</b>")"
-# 	zenity --error \
-# 			--title="EmuDeck" \
-# 			--width=400 \
-# 			--text="${text}" 2>/dev/null
-# 	else
-# 		echo "$text"
-# 	fi
-# fi
-
-
-#SaveSync
-# if [[ ! $branch == "main" ]]; then 
-# 	if [[ $doSetupSaveSync == "true" ]]; then
-# 	
-# 		$HOME/Desktop/EmuDeckSaveSync.desktop
-# 
-# 	fi
-# fi 
 
 #EmuDeck updater on gaming Mode
 mkdir -p "${toolsPath}/updater"
@@ -551,12 +441,12 @@ cp -v "$EMUDECKGIT/tools/updater/emudeck-updater.sh" "${toolsPath}/updater/"
 chmod +x "${toolsPath}/updater/emudeck-updater.sh"
 
 #RemotePlayWhatever
-# if [[ ! $branch == "main" ]]; then 
+# if [[ ! $branch == "main" ]]; then
 # 	RemotePlayWhatever_install
 # fi
 
 #
-# We mark the script as finished	
+# We mark the script as finished
 #
 echo "" > "$HOME/.config/EmuDeck/.finished"
 echo "" > "$HOME/.config/EmuDeck/.ui-finished"
@@ -580,39 +470,4 @@ for entry in "$HOME"/emudeck/custom_scripts/*.sh
 do
 	 bash $entry
 done
-
-if [ "$uiMode" == 'zenity' ]; then
-
-	text="$(printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu, Ryujinx) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager on your Desktop to add your games to your SteamUI Interface.\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!")"
-	
-	zenity --question \
-		 	--title="EmuDeck" \
-		 	--width=450 \
-		 	--ok-label="Open Steam Rom Manager" \
-		 	--cancel-label="Exit" \
-		 	--text="${text}" 2>/dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		kill -15 "$(pidof steam)"
-		"${toolsPath}/srm/Steam-ROM-Manager.AppImage"
-		zenity --question \
-		 	--title="EmuDeck" \
-		 	--width=350 \
-		 	--text="Return to Game Mode?" \
-		 	--ok-label="Yes" \
-		 	--cancel-label="No" 2>/dev/null
-		ans2=$?
-		if [ $ans2 -eq 0 ]; then
-			qdbus org.kde.Shutdown /Shutdown org.kde.Shutdown.logout
-		fi
-		exit
-	else
-		exit
-		echo -e "Exit" 2>/dev/null
-	fi
-	
-elif [ "$uiMode" == 'whiptail' ]; then
-	echo "Finished on Whiptail"
-	sleep 9999
-fi
 } | tee "${LOGFILE}" 2>&1

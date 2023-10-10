@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Microsoft XBox - Xemu",
-  "steamCategory": "${XBox}",
+  "configTitle": "Microsoft Xbox - Xemu",
+  "steamCategory": "${Microsoft Xbox}",
   "executableArgs": " -full-screen -dvd_path \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/xbox",

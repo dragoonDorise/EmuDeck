@@ -188,6 +188,16 @@ function runBinDownloads {
             messages+=("There was a problem updating Xenia")
         fi
     fi
+    if [[ "$binsToDL" == *"rpcs3"* ]]; then
+        ((progresspct += pct)) || true
+        echo "$progresspct"
+        echo "# Updating RPCS3"
+        if RPCS3_install "true" 2>&1; then
+            messages+=("RPCS3 Updated Successfully")
+        else
+            messages+=("There was a problem updating RPCS3")
+        fi
+    fi
     echo "100"
     echo "# Complete!"
 }
@@ -206,7 +216,7 @@ if [ "$(ESDE_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "EmulationStation-DE" "esde")
 fi
 if [ "$(SRM_IsInstalled)" == "true" ]; then
-    binTable+=(TRUE "Steam Rom Manager" "srm")
+    binTable+=(TRUE "Steam ROM Manager" "srm")
 fi
 if [ "$(mGBA_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "GameBoy / Color / Advance Emu" "mgba")
@@ -234,6 +244,9 @@ if [ "$(Vita3K_IsInstalled)" == "true" ]; then
 fi
 if [ "$(Xenia_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Xbox 360 Emu" "xenia")
+fi
+if [ "$(RPCS3_IsInstalled)" == "true" ]; then
+    binTable+=(TRUE "PlayStation 3 Emu" "rpcs3")
 fi
 
 if [ "${#binTable[@]}" -gt 0 ]; then
