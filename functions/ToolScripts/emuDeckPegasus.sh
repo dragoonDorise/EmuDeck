@@ -58,7 +58,8 @@ Pegasus_addCustomSystems(){
 
 Pegasus_applyTheme(){
 	pegasusTheme=$1
-	themeName=$(basename "$(echo $url | rev | cut -d'/' -f1 | rev)")
+	local themeName=$(basename "$(echo $pegasusTheme | rev | cut -d'/' -f1 | rev)")
+	themeName="${themeName/.git/""}"
 
 	git clone --no-single-branch --depth=1 "$pegasusTheme" "$Pegasus_path/themes/$themeName/"
 	cd "$Pegasus_path/themes/$themeName/" && git pull
