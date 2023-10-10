@@ -1,4 +1,5 @@
 #!/bin/bash
 appImageInit() {
-	echo "NYI"
+	SRM_migration
+	ESDE_migration
 }

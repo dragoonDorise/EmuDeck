@@ -2,7 +2,7 @@
 #variables
 ESDE_toolName="EmulationStation-DE"
 ESDE_toolType="AppImage"
-ESDE_toolPath="${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
+ESDE_toolPath="${toolsPath}/EmulationStation-DE.AppImage"
 ESDE_releaseURL="https://gitlab.com/es-de/emulationstation-de/-/package_files/76389058/download" #default URl in case of issues parsing json
 ESDE_releaseMD5="b749b927d61317fde0250af9492a4b9f" #default hash
 ESDE_prereleaseURL=""
@@ -25,6 +25,14 @@ ESDE_SetAppImageURLS() {
 #cleanupOlderThings
 ESDE_cleanup(){
 	echo "NYI"
+}
+
+ESDE_migration(){
+
+	if [ -f "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ]; then
+		mv "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" "${toolsPath}/EmulationStation-DE.AppImage"
+		sed -i "s|EmulationStation-DE-x64_SteamDeck.AppImage|EmulationStation-DE.AppImage|g" "$toolsPath/launchers/esde/emulationstationde.sh"
+	fi
 }
 
 #Install
