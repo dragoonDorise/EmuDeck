@@ -53,3 +53,9 @@ safeDownload() {
 addSteamInputCustomIcons() {
 	rsync -av "$EMUDECKGIT/darwin/configs/steam-input/Icons/" "$HOME/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/tenfoot/resource/images/library/controller/binding_icons/"
 }
+
+
+
+getEmuInstallStatus() {
+	echo "NYI"
+}
