@@ -93,7 +93,7 @@ source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayGreenlight.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMAMEProton.sh
 
 # Darwin ovewrites
-if [ "$system" == "darwin" ]; then
+if [ "$system" = "darwin" ]; then
 
     source "$EMUDECKGIT/darwin/functions/helperFunctions.sh"
     source "$EMUDECKGIT/darwin/functions/overrides.sh"
