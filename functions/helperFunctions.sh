@@ -267,6 +267,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupPPSSPP=true")
 	defaultSettingsList+=("doSetupXemu=true")
 	defaultSettingsList+=("doSetupESDE=true")
+	defaultSettingsList+=("doSetupPegasus=false")
 	defaultSettingsList+=("doSetupSRM=true")
 	defaultSettingsList+=("doSetupPCSX2QT=true")
 	defaultSettingsList+=("doSetupScummVM=true")
@@ -277,6 +278,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupFlycast=true")
 	defaultSettingsList+=("doInstallSRM=true")
 	defaultSettingsList+=("doInstallESDE=true")
+	defaultSettingsList+=("doInstallPegasus=false")
 	defaultSettingsList+=("doInstallRA=true")
 	defaultSettingsList+=("doInstallDolphin=true")
 	#defaultSettingsList+=("doInstallPCSX2=true")
@@ -393,6 +395,10 @@ function getReleaseURLGH(){
 	local url
 	local fileNameContains=$3
 	#local token=$(tokenGenerator)
+
+	if [ $system == "darwin" ]; then
+		fileType="dmg"
+	fi
 
 	if [ $system == "darwin" ]; then
 		fileType="dmg"
@@ -643,6 +649,7 @@ safeDownload() {
 	echo "- $outFile"
 	echo "- $showProgress"
 	echo "- $headers"
+
 
 	if [ "$showProgress" == "true" ] || [[ $showProgress -eq 1 ]]; then
 		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 | tee >(stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading $name" --width 600 --auto-close --no-cancel 2>/dev/null) && echo $'\2'${PIPESTATUS[0]})

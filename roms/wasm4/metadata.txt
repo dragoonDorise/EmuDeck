@@ -1,0 +1,6 @@
+collection: WASM-4 Fantasy Console
+shortname: wasm4
+extensions: wasm, WASM
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/wasm4_libretro.so {file.path}
+
+

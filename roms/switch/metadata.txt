@@ -1,0 +1,4 @@
+collection: Nintendo Switch
+shortname: switch
+extensions: nca, NCA, nro, NRO, nso, NSO, nsp, NSP, xci, XCI, 7z, 7Z, zip, ZIP
+launch: /bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/yuzu.sh -f -g {file.path}

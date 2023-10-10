@@ -163,8 +163,10 @@ ESDE_addCustomSystems(){
 
 #update
 ESDE_applyTheme(){
-	defaultTheme="EPICNOIR"
+	defaultTheme="https://github.com/anthonycaccese/epic-noir-revisited-es-de.git"
 	local theme=$1
+	local themeName=$(basename "$(echo $theme | rev | cut -d'/' -f1 | rev)")
+	themeName="${themeName/.git/""}"
 
 	if [[ "${theme}" == "" ]]; then
 		echo "ESDE: applyTheme parameter not set."
@@ -174,24 +176,15 @@ ESDE_applyTheme(){
 	echo "ESDE: applyTheme $theme"
 	mkdir -p "$HOME/.emulationstation/themes/"
 
-	if [ -e "$HOME/.emulationstation/themes/epic-noir-revisited" ] && [ ! -e "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" ]; then
-		mv -v "$HOME/.emulationstation/themes/epic-noir-revisited" "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" #update theme path to esde naming convention
-	fi
-
-	git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited-es-de"
+	#old epic noir themes
 	rm -rf "$HOME/.emulationstation/themes/epic-noir-revisited" #remove old themes
 	rm -rf "$HOME/.emulationstation/themes/es-epicnoir" #remove old themes
-	cd "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" && git reset --hard HEAD && git clean -f -d && git pull && echo  "epicnoir up to date!" || echo "problem pulling epicnoir theme"
 
-	if [[ "$theme" == *"EPICNOIR"* ]]; then
-		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="es-epicnoir" />' "$es_settingsFile"
-	fi
-	if [[ "$theme" == *"MODERN-DE"* ]]; then
-		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="modern-es-de" />' "$es_settingsFile"
-	fi
-	if [[ "$theme" == *"RBSIMPLE-DE"* ]]; then
-		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="slate-es-de" />' "$es_settingsFile"
-	fi
+	git clone --no-single-branch --depth=1 "$theme" "$HOME/.emulationstation/themes/$themeName/"
+
+	cd "$HOME/.emulationstation/themes/$themeName/" && git reset --hard HEAD && git clean -f -d && git pull && echo  "$themeName up to date!" || echo "problem pulling $themeName theme"
+
+	changeLine '<string name="ThemeSet"' "<string name=\"ThemeSet\" value=\"$themeName\" />" "$es_settingsFile"
 }
 
 #ConfigurePaths
