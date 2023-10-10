@@ -599,7 +599,7 @@ cloud_decky_check_status(){
       echo "disabled"
     fi
   else
-    echo "disabled"
+    echo "noInternet"
   fi
 
 }
