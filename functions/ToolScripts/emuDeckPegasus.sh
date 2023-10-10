@@ -28,8 +28,6 @@ Pegasus_init(){
 
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/$Pegasus_emuPath/" "$Pegasus_path/"
 
-	#find /Emulation -type f -name "metadata.txt" -exec sed -i 's/buscar/reemplazar/g' {} \;
-
 	#metadata and cores paths
 	rsync -r  "$EMUDECKGIT/roms/" "$romsPath"
 	find $romsPath -type f -name "metadata.txt" -exec sed -i "s|CORESPATH|${RetroArch_cores}|g" {} \;
@@ -58,7 +56,13 @@ Pegasus_addCustomSystems(){
 
 Pegasus_applyTheme(){
 	pegasusTheme=$1
-	changeLine "general.theme:" " general.theme: themes\$pegasusTheme"
+	themeName=$(basename "$(echo $url | rev | cut -d'/' -f1 | rev)")
+
+	git clone --no-single-branch --depth=1 "$pegasusTheme" "$Pegasus_path/themes/$themeName/"
+	cd "$Pegasus_path/themes/$themeName/" && git pull
+
+	changeLine 'general.theme:' 'general.theme: themes/$themeName' "$Pegasus_config_file"
+
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$Pegasus_dir_file"
 }
 
