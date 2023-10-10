@@ -6,7 +6,7 @@ installToolAI(){
     local showProgress="$4"
     local lastVerFile="$5"
     local latestVer="$6"
-    
+
     if [[ "$fileName" == "" ]]; then
         fileName="$name"
     fi
@@ -30,25 +30,32 @@ installToolAI(){
     fi
 
     shName=$(echo "$name" | awk '{print tolower($0)}')
-    find "${toolsPath}/launchers/" -maxdepth 1 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
+
+    find "${toolsPath}/launchers/" -maxdepth 2 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
     while read -r f
     do
         echo "deleting $f"
         rm -f "$f"
     done
 
-    find "${EMUDECKGIT}/tools/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
+    find "${EMUDECKGIT}/tools/launchers/" -maxdepth 2 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
     while read -r l
     do
         echo "deploying $l"
         launcherFileName=$(basename "$l")
+        folderName=$(dirname "$l" | sed 's!.*/!!')
+        if [ $folderName == "launchers" ]; then
+            folderName=""
+        fi
         chmod +x "$l"
-        cp -v "$l" "${toolsPath}/launchers/"
-        chmod +x "${toolsPath}/launchers/"*
-
+        mkdir -p "${toolsPath}/launchers/$folderName"
+        cp -v -r "$l" "${toolsPath}/launchers/$folderName/$launcherFileName"
+        chmod +x "${toolsPath}/launchers/$folderName/$launcherFileName"
+        name=${name//-/}
+        name=${name// /}
         createDesktopShortcut   "$HOME/.local/share/applications/$name.desktop" \
-                                "$name AppImage" \
-                                "${toolsPath}/launchers/$launcherFileName" \
+                                "$name" \
+                                "${toolsPath}/launchers/$folderName/$launcherFileName" \
                                 "false"
     done
 }

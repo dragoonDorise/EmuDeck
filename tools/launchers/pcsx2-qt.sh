@@ -1,6 +1,6 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu "pcsx2" && cloud_sync_startService
+cloud_sync_downloadEmu pcsx2
 emuName="pcsx2-Qt" #parameterize me
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
 
@@ -24,4 +24,4 @@ param=${param/\'/"$substituteWith"}
 #Fix last ' on command
 param=$(echo "$param" | sed 's/.$/"/')
 eval "${exe} ${param} -bigpicture -fullscreen"
-rm -rf "$savesPath/.gaming"
+cloud_sync_uploadEmu pcsx2

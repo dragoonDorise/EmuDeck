@@ -2,16 +2,16 @@
 
 linuxID=$(lsb_release -si)
 
-if [ $linuxID != "chimeraos" ]; then 
+if [ $linuxID != "ChimeraOS" ]; then
 
 echo "installing EmuDeck"
 
 elif [ $linuxID != "SteamOS" ]; then
 
-    
+
     zenityAvailable=$(command -v zenity &> /dev/null  && echo true)
-    
-    if [[ $zenityAvailable = true ]];then 
+
+    if [[ $zenityAvailable = true ]];then
         PASSWD="$(zenity --password --title="Password Entry" --text="Enter you user sudo password to install required depencies" 2>/dev/null)"
         echo "$PASSWD" | sudo -v -S
         ans=$?
@@ -31,53 +31,53 @@ elif [ $linuxID != "SteamOS" ]; then
             fi
         fi
     fi
-    
+
     SCRIPT_DIR=$( cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
-    
+
     function log_err {
       echo "$@" >&2
     }
-    
+
     function script_failure {
       log_err "An error occurred:$([ -z "$1" ] && " on line $1" || "(unknown)")."
       log_err "Installation failed!"
       exit
     }
-    
+
     #trap 'script_failure $LINENO' ERR
-    
+
     echo "Installing EmuDeck dependencies..."
-    
-    
+
+
     if command -v apt-get >/dev/null; then
         echo "Installing packages with apt..."
         DEBIAN_DEPS="jq zenity flatpak unzip bash libfuse2 git rsync whiptail"
-        
-        sudo killall apt apt-get        
+
+        sudo killall apt apt-get
         sudo apt-get -y update
         sudo apt-get -y install $DEBIAN_DEPS
     elif command -v pacman >/dev/null; then
         echo "Installing packages with pacman..."
         ARCH_DEPS="steam jq zenity flatpak unzip bash fuse2 git rsync whiptail"
-        
-        sudo pacman --noconfirm -Syu 
+
+        sudo pacman --noconfirm -Syu
         sudo pacman --noconfirm -S $ARCH_DEPS
     elif command -v dnf >/dev/null; then
         echo "Installing packages with dnf..."
         FEDORA_DEPS="jq zenity flatpak unzip bash fuse git rsync whiptail"
-        
+
         sudo dnf -y upgrade
         sudo dnf -y install $FEDORA_DEPS
     elif command -v zypper >/dev/null; then
         echo "Installing packages with zypper..."
         SUSE_DEPS="steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail"
-        
+
         sudo zypper --non-interactive up
         sudo zypper --non-interactive install $SUSE_DEPS
     elif command -v xbps-install >/dev/null; then
         echo "Installing packages with xbps..."
         VOID_DEPS="steam jq zenity flatpak unzip bash fuse git rsync whiptail"
-        
+
         sudo xbps-install -Syu
         sudo xbps-install -Sy $VOID_DEPS
     else
@@ -85,9 +85,9 @@ elif [ $linuxID != "SteamOS" ]; then
         exit 1
     fi
 
-    
+
     # this could be replaced to immediately start the EmuDeck setup script
-    
+
     echo "All prerequisite packages have been installed. EmuDeck will be installed now!"
 
 fi

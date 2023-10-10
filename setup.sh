@@ -272,10 +272,10 @@ if [ "$doSetupESDE" == "true" ]; then
 fi
 
 #Pegasus Config
-if [ $doSetupPegasus == "true" ]; then
-	echo "Pegasus_init"
-	Pegasus_init
-fi
+#if [ $doSetupPegasus == "true" ]; then
+#	echo "Pegasus_init"
+#	Pegasus_init
+#fi
 
 #Emus config
 #setMSG "Configuring Steam Input for emulators.." moved to emu install
