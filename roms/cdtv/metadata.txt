@@ -1,0 +1,7 @@
+collection: Commodore CDTV
+shortname: cdtv
+extensions: ccd, CCD, chd, CHD, cue, CUE, iso, ISO, m3u, M3U, mds, MDS, nrg, NRG, rp9, RP9, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/puae_libretro.so {file.path}
+
+
+

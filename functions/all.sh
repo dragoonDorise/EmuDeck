@@ -43,6 +43,7 @@ source "$EMUDECKGIT"/functions/appImageInit.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckPegasus.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckPlugins.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSRM.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCHD.sh
@@ -63,7 +64,7 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemuNative.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRPCS3.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCitra.sh
-source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDolphin.sh 
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDolphin.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPrimehack.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRetroArch.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRyujinx.sh
@@ -93,8 +94,8 @@ source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayGreenlight.sh
 
 # Darwin ovewrites
 if [ "$system" == "darwin" ]; then
-    
+
     source "$EMUDECKGIT/darwin/functions/helperFunctions.sh"
     source "$EMUDECKGIT/darwin/functions/overrides.sh"
-    
+
 fi
