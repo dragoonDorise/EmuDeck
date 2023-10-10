@@ -582,19 +582,24 @@ cloud_sync_check_lock(){
 
 
 cloud_decky_check_status(){
-  if [ $cloud_sync_status = "true" ]; then
-    if [ -f "$savesPath/.gaming" ] && [ ! -f "$HOME/emudeck/cloud.lock" ]; then
-      echo "started"
-    elif [ -f "$savesPath/.gaming" ]; then
-      echo "started"
-    elif [ -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
-      echo "uploading"
-    elif [ ! -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
-      echo "finished"
+  if [ $(check_internet_connection) == "true" ]; then
+    if [ $cloud_sync_status = "true" ]; then
+      if [ -f "$savesPath/.gaming" ] && [ ! -f "$HOME/emudeck/cloud.lock" ]; then
+        echo "started"
+      elif [ -f "$savesPath/.gaming" ]; then
+        echo "started"
+      elif [ -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
+        echo "uploading"
+      elif [ ! -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
+        echo "finished"
+      else
+        echo "nothing"
+      fi
     else
-      echo "nothing"
+      echo "disabled"
     fi
   else
     echo "disabled"
   fi
+
 }
