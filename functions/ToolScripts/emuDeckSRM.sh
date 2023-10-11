@@ -83,9 +83,6 @@ SRM_init(){
 
     if [ "$emuMULTI" = "undefined" ]; then
       exclusionList=$exclusionList"ares/\n"
-      exclusionList=$exclusionList"*-ra-*\n";
-    elif [ "$emuMULTI" = "ra" ]; then
-      exclusionList=$exclusionList"ares/\n"
       exclusionList=$exclusionList"amiga_600-ra-puae.json\n";
       exclusionList=$exclusionList"amiga_1200-ra-puae.json\n";
       exclusionList=$exclusionList"amiga_cd-ra-puae.json\n";
@@ -143,6 +140,8 @@ SRM_init(){
       exclusionList=$exclusionList"sony_psx-ra-beetle_psx_hw.json\n";
       exclusionList=$exclusionList"sony_psx-ra-swanstation.json\n";
       exclusionList=$exclusionList"tic-80-ra-tic80.json\n";
+    elif [ "$emuMULTI" = "ra" ]; then
+      exclusionList=$exclusionList"ares/\n"
     else
       exclusionList=$exclusionList"atari_2600-ra-stella.json\n";
       exclusionList=$exclusionList"bandai_wonderswan_color-ra-mednafen_swan.json\n";
@@ -236,6 +235,71 @@ SRM_init(){
   exclusionList=$exclusionList"sony_psx-ra-swanstation.json\n"
   exclusionList=$exclusionList"nintendo_gbc-mgba.json\n"
   exclusionList=$exclusionList"nintendo_gb-mGBA.json\n"
+
+  #Exclusion based on install status.
+  if [ $doInstallPrimeHack != "true" ]; then
+      exclusionList=$exclusionList"nintendo_primehack.json\n"
+  fi
+  if [ $doInstallRPCS3 != "true" ]; then
+      exclusionList=$exclusionList"sony_ps3-rpcs3-extracted_iso_psn.json\n"
+      exclusionList=$exclusionList"sony_ps3-rpcs3-pkg.json\n"
+
+  fi
+  if [ $doInstallCitra != "true" ]; then
+      exclusionList=$exclusionList"nintendo_3ds-citra-mGBA.json\n"
+
+  fi
+  if [ $doInstallDolphin != "true" ]; then
+      exclusionList=$exclusionList"nintendo_gc-dolphin.json\n"
+      exclusionList=$exclusionList"nintendo_wii-dolphin.json\n"
+  fi
+  if [ $doInstallDuck != "true" ]; then
+      exclusionList=$exclusionList"sony_psx-duckstation.json\n"
+
+  fi
+  if [ $doInstallPPSSPP != "true" ]; then
+      exclusionList=$exclusionList"sony_psp-ppsspp.json\n"
+
+  fi
+  if [ $doInstallXemu != "true" ]; then
+      exclusionList=$exclusionList"microsoft_xbox-xemu.json\n"
+
+  fi
+  if [ $doInstallXenia != "true" ]; then
+     exclusionList=$exclusionList"microsoft_xbox_360-xenia-xbla.json\n"
+     exclusionList=$exclusionList"microsoft_xbox_360-xenia.json\n"
+
+  fi
+  if [ $doInstallScummVM != "true" ]; then
+      exclusionList=$exclusionList"scumm_scummvm.json\n"
+  fi
+  if [ $doInstallRMG != "true" ]; then
+      exclusionList=$exclusionList"nintendo_64-rmg.json\n"
+  fi
+  if [ $doInstallmelonDS != "true" ]; then
+      exclusionList=$exclusionList"nintendo_ds-melonds.json\n"
+  fi
+  if [ $doInstallVita3K != "true" ]; then
+      exclusionList=$exclusionList"sony_psvita-vita3k-pkg.json\n"
+  fi
+  if [ $doInstallMGBA != "true" ]; then
+    exclusionList=$exclusionList"nintendo_gb-mGBA.json\n"
+    exclusionList=$exclusionList"nintendo_gba-mgba.json\n"
+    exclusionList=$exclusionList"nintendo_gbc-mgba.json\n"
+  fi
+  if [ $doInstallMAME != "true" ]; then
+    exclusionList=$exclusionList"arcade-mame.json\n"
+  fi
+  if [ $doInstallYuzu != "true" ]; then
+    exclusionList=$exclusionList"nintendo_switch-yuzu.json\n"
+  fi
+  if [ $doInstallRyujinx != "true" ]; then
+    exclusionList=$exclusionList"nintendo_switch-ryujinx.json\n"
+  fi
+  if [ "$doInstallPCSX2QT" != "true" ]; then
+    exclusionList=$exclusionList"sony_ps2-pcsx2.json\n"
+  fi
+
 
   echo -e $exclusionList > "$HOME/exclude.txt"
 
