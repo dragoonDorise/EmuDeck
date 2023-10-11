@@ -201,7 +201,6 @@ SRM_setParsers(){
   rm -rf "$HOME/exclude.txt"
 
   # jq -s '.' $(find "\"$json_directory"\" -name "*.json" | sort) > "$output_file"
-  rm -rf "$HOME/temp_parser"
   ln -s "$json_directory" "$HOME/temp_parser"
   files=$(find "$HOME/temp_parser/emudeck" -name "*.json" | sort)
   jq -s '.' $files > "$output_file"
