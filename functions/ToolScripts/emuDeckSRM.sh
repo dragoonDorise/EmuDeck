@@ -65,8 +65,7 @@ SRM_migration(){
 
 SRM_init(){
   setMSG "Configuring Steam ROM Manager"
-  local json_directory="$SRM_userData_configDir/parsers"
-  local output_file="$SRM_userData_configDir/userConfigurations.json"
+
   #local files=$1
 
   #old SRM
@@ -86,6 +85,8 @@ SRM_init(){
 }
 
 SRM_setParsers(){
+  local json_directory="$SRM_userData_configDir/parsers"
+  local output_file="$SRM_userData_configDir/userConfigurations.json"
   mkdir -p "$SRM_userData_configDir/"
   #Multiemulator?
   exclusionList=""
