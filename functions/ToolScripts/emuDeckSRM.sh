@@ -35,7 +35,7 @@ SRM_createDesktopShortcut(){
 
   if [[ "$SRM_Shortcutlocation" == "" ]]; then
 
-	SRM_Shortcutlocation="$HOME/.local/share/applications/SRM.desktop"
+  SRM_Shortcutlocation="$HOME/.local/share/applications/SRM.desktop"
 
   fi
 
@@ -65,29 +65,17 @@ SRM_migration(){
 
 SRM_init(){
   setMSG "Configuring Steam ROM Manager"
-
+  local json_directory="$SRM_userData_configDir/parsers"
+  local output_file="$SRM_userData_configDir/userConfigurations.json"
   #local files=$1
 
   #old SRM
   SRM_migration
-  SRM_setParsers
-
-  sleep 1
-
-  SRM_setEnv
-
-  sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userSettings.json"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$SRM_userData_configDir/userSettings.json"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userSettings.json"
 
 
-  echo -e "true"
-}
 
-SRM_setParsers(){
-  local json_directory="$SRM_userData_configDir/parsers"
-  local output_file="$SRM_userData_configDir/userConfigurations.json"
   mkdir -p "$SRM_userData_configDir/"
+
   #Multiemulator?
   exclusionList=""
   #Multiemulator?
@@ -201,17 +189,26 @@ SRM_setParsers(){
   rm -rf "$HOME/exclude.txt"
 
   # jq -s '.' $(find "\"$json_directory"\" -name "*.json" | sort) > "$output_file"
+  rm -rf "$HOME/temp_parser"
   ln -s "$json_directory" "$HOME/temp_parser"
   files=$(find "$HOME/temp_parser/emudeck" -name "*.json" | sort)
   jq -s '.' $files > "$output_file"
   rm -rf "$HOME/temp_parser"
 
+  sleep 1
+
+  SRM_setEnv
+
   sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userConfigurations.json"
   sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$SRM_userData_configDir/userConfigurations.json"
   sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userConfigurations.json"
 
-  echo "true"
+  sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userSettings.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$SRM_userData_configDir/userSettings.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userSettings.json"
 
+
+  echo -e "true"
 }
 
 SRM_setEnv(){
@@ -236,15 +233,15 @@ SRM_resetConfig(){
 SRM_IsInstalled(){
 
   if [ -f "$SRM_toolPath" ]; then
-	echo "true"
+  echo "true"
   else
-	echo "false"
+  echo "false"
   fi
 }
 SRM_resetLaunchers(){
   rsync -av --existing $HOME/.config/EmuDeck/backend/tools/launchers/ $toolsPath/launchers/
   for entry in $toolsPath/launchers/*.sh
   do
-	 chmod +x "$entry"
+   chmod +x "$entry"
   done
 }
