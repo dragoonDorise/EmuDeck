@@ -12,7 +12,7 @@
   "ryujinx": { "id": "ryujinx", "code": "Ryujinx", "version": 2 },
   "xemu": { "id": "xemu", "code": "Xemu", "version": 0 },
   "cemu": { "id": "cemu", "code": "Cemu", "version": 0 },
-  "srm": { "id": "srm", "code": "SRM", "version": 5 },
+  "srm": { "id": "srm", "code": "SRM", "version": 6 },
   "rmg": { "id": "rmg", "code": "RMG", "version": 0 },
   "esde": { "id": "esde", "code": "ESDE", "version": 1 },
   "mame": { "id": "mame", "code": "MAME", "version": 0 },
