@@ -47,10 +47,12 @@ RetroArch_init(){
 
 	mkdir -p "$biosPath/mame/bios"
 	mkdir -p "$biosPath/dc"
+	mkdir -p "$biosPath/neocd"
 
-	echo  "Put your Mame bios here" > "$biosPath/mame/bios/readme.txt"
-	echo  "Put your Dreamcast bios here" > "biosPath/dc/readme.txt"
-	echo  "Put your RetroArch, DuckStation, RPCSX2 bios here in this directory, don't create subfolders!" > "$biosPath/mame/bios/readme.txt"
+	echo  "Put your MAME bios here" > "$biosPath/mame/bios/readme.txt"
+	echo  "Put your Dreamcast bios here" > "$biosPath/dc/readme.txt"
+	echo  "Put your Neo Geo CD bios here" > "$biosPath/neocd/readme.txt"
+	echo  "Put your RetroArch, DuckStation, PCSX2 bios here in this directory, don't create subfolders!" > "$biosPath/readme.txt"
 
 }
 
