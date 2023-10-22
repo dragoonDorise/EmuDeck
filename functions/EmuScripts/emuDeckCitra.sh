@@ -13,14 +13,14 @@ Citra_finalize(){
 
 #Install
 Citra_install(){
-	setMSG "Installing $Citra_emuName"	
-	installEmuFP "${Citra_emuName}" "${Citra_emuPath}"	
-	flatpak override "${Citra_emuPath}" --filesystem=host --user	
+	setMSG "Installing $Citra_emuName"
+	installEmuFP "${Citra_emuName}" "${Citra_emuPath}"
+	flatpak override "${Citra_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
 Citra_init(){
-	setMSG "Initializing $Citra_emuName settings."	
+	setMSG "Initializing $Citra_emuName settings."
 	configEmuFP "${Citra_emuName}" "${Citra_emuPath}" "true"
 	Citra_setupStorage
 	Citra_setEmulationFolder
@@ -30,7 +30,7 @@ Citra_init(){
 
 #update
 Citra_update(){
-	setMSG "Updating $Citra_emuName settings."	
+	setMSG "Updating $Citra_emuName settings."
 	configEmuFP "${Citra_emuName}" "${Citra_emuPath}"
 	Citra_setupStorage
 	Citra_setEmulationFolder
@@ -40,16 +40,16 @@ Citra_update(){
 
 #ConfigurePaths
 Citra_setEmulationFolder(){
-	setMSG "Setting $Citra_emuName Emulation Folder"	
+	setMSG "Setting $Citra_emuName Emulation Folder"
 
-    gameDirOpt='Paths\\gamedirs\\3\\path='
-    newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/3ds"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_configFile"
+	gameDirOpt='Paths\\gamedirs\\3\\path='
+	newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/3ds"
+	sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_configFile"
 
 	#Setup symlink for AES keys
 	mkdir -p "${biosPath}/citra/"
 	mkdir -p "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sysdata"
-    ln -sn "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sysdata" "${biosPath}/citra/keys"
+	ln -sn "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sysdata" "${biosPath}/citra/keys"
 }
 
 #SetupSaves
@@ -62,19 +62,19 @@ Citra_setupSaves(){
 #SetupStorage
 Citra_setupStorage(){
 
-	if [ ! -f "$storagePath/citra/nand" ] && [ -d "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/nand/" ]; then 
+	if [ ! -f "$storagePath/citra/nand" ] && [ -d "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/nand/" ]; then
 
 		echo "citra nand does not exist in storagepath."
 		echo -e ""
-		setMSG "Moving Citra nand to the Emulation/storage folder"			
+		setMSG "Moving Citra nand to the Emulation/storage folder"
 		echo -e ""
 
 		mv "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/nand/" $storagePath/citra/nand/
-		mv "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/sdmc/" $storagePath/citra/sdmc/	
-	
+		mv "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/sdmc/" $storagePath/citra/sdmc/
+
 		unlink "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/nand/"
-		unlink "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/sdmc/" 
-	
+		unlink "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/sdmc/"
+
 		ln -ns "${storagePath}/citra/nand/" "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/nand/"
 		ln -ns "${storagePath}/citra/sdmc/" "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/sdmc/"
 	fi
@@ -92,12 +92,12 @@ Citra_wipe(){
 #Uninstall
 Citra_uninstall(){
 	setMSG "Uninstalling $Citra_emuName."
-    flatpak uninstall "$Citra_emuPath" --user -y
+	flatpak uninstall "$Citra_emuPath" --user -y
 }
 
 #setABXYstyle
 Citra_setABXYstyle(){
-    	echo "NYI"
+		echo "NYI"
 }
 
 #Migrate

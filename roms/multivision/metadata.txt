@@ -1,0 +1,4 @@
+collection: Othello Multivision
+shortname: multivision
+extensions: bin, BIN, gg, GG, rom, ROM, sg, SG, sms, SMS, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/gearsystem_libretro.so {file.path}

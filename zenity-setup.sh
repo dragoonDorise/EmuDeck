@@ -143,7 +143,7 @@ if [ "$expert" == "true" ]; then
 		#table+=(TRUE "CHDScript" "Install the latest version of our CHD conversion script?")
 		table+=(TRUE "PowerTools" "Install Power Tools for CPU control? (password required)")
 		table+=(TRUE "SteamGyro" "Setup the SteamDeckGyroDSU for gyro control (password required)")
-		table+=(TRUE "updateSRM" "Install/Update Steam Rom Manager? Customizations will not be reset.")
+		table+=(TRUE "updateSRM" "Install/Update Steam ROM Manager? Customizations will not be reset.")
 		table+=(TRUE "updateESDE" "Install/Update Emulation Station DE? Customizations and scrapes will not be reset.")
 		table+=(TRUE "selectEmulators" "Select the emulators to install.")
 		table+=(TRUE "selectEmulatorConfig" "Customize the emulator configuration reset. (note: Fixes will be skipped if boxes are unchecked)")
@@ -536,7 +536,7 @@ if [ "$expert" == "true" ]; then
 			emuTable+=(TRUE "Ryujinx")
 			emuTable+=(TRUE "Cemu")
 			emuTable+=(TRUE "Xemu")
-			emuTable+=(TRUE "Steam Rom Manager")
+			emuTable+=(TRUE "Steam ROM Manager")
 			emuTable+=(TRUE "EmulationStation DE")
 			emuTable+=(TRUE "RMG")
 			emuTable+=(TRUE "ares")
@@ -640,7 +640,7 @@ if [ "$expert" == "true" ]; then
 				#else
 				#	setSetting doSetupRA false
 				#fi
-				if [[ "$emusToReset" == *"Steam Rom Manager"* ]]; then
+				if [[ "$emusToReset" == *"Steam ROM Manager"* ]]; then
 					setSetting doSetupSRM true
 				else
 					setSetting doSetupSRM false
