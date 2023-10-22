@@ -174,6 +174,7 @@ ESDE_applyTheme(){
 		git clone $themeUrl "$HOME/.emulationstation/themes/"
 	fi
 	sed -i "s/<string name=\"ThemeSet\" value=\"[^\"]*\"/<string name=\"ThemeSet\" value=\"$themeName\"/" "$es_settingsFile"
+
 }
 
 
