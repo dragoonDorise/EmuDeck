@@ -99,7 +99,7 @@ ESDE_init(){
 	ESDE_addCustomSystems
 	ESDE_setEmulationFolder
 	ESDE_setDefaultEmulators
-	ESDE_applyTheme "$esdeTheme"
+	ESDE_applyTheme  "$esdeThemeUrl" "$esdeThemeName"
 	ESDE_migrateDownloadedMedia
 	ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
@@ -129,7 +129,7 @@ ESDE_update(){
 	ESDE_addCustomSystems
 	ESDE_setEmulationFolder
 	ESDE_setDefaultEmulators
-	ESDE_applyTheme "$esdeTheme"
+	ESDE_applyTheme "$esdeThemeUrl" "$esdeThemeName"
 	ESDE_migrateDownloadedMedia
 	ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
@@ -163,35 +163,16 @@ ESDE_addCustomSystems(){
 
 #update
 ESDE_applyTheme(){
-	defaultTheme="EPICNOIR"
-	local theme=$1
+	local themeUrl=$1
+	local themeName=$2
 
-	if [[ "${theme}" == "" ]]; then
-		echo "ESDE: applyTheme parameter not set."
-		theme="$defaultTheme"
-	fi
-
-	echo "ESDE: applyTheme $theme"
+	echo "ESDE: applyTheme $themeName"
 	mkdir -p "$HOME/.emulationstation/themes/"
+	cd "$HOME/.emulationstation/themes/"
+	git clone $themeUrl
 
-	if [ -e "$HOME/.emulationstation/themes/epic-noir-revisited" ] && [ ! -e "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" ]; then
-		mv -v "$HOME/.emulationstation/themes/epic-noir-revisited" "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" #update theme path to esde naming convention
-	fi
+	xmlstarlet ed --inplace  --subnode "ThemeSet" --type elem -n Entry -v "z:$themeName" "$es_settingsFile"
 
-	git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited-es-de"
-	rm -rf "$HOME/.emulationstation/themes/epic-noir-revisited" #remove old themes
-	rm -rf "$HOME/.emulationstation/themes/es-epicnoir" #remove old themes
-	cd "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" && git reset --hard HEAD && git clean -f -d && git pull && echo  "epicnoir up to date!" || echo "problem pulling epicnoir theme"
-
-	if [[ "$theme" == *"EPICNOIR"* ]]; then
-		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="es-epicnoir" />' "$es_settingsFile"
-	fi
-	if [[ "$theme" == *"MODERN-DE"* ]]; then
-		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="modern-es-de" />' "$es_settingsFile"
-	fi
-	if [[ "$theme" == *"RBSIMPLE-DE"* ]]; then
-		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="slate-es-de" />' "$es_settingsFile"
-	fi
 }
 
 #ConfigurePaths
