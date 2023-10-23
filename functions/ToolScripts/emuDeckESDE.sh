@@ -41,7 +41,7 @@ ESDE_install(){
 	setMSG "Installing $ESDE_toolName"
 
 	local showProgress="$1"
-
+	local filename="$ESDE_toolName.$ESDE_toolType"
 	if [[ $ESDE_releaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
 
 			if installToolAI "$ESDE_toolName" "$ESDE_releaseURL" "" "$showProgress"; then

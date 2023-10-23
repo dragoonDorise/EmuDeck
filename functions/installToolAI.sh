@@ -31,6 +31,10 @@ installToolAI(){
 
     shName=$(echo "$name" | awk '{print tolower($0)}')
 
+    if [ $shName = "emulationstation-de" ]; then
+        shName="emulationstationde"
+    fi
+
     find "${toolsPath}/launchers/" -maxdepth 2 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
     while read -r f
     do

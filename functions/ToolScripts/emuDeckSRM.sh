@@ -332,6 +332,7 @@ SRM_init(){
   sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$SRM_userData_configDir/userSettings.json"
   sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userSettings.json"
 
+  SRM_createDesktopShortcut
 
   echo -e "true"
 }
