@@ -56,7 +56,7 @@ rm -rf ~/dragoonDoriseTools
 rm -rf ~/emudeck/backend
 
 #Creating log file
-LOGFILE="$HOME/emudeck/emudeck.log"
+LOGFILE="$HOME/emudeck/logs/emudeckSetup.log"
 
 mkdir -p "$HOME/emudeck"
 
@@ -66,7 +66,7 @@ echo $'#!/bin/bash\nEMUDECKGIT="$HOME/.config/EmuDeck/backend"\nsource "$EMUDECK
 
 echo "Press the button to start..." > "$LOGFILE"
 
-mv "${LOGFILE}" "$HOME/emudeck/emudeck.last.log" #backup last log
+mv "${LOGFILE}" "$HOME/emudeck/logs/emudeckSetup.last.log" #backup last log
 
 if echo "${@}" > "${LOGFILE}" ; then
 	echo "Log created"
