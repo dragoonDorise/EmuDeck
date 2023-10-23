@@ -30,6 +30,10 @@ installToolAI(){
     fi
 
     shName=$(echo "$name" | awk '{print tolower($0)}')
+    if [ $shName = 'emulationstation-de' ]; then
+        shName='emulationstationde'
+        rm -rf "$toolsPath/launchers/esde"
+    fi
 
     find "${toolsPath}/launchers/" -maxdepth 2 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
     while read -r f

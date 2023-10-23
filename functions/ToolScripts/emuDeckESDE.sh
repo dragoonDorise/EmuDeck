@@ -56,6 +56,11 @@ ESDE_install(){
 	fi
 }
 
+ESDE_uninstall(){
+  rm -rf "${toolsPath}/EmulationStation-DE.AppImage"
+  rm -rf $HOME/.local/share/applications/EmulationStationDE.desktop
+}
+
 # ESDE20_install(){
 # 	ESDE_SetAppImageURLS
 # 	setMSG "Installing $ESDE_toolName PreRelease"
