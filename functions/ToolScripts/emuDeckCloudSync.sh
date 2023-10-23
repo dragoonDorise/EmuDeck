@@ -515,12 +515,12 @@ cloud_sync_downloadEmu(){
 }
 
 cloud_sync_downloadEmuAll(){
- echo "NYI"
+ cloud_sync_download 'all'
 }
 
 
 cloud_sync_cloud_sync_uploadEmuAll(){
-  echo "NYI"
+  cloud_sync_upload 'all'
 }
 
 
