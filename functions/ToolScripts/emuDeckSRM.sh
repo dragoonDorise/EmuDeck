@@ -42,7 +42,7 @@ SRM_createDesktopShortcut(){
   echo "#!/usr/bin/env xdg-open
   [Desktop Entry]
   Name=Steam ROM Manager AppImage
-  Exec=zenity --question --width 450 --title \"Close Steam/Steam Input?\" --text \"Exit Steam to launch Steam ROM Manager? Desktop controls will temporarily revert to touch/trackpad/L2/R2 until you open Steam again.\" && (kill -15 \$(pidof steam) & $SRM_toolPath)
+  Exec=zenity --question --width 450 --title \"Close Steam/Steam Input?\" --text \"Exit Steam to launch Steam ROM Manager? Desktop controls will temporarily revert to touch/trackpad/L2/R2 until you open Steam again.\" && (kill -15 \$(pidof steam) & \"$SRM_toolPath\")
   Icon=$HOME/.local/share/icons/emudeck/srm.png
   Terminal=false
   Type=Application
