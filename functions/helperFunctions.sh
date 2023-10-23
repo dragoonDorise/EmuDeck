@@ -4,13 +4,15 @@
 emuDecksettingsFile="$HOME/emudeck/settings.sh"
 
 
-function startLog(){
-	funcName=$1
+function startLog() {
+	funcName="$1"
 	mkdir -p "$HOME/emudeck/logs"
-	touch "$HOME/emudeck/logs/$funcName.log"
-	exec 3>&1 4>&2
-	trap 'exec 2>&4 1>&3' 0 1 2 3
-	exec 1>"$HOME/emudeck/logs/$funcName.log" 2>&1
+	logFile="$HOME/emudeck/logs/$funcName.log"
+
+	touch "$logFile"
+
+	exec &> >(tee -a "$logFile")
+
 }
 
 function stopLog(){
