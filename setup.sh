@@ -9,6 +9,7 @@ echo "0" > "$MSG"
 #
 
 mkdir -p "$HOME/.config/EmuDeck"
+mkdir -p "$HOME/emudeck/logs"
 PIDFILE="$HOME/.config/EmuDeck/install.pid"
 
 
