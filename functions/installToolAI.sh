@@ -29,37 +29,34 @@ installToolAI(){
         return 1
     fi
 
-    shName=$(echo "$name" | awk '{print tolower($0)}')
+#    shName=$(echo "$name" | awk '{print tolower($0)}')
 
-    if [ $shName = "emulationstation-de" ]; then
-        shName="emulationstationde"
-    fi
-
-    find "${toolsPath}/launchers/" -maxdepth 2 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
-    while read -r f
-    do
-        echo "deleting $f"
-        rm -f "$f"
-    done
-
-    find "${EMUDECKGIT}/tools/launchers/" -maxdepth 2 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
-    while read -r l
-    do
-        echo "deploying $l"
-        launcherFileName=$(basename "$l")
-        folderName=$(dirname "$l" | sed 's!.*/!!')
-        if [ $folderName == "launchers" ]; then
-            folderName=""
-        fi
-        chmod +x "$l"
-        mkdir -p "${toolsPath}/launchers/$folderName"
-        cp -v -r "$l" "${toolsPath}/launchers/$folderName/$launcherFileName"
-        chmod +x "${toolsPath}/launchers/$folderName/$launcherFileName"
-        name=${name//-/}
-        name=${name// /}
-        createDesktopShortcut   "$HOME/.local/share/applications/$name.desktop" \
-                                "$name" \
-                                "${toolsPath}/launchers/$folderName/$launcherFileName" \
-                                "false"
-    done
+# TODO: Restore this funcionality
+#     find "${toolsPath}/launchers/" -maxdepth 2 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
+#     while read -r f
+#     do
+#         echo "deleting $f"
+#         rm -f "$f"
+#     done
+#
+#     find "${EMUDECKGIT}/tools/launchers/" -maxdepth 2 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
+#     while read -r l
+#     do
+#         echo "deploying $l"
+#         launcherFileName=$(basename "$l")
+#         folderName=$(dirname "$l" | sed 's!.*/!!')
+#         if [ $folderName == "launchers" ]; then
+#             folderName=""
+#         fi
+#         chmod +x "$l"
+#         mkdir -p "${toolsPath}/launchers/$folderName"
+#         cp -v -r "$l" "${toolsPath}/launchers/$folderName/$launcherFileName"
+#         chmod +x "${toolsPath}/launchers/$folderName/$launcherFileName"
+#         name=${name//-/}
+#         name=${name// /}
+#         createDesktopShortcut   "$HOME/.local/share/applications/$name.desktop" \
+#                                 "$name" \
+#                                 "${toolsPath}/launchers/$folderName/$launcherFileName" \
+#                                 "false"
+#     done
 }

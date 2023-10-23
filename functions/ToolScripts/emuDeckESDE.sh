@@ -32,7 +32,23 @@ ESDE_migration(){
 	if [ -f "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ]; then
 		mv "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" "${toolsPath}/EmulationStation-DE.AppImage"
 		sed -i "s|EmulationStation-DE-x64_SteamDeck.AppImage|EmulationStation-DE.AppImage|g" "$toolsPath/launchers/esde/emulationstationde.sh"
+		ESDE_createDesktopShortcut
 	fi
+}
+
+ESDE_createDesktopShortcut(){
+	mkdir -p "$toolsPath/launchers/esde"
+  cp "$EMUDECKGIT/tools/launchers/esde/emulationstationde.sh" "$toolsPath/launchers/esde/emulationstationde.sh"
+  rm -rf $HOME/.local/share/applications/SRM.desktop
+  createDesktopShortcut   "$HOME/.local/share/applications/Steam ROM Manager.desktop" \
+  "Steam ROM Manager AppImage" \
+  "${toolsPath}/launchers/srm/steamrommanager.sh" \
+  "false"
+}
+
+ESDE_uninstall(){
+  rm -rf "${toolsPath}/EmulationStation-DE.AppImage"
+  rm -rf $HOME/.local/share/applications/EmulationStationDE.desktop
 }
 
 #Install
@@ -45,7 +61,7 @@ ESDE_install(){
 	if [[ $ESDE_releaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
 
 			if installToolAI "$ESDE_toolName" "$ESDE_releaseURL" "" "$showProgress"; then
-				:
+				ESDE_createDesktopShortcut
 		 	else
 				return 1
 		 	fi

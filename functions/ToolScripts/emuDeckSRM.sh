@@ -12,7 +12,7 @@ SRM_install(){
   local showProgress="$1"
 
   if installToolAI "$SRM_toolName" "$(getReleaseURLGH "dragoonDorise/steam-rom-manager" "AppImage")" "" "$showProgress"; then
-    :
+    SRM_createDesktopShortcut
   else
     return 1
   fi
@@ -26,40 +26,20 @@ SRM_uninstall(){
 }
 
 SRM_createDesktopShortcut(){
-  local SRM_Shortcutlocation=$1
-
-  mkdir -p "$HOME/.local/share/applications/"
-
-  mkdir -p "$HOME/.local/share/icons/emudeck/"
-  cp -v "$EMUDECKGIT/icons/srm.png" "$HOME/.local/share/icons/emudeck/"
-
-  if [[ "$SRM_Shortcutlocation" == "" ]]; then
-
-  SRM_Shortcutlocation="$HOME/.local/share/applications/SRM.desktop"
-
-  fi
-
-  echo "#!/usr/bin/env xdg-open
-  [Desktop Entry]
-  Name=Steam ROM Manager AppImage
-  Exec=zenity --question --width 450 --title \"Close Steam/Steam Input?\" --text \"Exit Steam to launch Steam ROM Manager? Desktop controls will temporarily revert to touch/trackpad/L2/R2 until you open Steam again.\" && (kill -15 \$(pidof steam) & \"$SRM_toolPath\")
-  Icon=$HOME/.local/share/icons/emudeck/srm.png
-  Terminal=false
-  Type=Application
-  Categories=Game;
-  StartupNotify=false" > "$SRM_Shortcutlocation"
-  chmod +x "$SRM_Shortcutlocation"
+  mkdir -p "$toolsPath/launchers/srm"
+  cp "$EMUDECKGIT/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
+  rm -rf $HOME/.local/share/applications/SRM.desktop
+  createDesktopShortcut   "$HOME/.local/share/applications/Steam ROM Manager.desktop" \
+  "Steam ROM Manager AppImage" \
+  "${toolsPath}/launchers/srm/steamrommanager.sh" \
+  "false"
 }
 
 SRM_migration(){
   if [ -d "${toolsPath}/srm" ]; then
     cp "${toolsPath}"/srm/*.AppImage "${toolsPath}"
     mv "${toolsPath}/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" && rm -rf "${toolsPath}"/srm/
-    rm -rf $HOME/.local/share/applications/SRM.desktop
-    createDesktopShortcut   "$HOME/.local/share/applications/Steam ROM Manager.desktop" \
-    "Steam ROM Manager AppImage" \
-    "${toolsPath}/launchers/srm/steamrommanager.sh" \
-    "false"
+    SRM_createDesktopShortcut
   fi
 }
 
@@ -331,8 +311,6 @@ SRM_init(){
   sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userSettings.json"
   sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$SRM_userData_configDir/userSettings.json"
   sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userSettings.json"
-
-  SRM_createDesktopShortcut
 
   echo -e "true"
 }
