@@ -12,7 +12,6 @@ WHITE='\033[01;37m'
 BOLD='\033[1m'
 UNDERLINE='\033[4m'
 BLINK='\x1b[5m'
-cloud_sync_provider="Emudeck-DropBox"
 cloud_sync_upload_test(){
 	local emuName=$1
 
