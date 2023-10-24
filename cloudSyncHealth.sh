@@ -44,6 +44,26 @@ miArray=("Cemu" "citra" "dolphin" "duckstation" "MAME" "melonds" "mgba" "pcsx2" 
 
 upload="true"
 download="true"
+
+echo -e "${YELLOW}Checking launchers${NONE}"
+for entry in "$toolsPath/launchers/"*
+do
+	if [ -f "$entry" ]; then
+		if grep -q "cloud_sync_startService" $entry; then
+			echo -e "$entry: ${GREEN}Success${NONE}"
+		else
+			echo -e "$entry: ${RED}Failure${NONE}"
+		fi
+	fi
+done
+
+if grep -q "cloud_sync_startService" "$toolsPath/launchers/esde/emulationstationde.sh"; then
+	echo -e "$toolsPath/launchers/esde/emulationstationde.sh: ${GREEN}Success${NONE}"
+else
+	echo -e "$toolsPath/launchers/esde/emulationstationde.sh: ${RED}Failure${NONE}"
+fi
+
+
 echo -e "${YELLOW}Testing uploading${NONE}"
 # Recorrer el array y ejecutar la función cloud_sync_upload_test para cada elemento
 for elemento in "${miArray[@]}"; do
