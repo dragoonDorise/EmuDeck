@@ -1,5 +1,4 @@
 #!/bin/bash
-export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
 clear
 source "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
