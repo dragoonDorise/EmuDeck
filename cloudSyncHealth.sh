@@ -46,7 +46,7 @@ upload="true"
 download="true"
 launchers="true"
 echo -e "${YELLOW}Checking launchers${NONE}"
-for entry in "$toolsPath/launchers/"*
+for entry in "$toolsPath/launchers/"*.sh
 do
 	if [ -f "$entry" ]; then
 		if grep -q "cloud_sync_startService" $entry; then
