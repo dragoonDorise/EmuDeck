@@ -39,10 +39,10 @@ ESDE_migration(){
 ESDE_createDesktopShortcut(){
 	mkdir -p "$toolsPath/launchers/esde"
   cp "$EMUDECKGIT/tools/launchers/esde/emulationstationde.sh" "$toolsPath/launchers/esde/emulationstationde.sh"
-  rm -rf $HOME/.local/share/applications/SRM.desktop
-  createDesktopShortcut   "$HOME/.local/share/applications/Steam ROM Manager.desktop" \
-  "Steam ROM Manager AppImage" \
-  "${toolsPath}/launchers/srm/steamrommanager.sh" \
+  rm -rf $HOME/.local/share/applications/EmulationStation-DE.desktop
+  createDesktopShortcut   "$HOME/.local/share/applications/EmulationStation-DE.desktop" \
+  "EmulationStation-DE AppImage" \
+  "${toolsPath}/launchers/esde/emulationstationde.sh" \
   "false"
 }
 
