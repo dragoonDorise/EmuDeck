@@ -91,7 +91,7 @@ source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayParsec.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayMoonlight.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayGreenlight.sh
-source ./cloudSyncHealth.sh
+source "$EMUDECKGIT"/functions/cloudSyncHealth.sh
 
 
 #Soon
