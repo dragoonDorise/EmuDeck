@@ -16,6 +16,7 @@
   "defaultHeroImage": "",
   "defaultLogoImage": "",
   "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+  "disabled": false,
   "localImages": "",
   "localTallImages": "",
   "localHeroImages": "",
