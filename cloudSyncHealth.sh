@@ -71,9 +71,10 @@ for elemento in "${miArray[@]}"; do
 	if cloud_sync_upload_test $elemento;then
 		echo -e "${GREEN}Success${NONE}"
 	elif [ $? = 2 ]; then
-		echo -e "${YELLOW}Not Installed${NONE}"
+		echo -e "${YELLOW}Save folder not found${NONE}"
 	else
 		echo -e "${RED}Failure${NONE}"
+		upload="false"
 	fi
 done
 echo ""
@@ -84,9 +85,10 @@ for elemento in "${miArray[@]}"; do
 	if cloud_sync_dowload_test $elemento;then
 		echo -e "${GREEN}Success${NONE}"
 	elif [ $? = 2 ]; then
-		echo -e "${YELLOW}Not Installed${NONE}"
+		echo -e "${YELLOW}Save folder not found${NONE}"
 	else
 		echo -e "${RED}Failure${NONE}"
+		download="false"
 	fi
 done
 echo -e ""
@@ -98,3 +100,4 @@ else
 fi
 
 
+read pause
