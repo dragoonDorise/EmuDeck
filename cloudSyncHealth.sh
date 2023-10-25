@@ -63,7 +63,13 @@ else
 	echo -e "$toolsPath/launchers/esde/emulationstationde.sh: ${RED}Failure${NONE}"
 fi
 
-
+echo -e "${YELLOW}Checking for Windows old .lnk files${NONE}"
+find "$savesPath" -type f -name "*.lnk" | while read -r entry
+do
+	rm -rf $entry
+	echo "found and deleted: $entry"
+done
+echo -e ""
 echo -e "${YELLOW}Testing uploading${NONE}"
 # Recorrer el array y ejecutar la función cloud_sync_upload_test para cada elemento
 for elemento in "${miArray[@]}"; do
