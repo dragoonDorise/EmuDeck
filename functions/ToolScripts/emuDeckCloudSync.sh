@@ -519,7 +519,7 @@ cloud_sync_downloadEmuAll(){
 }
 
 
-cloud_sync_cloud_sync_uploadEmuAll(){
+cloud_sync_uploadEmuAll(){
   cloud_sync_upload 'all'
 }
 
