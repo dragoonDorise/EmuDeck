@@ -83,7 +83,7 @@ do
 done
 
 if [ "$found_files" = "false" ]; then
-	echo "No files with the '.srm' extension found."
+	echo "No files with the '.lnk' extension found."
 fi
 
 echo -e ""
