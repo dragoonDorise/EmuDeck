@@ -3,12 +3,7 @@ NONE='\033[00m'
 RED='\033[01;31m'
 GREEN='\033[01;32m'
 YELLOW='\033[01;33m'
-PURPLE='\033[01;35m'
 CYAN='\033[01;36m'
-WHITE='\033[01;37m'
-BOLD='\033[1m'
-UNDERLINE='\033[4m'
-BLINK='\x1b[5m'
 cloud_sync_upload_test(){
 	local emuName=$1
 
@@ -36,7 +31,7 @@ cloud_sync_dowload_test(){
 
 cloudSyncHealth(){
 
-	echo -e "${CYAN}CloudSync Status Report${NONE}"
+	echo -e "<span class=\"cyan\">CloudSync Status Report</span>"
 	echo ""
 
 	miArray=("Cemu" "citra" "dolphin" "duckstation" "MAME" "melonds" "mgba" "pcsx2" "ppsspp" "primehack" "retroarch" "rpcs3" "scummvm" "Vita3K" "yuzu" "ryujinx" )
@@ -44,26 +39,26 @@ cloudSyncHealth(){
 	upload="true"
 	download="true"
 	launchers="true"
-	echo -e "${YELLOW}Checking launchers${NONE}"
+	echo -e "<span class=\"yellow\">Checking launchers</span>"
 	for entry in "$toolsPath/launchers/"*.sh
 	do
 		if [ -f "$entry" ]; then
 			if grep -q "cloud_sync_startService" $entry; then
-				echo -e "$entry: ${GREEN}Success${NONE}"
+				echo -e "$entry: <span class=\"green\">Success</span>"
 			else
-				echo -e "$entry: ${RED}Failure${NONE}"
+				echo -e "$entry: <span class=\"red\">Failure</span>"
 				launchers="false"
 			fi
 		fi
 	done
 
 	if grep -q "cloud_sync_startService" "$toolsPath/launchers/esde/emulationstationde.sh"; then
-		echo -e "$toolsPath/launchers/esde/emulationstationde.sh: ${GREEN}Success${NONE}"
+		echo -e "$toolsPath/launchers/esde/emulationstationde.sh: <span class=\"green\">Success</span>"
 	else
-		echo -e "$toolsPath/launchers/esde/emulationstationde.sh: ${RED}Failure${NONE}"
+		echo -e "$toolsPath/launchers/esde/emulationstationde.sh: <span class=\"red\">Failure</span>"
 	fi
 
-	echo -e "${YELLOW}Checking for Windows old .lnk files${NONE}"
+	echo -e "<span class=\"yellow\">Checking for Windows old .lnk files</span>"
 	find "$savesPath" -type f -name "*.lnk" | while read -r entry
 	do
 		rm -rf $entry
@@ -86,41 +81,41 @@ cloudSyncHealth(){
 	fi
 
 	echo -e ""
-	echo -e "${YELLOW}Testing uploading${NONE}"
+	echo -e "<span class=\"yellow\">Testing uploading</span>"
 	# Recorrer el array y ejecutar la función cloud_sync_upload_test para cada elemento
 	for elemento in "${miArray[@]}"; do
 		echo -ne "Testing $elemento upload..."
 		if cloud_sync_upload_test $elemento;then
-			echo -e "${GREEN}Success${NONE}"
+			echo -e "<span class=\"green\">Success</span>"
 		elif [ $? = 2 ]; then
-			echo -e "${YELLOW}Save folder not found${NONE}"
+			echo -e "<span class=\"yellow\">Save folder not found</span>"
 		else
-			echo -e "${RED}Failure${NONE}"
+			echo -e "<span class=\"red\">Failure</span>"
 			upload="false"
 		fi
 	done
 	echo ""
-	echo -e "${YELLOW}Testing downloading${NONE}"
+	echo -e "<span class=\"yellow\">Testing downloading</span>"
 	# Recorrer el array y ejecutar la función cloud_sync_upload_test para cada elemento
 	for elemento in "${miArray[@]}"; do
 		echo -ne "Testing $elemento download..."
 		if cloud_sync_dowload_test $elemento;then
-			echo -e "${GREEN}Success${NONE}"
+			echo -e "<span class=\"green\">Success</span>"
 		elif [ $? = 2 ]; then
-			echo -e "${YELLOW}Save folder not found${NONE}"
+			echo -e "<span class=\"yellow\">Save folder not found</span>"
 		else
-			echo -e "${RED}Failure${NONE}"
+			echo -e "<span class=\"red\">Failure</span>"
 			download="false"
 		fi
 	done
 	echo -e ""
-	echo -e "${CYAN}Recommendations${NONE}"
+	echo -e "<span class=\"cyan\">Recommendations</span>"
 
 
 
 	if [ $download = "true" ] && [ $upload = "true" ] && [ $launchers = "true" ]; then
-		echo -e "${YELLOW}Everything seems to be in proper order, at least on Linux${NONE}"
+		echo -e "<span class=\"yellow\">Everything seems to be in proper order, at least on Linux</span>"
 	else
-		echo -e "${YELLOW}Open EmuDeck, go to Manage Emulators and reset SteamRomManager Configuration. Then test some games and if it keeps failing open Steam Rom Manager and parse all your games again to get the proper launchers${NONE}"
+		echo -e "<span class=\"yellow\">Open EmuDeck, go to Manage Emulators and reset SteamRomManager Configuration. Then test some games and if it keeps failing open Steam Rom Manager and parse all your games again to get the proper launchers</span>"
 	fi
 }
