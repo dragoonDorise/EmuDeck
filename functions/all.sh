@@ -44,6 +44,7 @@ source "$EMUDECKGIT"/functions/updateEmuFP.sh
 source "$EMUDECKGIT"/functions/createFolders.sh
 source "$EMUDECKGIT"/functions/runSRM.sh
 source "$EMUDECKGIT"/functions/appImageInit.sh
+source "$EMUDECKGIT"/functions/autofix.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh

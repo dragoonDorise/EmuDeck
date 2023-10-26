@@ -58,22 +58,13 @@ cloudSyncHealth(){
 		echo -e "$toolsPath/launchers/esde/emulationstationde.sh: <span class=\"red\">Failure</span>"
 	fi
 
+	found_files="false"
 	echo -e "<span class=\"yellow\">Checking for Windows old .lnk files</span>"
 	find "$savesPath" -type f -name "*.lnk" | while read -r entry
 	do
 		rm -rf $entry
 		echo "found and deleted: $entry"
-	done
-
-	found_files="false"
-
-	for entry in "$savesPath"/**/*.lnk
-	do
-		if [ -f "$entry" ]; then
-			rm -rf $entry
-			echo "found and deleted: $entry"
-			found_files="true"
-		fi
+		found_files="true"
 	done
 
 	if [ "$found_files" = "false" ]; then

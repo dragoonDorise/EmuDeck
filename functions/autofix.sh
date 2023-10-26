@@ -3,7 +3,7 @@
 zenityInfo(){
 	local title=$1
 	local text=$2
-	text="`printf " <b>$title</b>\n\n$text)"`"
+	text="`printf " <b>$title</b>\n\n$text"`"
 	 zenity --info \
 			 --title="EmuDeck AutoFix" \
 			 --width="450" \
@@ -15,6 +15,19 @@ autofix_duplicateESDE(){
 		rm -rf "$toolsPath/launchers/esde/emulationstation-de.sh"
 
 		zenityInfo "EmulationStation DE duplicated launcher fixed" "We found you had an old EmulationStation DE launcher, we've deleted it so it wont appear as a duplicate on Steam Rom Manager. Delete both EmulationStation DE entries from Steam and parse back EmulationStation DE"
+	fi
+}
+
+autofix_lnk(){
+	found_files="false"
+	find "$savesPath" -type f -name "*.lnk" | while read -r entry
+	do
+		rm -rf "$entry"
+		echo "found and deleted: $entry"
+		found_files="true"
+	done
+	if [ $found_files = "true" ]; then
+		zenityInfo ".lnk files found in your Emulation/saves subfolders" "We've deleted those files, please do the same in your cloud provider to avoid getting downloaded again"
 	fi
 }
 
