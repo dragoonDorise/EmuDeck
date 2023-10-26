@@ -34,7 +34,7 @@ autofix_lnk(){
 function autofix_raSavesFolders() {
 	cloud_sync_createBackup "retroarch"
 	sourceFolder="$savesPath/retroarch/states"
-	subfolders=$(find "$sourceFolder" -mindepth 1 -type d)
+	subfolders=$(find -L "$sourceFolder" -mindepth 1 -type d)
 
 	if [[ $(echo "$subfolders" | wc -l) -gt 0 ]]; then
 		zenityInfo "Old RetroArch saves folders found" "EmuDeck will create a backup of them in Emulation/saves-backup just in case, after that it will reorganize and delete the old subfolder. Please manually delete all subfolders you might have in your cloud provider (EmuDeck/saves/retroarch/saves/* and EmuDeck/saves/retroarch/states/*)"
@@ -45,7 +45,7 @@ function autofix_raSavesFolders() {
 	fi
 
 	sourceFolder="$savesPath/retroarch/saves"
-	subfolders=$(find "$sourceFolder" -mindepth 1 -type d)
+	subfolders=$(find -L "$sourceFolder" -mindepth 1 -type d)
 
 	if [[ $(echo "$subfolders" | wc -l) -gt 0 ]]; then
 		for subfolder in $subfolders; do
