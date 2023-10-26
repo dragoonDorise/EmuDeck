@@ -342,7 +342,7 @@ cloud_sync_createBackup (){
   #We delete backups older than one month
   mkdir -p "$emulationPath/save-backups/$emuName/"
   find "$emulationPath/save-backups/$emuName/" -maxdepth 1 -type d -mtime +30 -delete
-  cp -Lr "$savesPath/$emuName" "$emulationPath/save-backups/$emuName"
+  cp -Lr "$savesPath/$emuName" "$emulationPath/save-backups/"
 }
 
 
