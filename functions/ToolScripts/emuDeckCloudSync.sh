@@ -334,12 +334,14 @@ cloud_sync_download(){
 
 cloud_sync_createBackup(){
   startLog ${FUNCNAME[0]}
-  local $emuName=$1
+  local emuName=$1
   local date=$(date +"%D");
-  cp -r "$savesPath/$emuName" "$toolsPath/save-backups/$emuName/"
   #We delete backups older than one month
-  find $toolsPath/save-backups -maxdepth 1 -type d -mtime +30 -delete
+  mkdir -p "$emulationPath/save-backups/$emuName/"
+  find "$emulationPath/save-backups/$emuName/" -maxdepth 1 -type d -mtime +30 -delete
+  cp -r "$savesPath/$emuName/" "$emulationPath/save-backups/$emuName/"
 }
+
 
 cloud_sync_uploadEmu(){
   startLog ${FUNCNAME[0]}
