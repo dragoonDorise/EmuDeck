@@ -45,10 +45,6 @@ RetroArch_init(){
 	RetroArch_autoSave
 	RetroArch_setRetroAchievements
 
-	if [ "$system" == "chimeraOS" ] || [ "$system" == "ChimeraOS" ]; then
-		ESDE_chimeraOS
-	fi
-
 	mkdir -p "$biosPath/mame/bios"
 	mkdir -p "$biosPath/dc"
 	mkdir -p "$biosPath/neocd"
@@ -60,13 +56,7 @@ RetroArch_init(){
 
 }
 
-ESDE_chimeraOS(){
-	if [ ! -f $es_rulesFile ]; then
-		rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
-	else
-		xmlstarlet ed -d '//entry[contains(., "~/Applications/RetroArch-Linux*.AppImage") or contains(., "~/.local/share/applications/RetroArch-Linux*.AppImage") or contains(., "~/.local/bin/RetroArch-Linux*.AppImage") or contains(., "~/bin/RetroArch-Linux*.AppImage")]' $es_rulesFile > rules_temp.xml && mv rules_temp.xml $es_rulesFile
-	fi
-}
+
 
 RetroArch_setCustomizations(){
 	# User customizations
