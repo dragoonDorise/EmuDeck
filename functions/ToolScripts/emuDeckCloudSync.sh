@@ -289,6 +289,7 @@ cloud_sync_download(){
     cloud_sync_check_lock
     if [ "$emuName" == "all" ]; then
         #We check the hashes
+        cloud_sync_save_hash "$savesPath/$emuName"
         local filePath="$savesPath/.hash"
         local hash=$(cat "$savesPath/.hash")
 
@@ -314,7 +315,9 @@ cloud_sync_download(){
         fi
       #Single Emu
       else
+
         #We check the hashes
+        cloud_sync_save_hash "$emuName"
         local filePath="$savesPath/$emuName/.hash"
         local hash=$(cat "$savesPath/$emuName/.hash")
 
