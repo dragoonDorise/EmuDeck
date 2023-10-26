@@ -292,7 +292,7 @@ cloud_sync_download(){
         local filePath="$savesPath/.hash"
         local hash=$(cat "$savesPath/.hash")
 
-        "$cloud_sync_bin"  --progress copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/.hash "$filePath"
+        "$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/.hash "$filePath"
 
         hashCloud=$(cat "$savesPath/.hash")
 
@@ -318,7 +318,7 @@ cloud_sync_download(){
         local filePath="$savesPath/$emuName/.hash"
         local hash=$(cat "$savesPath/$emuName/.hash")
 
-        "$cloud_sync_bin"  --progress copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/$emuName/.hash "$filePath"
+        "$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/$emuName/.hash "$filePath"
 
         hashCloud=$(cat "$savesPath/$emuName/.hash")
 
