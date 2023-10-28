@@ -299,7 +299,7 @@ cloud_sync_download(){
 
         if [ -f "$savesPath/.hash" ] && [ "$hash" != "$hashCloud" ]; then
 
-             ("$cloud_sync_bin" copy --fast-list --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/ "$savesPath" && (
+             "$cloud_sync_bin" copy --fast-list --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/ "$savesPath" && (
                 local baseFolder="$savesPath/"
                  for folder in $baseFolder*/
                   do
@@ -308,7 +308,7 @@ cloud_sync_download(){
                      echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
                     fi
                 done
-              )) | zenity --progress --title="Downloading saves - All systems" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate
+              )
 
         else
           echo "up to date"
@@ -326,7 +326,7 @@ cloud_sync_download(){
         hashCloud=$(cat "$savesPath/$emuName/.hash")
 
         if [ -f "$savesPath/$emuName/.hash" ] && [ "$hash" != "$hashCloud" ];then
-            ("$cloud_sync_bin" copy --fast-list --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate
+            "$cloud_sync_bin" copy --fast-list --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
         else
           echo "up to date"
         fi
