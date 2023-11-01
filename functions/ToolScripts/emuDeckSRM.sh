@@ -297,7 +297,8 @@ SRM_init(){
   rm -rf "$HOME/temp_parser"
   ln -s "$json_directory" "$HOME/temp_parser"
   files=$(find "$HOME/temp_parser/emudeck" -name "*.json" | sort)
-  jq -s '.' $files > "$output_file"
+  customfiles=$(find "$SRM_userData_configDir/parsers/custom/" -name "*.json" | sort)
+  jq -s '.' $files $customfiles > "$output_file"
   rm -rf "$HOME/temp_parser"
 
   sleep 1
