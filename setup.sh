@@ -432,6 +432,16 @@ if [ "$doSetupRA" == "true" ]; then
 	fi
 fi
 
+if [ "$system" == "chimeraos" ]; then
+	mkdir -p $HOME/Applications
+
+	downloads_dir="$HOME/Downloads"
+	destination_dir="$HOME/Applications"
+	file_name="EmuDeck"
+
+	find "$downloads_dir" -type f -name "*$file_name*.AppImage" -exec mv {} "$destination_dir/$file_name.AppImage" \;
+
+fi
 
 createDesktopIcons
 
