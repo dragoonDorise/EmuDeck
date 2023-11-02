@@ -122,7 +122,7 @@ ESDE_init(){
 	ESDE_finalize
 	ESDE_migrateEpicNoir
 
-	if [ "$system" == "chimeraOS" ] || [ "$system" == "ChimeraOS" ]; then
+	if [ "$system" == "chimeraos" ] || [ "$system" == "ChimeraOS" ]; then
 			ESDE_chimeraOS
 		fi
 
