@@ -3,6 +3,22 @@
 #Global variables
 emuDecksettingsFile="$HOME/emudeck/settings.sh"
 
+
+function startLog() {
+	funcName="$1"
+	mkdir -p "$HOME/emudeck/logs"
+	logFile="$HOME/emudeck/logs/$funcName.log"
+
+	touch "$logFile"
+
+	exec &> >(tee -a "$logFile")
+
+}
+
+function stopLog(){
+	echo "NYI"
+}
+
 function getScreenAR(){
 	local productName
 	productName=$(getProductName)
@@ -395,9 +411,9 @@ function getReleaseURLGH(){
 	local url
 	local fileNameContains=$3
 	#local token=$(tokenGenerator)
-	
+
 	if [ $system == "darwin" ]; then
-		fileType="dmg"	
+		fileType="dmg"
 	fi
 
 	if [ $system == "darwin" ]; then
@@ -642,15 +658,13 @@ safeDownload() {
 	local outFile="$3"
 	local showProgress="$4"
 	local headers="$5"
-	if [ "$showProgress" == "true" ]; then
-		echo "safeDownload()"
-		echo "- $name"
-		echo "- $url"
-		echo "- $outFile"
-		echo "- $showProgress"
-		echo "- $headers"
-	fi
-	
+
+	echo "safeDownload()"
+	echo "- $name"
+	echo "- $url"
+	echo "- $outFile"
+	echo "- $showProgress"
+	echo "- $headers"
 
 
 	if [ "$showProgress" == "true" ] || [[ $showProgress -eq 1 ]]; then
@@ -658,34 +672,22 @@ safeDownload() {
 	else
 		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 && echo $'\2'0 || echo $'\2'$?)
 	fi
-
-
+	requestInfo=$(sed -z s/.$// <<< "${request%$'\1'*}")
 	returnCodes="${request#*$'\1'}"
 	httpCode="${returnCodes%$'\2'*}"
 	exitCode="${returnCodes#*$'\2'}"
-	if [ "$showProgress" == "true" ]; then
-		requestInfo=$(sed -z s/.$// <<< "${request%$'\1'*}")
-		echo "$requestInfo"
-		echo "HTTP response code: $httpCode"
-		echo "CURL exit code: $exitCode"
-	fi
-	echo $outFile;
-	echo $httpCode;
-	echo $exitCode;
-
+	echo "$requestInfo"
+	echo "HTTP response code: $httpCode"
+	echo "CURL exit code: $exitCode"
 	if [ "$httpCode" = "200" ] && [ "$exitCode" == "0" ]; then
-		#echo "$name downloaded successfully";
-		mv -v "$outFile.temp" "$outFile" &>/dev/null
-		volumeName=$(hdiutil attach "$outFile" | grep -o '/Volumes/.*$')
-
-		cp -r $volumeName/*.app "$HOME/Applications" && hdiutil detach "$volumeName" && rm -rf $outFile
+		echo "$name downloaded successfully";
+		mv -v "$outFile.temp" "$outFile"
 		return 0
 	else
-		#echo "$name download failed"
+		echo "$name download failed"
 		rm -f "$outFile.temp"
 		return 1
 	fi
-
 }
 
 addSteamInputCustomIcons() {
@@ -715,4 +717,19 @@ isFpInstalled(){
 
 check_internet_connection(){
   ping -q -c 1 -W 1 8.8.8.8 > /dev/null 2>&1 && echo true || echo false
+}
+
+zipLogs() {
+	logsFolder="$HOME/emudeck/logs"
+	settingsFile="$HOME/emudeck/settings.sh"
+	zipOutput="$HOME/Desktop/emudeck_logs.zip"
+
+	# Comprime los archivos en un archivo zip
+	zip -rj "$zipOutput" "$logsFolder" "$settingsFile"
+
+	if [ $? -eq 0 ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
 }
