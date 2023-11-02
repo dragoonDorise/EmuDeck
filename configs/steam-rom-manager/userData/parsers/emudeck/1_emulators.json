@@ -21,7 +21,7 @@
     "specifiedAccounts": ""
   },
   "parserInputs": {
-    "glob": "**/${title}@(.sh)"
+    "glob": "${title}@(.sh)"
   },
   "titleFromVariable": {
     "limitToGroups": "",

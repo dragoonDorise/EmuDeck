@@ -1,4 +1,8 @@
 #!/bin/bash
+appleChip=$(uname -m)
+if [ appleChip != "Linux" ]; then
+    PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+fi
 
 if [[ "$EMUDECKGIT" == "" ]]; then
     EMUDECKGIT="$HOME/.config/EmuDeck/backend"
@@ -40,6 +44,7 @@ source "$EMUDECKGIT"/functions/updateEmuFP.sh
 source "$EMUDECKGIT"/functions/createFolders.sh
 source "$EMUDECKGIT"/functions/runSRM.sh
 source "$EMUDECKGIT"/functions/appImageInit.sh
+source "$EMUDECKGIT"/functions/autofix.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
@@ -87,6 +92,8 @@ source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayParsec.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayMoonlight.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayGreenlight.sh
+source "$EMUDECKGIT"/functions/cloudSyncHealth.sh
+
 
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh

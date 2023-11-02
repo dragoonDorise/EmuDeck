@@ -718,3 +718,18 @@ isFpInstalled(){
 check_internet_connection(){
   ping -q -c 1 -W 1 8.8.8.8 > /dev/null 2>&1 && echo true || echo false
 }
+
+zipLogs() {
+	logsFolder="$HOME/emudeck/logs"
+	settingsFile="$HOME/emudeck/settings.sh"
+	zipOutput="$HOME/Desktop/emudeck_logs.zip"
+
+	# Comprime los archivos en un archivo zip
+	zip -rj "$zipOutput" "$logsFolder" "$settingsFile"
+
+	if [ $? -eq 0 ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}

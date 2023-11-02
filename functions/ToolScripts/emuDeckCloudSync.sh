@@ -64,6 +64,15 @@ cloud_sync_config(){
 
 }
 
+createCloudFile() {
+  local folder=$1
+  local cloudFilePath="${folder}/.cloud"
+  if [ ! -f "$cloudFilePath" ]; then
+    echo "" > "$cloudFilePath"
+  fi
+}
+
+
 cloud_sync_setup_providers(){
   startLog ${FUNCNAME[0]}
     if [ "$cloud_sync_provider" == "Emudeck-NextCloud" ]; then
@@ -109,13 +118,16 @@ cloud_sync_setup_providers(){
         username="$(echo "$NCInput" | awk -F "," '{print $2}')"
         password="$(echo "$NCInput" | awk -F "," '{print $3}')"
         port="$(echo "$NCInput" | awk -F "," '{print $4}')"
-
-        "$cloud_sync_bin" config update "$cloud_sync_provider" host="$host" user="$username" port="$port" pass="$("$cloud_sync_bin" obscure $password)"
+        find "$savesPath" -type d -exec bash -c 'createCloudFile "$0"' {} \;
+        "$cloud_sync_bin" config update "$cloud_sync_provider" host="$host" user="$username" port="$port" pass="$("$cloud_sync_bin" obscure $password)" && "$cloud_sync_bin" mkdir "$cloud_sync_provider:Emudeck\saves" && "$cloud_sync_bin" copy "$savesPath" "$cloud_sync_provider:Emudeck\saves" --include "*.cloud" echo "true"
+        find "$savesPath" -type f -name "*.cloud" -exec rm {} \;
       else
         echo "Cancel SFTP Login"
       fi
-
-
+    elif [ "$cloud_sync_provider" == "Emudeck-OneDrive" ]; then
+      find "$savesPath" -type d -exec bash -c 'createCloudFile "$0"' {} \;
+      "$cloud_sync_bin" config update "$cloud_sync_provider" && "$cloud_sync_bin" mkdir "$cloud_sync_provider:Emudeck\saves" && "$cloud_sync_bin" copy "$savesPath" "$cloud_sync_provider:Emudeck\saves" --include "*.cloud" echo "true"
+      find "$savesPath" -type f -name "*.cloud" -exec rm {} \;
     elif [ "$cloud_sync_provider" == "Emudeck-SMB" ]; then
 
       NCInput=$(zenity --forms \
@@ -132,8 +144,10 @@ cloud_sync_setup_providers(){
         host="$(echo "$NCInput" | awk -F "," '{print $1}')"
         username="$(echo "$NCInput" | awk -F "," '{print $2}')"
         password="$(echo "$NCInput" | awk -F "," '{print $3}')"
+        find "$savesPath" -type d -exec bash -c 'createCloudFile "$0"' {} \;
+        "$cloud_sync_bin" config update "$cloud_sync_provider" host=$host user=$username pass="$("$cloud_sync_bin" obscure $password)" && "$cloud_sync_bin" mkdir "$cloud_sync_provider:Emudeck\saves" && "$cloud_sync_bin" copy "$savesPath" "$cloud_sync_provider:Emudeck\saves" --include "*.cloud" echo "true"
+        find "$savesPath" -type f -name "*.cloud" -exec rm {} \;
 
-        "$cloud_sync_bin" config update "$cloud_sync_provider" host=$host user=$username pass="$("$cloud_sync_bin" obscure $password)"
       else
         echo "Cancel SMB Login"
       fi
@@ -289,16 +303,17 @@ cloud_sync_download(){
     cloud_sync_check_lock
     if [ "$emuName" == "all" ]; then
         #We check the hashes
+        cloud_sync_save_hash "$savesPath/$emuName"
         local filePath="$savesPath/.hash"
         local hash=$(cat "$savesPath/.hash")
 
-        "$cloud_sync_bin"  --progress copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/.hash "$filePath"
+        "$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/.hash "$filePath"
 
         hashCloud=$(cat "$savesPath/.hash")
 
         if [ -f "$savesPath/.hash" ] && [ "$hash" != "$hashCloud" ]; then
 
-             ("$cloud_sync_bin" copy --fast-list --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/ "$savesPath" && (
+             "$cloud_sync_bin" copy --fast-list --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/ "$savesPath" && (
                 local baseFolder="$savesPath/"
                  for folder in $baseFolder*/
                   do
@@ -307,23 +322,25 @@ cloud_sync_download(){
                      echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
                     fi
                 done
-              )) | zenity --progress --title="Downloading saves - All systems" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate
+              )
 
         else
           echo "up to date"
         fi
       #Single Emu
       else
+
         #We check the hashes
+        cloud_sync_save_hash "$emuName"
         local filePath="$savesPath/$emuName/.hash"
         local hash=$(cat "$savesPath/$emuName/.hash")
 
-        "$cloud_sync_bin"  --progress copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/$emuName/.hash "$filePath"
+        "$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/$emuName/.hash "$filePath"
 
         hashCloud=$(cat "$savesPath/$emuName/.hash")
 
         if [ -f "$savesPath/$emuName/.hash" ] && [ "$hash" != "$hashCloud" ];then
-            ("$cloud_sync_bin" copy --fast-list --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download) | zenity --progress --title="Downloading saves $emuName" --text="Syncing saves..." --auto-close --width 300 --height 100 --pulsate
+            "$cloud_sync_bin" copy --fast-list --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
         else
           echo "up to date"
         fi
@@ -332,14 +349,16 @@ cloud_sync_download(){
 
 }
 
-cloud_sync_createBackup(){
+cloud_sync_createBackup (){
   startLog ${FUNCNAME[0]}
-  local $emuName=$1
+  local emuName=$1
   local date=$(date +"%D");
-  cp -r "$savesPath/$emuName" "$toolsPath/save-backups/$emuName/"
   #We delete backups older than one month
-  find $toolsPath/save-backups -maxdepth 1 -type d -mtime +30 -delete
+  mkdir -p "$emulationPath/save-backups/$emuName/"
+  find "$emulationPath/save-backups/$emuName/" -maxdepth 1 -type d -mtime +30 -delete
+  cp -Lr "$savesPath/$emuName" "$emulationPath/save-backups/"
 }
+
 
 cloud_sync_uploadEmu(){
   startLog ${FUNCNAME[0]}
@@ -519,7 +538,7 @@ cloud_sync_downloadEmuAll(){
 }
 
 
-cloud_sync_cloud_sync_uploadEmuAll(){
+cloud_sync_uploadEmuAll(){
   cloud_sync_upload 'all'
 }
 
@@ -619,7 +638,7 @@ cloud_decky_check_status(){
       echo "disabled"
     fi
   else
-    echo "noInternet"
+    echo "disabled"
   fi
 
 }
