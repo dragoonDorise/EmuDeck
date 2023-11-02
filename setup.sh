@@ -123,10 +123,10 @@ echo 'Downloading files...'
 case $devMode in
 	"BETA") 	branch="beta" 		;;
 	"beta") 	branch="beta" 		;;
-	"DEV") 		branch="dev" 		;;  
+	"DEV") 		branch="dev" 		;;
 	"dev") 		branch="dev" 		;;
 	*) 			branch="main" 		;;
-esac	
+esac
 
 echo $branch > "$HOME/.config/EmuDeck/branch.txt"
 
@@ -134,16 +134,16 @@ if [[ "$uiMode" == 'zenity' || "$uiMode" == 'whiptail' ]]; then
 	#We create all the needed folders for installation
 	if [[ ! -e $EMUDECKGIT/.git/config ]]; then
 		mkdir -p "$EMUDECKGIT"
-	
+
 		#Cloning EmuDeck files
 		git clone --depth 1 --no-single-branch https://github.com/dragoonDorise/EmuDeck.git "$EMUDECKGIT"
 	fi
-	
+
 	git status "$EMUDECKGIT" --porcelain
 	if [[ ! $noPull == true ]]; then
 		cd "$EMUDECKGIT"
 		git fetch origin  && git checkout origin/$branch  &&	git reset --hard origin/$branch && git clean -ffdx
-		
+
 	fi
 fi
 
@@ -151,20 +151,20 @@ fi
 #
 ##
 ## UI Selection
-##	
+##
 #
 
 
 if [ "$uiMode" == 'zenity' ]; then
-	
+
 	source "$EMUDECKGIT/zenity-setup.sh"
-	
+
 elif [ "$uiMode" == 'whiptail' ]; then
 
 	source "$EMUDECKGIT/whiptail-setup.sh"
-	
-else	
-	echo "Electron UI"	
+
+else
+	echo "Electron UI"
 	#App Image detection & launch so older user can update just using the same old .desktop
 	# if [[ ! -e "~/Applications/EmuDeck.AppImage" ]]; then
 	# 	mkdir -p ~/Applications
@@ -177,7 +177,7 @@ fi
 #
 ##
 ## Start of installation
-##	
+##
 #
 
 
@@ -206,7 +206,7 @@ testRealDeck
 #this sets up the settings file with defaults, in case they don't have a new setting we've added.
 #also echos them all out so they are in the log.
 echo "Setup Settings File: "
-createUpdateSettingsFile	
+createUpdateSettingsFile
 
 #Support for non-holo based OS's
 #Only on Zenity for now
@@ -234,14 +234,14 @@ chmod +x "${toolsPath}/emu-launch.sh"
 #ESDE Installation
 if [ $doInstallESDE == "true" ]; then
 	echo "install esde"
-	ESDE_install		
+	ESDE_install
 fi
 #SRM Installation
 if [ $doInstallSRM == "true" ]; then
 	echo "install srm"
 	SRM_install
 fi
-if [ "$doInstallPCSX2QT" == "true" ]; then	
+if [ "$doInstallPCSX2QT" == "true" ]; then
 	echo "install pcsx2Qt"
 	PCSX2QT_install
 fi
@@ -258,7 +258,7 @@ if [ $doInstallCitra == "true" ]; then
 	Citra_install
 fi
 if [ $doInstallDolphin == "true" ]; then
-	echo "install Dolphin"	
+	echo "install Dolphin"
 	Dolphin_install
 fi
 if [ $doInstallDuck == "true" ]; then
@@ -267,25 +267,25 @@ if [ $doInstallDuck == "true" ]; then
 fi
 if [ $doInstallRA == "true" ]; then
 	echo "RetroArch_install"
-	RetroArch_install	
+	RetroArch_install
 fi
 if [ $doInstallRMG == "true" ]; then
 	echo "RMG_install"
-	RMG_install	
+	RMG_install
 fi
 if [ $doInstallPPSSPP == "true" ]; then
 	echo "PPSSPP_install"
-	PPSSPP_install	
+	PPSSPP_install
 fi
-if [ $doInstallYuzu == "true" ]; then	
+if [ $doInstallYuzu == "true" ]; then
 	echo "Yuzu_install"
 	Yuzu_install
 fi
-if [ $doInstallRyujinx == "true" ]; then	
+if [ $doInstallRyujinx == "true" ]; then
 	echo "Ryujinx_install"
 	Ryujinx_install
 fi
-if [ $doInstallMAME == "true" ]; then	
+if [ $doInstallMAME == "true" ]; then
 	echo "MAME_install"
 	MAME_install
 fi
@@ -338,7 +338,7 @@ fi
 if [ "$doSetupESDE" == "true" ]; then
 	echo "ESDE_init"
 	ESDE_update
-fi	
+fi
 
 #Emus config
 #setMSG "Configuring Steam Input for emulators.." moved to emu install
@@ -451,22 +451,22 @@ fi
 ##
 
 
-#RA Bezels	
+#RA Bezels
 if [ "$doSetupRA" == "true" ]; then
 	RetroArch_setBezels #needs to change
-	
-	#RA AutoSave	
+
+	#RA AutoSave
 	if [ "$RAautoSave" == true ]; then
 		RetroArch_autoSaveOn
 	else
 		RetroArch_autoSaveOff
-	fi	
+	fi
 fi
 
 #
 #New Shaders
 #Moved before widescreen, so widescreen disabled if needed.
-#	
+#
 if [ "$doSetupRA" == "true" ]; then
 	RetroArch_setShadersCRT
 	RetroArch_setShaders3DCRT
@@ -475,14 +475,14 @@ fi
 
 # Old bezels and widescreen modes
 if [ "$uiMode" == 'zenity' ]; then
-	
+
 	#Old Widescreen hacks
-	if [ "$duckWide" == true ]; then	
+	if [ "$duckWide" == true ]; then
 		DuckStation_wideScreenOn
 	else
 		DuckStation_wideScreenOff
 	fi
-	if [ "$PCSX2QTWide" == true ]; then	
+	if [ "$PCSX2QTWide" == true ]; then
 		PCSX2QT_wideScreenOn
 	else
 		PCSX2QT_wideScreenOff
@@ -502,7 +502,7 @@ if [ "$uiMode" == 'zenity' ]; then
 	else
 		RetroArch_Flycast_wideScreenOff
 	fi
-	
+
 	#RA SNES Aspect Ratio
 	RetroArch_setSNESAR #needs to change
 
@@ -511,7 +511,7 @@ else
 	#
 	#New Aspect Ratios
 	#
-	
+
 	#Sega Games
 		#Master System
 		#Genesis
@@ -519,12 +519,12 @@ else
 		#Sega 32X
 	if [ "$doSetupRA" == "true" ]; then
 		case $arSega in
-  		"32")	 
+  		"32")
 			RetroArch_mastersystem_ar32
 			RetroArch_genesis_ar32
 			RetroArch_segacd_ar32
-	  		RetroArch_sega32x_ar32	
-			;;  
+	  		RetroArch_sega32x_ar32
+			;;
   		*)
 			RetroArch_mastersystem_ar43
 			RetroArch_genesis_ar43
@@ -537,8 +537,8 @@ else
 	  			RetroArch_sega32x_bezelOn
 			fi
   		;;
-		esac	
-		
+		esac
+
 		#Snes and NES
 		case $arSnes in
 	  	"87")
@@ -548,11 +548,11 @@ else
 	  	"32")
 				RetroArch_snes_ar32
 		  	RetroArch_nes_ar32
-			;;  
+			;;
 	  	*)
 			RetroArch_snes_ar43
 			RetroArch_nes_ar43
-			if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then	
+			if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then
 				RetroArch_snes_bezelOn
 			fi
 	  	;;
@@ -564,8 +564,8 @@ else
 		#Nintendo 64
 		#Saturn
 		#Xbox
-	if [ "$arClassic3D" == 169 ]; then		
-		if [ "$doSetupRA" == "true" ]; then	
+	if [ "$arClassic3D" == 169 ]; then
+		if [ "$doSetupRA" == "true" ]; then
 			RetroArch_Beetle_PSX_HW_wideScreenOn
 			RetroArch_Flycast_wideScreenOn
 			#"Bezels off"
@@ -597,21 +597,21 @@ else
 		fi
 		#"Bezels on"
 		if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then
-			RetroArch_dreamcast_bezelOn			
+			RetroArch_dreamcast_bezelOn
 			RetroArch_n64_bezelOn
 			RetroArch_psx_bezelOn
-		fi			
+		fi
 	fi
-	
+
 	# GameCube
 	if [ "$doSetupDolphin" == "true" ]; then
-		if [ "$arDolphin" == 169 ]; then	
+		if [ "$arDolphin" == 169 ]; then
 			Dolphin_wideScreenOn
 		else
 			Dolphin_wideScreenOff
 		fi
 	fi
-	
+
 fi
 
 
@@ -647,7 +647,7 @@ if [ -n "$PASSWD" ]; then
 	pwstatus=0
 	echo "$PASSWD" | sudo -v -S &>/dev/null && pwstatus=1 || echo "sudo password was incorrect" #refresh sudo cache
 	if [ $pwstatus == 1 ]; then
-		if [ "$doInstallGyro" == "true" ]; then	
+		if [ "$doInstallGyro" == "true" ]; then
 			Plugins_installSteamDeckGyroDSU
 		fi
 
@@ -676,19 +676,29 @@ CHD_install
 #
 if [ "$doSetupRA" == "true" ]; then
 	if [ "$(getScreenAR)" == 169 ];then
-		nonDeck_169Screen		
+		nonDeck_169Screen
 	fi
-	
+
 	#Anbernic Win600 Special configuration
 	if [ "$(getProductName)" == "Win600" ];then
-		nonDeck_win600		
+		nonDeck_win600
 	fi
 fi
 
+if [ "$system" == "chimeraos" ]; then
+	mkdir -p $HOME/Applications
+
+	downloads_dir="$HOME/Downloads"
+	destination_dir="$HOME/Applications"
+	file_name="EmuDeck"
+
+	find "$downloads_dir" -type f -name "*$file_name*.AppImage" -exec mv {} "$destination_dir/$file_name.AppImage" \;
+
+fi
 
 createDesktopIcons
 
-if [ "$doInstallHomeBrewGames" == "true" ]; then	
+if [ "$doInstallHomeBrewGames" == "true" ]; then
 	emuDeckInstallHomebrewGames
 fi
 
@@ -716,13 +726,13 @@ fi
 
 
 #SaveSync
-# if [[ ! $branch == "main" ]]; then 
+# if [[ ! $branch == "main" ]]; then
 # 	if [[ $doSetupSaveSync == "true" ]]; then
-# 	
+#
 # 		$HOME/Desktop/EmuDeckSaveSync.desktop
-# 
+#
 # 	fi
-# fi 
+# fi
 
 #EmuDeck updater on gaming Mode
 mkdir -p "${toolsPath}/updater"
@@ -730,12 +740,12 @@ cp -v "$EMUDECKGIT/tools/updater/emudeck-updater.sh" "${toolsPath}/updater/"
 chmod +x "${toolsPath}/updater/emudeck-updater.sh"
 
 #RemotePlayWhatever
-# if [[ ! $branch == "main" ]]; then 
+# if [[ ! $branch == "main" ]]; then
 # 	RemotePlayWhatever_install
 # fi
 
 #
-# We mark the script as finished	
+# We mark the script as finished
 #
 echo "" > "$HOME/.config/EmuDeck/.finished"
 echo "" > "$HOME/.config/EmuDeck/.ui-finished"
@@ -763,7 +773,7 @@ done
 if [ "$uiMode" == 'zenity' ]; then
 
 	text="$(printf "<b>Done!</b>\n\nRemember to add your games here:\n<b>${romsPath}</b>\nAnd your Bios (PS1, PS2, Yuzu, Ryujinx) here:\n<b>${biosPath}</b>\n\nOpen Steam Rom Manager on your Desktop to add your games to your SteamUI Interface.\n\nThere is a bug in RetroArch that if you are using Bezels you can not set save configuration files unless you close your current game. Use overrides for your custom configurations or use expert mode to disabled them\n\nIf you encounter any problem please visit our Discord:\n<b>https://discord.gg/b9F7GpXtFP</b>\n\nTo Update EmuDeck in the future, just run this App again.\n\nEnjoy!")"
-	
+
 	zenity --question \
 		 	--title="EmuDeck" \
 		 	--width=450 \
@@ -789,7 +799,7 @@ if [ "$uiMode" == 'zenity' ]; then
 		exit
 		echo -e "Exit" 2>/dev/null
 	fi
-	
+
 elif [ "$uiMode" == 'whiptail' ]; then
 	echo "Finished on Whiptail"
 	sleep 9999
