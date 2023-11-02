@@ -40,7 +40,7 @@ function setSetting() {
 }
 
 setDefaults(){
-		
+
 	setSetting expert false
 	setSetting system SteamOS
 	setSetting doSetupRA true
@@ -133,12 +133,12 @@ setDefaults(){
 	setSetting emuGBA multiemulator
 	setSetting emuMAME multiemulator
 	setSetting xeniaResolution 720P
-	setSetting emuNDS melonDS
+	setSetting emuNDS melonds
 	setSetting emuN64 ra
 	setSetting emuMULTI ra
 	setSetting emuPSP ppsspp
 	setSetting emuPSX duckstation
-	setSetting emuSCUMMVM scummvm		
+	setSetting emuSCUMMVM scummvm
 
 }
 
@@ -165,7 +165,7 @@ setDefaults
 # Welcome, Quick or custom?
 source "$EMUDECKGIT"/whiptail/WelcomePage.sh
 
-if [ $expert == 'false' ]; then 
+if [ $expert == 'false' ]; then
 	cp "$EMUDECKGIT/settings.sh" "$emuDecksettingsFile"
 fi
 
@@ -178,45 +178,45 @@ source "$EMUDECKGIT"/whiptail/RomStoragePage.sh
 ## Custom mode Questions
 #
 
-if [ $expert == 'true' ]; then 
-	
-	# Emulators	
+if [ $expert == 'true' ]; then
+
+	# Emulators
 	source $EMUDECKGIT/whiptail/EmulatorSelectorPage.sh
- 
+
 	# if [ $second == true ]; then
-	# 	# Overwrite configuration?		
+	# 	# Overwrite configuration?
 	# 	source "$EMUDECKGIT"/whiptail/EmulatorConfigurationPage.sh
 	# fi
-	
+
 	# Retroachievements
 	#source "$EMUDECKGIT"/whiptail/RAAchievementsPage.sh
-	
+
 	# Bezels
 	source "$EMUDECKGIT"/whiptail/RABezelsPage.sh
 
-	#  if [ $deviceAR != 43 ]; then 
+	#  if [ $deviceAR != 43 ]; then
 	# 	 # AR Sega Classic
 		 source "$EMUDECKGIT"/whiptail/AspectRatioSegaPage.sh
-	# 	
+	#
 	# 	 # AR SNES + NES
 		  source "$EMUDECKGIT"/whiptail/AspectRatioSNESPage.sh
-	# 	 
+	#
 	# 	# AR 3D Classics
 	# 	source "$EMUDECKGIT"/whiptail/AspectRatio3DPage.sh
-	# 	
+	#
 	# 	# AR Gamecube
 	# 	source "$EMUDECKGIT"/whiptail/AspectRatioDolphinPage.sh
-	# fi 
-	
+	# fi
+
 	# LCD Shader Handhelds
 	#source "$EMUDECKGIT"/whiptail/ShadersHandheldsPage.sh
-	
+
 	# CRT Shader Handhelds
 	#source "$EMUDECKGIT"/whiptail/Shaders2DPage.sh
-	
+
 	# Frontend
 	source "$EMUDECKGIT"/whiptail/PegasusInstallPage.sh
-	
+
 	# Pegasus Theme
 	if [ $doInstallPegasus == true ]; then
 		source "$EMUDECKGIT"/whiptail/PegasusThemePage.sh

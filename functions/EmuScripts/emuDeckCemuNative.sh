@@ -8,12 +8,12 @@ CemuNative_functions () {
 	declare -A CemuNative=(
 		[emuName]="CemuNative"
 		[emuType]="AppImage"
-		[emuPath]="${HOME}/Applications/Cemu.AppImage"
+		[emuPath]="${HOME}/Applications/CemuNative.AppImage"
 		[configDir]="${HOME}/.config/Cemu"
 		[configFile]="${HOME}/.config/Cemu/settings.xml"
 		[shareDir]="${HOME}/.local/share/Cemu"
 	)
-	
+
 	# Cleanup older things
 	cleanup () {
 		echo "NYI"
@@ -136,7 +136,7 @@ CemuNative_functions () {
 	bezelOn () {
 		echo "NYI"
 	}
-	
+
 	# Bezels OFF
 	bezelOff () {
 		echo "NYI"
