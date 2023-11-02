@@ -1,21 +1,21 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo Entertainment System - ares",
-  "steamCategory": "${Nintendo Entertainment System - ares}",
+  "configTitle": "Pegasus - Pegasus Frontend",
+  "steamCategory": "${Emulation}",
+  "executableArgs": "",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}",
+  "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
-  "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "--fullscreen --system \"Famicom\" \"${filePath}\"",
+  "imageProviders": ["SteamGridDB"],
+  "titleModifier": "Pegasus Frontend",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
-  "imageProviders": ["SteamGridDB"],
   "defaultImage": "",
   "defaultTallImage": "",
   "defaultHeroImage": "",
   "defaultLogoImage": "",
-  "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+  "defaultIcon": "",
   "localImages": "",
   "localTallImages": "",
   "localHeroImages": "",
@@ -23,9 +23,9 @@
   "localIcons": "",
   "disabled": false,
   "executable": {
-    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/ares-emu.sh",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/pegasus-frontend.sh",
     "shortcutPassthrough": false,
-    "appendArgsToExecutable": false
+    "appendArgsToExecutable": true
   },
   "userAccounts": {
     "specifiedAccounts": "",
@@ -33,7 +33,7 @@
     "useCredentials": true
   },
   "parserInputs": {
-    "glob": "{nes/**/!(homebrew),nes,famicom/**}/${title}@(.nes|.NES|.fds|.FDS|.unf|.UNF|.unif|.UNIF|.zip|.ZIP)"
+    "glob": "${title}@(.sh)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
@@ -46,7 +46,7 @@
     "removeCharacters": true,
     "removeBrackets": true
   },
-  "parserId": "168507930609669312",
+  "parserId": "164824496516097458",
   "version": 13,
   "controllers": {
     "ps4": null,
@@ -56,11 +56,7 @@
     "switch_joycon_left": null,
     "switch_joycon_right": null,
     "switch_pro": null,
-    "neptune": {
-      "title": "EmuDeck - ares",
-      "mappingId": "ares_controller_config.vdf",
-      "profileType": "template"
-    }
+    "neptune": null
   },
   "imageProviderAPIs": {
     "SteamGridDB": {

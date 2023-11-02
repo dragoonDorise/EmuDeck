@@ -9,6 +9,7 @@ echo "0" > "$MSG"
 #
 
 mkdir -p "$HOME/.config/EmuDeck"
+mkdir -p "$HOME/emudeck/logs"
 PIDFILE="$HOME/.config/EmuDeck/install.pid"
 
 
@@ -56,7 +57,7 @@ rm -rf ~/dragoonDoriseTools
 rm -rf ~/emudeck/backend
 
 #Creating log file
-LOGFILE="$HOME/emudeck/emudeck.log"
+LOGFILE="$HOME/emudeck/logs/emudeckSetup.log"
 
 mkdir -p "$HOME/emudeck"
 
@@ -66,7 +67,7 @@ echo $'#!/bin/bash\nEMUDECKGIT="$HOME/.config/EmuDeck/backend"\nsource "$EMUDECK
 
 echo "Press the button to start..." > "$LOGFILE"
 
-mv "${LOGFILE}" "$HOME/emudeck/emudeck.last.log" #backup last log
+mv "${LOGFILE}" "$HOME/emudeck/logs/emudeckSetup.last.log" #backup last log
 
 if echo "${@}" > "${LOGFILE}" ; then
 	echo "Log created"
@@ -272,10 +273,10 @@ if [ "$doSetupESDE" == "true" ]; then
 fi
 
 #Pegasus Config
-if [ $doSetupPegasus == "true" ]; then
-	echo "Pegasus_init"
-	Pegasus_init
-fi
+#if [ $doSetupPegasus == "true" ]; then
+#	echo "Pegasus_init"
+#	Pegasus_init
+#fi
 
 #Emus config
 #setMSG "Configuring Steam Input for emulators.." moved to emu install
@@ -431,6 +432,16 @@ if [ "$doSetupRA" == "true" ]; then
 	fi
 fi
 
+if [ "$system" == "chimeraos" ]; then
+	mkdir -p $HOME/Applications
+
+	downloads_dir="$HOME/Downloads"
+	destination_dir="$HOME/Applications"
+	file_name="EmuDeck"
+
+	find "$downloads_dir" -type f -name "*$file_name*.AppImage" -exec mv {} "$destination_dir/$file_name.AppImage" \;
+
+fi
 
 createDesktopIcons
 

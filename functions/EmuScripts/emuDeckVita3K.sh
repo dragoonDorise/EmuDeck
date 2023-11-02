@@ -4,7 +4,7 @@
 Vita3K_emuName="Vita3K"
 Vita3K_emuType="Binary"
 Vita3K_emuPath="$HOME/Applications/Vita3K"
-Vita3K_configFile="$HOME/Applications/Vita3K/config.yml"
+Vita3K_configFile="$HOME/.config/Vita3K/config.yml"
 
 #cleanupOlderThings
 Vita3K_cleanup(){
