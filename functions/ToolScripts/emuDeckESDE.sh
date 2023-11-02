@@ -102,7 +102,7 @@ ESDE_init(){
 	ESDE_migrateEpicNoir
 
 	local system=$(lsb_release -si)
-	if [ "$system" == "chimeraOS" ] || [ "$system" == "ChimeraOS" ]; then
+	if [ "$system" == "chimeraos" ] || [ "$system" == "ChimeraOS" ]; then
 		ESDE_chimeraOS
 	fi
 
