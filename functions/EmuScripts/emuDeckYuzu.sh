@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #variables
-Yuzu_emuName="Yuzu"
+Yuzu_emuName="yuzu"
 Yuzu_emuType="AppImage"
 Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
 YuzuEA_emuPath="$HOME/Applications/yuzu-ea.AppImage"
@@ -10,15 +10,15 @@ YuzuEA_emuPath="$HOME/Applications/yuzu-ea.AppImage"
 Yuzu_cleanup() {
     echo "Begin Yuzu Cleanup"
     #Fixes repeated Symlink for older installations
-    
+
     if [ -f  "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys" ]; then
         unlink "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys"
     fi
-    
+
     if [ -f  "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys" ]; then
         unlink "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/registered"
     fi
-    
+
 }
 
 #Install
@@ -29,7 +29,7 @@ Yuzu_install() {
     local lastVerFile="$HOME/emudeck/yuzu.ver"
     local latestVer=$(curl -fSs "https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases" | jq -r '[ .[].tag_name ][0]')
     local success="false"
-    if installEmuAI "yuzu" "$(getReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage")" "" "$showProgress" "$lastVerFile" "$latestVer"; then #needs to be lowercase yuzu for EsDE to find it.
+    if installEmuAI "$Yuzu_emuName" "$(getReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage")" "" "$showProgress" "$lastVerFile" "$latestVer"; then # yuzu.AppImage - needs to be lowercase yuzu for EsDE to find it
         success="true"
     fi
 
@@ -44,8 +44,8 @@ Yuzu_init() {
 
     Yuzu_migrate
 
-    configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
-    configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
+    configEmuAI "$Yuzu_emuName" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
+    configEmuAI "$Yuzu_emuName" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
 
     Yuzu_setEmulationFolder
     Yuzu_setupStorage
@@ -60,8 +60,8 @@ Yuzu_update() {
 
     Yuzu_migrate
 
-    configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu"
-    configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu"
+    configEmuAI "$Yuzu_emuName" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu"
+    configEmuAI "$Yuzu_emuName" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu"
 
     Yuzu_setEmulationFolder
     Yuzu_setupStorage
@@ -149,8 +149,7 @@ Yuzu_uninstall() {
 #Migrate
 Yuzu_migrate() {
     echo "Begin Yuzu Migration"
-    emu="Yuzu"
-    migrationFlag="$HOME/.config/EmuDeck/.${emu}MigrationCompleted"
+    migrationFlag="$HOME/.config/EmuDeck/.${Yuzu_emuName}MigrationCompleted"
     #check if we have a nomigrateflag for $emu
     if [ ! -f "$migrationFlag" ]; then
         #yuzu flatpak to appimage
@@ -160,6 +159,7 @@ Yuzu_migrate() {
         migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
 
         # migrateAndLinkConfig "$emu" "$migrationTable"
+        touch "${migrationFlag}"
     fi
 
     #move data from hidden folders out to these folders in case the user already put stuff here.
@@ -234,9 +234,9 @@ YuzuEA_install() {
     local showProgress="$2"
     local user
     local auth
-    
+
     read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')" || echo "invalid"
-    
+
     #echo "get bearer token"
     BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
 
@@ -256,12 +256,12 @@ YuzuEA_install() {
 
 }
 
-YuzuEA_addToken(){    
+YuzuEA_addToken(){
     local tokenValue=$1
     local user=""
     local auth=""
-   
-   read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')" && YuzuEA_install $tokenValue || echo "invalid"
+
+   read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')" && YuzuEA_install "$tokenValue" || echo "invalid"
 }
 
 

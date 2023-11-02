@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Cloud Services",
+  "configTitle": "Cloud Services - Cloud Services",
   "steamCategory": "${Cloud Services}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/cloud",
@@ -21,6 +21,7 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
+  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,

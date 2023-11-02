@@ -2,15 +2,17 @@
 #variables
 ESDE_toolName="EmulationStation-DE"
 ESDE_toolType="AppImage"
-ESDE_toolPath="${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
+ESDE_toolPath="${toolsPath}/EmulationStation-DE.AppImage"
 ESDE_releaseURL="https://gitlab.com/es-de/emulationstation-de/-/package_files/76389058/download" #default URl in case of issues parsing json
 ESDE_releaseMD5="b749b927d61317fde0250af9492a4b9f" #default hash
 ESDE_prereleaseURL=""
 ESDE_prereleaseMD5=""
 ESDE_releaseJSON="https://gitlab.com/es-de/emulationstation-de/-/raw/master/latest_release.json"
+ESDE_addSteamInputFile="$EMUDECKGIT/configs/steam-input/emulationstation-de_controller_config.vdf"
+steam_input_templateFolder="$HOME/.steam/steam/controller_base/templates/"
 es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
+es_rulesFile="$HOME/.emulationstation/custom_systems/es_find_rules.xml"
 es_settingsFile="$HOME/.emulationstation/es_settings.xml"
-
 
 ESDE_SetAppImageURLS() {
     local json="$(curl -s $ESDE_releaseJSON)"
@@ -25,81 +27,113 @@ ESDE_cleanup(){
 	echo "NYI"
 }
 
+ESDE_migration(){
+
+	if [ -f "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ]; then
+		mv "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" "${toolsPath}/EmulationStation-DE.AppImage"
+		sed -i "s|EmulationStation-DE-x64_SteamDeck.AppImage|EmulationStation-DE.AppImage|g" "$toolsPath/launchers/esde/emulationstationde.sh"
+		ESDE_createDesktopShortcut
+	fi
+}
+
+ESDE_createDesktopShortcut(){
+	mkdir -p "$toolsPath/launchers/esde"
+  cp "$EMUDECKGIT/tools/launchers/esde/emulationstationde.sh" "$toolsPath/launchers/esde/emulationstationde.sh"
+  rm -rf $HOME/.local/share/applications/EmulationStation-DE.desktop
+  createDesktopShortcut   "$HOME/.local/share/applications/EmulationStation-DE.desktop" \
+  "EmulationStation-DE AppImage" \
+  "${toolsPath}/launchers/esde/emulationstationde.sh" \
+  "false"
+}
+
+ESDE_uninstall(){
+  rm -rf "${toolsPath}/EmulationStation-DE.AppImage"
+  rm -rf $HOME/.local/share/applications/EmulationStationDE.desktop
+}
+
 #Install
 ESDE_install(){
 	ESDE_SetAppImageURLS
 	setMSG "Installing $ESDE_toolName"
 
 	local showProgress="$1"
-
+	local filename="$ESDE_toolName.$ESDE_toolType"
 	if [[ $ESDE_releaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
 
-		if safeDownload "$ESDE_toolName" "$ESDE_releaseURL" "$ESDE_toolPath" "$showProgress"; then
-			ESDE_md5sum=($(md5sum $ESDE_toolPath)) # get first element
-			if [ "$ESDE_md5sum" == "$ESDE_releaseMD5" ]; then
-				echo "ESDE PASSED HASH CHECK."
-				chmod +x "$ESDE_toolPath"
-			else
-				echo "ESDE FAILED HASH CHECK. Expected $ESDE_releaseMD5, got $ESDE_md5sum"
-			fi
-		else
-			return 1
-		fi
+			if installToolAI "$ESDE_toolName" "$ESDE_releaseURL" "" "$showProgress"; then
+				ESDE_createDesktopShortcut
+		 	else
+				return 1
+		 	fi
+
 	else
 		setMSG "$ESDE_toolName not found"
 		return 1
-	fi	
-}
-
-ESDE20_install(){
-	ESDE_SetAppImageURLS
-	setMSG "Installing $ESDE_toolName PreRelease"
-
-	local showProgress="$1"
-
-	if [[ $ESDE_prereleaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
-
-		if safeDownload "$ESDE_toolName" "$ESDE_prereleaseURL" "$ESDE_toolPath" "$showProgress"; then
-			ESDE_md5sum=($(md5sum $ESDE_toolPath)) # get first element
-			if [ "$ESDE_md5sum" == "$ESDE_prereleaseMD5" ]; then
-				echo "ESDE PASSED HASH CHECK."
-				chmod +x "$ESDE_toolPath"
-			else
-				echo "ESDE FAILED HASH CHECK. Expected $ESDE_prereleaseMD5, got $ESDE_md5sum"
-			fi
-		else
-			return 1
-		fi
-	else
-		setMSG "$ESDE_toolName PreRelease not found, installing stable"
-		if ESDE_install; then
-			:
-		else
-			return 1
-		fi
 	fi
 }
 
+# ESDE20_install(){
+# 	ESDE_SetAppImageURLS
+# 	setMSG "Installing $ESDE_toolName PreRelease"
+#
+# 	local showProgress="$1"
+#
+# 	if [[ $ESDE_prereleaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
+#
+# 		if safeDownload "$ESDE_toolName" "$ESDE_prereleaseURL" "$ESDE_toolPath" "$showProgress"; then
+# 			ESDE_md5sum=($(md5sum $ESDE_toolPath)) # get first element
+# 			if [ "$ESDE_md5sum" == "$ESDE_prereleaseMD5" ]; then
+# 				echo "ESDE PASSED HASH CHECK."
+# 				chmod +x "$ESDE_toolPath"
+# 			else
+# 				echo "ESDE FAILED HASH CHECK. Expected $ESDE_prereleaseMD5, got $ESDE_md5sum"
+# 			fi
+# 		else
+# 			return 1
+# 		fi
+# 	else
+# 		setMSG "$ESDE_toolName PreRelease not found, installing stable"
+# 		if ESDE_install; then
+# 			:
+# 		else
+# 			return 1
+# 		fi
+# 	fi
+# }
+
 #ApplyInitialSettings
 ESDE_init(){
-	setMSG "Setting up $ESDE_toolName"	
+	setMSG "Setting up $ESDE_toolName"
 
 	mkdir -p "$HOME/.emulationstation/custom_systems/"
 
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
-	
-	cp -r "$EMUDECKGIT/tools/launchers/esde/" "$toolsPath/launchers/" && chmod + x "$toolsPath/launchers/esde/emulationstationde.sh"
-	
+
+	cp -r "$EMUDECKGIT/tools/launchers/esde/" "$toolsPath/launchers/esde/" && chmod +x "$toolsPath/launchers/esde/emulationstationde.sh"
+
 	ESDE_addCustomSystems
 	ESDE_setEmulationFolder
 	ESDE_setDefaultEmulators
-	ESDE_applyTheme "$esdeTheme"
+	ESDE_applyTheme  "$esdeThemeUrl" "$esdeThemeName"
 	ESDE_migrateDownloadedMedia
 	ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
 	ESDE_finalize
 	ESDE_migrateEpicNoir
+
+	if [ "$system" == "chimeraos" ] || [ "$system" == "ChimeraOS" ]; then
+			ESDE_chimeraOS
+		fi
+
+}
+
+ESDE_chimeraOS(){
+	if [ ! -f $es_rulesFile ]; then
+		rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
+	else
+		xmlstarlet ed -d '//entry[contains(., "~/Applications/RetroArch-Linux*.AppImage") or contains(., "~/.local/share/applications/RetroArch-Linux*.AppImage") or contains(., "~/.local/bin/RetroArch-Linux*.AppImage") or contains(., "~/bin/RetroArch-Linux*.AppImage")]' $es_rulesFile > rules_temp.xml && mv rules_temp.xml $es_rulesFile
+	fi
 }
 
 
@@ -107,12 +141,12 @@ ESDE_resetConfig(){
 	ESDE_init &>/dev/null && echo "true" || echo "false"
 }
 
-ESDE20_init(){
-	ESDE_init
-}
+# ESDE20_init(){
+# 	ESDE_init
+# }
 
 ESDE_update(){
-	setMSG "Setting up $ESDE_toolName"	
+	setMSG "Setting up $ESDE_toolName"
 
 	mkdir -p "$HOME/.emulationstation/custom_systems/"
 
@@ -123,7 +157,7 @@ ESDE_update(){
 	ESDE_addCustomSystems
 	ESDE_setEmulationFolder
 	ESDE_setDefaultEmulators
-	ESDE_applyTheme "$esdeTheme"
+	ESDE_applyTheme "$esdeThemeUrl" "$esdeThemeName"
 	ESDE_migrateDownloadedMedia
 	ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
@@ -157,36 +191,20 @@ ESDE_addCustomSystems(){
 
 #update
 ESDE_applyTheme(){
-	defaultTheme="EPICNOIR"
-	local theme=$1
-	
-	if [[ "${theme}" == "" ]]; then
-		echo "ESDE: applyTheme parameter not set."
-		theme="$defaultTheme"
-	fi
+	local themeUrl=$1
+	local themeName=$2
 
-	echo "ESDE: applyTheme $theme"
+	echo "ESDE: applyTheme $themeName"
 	mkdir -p "$HOME/.emulationstation/themes/"
+	if [ -d "$HOME/.emulationstation/themes/$themeName" ]; then
+		cd "$HOME/.emulationstation/themes/$themeName" && git pull
+	else
+		git clone $themeUrl "$HOME/.emulationstation/themes/"
+	fi
+	sed -i "s/<string name=\"ThemeSet\" value=\"[^\"]*\"/<string name=\"ThemeSet\" value=\"$themeName\"/" "$es_settingsFile"
 
-	if [ -e "$HOME/.emulationstation/themes/epic-noir-revisited" ] && [ ! -e "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" ]; then
-		mv -v "$HOME/.emulationstation/themes/epic-noir-revisited" "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" #update theme path to esde naming convention
-	fi
-
-	git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" 
-	rm -rf "$HOME/.emulationstation/themes/epic-noir-revisited" #remove old themes
-	rm -rf "$HOME/.emulationstation/themes/es-epicnoir" #remove old themes
-	cd "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" && git reset --hard HEAD && git clean -f -d && git pull && echo  "epicnoir up to date!" || echo "problem pulling epicnoir theme"
-	
-	if [[ "$theme" == *"EPICNOIR"* ]]; then
-		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="es-epicnoir" />' "$es_settingsFile"
-	fi
-	if [[ "$theme" == *"MODERN-DE"* ]]; then
-		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="modern-es-de" />' "$es_settingsFile"
-	fi
-	if [[ "$theme" == *"RBSIMPLE-DE"* ]]; then
-		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="slate-es-de" />' "$es_settingsFile"
-	fi
 }
+
 
 #ConfigurePaths
 ESDE_setEmulationFolder(){
@@ -244,9 +262,9 @@ ESDE_setEmulationFolder(){
 	echo "updating $es_settingsFile"
 	#configure roms Directory
 	esDE_romDir="<string name=\"ROMDirectory\" value=\"${romsPath}\" />" #roms
-	
+
 	changeLine '<string name="ROMDirectory"' "${esDE_romDir}" "$es_settingsFile"
-	
+
 	#Configure Downloaded_media folder
 	esDE_MediaDir="<string name=\"MediaDirectory\" value=\"${ESDEscrapData}\" />"
 	#search for media dir in xml, if not found, change to ours. If it's blank, also change to ours.
@@ -286,9 +304,9 @@ ESDE_migrateDownloadedMedia(){
 		echo "link found"
 		unlink "${originalESMediaFolder}" && echo "unlinked"
 	elif [ -e "${originalESMediaFolder}" ] ; then
-		if [ -d "${originalESMediaFolder}" ]; then		
+		if [ -d "${originalESMediaFolder}" ]; then
 			echo -e ""
-			echo -e "Moving EmulationStation-DE downloaded_media to $toolsPath"			
+			echo -e "Moving EmulationStation-DE downloaded_media to $toolsPath"
 			echo -e ""
 			rsync -a "$originalESMediaFolder" "$toolsPath/"  && rm -rf "$originalESMediaFolder"		#move it, merging files if in both locations
 		fi
@@ -308,7 +326,7 @@ ESDE_finalize(){
 	ln -sn lynx atarilynx
 }
 
-ESDE_setEmu(){		
+ESDE_setEmu(){
 	local emu=$1
 	local system=$2
 	local gamelistFile="$HOME/.emulationstation/gamelists/$system/gamelist.xml"
@@ -330,7 +348,7 @@ ESDE_setEmu(){
 ESDE_addSteamInputProfile(){
 	addSteamInputCustomIcons
 	setMSG "Adding $ESDE_toolName Steam Input Profile."
-	rsync -r "$EMUDECKGIT/configs/steam-input/emulationstation-de_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+		rsync -r "$ESDE_addSteamInputFile" "$steam_input_templateFolder"
 }
 
 ESDE_IsInstalled(){
@@ -348,10 +366,10 @@ ESDE_symlinkGamelists(){
 
 ESDE_migrateEpicNoir(){
 	FOLDER="$HOME/.emulationstation/themes/es-epicnoir"
-	
+
 	if [ -f "$FOLDER" ]; then
 		rm -rf "$FOLDER"
 		git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited" --depth=1
-		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="epic-noir-revisited-es-de" />' "$es_settingsFile"	
+		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="epic-noir-revisited-es-de" />' "$es_settingsFile"
 	fi
 }

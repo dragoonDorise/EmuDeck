@@ -9,6 +9,7 @@ echo "0" > "$MSG"
 #
 
 mkdir -p "$HOME/.config/EmuDeck"
+mkdir -p "$HOME/emudeck/logs"
 PIDFILE="$HOME/.config/EmuDeck/install.pid"
 
 
@@ -56,7 +57,7 @@ rm -rf ~/dragoonDoriseTools
 rm -rf ~/emudeck/backend
 
 #Creating log file
-LOGFILE="$HOME/emudeck/emudeck.log"
+LOGFILE="$HOME/emudeck/logs/emudeckSetup.log"
 
 mkdir -p "$HOME/emudeck"
 
@@ -66,7 +67,7 @@ echo $'#!/bin/bash\nEMUDECKGIT="$HOME/.config/EmuDeck/backend"\nsource "$EMUDECK
 
 echo "Press the button to start..." > "$LOGFILE"
 
-mv "${LOGFILE}" "$HOME/emudeck/emudeck.last.log" #backup last log
+mv "${LOGFILE}" "$HOME/emudeck/logs/emudeckSetup.last.log" #backup last log
 
 if echo "${@}" > "${LOGFILE}" ; then
 	echo "Log created"
@@ -101,7 +102,7 @@ EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 #
 ##
 ## Start of installation
-##	
+##
 #
 
 
@@ -130,7 +131,7 @@ testRealDeck
 #this sets up the settings file with defaults, in case they don't have a new setting we've added.
 #also echos them all out so they are in the log.
 echo "Setup Settings File: "
-createUpdateSettingsFile	
+createUpdateSettingsFile
 
 #create folders after tests!
 createFolders
@@ -148,14 +149,19 @@ chmod +x "${toolsPath}/emu-launch.sh"
 #ESDE Installation
 if [ $doInstallESDE == "true" ]; then
 	echo "install esde"
-	ESDE_install		
+	ESDE_install
+fi
+#Pegasus Installation
+if [ $doInstallPegasus == "true" ]; then
+	echo "install Pegasus"
+	Pegasus_install
 fi
 #SRM Installation
 if [ $doInstallSRM == "true" ]; then
 	echo "install srm"
 	SRM_install
 fi
-if [ "$doInstallPCSX2QT" == "true" ]; then	
+if [ "$doInstallPCSX2QT" == "true" ]; then
 	echo "install pcsx2Qt"
 	PCSX2QT_install
 fi
@@ -172,7 +178,7 @@ if [ $doInstallCitra == "true" ]; then
 	Citra_install
 fi
 if [ $doInstallDolphin == "true" ]; then
-	echo "install Dolphin"	
+	echo "install Dolphin"
 	Dolphin_install
 fi
 if [ $doInstallDuck == "true" ]; then
@@ -181,29 +187,29 @@ if [ $doInstallDuck == "true" ]; then
 fi
 if [ $doInstallRA == "true" ]; then
 	echo "RetroArch_install"
-	RetroArch_install	
+	RetroArch_install
 fi
 if [ $doInstallRMG == "true" ]; then
 	echo "RMG_install"
-	RMG_install	
+	RMG_install
 fi
 if [ $doInstallares == "true" ]; then
 	echo "ares_install"
-	ares_install	
+	ares_install
 fi
 if [ $doInstallPPSSPP == "true" ]; then
 	echo "PPSSPP_install"
-	PPSSPP_install	
+	PPSSPP_install
 fi
-if [ $doInstallYuzu == "true" ]; then	
+if [ $doInstallYuzu == "true" ]; then
 	echo "Yuzu_install"
 	Yuzu_install
 fi
-if [ $doInstallRyujinx == "true" ]; then	
+if [ $doInstallRyujinx == "true" ]; then
 	echo "Ryujinx_install"
 	Ryujinx_install
 fi
-if [ $doInstallMAME == "true" ]; then	
+if [ $doInstallMAME == "true" ]; then
 	echo "MAME_install"
 	MAME_install
 fi
@@ -264,7 +270,13 @@ fi
 if [ "$doSetupESDE" == "true" ]; then
 	echo "ESDE_init"
 	ESDE_update
-fi	
+fi
+
+#Pegasus Config
+#if [ $doSetupPegasus == "true" ]; then
+#	echo "Pegasus_init"
+#	Pegasus_init
+#fi
 
 #Emus config
 #setMSG "Configuring Steam Input for emulators.." moved to emu install
@@ -382,7 +394,7 @@ if [ -n "$PASSWD" ]; then
 	pwstatus=0
 	echo "$PASSWD" | sudo -v -S &>/dev/null && pwstatus=1 || echo "sudo password was incorrect" #refresh sudo cache
 	if [ $pwstatus == 1 ]; then
-		if [ "$doInstallGyro" == "true" ]; then	
+		if [ "$doInstallGyro" == "true" ]; then
 			Plugins_installSteamDeckGyroDSU
 		fi
 
@@ -411,19 +423,29 @@ CHD_install
 #
 if [ "$doSetupRA" == "true" ]; then
 	if [ "$(getScreenAR)" == 169 ];then
-		nonDeck_169Screen		
+		nonDeck_169Screen
 	fi
-	
+
 	#Anbernic Win600 Special configuration
 	if [ "$(getProductName)" == "Win600" ];then
-		nonDeck_win600		
+		nonDeck_win600
 	fi
 fi
 
+if [ "$system" == "chimeraos" ]; then
+	mkdir -p $HOME/Applications
+
+	downloads_dir="$HOME/Downloads"
+	destination_dir="$HOME/Applications"
+	file_name="EmuDeck"
+
+	find "$downloads_dir" -type f -name "*$file_name*.AppImage" -exec mv {} "$destination_dir/$file_name.AppImage" \;
+
+fi
 
 createDesktopIcons
 
-if [ "$doInstallHomeBrewGames" == "true" ]; then	
+if [ "$doInstallHomeBrewGames" == "true" ]; then
 	emuDeckInstallHomebrewGames
 fi
 
@@ -441,12 +463,12 @@ cp -v "$EMUDECKGIT/tools/updater/emudeck-updater.sh" "${toolsPath}/updater/"
 chmod +x "${toolsPath}/updater/emudeck-updater.sh"
 
 #RemotePlayWhatever
-# if [[ ! $branch == "main" ]]; then 
+# if [[ ! $branch == "main" ]]; then
 # 	RemotePlayWhatever_install
 # fi
 
 #
-# We mark the script as finished	
+# We mark the script as finished
 #
 echo "" > "$HOME/.config/EmuDeck/.finished"
 echo "" > "$HOME/.config/EmuDeck/.ui-finished"

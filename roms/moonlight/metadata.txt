@@ -1,0 +1,6 @@
+collection: Moonlight Game Streaming
+shortname: moonlight
+extensions: moonlight, MOONLIGHT, 7z, 7Z, zip, ZIP
+launch: PLACEHOLDER {file.path}
+
+

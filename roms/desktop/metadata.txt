@@ -1,0 +1,7 @@
+collection: Desktop Applications
+shortname: desktop
+extensions: desktop, sh
+launch: PLACEHOLDER {file.path}
+
+
+

@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Remote Play Clients",
+  "configTitle": "Remote Play Clients - Remote Play Clients",
   "steamCategory": "${Remote Play Clients}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/remoteplay",
@@ -16,6 +16,7 @@
   "defaultHeroImage": "",
   "defaultLogoImage": "",
   "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+  "disabled": false,
   "localImages": "",
   "localTallImages": "",
   "localHeroImages": "",
