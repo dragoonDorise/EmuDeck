@@ -1,7 +1,7 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
 cloud_sync_downloadEmu "rpcs3" && cloud_sync_startService
-emuName="rpcs3" #parameterize me
+emuName="rpcs3"
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
 
 #find full path to emu executable
@@ -10,7 +10,7 @@ exe=$(find $emufolder -iname "${emuName}*.AppImage" | sort -n | cut -d' ' -f 2- 
 #if appimage doesn't exist fall back to flatpak.
 if [[ $exe == '' ]]; then
     #flatpak
-    flatpakApp=$(flatpak list --app --columns=application | grep $emuName)
+    flatpakApp=$(flatpak list --app --columns=application | grep $RPCS3_emuName)
     exe="/usr/bin/flatpak run "$flatpakApp
 else
 #make sure that file is executable
