@@ -4,7 +4,7 @@
   "steamCategory": "${Emulation}",
   "executableArgs": "",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/",
+  "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/launchers/esde/",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "imageProviders": ["SteamGridDB"],
@@ -33,7 +33,7 @@
     "useCredentials": true
   },
   "parserInputs": {
-    "glob": "${title}@(.AppImage)"
+    "glob": "${title}@(.sh)"
   },
   "titleFromVariable": {
     "limitToGroups": "",

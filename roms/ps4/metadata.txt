@@ -1,0 +1,6 @@
+collection: Sony PlayStation 4
+shortname: ps4
+extensions: 7z, 7Z, zip, ZIP
+launch: PLACEHOLDER {file.path}
+
+

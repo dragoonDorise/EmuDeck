@@ -1,0 +1,6 @@
+collection: NEC PC-8800 Series
+shortname: pc88
+extensions: d88, D88, u88, U88, m3u, M3U, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/quasi88_libretro.so {file.path}
+
+

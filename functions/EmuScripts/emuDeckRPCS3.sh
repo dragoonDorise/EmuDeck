@@ -1,6 +1,6 @@
 #!/bin/bash
 #variables
-RPCS3_remuName="RPCS3"
+RPCS3_emuName="RPCS3"
 RPCS3_emuType="AppImage"
 RPCS3_releaseURL="https://rpcs3.net/latest-appimage"
 RPCS3_emuPath="$HOME/Applications/rpcs3.AppImage"
@@ -15,9 +15,6 @@ RPCS3_cleanup(){
 #Install
 RPCS3_install(){
 	setMSG "Installing RPCS3"
-
-	# Migrates configurations to RPCS3 AppImage
-	RPCS3_migrate
 
 	# RPCS3 does not have a "latest" tag on their GitHub repo. Open issue said to use the below URL instead. Modified from ES-DE script
 	RPCS3_releaseMD5="$(curl -sL https://rpcs3.net/latest-appimage | md5sum | cut -d ' ' -f 1)"
@@ -49,12 +46,11 @@ RPCS3_install(){
 
 #ApplyInitialSettings
 RPCS3_init(){
- 	RPCS3_migrate
+	RPCS3_migrate
 	configEmuAI "$RPCS3_emuName" "config" "$HOME/.config/rpcs3" "$EMUDECKGIT/configs/rpcs3" "true"
 	RPCS3_setupStorage
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
-	RPCS3_createDesktopShortcut
 }
 
 #update
@@ -86,33 +82,24 @@ RPCS3_setupStorage(){
 
 	if [ ! -d "$storagePath"/rpcs3/dev_hdd0 ] && [ -d "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/" -o -d "$HOME/.config/rpcs3/" ]; then
 		echo "RPCS3 HDD does not exist in storage path"
-	
+
 		echo -e ""
 		setMSG "Moving RPCS3 HDD to the Emulation/storage folder"
 		echo -e ""
-	
+
 		mkdir -p "$storagePath/rpcs3"
-	
+
 		if [ -d "$savesPath/rpcs3/dev_hdd0" ]; then
 			mv -f "$savesPath"/rpcs3/dev_hdd0 "$storagePath"/rpcs3/
-	
+
 		elif [ -d "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0" ]; then
 			rsync -av "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0" "$storagePath"/rpcs3/ && rm -rf "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3/dev_hdd0"
-	
+
 		elif [ -d "$HOME/.config/rpcs3/dev_hdd0" ]; then
 			rsync -av "$HOME/.config/rpcs3/dev_hdd0" "$storagePath"/rpcs3/ && rm -rf "$HOME/.config/rpcs3/dev_hdd0"
-	
+
 		fi
 	fi
-}
-
-# Create desktop shortcut
-RPCS3_createDesktopShortcut(){
-
-createDesktopShortcut   "$HOME/.local/share/applications/$RPCS3_remuName.desktop" \
-						"$RPCS3_remuName AppImage" \
-						"${toolsPath}/launchers/rpcs3.sh" \
-						"false"
 }
 
 #WipeSettings
@@ -124,6 +111,15 @@ RPCS3_wipe(){
 }
 
 
+# Create desktop shortcut
+RPCS3_createDesktopShortcut(){
+
+	createDesktopShortcut   "$HOME/.local/share/applications/$RPCS3_remuName.desktop" \
+							"$RPCS3_emuName AppImage" \
+							"${toolsPath}/launchers/rpcs3.sh" \
+							"false"
+}
+
 #Uninstall
 RPCS3_uninstall(){
 	setMSG "Uninstalling $RPCS3_emuName."
@@ -133,23 +129,26 @@ RPCS3_uninstall(){
 
 #setABXYstyle
 RPCS3_setABXYstyle(){
- 	echo "NYI"
+	 echo "NYI"
 }
 
 #Migrate
 RPCS3_migrate(){
-   echo "Begin RPCS3 Migration"
-	emu="RPCS3"
-	migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
+	echo "Begin RPCS3 Migration"
+
+	# Migration
+	migrationFlag="$HOME/.config/EmuDeck/.${RPCS3_emuName}MigrationCompleted"
 	#check if we have a nomigrateflag for $emu
 	if [ ! -f "$migrationFlag" ]; then
 		#RPCS3 flatpak to appimage
 		#From -- > to
 		migrationTable=()
 		migrationTable+=("$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3" "$HOME/.config/rpcs3")
-	
-		migrateAndLinkConfig "$emu" "$migrationTable"
+
+		migrateAndLinkConfig "$RPCS3_emuName" "$migrationTable"
 	fi
+
+	echo "true"
 
 }
 
@@ -179,11 +178,11 @@ RPCS3_finalize(){
 }
 
 RPCS3_IsInstalled(){
-    if [ -e "$RPCS3_emuPath" ] || [ -e "$RPCS3_flatpakPath" ]; then
-        echo "true"
-    else
-        echo "false"
-    fi
+	if [ -e "$RPCS3_emuPath" ] || [ -e "$RPCS3_flatpakPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
 }
 
 RPCS3_resetConfig(){

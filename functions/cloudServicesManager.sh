@@ -50,7 +50,7 @@ CloudScripts_update() {
 }
 
 csmSRMNotification() {
-	TEXT=$(printf "<b>ATTENTION:</b>\nYou must update and run 'Steam Rom Manager' (the same as you would when adding or removing ROMS) for changes to take effect in Steam.\n")
+	TEXT=$(printf "<b>ATTENTION:</b>\nYou must update and run 'Steam ROM Manager' (the same as you would when adding or removing ROMS) for changes to take effect in Steam.\n")
 	zenity --info --width=400 --text="$TEXT"
 }
 

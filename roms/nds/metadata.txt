@@ -1,0 +1,4 @@
+collection: Nintendo DS
+shortname: nds
+extensions: bin, BIN, nds, NDS, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/melonds.sh {file.path} -f
