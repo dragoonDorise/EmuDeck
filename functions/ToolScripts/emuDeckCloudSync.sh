@@ -64,6 +64,15 @@ cloud_sync_config(){
 
 }
 
+createCloudFile() {
+  local folder=$1
+  local cloudFilePath="${folder}/.cloud"
+  if [ ! -f "$cloudFilePath" ]; then
+    echo "" > "$cloudFilePath"
+  fi
+}
+
+
 cloud_sync_setup_providers(){
   startLog ${FUNCNAME[0]}
     if [ "$cloud_sync_provider" == "Emudeck-NextCloud" ]; then
@@ -109,13 +118,16 @@ cloud_sync_setup_providers(){
         username="$(echo "$NCInput" | awk -F "," '{print $2}')"
         password="$(echo "$NCInput" | awk -F "," '{print $3}')"
         port="$(echo "$NCInput" | awk -F "," '{print $4}')"
-
-        "$cloud_sync_bin" config update "$cloud_sync_provider" host="$host" user="$username" port="$port" pass="$("$cloud_sync_bin" obscure $password)"
+        find "$savesPath" -type d -exec bash -c 'createCloudFile "$0"' {} \;
+        "$cloud_sync_bin" config update "$cloud_sync_provider" host="$host" user="$username" port="$port" pass="$("$cloud_sync_bin" obscure $password)" && "$cloud_sync_bin" mkdir "$cloud_sync_provider:Emudeck\saves" && "$cloud_sync_bin" copy "$savesPath" "$cloud_sync_provider:Emudeck\saves" --include "*.cloud" echo "true"
+        find "$savesPath" -type f -name "*.cloud" -exec rm {} \;
       else
         echo "Cancel SFTP Login"
       fi
-
-
+    elif [ "$cloud_sync_provider" == "Emudeck-OneDrive" ]; then
+      find "$savesPath" -type d -exec bash -c 'createCloudFile "$0"' {} \;
+      "$cloud_sync_bin" config update "$cloud_sync_provider" && "$cloud_sync_bin" mkdir "$cloud_sync_provider:Emudeck\saves" && "$cloud_sync_bin" copy "$savesPath" "$cloud_sync_provider:Emudeck\saves" --include "*.cloud" echo "true"
+      find "$savesPath" -type f -name "*.cloud" -exec rm {} \;
     elif [ "$cloud_sync_provider" == "Emudeck-SMB" ]; then
 
       NCInput=$(zenity --forms \
@@ -132,8 +144,10 @@ cloud_sync_setup_providers(){
         host="$(echo "$NCInput" | awk -F "," '{print $1}')"
         username="$(echo "$NCInput" | awk -F "," '{print $2}')"
         password="$(echo "$NCInput" | awk -F "," '{print $3}')"
+        find "$savesPath" -type d -exec bash -c 'createCloudFile "$0"' {} \;
+        "$cloud_sync_bin" config update "$cloud_sync_provider" host=$host user=$username pass="$("$cloud_sync_bin" obscure $password)" && "$cloud_sync_bin" mkdir "$cloud_sync_provider:Emudeck\saves" && "$cloud_sync_bin" copy "$savesPath" "$cloud_sync_provider:Emudeck\saves" --include "*.cloud" echo "true"
+        find "$savesPath" -type f -name "*.cloud" -exec rm {} \;
 
-        "$cloud_sync_bin" config update "$cloud_sync_provider" host=$host user=$username pass="$("$cloud_sync_bin" obscure $password)"
       else
         echo "Cancel SMB Login"
       fi
