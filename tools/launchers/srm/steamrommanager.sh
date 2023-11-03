@@ -2,6 +2,9 @@
 source "$HOME/.config/EmuDeck/backend/functions/all.sh"
 SRM_toolPath="${toolsPath}/Steam ROM Manager.AppImage"
 
+SRM_createParsers
+SRM_addSteamInputProfiles
+
 zenity --question \
 	--width 450 \
 	--title "Close Steam/Steam Input?" \
