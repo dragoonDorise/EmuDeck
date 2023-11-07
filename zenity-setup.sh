@@ -263,12 +263,12 @@ if [ "$expert" == "true" ]; then
 					echo "Setting password failed."
 				fi
 			fi
-			PASSWD="$(zenity --password --title="Password Entry" --text="Enter Deck User Password (not Steam account!)" 2>/dev/null)"
+			read -r PASSWD <<< "$(zenity --password --title="Password Entry" --text="Enter Deck User Password (not Steam account!)" 2>/dev/null)"
 			echo "$PASSWD" | sudo -v -S
 			ans=$?
 			if [[ $ans == 1 ]]; then
 				#incorrect password
-				PASSWD="$(zenity --password --title="Password Entry" --text="Password was incorrect. Try again. (Did you remember to set a password for linux before running this?)" 2>/dev/null)"
+				read -r PASSWD "$(zenity --password --title="Password Entry" --text="Password was incorrect. Try again. (Did you remember to set a password for linux before running this?)" 2>/dev/null)"
 				echo "$PASSWD" | sudo -v -S
 				ans=$?
 				if [[ $ans == 1 ]]; then
