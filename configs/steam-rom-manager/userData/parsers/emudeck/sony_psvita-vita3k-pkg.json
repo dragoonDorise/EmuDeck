@@ -34,6 +34,40 @@
   "parserInputs": {
     "glob": "**/${title}/@(eboot.bin|EBOOT.BIN)"
   },
+  "controllers": {
+    "switch_pro": {
+      "title": "EmuDeck - Switch Pro",
+      "mappingId": "emudeck_controller_switch_pro.vdf",
+      "profileType": "template"
+    },
+    "neptune": {
+      "title": "EmuDeck - Steam Deck",
+      "mappingId": "emudeck_controller_steamdeck.vdf",
+      "profileType": "template"
+    },
+    "ps4": {
+      "title": "EmuDeck - Dual Shock 4",
+      "mappingId": "emudeck_controller_ps4.vdf",
+      "profileType": "template"
+    },
+    "ps5": {
+      "title": "EmuDeck - Dual Sense",
+      "mappingId": "emudeck_controller_ps5.vdf",
+      "profileType": "template"
+    },
+    "xbox360": {
+      "title": "EmuDeck - Xbox 360",
+      "mappingId": "emudeck_controller_xbox360.vdf",
+      "profileType": "template"
+    },
+    "xboxone": {
+      "title": "EmuDeck - Xbox One",
+      "mappingId": "emudeck_controller_xboxone.vdf",
+      "profileType": "template"
+    },
+    "switch_joycon_left": null,
+    "switch_joycon_right": null
+  },
   "titleFromVariable": {
     "limitToGroups": "${PSV}",
     "caseInsensitiveVariables": true,
