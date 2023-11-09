@@ -1,15 +1,20 @@
 "controller_mappings"
 {
-	"version"		"3"	
+	"version"		"3"
 	"title"		"EmuDeck - Switch Pro"
-	"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for Citra screen swap / Layout"
+	"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for DS and 3DS screen swap / Layout"
 	"controller_type"		"controller_switch_pro"
 	"localization"
 		{
 			"english"
 			{
 				"title"		"EmuDeck - Switch Pro"
-				"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for Citra screen swap / Layout"
+				"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for DS and 3DS screen swap / Layout"
+			},
+			"spanish"
+			{
+				"title"		"EmuDeck - Switch Pro"
+				"description"		"Pulsa START + SELECT para salir del emulador. SELECT + R1 / R2 para cambiar pantallas en DS o 3DS"
 			}
 		}
 		"group"
