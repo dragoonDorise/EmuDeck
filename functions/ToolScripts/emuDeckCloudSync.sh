@@ -134,7 +134,7 @@ cloud_sync_setup_providers(){
           --title="SMB Sign in" \
           --text="Please enter your SMB information here." \
           --width=300 \
-          --add-entry="Host: " \
+          --add-entry="IP/Host: " \
           --add-entry="Username: " \
           --add-password="Password: " \
           --separator="," 2>/dev/null)
