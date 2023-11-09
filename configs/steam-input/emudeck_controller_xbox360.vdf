@@ -1,6 +1,6 @@
 "controller_mappings"
 {
-	"version"		"3"	
+	"version"		"3"
 	"title"		"EmuDeck - Xbox 360"
 	"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for Citra screen swap / Layout"
 	"controller_type"		"controller_xbox360"
@@ -608,7 +608,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F4, , "
+							"binding"		"key_press F3, , "
 						}
 						"settings"
 						{

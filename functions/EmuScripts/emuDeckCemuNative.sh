@@ -242,8 +242,9 @@ CemuNative_functions () {
 
 	# Add Steam Input Profile
 	addSteamInputProfile () {
-		setMSG "Adding ${CemuNative[emuName]} Steam Input Profile."
-		rsync -r "${EMUDECKGIT}/configs/steam-input/cemu_controller_config.vdf" "${HOME}/.steam/steam/controller_base/templates/"
+		echo "NYI"
+		#setMSG "Adding ${CemuNative[emuName]} Steam Input Profile."
+		#rsync -r "${EMUDECKGIT}/configs/steam-input/cemu_controller_config.vdf" "${HOME}/.steam/steam/controller_base/templates/"
 	}
 
 	$function "$showProgress" # Call the above functions

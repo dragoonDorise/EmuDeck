@@ -53,10 +53,14 @@
     "xboxone": null,
     "switch_joycon_left": null,
     "switch_joycon_right": null,
-    "switch_pro": null,
+    "switch_pro": {
+      "title": "EmuDeck - Switch Pro",
+      "mappingId": "emudeck_controller_switch_pro.vdf",
+      "profileType": "template"
+    },
     "neptune": {
-      "title": "EmuDeck - RMG",
-      "mappingId": "rmg_controller_config.vdf",
+      "title": "EmuDeck - Steam Deck",
+      "mappingId": "emudeck_controller_steamdeck.vdf",
       "profileType": "template"
     }
   },

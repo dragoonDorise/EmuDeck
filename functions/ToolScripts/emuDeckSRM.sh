@@ -322,7 +322,30 @@ SRM_createParsers(){
 
 SRM_addSteamInputProfiles(){
    cp "$EMUDECKGIT/$SRM_userData_directory/controllerTemplates.json" "$SRM_userData_configDir/controllerTemplates.json"
-   #rsync -r "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
+   rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_controller*" "$HOME/.steam/steam/controller_base/templates/"
+   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf"
+
+   #Cleanup old controller schemes
+   rm -rf "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/citra_controller_config.vdf"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/duckstation_controller_config.vdf"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/emulationstation-de_controller_config.vdf"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/melonds_controller_config.vdf"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/mGBA_controller_config.vdf"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf"
+
+   #Symlinks so they won't stop working
+   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
+   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/citra_controller_config.vdf"
+   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/duckstation_controller_config.vdf"
+   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/emulationstation-de_controller_config.vdf"
+   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/melonds_controller_config.vdf"
+   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/mGBA_controller_config.vdf"
+   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf"
+   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf"
+   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf"
 }
 
 SRM_setEnv(){
