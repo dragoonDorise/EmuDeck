@@ -87,7 +87,7 @@ else
 	 fi
 fi
 
-checkSpace "$origin"
+checkSpace "$emulationPath"
 
 for entry in "$origin/EmuDeck/saves/"*
 do
@@ -114,7 +114,7 @@ if [ "$size" -gt 4096 ]; then
 		ans=$?
 		if [ $ans -eq 0 ]; then
 
-			checkSpace "$origin/EmuDeck/storage"
+			checkSpace "$emulationPath"
 
 			for entry in "$origin/EmuDeck/storage/"*
 			do
