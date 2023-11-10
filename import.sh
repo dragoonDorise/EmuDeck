@@ -1,7 +1,6 @@
 #!/bin/bash
 clear
 if [ ! -f "$HOME/.config/EmuDeck/backend/functions/all.sh" ]; then
-
  text="$(printf "<b>EmuDeck installation not found</b>\nPlease Install EmuDeck before using this tool")"
  zenity --error \
 	 --title="EmuDeck Import tool" \
@@ -67,7 +66,6 @@ text="$(printf "Please select the drive where you have your <b>exported saves</b
 --text="${text}" 2>/dev/null
 
 origin=$(customLocation)
-
 if [ -d "$origin/EmuDeck/saves/" ]; then
 	echo "Continue..."
 else
