@@ -115,3 +115,8 @@ PPSSPP_addSteamInputProfile(){
 	#setMSG "Adding $PPSSPP_emuName Steam Input Profile."
 	#rsync -r "$EMUDECKGIT/configs/steam-input/ppsspp_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
+
+PPSSPP_setResolution(){
+	$ppssppResolution
+	echo "NYI"
+}

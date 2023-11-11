@@ -167,3 +167,15 @@ Citra_addSteamInputProfile(){
 	addSteamInputCustomIcons
 	#rsync -r "$EMUDECKGIT/configs/steam-input/citra_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
+
+Citra_setResolution(){
+	switch ( $citraResolution )
+	{
+		"720P" { $multiplier=3 }
+		"1080P" { $multiplier=5 }
+		"1440P" { $multiplier=6 }
+		"4K" { $multiplier=9 }
+	}
+
+	setConfig "resolution_factor" $multiplier "$Citra_configFile"
+}

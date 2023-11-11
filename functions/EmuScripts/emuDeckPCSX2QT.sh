@@ -160,11 +160,11 @@ SmallMotor = SDL-1/SmallMotor"
 CycleAspectRatio = Keyboard/F6
 CycleInterlaceMode = Keyboard/F5
 CycleMipmapMode = Keyboard/Insert
-DecreaseUpscaleMultiplier = SDL-0/Start & SDL-0/DPadDown
+DecreaseUpscalemultiplier=SDL-0/Start & SDL-0/DPadDown
 GSDumpMultiFrame = Keyboard/Control & Keyboard/Shift & Keyboard/F8
 GSDumpSingleFrame = Keyboard/Shift & Keyboard/F8
 HoldTurbo = Keyboard/Period
-IncreaseUpscaleMultiplier = SDL-0/Start & SDL-0/DPadUp
+IncreaseUpscalemultiplier=SDL-0/Start & SDL-0/DPadUp
 InputRecToggleMode = Keyboard/Shift & Keyboard/R
 LoadStateFromSlot = Keyboard/F3
 LoadStateFromSlot = SDL-0/Back & SDL-0/LeftShoulder
@@ -322,4 +322,18 @@ PCSX2QT_setRetroAchievements(){
 
 PCSX2QT_setCustomizations(){
 	echo "NYI"
+}
+
+
+PCSX2QT_setResolution(){
+
+	case $pcsx2Resolution in
+		"720P") multiplier=2;;
+		"1080P") multiplier=3;;
+		"1440P") multiplier=4;;
+		"4K") multiplier=6;;
+		*) echo "Error"; exit 1;;
+	esac
+
+	RetroArch_setConfigOverride "upscale_multiplier" $multiplier "$PCSX2QT_configFile"
 }

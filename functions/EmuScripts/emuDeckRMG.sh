@@ -182,3 +182,6 @@ RMG_finalize(){
 	echo "NYI"
 }
 
+RMG_setResolution(){
+	echo "NYI"
+}

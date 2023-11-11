@@ -345,3 +345,7 @@ CemuNative_resetConfig () {
 CemuNative_addSteamInputProfile () {
 	CemuNative_functions "addSteamInputProfile"
 }
+
+CemuNative_setResolution(){
+	echo "NYI"
+}
