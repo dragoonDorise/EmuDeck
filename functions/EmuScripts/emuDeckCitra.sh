@@ -165,5 +165,5 @@ Citra_resetConfig(){
 
 Citra_addSteamInputProfile(){
 	addSteamInputCustomIcons
-	rsync -r "$EMUDECKGIT/configs/steam-input/citra_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	#rsync -r "$EMUDECKGIT/configs/steam-input/citra_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

@@ -347,8 +347,8 @@ ESDE_setEmu(){
 
 ESDE_addSteamInputProfile(){
 	addSteamInputCustomIcons
-	setMSG "Adding $ESDE_toolName Steam Input Profile."
-		rsync -r "$ESDE_addSteamInputFile" "$steam_input_templateFolder"
+	#setMSG "Adding $ESDE_toolName Steam Input Profile."
+		#rsync -r "$ESDE_addSteamInputFile" "$steam_input_templateFolder"
 }
 
 ESDE_IsInstalled(){

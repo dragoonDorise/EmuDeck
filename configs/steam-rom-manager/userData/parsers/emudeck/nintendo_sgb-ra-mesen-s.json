@@ -30,6 +30,24 @@
   "parserInputs": {
     "glob": "{sgb/**/!(homebrew),gb}/${title}@(.7z|.7Z|.gb|.GB|.gbc|.GBC|.sgb|.SGB|.dmg|.DMG|.zip|.ZIP)"
   },
+  "controllers": {
+    "ps4": null,
+    "ps5": null,
+    "xbox360": null,
+    "xboxone": null,
+    "switch_joycon_left": null,
+    "switch_joycon_right": null,
+    "switch_pro": {
+      "title": "EmuDeck - Switch Pro",
+      "mappingId": "emudeck_controller_switch_pro.vdf",
+      "profileType": "template"
+    },
+    "neptune": {
+      "title": "EmuDeck - Steam Deck",
+      "mappingId": "emudeck_controller_steamdeck.vdf",
+      "profileType": "template"
+    }
+  },
   "titleFromVariable": {
     "limitToGroups": "",
     "caseInsensitiveVariables": false,
