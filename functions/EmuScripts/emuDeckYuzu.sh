@@ -5,7 +5,7 @@ Yuzu_emuName="yuzu"
 Yuzu_emuType="AppImage"
 Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
 YuzuEA_emuPath="$HOME/Applications/yuzu-ea.AppImage"
-
+Yuzu_configFile="$HOME/.config/yuzu/qt-config.ini"
 #cleanupOlderThings
 Yuzu_cleanup() {
     echo "Begin Yuzu Cleanup"
@@ -277,4 +277,18 @@ YuzuEA_IsInstalled() {
 YuzuEA_uninstall() {
     echo "Begin Yuzu EA uninstall"
     rm -rf "$YuzuEA_emuPath"
+}
+
+Yuzu_setResolution(){
+
+	case $yuzuResolution in
+		"720P") multiplier=2; docked="false";;
+		"1080P") multiplier=2; docked="true";;
+		"1440P") multiplier=3; docked="false";;
+		"4K") multiplier=3; docked="true";;
+		*) echo "Error"; exit 1;;
+	esac
+
+	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Yuzu_configFile"
+	RetroArch_setConfigOverride "use_docked_mode" $docked "$Yuzu_configFile"
 }

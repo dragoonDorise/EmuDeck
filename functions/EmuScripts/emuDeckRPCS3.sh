@@ -6,7 +6,7 @@ RPCS3_releaseURL="https://rpcs3.net/latest-appimage"
 RPCS3_emuPath="$HOME/Applications/rpcs3.AppImage"
 RPCS3_flatpakPath="$HOME/.var/app/net.rpcs3.RPCS3"
 RPCS3_VFSConf="$HOME/.config/rpcs3/vfs.yml"
-
+RPCS3_configFile="$HOME/.config/rpcs3/config.yml"
 #cleanupOlderThings
 RPCS3_cleanup(){
  echo "NYI"
@@ -187,4 +187,20 @@ RPCS3_IsInstalled(){
 
 RPCS3_resetConfig(){
 	RPCS3_init &>/dev/null && echo "true" || echo "false"
+}
+
+RPCS3_setResolution(){
+
+	case $rpcs3Resolution in
+		"720P") res=100;;
+		"1080P") res=150;;
+		"1440P") res=200;;
+		"4K") res=300;;
+		*) echo "Error"; exit 1;;
+	esac
+
+	RetroArch_setConfigOverride "Resolution Scale:" $res "$RPCS3_configFile"
+
+	sed -i "s|Resolution Scale:=|Resolution Scale:|g" "$RPCS3_configFile"
+
 }

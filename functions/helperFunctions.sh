@@ -746,12 +746,9 @@ setResolutions(){
 	PCSX2QT_setResolution
 	PPSSPP_setResolution
 	Primehack_setResolution
-	RetroArch_setResolution
 	RPCS3_setResolution
 	Ryujinx_setResolution
 	ScummVM_setResolution
-	SuperModel_setResolution
-	Template_setResolution
 	Vita3K_setResolution
 	Xemu_setResolution
 	Xenia_setResolution

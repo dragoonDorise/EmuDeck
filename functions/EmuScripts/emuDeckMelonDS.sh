@@ -156,3 +156,16 @@ melonDS_addSteamInputProfile(){
 	#setMSG "Adding $melonDS_emuName Steam Input Profile."
 	#rsync -r "$EMUDECKGIT/configs/steam-input/melonds_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
+
+melonDS_setResolution(){
+	case $melonDSResolution in
+		"720P") WindowWidth=1024; WindowHeight=768;;
+		"1080P") WindowWidth=1536; WindowHeight=1152;;
+		"1440P") WindowWidth=2048; WindowHeight=1536;;
+		"4K") WindowWidth=2816; WindowHeight=2112;;
+		*) echo "Error"; exit 1;;
+	esac
+
+	RetroArch_setConfigOverride "WindowWidth" $WindowWidth "$melonD_configFile"
+	RetroArch_setConfigOverride "WindowHeight" $WindowHeight "$melonD_configFile"
+}

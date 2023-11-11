@@ -121,3 +121,15 @@ PCSX2_addSteamInputProfile(){
 	#setMSG "Adding $PCSX2_emuName Steam Input Profile."
 	#rsync -r "$EMUDECKGIT/configs/steam-input/pcsx2_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
+
+PCSX2_setResolution(){
+	case $pcsx2Resolution in
+		"720P") multiplier=2;;
+		"1080P") multiplier=3;;
+		"1440P") multiplier=4;;
+		"4K") multiplier=6;;
+		*) echo "Error"; exit 1;;
+	esac
+
+	RetroArch_setConfigOverride "upscale_multiplier" $multiplier "$PCSX2_configFile"
+}
