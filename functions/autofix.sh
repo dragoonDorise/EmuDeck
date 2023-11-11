@@ -20,7 +20,7 @@ autofix_duplicateESDE(){
 
 function autofix_dynamicParsers(){
 
-	if ! [ -n "$variable" ]; then
+	if ! [ -n "$emuMULTI" ]; then
 		zenityInfo "SRM Parsers issue detected" "We've detected issues with the Dynamic Parsers, if you were missing some parsers this action will fix it. If you are still facing SRM issues do a Custom Reset"
 
 		setSetting emuMULTI "ra"
