@@ -27,7 +27,7 @@ Vita3K_install(){
 Vita3K_init(){
     echo "Begin Vita3K Init"
 
-    configEmuAI "Vita3K" "config" "$HOME/Applications/Vita3K" "$EMUDECKGIT/configs/Vita3K" "true"
+    configEmuAI "Vita3K" "config" "$HOME/.config/Vita3K" "$EMUDECKGIT/configs/Vita3K" "true"
     Vita3K_setEmulationFolder
     Vita3K_setupStorage
     Vita3K_setupSaves #?
@@ -38,7 +38,7 @@ Vita3K_init(){
 Vita3K_update(){
     echo "Begin Vita3K update"
 
-    configEmuAI "yuzu" "config" "$HOME/.config/Vita3K" "$EMUDECKGIT/configs/Vita3K"
+    configEmuAI "Vita3K" "config" "$HOME/.config/Vita3K" "$EMUDECKGIT/configs/Vita3K"
 
     Vita3K_setEmulationFolder
     Vita3K_setupStorage
