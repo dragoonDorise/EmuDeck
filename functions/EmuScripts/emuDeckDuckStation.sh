@@ -205,3 +205,16 @@ DuckStation_setCustomizations(){
 			DuckStation_wideScreenOff
 	fi
 }
+
+DuckStation_setResolution(){
+
+	case $duckstationResolution in
+		"720P") multiplier=3;;
+		"1080P") multiplier=5;;
+		"1440P") multiplier=6;;
+		"4K") multiplier=9;;
+		*) echo "Error"; exit 1;;
+	esac
+
+	RetroArch_setConfigOverride "ResolutionScale" $multiplier "$DuckStation_configFileNew"
+}

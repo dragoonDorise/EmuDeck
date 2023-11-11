@@ -201,4 +201,3 @@ ares_addSteamInputProfile(){
 ares_finalize(){
 	echo "NYI"
 }
-

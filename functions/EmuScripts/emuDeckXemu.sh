@@ -89,13 +89,13 @@ Xemu_setABXYstyle(){
 
 #Migrate
 Xemu_migrate(){
-    if [ ! -f "$storagePath/xemu/xbox_hdd.qcow2" ] && [ -d "$HOME/.var/app/app.xemu.xemu" ]; then 
+    if [ ! -f "$storagePath/xemu/xbox_hdd.qcow2" ] && [ -d "$HOME/.var/app/app.xemu.xemu" ]; then
 
 		echo "xbox hdd does not exist in storagepath."
 		echo -e ""
-		setMSG "Moving Xemu HDD and EEPROM to the Emulation/storage folder"			
+		setMSG "Moving Xemu HDD and EEPROM to the Emulation/storage folder"
 		echo -e ""
-		
+
 		if [ -f "${savesPath}/xemu/xbox_hdd.qcow2" ]; then
 			mv -fv ${savesPath}/xemu/* ${storagePath}/xemu/ && rm -rf ${savesPath}/xemu/
 
@@ -147,9 +147,14 @@ Xemu_resetConfig(){
 }
 
 Xemu_setCustomizations(){
-	if [ "$arClassic3D" == 169 ]; then	
+	if [ "$arClassic3D" == 169 ]; then
 	  Xemu_wideScreenOn
 	else
 	  Xemu_wideScreenOff
 	fi
+}
+
+Xemu_setResolution(){
+	$xemuResolution
+	echo "NYI"
 }
