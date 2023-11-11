@@ -48,20 +48,6 @@
   },
   "parserId": "164785656634747068",
   "version": 13,
-  "controllers": {
-    "ps4": null,
-    "ps5": null,
-    "xbox360": null,
-    "xboxone": null,
-    "switch_joycon_left": null,
-    "switch_joycon_right": null,
-    "switch_pro": null,
-    "neptune": {
-      "title": "EmuDeck - PPSSPP Standalone",
-      "mappingId": "ppsspp_controller_config.vdf",
-      "profileType": "template"
-    }
-  },
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,

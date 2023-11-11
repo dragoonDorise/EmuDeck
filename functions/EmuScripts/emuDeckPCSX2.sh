@@ -14,12 +14,12 @@ PCSX2_cleanup(){
 PCSX2_install(){
 	installEmuFP "${PCSX2_emuName}" "${PCSX2_emuPath}"
 	flatpak override "${PCSX2_emuPath}" --filesystem=host --user
-	flatpak override "${PCSX2_emuPath}" --share=network --user 
+	flatpak override "${PCSX2_emuPath}" --share=network --user
 }
 
 #ApplyInitialSettings
 PCSX2_init(){
-	setMSG "Initializing $PCSX2_emuName settings."	
+	setMSG "Initializing $PCSX2_emuName settings."
 	configEmuFP  "${PCSX2_emuName}" "${PCSX2_emuPath}" "true"
 	PCSX2_setEmulationFolder
 	PCSX2_setupSaves
@@ -38,7 +38,7 @@ PCSX2_update(){
 #ConfigurePaths
 PCSX2_setEmulationFolder(){
 	setMSG "Setting $PCSX2_emuName Emulation Folder"
-	
+
 	biosDirOpt='Bios=/'
 	saveStatesDirOpt='Savestates=/'
 	memoryCardsDirOpt='MemoryCards=/'
@@ -117,6 +117,7 @@ PCSX2_finalize(){
 
 
 PCSX2_addSteamInputProfile(){
-	setMSG "Adding $PCSX2_emuName Steam Input Profile."
-	rsync -r "$EMUDECKGIT/configs/steam-input/pcsx2_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	echo "NYI"
+	#setMSG "Adding $PCSX2_emuName Steam Input Profile."
+	#rsync -r "$EMUDECKGIT/configs/steam-input/pcsx2_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

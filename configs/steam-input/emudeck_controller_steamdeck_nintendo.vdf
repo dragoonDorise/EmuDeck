@@ -1,19 +1,19 @@
 "controller_mappings"
 {
 	"version"		"3"
-	"title"		"EmuDeck - Dual Sense"
+	"title"		"EmuDeck - Steam Deck ( Nintendo Layout )"
 	"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for DS and 3DS screen swap / Layout"
-	"controller_type"		"controller_ps5"
+	"controller_type"		"controller_neptune"
 	"localization"
 		{
 			"english"
 			{
-				"title"		"EmuDeck - Dual Sense"
+				"title"		"EmuDeck - Steam Deck (Nintendo Layout)"
 				"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for DS and 3DS screen swap / Layout"
 			},
 			"spanish"
 			{
-				"title"		"EmuDeck - Dual Sense"
+				"title"		"EmuDeck - Steam Deck (Nintendo Layout)"
 				"description"		"Pulsa START + SELECT para salir del emulador. SELECT + R1 / R2 para cambiar pantallas en DS o 3DS"
 			}
 		}
@@ -33,7 +33,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"xinput_button A, , "
+								"binding"		"xinput_button B, , "
 							}
 						}
 					}
@@ -49,7 +49,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"xinput_button B, , "
+								"binding"		"xinput_button A, , "
 							}
 						}
 					}
@@ -65,7 +65,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"xinput_button X, , "
+								"binding"		"xinput_button Y, , "
 							}
 						}
 					}
@@ -81,7 +81,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"xinput_button Y, , "
+								"binding"		"xinput_button X, , "
 							}
 						}
 					}
