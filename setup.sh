@@ -455,7 +455,21 @@ fi
 ##
 #
 
+#Decky Plugins
+if [ "$system" == "chimeraos" ]; then
+	defaultPass="gamer"
+else
+	defaultPass="Decky!"
+fi
 
+Plugins_installEmuDecky $defaultPass
+if [ "$system" == "chimeraos" ]; then
+	Plugins_installPowerControl $defaultPass
+else
+	Plugins_installPowerTools $defaultPass
+fi
+Plugins_installSteamDeckGyroDSU $defaultPass
+Plugins_installPluginLoader $defaultPass
 
 #EmuDeck updater on gaming Mode
 mkdir -p "${toolsPath}/updater"
