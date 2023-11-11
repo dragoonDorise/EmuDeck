@@ -169,13 +169,13 @@ Citra_addSteamInputProfile(){
 }
 
 Citra_setResolution(){
-	switch ( $citraResolution )
-	{
-		"720P" { $multiplier=3 }
-		"1080P" { $multiplier=5 }
-		"1440P" { $multiplier=6 }
-		"4K" { $multiplier=9 }
-	}
+	case $citraResolution in
+		"720P") multiplier=3;;
+		"1080P") multiplier=5;;
+		"1440P") multiplier=6;;
+		"4K") multiplier=9;;
+		*) echo "Error"; exit 1;;
+	esac
 
 	setConfig "resolution_factor" $multiplier "$Citra_configFile"
 }
