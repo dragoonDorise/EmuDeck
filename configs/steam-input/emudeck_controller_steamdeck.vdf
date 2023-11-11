@@ -1,0 +1,704 @@
+"controller_mappings"
+{
+	"version"		"3"	
+	"title"		"EmuDeck - Steam Deck"
+	"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for Citra screen swap / Layout"
+	"controller_type"		"controller_neptune"
+	"localization"
+		{
+			"english"
+			{
+				"title"		"EmuDeck - Steam Deck"
+				"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for Citra screen swap / Layout"
+			}
+		}
+		"group"
+		{
+			"id"		"0"
+			"mode"		"four_buttons"
+			"name"		""
+			"description"		""
+			"inputs"
+			{
+				"button_a"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button A, , "
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+				"button_b"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button B, , "
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+				"button_x"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button X, , "
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+				"button_y"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button Y, , "
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+			}
+		}
+		"group"
+		{
+			"id"		"1"
+			"mode"		"dpad"
+			"name"		""
+			"description"		""
+			"inputs"
+			{
+				"dpad_north"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button dpad_up, , "
+							}
+							"settings"
+							{
+								"haptic_intensity"		"1"
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+				"dpad_south"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button dpad_down, , "
+							}
+							"settings"
+							{
+								"haptic_intensity"		"1"
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+				"dpad_east"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button dpad_right, , "
+							}
+							"settings"
+							{
+								"haptic_intensity"		"1"
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+				"dpad_west"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button dpad_left, , "
+							}
+							"settings"
+							{
+								"haptic_intensity"		"1"
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+			}
+		}
+		"group"
+		{
+			"id"		"2"
+			"mode"		"joystick_move"
+			"name"		""
+			"description"		""
+			"inputs"
+			{
+				"click"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button JOYSTICK_RIGHT, , "
+							}
+							"settings"
+							{
+								"haptic_intensity"		"2"
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+			}
+		}
+		"group"
+		{
+			"id"		"3"
+			"mode"		"joystick_move"
+			"name"		""
+			"description"		""
+			"inputs"
+			{
+				"click"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button JOYSTICK_LEFT, , "
+							}
+							"settings"
+							{
+								"haptic_intensity"		"2"
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+			}
+		}
+		"group"
+		{
+			"id"		"4"
+			"mode"		"trigger"
+			"name"		""
+			"description"		""
+			"inputs"
+			{
+				"click"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button TRIGGER_LEFT, , "
+							}
+							"settings"
+							{
+								"haptic_intensity"		"2"
+							}
+						}
+						"chord"
+						{
+							"bindings"
+							{
+								"binding"		"key_press F9, , "
+							}
+							"settings"
+							{
+								"chord_button"		"15"
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+			}
+			"settings"
+			{
+				"output_trigger"		"1"
+			}
+		}
+		"group"
+		{
+			"id"		"5"
+			"mode"		"trigger"
+			"name"		""
+			"description"		""
+			"inputs"
+			{
+				"click"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button TRIGGER_RIGHT, , "
+							}
+							"settings"
+							{
+								"haptic_intensity"		"2"
+							}
+						}
+						"chord"
+						{
+							"bindings"
+							{
+								"binding"		"key_press F10, , "
+							}
+							"settings"
+							{
+								"chord_button"		"15"
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+			}
+			"settings"
+			{
+				"output_trigger"		"2"
+			}
+		}
+		"group"
+		{
+			"id"		"6"
+			"mode"		"joystick_move"
+			"name"		""
+			"description"		""
+			"inputs"
+			{
+				"click"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button JOYSTICK_RIGHT, , "
+							}
+							"settings"
+							{
+								"haptic_intensity"		"2"
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+			}
+		}
+		"group"
+		{
+			"id"		"8"
+			"mode"		"joystick_move"
+			"name"		""
+			"description"		""
+			"inputs"
+			{
+				"click"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button JOYSTICK_RIGHT, , "
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+			}
+		}
+		"group"
+		{
+			"id"		"9"
+			"mode"		"dpad"
+			"name"		""
+			"description"		""
+			"inputs"
+			{
+				"dpad_north"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button DPAD_UP, , "
+							}
+							"settings"
+							{
+								"haptic_intensity"		"1"
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+				"dpad_south"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button DPAD_DOWN, , "
+							}
+							"settings"
+							{
+								"haptic_intensity"		"1"
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+				"dpad_east"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button DPAD_RIGHT, , "
+							}
+							"settings"
+							{
+								"haptic_intensity"		"1"
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+				"dpad_west"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button DPAD_LEFT, , "
+							}
+							"settings"
+							{
+								"haptic_intensity"		"1"
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+			}
+			"settings"
+			{
+				"requires_click"		"0"
+				"haptic_intensity_override"		"0"
+			}
+		}
+		"group"
+		{
+			"id"		"10"
+			"mode"		"single_button"
+			"name"		""
+			"description"		""
+			"inputs"
+			{
+				"click"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button START, , "
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+			}
+		}
+		"group"
+		{
+			"id"		"11"
+			"mode"		"single_button"
+			"name"		""
+			"description"		""
+			"inputs"
+			{
+				"click"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button SELECT, , "
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+			}
+		}
+		"group"
+		{
+			"id"		"7"
+			"mode"		"switches"
+			"name"		""
+			"description"		""
+			"inputs"
+			{
+				"button_escape"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button start, , "
+							}
+						}
+						"chord"
+						{
+							"bindings"
+							{
+								"binding"		"key_press LEFT_ALT, , "
+							}
+							"settings"
+							{
+								"chord_button"		"15"
+								"interruptable"		"0"
+							}
+						}
+						"chord"
+						{
+							"bindings"
+							{
+								"binding"		"key_press F4, , "
+							}
+							"settings"
+							{
+								"chord_button"		"15"
+								"interruptable"		"0"
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+				"button_menu"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button select, , "
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+				"left_bumper"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button shoulder_left, , "
+							}
+						}
+						"chord"
+						{
+							"bindings"
+							{
+								"binding"		"key_press F3, , "
+							}
+							"settings"
+							{
+								"chord_button"		"15"
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+				"right_bumper"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button shoulder_right, , "
+							}
+						}
+						"chord"
+						{
+							"bindings"
+							{
+								"binding"		"key_press F2, , "
+							}
+							"settings"
+							{
+								"chord_button"		"15"
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+				"button_back_left"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button a, , "
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+				"button_back_right"
+				{
+					"activators"
+					{
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"xinput_button x, , "
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+			}
+		}
+		"preset"
+		{
+			"id"		"0"
+			"name"		"Default"
+			"group_source_bindings"
+			{
+				"7"		"switch active"
+				"0"		"button_diamond active"
+				"3"		"joystick active"
+				"4"		"left_trigger active"
+				"5"		"right_trigger active"
+				"8"		"right_joystick active"
+				"9"		"dpad active"
+			}
+		}
+		"settings"
+		{
+			"left_trackpad_mode"		"0"
+			"right_trackpad_mode"		"0"
+		}
+	}

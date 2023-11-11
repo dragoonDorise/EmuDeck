@@ -47,17 +47,35 @@ SRM_init(){
   setMSG "Configuring Steam ROM Manager"
   local json_directory="$SRM_userData_configDir/parsers"
   local output_file="$SRM_userData_configDir/userConfigurations.json"
-  #local files=$1
+
+  mkdir -p "$SRM_userData_configDir/"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userConfigurations.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$SRM_userData_configDir/userConfigurations.json"
+  sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userConfigurations.json"
+
+  sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userSettings.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$SRM_userData_configDir/userSettings.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userSettings.json"
 
   #old SRM
   SRM_migration
 
+  setMSG 'Steam Rom Manager - Creating Parsers & Steam Input profiles'
+  SRM_createParsers
+  SRM_addSteamInputProfiles
+
+  sleep 1
+
+  SRM_setEnv
 
 
-  mkdir -p "$SRM_userData_configDir/"
+  echo -e "true"
+}
 
-  #Multiemulator?
-  exclusionList=""
+SRM_createParsers(){
+  local json_directory="$SRM_userData_configDir/parsers"
+  local output_file="$SRM_userData_configDir/userConfigurations.json"
+  local exclusionList=""
   #Multiemulator?
   if [ "$emuMULTI" != "both" ]; then
 
@@ -217,66 +235,66 @@ SRM_init(){
   exclusionList=$exclusionList"nintendo_gb-mGBA.json\n"
 
   #Exclusion based on install status.
-  if [ $doInstallPrimeHack != "true" ]; then
+  if [ $doInstallPrimeHack != "true" ] || [ Primehack_IsInstalled != "true" ]; then
       exclusionList=$exclusionList"nintendo_primehack.json\n"
   fi
-  if [ $doInstallRPCS3 != "true" ]; then
+  if [ $doInstallRPCS3 != "true" ] || [ RPCS3_IsInstalled != "true" ]; then
       exclusionList=$exclusionList"sony_ps3-rpcs3-extracted_iso_psn.json\n"
       exclusionList=$exclusionList"sony_ps3-rpcs3-pkg.json\n"
 
   fi
-  if [ $doInstallCitra != "true" ]; then
+  if [ $doInstallCitra != "true" ] || [ Citra_IsInstalled != "true" ]; then
       exclusionList=$exclusionList"nintendo_3ds-citra-mGBA.json\n"
 
   fi
-  if [ $doInstallDolphin != "true" ]; then
+  if [ $doInstallDolphin != "true" ] || [ Dolphin_IsInstalled != "true" ]; then
       exclusionList=$exclusionList"nintendo_gc-dolphin.json\n"
       exclusionList=$exclusionList"nintendo_wii-dolphin.json\n"
   fi
-  if [ $doInstallDuck != "true" ]; then
+  if [ $doInstallDuck != "true" ] || [ Duck_IsInstalled != "true" ]; then
       exclusionList=$exclusionList"sony_psx-duckstation.json\n"
 
   fi
-  if [ $doInstallPPSSPP != "true" ]; then
+  if [ $doInstallPPSSPP != "true" ] || [ PPSSPP_IsInstalled != "true" ]; then
       exclusionList=$exclusionList"sony_psp-ppsspp.json\n"
 
   fi
-  if [ $doInstallXemu != "true" ]; then
+  if [ $doInstallXemu != "true" ] || [ Xemu_IsInstalled != "true" ]; then
       exclusionList=$exclusionList"microsoft_xbox-xemu.json\n"
 
   fi
-  if [ $doInstallXenia != "true" ]; then
+  if [ $doInstallXenia != "true" ] || [ Xenia_IsInstalled != "true" ]; then
      exclusionList=$exclusionList"microsoft_xbox_360-xenia-xbla.json\n"
      exclusionList=$exclusionList"microsoft_xbox_360-xenia.json\n"
 
   fi
-  if [ $doInstallScummVM != "true" ]; then
+  if [ $doInstallScummVM != "true" ] || [ ScummVM_IsInstalled != "true" ]; then
       exclusionList=$exclusionList"scumm_scummvm.json\n"
   fi
-  if [ $doInstallRMG != "true" ]; then
+  if [ $doInstallRMG != "true" ] || [ RMG_IsInstalled != "true" ]; then
       exclusionList=$exclusionList"nintendo_64-rmg.json\n"
   fi
-  if [ $doInstallmelonDS != "true" ]; then
+  if [ $doInstallmelonDS != "true" ] || [ melonDS_IsInstalled != "true" ]; then
       exclusionList=$exclusionList"nintendo_ds-melonds.json\n"
   fi
-  if [ $doInstallVita3K != "true" ]; then
+  if [ $doInstallVita3K != "true" ] || [ Vita3K_IsInstalled != "true" ]; then
       exclusionList=$exclusionList"sony_psvita-vita3k-pkg.json\n"
   fi
-  if [ $doInstallMGBA != "true" ]; then
+  if [ $doInstallMGBA != "true" ] || [ MGBA_IsInstalled != "true" ]; then
     exclusionList=$exclusionList"nintendo_gb-mGBA.json\n"
     exclusionList=$exclusionList"nintendo_gba-mgba.json\n"
     exclusionList=$exclusionList"nintendo_gbc-mgba.json\n"
   fi
-  if [ $doInstallMAME != "true" ]; then
+  if [ $doInstallMAME != "true" ] || [ MAME_IsInstalled != "true" ]; then
     exclusionList=$exclusionList"arcade-mame.json\n"
   fi
-  if [ $doInstallYuzu != "true" ]; then
+  if [ $doInstallYuzu != "true" ] || [ Yuzu_IsInstalled != "true" ]; then
     exclusionList=$exclusionList"nintendo_switch-yuzu.json\n"
   fi
-  if [ $doInstallRyujinx != "true" ]; then
+  if [ $doInstallRyujinx != "true" ] || [ Ryujinx_IsInstalled != "true" ]; then
     exclusionList=$exclusionList"nintendo_switch-ryujinx.json\n"
   fi
-  if [ "$doInstallPCSX2QT" != "true" ]; then
+  if [ "$doInstallPCSX2QT" != "true" ] || [ $PCSX2QT_IsInstalled != "true" ]; then
     exclusionList=$exclusionList"sony_ps2-pcsx2.json\n"
   fi
 
@@ -300,20 +318,11 @@ SRM_init(){
   customfiles=$(find "$SRM_userData_configDir/parsers/custom/" -name "*.json" | sort)
   jq -s '.' $files $customfiles > "$output_file"
   rm -rf "$HOME/temp_parser"
+}
 
-  sleep 1
-
-  SRM_setEnv
-
-  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userConfigurations.json"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$SRM_userData_configDir/userConfigurations.json"
-  sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userConfigurations.json"
-
-  sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userSettings.json"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$SRM_userData_configDir/userSettings.json"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userSettings.json"
-
-  echo -e "true"
+SRM_addSteamInputProfiles(){
+   cp "$EMUDECKGIT/$SRM_userData_directory/controllerTemplates.json" "$SRM_userData_configDir/controllerTemplates.json"
+   #rsync -r "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 SRM_setEnv(){
