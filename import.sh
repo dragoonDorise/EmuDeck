@@ -22,12 +22,12 @@ function checkSpace(){
 	difference=$(($freeSpace - $neededSpace))
 
 	if [[ $difference -lt 0 ]]; then
-		text="$(printf "It seems you don't have enought space in $destination ( $freeSpaceInHuman ). You need to have at least $neededSpaceInHuman available")"
+		text="$(printf "Make sure you have enought space in $destination. You need to have at least $neededSpaceInHuman available")"
 		zenity --question \
 			--title="EmuDeck Import tool" \
 			--width=450 \
 			--cancel-label="Exit" \
-			--ok-label="Continue anyway" \
+			--ok-label="Continue" \
 			--text="${text}" 2>/dev/null
 		ans=$?
 		if [ $ans -eq 0 ]; then
@@ -127,7 +127,7 @@ if [ "$size" -gt 4096 ]; then
 
 	fi
 
-	text="$(printf "<b>Success!</b>\nRemember that you need to run Steam Rom Manager in this new device to add EmulationStation or any of your games")"
+	text="$(printf "<b>Success!</b>\nRemember that you need to Open EmuDeck,run the USB Transfer Wizard and then Steam Rom Manager in this new device to add EmulationStation or any of your games")"
 	 zenity --info \
 	--title="EmuDeck Import tool" \
 	--width=350 \

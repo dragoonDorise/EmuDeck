@@ -21,12 +21,12 @@ function checkSpace(){
 	difference=$(($freeSpace - $neededSpace))
 
 	if [[ $difference -lt 0 ]]; then
-		text="$(printf "It seems you don't have enought space in $destination ( $freeSpaceInHuman ). You need to have at least $neededSpaceInHuman available")"
+		text="$(printf "Make sure you have enought space in $destination. You need to have at least $neededSpaceInHuman available")"
 		zenity --question \
 			--title="EmuDeck Export tool" \
 			--width=450 \
 			--cancel-label="Exit" \
-			--ok-label="Continue anyway" \
+			--ok-label="Continue" \
 			--text="${text}" 2>/dev/null
 		ans=$?
 		if [ $ans -eq 0 ]; then
