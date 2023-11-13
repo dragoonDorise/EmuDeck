@@ -14,20 +14,20 @@ Migration_init(){
 	difference=$(($freeSpace - $neededSpace))
 	if [ $difference -lt 0 ]; then
 
-	text="$(printf "Make sure you have enought space in $destination. You need to have at least $neededSpaceInHuman available")"
-	zenity --question \
-		--title="EmuDeck Migration tool" \
-		--width=450 \
-		--cancel-label="Exit" \
-		--ok-label="Continue" \
-		--text="${text}" 2>/dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		echo "Continue..."
-	else
-		exit
+		text="$(printf "Make sure you have enought space in $destination. You need to have at least $neededSpaceInHuman available")"
+		zenity --question \
+			--title="EmuDeck Migration tool" \
+			--width=450 \
+			--cancel-label="Exit" \
+			--ok-label="Continue" \
+			--text="${text}" 2>/dev/null
+		ans=$?
+		if [ $ans -eq 0 ]; then
+			echo "Continue..."
+		else
+			exit
+		fi
 	fi
-
 	Migration_move "$emulationPath" "$destination" "$neededSpaceInHuman" && Migration_updatePaths "$emulationPath" "$destination/Emulation/"
 
 }
