@@ -3,13 +3,14 @@
 
 
 Plugins_install_cleanup() {
-  local password=$1
-  if [ $password = "Decky!" ] || [ $password = "gamer" ]; then
-   echo $password | sudo -S -k passwd -d $(whoami)
-  fi
-  #We restart Decky
-  systemctl daemon-reload
-  systemctl restart plugin_loader
+	local password=$1
+  	#We restart Decky
+	systemctl daemon-reload
+	systemctl restart plugin_loader
+
+	if [ $password = "Decky!" ] || [ $password = "gamer" ]; then
+		echo $password | sudo -S -k passwd -d $(whoami)
+	fi
 }
 
 Plugins_checkPassword(){
@@ -28,11 +29,11 @@ Plugins_checkPassword(){
           if ( echo "$PASS" | sudo -S -k true ); then
               password=$PASS
           else
-              zen_nospam --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
+              zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
           fi
         fi
    fi
-
+   return $password
 }
 
 Plugins_installPluginLoader(){
