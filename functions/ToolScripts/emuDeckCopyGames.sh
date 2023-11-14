@@ -81,6 +81,4 @@ CopyGames(){
 			 --width="450" \
 			 --text="${text}" 2>/dev/null && echo "true"
 
->>>>>>> 869765d3 (hotfixes import + migrate tools)
-
 }
