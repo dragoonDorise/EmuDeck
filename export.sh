@@ -108,7 +108,7 @@ if [ "$size" -gt 4096 ]; then
 		zenity --question \
 			--title="EmuDeck Export tool" \
 			--width=450 \
-			--cancel-label="Exit" \
+			--cancel-label="No" \
 			--ok-label="Export my bios" \
 			--text="${text}" 2>/dev/null
 		ans=$?
@@ -133,7 +133,7 @@ if [ "$size" -gt 4096 ]; then
 		zenity --question \
 			--title="EmuDeck Export tool" \
 			--width=450 \
-			--cancel-label="Exit" \
+			--cancel-label="No" \
 			--ok-label="Export my roms" \
 			--text="${text}" 2>/dev/null
 		ans=$?
