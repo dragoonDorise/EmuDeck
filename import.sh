@@ -13,9 +13,10 @@ fi
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
 function checkSpace(){
-	destination=$1
-	neededSpace=$(du -s ./ | awk '{print $1}')
-	neededSpaceInHuman=$(du -sh ./ | awk '{print $1}')
+	origin=$1
+	destination=$2
+	neededSpace=$(du -s "$origin" | awk '{print $1}')
+	neededSpaceInHuman=$(du -sh "origin" | awk '{print $1}')
 	#File Size on destination
 	freeSpace=$(df -k "$destination" --output=avail | tail -1)
 	freeSpaceInHuman=$(df -kh "$destination" --output=avail | tail -1)
@@ -87,7 +88,7 @@ else
 	 fi
 fi
 
-checkSpace "$emulationPath"
+checkSpace "$origin/EmuDeck/saves/" "$emulationPath"
 
 for entry in "$origin/EmuDeck/saves/"*
 do
@@ -109,7 +110,7 @@ if [ "$size" -gt 4096 ]; then
 		ans=$?
 		if [ $ans -eq 0 ]; then
 
-			checkSpace "$emulationPath"
+			checkSpace "$origin/EmuDeck/storage/" "$emulationPath"
 
 			for entry in "$origin/EmuDeck/storage/"*
 			do
@@ -117,12 +118,61 @@ if [ "$size" -gt 4096 ]; then
 			done
 
 		else
-			exit
+			echo "User selected no import: Storage"
 		fi
 
 	fi
 
-	text="$(printf "<b>Success!</b>\nRemember that you need to Open EmuDeck,run the USB Transfer Wizard and then Steam Rom Manager in this new device to add EmulationStation or any of your games")"
+	if [ -d "$origin/EmuDeck/bios" ]; then
+		text="$(printf "<b>Bios folder found in your drive!</b>\nLet's import that one too")"
+		zenity --question \
+			--title="EmuDeck Import tool" \
+			--width=450 \
+			--cancel-label="Exit" \
+			--ok-label="Import my Bios" \
+			--text="${text}" 2>/dev/null
+		ans=$?
+		if [ $ans -eq 0 ]; then
+
+			checkSpace "$origin/EmuDeck/bios/" "$emulationPath"
+
+			for entry in "$origin/EmuDeck/bios/"*
+			do
+				rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/bios/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/bios/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
+			done
+
+		else
+			echo "User selected no import: bios"
+		fi
+
+	fi
+
+
+	if [ -d "$origin/EmuDeck/roms" ]; then
+		text="$(printf "<b>Roms folder found in your drive!</b>\nLet's import that one too")"
+		zenity --question \
+			--title="EmuDeck Import tool" \
+			--width=450 \
+			--cancel-label="Exit" \
+			--ok-label="Import my Roms" \
+			--text="${text}" 2>/dev/null
+		ans=$?
+		if [ $ans -eq 0 ]; then
+
+			checkSpace "$origin/EmuDeck/roms/" "$emulationPath"
+
+			for entry in "$origin/EmuDeck/roms/"*
+			do
+				rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/roms/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/roms/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
+			done
+
+		else
+			echo "User selected no import: Roms"
+		fi
+
+	fi
+
+	text="$(printf "<b>Success!</b>\nRemember that you need to Open EmuDeck and run Steam Rom Manager in this new device to add EmulationStation or any of your games to Steam")"
 	 zenity --info \
 	--title="EmuDeck Import tool" \
 	--width=350 \

@@ -12,9 +12,10 @@ fi
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
 function checkSpace(){
-	destination=$1
+	origin=$1
+	destination=$2
 	neededSpace=$(du -s "$emulationPath/saves" | awk '{print $1}')
-	neededSpaceInHuman=$(du -sh "$emulationPath/saves" | awk '{print $1}')
+	neededSpaceInHuman=$(du -sh "$origin" | awk '{print $1}')
 	#File Size on destination
 	freeSpace=$(df -k "$destination" --output=avail | tail -1)
 	freeSpaceInHuman=$(df -kh "$destination" --output=avail | tail -1)
@@ -62,7 +63,7 @@ text="$(printf "Please pick where do you want to <b>export your saves</b>")"
 --text="${text}" 2>/dev/null
 
 destination=$(customLocation)
-checkSpace "$destination"
+checkSpace "$emulationPath/saves/" "$destination"
 
 mkdir -p "$destination/EmuDeck/saves"
 
@@ -87,7 +88,7 @@ if [ "$size" -gt 4096 ]; then
 		ans=$?
 		if [ $ans -eq 0 ]; then
 
-			checkSpace "$destination"
+			checkSpace "$emulationPath/storage/" "$destination"
 
 			mkdir -p "$destination/EmuDeck/storage"
 
@@ -100,6 +101,56 @@ if [ "$size" -gt 4096 ]; then
 			exit
 		fi
 
+	fi
+
+	if [ -d "$emulationPath/bios" ]; then
+		text="$(printf "Do you want to export all your bios?")"
+		zenity --question \
+			--title="EmuDeck Export tool" \
+			--width=450 \
+			--cancel-label="Exit" \
+			--ok-label="Export my bios" \
+			--text="${text}" 2>/dev/null
+		ans=$?
+		if [ $ans -eq 0 ]; then
+
+			checkSpace "$emulationPath/bios/" "$destination"
+
+			mkdir -p "$destination/EmuDeck/bios"
+
+			for entry in "$emulationPath/bios/"*
+			do
+				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/bios/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/bios/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+			done
+
+		else
+			echo "no bios"
+		fi
+	fi
+
+	if [ -d "$emulationPath/bios" ]; then
+		text="$(printf "Do you want to export all your roms?")"
+		zenity --question \
+			--title="EmuDeck Export tool" \
+			--width=450 \
+			--cancel-label="Exit" \
+			--ok-label="Export my roms" \
+			--text="${text}" 2>/dev/null
+		ans=$?
+		if [ $ans -eq 0 ]; then
+
+			checkSpace "$emulationPath/roms/" "$destination"
+
+			mkdir -p "$destination/EmuDeck/roms"
+
+			for entry in "$emulationPath/roms/"*
+			do
+				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/roms/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/roms/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+			done
+
+		else
+			echo "no roms"
+		fi
 	fi
 
 	text="$(printf "<b>Success!</b>\nNow it's time to:\n1 Install EmuDeck in your new Deck. \n2 Use the Import Tool in your new Deck. \n3 That's all :)")"
