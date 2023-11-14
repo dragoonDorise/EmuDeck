@@ -60,7 +60,7 @@ cloud_sync_config(){
    cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$cloud_sync_config"
   cloud_sync_stopService
   cloud_sync_setup_providers
-  setSetting cloud_sync_status "true"
+  setSetting cloud_sync_status "true" && echo "true"
 
 }
 
