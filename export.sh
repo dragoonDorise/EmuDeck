@@ -73,8 +73,9 @@ done
 
 
 
-if [ -d "$emulationPath/storage/" ]; then
-	if [ -d "$HOME/Emulation/storage" ]; then
+size=$((size + $(du -sb "$destination/saves/" | cut -f1)))
+if [ "$size" -gt 4096 ]; then
+	if [ -d "$emulationPath/storage" ]; then
 		text="$(printf "<b>Storage folder found in your internal Drive!</b>\nLet's export that one too")"
 		zenity --question \
 			--title="EmuDeck Export tool" \
