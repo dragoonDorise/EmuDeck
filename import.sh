@@ -95,12 +95,7 @@ do
 done
 
 
-size=0
-for entry in "$emulationPath/saves/"*
-do
-	size=$((size + $(du -sb "$entry" | cut -f1)))
-done
-
+size=$((size + $(du -sb "$emulationPath/storage/" | cut -f1)))
 
 if [ "$size" -gt 4096 ]; then
 	if [ -d "$origin/EmuDeck/storage" ]; then
