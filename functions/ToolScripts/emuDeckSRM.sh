@@ -226,6 +226,18 @@ SRM_createParsers(){
       exclusionList=$exclusionList"philips_cd_i-mame.json\n"
     fi
   fi
+
+  if [ "$emuDreamcast" != "both" ]; then
+	  if [ "$emuDreamcast" = "flycast" ]; then
+		exclusionList=$exclusionList"sega_dreamcast-ra-flycast.json\n"
+		exclusionList=$exclusionList"arcade_naomi-ra-flycast\n"
+	  else
+		exclusionList=$exclusionList"sega_dreamcast-flycast.json\n"
+		exclusionList=$exclusionList"arcade_naomi-flycast.json\n"
+	  fi
+	fi
+
+
   #Optional parsers
   exclusionList=$exclusionList"nintendo_gbc-ra-sameboy.json\n"
   exclusionList=$exclusionList"nintendo_gb-ra-sameboy.json\n"
