@@ -72,12 +72,8 @@ do
 done
 
 
-size=0
-for entry in "$emulationPath/storage/"*
-do
-	size=$((size + $(du -sb "$entry" | cut -f1)))
-done
 
+size=$((size + $(du -sb "$emulationPath/storage/" | cut -f1)))
 
 if [ "$size" -gt 4096 ]; then
 	if [ -d "$HOME/Emulation/storage" ]; then
