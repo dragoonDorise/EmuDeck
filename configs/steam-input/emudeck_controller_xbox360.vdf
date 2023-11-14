@@ -10,11 +10,6 @@
 		{
 			"title"		"EmuDeck - Xbox 360"
 			"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for DS and 3DS screen swap / Layout"
-		},
-		"spanish"
-		{
-			"title"		"EmuDeck - Xbox 360"
-			"description"		"Pulsa START + SELECT para salir del emulador. SELECT + R1 / R2 para cambiar pantallas en DS o 3DS"
 		}
 	}
 	"group"
