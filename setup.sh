@@ -408,6 +408,7 @@ fi
 # fi
 
 #Always install
+Plugins_install
 BINUP_install
 CHD_install
 

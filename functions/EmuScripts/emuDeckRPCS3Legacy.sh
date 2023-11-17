@@ -67,6 +67,7 @@ RPCS3_setupStorage(){
 
 		fi
 	fi
+	mkdir -p "$storagePath/rpcs3/dev_hdd0/game"
 }
 
 
