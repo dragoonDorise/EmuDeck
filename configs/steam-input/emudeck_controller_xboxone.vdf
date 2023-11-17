@@ -553,7 +553,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"key_press LEFT_ALT, , "
+								"binding"		"key_press LEFT_CTRL, , "
 							}
 							"settings"
 							{
@@ -565,7 +565,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"key_press F4, , "
+								"binding"		"key_press Q, , "
 							}
 							"settings"
 							{
