@@ -9,6 +9,7 @@ echo "0" > "$MSG"
 #
 
 mkdir -p "$HOME/.config/EmuDeck"
+mkdir -p "$HOME/emudeck/logs"
 PIDFILE="$HOME/.config/EmuDeck/install.pid"
 
 
@@ -56,7 +57,7 @@ rm -rf ~/dragoonDoriseTools
 rm -rf ~/emudeck/backend
 
 #Creating log file
-LOGFILE="$HOME/emudeck/emudeck.log"
+LOGFILE="$HOME/emudeck/logs/emudeckSetup.log"
 
 mkdir -p "$HOME/emudeck"
 
@@ -66,7 +67,7 @@ echo $'#!/bin/bash\nEMUDECKGIT="$HOME/.config/EmuDeck/backend"\nsource "$EMUDECK
 
 echo "Press the button to start..." > "$LOGFILE"
 
-mv "${LOGFILE}" "$HOME/emudeck/emudeck.last.log" #backup last log
+mv "${LOGFILE}" "$HOME/emudeck/logs/emudeckSetup.last.log" #backup last log
 
 if echo "${@}" > "${LOGFILE}" ; then
 	echo "Log created"
@@ -149,6 +150,11 @@ chmod +x "${toolsPath}/emu-launch.sh"
 if [ $doInstallESDE == "true" ]; then
 	echo "install esde"
 	ESDE_install
+fi
+#Pegasus Installation
+if [ $doInstallPegasus == "true" ]; then
+	echo "install Pegasus"
+	Pegasus_install
 fi
 #SRM Installation
 if [ $doInstallSRM == "true" ]; then
@@ -266,6 +272,12 @@ if [ "$doSetupESDE" == "true" ]; then
 	ESDE_update
 fi
 
+#Pegasus Config
+#if [ $doSetupPegasus == "true" ]; then
+#	echo "Pegasus_init"
+#	Pegasus_init
+#fi
+
 #Emus config
 #setMSG "Configuring Steam Input for emulators.." moved to emu install
 
@@ -378,22 +390,22 @@ fi
 
 
 #Sudo Required!
-if [ -n "$PASSWD" ]; then
-	pwstatus=0
-	echo "$PASSWD" | sudo -v -S &>/dev/null && pwstatus=1 || echo "sudo password was incorrect" #refresh sudo cache
-	if [ $pwstatus == 1 ]; then
-		if [ "$doInstallGyro" == "true" ]; then
-			Plugins_installSteamDeckGyroDSU
-		fi
-
-		if [ "$doInstallPowertools" == "true" ]; then
-			Plugins_installPluginLoader
-			Plugins_installPowerTools
-		fi
-	fi
-else
-	echo "no password supplied. Skipping gyro / powertools."
-fi
+# if [ -n "$PASSWD" ]; then
+# 	pwstatus=0
+# 	echo "$PASSWD" | sudo -v -S &>/dev/null && pwstatus=1 || echo "sudo password was incorrect" #refresh sudo cache
+# 	if [ $pwstatus == 1 ]; then
+# 		if [ "$doInstallGyro" == "true" ]; then
+# 			Plugins_installSteamDeckGyroDSU
+# 		fi
+#
+# 		if [ "$doInstallPowertools" == "true" ]; then
+# 			Plugins_installPluginLoader
+# 			Plugins_installPowerTools
+# 		fi
+# 	fi
+# else
+# 	echo "no password supplied. Skipping gyro / powertools."
+# fi
 
 #Always install
 BINUP_install
@@ -420,6 +432,16 @@ if [ "$doSetupRA" == "true" ]; then
 	fi
 fi
 
+if [ "$system" == "chimeraos" ]; then
+	mkdir -p $HOME/Applications
+
+	downloads_dir="$HOME/Downloads"
+	destination_dir="$HOME/Applications"
+	file_name="EmuDeck"
+
+	find "$downloads_dir" -type f -name "*$file_name*.AppImage" -exec mv {} "$destination_dir/$file_name.AppImage" \;
+
+fi
 
 createDesktopIcons
 
@@ -432,6 +454,38 @@ fi
 ##Validations
 ##
 #
+
+#Decky Plugins
+if [ "$system" == "chimeraos" ]; then
+	defaultPass="gamer"
+else
+	defaultPass="Decky!"
+fi
+
+ if ( echo "$defaultPass" | sudo -S -k true ); then
+	echo "true"
+  else
+	  PASS=$(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
+	  if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
+		  exit 1
+	  fi
+	  if ( echo "$PASS" | sudo -S -k true ); then
+		  defaultPass=$PASS
+	  else
+		  zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
+	  fi
+	fi
+
+echo $defaultPass | sudo -v -S && {
+	Plugins_installEmuDecky $defaultPass
+	if [ "$system" == "chimeraos" ]; then
+		Plugins_installPowerControl $defaultPass
+	else
+		Plugins_installPowerTools $defaultPass
+	fi
+	Plugins_installSteamDeckGyroDSU $defaultPass
+	Plugins_installPluginLoader $defaultPass
+}
 
 
 

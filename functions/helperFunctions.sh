@@ -9,6 +9,20 @@ emuDeckEmuTypeBinary="Binary"
 emuDeckEmuTypeWindows="Windows"
 emuDeckEmuTypeOther="Other"
 
+function startLog() {
+	funcName="$1"
+	mkdir -p "$HOME/emudeck/logs"
+	logFile="$HOME/emudeck/logs/$funcName.log"
+
+	touch "$logFile"
+
+	exec &> >(tee -a "$logFile")
+}
+
+function stopLog(){
+	echo "NYI"
+}
+
 function getScreenAR(){
 	local productName
 	productName=$(getProductName)
@@ -273,6 +287,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupPPSSPP=true")
 	defaultSettingsList+=("doSetupXemu=true")
 	defaultSettingsList+=("doSetupESDE=true")
+	defaultSettingsList+=("doSetupPegasus=false")
 	defaultSettingsList+=("doSetupSRM=true")
 	defaultSettingsList+=("doSetupPCSX2QT=true")
 	defaultSettingsList+=("doSetupScummVM=true")
@@ -283,6 +298,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupFlycast=true")
 	defaultSettingsList+=("doInstallSRM=true")
 	defaultSettingsList+=("doInstallESDE=true")
+	defaultSettingsList+=("doInstallPegasus=false")
 	defaultSettingsList+=("doInstallRA=true")
 	defaultSettingsList+=("doInstallDolphin=true")
 	#defaultSettingsList+=("doInstallPCSX2=true")
@@ -399,6 +415,14 @@ function getReleaseURLGH(){
 	local url
 	local fileNameContains=$3
 	#local token=$(tokenGenerator)
+
+	if [ $system == "darwin" ]; then
+		fileType="dmg"
+	fi
+
+	if [ $system == "darwin" ]; then
+		fileType="dmg"
+	fi
 
 	if [ "$url" == "" ]; then
 		url="https://api.github.com/repos/$repository/releases"
@@ -638,14 +662,14 @@ safeDownload() {
 	local outFile="$3"
 	local showProgress="$4"
 	local headers="$5"
-	if [ "$showProgress" == "true" ]; then
-		echo "safeDownload()"
-		echo "- $name"
-		echo "- $url"
-		echo "- $outFile"
-		echo "- $showProgress"
-		echo "- $headers"
-	fi
+
+	echo "safeDownload()"
+	echo "- $name"
+	echo "- $url"
+	echo "- $outFile"
+	echo "- $showProgress"
+	echo "- $headers"
+
 
 	if [ "$showProgress" == "true" ] || [[ $showProgress -eq 1 ]]; then
 		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 | tee >(stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading $name" --width 600 --auto-close --no-cancel 2>/dev/null) && echo $'\2'${PIPESTATUS[0]})
@@ -656,21 +680,18 @@ safeDownload() {
 	returnCodes="${request#*$'\1'}"
 	httpCode="${returnCodes%$'\2'*}"
 	exitCode="${returnCodes#*$'\2'}"
-	if [ "$showProgress" == "true" ]; then
-		echo "$requestInfo"
-		echo "HTTP response code: $httpCode"
-		echo "CURL exit code: $exitCode"
-	fi
+	echo "$requestInfo"
+	echo "HTTP response code: $httpCode"
+	echo "CURL exit code: $exitCode"
 	if [ "$httpCode" = "200" ] && [ "$exitCode" == "0" ]; then
-		#echo "$name downloaded successfully";
-		mv -v "$outFile.temp" "$outFile" &>/dev/null
+		echo "$name downloaded successfully";
+		mv -v "$outFile.temp" "$outFile"
 		return 0
 	else
-		#echo "$name download failed"
+		echo "$name download failed"
 		rm -f "$outFile.temp"
 		return 1
 	fi
-
 }
 
 addSteamInputCustomIcons() {
@@ -700,4 +721,40 @@ isFpInstalled(){
 
 check_internet_connection(){
   ping -q -c 1 -W 1 8.8.8.8 > /dev/null 2>&1 && echo true || echo false
+}
+
+zipLogs() {
+	logsFolder="$HOME/emudeck/logs"
+	settingsFile="$HOME/emudeck/settings.sh"
+	zipOutput="$HOME/Desktop/emudeck_logs.zip"
+
+	# Comprime los archivos en un archivo zip
+	zip -rj "$zipOutput" "$logsFolder" "$settingsFile"
+
+	if [ $? -eq 0 ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+setResolutions(){
+	Cemu_setResolution
+	Citra_setResolution
+	Dolphin_setResolution
+	DuckStation_setResolution
+	Flycast_setResolution
+	MAME_setResolution
+	melonDS_setResolution
+	mGBA_setResolution
+	PCSX2QT_setResolution
+	PPSSPP_setResolution
+	Primehack_setResolution
+	RPCS3_setResolution
+	Ryujinx_setResolution
+	ScummVM_setResolution
+	Vita3K_setResolution
+	Xemu_setResolution
+	Xenia_setResolution
+	Yuzu_setResolution
 }

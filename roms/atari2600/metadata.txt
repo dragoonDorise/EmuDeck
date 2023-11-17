@@ -1,0 +1,7 @@
+collection: Atari 2600
+shortname: atari2600
+extensions: a26, A26, bin, BIN, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/stella_libretro.so {file.path}
+
+
+

@@ -1,0 +1,76 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Nintendo Wii U - Cemu Proton (.wud, .wux, .wua)",
+  "steamCategory": "${Nintendo Wii U - Cemu Proton}",
+  "executableArgs": "vblank_mode=0 %command% -w -f -g \"Z:${filePath}\"",
+  "executableModifier": "\"${exePath}\"",
+  "romDirectory": "${romsdirglobal}/wiiu/roms/",
+  "steamDirectory": "${steamdirglobal}",
+  "startInDirectory": "",
+  "imageProviders": ["SteamGridDB"],
+  "titleModifier": "${fuzzyTitle} (Proton)",
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "defaultImage": "",
+  "defaultTallImage": "",
+  "defaultHeroImage": "",
+  "defaultLogoImage": "",
+  "defaultIcon": "",
+  "localImages": "",
+  "localTallImages": "",
+  "localHeroImages": "",
+  "localLogoImages": "",
+  "localIcons": "",
+  "disabled": false,
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": false
+  },
+  "userAccounts": {
+    "specifiedAccounts": "",
+    "skipWithMissingDataDir": true,
+    "useCredentials": true
+  },
+  "parserInputs": {
+    "glob": "${title}@(.wux|.WUX|.wud|.WUD|.wua|.WUA)"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false,
+    "tryToMatchTitle": false
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "parserId": "164824416518097458",
+  "version": 13,
+  "controllers": {
+    "ps4": null,
+    "ps5": null,
+    "xbox360": null,
+    "xboxone": null,
+    "switch_joycon_left": null,
+    "switch_joycon_right": null,
+    "switch_pro": null,
+    "neptune": {
+      "title": "EmuDeck - Cemu",
+      "mappingId": "cemu_controller_config.vdf",
+      "profileType": "template"
+    }
+  },
+  "imageProviderAPIs": {
+    "SteamGridDB": {
+      "nsfw": false,
+      "humor": false,
+      "imageMotionTypes": ["static"],
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": []
+    }
+  }
+}

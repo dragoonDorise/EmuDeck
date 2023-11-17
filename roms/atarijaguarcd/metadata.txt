@@ -1,0 +1,6 @@
+collection: Atari Jaguar CD
+shortname: atarijaguarcd
+extensions: j64, J64, jag, JAG, rom, ROM, abs, ABS, cof, COF, bin, BIN, prg, PRG, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/virtualjaguar_libretro.so {file.path}
+
+

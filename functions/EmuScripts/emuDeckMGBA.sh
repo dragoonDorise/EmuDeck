@@ -23,7 +23,7 @@ mGBA_install(){
 
 #ApplyInitialSettings
 mGBA_init(){
-	setMSG "Initializing $mGBA_emuName settings."	
+	setMSG "Initializing $mGBA_emuName settings."
 	configEmuAI "$mGBA_emuName" "config" "$HOME/.config/mgba" "$EMUDECKGIT/configs/mgba" "true"
 	mGBA_setupStorage
 	mGBA_setEmulationFolder
@@ -33,7 +33,7 @@ mGBA_init(){
 
 #update
 mGBA_update(){
-	setMSG "Updating $mGBA_emuName settings."	
+	setMSG "Updating $mGBA_emuName settings."
 	configEmuAI "$mGBA_emuName" "config" "$HOME/.config/mgba" "$EMUDECKGIT/configs/mgba"
 	mGBA_setupStorage
 	mGBA_setEmulationFolder
@@ -43,7 +43,7 @@ mGBA_update(){
 
 #ConfigurePaths
 mGBA_setEmulationFolder(){
-	setMSG "Setting $mGBA_emuName Emulation Folder"	
+	setMSG "Setting $mGBA_emuName Emulation Folder"
 
 	LastROMFolderSetting='lastDirectory='
 	changeLine "$LastROMFolderSetting" "${LastROMFolderSetting}${romsPath}/gba" "${mGBA_configFile}"
@@ -140,6 +140,6 @@ mGBA_finalize(){
 
 mGBA_addSteamInputProfile(){
 	addSteamInputCustomIcons
-	setMSG "Adding $mGBA_emuName Steam Input Profile."
-	rsync -r "$EMUDECKGIT/configs/steam-input/mGBA_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	#setMSG "Adding $mGBA_emuName Steam Input Profile."
+	#rsync -r "$EMUDECKGIT/configs/steam-input/mGBA_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

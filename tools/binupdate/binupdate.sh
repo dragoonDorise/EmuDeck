@@ -216,7 +216,7 @@ if [ "$(ESDE_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "EmulationStation-DE" "esde")
 fi
 if [ "$(SRM_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
-    binTable+=(TRUE "Steam Rom Manager" "srm")
+    binTable+=(TRUE "Steam ROM Manager" "srm")
 fi
 if [ "$(mGBA_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "GameBoy / Color / Advance Emu" "mgba")

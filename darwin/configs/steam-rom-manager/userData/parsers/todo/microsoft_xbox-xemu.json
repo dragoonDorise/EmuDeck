@@ -1,0 +1,62 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Microsoft Xbox - Xemu",
+  "steamCategory": "${Microsoft Xbox}",
+  "executableArgs": " -full-screen -dvd_path \"${filePath}\"",
+  "executableModifier": "\"${exePath}\"",
+  "romDirectory": "${romsdirglobal}/xbox",
+  "steamDirectory": "${steamdirglobal}",
+  "startInDirectory": "",
+  "imageProviders": ["SteamGridDB"],
+  "titleModifier": "${fuzzyTitle}",
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "defaultImage": "",
+  "defaultTallImage": "",
+  "defaultHeroImage": "",
+  "defaultLogoImage": "",
+  "defaultIcon": "",
+  "localImages": "",
+  "localTallImages": "",
+  "localHeroImages": "",
+  "localLogoImages": "",
+  "localIcons": "",
+  "disabled": false,
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/xemu.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "userAccounts": {
+    "specifiedAccounts": "",
+    "skipWithMissingDataDir": true,
+    "useCredentials": true
+  },
+  "parserInputs": {
+    "glob": "**/${title}@(.iso|.ISO)"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false,
+    "tryToMatchTitle": false
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "parserId": "165103607715056732",
+  "version": 10,
+  "imageProviderAPIs": {
+    "SteamGridDB": {
+      "nsfw": false,
+      "humor": false,
+      "imageMotionTypes": ["static"],
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": []
+    }
+  }
+}

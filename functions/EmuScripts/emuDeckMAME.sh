@@ -13,7 +13,7 @@ MAME_cleanup(){
 
 #Install
 MAME_install(){
-	installEmuFP "${MAME_emuName}" "${MAME_emuPath}"	
+	installEmuFP "${MAME_emuName}" "${MAME_emuPath}"
 	flatpak override "${MAME_emuPath}" --filesystem=host --user
 	flatpak override "${MAME_emuPath}" --share=network --user
 }
@@ -28,7 +28,7 @@ MAME_init(){
 
 #update
 MAME_update(){
-	configEmuAI "${MAME_emuName}" "mame" "$HOME/.mame" "${EMUDECKGIT}/configs/mame" 
+	configEmuAI "${MAME_emuName}" "mame" "$HOME/.mame" "${EMUDECKGIT}/configs/mame"
 	MAME_setupStorage
 	MAME_setEmulationFolder
 	MAME_setupSaves
@@ -36,7 +36,7 @@ MAME_update(){
 
 #ConfigurePaths
 MAME_setEmulationFolder(){
-  	
+
     gameDirOpt='rompath                   '
     newGameDirOpt="$gameDirOpt""${romsPath}/arcade;${biosPath};${biosPath}/mame"
 	changeLine "$gameDirOpt" "$newGameDirOpt" "$MAME_configFile"
@@ -57,7 +57,7 @@ MAME_setEmulationFolder(){
 	newinipathOpt="$inipathOpt""$storagePath/mame/ini;"'$HOME/.mame/ini;$HOME/.mame;/app/share/mame/ini'
 	changeLine "$inipathOpt" "$newinipathOpt" "$MAME_configFile"
 
-					
+
 	cheatpathOpt='cheatpath                 '
 	newcheatpathOpt="$cheatpathOpt""$storagePath/mame/cheat;"'$HOME/.mame/cheat;/app/share/mame/cheat'
 	changeLine "$cheatpathOpt" "$newcheatpathOpt" "$MAME_configFile"
@@ -105,12 +105,12 @@ MAME_uninstall(){
 
 #setABXYstyle
 MAME_setABXYstyle(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #Migrate
 MAME_migrate(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #WideScreenOn
@@ -145,4 +145,3 @@ MAME_resetConfig(){
 MAME_finalize(){
 	echo "NYI"
 }
-

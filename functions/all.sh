@@ -1,9 +1,7 @@
 #!/bin/bash
-
-if [ -d "/Library" ]; then
-    deviceOS="macos"
-else
-    deviceOS=$(lsb_release -si)
+appleChip=$(uname -m)
+if [ appleChip != "Linux" ]; then
+    PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 fi
 
 if [[ "$EMUDECKGIT" == "" ]]; then
@@ -21,7 +19,9 @@ else
     cp "$EMUDECKGIT/settings.sh" "$SETTINGSFILE"
 fi
 
-export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
+if [ "$system" != "darwin" ]; then
+    export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
+fi
 chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
 
 source "$EMUDECKGIT"/functions/checkBIOS.sh
@@ -36,6 +36,7 @@ source "$EMUDECKGIT"/functions/setMSG.sh
 source "$EMUDECKGIT"/functions/emuDeckPrereqs.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
 source "$EMUDECKGIT"/functions/installEmuBI.sh
+source "$EMUDECKGIT"/functions/installToolAI.sh
 source "$EMUDECKGIT"/functions/migrateAndLinkConfig.sh
 source "$EMUDECKGIT"/functions/nonDeck.sh
 source "$EMUDECKGIT"/functions/dialogBox.sh
@@ -43,9 +44,11 @@ source "$EMUDECKGIT"/functions/updateEmuFP.sh
 source "$EMUDECKGIT"/functions/createFolders.sh
 source "$EMUDECKGIT"/functions/runSRM.sh
 source "$EMUDECKGIT"/functions/appImageInit.sh
+source "$EMUDECKGIT"/functions/autofix.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckPegasus.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckPlugins.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckSRM.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCHD.sh
@@ -64,9 +67,9 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemuNative.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2.sh
-source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRPCS3.sh
-source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCitra.sh
-source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDolphin.sh 
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRPCS3Legacy.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCitraLegacy.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDolphin.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPrimehack.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRetroArch.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRyujinx.sh
@@ -89,7 +92,18 @@ source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayParsec.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayMoonlight.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayGreenlight.sh
+source "$EMUDECKGIT"/functions/cloudSyncHealth.sh
+
 
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMAMEProton.sh
+
+# Darwin ovewrites
+
+if [ "$system" = "darwin" ]; then
+
+    source "$EMUDECKGIT/darwin/functions/helperFunctions.sh"
+    source "$EMUDECKGIT/darwin/functions/overrides.sh"
+
+fi

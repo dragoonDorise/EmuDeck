@@ -5,20 +5,20 @@ Yuzu_emuName="yuzu"
 Yuzu_emuType="$emuDeckEmuTypeAppImage"
 Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
 YuzuEA_emuPath="$HOME/Applications/yuzu-ea.AppImage"
-
+Yuzu_configFile="$HOME/.config/yuzu/qt-config.ini"
 #cleanupOlderThings
 Yuzu_cleanup() {
     echo "Begin Yuzu Cleanup"
     #Fixes repeated Symlink for older installations
-    
+
     if [ -f  "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys" ]; then
         unlink "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys"
     fi
-    
+
     if [ -f  "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys" ]; then
         unlink "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/registered"
     fi
-    
+
 }
 
 #Install
@@ -234,9 +234,9 @@ YuzuEA_install() {
     local showProgress="$2"
     local user
     local auth
-    
+
     read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')" || echo "invalid"
-    
+
     #echo "get bearer token"
     BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
 
@@ -256,12 +256,12 @@ YuzuEA_install() {
 
 }
 
-YuzuEA_addToken(){    
+YuzuEA_addToken(){
     local tokenValue=$1
     local user=""
     local auth=""
-   
-   read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')" && YuzuEA_install $tokenValue || echo "invalid"
+
+   read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')" && YuzuEA_install "$tokenValue" || echo "invalid"
 }
 
 
@@ -277,4 +277,18 @@ YuzuEA_IsInstalled() {
 YuzuEA_uninstall() {
     echo "Begin Yuzu EA uninstall"
     rm -rf "$YuzuEA_emuPath"
+}
+
+Yuzu_setResolution(){
+
+	case $yuzuResolution in
+		"720P") multiplier=2; docked="false";;
+		"1080P") multiplier=2; docked="true";;
+		"1440P") multiplier=3; docked="false";;
+		"4K") multiplier=3; docked="true";;
+		*) echo "Error"; exit 1;;
+	esac
+
+	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Yuzu_configFile"
+	RetroArch_setConfigOverride "use_docked_mode" $docked "$Yuzu_configFile"
 }

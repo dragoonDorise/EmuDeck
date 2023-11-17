@@ -12,7 +12,7 @@ ares_cleanup(){
 
 #Install
 ares_install() {
-	setMSG "Installing $ares_emuName"	
+	setMSG "Installing $ares_emuName"
 
 	installEmuFP "${ares_emuName}" "${ares_emuPath}"
 	flatpak override "${ares_emuPath}" --filesystem=host --user
@@ -35,7 +35,7 @@ ares_init() {
 
 #update
 ares_update() {
-	setMSG "Installing $ares_emuName"		
+	setMSG "Installing $ares_emuName"
 
 	configEmuFP "${ares_emuName}" "${ares_emuPath}"
 	ares_setupStorage
@@ -66,7 +66,7 @@ ares_setupSaves(){
 
     # Create saves folder
  	mkdir -p "${savesPath}/ares/"
-    
+
 	# Set saves path
 	UserSavesPath='/home/deck/Emulation/saves'
 	sed -i "s|$UserSavesPath|${savesPath}|g" "$ares_configFile"
@@ -75,7 +75,7 @@ ares_setupSaves(){
 
 #SetupStorage
 ares_setupStorage(){
-	
+
 	# Create storage folder
 	mkdir -p "${storagePath}/ares/"
 	mkdir -p "${storagePath}/ares/screenshots"
@@ -155,12 +155,12 @@ ares_uninstall(){
 
 #setABXYstyle
 ares_setABXYstyle(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #Migrate
 ares_migrate(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #WideScreenOn
@@ -193,12 +193,11 @@ ares_resetConfig(){
 
 ares_addSteamInputProfile(){
 	addSteamInputCustomIcons
-	setMSG "Adding $ares_emuName Steam Input Profile."
-	rsync -r "$EMUDECKGIT/configs/steam-input/ares_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	#setMSG "Adding $ares_emuName Steam Input Profile."
+	#rsync -r "$EMUDECKGIT/configs/steam-input/ares_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 #finalExec - Extra stuff
 ares_finalize(){
 	echo "NYI"
 }
-

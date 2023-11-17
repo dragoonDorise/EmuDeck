@@ -14,12 +14,12 @@ PCSX2_cleanup(){
 PCSX2_install(){
 	installEmuFP "${PCSX2_emuName}" "${PCSX2_emuPath}"
 	flatpak override "${PCSX2_emuPath}" --filesystem=host --user
-	flatpak override "${PCSX2_emuPath}" --share=network --user 
+	flatpak override "${PCSX2_emuPath}" --share=network --user
 }
 
 #ApplyInitialSettings
 PCSX2_init(){
-	setMSG "Initializing $PCSX2_emuName settings."	
+	setMSG "Initializing $PCSX2_emuName settings."
 	configEmuFP  "${PCSX2_emuName}" "${PCSX2_emuPath}" "true"
 	PCSX2_setEmulationFolder
 	PCSX2_setupSaves
@@ -38,7 +38,7 @@ PCSX2_update(){
 #ConfigurePaths
 PCSX2_setEmulationFolder(){
 	setMSG "Setting $PCSX2_emuName Emulation Folder"
-	
+
 	biosDirOpt='Bios=/'
 	saveStatesDirOpt='Savestates=/'
 	memoryCardsDirOpt='MemoryCards=/'
@@ -117,6 +117,19 @@ PCSX2_finalize(){
 
 
 PCSX2_addSteamInputProfile(){
-	setMSG "Adding $PCSX2_emuName Steam Input Profile."
-	rsync -r "$EMUDECKGIT/configs/steam-input/pcsx2_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	echo "NYI"
+	#setMSG "Adding $PCSX2_emuName Steam Input Profile."
+	#rsync -r "$EMUDECKGIT/configs/steam-input/pcsx2_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+}
+
+PCSX2_setResolution(){
+	case $pcsx2Resolution in
+		"720P") multiplier=2;;
+		"1080P") multiplier=3;;
+		"1440P") multiplier=4;;
+		"4K") multiplier=6;;
+		*) echo "Error"; exit 1;;
+	esac
+
+	RetroArch_setConfigOverride "upscale_multiplier" $multiplier "$PCSX2_configFile"
 }
