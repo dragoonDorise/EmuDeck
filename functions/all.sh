@@ -67,8 +67,8 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemuNative.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2.sh
-source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRPCS3.sh
-source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCitra.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRPCS3Legacy.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCitraLegacy.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDolphin.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPrimehack.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRetroArch.sh
