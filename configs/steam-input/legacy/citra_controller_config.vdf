@@ -728,7 +728,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F4, Pause, EmuDeck_Pause.png, #232323 #00ADAD"
+							"binding"		"key_press Q, Pause, EmuDeck_Pause.png, #232323 #00ADAD"
 						}
 					}
 				}
