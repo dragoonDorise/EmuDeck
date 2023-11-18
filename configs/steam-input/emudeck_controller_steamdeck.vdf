@@ -6,7 +6,7 @@
 	"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for DS and 3DS screen swap / Layout"
 	"url"		"template://emudeck_controller_steamdeck.vdf"
 	"controller_type"		"controller_neptune"
-	"controller_caps"		"23117823"
+	"controller_caps"		"23117821"
 	"major_revision"		"0"
 	"minor_revision"		"0"
 	"localization"
@@ -697,6 +697,64 @@
 			}
 		}
 	}
+	"group"
+	{
+		"id"		"15"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button A, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+		"gameactions"
+		{
+		}
+	}
+	"group"
+	{
+		"id"		"16"
+		"mode"		"mouse_joystick"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button A, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+		"gameactions"
+		{
+		}
+	}
 	"preset"
 	{
 		"id"		"0"
@@ -710,6 +768,8 @@
 			"5"		"right_trigger active"
 			"8"		"right_joystick active"
 			"9"		"dpad active"
+			"15"		"right_trackpad inactive"
+			"16"		"right_trackpad active"
 		}
 	}
 	"settings"
