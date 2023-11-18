@@ -333,7 +333,7 @@ SRM_createParsers(){
 
 SRM_addSteamInputProfiles(){
    cp "$EMUDECKGIT/$SRM_userData_directory/controllerTemplates.json" "$SRM_userData_configDir/controllerTemplates.json"
-   rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
+   #rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
    #Cleanup old controller schemes
    rm -rf "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/citra_controller_config.vdf"
@@ -345,15 +345,15 @@ SRM_addSteamInputProfiles(){
    rm -rf "$HOME/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf"
 
-   ln -s "$HOME/.config/EmuDeck/configs/steam-input/emudeck_cloud_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_cloud_controller_config.vdf"
-   ln -s "$HOME/.config/EmuDeck/configs/steam-input/emudeck_controller_generic.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_generic.vdf"
-   ln -s "$HOME/.config/EmuDeck/configs/steam-input/emudeck_controller_ps4.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_ps4.vdf"
-   ln -s "$HOME/.config/EmuDeck/configs/steam-input/emudeck_controller_ps5.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_ps5.vdf"
-   ln -s "$HOME/.config/EmuDeck/configs/steam-input/emudeck_controller_steamdeck_nintendo.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck_nintendo.vdf"
-   ln -s "$HOME/.config/EmuDeck/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf"
-   ln -s "$HOME/.config/EmuDeck/configs/steam-input/emudeck_controller_switch_pro.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_switch_pro.vdf"
-   ln -s "$HOME/.config/EmuDeck/configs/steam-input/emudeck_controller_xbox360.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_xbox360.vdf"
-   ln -s "$HOME/.config/EmuDeck/configs/steam-input/emudeck_controller_xboxone.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_xboxone.vdf"
+   ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_cloud_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_cloud_controller_config.vdf"
+   ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_generic.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_generic.vdf"
+   ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_ps4.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_ps4.vdf"
+   ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_ps5.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_ps5.vdf"
+   ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck_nintendo.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck_nintendo.vdf"
+   ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf"
+   ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_switch_pro.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_switch_pro.vdf"
+   ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_xbox360.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_xbox360.vdf"
+   ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_xboxone.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_xboxone.vdf"
 
    #Symlinks so they won't stop working
    # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
