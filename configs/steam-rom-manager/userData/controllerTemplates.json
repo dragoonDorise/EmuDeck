@@ -7,7 +7,12 @@
         "profileType": "template"
       },
       {
-        "title": "EmuDeck - Steam Deck - Nintendo Buttons",
+        "title": "EmuDeck - Steam Deck Proton",
+        "mappingId": "emudeck_controller_steamdeck_proton.vdf",
+        "profileType": "template"
+      },
+      {
+        "title": "EmuDeck - Steam Deck ( Xbox Layout for Nintendo )",
         "mappingId": "emudeck_controller_steamdeck_nintendo.vdf",
         "profileType": "template"
       },
