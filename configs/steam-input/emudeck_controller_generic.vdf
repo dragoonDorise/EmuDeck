@@ -2,7 +2,7 @@
 {
 	"version"		"3"
 	"revision"		"4"
-	"title"		"EmuDeck - Steam Deck"
+	"title"		"EmuDeck - Generic controller"
 	"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for DS and 3DS screen swap / Layout"
 	"url"		"template://emudeck_controller_generic.vdf"
 	"controller_type"		"controller_neptune"
@@ -14,7 +14,7 @@
 		{
 			"english"
 			{
-				"title"		"EmuDeck - Steam Deck"
+				"title"		"EmuDeck - Generic controller"
 				"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for DS and 3DS screen swap / Layout"
 			}
 		}
