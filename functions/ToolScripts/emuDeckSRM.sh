@@ -333,7 +333,7 @@ SRM_createParsers(){
 
 SRM_addSteamInputProfiles(){
    cp "$EMUDECKGIT/$SRM_userData_directory/controllerTemplates.json" "$SRM_userData_configDir/controllerTemplates.json"
-   rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
+   #rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
    #Cleanup old controller schemes
    rm -rf "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/citra_controller_config.vdf"
