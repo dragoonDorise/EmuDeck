@@ -536,6 +536,58 @@
 	}
 	"group"
 	{
+		"id"		"15"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button A, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"16"
+		"mode"		"mouse_joystick"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button A, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
 		"id"		"7"
 		"mode"		"switches"
 		"name"		""
@@ -699,7 +751,7 @@
 	}
 	"group"
 	{
-		"id"		"15"
+		"id"		"19"
 		"mode"		"absolute_mouse"
 		"name"		""
 		"description"		""
@@ -713,7 +765,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button A, , "
+							"binding"		"mouse_button LEFT, , "
 						}
 					}
 				}
@@ -721,28 +773,19 @@
 				{
 				}
 			}
-		}
-		"gameactions"
-		{
-		}
-	}
-	"group"
-	{
-		"id"		"16"
-		"mode"		"mouse_joystick"
-		"name"		""
-		"description"		""
-		"inputs"
-		{
-			"click"
+			"touch"
 			{
 				"activators"
 				{
-					"Soft_Press"
+					"Full_Press"
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button A, , "
+							"binding"		"mouse_button RIGHT, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"1"
 						}
 					}
 				}
@@ -770,6 +813,7 @@
 			"9"		"dpad active"
 			"15"		"right_trackpad inactive"
 			"16"		"right_trackpad active"
+			"19"		"left_trackpad active"
 		}
 	}
 	"settings"
