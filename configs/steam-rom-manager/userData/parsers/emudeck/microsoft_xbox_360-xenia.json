@@ -1,51 +1,41 @@
 {
   "parserType": "Glob",
   "configTitle": "Microsoft Xbox 360 - Xenia",
+  "steamDirectory": "${steamdirglobal}",
   "steamCategory": "${Microsoft Xbox 360}",
+  "romDirectory": "${romsdirglobal}/xbox360/",
   "executableArgs": "\"Z:${filePath}\"",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/xbox360/",
-  "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
-  "imageProviders": ["SteamGridDB"],
   "titleModifier": "${fuzzyTitle}",
+  "fetchControllerTemplatesButton": null,
+  "removeControllersButton": null,
+  "imageProviders": ["SteamGridDB"],
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
-  "defaultImage": "",
-  "defaultTallImage": "",
-  "defaultHeroImage": "",
-  "defaultLogoImage": "",
-  "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
-  "localImages": "",
-  "localTallImages": "",
-  "localHeroImages": "",
-  "localLogoImages": "",
-  "localIcons": "",
-  "disabled": false,
+  "userAccounts": {
+    "specifiedAccounts": ""
+  },
   "executable": {
     "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },
-  "userAccounts": {
-    "specifiedAccounts": "",
-    "skipWithMissingDataDir": true,
-    "useCredentials": true
-  },
   "parserInputs": {
     "glob": "{roms/**/!(xbla),roms}/**/${title}@(.iso|.ISO|.xex|.XEX)"
   },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false,
+    "tryToMatchTitle": false
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
   "controllers": {
-    "switch_pro": {
-      "title": "EmuDeck - Switch Pro",
-      "mappingId": "emudeck_controller_switch_pro.vdf",
-      "profileType": "template"
-    },
-    "neptune": {
-      "title": "EmuDeck - Steam Deck Proton",
-      "mappingId": "emudeck_controller_steamdeck_proton.vdf",
-      "profileType": "template"
-    },
     "ps4": {
       "title": "EmuDeck - Dual Shock 4",
       "mappingId": "emudeck_controller_ps4.vdf",
@@ -67,30 +57,43 @@
       "profileType": "template"
     },
     "switch_joycon_left": null,
-    "switch_joycon_right": null
+    "switch_joycon_right": null,
+    "switch_pro": {
+      "title": "EmuDeck - Switch Pro",
+      "mappingId": "emudeck_controller_switch_pro.vdf",
+      "profileType": "template"
+    },
+    "neptune": {
+      "title": "EmuDeck - Steam Deck",
+      "mappingId": "emudeck_controller_steamdeck.vdf",
+      "profileType": "template"
+    }
   },
-  "titleFromVariable": {
-    "limitToGroups": "",
-    "caseInsensitiveVariables": false,
-    "skipFileIfVariableWasNotFound": false,
-    "tryToMatchTitle": false
-  },
-  "fuzzyMatch": {
-    "replaceDiacritics": true,
-    "removeCharacters": true,
-    "removeBrackets": true
-  },
-  "parserId": "135113607715086732",
-  "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,
       "humor": false,
-      "imageMotionTypes": ["static"],
       "styles": [],
       "stylesHero": [],
       "stylesLogo": [],
-      "stylesIcon": []
+      "stylesIcon": [],
+      "imageMotionTypes": ["animated"]
     }
-  }
+  },
+  "defaultImage": {
+    "tall": "",
+    "long": "",
+    "hero": "",
+    "logo": "",
+    "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+  },
+  "localImages": {
+    "tall": "",
+    "long": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  },
+  "parserId": "135113607715086732",
+  "version": 15
 }
