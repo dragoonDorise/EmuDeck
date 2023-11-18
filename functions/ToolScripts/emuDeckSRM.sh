@@ -333,8 +333,6 @@ SRM_createParsers(){
 
 SRM_addSteamInputProfiles(){
    cp "$EMUDECKGIT/$SRM_userData_directory/controllerTemplates.json" "$SRM_userData_configDir/controllerTemplates.json"
-   #rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
-   #Cleanup old controller schemes
    rm -rf "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/citra_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/duckstation_controller_config.vdf"
@@ -345,15 +343,9 @@ SRM_addSteamInputProfiles(){
    rm -rf "$HOME/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf"
 
-   cp "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_cloud_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_cloud_controller_config.vdf"
-   cp "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_generic.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_generic.vdf"
-   cp "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_ps4.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_ps4.vdf"
-   cp "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_ps5.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_ps5.vdf"
-   cp "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck_nintendo.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck_nintendo.vdf"
-   cp "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf"
-   cp "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_switch_pro.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_switch_pro.vdf"
-   cp "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_xbox360.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_xbox360.vdf"
-   cp "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_xboxone.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_controller_xboxone.vdf"
+   rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
+   #Cleanup old controller schemes
+
 
    #Symlinks so they won't stop working
    # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
