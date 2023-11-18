@@ -42,8 +42,8 @@
       "profileType": "template"
     },
     "neptune": {
-      "title": "EmuDeck - Steam Deck",
-      "mappingId": "emudeck_controller_steamdeck.vdf",
+      "title": "EmuDeck - Steam Deck Proton",
+      "mappingId": "emudeck_controller_steamdeck_proton.vdf",
       "profileType": "template"
     },
     "ps4": {
