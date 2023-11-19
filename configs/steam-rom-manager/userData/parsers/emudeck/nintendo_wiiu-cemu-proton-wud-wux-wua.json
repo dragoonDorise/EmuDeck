@@ -11,26 +11,14 @@
   "titleModifier": "${fuzzyTitle} (Proton)",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
-  "defaultImage": "",
-  "defaultTallImage": "",
-  "defaultHeroImage": "",
-  "defaultLogoImage": "",
-  "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
-  "localImages": "",
-  "localTallImages": "",
-  "localHeroImages": "",
-  "localLogoImages": "",
-  "localIcons": "",
-  "disabled": false,
+  "disabled": true,
   "executable": {
     "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": false
   },
   "userAccounts": {
-    "specifiedAccounts": "",
-    "skipWithMissingDataDir": true,
-    "useCredentials": true
+    "specifiedAccounts": ""
   },
   "parserInputs": {
     "glob": "${title}@(.wux|.WUX|.wud|.WUD|.wua|.WUA)"
@@ -47,7 +35,7 @@
     "removeBrackets": true
   },
   "parserId": "164824416518097458",
-  "version": 13,
+  "version": 15,
   "controllers": {
     "switch_pro": {
       "title": "EmuDeck - Switch Pro",
@@ -55,8 +43,8 @@
       "profileType": "template"
     },
     "neptune": {
-      "title": "EmuDeck - Steam Deck",
-      "mappingId": "emudeck_controller_steamdeck.vdf",
+      "title": "EmuDeck - Steam Deck Proton",
+      "mappingId": "emudeck_controller_steamdeck_proton.vdf",
       "profileType": "template"
     },
     "ps4": {
@@ -92,5 +80,19 @@
       "stylesLogo": [],
       "stylesIcon": []
     }
+  },
+  "defaultImage": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+  },
+  "localImages": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
   }
 }

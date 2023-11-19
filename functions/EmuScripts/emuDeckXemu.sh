@@ -30,6 +30,7 @@ Xemu_update() {
 	Xemu_migrate
 	Xemu_setupStorage
 	Xemu_setEmulationFolder
+	Xemu_setupSaves
 }
 
 #ConfigurePaths
@@ -54,7 +55,8 @@ Xemu_setEmulationFolder(){
 
 #SetupSaves
 Xemu_setupSaves(){
-	echo "NYI"
+	mkdir -p "$savesPath/xemu/"
+	ln -s "${storagePath}/xemu" "$savesPath/xemu/saves"
 }
 
 

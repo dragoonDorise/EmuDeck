@@ -11,21 +11,9 @@
   "imageProviders": ["SteamGridDB"],
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
-  "defaultImage": "",
-  "defaultTallImage": "",
-  "defaultHeroImage": "",
-  "defaultLogoImage": "",
-  "defaultIcon": "",
-  "localImages": "",
-  "localTallImages": "",
-  "localHeroImages": "",
-  "localLogoImages": "",
-  "localIcons": "",
-  "disabled": false,
+  "disabled": true,
   "userAccounts": {
-    "specifiedAccounts": "",
-    "skipWithMissingDataDir": true,
-    "useCredentials": true
+    "specifiedAccounts": ""
   },
   "executable": {
     "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/scummvm.sh",
@@ -92,5 +80,19 @@
     }
   },
   "parserId": "166399570436769358",
-  "version": 10
+  "version": 15,
+  "defaultImage": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  },
+  "localImages": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  }
 }

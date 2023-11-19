@@ -11,20 +11,8 @@
   "imageProviders": ["SteamGridDB"],
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
-  "defaultImage": "",
-  "defaultTallImage": "",
-  "defaultHeroImage": "",
-  "defaultLogoImage": "",
-  "defaultIcon": "",
-  "localImages": "",
-  "localTallImages": "",
-  "localHeroImages": "",
-  "localLogoImages": "",
-  "localIcons": "",
   "userAccounts": {
-    "specifiedAccounts": "",
-    "skipWithMissingDataDir": true,
-    "useCredentials": true
+    "specifiedAccounts": ""
   },
   "executable": {
     "path": "/home/deck/Applications/Vita3K/Vita3K",
@@ -35,16 +23,6 @@
     "glob": "**/${title}/@(eboot.bin|EBOOT.BIN)"
   },
   "controllers": {
-    "switch_pro": {
-      "title": "EmuDeck - Switch Pro",
-      "mappingId": "emudeck_controller_switch_pro.vdf",
-      "profileType": "template"
-    },
-    "neptune": {
-      "title": "EmuDeck - Steam Deck",
-      "mappingId": "emudeck_controller_steamdeck.vdf",
-      "profileType": "template"
-    },
     "ps4": {
       "title": "EmuDeck - Dual Shock 4",
       "mappingId": "emudeck_controller_ps4.vdf",
@@ -66,7 +44,17 @@
       "profileType": "template"
     },
     "switch_joycon_left": null,
-    "switch_joycon_right": null
+    "switch_joycon_right": null,
+    "switch_pro": {
+      "title": "EmuDeck - Switch Pro",
+      "mappingId": "emudeck_controller_switch_pro.vdf",
+      "profileType": "template"
+    },
+    "neptune": {
+      "title": "EmuDeck - Steam Deck",
+      "mappingId": "emudeck_controller_steamdeck.vdf",
+      "profileType": "template"
+    }
   },
   "titleFromVariable": {
     "limitToGroups": "${PSV}",
@@ -91,6 +79,20 @@
     }
   },
   "parserId": "166409089761171238",
-  "version": 10,
-  "disabled": false
+  "version": 15,
+  "disabled": true,
+  "defaultImage": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  },
+  "localImages": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  }
 }

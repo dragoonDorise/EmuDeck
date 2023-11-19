@@ -2,18 +2,18 @@
 {
 	"version"		"3"
 	"revision"		"4"
-	"title"		"EmuDeck - Steam Deck ( Xbox Layout for Nintendo )"
+	"title"		"EmuDeck - Steam Deck Proton"
 	"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for DS and 3DS screen swap / Layout"
-	"url"		"template://emudeck_controller_steamdeck_nintendo.vdf"
+	"url"		"template://emudeck_controller_steamdeck.vdf"
 	"controller_type"		"controller_neptune"
-	"controller_caps"		"23117823"
+	"controller_caps"		"23117822"
 	"major_revision"		"0"
 	"minor_revision"		"0"
 	"localization"
 	{
 		"english"
 		{
-			"title"		"EmuDeck - Steam Deck ( Xbox Layout for Nintendo )"
+			"title"		"EmuDeck - Steam Deck Proton"
 			"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for DS and 3DS screen swap / Layout"
 		}
 	}
@@ -33,7 +33,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button B, , "
+							"binding"		"xinput_button A, , "
 						}
 					}
 				}
@@ -49,7 +49,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button A, , "
+							"binding"		"xinput_button B, , "
 						}
 					}
 				}
@@ -65,7 +65,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button Y, , "
+							"binding"		"xinput_button X, , "
 						}
 					}
 				}
@@ -81,7 +81,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button X, , "
+							"binding"		"xinput_button Y, , "
 						}
 					}
 				}
@@ -609,7 +609,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press Q, , "
+							"binding"		"key_press F4, , "
 						}
 						"settings"
 						{
@@ -637,7 +637,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, , "
+							"binding"		"key_press LEFT_ALT, , "
 						}
 					}
 				}
