@@ -1,36 +1,25 @@
 {
   "parserType": "Glob",
   "configTitle": "Nintendo GameCube - Dolphin",
+  "steamDirectory": "${steamdirglobal}",
   "steamCategory": "${Nintendo GameCube}",
+  "romDirectory": "${romsdirglobal}/gamecube",
   "executableArgs": "vblank_mode=0 %command% -b -e \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/gamecube",
-  "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
-  "imageProviders": ["SteamGridDB"],
   "titleModifier": "${fuzzyTitle}",
+  "fetchControllerTemplatesButton": null,
+  "removeControllersButton": null,
+  "imageProviders": ["SteamGridDB"],
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
-  "defaultImage": "",
-  "defaultTallImage": "",
-  "defaultHeroImage": "",
-  "defaultLogoImage": "",
-  "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
-  "localImages": "",
-  "localTallImages": "",
-  "localHeroImages": "",
-  "localLogoImages": "",
-  "localIcons": "",
-  "disabled": false,
+  "userAccounts": {
+    "specifiedAccounts": ""
+  },
   "executable": {
     "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/dolphin-emu.sh",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": false
-  },
-  "userAccounts": {
-    "specifiedAccounts": "",
-    "skipWithMissingDataDir": true,
-    "useCredentials": true
   },
   "parserInputs": {
     "glob": "**/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.nkit.gcz|.NKIT.GCZ|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.m3u|.M3U)"
@@ -46,17 +35,65 @@
     "removeCharacters": true,
     "removeBrackets": true
   },
-  "parserId": "164770728884890304",
-  "version": 10,
+  "controllers": {
+    "switch_pro": {
+      "title": "EmuDeck - Switch Pro",
+      "mappingId": "emudeck_controller_switch_pro.vdf",
+      "profileType": "template"
+    },
+    "neptune": {
+      "title": "EmuDeck - Steam Deck Proton",
+      "mappingId": "emudeck_controller_steamdeck_proton.vdf",
+      "profileType": "template"
+    },
+    "ps4": {
+      "title": "EmuDeck - Dual Shock 4",
+      "mappingId": "emudeck_controller_ps4.vdf",
+      "profileType": "template"
+    },
+    "ps5": {
+      "title": "EmuDeck - Dual Sense",
+      "mappingId": "emudeck_controller_ps5.vdf",
+      "profileType": "template"
+    },
+    "xbox360": {
+      "title": "EmuDeck - Xbox 360",
+      "mappingId": "emudeck_controller_xbox360.vdf",
+      "profileType": "template"
+    },
+    "xboxone": {
+      "title": "EmuDeck - Xbox One",
+      "mappingId": "emudeck_controller_xboxone.vdf",
+      "profileType": "template"
+    },
+    "switch_joycon_left": null,
+    "switch_joycon_right": null
+  },
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,
       "humor": false,
-      "imageMotionTypes": ["static"],
       "styles": [],
       "stylesHero": [],
       "stylesLogo": [],
-      "stylesIcon": []
+      "stylesIcon": [],
+      "imageMotionTypes": ["static"]
     }
-  }
+  },
+  "defaultImage": {
+    "tall": "",
+    "long": "",
+    "hero": "",
+    "logo": "",
+    "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+  },
+  "localImages": {
+    "tall": "",
+    "long": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  },
+  "parserId": "164770728884890304",
+  "version": 15
 }

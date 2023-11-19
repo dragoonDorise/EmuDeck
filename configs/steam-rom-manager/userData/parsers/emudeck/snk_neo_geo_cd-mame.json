@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "SNK Neo Geo CD - MAME (Standalone)",
+  "configTitle": "SNK Neo Geo CD - MAME",
   "steamCategory": "${SNK Neo Geo CD}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}",

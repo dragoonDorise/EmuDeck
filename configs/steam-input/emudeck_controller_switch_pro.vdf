@@ -1,15 +1,15 @@
 "controller_mappings"
 {
-	"version"		"3"	
+	"version"		"3"
 	"title"		"EmuDeck - Switch Pro"
-	"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for Citra screen swap / Layout"
+	"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for DS and 3DS screen swap / Layout"
 	"controller_type"		"controller_switch_pro"
 	"localization"
 		{
 			"english"
 			{
 				"title"		"EmuDeck - Switch Pro"
-				"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for Citra screen swap / Layout"
+				"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for DS and 3DS screen swap / Layout"
 			}
 		}
 		"group"
@@ -28,7 +28,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"xinput_button B, , "
+								"binding"		"xinput_button A, , "
 							}
 						}
 					}
@@ -44,7 +44,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"xinput_button A, , "
+								"binding"		"xinput_button B, , "
 							}
 						}
 					}
@@ -60,7 +60,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"xinput_button Y, , "
+								"binding"		"xinput_button X, , "
 							}
 						}
 					}
@@ -76,7 +76,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"xinput_button X, , "
+								"binding"		"xinput_button Y, , "
 							}
 						}
 					}
@@ -552,19 +552,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"key_press LEFT_ALT, , "
-							}
-							"settings"
-							{
-								"chord_button"		"15"
-								"interruptable"		"0"
-							}
-						}
-						"chord"
-						{
-							"bindings"
-							{
-								"binding"		"key_press F4, , "
+								"binding"		"key_press Q, , "
 							}
 							"settings"
 							{
@@ -586,6 +574,13 @@
 							"bindings"
 							{
 								"binding"		"xinput_button select, , "
+							}
+						}
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"key_press LEFT_CONTROL, , "
 							}
 						}
 					}
@@ -672,6 +667,22 @@
 							"bindings"
 							{
 								"binding"		"xinput_button x, , "
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+				"button_capture"
+				{
+					"activators"
+					{
+						"release"
+						{
+							"bindings"
+							{
+								"binding"		"controller_action system_key_1, , "
 							}
 						}
 					}

@@ -7,17 +7,17 @@ CreateStructureUSB(){
 	awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
 	zenity --progress --title "Creating Rom Structure on $destination" \
 	--text="Scanning..." --width=400 --percentage=0 --auto-close
-	
+
 	text="`printf " <b>Folders created</b>\n\nEject your USB Drive and go to your computer and copy your roms to the folders created on $destination/roms/ and your bios on $destination/bios/)"`"
 	 zenity --info \
 			 --title="EmuDeck" \
 			 --width="450" \
-			 --text="${text}" 2>/dev/null && echo "true"			 
+			 --text="${text}" 2>/dev/null && echo "true"
 }
 
 CopyGames(){
 	origin=$1
-	
+
 	neededSpace=$(du -s "$origin" | awk '{print $1}')
 	neededSpaceInHuman=$(du -sh "$origin" | awk '{print $1}')
 
@@ -80,7 +80,5 @@ CopyGames(){
 			 --title="EmuDeck" \
 			 --width="450" \
 			 --text="${text}" 2>/dev/null && echo "true"
-
->>>>>>> 869765d3 (hotfixes import + migrate tools)
 
 }

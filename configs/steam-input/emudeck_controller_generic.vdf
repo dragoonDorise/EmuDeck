@@ -1,15 +1,21 @@
 "controller_mappings"
 {
-	"version"		"3"	
-	"title"		"EmuDeck - Generic"
-	"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for Citra screen swap / Layout"
-	"controller_type"		"controller_generic"
+	"version"		"3"
+	"revision"		"4"
+	"title"		"EmuDeck - Generic controller"
+	"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for DS and 3DS screen swap / Layout"
+	"url"		"template://emudeck_controller_generic.vdf"
+	"controller_type"		"controller_neptune"
+	"controller_caps"		"23117823"
+	"major_revision"		"0"
+	"minor_revision"		"0"
+	"Timestamp"		"-1019292272"
 	"localization"
 		{
 			"english"
 			{
-				"title"		"EmuDeck - Generic"
-				"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for Citra screen swap / Layout"
+				"title"		"EmuDeck - Generic controller"
+				"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for DS and 3DS screen swap / Layout"
 			}
 		}
 		"group"
@@ -28,7 +34,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"xinput_button B, , "
+								"binding"		"xinput_button A, , "
 							}
 						}
 					}
@@ -44,7 +50,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"xinput_button A, , "
+								"binding"		"xinput_button B, , "
 							}
 						}
 					}
@@ -60,7 +66,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"xinput_button Y, , "
+								"binding"		"xinput_button X, , "
 							}
 						}
 					}
@@ -76,7 +82,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"xinput_button X, , "
+								"binding"		"xinput_button Y, , "
 							}
 						}
 					}
@@ -552,19 +558,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"key_press LEFT_ALT, , "
-							}
-							"settings"
-							{
-								"chord_button"		"15"
-								"interruptable"		"0"
-							}
-						}
-						"chord"
-						{
-							"bindings"
-							{
-								"binding"		"key_press F4, , "
+								"binding"		"key_press Q, , "
 							}
 							"settings"
 							{
@@ -586,6 +580,13 @@
 							"bindings"
 							{
 								"binding"		"xinput_button select, , "
+							}
+						}
+						"Full_Press"
+						{
+							"bindings"
+							{
+								"binding"		"key_press LEFT_CONTROL, , "
 							}
 						}
 					}
@@ -672,6 +673,22 @@
 							"bindings"
 							{
 								"binding"		"xinput_button x, , "
+							}
+						}
+					}
+					"disabled_activators"
+					{
+					}
+				}
+				"button_capture"
+				{
+					"activators"
+					{
+						"release"
+						{
+							"bindings"
+							{
+								"binding"		"controller_action system_key_1, , "
 							}
 						}
 					}

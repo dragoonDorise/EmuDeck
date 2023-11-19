@@ -9,6 +9,7 @@ appImageInit() {
 	ESDE_migration
 	SRM_createDesktopShortcut
 	ESDE_createDesktopShortcut
+	autofix_dynamicParsers
 
 	# Init functions
 	mkdir -p "$HOME/emudeck/logs"

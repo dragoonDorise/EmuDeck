@@ -390,24 +390,25 @@ fi
 
 
 #Sudo Required!
-if [ -n "$PASSWD" ]; then
-	pwstatus=0
-	echo "$PASSWD" | sudo -v -S &>/dev/null && pwstatus=1 || echo "sudo password was incorrect" #refresh sudo cache
-	if [ $pwstatus == 1 ]; then
-		if [ "$doInstallGyro" == "true" ]; then
-			Plugins_installSteamDeckGyroDSU
-		fi
-
-		if [ "$doInstallPowertools" == "true" ]; then
-			Plugins_installPluginLoader
-			Plugins_installPowerTools
-		fi
-	fi
-else
-	echo "no password supplied. Skipping gyro / powertools."
-fi
+# if [ -n "$PASSWD" ]; then
+# 	pwstatus=0
+# 	echo "$PASSWD" | sudo -v -S &>/dev/null && pwstatus=1 || echo "sudo password was incorrect" #refresh sudo cache
+# 	if [ $pwstatus == 1 ]; then
+# 		if [ "$doInstallGyro" == "true" ]; then
+# 			Plugins_installSteamDeckGyroDSU
+# 		fi
+#
+# 		if [ "$doInstallPowertools" == "true" ]; then
+# 			Plugins_installPluginLoader
+# 			Plugins_installPowerTools
+# 		fi
+# 	fi
+# else
+# 	echo "no password supplied. Skipping gyro / powertools."
+# fi
 
 #Always install
+Plugins_install
 BINUP_install
 CHD_install
 
@@ -456,6 +457,38 @@ fi
 ##Validations
 ##
 #
+
+#Decky Plugins
+if [ "$system" == "chimeraos" ]; then
+	defaultPass="gamer"
+else
+	defaultPass="Decky!"
+fi
+
+ if ( echo "$defaultPass" | sudo -S -k true ); then
+	echo "true"
+  else
+	  PASS=$(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
+	  if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
+		  exit 1
+	  fi
+	  if ( echo "$PASS" | sudo -S -k true ); then
+		  defaultPass=$PASS
+	  else
+		  zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
+	  fi
+	fi
+
+echo $defaultPass | sudo -v -S && {
+	Plugins_installEmuDecky $defaultPass
+	if [ "$system" == "chimeraos" ]; then
+		Plugins_installPowerControl $defaultPass
+	else
+		Plugins_installPowerTools $defaultPass
+	fi
+	Plugins_installSteamDeckGyroDSU $defaultPass
+	Plugins_installPluginLoader $defaultPass
+}
 
 
 
