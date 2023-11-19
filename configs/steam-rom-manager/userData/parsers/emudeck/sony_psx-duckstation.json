@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sony PlayStation - DuckStation (Standalone)",
+  "configTitle": "Sony PlayStation - DuckStation",
   "steamCategory": "${Sony PlayStation}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/psx",

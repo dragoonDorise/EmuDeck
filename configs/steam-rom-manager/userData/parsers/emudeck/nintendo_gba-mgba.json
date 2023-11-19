@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo Game Boy Advance - mGBA (Standalone)",
-  "steamCategory": "${Nintendo Game Boy Advance - mGBA (Standalone)}",
+  "configTitle": "Nintendo Game Boy Advance - mGBA",
+  "steamCategory": "${Nintendo Game Boy Advance - mGBA}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}",
   "steamDirectory": "${steamdirglobal}",
