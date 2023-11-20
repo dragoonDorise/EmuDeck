@@ -1,7 +1,7 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
 cloud_sync_downloadEmu "ryujinx" && cloud_sync_startService
-emuName="Ryujinx.sh" #parameterize me
+emuName="Ryujinx" #parameterize me
 emufolder="$HOME/Applications/publish" # has to be applications for ES-DE to find it
 
 #find full path to emu executable
