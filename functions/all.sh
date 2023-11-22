@@ -102,7 +102,7 @@ source "$EMUDECKGIT"/functions/cloudSyncHealth.sh
 # Darwin ovewrites
 
 if [ "$system" = "darwin" ]; then
-
+	source "$EMUDECKGIT/darwin/functions/all-darwin.sh"
     source "$EMUDECKGIT/darwin/functions/helperFunctions.sh"
     source "$EMUDECKGIT/darwin/functions/overrides.sh"
 
