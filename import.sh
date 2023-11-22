@@ -13,9 +13,9 @@ fi
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
 function checkSpace(){
-	origin=$1
+	checkSpaceOrigin=$1
 	destination=$2
-	neededSpace=$(du -s "$origin" | awk '{print $1}')
+	neededSpace=$(du -s "$checkSpaceOrigin" | awk '{print $1}')
 	neededSpaceInHuman=$(du -sh "origin" | awk '{print $1}')
 	#File Size on destination
 	freeSpace=$(df -k "$destination" --output=avail | tail -1)
