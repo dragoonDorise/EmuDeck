@@ -13,5 +13,6 @@ appImageInit() {
 
 	# Init functions
 	mkdir -p "$HOME/emudeck/logs"
+	mkdir -p "$HOME/emudeck/feeds"
 
 }

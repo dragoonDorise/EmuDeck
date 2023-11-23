@@ -112,7 +112,7 @@ source "$EMUDECKGIT/functions/all.sh"
 
 
 #after sourcing functins, check if path is empty.
-[[ -z "$emulationPath" ]] && { echo "emulationPath is Empty!"; setMSG "There's been an issue, please restart the app"; exit 1; }
+# [[ -z "$emulationPath" ]] && { echo "emulationPath is Empty!"; setMSG "There's been an issue, please restart the app"; exit 1; }
 
 
 
@@ -457,40 +457,40 @@ fi
 ##Validations
 ##
 #
-
-#Decky Plugins
-if [ "$system" == "chimeraos" ]; then
-	defaultPass="gamer"
-else
-	defaultPass="Decky!"
-fi
-
- if ( echo "$defaultPass" | sudo -S -k true ); then
-	echo "true"
-  else
-	  PASS=$(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
-	  if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
-		  exit 1
-	  fi
-	  if ( echo "$PASS" | sudo -S -k true ); then
-		  defaultPass=$PASS
-	  else
-		  zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
-	  fi
-	fi
-
-echo $defaultPass | sudo -v -S && {
-	Plugins_installEmuDecky $defaultPass
+if [ "system" != "darwin" ]; then
+	#Decky Plugins
 	if [ "$system" == "chimeraos" ]; then
-		Plugins_installPowerControl $defaultPass
+		defaultPass="gamer"
 	else
-		Plugins_installPowerTools $defaultPass
+		defaultPass="Decky!"
 	fi
-	Plugins_installSteamDeckGyroDSU $defaultPass
-	Plugins_installPluginLoader $defaultPass
-}
 
+ 	if ( echo "$defaultPass" | sudo -S -k true ); then
+		echo "true"
+  	else
+	  	PASS=$(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
+	  	if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
+		  	exit 1
+	  	fi
+	  	if ( echo "$PASS" | sudo -S -k true ); then
+		  	defaultPass=$PASS
+	  	else
+		  	zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
+	  	fi
+		fi
 
+	echo $defaultPass | sudo -v -S && {
+		Plugins_installEmuDecky $defaultPass
+		if [ "$system" == "chimeraos" ]; then
+			Plugins_installPowerControl $defaultPass
+		else
+			Plugins_installPowerTools $defaultPass
+		fi
+		Plugins_installSteamDeckGyroDSU $defaultPass
+		Plugins_installPluginLoader $defaultPass
+	}
+
+fi
 
 #EmuDeck updater on gaming Mode
 mkdir -p "${toolsPath}/updater"
