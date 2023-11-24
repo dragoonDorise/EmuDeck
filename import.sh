@@ -16,14 +16,14 @@ function customLocation(){
 	zenity --file-selection --directory --title="Select the root of the drive where you want to create your backup" 2>/dev/null
 }
 function checkSpace(){
-	origin=$1
-	destination=$2
-	neededSpace=$(du -s "$origin" | awk '{print $1}')
-	neededSpaceInHuman=$(du -sh "origin" | awk '{print $1}')
+	local origin=$1
+	local destination=$2
+	local neededSpace=$(du -s "$origin" | awk '{print $1}')
+	local neededSpaceInHuman=$(du -sh "$origin" | awk '{print $1}')
 	#File Size on destination
-	freeSpace=$(df -k "$destination" --output=avail | tail -1)
-	freeSpaceInHuman=$(df -kh "$destination" --output=avail | tail -1)
-	difference=$(($freeSpace - $neededSpace))
+	local freeSpace=$(df -k "$destination" --output=avail | tail -1)
+	local freeSpaceInHuman=$(df -kh "$destination" --output=avail | tail -1)
+	local difference=$(($freeSpace - $neededSpace))
 
 	if [[ $difference -lt 0 ]]; then
 		text="$(printf "Make sure you have enought space in $destination. You need to have at least $neededSpaceInHuman available")"
@@ -67,6 +67,7 @@ text="$(printf "Please select the drive where you have your <b>exported saves</b
 --text="${text}" 2>/dev/null
 
 origin=$(customLocation)
+
 if [ -d "$origin/EmuDeck/saves/" ]; then
 	echo "Continue..."
 else
@@ -76,8 +77,6 @@ else
 	 --width=250 \
 	 --ok-label="Try again" \
 	 --text="${text}"
-
-	 origin=$(customLocation)
 
 	 if [ -d "$origin/EmuDeck/saves/" ]; then
 		 echo "Continue..."
