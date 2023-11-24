@@ -14,14 +14,14 @@ function customLocation(){
 	zenity --file-selection --directory --title="Select the root of the drive with your backup" 2>/dev/null
 }
 function checkSpace(){
-	origin=$1
-	destination=$2
-	neededSpace=$(du -s "$emulationPath/saves" | awk '{print $1}')
-	neededSpaceInHuman=$(du -sh "$origin" | awk '{print $1}')
+	local origin=$1
+	local destination=$2
+	local neededSpace=$(du -s "$emulationPath/saves" | awk '{print $1}')
+	local neededSpaceInHuman=$(du -sh "$origin" | awk '{print $1}')
 	#File Size on destination
-	freeSpace=$(df -k "$destination" --output=avail | tail -1)
-	freeSpaceInHuman=$(df -kh "$destination" --output=avail | tail -1)
-	difference=$(($freeSpace - $neededSpace))
+	local freeSpace=$(df -k "$destination" --output=avail | tail -1)
+	local freeSpaceInHuman=$(df -kh "$destination" --output=avail | tail -1)
+	local difference=$(($freeSpace - $neededSpace))
 
 	if [[ $difference -lt 0 ]]; then
 		text="$(printf "Make sure you have enought space in $destination. You need to have at least $neededSpaceInHuman available")"
