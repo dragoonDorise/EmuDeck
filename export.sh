@@ -10,7 +10,9 @@ if [ ! -f "$HOME/.config/EmuDeck/backend/functions/all.sh" ]; then
  exit
 fi
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
-
+function customLocation(){
+	zenity --file-selection --directory --title="Select the root of the drive with your backup" 2>/dev/null
+}
 function checkSpace(){
 	origin=$1
 	destination=$2
@@ -56,7 +58,7 @@ else
 	exit
 fi
 
-text="$(printf "Please pick where do you want to <b>export your saves</b>")"
+text="$(printf "Please pick the drive to export your saves.\n<b>Pick the root of the device, don't pick any subdirectory</b>")"
  zenity --info \
 --title="EmuDeck Export tool" \
 --width="${width}" \
@@ -82,7 +84,7 @@ if [ "$size" -gt 4096 ]; then
 		zenity --question \
 			--title="EmuDeck Export tool" \
 			--width=450 \
-			--cancel-label="Exit" \
+			--cancel-label="No" \
 			--ok-label="Export my storage" \
 			--text="${text}" 2>/dev/null
 		ans=$?
@@ -98,7 +100,7 @@ if [ "$size" -gt 4096 ]; then
 			done
 
 		else
-			exit
+			echo "no storage"
 		fi
 
 	fi

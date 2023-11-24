@@ -1,6 +1,7 @@
 #!/bin/bash
 clear
 if [ ! -f "$HOME/.config/EmuDeck/backend/functions/all.sh" ]; then
+
  text="$(printf "<b>EmuDeck installation not found</b>\nPlease Install EmuDeck before using this tool")"
  zenity --error \
 	 --title="EmuDeck Import tool" \
@@ -11,7 +12,9 @@ if [ ! -f "$HOME/.config/EmuDeck/backend/functions/all.sh" ]; then
 fi
 
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
-
+function customLocation(){
+	zenity --file-selection --directory --title="Select the root of the drive where you want to create your backup" 2>/dev/null
+}
 function checkSpace(){
 	origin=$1
 	destination=$2
@@ -85,6 +88,7 @@ else
 		  --width=250 \
 		  --ok-label="Bye" \
 		  --text="${text}"
+		  exit
 	 fi
 fi
 
