@@ -1,6 +1,7 @@
 #!/bin/bash
 clear
 if [ ! -f "$HOME/.config/EmuDeck/backend/functions/all.sh" ]; then
+
  text="$(printf "<b>EmuDeck installation not found</b>\nPlease Install EmuDeck before using this tool")"
  zenity --error \
 	 --title="EmuDeck Import tool" \
