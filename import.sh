@@ -67,6 +67,7 @@ text="$(printf "Please select the drive where you have your <b>exported saves</b
 --text="${text}" 2>/dev/null
 
 origin=$(customLocation)
+
 if [ -d "$origin/EmuDeck/saves/" ]; then
 	echo "Continue..."
 else
