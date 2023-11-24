@@ -10,15 +10,18 @@ if [ ! -f "$HOME/.config/EmuDeck/backend/functions/all.sh" ]; then
  exit
 fi
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
-
+function customLocation(){
+	zenity --file-selection --directory --title="Select the root of the drive with your backup" 2>/dev/null
+}
 function checkSpace(){
-	destination=$1
-	neededSpace=$(du -s "$emulationPath/saves" | awk '{print $1}')
-	neededSpaceInHuman=$(du -sh "$emulationPath/saves" | awk '{print $1}')
+	local origin=$1
+	local destination=$2
+	local neededSpace=$(du -s "$emulationPath/saves" | awk '{print $1}')
+	local neededSpaceInHuman=$(du -sh "$origin" | awk '{print $1}')
 	#File Size on destination
-	freeSpace=$(df -k "$destination" --output=avail | tail -1)
-	freeSpaceInHuman=$(df -kh "$destination" --output=avail | tail -1)
-	difference=$(($freeSpace - $neededSpace))
+	local freeSpace=$(df -k "$destination" --output=avail | tail -1)
+	local freeSpaceInHuman=$(df -kh "$destination" --output=avail | tail -1)
+	local difference=$(($freeSpace - $neededSpace))
 
 	if [[ $difference -lt 0 ]]; then
 		text="$(printf "Make sure you have enought space in $destination. You need to have at least $neededSpaceInHuman available")"
@@ -55,14 +58,14 @@ else
 	exit
 fi
 
-text="$(printf "Please pick where do you want to <b>export your saves</b>")"
+text="$(printf "Please pick the drive to export your saves.\n<b>Pick the root of the device, don't pick any subdirectory</b>")"
  zenity --info \
 --title="EmuDeck Export tool" \
 --width="${width}" \
 --text="${text}" 2>/dev/null
 
 destination=$(customLocation)
-checkSpace "$destination"
+checkSpace "$emulationPath/saves/" "$destination"
 
 mkdir -p "$destination/EmuDeck/saves"
 
@@ -72,26 +75,22 @@ do
 done
 
 
-size=0
-for entry in "$emulationPath/saves/"*
-do
-	size=$((size + $(du -sb "$entry" | cut -f1)))
-done
 
-
+size=0;
+size=$((size + $(du -sb "$destination/EmuDeck/saves/" | cut -f1)))
 if [ "$size" -gt 4096 ]; then
-	if [ -d "$HOME/Emulation/storage" ]; then
+	if [ -d "$emulationPath/storage" ]; then
 		text="$(printf "<b>Storage folder found in your internal Drive!</b>\nLet's export that one too")"
 		zenity --question \
 			--title="EmuDeck Export tool" \
 			--width=450 \
-			--cancel-label="Exit" \
+			--cancel-label="No" \
 			--ok-label="Export my storage" \
 			--text="${text}" 2>/dev/null
 		ans=$?
 		if [ $ans -eq 0 ]; then
 
-			checkSpace "$destination"
+			checkSpace "$emulationPath/storage/" "$destination"
 
 			mkdir -p "$destination/EmuDeck/storage"
 
@@ -101,9 +100,59 @@ if [ "$size" -gt 4096 ]; then
 			done
 
 		else
-			exit
+			echo "no storage"
 		fi
 
+	fi
+
+	if [ -d "$emulationPath/bios" ]; then
+		text="$(printf "Do you want to export all your bios?")"
+		zenity --question \
+			--title="EmuDeck Export tool" \
+			--width=450 \
+			--cancel-label="No" \
+			--ok-label="Export my bios" \
+			--text="${text}" 2>/dev/null
+		ans=$?
+		if [ $ans -eq 0 ]; then
+
+			checkSpace "$emulationPath/bios/" "$destination"
+
+			mkdir -p "$destination/EmuDeck/bios"
+
+			for entry in "$emulationPath/bios/"*
+			do
+				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/bios/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/bios/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+			done
+
+		else
+			echo "no bios"
+		fi
+	fi
+
+	if [ -d "$emulationPath/bios" ]; then
+		text="$(printf "Do you want to export all your roms?")"
+		zenity --question \
+			--title="EmuDeck Export tool" \
+			--width=450 \
+			--cancel-label="No" \
+			--ok-label="Export my roms" \
+			--text="${text}" 2>/dev/null
+		ans=$?
+		if [ $ans -eq 0 ]; then
+
+			checkSpace "$emulationPath/roms/" "$destination"
+
+			mkdir -p "$destination/EmuDeck/roms"
+
+			for entry in "$emulationPath/roms/"*
+			do
+				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/roms/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/roms/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+			done
+
+		else
+			echo "no roms"
+		fi
 	fi
 
 	text="$(printf "<b>Success!</b>\nNow it's time to:\n1 Install EmuDeck in your new Deck. \n2 Use the Import Tool in your new Deck. \n3 That's all :)")"
