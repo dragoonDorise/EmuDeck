@@ -259,7 +259,7 @@ cloud_sync_upload(){
 
     if [ "$emuName" = "all" ]; then
         cloud_sync_save_hash $savesPath
-        ("$cloud_sync_bin" copy --fast-list --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$savesPath" "$cloud_sync_provider":Emudeck/saves/ && (
+        ("$cloud_sync_bin" copy --fast-list --update --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$savesPath" "$cloud_sync_provider":Emudeck/saves/ && (
           local baseFolder="$savesPath/"
            for folder in $baseFolder*/
             do
@@ -271,7 +271,7 @@ cloud_sync_upload(){
         ))
     else
         cloud_sync_save_hash "$savesPath/$emuName"
-        ("$cloud_sync_bin" copy --fast-list --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$savesPath/$emuName" "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload)
+        ("$cloud_sync_bin" copy --fast-list --update --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$savesPath/$emuName" "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload)
     fi
     cloud_sync_unlock
   fi
@@ -299,7 +299,7 @@ cloud_sync_download(){
 
         if [ -f "$savesPath/.hash" ] && [ "$hash" != "$hashCloud" ]; then
 
-             "$cloud_sync_bin" copy --fast-list --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/ "$savesPath" && (
+             "$cloud_sync_bin" copy --fast-list --update --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/ "$savesPath" && (
                 local baseFolder="$savesPath/"
                  for folder in $baseFolder*/
                   do
@@ -326,7 +326,7 @@ cloud_sync_download(){
         hashCloud=$(cat "$savesPath/$emuName/.hash")
 
         if [ -f "$savesPath/$emuName/.hash" ] && [ "$hash" != "$hashCloud" ];then
-            "$cloud_sync_bin" copy --fast-list --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
+            "$cloud_sync_bin" copy --fast-list --update --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
         else
           echo "up to date"
         fi
