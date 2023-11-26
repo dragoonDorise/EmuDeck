@@ -1,0 +1,20 @@
+System name:
+flash
+
+Full system name:
+Adobe Flash
+
+Supported file extensions:
+.swf .SWF
+
+Launch command:
+%EMULATOR_RUFFLE% --fullscreen %ROM%
+
+Alternative launch command:
+%EMULATOR_LIGHTSPARK% %ROM%
+
+Platform (for scraping):
+flash
+
+Theme folder:
+flash

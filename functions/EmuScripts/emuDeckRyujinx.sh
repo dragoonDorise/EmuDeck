@@ -4,6 +4,7 @@
 Ryujinx_emuName="Ryujinx"
 Ryujinx_emuType="Binary"
 Ryujinx_emuPath="$HOME/Applications/publish"
+Ryujinx_configFile="$HOME/.config/Ryujinx/Config.json"
 
 #cleanupOlderThings
 Ryujinx_cleanup(){
@@ -13,10 +14,13 @@ Ryujinx_cleanup(){
 #Install
 Ryujinx_install(){
     echo "Begin Ryujinx Install"
-    installEmuBI "Ryujinx"  "$(getReleaseURLGH "Ryujinx/release-channel-master" "-linux_x64.tar.gz")" "Ryujinx" "tar.gz"
-    tar -xvf "$HOME/Applications/Ryujinx.tar.gz" -C "$HOME/Applications/"
-    chmod +x "$HOME/Applications/publish/Ryujinx"
-    rm -rf "$HOME/Applications/Ryujinx.tar.gz"
+    local showProgress=$1
+    if installEmuBI "$Ryujinx_emuName" "$(getReleaseURLGH "Ryujinx/release-channel-master" "-linux_x64.tar.gz")" "" "tar.gz" "$showProgress"; then
+        tar -xvf "$HOME/Applications/Ryujinx.tar.gz" -C "$HOME/Applications/" && rm -rf "$HOME/Applications/Ryujinx.tar.gz"
+        chmod +x "$HOME/Applications/publish/Ryujinx"
+    else
+        return 1
+    fi
 }
 
 #ApplyInitialSettings
@@ -24,27 +28,24 @@ Ryujinx_init(){
     echo "Begin Ryujinx Init"
 
     configEmuAI "Ryujinx" "config" "$HOME/.config/Ryujinx" "$EMUDECKGIT/configs/Ryujinx" "true"
-    
+
     Ryujinx_setEmulationFolder
     Ryujinx_setupStorage
     Ryujinx_setupSaves
     Ryujinx_finalize
-
 }
 
 #update
 Ryujinx_update(){
     echo "Begin Ryujinx update"
-    
+
     configEmuAI "yuzu" "config" "$HOME/.config/Ryujinx" "$EMUDECKGIT/configs/Ryujinx"
-    
+
     Ryujinx_setEmulationFolder
     Ryujinx_setupStorage
     Ryujinx_setupSaves
     Ryujinx_finalize
 }
-
-
 
 #ConfigurePaths
 Ryujinx_setEmulationFolder(){
@@ -64,8 +65,7 @@ Ryujinx_setEmulationFolder(){
 #     newNandDirOpt='nand_directory='"${storagePath}/yuzu/nand"
 #     newSdmcDirOpt='sdmc_directory='"${storagePath}/yuzu/sdmc"
 #     newTasDirOpt='tas_directory='"${storagePath}/yuzu/tas"
-# 
-# 
+#
 #     sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" "$configFile"
 #     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
 #     sed -i "/${dumpDirOpt}/c\\${newDumpDirOpt}" "$configFile"
@@ -75,43 +75,45 @@ Ryujinx_setEmulationFolder(){
 #     sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "$configFile"
 
     #Setup Bios symlinks
-    unlink "${biosPath}/ryujinx/keys"    
+    unlink "${biosPath}/ryujinx/keys"
     mkdir -p "$HOME/.config/Ryujinx/system/"
     mkdir -p "${biosPath}/ryujinx/"
+    unlink "$HOME/.config/Ryujinx/system"
     ln -sn "$HOME/.config/Ryujinx/system" "${biosPath}/ryujinx/keys"
 
-
     sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/Ryujinx/Config.json"
-
-
-
 }
 
 #SetupSaves
 Ryujinx_setupSaves(){
-    echo "Begin Ryujinx save link" 
-    linkToSaveFolder ryujinx saves "$HOME/.config/Ryujinx/bis/user/" 
-}
+    echo "Begin Ryujinx save link"
 
+    if [ -d "${emulationPath}/saves/ryujinx/saves" ]; then
+        rm -rf "${emulationPath}/saves/ryujinx/saves"
+        rm -rf "${emulationPath}/saves/ryujinx/saveMeta"
+    fi
+
+    ln -sn "$HOME/.config/Ryujinx/bis/user/save" "${emulationPath}/saves/ryujinx/saves"
+    ln -sn "$HOME/.config/Ryujinx/bis/user/saveMeta" "${emulationPath}/saves/ryujinx/saveMeta"
+
+}
 
 #SetupStorage
 Ryujinx_setupStorage(){
     echo "Begin Ryujinx storage config"
-    
-    origPath="$HOME/.config/"
-    mkdir -p "${storagePath}/ryujinx/"
-    rsync -av "${origPath}/Ryujinx/games/" "${storagePath}/ryujinx/games/" && rm -rf "${origPath}Ryujinx/games"
-    ln -ns "${storagePath}/ryujinx/games/" "${origPath}/Ryujinx/games" 
-        
-}
 
+    local origPath="$HOME/.config/"
+    mkdir -p "${storagePath}/ryujinx/patchesAndDlc"
+    rsync -av "${origPath}/Ryujinx/games/" "${storagePath}/ryujinx/games/" && rm -rf "${origPath}Ryujinx/games"
+    unlink "${origPath}/Ryujinx/games"
+    ln -ns "${storagePath}/ryujinx/games/" "${origPath}/Ryujinx/games"
+}
 
 #WipeSettings
 Ryujinx_wipe(){
     echo "Begin Ryujinx delete config directories"
     rm -rf "$HOME/.config/Ryujinx"
 }
-
 
 #Uninstall
 Ryujinx_uninstall(){
@@ -123,23 +125,22 @@ Ryujinx_uninstall(){
 Ryujinx_migrate(){
     echo "Begin Ryujinx Migration"
     emu="Ryujinx"
-#     migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
+#     migrationFlag="$HOME/.config/EmuDeck/.${emu}MigrationCompleted"
 #     #check if we have a nomigrateflag for $emu
-#     if [ ! -f "$migrationFlag" ]; then	
+#     if [ ! -f "$migrationFlag" ]; then
 #         #yuzu flatpak to appimage
 #         #From -- > to
 #         migrationTable=()
 #         migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu" "$HOME/.local/share/yuzu")
 #         migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
-# 
+#
 #         migrateAndLinkConfig "$emu" "$migrationTable"
 #     fi
 
     #move data from hidden folders out to these folders in case the user already put stuff here.
-    origPath="$HOME/.config"
+    local origPath="$HOME/.config"
 
     Ryujinx_setupStorage
-    
     rsync -av "${origPath}/Ryujinx/games" "${storagePath}/ryujinx/games" && rm -rf "${origPath}/Ryujinx/games"
     ln -s "${storagePath}/ryujinx/games" "${origPath}/ryujinx/games"  #may want to unlink this before hand?
 }
@@ -151,10 +152,8 @@ Ryujinx_convertFromYuzu(){
         folder=${entry##*/}
         mkdir -p "$HOME/.config/Ryujinx/bis/system/Contents/registered/$folder/"
         cp "$entry" "$HOME/.config/Ryujinx/bis/system/Contents/registered/$folder/00"
-        
     done
 }
-
 
 #setABXYstyle
 Ryujinx_setABXYstyle(){
@@ -184,4 +183,33 @@ echo "NYI"
 #finalExec - Extra stuff
 Ryujinx_finalize(){
     echo "Begin Ryujinx finalize"
+}
+
+Ryujinx_IsInstalled(){
+    if [ -e "$Ryujinx_emuPath/Ryujinx" ]; then
+        echo "true"
+    else
+        echo "false"
+    fi
+}
+
+Ryujinx_resetConfig(){
+    Ryujinx_init &>/dev/null && echo "true" || echo "false"
+}
+
+Ryujinx_setResolution(){
+
+	case $ryujinxResolution in
+		"720P") multiplier=2; docked="false";;
+		"1080P") multiplier=2; docked="true";;
+		"1440P") multiplier=3; docked="false";;
+		"4K") multiplier=3; docked="true";;
+		*) echo "Error"; exit 1;;
+	esac
+
+	jq --arg docked "$docked" --arg multiplier "$multiplier" \
+	  '.docked_mode = $docked | .res_scale = $multiplier' "$Ryujinx_configFile" > tmp.json
+
+	mv tmp.json "$Ryujinx_configFile"
+
 }

@@ -11,7 +11,7 @@ migrationTable=$2
 #        unlink $path
 #    fi
 #done
-migrationFlag="$HOME/emudeck/.${emu}MigrationCompleted"
+migrationFlag="$HOME/.config/EmuDeck/.${emu}MigrationCompleted"
 
 #check if we have a nomigrateflag for $emu
 if [ ! -f "$migrationFlag" ]; then
@@ -20,7 +20,7 @@ if [ ! -f "$migrationFlag" ]; then
     # \nThe AppImage version should perform better than the one you already have\nNew directories for this emulator will be made, and config changes will point to these new folders regardless of this choice.\
     # \nYou should allow this migration if you want to move your flatpak data and config to it's new home. \
     # \nIf you would like to move your files manually, you may decline.
-    # \nDon't forget to run Steam Rom Manager to update your games for ${emu}"`"
+    # \nDon't forget to run Steam ROM Manager to update your games for ${emu}"`"
     # doMigrate=$(zenity --info --title "Migrate "${emu}" Data?" \
     #     --text="${text}" \
     #     --width=300 \
@@ -45,7 +45,7 @@ if [ ! -f "$migrationFlag" ]; then
         elif [[ -d ${migrationTable[0]} && -d ${migrationTable[1]} ]]; then
             #both locations exist
             #ask user which to keep
-            text="`printf "Data was found for both the appimage and flatpak for ${emu}.\nWe will be using the AppImage from now on.\nPlease choose which data to keep.\nThe AppImage version should perform better than the one you already have\nDo not forget to run Steam Rom Manager to update your games for ${emu}"`"
+            text="`printf "Data was found for both the appimage and flatpak for ${emu}.\nWe will be using the AppImage from now on.\nPlease choose which data to keep.\nThe AppImage version should perform better than the one you already have\nDo not forget to run Steam ROM Manager to update your games for ${emu}"`"
             ans=$(zenity --info --title "Migrate "${emu}" Data?" \
             --text="${text}" \
             --width=300 \

@@ -1,0 +1,18 @@
+{
+  "system": "nes",
+  "status": "true",
+  "logo": "logo_nes",
+  "title": "Lawn Mower",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/nes/Lawn_Mower.zip",
+  "description": "You control a lawn mower, with a goal of cutting ten lawns. The speed of the mower can be controlled by pressing a button. If you run out of fuel, the game is over.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/screenshots/homebrew/Lawn_Mower.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/titlescreens/homebrew/Lawn_Mower.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

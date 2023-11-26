@@ -1,0 +1,18 @@
+{
+  "system": "nes",
+  "status": "true",
+  "logo": "logo_nes",
+  "title": "Abbaye des Morts",
+  "url": "https://playonretro.itch.io/labbaye-des-morts-megadrivegenesis-por-002",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/nes/Abbaye des Morts.zip",
+  "description": "A demanding game where you will have to control Jean Reymond, a  Cathar monk , to escape to a fatal fate at the hands of the Crusade knights who want to hunt him.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/screenshots/homebrew/Abbaye des Morts.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/titlescreens/homebrew/Abbaye des Morts.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

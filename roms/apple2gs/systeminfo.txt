@@ -1,0 +1,17 @@
+System name:
+apple2gs
+
+Full system name:
+Apple IIGS
+
+Supported file extensions:
+.2mg .2MG
+
+Launch command:
+%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %ROMPATH%/apple2gs apple2gs -flop3 %ROM%
+
+Platform (for scraping):
+apple2gs
+
+Theme folder:
+apple2gs

@@ -1,0 +1,18 @@
+{
+  "system": "genesis",
+  "status": "true",
+  "logo": "logo_genesis",
+  "title": "Old Towers",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/genesis/oldtowers.zip",
+  "description": "In Old Towers you play as a little explorer in towers full of deadly traps and ugly skulls. Your only weapons are quick-thinking and skill. Old Towers is inspired by Tomb Of The Mask from Playgendary.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/screenshots/homebrew/oldtowers.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/titlescreens/homebrew/oldtowers.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

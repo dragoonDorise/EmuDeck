@@ -1,0 +1,18 @@
+{
+  "system": "gb",
+  "status": "true",
+  "logo": "logo_gb",
+  "title": "Fire Track",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/gamegear/Fire Track.zip",
+  "description": "A conversion of the BBC Micro game Fire Track for the Sega Game Gear. Firetrack is a vertically-scrolling shooter programmed by Nick Pelling and released for the BBC Micro and Commodore 64 platforms in 1987 by Electric Dreams Software.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gamegear/screenshots/homebrew/Fire Track.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gamegear/titlescreens/homebrew/Fire Track.png?raw=true"
+    ]
+  },
+  "tags": ["action"]
+}

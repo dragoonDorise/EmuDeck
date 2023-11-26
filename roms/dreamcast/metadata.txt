@@ -1,0 +1,4 @@
+collection: Sega Dreamcast
+shortname: dreamcast
+extensions: chd, CHD, cdi, CDI, iso, ISO, elf, ELF, cue, CUE, gdi, GDI, lst, LST, dat, DAT, m3u, M3U, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/flycast_libretro.so {file.path}

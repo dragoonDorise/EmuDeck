@@ -1,1 +1,1 @@
-#reference /app/share/libretro/shaders/shaders_glsl/handheld/lcd3x.glslp
+#reference "/app/share/libretro/shaders/shaders_slang/handheld/zfast-lcd.slangp"

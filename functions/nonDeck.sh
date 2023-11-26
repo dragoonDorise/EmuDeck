@@ -5,7 +5,7 @@ nonDeck_169Screen(){
 	#Redo this using livedeth fancy functions for RA
 	#RetroArch_setOverride 'wswanc.cfg' 'Beetle Cygne'  'aspect_ratio_index' '"21"'
 	
-	setMSG "Applying RetroArch bezel corrections for 16:9 screens..."		
+	setMSG "Applying RetroArch bezel corrections for 16:9 screens"		
 	#RApath=~/.var/app/org.libretro.RetroArch/config/retroarch/config/	
 	
 	#Mesen

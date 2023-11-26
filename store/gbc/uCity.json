@@ -1,0 +1,18 @@
+{
+  "system": "gbc",
+  "status": "true",
+  "logo": "logo_gbc",
+  "title": "uCity",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/gbc/ucity.zip",
+  "description": "µCity (also spelled 'uCity', pronounced 'micro-city'), the open-source city-building game for Game Boy Color. The aim of the game is to build a city. Simple enough.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gbc/screenshots/homebrew/ucity.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gbc/titlescreens/homebrew/ucity.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

@@ -1,0 +1,18 @@
+{
+  "system": "gbc",
+  "status": "true",
+  "logo": "logo_gbc",
+  "title": "Last Crown Warriors ( Demo )",
+  "url": "https://imanolea.itch.io/last-crown-warriors-demo",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/gbc/Last CrownWarriors.zip",
+  "description": "Action/strategy game for the Nintendo Game Boy. Take on waves of enemies as you try to conquer all of the bases within each stage. Each warrior has his own custom weapon, and each stage its own enemies.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gbc/screenshots/homebrew/Last Crown Warriors.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gbc/titlescreens/homebrew/Last Crown Warriors.png?raw=true"
+    ]
+  },
+  "tags": ["action", "rpg"]
+}

@@ -1,0 +1,17 @@
+System name:
+multivision
+
+Full system name:
+Othello Multivision
+
+Supported file extensions:
+.bin .BIN .gg .GG .rom .ROM .sg .SG .sms .SMS .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/gearsystem_libretro.so %ROM%
+
+Platform (for scraping):
+sg-1000
+
+Theme folder:
+multivision

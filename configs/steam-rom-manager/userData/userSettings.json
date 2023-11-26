@@ -1,31 +1,30 @@
 {
-	"fuzzyMatcher": {
-		"timestamps": {
-			"check": 1659355215955,
-			"download": 1659355215955
-		},
-		"verbose": false,
-		"filterProviders": true
-	},
-	"environmentVariables": {
-		"steamDirectory": "",
-		"romsDirectory": "",
-		"retroarchPath": "",
-		"raCoresDirectory": "",
-		"localImagesDirectory": ""
-	},
-	"previewSettings": {
-		"retrieveCurrentSteamImages": true,
-		"deleteDisabledShortcuts": false,
-		"imageZoomPercentage": 40,
-		"preload": false
-	},
-	"enabledProviders": [
-		"SteamGridDB"
-	],
-	"language": "English",
-	"offlineMode": false,
-	"navigationWidth": 765,
-	"clearLogOnTest": false,
-	"version": 3
+  "fuzzyMatcher": {
+    "timestamps": {
+      "check": 1670675634278,
+      "download": 1670675634278
+    },
+    "verbose": false,
+    "filterProviders": true
+  },
+  "environmentVariables": {
+    "steamDirectory": "/home/deck/.steam/steam",
+    "romsDirectory": "/run/media/mmcblk0p1/Emulation/roms",
+    "retroarchPath": "/run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh",
+    "raCoresDirectory": "",
+    "localImagesDirectory": ""
+  },
+  "previewSettings": {
+    "retrieveCurrentSteamImages": true,
+    "deleteDisabledShortcuts": false,
+    "imageZoomPercentage": 40,
+    "preload": false
+  },
+  "enabledProviders": ["SteamGridDB"],
+  "language": "en-US",
+  "offlineMode": false,
+  "navigationWidth": 256,
+  "clearLogOnTest": false,
+  "version": 5,
+  "theme": "EmuDeck"
 }

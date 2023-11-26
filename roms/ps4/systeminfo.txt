@@ -1,0 +1,17 @@
+System name:
+ps4
+
+Full system name:
+Sony PlayStation 4
+
+Supported file extensions:
+.7z .7Z .zip .ZIP
+
+Launch command:
+PLACEHOLDER %ROM%
+
+Platform (for scraping):
+ps4
+
+Theme folder:
+ps4

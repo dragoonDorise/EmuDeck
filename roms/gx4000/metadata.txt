@@ -1,0 +1,7 @@
+collection: Amstrad GX4000
+shortname: gx4000
+extensions: cdt, CDT, cpr, CPR, dsk, DSK, kcr, KCR, m3u, M3U, sna, SNA, tap, TAR, voc, VOC, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/cap32_libretro.so {file.path}
+
+
+

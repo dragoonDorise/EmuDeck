@@ -1,5 +1,5 @@
 {
-  "version": 40,
+  "version": 42,
   "enable_file_log": true,
   "backend_threading": "Auto",
   "res_scale": 1,
@@ -29,6 +29,7 @@
   "enable_vsync": true,
   "enable_shader_cache": true,
   "enable_texture_recompression": false,
+  "enable_macro_hle": true,
   "enable_ptc": true,
   "enable_internet_access": false,
   "enable_fs_integrity_checks": true,
@@ -77,7 +78,9 @@
     "pause": "F5",
     "toggle_mute": "F2",
     "res_scale_up": "Unbound",
-    "res_scale_down": "Unbound"
+    "res_scale_down": "Unbound",
+    "volume_up": "Unbound",
+    "volume_down": "Unbound"
   },
   "keyboard_config": [],
   "controller_config": [],
@@ -103,10 +106,15 @@
       "range_right": 1,
       "trigger_threshold": 0,
       "motion": {
-        "motion_backend": "GamepadDriver",
+        "slot": 0,
+        "alt_slot": 0,
+        "mirror_input": false,
+        "dsu_server_host": "127.0.0.1",
+        "dsu_server_port": 26760,
+        "motion_backend": "CemuHook",
         "sensitivity": 100,
         "gyro_deadzone": 1,
-        "enable_motion": false
+        "enable_motion": true
       },
       "rumble": {
         "strong_rumble": 1,
@@ -137,8 +145,8 @@
       },
       "version": 1,
       "backend": "GamepadSDL2",
-      "id": "0-00000003-28de-0000-ff11-000001000000",
-      "controller_type": "ProController",
+      "id": "0-f6790003-28de-0000-ff11-000001000000",
+      "controller_type": "JoyconPair",
       "player_index": "Player1"
     }
   ],

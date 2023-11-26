@@ -1,0 +1,20 @@
+System name:
+macintosh
+
+Full system name:
+Apple Macintosh
+
+Supported file extensions:
+.game .GAME
+
+Launch command:
+%EMULATOR_BASILISKII% --nogui true
+
+Alternative launch command:
+%EMULATOR_SHEEPSHAVER% --nogui true
+
+Platform (for scraping):
+macintosh
+
+Theme folder:
+macintosh

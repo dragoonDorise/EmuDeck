@@ -1,0 +1,18 @@
+{
+  "system": "mastersystem",
+  "status": "true",
+  "logo": "logo_mastersystem",
+  "title": "BruceLee",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/mastersystem/BruceLee.zip",
+  "description": "You’re Bruce Lee, the undisputed master of martial arts. In a mysterious  and perilous fortress you seek to claim infinite wealth and the secret of immortality from the wizard who dwells within.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/mastersystem/screenshots/homebrew/BruceLee.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/mastersystem/titlescreens/homebrew/BruceLee.png?raw=true"
+    ]
+  },
+  "tags": ["action", "platform"]
+}

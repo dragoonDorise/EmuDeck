@@ -19,6 +19,8 @@
 			<deadzone>0.25</deadzone>
 			<range>1</range>
 		</trigger>
+		<ip>127.0.0.1</ip>
+		<port>26760</port>
 		<mappings />
 	</controller>
 	<controller>
@@ -134,6 +136,10 @@
 			<entry>
 				<mapping>24</mapping>
 				<button>40</button>
+			</entry>
+			<entry>
+				<mapping>25</mapping>
+				<button>7</button>
 			</entry>
 		</mappings>
 	</controller>
