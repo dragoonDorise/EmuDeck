@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Philips CD-i - MAME (Standalone)",
-  "steamCategory": "${Philips CD-i - MAME (Standalone)}",
+  "configTitle": "Philips CD-i - MAME",
+  "steamCategory": "${Philips CD-i - MAME}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/cdimono1",
   "executableArgs": "cdimono1 -cdrom \"${filePath}\"",

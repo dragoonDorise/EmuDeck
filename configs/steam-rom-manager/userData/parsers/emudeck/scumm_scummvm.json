@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "ScummVM - ScummVM (Standalone)",
+  "configTitle": "ScummVM - ScummVM",
   "steamCategory": "${ScummVM}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/scummvm",
