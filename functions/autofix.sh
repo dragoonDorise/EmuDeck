@@ -18,6 +18,21 @@ autofix_duplicateESDE(){
 	fi
 }
 
+function autofix_dynamicParsers(){
+
+	if ! [ -n "$emuMULTI" ]; then
+		zenityInfo "SRM Parsers issue detected" "We've detected issues with the Dynamic Parsers, if you were missing some parsers this action will fix it. If you are still facing SRM issues do a Custom Reset"
+
+		setSetting emuMULTI "ra"
+		setSetting emuGBA "multiemulator"
+		setSetting emuMAME "multiemulator"
+		setSetting emuN64 "multiemulator"
+		setSetting emuNDS "melonDS"
+		setSetting emuPSP "ppsspp"
+		setSetting emuPSX "duckstation"
+	fi
+}
+
 autofix_lnk(){
 	found_files="false"
 	find "$savesPath" -type f -name "*.lnk" | while read -r entry

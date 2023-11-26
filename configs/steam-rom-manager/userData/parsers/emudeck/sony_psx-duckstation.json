@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sony PlayStation - DuckStation (Standalone)",
+  "configTitle": "Sony PlayStation - DuckStation",
   "steamCategory": "${Sony PlayStation}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/psx",
@@ -11,21 +11,9 @@
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
-  "defaultImage": "",
-  "defaultTallImage": "",
-  "defaultHeroImage": "",
-  "defaultLogoImage": "",
-  "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
-  "localImages": "",
-  "localTallImages": "",
-  "localHeroImages": "",
-  "localLogoImages": "",
-  "localIcons": "",
-  "disabled": false,
+  "disabled": true,
   "userAccounts": {
-    "specifiedAccounts": "",
-    "skipWithMissingDataDir": true,
-    "useCredentials": true
+    "specifiedAccounts": ""
   },
   "parserInputs": {
     "glob": "**/${title}@(.cue|.CUE|.img|.IMG|.chd|.CHD|.ecm|.ECM|.iso|.ISO|.m3u|.M3U|.mds|.MDS|.pbp|.PBP)"
@@ -47,18 +35,38 @@
     "appendArgsToExecutable": true
   },
   "parserId": "164785656699856393",
-  "version": 13,
+  "version": 15,
   "controllers": {
-    "ps4": null,
-    "ps5": null,
-    "xbox360": null,
-    "xboxone": null,
+    "ps4": {
+      "title": "EmuDeck - Dual Shock 4",
+      "mappingId": "emudeck_controller_ps4.vdf",
+      "profileType": "template"
+    },
+    "ps5": {
+      "title": "EmuDeck - Dual Sense",
+      "mappingId": "emudeck_controller_ps5.vdf",
+      "profileType": "template"
+    },
+    "xbox360": {
+      "title": "EmuDeck - Xbox 360",
+      "mappingId": "emudeck_controller_xbox360.vdf",
+      "profileType": "template"
+    },
+    "xboxone": {
+      "title": "EmuDeck - Xbox One",
+      "mappingId": "emudeck_controller_xboxone.vdf",
+      "profileType": "template"
+    },
     "switch_joycon_left": null,
     "switch_joycon_right": null,
-    "switch_pro": null,
+    "switch_pro": {
+      "title": "EmuDeck - Switch Pro",
+      "mappingId": "emudeck_controller_switch_pro.vdf",
+      "profileType": "template"
+    },
     "neptune": {
-      "title": "EmuDeck - DuckStation",
-      "mappingId": "duckstation_controller_config.vdf",
+      "title": "EmuDeck - Steam Deck",
+      "mappingId": "emudeck_controller_steamdeck.vdf",
       "profileType": "template"
     }
   },
@@ -72,5 +80,19 @@
       "stylesLogo": [],
       "stylesIcon": []
     }
+  },
+  "defaultImage": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+  },
+  "localImages": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
   }
 }
