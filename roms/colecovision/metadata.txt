@@ -1,0 +1,7 @@
+collection: ColecoVision
+shortname: colecovision
+extensions: bin, BIN, cas, CAS, col, COL, cv, CV, dsk, DSK, m3u, M3U, mx1, MX1, mx2, MX2, ri, RI, rom, ROM, sc, SC, sg, SG, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/bluemsx_libretro.so {file.path}
+
+
+

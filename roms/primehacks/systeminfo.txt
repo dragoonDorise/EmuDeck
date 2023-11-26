@@ -8,4 +8,4 @@ Supported file extensions:
 .gcm .GCM .iso .ISO .wbfs .WBFS .wia .WIA .ciso .CISO .gcz .GCZ .elf .ELF .dol .DOL .dff .DFF .json .JSON .rvz .RVZ .tgc .TGC .wad .WAD .m3u .M3U .7z .7Z .zip .ZIP
 
 Launch command:
-For use with Steam Rom Manager. EmulationStation-DE Does not use this folder.
+For use with Steam ROM Manager. EmulationStation-DE Does not use this folder.

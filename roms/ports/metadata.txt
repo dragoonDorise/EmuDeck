@@ -1,0 +1,4 @@
+collection: Ports
+shortname: ports
+extensions: desktop, sh
+launch: PLACEHOLDER {file.path}

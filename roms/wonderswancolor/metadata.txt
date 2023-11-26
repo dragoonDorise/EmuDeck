@@ -1,0 +1,7 @@
+collection: Bandai WonderSwan Color
+shortname: wonderswancolor
+extensions: ws, WS, wsc, WSC, pc2, PC2, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/mednafen_wswan_libretro.so {file.path}
+
+
+

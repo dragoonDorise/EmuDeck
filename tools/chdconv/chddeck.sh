@@ -2,6 +2,10 @@
 # shellcheck source=/home/deck/emudeck/settings.sh
 . ~/emudeck/settings.sh
 
+if [[ "$EMUDECKGIT" == "" ]]; then
+    EMUDECKGIT="$HOME/.config/EmuDeck/backend"
+fi
+
 #whitelist
 declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
 declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
@@ -10,14 +14,17 @@ declare -a 3dsfolderWhiteList=("3ds")
 declare -a searchFolderList
 
 #executables
-chdPath="${toolsPath}/chdconv/"
+chdPath="$EMUDECKGIT/tools/chdconv"
+chmod +x "$chdPath/chdman5"
+chmod +x "$chdPath/ciso"
 export PATH="${chdPath}/:$PATH"
 flatpaktool=$(flatpak list --columns=application | grep -E dolphin\|primehack | head -1)
 dolphintool="flatpak run --command=dolphin-tool $flatpaktool"
 
 #initialize log
 TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
-LOGFILE="$chdPath/chdman-$TIMESTAMP.log"
+mkdir -p "$HOME/emudeck/logs/compression"
+LOGFILE="$HOME/emudeck/logs/compression/chdman-$TIMESTAMP.log"
 exec > >(tee "${LOGFILE}") 2>&1
 
 #compression functions
@@ -289,21 +296,20 @@ fi
 
 if [ "$uiMode" == 'zenity' ]; then
 
-	text="$(printf "<b>Done!</b>\n\n If you use Steam Rom Manager to catalog your games you will need to open it now to update your games")"
+	text="$(printf "<b>Done!</b>\n\n If you use Steam ROM Manager to catalog your games you will need to open it now to update your games")"
 	zenity --question \
 		--title="EmuDeck" \
 		--width=450 \
-		--ok-label="Open Steam Rom Manager" \
+		--ok-label="Open Steam ROM Manager" \
 		--cancel-label="Exit" \
 		--text="${text}" 2>/dev/null
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		echo "user launched SRM"
-		"${toolsPath}/srm/Steam-ROM-Manager.AppImage"
+		"${toolsPath}/Steam ROM Manager.AppImage"
 		exit
 	else
 		exit
-		echo -e "Exit" &>>/dev/null
 	fi
 
 fi

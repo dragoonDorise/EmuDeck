@@ -1,0 +1,80 @@
+  {
+      "parserType": "Glob",
+      "configTitle": "Sega Dreamcast - Flycast (Standalone)",
+      "steamDirectory": "${steamdirglobal}",
+      "steamCategory": "${Sega Dreamcast - Flycast (Standalone)}",
+      "romDirectory": "${romsdirglobal}/dreamcast",
+      "executableArgs": "\"${filePath}\"",
+      "executableModifier": "\"${exePath}\"",
+      "startInDirectory": "",
+      "titleModifier": "${fuzzyTitle}",
+      "fetchControllerTemplatesButton": null,
+      "removeControllersButton": null,
+      "imageProviders": [
+          "SteamGridDB"
+      ],
+      "onlineImageQueries": "${${fuzzyTitle}}",
+      "imagePool": "${fuzzyTitle}",
+      "userAccounts": {
+          "specifiedAccounts": ""
+      },
+      "executable": {
+          "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/flycast.sh",
+          "shortcutPassthrough": false,
+          "appendArgsToExecutable": false
+      },
+      "parserInputs": {
+          "glob": "**/${title}@(.7z|.7Z|.cdi|.CDI|.chd|.CHD|.cue|.CUE|.gdi|.GDI)"
+      },
+      "titleFromVariable": {
+          "limitToGroups": "",
+          "caseInsensitiveVariables": false,
+          "skipFileIfVariableWasNotFound": false,
+          "tryToMatchTitle": false
+      },
+      "fuzzyMatch": {
+          "replaceDiacritics": true,
+          "removeCharacters": true,
+          "removeBrackets": true
+      },
+      "controllers": {
+          "ps4": null,
+          "ps5": null,
+          "xbox360": null,
+          "xboxone": null,
+          "switch_joycon_left": null,
+          "switch_joycon_right": null,
+          "switch_pro": null,
+          "neptune": null
+      },
+      "imageProviderAPIs": {
+          "SteamGridDB": {
+              "nsfw": false,
+              "humor": false,
+              "styles": [],
+              "stylesHero": [],
+              "stylesLogo": [],
+              "stylesIcon": [],
+              "imageMotionTypes": [
+                  "static"
+              ]
+          }
+      },
+      "defaultImage": {
+          "tall": "",
+          "long": "",
+          "hero": "",
+          "logo": "",
+          "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      },
+      "localImages": {
+          "tall": "",
+          "long": "",
+          "hero": "",
+          "logo": "",
+          "icon": ""
+      },
+      "parserId": "164785622173694321",
+      "version": 15,
+      "disabled": false
+  }

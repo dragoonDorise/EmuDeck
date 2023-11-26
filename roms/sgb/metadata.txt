@@ -1,0 +1,4 @@
+collection: Nintendo Super Game Boy
+shortname: sgb
+extensions: gb, GB, gbc, GBC, sgb, SGB, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/mesen-s_libretro.so {file.path}

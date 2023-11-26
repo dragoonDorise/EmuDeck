@@ -1,0 +1,68 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug Report] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+
+  - type: markdown
+    attributes:
+      value: |
+        Do not use this GitHub form if you are using EmuDeck for Windows. Instead, join the Discord (connect your Patreon to Discord), https://discord.gg/b9F7GpXtFP, or open an issue on the EmuDeck for Windows GitHub repository, https://github.com/EmuDeck/emudeck-we to report any issues. 
+  
+  - type: checkboxes
+    id: low-effort-checks
+    attributes:
+      label: Prerequisite Steps
+      description: Please confirm that you have done the following
+      options:
+        - label: I have searched existing issues
+        - label: This issue is not a duplicate of an existing one
+        - label: I have checked the [EmuDeck Wiki](https://emudeck.github.io/)
+        - label: I have read the [Troubleshooting Page](https://emudeck.github.io/troubleshooting/steamos/) on the EmuDeck Wiki
+
+  - type: textarea
+    id: distro
+    attributes:
+      label: What distro are you running?
+      description: If you are on a Steam Deck, you are likely using SteamOS. You may also share information about the distro you are using.
+      placeholder: Distro name
+      value: SteamOS
+    validations:
+      required: true
+
+  - type: dropdown
+    id: steamos-branch
+    attributes:
+      label: Which SteamOS Branch are you using?
+      description: If you are on a Steam Deck, you may check in Game Mode. Press the STEAM button, click System, and look for the System Update Channel drop-down menu.
+      options:
+        - Stable
+        - Beta
+        - Preview
+        - Beta Candidate
+        - Main (Alpha/Live Testing Branch, not the same thing as Stable)
+        - Not Using a Steam Deck
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear and concise description of what the bug is and if possible, the steps you used to get to the bug. If appropriate, include screenshots or videos.
+      placeholder: Include as much detail as possible. 
+      value: "A bug happened!"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks. You can find the EmuDeck log in $HOME/emudeck. For more information, see https://emudeck.github.io/troubleshooting/steamos/#how-to-get-the-emudeck-log. 
+      render: shell

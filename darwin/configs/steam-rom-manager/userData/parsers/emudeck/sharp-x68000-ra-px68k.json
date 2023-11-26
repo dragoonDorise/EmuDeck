@@ -1,0 +1,62 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Sharp X68000 - RetroArch PX68k",
+  "steamCategory": "${Sharp X68000}",
+  "executableModifier": "\"${exePath}\"",
+  "romDirectory": "${romsdirglobal}/x68000",
+  "steamDirectory": "${steamdirglobal}",
+  "startInDirectory": "",
+  "titleModifier": "${fuzzyTitle}",
+  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}px68k_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "imageProviders": ["SteamGridDB"],
+  "defaultImage": "",
+  "defaultTallImage": "",
+  "defaultHeroImage": "",
+  "defaultLogoImage": "",
+  "defaultIcon": "",
+  "localImages": "",
+  "localTallImages": "",
+  "localHeroImages": "",
+  "localLogoImages": "",
+  "localIcons": "",
+  "disabled": false,
+  "userAccounts": {
+    "specifiedAccounts": "",
+    "skipWithMissingDataDir": true,
+    "useCredentials": true
+  },
+  "parserInputs": {
+    "glob": "**/${title}@(.dim|.zip|.img|.d88|.88d|.hdm|.dup|.2hd|.xdf|.hdf|.cmd|.m3u|.DIM|.ZIP|.IMG|.D88|.88D|.HDM|.DUP|.2HD|.XDF|.HDF|.CMD|.M3U)"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false,
+    "tryToMatchTitle": true
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "executable": {
+    "path": "${retroarchpath}",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "parserId": "164785127823332556",
+  "version": 10,
+  "imageProviderAPIs": {
+    "SteamGridDB": {
+      "nsfw": false,
+      "humor": false,
+      "imageMotionTypes": ["static"],
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": []
+    }
+  }
+}

@@ -3,7 +3,6 @@
 Cemu_emuName="Cemu (proton)"
 Cemu_emuType="windows"
 Cemu_emuPath="${romsPath}/wiiu/Cemu.exe"
-Cemu_releaseURL="https://cemu.info/releases/cemu_1.27.1.zip"
 Cemu_cemuSettings="${romsPath}/wiiu/settings.xml"
 
 #cleanupOlderThings
@@ -16,7 +15,7 @@ Cemu_install(){
 	setMSG "Installing $Cemu_emuName"
 
 	local showProgress="$1"
-
+	Cemu_releaseURL="$(getReleaseURLGH "cemu-project/Cemu" "windows-x64.zip")"
 	#curl $Cemu_releaseURL --output "$romsPath"/wiiu/cemu.zip
 	if safeDownload "cemu" "$Cemu_releaseURL" "$romsPath/wiiu/cemu.zip" "$showProgress"; then
 		mkdir -p "$romsPath/wiiu/tmp"
@@ -34,7 +33,7 @@ Cemu_install(){
 #		local launchLine=$( tail -n 1 "${toolsPath}/launchers/cemu.sh" )
 #		echo "cemu launch line found: $launchLine"
 #	fi
-	
+
 
 	cp "$EMUDECKGIT/tools/launchers/cemu.sh" "${toolsPath}/launchers/cemu.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/cemu.sh"
@@ -44,7 +43,7 @@ Cemu_install(){
 #		changeLine '"${PROTONLAUNCH}"' "$launchLine" "${toolsPath}/launchers/cemu.sh"
 #	fi
 	chmod +x "${toolsPath}/launchers/cemu.sh"
-	
+
 
 	createDesktopShortcut   "$HOME/.local/share/applications/Cemu (Proton).desktop" \
 							"Cemu (Proton)" \
@@ -54,7 +53,7 @@ Cemu_install(){
 
 #ApplyInitialSettings
 Cemu_init(){
-	setMSG "Initializing $Cemu_emuName settings."	
+	setMSG "Initializing $Cemu_emuName settings."
 	rsync -avhp "$EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu" --backup --suffix=.bak
 	if [ -e "$Cemu_cemuSettings.bak" ]; then
 		mv -f "$Cemu_cemuSettings.bak" "$Cemu_cemuSettings" #retain cemuSettings
@@ -76,7 +75,7 @@ Cemu_init(){
 
 #update
 Cemu_update(){
-	setMSG "Updating $Cemu_emuName settings."	
+	setMSG "Updating $Cemu_emuName settings."
 	rsync -avhp "$EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu" --ignore-existing
 	Cemu_setEmulationFolder
 	Cemu_setupSaves
@@ -86,8 +85,8 @@ Cemu_update(){
 
 #ConfigurePaths
 Cemu_setEmulationFolder(){
-	setMSG "Setting $Cemu_emuName Emulation Folder"	
-	
+	setMSG "Setting $Cemu_emuName Emulation Folder"
+
 	if [[ -f "${Cemu_cemuSettings}" ]]; then
 	#Correct Folder seperators to windows based ones
 		#WindowsRomPath=${echo "z:${romsPath}/wiiu/roms" | sed 's/\//\\/g'}
@@ -177,6 +176,10 @@ Cemu_resetConfig(){
 
 Cemu_addSteamInputProfile(){
 	addSteamInputCustomIcons
-	setMSG "Adding $Cemu_emuName Steam Input Profile."
-	rsync -r "$EMUDECKGIT/configs/steam-input/cemu_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	#setMSG "Adding $Cemu_emuName Steam Input Profile."
+	#rsync -r "$EMUDECKGIT/configs/steam-input/cemu_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+}
+
+Cemu_setResolution(){
+	echo "NYI"
 }
