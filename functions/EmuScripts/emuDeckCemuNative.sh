@@ -242,8 +242,9 @@ CemuNative_functions () {
 
 	# Add Steam Input Profile
 	addSteamInputProfile () {
-		setMSG "Adding ${CemuNative[emuName]} Steam Input Profile."
-		rsync -r "${EMUDECKGIT}/configs/steam-input/cemu_controller_config.vdf" "${HOME}/.steam/steam/controller_base/templates/"
+		echo "NYI"
+		#setMSG "Adding ${CemuNative[emuName]} Steam Input Profile."
+		#rsync -r "${EMUDECKGIT}/configs/steam-input/cemu_controller_config.vdf" "${HOME}/.steam/steam/controller_base/templates/"
 	}
 
 	$function "$showProgress" # Call the above functions
@@ -343,4 +344,8 @@ CemuNative_resetConfig () {
 # Add Steam Input Profile
 CemuNative_addSteamInputProfile () {
 	CemuNative_functions "addSteamInputProfile"
+}
+
+CemuNative_setResolution(){
+	echo "NYI"
 }

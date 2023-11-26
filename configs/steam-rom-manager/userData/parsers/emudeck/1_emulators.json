@@ -1,74 +1,102 @@
 {
-  "parserType": "Glob",
-  "configTitle": "Emulators - Emulators",
-  "steamCategory": "${Emulation}",
-  "executableArgs": "",
-  "executableModifier": "\"${exePath}\"",
-  "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/launchers",
-  "steamDirectory": "${steamdirglobal}",
-  "startInDirectory": "",
-  "imageProviders": ["SteamGridDB"],
-  "titleModifier": "${fuzzyTitle}",
-  "onlineImageQueries": "${${fuzzyTitle}}",
-  "imagePool": "${fuzzyTitle}",
-  "disabled": false,
-  "executable": {
-    "path": "",
-    "shortcutPassthrough": false,
-    "appendArgsToExecutable": true
-  },
-  "userAccounts": {
-    "specifiedAccounts": ""
-  },
-  "parserInputs": {
-    "glob": "${title}@(.sh)"
-  },
-  "titleFromVariable": {
-    "limitToGroups": "",
-    "caseInsensitiveVariables": false,
-    "skipFileIfVariableWasNotFound": false,
-    "tryToMatchTitle": false
-  },
-  "fuzzyMatch": {
-    "replaceDiacritics": true,
-    "removeCharacters": true,
-    "removeBrackets": true
-  },
-  "parserId": "164824333516097458",
-  "version": 15,
-  "imageProviderAPIs": {
-    "SteamGridDB": {
-      "nsfw": false,
-      "humor": false,
-      "imageMotionTypes": ["static"],
-      "styles": [],
-      "stylesHero": [],
-      "stylesLogo": [],
-      "stylesIcon": []
-    }
-  },
-  "controllers": {
-    "ps4": null,
-    "ps5": null,
-    "xbox360": null,
-    "xboxone": null,
-    "switch_joycon_left": null,
-    "switch_joycon_right": null,
-    "switch_pro": null,
-    "neptune": null
-  },
-  "defaultImage": {
-    "long": "",
-    "tall": "",
-    "hero": "",
-    "logo": "",
-    "icon": ""
-  },
-  "localImages": {
-    "tall": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_portrait.@(png|jpg)",
-    "long": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_banner.@(png|jpg)",
-    "hero": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_hero.@(png|jpg)",
-    "logo": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_logo.@(png|jpg)",
-    "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_ico.@(png|jpg|ico)"
-  }
+	"parserType": "Glob",
+	"configTitle": "Emulators - Emulators",
+	"steamCategory": "${Emulation}",
+	"executableArgs": "",
+	"executableModifier": "\"${exePath}\"",
+	"romDirectory": "/run/media/mmcblk0p1/Emulation/tools/launchers",
+	"steamDirectory": "${steamdirglobal}",
+	"startInDirectory": "",
+	"imageProviders": [
+		"SteamGridDB"
+	],
+	"titleModifier": "${fuzzyTitle}",
+	"onlineImageQueries": "${${fuzzyTitle}}",
+	"imagePool": "${fuzzyTitle}",
+	"disabled": true,
+	"executable": {
+		"path": "",
+		"shortcutPassthrough": false,
+		"appendArgsToExecutable": true
+	},
+	"userAccounts": {
+		"specifiedAccounts": ""
+	},
+	"parserInputs": {
+		"glob": "${title}@(.sh)"
+	},
+	"titleFromVariable": {
+		"limitToGroups": "",
+		"caseInsensitiveVariables": false,
+		"skipFileIfVariableWasNotFound": false,
+		"tryToMatchTitle": false
+	},
+	"fuzzyMatch": {
+		"replaceDiacritics": true,
+		"removeCharacters": true,
+		"removeBrackets": true
+	},
+	"parserId": "164824333516097458",
+	"version": 15,
+	"imageProviderAPIs": {
+		"SteamGridDB": {
+			"nsfw": false,
+			"humor": false,
+			"imageMotionTypes": [
+				"static"
+			],
+			"styles": [],
+			"stylesHero": [],
+			"stylesLogo": [],
+			"stylesIcon": []
+		}
+	},
+	"controllers": {
+		"switch_pro": {
+			"title": "EmuDeck - Switch Pro",
+			"mappingId": "emudeck_controller_switch_pro.vdf",
+			"profileType": "template"
+		},
+		"neptune": {
+			"title": "EmuDeck - Steam Deck",
+			"mappingId": "emudeck_controller_steamdeck.vdf",
+			"profileType": "template"
+		},
+		"ps4": {
+			"title": "EmuDeck - Dual Shock 4",
+			"mappingId": "emudeck_controller_ps4.vdf",
+			"profileType": "template"
+		},
+		"ps5": {
+			"title": "EmuDeck - Dual Sense",
+			"mappingId": "emudeck_controller_ps5.vdf",
+			"profileType": "template"
+		},
+		"xbox360": {
+			"title": "EmuDeck - Xbox 360",
+			"mappingId": "emudeck_controller_xbox360.vdf",
+			"profileType": "template"
+		},
+		"xboxone": {
+			"title": "EmuDeck - Xbox One",
+			"mappingId": "emudeck_controller_xboxone.vdf",
+			"profileType": "template"
+		},
+		"switch_joycon_left": null,
+		"switch_joycon_right": null
+	},
+	"defaultImage": {
+		"long": "",
+		"tall": "",
+		"hero": "",
+		"logo": "",
+		"icon": ""
+	},
+	"localImages": {
+		"tall": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_portrait.@(png|jpg)",
+		"long": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_banner.@(png|jpg)",
+		"hero": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_hero.@(png|jpg)",
+		"logo": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_logo.@(png|jpg)",
+		"icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_ico.@(png|jpg|ico)"
+	}
 }

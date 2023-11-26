@@ -19,5 +19,6 @@
   "vita3k": { "id": "vita3k", "code": "Vita3k", "version": 0 },
   "scummvm": { "id": "scummvm", "code": "ScummVM", "version": 0 },
   "xenia": { "id": "xenia", "code": "Xenia", "version": 0 },
-  "mgba": { "id": "mgba", "code": "mGBA", "version": 0 }
+  "mgba": { "id": "mgba", "code": "mGBA", "version": 0 },
+  "flycast": { "id": "flycast", "code": "Flycast", "version": 0 }
 }
