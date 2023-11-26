@@ -4,11 +4,12 @@ Citra_emuName="Citra"
 Citra_emuType="FlatPak"
 Citra_emuPath="org.citra_emu.citra"
 Citra_releaseURL=""
+Citra_configFile="$HOME/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini"
 Citra_texturesPath="$HOME/.var/app/$Citra_emuPath/data/citra-emu/load/textures"
 
 #cleanupOlderThings
 Citra_finalize(){
-	echo "NYI"
+ echo "NYI"
 }
 
 #Install
@@ -41,10 +42,15 @@ Citra_update(){
 #ConfigurePaths
 Citra_setEmulationFolder(){
 	setMSG "Setting $Citra_emuName Emulation Folder"
-	configFile="$HOME/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini"
+
 	gameDirOpt='Paths\\gamedirs\\3\\path='
 	newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/3ds"
-	sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
+	sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_configFile"
+
+	#Setup symlink for AES keys
+	mkdir -p "${biosPath}/citra/"
+	mkdir -p "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sysdata"
+	ln -sn "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sysdata" "${biosPath}/citra/keys"
 }
 
 #SetupSaves
@@ -56,12 +62,30 @@ Citra_setupSaves(){
 
 #SetupStorage
 Citra_setupStorage(){
+
 	local textureLink="$(readlink -f "$Citra_texturesPath")"
-	mkdir -p "$emulationPath/hdpacks/citra"
 	if [[ "$textureLink" != "$emulationPath/hdpacks/citra" ]]; then
 		rm -rf "$Citra_texturesPath"
 		ln -s "$Citra_texturesPath" "$emulationPath/hdpacks/citra"
 	fi
+
+	if [ ! -f "$storagePath/citra/nand" ] && [ -d "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/nand/" ]; then
+
+		echo "citra nand does not exist in storagepath."
+		echo -e ""
+		setMSG "Moving Citra nand to the Emulation/storage folder"
+		echo -e ""
+
+		mv "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/nand/" $storagePath/citra/nand/
+		mv "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/sdmc/" $storagePath/citra/sdmc/
+
+		unlink "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/nand/"
+		unlink "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/sdmc/"
+
+		ln -ns "${storagePath}/citra/nand/" "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/nand/"
+		ln -ns "${storagePath}/citra/sdmc/" "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/sdmc/"
+	fi
+
 }
 
 
@@ -80,12 +104,12 @@ Citra_uninstall(){
 
 #setABXYstyle
 Citra_setABXYstyle(){
-	echo "NYI"
+		echo "NYI"
 }
 
 #Migrate
 Citra_migrate(){
-	echo "NYI"
+echo "NYI"
 }
 
 #WideScreenOn
@@ -113,6 +137,15 @@ Citra_finalize(){
 	echo "NYI"
 }
 
+Citra_IsInstalled(){
+	isFpInstalled "$Citra_emuPath"
+}
+
+Citra_resetConfig(){
+	Citra_init &>/dev/null && echo "true" || echo "false"
+}
+
 Citra_addSteamInputProfile(){
+	addSteamInputCustomIcons
 	rsync -r "$EMUDECKGIT/configs/steam-input/citra_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
