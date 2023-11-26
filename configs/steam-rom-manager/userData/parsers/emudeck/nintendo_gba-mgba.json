@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo Game Boy Advance - mGBA (Standalone)",
-  "steamCategory": "${Nintendo Game Boy Advance - mGBA (Standalone)}",
+  "configTitle": "Nintendo Game Boy Advance - mGBA",
+  "steamCategory": "${Nintendo Game Boy Advance - mGBA}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}",
   "steamDirectory": "${steamdirglobal}",
@@ -11,21 +11,9 @@
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
-  "defaultImage": "",
-  "defaultTallImage": "",
-  "defaultHeroImage": "",
-  "defaultLogoImage": "",
-  "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
-  "localImages": "",
-  "localTallImages": "",
-  "localHeroImages": "",
-  "localLogoImages": "",
-  "localIcons": "",
-  "disabled": false,
+  "disabled": true,
   "userAccounts": {
-    "specifiedAccounts": "",
-    "skipWithMissingDataDir": true,
-    "useCredentials": true
+    "specifiedAccounts": ""
   },
   "parserInputs": {
     "glob": "{gba/**/!(homebrew),gba}/${title}@(.7z|.7Z|.gba|.GBA|.zip|.ZIP)"
@@ -47,7 +35,7 @@
     "appendArgsToExecutable": false
   },
   "parserId": "164785621855061652",
-  "version": 13,
+  "version": 15,
   "controllers": {
     "switch_pro": {
       "title": "EmuDeck - Switch Pro",
@@ -92,5 +80,19 @@
       "stylesLogo": [],
       "stylesIcon": []
     }
+  },
+  "defaultImage": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+  },
+  "localImages": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
   }
 }

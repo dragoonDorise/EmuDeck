@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo Game Boy Color - mGBA (Standalone)",
-  "steamCategory": "${Nintendo Game Boy Color - mGBA (Standalone)}",
+  "configTitle": "Nintendo Game Boy Color - mGBA",
+  "steamCategory": "${Nintendo Game Boy Color - mGBA}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}",
   "steamDirectory": "${steamdirglobal}",

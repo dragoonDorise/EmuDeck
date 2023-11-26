@@ -226,6 +226,18 @@ SRM_createParsers(){
       exclusionList=$exclusionList"philips_cd_i-mame.json\n"
     fi
   fi
+
+  if [ "$emuDreamcast" != "both" ]; then
+	  if [ "$emuDreamcast" = "flycast" ]; then
+		exclusionList=$exclusionList"sega_dreamcast-ra-flycast.json\n"
+		exclusionList=$exclusionList"arcade_naomi-ra-flycast\n"
+	  else
+		exclusionList=$exclusionList"sega_dreamcast-flycast.json\n"
+		exclusionList=$exclusionList"arcade_naomi-flycast.json\n"
+	  fi
+	fi
+
+
   #Optional parsers
   exclusionList=$exclusionList"nintendo_gbc-ra-sameboy.json\n"
   exclusionList=$exclusionList"nintendo_gb-ra-sameboy.json\n"
@@ -235,66 +247,65 @@ SRM_createParsers(){
   exclusionList=$exclusionList"nintendo_gb-mGBA.json\n"
 
   #Exclusion based on install status.
-  if [ $doInstallPrimeHack != "true" ] || [ Primehack_IsInstalled != "true" ]; then
+  if [ $doInstallPrimeHack == "false" ] || [ $(Primehack_IsInstalled) == "false" ]; then
       exclusionList=$exclusionList"nintendo_primehack.json\n"
   fi
-  if [ $doInstallRPCS3 != "true" ] || [ RPCS3_IsInstalled != "true" ]; then
+  if [ $doInstallRPCS3 == "false" ] || [ $(RPCS3_IsInstalled) == "false" ]; then
       exclusionList=$exclusionList"sony_ps3-rpcs3-extracted_iso_psn.json\n"
       exclusionList=$exclusionList"sony_ps3-rpcs3-pkg.json\n"
 
   fi
-  if [ $doInstallCitra != "true" ] || [ Citra_IsInstalled != "true" ]; then
-      exclusionList=$exclusionList"nintendo_3ds-citra-mGBA.json\n"
+  if [ $doInstallCitra == "false" ] || [ $(Citra_IsInstalled) == "false" ]; then
+      exclusionList=$exclusionList"nintendo_3ds-citra.json\n"
 
   fi
-  if [ $doInstallDolphin != "true" ] || [ Dolphin_IsInstalled != "true" ]; then
+  if [ $doInstallDolphin == "false" ] || [ $(Dolphin_IsInstalled) == "false" ]; then
       exclusionList=$exclusionList"nintendo_gc-dolphin.json\n"
       exclusionList=$exclusionList"nintendo_wii-dolphin.json\n"
   fi
-  if [ $doInstallDuck != "true" ] || [ Duck_IsInstalled != "true" ]; then
+  if [ $doInstallDuck == "false" ] || [ $(DuckStation_IsInstalled) == "false" ]; then
       exclusionList=$exclusionList"sony_psx-duckstation.json\n"
 
   fi
-  if [ $doInstallPPSSPP != "true" ] || [ PPSSPP_IsInstalled != "true" ]; then
+  if [ $doInstallPPSSPP == "false" ] || [ $(PPSSPP_IsInstalled) == "false" ]; then
       exclusionList=$exclusionList"sony_psp-ppsspp.json\n"
-
   fi
-  if [ $doInstallXemu != "true" ] || [ Xemu_IsInstalled != "true" ]; then
+  if [ $doInstallXemu == "false" ] || [ $(Xemu_IsInstalled) == "false" ]; then
       exclusionList=$exclusionList"microsoft_xbox-xemu.json\n"
 
   fi
-  if [ $doInstallXenia != "true" ] || [ Xenia_IsInstalled != "true" ]; then
+  if [ $doInstallXenia == "false" ] || [ $(Xenia_IsInstalled) == "false" ]; then
      exclusionList=$exclusionList"microsoft_xbox_360-xenia-xbla.json\n"
      exclusionList=$exclusionList"microsoft_xbox_360-xenia.json\n"
 
   fi
-  if [ $doInstallScummVM != "true" ] || [ ScummVM_IsInstalled != "true" ]; then
+  if [ $doInstallScummVM == "false" ] || [ $(ScummVM_IsInstalled) == "false" ]; then
       exclusionList=$exclusionList"scumm_scummvm.json\n"
   fi
-  if [ $doInstallRMG != "true" ] || [ RMG_IsInstalled != "true" ]; then
+  if [ $doInstallRMG == "false" ] || [ $(RMG_IsInstalled) == "false" ]; then
       exclusionList=$exclusionList"nintendo_64-rmg.json\n"
   fi
-  if [ $doInstallmelonDS != "true" ] || [ melonDS_IsInstalled != "true" ]; then
+  if [ $doInstallmelonDS == "false" ] || [ $(melonDS_IsInstalled) == "false" ]; then
       exclusionList=$exclusionList"nintendo_ds-melonds.json\n"
   fi
-  if [ $doInstallVita3K != "true" ] || [ Vita3K_IsInstalled != "true" ]; then
+  if [ $doInstallVita3K == "false" ] || [ $(Vita3K_IsInstalled) == "false" ]; then
       exclusionList=$exclusionList"sony_psvita-vita3k-pkg.json\n"
   fi
-  if [ $doInstallMGBA != "true" ] || [ MGBA_IsInstalled != "true" ]; then
+  if [ $doInstallMGBA == "false" ] || [ $(mGBA_IsInstalled) == "false" ]; then
     exclusionList=$exclusionList"nintendo_gb-mGBA.json\n"
     exclusionList=$exclusionList"nintendo_gba-mgba.json\n"
     exclusionList=$exclusionList"nintendo_gbc-mgba.json\n"
   fi
-  if [ $doInstallMAME != "true" ] || [ MAME_IsInstalled != "true" ]; then
+  if [ $doInstallMAME == "false" ] || [ $(MAME_IsInstalled) == "false" ]; then
     exclusionList=$exclusionList"arcade-mame.json\n"
   fi
-  if [ $doInstallYuzu != "true" ] || [ Yuzu_IsInstalled != "true" ]; then
+  if [ $doInstallYuzu == "false" ] || [ $(Yuzu_IsInstalled) == "false" ]; then
     exclusionList=$exclusionList"nintendo_switch-yuzu.json\n"
   fi
-  if [ $doInstallRyujinx != "true" ] || [ Ryujinx_IsInstalled != "true" ]; then
+  if [ $doInstallRyujinx == "false" ] || [ $(Ryujinx_IsInstalled) == "false" ]; then
     exclusionList=$exclusionList"nintendo_switch-ryujinx.json\n"
   fi
-  if [ "$doInstallPCSX2QT" != "true" ] || [ $PCSX2QT_IsInstalled != "true" ]; then
+  if [ "$doInstallPCSX2QT" == "false" ] || [ $(PCSX2QT_IsInstalled) == "false" ]; then
     exclusionList=$exclusionList"sony_ps2-pcsx2.json\n"
   fi
 
@@ -322,10 +333,6 @@ SRM_createParsers(){
 
 SRM_addSteamInputProfiles(){
    cp "$EMUDECKGIT/$SRM_userData_directory/controllerTemplates.json" "$SRM_userData_configDir/controllerTemplates.json"
-   rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_controller*" "$HOME/.steam/steam/controller_base/templates/"
-   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf"
-
-   #Cleanup old controller schemes
    rm -rf "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/citra_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/duckstation_controller_config.vdf"
@@ -336,16 +343,20 @@ SRM_addSteamInputProfiles(){
    rm -rf "$HOME/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf"
 
+   rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
+   #Cleanup old controller schemes
+
+
    #Symlinks so they won't stop working
-   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
-   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/citra_controller_config.vdf"
-   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/duckstation_controller_config.vdf"
-   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/emulationstation-de_controller_config.vdf"
-   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/melonds_controller_config.vdf"
-   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/mGBA_controller_config.vdf"
-   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf"
-   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf"
-   ln -s "$HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/citra_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/duckstation_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/emulationstation-de_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/melonds_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/mGBA_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf"
 }
 
 SRM_setEnv(){

@@ -65,7 +65,7 @@ do
   # fi
 
   currentEmu=$(get_emulator)
-  if [ $currentEmu == 'all' ]; then
+  if [ "$currentEmu" != '' ] && [ "$currentEmu" = 'all' ]; then
     currentEmu=$dir
   fi
 

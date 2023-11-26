@@ -1203,7 +1203,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F4, Four, EmuDeck_LoadState4.png, #232323 #33AD69"
+							"binding"		"key_press Q, Four, EmuDeck_LoadState4.png, #232323 #33AD69"
 						}
 					}
 				}
@@ -1703,7 +1703,7 @@
 						"bindings"
 						{
 							"binding"		"key_press LEFT_SHIFT, Four, EmuDeck_SaveState4.png, #232323 #33AD69"
-							"binding"		"key_press F4, Four, EmuDeck_SaveState4.png, #232323 #33AD69"
+							"binding"		"key_press Q, Four, EmuDeck_SaveState4.png, #232323 #33AD69"
 						}
 					}
 				}

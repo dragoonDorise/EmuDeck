@@ -1,8 +1,8 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo DS - melonDS (Standalone)",
-  "steamCategory": "${Nintendo DS - melonDS (Standalone)}",
-  "executableArgs": "run net.kuribo64.melonDS \"${filePath}\" -f",
+  "configTitle": "Nintendo DS - melonDS",
+  "steamCategory": "${Nintendo DS - melonDS}",
+  "executableArgs": "\"${filePath}\" -f",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/nds",
   "steamDirectory": "${steamdirglobal}",
@@ -11,26 +11,14 @@
   "titleModifier": "${fuzzyTitle}",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
-  "defaultImage": "",
-  "defaultTallImage": "",
-  "defaultHeroImage": "",
-  "defaultLogoImage": "",
-  "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
-  "localImages": "",
-  "localTallImages": "",
-  "localHeroImages": "",
-  "localLogoImages": "",
-  "localIcons": "",
-  "disabled": false,
+  "disabled": true,
   "executable": {
     "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/melonds.sh",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": false
   },
   "userAccounts": {
-    "specifiedAccounts": "",
-    "skipWithMissingDataDir": true,
-    "useCredentials": true
+    "specifiedAccounts": ""
   },
   "parserInputs": {
     "glob": "**/${title}@(.nds|.NDS|.app|.APP)"
@@ -47,7 +35,7 @@
     "removeBrackets": true
   },
   "parserId": "164823604520657523",
-  "version": 13,
+  "version": 15,
   "controllers": {
     "switch_pro": {
       "title": "EmuDeck - Switch Pro",
@@ -92,5 +80,19 @@
       "stylesLogo": [],
       "stylesIcon": []
     }
+  },
+  "defaultImage": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+  },
+  "localImages": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
   }
 }
