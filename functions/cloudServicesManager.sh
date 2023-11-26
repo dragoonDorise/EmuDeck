@@ -50,7 +50,7 @@ CloudScripts_update() {
 }
 
 csmSRMNotification() {
-	TEXT=$(printf "<b>ATTENTION:</b>\nYou must update and run 'Steam Rom Manager' (the same as you would when adding or removing ROMS) for changes to take effect in Steam.\n")
+	TEXT=$(printf "<b>ATTENTION:</b>\nYou must update and run 'Steam ROM Manager' (the same as you would when adding or removing ROMS) for changes to take effect in Steam.\n")
 	zenity --info --width=400 --text="$TEXT"
 }
 
@@ -130,6 +130,14 @@ manageRPSMenu() {
 		arrAllRP+=(false "Chiaki")
 	fi
 
+	Greenlight_IsInstalled
+	ans=$?
+	if [ "$ans" == "1" ]; then
+		arrAllRP+=(true "Greenlight")
+	else
+		arrAllRP+=(false "Greenlight")
+	fi
+
 	Moonlight_IsInstalled
 	ans=$?
 	if [ "$ans" == "1" ]; then
@@ -171,6 +179,14 @@ manageRPSMenu() {
 				else
 					Chiaki_install
 				fi
+			elif [ "$i" == "Greenlight" ]; then
+				Greenlight_IsInstalled
+				ans=$?
+				if [ "$ans" == "1" ]; then
+					Greenlight_update
+				else
+					Greenlight_install
+				fi
 			elif [ "$i" == "Moonlight" ]; then
 				Moonlight_IsInstalled
 				ans=$?
@@ -193,6 +209,9 @@ manageRPSMenu() {
 		# Uninstall those not selected
 		if [[ ! "${arrChosen[*]}" =~ "Chiaki" ]]; then
 			Chiaki_uninstall
+		fi
+		if [[ ! "${arrChosen[*]}" =~ "Greenlight" ]]; then
+			Greenlight_uninstall
 		fi
 		if [[ ! "${arrChosen[*]}" =~ "Moonlight" ]]; then
 			Moonlight_uninstall

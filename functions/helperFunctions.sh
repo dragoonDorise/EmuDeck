@@ -3,6 +3,22 @@
 #Global variables
 emuDecksettingsFile="$HOME/emudeck/settings.sh"
 
+
+function startLog() {
+	funcName="$1"
+	mkdir -p "$HOME/emudeck/logs"
+	logFile="$HOME/emudeck/logs/$funcName.log"
+
+	touch "$logFile"
+
+	exec &> >(tee -a "$logFile")
+
+}
+
+function stopLog(){
+	echo "NYI"
+}
+
 function getScreenAR(){
 	local productName
 	productName=$(getProductName)
@@ -11,7 +27,7 @@ function getScreenAR(){
 		Jupiter)		return=1610 	;;
 		*)				resolution=$(xrandr --current | grep 'primary' | uniq | awk '{print $4}'| cut -d '+' -f1)
 						Xaxis=$(echo "$resolution" | awk '{print $1}' | cut -d 'x' -f2)
-						Yaxis=$(echo "$resolution" | awk '{print $1}' | cut -d 'x' -f1)		
+						Yaxis=$(echo "$resolution" | awk '{print $1}' | cut -d 'x' -f1)
 
 						screenWidth=$Xaxis
 						screenHeight=$Yaxis
@@ -20,7 +36,7 @@ function getScreenAR(){
 						##Is rotated?
 						if [[ $Yaxis > $Xaxis ]]; then
 							screenWidth=$Yaxis
-							screenHeight=$Xaxis		
+							screenHeight=$Xaxis
 						fi
 
 						aspectRatio=$(awk -v screenWidth="$screenWidth" -v screenHeight="$screenHeight" 'BEGIN{printf "%.2f\n", (screenWidth/screenHeight)}')
@@ -29,7 +45,7 @@ function getScreenAR(){
 						elif [ "$aspectRatio" == 1.78 ]; then
 							ar=169
 						else
-							ar=0	
+							ar=0
 						fi
 						return=$ar 		;;
 	esac
@@ -43,31 +59,31 @@ function pause(){
 
 # keyword replacement file. Only matches start of word
 function changeLine() {
-    local KEYWORD=$1; shift
-    local REPLACE=$1; shift
-    local FILE=$1
+	local KEYWORD=$1; shift
+	local REPLACE=$1; shift
+	local FILE=$1
 
-    local OLD=$(escapeSedKeyword "$KEYWORD")
-    local NEW=$(escapeSedValue "$REPLACE")
+	local OLD=$(escapeSedKeyword "$KEYWORD")
+	local NEW=$(escapeSedValue "$REPLACE")
 
 	echo "Updating: $FILE - $OLD to $NEW"
 	#echo "Old: ""$(cat "$FILE" | grep "^$OLD")"
-    sed -i "/^${OLD}/c\\${NEW}" "$FILE"
+	sed -i "/^${OLD}/c\\${NEW}" "$FILE"
 	#echo "New: ""$(cat "$FILE" | grep "^$OLD")"
 
 }
 function escapeSedKeyword(){
-    local INPUT=$1;
+	local INPUT=$1;
 	printf '%s\n' "$INPUT" | sed -e 's/[]\/$*.^[]/\\&/g'
 }
 
 function escapeSedValue(){
-    local INPUT=$1
-    printf '%s\n' "$INPUT" | sed -e 's/[\/&]/\\&/g'
+	local INPUT=$1
+	printf '%s\n' "$INPUT" | sed -e 's/[\/&]/\\&/g'
 }
 
 function getSDPath(){
-    if [ -b "/dev/mmcblk0p1" ]; then
+	if [ -b "/dev/mmcblk0p1" ]; then
 		findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1
 	fi
 }
@@ -77,7 +93,7 @@ function getProductName(){
 }
 
 function testRealDeck(){
-    case $(getProductName) in
+	case $(getProductName) in
 	  'Win600'|'Jupiter') 	isRealDeck=true
 	;;
 	  *)
@@ -87,25 +103,30 @@ function testRealDeck(){
 }
 
 function testLocationValid(){
-    local locationName=$1
+	local locationName=$1
 	local testLocation=$2
-	local return=""
+	local result=""
 
-    touch "$testLocation/testwrite"
-
-	if [ ! -f  "$testLocation/testwrite" ]; then
-		return="Invalid: $locationName not Writable"
+	if [[ "$testLocation" == *" "* ]]; then
+		result="Invalid: $locationName contains spaces"
 	else
-		ln -s "$testLocation/testwrite" "$testLocation/testwrite.link"
-		if [ ! -f  "$testLocation/testwrite.link" ]; then
-			return="Invalid: $locationName not Linkable"
+		touch "$testLocation/testwrite"
+		if [ ! -f  "$testLocation/testwrite" ]; then
+			result="Invalid: $locationName not Writable"
 		else
-			return="Valid"
+			ln -s "$testLocation/testwrite" "$testLocation/testwrite.link"
+			if [ ! -f  "$testLocation/testwrite.link" ]; then
+				result="Invalid: $locationName not Linkable"
+			else
+				result="Valid"
+			fi
+			rm -f "$testLocation/testwrite.link"
 		fi
+		rm -f "$testLocation/testwrite"
 	fi
-	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
-	echo $return
+	echo "$result"
 }
+
 
 function testLocationValidRelaxed(){
 	local locationName=$1
@@ -115,19 +136,19 @@ function testLocationValidRelaxed(){
 	touch "$testLocation/testwrite"
 
 	if [ ! -f  "$testLocation/testwrite" ]; then
-		return="Invalid: $locationName not Writable"
+		result="Invalid: $locationName not Writable"
 	else
-		return="Valid"
+		result="Valid"
 	fi
-	rm -f "$testLocation/testwrite" "$testLocation/testwrite.link"
-	echo $return
+	rm -f "$testLocation/testwrite"
+	echo $result
 }
 
 function makeFunction(){
 
 	find "$1" -type f -iname "$2" | while read -r file
 		do
-			
+
 			folderOverride="$(basename "${file}")"
 			foldername="$(dirname "${file}")"
 			coreName="$(basename "${foldername}")"
@@ -153,7 +174,7 @@ function deleteConfigs(){
 
 
 function customLocation(){
-    zenity --file-selection --directory --title="Select a destination for the Emulation directory." 2>/dev/null
+	zenity --file-selection --directory --title="Select a destination for the Emulation directory." 2>/dev/null
 }
 
 function refreshSource(){
@@ -209,7 +230,7 @@ function updateOrAppendConfigLine(){
 	local fullPath=$(dirname "$configFile")
 	mkdir -p "$fullPath"
 	touch "$configFile"
-	
+
 	local optionFound=$(grep -rnw  "$configFile" -e "$option")
 	if [[ "$optionFound" == '' ]]; then
 		echo "appending: $replacement to $configFile"
@@ -258,10 +279,11 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupXenia=false")
 	defaultSettingsList+=("doSetupRyujinx=true")
 	defaultSettingsList+=("doSetupMAME=true")
-	defaultSettingsList+=("doSetupPrimeHacks=true")
+	defaultSettingsList+=("doSetupPrimehack=true")
 	defaultSettingsList+=("doSetupPPSSPP=true")
 	defaultSettingsList+=("doSetupXemu=true")
 	defaultSettingsList+=("doSetupESDE=true")
+	defaultSettingsList+=("doSetupPegasus=false")
 	defaultSettingsList+=("doSetupSRM=true")
 	defaultSettingsList+=("doSetupPCSX2QT=true")
 	defaultSettingsList+=("doSetupScummVM=true")
@@ -269,8 +291,10 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupRMG=true")
 	#defaultSettingsList+=("doSetupMelon=true")
 	defaultSettingsList+=("doSetupMGBA=true")
+	defaultSettingsList+=("doSetupFlycast=true")
 	defaultSettingsList+=("doInstallSRM=true")
 	defaultSettingsList+=("doInstallESDE=true")
+	defaultSettingsList+=("doInstallPegasus=false")
 	defaultSettingsList+=("doInstallRA=true")
 	defaultSettingsList+=("doInstallDolphin=true")
 	#defaultSettingsList+=("doInstallPCSX2=true")
@@ -282,7 +306,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doInstallDuck=true")
 	defaultSettingsList+=("doInstallCemu=true")
 	defaultSettingsList+=("doInstallXenia=true")
-	defaultSettingsList+=("doInstallPrimeHacks=true")
+	defaultSettingsList+=("doInstallPrimeHack=true")
 	defaultSettingsList+=("doInstallPPSSPP=true")
 	defaultSettingsList+=("doInstallXemu=true")
 	defaultSettingsList+=("doInstallPCSX2QT=true")
@@ -290,6 +314,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doInstallVita3K=true")
 	#defaultSettingsList+=("doInstallMelon=false")
 	defaultSettingsList+=("doInstallMGBA=false")
+	defaultSettingsList+=("doInstallFlycast=true")
 	defaultSettingsList+=("doInstallCHD=true")
 	defaultSettingsList+=("doInstallPowertools=false")
 	defaultSettingsList+=("doInstallGyro=false")
@@ -297,7 +322,6 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("installString='Installing'")
 	defaultSettingsList+=("RABezels=true")
 	defaultSettingsList+=("RAautoSave=false")
-	defaultSettingsList+=("SNESAR=43")
 	defaultSettingsList+=("duckWide=false")
 	defaultSettingsList+=("DolphinWide=false")
 	defaultSettingsList+=("DreamcastWide=false")
@@ -330,7 +354,7 @@ function createUpdateSettingsFile(){
 
 	tmp=$(mktemp)
 	#sort "$emuDecksettingsFile" | uniq -u > "$tmp" && mv "$tmp" "$emuDecksettingsFile"
-	
+
 	cat "$emuDecksettingsFile" | awk '!unique[$0]++' > "$tmp" && mv "$tmp" "$emuDecksettingsFile"
 	for setting in "${defaultSettingsList[@]}"
 		do
@@ -350,63 +374,74 @@ function createUpdateSettingsFile(){
 function checkForFile(){
 	local file=$1
 	local delete=$2
-	local finished=false	
+	local finished=false
 	while [ $finished == false ]
 	do
-		test=$(test -f "$file" && echo true)			
-	  	if [[ $test == true ]]; then
-	  	  	finished=true;
-		  	clear			  	
+		test=$(test -f "$file" && echo true)
+		  if [[ $test == true ]]; then
+				finished=true;
+			  clear
 			if [[ $delete == 'delete' ]]; then
-		  		rm "$file"
+				  rm "$file"
 			fi
-			echo 'true';			
+			echo 'true';
 			break
-	  	fi
+		  fi
 	done
 }
 
-function getLatestReleaseURLGH(){	
-    local repository=$1
-    local fileType=$2
-	local url	
-	#local token=$(tokenGenerator)
-
-    if [ "$url" == "" ]; then
-        url="https://api.github.com/repos/${repository}/releases/latest"
-    fi
-
-    url="$(curl -sL $url | jq -r ".assets[].browser_download_url" | grep -ve 'i386' | grep .${fileType}\$)"
-    echo "$url"
-}
-
-function getReleaseURLGH(){	
-    local repository=$1
-    local fileType=$2
+function getLatestReleaseURLGH(){
+	local repository=$1
+	local fileType=$2
+	local fileNameContains=$3
 	local url
 	#local token=$(tokenGenerator)
 
-    if [ "$url" == "" ]; then
-        url="https://api.github.com/repos/$repository/releases"
-    fi
-    curl -fSs "$url" | \
-    jq -r '[ .[].assets[] | select(.name | endswith("'"$fileType"'")).browser_download_url ][0]'
+	if [ "$url" == "" ]; then
+		url="https://api.github.com/repos/${repository}/releases/latest"
+	fi
+
+	curl -fSs "$url" | \
+		jq -r '[ .assets[] | select(.name | contains("'"$fileNameContains"'") and endswith("'"$fileType"'")).browser_download_url ][0] // empty'
 }
 
-function linkToSaveFolder(){	
-    local emu=$1
-    local folderName=$2
-    local path=$3
+function getReleaseURLGH(){
+	local repository=$1
+	local fileType=$2
+	local url
+	local fileNameContains=$3
+	#local token=$(tokenGenerator)
+
+	if [ $system == "darwin" ]; then
+		fileType="dmg"
+	fi
+
+	if [ $system == "darwin" ]; then
+		fileType="dmg"
+	fi
+
+	if [ "$url" == "" ]; then
+		url="https://api.github.com/repos/$repository/releases"
+	fi
+
+	curl -fSs "$url" | \
+		jq -r '[ .[].assets[] | select(.name | contains("'"$fileNameContains"'") and endswith("'"$fileType"'")).browser_download_url ][0] // empty'
+}
+
+function linkToSaveFolder(){
+	local emu=$1
+	local folderName=$2
+	local path=$3
 
 	if [ ! -d "$savesPath/$emu/$folderName" ]; then
-		if [ ! -L "$savesPath/$emu/$folderName" ]; then		
+		if [ ! -L "$savesPath/$emu/$folderName" ]; then
 			mkdir -p "$savesPath/$emu"
-			setMSG "Linking $emu $folderName to the Emulation/saves folder"			
+			setMSG "Linking $emu $folderName to the Emulation/saves folder"
 			mkdir -p "$path"
 			ln -snv "$path" "$savesPath/$emu/$folderName"
 		fi
 	else
-		if [ ! -L "$savesPath/$emu/$folderName" ]; then	
+		if [ ! -L "$savesPath/$emu/$folderName" ]; then
 			echo "$savesPath/$emu/$folderName is not a link. Please check it."
 		else
 			if [ $(readlink $savesPath/$emu/$folderName) == $path ]; then
@@ -417,15 +452,15 @@ function linkToSaveFolder(){
 				unlink "$savesPath/$emu/$folderName"
 				linkToSaveFolder "$emu" "$folderName" "$path"
 			fi
- 		fi
+		 fi
 	fi
 
 }
 
-function moveSaveFolder(){	
-    local emu=$1
-    local folderName=$2
-    local path=$3
+function moveSaveFolder(){
+	local emu=$1
+	local folderName=$2
+	local path=$3
 
 	local linkedTarget=$(readlink -f "$savesPath/$emu/$folderName")
 
@@ -433,13 +468,13 @@ function moveSaveFolder(){
 
 	if [[ ! -e "$savesPath/$emu/$folderName" ]]; then
 		mkdir -p "$savesPath/$emu/$folderName"
-		if [[ "$linkedTarget" == "$path" ]]; then		
-			setMSG "Moving $emu $folderName to the Emulation/saves/$emu/$folderName folder"	
-			rsync -avh "$path/" "$savesPath/$emu/$folderName" && rm -rf "${path:?}"
+		if [[ "$linkedTarget" == "$path" ]]; then
+			setMSG "Moving $emu $folderName to the Emulation/saves/$emu/$folderName folder"
+			rsync -avh "$path/" "$savesPath/$emu/$folderName" && mv "$path" "${path}.bak"
 			ln -sn  "$savesPath/$emu/$folderName" "$path"
 		fi
 	fi
-	
+
 }
 
 
@@ -448,11 +483,11 @@ function moveSaveFolder(){
 #	local name=$2
 #	local exec=$3
 #	local terminal=$4 #Optional
-#	
+#
 #
 function createDesktopShortcut(){
 
-	
+
 	local Shortcutlocation=$1
 	local name=$2
 	local exec=$3
@@ -460,11 +495,11 @@ function createDesktopShortcut(){
 	local icon
 
 	rm -f "$Shortcutlocation"
-	
+
 	balooctl check
-	
+
 	mkdir -p "$HOME/.local/share/applications/"
-	
+
 	mkdir -p "$HOME/.local/share/icons/emudeck/"
 	cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name")."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null
 	icon=$(find "$HOME/.local/share/icons/emudeck/" -type f -iname "$(cut -d " " -f1 <<< "$name").*")
@@ -493,7 +528,7 @@ function createDesktopShortcut(){
 	echo "$Shortcutlocation created"
 }
 
-#desktopShortcutFieldUpdate "$shortcutFile" "Name" "NewName"
+#desktopShortcutFieldUpdate "$shortcutFile" "Field" "NewValue"
 function desktopShortcutFieldUpdate(){
 	local shortcutFile=$1
 	local shortcutKey=$2
@@ -505,46 +540,117 @@ function desktopShortcutFieldUpdate(){
 		# update icon if name is updated
 		if [ "$shortcutKey" == "Name" ]; then
 			name=$shortcutValue
-			cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name")."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null
-			icon=$(find "$HOME/.local/share/icons/emudeck/" -type f -iname "$(cut -d " " -f1 <<< "$name").*")
-			if [ ! -z "$icon" ]; then
-				desktopShortcutFieldUpdate "$shortcutFile" "Icon" "$icon"
-				sed -i "s|Icon\s*?=.*|Icon=$icon|g" "$shortcutFile"
+			cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name").{svg,jpg,png}" "$HOME/.local/share/icons/emudeck/" 2>/dev/null
+			icon=$(find "$HOME/.local/share/icons/emudeck/" -type f \( -iname "$(cut -d " " -f1 <<< "$name").svg" -o -iname "$(cut -d " " -f1 <<< "$name").jpg" -o -iname "$(cut -d " " -f1 <<< "$name").png" \) -print -quit)
+			echo "Icon Found: $icon"
+			if [ -n "$icon" ]; then
+				#desktopShortcutFieldUpdate "$shortcutFile" "Icon" "$icon"
+				sed -i "s#Icon\\s*=\\s*.*#Icon=$icon#g" "$shortcutFile"
+				sed -E -i "s|Icon\\s*=\\s*.*|Icon=$icon|g" "$shortcutFile"
 			fi
 		fi
-		sed -E -i "s|$shortcutKey\s*?=.*|$shortcutKey=$shortcutValue|g" "$shortcutFile"
+		sed -E -i "s|$shortcutKey\\s*=\\s*.*|$shortcutKey=$shortcutValue|g" "$shortcutFile"
 		balooctl check
 	fi
 }
 
-#iniFieldUpdate "$iniFilePath" "General" "LoadPath" "$storagePath/$emuName/Load"
-function iniFieldUpdate(){
+
+#iniFieldUpdate "$iniFilePath" "General" "LoadPath" "$storagePath/$emuName/Load" "separator!"
+function iniFieldUpdate() {
 	local iniFile="$1"
-	local iniSection="$2"
+	local iniSection="${2:-}"
 	local iniKey="$3"
 	local iniValue="$4"
+	local separator="${5:- = }"
 
 	if [ -f "$iniFile" ]; then
 		# Create the section if it doesn't exist.
-		if ! grep -q "\[$iniSection\]" "$iniFile"; then
-			echo "[$iniSection]" >> "$iniFile"
-		fi
-
-		# If the key doesn't exist, create it one line below the $iniSection.
-		# Otherwise, just update the value.
-		if ! grep -q "$iniKey" "$iniFile"; then
-			echo "Creating key $iniKey = $iniValue"
-			local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
-			sed -i "$((sectionLineNumber + 1))i$iniKey = $iniValue" "$iniFile"
+		if [ -n "$iniSection" ] && ! grep -q "\[$iniSection\]" "$iniFile"; then
+			echo "Creating Header [$iniSection]"
+			if [ "$(wc -l < "$iniFile")" -gt 0 ]; then
+				# Append a newline before adding the new section
+				echo >> "$iniFile"
+			fi
+			# Escape special characters in the section header
+			escapedSection=$(echo "$iniSection" | sed 's/[&/\]/\\&/g')
+			echo "[$escapedSection]" >> "$iniFile"
+			echo "Creating [$iniSection] key $iniKey$separator$iniValue"
+			echo "$iniKey$separator$iniValue" >> "$iniFile"
 		else
-			echo "Updating key $iniKey = $iniValue"
-			local sectionLineNumber=$(grep -n "\[$iniSection\]" "$iniFile" | cut -d: -f1)
-			sed -i "$((sectionLineNumber + 1))is|$iniKey =.*|$iniKey = $iniValue|g" "$iniFile"
+			# If the key doesn't exist in the section, create it one line below the section.
+			# Otherwise, update the value.
+			local startLineNumber=''
+			local endLineNumber=''
+			if [ -n "$iniSection" ]; then
+				# Escape special characters in the section header
+				escapedSection=$(echo "$iniSection" | sed 's/[&/\]/\\&/g')
+				startLineNumber=$(awk -v section="$escapedSection" 'BEGIN{FS=OFS="|"} $0=="["section"]"{print NR; exit}' "$iniFile")
+				if [ -n "$startLineNumber" ]; then
+					endLineNumber=$(awk -v start="$startLineNumber" -F ']' 'NR > start && /^\[/ {print NR-1; exit}' "$iniFile")
+				fi
+			fi
+
+			if [ -n "$startLineNumber" ] && [ -n "$endLineNumber" ]; then
+				if ! grep -q "^$iniKey$separator" <(sed -n "${startLineNumber},${endLineNumber}p" "$iniFile"); then
+					echo "Creating [$iniSection] key $iniKey$separator$iniValue"
+					sed -i "${startLineNumber}a$iniKey$separator$iniValue" "$iniFile"
+				else
+					echo "Updating [$iniSection] key $iniKey$separator$iniValue"
+					sed -i "/^\[$escapedSection\]/,/^\[/ s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
+				fi
+			elif ! grep -q "^$iniKey$separator" "$iniFile"; then
+				echo "Creating key $iniKey$separator$iniValue"
+				echo "$iniKey$separator$iniValue" >> "$iniFile"
+			else
+				echo "Updating key $iniKey$separator$iniValue"
+				sed -i "s|^$iniKey$separator.*|$iniKey$separator$iniValue|" "$iniFile"
+			fi
 		fi
 	else
 		echo "Can't update missing INI file: $iniFile"
 	fi
 }
+
+
+function iniSectionUpdate() {
+	local file="$1"
+	local section_name="$2"
+	local new_content="$3"
+	local tmp_file=$(mktemp)
+
+	local inside_section=0
+
+	while IFS= read -r line; do
+
+		if [[ "$line" =~ ^\[$section_name\] ]]; then
+			inside_section=1
+			echo "$line"
+			echo "$new_content"
+			continue
+		fi
+
+		if [[ "$line" =~ ^\[ ]] && [[ ! "$line" =~ ^\[$section_name\] ]] && [[ $inside_section -eq 1 ]]; then
+			echo "$old_content"
+			inside_section=0
+		fi
+
+		if [[ $inside_section -eq 1 ]]; then
+			continue
+		fi
+
+		echo "$line"
+
+	local old_content="$line"
+
+	done < "$file" > "$tmp_file"
+
+	if [[ $inside_section -eq 1 ]]; then
+		echo "$old_content"
+	fi
+
+	mv "$tmp_file" "$file"
+}
+
 
 safeDownload() {
 	local name="$1"
@@ -559,6 +665,7 @@ safeDownload() {
 	echo "- $outFile"
 	echo "- $showProgress"
 	echo "- $headers"
+
 
 	if [ "$showProgress" == "true" ] || [[ $showProgress -eq 1 ]]; then
 		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 | tee >(stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading $name" --width 600 --auto-close --no-cancel 2>/dev/null) && echo $'\2'${PIPESTATUS[0]})
@@ -587,16 +694,79 @@ addSteamInputCustomIcons() {
 	rsync -av "$EMUDECKGIT/configs/steam-input/Icons/" "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons"
 }
 
-#add new emu entries here!
 getEmuInstallStatus() {
-	emuArray=(	"Cemu" "CemuNative" "Citra" "Dolphin" "DuckStation" "MAME" "melonDS" "mGBA"\
-				"PCSX2QT" "PPSSPP" "Primehack" "RetroArch" "RMG" "RPCS3" "Ryujinx" "ScummVM"\
-				"Vita3K" "Xemu" "Xenia" "Yuzu")
+	emuArray=(	"$@")
 	installStatus=()
 	for emu in "${emuArray[@]}"; do
 		installStatus+=($("${emu}_IsInstalled"))
 	done
-	
+
 	paste <(printf "%s\n" "${emuArray[@]}") <(printf "%s\n" "${installStatus[@]}") |
-    jq -nR '{ Emulators: [inputs] | map(split("\t") | { Name: .[0], Installed: .[1] }) }'
+	jq -nR '{ Emulators: [inputs] | map(split("\t") | { Name: .[0], Installed: .[1] }) }'
+}
+
+isFpInstalled(){
+	flatPakID=$1
+	if (flatpak --columns=app list --user | grep -q "^$flatPakID$") || (flatpak --columns=app list --system | grep -q "^$flatPakID$"); then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+check_internet_connection(){
+  ping -q -c 1 -W 1 8.8.8.8 > /dev/null 2>&1 && echo true || echo false
+}
+
+zipLogs() {
+	logsFolder="$HOME/emudeck/logs"
+	settingsFile="$HOME/emudeck/settings.sh"
+	zipOutput="$HOME/Desktop/emudeck_logs.zip"
+
+	# Comprime los archivos en un archivo zip
+	zip -rj "$zipOutput" "$logsFolder" "$settingsFile"
+
+	if [ $? -eq 0 ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+setResolutions(){
+	Cemu_setResolution
+	Citra_setResolution
+	Dolphin_setResolution
+	DuckStation_setResolution
+	Flycast_setResolution
+	MAME_setResolution
+	melonDS_setResolution
+	mGBA_setResolution
+	PCSX2QT_setResolution
+	PPSSPP_setResolution
+	Primehack_setResolution
+	RPCS3_setResolution
+	Ryujinx_setResolution
+	ScummVM_setResolution
+	Vita3K_setResolution
+	Xemu_setResolution
+	Xenia_setResolution
+	Yuzu_setResolution
+}
+
+# get variable value from kvp-style config file
+# VAR1=VALUE1
+# VAR2="VALUE 2"
+# ...
+scriptConfigFileGetVar() {
+    local configFile=$1
+    local configVar=$2
+    local configVarDefaultValue=$3
+
+    local configVarValue="$( (grep -E "^${configVar}=" -m 1 "${configFile}" 2>/dev/null || echo "_=__UNDEFINED__") | head -n 1 | cut -d '=' -f 2- | xargs )"
+    if [ "${configVarValue}" = "__UNDEFINED__" ]; then
+        configVarValue="${configVarDefaultValue}"
+    fi
+
+    printf -- "%s" "${configVarValue}"
 }

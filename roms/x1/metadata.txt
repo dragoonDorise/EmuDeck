@@ -1,0 +1,6 @@
+collection: Sharp X1
+shortname: x1
+extensions: dx1, DX1, 2d, 2D, 2hd, 2HD, tfd, TFD, d88, D88, 88d, 88D, hdm, HDM, xdf, XDF, dup, DUP, tap, TAP, cmd, CMD, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/x1_libretro.so {file.path}
+
+
