@@ -1,0 +1,18 @@
+{
+  "system": "nes",
+  "status": "true",
+  "logo": "logo_nes",
+  "title": "Elite",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/nes/elite.zip",
+  "description": "Elite is a space trading video game. It was originally written and developed for the BBC Micro and Acorn Electron computers. Elite's open-ended game model and revolutionary 3D graphics earned it a place as a classic and a genre maker in gaming history.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/screenshots/homebrew/elite.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/nes/titlescreens/homebrew/elite.png?raw=true"
+    ]
+  },
+  "tags": ["action"]
+}

@@ -1,13 +1,5 @@
-#!/usr/bin/bash
-
-# shellcheck disable=SC1091
-. "${HOME}/emudeck/settings.sh"
-
-# shellcheck disable=SC2154
-LAUNCH="${toolsPath}/emu-launch.sh"
-
-# Set emulator name
-EMU="ScummVM"
-
-# Launch emu-launch.sh
-"${LAUNCH}" -e "${EMU}" -- "${@}"
+#!/bin/sh
+source $HOME/.config/EmuDeck/backend/functions/all.sh
+cloud_sync_downloadEmu "scummvm" && cloud_sync_startService
+/usr/bin/flatpak run org.scummvm.ScummVM "${@}"
+rm -rf "$savesPath/.gaming"

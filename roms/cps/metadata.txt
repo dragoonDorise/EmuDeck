@@ -1,0 +1,4 @@
+collection: Capcom Play System
+shortname: cps
+extensions: 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/mame_libretro.so {file.path}

@@ -3,8 +3,6 @@
 #Expert mode off by default
 expert=false
 
-
-
 #Default settings for all systems
 doSetupRA=true
 doSetupDolphin=true
@@ -17,13 +15,17 @@ doSetupCemu=true
 doSetupXenia=false
 doSetupRyujinx=true
 doSetupMAME=true
-doSetupPrimeHacks=true
+doSetupPrimehack=true
 doSetupPPSSPP=true
+doSetupRMG=true
+doSetupares=true
 doSetupXemu=true
 doSetupESDE=true
 doSetupSRM=true
 doSetupPCSX2QT=true
 #doSetupMelon=true
+doSetupMGBA=true
+doSetupFlycast=true
 
 #Install all systems by default
 doInstallSRM=true
@@ -38,25 +40,28 @@ doInstallDuck=false
 doInstallCemu=false
 doInstallXenia=false
 doInstallRyujinx=false
-doInstallPrimeHacks=false
+doInstallPrimeHack=false
 doInstallPPSSPP=false
+doInstallRMG=false
+doInstallares=false
 doInstallXemu=false
 doInstallPCSX2QT=false
 doInstallMAME=true
 #doInstallMelon=false
+doInstallMGBA=false
+doInstallFlycast=true
 doInstallCHD=false
 doInstallPowertools=false
 doInstallGyro=false
+doInstallHomeBrewGames=false
 
 installString='Installing'
 
 #Default RetroArch configuration 
 RABezels=true
 RAautoSave=false
-SNESAR=43
 
 #Default widescreen
-
 duckWide=false
 DolphinWide=false
 DreamcastWide=false
@@ -74,7 +79,6 @@ ESDEscrapData=~/Emulation/tools/downloaded_media
 
 #Default ESDE Theme
 esdeTheme="EPICNOIR"
-
 
 #Advanced settings
 doSelectWideScreen=false

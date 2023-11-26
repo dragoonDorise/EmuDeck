@@ -39,7 +39,6 @@ Help () {
     echo "p     Proton version"
     echo "i     Proton AppID"
     echo
-    exit
 }
 
 # Report all current arguments to the LOGFILE
@@ -64,6 +63,7 @@ installProton () {
         [5.13]="1420170"
         [6.3]="1580130"
         [7.0]="1887720"
+        [8.0]="2348590"
         [- Experimental]="1493710"
         [Hotfix]="2180100"
         [EasyAntiCheat Runtime]="1826330"
@@ -92,8 +92,8 @@ findProton () {
         if [ -f "${path}/steamapps/common/Proton ${1}/proton" ]; then
             local proton="${path}/steamapps/common/Proton ${1}/proton"
             break
-        elif [ -f "${path}/compatabilitytools.d/${1}/proton" ]; then
-            local proton="${path}/compatabilitytools.d/${1}/proton"
+        elif [ -f "${path}/compatibilitytools.d/${1}/proton" ]; then
+            local proton="${path}/compatibilitytools.d/${1}/proton"
             break
         fi
     done
@@ -155,11 +155,34 @@ main () {
     # Report all $@ to LOGFILE for troubleshooting
     showArguments "${@}"
 
-    # Get all available Steam paths
-    steamLibraryFolders="${HOME}/.local/share/Steam/steamapps/libraryfolders.vdf"
+    # Set main STEAMPATH
+    if [ -d "${HOME}/.local/share/Steam" ]; then
+        STEAMPATH="${HOME}/.local/share/Steam"
+    else
+        reportError "Error: ${STEAMPATH} does not exist." "true" "true"
+    fi
+    
+    echo "STEAMPATH: ${STEAMPATH}" >> "${LOGFILE}"
+    
+    #Get all available Steam paths
+    steamLibraryFolders="${STEAMPATH}/steamapps/libraryfolders.vdf"
     if [ -f "${steamLibraryFolders}" ]; then
         # shellcheck disable=SC2207
-        steamPaths=( $( grep path "${steamLibraryFolders}" | awk '{print $2}' | sed 's|\"||g' ) )
+        steamPaths=()
+        # Make sure all paths are valid directories
+        for p in $( grep path "${steamLibraryFolders}" | awk '{print $2}' | sed 's|\"||g' ); do
+            if [ -d "${p}" ]; then
+                steamPaths+=("${p}")
+            else
+                echo "INFO: ${steamLibraryFolders} contains invalid directory ${p}." >> "${LOGFILE}"
+            fi
+        done
+        
+        # Exit if there are no paths found.
+        if [[ "${#steamPaths[@]}" -eq 0 ]]; then
+            reportError "Error: No Steam library paths found in ${steamLibraryFolders}." "true" "true"
+        fi
+        
         {
             echo "Steam Paths:"
             for path in "${steamPaths[@]}"; do
@@ -169,9 +192,6 @@ main () {
     else
         reportError "Error: ${steamLibraryFolders} is not a file." "true" "true"
     fi
-
-    STEAMPATH="${steamPaths[1]}"
-    echo "STEAMPATH: ${STEAMPATH}" >> "${LOGFILE}"
 
     # Check for options -h help -p Proton Version -i AppID
     while getopts "h:p:i:" option; do
@@ -221,7 +241,7 @@ main () {
 
     # Check if Proton version is set, if not, set it to 7.0 by default
     if [ -z ${PROTONVER+x} ]; then
-        PROTONVER="7.0"
+        PROTONVER="8.0"
     fi
 
     # Find set Proton version

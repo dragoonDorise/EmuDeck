@@ -1,0 +1,4 @@
+collection: EasyRPG Game Engine
+shortname: easyrpg
+extensions: easyrpg, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/easyrpg_libretro.so {file.path}

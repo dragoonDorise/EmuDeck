@@ -1,13 +1,5 @@
-#!/usr/bin/bash
-
-# shellcheck disable=SC1091
-. "${HOME}/emudeck/settings.sh"
-
-# shellcheck disable=SC2154
-LAUNCH="${toolsPath}/emu-launch.sh"
-
-# Set emulator name
-EMU="Duckstation"
-
-# Launch emu-launch.sh
-"${LAUNCH}" -e "${EMU}" -- "${@}"
+#!/bin/sh
+source $HOME/.config/EmuDeck/backend/functions/all.sh
+cloud_sync_downloadEmu "duckstation" && cloud_sync_startService
+/usr/bin/flatpak run org.duckstation.DuckStation "${@}"
+rm -rf "$savesPath/.gaming"

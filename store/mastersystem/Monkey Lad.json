@@ -1,0 +1,18 @@
+{
+  "system": "mastersystem",
+  "status": "true",
+  "logo": "logo_mastersystem",
+  "title": "Monkey Lad",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/mastersystem/monkeylad.zip",
+  "description": "A platform game for the Sega Master System. Run around and stomp on the monsters!",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/mastersystem/screenshots/homebrew/monkeylad.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/mastersystem/titlescreens/homebrew/monkeylad.png?raw=true"
+    ]
+  },
+  "tags": ["platform"]
+}

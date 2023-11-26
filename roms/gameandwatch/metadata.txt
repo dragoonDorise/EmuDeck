@@ -1,0 +1,6 @@
+collection: Nintendo Game and Watch
+shortname: gameandwatch
+extensions: mgw, MGW, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/gw_libretro.so {file.path}
+
+

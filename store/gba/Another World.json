@@ -1,0 +1,18 @@
+{
+  "system": "gba",
+  "status": "true",
+  "logo": "logo_gba",
+  "title": "Another World",
+  "url": "XXXX",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/gba/Another_world.zip",
+  "description": "Another World, known as Out of This World in North America, is a 1991 cinematic platformer action-adventure game designed by Éric Chahi and published by Delphine Software. The game tells a story of Lester, a young scientist who, as a result of an experiment gone wrong, finds himself on a dangerous alien world where he is forced to fight for his survival.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gba/screenshots/homebrew/Another_world.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gba/titlescreens/homebrew/Another_world.png?raw=true"
+    ]
+  },
+  "tags": ["action", "puzzle"]
+}

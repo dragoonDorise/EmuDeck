@@ -1,0 +1,58 @@
+{
+  "featured": [
+    {
+      "system": "genesis",
+      "status": "true",
+      "logo": "logo_genesis",
+      "title": "Phantom Gear",
+      "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/genesis/Phantom Gear.zip",
+      "description": "Phantom Gear mixes elements from a variety of classic action platformers for a unique and exciting package, and allows players to approach the game how they see fit. Lock ‘n’ load to power through levels, or use your skills and abilities to search for Gears and Orbs.",
+      "pictures": {
+        "screenshots": [
+          "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/screenshots/homebrew/Phantom Gear.png?raw=true"
+        ],
+
+        "titlescreens": [
+          "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/titlescreens/homebrew/Phantom Gear.png?raw=true"
+        ]
+      },
+      "tags": ["action", "platform"]
+    },
+    {
+      "system": "genesis",
+      "status": "true",
+      "logo": "logo_genesis",
+      "title": "Xump 2",
+      "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/genesis/Xump 2.zip",
+      "description": "Xump 2 is a simple multi-platform puzzler by Retroguru. Help Misuki clean up deserted space fields. Obstacles like mines, teleport sectors and arrow walkways appear progressively throughout the game.",
+      "pictures": {
+        "screenshots": [
+          "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/screenshots/homebrew/Xump 2.png?raw=true"
+        ],
+
+        "titlescreens": [
+          "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/genesis/titlescreens/homebrew/Xump 2.png?raw=true"
+        ]
+      },
+      "tags": ["action"]
+    },
+    {
+      "system": "snes",
+      "status": "true",
+      "logo": "logo_snes",
+      "title": "Dottie Dreads Nought",
+      "url": "https://goldlocke.itch.io/dottie-dreads-nought",
+      "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/snes/Dottie Dreads Nought.zip",
+      "description": "Can you help Dottie on her hiking adventure to find the legendary Edelweiß flower? Along for the ride is her friend Ernesto. By using the magic mirror, you can shift perspective to him and reveal secrets previously hidden.",
+      "pictures": {
+        "screenshots": [
+          "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/screenshots/homebrew/Dottie Dreads Nought.png?raw=true"
+        ],
+        "titlescreens": [
+          "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/snes/titlescreens/homebrew/Dottie Dreads Nought.png?raw=true"
+        ]
+      },
+      "tags": ["platform"]
+    }
+  ]
+}
