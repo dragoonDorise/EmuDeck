@@ -1,0 +1,4 @@
+collection: Sony PlayStation 2
+shortname: ps2
+extensions: bin, BIN, chd, CHD, ciso, CISO, cso, CSO, dump, DUMP, elf, ELF, gz, GZ, m3u, M3U, mdf, MDF, img, IMG, iso, ISO, isz, ISZ, ngr, NRG
+launch: /bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/pcsx2-qt.sh -batch -fullscreen {file.path}

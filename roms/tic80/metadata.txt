@@ -1,0 +1,6 @@
+collection: TIC-80 Game Engine
+shortname: tic80
+extensions: tic, TIC
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/tic80_libretro.so {file.path}
+
+

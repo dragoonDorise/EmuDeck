@@ -13,7 +13,7 @@ ScummVM_cleanup(){
 
 #Install
 ScummVM_install(){
-	installEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}"	
+	installEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}"
 	flatpak override "${ScummVM_emuPath}" --filesystem=host --user
 	flatpak override "${ScummVM_emuPath}" --share=network --user
 }
@@ -55,13 +55,13 @@ ScummVM_setupSaves(){
 
 #SetupStorage
 ScummVM_setupStorage(){
-	echo "NYI"  
+	echo "NYI"
 }
 
 
 #WipeSettings
 ScummVM_wipe(){
-	echo "NYI"  
+	echo "NYI"
 }
 
 
@@ -72,12 +72,12 @@ ScummVM_uninstall(){
 
 #setABXYstyle
 ScummVM_setABXYstyle(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #Migrate
 ScummVM_migrate(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #WideScreenOn
@@ -106,11 +106,7 @@ ScummVM_finalize(){
 }
 
 ScummVM_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$ScummVM_emuPath")" == "$ScummVM_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	isFpInstalled "$ScummVM_emuPath"
 }
 
 ScummVM_resetConfig(){

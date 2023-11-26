@@ -1,0 +1,4 @@
+collection: Nintendo 3DS
+shortname: n3ds
+extensions: 3ds, 3DS, 3dsx, 3DSX, app, APP, axf, AXF, cii, CII, cxi, CXI, elf, ELF, cci, CCI
+launch: /bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/citra.sh {file.path}
