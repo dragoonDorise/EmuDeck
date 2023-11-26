@@ -1,0 +1,4 @@
+collection: Microsoft Xbox 360
+shortname: xbox360
+extensions: iso, ISO, xex, XEX
+launch: /bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh "Z:{file.path}"

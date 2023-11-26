@@ -1,0 +1,53 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Nintendo Wii U - Cemu Native (.rpx)",
+  "steamCategory": "${Nintendo Wii U - Cemu Native}",
+  "executableArgs": "vblank_mode=0 %command% -f -g \"${filePath}\"",
+  "executableModifier": "\"${exePath}\"",
+  "romDirectory": "${romsdirglobal}/wiiu/roms/",
+  "steamDirectory": "${steamdirglobal}",
+  "startInDirectory": "",
+  "imageProviders": ["SteamGridDB"],
+  "titleModifier": "${fuzzyTitle}",
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "defaultImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/wiiu.jpg",
+  "defaultTallImage": "",
+  "defaultHeroImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
+  "defaultLogoImage": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
+  "defaultIcon": "",
+  "localImages": "",
+  "localTallImages": "",
+  "localHeroImages": "",
+  "localLogoImages": "",
+  "localIcons": "",
+  "disabled": false,
+  "advanced": false,
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": false
+  },
+  "userAccounts": {
+    "specifiedAccounts": "",
+    "skipWithMissingDataDir": true,
+    "useCredentials": true
+  },
+  "parserInputs": {
+    "glob": "${title}/**/*.rpx"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false,
+    "tryToMatchTitle": false
+  },
+  "fuzzyMatch": {
+    "use": true,
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "parserId": "166758881839575782",
+  "version": 5
+}
