@@ -1,0 +1,6 @@
+collection: Nintendo Pokémon Mini
+shortname: pokemini
+extensions: min, MIN, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/pokemini_libretro.so {file.path}
+
+

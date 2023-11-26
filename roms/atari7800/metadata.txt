@@ -1,0 +1,6 @@
+collection: Atari 7800 ProSystem
+shortname: atari7800
+extensions: a78, A78, bin, BIN, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/prosystem_libretro.so {file.path}
+
+

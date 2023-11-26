@@ -1,0 +1,4 @@
+collection: Commodore 16
+shortname: c16
+extensions: d64, D64, d71, D71, d80, D80, d81, D81, d82, D82, g64, G64, g41, G41, x64, X64, t64, T64, tap, TAP, prg, PRG, p00, P00, crt, CRT, bin, BIN, d6z, D6Z, d7z, D7Z, d8z, D8Z, g6z, G6Z, g4z, G4Z, x6z, X6Z, cmd, CMD, m3u, M3U, vsf, VSF, nib, NIB, nbz, NBZ, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/vice_xplus4_libretro.so {file.path}
