@@ -1,269 +1,397 @@
 #!/bin/bash
+romParser_SS_download(){
+	local romName=$1
+	local system=$2
+	local type=$3
+	local userSS=$(cat "$HOME/emudeck/.userSS")
+	local passSS=$(cat "$HOME/emudeck/.passSS")
+	#local ssID Set but calling romParser_SS_getAlias before
+	case "$type" in
+		"wheel")
+			media="wheel"
+			;;
+		"screenshot")
+			media="ss"
+			;;
+		*)
+			media="box-2D"
+			;;
+	esac
 
-# if (whiptail --title "Scrape metadata" --yesno "Would you like to scrape metadata for individual games?" 8 78); then
-# 	saveMetadata=true
-# else
-# 	saveMetadata=false
-# fi
-clear
-echo -e "Using ScreenScraper..."
-
-#We check for existing credentials
-userStored=false
-FILE="$HOME/emudeck/.screenScraperUser"
-if [ -f "$FILE" ]; then
-	userStored=true
-	userSS=$(cat "$HOME/emudeck/.screenScraperUser")
-	passSS=$(cat "$HOME/emudeck/.screenScraperPass")
-fi
-
-if [ $userStored == false ]; then
-
-	if (whiptail --title "Screen Scraper" --yesno "Do you have an account on www.screenscraper.fr? If you don't we will open your browser so you can create one. Come back afterwards" 8 78); then
-		find $HOME/shared/RetroArch/config/ -type f -name "*.cfg" -exec sed -i -e 's/input_overlay_enable = "false"/input_overlay_enable = "true"/g' {} \;
+	FILE=$romsPath/$system/media/$type/$romName.png
+	if [ -f "$FILE" ]; then
+		echo -e "Image already exists, ${YELLOW}ignoring${NONE}"
 	else
-		termux-open "https://www.screenscraper.fr/membreinscription.php"
-		clear
-		echo -e "Press the ${RED}A Button${NONE} if you already have your account created"
-		read pause
-	fi
+		#We get the gameIDSS
+		urlIDSS="https://www.screenscraper.fr/api2/jeuInfos.php?devid=djrodtc&devpassword=diFay35WElL&softname=zzz&output=json&ssid=${userSS}&sspassword=${passSS}&crc=&systemeid=${ssID}&romtype=rom&romnom=${romName}.zip"
 
-	echo -e "Now I'm going to ask for your username and password. ${BOLD}These will never be read or used outside this scraper${NONE}"
-	echo -e "What is your ScreenScraper user? Type it and press the ${RED}A button${NONE}"
-	read user
-	echo $user > ~/emudeck/.screenScraperUser
-	echo -e "What is your ScreenScraper password? Type it and press the ${RED}A button${NONE}"
-	read pass
-	echo $pass > ~/emudeck/.screenScraperPass
+		#Cleaning URL
+		urlIDSS=$(echo "$urlIDSS" | sed 's/ /%20/g')
 
-	echo -e "${GREEN}Thanks!${NONE}"
-	echo -e "You can change the credentials later by opening Termux again"
-	echo -e "Press the ${RED}A Button${NONE} to start scraping your roms"
-	read pause
-fi
-
-#ScreenScraper loop
-for device_name in $romsPath/*;
-do
-	message=$device_name
-	system="${message//'"'/}"
-	mkdir $romsPath/$system/media &> /dev/null
-	mkdir $romsPath/$system/media/screenshot &> /dev/null
-	mkdir $romsPath/$system/media/box2dfront &> /dev/null
-	mkdir $romsPath/$system/media/wheel &> /dev/null
-
-	#ScreenScraper system ID
-	get_sc_id $system
-	echo ""
-	echo -e "Scraping $system..."
-	echo ""
-
-	#Check for metadata file
-	metadataFile=$romsPath/$system/metadata.pegasus.txt
-	if [[ -f $metadataFile ]]; then
-		systemMetadata=$(cat $metadataFile)
-		fileExtensions=$(grep -E '^extensions' $metadataFile)
-		extensions="${fileExtensions/"extensions: "/""}"
-	else
-		systemMetadata=""
-		extensions=""
-	fi
-
-	#Roms loop
-	for entry in $romsPath/$system/*
-	do
-
-		#Cleaning up names
-		firstString=$entry
-		secondString=""
-		romName="${firstString/"$romsPath/$system/"/"$secondString"}"
-		romNameNoExtension=${romName%.*}
-		startcapture=true
-
-		#.txt validation
-		STR=$romName
-		SUB='.txt'
-		if grep -q "$SUB" <<< "$STR"; then
-			continue;
+		#ID Game
+		content=$(curl $urlIDSS)
+		#Don't check art if screenscraper is closed
+		if [[ $content == *"API closed"* ]]; then
+			echo -e "The Screenscraper API is currently down, please try again later."
+			exit
 		fi
-		#.sav validation
-		STR=$romName
-		SUB='.sav'
-		if grep -q "$SUB" <<< "$STR"; then
-			continue;
+		#Don't check art after a failed curl request
+		if [[ $content == "" ]]; then
+			echo -e "Request failed to send for $romName, ${YELLOW}skipping${NONE}"
+			echo ""
+			echo "Request failed for $romName"
+			exit
 		fi
-		#.srm validation
-		 STR=$romName
-		 SUB='.srm'
-		 if grep -q "$SUB" <<< "$STR"; then
-			 continue;
-		 fi
+		#Don't check art if screenscraper can't find a match
+		if [[ $content == *"Erreur"* ]]; then
+			echo -e "Couldn't find a match for $romName, ${YELLOW}skipping${NONE}"
+			echo ""
+			echo "Couldn't find a match for $romName"
+			exit
+		fi
 
-		#Directory Validation
-		DIR=$romsPath/$system/$romName
-		if [ -d "$DIR" ]; then
-			continue;
-		fi
-		#Extension Validation
-		#"" means metadata couldn't be parsed, no extensions to check
-		if [[ $extensions == "" ]]; then
-			startcapture=true
+		gameIDSS=$( jq -r  '.response.jeu.id' <<< "${content}" )
+
+		#Downloading art!
+		local url="https://www.screenscraper.fr/api2/mediaJeu.php?devid=djrodtc&devpassword=diFay35WElL&softname=EmuDeck&ssid=${userSS}&sspassword=${passSS}&crc=&md5=&sha1=&systemeid=${ssID}&jeuid=${gameIDSS}&media=${media}(wor)"
+
+
+		urlSave="$romsPath/$system/media/$media/$romName.png"
+		echo $urlSave
+
+		echo -e "${BOLD}Scraping: $media${NONE}"
+		StatusString=$(wget --spider "$url" 2>&1)
+		echo -ne "${BOLD}Searching World Region..."
+		if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
+			wget -q --show-progress "$url" -O "$urlSave" &> /dev/null
+			echo -e "${GREEN}Found it!${NONE}"
 		else
-			if grep -q "${romName##*.}" <<< "$extensions"]; then
-				startcapture=true
+			echo -ne "${BOLD}Searching US Region..."
+			firstString="$url"
+			secondString="(us)"
+			url="${firstString/(wor)/"$secondString"}"
+			StatusString=$(wget --spider "$url" 2>&1)
+			if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
+				wget -q --show-progress "$url" -O "$urlSave" &> /dev/null
+				echo -e "${GREEN}Found it!${NONE}"
 			else
-				continue;
-			fi
-		fi
+				echo -ne "${BOLD}Searching EU Region..."
+				firstString="$url"
+				secondString="(eu)"
+				url="${firstString/(us)/"$secondString"}"
+				StatusString=$(wget --spider "$url" 2>&1)
+				if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
+					wget -q --show-progress "$url" -O "$urlSave" &> /dev/null
+					echo -e "${GREEN}Found it!${NONE}"
 
-		#Blanks cleaning up, TODO: DRY
-		firstString=$romNameNoExtension
-		secondString=""
-		romNameNoExtensionNoDisc="${firstString/"Disc "/""}"
-		firstString=$romNameNoExtensionNoDisc
-		romNameNoExtensionNoRev="${firstString/"Rev "/""}"
-		firstString=$romNameNoExtensionNoRev
-		romNameNoExtensionTrimmed=$(echo $firstString | sed 's/ ([^()]*)//g' | sed 's/ [[A-z0-9!+]*]//g' | sed 's/([^()]*)//g' | sed 's/[[A-z0-9!+]*]//g')
-		firstString=$romNameNoExtensionTrimmed
-		romNameNoExtensionNoAnd="${firstString/"&"/"$secondString"}"
-		firstString=$romNameNoExtensionNoAnd
-		secondString="%20"
-		romNameNoExtensionNoDash="${firstString/" - "/"$secondString"}"
-		firstString=$romNameNoExtensionNoDash
-		romNameNoExtensionNoDash="${firstString/"-"/"$secondString"}"
-		firstString=$romNameNoExtensionNoDash
-		romNameNoExtensionNoSpace="${firstString//" "/"$secondString"}"
-		firstString=$romNameNoExtensionNoSpace
-		secondString=""
-		romNameNoExtensionNoNkit="${firstString/".nkit"/"$secondString"}"
-		firstString=$romNameNoExtensionNoNkit
-		romNameNoExtensionNoSpace="${firstString/"!"/"$secondString"}"
-		firstString=$romNameNoExtensionNoSpace
-
-		if [ $startcapture == true ]; then
-			hasWheel=false
-			hasSs=false
-			hasBox=false
-			hasMetadata=false
-
-			FILE=$romsPath/$system/media/wheel/$romNameNoExtension.png
-			if [ -f "$FILE" ]; then
-				hasWheel=true
-			fi
-
-			FILE=$romsPath/$system/media/screenshot/$romNameNoExtension.png
-			if [ -f "$FILE" ]; then
-				hasSs=true
-			fi
-
-			FILE=$romsPath/$system/media/box2dfront/$romNameNoExtension.png
-			if [ -f "$FILE" ]; then
-				hasBox=true
-			fi
-
-			if [[ $systemMetadata == "" ]] || [[ $systemMetadata == *"game: $romNameNoExtensionTrimmed"* ]]; then
-				hasMetadata=true
-			fi
-
-			#We only search games with no art or metadata
-			if [ $hasWheel == false ] || [ $hasSs == false ] || [ $hasBox == false ] || ([ $hasMetadata == false ] && [ $saveMetadata == true ]); then
-			#Second Scan: Screenscraper
-				url="https://www.screenscraper.fr/api2/jeuInfos.php?devid=djrodtc&devpassword=diFay35WElL&softname=zzz&output=json&ssid=${userSS}&sspassword=${passSS}&crc=&systemeid=${ssID}&romtype=rom&romnom=${romNameNoExtensionNoSpace}.zip"
-
-				#ID Game
-				content=$(curl "$url")
-
-				#Don't check art if screenscraper is closed
-				if [[ $content == *"API closed"* ]]; then
-					echo -e "The Screenscraper API is currently down, please try again later."
-					echo -e  "Press the ${RED}A button${NONE} to finish"
-					read pause
-					am startservice -a com.termux.service_stop com.termux/.app.TermuxService &> /dev/null
-				fi
-				#Don't check art after a failed curl request
-				if [[ $content == "" ]]; then
-					echo -e "Request failed to send for $romNameNoExtensionTrimmed, ${YELLOW}skipping${NONE}"
-					echo ""
-					echo "Request failed for $romNameNoExtensionTrimmed" >> $HOME/shared/scrap.log
-					continue;
-				fi
-				#Don't check art if screenscraper can't find a match
-				if [[ $content == *"Erreur"* ]]; then
-					echo -e "Couldn't find a match for $romNameNoExtensionTrimmed, ${YELLOW}skipping${NONE}"
-					echo ""
-					echo "Couldn't find a match for $romNameNoExtensionTrimmed" >> $HOME/shared/scrap.log
-					continue;
-				fi
-
-				gameIDSS=$( jq -r  '.response.jeu.id' <<< "${content}" )
-
-				urlMediaWheel="https://www.screenscraper.fr/api2/mediaJeu.php?devid=djrodtc&devpassword=diFay35WElL&softname=zzz&ssid=${userSS}&sspassword=${passSS}&crc=&md5=&sha1=&systemeid=${ssID}&jeuid=${gameIDSS}&media=wheel(wor)"
-				urlMediaWheelHD="https://www.screenscraper.fr/api2/mediaJeu.php?devid=djrodtc&devpassword=diFay35WElL&softname=zzz&ssid=${userSS}&sspassword=${passSS}&crc=&md5=&sha1=&systemeid=${ssID}&jeuid=${gameIDSS}&media=wheel-hd(wor)"
-				urlMediaSs="https://www.screenscraper.fr/api2/mediaJeu.php?devid=djrodtc&devpassword=diFay35WElL&softname=zzz&ssid=${userSS}&sspassword=${passSS}&crc=&md5=&sha1=&systemeid=${ssID}&jeuid=${gameIDSS}&media=ss(wor)"
-				urlMediaBox="https://www.screenscraper.fr/api2/mediaJeu.php?devid=djrodtc&devpassword=diFay35WElL&softname=zzz&ssid=${userSS}&sspassword=${passSS}&crc=&md5=&sha1=&systemeid=${ssID}&jeuid=${gameIDSS}&media=box-2D(wor)"
-				wheelSavePath="./storage/$romsPath/$system/media/wheel/$romNameNoExtension.png"
-				ssSavePath="./storage/$romsPath/$system/media/screenshot/$romNameNoExtension.png"
-				box2dfrontSavePath="./storage/$romsPath/$system/media/box2dfront/$romNameNoExtension.png"
-
-				echo -e "Downloading Images for $romNameNoExtensionTrimmed - $gameIDSS"
-
-				if [ $hasWheel == true ]; then
-					echo -e "Image already exists, ${YELLOW}ignoring${NONE}" &> /dev/null
 				else
-					scrap_ss "$urlMediaWheel" "$wheelSavePath" "Wheel"
-				fi
+					echo -ne "${BOLD}Searching USA Region..."
+					firstString="$url"
+					secondString="(usa)"
+					url="${firstString/(eu)/"$secondString"}"
+					StatusString=$(wget --spider "$url" 2>&1)
+					if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
+						wget -q --show-progress "$url" -O "$urlSave" &> /dev/null
+						echo -e "${GREEN}Found it!${NONE}"
+					else
+						echo -ne "${BOLD}Searching Custom Region..."
+						firstString="$url"
+						secondString="(cus)"
+						url="${firstString/(usa)/"$secondString"}"
+						StatusString=$(wget --spider "$url" 2>&1)
+						if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
+							wget -q --show-progress "$url" -O "$urlSave" &> /dev/null
+							echo -e "${GREEN}Found it!${NONE}"
+						else
+							echo -ne "${BOLD}Searching No Region..."
+							firstString="$url"
+							secondString=""
+							url="${firstString/(cus)/"$secondString"}"
+							StatusString=$(wget --spider "$url" 2>&1)
+							if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
+								wget -q --show-progress "$url" -O "$urlSave" &> /dev/null
+								echo -e "${GREEN}Found it!${NONE}"
 
-				if [ $hasSs == true ]; then
-					echo -e "Image already exists, ${YELLOW}ignoring${NONE}" &> /dev/null
-				else
-					scrap_ss "$urlMediaSs" "$ssSavePath" "Screenshot"
-				fi
-
-				if [ $hasBox == true ]; then
-					echo -e "Image already exists, ${YELLOW}ignoring${NONE}" &> /dev/null
-				else
-					scrap_ss "$urlMediaBox" "$box2dfrontSavePath" "2D Box"
-				fi
-				#Wheel HD just in case
-				FILE=$romsPath/$system/media/wheel/$romNameNoExtension.png
-				if [ -f "$FILE" ]; then
-					hasWheel=true
-				fi
-
-				if [ $hasWheel == true ]; then
-					echo -e "Image already exists, ${YELLOW}ignoring${NONE}" &> /dev/null
-				else
-					scrap_ss "$urlMediaWheelHD" "$wheelSavePath" "Wheel HD"
-				fi
-
-				if [ $saveMetadata == true ]; then
-					if [[ $hasMetadata == true ]]; then
-						echo -e "Metadata already exists for $romNameNoExtensionTrimmed, ${YELLOW}ignoring${NONE}"
-						continue;
+							else
+								echo -e "${RED}NO IMG FOUND${NONE}"
+							fi
+						fi
 					fi
-
-					genre_array=$( jq -r '[foreach .response.jeu.genres[].noms[] as $item ([[],[]]; if $item.langue == "en" then $item.text else "" end)]' <<< "${content}" )
-					echo "" >> ./storage/$romsPath/$system/metadata.pegasus.txt
-					echo "" >> ./storage/$romsPath/$system/metadata.pegasus.txt
-					echo game: $romNameNoExtensionTrimmed >> ./storage/${romsPath}/${system}/metadata.pegasus.txt
-					echo file: $romName >> ./storage/${romsPath}/${system}/metadata.pegasus.txt
-					echo developer: $( jq -r  '.response.jeu.developpeur.text' <<< "${content}" ) >> ./storage/${romsPath}/${system}/metadata.pegasus.txt
-					echo publisher: $( jq -r  '.response.jeu.editeur.text' <<< "${content}" ) >> ./storage/${romsPath}/${system}/metadata.pegasus.txt
-					echo genre: $( jq '. - [""] | join(", ")' <<< "${genre_array}" ) | sed 's/[\"]//g' >> ./storage/${romsPath}/${system}/metadata.pegasus.txt
-					echo description: $( jq -r  '.response.jeu.synopsis[0].text' <<< "${content}" ) >> ./storage/${romsPath}/${system}/metadata.pegasus.txt
-					echo release: $( jq -r  '.response.jeu.dates[0].text' <<< "${content}" ) >> ./storage/${romsPath}/${system}/metadata.pegasus.txt
-					echo players: $( jq -r  '.response.jeu.joueurs.text' <<< "${content}" ) >> ./storage/${romsPath}/${system}/metadata.pegasus.txt
-					echo rating: $( jq -r  '.response.jeu.classifications[0].text' <<< "${content}" ) >> ./storage/${romsPath}/${system}/metadata.pegasus.txt
-					echo assets.logo: ./media/wheel/$romNameNoExtension.png >> ./storage/$romsPath/$system/metadata.pegasus.txt
-					echo assets.screenshot: ./media/screenshot/$romNameNoExtension.png >> ./storage/$romsPath/$system/metadata.pegasus.txt
-					echo assets.boxfront: ./media/box2dfront/$romNameNoExtension.png >> ./storage/$romsPath/$system/metadata.pegasus.txt
-
-					echo -e "Metadata saved to ${system}/metadata.pegasus.txt"
 				fi
-
-			else
-				echo -e "Game already scraped" &> /dev/null
 			fi
 		fi
+	fi
+}
+
+romParser_SS_getAlias(){
+	#SS ID systems
+	case $1 in
+		genesis)
+		ssID="1";;
+		genesiswide)
+		ssID="1";;
+		mastersystem)
+		ssID="2";;
+		nes)
+		ssID="3";;
+		snes)
+		ssID="4";;
+		gb)
+		ssID="9";;
+		gbc)
+		ssID="10";;
+		virtualboy)
+		ssID="11";;
+		gba)
+		ssID="12";;
+		gc)
+		ssID="13";;
+		n64)
+		ssID="14";;
+		nds)
+		ssID="15";;
+		wii)
+		ssID="16";;
+		3ds)
+		ssID="17";;
+		sega32x)
+		ssID="19";;
+		segacd)
+		ssID="20";;
+		gamegear)
+		ssID="21";;
+		saturn)
+		ssID="22";;
+		dreamcast)
+		ssID="23";;
+		ngp)
+		ssID="25";;
+		atari2600)
+		ssID="26";;
+		jaguar)
+		ssID="27";;
+		lynx)
+		ssID="28";;
+		3do)
+		ssID="29";;
+		pcengine)
+		ssID="31";;
+		bbcmicro)
+		ssID="37";;
+		atari5200)
+		ssID="40";;
+		atari7800)
+		ssID="41";;
+		atarist)
+		ssID="42";;
+		atari800)
+		ssID="43";;
+		wswan)
+		ssID="45";;
+		wswanc)
+		ssID="46";;
+		colecovision)
+		ssID="48";;
+		pcengine)
+		ssID="50";;
+		gw)
+		ssID="52";;
+		psx)
+		ssID="57";;
+		ps2)
+		ssID="58";;
+		psp)
+		ssID="61";;
+		amiga600)
+		ssID="64";;
+		amstradcpc)
+		ssID="65";;
+		c64)
+		ssID="66";;
+		scv)
+		ssID="67";;
+		neogeocd)
+		ssID="70";;
+		pcfx)
+		ssID="72";;
+		vic20)
+		ssID="73";;
+		zxspectrum)
+		ssID="76";;
+		zx81)
+		ssID="77";;
+		x68000)
+		ssID="79";;
+		channelf)
+		ssID="80";;
+		ngpc)
+		ssID="82";;
+		apple2)
+		ssID="86";;
+		gx4000)
+		ssID="87";;
+		dragon)
+		ssID="91";;
+		bk)
+		ssID="93";;
+		vectrex)
+		ssID="102";;
+		supergrafx)
+		ssID="105";;
+		fds)
+		ssID="106";;
+		satellaview)
+		ssID="107";;
+		sufami)
+		ssID="108";;
+		sg1000)
+		ssID="109";;
+		amiga1200)
+		ssID="111";;
+		msx)
+		ssID="113";;
+		pcenginecd)
+		ssID="114";;
+		intellivision)
+		ssID="115";;
+		msx2)
+		ssID="116";;
+		msxturbor)
+		ssID="118";;
+		64dd)
+		ssID="122";;
+		scummvm)
+		ssID="123";;
+		gb)
+		ssID="127";;
+		gb)
+		ssID="128";;
+		amigacdtv)
+		ssID="129";;
+		amigacd32)
+		ssID="130";;
+		oricatmos)
+		ssID="131";;
+		amiga)
+		ssID="134";;
+		dos)
+		ssID="135";;
+		prboom)
+		ssID="135";;
+		amigacd32)
+		ssID="139";;
+		thomson)
+		ssID="141";;
+		neogeo)
+		ssID="142";;
+		psp)
+		ssID="172";;
+		snes)
+		ssID="202";;
+		sneswide)
+		ssID="202";;
+		megadrive)
+		ssID="203";;
+		ti994a)
+		ssID="205";;
+		lutro)
+		ssID="206";;
+		supervision)
+		ssID="207";;
+		pc98)
+		ssID="208";;
+		pokemini)
+		ssID="211";;
+		samcoupe)
+		ssID="213";;
+		openbor)
+		ssID="214";;
+		uzebox)
+		ssID="216";;
+		apple2gs)
+		ssID="217";;
+		spectravideo)
+		ssID="218";;
+		palm)
+		ssID="219";;
+		x1)
+		ssID="220";;
+		pc88)
+		ssID="221";;
+		tic80)
+		ssID="222";;
+		solarus)
+		ssID="223";;
+		mame)
+		ssID="230";;
+		easyrpg)
+		ssID="231";;
+		pico8)
+		ssID="234";;
+		pcv2)
+		ssID="237";;
+		pet)
+		ssID="240";;
+		lowresnx)
+		ssID="244";;
+
+	  *)
+		echo -n "unknown"
+		;;
+	esac
+}
+
+romParser_SS_start(){
+
+	echo -e "${BOLD}Starting ScreenScraper Thumbnails Scraper...${NONE}"
+
+	for systemPath in $romsPath/*;
+ 	do
+	 	system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
+
+		if [ ! -d "$systemPath/media/" ]; then
+			echo -e "Creating $systemPath/media..."
+			mkdir $systemPath/media &> /dev/null
+			mkdir $systemPath/media/screenshot &> /dev/null
+			mkdir $systemPath/media/box2dfront &> /dev/null
+			mkdir $systemPath/media/wheel &> /dev/null
+		fi
+
+		romNumber=$(find "$systemPath" -maxdepth 1 -type f | wc -l)
+
+		#Getting roms
+		i=0
+		for romPath in $systemPath/*;
+		do
+			#Validating
+			if [ -f "$romPath" ] && [ "$(basename "$romPath")" != ".*" ] && [[ "$romPath" != *".txt" ]] && [[ "$(basename "$romPath")" != *".exe" ]] && [[ "$(basename "$romPath")" != *".conf" ]] && [[ "$(basename "$romPath")" != *".xml" ]]; then
+
+				#Cleaning rom directory
+				romfile=$(echo "$romPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
+				romName=$(basename "$romfile" .zip)
+
+				if [ $i = 96 ]; then
+					i=95
+				fi
+
+				(
+					#We get the ssID for later
+					romParser_SS_getAlias $system
+					romParser_SS_download "$romName" $system "screenshot"
+					romParser_SS_download "$romName" $system "box2dfront"
+					romParser_SS_download "$romName" $system "wheel"
+				) |
+				zenity --progress \
+				  --title="EmuDeck ScreenScraper Parser" \
+				  --text="Downloading artwork for $system..." \
+				  --auto-close \
+				  --pulsate \
+				  --percentage=$i
+
+				((i++))
+			fi
+		done
+
 	done
-done
+	echo -e "${GREEN}RetroArch Parser completed!${NONE}"
+}

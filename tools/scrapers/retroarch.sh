@@ -1,6 +1,34 @@
 #!/bin/bash
 
-get_ra_alias(){
+romParser_RA_download(){
+	local romName=$1
+	local system=$2
+	local type=$3
+
+	case "$type" in
+		"screenshot")
+			RA_folder="Named_Snaps"
+
+			;;
+		*)
+			RA_folder="Named_Boxarts"
+			;;
+	esac
+
+	FILE=$romsPath/$system/media/$type/$romName.png
+	if [ -f "$FILE" ]; then
+		echo -e "Image already exists, ${YELLOW}ignoring${NONE}"
+	else
+		status=$(wget --spider "http://thumbnails.libretro.com/$remoteSystem/$RA_folder/$romName.png" 2>&1)
+		if [[ $status == *"image/png"* ]] || [[ $status == *"image/jpeg"* ]] || [[ $status == *"image/jpg"* ]]; then
+			wget  -q --show-progress "http://thumbnails.libretro.com/$remoteSystem/$RA_folder/$romName.png" -P "$romsPath/$system/media/$type/"
+		else
+			echo -e "Image not found: $romName $type..."
+		fi
+	fi
+}
+
+romParser_RA_getAlias(){
 	case $1 in
 		atari2600)
 			remoteSystem="Atari - 2600"
@@ -147,147 +175,51 @@ get_ra_alias(){
 	esac
 }
 
-clear
-#echo -e "Using Retroarch Thumbnails..."
-for device_name in $romsPath/*;
- do
+romParser_RA_start(){
+	echo -e "${BOLD}Starting RetroArch Thumbnails Scraper...${NONE}"
+	for systemPath in $romsPath/*;
+ 	do
+ 		system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
 
-	 message=$device_name
-	 systemPath=$(echo "$message" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
-	 #ls $systemPath
-	 #echo -e "Creating $systemPath/media..."
-	 mkdir $systemPath/media &> /dev/null
-	 mkdir $systemPath/media/screenshot &> /dev/null
-	 mkdir $systemPath/media/box2dfront &> /dev/null
-	 mkdir $systemPath/media/wheel &> /dev/null
-
-	 #Retroarch system folder name
-	 get_ra_alias $systemPath
-
-	 if [ "$remoteSystem" = 'unknown' ]; then
-	  #echo -e " - Skipping"
-	 	exit
-	 fi
-
-	 #echo ""
-	 #echo -e "Scraping $systemPath..."
-	 #echo ""
-	 #Roms loop
-	 for entry in "$romsPath/$systemPath/"*
-	 do
-		 #Cleaning up names
-		firstString=$entry
-		secondString=""
-		romName="${firstString/"$systemPath/"/"$secondString"}"
-		romNameNoExtension=${romName%.*}
-
-		startcapture=true
-		#echo $romName
-		#.txt validation
-		 STR=$romName
-		 SUB='.txt'
-		 if grep -q "$SUB" <<< "$STR"; then
-			 startcapture=false
-		 fi
-		#.sav validation
-		 STR=$romName
-		 SUB='.sav'
-		 if grep -q "$SUB" <<< "$STR"; then
-			 startcapture=false
-		 fi
-		#.srm validation
-		 STR=$romName
-		 SUB='.srm'
-		 if grep -q "$SUB" <<< "$STR"; then
-			 startcapture=false
-		 fi
-
-		#Directory Validation
-		DIR=$systemPath/$romName
-		if [ -d "$DIR" ]; then
-			startcapture=false
+		if [ ! -d "$systemPath/media/" ]; then
+			echo -e "Creating $systemPath/media..."
+			mkdir $systemPath/media &> /dev/null
+			mkdir $systemPath/media/screenshot &> /dev/null
+			mkdir $systemPath/media/box2dfront &> /dev/null
+			mkdir $systemPath/media/wheel &> /dev/null
 		fi
 
-		#Blanks cleaning up, TODO: DRY
-		firstString=$romNameNoExtension
-		secondString="%20"
-		romNameNoExtensionNoSpace="${firstString/" "/"$secondString"}"
-		firstString=$romNameNoExtensionNoSpace
-		secondString="%20"
-		romNameNoExtensionNoSpace="${firstString/" "/"$secondString"}"
-		firstString=$romNameNoExtensionNoSpace
-		secondString="%20"
-		romNameNoExtensionNoSpace="${firstString/" "/"$secondString"}"
-		firstString=$romNameNoExtensionNoSpace
-		secondString="%20"
-		romNameNoExtensionNoSpace="${firstString/" "/"$secondString"}"
-		firstString=$romNameNoExtensionNoSpace
-		secondString="%20"
-		romNameNoExtensionNoSpace="${firstString/" "/"$secondString"}"
-		firstString=$romNameNoExtensionNoSpace
-		secondString="%20"
-		romNameNoExtensionNoSpace="${firstString/" "/"$secondString"}"
-		firstString=$romNameNoExtensionNoSpace
-		secondString="%20"
-		romNameNoExtensionNoSpace="${firstString/" "/"$secondString"}"
-		firstString=$romNameNoExtensionNoSpace
-		secondString="%20"
-		romNameNoExtensionNoSpace="${firstString/" "/"$secondString"}"
+		#Getting roms
+		i=0
+		for romPath in $systemPath/*;
+		do
+			#Validating
+			if [ -f "$romPath" ] && [ "$(basename "$romPath")" != ".*" ] && [[ "$romPath" != *".txt" ]] && [[ "$(basename "$romPath")" != *".exe" ]] && [[ "$(basename "$romPath")" != *".conf" ]] && [[ "$(basename "$romPath")" != *".xml" ]]; then
 
-		romNameNoExtension=$(echo "$romNameNoExtension" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
+				#Cleaning rom directory
+				romfile=$(echo "$romPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
+				romName=$(basename "$romfile" .zip)
 
-		if [ $systemPath = "mame" ]; then
-			startcapture=false
-		fi
-
-		if [ $systemPath = "cloud" ]; then
-			startcapture=false
-		fi
-
-		if [ -d $systemPath ]; then
-			startcapture=false
-		fi
-
-		if [ $startcapture == true ]; then
-
-			#First Scan: Retroarch
-			FILE=$systemPath/media/screenshot/$romNameNoExtension.png
-			if [ -f "$FILE" ]; then
-				echo -e "Image already exists, ${YELLOW}ignoring${NONE}" &> /dev/null
-			else
-				if [ ! "$romNameNoExtension" = "*" ]; then
-					echo  "PIC"
-					echo "http://thumbnails.libretro.com/$remoteSystem/Named_Snaps/$romNameNoExtension.png";
-
-					StatusString=$(wget --spider "http://thumbnails.libretro.com/$remoteSystem/Named_Snaps/$romNameNoExtension.png" 2>&1)
-					if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
-						wget  -q --show-progress "http://thumbnails.libretro.com/$remoteSystem/Named_Snaps/$romNameNoExtension.png" -P $romsPath/$systemPath/media/screenshot/
-					else
-						echo -e "Image not found: $romNameNoExtension screenshot..."
-					fi
+				if [ $i = 96 ]; then
+					i=95
 				fi
 
+				#We get the folder RA uses
+				(romParser_RA_getAlias $system
+				romParser_RA_download "$romName" $system "screenshot"
+				romParser_RA_download "$romName" $system "box2dfront")  |
+				zenity --progress \
+				  --title="EmuDeck RetroArch Parser" \
+				  --text="Downloading artwork for $system..." \
+				  --auto-close \
+				  --pulsate \
+				  --percentage=$i
+
+				  ((i++))
 			fi
+		done
 
-			FILE=$systemPath/media/box2dfront/$romNameNoExtension.png
-			if [ -f "$FILE" ]; then
-				echo -e "Image already exists, ${YELLOW}ignoring${NONE}" &> /dev/null
-			else
-				if [ ! "$romNameNoExtension" = "*" ]; then
-					StatusString=$(wget --spider "http://thumbnails.libretro.com/$remoteSystem/Named_Boxarts/$romNameNoExtension.png" 2>&1)
-					if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
-						wget  -q --show-progress "http://thumbnails.libretro.com/$remoteSystem/Named_Boxarts/$romNameNoExtension.png" -P $romsPath/$systemPath/media/box2dfront/
-						#echo -e ""
-					else
-						echo -e "Image not found: $romNameNoExtension box2dfront..."
-					fi
-				fi
-			fi
-		fi
+	done
 
-	 done
- done
-
-#echo -e "${GREEN}completed${NONE}"
-
-
+	echo -e "${GREEN}RetroArch Parser completed!${NONE}"
+}
