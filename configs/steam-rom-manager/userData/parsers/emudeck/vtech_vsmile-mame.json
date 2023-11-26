@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "VTech V.Smile - MAME (Standalone)",
+  "configTitle": "VTech V.Smile - MAME",
   "steamCategory": "${VTech V.Smile}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/vsmile",
@@ -21,6 +21,7 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
+  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,

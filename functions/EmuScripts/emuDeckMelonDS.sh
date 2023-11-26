@@ -13,14 +13,14 @@ melonDS_finalize(){
 
 #Install
 melonDS_install(){
-	setMSG "Installing $melonDS_emuName"	
-	installEmuFP "${melonDS_emuName}" "${melonDS_emuPath}"	
-	flatpak override "${melonDS_emuPath}" --filesystem=host --user	
+	setMSG "Installing $melonDS_emuName"
+	installEmuFP "${melonDS_emuName}" "${melonDS_emuPath}"
+	flatpak override "${melonDS_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
 melonDS_init(){
-	setMSG "Initializing $melonDS_emuName settings."	
+	setMSG "Initializing $melonDS_emuName settings."
 	configEmuFP "${melonDS_emuName}" "${melonDS_emuPath}" "true"
 	melonDS_setupStorage
 	melonDS_setEmulationFolder
@@ -31,7 +31,7 @@ melonDS_init(){
 
 #update
 melonDS_update(){
-	setMSG "Updating $melonDS_emuName settings."	
+	setMSG "Updating $melonDS_emuName settings."
 	configEmuFP "${melonDS_emuName}" "${melonDS_emuPath}"
 	melonDS_setupStorage
 	melonDS_setEmulationFolder
@@ -42,7 +42,7 @@ melonDS_update(){
 
 #ConfigurePaths
 melonDS_setEmulationFolder(){
-	setMSG "Setting $melonDS_emuName Emulation Folder"	
+	setMSG "Setting $melonDS_emuName Emulation Folder"
 
 	BIOS9PathSetting='BIOS9Path='
 	BIOS7PathSetting='BIOS7Path='
@@ -66,32 +66,32 @@ melonDS_setEmulationFolder(){
 
 #SetupSaves
 melonDS_setupSaves(){
-	setMSG "Setting $melonDS_emuName Saves Folder"	
+	setMSG "Setting $melonDS_emuName Saves Folder"
 
 	mkdir -p "${savesPath}/melonds/saves"
 	mkdir -p "${savesPath}/melonds/states"
-	
+
 	SaveFilePathSetting='SaveFilePath='
 	SavestatePathSetting='SavestatePath='
 
 	changeLine "$SaveFilePathSetting" "${SaveFilePathSetting}${savesPath}/melonds/saves" "${melonDS_configFile}"
 	changeLine "$SavestatePathSetting" "${SavestatePathSetting}${savesPath}/melonds/states" "${melonDS_configFile}"
-	
+
 }
 
 
 #SetupStorage
 melonDS_setupStorage(){
-	setMSG "Setting $melonDS_emuName Storage Folder"	
-    
+	setMSG "Setting $melonDS_emuName Storage Folder"
+
 	# Leaving this so user can still place database files here if need be
 	mkdir -p "$storagePath/melonDS/cheats"
-	
+
 	# Breaks saving cheats in melonDS, commenting out for now
 	# CheatFilePathSetting='CheatFilePath='
 
 	# changeLine "$CheatFilePathSetting" "${CheatFilePathSetting}${storagePath}/melonds/cheats" "${melonDS_configFile}"
-	
+
 }
 
 
@@ -153,6 +153,19 @@ melonDS_resetConfig(){
 
 melonDS_addSteamInputProfile(){
 	addSteamInputCustomIcons
-	setMSG "Adding $melonDS_emuName Steam Input Profile."
-	rsync -r "$EMUDECKGIT/configs/steam-input/melonds_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	#setMSG "Adding $melonDS_emuName Steam Input Profile."
+	#rsync -r "$EMUDECKGIT/configs/steam-input/melonds_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+}
+
+melonDS_setResolution(){
+	case $melonDSResolution in
+		"720P") WindowWidth=1024; WindowHeight=768;;
+		"1080P") WindowWidth=1536; WindowHeight=1152;;
+		"1440P") WindowWidth=2048; WindowHeight=1536;;
+		"4K") WindowWidth=2816; WindowHeight=2112;;
+		*) echo "Error"; exit 1;;
+	esac
+
+	RetroArch_setConfigOverride "WindowWidth" $WindowWidth "$melonD_configFile"
+	RetroArch_setConfigOverride "WindowHeight" $WindowHeight "$melonD_configFile"
 }

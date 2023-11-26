@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Arcade - MAME (Standalone)",
+  "configTitle": "Arcade - MAME",
   "steamCategory": "${Arcade}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/arcade",
@@ -21,6 +21,7 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
+  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,

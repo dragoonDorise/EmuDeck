@@ -11,29 +11,51 @@
   "titleModifier": "${fuzzyTitle}",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
-  "defaultImage": "",
-  "defaultTallImage": "",
-  "defaultHeroImage": "",
-  "defaultLogoImage": "",
-  "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
-  "localImages": "",
-  "localTallImages": "",
-  "localHeroImages": "",
-  "localLogoImages": "",
-  "localIcons": "",
-  "disabled": false,
+  "disabled": true,
   "executable": {
-    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/xemu.sh",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/xemu-emu.sh",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },
   "userAccounts": {
-    "specifiedAccounts": "",
-    "skipWithMissingDataDir": true,
-    "useCredentials": true
+    "specifiedAccounts": ""
   },
   "parserInputs": {
     "glob": "**/${title}@(.iso|.ISO)"
+  },
+  "controllers": {
+    "switch_pro": {
+      "title": "EmuDeck - Switch Pro",
+      "mappingId": "emudeck_controller_switch_pro.vdf",
+      "profileType": "template"
+    },
+    "neptune": {
+      "title": "EmuDeck - Steam Deck Proton",
+      "mappingId": "emudeck_controller_steamdeck_proton.vdf",
+      "profileType": "template"
+    },
+    "ps4": {
+      "title": "EmuDeck - Dual Shock 4",
+      "mappingId": "emudeck_controller_ps4.vdf",
+      "profileType": "template"
+    },
+    "ps5": {
+      "title": "EmuDeck - Dual Sense",
+      "mappingId": "emudeck_controller_ps5.vdf",
+      "profileType": "template"
+    },
+    "xbox360": {
+      "title": "EmuDeck - Xbox 360",
+      "mappingId": "emudeck_controller_xbox360.vdf",
+      "profileType": "template"
+    },
+    "xboxone": {
+      "title": "EmuDeck - Xbox One",
+      "mappingId": "emudeck_controller_xboxone.vdf",
+      "profileType": "template"
+    },
+    "switch_joycon_left": null,
+    "switch_joycon_right": null
   },
   "titleFromVariable": {
     "limitToGroups": "",
@@ -47,7 +69,7 @@
     "removeBrackets": true
   },
   "parserId": "165103607715056732",
-  "version": 10,
+  "version": 15,
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,
@@ -58,5 +80,19 @@
       "stylesLogo": [],
       "stylesIcon": []
     }
+  },
+  "defaultImage": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+  },
+  "localImages": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
   }
 }
