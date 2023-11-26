@@ -718,6 +718,42 @@ check_internet_connection(){
   ping -q -c 1 -W 1 8.8.8.8 > /dev/null 2>&1 && echo true || echo false
 }
 
+zipLogs() {
+	logsFolder="$HOME/emudeck/logs"
+	settingsFile="$HOME/emudeck/settings.sh"
+	zipOutput="$HOME/Desktop/emudeck_logs.zip"
+
+	# Comprime los archivos en un archivo zip
+	zip -rj "$zipOutput" "$logsFolder" "$settingsFile"
+
+	if [ $? -eq 0 ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+setResolutions(){
+	Cemu_setResolution
+	Citra_setResolution
+	Dolphin_setResolution
+	DuckStation_setResolution
+	Flycast_setResolution
+	MAME_setResolution
+	melonDS_setResolution
+	mGBA_setResolution
+	PCSX2QT_setResolution
+	PPSSPP_setResolution
+	Primehack_setResolution
+	RPCS3_setResolution
+	Ryujinx_setResolution
+	ScummVM_setResolution
+	Vita3K_setResolution
+	Xemu_setResolution
+	Xenia_setResolution
+	Yuzu_setResolution
+}
+
 # get variable value from kvp-style config file
 # VAR1=VALUE1
 # VAR2="VALUE 2"

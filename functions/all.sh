@@ -1,4 +1,8 @@
 #!/bin/bash
+appleChip=$(uname -m)
+if [ appleChip != "Linux" ]; then
+    PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+fi
 
 if [[ "$EMUDECKGIT" == "" ]]; then
     EMUDECKGIT="$HOME/.config/EmuDeck/backend"
@@ -40,6 +44,7 @@ source "$EMUDECKGIT"/functions/updateEmuFP.sh
 source "$EMUDECKGIT"/functions/createFolders.sh
 source "$EMUDECKGIT"/functions/runSRM.sh
 source "$EMUDECKGIT"/functions/appImageInit.sh
+source "$EMUDECKGIT"/functions/autofix.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
@@ -62,8 +67,8 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemuNative.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2.sh
-source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRPCS3.sh
-source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCitra.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRPCS3Legacy.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCitraLegacy.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDolphin.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPrimehack.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRetroArch.sh
@@ -87,6 +92,8 @@ source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayParsec.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayMoonlight.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayGreenlight.sh
+source "$EMUDECKGIT"/functions/cloudSyncHealth.sh
+
 
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
@@ -95,7 +102,7 @@ source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayGreenlight.sh
 # Darwin ovewrites
 
 if [ "$system" = "darwin" ]; then
-
+	source "$EMUDECKGIT/darwin/functions/all-darwin.sh"
     source "$EMUDECKGIT/darwin/functions/helperFunctions.sh"
     source "$EMUDECKGIT/darwin/functions/overrides.sh"
 

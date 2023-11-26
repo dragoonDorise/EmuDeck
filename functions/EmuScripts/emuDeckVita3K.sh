@@ -135,3 +135,8 @@ Vita3K_IsInstalled(){
 Vita3K_resetConfig(){
     Vita3K_init &>/dev/null && echo "true" || echo "false"
 }
+
+
+Vita3K_setResolution(){
+	echo "NYI"
+}

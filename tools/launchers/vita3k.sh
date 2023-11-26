@@ -1,6 +1,6 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu "vita3k" && cloud_sync_startService
+cloud_sync_downloadEmu "Vita3k" && cloud_sync_startService
 export LC_ALL="C"
 
 emuName="Vita3K" #parameterize me

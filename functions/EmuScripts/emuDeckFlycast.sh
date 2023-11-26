@@ -13,10 +13,10 @@ Flycast_cleanup(){
 
 #Install
 Flycast_install(){
-	setMSG "Installing $Flycast_emuName"		
+	setMSG "Installing $Flycast_emuName"
 
-	installEmuFP "${Flycast_emuName}" "${Flycast_emuPath}"	
-	flatpak override "${Flycast_emuPath}" --filesystem=host --user	
+	installEmuFP "${Flycast_emuName}" "${Flycast_emuPath}"
+	flatpak override "${Flycast_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
@@ -67,14 +67,14 @@ Flycast_setupStorage(){
 
 #WipeSettings
 Flycast_wipe(){
-	setMSG "Wiping $Flycast_emuName settings folder."	
+	setMSG "Wiping $Flycast_emuName settings folder."
    	rm -rf "$HOME/.var/app/$Flycast_emuPath"
 }
 
 
 #Uninstall
 Flycast_uninstall(){
-	setMSG "Uninstalling ${Flycast_emuName}."	
+	setMSG "Uninstalling ${Flycast_emuName}."
     flatpak uninstall "$Flycast_emuPath" --user -y
 }
 
@@ -143,4 +143,8 @@ Flycast_addSteamInputProfile(){
 	echo "NYI"
 	# setMSG "Adding $Flycast_emuName Steam Input Profile."
 	# rsync -r "$EMUDECKGIT/configs/steam-input/Flycast_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+}
+
+Flycast_setResolution(){
+	echo "NYI"
 }

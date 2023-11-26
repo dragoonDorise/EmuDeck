@@ -1034,7 +1034,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F4, , "
+							"binding"		"key_press Q, , "
 						}
 					}
 				}
@@ -1156,7 +1156,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_ALT, Page Back, , "
+							"binding"		"key_press LEFT_CTRL, Page Back, , "
 							"binding"		"key_press LEFT_ARROW, Page Back, , "
 						}
 					}
@@ -1173,7 +1173,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_ALT, Page Forward, , "
+							"binding"		"key_press LEFT_CTRL, Page Forward, , "
 							"binding"		"key_press RIGHT_ARROW, Page Forward, , "
 						}
 					}
