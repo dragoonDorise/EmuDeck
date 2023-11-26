@@ -1,5 +1,5 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-rclone_downloadEmu xemu
-/usr/bin/flatpak run app.xemu.xemu
-rclone_uploadEmu xemu
+cloud_sync_downloadEmu "xemu" && cloud_sync_startService
+/usr/bin/flatpak run app.xemu.xemu "${@}"
+rm -rf "$savesPath/.gaming" 

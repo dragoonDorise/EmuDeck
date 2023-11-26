@@ -1,0 +1,62 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Commodore VIC-20 - RetroArch VICE",
+  "steamCategory": "${Commodore VIC-20}",
+  "executableModifier": "\"${exePath}\"",
+  "romDirectory": "${romsdirglobal}/vic20",
+  "steamDirectory": "${steamdirglobal}",
+  "startInDirectory": "",
+  "titleModifier": "${fuzzyTitle}",
+  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}vice_xvic_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "imageProviders": ["SteamGridDB"],
+  "defaultImage": "",
+  "defaultTallImage": "",
+  "defaultHeroImage": "",
+  "defaultLogoImage": "",
+  "defaultIcon": "",
+  "localImages": "",
+  "localTallImages": "",
+  "localHeroImages": "",
+  "localLogoImages": "",
+  "localIcons": "",
+  "disabled": false,
+  "userAccounts": {
+    "specifiedAccounts": "",
+    "skipWithMissingDataDir": true,
+    "useCredentials": true
+  },
+  "parserInputs": {
+    "glob": "**/${title}@(.d64|.d6z|.d71|.d7z|.d80|.d81|.d82|.d8z|.g64|.g6z|.g41|.g4z|.x64|.x6z|.nib|.nbz|.d2m|.d4m|.t64|.tap|.tcrt|.prg|.p00|.crt|.bin|.cmd|.m3u|.vfl|.vsf|.zip|.7z|.gz|.20|.40|.60|.a0|.b0|.rom|.D64|.D6Z|.D71|.D7Z|.D80|.D81|.D82|.D8Z|.G64|.G6Z|.G41|.G4Z|.X64|.X6Z|.NIB|.NBZ|.D2M|.D4M|.T64|.TAP|.TCRT|.PRG|.P00|.CRT|.BIN|.CMD|.M3U|.VFL|.VSF|.ZIP|.7Z|.GZ|.20|.40|.60|.A0|.B0|.ROM|)"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false,
+    "tryToMatchTitle": true
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "executable": {
+    "path": "${retroarchpath}",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "parserId": "164785127820983556",
+  "version": 10,
+  "imageProviderAPIs": {
+    "SteamGridDB": {
+      "nsfw": false,
+      "humor": false,
+      "imageMotionTypes": ["static"],
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": []
+    }
+  }
+}

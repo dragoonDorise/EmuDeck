@@ -1,5 +1,5 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-rclone_downloadEmu scummvm
-/usr/bin/flatpak run org.scummvm.ScummVM
-rclone_uploadEmu scummvm
+cloud_sync_downloadEmu "scummvm" && cloud_sync_startService
+/usr/bin/flatpak run org.scummvm.ScummVM "${@}"
+rm -rf "$savesPath/.gaming"

@@ -1,0 +1,6 @@
+collection: Thomson MO/TO Series
+shortname: moto
+extensions: fd, FD, sap, SAP, k7, K7, m7, M7, m5, M5, rom, ROM, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/theodore_libretro.so {file.path}
+
+

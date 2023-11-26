@@ -1,0 +1,6 @@
+collection: Vectrex
+shortname: vectrex
+extensions: bin, BIN, vec, VEC, gam, GAM, vc, VC, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/vecx_libretro.so {file.path}
+
+

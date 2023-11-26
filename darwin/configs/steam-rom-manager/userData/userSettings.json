@@ -1,0 +1,30 @@
+{
+  "fuzzyMatcher": {
+    "timestamps": {
+      "check": 1670675634278,
+      "download": 1670675634278
+    },
+    "verbose": false,
+    "filterProviders": true
+  },
+  "environmentVariables": {
+    "steamDirectory": "/Users/WHOAMI/Library/Application Support/Steam",
+    "romsDirectory": "/run/media/mmcblk0p1/Emulation/roms",
+    "retroarchPath": "/run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh",
+    "raCoresDirectory": "",
+    "localImagesDirectory": ""
+  },
+  "previewSettings": {
+    "retrieveCurrentSteamImages": true,
+    "deleteDisabledShortcuts": false,
+    "imageZoomPercentage": 40,
+    "preload": false
+  },
+  "enabledProviders": ["SteamGridDB"],
+  "language": "en-US",
+  "offlineMode": false,
+  "navigationWidth": 256,
+  "clearLogOnTest": false,
+  "version": 5,
+  "theme": "EmuDeck"
+}
