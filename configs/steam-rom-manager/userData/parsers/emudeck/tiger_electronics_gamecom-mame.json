@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Tiger Electronics Game.com - MAME (Standalone)",
+  "configTitle": "Tiger Electronics Game.com - MAME",
   "steamCategory": "${Tiger Electronics Game.com}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/gamecom",

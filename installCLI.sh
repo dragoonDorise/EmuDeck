@@ -99,7 +99,7 @@ setDefaults(){
 	setSetting DolphinWide false
 	setSetting DreamcastWide false
 	setSetting BeetleWide false
-	setSetting pcsx2QTWide false 
+	setSetting pcsx2QTWide false
 	setSetting emulationPath $HOME/Emulation
 	setSetting romsPath $HOME/Emulation/roms
 	setSetting toolsPath $HOME/Emulation/tools
@@ -139,6 +139,7 @@ setDefaults(){
 	setSetting emuPSP ppsspp
 	setSetting emuPSX duckstation
 	setSetting emuSCUMMVM scummvm
+	setSetting emuDreamcast multiemulator
 
 }
 

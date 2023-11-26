@@ -757,7 +757,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F4, Next Slot, EmuDeck_SaveSlotUp.png, #232323 #ADA200"
+							"binding"		"key_press Q, Next Slot, EmuDeck_SaveSlotUp.png, #232323 #ADA200"
 						}
 					}
 				}

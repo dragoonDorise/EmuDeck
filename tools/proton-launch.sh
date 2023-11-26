@@ -63,6 +63,7 @@ installProton () {
         [5.13]="1420170"
         [6.3]="1580130"
         [7.0]="1887720"
+        [8.0]="2348590"
         [- Experimental]="1493710"
         [Hotfix]="2180100"
         [EasyAntiCheat Runtime]="1826330"
@@ -240,7 +241,7 @@ main () {
 
     # Check if Proton version is set, if not, set it to 7.0 by default
     if [ -z ${PROTONVER+x} ]; then
-        PROTONVER="7.0"
+        PROTONVER="8.0"
     fi
 
     # Find set Proton version

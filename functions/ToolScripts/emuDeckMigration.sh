@@ -12,17 +12,24 @@ Migration_init(){
 	freeSpace=$(df -k $destination --output=avail | tail -1)
 	freeSpaceInHuman=$(df -kh $destination --output=avail | tail -1)
 	difference=$(($freeSpace - $neededSpace))
-	if [ $difference -gt 0 ]; then
-		Migration_move "$emulationPath" "$destination" "$neededSpaceInHuman" && Migration_updatePaths "$emulationPath" "$destination/Emulation/"
-	else
-		echo "abort"
-		text="$(printf "<b>Not enough space</b>\nYou need to have at least ${neededSpaceInHuman} on ${destination}\nYou only have ${freeSpaceInHuman}")"
-		 zenity --error \
-				 --title="EmuDeck" \
-				 --width=400 \
-				 --text="${text}" 2>/dev/null		
-	fi 
-	
+	if [ $difference -lt 0 ]; then
+
+		text="$(printf "Make sure you have enought space in $destination. You need to have at least $neededSpaceInHuman available")"
+		zenity --question \
+			--title="EmuDeck Migration tool" \
+			--width=450 \
+			--cancel-label="Exit" \
+			--ok-label="Continue" \
+			--text="${text}" 2>/dev/null
+		ans=$?
+		if [ $ans -eq 0 ]; then
+			echo "Continue..."
+		else
+			exit
+		fi
+	fi
+	Migration_move "$emulationPath" "$destination" "$neededSpaceInHuman" && Migration_updatePaths "$emulationPath" "$destination/Emulation/"
+
 }
 
 #We rsync, only when rsync is completed we delete the old folder.
@@ -33,14 +40,14 @@ Migration_move(){
 	rsync -av --progress "$origin" "$destination" |
 	awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
 	zenity --progress --title "Migrating your current ${size} Emulation folder to $destination" \
-	--text="Scanning..." --width=400 --percentage=0 --auto-close	
+	--text="Scanning..." --width=400 --percentage=0 --auto-close
 }
 
 
 Migration_updatePaths(){
 	origin=$1
-	destination=$2		
-	
+	destination=$2
+
 	#New settings
 	setSetting emulationPath "${destination}"
 	setSetting toolsPath "${destination}/tools"
@@ -88,13 +95,13 @@ Migration_updatePaths(){
 	#Xenia
 	sed -i "s|${origin}|${destination}|g" "$Xenia_XeniaSettings"
 	#Yuzu
-	sed -i "s|${origin}|${destination}|g" "$HOME/.config/yuzu/qt-config.ini"	
+	sed -i "s|${origin}|${destination}|g" "$HOME/.config/yuzu/qt-config.ini"
 	#SRM
 	Migration_updateSRM $origin $destination
 
 
 
-	#Saves location reload	
+	#Saves location reload
 	for func in $(compgen -A 'function' | grep '\_IsInstalled$')
 		do echo  "$func"
 		if $func; then
@@ -105,21 +112,21 @@ Migration_updatePaths(){
 			fi
 		fi
 	done
-		
-	
-	text="$(printf "<b>Success</b>\nYour library has been moved to ${destination}\nPlease restart your Deck now to apply the changes")"	
+
+
+	text="$(printf "<b>Success</b>\nYour library has been moved to ${destination}\nPlease restart your Deck now to apply the changes")"
 	zenity --info \
 		 --title="EmuDeck" \
 		 --width=400 \
-		 --text="${text}" 2>/dev/null	
-		 
-	echo "Valid"	 
+		 --text="${text}" 2>/dev/null
+
+	echo "Valid"
 }
 
 #SRM path update for when 3.5 comes...
 Migration_updateSRM(){
 	origin=$1
-	destination=$2		
+	destination=$2
 	find "$HOME/.local/share/Steam/userdata" -name "shortcuts.vdf" -exec sed -i "s|${origin}|${destination}|g" {} +
 	tmp=$(mktemp)
 	jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
@@ -128,11 +135,11 @@ Migration_updateSRM(){
 }
 
 Migration_updateParsers(){
-	sed -i "s|${origin}|${destination}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"	
+	sed -i "s|${origin}|${destination}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 }
 
 Migration_updateSettings(){
-	sed -i "s|${origin}|${destination}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"	
+	sed -i "s|${origin}|${destination}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 }
 
 Migration_ESDE(){
@@ -140,28 +147,28 @@ Migration_ESDE(){
 }
 
 Migration_fix_SDPaths(){
-	
-	if [ $(getSDPath) ]; then	
-	
+
+	if [ $(getSDPath) ]; then
+
 		newPath="$(getSDPath)"
 		#emulationPath=/run/media/deck/FANCYGUIDTHATSWAYTOOLONG/gaming/emulation/ilovegames/Emulation
-		oldPath=$(echo $emulationPath | grep -Po "^.*run\/[A-Za-z0-9]+\/[A-Za-z0-9]+\/[A-Za-z0-9]+")		
+		oldPath=$(echo $emulationPath | grep -Po "^.*run\/[A-Za-z0-9]+\/[A-Za-z0-9]+\/[A-Za-z0-9]+")
 		firstString=$oldPath
 		secondString=""
-		oldPath="${firstString/Emulation/"$secondString"}" 
-		
-		text="$(printf "<b>Only use this if you have your roms on your SDCard and SteamOS 3.5 has been released and your Steam shortcuts no longer work.</b>\n\nYour old path was:\n${oldPath}\n\nYour new path is:\n${newPath}/\n\nDo you want me to change it?")"	
+		oldPath="${firstString/Emulation/"$secondString"}"
+
+		text="$(printf "<b>Only use this if you have your roms on your SDCard and SteamOS 3.5 has been released and your Steam shortcuts no longer work.</b>\n\nYour old path was:\n${oldPath}\n\nYour new path is:\n${newPath}/\n\nDo you want me to change it?")"
 		zenity --question --title="Confirm path fix" --width 400 --text="${text}"  --ok-label="Yes" --cancel-label="No" 2>/dev/null
 		if [[ $? == 0 ]]; then
 			kill -15 $(pidof steam)
-			Migration_updateSRM "$oldPath" "$newPath/" && Migration_updatePaths "$oldPath/Emulation" "$newPath/Emulation" && Migration_updateParsers "$oldPath" "$newPath/" &&  Migration_ESDE && echo "true"	
-			 		
-		fi	
+			Migration_updateSRM "$oldPath" "$newPath/" && Migration_updatePaths "$oldPath/Emulation" "$newPath/Emulation" && Migration_updateParsers "$oldPath" "$newPath/" &&  Migration_ESDE && echo "true"
+
+		fi
 	else
 		text="`printf " <b>SD Card error</b>\n\nPlease check that your SD Card is properly inserted and recognized by SteamOS"`"
 	 zenity --info \
 			 --title="EmuDeck" \
 			 --width="450" \
-			 --text="${text}" 2>/dev/null	
+			 --text="${text}" 2>/dev/null
 	fi
 }

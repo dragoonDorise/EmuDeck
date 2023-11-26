@@ -13,7 +13,7 @@ PPSSPP_cleanup(){
 
 #Install
 PPSSPP_install(){
-	installEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}"	
+	installEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}"
 	flatpak override "${PPSSPP_emuPath}" --filesystem=host --user
 	flatpak override "${PPSSPP_emuPath}" --share=network --user
 }
@@ -68,12 +68,12 @@ PPSSPP_uninstall(){
 
 #setABXYstyle
 PPSSPP_setABXYstyle(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #Migrate
 PPSSPP_migrate(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #WideScreenOn
@@ -169,6 +169,11 @@ PPSSPP_setRetroAchievements(){
 
 PPSSPP_addSteamInputProfile(){
 	addSteamInputCustomIcons
-	setMSG "Adding $PPSSPP_emuName Steam Input Profile."
-	rsync -r "$EMUDECKGIT/configs/steam-input/ppsspp_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	#setMSG "Adding $PPSSPP_emuName Steam Input Profile."
+	#rsync -r "$EMUDECKGIT/configs/steam-input/ppsspp_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+}
+
+PPSSPP_setResolution(){
+	$ppssppResolution
+	echo "NYI"
 }
