@@ -4,6 +4,7 @@
 Ryujinx_emuName="Ryujinx"
 Ryujinx_emuType="Binary"
 Ryujinx_emuPath="$HOME/Applications/publish"
+Ryujinx_configFile="$HOME/.config/Ryujinx/Config.json"
 
 #cleanupOlderThings
 Ryujinx_cleanup(){
@@ -86,12 +87,12 @@ Ryujinx_setEmulationFolder(){
 #SetupSaves
 Ryujinx_setupSaves(){
     echo "Begin Ryujinx save link"
-    
+
     if [ -d "${emulationPath}/saves/ryujinx/saves" ]; then
         rm -rf "${emulationPath}/saves/ryujinx/saves"
         rm -rf "${emulationPath}/saves/ryujinx/saveMeta"
     fi
-    
+
     ln -sn "$HOME/.config/Ryujinx/bis/user/save" "${emulationPath}/saves/ryujinx/saves"
     ln -sn "$HOME/.config/Ryujinx/bis/user/saveMeta" "${emulationPath}/saves/ryujinx/saveMeta"
 
@@ -194,4 +195,21 @@ Ryujinx_IsInstalled(){
 
 Ryujinx_resetConfig(){
     Ryujinx_init &>/dev/null && echo "true" || echo "false"
+}
+
+Ryujinx_setResolution(){
+
+	case $ryujinxResolution in
+		"720P") multiplier=2; docked="false";;
+		"1080P") multiplier=2; docked="true";;
+		"1440P") multiplier=3; docked="false";;
+		"4K") multiplier=3; docked="true";;
+		*) echo "Error"; exit 1;;
+	esac
+
+	jq --arg docked "$docked" --arg multiplier "$multiplier" \
+	  '.docked_mode = $docked | .res_scale = $multiplier' "$Ryujinx_configFile" > tmp.json
+
+	mv tmp.json "$Ryujinx_configFile"
+
 }

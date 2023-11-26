@@ -11,8 +11,8 @@ SRM_install(){
   setMSG "Installing Steam ROM Manager"
   local showProgress="$1"
 
-  if installToolAI "$SRM_toolName" "$(getReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")" "" "$showProgress"; then
-    :
+  if installToolAI "$SRM_toolName" "$(getReleaseURLGH "dragoonDorise/steam-rom-manager" "AppImage")" "" "$showProgress"; then
+    SRM_createDesktopShortcut
   else
     return 1
   fi
@@ -26,40 +26,20 @@ SRM_uninstall(){
 }
 
 SRM_createDesktopShortcut(){
-  local SRM_Shortcutlocation=$1
-
-  mkdir -p "$HOME/.local/share/applications/"
-
-  mkdir -p "$HOME/.local/share/icons/emudeck/"
-  cp -v "$EMUDECKGIT/icons/srm.png" "$HOME/.local/share/icons/emudeck/"
-
-  if [[ "$SRM_Shortcutlocation" == "" ]]; then
-
-	SRM_Shortcutlocation="$HOME/.local/share/applications/SRM.desktop"
-
-  fi
-
-  echo "#!/usr/bin/env xdg-open
-  [Desktop Entry]
-  Name=Steam ROM Manager AppImage
-  Exec=zenity --question --width 450 --title \"Close Steam/Steam Input?\" --text \"Exit Steam to launch Steam ROM Manager? Desktop controls will temporarily revert to touch/trackpad/L2/R2 until you open Steam again.\" && (kill -15 \$(pidof steam) & $SRM_toolPath)
-  Icon=$HOME/.local/share/icons/emudeck/srm.png
-  Terminal=false
-  Type=Application
-  Categories=Game;
-  StartupNotify=false" > "$SRM_Shortcutlocation"
-  chmod +x "$SRM_Shortcutlocation"
+  mkdir -p "$toolsPath/launchers/srm"
+  cp "$EMUDECKGIT/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
+  rm -rf $HOME/.local/share/applications/SRM.desktop
+  createDesktopShortcut   "$HOME/.local/share/applications/Steam ROM Manager.desktop" \
+  "Steam ROM Manager AppImage" \
+  "${toolsPath}/launchers/srm/steamrommanager.sh" \
+  "false"
 }
 
 SRM_migration(){
   if [ -d "${toolsPath}/srm" ]; then
     cp "${toolsPath}"/srm/*.AppImage "${toolsPath}"
     mv "${toolsPath}/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" && rm -rf "${toolsPath}"/srm/
-    rm -rf $HOME/.local/share/applications/SRM.desktop
-    createDesktopShortcut   "$HOME/.local/share/applications/Steam ROM Manager.desktop" \
-    "Steam ROM Manager AppImage" \
-    "${toolsPath}/launchers/srm/steamrommanager.sh" \
-    "false"
+    SRM_createDesktopShortcut
   fi
 }
 
@@ -67,107 +47,197 @@ SRM_init(){
   setMSG "Configuring Steam ROM Manager"
   local json_directory="$SRM_userData_configDir/parsers"
   local output_file="$SRM_userData_configDir/userConfigurations.json"
-  #local files=$1
+
+  mkdir -p "$SRM_userData_configDir/"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userConfigurations.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$SRM_userData_configDir/userConfigurations.json"
+  sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userConfigurations.json"
+
+  sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userSettings.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$SRM_userData_configDir/userSettings.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userSettings.json"
 
   #old SRM
   SRM_migration
 
+  setMSG 'Steam Rom Manager - Creating Parsers & Steam Input profiles'
+  SRM_createParsers
+  SRM_addSteamInputProfiles
+
+  sleep 1
+
+  SRM_setEnv
 
 
-  mkdir -p "$SRM_userData_configDir/"
+  echo -e "true"
+}
 
-  #Multiemulator?
-  exclusionList=""
+SRM_createParsers(){
+  local json_directory="$SRM_userData_configDir/parsers"
+  local output_file="$SRM_userData_configDir/userConfigurations.json"
+  local exclusionList=""
   #Multiemulator?
   if [ "$emuMULTI" != "both" ]; then
-	if [ "$emuMULTI" = "ra" ]; then
-	  exclusionList=$exclusionList"ares/\n"
-	else
-	  exclusionList=$exclusionList"atari_2600-ra-stella.json\n";
-	  exclusionList=$exclusionList"bandai_wonderswan_color-ra-mednafen_swan.json\n";
-	  exclusionList=$exclusionList"bandai_wonderswan-ra-mednafen_swan.json\n";
-	  exclusionList=$exclusionList"nec_pc_engine_turbografx_16_cd-ra-beetle_pce.json\n";
-	  exclusionList=$exclusionList"nec_pc_engine_turbografx_16-ra-beetle_pce.json\n";
-	  exclusionList=$exclusionList"nintendo_64-ra-mupen64plus_next.json\n";
-	  exclusionList=$exclusionList"nintendo_gb-ra-gambatte.json\n";
-	  exclusionList=$exclusionList"nintendo_gb-ra-sameboy.json\n";
-	  exclusionList=$exclusionList"nintendo_gba-ra-mgba.json\n";
-	  exclusionList=$exclusionList"nintendo_gbc-ra-gambatte.json\n";
-	  exclusionList=$exclusionList"nintendo_gbc-ra-sameboy.json\n";
-	  exclusionList=$exclusionList"nintendo_nes-ra-mesen.json\n";
-	  exclusionList=$exclusionList"nintendo_snes-ra-bsnes_hd.json\n";
-	  exclusionList=$exclusionList"nintendo_snes-ra-snes9x.json\n";
-	  exclusionList=$exclusionList"sega_32X-ra-picodrive.json\n";
-	  exclusionList=$exclusionList"sega_CD_Mega_CD-ra-genesis_plus_gx.json\n";
-	  exclusionList=$exclusionList"sega_dreamcast-ra-flycast.json\n";
-	  exclusionList=$exclusionList"sega_game_gear-ra-genesis_plus_gx.json\n";
-	  exclusionList=$exclusionList"sega_genesis-ra-genesis_plus_gx_wide.json\n";
-	  exclusionList=$exclusionList"sega_genesis-ra-genesis_plus_gx.json\n";
-	  exclusionList=$exclusionList"sega_mastersystem-ra-genesis-plus-gx.json\n";
-	  exclusionList=$exclusionList"sinclair_zx-spectrum-ra-fuse.json\n";
-	  exclusionList=$exclusionList"snk_neo_geo_pocket_color-ra-beetle_neopop.json\n";
-	  exclusionList=$exclusionList"snk_neo_geo_pocket-ra-beetle_neopop.json\n";
-	fi
+
+    if [ "$emuMULTI" = "undefined" ]; then
+      exclusionList=$exclusionList"ares/\n"
+      exclusionList=$exclusionList"amiga_600-ra-puae.json\n";
+      exclusionList=$exclusionList"amiga_1200-ra-puae.json\n";
+      exclusionList=$exclusionList"amiga_cd-ra-puae.json\n";
+      exclusionList=$exclusionList"amiga-ra-puae.json\n";
+      exclusionList=$exclusionList"amstrad_cpc-ra-cap32.json\n";
+      exclusionList=$exclusionList"arcade_naomi-ra-flycast.json\n";
+      exclusionList=$exclusionList"arcade-ra-fbneo.json\n";
+      exclusionList=$exclusionList"arcade-ra-mame_2003_plus.json\n";
+      exclusionList=$exclusionList"arcade-ra-mame_2010.json\n";
+      exclusionList=$exclusionList"arcade-ra-mame.json\n";
+      exclusionList=$exclusionList"atari_2600-ra-stella.json\n";
+      exclusionList=$exclusionList"atari_jaguar-ra-virtualjaguar.json\n";
+      exclusionList=$exclusionList"atari_lynx-ra-mednafen.json\n";
+      exclusionList=$exclusionList"bandai_wonderswan_color-ra-mednafen_swan.json\n";
+      exclusionList=$exclusionList"bandai_wonderswan-ra-mednafen_swan.json\n";
+      exclusionList=$exclusionList"commodore_16-ra-vice_xplus4.json\n";
+      exclusionList=$exclusionList"commodore_64-ra-vice_x64.json\n";
+      exclusionList=$exclusionList"commodore_vic_20-ra-vice_xvic.json\n";
+      exclusionList=$exclusionList"doom-ra-prboom.json\n";
+      exclusionList=$exclusionList"dos-ra-dosbox_pure.json\n";
+      exclusionList=$exclusionList"nec_pc_98-ra-np2kai.json\n";
+      exclusionList=$exclusionList"nec_pc_engine_turbografx_16_cd-ra-beetle_pce.json\n";
+      exclusionList=$exclusionList"nec_pc_engine_turbografx_16-ra-beetle_pce.json\n";
+      exclusionList=$exclusionList"nintendo_3ds-citra.json\n";
+      exclusionList=$exclusionList"nintendo_64-ra-mupen64plus_next.json\n";
+      exclusionList=$exclusionList"nintendo_ds-melonds.json\n";
+      exclusionList=$exclusionList"nintendo_ds-ra-melonds.json\n";
+      exclusionList=$exclusionList"nintendo_gb-ra-gambatte.json\n";
+      exclusionList=$exclusionList"nintendo_gb-ra-sameboy.json\n";
+      exclusionList=$exclusionList"nintendo_gba-ra-mgba.json\n";
+      exclusionList=$exclusionList"nintendo_gbc-ra-gambatte.json\n";
+      exclusionList=$exclusionList"nintendo_gbc-ra-sameboy.json\n";
+      exclusionList=$exclusionList"nintendo_nes-ra-mesen.json\n";
+      exclusionList=$exclusionList"nintendo_sgb-ra-mesen-s.json\n";
+      exclusionList=$exclusionList"nintendo_snes-ra-bsnes_hd.json\n";
+      exclusionList=$exclusionList"nintendo_snes-ra-snes9x.json\n";
+      exclusionList=$exclusionList"panasonic_3do-ra-opera.json\n";
+      exclusionList=$exclusionList"philips_cd_i-ra-same_cdi.json\n";
+      exclusionList=$exclusionList"pico_8-ra-retro8.json\n";
+      exclusionList=$exclusionList"rpg_maker-ra-easyrpg.json\n";
+      exclusionList=$exclusionList"sega_32X-ra-picodrive.json\n";
+      exclusionList=$exclusionList"sega_CD_Mega_CD-ra-genesis_plus_gx.json\n";
+      exclusionList=$exclusionList"sega_dreamcast-ra-flycast.json\n";
+      exclusionList=$exclusionList"sega_game_gear-ra-genesis_plus_gx.json\n";
+      exclusionList=$exclusionList"sega_genesis-ra-genesis_plus_gx_wide.json\n";
+      exclusionList=$exclusionList"sega_genesis-ra-genesis_plus_gx.json\n";
+      exclusionList=$exclusionList"sega_mastersystem-ra-genesis-plus-gx.json\n";
+      exclusionList=$exclusionList"sega_saturn-ra-mednafen.json\n";
+      exclusionList=$exclusionList"sega_saturn-ra-yabause.json\n";
+      exclusionList=$exclusionList"sharp-x68000-ra-px68k.json\n";
+      exclusionList=$exclusionList"sinclair_zx-spectrum-ra-fuse.json\n";
+      exclusionList=$exclusionList"snk_neo_geo_pocket_color-ra-beetle_neopop.json\n";
+      exclusionList=$exclusionList"snk_neo_geo_pocket-ra-beetle_neopop.json\n";
+      exclusionList=$exclusionList"sony_psp-ra-ppsspp.json\n";
+      exclusionList=$exclusionList"sony_psx-ra-beetle_psx_hw.json\n";
+      exclusionList=$exclusionList"sony_psx-ra-swanstation.json\n";
+      exclusionList=$exclusionList"tic-80-ra-tic80.json\n";
+    elif [ "$emuMULTI" = "ra" ]; then
+      exclusionList=$exclusionList"ares/\n"
+    else
+      exclusionList=$exclusionList"atari_2600-ra-stella.json\n";
+      exclusionList=$exclusionList"bandai_wonderswan_color-ra-mednafen_swan.json\n";
+      exclusionList=$exclusionList"bandai_wonderswan-ra-mednafen_swan.json\n";
+      exclusionList=$exclusionList"nec_pc_engine_turbografx_16_cd-ra-beetle_pce.json\n";
+      exclusionList=$exclusionList"nec_pc_engine_turbografx_16-ra-beetle_pce.json\n";
+      exclusionList=$exclusionList"nintendo_64-ra-mupen64plus_next.json\n";
+      exclusionList=$exclusionList"nintendo_gb-ra-gambatte.json\n";
+      exclusionList=$exclusionList"nintendo_gb-ra-sameboy.json\n";
+      exclusionList=$exclusionList"nintendo_gba-ra-mgba.json\n";
+      exclusionList=$exclusionList"nintendo_gbc-ra-gambatte.json\n";
+      exclusionList=$exclusionList"nintendo_gbc-ra-sameboy.json\n";
+      exclusionList=$exclusionList"nintendo_nes-ra-mesen.json\n";
+      exclusionList=$exclusionList"nintendo_snes-ra-bsnes_hd.json\n";
+      exclusionList=$exclusionList"nintendo_snes-ra-snes9x.json\n";
+      exclusionList=$exclusionList"sega_32X-ra-picodrive.json\n";
+      exclusionList=$exclusionList"sega_CD_Mega_CD-ra-genesis_plus_gx.json\n";
+      exclusionList=$exclusionList"sega_dreamcast-ra-flycast.json\n";
+      exclusionList=$exclusionList"sega_game_gear-ra-genesis_plus_gx.json\n";
+      exclusionList=$exclusionList"sega_genesis-ra-genesis_plus_gx_wide.json\n";
+      exclusionList=$exclusionList"sega_genesis-ra-genesis_plus_gx.json\n";
+      exclusionList=$exclusionList"sega_mastersystem-ra-genesis-plus-gx.json\n";
+      exclusionList=$exclusionList"sinclair_zx-spectrum-ra-fuse.json\n";
+      exclusionList=$exclusionList"snk_neo_geo_pocket_color-ra-beetle_neopop.json\n";
+      exclusionList=$exclusionList"snk_neo_geo_pocket-ra-beetle_neopop.json\n";
+    fi
   fi
   #N64?
   if [ "$emuN64" != "both" ]; then
-	if [ "$emuN64" = "rgm" ]; then
-	  exclusionList=$exclusionList"nintendo_64-ra-mupen64plus_next.json\n"
-	  exclusionList=$exclusionList"nintendo_64-ares.json\n"
-	  exclusionList=$exclusionList"nintendo_64dd-ares.json\n"
-	else
-	  exclusionList=$exclusionList"nintendo_64-rmg.json\n"
-	fi
+    if [ "$emuN64" = "rgm" ]; then
+      exclusionList=$exclusionList"nintendo_64-ra-mupen64plus_next.json\n"
+      exclusionList=$exclusionList"nintendo_64-ares.json\n"
+      exclusionList=$exclusionList"nintendo_64dd-ares.json\n"
+    else
+      exclusionList=$exclusionList"nintendo_64-rmg.json\n"
+    fi
   fi
   #PSX?
   if [ "$emuPSX" != "both" ]; then
-	if [ "$emuPSX" = "duckstation" ]; then
-	  exclusionList=$exclusionList"sony_psx-ra-beetle_psx_hw.json\n"
-	  exclusionList=$exclusionList"sony_psx-ra-swanstation.json\n"
-	  exclusionList=$exclusionList"nintendo_64dd-ares.json\n"
-	else
-	  exclusionList=$exclusionList"sony_psx-duckstation.json\n"
-	fi
+    if [ "$emuPSX" = "duckstation" ]; then
+      exclusionList=$exclusionList"sony_psx-ra-beetle_psx_hw.json\n"
+      exclusionList=$exclusionList"sony_psx-ra-swanstation.json\n"
+      exclusionList=$exclusionList"nintendo_64dd-ares.json\n"
+    else
+      exclusionList=$exclusionList"sony_psx-duckstation.json\n"
+    fi
   fi
   #gba?
   if [ "$emuGBA" != "both" ]; then
-	if [ "$emuGBA" = "mgba" ]; then
-	  exclusionList=$exclusionList"nintendo_gameboy-advance-ares.json\n"
-	  exclusionList=$exclusionList"nintendo_gba-ra-mgba.json\n"
-	else
-	  exclusionList=$exclusionList"nintendo_gba-mgba.json\n"
-	fi
+    if [ "$emuGBA" = "mgba" ]; then
+      exclusionList=$exclusionList"nintendo_gameboy-advance-ares.json\n"
+      exclusionList=$exclusionList"nintendo_gba-ra-mgba.json\n"
+    else
+      exclusionList=$exclusionList"nintendo_gba-mgba.json\n"
+    fi
   fi
   #psp
   if [ "$emuPSP" != "both" ]; then
-	if [ "$emuPSP" = "ppsspp" ]; then
-	  exclusionList=$exclusionList"sony_psp-ra-ppsspp.json\n"
-	else
-	  exclusionList=$exclusionList"sony_psp-ppsspp.json\n"
-	fi
+    if [ "$emuPSP" = "ppsspp" ]; then
+      exclusionList=$exclusionList"sony_psp-ra-ppsspp.json\n"
+    else
+      exclusionList=$exclusionList"sony_psp-ppsspp.json\n"
+    fi
   fi
   #melonDS
   if [ "$emuNDS" != "both" ]; then
-	if [ "$emuNDS" = "melonds" ]; then
-	  exclusionList=$exclusionList"nintendo_ds-ra-melonds.json\n"
-	else
-	  exclusionList=$exclusionList"nintendo_ds-melonds.json\n"
-	fi
+    if [ "$emuNDS" = "melonds" ]; then
+      exclusionList=$exclusionList"nintendo_ds-ra-melonds.json\n"
+    else
+      exclusionList=$exclusionList"nintendo_ds-melonds.json\n"
+    fi
   fi
   #mame
   if [ "$emuMAME" != "both" ]; then
-	if [ "$emuMAME" = "mame" ]; then
-	  exclusionList=$exclusionList"arcade-ra-mame_2010.json\n"
-	  exclusionList=$exclusionList"arcade-ra-mame.json\n"
-	  exclusionList=$exclusionList"arcade-ra-mame_2003_plus.json\n"
-	else
-	  exclusionList=$exclusionList"arcade-mame.json\n"
-	  exclusionList=$exclusionList"tiger_electronics_gamecom-mame.json\n"
-	  exclusionList=$exclusionList"vtech_vsmile-mame.json\n"
-	  exclusionList=$exclusionList"snk_neo_geo_cd-mame.json\n"
-	  exclusionList=$exclusionList"philips_cd_i-mame.json\n"
-	fi
+    if [ "$emuMAME" = "mame" ]; then
+      exclusionList=$exclusionList"arcade-ra-mame_2010.json\n"
+      exclusionList=$exclusionList"arcade-ra-mame.json\n"
+      exclusionList=$exclusionList"arcade-ra-mame_2003_plus.json\n"
+    else
+      exclusionList=$exclusionList"arcade-mame.json\n"
+      exclusionList=$exclusionList"tiger_electronics_gamecom-mame.json\n"
+      exclusionList=$exclusionList"vtech_vsmile-mame.json\n"
+      exclusionList=$exclusionList"snk_neo_geo_cd-mame.json\n"
+      exclusionList=$exclusionList"philips_cd_i-mame.json\n"
+    fi
   fi
+
+  if [ "$emuDreamcast" != "both" ]; then
+	  if [ "$emuDreamcast" = "flycast" ]; then
+		exclusionList=$exclusionList"sega_dreamcast-ra-flycast.json\n"
+		exclusionList=$exclusionList"arcade_naomi-ra-flycast\n"
+	  else
+		exclusionList=$exclusionList"sega_dreamcast-flycast.json\n"
+		exclusionList=$exclusionList"arcade_naomi-flycast.json\n"
+	  fi
+	fi
+
+
   #Optional parsers
   exclusionList=$exclusionList"nintendo_gbc-ra-sameboy.json\n"
   exclusionList=$exclusionList"nintendo_gb-ra-sameboy.json\n"
@@ -175,6 +245,70 @@ SRM_init(){
   exclusionList=$exclusionList"sony_psx-ra-swanstation.json\n"
   exclusionList=$exclusionList"nintendo_gbc-mgba.json\n"
   exclusionList=$exclusionList"nintendo_gb-mGBA.json\n"
+
+  #Exclusion based on install status.
+  if [ $doInstallPrimeHack == "false" ] || [ $(Primehack_IsInstalled) == "false" ]; then
+      exclusionList=$exclusionList"nintendo_primehack.json\n"
+  fi
+  if [ $doInstallRPCS3 == "false" ] || [ $(RPCS3_IsInstalled) == "false" ]; then
+      exclusionList=$exclusionList"sony_ps3-rpcs3-extracted_iso_psn.json\n"
+      exclusionList=$exclusionList"sony_ps3-rpcs3-pkg.json\n"
+
+  fi
+  if [ $doInstallCitra == "false" ] || [ $(Citra_IsInstalled) == "false" ]; then
+      exclusionList=$exclusionList"nintendo_3ds-citra.json\n"
+
+  fi
+  if [ $doInstallDolphin == "false" ] || [ $(Dolphin_IsInstalled) == "false" ]; then
+      exclusionList=$exclusionList"nintendo_gc-dolphin.json\n"
+      exclusionList=$exclusionList"nintendo_wii-dolphin.json\n"
+  fi
+  if [ $doInstallDuck == "false" ] || [ $(DuckStation_IsInstalled) == "false" ]; then
+      exclusionList=$exclusionList"sony_psx-duckstation.json\n"
+
+  fi
+  if [ $doInstallPPSSPP == "false" ] || [ $(PPSSPP_IsInstalled) == "false" ]; then
+      exclusionList=$exclusionList"sony_psp-ppsspp.json\n"
+  fi
+  if [ $doInstallXemu == "false" ] || [ $(Xemu_IsInstalled) == "false" ]; then
+      exclusionList=$exclusionList"microsoft_xbox-xemu.json\n"
+
+  fi
+  if [ $doInstallXenia == "false" ] || [ $(Xenia_IsInstalled) == "false" ]; then
+     exclusionList=$exclusionList"microsoft_xbox_360-xenia-xbla.json\n"
+     exclusionList=$exclusionList"microsoft_xbox_360-xenia.json\n"
+
+  fi
+  if [ $doInstallScummVM == "false" ] || [ $(ScummVM_IsInstalled) == "false" ]; then
+      exclusionList=$exclusionList"scumm_scummvm.json\n"
+  fi
+  if [ $doInstallRMG == "false" ] || [ $(RMG_IsInstalled) == "false" ]; then
+      exclusionList=$exclusionList"nintendo_64-rmg.json\n"
+  fi
+  if [ $doInstallmelonDS == "false" ] || [ $(melonDS_IsInstalled) == "false" ]; then
+      exclusionList=$exclusionList"nintendo_ds-melonds.json\n"
+  fi
+  if [ $doInstallVita3K == "false" ] || [ $(Vita3K_IsInstalled) == "false" ]; then
+      exclusionList=$exclusionList"sony_psvita-vita3k-pkg.json\n"
+  fi
+  if [ $doInstallMGBA == "false" ] || [ $(mGBA_IsInstalled) == "false" ]; then
+    exclusionList=$exclusionList"nintendo_gb-mGBA.json\n"
+    exclusionList=$exclusionList"nintendo_gba-mgba.json\n"
+    exclusionList=$exclusionList"nintendo_gbc-mgba.json\n"
+  fi
+  if [ $doInstallMAME == "false" ] || [ $(MAME_IsInstalled) == "false" ]; then
+    exclusionList=$exclusionList"arcade-mame.json\n"
+  fi
+  if [ $doInstallYuzu == "false" ] || [ $(Yuzu_IsInstalled) == "false" ]; then
+    exclusionList=$exclusionList"nintendo_switch-yuzu.json\n"
+  fi
+  if [ $doInstallRyujinx == "false" ] || [ $(Ryujinx_IsInstalled) == "false" ]; then
+    exclusionList=$exclusionList"nintendo_switch-ryujinx.json\n"
+  fi
+  if [ "$doInstallPCSX2QT" == "false" ] || [ $(PCSX2QT_IsInstalled) == "false" ]; then
+    exclusionList=$exclusionList"sony_ps2-pcsx2.json\n"
+  fi
+
 
   echo -e $exclusionList > "$HOME/exclude.txt"
 
@@ -192,23 +326,37 @@ SRM_init(){
   rm -rf "$HOME/temp_parser"
   ln -s "$json_directory" "$HOME/temp_parser"
   files=$(find "$HOME/temp_parser/emudeck" -name "*.json" | sort)
-  jq -s '.' $files > "$output_file"
+  customfiles=$(find "$SRM_userData_configDir/parsers/custom/" -name "*.json" | sort)
+  jq -s '.' $files $customfiles > "$output_file"
   rm -rf "$HOME/temp_parser"
+}
 
-  sleep 1
+SRM_addSteamInputProfiles(){
+   cp "$EMUDECKGIT/$SRM_userData_directory/controllerTemplates.json" "$SRM_userData_configDir/controllerTemplates.json"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/citra_controller_config.vdf"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/duckstation_controller_config.vdf"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/emulationstation-de_controller_config.vdf"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/melonds_controller_config.vdf"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/mGBA_controller_config.vdf"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf"
 
-  SRM_setEnv
-
-  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userConfigurations.json"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$SRM_userData_configDir/userConfigurations.json"
-  sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userConfigurations.json"
-
-  sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userSettings.json"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$SRM_userData_configDir/userSettings.json"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userSettings.json"
+   rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
+   #Cleanup old controller schemes
 
 
-  echo -e "true"
+   #Symlinks so they won't stop working
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/citra_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/duckstation_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/emulationstation-de_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/melonds_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/mGBA_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf"
+   # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf"
 }
 
 SRM_setEnv(){
@@ -233,15 +381,15 @@ SRM_resetConfig(){
 SRM_IsInstalled(){
 
   if [ -f "$SRM_toolPath" ]; then
-	echo "true"
+  echo "true"
   else
-	echo "false"
+  echo "false"
   fi
 }
 SRM_resetLaunchers(){
   rsync -av --existing $HOME/.config/EmuDeck/backend/tools/launchers/ $toolsPath/launchers/
   for entry in $toolsPath/launchers/*.sh
   do
-	 chmod +x "$entry"
+   chmod +x "$entry"
   done
 }
