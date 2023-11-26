@@ -158,6 +158,8 @@ main () {
     # Set main STEAMPATH
     if [ -d "${HOME}/.local/share/Steam" ]; then
         STEAMPATH="${HOME}/.local/share/Steam"
+    elif [ -d "${HOME}/.steam/steam" ]; then
+        STEAMPATH="${HOME}/.steam/steam"
     else
         reportError "Error: ${STEAMPATH} does not exist." "true" "true"
     fi
