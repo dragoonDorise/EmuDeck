@@ -236,7 +236,7 @@ manageRPSMenu() {
 }
 
 changeSettingsMenu() {
-	declare -a arrSupBrows=("com.google.Chrome" "com.microsoft.Edge" "org.mozilla.firefox" "com.brave.Browser" "org.chromium.Chromium")
+	declare -a arrSupBrows=("com.google.Chrome" "com.microsoft.Edge" "com.brave.Browser" "org.chromium.Chromium")
 	declare -a arrBrowsOpts=()
 
 	# Include system default browser and verify it is is installed
