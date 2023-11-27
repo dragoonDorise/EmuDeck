@@ -1,13 +1,13 @@
 {
   "parserType": "Glob",
-  "configTitle": "Arcade - RetroArch MAME 2010",
-  "steamCategory": "${Arcade - MAME 2010}",
+  "configTitle": "Mattel Electronics Intellivision - RetroArch FreeIntv",
+  "steamCategory": "${Mattel Electronics Intellivision}",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/mame2010",
+  "romDirectory": "${romsdirglobal}/intellivision",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mame2010_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}freeintv_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
@@ -28,13 +28,13 @@
     "useCredentials": true
   },
   "parserInputs": {
-    "glob": "**/${title}@(.zip|.ZIP)"
+    "glob": "**/${title}@(.int|.INT|.bin|.BIN|.rom|.ROM|.7z|.7Z|.zip|.ZIP)"
   },
   "titleFromVariable": {
-    "limitToGroups": "${MAME}",
+    "limitToGroups": "",
     "caseInsensitiveVariables": false,
     "skipFileIfVariableWasNotFound": false,
-    "tryToMatchTitle": true
+    "tryToMatchTitle": false
   },
   "fuzzyMatch": {
     "replaceDiacritics": true,
@@ -46,7 +46,7 @@
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },
-  "parserId": "164585567134532556",
+  "parserId": "164789998905398117",
   "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {
