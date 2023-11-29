@@ -19,7 +19,7 @@ cloud_sync_install(){
 
         text="$(printf "We need to install our Decky Plugin so you can use CloudSync on Gaming Mode.\nPlease enter your sudo/admin password so we can install it.")"
 
-        PASS=$(zenity --title="Decky CloudSync Plugin Installer" --width=300 --height=100 --entry --hide-text --text="${text}")
+        read -r PASS <<< $(zenity --title="Decky CloudSync Plugin Installer" --width=300 --height=100 --entry --hide-text --text="${text}")
         if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
             exit 1
         fi

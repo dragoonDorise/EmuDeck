@@ -466,7 +466,7 @@ if [ "system" != "darwin" ]; then
  	if ( echo "$defaultPass" | sudo -S -k true ); then
 		echo "true"
   	else
-	  	PASS=$(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
+	  	read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
 	  	if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
 		  	exit 1
 	  	fi
