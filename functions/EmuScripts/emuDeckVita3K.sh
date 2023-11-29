@@ -68,7 +68,7 @@ Vita3K_setupSaves(){
 Vita3K_setupStorage(){
     echo "Begin Vita3K storage config"
 
-    mkdir -p "$storagePath/Vita3K/"
+    mkdir -p "$storagePath/Vita3K/ux0/app"
     unlink "$romsPath/psvita/InstalledGames"
     ln -s "$storagePath/Vita3K/ux0/app" "$romsPath/psvita/InstalledGames"
 
@@ -134,4 +134,9 @@ Vita3K_IsInstalled(){
 
 Vita3K_resetConfig(){
     Vita3K_init &>/dev/null && echo "true" || echo "false"
+}
+
+
+Vita3K_setResolution(){
+	echo "NYI"
 }

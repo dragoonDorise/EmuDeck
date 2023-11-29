@@ -1,4 +1,7 @@
 #!/bin/bash
+source $HOME/.config/EmuDeck/backend/functions/all.sh
+cloud_sync_downloadEmu "yuzu" && cloud_sync_startService
+
 emuName="yuzu" #parameterize me
 useEAifFound="true" # set to false to simply use the newest file found
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
@@ -35,91 +38,88 @@ echo "Detected exe: $emuExeFile"
 if [ -z "$1" ];then
     #check for noupdate flag
     if [ ! -e "${emuDontUpdate}" ]; then
-        #check for network
-        if : >/dev/tcp/8.8.8.8/53; then
-            echo 'Internet available. Check for Update'
-            #check if we are running mainline so we can offer to update
-            if [ "$isMainline" = true ]; then
-                echo "Yuzu mainline detected, checking connectivity"
+	
+		#check if we are running mainline so we can offer to update
+		if [ "$isMainline" = true ]; then
+			echo "Yuzu mainline detected, checking connectivity"
+			if curl --output /dev/null --silent --head --fail https://github.com; then
+				echo 'Internet available. Check for Update'
+				yuzuHost="https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases/latest"
+				metaData=$(curl -fSs ${yuzuHost})
+				fileToDownload=$(echo ${metaData} | jq -r '.assets[] | select(.name|test(".*.AppImage$")).browser_download_url')
+				currentVer=$(echo ${metaData} | jq -r '.tag_name')
 
 
+				if [ "$currentVer" = "$(cat ${Yuzu_lastVerFile})" ] ;then
+				echo "no need to update."
+				elif [ -z "$currentVer" ] ;then
+					echo "couldn't get metadata."
+				else
+					zenity --question --title="Yuzu update available!" --width 200 --text "Yuzu ${currentVer} available. Would you like to update?" --ok-label="Yes" --cancel-label="No" 2>/dev/null
+					if [ $? = 0 ]; then
+						echo "download ${currentVer} appimage: ${fileToDownload}"
 
-                yuzuHost="https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases/latest"
-                metaData=$(curl -fSs ${yuzuHost})
-                fileToDownload=$(echo ${metaData} | jq -r '.assets[] | select(.name|test(".*.AppImage$")).browser_download_url')
-                currentVer=$(echo ${metaData} | jq -r '.tag_name')
-
-
-                if [ "$currentVer" = "$(cat ${Yuzu_lastVerFile})" ] ;then
-                    echo "no need to update."
-                elif [ -z "$currentVer" ] ;then
-                    echo "couldn't get metadata."
-                else
-                    zenity --question --title="Yuzu update available!" --width 200 --text "Yuzu ${currentVer} available. Would you like to update?" --ok-label="Yes" --cancel-label="No" 2>/dev/null
-                    if [ $? = 0 ]; then
-                        echo "download ${currentVer} appimage: ${fileToDownload}"
-
-                        if safeDownload "$emuName" "${fileToDownload}" "$Yuzu_emuPath" "$showProgress"; then
-                            chmod +x "$emufolder/$emuName.AppImage"
-                            echo "latest version $currentVer > $Yuzu_lastVerFile"
-                            echo "${currentVer}" > "${Yuzu_lastVerFile}"
-                        else
-                            zenity --error --text "Error updating yuzu!" --width=250 2>/dev/null
-                        fi
-                    fi
-                fi
-            else
-                #if not running mainline check if we are running yuzu-ea and have a token file in place
-                if [ "$emuExeFile" = "$YuzuEA_emuPath" ] && [ -e "$YuzuEA_tokenFile" ]; then
-                    jwtHost="https://api.yuzu-emu.org/jwt/installer/"
-                    yuzuEaHost="https://api.yuzu-emu.org/downloads/earlyaccess/"
-                    yuzuEaMetadata=$(curl -fSs ${yuzuEaHost})
-                    fileToDownload=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).url')
-                    currentVer=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
-
-                    if [ -e "$YuzuEA_tokenFile" ]; then
-
-                        if [ "$currentVer" = "$(cat "${YuzuEA_lastVerFile}")" ]; then
-
-                            echo "no need to update."
-
-                        elif [ -z  "$currentVer" ]; then
-
-                            echo "couldn't get metadata."
-
-                        else
-                            zenity --question --title="Yuzu EA update available!" --width 200 --text "Yuzu-EA ${currentVer} available. Would you like to update?" --ok-label="Yes" --cancel-label="No" 2>/dev/null
-                            if [ $? = 0 ]; then
-                                echo "updating"
-                                read -r user auth <<< "$( base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}' )"
-
-                                if [ -n "$user" ] && [ -n "$auth" ]; then
-
-                                    echo "get bearer token"
-                                    BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
-
-                                    echo "download ea appimage"
-                                    if safeDownload "yuzu-ea" "$fileToDownload" "${YuzuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
-                                        chmod +x "$YuzuEA_emuPath"
-                                        echo "latest version $currentVer > $YuzuEA_lastVerFile"
-                                        echo "${currentVer}" > "${YuzuEA_lastVerFile}"
-                                    else
-                                        zenity --error --text "Error updating yuzu!" --width=250 2>/dev/null
-                                    fi
-
-                                else
-                                    echo "Token malformed"
-                                fi
-
-                            fi
-                        fi
-                    else
-                        echo "Token Not Found"
-                    fi
-                fi
-            fi
+						if safeDownload "$emuName" "${fileToDownload}" "$Yuzu_emuPath" "$showProgress"; then
+							chmod +x "$emufolder/$emuName.AppImage"
+							echo "latest version $currentVer > $Yuzu_lastVerFile"
+							echo "${currentVer}" > "${Yuzu_lastVerFile}"
+						else
+							zenity --error --text "Error updating yuzu!" --width=250 2>/dev/null
+						fi
+					fi
+				fi    
+			else
+				echo 'Offline'
+			fi
         else
-            echo 'Offline'
+			#if not running mainline check if we are running yuzu-ea and have a token file in place
+			if [ "$emuExeFile" = "$YuzuEA_emuPath" ] && [ -e "$YuzuEA_tokenFile" ]; then
+				#check for network
+				if curl --output /dev/null --silent --head --fail https://yuzu-emu.org/; then
+					jwtHost="https://api.yuzu-emu.org/jwt/installer/"
+					yuzuEaHost="https://api.yuzu-emu.org/downloads/earlyaccess/"
+					yuzuEaMetadata=$(curl -fSs ${yuzuEaHost})
+					fileToDownload=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).url')
+					currentVer=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
+
+					if [ -e "$YuzuEA_tokenFile" ]; then
+						if [ "$currentVer" = "$(cat "${YuzuEA_lastVerFile}")" ]; then
+							echo "no need to update."
+						elif [ -z  "$currentVer" ]; then
+							echo "couldn't get metadata."
+						else
+							zenity --question --title="Yuzu EA update available!" --width 200 --text "Yuzu-EA ${currentVer} available. Would you like to update?" --ok-label="Yes" --cancel-label="No" 2>/dev/null
+							if [ $? = 0 ]; then
+								echo "updating"
+								read -r user auth <<< "$( base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}' )"
+
+								if [ -n "$user" ] && [ -n "$auth" ]; then
+
+									echo "get bearer token"
+									BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
+
+									echo "download ea appimage"
+									if safeDownload "yuzu-ea" "$fileToDownload" "${YuzuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
+										chmod +x "$YuzuEA_emuPath"
+										echo "latest version $currentVer > $YuzuEA_lastVerFile"
+										echo "${currentVer}" > "${YuzuEA_lastVerFile}"
+									else
+										zenity --error --text "Error updating yuzu!" --width=250 2>/dev/null
+									fi
+
+								else
+									echo "Token malformed"
+								fi
+
+							fi
+						fi
+					fi
+				else
+					echo "Offline"
+				fi
+			else
+				echo "Token Not Found"
+			fi
         fi
     fi
 fi
@@ -135,3 +135,4 @@ param=${param/\'/"$substituteWith"}
 #Fix last ' on command
 param=$(echo "$param" | sed 's/.$/"/')
 eval "${exe} ${param}"
+rm -rf "$savesPath/.gaming"

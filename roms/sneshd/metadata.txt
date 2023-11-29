@@ -1,0 +1,4 @@
+collection: Nintendo SNES WideScreen (Super Nintendo)
+shortname: sneshd
+extensions: bin, BIN, bml, BML, bs, BS, bsx, BSX, dx2, DX2, fig, FIG, gd3, GD3, gd7, GD7, mgd, MGD, sfc, SFC, smc, SMC, st, ST, swc, SWC, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/bsnes_hd_beta_libretro.so {file.path}

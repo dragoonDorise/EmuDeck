@@ -1,0 +1,4 @@
+collection: Quake
+shortname: quake
+extensions: desktop, pak, PAK, pk3, PK3, sh
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/tyrquake_libretro.so {file.path}

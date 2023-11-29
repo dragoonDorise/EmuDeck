@@ -1,0 +1,10 @@
+general.theme: themes/atari-50-menu-pegasus/
+general.verify-files: false
+general.input-mouse-support: true
+general.fullscreen: true
+providers.steam.enabled: false
+providers.gog.enabled: false
+providers.es2.enabled: false
+providers.logiqx.enabled: false
+providers.lutris.enabled: false
+providers.skraper.enabled: true

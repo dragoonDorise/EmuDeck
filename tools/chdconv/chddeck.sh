@@ -258,17 +258,17 @@ fi
 
 if [ "$uiMode" == 'zenity' ]; then
 
-	text="$(printf "<b>Done!</b>\n\n If you use Steam Rom Manager to catalog your games you will need to open it now to update your games")"
+	text="$(printf "<b>Done!</b>\n\n If you use Steam ROM Manager to catalog your games you will need to open it now to update your games")"
 	zenity --question \
 		--title="EmuDeck" \
 		--width=450 \
-		--ok-label="Open Steam Rom Manager" \
+		--ok-label="Open Steam ROM Manager" \
 		--cancel-label="Exit" \
 		--text="${text}" 2>/dev/null
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		echo "user launched SRM"
-		"${toolsPath}/srm/Steam-ROM-Manager.AppImage"
+		"${toolsPath}/Steam ROM Manager.AppImage"
 		exit
 	else
 		exit

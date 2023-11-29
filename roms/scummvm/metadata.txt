@@ -1,0 +1,4 @@
+collection: ScummVM Game Engine
+shortname: scummvm
+extensions: scummvm, SCUMMVM, svm, SVM
+launch: /bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/scummvm.sh --path="{file.path}" --auto-detect

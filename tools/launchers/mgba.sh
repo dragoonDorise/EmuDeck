@@ -1,6 +1,6 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-rclone_downloadEmu mgba
+cloud_sync_downloadEmu "mgba" && cloud_sync_startService
 emuName="mGBA" #parameterize me
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
 
@@ -24,4 +24,4 @@ param=${param/\'/"$substituteWith"}
 #Fix last ' on command
 param=$(echo "$param" | sed 's/.$/"/')
 eval "${exe} ${param}"
-rclone_uploadEmu mgba
+rm -rf "$savesPath/.gaming"

@@ -1,0 +1,78 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Cloud Services - Cloud Services",
+  "steamCategory": "${Cloud Services}",
+  "steamDirectory": "${steamdirglobal}",
+  "romDirectory": "${romsdirglobal}/cloud",
+  "executableArgs": "",
+  "executableModifier": "\"${exePath}\"",
+  "startInDirectory": "${romsdirglobal}/cloud",
+  "titleModifier": "${fuzzyTitle}",
+  "imageProviders": ["SteamGridDB"],
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "disabled": false,
+  "userAccounts": {
+    "specifiedAccounts": ""
+  },
+  "executable": {
+    "path": "",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": false
+  },
+  "parserInputs": {
+    "glob": "**/${title}@(.sh)"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false,
+    "tryToMatchTitle": false
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": false,
+    "removeBrackets": true
+  },
+  "controllers": {
+    "ps4": null,
+    "ps5": null,
+    "xbox360": null,
+    "xboxone": null,
+    "switch_joycon_left": null,
+    "switch_joycon_right": null,
+    "switch_pro": null,
+    "neptune": {
+      "title": "EmuDeck - Cloud",
+      "mappingId": "emudeck_cloud_controller_config.vdf",
+      "profileType": "template"
+    }
+  },
+  "imageProviderAPIs": {
+    "SteamGridDB": {
+      "nsfw": false,
+      "humor": false,
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": [],
+      "imageMotionTypes": ["static"]
+    }
+  },
+  "parserId": "164785598905497513",
+  "version": 15,
+  "defaultImage": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+  },
+  "localImages": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  }
+}
