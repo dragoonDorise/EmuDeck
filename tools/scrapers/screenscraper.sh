@@ -347,8 +347,8 @@ romParser_SS_start(){
 
 	for systemPath in $romsPath/*;
  	do
-		 if [ "$systemPath" = "*.txt*" ]; then
-			exit
+		 if [[ "$systemPath" == *txt* ]]; then
+			 break
 		 fi
 
 	 	system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')

@@ -181,9 +181,9 @@ romParser_RA_start(){
  	do
  		system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
 
-		 if [ "$systemPath" = "*.txt*" ]; then
-		 	exit
-		 fi
+	 	if [[ "$systemPath" == *txt* ]]; then
+			 break
+		fi
 
 		if [ ! -d "$systemPath/media/" ]; then
 			echo -e "Creating $systemPath/media..."
