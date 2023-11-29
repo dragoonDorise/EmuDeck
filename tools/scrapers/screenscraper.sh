@@ -347,6 +347,10 @@ romParser_SS_start(){
 
 	for systemPath in $romsPath/*;
  	do
+		 if [ "$systemPath" = "*.txt*" ]; then
+			exit
+		 fi
+
 	 	system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
 
 		if [ ! -d "$systemPath/media/" ]; then
