@@ -36,7 +36,9 @@ Pegasus_init(){
 	find $romsPath -type f -name "metadata.txt" -exec sed -i "s|CORESPATH|${RetroArch_cores}|g" {} \;
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$Pegasus_dir_file"
 	for systemPath in "$romsPath"/*; do rm -rf "$systemPath/media" &> /dev/null; done
-	for systemPath in "$romsPath"/*; do system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/'); ln -s "$toolsPath/downloaded_media/$system" "$systemPath/media" &> /dev/null; done
+	for systemPath in "$romsPath"/*; do system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/'); ln -s "$toolsPath/downloaded_media/$system" "$systemPath/media" &> /dev/null; ln -s "$toolsPath/downloaded_media/$system/covers" "$toolsPath/downloaded_media/$system/box2dfront" &> /dev/null; ln -s "$toolsPath/downloaded_media/$system/marquees" "$toolsPath/downloaded_media/$system/wheel" &> /dev/null; done
+
+	for systemPath in "$romsPath"/*; do rm -rf ".*/" &> /dev/null; done
 
 	#Pegasus_addCustomSystems
 	#Pegasus_setEmulationFolder

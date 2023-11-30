@@ -6,7 +6,7 @@ romParser_RA_download(){
 	local type=$3
 
 	case "$type" in
-		"%20")
+		"screenshots")
 			RA_folder="Named_Snaps"
 
 			;;
