@@ -1,5 +1,5 @@
 #!/bin/bash
-MSG=$HOME/.config/EmuDeck/msg.log
+MSG=$HOME/emudeck/logs/msg.log
 echo "0" > "$MSG"
 
 #
@@ -495,8 +495,8 @@ fi
 #
 echo "" > "$HOME/.config/EmuDeck/.finished"
 echo "" > "$HOME/.config/EmuDeck/.ui-finished"
-echo "100" > "$HOME/.config/EmuDeck/msg.log"
-echo "# Installation Complete" >> "$HOME/.config/EmuDeck/msg.log"
+echo "100" > "$HOME/emudeck/logs/msg.log"
+echo "# Installation Complete" >> "$HOME/emudeck/logs/msg.log"
 finished=true
 rm "$PIDFILE"
 
