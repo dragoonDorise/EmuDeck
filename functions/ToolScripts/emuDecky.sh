@@ -1,7 +1,7 @@
 #!/bin/bash
 
 Decky_autoSave(){
-	if [ "$RABezels" = true ]; then	
+	if [ "$RABezels" == true ]; then	
 		RetroArch_bezelOnAll
 	else
 		RetroArch_bezelOffAll
@@ -9,7 +9,7 @@ Decky_autoSave(){
 }
 
 Decky_bezels(){
-	if [ "$RABezels" = true ]; then	
+	if [ "$RABezels" == true ]; then	
 		RetroArch_bezelOnAll
 	else
 		RetroArch_bezelOffAll
@@ -17,7 +17,7 @@ Decky_bezels(){
 }
 
 Decky_shaders_LCD(){
-	if [ "$RAHandHeldShader" = true ]; then	
+	if [ "$RAHandHeldShader" == true ]; then	
 		RetroArch_MATshadersOnAll
 	else
 		RetroArch_MATshadersOffAll
@@ -25,7 +25,7 @@ Decky_shaders_LCD(){
 }
 
 Decky_shaders_2D(){
-	if [ "$RAHandClassic2D" = true ]; then	
+	if [ "$RAHandClassic2D" == true ]; then	
 		RetroArch_CRTshaderOnAll
 	else
 		RetroArch_CRTshaderOffAll
@@ -33,7 +33,7 @@ Decky_shaders_2D(){
 }
 
 Decky_shaders_3D(){
-	if [ "$RAHandClassic3D" = true ]; then	
+	if [ "$RAHandClassic3D" == true ]; then	
 		RetroArch_3DCRTshaderOnAll
 	else
 		RetroArch_3DCRTshaderOffAll
@@ -41,7 +41,7 @@ Decky_shaders_3D(){
 }
 
 Decky_ar_snes(){
-	if [ "$arSnes" = 87 ]; then	
+	if [ "$arSnes" == 87 ]; then	
 		RetroArch_snes_ar87
 		RetroArch_nes_ar87
 	else
@@ -60,7 +60,7 @@ Decky_setAR(){
 }
 
 Decky_setClourd(){
-  if [ $cloud_sync_status = "false" ]; then
+  if [ $cloud_sync_status == "false" ]; then
 	setSetting cloud_sync_status "true" > /dev/null 
   else
   	setSetting cloud_sync_status "false" > /dev/null 

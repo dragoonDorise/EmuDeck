@@ -47,10 +47,10 @@ Moonlight_uninstall() {
 
 # Check if installed
 Moonlight_IsInstalled() {
-	if [ "$(flatpak --columns=app list | grep "$Moonlight_emuPath")" = "$Moonlight_emuPath" ]; then
+	if [ "$(flatpak --columns=app list | grep "$Moonlight_emuPath")" == "$Moonlight_emuPath" ]; then
 		# Uninstall if previously installed to the "system" level
 		flatpak list | grep "$Moonlight_emuPath" | grep "system"
-		if [ $? = 0 ]; then
+		if [ $? == 0 ]; then
 			Moonlight_uninstall
 			Moonlight_install
 		fi

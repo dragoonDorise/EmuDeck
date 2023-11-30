@@ -22,13 +22,13 @@ function setSetting() {
 	local new_val=$2
 
 	settingExists=$(grep -rw "$emuDecksettingsFile" -e "$var")
-	if [[ $settingExists = '' ]]; then
+	if [[ $settingExists == '' ]]; then
 		#insert setting to end
 		echo "variable not found in settings. Adding $var=$new_val to $emuDecksettingsFile"
 		sed -i -e '$a\'"$var=$new_val" "$emuDecksettingsFile"
-	elif [[ ! $settingExists = '' ]]; then
+	elif [[ ! $settingExists == '' ]]; then
 		echo "Old value $settingExists"
-			if [[ $settingExists = "$var=$new_val" ]]; then
+			if [[ $settingExists == "$var=$new_val" ]]; then
 				echo "Setting unchanged, skipping"
 			else
 				changeLine "$var=" "$var=$new_val" "$emuDecksettingsFile"
@@ -166,7 +166,7 @@ setDefaults
 # Welcome, Quick or custom?
 source "$EMUDECKGIT"/whiptail/WelcomePage.sh
 
-if [ $expert = 'false' ]; then
+if [ $expert == 'false' ]; then
 	cp "$EMUDECKGIT/settings.sh" "$emuDecksettingsFile"
 fi
 
@@ -179,12 +179,12 @@ source "$EMUDECKGIT"/whiptail/RomStoragePage.sh
 ## Custom mode Questions
 #
 
-if [ $expert = 'true' ]; then
+if [ $expert == 'true' ]; then
 
 	# Emulators
 	source $EMUDECKGIT/whiptail/EmulatorSelectorPage.sh
 
-	# if [ $second = true ]; then
+	# if [ $second == true ]; then
 	# 	# Overwrite configuration?
 	# 	source "$EMUDECKGIT"/whiptail/EmulatorConfigurationPage.sh
 	# fi
@@ -219,7 +219,7 @@ if [ $expert = 'true' ]; then
 	source "$EMUDECKGIT"/whiptail/PegasusInstallPage.sh
 
 	# Pegasus Theme
-	if [ $doInstallPegasus = true ]; then
+	if [ $doInstallPegasus == true ]; then
 		source "$EMUDECKGIT"/whiptail/PegasusThemePage.sh
 	fi
 

@@ -32,7 +32,7 @@ if [ ! -f "$migrationFlag" ]; then
     doMigrate="Migrate Data" 
     
     echo "$emu Do migration? User chose: $doMigrate"
-    if [ "$doMigrate" = "Migrate Data" ]; then
+    if [ "$doMigrate" == "Migrate Data" ]; then
         n=$(( ${#migrationTable[@]} - 1 ))
         #odd should be flatpak
         #even should be appimage
@@ -53,11 +53,11 @@ if [ ! -f "$migrationFlag" ]; then
             --extra-button "Keep AppImage Data" \
             --extra-button "Migrate Flatpak Data" 2>/dev/null)
             rc=$?
-            if [[ ! $ans = "" ]]; then #user didn't cancel
+            if [[ ! $ans == "" ]]; then #user didn't cancel
                 echo "$emu flatpak/appimage data choice. User Chose: $ans"
                 for ((i=0; i<=n; i=(i+2))) { # for each pair of dirs
 
-                    if [[ $ans = "Migrate Flatpak Data" ]]; then
+                    if [[ $ans == "Migrate Flatpak Data" ]]; then
                         fromDir=${migrationTable[i]}
                         toDir=${migrationTable[i+1]}
                         echo  "Migrating ${fromDir} to ${toDir}"
@@ -79,7 +79,7 @@ if [ ! -f "$migrationFlag" ]; then
                         #link .config to .var so flatpak still works
                         ln -sfn ${toDir} .
 
-                    elif [[ $ans = "Keep AppImage Data" ]]; then
+                    elif [[ $ans == "Keep AppImage Data" ]]; then
                         fromDir=${migrationTable[i+1]}
                         toDir=${migrationTable[i]}
                         cd ${toDir}
@@ -121,7 +121,7 @@ if [ ! -f "$migrationFlag" ]; then
             echo "do nothing"
         fi
         touch $migrationFlag
-    elif [ $doMigrate = "Leave ${emu} alone forever" ]; then
+    elif [ $doMigrate == "Leave ${emu} alone forever" ]; then
         touch $migrationFlag
     fi
 fi

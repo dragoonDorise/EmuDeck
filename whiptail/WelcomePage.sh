@@ -12,7 +12,7 @@ while true; do
 	esac
 done
 
-if [ $question = 'EASY' ]; then
+if [ $question == 'EASY' ]; then
 	setSetting expert false
 else
 	setSetting expert true

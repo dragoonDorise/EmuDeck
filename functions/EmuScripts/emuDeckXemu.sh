@@ -149,7 +149,7 @@ Xemu_resetConfig(){
 }
 
 Xemu_setCustomizations(){
-	if [ "$arClassic3D" = 169 ]; then
+	if [ "$arClassic3D" == 169 ]; then
 	  Xemu_wideScreenOn
 	else
 	  Xemu_wideScreenOff

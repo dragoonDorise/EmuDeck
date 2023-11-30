@@ -47,10 +47,10 @@ Parsec_uninstall() {
 
 # Check if installed
 Parsec_IsInstalled() {
-	if [ "$(flatpak --columns=app list | grep "$Parsec_emuPath")" = "$Parsec_emuPath" ]; then
+	if [ "$(flatpak --columns=app list | grep "$Parsec_emuPath")" == "$Parsec_emuPath" ]; then
 		# Uninstall if previously installed to the "system" level
 		flatpak list | grep "$Parsec_emuPath" | grep "system"
-		if [ $? = 0 ]; then
+		if [ $? == 0 ]; then
 			Parsec_uninstall
 			Parsec_install
 		fi

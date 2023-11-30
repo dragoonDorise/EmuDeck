@@ -3,7 +3,7 @@
 
 # shellcheck source=functions/all.sh
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
-if [ "$?" = "1" ]; then
+if [ "$?" == "1" ]; then
     echo "functions could not be loaded."
     zenity --error \
         --text="EmuDeck Functions could not be loaded. Please re-run Emudeck install." 2>/dev/null
@@ -79,7 +79,7 @@ function runBinDownloads {
 
     echo "User selected: $binsToDL"
 
-    if [[ "$binsToDL" = *"esde"* ]]; then
+    if [[ "$binsToDL" == *"esde"* ]]; then
         echo "0"
         echo "# Updating EmulationStation-DE"
         if ESDE_install "true" 2>&1; then
@@ -88,7 +88,7 @@ function runBinDownloads {
             messages+=("There was a problem updating EmulationStation-DE")
         fi
     fi
-    if [[ "$binsToDL" = *"srm"* ]]; then
+    if [[ "$binsToDL" == *"srm"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating SteamRomManager"
@@ -98,7 +98,7 @@ function runBinDownloads {
             messages+=("There was a problem updating SteamRomManager")
         fi
     fi
-    if [[ "$binsToDL" = *"mgba"* ]]; then
+    if [[ "$binsToDL" == *"mgba"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating mGBA"
@@ -108,7 +108,7 @@ function runBinDownloads {
             messages+=("There was a problem updating mGBA")
         fi
     fi
-    if [[ "$binsToDL" = *"yuzu (early access)"* ]]; then
+    if [[ "$binsToDL" == *"yuzu (early access)"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating Yuzu Early Access"
@@ -118,7 +118,7 @@ function runBinDownloads {
             messages+=("There was a problem updating Yuzu Early Access")
         fi
     fi
-    if [[ "$binsToDL" = *"yuzu (mainline)"* ]]; then
+    if [[ "$binsToDL" == *"yuzu (mainline)"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating Yuzu"
@@ -128,7 +128,7 @@ function runBinDownloads {
             messages+=("There was a problem updating Yuzu")
         fi
     fi
-    if [[ "$binsToDL" = *"pcsx2-qt"* ]]; then
+    if [[ "$binsToDL" == *"pcsx2-qt"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating PCSX2-QT"
@@ -138,7 +138,7 @@ function runBinDownloads {
             messages+=("There was a problem updating PCSX2-QT")
         fi
     fi
-    if [[ "$binsToDL" = *"ryujinx"* ]]; then
+    if [[ "$binsToDL" == *"ryujinx"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating Ryujinx"
@@ -148,7 +148,7 @@ function runBinDownloads {
             messages+=("There was a problem updating Ryujinx")
         fi
     fi
-    if [[ "$binsToDL" = *"cemu (win/proton)"* ]]; then
+    if [[ "$binsToDL" == *"cemu (win/proton)"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating Cemu (win/proton)"
@@ -158,7 +158,7 @@ function runBinDownloads {
             messages+=("There was a problem updating Cemu (win/proton")
         fi
     fi
-    if [[ "$binsToDL" = *"cemu (native)"* ]]; then
+    if [[ "$binsToDL" == *"cemu (native)"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating Cemu (Native)"
@@ -168,7 +168,7 @@ function runBinDownloads {
             messages+=("There was a problem updating Cemu (Native)")
         fi
     fi
-    if [[ "$binsToDL" = *"vita3k"* ]]; then
+    if [[ "$binsToDL" == *"vita3k"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating Vita3K"
@@ -178,7 +178,7 @@ function runBinDownloads {
             messages+=("There was a problem updating Vita3K")
         fi
     fi
-    if [[ "$binsToDL" = *"xenia"* ]]; then
+    if [[ "$binsToDL" == *"xenia"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating Xenia-Canary"
@@ -188,7 +188,7 @@ function runBinDownloads {
             messages+=("There was a problem updating Xenia")
         fi
     fi
-    if [[ "$binsToDL" = *"rpcs3"* ]]; then
+    if [[ "$binsToDL" == *"rpcs3"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating RPCS3"
@@ -212,40 +212,40 @@ LOGFILE="${scriptPath}/binupdate-$TIMESTAMP.log"
 exec > >(tee "${LOGFILE}") 2>&1
 
 binTable=()
-if [ "$(ESDE_IsInstalled)" = "true" ]; then
+if [ "$(ESDE_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "EmulationStation-DE" "esde")
 fi
-if [ "$(SRM_IsInstalled)" = "true" ]; then
+if [ "$(SRM_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Steam ROM Manager" "srm")
 fi
-if [ "$(mGBA_IsInstalled)" = "true" ]; then
+if [ "$(mGBA_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "GameBoy / Color / Advance Emu" "mgba")
 fi
-if [ "$(Yuzu_IsInstalled)" = "true" ]; then
+if [ "$(Yuzu_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Nintendo Switch Emu" "yuzu (mainline)")
 fi
-if [ "$(YuzuEA_IsInstalled)" = "true" ] && [ -e "$YuzuEA_tokenFile" ]; then
+if [ "$(YuzuEA_IsInstalled)" == "true" ] && [ -e "$YuzuEA_tokenFile" ]; then
     binTable+=(TRUE "Nintendo Switch Emu" "yuzu (early access)")
 fi
-if [ "$(Ryujinx_IsInstalled)" = "true" ]; then
+if [ "$(Ryujinx_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Nintendo Switch Emu" "ryujinx")
 fi
-if [ "$(PCSX2QT_IsInstalled)" = "true" ]; then
+if [ "$(PCSX2QT_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Sony PlayStation 2 Emu" "pcsx2-qt")
 fi
-if [ "$(Cemu_IsInstalled)" = "true" ]; then
+if [ "$(Cemu_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Nintendo WiiU Emu (Proton)" "cemu (win/proton)")
 fi
-if [ "$(CemuNative_IsInstalled)" = "true" ]; then
+if [ "$(CemuNative_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Nintendo WiiU Emu (Native)" "cemu (native)")
 fi
-if [ "$(Vita3K_IsInstalled)" = "true" ]; then
+if [ "$(Vita3K_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Sony PlayStation Vita Emu" "vita3k")
 fi
-if [ "$(Xenia_IsInstalled)" = "true" ]; then
+if [ "$(Xenia_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Xbox 360 Emu" "xenia")
 fi
-if [ "$(RPCS3_IsInstalled)" = "true" ]; then
+if [ "$(RPCS3_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "PlayStation 3 Emu" "rpcs3")
 fi
 

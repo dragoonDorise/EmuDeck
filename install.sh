@@ -15,12 +15,12 @@ elif [ $linuxID != "SteamOS" ]; then
         PASSWD="$(zenity --password --title="Password Entry" --text="Enter you user sudo password to install required depencies" 2>/dev/null)"
         echo "$PASSWD" | sudo -v -S
         ans=$?
-        if [[ $ans = 1 ]]; then
+        if [[ $ans == 1 ]]; then
             #incorrect password
             PASSWD="$(zenity --password --title="Password Entry" --text="Password was incorrect. Try again. (Did you remember to set a password for linux before running this?)" 2>/dev/null)"
             echo "$PASSWD" | sudo -v -S
             ans=$?
-            if [[ $ans = 1 ]]; then
+            if [[ $ans == 1 ]]; then
                     text="$(printf "<b>Password not accepted.</b>\n Expert mode tools which require a password will not work. Disabling them.")"
                     zenity --error \
                     --title="EmuDeck" \

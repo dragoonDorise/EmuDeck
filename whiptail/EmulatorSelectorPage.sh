@@ -75,25 +75,25 @@ mapfile -t settingsEmus <<< $emulators
 
 for settingsEmu in "${settingsEmus[@]}";
  do
- 	if [[ $settingsEmu = *"RA"* ]]; then
+ 	if [[ $settingsEmu == *"RA"* ]]; then
 		setSetting doInstallRA true
 	fi
-	if [[ $settingsEmu = *"DOLPHIN"* ]]; then
+	if [[ $settingsEmu == *"DOLPHIN"* ]]; then
 		setSetting doInstallDolphin true
 	fi
-	if [[ $settingsEmu = *"DUCK"* ]]; then
+	if [[ $settingsEmu == *"DUCK"* ]]; then
 		setSetting doInstallDuck true
 	fi
-	if [[ $settingsEmu = *"AETHERSX2"* ]]; then
+	if [[ $settingsEmu == *"AETHERSX2"* ]]; then
 		setSetting doInstallPCSX2 true
 	fi
-	if [[ $settingsEmu = *"CITRA"* ]]; then
+	if [[ $settingsEmu == *"CITRA"* ]]; then
 		setSetting doInstallCitra true
 	fi
-	if [[ $settingsEmu = *"PPSSPP"* ]]; then
+	if [[ $settingsEmu == *"PPSSPP"* ]]; then
 		setSetting doInstallPPSSPP true
 	fi
-	if [[ $settingsEmu = *"SKYLINE"* ]]; then
+	if [[ $settingsEmu == *"SKYLINE"* ]]; then
 		setSetting doInstallSkyline true
 	fi	
  done

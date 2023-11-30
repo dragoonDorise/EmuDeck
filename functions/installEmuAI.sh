@@ -7,7 +7,7 @@ installEmuAI(){
     local lastVerFile="$5"
     local latestVer="$6"
 
-    if [[ "$fileName" = "" ]]; then
+    if [[ "$fileName" == "" ]]; then
         fileName="$name"
     fi
     echo "$name"

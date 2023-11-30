@@ -102,7 +102,7 @@ manageServicesMenu() {
 # Check if installed
 isInstalled() {
 	local ID="$1"
-	if [ "$(flatpak --columns=app list | grep "$1")" = "$1" ]; then
+	if [ "$(flatpak --columns=app list | grep "$1")" == "$1" ]; then
 		return 1
 	else
 		return 0
@@ -124,7 +124,7 @@ manageRPSMenu() {
 	declare -a arrAllRP=()
 	Chiaki_IsInstalled
 	ans=$?
-	if [ "$ans" = "1" ]; then
+	if [ "$ans" == "1" ]; then
 		arrAllRP+=(true "Chiaki")
 	else
 		arrAllRP+=(false "Chiaki")
@@ -132,7 +132,7 @@ manageRPSMenu() {
 
 	Greenlight_IsInstalled
 	ans=$?
-	if [ "$ans" = "1" ]; then
+	if [ "$ans" == "1" ]; then
 		arrAllRP+=(true "Greenlight")
 	else
 		arrAllRP+=(false "Greenlight")
@@ -140,7 +140,7 @@ manageRPSMenu() {
 
 	Moonlight_IsInstalled
 	ans=$?
-	if [ "$ans" = "1" ]; then
+	if [ "$ans" == "1" ]; then
 		arrAllRP+=(true "Moonlight")
 	else
 		arrAllRP+=(false "Moonlight")
@@ -148,7 +148,7 @@ manageRPSMenu() {
 
 	Parsec_IsInstalled
 	ans=$?
-	if [ "$ans" = "1" ]; then
+	if [ "$ans" == "1" ]; then
 		arrAllRP+=(true "Parsec")
 	else
 		arrAllRP+=(false "Parsec")
@@ -171,34 +171,34 @@ manageRPSMenu() {
 		IFS='|' read -r -a arrChosen <<< "$RP"
 		for i in "${arrChosen[@]}"; do
 			# Install/Update selected
-			if [ "$i" = "Chiaki" ]; then
+			if [ "$i" == "Chiaki" ]; then
 				Chiaki_IsInstalled
 				ans=$?
-				if [ "$ans" = "1" ]; then
+				if [ "$ans" == "1" ]; then
 					Chiaki_update
 				else
 					Chiaki_install
 				fi
-			elif [ "$i" = "Greenlight" ]; then
+			elif [ "$i" == "Greenlight" ]; then
 				Greenlight_IsInstalled
 				ans=$?
-				if [ "$ans" = "1" ]; then
+				if [ "$ans" == "1" ]; then
 					Greenlight_update
 				else
 					Greenlight_install
 				fi
-			elif [ "$i" = "Moonlight" ]; then
+			elif [ "$i" == "Moonlight" ]; then
 				Moonlight_IsInstalled
 				ans=$?
-				if [ "$ans" = "1" ]; then
+				if [ "$ans" == "1" ]; then
 					Moonlight_update
 				else
 					Moonlight_install
 				fi
-			elif [ "$i" = "Parsec" ]; then
+			elif [ "$i" == "Parsec" ]; then
 				Parsec_IsInstalled
 				ans=$?
-				if [ "$ans" = "1" ]; then
+				if [ "$ans" == "1" ]; then
 					Parsec_update
 				else
 					Parsec_install
@@ -248,7 +248,7 @@ changeSettingsMenu() {
     )
 	isInstalled "$defaultBrowser"
 	ans=$?
-	if [ "$ans" = "1" ]; then
+	if [ "$ans" == "1" ]; then
 		arrBrowsOpts+=(false "System Default: $defaultBrowser" true)
 	else
 		arrBrowsOpts+=(false "System Default: $defaultBrowser" false)
@@ -256,7 +256,7 @@ changeSettingsMenu() {
 	
 	# Add supported browsers to selection list
 	for brows in "${arrSupBrows[@]}"; do
-		if [[ "$(flatpak --columns=app list | grep "${brows}")" = *"${brows}"* ]]; then
+		if [[ "$(flatpak --columns=app list | grep "${brows}")" == *"${brows}"* ]]; then
 			arrBrowsOpts+=(false "$brows" true)
 		else
 			arrBrowsOpts+=(false "$brows" false)
@@ -277,10 +277,10 @@ changeSettingsMenu() {
 		arrChosen=()
 		IFS='|' read -r -a arrChosen <<< "$BROWSER"
 		for BROWSER in "${arrChosen[@]}"; do
-			if [ "$BROWSER" = "System Default: $defaultBrowser" ]; then
+			if [ "$BROWSER" == "System Default: $defaultBrowser" ]; then
 				isInstalled "$defaultBrowser"
 				ans=$?
-				if [ "$ans" = "0" ]; then
+				if [ "$ans" == "0" ]; then
 					installFP "$defaultBrowser"
 				fi
 				setCloudSetting BROWSERAPP "$defaultBrowser"
@@ -288,7 +288,7 @@ changeSettingsMenu() {
 			else
 				isInstalled "$BROWSER"
 				ans=$?
-				if [ "$ans" = "0" ]; then
+				if [ "$ans" == "0" ]; then
 					installFP "$BROWSER"
 				fi
 				setCloudSetting BROWSERAPP "$BROWSER"
@@ -348,20 +348,20 @@ csmMainMenu() {
         exit
     fi
 
-	if [ "$CHOICE" = "Manage Cloud Services" ]; then
+	if [ "$CHOICE" == "Manage Cloud Services" ]; then
 		manageServicesMenu
-	elif [ "$CHOICE" = "Manage Remote Play Clients" ]; then
+	elif [ "$CHOICE" == "Manage Remote Play Clients" ]; then
 		manageRPSMenu
-	elif [ "$CHOICE" = "Change Settings" ]; then
+	elif [ "$CHOICE" == "Change Settings" ]; then
 		changeSettingsMenu
-	elif [ "$CHOICE" = "Quit" ]; then
+	elif [ "$CHOICE" == "Quit" ]; then
 		exit
 	fi
 }
 
 fixCloudScripts() {
 	###v1.0 Fixes
-	if [ "$cloudconfversion" = "" ]; then
+	if [ "$cloudconfversion" == "" ]; then
 		### Substitute "BROWSERAPP" for "FILEFORWARDING" in cloud scripts and cloud.conf
 		cd "$romsPath/cloud"
 		for file in ./*.sh; do
@@ -409,7 +409,7 @@ fixCloudScripts() {
 # Initialization #
 ##################
 
-if [[ "$EMUDECKGIT" = "" ]]; then
+if [[ "$EMUDECKGIT" == "" ]]; then
     EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 fi
 LOCALCLOUDFILES="$EMUDECKGIT/tools/cloud"

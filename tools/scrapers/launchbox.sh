@@ -73,7 +73,7 @@
 #
 # 		STR=$romNameNoExtensionTrimmed
 # 		SUB=', The'
-# 		if [[ "$STR" = *"$SUB"* ]]; then
+# 		if [[ "$STR" == *"$SUB"* ]]; then
 #
 # 			 firstString=$romNameNoExtensionTrimmed
 # 			 secondString=""
@@ -88,7 +88,7 @@
 #
 # 		romNameNoExtensionForLaunchbox=$(echo $romNameNoExtensionForLaunchbox | sed -r "s/,//g")
 #
-# 		 if [ $startcapture = true ]; then
+# 		 if [ $startcapture == true ]; then
 #
 # 			 hasWheel=false
 # 			 hasSs=false
@@ -110,7 +110,7 @@
 # 			fi
 #
 # 			 #We only search games with no art
-# 			 if [ $hasWheel = false ] || [ $hasSs = false ] || [ $hasBox = false ]; then
+# 			 if [ $hasWheel == false ] || [ $hasSs == false ] || [ $hasBox == false ]; then
 #
 # 				content=$(cat ~/dragoonDoriseTools/pegasus-android-metadata/metadata.json)
 #
@@ -126,7 +126,7 @@
 #
 # 				if [[ $urlMediaWheel != null ]]; then
 #
-# 					if [ $hasWheel = true ]; then
+# 					if [ $hasWheel == true ]; then
 # 						echo -e "Image already exists, ${YELLOW}ignoring${NONE}" &> /dev/null
 # 					else
 # 						wget -q --show-progress "$urlMediaWheel" -O "$wheelSavePath"
@@ -134,14 +134,14 @@
 #
 # 				fi
 # 				if [[ $urlMediaSs != null ]]; then
-# 					if [ $hasSs = true ]; then
+# 					if [ $hasSs == true ]; then
 # 						echo -e "Image already exists, ${YELLOW}ignoring${NONE}" &> /dev/null
 # 					else
 # 						wget -q --show-progress "$urlMediaSs" -O "$ssSavePath"
 # 					fi
 # 				fi
 # 				if [[ $urlMediaBox != null ]]; then
-# 					if [ $hasBox = true ]; then
+# 					if [ $hasBox == true ]; then
 # 						echo -e "Image already exists, ${YELLOW}ignoring${NONE}" &> /dev/null
 # 					else
 # 						wget -q --show-progress "$urlMediaBox" -O "$box2dfrontSavePath"

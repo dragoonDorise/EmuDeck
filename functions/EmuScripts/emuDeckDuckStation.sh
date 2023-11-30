@@ -191,7 +191,7 @@ DuckStation_retroAchievementsSetLogin(){
 
 DuckStation_setRetroAchievements(){
 	DuckStation_retroAchievementsSetLogin
-	if [ "$achievementsHardcore" = "true" ]; then
+	if [ "$achievementsHardcore" == "true" ]; then
 		DuckStation_retroAchievementsHardCoreOn
 	else
 		DuckStation_retroAchievementsHardCoreOff
@@ -199,7 +199,7 @@ DuckStation_setRetroAchievements(){
 }
 
 DuckStation_setCustomizations(){
-	if [ "$arClassic3D" = 169 ]; then
+	if [ "$arClassic3D" == 169 ]; then
 			DuckStation_wideScreenOn
 	else
 			DuckStation_wideScreenOff

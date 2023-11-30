@@ -20,7 +20,7 @@ romParser_RA_download(){
 		echo -e "Image already exists, ${YELLOW}ignoring${NONE}"
 	else
 		status=$(wget --spider "http://thumbnails.libretro.com/$remoteSystem/$RA_folder/$romName.png" 2>&1)
-		if [[ $status = *"image/png"* ]] || [[ $status = *"image/jpeg"* ]] || [[ $status = *"image/jpg"* ]]; then
+		if [[ $status == *"image/png"* ]] || [[ $status == *"image/jpeg"* ]] || [[ $status == *"image/jpg"* ]]; then
 			wget  -q --show-progress "http://thumbnails.libretro.com/$remoteSystem/$RA_folder/$romName.png" -P "$romsPath/$system/media/$type/" |
 			zenity --progress \
 			  --title="EmuDeck RetroArch Parser" \
@@ -186,7 +186,7 @@ romParser_RA_start(){
  	do
  		system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
 
-	 	if [[ "$systemPath" = *tx* ]]; then
+	 	if [[ "$systemPath" == *tx* ]]; then
 			 break
 		fi
 

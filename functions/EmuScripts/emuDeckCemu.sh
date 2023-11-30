@@ -39,7 +39,7 @@ Cemu_install(){
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/cemu.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/cemu.sh"
 
-#	if [[ "$launchLine"  = *"PROTONLAUNCH"* ]]; then
+#	if [[ "$launchLine"  == *"PROTONLAUNCH"* ]]; then
 #		changeLine '"${PROTONLAUNCH}"' "$launchLine" "${toolsPath}/launchers/cemu.sh"
 #	fi
 	chmod +x "${toolsPath}/launchers/cemu.sh"
@@ -92,7 +92,7 @@ Cemu_setEmulationFolder(){
 		#WindowsRomPath=${echo "z:${romsPath}/wiiu/roms" | sed 's/\//\\/g'}
 		#gamePathEntryFound=$(grep -rnw "$Cemu_cemuSettings" -e "${WindowsRomPath}")
 		gamePathEntryFound=$(grep -rnw "$Cemu_cemuSettings" -e "z:${romsPath}/wiiu/roms")
-		if [[ $gamePathEntryFound = '' ]]; then
+		if [[ $gamePathEntryFound == '' ]]; then
 			#xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "${WindowsRomPath}" "$Cemu_cemuSettings"
 			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}/wiiu/roms" "$Cemu_cemuSettings"
 		fi

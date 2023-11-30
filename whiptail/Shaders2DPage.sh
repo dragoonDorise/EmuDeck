@@ -12,7 +12,7 @@ while true; do
 	esac
 done
 
-if [ $question = 'ON' ]; then
+if [ $question == 'ON' ]; then
 	setSetting RAHandClassic2D true
 else
 	setSetting RAHandClassic2D false

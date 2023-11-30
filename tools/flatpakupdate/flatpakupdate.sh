@@ -1,6 +1,6 @@
 #!/bin/bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
-if [ "$?" = "1" ]; then
+if [ "$?" == "1" ]; then
     echo "functions could not be loaded."
     zenity --error \
         --text="EmuDeck Functions could not be loaded. Please re-run Emudeck install." 2>/dev/null
@@ -8,39 +8,39 @@ if [ "$?" = "1" ]; then
 fi
 
 emuTable=()
-if [ "$(RetroArch_IsInstalled)" = "true" ]; then
+if [ "$(RetroArch_IsInstalled)" == "true" ]; then
     emuTable+=(TRUE "Multiple" "RetroArch")
 fi
-if [ "$(Primehack_IsInstalled)" = "true" ]; then
+if [ "$(Primehack_IsInstalled)" == "true" ]; then
     emuTable+=(TRUE "Metroid Prime" "PrimeHack")
 fi
-if [ "$(RPCS3_IsInstalled)" = "true" ]; then
+if [ "$(RPCS3_IsInstalled)" == "true" ]; then
     emuTable+=(TRUE "PS3" "RPCS3")
 fi
-if [ "$(Citra_IsInstalled)" = "true" ]; then
+if [ "$(Citra_IsInstalled)" == "true" ]; then
     emuTable+=(TRUE "3DS" "Citra")
 fi
-if [ "$(Dolphin_IsInstalled)" = "true" ]; then
+if [ "$(Dolphin_IsInstalled)" == "true" ]; then
     emuTable+=(TRUE "GC/Wii" "Dolphin")
 fi
-if [ "$(DuckStation_IsInstalled)" = "true" ]; then
+if [ "$(DuckStation_IsInstalled)" == "true" ]; then
     emuTable+=(TRUE "PSX" "DuckStation")
 fi
-if [ "$(PPSSPP_IsInstalled)" = "true" ]; then
+if [ "$(PPSSPP_IsInstalled)" == "true" ]; then
     emuTable+=(TRUE "PSP" "PPSSPP")
 fi
-if [ "$(Xemu_IsInstalled)" = "true" ]; then
+if [ "$(Xemu_IsInstalled)" == "true" ]; then
     emuTable+=(TRUE "XBox" "Xemu")
 fi
-if [ "$(ScummVM_IsInstalled)" = "true" ]; then
+if [ "$(ScummVM_IsInstalled)" == "true" ]; then
     emuTable+=(TRUE "Scumm/DOS" "ScummVM")
 fi
 
-if [ "$(RMG_IsInstalled)" = "true" ]; then
+if [ "$(RMG_IsInstalled)" == "true" ]; then
     emuTable+=(TRUE "N64" "RMG")
 fi
 
-if [ "$(melonDS_IsInstalled)" = "true" ]; then
+if [ "$(melonDS_IsInstalled)" == "true" ]; then
     emuTable+=(TRUE "DS" "melonDS")
 fi
 
@@ -71,84 +71,84 @@ if [ "${#emuTable[@]}" -gt 0 ]; then
 
             echo "User selected: $emusToInstall"
 
-            if [[ "$emusToInstall" = *"RetroArch"* ]]; then
+            if [[ "$emusToInstall" == *"RetroArch"* ]]; then
                 doUpdateRA=true
             fi
-            if [[ "$emusToInstall" = *"PrimeHack"* ]]; then
+            if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
                 doUpdatePrimeHack=true
             fi
-            if [[ "$emusToInstall" = *"RPCS3"* ]]; then
+            if [[ "$emusToInstall" == *"RPCS3"* ]]; then
                 doUpdateRPCS3=true
             fi
-            if [[ "$emusToInstall" = *"Citra"* ]]; then
+            if [[ "$emusToInstall" == *"Citra"* ]]; then
                 doUpdateCitra=true
             fi
-            if [[ "$emusToInstall" = *"Dolphin"* ]]; then
+            if [[ "$emusToInstall" == *"Dolphin"* ]]; then
                 doUpdateDolphin=true
             fi
-            if [[ "$emusToInstall" = *"DuckStation"* ]]; then
+            if [[ "$emusToInstall" == *"DuckStation"* ]]; then
                 doUpdateDuck=true
             fi
-            if [[ "$emusToInstall" = *"PPSSPP"* ]]; then
+            if [[ "$emusToInstall" == *"PPSSPP"* ]]; then
                 doUpdatePPSSPP=true
             fi
-            if [[ "$emusToInstall" = *"Xemu"* ]]; then
+            if [[ "$emusToInstall" == *"Xemu"* ]]; then
                 doUpdateXemu=true
             fi
-            if [[ "$emusToInstall" = *"ScummVM"* ]]; then
+            if [[ "$emusToInstall" == *"ScummVM"* ]]; then
                 doUpdateScummVM=true
             fi
-            if [[ "$emusToInstall" = *"MelonDS"* ]]; then
+            if [[ "$emusToInstall" == *"MelonDS"* ]]; then
             	doUpdateMelonDS=true
             fi
-            if [[ "$emusToInstall" = *"RMG"* ]]; then
+            if [[ "$emusToInstall" == *"RMG"* ]]; then
             	doUpdateRMG=true
             fi
 
             (
                 progressInstalled=""
-                if [ "$doUpdateRA" = "true" ]; then
+                if [ "$doUpdateRA" == "true" ]; then
                     echo "###Updating RetroArch..."
                     (updateEmuFP "RetroArch" "org.libretro.RetroArch" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|RetroArch" && echo "&&&$progressInstalled"
                 fi
-                if [ "$doUpdatePrimeHack" = "true" ]; then
+                if [ "$doUpdatePrimeHack" == "true" ]; then
                     echo "###Updating PrimeHack..."
                     (updateEmuFP "PrimeHack" "io.github.shiiion.primehack" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|PrimeHack" && echo "&&&$progressInstalled"
                 fi
-                if [ "$doUpdateRPCS3" = "true" ]; then
+                if [ "$doUpdateRPCS3" == "true" ]; then
                     echo "###Updating RPCS3..."
                     (updateEmuFP "RPCS3" "net.rpcs3.RPCS3" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|RPCS3" && echo "&&&$progressInstalled"
                 fi
-                if [ "$doUpdateCitra" = "true" ]; then
+                if [ "$doUpdateCitra" == "true" ]; then
                     echo "###Updating Citra..."
                     (updateEmuFP "Citra" "org.citra_emu.citra" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|Citra" && echo "&&&$progressInstalled"
                 fi
-                if [ "$doUpdateDolphin" = "true" ]; then
+                if [ "$doUpdateDolphin" == "true" ]; then
                     echo "###Updating Dolphin..."
                     (updateEmuFP "dolphin-emu" "org.DolphinEmu.dolphin-emu" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|Dolphin" && echo "&&&$progressInstalled"
                 fi
-                if [ "$doUpdateDuck" = "true" ]; then
+                if [ "$doUpdateDuck" == "true" ]; then
                     echo "###Updating DuckStation..."
                     (updateEmuFP "DuckStation" "org.duckstation.DuckStation" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|DuckStation" && echo "&&&$progressInstalled"
                 fi
-                if [ "$doUpdatePPSSPP" = "true" ]; then
+                if [ "$doUpdatePPSSPP" == "true" ]; then
                     echo "###Updating PPSSPP..."
                     (updateEmuFP "PPSSPP" "org.ppsspp.PPSSPP" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|PPSSPP" && echo "&&&$progressInstalled"
                 fi
-                if [ "$doUpdateXemu" = "true" ]; then
+                if [ "$doUpdateXemu" == "true" ]; then
                     echo "###Updating Xemu..."
                     (updateEmuFP "Xemu-Emu" "app.xemu.xemu" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|Xemu" && echo "&&&$progressInstalled"
                 fi
-                if [ "$doUpdateScummVM" = "true" ]; then
+                if [ "$doUpdateScummVM" == "true" ]; then
                     echo "###Updating ScummVM..."
                     (updateEmuFP "ScummVM" "org.scummvm.ScummVM" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|ScummVM" && echo "&&&$progressInstalled"
                 fi
-                if [ "$doUpdateMelonDS" = "true" ]; then
+                if [ "$doUpdateMelonDS" == "true" ]; then
                     echo "###Updating melonDS..."
                     (updateEmuFP "melonDS" "net.kuribo64.melonDS" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|melonDS" && echo "&&&$progressInstalled"
                 fi
 
-                if [ "$doUpdateRMG" = "true" ]; then
+                if [ "$doUpdateRMG" == "true" ]; then
                     echo "###Updating RMG..."
                     (updateEmuFP "RMG" "com.github.Rosalie241.RMG" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|RMG" && echo "&&&$progressInstalled"
                 fi

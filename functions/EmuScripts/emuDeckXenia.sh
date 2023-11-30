@@ -18,7 +18,7 @@ Xenia_install(){
 	version=$1
 	local showProgress="$2"
 
-	if [[ "$version" = "master" ]]; then
+	if [[ "$version" == "master" ]]; then
 		Xenia_releaseURL="$Xenia_releaseURL_master"
 	else
 		Xenia_releaseURL="$Xenia_releaseURL_canary"
@@ -44,7 +44,7 @@ Xenia_install(){
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/xenia.sh"
 	mkdir -p "$romsPath/xbox360/roms/xbla"
 
-#	if [[ "$launchLine"  = *"PROTONLAUNCH"* ]]; then
+#	if [[ "$launchLine"  == *"PROTONLAUNCH"* ]]; then
 #		changeLine '"${PROTONLAUNCH}"' "$launchLine" "${toolsPath}/launchers/xenia.sh"
 #	fi
 	chmod +x "${toolsPath}/launchers/xenia.sh"
@@ -66,7 +66,7 @@ Xenia_init(){
 }
 
 Xenia_addESConfig(){
-	if [[ $(grep -rnw "$es_systemsFile" -e 'xbox360') = "" ]]; then
+	if [[ $(grep -rnw "$es_systemsFile" -e 'xbox360') == "" ]]; then
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
 		--subnode '$newSystem' --type elem --name 'name' -v 'xbox360' \

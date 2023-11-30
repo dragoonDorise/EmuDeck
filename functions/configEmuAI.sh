@@ -7,7 +7,7 @@ configEmuAI(){
     gitLocation=$4
     overwrite=$5
 
-	if [[ $overwrite = 'true' ]]; then
+	if [[ $overwrite == 'true' ]]; then
 		overwrite="--backup --suffix=.bak"
     else
         overwrite="--ignore-existing"

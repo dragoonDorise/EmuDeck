@@ -6,12 +6,12 @@ cloud_sync_downloadEmu "Cemu" && cloud_sync_startService
 # Report Errors
 reportError () {
     echo "${1}"
-    if [ "${2}" = "true" ]; then
+    if [ "${2}" == "true" ]; then
         zenity --error \
             --text="${1}" \
             --width=250
     fi
-    if [ "${3}" = "true" ]; then
+    if [ "${3}" == "true" ]; then
         exit 1
     fi
 }
@@ -77,7 +77,7 @@ main () {
     doProton="false"
 
     # Check for -W Flag override to windows version
-    if [ "$1" = "-w" ]; then
+    if [ "$1" == "-w" ]; then
         doProton="true"
         shift
     fi
@@ -104,9 +104,9 @@ main () {
     showArguments "${@}"
 
     # Run Emulator
-    if [[ "${doProton}" = "false" ]]; then
+    if [[ "${doProton}" == "false" ]]; then
         #If doProton is false, check that EMUPATH was set correctly
-        if [[ "${EMUPATH}" = "false" ]] || [[ -z "${EMUPATH}" ]]; then
+        if [[ "${EMUPATH}" == "false" ]] || [[ -z "${EMUPATH}" ]]; then
             echo "Error: Unable to emulator path."
             reportError "Error: Unable to emulator path." "true" "true"
         fi
@@ -182,7 +182,7 @@ main () {
 }
 
 # Only run if run directly
-if [[ "${BASH_SOURCE[0]}" = "${0}" ]]; then
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     # Set a LOGFILE to proton-launch.log in the same directory this script runs from
     # LogFile
     LOGFILE="$( dirname "${BASH_SOURCE[0]}" )/cemu-launch.log"

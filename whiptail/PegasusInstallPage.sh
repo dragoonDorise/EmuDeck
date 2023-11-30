@@ -24,22 +24,22 @@ if [ $android -gt 10 ]; then
  
  for settingsFrontend in "${settingsFrontends[@]}";
   do
-	  if [[ $settingsFrontend = *"PEGASUS"* ]]; then
+	  if [[ $settingsFrontend == *"PEGASUS"* ]]; then
 		 setSetting doInstallPegasus true
 	 fi
-	 if [[ $settingsFrontend = *"DAIJISHO"* ]]; then
+	 if [[ $settingsFrontend == *"DAIJISHO"* ]]; then
 		 setSetting doInstallDaijisho true
 	 fi
-	 if [[ $settingsFrontend = *"DIG"* ]]; then
+	 if [[ $settingsFrontend == *"DIG"* ]]; then
 		 setSetting doInstallDig true
 	 fi
-	 if [[ $settingsFrontend = *"LAUNCHBOX"* ]]; then
+	 if [[ $settingsFrontend == *"LAUNCHBOX"* ]]; then
 		 setSetting doInstallLaunchbox true
 	 fi
-	 if [[ $settingsFrontend = *"RESET"* ]]; then
+	 if [[ $settingsFrontend == *"RESET"* ]]; then
 		 setSetting doInstallReset true
 	 fi
-	 if [[ $settingsFrontend = *"ARC"* ]]; then
+	 if [[ $settingsFrontend == *"ARC"* ]]; then
 		 setSetting doInstallArc true
 	 fi
   done
