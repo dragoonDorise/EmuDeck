@@ -440,7 +440,11 @@ if [ "$system" == "chimeraos" ]; then
 	destination_dir="$HOME/Applications"
 	file_name="EmuDeck"
 
+	mkdir -p $destination_dir
+
 	find "$downloads_dir" -type f -name "*$file_name*.AppImage" -exec mv {} "$destination_dir/$file_name.AppImage" \;
+
+	chmod +x "$destination_dir/EmuDeck.AppImage"
 
 fi
 
