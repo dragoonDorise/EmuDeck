@@ -45,17 +45,6 @@ Pegasus_init(){
 	#Pegasus_setDefaultEmulators
 	Pegasus_applyTheme "$pegasusTheme"
 
-	user=$(zenity --entry --title="ScreenScrapper" --text="User:")
-	password=$(zenity --password --title="ScreenScrapper" --text="Password:")
-
-	encryption_key=$(openssl rand -base64 32)
-	encrypted_password=$(echo "$password" | openssl enc -aes-256-cbc -pbkdf2 -base64 -pass "pass:$encryption_key")
-
-	echo "$encryption_key" > "$HOME/.config/EmuDeck/logs/.key"
-	echo "$encrypted_password" > "$HOME/.config/EmuDeck/.passSS"
-	echo "$user" > "$HOME/.config/EmuDeck/.userSS"
-
-
 }
 
 
