@@ -6,7 +6,7 @@ romParser_RA_download(){
 	local type=$3
 
 	case "$type" in
-		"screenshot")
+		"%20")
 			RA_folder="Named_Snaps"
 
 			;;
@@ -181,16 +181,8 @@ romParser_RA_start(){
  	do
  		system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
 
-	 	if [[ "$systemPath" == *txt* ]]; then
+	 	if [[ "$systemPath" == *tx* ]]; then
 			 break
-		fi
-
-		if [ ! -d "$systemPath/media/" ]; then
-			echo -e "Creating $systemPath/media..."
-			mkdir $systemPath/media &> /dev/null
-			mkdir $systemPath/media/screenshot &> /dev/null
-			mkdir $systemPath/media/box2dfront &> /dev/null
-			mkdir $systemPath/media/wheel &> /dev/null
 		fi
 
 		#Getting roms
@@ -198,7 +190,7 @@ romParser_RA_start(){
 		for romPath in $systemPath/*;
 		do
 			#Validating
-			if [ -f "$romPath" ] && [ "$(basename "$romPath")" != ".*" ] && [[ "$romPath" != *".txt" ]] && [[ "$(basename "$romPath")" != *".exe" ]] && [[ "$(basename "$romPath")" != *".conf" ]] && [[ "$(basename "$romPath")" != *".xml" ]]; then
+			if [ -f "$romPath" ] && [ "$(basename "$romPath")" != ".*" ] && [[ "$romPath" != *".tx" ]] && [[ "$(basename "$romPath")" != *".exe" ]] && [[ "$(basename "$romPath")" != *".conf" ]] && [[ "$(basename "$romPath")" != *".xml" ]]; then
 
 				#Cleaning rom directory
 				romfile=$(echo "$romPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
@@ -211,7 +203,7 @@ romParser_RA_start(){
 				#We get the folder RA uses
 				(romParser_RA_getAlias $system
 				romParser_RA_download "$romName" $system "screenshot"
-				romParser_RA_download "$romName" $system "box2dfront")  |
+				romParser_RA_download "$romName" $system "covers")  |
 				zenity --progress \
 				  --title="EmuDeck RetroArch Parser" \
 				  --text="Downloading artwork for $system..." \

@@ -4,13 +4,18 @@ romParser_SS_download(){
 	local system=$2
 	local type=$3
 	local userSS=$(cat "$HOME/emudeck/.userSS")
-	local passSS=$(cat "$HOME/emudeck/.passSS")
+	local encryption_key=$(cat "$HOME/.config/EmuDeck/logs/.key")
+	local encrypted_password=$(cat "$HOME/.config/EmuDeck/.passSS")
+	local decrypted_password=$(echo "$encrypted_password" | openssl enc -d -aes-256-cbc -pbkdf2 -base64 -pass "pass:$encryption_key")
+	local passSS=$decrypted_password
+
+
 	#local ssID Set but calling romParser_SS_getAlias before
 	case "$type" in
-		"wheel")
+		"marquees")
 			media="wheel"
 			;;
-		"screenshot")
+		"screenshots")
 			media="ss"
 			;;
 		*)
@@ -347,19 +352,11 @@ romParser_SS_start(){
 
 	for systemPath in $romsPath/*;
  	do
-		 if [[ "$systemPath" == *txt* ]]; then
+		 if [[ "$systemPath" == *tx* ]]; then
 			 break
 		 fi
 
 	 	system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
-
-		if [ ! -d "$systemPath/media/" ]; then
-			echo -e "Creating $systemPath/media..."
-			mkdir $systemPath/media &> /dev/null
-			mkdir $systemPath/media/screenshot &> /dev/null
-			mkdir $systemPath/media/box2dfront &> /dev/null
-			mkdir $systemPath/media/wheel &> /dev/null
-		fi
 
 		romNumber=$(find "$systemPath" -maxdepth 1 -type f | wc -l)
 
@@ -368,7 +365,7 @@ romParser_SS_start(){
 		for romPath in $systemPath/*;
 		do
 			#Validating
-			if [ -f "$romPath" ] && [ "$(basename "$romPath")" != ".*" ] && [[ "$romPath" != *".txt" ]] && [[ "$(basename "$romPath")" != *".exe" ]] && [[ "$(basename "$romPath")" != *".conf" ]] && [[ "$(basename "$romPath")" != *".xml" ]]; then
+			if [ -f "$romPath" ] && [ "$(basename "$romPath")" != ".*" ] && [[ "$romPath" != *".tx" ]] && [[ "$(basename "$romPath")" != *".exe" ]] && [[ "$(basename "$romPath")" != *".conf" ]] && [[ "$(basename "$romPath")" != *".xml" ]]; then
 
 				#Cleaning rom directory
 				romfile=$(echo "$romPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
@@ -381,9 +378,9 @@ romParser_SS_start(){
 				(
 					#We get the ssID for later
 					romParser_SS_getAlias $system
-					romParser_SS_download "$romName" $system "screenshot"
-					romParser_SS_download "$romName" $system "box2dfront"
-					romParser_SS_download "$romName" $system "wheel"
+					romParser_SS_download "$romName" $system "screenshots"
+					romParser_SS_download "$romName" $system "covers"
+					romParser_SS_download "$romName" $system "marquees"
 				) |
 				zenity --progress \
 				  --title="EmuDeck ScreenScraper Parser" \
