@@ -5,7 +5,7 @@ configEmuFP(){
 	ID=$2
 	overwrite=$3
 	
-	if [[ $overwrite == 'true' ]]; then
+	if [[ $overwrite = 'true' ]]; then
 		overwrite="--backup --suffix=.bak"
     else
         overwrite="--ignore-existing"

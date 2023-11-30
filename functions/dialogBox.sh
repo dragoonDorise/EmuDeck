@@ -36,7 +36,7 @@ function Filebrowser()
     fi
 
     curdir=$(pwd)
-    if [ "$curdir" == "/" ] ; then  # Check if you are at root folder
+    if [ "$curdir" = "/" ] ; then  # Check if you are at root folder
         selection=$(whiptail --title "$1" \
                               --menu "PgUp/PgDn/Arrow Enter Selects File/Folder\nor Tab Key\n$curdir" 0 0 0 \
                               --cancel-button Cancel \
@@ -55,7 +55,7 @@ function Filebrowser()
        if [[ -d "$selection" ]]; then  # Check if Directory Selected
           Filebrowser "$1" "$selection"
        elif [[ -f "$selection" ]]; then  # Check if File Selected
-          if [[ $selection == *$filext ]]; then   # Check if selected File has .jpg extension
+          if [[ $selection = *$filext ]]; then   # Check if selected File has .jpg extension
             if (whiptail --title "Confirm Selection" --yesno "DirPath : $curdir\nFileName: $selection" 0 0 \
                          --yes-button "Confirm" \
                          --no-button "Retry"); then

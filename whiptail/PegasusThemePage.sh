@@ -12,19 +12,19 @@
 #  
 #  for theme in ${themes[@]};
 #   do
-# 	  if [[ $theme == *"EPIC"* ]]; then
+# 	  if [[ $theme = *"EPIC"* ]]; then
 # 		 setSetting doInstallThemeEpic true
 # 	 fi
-# 	 if [[ $theme == *"SWITCH"* ]]; then
+# 	 if [[ $theme = *"SWITCH"* ]]; then
 # 		 setSetting doInstallThemeSwitch true
 # 	 fi
-# 	 if [[ $theme == *"MEGA"* ]]; then
+# 	 if [[ $theme = *"MEGA"* ]]; then
 # 		 setSetting doInstallThemeMega true
 # 	 fi
-# 	 if [[ $theme == *"GAMEOS"* ]]; then
+# 	 if [[ $theme = *"GAMEOS"* ]]; then
 # 		 setSetting doInstallThemeGameOS true
 # 	 fi
-# 	 if [[ $theme == *"NEORETRO"* ]]; then
+# 	 if [[ $theme = *"NEORETRO"* ]]; then
 # 		 setSetting doInstallThemeNeoRetro true
 # 	 fi
 #   done

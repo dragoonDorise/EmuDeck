@@ -150,7 +150,7 @@ CemuNative_functions () {
 			#gamepath
 			gamePathEntryFound="$( xmlstarlet sel -t -m "content/GamePaths/Entry" -v . -n "${CemuNative[configFile]}" )"
 
-			if [[ ! "${gamePathEntryFound}" == *"${romsPath}/wiiu/roms"* ]]; then
+			if [[ ! "${gamePathEntryFound}" = *"${romsPath}/wiiu/roms"* ]]; then
 				xmlstarlet ed --inplace --subnode "content/GamePaths" --type elem -n Entry -v "${romsPath}/wiiu/roms/" "${CemuNative[configFile]}" #while we use both native and proton, i don't want to change the wiiu folder structure.
 			fi
 
@@ -158,7 +158,7 @@ CemuNative_functions () {
 			mlcEntryFound="$( xmlstarlet sel -t -m "content/mlc_path" -v . -n "${CemuNative[configFile]}" )"
 			local mlcPath="${romsPath}/wiiu/mlc01"
 
-			if [[ ! "${mlcEntryFound}" == *"${mlcPath}"* ]]; then
+			if [[ ! "${mlcEntryFound}" = *"${mlcPath}"* ]]; then
 				xmlstarlet ed --inplace -u "content/mlc_path" -v "${romsPath}/wiiu/mlc01" "${CemuNative[configFile]}" #while we use both native and proton, i don't want to change the wiiu folder structure.
 			fi
 		fi

@@ -1,7 +1,7 @@
 #!/bin/bash
 appImageInit() {
 
-	if [ "$system" == "chimeraos" ]; then
+	if [ "$system" = "chimeraos" ]; then
 		ESDE_chimeraOS
 		mkdir -p $HOME/Applications
 

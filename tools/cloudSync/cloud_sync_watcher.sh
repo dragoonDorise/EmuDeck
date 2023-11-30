@@ -42,7 +42,7 @@ for dir in "$savesPath"/*/*; do
 done
 
 # Loop that runs every second
-while [ 1 == 1 ]
+while [ 1 = 1 ]
 do
 
   # Check for changes in hashes
@@ -59,7 +59,7 @@ do
   fi
 
 
-  # if [[ $dir == *"citra/saves"* ]]; then
+  # if [[ $dir = *"citra/saves"* ]]; then
   #   echo "$dir - ${current_hashes[$dir]}" >> $HOME/emudeck/logs/CloudWatcher.log
   #   echo "$dir - $new_hash" >> $HOME/emudeck/logs/CloudWatcher.log
   # fi
@@ -72,12 +72,12 @@ do
   # echo $currentEmu >> $HOME/emudeck/logs/CloudWatcher.log
   # echo $dir >> $HOME/emudeck/logs/CloudWatcher.log
 
-  if [ "${current_hashes[$dir]}" != "$new_hash" ] && [[ $dir == *"$currentEmu"* ]]; then
+  if [ "${current_hashes[$dir]}" != "$new_hash" ] && [[ $dir = *"$currentEmu"* ]]; then
     # Show the name of the folder immediately behind "saves"
      echo "SERVICE - CHANGES DETECTED on $dir, LETS CHECK IF ITS A DUPLICATE" >> $HOME/emudeck/logs/CloudWatcher.log
      timestamp=$(date +%s)
 
-     if [ $((timestamp - lastSavedTime)) == 0 ]; then
+     if [ $((timestamp - lastSavedTime)) = 0 ]; then
       echo "SERVICE - IGNORED, same timestamp" >> $HOME/emudeck/logs/CloudWatcher.log
      fi
      echo $((timestamp - lastSavedTime)) >> $HOME/emudeck/logs/CloudWatcher.log

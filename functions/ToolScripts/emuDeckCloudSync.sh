@@ -75,7 +75,7 @@ createCloudFile() {
 
 cloud_sync_setup_providers(){
   startLog ${FUNCNAME[0]}
-    if [ "$cloud_sync_provider" == "Emudeck-NextCloud" ]; then
+    if [ "$cloud_sync_provider" = "Emudeck-NextCloud" ]; then
 
       local url
       local username
@@ -100,7 +100,7 @@ cloud_sync_setup_providers(){
       else
         echo "Cancel Nextcloud Login"
       fi
-    elif [ "$cloud_sync_provider" == "Emudeck-SFTP" ]; then
+    elif [ "$cloud_sync_provider" = "Emudeck-SFTP" ]; then
 
       NCInput=$(zenity --forms \
           --title="SFTP Sign in" \
@@ -124,11 +124,11 @@ cloud_sync_setup_providers(){
       else
         echo "Cancel SFTP Login"
       fi
-    elif [ "$cloud_sync_provider" == "Emudeck-OneDrive" ]; then
+    elif [ "$cloud_sync_provider" = "Emudeck-OneDrive" ]; then
       find "$savesPath" -type d -exec bash -c 'createCloudFile "$0"' {} \;
       "$cloud_sync_bin" config update "$cloud_sync_provider" && "$cloud_sync_bin" mkdir "$cloud_sync_provider:Emudeck\saves" && "$cloud_sync_bin" copy "$savesPath" "$cloud_sync_provider:Emudeck\saves" --include "*.cloud" echo "true"
       find "$savesPath" -type f -name "*.cloud" -exec rm {} \;
-    elif [ "$cloud_sync_provider" == "Emudeck-SMB" ]; then
+    elif [ "$cloud_sync_provider" = "Emudeck-SMB" ]; then
 
       NCInput=$(zenity --forms \
           --title="SMB Sign in" \
@@ -162,10 +162,10 @@ cloud_sync_setup_providers(){
    startLog ${FUNCNAME[0]}
    while read line
    do
-      if [[ "$line" == *"[Emudeck"* ]]
+      if [[ "$line" = *"[Emudeck"* ]]
       then
         section=$line
-      elif [[ "$line" == *"token == "* ]]; then
+      elif [[ "$line" = *"token = "* ]]; then
         token=$line
         break
       fi
@@ -175,7 +175,7 @@ cloud_sync_setup_providers(){
    replace_with=""
 
    # Cleanup
-   token=${token/"token == "/$replace_with}
+   token=${token/"token = "/$replace_with}
    token=$(echo "$token" | sed "s/\"/'/g")
    section=$(echo "$section" | sed 's/[][]//g; s/"//g')
 
@@ -268,7 +268,7 @@ cloud_sync_upload(){
   local emuName=$1
   local timestamp=$(date +%s)
 
-  if [ "$cloud_sync_status" == "true" ]; then
+  if [ "$cloud_sync_status" = "true" ]; then
     cloud_sync_lock
 
     if [ "$emuName" = "all" ]; then
@@ -297,11 +297,11 @@ cloud_sync_download(){
   startLog ${FUNCNAME[0]}
   local emuName=$1
   local timestamp=$(date +%s)
-  if [ "$cloud_sync_status" == "true" ]; then
+  if [ "$cloud_sync_status" = "true" ]; then
 
     #We wait for any upload in progress in the background
     cloud_sync_check_lock
-    if [ "$emuName" == "all" ]; then
+    if [ "$emuName" = "all" ]; then
         #We check the hashes
         cloud_sync_save_hash "$savesPath/$emuName"
         local filePath="$savesPath/.hash"
@@ -365,7 +365,7 @@ cloud_sync_uploadEmu(){
   local emuName=$1
   local mode=$2
   local time_stamp
-  if [ -f "$cloud_sync_bin" ] && [ "$cloud_sync_status" == "true" ]; then
+  if [ -f "$cloud_sync_bin" ] && [ "$cloud_sync_status" = "true" ]; then
     if [[ $cloud_sync_provider != *"Emudeck"* ]]; then
 
       text="$(printf "CloudSync is not properly configured, please configure it again from EmuDeck")"
@@ -373,7 +373,7 @@ cloud_sync_uploadEmu(){
       return 0
     fi
     #We check for internet connection
-    if [ $(check_internet_connection) == "true" ]; then
+    if [ $(check_internet_connection) = "true" ]; then
 
       #Do we have a failed upload?
       if [ -f $savesPath/$emuName/.fail_upload ]; then
@@ -438,7 +438,7 @@ cloud_sync_downloadEmu(){
 
   if [ -f "$cloud_sync_bin" ]; then
     local timestamp=$(date +%s)
-    if [ -f "$cloud_sync_bin" ] && [ "$cloud_sync_status" == "true" ]; then
+    if [ -f "$cloud_sync_bin" ] && [ "$cloud_sync_status" = "true" ]; then
       if [[ $cloud_sync_provider != *"Emudeck"* ]]; then
 
         text="$(printf "CloudSync is not properly configured, please configure it again from EmuDeck")"
@@ -447,7 +447,7 @@ cloud_sync_downloadEmu(){
       fi
 
       #We check for internet connection
-      if [ $(check_internet_connection) == "true" ]; then
+      if [ $(check_internet_connection) = "true" ]; then
 
         #Do we have a pending upload?
         if [ -f $savesPath/$emuName/.pending_upload ]; then
@@ -621,7 +621,7 @@ cloud_sync_check_lock(){
 
 cloud_decky_check_status(){
   startLog ${FUNCNAME[0]}
-  if [ $(check_internet_connection) == "true" ]; then
+  if [ $(check_internet_connection) = "true" ]; then
     if [ $cloud_sync_status = "true" ]; then
       if [ -f "$savesPath/.gaming" ] && [ ! -f "$HOME/emudeck/cloud.lock" ]; then
         echo "started"

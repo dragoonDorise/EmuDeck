@@ -9,7 +9,7 @@ darwin_installEmuDMG(){
 	local showProgress="$4"
 	local lastVerFile="$5"
 	local latestVer="$6"
-	if [[ "$altName" == "" ]]; then
+	if [[ "$altName" = "" ]]; then
 		altName="$name"
 	fi
 	echo "$name"
@@ -58,7 +58,7 @@ installEmuZip(){
 	local showProgress="$4"
 	local lastVerFile="$5"
 	local latestVer="$6"
-	if [[ "$altName" == "" ]]; then
+	if [[ "$altName" = "" ]]; then
 		altName="$name"
 	fi
 

@@ -12,7 +12,7 @@ while true; do
 	esac
 done
 
-if [ $question == 43 ]; then
+if [ $question = 43 ]; then
 	setSetting arDolphin 43
 else
 	setSetting arDolphin 169

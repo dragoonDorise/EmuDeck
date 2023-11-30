@@ -7,7 +7,7 @@ installToolAI(){
     local lastVerFile="$5"
     local latestVer="$6"
 
-    if [[ "$fileName" == "" ]]; then
+    if [[ "$fileName" = "" ]]; then
         fileName="$name"
     fi
     echo "$name"
@@ -45,7 +45,7 @@ installToolAI(){
 #         echo "deploying $l"
 #         launcherFileName=$(basename "$l")
 #         folderName=$(dirname "$l" | sed 's!.*/!!')
-#         if [ $folderName == "launchers" ]; then
+#         if [ $folderName = "launchers" ]; then
 #             folderName=""
 #         fi
 #         chmod +x "$l"

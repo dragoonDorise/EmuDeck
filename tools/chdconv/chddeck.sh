@@ -2,7 +2,7 @@
 # shellcheck source=/home/deck/emudeck/settings.sh
 . ~/emudeck/settings.sh
 
-if [[ "$EMUDECKGIT" == "" ]]; then
+if [[ "$EMUDECKGIT" = "" ]]; then
     EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 fi
 
@@ -35,9 +35,9 @@ compressCHD() {
 	CUEDIR="$(dirname "${file}")"
 	echo "Compressing ${file%.*}.chd"
 	chdman5 createcd -i "$file" -o "${file%.*}.chd" && successful="true"
-	if [[ $successful == "true" ]]; then
+	if [[ $successful = "true" ]]; then
 		echo "successfully created ${file%.*}.chd"
-		if [[ ! ("$fileType" == 'iso' || "$fileType" == 'ISO') ]]; then
+		if [[ ! ("$fileType" = 'iso' || "$fileType" = 'ISO') ]]; then
 			find "${CUEDIR}" -maxdepth 1 -type f | while read -r b; do
 				fileName="$(basename "${b}")"
 				found=$(grep "${fileName}" "${file}")
@@ -58,7 +58,7 @@ compressRVZ() {
 	local file=$1
 	local successful=''
 	${dolphintool} convert -f rvz -b 131072 -c zstd -l 5 -i "$file" -o "${file%.*}.rvz" && successful="true"
-	if [[ $successful == "true" ]]; then
+	if [[ $successful = "true" ]]; then
 		echo "$file succesfully converted to ${file%.*}.rvz"
 		rm -f "$file"
 	else
@@ -71,7 +71,7 @@ compressCSO() {
 	local file=$1
 	local successful=''
 	ciso 9 "$file" "${file%.*}.cso" && successful="true"
-	if [[ $successful == "true" ]]; then
+	if [[ $successful = "true" ]]; then
 		echo "$file succesfully converted to ${file%.*}.cso"
 		rm -f "$file"
 	else
@@ -91,7 +91,7 @@ selection=$(zenity --question \
 	--cancel-label="Exit" \
 	--text="${text}" 2>/dev/null && echo "bulk")
 
-if [ "$selection" == "bulk" ]; then
+if [ "$selection" = "bulk" ]; then
 
 	#paths update via sed in main script
 	#romsPath="/run/media/mmcblk0p1/Emulation/roms" #use path from settings
@@ -129,7 +129,7 @@ if [ "$selection" == "bulk" ]; then
 		fi
 	done
 
-	if ((${#searchFolderList[@]} == 0)); then
+	if ((${#searchFolderList[@]} = 0)); then
 		echo "No eligible files found."
 		text="$(printf "<b>No suitable roms were found for conversion.</b>\n\nPlease check if you have any cue / gdi / iso files for compatible systems.")"
 		zenity --error \
@@ -217,7 +217,7 @@ if [ "$selection" == "bulk" ]; then
 		fi
 	done
 
-elif [ "$selection" == "Pick a file" ]; then
+elif [ "$selection" = "Pick a file" ]; then
 
 	#/bin/bash
 	f=$(zenity --file-selection --file-filter='Discs (cue,gdi,iso,gcm) | *.cue *.gdi *.iso *.gcm' --file-filter='All files | *' 2>/dev/null)
@@ -256,7 +256,7 @@ if [ "$uiMode" != 'zenity' ]; then
 		--text="${text}" 2>/dev/null
 fi
 
-if [ "$uiMode" == 'zenity' ]; then
+if [ "$uiMode" = 'zenity' ]; then
 
 	text="$(printf "<b>Done!</b>\n\n If you use Steam ROM Manager to catalog your games you will need to open it now to update your games")"
 	zenity --question \

@@ -86,7 +86,7 @@ cloud_backup_providersSetup(){
     xdg-settings set default-web-browser com.google.Chrome.desktop
   fi
   
-  if [ $rclone_provider == "Emudeck-NextCloud" ]; then
+  if [ $rclone_provider = "Emudeck-NextCloud" ]; then
   
     local url
     local username
@@ -111,7 +111,7 @@ cloud_backup_providersSetup(){
     else
       echo "Cancel Nextcloud Login" 
     fi
-  elif [ $rclone_provider == "Emudeck-SFTP" ]; then
+  elif [ $rclone_provider = "Emudeck-SFTP" ]; then
   
     NCInput=$(zenity --forms \
         --title="SFTP Sign in" \
@@ -135,7 +135,7 @@ cloud_backup_providersSetup(){
       echo "Cancel SFTP Login" 
     fi
   
-    elif [ $cloud_sync_provider == "Emudeck-SMB" ]; then
+    elif [ $cloud_sync_provider = "Emudeck-SMB" ]; then
     
     NCInput=$(zenity --forms \
         --title="SMB Sign in" \
@@ -192,15 +192,15 @@ cloud_backup_etup(){
                 --ok-label Exit 2>/dev/null ) 
         fi
         rc=$?
-        if [ "$rc" == 0 ] || [ "$ans" == "" ]; then
+        if [ "$rc" = 0 ] || [ "$ans" = "" ]; then
             break
-        elif [ "$ans" == "Install cloud_backup" ] || [ "$ans" == "Reinstall cloud_backup" ]; then
+        elif [ "$ans" = "Install cloud_backup" ] || [ "$ans" = "Reinstall cloud_backup" ]; then
             rclone_install
-        elif [ "$ans" == "Pick Provider" ]; then
+        elif [ "$ans" = "Pick Provider" ]; then
             rclone_pickProvider
-        elif [ "$ans" == "Login to your cloud provider" ]; then
+        elif [ "$ans" = "Login to your cloud provider" ]; then
             rclone_updateProvider
-        elif [ "$ans" == "Create Backup" ]; then
+        elif [ "$ans" = "Create Backup" ]; then
             rclone_createBackup
         fi
     done
@@ -365,17 +365,17 @@ cloud_backup_createBackup(){
                 --extra-button "Run Backup Once" \
                 --ok-label Exit 2>/dev/null )
             rc=$?
-        if [ "$rc" == 0 ] || [ "$ans" == "" ]; then
+        if [ "$rc" = 0 ] || [ "$ans" = "" ]; then
             echo "nothing chosen"
-        elif [ "$ans" == "Create Service" ]; then
+        elif [ "$ans" = "Create Service" ]; then
             cloud_backup_createService
-        elif [ "$ans" == "Start Service" ]; then
+        elif [ "$ans" = "Start Service" ]; then
             cloud_backup_startService
-        elif [ "$ans" == "Stop Service" ]; then
+        elif [ "$ans" = "Stop Service" ]; then
             cloud_backup_stopService
-        elif [ "$ans" == "Restore Cloud Files" ]; then
+        elif [ "$ans" = "Restore Cloud Files" ]; then
             cloud_backup_downloadFiles
-        elif [ "$ans" == "Run Backup Once" ]; then
+        elif [ "$ans" = "Run Backup Once" ]; then
             cloud_backup_runJobOnce
         fi
 }

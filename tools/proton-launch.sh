@@ -7,13 +7,13 @@ reportError () {
     # Report error to logfile
     echo "${1}" >> "${LOGFILE}"
     # Open a Zenity dialog for the user
-    if [ "${2}" == "true" ]; then
+    if [ "${2}" = "true" ]; then
         zenity --error \
             --text="${1}"\
             --width=250
     fi
     # Exit the script
-    if [ "${3}" == "true" ]; then
+    if [ "${3}" = "true" ]; then
         exit 1
     fi
 }
@@ -121,7 +121,7 @@ set_env () {
     fi
 
     # Set SteamAppId
-    if [ -z ${SteamAppId+x} ] || [ "${SteamAppId}" == 0 ]; then
+    if [ -z ${SteamAppId+x} ] || [ "${SteamAppId}" = 0 ]; then
         if  [ -n "${APPID}" ]; then
             export SteamAppId="${APPID}"
         elif [ -z ${SteamAppId+x} ]; then
@@ -219,7 +219,7 @@ main () {
     shift "$(( OPTIND - 1 ))"
 
     # Make sure there weren't any odd arguments in the options
-    if [[ "${*}" == *"--"* ]]; then
+    if [[ "${*}" = *"--"* ]]; then
         echo "Error: Invalid argument in options." >> "${LOGFILE}"
         exit 1
     fi
@@ -268,7 +268,7 @@ main () {
 }
 
 # Only run if run directly
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+if [[ "${BASH_SOURCE[0]}" = "${0}" ]]; then
     # Set a LOGFILE to proton-launch.log in the same directory this script runs from
     LOGFILE="$(dirname "${BASH_SOURCE[0]}")/proton-launch.log"
     echo "$(date +'%m/%d/%Y - %H:%M:%S') - Started" > "${LOGFILE}"

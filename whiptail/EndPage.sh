@@ -20,7 +20,7 @@ echo ""
 
 echo -e "${BOLD}- How to add games${NONE}"
 
-if [ $romPath == 'SDCARD' ]; then	
+if [ $romPath = 'SDCARD' ]; then	
 		echo -e  "You need to manually move your roms folder before starting"
 		echo -e  "Open any File manager app and move the ${GREEN}/Emulation${NONE} folder to your SD Card root"	
 		echo -e  "Now, connect your device to a computer and copy your roms to the proper folders ( each system has its own subfolder )"	
@@ -32,14 +32,14 @@ fi
 echo ""
 echo -e "${BOLD}- How to launch your games${NONE}"
 #Easy
-if [ $expert == false ]; then
+if [ $expert = false ]; then
 	echo -e "We've installed for you Daijisho so you can use it as a frontend for all your systems"
 	echo -e "You need to Open Daijisho From your apps and manually configure it with your custom paths"
 	echo ""
 	echo -e "First, open Daijisho and select the Systems you want to use by clicking on the Download Platforms button"
 	echo -e "Now click on Paths, Add more"
 	echo -e "Select the system folder ( ie: Super Nintendo )"
-	if [ $romPath == 'SDCARD' ]; then
+	if [ $romPath = 'SDCARD' ]; then
 		if [ $android -gt 10 ]; then
 			echo -e "SD Card: ${GREEN}Emulation/roms/snes${NONE}"
 		else
@@ -67,11 +67,11 @@ if [ $android -lt 11 ] && [ $romPath != 'INTERNAL' ]; then
 	echo -e "Be aware that if you delete the Termux app Android will ${RED}DELETE${NONE} the Termux folder on your SD Card including your roms"	
 fi
 
-if [ $doInstallPegasus == true ]; then
+if [ $doInstallPegasus = true ]; then
 		echo ""
 		echo -e  "${RED}Pegasus Warning${NONE}"	
 	if [ $android -gt 10 ]; then
-		if [ $romPath == 'SDCARD' ]; then
+		if [ $romPath = 'SDCARD' ]; then
 			echo -e  "The Pegasus Artwork Scrapper only works on if you keep your roms on your Internal Storage"			
 			echo -e  "So you'll also need to connect your device on your computer to get your Artwork"			
 			echo -e  "We recommend using www.skraper.net"

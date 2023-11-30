@@ -6,7 +6,7 @@ safeDownload() {
 	local outFile="$3"
 	local showProgress="$4"
 	local headers="$5"
-	if [ "$showProgress" == "true" ]; then
+	if [ "$showProgress" = "true" ]; then
 		echo "safeDownload()"
 		echo "- $name"
 		echo "- $url"
@@ -21,7 +21,7 @@ safeDownload() {
 	httpCode="${returnCodes%$'\2'*}"
 	exitCode="${returnCodes#*$'\2'}"
 
-	if [ "$httpCode" = "200" ] && [ "$exitCode" == "0" ]; then
+	if [ "$httpCode" = "200" ] && [ "$exitCode" = "0" ]; then
 		#echo "$name downloaded successfully";
 		mv -v "$outFile.temp" "$outFile" &>/dev/null
 		volumeName=$(yes | hdiutil attach "$outFile" | grep -o '/Volumes/.*$')

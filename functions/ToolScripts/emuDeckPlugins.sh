@@ -19,7 +19,7 @@ Plugins_checkPassword(){
    if [ "$password" = "Decky!" ]; then
      #We create the password
      yes "$password" | passwd $(whoami)
-   elif [ "$system" == "chimeraos" ]; then
+   elif [ "$system" = "chimeraos" ]; then
    	password="gamer"
    else
       if ( echo "$PASS" | sudo -S -k true ); then

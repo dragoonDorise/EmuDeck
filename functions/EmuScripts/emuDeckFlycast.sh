@@ -128,7 +128,7 @@ Flycast_finalize(){
 }
 
 Flycast_IsInstalled(){
-	if [ "$(flatpak --columns=app list | grep "$Flycast_emuPath")" == "$Flycast_emuPath" ]; then
+	if [ "$(flatpak --columns=app list | grep "$Flycast_emuPath")" = "$Flycast_emuPath" ]; then
 		echo "true"
 	else
 		echo "false"

@@ -140,7 +140,7 @@ main () {
 }
 
 # Only run if run directly
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+if [[ "${BASH_SOURCE[0]}" = "${0}" ]]; then
     # Get own directory
     selfDir="$( dirname "${BASH_SOURCE[0]}" )"
 

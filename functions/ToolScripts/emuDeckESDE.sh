@@ -16,10 +16,10 @@ es_settingsFile="$HOME/.emulationstation/es_settings.xml"
 
 ESDE_SetAppImageURLS() {
     local json="$(curl -s $ESDE_releaseJSON)"
-    ESDE_releaseURL=$(echo "$json" | jq -r '.stable.packages[] | select(.name == "LinuxSteamDeckAppImage") | .url')
-	ESDE_releaseMD5=$(echo "$json" | jq -r '.stable.packages[] | select(.name == "LinuxSteamDeckAppImage") | .md5')
-	ESDE_prereleaseURL=$(echo "$json" | jq -r '.prerelease.packages[] | select(.name == "LinuxSteamDeckAppImage") | .url')
-	ESDE_prereleaseMD5=$(echo "$json" | jq -r '.prerelease.packages[] | select(.name == "LinuxSteamDeckAppImage") | .md5')
+    ESDE_releaseURL=$(echo "$json" | jq -r '.stable.packages[] | select(.name = "LinuxSteamDeckAppImage") | .url')
+	ESDE_releaseMD5=$(echo "$json" | jq -r '.stable.packages[] | select(.name = "LinuxSteamDeckAppImage") | .md5')
+	ESDE_prereleaseURL=$(echo "$json" | jq -r '.prerelease.packages[] | select(.name = "LinuxSteamDeckAppImage") | .url')
+	ESDE_prereleaseMD5=$(echo "$json" | jq -r '.prerelease.packages[] | select(.name = "LinuxSteamDeckAppImage") | .md5')
 }
 
 #cleanupOlderThings
@@ -82,7 +82,7 @@ ESDE_install(){
 #
 # 		if safeDownload "$ESDE_toolName" "$ESDE_prereleaseURL" "$ESDE_toolPath" "$showProgress"; then
 # 			ESDE_md5sum=($(md5sum $ESDE_toolPath)) # get first element
-# 			if [ "$ESDE_md5sum" == "$ESDE_prereleaseMD5" ]; then
+# 			if [ "$ESDE_md5sum" = "$ESDE_prereleaseMD5" ]; then
 # 				echo "ESDE PASSED HASH CHECK."
 # 				chmod +x "$ESDE_toolPath"
 # 			else
@@ -122,7 +122,7 @@ ESDE_init(){
 	ESDE_finalize
 	ESDE_migrateEpicNoir
 
-	if [ "$system" == "chimeraos" ] || [ "$system" == "ChimeraOS" ]; then
+	if [ "$system" = "chimeraos" ] || [ "$system" = "ChimeraOS" ]; then
 			ESDE_chimeraOS
 		fi
 
@@ -166,7 +166,7 @@ ESDE_update(){
 
 ESDE_addCustomSystems(){
 	#insert cemu custom system if it doesn't exist, but the file does
-	if [[ $(grep -rnw "$es_systemsFile" -e 'wiiu') == "" ]]; then
+	if [[ $(grep -rnw "$es_systemsFile" -e 'wiiu') = "" ]]; then
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
 		--subnode '$newSystem' --type elem --name 'name' -v 'wiiu' \
@@ -212,8 +212,8 @@ ESDE_setEmulationFolder(){
 	echo "updating $es_systemsFile"
 
 	#insert new commands
-	if [[ ! $(grep -rnw "$es_systemsFile" -e 'wiiu') == "" ]]; then
-		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Proton)') == "" ]]; then
+	if [[ ! $(grep -rnw "$es_systemsFile" -e 'wiiu') = "" ]]; then
+		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Proton)') = "" ]]; then
 			#insert
 			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%" \
 			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Cemu (Proton)" \
@@ -227,7 +227,7 @@ ESDE_setEmulationFolder(){
 			cemuProtonCommandString="/usr/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Proton)"]' -v "$cemuProtonCommandString" "$es_systemsFile"
 		fi
-		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Native)') == "" ]]; then
+		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Native)') = "" ]]; then
 			#insert
 			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandN' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%" \
 			--insert 'systemList/system/commandN' --type attr --name 'label' --value "Cemu (Native)" \
@@ -242,8 +242,8 @@ ESDE_setEmulationFolder(){
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Native)"]' -v "$cemuNativeCommandString" "$es_systemsFile"
 		fi
 	fi
-	if [[ ! $(grep -rnw "$es_systemsFile" -e 'xbox360') == "" ]]; then
-		if [[ $(grep -rnw "$es_systemsFile" -e 'Xenia (Proton)') == "" ]]; then
+	if [[ ! $(grep -rnw "$es_systemsFile" -e 'xbox360') = "" ]]; then
+		if [[ $(grep -rnw "$es_systemsFile" -e 'Xenia (Proton)') = "" ]]; then
 			#insert
 			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="xbox360"]' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/xenia.sh %ROM%" \
 			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Xenia (Proton)" \
@@ -271,7 +271,7 @@ ESDE_setEmulationFolder(){
 	mediaDirFound=$(grep -rnw  "$es_settingsFile" -e 'MediaDirectory')
 	mediaDirEmpty=$(grep -rnw  "$es_settingsFile" -e '<string name="MediaDirectory" value="" />')
 	mediaDirEmulation=$(grep -rnw  "$es_settingsFile" -e 'Emulation/tools/downloaded_media')
-	if [[ $mediaDirFound == '' ]]; then
+	if [[ $mediaDirFound = '' ]]; then
 		echo "adding ES-DE ${esDE_MediaDir}"
 		sed -i -e '$a'"${esDE_MediaDir}"  "$es_settingsFile" # use config file instead of link
 	elif [[ -z $mediaDirEmpty || -n $mediaDirEmulation ]]; then
@@ -334,11 +334,11 @@ ESDE_setEmu(){
 		mkdir -p "$HOME/.emulationstation/gamelists/$system" && cp "$EMUDECKGIT/configs/emulationstation/gamelists/$system/gamelist.xml" "$gamelistFile"
 	else
 		gamelistFound=$(grep -rnw "$gamelistFile" -e 'gameList')
-		if [[ $gamelistFound == '' ]]; then
+		if [[ $gamelistFound = '' ]]; then
 			sed -i -e '$a\<gameList />' "$gamelistFile"
 		fi
 		alternativeEmu=$(grep -rnw "$gamelistFile" -e 'alternativeEmulator')
-		if [[ $alternativeEmu == '' ]]; then
+		if [[ $alternativeEmu = '' ]]; then
 			echo "<alternativeEmulator><label>$emu</label></alternativeEmulator>" >> "$gamelistFile"
 		fi
 		sed -i "s|<?xml version=\"1.0\">|<?xml version=\"1.0\"?>|g" "$gamelistFile"

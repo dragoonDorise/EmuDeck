@@ -4,7 +4,7 @@ if [ appleChip != "Linux" ]; then
     PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 fi
 
-if [[ "$EMUDECKGIT" == "" ]]; then
+if [[ "$EMUDECKGIT" = "" ]]; then
     EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 fi
 

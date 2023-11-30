@@ -12,7 +12,7 @@ while true; do
 	esac
 done
 
-if [ $question == 'ON' ]; then
+if [ $question = 'ON' ]; then
 	setSetting RAHandHeldShader true
 else
 	setSetting RAHandHeldShader false

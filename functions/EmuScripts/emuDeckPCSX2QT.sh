@@ -313,7 +313,7 @@ PCSX2QT_retroAchievementsSetLogin() {
 
 PCSX2QT_setRetroAchievements(){
 	PCSX2QT_retroAchievementsSetLogin
-	if [ "$achievementsHardcore" == "true" ]; then
+	if [ "$achievementsHardcore" = "true" ]; then
 		PCSX2QT_retroAchievementsHardCoreOn
 	else
 		PCSX2QT_retroAchievementsHardCoreOff

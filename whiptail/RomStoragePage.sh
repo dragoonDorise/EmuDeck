@@ -1,7 +1,7 @@
 #!/bin/bash
 
 	
-	if [ $hasSDCARD == true ]; then
+	if [ $hasSDCARD = true ]; then
 		
 		while true; do
 			romPathSelection=$(whiptail --title "Choose your Storage" \
@@ -19,7 +19,7 @@
 		setSetting romPath $romPathSelection
 		
 		
-		if [ $romPath == 'INTERNAL' ]; then
+		if [ $romPath = 'INTERNAL' ]; then
 			path="$HOME/storage/shared"
 		else		
 			SDPath=$(readlink ~/storage/external-1)

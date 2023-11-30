@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $deviceAR == 169 ] || [ $deviceAR == 53 ]; then
+if [ $deviceAR = 169 ] || [ $deviceAR = 53 ]; then
 	while true; do
 		question=$(whiptail --title "Game Bezels" \
    	--radiolist "You can use our preconfigured bezels to hide the vertical black vars on 8bit and 16bits games" 10 80 4 \
@@ -14,7 +14,7 @@ if [ $deviceAR == 169 ] || [ $deviceAR == 53 ]; then
 		esac
 	done
 	
-	if [ $question == 'YES' ]; then
+	if [ $question = 'YES' ]; then
 		setSetting RABezels true
 	else
 		setSetting RABezels false

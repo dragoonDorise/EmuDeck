@@ -8,7 +8,7 @@ installEmuBI(){
     local lastVerFile="$6"
     local latestVer="$7"
 
-    if [[ "$fileName" == "" ]]; then
+    if [[ "$fileName" = "" ]]; then
         fileName="$name"
     fi
     echo "$name"

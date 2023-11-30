@@ -47,19 +47,19 @@ romParser_SS_download(){
 		#ID Game
 		content=$(curl $urlIDSS)
 		#Don't check art if screenscraper is closed
-		if [[ $content == *"API closed"* ]]; then
+		if [[ $content = *"API closed"* ]]; then
 			echo -e "The Screenscraper API is currently down, please try again later."
 			exit
 		fi
 		#Don't check art after a failed curl request
-		if [[ $content == "" ]]; then
+		if [[ $content = "" ]]; then
 			echo -e "Request failed to send for $romName, ${YELLOW}skipping${NONE}"
 			echo ""
 			echo "Request failed for $romName"
 			exit
 		fi
 		#Don't check art if screenscraper can't find a match
-		if [[ $content == *"Erreur"* ]]; then
+		if [[ $content = *"Erreur"* ]]; then
 			echo -e "Couldn't find a match for $romName, ${YELLOW}skipping${NONE}"
 			echo ""
 			echo "Couldn't find a match for $romName"
@@ -78,7 +78,7 @@ romParser_SS_download(){
 		echo -e "${BOLD}Scraping: $media${NONE}"
 		StatusString=$(wget --spider "$url" 2>&1)
 		echo -ne "${BOLD}Searching World Region..."
-		if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
+		if [[ $StatusString = *"image/png"* ]] || [[ $StatusString = *"image/jpeg"* ]] || [[ $StatusString = *"image/jpg"* ]]; then
 			wget -q --show-progress "$url" -O "$urlSave" |
 			zenity --progress \
 			  --title="EmuDeck RetroArch Parser" \
@@ -93,7 +93,7 @@ romParser_SS_download(){
 			secondString="(us)"
 			url="${firstString/(wor)/"$secondString"}"
 			StatusString=$(wget --spider "$url" 2>&1)
-			if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
+			if [[ $StatusString = *"image/png"* ]] || [[ $StatusString = *"image/jpeg"* ]] || [[ $StatusString = *"image/jpg"* ]]; then
 				wget -q --show-progress "$url" -O "$urlSave" |
 				zenity --progress \
 				  --title="EmuDeck RetroArch Parser" \
@@ -108,7 +108,7 @@ romParser_SS_download(){
 				secondString="(eu)"
 				url="${firstString/(us)/"$secondString"}"
 				StatusString=$(wget --spider "$url" 2>&1)
-				if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
+				if [[ $StatusString = *"image/png"* ]] || [[ $StatusString = *"image/jpeg"* ]] || [[ $StatusString = *"image/jpg"* ]]; then
 					wget -q --show-progress "$url" -O "$urlSave" |
 					zenity --progress \
 					  --title="EmuDeck RetroArch Parser" \
@@ -124,7 +124,7 @@ romParser_SS_download(){
 					secondString="(usa)"
 					url="${firstString/(eu)/"$secondString"}"
 					StatusString=$(wget --spider "$url" 2>&1)
-					if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
+					if [[ $StatusString = *"image/png"* ]] || [[ $StatusString = *"image/jpeg"* ]] || [[ $StatusString = *"image/jpg"* ]]; then
 						wget -q --show-progress "$url" -O "$urlSave" |
 						zenity --progress \
 						  --title="EmuDeck RetroArch Parser" \
@@ -139,7 +139,7 @@ romParser_SS_download(){
 						secondString="(cus)"
 						url="${firstString/(usa)/"$secondString"}"
 						StatusString=$(wget --spider "$url" 2>&1)
-						if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
+						if [[ $StatusString = *"image/png"* ]] || [[ $StatusString = *"image/jpeg"* ]] || [[ $StatusString = *"image/jpg"* ]]; then
 							wget -q --show-progress "$url" -O "$urlSave" |
 							zenity --progress \
 							  --title="EmuDeck RetroArch Parser" \
@@ -154,7 +154,7 @@ romParser_SS_download(){
 							secondString=""
 							url="${firstString/(cus)/"$secondString"}"
 							StatusString=$(wget --spider "$url" 2>&1)
-							if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
+							if [[ $StatusString = *"image/png"* ]] || [[ $StatusString = *"image/jpeg"* ]] || [[ $StatusString = *"image/jpg"* ]]; then
 								wget -q --show-progress "$url" -O "$urlSave" &> /dev/null
 								echo -e "${GREEN}Found it!${NONE}"|
 								zenity --progress \
@@ -399,7 +399,7 @@ romParser_SS_start(){
 
 	for systemPath in $romsPath/*;
  	do
-		 if [[ "$systemPath" == *tx* ]]; then
+		 if [[ "$systemPath" = *tx* ]]; then
 			 break
 		 fi
 

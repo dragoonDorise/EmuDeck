@@ -180,7 +180,7 @@ Dolphin_DynamicInputTextures(){
 }
 
 Dolphin_setCustomizations(){
-    if [ "$arDolphin" == 169 ]; then
+    if [ "$arDolphin" = 169 ]; then
       Dolphin_wideScreenOn
     else
       Dolphin_wideScreenOff

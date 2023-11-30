@@ -25,7 +25,7 @@ def main():
     print(get_app_id(exe, appname))
 
 
-if __name__ == "__main__":
+if __name__ = "__main__":
     # If there aren't the correct number of arguments, fail with error
     if len(sys.argv) != 3:
         sys.exit("Not enough arguments")

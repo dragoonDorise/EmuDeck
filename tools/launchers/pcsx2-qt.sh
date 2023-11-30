@@ -8,7 +8,7 @@ emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
 exe=$(find $emufolder -iname "${emuName}*.AppImage" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
 
 #if appimage doesn't exist fall back to flatpak.
-if [[ $exe == '' ]]; then
+if [[ $exe = '' ]]; then
     #flatpak
     flatpakApp=$(flatpak list --app --columns=application | grep $emuName)
     exe="/usr/bin/flatpak run "$flatpakApp

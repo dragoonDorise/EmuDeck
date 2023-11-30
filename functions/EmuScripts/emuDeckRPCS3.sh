@@ -25,7 +25,7 @@ RPCS3_install(){
 
 		if safeDownload "$RPCS3_remuName" "$RPCS3_releaseURL" "$RPCS3_emuPath" "$showProgress"; then
 			RPCS3_md5sum=($(md5sum $RPCS3_emuPath)) # get first element
-			if [ "$RPCS3_md5sum" == "$RPCS3_releaseMD5" ]; then
+			if [ "$RPCS3_md5sum" = "$RPCS3_releaseMD5" ]; then
 				echo "RPCS3 PASSED HASH CHECK."
 				chmod +x "$RPCS3_emuPath"
 			else

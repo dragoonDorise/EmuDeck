@@ -40,9 +40,9 @@ function getScreenAR(){
 						fi
 
 						aspectRatio=$(awk -v screenWidth="$screenWidth" -v screenHeight="$screenHeight" 'BEGIN{printf "%.2f\n", (screenWidth/screenHeight)}')
-						if [ "$aspectRatio" == 1.60 ]; then
+						if [ "$aspectRatio" = 1.60 ]; then
 							ar=1610
-						elif [ "$aspectRatio" == 1.78 ]; then
+						elif [ "$aspectRatio" = 1.78 ]; then
 							ar=169
 						else
 							ar=0
@@ -107,7 +107,7 @@ function testLocationValid(){
 	local testLocation=$2
 	local result=""
 
-	if [[ "$testLocation" == *" "* ]]; then
+	if [[ "$testLocation" = *" "* ]]; then
 		result="Invalid: $locationName contains spaces"
 	else
 		touch "$testLocation/testwrite"
@@ -192,13 +192,13 @@ function setSetting () {
 	local new_val=$2
 
 	settingExists=$(grep -rw "$emuDecksettingsFile" -e "$var")
-	if [[ $settingExists == '' ]]; then
+	if [[ $settingExists = '' ]]; then
 		#insert setting to end
 		echo "variable not found in settings. Adding $var=$new_val to $emuDecksettingsFile"
 		sed -i -e '$a\'"$var=$new_val" "$emuDecksettingsFile"
-	elif [[ ! $settingExists == '' ]]; then
+	elif [[ ! $settingExists = '' ]]; then
 		echo "Old value $settingExists"
-			if [[ $settingExists == "$var=$new_val" ]]; then
+			if [[ $settingExists = "$var=$new_val" ]]; then
 				echo "Setting unchanged, skipping"
 			else
 				changeLine "$var=" "$var=$new_val" "$emuDecksettingsFile"
@@ -232,7 +232,7 @@ function updateOrAppendConfigLine(){
 	touch "$configFile"
 
 	local optionFound=$(grep -rnw  "$configFile" -e "$option")
-	if [[ "$optionFound" == '' ]]; then
+	if [[ "$optionFound" = '' ]]; then
 		echo "appending: $replacement to $configFile"
 		echo "$replacement" >> "$configFile"
 	else
@@ -375,13 +375,13 @@ function checkForFile(){
 	local file=$1
 	local delete=$2
 	local finished=false
-	while [ $finished == false ]
+	while [ $finished = false ]
 	do
 		test=$(test -f "$file" && echo true)
-		  if [[ $test == true ]]; then
+		  if [[ $test = true ]]; then
 				finished=true;
 			  clear
-			if [[ $delete == 'delete' ]]; then
+			if [[ $delete = 'delete' ]]; then
 				  rm "$file"
 			fi
 			echo 'true';
@@ -397,7 +397,7 @@ function getLatestReleaseURLGH(){
 	local url
 	#local token=$(tokenGenerator)
 
-	if [ "$url" == "" ]; then
+	if [ "$url" = "" ]; then
 		url="https://api.github.com/repos/${repository}/releases/latest"
 	fi
 
@@ -412,15 +412,15 @@ function getReleaseURLGH(){
 	local fileNameContains=$3
 	#local token=$(tokenGenerator)
 
-	if [ $system == "darwin" ]; then
+	if [ $system = "darwin" ]; then
 		fileType="dmg"
 	fi
 
-	if [ $system == "darwin" ]; then
+	if [ $system = "darwin" ]; then
 		fileType="dmg"
 	fi
 
-	if [ "$url" == "" ]; then
+	if [ "$url" = "" ]; then
 		url="https://api.github.com/repos/$repository/releases"
 	fi
 
@@ -444,7 +444,7 @@ function linkToSaveFolder(){
 		if [ ! -L "$savesPath/$emu/$folderName" ]; then
 			echo "$savesPath/$emu/$folderName is not a link. Please check it."
 		else
-			if [ $(readlink $savesPath/$emu/$folderName) == $path ]; then
+			if [ $(readlink $savesPath/$emu/$folderName) = $path ]; then
 				echo "$savesPath/$emu/$folderName is already linked."
 				echo "     Target: $(readlink $savesPath/$emu/$folderName)"
 			else
@@ -468,7 +468,7 @@ function moveSaveFolder(){
 
 	if [[ ! -e "$savesPath/$emu/$folderName" ]]; then
 		mkdir -p "$savesPath/$emu/$folderName"
-		if [[ "$linkedTarget" == "$path" ]]; then
+		if [[ "$linkedTarget" = "$path" ]]; then
 			setMSG "Moving $emu $folderName to the Emulation/saves/$emu/$folderName folder"
 			rsync -avh "$path/" "$savesPath/$emu/$folderName" && mv "$path" "${path}.bak"
 			ln -sn  "$savesPath/$emu/$folderName" "$path"
@@ -538,7 +538,7 @@ function desktopShortcutFieldUpdate(){
 
 	if [ -f "$shortcutFile" ]; then
 		# update icon if name is updated
-		if [ "$shortcutKey" == "Name" ]; then
+		if [ "$shortcutKey" = "Name" ]; then
 			name=$shortcutValue
 			cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name").{svg,jpg,png}" "$HOME/.local/share/icons/emudeck/" 2>/dev/null
 			icon=$(find "$HOME/.local/share/icons/emudeck/" -type f \( -iname "$(cut -d " " -f1 <<< "$name").svg" -o -iname "$(cut -d " " -f1 <<< "$name").jpg" -o -iname "$(cut -d " " -f1 <<< "$name").png" \) -print -quit)
@@ -667,7 +667,7 @@ safeDownload() {
 	echo "- $headers"
 
 
-	if [ "$showProgress" == "true" ] || [[ $showProgress -eq 1 ]]; then
+	if [ "$showProgress" = "true" ] || [[ $showProgress -eq 1 ]]; then
 		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 | tee >(stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading $name" --width 600 --auto-close --no-cancel 2>/dev/null) && echo $'\2'${PIPESTATUS[0]})
 	else
 		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 && echo $'\2'0 || echo $'\2'$?)
@@ -679,7 +679,7 @@ safeDownload() {
 	echo "$requestInfo"
 	echo "HTTP response code: $httpCode"
 	echo "CURL exit code: $exitCode"
-	if [ "$httpCode" = "200" ] && [ "$exitCode" == "0" ]; then
+	if [ "$httpCode" = "200" ] && [ "$exitCode" = "0" ]; then
 		echo "$name downloaded successfully";
 		mv -v "$outFile.temp" "$outFile"
 		return 0

@@ -52,7 +52,7 @@ fi
 
 clear
 
-if [ "$doUninstall" == true ]; then
+if [ "$doUninstall" = true ]; then
 
 	text="`printf "If you would like to delete all your ROM shortcuts in Steam, click the Launch Steam ROM Manager button below.\n\nOnce Steam ROM Manager is launched, go to Settings and select <b>Remove All added app entries</b>\n\n Exit Steam ROM Manager and click Continue to proceed with uninstalling EmuDeck."`"
 
@@ -111,70 +111,70 @@ if [ "$doUninstall" == true ]; then
 	ans=$?
 	if [ $ans -eq 0 ]; then
 
-		if [[ "$emusToUninstall" == *"ares"* ]]; then
+		if [[ "$emusToUninstall" = *"ares"* ]]; then
 			doUninstallares=false
 		fi
-		if [[ "$emusToUninstall" == *"Cemu"* ]]; then
+		if [[ "$emusToUninstall" = *"Cemu"* ]]; then
 			doUninstallCemu=false
 		fi
-		if [[ "${emusToUninstall}" == *"Cemu Native"* ]]; then
+		if [[ "${emusToUninstall}" = *"Cemu Native"* ]]; then
 			doUninstallCemuNative="false"
 		fi
-		if [[ "$emusToUninstall" == *"Citra"* ]]; then
+		if [[ "$emusToUninstall" = *"Citra"* ]]; then
 			doUninstallCitra=false
 		fi
-		if [[ "$emusToUninstall" == *"Dolphin"* ]]; then
+		if [[ "$emusToUninstall" = *"Dolphin"* ]]; then
 			doUninstallDolphin=false
 		fi
-		if [[ "$emusToUninstall" == *"Duckstation"* ]]; then
+		if [[ "$emusToUninstall" = *"Duckstation"* ]]; then
 			doUninstallDuck=false
 		fi
-		if [[ "$emusToUninstall" == *"Flycast"* ]]; then
+		if [[ "$emusToUninstall" = *"Flycast"* ]]; then
 			doUninstallFlycast=false
 		fi
-		if [[ "$emusToUninstall" == *"Mame"* ]]; then
+		if [[ "$emusToUninstall" = *"Mame"* ]]; then
 			doUninstallMame=false
 		fi
-		if [[ "$emusToUninstall" == *"melonDS"* ]]; then
+		if [[ "$emusToUninstall" = *"melonDS"* ]]; then
 			doUninstallmelonDS=false
 		fi
-		if [[ "$emusToUninstall" == *"mGBA"* ]]; then
+		if [[ "$emusToUninstall" = *"mGBA"* ]]; then
 			doUninstallMGBA=false
 		fi
-		if [[ "$emusToUninstall" == *"PrimeHack"* ]]; then
+		if [[ "$emusToUninstall" = *"PrimeHack"* ]]; then
 			doUninstallPrimeHacks=false
 		fi
-		if [[ "$emusToUninstall" == *"PCSX2"* ]]; then
+		if [[ "$emusToUninstall" = *"PCSX2"* ]]; then
 			doUninstallPCSX2=false
 		fi
-		if [[ "$emusToUninstall" == *"PPSSPP"* ]]; then
+		if [[ "$emusToUninstall" = *"PPSSPP"* ]]; then
 			doUninstallPPSSPP=false
 		fi
-		if [[ "$emusToUninstall" == *"RetroArch"* ]]; then
+		if [[ "$emusToUninstall" = *"RetroArch"* ]]; then
 			doUninstallRA=false
 		fi
-		if [[ "$emusToUninstall" == *"RPCS3"* ]]; then
+		if [[ "$emusToUninstall" = *"RPCS3"* ]]; then
 			doUninstallRPCS3=false
 		fi
-		if [[ "$emusToUninstall" == *"RMG"* ]]; then
+		if [[ "$emusToUninstall" = *"RMG"* ]]; then
 			doUninstallRMG=false
 		fi
-		if [[ "$emusToUninstall" == *"Ryujinx"* ]]; then
+		if [[ "$emusToUninstall" = *"Ryujinx"* ]]; then
 			doUninstallRyujinx=false
 		fi
-		if [[ "$emusToUninstall" == *"ScummVM"* ]]; then
+		if [[ "$emusToUninstall" = *"ScummVM"* ]]; then
 			doUninstallScummVM=false
 		fi
-		if [[ "$emusToUninstall" == *"Vita3K"* ]]; then
+		if [[ "$emusToUninstall" = *"Vita3K"* ]]; then
 			doUninstallVita3K=false
 		fi
-		if [[ "$emusToUninstall" == *"Yuzu"* ]]; then
+		if [[ "$emusToUninstall" = *"Yuzu"* ]]; then
 			doUninstallYuzu=false
 		fi
-		if [[ "$emusToUninstall" == *"Xemu"* ]]; then
+		if [[ "$emusToUninstall" = *"Xemu"* ]]; then
 			doUninstallXemu=false
 		fi
-		if [[ "$emusToUninstall" == *"Xenia"* ]]; then
+		if [[ "$emusToUninstall" = *"Xenia"* ]]; then
 			doUninstallXenia=false
 		fi
 
@@ -189,73 +189,73 @@ if [ "$doUninstall" == true ]; then
 		echo "10"
 		echo "# Removing selected Emulators" ;
 
-	if [[ "$doUninstallares" == true ]]; then
+	if [[ "$doUninstallares" = true ]]; then
 		flatpak uninstall dev.ares.ares -y
 		rm -rf $HOME/.var/app/dev.ares.ares &>> /dev/null
 	fi
-	if [[ "$doUninstallCemu" == true ]]; then
+	if [[ "$doUninstallCemu" = true ]]; then
 		find ${romsPath}/wiiu -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \;
 		rm -f "$HOME/.local/share/applications/Cemu (Proton).desktop" &>> /dev/null
 	fi
-	if [[ "${doUninstallCemuNative}" == "true" ]]; then
+	if [[ "${doUninstallCemuNative}" = "true" ]]; then
 		rm -rf $HOME/Applications/Cemu*.AppImage &>> /dev/null
 		rm -rf $HOME/.config/Cemu &>> /dev/null
 		rm -rf $HOME/.local/share/Cemu &>> /dev/null
 		rm -rf $HOME/.cache/Cemu &>> /dev/null
 		rm -rf $HOME/.local/share/applications/Cemu.desktop &>> /dev/null
 	fi
-	if [[ "$doUninstallCitra" == true ]]; then
+	if [[ "$doUninstallCitra" = true ]]; then
 		flatpak uninstall org.citra_emu.citra -y
 		rm -rf $HOME/.var/app/org.citra_emu.citra &>> /dev/null
 	fi
-	if [[ "$doUninstallDolphin" == true ]]; then
+	if [[ "$doUninstallDolphin" = true ]]; then
 		flatpak uninstall org.DolphinEmu.dolphin-emu -y
 		rm -rf $HOME/.var/app/org.DolphinEmu.dolphin-emu &>> /dev/null
 	fi
-	if [[ "$doUninstallDuck" == true ]]; then
+	if [[ "$doUninstallDuck" = true ]]; then
 		flatpak uninstall org.duckstation.DuckStation -y
 		rm -rf $HOME/.var/app/org.duckstation.DuckStation &>> /dev/null
 	fi
-	if [[ "$doUninstallFlycast" == true ]]; then
+	if [[ "$doUninstallFlycast" = true ]]; then
 		flatpak uninstall org.flycast.Flycast -y
 		rm -rf $HOME/.var/app/org.flycast.Flycast &>> /dev/null
 	fi
-	if [[ "$doUninstallMame" == true ]]; then
+	if [[ "$doUninstallMame" = true ]]; then
 		flatpak uninstall org.mamedev.MAME -y
 		rm -rf $HOME/.var/app/org.mamedev.MAME &>> /dev/null
 	fi
-	if [[ "$doUninstallmelonDS" == true ]]; then
+	if [[ "$doUninstallmelonDS" = true ]]; then
 		flatpak uninstall net.kuribo64.melonDS -y
 		rm -rf $HOME/.var/app/net.kuribo64.melonDS &>> /dev/null
 	fi
-	if [[ "$doUninstallMGBA" == true ]]; then
+	if [[ "$doUninstallMGBA" = true ]]; then
 		rm -rf $HOME/Applications/mGBA.AppImage &>> /dev/null
 		rm -rf $HOME/.config/mgba &>> /dev/null
 		rm -rf $HOME/.local/share/applications/mGBA.desktop &>> /dev/null
 	fi
-	if [[ "$doUninstallPCSX2" == true ]]; then
+	if [[ "$doUninstallPCSX2" = true ]]; then
 		rm -rf $HOME/Applications/pcsx2-Qt.AppImage &>> /dev/null
 		rm -rf $HOME/.config/PCSX2 &>> /dev/null
 		rm -rf $HOME/.local/share/applications/pcsx2-Qt.desktop &>> /dev/null
 		rm -rf $HOME/.local/share/applications/PCSX2-Qt.desktop &>> /dev/null
 	fi
-	if [[ "$doUninstallPPSSPP" == true ]]; then
+	if [[ "$doUninstallPPSSPP" = true ]]; then
 		flatpak uninstall org.ppsspp.PPSSPP -y
 		rm -rf $HOME/.var/app/org.ppsspp.PPSSPP &>> /dev/null
 	fi
-	if [[ "$doUninstallPrimeHacks" == true ]]; then
+	if [[ "$doUninstallPrimeHacks" = true ]]; then
 		flatpak uninstall io.github.shiiion.primehack -y
 		rm -rf $HOME/.var/app/io.github.shiiion.primehack &>> /dev/null
 	fi
-	if [[ "$doUninstallRA" == true ]]; then
+	if [[ "$doUninstallRA" = true ]]; then
 		flatpak uninstall org.libretro.RetroArch -y
 		rm -rf $HOME/.var/app/org.libretro.RetroArch &>> /dev/null
 	fi
-	if [[ "$doUninstallRMG" == true ]]; then
+	if [[ "$doUninstallRMG" = true ]]; then
 		flatpak uninstall com.github.Rosalie241.RMG -y
 		rm -rf $HOME/.var/app/com.github.Rosalie241.RMG &>> /dev/null
 	fi
-	if [[ "$doUninstallRPCS3" == true ]]; then
+	if [[ "$doUninstallRPCS3" = true ]]; then
 		# Flatpak
 		flatpak uninstall net.rpcs3.RPCS3 -y
 		rm -rf $HOME/.var/app/net.rpcs3.RPCS3 &>> /dev/null
@@ -264,29 +264,29 @@ if [ "$doUninstall" == true ]; then
 		rm -rf "$HOME/.cache/rpcs3" &>> /dev/null
 		rm -rf $HOME/.local/share/applications/RPCS3.desktop &>> /dev/null
 	fi
-	if [[ "$doUninstallRyujinx" == true ]]; then
+	if [[ "$doUninstallRyujinx" = true ]]; then
 		rm -rf $HOME/.config/Ryujinx &>> /dev/null
 		rm -rf $HOME/Applications/publish &>> /dev/null
 		rm -rf $HOME/.local/share/applications/Ryujinx.desktop &>> /dev/null
 	fi
-	if [[ "$doUninstallScummVM" == true ]]; then
+	if [[ "$doUninstallScummVM" = true ]]; then
 		flatpak uninstall org.scummvm.ScummVM -y
 		rm -rf $HOME/.var/app/org.scummvm.ScummVM &>> /dev/null
 	fi
-	if [[ "$doUninstallVita3K" == true ]]; then
+	if [[ "$doUninstallVita3K" = true ]]; then
 		rm -rf $HOME/Applications/Vita3K &>> /dev/null
 		rm -rf $HOME/.local/share/Vita3K &>> /dev/null
 		rm -rf $HOME/.local/share/applications/Vita3K.desktop &>> /dev/null
 	fi
-	if [[ "$doUninstallXemu" == true ]]; then
+	if [[ "$doUninstallXemu" = true ]]; then
 		flatpak uninstall app.xemu.xemu -y
 		rm -rf $HOME/.var/app/app.xemu.xemu &>> /dev/null
 	fi
-	if [[ "$doUninstallXenia" == true ]]; then
+	if [[ "$doUninstallXenia" = true ]]; then
 		find ${romsPath}/xbox360 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \; &>> /dev/null
 	 	rm -rf $HOME/.local/share/applications/xenia.desktop &>> /dev/null
 	fi
-	if [[ "$doUninstallYuzu" == true ]]; then
+	if [[ "$doUninstallYuzu" = true ]]; then
 		#flatpak uninstall org.yuzu_emu.yuzu --system -y
 		#rm -rf $HOME/.var/app/org.yuzu_emu.yuzu &>> /dev/null
 		rm -rf $HOME/Applications/yuzu.AppImage &>> /dev/null
