@@ -21,7 +21,12 @@ romParser_RA_download(){
 	else
 		status=$(wget --spider "http://thumbnails.libretro.com/$remoteSystem/$RA_folder/$romName.png" 2>&1)
 		if [[ $status == *"image/png"* ]] || [[ $status == *"image/jpeg"* ]] || [[ $status == *"image/jpg"* ]]; then
-			wget  -q --show-progress "http://thumbnails.libretro.com/$remoteSystem/$RA_folder/$romName.png" -P "$romsPath/$system/media/$type/"
+			wget  -q --show-progress "http://thumbnails.libretro.com/$remoteSystem/$RA_folder/$romName.png" -P "$romsPath/$system/media/$type/" |
+			zenity --progress \
+			  --title="EmuDeck RetroArch Parser" \
+			  --text="Downloading artwork for $system..." \
+			  --auto-close \
+			  --pulsate \
 		else
 			echo -e "Image not found: $romName $type..."
 		fi
@@ -201,15 +206,9 @@ romParser_RA_start(){
 				fi
 
 				#We get the folder RA uses
-				(romParser_RA_getAlias $system
+				romParser_RA_getAlias $system
 				romParser_RA_download "$romName" $system "screenshot"
-				romParser_RA_download "$romName" $system "covers")  |
-				zenity --progress \
-				  --title="EmuDeck RetroArch Parser" \
-				  --text="Downloading artwork for $system..." \
-				  --auto-close \
-				  --pulsate \
-				  --percentage=$i
+				romParser_RA_download "$romName" $system "covers"
 
 				  ((i++))
 			fi

@@ -68,7 +68,13 @@ romParser_SS_download(){
 		StatusString=$(wget --spider "$url" 2>&1)
 		echo -ne "${BOLD}Searching World Region..."
 		if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
-			wget -q --show-progress "$url" -O "$urlSave" &> /dev/null
+			wget -q --show-progress "$url" -O "$urlSave" |
+			zenity --progress \
+			  --title="EmuDeck RetroArch Parser" \
+			  --text="Downloading artwork for $system..." \
+			  --auto-close \
+			  --pulsate \
+
 			echo -e "${GREEN}Found it!${NONE}"
 		else
 			echo -ne "${BOLD}Searching US Region..."
@@ -77,7 +83,13 @@ romParser_SS_download(){
 			url="${firstString/(wor)/"$secondString"}"
 			StatusString=$(wget --spider "$url" 2>&1)
 			if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
-				wget -q --show-progress "$url" -O "$urlSave" &> /dev/null
+				wget -q --show-progress "$url" -O "$urlSave" |
+				zenity --progress \
+				  --title="EmuDeck RetroArch Parser" \
+				  --text="Downloading artwork for $system..." \
+				  --auto-close \
+				  --pulsate \
+
 				echo -e "${GREEN}Found it!${NONE}"
 			else
 				echo -ne "${BOLD}Searching EU Region..."
@@ -86,7 +98,13 @@ romParser_SS_download(){
 				url="${firstString/(us)/"$secondString"}"
 				StatusString=$(wget --spider "$url" 2>&1)
 				if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
-					wget -q --show-progress "$url" -O "$urlSave" &> /dev/null
+					wget -q --show-progress "$url" -O "$urlSave" |
+					zenity --progress \
+					  --title="EmuDeck RetroArch Parser" \
+					  --text="Downloading artwork for $system..." \
+					  --auto-close \
+					  --pulsate \
+
 					echo -e "${GREEN}Found it!${NONE}"
 
 				else
@@ -96,7 +114,13 @@ romParser_SS_download(){
 					url="${firstString/(eu)/"$secondString"}"
 					StatusString=$(wget --spider "$url" 2>&1)
 					if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
-						wget -q --show-progress "$url" -O "$urlSave" &> /dev/null
+						wget -q --show-progress "$url" -O "$urlSave" |
+						zenity --progress \
+						  --title="EmuDeck RetroArch Parser" \
+						  --text="Downloading artwork for $system..." \
+						  --auto-close \
+						  --pulsate \
+
 						echo -e "${GREEN}Found it!${NONE}"
 					else
 						echo -ne "${BOLD}Searching Custom Region..."
@@ -105,7 +129,13 @@ romParser_SS_download(){
 						url="${firstString/(usa)/"$secondString"}"
 						StatusString=$(wget --spider "$url" 2>&1)
 						if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
-							wget -q --show-progress "$url" -O "$urlSave" &> /dev/null
+							wget -q --show-progress "$url" -O "$urlSave" |
+							zenity --progress \
+							  --title="EmuDeck RetroArch Parser" \
+							  --text="Downloading artwork for $system..." \
+							  --auto-close \
+							  --pulsate \
+
 							echo -e "${GREEN}Found it!${NONE}"
 						else
 							echo -ne "${BOLD}Searching No Region..."
@@ -115,7 +145,13 @@ romParser_SS_download(){
 							StatusString=$(wget --spider "$url" 2>&1)
 							if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
 								wget -q --show-progress "$url" -O "$urlSave" &> /dev/null
-								echo -e "${GREEN}Found it!${NONE}"
+								echo -e "${GREEN}Found it!${NONE}"|
+								zenity --progress \
+								  --title="EmuDeck RetroArch Parser" \
+								  --text="Downloading artwork for $system..." \
+								  --auto-close \
+								  --pulsate \
+
 
 							else
 								echo -e "${RED}NO IMG FOUND${NONE}"
@@ -387,7 +423,7 @@ romParser_SS_start(){
 				  --text="Downloading artwork for $system..." \
 				  --auto-close \
 				  --pulsate \
-				  --percentage=$i
+
 
 				((i++))
 			fi
