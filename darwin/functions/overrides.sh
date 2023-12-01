@@ -103,3 +103,8 @@ function createUpdateSettingsFile(){
 		done
 
 }
+
+
+function createDesktopShortcut(){
+	echo "no need"
+}
