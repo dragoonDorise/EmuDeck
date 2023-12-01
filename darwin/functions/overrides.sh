@@ -42,6 +42,8 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doInstallSRM=true")
 	defaultSettingsList+=("doInstallRA=true")
 	defaultSettingsList+=("doSetupDolphin=false")
+	defaultSettingsList+=("doSetupmelonDS=false")
+	defaultSettingsList+=("doInstallmelonDS=false")
 	defaultSettingsList+=("doSetupRPCS3=false")
 	defaultSettingsList+=("doSetupYuzu=false")
 	defaultSettingsList+=("doSetupCitra=false")
