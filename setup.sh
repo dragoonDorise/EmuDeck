@@ -154,7 +154,7 @@ fi
 #Pegasus Installation
 if [ $doInstallPegasus == "true" ]; then
 	echo "install Pegasus"
-	Pegasus_install
+	pegasus_install
 fi
 #SRM Installation
 if [ $doInstallSRM == "true" ]; then
@@ -274,8 +274,8 @@ fi
 
 #Pegasus Config
 #if [ $doSetupPegasus == "true" ]; then
-#	echo "Pegasus_init"
-#	Pegasus_init
+#	echo "pegasus_init"
+#	pegasus_init
 #fi
 
 #Emus config
