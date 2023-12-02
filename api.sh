@@ -1,9 +1,7 @@
 #!/bin/bash
-. "$HOME/.config/EmuDeck/backend/functions/all.sh"
-
 API_pull(){
 	local branch = $1
-	cd ~/.config/EmuDeck/backend && touch ~/emudeck/logs/git.log && script ~/emudeck/logs/git.log -c 'git reset --hard && git clean -fd && git checkout $branch && git pull' && . ~/.config/EmuDeck/backend/functions/all.sh && appImageInit
+	cd ~/.config/EmuDeck/backend && touch ~/emudeck/logs/git.log && script ~/emudeck/logs/git.log -c 'git reset --hard && git clean -fd && git checkout $branch && git pull' && appImageInit
 }
 
 API_autoSave(){
@@ -52,3 +50,21 @@ API_setCloud(){
 	  setSetting cloud_sync_status "false" > /dev/null
   fi
 }
+
+API_setToken(){
+	local token=$1
+	local user=$2
+	echo $token > "$HOME/.config/EmuDeck/.rat" && echo $user > "$HOME/.config/EmuDeck/.rau" && RetroArch_retroAchievementsSetLogin && DuckStation_retroAchievementsSetLogin && PCSX2QT_retroAchievementsSetLogin && echo true
+}
+
+API_getToken(){
+	local escapedUserName=$1
+	local escapedPass=$2
+	curl --location --data-urlencode u='$escapedUserName' --data-urlencode p='$escapedPass' --request POST 'https://retroachievements.org/dorequest.php?r=login'
+}
+
+
+  let bashCommand = `curl --location --data-urlencode u='${escapedUserName}' --data-urlencode p='${escapedPass}' --request POST 'https://retroachievements.org/dorequest.php?r=login'`;
+  if (os.platform().includes('win32')) {
+	bashCommand = `curl "https://retroachievements.org/dorequest.php?r=login&u=${command.user}&p=${command.pass}"`;
+  }
