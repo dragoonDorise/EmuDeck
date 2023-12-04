@@ -1,4 +1,4 @@
 collection: Adobe Flash
 shortname: flash
 extensions: swf, SWF
-launch: launch: /bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/ruffle.sh --fullscreen {file.path}
+launch:  /run/media/mmcblk0p1/Emulation/tools/launchers/ruffle.sh --fullscreen {file.path}

@@ -1,87 +1,94 @@
 #!/bin/bash
 #variables
-Pegasus_toolName="Pegasus Frontend"
-Pegasus_emuPath="org.pegasus_frontend.Pegasus"
-Pegasus_path="$HOME/.var/app/$Pegasus_emuPath"
-Pegasus_dir_file="$HOME/.var/app/$Pegasus_emuPath/pegasus-frontend/game_dirs.txt"
-Pegasus_config_file="$HOME/.var/app/$Pegasus_emuPath/pegasus-frontend/settings.txt"
+pegasus_toolName="Pegasus Frontend"
+pegasus_emuPath="org.pegasus_frontend.Pegasus"
+pegasus_path="$HOME/.var/app/$pegasus_emuPath/config"
+pegasus_dir_file="$HOME/.var/app/$pegasus_emuPath/pegasus-frontend/game_dirs.txt"
+pegasus_config_file="$HOME/.var/app/$pegasus_emuPath/pegasus-frontend/settings.txt"
 
 #cleanupOlderThings
-Pegasus_cleanup(){
+pegasus_cleanup(){
 	echo "NYI"
 }
 
 #Install
-Pegasus_install(){
+pegasus_install(){
 
-	setMSG "Installing $Pegasus_toolName"
+	setMSG "Installing $pegasus_toolName"
 
 	local showProgress="$1"
 
-	installEmuFP "${Pegasus_toolName}" "${Pegasus_emuPath}"
-	flatpak override "${Pegasus_emuPath}" --filesystem=host --user
-	Pegasus_init
+	installEmuFP "${pegasus_toolName}" "${pegasus_emuPath}"
+	flatpak override "${pegasus_emuPath}" --filesystem=host --user
+	pegasus_init
 
 }
 
 #ApplyInitialSettings
-Pegasus_init(){
-	setMSG "Setting up $Pegasus_toolName"
+pegasus_init(){
+	setMSG "Setting up $pegasus_toolName"
 
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/$Pegasus_emuPath/" "$Pegasus_path/"
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/$pegasus_emuPath/" "$pegasus_path/"
 
-	#metadata and cores paths
+	#metadata and paths
 	rsync -r  "$EMUDECKGIT/roms/" "$romsPath"
+	rsync -av -f"+ */" -f"- *"  "$EMUDECKGIT/roms/" "$toolsPath/downloaded_media"
 	find $romsPath -type f -name "metadata.txt" -exec sed -i "s|CORESPATH|${RetroArch_cores}|g" {} \;
+	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$pegasus_dir_file"
+	for systemPath in "$romsPath"/*; do rm -rf "$systemPath/media" &> /dev/null; done
 
+	for systemPath in "$romsPath"/*; do system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/'); mkdir -p "$toolsPath/downloaded_media/$system/covers"; mkdir -p "$toolsPath/downloaded_media/$system/box2dfront" ; mkdir -p "$toolsPath/downloaded_media/$system/marquees"; mkdir -p "$toolsPath/downloaded_media/$system/wheel" &> /dev/null; done
 
-	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$Pegasus_dir_file"
+	for systemPath in "$romsPath"/*; do system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/'); ln -s "$toolsPath/downloaded_media/$system" "$systemPath/media" &> /dev/null; ln -s "$toolsPath/downloaded_media/$system/covers" "$toolsPath/downloaded_media/$system/box2dfront" &> /dev/null; ln -s "$toolsPath/downloaded_media/$system/marquees" "$toolsPath/downloaded_media/$system/wheel" &> /dev/null; done
 
-	#Pegasus_addCustomSystems
-	#Pegasus_setEmulationFolder
-	#Pegasus_setDefaultEmulators
-	Pegasus_applyTheme "$pegasusTheme"
+	for systemPath in "$romsPath"/*; do rm -rf ".*/" &> /dev/null; done
+
+	#pegasus_addCustomSystems
+	#pegasus_setEmulationFolder
+	#pegasus_setDefaultEmulators
+	pegasus_applyTheme "$pegasusTheme"
+
 }
 
 
-Pegasus_resetConfig(){
-	Pegasus_init &>/dev/null && echo "true" || echo "false"
+pegasus_resetConfig(){
+	pegasus_init &>/dev/null && echo "true" || echo "false"
 }
 
-Pegasus_update(){
-	Pegasus_init &>/dev/null && echo "true" || echo "false"
+pegasus_update(){
+	pegasus_init &>/dev/null && echo "true" || echo "false"
 }
 
-Pegasus_addCustomSystems(){
+pegasus_addCustomSystems(){
 	echo "NYI"
 }
 
-Pegasus_applyTheme(){
+pegasus_applyTheme(){
 	pegasusTheme=$1
 
 	local themeName=$(basename "$(echo $pegasusTheme | rev | cut -d'/' -f1 | rev)")
 	themeName="${themeName/.git/""}"
 
-	git clone --no-single-branch --depth=1 "$pegasusTheme" "$Pegasus_path/themes/$themeName/"
-	cd "$Pegasus_path/themes/$themeName/" && git pull
+	git clone --no-single-branch --depth=1 "$pegasusTheme" "$pegasus_path/themes/$themeName/"
+	cd "$pegasus_path/themes/$themeName/" && git pull
 
-	changeLine 'general.theme:' 'general.theme: themes/$themeName' "$Pegasus_config_file"
+	changeLine 'general.theme:' 'general.theme: themes/$themeName' "$pegasus_config_file"
 
-	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$Pegasus_dir_file"
+	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$pegasus_dir_file"
 }
 
-Pegasus_setDefaultEmulators(){
+pegasus_setDefaultEmulators(){
 	echo "NYI"
 }
 
-Pegasus_setEmu(){
+pegasus_setEmu(){
 	echo "NYI"
 }
 
-Pegasus_IsInstalled(){
-	isFpInstalled "$Pegasus_emuPath"
+pegasus_IsInstalled(){
+	isFpInstalled "$pegasus_emuPath"
 }
 
-Pegasus_uninstall(){
-	flatpak uninstall "$Pegasus_emuPath" --user -y
+pegasus_uninstall(){
+	flatpak uninstall "$pegasus_emuPath" --user -y
 }

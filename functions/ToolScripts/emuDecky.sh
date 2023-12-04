@@ -1,53 +1,49 @@
 #!/bin/bash
 
 Decky_autoSave(){
-	if [ "$RABezels" == true ]; then	
-		RetroArch_bezelOnAll
-	else
-		RetroArch_bezelOffAll
-	fi	
+	RetroArch_autoSave
 }
 
 Decky_bezels(){
-	if [ "$RABezels" == true ]; then	
+	if [ "$RABezels" == true ]; then
 		RetroArch_bezelOnAll
 	else
 		RetroArch_bezelOffAll
-	fi	
+	fi
 }
 
 Decky_shaders_LCD(){
-	if [ "$RAHandHeldShader" == true ]; then	
+	if [ "$RAHandHeldShader" == true ]; then
 		RetroArch_MATshadersOnAll
 	else
 		RetroArch_MATshadersOffAll
-	fi	
+	fi
 }
 
 Decky_shaders_2D(){
-	if [ "$RAHandClassic2D" == true ]; then	
+	if [ "$RAHandClassic2D" == true ]; then
 		RetroArch_CRTshaderOnAll
 	else
 		RetroArch_CRTshaderOffAll
-	fi	
+	fi
 }
 
 Decky_shaders_3D(){
-	if [ "$RAHandClassic3D" == true ]; then	
+	if [ "$RAHandClassic3D" == true ]; then
 		RetroArch_3DCRTshaderOnAll
 	else
 		RetroArch_3DCRTshaderOffAll
-	fi	
+	fi
 }
 
 Decky_ar_snes(){
-	if [ "$arSnes" == 87 ]; then	
+	if [ "$arSnes" == 87 ]; then
 		RetroArch_snes_ar87
 		RetroArch_nes_ar87
 	else
 		RetroArch_snes_ar43
 		RetroArch_nes_ar43
-	fi	
+	fi
 }
 
 
@@ -59,10 +55,10 @@ Decky_setAR(){
 	Dolphin_setCustomizations
 }
 
-Decky_setClourd(){
+Decky_setCloud(){
   if [ $cloud_sync_status == "false" ]; then
-	setSetting cloud_sync_status "true" > /dev/null 
+	setSetting cloud_sync_status "true" > /dev/null
   else
-  	setSetting cloud_sync_status "false" > /dev/null 
+  	setSetting cloud_sync_status "false" > /dev/null
   fi
 }

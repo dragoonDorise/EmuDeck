@@ -1,5 +1,5 @@
 #!/bin/bash
-MSG=$HOME/.config/EmuDeck/msg.log
+MSG=$HOME/emudeck/logs/msg.log
 echo "0" > "$MSG"
 
 #
@@ -154,7 +154,7 @@ fi
 #Pegasus Installation
 if [ $doInstallPegasus == "true" ]; then
 	echo "install Pegasus"
-	Pegasus_install
+	pegasus_install
 fi
 #SRM Installation
 if [ $doInstallSRM == "true" ]; then
@@ -274,8 +274,8 @@ fi
 
 #Pegasus Config
 #if [ $doSetupPegasus == "true" ]; then
-#	echo "Pegasus_init"
-#	Pegasus_init
+#	echo "pegasus_init"
+#	pegasus_init
 #fi
 
 #Emus config
@@ -408,7 +408,6 @@ fi
 # fi
 
 #Always install
-Plugins_install
 BINUP_install
 CHD_install
 
@@ -440,7 +439,11 @@ if [ "$system" == "chimeraos" ]; then
 	destination_dir="$HOME/Applications"
 	file_name="EmuDeck"
 
+	mkdir -p $destination_dir
+
 	find "$downloads_dir" -type f -name "*$file_name*.AppImage" -exec mv {} "$destination_dir/$file_name.AppImage" \;
+
+	chmod +x "$destination_dir/EmuDeck.AppImage"
 
 fi
 
@@ -457,7 +460,7 @@ fi
 ##Validations
 ##
 #
-if [ "system" != "darwin" ]; then
+if [ "$system" != "darwin" ]; then
 	#Decky Plugins
 	if [ "$system" == "chimeraos" ]; then
 		defaultPass="gamer"
@@ -465,37 +468,24 @@ if [ "system" != "darwin" ]; then
 		defaultPass="Decky!"
 	fi
 
- 	if ( echo "$defaultPass" | sudo -S -k true ); then
-		echo "true"
-  	else
-	  	PASS=$(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
-	  	if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
-		  	exit 1
-	  	fi
-	  	if ( echo "$PASS" | sudo -S -k true ); then
-		  	defaultPass=$PASS
-	  	else
-		  	zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
-	  	fi
-		fi
-
-	echo $defaultPass | sudo -v -S && {
-		Plugins_installEmuDecky $defaultPass
-		if [ "$system" == "chimeraos" ]; then
-			Plugins_installPowerControl $defaultPass
-		else
-			Plugins_installPowerTools $defaultPass
-		fi
-		Plugins_installSteamDeckGyroDSU $defaultPass
-		Plugins_installPluginLoader $defaultPass
-	}
-
+	 if ( echo "$defaultPass" | sudo -S -k true ); then
+		echo $defaultPass | sudo -v -S && {
+			Plugins_installEmuDecky $defaultPass
+			if [ "$system" == "chimeraos" ]; then
+				Plugins_installPowerControl $defaultPass
+			else
+				Plugins_installPowerTools $defaultPass
+			fi
+			Plugins_installSteamDeckGyroDSU $defaultPass
+			Plugins_installPluginLoader $defaultPass
+		}
+	fi
 fi
 
 #EmuDeck updater on gaming Mode
-mkdir -p "${toolsPath}/updater"
-cp -v "$EMUDECKGIT/tools/updater/emudeck-updater.sh" "${toolsPath}/updater/"
-chmod +x "${toolsPath}/updater/emudeck-updater.sh"
+#mkdir -p "${toolsPath}/updater"
+#cp -v "$EMUDECKGIT/tools/updater/emudeck-updater.sh" "${toolsPath}/updater/"
+#chmod +x "${toolsPath}/updater/emudeck-updater.sh"
 
 #RemotePlayWhatever
 # if [[ ! $branch == "main" ]]; then
@@ -507,8 +497,8 @@ chmod +x "${toolsPath}/updater/emudeck-updater.sh"
 #
 echo "" > "$HOME/.config/EmuDeck/.finished"
 echo "" > "$HOME/.config/EmuDeck/.ui-finished"
-echo "100" > "$HOME/.config/EmuDeck/msg.log"
-echo "# Installation Complete" >> "$HOME/.config/EmuDeck/msg.log"
+echo "100" > "$HOME/emudeck/logs/msg.log"
+echo "# Installation Complete" >> "$HOME/emudeck/logs/msg.log"
 finished=true
 rm "$PIDFILE"
 
