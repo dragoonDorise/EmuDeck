@@ -63,8 +63,9 @@ API_getToken(){
 	curl --location --data-urlencode u='$escapedUserName' --data-urlencode p='$escapedPass' --request POST 'https://retroachievements.org/dorequest.php?r=login'
 }
 
+API_optional_parsers(){
+	echo "true"
+}
 
-  let bashCommand = `curl --location --data-urlencode u='${escapedUserName}' --data-urlencode p='${escapedPass}' --request POST 'https://retroachievements.org/dorequest.php?r=login'`;
-  if (os.platform().includes('win32')) {
-	bashCommand = `curl "https://retroachievements.org/dorequest.php?r=login&u=${command.user}&p=${command.pass}"`;
-  }
+
+
