@@ -3,8 +3,9 @@
 pegasus_toolName="Pegasus Frontend"
 pegasus_emuPath="org.pegasus_frontend.Pegasus"
 pegasus_path="$HOME/.var/app/$pegasus_emuPath/config"
-pegasus_dir_file="$HOME/.var/app/$pegasus_emuPath/pegasus-frontend/game_dirs.txt"
-pegasus_config_file="$HOME/.var/app/$pegasus_emuPath/pegasus-frontend/settings.txt"
+pegasus_dir_file="$pegasus_path/pegasus-frontend/game_dirs.txt"
+pegasus_config_file="$pegasus_path/pegasus-frontend/settings.txt"
+pegasus_themes_path="$pegasus_path/pegasus-frontend/themes"
 
 #cleanupOlderThings
 pegasus_cleanup(){
@@ -43,6 +44,8 @@ pegasus_init(){
 
 	for systemPath in "$romsPath"/*; do rm -rf ".*/" &> /dev/null; done
 
+	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$pegasus_dir_file"
+
 	#pegasus_addCustomSystems
 	#pegasus_setEmulationFolder
 	#pegasus_setDefaultEmulators
@@ -69,12 +72,11 @@ pegasus_applyTheme(){
 	local themeName=$(basename "$(echo $pegasusTheme | rev | cut -d'/' -f1 | rev)")
 	themeName="${themeName/.git/""}"
 
-	git clone --no-single-branch --depth=1 "$pegasusTheme" "$pegasus_path/themes/$themeName/"
+	git clone --no-single-branch --depth=1 "$pegasusTheme" "$pegasus_themes_path/$themeName/"
 	cd "$pegasus_path/themes/$themeName/" && git pull
 
-	changeLine 'general.theme:' 'general.theme: themes/$themeName' "$pegasus_config_file"
+	changeLine 'general.theme:' "general.theme: themes/$themeName" "$pegasus_config_file"
 
-	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$pegasus_dir_file"
 }
 
 pegasus_setDefaultEmulators(){
