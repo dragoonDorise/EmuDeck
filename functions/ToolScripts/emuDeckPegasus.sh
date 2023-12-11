@@ -49,7 +49,7 @@ pegasus_init(){
 	#pegasus_addCustomSystems
 	#pegasus_setEmulationFolder
 	#pegasus_setDefaultEmulators
-	pegasus_applyTheme "$pegasusTheme"
+	pegasus_applyTheme "$pegasusThemeUrl"
 
 }
 
