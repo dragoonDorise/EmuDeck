@@ -15,7 +15,7 @@
   "srm": { "id": "srm", "code": "SRM", "version": 6 },
   "rmg": { "id": "rmg", "code": "RMG", "version": 0 },
   "esde": { "id": "esde", "code": "ESDE", "version": 1 },
-  "pegasus": { "id": "pegasus", "code": "Pegasus", "version": 1 },
+  "pegasus": { "id": "pegasus", "code": "Pegasus", "version": 2 },
   "mame": { "id": "mame", "code": "MAME", "version": 0 },
   "vita3k": { "id": "vita3k", "code": "Vita3k", "version": 0 },
   "scummvm": { "id": "scummvm", "code": "ScummVM", "version": 0 },
