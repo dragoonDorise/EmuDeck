@@ -53,7 +53,9 @@ pegasus_init(){
 
 }
 
-
+Pegasus_resetConfig(){
+	pegasus_resetConfig
+}
 pegasus_resetConfig(){
 	pegasus_init &>/dev/null && echo "true" || echo "false"
 }
