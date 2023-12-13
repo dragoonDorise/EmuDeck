@@ -612,19 +612,19 @@ cloud_decky_check_status(){
       if [ -f "$savesPath/.gaming" ] && [ ! -f "$HOME/emudeck/cloud.lock" ]; then
         echo "started"
       elif [ -f "$savesPath/.gaming" ]; then
-        echo "started"
+        echo "nothing"
       elif [ -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
         echo "uploading"
       elif [ ! -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
-        echo "finished"
+        echo "nothing"
       else
         echo "nothing"
       fi
     else
-      echo "disabled"
+      echo "nothing"
     fi
   else
-    echo "disabled"
+    echo "nothing"
   fi
 
 }
