@@ -356,7 +356,7 @@ if [ "$RUNCHOICE" == 1 ]; then
 			fi	
 			
 	
-			if [[ $doInstallPowertools == "true" || $doInstallGyro == "true" || $isRealDeck == "false" ]]; then
+			if [[ $doInstallPowertools == "true" || $isRealDeck == "false" ]]; then
 				hasPass=$(passwd -S "$USER" | awk -F " " '{print $2}')
 				if [[ ! $hasPass == "P" ]]; then
 					text="$(printf "<b>Password not set.</b>\n Please set one now in the terminal.\nYou will not see text entry in the terminal for your password. This is normal.\nOnce set, you will be prompted to enter it in a new window.")"
