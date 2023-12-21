@@ -1,13 +1,13 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo Game Boy Color - RetroArch SameBoy",
-  "steamCategory": "${Nintendo Game Boy Color - SameBoy}",
+  "configTitle": "Nintendo Game Boy - mGBA",
+  "steamCategory": "${Nintendo Game Boy - mGBA}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}sameboy_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "executableArgs": "-f \"'${filePath}'\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
@@ -28,7 +28,7 @@
     "useCredentials": true
   },
   "parserInputs": {
-    "glob": "{gbc/**/!(homebrew),gbc}/${title}@(.7z|.7Z|.gb|.GB|.gbc|.GBC|.zip|.ZIP)"
+    "glob": "{gb/**/!(homebrew),gb}/${title}@(.7z|.7Z|.gb|.GB|.dmg|.DMG|.zip|.ZIP)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
@@ -42,12 +42,46 @@
     "removeBrackets": true
   },
   "executable": {
-    "path": "${retroarchpath}",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mgba.sh",
     "shortcutPassthrough": false,
-    "appendArgsToExecutable": true
+    "appendArgsToExecutable": false
   },
-  "parserId": "164785590985613234",
-  "version": 10,
+  "parserId": "164385421865061350",
+  "version": 13,
+  "controllers": {
+    "switch_pro": {
+      "title": "EmuDeck - Switch Pro",
+      "mappingId": "emudeck_controller_switch_pro.vdf",
+      "profileType": "template"
+    },
+    "neptune": {
+      "title": "EmuDeck - Steam Deck",
+      "mappingId": "emudeck_controller_steamdeck.vdf",
+      "profileType": "template"
+    },
+    "ps4": {
+      "title": "EmuDeck - Dual Shock 4",
+      "mappingId": "emudeck_controller_ps4.vdf",
+      "profileType": "template"
+    },
+    "ps5": {
+      "title": "EmuDeck - Dual Sense",
+      "mappingId": "emudeck_controller_ps5.vdf",
+      "profileType": "template"
+    },
+    "xbox360": {
+      "title": "EmuDeck - Xbox 360",
+      "mappingId": "emudeck_controller_xbox360.vdf",
+      "profileType": "template"
+    },
+    "xboxone": {
+      "title": "EmuDeck - Xbox One",
+      "mappingId": "emudeck_controller_xboxone.vdf",
+      "profileType": "template"
+    },
+    "switch_joycon_left": null,
+    "switch_joycon_right": null
+  },
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,

@@ -1,7 +1,7 @@
 collection: Sony PlayStation 3
 shortname: ps3
 extensions: desktop, ps3, PS3, ps3dir, PS3DIR
-launch: /bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/rpcs3.sh --no-gui {file.path}
+launch:  /run/media/mmcblk0p1/Emulation/tools/launchers/rpcs3.sh --no-gui {file.path}
 
 
 

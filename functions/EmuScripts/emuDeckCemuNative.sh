@@ -8,12 +8,12 @@ CemuNative_functions () {
 	declare -A CemuNative=(
 		[emuName]="CemuNative"
 		[emuType]="AppImage"
-		[emuPath]="${HOME}/Applications/Cemu.AppImage"
+		[emuPath]="${HOME}/Applications/CemuNative.AppImage"
 		[configDir]="${HOME}/.config/Cemu"
 		[configFile]="${HOME}/.config/Cemu/settings.xml"
 		[shareDir]="${HOME}/.local/share/Cemu"
 	)
-	
+
 	# Cleanup older things
 	cleanup () {
 		echo "NYI"
@@ -136,7 +136,7 @@ CemuNative_functions () {
 	bezelOn () {
 		echo "NYI"
 	}
-	
+
 	# Bezels OFF
 	bezelOff () {
 		echo "NYI"
@@ -206,6 +206,9 @@ CemuNative_functions () {
 	init () {
 		setMSG "Initialising ${CemuNative[emuName]} settings."
 		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/config/cemu" "true"
+		cp "$EMUDECKGIT/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
+		cp "$EMUDECKGIT/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "$SRM_userData_configDir/parsers/custom/"
+		SRM_createParsers
 		#configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu" "true" #seems unneeded? maybe?
 		setEmulationFolder
 		setupStorage
@@ -217,6 +220,9 @@ CemuNative_functions () {
 	update () {
 		setMSG "Updating ${CemuNative[emuName]} settings."
 		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/.config/cemu"
+		cp "$EMUDECKGIT/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
+		cp "$EMUDECKGIT/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "$SRM_userData_configDir/parsers/custom/"
+		SRM_createParsers
 		#configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu" #seems unneeded? maybe?
 		#migrate
 		setEmulationFolder
@@ -242,8 +248,9 @@ CemuNative_functions () {
 
 	# Add Steam Input Profile
 	addSteamInputProfile () {
-		setMSG "Adding ${CemuNative[emuName]} Steam Input Profile."
-		rsync -r "${EMUDECKGIT}/configs/steam-input/cemu_controller_config.vdf" "${HOME}/.steam/steam/controller_base/templates/"
+		echo "NYI"
+		#setMSG "Adding ${CemuNative[emuName]} Steam Input Profile."
+		#rsync -r "${EMUDECKGIT}/configs/steam-input/cemu_controller_config.vdf" "${HOME}/.steam/steam/controller_base/templates/"
 	}
 
 	$function "$showProgress" # Call the above functions
@@ -343,4 +350,8 @@ CemuNative_resetConfig () {
 # Add Steam Input Profile
 CemuNative_addSteamInputProfile () {
 	CemuNative_functions "addSteamInputProfile"
+}
+
+CemuNative_setResolution(){
+	echo "NYI"
 }

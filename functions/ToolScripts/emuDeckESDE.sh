@@ -32,7 +32,23 @@ ESDE_migration(){
 	if [ -f "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ]; then
 		mv "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" "${toolsPath}/EmulationStation-DE.AppImage"
 		sed -i "s|EmulationStation-DE-x64_SteamDeck.AppImage|EmulationStation-DE.AppImage|g" "$toolsPath/launchers/esde/emulationstationde.sh"
+		ESDE_createDesktopShortcut
 	fi
+}
+
+ESDE_createDesktopShortcut(){
+	mkdir -p "$toolsPath/launchers/esde"
+  cp "$EMUDECKGIT/tools/launchers/esde/emulationstationde.sh" "$toolsPath/launchers/esde/emulationstationde.sh"
+  rm -rf $HOME/.local/share/applications/EmulationStation-DE.desktop
+  createDesktopShortcut   "$HOME/.local/share/applications/EmulationStation-DE.desktop" \
+  "EmulationStation-DE AppImage" \
+  "${toolsPath}/launchers/esde/emulationstationde.sh" \
+  "false"
+}
+
+ESDE_uninstall(){
+  rm -rf "${toolsPath}/EmulationStation-DE.AppImage"
+  rm -rf $HOME/.local/share/applications/EmulationStationDE.desktop
 }
 
 #Install
@@ -41,11 +57,11 @@ ESDE_install(){
 	setMSG "Installing $ESDE_toolName"
 
 	local showProgress="$1"
-
+	local filename="$ESDE_toolName.$ESDE_toolType"
 	if [[ $ESDE_releaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
 
 			if installToolAI "$ESDE_toolName" "$ESDE_releaseURL" "" "$showProgress"; then
-				:
+				ESDE_createDesktopShortcut
 		 	else
 				return 1
 		 	fi
@@ -54,11 +70,6 @@ ESDE_install(){
 		setMSG "$ESDE_toolName not found"
 		return 1
 	fi
-}
-
-ESDE_uninstall(){
-  rm -rf "${toolsPath}/EmulationStation-DE.AppImage"
-  rm -rf $HOME/.local/share/applications/EmulationStationDE.desktop
 }
 
 # ESDE20_install(){
@@ -104,13 +115,25 @@ ESDE_init(){
 	ESDE_addCustomSystems
 	ESDE_setEmulationFolder
 	ESDE_setDefaultEmulators
-	ESDE_applyTheme "$esdeTheme"
+	ESDE_applyTheme  "$esdeThemeUrl" "$esdeThemeName"
 	ESDE_migrateDownloadedMedia
 	ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
 	ESDE_finalize
 	ESDE_migrateEpicNoir
 
+	if [ "$system" == "chimeraos" ] || [ "$system" == "ChimeraOS" ]; then
+			ESDE_chimeraOS
+		fi
+
+}
+
+ESDE_chimeraOS(){
+	if [ ! -f $es_rulesFile ]; then
+		rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
+	else
+		xmlstarlet ed -d '//entry[contains(., "~/Applications/RetroArch-Linux*.AppImage") or contains(., "~/.local/share/applications/RetroArch-Linux*.AppImage") or contains(., "~/.local/bin/RetroArch-Linux*.AppImage") or contains(., "~/bin/RetroArch-Linux*.AppImage")]' $es_rulesFile > rules_temp.xml && mv rules_temp.xml $es_rulesFile
+	fi
 }
 
 
@@ -134,7 +157,7 @@ ESDE_update(){
 	ESDE_addCustomSystems
 	ESDE_setEmulationFolder
 	ESDE_setDefaultEmulators
-	ESDE_applyTheme "$esdeTheme"
+	ESDE_applyTheme "$esdeThemeUrl" "$esdeThemeName"
 	ESDE_migrateDownloadedMedia
 	ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
@@ -168,29 +191,26 @@ ESDE_addCustomSystems(){
 
 #update
 ESDE_applyTheme(){
-	defaultTheme="https://github.com/anthonycaccese/epic-noir-revisited-es-de.git"
-	local theme=$1
-	local themeName=$(basename "$(echo $theme | rev | cut -d'/' -f1 | rev)")
-	themeName="${themeName/.git/""}"
+	local themeUrl=$1
+	local themeName=$2
 
-	if [[ "${theme}" == "" ]]; then
-		echo "ESDE: applyTheme parameter not set."
-		theme="$defaultTheme"
+	echo "ESDE: applyTheme $themeName"
+	mkdir -p "$HOME/.emulationstation/themes/"
+	if [ -d "$HOME/.emulationstation/themes/$themeName" ]; then
+		cd "$HOME/.emulationstation/themes/$themeName" && git pull
+	else
+		git clone $themeUrl "$HOME/.emulationstation/themes/"
 	fi
 
-	echo "ESDE: applyTheme $theme"
-	mkdir -p "$HOME/.emulationstation/themes/"
+	updateOrAppendConfigLine "$es_settingsFile" "<string name=\"ThemeSet\"" "<string name=\"ThemeSet\" value=\"\""
+	updateOrAppendConfigLine "$es_settingsFile" "<string name=\"Theme\"" "<string name=\"Theme\" value=\"\""
 
-	#old epic noir themes
-	rm -rf "$HOME/.emulationstation/themes/epic-noir-revisited" #remove old themes
-	rm -rf "$HOME/.emulationstation/themes/es-epicnoir" #remove old themes
+	sed -i "s/<string name=\"ThemeSet\" value=\"[^\"]*\"/<string name=\"ThemeSet\" value=\"$themeName\"\/>/" "$es_settingsFile"
+sed -i "s/<string name=\"Theme\" value=\"[^\"]*\"/<string name=\"Theme\" value=\"$themeName\"\/>/" "$es_settingsFile"
 
-	git clone --no-single-branch --depth=1 "$theme" "$HOME/.emulationstation/themes/$themeName/"
 
-	cd "$HOME/.emulationstation/themes/$themeName/" && git reset --hard HEAD && git clean -f -d && git pull && echo  "$themeName up to date!" || echo "problem pulling $themeName theme"
-
-	changeLine '<string name="ThemeSet"' "<string name=\"ThemeSet\" value=\"$themeName\" />" "$es_settingsFile"
 }
+
 
 #ConfigurePaths
 ESDE_setEmulationFolder(){
@@ -333,8 +353,8 @@ ESDE_setEmu(){
 
 ESDE_addSteamInputProfile(){
 	addSteamInputCustomIcons
-	setMSG "Adding $ESDE_toolName Steam Input Profile."
-		rsync -r "$ESDE_addSteamInputFile" "$steam_input_templateFolder"
+	#setMSG "Adding $ESDE_toolName Steam Input Profile."
+		#rsync -r "$ESDE_addSteamInputFile" "$steam_input_templateFolder"
 }
 
 ESDE_IsInstalled(){

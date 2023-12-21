@@ -1,6 +1,6 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu pcsx2
+cloud_sync_downloadEmu pcsx2 && cloud_sync_startService
 emuName="pcsx2-Qt" #parameterize me
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
 
@@ -19,9 +19,5 @@ fi
 #run the executable with the params.
 #Fix first '
 param="${@}"
-substituteWith='"'
-param=${param/\'/"$substituteWith"}
-#Fix last ' on command
-param=$(echo "$param" | sed 's/.$/"/')
+param=$(echo "$param" | sed "s|'|/\"|g")
 eval "${exe} ${param} -bigpicture -fullscreen"
-cloud_sync_uploadEmu pcsx2
