@@ -1,4 +1,4 @@
 collection: Sony PlayStation Vita
 shortname: psvita
 extensions: eboot.bin
-launch: /bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/vita3k.sh -Fr {file.path}
+launch:  /run/media/mmcblk0p1/Emulation/tools/launchers/vita3k.sh -Fr {file.path}

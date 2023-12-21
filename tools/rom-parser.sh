@@ -12,12 +12,8 @@ BOLD='\033[1m'
 UNDERLINE='\033[4m'
 BLINK='\x1b[5m'
 
-. "./scrapers/retroarch.sh"
-#. "$HOME/.config/EmuDeck/backend/tools/scrapers/retroarch.sh"
-. "./scrapers/launchbox.sh"
-#. "$HOME/.config/EmuDeck/backend/tools/scrapers/launchbox.sh"
-. "./scrapers/screenscraper.sh"
-#. "$HOME/.config/EmuDeck/backend/tools/scrapers/screenscraper.sh"
+. "$HOME/.config/EmuDeck/backend/tools/scrapers/retroarch.sh"
+. "$HOME/.config/EmuDeck/backend/tools/scrapers/screenscraper.sh"
 
 romParser_RA_start
 #romParser_LB_start

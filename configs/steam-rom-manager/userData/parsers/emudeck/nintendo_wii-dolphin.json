@@ -11,7 +11,7 @@
   "titleModifier": "${fuzzyTitle}",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
-  "disabled": true,
+  "disabled": false,
   "executable": {
     "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/dolphin-emu.sh",
     "shortcutPassthrough": false,

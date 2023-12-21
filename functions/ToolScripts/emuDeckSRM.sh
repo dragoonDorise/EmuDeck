@@ -49,24 +49,25 @@ SRM_init(){
   local output_file="$SRM_userData_configDir/userConfigurations.json"
 
   mkdir -p "$SRM_userData_configDir/"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userConfigurations.json"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$SRM_userData_configDir/userConfigurations.json"
-  sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userConfigurations.json"
-
-  sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userSettings.json"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$SRM_userData_configDir/userSettings.json"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userSettings.json"
-
-  #old SRM
-  SRM_migration
 
   setMSG 'Steam Rom Manager - Creating Parsers & Steam Input profiles'
   SRM_createParsers
   SRM_addSteamInputProfiles
+  #old SRM
+  SRM_migration
 
   sleep 1
 
   SRM_setEnv
+
+
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userConfigurations.json"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$SRM_userData_configDir/userConfigurations.json"
+	sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userConfigurations.json"
+
+	sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userSettings.json"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$SRM_userData_configDir/userSettings.json"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userSettings.json"
 
 
   echo -e "true"
