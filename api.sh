@@ -1,6 +1,6 @@
 #!/bin/bash
 API_pull(){
-	local branch = $1
+	local branch=$1
 	cd ~/.config/EmuDeck/backend && touch ~/emudeck/logs/git.log && script ~/emudeck/logs/git.log -c 'git reset --hard && git clean -fd && git checkout $branch && git pull' && appImageInit
 }
 
