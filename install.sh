@@ -64,7 +64,7 @@ elif [ $linuxID != "SteamOS" ]; then
         sudo pacman --noconfirm -S $ARCH_DEPS
     elif command -v dnf >/dev/null; then
         echo "Installing packages with dnf..."
-        FEDORA_DEPS="jq zenity flatpak unzip bash fuse git rsync whiptail"
+        FEDORA_DEPS="jq zenity flatpak unzip bash fuse git rsync newt"
 
         sudo dnf -y upgrade
         sudo dnf -y install $FEDORA_DEPS
