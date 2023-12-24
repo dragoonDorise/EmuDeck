@@ -204,7 +204,7 @@ Ryujinx_setResolution(){
 		"1080P") multiplier=1; docked="true";;
 		"1440P") multiplier=2; docked="false";;
 		"4K") multiplier=2; docked="true";;
-		*) echo "Error"; exit 1;;
+		*) echo "Error"; return 1;;
 	esac
 
 	jq --arg docked "$docked" --arg multiplier "$multiplier" \

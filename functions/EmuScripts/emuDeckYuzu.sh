@@ -286,7 +286,7 @@ Yuzu_setResolution(){
 		"1080P") multiplier=2; docked="true";;
 		"1440P") multiplier=3; docked="false";;
 		"4K") multiplier=3; docked="true";;
-		*) echo "Error"; exit 1;;
+		*) echo "Error"; return 1;;
 	esac
 
 	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Yuzu_configFile"
