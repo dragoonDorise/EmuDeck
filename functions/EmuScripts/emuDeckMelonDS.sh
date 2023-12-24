@@ -166,6 +166,6 @@ melonDS_setResolution(){
 		*) echo "Error"; exit 1;;
 	esac
 
-	RetroArch_setConfigOverride "WindowWidth" $WindowWidth "$melonD_configFile"
-	RetroArch_setConfigOverride "WindowHeight" $WindowHeight "$melonD_configFile"
+	RetroArch_setConfigOverride "WindowWidth" $WindowWidth "$melonDS_configFile"
+	RetroArch_setConfigOverride "WindowHeight" $WindowHeight "$melonDS_configFile"
 }
