@@ -200,10 +200,10 @@ Ryujinx_resetConfig(){
 Ryujinx_setResolution(){
 
 	case $ryujinxResolution in
-		"720P") multiplier=2; docked="false";;
-		"1080P") multiplier=2; docked="true";;
-		"1440P") multiplier=3; docked="false";;
-		"4K") multiplier=3; docked="true";;
+		"720P") multiplier=1; docked="false";;
+		"1080P") multiplier=1; docked="true";;
+		"1440P") multiplier=2; docked="false";;
+		"4K") multiplier=2; docked="true";;
 		*) echo "Error"; exit 1;;
 	esac
 
