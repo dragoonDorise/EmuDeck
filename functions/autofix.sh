@@ -26,8 +26,8 @@ function autofix_dynamicParsers(){
 		setSetting emuMULTI "ra"
 		setSetting emuGBA "multiemulator"
 		setSetting emuMAME "multiemulator"
-		setSetting emuN64 "multiemulator"
-		setSetting emuNDS "melonDS"
+		setSetting emuN64 "ra"
+		setSetting emuNDS "melonds"
 		setSetting emuPSP "ppsspp"
 		setSetting emuPSX "duckstation"
 	fi

@@ -196,7 +196,7 @@ RPCS3_setResolution(){
 		"1080P") res=150;;
 		"1440P") res=200;;
 		"4K") res=300;;
-		*) echo "Error"; exit 1;;
+		*) echo "Error"; return 1;;
 	esac
 
 	RetroArch_setConfigOverride "Resolution Scale:" $res "$RPCS3_configFile"

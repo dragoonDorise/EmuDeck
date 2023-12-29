@@ -412,11 +412,11 @@ function getReleaseURLGH(){
 	local fileNameContains=$3
 	#local token=$(tokenGenerator)
 
-	if [ $system == "darwin" ]; then
+	if [ "$system" == "darwin" ]; then
 		fileType="dmg"
 	fi
 
-	if [ $system == "darwin" ]; then
+	if [ "$system" == "darwin" ]; then
 		fileType="dmg"
 	fi
 
