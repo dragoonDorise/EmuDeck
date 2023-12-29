@@ -8,21 +8,24 @@ Plugins_install_cleanup() {
 	#systemctl daemon-reload
 	#systemctl restart plugin_loader
 
-	if [ "$password" = "Decky!" ] || [ "$password" = "gamer" ]; then
+	#Deleting temp password
+	if [ "$password" = "Decky!" ]; then
 		echo "$password" | sudo -S -k passwd -d $(whoami)
 	fi
 }
 
 Plugins_checkPassword(){
    local password=$1
-   if [ "$password" = "Decky!" ] || [ "$password" = "gamer" ]; then
+   if [ "$password" = "Decky!" ]; then
      #We create the password
      yes "$password" | passwd $(whoami)
+   elif [ "$system" == "chimeraos" ]; then
+   	password="gamer"
    else
       if ( echo "$PASS" | sudo -S -k true ); then
         echo "true"
       else
-          PASS=$(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
+          read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
           if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
               exit 1
           fi

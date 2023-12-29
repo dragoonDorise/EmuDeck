@@ -1,6 +1,6 @@
 collection: Nintendo GameCube
 shortname: gc
 extensions: gcm, GCM, iso, ISO, wbfs, WBFS, wia, WIA, ciso, CISO, gcz, GCZ, elf, ELF, dol, DOL, dff, DFF, json, JSON, rvz, RVZ, tgc, TGC, wad, WAD, m3u, M3U, 7z, 7Z, zip, ZIP
-launch: /bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/dolphin.sh vblank_mode=0 %command% -b -e {file.path}
+launch:  /run/media/mmcblk0p1/Emulation/tools/launchers/dolphin.sh vblank_mode=0 %command% -b -e {file.path}
 
 

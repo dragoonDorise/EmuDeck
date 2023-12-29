@@ -2,7 +2,7 @@
 
 #variables
 Yuzu_emuName="yuzu"
-Yuzu_emuType="AppImage"
+Yuzu_emuType="$emuDeckEmuTypeAppImage"
 Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
 
 Yuzu_configFile="$HOME/.config/yuzu/qt-config.ini"
@@ -341,7 +341,7 @@ Yuzu_setResolution(){
 		"1080P") multiplier=2; docked="true";;
 		"1440P") multiplier=3; docked="false";;
 		"4K") multiplier=3; docked="true";;
-		*) echo "Error"; exit 1;;
+		*) echo "Error"; return 1;;
 	esac
 
 	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Yuzu_configFile"

@@ -1,6 +1,6 @@
 collection: Remote Play Clients
 shortname: remoteplay
 extensions: sh
-launch: /bin/bash {file.path}
+launch:  {file.path}
 
 

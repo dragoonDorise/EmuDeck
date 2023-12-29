@@ -30,6 +30,20 @@
   "parserInputs": {
     "glob": "**/${title}@(.ccd|.CCD|.chd|.CHD|.cue|CUE|.m3u|.M3U|.toc|.TOC|.7z|.7Z|.zip|.ZIP)"
   },
+  "controllers": {
+    "ps4": null,
+    "ps5": null,
+    "xbox360": null,
+    "xboxone": null,
+    "switch_joycon_left": null,
+    "switch_joycon_right": null,
+    "switch_pro": null,
+    "neptune": {
+      "title": "EmuDeck - Steam Deck",
+      "mappingId": "emudeck_controller_steamdeck.vdf",
+      "profileType": "template"
+    }
+  },
   "titleFromVariable": {
     "limitToGroups": "",
     "caseInsensitiveVariables": false,

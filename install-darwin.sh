@@ -75,7 +75,7 @@ EOT
 }
 
 if [ $hasBrew == "false" ]; then
-	pass="$(prompt 'EmuDeck needs to install Brew, and for that you need to input your password:' '')"
+	read -r pass <<< "$(prompt 'EmuDeck needs to install Brew, and for that you need to input your password:' '')"
 	echo $pass | sudo -v -S && {
 		NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSLk https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	}

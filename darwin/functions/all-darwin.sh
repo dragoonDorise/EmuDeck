@@ -1,6 +1,6 @@
 #!/bin/bash
 
-EMUDECKGIT="."
+EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 
 #load helpers first, just in case
 source "$EMUDECKGIT"/functions/helperFunctions.sh

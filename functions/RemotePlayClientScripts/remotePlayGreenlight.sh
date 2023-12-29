@@ -2,7 +2,7 @@
 
 # Variables
 Greenlight_emuName="Greenlight"
-Greenlight_emuType="AppImage"
+Greenlight_emuType="$emuDeckEmuTypeAppImage"
 Greenlight_emuPath="$romsPath/remoteplay/Greenlight.AppImage"
 
 # Install
