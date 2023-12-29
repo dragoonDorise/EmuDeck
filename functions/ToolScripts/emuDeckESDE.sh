@@ -13,7 +13,6 @@ steam_input_templateFolder="$HOME/.steam/steam/controller_base/templates/"
 es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
 es_rulesFile="$HOME/.emulationstation/custom_systems/es_find_rules.xml"
 es_settingsFile="$HOME/.emulationstation/es_settings.xml"
-es_rulesFile="$HOME/.emulationstation/custom_systems/es_find_rules.xml"
 
 
 ESDE_SetAppImageURLS() {

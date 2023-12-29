@@ -181,8 +181,6 @@ RetroArch_update(){
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
-	RetroArch_setupConfigurations
-
 }
 
 
