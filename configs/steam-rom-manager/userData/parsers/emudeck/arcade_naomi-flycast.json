@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Arcade - Naomi - Flycast",
-  "steamCategory": "${Arcade - Naomi}",
+  "configTitle": "Arcade - NAOMI - Flycast (Standalone)",
+  "steamCategory": "${Arcade - NAOMI - Flycast (Standalone)}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/naomi",
   "steamDirectory": "${steamdirglobal}",
@@ -11,7 +11,7 @@
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
-  "disabled": true,
+  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": ""
   },

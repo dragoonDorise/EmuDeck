@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 Citra_emuName="Citra"
-Citra_emuType="AppImage"
+Citra_emuType="$emuDeckEmuTypeAppImage"
 Citra_emuPath="citra_emu"
 Citra_releaseURL=""
 Citra_configFile="$HOME/.config/citra-emu/qt-config.ini"
@@ -174,7 +174,7 @@ Citra_setResolution(){
 		"1080P") multiplier=5;;
 		"1440P") multiplier=6;;
 		"4K") multiplier=9;;
-		*) echo "Error"; exit 1;;
+		*) echo "Error"; return 1;;
 	esac
 
 	setConfig "resolution_factor" $multiplier "$Citra_configFile"

@@ -3,6 +3,11 @@
 #Global variables
 emuDecksettingsFile="$HOME/emudeck/settings.sh"
 
+emuDeckEmuTypeFlatpak="Flatpak"
+emuDeckEmuTypeAppImage="AppImage"
+emuDeckEmuTypeBinary="Binary"
+emuDeckEmuTypeWindows="Windows"
+emuDeckEmuTypeOther="Other"
 
 function startLog() {
 	funcName="$1"
@@ -12,7 +17,6 @@ function startLog() {
 	touch "$logFile"
 
 	exec &> >(tee -a "$logFile")
-
 }
 
 function stopLog(){
@@ -412,11 +416,11 @@ function getReleaseURLGH(){
 	local fileNameContains=$3
 	#local token=$(tokenGenerator)
 
-	if [ $system == "darwin" ]; then
+	if [ "$system" == "darwin" ]; then
 		fileType="dmg"
 	fi
 
-	if [ $system == "darwin" ]; then
+	if [ "$system" == "darwin" ]; then
 		fileType="dmg"
 	fi
 

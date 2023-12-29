@@ -2,7 +2,7 @@
 
 # Variables
 Parsec_emuName="Parsec"
-Parsec_emuType="FlatPak"
+Parsec_emuType="$emuDeckEmuTypeFlatpak"
 Parsec_emuPath="com.parsecgaming.parsec"
 Parsec_releaseURL=""
 

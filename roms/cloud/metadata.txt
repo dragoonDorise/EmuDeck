@@ -1,4 +1,4 @@
 collection: Cloud Services
 shortname: cloud
 extensions: sh
-launch: /bin/bash {file.path}
+launch:  {file.path}

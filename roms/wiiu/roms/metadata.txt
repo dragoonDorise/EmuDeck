@@ -1,6 +1,6 @@
 collection: Nintendo Wii U
-shortname: wiiu (custom system)
+shortname: wiiu
 extensions: rpx, RPX, wud, WUD, wux, WUX, elf, ELF, iso, ISO, wad, WAD, wua, WUA
-launch: /bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh -f -g z:{file.path}
+launch:  /run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh -f -g z:{file.path}
 
 
