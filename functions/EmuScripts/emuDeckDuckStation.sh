@@ -213,7 +213,7 @@ DuckStation_setResolution(){
 		"1080P") multiplier=5;;
 		"1440P") multiplier=6;;
 		"4K") multiplier=9;;
-		*) echo "Error"; exit 1;;
+		*) echo "Error"; return 1;;
 	esac
 
 	RetroArch_setConfigOverride "ResolutionScale" $multiplier "$DuckStation_configFileNew"
