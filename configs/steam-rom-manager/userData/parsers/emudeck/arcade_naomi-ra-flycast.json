@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Arcade - Naomi - RetroArch Flycast",
-  "steamCategory": "${Arcade - Naomi}",
+  "configTitle": "Arcade - NAOMI - RetroArch Flycast",
+  "steamCategory": "${Arcade - NAOMI}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/naomi",
   "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}flycast_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",

@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 RetroArch_emuName="RetroArch"
-RetroArch_emuType="FlatPak"
+RetroArch_emuType="$emuDeckEmuTypeFlatpak"
 RetroArch_emuPath="org.libretro.RetroArch"
 RetroArch_releaseURL=""
 RetroArch_path="$HOME/.var/app/org.libretro.RetroArch/config/retroarch"
@@ -32,6 +32,23 @@ RetroArch_install(){
 
 #ApplyInitialSettings
 RetroArch_init(){
+
+
+
+	setMSG "RetroArch - HD Texture Packs"
+
+	#NES
+	unlink "$emulationPath"/hdpacks/Mesen 2>/dev/null #refresh link if moved
+	ln -s "$biosPath"/HdPacks/ "$emulationPath"/hdpacks/nes
+	echo "Put your Mesen HD Packs here. Remember to put the pack inside a folder here with the exact name of the rom" > "$emulationPath"/hdpacks/nes/readme.txt
+
+	#N64
+	unlink "$emulationPath"/hdpacks/Mupen64plus_next 2>/dev/null #refresh link if moved
+	mkdir "$biosPath"/Mupen64plus
+	ln -s "$biosPath"/Mupen64plus/cache/ "$emulationPath"/hdpacks/n64
+	echo "Put your Nintendo64 HD Packs here in HTS format. You can download them from https://emulationking.com/nintendo64/" > "$emulationPath"/hdpacks/n64/readme.txt
+
+
 	RetroArch_backupConfigs
 	configEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "true"
 	RetroArch_setEmulationFolder
@@ -164,8 +181,10 @@ RetroArch_update(){
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
+	RetroArch_setupConfigurations
 
 }
+
 
 #ConfigurePaths
 RetroArch_setEmulationFolder(){
@@ -2269,7 +2288,6 @@ RetroArch_retroAchievementsSetLogin(){
 
 	fi
 }
-
 RetroArch_setBezels(){
 	if [ "$RABezels" == true ]; then
 		RetroArch_bezelOnAll

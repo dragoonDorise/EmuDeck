@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 MAME_emuName="MAME"
-MAME_emuType="FlatPak"
+MAME_emuType="$emuDeckEmuTypeFlatpak"
 MAME_emuPath="org.mamedev.MAME"
 MAME_releaseURL=""
 MAME_configFile="$HOME/.mame/mame.ini"

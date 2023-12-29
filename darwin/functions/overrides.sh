@@ -17,10 +17,10 @@ steam_input_templateFolder="$HOME/Library/Application Support/Steam/Steam.AppBun
 SRM_userData_directory="darwin/configs/steam-rom-manager/userData"
 SRM_userData_configDir="$HOME/Library/Application Support/steam-rom-manager/userData"
 
-Pegasus_emuPath="pegasus-frontend"
-Pegasus_path="$HOME/Library/Preferences/$Pegasus_emuPath"
-Pegasus_dir_file="$Pegasus_path/game_dirs.txt"
-Pegasus_config_file="$Pegasus_path/settings.txt"
+pegasus_emuPath="pegasus-frontend"
+pegasus_path="$HOME/Library/Preferences/$pegasus_emuPath"
+pegasus_dir_file="$pegasus_path/game_dirs.txt"
+pegasus_config_file="$pegasus_path/settings.txt"
 
 source "$EMUDECKGIT/darwin/functions/overrides/configEmuFP.sh"
 source "$EMUDECKGIT/darwin/functions/overrides/helperFunctions.sh"
@@ -29,3 +29,4 @@ source "$EMUDECKGIT/darwin/functions/overrides/installEmuAI.sh"
 source "$EMUDECKGIT/darwin/functions/overrides/installToolAI.sh"
 source "$EMUDECKGIT/darwin/functions/overrides/emuDeckRetroArch.sh"
 source "$EMUDECKGIT/darwin/functions/overrides/emuDeckPegasus.sh"
+

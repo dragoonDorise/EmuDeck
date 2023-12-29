@@ -1,4 +1,4 @@
 collection: Sony PlayStation
 shortname: psx
 extensions: bin, BIN, cbn, CBN, ccd, CCD, chd, CHD, cue, CUE, ecm, ECM, exe, EXE, img, IMG, iso, ISO, m3u, M3U, mdf, MDF, mds, MDS, pbp, PBP, psexe, PSEXE, psf, PSF, toc, TOC, z, Z, znx, ZNX, 7z, 7Z, zip, ZIP
-launch: /bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/duckstation.sh -batch -fullscreen {file.path}
+launch:  /run/media/mmcblk0p1/Emulation/tools/launchers/duckstation.sh -batch -fullscreen {file.path}
