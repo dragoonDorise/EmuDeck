@@ -5,7 +5,7 @@ cloud_sync_config="$cloud_sync_path/rclone.conf"
 
 cloud_sync_install(){
   {
-    startLog ${FUNCNAME[0]}
+    # startLog ${FUNCNAME[0]}
     local cloud_sync_provider=$1
     setSetting cloud_sync_provider "$cloud_sync_provider" > /dev/null
     setSetting cloud_sync_status "true" > /dev/null
@@ -19,7 +19,7 @@ cloud_sync_install(){
 
         text="$(printf "We need to install our Decky Plugin so you can use CloudSync on Gaming Mode.\nPlease enter your sudo/admin password so we can install it.")"
 
-        read -r PASS <<< $(zenity --title="Decky CloudSync Plugin Installer" --width=300 --height=100 --entry --hide-text --text="${text}")
+        PASS=$(zenity --title="Decky CloudSync Plugin Installer" --width=300 --height=100 --entry --hide-text --text="${text}")
         if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
             exit 1
         fi
@@ -48,13 +48,13 @@ cloud_sync_install(){
 }
 
 cloud_sync_toggle(){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
   local status=$1
   setSetting cloud_sync_status "$status" > /dev/null
 }
 
 cloud_sync_config(){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
   kill -15 $(pidof rclone)
   local cloud_sync_provider=$1
    cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$cloud_sync_config"
@@ -74,7 +74,7 @@ createCloudFile() {
 
 
 cloud_sync_setup_providers(){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
     if [ "$cloud_sync_provider" == "Emudeck-NextCloud" ]; then
 
       local url
@@ -159,7 +159,7 @@ cloud_sync_setup_providers(){
 
  cloud_sync_generate_code(){
    #Lets search for that token
-   startLog ${FUNCNAME[0]}
+   # startLog ${FUNCNAME[0]}
    while read line
    do
       if [[ "$line" == *"[Emudeck"* ]]
@@ -193,7 +193,7 @@ cloud_sync_setup_providers(){
  }
 
  cloud_sync_config_with_code(){
-   startLog ${FUNCNAME[0]}
+   # startLog ${FUNCNAME[0]}
    local code=$1
    if [ $code ]; then
      cloud_sync_stopService
@@ -225,30 +225,30 @@ cloud_sync_setup_providers(){
  }
 
 cloud_sync_install_and_config(){
-    startLog ${FUNCNAME[0]}
-    local cloud_sync_provider=$1
-    #We force Chrome to be used as the default
-    browser=$(xdg-settings get default-web-browser)
+	 #startLog ${FUNCNAME[0]}
+	 local cloud_sync_provider=$1
+	 #We force Chrome to be used as the default
+	 {
+	 browser=$(xdg-settings get default-web-browser)
 
-    if [ "$browser" != 'com.google.Chrome.desktop' ];then
-      flatpak install flathub com.google.Chrome -y
-      xdg-settings set default-web-browser com.google.Chrome.desktop
-    fi
+	 if [ "$browser" != 'com.google.Chrome.desktop' ];then
+	   flatpak install flathub com.google.Chrome -y --user
+	   xdg-settings set default-web-browser com.google.Chrome.desktop
+	 fi
 
-    if [ ! -f "$cloud_sync_bin" ]; then
-      cloud_sync_install $cloud_sync_provider
-    fi
+	 if [ ! -f "$cloud_sync_bin" ]; then
+	   cloud_sync_install $cloud_sync_provider
+	 fi
+	 } && cloud_sync_config "$cloud_sync_provider"
 
-    cloud_sync_config "$cloud_sync_provider"
-
-    #We get the previous default browser back
-    if [ "$browser" != 'com.google.Chrome.desktop' ];then
-      xdg-settings set default-web-browser $browser
-    fi
-}
+	 #We get the previous default browser back
+	 if [ "$browser" != 'com.google.Chrome.desktop' ];then
+	   xdg-settings set default-web-browser $browser
+	 fi
+ }
 
 cloud_sync_install_and_config_with_code(){
-    startLog ${FUNCNAME[0]}
+    # startLog ${FUNCNAME[0]}
     local cloud_sync_provider=$1
     code=$(zenity --entry --text="Please enter your SaveSync code")
     cloud_sync_install "$cloud_sync_provider"
@@ -257,14 +257,14 @@ cloud_sync_install_and_config_with_code(){
 
 
 cloud_sync_uninstall(){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
   setSetting cloud_sync_status "false" > /dev/null
   rm -rf "$cloud_sync_bin" && rm -rf "$cloud_sync_config" && echo "true"
 }
 
 
 cloud_sync_upload(){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
   local emuName=$1
   local timestamp=$(date +%s)
 
@@ -294,7 +294,7 @@ cloud_sync_upload(){
 }
 
 cloud_sync_download(){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
   local emuName=$1
   local timestamp=$(date +%s)
   if [ "$cloud_sync_status" == "true" ]; then
@@ -350,7 +350,7 @@ cloud_sync_download(){
 }
 
 cloud_sync_createBackup (){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
   local emuName=$1
   local date=$(date +"%D");
   #We delete backups older than one month
@@ -361,7 +361,7 @@ cloud_sync_createBackup (){
 
 
 cloud_sync_uploadEmu(){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
   local emuName=$1
   local mode=$2
   local time_stamp
@@ -430,7 +430,7 @@ cloud_sync_uploadEmu(){
 }
 
 cloud_sync_downloadEmu(){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
   local emuName=$1
   local mode=$2
 
@@ -545,7 +545,7 @@ cloud_sync_uploadEmuAll(){
 
 
 cloud_sync_save_hash(){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
   local dir=$1
   hash=$(find "$dir" -maxdepth 1 -type f -exec sha256sum {} + | sha256sum | awk '{print $1}')
   echo "$hash" > "$dir/.hash"
@@ -553,7 +553,7 @@ cloud_sync_save_hash(){
 
 
 cloud_sync_createService(){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
   echo "Creating CloudSync service"
   local service_name="EmuDeckCloudSync"
   local script_path="$HOME/.config/EmuDeck/backend/tools/cloudSync/cloud_sync_watcher.sh"
@@ -575,29 +575,29 @@ EOF
 }
 
 cloud_sync_startService(){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
   systemctl --user stop "EmuDeckCloudSync.service"
   systemctl --user start "EmuDeckCloudSync.service"
 }
 
 cloud_sync_stopService(){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
   systemctl --user stop "EmuDeckCloudSync.service"
 }
 
 
 cloud_sync_lock(){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
  touch "$HOME/emudeck/cloud.lock"
 }
 
 cloud_sync_unlock(){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
   rm -rf "$HOME/emudeck/cloud.lock"
 }
 
 cloud_sync_check_lock(){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
   lockedFile="$HOME\emudeck\cloud.lock"
 
   if [ -f $lockedFile ]; then
@@ -620,7 +620,7 @@ cloud_sync_check_lock(){
 
 
 cloud_decky_check_status(){
-  startLog ${FUNCNAME[0]}
+  # startLog ${FUNCNAME[0]}
   if [ $(check_internet_connection) == "true" ]; then
     if [ $cloud_sync_status = "true" ]; then
       if [ -f "$savesPath/.gaming" ] && [ ! -f "$HOME/emudeck/cloud.lock" ]; then
