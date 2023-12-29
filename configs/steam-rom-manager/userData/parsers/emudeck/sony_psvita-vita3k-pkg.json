@@ -80,7 +80,7 @@
   },
   "parserId": "166409089761171238",
   "version": 15,
-  "disabled": true,
+  "disabled": false,
   "defaultImage": {
     "long": "",
     "tall": "",

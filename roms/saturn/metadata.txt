@@ -1,4 +1,4 @@
-collection: Sega Saturn
+collection: Saturn
 shortname: saturn
 extensions: bin, BIN, ccd, CCD, chd, CHD, cue, CUE, iso, ISO, mds, MDS, toc, TOC, m3u, M3U, 7z, 7Z, zip, ZIP
 launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/mednafen_saturn_libretro.so {file.path}

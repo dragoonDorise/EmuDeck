@@ -2,8 +2,4 @@ collection: Sega Mega-CD
 shortname: megacd
 extensions: 68k, 68K, bin, BIN, bms, BMS, chd, CHD, cue, CUE, gen, GEN, gg, GG, iso, ISO, m3u, M3U, md, MD, mdx, MDX, sg, SG, sgd, SGD, smd, SMD, sms, SMS, 7z, 7Z, zip, ZIP
 launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/genesis_plus_gx_libretro.so {file.path}
-Alternative launch commands:
-/run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/genesis_plus_gx_wide_libretro.so {file.path}
-/run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/picodrive_libretro.so {file.path}
-
 

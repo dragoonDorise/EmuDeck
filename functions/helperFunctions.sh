@@ -412,11 +412,11 @@ function getReleaseURLGH(){
 	local fileNameContains=$3
 	#local token=$(tokenGenerator)
 
-	if [ $system == "darwin" ]; then
+	if [ "$system" == "darwin" ]; then
 		fileType="dmg"
 	fi
 
-	if [ $system == "darwin" ]; then
+	if [ "$system" == "darwin" ]; then
 		fileType="dmg"
 	fi
 
@@ -714,7 +714,6 @@ isFpInstalled(){
 	fi
 }
 
-
 check_internet_connection(){
   ping -q -c 1 -W 1 8.8.8.8 > /dev/null 2>&1 && echo true || echo false
 }
@@ -753,4 +752,21 @@ setResolutions(){
 	Xemu_setResolution
 	Xenia_setResolution
 	Yuzu_setResolution
+}
+
+# get variable value from kvp-style config file
+# VAR1=VALUE1
+# VAR2="VALUE 2"
+# ...
+scriptConfigFileGetVar() {
+    local configFile=$1
+    local configVar=$2
+    local configVarDefaultValue=$3
+
+    local configVarValue="$( (grep -E "^${configVar}=" -m 1 "${configFile}" 2>/dev/null || echo "_=__UNDEFINED__") | head -n 1 | cut -d '=' -f 2- | xargs )"
+    if [ "${configVarValue}" = "__UNDEFINED__" ]; then
+        configVarValue="${configVarDefaultValue}"
+    fi
+
+    printf -- "%s" "${configVarValue}"
 }

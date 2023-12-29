@@ -18,27 +18,27 @@ showProgress="true"
 
 #force ea if available
 if [ "$useEAifFound" = "true" ]; then
-    emuExeFile=$(find "$emufolder" -iname "${emuName}-ea*.AppImage" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
+	emuExeFile=$(find "$emufolder" -iname "${emuName}-ea*.AppImage" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
 fi
 if [[ ! $emuExeFile =~ "AppImage" ]]; then
-    #find the most recent yuzu*.AppImage by creation date
-    emuExeFile=$(find "$emufolder" -iname "${emuName}*.AppImage" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
+	#find the most recent yuzu*.AppImage by creation date
+	emuExeFile=$(find "$emufolder" -iname "${emuName}*.AppImage" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
 fi
 if [[ ! $emuExeFile =~ "AppImage" ]]; then
-     zenity --info --title="Yuzu AppImage not found!" --width 200 --text "Please check that you have the appimage in ~/Applications or \nrerun Emudeck and ensure it is installed." 2>/dev/null
+	 zenity --info --title="Yuzu AppImage not found!" --width 200 --text "Please check that you have the appimage in ~/Applications or \nrerun Emudeck and ensure it is installed." 2>/dev/null
 fi
 isMainline=true
 if [ ! "$emuExeFile" = "$emufolder/$emuName.AppImage" ]; then
-    isMainline=false
+	isMainline=false
 fi
 
 echo "Detected exe: $emuExeFile"
 
 #if launched without parameters we can check for updates.
 if [ -z "$1" ];then
-    #check for noupdate flag
-    if [ ! -e "${emuDontUpdate}" ]; then
-	
+	#check for noupdate flag
+	if [ ! -e "${emuDontUpdate}" ]; then
+
 		#check if we are running mainline so we can offer to update
 		if [ "$isMainline" = true ]; then
 			echo "Yuzu mainline detected, checking connectivity"
@@ -67,11 +67,11 @@ if [ -z "$1" ];then
 							zenity --error --text "Error updating yuzu!" --width=250 2>/dev/null
 						fi
 					fi
-				fi    
+				fi
 			else
 				echo 'Offline'
 			fi
-        else
+		else
 			#if not running mainline check if we are running yuzu-ea and have a token file in place
 			if [ "$emuExeFile" = "$YuzuEA_emuPath" ] && [ -e "$YuzuEA_tokenFile" ]; then
 				#check for network
@@ -120,8 +120,8 @@ if [ -z "$1" ];then
 			else
 				echo "Token Not Found"
 			fi
-        fi
-    fi
+		fi
+	fi
 fi
 
 #find full path to emu executable
@@ -130,9 +130,7 @@ exe="prlimit --nofile=8192 ${emuExeFile}"
 #run the executable with the params.
 #Fix first '
 param="${@}"
-substituteWith='"'
-param=${param/\'/"$substituteWith"}
-#Fix last ' on command
-param=$(echo "$param" | sed 's/.$/"/')
+param=$(echo "$param" | sed "s|'|/\"|g")
+
 eval "${exe} ${param}"
 rm -rf "$savesPath/.gaming"
