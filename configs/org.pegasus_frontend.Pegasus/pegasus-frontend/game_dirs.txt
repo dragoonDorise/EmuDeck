@@ -175,13 +175,13 @@
 /run/media/mmcblk0p1/Emulation/roms/vsmile
 /run/media/mmcblk0p1/Emulation/roms/wasm4
 /run/media/mmcblk0p1/Emulation/roms/wii
-/run/media/mmcblk0p1/Emulation/roms/wiiu
+/run/media/mmcblk0p1/Emulation/roms/wiiu/roms
 /run/media/mmcblk0p1/Emulation/roms/wonderswan
 /run/media/mmcblk0p1/Emulation/roms/wonderswancolor
 /run/media/mmcblk0p1/Emulation/roms/x1
 /run/media/mmcblk0p1/Emulation/roms/x68000
 /run/media/mmcblk0p1/Emulation/roms/xbox
-/run/media/mmcblk0p1/Emulation/roms/xbox360
+/run/media/mmcblk0p1/Emulation/roms/xbox360/roms
 /run/media/mmcblk0p1/Emulation/roms/zmachine
 /run/media/mmcblk0p1/Emulation/roms/zx81
 /run/media/mmcblk0p1/Emulation/roms/zxspectrum

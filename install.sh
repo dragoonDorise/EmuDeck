@@ -12,12 +12,12 @@ elif [ $linuxID != "SteamOS" ]; then
     zenityAvailable=$(command -v zenity &> /dev/null  && echo true)
 
     if [[ $zenityAvailable = true ]];then
-        PASSWD="$(zenity --password --title="Password Entry" --text="Enter you user sudo password to install required depencies" 2>/dev/null)"
+        read -r PASSWD <<< "$(zenity --password --title="Password Entry" --text="Enter you user sudo password to install required depencies" 2>/dev/null)"
         echo "$PASSWD" | sudo -v -S
         ans=$?
         if [[ $ans == 1 ]]; then
             #incorrect password
-            PASSWD="$(zenity --password --title="Password Entry" --text="Password was incorrect. Try again. (Did you remember to set a password for linux before running this?)" 2>/dev/null)"
+            read -r PASSWD <<< "$(zenity --password --title="Password Entry" --text="Password was incorrect. Try again. (Did you remember to set a password for linux before running this?)" 2>/dev/null)"
             echo "$PASSWD" | sudo -v -S
             ans=$?
             if [[ $ans == 1 ]]; then
@@ -64,7 +64,7 @@ elif [ $linuxID != "SteamOS" ]; then
         sudo pacman --noconfirm -S $ARCH_DEPS
     elif command -v dnf >/dev/null; then
         echo "Installing packages with dnf..."
-        FEDORA_DEPS="jq zenity flatpak unzip bash fuse git rsync whiptail"
+        FEDORA_DEPS="jq zenity flatpak unzip bash fuse git rsync newt"
 
         sudo dnf -y upgrade
         sudo dnf -y install $FEDORA_DEPS

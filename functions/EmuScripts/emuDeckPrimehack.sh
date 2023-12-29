@@ -2,7 +2,7 @@
 
 #variables
 Primehack_emuName="Primehack"
-Primehack_emuType="FlatPak"
+Primehack_emuType="$emuDeckEmuTypeFlatpak"
 Primehack_emuPath="io.github.shiiion.primehack"
 Primehack_configFile="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Dolphin.ini"
 Primehack_configFileGFX="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/GFX.ini"
@@ -121,7 +121,7 @@ Primehack_setResolution(){
 		"1080P") multiplier=3;;
 		"1440P") multiplier=4;;
 		"4K") multiplier=6;;
-		*) echo "Error"; exit 1;;
+		*) echo "Error"; return 1;;
 	esac
 
 	RetroArch_setConfigOverride "InternalResolution" $multiplier "$Primehack_configFileGFX"

@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 mGBA_emuName="mGBA"
-mGBA_emuType="AppImage"
+mGBA_emuType="$emuDeckEmuTypeAppImage"
 mGBA_emuPath="$HOME/Applications/mGBA.AppImage"
 mGBA_configFile="$HOME/.config/mgba/config.ini"
 
