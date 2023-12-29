@@ -195,7 +195,7 @@ CemuNative_functions () {
 	install () {
 		echo "Begin Cemu - Native Install"
 		local showProgress="$1"
-		if installEmuAI "${CemuNative[emuName]}" "$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")" "" "$showProgress"; then # Cemu.AppImage
+		if installEmuAI "Cemu" "$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")" "" "$showProgress"; then # Cemu.AppImage
 			:
 		else
 			return 1
@@ -206,6 +206,9 @@ CemuNative_functions () {
 	init () {
 		setMSG "Initialising ${CemuNative[emuName]} settings."
 		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/config/cemu" "true"
+		cp "$EMUDECKGIT/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
+		cp "$EMUDECKGIT/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "$SRM_userData_configDir/parsers/custom/"
+		SRM_createParsers
 		#configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu" "true" #seems unneeded? maybe?
 		setEmulationFolder
 		setupStorage
@@ -217,6 +220,9 @@ CemuNative_functions () {
 	update () {
 		setMSG "Updating ${CemuNative[emuName]} settings."
 		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/.config/cemu"
+		cp "$EMUDECKGIT/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
+		cp "$EMUDECKGIT/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "$SRM_userData_configDir/parsers/custom/"
+		SRM_createParsers
 		#configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu" #seems unneeded? maybe?
 		#migrate
 		setEmulationFolder

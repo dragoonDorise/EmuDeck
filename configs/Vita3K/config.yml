@@ -10,7 +10,7 @@ apps-list-grid: true
 show-live-area-screen: true
 icon-size: 71
 archive-log: false
-backend-renderer: OpenGL
+backend-renderer: Vulkan
 gpu-idx: 0
 resolution-multiplier: 1
 disable-surface-sync: false

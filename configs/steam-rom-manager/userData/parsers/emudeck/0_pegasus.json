@@ -1,22 +1,28 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sega Dreamcast - Flycast",
-  "steamCategory": "${Sega Dreamcast - Flycast}",
-  "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/dreamcast",
+  "configTitle": "Pegasus Frontend",
   "steamDirectory": "${steamdirglobal}",
+  "steamCategory": "${Emulation}",
+  "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/launchers/pegasus/",
+  "executableArgs": "",
+  "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
-  "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "\"'${filePath}'\"",
+  "titleModifier": "EmulationStation DE",
+  "fetchControllerTemplatesButton": null,
+  "removeControllersButton": null,
+  "imageProviders": ["SteamGridDB"],
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
-  "imageProviders": ["SteamGridDB"],
-  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": ""
   },
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/esde/pegasus-frontend.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
   "parserInputs": {
-    "glob": "**/${title}@(.7z|.7Z|.cdi|.CDI|.chd|.CHD|.cue|.CUE|.gdi|.GDI|.m3u|.M3U)"
+    "glob": "${title}@(.sh)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
@@ -30,16 +36,6 @@
     "removeBrackets": true
   },
   "controllers": {
-    "switch_pro": {
-      "title": "EmuDeck - Switch Pro",
-      "mappingId": "emudeck_controller_switch_pro.vdf",
-      "profileType": "template"
-    },
-    "neptune": {
-      "title": "EmuDeck - Steam Deck",
-      "mappingId": "emudeck_controller_steamdeck.vdf",
-      "profileType": "template"
-    },
     "ps4": {
       "title": "EmuDeck - Dual Shock 4",
       "mappingId": "emudeck_controller_ps4.vdf",
@@ -61,38 +57,44 @@
       "profileType": "template"
     },
     "switch_joycon_left": null,
-    "switch_joycon_right": null
+    "switch_joycon_right": null,
+    "switch_pro": {
+      "title": "EmuDeck - Switch Pro",
+      "mappingId": "emudeck_controller_switch_pro.vdf",
+      "profileType": "template"
+    },
+    "neptune": {
+      "title": "EmuDeck - Steam Deck",
+      "mappingId": "emudeck_controller_steamdeck.vdf",
+      "profileType": "template"
+    }
   },
-  "executable": {
-    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/flycast.sh",
-    "shortcutPassthrough": false,
-    "appendArgsToExecutable": false
-  },
-  "parserId": "163584525855031650",
-  "version": 15,
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,
       "humor": false,
-      "imageMotionTypes": ["static"],
       "styles": [],
       "stylesHero": [],
       "stylesLogo": [],
-      "stylesIcon": []
+      "stylesIcon": [],
+      "imageMotionTypes": ["static", "animated"]
     }
   },
   "defaultImage": {
-    "long": "",
     "tall": "",
+    "long": "",
     "hero": "",
     "logo": "",
     "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
   },
   "localImages": {
-    "long": "",
     "tall": "",
+    "long": "",
     "hero": "",
     "logo": "",
     "icon": ""
-  }
+  },
+  "parserId": "164824496516097459",
+  "version": 15,
+  "disabled": false
 }
