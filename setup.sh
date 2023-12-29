@@ -388,25 +388,6 @@ fi
 #
 
 
-
-#Sudo Required!
-# if [ -n "$PASSWD" ]; then
-# 	pwstatus=0
-# 	echo "$PASSWD" | sudo -v -S &>/dev/null && pwstatus=1 || echo "sudo password was incorrect" #refresh sudo cache
-# 	if [ $pwstatus == 1 ]; then
-# 		if [ "$doInstallGyro" == "true" ]; then
-# 			Plugins_installSteamDeckGyroDSU
-# 		fi
-#
-# 		if [ "$doInstallPowertools" == "true" ]; then
-# 			Plugins_installPluginLoader
-# 			Plugins_installPowerTools
-# 		fi
-# 	fi
-# else
-# 	echo "no password supplied. Skipping gyro / powertools."
-# fi
-
 #Always install
 BINUP_install
 CHD_install
@@ -455,30 +436,45 @@ fi
 
 #
 ##
-##Validations
+##Plugins
 ##
 #
+
 if [ "$system" != "darwin" ]; then
-	#Decky Plugins
-	if [ "$system" == "chimeraos" ]; then
-		defaultPass="gamer"
+
+	#If the user is not using chimera we assume he has no pass ( deck user )
+	if [ "$system" = "chimeraos" ]; then
+		password="gamer"
 	else
-		defaultPass="Decky!"
+		password="Decky!"
+	fi
+	#We try to create a temp password
+	pwstatus=0
+	yes "$password" | passwd $(whoami) && "$password" | sudo -v -S &>/dev/null && pwstatus=1 || echo "sudo password was incorrect" #refresh sudo cache
+	# We can't create the pass?we ask for it
+	if [ $pwstatus = 0 ]; then
+		password=$(Plugins_checkPassword "newPass")
 	fi
 
-	 if ( echo "$defaultPass" | sudo -S -k true ); then
-		echo $defaultPass | sudo -v -S && {
-			Plugins_installEmuDecky $defaultPass
+	if ( echo "$password" | sudo -S -k true ); then
+		echo $password | sudo -v -S && {
+			Plugins_installEmuDecky $password
 			if [ "$system" == "chimeraos" ]; then
-				Plugins_installPowerControl $defaultPass
+				Plugins_installPowerControl $password
 			else
-				Plugins_installPowerTools $defaultPass
+				Plugins_installPowerTools $password
 			fi
-			Plugins_installSteamDeckGyroDSU $defaultPass
-			Plugins_installPluginLoader $defaultPass
+			Plugins_installPluginLoader $password
 		}
 	fi
+
+	if [ $password = "Decky!" ]; then
+		Plugins_install_cleanup "Decky!"
+	fi
+
 fi
+
+Plugins_installSteamDeckGyroDSU
 
 #EmuDeck updater on gaming Mode
 #mkdir -p "${toolsPath}/updater"
