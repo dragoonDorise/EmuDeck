@@ -3,6 +3,11 @@
 #Global variables
 emuDecksettingsFile="$HOME/emudeck/settings.sh"
 
+emuDeckEmuTypeFlatpak="Flatpak"
+emuDeckEmuTypeAppImage="AppImage"
+emuDeckEmuTypeBinary="Binary"
+emuDeckEmuTypeWindows="Windows"
+emuDeckEmuTypeOther="Other"
 
 function startLog() {
 	funcName="$1"
@@ -12,7 +17,6 @@ function startLog() {
 	touch "$logFile"
 
 	exec &> >(tee -a "$logFile")
-
 }
 
 function stopLog(){

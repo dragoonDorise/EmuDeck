@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 Citra_emuName="Citra"
-Citra_emuType="AppImage"
+Citra_emuType="$emuDeckEmuTypeAppImage"
 Citra_emuPath="citra_emu"
 Citra_releaseURL=""
 Citra_configFile="$HOME/.config/citra-emu/qt-config.ini"

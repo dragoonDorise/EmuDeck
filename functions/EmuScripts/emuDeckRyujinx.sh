@@ -2,7 +2,7 @@
 
 #variables
 Ryujinx_emuName="Ryujinx"
-Ryujinx_emuType="Binary"
+Ryujinx_emuType="$emuDeckEmuTypeBinary"
 Ryujinx_emuPath="$HOME/Applications/publish"
 Ryujinx_configFile="$HOME/.config/Ryujinx/Config.json"
 

@@ -2,7 +2,7 @@
 
 #variables
 Yuzu_emuName="yuzu"
-Yuzu_emuType="AppImage"
+Yuzu_emuType="$emuDeckEmuTypeAppImage"
 Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
 YuzuEA_emuPath="$HOME/Applications/yuzu-ea.AppImage"
 Yuzu_configFile="$HOME/.config/yuzu/qt-config.ini"

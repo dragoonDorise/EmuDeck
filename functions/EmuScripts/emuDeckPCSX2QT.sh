@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 PCSX2QT_emuName="PCSX2-QT"
-PCSX2QT_emuType="AppImage"
+PCSX2QT_emuType="$emuDeckEmuTypeAppImage"
 PCSX2QT_emuPath="$HOME/Applications/pcsx2-Qt.AppImage"
 PCSX2QT_configFile="$HOME/.config/PCSX2/inis/PCSX2.ini"
 

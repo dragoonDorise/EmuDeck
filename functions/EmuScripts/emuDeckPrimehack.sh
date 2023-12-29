@@ -2,7 +2,7 @@
 
 #variables
 Primehack_emuName="Primehack"
-Primehack_emuType="FlatPak"
+Primehack_emuType="$emuDeckEmuTypeFlatpak"
 Primehack_emuPath="io.github.shiiion.primehack"
 Primehack_configFile="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Dolphin.ini"
 Primehack_configFileGFX="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/GFX.ini"

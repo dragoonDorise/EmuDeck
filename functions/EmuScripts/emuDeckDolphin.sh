@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 Dolphin_emuName="Dolphin"
-Dolphin_emuType="FlatPak"
+Dolphin_emuType="$emuDeckEmuTypeFlatpak"
 Dolphin_emuPath="org.DolphinEmu.dolphin-emu"
 Dolphin_configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
 Dolphin_configFileGFX="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
