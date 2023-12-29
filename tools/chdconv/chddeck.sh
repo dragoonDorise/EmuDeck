@@ -10,7 +10,7 @@ fi
 declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
 declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
 declare -a csofolderWhiteList=("psp")
-declare -a 3dsfolderWhiteList=("3ds")
+declare -a n3dsfolderWhiteList=("3ds")
 declare -a searchFolderList
 
 #executables
@@ -135,7 +135,7 @@ if [ "$selection" == "bulk" ]; then
 			fi
 		done
 	fi
-	for romfolder in "${3dsfolderWhiteList[@]}"; do
+	for romfolder in "${n3dsfolderWhiteList[@]}"; do
 		echo "Checking ${romsPath}/${romfolder}/"
 		# ignore trimmed files
 		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.3ds" ! -name "*(Trimmed)*")
@@ -242,7 +242,7 @@ if [ "$selection" == "bulk" ]; then
 
 	#3ds
 	for romfolder in "${romfolders[@]}"; do
-		if [[ " ${3dsfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+		if [[ " ${n3dsfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
 			# Ignore trimmed files
 			find "$romsPath/$romfolder" -type f -iname "*.3ds" ! -name '*(Trimmed)*' | while read -r f; do
 				echo "Converting: $f"
