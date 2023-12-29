@@ -201,7 +201,13 @@ ESDE_applyTheme(){
 	else
 		git clone $themeUrl "$HOME/.emulationstation/themes/"
 	fi
-	sed -i "s/<string name=\"ThemeSet\" value=\"[^\"]*\"/<string name=\"ThemeSet\" value=\"$themeName\"/" "$es_settingsFile"
+
+	updateOrAppendConfigLine "$es_settingsFile" "<string name=\"ThemeSet\"" "<string name=\"ThemeSet\" value=\"\""
+	updateOrAppendConfigLine "$es_settingsFile" "<string name=\"Theme\"" "<string name=\"Theme\" value=\"\""
+
+	sed -i "s/<string name=\"ThemeSet\" value=\"[^\"]*\"/<string name=\"ThemeSet\" value=\"$themeName\"\/>/" "$es_settingsFile"
+sed -i "s/<string name=\"Theme\" value=\"[^\"]*\"/<string name=\"Theme\" value=\"$themeName\"\/>/" "$es_settingsFile"
+
 
 }
 

@@ -1,4 +1,4 @@
-collection: NEC PC Engine CD
-shortname: pcenginecd
+collection: PC Engine/PCE-CD
+shortname: pcengine
 extensions: ccd, CCD, chd, CHD, cue, CUE, img, IMG, iso, ISO, m3u, M3U, pce, PCE, sgx, SGX, toc, TOC, 7z, 7Z, zip, ZIP
 launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/mednafen_pce_libretro.so {file.path}

@@ -11,7 +11,7 @@
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
-  "disabled": true,
+  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": ""
   },

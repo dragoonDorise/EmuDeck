@@ -6,7 +6,7 @@ romParser_RA_download(){
 	local type=$3
 
 	case "$type" in
-		"screenshot")
+		"screenshots")
 			RA_folder="Named_Snaps"
 
 			;;
@@ -21,7 +21,12 @@ romParser_RA_download(){
 	else
 		status=$(wget --spider "http://thumbnails.libretro.com/$remoteSystem/$RA_folder/$romName.png" 2>&1)
 		if [[ $status == *"image/png"* ]] || [[ $status == *"image/jpeg"* ]] || [[ $status == *"image/jpg"* ]]; then
-			wget  -q --show-progress "http://thumbnails.libretro.com/$remoteSystem/$RA_folder/$romName.png" -P "$romsPath/$system/media/$type/"
+			wget  -q --show-progress "http://thumbnails.libretro.com/$remoteSystem/$RA_folder/$romName.png" -P "$romsPath/$system/media/$type/" |
+			zenity --progress \
+			  --title="EmuDeck RetroArch Parser" \
+			  --text="Downloading artwork for $system..." \
+			  --auto-close \
+			  --pulsate \
 		else
 			echo -e "Image not found: $romName $type..."
 		fi
@@ -181,12 +186,8 @@ romParser_RA_start(){
  	do
  		system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
 
-		if [ ! -d "$systemPath/media/" ]; then
-			echo -e "Creating $systemPath/media..."
-			mkdir $systemPath/media &> /dev/null
-			mkdir $systemPath/media/screenshot &> /dev/null
-			mkdir $systemPath/media/box2dfront &> /dev/null
-			mkdir $systemPath/media/wheel &> /dev/null
+	 	if [[ "$systemPath" == *tx* ]]; then
+			 break
 		fi
 
 		#Getting roms
@@ -194,7 +195,7 @@ romParser_RA_start(){
 		for romPath in $systemPath/*;
 		do
 			#Validating
-			if [ -f "$romPath" ] && [ "$(basename "$romPath")" != ".*" ] && [[ "$romPath" != *".txt" ]] && [[ "$(basename "$romPath")" != *".exe" ]] && [[ "$(basename "$romPath")" != *".conf" ]] && [[ "$(basename "$romPath")" != *".xml" ]]; then
+			if [ -f "$romPath" ] && [ "$(basename "$romPath")" != ".*" ] && [[ "$romPath" != *".tx" ]] && [[ "$(basename "$romPath")" != *".exe" ]] && [[ "$(basename "$romPath")" != *".conf" ]] && [[ "$(basename "$romPath")" != *".xml" ]]; then
 
 				#Cleaning rom directory
 				romfile=$(echo "$romPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
@@ -205,15 +206,9 @@ romParser_RA_start(){
 				fi
 
 				#We get the folder RA uses
-				(romParser_RA_getAlias $system
+				romParser_RA_getAlias $system
 				romParser_RA_download "$romName" $system "screenshot"
-				romParser_RA_download "$romName" $system "box2dfront")  |
-				zenity --progress \
-				  --title="EmuDeck RetroArch Parser" \
-				  --text="Downloading artwork for $system..." \
-				  --auto-close \
-				  --pulsate \
-				  --percentage=$i
+				romParser_RA_download "$romName" $system "covers"
 
 				  ((i++))
 			fi
