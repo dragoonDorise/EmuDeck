@@ -5,6 +5,8 @@ Citra_emuType="AppImage"
 Citra_emuPath="citra_emu"
 Citra_releaseURL=""
 Citra_configFile="$HOME/.config/citra-emu/qt-config.ini"
+Citra_texturesPath="$HOME/.config/citra-emu/load/textures"
+
 
 #cleanupOlderThings
 Citra_finalize(){
@@ -62,6 +64,12 @@ Citra_setupSaves(){
 
 #SetupStorage
 Citra_setupStorage(){
+
+	local textureLink="$(readlink -f "$Citra_texturesPath")"
+	if [[ "$textureLink" != "$emulationPath/hdpacks/n3ds" ]]; then
+		rm -rf "$Citra_texturesPath"
+		ln -s "$Citra_texturesPath" "$emulationPath/hdpacks/n3ds"
+	fi
 
 	if [ ! -f "$storagePath/citra/nand" ] && [ -d "$HOME/.local/share/citra-emu/nand/" ]; then
 
