@@ -4,8 +4,40 @@
 Yuzu_emuName="yuzu"
 Yuzu_emuType="$emuDeckEmuTypeAppImage"
 Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
-YuzuEA_emuPath="$HOME/Applications/yuzu-ea.AppImage"
+
 Yuzu_configFile="$HOME/.config/yuzu/qt-config.ini"
+
+# https://github.com/yuzu-emu/yuzu/blob/master/src/core/file_sys/control_metadata.cpp#L41-L60
+declare -A Yuzu_languages=(
+["ja"]=0
+["en"]=1
+["fr"]=2
+["de"]=3
+["it"]=4
+["es"]=5
+["zh"]=6
+["ko"]=7
+["nl"]=8
+["pt"]=9
+["ru"]=10
+["tw"]=11) # TODO: not all langs but we need to switch to full lang codes to support those
+
+# https://github.com/yuzu-emu/yuzu/blob/master/src/yuzu/configuration/configure_system.ui#L272-L309
+declare -A Yuzu_regions=(
+["ja"]=0 # Japan
+["en"]=1 # USA
+["fr"]=2 # Europe
+["de"]=2 # Europe
+["it"]=2 # Europe
+["es"]=2 # Europe
+["zh"]=4 # China
+["ko"]=5 # Korea
+["nl"]=2 # Europe
+["pt"]=2 # Europe
+["ru"]=2 # Europe?
+["tw"]=6 # Taiwan
+) # TODO: split lang from region?
+
 #cleanupOlderThings
 Yuzu_cleanup() {
     echo "Begin Yuzu Cleanup"
@@ -72,7 +104,7 @@ Yuzu_update() {
 #ConfigurePaths
 Yuzu_setEmulationFolder() {
     echo "Begin Yuzu Path Config"
-    configFile="$HOME/.config/yuzu/qt-config.ini"
+
     screenshotDirOpt='Screenshots\\screenshot_path='
     gameDirOpt='Paths\\gamedirs\\4\\path='
     dumpDirOpt='dump_directory='
@@ -88,13 +120,13 @@ Yuzu_setEmulationFolder() {
     newSdmcDirOpt='sdmc_directory='"${storagePath}/yuzu/sdmc"
     newTasDirOpt='tas_directory='"${storagePath}/yuzu/tas"
 
-    sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" "$configFile"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
-    sed -i "/${dumpDirOpt}/c\\${newDumpDirOpt}" "$configFile"
-    sed -i "/${loadDir}/c\\${newLoadDir}" "$configFile"
-    sed -i "/${nandDirOpt}/c\\${newNandDirOpt}" "$configFile"
-    sed -i "/${sdmcDirOpt}/c\\${newSdmcDirOpt}" "$configFile"
-    sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "$configFile"
+    sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" "$Yuzu_configFile"
+    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Yuzu_configFile"
+    sed -i "/${dumpDirOpt}/c\\${newDumpDirOpt}" "$Yuzu_configFile"
+    sed -i "/${loadDir}/c\\${newLoadDir}" "$Yuzu_configFile"
+    sed -i "/${nandDirOpt}/c\\${newNandDirOpt}" "$Yuzu_configFile"
+    sed -i "/${sdmcDirOpt}/c\\${newSdmcDirOpt}" "$Yuzu_configFile"
+    sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "$Yuzu_configFile"
 
     #Setup Bios symlinks
     unlink "${biosPath}/yuzu/keys" 2>/dev/null
@@ -108,6 +140,29 @@ Yuzu_setEmulationFolder() {
 
     touch "${storagePath}/yuzu/nand/system/Contents/registered/putfirmwarehere.txt"
 
+}
+
+#SetLanguage
+Yuzu_setLanguage(){
+    setMSG "Setting Yuzu Language"	
+
+    languageOpt="language_index="
+    languageDefaultOpt="language_index\\\\default="
+    newLanguageDefaultOpt="language_index\\\\default=false" # we need those or else itll reset
+    regionOpt="region_index="
+    regionDefaultOpt="region_index\\\\default="
+    newRegionDefaultOpt="region_index\\\\default=false"
+	#TODO: call this somewhere, and input the $language from somewhere (args?)
+	if [[ -f "${Yuzu_configFile}" ]]; then
+		if [ ${Yuzu_languages[$language]+_} ]; then
+            newLanguageOpt='language_index='"${Yuzu_languages[$language]}"
+            newRegionOpt='region_index='"${Yuzu_regions[$language]}"
+            changeLine "$languageOpt" "$newLanguageOpt" "$Yuzu_configFile"
+            changeLine "$languageDefaultOpt" "$newLanguageDefaultOpt" "$Yuzu_configFile"
+            changeLine "$regionOpt" "$newRegionOpt" "$Yuzu_configFile"
+            changeLine "$regionDefaultOpt" "$newRegionDefaultOpt" "$Yuzu_configFile"
+		fi
+	fi
 }
 
 #SetupSaves
