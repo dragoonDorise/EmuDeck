@@ -2,7 +2,7 @@
 
 #variables
 Ryujinx_emuName="Ryujinx"
-Ryujinx_emuType="Binary"
+Ryujinx_emuType="$emuDeckEmuTypeBinary"
 Ryujinx_emuPath="$HOME/Applications/publish"
 Ryujinx_configFile="$HOME/.config/Ryujinx/Config.json"
 
@@ -200,11 +200,11 @@ Ryujinx_resetConfig(){
 Ryujinx_setResolution(){
 
 	case $ryujinxResolution in
-		"720P") multiplier=2; docked="false";;
-		"1080P") multiplier=2; docked="true";;
-		"1440P") multiplier=3; docked="false";;
-		"4K") multiplier=3; docked="true";;
-		*) echo "Error"; exit 1;;
+		"720P") multiplier=1; docked="false";;
+		"1080P") multiplier=1; docked="true";;
+		"1440P") multiplier=2; docked="false";;
+		"4K") multiplier=2; docked="true";;
+		*) echo "Error"; return 1;;
 	esac
 
 	jq --arg docked "$docked" --arg multiplier "$multiplier" \

@@ -1,6 +1,6 @@
 collection: Valve Steam
 shortname: steam
 extensions: desktop, sh
-launch: /bin/bash {file.path}
+launch:  {file.path}
 
 

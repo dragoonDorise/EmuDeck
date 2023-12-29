@@ -19,7 +19,7 @@ cloud_sync_install(){
 
         text="$(printf "We need to install our Decky Plugin so you can use CloudSync on Gaming Mode.\nPlease enter your sudo/admin password so we can install it.")"
 
-        PASS=$(zenity --title="Decky CloudSync Plugin Installer" --width=300 --height=100 --entry --hide-text --text="${text}")
+        read -r PASS <<< $(zenity --title="Decky CloudSync Plugin Installer" --width=300 --height=100 --entry --hide-text --text="${text}")
         if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
             exit 1
         fi
@@ -313,7 +313,7 @@ cloud_sync_download(){
 
         if [ -f "$savesPath/.hash" ] && [ "$hash" != "$hashCloud" ]; then
 
-             "$cloud_sync_bin" copy --fast-list --update --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/ "$savesPath" && (
+             "$cloud_sync_bin" copy --fast-list --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/ "$savesPath" && (
                 local baseFolder="$savesPath/"
                  for folder in $baseFolder*/
                   do
@@ -626,19 +626,19 @@ cloud_decky_check_status(){
       if [ -f "$savesPath/.gaming" ] && [ ! -f "$HOME/emudeck/cloud.lock" ]; then
         echo "started"
       elif [ -f "$savesPath/.gaming" ]; then
-        echo "started"
+        echo "nothing"
       elif [ -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
         echo "uploading"
       elif [ ! -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
-        echo "finished"
+        echo "nothing"
       else
         echo "nothing"
       fi
     else
-      echo "disabled"
+      echo "nothing"
     fi
   else
-    echo "disabled"
+    echo "nothing"
   fi
 
 }
