@@ -108,6 +108,7 @@ if [ "$size" -gt 4096 ]; then
 	if [ -d "$emulationPath/bios" ]; then
 		text="$(printf "Do you want to export all your bios?")"
 		zenity --question \
+			--title="EmuDeck Export tool" \
 			--width=450 \
 			--cancel-label="No" \
 			--ok-label="Export my bios" \
@@ -156,6 +157,8 @@ if [ "$size" -gt 4096 ]; then
 
 	text="$(printf "<b>Success!</b>\nNow it's time to:\n1 Install EmuDeck in your new Deck. \n2 Use the Import Tool in your new Deck. \n3 That's all :)")"
 	 zenity --info \
+	--title="EmuDeck Export tool" \
+	--width=350 \
 	--text="${text}"
 
 else
