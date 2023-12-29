@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Bandai WonderSwan/Color - Retroarch - Beetle Cygne",
-  "steamCategory": "${WonderSwan}",
+  "configTitle": "Bandai WonderSwan - RetroArch Beetle Cygne",
+  "steamCategory": "${Bandai WonderSwan}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/wonderswan",
   "steamDirectory": "${steamdirglobal}",
@@ -46,7 +46,7 @@
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },
-  "parserId": "164785595449272606",
+  "parserId": "164785595449272607",
   "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {

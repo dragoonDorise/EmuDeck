@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Sega Genesis/Mega Drive WideScreen - Retroarch - Genesis Plus GX",
-  "steamCategory": "${Genesis WideScreen}",
+  "configTitle": "Sega Genesis/Mega Drive WideScreen - RetroArch Genesis Plus GX",
+  "steamCategory": "${Sega Genesis/Mega Drive WideScreen}",
   "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_wide_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/genesiswide",

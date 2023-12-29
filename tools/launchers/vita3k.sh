@@ -1,6 +1,6 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu vita3k
+cloud_sync_downloadEmu "Vita3k" && cloud_sync_startService
 export LC_ALL="C"
 
 emuName="Vita3K" #parameterize me
@@ -13,4 +13,4 @@ exe=$(find "$emufolder" -iname "${emuName}" | sort -n | cut -d' ' -f 2- | tail -
 chmod +x "$exe"
 
 eval "${exe} ${param}"
-cloud_sync_uploadEmu vita3k
+rm -rf "$savesPath/.gaming"

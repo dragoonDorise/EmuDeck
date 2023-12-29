@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 Xenia_emuName="Xenia"
-Xenia_emuType="windows"
+Xenia_emuType="$emuDeckEmuTypeWindows"
 Xenia_emuPath="${romsPath}/xbox360/xenia_canary.exe"
 Xenia_releaseURL_master="https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip"
 Xenia_releaseURL_canary="https://github.com/xenia-canary/xenia-canary/releases/latest/download/xenia_canary.zip"
@@ -25,7 +25,7 @@ Xenia_install(){
 	fi
 	local name="$Xenia_emuName-$version"
 
-	setMSG "Installing Xenia $version"		
+	setMSG "Installing Xenia $version"
 
 	#need to look at standardizing exe name; or download both?  let the user choose at runtime?
 	#curl -L "$Xenia_releaseURL" --output "$romsPath"/xbox360/xenia.zip
@@ -47,7 +47,7 @@ Xenia_install(){
 #	if [[ "$launchLine"  == *"PROTONLAUNCH"* ]]; then
 #		changeLine '"${PROTONLAUNCH}"' "$launchLine" "${toolsPath}/launchers/xenia.sh"
 #	fi
-	chmod +x "${toolsPath}/launchers/xenia.sh"	
+	chmod +x "${toolsPath}/launchers/xenia.sh"
 
     Xenia_getPatches
 
@@ -212,4 +212,9 @@ Xenia_IsInstalled(){
 Xenia_resetConfig(){
 	mv  "$Xenia_XeniaSettings" "$Xenia_XeniaSettings.bak" &>/dev/null
 	Xenia_init &>/dev/null && echo "true" || echo "false"
+}
+
+Xenia_setResolution(){
+	$xeniaResolution
+	echo "NYI"
 }

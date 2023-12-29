@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Commodore 64 - Retroarch",
+  "configTitle": "Commodore 64 - RetroArch VICE",
   "steamCategory": "${Commodore 64}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/c64",
@@ -21,6 +21,7 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
+  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,

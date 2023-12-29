@@ -2,7 +2,7 @@
 
 #variables
 DuckStation_emuName="DuckStation"
-DuckStation_emuType="FlatPak"
+DuckStation_emuType="$emuDeckEmuTypeFlatpak"
 DuckStation_emuPath="org.duckstation.DuckStation"
 DuckStation_configFileNew="$HOME/.var/app/org.duckstation.DuckStation/config/duckstation/settings.ini"
 
@@ -13,10 +13,9 @@ DuckStation_cleanup(){
 
 #Install
 DuckStation_install(){
-	setMSG "Installing $DuckStation_emuName"		
-
-	installEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}"	
-	flatpak override "${DuckStation_emuPath}" --filesystem=host --user	
+	setMSG "Installing $DuckStation_emuName"
+	installEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}"
+	flatpak override "${DuckStation_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
@@ -27,6 +26,9 @@ DuckStation_init(){
 	DuckStation_setEmulationFolder
 	DuckStation_setupSaves
 	DuckStation_addSteamInputProfile
+	DuckStation_retroAchievementsSetLogin
+	DuckStation_setCustomizations
+	RetroArch_setRetroAchievements
 }
 
 #update
@@ -41,7 +43,7 @@ DuckStation_update(){
 
 #ConfigurePaths
 DuckStation_setEmulationFolder(){
-	setMSG "Setting $DuckStation_emuName Emulation Folder"	
+	setMSG "Setting $DuckStation_emuName Emulation Folder"
     gameDirOpt='RecursivePaths = '
     newGameDirOpt="${gameDirOpt}""${romsPath}/psx"
 
@@ -78,14 +80,14 @@ DuckStation_setupStorage(){
 
 #WipeSettings
 DuckStation_wipe(){
-	setMSG "Wiping $DuckStation_emuName settings folder."	
+	setMSG "Wiping $DuckStation_emuName settings folder."
    	rm -rf "$HOME/.var/app/$DuckStation_emuPath"
 }
 
 
 #Uninstall
 DuckStation_uninstall(){
-	setMSG "Uninstalling ${DuckStation_emuName}."	
+	setMSG "Uninstalling ${DuckStation_emuName}."
     flatpak uninstall "$DuckStation_emuPath" --user -y
 }
 
@@ -121,7 +123,7 @@ DuckStation_wideScreenOff(){
     aspectRatioSetting='AspectRatio = 4:3'
 	sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFileNew"
 	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$DuckStation_configFileNew"
-	
+
 }
 
 #BezelOn
@@ -149,8 +151,9 @@ DuckStation_resetConfig(){
 
 DuckStation_addSteamInputProfile(){
 	addSteamInputCustomIcons
-	setMSG "Adding $DuckStation_emuName Steam Input Profile."
-	rsync -r "$EMUDECKGIT/configs/steam-input/duckstation_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	#echo "NYI"
+	#setMSG "Adding $DuckStation_emuName Steam Input Profile."
+	#rsync -r "$EMUDECKGIT/configs/steam-input/duckstation_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 DuckStation_retroAchievementsOn(){
@@ -162,14 +165,14 @@ DuckStation_retroAchievementsOff(){
 
 DuckStation_retroAchievementsHardCoreOn(){
 	iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "ChallengeMode" "True"
-	
+
 }
 DuckStation_retroAchievementsHardCoreOff(){
 	iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "ChallengeMode" "False"
 }
 
 
-DuckStation_retroAchievementsSetLogin(){	
+DuckStation_retroAchievementsSetLogin(){
 	rau=$(cat "$HOME/.config/EmuDeck/.rau")
 	rat=$(cat "$HOME/.config/EmuDeck/.rat")
 	echo "Evaluate RetroAchievements Login."
@@ -184,4 +187,34 @@ DuckStation_retroAchievementsSetLogin(){
 		iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "LoginTimestamp" "$(date +%s)"
 		DuckStation_retroAchievementsOn
 	fi
+}
+
+DuckStation_setRetroAchievements(){
+	DuckStation_retroAchievementsSetLogin
+	if [ "$achievementsHardcore" == "true" ]; then
+		DuckStation_retroAchievementsHardCoreOn
+	else
+		DuckStation_retroAchievementsHardCoreOff
+	fi
+}
+
+DuckStation_setCustomizations(){
+	if [ "$arClassic3D" == 169 ]; then
+			DuckStation_wideScreenOn
+	else
+			DuckStation_wideScreenOff
+	fi
+}
+
+DuckStation_setResolution(){
+
+	case $duckstationResolution in
+		"720P") multiplier=3;;
+		"1080P") multiplier=5;;
+		"1440P") multiplier=6;;
+		"4K") multiplier=9;;
+		*) echo "Error"; return 1;;
+	esac
+
+	RetroArch_setConfigOverride "ResolutionScale" $multiplier "$DuckStation_configFileNew"
 }

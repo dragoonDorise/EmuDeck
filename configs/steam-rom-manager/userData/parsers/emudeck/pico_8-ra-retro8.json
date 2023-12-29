@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Pico 8 - RetroArch",
+  "configTitle": "Pico 8 - RetroArch Retro8",
   "steamCategory": "${Pico 8}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/pico8",

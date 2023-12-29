@@ -1,0 +1,7 @@
+collection: NEC PC-9800 Series
+shortname: pc98
+extensions: 2hd, 2HD, 88d, 88D, 98d, 98D, d88, D88, d98, D98, cmd, CMD, dup, DUP, fdd, FDD, fdi, FDI, hdd, HDD, hdi, HDI, hdm, HDM, hdn, HDN, nhd, NHD, tfd, TFD, thd, THD,  xdf, XDF, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/np2kai_libretro.so {file.path}
+
+
+

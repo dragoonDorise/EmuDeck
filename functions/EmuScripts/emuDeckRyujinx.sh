@@ -2,8 +2,39 @@
 
 #variables
 Ryujinx_emuName="Ryujinx"
-Ryujinx_emuType="Binary"
+Ryujinx_emuType="$emuDeckEmuTypeBinary"
 Ryujinx_emuPath="$HOME/Applications/publish"
+Ryujinx_configFile="$HOME/.config/Ryujinx/Config.json"
+# https://github.com/Ryujinx/Ryujinx/blob/master/Ryujinx.Ui.Common/Configuration/System/Language.cs#L3-L23
+declare -A Ryujinx_languages=(
+["ja"]="Japanese"
+["en"]="AmericanEnglish"
+["fr"]="French"
+["de"]="German"
+["it"]="Italian"
+["es"]="Spanish"
+["zh"]="Chinese"
+["ko"]="Korean"
+["nl"]="Dutch"
+["pt"]="Portuguese"
+["ru"]="Russian"
+["tw"]="Taiwanese") # TODO: not all langs but we need to switch to full lang codes to support those
+
+# https://github.com/Ryujinx/Ryujinx/blob/master/Ryujinx.Ui.Common/Configuration/System/Region.cs#L3-L12
+declare -A Ryujinx_regions=(
+["ja"]="Japan"
+["en"]="USA"
+["fr"]="Europe"
+["de"]="Europe"
+["it"]="Europe"
+["es"]="Europe"
+["zh"]="China"
+["ko"]="Korea"
+["nl"]="Europe"
+["pt"]="Europe"
+["ru"]="Europe"
+["tw"]="Taiwan") # TODO: split lang from region?
+
 
 #cleanupOlderThings
 Ryujinx_cleanup(){
@@ -14,7 +45,7 @@ Ryujinx_cleanup(){
 Ryujinx_install(){
     echo "Begin Ryujinx Install"
     local showProgress=$1
-    if installEmuBI "Ryujinx" "$(getReleaseURLGH "Ryujinx/release-channel-master" "-linux_x64.tar.gz")" "Ryujinx" "tar.gz" "$showProgress"; then
+    if installEmuBI "$Ryujinx_emuName" "$(getReleaseURLGH "Ryujinx/release-channel-master" "-linux_x64.tar.gz")" "" "tar.gz" "$showProgress"; then
         tar -xvf "$HOME/Applications/Ryujinx.tar.gz" -C "$HOME/Applications/" && rm -rf "$HOME/Applications/Ryujinx.tar.gz"
         chmod +x "$HOME/Applications/publish/Ryujinx"
     else
@@ -79,19 +110,35 @@ Ryujinx_setEmulationFolder(){
     mkdir -p "${biosPath}/ryujinx/"
     unlink "$HOME/.config/Ryujinx/system"
     ln -sn "$HOME/.config/Ryujinx/system" "${biosPath}/ryujinx/keys"
+    sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$Ryujinx_configFile"
 
-    sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/Ryujinx/Config.json"
+}
+
+#SetLanguage
+Ryujinx_setLanguage(){
+    setMSG "Setting Ryujinx Language"	
+
+	#TODO: call this somewhere, and input the $language from somewhere (args?)
+	if [[ -f "${Ryujinx_configFile}" ]]; then
+		if [ ${Ryujinx_languages[$language]+_} ]; then
+            # we cant edit inplace, so we save it into a tmp var
+            tmp=$(jq ".system_language=\"${Ryujinx_languages[$language]}\"" "$Ryujinx_configFile")
+            echo "$tmp" > "$Ryujinx_configFile"
+            tmp=$(jq ".system_region=\"${Ryujinx_regions[$language]}\"" "$Ryujinx_configFile")
+            echo "$tmp" > "$Ryujinx_configFile"
+		fi
+	fi
 }
 
 #SetupSaves
 Ryujinx_setupSaves(){
     echo "Begin Ryujinx save link"
-    
+
     if [ -d "${emulationPath}/saves/ryujinx/saves" ]; then
         rm -rf "${emulationPath}/saves/ryujinx/saves"
         rm -rf "${emulationPath}/saves/ryujinx/saveMeta"
     fi
-    
+
     ln -sn "$HOME/.config/Ryujinx/bis/user/save" "${emulationPath}/saves/ryujinx/saves"
     ln -sn "$HOME/.config/Ryujinx/bis/user/saveMeta" "${emulationPath}/saves/ryujinx/saveMeta"
 
@@ -194,4 +241,21 @@ Ryujinx_IsInstalled(){
 
 Ryujinx_resetConfig(){
     Ryujinx_init &>/dev/null && echo "true" || echo "false"
+}
+
+Ryujinx_setResolution(){
+
+	case $ryujinxResolution in
+		"720P") multiplier=1; docked="false";;
+		"1080P") multiplier=1; docked="true";;
+		"1440P") multiplier=2; docked="false";;
+		"4K") multiplier=2; docked="true";;
+		*) echo "Error"; return 1;;
+	esac
+
+	jq --arg docked "$docked" --arg multiplier "$multiplier" \
+	  '.docked_mode = $docked | .res_scale = $multiplier' "$Ryujinx_configFile" > tmp.json
+
+	mv tmp.json "$Ryujinx_configFile"
+
 }
