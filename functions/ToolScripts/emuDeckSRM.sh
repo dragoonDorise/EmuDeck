@@ -334,6 +334,7 @@ SRM_createParsers(){
 
 SRM_addSteamInputProfiles(){
    cp "$EMUDECKGIT/$SRM_userData_directory/controllerTemplates.json" "$SRM_userData_configDir/controllerTemplates.json"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/ares_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/citra_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/duckstation_controller_config.vdf"
