@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 Dolphin_emuName="Dolphin"
-Dolphin_emuType="FlatPak"
+Dolphin_emuType="$emuDeckEmuTypeFlatpak"
 Dolphin_emuPath="org.DolphinEmu.dolphin-emu"
 Dolphin_configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
 Dolphin_configFileGFX="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
@@ -193,7 +193,7 @@ Dolphin_setResolution(){
 		"1080P") multiplier=3;;
 		"1440P") multiplier=4;;
 		"4K") multiplier=6;;
-		*) echo "Error"; exit 1;;
+		*) echo "Error"; return 1;;
 	esac
 
 	RetroArch_setConfigOverride "InternalResolution" $multiplier "$Dolphin_configFileGFX"

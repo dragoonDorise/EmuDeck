@@ -2,7 +2,7 @@
 
 #variables
 DuckStation_emuName="DuckStation"
-DuckStation_emuType="FlatPak"
+DuckStation_emuType="$emuDeckEmuTypeFlatpak"
 DuckStation_emuPath="org.duckstation.DuckStation"
 DuckStation_configFileNew="$HOME/.var/app/org.duckstation.DuckStation/config/duckstation/settings.ini"
 
@@ -213,7 +213,7 @@ DuckStation_setResolution(){
 		"1080P") multiplier=5;;
 		"1440P") multiplier=6;;
 		"4K") multiplier=9;;
-		*) echo "Error"; exit 1;;
+		*) echo "Error"; return 1;;
 	esac
 
 	RetroArch_setConfigOverride "ResolutionScale" $multiplier "$DuckStation_configFileNew"

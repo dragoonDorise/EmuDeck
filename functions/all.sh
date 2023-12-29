@@ -24,6 +24,7 @@ if [ "$system" != "darwin" ]; then
 fi
 chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
 
+source "$EMUDECKGIT"/api.sh
 source "$EMUDECKGIT"/functions/checkBIOS.sh
 source "$EMUDECKGIT"/functions/checkInstalledEmus.sh
 #source "$EMUDECKGIT"/functions/cloudServicesManager.sh
@@ -94,7 +95,6 @@ source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayMoonlight.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayGreenlight.sh
 source "$EMUDECKGIT"/functions/cloudSyncHealth.sh
 
-
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMAMEProton.sh
@@ -105,5 +105,5 @@ if [ "$system" = "darwin" ]; then
 	source "$EMUDECKGIT/darwin/functions/all-darwin.sh"
     source "$EMUDECKGIT/darwin/functions/helperFunctions.sh"
     source "$EMUDECKGIT/darwin/functions/overrides.sh"
-
+	source "$EMUDECKGIT/darwin/api.sh"
 fi

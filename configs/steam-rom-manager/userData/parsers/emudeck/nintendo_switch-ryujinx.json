@@ -14,7 +14,7 @@
   "userAccounts": {
     "specifiedAccounts": ""
   },
-  "disabled": true,
+  "disabled": false,
   "executable": {
     "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/ryujinx.sh",
     "shortcutPassthrough": false,

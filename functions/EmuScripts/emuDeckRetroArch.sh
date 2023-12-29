@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 RetroArch_emuName="RetroArch"
-RetroArch_emuType="FlatPak"
+RetroArch_emuType="$emuDeckEmuTypeFlatpak"
 RetroArch_emuPath="org.libretro.RetroArch"
 RetroArch_releaseURL=""
 RetroArch_path="$HOME/.var/app/org.libretro.RetroArch/config/retroarch"
@@ -32,6 +32,23 @@ RetroArch_install(){
 
 #ApplyInitialSettings
 RetroArch_init(){
+
+
+
+	setMSG "RetroArch - HD Texture Packs"
+
+	#NES
+	unlink "$emulationPath"/hdpacks/Mesen 2>/dev/null #refresh link if moved
+	ln -s "$biosPath"/HdPacks/ "$emulationPath"/hdpacks/nes
+	echo "Put your Mesen HD Packs here. Remember to put the pack inside a folder here with the exact name of the rom" > "$emulationPath"/hdpacks/nes/readme.txt
+
+	#N64
+	unlink "$emulationPath"/hdpacks/Mupen64plus_next 2>/dev/null #refresh link if moved
+	mkdir "$biosPath"/Mupen64plus
+	ln -s "$biosPath"/Mupen64plus/cache/ "$emulationPath"/hdpacks/n64
+	echo "Put your Nintendo64 HD Packs here in HTS format. You can download them from https://emulationking.com/nintendo64/" > "$emulationPath"/hdpacks/n64/readme.txt
+
+
 	RetroArch_backupConfigs
 	configEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "true"
 	RetroArch_setEmulationFolder
@@ -164,8 +181,10 @@ RetroArch_update(){
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
+	RetroArch_setupConfigurations
 
 }
+
 
 #ConfigurePaths
 RetroArch_setEmulationFolder(){
@@ -738,14 +757,14 @@ RetroArch_ngpc_bezelOff(){
 
 RetroArch_ngpc_MATshaderOn(){
 	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'video_shader_enable' 'true'
-	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'	 'video_filter' 'ED_RM_LINE'
-	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'	 'video_smooth' '"false"'
+	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'video_smooth' '"false"'
 }
 
 RetroArch_ngpc_MATshaderOff(){
 	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'video_shader_enable' 'false'
-	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'	 'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
-	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'	 'video_smooth' '"true"'
+	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'video_smooth' '"true"'
 }
 
 RetroArch_atari2600_setConfig(){
@@ -797,7 +816,7 @@ RetroArch_mame_CRTshaderOn(){
 	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'   'video_filter' 'ED_RM_LINE'
 	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'	'video_smooth' '"false"'
 
-	RetroArch_setOverride 'mame.cfg' 'MAME'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'mame.cfg' 'MAME' 'video_shader_enable' 'true'
 	RetroArch_setOverride 'mame.cfg' 'MAME'	'video_filter' 'ED_RM_LINE'
 	RetroArch_setOverride 'mame.cfg' 'MAME'	'video_smooth' '"false"'
 }
@@ -1313,7 +1332,7 @@ RetroArch_Beetle_PSX_HW_bezelOn(){
 }
 
  RetroArch_dreamcast_3DCRTshaderOn(){
- 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"true"'
+ 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast' 'video_shader_enable' '"true"'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'	'video_filter' 'ED_RM_LINE'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'	'video_smooth' 'ED_RM_LINE'
  }
@@ -1323,12 +1342,13 @@ RetroArch_dreamcast_setConfig(){
 }
 
 RetroArch_dreamcast_3DCRTshaderOff(){
-	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'dreamcast.cfg' 'Flycast' 'video_shader_enable' '"false"'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'	'video_filter' 'ED_RM_LINE'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'	'video_smooth' 'ED_RM_LINE'
 }
 
-RetroArch_saturn_setConfig(){
+RetroArch_saturn_setConfig(){	
+	mkdir -p "$biosPath/kronos"
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'input_player1_analog_dpad_mode' '"1"'
 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'input_player1_analog_dpad_mode' '"1"'
 	RetroArch_setOverride 'saturn.cfg' 'Kronos'  'input_player1_analog_dpad_mode' '"1"'
@@ -2053,23 +2073,99 @@ RetroArch_installCores(){
 	mkdir -p "$RetroArch_cores"
 
 	#This is all the cores combined, and dupes taken out.
-	RAcores=(81_libretro a5200_libretro atari800_libretro blastem_libretro bluemsx_libretro bsnes_hd_beta_libretro bsnes_libretro \
-			bsnes_mercury_accuracy_libretro cap32_libretro chailove_libretro citra2018_libretro citra_libretro crocods_libretro desmume2015_libretro \
-			desmume_libretro dolphin_libretro dosbox_core_libretro dosbox_pure_libretro dosbox_svn_libretro easyrpg_libretro fbalpha2012_cps1_libretro \
-			fbalpha2012_cps3_libretro fbalpha2012_libretro fbalpha2012_neogeo_libretro fbneo_libretro fceumm_libretro flycast_libretro fmsx_libretro \
-			fbalpha2012_cps2_libretro freechaf_libretro freeintv_libretro frodo_libretro fuse_libretro gambatte_libretro gearboy_libretro gearsystem_libretro \
-			genesis_plus_gx_libretro genesis_plus_gx_wide_libretro gpsp_libretro gw_libretro handy_libretro hatari_libretro \
-			kronos_libretro lutro_libretro mame2000_libretro mame2003_plus_libretro mame2010_libretro \
-			mame_libretro mednafen_lynx_libretro mednafen_ngp_libretro mednafen_pce_fast_libretro mednafen_pce_libretro mednafen_pcfx_libretro mednafen_psx_hw_libretro \
-			mednafen_psx_libretro mednafen_saturn_libretro mednafen_supafaust_libretro mednafen_supergrafx_libretro mednafen_vb_libretro mednafen_wswan_libretro \
-			melonds_libretro mesen-s_libretro mesen_libretro mgba_libretro mu_libretro mupen64plus_next_libretro \
-			nekop2_libretro neocd_libretro nestopia_libretro np2kai_libretro nxengine_libretro o2em_libretro \
-			opera_libretro parallel_n64_libretro pcsx2_libretro pcsx_rearmed_libretro picodrive_libretro pokemini_libretro ppsspp_libretro prboom_libretro \
-			prosystem_libretro puae_libretro px68k_libretro quasi88_libretro quicknes_libretro race_libretro retro8_libretro \
-			sameboy_libretro same_cdi_libretro scummvm_libretro smsplus_libretro snes9x2010_libretro snes9x_libretro squirreljme_libretro stella2014_libretro \
-			stella_libretro swanstation_libretro tgbdual_libretro theodore_libretro tic80_libretro uzem_libretro vba_next_libretro vbam_libretro vecx_libretro \
-			vice_x128_libretro vice_x64_libretro vice_x64sc_libretro vice_xscpu64_libretro vice_xvic_libretro virtualjaguar_libretro x1_libretro \
-			yabasanshiro_libretro yabause_libretro arduous_libretro tyrquake_libretro vitaquake2_libretro vitaquake2-rogue_libretro vitaquake2-xatrix_libretro vitaquake2-zaero_libretro vitaquake3_libretro wasm4_libretro)
+	RAcores=(
+				81_libretro.so \
+				a5200_libretro.so \
+				arduous_libretro.info \
+				atari800_libretro.so \
+				blastem_libretro.so \
+				bluemsx_libretro.so \
+				bsnes_hd_beta_libretro.so \
+				bsnes_libretro.so \
+				cap32_libretro.so \
+				chailove_libretro.so \
+				desmume_libretro.so \
+				dosbox_core_libretro.so \
+				dosbox_pure_libretro.so \
+				easyrpg_libretro.so \
+				fbalpha2012_libretro.so \
+				fbneo_libretro.so \
+				flycast_libretro.so \
+				freechaf_libretro.so \
+				freeintv_libretro.so \
+				fuse_libretro.so \
+				gambatte_libretro.so \
+				gearboy_libretro.so \
+				gearsystem_libretro.so \
+				genesis_plus_gx_libretro.so \
+				genesis_plus_gx_wide_libretro.so \
+				gw_libretro.so \
+				handy_libretro.so \
+				hatari_libretro.so \
+				kronos_libretro.so \
+				lutro_libretro.so \
+				mame2003_plus_libretro.so \
+				mame_libretro.so \
+				mednafen_lynx_libretro.so \
+				mednafen_ngp_libretro.so \
+				mednafen_pce_fast_libretro.so \
+				mednafen_pce_libretro.so \
+				mednafen_pcfx_libretro.so \
+				mednafen_psx_hw_libretro.so \
+				mednafen_saturn_libretro.so \
+				mednafen_supergrafx_libretro.so \
+				mednafen_vb_libretro.so \
+				mednafen_wswan_libretro.so \
+				melonds_libretro.so \
+				mesen_libretro.so \
+				mesen-s_libretro.so \
+				mgba_libretro.so \
+				minivmac_libretro.so \
+				mu_libretro.so \
+				mupen64plus_next_libretro.so \
+				neocd_libretro.so \
+				nestopia_libretro.so \
+				np2kai_libretro.so \
+				nxengine_libretro.so \
+				o2em_libretro.so \
+				opera_libretro.so \
+				picodrive_libretro.so \
+				pokemini_libretro.so \
+				potator_libretro.so \
+				ppsspp_libretro.so \
+				prboom_libretro.so \
+				prosystem_libretro.so \
+				puae_libretro.so \
+				px68k_libretro.so \
+				quasi88_libretro.so \
+				retro8_libretro.so \
+				same_cdi_libretro.so \
+				sameboy_libretro.so \
+				sameduck_libretro.so \
+				scummvm_libretro.so \
+				snes9x_libretro.so \
+				squirreljme_libretro.so \
+				stella_libretro.so \
+				swanstation_libretro.so \
+				theodore_libretro.so \
+				tic80_libretro.so \
+				tyrquake_libretro.so \
+				uzem_libretro.so \
+				vbam_libretro.so \
+				vecx_libretro.so \
+				vice_x128_libretro.so \
+				vice_x64sc_libretro.so \
+				vice_xscpu64_libretro.so \
+				vice_xvic_libretro.so \
+				virtualjaguar_libretro.so \
+				vitaquake2_libretro.so \
+				vitaquake2-rogue_libretro.so \
+				vitaquake2-xatrix_libretro.so \
+				vitaquake2-zaero_libretro.so \
+				vitaquake3_libretro.so \
+				wasm4_libretro.so \
+				x1_libretro.so \
+			)
 	setMSG "Downloading RetroArch Cores for EmuDeck"
 	for i in "${RAcores[@]}"
 	do
@@ -2192,7 +2288,6 @@ RetroArch_retroAchievementsSetLogin(){
 
 	fi
 }
-
 RetroArch_setBezels(){
 	if [ "$RABezels" == true ]; then
 		RetroArch_bezelOnAll
