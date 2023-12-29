@@ -453,7 +453,7 @@ if [ "$system" != "darwin" ]; then
 	yes "$password" | passwd $(whoami) && "$password" | sudo -v -S &>/dev/null && pwstatus=1 || echo "sudo password was incorrect" #refresh sudo cache
 	# We can't create the pass?we ask for it
 	if [ $pwstatus = 0 ]; then
-		password=$(Plugins_checkPassword "newPass")
+		read -r password <<< $(Plugins_checkPassword "newPass")
 	fi
 
 	if ( echo "$password" | sudo -S -k true ); then
