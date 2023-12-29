@@ -275,6 +275,7 @@ manageRPSMenu() {
 		fi
 		if [[ ! "${arrChosen[*]}" =~ "SteamLink" ]]; then
 			SteamLink_uninstall
+   		fi
 		if [[ ! "${arrChosen[*]}" =~ "ShadowPC" ]]; then
 			ShadowPC_uninstall
 		fi
