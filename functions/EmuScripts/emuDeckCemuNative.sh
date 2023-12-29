@@ -195,7 +195,7 @@ CemuNative_functions () {
 	install () {
 		echo "Begin Cemu - Native Install"
 		local showProgress="$1"
-		if installEmuAI "${CemuNative[emuName]}" "$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")" "" "$showProgress"; then # Cemu.AppImage
+		if installEmuAI "Cemu" "$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")" "" "$showProgress"; then # Cemu.AppImage
 			:
 		else
 			return 1
