@@ -5,6 +5,7 @@ Citra_emuType="FlatPak"
 Citra_emuPath="org.citra_emu.citra"
 Citra_releaseURL=""
 Citra_configFile="$HOME/.var/app/org.citra_emu.citra/config/citra-emu/qt-config.ini"
+Citra_texturesPath="$HOME/.var/app/$Citra_emuPath/data/citra-emu/load/textures"
 
 #cleanupOlderThings
 Citra_finalize(){
@@ -61,6 +62,13 @@ Citra_setupSaves(){
 
 #SetupStorage
 Citra_setupStorage(){
+
+	local textureLink="$(readlink -f "$Citra_texturesPath")"
+	if [[ "$textureLink" != "$emulationPath/hdpacks/n3ds" ]]; then
+		rm -rf "$Citra_texturesPath"
+		ln -s "$Citra_texturesPath" "$emulationPath/hdpacks/n3ds"
+	fi
+
 
 	if [ ! -f "$storagePath/citra/nand" ] && [ -d "$HOME/.var/app/org.ctira_emu.citra/data/citra-emu/nand/" ]; then
 
@@ -141,4 +149,16 @@ Citra_resetConfig(){
 Citra_addSteamInputProfile(){
 	addSteamInputCustomIcons
 	rsync -r "$EMUDECKGIT/configs/steam-input/citra_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+}
+
+Citra_setResolution(){
+	case $citraResolution in
+		"720P") multiplier=3;;
+		"1080P") multiplier=5;;
+		"1440P") multiplier=6;;
+		"4K") multiplier=9;;
+		*) echo "Error"; return 1;;
+	esac
+
+	setConfig "resolution_factor" $multiplier "$Citra_configFile"
 }

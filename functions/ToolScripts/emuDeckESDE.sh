@@ -13,6 +13,8 @@ steam_input_templateFolder="$HOME/.steam/steam/controller_base/templates/"
 es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
 es_rulesFile="$HOME/.emulationstation/custom_systems/es_find_rules.xml"
 es_settingsFile="$HOME/.emulationstation/es_settings.xml"
+es_rulesFile="$HOME/.emulationstation/custom_systems/es_find_rules.xml"
+
 
 ESDE_SetAppImageURLS() {
     local json="$(curl -s $ESDE_releaseJSON)"
@@ -129,7 +131,7 @@ ESDE_init(){
 }
 
 ESDE_chimeraOS(){
-	if [ ! -f $es_rulesFile ]; then
+	if [ ! -f "$es_rulesFile" ]; then
 		rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
 	else
 		xmlstarlet ed -d '//entry[contains(., "~/Applications/RetroArch-Linux*.AppImage") or contains(., "~/.local/share/applications/RetroArch-Linux*.AppImage") or contains(., "~/.local/bin/RetroArch-Linux*.AppImage") or contains(., "~/bin/RetroArch-Linux*.AppImage")]' $es_rulesFile > rules_temp.xml && mv rules_temp.xml $es_rulesFile

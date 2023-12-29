@@ -10,6 +10,7 @@ fi
 declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
 declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
 declare -a csofolderWhiteList=("psp")
+declare -a n3dsfolderWhiteList=("3ds")
 declare -a searchFolderList
 
 #executables
@@ -81,6 +82,20 @@ compressCSO() {
 
 }
 
+trim3ds() {
+	local file=$1
+	local successful=''
+	# Rename trimmed files to *(Trimmed).3ds
+	3dstool -r -f "$file" && successful="true"
+	if [[ $successful == "true" ]]; then
+		echo "$file succesfully converted to ${file%.*}.cso"
+		mv "$file" "${file%%.*}(Trimmed).3ds"
+	else
+		echo "error converting $file"
+	fi
+
+}
+
 #main
 text="$(printf "<b>Hi</b>\nWelcome to EmuDeck's Game Compression script!\n\nPlease be very careful and make sure you have backups of roms.\n\nThis script will scan the roms folder you choose and will compress the files it can to the best available format.\n\n<b>This action will delete the old files if the compression succeeds</b>")"
 selection=$(zenity --question \
@@ -120,6 +135,15 @@ if [ "$selection" == "bulk" ]; then
 			fi
 		done
 	fi
+	for romfolder in "${n3dsfolderWhiteList[@]}"; do
+		echo "Checking ${romsPath}/${romfolder}/"
+		# ignore trimmed files
+		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.3ds" ! -name "*(Trimmed)*")
+		if [ ${#files[@]} -gt 0 ]; then
+			echo "found in $romfolder"
+			searchFolderList+=("$romfolder")
+		fi
+	done
 	for romfolder in "${csofolderWhiteList[@]}"; do
 		echo "Checking ${romsPath}/${romfolder}/"
 		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.iso")
@@ -207,7 +231,6 @@ if [ "$selection" == "bulk" ]; then
 	done
 
 	#cso
-
 	for romfolder in "${romfolders[@]}"; do
 		if [[ " ${csofolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
 			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
@@ -217,10 +240,21 @@ if [ "$selection" == "bulk" ]; then
 		fi
 	done
 
+	#3ds
+	for romfolder in "${romfolders[@]}"; do
+		if [[ " ${n3dsfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+			# Ignore trimmed files
+			find "$romsPath/$romfolder" -type f -iname "*.3ds" ! -name '*(Trimmed)*' | while read -r f; do
+				echo "Converting: $f"
+				trim3ds "$f"
+			done
+		fi
+	done
+
 elif [ "$selection" == "Pick a file" ]; then
 
 	#/bin/bash
-	f=$(zenity --file-selection --file-filter='Discs (cue,gdi,iso,gcm) | *.cue *.gdi *.iso *.gcm' --file-filter='All files | *' 2>/dev/null)
+	f=$(zenity --file-selection --file-filter='Discs (cue,gdi,iso,gcm) | *.cue *.gdi *.iso *.gcm *.3ds' --file-filter='All files | *' 2>/dev/null)
 	ext=$(echo "${f##*.}" | awk '{print tolower($0)}')
 	case $ext in
 
@@ -238,6 +272,10 @@ elif [ "$selection" == "Pick a file" ]; then
 
 	cue)
 		echo cue
+		;;
+
+	3ds)
+		echo 3ds
 		;;
 	esac
 
