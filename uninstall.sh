@@ -23,10 +23,9 @@ doUninstallRPCS3=true
 doUninstallRyujinx=true
 doUninstallScummVM=true
 doUninstallSRM=true
-doUninstallXemu=true
-doUninstallXenia=true
 doUninstallVita3K=true
-doUninstallYuzu=true
+doUninstallXemu=true
+doUninstallXenia=truedoUninstallYuzu=true
 
 LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
 echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run

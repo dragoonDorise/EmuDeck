@@ -185,6 +185,7 @@ ESDE_addCustomSystems(){
 		#format doc to make it look nice
 		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 	fi
+    #Custom Systems config end
 }
 
 #update
