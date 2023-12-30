@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Panasonic 3DO",
-  "steamCategory": "${3DO}",
+  "configTitle": "Panasonic 3DO - RetroArch Opera",
+  "steamCategory": "${Panasonic 3DO}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/3do",
   "steamDirectory": "${steamdirglobal}",

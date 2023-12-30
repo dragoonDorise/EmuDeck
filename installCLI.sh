@@ -2,108 +2,11 @@
 
 #
 ##
-## Pid Lock...
-##
-#
-mkdir -p "$HOME/.config/EmuDeck"
-PIDFILE="$HOME/.config/EmuDeck/installCLI.pid"
-
-devMode=$1
-
-if [ -f "$PIDFILE" ]; then
-  PID=$(cat "$PIDFILE")
-  ps -p "$PID" > /dev/null 2>&1
-  if [ $? -eq 0 ]; then
-    echo "Process already running"
-    exit 1
-  else
-    ## Process not found assume not running
-    echo $$ > "$PIDFILE"
-    if [ $? -ne 0 ]; then
-      echo "Could not create PID file"
-      exit 1
-    fi
-  fi
-else
-  echo $$ > "$PIDFILE"
-  if [ $? -ne 0 ]; then
-    echo "Could not create PID file"
-    exit 1
-  fi
-fi
-
-function finish {
-  echo "Script terminating. Exit code $?"
-
-
-
-}
-trap finish EXIT
-
-
-#
-##
-## Init... This code is needed for both Zenity and non Zenity modes
-##
-#
-
-#
-##
-## Do we need Zenity?... Anything in the second param will skip zenity
-##
-#
-
-
-
-
-#Clean up previous installations
-rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
-rm -rf ~/dragoonDoriseTools
-
-#Creating log file
-LOGFILE="$HOME/emudeck/emudeckCLI.log"
-mv "$LOGFILE" "$HOME/emudeck/emudeckCLI.last.log" #backup last log
-echo "${@}" > "$LOGFILE" #might as well log out the parameters of the run
-
-exec > >(tee "${LOGFILE}") 2>&1
-date "+%Y.%m.%d-%H:%M:%S %Z"
-#Mark if this not a fresh install
-FOLDER="$HOME/.config/EmuDeck/"
-if [ -d "$FOLDER" ]; then
-	echo "" > "$HOME/.config/EmuDeck/.finished"
-fi
-sleep 1
-SECONDTIME="$HOME/.config/EmuDeck/.finished"
-
-
-# Seeting up the progress Bar for the rest of the installation
-	
-
-#
-##
-## set backend location
-##
-# I think this should just be in the source, so there's one spot for initialization. hrm, no i'm wrong. Here is best.
-EMUDECKGIT="$HOME/.config/EmuDeck/backend"
-
-#
-##
-echo 'Downloading files...'
-##
-#
-#
-##
 ## Branch to download
 ##
 #
 
-case $devMode in
-	"BETA") 	branch="beta" 		;;
-	"DEV") 		branch="dev" 		;;  
-	"EmuReorg") branch="EmuReorg" 	;;  
-	*) 			branch="main" 		;;
-esac	
-
+branch="dev"
 echo $branch > "$HOME/.config/EmuDeck/branch.txt"
 
 
@@ -415,7 +318,6 @@ if [ "$RUNCHOICE" == 1 ]; then
 			emuTable+=(TRUE "Switch" "Yuzu")
 			emuTable+=(TRUE "WiiU" "Cemu")
 			emuTable+=(TRUE "XBox" "Xemu")
-			emuTable+=(TRUE "Jaguar" "BigPEmu")
 			#if we are in beta / dev install, allow Xenia. Still false by default though. Will only work on expert mode, and explicitly turned on.
 			if [[ $branch == "beta" || $branch == "dev" ]]; then
 				emuTable+=(FALSE "Xbox360" "Xenia")
@@ -494,9 +396,6 @@ if [ "$RUNCHOICE" == 1 ]; then
 				#if [[ "$emusToInstall" == *"MelonDS"* ]]; then
 				#	doInstallMelon=true
 				#fi
-				if [[ "$emusToInstall" == *"BigPEmu"* ]]; then
-					setSetting doInstallBigPEmu true
-				fi
 			
 			
 			else
@@ -592,7 +491,6 @@ if [ "$RUNCHOICE" == 1 ]; then
 				emuTable+=(TRUE "Yuzu")
 				emuTable+=(TRUE "Cemu")
 				emuTable+=(TRUE "Xemu")
-				emuTable+=(TRUE "BigPEmu")
 				emuTable+=(TRUE "Steam Rom Manager")
 				emuTable+=(TRUE "EmulationStation DE")
 	
@@ -668,9 +566,6 @@ if [ "$RUNCHOICE" == 1 ]; then
 					#if [[ "$emusToReset" == *"MelonDS"* ]]; then
 					#	setSetting doSetupMelonDS true
 					#fi
-					if [[ "$emusToReset" == *"BigPEmu"* ]]; then
-						setSetting doSetupBigPEmu true
-					fi
 					if [[ "$emusToReset" == *"Steam Rom Manager"* ]]; then
 						setSetting doSetupSRM true
 					fi
@@ -702,7 +597,6 @@ if [ "$RUNCHOICE" == 1 ]; then
 		setSetting doInstallPrimeHack true
 		setSetting doInstallPPSSPP true
 		setSetting doInstallXemu true
-		setSetting doInstallBigPEmu false		
 		#doInstallMelon=true
 	
 		#widescreen off by default
@@ -822,9 +716,6 @@ fi
 if [ $doInstallCemu == "true" ]; then
 	Cemu_install
 fi
-if [ $doInstallBigPEmu == "true" ]; then
-	BigPEmu_install
-fi
 
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ "$doInstallXenia" == "true" ]; then
@@ -890,9 +781,6 @@ fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then
 	Cemu_init
-fi
-if [ "$doSetupBigPEmu" == "true" ]; then
-	BigPEmu_init
 fi
 if [ "$doSetupXenia" == "true" ]; then
 	Xenia_init

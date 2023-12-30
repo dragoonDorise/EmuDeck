@@ -1,0 +1,6 @@
+collection: Atari ST
+shortname: atarist
+extensions: st, ST, msa, MSA, stx, STX, dim, DIM, ipf, IPF, m3u, M3U, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/hatari_libretro.so {file.path}
+
+

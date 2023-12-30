@@ -1,0 +1,6 @@
+collection: Stratagus Game Engine
+shortname: stratagus
+extensions: 7z, 7Z, zip, ZIP
+launch: PLACEHOLDER {file.path}
+
+

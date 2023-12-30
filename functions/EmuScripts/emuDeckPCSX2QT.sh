@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 PCSX2QT_emuName="PCSX2-QT"
-PCSX2QT_emuType="AppImage"
+PCSX2QT_emuType="$emuDeckEmuTypeAppImage"
 PCSX2QT_emuPath="$HOME/Applications/pcsx2-Qt.AppImage"
 PCSX2QT_configFile="$HOME/.config/PCSX2/inis/PCSX2.ini"
 
@@ -14,8 +14,10 @@ PCSX2QT_cleanup() {
 PCSX2QT_install() {
 	echo "Begin PCSX2-QT Install"
 	local showProgress="$1"
-	if installEmuAI "pcsx2-Qt" "$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")" "" "$showProgress"; then #pcsx2-Qt.AppImage
-		:
+
+	#if installEmuAI "${PCSX2QT_emuName}" "https://github.com/PCSX2/pcsx2/releases/download/v1.7.4749/pcsx2-v1.7.4749-linux-appimage-x64-Qt.AppImage" "pcsx2-Qt" "$showProgress"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
+	if installEmuAI "${PCSX2QT_emuName}" "$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")" "pcsx2-Qt" "$showProgress"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
+		rm -rf $HOME/.local/share/applications/pcsx2-Qt.desktop &>/dev/null # delete old shortcut
 	else
 		return 1
 	fi
@@ -38,6 +40,8 @@ PCSX2QT_init() {
 	PCSX2QT_setupStorage
 	PCSX2QT_setupSaves
 	PCSX2QT_setupControllers
+	PCSX2QT_setCustomizations
+	PCSX2QT_setRetroAchievements
 
 }
 
@@ -49,6 +53,7 @@ PCSX2QT_update() {
 	PCSX2QT_setupStorage
 	PCSX2QT_setupSaves
 	PCSX2QT_setupControllers
+
 
 }
 
@@ -155,11 +160,11 @@ SmallMotor = SDL-1/SmallMotor"
 CycleAspectRatio = Keyboard/F6
 CycleInterlaceMode = Keyboard/F5
 CycleMipmapMode = Keyboard/Insert
-DecreaseUpscaleMultiplier = SDL-0/Start & SDL-0/DPadDown
+DecreaseUpscalemultiplier=SDL-0/Start & SDL-0/DPadDown
 GSDumpMultiFrame = Keyboard/Control & Keyboard/Shift & Keyboard/F8
 GSDumpSingleFrame = Keyboard/Shift & Keyboard/F8
 HoldTurbo = Keyboard/Period
-IncreaseUpscaleMultiplier = SDL-0/Start & SDL-0/DPadUp
+IncreaseUpscalemultiplier=SDL-0/Start & SDL-0/DPadUp
 InputRecToggleMode = Keyboard/Shift & Keyboard/R
 LoadStateFromSlot = Keyboard/F3
 LoadStateFromSlot = SDL-0/Back & SDL-0/LeftShoulder
@@ -304,4 +309,31 @@ PCSX2QT_retroAchievementsSetLogin() {
 		iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "LoginTimestamp" "$(date +%s)"
 		PCSX2QT_retroAchievementsOn
 	fi
+}
+
+PCSX2QT_setRetroAchievements(){
+	PCSX2QT_retroAchievementsSetLogin
+	if [ "$achievementsHardcore" == "true" ]; then
+		PCSX2QT_retroAchievementsHardCoreOn
+	else
+		PCSX2QT_retroAchievementsHardCoreOff
+	fi
+}
+
+PCSX2QT_setCustomizations(){
+	echo "NYI"
+}
+
+
+PCSX2QT_setResolution(){
+
+	case $pcsx2Resolution in
+		"720P") multiplier=2;;
+		"1080P") multiplier=3;;
+		"1440P") multiplier=4;;
+		"4K") multiplier=6;;
+		*) echo "Error"; return 1;;
+	esac
+
+	RetroArch_setConfigOverride "upscale_multiplier" $multiplier "$PCSX2QT_configFile"
 }

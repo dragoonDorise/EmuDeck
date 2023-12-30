@@ -1,9 +1,9 @@
 {
   "parserType": "Glob",
-  "configTitle": "SNK Neo Geo Pocket/Color - Retroarch - Beetle NeoPop",
-  "steamCategory": "${Neo Geo Pocket}",
+  "configTitle": "SNK Neo Geo Pocket - RetroArch Beetle NeoPop",
+  "steamCategory": "${SNK Neo Geo Pocket}",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/ngpc",
+  "romDirectory": "${romsdirglobal}/ngp",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
@@ -46,7 +46,7 @@
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },
-  "parserId": "164785621885441701",
+  "parserId": "164785621885441702",
   "version": 10,
   "imageProviderAPIs": {
     "SteamGridDB": {

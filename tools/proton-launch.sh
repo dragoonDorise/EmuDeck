@@ -159,6 +159,8 @@ main () {
     # Set main STEAMPATH
     if [ -d "${HOME}/.local/share/Steam" ]; then
         STEAMPATH="${HOME}/.local/share/Steam"
+    elif [ -d "${HOME}/.steam/steam" ]; then
+        STEAMPATH="${HOME}/.steam/steam"
     else
         reportError "Error: ${STEAMPATH} does not exist." "true" "true"
     fi
@@ -242,7 +244,7 @@ main () {
 
     # Check if Proton version is set, if not, set it to 7.0 by default
     if [ -z ${PROTONVER+x} ]; then
-        PROTONVER="7.0"
+        PROTONVER="8.0"
     fi
 
     # Find set Proton version

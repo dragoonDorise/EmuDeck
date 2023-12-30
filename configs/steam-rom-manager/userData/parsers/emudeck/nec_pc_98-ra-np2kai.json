@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "NEC - PC-98 - RetroArch",
-  "steamCategory": "${NEC - PC-98}",
+  "configTitle": "NEC PC-98 - RetroArch NP2kai",
+  "steamCategory": "${NEC PC-98}",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/pc98",
   "steamDirectory": "${steamdirglobal}",

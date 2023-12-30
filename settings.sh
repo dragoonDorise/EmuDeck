@@ -62,7 +62,6 @@ installString='Installing'
 #Default RetroArch configuration 
 RABezels=true
 RAautoSave=false
-SNESAR=43
 
 #Default widescreen
 duckWide=false

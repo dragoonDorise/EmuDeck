@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "DOS - Retroarch(Flatpak) - DOSBox Pure",
+  "configTitle": "DOS - RetroArch DOSBox Pure",
   "steamCategory": "${DOS}",
   "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}dosbox_pure_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",

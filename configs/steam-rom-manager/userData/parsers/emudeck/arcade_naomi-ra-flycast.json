@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Arcade - Naomi",
-  "steamCategory": "${Arcade - Naomi}",
+  "configTitle": "Arcade - NAOMI - RetroArch Flycast",
+  "steamCategory": "${Arcade - NAOMI}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/naomi",
   "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}flycast_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
@@ -21,6 +21,7 @@
   "localHeroImages": "",
   "localLogoImages": "",
   "localIcons": "",
+  "disabled": false,
   "userAccounts": {
     "specifiedAccounts": "",
     "skipWithMissingDataDir": true,

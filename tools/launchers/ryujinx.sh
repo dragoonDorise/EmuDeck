@@ -1,7 +1,7 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu ryujinx
-emuName="Ryujinx" #parameterize me
+cloud_sync_downloadEmu "ryujinx" && cloud_sync_startService
+emuName="Ryujinx.sh" #parameterize me
 emufolder="$HOME/Applications/publish" # has to be applications for ES-DE to find it
 
 #find full path to emu executable
@@ -17,11 +17,7 @@ else
     chmod +x $exe
 fi
 #run the executable with the params.
-#Fix first '
 param="${@}"
-substituteWith='"'
-param=${param/\'/"$substituteWith"}
-#Fix last ' on command
-param=$(echo "$param" | sed 's/.$/"/')
+param=$(echo "$param" | sed "s|'|/\"|g")
 eval "${exe} ${param}"
-cloud_sync_uploadEmu ryujinx
+rm -rf "$savesPath/.gaming"

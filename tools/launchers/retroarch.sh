@@ -1,5 +1,5 @@
 #!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu retroarch
+cloud_sync_downloadEmu "retroarch" && cloud_sync_startService
 /usr/bin/flatpak run org.libretro.RetroArch "${@}"
-cloud_sync_uploadEmu retroarch
+rm -rf "$savesPath/.gaming"

@@ -50,7 +50,7 @@ CloudScripts_update() {
 }
 
 csmSRMNotification() {
-	TEXT=$(printf "<b>ATTENTION:</b>\nYou must update and run 'Steam Rom Manager' (the same as you would when adding or removing ROMS) for changes to take effect in Steam.\n")
+	TEXT=$(printf "<b>ATTENTION:</b>\nYou must update and run 'Steam ROM Manager' (the same as you would when adding or removing ROMS) for changes to take effect in Steam.\n")
 	zenity --info --width=400 --text="$TEXT"
 }
 
@@ -154,6 +154,32 @@ manageRPSMenu() {
 		arrAllRP+=(false "Parsec")
 	fi
 
+
+	Spotify_IsInstalled
+	ans=$?
+	if [ "$ans" == "1" ]; then
+		arrAllRP+=(true "Spotify")
+	else
+		arrAllRP+=(false "Spotify")
+	fi
+	
+	SteamLink_IsInstalled
+	ans=$?
+	if [ "$ans" == "1" ]; then
+		arrAllRP+=(true "SteamLink")
+	else
+		arrAllRP+=(false "SteamLink")
+	fi
+
+	ShadowPC_IsInstalled
+	ans=$?
+	if [ "$ans" == "1" ]; then
+		arrAllRP+=(true "ShadowPC")
+	else
+		arrAllRP+=(false "ShadowPC")
+	fi
+
+
 	# Dynamically build list of scripts
 	RP=$(zenity --list  \
 	--title="Cloud Services Manager" \
@@ -203,6 +229,31 @@ manageRPSMenu() {
 				else
 					Parsec_install
 				fi
+			elif [ "$i" == "Spotify" ]; then
+				Spotify_IsInstalled
+				ans=$?
+				if [ "$ans" == "1" ]; then
+					Spotify_update
+				else
+					Spotify_install
+				fi
+			elif [ "$i" == "SteamLink" ]; then
+				SteamLink_IsInstalled
+				ans=$?
+				if [ "$ans" == "1" ]; then
+					SteamLink_update
+				else
+					SteamLink_install
+				fi
+			elif [ "$i" == "ShadowPC" ]; then
+				ShadowPC_IsInstalled
+				ans=$?
+				if [ "$ans" == "1" ]; then
+					ShadowPC_update
+				else
+					ShadowPC_install
+				fi
+
 			fi
 		done
 
@@ -218,6 +269,15 @@ manageRPSMenu() {
 		fi
 		if [[ ! "${arrChosen[*]}" =~ "Parsec" ]]; then
 			Parsec_uninstall
+		fi
+		if [[ ! "${arrChosen[*]}" =~ "Spotify" ]]; then
+			Spotify_uninstall
+		fi
+		if [[ ! "${arrChosen[*]}" =~ "SteamLink" ]]; then
+			SteamLink_uninstall
+   		fi
+		if [[ ! "${arrChosen[*]}" =~ "ShadowPC" ]]; then
+			ShadowPC_uninstall
 		fi
 	)	|	zenity --progress \
             --title="Cloud Services Manager" \
@@ -236,7 +296,7 @@ manageRPSMenu() {
 }
 
 changeSettingsMenu() {
-	declare -a arrSupBrows=("com.google.Chrome" "com.microsoft.Edge" "org.mozilla.firefox" "com.brave.Browser" "org.chromium.Chromium")
+	declare -a arrSupBrows=("com.google.Chrome" "com.microsoft.Edge" "com.brave.Browser" "org.chromium.Chromium")
 	declare -a arrBrowsOpts=()
 
 	# Include system default browser and verify it is is installed

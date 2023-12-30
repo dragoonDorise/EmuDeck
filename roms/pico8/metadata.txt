@@ -1,0 +1,4 @@
+collection: PICO-8 Fantasy Console
+shortname: pico8
+extensions: p8, P8, png, PNG, zip, ZIP, 7z, 7Z
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/retro8_libretro.so {file.path}

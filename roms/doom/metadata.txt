@@ -1,0 +1,4 @@
+collection: Doom
+shortname: doom
+extensions: desktop, iwad, IWAD, pk4, PK4, pwad, PWAD, sh, wad, WAD
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/prboom_libretro.so {file.path}
