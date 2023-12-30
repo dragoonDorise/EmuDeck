@@ -22,6 +22,7 @@ doUninstallRPCS3=true
 doUninstallRyujinx=true
 doUninstallScummVM=true
 doUninstallSRM=true
+doUninstallSupermodel=true
 doUninstallVita3K=true
 doUninstallXemu=true
 doUninstallXenia=true
@@ -103,10 +104,11 @@ if [ "$doUninstall" == true ]; then
 				16 "RPCS3" \
 				17 "Ryujinx" \
 				18 "ScummVM" \
-				19 "Vita3K"  \
-				20 "Xemu" \
-				21 "Xenia"  \
-				22 "Yuzu" )
+				19 "Supermodel" \
+				20 "Vita3K"  \
+				21 "Xemu" \
+				22 "Xenia"  \
+				23 "Yuzu" )
 
 	ans=$?
 	if [ $ans -eq 0 ]; then
@@ -163,6 +165,9 @@ if [ "$doUninstall" == true ]; then
 			doUninstallRyujinx=false
 		fi
 		if [[ "$emusToUninstall" == *"ScummVM"* ]]; then
+			doUninstallScummVM=false
+		fi
+		if [[ "$emusToUninstall" == *"Supermodel"* ]]; then
 			doUninstallScummVM=false
 		fi
 		if [[ "$emusToUninstall" == *"Vita3K"* ]]; then
@@ -272,6 +277,10 @@ if [ "$doUninstall" == true ]; then
 	if [[ "$doUninstallScummVM" == true ]]; then
 		flatpak uninstall org.scummvm.ScummVM -y
 		rm -rf $HOME/.var/app/org.scummvm.ScummVM &>> /dev/null
+	fi
+	if [[ "$doUninstallSupermodel" == true ]]; then
+		flatpak uninstall com.supermodel3.Supermodel -y
+		rm -rf $HOME/.var/app/com.supermodel3.Supermodel &>> /dev/null
 	fi
 	if [[ "$doUninstallVita3K" == true ]]; then
 		rm -rf $HOME/Applications/Vita3K &>> /dev/null

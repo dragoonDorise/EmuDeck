@@ -87,6 +87,7 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRMG.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMelonDS.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckares.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckFlycast.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckSupermodel.sh
 
 #remoteplayclientscripts
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh
