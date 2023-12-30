@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "Pegasus Frontend",
+  "configTitle": "Pegasus - Pegasus Frontend",
   "steamDirectory": "${steamdirglobal}",
   "steamCategory": "${Emulation}",
   "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/launchers/pegasus/",

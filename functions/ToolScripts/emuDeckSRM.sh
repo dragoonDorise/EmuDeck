@@ -11,7 +11,7 @@ SRM_install(){
   setMSG "Installing Steam ROM Manager"
   local showProgress="$1"
 
-  if installToolAI "$SRM_toolName" "$(getReleaseURLGH "dragoonDorise/steam-rom-manager" "AppImage")" "" "$showProgress"; then
+  if installToolAI "$SRM_toolName" "$(getReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")" "" "$showProgress"; then
     SRM_createDesktopShortcut
   else
     return 1
