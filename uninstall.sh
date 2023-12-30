@@ -168,7 +168,7 @@ if [ "$doUninstall" == true ]; then
 			doUninstallScummVM=false
 		fi
 		if [[ "$emusToUninstall" == *"Supermodel"* ]]; then
-			doUninstallScummVM=false
+			doUninstallSupermodel=false
 		fi
 		if [[ "$emusToUninstall" == *"Vita3K"* ]]; then
 			doUninstallVita3K=false
