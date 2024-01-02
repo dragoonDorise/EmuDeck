@@ -4,7 +4,7 @@ Supermodel_emuName="Supermodel"
 Supermodel_emuType="$emuDeckEmuTypeFlatpak"
 Supermodel_emuPath="com.supermodel3.Supermodel"
 Supermodel_releaseURL=""
-Supermodel_configFile="$HOME/.var/app/com.supermodel3.Supermodel/config/Supermodel/Supermodel.ini"
+Supermodel_configFile="$HOME/.local/share/flatpak/app/com.supermodel3.Supermodel/current/active/files/bin/Config/Supermodel.ini"
 
 #cleanupOlderThings
 Supermodel_cleanup(){
@@ -36,9 +36,12 @@ Supermodel_update(){
 
 #ConfigurePaths
 Supermodel_setEmulationFolder(){
-    gameDirOpt='browser_lastpath='
-    newGameDirOpt="$gameDirOpt""${romsPath}/Supermodel"
-	changeLine "$gameDirOpt" "$newGameDirOpt" "$Supermodel_configFile"
+	setMSG "Setting $Supermodel_emuName Emulation Folder"
+	
+	mkdir -p $HOME/.supermodel/Analysis $HOME/.supermodel/Log $HOME/.supermodel/NVRAM
+	cp -r $HOME/.local/share/flatpak/app/com.supermodel3.Supermodel/current/active/files/bin/Config $HOME/.supermodel
+	cp -r $HOME/.local/share/flatpak/app/com.supermodel3.Supermodel/current/active/files/bin/Assets $HOME/.supermodel
+	cp -r $HOME/.local/share/flatpak/app/com.supermodel3.Supermodel/current/active/files/bin/Docs $HOME/.supermodel
 }
 
 #SetupSaves
