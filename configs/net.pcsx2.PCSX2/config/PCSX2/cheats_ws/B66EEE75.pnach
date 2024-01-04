@@ -1,6 +1,0 @@
-gametitle=Simple 2000 Series Ultimate Vol.01 - Love Smash Super Tennis Players (J)(SLPM-62093)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,20265700,extended,3f400000 //3f800000 X-Fov

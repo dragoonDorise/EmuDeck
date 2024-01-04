@@ -1,6 +1,0 @@
-gametitle=Richard Burns Rally (SLES-52323)
-comment=Widescreen patch by nemesis2000 (pnach by nemesis2000)
-
-patch=1,EE,00112F74,word,3C014340
-patch=1,EE,00112F94,word,3C013FF1
-patch=1,EE,00112F98,word,3421C71C

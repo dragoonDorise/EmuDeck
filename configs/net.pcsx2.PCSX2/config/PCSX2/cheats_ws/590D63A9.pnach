@@ -1,4 +1,0 @@
-gametitle=Underworld - The Eternal War SLES_521.08
-comment=Widescreen Hack
-patch=1,EE,0018877c,word,3c033f40
-patch=1,EE,0018890c,word,3c033f40

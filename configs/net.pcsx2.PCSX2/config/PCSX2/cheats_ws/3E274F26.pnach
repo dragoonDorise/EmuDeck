@@ -1,9 +1,0 @@
-gametitle=Simple 2000 Series Ultimate Vol.15 - Love Ping Pong (J)(SLPM-62429)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//Matrix hack
-patch=1,EE,0018df94,word,3c013f40 //00000000
-patch=1,EE,0018df98,word,44810000 //00000000
-patch=1,EE,0018dfa0,word,4600c602 //00000000

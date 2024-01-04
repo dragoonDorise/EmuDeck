@@ -1,6 +1,0 @@
-gametitle=Sega Soccer Slam (E)(SLES-51125)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,00232064,word,3c013f40 //3c013f80

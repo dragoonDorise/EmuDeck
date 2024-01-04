@@ -1,4 +1,0 @@
-comment=Magna Carta - Les Larmes de Sang - Widescreen Hack (16:9) (PAL-FR) By Bigdemon
-
-//16:9
-patch=1,EE,002bd228,word,3c023f40 //3c023f80

@@ -1,4 +1,0 @@
-gametitle=Shifters SLUS_202.71
-comment=Widescreen Hack
-patch=1,EE,204c4ed0,extended,3F81DE4A
-patch=1,EE,204c4f50,extended,3F81DE4A

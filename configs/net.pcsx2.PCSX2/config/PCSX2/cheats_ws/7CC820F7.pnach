@@ -1,4 +1,0 @@
-gametitle=San Goku Shi Senki 2 (J)(SLPM-65247)
-comment=widescreen 16:9 hack by 99skull (NTSC-J by Arapapa)
-
-patch=1,EE,00140834,word,3c023f40 //3c023f80

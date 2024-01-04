@@ -1,7 +1,0 @@
-gametitle=Disney's Dinosaur (E)(SLES-50042 & SLES-50043)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,0026b274,word,3fe38e32 //3faaaaab
-patch=1,EE,0026b27c,word,3fe38e32 //3faaaaab

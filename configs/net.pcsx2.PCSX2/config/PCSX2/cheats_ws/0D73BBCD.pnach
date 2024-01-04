@@ -1,5 +1,0 @@
-gametitle=Tenchu - Kurenai (NTSC-K) (SLKA-25198)
-comment=Widescreen Hack (NTSC-K by Arapapa)
-
-//Widescreen hack 16:9 
-patch=1,EE,204EBAD4,extended,3f400000

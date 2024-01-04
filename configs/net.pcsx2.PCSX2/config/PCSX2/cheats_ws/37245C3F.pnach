@@ -1,4 +1,0 @@
-gametitle=Iron Man SLUS_217.39
-comment=Widescreen hack by PsxFan107
-patch=1,EE,20148FD0,extended,3C0C3FAA
-patch=1,EE,20148FD8,extended,358CAAAB

@@ -1,7 +1,0 @@
-gametitle=Dukes of Hazzard, The - Return of the General Lee (U)(SLUS-20959)
-comment=Widescreen Hack (NTSC-U by Arapapa)
-
-//Gameplay 16:9 
-
-patch=1,EE,003f8d00,word,3c013fc3 //3c013f92
-patch=1,EE,003f8d04,word,34210c2c //34214925

@@ -1,5 +1,0 @@
-gametitle=S.L.A.I.: Steel Lancer Arena International [PAL-M3] (SLES_529.40)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9 
-patch=1,EE,00269998,word,3C033F40 //3C033F80 (Increases hor. axis)

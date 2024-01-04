@@ -1,4 +1,0 @@
-gametitle=Gene Troopers SLES_536.44
-comment=Widescreen Hack
-patch=1,EE,00264678,word,3c013f10
-patch=1,EE,0023466c,word,3c013f14

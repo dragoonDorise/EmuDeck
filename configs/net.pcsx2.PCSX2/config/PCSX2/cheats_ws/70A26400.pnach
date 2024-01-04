@@ -1,4 +1,0 @@
-gametitle=Ready 2 Rumble Boxing - Round 2 SLUS_200.54
-comment=Widescreen Hack
-patch=1,EE,00117104,word,3c013f22
-patch=1,EE,00203710,word,3fe38e39

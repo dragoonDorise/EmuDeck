@@ -1,9 +1,0 @@
-gametitle=Battlestar Galactica (NTSC-U)
-comment=Widescreen Hack
-patch=1,EE,00102354,word,3c013f66 //3c013f99 gameplay hor
-patch=1,EE,00102358,word,34216666 //3421999a
-patch=1,EE,001cb3a0,word,3c013f66 //menu
-patch=1,EE,001cb3a4,word,34216666 //3421999a
-
-//993f013c 9a992134 00008144 cc3f013c to 663f013c 66662134 00008144 cc3f013c gameplay
-//993f013c 9a992134 00608144 f00040c4 to 663f013c 66662134 00608144 f00040c4  menu

@@ -1,6 +1,0 @@
-gametitle=Metal Gear Solid 3 - Subsistence [Limited Edition] [Disc2of3] (K)(SLKA-25354)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,202050ac,extended,3f400000 //3f800000

@@ -1,8 +1,0 @@
-gametitle=Dr. Muto (U)(SLUS-20458)
-comment=Widescreen Hack by ElHecht
-
-// 16:9
-patch=1,EE,0010045c,word,3c013fcc // 3c013f91 hor fov gameplay
-patch=1,EE,00100460,word,3421cccd // 3421361e hor fov gameplay
-patch=1,EE,00101b24,word,3c013f41 // 3c013f11 hor fov conversations/isotopes/other stuff
-patch=1,EE,00101b28,word,34219d7d // 3421361e hor fov conversations/isotopes/other stuff

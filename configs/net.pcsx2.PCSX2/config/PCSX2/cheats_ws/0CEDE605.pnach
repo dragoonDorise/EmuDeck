@@ -1,7 +1,0 @@
-gametitle=Monster 4x4 - Masters of Metal SLUS_207.96
-comment=Widescreen Hack
-patch=1,EE,00143ae0,word,3c023ff3 //3c023fb6 car select menu
-patch=1,EE,00143ae4,word,3443cf35 //3443db6e
-patch=1,EE,003a3d98,word,3c023fab //3c023f80 character select menu
-patch=1,EE,003fe720,word,3c033ff3 //3c033fb6 gameplay
-patch=1,EE,003fe72c,word,3464cf35 //3464db6e

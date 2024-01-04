@@ -1,8 +1,0 @@
-gametitle=Silent Hill Origins (SLUS-21731)
-comment=Widescreen fix by nemesis2000 (pnach by nemesis2000)
-
-patch=1,EE,001da9b4,word,3c013fe3
-patch=1,EE,001da9b8,word,34218e39
-
-//black borders's fix (optional)
-patch=1,EE,00183548,word,24020000 //24020001

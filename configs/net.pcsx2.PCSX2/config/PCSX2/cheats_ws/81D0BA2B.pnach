@@ -1,8 +1,0 @@
-gametitle=Hitman 2 - Silent Assassin (SLKA_25055)
-comment=Widescreen hack by No.47 (NTSC-K by Arapapa)
-
-//Widescreen hack 16:9
-patch=1,EE,215AAA18,word,3FBAAAAA // 3f9692b4
-patch=1,EE,215AAB40,word,3F400000 // 3f800000
-patch=1,EE,215AB0E8,word,3FBAAAAA // 3f9692b4
-patch=1,EE,215AB210,word,3F400000 // 3f800000

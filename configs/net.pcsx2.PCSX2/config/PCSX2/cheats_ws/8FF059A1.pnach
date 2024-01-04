@@ -1,6 +1,0 @@
-gametitle=F1 2002 (U)(SLUS-20455)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,002c6c30,word,3c013f40 //3c013f80
