@@ -352,12 +352,6 @@ cloud_sync_uploadEmu(){
   local mode=$2
   local time_stamp
   if [ -f "$cloud_sync_bin" ] && [ "$cloud_sync_status" == "true" ]; then
-    if [[ $cloud_sync_provider != *"Emudeck"* ]]; then
-
-      text="$(printf "CloudSync is not properly configured, please configure it again from EmuDeck")"
-      zenity --title="CloudSync Error" --width=300 --height=100 --info --text="${text}"
-      return 0
-    fi
     #We check for internet connection
     if [ $(check_internet_connection) == "true" ]; then
 
@@ -425,12 +419,6 @@ cloud_sync_downloadEmu(){
   if [ -f "$cloud_sync_bin" ]; then
     local timestamp=$(date +%s)
     if [ -f "$cloud_sync_bin" ] && [ "$cloud_sync_status" == "true" ]; then
-      if [[ $cloud_sync_provider != *"Emudeck"* ]]; then
-
-        text="$(printf "CloudSync is not properly configured, please configure it again from EmuDeck")"
-        zenity --title="CloudSync Error" --width=300 --height=100 --info --text="${text}"
-        return 0
-      fi
 
       #We check for internet connection
       if [ $(check_internet_connection) == "true" ]; then
