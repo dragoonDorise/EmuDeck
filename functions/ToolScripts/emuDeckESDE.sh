@@ -14,6 +14,7 @@ es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
 es_rulesFile="$HOME/.emulationstation/custom_systems/es_find_rules.xml"
 es_settingsFile="$HOME/.emulationstation/es_settings.xml"
 
+
 ESDE_SetAppImageURLS() {
     local json="$(curl -s $ESDE_releaseJSON)"
     ESDE_releaseURL=$(echo "$json" | jq -r '.stable.packages[] | select(.name == "LinuxSteamDeckAppImage") | .url')
@@ -110,7 +111,7 @@ ESDE_init(){
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
 
-	cp -r "$EMUDECKGIT/tools/launchers/esde/" "$toolsPath/launchers/esde/" && chmod +x "$toolsPath/launchers/esde/emulationstationde.sh"
+	cp -r "$EMUDECKGIT/tools/launchers/esde/*" "$toolsPath/launchers/esde/" && chmod +x "$toolsPath/launchers/esde/emulationstationde.sh"
 
 	ESDE_addCustomSystems
 	ESDE_setEmulationFolder
@@ -125,17 +126,15 @@ ESDE_init(){
 	if [ "$system" == "chimeraos" ] || [ "$system" == "ChimeraOS" ]; then
 			ESDE_chimeraOS
 		fi
-
 }
 
 ESDE_chimeraOS(){
-	if [ ! -f $es_rulesFile ]; then
+	if [ ! -f "$es_rulesFile" ]; then
 		rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
 	else
 		xmlstarlet ed -d '//entry[contains(., "~/Applications/RetroArch-Linux*.AppImage") or contains(., "~/.local/share/applications/RetroArch-Linux*.AppImage") or contains(., "~/.local/bin/RetroArch-Linux*.AppImage") or contains(., "~/bin/RetroArch-Linux*.AppImage")]' $es_rulesFile > rules_temp.xml && mv rules_temp.xml $es_rulesFile
 	fi
 }
-
 
 ESDE_resetConfig(){
 	ESDE_init &>/dev/null && echo "true" || echo "false"
@@ -206,11 +205,8 @@ ESDE_applyTheme(){
 	updateOrAppendConfigLine "$es_settingsFile" "<string name=\"Theme\"" "<string name=\"Theme\" value=\"\""
 
 	sed -i "s/<string name=\"ThemeSet\" value=\"[^\"]*\"/<string name=\"ThemeSet\" value=\"$themeName\"\/>/" "$es_settingsFile"
-sed -i "s/<string name=\"Theme\" value=\"[^\"]*\"/<string name=\"Theme\" value=\"$themeName\"\/>/" "$es_settingsFile"
-
-
+	sed -i "s/<string name=\"Theme\" value=\"[^\"]*\"/<string name=\"Theme\" value=\"$themeName\"\/>/" "$es_settingsFile"
 }
-
 
 #ConfigurePaths
 ESDE_setEmulationFolder(){
@@ -368,7 +364,6 @@ ESDE_IsInstalled(){
 ESDE_symlinkGamelists(){
 		linkToSaveFolder es-de gamelists "$HOME/.emulationstation/gamelists/"
 }
-
 
 ESDE_migrateEpicNoir(){
 	FOLDER="$HOME/.emulationstation/themes/es-epicnoir"

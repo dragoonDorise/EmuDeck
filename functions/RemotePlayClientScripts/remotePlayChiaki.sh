@@ -2,7 +2,7 @@
 
 # Variables
 Chiaki_emuName="Chiaki"
-Chiaki_emuType="FlatPak"
+Chiaki_emuType="$emuDeckEmuTypeFlatpak"
 Chiaki_emuPath="re.chiaki.Chiaki"
 Chiaki_releaseURL=""
 

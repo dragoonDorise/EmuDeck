@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 melonDS_emuName="MelonDS"
-melonDS_emuType="FlatPak"
+melonDS_emuType="$emuDeckEmuTypeFlatpak"
 melonDS_emuPath="net.kuribo64.melonDS"
 melonDS_releaseURL=""
 melonDS_configFile="$HOME/.var/app/net.kuribo64.melonDS/config/melonDS/melonDS.ini"
@@ -163,9 +163,9 @@ melonDS_setResolution(){
 		"1080P") WindowWidth=1536; WindowHeight=1152;;
 		"1440P") WindowWidth=2048; WindowHeight=1536;;
 		"4K") WindowWidth=2816; WindowHeight=2112;;
-		*) echo "Error"; exit 1;;
+		*) echo "Error"; return 1;;
 	esac
 
-	RetroArch_setConfigOverride "WindowWidth" $WindowWidth "$melonD_configFile"
-	RetroArch_setConfigOverride "WindowHeight" $WindowHeight "$melonD_configFile"
+	RetroArch_setConfigOverride "WindowWidth" $WindowWidth "$melonDS_configFile"
+	RetroArch_setConfigOverride "WindowHeight" $WindowHeight "$melonDS_configFile"
 }

@@ -11,14 +11,12 @@ SRM_install(){
   setMSG "Installing Steam ROM Manager"
   local showProgress="$1"
 
-  if installToolAI "$SRM_toolName" "$(getReleaseURLGH "dragoonDorise/steam-rom-manager" "AppImage")" "" "$showProgress"; then
+  if installToolAI "$SRM_toolName" "$(getReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")" "" "$showProgress"; then
     SRM_createDesktopShortcut
   else
     return 1
   fi
-
 }
-
 
 SRM_uninstall(){
   rm -rf "${toolsPath}/Steam ROM Manager.AppImage"
@@ -248,68 +246,62 @@ SRM_createParsers(){
   exclusionList=$exclusionList"nintendo_gb-mGBA.json\n"
 
   #Exclusion based on install status.
-  if [ $doInstallPrimeHack == "false" ] || [ $(Primehack_IsInstalled) == "false" ]; then
+  if [ "$doInstallPrimeHack" == "false" ] || [ "$(Primehack_IsInstalled)" == "false" ]; then
       exclusionList=$exclusionList"nintendo_primehack.json\n"
   fi
-  if [ $doInstallRPCS3 == "false" ] || [ $(RPCS3_IsInstalled) == "false" ]; then
+  if [ "$doInstallRPCS3" == "false" ] || [ "$(RPCS3_IsInstalled)" == "false" ]; then
       exclusionList=$exclusionList"sony_ps3-rpcs3-extracted_iso_psn.json\n"
       exclusionList=$exclusionList"sony_ps3-rpcs3-pkg.json\n"
-
   fi
-  if [ $doInstallCitra == "false" ] || [ $(Citra_IsInstalled) == "false" ]; then
+  if [ "$doInstallCitra" == "false" ] || [ "$(Citra_IsInstalled)" == "false" ]; then
       exclusionList=$exclusionList"nintendo_3ds-citra.json\n"
-
   fi
-  if [ $doInstallDolphin == "false" ] || [ $(Dolphin_IsInstalled) == "false" ]; then
+  if [ "$doInstallDolphin" == "false" ] || [ "$(Dolphin_IsInstalled)" == "false" ]; then
       exclusionList=$exclusionList"nintendo_gc-dolphin.json\n"
       exclusionList=$exclusionList"nintendo_wii-dolphin.json\n"
   fi
-  if [ $doInstallDuck == "false" ] || [ $(DuckStation_IsInstalled) == "false" ]; then
+  if [ "$doInstallDuck" == "false" ] || [ "$(DuckStation_IsInstalled)" == "false" ]; then
       exclusionList=$exclusionList"sony_psx-duckstation.json\n"
-
   fi
-  if [ $doInstallPPSSPP == "false" ] || [ $(PPSSPP_IsInstalled) == "false" ]; then
+  if [ "$doInstallPPSSPP" == "false" ] || [ "$(PPSSPP_IsInstalled)" == "false" ]; then
       exclusionList=$exclusionList"sony_psp-ppsspp.json\n"
   fi
-  if [ $doInstallXemu == "false" ] || [ $(Xemu_IsInstalled) == "false" ]; then
+  if [ "$doInstallXemu" == "false" ] || [ "$(Xemu_IsInstalled)" == "false" ]; then
       exclusionList=$exclusionList"microsoft_xbox-xemu.json\n"
-
   fi
-  if [ $doInstallXenia == "false" ] || [ $(Xenia_IsInstalled) == "false" ]; then
+  if [ "$doInstallXenia" == "false" ] || [ "$(Xenia_IsInstalled)" == "false" ]; then
      exclusionList=$exclusionList"microsoft_xbox_360-xenia-xbla.json\n"
      exclusionList=$exclusionList"microsoft_xbox_360-xenia.json\n"
-
   fi
-  if [ $doInstallScummVM == "false" ] || [ $(ScummVM_IsInstalled) == "false" ]; then
+  if [ "$doInstallScummVM" == "false" ] || [ "$(ScummVM_IsInstalled)" == "false" ]; then
       exclusionList=$exclusionList"scumm_scummvm.json\n"
   fi
-  if [ $doInstallRMG == "false" ] || [ $(RMG_IsInstalled) == "false" ]; then
+  if [ "$doInstallRMG" == "false" ] || [ "$(RMG_IsInstalled)" == "false" ]; then
       exclusionList=$exclusionList"nintendo_64-rmg.json\n"
   fi
-  if [ $doInstallmelonDS == "false" ] || [ $(melonDS_IsInstalled) == "false" ]; then
+  if [ "$doInstallmelonDS" == "false" ] || [ "$(melonDS_IsInstalled)" == "false" ]; then
       exclusionList=$exclusionList"nintendo_ds-melonds.json\n"
   fi
-  if [ $doInstallVita3K == "false" ] || [ $(Vita3K_IsInstalled) == "false" ]; then
+  if [ "$doInstallVita3K" == "false" ] || [ "$(Vita3K_IsInstalled)" == "false" ]; then
       exclusionList=$exclusionList"sony_psvita-vita3k-pkg.json\n"
   fi
-  if [ $doInstallMGBA == "false" ] || [ $(mGBA_IsInstalled) == "false" ]; then
+  if [ "$doInstallMGBA" == "false" ] || [ "$(mGBA_IsInstalled)" == "false" ]; then
     exclusionList=$exclusionList"nintendo_gb-mGBA.json\n"
     exclusionList=$exclusionList"nintendo_gba-mgba.json\n"
     exclusionList=$exclusionList"nintendo_gbc-mgba.json\n"
   fi
-  if [ $doInstallMAME == "false" ] || [ $(MAME_IsInstalled) == "false" ]; then
+  if [ "$doInstallMAME" == "false" ] || [ "$(MAME_IsInstalled)" == "false" ]; then
     exclusionList=$exclusionList"arcade-mame.json\n"
   fi
-  if [ $doInstallYuzu == "false" ] || [ $(Yuzu_IsInstalled) == "false" ]; then
+  if [ "$doInstallYuzu" == "false" ] || [ "$(Yuzu_IsInstalled)" == "false" ]; then
     exclusionList=$exclusionList"nintendo_switch-yuzu.json\n"
   fi
-  if [ $doInstallRyujinx == "false" ] || [ $(Ryujinx_IsInstalled) == "false" ]; then
+  if [ "$doInstallRyujinx" == "false" ] || [ "$(Ryujinx_IsInstalled)" == "false" ]; then
     exclusionList=$exclusionList"nintendo_switch-ryujinx.json\n"
   fi
-  if [ "$doInstallPCSX2QT" == "false" ] || [ $(PCSX2QT_IsInstalled) == "false" ]; then
+  if [ "$doInstallPCSX2QT" == "false" ] || [ "$(PCSX2QT_IsInstalled)" == "false" ]; then
     exclusionList=$exclusionList"sony_ps2-pcsx2.json\n"
   fi
-
 
   echo -e $exclusionList > "$HOME/exclude.txt"
 
@@ -327,12 +319,17 @@ SRM_createParsers(){
   rm -rf "$HOME/temp_parser"
   ln -s "$json_directory" "$HOME/temp_parser"
   files=$(find "$HOME/temp_parser/emudeck" -name "*.json" | sort)
-  jq -s '.' $files > "$output_file"
+  customfiles=""
+  if [ -d "$SRM_userData_configDir/parsers/custom/" ]; then
+    customfiles=$(find "$SRM_userData_configDir/parsers/custom/" -name "*.json" | sort)
+  fi
+  jq -s '.' $files $customfiles > "$output_file"
   rm -rf "$HOME/temp_parser"
 }
 
 SRM_addSteamInputProfiles(){
    cp "$EMUDECKGIT/$SRM_userData_directory/controllerTemplates.json" "$SRM_userData_configDir/controllerTemplates.json"
+   rm -rf "$HOME/.steam/steam/controller_base/templates/ares_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/citra_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/duckstation_controller_config.vdf"
