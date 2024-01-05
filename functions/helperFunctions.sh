@@ -774,3 +774,140 @@ scriptConfigFileGetVar() {
 
     printf -- "%s" "${configVarValue}"
 }
+
+
+getEmuRepo() {
+	case "$1" in
+		"cemu") repo="cemu-project/Cemu" ;;
+		"citra") repo="citra-emu/citra-nightly" ;;
+		"dolphin") repo="shiiion/dolphin" ;;
+		"duckstation") repo="stenzek/duckstation" ;;
+		"flycast") repo="flyinghead/flycast" ;;
+		"MAME") repo="mamedev/mame" ;;
+		"melonDS") repo="melonDS-emu/melonDS" ;;
+		"mgba") repo="mgba-emu/mgba" ;;
+		"pcsx2") repo="pcsx2/pcsx2" ;;
+		"primehack") repo="shiiion/dolphin" ;;
+		"rpcs3") repo="RPCS3/rpcs3-binaries-win" ;;
+		"ryujinx") repo="Ryujinx/release-channel-master" ;;
+		"vita3K") repo="Vita3K/Vita3K" ;;
+		"xemu") repo="xemu-project/xemu" ;;
+		"xenia") repo="xenia-canary/xenia-canary" ;;
+		"yuzu") repo="yuzu-emu/yuzu-mainline" ;;
+		*) repo="none" ;;
+	esac
+	echo "$repo"
+}
+
+getLatestVersionGH() {
+	repository=$1
+	url="https://api.github.com/repos/$repository/releases/latest"
+	id=$(curl -s $url | jq -r '.id')
+	echo $id
+}
+
+#!/bin/bash
+
+saveLatestVersionGH() {
+	emuName=$1
+	repo=$(getEmuRepo "$emuName")
+
+	if [ "$repo" == "none" ]; then
+		echo "no autoupdate"
+	else
+		emuVersion=$(getLatestVersionGH "$repo")
+
+		# JSON file path
+		jsonFilePath="$HOME/EmuDeck/emu_versions.json"
+
+		if [ -e "$jsonFilePath" ]; then
+			echo "file found"
+		else
+			echo "{}" > "$jsonFilePath"
+		fi
+
+		# Read the content of the JSON file
+		jsonContent=$(cat "$jsonFilePath" | jq -c '.')
+
+		# Check if the key exists
+		if [[ $(echo "$jsonContent" | jq -r ".$emuName") != "null" ]]; then
+			# The key exists, change its value
+			jsonContent=$(echo "$jsonContent" | jq ".$emuName=\"$emuVersion\"")
+		else
+			# The key doesn't exist, create it with a new value
+			jsonContent=$(echo "$jsonContent" | jq ".$emuName=\"$emuVersion\"")
+		fi
+
+		# Save the modified JSON back to the file
+		echo "$jsonContent" > "$jsonFilePath"
+	fi
+}
+
+#!/bin/bash
+
+isLatestVersionGH() {
+	emuName=$1
+
+	if [ "$(check_internet_connection)" == "true" ]; then
+		repo=$(getEmuRepo "$emuName")
+
+		if [ "$repo" == "none" ]; then
+			echo "no autoupdate"
+		else
+			emuVersion=$(getLatestVersionGH "$repo")
+
+			# JSON file path
+			jsonFilePath="$HOME/EmuDeck/emu_versions.json"
+
+			if [ -e "$jsonFilePath" ]; then
+				echo "file found"
+			else
+				echo "{}" > "$jsonFilePath"
+			fi
+
+			# Read the content of the JSON file
+			jsonContent=$(cat "$jsonFilePath" | jq -c '.')
+
+			# Check if the key exists
+			if [[ $(echo "$jsonContent" | jq -r ".$emuName") != "null" ]]; then
+				# The key exists, check if it's the same value
+				if [ "$(echo "$jsonContent" | jq -r ".$emuName")" != "$emuVersion" ]; then
+					jsonContent=$(echo "$jsonContent" | jq ".$emuName=\"$emuVersion\"")
+					latest="false"
+				else
+					latest="true"
+				fi
+			else
+				# The key doesn't exist, create it with a new value
+				jsonContent=$(echo "$jsonContent" | jq ".$emuName=\"$emuVersion\"")
+				latest="true"
+			fi
+
+			if [ "$latest" == "false" ]; then
+				# Ask the user to update
+				capitalizedEmuName="$(echo $emuName | awk '{print toupper(substr($1,1,1))tolower(substr($1,2))}')"
+				zenity --question --title "New Update" --text "We've detected an update for $capitalizedEmuName. Do you want to update?" --ok-label "Yes" --cancel-label "No"
+				if [ $? = 0 ]; then
+					# Save the modified JSON back to the file
+					echo "$jsonContent" > "$jsonFilePath"
+
+					# Invocar la función de instalación dinámicamente
+					"${capitalizedEmuName}_install"
+				fi
+			else
+				# Save the modified JSON back to the file
+				echo "$jsonContent" > "$jsonFilePath"
+			fi
+
+			echo "Latest version=$latest"
+		fi
+	fi
+}
+
+
+function emulatorInit($emuName){
+	isLatestVersionGH($emuName)
+	cloud_sync_downloadEmu $emuName && cloud_sync_startService
+}
+
+
