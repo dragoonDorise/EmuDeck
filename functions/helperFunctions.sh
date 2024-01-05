@@ -905,9 +905,10 @@ isLatestVersionGH() {
 }
 
 
-function emulatorInit($emuName){
-	isLatestVersionGH($emuName)
-	cloud_sync_downloadEmu $emuName && cloud_sync_startService
+function emulatorInit(){
+	local emuName=$1
+	isLatestVersionGH "$emuName"
+	cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
 }
 
 
