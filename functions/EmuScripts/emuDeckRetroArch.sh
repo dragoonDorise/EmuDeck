@@ -1346,7 +1346,7 @@ RetroArch_dreamcast_3DCRTshaderOff(){
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'	'video_smooth' 'ED_RM_LINE'
 }
 
-RetroArch_saturn_setConfig(){	
+RetroArch_saturn_setConfig(){
 	mkdir -p "$biosPath/kronos"
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'input_player1_analog_dpad_mode' '"1"'
 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'input_player1_analog_dpad_mode' '"1"'
@@ -2094,7 +2094,7 @@ RetroArch_installCores(){
 	RAcores=(
 				81_libretro.so \
 				a5200_libretro.so \
-				arduous_libretro.info \
+				arduous_libretro.so \
 				atari800_libretro.so \
 				blastem_libretro.so \
 				bluemsx_libretro.so \
