@@ -18,6 +18,6 @@ else
 fi
 #run the executable with the params.
 param="${@}"
-param=$(echo "$param" | sed "s|'|/\"|g")
+param=$(echo "$param" | sed "s|'|\"|g")
 eval "${exe} ${param}"
 rm -rf "$savesPath/.gaming"
