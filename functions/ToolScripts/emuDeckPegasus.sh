@@ -45,7 +45,7 @@ pegasus_init(){
 	for systemPath in "$romsPath"/*; do rm -rf ".*/" &> /dev/null; done
 
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$pegasus_dir_file"
-	mkdir -p "$toolsPath/pegasus/"
+	mkdir -p "$toolsPath/launchers/pegasus/"
 	cp "$EMUDECKGIT/tools/launchers/pegasus/pegasus-frontend.sh" "$toolsPath/pegasus/esde/pegasus-frontend.sh"
 	#pegasus_addCustomSystems
 	#pegasus_setEmulationFolder
