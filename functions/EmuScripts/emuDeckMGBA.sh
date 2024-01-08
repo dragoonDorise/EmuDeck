@@ -21,6 +21,12 @@ mGBA_install(){
 	fi
 }
 
+
+#Fix for autoupdate
+Mgba_install(){
+	mGBA_install
+}
+
 #ApplyInitialSettings
 mGBA_init(){
 	setMSG "Initializing $mGBA_emuName settings."

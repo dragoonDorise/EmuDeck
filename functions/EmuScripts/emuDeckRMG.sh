@@ -19,6 +19,11 @@ RMG_install() {
 	flatpak override "${RMG_emuPath}" --filesystem=host --user
 }
 
+#Fix for autoupdate
+Rmg_install(){
+	RMG_install
+}
+
 #ApplyInitialSettings
 
 RMG_init() {

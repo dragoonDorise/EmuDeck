@@ -18,6 +18,11 @@ ScummVM_install(){
 	flatpak override "${ScummVM_emuPath}" --share=network --user
 }
 
+#Fix for autoupdate
+Scummvm_install(){
+	ScummVM_install
+}
+
 #ApplyInitialSettings
 ScummVM_init(){
 	configEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}" "true"

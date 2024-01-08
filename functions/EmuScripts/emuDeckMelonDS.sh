@@ -18,6 +18,11 @@ melonDS_install(){
 	flatpak override "${melonDS_emuPath}" --filesystem=host --user
 }
 
+#Fix for autoupdate
+Melonds_install(){
+	melonDS_install
+}
+
 #ApplyInitialSettings
 melonDS_init(){
 	setMSG "Initializing $melonDS_emuName settings."

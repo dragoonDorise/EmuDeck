@@ -30,6 +30,12 @@ RetroArch_install(){
 	flatpak override "${RetroArch_emuPath}" --filesystem=host --user
 }
 
+
+#Fix for autoupdate
+Retroarch_install(){
+	RetroArch_install
+}
+
 #ApplyInitialSettings
 RetroArch_init(){
 
