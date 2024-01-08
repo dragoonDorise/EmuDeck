@@ -818,7 +818,7 @@ saveLatestVersionGH() {
 		emuVersion=$(getLatestVersionGH "$repo")
 
 		# JSON file path
-		jsonFilePath="$HOME/EmuDeck/emu_versions.json"
+		jsonFilePath="$HOME/emudeck/emu_versions.json"
 
 		if [ -e "$jsonFilePath" ]; then
 			echo "file found"
@@ -843,8 +843,6 @@ saveLatestVersionGH() {
 	fi
 }
 
-#!/bin/bash
-
 isLatestVersionGH() {
 	emuName=$1
 
@@ -857,9 +855,9 @@ isLatestVersionGH() {
 			emuVersion=$(getLatestVersionGH "$repo")
 
 			# JSON file path
-			jsonFilePath="$HOME/EmuDeck/emu_versions.json"
+			jsonFilePath="$HOME/emudeck/emu_versions.json"
 
-			if [ -e "$jsonFilePath" ]; then
+			if [ -f "$jsonFilePath" ]; then
 				echo "file found"
 			else
 				echo "{}" > "$jsonFilePath"
@@ -893,6 +891,7 @@ isLatestVersionGH() {
 
 					# Invocar la función de instalación dinámicamente
 					"${capitalizedEmuName}_install"
+					echo "${capitalizedEmuName}_install" > "$HOME/update.txt"
 				fi
 			else
 				# Save the modified JSON back to the file

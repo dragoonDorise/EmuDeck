@@ -22,6 +22,10 @@ PCSX2QT_install() {
 		return 1
 	fi
 }
+#Fix for autoupdate
+Pcsx2_install(){
+	PCSX2QT_install
+}
 
 #ApplyInitialSettings
 PCSX2QT_init() {
