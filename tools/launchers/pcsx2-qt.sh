@@ -20,4 +20,4 @@ fi
 #Fix first '
 param="${@}"
 param=$(echo "$param" | sed "s|'|/\"|g")
-eval "${exe} ${param} -bigpicture -fullscreen"
+eval "${exe} ${param} -bigpicture -fullscreen -batch"
