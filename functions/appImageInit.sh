@@ -15,13 +15,10 @@ appImageInit() {
 
 	#Autofixes, put here functions that make under the hood fixes.
 	autofix_duplicateESDE
-	#autofix_raSavesFolders
 	autofix_lnk
-	SRM_migration
-	ESDE_migration
-	SRM_createDesktopShortcut
-	ESDE_createDesktopShortcut
-	autofix_dynamicParsers
+	SRM_migration # 2.2 Changes
+	ESDE_migration # 2.2 Changes
+	autofix_dynamicParsers # 2.2 Changes
 
 	# Init functions
 	mkdir -p "$HOME/emudeck/logs"

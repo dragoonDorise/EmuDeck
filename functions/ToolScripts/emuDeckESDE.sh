@@ -28,6 +28,7 @@ ESDE_cleanup(){
 	echo "NYI"
 }
 
+# 2.2 migration
 ESDE_migration(){
 
 	if [ -f "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ]; then
