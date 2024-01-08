@@ -21,3 +21,4 @@ fi
 param="${@}"
 param=$(echo "$param" | sed "s|'|\"|g")
 eval "${exe} ${param} -bigpicture -fullscreen -batch"
+rm -rf "$savesPath/.gaming"
