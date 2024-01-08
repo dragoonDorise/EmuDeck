@@ -7,8 +7,8 @@ cloud_sync_install(){
   {
     # startLog ${FUNCNAME[0]}
     local cloud_sync_provider=$1
-    setSetting cloud_sync_provider "$cloud_sync_provider" > /dev/null
-    setSetting cloud_sync_status "true" > /dev/null
+    setSetting cloud_sync_provider "$cloud_sync_provider"
+    setSetting cloud_sync_status "true"
     rm -rf "$HOME/.config/systemd/user/EmuDeckCloudSync.service" > /dev/null
 
     #if [ ! -f "$HOME/.steam/steam/.cef-enable-remote-debugging" ]; then
@@ -240,6 +240,9 @@ cloud_sync_install_and_config(){
 	   cloud_sync_install $cloud_sync_provider
 	 fi
 	 } && cloud_sync_config "$cloud_sync_provider"
+
+	 setSetting cloud_sync_provider "$cloud_sync_provider"
+	 setSetting cloud_sync_status "true"
 
 	 #We get the previous default browser back
 	 if [ "$browser" != 'com.google.Chrome.desktop' ];then
