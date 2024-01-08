@@ -23,7 +23,7 @@ PCSX2QT_install() {
 	fi
 }
 #Fix for autoupdate
-Pcsx2qt_install(){
+Pcsx2_install(){
 	PCSX2QT_install
 }
 
