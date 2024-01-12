@@ -1,4 +1,0 @@
-gametitle=Lethal Skies Elite Pilot - Team SW  SLUS_203.86
-comment=Widescreen Hack
-patch=1,EE,001004b0,word,3c0143b4
-patch=1,EE,0014e450,word,3c0143c0

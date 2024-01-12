@@ -1,6 +1,0 @@
-gametitle=Dragon Rage [PAL-M2-French-German] (SLES_506.31)
-comment=Widescreen Hack by El_Patas
-
-//Gameplay 16:9 
-patch=1,EE,001C1B8C,word,3C013EC6 //3C013F80 Zoom
-patch=1,EE,001DBB0C,word,3C013FFF //3C013F80 Y-FOV

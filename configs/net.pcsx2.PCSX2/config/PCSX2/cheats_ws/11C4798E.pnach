@@ -1,5 +1,0 @@
-gametitle=Incredible Hulk, The SLES_552.08
-comment=Widescreen hack by Bigdemon
-patch=1,EE,00368270,word,3c013fdf //3C013FA7
-patch=1,EE,00368274,word,342192c2 //3421AE14
-patch=1,EE,0041042c,word,3c013f20 //3c013f00

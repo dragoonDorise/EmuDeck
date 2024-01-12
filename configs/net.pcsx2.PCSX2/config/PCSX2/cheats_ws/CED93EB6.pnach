@@ -1,8 +1,0 @@
-gametitle=Tengai Makyou III - Namida (J)(SLPM-65952)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//aa3f013c abaa2134 00688144
-patch=1,EE,0012f5a8,word,3c013fe3 //3c013faa
-patch=1,EE,0012f5ac,word,34218e32 //3421aaab

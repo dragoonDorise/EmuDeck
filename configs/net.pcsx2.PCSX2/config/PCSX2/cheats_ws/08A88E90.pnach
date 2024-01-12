@@ -1,6 +1,0 @@
-gametitle=Beverly Hills Cop (E)(SLES-54456)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,002650e8,word,3c013fab //3c013f80

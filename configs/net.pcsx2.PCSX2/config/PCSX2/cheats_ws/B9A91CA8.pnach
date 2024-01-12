@@ -1,8 +1,0 @@
-gametitle=Woody Woodpecker (E)(SLES-50613)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//4040023c 00208244 5c0626c6 600625c6 803f023c
-patch=1,EE,0017af5c,word,3c024010 //3c024040 Fov
-patch=1,EE,0017af6c,word,3c023f40 //3c023f80 Zoom

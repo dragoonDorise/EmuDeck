@@ -1,7 +1,0 @@
-gametitle=Britney's Dance Beat (J)(SLPM-65174)
-comment=Widescreen hack (NTSC-J by Arapapa)
-
-//Widescreen 16:9
-
-//0000803f d7a3f03e 00080008 (2nd)
-patch=1,EE,20346B34,extended,3F400000 //3f800000

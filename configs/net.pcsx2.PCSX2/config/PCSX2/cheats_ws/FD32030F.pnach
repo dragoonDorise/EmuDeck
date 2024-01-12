@@ -1,4 +1,0 @@
-gametitle=Time Crisis 3 SLES_518.44
-comment=Widescreen hack by dieSkaarj.
-
-patch=1,EE,001d544c,word,3c033f40 //3c033f80

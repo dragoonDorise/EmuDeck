@@ -1,8 +1,0 @@
-gametitle=Freak Out - Extreme Freeride (E)(SLES-54653)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-
-patch=1,EE,004fd4e4,word,3c013fab //3c013f80
-patch=1,EE,003aaeb8,word,3c013f10 //3c013f40

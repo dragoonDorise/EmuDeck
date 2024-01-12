@@ -1,8 +1,0 @@
-gametitle=NBA Live 2005 (U)(SLUS-21058)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//003f013c 00088144 1800028e
-patch=1,EE,003cc5fc,word,3c013ec0 //3c013f00

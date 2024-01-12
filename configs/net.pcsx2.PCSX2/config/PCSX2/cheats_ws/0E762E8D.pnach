@@ -1,7 +1,0 @@
-gametitle=Shin Megami Tensei III Nocturne Maniax
-comment=NTSC-J Widescreen Hack by synce
-patch=1,EE,202F5034,extended,3fc65461
-
-//No interlacing by asasega
-//01003126 2d206002 2d380000
-patch=1,EE,002b0960,word,64040001

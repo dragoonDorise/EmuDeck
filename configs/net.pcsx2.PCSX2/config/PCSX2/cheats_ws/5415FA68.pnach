@@ -1,6 +1,0 @@
-gametitle=Curious George [PAL-M7] (SLES_543.64)
-comment=Widescreen Hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,00199214,word,3C013CAD //3C013C8E Zoom
-patch=1,EE,001B2114,word,3C013C6E //3C013C8E Y-FOV

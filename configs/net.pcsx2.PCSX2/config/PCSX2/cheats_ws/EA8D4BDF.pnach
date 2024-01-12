@@ -1,5 +1,0 @@
-gametitle=Incredible Hulk, The SLUS_217.65
-comment=Widescreen hack
-patch=1,EE,00368440,word,3c013fdf //3C013FA7
-patch=1,EE,00368444,word,342192c2 //3421AE14
-patch=1,EE,00410854,word,3c013f20 //3c013f00

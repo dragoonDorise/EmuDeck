@@ -1,5 +1,0 @@
-gametitle=Yu Yu Hakusho - Dark Tournament (E)(SLES-53062)
-comment=Widescreen hack by Little Giant
-
-patch=1,EE,00119018,word,3c0240ab //3c024080
-patch=1,EE,00118990,word,3c023f2b //3c023f00

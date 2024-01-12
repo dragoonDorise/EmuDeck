@@ -1,9 +1,0 @@
-gametitle=Uo-7-tsu no Mizu to Densetsu no Nushi (J)(SCPS-15069)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//b63f023c 6edb4234 00608244 (1st)
-patch=1,EE,00184640,word,3c023ff3 //3c023fb6
-patch=1,EE,00184644,word,3442cf9a //3442db6e

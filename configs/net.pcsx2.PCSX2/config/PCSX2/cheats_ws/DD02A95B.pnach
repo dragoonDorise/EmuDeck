@@ -1,8 +1,0 @@
-gametitle=Soul Eater - Battle Resonance [NTSC-J] (SLPS-25912)
-comment=Widescreen Hack by Little Giant
-
-// 16:9
-patch=1,EE,204aa348,word,4016DD95 // 3FE24C60
-
-// 16:10
-//patch=1,EE,204aa348,word,4007C76D // 3FE24C60

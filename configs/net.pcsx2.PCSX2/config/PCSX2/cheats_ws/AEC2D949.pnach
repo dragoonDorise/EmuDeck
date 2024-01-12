@@ -1,8 +1,0 @@
-gametitle=Wacky Races: Mad Motors [PAL-M11] (SLES_546.70)
-comment=Widescreen Hack by El_Patas
-
-//Gameplay 16:9 
-patch=1,EE,202FB0C4,extended,3FE38E38 //3FAAAAAB (Increases hor. axis)
-
-//Automatic demo fix
-patch=1,EE,2032D7F4,extended,3FE38E38 //3FAAAAAB

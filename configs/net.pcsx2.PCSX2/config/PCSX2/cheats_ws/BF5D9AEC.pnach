@@ -1,7 +1,0 @@
-﻿gametitle=Gungrave [NTSC-U]
-comment=Widescreen Hack
-
-patch=1,EE,001bec1c,word,3c013f40 //00000000
-patch=1,EE,001bec20,word,44810000 //00000000
-patch=1,EE,001bec28,word,4600c602 //00000000
-patch=1,EE,00143504,word,2402010e //24020168 renderfix

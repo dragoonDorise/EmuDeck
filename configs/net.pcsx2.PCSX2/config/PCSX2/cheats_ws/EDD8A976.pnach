@@ -1,9 +1,0 @@
-gametitle=Jikkyou World Soccer 2000 (J)(SLPM-62002)
-comment=Widescreen hack by Arapapa
-
-//Wide Screen 16:9
-patch=1,EE,002029d4,word,3c013f40 //00000000
-patch=1,EE,002029d8,word,44810000 //00000000
-patch=1,EE,002029e0,word,4600c602 //00000000
-
- 

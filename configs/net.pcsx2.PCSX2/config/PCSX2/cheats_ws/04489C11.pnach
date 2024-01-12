@@ -1,9 +1,0 @@
-gametitle=Zone of the Enders (E)(SLES-50111)
-comment=Widescreen Hack
-
-//16:9
-patch=1,EE,004515c0,word,3c013f40
-
-//HUD (3rd)
-patch=1,EE,E0010000,extended,005EE62C
-patch=1,EE,205EE764,extended,3f800000

@@ -1,3 +1,0 @@
-gametitle=Oni SLES_501.77
-comment=Widescreen Hack
-patch=1,EE,001346f8,word,3c013f40 //3c013f80

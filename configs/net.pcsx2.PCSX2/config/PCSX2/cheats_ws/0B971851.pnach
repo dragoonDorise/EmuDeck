@@ -1,4 +1,0 @@
-gametitle=UFC - Sudden Impact (NTSC-U)
-comment=Widescreen Hack
-patch=1,EE,0021beec,word,3c013ec0 //90ffbd27 003f013c to 90ffbd27 c03e013c
-patch=1,EE,0021bf70,word,3c013f40 //c00001e6 803f013c to c00001e6 403f013c

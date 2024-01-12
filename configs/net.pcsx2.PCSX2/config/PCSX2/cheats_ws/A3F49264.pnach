@@ -1,7 +1,0 @@
-gametitle=Shin Sangoku Musou 3 (J)(SLPM-65248)
-comment=Widescreen hack by nemesis2000 (NTSC-J by Arapapa)
-
-//Widescreen hack 16:9
-
-patch=1,EE,00136d50,word,3c0243d6 //3c0243a0 wide
-patch=1,EE,00183df0,word,3C023F2B //3C023F00 renderfix

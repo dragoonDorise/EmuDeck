@@ -1,6 +1,0 @@
-gametitle=Destruction Derby Arenas SLUS_208.55
-comment=Widescreen Hack
-patch=1,EE,00204738,word,3c013fab //3c013f80
-patch=1,EE,002f29b4,word,4399999a //43cccccd
-patch=1,EE,002f29bc,word,4399999a //43cccccd
-patch=1,EE,002f29a8,word,4399999a //43cccccd

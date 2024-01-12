@@ -1,8 +1,0 @@
-gametitle=Viewtiful Joe 2 (NTSC-J)(SLPM-65824)
-comment=Widescreen Hack (NTSC-J by Arapapa)
-
-//Widescreen hack 16:9
-
-//aa3f013c abaa2134 00688144
-patch=1,EE,002d9248,word,3c013fe3 //3c013faa
-patch=1,EE,002d924c,word,34218e38 //3421aaab

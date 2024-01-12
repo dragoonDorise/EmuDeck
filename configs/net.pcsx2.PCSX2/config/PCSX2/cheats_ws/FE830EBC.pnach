@@ -1,9 +1,0 @@
-gametitle=ESPN National Hockey Night (J)(SLPM-62041)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//Matrix Hack
-patch=1,EE,00103724,word,3c013f40 //00000000
-patch=1,EE,00103728,word,44810000 //00000000
-patch=1,EE,00103730,word,4600c602 //00000000

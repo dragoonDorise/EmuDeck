@@ -1,7 +1,0 @@
-gametitle=Gungrave: Overdose [PAL-M3] (SLES_529.41)
-comment=Widescreen Hack by El_Patas
-
-//Gameplay 16:9  
-patch=1,EE,0028B6C4,word,3C013F40 //00000000 (Increases hor. axis)
-patch=1,EE,0028B6C8,word,44810000 //00000000
-patch=1,EE,0028B6D0,word,4600C602 //00000000

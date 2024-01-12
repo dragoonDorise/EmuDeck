@@ -1,5 +1,0 @@
-gametitle=Kung Fu Panda [PAL-Spain] (SLES_552.36)
-comment=Widescreen Hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,2069520C,extended,3FE38E38 //3FAAAAAB (Increases hor. axis)

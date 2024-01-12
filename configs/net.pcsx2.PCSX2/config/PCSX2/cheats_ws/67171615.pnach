@@ -1,5 +1,0 @@
-gametitle=Haven - Call of the King SLUS_205.17
-comment=Widescreen Hack
-patch=1,EE,0021CC20,word,3c013fee
-patch=1,EE,0021CC24,word,3421eeee
-patch=1,EE,21f6f574,extended,3f100000

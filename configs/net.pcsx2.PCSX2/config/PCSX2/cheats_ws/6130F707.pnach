@@ -1,6 +1,0 @@
-gametitle=Need for Speed - Underground J-Tune (EA Best Hits) [NTSC-J] [SLPM-65614]
-comment=Widescreen hack by nemesis2000 (pnach by nemesis2000)
-
-patch=1,EE,0050c5a8,word,3f2aaaaa //3f000000
-patch=1,EE,0050c5b0,word,3f2aaaaa //3f000000
-patch=1,EE,0050c3b4,word,3f400000 //3f800000

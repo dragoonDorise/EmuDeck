@@ -1,8 +1,0 @@
-gametitle=Rayman 2 - Revolution (SLUS_20138)
-comment=Widescreen hack
-
-// 16:9
-patch=1,EE,0018c7d0,word,3c013f40 // 00000000 hor fov
-patch=1,EE,0018c7e0,word,4481f000 // 00000000
-patch=1,EE,0018c7e4,word,461e0842 // 00000000
-patch=1,EE,0011811c,word,461e6303 // 00000000 renderfix calculation

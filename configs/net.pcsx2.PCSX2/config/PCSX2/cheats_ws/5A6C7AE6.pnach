@@ -1,8 +1,0 @@
-gametitle=Blood+ One Night Kiss (J)(SLPS-25677)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-patch=1,EE,0016a324,word,3c023f99 //3c023f66
-patch=1,EE,0016a32c,word,34429991//34426666

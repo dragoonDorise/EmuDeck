@@ -1,7 +1,0 @@
-gametitle=Spider-Man 3 SLUS_215.52
-comment=Widescreen Hack
-patch=1,EE,003488c8,word,3c023f22
-patch=1,EE,0032a974,word,3c023f22
-//patch=1,EE,003488dc,word,3c023ec0 //vert-
-patch=1,EE,21a1b54c,extended,3ff19fdd //black borders aspect ratio
-patch=1,EE,21a45f6c,extended,3ff19fdd //

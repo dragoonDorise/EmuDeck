@@ -1,7 +1,0 @@
-gametitle=Shin Sangoku Musou 3 - Moushouden (K)(SLKA-25126)
-comment=Widescreen hack by nemesis2000 (NTSC-K by Arapapa)
-
-//Widescreen hack 16:9
-
-patch=1,EE,0013a220,word,3c0243d6 //3c0243a0
-patch=1,EE,0018f460,word,3c023f2b //3c023f00

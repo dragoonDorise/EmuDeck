@@ -1,6 +1,0 @@
-gametitle=Mark of Kri SCUS_971.40
-comment=Widescreen Hack
-patch=1,EE,00350714,word,3c013faa
-patch=1,EE,00101370,word,3c014396
-patch=1,EE,00100a9c,word,3c014396
-patch=1,EE,002e08ac,word,3c0144bf

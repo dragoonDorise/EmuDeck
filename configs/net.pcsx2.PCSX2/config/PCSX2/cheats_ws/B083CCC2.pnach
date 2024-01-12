@@ -1,9 +1,0 @@
-gametitle=Forbidden Siren [PAL-Spain] (SCES-52330)
-comment=Widescreen hack
-
-//Gameplay 16:9 by sergx12
-patch=1,EE,002018a8,word,3c023f40
-
-//FMV's fix by nemesis2000
-patch=1,EE,001fba78,word,3c027560
-patch=1,EE,001fbac4,word,34028aa0

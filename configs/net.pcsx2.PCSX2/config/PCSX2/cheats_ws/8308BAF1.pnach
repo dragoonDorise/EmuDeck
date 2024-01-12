@@ -1,5 +1,0 @@
-gametitle=Portal Runner [PAL] (SLES_502.63)
-comment=Widescreen Hack by El_Patas
-
-//Gameplay 16:9 P1 Screen
-patch=1,EE,0030AD90,word,3FA1C40E //3FD7B013

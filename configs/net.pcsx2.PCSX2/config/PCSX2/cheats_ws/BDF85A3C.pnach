@@ -1,8 +1,0 @@
-gametitle=Jyuouki - Project Altered Beast (J)(SLPM-65796)
-comment=Widescreen hack  (NTSC-J by Arapapa)
-
-//Widescreen hack 16:9
-
-patch=1,EE,00156be0,word,3c033fe3 //3c033faa
-patch=1,EE,00156be8,word,34648e38 //3464aaab
-patch=1,EE,005d0210,word,3c033f20 //3c033f00
