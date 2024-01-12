@@ -62,6 +62,16 @@ cloud_sync_config(){
   cloud_sync_setup_providers
   setSetting cloud_sync_status "true" && echo "true"
 
+  #Check installation
+  if [ ! -f "$cloud_sync_bin" ]; then
+  	echo "false"
+  elif [ ! -f "$cloud_sync_config" ]; then
+  	echo "false"
+  elif [ $cloud_sync_provider = '' ]; then
+  	echo "false"
+  else
+  	echo "true"
+  fi
 }
 
 createCloudFile() {
