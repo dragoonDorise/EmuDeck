@@ -23,5 +23,5 @@ substituteWith='"'
 param=${param/\'/"$substituteWith"}
 #Fix last ' on command
 param=$(echo "$param" | sed 's/.$/"/')
-eval "${exe} ${param} -bigpicture -fullscreen"
+eval "${exe} ${param} -fullscreen"
 rclone_uploadEmu pcsx2-qt
