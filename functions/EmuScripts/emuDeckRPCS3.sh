@@ -18,26 +18,15 @@ RPCS3_cleanup(){
 RPCS3_install(){
 	setMSG "Installing RPCS3"
 
-	# RPCS3 does not have a "latest" tag on their GitHub repo. Open issue said to use the below URL instead. Modified from ES-DE script
-	RPCS3_releaseMD5="$(curl -sL https://rpcs3.net/latest-appimage | md5sum | cut -d ' ' -f 1)"
-
+	# Migrates configurations to RPCS3 AppImage
+	RPCS3_migrate
+	
+	# Install RPCS3
 	local showProgress="$1"
 
-	if [[ $RPCS3_releaseURL = "https://rpcs3.net/latest-appimage"* ]]; then
-
-		if safeDownload "$RPCS3_remuName" "$RPCS3_releaseURL" "$RPCS3_emuPath" "$showProgress"; then
-			RPCS3_md5sum=($(md5sum $RPCS3_emuPath)) # get first element
-			if [ "$RPCS3_md5sum" == "$RPCS3_releaseMD5" ]; then
-				echo "RPCS3 PASSED HASH CHECK."
-				chmod +x "$RPCS3_emuPath"
-			else
-				echo "RPCS3 FAILED HASH CHECK. Expected $RPCS3_releaseMD5, got $RPCS3_md5sum"
-			fi
-		else
-			return 1
-		fi
+	if installEmuAI "$RPCS3_emuName" "$RPCS3_releaseURL" "rpcs3" "$showProgress"; then # rpcs3.AppImage - needs to be lowercase yuzu for EsDE to find it
+		:
 	else
-		setMSG "$RPCS3_remuName not found"
 		return 1
 	fi
 
@@ -107,14 +96,6 @@ RPCS3_wipe(){
 	rm -rf "$HOME/.cache/rpcs3"
 }
 
-# Create desktop shortcut
-RPCS3_createDesktopShortcut(){
-
-	createDesktopShortcut "$HOME/.local/share/applications/$RPCS3_remuName.desktop" \
-							"$RPCS3_emuName AppImage" \
-							"${toolsPath}/launchers/rpcs3.sh" \
-							"false"
-}
 
 #Uninstall
 RPCS3_uninstall(){
@@ -127,6 +108,7 @@ RPCS3_uninstall(){
 RPCS3_setABXYstyle(){
 	 echo "NYI"
 }
+
 
 #Migrate
 RPCS3_migrate(){
