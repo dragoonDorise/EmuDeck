@@ -7,8 +7,8 @@ cloud_sync_install(){
   {
     # startLog ${FUNCNAME[0]}
     local cloud_sync_provider=$1
-    setSetting cloud_sync_provider "$cloud_sync_provider" > /dev/null
-    setSetting cloud_sync_status "true" > /dev/null
+    setSetting cloud_sync_provider "$cloud_sync_provider"
+    setSetting cloud_sync_status "true"
     rm -rf "$HOME/.config/systemd/user/EmuDeckCloudSync.service" > /dev/null
 
     #if [ ! -f "$HOME/.steam/steam/.cef-enable-remote-debugging" ]; then
@@ -62,6 +62,16 @@ cloud_sync_config(){
   cloud_sync_setup_providers
   setSetting cloud_sync_status "true" && echo "true"
 
+  #Check installation
+  if [ ! -f "$cloud_sync_bin" ]; then
+  	echo "false"
+  elif [ ! -f "$cloud_sync_config" ]; then
+  	echo "false"
+  elif [ $cloud_sync_provider = '' ]; then
+  	echo "false"
+  else
+  	echo "true"
+  fi
 }
 
 createCloudFile() {
@@ -241,6 +251,9 @@ cloud_sync_install_and_config(){
 	 fi
 	 } && cloud_sync_config "$cloud_sync_provider"
 
+	 setSetting cloud_sync_provider "$cloud_sync_provider"
+	 setSetting cloud_sync_status "true"
+
 	 #We get the previous default browser back
 	 if [ "$browser" != 'com.google.Chrome.desktop' ];then
 	   xdg-settings set default-web-browser $browser
@@ -398,14 +411,23 @@ cloud_sync_uploadEmu(){
           #Download - Extra
           #rm -rf $savesPath/$emuName/.pending_upload
           cloud_sync_createBackup "$emuName"
-          cloud_sync_download $emuName
+          cloud_sync_download $emuName && {
+			  rm -rf $savesPath/$emuName/.fail_download > /dev/null
+			  rm -rf $savesPath/$emuName/.pending_download > /dev/null
+			  rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+			  rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+		  }
 
         elif [[ $response =~ "0-" ]]; then
           #Upload - OK
           #rm -rf $savesPath/$emuName/.pending_upload
           cloud_sync_createBackup "$emuName"
-          cloud_sync_upload $emuName
-
+          cloud_sync_upload $emuName && {
+			  rm -rf $savesPath/$emuName/.fail_download > /dev/null
+			  rm -rf $savesPath/$emuName/.pending_download > /dev/null
+			  rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+			  rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+		  }
         else
           #Skip - Cancel
           return
@@ -470,14 +492,24 @@ cloud_sync_downloadEmu(){
           if [[ $response =~ "download" ]]; then
             #Download - OK
             cloud_sync_createBackup "$emuName"
-            cloud_sync_download $emuName
+            cloud_sync_download $emuName && {
+				rm -rf $savesPath/$emuName/.fail_download > /dev/null
+				rm -rf $savesPath/$emuName/.pending_download > /dev/null
+				rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+				rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+			}
             #echo $timestamp > "$savesPath"/$emuName/.pending_upload
           elif [[ $response =~ "0-" ]]; then
 
             #Upload - Extra button
             #rm -rf $savesPath/$emuName/.pending_upload
             cloud_sync_createBackup "$emuName"
-            cloud_sync_upload $emuName
+            cloud_sync_upload $emuName && {
+				rm -rf $savesPath/$emuName/.fail_download > /dev/null
+				rm -rf $savesPath/$emuName/.pending_download > /dev/null
+				rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+				rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+			}
           else
             #Skip - Cancel
             return
@@ -507,11 +539,21 @@ cloud_sync_downloadEmu(){
             #Upload - Extra button
             #rm -rf $savesPath/$emuName/.pending_upload
             cloud_sync_createBackup "$emuName"
-            cloud_sync_upload $emuName
+            cloud_sync_upload $emuName && {
+				rm -rf $savesPath/$emuName/.fail_download > /dev/null
+				rm -rf $savesPath/$emuName/.pending_download > /dev/null
+				rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+				rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+			}
           elif [[ $response =~ "0-" ]]; then
             #Download - OK
             cloud_sync_createBackup "$emuName"
-            cloud_sync_download $emuName
+            cloud_sync_download $emuName && {
+				rm -rf $savesPath/$emuName/.fail_download > /dev/null
+				rm -rf $savesPath/$emuName/.pending_download > /dev/null
+				rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+				rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+			}
           else
             #Skip - Cancel
             return

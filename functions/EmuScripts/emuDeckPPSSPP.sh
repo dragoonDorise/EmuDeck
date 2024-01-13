@@ -17,6 +17,10 @@ PPSSPP_install(){
 	flatpak override "${PPSSPP_emuPath}" --filesystem=host --user
 	flatpak override "${PPSSPP_emuPath}" --share=network --user
 }
+#Fix for autoupdate
+Ppsspp_install(){
+	PPSSPP_install
+}
 
 #ApplyInitialSettings
 PPSSPP_init(){
@@ -144,8 +148,8 @@ PPSSPP_retroAchievementsSetLogin() {
 
 		# Insert username into PPSSPP config file
 		iniFieldUpdate "$PPSSPP_configFile" "Achievements" "AchievementsUserName" "${rau}"
-		
-		# Insert token into PPSSPP token file if file is empty. RetroAchievements login does not work if there are multiple tokens in the file. 
+
+		# Insert token into PPSSPP token file if file is empty. RetroAchievements login does not work if there are multiple tokens in the file.
 		if [ -s $PPSSPP_token ]; then
 			echo "File is not empty"
 		else
