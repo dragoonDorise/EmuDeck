@@ -1,6 +1,6 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu "ryujinx" && cloud_sync_startService
+emulatorInit "ryujinx"
 emuName="Ryujinx.sh" #parameterize me
 emufolder="$HOME/Applications/publish" # has to be applications for ES-DE to find it
 
@@ -18,6 +18,6 @@ else
 fi
 #run the executable with the params.
 param="${@}"
-param=$(echo "$param" | sed "s|'|/\"|g")
+param=$(echo "$param" | sed "s|'|\"|g")
 eval "${exe} ${param}"
 rm -rf "$savesPath/.gaming"

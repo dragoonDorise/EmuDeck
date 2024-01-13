@@ -2,7 +2,7 @@
 
 # Variables
 Moonlight_emuName="Moonlight"
-Moonlight_emuType="FlatPak"
+Moonlight_emuType="$emuDeckEmuTypeFlatpak"
 Moonlight_emuPath="com.moonlight_stream.Moonlight"
 Moonlight_releaseURL=""
 

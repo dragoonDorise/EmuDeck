@@ -1,9 +1,10 @@
 #!/bin/bash
 #variables
 PPSSPP_emuName="PPSSPP"
-PPSSPP_emuType="FlatPak"
+PPSSPP_emuType="$emuDeckEmuTypeFlatpak"
 PPSSPP_emuPath="org.ppsspp.PPSSPP"
 PPSSPP_releaseURL=""
+PPSSPP_configFile="$HOME/.var/app/${PPSSPP_emuPath}/config/ppsspp/PSP/SYSTEM/ppsspp.ini"
 
 #cleanupOlderThings
 PPSSPP_cleanup(){
@@ -16,6 +17,10 @@ PPSSPP_install(){
 	flatpak override "${PPSSPP_emuPath}" --filesystem=host --user
 	flatpak override "${PPSSPP_emuPath}" --share=network --user
 }
+#Fix for autoupdate
+Ppsspp_install(){
+	PPSSPP_install
+}
 
 #ApplyInitialSettings
 PPSSPP_init(){
@@ -24,6 +29,7 @@ PPSSPP_init(){
 	PPSSPP_setEmulationFolder
 	PPSSPP_setupSaves
 	PPSSPP_addSteamInputProfile
+	PPSSPP_setRetroAchievements
 }
 
 #update
@@ -37,10 +43,7 @@ PPSSPP_update(){
 
 #ConfigurePaths
 PPSSPP_setEmulationFolder(){
-  	configFile="$HOME/.var/app/${PPSSPP_emuPath}/config/ppsspp/PSP/SYSTEM/ppsspp.ini"
-    gameDirOpt='CurrentDirectory = '
-    newGameDirOpt='CurrentDirectory = '"${romsPath}/psp"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
+	iniFieldUpdate "$PPSSPP_configFile" "General" "CurrentDirectory" "${romsPath}/psp"
 }
 
 #SetupSaves
@@ -108,6 +111,64 @@ PPSSPP_resetConfig(){
 #finalExec - Extra stuff
 PPSSPP_finalize(){
 	echo "NYI"
+}
+
+PPSSPP_retroAchievementsOn() {
+	iniFieldUpdate "$PPSSPP_configFile" "Achievements" "AchievementsEnable" "True"
+}
+PPSSPP_retroAchievementsOff() {
+	iniFieldUpdate "$PPSSPP_configFile" "Achievements" "AchievementsEnable" "False"
+}
+
+PPSSPP_retroAchievementsHardCoreOn() {
+	iniFieldUpdate "$PPSSPP_configFile" "Achievements" "AchievementsChallengeMode" "True"
+
+}
+PPSSPP_retroAchievementsHardCoreOff() {
+	iniFieldUpdate "$PPSSPP_configFile" "Achievements" "AchievementsChallengeMode" "False"
+}
+
+PPSSPP_retroAchievementsSetLogin() {
+
+	# EmuDeck username and token files
+	rau=$(cat "$HOME/.config/EmuDeck/.rau")
+	rat=$(cat "$HOME/.config/EmuDeck/.rat")
+
+	# Create PPSSPP token file
+	PPSSPP_token="$HOME/.var/app/${PPSSPP_emuPath}/config/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat"
+	touch $PPSSPP_token
+
+	echo "Evaluate RetroAchievements Login."
+	if [ ${#rat} -lt 1 ]; then
+		echo "--No token."
+	elif [ ${#rau} -lt 1 ]; then
+		echo "--No username."
+	else
+		echo "Valid Retroachievements Username and Password length"
+
+		# Insert username into PPSSPP config file
+		iniFieldUpdate "$PPSSPP_configFile" "Achievements" "AchievementsUserName" "${rau}"
+
+		# Insert token into PPSSPP token file if file is empty. RetroAchievements login does not work if there are multiple tokens in the file.
+		if [ -s $PPSSPP_token ]; then
+			echo "File is not empty"
+		else
+			echo "File is empty"
+			echo "${rat}" >> "${PPSSPP_token}"
+		fi
+
+		# Enable RetroAchievements
+		PPSSPP_retroAchievementsOn
+	fi
+}
+
+PPSSPP_setRetroAchievements(){
+	PPSSPP_retroAchievementsSetLogin
+	if [ "$achievementsHardcore" == "true" ]; then
+		PPSSPP_retroAchievementsHardCoreOn
+	else
+		PPSSPP_retroAchievementsHardCoreOff
+	fi
 }
 
 PPSSPP_addSteamInputProfile(){

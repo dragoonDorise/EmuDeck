@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 ares_emuName="ares"
-ares_emuType="FlatPak"
+ares_emuType="$emuDeckEmuTypeFlatpak"
 ares_emuPath="dev.ares.ares"
 ares_configFile="$HOME/.var/app/dev.ares.ares/data/ares/settings.bml"
 

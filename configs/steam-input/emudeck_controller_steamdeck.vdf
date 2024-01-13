@@ -6,7 +6,7 @@
 	"description"		"Press START + SELECT to Exit Emulator. SELECT + R1 / R2 for DS and 3DS screen swap / Layout"
 	"url"		"template://emudeck_controller_steamdeck.vdf"
 	"controller_type"		"controller_neptune"
-	"controller_caps"		"23117821"
+	"controller_caps"		"23117823"
 	"major_revision"		"0"
 	"minor_revision"		"0"
 	"localization"
@@ -588,6 +588,156 @@
 	}
 	"group"
 	{
+		"id"		"19"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mouse_button LEFT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mouse_button RIGHT, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"1"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"21"
+		"mode"		"radial_menu"
+		"name"		"Radial"
+		"description"		""
+		"inputs"
+		{
+			"touch_menu_button_1"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button A, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"2"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"23"
+		"mode"		"radial_menu"
+		"name"		"Radial Menu"
+		"description"		""
+		"inputs"
+		{
+			"touch_menu_button_1"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F2, Save State, ghost_075_utility_020.png, #232323 #FFFFFF"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_2"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F1, Load State, ghost_075_utility_010.png, "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_3"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F9, Swap screens, ghost_075_utility_040.png, "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_4"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F8, Rotate Screens, ghost_070_setting_0303.png, "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
 		"id"		"7"
 		"mode"		"switches"
 		"name"		""
@@ -749,55 +899,6 @@
 			}
 		}
 	}
-	"group"
-	{
-		"id"		"19"
-		"mode"		"absolute_mouse"
-		"name"		""
-		"description"		""
-		"inputs"
-		{
-			"click"
-			{
-				"activators"
-				{
-					"Soft_Press"
-					{
-						"bindings"
-						{
-							"binding"		"mouse_button LEFT, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"touch"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"mouse_button RIGHT, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"1"
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-		}
-		"gameactions"
-		{
-		}
-	}
 	"preset"
 	{
 		"id"		"0"
@@ -807,13 +908,15 @@
 			"7"		"switch active"
 			"0"		"button_diamond active"
 			"3"		"joystick active"
+			"21"		"joystick inactive"
 			"4"		"left_trigger active"
 			"5"		"right_trigger active"
 			"8"		"right_joystick active"
 			"9"		"dpad active"
 			"15"		"right_trackpad inactive"
 			"16"		"right_trackpad active"
-			"19"		"left_trackpad active"
+			"19"		"left_trackpad inactive"
+			"23"		"left_trackpad active"
 		}
 	}
 	"settings"

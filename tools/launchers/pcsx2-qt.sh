@@ -1,6 +1,6 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu pcsx2 && cloud_sync_startService
+emulatorInit "pcsx2"
 emuName="pcsx2-Qt" #parameterize me
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
 
@@ -9,15 +9,16 @@ exe=$(find $emufolder -iname "${emuName}*.AppImage" | sort -n | cut -d' ' -f 2- 
 
 #if appimage doesn't exist fall back to flatpak.
 if [[ $exe == '' ]]; then
-    #flatpak
-    flatpakApp=$(flatpak list --app --columns=application | grep $emuName)
-    exe="/usr/bin/flatpak run "$flatpakApp
+	#flatpak
+	flatpakApp=$(flatpak list --app --columns=application | grep $emuName)
+	exe="/usr/bin/flatpak run "$flatpakApp
 else
 #make sure that file is executable
-    chmod +x $exe
+	chmod +x $exe
 fi
 #run the executable with the params.
 #Fix first '
 param="${@}"
-param=$(echo "$param" | sed "s|'|/\"|g")
-eval "${exe} ${param} -bigpicture -fullscreen"
+param=$(echo "$param" | sed "s|'|\"|g")
+eval "${exe} ${param} -bigpicture -fullscreen -batch"
+rm -rf "$savesPath/.gaming"

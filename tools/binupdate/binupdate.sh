@@ -212,40 +212,40 @@ LOGFILE="${scriptPath}/binupdate-$TIMESTAMP.log"
 exec > >(tee "${LOGFILE}") 2>&1
 
 binTable=()
-if [ "$(ESDE_IsInstalled)" == "true" ]; then
+if [ "$(ESDE_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "EmulationStation-DE" "esde")
 fi
-if [ "$(SRM_IsInstalled)" == "true" ]; then
+if [ "$(SRM_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "Steam ROM Manager" "srm")
 fi
-if [ "$(mGBA_IsInstalled)" == "true" ]; then
+if [ "$(mGBA_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "GameBoy / Color / Advance Emu" "mgba")
 fi
-if [ "$(Yuzu_IsInstalled)" == "true" ]; then
+if [ "$(Yuzu_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "Nintendo Switch Emu" "yuzu (mainline)")
 fi
-if [ "$(YuzuEA_IsInstalled)" == "true" ] && [ -e "$YuzuEA_tokenFile" ]; then
+if [ "$(YuzuEA_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ] && [ -e "$YuzuEA_tokenFile" ]; then
     binTable+=(TRUE "Nintendo Switch Emu" "yuzu (early access)")
 fi
-if [ "$(Ryujinx_IsInstalled)" == "true" ]; then
+if [ "$(Ryujinx_IsInstalled ""$emuDeckEmuTypeBinary"")" == "true" ]; then
     binTable+=(TRUE "Nintendo Switch Emu" "ryujinx")
 fi
-if [ "$(PCSX2QT_IsInstalled)" == "true" ]; then
+if [ "$(PCSX2QT_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "Sony PlayStation 2 Emu" "pcsx2-qt")
 fi
-if [ "$(Cemu_IsInstalled)" == "true" ]; then
+if [ "$(Cemu_IsInstalled ""$emuDeckEmuTypeWindows"")" == "true" ]; then
     binTable+=(TRUE "Nintendo WiiU Emu (Proton)" "cemu (win/proton)")
 fi
-if [ "$(CemuNative_IsInstalled)" == "true" ]; then
+if [ "$(CemuNative_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "Nintendo WiiU Emu (Native)" "cemu (native)")
 fi
-if [ "$(Vita3K_IsInstalled)" == "true" ]; then
+if [ "$(Vita3K_IsInstalled ""$emuDeckEmuTypeBinary"")" == "true" ]; then
     binTable+=(TRUE "Sony PlayStation Vita Emu" "vita3k")
 fi
-if [ "$(Xenia_IsInstalled)" == "true" ]; then
+if [ "$(Xenia_IsInstalled ""$emuDeckEmuTypeWindows"")" == "true" ]; then
     binTable+=(TRUE "Xbox 360 Emu" "xenia")
 fi
-if [ "$(RPCS3_IsInstalled)" == "true" ]; then
+if [ "$(RPCS3_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "PlayStation 3 Emu" "rpcs3")
 fi
 

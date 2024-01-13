@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 PCSX2_emuName="PCSX2"
-PCSX2_emuType="FlatPak"
+PCSX2_emuType="$emuDeckEmuTypeFlatpak"
 PCSX2_emuPath="net.pcsx2.PCSX2"
 PCSX2_configFile="$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/inis/PCSX2_ui.ini"
 
@@ -128,7 +128,7 @@ PCSX2_setResolution(){
 		"1080P") multiplier=3;;
 		"1440P") multiplier=4;;
 		"4K") multiplier=6;;
-		*) echo "Error"; exit 1;;
+		*) echo "Error"; return 1;;
 	esac
 
 	RetroArch_setConfigOverride "upscale_multiplier" $multiplier "$PCSX2_configFile"

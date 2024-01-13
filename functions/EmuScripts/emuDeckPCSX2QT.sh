@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 PCSX2QT_emuName="PCSX2-QT"
-PCSX2QT_emuType="AppImage"
+PCSX2QT_emuType="$emuDeckEmuTypeAppImage"
 PCSX2QT_emuPath="$HOME/Applications/pcsx2-Qt.AppImage"
 PCSX2QT_configFile="$HOME/.config/PCSX2/inis/PCSX2.ini"
 
@@ -15,12 +15,16 @@ PCSX2QT_install() {
 	echo "Begin PCSX2-QT Install"
 	local showProgress="$1"
 
-	if installEmuAI "${PCSX2QT_emuName}" "https://github.com/PCSX2/pcsx2/releases/download/v1.7.4749/pcsx2-v1.7.4749-linux-appimage-x64-Qt.AppImage" "pcsx2-Qt" "$showProgress"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
-	#if installEmuAI "${PCSX2QT_emuName}" "$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")" "pcsx2-Qt" "$showProgress"; then #pcsx2-Qt.AppImage
+	#if installEmuAI "${PCSX2QT_emuName}" "https://github.com/PCSX2/pcsx2/releases/download/v1.7.4749/pcsx2-v1.7.4749-linux-appimage-x64-Qt.AppImage" "pcsx2-Qt" "$showProgress"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
+	if installEmuAI "${PCSX2QT_emuName}" "$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")" "pcsx2-Qt" "$showProgress"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
 		rm -rf $HOME/.local/share/applications/pcsx2-Qt.desktop &>/dev/null # delete old shortcut
 	else
 		return 1
 	fi
+}
+#Fix for autoupdate
+Pcsx2_install(){
+	PCSX2QT_install
 }
 
 #ApplyInitialSettings
@@ -61,6 +65,7 @@ PCSX2QT_update() {
 PCSX2QT_setEmulationFolder() {
 	setMSG "Setting $PCSX2QT_emuName Emulation Folder"
 
+	iniFieldUpdate "$PCSX2QT_configFile" "UI" "ConfirmShutdown" "false"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Bios" "${biosPath}"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Snapshots" "${storagePath}/pcsx2/snaps"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Savestates" "${savesPath}/pcsx2/states"
@@ -332,7 +337,7 @@ PCSX2QT_setResolution(){
 		"1080P") multiplier=3;;
 		"1440P") multiplier=4;;
 		"4K") multiplier=6;;
-		*) echo "Error"; exit 1;;
+		*) echo "Error"; return 1;;
 	esac
 
 	RetroArch_setConfigOverride "upscale_multiplier" $multiplier "$PCSX2QT_configFile"

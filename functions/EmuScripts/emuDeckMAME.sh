@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 MAME_emuName="MAME"
-MAME_emuType="FlatPak"
+MAME_emuType="$emuDeckEmuTypeFlatpak"
 MAME_emuPath="org.mamedev.MAME"
 MAME_releaseURL=""
 MAME_configFile="$HOME/.mame/mame.ini"
@@ -16,6 +16,11 @@ MAME_install(){
 	installEmuFP "${MAME_emuName}" "${MAME_emuPath}"
 	flatpak override "${MAME_emuPath}" --filesystem=host --user
 	flatpak override "${MAME_emuPath}" --share=network --user
+}
+
+#Fix for autoupdate
+Mame_install(){
+	MAME_install
 }
 
 #ApplyInitialSettings

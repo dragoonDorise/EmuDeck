@@ -95,7 +95,6 @@ source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayMoonlight.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayGreenlight.sh
 source "$EMUDECKGIT"/functions/cloudSyncHealth.sh
 
-
 #Soon
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMAMEProton.sh

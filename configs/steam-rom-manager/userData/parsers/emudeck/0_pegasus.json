@@ -1,13 +1,13 @@
 {
   "parserType": "Glob",
-  "configTitle": "Pegasus Frontend",
+  "configTitle": "Pegasus - Pegasus Frontend",
   "steamDirectory": "${steamdirglobal}",
   "steamCategory": "${Emulation}",
   "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/launchers/pegasus/",
   "executableArgs": "",
   "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
-  "titleModifier": "EmulationStation DE",
+  "titleModifier": "Pegasus Frontend",
   "fetchControllerTemplatesButton": null,
   "removeControllersButton": null,
   "imageProviders": ["SteamGridDB"],
@@ -17,7 +17,7 @@
     "specifiedAccounts": ""
   },
   "executable": {
-    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/esde/pegasus-frontend.sh",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/pegasus/pegasus-frontend.sh",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },

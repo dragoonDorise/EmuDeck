@@ -1,10 +1,12 @@
 #!/bin/bash
 #variables
 Citra_emuName="Citra"
-Citra_emuType="AppImage"
+Citra_emuType="$emuDeckEmuTypeAppImage"
 Citra_emuPath="citra_emu"
 Citra_releaseURL=""
 Citra_configFile="$HOME/.config/citra-emu/qt-config.ini"
+Citra_texturesPath="$HOME/.config/citra-emu/load/textures"
+
 
 #cleanupOlderThings
 Citra_finalize(){
@@ -62,6 +64,12 @@ Citra_setupSaves(){
 
 #SetupStorage
 Citra_setupStorage(){
+
+	local textureLink="$(readlink -f "$Citra_texturesPath")"
+	if [[ "$textureLink" != "$emulationPath/hdpacks/n3ds" ]]; then
+		rm -rf "$Citra_texturesPath"
+		ln -s "$Citra_texturesPath" "$emulationPath/hdpacks/n3ds"
+	fi
 
 	if [ ! -f "$storagePath/citra/nand" ] && [ -d "$HOME/.local/share/citra-emu/nand/" ]; then
 
@@ -174,7 +182,7 @@ Citra_setResolution(){
 		"1080P") multiplier=5;;
 		"1440P") multiplier=6;;
 		"4K") multiplier=9;;
-		*) echo "Error"; exit 1;;
+		*) echo "Error"; return 1;;
 	esac
 
 	setConfig "resolution_factor" $multiplier "$Citra_configFile"

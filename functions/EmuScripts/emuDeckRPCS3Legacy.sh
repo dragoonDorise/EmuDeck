@@ -5,6 +5,7 @@ RPCS3_emuType="FlatPak"
 RPCS3_emuPath="net.rpcs3.RPCS3"
 RPCS3_releaseURL=""
 RPCS3_VFSConf="$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/vfs.yml"
+RPCS3_configFile="$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/config.yml"
 
 #cleanupOlderThings
 RPCS3_cleanup(){
@@ -23,6 +24,11 @@ RPCS3_init(){
 	RPCS3_setupStorage
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
+}
+
+#Fix for autoupdate
+Rpcsx3_install(){
+	RPCS3_install
 }
 
 #update
@@ -124,4 +130,20 @@ RPCS3_IsInstalled(){
 
 RPCS3_resetConfig(){
 	RPCS3_init &>/dev/null && echo "true" || echo "false"
+}
+
+RPCS3_setResolution(){
+
+	case $rpcs3Resolution in
+		"720P") res=100;;
+		"1080P") res=150;;
+		"1440P") res=200;;
+		"4K") res=300;;
+		*) echo "Error"; return 1;;
+	esac
+
+	RetroArch_setConfigOverride "Resolution Scale:" $res "$RPCS3_configFile"
+
+	sed -i "s|Resolution Scale:=|Resolution Scale:|g" "$RPCS3_configFile"
+
 }

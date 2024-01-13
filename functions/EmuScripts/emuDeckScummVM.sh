@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 ScummVM_emuName="ScummVM"
-ScummVM_emuType="FlatPak"
+ScummVM_emuType="$emuDeckEmuTypeFlatpak"
 ScummVM_emuPath="org.scummvm.ScummVM"
 ScummVM_releaseURL=""
 ScummVM_configFile="$HOME/.var/app/org.scummvm.ScummVM/config/scummvm/scummvm.ini"
@@ -16,6 +16,11 @@ ScummVM_install(){
 	installEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}"
 	flatpak override "${ScummVM_emuPath}" --filesystem=host --user
 	flatpak override "${ScummVM_emuPath}" --share=network --user
+}
+
+#Fix for autoupdate
+Scummvm_install(){
+	ScummVM_install
 }
 
 #ApplyInitialSettings

@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 RMG_emuName="RosaliesMupenGui"
-RMG_emuType="FlatPak"
+RMG_emuType="$emuDeckEmuTypeFlatpak"
 RMG_emuPath="com.github.Rosalie241.RMG"
 RMG_configFile="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/mupen64plus.cfg"
 RMG_glideN64File="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/GLideN64.ini"
@@ -17,6 +17,11 @@ RMG_install() {
 
 	installEmuFP "${RMG_emuName}" "${RMG_emuPath}"
 	flatpak override "${RMG_emuPath}" --filesystem=host --user
+}
+
+#Fix for autoupdate
+Rmg_install(){
+	RMG_install
 }
 
 #ApplyInitialSettings
