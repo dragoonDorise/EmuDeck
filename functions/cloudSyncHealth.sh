@@ -28,13 +28,13 @@ cloudSyncHealth(){
 
 	#Check installation
 	if [ ! -f "$cloud_sync_bin" ]; then
-  		echo "nobinary"
+  		echo "Error: No executable found. Please reinstall"
   		exit
 	elif [ ! -f "$cloud_sync_config" ]; then
-  		echo "noconfig"
+  		echo "Error: No config file found. Please reinstall"
   		exit
 	elif [ $cloud_sync_provider = '' ]; then
-  		echo "noprovider"
+  		echo "Error: No provider found. Please reinstall"
   		exit
 	fi
 
