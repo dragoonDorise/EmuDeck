@@ -29,26 +29,40 @@ cloudSyncHealth(){
 		echo "<tr>"
 	#Check installation
 	if [ ! -f "$cloud_sync_bin" ]; then
-  		echo "<td>Executable Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td>"
+  		echo "<td>Executable Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></table>"
   		exit
 	else
 		echo "<td>Executable Status: </td><td class='alert--success'><strong>Success</strong></td>"
 	fi
 	echo "</tr><tr>"
 	if [ ! -f "$cloud_sync_config" ]; then
-  		echo "<td>Config file Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td>"
+  		echo "<td>Config file Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></table>"
   		exit
 	else
 		echo "<td>Config file Status: </td><td class='alert--success'><strong>Success</strong></td>"
 	fi
 	echo "</tr><tr>"
 	if [ $cloud_sync_provider = '' ]; then
-  		echo "<td>Provider Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td>"
+  		echo "<td>Provider Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></tr></table>"
   		exit
 	else
 		echo "<td>Provider Status: </td><td class='alert--success'><strong>Success</strong></td>"
 	fi
+	echo "</tr><tr>"
+	if [ ! -f "$HOME/.config/systemd/user/EmuDeckCloudSync.service" ]; then
+		  echo "<td>Service Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></table>"
+		  exit
+	else
+		echo "<td>Service Status: </td><td class='alert--success'><strong>Success</strong></td>"
+	fi
 	echo "</tr>"
+
+
+	$(systemctl --user status "EmuDeckCloudSync.service")
+	echo "</tr>"
+
+
+
 	#Test emulators
 	miArray=("Cemu" "citra" "dolphin" "duckstation" "MAME" "melonds" "mgba" "pcsx2" "ppsspp" "primehack" "retroarch" "rpcs3" "scummvm" "Vita3K" "yuzu" "ryujinx" )
 
@@ -62,7 +76,7 @@ cloudSyncHealth(){
 			echo "<td>$elemento, save folder </td><td class='alert--warning'>not found</td>"
 		else
 			echo "<td>$elemento upload Status: </td><td class='alert--danger'><strong>Failure</strong></td>"
-			echo "</tr>"
+			echo "</tr></tr></table>"
 			exit
 		fi
 		echo "</tr>"
@@ -77,7 +91,7 @@ cloudSyncHealth(){
 			echo "<td>$elemento, save folder </td><td class='alert--warning'>not found</td>"
 		else
 			echo "<td>$elemento download Status: </td><td class='alert--danger'><strong>Failure</strong></td>"
-			echo "</tr>"
+			echo "</tr></tr></table>"
 			exit
 		fi
 		echo "</tr>"
