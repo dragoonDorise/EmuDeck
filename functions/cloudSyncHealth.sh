@@ -39,7 +39,7 @@ cloudSyncHealth(){
   		exit
 	else
 		echo "Config file Status: <strong>Correct</strong>"
-	if
+	fi
 	if [ $cloud_sync_provider = '' ]; then
   		echo "<strong>Error: No provider found. Please reinstall</strong>"
   		exit
