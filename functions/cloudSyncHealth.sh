@@ -28,14 +28,23 @@ cloudSyncHealth(){
 
 	#Check installation
 	if [ ! -f "$cloud_sync_bin" ]; then
-  		echo "Error: No executable found. Please reinstall"
+  		echo "<strong>Error: No executable found. Please reinstall</strong>"
   		exit
-	elif [ ! -f "$cloud_sync_config" ]; then
-  		echo "Error: No config file found. Please reinstall"
+	else
+		echo "Executable Status: <strong>Correct</strong>"
+	fi
+
+	if [ ! -f "$cloud_sync_config" ]; then
+  		echo "<strong>Error: No config file found. Please reinstall</strong>"
   		exit
-	elif [ $cloud_sync_provider = '' ]; then
-  		echo "Error: No provider found. Please reinstall"
+	else
+		echo "Config file Status: <strong>Correct</strong>"
+	if
+	if [ $cloud_sync_provider = '' ]; then
+  		echo "<strong>Error: No provider found. Please reinstall</strong>"
   		exit
+	else
+		echo "Provider set up: <strong>Correct</strong>"
 	fi
 
 	#Test emulators
@@ -45,12 +54,11 @@ cloudSyncHealth(){
 	for elemento in "${miArray[@]}"; do
 #		echo -ne "Testing $elemento upload..."
 		if cloud_sync_upload_test $elemento;then
-			echo ""
+			echo "$elemento upload Status: <strong>Success</strong>"
 		elif [ $? = 2 ]; then
-			echo ""
-			#echo "Error: Testing $elemento upload, save folder not found"
+			echo "Warning: $elemento, save folder not found"
 		else
-			echo "Error: Testing $elemento upload"
+			echo "<strong>Error: Testing $elemento upload</strong>"
 			exit
 		fi
 	done
@@ -59,12 +67,11 @@ cloudSyncHealth(){
 	for elemento in "${miArray[@]}"; do
 #		echo -ne "Testing $elemento download..."
 		if cloud_sync_dowload_test $elemento;then
-			echo ""
+			echo "$elemento download Status: <strong>Success</strong>"
 		elif [ $? = 2 ]; then
-			echo ""
-			#echo "Error: Testing $elemento download, save folder not found"
+			echo "Warning: $elemento, save folder not found"
 		else
-			echo "Error: Testing $elemento download"
+			echo "<strong>Error: Testing $elemento download</strong>"
 			exit
 		fi
 	done
