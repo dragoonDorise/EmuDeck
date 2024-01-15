@@ -50,10 +50,10 @@ cloudSyncHealth(){
 	fi
 	echo "</tr><tr>"
 	if [ ! -f "$HOME/.config/systemd/user/EmuDeckCloudSync.service" ]; then
-		  echo "<td>Service Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></table>"
+		  echo "<td>Watcher Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></table>"
 		  exit
 	else
-		echo "<td>Service Status: </td><td class='alert--success'><strong>Success</strong></td>"
+		echo "<td>Watcher Status: </td><td class='alert--success'><strong>Success</strong></td>"
 	fi
 	echo "</tr>"
 
