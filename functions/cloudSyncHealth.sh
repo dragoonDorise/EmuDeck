@@ -6,7 +6,7 @@ cloud_sync_upload_test(){
 		return 2
 	fi
 
-	echo "test" > "$savesPath/$emuName/.temp"
+	echo "<p>test" > "$savesPath/$emuName/.temp"
 	filePath="$savesPath/$emuName/.temp"
 	"$cloud_sync_bin"  -q  copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$filePath" "$cloud_sync_provider":Emudeck/saves/$emuName/.temp  && rm -rf "$savesPath/$emuName/.temp" && return 0 || return 1
 }
@@ -18,7 +18,7 @@ cloud_sync_dowload_test(){
 		return 2
 	fi
 
-	echo "test" > "$savesPath/$emuName/.temp"
+	echo "<p>test" > "$savesPath/$emuName/.temp"
 	filePath="$savesPath/$emuName/.temp"
 	"$cloud_sync_bin"  -q  copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/$emuName/.temp "$filePath" && rm -rf "$savesPath/$emuName/.temp" && return 0 || return 1
 
@@ -28,23 +28,23 @@ cloudSyncHealth(){
 
 	#Check installation
 	if [ ! -f "$cloud_sync_bin" ]; then
-  		echo "Executable Status: <strong class='alert--danger'>Failure, please reinstall</strong>"
+  		echo "<p>Executable Status: <strong class='alert--danger'>Failure, please reinstall</strong></p>"
   		exit
 	else
-		echo "Executable Status: <strong class='alert--success'>Success</strong>"
+		echo "<p>Executable Status: <strong class='alert--success'>Success</strong></p>"
 	fi
 
 	if [ ! -f "$cloud_sync_config" ]; then
-  		echo "Config file Status: <strong class='alert--danger'>Failure, please reinstall</strong>"
+  		echo "<p>Config file Status: <strong class='alert--danger'>Failure, please reinstall</strong></p>"
   		exit
 	else
-		echo "Config file Status: <strong class='alert--success'>Success</strong>"
+		echo "<p>Config file Status: <strong class='alert--success'>Success</strong></p>"
 	fi
 	if [ $cloud_sync_provider = '' ]; then
-  		echo "Provider Status: <strong class='alert--danger'>Failure, please reinstall</strong>"
+  		echo "<p>Provider Status: <strong class='alert--danger'>Failure, please reinstall</strong></p>"
   		exit
 	else
-		echo "Provider Status: <strong class='alert--success'>Success</strong>"
+		echo "<p>Provider Status: <strong class='alert--success'>Success</strong></p>"
 	fi
 
 	#Test emulators
@@ -54,11 +54,11 @@ cloudSyncHealth(){
 	for elemento in "${miArray[@]}"; do
 #		echo -ne "Testing $elemento upload..."
 		if cloud_sync_upload_test $elemento;then
-			echo "$elemento upload Status: <strong class='alert--success'>Success</strong>"
+			echo "<p>$elemento upload Status: <strong class='alert--success'>Success</strong></p>"
 		elif [ $? = 2 ]; then
-			echo "Warning: $elemento, save folder not found"
+			echo "<p>Warning: $elemento, save folder not found"
 		else
-			echo "$elemento upload Status: <strong class='alert--danger'>Failure</strong>"
+			echo "<p>$elemento upload Status: <strong class='alert--danger'>Failure</strong></p>"
 			exit
 		fi
 	done
@@ -67,14 +67,14 @@ cloudSyncHealth(){
 	for elemento in "${miArray[@]}"; do
 #		echo -ne "Testing $elemento download..."
 		if cloud_sync_dowload_test $elemento;then
-			echo "$elemento download Status: <strong class='alert--success'>Success</strong>"
+			echo "<p>$elemento download Status: <strong class='alert--success'>Success</strong></p>"
 		elif [ $? = 2 ]; then
-			echo "Warning: $elemento, save folder not found"
+			echo "<p>Warning: $elemento, save folder not found"
 		else
-			echo "$elemento download Status: <strong class='alert--danger'>Failure</strong>"
+			echo "<p>$elemento download Status: <strong class='alert--danger'>Failure</strong></p>"
 			exit
 		fi
 	done
 
-	echo "true"
+	echo "<p>true"
 }
