@@ -28,23 +28,23 @@ cloudSyncHealth(){
 
 	#Check installation
 	if [ ! -f "$cloud_sync_bin" ]; then
-  		echo "<strong>Error: No executable found. Please reinstall</strong>"
+  		echo "Executable Status: <strong class='alert--danger'>Failure, please reinstall</strong>"
   		exit
 	else
-		echo "Executable Status: <strong>Correct</strong>"
+		echo "Executable Status: <strong class='alert--success'>Success</strong>"
 	fi
 
 	if [ ! -f "$cloud_sync_config" ]; then
-  		echo "<strong>Error: No config file found. Please reinstall</strong>"
+  		echo "Config file Status: <strong class='alert--danger'>Failure, please reinstall</strong>"
   		exit
 	else
-		echo "Config file Status: <strong>Correct</strong>"
+		echo "Config file Status: <strong class='alert--success'>Success</strong>"
 	fi
 	if [ $cloud_sync_provider = '' ]; then
-  		echo "<strong>Error: No provider found. Please reinstall</strong>"
+  		echo "Provider Status: <strong class='alert--danger'>Failure, please reinstall</strong>"
   		exit
 	else
-		echo "Provider set up: <strong>Correct</strong>"
+		echo "Provider Status: <strong class='alert--success'>Success</strong>"
 	fi
 
 	#Test emulators
@@ -54,11 +54,11 @@ cloudSyncHealth(){
 	for elemento in "${miArray[@]}"; do
 #		echo -ne "Testing $elemento upload..."
 		if cloud_sync_upload_test $elemento;then
-			echo "$elemento upload Status: <strong>Success</strong>"
+			echo "$elemento upload Status: <strong class='alert--success'>Success</strong>"
 		elif [ $? = 2 ]; then
 			echo "Warning: $elemento, save folder not found"
 		else
-			echo "<strong>Error: Testing $elemento upload</strong>"
+			echo "$elemento upload Status: <strong class='alert--danger'>Failure</strong>"
 			exit
 		fi
 	done
@@ -67,11 +67,11 @@ cloudSyncHealth(){
 	for elemento in "${miArray[@]}"; do
 #		echo -ne "Testing $elemento download..."
 		if cloud_sync_dowload_test $elemento;then
-			echo "$elemento download Status: <strong>Success</strong>"
+			echo "$elemento download Status: <strong class='alert--success'>Success</strong>"
 		elif [ $? = 2 ]; then
 			echo "Warning: $elemento, save folder not found"
 		else
-			echo "<strong>Error: Testing $elemento download</strong>"
+			echo "$elemento download Status: <strong class='alert--danger'>Failure</strong>"
 			exit
 		fi
 	done
