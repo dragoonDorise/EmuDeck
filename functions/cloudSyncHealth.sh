@@ -25,28 +25,28 @@ cloud_sync_dowload_test(){
 }
 
 cloudSyncHealth(){
-	echo "<table>"
+	echo "<table class='table'>"
 		echo "<tr>"
 	#Check installation
 	if [ ! -f "$cloud_sync_bin" ]; then
-  		echo "<td>Executable Status: </td><td><strong class='alert--danger'>Failure, please reinstall</strong></td>"
+  		echo "<td>Executable Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td>"
   		exit
 	else
-		echo "<td>Executable Status: </td><td><strong class='alert--success'>Success</strong></td>"
+		echo "<td>Executable Status: </td><td class='alert--success'><strong>Success</strong></td>"
 	fi
 	echo "</tr><tr>"
 	if [ ! -f "$cloud_sync_config" ]; then
-  		echo "<td>Config file Status: </td><td><strong class='alert--danger'>Failure, please reinstall</strong></td>"
+  		echo "<td>Config file Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td>"
   		exit
 	else
-		echo "<td>Config file Status: </td><td><strong class='alert--success'>Success</strong></td>"
+		echo "<td>Config file Status: </td><td class='alert--success'><strong>Success</strong></td>"
 	fi
 	echo "</tr><tr>"
 	if [ $cloud_sync_provider = '' ]; then
-  		echo "<td>Provider Status: </td><td><strong class='alert--danger'>Failure, please reinstall</strong></td>"
+  		echo "<td>Provider Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td>"
   		exit
 	else
-		echo "<td>Provider Status: </td><td><strong class='alert--success'>Success</strong></td>"
+		echo "<td>Provider Status: </td><td class='alert--success'><strong>Success</strong></td>"
 	fi
 	echo "</tr>"
 	#Test emulators
@@ -57,11 +57,11 @@ cloudSyncHealth(){
 #		echo -ne "Testing $elemento upload..."
 		echo "<tr>"
 		if cloud_sync_upload_test $elemento;then
-			echo "<td>$elemento upload Status: </td><td><strong class='alert--success'>Success</strong></td>"
+			echo "<td>$elemento upload Status: </td><td class='alert--success'><strong>Success</strong></td>"
 		elif [ $? = 2 ]; then
-			echo "<td>Warning: $elemento, save folder not found"
+			echo "<td>$elemento, save folder </td><td class='alert--warning'>not found</td>"
 		else
-			echo "<td>$elemento upload Status: </td><td><strong class='alert--danger'>Failure</strong></td>"
+			echo "<td>$elemento upload Status: </td><td class='alert--danger'><strong>Failure</strong></td>"
 			echo "</tr>"
 			exit
 		fi
@@ -72,11 +72,11 @@ cloudSyncHealth(){
 	for elemento in "${miArray[@]}"; do
 		echo "<tr>"
 		if cloud_sync_dowload_test $elemento;then
-			echo "<td>$elemento download Status: </td><td><strong class='alert--success'>Success</strong></td>"
+			echo "<td>$elemento download Status: </td><td class='alert--success'><strong>Success</strong></td>"
 		elif [ $? = 2 ]; then
-			echo "<td>Warning: $elemento, save folder not found"
+			echo "<td>$elemento, save folder </td><td class='alert--warning'>not found</td>"
 		else
-			echo "<td>$elemento download Status: </td><td><strong class='alert--danger'>Failure</strong></td>"
+			echo "<td>$elemento download Status: </td><td class='alert--danger'><strong>Failure</strong></td>"
 			echo "</tr>"
 			exit
 		fi
