@@ -97,5 +97,5 @@ cloudSyncHealth(){
 		echo "</tr>"
 	done
 	echo "</table>"
-	echo "true"
+	echo "<span class='is-hidden'>true</span>"
 }
