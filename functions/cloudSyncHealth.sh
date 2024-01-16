@@ -30,27 +30,27 @@ cloudSyncHealth(){
 	#Check installation
 	if [ ! -f "$cloud_sync_bin" ]; then
   		echo "<td>Executable Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></table>"
-  		return 1
+  		exit
 	else
 		echo "<td>Executable Status: </td><td class='alert--success'><strong>Success</strong></td>"
 	fi
 	echo "</tr><tr>"
 	if [ ! -f "$cloud_sync_config" ]; then
   		echo "<td>Config file Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></table>"
-  		return 1
+  		exit
 	else
 		echo "<td>Config file Status: </td><td class='alert--success'><strong>Success</strong></td>"
 	fi
 	echo "</tr><tr>"
 	if [ $cloud_sync_provider = '' ]; then
   		echo "<td>Provider Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></tr></table>"
-  		return 1
+  		exit
 	else
 		echo "<td>Provider Status: </td><td class='alert--success'><strong>Success</strong></td>"
 	fi
 	echo "</tr><tr>"
 	if [ ! -d "$HOME/homebrew/plugins/EmuDecky" ]; then
-		  echo "<td>EmuDecky Status: </td><td class='alert--danger'><strong>Failure, please install EmuDecky</strong></td></tr></tr></table>"
+		  echo "<td>EmuDecky Status: </td><td class='alert--danger'><strong>Failure, please install EmuDecky</strong></td></tr></tr></table>" >&2
 		  return 1
 	else
 		echo "<td>EmuDecky Status: </td><td class='alert--success'><strong>Success</strong></td>"
@@ -58,7 +58,7 @@ cloudSyncHealth(){
 	echo "</tr><tr>"
 	if [ ! -f "$HOME/.config/systemd/user/EmuDeckCloudSync.service" ]; then
 		  echo "<td>Watcher Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></table>"
-		  return 1
+		  exit
 	else
 		echo "<td>Watcher Status: </td><td class='alert--success'><strong>Success</strong></td>"
 	fi
@@ -84,7 +84,7 @@ cloudSyncHealth(){
 		else
 			echo "<td>$elemento upload Status: </td><td class='alert--danger'><strong>Failure</strong></td>"
 			echo "</tr></tr></table>"
-			return 1
+			exit
 		fi
 		echo "</tr>"
 	done
@@ -99,7 +99,7 @@ cloudSyncHealth(){
 		else
 			echo "<td>$elemento download Status: </td><td class='alert--danger'><strong>Failure</strong></td>"
 			echo "</tr></tr></table>"
-			return 1
+			exit
 		fi
 		echo "</tr>"
 	done
