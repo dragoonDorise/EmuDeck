@@ -56,7 +56,6 @@ SRM_init(){
   SRM_createParsers
   SRM_addSteamInputProfiles
   #old SRM
-  SRM_migration
 
   sleep 1
 
