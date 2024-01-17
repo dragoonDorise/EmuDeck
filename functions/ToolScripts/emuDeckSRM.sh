@@ -35,8 +35,7 @@ SRM_createDesktopShortcut(){
 
 SRM_migration(){
   if [ -d "${toolsPath}/srm" ]; then
-    cp "${toolsPath}"/srm/*.AppImage "${toolsPath}"
-    mv "${toolsPath}/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" && rm -rf "${toolsPath}/srm/"
+    cp "${toolsPath}"/srm/*.AppImage "${toolsPath}" && rm -rf "${toolsPath}/srm"
     SRM_createDesktopShortcut
 	Citra_resetConfig
 	PCSX2QT_resetConfig
