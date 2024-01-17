@@ -23,6 +23,10 @@ appImageInit() {
 	#Force SRM appimage move in case the migration fails
 	mv "${toolsPath}/srm/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" &>> /dev/null
 
+	if [ "$(Xenia_IsInstalled)" == "true" ]; then
+		 setSetting doInstallXenia "true"
+	  fi
+
 	# Init functions
 	mkdir -p "$HOME/emudeck/logs"
 	mkdir -p "$HOME/emudeck/feeds"
