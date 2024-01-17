@@ -36,7 +36,7 @@ SRM_createDesktopShortcut(){
 SRM_migration(){
   if [ -d "${toolsPath}/srm" ]; then
     cp "${toolsPath}"/srm/*.AppImage "${toolsPath}"
-    mv "${toolsPath}/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" && rm -rf "${toolsPath}"/srm/
+    mv "${toolsPath}/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" && rm -rf "${toolsPath}srm/"
 	SRM_resetConfig
     SRM_createDesktopShortcut
 	Citra_resetConfig
