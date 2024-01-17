@@ -316,7 +316,7 @@ cloud_sync_download(){
     cloud_sync_check_lock
     if [ "$emuName" == "all" ]; then
         #We check the hashes
-        cloud_sync_save_hash "$savesPath/$emuName"
+        cloud_sync_save_hash "$savesPath"
         local filePath="$savesPath/.hash"
         local hash=$(cat "$savesPath/.hash")
 
@@ -332,7 +332,7 @@ cloud_sync_download(){
                   do
                     if [ -d "$folder" ]; then
                      emuName=$(basename "$folder")
-                     echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
+                     echo $timestamp > "$savesPath"/.last_download && rm -rf $savesPath/.fail_download
                     fi
                 done
               )
