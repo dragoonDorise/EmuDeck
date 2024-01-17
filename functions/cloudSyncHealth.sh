@@ -49,6 +49,13 @@ cloudSyncHealth(){
 		echo "<td>Provider Status: </td><td class='alert--success'><strong>Success</strong></td>"
 	fi
 	echo "</tr><tr>"
+	if [ ! -d "$HOME/homebrew/plugins/EmuDecky" ]; then
+		  echo "<td>EmuDecky Status: </td><td class='alert--danger'><strong>Failure, please install EmuDecky</strong></td></tr></tr></table>" >&2
+		  return 1
+	else
+		echo "<td>EmuDecky Status: </td><td class='alert--success'><strong>Success</strong></td>"
+	fi
+	echo "</tr><tr>"
 	if [ ! -f "$HOME/.config/systemd/user/EmuDeckCloudSync.service" ]; then
 		  echo "<td>Watcher Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></table>"
 		  exit
