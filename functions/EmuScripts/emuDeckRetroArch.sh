@@ -2141,6 +2141,7 @@ RetroArch_installCores(){
 				mednafen_vb_libretro \
 				mednafen_wswan_libretro \
 				melonds_libretro \
+				melondsds_libretro \
 				mesen_libretro \
 				mesen-s_libretro \
 				mgba_libretro \
