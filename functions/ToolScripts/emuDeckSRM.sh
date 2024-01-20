@@ -34,8 +34,8 @@ SRM_createDesktopShortcut(){
 }
 
 SRM_migration(){
-  if [ -d "${toolsPath}/srm" ]; then
-    cp "${toolsPath}"/srm/*.AppImage "${toolsPath}" && rm -rf "${toolsPath}/srm"
+  if [ -f "${toolsPath}/srm/Steam-ROM-Manager.AppImage" ]; then
+    mv "${toolsPath}/srm/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" &>> /dev/null
     SRM_createDesktopShortcut
 
 	SRM_createParsers
