@@ -37,6 +37,10 @@ SRM_migration(){
   if [ -d "${toolsPath}/srm" ]; then
     cp "${toolsPath}"/srm/*.AppImage "${toolsPath}" && rm -rf "${toolsPath}/srm"
     SRM_createDesktopShortcut
+
+	SRM_createParsers
+	SRM_addSteamInputProfiles
+
 	Citra_resetConfig
 	PCSX2QT_resetConfig
 	DuckStation_resetConfig
