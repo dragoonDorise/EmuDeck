@@ -75,7 +75,7 @@ Cemu_init(){
 	fi
 	Cemu_setEmulationFolder
 	Cemu_setupSaves
-	Cemu_addSteamInputProfile
+	#Cemu_addSteamInputProfile
 
 	if [ -e "${romsPath}/wiiu/controllerProfiles/controller1.xml" ];then
 		mv "${romsPath}/wiiu/controllerProfiles/controller1.xml" "${romsPath}/wiiu/controllerProfiles/controller1.xml.bak"
@@ -94,7 +94,7 @@ Cemu_update(){
 	rsync -avhp "$EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu" --ignore-existing
 	Cemu_setEmulationFolder
 	Cemu_setupSaves
-	Cemu_addSteamInputProfile
+	#Cemu_addSteamInputProfile
 }
 
 
@@ -116,7 +116,7 @@ Cemu_setEmulationFolder(){
 
 #SetLanguage
 Cemu_setLanguage(){
-	setMSG "Setting $Cemu_emuName Language"	
+	setMSG "Setting $Cemu_emuName Language"
 	#TODO: call this somewhere, and input the $language from somewhere (args?)
 	if [[ -f "${Cemu_cemuSettings}" ]]; then
 		if [ ${Cemu_languages[$language]+_} ]; then

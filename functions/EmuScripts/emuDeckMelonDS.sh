@@ -30,7 +30,7 @@ melonDS_init(){
 	melonDS_setupStorage
 	melonDS_setEmulationFolder
 	melonDS_setupSaves
-	melonDS_addSteamInputProfile
+	#melonDS_addSteamInputProfile
 
 }
 
@@ -41,7 +41,7 @@ melonDS_update(){
 	melonDS_setupStorage
 	melonDS_setEmulationFolder
 	melonDS_setupSaves
-	melonDS_addSteamInputProfile
+	#melonDS_addSteamInputProfile
 
 }
 
