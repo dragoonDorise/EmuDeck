@@ -24,7 +24,6 @@ if [ "$system" != "darwin" ]; then
 fi
 chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
 
-source "$EMUDECKGIT"/api.sh
 source "$EMUDECKGIT"/functions/checkBIOS.sh
 source "$EMUDECKGIT"/functions/checkInstalledEmus.sh
 #source "$EMUDECKGIT"/functions/cloudServicesManager.sh

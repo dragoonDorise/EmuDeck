@@ -28,7 +28,7 @@ ares_init() {
 	ares_setupStorage
 	ares_setEmulationFolder
 	ares_setupSaves
-	ares_addSteamInputProfile
+	#ares_addSteamInputProfile
   	ares_getDataFolders
 
 }
@@ -41,7 +41,7 @@ ares_update() {
 	ares_setupStorage
 	ares_setEmulationFolder
 	ares_setupSaves
-	ares_addSteamInputProfile
+	#ares_addSteamInputProfile
   	ares_getDataFolders
 
 }

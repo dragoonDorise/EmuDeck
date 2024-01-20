@@ -28,7 +28,7 @@ PPSSPP_init(){
 	PPSSPP_setupStorage
 	PPSSPP_setEmulationFolder
 	PPSSPP_setupSaves
-	PPSSPP_addSteamInputProfile
+	#PPSSPP_addSteamInputProfile
 	PPSSPP_setRetroAchievements
 }
 
@@ -38,7 +38,7 @@ PPSSPP_update(){
 	PPSSPP_setupStorage
 	PPSSPP_setEmulationFolder
 	PPSSPP_setupSaves
-	PPSSPP_addSteamInputProfile
+	#PPSSPP_addSteamInputProfile
 }
 
 #ConfigurePaths
