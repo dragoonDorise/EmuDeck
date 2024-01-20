@@ -120,7 +120,7 @@ ESDE_init(){
 	ESDE_setDefaultEmulators
 	ESDE_applyTheme  "$esdeThemeUrl" "$esdeThemeName"
 	ESDE_migrateDownloadedMedia
-	ESDE_addSteamInputProfile
+	#ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
 	ESDE_finalize
 	ESDE_migrateEpicNoir
@@ -160,7 +160,7 @@ ESDE_update(){
 	ESDE_setDefaultEmulators
 	ESDE_applyTheme "$esdeThemeUrl" "$esdeThemeName"
 	ESDE_migrateDownloadedMedia
-	ESDE_addSteamInputProfile
+	#ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
 	ESDE_finalize
 }
