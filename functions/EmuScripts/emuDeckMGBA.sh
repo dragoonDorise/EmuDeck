@@ -21,6 +21,12 @@ mGBA_install(){
 	fi
 }
 
+
+#Fix for autoupdate
+Mgba_install(){
+	mGBA_install
+}
+
 #ApplyInitialSettings
 mGBA_init(){
 	setMSG "Initializing $mGBA_emuName settings."
@@ -28,7 +34,7 @@ mGBA_init(){
 	mGBA_setupStorage
 	mGBA_setEmulationFolder
 	mGBA_setupSaves
-	mGBA_addSteamInputProfile
+	#mGBA_addSteamInputProfile
 }
 
 #update
@@ -38,7 +44,7 @@ mGBA_update(){
 	mGBA_setupStorage
 	mGBA_setEmulationFolder
 	mGBA_setupSaves
-	mGBA_addSteamInputProfile
+	#mGBA_addSteamInputProfile
 }
 
 #ConfigurePaths

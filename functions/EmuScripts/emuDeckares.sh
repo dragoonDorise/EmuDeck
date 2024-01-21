@@ -30,7 +30,7 @@ ares_init() {
 	ares_setupSaves
 	#ares_addSteamInputProfile
 	ares_getDefaultShaders
-  	ares_getQuarkShaders
+  ares_getQuarkShaders
 	ares_addESConfig
 
 }
@@ -43,12 +43,9 @@ ares_update() {
 	ares_setupStorage
 	ares_setEmulationFolder
 	ares_setupSaves
-
-	#ares_addSteamInputProfile
 	ares_getDefaultShaders
-  	ares_getQuarkShaders
+  ares_getQuarkShaders
 	ares_addESConfig
-
 
 }
 
