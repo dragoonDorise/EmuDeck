@@ -712,7 +712,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"key_press F, Fast Forward, ghost_060_vehicle_0050.png, "
+								"binding"		"key_press Space, Fast Forward, ghost_060_vehicle_0050.png, "
 							}
 						}
 					}
@@ -738,7 +738,7 @@
 						{
 							"bindings"
 							{
-								"binding"		"key_press F8, Swap Screens, ghost_075_utility_040.png, "
+								"binding"		"key_press F9, Swap Screens, ghost_075_utility_040.png, "
 							}
 							"settings"
 							{
