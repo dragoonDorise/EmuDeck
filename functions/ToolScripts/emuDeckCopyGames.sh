@@ -6,7 +6,7 @@ CreateStructureUSB(){
 	else
 		mkdir -p "$destination/bios/"
 		mkdir -p "$destination/roms/"
-		(rsync -ravL --ignore-existing "$EMUDECKGIT/roms/" "$destination/roms/" && rsync -ravL --ignore-existing "$biosPath" "$destination/bios") && echo "true" || echo "false"
+		(rsync -ravL --ignore-existing "$EMUDECKGIT/roms/" "$destination/roms/" && rsync -ravL --ignore-existing "$biosPath/" "$destination/bios") && echo "true" || echo "false"
 
 	fi
 }
