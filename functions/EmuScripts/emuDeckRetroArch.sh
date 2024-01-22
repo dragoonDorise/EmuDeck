@@ -61,6 +61,7 @@ RetroArch_init(){
 	RetroArch_setCustomizations
 	RetroArch_autoSave
 	RetroArch_setRetroAchievements
+	RetroArch_melonDSDSMigration
 
 	mkdir -p "$biosPath/mame/bios"
 	mkdir -p "$biosPath/dc"
@@ -181,6 +182,7 @@ RetroArch_update(){
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
+	RetroArch_melonDSDSMigration
 }
 
 
@@ -226,6 +228,11 @@ RetroArch_setupConfigurations(){
 	input_driver='input_driver = '
 	input_driverSetting="${input_driver}"\""sdl"\"
 	changeLine "$input_driver" "$input_driverSetting" "$RetroArch_configFile"
+
+	# Set microphone driver to SDL. Potentially fixes RetroArch hanging when closing content.
+	microphone_driver='microphone_driver = '
+	microphone_driverSetting="${microphone_driver}"\""sdl"\"
+	changeLine "$microphone_driver" "$microphone_driverSetting" "$RetroArch_configFile"
 
 }
 
@@ -1541,6 +1548,39 @@ RetroArch_melonDS_setConfig(){
 	RetroArch_setOverride 'nds.cfg' 'melonDS'  'rewind_enable' '"false"'
 }
 
+RetroArch_melonDSDS_setUpCoreOpt(){
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_audio_bitdepth' '"auto"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_audio_interpolation' '"disabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_boot_mode' '"disabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS' 'melonds_console_mode' '"ds"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_dsi_sdcard' '"enabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_hybrid_ratio' '"2"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_hybrid_small_screen' '"both"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_jit_block_size' '"32"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_jit_branch_optimisations' '"enabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_jit_enable' '"enabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_jit_fast_memory' '"enabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_jit_literal_optimisations' '"enabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_opengl_better_polygons' '"enabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_opengl_filtering' '"nearest"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_render_mode' '"software"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_opengl_resolution' '"5"'
+#	Unsupported in melonDSDS at this time.
+#	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_randomize_mac_address' '"disabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_gap' '"0"'
+#	No equivalent in melonDSDS at this time.
+#	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_layout' '"Hybrid Bottom"'
+#	No equivalent in melonDSDS at this time.	
+#	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_swapscreen_mode' '"Toggle"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_threaded_renderer' '"enabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_touch_mode' '"auto"'
+}
+
+RetroArch_melonDSDS_setConfig(){
+	RetroArch_setOverride 'melonDS DS.cfg' 'melonDS DS'  'rewind_enable' '"true"'
+	RetroArch_setOverride 'melonDS DS.cfg' 'melonDS DS'  'rewind_granularity' '"6"'
+}
+
 RetroArch_Mupen64Plus_Next_setUpCoreOpt(){
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-169screensize' '"1920x1080"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-43screensize' '"1280x960"'
@@ -2341,6 +2381,29 @@ RetroArch_autoSave(){
 	else
 		RetroArch_autoSaveOff
 	fi
+}
+
+RetroArch_melonDSDSMigration(){
+
+local RetroArch_saves="$RetroArch_path/saves"
+local melonDS_remaps="$RetroArch_path/config/remaps/melonDS"
+local melonDSDS_remaps="$RetroArch_path/config/remaps/melonDS DS"
+
+# Copying melonDS saves to melonDSDS
+for file in $RetroArch_saves/*.sav; do
+
+    cp -- "${file}" "${file/%sav/srm}";
+	echo "melonDS saves copied to melonDSDS"
+done
+
+# Copying melonDS remaps to melonDSDS
+if [ ! -d "$melonDSDS_remaps" ]; then
+	mkdir -p "$melonDSDS_remaps"
+fi
+
+cp -r "$melonDS_remaps/." "$melonDSDS_remaps"
+echo "melonDS remaps copied to melonDSDS"
+
 }
 
 RetroArch_IsInstalled(){
