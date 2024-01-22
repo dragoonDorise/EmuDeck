@@ -1,209 +1,355 @@
-#!/bin/bash
-#variables
-Cemu_emuName="Cemu (proton)"
-Cemu_emuType="$emuDeckEmuTypeWindows"
-Cemu_emuPath="${romsPath}/wiiu/Cemu.exe"
-Cemu_cemuSettings="${romsPath}/wiiu/settings.xml"
+#!/usr/bin/bash
 
-# https://github.com/cemu-project/Cemu/blob/main/src/config/CemuConfig.h#L158-L172
-declare -A Cemu_languages=(
-["ja"]=0
-["en"]=1
-["fr"]=2
-["de"]=3
-["it"]=4
-["es"]=5
-["zh"]=6
-["ko"]=7
-["nl"]=8
-["pt"]=9
-["ru"]=10
-["tw"]=11)
+Cemu_functions () {
+	local function="$1"
+	local showProgress="$2"
 
-#cleanupOlderThings
-Cemu_cleanup(){
-	echo "NYI"
-}
+	# Parameters
+	declare -A CemuNative=(
+		[emuName]="CemuNative"
+		[emuType]="AppImage"
+		[emuPath]="${HOME}/Applications/CemuNative.AppImage"
+		[configDir]="${HOME}/.config/Cemu"
+		[configFile]="${HOME}/.config/Cemu/settings.xml"
+		[shareDir]="${HOME}/.local/share/Cemu"
+	)
 
-#Install
-Cemu_install(){
-	setMSG "Installing $Cemu_emuName"
-
-	local showProgress="$1"
-	Cemu_releaseURL="$(getReleaseURLGH "cemu-project/Cemu" "windows-x64.zip")"
-	#curl $Cemu_releaseURL --output "$romsPath"/wiiu/cemu.zip
-	if safeDownload "cemu" "$Cemu_releaseURL" "$romsPath/wiiu/cemu.zip" "$showProgress"; then
-		mkdir -p "$romsPath/wiiu/tmp"
-		unzip -o "$romsPath/wiiu/cemu.zip" -d "$romsPath/wiiu/tmp"
-		mv "$romsPath"/wiiu/tmp/[Cc]emu_*/ "$romsPath/wiiu/tmp/cemu/" #don't quote the *
-		rsync -avzh "$romsPath/wiiu/tmp/cemu/" "$romsPath/wiiu/"
-		rm -rf "$romsPath/wiiu/tmp"
-		rm -f "$romsPath/wiiu/cemu.zip"
-	else
-		return 1
-	fi
-
-
-#	if  [ -e "${toolsPath}/launchers/cemu.sh" ]; then #retain launch settings
-#		local launchLine=$( tail -n 1 "${toolsPath}/launchers/cemu.sh" )
-#		echo "cemu launch line found: $launchLine"
-#	fi
-
-
-	cp "$EMUDECKGIT/tools/launchers/cemu.sh" "${toolsPath}/launchers/cemu.sh"
-	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/cemu.sh"
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/cemu.sh"
-
-#	if [[ "$launchLine"  == *"PROTONLAUNCH"* ]]; then
-#		changeLine '"${PROTONLAUNCH}"' "$launchLine" "${toolsPath}/launchers/cemu.sh"
-#	fi
-	chmod +x "${toolsPath}/launchers/cemu.sh"
-
-
-	createDesktopShortcut   "$HOME/.local/share/applications/Cemu (Proton).desktop" \
-							"Cemu (Proton)" \
-							"${toolsPath}/launchers/cemu.sh -w"  \
-							"False"
+	# Cleanup older things
+	cleanup () {
+		echo "NYI"
 	}
 
-#ApplyInitialSettings
-Cemu_init(){
-	setMSG "Initializing $Cemu_emuName settings."
-	rsync -avhp "$EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu" --backup --suffix=.bak
-	if [ -e "$Cemu_cemuSettings.bak" ]; then
-		mv -f "$Cemu_cemuSettings.bak" "$Cemu_cemuSettings" #retain cemuSettings
-	fi
-	Cemu_setEmulationFolder
-	Cemu_setupSaves
-	Cemu_addSteamInputProfile
+	# Finalize
+	finalize () {
+		cleanup
+	}
 
-	if [ -e "${romsPath}/wiiu/controllerProfiles/controller1.xml" ];then
-		mv "${romsPath}/wiiu/controllerProfiles/controller1.xml" "${romsPath}/wiiu/controllerProfiles/controller1.xml.bak"
-	fi
-	if [ -e "${romsPath}/wiiu/controllerProfiles/controller2.xml" ];then
-		mv "${romsPath}/wiiu/controllerProfiles/controller2.xml" "${romsPath}/wiiu/controllerProfiles/controller2.xml.bak"
-	fi
-	if [ -e "${romsPath}/wiiu/controllerProfiles/controller3.xml" ];then
-		mv "${romsPath}/wiiu/controllerProfiles/controller3.xml" "${romsPath}/wiiu/controllerProfiles/controller3.xml.bak"
-	fi
-}
-
-#update
-Cemu_update(){
-	setMSG "Updating $Cemu_emuName settings."
-	rsync -avhp "$EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu" --ignore-existing
-	Cemu_setEmulationFolder
-	Cemu_setupSaves
-	Cemu_addSteamInputProfile
-}
-
-
-#ConfigurePaths
-Cemu_setEmulationFolder(){
-	setMSG "Setting $Cemu_emuName Emulation Folder"
-
-	if [[ -f "${Cemu_cemuSettings}" ]]; then
-	#Correct Folder seperators to windows based ones
-		#WindowsRomPath=${echo "z:${romsPath}/wiiu/roms" | sed 's/\//\\/g'}
-		#gamePathEntryFound=$(grep -rnw "$Cemu_cemuSettings" -e "${WindowsRomPath}")
-		gamePathEntryFound=$(grep -rnw "$Cemu_cemuSettings" -e "z:${romsPath}/wiiu/roms")
-		if [[ $gamePathEntryFound == '' ]]; then
-			#xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "${WindowsRomPath}" "$Cemu_cemuSettings"
-			xmlstarlet ed --inplace  --subnode "content/GamePaths" --type elem -n Entry -v "z:${romsPath}/wiiu/roms" "$Cemu_cemuSettings"
-		fi
-	fi
-}
-
-#SetLanguage
-Cemu_setLanguage(){
-	setMSG "Setting $Cemu_emuName Language"	
-	#TODO: call this somewhere, and input the $language from somewhere (args?)
-	if [[ -f "${Cemu_cemuSettings}" ]]; then
-		if [ ${Cemu_languages[$language]+_} ]; then
-			xmlstarlet ed --inplace  --subnode "content" --type elem -n "console_language" -v "${Cemu_languages[$language]}" "$Cemu_cemuSettings"
-		fi
-	fi
-}
-
-#SetupSaves
-Cemu_setupSaves(){
-	unlink "${savesPath}/Cemu/saves" # Fix for previous bad symlink
-	linkToSaveFolder Cemu saves "${romsPath}/wiiu/mlc01/usr/save"
-}
-
-
-#SetupStorage
-Cemu_setupStorage(){
-	echo "NYI"
-}
-
-
-#WipeSettings
-Cemu_wipeSettings(){
-	echo "NYI"
-	#rm -rf "${romPath}wiiu/"
-	# prob not cause roms are here
-}
-
-
-#Uninstall
-Cemu_uninstall(){
-	setMSG "Uninstalling $Cemu_emuName."
-	rm -rf "${Cemu_emuPath}"
-}
-
-#setABXYstyle
-Cemu_setABXYstyle(){
+	# Set ABXY Style
+	setABXYstyle () {
 		echo "NYI"
+	}
+
+	# Migrate
+	migrate () {
+		echo "Begin Cemu migration"
+		migrationFlag="${HOME}/.config/EmuDeck/.${CemuNative[emuName]}MigrationCompleted"
+		if [ ! -f "${migrationFlag}" ]; then
+			# Check for Windows version mlc01
+			if [ -d "${romsPath}/wiiu/mlc01" ]; then
+				# Make sure we don't overwrite anything
+				if [ -d "${storagePath}/cemu/mlc01" ]; then
+					mv -f "${storagePath}/cemu/mlc01"{,.bak}
+				fi
+				# Move mlc01 to storage
+				mv -f "${romsPath}/wiiu/mlc01" "${storagePath}/cemu/mlc01"
+			fi
+			# Check for Windows version graphicPacks
+			if [ -d "${romsPath}/wiiu/graphicPacks" ]; then
+				# Make sure we don't overwrite existing graphicPacks
+				if [ -d "${storagePath}/cemu/graphicPacks" ]; then
+					mv -f "${storagePath}/cemu/graphicPacks"{,.bak}
+				fi
+				# Move graphicPacks to storage
+				mv -f "${romsPath}/wiiu/graphicPacks" "${storagePath}/cemu/graphicPacks"
+			fi
+			# Move Windows version keys.txt
+			if [ -f "${romsPath}/wiiu/keys.txt" ]; then
+				# Make sure we don't overwrite anything
+				if [ -f "${CemuNative[configDir]}/keys.txt" ]; then
+					mv -f "${CemuNative[configDir]}/keys.txt"{,.bak}
+				fi
+				mv -f "${romsPath}/wiiu/keys.txt" "${CemuNative[configDir]}/keys.txt"
+			fi
+			# Move Windows version wiiu_commonkey
+			if [ -f "${romsPath}/wiiu/wiiu_commonkey" ]; then
+				# Make sure we don't overwrite anything
+				if [ -f "${CemuNative[configDir]}/wiiu_commonkey" ]; then
+					mv -f "${CemuNative[configDir]}/wiiu_commonkey"{,.bak}
+				fi
+				mv -f "${romsPath}/wiiu/wiiu_commonkey" "${CemuNative[configDir]}/wiiu_commonkey"
+			fi
+			# Move Windows version gameProfiles
+			if [ -d "${romsPath}/wiiu/gameProfiles" ]; then
+				# Make sure we don't overwrite anything
+				if [ -d "${CemuNative[configDir]}/gameProfiles" ]; then
+					mv -f "${CemuNative[configDir]}/gameProfiles"{,.bak}
+				fi
+				mv -f "${romsPath}/wiiu/gameProfiles" "${CemuNative[configDir]}/gameProfiles"
+			fi
+			# Remove Windows version crashdump directory
+			if [ -d "${romsPath}/wiiu/crashdump" ]; then
+				rm -rf "${romsPath}/wiiu/crashdump"
+			fi
+			# Remove Windows version controllerProfiles directory
+			if [ -d "${romsPath}/wiiu/controllerProfiles" ]; then
+				rm -rf "${romsPath}/wiiu/controllerProfiles"
+			fi
+			# Remove Windows version shaderCache directory
+			if [ -d "${romsPath}/wiiu/shaderCache" ]; then
+				rm -rf "${romsPath}/wiiu/shaderCache"
+			fi
+			# Remove Windows version resources directory
+			if [ -d "${romsPath}/wiiu/resources" ]; then
+				rm -rf "${romsPath}/wiiu/resources"
+			fi
+			# Remove Windows version memorySearcher directory
+			if [ -d "${romsPath}/wiiu/memorySearcher" ]; then
+				rm -rf "${romsPath}/wiiu/memorySearcher"
+			fi
+			# Remove Windows version title list cache
+			if [ -f "${romsPath}/wiiu/title_list_cache.xml" ]; then
+				rm -rf "${romsPath}/wiiu/title_list_cache.xml"
+			fi
+			# Remove Windows executable
+			if [ -f "${romsPath}/wiiu/Cemu.exe" ]; then
+				rm -rf "${romsPath}/wiiu/Cemu.exe"
+			fi
+			# Remove Windows version settings.xml
+			if [ -f "${romsPath}/wiiu/settings.xml" ]; then
+				rm -rf "${romsPath}/wiiu/settings.xml"
+			fi
+			# Remove Windows version log.txt
+			if [ -f "${romsPath}/wiiu/log.txt" ]; then
+				rm -rf "${romsPath}/wiiu/log.txt"
+			fi
+			# Move ROMs out of the roms subdirectory
+			if [ -d "${romsPath}/wiiu/roms" ]; then
+				mv -f "${romsPath}/wiiu/roms/"* "${romsPath}/wiiu/"
+				rmdir "${romsPath}/wiiu/roms" # Make sure this only gets removed if empty
+			fi
+			# Create the migration flag file
+			touch "${HOME}/.config/EmuDeck/.${CemuNative[emuName]}MigrationCompleted"
+		fi
+	}
+
+	# Widescreen ON
+	widescreenOn () {
+		echo "NYI"
+	}
+
+	# Widescreen OFF
+	widescreenOff () {
+		echo "NYI"
+	}
+
+	# Bezels ON
+	bezelOn () {
+		echo "NYI"
+	}
+
+	# Bezels OFF
+	bezelOff () {
+		echo "NYI"
+	}
+
+	# Configure Paths
+	setEmulationFolder () {
+		setMSG "Setting ${CemuNative[emuName]} Emulation Folder"
+		if [ -f "${CemuNative[configFile]}" ]; then
+
+			#gamepath
+			gamePathEntryFound="$( xmlstarlet sel -t -m "content/GamePaths/Entry" -v . -n "${CemuNative[configFile]}" )"
+
+			if [[ ! "${gamePathEntryFound}" == *"${romsPath}/wiiu/roms"* ]]; then
+				xmlstarlet ed --inplace --subnode "content/GamePaths" --type elem -n Entry -v "${romsPath}/wiiu/roms/" "${CemuNative[configFile]}" #while we use both native and proton, i don't want to change the wiiu folder structure.
+			fi
+
+			#mlc01 folder
+			mlcEntryFound="$( xmlstarlet sel -t -m "content/mlc_path" -v . -n "${CemuNative[configFile]}" )"
+			local mlcPath="${romsPath}/wiiu/mlc01"
+
+			if [[ ! "${mlcEntryFound}" == *"${mlcPath}"* ]]; then
+				xmlstarlet ed --inplace -u "content/mlc_path" -v "${romsPath}/wiiu/mlc01" "${CemuNative[configFile]}" #while we use both native and proton, i don't want to change the wiiu folder structure.
+			fi
+		fi
+	}
+
+	# Set Saves
+	setupSaves () {
+		unlink "${savesPath}/Cemu/saves" # Fix for previous bad symlink
+		linkToSaveFolder Cemu saves "${romsPath}/wiiu/mlc01/usr/save" #while we use both native and proton, i don't want to change the wiiu folder structure. I'm repeating myself now.
+	}
+
+	# Setup Storage
+	setupStorage () {
+		#install -d "${storagePath}/cemu"
+		unlink "${CemuNative[shareDir]}/mlc01"
+		unlink "${CemuNative[shareDir]}/graphicPacks"
+		ln -sn "${romsPath}/wiiu/mlc01" "${CemuNative[shareDir]}/mlc01"
+		ln -sn "${romsPath}/wiiu/graphicPacks" "${CemuNative[shareDir]}/graphicPacks"
+	}
+
+	# Wipe Settings
+	wipeSettings () {
+		setMSG "Wiping ${CemuNative[emuName]} settings."
+		rm -rf "${CemuNative[configDir]}"
+	}
+
+	# Uninstall
+	uninstall () {
+		setMSG "Uninstalling ${CemuNative[emuName]}."
+		rm -rf "${CemuNative[emuPath]}"
+	}
+
+	# Install
+	install () {
+		echo "Begin Cemu - Native Install"
+		local showProgress="$1"
+		if installEmuAI "Cemu" "$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")" "" "$showProgress"; then # Cemu.AppImage
+			:
+		else
+			return 1
+		fi
+	}
+
+	# Apply initial settings
+	init () {
+		setMSG "Initialising ${CemuNative[emuName]} settings."
+		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/config/cemu" "true"
+		cp "$EMUDECKGIT/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
+		cp "$EMUDECKGIT/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "$SRM_userData_configDir/parsers/custom/"
+		SRM_createParsers
+		#configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu" "true" #seems unneeded? maybe?
+		setEmulationFolder
+		setupStorage
+		setupSaves
+		addSteamInputProfile
+	}
+
+	# Update
+	update () {
+		setMSG "Updating ${CemuNative[emuName]} settings."
+		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/.config/cemu"
+		cp "$EMUDECKGIT/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
+		cp "$EMUDECKGIT/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "$SRM_userData_configDir/parsers/custom/"
+		SRM_createParsers
+		#configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu" #seems unneeded? maybe?
+		#migrate
+		setEmulationFolder
+		setupStorage
+		setupSaves
+		addSteamInputProfile
+	}
+
+	# Is Installed
+	IsInstalled () {
+		if [ -e "${CemuNative[emuPath]}" ]; then
+			echo "true"
+		else
+			echo "false"
+		fi
+	}
+
+	# Reset Config
+	resetConfig () {
+		cp "${CemuNative[configFile]}"{,.bak}
+		init && echo "true" || echo "false"
+	}
+
+	# Add Steam Input Profile
+	addSteamInputProfile () {
+		echo "NYI"
+		#setMSG "Adding ${CemuNative[emuName]} Steam Input Profile."
+		#rsync -r "${EMUDECKGIT}/configs/steam-input/cemu_controller_config.vdf" "${HOME}/.steam/steam/controller_base/templates/"
+	}
+
+	$function "$showProgress" # Call the above functions
 }
 
-#Migrate
-Cemu_migrate(){
-	   echo "NYI"
+# Cleanup older things
+Cemu_cleanup () {
+	Cemu_functions "cleanup"
 }
 
-#WideScreenOn
-Cemu_wideScreenOn(){
-echo "NYI"
+# Finalize
+Cemu_finalize () {
+	Cemu_functions "finalize"
 }
 
-#WideScreenOff
-Cemu_wideScreenOff(){
-echo "NYI"
+# Set ABXY Style
+Cemu_setABXYstyle () {
+	Cemu_functions "setABXYstyle"
 }
 
-#BezelOn
-Cemu_bezelOn(){
-echo "NYI"
+# Migrate
+Cemu_migrate () {
+	Cemu_functions "migrate"
 }
 
-#BezelOff
-Cemu_bezelOff(){
-	echo "NYI"
+# Widescreen ON
+Cemu_widescreenOn () {
+	Cemu_functions "widescreenOn"
 }
 
-#finalExec - Extra stuff
-Cemu_finalize(){
-	Cemu_cleanup
+# Widescreen OFF
+Cemu_widescreenOff () {
+	Cemu_functions "widescreenOff"
 }
 
-Cemu_IsInstalled(){
-	if [ -e "$Cemu_emuPath" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+# Bezels ON
+Cemu_bezelOn () {
+	Cemu_functions "bezelOn"
 }
 
-Cemu_resetConfig(){
-	mv  "$Cemu_cemuSettings" "$Cemu_cemuSettings.bak" &>/dev/null
-	Cemu_init &>/dev/null && echo "true" || echo "false"
+# Bezels OFF
+Cemu_bezelOff () {
+	Cemu_functions "bezelOff"
 }
 
-Cemu_addSteamInputProfile(){
-	addSteamInputCustomIcons
-	#setMSG "Adding $Cemu_emuName Steam Input Profile."
-	#rsync -r "$EMUDECKGIT/configs/steam-input/cemu_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+# Configure Paths
+Cemu_setEmulationFolder () {
+	Cemu_functions "setEmulationFolder"
+}
+
+# Set Saves
+Cemu_setupSaves () {
+	Cemu_functions "setupSaves"
+}
+
+# Setup Storage
+Cemu_setupStorage () {
+	Cemu_functions "setupStorage"
+}
+
+# Wipe Settings
+Cemu_wipeSettings () {
+	Cemu_functions "wipeSettings"
+}
+
+# Uninstall
+Cemu_uninstall () {
+	Cemu_functions "uninstall"
+}
+
+# Install
+Cemu_install () {
+	local showProgress="$1"
+	Cemu_functions "install" "$showProgress"
+}
+
+# Apply initial settings
+Cemu_init () {
+	Cemu_functions "init"
+}
+
+# Update
+Cemu_update () {
+	Cemu_functions "update"
+}
+
+# Is Installed
+Cemu_IsInstalled () {
+	Cemu_functions "IsInstalled"
+}
+
+# Reset Config
+Cemu_resetConfig () {
+	Cemu_functions "resetConfig"
+}
+
+# Add Steam Input Profile
+Cemu_addSteamInputProfile () {
+	Cemu_functions "addSteamInputProfile"
 }
 
 Cemu_setResolution(){

@@ -30,6 +30,12 @@ RetroArch_install(){
 	flatpak override "${RetroArch_emuPath}" --filesystem=host --user
 }
 
+
+#Fix for autoupdate
+Retroarch_install(){
+	RetroArch_install
+}
+
 #ApplyInitialSettings
 RetroArch_init(){
 
@@ -69,7 +75,16 @@ RetroArch_init(){
 	echo  "Put your MAME bios here" > "$biosPath/mame/bios/readme.txt"
 	echo  "Put your Dreamcast bios here" > "$biosPath/dc/readme.txt"
 	echo  "Put your Neo Geo CD bios here" > "$biosPath/neocd/readme.txt"
-	echo  "Put your RetroArch, DuckStation, PCSX2 bios here in this directory, don't create subfolders!" > "$biosPath/readme.txt"
+	echo  "# Where to put your bios?" > "$biosPath/readme.txt"
+	echo  "First of all, don't create any new subdirectory. ***" >> "$biosPath/readme.txt"
+	echo  "# System -> folder" > "$biosPath/readme.txt"
+	echo  "Playstation 1 / Duckstation -> bios/" >> "$biosPath/readme.txt"
+	echo  "Playstation 2 / PCSX2 -> bios/" >> "$biosPath/readme.txt"
+	echo  "Nintendo DS / melonDS -> bios/" >> "$biosPath/readme.txt"
+	echo  "Playstation 3 / RPCS3 -> Download it from https://www.playstation.com/en-us/support/hardware/ps3/system-software/" >> "$biosPath/readme.txt"
+	echo  "Dreamcast / RetroArch -> bios/dc" >> "$biosPath/readme.txt"
+	echo  "Switch / Yuzu -> bios/yuzu/firmware and bios/yuzu/keys" >> "$biosPath/readme.txt"
+	echo  "Those are the only mandatory bios, the rest are optional" >> "$biosPath/readme.txt"
 
 }
 
@@ -1346,7 +1361,7 @@ RetroArch_dreamcast_3DCRTshaderOff(){
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'	'video_smooth' 'ED_RM_LINE'
 }
 
-RetroArch_saturn_setConfig(){	
+RetroArch_saturn_setConfig(){
 	mkdir -p "$biosPath/kronos"
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'input_player1_analog_dpad_mode' '"1"'
 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'input_player1_analog_dpad_mode' '"1"'
@@ -2092,97 +2107,98 @@ RetroArch_installCores(){
 
 	#This is all the cores combined, and dupes taken out.
 	RAcores=(
-				81_libretro.so \
-				a5200_libretro.so \
-				arduous_libretro.info \
-				atari800_libretro.so \
-				blastem_libretro.so \
-				bluemsx_libretro.so \
-				bsnes_hd_beta_libretro.so \
-				bsnes_libretro.so \
-				cap32_libretro.so \
-				chailove_libretro.so \
-				desmume_libretro.so \
-				dosbox_core_libretro.so \
-				dosbox_pure_libretro.so \
-				easyrpg_libretro.so \
-				fbalpha2012_libretro.so \
-				fbneo_libretro.so \
-				flycast_libretro.so \
-				freechaf_libretro.so \
-				freeintv_libretro.so \
-				fuse_libretro.so \
-				gambatte_libretro.so \
-				gearboy_libretro.so \
-				gearsystem_libretro.so \
-				genesis_plus_gx_libretro.so \
-				genesis_plus_gx_wide_libretro.so \
-				gw_libretro.so \
-				handy_libretro.so \
-				hatari_libretro.so \
-				kronos_libretro.so \
-				lutro_libretro.so \
-				mame2003_plus_libretro.so \
-				mame_libretro.so \
-				mednafen_lynx_libretro.so \
-				mednafen_ngp_libretro.so \
-				mednafen_pce_fast_libretro.so \
-				mednafen_pce_libretro.so \
-				mednafen_pcfx_libretro.so \
-				mednafen_psx_hw_libretro.so \
-				mednafen_saturn_libretro.so \
-				mednafen_supergrafx_libretro.so \
-				mednafen_vb_libretro.so \
-				mednafen_wswan_libretro.so \
-				melonds_libretro.so \
-				mesen_libretro.so \
-				mesen-s_libretro.so \
-				mgba_libretro.so \
-				minivmac_libretro.so \
-				mu_libretro.so \
-				mupen64plus_next_libretro.so \
-				neocd_libretro.so \
-				nestopia_libretro.so \
-				np2kai_libretro.so \
-				nxengine_libretro.so \
-				o2em_libretro.so \
-				opera_libretro.so \
-				picodrive_libretro.so \
-				pokemini_libretro.so \
-				potator_libretro.so \
-				ppsspp_libretro.so \
-				prboom_libretro.so \
-				prosystem_libretro.so \
-				puae_libretro.so \
-				px68k_libretro.so \
-				quasi88_libretro.so \
-				retro8_libretro.so \
-				same_cdi_libretro.so \
-				sameboy_libretro.so \
-				sameduck_libretro.so \
-				scummvm_libretro.so \
-				snes9x_libretro.so \
-				squirreljme_libretro.so \
-				stella_libretro.so \
-				swanstation_libretro.so \
-				theodore_libretro.so \
-				tic80_libretro.so \
-				tyrquake_libretro.so \
-				uzem_libretro.so \
-				vbam_libretro.so \
-				vecx_libretro.so \
-				vice_x128_libretro.so \
-				vice_x64sc_libretro.so \
-				vice_xscpu64_libretro.so \
-				vice_xvic_libretro.so \
-				virtualjaguar_libretro.so \
-				vitaquake2_libretro.so \
-				vitaquake2-rogue_libretro.so \
-				vitaquake2-xatrix_libretro.so \
-				vitaquake2-zaero_libretro.so \
-				vitaquake3_libretro.so \
-				wasm4_libretro.so \
-				x1_libretro.so \
+				81_libretro \
+				a5200_libretro \
+				arduous_libretro \
+				atari800_libretro \
+				blastem_libretro \
+				bluemsx_libretro \
+				bsnes_hd_beta_libretro \
+				bsnes_libretro \
+				cap32_libretro \
+				chailove_libretro \
+				desmume_libretro \
+				dosbox_core_libretro \
+				dosbox_pure_libretro \
+				easyrpg_libretro \
+				fbalpha2012_libretro \
+				fbneo_libretro \
+				flycast_libretro \
+				freechaf_libretro \
+				freeintv_libretro \
+				fuse_libretro \
+				gambatte_libretro \
+				gearboy_libretro \
+				gearsystem_libretro \
+				genesis_plus_gx_libretro \
+				genesis_plus_gx_wide_libretro \
+				gw_libretro \
+				handy_libretro \
+				hatari_libretro \
+				kronos_libretro \
+				lutro_libretro \
+				mame2003_plus_libretro \
+				mame_libretro \
+				mednafen_lynx_libretro \
+				mednafen_ngp_libretro \
+				mednafen_pce_fast_libretro \
+				mednafen_pce_libretro \
+				mednafen_pcfx_libretro \
+				mednafen_psx_hw_libretro \
+				mednafen_saturn_libretro \
+				mednafen_supergrafx_libretro \
+				mednafen_vb_libretro \
+				mednafen_wswan_libretro \
+				melonds_libretro \
+				melondsds_libretro \
+				mesen_libretro \
+				mesen-s_libretro \
+				mgba_libretro \
+				minivmac_libretro \
+				mu_libretro \
+				mupen64plus_next_libretro \
+				neocd_libretro \
+				nestopia_libretro \
+				np2kai_libretro \
+				nxengine_libretro \
+				o2em_libretro \
+				opera_libretro \
+				picodrive_libretro \
+				pokemini_libretro \
+				potator_libretro \
+				ppsspp_libretro \
+				prboom_libretro \
+				prosystem_libretro \
+				puae_libretro \
+				px68k_libretro \
+				quasi88_libretro \
+				retro8_libretro \
+				same_cdi_libretro \
+				sameboy_libretro \
+				sameduck_libretro \
+				scummvm_libretro \
+				snes9x_libretro \
+				squirreljme_libretro \
+				stella_libretro \
+				swanstation_libretro \
+				theodore_libretro \
+				tic80_libretro \
+				tyrquake_libretro \
+				uzem_libretro \
+				vbam_libretro \
+				vecx_libretro \
+				vice_x128_libretro \
+				vice_x64sc_libretro \
+				vice_xscpu64_libretro \
+				vice_xvic_libretro \
+				virtualjaguar_libretro \
+				vitaquake2_libretro \
+				vitaquake2-rogue_libretro \
+				vitaquake2-xatrix_libretro \
+				vitaquake2-zaero_libretro \
+				vitaquake3_libretro \
+				wasm4_libretro \
+				x1_libretro \
 			)
 	setMSG "Downloading RetroArch Cores for EmuDeck"
 	for i in "${RAcores[@]}"

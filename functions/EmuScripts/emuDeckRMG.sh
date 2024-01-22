@@ -19,6 +19,11 @@ RMG_install() {
 	flatpak override "${RMG_emuPath}" --filesystem=host --user
 }
 
+#Fix for autoupdate
+Rmg_install(){
+	RMG_install
+}
+
 #ApplyInitialSettings
 
 RMG_init() {
@@ -29,7 +34,7 @@ RMG_init() {
 	RMG_setupStorage
 	RMG_setEmulationFolder
 	RMG_setupSaves
-	RMG_addSteamInputProfile
+	#RMG_addSteamInputProfile
 
 }
 
@@ -41,7 +46,7 @@ RMG_update() {
 	RMG_setupStorage
 	RMG_setEmulationFolder
 	RMG_setupSaves
-	RMG_addSteamInputProfile
+	#RMG_addSteamInputProfile
 
 }
 

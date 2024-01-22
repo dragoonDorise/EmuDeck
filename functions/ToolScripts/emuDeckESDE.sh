@@ -28,11 +28,13 @@ ESDE_cleanup(){
 	echo "NYI"
 }
 
+# 2.2 migration
 ESDE_migration(){
 
-	if [ -f "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ]; then
+	if [ -f "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ] && [ ! -L "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ]; then
 		mv "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" "${toolsPath}/EmulationStation-DE.AppImage"
 		sed -i "s|EmulationStation-DE-x64_SteamDeck.AppImage|EmulationStation-DE.AppImage|g" "$toolsPath/launchers/esde/emulationstationde.sh"
+		ln -s  "${toolsPath}/EmulationStation-DE.AppImage" "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
 		ESDE_createDesktopShortcut
 	fi
 }
@@ -118,7 +120,7 @@ ESDE_init(){
 	ESDE_setDefaultEmulators
 	ESDE_applyTheme  "$esdeThemeUrl" "$esdeThemeName"
 	ESDE_migrateDownloadedMedia
-	ESDE_addSteamInputProfile
+	#ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
 	ESDE_finalize
 	ESDE_migrateEpicNoir
@@ -158,7 +160,7 @@ ESDE_update(){
 	ESDE_setDefaultEmulators
 	ESDE_applyTheme "$esdeThemeUrl" "$esdeThemeName"
 	ESDE_migrateDownloadedMedia
-	ESDE_addSteamInputProfile
+	#ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
 	ESDE_finalize
 }

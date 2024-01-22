@@ -3,7 +3,7 @@
   "configTitle": "Arcade - RetroArch MAME 2010",
   "steamCategory": "${Arcade - MAME 2010}",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/mame2010",
+  "romDirectory": "${romsdirglobal}/mame",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
