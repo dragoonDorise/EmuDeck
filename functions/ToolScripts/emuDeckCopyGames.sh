@@ -3,7 +3,7 @@ CreateStructureUSB(){
 	local destination=$1
 	mkdir -p "$destination/bios/"
 	mkdir -p "$destination/roms/"
-	$(rsync -rav --ignore-existing "$EMUDECKGIT/roms/" "$destination/roms/" && rsync -rav --ignore-existing "$biosPath" "$destination/bios/") && echo "true" || echo "false"
+	(rsync -ravL --ignore-existing "$EMUDECKGIT/roms/" "$destination/roms/" && rsync -ravL --ignore-existing "$biosPath" "$destination/bios") && echo "true" || echo "false"
 }
 CopyGames(){
 	local origin=$1
@@ -62,7 +62,7 @@ CopyGames(){
 
 	rsync -rav --ignore-existing --progress "$origin/bios/" "$biosPath/" |
 	awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
-	zenity --progress --title "Importing your games to $biosPath" \
+	zenity --progress --title "Importing your bios to $biosPath" \
 	--text="Scanning..." --width=400 --percentage=0 --auto-close
 	) &&
 	text="`printf " <b>Success!</b>\n\nThe contents of your USB Drive have been copied to your Emulation folder)"`"
