@@ -1,25 +1,15 @@
 #!/bin/bash
 CreateStructureUSB(){
-	destination=$1
+	local destination=$1
 	mkdir -p "$destination/bios/"
 	mkdir -p "$destination/roms/"
-	rsync -rav --ignore-existing "$EMUDECKGIT/roms/" "$destination/roms/"|
-	awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
-	zenity --progress --title "Creating Rom Structure on $destination" \
-	--text="Scanning..." --width=400 --percentage=0 --auto-close
-
-	text="`printf " <b>Folders created</b>\n\nEject your USB Drive and go to your computer and copy your roms to the folders created on $destination/roms/ and your bios on $destination/bios/)"`"
-	 zenity --info \
-			 --title="EmuDeck" \
-			 --width="450" \
-			 --text="${text}" 2>/dev/null && echo "true"
+	$(rsync -rav --ignore-existing "$EMUDECKGIT/roms/" "$destination/roms/" && rsync -rav --ignore-existing "$biosPath" "$destination/bios/") && echo "true" || echo "false"
 }
-
 CopyGames(){
-	origin=$1
+	local origin=$1
 
-	neededSpace=$(du -s "$origin" | awk '{print $1}')
-	neededSpaceInHuman=$(du -sh "$origin" | awk '{print $1}')
+	local neededSpace=$(du -s "$origin" | awk '{print $1}')
+	local neededSpaceInHuman=$(du -sh "$origin" | awk '{print $1}')
 
 	#File Size on destination
 	freeSpace=$(df -k $emulationPath --output=avail | tail -1)
