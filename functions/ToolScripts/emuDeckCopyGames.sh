@@ -1,10 +1,16 @@
 #!/bin/bash
 CreateStructureUSB(){
 	local destination=$1
-	mkdir -p "$destination/bios/"
-	mkdir -p "$destination/roms/"
-	(rsync -ravL --ignore-existing "$EMUDECKGIT/roms/" "$destination/roms/" && rsync -ravL --ignore-existing "$biosPath" "$destination/bios") && echo "true" || echo "false"
+	if [ -d "$destination/roms/" ]; then
+		echo "Valid"
+	else
+		mkdir -p "$destination/bios/"
+		mkdir -p "$destination/roms/"
+		(rsync -ravL --ignore-existing "$EMUDECKGIT/roms/" "$destination/roms/" && rsync -ravL --ignore-existing "$biosPath" "$destination/bios") && echo "true" || echo "false"
+
+	fi
 }
+
 CopyGames(){
 	local origin=$1
 
