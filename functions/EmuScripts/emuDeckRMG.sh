@@ -34,7 +34,7 @@ RMG_init() {
 	RMG_setupStorage
 	RMG_setEmulationFolder
 	RMG_setupSaves
-	RMG_addSteamInputProfile
+	#RMG_addSteamInputProfile
 
 }
 
@@ -46,7 +46,7 @@ RMG_update() {
 	RMG_setupStorage
 	RMG_setEmulationFolder
 	RMG_setupSaves
-	RMG_addSteamInputProfile
+	#RMG_addSteamInputProfile
 
 }
 

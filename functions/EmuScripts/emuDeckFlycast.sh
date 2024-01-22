@@ -26,7 +26,7 @@ Flycast_init(){
 	Flycast_setupStorage
 	Flycast_setEmulationFolder
 	Flycast_setupSaves
-	Flycast_addSteamInputProfile
+	#Flycast_addSteamInputProfile
 }
 
 #update
@@ -36,7 +36,7 @@ Flycast_update(){
 	Flycast_setupStorage
 	Flycast_setEmulationFolder
 	Flycast_setupSaves
-	Flycast_addSteamInputProfile
+	#Flycast_addSteamInputProfile
 }
 
 #ConfigurePaths

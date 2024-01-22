@@ -316,11 +316,11 @@ cloud_sync_download(){
     cloud_sync_check_lock
     if [ "$emuName" == "all" ]; then
         #We check the hashes
-        cloud_sync_save_hash "$savesPath/$emuName"
+        cloud_sync_save_hash "$savesPath"
         local filePath="$savesPath/.hash"
         local hash=$(cat "$savesPath/.hash")
 
-        "$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/.hash "$filePath"
+       "$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/.hash "$filePath" || upload="false"
 
         hashCloud=$(cat "$savesPath/.hash")
 
@@ -332,7 +332,7 @@ cloud_sync_download(){
                   do
                     if [ -d "$folder" ]; then
                      emuName=$(basename "$folder")
-                     echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
+                     echo $timestamp > "$savesPath/$emuName/.last_download" && rm -rf "$savesPath/.fail_download"
                     fi
                 done
               )

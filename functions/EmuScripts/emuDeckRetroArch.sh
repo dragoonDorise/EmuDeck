@@ -75,7 +75,16 @@ RetroArch_init(){
 	echo  "Put your MAME bios here" > "$biosPath/mame/bios/readme.txt"
 	echo  "Put your Dreamcast bios here" > "$biosPath/dc/readme.txt"
 	echo  "Put your Neo Geo CD bios here" > "$biosPath/neocd/readme.txt"
-	echo  "Put your RetroArch, DuckStation, PCSX2 bios here in this directory, don't create subfolders!" > "$biosPath/readme.txt"
+	echo  "# Where to put your bios?" > "$biosPath/readme.txt"
+	echo  "First of all, don't create any new subdirectory. ***" >> "$biosPath/readme.txt"
+	echo  "# System -> folder" > "$biosPath/readme.txt"
+	echo  "Playstation 1 / Duckstation -> bios/" >> "$biosPath/readme.txt"
+	echo  "Playstation 2 / PCSX2 -> bios/" >> "$biosPath/readme.txt"
+	echo  "Nintendo DS / melonDS -> bios/" >> "$biosPath/readme.txt"
+	echo  "Playstation 3 / RPCS3 -> Download it from https://www.playstation.com/en-us/support/hardware/ps3/system-software/" >> "$biosPath/readme.txt"
+	echo  "Dreamcast / RetroArch -> bios/dc" >> "$biosPath/readme.txt"
+	echo  "Switch / Yuzu -> bios/yuzu/firmware and bios/yuzu/keys" >> "$biosPath/readme.txt"
+	echo  "Those are the only mandatory bios, the rest are optional" >> "$biosPath/readme.txt"
 
 }
 
@@ -2141,6 +2150,7 @@ RetroArch_installCores(){
 				mednafen_vb_libretro \
 				mednafen_wswan_libretro \
 				melonds_libretro \
+				melondsds_libretro \
 				mesen_libretro \
 				mesen-s_libretro \
 				mgba_libretro \
