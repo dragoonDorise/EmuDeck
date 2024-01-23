@@ -18,6 +18,11 @@ MAME_install(){
 	flatpak override "${MAME_emuPath}" --share=network --user
 }
 
+#Fix for autoupdate
+Mame_install(){
+	MAME_install
+}
+
 #ApplyInitialSettings
 MAME_init(){
 	configEmuAI "${MAME_emuName}" "mame" "$HOME/.mame" "${EMUDECKGIT}/configs/mame" "true"

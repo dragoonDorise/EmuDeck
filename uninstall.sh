@@ -302,6 +302,9 @@ if [ "$doUninstall" == true ]; then
 	#Backup Service
 	systemctl --user disable emudeck_saveBackup.timer && rm "$HOME/.config/systemd/user/emudeck_saveBackup.timer" && rm "$HOME/.config/systemd/user/emudeck_saveBackup.service"
 	rm -rf "$HOME/Desktop/SaveBackup.desktop" &>> /dev/null
+	#CloudSync
+	systemctl --user stop "EmuDeckCloudSync.service"
+	rm -rf rm -rf "$HOME/.config/systemd/user/EmuDeckCloudSync.service" > /dev/null
 	#Emudeck's files
 
 
@@ -319,6 +322,18 @@ if [ "$doUninstall" == true ]; then
 	rm -rf $HOME/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf  &>> /dev/null
 	rm -rf $HOME/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf  &>> /dev/null
 	rm -rf $HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf  &>> /dev/null
+
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_cloud_controller_config.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_generic.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_ps4.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_ps5.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck_nintendo.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck_proton.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_switch_pro.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_xbox360.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_xboxone.vdf  &>> /dev/null
+
 	find  "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons" -name 'EmuDeck*' -exec rm {} \;
 
 	echo "65"
@@ -354,7 +369,7 @@ if [ "$doUninstall" == true ]; then
 	echo "# Removing EmuDeck folders";
 	rm -rf $toolsPath
 	#rm -rf $biosPath
-	rm -rf $savesPath
+	#rm -rf $savesPath
 	rm -rf $storagePath
 	rm -rf $ESDEscrapData
 	rm -rf "$emulationPath/hdpacks"

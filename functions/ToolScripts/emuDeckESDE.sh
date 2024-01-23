@@ -28,11 +28,13 @@ ESDE_cleanup(){
 	echo "NYI"
 }
 
+# 2.2 migration
 ESDE_migration(){
 
-	if [ -f "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ]; then
+	if [ -f "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ] && [ ! -L "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ]; then
 		mv "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" "${toolsPath}/EmulationStation-DE.AppImage"
 		sed -i "s|EmulationStation-DE-x64_SteamDeck.AppImage|EmulationStation-DE.AppImage|g" "$toolsPath/launchers/esde/emulationstationde.sh"
+		ln -s  "${toolsPath}/EmulationStation-DE.AppImage" "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
 		ESDE_createDesktopShortcut
 	fi
 }
@@ -118,7 +120,7 @@ ESDE_init(){
 	ESDE_setDefaultEmulators
 	ESDE_applyTheme  "$esdeThemeUrl" "$esdeThemeName"
 	ESDE_migrateDownloadedMedia
-	ESDE_addSteamInputProfile
+	#ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
 	ESDE_finalize
 	ESDE_migrateEpicNoir
@@ -158,7 +160,7 @@ ESDE_update(){
 	ESDE_setDefaultEmulators
 	ESDE_applyTheme "$esdeThemeUrl" "$esdeThemeName"
 	ESDE_migrateDownloadedMedia
-	ESDE_addSteamInputProfile
+	#ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
 	ESDE_finalize
 }
@@ -172,10 +174,10 @@ ESDE_addCustomSystems(){
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo Wii U' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/wiiu/roms' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.rpx .RPX .wud .WUD .wux .WUX .elf .ELF .iso .ISO .wad .WAD .wua .WUA' \
-		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%" \
-		--insert '$newSystem/commandP' --type attr --name 'label' --value "Cemu (Proton)" \
-		--subnode '$newSystem' --type elem --name 'commandN' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%" \
-		--insert '$newSystem/commandN' --type attr --name 'label' --value "Cemu (Native)" \
+		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -f -g z:%ROM%" \
+		--insert '$newSystem/commandP' --type attr --name 'label' --value "Cemu (Native)" \
+		--subnode '$newSystem' --type elem --name 'commandN' -v "/usr/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g %ROM%" \
+		--insert '$newSystem/commandN' --type attr --name 'label' --value "Cemu (Proton)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'wiiu' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'wiiu' \
 		-r 'systemList/system/commandP' -v 'command' \

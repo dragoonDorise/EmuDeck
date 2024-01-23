@@ -1,6 +1,6 @@
 #!/bin/sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu "Vita3k" && cloud_sync_startService
+emulatorInit "Vita3k"
 export LC_ALL="C"
 
 emuName="Vita3K" #parameterize me
