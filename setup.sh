@@ -258,6 +258,10 @@ if [ "$doInstallXenia" == "true" ]; then
 	echo "Xenia_install"
 	Xenia_install
 fi
+if [ "$doInstallModel2" == "true" ]; then
+	echo "Model2_install"
+	Model2_install
+fi
 
 #Steam RomManager Config
 
