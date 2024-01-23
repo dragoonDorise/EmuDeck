@@ -2401,8 +2401,10 @@ if [ ! -d "$melonDSDS_remaps" ]; then
 	mkdir -p "$melonDSDS_remaps"
 fi
 
-cp -r "$melonDS_remaps/." "$melonDSDS_remaps"
-echo "melonDS remaps copied to melonDSDS"
+if [ -d "$melonDS_remaps" ]; then
+	cp -r "$melonDS_remaps/." "$melonDSDS_remaps"
+	echo "melonDS remaps copied to melonDSDS"
+fi
 
 }
 
