@@ -16,25 +16,10 @@ BigPEmu_cleanup(){
 BigPEmu_install(){
 	setMSG "Installing $BigPEmu_emuName"
 
-	releasesStr=$(curl -sL https://www.richwhitehouse.com/jaguar/index.php?content=download | awk 'BEGIN{
-	RS="</a>"
-	IGNORECASE=1
-	}
-	{
-	for(o=1;o<=NF;o++){
-		if ( $o ~ /href/){
-		gsub(/.*href=\042/,"",$o)
-		gsub(/\042.*/,"",$o)
-		print $(o)
-		}
-	}
-	}' | grep builds)
-
-	# wget method:
-	# wget -m -nd -A "BigPEmu_*.zip" -O "$HOME/Applications/BigPEmu.zip" "https://www.richwhitehouse.com/jaguar/index.php?content=download"
+	downloadBigPEmu=$(wget -m -nd -A "BigPEmu_*.zip" -O "$HOME/Applications/BigPEmu.zip" "https://www.richwhitehouse.com/jaguar/index.php?content=download")
 
 	local showProgress="$1"
-    if safeDownload "BigPEmu" "$releasesStr" "$HOME/Applications/BigPEmu.zip" "$showProgress"; then
+    if downloadBigPEmu; then
 		mkdir -p "$HOME/Applications/BigPEmu"
 		unzip -o "$HOME/Applications/BigPEmu.zip" -d "$HOME/Applications/BigPEmu"
 		rm -f "$HOME/Applications/BigPEmu.zip"
@@ -124,10 +109,14 @@ BigPEmu_setEmulationFolder(){
 
 #SetupSaves
 BigPEmu_setupSaves(){
-	unlink "${savesPath}/BigPEmu/saves"
+	if [ -e "${savesPath}/BigPEmu/saves"]; then
+		unlink "${savesPath}/BigPEmu/saves"
+	fi
 	linkToSaveFolder BigPEmu saves "${BigPEmu_appData}"
-	
-	unlink "${savesPath}/BigPEmu/states"
+
+	if [ -e "${savesPath}/BigPEmu/states"]; then
+		unlink "${savesPath}/BigPEmu/states"
+	fi
 	linkToSaveFolder BigPEmu states "${BigPEmu_appData}"
 }
 
