@@ -35,8 +35,19 @@ PROTONVER="7.0"
 
 # Call the Proton launcher script and give the arguments
 
-echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "${@}" >> "${LOGFILE}"
-"${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "${@}"
+if [ -z "${@}" ]; then
+
+    echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "*" -localdata >> "${LOGFILE}"
+    "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "*" -localdata
+    echo "Launching BigPEmu directly"
+
+else
+
+    echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "${@}" -localdata >> "${LOGFILE}"
+    "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "${@}" -localdata
+    echo "ROM found, launching game"
+
+fi
 
 # Cloud Save
 rclone_uploadEmu bigpemu

@@ -16,10 +16,10 @@ BigPEmu_cleanup(){
 BigPEmu_install(){
 	setMSG "Installing $BigPEmu_emuName"
 
-	downloadBigPEmu=$(wget -m -nd -A "BigPEmu_*.zip" -O "$HOME/Applications/BigPEmu.zip" "https://www.richwhitehouse.com/jaguar/index.php?content=download")
+	downloadBigPEmu=$(wget -m -nd -A "BigPEmu_*.zip" -O "$HOME/Applications/BigPEmu.zip" "https://www.richwhitehouse.com/jaguar/index.php?content=download" -R "BigPEmu_*-DEV.zip")
 
 	local showProgress="$1"
-    if downloadBigPEmu; then
+    if $downloadBigPEmu; then
 		mkdir -p "$HOME/Applications/BigPEmu"
 		unzip -o "$HOME/Applications/BigPEmu.zip" -d "$HOME/Applications/BigPEmu"
 		rm -f "$HOME/Applications/BigPEmu.zip"
@@ -68,7 +68,7 @@ BigPEmu_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'theme' -v 'atarijaguar' \
 		-r 'systemList/system/commandB' -v 'command' \
 		-r 'systemList/system/commandV' -v 'command' \
-		-r 'systemList/system/commandM' -v 'command' \		
+		-r 'systemList/system/commandM' -v 'command' \
 		"$es_systemsFile"
 		
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
@@ -81,7 +81,7 @@ BigPEmu_addESConfig(){
 		--insert '$newSystem/commandB' --type attr --name 'label' --value "BigPEmu (Proton)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'atarijaguarcd' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'atarijaguarcd' \
-		-r 'systemList/system/commandB' -v 'command' \	
+		-r 'systemList/system/commandB' -v 'command' \
 		"$es_systemsFile"
 
 		#format doc to make it look nice
