@@ -4,8 +4,8 @@ BigPEmu_emuName="BigPEmu (proton)"
 BigPEmu_emuType="windows"
 BigPEmu_emuPath="${romsPath}/Applications/BigPEmu/BigPEmu.exe"
 BigPEmu_appID=
-BigPEmu_appData="${romsPath}/Applications/BigPEmu/BigPEmu"
-BigPEmu_BigPEmuSettings="${romsPath}/Applications/BigPEmu/BigPEmuConfig.bigpcfg"
+BigPEmu_appData="${romsPath}/Applications/BigPEmu/UserData"
+BigPEmu_BigPEmuSettings="${romsPath}/Applications/BigPEmu/UserData/BigPEmuConfig.bigpcfg"
 
 #cleanupOlderThings
 BigPEmu_cleanup(){
