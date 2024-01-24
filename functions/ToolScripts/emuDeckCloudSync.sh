@@ -62,6 +62,16 @@ cloud_sync_config(){
   cloud_sync_setup_providers
   setSetting cloud_sync_status "true" && echo "true"
 
+  #Check installation
+  if [ ! -f "$cloud_sync_bin" ]; then
+  	echo "false"
+  elif [ ! -f "$cloud_sync_config" ]; then
+  	echo "false"
+  elif [ $cloud_sync_provider = '' ]; then
+  	echo "false"
+  else
+  	echo "true"
+  fi
 }
 
 createCloudFile() {
@@ -306,11 +316,11 @@ cloud_sync_download(){
     cloud_sync_check_lock
     if [ "$emuName" == "all" ]; then
         #We check the hashes
-        cloud_sync_save_hash "$savesPath/$emuName"
+        cloud_sync_save_hash "$savesPath"
         local filePath="$savesPath/.hash"
         local hash=$(cat "$savesPath/.hash")
 
-        "$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/.hash "$filePath"
+       "$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/.hash "$filePath" || upload="false"
 
         hashCloud=$(cat "$savesPath/.hash")
 
@@ -322,7 +332,7 @@ cloud_sync_download(){
                   do
                     if [ -d "$folder" ]; then
                      emuName=$(basename "$folder")
-                     echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
+                     echo $timestamp > "$savesPath/$emuName/.last_download" && rm -rf "$savesPath/.fail_download"
                     fi
                 done
               )
@@ -401,14 +411,23 @@ cloud_sync_uploadEmu(){
           #Download - Extra
           #rm -rf $savesPath/$emuName/.pending_upload
           cloud_sync_createBackup "$emuName"
-          cloud_sync_download $emuName
+          cloud_sync_download $emuName && {
+			  rm -rf $savesPath/$emuName/.fail_download > /dev/null
+			  rm -rf $savesPath/$emuName/.pending_download > /dev/null
+			  rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+			  rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+		  }
 
         elif [[ $response =~ "0-" ]]; then
           #Upload - OK
           #rm -rf $savesPath/$emuName/.pending_upload
           cloud_sync_createBackup "$emuName"
-          cloud_sync_upload $emuName
-
+          cloud_sync_upload $emuName && {
+			  rm -rf $savesPath/$emuName/.fail_download > /dev/null
+			  rm -rf $savesPath/$emuName/.pending_download > /dev/null
+			  rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+			  rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+		  }
         else
           #Skip - Cancel
           return
@@ -473,14 +492,24 @@ cloud_sync_downloadEmu(){
           if [[ $response =~ "download" ]]; then
             #Download - OK
             cloud_sync_createBackup "$emuName"
-            cloud_sync_download $emuName
+            cloud_sync_download $emuName && {
+				rm -rf $savesPath/$emuName/.fail_download > /dev/null
+				rm -rf $savesPath/$emuName/.pending_download > /dev/null
+				rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+				rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+			}
             #echo $timestamp > "$savesPath"/$emuName/.pending_upload
           elif [[ $response =~ "0-" ]]; then
 
             #Upload - Extra button
             #rm -rf $savesPath/$emuName/.pending_upload
             cloud_sync_createBackup "$emuName"
-            cloud_sync_upload $emuName
+            cloud_sync_upload $emuName && {
+				rm -rf $savesPath/$emuName/.fail_download > /dev/null
+				rm -rf $savesPath/$emuName/.pending_download > /dev/null
+				rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+				rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+			}
           else
             #Skip - Cancel
             return
@@ -510,11 +539,21 @@ cloud_sync_downloadEmu(){
             #Upload - Extra button
             #rm -rf $savesPath/$emuName/.pending_upload
             cloud_sync_createBackup "$emuName"
-            cloud_sync_upload $emuName
+            cloud_sync_upload $emuName && {
+				rm -rf $savesPath/$emuName/.fail_download > /dev/null
+				rm -rf $savesPath/$emuName/.pending_download > /dev/null
+				rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+				rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+			}
           elif [[ $response =~ "0-" ]]; then
             #Download - OK
             cloud_sync_createBackup "$emuName"
-            cloud_sync_download $emuName
+            cloud_sync_download $emuName && {
+				rm -rf $savesPath/$emuName/.fail_download > /dev/null
+				rm -rf $savesPath/$emuName/.pending_download > /dev/null
+				rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+				rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+			}
           else
             #Skip - Cancel
             return
