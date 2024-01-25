@@ -73,6 +73,7 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckVita3K.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMGBA.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRMG.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMelonDS.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRuffle.sh
 
 #remoteplayclientscripts
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh

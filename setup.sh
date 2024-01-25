@@ -326,7 +326,10 @@ if [ "$doInstallXenia" == "true" ]; then
 	echo "Xenia_install"
 	Xenia_install
 fi
-
+if [ $doInstallRuffle == "true" ]; then
+	echo "Ruffle_install"
+	Ruffle_install
+fi
 #Steam RomManager Config
 
 if [ "$doSetupSRM" == "true" ]; then
@@ -427,7 +430,10 @@ if [ "$doSetupXenia" == "true" ]; then
 	echo "Xenia_init"
 	Xenia_init
 fi
-
+if [ "$doSetupRuffle" == "true" ]; then
+	echo "Ruffle_init"
+	Ruffle_init
+fi
 
 
 #Fixes repeated Symlink for older installations

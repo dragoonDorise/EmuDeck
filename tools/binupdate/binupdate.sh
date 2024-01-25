@@ -188,6 +188,16 @@ function runBinDownloads {
             messages+=("There was a problem updating Xenia")
         fi
     fi
+        if [[ "$binsToDL" == *"ruffle"* ]]; then
+        ((progresspct += pct)) || true
+        echo "$progresspct"
+        echo "# Updating Ruffle"
+        if Ruffle_install "true" 2>&1; then
+            messages+=("Ruffle Updated Successfully")
+        else
+            messages+=("There was a problem updating Ruffle")
+        fi
+    fi
     echo "100"
     echo "# Complete!"
 }
@@ -234,6 +244,9 @@ if [ "$(Vita3K_IsInstalled)" == "true" ]; then
 fi
 if [ "$(Xenia_IsInstalled)" == "true" ]; then
     binTable+=(TRUE "Xbox 360 Emu" "xenia")
+fi
+if [ "$(Ruffle_IsInstalled)" == "true" ]; then
+    binTable+=(TRUE "Flash Emu" "ruffle")
 fi
 
 if [ "${#binTable[@]}" -gt 0 ]; then
