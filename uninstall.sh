@@ -26,6 +26,7 @@ doUninstallVita3K=true
 doUninstallXemu=true
 doUninstallXenia=true
 doUninstallYuzu=true
+doUninstallRuffle=true
 
 
 
@@ -101,12 +102,13 @@ if [ "$doUninstall" == true ]; then
 				14 "RetroArch"\
 				15 "RMG"  \
 				16 "RPCS3" \
-				17 "Ryujinx" \
-				18 "ScummVM" \
-				19 "Vita3K"  \
-				20 "Xemu" \
-				21 "Xenia"  \
-				22 "Yuzu" )
+				17 "Ruffle" \
+				18 "Ryujinx" \
+				19 "ScummVM" \
+				20 "Vita3K"  \
+				21 "Xemu" \
+				22 "Xenia"  \
+				23 "Yuzu" )
 
 	ans=$?
 	if [ $ans -eq 0 ]; then
@@ -152,6 +154,9 @@ if [ "$doUninstall" == true ]; then
 		fi
 		if [[ "$emusToUninstall" == *"RetroArch"* ]]; then
 			doUninstallRA=false
+		fi
+		if [[ "$emusToUninstall" == *"Ruffle"* ]]; then
+			doUninstallRuffle=false
 		fi
 		if [[ "$emusToUninstall" == *"RPCS3"* ]]; then
 			doUninstallRPCS3=false
@@ -263,6 +268,9 @@ if [ "$doUninstall" == true ]; then
 		rm -rf "$HOME/.config/rpcs3" &>> /dev/null
 		rm -rf "$HOME/.cache/rpcs3" &>> /dev/null
 		rm -rf $HOME/.local/share/applications/RPCS3.desktop &>> /dev/null
+	fi
+	if [[ "$doUninstallRuffle" == true ]]; then
+		rm -rf $HOME/Applications/ruffle &>> /dev/null
 	fi
 	if [[ "$doUninstallRyujinx" == true ]]; then
 		rm -rf $HOME/.config/Ryujinx &>> /dev/null
