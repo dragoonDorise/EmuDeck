@@ -13,6 +13,7 @@ doUninstallFlycast=true
 doUninstallMame=true
 doUninstallmelonDS=true
 doUninstallMGBA=true
+doUninstallModel2=true
 doUninstallRA=true
 doUninstallPCSX2=true
 doUninstallPPSSPP=true
@@ -95,18 +96,19 @@ if [ "$doUninstall" == true ]; then
 				8 "Mame"  \
 				9 "melonDS"  \
 				10 "mGBA"  \
-				11 "PCSX2" \
-				12 "PPSSPP" \
-				13 "PrimeHack" \
-				14 "RetroArch"\
-				15 "RMG"  \
-				16 "RPCS3" \
-				17 "Ryujinx" \
-				18 "ScummVM" \
-				19 "Vita3K"  \
-				20 "Xemu" \
-				21 "Xenia"  \
-				22 "Yuzu" )
+				11 "Model2" \
+				12 "PCSX2" \
+				13 "PPSSPP" \
+				14 "PrimeHack" \
+				15 "RetroArch"\
+				16 "RMG"  \
+				17 "RPCS3" \
+				18 "Ryujinx" \
+				19 "ScummVM" \
+				20 "Vita3K"  \
+				21 "Xemu" \
+				22 "Xenia"  \
+				23 "Yuzu" )
 
 	ans=$?
 	if [ $ans -eq 0 ]; then
@@ -140,6 +142,9 @@ if [ "$doUninstall" == true ]; then
 		fi
 		if [[ "$emusToUninstall" == *"mGBA"* ]]; then
 			doUninstallMGBA=false
+		fi
+		if [[ "$emusToUninstall" == *"Model2"* ]]; then
+			doUninstallModel2=false
 		fi
 		if [[ "$emusToUninstall" == *"PrimeHack"* ]]; then
 			doUninstallPrimeHacks=false
@@ -232,6 +237,10 @@ if [ "$doUninstall" == true ]; then
 		rm -rf $HOME/Applications/mGBA.AppImage &>> /dev/null
 		rm -rf $HOME/.config/mgba &>> /dev/null
 		rm -rf $HOME/.local/share/applications/mGBA.desktop &>> /dev/null
+	fi
+	if [[ "$doUninstallModel2" == true ]]; then
+		find ${romsPath}/model2 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \;
+		rm -f "$HOME/.local/share/applications/Model2 (Proton).desktop" &>> /dev/null
 	fi
 	if [[ "$doUninstallPCSX2" == true ]]; then
 		rm -rf $HOME/Applications/pcsx2-Qt.AppImage &>> /dev/null
@@ -364,6 +373,7 @@ if [ "$doUninstall" == true ]; then
 	rm -rf $HOME/.emulationstation
 	rm -rf "$toolsPath/EmulationStation-DE.AppImage"
 	rm -rf "$toolsPath/EmulationStation-DE.AppImage"
+	rm -rf "$toolsPath/ULWGL"
 
 	echo "90"
 	echo "# Removing EmuDeck folders";
