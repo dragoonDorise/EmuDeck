@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo DS - RetroArch melonDS",
-  "steamCategory": "${Nintendo DS}",
+  "configTitle": "Nintendo DS - RetroArch melonDS (Legacy)",
+  "steamCategory": "${Nintendo DS - RetroArch melonDS (Legacy)}",
   "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}melonds_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/nds",
