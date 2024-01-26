@@ -46,6 +46,7 @@ source "$EMUDECKGIT"/functions/runSRM.sh
 source "$EMUDECKGIT"/functions/appImageInit.sh
 source "$EMUDECKGIT"/functions/autofix.sh
 
+
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckPegasus.sh
@@ -86,6 +87,7 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRMG.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMelonDS.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckares.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckFlycast.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckModel2.sh
 
 #remoteplayclientscripts
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh
