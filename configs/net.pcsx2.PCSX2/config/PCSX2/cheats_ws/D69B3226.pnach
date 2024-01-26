@@ -1,6 +1,0 @@
-gametitle=E.O.E - Houkai no Zenya (J)(SLPS-25115)
-comment=Widescreen Hack (pnach by Arapapa)
-
-
-///X-Fov
-patch=1,EE,001553e4,word,3c023ec0 //3c023f00

@@ -1,7 +1,0 @@
-gametitle=Max Payne 2 - Fall of Max Payne (E)(SES-51954)
-comment=Widescreen Hack by Arapapa
-
-//Zoom fix (Internal widescreen)
-//abaaaa3e 8988083e
-patch=1,EE,0056a0c8,word,3faccccd //3eaaaaab
-

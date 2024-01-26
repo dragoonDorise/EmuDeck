@@ -1,6 +1,0 @@
-gametitle=Arthur and the Minimoys [PAL-M7] (SLES_544.20)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,0012BBA4,word,3C023F1E //3C023F00 
-patch=1,EE,0012BBC8,word,3C023F0F //3C023F40

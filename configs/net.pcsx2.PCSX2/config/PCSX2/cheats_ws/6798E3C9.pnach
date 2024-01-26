@@ -1,6 +1,0 @@
-gametitle=McFarlane Evil Prophecy (U)(SLUS-20657)
-comment=Widescreen hack (NTSC-U by Arapapa)
-
-//Widescreen hack 16:9
-
-patch=1,EE,203173c0,extended,443B8000 //447a0000

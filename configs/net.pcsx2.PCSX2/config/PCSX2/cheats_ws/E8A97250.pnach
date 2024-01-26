@@ -1,6 +1,0 @@
-gametitle=Whiplash [PAL] (SLES_519.58)
-comment=Widescreen Hack by El_Patas
-
-//Gameplay 16:9 
-patch=1,EE,002C3B40,word,3C013FE3 //3C013FAA (Increases hor. axis)
-patch=1,EE,002C3B44,word,34219FA5 //34219FBE

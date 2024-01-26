@@ -1,5 +1,0 @@
-gametitle=Manhunt SLES_520.23
-comment=Widescreen Hack
-patch=1,EE,001c88a8,word,3c023f03
-patch=1,EE,001c88c8,word,3c033f6e
-patch=1,EE,001c88d0,word,3462eeee

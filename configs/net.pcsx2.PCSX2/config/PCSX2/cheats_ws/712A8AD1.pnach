@@ -1,6 +1,0 @@
-gametitle=Dark Chronicle (J)(SCPS-15033)
-comment=Widescreen hack by ElHecht (NTSC-J by Arapapa)
-
-// Widescreen Hack (16:9)
-
-patch=1,EE,00138e28,word,3c023f40

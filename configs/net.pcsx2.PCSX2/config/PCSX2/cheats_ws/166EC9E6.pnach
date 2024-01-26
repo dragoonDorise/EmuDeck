@@ -1,8 +1,0 @@
-gametitle=Rocky - Legends (NTSC-U)(SLUS-20890)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//0000803f 0000003f 0000a043
-patch=1,EE,20346288,word,3F400000 //3F800000 fov
-patch=1,EE,20346290,word,43E00000 //43A00000 render fix

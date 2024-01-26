@@ -1,6 +1,0 @@
-gametitle=Sega Ages 2500 Series Vol.04 - Space Harrier (NTSC-J) [SLPM-62384] [A8F42E9E]
-comment=Widescreen hacks by FeRcHuLeS (original NTSC-U hacks) and Aced14 (port/ELF hacks)
-
-patch=1,EE,202e3598,extended,44091c00 //4436d000 - VERTICAL CAMERA
-patch=1,EE,202e4070,extended,43f3c000 //44228000 - ZOOM
-patch=1,EE,202e4068,extended,3f999999 //3f666666 - VERTICAL FOV

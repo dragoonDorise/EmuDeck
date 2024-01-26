@@ -1,7 +1,0 @@
-gametitle=Bloody Roar 4 (NTSC-J)(SLPM-65499)
-comment=Widescreen hack by paul_met (NTSC-J by Arapapa)
-
-//Widescreen hack 16:9
-
-//aa3f013c abaa2134 00008144
-patch=1,EE,00114cb8,word,3c013fe3 //3c013faa

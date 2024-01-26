@@ -91,6 +91,7 @@ setDefaults(){
 	setSetting doInstallMGBA false
 	setSetting doInstallHomeBrewGames false
 	setSetting doInstallESDE true
+	setSetting doInstallModel2 true
 	setSetting arSega 43
 	setSetting arSnes 43
 	setSetting arDolphin 43

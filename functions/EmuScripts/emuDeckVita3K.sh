@@ -24,6 +24,11 @@ Vita3K_install(){
     fi
 }
 
+#Fix for autoupdate
+Vita3k_install(){
+	Vita3K_install
+}
+
 #ApplyInitialSettings
 Vita3K_init(){
     echo "Begin Vita3K Init"

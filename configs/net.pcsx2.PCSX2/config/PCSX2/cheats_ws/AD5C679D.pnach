@@ -1,6 +1,0 @@
-gametitle=Real Sports Pro Yakyuu (J)(SLPS-20305)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,0011fa10,word,3c033f29 //3c033f00

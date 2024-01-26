@@ -1,6 +1,0 @@
-gametitle=Alias (NTSC-U)
-comment=Widescreen Hack by Arapapa
-
-// 16:9
-patch=1,EE,00248178,word,3c013ec0 // 3c013f00 hor fov
-patch=1,EE,001f3c30,word,3c013f40 // 3c013f80 renderfix

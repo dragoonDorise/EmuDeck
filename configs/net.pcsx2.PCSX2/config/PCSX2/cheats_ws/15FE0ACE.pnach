@@ -1,8 +1,0 @@
-gametitle=Hello Kitty no PikoPiko Daisakusen(J)(SLPM-65831)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,00100770,word,3c013f2a //3c013f00
-patch=1,EE,00100778,word,3c013fe3 //3c013faa
-patch=1,EE,0010077c,word,34218e2a //3421aaab

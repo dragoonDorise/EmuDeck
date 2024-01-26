@@ -1,5 +1,0 @@
-gametitle=Indiana Jones and the Emperor's Tomb SLUS_205.08
-comment=Widescreen Hack
-//Thanks to ElHecht for PAL patch
-patch=1,EE,0011b9cc,word,3c013f20
-patch=1,EE,002F5178,word,3C023F40

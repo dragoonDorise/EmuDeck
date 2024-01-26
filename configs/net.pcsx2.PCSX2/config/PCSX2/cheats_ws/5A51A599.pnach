@@ -1,5 +1,0 @@
-gametitle=Anubis - Zone of the Enders Special Edition (J)(SLPM-65361)
-comment=Widescreen hack (NTSC-J by Arapapa)
-
-//Widescreen hack 16:9
-patch=1,EE,0012ae90,word,3c013f40 //3c013f80

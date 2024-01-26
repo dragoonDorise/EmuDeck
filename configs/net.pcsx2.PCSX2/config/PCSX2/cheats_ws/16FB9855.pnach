@@ -1,7 +1,0 @@
-gametitle=X2 - Wolverine's Revenge SLUS_203.37
-comment=Widescreen Hack
-patch=1,EE,0017e23c,word,3c0140ab //3c014080  vert
-patch=1,EE,0017e25c,word,3c014399 //3c0143cc  zoom
-patch=1,EE,0017e260,word,3421999a //3421cccd
-patch=1,EE,0019ea18,word,3c013fee //3c013f80 render fix by ElHecht
-patch=1,EE,00168750,word,3c014200 //3c014300 remove blurry effect by ElHecht

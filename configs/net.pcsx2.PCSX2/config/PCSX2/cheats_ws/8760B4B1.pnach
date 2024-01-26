@@ -1,7 +1,0 @@
-1gametitle=Dirt Track Devils (E)(SLES-51621)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//803f023c 1d00043c
-patch=1,EE,0016ffec,word,3c023f40 //3c023f80

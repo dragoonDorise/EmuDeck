@@ -1,3 +1,0 @@
-gametitle=Tom Clancy's Rainbow Six 3 SLES_522.88
-comment=Widescreen Hack
-patch=1,EE,001400ec,word,3c063f40

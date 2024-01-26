@@ -1,9 +1,0 @@
-gametitle=Top Spin (U)(SLUS-21222)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//aa3f033c abaa6334 00688344 50e20a0c
-patch=1,EE,00318c40,word,3c033fe3 //3c033faa
-patch=1,EE,00318c44,word,34638e2a //3463aaab

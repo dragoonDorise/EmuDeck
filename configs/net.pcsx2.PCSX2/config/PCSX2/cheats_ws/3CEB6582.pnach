@@ -1,7 +1,0 @@
-gametitle=Shin Sangoku Musou 3 Mushouden (J)(SLPM-65377A)
-comment=Widescreen hack by nemesis2000 (NTSC-J by Arapapa)
-
-//Widescreen hack 16:9
-
-patch=1,EE,00139920,word,3c0243d6 //3c0243a0
-patch=1,EE,0018eb90,word,3c023f2b //3c023f00

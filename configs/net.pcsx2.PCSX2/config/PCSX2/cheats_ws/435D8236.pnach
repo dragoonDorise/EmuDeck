@@ -1,9 +1,0 @@
-gametitle=Kidou Senshi Gundam - Gundam vs. Z Gundam (J)(SLPS-25419)
-
-//Widescreen hack 16:9
-
-patch=1,EE,0026cf84,word,3c023f40 //3c023f80
-
-patch=1,EE,20843D30,extended,44bff400 //44fff000
-patch=1,EE,20843EF0,extended,443FE7FF //447fe000
-patch=1,EE,208440B0,extended,443FE7FF //447fe000

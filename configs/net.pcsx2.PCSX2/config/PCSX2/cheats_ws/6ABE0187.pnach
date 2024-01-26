@@ -1,8 +1,0 @@
-gametitle=The Powerpuff Girls - Relish Rampage (USA) [SLUS-20585]
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//803f013c 00608144 06050046
-patch=1,EE,001891fc,word,3c013f40 //3c013f80

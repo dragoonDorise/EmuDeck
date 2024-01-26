@@ -1,4 +1,0 @@
-gametitle=Kinetica (NTSC-U)
-comment=Widescreen hack
-
-patch=1,EE,00172190,word,3c013f40 //3c013f80

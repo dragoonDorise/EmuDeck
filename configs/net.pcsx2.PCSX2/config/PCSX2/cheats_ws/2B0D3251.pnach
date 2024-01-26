@@ -1,8 +1,0 @@
-gametitle=Smash Court Tennis - Pro Tournament (K)(SCPS-56009)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//803f013c 00208144 149182c7
-patch=1,EE,001aae3c,word,3c013f40 //3c013f80

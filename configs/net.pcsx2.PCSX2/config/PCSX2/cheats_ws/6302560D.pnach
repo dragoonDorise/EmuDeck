@@ -1,3 +1,0 @@
-gametitle=Fantastic 4 - Rise of the Silver Surfer PAL-M5
-comment=Widescreen Hack
-patch=1,EE,0037FA68,word,3Faaaaab // 3F800000

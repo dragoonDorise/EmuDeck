@@ -1,5 +1,0 @@
-gametitle=Spider-Man: Friend or Foe (NTSC-U)
-comment=Widescreen Hack
-
-//Gameplay 16:9
-patch=1,EE,203EC448,extended,3FE38E38 //3FAAAAAB (Increases hor. axis)

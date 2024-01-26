@@ -1,9 +1,0 @@
-﻿gametitle=Marvel vs. Capcom 2: New Age of Heroes [NTSC-J] (SLPM-62227)
-comment=Widescreen patch by nemesis2000 (pnach by nemesis2000)
-
-patch=1,EE,00414174,word,3C023FAA
-patch=1,EE,003dfad0,word,AC83003C
-patch=1,EE,003dfad4,word,3C033F40
-patch=1,EE,003dfad8,word,03E00008
-patch=1,EE,003dfadC,word,AC830000
-patch=1,EE,003df440,word,3C023FE3

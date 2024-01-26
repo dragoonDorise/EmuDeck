@@ -1,6 +1,0 @@
-gametitle=MVP Baseball 2004 (K)(SLKA-25148)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-patch=1,EE,005ba998,word,3c013f40 //3c013f80
-patch=1,EE,005baa28,word,3c013fab //3c013f80
