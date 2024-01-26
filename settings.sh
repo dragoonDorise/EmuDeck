@@ -26,6 +26,7 @@ doSetupPCSX2QT=true
 #doSetupMelon=true
 doSetupMGBA=true
 doSetupFlycast=true
+doSetupRuffle=true
 
 #Install all systems by default
 doInstallSRM=true
@@ -50,6 +51,7 @@ doInstallMAME=true
 #doInstallMelon=false
 doInstallMGBA=false
 doInstallFlycast=true
+doInstallRuffle=false
 doInstallCHD=false
 doInstallPowertools=false
 doInstallGyro=false
