@@ -1,5 +1,0 @@
-gametitle=Mobile Suit Gundam Seed - Never Ending Tomorrow SLUS_211.40
-comment=Widescreen Hack
-//patch=1,EE,00111aa4,word,3c034455
-patch=1,EE,00111ac0,word,3c0343b4
-patch=1,EE,001522c4,word,3c013f40

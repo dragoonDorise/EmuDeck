@@ -1,7 +1,0 @@
-gametitle=San Goku Shi XI [with Power-Up Kit] (J)(SLPM-66701)
-comment=Widescreen Hack (NTSC-J by Arapapa)
-
-//Widescreen hack 16:9
-
-patch=1,EE,0017da98,word,3c024455 //3c024420
-patch=1,EE,20C60880,extended,44BFFF40

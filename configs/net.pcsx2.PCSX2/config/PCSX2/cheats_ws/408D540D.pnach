@@ -1,8 +1,0 @@
-gametitle=Backyard Football '08 (U)(SLUS-21670)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//8041023c 00008244 00000000 (1st)
-patch=1,EE,00129320,word,3c024140 //3c024180

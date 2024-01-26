@@ -1,7 +1,0 @@
-﻿gametitle=Keroro Gunsou - MeroMero Battle Royale [NTSC-J] (SLPS-25399)
-comment=Widescreen hack by Little Giant
-
-//16:9
-patch=1,EE,E0025555,extended,009B74C4 //
-patch=1,EE,2098E1AC,extended,3C013F40 //3c013f80 zoom
-patch=1,EE,209B74C4,extended,44C71C71 //44955571 vert

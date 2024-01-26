@@ -1,4 +1,0 @@
-gametitle=Marvel Super Hero Squad SLUS_219.10
-comment=Widescreen Hack
-patch=1,EE,002ab418,word,3c013f40
-patch=1,EE,00152e5c,word,3c013f25

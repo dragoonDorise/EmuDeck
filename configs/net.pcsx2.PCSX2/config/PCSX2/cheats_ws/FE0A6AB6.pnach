@@ -1,7 +1,0 @@
-﻿gametitle=Saru! Get You! 2 [NTSC-J] (SCPS-15025)
-comment=Widescreen hack
-
-patch=1,EE,D03D5788,extended,0000CD3A
-patch=1,EE,203D5788,extended,3F450506
-patch=1,EE,D03D5788,extended,00009FBB
-patch=1,EE,203D5788,extended,3F1460FD

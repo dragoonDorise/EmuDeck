@@ -1,9 +1,0 @@
-gametitle=ESPN International Track & Field (U)(SLUS20041)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//Matrix Hack
-patch=1,EE,00202ddc,word,3c013f40 //00000000
-patch=1,EE,00202de0,word,44810000 //00000000
-patch=1,EE,00202de8,word,4600c602 //00000000

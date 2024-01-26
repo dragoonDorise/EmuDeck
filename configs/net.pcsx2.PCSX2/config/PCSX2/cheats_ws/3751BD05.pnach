@@ -1,8 +1,0 @@
-gametitle=Astro Boy [PAL] (SLES_524.86)
-comment=Widescreen pnach by El_Patas
-
-//Fov
-patch=1,EE,002CD40C,word,3C013FD5 //3C013FA0
-
-//Zoom
-patch=1,EE,003811F8,word,3C013EC0 //3C013F00

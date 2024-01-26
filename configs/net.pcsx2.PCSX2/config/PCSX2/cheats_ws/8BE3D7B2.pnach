@@ -1,9 +1,0 @@
-gametitle=Shadow Hearts SLUS_203.47
-comment=Widescreen Hack
-patch=1,EE,0028d4f0,word,3c043f40
-patch=1,EE,00282394,word,3c023f40
-//patch=1,EE,00324530,word,3c023f40 // field
-//patch=1,EE,0034a728,word,3c033f50 //3c033f80  font size
-patch=1,EE,0039fe08,word,3c023f40
-patch=1,EE,003d5704,word,3c023f40
-patch=1,EE,003eec44,word,3c023f40

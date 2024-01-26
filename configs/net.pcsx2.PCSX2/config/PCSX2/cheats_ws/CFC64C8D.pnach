@@ -1,5 +1,0 @@
-gametitle=Soul Calibur III [NTSC-J] (SLPS-25577)
-comment=Widescreen correction by nemesis2000 (pnach by Little Gaint)
-
-patch=1,EE,0012a120,word,3c013f40 //3c013f4d
-patch=1,EE,0012a124,word,34210000 //3421b9cc

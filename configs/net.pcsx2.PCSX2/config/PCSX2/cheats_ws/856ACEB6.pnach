@@ -1,8 +1,0 @@
-gametitle=Mountain Bike Adrenaline (U)(SLUS-21666)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//403f013c 00008144 3002c3e7
-patch=1,EE,00199868,word,3c013f10 //3c013f40

@@ -1,6 +1,0 @@
-gametitle= Way Of The Samurai 2 (NTSC-U)
-comment= Widescreen Hack by VIRGIN KLM
-
-//Widescreen - 3D Elements
-patch=1,EE,002F5F20,word,3F400000 // 3F800000
-patch=1,EE,00165b2c,word,3c033fab //3c033f80

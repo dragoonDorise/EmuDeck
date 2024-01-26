@@ -1,8 +1,0 @@
-gametitle=Shin Sangoku Musou 4 Mushouden (J)(SLPM-66101)
-comment=Widescreen hack (NTSC-J by Arapapa)
-
-//Widescreen hack 16:9
-
-//Zoom
-patch=1,EE,001472ac,word,3c0243d6
-patch=1,EE,0019824c,word,3c023f2b

@@ -1,6 +1,0 @@
-gametitle=Star Wars: Racer Revenge [NTSC-U] (SLUS_202.68)
-comment=Widescreen Hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,0013BCA0,word,3C023F40 //3C023F80 Zoom
-patch=1,EE,001153B4,word,3C023FAB //3C023F80 Y-FOV

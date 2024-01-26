@@ -1,8 +1,0 @@
-gametitle=Kinnikuman Muscle Grand Prix Max [NTSC-J] (SLPS_256.76)
-comment=Widescreen hack by Sergx12
-
-//Gameplay 16:9
-patch=1,EE,001A4274,word,3C014455 //3C014420 (Increases horiz. axis)
-
-//Big heads (by El_Patas) - Try it :)
-//patch=1,EE,001D6AA0,word,3C013F40 //3C013F80

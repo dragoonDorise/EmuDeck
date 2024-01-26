@@ -1,7 +1,0 @@
-﻿gametitle=Shijyou Saikyou no Deshi Kenichi - Gekitou! Ragnarok Hachikengou [NTSC-J] (SLPM-66698)
-comment=Widescreen hack by Little Giant
-
-//16:9
-patch=1,EE,213C7498,extended,3F499999
-patch=1,EE,20477B10,extended,40155555
-patch=1,EE,20477B14,extended,41300000

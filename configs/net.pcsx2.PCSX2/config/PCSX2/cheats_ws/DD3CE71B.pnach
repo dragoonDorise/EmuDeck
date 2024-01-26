@@ -1,6 +1,0 @@
-gametitle=Need for Speed - ProStreet (NTSC-U)
-comment=Widescreen Hack by ElHecht
-
-// 16:9
-patch=1,EE,2068CAD0,word,3f400000 // 3f800000
-patch=1,EE,20685938,word,3f2aaaab // 3f000000

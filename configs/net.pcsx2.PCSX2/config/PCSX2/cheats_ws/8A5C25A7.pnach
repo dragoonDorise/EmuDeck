@@ -1,8 +1,0 @@
-gametitle=Metal Gear Solid 3: Subsistence [PAL-Spain] (SLES_820.48)
-comment=Widescreen hack by El_Patas
-
-//No funciona en la PS2, para poder jugar este juego en pantalla panoramica en
-//la PS2 se deben usar los codigos de PS2RD.
-
-//Gameplay 16:9
-patch=1,EE,20205D4C,extended,3F400000 //3F800000 (Increases horiz. axis)

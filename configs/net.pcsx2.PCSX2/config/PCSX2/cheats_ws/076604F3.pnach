@@ -1,3 +1,0 @@
-gametitle=Shaman King - Power of Spirit SLUS_209.53
-comment=Widescreen Hack
-patch=1,EE,001dd764,word,3c023fab

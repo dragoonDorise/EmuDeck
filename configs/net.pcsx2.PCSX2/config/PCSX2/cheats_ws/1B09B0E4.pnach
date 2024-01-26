@@ -1,5 +1,0 @@
-gametitle=Crash Nitro Kart [PAL-M6] (SLES_515.11)
-comment=Widescreen pnach by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,0058BF68,word,3C023F17 //3C023F00 (Increases hor. axis)

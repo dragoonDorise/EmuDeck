@@ -1,6 +1,0 @@
-gametitle=Space Channel 5 (PAL-M5) (SCES-50611)
-comment=Widescreen hack by ElHecht
-
-// 16:9
-patch=1,EE,0011eecc,word,3c013f40 // 3c013f80 hor fov 50Hz
-patch=1,EE,0011eddc,word,3c013f40 // 3c013f80 hor fov 60Hz

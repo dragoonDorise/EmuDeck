@@ -1,4 +1,0 @@
-gametitle=Viewtiful Joe (SLUS_20951)
-comment=Widescreen hack by sergx12 and No.47
-patch=1,EE,002b4904,word,3c01bf25 //3c01bf00
-patch=1,EE,002bce28,word,3c013f1f //3c013f00

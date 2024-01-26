@@ -1,5 +1,0 @@
-gametitle=MDK 2: Armageddon [PAL-M5] (SLES_502.48)
-comment=Widescreen pnach by El_Patas
-
-//Gameplay 16:9 
-patch=1,EE,0017BC6C,word,3C0140AB //3C014080 (Increases hor. axis)

@@ -1,7 +1,0 @@
-gametitle=Hanjuku Eiyuu Tai 3D (J)(SLPM-65315)
-comment=Widescreen hack by Arapapa
-
-//Gameplay 16:9
-
-patch=1,EE,0014e70c,word,3c014455 //3c014420
-patch=1,EE,0014e8cc,word,3c014455 //3c014420

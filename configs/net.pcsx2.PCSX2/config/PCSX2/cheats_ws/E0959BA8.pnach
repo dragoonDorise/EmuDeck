@@ -1,7 +1,0 @@
-gametitle=Oookuki (J)(SLLPM-66441)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-patch=1,EE,0019dba4,word,3c013f40 //00000000
-patch=1,EE,0019dba8,word,44810000 //00000000
-patch=1,EE,0019dbb0,word,4600c602 //00000000

@@ -1,3 +1,0 @@
-﻿gametitle=X Fire [NTSC-J] (SLPS-20023)
-comment=Widescreen Hack 
-patch=1,EE,001c0cac,word,3c013f40

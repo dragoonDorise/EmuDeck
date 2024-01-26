@@ -1,6 +1,0 @@
-gametitle=Flushed Away [PAL-M5] (SLES_545.27)
-comment=Widescreen Hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,0027CD34,word,3C013CAD //3C013C8E Zoom
-patch=1,EE,001C8334,word,3C013C6E //3C013C8E Y-FOV

@@ -1,7 +1,0 @@
-gametitle=Operation WinBack 2 - Project Poseidon (PAL-E) (SLES-54116)
-comment=Widescreen hack by ElHecht
-
-// 16:9
-patch=1,EE,002f0e50,word,3c013f40 // 00000000 hor fov
-patch=1,EE,002f0e54,word,4481f000 // 00000000
-patch=1,EE,002f0e5c,word,461e0003 // 00000000

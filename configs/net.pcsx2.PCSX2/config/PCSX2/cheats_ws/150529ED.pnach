@@ -1,7 +1,0 @@
-gametitle=Cool Girl (J)(SLPM-65506)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,203A62F8,extended,3f400000 //3f800000
-patch=1,EE,0014cdc8,word,3c023f30

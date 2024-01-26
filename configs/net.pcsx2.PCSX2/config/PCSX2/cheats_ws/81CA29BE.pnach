@@ -1,8 +1,0 @@
-gametitle=Virtua Fighter 4 Evolution (PAL-M5) (SLES-51616)
-comment=Widescreen hack by ElHecht
-
-// 16:9
-patch=1,EE,002fdff4,word,3c194455 // 3c034420 hor fov
-patch=1,EE,002fdffc,word,37395555 // 44830800 hor fov
-patch=1,EE,002fe014,word,44990800 // 00000000
-patch=1,EE,00217b48,word,3c024456 // 3c024420 renderfix
