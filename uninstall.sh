@@ -106,7 +106,7 @@ if [ "$doUninstall" == true ]; then
 				17 "RPCS3" \
 				18 "Ryujinx" \
 				19 "ScummVM" \
-        		20 "Supermodel" \
+				20 "Supermodel" \
 				21 "Vita3K"  \
 				22 "Xemu" \
 				23 "Xenia"  \
