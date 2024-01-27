@@ -197,6 +197,7 @@ function runBinDownloads {
         else
             messages+=("There was a problem updating RPCS3")
         fi
+    fi
     if [[ "$binsToDL" == *"BigPEmu (Proton)"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
