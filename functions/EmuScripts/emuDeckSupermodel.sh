@@ -4,7 +4,7 @@ Supermodel_emuName="Supermodel"
 Supermodel_emuType="$emuDeckEmuTypeFlatpak"
 Supermodel_emuPath="com.supermodel3.Supermodel"
 Supermodel_releaseURL=""
-Supermodel_configFile="$HOME/deck/.config/supermodel/Config/Supermodel.ini"
+Supermodel_configFile="$HOME/deck/.supermodel/Config/Supermodel.ini"
 Supermodel_gamesList="https://raw.githubusercontent.com/trzy/Supermodel/master/Config/Games.xml"
 
 #cleanupOlderThings
@@ -21,10 +21,10 @@ Supermodel_install(){
 #ApplyInitialSettings
 Supermodel_init(){
 	# Flatpak does not install to flatpak directory
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel" "$HOME/deck/.config/" --backup --suffix=.bak
-	# Download updated gamelist from source
-	rsync -avhp --mkpath "$Supermodel_gamesList" "$HOME/deck/.config/supermodel/Config" --backup --suffix=.bak
 	mkdir -p $HOME/.supermodel/Analysis $HOME/.supermodel/Log
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel" "$HOME/deck/.supermodel/" --backup --suffix=.bak
+	# Download updated gamelist from source
+	rsync -avhp --mkpath "$Supermodel_gamesList" "$HOME/deck/.supermodel/Config" --backup --suffix=.bak
 	Supermodel_setupStorage
 	Supermodel_setEmulationFolder
 	Supermodel_setupSaves
@@ -33,10 +33,10 @@ Supermodel_init(){
 #update
 Supermodel_update(){
 	# Flatpak does not install to flatpak directory
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel" "$HOME/deck/.config/" --ignore-existing
-	# Download updated gamelist from source
-	rsync -avhp --mkpath "$Supermodel_gamesList" "$HOME/deck/.config/supermodel/Config" --backup --suffix=.bak
 	mkdir -p $HOME/.supermodel/Analysis $HOME/.supermodel/Log
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel" "$HOME/deck/.supermodel/" --ignore-existing
+	# Download updated gamelist from source
+	rsync -avhp --mkpath "$Supermodel_gamesList" "$HOME/deck/.supermodel/Config" --backup --suffix=.bak
 	Supermodel_setupStorage
 	Supermodel_setEmulationFolder
 	Supermodel_setupSaves
@@ -68,7 +68,7 @@ Supermodel_wipe(){
 #Uninstall
 Supermodel_uninstall(){
     flatpak uninstall "$Supermodel_emuPath" --user -y
-	rm -rf "$HOME/deck/.config/supermodel"
+	rm -rf "$HOME/deck/.supermodel"
 }
 
 #setABXYstyle
