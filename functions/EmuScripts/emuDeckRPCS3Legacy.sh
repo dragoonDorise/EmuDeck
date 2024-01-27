@@ -26,6 +26,11 @@ RPCS3_init(){
 	RPCS3_setupSaves
 }
 
+#Fix for autoupdate
+Rpcsx3_install(){
+	RPCS3_install
+}
+
 #update
 RPCS3_update(){
 	configEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}"

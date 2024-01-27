@@ -1,6 +1,0 @@
-gametitle=Springdale (E)(SLES-55610)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,206D005C,extended,3fe38e32 //3faaaaaa

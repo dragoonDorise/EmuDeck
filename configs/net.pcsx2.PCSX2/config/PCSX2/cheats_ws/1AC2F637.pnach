@@ -1,6 +1,0 @@
-gametitle=RTL Biathlon 2008 [PAL] (SLES_549.37)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,003821F0,word,3F400000 //3F800000 Zoom
-patch=1,EE,00382B20,word,412AAAA4 //41000000 Y-FOV

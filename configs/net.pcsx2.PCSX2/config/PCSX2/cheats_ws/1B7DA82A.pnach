@@ -1,4 +1,0 @@
-gametitle=Viewtiful Joe 2 (SLUS_20939)
-comment=Widescreen hack by No.47
-patch=1,EE,002d8c00,word,3c013fd3 //3c013faa
-patch=1,EE,002d8c04,word,34213333 //3421aaab

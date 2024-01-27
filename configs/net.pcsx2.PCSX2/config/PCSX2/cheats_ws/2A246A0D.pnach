@@ -1,5 +1,0 @@
-gametitle=Stella Deus: The Gate of Eternity [PAL] (SLES_537.65)
-comment=Widescreen Hack by El_Patas 
-
-//Gameplay 16:9
-patch=1,EE,20306B90,extended,44C00000 //45000000 (Increases hor. axis)

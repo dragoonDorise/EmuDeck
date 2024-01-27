@@ -24,7 +24,6 @@ if [ "$system" != "darwin" ]; then
 fi
 chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
 
-source "$EMUDECKGIT"/api.sh
 source "$EMUDECKGIT"/functions/checkBIOS.sh
 source "$EMUDECKGIT"/functions/checkInstalledEmus.sh
 #source "$EMUDECKGIT"/functions/cloudServicesManager.sh
@@ -47,6 +46,7 @@ source "$EMUDECKGIT"/functions/runSRM.sh
 source "$EMUDECKGIT"/functions/appImageInit.sh
 source "$EMUDECKGIT"/functions/autofix.sh
 
+
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckPegasus.sh
@@ -66,7 +66,7 @@ source "$EMUDECKGIT"/functions/ToolScripts/emuDecky.sh
 #emuscripts
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemu.sh
-source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemuNative.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemuProton.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRPCS3Legacy.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCitraLegacy.sh
@@ -88,6 +88,7 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMelonDS.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckares.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckFlycast.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckSupermodel.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckModel2.sh
 
 #remoteplayclientscripts
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh

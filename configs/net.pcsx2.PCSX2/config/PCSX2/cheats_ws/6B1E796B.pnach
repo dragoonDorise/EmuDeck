@@ -1,7 +1,0 @@
-gametitle=LEGO Indiana Jones: The Original Adventures [PAL] (SLES-55133)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,204EF0DC,extended,00000A01 //00000A00 Internal Wide Option On
-patch=1,EE,204EF0F0,extended,00000A01 //00000A00 Internal Wide Option On
-patch=1,EE,0031DB2C,word,3C013F40 //3C013F28 Zoom ratio

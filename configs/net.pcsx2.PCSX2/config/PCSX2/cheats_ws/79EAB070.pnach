@@ -1,8 +1,0 @@
-gametitle=Truck Kyousoukyoku - Ai to Kanashimi no Rodeo (J)(SLPS-20062)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,001d6a84,word,3c013f40 //00000000
-patch=1,EE,001d6a88,word,44810000 //00000000
-patch=1,EE,001d6a90,word,4600c602 //00000000

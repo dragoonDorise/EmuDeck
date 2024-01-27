@@ -1,7 +1,0 @@
-gametitle=Extermination (J)(SCPS-15011)
-comment=Widescreen Hack (NTSC-J by Arapapa)
-
-//Widescreen hack 16:9
-
-patch=1,EE,001d1ff8,word,3c023f19 //3c023f4c
-patch=1,EE,001d1ffc,word,3442999a //3442cccd

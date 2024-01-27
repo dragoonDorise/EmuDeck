@@ -1,5 +1,0 @@
-gametitle=Mad Maestro! [PAL] (SLES_507.70)
-comment=Widescreen pnach by El_Patas
-
-//Gameplay 16:9 
-patch=1,EE,00111400,word,3C023F40 //3C023F80 (Increases hor. axis)

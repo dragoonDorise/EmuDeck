@@ -1,9 +1,0 @@
-gametitle=LEGO Star Wars II - The Original Trilogy (E)(SLES-54221)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,00352b48,word,3c013f10 //3c013f40
-patch=1,EE,0012a250,word,3c013fab //3c013f80
-patch=1,EE,00174f0c,word,3c013f40 //3c013f80
-patch=1,EE,00174f88,word,3c013f40 //3c013f80

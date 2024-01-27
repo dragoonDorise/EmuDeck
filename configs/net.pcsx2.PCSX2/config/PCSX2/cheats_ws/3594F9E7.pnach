@@ -1,8 +1,0 @@
-gametitle=Yoshinoya (NTSC-J)(SLPM-62489)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,002c6f6c,word,3c013f40 //00000000
-patch=1,EE,002c6f70,word,44810000 //00000000
-patch=1,EE,002c6f78,word,4600c602 //00000000

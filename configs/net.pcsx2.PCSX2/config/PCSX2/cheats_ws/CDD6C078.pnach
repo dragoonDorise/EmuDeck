@@ -1,4 +1,0 @@
-gametitle=Wrath Unleashed (PAL-M5) SLES_521.01
-comment=Widescreen hack by dieSkaarj
-
-patch=1,EE,20797CC0,word,3f400000 //3f800000

@@ -1,4 +1,0 @@
-gametitle=Colosseum - Road to Freedom (NTSC-U)
-comment=Widescreen Hack
-patch=1,EE,00473258,word,3C013F40 //3C013F80 (Increases hor. axis)
-patch=1,EE,004731d4,word,3C013EC3 //3C013F00

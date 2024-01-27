@@ -1,8 +1,0 @@
-gametitle=Shin Sangoku Musou 5 Special [Disc1of2](J)(SLPM-55082)
-comment=Widescreen hack by 99skul (NTSC-J by Arapapa)
-
-//Widescreen hack 16:9
-
-patch=1,EE,0014703c,word,3c024082 //3c024049
-patch=1,EE,00147b14,word,3c024082 //3c024049
-patch=1,EE,001471d0,word,3c0543a0 //3c054370

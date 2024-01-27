@@ -1,7 +1,0 @@
-gametitle=The Cat Fight (K)(SLKA-15041
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-patch=1,EE,0018ffb4,word,3c013f40 //00000000
-patch=1,EE,0018ffb8,word,44810000 //00000000
-patch=1,EE,0018ffc0,word,4600c602 //00000000

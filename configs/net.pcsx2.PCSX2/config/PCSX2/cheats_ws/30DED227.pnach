@@ -1,7 +1,0 @@
-gametitle=Conflict: Desert Storm [PAL-M4] (SLES_509.02)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,0013F114,word,3C0142AC //3C01428C Zoom
-patch=1,EE,0021E9EC,word,3C013B36 //3C013B08 Y-FOV
-patch=1,EE,0021E9F0,word,342103CE //34218889

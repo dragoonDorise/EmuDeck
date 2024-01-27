@@ -1,9 +1,0 @@
-gametitle=R-Type Final (K)(SCKA-20009)
-comment=Widescreen hack NTSC-K by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,0016ee00,word,3c033f40 //3c033f80
-patch=1,EE,0016fbec,word,3c043f40 //3c033f80
-patch=1,EE,00229890,word,43d60000 //r fix  0000a043 00007043
-patch=1,EE,002298a0,word,43d60000 //r fix

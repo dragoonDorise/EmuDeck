@@ -1,9 +1,0 @@
-gametitle=Zoku Segare Ijiri (J)(SLPM-65141)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,00103cc4,word,3c013f40 //00000000
-patch=1,EE,00103cc8,word,44810000 //00000000
-patch=1,EE,00103cd0,word,4600c602 //00000000
-

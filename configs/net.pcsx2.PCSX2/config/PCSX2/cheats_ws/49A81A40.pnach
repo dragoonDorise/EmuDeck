@@ -1,5 +1,0 @@
-gametitle=Pro Yakyuu Spirits 2 (NTSC-J) (SLPM_659.29) 
-comment=widescreen hack by Arapapa
-
-//16:9
-patch=1,EE,20545838,word,3F400000 // 3f800000

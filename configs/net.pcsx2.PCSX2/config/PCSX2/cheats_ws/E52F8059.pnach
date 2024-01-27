@@ -1,4 +1,0 @@
-gametitle=Ghost Vibration (J)(SLPS-25131)
-comment=Widescreen Hack (pnach by Arapapa)
-
-patch=1,EE,001ce730,word,3f400000 //3f800000

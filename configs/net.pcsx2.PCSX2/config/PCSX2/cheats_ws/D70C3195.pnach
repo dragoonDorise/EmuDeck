@@ -1,9 +1,0 @@
-gametitle=J-League Pro Soccer Club o Tsukurou! '04 (J)(SLPM-65530)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//00000000 803f023c 00088244 06c30046
-patch=1,EE,00187f90,word,3c023faa
-patch=1,EE,00187f94,word,3442aaab

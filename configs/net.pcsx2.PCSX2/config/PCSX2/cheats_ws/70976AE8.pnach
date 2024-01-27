@@ -1,4 +1,0 @@
-gametitle=SpyHunter (SLPM-65090)
-comment=WS 2.0 by MonJamp. Slightly modified for JP by iDestyKK
-
-patch=1,EE,002A6980,extended,3C013F10

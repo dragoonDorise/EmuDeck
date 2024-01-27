@@ -1,7 +1,0 @@
-gametitle=Sunny Garcia Surfing (E)(SLES-50533)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,0024f4ac,word,3c013fa5 //3c013f80 Y-Fov
-patch=1,EE,00251bf8,word,3c013ec6 //3c013f00 Zoom

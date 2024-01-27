@@ -1,8 +1,0 @@
-gametitle=UFC: Throwdown [PAL] (SLES_509.99)
-comment=Widescreen hack by El_Patas
- 
-//Gameplay 16:9 
-patch=1,EE,001A9844,word,3C013CBB //3C013C8E Zoom
-patch=1,EE,001A9848,word,3421821D //3421FA36
-patch=1,EE,001A98F0,word,3C013FE3 //3C013FAA Y-FOV
-patch=1,EE,001A98F4,word,3421AE39 //3421AAAB

@@ -1,5 +1,0 @@
-gametitle=Bujingai [NTSC-J] (SLPS-65459)
-comment=Widescreen hack by Little Giant
-
-patch=1,EE,204AED80,extended,3F400000 // 3F800000  hor+
-//patch=1,EE,205C8320,extended,3F400000 // 3F800000  zoom

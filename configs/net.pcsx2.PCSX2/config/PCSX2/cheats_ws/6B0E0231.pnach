@@ -1,7 +1,0 @@
-gametitle=Galacta Meisaku Gekijou - Rakugaki Oukouku (J)(SLPM-65097)
-comment=Widescreen Hack (NTSC-J by Arapapa)
-
-//Wide hack 16:9
-
-patch=1,EE,003454d4,word,3f400000 //3f800000
-patch=1,EE,004c531c,word,3f206d37 //3ef0a3d7

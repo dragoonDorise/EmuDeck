@@ -1,4 +1,0 @@
-gametitle=Midnight Club 3 - DUB Edition Remix [SLES-53717]
-comment=Widescreen Hack by FlatOut
-
-patch=1,EE,2061C318,word,3FC71C76

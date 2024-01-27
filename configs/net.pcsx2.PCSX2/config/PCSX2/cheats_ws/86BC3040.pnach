@@ -1,6 +1,0 @@
-gametitle=Metal Gear Solid 3 - Subsistence [First Print Limited Edition] [Disc1of3] (J)(SLPM-666220)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,20204f24,extended,3f400000 //3f800000

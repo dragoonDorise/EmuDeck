@@ -1,5 +1,0 @@
-gametitle=CART Fury - Championship Racing (SLUS-20141)
-comment=Widescreen fix by BloodRaynare
-
-//16:9 X-FOV
-patch=1,EE,00104b98,word,3c024370 // 3c0243a0

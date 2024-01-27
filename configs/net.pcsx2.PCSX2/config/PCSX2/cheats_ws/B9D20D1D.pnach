@@ -1,8 +1,0 @@
-gametitle=F1 Championship Season 2000 (J)(SLPS-20044)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//aa3f013c abaa2134 00008144
-patch=1,EE,00126840,word,3c013fe3 //3c013faa
-patch=1,EE,00126844,word,34218e2a //3421aaab

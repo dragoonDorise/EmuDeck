@@ -1,6 +1,0 @@
-gametitle=Lethal Skies II [PAL-E] [SLES-51886]
-comment=Widescreen Hack by FlatOut
-
-patch=1,EE,00126504,word,3C0143C0
-patch=1,EE,0010108C,word,3C0143B4
-patch=1,EE,00100D1C,word,3C0143B4

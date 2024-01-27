@@ -13,6 +13,7 @@ doUninstallFlycast=true
 doUninstallMame=true
 doUninstallmelonDS=true
 doUninstallMGBA=true
+doUninstallModel2=true
 doUninstallRA=true
 doUninstallPCSX2=true
 doUninstallPPSSPP=true
@@ -96,19 +97,20 @@ if [ "$doUninstall" == true ]; then
 				8 "Mame"  \
 				9 "melonDS"  \
 				10 "mGBA"  \
-				11 "PCSX2" \
-				12 "PPSSPP" \
-				13 "PrimeHack" \
-				14 "RetroArch"\
-				15 "RMG"  \
-				16 "RPCS3" \
-				17 "Ryujinx" \
-				18 "ScummVM" \
-				19 "Supermodel" \
-				20 "Vita3K"  \
-				21 "Xemu" \
-				22 "Xenia"  \
-				23 "Yuzu" )
+				11 "Model2" \
+				12 "PCSX2" \
+				13 "PPSSPP" \
+				14 "PrimeHack" \
+				15 "RetroArch"\
+				16 "RMG"  \
+				17 "RPCS3" \
+				18 "Ryujinx" \
+				19 "ScummVM" \
+        20 "Supermodel" \
+				21 "Vita3K"  \
+				22 "Xemu" \
+				23 "Xenia"  \
+				24 "Yuzu" )
 
 	ans=$?
 	if [ $ans -eq 0 ]; then
@@ -142,6 +144,9 @@ if [ "$doUninstall" == true ]; then
 		fi
 		if [[ "$emusToUninstall" == *"mGBA"* ]]; then
 			doUninstallMGBA=false
+		fi
+		if [[ "$emusToUninstall" == *"Model2"* ]]; then
+			doUninstallModel2=false
 		fi
 		if [[ "$emusToUninstall" == *"PrimeHack"* ]]; then
 			doUninstallPrimeHacks=false
@@ -238,6 +243,10 @@ if [ "$doUninstall" == true ]; then
 		rm -rf $HOME/.config/mgba &>> /dev/null
 		rm -rf $HOME/.local/share/applications/mGBA.desktop &>> /dev/null
 	fi
+	if [[ "$doUninstallModel2" == true ]]; then
+		find ${romsPath}/model2 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \;
+		rm -f "$HOME/.local/share/applications/Model2 (Proton).desktop" &>> /dev/null
+	fi
 	if [[ "$doUninstallPCSX2" == true ]]; then
 		rm -rf $HOME/Applications/pcsx2-Qt.AppImage &>> /dev/null
 		rm -rf $HOME/.config/PCSX2 &>> /dev/null
@@ -311,6 +320,9 @@ if [ "$doUninstall" == true ]; then
 	#Backup Service
 	systemctl --user disable emudeck_saveBackup.timer && rm "$HOME/.config/systemd/user/emudeck_saveBackup.timer" && rm "$HOME/.config/systemd/user/emudeck_saveBackup.service"
 	rm -rf "$HOME/Desktop/SaveBackup.desktop" &>> /dev/null
+	#CloudSync
+	systemctl --user stop "EmuDeckCloudSync.service"
+	rm -rf rm -rf "$HOME/.config/systemd/user/EmuDeckCloudSync.service" > /dev/null
 	#Emudeck's files
 
 
@@ -328,6 +340,18 @@ if [ "$doUninstall" == true ]; then
 	rm -rf $HOME/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf  &>> /dev/null
 	rm -rf $HOME/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf  &>> /dev/null
 	rm -rf $HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf  &>> /dev/null
+
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_cloud_controller_config.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_generic.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_ps4.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_ps5.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck_nintendo.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck_proton.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_switch_pro.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_xbox360.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_xboxone.vdf  &>> /dev/null
+
 	find  "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons" -name 'EmuDeck*' -exec rm {} \;
 
 	echo "65"
@@ -358,12 +382,13 @@ if [ "$doUninstall" == true ]; then
 	rm -rf $HOME/.emulationstation
 	rm -rf "$toolsPath/EmulationStation-DE.AppImage"
 	rm -rf "$toolsPath/EmulationStation-DE.AppImage"
+	rm -rf "$toolsPath/ULWGL"
 
 	echo "90"
 	echo "# Removing EmuDeck folders";
 	rm -rf $toolsPath
 	#rm -rf $biosPath
-	rm -rf $savesPath
+	#rm -rf $savesPath
 	rm -rf $storagePath
 	rm -rf $ESDEscrapData
 	rm -rf "$emulationPath/hdpacks"

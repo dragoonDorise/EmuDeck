@@ -1,6 +1,0 @@
-gametitle=Kengo - Master of Bushido SLUS_200.21
-comment=Widescreen Hack
-patch=1,EE,0012a96c,word,3c013f40
-patch=1,EE,0012ab78,word,3c013f40
-patch=1,EE,0012b40c,word,3c013f40
-//patch=1,EE,00145f9c,word,3c013f40 // ?

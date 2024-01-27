@@ -1,9 +1,0 @@
-gametitle=World Football Climax (J)(SLPM-66324)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//aa3f013c abaa2134 00188144 0000bfff
-patch=1,EE,0035311c,word,3c013fe3 //3c013faa
-patch=1,EE,00353120,word,34212a8e //3421aaab

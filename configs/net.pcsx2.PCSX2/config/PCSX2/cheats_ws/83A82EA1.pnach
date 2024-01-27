@@ -1,8 +1,0 @@
-gametitle=Destruction Derby Arenas [PAL] (SCES_507.81)
-comment=Widescreen hack by El_Patas
- 
-//Gameplay 16:9 
-patch=1,EE,00263BF0,word,3C013FAB //3C013F80
-patch=1,EE,00348210,word,4399999A //43CCCCCD
-patch=1,EE,00348218,word,4399999A //43CCCCCD
-patch=1,EE,00348204,word,4399999A //43CCCCCD
