@@ -201,11 +201,11 @@ if [ "$doUninstall" == true ]; then
 		rm -rf $HOME/.var/app/dev.ares.ares &>> /dev/null
 	fi
 	if [[ "$doUninstallBigPEmu" == true ]]; then
-		rm -rf ~/Applications/BigPEmu &>> /dev/null
-		rm -rf ~/.local/share/applications/BigPEmu.desktop &>> /dev/null
+		rm -rf $HOME/Applications/BigPEmu &>> /dev/null
+		rm -rf $HOME/.local/share/applications/BigPEmu.desktop &>> /dev/null
 	fi
 	if [[ "$doUninstallCemu" == true ]]; then
-		find ${romsPath}/wiiu -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \;
+		find $romsPath/wiiu -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \; &>> /dev/null
 		rm -f "$HOME/.local/share/applications/Cemu (Proton).desktop" &>> /dev/null
 	fi
 	if [[ "${doUninstallCemuNative}" == "true" ]]; then
@@ -245,7 +245,7 @@ if [ "$doUninstall" == true ]; then
 		rm -rf $HOME/.local/share/applications/mGBA.desktop &>> /dev/null
 	fi
 	if [[ "$doUninstallModel2" == true ]]; then
-		find ${romsPath}/model2 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \;
+		find $romsPath/model2 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \;
 		rm -f "$HOME/.local/share/applications/Model2 (Proton).desktop" &>> /dev/null
 	fi
 	if [[ "$doUninstallPCSX2" == true ]]; then
@@ -298,7 +298,7 @@ if [ "$doUninstall" == true ]; then
 		rm -rf $HOME/.var/app/app.xemu.xemu &>> /dev/null
 	fi
 	if [[ "$doUninstallXenia" == true ]]; then
-		find ${romsPath}/xbox360 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \; &>> /dev/null
+		find $romsPath/xbox360 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \; &>> /dev/null
 	 	rm -rf $HOME/.local/share/applications/xenia.desktop &>> /dev/null
 	fi
 	if [[ "$doUninstallYuzu" == true ]]; then

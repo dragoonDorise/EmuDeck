@@ -20,6 +20,7 @@
             "StateSlot": 0,
             "PerGameSlots": 0,
             "SaveAutoIncr": 0,
+            "RewindCount": 0,
             "ShowTitleInfo": 1,
             "PALMode": 0,
             "RunAhead": 2,
@@ -59,6 +60,21 @@
             "HDROutput": 0,
             "HDRGamma": 1.0,
             "HDRScale": 3.75,
+            "EnableVR": 0,
+            "VRSubCount": 1,
+            "YawOffset": 0,
+            "EyeOffsetX": 0.0,
+            "EyeOffsetY": 0.0,
+            "EyeSpaceImageSize": 0.5,
+            "AnaFilter": 0,
+            "SwapEyes": 0,
+            "SwapEyeColors": 0,
+            "LeftRed": 1.0,
+            "LeftGreen": 0.0,
+            "LeftBlue": 0.0,
+            "RightRed": 0.0,
+            "RightGreen": 1.0,
+            "RightBlue": 1.0,
             "ForceHorizontalOverscan": 0,
             "DisableScreensaver": 0,
             "ShittyFreqWarn": 1,
@@ -72,7 +88,7 @@
             "LowPassCutoff": 0
         },
         "Input": {
-            "DeviceCount": 2,
+            "DeviceCount": 1,
             "AnalDeadMice": 0.25,
             "AnalToDigi": 0.25,
             "AnalExpo": 0.0,
@@ -87,6 +103,8 @@
                 "DeviceType": 0,
                 "InvertAnally": 0,
                 "RotaryScale": 0.5,
+                "HeadTrackerScale": 8.0,
+                "HeadTrackerSpring": 0,
                 "Bindings": [
                     {
                         "Triggers": [
@@ -142,9 +160,13 @@
                             },
                             {
                                 "B_KB": false,
-                                "B_ID": 6,
+                                "B_ID": 0,
                                 "B_AH": 0.0,
-                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 6,
+                                "M_AH": 0.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
                             }
                         ]
                     },
@@ -544,12 +566,12 @@
                             },
                             {
                                 "B_KB": false,
-                                "B_ID": 7,
+                                "B_ID": 9,
                                 "B_AH": 0.0,
                                 "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
                                 "M_KB": false,
-                                "M_ID": 130,
-                                "M_AH": -1.0,
+                                "M_ID": 6,
+                                "M_AH": 0.0,
                                 "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
                             }
                         ]
@@ -563,7 +585,7 @@
                             },
                             {
                                 "B_KB": false,
-                                "B_ID": 3,
+                                "B_ID": 7,
                                 "B_AH": 0.0,
                                 "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
                                 "M_KB": false,
@@ -574,13 +596,60 @@
                         ]
                     },
                     {
-                        "Triggers": []
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 7,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 130,
+                                "M_AH": 1.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
                     },
                     {
-                        "Triggers": []
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 5,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 6,
+                                "M_AH": 0.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
                     },
                     {
-                        "Triggers": []
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 4,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 6,
+                                "M_AH": 0.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 1,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 6,
+                                "M_AH": 0.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
                     },
                     {
                         "Triggers": [
@@ -593,6 +662,15 @@
                                 "M_ID": 130,
                                 "M_AH": -1.0,
                                 "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 20,
+                                "B_AH": 0.0
                             }
                         ]
                     },
@@ -617,7 +695,15 @@
                 "DeviceType": 0,
                 "InvertAnally": 0,
                 "RotaryScale": 0.5,
+                "HeadTrackerScale": 8.0,
+                "HeadTrackerSpring": 0,
                 "Bindings": [
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
                     {
                         "Triggers": []
                     },
@@ -768,7 +854,15 @@
                 "DeviceType": 0,
                 "InvertAnally": 0,
                 "RotaryScale": 0.5,
+                "HeadTrackerScale": 8.0,
+                "HeadTrackerSpring": 0,
                 "Bindings": [
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
                     {
                         "Triggers": []
                     },
@@ -919,7 +1013,15 @@
                 "DeviceType": 0,
                 "InvertAnally": 0,
                 "RotaryScale": 0.5,
+                "HeadTrackerScale": 8.0,
+                "HeadTrackerSpring": 0,
                 "Bindings": [
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
                     {
                         "Triggers": []
                     },
@@ -1070,7 +1172,15 @@
                 "DeviceType": 0,
                 "InvertAnally": 0,
                 "RotaryScale": 0.5,
+                "HeadTrackerScale": 8.0,
+                "HeadTrackerSpring": 0,
                 "Bindings": [
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
                     {
                         "Triggers": []
                     },
@@ -1221,7 +1331,15 @@
                 "DeviceType": 0,
                 "InvertAnally": 0,
                 "RotaryScale": 0.5,
+                "HeadTrackerScale": 8.0,
+                "HeadTrackerSpring": 0,
                 "Bindings": [
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
                     {
                         "Triggers": []
                     },
@@ -1372,7 +1490,15 @@
                 "DeviceType": 0,
                 "InvertAnally": 0,
                 "RotaryScale": 0.5,
+                "HeadTrackerScale": 8.0,
+                "HeadTrackerSpring": 0,
                 "Bindings": [
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
                     {
                         "Triggers": []
                     },
@@ -1523,7 +1649,15 @@
                 "DeviceType": 0,
                 "InvertAnally": 0,
                 "RotaryScale": 0.5,
+                "HeadTrackerScale": 8.0,
+                "HeadTrackerSpring": 0,
                 "Bindings": [
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
                     {
                         "Triggers": []
                     },
@@ -1669,20 +1803,38 @@
                         "Triggers": []
                     }
                 ]
-            }
+            },
+            "InputVer": 2
+        },
+        "Network": {
+            "NetDevice": 0,
+            "SockMode": 0,
+            "NetName": "BigPlayer",
+            "NameRed": 1.0,
+            "NameGreen": 1.0,
+            "NameBlue": 1.0,
+            "NetNoPause": 1,
+            "NetRewind": 0,
+            "NetStateSyncDelay": 5,
+            "NetStateSyncRemap": 0,
+            "HostName": "localhost",
+            "Port": 44666,
+            "Password": ""
         },
         "DevMode": {
             "LocalEEPROM": 0,
             "SaveWindowPos": 0,
             "AlwaysOnTop": 0,
+            "LaunchPaused": 0,
             "ScriptsAutoReload": 0,
             "ScriptsPreserveState": 0,
             "WindowX": 0,
             "WindowY": 0
         },
-        "RecentFiles": [],
         "ScriptsEnabled": [],
         "ScriptSettings": {},
+        "ROMPath": "Z:\\home\\deck\\Emulation\\roms\\atarijaguar",
+        "SetDisc": "",
         "ScreenEffectOptions": []
     }
 }

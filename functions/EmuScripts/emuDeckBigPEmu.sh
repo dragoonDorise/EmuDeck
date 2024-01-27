@@ -1,11 +1,10 @@
 #!/bin/bash
 #variables
-BigPEmu_emuName="BigPEmu (proton)"
-BigPEmu_emuType="windows"
-BigPEmu_emuPath="${romsPath}/Applications/BigPEmu/BigPEmu.exe"
-BigPEmu_appID=
-BigPEmu_appData="${romsPath}/Applications/BigPEmu/UserData"
-BigPEmu_BigPEmuSettings="${romsPath}/Applications/BigPEmu/UserData/BigPEmuConfig.bigpcfg"
+BigPEmu_emuName="BigPEmu (Proton)"
+BigPEmu_emuType="$emuDeckEmuTypeWindows"
+BigPEmu_emuPath="$HOME/Applications/BigPEmu/BigPEmu.exe"
+BigPEmu_appData="$HOME/Applications/BigPEmu/UserData"
+BigPEmu_BigPEmuSettings="$HOME/Applications/BigPEmu/UserData/BigPEmuConfig.bigpcfg"
 
 #cleanupOlderThings
 BigPEmu_cleanup(){
@@ -16,18 +15,21 @@ BigPEmu_cleanup(){
 BigPEmu_install(){
 	setMSG "Installing $BigPEmu_emuName"
 
-	downloadBigPEmu=$(wget -m -nd -A "BigPEmu_*.zip" -O "$HOME/Applications/BigPEmu.zip" "https://www.richwhitehouse.com/jaguar/index.php?content=download" -R "BigPEmu_*-DEV.zip")
+	mkdir -p "$HOME/Applications/BigPEmu"
+	downloadBigPEmu=$(wget -m -nd -A "BigPEmu_*.zip" -O "$HOME/Applications/BigPEmu/BigPEmu.zip" "https://www.richwhitehouse.com/jaguar/index.php?content=download" -R "BigPEmu_*-DEV.zip")
 
 	local showProgress="$1"
     if $downloadBigPEmu; then
-		mkdir -p "$HOME/Applications/BigPEmu"
-		unzip -o "$HOME/Applications/BigPEmu.zip" -d "$HOME/Applications/BigPEmu"
-		rm -f "$HOME/Applications/BigPEmu.zip"
+		
+		unzip -o "$HOME/Applications/BigPEmu/BigPEmu.zip" -d "$HOME/Applications/BigPEmu"
+		rm -f "$HOME/Applications/BigPEmu/BigPEmu.zip"
 	else
 		return 1
 	fi
 
-	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "${toolsPath}/launchers/bigpemu.sh"
+	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$toolsPath/launchers/bigpemu.sh"
+	# So users can still open it from the ~/Applications folder.
+	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$HOME/Applications/BigPEmu/bigpemu.sh"
 
 	chmod +x "${toolsPath}/launchers/bigpemu.sh"
 
@@ -47,7 +49,6 @@ BigPEmu_init(){
 	BigPEmu_addESConfig
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
-	BigPEmu_addSteamInputProfile
 }
 
 BigPEmu_addESConfig(){
@@ -96,7 +97,6 @@ BigPEmu_update(){
 	rsync -avhp "$EMUDECKGIT/configs/bigpemu/" "$BigPEmu_appData" --ignore-existing
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
-	BigPEmu_addSteamInputProfile
 }
 
 

@@ -22,16 +22,14 @@ APPIDPY="$emulationPath/tools/appID.py"
 PROTONLAUNCH="$emulationPath/tools/proton-launch.sh"
 
 # BigPEmu location
-BIGPEMU="${HOME}/Applications/BigPEmu/BigPEmu.exe"
+BIGPEMU="$HOME/Applications/BigPEmu/BigPEmu.exe"
 
 # APPID
 APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
 echo "APPID: ${APPID}"
-# Set APPID in Config as I am pretty sure this isn't a static number
-changeLine "BigPEmu_appID=" "BigPEmu_appID=${APPID}" "${HOME}/.config/EmuDeck/backend/functions/EmuScripts/emuDeckBigPEmu.sh"
 
 # Proton Version
-PROTONVER="7.0"
+PROTONVER="8.0"
 
 # Call the Proton launcher script and give the arguments
 

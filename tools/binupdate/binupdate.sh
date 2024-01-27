@@ -197,6 +197,15 @@ function runBinDownloads {
         else
             messages+=("There was a problem updating RPCS3")
         fi
+    if [[ "$binsToDL" == *"BigPEmu (Proton)"* ]]; then
+        ((progresspct += pct)) || true
+        echo "$progresspct"
+        echo "# Updating BigPEmu (Proton)"
+        if BigPEmu_install "true" 2>&1; then
+            messages+=("BigPEmu (Proton) Updated Successfully")
+        else
+            messages+=("There was a problem updating BigPEmu (Proton)")
+        fi
     fi
     echo "100"
     echo "# Complete!"
@@ -247,6 +256,9 @@ if [ "$(Xenia_IsInstalled ""$emuDeckEmuTypeWindows"")" == "true" ]; then
 fi
 if [ "$(RPCS3_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "PlayStation 3 Emu" "rpcs3")
+fi
+if [ "$(BigPEmu_IsInstalled ""$emuDeckEmuTypeWindows"")" == "true" ]; then
+    binTable+=(TRUE "Atari Jaguar Emu" "BigPEmu (Proton)")
 fi
 
 if [ "${#binTable[@]}" -gt 0 ]; then
