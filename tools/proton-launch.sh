@@ -68,6 +68,7 @@ installProton () {
         [Hotfix]="2180100"
         [EasyAntiCheat Runtime]="1826330"
         [BattlEye Runtime]="1161040"
+        [Next]="2230260"
     )
 
     # If Proton Version is known, attempt to prompt the user to install it

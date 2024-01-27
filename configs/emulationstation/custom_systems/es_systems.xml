@@ -10,4 +10,24 @@
         <platform>wiiu</platform>
         <theme>wiiu</theme>
     </system>
+    <system>
+        <name>atarijaguar</name>
+        <fullname>Atari Jaguar</fullname>
+        <path>%ROMPATH%/atarijaguar</path>
+        <extension>.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP</extension>
+        <command label="BigPEmu (Proton)">/usr/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/bigpemu.sh %ROM%</command>        
+        <command label="Virtual Jaguar">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/virtualjaguar_libretro.so %ROM%</command>
+        <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/atarijaguar jaguar -cart %ROM%</command>        
+        <platform>atarijaguar</platform>
+        <theme>atarijaguar</theme>
+    </system>
+    <system>
+        <name>atarijaguarcd</name>
+        <fullname>Atari Jaguar CD</fullname>
+        <path>%ROMPATH%/atarijaguarcd</path>
+        <extension>.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP</extension>
+        <command label="BigPEmu (Proton)">/usr/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/bigpemu.sh %ROM%</command>        
+        <platform>atarijaguarcd</platform>
+        <theme>atarijaguarcd</theme>
+    </system>
 </systemList>

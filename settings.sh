@@ -25,6 +25,7 @@ doSetupSRM=true
 doSetupPCSX2QT=true
 #doSetupMelon=true
 doSetupMGBA=true
+doSetupBigPEmu=true
 doSetupFlycast=true
 doSetupModel2=true
 
@@ -50,6 +51,7 @@ doInstallPCSX2QT=false
 doInstallMAME=true
 #doInstallMelon=false
 doInstallMGBA=false
+doInstallBigPEmu=false
 doInstallFlycast=true
 doInstallCHD=false
 doInstallPowertools=false

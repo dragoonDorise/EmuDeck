@@ -85,6 +85,7 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckVita3K.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMGBA.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRMG.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMelonDS.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckBigPEmu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckares.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckFlycast.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckModel2.sh
