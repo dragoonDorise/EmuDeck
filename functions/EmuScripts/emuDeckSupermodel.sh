@@ -4,7 +4,8 @@ Supermodel_emuName="Supermodel"
 Supermodel_emuType="$emuDeckEmuTypeFlatpak"
 Supermodel_emuPath="com.supermodel3.Supermodel"
 Supermodel_releaseURL=""
-Supermodel_configFile="$HOME/.local/share/flatpak/app/com.supermodel3.Supermodel/current/active/files/bin/Config/Supermodel.ini"
+Supermodel_configFile="$HOME/deck/.config/supermodel/Config/Supermodel.ini"
+Supermodel_gamesList="https://raw.githubusercontent.com/trzy/Supermodel/master/Config/Games.xml"
 
 #cleanupOlderThings
 Supermodel_cleanup(){
@@ -13,14 +14,17 @@ Supermodel_cleanup(){
 
 #Install
 Supermodel_install(){
+	setMSG "Installing $Supermodel_emuName"
 	installEmuFP "${Supermodel_emuName}" "${Supermodel_emuPath}"
-	flatpak override "${Supermodel_emuPath}" --filesystem=host --user
-	flatpak override "${Supermodel_emuPath}" --share=network --user
 }
 
 #ApplyInitialSettings
 Supermodel_init(){
-	configEmuFP "${Supermodel_emuName}" "${Supermodel_emuPath}" "true"
+	# Flatpak does not install to flatpak directory
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel" "$HOME/deck/.config/" --backup --suffix=.bak
+	# Download updated gamelist from source
+	rsync -avhp --mkpath "$Supermodel_gamesList" "$HOME/deck/.config/supermodel/Config" --backup --suffix=.bak
+	mkdir -p $HOME/.supermodel/Analysis $HOME/.supermodel/Log
 	Supermodel_setupStorage
 	Supermodel_setEmulationFolder
 	Supermodel_setupSaves
@@ -28,7 +32,11 @@ Supermodel_init(){
 
 #update
 Supermodel_update(){
-	configEmuFP "${Supermodel_emuName}" "${Supermodel_emuPath}"
+	# Flatpak does not install to flatpak directory
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel" "$HOME/deck/.config/" --ignore-existing
+	# Download updated gamelist from source
+	rsync -avhp --mkpath "$Supermodel_gamesList" "$HOME/deck/.config/supermodel/Config" --backup --suffix=.bak
+	mkdir -p $HOME/.supermodel/Analysis $HOME/.supermodel/Log
 	Supermodel_setupStorage
 	Supermodel_setEmulationFolder
 	Supermodel_setupSaves
@@ -36,21 +44,12 @@ Supermodel_update(){
 
 #ConfigurePaths
 Supermodel_setEmulationFolder(){
-	setMSG "Setting $Supermodel_emuName Emulation Folder"
-	
-	mkdir -p $HOME/.supermodel/Analysis $HOME/.supermodel/Log $HOME/.supermodel/NVRAM
-	cp -r $HOME/.local/share/flatpak/app/com.supermodel3.Supermodel/current/active/files/bin/Config $HOME/.supermodel
-	cp -r $HOME/.local/share/flatpak/app/com.supermodel3.Supermodel/current/active/files/bin/Assets $HOME/.supermodel
-	cp -r $HOME/.local/share/flatpak/app/com.supermodel3.Supermodel/current/active/files/bin/Docs $HOME/.supermodel
+	echo "NYI"
 }
 
 #SetupSaves
 Supermodel_setupSaves(){
-	savepath_directoryOpt='savepath='
-	newsavepath_directoryOpt="$savepath_directoryOpt""$savesPath/Supermodel/saves"
-	changeLine "$savepath_directoryOpt" "$newsavepath_directoryOpt" "$Supermodel_configFile"
-
-	moveSaveFolder Supermodel saves "$HOME/.var/app/org.Supermodel.Supermodel/data/Supermodel/saves"
+	echo "NYI"
 }
 
 
@@ -69,6 +68,7 @@ Supermodel_wipe(){
 #Uninstall
 Supermodel_uninstall(){
     flatpak uninstall "$Supermodel_emuPath" --user -y
+	rm -rf "$HOME/deck/.config/supermodel"
 }
 
 #setABXYstyle
