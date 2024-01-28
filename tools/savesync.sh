@@ -64,7 +64,7 @@ SAVESYNC_createService(){
 
 	echo "Starting SaveSync Service. First run may take a while."
 	systemctl --user start emudeck_savesync.service
-	rm -rf $HOME/Desktop/EmuDeckSaveSync.desktop &>> /dev/null	
+	rm -rf $HOME/Desktop/EmuDeckSaveSync.desktop &> /dev/null	
 	zenity --info --width=400 --title="EmuDeck" --text="SaveSync configured!"
 }
 
