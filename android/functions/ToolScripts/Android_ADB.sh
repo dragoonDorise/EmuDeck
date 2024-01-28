@@ -4,7 +4,7 @@
 #https://dl.google.com/android/repository/platform-tools-latest-windows.zip
 
 Android_ADB_path="$HOME/emudeck/android/platform-tools"
-Android_ADB_url="https://dl.google.com/android/repository/platform-tools-latest-darwin.zip"
+Android_ADB_url="https://dl.google.com/android/repository/platform-tools-latest-linux.zip"
 
 function Android_ADB_isInstalled(){
 	if [ -e "$Android_ADB_path" ]; then
