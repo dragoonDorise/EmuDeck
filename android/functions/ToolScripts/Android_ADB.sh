@@ -19,9 +19,9 @@ function Android_ADB_isInstalled(){
 function Android_ADB_install(){
 
 	local outFile="adb.zip"
-	local outDir="$HOME/emudeck/android/"
+	local outDir="$HOME/emudeck/android"
 
-	Android_download "$outFile" "$Android_ADB_url" && unzip -o "$outFile" -d $outDir && rm -rf $outFile && echo "true" && return 0
+	Android_download "$outFile" "$Android_ADB_url" && unzip -o "$outDir/$outFile" -d $outDir && rm -rf "$outDir/$outFile" && echo "true" && return 0
 
 }
 
