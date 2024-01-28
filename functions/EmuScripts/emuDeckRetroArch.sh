@@ -10,7 +10,7 @@ RetroArch_coreConfigFolders="$HOME/.var/app/org.libretro.RetroArch/config/retroa
 RetroArch_cores="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores"
 RetroArch_overlays="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/overlays"
 RetroArch_coresURL="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
-RetroArch_coresExtension="so.zip"
+RetroArch_coresExtension=".so.zip"
 
 #cleanupOlderThings
 RetroArch_cleanup(){
@@ -2248,7 +2248,7 @@ RetroArch_installCores(){
 		if [ -f "$FILE" ]; then
 			echo "${i}...Already Downloaded"
 		else
-			curl "$RetroArch_coresURL$i.$RetroArch_coresExtension" --output "$RetroArch_cores/${i}.zip"
+			curl "$RetroArch_coresURL$i$RetroArch_coresExtension" --output "$RetroArch_cores/${i}.zip"
 
 			#rm ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
 			echo "${i}...Downloaded!"
