@@ -1,5 +1,14 @@
 #!/bin/bash
-source "$HOME/emudeck/android_settings.sh"
+
+SETTINGSFILEANDROID="$HOME/emudeck/android_settings.sh"
+if [ -f "$SETTINGSFILEANDROID" ]; then
+	# shellcheck source=./settings.sh
+	source "$SETTINGSFILEANDROID"
+else
+	cp "$EMUDECKGIT/android/android_settings.sh" "$SETTINGSFILEANDROID"
+	source "$HOME/emudeck/android_settings.sh"
+fi
+
 
 source "$EMUDECKGIT"/android/functions/EmuScripts/Android_Yuzu.sh
 source "$EMUDECKGIT"/android/functions/EmuScripts/Android_AetherSX2.sh
