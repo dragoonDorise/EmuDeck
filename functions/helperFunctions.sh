@@ -915,7 +915,7 @@ function emulatorInit(){
 
 function jsonToBashVars(){
 	local json=$1
-
+	touch "$HOME/emudeck/settings.sh"
 	#Install Emus
 	setSetting doInstallRA $(jq .installEmus.ra.status "$json")
 	setSetting doInstallDolphin $(jq .installEmus.dolphin.status $json)
