@@ -48,6 +48,7 @@ Android_RetroArch_init(){
 	#Android_RetroArch_autoSave
 	#Android_RetroArch_setRetroAchievements
 	#Android_RetroArch_melonDSDSMigration
+	Android_ADB_push $HOME/EmuDeck/RetroArch /storage/emulated/0/
 }
 
 
