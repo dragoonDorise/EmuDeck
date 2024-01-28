@@ -24,7 +24,10 @@ Supermodel_init(){
 	mkdir -p $HOME/.supermodel/Analysis $HOME/.supermodel/Log
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel" "$HOME/deck/.supermodel/" --backup --suffix=.bak
 	# Download updated gamelist from source
-	rsync -avhp --mkpath "$Supermodel_gamesList" "$HOME/deck/.supermodel/Config" --backup --suffix=.bak
+	if [ -e "$HOME/deck/.supermodel/Config/Games.xml" ]; then
+		rm -rf "$HOME/deck/.supermodel/Config/Games.xml"
+	fi
+	wget "$Supermodel_gamesList" -P "$HOME/deck/.supermodel/Config/"
 	Supermodel_setupStorage
 	Supermodel_setEmulationFolder
 	Supermodel_setupSaves
@@ -36,7 +39,10 @@ Supermodel_update(){
 	mkdir -p $HOME/.supermodel/Analysis $HOME/.supermodel/Log
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel" "$HOME/deck/.supermodel/" --ignore-existing
 	# Download updated gamelist from source
-	rsync -avhp --mkpath "$Supermodel_gamesList" "$HOME/deck/.supermodel/Config" --backup --suffix=.bak
+	if [ -e "$HOME/deck/.supermodel/Config/Games.xml" ]; then
+		rm -rf "$HOME/deck/.supermodel/Config/Games.xml"
+	fi
+	wget "$Supermodel_gamesList" -P "$HOME/deck/.supermodel/Config/"
 	Supermodel_setupStorage
 	Supermodel_setEmulationFolder
 	Supermodel_setupSaves
