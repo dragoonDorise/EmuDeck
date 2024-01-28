@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
 emulatorInit "mgba"
 emuName="mGBA" #parameterize me

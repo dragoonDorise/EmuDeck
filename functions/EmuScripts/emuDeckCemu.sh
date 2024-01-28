@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 Cemu_functions () {
 	local function="$1"
