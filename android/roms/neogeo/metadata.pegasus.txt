@@ -1,0 +1,16 @@
+collection: Neo Geo
+shortname: neogeo
+extensions: 7z, zip
+launch: am start
+  --user 0
+  -n com.retroarch/.browser.retroactivity.RetroActivityFuture
+  -e ROM "{file.path}"
+  -e LIBRETRO /data/data/com.retroarch/cores/fbalpha2012_neogeo_libretro_android.so
+  -e CONFIGFILE /storage/emulated/0/Android/data/com.retroarch/files/retroarch.cfg
+  -e IME com.android.inputmethod.latin/.LatinIME
+  -e DATADIR /data/data/com.retroarch
+  -e APK /data/app/com.retroarch-1/base.apk
+  -e SDCARD /storage/emulated/0
+  -e DOWNLOADS /storage/emulated/0/Download
+  -e SCREENSHOTS /storage/emulated/0/Pictures
+  -e EXTERNAL /storage/emulated/0/Android/data/com.retroarch/files
