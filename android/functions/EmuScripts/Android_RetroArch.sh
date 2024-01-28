@@ -10,7 +10,7 @@ Android_RetroArch_configFile="$HOME/Desktop/EmuDeckAndroid/RetroArch/config/retr
 Android_RetroArch_coreConfigFolders="$HOME/Desktop/EmuDeckAndroid/RetroArch/config"
 Android_RetroArch_cores="$HOME/Desktop/EmuDeckAndroid/RetroArch/config/cores"
 Android_RetroArch_coresURL="https://buildbot.libretro.com/nightly/android/latest/arm64-v8a/"
-Android_RetroArch_coresExtension="so.zip"
+Android_RetroArch_coresExtension="_android.so.zip"
 
 #cleanupOlderThings
 Android_RetroArch_cleanup(){
@@ -2175,7 +2175,7 @@ Android_RetroArch_installCores(){
 		if [ -f "$FILE" ]; then
 			echo "${i}...Already Downloaded"
 		else
-			curl "$Android_RetroArch_coresURL$i.$Android_RetroArch_coresExtension" --output "$Android_RetroArch_cores/${i}.zip"
+			curl "$Android_RetroArch_coresURL$i$Android_RetroArch_coresExtension" --output "$Android_RetroArch_cores/${i}.zip"
 
 			#rm ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
 			echo "${i}...Downloaded!"
