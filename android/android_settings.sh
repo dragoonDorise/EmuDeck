@@ -29,3 +29,6 @@ android_RAHandClassic2D=true
 android_RAHandClassic3D=false
 android_RAHandHeldShader=true
 
+biosPath="/storage/emulated/0/Emulation/bios"
+romsPath="/storage/emulated/0/Emulation/roms"
+savesPath="/storage/emulated/0/Emulation/saves"
