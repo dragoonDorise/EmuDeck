@@ -1,7 +1,0 @@
-gametitle=F1 Championship Season 2000 (E)(SLES-50017)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,001265b8,word,3c013fe3 //3c013faa
-patch=1,EE,001265bc,word,34218e2a //3421aaab

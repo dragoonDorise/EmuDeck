@@ -1,6 +1,0 @@
-gametitle=The Sniper 2 (E)(SLES-51623)
-comment=Widescreen hack by Arapapa
-
-//Widescreen 16:9
-
-patch=1,EE,0010202c,word,3c013f40 //3c013f80

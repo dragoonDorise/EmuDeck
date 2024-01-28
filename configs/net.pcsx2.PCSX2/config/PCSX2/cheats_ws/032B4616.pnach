@@ -1,9 +1,0 @@
-gametitle=K-1 World Grand Prix 2003 (J)(SLPM-65433)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//6666663f c021643f
-patch=1,EE,004d2a14,word,3F2CCCCD //3f666666 Event
-patch=1,EE,004d21bc,word,3F2CCCCD //3f666666 Game Play

@@ -1,7 +1,0 @@
-gametitle=AirForce Delta Strike (NTSC-K)(SLKA-25133)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,204aafac,extended,3f400000
-patch=1,EE,204aafa4,extended,44200000

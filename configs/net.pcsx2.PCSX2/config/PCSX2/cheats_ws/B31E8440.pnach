@@ -1,9 +1,0 @@
-gametitle=MX vs. ATV Unleashed (K)(SLKA-25282)
-comment=Widescreen hack (NTSC-K by Arapapa)
-
-//Widescreen hack 16:9
-patch=1,EE,0018edf4,word,3c03bfab //3c03bf80
-patch=1,EE,0018edf8,word,3c023fab //3c023f80
-patch=1,EE,001b81b4,word,3c023f18 //3c023f00
-patch=1,EE,0022c5a8,word,3c043fe3 //3c043faa
-patch=1,EE,0022c5ac,word,348e8e39 //348eaaab

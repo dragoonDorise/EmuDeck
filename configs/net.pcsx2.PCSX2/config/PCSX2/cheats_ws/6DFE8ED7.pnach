@@ -1,5 +1,0 @@
-gametitle=Incredibles, The - Rise of the Underminer SLUS_212.17
-comment=Widescreen hack
-//patch=1,EE,001110e0,word,00000000 // hang fix by Prafull
-patch=1,EE,00218E84,word,3C023F17
-patch=1,EE,00218EB0,word,3C023F10

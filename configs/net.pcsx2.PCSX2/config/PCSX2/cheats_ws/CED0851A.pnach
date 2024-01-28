@@ -1,6 +1,0 @@
-gametitle=Metal Gear Solid 2 - Substance (J)(SLPM-67002)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,0011fee0,word,3c013f40 //3c013f80

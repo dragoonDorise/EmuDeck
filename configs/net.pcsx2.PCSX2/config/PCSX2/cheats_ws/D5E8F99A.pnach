@@ -1,7 +1,0 @@
-gametitle=The Keisatsukan - Shinjuku Cop 24 Hours (J)(SLPM-62097)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-patch=1,EE,001cf974,word,3c043fcd //3c043fd3

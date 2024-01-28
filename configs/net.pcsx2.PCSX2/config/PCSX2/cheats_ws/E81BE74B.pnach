@@ -1,5 +1,0 @@
-﻿gametitle=X-Squad (E)(SLES-50031)
-comment=Widescreen Hack (PAL by Arapapa)
- 
-//803f013c 00008144 00000000 000040e4
-patch=1,EE,001C7FFC,word,3c013f40 //3c013f80

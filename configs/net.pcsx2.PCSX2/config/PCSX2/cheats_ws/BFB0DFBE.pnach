@@ -1,4 +1,0 @@
-comment=Drakengard (J) (SLPM_652.66) 
-comment=Widescreen Hack by Hyakki (pnach by Arapapa)
-
-patch=1,EE,203A5090,extended,3F400000 //3F800000

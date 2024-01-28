@@ -1,7 +1,0 @@
-gametitle=Sangokushi Senki (J)(SLPM-65093)
-comment=widescreen 16:9 hack by 99skull (NTSC-J by Arapapa)
-
-//Widescreen hack 16:9
-
-//803f023c 00008244 00000000 03001646 (1st)
-patch=1,EE,00198b54,word,3c023f40 //3c023f80

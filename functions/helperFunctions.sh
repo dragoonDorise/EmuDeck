@@ -845,8 +845,11 @@ saveLatestVersionGH() {
 
 isLatestVersionGH() {
 	emuName=$1
+	dontUpdate="$HOME/emudeck/emulatorInit.noupdate"
+	emuDontUpdate="${emuName}.noupdate"
 
-	if [ "$(check_internet_connection)" == "true" ]; then
+	# check global noupdate file flag, emulator noupdate flag file using case insensitive find and internet connectivity
+	if [ ! -f "${dontUpdate}" ] && [[ -z $(find "$HOME/emudeck/" -maxdepth 1 -type f -iname "${emuDontUpdate}") ]] && [ "$(check_internet_connection)" == "true" ]; then
 		repo=$(getEmuRepo "$emuName")
 
 		if [ "$repo" == "none" ]; then

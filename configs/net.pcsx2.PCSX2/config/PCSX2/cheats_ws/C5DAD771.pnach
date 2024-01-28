@@ -1,6 +1,0 @@
-gametitle=Gladiator - Sword of Vengeance NTSC-U
-comment=Widescreen hack
-patch=1,EE,001c6240,word,3c013f40 //fov
-patch=1,EE,0020dc38,word,3c013fab // vert fov
-patch=1,EE,0028462c,word,3c010000 // black bars remove
-patch=1,EE,20799D30,extended,bfab0000 //hud stretch

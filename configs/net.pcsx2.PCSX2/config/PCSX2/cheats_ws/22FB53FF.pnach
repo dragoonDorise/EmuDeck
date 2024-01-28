@@ -1,8 +1,0 @@
-gametitle=Squadra Course Alfa Romeo (Alfa Romeo Racing Italiano) (U)(SLUS-21321)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-fov
-//403f023c 00088244 00188344
-patch=1,EE,0027cb84,word,3c023f10 //3c023f40

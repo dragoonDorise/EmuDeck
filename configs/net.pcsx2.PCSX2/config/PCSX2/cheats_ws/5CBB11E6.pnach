@@ -1,8 +1,0 @@
-gametitle=F1 Career Challenge (J)(SLPS-20295)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov 
-//803f013c 00188144 ea10c24b
-patch=1,EE,002ba940,word,3c013f40 //3c013f80

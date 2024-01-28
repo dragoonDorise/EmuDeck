@@ -1,4 +1,0 @@
-gametitle=Tori no Hoshi: Aerial Planet [NTSC-J] (SLPS-25812)
-comment=Widescreen Hack by Little Gaint
-
-patch=1,EE,207E219C,extended,3F533334

@@ -1,5 +1,0 @@
-gametitle=Orphen: Scion of Sorcery [NTSC-U] (SLUS-20011)
-comment=Pnach by Little Giant
-
-//black borders's fix (optional)
-patch=1,EE,0025fdc4,word,24020000 //24020001

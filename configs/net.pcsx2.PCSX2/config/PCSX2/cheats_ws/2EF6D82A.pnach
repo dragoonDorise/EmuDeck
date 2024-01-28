@@ -1,4 +1,0 @@
-gametitle=Pride GP Grand Prix 2003 SLPM_654.16
-comment=Widescreen hack
-patch=1,EE,00231e8c,word,3c013f2b
-patch=1,EE,21ab5264,extended,c3950000

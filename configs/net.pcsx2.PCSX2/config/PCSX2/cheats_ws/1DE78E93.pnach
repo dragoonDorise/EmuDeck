@@ -1,6 +1,0 @@
-gametitle=Kuri Kuri Mix (J)(SLPS-25013)
-comment=Widescreen hack by El_Patas (NTSC-K by Arapapa)
-
-//Widescreen hack 16:9
-
-patch=1,EE,00100278,word,3c013f40 //3c013f80

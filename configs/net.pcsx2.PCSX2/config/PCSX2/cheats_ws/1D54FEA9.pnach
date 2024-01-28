@@ -1,6 +1,0 @@
-gametitle=Ace Combat - Squadron Leader (SCES-52424)
-comment=Widescreen fix by nemesis2000 and Arapapa (PAL-E by mirh)
-
-//widescreen fix
-patch=1,EE,0044e7a8,word,43D638F3
-patch=1,EE,0044e7ac,word,43EB7385

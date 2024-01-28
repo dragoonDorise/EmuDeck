@@ -1,7 +1,0 @@
-gametitle=Ready 2 Rumble Boxing - Round 2 (J) (v1.04) (SLPM-62124)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,00117514,word,3c013f2a //3c013f00
-patch=1,EE,00204710,word,3fe38e2a //3faaaaab

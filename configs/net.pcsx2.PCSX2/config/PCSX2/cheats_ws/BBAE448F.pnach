@@ -1,4 +1,0 @@
-gametitle=Stolen (PAL-M5) SLES_528.82
-comment=Widescreen hack by dieSkaarj
-
-patch=1,EE,20aeadf0,extended,3f400000 //3f800000

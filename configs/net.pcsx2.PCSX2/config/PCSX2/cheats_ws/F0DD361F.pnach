@@ -1,9 +1,0 @@
-gametitle=Virtua Pro Football (E)(SLES-54153)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//aa3f013c abaa2134 00188144 0000bfff
-patch=1,EE,0035371c,word,3c013fe3 //3c013faa
-patch=1,EE,00353720,word,34218e2a //3421aaab

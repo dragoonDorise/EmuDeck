@@ -1,8 +1,0 @@
-gametitle=Fahrenheit (NTSC-J)(SLPM-66193)
-comment=Widescreen patch (NTSC-J by Arapapa)
-
-//Widescreen hack 16:9
-
-//aa3f013c abaa2134 00008144
-patch=1,EE,0020b388,word,3c013fe3 //3c013faa
-patch=1,EE,0020b38c,word,34218e38 //3421aaab

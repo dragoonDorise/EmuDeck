@@ -1,7 +1,0 @@
-gametitle=Tom Clancy's Ghost Recon 2 (U)(SLUS-21105)
-comment=Widescreen hack by Arapapa
-
-//X-Fov (Single Play)
-//0000803fabaaaa3f 
-patch=1,EE,E0013f80,extended,00E8EBFA
-patch=1,EE,20E8EBF8,extended,3f400000 //3f800000

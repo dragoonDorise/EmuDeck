@@ -1,8 +1,0 @@
-gametitle=Shox (PAL)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-patch=1,EE,00206354,word,3c013fe3 //3c013faa
-patch=1,EE,00206358,word,34218e2a //3421aaab

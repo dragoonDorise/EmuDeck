@@ -1,3 +1,0 @@
-gametitle=Marc Ecko's Getting Up - Contents Under Pressure SLES_534.59
-comment=Widescreen Hack
-patch=1,EE,0056768c,word,3c023f40

@@ -1,9 +1,0 @@
-gametitle=Firefighter F.D. 18 (U)(SLUS-25724)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//Matrix hack
-patch=1,EE,002a3fb4,word,3c013f40 //00000000
-patch=1,EE,002a3fb8,word,44810000 //00000000
-patch=1,EE,002a3fc0,word,4600c602 //00000000

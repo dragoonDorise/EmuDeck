@@ -1,7 +1,0 @@
-gametitle=F1 Career Challenge (PAL & NTSC-U)(SLUS-20693 & SLES-51584)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov 
-patch=1,EE,002ba160,word,3c013f40 //3c013f80

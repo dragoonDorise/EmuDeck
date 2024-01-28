@@ -1,9 +1,0 @@
-gametitle=Virtua Racing - FlatOut (SLPM_62443)
-comment=Widescreen hack by No.47
-
-patch=1,EE,001eca80,word,3ef5c28f //3f23d70a - hor FOV 'in-game'
-
-patch=1,EE,00187fc8,word,3c033fd3 //3c03400c - hor FOV 'car & track selection'
-patch=1,EE,00187fd0,word,34643333 //3464cccd
-
-patch=1,EE,001880dc,word,3c033ec0 //3c033f00 - hor FOV 'records'
