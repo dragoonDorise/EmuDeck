@@ -100,11 +100,15 @@ source "$EMUDECKGIT"/functions/cloudSyncHealth.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMAMEProton.sh
 
-# Darwin ovewrites
+# Darwin overrides
 
 if [ "$system" = "darwin" ]; then
-	source "$EMUDECKGIT/darwin/functions/all-darwin.sh"
+	source "$EMUDECKGIT/darwin/functions/all.sh"
     source "$EMUDECKGIT/darwin/functions/helperFunctions.sh"
     source "$EMUDECKGIT/darwin/functions/overrides.sh"
 	source "$EMUDECKGIT/darwin/api.sh"
 fi
+
+# Android
+
+source "$EMUDECKGIT/android/functions/all.sh"

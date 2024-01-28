@@ -1,0 +1,7 @@
+collection: PlayStation Portable
+shortname: psp
+extensions: cso, elf, iso, pbp, prx, chd
+launch: am start
+  -n org.ppsspp.ppsspp/.PpssppActivity
+  -a android.intent.action.VIEW
+  -d "{file.path}"
