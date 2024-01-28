@@ -1,0 +1,13 @@
+collection: Game Gear
+shortname: gamegear
+extensions: 68k, bin, chd, cue, gen, gg, iso, md, mdx, sg, smd, sms, zip, 7z
+launch: am start
+  -n com.retroarch/.browser.retroactivity.RetroActivityFuture
+  -e ROM {file.path}
+  -e LIBRETRO /data/data/com.retroarch/cores/genesis_plus_gx_libretro_android.so
+  -e CONFIGFILE /storage/emulated/0/Android/data/com.retroarch/files/retroarch.cfg
+  -e IME com.android.inputmethod.latin/.LatinIME
+  -e DATADIR /data/data/com.retroarch
+  -e APK /data/app/com.retroarch-1/base.apk
+  -e SDCARD /storage/emulated/0
+  -e EXTERNAL /storage/emulated/0/Android/data/com.retroarch/files
