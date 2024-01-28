@@ -194,7 +194,6 @@ function setAllEmuPaths(){
 function setSetting () {
 	local var=$1
 	local new_val=$2
-
 	settingExists=$(grep -rw "$emuDecksettingsFile" -e "$var")
 	if [[ $settingExists == '' ]]; then
 		#insert setting to end
@@ -915,7 +914,7 @@ function emulatorInit(){
 
 function jsonToBashVars(){
 	local json=$1
-	touch "$HOME/emudeck/settings.sh"
+	echo "#!/bin/bash" > "$emuDecksettingsFile"
 	#Install Emus
 	setSetting doInstallRA $(jq .installEmus.ra.status "$json")
 	setSetting doInstallDolphin $(jq .installEmus.dolphin.status $json)
