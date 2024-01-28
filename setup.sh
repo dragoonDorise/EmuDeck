@@ -131,8 +131,8 @@ testRealDeck
 
 #this sets up the settings file with defaults, in case they don't have a new setting we've added.
 #also echos them all out so they are in the log.
-echo "Setup Settings File: "
-createUpdateSettingsFile
+#echo "Setup Settings File: "
+#createUpdateSettingsFile
 
 #create folders after tests!
 createFolders
