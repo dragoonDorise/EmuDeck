@@ -61,8 +61,10 @@ function Android_ADB_connected(){
 }
 
 function Android_ADB_push(){
+	local origin=$1
+	local destination=$2
 	export PATH=$PATH:$Android_ADB_path
-	echo "NYI"
+	adb push $origin $destination
 }
 
 Android_ADB_installAPK(){
