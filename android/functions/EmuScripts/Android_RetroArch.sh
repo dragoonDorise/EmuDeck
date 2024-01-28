@@ -9,10 +9,10 @@ function Android_RetroArch_install(){
 function Android_RetroArch_init(){
 	RetroArch_emuPath="org.libretro.RetroArch"
 	RetroArch_releaseURL=""
-	RetroArch_path="$HOME/EmuDeckAndroid/RetroArch/config/"
-	RetroArch_configFile="$HOME/EmuDeckAndroid/RetroArch/config/retroarch.cfg"
-	RetroArch_coreConfigFolders="$HOME/EmuDeckAndroid/RetroArch/config"
-	RetroArch_cores="$HOME/EmuDeckAndroid/RetroArch/config/cores"
+	RetroArch_path="$HOME/Desktop/EmuDeckAndroid/RetroArch/config/"
+	RetroArch_configFile="$HOME/Desktop/EmuDeckAndroid/RetroArch/config/retroarch.cfg"
+	RetroArch_coreConfigFolders="$HOME/Desktop/EmuDeckAndroid/RetroArch/config"
+	RetroArch_cores="$HOME/Desktop/EmuDeckAndroid/RetroArch/config/cores"
 	RetroArch_coresURL="https://buildbot.libretro.com/nightly/android/latest/arm64-v8a/"
 	RetroArch_coresExtension="so.zip"
 	RetroArch_init
