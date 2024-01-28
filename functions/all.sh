@@ -17,8 +17,6 @@ SETTINGSFILE="$HOME/emudeck/settings.sh"
 if [ -f "$SETTINGSFILE" ]; then
     # shellcheck source=./settings.sh
     source "$SETTINGSFILE"
-else
-    jsonToBashVars "$HOME/.config/EmuDeck/settings.json"
 fi
 
 if [ "$system" != "darwin" ]; then
