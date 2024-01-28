@@ -8,7 +8,7 @@ Android_RetroArch_releaseURL=""
 Android_RetroArch_path="$HOME/Desktop/EmuDeckAndroid/RetroArch/config/"
 Android_RetroArch_configFile="$HOME/Desktop/EmuDeckAndroid/RetroArch/config/retroarch.cfg"
 Android_RetroArch_coreConfigFolders="$HOME/Desktop/EmuDeckAndroid/RetroArch/config"
-Android_RetroArch_cores="$HOME/Desktop/EmuDeckAndroid/RetroArch/config/cores"
+Android_RetroArch_cores="$HOME/Desktop/EmuDeckAndroid/RetroArch/downloads"
 Android_RetroArch_coresURL="https://buildbot.libretro.com/nightly/android/latest/arm64-v8a/"
 Android_RetroArch_coresExtension="_android.so.zip"
 
