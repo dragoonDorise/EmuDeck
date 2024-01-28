@@ -41,7 +41,7 @@ zenity --question \
 		 --width=250 \
 		 --ok-label="I know what I am doing, I would like to uninstall EmuDeck" \
 		 --cancel-label="Cancel uninstallation" \
-		 --text="${text}" &>> /dev/null
+		 --text="${text}" &> /dev/null
 ans=$?
 if [ $ans -eq 0 ]; then
 	doUninstall=true
@@ -198,117 +198,117 @@ if [ "$doUninstall" == true ]; then
 
 	if [[ "$doUninstallares" == true ]]; then
 		flatpak uninstall dev.ares.ares -y
-		rm -rf $HOME/.var/app/dev.ares.ares &>> /dev/null
+		rm -rf $HOME/.var/app/dev.ares.ares &> /dev/null
 	fi
 	if [[ "$doUninstallBigPEmu" == true ]]; then
 		rm -rf $HOME/Applications/BigPEmu &>> /dev/null
 		rm -rf $HOME/.local/share/applications/BigPEmu.desktop &>> /dev/null
 	fi
 	if [[ "$doUninstallCemu" == true ]]; then
-		find $romsPath/wiiu -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \; &>> /dev/null
-		rm -f "$HOME/.local/share/applications/Cemu (Proton).desktop" &>> /dev/null
+		find ${romsPath}/wiiu -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \;
+		rm -f "$HOME/.local/share/applications/Cemu (Proton).desktop" &> /dev/null
 	fi
 	if [[ "${doUninstallCemuNative}" == "true" ]]; then
-		rm -rf $HOME/Applications/Cemu*.AppImage &>> /dev/null
-		rm -rf $HOME/.config/Cemu &>> /dev/null
-		rm -rf $HOME/.local/share/Cemu &>> /dev/null
-		rm -rf $HOME/.cache/Cemu &>> /dev/null
-		rm -rf $HOME/.local/share/applications/Cemu.desktop &>> /dev/null
+		rm -rf $HOME/Applications/Cemu*.AppImage &> /dev/null
+		rm -rf $HOME/.config/Cemu &> /dev/null
+		rm -rf $HOME/.local/share/Cemu &> /dev/null
+		rm -rf $HOME/.cache/Cemu &> /dev/null
+		rm -rf $HOME/.local/share/applications/Cemu.desktop &> /dev/null
 	fi
 	if [[ "$doUninstallCitra" == true ]]; then
 		flatpak uninstall org.citra_emu.citra -y
-		rm -rf $HOME/.var/app/org.citra_emu.citra &>> /dev/null
+		rm -rf $HOME/.var/app/org.citra_emu.citra &> /dev/null
 	fi
 	if [[ "$doUninstallDolphin" == true ]]; then
 		flatpak uninstall org.DolphinEmu.dolphin-emu -y
-		rm -rf $HOME/.var/app/org.DolphinEmu.dolphin-emu &>> /dev/null
+		rm -rf $HOME/.var/app/org.DolphinEmu.dolphin-emu &> /dev/null
 	fi
 	if [[ "$doUninstallDuck" == true ]]; then
 		flatpak uninstall org.duckstation.DuckStation -y
-		rm -rf $HOME/.var/app/org.duckstation.DuckStation &>> /dev/null
+		rm -rf $HOME/.var/app/org.duckstation.DuckStation &> /dev/null
 	fi
 	if [[ "$doUninstallFlycast" == true ]]; then
 		flatpak uninstall org.flycast.Flycast -y
-		rm -rf $HOME/.var/app/org.flycast.Flycast &>> /dev/null
+		rm -rf $HOME/.var/app/org.flycast.Flycast &> /dev/null
 	fi
 	if [[ "$doUninstallMame" == true ]]; then
 		flatpak uninstall org.mamedev.MAME -y
-		rm -rf $HOME/.var/app/org.mamedev.MAME &>> /dev/null
+		rm -rf $HOME/.var/app/org.mamedev.MAME &> /dev/null
 	fi
 	if [[ "$doUninstallmelonDS" == true ]]; then
 		flatpak uninstall net.kuribo64.melonDS -y
-		rm -rf $HOME/.var/app/net.kuribo64.melonDS &>> /dev/null
+		rm -rf $HOME/.var/app/net.kuribo64.melonDS &> /dev/null
 	fi
 	if [[ "$doUninstallMGBA" == true ]]; then
-		rm -rf $HOME/Applications/mGBA.AppImage &>> /dev/null
-		rm -rf $HOME/.config/mgba &>> /dev/null
-		rm -rf $HOME/.local/share/applications/mGBA.desktop &>> /dev/null
+		rm -rf $HOME/Applications/mGBA.AppImage &> /dev/null
+		rm -rf $HOME/.config/mgba &> /dev/null
+		rm -rf $HOME/.local/share/applications/mGBA.desktop &> /dev/null
 	fi
 	if [[ "$doUninstallModel2" == true ]]; then
-		find $romsPath/model2 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \;
-		rm -f "$HOME/.local/share/applications/Model2 (Proton).desktop" &>> /dev/null
+		find ${romsPath}/model2 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \;
+		rm -f "$HOME/.local/share/applications/Model2 (Proton).desktop" &> /dev/null
 	fi
 	if [[ "$doUninstallPCSX2" == true ]]; then
-		rm -rf $HOME/Applications/pcsx2-Qt.AppImage &>> /dev/null
-		rm -rf $HOME/.config/PCSX2 &>> /dev/null
-		rm -rf $HOME/.local/share/applications/pcsx2-Qt.desktop &>> /dev/null
-		rm -rf $HOME/.local/share/applications/PCSX2-Qt.desktop &>> /dev/null
+		rm -rf $HOME/Applications/pcsx2-Qt.AppImage &> /dev/null
+		rm -rf $HOME/.config/PCSX2 &> /dev/null
+		rm -rf $HOME/.local/share/applications/pcsx2-Qt.desktop &> /dev/null
+		rm -rf $HOME/.local/share/applications/PCSX2-Qt.desktop &> /dev/null
 	fi
 	if [[ "$doUninstallPPSSPP" == true ]]; then
 		flatpak uninstall org.ppsspp.PPSSPP -y
-		rm -rf $HOME/.var/app/org.ppsspp.PPSSPP &>> /dev/null
+		rm -rf $HOME/.var/app/org.ppsspp.PPSSPP &> /dev/null
 	fi
 	if [[ "$doUninstallPrimeHacks" == true ]]; then
 		flatpak uninstall io.github.shiiion.primehack -y
-		rm -rf $HOME/.var/app/io.github.shiiion.primehack &>> /dev/null
+		rm -rf $HOME/.var/app/io.github.shiiion.primehack &> /dev/null
 	fi
 	if [[ "$doUninstallRA" == true ]]; then
 		flatpak uninstall org.libretro.RetroArch -y
-		rm -rf $HOME/.var/app/org.libretro.RetroArch &>> /dev/null
+		rm -rf $HOME/.var/app/org.libretro.RetroArch &> /dev/null
 	fi
 	if [[ "$doUninstallRMG" == true ]]; then
 		flatpak uninstall com.github.Rosalie241.RMG -y
-		rm -rf $HOME/.var/app/com.github.Rosalie241.RMG &>> /dev/null
+		rm -rf $HOME/.var/app/com.github.Rosalie241.RMG &> /dev/null
 	fi
 	if [[ "$doUninstallRPCS3" == true ]]; then
 		# Flatpak
 		flatpak uninstall net.rpcs3.RPCS3 -y
-		rm -rf $HOME/.var/app/net.rpcs3.RPCS3 &>> /dev/null
+		rm -rf $HOME/.var/app/net.rpcs3.RPCS3 &> /dev/null
 		# AppImage
-		rm -rf "$HOME/.config/rpcs3" &>> /dev/null
-		rm -rf "$HOME/.cache/rpcs3" &>> /dev/null
-		rm -rf $HOME/.local/share/applications/RPCS3.desktop &>> /dev/null
+		rm -rf "$HOME/.config/rpcs3" &> /dev/null
+		rm -rf "$HOME/.cache/rpcs3" &> /dev/null
+		rm -rf $HOME/.local/share/applications/RPCS3.desktop &> /dev/null
 	fi
 	if [[ "$doUninstallRyujinx" == true ]]; then
-		rm -rf $HOME/.config/Ryujinx &>> /dev/null
-		rm -rf $HOME/Applications/publish &>> /dev/null
-		rm -rf $HOME/.local/share/applications/Ryujinx.desktop &>> /dev/null
+		rm -rf $HOME/.config/Ryujinx &> /dev/null
+		rm -rf $HOME/Applications/publish &> /dev/null
+		rm -rf $HOME/.local/share/applications/Ryujinx.desktop &> /dev/null
 	fi
 	if [[ "$doUninstallScummVM" == true ]]; then
 		flatpak uninstall org.scummvm.ScummVM -y
-		rm -rf $HOME/.var/app/org.scummvm.ScummVM &>> /dev/null
+		rm -rf $HOME/.var/app/org.scummvm.ScummVM &> /dev/null
 	fi
 	if [[ "$doUninstallVita3K" == true ]]; then
-		rm -rf $HOME/Applications/Vita3K &>> /dev/null
-		rm -rf $HOME/.local/share/Vita3K &>> /dev/null
-		rm -rf $HOME/.local/share/applications/Vita3K.desktop &>> /dev/null
+		rm -rf $HOME/Applications/Vita3K &> /dev/null
+		rm -rf $HOME/.local/share/Vita3K &> /dev/null
+		rm -rf $HOME/.local/share/applications/Vita3K.desktop &> /dev/null
 	fi
 	if [[ "$doUninstallXemu" == true ]]; then
 		flatpak uninstall app.xemu.xemu -y
-		rm -rf $HOME/.var/app/app.xemu.xemu &>> /dev/null
+		rm -rf $HOME/.var/app/app.xemu.xemu &> /dev/null
 	fi
 	if [[ "$doUninstallXenia" == true ]]; then
-		find $romsPath/xbox360 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \; &>> /dev/null
-	 	rm -rf $HOME/.local/share/applications/xenia.desktop &>> /dev/null
+		find ${romsPath}/xbox360 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \; &> /dev/null
+	 	rm -rf $HOME/.local/share/applications/xenia.desktop &> /dev/null
 	fi
 	if [[ "$doUninstallYuzu" == true ]]; then
 		#flatpak uninstall org.yuzu_emu.yuzu --system -y
-		#rm -rf $HOME/.var/app/org.yuzu_emu.yuzu &>> /dev/null
-		rm -rf $HOME/Applications/yuzu.AppImage &>> /dev/null
-		rm -rf $HOME/.config/yuzu &>> /dev/null
-		rm -rf $HOME/.local/share/yuzu &>> /dev/null
-		rm -rf $HOME/.cache/yuzu &>> /dev/null
-		rm -rf $HOME/.local/share/applications/yuzu.desktop &>> /dev/null
+		#rm -rf $HOME/.var/app/org.yuzu_emu.yuzu &> /dev/null
+		rm -rf $HOME/Applications/yuzu.AppImage &> /dev/null
+		rm -rf $HOME/.config/yuzu &> /dev/null
+		rm -rf $HOME/.local/share/yuzu &> /dev/null
+		rm -rf $HOME/.cache/yuzu &> /dev/null
+		rm -rf $HOME/.local/share/applications/yuzu.desktop &> /dev/null
 	fi
 
 	echo "55"
@@ -316,7 +316,7 @@ if [ "$doUninstall" == true ]; then
 
 	#Backup Service
 	systemctl --user disable emudeck_saveBackup.timer && rm "$HOME/.config/systemd/user/emudeck_saveBackup.timer" && rm "$HOME/.config/systemd/user/emudeck_saveBackup.service"
-	rm -rf "$HOME/Desktop/SaveBackup.desktop" &>> /dev/null
+	rm -rf "$HOME/Desktop/SaveBackup.desktop" &> /dev/null
 	#CloudSync
 	systemctl --user stop "EmuDeckCloudSync.service"
 	rm -rf rm -rf "$HOME/.config/systemd/user/EmuDeckCloudSync.service" > /dev/null
@@ -326,55 +326,55 @@ if [ "$doUninstall" == true ]; then
 	echo "60"
 	echo "# Removing Steam Input files";
 
-	rm -rf $HOME/.steam/steam/controller_base/templates/ares_controller_config.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/citra_controller_config.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/duckstation_controller_config.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_cloud_controller_config.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/emulationstation-de_controller_config.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/melonds_controller_config.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/mGBA_controller_config.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/ares_controller_config.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/citra_controller_config.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/duckstation_controller_config.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_cloud_controller_config.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emulationstation-de_controller_config.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/melonds_controller_config.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/mGBA_controller_config.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/pcsx2_controller_config.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf  &> /dev/null
 
-	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_cloud_controller_config.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_generic.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_ps4.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_ps5.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck_nintendo.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck_proton.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_switch_pro.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_xbox360.vdf  &>> /dev/null
-	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_xboxone.vdf  &>> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_cloud_controller_config.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_generic.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_ps4.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_ps5.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck_nintendo.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck_proton.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_switch_pro.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_xbox360.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_xboxone.vdf  &> /dev/null
 
 	find  "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons" -name 'EmuDeck*' -exec rm {} \;
 
 	echo "65"
 	echo "# Removing EmuDeck AppImage";
-	rm -rf $HOME/emudeck &>> /dev/null
-	rm -rf $HOME/Desktop/EmuDeckCHD.desktop &>> /dev/null
-	rm -rf $HOME/Desktop/EmuDeckUninstall.desktop &>> /dev/null
-	rm -rf $HOME/Desktop/EmuDeck.desktop &>> /dev/null
-	rm -rf $HOME/Desktop/EmuDeckSD.desktop &>> /dev/null
-	rm -rf $HOME/Desktop/EmuDeckBinUpdate.desktop &>> /dev/null
-	rm -rf $HOME/Desktop/SteamRomManager.desktop &>> /dev/null
-	rm -rf $HOME/Applications/EmuDeck.AppImage &>> /dev/null
-	rm -rf $HOME/Applications/EmuDeck_SaveSync.AppImage &>> /dev/null
-	rm -rf $HOME/Applications/RemotePlayWhatever.AppImage &>> /dev/null
+	rm -rf $HOME/emudeck &> /dev/null
+	rm -rf $HOME/Desktop/EmuDeckCHD.desktop &> /dev/null
+	rm -rf $HOME/Desktop/EmuDeckUninstall.desktop &> /dev/null
+	rm -rf $HOME/Desktop/EmuDeck.desktop &> /dev/null
+	rm -rf $HOME/Desktop/EmuDeckSD.desktop &> /dev/null
+	rm -rf $HOME/Desktop/EmuDeckBinUpdate.desktop &> /dev/null
+	rm -rf $HOME/Desktop/SteamRomManager.desktop &> /dev/null
+	rm -rf $HOME/Applications/EmuDeck.AppImage &> /dev/null
+	rm -rf $HOME/Applications/EmuDeck_SaveSync.AppImage &> /dev/null
+	rm -rf $HOME/Applications/RemotePlayWhatever.AppImage &> /dev/null
 	rm -rf $HOME/.config/EmuDeck
 
 	echo "70"
 	echo "# Removing Emulators Custom Shortcuts";
-	rm -rf $HOME/.local/share/applications/EmuDeck.desktop &>> /dev/null
+	rm -rf $HOME/.local/share/applications/EmuDeck.desktop &> /dev/null
 
 	echo "80"
 	echo "# Removing Steam ROM Manager and EmulationStation-DE";
 	# Steam ROM Manager
 	rm -rf $HOME/.config/steam-rom-manager
 	rm -rf "$toolsPath/Steam ROM Manager.AppImage"
-	rm -rf $HOME/.local/share/applications/SRM.desktop &>> /dev/null
+	rm -rf $HOME/.local/share/applications/SRM.desktop &> /dev/null
 	# EmulationStation-DE
 	rm -rf $HOME/.emulationstation
 	rm -rf "$toolsPath/EmulationStation-DE.AppImage"
