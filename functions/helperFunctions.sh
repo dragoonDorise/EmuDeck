@@ -909,5 +909,3 @@ function emulatorInit(){
 	#isLatestVersionGH "$emuName"
 	cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
 }
-
-

@@ -1,0 +1,4 @@
+collection: Nintendo 3DS
+shortname: 3ds
+extensions: 3ds, 3dsx, app, axf, cci, cxi, elf
+launch: am start -n org.citra.emu/.ui.EmulationActivity -a android.intent.action.VIEW -e GamePath {file.path}
