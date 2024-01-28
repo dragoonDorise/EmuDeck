@@ -11,12 +11,14 @@ fi
 #load helpers first, just in case
 source "$EMUDECKGIT"/functions/helperFunctions.sh
 
+
+
 SETTINGSFILE="$HOME/emudeck/settings.sh"
 if [ -f "$SETTINGSFILE" ]; then
     # shellcheck source=./settings.sh
     source "$SETTINGSFILE"
 else
-    cp "$EMUDECKGIT/settings.sh" "$SETTINGSFILE"
+    jsonToBashVars "$HOME/.config/EmuDeck/settings.json"
 fi
 
 if [ "$system" != "darwin" ]; then
