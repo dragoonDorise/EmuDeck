@@ -16,7 +16,6 @@ RMG_install() {
 	setMSG "Installing $RMG_emuName"
 
 	installEmuFP "${RMG_emuName}" "${RMG_emuPath}"
-	flatpak override "${RMG_emuPath}" --filesystem=host --user
 }
 
 #Fix for autoupdate

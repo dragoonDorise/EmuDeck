@@ -13,9 +13,8 @@ PPSSPP_cleanup(){
 
 #Install
 PPSSPP_install(){
+	setMSG "Installing $PPSSPP_emuName"
 	installEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}"
-	flatpak override "${PPSSPP_emuPath}" --filesystem=host --user
-	flatpak override "${PPSSPP_emuPath}" --share=network --user
 }
 #Fix for autoupdate
 Ppsspp_install(){
@@ -24,6 +23,7 @@ Ppsspp_install(){
 
 #ApplyInitialSettings
 PPSSPP_init(){
+	setMSG "Initializing $PPSSPP_emuName settings."
 	configEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}" "true"
 	PPSSPP_setupStorage
 	PPSSPP_setEmulationFolder
@@ -34,6 +34,7 @@ PPSSPP_init(){
 
 #update
 PPSSPP_update(){
+	setMSG "Updating $PPSSPP_emuName settings."
 	configEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}"
 	PPSSPP_setupStorage
 	PPSSPP_setEmulationFolder
@@ -43,6 +44,7 @@ PPSSPP_update(){
 
 #ConfigurePaths
 PPSSPP_setEmulationFolder(){
+	setMSG "Setting $PPSSPP_emuName Emulation Folder"
 	iniFieldUpdate "$PPSSPP_configFile" "General" "CurrentDirectory" "${romsPath}/psp"
 }
 

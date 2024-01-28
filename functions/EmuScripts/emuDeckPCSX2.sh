@@ -13,8 +13,6 @@ PCSX2_cleanup(){
 #Install
 PCSX2_install(){
 	installEmuFP "${PCSX2_emuName}" "${PCSX2_emuPath}"
-	flatpak override "${PCSX2_emuPath}" --filesystem=host --user
-	flatpak override "${PCSX2_emuPath}" --share=network --user
 }
 
 #ApplyInitialSettings

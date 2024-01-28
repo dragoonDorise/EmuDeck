@@ -24,7 +24,6 @@ Xemu_cleanup(){
 #Install
 Xemu_install() {
 	installEmuFP "${Xemu_emuName}" "${Xemu_emuPath}"
-	flatpak override "${Xemu_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
