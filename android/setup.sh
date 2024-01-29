@@ -73,9 +73,9 @@ curl -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-
 ## set backend location
 ##
 #
-EMUDECKGIT="$HOME/.config/EmuDeck/backend/android"
-
-
+if [[ "$EMUDECKGIT" == "" ]]; then
+	EMUDECKGIT="$HOME/.config/EmuDeck/backend"
+fi
 #
 ##
 ## Start of installation
