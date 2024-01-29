@@ -11,12 +11,12 @@ fi
 #load helpers first, just in case
 source "$EMUDECKGIT"/functions/helperFunctions.sh
 
+
+
 SETTINGSFILE="$HOME/emudeck/settings.sh"
 if [ -f "$SETTINGSFILE" ]; then
     # shellcheck source=./settings.sh
     source "$SETTINGSFILE"
-else
-    cp "$EMUDECKGIT/settings.sh" "$SETTINGSFILE"
 fi
 
 if [ "$system" != "darwin" ]; then
@@ -112,4 +112,4 @@ fi
 
 # Android
 
-source "$EMUDECKGIT/android/functions/all.sh"
+#source "$EMUDECKGIT/android/functions/all.sh"

@@ -79,3 +79,7 @@ Android_ADB_dl_installAPK(){
 	Android_download "$temp_emu.apk" $temp_url
 	Android_ADB_installAPK "$HOME/emudeck/android/$temp_emu.apk"
 }
+
+function Android_ADB_getSDCard(){
+	adb shell sm list-volumes public | perl -lane 'print $F[-1]'
+}

@@ -81,7 +81,8 @@ EMUDECKGIT="$HOME/.config/EmuDeck/backend/android"
 ## Start of installation
 ##
 #
-
+source "$EMUDECKGIT"/functions/helperFunctions.sh
+jsonToBashVars "$HOME/.config/EmuDeck/settings.json"
 source "$EMUDECKGIT/functions/all.sh"
 
 
