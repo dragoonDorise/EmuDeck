@@ -83,3 +83,24 @@ Android_ADB_dl_installAPK(){
 function Android_ADB_getSDCard(){
 	adb shell sm list-volumes public | perl -lane 'print $F[-1]'
 }
+
+function Android_ADB_init(){
+
+	if [ $(Android_ADB_isInstalled) == "false" ]; then
+		$(Android_ADB_install)
+	fi
+
+
+	local isConnected=$(Android_ADB_connected)
+	local SDCardName=$(Android_ADB_getSDCard)
+	local json='{
+		"isConnected": "'"$isConnected"'",
+		"SDCardName": "'"$SDCardName"'"
+	}'
+
+	echo $json;
+
+}
+
+
+
