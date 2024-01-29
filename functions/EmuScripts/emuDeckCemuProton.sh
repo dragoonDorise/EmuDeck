@@ -6,7 +6,7 @@ CemuProton_emuPath="${romsPath}/wiiu/Cemu.exe"
 CemuProton_cemuSettings="${romsPath}/wiiu/settings.xml"
 
 # https://github.com/cemu-project/Cemu/blob/main/src/config/CemuConfig.h#L158-L172
-declare -A CemuProton_languages=(
+CemuProton_languages=(
 ["ja"]=0
 ["en"]=1
 ["fr"]=2
