@@ -11,12 +11,12 @@ fi
 #load helpers first, just in case
 source "$EMUDECKGIT"/functions/helperFunctions.sh
 
+
+
 SETTINGSFILE="$HOME/emudeck/settings.sh"
 if [ -f "$SETTINGSFILE" ]; then
     # shellcheck source=./settings.sh
     source "$SETTINGSFILE"
-else
-    cp "$EMUDECKGIT/settings.sh" "$SETTINGSFILE"
 fi
 
 if [ "$system" != "darwin" ]; then
@@ -100,11 +100,15 @@ source "$EMUDECKGIT"/functions/cloudSyncHealth.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMAMEProton.sh
 
-# Darwin ovewrites
+# Darwin overrides
 
 if [ "$system" = "darwin" ]; then
-	source "$EMUDECKGIT/darwin/functions/all-darwin.sh"
+	source "$EMUDECKGIT/darwin/functions/all.sh"
     source "$EMUDECKGIT/darwin/functions/helperFunctions.sh"
     source "$EMUDECKGIT/darwin/functions/overrides.sh"
 	source "$EMUDECKGIT/darwin/api.sh"
 fi
+
+# Android
+
+source "$EMUDECKGIT/android/functions/all.sh"
