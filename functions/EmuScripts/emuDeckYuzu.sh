@@ -8,7 +8,7 @@ Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
 Yuzu_configFile="$HOME/.config/yuzu/qt-config.ini"
 
 # https://github.com/yuzu-emu/yuzu/blob/master/src/core/file_sys/control_metadata.cpp#L41-L60
-declare -A Yuzu_languages=(
+Yuzu_languages=(
 ["ja"]=0
 ["en"]=1
 ["fr"]=2
@@ -23,7 +23,7 @@ declare -A Yuzu_languages=(
 ["tw"]=11) # TODO: not all langs but we need to switch to full lang codes to support those
 
 # https://github.com/yuzu-emu/yuzu/blob/master/src/yuzu/configuration/configure_system.ui#L272-L309
-declare -A Yuzu_regions=(
+Yuzu_regions=(
 ["ja"]=0 # Japan
 ["en"]=1 # USA
 ["fr"]=2 # Europe
