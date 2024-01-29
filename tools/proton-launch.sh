@@ -52,7 +52,7 @@ showArguments () {
 # Attempt to send a request to install Proton version
 installProton () {
     # Known AppIDs for Proton versions
-    protonVersions=(
+    declare -A protonVersions=(
         [3.7 Beta]="930400"
         [3.7]="858280"
         [3.16 Beta]="996510"
