@@ -2,9 +2,7 @@
 
 #variables
 Android_RetroArch_emuName="RetroArch"
-Android_RetroArch_emuType="$emuDeckEmuTypeFlatpak"
-Android_RetroArch_emuPath="org.libretro.RetroArch"
-Android_RetroArch_releaseURL=""
+Android_RetroArch_emuPath="$HOME/Desktop/EmuDeckAndroid/RetroArch"
 Android_RetroArch_path="$HOME/Desktop/EmuDeckAndroid/RetroArch/config/"
 Android_RetroArch_configFile="$HOME/Desktop/EmuDeckAndroid/RetroArch/config/retroarch.cfg"
 Android_RetroArch_coreConfigFolders="$HOME/Desktop/EmuDeckAndroid/RetroArch/config"
@@ -48,7 +46,7 @@ Android_RetroArch_init(){
 	#Android_RetroArch_autoSave
 	#Android_RetroArch_setRetroAchievements
 	#Android_RetroArch_melonDSDSMigration
-	Android_ADB_push $HOME/EmuDeck/RetroArch /storage/emulated/0/
+	Android_ADB_push $Android_RetroArch_emuPath $androidStoragePath
 }
 
 
