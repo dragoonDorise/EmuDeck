@@ -5,7 +5,7 @@ Xemu_emuType="$emuDeckEmuTypeFlatpak"
 Xemu_emuPath="app.xemu.xemu"
 
 # https://xboxdevwiki.net/EEPROM
-declare -A Xemu_languages=(
+Xemu_languages=(
 ["en"]=1
 ["ja"]=2
 ["de"]=3
