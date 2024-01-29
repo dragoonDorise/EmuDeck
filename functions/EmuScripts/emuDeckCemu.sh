@@ -5,7 +5,7 @@ Cemu_functions () {
 	local showProgress="$2"
 
 	# Parameters
-	declare -A CemuNative=(
+	CemuNative=(
 		[emuName]="CemuNative"
 		[emuType]="AppImage"
 		[emuPath]="${HOME}/Applications/CemuNative.AppImage"

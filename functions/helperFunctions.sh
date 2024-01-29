@@ -1034,4 +1034,8 @@ function jsonToBashVars(){
 	setSetting achievementsUserToken "$(jq .achievements.token $json)"
 	setSetting achievementsHardcore "$(jq .achievements.hardcore $json)"
 
+	#Android
+	setSetting androidStorage "$(jq .android.storage $json)"
+	setSetting androidStoragePath "$(jq .android.storagePath $json)"
+
 }

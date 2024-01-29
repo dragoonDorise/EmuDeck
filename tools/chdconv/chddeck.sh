@@ -7,11 +7,11 @@ if [[ "$EMUDECKGIT" == "" ]]; then
 fi
 
 #whitelist
-declare -a chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
-declare -a rvzfolderWhiteList=("gamecube" "wii" "primehacks")
-declare -a csofolderWhiteList=("psp")
-declare -a n3dsfolderWhiteList=("3ds")
-declare -a searchFolderList
+chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
+rvzfolderWhiteList=("gamecube" "wii" "primehacks")
+csofolderWhiteList=("psp")
+n3dsfolderWhiteList=("3ds")
+searchFolderList
 
 #executables
 chdPath="$EMUDECKGIT/tools/chdconv"
