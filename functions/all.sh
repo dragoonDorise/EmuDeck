@@ -111,4 +111,4 @@ fi
 
 # Android
 
-#source "$EMUDECKGIT/android/functions/all.sh"
+source "$EMUDECKGIT/android/functions/all.sh"
