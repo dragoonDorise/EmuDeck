@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
 emulatorInit "pcsx2"
 emuName="pcsx2-Qt" #parameterize me

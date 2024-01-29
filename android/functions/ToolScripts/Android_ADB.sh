@@ -79,3 +79,28 @@ Android_ADB_dl_installAPK(){
 	Android_download "$temp_emu.apk" $temp_url
 	Android_ADB_installAPK "$HOME/emudeck/android/$temp_emu.apk"
 }
+
+function Android_ADB_getSDCard(){
+	adb shell sm list-volumes public | perl -lane 'print $F[-1]'
+}
+
+function Android_ADB_init(){
+
+	if [ $(Android_ADB_isInstalled) == "false" ]; then
+		$(Android_ADB_install)
+	fi
+
+
+	local isConnected=$(Android_ADB_connected)
+	local SDCardName=$(Android_ADB_getSDCard)
+	local json='{
+		"isConnected": "'"$isConnected"'",
+		"SDCardName": "'"$SDCardName"'"
+	}'
+
+	echo $json;
+
+}
+
+
+

@@ -107,7 +107,8 @@ EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 
 
 
-
+source "$EMUDECKGIT"/functions/helperFunctions.sh
+jsonToBashVars "$HOME/.config/EmuDeck/settings.json"
 source "$EMUDECKGIT/functions/all.sh"
 
 
@@ -130,8 +131,8 @@ testRealDeck
 
 #this sets up the settings file with defaults, in case they don't have a new setting we've added.
 #also echos them all out so they are in the log.
-echo "Setup Settings File: "
-createUpdateSettingsFile
+#echo "Setup Settings File: "
+#createUpdateSettingsFile
 
 #create folders after tests!
 createFolders
@@ -478,7 +479,7 @@ if [ "$system" != "darwin" ]; then
 
 fi
 
-Plugins_installSteamDeckGyroDSU
+#Plugins_installSteamDeckGyroDSU
 
 #EmuDeck updater on gaming Mode
 #mkdir -p "${toolsPath}/updater"
