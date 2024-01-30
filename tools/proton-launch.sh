@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 ## proton-launch.sh
 
