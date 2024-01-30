@@ -33,9 +33,11 @@ Model2_install(){
   fi
 
   # Create the pfx directory if it doesn't exist
-  if [ ! -d "$romsPath/model2/roms/pfx" ]; then
-    mkdir -p "$romsPath/model2/roms/pfx"
+  if [ ! -d "$romsPath/model2/pfx" ]; then
+    mkdir -p "$romsPath/model2/pfx"
   fi
+  
+  cp "$EMUDECKGIT/tools/launchers/model2.sh" "$toolsPath/launchers/model2.sh"
 
 
 }
