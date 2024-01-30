@@ -22,12 +22,12 @@ Supermodel_install(){
 Supermodel_init(){
 	# Flatpak does not install to flatpak directory
 	mkdir -p $HOME/.supermodel/Analysis $HOME/.supermodel/Log
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel" "$HOME/deck/.supermodel/" --backup --suffix=.bak
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel" "$HOME/.supermodel/" --backup --suffix=.bak
 	# Download updated gamelist from source
 	if [ -e "$HOME/deck/.supermodel/Config/Games.xml" ]; then
 		rm -rf "$HOME/deck/.supermodel/Config/Games.xml"
 	fi
-	wget "$Supermodel_gamesList" -P "$HOME/deck/.supermodel/Config/"
+	wget "$Supermodel_gamesList" -P "$HOME/.supermodel/Config/"
 	Supermodel_setupStorage
 	Supermodel_setEmulationFolder
 	Supermodel_setupSaves
@@ -37,12 +37,12 @@ Supermodel_init(){
 Supermodel_update(){
 	# Flatpak does not install to flatpak directory
 	mkdir -p $HOME/.supermodel/Analysis $HOME/.supermodel/Log
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel" "$HOME/deck/.supermodel/" --ignore-existing
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel" "$HOME/.supermodel/" --ignore-existing
 	# Download updated gamelist from source
 	if [ -e "$HOME/deck/.supermodel/Config/Games.xml" ]; then
 		rm -rf "$HOME/deck/.supermodel/Config/Games.xml"
 	fi
-	wget "$Supermodel_gamesList" -P "$HOME/deck/.supermodel/Config/"
+	wget "$Supermodel_gamesList" -P "$HOME/.supermodel/Config/"
 	Supermodel_setupStorage
 	Supermodel_setEmulationFolder
 	Supermodel_setupSaves
@@ -74,7 +74,7 @@ Supermodel_wipe(){
 #Uninstall
 Supermodel_uninstall(){
     flatpak uninstall "$Supermodel_emuPath" --user -y
-	rm -rf "$HOME/deck/.supermodel"
+	rm -rf "$HOME/.supermodel"
 }
 
 #setABXYstyle
