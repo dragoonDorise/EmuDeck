@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 LINK="http://localhost:8096"
 
