@@ -28,7 +28,7 @@
     "useCredentials": true
   },
   "parserInputs": {
-    "glob": "**/${title}@(.7z|.7Z|.elf|.ELF|.cso|.CSO|.iso|.ISO|.pbp|.PBP|.prx|.PRX)"
+    "glob": "**/${title}@(.7z|.7Z|.elf|.ELF|.chd|.CHD|.cso|.CSO|.iso|.ISO|.pbp|.PBP|.prx|.PRX)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
