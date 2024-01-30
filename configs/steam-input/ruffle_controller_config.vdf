@@ -20,13 +20,13 @@
     {
         "english"
         {
-            "title"        "Web Browser"
-            "description"        "Layout for Web Browsing"
+            "title"        "EmuDeck - Flash"
+            "description"        "Layout for Flash"
         }
         "portuguese"
         {
-            "title"        "Browser da Web"
-            "description"        ""
+            "title"        "EmuDeck - Flash"
+            "description"        "Layout para Flash"
         }
     }
     "group"
