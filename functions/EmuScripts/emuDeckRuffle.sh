@@ -15,10 +15,14 @@ Ruffle_install(){
         mkdir "$HOME/$Ruffle_emuPath"
 		tar -zxvf "$HOME/Applications/$Ruffle_file_name" -C "$HOME/Applications/ruffle" ruffle && rm -rf "$HOME/Applications/$Ruffle_file_name"
         chmod +x "$Ruffle_emuPath/ruffle"
-
+        Ruffle_addSteamInputProfile
     else
         return 1
     fi
+}
+
+Ruffle_addSteamInputProfile(){
+	rsync -r "$EMUDECKGIT/configs/steam-input/ruffle_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 #Uninstall
