@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
 emulatorInit "cemu-native"
 # shellcheck disable=SC1091
