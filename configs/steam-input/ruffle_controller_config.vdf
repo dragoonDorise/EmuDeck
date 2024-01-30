@@ -1,0 +1,817 @@
+"controller_mappings"
+{
+    "version"        "3"
+    "title"        "EmuDeck - Flash"
+    "description"        "Press START + SELECT to Exit Emulator."
+    "export_type"        "template"
+    "controller_type"        "controller_xboxone"
+    "actions"
+    {
+        "Default"
+        {
+            "title"        "Default"
+            "legacy_set"        "1"
+        }
+    }
+    "action_layers"
+    {
+    }
+    "localization"
+    {
+        "english"
+        {
+            "title"        "Web Browser"
+            "description"        "Layout for Web Browsing"
+        }
+        "portuguese"
+        {
+            "title"        "Browser da Web"
+            "description"        ""
+        }
+    }
+    "group"
+    {
+        "id"        "0"
+        "mode"        "four_buttons"
+        "name"        ""
+        "description"        ""
+        "inputs"
+        {
+            "button_a"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press RETURN, ⏯️, , "
+                            "binding"        "key_press SPACE, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "button_b"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press RETURN, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "button_x"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press SPACE, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "button_y"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press ESCAPE, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+        }
+    }
+    "group"
+    {
+        "id"        "1"
+        "mode"        "dpad"
+        "name"        ""
+        "description"        ""
+        "inputs"
+        {
+            "dpad_north"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press UP_ARROW, , "
+                            "binding"        "key_press W, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "dpad_south"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press DOWN_ARROW, , "
+                        }
+                    }
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press S, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "dpad_east"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press RIGHT_ARROW, , "
+                        }
+                    }
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press D, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "dpad_west"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press LEFT_ARROW, , "
+                        }
+                    }
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press A, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+        }
+        "settings"
+        {
+            "requires_click"        "0"
+            "layout"        "0"
+        }
+    }
+    "group"
+    {
+        "id"        "2"
+        "mode"        "dpad"
+        "name"        ""
+        "description"        ""
+        "inputs"
+        {
+            "dpad_north"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press UP_ARROW, , "
+                        }
+                        "settings"
+                        {
+                            "haptic_intensity"        "1"
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "dpad_south"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press DOWN_ARROW, , "
+                        }
+                        "settings"
+                        {
+                            "haptic_intensity"        "1"
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "dpad_east"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press RIGHT_ARROW, ⏩, , "
+                        }
+                        "settings"
+                        {
+                            "haptic_intensity"        "1"
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "dpad_west"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press LEFT_ARROW, ⏪, , "
+                        }
+                        "settings"
+                        {
+                            "haptic_intensity"        "1"
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+        }
+    }
+    "group"
+    {
+        "id"        "3"
+        "mode"        "absolute_mouse"
+        "name"        ""
+        "description"        ""
+        "inputs"
+        {
+            "click"
+            {
+                "activators"
+                {
+                    "Soft_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "mouse_button LEFT, , "
+                        }
+                        "settings"
+                        {
+                            "haptic_intensity"        "1"
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+        }
+    }
+    "group"
+    {
+        "id"        "4"
+        "mode"        "trigger"
+        "name"        ""
+        "description"        ""
+        "inputs"
+        {
+            "click"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "mouse_button RIGHT, , "
+                        }
+                        "settings"
+                        {
+                            "haptic_intensity"        "2"
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+        }
+    }
+    "group"
+    {
+        "id"        "5"
+        "mode"        "trigger"
+        "name"        ""
+        "description"        ""
+        "inputs"
+        {
+            "click"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "mouse_button LEFT, , "
+                        }
+                        "settings"
+                        {
+                            "haptic_intensity"        "2"
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+        }
+    }
+    "group"
+    {
+        "id"        "7"
+        "mode"        "scrollwheel"
+        "name"        ""
+        "description"        ""
+        "inputs"
+        {
+            "scroll_clockwise"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "mouse_wheel SCROLL_UP, ⏫, , "
+                        }
+                        "settings"
+                        {
+                            "interruptable"        "0"
+                        }
+                    }
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "mouse_wheel SCROLL_UP, , "
+                        }
+                        "settings"
+                        {
+                            "delay_start"        "24"
+                            "interruptable"        "0"
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "scroll_counterclockwise"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "mouse_wheel SCROLL_DOWN, ⏬, , "
+                        }
+                        "settings"
+                        {
+                            "interruptable"        "0"
+                        }
+                    }
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "mouse_wheel SCROLL_DOWN, , "
+                        }
+                        "settings"
+                        {
+                            "delay_start"        "24"
+                            "interruptable"        "0"
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+        }
+        "settings"
+        {
+            "scroll_angle"        "137"
+            "haptic_intensity"        "1"
+            "scroll_type"        "2"
+            "scroll_invert"        "1"
+            "scroll_friction"        "1"
+        }
+    }
+    "group"
+    {
+        "id"        "8"
+        "mode"        "absolute_mouse"
+        "name"        ""
+        "description"        ""
+        "inputs"
+        {
+        }
+        "settings"
+        {
+            "gyro_natural_sensitivity"        "113"
+        }
+    }
+    "group"
+    {
+        "id"        "9"
+        "mode"        "dpad"
+        "name"        ""
+        "description"        ""
+        "inputs"
+        {
+            "dpad_north"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press UP_ARROW, ⏫, , "
+                        }
+                    }
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press W, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "dpad_south"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press DOWN_ARROW, ⏬, , "
+                        }
+                    }
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press S, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "dpad_east"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press RIGHT_ARROW, ⏩, , "
+                        }
+                    }
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press D, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "dpad_west"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press LEFT_ARROW, ⏪, , "
+                        }
+                    }
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press A, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+        }
+        "settings"
+        {
+            "requires_click"        "0"
+            "layout"        "0"
+            "haptic_intensity_override"        "0"
+        }
+    }
+    "group"
+    {
+        "id"        "10"
+        "mode"        "joystick_move"
+        "name"        ""
+        "description"        ""
+        "inputs"
+        {
+            "click"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "mouse_button LEFT, , "
+                        }
+                        "settings"
+                        {
+                            "haptic_intensity"        "1"
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+        }
+    }
+    "group"
+    {
+        "id"        "11"
+        "mode"        "joystick_mouse"
+        "name"        ""
+        "description"        ""
+        "inputs"
+        {
+            "click"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "mouse_button LEFT, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+        }
+        "settings"
+        {
+            "curve_exponent"        "4"
+            "output_joystick"        "2"
+            "sensitivity"        "200"
+        }
+    }
+    "group"
+    {
+        "id"        "12"
+        "mode"        "dpad"
+        "name"        ""
+        "description"        ""
+        "inputs"
+        {
+        }
+        "settings"
+        {
+            "requires_click"        "0"
+        }
+    }
+    "group"
+    {
+        "id"        "6"
+        "mode"        "switches"
+        "name"        ""
+        "description"        ""
+        "inputs"
+        {
+            "button_escape"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press LEFT_CONTROL, , "
+                            "binding"        "key_press P, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "button_menu"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "controller_action SHOW_KEYBOARD, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "left_bumper"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press Q, ◀️, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "right_bumper"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press E, ▶️, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "button_back_right"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "key_press LEFT_CONTROL, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "button_capture"
+            {
+                "activators"
+                {
+                    "release"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "controller_action system_key_1, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+            "always_on_action"
+            {
+                "activators"
+                {
+                    "Full_Press"
+                    {
+                        "bindings"
+                        {
+                            "binding"        "controller_action ts_n, , "
+                        }
+                    }
+                }
+                "disabled_activators"
+                {
+                }
+            }
+        }
+    }
+    "preset"
+    {
+        "id"        "0"
+        "name"        "Default"
+        "group_source_bindings"
+        {
+            "6"        "switch active"
+            "0"        "button_diamond active"
+            "1"        "joystick active"
+            "12"        "joystick active modeshift"
+            "2"        "left_trackpad inactive"
+            "7"        "left_trackpad active"
+            "3"        "right_trackpad active"
+            "4"        "left_trigger active"
+            "5"        "right_trigger active"
+            "8"        "gyro inactive"
+            "9"        "dpad active"
+            "10"        "right_joystick inactive"
+            "11"        "right_joystick active"
+        }
+    }
+    "settings"
+    {
+        "left_trackpad_mode"        "0"
+        "right_trackpad_mode"        "0"
+    }
+}
