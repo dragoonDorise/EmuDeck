@@ -20,14 +20,19 @@ Plugins_installPowerTools(){
 }
 
 Plugins_installDeckyControls(){
-   local destinationFolder="$HOME/homebrew/plugins/emudeck-decky-controls"
-   local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/emudeck-decky-controls" ".zip")"
+   # The emudeck-decky-controls plugin is superseded by EmuDecky.
+   # Remove old emudeck-decky-controls installations to prevent
+   # duplicate plugins with different names.
+   sudo rm -rf "$HOME/homebrew/plugins/emudeck-decky-controls"
+
+   local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/EmuDecky" ".zip")"
+   local destinationArchive="$HOME/homebrew/plugins/EmuDecky.zip"
+   sudo curl -L "$DeckyControls_releaseURL" -o "$destinationArchive"
+   local destinationFolder="$HOME/homebrew/plugins/$(zipinfo -1 $destinationArchive | head -1)"
    sudo rm -rf $destinationFolder
-   #sudo mkdir -p $destinationFolder
-   sudo curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/emudeck-decky-controls.zip"
-   sudo unzip "$HOME/homebrew/plugins/emudeck-decky-controls.zip" -d "$HOME/homebrew/plugins/" && sudo rm "$HOME/homebrew/plugins/emudeck-decky-controls.zip"
-   sudo chown $USER:$USER -R $HOME/homebrew/plugins/emudeck-decky-controls
-   chmod 555 -R $HOME/homebrew/plugins/emudeck-decky-controls
+   sudo unzip "$destinationArchive" -d "$HOME/homebrew/plugins/" && sudo rm "$destinationArchive"
+   sudo chown $USER:$USER -R "$destinationFolder"
+   chmod 555 "$destinationFolder"
 }
 
 Plugins_installSteamDeckGyroDSU(){
