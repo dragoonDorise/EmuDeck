@@ -941,6 +941,9 @@ function jsonToBashVars(){
 	setSetting doInstallPrimehack "$(jq .installEmus.primehack.status $json)"
 	setSetting doInstallRMG "$(jq .installEmus.rmg.status $json)"
 	setSetting doInstallares "$(jq .installEmus.ares.status $json)"
+	setSetting doInstallSupermodel "$(jq .installEmus.supermodel.status $json)"
+	setSetting doInstallModel2  "$(jq .installEmus.model2.status $json)"
+
 
 	#Setup Emus
 	setSetting doSetupRA $(jq .overwriteConfigEmus.ra.status "$json")
@@ -966,7 +969,8 @@ function jsonToBashVars(){
 	setSetting doSetupPrimehack "$(jq .overwriteConfigEmus.primehack.status $json)"
 	setSetting doSetupRMG "$(jq .overwriteConfigEmus.rmg.status $json)"
 	setSetting doSetupares "$(jq .overwriteConfigEmus.ares.status $json)"
-
+	setSetting doSetupSupermodel "$(jq .overwriteConfigEmus.supermodel.status $json)"
+	setSetting doInstallModel2 "$(jq .overwriteConfigEmus.model2.status $json)"
 	#Frontends
 	setSetting doSetupSRM "$(jq .overwriteConfigEmus.srm.status $json)"
 	setSetting doSetupESDE "$(jq .overwriteConfigEmus.esde.status $json)"
