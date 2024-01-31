@@ -4,7 +4,7 @@ Supermodel_emuName="Supermodel"
 Supermodel_emuType="$emuDeckEmuTypeFlatpak"
 Supermodel_emuPath="com.supermodel3.Supermodel"
 Supermodel_releaseURL=""
-Supermodel_configFile="$HOME/deck/.supermodel/Config/Supermodel.ini"
+Supermodel_configFile="$HOME/.supermodel/Config/Supermodel.ini"
 Supermodel_gamesList="https://raw.githubusercontent.com/trzy/Supermodel/master/Config/Games.xml"
 
 #cleanupOlderThings
@@ -24,8 +24,8 @@ Supermodel_init(){
 	mkdir -p $HOME/.supermodel/Analysis $HOME/.supermodel/Log
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel" "$HOME/.supermodel/" --backup --suffix=.bak
 	# Download updated gamelist from source
-	if [ -e "$HOME/deck/.supermodel/Config/Games.xml" ]; then
-		rm -rf "$HOME/deck/.supermodel/Config/Games.xml"
+	if [ -e "$HOME/.supermodel/Config/Games.xml" ]; then
+		rm -rf "$HOME/.supermodel/Config/Games.xml"
 	fi
 	wget "$Supermodel_gamesList" -P "$HOME/.supermodel/Config/"
 	Supermodel_setupStorage
@@ -39,8 +39,8 @@ Supermodel_update(){
 	mkdir -p $HOME/.supermodel/Analysis $HOME/.supermodel/Log
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel" "$HOME/.supermodel/" --ignore-existing
 	# Download updated gamelist from source
-	if [ -e "$HOME/deck/.supermodel/Config/Games.xml" ]; then
-		rm -rf "$HOME/deck/.supermodel/Config/Games.xml"
+	if [ -e "$HOME/.supermodel/Config/Games.xml" ]; then
+		rm -rf "$HOME/.supermodel/Config/Games.xml"
 	fi
 	wget "$Supermodel_gamesList" -P "$HOME/.supermodel/Config/"
 	Supermodel_setupStorage
