@@ -461,7 +461,7 @@ elif [ "$selection" == "Pick a file" ]; then
 		else 
 			echo "No valid ROM found"
 		fi
-	elif [ "$selectedCompressionMethod" == "Compress a PSP ROM to CHD or CSO" ]; then	
+	elif [ "$selectedCompressionMethod" == "Compress a PSP ROM to CSO or CHD" ]; then	
 		if [[ "$ext" =~ "iso" || "$ext" =~ "ISO" ]]; then
 			echo "Valid ROM found, prompting user"
 
