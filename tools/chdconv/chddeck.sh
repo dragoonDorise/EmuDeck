@@ -261,7 +261,7 @@ if [ "$selection" == "bulk" ]; then
 	declare -i height=(${#searchFolderList[@]}*100)
 	selectColumnStr="RomFolder "
 	for ((i = 1; i <= ${#searchFolderList[@]}; i++)); do selectColumnStr+="$i ${searchFolderList[$i - 1]} "; done
-	text="$(printf "What folders do you want to convert?")"
+	text="$(printf "Which folders do you want to convert?")"
 	folderstoconvert=$(
 		zenity --list \
 			--title="EmuDeck" \
@@ -381,16 +381,22 @@ if [ "$selection" == "bulk" ]; then
 
 elif [ "$selection" == "Pick a file" ]; then
 
-	selectedCompressionMethod=$(zenity --list --title="Select Option" --text="Select a compression method from the list below." --column="Options" "Compress a ROM to RVZ" "Compress a ROM to CHD" "Compress a ROM to CSO" "Compress a ROM to XISO" "Compress a ROM to 7zip" "Trim a 3DS ROM" --width=300 --height=400)
+	while true; do
+		selectedCompressionMethod=$(zenity --list --title="Select Option" --text="Select a compression method from the list below." --column="Options" "Compress a ROM to RVZ" "Compress a ROM to CHD" "Compress a ROM to CSO" "Compress a ROM to XISO" "Compress a ROM to 7zip" "Trim a 3DS ROM" --width=300 --height=400)
+		if [ $? -eq 1 ]; then
+			echo "Compression canceled."
+			exit 1
+		fi
 
+		if [ -n "$selectedCompressionMethod" ]; then
+			break 
+		else
+			zenity --error --text="Please select a compression method."
+		fi
+	done
+		
 	echo "Selected: $selectedCompressionMethod"
 	
-	if [ $? -eq 1 ]; then
-		echo "Compression canceled."
-		exit 1
-	fi
-
-
 	#/bin/bash
 	f=$(zenity --file-selection --file-filter='ROM File Formats 
 	(cue,gdi,iso,gcm,3ds) | *.cue *.gdi *.iso *.gcm *.3ds 
