@@ -381,6 +381,16 @@ if [ "$selection" == "bulk" ]; then
 
 elif [ "$selection" == "Pick a file" ]; then
 
+	selectedCompressionMethod=$(zenity --list --title="Select Option" --text="Select a compression method from the list below." --column="Options" "Compress a ROM to RVZ" "Compress a ROM to CHD" "Compress a ROM to CSO" "Compress a ROM to XISO" "Compress a ROM to 7zip" "Trim a 3DS ROM" --width=300 --height=400)
+
+	echo "Selected: $selectedCompressionMethod"
+	
+	if [ $? -eq 1 ]; then
+		echo "Compression canceled."
+		exit 1
+	fi
+
+
 	#/bin/bash
 	f=$(zenity --file-selection --file-filter='ROM File Formats 
 	(cue,gdi,iso,gcm,3ds) | *.cue *.gdi *.iso *.gcm *.3ds 
@@ -393,19 +403,7 @@ elif [ "$selection" == "Pick a file" ]; then
 	*.swx *.SWX *.32x *.32X *.gg *.GG *.gen *.GEN *.md *.MD 
 	*.smd *.SMD' --file-filter='All files | *' 2>/dev/null)
 	ext=$(echo "${f##*.}" | awk '{print tolower($0)}')
-	combined_rompaths=("${chdfolderWhiteList[@]}" "${rvzfolderWhiteList[@]}" "${csofolderWhiteList[@]}" "${n3dsfolderWhiteList[@]}" "${xboxfolderWhiteList[@]}"  "${sevenZipfolderWhiteList[@]}" )
 	
-	# Find ROM folder
-	for selectedfolder in "${combined_rompaths[@]}"; do
-		if [[ "$f" == *"/$selectedfolder/"* ]]; then
-			selectedromfolder="$selectedfolder"
-			break
-		fi
-	done
-
-	echo "Found ROM folder name: $selectedromfolder"
-	
-
 	case $ext in
 
 	gcm)
@@ -429,15 +427,16 @@ elif [ "$selection" == "Pick a file" ]; then
 		;;
 	esac
 
-	
-	if [[ " ${rvzfolderWhiteList[*]} " =~ " ${selectedromfolder} " ]]; then
+
+
+	if [ "$selectedCompressionMethod" == "Compress a ROM to RVZ" ]; then	
 		if [[ "$ext" =~ "iso" || "$ext" =~ "ISO" || "$ext" =~ "gcm" || "$ext" =~ "GCM"  ]]; then
 			echo "Valid ROM found, compressing $f to RVZ"
 			compressRVZ "$f"
 		else
 			echo "No valid ROM found"
 		fi
-	elif [[ " ${chdfolderWhiteList[*]} " =~ " ${selectedromfolder} " ]]; then
+	elif [ "$selectedCompressionMethod" == "Compress a ROM to CHD" ]; then	
 		if [[ "$ext" =~ "iso" || "$ext" =~ "ISO" ]]; then
 			echo "Valid $ext ROM found, compressing $f to CHD"
 			compressCHDDVD "$f"
@@ -447,7 +446,7 @@ elif [ "$selection" == "Pick a file" ]; then
 		else 
 			echo "No valid ROM found"			
 		fi
-	elif [[ " ${xboxfolderWhiteList[*]} " =~ " ${selectedromfolder} " ]]; then
+	elif [ "$selectedCompressionMethod" == "Compress a ROM to XISO" ]; then	
 		if [[ "$ext" =~ "xiso" || "$ext" =~ "XISO" ]]; then
 			echo "$f already compressed."
 		elif [[ "$ext" =~ "iso" || "$ext" =~ "ISO" ]]; then
@@ -456,7 +455,7 @@ elif [ "$selection" == "Pick a file" ]; then
 		else 
 			echo "No valid ROM found"
 		fi
-	elif [[ " ${csofolderWhiteList[*]} " =~ " ${selectedromfolder} " ]]; then
+	elif [ "$selectedCompressionMethod" == "Compress a ROM to CSO" ]; then	
 		if [[ "$ext" =~ "iso" || "$ext" =~ "ISO" ]]; then
 			echo "Valid ROM found, prompting user"
 
@@ -479,7 +478,7 @@ elif [ "$selection" == "Pick a file" ]; then
 		else 
 			echo "No valid ROM found"
 		fi
-	elif [[ " ${n3dsfolderWhiteList[*]} " =~ " ${selectedromfolder} " ]]; then
+	elif [ "$selectedCompressionMethod" == "Trim a 3DS ROM" ]; then	
 		if [[ "$ext" =~ "(Trimmed)" ]]; then
 			echo "$f already trimmed."
 		elif [[ "$ext" =~ "3ds" || "$ext" =~ "3DS" ]]; then
@@ -488,7 +487,7 @@ elif [ "$selection" == "Pick a file" ]; then
 		else 
 			echo "No valid ROM found"
 		fi
-	elif [[ " ${sevenZipfolderWhiteList[*]} " =~ " ${selectedromfolder} " ]]; then
+	elif [ "$selectedCompressionMethod" == "Compress a ROM to 7zip" ]; then	
 		echo "true"
 		if [[ " ${sevenZipfileextensionWhiteList[*]} " =~ " ${ext} " ]]; then
 			echo "Valid ROM found, compressing $f to 7zip"
