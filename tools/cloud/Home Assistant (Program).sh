@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 LINK="https://demo.home-assistant.io/"
 

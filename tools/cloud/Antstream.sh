@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LINK="https://www.max.com/"
+LINK="https://live.antstream.com/"
 
 source ./cloud.conf
 browsercommand
