@@ -1,0 +1,6 @@
+Crosshairs images needs to be placed in here.
+32bits bmp format + alpha
+size multiple of 2
+p1crosshair.bmp
+p2crosshair.bmp
+
