@@ -149,29 +149,24 @@ Model2_downloadProtonGE(){
 		echo "Steam install not found"
 	fi
 
-	if [ ! -d "$STEAMPATH/compatibilitytools.d/GE-Proton8-27/" ]; then
-		echo "Installing GE-Proton8-27"
-		downloadProtonGE=$(wget -m -nd -A "GE-Proton8-27.tar.gz" -O "$STEAMPATH/compatibilitytools.d/GE-Proton8-27.tar.gz" "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton8-27/GE-Proton8-27.tar.gz")
+	mkdir -p $STEAMPATH/compatibilitytools.d
+
+	if [ ! -d "$STEAMPATH/compatibilitytools.d/GE-Proton8-30/" ]; then
+		echo "Installing GE-Proton8-30"
+		downloadProtonGE=$(wget -m -nd -A "GE-Proton8-30.tar.gz" -O "$STEAMPATH/compatibilitytools.d/GE-Proton8-30.tar.gz" "http://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton8-30/GE-Proton8-30.tar.gz")
 			local showProgress="$1"
 
 		if $downloadProtonGE; then
-			tar -xvzf "$STEAMPATH/compatibilitytools.d/GE-Proton8-27.tar.gz" -C "$STEAMPATH/compatibilitytools.d"
-			rm -f "$STEAMPATH/compatibilitytools.d/GE-Proton8-27.tar.gz"
+			tar -xvzf "$STEAMPATH/compatibilitytools.d/GE-Proton8-30.tar.gz" -C "$STEAMPATH/compatibilitytools.d"
+			rm -f "$STEAMPATH/compatibilitytools.d/GE-Proton8-30.tar.gz"
 		else
 			return 1
 		fi
 	else
-		echo "GE-Proton8-27 already installed"
+		echo "GE-Proton8-30 already installed"
 		return 1
 	fi
 
-	if [ ! -f "$STEAMPATH/compatibilitytools.d/GE-Proton8-27/protonfixes/gamefixes/3965123026.py" ]; then
-		echo "Downloading Model 2 gamefixes.py"
-		rsync -avhp "$EMUDECKGIT/configs/ULWGL/ulwgl-model2.py" "$STEAMPATH/compatibilitytools.d/GE-Proton8-27/protonfixes/gamefixes" --ignore-existing
-	else
-		echo "Model 2 gamefixes.py already downloaded"
-		return 1
-	fi
 }
 
 function Model2ULWGL_install() {
