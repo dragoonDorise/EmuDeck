@@ -377,6 +377,10 @@ if [ "$doSetupSupermodel" == "true" ]; then
 	echo "Supermodel_init"
 	Supermodel_init
 fi
+if [ "$doSetupModel2" == "true" ]; then
+	echo "model2_init"
+	Model2_init
+fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then
 	echo "Cemu_init"
