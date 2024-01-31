@@ -382,7 +382,7 @@ if [ "$selection" == "bulk" ]; then
 elif [ "$selection" == "Pick a file" ]; then
 
 	while true; do
-		selectedCompressionMethod=$(zenity --list --title="Select Option" --text="Select a compression method from the list below." --column="Options" "Compress a ROM to RVZ" "Compress a ROM to CHD" "Compress a ROM to CSO" "Compress a ROM to XISO" "Compress a ROM to 7zip" "Trim a 3DS ROM" --width=300 --height=400)
+		selectedCompressionMethod=$(zenity --list --title="Select Option" --text="Select a compression method from the list below." --column="Options" "Compress a ROM to RVZ" "Compress a ROM to CHD" "Compress a PSP ROM to CHD or CSO" "Compress a ROM to XISO" "Compress a ROM to 7zip" "Trim a 3DS ROM" --width=300 --height=400)
 		if [ $? -eq 1 ]; then
 			echo "Compression canceled."
 			exit 1
@@ -461,7 +461,7 @@ elif [ "$selection" == "Pick a file" ]; then
 		else 
 			echo "No valid ROM found"
 		fi
-	elif [ "$selectedCompressionMethod" == "Compress a ROM to CSO" ]; then	
+	elif [ "$selectedCompressionMethod" == "Compress a PSP ROM to CHD or CSO" ]; then	
 		if [[ "$ext" =~ "iso" || "$ext" =~ "ISO" ]]; then
 			echo "Valid ROM found, prompting user"
 
