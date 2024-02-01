@@ -86,9 +86,9 @@ if [[ -f "$HOME/homebrew/services/PluginLoader" ]] ; then
 		 --text="${text}"
 	ans=$?
 	if [ $ans -eq 0 ]; then
-		curl -S -s -L -O --output-dir $EMUDECKGIT --connect-timeout 30 https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/user_install_script.sh
-		chmod +x "$EMUDECKGIT/user_install_script.sh"
-		"$EMUDECKGIT/user_install_script.sh"
+		curl -S -s -L -O --output-dir "$HOME/emudeck" --connect-timeout 30 https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/user_install_script.sh
+		chmod +x "$HOME/emudeck/user_install_script.sh"
+		"$HOME/emudeck/user_install_script.sh"
 
 	else
 		echo -e "No"
