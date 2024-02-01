@@ -7,5 +7,7 @@ EXE=$romsPath/model2/EMULATOR.EXE
 
 cd $romsPath/model2
 
-WINEPREFIX=$romsPath/model2/pfx/ GAMEID=ulwgl-model2 PROTONPATH="$HOME/.steam/steam/compatibilitytools.d/GE-Proton8-27" $GAMELAUNCHER $EXE "${@}"
+
+# $Model2_ProtonGEVersion is assigned in emuDeckModel2.sh
+WINEPREFIX=$romsPath/model2/pfx/ GAMEID=ulwgl-model2 PROTONPATH="$HOME/.steam/steam/compatibilitytools.d/$Model2_ProtonGEVersion" $GAMELAUNCHER $EXE "${@}"
 
