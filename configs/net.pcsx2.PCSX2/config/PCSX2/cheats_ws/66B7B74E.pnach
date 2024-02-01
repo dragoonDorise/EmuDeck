@@ -1,9 +1,0 @@
-gametitle=Transworld Surf [NTSC-U] [SLUS-20356]
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//aa3f013c 713d2134 00188144 10008324 -> e23f013c fc932134 00188144 10008324
-patch=1,EE,00183368,word,3c013fe2 //3c013faa
-patch=1,EE,0018336c,word,3421fc93 //34213d71

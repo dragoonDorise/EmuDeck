@@ -1,6 +1,0 @@
-gametitle=Fire Warrior Warhammer 400000 (NTSC-U) (widescreen by Some Chump)
-
-// Widescreen is always enabled no matter what ingame setting is selected
-
-patch=1,EE,2067256C,extended,3f400000 // 3f800000 (X axis)
-patch=1,EE,20672570,extended,3f800000 // 3FAAAAAB (Y axis)

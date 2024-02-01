@@ -1,6 +1,0 @@
-gametitle=Kidou Senshi Gundam - Meguriai Sora (J)9SLPS-25060)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,00199da4,word,3c024456 //3c024420

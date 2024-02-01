@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 ## proton-launch.sh
 
@@ -221,10 +221,11 @@ main () {
     shift "$(( OPTIND - 1 ))"
 
     # Make sure there weren't any odd arguments in the options
-    if [[ "${*}" == *"--"* ]]; then
-        echo "Error: Invalid argument in options." >> "${LOGFILE}"
-        exit 1
-    fi
+    # Commenting this out for now. This blocks adding launch arguments to emulators (like Xenia). 
+    # if [[ "${*}" == *"--"* ]]; then
+    #    echo "Error: Invalid argument in options." >> "${LOGFILE}"
+    #    exit 1
+    # fi
 
     # Check for mandatory target
     if [ -z ${1+x} ]; then

@@ -1,3 +1,0 @@
-gametitle=Freekstyle SLUS_203.67
-comment=Widescreen Hack
-patch=1,EE,001443a4,word,3c023f40

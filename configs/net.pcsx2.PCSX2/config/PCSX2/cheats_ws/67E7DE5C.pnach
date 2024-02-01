@@ -1,7 +1,0 @@
-gametitle=Alien Syndrome (SLPM_62500)
-comment=Widescreen hack by No.47
-
-patch=1,EE,0039f648,word,3faaaaab //3f800000 - both FOV
-
-patch=1,EE,00125cc0,word,3c023fe3 //3c023faa - vert FOV
-patch=1,EE,00125cc4,word,34428e38 //3442aaa8

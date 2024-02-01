@@ -1,8 +1,0 @@
-gametitle=FIVB Volleyball World Cup - Venus Evolution (J)(SLPM-62770)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//803f013c 00088144 2d100002 (1st)
-patch=1,EE,01c0d958,word,3c013f40 //3c013f80

@@ -1,9 +1,0 @@
-gametitle=Bratz: Forever Diamondz [PAL-M3] (SLES_543.43)
-comment=Widescreen Hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,0031F5D8,word,3C013F1E //3C013F00 Zoom
-patch=1,EE,00300934,word,3C013ED3 //3C013F00 Y-FOV
-
-//Render fix
-patch=1,EE,00300848,word,3C013F2B //3C013F00

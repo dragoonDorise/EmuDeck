@@ -1,7 +1,0 @@
-gametitle=Justice League Heroes SLUS_213.04
-comment=Widescreen hack 
-patch=1,EE,001bbde8,word,3c014285 //3c014248
-patch=1,EE,001bbe70,word,3c013f1f //3c013eee
-patch=1,EE,001bbe74,word,34214a25 //3421eeef
-patch=1,EE,0019054c,word,3c013f1f //3c013eee
-patch=1,EE,00190550,word,34214a25 //3421eeef

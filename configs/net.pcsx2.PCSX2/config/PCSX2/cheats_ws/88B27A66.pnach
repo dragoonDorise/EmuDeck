@@ -1,4 +1,0 @@
-﻿gametitle=Shin Sangoku Musou 4 Empires [NTSC-J] (SLPM-66343)
-comment=Widescreen hack by nemesis2000 (pnach by nemesis2000 )
-patch=1,EE,0014708c,word,3c0243d6
-patch=1,EE,0019fb2c,word,3c023f2b

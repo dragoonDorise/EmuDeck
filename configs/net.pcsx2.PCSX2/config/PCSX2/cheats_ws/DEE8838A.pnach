@@ -1,8 +1,0 @@
-gametitle=Momotarou Dentetsu 15 - Godai Bonbi Toujo! no Kan (J)(SLPM-62702)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//aaaaaa3f db0f4940
-patch=1,EE,00390178,word,3fe38e38 //3faaaaaa

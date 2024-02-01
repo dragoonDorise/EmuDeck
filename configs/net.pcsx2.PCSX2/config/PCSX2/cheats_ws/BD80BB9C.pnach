@@ -1,6 +1,0 @@
-gametitle=Heroes of Might and Magic - Quest for the DragonBone Staff SLUS_201.58
-comment=Widescreen Hack
-patch=1,EE,00117494,word,3C013Ff2
-patch=1,EE,00117498,word,342158bb
-patch=1,EE,202B3030,extended,3F81DE51
-patch=1,EE,202B2F10,extended,3FB9BDDE

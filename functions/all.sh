@@ -11,12 +11,12 @@ fi
 #load helpers first, just in case
 source "$EMUDECKGIT"/functions/helperFunctions.sh
 
+
+
 SETTINGSFILE="$HOME/emudeck/settings.sh"
 if [ -f "$SETTINGSFILE" ]; then
     # shellcheck source=./settings.sh
     source "$SETTINGSFILE"
-else
-    cp "$EMUDECKGIT/settings.sh" "$SETTINGSFILE"
 fi
 
 if [ "$system" != "darwin" ]; then
@@ -46,6 +46,7 @@ source "$EMUDECKGIT"/functions/runSRM.sh
 source "$EMUDECKGIT"/functions/appImageInit.sh
 source "$EMUDECKGIT"/functions/autofix.sh
 
+
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckPegasus.sh
@@ -65,8 +66,7 @@ source "$EMUDECKGIT"/functions/ToolScripts/emuDecky.sh
 #emuscripts
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemu.sh
-source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemuNative.sh
-source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemuProton.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRPCS3Legacy.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCitraLegacy.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDolphin.sh
@@ -86,6 +86,8 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRMG.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMelonDS.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckares.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckFlycast.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckSupermodel.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckModel2.sh
 
 #remoteplayclientscripts
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh
@@ -98,11 +100,15 @@ source "$EMUDECKGIT"/functions/cloudSyncHealth.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckRedream.sh
 #source "$EMUDECKGIT"/EmuScripts/emuDeckMAMEProton.sh
 
-# Darwin ovewrites
+# Darwin overrides
 
 if [ "$system" = "darwin" ]; then
-	source "$EMUDECKGIT/darwin/functions/all-darwin.sh"
+	source "$EMUDECKGIT/darwin/functions/all.sh"
     source "$EMUDECKGIT/darwin/functions/helperFunctions.sh"
     source "$EMUDECKGIT/darwin/functions/overrides.sh"
 	source "$EMUDECKGIT/darwin/api.sh"
 fi
+
+# Android
+
+source "$EMUDECKGIT/android/functions/all.sh"

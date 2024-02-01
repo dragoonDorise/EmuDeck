@@ -1,5 +1,0 @@
-gametitle=Ruff Trigger: The Vanocore Conspiracy [PAL-M5] (SLES_540.21)
-comment=Widescreen Hack by El_Patas
-
-//Gameplay 16:9 
-patch=1,EE,0018AA90,word,3C013FE9 //3C013FAF (Increases hor. axis)

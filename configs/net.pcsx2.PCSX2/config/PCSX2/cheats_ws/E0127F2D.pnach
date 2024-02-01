@@ -1,6 +1,0 @@
-gametitle=FlatOut SLUS_209.01
-comment=Widescreen hack 
-patch=1,EE,001ad904,word,3c013fab
-//patch=1,EE,0028ee60,word,3C013F19
-patch=1,EE,0018e380,word,3c013fab
-patch=1,EE,0031a934,word,3ee80000

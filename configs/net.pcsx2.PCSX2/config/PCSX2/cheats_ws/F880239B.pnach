@@ -1,7 +1,0 @@
-gametitle=Tokyo Road Race (E)(SLES-50954)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-patch=1,EE,20607888,extended,3f400000 //3f800000

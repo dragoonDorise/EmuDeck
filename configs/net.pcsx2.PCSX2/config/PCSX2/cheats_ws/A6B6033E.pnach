@@ -1,6 +1,0 @@
-gametitle=Avatar - The Last Airbender - The Burning Earth (NTSC-U)
-comment=Widescreen Hack (16:9) by ElHecht
-
-//16:9
-patch=1,EE,00142f30,word,3c033fe3 // 3c033faa
-patch=1,EE,00142f44,word,34638e39 // 3463aaab

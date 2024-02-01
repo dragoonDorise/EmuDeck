@@ -1,8 +1,0 @@
-gametitle=World Soccer Winning Eleven 8: International [NTSC-U] (SLUS_211.17)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,002D7E30,word,3FAAAAAB //3F800000 (Increases hor. axis)
-
-//Render fix
-patch=1,EE,00126004,word,3C023FAB //3C023F80

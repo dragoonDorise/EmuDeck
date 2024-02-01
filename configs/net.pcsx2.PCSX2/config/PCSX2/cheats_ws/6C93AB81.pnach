@@ -1,9 +1,0 @@
-gametitle=City Crisis (E)(SLES-50364)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,00232fc8,word,3c023f6e //3c023f33
-patch=1,EE,00232fcc,word,3442eee9 //34423333
-patch=1,EE,00232fd4,word,3c024002
-patch=1,EE,00232fd8,word,34420820

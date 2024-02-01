@@ -1,8 +1,0 @@
-gametitle=Trigger Man (U)(SLUS-20931)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//803f013c 00a88144 f0805624
-patch=1,EE,00132b70,word,3c013f40 //3c013f80

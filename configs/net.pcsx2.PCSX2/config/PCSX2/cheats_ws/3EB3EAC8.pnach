@@ -1,7 +1,0 @@
-gametitle=ESPN Winter Sports 2002 (E)(SLES-50586)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//0040053c 80c7033c
-patch=1,EE,00154bbc,word,3c053fc0 //3c054000 X-Fov

@@ -1,9 +1,0 @@
-gametitle=Burnout - Dominator (U)(SLUS-21596)
-comment=Widescreen Hack (16:9) by Arapapa
-
-//Force turn on Internal Widescreen (Full boot bypassing)
-patch=1,EE,0038b128,word,24020002 //30420003
-
-//Zoom fix
-//9A 99 99 3F 39 8E E3 3F 80 02 00 00
-patch=1,EE,2043E8F0,extended,3FAAAAAB // 3F800000

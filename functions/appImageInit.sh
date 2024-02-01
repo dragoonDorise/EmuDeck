@@ -10,7 +10,7 @@ appImageInit() {
 
 
 	#Force SRM appimage move in case the migration fails
-	mv "${toolsPath}/srm/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" &>> /dev/null
+	mv "${toolsPath}/srm/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" &> /dev/null
 
 	#Xenia temp fix
 	if [ "$(Xenia_IsInstalled)" == "true" ]; then

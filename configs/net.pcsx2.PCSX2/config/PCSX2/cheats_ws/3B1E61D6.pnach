@@ -1,8 +1,0 @@
-gametitle=Rakugaki Oukoku 2 - Majo no Tataki (J)(SLPM-65637)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//803f023c 00008244 00000000
-patch=1,EE,001f1550,word,3c023fab //3c023f80

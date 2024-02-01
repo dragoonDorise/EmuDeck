@@ -1,6 +1,0 @@
-gametitle=Freekstyle (K)(SLPM-64517)
-comment=Widescreen Hack (NTSC-K by Arapapa)
-
-//Gameplay 16:9
-
-patch=1,EE,00144474,word,3c023f40 //3c023f80

@@ -1,0 +1,13 @@
+collection: Scumm VM
+shortname: scummvm
+extensions:  Seuss's  ABC, $00, (A), (a), (b), 0, 000, 001, 002, 003, 004, 005, 006, 007, 009, 1, 101, 102, 16, 1C, 1c, 2, 2 US, 25, 3, 418, 455, 5, 512, 6, 8, 99, 99 (PG), ACX, AD, ADF, ADV, AGA, ALD, ALL, ANG, AP, ASK, AUD, AVD, AVI, BAK, BBM, BIN, BLB, BMV, BND, BRO, BSF, C, C00, C06, C35, CAB, CAT, CC, CEL, CFG, CGA, CHK, CLG, CLU, CNV, CON, CPS, CRC, CSC, CUP, CUR, D$$, D00, DAT, DEF, DFW, DIR, DMU, DNR, DR1, DRV, DSK, DXR, EGA, EMC, ENC, EX1, EXE, FDT, FKR, FMC, FNT, FON, FRENCH, FRM, GAM, GERMAN, GMC, GME, GRA, GRV, H$$, HAG, HE0, HE1, HE2, HEB, HELLO, HEP, HEX, HNM, HPF, HRC, HRS, IDX, IMD, IMG, IMS, IN, INE, INF, INI, ITK, L9, LA0, LB, LEC, LFL, LIB, LIC, LNG, LTK, LZC, MAC, MAP, MDT, MHK, MID, MIX, MMM, MOR, MPC, MSG, NUT, OBJ, OGG, OPT, ORB, OUT, OVL, OVR, P56, PAK, PAL, PAT, PGM, PH1, PIC, PKD, PNT, PRC, PRF, PRG, Pat, QA, R00, R02, RAW, RBT, REC, RED, RES, RL, RL2, RLB, ROM, RRM, RSC, SAV, SCN, SCR, SEQ, SET, SHP, SHR, SM0, SM1, SMK, SND, SNG, SOG, SOL, SOU, SPP, SPR, SQU, STK, STR, SYN, SYS, SYS16, TABLE, TEX, TGA, TLK, TOC, TRS, TXT, Text, V16, V56, VGA, VMD, VOC, VQA, VXD, W32, WAV, WIN, Z, Z5, Z6, ZFS, a3c, acd, acx, add, alr, asl, b25c, bin, blb, blorb, bro, cab, cas, cat, cup, d$$, d64, dat, dcp, dnr, doc, dsk, dxr, exe, flac, gam, game, gblorb, gfx, gmp, he0, he1, he2, hex, hpf, img, info, ini, j2, jpg, lfl, mac, mhk, mma, mp3, mpc, msd, nib, nl, ogg, pat, pic, prg, rom, rsc, scumm, scummvm, slg, st, t3, tab, taf, ulx, wav, win, woz, xfd, z1, z2, z3, z4, z5, z6, z8, zblorb, zfs, zip, 7z
+launch: am start
+  -n com.retroarch/.browser.retroactivity.RetroActivityFuture
+  -e ROM {file.path}
+  -e LIBRETRO /data/data/com.retroarch/cores/scummvm_libretro_android.so
+  -e CONFIGFILE /storage/emulated/0/Android/data/com.retroarch/files/retroarch.cfg
+  -e IME com.android.inputmethod.latin/.LatinIME
+  -e DATADIR /data/data/com.retroarch
+  -e APK /data/app/com.retroarch-1/base.apk
+  -e SDCARD /storage/emulated/0
+  -e EXTERNAL /storage/emulated/0/Android/data/com.retroarch/files

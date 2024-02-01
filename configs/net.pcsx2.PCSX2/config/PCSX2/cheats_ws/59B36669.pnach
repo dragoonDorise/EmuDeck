@@ -1,4 +1,0 @@
-gametitle=Xena: Warrior Princess (PAL)
-comment=Widescreen Hack (50hz)
-//16:9
-patch=1,EE,2037C2C8,extended,3F88F5C3 // 3F4CCCCD

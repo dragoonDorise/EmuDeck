@@ -1,6 +1,0 @@
-gametitle=Constantine (E)(SLES-52872)
-comment=Widescreen Hack by Arapapa
-
-//X-Fov - ELF hack
-//803f013c 00108144 0c00438e
-patch=1,EE,002b5118,word,3c013f40 //3c013f80

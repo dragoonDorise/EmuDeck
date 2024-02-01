@@ -1,7 +1,0 @@
-gametitle=FlatOut [PAL-M4] (SLES_527.53)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,0019E924,word,3C013FAB //3C013F80 Y-FOV
-patch=1,EE,00180CC0,word,3C013FAB //3C013F80
-patch=1,EE,002B2F74,word,3EE90000 //3F000000 Zoom
