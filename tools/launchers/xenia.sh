@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 # xenia.sh
 source $HOME/.config/EmuDeck/backend/functions/all.sh
 emulatorInit "xenia"
