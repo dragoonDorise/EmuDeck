@@ -4,6 +4,7 @@ Model2_emuName="Model 2 (Proton)"
 Model2_emuType="$emuDeckEmuTypeWindows"
 Model2_emuPath="${romsPath}/model2/EMULATOR.EXE"
 Model2_configFile="${romsPath}/model2/EMULATOR.INI"
+Model2_ProtonGEVersion="GE-Proton8-30"
 ULWGL_toolPath="${toolsPath}/ULWGL"
 ULWGL_githubRepo="https://github.com/Open-Wine-Components/ULWGL-launcher.git" 
 ULWGL_githubBranch="main"
@@ -45,10 +46,10 @@ Model2_install(){
 #ApplyInitialSettings
 Model2_init(){
 	setMSG "Initializing $Model2_emuName settings."	
-	rsync -avhp "$EMUDECKGIT/configs/model2/" "${romsPath}/model2" --backup --suffix=.bak
-	if [ -e "$Model2_configFile.bak" ]; then
+	if [ -e "$Model2_configFile" ]; then
 		mv -f "$Model2_configFile.bak" "$Model2_configFile" #retain Model 2 settings
 	fi
+	rsync -avhp "$EMUDECKGIT/configs/model2/" "${romsPath}/model2" --backup --suffix=.bak
 	Model2_addESConfig
 	Model2_downloadProtonGE
 	Model2_createDesktopShortcut
@@ -151,19 +152,19 @@ Model2_downloadProtonGE(){
 
 	mkdir -p $STEAMPATH/compatibilitytools.d
 
-	if [ ! -d "$STEAMPATH/compatibilitytools.d/GE-Proton8-30/" ]; then
-		echo "Installing GE-Proton8-30"
-		downloadProtonGE=$(wget -m -nd -A "GE-Proton8-30.tar.gz" -O "$STEAMPATH/compatibilitytools.d/GE-Proton8-30.tar.gz" "http://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton8-30/GE-Proton8-30.tar.gz")
+	if [ ! -d "$STEAMPATH/compatibilitytools.d/$Model2_ProtonGEVersion/" ]; then
+		echo "Installing $Model2_ProtonGEVersion"
+		downloadProtonGE=$(wget -m -nd -A "$Model2_ProtonGEVersion.tar.gz" -O "$STEAMPATH/compatibilitytools.d/$Model2_ProtonGEVersion.tar.gz" "http://github.com/GloriousEggroll/proton-ge-custom/releases/download/$Model2_ProtonGEVersion/$Model2_ProtonGEVersion.tar.gz")
 			local showProgress="$1"
 
 		if $downloadProtonGE; then
-			tar -xvzf "$STEAMPATH/compatibilitytools.d/GE-Proton8-30.tar.gz" -C "$STEAMPATH/compatibilitytools.d"
-			rm -f "$STEAMPATH/compatibilitytools.d/GE-Proton8-30.tar.gz"
+			tar -xvzf "$STEAMPATH/compatibilitytools.d/$Model2_ProtonGEVersion.tar.gz" -C "$STEAMPATH/compatibilitytools.d"
+			rm -f "$STEAMPATH/compatibilitytools.d/$Model2_ProtonGEVersion.tar.gz"
 		else
 			return 1
 		fi
 	else
-		echo "GE-Proton8-30 already installed"
+		echo "$Model2_ProtonGEVersion already installed"
 		return 1
 	fi
 
