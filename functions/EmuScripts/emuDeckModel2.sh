@@ -46,10 +46,10 @@ Model2_install(){
 #ApplyInitialSettings
 Model2_init(){
 	setMSG "Initializing $Model2_emuName settings."	
-	rsync -avhp "$EMUDECKGIT/configs/model2/" "${romsPath}/model2" --backup --suffix=.bak
-	if [ -e "$Model2_configFile.bak" ]; then
+	if [ -e "$Model2_configFile" ]; then
 		mv -f "$Model2_configFile.bak" "$Model2_configFile" #retain Model 2 settings
 	fi
+	rsync -avhp "$EMUDECKGIT/configs/model2/" "${romsPath}/model2" --backup --suffix=.bak
 	Model2_addESConfig
 	Model2_downloadProtonGE
 	Model2_createDesktopShortcut
