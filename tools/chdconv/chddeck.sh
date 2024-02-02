@@ -12,14 +12,14 @@ rvzfolderWhiteList=("gamecube" "wii" "primehacks")
 csofolderWhiteList=("psp")
 n3dsfolderWhiteList=("3ds")
 xboxfolderWhiteList=("xbox")
-sevenZipfolderWhiteList=("atari2600" "famicom" "gamegear" 
+sevenZipfolderWhiteList=("atari2600" "atarilynx" "famicom" "gamegear" 
 "gb" "gbc" "gba" 
-"genesis" "genesiswide" "lynx" 
-"mastersystem" "megacd" "n64" 
-"n64dd" "nes" "ngp"  
-"ngpc" "saturn" "sega32x" 
-"segacd" "sfc" "snes" 
-"snesna" "wonderswan" "wonderswancolor")
+"genesis" "mastersystem" "megacd" 
+"n64" "n64dd" "nes" 
+"ngp"  "ngpc" "saturn" 
+"sega32x" "segacd" "sfc" 
+"snes" "snesna" "wonderswan" 
+"wonderswancolor")
 declare -a searchFolderList
 
 # File extensions
