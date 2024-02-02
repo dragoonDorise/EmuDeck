@@ -67,7 +67,6 @@ source "$EMUDECKGIT"/functions/ToolScripts/emuDecky.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemuProton.sh
-source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPCSX2.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRPCS3Legacy.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCitraLegacy.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDolphin.sh
@@ -87,6 +86,7 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRMG.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckMelonDS.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckares.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckFlycast.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckSupermodel.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckModel2.sh
 
 #remoteplayclientscripts

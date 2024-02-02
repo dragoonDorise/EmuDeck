@@ -1,27 +1,22 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo DS - melonDS",
-  "steamCategory": "${Nintendo DS - melonDS}",
-  "executableArgs": "\"${filePath}\" -f",
+  "configTitle": "Sega Model 3 - Supermodel",
+  "steamCategory": "${Sega Model 3 - Supermodel}",
   "executableModifier": "\"${exePath}\"",
-  "romDirectory": "${romsdirglobal}/nds",
+  "romDirectory": "${romsdirglobal}/model3",
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
-  "imageProviders": ["SteamGridDB"],
   "titleModifier": "${fuzzyTitle}",
+  "executableArgs": "\"'${filePath}'\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
+  "imageProviders": ["SteamGridDB"],
   "disabled": false,
-  "executable": {
-    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/melonds.sh",
-    "shortcutPassthrough": false,
-    "appendArgsToExecutable": false
-  },
   "userAccounts": {
     "specifiedAccounts": ""
   },
   "parserInputs": {
-    "glob": "**/${title}@(.nds|.NDS|.app|.APP)"
+    "glob": "**/${title}@(.zip|.ZIP)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
@@ -34,8 +29,6 @@
     "removeCharacters": true,
     "removeBrackets": true
   },
-  "parserId": "164823604520657524",
-  "version": 15,
   "controllers": {
     "switch_pro": {
       "title": "EmuDeck - Switch Pro",
@@ -70,6 +63,13 @@
     "switch_joycon_left": null,
     "switch_joycon_right": null
   },
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/supermodel.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": false
+  },
+  "parserId": "163584525855031651",
+  "version": 15,
   "imageProviderAPIs": {
     "SteamGridDB": {
       "nsfw": false,
