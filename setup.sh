@@ -258,6 +258,10 @@ if [ $doInstallBigPEmu == "true" ]; then
 	echo "BigPEmu_install"
 	BigPEmu_install
 fi
+if [ $doInstallSupermodel == "true" ]; then
+	echo "Supermodel_install"
+	Supermodel_install
+fi
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ "$doInstallXenia" == "true" ]; then
 	echo "Xenia_install"
@@ -372,6 +376,14 @@ fi
 if [ "$doSetupFlycast" == "true" ]; then
 	echo "Flycast_init"
 	Flycast_init
+fi
+if [ "$doSetupSupermodel" == "true" ]; then
+	echo "Supermodel_init"
+	Supermodel_init
+fi
+if [ "$doSetupModel2" == "true" ]; then
+	echo "model2_init"
+	Model2_init
 fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then

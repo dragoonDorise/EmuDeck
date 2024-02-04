@@ -27,6 +27,7 @@ doSetupPCSX2QT=true
 doSetupMGBA=true
 doSetupBigPEmu=true
 doSetupFlycast=true
+doSetupSupermodel=true
 doSetupModel2=true
 
 #Install all systems by default
@@ -53,6 +54,7 @@ doInstallMAME=true
 doInstallMGBA=false
 doInstallBigPEmu=false
 doInstallFlycast=true
+doInstallSupermodel=true
 doInstallCHD=false
 doInstallPowertools=false
 doInstallGyro=false

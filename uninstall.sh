@@ -24,6 +24,7 @@ doUninstallRPCS3=true
 doUninstallRyujinx=true
 doUninstallScummVM=true
 doUninstallSRM=true
+doUninstallSupermodel=true
 doUninstallVita3K=true
 doUninstallXemu=true
 doUninstallXenia=true
@@ -70,6 +71,69 @@ if [ "$doUninstall" == true ]; then
 		echo -e "No"
 	fi
 
+# Decky Loader
+
+if [[ -f "$HOME/homebrew/services/PluginLoader" ]] ; then
+
+	text="`printf "An installation of Decky Loader was found on your system. Would you like to open the Decky Loader Uninstallation Tool?"`"
+
+	zenity --question \
+		 --title="Decky Loader" \
+		 --width=450 \
+		 --ok-label="Launch the Decky Loader Uninstallation Tool" \
+		 --cancel-label="No, continue with uninstalling EmuDeck" \
+		 --text="${text}"
+	ans=$?
+	if [ $ans -eq 0 ]; then
+		curl -S -s -L -O --output-dir "$HOME/emudeck" --connect-timeout 30 https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/user_install_script.sh
+		chmod +x "$HOME/emudeck/user_install_script.sh"
+		"$HOME/emudeck/user_install_script.sh"
+
+	else
+		echo -e "No"
+	fi
+fi
+
+
+text="`printf "Do you want the EmuDeck Uninstallation Tool to back up your saves? Your saves will be zipped and placed in your Emulation folder after the uninstallation is complete."`"
+
+zenity --question \
+		--title="Back Up Saves" \
+		--width=450 \
+		--ok-label="Yes, back up my saves" \
+		--cancel-label="No, continue with uninstalling EmuDeck" \
+		--text="${text}"
+ans=$?
+if [ $ans -eq 0 ]; then
+	mkdir -p "$emulationPath/EmuDeckSavesBackUp"
+	rsync -avh --copy-links "$savesPath" "$emulationPath/EmuDeckSavesBackUp"
+	cd "$emulationPath"
+	zip -r "EmuDeckSavesBackUp.zip" "EmuDeckSavesBackUp"
+	rm -rf "$emulationPath/EmuDeckSavesBackUp" &> /dev/null
+else
+	echo -e "No"
+fi
+
+text="`printf "Do you want the EmuDeck Uninstallation Tool to back up your BIOS? Your BIOS will be zipped and placed in your Emulation folder after the uninstallation is complete."`"
+
+zenity --question \
+		--title="Back Up BIOS" \
+		--width=450 \
+		--ok-label="Yes, back up my BIOS" \
+		--cancel-label="No, continue with uninstalling EmuDeck" \
+		--text="${text}"
+ans=$?
+if [ $ans -eq 0 ]; then
+	mkdir -p "$emulationPath/EmuDeckBIOSBackUp"
+	rsync -avh --copy-links "$biosPath" "$emulationPath/EmuDeckBIOSBackUp"
+	cd "$emulationPath"
+	zip -r "EmuDeckBIOSBackUp.zip" "EmuDeckBIOSBackUp"
+	rm -rf "$emulationPath/EmuDeckBIOSBackUp" &> /dev/null
+else
+	echo -e "No"
+fi
+
+
 
 	#Emulator selector
 	text="`printf " <b>The Uninstallation Wizard will uninstall EmuDeck, selected emulators, configuration files, and saved games.</b>\n\n Select which emulators you would like to <b>keep</b> installed.\n\n If you do not select an emulator, everything will be uninstalled except your ROMs and BIOS ( Yuzu firmware will be deleted)."`"
@@ -104,10 +168,11 @@ if [ "$doUninstall" == true ]; then
 				18 "RPCS3" \
 				19 "Ryujinx" \
 				20 "ScummVM" \
-				21 "Vita3K"  \
-				22 "Xemu" \
-				23 "Xenia"  \
-				24 "Yuzu" )
+				21 "Supermodel" \
+				22 "Vita3K"  \
+				23 "Xemu" \
+				24 "Xenia"  \
+				25 "Yuzu" )
 
 	ans=$?
 
@@ -172,6 +237,9 @@ if [ "$doUninstall" == true ]; then
 		fi
 		if [[ "$emusToUninstall" == *"ScummVM"* ]]; then
 			doUninstallScummVM=false
+		fi
+		if [[ "$emusToUninstall" == *"Supermodel"* ]]; then
+			doUninstallSupermodel=false
 		fi
 		if [[ "$emusToUninstall" == *"Vita3K"* ]]; then
 			doUninstallVita3K=false
@@ -288,6 +356,10 @@ if [ "$doUninstall" == true ]; then
 		flatpak uninstall org.scummvm.ScummVM -y
 		rm -rf $HOME/.var/app/org.scummvm.ScummVM &> /dev/null
 	fi
+	if [[ "$doUninstallSupermodel" == true ]]; then
+		flatpak uninstall com.supermodel3.Supermodel -y
+		rm -rf $HOME/.var/app/com.supermodel3.Supermodel &>> /dev/null
+	fi
 	if [[ "$doUninstallVita3K" == true ]]; then
 		rm -rf $HOME/Applications/Vita3K &> /dev/null
 		rm -rf $HOME/.local/share/Vita3K &> /dev/null
@@ -310,6 +382,7 @@ if [ "$doUninstall" == true ]; then
 		rm -rf $HOME/.cache/yuzu &> /dev/null
 		rm -rf $HOME/.local/share/applications/yuzu.desktop &> /dev/null
 	fi
+
 
 	echo "55"
 	echo "# Removing Cloud Backup";
@@ -385,11 +458,14 @@ if [ "$doUninstall" == true ]; then
 	echo "# Removing EmuDeck folders";
 	rm -rf $toolsPath
 	#rm -rf $biosPath
-	#rm -rf $savesPath
+	rm -rf $savesPath
 	rm -rf $storagePath
 	rm -rf $ESDEscrapData
 	rm -rf "$emulationPath/hdpacks"
 	rm -rf "$emulationPath/storage"
+
+
+
 
 	echo "100"
 	echo "# Done";
