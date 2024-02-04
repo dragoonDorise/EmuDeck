@@ -97,6 +97,46 @@ if [[ -f "$HOME/homebrew/services/PluginLoader" ]] ; then
 fi
 
 
+text="`printf "Do you want the EmuDeck Uninstallation Tool to back up your saves? Your saves will be zipped and placed in your Emulation folder after the uninstallation is complete."`"
+
+zenity --question \
+		--title="Back Up Saves" \
+		--width=450 \
+		--ok-label="Yes, back up my saves" \
+		--cancel-label="No, continue with uninstalling EmuDeck" \
+		--text="${text}"
+ans=$?
+if [ $ans -eq 0 ]; then
+	mkdir -p "$emulationPath/EmuDeckSavesBackUp"
+	rsync -avh --copy-links "$savesPath" "$emulationPath/EmuDeckSavesBackUp"
+	cd "$emulationPath"
+	zip -r "EmuDeckSavesBackUp.zip" "EmuDeckSavesBackUp"
+	rm -rf "$emulationPath/EmuDeckSavesBackUp" &> /dev/null
+else
+	echo -e "No"
+fi
+
+text="`printf "Do you want the EmuDeck Uninstallation Tool to back up your BIOS? Your BIOS will be zipped and placed in your Emulation folder after the uninstallation is complete."`"
+
+zenity --question \
+		--title="Back Up BIOS" \
+		--width=450 \
+		--ok-label="Yes, back up my BIOS" \
+		--cancel-label="No, continue with uninstalling EmuDeck" \
+		--text="${text}"
+ans=$?
+if [ $ans -eq 0 ]; then
+	mkdir -p "$emulationPath/EmuDeckBIOSBackUp"
+	rsync -avh --copy-links "$biosPath" "$emulationPath/EmuDeckBIOSBackUp"
+	cd "$emulationPath"
+	zip -r "EmuDeckBIOSBackUp.zip" "EmuDeckBIOSBackUp"
+	rm -rf "$emulationPath/EmuDeckBIOSBackUp" &> /dev/null
+else
+	echo -e "No"
+fi
+
+
+
 	#Emulator selector
 	text="`printf " <b>The Uninstallation Wizard will uninstall EmuDeck, selected emulators, configuration files, and saved games.</b>\n\n Select which emulators you would like to <b>keep</b> installed.\n\n If you do not select an emulator, everything will be uninstalled except your ROMs and BIOS ( Yuzu firmware will be deleted)."`"
 
@@ -420,7 +460,7 @@ fi
 	echo "# Removing EmuDeck folders";
 	rm -rf $toolsPath
 	#rm -rf $biosPath
-	#rm -rf $savesPath
+	rm -rf $savesPath
 	rm -rf $storagePath
 	rm -rf $ESDEscrapData
 	rm -rf "$emulationPath/hdpacks"
