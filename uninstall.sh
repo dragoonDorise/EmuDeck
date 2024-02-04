@@ -307,8 +307,8 @@ fi
 		rm -rf $HOME/.local/share/applications/mGBA.desktop &> /dev/null
 	fi
 	if [[ "$doUninstallModel2" == true ]]; then
-		find ${romsPath}/model2 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \;
-		rm -f "$HOME/.local/share/applications/Model2 (Proton).desktop" &> /dev/null
+		find ${romsPath}/model2 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \; &>> /dev/null
+		rm -f "$HOME/.local/share/applications/Model 2 (Proton).desktop" &> /dev/null
 	fi
 	if [[ "$doUninstallPCSX2" == true ]]; then
 		rm -rf $HOME/Applications/pcsx2-Qt.AppImage &> /dev/null
@@ -353,6 +353,7 @@ fi
 	if [[ "$doUninstallSupermodel" == true ]]; then
 		flatpak uninstall com.supermodel3.Supermodel -y
 		rm -rf $HOME/.var/app/com.supermodel3.Supermodel &>> /dev/null
+		rm -rf $HOME/.supermodel &>> /dev/null
 	fi
 	if [[ "$doUninstallVita3K" == true ]]; then
 		rm -rf $HOME/Applications/Vita3K &> /dev/null
@@ -437,16 +438,23 @@ fi
 	rm -rf $HOME/.local/share/applications/EmuDeck.desktop &> /dev/null
 
 	echo "80"
-	echo "# Removing Steam ROM Manager and EmulationStation-DE";
+	echo "# Removing EmuDeck installed tools: Steam ROM Manager, EmulationStation-DE, ULWGL, and Pegasus";
 	# Steam ROM Manager
 	rm -rf $HOME/.config/steam-rom-manager
 	rm -rf "$toolsPath/Steam ROM Manager.AppImage"
+	# Not sure if this was named differently in the past, but Steam ROM Manager.desktop is the current name, leaving both in case.
 	rm -rf $HOME/.local/share/applications/SRM.desktop &> /dev/null
+	rm -rf "$HOME/.local/share/applications/Steam ROM Manager.desktop" &> /dev/null
 	# EmulationStation-DE
 	rm -rf $HOME/.emulationstation
+	rm -rf "$HOME/.local/share/applications/Steam ROM Manager.desktop" &> /dev/null
+	rm -rf "$HOME/.local/share/applications/EmulationStation-DE.desktop" &> /dev/null 
 	rm -rf "$toolsPath/EmulationStation-DE.AppImage"
-	rm -rf "$toolsPath/EmulationStation-DE.AppImage"
+	# ULWGL, currently used for the Model 2 Emulator
 	rm -rf "$toolsPath/ULWGL"
+	# Pegasus
+	rm -rf "$HOME/.var/app/org.pegasus_frontend.Pegasus/" &> /dev/null 
+	rm -rf "$HOME/.local/share/applications/Pegasus.desktop" &> /dev/null
 
 	echo "90"
 	echo "# Removing EmuDeck folders";
