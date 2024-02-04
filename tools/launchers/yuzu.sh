@@ -36,7 +36,7 @@ if [ -z "$1" ];then
     #check for noupdate flag
     if [ ! -e "${emuDontUpdate}" ]; then
         #check for network
-        if : >/dev/tcp/8.8.8.8/53; then
+        if : >/dev/tcp/9.9.9.9/53; then
             echo 'Internet available. Check for Update'
             #check if we are running mainline so we can offer to update
             if [ "$isMainline" = true ]; then
