@@ -77,7 +77,7 @@ Model2_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'extension' -v '.zip .ZIP' \
 		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/model2.sh %BASENAME%" \
 		--insert '$newSystem/commandP' --type attr --name 'label' --value "Model 2 Emulator (Proton)" \
-		--subnode '$newSystem' --type elem --name 'platform' -v 'model2' \
+		--subnode '$newSystem' --type elem --name 'platform' -v 'arcade' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'model2' \
 		-r 'systemList/system/commandP' -v 'command' \
 		"$es_systemsFile"
