@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu "ppsspp" && cloud_sync_startService
+emulatorInit "ppsspp"
 /usr/bin/flatpak run org.ppsspp.PPSSPP "${@}"
 rm -rf "$savesPath/.gaming"

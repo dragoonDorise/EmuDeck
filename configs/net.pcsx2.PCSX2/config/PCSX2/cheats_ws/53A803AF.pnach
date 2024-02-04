@@ -1,3 +1,0 @@
-gametitle=Kessen II SLUS_202.75
-comment=Widescreen Hack
-patch=1,EE,00156f84,word,3c023f40

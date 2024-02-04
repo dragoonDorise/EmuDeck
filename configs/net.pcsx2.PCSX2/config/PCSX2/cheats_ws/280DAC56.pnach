@@ -1,8 +1,0 @@
-gametitle=Super Trucks [PAL] (SLES_508.97)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,20816364,extended,3F400000 //3F800000 (Increases hor. axis)
-
-//Menu 3D stuff
-patch=1,EE,2047F5E4,extended,3F400000 //3F800000

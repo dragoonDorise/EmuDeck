@@ -1,5 +1,0 @@
-gametitle=Project Minerva Professional & Simple 2000 Ultimate Series Vol. 23: Project Minerva Professional [NTSC-J] (SLPM-65344)
-comment=Widescreen Hack by Little Gaint
-
-patch=1,EE,2123a3dc,extended,3F206D3A // vert
-patch=1,EE,21241C9C,extended,3F5AE148 // zoom

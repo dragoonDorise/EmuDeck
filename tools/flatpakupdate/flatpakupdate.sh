@@ -35,6 +35,9 @@ fi
 if [ "$(ScummVM_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
     emuTable+=(TRUE "Scumm/DOS" "ScummVM")
 fi
+if [ "$(Supermodel_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
+    emuTable+=(TRUE "Model3" "Supermodel")
+fi
 if [ "$(RMG_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
     emuTable+=(TRUE "N64" "RMG")
 fi
@@ -99,6 +102,9 @@ if [ "${#emuTable[@]}" -gt 0 ]; then
             if [[ "$emusToInstall" == *"ScummVM"* ]]; then
                 doUpdateScummVM=true
             fi
+            if [[ "$emusToInstall" == *"Supermodel"* ]]; then
+                doUpdateSupermodel=true
+            fi
             if [[ "$emusToInstall" == *"MelonDS"* ]]; then
             	doUpdateMelonDS=true
             fi
@@ -146,6 +152,10 @@ if [ "${#emuTable[@]}" -gt 0 ]; then
                 if [ "$doUpdateScummVM" == "true" ]; then
                     echo "###Updating ScummVM..."
                     (updateEmuFP "ScummVM" "org.scummvm.ScummVM" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|ScummVM" && echo "&&&$progressInstalled"
+                fi
+                if [ "$doUpdateSupermodel" == "true" ]; then
+                    echo "###Updating Supermodel..."
+                    (updateEmuFP "Supermodel" "com.supermodel.Supermodel" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|ScummVM" && echo "&&&$progressInstalled"
                 fi
                 if [ "$doUpdateMelonDS" == "true" ]; then
                     echo "###Updating melonDS..."

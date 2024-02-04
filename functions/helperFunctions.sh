@@ -194,7 +194,6 @@ function setAllEmuPaths(){
 function setSetting () {
 	local var=$1
 	local new_val=$2
-
 	settingExists=$(grep -rw "$emuDecksettingsFile" -e "$var")
 	if [[ $settingExists == '' ]]; then
 		#insert setting to end
@@ -296,6 +295,7 @@ function createUpdateSettingsFile(){
 	#defaultSettingsList+=("doSetupMelon=true")
 	defaultSettingsList+=("doSetupMGBA=true")
 	defaultSettingsList+=("doSetupFlycast=true")
+	defaultSettingsList+=("doSetupSupermodel=true")
 	defaultSettingsList+=("doInstallSRM=true")
 	defaultSettingsList+=("doInstallESDE=true")
 	defaultSettingsList+=("doInstallPegasus=false")
@@ -319,6 +319,7 @@ function createUpdateSettingsFile(){
 	#defaultSettingsList+=("doInstallMelon=false")
 	defaultSettingsList+=("doInstallMGBA=false")
 	defaultSettingsList+=("doInstallFlycast=true")
+	defaultSettingsList+=("doInstallSupermodel=true")
 	defaultSettingsList+=("doInstallCHD=true")
 	defaultSettingsList+=("doInstallPowertools=false")
 	defaultSettingsList+=("doInstallGyro=false")
@@ -773,4 +774,274 @@ scriptConfigFileGetVar() {
     fi
 
     printf -- "%s" "${configVarValue}"
+}
+
+
+getEmuRepo() {
+	case "$1" in
+		"cemu") repo="cemu-project/Cemu" ;;
+		"citra") repo="citra-emu/citra-nightly" ;;
+		"dolphin") repo="shiiion/dolphin" ;;
+		"duckstation") repo="stenzek/duckstation" ;;
+		"flycast") repo="flyinghead/flycast" ;;
+		"MAME") repo="mamedev/mame" ;;
+		"melonDS") repo="melonDS-emu/melonDS" ;;
+		"mgba") repo="mgba-emu/mgba" ;;
+		"pcsx2") repo="pcsx2/pcsx2" ;;
+		"primehack") repo="shiiion/dolphin" ;;
+		"rpcs3") repo="RPCS3/rpcs3-binaries-win" ;;
+		"ryujinx") repo="Ryujinx/release-channel-master" ;;
+		"vita3K") repo="Vita3K/Vita3K" ;;
+		"xemu") repo="xemu-project/xemu" ;;
+		"xenia") repo="xenia-canary/xenia-canary" ;;
+		"yuzu") repo="yuzu-emu/yuzu-mainline" ;;
+		*) repo="none" ;;
+	esac
+	echo "$repo"
+}
+
+getLatestVersionGH() {
+	repository=$1
+	url="https://api.github.com/repos/$repository/releases/latest"
+	id=$(curl -s $url | jq -r '.id')
+	echo $id
+}
+
+#!/bin/bash
+
+saveLatestVersionGH() {
+	emuName=$1
+	repo=$(getEmuRepo "$emuName")
+
+	if [ "$repo" == "none" ]; then
+		echo "no autoupdate"
+	else
+		emuVersion=$(getLatestVersionGH "$repo")
+
+		# JSON file path
+		jsonFilePath="$HOME/emudeck/emu_versions.json"
+
+		if [ -e "$jsonFilePath" ]; then
+			echo "file found"
+		else
+			echo "{}" > "$jsonFilePath"
+		fi
+
+		# Read the content of the JSON file
+		jsonContent=$(cat "$jsonFilePath" | jq -c '.')
+
+		# Check if the key exists
+		if [[ $(echo "$jsonContent" | jq -r ".$emuName") != "null" ]]; then
+			# The key exists, change its value
+			jsonContent=$(echo "$jsonContent" | jq ".$emuName=\"$emuVersion\"")
+		else
+			# The key doesn't exist, create it with a new value
+			jsonContent=$(echo "$jsonContent" | jq ".$emuName=\"$emuVersion\"")
+		fi
+
+		# Save the modified JSON back to the file
+		echo "$jsonContent" > "$jsonFilePath"
+	fi
+}
+
+isLatestVersionGH() {
+	emuName=$1
+	dontUpdate="$HOME/emudeck/emulatorInit.noupdate"
+	emuDontUpdate="${emuName}.noupdate"
+
+	# check global noupdate file flag, emulator noupdate flag file using case insensitive find and internet connectivity
+	if [ ! -f "${dontUpdate}" ] && [[ -z $(find "$HOME/emudeck/" -maxdepth 1 -type f -iname "${emuDontUpdate}") ]] && [ "$(check_internet_connection)" == "true" ]; then
+		repo=$(getEmuRepo "$emuName")
+
+		if [ "$repo" == "none" ]; then
+			echo "no autoupdate"
+		else
+			emuVersion=$(getLatestVersionGH "$repo")
+
+			# JSON file path
+			jsonFilePath="$HOME/emudeck/emu_versions.json"
+
+			if [ -f "$jsonFilePath" ]; then
+				echo "file found"
+			else
+				echo "{}" > "$jsonFilePath"
+			fi
+
+			# Read the content of the JSON file
+			jsonContent=$(cat "$jsonFilePath" | jq -c '.')
+
+			# Check if the key exists
+			if [[ $(echo "$jsonContent" | jq -r ".$emuName") != "null" ]]; then
+				# The key exists, check if it's the same value
+				if [ "$(echo "$jsonContent" | jq -r ".$emuName")" != "$emuVersion" ]; then
+					jsonContent=$(echo "$jsonContent" | jq ".$emuName=\"$emuVersion\"")
+					latest="false"
+				else
+					latest="true"
+				fi
+			else
+				# The key doesn't exist, create it with a new value
+				jsonContent=$(echo "$jsonContent" | jq ".$emuName=\"$emuVersion\"")
+				latest="true"
+			fi
+
+			if [ "$latest" == "false" ]; then
+				# Ask the user to update
+				capitalizedEmuName="$(echo $emuName | awk '{print toupper(substr($1,1,1))tolower(substr($1,2))}')"
+				zenity --question --title "New Update" --text "We've detected an update for $capitalizedEmuName. Do you want to update?" --ok-label "Yes" --cancel-label "No"
+				if [ $? = 0 ]; then
+					# Save the modified JSON back to the file
+					echo "$jsonContent" > "$jsonFilePath"
+
+					# Invocar la función de instalación dinámicamente
+					"${capitalizedEmuName}_install"
+					echo "${capitalizedEmuName}_install" > "$HOME/update.txt"
+				fi
+			else
+				# Save the modified JSON back to the file
+				echo "$jsonContent" > "$jsonFilePath"
+			fi
+
+			echo "Latest version=$latest"
+		fi
+	fi
+}
+
+
+function emulatorInit(){
+	local emuName=$1
+	#isLatestVersionGH "$emuName"
+	cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
+}
+
+function jsonToBashVars(){
+	local json=$1
+	echo "#!/bin/bash" > "$emuDecksettingsFile"
+	#Install Emus
+	setSetting doInstallRA "$(jq .installEmus.ra.status $json)"
+	setSetting doInstallDolphin "$(jq .installEmus.dolphin.status $json)"
+	setSetting doInstallPCSX2QT "$(jq .installEmus.pcsx2.status $json)"
+	setSetting doInstallRPCS3 "$(jq .installEmus.rpcs3.status $json)"
+	setSetting doInstallYuzu "$(jq .installEmus.yuzu.status $json)"
+	setSetting doInstallCitra "$(jq .installEmus.citra.status $json)"
+	setSetting doInstallDuck "$(jq .installEmus.duckstation.status $json)"
+	setSetting doInstallCemu "$(jq .installEmus.cemu.status $json)"
+	setSetting doInstallXenia "$(jq .installEmus.xenia.status $json)"
+	setSetting doInstallRyujinx "$(jq .installEmus.ryujinx.status $json)"
+	setSetting doInstallMAME "$(jq .installEmus.mame.status $json)"
+	setSetting doInstallPrimeHack "$(jq .installEmus.primehack.status $json)"
+	setSetting doInstallPPSSPP "$(jq .installEmus.ppsspp.status $json)"
+	setSetting doInstallXemu "$(jq .installEmus.xemu.status $json)"
+	setSetting doInstallSRM "$(jq .installEmus.srm.status $json)"
+	setSetting doInstallmelonDS "$(jq .installEmus.melonds.status $json)"
+	setSetting doInstallScummVM "$(jq .installEmus.scummvm.status $json)"
+	setSetting doInstallFlycast "$(jq .installEmus.flycast.status $json)"
+	setSetting doInstallVita3K "$(jq .installEmus.vita3k.status $json)"
+	setSetting doInstallMGBA "$(jq .installEmus.mgba.status $json)"
+	setSetting doInstallPrimehack "$(jq .installEmus.primehack.status $json)"
+	setSetting doInstallRMG "$(jq .installEmus.rmg.status $json)"
+	setSetting doInstallares "$(jq .installEmus.ares.status $json)"
+	setSetting doInstallSupermodel "$(jq .installEmus.supermodel.status $json)"
+	setSetting doInstallModel2  "$(jq .installEmus.model2.status $json)"
+
+
+	#Setup Emus
+	setSetting doSetupRA $(jq .overwriteConfigEmus.ra.status "$json")
+	setSetting doSetupDolphin "$(jq .overwriteConfigEmus.dolphin.status $json)"
+	setSetting doSetupPCSX2QT "$(jq .overwriteConfigEmus.pcsx2.status $json)"
+	setSetting doSetupRPCS3 "$(jq .overwriteConfigEmus.rpcs3.status $json)"
+	setSetting doSetupYuzu "$(jq .overwriteConfigEmus.yuzu.status $json)"
+	setSetting doSetupCitra "$(jq .overwriteConfigEmus.citra.status $json)"
+	setSetting doSetupDuck "$(jq .overwriteConfigEmus.duckstation.status $json)"
+	setSetting doSetupCemu "$(jq .overwriteConfigEmus.cemu.status $json)"
+	setSetting doSetupXenia "$(jq .overwriteConfigEmus.xenia.status $json)"
+	setSetting doSetupRyujinx "$(jq .overwriteConfigEmus.ryujinx.status $json)"
+	setSetting doSetupMAME "$(jq .overwriteConfigEmus.mame.status $json)"
+	setSetting doSetupPrimeHack "$(jq .overwriteConfigEmus.primehack.status $json)"
+	setSetting doSetupPPSSPP "$(jq .overwriteConfigEmus.ppsspp.status $json)"
+	setSetting doSetupXemu "$(jq .overwriteConfigEmus.xemu.status $json)"
+	setSetting doSetupSRM "$(jq .overwriteConfigEmus.srm.status $json)"
+	setSetting doSetupmelonDS "$(jq .overwriteConfigEmus.melonds.status $json)"
+	setSetting doSetupScummVM "$(jq .overwriteConfigEmus.scummvm.status $json)"
+	setSetting doSetupFlycast "$(jq .overwriteConfigEmus.flycast.status $json)"
+	setSetting doSetupVita3K "$(jq .overwriteConfigEmus.vita3k.status $json)"
+	setSetting doSetupMGBA "$(jq .overwriteConfigEmus.mgba.status $json)"
+	setSetting doSetupPrimehack "$(jq .overwriteConfigEmus.primehack.status $json)"
+	setSetting doSetupRMG "$(jq .overwriteConfigEmus.rmg.status $json)"
+	setSetting doSetupares "$(jq .overwriteConfigEmus.ares.status $json)"
+	setSetting doSetupSupermodel "$(jq .overwriteConfigEmus.supermodel.status $json)"
+	setSetting doInstallModel2 "$(jq .overwriteConfigEmus.model2.status $json)"
+	#Frontends
+	setSetting doSetupSRM "$(jq .overwriteConfigEmus.srm.status $json)"
+	setSetting doSetupESDE "$(jq .overwriteConfigEmus.esde.status $json)"
+	setSetting doInstallESDE "$(jq .installFrontends.esde.status $json)"
+	setSetting doInstallPegasus "$(jq .installFrontends.pegasus.status $json)"
+	setSetting steamAsFrontend "$(jq .installFrontends.steam.status $json)"
+
+
+	#Customizations
+	setSetting RABezels "$(jq .bezels $json)"
+	setSetting RAautoSave "$(jq .autosave $json)"
+	setSetting arClassic3D "$(jq .ar.classic3d $json)"
+	setSetting arDolphin "$(jq .ar.dolphin $json)"
+	setSetting arSega "$(jq .ar.sega $json)"
+	setSetting arSnes "$(jq .ar.snes $json)"
+	setSetting RAHandClassic2D "$(jq .shaders.classic $json)"
+	setSetting RAHandClassic3D "$(jq .shaders.classic3d $json)"
+	setSetting RAHandHeldShader "$(jq .shaders.handhelds $json)"
+
+	#CloudSync
+	setSetting cloud_sync_provider "$(jq .cloudSync $json)"
+	setSetting cloudSyncStatus "$(jq .cloudSyncStatus $json)"
+
+	#Resolutions
+	setSetting dolphinResolution  "$(jq .resolutions.dolphin $json)"
+	setSetting duckstationResolution  "$(jq .resolutions.duckstation $json)"
+	setSetting pcsx2Resolution  "$(jq .resolutions.pcsx2 $json)"
+	setSetting yuzuResolution  "$(jq .resolutions.yuzu $json)"
+	setSetting ppssppResolution  "$(jq .resolutions.ppsspp $json)"
+	setSetting rpcs3Resolution  "$(jq .resolutions.rpcs3 $json)"
+	setSetting citraResolution  "$(jq .resolutions.citra $json)"
+	setSetting xemuResolution  "$(jq .resolutions.xemu $json)"
+	setSetting xeniaResolution  "$(jq .resolutions.xenia $json)"
+	setSetting melondsResolution  "$(jq .resolutions.melonds $json)"
+
+	#MultiEmu Parsers
+	setSetting emuGBA  "$(jq .emulatorAlternative.gba $json)"
+	setSetting emuMAME  "$(jq .emulatorAlternative.mame $json)"
+	setSetting emuMULTI  "$(jq .emulatorAlternative.multiemulator $json)"
+	setSetting emuN64  "$(jq .emulatorAlternative.n64 $json)"
+	setSetting emuNDS  "$(jq .emulatorAlternative.nds $json)"
+	setSetting emuPSP  "$(jq .emulatorAlternative.psp $json)"
+	setSetting emuPSX  "$(jq .emulatorAlternative.psx $json)"
+	setSetting emuDreamcast  "$(jq .emulatorAlternative.dreamcast $json)"
+	setSetting emuSCUMMVM "$(jq .emulatorAlternative.scummvm $json)"
+
+	#Paths
+	globPath="$(jq .storagePath $json)"
+	setSetting emulationPath "$globPath/Emulation"
+	setSetting romsPath "$globPath/Emulation/roms"
+	setSetting toolsPath "$globPath/Emulation/tools"
+	setSetting biosPath "$globPath/Emulation/bios"
+	setSetting savesPath "$globPath/Emulation/saves"
+	setSetting storagePath "$globPath/Emulation/storage"
+	setSetting ESDEscrapData "$globPath/Emulation/tools/downloaded_media"
+
+	#Default ESDE Theme
+	setSetting esdeThemeUrl "$(jq .themeESDE[0] $json)"
+	setSetting esdeThemeName "$(jq .themeESDE[1] $json)"
+
+	#Default Pegasus Theme
+	setSetting pegasusThemeUrl "$(jq .themePegasus[0] $json)"
+	setSetting pegasusThemeName "$(jq .themePegasus[1] $json)"
+
+	#RetroAchiviements
+	setSetting achievementsUser "$(jq .achievements.user $json)"
+	setSetting achievementsUserToken "$(jq .achievements.token $json)"
+	setSetting achievementsHardcore "$(jq .achievements.hardcore $json)"
+
+	#Android
+	setSetting androidStorage "$(jq .android.storage $json)"
+	setSetting androidStoragePath "$(jq .android.storagePath $json)"
+
 }

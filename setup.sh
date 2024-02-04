@@ -107,7 +107,8 @@ EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 
 
 
-
+source "$EMUDECKGIT"/functions/helperFunctions.sh
+jsonToBashVars "$HOME/.config/EmuDeck/settings.json"
 source "$EMUDECKGIT/functions/all.sh"
 
 
@@ -130,8 +131,8 @@ testRealDeck
 
 #this sets up the settings file with defaults, in case they don't have a new setting we've added.
 #also echos them all out so they are in the log.
-echo "Setup Settings File: "
-createUpdateSettingsFile
+#echo "Setup Settings File: "
+#createUpdateSettingsFile
 
 #create folders after tests!
 createFolders
@@ -253,10 +254,18 @@ if [ $doInstallmelonDS == "true" ]; then
 	echo "melonDS_install"
 	melonDS_install
 fi
+if [ $doInstallSupermodel == "true" ]; then
+	echo "Supermodel_install"
+	Supermodel_install
+fi
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ "$doInstallXenia" == "true" ]; then
 	echo "Xenia_install"
 	Xenia_install
+fi
+if [ "$doInstallModel2" == "true" ]; then
+	echo "Model2_install"
+	Model2_install
 fi
 
 #Steam RomManager Config
@@ -363,6 +372,14 @@ fi
 if [ "$doSetupFlycast" == "true" ]; then
 	echo "Flycast_init"
 	Flycast_init
+fi
+if [ "$doSetupSupermodel" == "true" ]; then
+	echo "Supermodel_init"
+	Supermodel_init
+fi
+if [ "$doSetupModel2" == "true" ]; then
+	echo "model2_init"
+	Model2_init
 fi
 #Proton Emus
 if [ "$doSetupCemu" == "true" ]; then
@@ -474,7 +491,7 @@ if [ "$system" != "darwin" ]; then
 
 fi
 
-Plugins_installSteamDeckGyroDSU
+#Plugins_installSteamDeckGyroDSU
 
 #EmuDeck updater on gaming Mode
 #mkdir -p "${toolsPath}/updater"

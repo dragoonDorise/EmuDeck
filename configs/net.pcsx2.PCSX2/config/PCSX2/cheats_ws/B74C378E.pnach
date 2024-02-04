@@ -1,9 +1,0 @@
-gametitle=V.I.P. (PAL-M5) (SLES-50730)
-comment=Widescreen hack by ElHecht
-
-// 16:9
-patch=1,EE,001e46a0,word,3c013f40 // 00000000 hor fov
-patch=1,EE,001e46a4,word,4481f000 // 00000000
-patch=1,EE,001e46b8,word,461e0343 // 46000346
-patch=1,EE,001e46bc,word,46006b07 // 46000307
-patch=1,EE,0024c810,word,3c02437a // 3c024334 renderfix

@@ -1,7 +1,0 @@
-gametitle=The Incredibles - Rise of the Underminer (K)(SLKA-25316)
-comment=Widescreen hack (NTSC-K by Arapapa)
-
-//patch=1,EE,001110e0,word,00000000 // hang fix by Prafull
-//003f023c 00008244 8e3c033c
-patch=1,EE,00218f04,word,3C023F17
-patch=1,EE,00218f30,word,3C023F10

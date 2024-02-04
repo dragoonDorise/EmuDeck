@@ -1,7 +1,0 @@
-gametitle=Kung Fu Panda (U)
-comment=Widescreen hack by Arapapa 
-
-//Widescreen hack 16:9
-
-//abaaaa3f 000080bf 00007a44
-patch=1,EE,00694e0c,word,3fe38e3e//3faaaaab

@@ -26,6 +26,8 @@ doSetupPCSX2QT=true
 #doSetupMelon=true
 doSetupMGBA=true
 doSetupFlycast=true
+doSetupSupermodel=true
+doSetupModel2=true
 
 #Install all systems by default
 doInstallSRM=true
@@ -50,10 +52,12 @@ doInstallMAME=true
 #doInstallMelon=false
 doInstallMGBA=false
 doInstallFlycast=true
+doInstallSupermodel=true
 doInstallCHD=false
 doInstallPowertools=false
 doInstallGyro=false
 doInstallHomeBrewGames=false
+doInstallModel2=false
 
 installString='Installing'
 

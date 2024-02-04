@@ -1,6 +1,6 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 LINK="https://www.crunchyroll.com/"
 
 source ./cloud.conf
-"/usr/bin/flatpak" run ${FLATPAKOPTIONS} ${BROWSERAPP} @@u @@ ${BROWSEROPTIONS} ${LINK}
+browsercommand

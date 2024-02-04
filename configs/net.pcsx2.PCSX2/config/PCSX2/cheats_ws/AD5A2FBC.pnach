@@ -1,6 +1,0 @@
-gametitle=International League Soccer (E)(SLES-50231)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,0010856c,word,3c013f40 //3c013f80

@@ -1,9 +1,0 @@
-gametitle=Tribes Aerial Assault [NTSC-U] (SLUS_201.49)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,00181FE8,word,3C013F1E //3C013F00 Zoom
-patch=1,EE,001829A8,word,3C013ED1 //3C013F00 Y-FOV
-
-//Render fix
-patch=1,EE,001828C4,word,3C013F60 //3C013F00

@@ -1,5 +1,0 @@
-gametitle=WWE SmackDown vs Raw 2007 (K)(SLKA-25168)
-comment=Widescreen hack (NTSC-K by Arapapa)
-
-//Widescreen hack 16:9
-patch=1,EE,002b24f0,word,3c013f40 //3c013f80

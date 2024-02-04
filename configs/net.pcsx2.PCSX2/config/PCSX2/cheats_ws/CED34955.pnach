@@ -1,6 +1,0 @@
-gametitle=Samurai Champloo [NTSC-J] (SLPS-25600)
-comment=Widescreen hack by ElHecht (pnach by Little Giant)
-
-// 16:9
-patch=1,EE,00140414,word,3c023fbd // 3c023f8e hor fov
-patch=1,EE,0014041c,word,3442a12e // 344238e4 hor fov

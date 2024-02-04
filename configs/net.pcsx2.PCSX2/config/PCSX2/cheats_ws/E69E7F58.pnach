@@ -1,6 +1,0 @@
-gametitle=Arc the Lad - End of Darkness (NTSC-U) (SLUS-21165)
-comment=Widescreen hack by pavachan/ElHecht
-
-// 16:9
-patch=1,EE,002c5584,word,3f19999a // 3f4ccccc hor fov gameplay
-patch=1,EE,002c58b8,word,3f19999a // 3f4ccccc hor fov conversation

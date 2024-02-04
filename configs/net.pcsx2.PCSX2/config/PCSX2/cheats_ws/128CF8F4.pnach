@@ -1,8 +1,0 @@
-gametitle=Ultraman Fighting Evolution 3 [NTSC-J] (SLPS-25441)
-comment=Widescreen hack by Little Giant
-
-//16:9
-patch=1,EE,004b344c,word,3f400000 //3f800000
-
-//16:10
-//patch=1,EE,004b344c,word,3f555555 //3f800000

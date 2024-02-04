@@ -1,6 +1,0 @@
-gametitle=The Lord of the Rings - The Third Age (NTSC-U)
-comment=Widescreen Hack (NTSC-U by Arapapa)
-
-patch=1,EE,20C37580,word,3f400000 fov
-patch=1,EE,20C37590,word,3fb00000 render fix 1
-patch=1,EE,20C37598,word,3fb00000 render fix 2

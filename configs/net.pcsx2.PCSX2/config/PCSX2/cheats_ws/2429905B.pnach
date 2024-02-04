@@ -1,6 +1,0 @@
-gametitle=Viewtiful Joe [PAL-M5] (SLES_526.78)
-comment=Widescreen Hack by El_Patas
-
-//Gameplay 16:9    
-patch=1,EE,002B8304,word,3C01BF27 //3C01BF00 Y-FOV
-patch=1,EE,002C1458,word,3C013F20 //3C013F00 Zoom

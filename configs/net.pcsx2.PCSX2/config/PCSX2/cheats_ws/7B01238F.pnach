@@ -1,5 +1,0 @@
-gametitle=E.O.E: Eve of Extinction [PAL] (SLES_507.58)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,00154814,word,3C023EC0 //3C023F00 (Increases hor. axis)

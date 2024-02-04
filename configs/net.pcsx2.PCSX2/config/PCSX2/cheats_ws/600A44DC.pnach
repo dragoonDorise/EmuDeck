@@ -1,8 +1,0 @@
-gametitle=NBA Live 07 (K)(SLKA-25395)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//003f013c 00088144 1800028e
-patch=1,EE,004143d4,word,3c013ec0 //3c013f00

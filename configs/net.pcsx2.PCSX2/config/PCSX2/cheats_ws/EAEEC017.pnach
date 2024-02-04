@@ -1,6 +1,0 @@
-gametitle=Skyscraper (E)(SLES-55152)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,0025c240,word,3c013fab

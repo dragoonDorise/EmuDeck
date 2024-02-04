@@ -1,5 +1,0 @@
-﻿gametitle=Samurai Dou 2 - Kettouban (PlayStation2 the Best) [NTSC-J] (SLPM-74209)
-comment=Widescreen Hack
-
-patch=1,EE,2030F260,extended,3f400000
-patch=1,EE,0016cecc,word,3c033fab

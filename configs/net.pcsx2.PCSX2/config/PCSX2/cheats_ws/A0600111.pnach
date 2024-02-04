@@ -1,5 +1,0 @@
-gametitle=Vexx [PAL-M5] (SLES_504.81)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,0035D87C,word,3C033F40 //3C033F80 (Increases hor. axis)

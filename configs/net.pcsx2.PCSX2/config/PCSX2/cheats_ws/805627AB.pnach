@@ -1,6 +1,0 @@
-gametitle=Get Ride! AMDriver: Soukoku no Shinjitsu [NTSC-J] (SLPM_659.49)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,001DCB54,word,3C023F40 //3C023F80 Zoom
-patch=1,EE,001DC63C,word,3C023EC1 //3C023F00 Y-FOV

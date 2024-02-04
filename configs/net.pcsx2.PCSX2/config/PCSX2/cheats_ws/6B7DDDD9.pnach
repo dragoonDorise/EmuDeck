@@ -1,9 +1,0 @@
-gametitle=Simple 2000 Series Vol. 102 - The Fuhyou - Senjou no Inu Tachi (J)(SLPS-20467)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-
-//803f013c 00008144 00000000 080040e4
-patch=1,EE,0020576c,word,3c013f40 //3c013f80

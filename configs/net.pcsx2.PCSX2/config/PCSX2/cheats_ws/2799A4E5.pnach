@@ -1,7 +1,0 @@
-gametitle=Ace Combat Zero: The Belkan War (SLKA-20070)
-comment=Widescreen fix by nemesis2000 (pnach by nemesis2000)
-
-//widescreen fix
-//c3150344 d7131044
-patch=1,EE,003fa358,word,43D638F3
-patch=1,EE,003fa35c,word,43EB7385

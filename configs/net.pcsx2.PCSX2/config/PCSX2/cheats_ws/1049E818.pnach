@@ -1,9 +1,0 @@
-gametitle=All Star Professional Wrestling II (J)(SLPS-20139)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//Matrix Hack
-patch=1,EE,0023aa9c,word,3c013f40 //00000000
-patch=1,EE,0023aaa0,word,44810000 //00000000
-patch=1,EE,0023aaa8,word,4600c602 //00000000

@@ -1,9 +1,0 @@
-gametitle=Nobunaga no Yabou - Kakushin [NTSC-J] [SLPM-66279]
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//803f023c 00008244 00000000 03000346
-patch=1,EE,0010505c,word,3c023f40 //3c023f80
-patch=1,EE,001052bc,word,3c023f40 //3c023f80

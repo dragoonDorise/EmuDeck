@@ -1,5 +1,0 @@
-gametitle=Garfield: Lasagna World Tour [PAL-M2-Fre-Neth] (SLES_550.43)
-comment=Widescreen Hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,001C3514,word,3C033F40 //3C033F80 (Increases hor. axis)

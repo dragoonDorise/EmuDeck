@@ -1,6 +1,0 @@
-gametitle=Legend of Alon Dar SLUS_200.45
-comment=Widescreen Hack
-patch=1,EE,00129d18,word,3C024400
-patch=1,EE,0014CCFC,word,3C024455
-patch=1,EE,00163A88,word,3C024455
-patch=1,EE,001A6608,word,3C024455 // 2044023c 240502ae e043023c

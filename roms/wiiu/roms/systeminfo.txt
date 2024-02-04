@@ -8,7 +8,7 @@ Supported file extensions:
 .rpx .RPX .wud .WUD .wux .WUX .elf .ELF .iso .ISO .wad .WAD .wua .WUA
 
 Launch command:
-/usr/bin/bash /run/media/external/Emulation/tools/launchers/cemu.sh -f -g z:%ROM%
+/bin/bash /run/media/external/Emulation/tools/launchers/cemu.sh -f -g z:%ROM%
 
 Platform (for scraping):
 wiiu

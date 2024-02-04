@@ -1,4 +1,0 @@
-gametitle=Blade 2 SLUS_203.60
-comment=Widescreen Hack
-patch=1,EE,0018B6B8,word,3C033F40
-patch=1,EE,0017e7d4,word,3c033f40

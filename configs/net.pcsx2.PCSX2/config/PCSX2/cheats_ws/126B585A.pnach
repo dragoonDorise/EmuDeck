@@ -1,5 +1,0 @@
-gametitle=Sorcerous Stabber Orphen [NTSC-J] (SLPS-25008)
-comment=Pnach by Little Giant
-
-//black borders's fix (optional)
-patch=1,EE,00260A9C,word,24020000 //24020001

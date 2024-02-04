@@ -1,7 +1,0 @@
-gametitle=City Soccer Challenge (E)(SLES-53343)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,00162dcc,word,3c01bf2a
-patch=1,EE,00162dd4,word,3421aaab

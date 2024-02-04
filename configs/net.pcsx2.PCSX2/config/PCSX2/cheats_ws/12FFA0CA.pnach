@@ -1,6 +1,0 @@
-gametitle=Space Channel 5 (NTSC-J)(SLPM-65095)
-comment=Widescreen hack (NTSC-J by Arapapa)
-
-//Widescreen hack 16:9
-//0000803f c3f5e83e 0000803f 00007a44
-patch=1,EE,2024b594,extended,3f400000 //3f800000

@@ -1,8 +1,0 @@
-gametitle=Ghost Master - The Gravenville Chronicles (PAL-M5) (SLES-52671)
-comment=Widescreen hack by ElHecht
-
-// 16:9
-patch=1,EE,00105438,word,3c013f40 // 3c013f80 hor fov
-patch=1,EE,00105650,word,3c013f40 // 00000000 renderfix
-patch=1,EE,00105654,word,4481f000 // 00000000
-patch=1,EE,0010565c,word,461e6303 // 00000000

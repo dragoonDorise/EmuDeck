@@ -1,8 +1,0 @@
-gametitle=Seek and Destroy (NTSC-U)
-comment=Widescreen Hack by El_Patas
-
-// 16:9
-patch=1,EE,001bc24c,word,3C013F40 //00000000 hor fov
-patch=1,EE,001bc250,word,44810000 //00000000
-patch=1,EE,001bc258,word,4600C602 //00000000
-patch=1,EE,00186b64,word,3C0140A7 //3C01407A renderfix

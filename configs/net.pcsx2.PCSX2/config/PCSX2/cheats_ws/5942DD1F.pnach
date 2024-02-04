@@ -1,6 +1,0 @@
-gametitle=Metal Gear Solid 2 Substance (K)(SLKA-35001)
-comment=Widescreen Hack (NTSC-K by Arapapa)
-
-//Widescreen hack 16:9
-
-patch=1,EE,0011fef8,word,3c013f40 //3c013f80

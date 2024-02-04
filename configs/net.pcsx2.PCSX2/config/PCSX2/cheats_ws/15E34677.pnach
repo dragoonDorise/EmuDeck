@@ -1,8 +1,0 @@
-gametitle=Busin - Wizardry Alternative (J)(SLPM-62098)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//a043013c 00b08144
-patch=1,EE,00119a04,word,3c0143e0 //3c0143a0
