@@ -4,8 +4,9 @@ Model2_emuName="Model 2 (Proton)"
 Model2_emuType="$emuDeckEmuTypeWindows"
 Model2_emuPath="${romsPath}/model2/EMULATOR.EXE"
 Model2_configFile="${romsPath}/model2/EMULATOR.INI"
-Model2_ProtonGEVersion="GE-Proton8-30"
-ULWGL_toolPath="${toolsPath}/ULWGL"
+Model2_ProtonGEVersion="8.0-5"
+Model2_ProtonGEURL="https://github.com/Open-Wine-Components/ULWGL-Proton/releases/download/ULWGL-Proton-$Model2_ProtonGEVersion/ULWGL-Proton-$Model2_ProtonGEVersion.tar.gz"
+ULWGL_toolPath="$HOME/.local/share/ULWGL"
 ULWGL_githubRepo="https://github.com/Open-Wine-Components/ULWGL-launcher.git" 
 ULWGL_githubBranch="main"
 
@@ -152,9 +153,9 @@ Model2_downloadProtonGE(){
 
 	mkdir -p $STEAMPATH/compatibilitytools.d
 
-	if [ ! -d "$STEAMPATH/compatibilitytools.d/$Model2_ProtonGEVersion/" ]; then
+	if [ ! -d "$STEAMPATH/compatibilitytools.d/ULWGL-Proton-$Model2_ProtonGEVersion" ]; then
 		echo "Installing $Model2_ProtonGEVersion"
-		downloadProtonGE=$(wget -m -nd -A "$Model2_ProtonGEVersion.tar.gz" -O "$STEAMPATH/compatibilitytools.d/$Model2_ProtonGEVersion.tar.gz" "http://github.com/GloriousEggroll/proton-ge-custom/releases/download/$Model2_ProtonGEVersion/$Model2_ProtonGEVersion.tar.gz")
+		downloadProtonGE=$(wget -m -nd -A "$Model2_ProtonGEVersion.tar.gz" -O "$STEAMPATH/compatibilitytools.d/$Model2_ProtonGEVersion.tar.gz" $Model2_ProtonGEURL)
 			local showProgress="$1"
 
 		if $downloadProtonGE; then
