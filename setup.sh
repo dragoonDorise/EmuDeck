@@ -254,6 +254,10 @@ if [ $doInstallmelonDS == "true" ]; then
 	echo "melonDS_install"
 	melonDS_install
 fi
+if [ $doInstallBigPEmu == "true" ]; then
+	echo "BigPEmu_install"
+	BigPEmu_install
+fi
 if [ $doInstallSupermodel == "true" ]; then
 	echo "Supermodel_install"
 	Supermodel_install
@@ -385,6 +389,10 @@ fi
 if [ "$doSetupCemu" == "true" ]; then
 	echo "Cemu_init"
 	Cemu_init
+fi
+if [ "$doSetupBigPEmu" == "true" ]; then
+	echo "BigPEmu_init"
+	BigPEmu_init
 fi
 if [ "$doSetupXenia" == "true" ]; then
 	echo "Xenia_init"
