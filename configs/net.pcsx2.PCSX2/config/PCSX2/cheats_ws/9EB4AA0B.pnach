@@ -1,7 +1,0 @@
-gametitle=New Roommania - Porori Seishun (NTSC-J)(SLPM-65235)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//0000803f 0000803f 0000803f 00002044
-patch=1,EE,205C07DC,extended,3f400000 //3f800000 fov

@@ -1,6 +1,0 @@
-gametitle=Realm of the Dead (PAL-E) (SLES-54339)
-comment=Widescreen hack by ElHecht
-
-// 16:9
-patch=1,EE,0010befc,word,3c013f61 // 3c013f28 hor fov
-patch=1,EE,0010bf00,word,342147ae // 3421f5c3 hor fov

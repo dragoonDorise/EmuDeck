@@ -1,9 +1,0 @@
-
-
-patch=1,EE,0033f7ac,word,08041b98
-
-patch=1,EE,00106e60,word,46070202
-patch=1,EE,00106e64,word,3c013f40
-patch=1,EE,00106e68,word,4481f000
-patch=1,EE,00106e6c,word,461e4202
-patch=1,EE,00106e70,word,080cfdec

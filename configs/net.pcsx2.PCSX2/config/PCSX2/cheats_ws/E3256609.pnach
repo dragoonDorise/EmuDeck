@@ -1,6 +1,0 @@
-gametitle=Kidou Senshi Gundam - Renpou vs. Zeon DX (J)(SLPM-65076)
-
-//Widescreen hack 16:9
-
-patch=1,EE,0013b808,word,3c024328 //3c024360
-patch=1,EE,0019254c,word,3c024395 //3c024360

@@ -1,7 +1,0 @@
-gametitle=RedCard SLES_507.11
-comment=Widescreen Hack
-//bc7e2dc4003f023c to bc7e2dc4223f023c
-//aa3f023c040080acabaa4234 to e33f023c040080ac398e4234
-patch=1,EE,0012b308,word,3c023f22
-patch=1,EE,0020a054,word,3c023fe3
-patch=1,EE,0020a05c,word,34428e39

@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu "primehack" && cloud_sync_startService
+emulatorInit "primehack"
 /usr/bin/flatpak run io.github.shiiion.primehack "${@}"
 rm -rf "$savesPath/.gaming"

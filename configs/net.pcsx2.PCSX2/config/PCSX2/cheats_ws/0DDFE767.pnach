@@ -1,9 +1,0 @@
-gametitle=Test Drive - Off-Road - Wide Open (NTSC-U) [SLUS-20177]
-comment=Widescreen hack
-
-//hor fov (default = 3F800000, 21:9 = 3FC00000)
-
-patch=1,EE,202C0A70,extended,3FA00000
-
-//60 fps (from https://www.reddit.com/r/emulation/comments/5tmge2/ps2_60fps_codes_list/)
-//patch=1,EE,202C0A74,extended,00000001

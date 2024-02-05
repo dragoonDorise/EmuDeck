@@ -1,7 +1,0 @@
-gametitle=Flipnic (J)(SCPS-15050)
-comment=Widescreen hack by Arapapa
-
-//Gameplay 16:9
-
-patch=1,EE,00185480,word,3c023f19 //3c023f4c
-patch=1,EE,00185488,word,3447999a //3447cccd

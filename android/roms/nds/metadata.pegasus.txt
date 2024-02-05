@@ -1,0 +1,7 @@
+collection: Nintendo DS
+shortname: nds
+extensions: bin, nds, zip, 7z
+launch: am start
+  -n com.dsemu.drastic/.DraSticActivity
+  -a android.intent.action.VIEW
+  -d "{file.path}"

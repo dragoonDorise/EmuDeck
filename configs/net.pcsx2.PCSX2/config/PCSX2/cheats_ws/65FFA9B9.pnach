@@ -1,4 +1,0 @@
-﻿gametitle=Samurai Western - Katsugeki Samurai-dou [NTSC-J] (SLPM-65755)
-comment=Widescreen Hack
-
-patch=1,EE,202BE2A0,extended,3f400000

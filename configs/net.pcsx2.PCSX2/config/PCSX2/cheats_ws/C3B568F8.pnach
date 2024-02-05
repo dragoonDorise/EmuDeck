@@ -1,6 +1,0 @@
-﻿gametitle=Gungrave [NTSC-J] (SLPM-65153)
-comment=Widescreen Hack
-
-patch=1,EE,001bee9c,word,3c013f40
-patch=1,EE,001beea0,word,44810000
-patch=1,EE,001beea8,word,4600c602

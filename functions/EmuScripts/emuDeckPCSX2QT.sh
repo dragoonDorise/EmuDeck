@@ -22,6 +22,10 @@ PCSX2QT_install() {
 		return 1
 	fi
 }
+#Fix for autoupdate
+Pcsx2_install(){
+	PCSX2QT_install
+}
 
 #ApplyInitialSettings
 PCSX2QT_init() {
@@ -61,6 +65,7 @@ PCSX2QT_update() {
 PCSX2QT_setEmulationFolder() {
 	setMSG "Setting $PCSX2QT_emuName Emulation Folder"
 
+	iniFieldUpdate "$PCSX2QT_configFile" "UI" "ConfirmShutdown" "false"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Bios" "${biosPath}"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Snapshots" "${storagePath}/pcsx2/snaps"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Savestates" "${savesPath}/pcsx2/states"

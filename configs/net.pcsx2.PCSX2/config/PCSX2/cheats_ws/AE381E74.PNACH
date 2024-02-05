@@ -1,5 +1,0 @@
-gametitle= NBA Street (NTSC-U)
-comment= Widescreen Hack by VIRGIN KLM
-
-//Widescreen - 3D Elements
-patch=1,EE,00644C48,word,3F955555 // 3F6EEEEF

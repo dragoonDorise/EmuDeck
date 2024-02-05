@@ -1,9 +1,0 @@
-gametitle=Eternal Ring (U)(SLUS-20015)
-comment=Widescreen Hack by Arapapa
-
-//X-Fov - ELF hack
-//803f013c 00a88144 0045013c
-patch=1,EE,00100fcc,word,3c013f40 //3c013f80
-
-//Memory hack
-//patch=1,EE,201FF100,word,43c00000

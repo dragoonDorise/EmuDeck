@@ -1,6 +1,0 @@
-gametitle=Dragon Rage [NTSC-U] (SLUS_201.95)
-comment=Widescreen Hack by El_Patas
-
-//Gameplay 16:9 
-patch=1,EE,001BFBCC,word,3C013EC6 //3C013F80 Zoom
-patch=1,EE,001D9B4C,word,3C013FF3 //3C013F80 Y-FOV

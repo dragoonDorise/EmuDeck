@@ -1,5 +1,0 @@
-gametitle=Shadow Tower Abyss (English patch)
-comment=Widescreen hack, set to 16:9 in-game
-patch=1,EE,201F2790,word,3F400000 // HUD
-patch=1,EE,201FA0C8,word,3F800000 // zoom
-patch=1,EE,204A0F84,word,3F400000 // subtitles

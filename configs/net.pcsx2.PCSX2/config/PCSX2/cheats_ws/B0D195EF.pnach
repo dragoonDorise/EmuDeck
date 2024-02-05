@@ -1,5 +1,0 @@
-gametitle=Metal Gear Solid 3 - Subsistence (K) (SLKA_25353)
-comment=Widescreen pnach by Arapapa
-
-// 16:9 (0000803f 000080bf cdcc4c3d)
-patch=1,EE,202050AC,word,3F400000 // 3f800000

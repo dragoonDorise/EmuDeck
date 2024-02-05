@@ -1,5 +1,0 @@
-gametitle=Tak 2: The Staff of Dreams [NTSC-U]
-comment=Widescreen Hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,205A66EC,extended,3FE38E38 //3FAAAAAB

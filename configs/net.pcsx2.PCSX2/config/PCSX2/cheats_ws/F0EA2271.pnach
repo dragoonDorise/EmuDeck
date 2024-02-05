@@ -1,4 +1,0 @@
-gametitle=Dynasty Warriors 5: Empires (NTSC-U)
-
-patch=1,EE,00146e4c,word,3c0243d6 //3c0243a0
-patch=1,EE,0019f8ec,word,3c023f2b //3c023f00

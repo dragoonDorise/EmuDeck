@@ -1,5 +1,0 @@
-gametitle=Xenosaga Episode I RELOADED (NTSC-J)
-comment=Widescreen hack
-
-//gameplay
-patch=1,EE,204d8d50,extended,4182e8ba

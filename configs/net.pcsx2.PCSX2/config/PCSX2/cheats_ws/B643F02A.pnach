@@ -1,7 +1,0 @@
-gametitle= King of Fighters - Maximum Impact - Maniax (J)(SLPS-25636)
-comment= Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,0057efa4,word,3fe38e38 //3faaaaab Y-Fov
-patch=1,EE,005a53d0,word,400ccccd //3eaaaaab Zoom

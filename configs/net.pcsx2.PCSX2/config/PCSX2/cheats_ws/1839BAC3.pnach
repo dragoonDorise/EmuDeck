@@ -1,6 +1,0 @@
-gametitle=Star Wars - Jedi Starfighter (J)(SLPS-25147)
-comment=Widescreen Hack (NTSC-J by Arapapa)
-
-//Widescreen hack 16:9
-
-patch=1,EE,00126ce0,word,3c023f40 //3c023f80

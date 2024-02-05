@@ -1,8 +1,0 @@
-gametitle=Shinseiki Yuusha Taisen [NTSC-J] (SLPM_658.21)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,0017A6C0,word,3C023F40 //3C023F80 (Increases hor. axis)
-
-//Render fix
-patch=1,EE,0017C954,word,3C033FAB //3C033F80

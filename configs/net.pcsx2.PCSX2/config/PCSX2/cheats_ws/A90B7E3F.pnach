@@ -1,7 +1,0 @@
-gametitle=WinBack 2 - Project Poseidon (NTSC-U)
-comment=Widescreen hack by ElHecht
-
-// 16:9
-patch=1,EE,002e6ff0,word,3c013f40 // 00000000 hor fov
-patch=1,EE,002e6ff4,word,4481f000 // 00000000
-patch=1,EE,002e6ffc,word,461e0003 // 00000000

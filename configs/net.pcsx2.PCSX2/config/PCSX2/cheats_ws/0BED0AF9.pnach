@@ -1,4 +1,0 @@
-gametitle=Devil May Cry 3 NTSC-U  (SLUS_20964)
-comment=Widescreen Hack
-
-patch=1,EE,21CB0590,extended,3F400000

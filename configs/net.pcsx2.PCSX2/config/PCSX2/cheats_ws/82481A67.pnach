@@ -1,5 +1,0 @@
-gametitle=Simple 2000 Series Vol. 113: The Tairyou Jigoku [NTSC-J] (SLPS_204.88)
-comment=Widescreen Hack by El_Patas
-
-//Gameplay 16:9  
-patch=1,EE,00307D74,word,3C013F40 //3C013F80 (Increases hor. axis)

@@ -34,10 +34,16 @@ SRM_createDesktopShortcut(){
 }
 
 SRM_migration(){
-  if [ -d "${toolsPath}/srm" ]; then
-    cp "${toolsPath}"/srm/*.AppImage "${toolsPath}"
-    mv "${toolsPath}/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" && rm -rf "${toolsPath}"/srm/
+  if [ -f "${toolsPath}/srm/Steam-ROM-Manager.AppImage" ]; then
+    mv "${toolsPath}/srm/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" &> /dev/null
     SRM_createDesktopShortcut
+
+	SRM_createParsers
+	SRM_addSteamInputProfiles
+
+	Citra_resetConfig
+	PCSX2QT_resetConfig
+	DuckStation_resetConfig
   fi
 }
 
@@ -52,7 +58,6 @@ SRM_init(){
   SRM_createParsers
   SRM_addSteamInputProfiles
   #old SRM
-  SRM_migration
 
   sleep 1
 
@@ -369,6 +374,7 @@ SRM_setEnv(){
 }
 
 SRM_resetConfig(){
+  SRM_migration
   SRM_init
   #Reseting launchers
   SRM_resetLaunchers

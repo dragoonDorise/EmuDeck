@@ -276,20 +276,21 @@ RetroArch_buildbotDownloader(){
 	if [[ ! -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/assets" ]] ; then
 		mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/assets"
 
-		curl -L "$RetroArch_assetsURL" -o assets.zip && unzip -uo assets.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/assets" && rm assets.zip
+		curl -L "$RetroArch_assetsURL" -o assets.zip && unzip -o assets.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/assets" && rm assets.zip
 	fi
 
 	# Info
 	if [[ ! -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/info" ]] ; then
 	 	mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/info"
 
-		curl -L "$RetroArch_infoURL" -o info.zip && unzip -uo info.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/info" && rm info.zip
+		curl -L "$RetroArch_infoURL" -o info.zip && unzip -o info.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/info" && rm info.zip
 	fi
 
 	# PPSSPP
 	if [[ ! -d "$biosPath/PPSSPP" ]] ; then
-		curl -L "$RetroArch_ppssppURL" -o PPSSPP.zip && unzip -uo PPSSPP.zip -d "$biosPath" && rm PPSSPP.zip
+		curl -L "$RetroArch_ppssppURL" -o PPSSPP.zip && unzip -o PPSSPP.zip -d "$biosPath" && rm PPSSPP.zip
 	fi
+
 
 }
 

@@ -1,7 +1,0 @@
-gametitle= King of Fighters, The - Maximum Impact 2 (K)(SLKA-25394)
-comment= Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,006c29d4,word,3fe38e38 //3faaaaab
-patch=1,EE,00769b40,word,400ccccd //3eaaaaab

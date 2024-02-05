@@ -1,6 +1,6 @@
-#!/usr/bin/bash
+#!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu "cemu-native" && cloud_sync_startService
+emulatorInit "cemu-native"
 # shellcheck disable=SC1091
 . "${HOME}/emudeck/settings.sh"
 

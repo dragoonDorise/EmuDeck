@@ -1,9 +1,0 @@
-gametitle=NBA Ballers (SLUS-20541)
-comment=Widescreen Patch (16:9) by Monsterjamp
-
-//FOV
-patch=1,EE,21C4E7A0,word,40400000
-
-//This value prevents objects disappearing
-//from the sides of the screen
-patch=1,EE,21C4E798,word,3ECCCCCD

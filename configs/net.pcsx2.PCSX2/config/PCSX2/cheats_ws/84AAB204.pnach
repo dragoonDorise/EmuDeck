@@ -1,3 +1,0 @@
-﻿gametitle=Crash Bandicoot Bakusou! Nitro Kart [NTSC-J] (SLPM-65580)
-comment=Widescreen hack by nemesis2000 (pnach by nemesis2000)
-patch=1,EE,005854a8,word,3c023f17

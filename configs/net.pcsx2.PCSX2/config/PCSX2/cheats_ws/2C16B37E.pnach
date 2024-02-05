@@ -1,7 +1,0 @@
-gametitle=TimeSplitter - Jikuu no Shinryakusha (J)(SLPS-25207)
-comment=Widescreen hack by No.47 (NTSC-K by Arapapa)
-
-patch=1,EE,205805F4,word,3FC71C71
-patch=1,EE,205811C8,word,3FC71C71
-patch=1,EE,20581250,word,3FC71C71
-patch=1,EE,205845F4,word,3FC71C71

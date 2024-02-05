@@ -1,0 +1,7 @@
+collection: PlayStation 2
+shortname: ps2
+extensions: bin, cbn, ccd, chd, cue, exe, img, m3u, mdf, pbp, toc
+command: am start
+  -n  xyz.aethersx2.android/.EmulationActivity
+  -a android.intent.action.MAIN
+  -e bootPath {file.documenturi}

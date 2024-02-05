@@ -1,7 +1,0 @@
-gametitle=Dynasty Warriors 3 - Xtreme Legends (PAL-G) (SLES-51443)
-comment=Widescreen Hack (16:9) by ElHecht
-
-// 16:9
-patch=1,EE,002724d8,word,3faaaaab // 3f800000 zoom
-patch=1,EE,002724e4,word,3faaaaab // 3f800000 ver fov
-patch=1,EE,00180be0,word,3c023f2b // 3c023f00 renderfix

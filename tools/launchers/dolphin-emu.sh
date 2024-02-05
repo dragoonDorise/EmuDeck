@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu "dolphin" && cloud_sync_startService
+emulatorInit "dolphin"
 /usr/bin/flatpak run org.DolphinEmu.dolphin-emu "${@}"
 rm -rf "$savesPath/.gaming"

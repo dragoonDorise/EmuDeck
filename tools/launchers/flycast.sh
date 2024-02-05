@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-cloud_sync_downloadEmu "flycast" && cloud_sync_startService
+emulatorInit "flycast"
 /usr/bin/flatpak run org.flycast.Flycast "${@}"
 rm -rf "$savesPath/.gaming"

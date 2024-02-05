@@ -1,6 +1,0 @@
-gametitle=Ben 10: Alien Force [NTSC-U] (SLUS_218.15)
-comment=Widescreen Hack by Sergx12
-
-//Gameplay 16:9
-patch=1,EE,002A2430,word,3C013F1C //3C013F00 Zoom
-patch=1,EE,001124E4,word,3C013ED6 //3C013F00 Y-FOV

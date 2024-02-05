@@ -1,8 +1,0 @@
-gametitle=Summoner 2 (PAL-F) (SLES-51143)
-comment=Widescreen Hack (16:9) by Bigdemon
-
-// 16:9
-patch=1,EE,0017da4c,word,3c013f40 // 00000000 hor fov
-patch=1,EE,0017da54,word,4481f000 // 00000000
-patch=1,EE,0017da58,word,461eaf83 // 00000000
-patch=1,EE,0017daa4,word,461e1882 // 46151883

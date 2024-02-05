@@ -1,5 +1,0 @@
-gametitle=Everblue 2 [PAL] (SLES_513.81)
-comment=Widescreen hack by El_Patas
- 
-//Gameplay 16:9
-patch=1,EE,00229278,word,3C033F06 //3C033F33 (Increases hor. axis)

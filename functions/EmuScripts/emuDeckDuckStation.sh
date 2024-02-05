@@ -25,7 +25,7 @@ DuckStation_init(){
 	DuckStation_setupStorage
 	DuckStation_setEmulationFolder
 	DuckStation_setupSaves
-	DuckStation_addSteamInputProfile
+	#DuckStation_addSteamInputProfile
 	DuckStation_retroAchievementsSetLogin
 	DuckStation_setCustomizations
 	RetroArch_setRetroAchievements
@@ -38,7 +38,7 @@ DuckStation_update(){
 	DuckStation_setupStorage
 	DuckStation_setEmulationFolder
 	DuckStation_setupSaves
-	DuckStation_addSteamInputProfile
+	#DuckStation_addSteamInputProfile
 }
 
 #ConfigurePaths

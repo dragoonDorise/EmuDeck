@@ -1,4 +1,0 @@
-﻿gametitle=Kaido Battle 2 - Chain Reaction [NTSC-J] (SLPM-65514)
-comment=Widescreen hack by nemesis2000 (pnach by nemesis2000)
-
-patch=1,EE,00149200,word,3c023f40
