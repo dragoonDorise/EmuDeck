@@ -265,11 +265,11 @@ RetroArch_buildbotDownloader(){
 	# Shaders
 	if [[ ! -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders" ]] ; then
 
-		mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders" 
+		mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_cg" "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_glsl" "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_slang" 
 
-		curl -L "$RetroArch_shaderscgURL" -o shaders_glsl.zip && unzip -uo shaders_glsl.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders" && rm shaders_glsl.zip
-		curl -L "$RetroArch_shadersglslURL" -o shaders_glsl.zip && unzip -uo shaders_glsl.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders" && rm shaders_glsl.zip
-		curl -L "$RetroArch_shadersslangURL" -o shaders_slang.zip && unzip -uo shaders_slang.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders" && rm shaders_slang.zip
+		curl -L "$RetroArch_shaderscgURL" -o shaders_cg.zip && unzip -o shaders_cg.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_cg" && rm shaders_cg.zip
+		curl -L "$RetroArch_shadersglslURL" -o shaders_glsl.zip && unzip -o shaders_glsl.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_glsl" && rm shaders_glsl.zip
+		curl -L "$RetroArch_shadersslangURL" -o shaders_slang.zip && unzip -o shaders_slang.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_slang" && rm shaders_slang.zip
 	fi
 
 	# Assets	
