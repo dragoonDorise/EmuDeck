@@ -10,6 +10,12 @@ RetroArch_coreConfigFolders="$HOME/.var/app/org.libretro.RetroArch/config/retroa
 RetroArch_cores="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores"
 RetroArch_coresURL="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
 RetroArch_coresExtension="so.zip"
+RetroArch_assetsURL="https://buildbot.libretro.com/assets/frontend/assets.zip"
+RetroArch_shaderscgURL="https://buildbot.libretro.com/assets/frontend/shaders_cg.zip"
+RetroArch_shadersglslURL="https://buildbot.libretro.com/assets/frontend/shaders_glsl.zip"
+RetroArch_shadersslangURL="https://buildbot.libretro.com/assets/frontend/shaders_slang.zip"
+RetroArch_infoURL="https://buildbot.libretro.com/assets/frontend/info.zip"
+RetroArch_ppssppURL="https://buildbot.libretro.com/assets/system/PPSSPP.zip"
 
 #cleanupOlderThings
 RetroArch_cleanup(){
@@ -68,6 +74,7 @@ RetroArch_init(){
 	RetroArch_autoSave
 	RetroArch_setRetroAchievements
 	RetroArch_melonDSDSMigration
+	RetroArch_buildbotDownloader
 
 	mkdir -p "$biosPath/mame/bios"
 	mkdir -p "$biosPath/dc"
@@ -198,6 +205,7 @@ RetroArch_update(){
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
 	RetroArch_melonDSDSMigration
+	RetroArch_buildbotDownloader
 }
 
 
@@ -248,6 +256,41 @@ RetroArch_setupConfigurations(){
 	microphone_driver='microphone_driver = '
 	microphone_driverSetting="${microphone_driver}"\""sdl"\"
 	changeLine "$microphone_driver" "$microphone_driverSetting" "$RetroArch_configFile"
+
+}
+
+RetroArch_buildbotDownloader(){
+
+
+	# Shaders
+	if [[ ! -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders" ]] ; then
+
+		mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_cg" "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_glsl" "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_slang" 
+
+		curl -L "$RetroArch_shaderscgURL" -o shaders_cg.zip && unzip -o shaders_cg.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_cg" && rm shaders_cg.zip
+		curl -L "$RetroArch_shadersglslURL" -o shaders_glsl.zip && unzip -o shaders_glsl.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_glsl" && rm shaders_glsl.zip
+		curl -L "$RetroArch_shadersslangURL" -o shaders_slang.zip && unzip -o shaders_slang.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_slang" && rm shaders_slang.zip
+	fi
+
+	# Assets	
+	if [[ ! -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/assets" ]] ; then
+		mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/assets"
+
+		curl -L "$RetroArch_assetsURL" -o assets.zip && unzip -o assets.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/assets" && rm assets.zip
+	fi
+
+	# Info
+	if [[ ! -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/info" ]] ; then
+	 	mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/info"
+
+		curl -L "$RetroArch_infoURL" -o info.zip && unzip -o info.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/info" && rm info.zip
+	fi
+
+	# PPSSPP
+	if [[ ! -d "$biosPath/PPSSPP" ]] ; then
+		curl -L "$RetroArch_ppssppURL" -o PPSSPP.zip && unzip -o PPSSPP.zip -d "$biosPath" && rm PPSSPP.zip
+	fi
+
 
 }
 
