@@ -457,7 +457,8 @@ fi
 	rm -rf "$HOME/.local/share/applications/EmulationStation-DE.desktop" &> /dev/null 
 	rm -rf "$toolsPath/EmulationStation-DE.AppImage"
 	# ULWGL, currently used for the Model 2 Emulator
-	rm -rf "$HOME/.local/share/ULWGL"
+	# Not sure what to do with this. Heroic and Lutris will start using ULWGL soon so I don't want to remove it. 
+	# rm -rf "$HOME/.local/share/ULWGL"
 	# Pegasus
 	rm -rf "$HOME/.var/app/org.pegasus_frontend.Pegasus/" &> /dev/null 
 	rm -rf "$HOME/.local/share/applications/Pegasus.desktop" &> /dev/null
