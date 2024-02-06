@@ -304,8 +304,7 @@ RetroArch_buildbotDownloader(){
 
 	# PPSSPP
 	if [[ ! -d "$ppssppDir" ]] ; then
-		mkdir -p "$ppssppDir"
-		curl -L "$RetroArch_ppssppURL" -o "$ppssppDir/PPSSPP.zip" && unzip -o "$ppssppDir/PPSSPP.zip" -d "$ppssppDir" && rm "$ppssppDir/PPSSPP.zip"
+		curl -L "$RetroArch_ppssppURL" -o "$biosPath/PPSSPP.zip" && unzip -o "$biosPath/PPSSPP.zip" -d "$biosPath" && rm "$biosPath/PPSSPP.zip"
 	fi
 
 
