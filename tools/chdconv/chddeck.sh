@@ -7,31 +7,31 @@ if [[ "$EMUDECKGIT" == "" ]]; then
 fi
 
 #whitelist
-chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "megacd" "ps2")
+chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "neogeocdjp" "megacd" "ps2")
 rvzfolderWhiteList=("gamecube" "wii" "primehacks")
 csofolderWhiteList=("psp")
 n3dsfolderWhiteList=("3ds")
 xboxfolderWhiteList=("xbox")
-sevenZipfolderWhiteList=("atari2600" "atarilynx" "famicom" "gamegear" 
-"gb" "gbc" "gba" 
-"genesis" "mastersystem" "megacd" 
-"n64" "n64dd" "nes" 
-"ngp"  "ngpc" "saturn" 
-"sega32x" "segacd" "sfc" 
-"snes" "snesna" "wonderswan" 
+sevenZipfolderWhiteList=("atari2600" "atarilynx" "famicom" "gamegear"
+"gb" "gbc" "gba"
+"genesis" "mastersystem" "megacd"
+"n64" "n64dd" "nes"
+"ngp"  "ngpc" "saturn"
+"sega32x" "segacd" "sfc"
+"snes" "snesna" "wonderswan"
 "wonderswancolor")
 declare -a searchFolderList
 
 # File extensions
-sevenZipfileextensionWhiteList=("ngp" "ngc" "a26" 
-"lnx" "ws" "pc2" 
-"wsc" "ngc" "n64" 
-"ndd" "v64" "z64" 
-"gb" "dmg" "gba" 
-"gbc" "nes" "fds" 
-"unf" "unif" "bs" 
-"fig" "sfc" "smc" 
-"swx" "32x" "gg" 
+sevenZipfileextensionWhiteList=("ngp" "ngc" "a26"
+"lnx" "ws" "pc2"
+"wsc" "ngc" "n64"
+"ndd" "v64" "z64"
+"gb" "dmg" "gba"
+"gbc" "nes" "fds"
+"unf" "unif" "bs"
+"fig" "sfc" "smc"
+"swx" "32x" "gg"
 "gen" "md" "smd" )
 
 #executables
@@ -40,7 +40,7 @@ chmod +x "$chdPath/chdman5"
 chmod +x "$chdPath/ciso"
 chmod +x "$chdPath/3dstool"
 chmod +x "$chdPath/extract-xiso"
-# chdman5 compiled on January 28th, 2024
+# chdman5 compiled on February 5th, 2024
 # extract-xiso compiled on January 28th, 2024
 export PATH="${chdPath}/:$PATH"
 flatpaktool=$(flatpak list --columns=application | grep -E dolphin\|primehack | head -1)
@@ -63,7 +63,7 @@ compressCHD() {
 	chdman5 createcd -i "$file" -o "${file%.*}.chd" && successful="true"
 	if [[ $successful == "true" ]]; then
 		echo "Converting $file to CHD using the createcd flag."
-		echo "successfully created ${file%.*}.chd"
+		echo "$file succesfully converted to ${file%.*}.chd"
 		if [[ ! ("$fileType" == 'iso' || "$fileType" == 'ISO') ]]; then
 			find "${CUEDIR}" -maxdepth 1 -type f | while read -r b; do
 				fileName="$(basename "${b}")"
@@ -84,10 +84,10 @@ compressCHD() {
 compressCHDDVD() {
 	local file=$1
 	local successful='' 
-	chdman5 createdvd -i "$file" -o "${file%.*}.chd" && successful="true"
+	chdman5 createdvd --hunksize 16384 -i "$file" -o "${file%.*}.chd" && successful="true"
 	if [[ $successful == "true" ]]; then
 		echo "Converting $file to CHD using the createdvd flag."
-		echo "successfully created ${file%.*}.chd"
+		echo "$file succesfully converted to ${file%.*}.chd"
 		rm -f "$file"
 	else
 		echo "Conversion of ${file} failed."
@@ -129,7 +129,7 @@ trim3ds() {
 	# Rename trimmed files to *(Trimmed).3ds
 	3dstool -r -f "$file" && successful="true"
 	if [[ $successful == "true" ]]; then
-		echo "$file succesfully converted to ${file%.*}.3ds"
+		echo "Successfully trimmed ${file%.*}.3ds"
 		mv "$file" "${file%%.*}(Trimmed).3ds"
 	else
 		echo "error converting $file"
@@ -162,7 +162,6 @@ compressXISO() {
 	7z a -mx=9 "${file%.*}.7z" "$file" && successful="true"
 	if [[ $successful == "true" ]]; then
 		echo "$file succesfully compressed to ${file%.*}.7z"
-		#mv "$file" "${file%%.*}.xiso.iso"
 		rm -f "${file%%.*}.$ext"
 	else
 		echo "error converting $file"
@@ -322,7 +321,7 @@ if [ "$selection" == "bulk" ]; then
 	#cso
 	for romfolder in "${romfolders[@]}"; do
 		if [[ " ${csofolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-			text="$(printf "Would you like to compress your PlayStation Portable ROM(s) to CHD or CSO?")"
+			text="$(printf "Would you like to compress your PlayStation Portable ROM(s) to CSO or CHD?")"
 			pspBulkSelection=$(zenity --question \
 				--title="PSP Compression" \
 				--width=250 \
@@ -461,11 +460,11 @@ elif [ "$selection" == "Pick a file" ]; then
 		else 
 			echo "No valid ROM found"
 		fi
-	elif [ "$selectedCompressionMethod" == "Compress a PSP ROM to CSO or CHD" ]; then	
+	elif [ "$selectedCompressionMethod" == "Compress a PSP ROM to CHD or CSO" ]; then	
 		if [[ "$ext" =~ "iso" || "$ext" =~ "ISO" ]]; then
 			echo "Valid ROM found, prompting user"
 
-			text="$(printf "Would you like to compress your PlayStation Portable ROM to CSO or CHD?")"
+			text="$(printf "Would you like to compress your PlayStation Portable ROM to CHD or CSO?")"
 			pspSelection=$(zenity --question \
 				--title="PSP Compression" \
 				--width=250 \
@@ -531,7 +530,7 @@ if [ "$uiMode" == 'zenity' ]; then
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		echo "user launched SRM"
-		"${toolsPath}/Steam ROM Manager.AppImage"
+		"${toolsPath}/launchers/srm/steamrommanager.sh"
 		exit
 	else
 		exit
