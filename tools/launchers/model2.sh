@@ -8,7 +8,7 @@ EXE="$romsPath/model2/EMULATOR.EXE"
 
 Model2Launcher="${toolsPath}/launchers/model2.sh"
 
-#In case the user deletes it, the script below does re-create it though
+#In case the user deletes it, will allow loading bar to pop up again.
 mkdir -p "$romsPath/model2/pfx"
 
 while [ ! -d "$romsPath/model2/pfx/drive_c" ]; do
@@ -20,7 +20,7 @@ while [ ! -d "$romsPath/model2/pfx/drive_c" ]; do
 
 done
 
-# Must launch ROMs from the same directory as EMULATOR.EXE
+# Must launch ROMs from the same directory as EMULATOR.EXE.
 cd $romsPath/model2
 
 # $Model2_ProtonGEVersion is assigned in emuDeckModel2.sh

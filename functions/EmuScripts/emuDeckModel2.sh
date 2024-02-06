@@ -171,47 +171,20 @@ Model2_downloadProtonGE(){
 
 }
 
-function Model2ULWGL_install() {
+Model2ULWGL_install() {
 
-  # Create the ULWGL directory if it doesn't exist
-  if [ ! -d "$ULWGL_toolPath" ]; then
-    mkdir -p "$ULWGL_toolPath"
-  fi
+mkdir -p "$ULWGL_toolPath"
 
-  # Initialize a new Git repository in the ULWGL directory
-  cd "$ULWGL_toolPath" || exit
-  if ! git rev-parse --git-dir > /dev/null 2>&1; then
-    git init
-  fi
+ulwglURL="$(getReleaseURLGH "Open-Wine-Components/ULWGL-launcher" "ULWGL-launcher.tar.gz")"
 
-  # Set up a remote origin for the repository
-  if ! git remote get-url origin > /dev/null 2>&1; then
-    git remote add origin "$ULWGL_githubRepo"
-  fi
+if safeDownload "ULWGL" "$ulwglURL" "$ULWGL_toolPath/ULWGL-launcher.tar.gz" "$showProgress"; then
+	
+	tar -xvzf "$ULWGL_toolPath/ULWGL-launcher.tar.gz" -C "$ULWGL_toolPath"
 
-  # Configure Git to perform a sparse checkout of the ULWGL folder
-  if ! git config core.sparsecheckout > /dev/null 2>&1; then
-    git config core.sparsecheckout true
-  fi
-  if ! grep -Fxq "/*" .git/info/sparse-checkout; then
-    echo "/*" >> .git/info/sparse-checkout
-  fi
+else
+    return 1
+fi
 
-  # Pull the latest changes from the remote repository
-  git fetch --depth=1 origin "$ULWGL_githubBranch"
-  if git merge FETCH_HEAD > /dev/null 2>&1; then
-    echo "ULWGL updated successfully"
-  else
-    # If the merge failed, reset the local changes and try again
-    git reset --hard origin/master > /dev/null 2>&1
-    git clean -fd > /dev/null 2>&1
-    git fetch --depth=1 origin "$ULWGL_githubBranch"
-    if git merge FETCH_HEAD > /dev/null 2>&1; then
-      echo "ULWGL updated successfully"
-    else
-      echo "Error: Failed to update ULWGL"
-    fi
-  fi
 }
 
 
