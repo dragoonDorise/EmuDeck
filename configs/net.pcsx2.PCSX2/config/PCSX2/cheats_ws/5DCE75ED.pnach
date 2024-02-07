@@ -1,7 +1,0 @@
-gametitle=Athens 2004 (J)(SCPS-15074)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov 403f013c 00b08144 04004010
-patch=1,EE,00270f48,word,3c013f10 //3c013f40

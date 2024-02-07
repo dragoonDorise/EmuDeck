@@ -1,7 +1,0 @@
-﻿gametitle=Tom Clancy's Rainbow Six 3 (SLKA-25173)
-comment=Widescreen Hack by nemesis2000 (NTSC-K by Arapapa)
-
-//Widescreen hack 16:9
-
-//803f023c 9007a327 9407a2af
-patch=1,EE,20311150,extended,3c023f40

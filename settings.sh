@@ -18,12 +18,17 @@ doSetupMAME=true
 doSetupPrimehack=true
 doSetupPPSSPP=true
 doSetupRMG=true
+doSetupares=true
 doSetupXemu=true
 doSetupESDE=true
 doSetupSRM=true
 doSetupPCSX2QT=true
 #doSetupMelon=true
 doSetupMGBA=true
+doSetupBigPEmu=true
+doSetupFlycast=true
+doSetupSupermodel=true
+doSetupModel2=true
 
 #Install all systems by default
 doInstallSRM=true
@@ -41,22 +46,26 @@ doInstallRyujinx=false
 doInstallPrimeHack=false
 doInstallPPSSPP=false
 doInstallRMG=false
+doInstallares=false
 doInstallXemu=false
 doInstallPCSX2QT=false
 doInstallMAME=true
 #doInstallMelon=false
 doInstallMGBA=false
+doInstallBigPEmu=false
+doInstallFlycast=true
+doInstallSupermodel=true
 doInstallCHD=false
 doInstallPowertools=false
 doInstallGyro=false
 doInstallHomeBrewGames=false
+doInstallModel2=false
 
 installString='Installing'
 
 #Default RetroArch configuration 
 RABezels=true
 RAautoSave=false
-SNESAR=43
 
 #Default widescreen
 duckWide=false

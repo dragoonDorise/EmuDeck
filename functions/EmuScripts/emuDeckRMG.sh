@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 RMG_emuName="RosaliesMupenGui"
-RMG_emuType="FlatPak"
+RMG_emuType="$emuDeckEmuTypeFlatpak"
 RMG_emuPath="com.github.Rosalie241.RMG"
 RMG_configFile="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/mupen64plus.cfg"
 RMG_glideN64File="$HOME/.var/app/com.github.Rosalie241.RMG/config/RMG/GLideN64.ini"
@@ -13,10 +13,15 @@ RMG_cleanup(){
 
 #Install
 RMG_install() {
-	setMSG "Installing $RMG_emuName"	
+	setMSG "Installing $RMG_emuName"
 
 	installEmuFP "${RMG_emuName}" "${RMG_emuPath}"
 	flatpak override "${RMG_emuPath}" --filesystem=host --user
+}
+
+#Fix for autoupdate
+Rmg_install(){
+	RMG_install
 }
 
 #ApplyInitialSettings
@@ -29,19 +34,19 @@ RMG_init() {
 	RMG_setupStorage
 	RMG_setEmulationFolder
 	RMG_setupSaves
-	RMG_addSteamInputProfile
+	#RMG_addSteamInputProfile
 
 }
 
 #update
 RMG_update() {
-	setMSG "Installing $RMG_emuName"		
+	setMSG "Installing $RMG_emuName"
 
 	configEmuFP "${RMG_emuName}" "${RMG_emuPath}"
 	RMG_setupStorage
 	RMG_setEmulationFolder
 	RMG_setupSaves
-	RMG_addSteamInputProfile
+	#RMG_addSteamInputProfile
 
 }
 
@@ -66,7 +71,7 @@ RMG_setEmulationFolder(){
 	changeLine "$DevelopmentIPL" "$NewDevelopmentIPLPath" "$RMG_configFile"
 
 
- 
+
 
 }
 
@@ -88,7 +93,7 @@ RMG_setupSaves(){
 
 #SetupStorage
 RMG_setupStorage(){
-	
+
 	mkdir -p "${storagePath}/RMG/"
 	mkdir -p "${storagePath}/RMG/cache"
 	mkdir -p "${storagePath}/RMG/HiResTextures"
@@ -105,14 +110,14 @@ RMG_setupStorage(){
 	cache='textureFilter\txCachePath='
 	screenshots='ScreenshotPath = '
 	UserDataDirectory='UserDataDirectory = '
-	UserCacheDirectory='UserCacheDirectory = ' 
+	UserCacheDirectory='UserCacheDirectory = '
 
 	newHiResTextures='textureFilter\txPath='"${storagePath}/RMG/HiResTextures"
 	newcache='textureFilter\txCachePath='"${storagePath}/RMG/cache"
     newscreenshots='ScreenshotPath = '"${storagePath}/RMG/screenshots"
 	newUserDataDirectory="${UserDataDirectory}\"$HOME/.var/app/com.github.Rosalie241.RMG/data/RMG\""
 	newUserCacheDirectory="${UserCacheDirectory}\"$HOME/.var/app/com.github.Rosalie241.RMG/cache/RMG\""
-	
+
 	changeLine "$HiResTextures" "$newHiResTextures" "$RMG_glideN64File"
 	changeLine "$cache" "$newcache" "$RMG_glideN64File"
 	changeLine "$screenshots" "$newscreenshots" "$RMG_configFile"
@@ -135,12 +140,12 @@ RMG_uninstall(){
 
 #setABXYstyle
 RMG_setABXYstyle(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #Migrate
 RMG_migrate(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #WideScreenOn
@@ -173,8 +178,8 @@ RMG_resetConfig(){
 
 RMG_addSteamInputProfile(){
 	addSteamInputCustomIcons
-	setMSG "Adding $RMG_emuName Steam Input Profile."
-	rsync -r "$EMUDECKGIT/configs/steam-input/rmg_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	#setMSG "Adding $RMG_emuName Steam Input Profile."
+	#rsync -r "$EMUDECKGIT/configs/steam-input/rmg_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 #finalExec - Extra stuff
@@ -182,3 +187,6 @@ RMG_finalize(){
 	echo "NYI"
 }
 
+RMG_setResolution(){
+	echo "NYI"
+}

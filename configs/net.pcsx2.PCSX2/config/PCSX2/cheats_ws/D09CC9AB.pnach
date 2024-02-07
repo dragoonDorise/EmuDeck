@@ -1,7 +1,0 @@
-gametitle=Kessen III (J)(SLPM-65781)
-comment=Widescreen hack (NTSC-J by Arapapa)
-
-//Widescreen hack 16:9
-
-patch=1,EE,00168498,word,3c023f40 //3c023f80
-patch=1,EE,0039bf68,word,3c023f40 //3c023f80

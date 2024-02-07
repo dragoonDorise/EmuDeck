@@ -1,11 +1,21 @@
 #!/bin/bash
 #variables
 RetroArch_emuName="RetroArch"
-RetroArch_emuType="FlatPak"
+RetroArch_emuType="$emuDeckEmuTypeFlatpak"
 RetroArch_emuPath="org.libretro.RetroArch"
 RetroArch_releaseURL=""
+RetroArch_path="$HOME/.var/app/org.libretro.RetroArch/config/retroarch"
 RetroArch_configFile="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg"
 RetroArch_coreConfigFolders="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/config"
+RetroArch_cores="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores"
+RetroArch_coresURL="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
+RetroArch_coresExtension="so.zip"
+RetroArch_assetsURL="https://buildbot.libretro.com/assets/frontend/assets.zip"
+RetroArch_shaderscgURL="https://buildbot.libretro.com/assets/frontend/shaders_cg.zip"
+RetroArch_shadersglslURL="https://buildbot.libretro.com/assets/frontend/shaders_glsl.zip"
+RetroArch_shadersslangURL="https://buildbot.libretro.com/assets/frontend/shaders_slang.zip"
+RetroArch_infoURL="https://buildbot.libretro.com/assets/frontend/info.zip"
+RetroArch_ppssppURL="https://buildbot.libretro.com/assets/system/PPSSPP.zip"
 
 #cleanupOlderThings
 RetroArch_cleanup(){
@@ -22,14 +32,35 @@ RetroArch_backupConfigs(){
 
 #Install
 RetroArch_install(){
-
 	installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
 	flatpak override "${RetroArch_emuPath}" --filesystem=host --user
+}
 
+
+#Fix for autoupdate
+Retroarch_install(){
+	RetroArch_install
 }
 
 #ApplyInitialSettings
 RetroArch_init(){
+
+
+
+	setMSG "RetroArch - HD Texture Packs"
+
+	#NES
+	unlink "$emulationPath"/hdpacks/Mesen 2>/dev/null #refresh link if moved
+	ln -s "$biosPath"/HdPacks/ "$emulationPath"/hdpacks/nes
+	echo "Put your Mesen HD Packs here. Remember to put the pack inside a folder here with the exact name of the rom" > "$emulationPath"/hdpacks/nes/readme.txt
+
+	#N64
+	unlink "$emulationPath"/hdpacks/Mupen64plus_next 2>/dev/null #refresh link if moved
+	mkdir "$biosPath"/Mupen64plus
+	ln -s "$biosPath"/Mupen64plus/cache/ "$emulationPath"/hdpacks/n64
+	echo "Put your Nintendo64 HD Packs here in HTS format. You can download them from https://emulationking.com/nintendo64/" > "$emulationPath"/hdpacks/n64/readme.txt
+
+
 	RetroArch_backupConfigs
 	configEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "true"
 	RetroArch_setEmulationFolder
@@ -39,7 +70,128 @@ RetroArch_init(){
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
 	RetroArch_setupConfigurations
+	RetroArch_setCustomizations
+	RetroArch_autoSave
+	RetroArch_setRetroAchievements
+	RetroArch_melonDSDSMigration
+	RetroArch_buildbotDownloader
+
+	mkdir -p "$biosPath/mame/bios"
+	mkdir -p "$biosPath/dc"
+	mkdir -p "$biosPath/neocd"
+
+	echo  "Put your MAME bios here" > "$biosPath/mame/bios/readme.txt"
+	echo  "Put your Dreamcast bios here" > "$biosPath/dc/readme.txt"
+	echo  "Put your Neo Geo CD bios here" > "$biosPath/neocd/readme.txt"
+	echo  "# Where to put your bios?" > "$biosPath/readme.txt"
+	echo  "First of all, don't create any new subdirectory. ***" >> "$biosPath/readme.txt"
+	echo  "# System -> folder" > "$biosPath/readme.txt"
+	echo  "Playstation 1 / Duckstation -> bios/" >> "$biosPath/readme.txt"
+	echo  "Playstation 2 / PCSX2 -> bios/" >> "$biosPath/readme.txt"
+	echo  "Nintendo DS / melonDS -> bios/" >> "$biosPath/readme.txt"
+	echo  "Playstation 3 / RPCS3 -> Download it from https://www.playstation.com/en-us/support/hardware/ps3/system-software/" >> "$biosPath/readme.txt"
+	echo  "Dreamcast / RetroArch -> bios/dc" >> "$biosPath/readme.txt"
+	echo  "Switch / Yuzu -> bios/yuzu/firmware and bios/yuzu/keys" >> "$biosPath/readme.txt"
+	echo  "Those are the only mandatory bios, the rest are optional" >> "$biosPath/readme.txt"
+
 }
+
+
+
+RetroArch_setCustomizations(){
+	# User customizations
+	RetroArch_setShadersCRT
+	RetroArch_setShaders3DCRT
+	RetroArch_setShadersMAT
+	RetroArch_setBezels
+
+	#
+	#New Aspect Ratios
+	#
+
+	#Sega Games
+		#Master System
+		#Genesis
+		#Sega CD
+		#Sega 32X
+
+	case $arSega in
+	  "32")
+		RetroArch_mastersystem_ar32
+		RetroArch_genesis_ar32
+		RetroArch_segacd_ar32
+		  RetroArch_sega32x_ar32
+		;;
+	  *)
+		RetroArch_mastersystem_ar43
+		RetroArch_genesis_ar43
+		  RetroArch_segacd_ar43
+		  RetroArch_sega32x_ar43
+		  if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then
+			  RetroArch_mastersystem_bezelOn
+			  RetroArch_genesis_bezelOn
+			  RetroArch_segacd_bezelOn
+			  RetroArch_sega32x_bezelOn
+		fi
+	  ;;
+	esac
+
+	#Snes and NES
+	case $arSnes in
+	  "87")
+		RetroArch_snes_ar87
+		RetroArch_nes_ar87
+	  ;;
+	  "32")
+			RetroArch_snes_ar32
+		  RetroArch_nes_ar32
+		;;
+	  *)
+		RetroArch_snes_ar43
+		RetroArch_nes_ar43
+		if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then
+			RetroArch_snes_bezelOn
+		fi
+	  ;;
+	esac
+	# Classic 3D Games
+		#Dreamcast
+		#PSX
+		#Nintendo 64
+		#Saturn
+		#Xbox
+	if [ "$arClassic3D" == 169 ]; then
+			RetroArch_Beetle_PSX_HW_wideScreenOn
+			RetroArch_Flycast_wideScreenOn
+			RetroArch_dreamcast_bezelOff
+			RetroArch_psx_bezelOff
+			RetroArch_n64_wideScreenOn
+			RetroArch_SwanStation_wideScreenOn
+	else
+			RetroArch_Flycast_wideScreenOff
+			RetroArch_n64_wideScreenOff
+			RetroArch_Beetle_PSX_HW_wideScreenOff
+			RetroArch_SwanStation_wideScreenOff
+		#"Bezels on"
+		if [ "$RABezels" == true ]; then
+			RetroArch_dreamcast_bezelOn
+			RetroArch_n64_bezelOn
+			RetroArch_psx_bezelOn
+		fi
+	fi
+}
+
+RetroArch_setRetroAchievements(){
+	#RetroAchievments
+	RetroArch_retroAchievementsSetLogin
+	if [ "$achievementsHardcore" == "true" ]; then
+		RetroArch_retroAchievementsHardCoreOn
+	else
+		RetroArch_retroAchievementsHardCoreOff
+	fi
+}
+
+
 
 #update
 RetroArch_update(){
@@ -48,11 +200,12 @@ RetroArch_update(){
 	RetroArch_setEmulationFolder
 	RetroArch_setupSaves
 	RetroArch_setupStorage
+ 	RetroArch_setupConfigurations
 	RetroArch_installCores
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
-	RetroArch_setupConfigurations
-
+	RetroArch_melonDSDSMigration
+	RetroArch_buildbotDownloader
 }
 
 
@@ -61,26 +214,32 @@ RetroArch_setEmulationFolder(){
 
 	system_directory='system_directory = '
 	system_directorySetting="${system_directory}""\"${biosPath}\""
-	changeLine "$system_directory" "$system_directorySetting" "$RetroArch_configFile"
+	RetroArch_setConfigOverride "$system_directory" "$system_directorySetting" "$RetroArch_configFile"
 
 	rgui_browser_directory='rgui_browser_directory = '
 	rgui_browser_directorySetting="${rgui_browser_directory}""\"${romsPath}\""
-	changeLine "$rgui_browser_directory" "$rgui_browser_directorySetting" "$RetroArch_configFile"
+	RetroArch_setConfigOverride "$rgui_browser_directory" "$rgui_browser_directorySetting" "$RetroArch_configFile"
 
 	cheat_database_path='cheat_database_path = '
 	cheat_database_pathSetting="${cheat_database_path}""\"${storagePath}/retroarch/cheats\""
-	changeLine "$cheat_database_path" "$cheat_database_pathSetting" "$RetroArch_configFile"
+	RetroArch_setConfigOverride "$cheat_database_path" "$cheat_database_pathSetting" "$RetroArch_configFile"
 }
 
 #SetupSaves
 RetroArch_setupSaves(){
-	linkToSaveFolder retroarch states "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/states"
-	linkToSaveFolder retroarch saves "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/saves"
+
+	linkToSaveFolder retroarch states "$RetroArch_path/states"
+	linkToSaveFolder retroarch saves "$RetroArch_path/saves"
+
+	RetroArch_setConfigOverride 'savestate_directory' "$savesPath/retroarch/states" "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savefile_directory' "$savesPath/retroarch/saves" "$RetroArch_configFile"
+
 }
 
 
 #SetupStorage
 RetroArch_setupStorage(){
+	RetroArch_Mupen64Plus_Next_setUpHdPacks
 	mkdir -p "$storagePath/retroarch/cheats"
 	rsync -a --ignore-existing '/var/lib/flatpak/app/org.libretro.RetroArch/current/active/files/share/libretro/database/cht/' "$storagePath/retroarch/cheats"
 }
@@ -90,8 +249,48 @@ RetroArch_setupConfigurations(){
 
 	# Set input driver to SDL. X input driver does not seem to work ootb on some non-SteamOS distributions including ChimeraOS.
 	input_driver='input_driver = '
-	input_driverSetting="${input_driver}""\"sdl\""
+	input_driverSetting="${input_driver}"\""sdl"\"
 	changeLine "$input_driver" "$input_driverSetting" "$RetroArch_configFile"
+
+	# Set microphone driver to SDL. Potentially fixes RetroArch hanging when closing content.
+	microphone_driver='microphone_driver = '
+	microphone_driverSetting="${microphone_driver}"\""sdl"\"
+	changeLine "$microphone_driver" "$microphone_driverSetting" "$RetroArch_configFile"
+
+}
+
+RetroArch_buildbotDownloader(){
+
+
+	# Shaders
+	if [[ ! -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders" ]] ; then
+
+		mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_cg" "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_glsl" "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_slang" 
+
+		curl -L "$RetroArch_shaderscgURL" -o shaders_cg.zip && unzip -o shaders_cg.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_cg" && rm shaders_cg.zip
+		curl -L "$RetroArch_shadersglslURL" -o shaders_glsl.zip && unzip -o shaders_glsl.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_glsl" && rm shaders_glsl.zip
+		curl -L "$RetroArch_shadersslangURL" -o shaders_slang.zip && unzip -o shaders_slang.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_slang" && rm shaders_slang.zip
+	fi
+
+	# Assets	
+	if [[ ! -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/assets" ]] ; then
+		mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/assets"
+
+		curl -L "$RetroArch_assetsURL" -o assets.zip && unzip -o assets.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/assets" && rm assets.zip
+	fi
+
+	# Info
+	if [[ ! -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/info" ]] ; then
+	 	mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/info"
+
+		curl -L "$RetroArch_infoURL" -o info.zip && unzip -o info.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/info" && rm info.zip
+	fi
+
+	# PPSSPP
+	if [[ ! -d "$biosPath/PPSSPP" ]] ; then
+		curl -L "$RetroArch_ppssppURL" -o PPSSPP.zip && unzip -o PPSSPP.zip -d "$biosPath" && rm PPSSPP.zip
+	fi
+
 
 }
 
@@ -144,17 +343,31 @@ RetroArch_setOverride(){
 	fi
 }
 
+RetroArch_setConfigOverride(){
+	local option=$1
+	local value=$2
+	local configFile=$3
+	local settingLine="$option = $value"
+
+	if [[ $value == 'ED_RM_LINE' ]]; then
+		echo "Deleting $option from $configFile"
+		sed -i '/^'"$option"'/d' "$configFile"
+	else
+		updateOrAppendConfigLine "$configFile" "$option =" "$settingLine"
+	fi
+}
+
 RetroArch_vice_xvic_setConfig(){
-	RetroArch_setOverride 'VICE xvic.cfg' 'VICE xvic'  'video_driver' '"glcore"'
+	RetroArch_setOverride 'xvic.cfg' 'VICE xvic'  'video_driver' '"glcore"'
 }
 RetroArch_vice_xscpu64_setConfig(){
-	RetroArch_setOverride 'VICE xscpu64.cfg' 'VICE xscpu64'  'video_driver' '"glcore"'
+	RetroArch_setOverride 'xscpu64.cfg' 'VICE xscpu64'  'video_driver' '"glcore"'
 }
 RetroArch_vice_x64sc_setConfig(){
-	RetroArch_setOverride 'VICE x64sc.cfg' 'VICE x64sc'  'video_driver' '"glcore"'
+	RetroArch_setOverride 'x64sc.cfg' 'VICE x64sc'  'video_driver' '"glcore"'
 }
 RetroArch_vice_x64_setConfig(){
-	RetroArch_setOverride 'VICE x64.cfg' 'VICE x64'  'video_driver' '"glcore"'
+	RetroArch_setOverride 'x64.cfg' 'VICE x64'  'video_driver' '"glcore"'
 }
 
 RetroArch_wswanc_setConfig(){
@@ -608,14 +821,14 @@ RetroArch_ngpc_bezelOff(){
 
 RetroArch_ngpc_MATshaderOn(){
 	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'video_shader_enable' 'true'
-	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'	 'video_filter' 'ED_RM_LINE'
-	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'	 'video_smooth' '"false"'
+	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'video_filter' 'ED_RM_LINE'
+	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'video_smooth' '"false"'
 }
 
 RetroArch_ngpc_MATshaderOff(){
 	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'video_shader_enable' 'false'
-	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'	 'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
-	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'	 'video_smooth' '"true"'
+	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'video_filter' '"/app/lib/retroarch/filters/video/Normal4x.filt"'
+	RetroArch_setOverride 'ngpc.cfg' 'Beetle NeoPop'  'video_smooth' '"true"'
 }
 
 RetroArch_atari2600_setConfig(){
@@ -667,7 +880,7 @@ RetroArch_mame_CRTshaderOn(){
 	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'   'video_filter' 'ED_RM_LINE'
 	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'	'video_smooth' '"false"'
 
-	RetroArch_setOverride 'mame.cfg' 'MAME'  'video_shader_enable' 'true'
+	RetroArch_setOverride 'mame.cfg' 'MAME' 'video_shader_enable' 'true'
 	RetroArch_setOverride 'mame.cfg' 'MAME'	'video_filter' 'ED_RM_LINE'
 	RetroArch_setOverride 'mame.cfg' 'MAME'	'video_smooth' '"false"'
 }
@@ -1183,7 +1396,7 @@ RetroArch_Beetle_PSX_HW_bezelOn(){
 }
 
  RetroArch_dreamcast_3DCRTshaderOn(){
- 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"true"'
+ 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast' 'video_shader_enable' '"true"'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'	'video_filter' 'ED_RM_LINE'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'	'video_smooth' 'ED_RM_LINE'
  }
@@ -1193,12 +1406,13 @@ RetroArch_dreamcast_setConfig(){
 }
 
 RetroArch_dreamcast_3DCRTshaderOff(){
-	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'  'video_shader_enable' '"false"'
+	RetroArch_setOverride 'dreamcast.cfg' 'Flycast' 'video_shader_enable' '"false"'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'	'video_filter' 'ED_RM_LINE'
 	RetroArch_setOverride 'dreamcast.cfg' 'Flycast'	'video_smooth' 'ED_RM_LINE'
 }
 
 RetroArch_saturn_setConfig(){
+	mkdir -p "$biosPath/kronos"
 	RetroArch_setOverride 'saturn.cfg' 'Yabause'  'input_player1_analog_dpad_mode' '"1"'
 	RetroArch_setOverride 'saturn.cfg' 'YabaSanshiro'  'input_player1_analog_dpad_mode' '"1"'
 	RetroArch_setOverride 'saturn.cfg' 'Kronos'  'input_player1_analog_dpad_mode' '"1"'
@@ -1392,6 +1606,39 @@ RetroArch_melonDS_setConfig(){
 	RetroArch_setOverride 'nds.cfg' 'melonDS'  'rewind_enable' '"false"'
 }
 
+RetroArch_melonDSDS_setUpCoreOpt(){
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_audio_bitdepth' '"auto"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_audio_interpolation' '"disabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_boot_mode' '"disabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS' 'melonds_console_mode' '"ds"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_dsi_sdcard' '"enabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_hybrid_ratio' '"2"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_hybrid_small_screen' '"both"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_jit_block_size' '"32"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_jit_branch_optimisations' '"enabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_jit_enable' '"enabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_jit_fast_memory' '"enabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_jit_literal_optimisations' '"enabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_opengl_better_polygons' '"enabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_opengl_filtering' '"nearest"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_render_mode' '"software"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_opengl_resolution' '"5"'
+#	Unsupported in melonDSDS at this time.
+#	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_randomize_mac_address' '"disabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_gap' '"0"'
+#	No equivalent in melonDSDS at this time.
+#	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_layout' '"Hybrid Bottom"'
+#	No equivalent in melonDSDS at this time.	
+#	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_swapscreen_mode' '"Toggle"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_threaded_renderer' '"enabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_touch_mode' '"auto"'
+}
+
+RetroArch_melonDSDS_setConfig(){
+	RetroArch_setOverride 'melonDS DS.cfg' 'melonDS DS'  'rewind_enable' '"true"'
+	RetroArch_setOverride 'melonDS DS.cfg' 'melonDS DS'  'rewind_granularity' '"6"'
+}
+
 RetroArch_Mupen64Plus_Next_setUpCoreOpt(){
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-169screensize' '"1920x1080"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-43screensize' '"1280x960"'
@@ -1469,7 +1716,6 @@ RetroArch_Mupen64Plus_Next_setUpCoreOpt(){
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-RDRAMImageDitheringMode' '"False"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-rsp-plugin' '"hle"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-ThreadedRenderer' '"True"'
-	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txCacheCompression' '"True"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txEnhancementMode' '"As Is"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txFilterIgnoreBG' '"True"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txFilterMode' '"None"'
@@ -1477,6 +1723,26 @@ RetroArch_Mupen64Plus_Next_setUpCoreOpt(){
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txHiresFullAlphaChannel' '"False"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-u-cbutton' '"C4"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-virefresh' '"Auto"'
+
+	# hd pack settings
+	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txHiresEnable' '"True"'
+	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txHiresFullAlphaChannel' '"True"'
+	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txCacheCompression' '"True"'
+	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-EnableEnhancedHighResStorage' '"True"'
+	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-EnableEnhancedTextureStorage' '"False"' # lazy loading
+}
+
+#  setupHdPacks()
+RetroArch_Mupen64Plus_Next_setUpHdPacks(){
+  local texturePackPath="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/system/Mupen64plus/hires_texture"
+	local textureCachePath="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/system/Mupen64plus/cache"
+
+	mkdir -p "$texturePackPath"
+	mkdir -p "$textureCachePath"
+	mkdir -p "$emulationPath/hdpacks/retroarch/Mupen64plus"
+
+	ln -s "$emulationPath/hdpacks/retroarch/Mupen64plus/hires_texture" "$texturePackPath"
+	ln -s "$emulationPath/hdpacks/retroarch/Mupen64plus/cache" "$textureCachePath"
 }
 
 RetroArch_Beetle_PSX_HW_setUpCoreOpt(){
@@ -1919,72 +2185,135 @@ RetroArch_installCores(){
 	#N-gage
 	#Game.com
 
-	mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores"
-	raUrl="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
-	# RAcores=(bsnes_hd_beta_libretro.so flycast_libretro.so gambatte_libretro.so genesis_plus_gx_libretro.so \
-	# 		genesis_plus_gx_wide_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_wswan_libretro.so melonds_libretro.so \
-	# 		mesen_libretro.so mgba_libretro.so mupen64Plus-Next_libretro.so nestopia_libretro.so picodrive_libretro.so ppsspp_libretro.so snes9x_libretro.so \
-	# 		stella_libretro.so yabasanshiro_libretro.so yabause_libretro.so yabause_libretro.so mame2003_plus_libretro.so mame2010_libretro.so mame_libretro.so \
-	# 		melonds_libretro.so fbneo_libretro.so bluemsx_libretro.so desmume_libretro.so sameboy_libretro.so gearsystem_libretro.so mednafen_saturn_libretro.so \
-	# 		opera_libretro.so dosbox_core_libretro.so dosbox_pure_libretro.so dosbox_svn_libretro.so puae_libretro.so)
-	# setMSG "Downloading RetroArch Cores for EmuDeck"
-	# for i in "${RAcores[@]}"
-	# do
-	# 	FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
-	# 	if [ -f "$FILE" ]; then
-	# 		echo "${i}...Already Downloaded"
-	# 	else
-	# 		curl $raUrl$i.zip --output ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
-	# 		#rm ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
-	# 		echo "${i}...Downloaded!"
-	# 	fi
-	# done
+
+	mkdir -p "$RetroArch_cores"
 
 	#This is all the cores combined, and dupes taken out.
-	RAcores=(81_libretro.so a5200_libretro.so atari800_libretro.so blastem_libretro.so bluemsx_libretro.so bsnes_hd_beta_libretro.so bsnes_libretro.so \
-			bsnes_mercury_accuracy_libretro.so cap32_libretro.so chailove_libretro.so citra2018_libretro.so citra_libretro.so crocods_libretro.so desmume2015_libretro.so \
-			desmume_libretro.so dolphin_libretro.so dosbox_core_libretro.so dosbox_pure_libretro.so dosbox_svn_libretro.so easyrpg_libretro.so fbalpha2012_cps1_libretro.so \
-			fbalpha2012_cps3_libretro.so fbalpha2012_libretro.so fbalpha2012_neogeo_libretro.so fbneo_libretro.so fceumm_libretro.so flycast_libretro.so fmsx_libretro.so \
-			fbalpha2012_cps2_libretro.so freechaf_libretro.so freeintv_libretro.so frodo_libretro.so fuse_libretro.so gambatte_libretro.so gearboy_libretro.so gearsystem_libretro.so \
-			genesis_plus_gx_libretro.so genesis_plus_gx_wide_libretro.so gpsp_libretro.so gw_libretro.so handy_libretro.so hatari_libretro.so \
-			kronos_libretro.so lutro_libretro.so mame2000_libretro.so mame2003_plus_libretro.so mame2010_libretro.so \
-			mame_libretro.so mednafen_lynx_libretro.so mednafen_ngp_libretro.so mednafen_pce_fast_libretro.so mednafen_pce_libretro.so mednafen_pcfx_libretro.so mednafen_psx_hw_libretro.so \
-			mednafen_psx_libretro.so mednafen_saturn_libretro.so mednafen_supafaust_libretro.so mednafen_supergrafx_libretro.so mednafen_vb_libretro.so mednafen_wswan_libretro.so \
-			melonds_libretro.so mesen-s_libretro.so mesen_libretro.so mgba_libretro.so mu_libretro.so mupen64plus_next_libretro.so \
-			nekop2_libretro.so neocd_libretro.so nestopia_libretro.so np2kai_libretro.so nxengine_libretro.so o2em_libretro.so \
-			opera_libretro.so parallel_n64_libretro.so pcsx2_libretro.so pcsx_rearmed_libretro.so picodrive_libretro.so pokemini_libretro.so ppsspp_libretro.so prboom_libretro.so \
-			prosystem_libretro.so puae_libretro.so px68k_libretro.so quasi88_libretro.so quicknes_libretro.so race_libretro.so retro8_libretro.so \
-			sameboy_libretro.so same_cdi_libretro.so scummvm_libretro.so smsplus_libretro.so snes9x2010_libretro.so snes9x_libretro.so squirreljme_libretro.so stella2014_libretro.so \
-			stella_libretro.so swanstation_libretro.so tgbdual_libretro.so theodore_libretro.so tic80_libretro.so uzem_libretro.so vba_next_libretro.so vbam_libretro.so vecx_libretro.so \
-			vice_x128_libretro.so vice_x64_libretro.so vice_x64sc_libretro.so vice_xscpu64_libretro.so vice_xvic_libretro.so virtualjaguar_libretro.so x1_libretro.so \
-			yabasanshiro_libretro.so yabause_libretro.so arduous_libretro.so tyrquake_libretro.so vitaquake2_libretro.so vitaquake2-rogue_libretro.so vitaquake2-xatrix_libretro.so vitaquake2-zaero_libretro.so vitaquake3_libretro.so wasm4_libretro.so)
+	RAcores=(
+				81_libretro \
+				a5200_libretro \
+				arduous_libretro \
+				atari800_libretro \
+				blastem_libretro \
+				bluemsx_libretro \
+				bsnes_hd_beta_libretro \
+				bsnes_libretro \
+				cap32_libretro \
+				chailove_libretro \
+				desmume_libretro \
+				dosbox_core_libretro \
+				dosbox_pure_libretro \
+				easyrpg_libretro \
+				fbalpha2012_libretro \
+				fbneo_libretro \
+				flycast_libretro \
+				freechaf_libretro \
+				freeintv_libretro \
+				fuse_libretro \
+				gambatte_libretro \
+				gearboy_libretro \
+				gearsystem_libretro \
+				genesis_plus_gx_libretro \
+				genesis_plus_gx_wide_libretro \
+				gw_libretro \
+				handy_libretro \
+				hatari_libretro \
+				kronos_libretro \
+				lutro_libretro \
+				mame2003_plus_libretro \
+				mame_libretro \
+				mednafen_lynx_libretro \
+				mednafen_ngp_libretro \
+				mednafen_pce_fast_libretro \
+				mednafen_pce_libretro \
+				mednafen_pcfx_libretro \
+				mednafen_psx_hw_libretro \
+				mednafen_saturn_libretro \
+				mednafen_supergrafx_libretro \
+				mednafen_vb_libretro \
+				mednafen_wswan_libretro \
+				melonds_libretro \
+				melondsds_libretro \
+				mesen_libretro \
+				mesen-s_libretro \
+				mgba_libretro \
+				minivmac_libretro \
+				mu_libretro \
+				mupen64plus_next_libretro \
+				neocd_libretro \
+				nestopia_libretro \
+				np2kai_libretro \
+				nxengine_libretro \
+				o2em_libretro \
+				opera_libretro \
+				picodrive_libretro \
+				pokemini_libretro \
+				potator_libretro \
+				ppsspp_libretro \
+				prboom_libretro \
+				prosystem_libretro \
+				puae_libretro \
+				px68k_libretro \
+				quasi88_libretro \
+				retro8_libretro \
+				same_cdi_libretro \
+				sameboy_libretro \
+				sameduck_libretro \
+				scummvm_libretro \
+				snes9x_libretro \
+				squirreljme_libretro \
+				stella_libretro \
+				swanstation_libretro \
+				theodore_libretro \
+				tic80_libretro \
+				tyrquake_libretro \
+				uzem_libretro \
+				vbam_libretro \
+				vecx_libretro \
+				vice_x128_libretro \
+				vice_x64sc_libretro \
+				vice_xscpu64_libretro \
+				vice_xvic_libretro \
+				virtualjaguar_libretro \
+				vitaquake2_libretro \
+				vitaquake2-rogue_libretro \
+				vitaquake2-xatrix_libretro \
+				vitaquake2-zaero_libretro \
+				vitaquake3_libretro \
+				wasm4_libretro \
+				x1_libretro \
+			)
 	setMSG "Downloading RetroArch Cores for EmuDeck"
 	for i in "${RAcores[@]}"
 	do
-		FILE=~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}
+		FILE="${RetroArch_cores}/${i}.*"
 		if [ -f "$FILE" ]; then
 			echo "${i}...Already Downloaded"
 		else
-			curl $raUrl$i.zip --output ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
+			curl "$RetroArch_coresURL$i.$RetroArch_coresExtension" --output "$RetroArch_cores/${i}.zip"
+
 			#rm ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
 			echo "${i}...Downloaded!"
 		fi
 	done
 
 
-	for entry in ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
+	for entry in "$RetroArch_cores"/*.zip
 	do
-		 unzip -o "$entry" -d ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/
+		 unzip -o "$entry" -d "$RetroArch_cores"
 	done
 
-	for entry in ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/*.zip
+	for entry in "$RetroArch_cores"/*.zip
+
 	do
 		 rm -f "$entry"
 	done
 
-	#RetroArch_dlAdditionalFiles
+
 
 }
+
+#RetroArch_dlAdditionalFiles
 
 function RetroArch_dlAdditionalFiles(){
 	#EasyRPG
@@ -2011,12 +2340,12 @@ function RetroArch_resetCoreConfigs(){
 }
 
 RetroArch_autoSaveOn(){
-	changeLine 'savestate_auto_load = ' 'savestate_auto_load = "true"' "$RetroArch_configFile"
-	changeLine 'savestate_auto_save = ' 'savestate_auto_save = "true"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savestate_auto_load' '"true"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savestate_auto_save' '"true"' "$RetroArch_configFile"
 }
 RetroArch_autoSaveOff(){
-	changeLine 'savestate_auto_load = ' 'savestate_auto_load = "false"' "$RetroArch_configFile"
-	changeLine 'savestate_auto_save = ' 'savestate_auto_save = "false"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savestate_auto_load' '"false"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savestate_auto_save' '"false"' "$RetroArch_configFile"
 }
 RetroArch_retroAchievementsOn(){
 	iniFieldUpdate "$RetroArch_configFile" "" "cheevos_enable" "true"
@@ -2032,10 +2361,10 @@ RetroArch_retroAchievementsOff(){
 }
 
 RetroArch_retroAchievementsHardCoreOn(){
-	changeLine 'cheevos_hardcore_mode_enable = ' 'cheevos_hardcore_mode_enable = "true"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'cheevos_hardcore_mode_enable' '"true"' "$RetroArch_configFile"
 }
 RetroArch_retroAchievementsHardCoreOff(){
-	changeLine 'cheevos_hardcore_mode_enable = ' 'cheevos_hardcore_mode_enable = "false"' "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'cheevos_hardcore_mode_enable' '"false"' "$RetroArch_configFile"
 }
 
 RetroArch_retroAchievementsPromptLogin(){
@@ -2066,21 +2395,14 @@ RetroArch_retroAchievementsSetLogin(){
 		echo "--No username."
 	else
 		echo "Valid Retroachievements Username and Password length"
-		changeLine 'cheevos_username = ' 'cheevos_username = "'"${rau}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements Username set.' || echo 'RetroAchievements Username not set.'
-		changeLine 'cheevos_token = ' 'cheevos_token = "'"${rat}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements Token set.' || echo 'RetroAchievements Token not set.'
+		RetroArch_setConfigOverride 'cheevos_username' '"'"${rau}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements Username set.' || echo 'RetroAchievements Username not set.'
+		RetroArch_setConfigOverride 'cheevos_token' '"'"${rat}"'"' "$RetroArch_configFile" &>/dev/null && echo 'RetroAchievements Token set.' || echo 'RetroAchievements Token not set.'
 
 		RetroArch_retroAchievementsOn
 
 		iniFieldUpdate "$RetroArch_configFile" "" "cheevos_username" "$rau"
 		iniFieldUpdate "$RetroArch_configFile" "" "cheevos_token" "$rat"
 
-	fi
-}
-RetroArch_setSNESAR(){
-	if [ "$SNESAR" == 87 ]; then
-		RetroArch_snes_ar87
-	else
-		RetroArch_snes_ar43
 	fi
 }
 RetroArch_setBezels(){
@@ -2110,6 +2432,39 @@ RetroArch_setShadersMAT(){
 	else
 		RetroArch_MATshadersOffAll
 	fi
+}
+
+RetroArch_autoSave(){
+	if [ "$RAautoSave" == true ]; then
+		RetroArch_autoSaveOn
+	else
+		RetroArch_autoSaveOff
+	fi
+}
+
+RetroArch_melonDSDSMigration(){
+
+local RetroArch_saves="$RetroArch_path/saves"
+local melonDS_remaps="$RetroArch_path/config/remaps/melonDS"
+local melonDSDS_remaps="$RetroArch_path/config/remaps/melonDS DS"
+
+# Copying melonDS saves to melonDSDS
+for file in $RetroArch_saves/*.sav; do
+
+    cp -- "${file}" "${file/%sav/srm}";
+	echo "melonDS saves copied to melonDSDS"
+done
+
+# Copying melonDS remaps to melonDSDS
+if [ ! -d "$melonDSDS_remaps" ]; then
+	mkdir -p "$melonDSDS_remaps"
+fi
+
+if [ -d "$melonDS_remaps" ]; then
+	cp -r "$melonDS_remaps/." "$melonDSDS_remaps"
+	echo "melonDS remaps copied to melonDSDS"
+fi
+
 }
 
 RetroArch_IsInstalled(){

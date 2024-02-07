@@ -1,7 +1,0 @@
-gametitle=Mr. Incredible - Kyouteki Underminer Toujou (J)(SLPM-66248)
-comment=Widescreen hack (NTSC-J by Arapapa)
-
-patch=1,EE,001110e0,word,00000000 // hang fix by Prafull
-//003f023c 00008244 8e3c033c
-patch=1,EE,00219044,word,3C023F17
-patch=1,EE,00219070,word,3C023F10

@@ -1,6 +1,0 @@
-gametitle=Midnight Club - Street Racing (NTSC-U) (SLUS-20063)
-comment=Widescreen hack by Evildan
-
-//widescreen
-patch=1,EE,20426180,word,3FAA3D71
-patch=1,EE,204784c0,word,3F400000

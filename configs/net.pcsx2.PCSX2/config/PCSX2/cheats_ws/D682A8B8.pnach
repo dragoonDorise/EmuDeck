@@ -1,9 +1,0 @@
-gametitle=NBA Live 2003 (E)(SLES-51198).
-comment=Widescreen hack by Arapapa
- 
-//Gameplay 16:9
-
-patch=1,EE,0020c9dc,word,3c013fe3 //3c013faa
-patch=1,EE,0020c9e0,word,34218e2a //3421aaab
-
-patch=1,EE,0021448c,word,3c013fab //3c013f80

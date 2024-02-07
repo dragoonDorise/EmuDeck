@@ -1,6 +1,0 @@
-gametitle=Everblue 2 (J)(SLPM-62214)
-comment=Widescreen Hack by El_Patas (NTSC-J by Arapapa)
-
-//Widescreen hack 16:9
-
-patch=1,EE,00228708,word,3c033f06 //3c033f33

@@ -1,8 +1,0 @@
-gametitle=Rogue Trooper (NTSC-U)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//803f013c 00e08144
-patch=1,EE,001c8974,word,3c013f40 //3c013f80

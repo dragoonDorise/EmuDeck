@@ -1,8 +1,0 @@
-gametitle=Project Minerva (K)(SLPM-67545)
-comment=Widescreen Hack by Little Gaint (NTSC-K by Arapapa)
-
-//3ef0a3d7 3f91eb85 (2nd)
-patch=1,EE,20F1A388,extended,3F206D3A // vert
-
-//3f91eb85 3ff1eb85
-patch=1,EE,20F20CD4,extended,3F5AE148 // zoom

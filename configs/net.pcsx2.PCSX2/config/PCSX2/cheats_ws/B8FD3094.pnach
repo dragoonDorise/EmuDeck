@@ -1,8 +1,0 @@
-gametitle=Power Smash 2 (J)(SLPM-62236)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,002b8254,word,3c013f40 //00000000
-patch=1,EE,002b8258,word,44810000 //00000000
-patch=1,EE,002b8260,word,4600c602 //00000000

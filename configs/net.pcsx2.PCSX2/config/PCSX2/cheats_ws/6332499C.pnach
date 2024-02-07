@@ -1,7 +1,0 @@
-gametitle=Big Mutha Truckers 2 (NTSC-U)(SLUS-21086)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-//0000803f(*) 0000803f abaaaa3f(*)
-patch=1,EE,20481c28,extended,3FE38E2A //3faaaaab Y-ratio
-patch=1,EE,20481c20,extended,3F400000 //3f800000 Zoom

@@ -1,25 +1,21 @@
 #!/bin/bash
 CreateStructureUSB(){
-	destination=$1
-	mkdir -p "$destination/bios/"
-	mkdir -p "$destination/roms/"
-	rsync -rav --ignore-existing "$EMUDECKGIT/roms/" "$destination/roms/"|
-	awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
-	zenity --progress --title "Creating Rom Structure on $destination" \
-	--text="Scanning..." --width=400 --percentage=0 --auto-close
+	local destination=$1
+	if [ -d "$destination/roms/" ]; then
+		echo "Valid"
+	else
+		mkdir -p "$destination/bios/"
+		mkdir -p "$destination/roms/"
+		(rsync -ravL --ignore-existing "$EMUDECKGIT/roms/" "$destination/roms/" && rsync -ravL --ignore-existing "$biosPath/" "$destination/bios") && echo "true" || echo "false"
 
-	text="`printf " <b>Folders created</b>\n\nEject your USB Drive and go to your computer and copy your roms to the folders created on $destination/roms/ and your bios on $destination/bios/)"`"
-	 zenity --info \
-			 --title="EmuDeck" \
-			 --width="450" \
-			 --text="${text}" 2>/dev/null && echo "true"
+	fi
 }
 
 CopyGames(){
-	origin=$1
+	local origin=$1
 
-	neededSpace=$(du -s "$origin" | awk '{print $1}')
-	neededSpaceInHuman=$(du -sh "$origin" | awk '{print $1}')
+	local neededSpace=$(du -s "$origin" | awk '{print $1}')
+	local neededSpaceInHuman=$(du -sh "$origin" | awk '{print $1}')
 
 	#File Size on destination
 	freeSpace=$(df -k $emulationPath --output=avail | tail -1)
@@ -43,15 +39,36 @@ CopyGames(){
 		fi
 	fi
 
+
+
+
 	(
-	rsync -rav --ignore-existing --progress "$origin/roms/" "$romsPath/" |
-	awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
-	zenity --progress --title "Importing your games to $romsPath" \
-	--text="Scanning..." --width=400 --percentage=0 --auto-close
+	for entry in "$origin/roms"/*
+	do
+		if [ -d $entry ]; then
+			files=$(find "$entry/" -type f ! -name "*.txt" | wc -l)
+			if [ $files -gt 0 ]; then
+				dir=$(basename "$entry")
+
+				if [ $dir = "wiiu" ]; then
+					entry="$entry/roms"
+				fi
+
+				if [ $dir = "xenia" ]; then
+					entry="$entry/roms"
+				fi
+
+				rsync -rav --ignore-existing --progress --exclude=".*" "$entry/" "$romsPath/$dir/" |
+				awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
+				zenity --progress --title "Importing your $dir games to $romsPath" \
+				--text="Scanning..." --width=400 --percentage=0 --auto-close
+			fi
+		 fi
+	done
 
 	rsync -rav --ignore-existing --progress "$origin/bios/" "$biosPath/" |
 	awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
-	zenity --progress --title "Importing your games to $biosPath" \
+	zenity --progress --title "Importing your bios to $biosPath" \
 	--text="Scanning..." --width=400 --percentage=0 --auto-close
 	) &&
 	text="`printf " <b>Success!</b>\n\nThe contents of your USB Drive have been copied to your Emulation folder)"`"
@@ -59,6 +76,5 @@ CopyGames(){
 			 --title="EmuDeck" \
 			 --width="450" \
 			 --text="${text}" 2>/dev/null && echo "true"
-
 
 }

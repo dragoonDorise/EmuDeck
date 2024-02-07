@@ -1,9 +1,0 @@
-gametitle=Operation Air Assault 2 (E)(SLES-54804)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,00156dd4,word,3c013f40
-patch=1,EE,00156dd8,word,44812000
-patch=1,EE,00156e2c,word,461ebdc3
-patch=1,EE,00156e30,word,4604bdc2

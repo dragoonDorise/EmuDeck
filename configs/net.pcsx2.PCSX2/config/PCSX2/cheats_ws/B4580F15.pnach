@@ -1,6 +1,0 @@
-gametitle=Sidewinder Max [NTSC-J] (SLPS_250.18)
-comment=Widescreen Hack by El_Patas 
-
-//Gameplay 16:9
-patch=1,EE,00123860,word,3C0143C0 //3C014400 Zoom
-patch=1,EE,00102858,word,3C0143B4 //3C0143F0 Y-FOV

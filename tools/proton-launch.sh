@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 ## proton-launch.sh
 
@@ -63,10 +63,12 @@ installProton () {
         [5.13]="1420170"
         [6.3]="1580130"
         [7.0]="1887720"
+        [8.0]="2348590"
         [- Experimental]="1493710"
         [Hotfix]="2180100"
         [EasyAntiCheat Runtime]="1826330"
         [BattlEye Runtime]="1161040"
+        [Next]="2230260"
     )
 
     # If Proton Version is known, attempt to prompt the user to install it
@@ -157,6 +159,8 @@ main () {
     # Set main STEAMPATH
     if [ -d "${HOME}/.local/share/Steam" ]; then
         STEAMPATH="${HOME}/.local/share/Steam"
+    elif [ -d "${HOME}/.steam/steam" ]; then
+        STEAMPATH="${HOME}/.steam/steam"
     else
         reportError "Error: ${STEAMPATH} does not exist." "true" "true"
     fi
@@ -218,10 +222,11 @@ main () {
     shift "$(( OPTIND - 1 ))"
 
     # Make sure there weren't any odd arguments in the options
-    if [[ "${*}" == *"--"* ]]; then
-        echo "Error: Invalid argument in options." >> "${LOGFILE}"
-        exit 1
-    fi
+    # Commenting this out for now. This blocks adding launch arguments to emulators (like Xenia). 
+    # if [[ "${*}" == *"--"* ]]; then
+    #    echo "Error: Invalid argument in options." >> "${LOGFILE}"
+    #    exit 1
+    # fi
 
     # Check for mandatory target
     if [ -z ${1+x} ]; then
@@ -240,7 +245,7 @@ main () {
 
     # Check if Proton version is set, if not, set it to 7.0 by default
     if [ -z ${PROTONVER+x} ]; then
-        PROTONVER="7.0"
+        PROTONVER="8.0"
     fi
 
     # Find set Proton version

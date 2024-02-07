@@ -1,7 +1,0 @@
-gametitle=An American Tail (E)((SLES-54626)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-patch=1,EE,0017ed70,word,3c01bf2a

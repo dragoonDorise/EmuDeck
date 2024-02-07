@@ -2,7 +2,7 @@
 
 # Variables
 Moonlight_emuName="Moonlight"
-Moonlight_emuType="FlatPak"
+Moonlight_emuType="$emuDeckEmuTypeFlatpak"
 Moonlight_emuPath="com.moonlight_stream.Moonlight"
 Moonlight_releaseURL=""
 
@@ -16,7 +16,7 @@ Moonlight_install() {
 	flatpak override "$ID" --share=network --user
 	cp "$EMUDECKGIT/tools/remoteplayclients/Moonlight Game Streaming.sh" "$romsPath/remoteplay"
 	chmod +x "$romsPath/remoteplay/Moonlight Game Streaming.sh"
-	Moonlight_addSteamInputProfile
+	#Moonlight_addSteamInputProfile
 }
 
 # ApplyInitialSettings
@@ -48,6 +48,12 @@ Moonlight_uninstall() {
 # Check if installed
 Moonlight_IsInstalled() {
 	if [ "$(flatpak --columns=app list | grep "$Moonlight_emuPath")" == "$Moonlight_emuPath" ]; then
+		# Uninstall if previously installed to the "system" level
+		flatpak list | grep "$Moonlight_emuPath" | grep "system"
+		if [ $? == 0 ]; then
+			Moonlight_uninstall
+			Moonlight_install
+		fi
 		echo true
 		return 1
 	else

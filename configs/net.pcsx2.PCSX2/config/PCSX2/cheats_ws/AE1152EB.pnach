@@ -1,3 +1,0 @@
-gametitle=Rez (PAL)
-comment=Widescreen hack
-patch=1,EE,2027E8C4,word,3F400000

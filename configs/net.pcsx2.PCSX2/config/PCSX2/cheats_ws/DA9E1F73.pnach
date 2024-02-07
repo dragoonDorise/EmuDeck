@@ -1,6 +1,0 @@
-gametitle=Kelly Slater's Pro Surfer [PAL-M3-En-Fr-De] (SLES_512.01)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,0029FB58,word,3C01435F //3C014334 Zoom
-patch=1,EE,004ACD24,word,3FE38E39 //3FAAAAAB Y-FOV

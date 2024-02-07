@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-rclone_downloadEmu dolphin
-/usr/bin/flatpak run org.DolphinEmu.dolphin-emu
-rclone_uploadEmu dolphin
+emulatorInit "dolphin"
+/usr/bin/flatpak run org.DolphinEmu.dolphin-emu "${@}"
+rm -rf "$savesPath/.gaming"

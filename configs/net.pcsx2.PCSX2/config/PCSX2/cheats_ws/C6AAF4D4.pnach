@@ -1,9 +1,0 @@
-gametitle=U - Underwater Unit (K)(SCPS-56011)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-patch=1,EE,00100c3c,word,3c0143d5 //3c0143a0
-//Render Fix
-patch=1,EE,001f27b8,word,3c01c060 //3c01c000

@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-rclone_downloadEmu vita3k
+emulatorInit "Vita3k"
 export LC_ALL="C"
 
 emuName="Vita3K" #parameterize me
@@ -13,4 +13,4 @@ exe=$(find "$emufolder" -iname "${emuName}" | sort -n | cut -d' ' -f 2- | tail -
 chmod +x "$exe"
 
 eval "${exe} ${param}"
-rclone_uploadEmu vita3k
+rm -rf "$savesPath/.gaming"

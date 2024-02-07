@@ -1,6 +1,0 @@
-gametitle=Police Chase Down (E)(SLES-51864)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,00121da4,word,3c013f40 //3c013f80

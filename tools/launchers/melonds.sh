@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-rclone_downloadEmu melonds
-/usr/bin/flatpak run net.kuribo64.melonDS
-rclone_uploadEmu melonds
+emulatorInit "melonds"
+/usr/bin/flatpak run net.kuribo64.melonDS "${@}"
+rm -rf "$savesPath/.gaming"

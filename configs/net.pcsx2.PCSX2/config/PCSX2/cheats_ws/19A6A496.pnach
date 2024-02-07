@@ -1,8 +1,0 @@
-gametitle=Houshinengi 2 [NTSC-J] [SLPM-65083]
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-patch=1,EE,0037db3c,word,3c023f9b //3c023f68
-patch=1,EE,0037db40,word,34424e7f //3442f5c2

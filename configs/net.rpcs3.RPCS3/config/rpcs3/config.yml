@@ -74,7 +74,7 @@ Video:
   Read Color Buffers: false
   Read Depth Buffer: false
   Log shader programs: false
-  VSync: false
+  VSync: true
   Debug output: false
   Debug overlay: false
   Renderdoc Compatibility Mode: false
@@ -112,13 +112,14 @@ Video:
   Allow Host GPU Labels: false
   Disable MSL Fast Math: false
   Software VkSemaphore: false
+  Output Scaling Mode: FidelityFX Super Resolution
   Vulkan:
     Adapter: AMD RADV VANGOGH
     Force FIFO present mode: false
     Force primitive restart flag: false
     Force Disable Exclusive Fullscreen Mode: false
     Asynchronous Texture Streaming 2: false
-    Enable FidelityFX Super Resolution Upscaling: false
+    Enable FidelityFX Super Resolution Upscaling: true
     FidelityFX CAS Sharpening Intensity: 50
     Asynchronous Queue Scheduler: Safe
   Performance Overlay:

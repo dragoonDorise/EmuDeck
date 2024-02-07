@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-rclone_downloadEmu duckstation
-/usr/bin/flatpak run org.duckstation.DuckStation -bigpicture -fullscreen
-rclone_uploadEmu duckstation
+emulatorInit "duckstation"
+/usr/bin/flatpak run org.duckstation.DuckStation "${@}"
+rm -rf "$savesPath/.gaming"
