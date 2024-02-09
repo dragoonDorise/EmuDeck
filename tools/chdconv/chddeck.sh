@@ -248,12 +248,11 @@ if [ "$selection" == "bulk" ]; then
 
 	if ((${#searchFolderList[@]} == 0)); then
 		echo "No eligible files found."
-		text="$(printf "<b>No suitable ROMs were found for conversion.")"
 		zenity --error \
 			--title="EmuDeck" \
 			--width=250 \
-			--ok-label="Bye" \
-			--text="${text}" 2>/dev/null
+			--ok-label="Exit" \
+			--text="No suitable ROMs were found for conversion."
 		exit
 	fi
 
