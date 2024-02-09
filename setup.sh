@@ -168,119 +168,114 @@ if [ $doInstallSRM == "true" ]; then
 	echo "install srm"
 	SRM_install
 fi
+if [ "$doInstallPCSX2QT" == "true" ]; then
+	echo "install pcsx2Qt"
+	PCSX2QT_install
+fi
+if [ $doInstallPrimeHack == "true" ]; then
+	echo "install primehack"
+	Primehack_install
+fi
+if [ $doInstallRPCS3 == "true" ]; then
+	echo "install rpcs3"
+	RPCS3_install
+fi
+if [ $doInstallCitra == "true" ]; then
+	echo "install Citra"
+	Citra_install
+fi
+if [ $doInstallDolphin == "true" ]; then
+	echo "install Dolphin"
+	Dolphin_install
+fi
+if [ $doInstallDuck == "true" ]; then
+	echo "DuckStation_install"
+	DuckStation_install
+fi
 if [ $doInstallRA == "true" ]; then
 	echo "RetroArch_install"
 	RetroArch_install
 fi
-
-
-
-if [ $system != "darwin" ]; then
-	if [ "$doInstallPCSX2QT" == "true" ]; then
-		echo "install pcsx2Qt"
-		PCSX2QT_install
-	fi
-	if [ $doInstallPrimeHack == "true" ]; then
-		echo "install primehack"
-		Primehack_install
-	fi
-	if [ $doInstallRPCS3 == "true" ]; then
-		echo "install rpcs3"
-		RPCS3_install
-	fi
-	if [ $doInstallCitra == "true" ]; then
-		echo "install Citra"
-		Citra_install
-	fi
-	if [ $doInstallDolphin == "true" ]; then
-		echo "install Dolphin"
-		Dolphin_install
-	fi
-	if [ $doInstallDuck == "true" ]; then
-		echo "DuckStation_install"
-		DuckStation_install
-	fi
-	if [ $doInstallRMG == "true" ]; then
-		echo "RMG_install"
-		RMG_install
-	fi
-	if [ $doInstallares == "true" ]; then
-		echo "ares_install"
-		ares_install
-	fi
-	if [ $doInstallPPSSPP == "true" ]; then
-		echo "PPSSPP_install"
-		PPSSPP_install
-	fi
-	if [ $doInstallYuzu == "true" ]; then
-		echo "Yuzu_install"
-		Yuzu_install
-	fi
-	if [ $doInstallRyujinx == "true" ]; then
-		echo "Ryujinx_install"
-		Ryujinx_install
-	fi
-	if [ $doInstallMAME == "true" ]; then
-		echo "MAME_install"
-		MAME_install
-	fi
-	if [ $doInstallXemu == "true" ]; then
-		echo "Xemu_install"
-		Xemu_install
-	fi
-	if [ $doInstallCemu == "true" ]; then
-		echo "Cemu_install"
-		Cemu_install
-	fi
-	if [ "${doInstallCemuNative}" == "true" ]; then
-		echo "CemuNative_install"
-		CemuNative_install
-	fi
-	if [ $doInstallScummVM == "true" ]; then
-		echo "ScummVM_install"
-		ScummVM_install
-	fi
-	if [ $doInstallVita3K == "true" ]; then
-		echo "Vita3K_install"
-		Vita3K_install
-	fi
-	if [ $doInstallMGBA == "true" ]; then
-		echo "mGBA_install"
-		mGBA_install
-	fi
-	if [ $doInstallFlycast == "true" ]; then
-		echo "Flycast_install"
-		Flycast_install
-	fi
-	if [ $doInstallRMG == "true" ]; then
-		echo "RMG_install"
-		RMG_install
-	fi
-	if [ $doInstallares == "true" ]; then
-		echo "ares_install"
-		ares_install
-	fi
-	if [ $doInstallmelonDS == "true" ]; then
-		echo "melonDS_install"
-		melonDS_install
-	fi
-	if [ $doInstallBigPEmu == "true" ]; then
-		echo "BigPEmu_install"
-		BigPEmu_install
-	fi
-	if [ $doInstallSupermodel == "true" ]; then
-		echo "Supermodel_install"
-		Supermodel_install
-	fi
-	#Xenia - We need to install Xenia after creating the Roms folders!
-	if [ "$doInstallXenia" == "true" ]; then
-		echo "Xenia_install"
-		Xenia_install
-	fi
-	if [ "$doInstallModel2" == "true" ]; then
-		echo "Model2_install"
-		Model2_install
-	fi
+if [ $doInstallRMG == "true" ]; then
+	echo "RMG_install"
+	RMG_install
+fi
+if [ $doInstallares == "true" ]; then
+	echo "ares_install"
+	ares_install
+fi
+if [ $doInstallPPSSPP == "true" ]; then
+	echo "PPSSPP_install"
+	PPSSPP_install
+fi
+if [ $doInstallYuzu == "true" ]; then
+	echo "Yuzu_install"
+	Yuzu_install
+fi
+if [ $doInstallRyujinx == "true" ]; then
+	echo "Ryujinx_install"
+	Ryujinx_install
+fi
+if [ $doInstallMAME == "true" ]; then
+	echo "MAME_install"
+	MAME_install
+fi
+if [ $doInstallXemu == "true" ]; then
+	echo "Xemu_install"
+	Xemu_install
+fi
+if [ $doInstallCemu == "true" ]; then
+	echo "Cemu_install"
+	Cemu_install
+fi
+if [ "${doInstallCemuNative}" == "true" ]; then
+	echo "CemuNative_install"
+	CemuNative_install
+fi
+if [ $doInstallScummVM == "true" ]; then
+	echo "ScummVM_install"
+	ScummVM_install
+fi
+if [ $doInstallVita3K == "true" ]; then
+	echo "Vita3K_install"
+	Vita3K_install
+fi
+if [ $doInstallMGBA == "true" ]; then
+	echo "mGBA_install"
+	mGBA_install
+fi
+if [ $doInstallFlycast == "true" ]; then
+	echo "Flycast_install"
+	Flycast_install
+fi
+if [ $doInstallRMG == "true" ]; then
+	echo "RMG_install"
+	RMG_install
+fi
+if [ $doInstallares == "true" ]; then
+	echo "ares_install"
+	ares_install
+fi
+if [ $doInstallmelonDS == "true" ]; then
+	echo "melonDS_install"
+	melonDS_install
+fi
+if [ $doInstallBigPEmu == "true" ]; then
+	echo "BigPEmu_install"
+	BigPEmu_install
+fi
+if [ $doInstallSupermodel == "true" ]; then
+	echo "Supermodel_install"
+	Supermodel_install
+fi
+#Xenia - We need to install Xenia after creating the Roms folders!
+if [ "$doInstallXenia" == "true" ]; then
+	echo "Xenia_install"
+	Xenia_install
+fi
+if [ "$doInstallModel2" == "true" ]; then
+	echo "Model2_install"
+	Model2_install
 fi
 
 #Steam RomManager Config
@@ -312,106 +307,104 @@ if [ "$doSetupRA" == "true" ]; then
 	echo "RetroArch_init"
 	RetroArch_init
 fi
-
-	if [ $system != "darwin" ]; then
-	if [ "$doSetupPrimehack" == "true" ]; then
-		echo "Primehack_init"
-		Primehack_init
-	fi
-	if [ "$doSetupDolphin" == "true" ]; then
-		echo "Dolphin_init"
-		Dolphin_init
-	fi
-	if [ "$doSetupPCSX2QT" == "true" ]; then
-		echo "PCSX2QT_init"
-		PCSX2QT_init
-	fi
-	if [ "$doSetupRPCS3" == "true" ]; then
-		echo "RPCS3_init"
-		RPCS3_init
-	fi
-	if [ "$doSetupCitra" == "true" ]; then
-		echo "Citra_init"
-		Citra_init
-	fi
-	if [ "$doSetupDuck" == "true" ]; then
-		echo "DuckStation_init"
-		DuckStation_init
-	fi
-	if [ "$doSetupYuzu" == "true" ]; then
-		echo "Yuzu_init"
-		Yuzu_init
-	fi
-	if [ "$doSetupRyujinx" == "true" ]; then
-		echo "Ryujinx_init"
-		Ryujinx_init
-	fi
-	if [ "$doSetupPPSSPP" == "true" ]; then
-		echo "PPSSPP_init"
-		PPSSPP_init
-	fi
-	if [ "$doSetupXemu" == "true" ]; then
-		echo "Xemu_init"
-		Xemu_init
-	fi
-	if [ "$doSetupMAME" == "true" ]; then
-		echo "MAME_init"
-		MAME_init
-	fi
-	if [ "$doSetupScummVM" == "true" ]; then
-		echo "ScummVM_init"
-		ScummVM_init
-	fi
-	if [ "$doSetupVita3K" == "true" ]; then
-		echo "Vita3K_init"
-		Vita3K_init
-	fi
-	if [ "$doSetupRMG" == "true" ]; then
-		echo "RMG_init"
-		RMG_init
-	fi
-	if [ "$doSetupares" == "true" ]; then
-		echo "ares_init"
-		ares_init
-	fi
-	if [ "$doSetupmelonDS" == "true" ]; then
-		echo "melonDS_init"
-		melonDS_init
-	fi
-	if [ "$doSetupMGBA" == "true" ]; then
-		echo "mGBA_init"
-		mGBA_init
-	fi
-	if [ "${doSetupCemuNative}" == "true" ]; then
-		echo "CemuNative_init"
-		CemuNative_init
-	fi
-	if [ "$doSetupFlycast" == "true" ]; then
-		echo "Flycast_init"
-		Flycast_init
-	fi
-	if [ "$doSetupSupermodel" == "true" ]; then
-		echo "Supermodel_init"
-		Supermodel_init
-	fi
-	if [ "$doSetupModel2" == "true" ]; then
-		echo "model2_init"
-		Model2_init
-	fi
-	#Proton Emus
-	if [ "$doSetupCemu" == "true" ]; then
-		echo "Cemu_init"
-		Cemu_init
-	fi
-	if [ "$doSetupBigPEmu" == "true" ]; then
-		echo "BigPEmu_init"
-		BigPEmu_init
-	fi
-	if [ "$doSetupXenia" == "true" ]; then
-		echo "Xenia_init"
-		Xenia_init
-	fi
+if [ "$doSetupPrimehack" == "true" ]; then
+	echo "Primehack_init"
+	Primehack_init
 fi
+if [ "$doSetupDolphin" == "true" ]; then
+	echo "Dolphin_init"
+	Dolphin_init
+fi
+if [ "$doSetupPCSX2QT" == "true" ]; then
+	echo "PCSX2QT_init"
+	PCSX2QT_init
+fi
+if [ "$doSetupRPCS3" == "true" ]; then
+	echo "RPCS3_init"
+	RPCS3_init
+fi
+if [ "$doSetupCitra" == "true" ]; then
+	echo "Citra_init"
+	Citra_init
+fi
+if [ "$doSetupDuck" == "true" ]; then
+	echo "DuckStation_init"
+	DuckStation_init
+fi
+if [ "$doSetupYuzu" == "true" ]; then
+	echo "Yuzu_init"
+	Yuzu_init
+fi
+if [ "$doSetupRyujinx" == "true" ]; then
+	echo "Ryujinx_init"
+	Ryujinx_init
+fi
+if [ "$doSetupPPSSPP" == "true" ]; then
+	echo "PPSSPP_init"
+	PPSSPP_init
+fi
+if [ "$doSetupXemu" == "true" ]; then
+	echo "Xemu_init"
+	Xemu_init
+fi
+if [ "$doSetupMAME" == "true" ]; then
+	echo "MAME_init"
+	MAME_init
+fi
+if [ "$doSetupScummVM" == "true" ]; then
+	echo "ScummVM_init"
+	ScummVM_init
+fi
+if [ "$doSetupVita3K" == "true" ]; then
+	echo "Vita3K_init"
+	Vita3K_init
+fi
+if [ "$doSetupRMG" == "true" ]; then
+	echo "RMG_init"
+	RMG_init
+fi
+if [ "$doSetupares" == "true" ]; then
+	echo "ares_init"
+	ares_init
+fi
+if [ "$doSetupmelonDS" == "true" ]; then
+	echo "melonDS_init"
+	melonDS_init
+fi
+if [ "$doSetupMGBA" == "true" ]; then
+	echo "mGBA_init"
+	mGBA_init
+fi
+if [ "${doSetupCemuNative}" == "true" ]; then
+	echo "CemuNative_init"
+	CemuNative_init
+fi
+if [ "$doSetupFlycast" == "true" ]; then
+	echo "Flycast_init"
+	Flycast_init
+fi
+if [ "$doSetupSupermodel" == "true" ]; then
+	echo "Supermodel_init"
+	Supermodel_init
+fi
+if [ "$doSetupModel2" == "true" ]; then
+	echo "model2_init"
+	Model2_init
+fi
+#Proton Emus
+if [ "$doSetupCemu" == "true" ]; then
+	echo "Cemu_init"
+	Cemu_init
+fi
+if [ "$doSetupBigPEmu" == "true" ]; then
+	echo "BigPEmu_init"
+	BigPEmu_init
+fi
+if [ "$doSetupXenia" == "true" ]; then
+	echo "Xenia_init"
+	Xenia_init
+fi
+
 
 
 #Fixes repeated Symlink for older installations
