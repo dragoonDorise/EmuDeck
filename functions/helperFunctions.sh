@@ -918,6 +918,7 @@ function jsonToBashVars(){
 	local json=$1
 	echo "#!/bin/bash" > "$emuDecksettingsFile"
 	#Install Emus
+	setSetting system "$(jq .system $json)"
 	setSetting doInstallRA "$(jq .installEmus.ra.status $json)"
 	setSetting doInstallDolphin "$(jq .installEmus.dolphin.status $json)"
 	setSetting doInstallPCSX2QT "$(jq .installEmus.pcsx2.status $json)"
