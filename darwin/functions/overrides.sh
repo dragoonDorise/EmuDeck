@@ -4,7 +4,7 @@ PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 appleChip=$(uname -m)
 
 #Override Vars
-SRM_toolPath="Applications/Steam ROM Manager.app"
+SRM_toolPath="$HOME/Applications/EmuDeck/Steam ROM Manager.app"
 RetroArch_configFile="$HOME/Library/Application Support/RetroArch/config/retroarch.cfg"
 RetroArch_coreConfigFolders="$HOME/Library/Application Support/RetroArch/config"
 RetroArch_cores="$HOME/Library/Application Support/RetroArch/cores"
