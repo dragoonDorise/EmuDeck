@@ -2,6 +2,12 @@
 MSG=$HOME/emudeck/logs/msg.log
 echo "0" > "$MSG"
 
+#Darwin
+appleChip=$(uname -m)
+if [ appleChip != "Linux" ]; then
+	PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+fi
+
 #
 ##
 ## Pid Lock...

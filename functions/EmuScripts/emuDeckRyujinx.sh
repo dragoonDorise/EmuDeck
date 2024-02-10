@@ -6,6 +6,7 @@ Ryujinx_emuType="$emuDeckEmuTypeBinary"
 Ryujinx_emuPath="$HOME/Applications/publish"
 Ryujinx_configFile="$HOME/.config/Ryujinx/Config.json"
 # https://github.com/Ryujinx/Ryujinx/blob/master/Ryujinx.Ui.Common/Configuration/System/Language.cs#L3-L23
+declare -A Ryujinx_languages
 Ryujinx_languages=(
 ["ja"]="Japanese"
 ["en"]="AmericanEnglish"
@@ -21,6 +22,7 @@ Ryujinx_languages=(
 ["tw"]="Taiwanese") # TODO: not all langs but we need to switch to full lang codes to support those
 
 # https://github.com/Ryujinx/Ryujinx/blob/master/Ryujinx.Ui.Common/Configuration/System/Region.cs#L3-L12
+declare -A Ryujinx_regions
 Ryujinx_regions=(
 ["ja"]="Japan"
 ["en"]="USA"
@@ -116,7 +118,7 @@ Ryujinx_setEmulationFolder(){
 
 #SetLanguage
 Ryujinx_setLanguage(){
-    setMSG "Setting Ryujinx Language"	
+    setMSG "Setting Ryujinx Language"
 
 	#TODO: call this somewhere, and input the $language from somewhere (args?)
 	if [[ -f "${Ryujinx_configFile}" ]]; then
