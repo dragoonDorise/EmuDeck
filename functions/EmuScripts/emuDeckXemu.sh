@@ -5,6 +5,7 @@ Xemu_emuType="$emuDeckEmuTypeFlatpak"
 Xemu_emuPath="app.xemu.xemu"
 
 # https://xboxdevwiki.net/EEPROM
+declare -A Xemu_languages
 Xemu_languages=(
 ["en"]=1
 ["ja"]=2
@@ -66,7 +67,7 @@ Xemu_setEmulationFolder(){
 
 #SetLanguage
 Xemu_setLanguage(){
-    setMSG "Setting Xemu Language"	
+    setMSG "Setting Xemu Language"
 
     eepromPath="${storagePath}/xemu/eeprom.bin"
 	#TODO: call this somewhere, and input the $language from somewhere (args?)

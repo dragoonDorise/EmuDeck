@@ -3,6 +3,7 @@ source "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
 doUninstall=false
 doUninstallares=true
+doUninstallBigPEmu=true
 doUninstallCemu=true
 doUninstallCemuNative=true
 doUninstallCitra=true
@@ -23,13 +24,11 @@ doUninstallRPCS3=true
 doUninstallRyujinx=true
 doUninstallScummVM=true
 doUninstallSRM=true
+doUninstallSupermodel=true
 doUninstallVita3K=true
 doUninstallXemu=true
 doUninstallXenia=true
 doUninstallYuzu=true
-
-
-
 
 LOGFILE="$HOME/Desktop/emudeck-uninstall.log"
 echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
@@ -72,6 +71,69 @@ if [ "$doUninstall" == true ]; then
 		echo -e "No"
 	fi
 
+# Decky Loader
+
+if [[ -f "$HOME/homebrew/services/PluginLoader" ]] ; then
+
+	text="`printf "An installation of Decky Loader was found on your system. Would you like to open the Decky Loader Uninstallation Tool?"`"
+
+	zenity --question \
+		 --title="Decky Loader" \
+		 --width=450 \
+		 --ok-label="Launch the Decky Loader Uninstallation Tool" \
+		 --cancel-label="No, continue with uninstalling EmuDeck" \
+		 --text="${text}"
+	ans=$?
+	if [ $ans -eq 0 ]; then
+		curl -S -s -L -O --output-dir "$HOME/emudeck" --connect-timeout 30 https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/user_install_script.sh
+		chmod +x "$HOME/emudeck/user_install_script.sh"
+		"$HOME/emudeck/user_install_script.sh"
+
+	else
+		echo -e "No"
+	fi
+fi
+
+
+text="`printf "Do you want the EmuDeck Uninstallation Tool to back up your saves? Your saves will be zipped and placed in your Emulation folder after the uninstallation is complete."`"
+
+zenity --question \
+		--title="Back Up Saves" \
+		--width=450 \
+		--ok-label="Yes, back up my saves" \
+		--cancel-label="No, continue with uninstalling EmuDeck" \
+		--text="${text}"
+ans=$?
+if [ $ans -eq 0 ]; then
+	mkdir -p "$emulationPath/EmuDeckSavesBackUp"
+	rsync -avh --copy-links "$savesPath" "$emulationPath/EmuDeckSavesBackUp"
+	cd "$emulationPath"
+	zip -r "EmuDeckSavesBackUp.zip" "EmuDeckSavesBackUp"
+	rm -rf "$emulationPath/EmuDeckSavesBackUp" &> /dev/null
+else
+	echo -e "No"
+fi
+
+text="`printf "Do you want the EmuDeck Uninstallation Tool to back up your BIOS? Your BIOS will be zipped and placed in your Emulation folder after the uninstallation is complete."`"
+
+zenity --question \
+		--title="Back Up BIOS" \
+		--width=450 \
+		--ok-label="Yes, back up my BIOS" \
+		--cancel-label="No, continue with uninstalling EmuDeck" \
+		--text="${text}"
+ans=$?
+if [ $ans -eq 0 ]; then
+	mkdir -p "$emulationPath/EmuDeckBIOSBackUp"
+	rsync -avh --copy-links "$biosPath" "$emulationPath/EmuDeckBIOSBackUp"
+	cd "$emulationPath"
+	zip -r "EmuDeckBIOSBackUp.zip" "EmuDeckBIOSBackUp"
+	rm -rf "$emulationPath/EmuDeckBIOSBackUp" &> /dev/null
+else
+	echo -e "No"
+fi
+
+
 
 	#Emulator selector
 	text="`printf " <b>The Uninstallation Wizard will uninstall EmuDeck, selected emulators, configuration files, and saved games.</b>\n\n Select which emulators you would like to <b>keep</b> installed.\n\n If you do not select an emulator, everything will be uninstalled except your ROMs and BIOS ( Yuzu firmware will be deleted)."`"
@@ -87,35 +149,41 @@ if [ "$doUninstall" == true ]; then
 				--column="" \
 				--column="Select which emulators you would like to keep installed" \
 				1 "ares"  \
-				2 "Cemu" \
-				3 "Cemu Native" \
-				4 "Citra" \
-				5 "Dolphin" \
-				6 "Duckstation" \
-				7 "Flycast" \
-				8 "Mame"  \
-				9 "melonDS"  \
-				10 "mGBA"  \
-				11 "Model2" \
-				12 "PCSX2" \
-				13 "PPSSPP" \
-				14 "PrimeHack" \
-				15 "RetroArch"\
-				16 "RMG"  \
-				17 "RPCS3" \
-				18 "Ryujinx" \
-				19 "ScummVM" \
-				20 "Vita3K"  \
-				21 "Xemu" \
-				22 "Xenia"  \
-				23 "Yuzu" )
+				2 "BigPEmu" \
+				3 "Cemu" \
+				4 "Cemu Native" \
+				5 "Citra" \
+				6 "Dolphin" \
+				7 "Duckstation" \
+				8 "Flycast" \
+				9 "Mame"  \
+				10 "melonDS"  \
+				11 "mGBA"  \
+				12 "Model2" \
+				13 "PCSX2" \
+				14 "PPSSPP" \
+				15 "PrimeHack" \
+				16 "RetroArch"\
+				17 "RMG"  \
+				18 "RPCS3" \
+				19 "Ryujinx" \
+				20 "ScummVM" \
+				21 "Supermodel" \
+				22 "Vita3K"  \
+				23 "Xemu" \
+				24 "Xenia"  \
+				25 "Yuzu" )
 
 	ans=$?
+
 	if [ $ans -eq 0 ]; then
 
 		if [[ "$emusToUninstall" == *"ares"* ]]; then
 			doUninstallares=false
 		fi
+		if [[ "$emusToUninstall" == *"BigPEmu"* ]]; then
+			doUninstallBigPEmu=false
+		fi	
 		if [[ "$emusToUninstall" == *"Cemu"* ]]; then
 			doUninstallCemu=false
 		fi
@@ -170,6 +238,9 @@ if [ "$doUninstall" == true ]; then
 		if [[ "$emusToUninstall" == *"ScummVM"* ]]; then
 			doUninstallScummVM=false
 		fi
+		if [[ "$emusToUninstall" == *"Supermodel"* ]]; then
+			doUninstallSupermodel=false
+		fi
 		if [[ "$emusToUninstall" == *"Vita3K"* ]]; then
 			doUninstallVita3K=false
 		fi
@@ -182,7 +253,6 @@ if [ "$doUninstall" == true ]; then
 		if [[ "$emusToUninstall" == *"Xenia"* ]]; then
 			doUninstallXenia=false
 		fi
-
 	else
 		exit
 	fi
@@ -197,6 +267,10 @@ if [ "$doUninstall" == true ]; then
 	if [[ "$doUninstallares" == true ]]; then
 		flatpak uninstall dev.ares.ares -y
 		rm -rf $HOME/.var/app/dev.ares.ares &> /dev/null
+	fi
+	if [[ "$doUninstallBigPEmu" == true ]]; then
+		rm -rf $HOME/Applications/BigPEmu &>> /dev/null
+		rm -rf $HOME/.local/share/applications/BigPEmu.desktop &>> /dev/null
 	fi
 	if [[ "$doUninstallCemu" == true ]]; then
 		find ${romsPath}/wiiu -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \;
@@ -227,7 +301,9 @@ if [ "$doUninstall" == true ]; then
 	fi
 	if [[ "$doUninstallMame" == true ]]; then
 		flatpak uninstall org.mamedev.MAME -y
+		# MAME creates both of these folders but only uses ~/.mame
 		rm -rf $HOME/.var/app/org.mamedev.MAME &> /dev/null
+		rm -rf $HOME/.mame &> /dev/null
 	fi
 	if [[ "$doUninstallmelonDS" == true ]]; then
 		flatpak uninstall net.kuribo64.melonDS -y
@@ -239,14 +315,16 @@ if [ "$doUninstall" == true ]; then
 		rm -rf $HOME/.local/share/applications/mGBA.desktop &> /dev/null
 	fi
 	if [[ "$doUninstallModel2" == true ]]; then
-		find ${romsPath}/model2 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \;
-		rm -f "$HOME/.local/share/applications/Model2 (Proton).desktop" &> /dev/null
+		find ${romsPath}/model2 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \; &>> /dev/null
+		rm -f "$HOME/.local/share/applications/Model 2 (Proton).desktop" &> /dev/null
 	fi
 	if [[ "$doUninstallPCSX2" == true ]]; then
 		rm -rf $HOME/Applications/pcsx2-Qt.AppImage &> /dev/null
 		rm -rf $HOME/.config/PCSX2 &> /dev/null
+		# Has the PCSX2 desktop file name changed over time? As of February 2024, it's PCSX2-QT.desktop
 		rm -rf $HOME/.local/share/applications/pcsx2-Qt.desktop &> /dev/null
 		rm -rf $HOME/.local/share/applications/PCSX2-Qt.desktop &> /dev/null
+		rm -rf $HOME/.local/share/applications/PCSX2-QT.desktop &> /dev/null
 	fi
 	if [[ "$doUninstallPPSSPP" == true ]]; then
 		flatpak uninstall org.ppsspp.PPSSPP -y
@@ -282,6 +360,11 @@ if [ "$doUninstall" == true ]; then
 		flatpak uninstall org.scummvm.ScummVM -y
 		rm -rf $HOME/.var/app/org.scummvm.ScummVM &> /dev/null
 	fi
+	if [[ "$doUninstallSupermodel" == true ]]; then
+		flatpak uninstall com.supermodel3.Supermodel -y
+		rm -rf $HOME/.var/app/com.supermodel3.Supermodel &>> /dev/null
+		rm -rf $HOME/.supermodel &>> /dev/null
+	fi
 	if [[ "$doUninstallVita3K" == true ]]; then
 		rm -rf $HOME/Applications/Vita3K &> /dev/null
 		rm -rf $HOME/.local/share/Vita3K &> /dev/null
@@ -304,6 +387,7 @@ if [ "$doUninstall" == true ]; then
 		rm -rf $HOME/.cache/yuzu &> /dev/null
 		rm -rf $HOME/.local/share/applications/yuzu.desktop &> /dev/null
 	fi
+
 
 	echo "55"
 	echo "# Removing Cloud Backup";
@@ -364,26 +448,37 @@ if [ "$doUninstall" == true ]; then
 	rm -rf $HOME/.local/share/applications/EmuDeck.desktop &> /dev/null
 
 	echo "80"
-	echo "# Removing Steam ROM Manager and EmulationStation-DE";
+	echo "# Removing EmuDeck installed tools: Steam ROM Manager, EmulationStation-DE, ULWGL, and Pegasus";
 	# Steam ROM Manager
 	rm -rf $HOME/.config/steam-rom-manager
 	rm -rf "$toolsPath/Steam ROM Manager.AppImage"
+	# Not sure if this was named differently in the past, but Steam ROM Manager.desktop is the current name, leaving both in case.
 	rm -rf $HOME/.local/share/applications/SRM.desktop &> /dev/null
+	rm -rf "$HOME/.local/share/applications/Steam ROM Manager.desktop" &> /dev/null
 	# EmulationStation-DE
 	rm -rf $HOME/.emulationstation
+	rm -rf "$HOME/.local/share/applications/Steam ROM Manager.desktop" &> /dev/null
+	rm -rf "$HOME/.local/share/applications/EmulationStation-DE.desktop" &> /dev/null 
 	rm -rf "$toolsPath/EmulationStation-DE.AppImage"
-	rm -rf "$toolsPath/EmulationStation-DE.AppImage"
+	# ULWGL, currently used for the Model 2 Emulator
 	rm -rf "$toolsPath/ULWGL"
+	# Pegasus
+	flatpak uninstall org.pegasus_frontend.Pegasus -y
+	rm -rf "$HOME/.var/app/org.pegasus_frontend.Pegasus/" &> /dev/null 
+	rm -rf "$HOME/.local/share/applications/Pegasus.desktop" &> /dev/null
 
 	echo "90"
 	echo "# Removing EmuDeck folders";
 	rm -rf $toolsPath
 	#rm -rf $biosPath
-	#rm -rf $savesPath
+	rm -rf $savesPath
 	rm -rf $storagePath
 	rm -rf $ESDEscrapData
 	rm -rf "$emulationPath/hdpacks"
 	rm -rf "$emulationPath/storage"
+
+
+
 
 	echo "100"
 	echo "# Done";

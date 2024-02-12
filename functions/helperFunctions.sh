@@ -295,6 +295,7 @@ function createUpdateSettingsFile(){
 	#defaultSettingsList+=("doSetupMelon=true")
 	defaultSettingsList+=("doSetupMGBA=true")
 	defaultSettingsList+=("doSetupFlycast=true")
+	defaultSettingsList+=("doSetupSupermodel=true")
 	defaultSettingsList+=("doInstallSRM=true")
 	defaultSettingsList+=("doInstallESDE=true")
 	defaultSettingsList+=("doInstallPegasus=false")
@@ -318,6 +319,7 @@ function createUpdateSettingsFile(){
 	#defaultSettingsList+=("doInstallMelon=false")
 	defaultSettingsList+=("doInstallMGBA=false")
 	defaultSettingsList+=("doInstallFlycast=true")
+	defaultSettingsList+=("doInstallSupermodel=true")
 	defaultSettingsList+=("doInstallCHD=true")
 	defaultSettingsList+=("doInstallPowertools=false")
 	defaultSettingsList+=("doInstallGyro=false")
@@ -916,6 +918,7 @@ function jsonToBashVars(){
 	local json=$1
 	echo "#!/bin/bash" > "$emuDecksettingsFile"
 	#Install Emus
+	setSetting system "$(jq .system $json)"
 	setSetting doInstallRA "$(jq .installEmus.ra.status $json)"
 	setSetting doInstallDolphin "$(jq .installEmus.dolphin.status $json)"
 	setSetting doInstallPCSX2QT "$(jq .installEmus.pcsx2.status $json)"
@@ -939,6 +942,9 @@ function jsonToBashVars(){
 	setSetting doInstallPrimehack "$(jq .installEmus.primehack.status $json)"
 	setSetting doInstallRMG "$(jq .installEmus.rmg.status $json)"
 	setSetting doInstallares "$(jq .installEmus.ares.status $json)"
+	setSetting doInstallSupermodel "$(jq .installEmus.supermodel.status $json)"
+	setSetting doInstallModel2  "$(jq .installEmus.model2.status $json)"
+
 
 	#Setup Emus
 	setSetting doSetupRA $(jq .overwriteConfigEmus.ra.status "$json")
@@ -964,7 +970,8 @@ function jsonToBashVars(){
 	setSetting doSetupPrimehack "$(jq .overwriteConfigEmus.primehack.status $json)"
 	setSetting doSetupRMG "$(jq .overwriteConfigEmus.rmg.status $json)"
 	setSetting doSetupares "$(jq .overwriteConfigEmus.ares.status $json)"
-
+	setSetting doSetupSupermodel "$(jq .overwriteConfigEmus.supermodel.status $json)"
+	setSetting doInstallModel2 "$(jq .overwriteConfigEmus.model2.status $json)"
 	#Frontends
 	setSetting doSetupSRM "$(jq .overwriteConfigEmus.srm.status $json)"
 	setSetting doSetupESDE "$(jq .overwriteConfigEmus.esde.status $json)"

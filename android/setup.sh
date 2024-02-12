@@ -136,7 +136,7 @@ if [ "$android_doSetupDolphin" == "true" ]; then
 	Android_Dolphin_init
 fi
 if [ "$android_doSetupAetherSX2" == "true" ]; then
-	Android_AetherSX2_install
+	Android_AetherSX2_init
 fi
 if [ "$android_doSetupCitra" == "true" ]; then
 	Android_Citra_init

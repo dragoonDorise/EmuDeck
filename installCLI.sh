@@ -60,7 +60,9 @@ setDefaults(){
 	setSetting doSetupMAME true
 	setSetting doSetupRMG false
 	setSetting doSetupScummVM true
+	setSetting doSetupSupermodel true
 	setSetting doSetupVita3K true
+	setSetting doSetupBigPEmu true
 	setSetting doSetupESDE true
 	setSetting doInstallRA true
 	setSetting doSetupMGBA true
@@ -81,6 +83,8 @@ setDefaults(){
 	setSetting doInstallXenia false
 	setSetting doInstallMAME false
 	setSetting doInstallScummVM true
+	setSetting doInstallBigPEmu true
+	setSetting doInstallSupermodel true
 	setSetting doInstallGyro false
 	setSetting doInstallVita3K true
 	setSetting doInstallSRM true
