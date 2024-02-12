@@ -16,7 +16,6 @@ Flycast_install(){
 	setMSG "Installing $Flycast_emuName"
 
 	installEmuFP "${Flycast_emuName}" "${Flycast_emuPath}"
-	flatpak override "${Flycast_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings

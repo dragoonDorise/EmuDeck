@@ -36,7 +36,6 @@ Dolphin_install(){
     setMSG "${Dolphin_emuName}: Install"
     echo ""
 	installEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"
-	flatpak override "${Dolphin_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings

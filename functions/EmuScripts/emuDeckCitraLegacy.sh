@@ -16,7 +16,6 @@ Citra_finalize(){
 Citra_install(){
 	setMSG "Installing $Citra_emuName"
 	installEmuFP "${Citra_emuName}" "${Citra_emuPath}"
-	flatpak override "${Citra_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings

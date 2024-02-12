@@ -32,8 +32,8 @@ RetroArch_backupConfigs(){
 
 #Install
 RetroArch_install(){
+	setMSG "Installing $Primehack_emuName"
 	installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
-	flatpak override "${RetroArch_emuPath}" --filesystem=host --user
 }
 
 
@@ -195,6 +195,7 @@ RetroArch_setRetroAchievements(){
 
 #update
 RetroArch_update(){
+	setMSG "Updating $RetroArch_emuName settings."
 	RetroArch_backupConfigs
 	configEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
 	RetroArch_setEmulationFolder
@@ -211,6 +212,7 @@ RetroArch_update(){
 
 #ConfigurePaths
 RetroArch_setEmulationFolder(){
+	setMSG "Setting $RetroArch_emuName Emulation Folder"
 
 	system_directory='system_directory = '
 	system_directorySetting="${system_directory}""\"${biosPath}\""
@@ -261,34 +263,50 @@ RetroArch_setupConfigurations(){
 
 RetroArch_buildbotDownloader(){
 
+	local shadersDir="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders"
+	local shaderscgDir="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_cg"
+	local shadersglslDir="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_glsl"
+	local shadersslangDir="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_slang"
+	local assetsDir="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/assets"
+	local infoDir="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/info"
+	local ppssppDir="$biosPath/PPSSPP"
 
 	# Shaders
-	if [[ ! -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders" ]] ; then
+	mkdir -p $shadersDir
 
-		mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_cg" "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_glsl" "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_slang" 
+	# Common Shaders
+	if [[ ! -d "$shaderscgDir" ]] ; then
+		mkdir "$shaderscgDir"
+		curl -L "$RetroArch_shaderscgURL" -o "$shaderscgDir/shaders_cg.zip" && unzip -o "$shaderscgDir/shaders_cg.zip" -d "$shaderscgDir" && rm "$shaderscgDir/shaders_cg.zip"
+	fi
 
-		curl -L "$RetroArch_shaderscgURL" -o shaders_cg.zip && unzip -o shaders_cg.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_cg" && rm shaders_cg.zip
-		curl -L "$RetroArch_shadersglslURL" -o shaders_glsl.zip && unzip -o shaders_glsl.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_glsl" && rm shaders_glsl.zip
-		curl -L "$RetroArch_shadersslangURL" -o shaders_slang.zip && unzip -o shaders_slang.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_slang" && rm shaders_slang.zip
+	# GLSL Shaders
+	if [[ ! -d "$shadersglslDir" ]] ; then
+		mkdir "$shadersglslDir"
+		curl -L "$RetroArch_shadersglslURL" -o "$shadersglslDir/shaders_glsl.zip" && unzip -o "$shadersglslDir/shaders_glsl.zip" -d "$shadersglslDir" && rm "$shadersglslDir/shaders_glsl.zip"
+	fi
+
+	# Slang Shaders
+	if [[ ! -d "$shadersslangDir" ]] ; then
+		mkdir "$shadersslangDir"
+		curl -L "$RetroArch_shadersslangURL" -o "$shadersslangDir/shaders_glsl.zip" && unzip -o "$shadersslangDir/shaders_glsl.zip" -d "$shadersslangDir" && rm "$shadersslangDir/shaders_glsl.zip"
 	fi
 
 	# Assets	
-	if [[ ! -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/assets" ]] ; then
-		mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/assets"
-
-		curl -L "$RetroArch_assetsURL" -o assets.zip && unzip -o assets.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/assets" && rm assets.zip
+	if [[ ! -d "$assetsDir" ]] ; then
+		mkdir -p "$assetsDir"
+		curl -L "$RetroArch_assetsURL" -o "$assetsDir/assets.zip" && unzip -o "$assetsDir/assets.zip" -d "$assetsDir" && rm "$assetsDir/assets.zip"
 	fi
 
 	# Info
-	if [[ ! -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/info" ]] ; then
-	 	mkdir -p "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/info"
-
-		curl -L "$RetroArch_infoURL" -o info.zip && unzip -o info.zip -d "$HOME/.var/app/org.libretro.RetroArch/config/retroarch/info" && rm info.zip
+	if [[ ! -d "$infoDir" ]] ; then
+	 	mkdir -p "$infoDir"
+		curl -L "$RetroArch_infoURL" -o "$infoDir/info.zip" && unzip -o "$infoDir/info.zip" -d "$infoDir" && rm "$infoDir/info.zip"
 	fi
 
 	# PPSSPP
-	if [[ ! -d "$biosPath/PPSSPP" ]] ; then
-		curl -L "$RetroArch_ppssppURL" -o PPSSPP.zip && unzip -o PPSSPP.zip -d "$biosPath" && rm PPSSPP.zip
+	if [[ ! -d "$ppssppDir" ]] ; then
+		curl -L "$RetroArch_ppssppURL" -o "$biosPath/PPSSPP.zip" && unzip -o "$biosPath/PPSSPP.zip" -d "$biosPath" && rm "$biosPath/PPSSPP.zip"
 	fi
 
 
