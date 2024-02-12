@@ -14,8 +14,6 @@ MAME_cleanup(){
 #Install
 MAME_install(){
 	installEmuFP "${MAME_emuName}" "${MAME_emuPath}"
-	flatpak override "${MAME_emuPath}" --filesystem=host --user
-	flatpak override "${MAME_emuPath}" --share=network --user
 }
 
 #Fix for autoupdate

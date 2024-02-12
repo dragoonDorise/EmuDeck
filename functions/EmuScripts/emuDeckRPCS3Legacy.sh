@@ -15,7 +15,6 @@ RPCS3_cleanup(){
 #Install
 RPCS3_install(){
 	installEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}"
-	flatpak override "${RPCS3_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings

@@ -32,8 +32,8 @@ RetroArch_backupConfigs(){
 
 #Install
 RetroArch_install(){
+	setMSG "Installing $Primehack_emuName"
 	installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
-	flatpak override "${RetroArch_emuPath}" --filesystem=host --user
 }
 
 
@@ -195,6 +195,7 @@ RetroArch_setRetroAchievements(){
 
 #update
 RetroArch_update(){
+	setMSG "Updating $RetroArch_emuName settings."
 	RetroArch_backupConfigs
 	configEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
 	RetroArch_setEmulationFolder
@@ -211,6 +212,7 @@ RetroArch_update(){
 
 #ConfigurePaths
 RetroArch_setEmulationFolder(){
+	setMSG "Setting $RetroArch_emuName Emulation Folder"
 
 	system_directory='system_directory = '
 	system_directorySetting="${system_directory}""\"${biosPath}\""
