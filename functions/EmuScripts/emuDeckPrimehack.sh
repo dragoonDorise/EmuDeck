@@ -15,12 +15,13 @@ Primehack_cleanup(){
 
 #Install
 Primehack_install() {
+	setMSG "Installing $Primehack_emuName"
 	installEmuFP "${Primehack_emuName}" "${Primehack_emuPath}"
-	flatpak override "${Primehack_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings
 Primehack_init() {
+	setMSG "Initializing $Primehack_emuName settings."
 	configEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" "true"
 	Primehack_setupStorage
 	Primehack_setEmulationFolder
@@ -30,6 +31,7 @@ Primehack_init() {
 
 #update
 Primehack_update() {
+	setMSG "Updating $Primehack_emuName settings."
 	configEmuFP "${Primehack_emuName}" "${Primehack_emuPath}"
 	Primehack_setupStorage
 	Primehack_setEmulationFolder
@@ -38,6 +40,7 @@ Primehack_update() {
 
 #ConfigurePaths
 Primehack_setEmulationFolder() {
+	setMSG "Setting $Primehack_emuName Emulation Folder"
 	configFile="$HOME/.var/app/${Primehack_emuPath}/config/dolphin-emu/Dolphin.ini"
 	gameDirOpt='ISOPath0 = '
 	newGameDirOpt='ISOPath0 = '"${romsPath}/primehacks"

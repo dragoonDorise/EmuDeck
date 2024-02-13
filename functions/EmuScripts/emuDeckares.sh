@@ -15,7 +15,6 @@ ares_install() {
 	setMSG "Installing $ares_emuName"
 
 	installEmuFP "${ares_emuName}" "${ares_emuPath}"
-	flatpak override "${ares_emuPath}" --filesystem=host --user
 }
 
 #ApplyInitialSettings

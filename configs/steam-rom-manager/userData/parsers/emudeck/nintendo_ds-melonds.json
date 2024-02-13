@@ -1,7 +1,7 @@
 {
   "parserType": "Glob",
-  "configTitle": "Nintendo DS - melonDS",
-  "steamCategory": "${Nintendo DS - melonDS}",
+  "configTitle": "Nintendo DS - melonDS (Standalone)",
+  "steamCategory": "${Nintendo DS - melonDS (Standalone)}",
   "executableArgs": "\"${filePath}\" -f",
   "executableModifier": "\"${exePath}\"",
   "romDirectory": "${romsdirglobal}/nds",

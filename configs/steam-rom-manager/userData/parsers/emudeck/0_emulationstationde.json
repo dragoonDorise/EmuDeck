@@ -1,6 +1,6 @@
 {
   "parserType": "Glob",
-  "configTitle": "ESDE - EmulationStationDE",
+  "configTitle": "ES-DE - EmulationStation-DE",
   "steamDirectory": "${steamdirglobal}",
   "steamCategory": "${Emulation}",
   "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/launchers/esde/",

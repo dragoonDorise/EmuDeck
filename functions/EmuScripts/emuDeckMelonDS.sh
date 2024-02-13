@@ -15,7 +15,6 @@ melonDS_finalize(){
 melonDS_install(){
 	setMSG "Installing $melonDS_emuName"
 	installEmuFP "${melonDS_emuName}" "${melonDS_emuPath}"
-	flatpak override "${melonDS_emuPath}" --filesystem=host --user
 }
 
 #Fix for autoupdate

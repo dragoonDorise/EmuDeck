@@ -301,7 +301,9 @@ fi
 	fi
 	if [[ "$doUninstallMame" == true ]]; then
 		flatpak uninstall org.mamedev.MAME -y
+		# MAME creates both of these folders but only uses ~/.mame
 		rm -rf $HOME/.var/app/org.mamedev.MAME &> /dev/null
+		rm -rf $HOME/.mame &> /dev/null
 	fi
 	if [[ "$doUninstallmelonDS" == true ]]; then
 		flatpak uninstall net.kuribo64.melonDS -y
@@ -319,8 +321,10 @@ fi
 	if [[ "$doUninstallPCSX2" == true ]]; then
 		rm -rf $HOME/Applications/pcsx2-Qt.AppImage &> /dev/null
 		rm -rf $HOME/.config/PCSX2 &> /dev/null
+		# Has the PCSX2 desktop file name changed over time? As of February 2024, it's PCSX2-QT.desktop
 		rm -rf $HOME/.local/share/applications/pcsx2-Qt.desktop &> /dev/null
 		rm -rf $HOME/.local/share/applications/PCSX2-Qt.desktop &> /dev/null
+		rm -rf $HOME/.local/share/applications/PCSX2-QT.desktop &> /dev/null
 	fi
 	if [[ "$doUninstallPPSSPP" == true ]]; then
 		flatpak uninstall org.ppsspp.PPSSPP -y
@@ -460,6 +464,7 @@ fi
 	# Not sure what to do with this. Heroic and Lutris will start using ULWGL soon so I don't want to remove it. 
 	# rm -rf "$HOME/.local/share/ULWGL"
 	# Pegasus
+	flatpak uninstall org.pegasus_frontend.Pegasus -y
 	rm -rf "$HOME/.var/app/org.pegasus_frontend.Pegasus/" &> /dev/null 
 	rm -rf "$HOME/.local/share/applications/Pegasus.desktop" &> /dev/null
 
