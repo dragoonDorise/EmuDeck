@@ -74,7 +74,7 @@ RetroArch_init(){
 	RetroArch_autoSave
 	RetroArch_setRetroAchievements
 	RetroArch_melonDSDSMigration
-	RetroArch_buildbotDownloader
+	#RetroArch_buildbotDownloader
 
 	mkdir -p "$biosPath/mame/bios"
 	mkdir -p "$biosPath/dc"
@@ -292,7 +292,7 @@ RetroArch_buildbotDownloader(){
 		curl -L "$RetroArch_shadersslangURL" -o "$shadersslangDir/shaders_glsl.zip" && unzip -o "$shadersslangDir/shaders_glsl.zip" -d "$shadersslangDir" && rm "$shadersslangDir/shaders_glsl.zip"
 	fi
 
-	# Assets	
+	# Assets
 	if [[ ! -d "$assetsDir" ]] ; then
 		mkdir -p "$assetsDir"
 		curl -L "$RetroArch_assetsURL" -o "$assetsDir/assets.zip" && unzip -o "$assetsDir/assets.zip" -d "$assetsDir" && rm "$assetsDir/assets.zip"
@@ -1646,7 +1646,7 @@ RetroArch_melonDSDS_setUpCoreOpt(){
 	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_gap' '"0"'
 #	No equivalent in melonDSDS at this time.
 #	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_layout' '"Hybrid Bottom"'
-#	No equivalent in melonDSDS at this time.	
+#	No equivalent in melonDSDS at this time.
 #	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_swapscreen_mode' '"Toggle"'
 	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_threaded_renderer' '"enabled"'
 	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_touch_mode' '"auto"'
