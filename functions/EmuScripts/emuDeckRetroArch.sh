@@ -277,36 +277,36 @@ RetroArch_buildbotDownloader(){
 	# Common Shaders
 	if [[ ! -d "$shaderscgDir" ]] ; then
 		mkdir "$shaderscgDir"
-		curl -L "$RetroArch_shaderscgURL" -o "$shaderscgDir/shaders_cg.zip" && unzip -o "$shaderscgDir/shaders_cg.zip" -d "$shaderscgDir" && rm "$shaderscgDir/shaders_cg.zip"
+		curl -L "$RetroArch_shaderscgURL" -o "$shaderscgDir/shaders_cg.zip" && nice -n 5 unzip -q -o "$shaderscgDir/shaders_cg.zip" -d "$shaderscgDir" && rm "$shaderscgDir/shaders_cg.zip"
 	fi
 
 	# GLSL Shaders
 	if [[ ! -d "$shadersglslDir" ]] ; then
 		mkdir "$shadersglslDir"
-		curl -L "$RetroArch_shadersglslURL" -o "$shadersglslDir/shaders_glsl.zip" && unzip -o "$shadersglslDir/shaders_glsl.zip" -d "$shadersglslDir" && rm "$shadersglslDir/shaders_glsl.zip"
+		curl -L "$RetroArch_shadersglslURL" -o "$shadersglslDir/shaders_glsl.zip" && nice -n 10 unzip -q -o "$shadersglslDir/shaders_glsl.zip" -d "$shadersglslDir" && rm "$shadersglslDir/shaders_glsl.zip"
 	fi
 
 	# Slang Shaders
 	if [[ ! -d "$shadersslangDir" ]] ; then
 		mkdir "$shadersslangDir"
-		curl -L "$RetroArch_shadersslangURL" -o "$shadersslangDir/shaders_glsl.zip" && unzip -o "$shadersslangDir/shaders_glsl.zip" -d "$shadersslangDir" && rm "$shadersslangDir/shaders_glsl.zip"
+		curl -L "$RetroArch_shadersslangURL" -o "$shadersslangDir/shaders_glsl.zip" && nice -n 10 unzip -q -o "$shadersslangDir/shaders_glsl.zip" -d "$shadersslangDir" && rm "$shadersslangDir/shaders_glsl.zip"
 	fi
 
-	# Assets	
+	# Assets
 	if [[ ! -d "$assetsDir" ]] ; then
 		mkdir -p "$assetsDir"
-		curl -L "$RetroArch_assetsURL" -o "$assetsDir/assets.zip" && unzip -o "$assetsDir/assets.zip" -d "$assetsDir" && rm "$assetsDir/assets.zip"
+		curl -L "$RetroArch_assetsURL" -o "$assetsDir/assets.zip" && nice -n 10 unzip -q -o "$assetsDir/assets.zip" -d "$assetsDir" && rm "$assetsDir/assets.zip"
 	fi
 
 	# Info
 	if [[ ! -d "$infoDir" ]] ; then
 	 	mkdir -p "$infoDir"
-		curl -L "$RetroArch_infoURL" -o "$infoDir/info.zip" && unzip -o "$infoDir/info.zip" -d "$infoDir" && rm "$infoDir/info.zip"
+		curl -L "$RetroArch_infoURL" -o "$infoDir/info.zip" && nice -n 10 unzip -q -o "$infoDir/info.zip" -d "$infoDir" && rm "$infoDir/info.zip"
 	fi
 
 	# PPSSPP
 	if [[ ! -d "$ppssppDir" ]] ; then
-		curl -L "$RetroArch_ppssppURL" -o "$biosPath/PPSSPP.zip" && unzip -o "$biosPath/PPSSPP.zip" -d "$biosPath" && rm "$biosPath/PPSSPP.zip"
+		curl -L "$RetroArch_ppssppURL" -o "$biosPath/PPSSPP.zip" && nice -n 10 unzip -q -o "$biosPath/PPSSPP.zip" -d "$biosPath" && rm "$biosPath/PPSSPP.zip"
 	fi
 
 
@@ -1646,7 +1646,7 @@ RetroArch_melonDSDS_setUpCoreOpt(){
 	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_gap' '"0"'
 #	No equivalent in melonDSDS at this time.
 #	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_layout' '"Hybrid Bottom"'
-#	No equivalent in melonDSDS at this time.	
+#	No equivalent in melonDSDS at this time.
 #	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_swapscreen_mode' '"Toggle"'
 	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_threaded_renderer' '"enabled"'
 	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_touch_mode' '"auto"'
@@ -2318,7 +2318,7 @@ RetroArch_installCores(){
 
 	for entry in "$RetroArch_cores"/*.zip
 	do
-		 unzip -o "$entry" -d "$RetroArch_cores"
+		 unzip -q -o "$entry" -d "$RetroArch_cores"
 	done
 
 	for entry in "$RetroArch_cores"/*.zip
