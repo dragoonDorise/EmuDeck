@@ -74,7 +74,7 @@ RetroArch_init(){
 	RetroArch_autoSave
 	RetroArch_setRetroAchievements
 	RetroArch_melonDSDSMigration
-	#RetroArch_buildbotDownloader
+	RetroArch_buildbotDownloader
 
 	mkdir -p "$biosPath/mame/bios"
 	mkdir -p "$biosPath/dc"
