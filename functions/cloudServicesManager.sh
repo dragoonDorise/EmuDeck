@@ -56,8 +56,8 @@ csmSRMNotification() {
 
 manageServicesMenu() {
 	cd $LOCALCLOUDFILES
-	arrAll=() # All supported services (excludes user-created scripts based on file name)
-	arrServ=() # Services with install state for zenity
+	declare -a arrAll=() # All supported services (excludes user-created scripts based on file name)
+	declare -a arrServ=() # Services with install state for zenity
 	for file in *.sh; do
     	arrAll+=("$file")
 		if [ -f "$romsPath/cloud/$file" ]; then
@@ -121,7 +121,7 @@ installFP() {
 manageRPSMenu() {
 	# Create array of all Remote Play clients
 	cd "$EMUDECKGIT/functions/RemotePlayClientScripts"
-	arrAllRP=()
+	declare -a arrAllRP=()
 	Chiaki_IsInstalled
 	ans=$?
 	if [ "$ans" == "1" ]; then
@@ -296,8 +296,8 @@ manageRPSMenu() {
 }
 
 changeSettingsMenu() {
-	arrSupBrows=("com.google.Chrome" "com.microsoft.Edge" "com.brave.Browser" "org.chromium.Chromium")
-	arrBrowsOpts=()
+	declare -a arrSupBrows=("com.google.Chrome" "com.microsoft.Edge" "com.brave.Browser" "org.chromium.Chromium")
+	declare -a arrBrowsOpts=()
 
 	# Include system default browser and verify it is is installed
 	defaultBrowser=$(
