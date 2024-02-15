@@ -971,7 +971,7 @@ function jsonToBashVars(){
 	setSetting doSetupRMG "$(jq .overwriteConfigEmus.rmg.status $json)"
 	setSetting doSetupares "$(jq .overwriteConfigEmus.ares.status $json)"
 	setSetting doSetupSupermodel "$(jq .overwriteConfigEmus.supermodel.status $json)"
-	setSetting doInstallModel2 "$(jq .overwriteConfigEmus.model2.status $json)"
+	setSetting doSetupModel2 "$(jq .overwriteConfigEmus.model2.status $json)"
 	#Frontends
 	setSetting doSetupSRM "$(jq .overwriteConfigEmus.srm.status $json)"
 	setSetting doSetupESDE "$(jq .overwriteConfigEmus.esde.status $json)"
