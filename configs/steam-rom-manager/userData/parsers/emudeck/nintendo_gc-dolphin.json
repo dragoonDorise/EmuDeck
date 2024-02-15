@@ -3,7 +3,7 @@
   "configTitle": "Nintendo GameCube - Dolphin",
   "steamDirectory": "${steamdirglobal}",
   "steamCategory": "${Nintendo GameCube}",
-  "romDirectory": "${romsdirglobal}/gamecube",
+  "romDirectory": "${romsdirglobal}",
   "executableArgs": "vblank_mode=0 %command% -b -e \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
@@ -22,7 +22,7 @@
     "appendArgsToExecutable": false
   },
   "parserInputs": {
-    "glob": "**/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.nkit.gcz|.NKIT.GCZ|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.m3u|.M3U)"
+    "glob": "@(gc|gamecube)/**/${title}@(.ciso|.CISO|.dol|.DOL|.elf|.ELF|.gcm|.GCM|.gcz|.GCZ|.iso|.ISO|.json|.JSON|.nkit.iso|.NKIT.ISO|.nkit.gcz|.NKIT.GCZ|.rvz|.RVZ|.wad|.WAD|.wia|.WIA|.m3u|.M3U)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
