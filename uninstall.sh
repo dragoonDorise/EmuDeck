@@ -460,8 +460,8 @@ fi
 	rm -rf "$HOME/.local/share/applications/Steam ROM Manager.desktop" &> /dev/null
 	rm -rf "$HOME/.local/share/applications/EmulationStation-DE.desktop" &> /dev/null 
 	rm -rf "$toolsPath/EmulationStation-DE.AppImage"
-	# ULWGL, currently used for the Model 2 Emulator
-	rm -rf "$toolsPath/ULWGL"
+	# Not sure what to do with this. ULWGL will become a dependency for Heroic and Lutris soon, will leave this commented out for now and add smarter detection later.
+	# rm -rf "$HOME/.local/share/ULWGL"
 	# Pegasus
 	flatpak uninstall org.pegasus_frontend.Pegasus -y
 	rm -rf "$HOME/.var/app/org.pegasus_frontend.Pegasus/" &> /dev/null 
