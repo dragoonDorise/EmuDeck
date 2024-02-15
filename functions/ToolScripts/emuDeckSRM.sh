@@ -212,6 +212,8 @@ SRM_createParsers(){
   if [ "$emuNDS" != "both" ]; then
     if [ "$emuNDS" = "melonds" ]; then
       exclusionList=$exclusionList"nintendo_ds-ra-melonds.json\n"
+	  exclusionList=$exclusionList"nintendo_ds-ra-melondsds.json\n"
+
     else
       exclusionList=$exclusionList"nintendo_ds-melonds.json\n"
     fi
@@ -238,6 +240,8 @@ SRM_createParsers(){
 	  else
 		exclusionList=$exclusionList"sega_dreamcast-flycast.json\n"
 		exclusionList=$exclusionList"arcade_naomi-flycast.json\n"
+		exclusionList=$exclusionList"arcade_atomiswave-flycast.json\n"
+		exclusionList=$exclusionList"arcade_naomi2-flycast.json\n"
 	  fi
 	fi
 
@@ -249,8 +253,15 @@ SRM_createParsers(){
   exclusionList=$exclusionList"sony_psx-ra-swanstation.json\n"
   exclusionList=$exclusionList"nintendo_gbc-mgba.json\n"
   exclusionList=$exclusionList"nintendo_gb-mGBA.json\n"
+  exclusionList=$exclusionList"nintendo_ds-ra-melonds-legacy.json\n"
 
   #Exclusion based on install status.
+
+
+
+  if [ "$doInstallBigPEmu" == "false" ] || [ "$(Primehack_IsInstalled)" == "BigPEmu_IsInstalled" ]; then
+		exclusionList=$exclusionList"atari_jaguar-bigpemu_proton.json\n"
+	fi
   if [ "$doInstallPrimeHack" == "false" ] || [ "$(Primehack_IsInstalled)" == "false" ]; then
       exclusionList=$exclusionList"nintendo_primehack.json\n"
   fi
