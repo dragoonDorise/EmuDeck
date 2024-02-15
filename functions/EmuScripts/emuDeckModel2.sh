@@ -4,8 +4,9 @@ Model2_emuName="Model 2 (Proton)"
 Model2_emuType="$emuDeckEmuTypeWindows"
 Model2_emuPath="${romsPath}/model2/EMULATOR.EXE"
 Model2_configFile="${romsPath}/model2/EMULATOR.INI"
-Model2_ProtonGEVersion="GE-Proton8-30"
-ULWGL_toolPath="${toolsPath}/ULWGL"
+Model2_ProtonGEVersion="8.0-5-3"
+Model2_ProtonGEURL="https://github.com/Open-Wine-Components/ULWGL-Proton/releases/download/ULWGL-Proton-$Model2_ProtonGEVersion/ULWGL-Proton-$Model2_ProtonGEVersion.tar.gz"
+ULWGL_toolPath="$HOME/.local/share/ULWGL"
 ULWGL_githubRepo="https://github.com/Open-Wine-Components/ULWGL-launcher.git" 
 ULWGL_githubBranch="main"
 
@@ -18,26 +19,19 @@ Model2_cleanup(){
 Model2_install(){
 	setMSG "Installing $Model2_emuName"
 
-	downloadModel2=$(wget -m -nd -A "1.1a.7z" -O "$romsPath/model2/Model2.7z" "https://github.com/PhoenixInteractiveNL/edc-repo0004/raw/master/m2emulator/1.1a.7z")
-
-	local showProgress="$1"
-    if $downloadModel2; then
+	# Create the ROMs and pfx directory if they do not exist
+	mkdir -p "$romsPath/model2/roms"
+	mkdir -p "$romsPath/model2/pfx"
+	
+	if safeDownload "Model2" "https://github.com/PhoenixInteractiveNL/edc-repo0004/raw/master/m2emulator/1.1a.7z" "$romsPath/model2/Model2.7z" "$showProgress"; then
+		
 		7za e -y "$romsPath/model2/Model2.7z" -o"$romsPath/model2"
 		rm -f "$romsPath/model2/Model2.7z"
+
 	else
 		return 1
-	fi
+	fi	
 
-  # Create the ROMs directory if it doesn't exist
-  if [ ! -d "$romsPath/model2/roms" ]; then
-    mkdir -p "$romsPath/model2/roms"
-  fi
-
-  # Create the pfx directory if it doesn't exist
-  if [ ! -d "$romsPath/model2/pfx" ]; then
-    mkdir -p "$romsPath/model2/pfx"
-  fi
-  
   cp "$EMUDECKGIT/tools/launchers/model2.sh" "$toolsPath/launchers/model2.sh"
 
 
@@ -152,14 +146,12 @@ Model2_downloadProtonGE(){
 
 	mkdir -p $STEAMPATH/compatibilitytools.d
 
-	if [ ! -d "$STEAMPATH/compatibilitytools.d/$Model2_ProtonGEVersion/" ]; then
-		echo "Installing $Model2_ProtonGEVersion"
-		downloadProtonGE=$(wget -m -nd -A "$Model2_ProtonGEVersion.tar.gz" -O "$STEAMPATH/compatibilitytools.d/$Model2_ProtonGEVersion.tar.gz" "http://github.com/GloriousEggroll/proton-ge-custom/releases/download/$Model2_ProtonGEVersion/$Model2_ProtonGEVersion.tar.gz")
-			local showProgress="$1"
-
-		if $downloadProtonGE; then
+	if [ ! -d "$STEAMPATH/compatibilitytools.d/ULWGL-Proton-$Model2_ProtonGEVersion" ]; then
+		if safeDownload "Model2_ProtonGE" "$Model2_ProtonGEURL"  "$STEAMPATH/compatibilitytools.d/$Model2_ProtonGEVersion.tar.gz"  "$showProgress"; then
+			
 			tar -xvzf "$STEAMPATH/compatibilitytools.d/$Model2_ProtonGEVersion.tar.gz" -C "$STEAMPATH/compatibilitytools.d"
 			rm -f "$STEAMPATH/compatibilitytools.d/$Model2_ProtonGEVersion.tar.gz"
+
 		else
 			return 1
 		fi
@@ -170,47 +162,23 @@ Model2_downloadProtonGE(){
 
 }
 
-function Model2ULWGL_install() {
+Model2ULWGL_install() {
 
-  # Create the ULWGL directory if it doesn't exist
-  if [ ! -d "$ULWGL_toolPath" ]; then
-    mkdir -p "$ULWGL_toolPath"
-  fi
+mkdir -p "$ULWGL_toolPath"
 
-  # Initialize a new Git repository in the ULWGL directory
-  cd "$ULWGL_toolPath" || exit
-  if ! git rev-parse --git-dir > /dev/null 2>&1; then
-    git init
-  fi
+#ulwglURL="$(getReleaseURLGH "Open-Wine-Components/ULWGL-launcher" "ULWGL-launcher.tar.gz")"
+# Freezing ULWGL for now.
 
-  # Set up a remote origin for the repository
-  if ! git remote get-url origin > /dev/null 2>&1; then
-    git remote add origin "$ULWGL_githubRepo"
-  fi
+echo $ulwglURL
 
-  # Configure Git to perform a sparse checkout of the ULWGL folder
-  if ! git config core.sparsecheckout > /dev/null 2>&1; then
-    git config core.sparsecheckout true
-  fi
-  if ! grep -Fxq "/*" .git/info/sparse-checkout; then
-    echo "/*" >> .git/info/sparse-checkout
-  fi
+if safeDownload "ULWGL" "https://github.com/Open-Wine-Components/ULWGL-launcher/releases/download/0.1-RC3/ULWGL-launcher.tar.gz" "$ULWGL_toolPath/ULWGL-launcher.tar.gz" "$showProgress"; then
+	
+	tar -xvzf "$ULWGL_toolPath/ULWGL-launcher.tar.gz" -C "$ULWGL_toolPath"
 
-  # Pull the latest changes from the remote repository
-  git fetch --depth=1 origin "$ULWGL_githubBranch"
-  if git merge FETCH_HEAD > /dev/null 2>&1; then
-    echo "ULWGL updated successfully"
-  else
-    # If the merge failed, reset the local changes and try again
-    git reset --hard origin/master > /dev/null 2>&1
-    git clean -fd > /dev/null 2>&1
-    git fetch --depth=1 origin "$ULWGL_githubBranch"
-    if git merge FETCH_HEAD > /dev/null 2>&1; then
-      echo "ULWGL updated successfully"
-    else
-      echo "Error: Failed to update ULWGL"
-    fi
-  fi
+else
+    return 1
+fi
+
 }
 
 
