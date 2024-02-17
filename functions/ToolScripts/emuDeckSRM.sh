@@ -259,7 +259,7 @@ SRM_createParsers(){
 
 
 
-  if [ "$doInstallBigPEmu" == "false" ] || [ "$(Primehack_IsInstalled)" == "BigPEmu_IsInstalled" ]; then
+  if [ "$doInstallBigPEmu" == "false" ] || [ "$(BigPEmu_IsInstalled)" == "false" ]; then
 		exclusionList=$exclusionList"atari_jaguar-bigpemu_proton.json\n"
 	fi
   if [ "$doInstallPrimeHack" == "false" ] || [ "$(Primehack_IsInstalled)" == "false" ]; then
