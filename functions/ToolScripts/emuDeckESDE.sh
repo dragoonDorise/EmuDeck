@@ -2,7 +2,10 @@
 #variables
 ESDE_toolName="EmulationStation-DE"
 ESDE_toolType="AppImage"
-ESDE_toolPath="${toolsPath}/EmulationStation-DE.AppImage"
+ESDE_oldConfigDirectory="$ESDE_newConfigDirectory"
+ESDE_newConfigDirectory="$HOME/ES-DE"
+ESDE_toolLocation="$HOME/Applications"
+ESDE_toolPath="${ESDE_toolLocation}/EmulationStation-DE.AppImage"
 ESDE_releaseURL="https://gitlab.com/es-de/emulationstation-de/-/package_files/76389058/download" #default URl in case of issues parsing json
 ESDE_releaseMD5="b749b927d61317fde0250af9492a4b9f" #default hash
 ESDE_prereleaseURL=""
@@ -10,9 +13,9 @@ ESDE_prereleaseMD5=""
 ESDE_releaseJSON="https://gitlab.com/es-de/emulationstation-de/-/raw/master/latest_release.json"
 ESDE_addSteamInputFile="$EMUDECKGIT/configs/steam-input/emulationstation-de_controller_config.vdf"
 steam_input_templateFolder="$HOME/.steam/steam/controller_base/templates/"
-es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
-es_rulesFile="$HOME/.emulationstation/custom_systems/es_find_rules.xml"
-es_settingsFile="$HOME/.emulationstation/es_settings.xml"
+es_systemsFile="$ESDE_newConfigDirectory/custom_systems/es_systems.xml"
+es_settingsFile="$ESDE_newConfigDirectory/es_settings.xml"
+es_rulesFile="$ESDE_newConfigDirectory/custom_systems/es_find_rules.xml"
 
 
 ESDE_SetAppImageURLS() {
@@ -30,6 +33,12 @@ ESDE_cleanup(){
 
 # 2.2 migration
 ESDE_migration(){
+
+	if [ -d "$ESDE_oldConfigDirectory" ] && [ ! -L "$ESDE_oldConfigDirectory" ]; then
+		mv "$ESDE_oldConfigDirectory" "$ESDE_newConfigDirectory"
+		ln -s  "$ESDE_newConfigDirectory" "$ESDE_oldConfigDirectory"
+		echo "EmulationStation-DE config directory successfully migrated and linked."
+	fi
 
 	if [ -f "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ] && [ ! -L "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ]; then
 		mv "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" "${toolsPath}/EmulationStation-DE.AppImage"
@@ -62,13 +71,12 @@ ESDE_install(){
 	local showProgress="$1"
 	local filename="$ESDE_toolName.$ESDE_toolType"
 	if [[ $ESDE_releaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
-
-			if installToolAI "$ESDE_toolName" "$ESDE_releaseURL" "" "$showProgress"; then
-				ESDE_createDesktopShortcut
-		 	else
-				return 1
-		 	fi
-
+		if safeDownload "$ESDE_toolName" "$ESDE_releaseURL" "$ESDE_toolPath" "$showProgress"; then
+			chmod +x "$ESDE_toolPath"
+			ESDE_createDesktopShortcut
+		else
+			return 1
+		fi
 	else
 		setMSG "$ESDE_toolName not found"
 		return 1
@@ -108,7 +116,7 @@ ESDE_install(){
 ESDE_init(){
 	setMSG "Setting up $ESDE_toolName"
 
-	mkdir -p "$HOME/.emulationstation/custom_systems/"
+	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
 
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
@@ -149,7 +157,7 @@ ESDE_resetConfig(){
 ESDE_update(){
 	setMSG "Setting up $ESDE_toolName"
 
-	mkdir -p "$HOME/.emulationstation/custom_systems/"
+	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
 
 	#update es_settings.xml
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --ignore-existing
@@ -196,11 +204,11 @@ ESDE_applyTheme(){
 	local themeName=$2
 
 	echo "ESDE: applyTheme $themeName"
-	mkdir -p "$HOME/.emulationstation/themes/"
-	if [ -d "$HOME/.emulationstation/themes/$themeName" ]; then
-		cd "$HOME/.emulationstation/themes/$themeName" && git pull
+	mkdir -p "$ESDE_newConfigDirectory/themes/"
+	if [ -d "$ESDE_newConfigDirectory/themes/$themeName" ]; then
+		cd "$ESDE_newConfigDirectory/themes/$themeName" && git pull
 	else
-		git clone $themeUrl "$HOME/.emulationstation/themes/"
+		git clone $themeUrl "$ESDE_newConfigDirectory/themes/"
 	fi
 
 	updateOrAppendConfigLine "$es_settingsFile" "<string name=\"ThemeSet\"" "<string name=\"ThemeSet\" value=\"\""
@@ -286,8 +294,8 @@ ESDE_setEmulationFolder(){
 
 ESDE_setDefaultEmulators(){
 	#ESDE default emulators
-	mkdir -p  "$HOME/.emulationstation/gamelists/"
-	ESDE_setEmu 'Dolphin (Standalone)' gc
+	mkdir -p  "$ESDE_newConfigDirectory/gamelists/"
+	ESDE_setEmu 'Dolphin (Standalone)' gamecube
 	ESDE_setEmu 'PPSSPP (Standalone)' psp
 	ESDE_setEmu 'Dolphin (Standalone)' wii
 	ESDE_setEmu 'PCSX2 (Standalone)' ps2
@@ -302,7 +310,7 @@ ESDE_setDefaultEmulators(){
 ESDE_migrateDownloadedMedia(){
 	echo "ESDE: Migrate Downloaded Media."
 
-	originalESMediaFolder="$HOME/.emulationstation/downloaded_media"
+	originalESMediaFolder="$ESDE_newConfigDirectory/downloaded_media"
 	echo "processing $originalESMediaFolder"
 	if [ -L "${originalESMediaFolder}" ] ; then
 		echo "link found"
@@ -333,9 +341,9 @@ ESDE_finalize(){
 ESDE_setEmu(){
 	local emu=$1
 	local system=$2
-	local gamelistFile="$HOME/.emulationstation/gamelists/$system/gamelist.xml"
+	local gamelistFile="$ESDE_newConfigDirectory/gamelists/$system/gamelist.xml"
 	if [ ! -f "$gamelistFile" ]; then
-		mkdir -p "$HOME/.emulationstation/gamelists/$system" && cp "$EMUDECKGIT/configs/emulationstation/gamelists/$system/gamelist.xml" "$gamelistFile"
+		mkdir -p "$ESDE_newConfigDirectory/gamelists/$system" && cp "$EMUDECKGIT/configs/emulationstation/gamelists/$system/gamelist.xml" "$gamelistFile"
 	else
 		gamelistFound=$(grep -rnw "$gamelistFile" -e 'gameList')
 		if [[ $gamelistFound == '' ]]; then
@@ -364,15 +372,15 @@ ESDE_IsInstalled(){
 }
 
 ESDE_symlinkGamelists(){
-		linkToSaveFolder es-de gamelists "$HOME/.emulationstation/gamelists/"
+		linkToSaveFolder es-de gamelists "$ESDE_newConfigDirectory/gamelists/"
 }
 
 ESDE_migrateEpicNoir(){
-	FOLDER="$HOME/.emulationstation/themes/es-epicnoir"
+	FOLDER="$ESDE_newConfigDirectory/themes/es-epicnoir"
 
 	if [ -f "$FOLDER" ]; then
 		rm -rf "$FOLDER"
-		git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited" --depth=1
+		git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$ESDE_newConfigDirectory/themes/epic-noir-revisited" --depth=1
 		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="epic-noir-revisited-es-de" />' "$es_settingsFile"
 	fi
 }
