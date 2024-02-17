@@ -1,6 +1,7 @@
 #!/bin/bash
 #variables
 ESDE_toolName="EmulationStation-DE"
+ESDE_downloadedToolName="EmulationStation-DE-x64_SteamDeck.AppImage"
 ESDE_toolType="AppImage"
 ESDE_oldConfigDirectory="$ESDE_newConfigDirectory"
 ESDE_newConfigDirectory="$HOME/ES-DE"
@@ -39,17 +40,17 @@ ESDE_migration(){
 		echo "EmulationStation-DE config directory successfully migrated and linked."
 	fi
 
-	if [ -f "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ] && [ ! -L "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ]; then
-		mv "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" "$ESDE_toolPath"
-		sed -i "s|EmulationStation-DE-x64_SteamDeck.AppImage|EmulationStation-DE.AppImage|g" "$ESDE_toolLocation/launchers/esde/emulationstationde.sh"
-		echo "EmulationStation-DE successfully migrated and linked."
+	if [ -f "${toolsPath}/$ESDE_downloadedToolName" ] && [ ! -L "${toolsPath}/$ESDE_downloadedToolName" ]; then
+		mv "${toolsPath}/$ESDE_downloadedToolName" "$ESDE_toolPath"
+		sed -i "s|$ESDE_downloadedToolName|$ESDE_toolName|g" "$ESDE_toolLocation/launchers/esde/emulationstationde.sh"
+		echo "$ESDE_toolName successfully migrated and linked."
 	fi
 
-	if [ -f "${toolsPath}/EmulationStation-DE.AppImage" ]; then
+	if [ -f "${toolsPath}/$ESDE_toolName.AppImage" ] && [ ! -L "${toolsPath}/$ESDE_toolName.AppImage" ]; then
 
-		mv "${toolsPath}/EmulationStation-DE.AppImage" "$ESDE_toolPath"
-		ln -s  "$ESDE_toolPath" "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
-		echo "EmulationStation-DE successfully migrated and linked."
+		mv "${toolsPath}/$ESDE_toolName.AppImage" "$ESDE_toolPath"
+		ln -s  "$ESDE_toolPath" "${toolsPath}/$ESDE_toolName.AppImage"
+		echo "$ESDE_toolName successfully migrated and linked."
 	fi
 
 }
@@ -58,22 +59,27 @@ ESDE_createDesktopShortcut(){
 
 	mkdir -p "$toolsPath/launchers/esde"
 	cp "$EMUDECKGIT/tools/launchers/esde/emulationstationde.sh" "$toolsPath/launchers/esde/emulationstationde.sh"
-	rm -rf $HOME/.local/share/applications/EmulationStation-DE.desktop
-	createDesktopShortcut   "$HOME/.local/share/applications/EmulationStation-DE.desktop" \
-	"EmulationStation-DE AppImage" \
+	rm -rf $HOME/.local/share/applications/$ESDE_toolName.desktop
+	createDesktopShortcut   "$HOME/.local/share/applications/$ESDE_toolName.desktop" \
+	"$ESDE_toolName AppImage" \
 	"${toolsPath}/launchers/esde/emulationstationde.sh" \
 	"false"
 }
 
 ESDE_uninstall(){
-  rm -rf "${toolsPath}/EmulationStation-DE.AppImage"
-  rm -rf "${ESDE_toolLocation}/EmulationStation-DE.AppImage"
-  rm -rf $HOME/.local/share/applications/EmulationStationDE.desktop
+  rm -rf "${toolsPath}/$ESDE_toolName.AppImage"
+  rm -rf "${toolsPath}/$ESDE_downloadedToolName"
+  rm -rf "$ESDE_toolPath"
+  rm -rf $HOME/.local/share/applications/$ESDE_toolName.desktop
 }
 
 #Install
 ESDE_install(){
 	setMSG "Installing $ESDE_toolName"
+
+	# Move ES-DE to ~/Applications folder
+	ESDE_migration
+	
 	ESDE_SetAppImageURLS
 	local showProgress="$1"
 	echo $ESDE_releaseURL
@@ -296,7 +302,7 @@ ESDE_migrateDownloadedMedia(){
 	elif [ -e "${originalESMediaFolder}" ] ; then
 		if [ -d "${originalESMediaFolder}" ]; then
 			echo -e ""
-			echo -e "Moving EmulationStation-DE downloaded_media to $toolsPath"
+			echo -e "Moving $ESDE_toolName downloaded_media to $toolsPath"
 			echo -e ""
 			rsync -a "$originalESMediaFolder" "$toolsPath/"  && rm -rf "$originalESMediaFolder"		#move it, merging files if in both locations
 		fi
