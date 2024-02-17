@@ -2,15 +2,17 @@
 #variables
 ESDE_toolName="EmulationStation-DE"
 ESDE_toolType="AppImage"
+ESDE_oldConfigDirectory="$HOME/.emulationstation"
+ESDE_newConfigDirectory="$HOME/ES-DE"
 ESDE_toolPath="${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
 ESDE_releaseURL="https://gitlab.com/es-de/emulationstation-de/-/package_files/76389058/download" #default URl in case of issues parsing json
 ESDE_releaseMD5="b749b927d61317fde0250af9492a4b9f" #default hash
 ESDE_prereleaseURL=""
 ESDE_prereleaseMD5=""
 ESDE_releaseJSON="https://gitlab.com/es-de/emulationstation-de/-/raw/master/latest_release.json"
-es_systemsFile="$HOME/.emulationstation/custom_systems/es_systems.xml"
-es_settingsFile="$HOME/.emulationstation/es_settings.xml"
-es_rulesFile="$HOME/.emulationstation/custom_systems/es_find_rules.xml"
+es_systemsFile="$ESDE_newConfigDirectory/custom_systems/es_systems.xml"
+es_settingsFile="$ESDE_newConfigDirectory/es_settings.xml"
+es_rulesFile="$ESDE_newConfigDirectory/custom_systems/es_find_rules.xml"
 
 
 
@@ -27,10 +29,22 @@ ESDE_cleanup(){
 	echo "NYI"
 }
 
+ESDE_migration(){
+
+	if [ -d "$ESDE_oldConfigDirectory" ] && [ ! -L "$ESDE_oldConfigDirectory" ]; then
+		mv "$ESDE_oldConfigDirectory" "$ESDE_newConfigDirectory"
+		ln -s  "$ESDE_newConfigDirectory" "$ESDE_oldConfigDirectory"
+		echo "EmulationStation-DE config directory successfully migrated and linked."
+	fi
+
+}
+
 #Install
 ESDE_install(){
 	ESDE_SetAppImageURLS
 	setMSG "Installing $ESDE_toolName"
+
+	ESDE_migration
 
 	local showProgress="$1"
 
@@ -86,7 +100,7 @@ ESDE20_install(){
 ESDE_init(){
 	setMSG "Setting up $ESDE_toolName"
 
-	mkdir -p "$HOME/.emulationstation/custom_systems/"
+	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
 
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
@@ -100,6 +114,7 @@ ESDE_init(){
 	ESDE_symlinkGamelists
 	ESDE_finalize
 	ESDE_migrateEpicNoir
+	ESDE_migration
 
 	local system=$(lsb_release -si)
 	if [ "$system" == "chimeraos" ] || [ "$system" == "ChimeraOS" ]; then
@@ -129,7 +144,7 @@ ESDE20_init(){
 ESDE_update(){
 	setMSG "Setting up $ESDE_toolName"
 
-	mkdir -p "$HOME/.emulationstation/custom_systems/"
+	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
 
 	#update es_settings.xml
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --ignore-existing
@@ -143,6 +158,7 @@ ESDE_update(){
 	ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
 	ESDE_finalize
+	ESDE_migration
 }
 
 ESDE_addCustomSystems(){
@@ -181,16 +197,16 @@ ESDE_applyTheme(){
 	fi
 
 	echo "ESDE: applyTheme $theme"
-	mkdir -p "$HOME/.emulationstation/themes/"
+	mkdir -p "$ESDE_newConfigDirectory/themes/"
 
-	if [ -e "$HOME/.emulationstation/themes/epic-noir-revisited" ] && [ ! -e "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" ]; then
-		mv -v "$HOME/.emulationstation/themes/epic-noir-revisited" "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" #update theme path to esde naming convention
+	if [ -e "$ESDE_newConfigDirectory/themes/epic-noir-revisited" ] && [ ! -e "$ESDE_newConfigDirectory/themes/epic-noir-revisited-es-de" ]; then
+		mv -v "$ESDE_newConfigDirectory/themes/epic-noir-revisited" "$ESDE_newConfigDirectory/themes/epic-noir-revisited-es-de" #update theme path to esde naming convention
 	fi
 
-	git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited-es-de"
-	rm -rf "$HOME/.emulationstation/themes/epic-noir-revisited" #remove old themes
-	rm -rf "$HOME/.emulationstation/themes/es-epicnoir" #remove old themes
-	cd "$HOME/.emulationstation/themes/epic-noir-revisited-es-de" && git reset --hard HEAD && git clean -f -d && git pull && echo  "epicnoir up to date!" || echo "problem pulling epicnoir theme"
+	git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$ESDE_newConfigDirectory/themes/epic-noir-revisited-es-de"
+	rm -rf "$ESDE_newConfigDirectory/themes/epic-noir-revisited" #remove old themes
+	rm -rf "$ESDE_newConfigDirectory/themes/es-epicnoir" #remove old themes
+	cd "$ESDE_newConfigDirectory/themes/epic-noir-revisited-es-de" && git reset --hard HEAD && git clean -f -d && git pull && echo  "epicnoir up to date!" || echo "problem pulling epicnoir theme"
 
 	if [[ "$theme" == *"EPICNOIR"* ]]; then
 		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="es-epicnoir" />' "$es_settingsFile"
@@ -279,7 +295,7 @@ ESDE_setEmulationFolder(){
 
 ESDE_setDefaultEmulators(){
 	#ESDE default emulators
-	mkdir -p  "$HOME/.emulationstation/gamelists/"
+	mkdir -p  "$ESDE_newConfigDirectory/gamelists/"
 	ESDE_setEmu 'Dolphin (Standalone)' gc
 	ESDE_setEmu 'PPSSPP (Standalone)' psp
 	ESDE_setEmu 'Dolphin (Standalone)' wii
@@ -295,7 +311,7 @@ ESDE_setDefaultEmulators(){
 ESDE_migrateDownloadedMedia(){
 	echo "ESDE: Migrate Downloaded Media."
 
-	originalESMediaFolder="$HOME/.emulationstation/downloaded_media"
+	originalESMediaFolder="$ESDE_newConfigDirectory/downloaded_media"
 	echo "processing $originalESMediaFolder"
 	if [ -L "${originalESMediaFolder}" ] ; then
 		echo "link found"
@@ -326,9 +342,9 @@ ESDE_finalize(){
 ESDE_setEmu(){
 	local emu=$1
 	local system=$2
-	local gamelistFile="$HOME/.emulationstation/gamelists/$system/gamelist.xml"
+	local gamelistFile="$ESDE_newConfigDirectory/gamelists/$system/gamelist.xml"
 	if [ ! -f "$gamelistFile" ]; then
-		mkdir -p "$HOME/.emulationstation/gamelists/$system" && cp "$EMUDECKGIT/configs/emulationstation/gamelists/$system/gamelist.xml" "$gamelistFile"
+		mkdir -p "$ESDE_newConfigDirectory/gamelists/$system" && cp "$EMUDECKGIT/configs/emulationstation/gamelists/$system/gamelist.xml" "$gamelistFile"
 	else
 		gamelistFound=$(grep -rnw "$gamelistFile" -e 'gameList')
 		if [[ $gamelistFound == '' ]]; then
@@ -357,16 +373,16 @@ ESDE_IsInstalled(){
 }
 
 ESDE_symlinkGamelists(){
-		linkToSaveFolder es-de gamelists "$HOME/.emulationstation/gamelists/"
+		linkToSaveFolder es-de gamelists "$ESDE_newConfigDirectory/gamelists/"
 }
 
 
 ESDE_migrateEpicNoir(){
-	FOLDER="$HOME/.emulationstation/themes/es-epicnoir"
+	FOLDER="$ESDE_newConfigDirectory/themes/es-epicnoir"
 
 	if [ -f "$FOLDER" ]; then
 		rm -rf "$FOLDER"
-		git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$HOME/.emulationstation/themes/epic-noir-revisited" --depth=1
+		git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$ESDE_newConfigDirectory/themes/epic-noir-revisited" --depth=1
 		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="epic-noir-revisited-es-de" />' "$es_settingsFile"
 	fi
 }
