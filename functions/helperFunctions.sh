@@ -944,6 +944,7 @@ function jsonToBashVars(){
 	setSetting doInstallares "$(jq .installEmus.ares.status $json)"
 	setSetting doInstallSupermodel "$(jq .installEmus.supermodel.status $json)"
 	setSetting doInstallModel2  "$(jq .installEmus.model2.status $json)"
+	setSetting doInstallBigPEmu  "$(jq .installEmus.bigpemu.status $json)"
 
 
 	#Setup Emus
@@ -972,6 +973,8 @@ function jsonToBashVars(){
 	setSetting doSetupares "$(jq .overwriteConfigEmus.ares.status $json)"
 	setSetting doSetupSupermodel "$(jq .overwriteConfigEmus.supermodel.status $json)"
 	setSetting doSetupModel2 "$(jq .overwriteConfigEmus.model2.status $json)"
+	setSetting doSetupBigPEmu  "$(jq .overwriteConfigEmus.bigpemu.status $json)"
+
 	#Frontends
 	setSetting doSetupSRM "$(jq .overwriteConfigEmus.srm.status $json)"
 	setSetting doSetupESDE "$(jq .overwriteConfigEmus.esde.status $json)"
