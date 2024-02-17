@@ -31,7 +31,6 @@ ESDE_cleanup(){
 	echo "NYI"
 }
 
-# 2.2 migration
 ESDE_migration(){
 
 	if [ -d "$ESDE_oldConfigDirectory" ] && [ ! -L "$ESDE_oldConfigDirectory" ]; then
@@ -41,35 +40,43 @@ ESDE_migration(){
 	fi
 
 	if [ -f "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ] && [ ! -L "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" ]; then
-		mv "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" "${toolsPath}/EmulationStation-DE.AppImage"
-		sed -i "s|EmulationStation-DE-x64_SteamDeck.AppImage|EmulationStation-DE.AppImage|g" "$toolsPath/launchers/esde/emulationstationde.sh"
-		ln -s  "${toolsPath}/EmulationStation-DE.AppImage" "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
-		ESDE_createDesktopShortcut
+		mv "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage" "$ESDE_toolPath"
+		sed -i "s|EmulationStation-DE-x64_SteamDeck.AppImage|EmulationStation-DE.AppImage|g" "$ESDE_toolLocation/launchers/esde/emulationstationde.sh"
+		echo "EmulationStation-DE successfully migrated and linked."
 	fi
+
+	if [ -f "${toolsPath}/EmulationStation-DE.AppImage" ]; then
+
+		mv "${toolsPath}/EmulationStation-DE.AppImage" "$ESDE_toolPath"
+		ln -s  "$ESDE_toolPath" "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
+		echo "EmulationStation-DE successfully migrated and linked."
+	fi
+
 }
 
 ESDE_createDesktopShortcut(){
+
 	mkdir -p "$toolsPath/launchers/esde"
-  cp "$EMUDECKGIT/tools/launchers/esde/emulationstationde.sh" "$toolsPath/launchers/esde/emulationstationde.sh"
-  rm -rf $HOME/.local/share/applications/EmulationStation-DE.desktop
-  createDesktopShortcut   "$HOME/.local/share/applications/EmulationStation-DE.desktop" \
-  "EmulationStation-DE AppImage" \
-  "${toolsPath}/launchers/esde/emulationstationde.sh" \
-  "false"
+	cp "$EMUDECKGIT/tools/launchers/esde/emulationstationde.sh" "$toolsPath/launchers/esde/emulationstationde.sh"
+	rm -rf $HOME/.local/share/applications/EmulationStation-DE.desktop
+	createDesktopShortcut   "$HOME/.local/share/applications/EmulationStation-DE.desktop" \
+	"EmulationStation-DE AppImage" \
+	"${toolsPath}/launchers/esde/emulationstationde.sh" \
+	"false"
 }
 
 ESDE_uninstall(){
   rm -rf "${toolsPath}/EmulationStation-DE.AppImage"
+  rm -rf "${ESDE_toolLocation}/EmulationStation-DE.AppImage"
   rm -rf $HOME/.local/share/applications/EmulationStationDE.desktop
 }
 
 #Install
 ESDE_install(){
-	ESDE_SetAppImageURLS
 	setMSG "Installing $ESDE_toolName"
-
+	ESDE_SetAppImageURLS
 	local showProgress="$1"
-	local filename="$ESDE_toolName.$ESDE_toolType"
+	echo $ESDE_releaseURL
 	if [[ $ESDE_releaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
 		if safeDownload "$ESDE_toolName" "$ESDE_releaseURL" "$ESDE_toolPath" "$showProgress"; then
 			chmod +x "$ESDE_toolPath"
@@ -83,35 +90,6 @@ ESDE_install(){
 	fi
 }
 
-# ESDE20_install(){
-# 	ESDE_SetAppImageURLS
-# 	setMSG "Installing $ESDE_toolName PreRelease"
-#
-# 	local showProgress="$1"
-#
-# 	if [[ $ESDE_prereleaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
-#
-# 		if safeDownload "$ESDE_toolName" "$ESDE_prereleaseURL" "$ESDE_toolPath" "$showProgress"; then
-# 			ESDE_md5sum=($(md5sum $ESDE_toolPath)) # get first element
-# 			if [ "$ESDE_md5sum" == "$ESDE_prereleaseMD5" ]; then
-# 				echo "ESDE PASSED HASH CHECK."
-# 				chmod +x "$ESDE_toolPath"
-# 			else
-# 				echo "ESDE FAILED HASH CHECK. Expected $ESDE_prereleaseMD5, got $ESDE_md5sum"
-# 			fi
-# 		else
-# 			return 1
-# 		fi
-# 	else
-# 		setMSG "$ESDE_toolName PreRelease not found, installing stable"
-# 		if ESDE_install; then
-# 			:
-# 		else
-# 			return 1
-# 		fi
-# 	fi
-# }
-
 #ApplyInitialSettings
 ESDE_init(){
 	setMSG "Setting up $ESDE_toolName"
@@ -121,7 +99,7 @@ ESDE_init(){
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
 
-	cp -r "$EMUDECKGIT/tools/launchers/esde/*" "$toolsPath/launchers/esde/" && chmod +x "$toolsPath/launchers/esde/emulationstationde.sh"
+	cp -r "$EMUDECKGIT/tools/launchers/esde/." "$toolsPath/launchers/esde/" && chmod +x "$toolsPath/launchers/esde/emulationstationde.sh"
 
 	ESDE_addCustomSystems
 	ESDE_setEmulationFolder
@@ -130,8 +108,8 @@ ESDE_init(){
 	ESDE_migrateDownloadedMedia
 	#ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
-	ESDE_finalize
 	ESDE_migrateEpicNoir
+	ESDE_migration
 
 	if [ "$system" == "chimeraos" ] || [ "$system" == "ChimeraOS" ]; then
 			ESDE_chimeraOS
@@ -170,7 +148,7 @@ ESDE_update(){
 	ESDE_migrateDownloadedMedia
 	#ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
-	ESDE_finalize
+	ESDE_migration
 }
 
 ESDE_addCustomSystems(){
@@ -300,7 +278,7 @@ ESDE_setDefaultEmulators(){
 	ESDE_setEmu 'Dolphin (Standalone)' wii
 	ESDE_setEmu 'PCSX2 (Standalone)' ps2
 	ESDE_setEmu 'melonDS' nds
-	ESDE_setEmu 'Citra (Standalone)' n3ds
+	ESDE_setEmu 'Citra (Standalone)' /3ds
 	ESDE_setEmu 'Beetle Lynx' atarilynx
 	ESDE_setEmu 'DuckStation (Standalone)' psx
 	ESDE_setEmu 'Beetle Saturn' saturn
@@ -325,17 +303,6 @@ ESDE_migrateDownloadedMedia(){
 	else
 		echo "downloaded_media not found on original location"
 	fi
-}
-
-#finalExec - Extra stuff
-ESDE_finalize(){
-	#Symlinks for ESDE compatibility
-	cd $(echo $romsPath | tr -d '\r')
-	ln -sn gamecube gc
-	ln -sn 3ds n3ds
-	ln -sn arcade mamecurrent
-	ln -sn mame mame2003
-	ln -sn lynx atarilynx
 }
 
 ESDE_setEmu(){
