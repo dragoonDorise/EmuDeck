@@ -5,7 +5,7 @@ EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 #load helpers first, just in case
 source "$EMUDECKGIT"/functions/helperFunctions.sh
 
-SETTINGSFILE="$HOME/emudeck/settings.sh"
+SETTINGSFILE="$HOME/.local/share/emudeck/settings.sh"
 if [ -f "$SETTINGSFILE" ]; then
     # shellcheck source=./settings.sh
     source "$SETTINGSFILE"

@@ -6,7 +6,7 @@ RPCS3_releaseURL="https://rpcs3.net/latest-appimage"
 RPCS3_emuPath="$HOME/Applications/rpcs3.AppImage"
 RPCS3_emuPathFlatpak="net.rpcs3.RPCS3"
 RPCS3_VFSConf="$HOME/.config/rpcs3/vfs.yml"
-RPCS3_migrationFlag="$HOME/.config/EmuDeck/.${RPCS3_emuName}MigrationCompleted"
+RPCS3_migrationFlag="$HOME/.local/share/emudeck/.${RPCS3_emuName}MigrationCompleted"
 RPCS3_configFile="$HOME/.config/rpcs3/config.yml"
 
 #cleanupOlderThings

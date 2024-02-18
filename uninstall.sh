@@ -85,9 +85,9 @@ if [[ -f "$HOME/homebrew/services/PluginLoader" ]] ; then
 		 --text="${text}"
 	ans=$?
 	if [ $ans -eq 0 ]; then
-		curl -S -s -L -O --output-dir "$HOME/emudeck" --connect-timeout 30 https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/user_install_script.sh
-		chmod +x "$HOME/emudeck/user_install_script.sh"
-		"$HOME/emudeck/user_install_script.sh"
+		curl -S -s -L -O --output-dir "$HOME/.local/share/emudeck" --connect-timeout 30 https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/user_install_script.sh
+		chmod +x "$HOME/.local/share/emudeck/user_install_script.sh"
+		"$HOME/.local/share/emudeck/user_install_script.sh"
 
 	else
 		echo -e "No"
@@ -105,11 +105,11 @@ zenity --question \
 		--text="${text}"
 ans=$?
 if [ $ans -eq 0 ]; then
-	mkdir -p "$emulationPath/EmuDeckSavesBackUp"
-	rsync -avh --copy-links "$savesPath" "$emulationPath/EmuDeckSavesBackUp"
+	mkdir -p "$HOME/.local/share/emudeckSavesBackUp"
+	rsync -avh --copy-links "$savesPath" "$HOME/.local/share/emudeckSavesBackUp"
 	cd "$emulationPath"
 	zip -r "EmuDeckSavesBackUp.zip" "EmuDeckSavesBackUp"
-	rm -rf "$emulationPath/EmuDeckSavesBackUp" &> /dev/null
+	rm -rf "$HOME/.local/share/emudeckSavesBackUp" &> /dev/null
 else
 	echo -e "No"
 fi
@@ -124,11 +124,11 @@ zenity --question \
 		--text="${text}"
 ans=$?
 if [ $ans -eq 0 ]; then
-	mkdir -p "$emulationPath/EmuDeckBIOSBackUp"
-	rsync -avh --copy-links "$biosPath" "$emulationPath/EmuDeckBIOSBackUp"
+	mkdir -p "$HOME/.local/share/emudeckBIOSBackUp"
+	rsync -avh --copy-links "$biosPath" "$HOME/.local/share/emudeckBIOSBackUp"
 	cd "$emulationPath"
 	zip -r "EmuDeckBIOSBackUp.zip" "EmuDeckBIOSBackUp"
-	rm -rf "$emulationPath/EmuDeckBIOSBackUp" &> /dev/null
+	rm -rf "$HOME/.local/share/emudeckBIOSBackUp" &> /dev/null
 else
 	echo -e "No"
 fi
@@ -432,6 +432,7 @@ fi
 	echo "65"
 	echo "# Removing EmuDeck AppImage";
 	rm -rf $HOME/emudeck &> /dev/null
+	rm -rf $HOME/.local/share/emudeck &> /dev/null
 	rm -rf $HOME/Desktop/EmuDeckCHD.desktop &> /dev/null
 	rm -rf $HOME/Desktop/EmuDeckUninstall.desktop &> /dev/null
 	rm -rf $HOME/Desktop/EmuDeck.desktop &> /dev/null

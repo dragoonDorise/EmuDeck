@@ -1,4 +1,6 @@
 #!/bin/bash
+source "$HOME/.config/EmuDeck/backend/functions/all.sh"
+
 setMSG() {
 	if [ -z $progressBar ]; then
 		progressBar=0
@@ -10,8 +12,8 @@ setMSG() {
 		progressBar=90
 	fi
 
-	echo "$progressBar" > "$HOME/emudeck/logs/msg.log"
-	echo "# $1" >> "$HOME/emudeck/logs/msg.log"
+	echo "$progressBar" > "$HOME/.local/share/emudeck/logs/msg.log"
+	echo "# $1" >> "$HOME/.local/share/emudeck/logs/msg.log"
 	echo "$1"
 	sleep 0.5
 }

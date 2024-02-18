@@ -1,5 +1,5 @@
 #!/bin/bash
-MSG=$HOME/emudeck/logs/msg.log
+MSG=$HOME/.local/share/emudeck/logs/msg.log
 echo "0" > "$MSG"
 
 #Darwin
@@ -15,7 +15,7 @@ fi
 #
 
 mkdir -p "$HOME/.config/EmuDeck"
-mkdir -p "$HOME/emudeck/logs"
+mkdir -p "$HOME/.local/share/emudeck/logs"
 PIDFILE="$HOME/.config/EmuDeck/install.pid"
 
 
@@ -63,17 +63,17 @@ rm -rf ~/dragoonDoriseTools
 rm -rf ~/emudeck/backend
 
 #Creating log file
-LOGFILE="$HOME/emudeck/logs/emudeckSetup.log"
+LOGFILE="$HOME/.local/share/emudeck/logs/emudeckSetup.log"
 
-mkdir -p "$HOME/emudeck"
+mkdir -p "$HOME/.local/share/emudeck"
 
 #Custom Scripts
-mkdir -p "$HOME/emudeck/custom_scripts"
-echo $'#!/bin/bash\nEMUDECKGIT="$HOME/.config/EmuDeck/backend"\nsource "$EMUDECKGIT/functions/all.sh"' > "$HOME/emudeck/custom_scripts/example.sh"
+mkdir -p "$HOME/.local/share/emudeck/custom_scripts"
+echo $'#!/bin/bash\nEMUDECKGIT="$HOME/.config/EmuDeck/backend"\nsource "$EMUDECKGIT/functions/all.sh"' > "$HOME/.local/share/emudeck/custom_scripts/example.sh"
 
 echo "Press the button to start..." > "$LOGFILE"
 
-mv "${LOGFILE}" "$HOME/emudeck/logs/emudeckSetup.last.log" #backup last log
+mv "${LOGFILE}" "$HOME/.local/share/emudeck/logs/emudeckSetup.last.log" #backup last log
 
 if echo "${@}" > "${LOGFILE}" ; then
 	echo "Log created"
@@ -520,8 +520,8 @@ createDesktopIcons
 #
 echo "" > "$HOME/.config/EmuDeck/.finished"
 echo "" > "$HOME/.config/EmuDeck/.ui-finished"
-echo "100" > "$HOME/emudeck/logs/msg.log"
-echo "# Installation Complete" >> "$HOME/emudeck/logs/msg.log"
+echo "100" > "$HOME/.local/share/emudeck/logs/msg.log"
+echo "# Installation Complete" >> "$HOME/.local/share/emudeck/logs/msg.log"
 finished=true
 rm "$PIDFILE"
 
