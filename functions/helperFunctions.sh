@@ -11,8 +11,8 @@ emuDeckEmuTypeOther="Other"
 
 function startLog() {
 	funcName="$1"
-	mkdir -p "$HOME/.local/share/logs"
-	logFile="$HOME/.local/share/logs/$funcName.log"
+	mkdir -p "$HOME/.config/EmuDeck/logs"
+	logFile="$HOME/.config/EmuDeck/logs/$funcName.log"
 
 	touch "$logFile"
 
@@ -724,9 +724,9 @@ check_internet_connection(){
 }
 
 zipLogs() {
-	logsFolder="$HOME/.local/share/emudeck/logs"
-	settingsFile="$HOME/.local/share/emudeck/settings.sh"
-	zipOutput="$HOME/.local/share/emudeck_logs.zip"
+	logsFolder="$HOME/.config/EmuDeck/logs"
+	settingsFile="$HOME/.config/EmuDeck/settings.sh"
+	zipOutput="$HOME/.config/EmuDeck/logs/emudeck_logs.zip"
 
 	# Comprime los archivos en un archivo zip
 	zip -rj "$zipOutput" "$logsFolder" "$settingsFile"

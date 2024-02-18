@@ -14,7 +14,7 @@ romParser_SS_download(){
 	local romName=$1
 	local system=$2
 	local type=$3
-	local userSS=$(cat "$HOME/.local/share/emudeck/.userSS")
+	local userSS=$(cat "$HOME/.config/EmuDeck/.userSS")
 	local encryption_key=$(cat "$HOME/.config/EmuDeck/logs/.key")
 	local encrypted_password=$(cat "$HOME/.config/EmuDeck/.passSS")
 	local decrypted_password=$(echo "$encrypted_password" | openssl enc -d -aes-256-cbc -pbkdf2 -base64 -pass "pass:$encryption_key")

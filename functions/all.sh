@@ -13,7 +13,7 @@ source "$EMUDECKGIT"/functions/helperFunctions.sh
 
 
 
-SETTINGSFILE="$HOME/.local/share/emudeck/settings.sh"
+SETTINGSFILE="$HOME/.config/EmuDeck/settings.sh"
 if [ -f "$SETTINGSFILE" ]; then
     # shellcheck source=./settings.sh
     source "$SETTINGSFILE"
