@@ -33,7 +33,7 @@ ESDE_cleanup(){
 
 ESDE_migration(){
 
-	if [ -d "$ESDE_oldConfigDirectory" ] && [ ! -L "$ESDE_oldConfigDirectory" ]; then
+	if [ -d "$ESDE_oldConfigDirectory" ] && [ ! -L "$ESDE_oldConfigDirectory" ] && [ ! -d "$ESDE_newConfigDirectory" ]; then
 		mv "$ESDE_oldConfigDirectory" "$ESDE_newConfigDirectory"
 		ln -s  "$ESDE_newConfigDirectory" "$ESDE_oldConfigDirectory"
 		echo "EmulationStation-DE config directory successfully migrated and linked."
@@ -75,6 +75,9 @@ ESDE_uninstall(){
 ESDE_install(){
 	setMSG "Installing $ESDE_toolName"
 	ESDE_SetAppImageURLS
+	ESDE_migration
+
+
 	local showProgress="$1"
 	echo $ESDE_releaseURL
 	if [[ $ESDE_releaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
@@ -94,6 +97,8 @@ ESDE_install(){
 ESDE_init(){
 	setMSG "Setting up $ESDE_toolName"
 
+	ESDE_migration
+
 	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
 
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
@@ -109,7 +114,6 @@ ESDE_init(){
 	#ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
 	ESDE_migrateEpicNoir
-	ESDE_migration
 
 	if [ "$system" == "chimeraos" ] || [ "$system" == "ChimeraOS" ]; then
 			ESDE_chimeraOS
@@ -135,6 +139,8 @@ ESDE_resetConfig(){
 ESDE_update(){
 	setMSG "Setting up $ESDE_toolName"
 
+	ESDE_migration
+
 	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
 
 	#update es_settings.xml
@@ -148,7 +154,6 @@ ESDE_update(){
 	ESDE_migrateDownloadedMedia
 	#ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
-	ESDE_migration
 }
 
 ESDE_addCustomSystems(){
