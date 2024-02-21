@@ -479,7 +479,7 @@ if [ "$system" != "darwin" ]; then
 	fi
 	#We try to create a temp password
 	pwstatus=0
-	yes "$password" | passwd $(whoami) && echo "$password" | sudo -v -S &>/dev/null && pwstatus=1 || echo "sudo password was incorrect" #refresh sudo cache
+	yes "$password" | passwd $(whoami) && echo "$password" | sudo -v -S &>/dev/null && pwstatus=1 || echo "Password already set, we do nothing..." #refresh sudo cache
 	# We install everything in case we've succesfully created a password
 	if [ $pwstatus = 1 ]; then
 		if ( echo "$password" | sudo -S -k true ); then
