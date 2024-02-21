@@ -42,14 +42,14 @@ Plugins_checkPassword(){
 Plugins_installPluginLoader(){
    local password=$1
    local PluginLoader_releaseURL="https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/install_release.sh"
-   if [ ! -f $HOME/.steam/steam/.cef-enable-remote-debugging ]; then
+   #if [ ! -f $HOME/.steam/steam/.cef-enable-remote-debugging ]; then
 		mkdir -p "$HOME/homebrew"
 		Plugins_checkPassword $password  && echo $password | sudo -S chown -R $USER:$USER "$HOME/homebrew"
 		curl -L $PluginLoader_releaseURL | sh
 		touch "$HOME/.steam/steam/.cef-enable-remote-debugging"
 		echo $password |  sudo -S chown $USER:$USER ~/.steam/steam/.cef-enable-remote-debugging
 		Plugins_install_cleanup $password
-	fi
+	#fi
 }
 
 Plugins_installPowerTools(){
