@@ -268,6 +268,10 @@ if [ $doInstallSupermodel == "true" ]; then
 	echo "Supermodel_install"
 	Supermodel_install
 fi
+if [ $doInstallHypseusSinge == "true" ]; then
+	echo "HypseusSinge_install"
+	HypseusSinge_install
+fi
 #Xenia - We need to install Xenia after creating the Roms folders!
 if [ "$doInstallXenia" == "true" ]; then
 	echo "Xenia_install"
@@ -386,6 +390,10 @@ fi
 if [ "$doSetupSupermodel" == "true" ]; then
 	echo "Supermodel_init"
 	Supermodel_init
+fi
+if [ "$doSetupHypseusSinge" == "true" ]; then
+	echo "HypseusSinge_init"
+	HypseusSinge_init
 fi
 if [ "$doSetupModel2" == "true" ]; then
 	echo "model2_init"

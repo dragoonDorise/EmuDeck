@@ -304,6 +304,9 @@ fi
 		flatpak uninstall org.flycast.Flycast -y
 		rm -rf $HOME/.var/app/org.flycast.Flycast &> /dev/null
 	fi
+	if [[ "$doUninstallHypseusSinge" == true ]]; then
+		echo "NYI"
+	fi
 	if [[ "$doUninstallMame" == true ]]; then
 		flatpak uninstall org.mamedev.MAME -y
 		# MAME creates both of these folders but only uses ~/.mame
