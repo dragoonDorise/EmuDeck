@@ -88,6 +88,7 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckBigPEmu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckares.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckFlycast.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckSupermodel.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckHypseusSinge.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckModel2.sh
 
 #remoteplayclientscripts

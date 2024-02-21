@@ -296,6 +296,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupMGBA=true")
 	defaultSettingsList+=("doSetupFlycast=true")
 	defaultSettingsList+=("doSetupSupermodel=true")
+	defaultSettingsList+=("doSetupHypseusSinge=true")
 	defaultSettingsList+=("doInstallSRM=true")
 	defaultSettingsList+=("doInstallESDE=true")
 	defaultSettingsList+=("doInstallPegasus=false")
@@ -320,6 +321,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doInstallMGBA=false")
 	defaultSettingsList+=("doInstallFlycast=true")
 	defaultSettingsList+=("doInstallSupermodel=true")
+	defaultSettingsList+=("doInstallHypseusSinge=true")
 	defaultSettingsList+=("doInstallCHD=true")
 	defaultSettingsList+=("doInstallPowertools=false")
 	defaultSettingsList+=("doInstallGyro=false")
@@ -784,6 +786,7 @@ getEmuRepo() {
 		"dolphin") repo="shiiion/dolphin" ;;
 		"duckstation") repo="stenzek/duckstation" ;;
 		"flycast") repo="flyinghead/flycast" ;;
+		"HypseusSinge") repo="DirtBagXon/hypseus-singe" ;;
 		"MAME") repo="mamedev/mame" ;;
 		"melonDS") repo="melonDS-emu/melonDS" ;;
 		"mgba") repo="mgba-emu/mgba" ;;
@@ -945,6 +948,7 @@ function jsonToBashVars(){
 	setSetting doInstallSupermodel "$(jq .installEmus.supermodel.status $json)"
 	setSetting doInstallModel2  "$(jq .installEmus.model2.status $json)"
 	setSetting doInstallBigPEmu  "$(jq .installEmus.bigpemu.status $json)"
+	setSetting doInstallHypseusSinge "$(jq .installEmus.hypseussinge.status $json)"
 
 
 	#Setup Emus
@@ -974,6 +978,7 @@ function jsonToBashVars(){
 	setSetting doSetupSupermodel "$(jq .overwriteConfigEmus.supermodel.status $json)"
 	setSetting doSetupModel2 "$(jq .overwriteConfigEmus.model2.status $json)"
 	setSetting doSetupBigPEmu  "$(jq .overwriteConfigEmus.bigpemu.status $json)"
+	setSetting doSetupHypseusSinge "$(jq .overwriteConfigEmus.hypseussinge.status $json)"
 
 	#Frontends
 	setSetting doSetupSRM "$(jq .overwriteConfigEmus.srm.status $json)"
