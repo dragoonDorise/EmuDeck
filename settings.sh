@@ -28,6 +28,7 @@ doSetupMGBA=true
 doSetupBigPEmu=true
 doSetupFlycast=true
 doSetupSupermodel=true
+doSetupHypseusSinge=true
 doSetupModel2=true
 
 #Install all systems by default
@@ -60,6 +61,7 @@ doInstallPowertools=false
 doInstallGyro=false
 doInstallHomeBrewGames=false
 doInstallModel2=false
+doInstallHypseusSinge=false
 
 installString='Installing'
 
