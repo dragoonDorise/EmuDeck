@@ -56,9 +56,9 @@ Plugins_installPowerTools(){
    local password=$1
    local ptHash
    Plugins_checkPassword $password
+   ptHash=$(curl https://beta.deckbrew.xyz/plugins | jq -r '.[] | select(.name=="PowerTools").versions[0].hash')
    local url="https://cdn.tzatzikiweeb.moe/file/steam-deck-homebrew/versions/$ptHash.zip"
 
-   ptHash=$(curl https://beta.deckbrew.xyz/plugins | jq -r '.[] | select(.name=="PowerTools").versions[0].hash')
    if [ -d "$HOME/homebrew/plugins/" ]; then
    	echo $password |  sudo -S rm -rf "$HOME/homebrew/plugins/PowerTools"
    	curl -l "$url" --output "$HOME/homebrew/PowerTools.zip.temp"  && mv "$HOME/homebrew/PowerTools.zip.temp" "$HOME/homebrew/PowerTools.zip"
