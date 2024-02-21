@@ -11,6 +11,7 @@ doUninstallDolphin=true
 doUninstallDuck=true
 doUninstallESDE=true
 doUninstallFlycast=true
+doUninstallHypseusSinge=true
 doUninstallMame=true
 doUninstallmelonDS=true
 doUninstallMGBA=true
@@ -156,23 +157,24 @@ fi
 				6 "Dolphin" \
 				7 "Duckstation" \
 				8 "Flycast" \
-				9 "Mame"  \
-				10 "melonDS"  \
-				11 "mGBA"  \
-				12 "Model2" \
-				13 "PCSX2" \
-				14 "PPSSPP" \
-				15 "PrimeHack" \
-				16 "RetroArch"\
-				17 "RMG"  \
-				18 "RPCS3" \
-				19 "Ryujinx" \
-				20 "ScummVM" \
-				21 "Supermodel" \
-				22 "Vita3K"  \
-				23 "Xemu" \
-				24 "Xenia"  \
-				25 "Yuzu" )
+				9 "Hypseu Singe" \
+				10 "Mame"  \
+				11 "melonDS"  \
+				12 "mGBA"  \
+				13 "Model2" \
+				14 "PCSX2" \
+				15 "PPSSPP" \
+				16 "PrimeHack" \
+				17 "RetroArch"\
+				18 "RMG"  \
+				19 "RPCS3" \
+				20 "Ryujinx" \
+				21 "ScummVM" \
+				22 "Supermodel" \
+				23 "Vita3K"  \
+				24 "Xemu" \
+				25 "Xenia"  \
+				26 "Yuzu" )
 
 	ans=$?
 
@@ -201,6 +203,9 @@ fi
 		fi
 		if [[ "$emusToUninstall" == *"Flycast"* ]]; then
 			doUninstallFlycast=false
+		fi
+		if [[ "$emusToUninstall" == *"Hypseus Singe"* ]]; then
+			doUninstallHypseusSinge=false
 		fi
 		if [[ "$emusToUninstall" == *"Mame"* ]]; then
 			doUninstallMame=false
