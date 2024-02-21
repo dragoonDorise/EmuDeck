@@ -36,29 +36,29 @@ Plugins_checkPassword(){
           fi
         fi
    fi
-   return $password
+   echo $password
 }
 
 Plugins_installPluginLoader(){
    local password=$1
    local PluginLoader_releaseURL="https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/install_release.sh"
-   if [ ! -f $HOME/.steam/steam/.cef-enable-remote-debugging ]; then
+   #if [ ! -f $HOME/.steam/steam/.cef-enable-remote-debugging ]; then
 		mkdir -p "$HOME/homebrew"
 		Plugins_checkPassword $password  && echo $password | sudo -S chown -R $USER:$USER "$HOME/homebrew"
 		curl -L $PluginLoader_releaseURL | sh
 		touch "$HOME/.steam/steam/.cef-enable-remote-debugging"
 		echo $password |  sudo -S chown $USER:$USER ~/.steam/steam/.cef-enable-remote-debugging
 		Plugins_install_cleanup $password
-	fi
+	#fi
 }
 
 Plugins_installPowerTools(){
    local password=$1
    local ptHash
    Plugins_checkPassword $password
+   ptHash=$(curl https://beta.deckbrew.xyz/plugins | jq -r '.[] | select(.name=="PowerTools").versions[0].hash')
    local url="https://cdn.tzatzikiweeb.moe/file/steam-deck-homebrew/versions/$ptHash.zip"
 
-   ptHash=$(curl https://beta.deckbrew.xyz/plugins | jq -r '.[] | select(.name=="PowerTools").versions[0].hash')
    if [ -d "$HOME/homebrew/plugins/" ]; then
    	echo $password |  sudo -S rm -rf "$HOME/homebrew/plugins/PowerTools"
    	curl -l "$url" --output "$HOME/homebrew/PowerTools.zip.temp"  && mv "$HOME/homebrew/PowerTools.zip.temp" "$HOME/homebrew/PowerTools.zip"
@@ -118,12 +118,8 @@ Plugins_installEmuDecky(){
 }
 
 Plugins_installSteamDeckGyroDSU(){
-   local password=$1
-   Plugins_checkPassword $password
-   echo $password | sudo -S pwd
    local SDGyro_releaseURL="https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh"
    curl -L $SDGyro_releaseURL --output /tmp/sdgyro.sh && chmod +x /tmp/sdgyro.sh && /tmp/sdgyro.sh && rm /tmp/sdgyro.sh
-   Plugins_install_cleanup $password
 }
 
 
