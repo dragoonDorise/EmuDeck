@@ -8,7 +8,7 @@ Cemu_functions () {
 	declare -A CemuNative=(
 		[emuName]="CemuNative"
 		[emuType]="AppImage"
-		[emuPath]="${HOME}/Applications/CemuNative.AppImage"
+		[emuPath]="${HOME}/Applications/Cemu.AppImage"
 		[configDir]="${HOME}/.config/Cemu"
 		[configFile]="${HOME}/.config/Cemu/settings.xml"
 		[shareDir]="${HOME}/.local/share/Cemu"
