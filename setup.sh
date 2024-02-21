@@ -503,7 +503,8 @@ createDesktopIcons
 
 #fi
 
-#Plugins_installSteamDeckGyroDSU
+#GyroDSU
+Plugins_installSteamDeckGyroDSU
 
 #EmuDeck updater on gaming Mode
 #mkdir -p "${toolsPath}/updater"

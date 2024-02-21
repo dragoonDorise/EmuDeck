@@ -118,12 +118,8 @@ Plugins_installEmuDecky(){
 }
 
 Plugins_installSteamDeckGyroDSU(){
-   local password=$1
-   Plugins_checkPassword $password
-   echo $password | sudo -S pwd
    local SDGyro_releaseURL="https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh"
    curl -L $SDGyro_releaseURL --output /tmp/sdgyro.sh && chmod +x /tmp/sdgyro.sh && /tmp/sdgyro.sh && rm /tmp/sdgyro.sh
-   Plugins_install_cleanup $password
 }
 
 
