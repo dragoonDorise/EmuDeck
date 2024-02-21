@@ -36,7 +36,7 @@ Plugins_checkPassword(){
           fi
         fi
    fi
-   return $password
+   echo $password
 }
 
 Plugins_installPluginLoader(){
