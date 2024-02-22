@@ -60,11 +60,7 @@ HypseusSinge_update(){
 
 #ConfigurePaths
 HypseusSinge_setEmulationFolder(){
-    echo "Begin HypseusSinge Path Config"
-
-    local prefpath_directoryOpt='pref-path: '
-    local newprefpath_directoryOpt="$prefpath_directoryOpt""$storagePath/HypseusSinge/"
-    changeLine "$prefpath_directoryOpt" "$newprefpath_directoryOpt" "$HypseusSinge_configFile"
+	echo "NYI"
 }
 
 #SetupSaves
@@ -95,7 +91,7 @@ HypseusSinge_wipe(){
 #Uninstall
 HypseusSinge_uninstall(){
     echo "Begin HypseusSinge uninstall"
-    rm -rf "$HypseusSinge_emuPath"
+    rm -rf "$HOME/Applications/hypseus-singe"
 }
 
 #Migrate
