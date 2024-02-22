@@ -185,6 +185,8 @@ ESDE_addCustomSystems(){
 		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 	fi
     #Custom Systems config end
+
+	RPCS3_addESConfig
 }
 
 #update
@@ -257,6 +259,36 @@ ESDE_setEmulationFolder(){
 			#update
 			xeniaProtonCommandString="/bin/bash ${toolsPath}/launchers/xenia.sh %ROM%"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Xenia (Proton)"]' -v "$xeniaProtonCommandString" "$es_systemsFile"
+		fi
+	fi
+	if [[ ! $(grep -rnw "$es_systemsFile" -e 'ps3') == "" ]]; then
+		if [[ $(grep -rnw "$es_systemsFile" -e 'RPCS3 Shortcut (Standalone)') == "" ]]; then
+			#insert
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="ps3"]' --type elem --name 'commandP' -v "LD_LIBRARY_PATH=/usr/lib:/usr/local/lib %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%" \
+			--insert 'systemList/system/commandP' --type attr --name 'label' --value "RPCS3 Shortcut (Standalone)" \
+			-r 'systemList/system/commandP' -v 'command' \
+			"$es_systemsFile"
+
+			#format doc to make it look nice
+			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		else
+			#update
+			rpcs3ShortcutCommandString="LD_LIBRARY_PATH=/usr/lib:/usr/local/lib %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%"
+			xmlstarlet ed -L -u '/systemList/system/command[@label="RPCS3 Shortcut (Standalone)"]' -v "$rpcs3ShortcutCommandString" "$es_systemsFile"
+		fi
+		if [[ $(grep -rnw "$es_systemsFile" -e 'RPCS3 Directory (Standalone)') == "" ]]; then
+			#insert
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="ps3"]' --type elem --name 'commandN' -v "LD_LIBRARY_PATH=/usr/lib:/usr/local/lib %EMULATOR_RPCS3% --no-gui %ROM%" \
+			--insert 'systemList/system/commandN' --type attr --name 'label' --value "RPCS3 Directory (Standalone)" \
+			-r 'systemList/system/commandN' -v 'command' \
+			"$es_systemsFile"
+
+			#format doc to make it look nice
+			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		else
+			#update
+			rpcs3DirectoryCommandString="LD_LIBRARY_PATH=/usr/lib:/usr/local/lib %EMULATOR_RPCS3% --no-gui %ROM%"
+			xmlstarlet ed -L -u '/systemList/system/command[@label="RPCS3 Directory (Standalone)"]' -v "$rpcs3DirectoryCommandString" "$es_systemsFile"
 		fi
 	fi
 
