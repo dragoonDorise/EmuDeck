@@ -70,18 +70,19 @@ HypseusSinge_setEmulationFolder(){
 
 #SetupSaves
 HypseusSinge_setupSaves(){
-    echo "Begin HypseusSinge save link"
-    linkToSaveFolder HypseusSinge saves "$storagePath/HypseusSinge/ux0/user/00/savedata"
+    echo "NYI"
 }
 
 
 #SetupStorage
 HypseusSinge_setupStorage(){
-    echo "Begin HypseusSinge storage config"
 
-    mkdir -p "$storagePath/HypseusSinge/ux0/app"
-    unlink "$romsPath/psvita/InstalledGames"
-    ln -s "$storagePath/HypseusSinge/ux0/app" "$romsPath/psvita/InstalledGames"
+    #Populate empty file for ES-DE
+    for file in "${romsPath}/laserdisc/*.daphne"; { 
+        if [ -e "$file/$file" ]; then
+            touch "$file/$file"; 
+        fi
+    }
 
 }
 
