@@ -58,7 +58,7 @@ HypseusSinge_setEmulationFolder(){
     setMSG "Setting $HypseusSinge_emuName Emulation Folder"
 
     #create laserdisc folder if missing - new folder
-    if [ -e "${romsPath}/laserdisc/" ]then;
+    if [ -e "${romsPath}/laserdisc/" ]; then
         mkdir -p $romsPath/laserdisc/
     fi
 
