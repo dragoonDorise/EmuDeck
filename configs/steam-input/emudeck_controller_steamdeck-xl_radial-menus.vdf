@@ -3,7 +3,7 @@
 	"version"		"3"
 	"revision"		"134"
 	"title"		"EmuDeck - Steam Deck Radial Menus XL"
-	"description"		"EmuDeck Extra Large Profile. Radial menus configured for all EmuDeck installed emulators. Left Touchpad - Quick Actions. Short press to perform an action."
+	"description"		"EmuDeck Extra Large Profile. Touch menus configured for all EmuDeck installed emulators. Left Touchpad - Quick Actions. Short press to perform an action."
 	"creator"		"76561199036238022"
 	"progenitor"		""
 	"url"		"template://emudeck_controller_steamdeck-xl_radial-menus.vdf"
@@ -225,6 +225,21 @@
 			"title"		"Blank Profile 10"
 			"legacy_set"		"1"
 		}
+		"Preset_1000043"
+		{
+			"title"		"Model 2 Emulator"
+			"legacy_set"		"1"
+		}
+		"Preset_1000044"
+		{
+			"title"		"Supermodel"
+			"legacy_set"		"1"
+		}
+		"Preset_1000045"
+		{
+			"title"		"BigPEmu"
+			"legacy_set"		"1"
+		}
 	}
 	"action_layers"
 	{
@@ -234,7 +249,7 @@
 		"english"
 		{
 			"title"		"EmuDeck - EmulationStation-DE"
-			"description"		"Left Touchpad - Quick Actions. Long press to perform an action."
+			"description"		"Left Touchpad - Quick Actions. Short press to perform an action."
 		}
 		"czech"
 		{
@@ -928,11 +943,22 @@
 						"bindings"
 						{
 							"binding"		"key_press LEFT_SHIFT, Save State, EmuDeck_SaveState.png, #232323 #00AD00"
-							"binding"		"key_press L, Save State, EmuDeck_SaveState.png, #232323 #00AD00"
 						}
 						"settings"
 						{
 							"long_press_time"		"300"
+						}
+					}
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press L, , "
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
+							"delay_start"		"25"
 						}
 					}
 				}
@@ -964,12 +990,23 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, Load State, EmuDeck_LoadState.png, #232323 #00AD00"
-							"binding"		"key_press V, Load State, EmuDeck_LoadState.png, #232323 #00AD00"
+							"binding"		"key_press LEFT_CONTROL, Fast Forward, EmuDeck_FastForward.png, #232323 #00ADAD"
 						}
 						"settings"
 						{
 							"long_press_time"		"300"
+						}
+					}
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press Z, , "
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
+							"delay_start"		"25"
 						}
 					}
 				}
@@ -985,7 +1022,39 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F, Toggle Full Screen, EmuDeck_Menu.png, #232323 #ADA200"
+							"binding"		"key_press LEFT_CONTROL, Load State, EmuDeck_LoadState.png, #232323 #00AD00"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
+						}
+					}
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press V, , "
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
+							"delay_start"		"25"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_4"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press ESCAPE, Exit Full Screen, EmuDeck_Menu.png, #232323 #AD0000"
 						}
 						"settings"
 						{
@@ -997,7 +1066,7 @@
 				{
 				}
 			}
-			"touch_menu_button_4"
+			"touch_menu_button_5"
 			{
 				"activators"
 				{
@@ -1017,27 +1086,6 @@
 				{
 				}
 			}
-			"touch_menu_button_5"
-			{
-				"activators"
-				{
-					"Long_Press"
-					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_CONTROL, Fast Forward, EmuDeck_FastForward.png, #232323 #00ADAD"
-							"binding"		"key_press Z, Fast Forward, EmuDeck_FastForward.png, #232323 #00ADAD"
-						}
-						"settings"
-						{
-							"long_press_time"		"300"
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
 			"touch_menu_button_6"
 			{
 				"activators"
@@ -1046,7 +1094,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press S, Swap Screens, EmuDeck_Reset.png, #232323 #FFFFFF"
+							"binding"		"key_press F, Enter Full Screen, EmuDeck_Menu.png, "
 						}
 						"settings"
 						{
@@ -1066,11 +1114,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press E, Change Layout, EmuDeck_SwapScreen.png, "
+							"binding"		"key_press X, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
 						}
 						"settings"
 						{
-							"long_press_time"		"300"
+							"long_press_time"		"3000"
 						}
 					}
 				}
@@ -1086,11 +1134,51 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press X, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
+							"binding"		"key_press F10, Toggle Screen Layout, EmuDeck_SwapScreen.png, "
 						}
 						"settings"
 						{
-							"long_press_time"		"3000"
+							"long_press_time"		"300"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_9"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F9, Swap Screens, EmuDeck_Reset.png, #232323 #FFFFFF"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_10"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F2, Load Amiibo, ghost_110_social_0120.png, #232323 #AD00AD"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
 						}
 					}
 				}
@@ -1102,7 +1190,6 @@
 		"settings"
 		{
 			"mouse_smoothing"		"0"
-			"touch_menu_button_count"		"9"
 			"touch_menu_opacity"		"100"
 			"touch_menu_scale"		"120"
 		}
@@ -1149,6 +1236,26 @@
 						"settings"
 						{
 							"long_press_time"		"300"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_2"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action CHANGE_PRESET 45 1 1, BigPEmu, EmuDeck_BigPEmu.png, "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"2"
 						}
 					}
 				}
@@ -8924,8 +9031,8 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button SELECT, Stop Emulation, EmuDeck_QuitExit.png, #232323 #AD0000"
-							"binding"		"xinput_button START, Stop Emulation, EmuDeck_QuitExit.png, #232323 #AD0000"
+							"binding"		"xinput_button SELECT, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
+							"binding"		"xinput_button START, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
 						}
 						"settings"
 						{
@@ -9454,8 +9561,8 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button SELECT, Stop Emulation, EmuDeck_QuitExit.png, #232323 #AD0000"
-							"binding"		"xinput_button START, Stop Emulation, EmuDeck_QuitExit.png, #232323 #AD0000"
+							"binding"		"xinput_button SELECT, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
+							"binding"		"xinput_button START, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
 						}
 						"settings"
 						{
@@ -11944,7 +12051,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"mouse_button LEFT, , "
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
 						}
 					}
 				}
@@ -15173,16 +15280,6 @@
 	}
 	"group"
 	{
-		"id"		"398"
-		"mode"		"touch_menu"
-		"name"		"BigPEmu"
-		"description"		""
-		"inputs"
-		{
-		}
-	}
-	"group"
-	{
 		"id"		"399"
 		"mode"		"radial_menu"
 		"name"		"Sega"
@@ -15218,6 +15315,46 @@
 						"bindings"
 						{
 							"binding"		"controller_action CHANGE_PRESET 32 1 1, Flycast (Standalone), EmuDeck_Flycast.png, "
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_2"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action CHANGE_PRESET 43 1 1, Model 2 Emulator, EmuDeck_Model2.png, "
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_3"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action CHANGE_PRESET 44 1 1, Supermodel, EmuDeck_Supermodel.png, "
 						}
 						"settings"
 						{
@@ -18923,6 +19060,1443 @@
 		"settings"
 		{
 			"requires_click"		"0"
+		}
+	}
+	"group"
+	{
+		"id"		"514"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"515"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"516"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"517"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"518"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"519"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"520"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"521"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"522"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"523"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"524"
+		"mode"		"touch_menu"
+		"name"		"Supermodel"
+		"description"		""
+		"inputs"
+		{
+			"touch_menu_button_0"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action CHANGE_PRESET 32765 1 1, Return to Main Menu, EmuDeck_GraphicsConfig.png, "
+						}
+						"settings"
+						{
+							"long_press_time"		"1000"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+		"settings"
+		{
+			"touch_menu_opacity"		"100"
+			"touch_menu_scale"		"120"
+		}
+	}
+	"group"
+	{
+		"id"		"525"
+		"mode"		"touch_menu"
+		"name"		"Model 2 Emulator"
+		"description"		""
+		"inputs"
+		{
+			"touch_menu_button_0"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action CHANGE_PRESET 32765 1 1, Return to Main Menu, EmuDeck_GraphicsConfig.png, "
+						}
+						"settings"
+						{
+							"long_press_time"		"1000"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+		"settings"
+		{
+			"touch_menu_opacity"		"100"
+			"touch_menu_scale"		"120"
+		}
+	}
+	"group"
+	{
+		"id"		"527"
+		"mode"		"four_buttons"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"button_a"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button A, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_b"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button B, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_x"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button X, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_y"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button Y, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"528"
+		"mode"		"reference"
+		"description"		""
+		"settings"
+		{
+			"referenced_mode"		"210"
+		}
+	}
+	"group"
+	{
+		"id"		"529"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mouse_button LEFT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"530"
+		"mode"		"joystick_move"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_LEFT, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"2"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+		"settings"
+		{
+			"deadzone_inner_radius"		"7199"
+		}
+	}
+	"group"
+	{
+		"id"		"531"
+		"mode"		"trigger"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"output_trigger"		"1"
+		}
+	}
+	"group"
+	{
+		"id"		"532"
+		"mode"		"trigger"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"output_trigger"		"2"
+		}
+	}
+	"group"
+	{
+		"id"		"533"
+		"mode"		"joystick_move"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"534"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"dpad_north"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_UP, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"1"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"dpad_south"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_DOWN, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"1"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"dpad_east"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_RIGHT, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"1"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"dpad_west"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_LEFT, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"1"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+		"settings"
+		{
+			"requires_click"		"0"
+			"haptic_intensity_override"		"0"
+		}
+	}
+	"group"
+	{
+		"id"		"535"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"requires_click"		"0"
+		}
+	}
+	"group"
+	{
+		"id"		"537"
+		"mode"		"four_buttons"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"button_a"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button A, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_b"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button B, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_x"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button X, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_y"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button Y, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"538"
+		"mode"		"reference"
+		"description"		""
+		"settings"
+		{
+			"referenced_mode"		"210"
+		}
+	}
+	"group"
+	{
+		"id"		"539"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"540"
+		"mode"		"joystick_move"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_LEFT, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"2"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+		"settings"
+		{
+			"deadzone_inner_radius"		"7199"
+		}
+	}
+	"group"
+	{
+		"id"		"541"
+		"mode"		"trigger"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"output_trigger"		"1"
+		}
+	}
+	"group"
+	{
+		"id"		"542"
+		"mode"		"trigger"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"output_trigger"		"2"
+		}
+	}
+	"group"
+	{
+		"id"		"543"
+		"mode"		"joystick_move"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"544"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"dpad_north"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_UP, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"1"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"dpad_south"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_DOWN, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"1"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"dpad_east"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_RIGHT, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"1"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"dpad_west"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_LEFT, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"1"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+		"settings"
+		{
+			"requires_click"		"0"
+			"haptic_intensity_override"		"0"
+		}
+	}
+	"group"
+	{
+		"id"		"545"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"requires_click"		"0"
+		}
+	}
+	"group"
+	{
+		"id"		"546"
+		"mode"		"touch_menu"
+		"name"		"BigPEmu"
+		"description"		""
+		"inputs"
+		{
+			"touch_menu_button_0"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F3, Load State, EmuDeck_LoadState.png, #232323 #00AD00"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_1"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press F2, Save State, EmuDeck_SaveState.png, #232323 #00AD00"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_2"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press BACKSPACE, Rewind, EmuDeck_Rewind.png, #232323 #00ADAD"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_3"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press TAB, Quick Menu, EmuDeck_Menu.png, #232323 #ADA200"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_4"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press SPACE, Fast Forward, EmuDeck_FastForward.png, #232323 #00ADAD"
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_5"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press P, Screenshot, EmuDeck_Screenshot.png, "
+						}
+						"settings"
+						{
+							"long_press_time"		"300"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_6"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action CHANGE_PRESET 32765 1 1, Return to Main Menu, EmuDeck_GraphicsConfig.png, #232323 #E4E4E4"
+						}
+						"settings"
+						{
+							"long_press_time"		"1000"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+		"settings"
+		{
+			"mouse_smoothing"		"0"
+			"touch_menu_opacity"		"100"
+			"touch_menu_scale"		"120"
+		}
+	}
+	"group"
+	{
+		"id"		"548"
+		"mode"		"four_buttons"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"button_a"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button A, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_b"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button B, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_x"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button X, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_y"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button Y, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"549"
+		"mode"		"reference"
+		"description"		""
+		"settings"
+		{
+			"referenced_mode"		"210"
+		}
+	}
+	"group"
+	{
+		"id"		"550"
+		"mode"		"absolute_mouse"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Soft_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"551"
+		"mode"		"joystick_move"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_LEFT, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"2"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+		"settings"
+		{
+			"deadzone_inner_radius"		"7199"
+		}
+	}
+	"group"
+	{
+		"id"		"552"
+		"mode"		"trigger"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"output_trigger"		"1"
+		}
+	}
+	"group"
+	{
+		"id"		"553"
+		"mode"		"trigger"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"output_trigger"		"2"
+		}
+	}
+	"group"
+	{
+		"id"		"554"
+		"mode"		"joystick_move"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"click"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"555"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"dpad_north"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_UP, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"1"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"dpad_south"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_DOWN, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"1"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"dpad_east"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_RIGHT, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"1"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"dpad_west"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button DPAD_LEFT, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"1"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+		"settings"
+		{
+			"requires_click"		"0"
+			"haptic_intensity_override"		"0"
+		}
+	}
+	"group"
+	{
+		"id"		"556"
+		"mode"		"dpad"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+		}
+		"settings"
+		{
+			"requires_click"		"0"
+		}
+	}
+	"group"
+	{
+		"id"		"557"
+		"mode"		"reference"
+		"description"		""
+		"settings"
+		{
+			"referenced_mode"		"546"
+		}
+	}
+	"group"
+	{
+		"id"		"558"
+		"mode"		"reference"
+		"description"		""
+		"settings"
+		{
+			"referenced_mode"		"524"
+		}
+	}
+	"group"
+	{
+		"id"		"559"
+		"mode"		"reference"
+		"description"		""
+		"settings"
+		{
+			"referenced_mode"		"525"
 		}
 	}
 	"group"
@@ -22853,6 +24427,276 @@
 			}
 		}
 	}
+	"group"
+	{
+		"id"		"526"
+		"mode"		"switches"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"button_escape"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button start, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_menu"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button select, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"left_bumper"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button shoulder_left, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"right_bumper"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button shoulder_right, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_capture"
+			{
+				"activators"
+				{
+					"release"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action system_key_1, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"536"
+		"mode"		"switches"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"button_escape"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button start, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_menu"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button select, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"left_bumper"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button shoulder_left, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"right_bumper"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button shoulder_right, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_capture"
+			{
+				"activators"
+				{
+					"release"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action system_key_1, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
+	"group"
+	{
+		"id"		"547"
+		"mode"		"switches"
+		"name"		""
+		"description"		""
+		"inputs"
+		{
+			"button_escape"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button start, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_menu"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button select, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"left_bumper"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button shoulder_left, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"right_bumper"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"xinput_button shoulder_right, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_capture"
+			{
+				"activators"
+				{
+					"release"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action system_key_1, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+		}
+	}
 	"preset"
 	{
 		"id"		"0"
@@ -22869,6 +24713,7 @@
 			"235"		"left_trackpad inactive"
 			"236"		"left_trackpad inactive"
 			"237"		"left_trackpad inactive"
+			"546"		"left_trackpad inactive"
 			"2"		"right_trackpad inactive"
 			"6"		"right_trackpad inactive"
 			"10"		"right_trackpad inactive"
@@ -22902,9 +24747,10 @@
 			"323"		"joystick inactive"
 			"324"		"joystick inactive"
 			"397"		"joystick inactive"
-			"398"		"joystick inactive"
 			"399"		"joystick inactive"
 			"422"		"joystick inactive"
+			"524"		"joystick inactive"
+			"525"		"joystick inactive"
 			"4"		"left_trigger active"
 			"5"		"right_trigger active"
 			"8"		"right_joystick active"
@@ -23518,6 +25364,7 @@
 			"423"		"switch active"
 			"424"		"button_diamond active"
 			"425"		"left_trackpad active"
+			"514"		"right_trackpad active"
 			"426"		"joystick active"
 			"427"		"left_trigger active"
 			"428"		"right_trigger active"
@@ -23535,6 +25382,7 @@
 			"432"		"switch active"
 			"433"		"button_diamond active"
 			"434"		"left_trackpad active"
+			"515"		"right_trackpad active"
 			"435"		"joystick active"
 			"436"		"left_trigger active"
 			"437"		"right_trigger active"
@@ -23552,6 +25400,7 @@
 			"441"		"switch active"
 			"442"		"button_diamond active"
 			"443"		"left_trackpad active"
+			"516"		"right_trackpad active"
 			"444"		"joystick active"
 			"445"		"left_trigger active"
 			"446"		"right_trigger active"
@@ -23569,6 +25418,7 @@
 			"450"		"switch active"
 			"451"		"button_diamond active"
 			"452"		"left_trackpad active"
+			"517"		"right_trackpad active"
 			"453"		"joystick active"
 			"454"		"left_trigger active"
 			"455"		"right_trigger active"
@@ -23586,6 +25436,7 @@
 			"459"		"switch active"
 			"460"		"button_diamond active"
 			"461"		"left_trackpad active"
+			"518"		"right_trackpad active"
 			"462"		"joystick active"
 			"463"		"left_trigger active"
 			"464"		"right_trigger active"
@@ -23603,6 +25454,7 @@
 			"468"		"switch active"
 			"469"		"button_diamond active"
 			"470"		"left_trackpad active"
+			"519"		"right_trackpad active"
 			"471"		"joystick active"
 			"472"		"left_trigger active"
 			"473"		"right_trigger active"
@@ -23620,6 +25472,7 @@
 			"477"		"switch active"
 			"478"		"button_diamond active"
 			"479"		"left_trackpad active"
+			"520"		"right_trackpad active"
 			"480"		"joystick active"
 			"481"		"left_trigger active"
 			"482"		"right_trigger active"
@@ -23637,6 +25490,7 @@
 			"486"		"switch active"
 			"487"		"button_diamond active"
 			"488"		"left_trackpad active"
+			"521"		"right_trackpad active"
 			"489"		"joystick active"
 			"490"		"left_trigger active"
 			"491"		"right_trigger active"
@@ -23654,6 +25508,7 @@
 			"495"		"switch active"
 			"496"		"button_diamond active"
 			"497"		"left_trackpad active"
+			"522"		"right_trackpad active"
 			"498"		"joystick active"
 			"499"		"left_trigger active"
 			"500"		"right_trigger active"
@@ -23671,12 +25526,70 @@
 			"505"		"switch active"
 			"506"		"button_diamond active"
 			"507"		"left_trackpad active"
+			"523"		"right_trackpad active"
 			"508"		"joystick active"
 			"509"		"left_trigger active"
 			"510"		"right_trigger active"
 			"511"		"right_joystick active"
 			"512"		"dpad active"
 			"513"		"gyro active"
+		}
+	}
+	"preset"
+	{
+		"id"		"42"
+		"name"		"Preset_1000043"
+		"group_source_bindings"
+		{
+			"526"		"switch active"
+			"527"		"button_diamond active"
+			"528"		"left_trackpad inactive"
+			"559"		"left_trackpad active"
+			"529"		"right_trackpad active"
+			"530"		"joystick active"
+			"531"		"left_trigger active"
+			"532"		"right_trigger active"
+			"533"		"right_joystick active"
+			"534"		"dpad active"
+			"535"		"gyro active"
+		}
+	}
+	"preset"
+	{
+		"id"		"43"
+		"name"		"Preset_1000044"
+		"group_source_bindings"
+		{
+			"536"		"switch active"
+			"537"		"button_diamond active"
+			"538"		"left_trackpad inactive"
+			"558"		"left_trackpad active"
+			"539"		"right_trackpad active"
+			"540"		"joystick active"
+			"541"		"left_trigger active"
+			"542"		"right_trigger active"
+			"543"		"right_joystick active"
+			"544"		"dpad active"
+			"545"		"gyro active"
+		}
+	}
+	"preset"
+	{
+		"id"		"44"
+		"name"		"Preset_1000045"
+		"group_source_bindings"
+		{
+			"547"		"switch active"
+			"548"		"button_diamond active"
+			"549"		"left_trackpad inactive"
+			"557"		"left_trackpad active"
+			"550"		"right_trackpad active"
+			"551"		"joystick active"
+			"552"		"left_trigger active"
+			"553"		"right_trigger active"
+			"554"		"right_joystick active"
+			"555"		"dpad active"
+			"556"		"gyro active"
 		}
 	}
 	"settings"
