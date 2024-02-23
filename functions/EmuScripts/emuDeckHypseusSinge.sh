@@ -78,7 +78,8 @@ HypseusSinge_setupSaves(){
 HypseusSinge_setupStorage(){
 
     #Populate empty file for ES-DE
-    for file in "${romsPath}/laserdisc/*.daphne"; { 
+    fileDir="${romsPath}/laserdisc/*.daphne"
+    for file in $fileDir; { 
         if [ -e "$file/$file" ]; then
             touch "$file/$file"; 
         fi
