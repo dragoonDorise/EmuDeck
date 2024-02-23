@@ -305,7 +305,8 @@ fi
 		rm -rf $HOME/.var/app/org.flycast.Flycast &> /dev/null
 	fi
 	if [[ "$doUninstallHypseusSinge" == true ]]; then
-		echo "NYI"
+		rm -rf $HOME/Applications/hypseus-singe &> /dev/null
+		rm -rf $HOME/.hypseus &> /dev/null
 	fi
 	if [[ "$doUninstallMame" == true ]]; then
 		flatpak uninstall org.mamedev.MAME -y
