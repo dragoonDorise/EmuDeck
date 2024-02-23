@@ -3,12 +3,7 @@
 HypseusSinge_emuName="Hypseus Singe"
 HypseusSinge_emuType="$emuDeckEmuTypeAppImage"
 HypseusSinge_emuPath="$HOME/Applications/hypseus-singe/Hypseus_Singe-x86_64.AppImage"
-HypseusSinge_configFile="$HOME/.config/PCSX2/inis/PCSX2.ini"
-
-#cleanupOlderThings
-HypseusSinge_cleanup() {
-	echo "NYI"
-}
+# HypseusSinge_configFile="$HOME/.config/"
 
 #Install
 HypseusSinge_install() {
@@ -60,7 +55,17 @@ HypseusSinge_update(){
 
 #ConfigurePaths
 HypseusSinge_setEmulationFolder(){
-	echo "NYI"
+    setMSG "Setting $HypseusSinge_emuName Emulation Folder"
+
+    #create laserdisc folder if missing - new folder
+    if [ -e "${romsPath}/laserdisc/" ]then;
+        mkdir -p $romsPath/laserdisc/
+    fi
+
+	#Setup symlink for bios
+	mkdir -p "${biosPath}/hypseus-singe/"
+	mkdir -p "$HOME/Applications/hypseus-singe/roms/"
+    ln -sn "$HOME/Applications/hypseus-singe/roms/" "${biosPath}/hypseus-singe/bios"
 }
 
 #SetupSaves
