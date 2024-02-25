@@ -77,6 +77,7 @@ CemuProton_init(){
 	CemuProton_setEmulationFolder
 	CemuProton_setupSaves
 	#CemuProton_addSteamInputProfile
+	CemuProton_addESConfig
 
 	if [ -e "${romsPath}/wiiu/controllerProfiles/controller1.xml" ];then
 		mv "${romsPath}/wiiu/controllerProfiles/controller1.xml" "${romsPath}/wiiu/controllerProfiles/controller1.xml.bak"
@@ -96,6 +97,7 @@ CemuProton_update(){
 	CemuProton_setEmulationFolder
 	CemuProton_setupSaves
 	#CemuProton_addSteamInputProfile
+	CemuProton_addESConfig
 }
 
 
@@ -124,6 +126,32 @@ CemuProton_setLanguage(){
 			xmlstarlet ed --inplace  --subnode "content" --type elem -n "console_language" -v "${CemuProton_languages[$language]}" "$CemuProton_cemuSettings"
 		fi
 	fi
+}
+
+CemuProton_addESConfig(){
+
+	#insert cemu custom system if it doesn't exist, but the file does
+	if [[ $(grep -rnw "$es_systemsFile" -e 'wiiu') == "" ]]; then
+		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
+		--var newSystem '$prev' \
+		--subnode '$newSystem' --type elem --name 'name' -v 'wiiu' \
+		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo Wii U' \
+		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/wiiu/roms' \
+		--subnode '$newSystem' --type elem --name 'extension' -v '.rpx .RPX .wud .WUD .wux .WUX .elf .ELF .iso .ISO .wad .WAD .wua .WUA' \
+		--subnode '$newSystem' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -f -g z:%ROM%" \
+		--insert '$newSystem/commandP' --type attr --name 'label' --value "Cemu (Native)" \
+		--subnode '$newSystem' --type elem --name 'commandN' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g %ROM%" \
+		--insert '$newSystem/commandN' --type attr --name 'label' --value "Cemu (Proton)" \
+		--subnode '$newSystem' --type elem --name 'platform' -v 'wiiu' \
+		--subnode '$newSystem' --type elem --name 'theme' -v 'wiiu' \
+		-r 'systemList/system/commandP' -v 'command' \
+		-r 'systemList/system/commandN' -v 'command' \
+		"$es_systemsFile"
+
+		#format doc to make it look nice
+		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+	fi
+    #Custom Systems config end
 }
 
 #SetupSaves
