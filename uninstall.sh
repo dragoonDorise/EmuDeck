@@ -363,10 +363,14 @@ fi
 	if [[ "$doUninstallSupermodel" == true ]]; then
 		flatpak uninstall com.supermodel3.Supermodel -y
 		rm -rf $HOME/.var/app/com.supermodel3.Supermodel &>> /dev/null
+		rm -rf $HOME/.config/supermodel &>> /dev/null
 		rm -rf $HOME/.supermodel &>> /dev/null
+		rm -rf $HOME/.local/share/supermodel &>> /dev/null
 	fi
 	if [[ "$doUninstallVita3K" == true ]]; then
 		rm -rf $HOME/Applications/Vita3K &> /dev/null
+		rm -rf $HOME/.cache/Vita3K &> /dev/null
+		rm -rf $HOME/.config/Vita3K &> /dev/null
 		rm -rf $HOME/.local/share/Vita3K &> /dev/null
 		rm -rf $HOME/.local/share/applications/Vita3K.desktop &> /dev/null
 	fi
@@ -439,6 +443,8 @@ fi
 	rm -rf $HOME/Desktop/EmuDeckSD.desktop &> /dev/null
 	rm -rf $HOME/Desktop/EmuDeckBinUpdate.desktop &> /dev/null
 	rm -rf $HOME/Desktop/SteamRomManager.desktop &> /dev/null
+	rm -rf $HOME/Desktop/uninstall-sdgyrodsu.desktop &> /dev/null
+	rm -rf $HOME/Desktop/update-sdgyrodsu.desktop &> /dev/null
 	rm -rf $HOME/Applications/EmuDeck.AppImage &> /dev/null
 	rm -rf $HOME/Applications/EmuDeck_SaveSync.AppImage &> /dev/null
 	rm -rf $HOME/Applications/RemotePlayWhatever.AppImage &> /dev/null

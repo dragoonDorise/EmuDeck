@@ -105,8 +105,8 @@ Model2_wipeSettings(){
 
 #Uninstall
 Model2_uninstall(){
-	setMSG "Uninstalling $Model2_emuName."
-	rm -rf "${Model2_emuPath}"
+	setMSG "Uninstalling $Model2_emuName. Saves and ROMs will be retained in the ROMs folder."
+	find ${romsPath}/model2 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \; &>> /dev/null
     rm -rf "$HOME/.local/share/applications/Model 2 (Proton).desktop"
     Model2_wipeSettings
 }
