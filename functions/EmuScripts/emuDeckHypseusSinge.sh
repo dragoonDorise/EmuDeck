@@ -21,7 +21,7 @@ HypseusSinge_install() {
 HypseusSinge_init() {
 	setMSG "Initializing $HypseusSinge_emuName settings."
 
-	if [ -e "$HypseusSinge_configFile" ]; then
+	if [ ! -e "$HypseusSinge_configFile" ]; then
 		mv -f "$HypseusSinge_configFile" "$HypseusSinge_configFile.bak"
 	fi
 
@@ -58,7 +58,7 @@ HypseusSinge_setEmulationFolder(){
     setMSG "Setting $HypseusSinge_emuName Emulation Folder"
 
     #create laserdisc folder if missing - new folder
-    if [ -e "${romsPath}/laserdisc/" ]; then
+    if [ ! -e "${romsPath}/laserdisc/" ]; then
         mkdir -p $romsPath/laserdisc/
     fi
 
@@ -80,7 +80,7 @@ HypseusSinge_setupStorage(){
     #Populate empty file for ES-DE
     fileDir="${romsPath}/laserdisc/*.daphne"
     for file in $fileDir; { 
-        if [ -e "$file/$file" ]; then
+        if [ ! -e "$file/$file" ]; then
             touch "$file/$file"; 
         fi
     }
