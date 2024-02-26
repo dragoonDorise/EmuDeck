@@ -178,7 +178,8 @@ CemuProton_wipeSettings(){
 #Uninstall
 CemuProton_uninstall(){
 	setMSG "Uninstalling $CemuProton_emuName."
-	rm -rf "${CemuProton_emuPath}"
+	find ${romsPath}/wiiu -mindepth 1 \( -name roms -o -name mlc01 \) -prune -o -exec rm -rf '{}' \; &>> /dev/null
+	rm -f "$HOME/.local/share/applications/Cemu (Proton).desktop" &> /dev/null
 }
 
 #setABXYstyle
