@@ -68,7 +68,7 @@ Dolphin_setEmulationFolder(){
     echo ""
   	local configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
     gameDirOpt1='ISOPath0 = '
-    gameDirOpt1Setting='ISOPath0 = '"${romsPath}/gc"
+    gameDirOpt1Setting='ISOPath0 = '"${romsPath}/gamecube"
     gameDirOpt2='ISOPath1 = '
     gameDirOpt2Setting='ISOPath1 = '"${romsPath}/wii"
     sed -i "/${gameDirOpt1}/c\\${gameDirOpt1Setting}" "$configFile"
@@ -88,7 +88,40 @@ Dolphin_setupSaves(){
 
 #SetupStorage
 Dolphin_setupStorage(){
-    echo "NYI"#TBD
+
+  if [ -d "${HOME}/.local/share/Steam" ]; then
+    STEAMPATH="${HOME}/.local/share/Steam"
+  elif [ -d "${HOME}/.steam/steam" ]; then
+    STEAMPATH="${HOME}/.steam/steam"
+  else
+    echo "Steam install not found"
+  fi
+
+  if [[ -L "$romsPath/gc" && ! $(readlink -f "$romsPath/gc") =~ ^"$romsPath" ]] || [[ -L "$romsPath/gamecube" && ! $(readlink -f "$romsPath/gamecube") =~ ^"$romsPath" ]]; then
+      echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
+  else
+    if [[ ! -e "$romsPath/gamecube" && ! -e "$romsPath/gc" ]]; then
+      mkdir -p "$romsPath/gc"
+      ln -sfn "$romsPath/gc" "$romsPath/gamecube"
+    elif [[ -d "$romsPath/gamecube" && -L "$romsPath/gc" ]]; then
+      echo "Converting gc symlink to a regular directory..."
+      unlink "$romsPath/gc"
+      mv "$romsPath/gamecube" "$romsPath/gc"
+      ln -sfn "$romsPath/gc" "$romsPath/gamecube"
+      echo "gamecube symlink updated to point to gc"
+    elif [[ -d "$romsPath/gamecube" && ! -e "$romsPath/gc" ]]; then
+      echo "Creating gc directory and updating gamecube symlink..."
+      mv "$romsPath/gamecube" "$romsPath/gc"
+      ln -sfn "$romsPath/gc" "$romsPath/gamecube"
+      echo "gamecube symlink updated to point to gc"
+    elif [[ -d "$romsPath/gc" && ! -e "$romsPath/gamecube" ]]; then
+      echo "gamecube symlink not found, creating..."
+      ln -sfn "$romsPath/gc" "$romsPath/gamecube"
+      echo "gamecube symlink created"
+    fi
+  fi
+
+  find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/gc|${romsPath}/gamecube|g" {} +
 }
 
 

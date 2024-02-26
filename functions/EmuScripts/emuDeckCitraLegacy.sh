@@ -62,10 +62,44 @@ Citra_setupSaves(){
 #SetupStorage
 Citra_setupStorage(){
 
+	if [ -d "${HOME}/.local/share/Steam" ]; then
+		STEAMPATH="${HOME}/.local/share/Steam"
+	elif [ -d "${HOME}/.steam/steam" ]; then
+		STEAMPATH="${HOME}/.steam/steam"
+	else
+		echo "Steam install not found"
+	fi
+
+	if [[ -L "$romsPath/n3ds" && ! $(readlink -f "$romsPath/n3ds") =~ ^"$romsPath" ]] || [[ -L "$romsPath/3ds" && ! $(readlink -f "$romsPath/3ds") =~ ^"$romsPath" ]]; then
+		echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
+	else
+		if [[ ! -e "$romsPath/3ds" && ! -e "$romsPath/n3ds" ]]; then
+			mkdir -p "$romsPath/n3ds"
+			ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
+		elif [[ -d "$romsPath/3ds" && -L "$romsPath/n3ds" ]]; then
+			echo "Converting n3ds symlink to a regular directory..."
+			unlink "$romsPath/n3ds"
+			mv "$romsPath/3ds" "$romsPath/n3ds"
+			ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
+			echo "3ds symlink updated to point to n3ds"
+		elif [[ -d "$romsPath/3ds" && ! -e "$romsPath/n3ds" ]]; then
+			echo "Creating n3ds directory and updating 3ds symlink..."
+			mv "$romsPath/3ds" "$romsPath/n3ds"
+			ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
+			echo "3ds symlink updated to point to n3ds"
+		elif [[ -d "$romsPath/n3ds" && ! -e "$romsPath/3ds" ]]; then
+			echo "3ds symlink not found, creating..."
+			ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
+			echo "3ds symlink created"
+		fi
+	fi
+	find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/n3ds|${romsPath}/3ds|g" {} +
+
+
 	local textureLink="$(readlink -f "$Citra_texturesPath")"
-	if [[ "$textureLink" != "$emulationPath/hdpacks/n3ds" ]]; then
+	if [[ "$textureLink" != "$emulationPath/hdpacks/3ds" ]]; then
 		rm -rf "$Citra_texturesPath"
-		ln -s "$Citra_texturesPath" "$emulationPath/hdpacks/n3ds"
+		ln -s "$Citra_texturesPath" "$emulationPath/hdpacks/3ds"
 	fi
 
 
