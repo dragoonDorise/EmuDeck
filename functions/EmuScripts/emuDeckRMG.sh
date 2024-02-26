@@ -77,6 +77,9 @@ RMG_setEmulationFolder(){
 #SetupSaves
 RMG_setupSaves(){
 
+	mkdir -p "${savesPath}/RMG/saves"
+	mkdir -p "${savesPath}/RMG/states"
+
 	# Saves and Save States
 	Saves='SaveSRAMPath = '
 	SavesSetting="${Saves}""${savesPath}/RMG/saves"

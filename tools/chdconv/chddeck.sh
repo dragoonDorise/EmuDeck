@@ -7,7 +7,7 @@ if [[ "$EMUDECKGIT" == "" ]]; then
 fi
 
 #whitelist
-chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "neogeocdjp" "megacd" "ps2")
+chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "neogeocdjp" "megacd" "ps2" "cdimono1")
 rvzfolderWhiteList=("gamecube" "wii" "primehacks")
 csofolderWhiteList=("psp")
 n3dsfolderWhiteList=("3ds")
@@ -153,7 +153,7 @@ compressXISO() {
 
 }
 
-	compress7z() {
+compress7z() {
 	local sevenZipDir=""
 	sevenZipDir="$(dirname "${file}")"
 	local file=$1

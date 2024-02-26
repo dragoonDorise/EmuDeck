@@ -138,8 +138,8 @@ BigPEmu_wipeSettings(){
 
 #Uninstall
 BigPEmu_uninstall(){
-	setMSG "Uninstalling $BigPEmu_emuName."
-	rm -rf "${BigPEmu_emuPath}"
+	setMSG "Uninstalling $BigPEmu_emuName. ROMs will be retained in the ROMs folder. Saves will be retained in "$HOME/Applications/BigPEmu/UserData"."
+	find "$HOME/Applications/BigPEmu" -mindepth 1 -name UserData -prune -o -exec rm -rf '{}' \; &>> /dev/null
     rm -rf "$HOME/.local/share/applications/BigPEmu (Proton).desktop"
     BigPEmu_wipeSettings
 }

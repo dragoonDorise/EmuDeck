@@ -294,7 +294,7 @@ RetroArch_buildbotDownloader(){
 
 	# Assets
 	if [[ ! -d "$assetsDir" ]] ; then
-		mkdir -p "$assetsDir"
+		mkdir -p "$assetsDir" 
 		curl -L "$RetroArch_assetsURL" -o "$assetsDir/assets.zip" && nice -n 10 unzip -q -o "$assetsDir/assets.zip" -d "$assetsDir" && rm "$assetsDir/assets.zip"
 	fi
 
@@ -2380,9 +2380,12 @@ RetroArch_retroAchievementsOff(){
 
 RetroArch_retroAchievementsHardCoreOn(){
 	RetroArch_setConfigOverride 'cheevos_hardcore_mode_enable' '"true"' "$RetroArch_configFile"
+	RetroArch_setOverride 'FinalBurn Neo.opt' 'FinalBurn Neo'  'fbneo-allow-patched-romsets' '"disabled"'
+
 }
 RetroArch_retroAchievementsHardCoreOff(){
 	RetroArch_setConfigOverride 'cheevos_hardcore_mode_enable' '"false"' "$RetroArch_configFile"
+	RetroArch_setOverride 'FinalBurn Neo.opt' 'FinalBurn Neo'  'fbneo-allow-patched-romsets' '"enabled"'
 }
 
 RetroArch_retroAchievementsPromptLogin(){
