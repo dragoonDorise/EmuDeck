@@ -1118,7 +1118,7 @@
 						}
 						"settings"
 						{
-							"long_press_time"		"3000"
+							"long_press_time"		"1000"
 						}
 					}
 				}
@@ -3008,6 +3008,27 @@
 						"bindings"
 						{
 							"binding"		"controller_action CHANGE_PRESET 32765 1 1, Return to Main Menu, EmuDeck_GraphicsConfig.png, "
+						}
+						"settings"
+						{
+							"long_press_time"		"1000"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"touch_menu_button_4"
+			{
+				"activators"
+				{
+					"Long_Press"
+					{
+						"bindings"
+						{
+							"binding"		"key_press LEFT_ALT, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
+							"binding"		"key_press F4, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
 						}
 						"settings"
 						{
