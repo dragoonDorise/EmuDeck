@@ -944,6 +944,7 @@ function jsonToBashVars(){
 	setSetting doInstallares "$(jq .installEmus.ares.status $json)"
 	setSetting doInstallSupermodel "$(jq .installEmus.supermodel.status $json)"
 	setSetting doInstallModel2  "$(jq .installEmus.model2.status $json)"
+	setSetting doInstallBigPEmu  "$(jq .installEmus.bigpemu.status $json)"
 
 
 	#Setup Emus
@@ -971,7 +972,9 @@ function jsonToBashVars(){
 	setSetting doSetupRMG "$(jq .overwriteConfigEmus.rmg.status $json)"
 	setSetting doSetupares "$(jq .overwriteConfigEmus.ares.status $json)"
 	setSetting doSetupSupermodel "$(jq .overwriteConfigEmus.supermodel.status $json)"
-	setSetting doInstallModel2 "$(jq .overwriteConfigEmus.model2.status $json)"
+	setSetting doSetupModel2 "$(jq .overwriteConfigEmus.model2.status $json)"
+	setSetting doSetupBigPEmu  "$(jq .overwriteConfigEmus.bigpemu.status $json)"
+
 	#Frontends
 	setSetting doSetupSRM "$(jq .overwriteConfigEmus.srm.status $json)"
 	setSetting doSetupESDE "$(jq .overwriteConfigEmus.esde.status $json)"
@@ -1019,7 +1022,7 @@ function jsonToBashVars(){
 	setSetting emuSCUMMVM "$(jq .emulatorAlternative.scummvm $json)"
 
 	#Paths
-	globPath="$(jq .storagePath $json)"
+	globPath=$(jq .storagePath $json)
 	setSetting emulationPath "$globPath/Emulation"
 	setSetting romsPath "$globPath/Emulation/roms"
 	setSetting toolsPath "$globPath/Emulation/tools"

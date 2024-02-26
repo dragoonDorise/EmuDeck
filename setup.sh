@@ -469,41 +469,40 @@ createDesktopIcons
 ##
 #
 
-#if [ "$system" != "darwin" ]; then
+if [ "$system" != "darwin" ]; then
 
 	#If the user is not using chimera we assume he has no pass ( deck user )
-# 	if [ "$system" = "chimeraos" ]; then
-# 		password="gamer"
-# 	else
-# 		password="Decky!"
-# 	fi
-# 	#We try to create a temp password
-# 	pwstatus=0
-# 	yes "$password" | passwd $(whoami) && "$password" | sudo -v -S &>/dev/null && pwstatus=1 || echo "sudo password was incorrect" #refresh sudo cache
-# 	# We can't create the pass?we ask for it
-# 	if [ $pwstatus = 0 ]; then
-# 		read -r password <<< $(Plugins_checkPassword "newPass")
-# 	fi
-#
-# 	if ( echo "$password" | sudo -S -k true ); then
-# 		echo $password | sudo -v -S && {
-# 			Plugins_installEmuDecky $password
-# 			if [ "$system" == "chimeraos" ]; then
-# 				Plugins_installPowerControl $password
-# 			else
-# 				Plugins_installPowerTools $password
-# 			fi
-# 			Plugins_installPluginLoader $password
-# 		}
-# 	fi
-#
-# 	if [ $password = "Decky!" ]; then
-# 		Plugins_install_cleanup "Decky!"
-# 	fi
+	if [ "$system" = "chimeraos" ]; then
+		password="gamer"
+	else
+		password="Decky!"
+	fi
+	#We try to create a temp password
+	pwstatus=0
+	yes "$password" | passwd $(whoami) && echo "$password" | sudo -v -S &>/dev/null && pwstatus=1 || echo "Password already set, we do nothing..." #refresh sudo cache
+	# We install everything in case we've succesfully created a password
+	if [ $pwstatus = 1 ]; then
+		if ( echo "$password" | sudo -S -k true ); then
+			echo $password | sudo -v -S && {
+				Plugins_installEmuDecky $password
+				if [ "$system" == "chimeraos" ]; then
+					Plugins_installPowerControl $password
+				else
+					Plugins_installPowerTools $password
+				fi
+				Plugins_installPluginLoader $password
+			}
+		fi
 
-#fi
+		if [ $password = "Decky!" ]; then
+			Plugins_install_cleanup "Decky!"
+		fi
+	fi
 
-#Plugins_installSteamDeckGyroDSU
+fi
+
+#GyroDSU
+Plugins_installSteamDeckGyroDSU
 
 #EmuDeck updater on gaming Mode
 #mkdir -p "${toolsPath}/updater"

@@ -21,5 +21,6 @@
   "scummvm": { "id": "scummvm", "code": "ScummVM", "version": 0 },
   "xenia": { "id": "xenia", "code": "Xenia", "version": 0 },
   "mgba": { "id": "mgba", "code": "mGBA", "version": 0 },
-  "flycast": { "id": "flycast", "code": "Flycast", "version": 0 }
+  "flycast": { "id": "flycast", "code": "Flycast", "version": 0 },
+  "bigpemu": { "id": "bigpemu", "code": "BigPemu", "version": 0 }
 }

@@ -561,7 +561,7 @@
                         "Triggers": [
                             {
                                 "B_KB": true,
-                                "B_ID": 1,
+                                "B_ID": 15,
                                 "B_AH": 0.0
                             },
                             {
@@ -580,7 +580,7 @@
                         "Triggers": [
                             {
                                 "B_KB": true,
-                                "B_ID": 60,
+                                "B_ID": 57,
                                 "B_AH": 0.0
                             },
                             {
@@ -606,6 +606,11 @@
                                 "M_ID": 130,
                                 "M_AH": 1.0,
                                 "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            },
+                            {
+                                "B_KB": true,
+                                "B_ID": 14,
+                                "B_AH": 0.0
                             }
                         ]
                     },
@@ -620,6 +625,11 @@
                                 "M_ID": 6,
                                 "M_AH": 0.0,
                                 "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            },
+                            {
+                                "B_KB": true,
+                                "B_ID": 60,
+                                "B_AH": 0.0
                             }
                         ]
                     },
@@ -634,6 +644,11 @@
                                 "M_ID": 6,
                                 "M_AH": 0.0,
                                 "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            },
+                            {
+                                "B_KB": true,
+                                "B_ID": 61,
+                                "B_AH": 0.0
                             }
                         ]
                     },
@@ -648,6 +663,11 @@
                                 "M_ID": 6,
                                 "M_AH": 0.0,
                                 "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            },
+                            {
+                                "B_KB": true,
+                                "B_ID": 25,
+                                "B_AH": 0.0
                             }
                         ]
                     },
@@ -1835,6 +1855,7 @@
         "ScriptSettings": {},
         "ROMPath": "Z:\\home\\deck\\Emulation\\roms\\atarijaguar",
         "SetDisc": "",
+        "RecentFiles": [],
         "ScreenEffectOptions": []
     }
 }

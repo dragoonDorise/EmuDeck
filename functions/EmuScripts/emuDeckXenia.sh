@@ -145,7 +145,7 @@ Xenia_setEmulationFolder(){
 
 #SetupSaves
 Xenia_setupSaves(){
-	echo "NYI"
+	linkToSaveFolder xenia saves "$romsPath/xenia/content"
 }
 
 

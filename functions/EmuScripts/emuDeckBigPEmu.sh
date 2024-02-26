@@ -15,23 +15,25 @@ BigPEmu_cleanup(){
 BigPEmu_install(){
 	setMSG "Installing $BigPEmu_emuName"
 
-	mkdir -p "$HOME/Applications/BigPEmu"
-	downloadBigPEmu=$(wget -m -nd -A "BigPEmu_*.zip" -O "$HOME/Applications/BigPEmu/BigPEmu.zip" "https://www.richwhitehouse.com/jaguar/index.php?content=download" -R "BigPEmu_*-DEV.zip")
+	mkdir -p $BigPEmu_appData
 
-	local showProgress="$1"
-    if $downloadBigPEmu; then
+	BigPEmudownloadLink=$(curl -s "https://www.richwhitehouse.com/jaguar/index.php?content=download" | grep -o 'https://www\.richwhitehouse\.com/jaguar/builds/BigPEmu_v[0-9]*\.zip' | grep -v "BigPEmu_*-DEV.zip" | head -n 1)
+
+	if safeDownload "BigPEmu" "$BigPEmudownloadLink" "$HOME/Applications/BigPEmu/BigPEmu.zip" "$showProgress"; then
 		
 		unzip -o "$HOME/Applications/BigPEmu/BigPEmu.zip" -d "$HOME/Applications/BigPEmu"
 		rm -f "$HOME/Applications/BigPEmu/BigPEmu.zip"
+
 	else
 		return 1
-	fi
+	fi	
 
 	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$toolsPath/launchers/bigpemu.sh"
-	# So users can still open it from the ~/Applications folder.
+	# So users can still open BigPEmu from the ~/Applications folder.
 	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$HOME/Applications/BigPEmu/bigpemu.sh"
 
 	chmod +x "${toolsPath}/launchers/bigpemu.sh"
+	chmod +x "$HOME/Applications/BigPEmu/bigpemu.sh"
 
 	createDesktopShortcut   "$HOME/.local/share/applications/BigPEmu (Proton).desktop" \
 							"BigPEmu (Proton)" \
