@@ -350,6 +350,7 @@ fi
 		rm -rf "$HOME/.config/rpcs3" &> /dev/null
 		rm -rf "$HOME/.cache/rpcs3" &> /dev/null
 		rm -rf $HOME/.local/share/applications/RPCS3.desktop &> /dev/null
+		rm -rf $HOME/Applications/rpcs3.AppImage &> /dev/null
 	fi
 	if [[ "$doUninstallRyujinx" == true ]]; then
 		rm -rf $HOME/.config/Ryujinx &> /dev/null
@@ -467,6 +468,7 @@ fi
 	rm -rf "$HOME/.local/share/applications/Steam ROM Manager.desktop" &> /dev/null
 	rm -rf "$HOME/.local/share/applications/EmulationStation-DE.desktop" &> /dev/null 
 	rm -rf "$toolsPath/EmulationStation-DE.AppImage"
+	rm -rf $HOME/Applications/EmulationStation-DE.AppImage &> /dev/null 
 	# Not sure what to do with this. ULWGL will become a dependency for Heroic and Lutris soon, will leave this commented out for now and add smarter detection later.
 	# rm -rf "$HOME/.local/share/ULWGL"
 	# Pegasus
