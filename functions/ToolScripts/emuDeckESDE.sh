@@ -1,12 +1,13 @@
 #!/bin/bash
 #variables
-ESDE_toolName="EmulationStation-DE"
+ESDE_toolName="ES-DE"
+ESDE_oldtoolName="EmulationStation-DE"
 ESDE_downloadedToolName="EmulationStation-DE-x64_SteamDeck.AppImage"
 ESDE_toolType="AppImage"
 ESDE_oldConfigDirectory="$ESDE_newConfigDirectory"
 ESDE_newConfigDirectory="$HOME/ES-DE"
 ESDE_toolLocation="$HOME/Applications"
-ESDE_toolPath="${ESDE_toolLocation}/EmulationStation-DE.AppImage"
+ESDE_toolPath="${ESDE_toolLocation}/ES-DE.AppImage"
 ESDE_releaseURL="https://gitlab.com/es-de/emulationstation-de/-/package_files/76389058/download" #default URl in case of issues parsing json
 ESDE_releaseMD5="b749b927d61317fde0250af9492a4b9f" #default hash
 ESDE_prereleaseURL=""
@@ -15,7 +16,7 @@ ESDE_releaseJSON="https://gitlab.com/es-de/emulationstation-de/-/raw/master/late
 ESDE_addSteamInputFile="$EMUDECKGIT/configs/steam-input/emulationstation-de_controller_config.vdf"
 steam_input_templateFolder="$HOME/.steam/steam/controller_base/templates/"
 es_systemsFile="$ESDE_newConfigDirectory/custom_systems/es_systems.xml"
-es_settingsFile="$ESDE_newConfigDirectory/es_settings.xml"
+es_settingsFile="$ESDE_newConfigDirectory/settings/es_settings.xml"
 es_rulesFile="$ESDE_newConfigDirectory/custom_systems/es_find_rules.xml"
 
 
@@ -42,32 +43,32 @@ ESDE_migration(){
 
 	if [ -f "${toolsPath}/$ESDE_downloadedToolName" ] && [ ! -L "${toolsPath}/$ESDE_downloadedToolName" ]; then
 		mv "${toolsPath}/$ESDE_downloadedToolName" "$ESDE_toolPath"
-		sed -i "s|$ESDE_downloadedToolName|$ESDE_toolName|g" "$ESDE_toolLocation/launchers/esde/emulationstationde.sh"
+		sed -i "s|$ESDE_downloadedToolName|$ESDE_toolName|g" "$ESDE_toolLocation/launchers/es-de/es-de.sh"
 		echo "$ESDE_toolName successfully migrated and linked."
 	fi
 
-	if [ -f "${toolsPath}/$ESDE_toolName.AppImage" ] && [ ! -L "${toolsPath}/$ESDE_toolName.AppImage" ]; then
+	if [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ] && [ ! -L "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 
-		mv "${toolsPath}/$ESDE_toolName.AppImage" "$ESDE_toolPath"
-		ln -s  "$ESDE_toolPath" "${toolsPath}/$ESDE_toolName.AppImage"
+		mv "${toolsPath}/$ESDE_oldtoolName.AppImage" "$ESDE_toolPath"
+		ln -s  "$ESDE_toolPath" "${toolsPath}/$ESDE_oldtoolName.AppImage"
 		echo "$ESDE_toolName successfully migrated and linked."
 	fi
 
 }
 
-ESDE_createDesktopShortcut(){
+ESDE_customDesktopShortcut(){
 
-	mkdir -p "$toolsPath/launchers/esde"
-	cp "$EMUDECKGIT/tools/launchers/esde/emulationstationde.sh" "$toolsPath/launchers/esde/emulationstationde.sh"
-	rm -rf $HOME/.local/share/applications/$ESDE_toolName.desktop
+	mkdir -p "$toolsPath/launchers/es-de"
+	cp "$EMUDECKGIT/tools/launchers/es-de/es-de.sh" "$toolsPath/launchers/es-de/es-de.sh"
+	rm -rf $HOME/.local/share/applications/$ESDE_oldtoolName.desktop
 	createDesktopShortcut   "$HOME/.local/share/applications/$ESDE_toolName.desktop" \
-	"$ESDE_toolName AppImage" \
-	"${toolsPath}/launchers/esde/emulationstationde.sh" \
-	"false"
+		"$ESDE_toolName AppImage" \
+		"${toolsPath}/launchers/es-de/es-de.sh" \
+		"false"
 }
 
 ESDE_uninstall(){
-  rm -rf "${toolsPath}/$ESDE_toolName.AppImage"
+  rm -rf "${toolsPath}/$ESDE_oldtoolName.AppImage"
   rm -rf "${toolsPath}/$ESDE_downloadedToolName"
   rm -rf "$ESDE_toolPath"
   rm -rf $HOME/.local/share/applications/$ESDE_toolName.desktop
@@ -89,7 +90,7 @@ ESDE_install(){
 	if [[ $ESDE_releaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
 		if safeDownload "$ESDE_toolName" "$ESDE_releaseURL" "$ESDE_toolPath" "$showProgress"; then
 			chmod +x "$ESDE_toolPath"
-			ESDE_createDesktopShortcut
+			ESDE_customDesktopShortcut
 		else
 			return 1
 		fi
@@ -110,7 +111,7 @@ ESDE_init(){
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
 
-	cp -r "$EMUDECKGIT/tools/launchers/esde/." "$toolsPath/launchers/esde/" && chmod +x "$toolsPath/launchers/esde/emulationstationde.sh"
+	cp -r "$EMUDECKGIT/tools/launchers/es-de/." "$toolsPath/launchers/es-de/" && chmod +x "$toolsPath/launchers/es-de/es-de.sh"
 
 	ESDE_addCustomSystems
 	ESDE_setEmulationFolder

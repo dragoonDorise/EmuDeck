@@ -1,13 +1,13 @@
 {
   "parserType": "Glob",
-  "configTitle": "ES-DE - EmulationStation-DE",
+  "configTitle": "ES-DE",
   "steamDirectory": "${steamdirglobal}",
   "steamCategory": "${Emulation}",
-  "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/launchers/esde/",
+  "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/launchers/es-de/",
   "executableArgs": "",
   "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
-  "titleModifier": "EmulationStation DE",
+  "titleModifier": "ES-DE",
   "fetchControllerTemplatesButton": null,
   "removeControllersButton": null,
   "imageProviders": ["SteamGridDB"],
@@ -17,7 +17,7 @@
     "specifiedAccounts": ""
   },
   "executable": {
-    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/esde/emulationstationde.sh",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/es-de/es-de.sh",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },
