@@ -30,6 +30,16 @@
     <theme>model2</theme>
   </system>
   <system>
+      <name>ps3</name>
+      <fullname>Sony PlayStation 3</fullname>
+      <path>%ROMPATH%/ps3</path>
+      <extension>.desktop .ps3 .PS3 .ps3dir .PS3DIR</extension>
+      <command label="RPCS3 Shortcut (Standalone)">LD_LIBRARY_PATH=/usr/lib:/usr/local/lib %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+      <command label="RPCS3 Directory (Standalone)">LD_LIBRARY_PATH=/usr/lib:/usr/local/lib %EMULATOR_RPCS3% --no-gui %ROM%</command>
+      <platform>ps3</platform>
+      <theme>ps3</theme>
+  </system>
+  <system>
     <name>xbox360</name>
     <fullname>Microsoft Xbox 360</fullname>
     <path>%ROMPATH%/xbox360/roms</path>
