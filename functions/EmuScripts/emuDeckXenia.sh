@@ -63,6 +63,7 @@ Xenia_init(){
 	rsync -avhp "$EMUDECKGIT/configs/xenia/" "$romsPath/xbox360"
 	mkdir -p "$romsPath/xbox360/roms/xbla"
 	Xenia_addESConfig
+	Xenia_setupSaves
 }
 
 Xenia_addESConfig(){
@@ -136,6 +137,7 @@ function Xenia_getPatches() {
 #update
 Xenia_update(){
 	echo "NYI"
+	Xenia_setupSaves
 }
 
 #ConfigurePaths
@@ -145,7 +147,8 @@ Xenia_setEmulationFolder(){
 
 #SetupSaves
 Xenia_setupSaves(){
-	linkToSaveFolder xenia saves "$romsPath/xenia/content"
+	mkdir -p "$romsPath/xbox360/content"
+	linkToSaveFolder xenia saves "$romsPath/xbox360/content"
 }
 
 
@@ -163,7 +166,9 @@ Xenia_wipeSettings(){
 
 #Uninstall
 Xenia_uninstall(){
-	rm -rf "${Xenia_emuPath}"
+	setMSG "Uninstalling $Xenia_emuName. Saves and ROMs will be retained in the ROMs folder."
+	find ${romsPath}/xbox360 -mindepth 1 \( -name roms -o -name content \) -prune -o -exec rm -rf '{}' \; &>> /dev/null
+	rm -rf $HOME/.local/share/applications/xenia.desktop &> /dev/null
 }
 
 #setABXYstyle
