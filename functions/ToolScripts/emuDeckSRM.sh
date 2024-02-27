@@ -12,7 +12,7 @@ SRM_install(){
   local showProgress="$1"
 
   if installToolAI "$SRM_toolName" "$(getReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")" "" "$showProgress"; then
-    SRM_createDesktopShortcut
+    SRM_customDesktopShortcut
   else
     return 1
   fi
@@ -21,28 +21,32 @@ SRM_install(){
 SRM_uninstall(){
   rm -rf "${toolsPath}/Steam ROM Manager.AppImage"
   rm -rf $HOME/.local/share/applications/SRM.desktop
+  rm -rf "$HOME/.local/share/applications/Steam ROM Manager.desktop"
 }
 
-SRM_createDesktopShortcut(){
+SRM_customDesktopShortcut(){
   mkdir -p "$toolsPath/launchers/srm"
   cp "$EMUDECKGIT/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
   rm -rf $HOME/.local/share/applications/SRM.desktop
+  
   createDesktopShortcut   "$HOME/.local/share/applications/Steam ROM Manager.desktop" \
-  "Steam ROM Manager AppImage" \
-  "${toolsPath}/launchers/srm/steamrommanager.sh" \
-  "false"
+    "Steam-ROM-Manager AppImage" \
+    "${toolsPath}/launchers/srm/steamrommanager.sh" \
+    "false"
 }
 
 SRM_migration(){
   if [ -f "${toolsPath}/srm/Steam-ROM-Manager.AppImage" ]; then
+
     mv "${toolsPath}/srm/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" &> /dev/null
-    SRM_createDesktopShortcut
+    SRM_customDesktopShortcut
 
-	SRM_init
+	  SRM_createParsers
+	  SRM_addSteamInputProfiles
 
-	Citra_resetConfig
-	PCSX2QT_resetConfig
-	DuckStation_resetConfig
+	  Citra_resetConfig
+	  PCSX2QT_resetConfig
+	  DuckStation_resetConfig
   fi
 }
 
