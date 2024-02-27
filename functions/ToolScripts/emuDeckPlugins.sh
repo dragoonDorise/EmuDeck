@@ -40,6 +40,7 @@ Plugins_checkPassword(){
 }
 
 Plugins_installPluginLoader(){
+	echo "Installing Decky"
    local password=$1
    local PluginLoader_releaseURL="https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/install_release.sh"
    #if [ ! -f $HOME/.steam/steam/.cef-enable-remote-debugging ]; then
@@ -53,6 +54,7 @@ Plugins_installPluginLoader(){
 }
 
 Plugins_installPowerTools(){
+	echo "Installing PowerTools"
    local password=$1
    local ptHash
    Plugins_checkPassword $password
@@ -72,6 +74,7 @@ Plugins_installPowerTools(){
 }
 
 Plugins_installPowerControl(){
+	echo "Installing PowerControl"
    local password=$1
    local destinationFolder="$HOME/homebrew/plugins/EmuDecky"
    local PowerControl_releaseURL="$(getLatestReleaseURLGH "mengmeet/PowerControl" ".tar.gz")"
@@ -97,6 +100,7 @@ Plugins_installDeckyControls(){
   Plugins_installEmuDecky $password
 }
 Plugins_installEmuDecky(){
+   echo "Installing EmuDecky"
    local password=$1
    local destinationFolder="$HOME/homebrew/plugins/EmuDecky"
    local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/EmuDecky" ".zip")"
@@ -118,6 +122,7 @@ Plugins_installEmuDecky(){
 }
 
 Plugins_installSteamDeckGyroDSU(){
+	echo "Installing GyroDSU"
    local SDGyro_releaseURL="https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh"
    curl -L $SDGyro_releaseURL --output /tmp/sdgyro.sh && chmod +x /tmp/sdgyro.sh && /tmp/sdgyro.sh && rm /tmp/sdgyro.sh
 }
