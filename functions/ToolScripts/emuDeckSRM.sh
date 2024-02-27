@@ -28,7 +28,7 @@ SRM_customDesktopShortcut(){
   mkdir -p "$toolsPath/launchers/srm"
   cp "$EMUDECKGIT/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
   rm -rf $HOME/.local/share/applications/SRM.desktop
-  
+
   createDesktopShortcut   "$HOME/.local/share/applications/Steam ROM Manager.desktop" \
     "Steam-ROM-Manager AppImage" \
     "${toolsPath}/launchers/srm/steamrommanager.sh" \
@@ -41,8 +41,7 @@ SRM_migration(){
     mv "${toolsPath}/srm/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" &> /dev/null
     SRM_customDesktopShortcut
 
-	  SRM_createParsers
-	  SRM_addSteamInputProfiles
+	  SRM_init
 
 	  Citra_resetConfig
 	  PCSX2QT_resetConfig
