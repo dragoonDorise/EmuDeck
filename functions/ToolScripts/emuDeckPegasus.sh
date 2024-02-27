@@ -40,7 +40,7 @@ pegasus_init(){
 
 	for systemPath in "$romsPath"/*; do system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/'); mkdir -p "$toolsPath/downloaded_media/$system/covers"; mkdir -p "$toolsPath/downloaded_media/$system/box2dfront" ; mkdir -p "$toolsPath/downloaded_media/$system/marquees"; mkdir -p "$toolsPath/downloaded_media/$system/wheel" &> /dev/null; done
 
-	for systemPath in "$romsPath"/*; do system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/'); ln -s "$toolsPath/downloaded_media/$system" "$systemPath/media" &> /dev/null; ln -s "$toolsPath/downloaded_media/$system/covers" "$toolsPath/downloaded_media/$system/box2dfront" &> /dev/null; ln -s "$toolsPath/downloaded_media/$system/marquees" "$toolsPath/downloaded_media/$system/wheel" &> /dev/null; done
+	for systemPath in "$romsPath"/*; do system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/'); ln -s "$toolsPath/downloaded_media/$system" "$systemPath/media" &> /dev/null; ln -s "$toolsPath/downloaded_media/$system/covers/" "$toolsPath/downloaded_media/$system/box2dfront/" &> /dev/null; ln -s "$toolsPath/downloaded_media/$system/marquees/" "$toolsPath/downloaded_media/$system/wheel/" &> /dev/null; done
 
 	for systemPath in "$romsPath"/*; do rm -rf ".*/" &> /dev/null; done
 
