@@ -271,6 +271,7 @@ fi
 	if [[ "$doUninstallBigPEmu" == true ]]; then
 		rm -rf $HOME/Applications/BigPEmu &>> /dev/null
 		rm -rf $HOME/.local/share/applications/BigPEmu.desktop &>> /dev/null
+		rm -rf "$HOME/.local/share/applications/BigPEmu (Proton).desktop" &>> /dev/null
 	fi
 	if [[ "$doUninstallCemu" == true ]]; then
 		find ${romsPath}/wiiu -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \;
@@ -316,7 +317,10 @@ fi
 	fi
 	if [[ "$doUninstallModel2" == true ]]; then
 		find ${romsPath}/model2 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \; &>> /dev/null
+		# Leaving this here for Patreon users stuck with the old name. 
 		rm -f "$HOME/.local/share/applications/Model 2 (Proton).desktop" &> /dev/null
+		# Current name.
+		rm -f "$HOME/.local/share/applications/Model 2 Emulator (Proton).desktop" &> /dev/null
 	fi
 	if [[ "$doUninstallPCSX2" == true ]]; then
 		rm -rf $HOME/Applications/pcsx2-Qt.AppImage &> /dev/null
@@ -465,16 +469,19 @@ fi
 	rm -rf "$HOME/.local/share/applications/Steam ROM Manager.desktop" &> /dev/null
 	# EmulationStation-DE
 	rm -rf $HOME/.emulationstation
-	rm -rf "$HOME/.local/share/applications/Steam ROM Manager.desktop" &> /dev/null
-	rm -rf "$HOME/.local/share/applications/EmulationStation-DE.desktop" &> /dev/null 
-	rm -rf "$toolsPath/EmulationStation-DE.AppImage"
+	rm -rf "$HOME/ES-DE" &> /dev/null
+	rm -rf "$toolsPath/EmulationStation-DE.AppImage" &> /dev/null 
 	rm -rf $HOME/Applications/EmulationStation-DE.AppImage &> /dev/null 
-	# Not sure what to do with this. ULWGL will become a dependency for Heroic and Lutris soon, will leave this commented out for now and add smarter detection later.
-	# rm -rf "$HOME/.local/share/ULWGL"
+	rm -rf $HOME/Applications/ES-DE.AppImage &> /dev/null 
+	rm -rf "$HOME/.local/share/applications/EmulationStation-DE.desktop" &> /dev/null 
+	rm -rf "$HOME/.local/share/applications/ES-DE.desktop" &> /dev/null 
+ 	# ULWGL
+	rm -rf "$HOME/.local/share/ULWGL" &> /dev/null
+	# SteamDeckGyroDSU
+	rm -rf "$HOME/sdgyrodsu" &> /dev/null
 	# Pegasus
 	flatpak uninstall org.pegasus_frontend.Pegasus -y
 	rm -rf "$HOME/.var/app/org.pegasus_frontend.Pegasus/" &> /dev/null 
-	rm -rf "$HOME/.local/share/applications/Pegasus.desktop" &> /dev/null
 
 	echo "90"
 	echo "# Removing EmuDeck folders";

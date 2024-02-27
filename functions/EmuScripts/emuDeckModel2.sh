@@ -1,6 +1,6 @@
 #!/bin/bash
 #variables
-Model2_emuName="Model 2 (Proton)"
+Model2_emuName="Model-2-Emulator"
 Model2_emuType="$emuDeckEmuTypeWindows"
 Model2_emuPath="${romsPath}/model2/EMULATOR.EXE"
 Model2_configFile="${romsPath}/model2/EMULATOR.INI"
@@ -32,7 +32,12 @@ Model2_install(){
 		return 1
 	fi	
 
-  cp "$EMUDECKGIT/tools/launchers/model2.sh" "$toolsPath/launchers/model2.sh"
+	cp "$EMUDECKGIT/tools/launchers/model2.sh" "$toolsPath/launchers/model2.sh"
+
+  	createDesktopShortcut   "$HOME/.local/share/applications/Model 2 Emulator (Proton).desktop" \
+							"$Model2_emuName (Proton)" \
+							"${toolsPath}/launchers/model2.sh"  \
+							"False"
 
 
 }
@@ -46,20 +51,11 @@ Model2_init(){
 	rsync -avhp "$EMUDECKGIT/configs/model2/" "${romsPath}/model2" --backup --suffix=.bak
 	Model2_addESConfig
 	Model2_downloadProtonGE
-	Model2_createDesktopShortcut
 	Model2ULWGL_install	
 
 }
 
 
-Model2_createDesktopShortcut(){
-
-	createDesktopShortcut   "$HOME/.local/share/applications/Model 2 (Proton).desktop" \
-							"Model 2 Emulator (Proton)" \
-							"${toolsPath}/launchers/model2.sh"  \
-							"False"
-
-}
 
 Model2_addESConfig(){
 	if [[ $(grep -rnw "$es_systemsFile" -e 'model2') == "" ]]; then
@@ -107,7 +103,7 @@ Model2_wipeSettings(){
 Model2_uninstall(){
 	setMSG "Uninstalling $Model2_emuName. Saves and ROMs will be retained in the ROMs folder."
 	find ${romsPath}/model2 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \; &>> /dev/null
-    rm -rf "$HOME/.local/share/applications/Model 2 (Proton).desktop"
+    rm -rf "$HOME/.local/share/applications/Model 2 Emulator (Proton).desktop"
     Model2_wipeSettings
 }
 
