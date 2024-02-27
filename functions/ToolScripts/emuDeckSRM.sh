@@ -38,8 +38,7 @@ SRM_migration(){
     mv "${toolsPath}/srm/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" &> /dev/null
     SRM_createDesktopShortcut
 
-	SRM_createParsers
-	SRM_addSteamInputProfiles
+	SRM_init
 
 	Citra_resetConfig
 	PCSX2QT_resetConfig
