@@ -502,7 +502,7 @@ if [ "$system" != "darwin" ]; then
 fi
 
 #GyroDSU
-Plugins_installSteamDeckGyroDSU
+#Plugins_installSteamDeckGyroDSU
 
 #EmuDeck updater on gaming Mode
 #mkdir -p "${toolsPath}/updater"
