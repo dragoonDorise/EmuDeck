@@ -43,7 +43,7 @@ SRM_migration(){
 
 	  SRM_init
 
-	  Citra_resetConfig
+	  #Citra_resetConfig
 	  PCSX2QT_resetConfig
 	  DuckStation_resetConfig
   fi
