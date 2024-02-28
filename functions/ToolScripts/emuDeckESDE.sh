@@ -11,7 +11,7 @@ ESDE_prereleaseURL=""
 ESDE_prereleaseMD5=""
 ESDE_releaseJSON="https://gitlab.com/es-de/emulationstation-de/-/raw/master/latest_release.json"
 es_systemsFile="$ESDE_newConfigDirectory/custom_systems/es_systems.xml"
-es_settingsFile="$ESDE_newConfigDirectory/es_settings.xml"
+es_settingsFile="$ESDE_newConfigDirectory/settings/es_settings.xml"
 es_rulesFile="$ESDE_newConfigDirectory/custom_systems/es_find_rules.xml"
 
 
