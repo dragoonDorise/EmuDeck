@@ -103,6 +103,7 @@ ESDE_init(){
 	ESDE_migration
 
 	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
+	mkdir -p "$ESDE_newConfigDirectory/settings"
 
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
@@ -149,6 +150,7 @@ ESDE_update(){
 	ESDE_migration
 
 	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
+	mkdir -p "$ESDE_newConfigDirectory/settings"
 
 	#update es_settings.xml
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --ignore-existing
