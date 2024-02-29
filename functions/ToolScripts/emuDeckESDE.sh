@@ -105,6 +105,7 @@ ESDE_init(){
 	setMSG "Setting up $ESDE_toolName"
 
 	ESDE_migration
+	ESDE_junksettingsFile
 
 	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
 	mkdir -p "$ESDE_newConfigDirectory/settings"
@@ -148,6 +149,7 @@ ESDE_update(){
 	setMSG "Setting up $ESDE_toolName"
 
 	ESDE_migration
+	ESDE_junksettingsFile
 
 	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
 	mkdir -p "$ESDE_newConfigDirectory/settings"
@@ -164,6 +166,22 @@ ESDE_update(){
 	#ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
 }
+
+ESDE_junksettingsFile(){
+
+junkSettingsFile="$ESDE_newConfigDirectory/settings"
+
+	if [ -f "$junkSettingsFile" ]; then
+		rm -f "$junkSettingsFile"
+		echo "'$junkSettingsFile' deleted."
+	else
+		echo "File '$junkSettingsFile' does not exist."
+	fi
+
+
+}
+
+
 
 ESDE_addCustomSystems(){
 
@@ -204,20 +222,6 @@ ESDE_setEmulationFolder(){
 
 	#insert new commands
 	if [[ ! $(grep -rnw "$es_systemsFile" -e 'wiiu') == "" ]]; then
-		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Proton)') == "" ]]; then
-			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%" \
-			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Cemu (Proton)" \
-			-r 'systemList/system/commandP' -v 'command' \
-			"$es_systemsFile"
-
-			#format doc to make it look nice
-			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-		else
-			#update
-			cemuProtonCommandString="/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%"
-			xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Proton)"]' -v "$cemuProtonCommandString" "$es_systemsFile"
-		fi
 		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Native)') == "" ]]; then
 			#insert
 			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandN' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%" \
@@ -231,6 +235,20 @@ ESDE_setEmulationFolder(){
 			#update
 			cemuNativeCommandString="/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Native)"]' -v "$cemuNativeCommandString" "$es_systemsFile"
+		fi
+		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Proton)') == "" ]]; then
+			#insert
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%" \
+			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Cemu (Proton)" \
+			-r 'systemList/system/commandP' -v 'command' \
+			"$es_systemsFile"
+
+			#format doc to make it look nice
+			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		else
+			#update
+			cemuProtonCommandString="/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%"
+			xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Proton)"]' -v "$cemuProtonCommandString" "$es_systemsFile"
 		fi
 	fi
 	if [[ ! $(grep -rnw "$es_systemsFile" -e 'xbox360') == "" ]]; then
