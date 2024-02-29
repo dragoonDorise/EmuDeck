@@ -436,6 +436,18 @@ fi
 	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_xbox360.vdf  &> /dev/null
 	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_xboxone.vdf  &> /dev/null
 	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck-xl_radial-menus.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_ps5_dualsense_edge.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_steamdeck_radial_menus.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_frontend_controller_generic.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_frontend_controller_ps4.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_frontend_controller_ps5_dualsense_edge.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_frontend_controller_ps5.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_frontend_controller_steamdeck.vdf  &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_frontend_controller_switch_pro.vdf &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_frontend_controller_xbox360.vdf &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_frontend_controller_xboxone.vdf &> /dev/null
+
+
 
 	find  "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons" -name 'EmuDeck*' -exec rm {} \;
 
