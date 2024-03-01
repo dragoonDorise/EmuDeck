@@ -376,7 +376,7 @@ ESDE_setDefaultEmulators(){
 	ESDE_setEmu 'PPSSPP (Standalone)' psp
 	ESDE_setEmu 'Dolphin (Standalone)' wii
 	ESDE_setEmu 'PCSX2 (Standalone)' ps2
-	ESDE_setEmu 'melonDS' nds
+	ESDE_setEmu 'melonDS DS' nds
 	ESDE_setEmu 'Citra (Standalone)' /3ds
 	ESDE_setEmu 'Beetle Lynx' atarilynx
 	ESDE_setEmu 'DuckStation (Standalone)' psx
