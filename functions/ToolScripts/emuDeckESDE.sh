@@ -279,7 +279,7 @@ ESDE_setEmulationFolder(){
 			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 		else
 			#update
-			model2ProtonCommandString="/bin/bash ${toolsPath}/launchers/model2.sh %ROM%"
+			model2ProtonCommandString="/bin/bash ${toolsPath}/launchers/model2.sh %BASENAME%"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Model 2 Emulator (Proton)"]' -v "$model2ProtonCommandString" "$es_systemsFile"
 		fi
 	fi
