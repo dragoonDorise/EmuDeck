@@ -7,7 +7,7 @@
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "\"'${filePath}'\"",
+  "executableArgs": "\"${filePath}\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
@@ -16,7 +16,7 @@
     "specifiedAccounts": ""
   },
   "parserInputs": {
-    "glob": "**/${title}@(.7z|.7Z|.cdi|.CDI|.chd|.CHD|.cue|.CUE|.gdi|.GDI|.m3u|.M3U)"
+    "glob": "**/${title}@(.bin|.BIN|.dat|.DAT|.elf|.ELF|.lst|.LST|.7z|.7Z|.zip|.ZIP)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
