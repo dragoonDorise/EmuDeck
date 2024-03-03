@@ -296,8 +296,13 @@ if [ "$selection" == "bulk" ]; then
 				compressCHD "$f"
 			done
 			find "$romsPath/$romfolder" -type f -iname "*.cue" | while read -r f; do
+				if [ "$romfolder" != "dreamcast" ]; then #disallow dreamcast for cue / bin
 					echo "Converting: $f"
 					compressCHD "$f"
+				else
+					echo "Sorry, at this time Dreamcast games cannot compressed from BIN/CUE to CHD. Only BIN/GDI Dreamcast ROMs can be compressed."
+					echo "Skipping $f"
+				fi
 			done
 			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
 				echo "Converting: $f"
@@ -407,6 +412,7 @@ elif [ "$selection" == "Pick a file" ]; then
 	*.swx *.SWX *.32x *.32X *.gg *.GG *.gen *.GEN *.md *.MD 
 	*.smd *.SMD' --file-filter='All files | *' 2>/dev/null)
 	ext=$(echo "${f##*.}" | awk '{print tolower($0)}')
+	romFilePath=$(dirname "$f")
 	
 	case $ext in
 
@@ -444,9 +450,17 @@ elif [ "$selection" == "Pick a file" ]; then
 		if [[ "$ext" =~ "iso" || "$ext" =~ "ISO" ]]; then
 			echo "Valid $ext ROM found, compressing $f to CHD"
 			compressCHDDVD "$f"
-		elif [[ "$ext" =~ "gdi"  || "$ext" =~ "GDI" || "$ext" =~ "cue" || "$f" =~ "CUE" ]]; then
-			echo "Valid $ext ROM found, compressing $f to CHD"
-			compressCHD "$f" 
+		elif [[ "$ext" =~ "cue" || "$f" =~ "CUE" ]]; then
+			if [[ ! "$romFilePath" =~ "dreamcast" ]]; then  #disallow dreamcast for cue / bin
+				echo "Valid $ext ROM found, compressing $f to CHD"
+				compressCHD "$f" 
+			else
+				echo "Sorry, at this time Dreamcast games cannot compressed from BIN/CUE to CHD. Only BIN/GDI Dreamcast ROMs can be compressed."
+				echo "Skipping $f"
+			fi
+		elif [[ "$ext" =~ "gdi"  || "$ext" =~ "GDI" ]]; then
+				echo "Converting: $f"
+				compressCHD "$f"
 		else 
 			echo "No valid ROM found"			
 		fi
