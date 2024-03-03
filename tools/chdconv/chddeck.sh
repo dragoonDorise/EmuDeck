@@ -12,7 +12,7 @@ rvzfolderWhiteList=("gamecube" "wii" "primehacks")
 csofolderWhiteList=("psp")
 n3dsfolderWhiteList=("3ds")
 xboxfolderWhiteList=("xbox")
-sevenZipfolderWhiteList=("atari2600" "atarilynx" "famicom" "gamegear"
+sevenzipfolderWhiteList=("atari2600" "atarilynx" "famicom" "gamegear"
 "gb" "gbc" "gba"
 "genesis" "mastersystem" "megacd"
 "n64" "n64dd" "nes"
@@ -23,7 +23,12 @@ sevenZipfolderWhiteList=("atari2600" "atarilynx" "famicom" "gamegear"
 declare -a searchFolderList
 
 # File extensions
-sevenZipfileextensionWhiteList=("ngp" "ngc" "a26"
+chdFileExtensions=("gdi" "cue" "iso")
+rvzFileExtensions=("gcm" "iso")
+csoFileExtensions=("iso")
+xboxFileExtensions=("iso")
+n3dsFileExtensions=("3ds")
+sevenzipFileExtensions=("ngp" "ngc" "a26"
 "lnx" "ws" "pc2"
 "wsc" "ngc" "n64"
 "ndd" "v64" "z64"
@@ -33,6 +38,14 @@ sevenZipfileextensionWhiteList=("ngp" "ngc" "a26"
 "fig" "sfc" "smc"
 "swx" "32x" "gg"
 "gen" "md" "smd" )
+
+combinedFileExtensions=(
+"${chdFileExtensions[@]}" 
+"${rvzFileExtensions[@]}" 
+"${rvzFileExtensions[@]}" 
+"${csoFileExtensions[@]}" 
+"${xboxFileExtensions[@]}"
+"${sevenzipFileExtensions[@]}")
 
 #executables
 chdPath="$EMUDECKGIT/tools/chdconv"
@@ -236,9 +249,10 @@ if [ "$selection" == "bulk" ]; then
 	done
 	if which "7za" > /dev/null 2>&1; then #ensure tools are in place
 		echo "7za found"
-		for romfolder in "${sevenZipfolderWhiteList[@]}"; do
+		for romfolder in "${sevenzipfolderWhiteList[@]}"; do
 			echo "Checking ${romsPath}/${romfolder}/"
-			mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.ngp" -o -type f -iname "*.ngc" -o -type f -iname "*.a26" -o -type f -iname "*.lnx" -o -type f -iname "*.ws" -o -type f -iname "*.pc2" -o -type f -iname "*.wsc" -o -type f -iname "*.ngc" -o -type f -iname "*.n64" -o -type f -iname "*.ndd" -o -type f -iname "*.v64" -o -type f -iname "*.z64" -o -type f -iname "*.gb" -o -type f -iname "*.dmg" -o -type f -iname "*.gba" -o -type f -iname "*.gbc" -o -type f -iname "*.nes" -o -type f -iname "*.fds" -o -type f -iname "*.unf" -o -type f -iname "*.unif" -o -type f -iname "*.bs" -o -type f -iname "*.fig" -o -type f -iname "*.sfc" -o -type f -iname "*.smc" -o -type f -iname "*.swx" -o -type f -iname "*.32x" -o -type f -iname "*.gg" -o -type f -iname "*.gen" -o -type f -iname "*.md" -o -type f -iname "*.smd")
+
+			mapfile -t files < <(find "${romsPath}/${romfolder}" -type f \( -iname "*.${sevenzipFileExtensions[0]}" $(for extension in "${sevenzipFileExtensions[@]:1}"; do echo ' -o -iname *.'"$extension"; done) \))
 			if [ ${#files[@]} -gt 0 ]; then
 				echo "found in $romfolder"
 				searchFolderList+=("$romfolder")
@@ -296,8 +310,13 @@ if [ "$selection" == "bulk" ]; then
 				compressCHD "$f"
 			done
 			find "$romsPath/$romfolder" -type f -iname "*.cue" | while read -r f; do
+				if [ "$romfolder" != "dreamcast" ]; then #disallow dreamcast for cue / bin
 					echo "Converting: $f"
 					compressCHD "$f"
+				else
+					echo "Dreamcast ROMs cannot be compressed from BIN/CUE to CHD. Only BIN/GDI Dreamcast ROMs can be compressed."
+					echo "Skipping $f"
+				fi
 			done
 			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
 				echo "Converting: $f"
@@ -368,16 +387,21 @@ if [ "$selection" == "bulk" ]; then
 	done
 
 	for romfolder in "${romfolders[@]}"; do
-		if [[ " ${sevenZipfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-			find "$romsPath/$romfolder" -type f -iname "*.ngp" -o -type f -iname "*.ngc" -o -type f -iname "*.a26" -o -type f -iname "*.lnx" -o -type f -iname "*.ws" -o -type f -iname "*.pc2" -o -type f -iname "*.wsc" -o -type f -iname "*.ngc" -o -type f -iname "*.n64" -o -type f -iname "*.ndd" -o -type f -iname "*.v64" -o -type f -iname "*.z64" -o -type f -iname "*.gb" -o -type f -iname "*.dmg" -o -type f -iname "*.gba" -o -type f -iname "*.gbc" -o -type f -iname "*.nes" -o -type f -iname "*.fds" -o -type f -iname "*.unf" -o -type f -iname "*.unif" -o -type f -iname "*.bs" -o -type f -iname "*.fig" -o -type f -iname "*.sfc" -o -type f -iname "*.smc" -o -type f -iname "*.swx" -o -type f -iname "*.32x" -o -type f -iname "*.gg" -o -type f -iname "*.gen" -o -type f -iname "*.md" -o -type f -iname "*.smd" | while read -r f; do
-				echo "Converting: $f"
-				compress7z "$f"
+		if [[ " ${sevenzipfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+
+			for ext in "${sevenzipFileExtensions[@]}"; do
+				find "$romsPath/$romfolder" -type f -iname "*.$ext" | while read -r f; do
+					echo "Converting: $f"
+					compress7z "$f"
+				done
 			done
 		fi
 	done
 
 
 elif [ "$selection" == "Pick a file" ]; then
+	zenity --warning --text=" WARNING: Dreamcast ROMs cannot be compressed from BIN/CUE to CHD. Only BIN/GDI Dreamcast ROMs can be compressed." --title="Warning"	
+
 
 	while true; do
 		selectedCompressionMethod=$(zenity --list --title="Select Option" --text="Select a compression method from the list below." --column="Options" "Compress a ROM to RVZ" "Compress a ROM to CHD" "Compress a PSP ROM to CHD or CSO" "Compress a ROM to XISO" "Compress a ROM to 7zip" "Trim a 3DS ROM" --width=300 --height=400)
@@ -394,19 +418,13 @@ elif [ "$selection" == "Pick a file" ]; then
 	done
 		
 	echo "Selected: $selectedCompressionMethod"
-	
+
 	#/bin/bash
-	f=$(zenity --file-selection --file-filter='ROM File Formats 
-	(cue,gdi,iso,gcm,3ds) | *.cue *.gdi *.iso *.gcm *.3ds 
-	*.CUE *.GDI *.ISO *.GCM *.3DS *.sfc *.SFC *.ngp *.NGP *.ngc 
-	*.NGC *.a26 *.A26 *.lnx *.LNX *.ws *.WS *.pc2 *.PC2
-	*.wsc *.WSC *.ngc *.NGC *.n64 *.N64 *.ndd *.NDD *.v64 
-	*.V64 *.z64 *.Z64 *.gb *.GB *.dmg *.DMG *.gba *.GBA
-	*.gbc *.GBC *.nes *.NES *.fds *.FDS *.unf *.UNF *.unif
-	*.UNIF *.bs *.BS *.fig *.FIG *.sfc *.SFC *.smc *.SMC 
-	*.swx *.SWX *.32x *.32X *.gg *.GG *.gen *.GEN *.md *.MD 
-	*.smd *.SMD' --file-filter='All files | *' 2>/dev/null)
+	filteredFileFormats=$(printf -- '*.%s ' "${combinedFileExtensions[@]}")
+	f=$(zenity --file-selection --file-filter="ROM File Formats | ${filteredFileFormats}" --file-filter='All files | *' 2>/dev/null)
+
 	ext=$(echo "${f##*.}" | awk '{print tolower($0)}')
+	romFilePath=$(dirname "$f")
 	
 	case $ext in
 
@@ -431,8 +449,6 @@ elif [ "$selection" == "Pick a file" ]; then
 		;;
 	esac
 
-
-
 	if [ "$selectedCompressionMethod" == "Compress a ROM to RVZ" ]; then	
 		if [[ "$ext" =~ "iso" || "$ext" =~ "ISO" || "$ext" =~ "gcm" || "$ext" =~ "GCM"  ]]; then
 			echo "Valid ROM found, compressing $f to RVZ"
@@ -440,13 +456,21 @@ elif [ "$selection" == "Pick a file" ]; then
 		else
 			echo "No valid ROM found"
 		fi
-	elif [ "$selectedCompressionMethod" == "Compress a ROM to CHD" ]; then	
+	elif [ "$selectedCompressionMethod" == "Compress a ROM to CHD" ]; then
 		if [[ "$ext" =~ "iso" || "$ext" =~ "ISO" ]]; then
 			echo "Valid $ext ROM found, compressing $f to CHD"
 			compressCHDDVD "$f"
-		elif [[ "$ext" =~ "gdi"  || "$ext" =~ "GDI" || "$ext" =~ "cue" || "$f" =~ "CUE" ]]; then
-			echo "Valid $ext ROM found, compressing $f to CHD"
-			compressCHD "$f" 
+		elif [[ "$ext" =~ "cue" || "$f" =~ "CUE" ]]; then
+			if [[ ! "$romFilePath" =~ "dreamcast" ]]; then  #disallow dreamcast for cue / bin
+				echo "Valid $ext ROM found, compressing $f to CHD"
+				compressCHD "$f" 
+			else
+				echo "Dreamcast ROMs cannot be compressed from BIN/CUE to CHD. Only BIN/GDI Dreamcast ROMs can be compressed."
+				echo "Skipping $f"
+			fi
+		elif [[ "$ext" =~ "gdi"  || "$ext" =~ "GDI" ]]; then
+				echo "Converting: $f"
+				compressCHD "$f"
 		else 
 			echo "No valid ROM found"			
 		fi
@@ -493,7 +517,7 @@ elif [ "$selection" == "Pick a file" ]; then
 		fi
 	elif [ "$selectedCompressionMethod" == "Compress a ROM to 7zip" ]; then	
 		echo "true"
-		if [[ " ${sevenZipfileextensionWhiteList[*]} " =~ " ${ext} " ]]; then
+		if [[ " ${sevenzipFileExtensions[*]} " =~ " ${ext} " ]]; then
 			echo "Valid ROM found, compressing $f to 7zip"
 			compress7z "$f"	
 		else 
