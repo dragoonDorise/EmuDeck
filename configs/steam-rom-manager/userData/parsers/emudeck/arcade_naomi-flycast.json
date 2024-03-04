@@ -7,7 +7,7 @@
   "steamDirectory": "${steamdirglobal}",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "executableArgs": "\"'${filePath}'\"",
+  "executableArgs": "\"${filePath}\"",
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "imageProviders": ["SteamGridDB"],
@@ -16,53 +16,29 @@
     "specifiedAccounts": ""
   },
   "parserInputs": {
-    "glob": "**/${title}@(.7z|.7Z|.cdi|.CDI|.chd|.CHD|.cue|.CUE|.gdi|.GDI|.m3u|.M3U)"
+    "glob": "**/${title}@(.bin|.BIN|.dat|.DAT|.elf|.ELF|.lst|.LST|.7z|.7Z|.zip|.ZIP)"
   },
   "titleFromVariable": {
-    "limitToGroups": "",
+    "limitToGroups": "${MAME}",
     "caseInsensitiveVariables": false,
     "skipFileIfVariableWasNotFound": false,
-    "tryToMatchTitle": false
+    "tryToMatchTitle": true
   },
   "fuzzyMatch": {
     "replaceDiacritics": true,
     "removeCharacters": true,
     "removeBrackets": true
   },
-  "controllers": {
-    "switch_pro": {
-      "title": "EmuDeck - Switch Pro",
-      "mappingId": "emudeck_controller_switch_pro.vdf",
-      "profileType": "template"
-    },
-    "neptune": {
-      "title": "EmuDeck - Steam Deck Proton",
-      "mappingId": "emudeck_controller_steamdeck_proton.vdf",
-      "profileType": "template"
-    },
-    "ps4": {
-      "title": "EmuDeck - Dual Shock 4",
-      "mappingId": "emudeck_controller_ps4.vdf",
-      "profileType": "template"
-    },
-    "ps5": {
-      "title": "EmuDeck - Dual Sense",
-      "mappingId": "emudeck_controller_ps5.vdf",
-      "profileType": "template"
-    },
-    "xbox360": {
-      "title": "EmuDeck - Xbox 360",
-      "mappingId": "emudeck_controller_xbox360.vdf",
-      "profileType": "template"
-    },
-    "xboxone": {
-      "title": "EmuDeck - Xbox One",
-      "mappingId": "emudeck_controller_xboxone.vdf",
-      "profileType": "template"
-    },
-    "switch_joycon_left": null,
-    "switch_joycon_right": null
-  },
+	"controllers": {
+	  "ps4": null,
+	  "ps5": null,
+	  "xbox360": null,
+	  "xboxone": null,
+	  "switch_joycon_left": null,
+	  "switch_joycon_right": null,
+	  "switch_pro": null,
+	  "neptune": null
+	},
   "executable": {
     "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/flycast.sh",
     "shortcutPassthrough": false,
