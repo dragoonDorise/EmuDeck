@@ -143,6 +143,10 @@ Dolphin_setABXYstyle(){
    	echo "NYI"
 }
 
+Dolphin_setBAYXstyle(){
+	   echo "NYI"
+}
+
 #Migrate
 Dolphin_migrate(){
    	echo "NYI"

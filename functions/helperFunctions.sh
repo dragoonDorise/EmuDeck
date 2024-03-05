@@ -993,6 +993,7 @@ function jsonToBashVars(){
 	setSetting RAHandClassic2D "$(jq .shaders.classic $json)"
 	setSetting RAHandClassic3D "$(jq .shaders.classic3d $json)"
 	setSetting RAHandHeldShader "$(jq .shaders.handhelds $json)"
+	setSetting controllerLayout "$(jq .controllerLayout $json)"
 
 	#CloudSync
 	setSetting cloud_sync_provider "$(jq .cloudSync $json)"
@@ -1048,4 +1049,17 @@ function jsonToBashVars(){
 	setSetting androidStorage "$(jq .android.storage $json)"
 	setSetting androidStoragePath "$(jq .android.storagePath $json)"
 
+}
+
+
+function controllerLayout_ABXY(){
+	Dolphin_setABXYstyle
+	Cemu_setABXYstyle
+	Ryujinx_setABXYstyle
+}
+
+function controllerLayout_BAYX(){
+	Dolphin_setBAYXstyle
+	Cemu_setBAYXstyle
+	Ryujinx_setBAXYstyle
 }

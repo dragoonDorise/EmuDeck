@@ -29,6 +29,10 @@ Cemu_functions () {
 		echo "NYI"
 	}
 
+	setBAYXstyle () {
+		echo "NYI"
+	}
+
 	# Migrate
 	migrate () {
 		echo "Begin Cemu migration"

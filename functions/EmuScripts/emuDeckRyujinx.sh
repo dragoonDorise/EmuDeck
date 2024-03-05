@@ -208,6 +208,9 @@ Ryujinx_convertFromYuzu(){
 Ryujinx_setABXYstyle(){
 echo "NYI"
 }
+Ryujinx_setBAXYstyle(){
+echo "NYI"
+}
 
 #WideScreenOn
 Ryujinx_wideScreenOn(){
