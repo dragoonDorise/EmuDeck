@@ -7,7 +7,7 @@ Model2_configFile="${romsPath}/model2/EMULATOR.INI"
 Model2_ProtonGEVersion="8.0-5-3"
 Model2_ProtonGEURL="https://github.com/Open-Wine-Components/ULWGL-Proton/releases/download/ULWGL-Proton-$Model2_ProtonGEVersion/ULWGL-Proton-$Model2_ProtonGEVersion.tar.gz"
 ULWGL_toolPath="$HOME/.local/share/ULWGL"
-ULWGL_githubRepo="https://github.com/Open-Wine-Components/ULWGL-launcher.git" 
+ULWGL_githubRepo="https://github.com/Open-Wine-Components/ULWGL-launcher.git"
 ULWGL_githubBranch="main"
 
 #cleanupOlderThings
@@ -22,15 +22,15 @@ Model2_install(){
 	# Create the ROMs and pfx directory if they do not exist
 	mkdir -p "$romsPath/model2/roms"
 	mkdir -p "$romsPath/model2/pfx"
-	
+
 	if safeDownload "Model2" "https://github.com/PhoenixInteractiveNL/edc-repo0004/raw/master/m2emulator/1.1a.7z" "$romsPath/model2/Model2.7z" "$showProgress"; then
-		
+
 		7za e -y "$romsPath/model2/Model2.7z" -o"$romsPath/model2"
 		rm -f "$romsPath/model2/Model2.7z"
 
 	else
 		return 1
-	fi	
+	fi
 
 	cp "$EMUDECKGIT/tools/launchers/model2.sh" "$toolsPath/launchers/model2.sh"
 
@@ -44,14 +44,15 @@ Model2_install(){
 
 #ApplyInitialSettings
 Model2_init(){
-	setMSG "Initializing $Model2_emuName settings."	
+	setMSG "Initializing $Model2_emuName settings."
 	if [ -e "$Model2_configFile" ]; then
 		mv -f "$Model2_configFile.bak" "$Model2_configFile" #retain Model 2 settings
 	fi
 	rsync -avhp "$EMUDECKGIT/configs/model2/" "${romsPath}/model2" --backup --suffix=.bak
 	Model2_addESConfig
 	Model2_downloadProtonGE
-	Model2ULWGL_install	
+	Model2ULWGL_install
+	SRM_createParsers
 
 }
 
@@ -80,16 +81,16 @@ Model2_addESConfig(){
 
 #update
 Model2_update(){
-	setMSG "Updating $Model2_emuName settings."	
+	setMSG "Updating $Model2_emuName settings."
 	rsync -avhp "$EMUDECKGIT/configs/model2/" "${romsPath}/model2" --ignore-existing
-	Model2ULWGL_install	
+	Model2ULWGL_install
 }
 
 
 #ConfigurePaths
 Model2_setEmulationFolder(){
-	setMSG "Setting $Model2_emuName Emulation Folder"	
-	
+	setMSG "Setting $Model2_emuName Emulation Folder"
+
 	echo "NYI"
 }
 
@@ -144,7 +145,7 @@ Model2_downloadProtonGE(){
 
 	if [ ! -d "$STEAMPATH/compatibilitytools.d/ULWGL-Proton-$Model2_ProtonGEVersion" ]; then
 		if safeDownload "Model2_ProtonGE" "$Model2_ProtonGEURL"  "$STEAMPATH/compatibilitytools.d/$Model2_ProtonGEVersion.tar.gz"  "$showProgress"; then
-			
+
 			tar -xvzf "$STEAMPATH/compatibilitytools.d/$Model2_ProtonGEVersion.tar.gz" -C "$STEAMPATH/compatibilitytools.d"
 			rm -f "$STEAMPATH/compatibilitytools.d/$Model2_ProtonGEVersion.tar.gz"
 
@@ -168,7 +169,7 @@ mkdir -p "$ULWGL_toolPath"
 echo $ulwglURL
 
 if safeDownload "ULWGL" "https://github.com/Open-Wine-Components/ULWGL-launcher/releases/download/0.1-RC3/ULWGL-launcher.tar.gz" "$ULWGL_toolPath/ULWGL-launcher.tar.gz" "$showProgress"; then
-	
+
 	tar -xvzf "$ULWGL_toolPath/ULWGL-launcher.tar.gz" -C "$ULWGL_toolPath"
 
 else

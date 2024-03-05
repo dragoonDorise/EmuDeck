@@ -27,6 +27,7 @@ MAME_init(){
 	MAME_setupStorage
 	MAME_setEmulationFolder
 	MAME_setupSaves
+	SRM_createParsers
 }
 
 #update

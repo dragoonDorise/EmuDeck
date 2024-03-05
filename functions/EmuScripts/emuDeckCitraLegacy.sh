@@ -25,6 +25,7 @@ Citra_init(){
 	Citra_setupStorage
 	Citra_setEmulationFolder
 	Citra_setupSaves
+	SRM_createParsers
 	#Citra_addSteamInputProfile
 }
 

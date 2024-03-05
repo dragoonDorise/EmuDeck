@@ -31,6 +31,7 @@ ares_init() {
 	ares_getDefaultShaders
   ares_getQuarkShaders
 	ares_addESConfig
+	SRM_createParsers
 
 }
 

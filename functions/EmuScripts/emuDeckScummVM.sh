@@ -29,6 +29,7 @@ ScummVM_init(){
 	ScummVM_setupStorage
 	ScummVM_setEmulationFolder
 	ScummVM_setupSaves
+	SRM_createParsers
 }
 
 #update

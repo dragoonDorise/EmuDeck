@@ -64,6 +64,7 @@ Xenia_init(){
 	mkdir -p "$romsPath/xbox360/roms/xbla"
 	Xenia_addESConfig
 	Xenia_setupSaves
+	SRM_createParsers
 }
 
 Xenia_addESConfig(){

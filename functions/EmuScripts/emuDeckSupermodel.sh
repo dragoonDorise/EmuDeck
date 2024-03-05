@@ -31,6 +31,7 @@ Supermodel_init(){
 	Supermodel_setupStorage
 	Supermodel_setEmulationFolder
 	Supermodel_setupSaves
+	SRM_createParsers
 }
 
 #update

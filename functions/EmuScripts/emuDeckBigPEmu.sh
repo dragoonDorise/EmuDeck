@@ -20,13 +20,13 @@ BigPEmu_install(){
 	BigPEmudownloadLink=$(curl -s "https://www.richwhitehouse.com/jaguar/index.php?content=download" | grep -o 'https://www\.richwhitehouse\.com/jaguar/builds/BigPEmu_v[0-9]*\.zip' | grep -v "BigPEmu_*-DEV.zip" | head -n 1)
 
 	if safeDownload "BigPEmu" "$BigPEmudownloadLink" "$HOME/Applications/BigPEmu/BigPEmu.zip" "$showProgress"; then
-		
+
 		unzip -o "$HOME/Applications/BigPEmu/BigPEmu.zip" -d "$HOME/Applications/BigPEmu"
 		rm -f "$HOME/Applications/BigPEmu/BigPEmu.zip"
 
 	else
 		return 1
-	fi	
+	fi
 
 	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$toolsPath/launchers/bigpemu.sh"
 	# So users can still open BigPEmu from the ~/Applications folder.
@@ -43,7 +43,7 @@ BigPEmu_install(){
 
 #ApplyInitialSettings
 BigPEmu_init(){
-	setMSG "Initializing $BigPEmu_emuName settings."	
+	setMSG "Initializing $BigPEmu_emuName settings."
 	rsync -avhp "$EMUDECKGIT/configs/bigpemu/" "$BigPEmu_appData" --backup --suffix=.bak
 	if [ -e "$BigPEmu_BigPEmuSettings.bak" ]; then
 		mv -f "$BigPEmu_BigPEmuSettings.bak" "$BigPEmu_BigPEmuSettings" #retain BigPEmuSettings
@@ -51,6 +51,7 @@ BigPEmu_init(){
 	BigPEmu_addESConfig
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
+	SRM_createParsers
 }
 
 BigPEmu_addESConfig(){
@@ -73,7 +74,7 @@ BigPEmu_addESConfig(){
 		-r 'systemList/system/commandV' -v 'command' \
 		-r 'systemList/system/commandM' -v 'command' \
 		"$es_systemsFile"
-		
+
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
 		--subnode '$newSystem' --type elem --name 'name' -v 'atarijaguarcd' \
@@ -95,7 +96,7 @@ BigPEmu_addESConfig(){
 
 #update
 BigPEmu_update(){
-	setMSG "Updating $BigPEmu_emuName settings."	
+	setMSG "Updating $BigPEmu_emuName settings."
 	rsync -avhp "$EMUDECKGIT/configs/bigpemu/" "$BigPEmu_appData" --ignore-existing
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
@@ -104,8 +105,8 @@ BigPEmu_update(){
 
 #ConfigurePaths
 BigPEmu_setEmulationFolder(){
-	setMSG "Setting $BigPEmu_emuName Emulation Folder"	
-	
+	setMSG "Setting $BigPEmu_emuName Emulation Folder"
+
 	echo "NYI"
 }
 
