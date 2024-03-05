@@ -1,8 +1,6 @@
 #!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
 emulatorInit "rpcs3"
-cloud_sync_downloadEmu rpcs3
-cloud_sync_uploadEmu rpcs3
 rm -rf "$savesPath/.gaming"
 emuName="rpcs3" #parameterize me
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
