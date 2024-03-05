@@ -24,7 +24,9 @@ Citra_install(){
 #ApplyInitialSettings
 Citra_init(){
 	setMSG "Initializing $Citra_emuName settings."
-	configEmuFP "${Citra_emuName}" "${Citra_emuPath}" "true"
+	#configEmuFP "${Citra_emuName}" "${Citra_emuPath}" "true"
+	Citra_migrate
+
 	Citra_setupStorage
 	Citra_setEmulationFolder
 	Citra_setupSaves
@@ -161,7 +163,7 @@ echo "Begin Citra Migration"
 	#move data from hidden folders out to these folders in case the user already put stuff here.
 	origPath="$HOME/.var/app/org.citra_emu.citra/data/citra_emu/"
 
-	citra_setupStorage
+	Citra_setupStorage
 
 	rsync -av "${origPath}citra/dump" "${storagePath}/citra/" && rm -rf "${origPath}citra/dump"
 	rsync -av "${origPath}citra/load" "${storagePath}/citra/" && rm -rf "${origPath}citra/load"
