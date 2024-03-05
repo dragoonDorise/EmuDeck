@@ -1056,10 +1056,12 @@ function controllerLayout_ABXY(){
 	Dolphin_setABXYstyle
 	Cemu_setABXYstyle
 	Ryujinx_setABXYstyle
+	RetroArch_setABXYstyle
 }
 
 function controllerLayout_BAYX(){
 	Dolphin_setBAYXstyle
 	Cemu_setBAYXstyle
-	Ryujinx_setBAXYstyle
+	Ryujinx_setBAYXstyle
+	RetroArch_setBAYXstyle
 }

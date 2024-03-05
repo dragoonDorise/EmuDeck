@@ -463,7 +463,7 @@ fi
 createDesktopIcons
 
 
-if [ "$controllerLayout" == ""]; then
+if [ "$controllerLayout" == "abxy"]; then
 	controllerLayout_ABXY
 else
 	controllerLayout_BAYX

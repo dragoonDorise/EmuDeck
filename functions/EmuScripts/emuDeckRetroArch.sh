@@ -353,6 +353,9 @@ RetroArch_uninstall(){
 RetroArch_setABXYstyle(){
 	echo "NYI"
 }
+RetroArch_setBAYXstyle(){
+	echo "NYI"
+}
 
 #Migrate
 RetroArch_migrate(){

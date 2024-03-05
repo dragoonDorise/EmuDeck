@@ -208,7 +208,7 @@ Ryujinx_convertFromYuzu(){
 Ryujinx_setABXYstyle(){
 echo "NYI"
 }
-Ryujinx_setBAXYstyle(){
+Ryujinx_setBAYXstyle(){
 echo "NYI"
 }
 
