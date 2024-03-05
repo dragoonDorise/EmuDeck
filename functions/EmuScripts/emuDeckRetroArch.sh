@@ -16,6 +16,9 @@ RetroArch_shadersglslURL="https://buildbot.libretro.com/assets/frontend/shaders_
 RetroArch_shadersslangURL="https://buildbot.libretro.com/assets/frontend/shaders_slang.zip"
 RetroArch_infoURL="https://buildbot.libretro.com/assets/frontend/info.zip"
 RetroArch_ppssppURL="https://buildbot.libretro.com/assets/system/PPSSPP.zip"
+RetroArch_autoconfigURL="https://buildbot.libretro.com/assets/frontend/autoconfig.zip"
+RetroArch_overlaysURL="https://buildbot.libretro.com/assets/frontend/overlays.zip"
+RetroArch_cheatsURL="https://buildbot.libretro.com/assets/frontend/cheats.zip"
 
 #cleanupOlderThings
 RetroArch_cleanup(){
@@ -242,7 +245,6 @@ RetroArch_setupSaves(){
 #SetupStorage
 RetroArch_setupStorage(){
 	RetroArch_Mupen64Plus_Next_setUpHdPacks
-	mkdir -p "$storagePath/retroarch/cheats"
 	rsync -a --ignore-existing '/var/lib/flatpak/app/org.libretro.RetroArch/current/active/files/share/libretro/database/cht/' "$storagePath/retroarch/cheats"
 }
 
@@ -268,8 +270,11 @@ RetroArch_buildbotDownloader(){
 	local shadersglslDir="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_glsl"
 	local shadersslangDir="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/shaders/shaders_slang"
 	local assetsDir="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/assets"
+	local autoconfigDir="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/autoconfig"
+	local overlaysDir="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/overlays"
 	local infoDir="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/info"
 	local ppssppDir="$biosPath/PPSSPP"
+	local cheatsDir="$storagePath/retroarch/cheats"
 
 	# Shaders
 	mkdir -p $shadersDir
@@ -277,7 +282,7 @@ RetroArch_buildbotDownloader(){
 	# Common Shaders
 	if [[ ! -d "$shaderscgDir" ]] ; then
 		mkdir "$shaderscgDir"
-		curl -L "$RetroArch_shaderscgURL" -o "$shaderscgDir/shaders_cg.zip" && nice -n 5 unzip -q -o "$shaderscgDir/shaders_cg.zip" -d "$shaderscgDir" && rm "$shaderscgDir/shaders_cg.zip"
+		curl -L "$RetroArch_shaderscgURL" -o "$shaderscgDir/shaders_cg.zip" && nice -n 10 unzip -q -o "$shaderscgDir/shaders_cg.zip" -d "$shaderscgDir" && rm "$shaderscgDir/shaders_cg.zip"
 	fi
 
 	# GLSL Shaders
@@ -298,11 +303,30 @@ RetroArch_buildbotDownloader(){
 		curl -L "$RetroArch_assetsURL" -o "$assetsDir/assets.zip" && nice -n 10 unzip -q -o "$assetsDir/assets.zip" -d "$assetsDir" && rm "$assetsDir/assets.zip"
 	fi
 
+	# Overlays
+	if [[ ! -d "$overlaysDir/borders" ]] ; then
+		mkdir -p "$overlaysDir" 
+		curl -L "$RetroArch_overlaysURL" -o "$overlaysDir/overlays.zip" && nice -n 10 unzip -q -o "$overlaysDir/overlays.zip" -d "$overlaysDir" && rm "$overlaysDir/overlays.zip"
+	fi
+
+	# Autoconfig - for controllers (primarily helps non-Steam Deck setups)
+	if [[ ! -d "$autoconfigDir" ]] ; then
+		mkdir -p "$autoconfigDir" 
+		curl -L "$RetroArch_autoconfigURL" -o "$autoconfigDir/autoconfig.zip" && nice -n 10 unzip -q -o "$autoconfigDir/autoconfig.zip" -d "$autoconfigDir" && rm "$autoconfigDir/autoconfig.zip"
+	fi
+
 	# Info
 	if [[ ! -d "$infoDir" ]] ; then
 	 	mkdir -p "$infoDir"
 		curl -L "$RetroArch_infoURL" -o "$infoDir/info.zip" && nice -n 10 unzip -q -o "$infoDir/info.zip" -d "$infoDir" && rm "$infoDir/info.zip"
 	fi
+
+	# Cheats
+	if [[ ! -d "$cheatsDir" ]] ; then
+	 	mkdir -p "$cheatsDir"
+		curl -L "$RetroArch_cheatsURL" -o "$cheatsDir/cheats.zip" && nice -n 10 unzip -q -o "$cheatsDir/cheats.zip" -d "$cheatsDir" && rm "$cheatsDir/cheats.zip"
+	fi
+	
 
 	# PPSSPP
 	if [[ ! -d "$ppssppDir" ]] ; then

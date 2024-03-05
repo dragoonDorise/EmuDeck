@@ -3,7 +3,7 @@
 ESDE_toolName="ES-DE"
 ESDE_oldtoolName="EmulationStation-DE"
 ESDE_downloadedToolName="EmulationStation-DE-x64_SteamDeck.AppImage"
-ESDE_toolType="AppImage"
+ESDE_toolType="$emuDeckEmuTypeAppImage"
 ESDE_oldConfigDirectory="$ESDE_newConfigDirectory"
 ESDE_newConfigDirectory="$HOME/ES-DE"
 ESDE_toolLocation="$HOME/Applications"
@@ -43,7 +43,8 @@ ESDE_migration(){
 
 	if [ -f "${toolsPath}/$ESDE_downloadedToolName" ] && [ ! -L "${toolsPath}/$ESDE_downloadedToolName" ]; then
 		mv "${toolsPath}/$ESDE_downloadedToolName" "$ESDE_toolPath"
-		sed -i "s|$ESDE_downloadedToolName|$ESDE_toolName|g" "$ESDE_toolLocation/launchers/es-de/es-de.sh"
+		sed -i "s|$ESDE_downloadedToolName|$ESDE_toolName.AppImage|g" "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
+		ln -s  "${toolsPath}/$ESDE_toolName.AppImage"s "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
 		echo "$ESDE_toolName successfully migrated and linked."
 	fi
 
@@ -105,8 +106,10 @@ ESDE_init(){
 	setMSG "Setting up $ESDE_toolName"
 
 	ESDE_migration
+	ESDE_junksettingsFile
 
 	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
+	mkdir -p "$ESDE_newConfigDirectory/settings"
 
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
@@ -147,8 +150,10 @@ ESDE_update(){
 	setMSG "Setting up $ESDE_toolName"
 
 	ESDE_migration
+	ESDE_junksettingsFile
 
 	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
+	mkdir -p "$ESDE_newConfigDirectory/settings"
 
 	#update es_settings.xml
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --ignore-existing
@@ -162,6 +167,22 @@ ESDE_update(){
 	#ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
 }
+
+ESDE_junksettingsFile(){
+
+junkSettingsFile="$ESDE_newConfigDirectory/settings"
+
+	if [ -f "$junkSettingsFile" ]; then
+		rm -f "$junkSettingsFile"
+		echo "'$junkSettingsFile' deleted."
+	else
+		echo "File '$junkSettingsFile' does not exist."
+	fi
+
+
+}
+
+
 
 ESDE_addCustomSystems(){
 
@@ -202,20 +223,6 @@ ESDE_setEmulationFolder(){
 
 	#insert new commands
 	if [[ ! $(grep -rnw "$es_systemsFile" -e 'wiiu') == "" ]]; then
-		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Proton)') == "" ]]; then
-			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%" \
-			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Cemu (Proton)" \
-			-r 'systemList/system/commandP' -v 'command' \
-			"$es_systemsFile"
-
-			#format doc to make it look nice
-			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-		else
-			#update
-			cemuProtonCommandString="/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%"
-			xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Proton)"]' -v "$cemuProtonCommandString" "$es_systemsFile"
-		fi
 		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Native)') == "" ]]; then
 			#insert
 			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandN' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%" \
@@ -230,11 +237,25 @@ ESDE_setEmulationFolder(){
 			cemuNativeCommandString="/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Native)"]' -v "$cemuNativeCommandString" "$es_systemsFile"
 		fi
+		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Proton)') == "" ]]; then
+			#insert
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%" \
+			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Cemu (Proton)" \
+			-r 'systemList/system/commandP' -v 'command' \
+			"$es_systemsFile"
+
+			#format doc to make it look nice
+			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		else
+			#update
+			cemuProtonCommandString="/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%"
+			xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Proton)"]' -v "$cemuProtonCommandString" "$es_systemsFile"
+		fi
 	fi
 	if [[ ! $(grep -rnw "$es_systemsFile" -e 'xbox360') == "" ]]; then
 		if [[ $(grep -rnw "$es_systemsFile" -e 'Xenia (Proton)') == "" ]]; then
 			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="xbox360"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/xenia.sh %ROM%" \
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="xbox360"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/xenia.sh z:%ROM%" \
 			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Xenia (Proton)" \
 			-r 'systemList/system/commandP' -v 'command' \
 			"$es_systemsFile"
@@ -243,7 +264,7 @@ ESDE_setEmulationFolder(){
 			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 		else
 			#update
-			xeniaProtonCommandString="/bin/bash ${toolsPath}/launchers/xenia.sh %ROM%"
+			xeniaProtonCommandString="/bin/bash ${toolsPath}/launchers/xenia.sh z:%ROM%"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Xenia (Proton)"]' -v "$xeniaProtonCommandString" "$es_systemsFile"
 		fi
 	fi
@@ -259,7 +280,7 @@ ESDE_setEmulationFolder(){
 			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 		else
 			#update
-			model2ProtonCommandString="/bin/bash ${toolsPath}/launchers/model2.sh %ROM%"
+			model2ProtonCommandString="/bin/bash ${toolsPath}/launchers/model2.sh %BASENAME%"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Model 2 Emulator (Proton)"]' -v "$model2ProtonCommandString" "$es_systemsFile"
 		fi
 	fi
@@ -356,7 +377,7 @@ ESDE_setDefaultEmulators(){
 	ESDE_setEmu 'PPSSPP (Standalone)' psp
 	ESDE_setEmu 'Dolphin (Standalone)' wii
 	ESDE_setEmu 'PCSX2 (Standalone)' ps2
-	ESDE_setEmu 'melonDS' nds
+	ESDE_setEmu 'melonDS DS' nds
 	ESDE_setEmu 'Citra (Standalone)' /3ds
 	ESDE_setEmu 'Beetle Lynx' atarilynx
 	ESDE_setEmu 'DuckStation (Standalone)' psx

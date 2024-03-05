@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 SRM_toolName="Steam ROM Manager"
-SRM_toolType="AppImage"
+SRM_toolType="$emuDeckEmuTypeAppImage"
 SRM_toolPath="${toolsPath}/Steam ROM Manager.AppImage"
 SRM_userData_directory="configs/steam-rom-manager/userData"
 SRM_userData_configDir="$HOME/.config/steam-rom-manager/userData"

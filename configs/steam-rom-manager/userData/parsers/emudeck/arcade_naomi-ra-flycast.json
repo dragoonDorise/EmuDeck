@@ -33,7 +33,7 @@
     "appendArgsToExecutable": true
   },
   "parserInputs": {
-    "glob": "**/${title}@(.zip|.ZIP)"
+    "glob": "**/${title}@(.bin|.BIN|.dat|.DAT|.elf|.ELF|.lst|.LST|.7z|.7Z|.zip|.ZIP)"
   },
   "titleFromVariable": {
     "limitToGroups": "${MAME}",

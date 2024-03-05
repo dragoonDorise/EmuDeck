@@ -24,13 +24,13 @@
           "appendArgsToExecutable": false
       },
       "parserInputs": {
-        "glob": "**/${title}@(.zip|.ZIP)"
+        "glob": "**/${title}@(.bin|.BIN|.dat|.DAT|.elf|.ELF|.lst|.LST|.7z|.7Z|.zip|.ZIP)"
       },
       "titleFromVariable": {
-          "limitToGroups": "",
-          "caseInsensitiveVariables": false,
-          "skipFileIfVariableWasNotFound": false,
-          "tryToMatchTitle": false
+        "limitToGroups": "${MAME}",
+        "caseInsensitiveVariables": false,
+        "skipFileIfVariableWasNotFound": false,
+        "tryToMatchTitle": true
       },
       "fuzzyMatch": {
           "replaceDiacritics": true,
