@@ -33,6 +33,7 @@ RMG_init() {
 	RMG_setupStorage
 	RMG_setEmulationFolder
 	RMG_setupSaves
+	SRM_createParsers
 	#RMG_addSteamInputProfile
 
 }

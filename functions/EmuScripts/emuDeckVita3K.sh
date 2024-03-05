@@ -38,6 +38,7 @@ Vita3K_init(){
     Vita3K_setupStorage
     Vita3K_setupSaves #?
     Vita3K_finalize
+	SRM_createParsers
 }
 
 #update

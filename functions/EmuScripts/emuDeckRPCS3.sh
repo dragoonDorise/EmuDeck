@@ -20,7 +20,7 @@ RPCS3_install(){
 
 	# Migrates configurations to RPCS3 AppImage
 	RPCS3_migrate
-	
+
 	# Install RPCS3
 	local showProgress="$1"
 
@@ -42,6 +42,7 @@ RPCS3_init(){
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
 	RPCS3_addESConfig
+	SRM_createParsers
 }
 
 #update

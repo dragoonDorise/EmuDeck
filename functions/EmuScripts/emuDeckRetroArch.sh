@@ -78,6 +78,7 @@ RetroArch_init(){
 	RetroArch_setRetroAchievements
 	RetroArch_melonDSDSMigration
 	RetroArch_buildbotDownloader
+	SRM_createParsers
 
 	mkdir -p "$biosPath/mame/bios"
 	mkdir -p "$biosPath/dc"
@@ -299,19 +300,19 @@ RetroArch_buildbotDownloader(){
 
 	# Assets
 	if [[ ! -d "$assetsDir" ]] ; then
-		mkdir -p "$assetsDir" 
+		mkdir -p "$assetsDir"
 		curl -L "$RetroArch_assetsURL" -o "$assetsDir/assets.zip" && nice -n 10 unzip -q -o "$assetsDir/assets.zip" -d "$assetsDir" && rm "$assetsDir/assets.zip"
 	fi
 
 	# Overlays
 	if [[ ! -d "$overlaysDir/borders" ]] ; then
-		mkdir -p "$overlaysDir" 
+		mkdir -p "$overlaysDir"
 		curl -L "$RetroArch_overlaysURL" -o "$overlaysDir/overlays.zip" && nice -n 10 unzip -q -o "$overlaysDir/overlays.zip" -d "$overlaysDir" && rm "$overlaysDir/overlays.zip"
 	fi
 
 	# Autoconfig - for controllers (primarily helps non-Steam Deck setups)
 	if [[ ! -d "$autoconfigDir" ]] ; then
-		mkdir -p "$autoconfigDir" 
+		mkdir -p "$autoconfigDir"
 		curl -L "$RetroArch_autoconfigURL" -o "$autoconfigDir/autoconfig.zip" && nice -n 10 unzip -q -o "$autoconfigDir/autoconfig.zip" -d "$autoconfigDir" && rm "$autoconfigDir/autoconfig.zip"
 	fi
 
@@ -326,7 +327,7 @@ RetroArch_buildbotDownloader(){
 	 	mkdir -p "$cheatsDir"
 		curl -L "$RetroArch_cheatsURL" -o "$cheatsDir/cheats.zip" && nice -n 10 unzip -q -o "$cheatsDir/cheats.zip" -d "$cheatsDir" && rm "$cheatsDir/cheats.zip"
 	fi
-	
+
 
 	# PPSSPP
 	if [[ ! -d "$ppssppDir" ]] ; then

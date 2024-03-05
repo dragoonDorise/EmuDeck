@@ -26,6 +26,7 @@ Primehack_init() {
 	Primehack_setupStorage
 	Primehack_setEmulationFolder
 	Primehack_setupSaves
+	SRM_createParsers
 	#Primehack_migrate
 }
 

@@ -34,6 +34,7 @@ Xemu_init() {
 	Xemu_setupStorage
 	Xemu_setEmulationFolder
 	Xemu_setCustomizations
+	SRM_createParsers
 }
 
 #update
