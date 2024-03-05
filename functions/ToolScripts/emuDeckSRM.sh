@@ -321,6 +321,18 @@ SRM_createParsers(){
     exclusionList=$exclusionList"sony_ps2-pcsx2.json\n"
   fi
 
+  if [ "$doInstallSupermodel" == "false" ] || [ "$(Model2_IsInstalled)" == "false" ]; then
+	  exclusionList=$exclusionList"sega_model_3-supermodel.json\n"
+  fi
+
+	if [ "$doInstallModel2" == "false" ] || [ "$(Supermodel_IsInstalled)" == "false" ]; then
+		exclusionList=$exclusionList"sega_model2-model2emulator.json\n"
+	fi
+
+	if [ "$doInstallBigPEmu" == "false" ] || [ "$(BigPEmu_IsInstalled)" == "false" ]; then
+		exclusionList=$exclusionList"atari_jaguar-bigpemu_proton.json\n"
+	fi
+
   echo -e $exclusionList > "$HOME/exclude.txt"
 
   rm -rf "$SRM_userData_configDir/parsers/emudeck/"
