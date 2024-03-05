@@ -86,7 +86,11 @@ SRM_createParsers(){
   if [ "$emuMULTI" != "both" ]; then
 
     if [ "$emuMULTI" = "undefined" ]; then
-      exclusionList=$exclusionList"ares/\n"
+     exclusionList=$exclusionList"ares/\n"
+	 exclusionList=$exclusionList"mednafen_pcfx_libretro\n";
+	 exclusionList=$exclusionList"mednafen_vb_libretro\n";
+	 exclusionList=$exclusionList"kronos_libretro\n";
+	 exclusionList=$exclusionList"freeintv_libretro.json\n";
       exclusionList=$exclusionList"amiga_600-ra-puae.json\n";
       exclusionList=$exclusionList"amiga_1200-ra-puae.json\n";
       exclusionList=$exclusionList"amiga_cd-ra-puae.json\n";
@@ -146,6 +150,10 @@ SRM_createParsers(){
     elif [ "$emuMULTI" = "ra" ]; then
       exclusionList=$exclusionList"ares/\n"
     else
+	 exclusionList=$exclusionList"mednafen_pcfx_libretro\n";
+	 exclusionList=$exclusionList"mednafen_vb_libretro\n";
+	 exclusionList=$exclusionList"kronos_libretro\n";
+	 exclusionList=$exclusionList"freeintv_libretro.json\n";
 	  exclusionList=$exclusionList"amiga_600-ra-puae.json\n";
 	  exclusionList=$exclusionList"amiga_1200-ra-puae.json\n";
 	  exclusionList=$exclusionList"amiga_cd-ra-puae.json\n";
