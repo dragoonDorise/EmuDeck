@@ -20,5 +20,5 @@ fi
 #Fix first '
 param="${@}"
 param=$(echo "$param" | sed "s|'|\"|g")
-eval "${exe} ${param} -fullscreen -batch"
+eval "${exe} ${param} -fullscreen"
 rm -rf "$savesPath/.gaming"
