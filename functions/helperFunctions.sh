@@ -1057,6 +1057,8 @@ function controllerLayout_ABXY(){
 	Cemu_setABXYstyle
 	Ryujinx_setABXYstyle
 	RetroArch_setABXYstyle
+	melonDS_setABXYstyle
+	RMG_setABXYstyle
 }
 
 function controllerLayout_BAYX(){
@@ -1064,4 +1066,6 @@ function controllerLayout_BAYX(){
 	Cemu_setBAYXstyle
 	Ryujinx_setBAYXstyle
 	RetroArch_setBAYXstyle
+	melonDS_setBAYXstyle
+	RMG_setBAYXstyle
 }

@@ -12,6 +12,7 @@ Cemu_functions () {
 		[configDir]="${HOME}/.config/Cemu"
 		[configFile]="${HOME}/.config/Cemu/settings.xml"
 		[shareDir]="${HOME}/.local/share/Cemu"
+		[controllerDir]="${HOME}/.config/Cemu/controllerProfiles"
 	)
 
 	# Cleanup older things
@@ -26,12 +27,31 @@ Cemu_functions () {
 
 	# Set ABXY Style
 	setABXYstyle () {
-		echo "NYI"
+		sed -i '/<mapping>1<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>1<\/button>/<button>0<\/button>/}' "${CemuNative[controllerDir]}/Deck-Gamepad-Gyro.xml"
+		sed -i '/<mapping>1<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>1<\/button>/<button>0<\/button>/}' "${CemuNative[controllerDir]}/controller0.xml"
+		sed -i '/<mapping>2<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>0<\/button>/<button>1<\/button>/}' "${CemuNative[controllerDir]}/Deck-Gamepad-Gyro.xml"
+		sed -i '/<mapping>2<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>0<\/button>/<button>1<\/button>/}' "${CemuNative[controllerDir]}/controller0.xml"
+		sed -i '/<mapping>3<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>3<\/button>/<button>2<\/button>/}' "${CemuNative[controllerDir]}/Deck-Gamepad-Gyro.xml"
+		sed -i '/<mapping>3<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>3<\/button>/<button>2<\/button>/}' "${CemuNative[controllerDir]}/controller0.xml"
+		sed -i '/<mapping>4<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>2<\/button>/<button>3<\/button>/}' "${CemuNative[controllerDir]}/Deck-Gamepad-Gyro.xml"
+		sed -i '/<mapping>4<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>2<\/button>/<button>3<\/button>/}' "${CemuNative[controllerDir]}/controller0.xml"
+
+
 	}
 
-	setBAYXstyle () {
-		echo "NYI"
+	setBAXYstyle () {
+		sed -i '/<mapping>1<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>0<\/button>/<button>1<\/button>/}' "${CemuNative[controllerDir]}/Deck-Gamepad-Gyro.xml"
+		sed -i '/<mapping>1<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>0<\/button>/<button>1<\/button>/}' "${CemuNative[controllerDir]}/controller0.xml"
+		sed -i '/<mapping>2<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>1<\/button>/<button>0<\/button>/}' "${CemuNative[controllerDir]}/Deck-Gamepad-Gyro.xml"
+		sed -i '/<mapping>2<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>1<\/button>/<button>0<\/button>/}' "${CemuNative[controllerDir]}/controller0.xml"
+		sed -i '/<mapping>3<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>2<\/button>/<button>3<\/button>/}' "${CemuNative[controllerDir]}/Deck-Gamepad-Gyro.xml"
+		sed -i '/<mapping>3<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>2<\/button>/<button>3<\/button>/}' "${CemuNative[controllerDir]}/controller0.xml"
+		sed -i '/<mapping>4<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>3<\/button>/<button>2<\/button>/}' "${CemuNative[controllerDir]}/Deck-Gamepad-Gyro.xml"
+		sed -i '/<mapping>4<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>3<\/button>/<button>2<\/button>/}' "${CemuNative[controllerDir]}/controller0.xml"
 	}
+
+
+
 
 	# Migrate
 	migrate () {
@@ -257,8 +277,11 @@ Cemu_functions () {
 		#rsync -r "${EMUDECKGIT}/configs/steam-input/cemu_controller_config.vdf" "${HOME}/.steam/steam/controller_base/templates/"
 	}
 
+
+
 	$function "$showProgress" # Call the above functions
 }
+
 
 # Cleanup older things
 Cemu_cleanup () {
@@ -358,4 +381,14 @@ Cemu_addSteamInputProfile () {
 
 Cemu_setResolution(){
 	echo "NYI"
+}
+
+Cemu_setABXYstyle(){
+	Cemu_functions "setABXYstyle"
+
+}
+
+Cemu_setBAXYstyle(){
+	Cemu_functions "setBAXYstyle"
+
 }

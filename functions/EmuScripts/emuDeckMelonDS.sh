@@ -174,3 +174,35 @@ melonDS_setResolution(){
 	RetroArch_setConfigOverride "WindowWidth" $WindowWidth "$melonDS_configFile"
 	RetroArch_setConfigOverride "WindowHeight" $WindowHeight "$melonDS_configFile"
 }
+
+#setABXYstyle
+melonDS_setABXYstyle(){
+
+	buttonA='Joy_A='
+	buttonB='Joy_B='
+	buttonX='Joy_X='
+	buttonY='Joy_Y='
+
+	changeLine "$buttonA" "$buttonA""0" "${melonDS_configFile}"
+	changeLine "$buttonB" "$buttonB""1" "${melonDS_configFile}"
+	changeLine "$buttonX" "$buttonX""2" "${melonDS_configFile}"
+	changeLine "$buttonY" "$buttonY""3" "${melonDS_configFile}"
+
+
+
+}
+melonDS_setBAYXstyle(){
+
+	buttonA='Joy_A='
+	buttonB='Joy_B='
+	buttonX='Joy_X='
+	buttonY='Joy_Y='
+
+	changeLine "$buttonA" "$buttonA""1" "${melonDS_configFile}"
+	changeLine "$buttonB" "$buttonB""0" "${melonDS_configFile}"
+	changeLine "$buttonX" "$buttonX""3" "${melonDS_configFile}"
+	changeLine "$buttonY" "$buttonY""2" "${melonDS_configFile}"
+
+
+
+}
