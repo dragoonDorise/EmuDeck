@@ -217,19 +217,15 @@ RetroArch_update(){
 
 #ConfigurePaths
 RetroArch_setEmulationFolder(){
-	setMSG "Setting $RetroArch_emuName Emulation Folder"
+    setMSG "Setting $RetroArch_emuName Emulation Folder"
 
-	system_directory='system_directory = '
-	system_directorySetting="${system_directory}""\"${biosPath}\""
-	RetroArch_setConfigOverride "$system_directory" "$system_directorySetting" "$RetroArch_configFile"
 
-	rgui_browser_directory='rgui_browser_directory = '
-	rgui_browser_directorySetting="${rgui_browser_directory}""\"${romsPath}\""
-	RetroArch_setConfigOverride "$rgui_browser_directory" "$rgui_browser_directorySetting" "$RetroArch_configFile"
+    RetroArch_setConfigOverride 'system_directory' "$system_directorySetting" "$RetroArch_configFile"
 
-	cheat_database_path='cheat_database_path = '
-	cheat_database_pathSetting="${cheat_database_path}""\"${storagePath}/retroarch/cheats\""
-	RetroArch_setConfigOverride "$cheat_database_path" "$cheat_database_pathSetting" "$RetroArch_configFile"
+    RetroArch_setConfigOverride 'rgui_browser_directory' "$rgui_browser_directorySetting" "$RetroArch_configFile"
+
+
+    RetroArch_setConfigOverride 'cheat_database_path' "$cheat_database_pathSetting" "$RetroArch_configFile"
 }
 
 #SetupSaves
