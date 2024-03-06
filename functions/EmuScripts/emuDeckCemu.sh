@@ -39,7 +39,7 @@ Cemu_functions () {
 
 	}
 
-	setBAXYstyle () {
+	setBAYXstyle () {
 		sed -i '/<mapping>1<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>0<\/button>/<button>1<\/button>/}' "${CemuNative[controllerDir]}/Deck-Gamepad-Gyro.xml"
 		sed -i '/<mapping>1<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>0<\/button>/<button>1<\/button>/}' "${CemuNative[controllerDir]}/controller0.xml"
 		sed -i '/<mapping>2<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>1<\/button>/<button>0<\/button>/}' "${CemuNative[controllerDir]}/Deck-Gamepad-Gyro.xml"
@@ -388,7 +388,7 @@ Cemu_setABXYstyle(){
 
 }
 
-Cemu_setBAXYstyle(){
-	Cemu_functions "setBAXYstyle"
+Cemu_setBAYXstyle(){
+	Cemu_functions "setBAYXstyle"
 
 }
