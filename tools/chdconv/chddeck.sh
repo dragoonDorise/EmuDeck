@@ -53,7 +53,7 @@ chmod +x "$chdPath/chdman5"
 chmod +x "$chdPath/ciso"
 chmod +x "$chdPath/3dstool"
 chmod +x "$chdPath/extract-xiso"
-# chdman5 compiled on February 5th, 2024
+# chdman5 compiled on March 6th, 2024
 # extract-xiso compiled on January 28th, 2024
 export PATH="${chdPath}/:$PATH"
 flatpaktool=$(flatpak list --columns=application | grep -E dolphin\|primehack | head -1)
@@ -306,20 +306,15 @@ if [ "$selection" == "bulk" ]; then
 		if [[ " ${chdfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
 
 			find "$romsPath/$romfolder" -type f -iname "*.gdi" | while read -r f; do
-				echo "Converting: $f"
+				echo "Converting: $f using the createcd flag"
 				compressCHD "$f"
 			done
 			find "$romsPath/$romfolder" -type f -iname "*.cue" | while read -r f; do
-				if [ "$romfolder" != "dreamcast" ]; then #disallow dreamcast for cue / bin
-					echo "Converting: $f"
-					compressCHD "$f"
-				else
-					echo "Dreamcast ROMs cannot be compressed from BIN/CUE to CHD. Only BIN/GDI Dreamcast ROMs can be compressed."
-					echo "Skipping $f"
-				fi
+				echo "Converting: $f using the createcd flag"
+				compressCHD "$f"
 			done
 			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
-				echo "Converting: $f"
+				echo "Converting: $f using the createdvd flag"
 				compressCHDDVD "$f"
 			done
 		fi
@@ -351,7 +346,7 @@ if [ "$selection" == "bulk" ]; then
 						if [ "$pspBulkSelection" == "CHD" ]; then
 							find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
 								echo "Converting: $f"
-								compressCHDDVD "$f"
+								compressCHDDVD "$f using the createdvd flag"
 							done
 						elif [ "$pspBulkSelection" == "CSO" ]; then
 							find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
@@ -400,9 +395,6 @@ if [ "$selection" == "bulk" ]; then
 
 
 elif [ "$selection" == "Pick a file" ]; then
-	zenity --warning --text=" WARNING: Dreamcast ROMs cannot be compressed from BIN/CUE to CHD. Only BIN/GDI Dreamcast ROMs can be compressed." --title="Warning"	
-
-
 	while true; do
 		selectedCompressionMethod=$(zenity --list --title="Select Option" --text="Select a compression method from the list below." --column="Options" "Compress a ROM to RVZ" "Compress a ROM to CHD" "Compress a PSP ROM to CHD or CSO" "Compress a ROM to XISO" "Compress a ROM to 7zip" "Trim a 3DS ROM" --width=300 --height=400)
 		if [ $? -eq 1 ]; then
@@ -460,17 +452,9 @@ elif [ "$selection" == "Pick a file" ]; then
 		if [[ "$ext" =~ "iso" || "$ext" =~ "ISO" ]]; then
 			echo "Valid $ext ROM found, compressing $f to CHD"
 			compressCHDDVD "$f"
-		elif [[ "$ext" =~ "cue" || "$f" =~ "CUE" ]]; then
-			if [[ ! "$romFilePath" =~ "dreamcast" ]]; then  #disallow dreamcast for cue / bin
+		elif [[ "$ext" =~ "gdi"  || "$ext" =~ "GDI" || "$ext" =~ "cue" || "$f" =~ "CUE" ]]; then
 				echo "Valid $ext ROM found, compressing $f to CHD"
 				compressCHD "$f" 
-			else
-				echo "Dreamcast ROMs cannot be compressed from BIN/CUE to CHD. Only BIN/GDI Dreamcast ROMs can be compressed."
-				echo "Skipping $f"
-			fi
-		elif [[ "$ext" =~ "gdi"  || "$ext" =~ "GDI" ]]; then
-				echo "Converting: $f"
-				compressCHD "$f"
 		else 
 			echo "No valid ROM found"			
 		fi
