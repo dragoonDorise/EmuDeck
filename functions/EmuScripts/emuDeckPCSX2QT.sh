@@ -46,6 +46,7 @@ PCSX2QT_init() {
 	PCSX2QT_setupControllers
 	PCSX2QT_setCustomizations
 	PCSX2QT_setRetroAchievements
+	SRM_createParsers
 
 }
 
