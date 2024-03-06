@@ -3,7 +3,7 @@
 source $HOME/.config/EmuDeck/backend/functions/all.sh
 emulatorInit "citra"
 rm -rf "$savesPath/.gaming"
-emuName="citra" #parameterize me
+emuName="citra-qt" #parameterize me
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
 
 # Works with both Flatpak and AppImage
@@ -18,7 +18,7 @@ echo $exe
 #if appimage doesn't exist fall back to flatpak.
 if [[ $exe == '' ]]; then
 	#flatpak
-	flatpakApp=$(flatpak list --app --columns=application | grep $emuName)
+	flatpakApp=$(flatpak list --app --columns=application | grep 'Citra')
 	exe="/usr/bin/flatpak run "$flatpakApp
 else
 	#make sure that file is executable
