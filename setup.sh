@@ -463,6 +463,12 @@ fi
 createDesktopIcons
 
 
+if [ "$controllerLayout" == "abxy" ]; then
+	controllerLayout_ABXY
+else
+	controllerLayout_BAYX
+fi
+
 #
 ##
 ##Plugins

@@ -85,6 +85,7 @@ Yuzu_init() {
     Yuzu_setupStorage
     Yuzu_setupSaves
     Yuzu_finalize
+    SRM_createParsers
 
 }
 

@@ -86,11 +86,11 @@ SRM_createParsers(){
   if [ "$emuMULTI" != "both" ]; then
 
     if [ "$emuMULTI" = "undefined" ]; then
-     exclusionList=$exclusionList"ares/\n"
-	 exclusionList=$exclusionList"mednafen_pcfx_libretro\n";
-	 exclusionList=$exclusionList"mednafen_vb_libretro\n";
-	 exclusionList=$exclusionList"kronos_libretro\n";
-	 exclusionList=$exclusionList"freeintv_libretro.json\n";
+      exclusionList=$exclusionList"ares/\n"
+      exclusionList=$exclusionList"mednafen_pcfx_libretro\n";
+      exclusionList=$exclusionList"mednafen_vb_libretro\n";
+      exclusionList=$exclusionList"sega_saturn-ra-kronos.json\n";
+	    exclusionList=$exclusionList"freeintv_libretro.json\n";
       exclusionList=$exclusionList"amiga_600-ra-puae.json\n";
       exclusionList=$exclusionList"amiga_1200-ra-puae.json\n";
       exclusionList=$exclusionList"amiga_cd-ra-puae.json\n";
@@ -147,13 +147,16 @@ SRM_createParsers(){
       exclusionList=$exclusionList"sony_psx-ra-beetle_psx_hw.json\n";
       exclusionList=$exclusionList"sony_psx-ra-swanstation.json\n";
       exclusionList=$exclusionList"tic-80-ra-tic80.json\n";
+      exclusionList=$exclusionList"mattel_electronics_intellivision-ra-freeIntv.json\n";
+	    exclusionList=$exclusionList"nec_pc_fx-ra-beetle_pcfx.json\n";
+	    exclusionList=$exclusionList"nintendo_virtual_boy-ra-beetle_vb.json\n";
     elif [ "$emuMULTI" = "ra" ]; then
       exclusionList=$exclusionList"ares/\n"
     else
-	 exclusionList=$exclusionList"mednafen_pcfx_libretro\n";
-	 exclusionList=$exclusionList"mednafen_vb_libretro\n";
-	 exclusionList=$exclusionList"kronos_libretro\n";
-	 exclusionList=$exclusionList"freeintv_libretro.json\n";
+	  exclusionList=$exclusionList"mednafen_pcfx_libretro\n";
+	  exclusionList=$exclusionList"mednafen_vb_libretro\n";
+    exclusionList=$exclusionList"sega_saturn-ra-kronos.json\n";
+	  exclusionList=$exclusionList"freeintv_libretro.json\n";
 	  exclusionList=$exclusionList"amiga_600-ra-puae.json\n";
 	  exclusionList=$exclusionList"amiga_1200-ra-puae.json\n";
 	  exclusionList=$exclusionList"amiga_cd-ra-puae.json\n";
@@ -210,6 +213,10 @@ SRM_createParsers(){
 	  exclusionList=$exclusionList"sony_psx-ra-beetle_psx_hw.json\n";
 	  exclusionList=$exclusionList"sony_psx-ra-swanstation.json\n";
 	  exclusionList=$exclusionList"tic-80-ra-tic80.json\n";
+	  exclusionList=$exclusionList"mattel_electronics_intellivision-ra-freeIntv.json\n";
+	  exclusionList=$exclusionList"nec_pc_fx-ra-beetle_pcfx.json\n";
+	  exclusionList=$exclusionList"nintendo_virtual_boy-ra-beetle_vb.json\n";
+
 
     fi
   fi
