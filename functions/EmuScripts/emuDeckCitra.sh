@@ -2,11 +2,10 @@
 #variables
 Citra_emuName="Citra"
 Citra_emuType="$emuDeckEmuTypeAppImage"
-Citra_emuPath="citra_emu"
+Citra_emuPath="$HOME/Applications/citra-qt.AppImage"
 Citra_releaseURL=""
 Citra_configFile="$HOME/.config/citra-emu/qt-config.ini"
 Citra_texturesPath="$HOME/.config/citra-emu/load/textures"
-
 
 #cleanupOlderThings
 Citra_finalize(){
@@ -200,7 +199,11 @@ Citra_finalize(){
 }
 
 Citra_IsInstalled(){
-	isFpInstalled "$Citra_emuPath"
+	if [ -e "$Citra_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
 }
 
 Citra_resetConfig(){
