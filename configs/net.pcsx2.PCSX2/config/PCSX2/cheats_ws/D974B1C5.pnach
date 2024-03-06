@@ -1,6 +1,0 @@
-gametitle=Fight Club (E)(SLES-52718)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,0025914c,word,3c013ec0 //3c013f00

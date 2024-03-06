@@ -1,5 +1,0 @@
-gametitle=WWE SmackDown! vs Raw 2008 (K)(SLKA-25365)
-comment=Widescreen hack (NTSC-K by Arapapa)
-
-//Widescreen hack 16:9
-patch=1,EE,00288ce0,word,3c033f40 //3c033f80

@@ -1,9 +1,0 @@
-gametitle=SD Gundam Force - Showdown! (U)(SLUS-20698)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov 
-//e43e023c 49924234 00608244 (1st) -> 183f023c 84614234 00608244
-patch=1,EE,00437134,word,3c023f18 //3c023ee4
-patch=1,EE,00437138,word,34426184 //34429249

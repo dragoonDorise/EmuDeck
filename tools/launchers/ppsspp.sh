@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-rclone_downloadEmu ppsspp
-/usr/bin/flatpak run org.ppsspp.PPSSPP
-rclone_uploadEmu ppsspp
+emulatorInit "ppsspp"
+/usr/bin/flatpak run org.ppsspp.PPSSPP "${@}"
+rm -rf "$savesPath/.gaming"

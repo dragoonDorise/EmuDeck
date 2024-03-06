@@ -1,9 +1,0 @@
-gametitle=Tiger Woods PGA Tour 06 (NTSC-U) (SLUS-21264)
-comment=Widescreen Hack by VIRGIN KLM
-
-//Game Play Fov
-patch=1,EE,008F4E40,extended,3f400000 //3f800000
-
-//Game Play Render Fix
-patch=1,EE,008F4E50,extended,44800000 //44000000
-patch=1,EE,008F4E58,extended,40000000 //3f800000

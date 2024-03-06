@@ -1,8 +1,0 @@
-gametitle=Catwoman (E)(SLES-52567)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//Zoom fix (Internal Widescreen)
-patch=1,EE,00116c64,word,3c013f80 //3c013f59
-patch=1,EE,00116c68,word,00000000 //3421999a

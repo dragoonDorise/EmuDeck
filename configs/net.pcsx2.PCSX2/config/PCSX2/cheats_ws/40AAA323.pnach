@@ -1,8 +1,0 @@
-gametitle=Casper's Scare School (E)(SLES-54672)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-patch=1,EE,0017eed4,word,3c01bf2a
-patch=1,EE,0017eee8,word,3421aaab

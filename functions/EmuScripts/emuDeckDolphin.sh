@@ -1,8 +1,11 @@
 #!/bin/bash
 #variables
 Dolphin_emuName="Dolphin"
-Dolphin_emuType="FlatPak"
+Dolphin_emuType="$emuDeckEmuTypeFlatpak"
 Dolphin_emuPath="org.DolphinEmu.dolphin-emu"
+Dolphin_configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
+Dolphin_configFileGFX="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
+Dolphin_gamecubeFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GCPadNew.ini"
 Dolphin_releaseURL=""
 
 #cleanupOlderThings
@@ -23,7 +26,7 @@ Dolphin_cleanup(){
     #GC
     mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/base.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/base.ini.old"
     mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam1.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam1.ini.old"
-    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam2.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam2.ini.old" 
+    mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam2.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam2.ini.old"
     mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam3.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam3.ini.old"
     mv "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam4.ini" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Profiles/GCPad/steam4.ini.old"
     echo "Old EmuDeck profiles, if they existed backed up to .bak"
@@ -31,33 +34,35 @@ Dolphin_cleanup(){
 
 #Install
 Dolphin_install(){
-    setMSG "${Dolphin_emuName}: Install"
-    echo ""
-	installEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"	
-	flatpak override "${Dolphin_emuPath}" --filesystem=host --user	
+  setMSG "${Dolphin_emuName}: Install"
+  echo ""
+	installEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"
 }
 
 #ApplyInitialSettings
 Dolphin_init(){
-    setMSG "${Dolphin_emuName}: Apply initial config"
-    echo ""
+  
+  setMSG "${Dolphin_emuName}: Apply initial config"
+  echo ""
 	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}" "true"
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
   Dolphin_cleanup
-  #Dolphin_DynamicInputTextures
+  Dolphin_setCustomizations
+	SRM_createParsers
+    #Dolphin_DynamicInputTextures
 }
 
 #update
 Dolphin_update(){
-    setMSG "${Dolphin_emuName}: Apply configuration Update"
-    echo ""
+  setMSG "${Dolphin_emuName}: Apply configuration Update"
+  echo ""
 	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
-    Dolphin_cleanup
+  Dolphin_cleanup
 }
 
 #ConfigurePaths
@@ -66,7 +71,7 @@ Dolphin_setEmulationFolder(){
     echo ""
   	local configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
     gameDirOpt1='ISOPath0 = '
-    gameDirOpt1Setting='ISOPath0 = '"${romsPath}/gc"
+    gameDirOpt1Setting='ISOPath0 = '"${romsPath}/gamecube"
     gameDirOpt2='ISOPath1 = '
     gameDirOpt2Setting='ISOPath1 = '"${romsPath}/wii"
     sed -i "/${gameDirOpt1}/c\\${gameDirOpt1Setting}" "$configFile"
@@ -86,7 +91,40 @@ Dolphin_setupSaves(){
 
 #SetupStorage
 Dolphin_setupStorage(){
-    echo "NYI"#TBD
+
+  if [ -d "${HOME}/.local/share/Steam" ]; then
+    STEAMPATH="${HOME}/.local/share/Steam"
+  elif [ -d "${HOME}/.steam/steam" ]; then
+    STEAMPATH="${HOME}/.steam/steam"
+  else
+    echo "Steam install not found"
+  fi
+
+  if [[ -L "$romsPath/gc" && ! $(readlink -f "$romsPath/gc") =~ ^"$romsPath" ]] || [[ -L "$romsPath/gamecube" && ! $(readlink -f "$romsPath/gamecube") =~ ^"$romsPath" ]]; then
+      echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
+  else
+    if [[ ! -e "$romsPath/gamecube" && ! -e "$romsPath/gc" ]]; then
+      mkdir -p "$romsPath/gc"
+      ln -sfn "$romsPath/gc" "$romsPath/gamecube"
+    elif [[ -d "$romsPath/gamecube" && -L "$romsPath/gc" ]]; then
+      echo "Converting gc symlink to a regular directory..."
+      unlink "$romsPath/gc"
+      mv "$romsPath/gamecube" "$romsPath/gc"
+      ln -sfn "$romsPath/gc" "$romsPath/gamecube"
+      echo "gamecube symlink updated to point to gc"
+    elif [[ -d "$romsPath/gamecube" && ! -e "$romsPath/gc" ]]; then
+      echo "Creating gc directory and updating gamecube symlink..."
+      mv "$romsPath/gamecube" "$romsPath/gc"
+      ln -sfn "$romsPath/gc" "$romsPath/gamecube"
+      echo "gamecube symlink updated to point to gc"
+    elif [[ -d "$romsPath/gc" && ! -e "$romsPath/gamecube" ]]; then
+      echo "gamecube symlink not found, creating..."
+      ln -sfn "$romsPath/gc" "$romsPath/gamecube"
+      echo "gamecube symlink created"
+    fi
+  fi
+
+  find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/gc|${romsPath}/gamecube|g" {} +
 }
 
 
@@ -104,12 +142,23 @@ Dolphin_uninstall(){
 
 #setABXYstyle
 Dolphin_setABXYstyle(){
-   	echo "NYI" 
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/A = `Button S`|Buttons/A = `Button E`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/B = `Button N`|Buttons/B = `Button S`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/X = `Button E`|Buttons/X = `Button N`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/Y = `Button W`|Buttons/Y = `Button W`|' $Dolphin_gamecubeFile
+
+}
+
+Dolphin_setBAYXstyle(){
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/A = `Button E`|Buttons/A = `Button S`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/B = `Button S`|Buttons/B = `Button N`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/X = `Button N`|Buttons/X = `Button E`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/Y = `Button W`|Buttons/Y = `Button W`|' $Dolphin_gamecubeFile
 }
 
 #Migrate
 Dolphin_migrate(){
-   	echo "NYI" 
+   	echo "NYI"
 }
 
 #WideScreenOn
@@ -149,7 +198,7 @@ echo "NYI"
 }
 
 Dolphin_IsInstalled(){
-	isFpInstalled "$Dolphin_emuPath"
+    isFpInstalled "$Dolphin_emuPath"
 }
 
 Dolphin_resetConfig(){
@@ -163,15 +212,35 @@ Dolphin_finalize(){
 
 Dolphin_DynamicInputTextures(){
   local DIT_releaseURL="$(getLatestReleaseURLGH "Venomalia/UniversalDynamicInput" "7z")"
-  
+
   if [[ ! -e "$storagePath/dolphin/Load" ]]; then
     mkdir -p "$storagePath/dolphin/Load"
     ln -s "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Load/" "$storagePath/dolphin/Load/"
   fi
-  
-  if safeDownload "UniversalDynamicInput" "$DIT_releaseURL" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Load/DynamicInputTextures.7z" "false"; then      
-    7z "$storagePath/dolphin/Load/DynamicInputTextures.7z" -o"$storagePath/dolphin/Load/" && rm -rf "$storagePath/Dolphin/Load/DynamicInputTextures.7z"    
+
+  if safeDownload "UniversalDynamicInput" "$DIT_releaseURL" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Load/DynamicInputTextures.7z" "false"; then
+    7z "$storagePath/dolphin/Load/DynamicInputTextures.7z" -o"$storagePath/dolphin/Load/" && rm -rf "$storagePath/Dolphin/Load/DynamicInputTextures.7z"
   else
     return 1
   fi
+}
+
+Dolphin_setCustomizations(){
+    if [ "$arDolphin" == 169 ]; then
+      Dolphin_wideScreenOn
+    else
+      Dolphin_wideScreenOff
+    fi
+}
+
+Dolphin_setResolution(){
+	case $dolphinResolution in
+		"720P") multiplier=2;;
+		"1080P") multiplier=3;;
+		"1440P") multiplier=4;;
+		"4K") multiplier=6;;
+		*) echo "Error"; return 1;;
+	esac
+
+	RetroArch_setConfigOverride "InternalResolution" $multiplier "$Dolphin_configFileGFX"
 }

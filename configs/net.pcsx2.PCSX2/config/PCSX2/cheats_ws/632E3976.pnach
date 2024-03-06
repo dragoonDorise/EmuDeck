@@ -1,4 +1,0 @@
-gametitle=Pirates of The Caribbean - The Legend of Jack Sparrow NTSC-U (SLUS_211.10)
-comment=Widescreen Hack
-//16:9
-patch=1,EE,20492F88,extended,3FAB851F // 3F800000

@@ -1,9 +1,0 @@
-gametitle=RedCard 20-03 (U)(SLUS-20354)
-comment=Widescreen Hack (NTSC-U by Arapapa)
-
-//Gameplay 16:9 
-
-patch=1,EE,00206ed4,word,3c023fe3 //3c023faa
-patch=1,EE,00206edc,word,34428e39 //3442aaab
-
-patch=1,EE,002578dc,word,3c023f22 //3c023f00

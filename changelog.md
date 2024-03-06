@@ -274,7 +274,7 @@
   data migration can happen seamlessly. You will be notified if we find data in the default appimage location
   and can choose to keep and migrate the old Flatpak data, or you can use the existing AppImage data you have.  
    The chosen data will be migrated to the AppImage location, and linked back to the flatpak data location.  
-   Steam Rom Manager users will need to re-parse for Yuzu games to use the new AppImage.  
+   Steam ROM Manager users will need to re-parse for Yuzu games to use the new AppImage.  
    The Flatpak installation is NOT removed, but must be for EmulationStation-DE to use the AppImage instead.
 - New - Storage folder to keep Xemu, Yuzu, and RPCS3 data in the Emulation folder. Migration will happen at the start.
   You may need to re-parse for rpcs3 installed files.
@@ -317,10 +317,10 @@
 - Icon renamed to Update EmuDeck to avoid confusion
 - Fixed Atari Bezels. Added bezels to Dreamcast, N64 and Saturn
 - Fixed Dolphin and Primehack from sending button presses as part of hotkeys as in-game button presses
-- Added Naomi (flycast) parser for Steam Rom Manager. Uses roms/naomi folder
+- Added Naomi (flycast) parser for Steam ROM Manager. Uses roms/naomi folder
 - Fixed retroachievements not working for users with certain special characters in their passwords.
 - Added easyRPG core to RA. Required additional files are not yet downloaded. You can add them manually.
-- Added PCSX2-Qt AppImage and Steam Rom Manager Parser. This can live side by side with your existing pcsx2, but it should be removed.
+- Added PCSX2-Qt AppImage and Steam ROM Manager Parser. This can live side by side with your existing pcsx2, but it should be removed.
 - Migrate pcsx2 saves files to the Emulation folder. This is no longer a link.
 - Both versions of Pcsx2 use the same saves location in their config so no matter which, you can save / load state.
 - Expert mode settings are remembered.

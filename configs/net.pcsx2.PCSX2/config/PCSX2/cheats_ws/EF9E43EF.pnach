@@ -1,4 +1,0 @@
-comment=Ys - The Ark of Napishtim - Widescreen Hack (16:9) (NTSC-U)
-patch=1,EE,202E0A28,extended,3F19999A // hor
-//patch=1,EE,202E0A2C,extended,3F80EEEF //vert
-patch=1,EE,00215aa0,word,3c033faa // r fix

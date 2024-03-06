@@ -1,0 +1,6 @@
+collection: Sharp X68000
+shortname: x68000
+extensions: dim, DIM, img, IMG, d88, D88, 88d, 88D, hdm, HDM, dup, DUP, 2hd, 2HD, xdf, XDF, hdf, HDF, cmd, CMD, m3u, M3U, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/px68k_libretro.so {file.path}
+
+

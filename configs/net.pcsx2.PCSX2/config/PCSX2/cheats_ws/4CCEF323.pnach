@@ -1,7 +1,0 @@
-gametitle=Critical Velocity (NTSC-J)(SLPS-25532)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//0000803f 5555953f 00000045
-patch=1,EE,2047CEBC,extended,3f400000 //3f800000

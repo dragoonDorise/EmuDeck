@@ -1,9 +1,0 @@
-gametitle=The Incredibles: Rise of the Underminer [PAL-M3] (SLES_534.74)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,00218F24,word,3C023F1C //3C023F00 Zoom
-patch=1,EE,00218F50,word,3C023F10 //3C023F40 Y-FOV
-
-//Hang fix by Prafull (Only needed for pcsx2, is not needed for the PS2)
-//patch=1,EE,001110E0,word,00000000 //40036000

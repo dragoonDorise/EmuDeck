@@ -1,6 +1,0 @@
-gametitle=Crime Life - Gang Wars (E)(SLES-52122)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-patch=1,EE,004155f8,word,3c043f40 //3c043f80

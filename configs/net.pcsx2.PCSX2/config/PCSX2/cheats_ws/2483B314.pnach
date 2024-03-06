@@ -1,7 +1,0 @@
-gametitle=Motorbike King (E)(SLES-52518)
-comment=Widescreen hack by Arapapa
-
-//Widescreen hack 16:9
-
-//803f013c 00288144 e0000224
-patch=1,EE,001310d4,word,3c013f40 //3c013f80 X-Fov

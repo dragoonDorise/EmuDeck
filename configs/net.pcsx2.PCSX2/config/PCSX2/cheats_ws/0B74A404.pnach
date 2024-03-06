@@ -1,6 +1,0 @@
-gametitle=Stunt GP [PAL] (SLES_500.64)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9
-patch=1,EE,00591E00,word,3FE37119 //3FAA9FBE Single Player
-patch=1,EE,00591DFC,word,3FE37119 //3FAA9FBE Multi Player

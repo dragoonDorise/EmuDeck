@@ -6,7 +6,7 @@
     <permanent_storage>true</permanent_storage>
     <language>0</language>
     <use_discord_presence>false</use_discord_presence>
-    <fullscreen_menubar>true</fullscreen_menubar>
+    <fullscreen_menubar>false</fullscreen_menubar>
     <check_update>false</check_update>
     <save_screenshot>true</save_screenshot>
     <vk_warning>false</vk_warning>
@@ -89,13 +89,13 @@
         <delay>2</delay>
         <TVChannels>1</TVChannels>
         <PadChannels>1</PadChannels>
-        <InputChannels>1</InputChannels>
+        <InputChannels>0</InputChannels>
         <TVVolume>100</TVVolume>
-        <PadVolume>0</PadVolume>
-        <InputVolume>20</InputVolume>
-        <TVDevice>alsa_output.pci-0000_04_00.5-platform-acp5x_mach.0.HiFi__hw_acp5x_1__sink</TVDevice>
-        <PadDevice></PadDevice>
-        <InputDevice>alsa_input.pci-0000_04_00.5-platform-acp5x_mach.0.HiFi__hw_acp5x_0__source</InputDevice>
+        <PadVolume>100</PadVolume>
+        <InputVolume>100</InputVolume>
+        <TVDevice>input.virtual-sink</TVDevice>
+        <PadDevice>input.virtual-sink</PadDevice>
+        <InputDevice>output.virtual-source</InputDevice>
     </Audio>
     <Account>
         <PersistentId>2147483649</PersistentId>

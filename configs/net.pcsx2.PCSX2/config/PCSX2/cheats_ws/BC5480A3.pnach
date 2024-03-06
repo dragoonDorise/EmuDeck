@@ -1,8 +1,0 @@
-gametitle=Soul Calibur III PAL (SCES_533.12)
-comment=Widescreen pnach by El_Patas
-
-//Widescreen fix
-patch=1,EE,0012A120,word,3C013F40 //3C013F4D
-patch=1,EE,0012A124,word,34210000 //3421B9CC
-
-//USE FAST BOOT, NOT FULL BOOT, OR IT MAY CRASH

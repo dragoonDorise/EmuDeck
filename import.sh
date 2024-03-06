@@ -95,7 +95,7 @@ checkSpace "$origin/EmuDeck/saves/" "$emulationPath"
 
 for entry in "$origin/EmuDeck/saves/"*
 do
-	rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/saves/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/saves/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
+	rsync -rav --ignore-existing --progress "$entry" "$emulationPath/saves/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/saves/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
 done
 
 

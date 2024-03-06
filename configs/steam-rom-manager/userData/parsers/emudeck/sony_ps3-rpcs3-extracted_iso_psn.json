@@ -1,0 +1,74 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Sony PlayStation 3 - RPCS3 (Extracted ISO/PSN)",
+  "steamCategory": "${Sony PlayStation 3}",
+  "executableModifier": "\"${exePath}\"",
+  "romDirectory": "${romsdirglobal}/ps3",
+  "steamDirectory": "${steamdirglobal}",
+  "startInDirectory": "",
+  "titleModifier": "${fuzzyTitle}",
+  "executableArgs": "--no-gui \"'${filePath}'\"",
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "imageProviders": ["SteamGridDB"],
+  "disabled": false,
+  "userAccounts": {
+    "specifiedAccounts": ""
+  },
+  "parserInputs": {
+    "glob": "**/${title}/PS3_GAME/USRDIR/@(eboot.bin|EBOOT.BIN|ISO.BIN.EDAT|iso.bin.edat)"
+  },
+	"controllers": {
+	  "ps4": null,
+	  "ps5": null,
+	  "xbox360": null,
+	  "xboxone": null,
+	  "switch_joycon_left": null,
+	  "switch_joycon_right": null,
+	  "switch_pro": null,
+	  "neptune": null
+	},
+  "titleFromVariable": {
+    "limitToGroups": "${PS3}",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false,
+    "tryToMatchTitle": true
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/rpcs3.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "parserId": "164785645271669680",
+  "version": 15,
+  "imageProviderAPIs": {
+    "SteamGridDB": {
+      "nsfw": false,
+      "humor": false,
+      "imageMotionTypes": ["static"],
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": []
+    }
+  },
+  "defaultImage": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+  },
+  "localImages": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  }
+}

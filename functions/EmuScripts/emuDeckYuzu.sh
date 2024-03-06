@@ -1,26 +1,58 @@
 #!/bin/bash
 
 #variables
-Yuzu_emuName="Yuzu"
-Yuzu_emuType="AppImage"
+Yuzu_emuName="yuzu"
+Yuzu_emuType="$emuDeckEmuTypeAppImage"
 Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
-YuzuEA_emuPath="$HOME/Applications/yuzu-ea.AppImage"
-YuzuEA_tokenFile="$HOME/emudeck/yuzu-ea-token.txt"
-YuzuEA_lastVerFile="$HOME/emudeck/yuzu-ea.ver"
+
+Yuzu_configFile="$HOME/.config/yuzu/qt-config.ini"
+
+# https://github.com/yuzu-emu/yuzu/blob/master/src/core/file_sys/control_metadata.cpp#L41-L60
+declare -A Yuzu_languages
+Yuzu_languages=(
+["ja"]=0
+["en"]=1
+["fr"]=2
+["de"]=3
+["it"]=4
+["es"]=5
+["zh"]=6
+["ko"]=7
+["nl"]=8
+["pt"]=9
+["ru"]=10
+["tw"]=11) # TODO: not all langs but we need to switch to full lang codes to support those
+
+# https://github.com/yuzu-emu/yuzu/blob/master/src/yuzu/configuration/configure_system.ui#L272-L309
+declare -A Yuzu_regions
+Yuzu_regions=(
+["ja"]=0 # Japan
+["en"]=1 # USA
+["fr"]=2 # Europe
+["de"]=2 # Europe
+["it"]=2 # Europe
+["es"]=2 # Europe
+["zh"]=4 # China
+["ko"]=5 # Korea
+["nl"]=2 # Europe
+["pt"]=2 # Europe
+["ru"]=2 # Europe?
+["tw"]=6 # Taiwan
+) # TODO: split lang from region?
 
 #cleanupOlderThings
 Yuzu_cleanup() {
     echo "Begin Yuzu Cleanup"
     #Fixes repeated Symlink for older installations
-    
+
     if [ -f  "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys" ]; then
         unlink "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys"
     fi
-    
+
     if [ -f  "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys" ]; then
         unlink "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/registered"
     fi
-    
+
 }
 
 #Install
@@ -31,7 +63,7 @@ Yuzu_install() {
     local lastVerFile="$HOME/emudeck/yuzu.ver"
     local latestVer=$(curl -fSs "https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases" | jq -r '[ .[].tag_name ][0]')
     local success="false"
-    if installEmuAI "yuzu" "$(getReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage")" "" "$showProgress" "$lastVerFile" "$latestVer"; then #needs to be lowercase yuzu for EsDE to find it.
+    if installEmuAI "$Yuzu_emuName" "$(getReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage")" "" "$showProgress" "$lastVerFile" "$latestVer"; then # yuzu.AppImage - needs to be lowercase yuzu for EsDE to find it
         success="true"
     fi
 
@@ -40,86 +72,20 @@ Yuzu_install() {
     fi
 }
 
-YuzuEA_install() {
-
-    local jwtHost="https://api.yuzu-emu.org/jwt/installer/"
-    local yuzuEaHost="https://api.yuzu-emu.org/downloads/earlyaccess/"
-    local yuzuEaMetadata=$(curl -fSs ${yuzuEaHost})
-    local fileToDownload=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).url')
-    local currentVer=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
-    local showProgress="$1"
-
-    if [ -e "$YuzuEA_tokenFile" ]; then
-
-        if [ "$currentVer" == "$(cat "${YuzuEA_lastVerFile}")" ] && [ -e "$YuzuEA_emuPath" ]; then
-
-            echo "no need to update."
-
-        elif [ -z "$currentVer" ]; then
-
-            echo "couldn't get metadata."
-            return 1
-
-        else
-
-            echo "updating"
-            read -r user auth <<<"$(base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}')"
-
-            if [[ -n "$user" && -n "$auth" ]]; then
-
-                echo "get bearer token"
-                BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
-
-                echo "download ea appimage"
-                #response=$(curl -f -X GET ${fileToDownload} --write-out '%{http_code}' -H "Accept: application/json" -H "Authorization: Bearer ${BEARERTOKEN}" -o "${YuzuEA_emuPath}.temp")
-                if safeDownload "yuzu-ea" "$fileToDownload" "${YuzuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
-                    chmod +x "$YuzuEA_emuPath"
-                    echo "latest version $currentVer > $YuzuEA_lastVerFile"
-                    echo "${currentVer}" >"${YuzuEA_lastVerFile}"
-                    cp -v "${EMUDECKGIT}/tools/launchers/yuzu.sh" "${toolsPath}/launchers/"
-                    chmod +x "${toolsPath}/launchers/yuzu.sh"
-                else
-                    return 1
-                fi
-
-            else
-
-                echo "Token malformed"
-                return 1
-
-            fi
-
-        fi
-
-    else
-
-        echo "Token Not Found"
-
-    fi
-
-    # if we have yuzu-ea.AppImage, launcher will use that instead of mainline one so we can decorate shortcut
-    if [ -e "$YuzuEA_emuPath" ]; then
-        yuzuShortcut="$HOME/.local/share/applications/yuzu.desktop"
-        if [ -e "$yuzuShortcut" ]; then
-            desktopShortcutFieldUpdate "$yuzuShortcut" "Name" "yuzu-EA AppImage"
-        fi
-    fi
-
-}
-
 #ApplyInitialSettings
 Yuzu_init() {
     echo "Begin Yuzu Init"
 
     Yuzu_migrate
 
-    configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
-    configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
+    configEmuAI "$Yuzu_emuName" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
+    configEmuAI "$Yuzu_emuName" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
 
     Yuzu_setEmulationFolder
     Yuzu_setupStorage
     Yuzu_setupSaves
     Yuzu_finalize
+    SRM_createParsers
 
 }
 
@@ -129,8 +95,8 @@ Yuzu_update() {
 
     Yuzu_migrate
 
-    configEmuAI "yuzu" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu"
-    configEmuAI "yuzu" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu"
+    configEmuAI "$Yuzu_emuName" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu"
+    configEmuAI "$Yuzu_emuName" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu"
 
     Yuzu_setEmulationFolder
     Yuzu_setupStorage
@@ -141,7 +107,7 @@ Yuzu_update() {
 #ConfigurePaths
 Yuzu_setEmulationFolder() {
     echo "Begin Yuzu Path Config"
-    configFile="$HOME/.config/yuzu/qt-config.ini"
+
     screenshotDirOpt='Screenshots\\screenshot_path='
     gameDirOpt='Paths\\gamedirs\\4\\path='
     dumpDirOpt='dump_directory='
@@ -157,13 +123,13 @@ Yuzu_setEmulationFolder() {
     newSdmcDirOpt='sdmc_directory='"${storagePath}/yuzu/sdmc"
     newTasDirOpt='tas_directory='"${storagePath}/yuzu/tas"
 
-    sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" "$configFile"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
-    sed -i "/${dumpDirOpt}/c\\${newDumpDirOpt}" "$configFile"
-    sed -i "/${loadDir}/c\\${newLoadDir}" "$configFile"
-    sed -i "/${nandDirOpt}/c\\${newNandDirOpt}" "$configFile"
-    sed -i "/${sdmcDirOpt}/c\\${newSdmcDirOpt}" "$configFile"
-    sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "$configFile"
+    sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" "$Yuzu_configFile"
+    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Yuzu_configFile"
+    sed -i "/${dumpDirOpt}/c\\${newDumpDirOpt}" "$Yuzu_configFile"
+    sed -i "/${loadDir}/c\\${newLoadDir}" "$Yuzu_configFile"
+    sed -i "/${nandDirOpt}/c\\${newNandDirOpt}" "$Yuzu_configFile"
+    sed -i "/${sdmcDirOpt}/c\\${newSdmcDirOpt}" "$Yuzu_configFile"
+    sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "$Yuzu_configFile"
 
     #Setup Bios symlinks
     unlink "${biosPath}/yuzu/keys" 2>/dev/null
@@ -177,6 +143,29 @@ Yuzu_setEmulationFolder() {
 
     touch "${storagePath}/yuzu/nand/system/Contents/registered/putfirmwarehere.txt"
 
+}
+
+#SetLanguage
+Yuzu_setLanguage(){
+    setMSG "Setting Yuzu Language"
+
+    languageOpt="language_index="
+    languageDefaultOpt="language_index\\\\default="
+    newLanguageDefaultOpt="language_index\\\\default=false" # we need those or else itll reset
+    regionOpt="region_index="
+    regionDefaultOpt="region_index\\\\default="
+    newRegionDefaultOpt="region_index\\\\default=false"
+	#TODO: call this somewhere, and input the $language from somewhere (args?)
+	if [[ -f "${Yuzu_configFile}" ]]; then
+		if [ ${Yuzu_languages[$language]+_} ]; then
+            newLanguageOpt='language_index='"${Yuzu_languages[$language]}"
+            newRegionOpt='region_index='"${Yuzu_regions[$language]}"
+            changeLine "$languageOpt" "$newLanguageOpt" "$Yuzu_configFile"
+            changeLine "$languageDefaultOpt" "$newLanguageDefaultOpt" "$Yuzu_configFile"
+            changeLine "$regionOpt" "$newRegionOpt" "$Yuzu_configFile"
+            changeLine "$regionDefaultOpt" "$newRegionDefaultOpt" "$Yuzu_configFile"
+		fi
+	fi
 }
 
 #SetupSaves
@@ -196,6 +185,8 @@ Yuzu_setupStorage() {
     mkdir -p "${storagePath}/yuzu/nand"
     mkdir -p "${storagePath}/yuzu/screenshots"
     mkdir -p "${storagePath}/yuzu/tas"
+    #Symlink to saves for CloudSync
+    ln -sn "${storagePath}/yuzu/nand/system/save/8000000000000010/su/avators/" "${savesPath}/yuzu/profiles"
 }
 
 #WipeSettings
@@ -212,16 +203,11 @@ Yuzu_uninstall() {
     YuzuEA_uninstall
 }
 
-YuzuEA_uninstall() {
-    echo "Begin Yuzu EA uninstall"
-    rm -rf "$YuzuEA_emuPath"
-}
 
 #Migrate
 Yuzu_migrate() {
     echo "Begin Yuzu Migration"
-    emu="Yuzu"
-    migrationFlag="$HOME/.config/EmuDeck/.${emu}MigrationCompleted"
+    migrationFlag="$HOME/.config/EmuDeck/.${Yuzu_emuName}MigrationCompleted"
     #check if we have a nomigrateflag for $emu
     if [ ! -f "$migrationFlag" ]; then
         #yuzu flatpak to appimage
@@ -231,6 +217,7 @@ Yuzu_migrate() {
         migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
 
         # migrateAndLinkConfig "$emu" "$migrationTable"
+        touch "${migrationFlag}"
     fi
 
     #move data from hidden folders out to these folders in case the user already put stuff here.
@@ -277,84 +264,6 @@ Yuzu_finalize() {
     Yuzu_cleanup
 }
 
-#finalExec - Extra stuff
-YuzuEA_addToken_install() {
-    if ! YuzuEA_install "true"; then
-        zenity --title="Download failure!" --error --text="Download failed! Please contact support." --width 400 2>/dev/null
-    else
-        zenity --title="Download complete" --info --text="Your AppList entry should change to yuzu-EA AppImage.\n\nThe Yuzu entry will ask to update the Yuzu-EA appimage when you run it, and it detects that an update is available.\n\nDon't worry, it won't bother you if you launch a game." --width 400 2>/dev/null
-    fi
-} 
-
-YuzuEA_addToken() {
-    local tokenValue=""
-    local updateToken="true"
-    local user=""
-    local auth=""
-
-
-    if [ -e "$YuzuEA_tokenFile" ]; then
-        tokenValue=$(cat "$YuzuEA_tokenFile")
-        read -r user auth <<<"$(base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}')"
-    fi
-
-    if [ -n "$user" ] && [ -n "$auth" ]; then
-        text=$(printf "Current Token: %s\n\
-        Would you like to update your token, %s?" "$tokenValue" "$user")
-        zenity --title="Update EA Token?" --question --text="$text" 2>/dev/null
-        if [ "$?" = 1 ]; then
-            updateToken="false"
-            text=$(printf "Token parsed.\
-            \nYuzu Patreon Username: %s\
-            \nDownload EA now?" "$user")
-            zenity --title="Download Early Access?" --question --text="$text" --width 300 2>/dev/null
-            if [ "$?" = 1 ]; then
-                exit
-            else
-                YuzuEA_addToken_install
-            fi
-        else
-            user=""
-            auth=""
-        fi
-    fi
-
-    if [ $updateToken = "true" ]; then
-        text=$(printf "Enter your Yuzu Early Access Token to automatically download and update Yuzu Early Access. \
-        \nYou can get this from your Yuzu Patreon. \
-        \nhttps://yuzu-emu.org/help/early-access/\
-        \nOnce you have entered your token in this window it will be saved to ~/emudeck/yuzu-ea-token.txt\
-        \n ")
-        eaToken=$(zenity --title="Enter Yuzu EA Patreon Code" --entry --text="$text" 2>/dev/null)
-        if [ "$?" = 1 ]; then
-            exit
-        else
-            echo "$eaToken" >"$YuzuEA_tokenFile"
-        fi
-
-        read -r user auth <<<"$(base64 -d -i "${YuzuEA_tokenFile}" | awk -F":" '{print $1" "$2}')"
-        if [ -n "$user" ] && [ -n "$auth" ]; then
-            text=$(printf "Token parsed.\
-            \nYuzu Patreon Username: %s\
-            \nDownload EA now?" "$user")
-            zenity --title="Download Early Access?" --question --text="$text" --width 300 2>/dev/null
-            if [ "$?" = 1 ]; then
-                exit
-            else
-                YuzuEA_addToken_install
-            fi
-        else
-            text=$(printf "Token Error.\nTry again?")
-            zenity --title="Try again?" --question --text="$text" --width 300 2>/dev/null
-            if [ "$?" = 1 ]; then
-                exit
-            else
-                YuzuEA_addToken
-            fi
-        fi
-    fi
-}
-
 Yuzu_IsInstalled() {
     if [ -e "$Yuzu_emuPath" ]; then
         echo "true"
@@ -362,6 +271,57 @@ Yuzu_IsInstalled() {
         echo "false"
     fi
 }
+
+
+Yuzu_resetConfig() {
+    Yuzu_init &>/dev/null && echo "true" || echo "false"
+}
+
+
+
+
+### Yuzu EA
+
+YuzuEA_install() {
+    local jwtHost="https://api.yuzu-emu.org/jwt/installer/"
+    local yuzuEaHost="https://api.yuzu-emu.org/downloads/earlyaccess/"
+    local yuzuEaMetadata=$(curl -fSs ${yuzuEaHost})
+    local fileToDownload=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).url')
+    local currentVer=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
+    local tokenValue="$1"
+    local showProgress="$2"
+    local user
+    local auth
+
+    read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')" || echo "invalid"
+
+    #echo "get bearer token"
+    BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
+
+    #echo "download ea appimage"
+
+    if safeDownload "yuzu-ea" "$fileToDownload" "${YuzuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
+        chmod +x "$YuzuEA_emuPath"
+
+        cp -v "${EMUDECKGIT}/tools/launchers/yuzu.sh" "${toolsPath}/launchers/" &>/dev/null
+        chmod +x "${toolsPath}/launchers/yuzu.sh"
+        echo "true"
+        return 0
+    else
+        echo "fail"
+        return 1
+    fi
+
+}
+
+YuzuEA_addToken(){
+    local tokenValue=$1
+    local user=""
+    local auth=""
+
+   read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')" && YuzuEA_install "$tokenValue" || echo "invalid"
+}
+
 
 YuzuEA_IsInstalled() {
     if [ -e "$YuzuEA_emuPath" ]; then
@@ -371,7 +331,22 @@ YuzuEA_IsInstalled() {
     fi
 }
 
-Yuzu_resetConfig() {
-    Yuzu_init &>/dev/null && echo "true" || echo "false"
+
+YuzuEA_uninstall() {
+    echo "Begin Yuzu EA uninstall"
+    rm -rf "$YuzuEA_emuPath"
 }
 
+Yuzu_setResolution(){
+
+	case $yuzuResolution in
+		"720P") multiplier=2; docked="false";;
+		"1080P") multiplier=2; docked="true";;
+		"1440P") multiplier=3; docked="false";;
+		"4K") multiplier=3; docked="true";;
+		*) echo "Error"; return 1;;
+	esac
+
+	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Yuzu_configFile"
+	RetroArch_setConfigOverride "use_docked_mode" $docked "$Yuzu_configFile"
+}

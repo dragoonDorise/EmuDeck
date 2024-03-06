@@ -1,0 +1,74 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Nintendo Switch - Ryujinx",
+  "steamCategory": "${Nintendo Switch - Ryujinx}",
+  "steamDirectory": "${steamdirglobal}",
+  "romDirectory": "${romsdirglobal}/switch",
+  "executableArgs": "--fullscreen \"'${filePath}'\"",
+  "executableModifier": "\"${exePath}\"",
+  "startInDirectory": "",
+  "titleModifier": "${fuzzyTitle} (Ryujinx)",
+  "imageProviders": ["SteamGridDB"],
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "userAccounts": {
+    "specifiedAccounts": ""
+  },
+  "disabled": false,
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/ryujinx.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "parserInputs": {
+    "glob": "**/${title}@(.kip|.KIP|.nca|.NCA|.nro|.NRO|.nso|.NSO|.nsp|.NSP|.nsz|.NSZ|.xci|.XCI)"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false,
+    "tryToMatchTitle": false
+  },
+	"controllers": {
+	  "ps4": null,
+	  "ps5": null,
+	  "xbox360": null,
+	  "xboxone": null,
+	  "switch_joycon_left": null,
+	  "switch_joycon_right": null,
+	  "switch_pro": null,
+	  "neptune": null
+	},
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "imageProviderAPIs": {
+    "SteamGridDB": {
+      "nsfw": false,
+      "humor": false,
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": [],
+      "imageMotionTypes": ["static"]
+    }
+  },
+  "parserId": "164788906872922785",
+  "version": 15,
+  "defaultImage": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+  },
+  "localImages": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  }
+}

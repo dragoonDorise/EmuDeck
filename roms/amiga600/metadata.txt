@@ -1,0 +1,7 @@
+collection: Commodore Amiga 600
+shortname: amiga600
+extensions:, adf, ADF, adz, ADZ, ccd, CCD, chd, CHD, cue, CUE, dms, DMS, fdi, FDI, hdf, HDF, hdz, HDZ, ipf, IPF, rp9, RP9, iso, ISO, lha, LHA, m3u, M3U, mds, MDS, nrg, NRG, uae, UAE, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/puae_libretro.so {file.path}
+
+
+

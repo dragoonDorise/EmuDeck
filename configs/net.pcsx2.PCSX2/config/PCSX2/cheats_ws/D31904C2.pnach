@@ -1,6 +1,0 @@
-gametitle=Crimson Tears SLUS_209.48
-comment=Widescreen Hack
-
-//aabf023c 00008544 abaa4334
-patch=1,EE,001bcb98,word,3c02bfe3 //3c02bfaa hor fov
-patch=1,EE,001bcba0,word,34438e39 //3443aaab hor fov

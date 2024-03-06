@@ -1,7 +1,0 @@
-gametitle=Kengo 2 (K)(SLKA-25009)
-comment=Widescreen hack (NTSC-K by Arapapa)
-
-//Widescreen hack 16:9
-
-patch=1,EE,001e66b8,word,3c013f40 //3c013f80
-patch=1,EE,001ab4b4,word,3c013f40 //3c013f80

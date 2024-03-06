@@ -1,8 +1,0 @@
-gametitle=Marvel Super Hero Squad [PAL-M6] (SLES_555.72)
-comment=Widescreen hack by El_Patas
-
-//Inside Battle mode in the Versus Battle causes a zoom, and in Squad Battle causes an Y-FOV.
- 
-//Gameplay 16:9 
-patch=1,EE,0015310C,word,3C013F25 //3C013F00 Zoom
-patch=1,EE,002AB728,word,3C013F40 //3C013F80 Y-FOV

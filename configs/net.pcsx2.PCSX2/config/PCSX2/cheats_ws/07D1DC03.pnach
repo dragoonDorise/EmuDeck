@@ -1,8 +1,0 @@
-gametitle=Airborne Troops - Countdown to D-Day (E)(SLES-52939)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9
-
-//X-Fov
-//1042023c 2d808000 00008244
-patch=1,EE,00407f9c,word,3c024240 //3c024210

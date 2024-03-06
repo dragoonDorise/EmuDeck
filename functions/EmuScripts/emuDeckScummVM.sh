@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 ScummVM_emuName="ScummVM"
-ScummVM_emuType="FlatPak"
+ScummVM_emuType="$emuDeckEmuTypeFlatpak"
 ScummVM_emuPath="org.scummvm.ScummVM"
 ScummVM_releaseURL=""
 ScummVM_configFile="$HOME/.var/app/org.scummvm.ScummVM/config/scummvm/scummvm.ini"
@@ -13,9 +13,14 @@ ScummVM_cleanup(){
 
 #Install
 ScummVM_install(){
-	installEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}"	
+	installEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}"
 	flatpak override "${ScummVM_emuPath}" --filesystem=host --user
 	flatpak override "${ScummVM_emuPath}" --share=network --user
+}
+
+#Fix for autoupdate
+Scummvm_install(){
+	ScummVM_install
 }
 
 #ApplyInitialSettings
@@ -24,6 +29,7 @@ ScummVM_init(){
 	ScummVM_setupStorage
 	ScummVM_setEmulationFolder
 	ScummVM_setupSaves
+	SRM_createParsers
 }
 
 #update
@@ -55,13 +61,13 @@ ScummVM_setupSaves(){
 
 #SetupStorage
 ScummVM_setupStorage(){
-	echo "NYI"  
+	echo "NYI"
 }
 
 
 #WipeSettings
 ScummVM_wipe(){
-	echo "NYI"  
+	echo "NYI"
 }
 
 
@@ -72,12 +78,12 @@ ScummVM_uninstall(){
 
 #setABXYstyle
 ScummVM_setABXYstyle(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #Migrate
 ScummVM_migrate(){
-	echo "NYI"    
+	echo "NYI"
 }
 
 #WideScreenOn

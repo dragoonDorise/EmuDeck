@@ -1,0 +1,1861 @@
+{
+    "BigPEmuConfig": {
+        "VideoPlugin": "BigPEmu_Video_OpenGL",
+        "AudioPlugin": "BigPEmu_Audio_DirectSound",
+        "InputPlugin": "BigPEmu_Input_DirectInput",
+        "StringsPath": "strings_en.txt",
+        "System": {
+            "RISCClock": 2,
+            "M68KClock": 2,
+            "FFSpeed": 0,
+            "LockMode": 2,
+            "PipelineEnabled": 1,
+            "BlitterSpeed": 2,
+            "BlitterOverlapMode": 0,
+            "OPPriorityScaling": 0,
+            "AlwaysRunOP": 0,
+            "RandomizeStartCycle": 0,
+            "PreserveCDEEPROM": 0,
+            "ResetMode": 0,
+            "StateSlot": 0,
+            "PerGameSlots": 0,
+            "SaveAutoIncr": 0,
+            "RewindCount": 0,
+            "ShowTitleInfo": 1,
+            "PALMode": 0,
+            "RunAhead": 2,
+            "ForceLoadAddr": 0,
+            "ForceRunAddr": 0,
+            "AttachButch": 1,
+            "AttachMT": 1,
+            "ShareMT": 0,
+            "CDSeekSpeed": 2,
+            "FullImageCache": 0,
+            "ForceJGD": 0,
+            "LoopbackMute": 1,
+            "SysAudSampleScale": 1.0
+        },
+        "Video": {
+            "Display": "\\\\.\\DISPLAY1",
+            "DisplayWidth": 1280,
+            "DisplayHeight": 800,
+            "DisplayBitDepth": 32,
+            "DisplayFrequency": 60,
+            "FirstColNTSC": 176,
+            "WidthNTSC": 1280,
+            "FirstLineNTSC": 14,
+            "HeightNTSC": 240,
+            "FirstColPAL": 196,
+            "WidthPAL": 1280,
+            "FirstLinePAL": 14,
+            "HeightPAL": 288,
+            "DisplayMode": 0,
+            "VSync": 1,
+            "ScreenScaling": 0,
+            "ScreenAnchor": 0,
+            "ScreenFilter": 0,
+            "ScreenAspect": 2,
+            "LockAspect": 1,
+            "ScreenEffectForceHDR": 0,
+            "HDROutput": 0,
+            "HDRGamma": 1.0,
+            "HDRScale": 3.75,
+            "EnableVR": 0,
+            "VRSubCount": 1,
+            "YawOffset": 0,
+            "EyeOffsetX": 0.0,
+            "EyeOffsetY": 0.0,
+            "EyeSpaceImageSize": 0.5,
+            "AnaFilter": 0,
+            "SwapEyes": 0,
+            "SwapEyeColors": 0,
+            "LeftRed": 1.0,
+            "LeftGreen": 0.0,
+            "LeftBlue": 0.0,
+            "RightRed": 0.0,
+            "RightGreen": 1.0,
+            "RightBlue": 1.0,
+            "ForceHorizontalOverscan": 0,
+            "DisableScreensaver": 0,
+            "ShittyFreqWarn": 1,
+            "MSAAPref": 0,
+            "DispVer": 1
+        },
+        "Audio": {
+            "VolumeAtten": 0,
+            "BufferSize": 2,
+            "BufferCatchUp": 1,
+            "LowPassCutoff": 0
+        },
+        "Input": {
+            "DeviceCount": 1,
+            "AnalDeadMice": 0.25,
+            "AnalToDigi": 0.25,
+            "AnalExpo": 0.0,
+            "ConflictingPad": 0,
+            "XboxAnus": 0,
+            "OLAnchor": 3,
+            "OLScale": 0.75,
+            "MouseInput": 0,
+            "MouseSens": 1.0,
+            "MouseThresh": 0.5,
+            "Device0": {
+                "DeviceType": 0,
+                "InvertAnally": 0,
+                "RotaryScale": 0.5,
+                "HeadTrackerScale": 8.0,
+                "HeadTrackerSpring": 0,
+                "Bindings": [
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 30,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 2,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 31,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 0,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 32,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 1,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 16,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 0,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 6,
+                                "M_AH": 0.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 17,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 7,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 200,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 134,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 208,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 134,
+                                "B_AH": 0.5,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 203,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 134,
+                                "B_AH": 0.75,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 205,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 134,
+                                "B_AH": 0.25,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 11,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 9,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 130,
+                                "M_AH": 1.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 2,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 2,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 130,
+                                "M_AH": 1.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 3,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 3,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 130,
+                                "M_AH": 1.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 4,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 1,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 130,
+                                "M_AH": 1.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 5,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 4,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 6,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 3,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 7,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 5,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 8,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 4,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 130,
+                                "M_AH": 1.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 9,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 0,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 130,
+                                "M_AH": 1.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 10,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 5,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 130,
+                                "M_AH": 1.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 24,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 8,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 25,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 9,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 128,
+                                "B_AH": -1.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 128,
+                                "B_AH": 1.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 129,
+                                "B_AH": -1.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 129,
+                                "B_AH": 1.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 131,
+                                "B_AH": -1.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 131,
+                                "B_AH": 1.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 132,
+                                "B_AH": -1.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 132,
+                                "B_AH": 1.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 15,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 9,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 6,
+                                "M_AH": 0.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 57,
+                                "B_AH": 0.0
+                            },
+                            {
+                                "B_KB": false,
+                                "B_ID": 7,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 130,
+                                "M_AH": -1.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 7,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 130,
+                                "M_AH": 1.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            },
+                            {
+                                "B_KB": true,
+                                "B_ID": 14,
+                                "B_AH": 0.0
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 5,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 6,
+                                "M_AH": 0.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            },
+                            {
+                                "B_KB": true,
+                                "B_ID": 60,
+                                "B_AH": 0.0
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 4,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 6,
+                                "M_AH": 0.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            },
+                            {
+                                "B_KB": true,
+                                "B_ID": 61,
+                                "B_AH": 0.0
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 1,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 6,
+                                "M_AH": 0.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            },
+                            {
+                                "B_KB": true,
+                                "B_ID": 25,
+                                "B_AH": 0.0
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": false,
+                                "B_ID": 8,
+                                "B_AH": 0.0,
+                                "B_DevID": "DE3E579E3477D2118D4A23903FB6BDF7",
+                                "M_KB": false,
+                                "M_ID": 130,
+                                "M_AH": -1.0,
+                                "M_DevID": "DE3E579E3477D2118D4A23903FB6BDF7"
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": [
+                            {
+                                "B_KB": true,
+                                "B_ID": 20,
+                                "B_AH": 0.0
+                            }
+                        ]
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    }
+                ]
+            },
+            "Device1": {
+                "DeviceType": 0,
+                "InvertAnally": 0,
+                "RotaryScale": 0.5,
+                "HeadTrackerScale": 8.0,
+                "HeadTrackerSpring": 0,
+                "Bindings": [
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    }
+                ]
+            },
+            "Device2": {
+                "DeviceType": 0,
+                "InvertAnally": 0,
+                "RotaryScale": 0.5,
+                "HeadTrackerScale": 8.0,
+                "HeadTrackerSpring": 0,
+                "Bindings": [
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    }
+                ]
+            },
+            "Device3": {
+                "DeviceType": 0,
+                "InvertAnally": 0,
+                "RotaryScale": 0.5,
+                "HeadTrackerScale": 8.0,
+                "HeadTrackerSpring": 0,
+                "Bindings": [
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    }
+                ]
+            },
+            "Device4": {
+                "DeviceType": 0,
+                "InvertAnally": 0,
+                "RotaryScale": 0.5,
+                "HeadTrackerScale": 8.0,
+                "HeadTrackerSpring": 0,
+                "Bindings": [
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    }
+                ]
+            },
+            "Device5": {
+                "DeviceType": 0,
+                "InvertAnally": 0,
+                "RotaryScale": 0.5,
+                "HeadTrackerScale": 8.0,
+                "HeadTrackerSpring": 0,
+                "Bindings": [
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    }
+                ]
+            },
+            "Device6": {
+                "DeviceType": 0,
+                "InvertAnally": 0,
+                "RotaryScale": 0.5,
+                "HeadTrackerScale": 8.0,
+                "HeadTrackerSpring": 0,
+                "Bindings": [
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    }
+                ]
+            },
+            "Device7": {
+                "DeviceType": 0,
+                "InvertAnally": 0,
+                "RotaryScale": 0.5,
+                "HeadTrackerScale": 8.0,
+                "HeadTrackerSpring": 0,
+                "Bindings": [
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    },
+                    {
+                        "Triggers": []
+                    }
+                ]
+            },
+            "InputVer": 2
+        },
+        "Network": {
+            "NetDevice": 0,
+            "SockMode": 0,
+            "NetName": "BigPlayer",
+            "NameRed": 1.0,
+            "NameGreen": 1.0,
+            "NameBlue": 1.0,
+            "NetNoPause": 1,
+            "NetRewind": 0,
+            "NetStateSyncDelay": 5,
+            "NetStateSyncRemap": 0,
+            "HostName": "localhost",
+            "Port": 44666,
+            "Password": ""
+        },
+        "DevMode": {
+            "LocalEEPROM": 0,
+            "SaveWindowPos": 0,
+            "AlwaysOnTop": 0,
+            "LaunchPaused": 0,
+            "ScriptsAutoReload": 0,
+            "ScriptsPreserveState": 0,
+            "WindowX": 0,
+            "WindowY": 0
+        },
+        "ScriptsEnabled": [],
+        "ScriptSettings": {},
+        "ROMPath": "Z:\\home\\deck\\Emulation\\roms\\atarijaguar",
+        "SetDisc": "",
+        "RecentFiles": [],
+        "ScreenEffectOptions": []
+    }
+}

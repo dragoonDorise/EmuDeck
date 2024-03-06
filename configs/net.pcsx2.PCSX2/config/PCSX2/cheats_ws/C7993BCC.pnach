@@ -1,5 +1,0 @@
-gametitle=Kaido Racer 2 PAL (SLES_539.00)
-comment=Widescreen hack by El_Patas
-
-//Gameplay 16:9 
-patch=1,EE,203FDFD0,extended,3F400000 //3F800000 (Increases hor. axis)

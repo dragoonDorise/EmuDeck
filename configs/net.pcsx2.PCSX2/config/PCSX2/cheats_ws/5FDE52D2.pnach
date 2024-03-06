@@ -1,4 +1,0 @@
-gametitle=Maxxed Out Racing (PAL-E) [SLES-51622]
-comment=Widescreen hack by FlatOut
-
-patch=1,EE,20194F44,extended,3F400000

@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-rclone_downloadEmu ryujinx
+emulatorInit "ryujinx"
 emuName="Ryujinx" #parameterize me
 emufolder="$HOME/Applications/publish" # has to be applications for ES-DE to find it
 
@@ -17,11 +17,7 @@ else
     chmod +x $exe
 fi
 #run the executable with the params.
-#Fix first '
 param="${@}"
-substituteWith='"'
-param=${param/\'/"$substituteWith"}
-#Fix last ' on command
-param=$(echo "$param" | sed 's/.$/"/')
+param=$(echo "$param" | sed "s|'|\"|g")
 eval "${exe} ${param}"
-rclone_uploadEmu ryujinx
+rm -rf "$savesPath/.gaming"

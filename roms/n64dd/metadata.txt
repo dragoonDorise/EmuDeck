@@ -1,0 +1,7 @@
+collection: Nintendo 64DD
+shortname: n64dd
+extensions: bin, BIN, n64, N64, ndd, NDD, u1, U1, v64, V64, z64, Z64, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/parallel_n64_libretro.so {file.path}
+
+
+

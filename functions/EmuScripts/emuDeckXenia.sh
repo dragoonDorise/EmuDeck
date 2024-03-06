@@ -1,7 +1,7 @@
 #!/bin/bash
 #variables
 Xenia_emuName="Xenia"
-Xenia_emuType="windows"
+Xenia_emuType="$emuDeckEmuTypeWindows"
 Xenia_emuPath="${romsPath}/xbox360/xenia_canary.exe"
 Xenia_releaseURL_master="https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip"
 Xenia_releaseURL_canary="https://github.com/xenia-canary/xenia-canary/releases/latest/download/xenia_canary.zip"
@@ -25,7 +25,7 @@ Xenia_install(){
 	fi
 	local name="$Xenia_emuName-$version"
 
-	setMSG "Installing Xenia $version"		
+	setMSG "Installing Xenia $version"
 
 	#need to look at standardizing exe name; or download both?  let the user choose at runtime?
 	#curl -L "$Xenia_releaseURL" --output "$romsPath"/xbox360/xenia.zip
@@ -47,7 +47,7 @@ Xenia_install(){
 #	if [[ "$launchLine"  == *"PROTONLAUNCH"* ]]; then
 #		changeLine '"${PROTONLAUNCH}"' "$launchLine" "${toolsPath}/launchers/xenia.sh"
 #	fi
-	chmod +x "${toolsPath}/launchers/xenia.sh"	
+	chmod +x "${toolsPath}/launchers/xenia.sh"
 
     Xenia_getPatches
 
@@ -63,6 +63,8 @@ Xenia_init(){
 	rsync -avhp "$EMUDECKGIT/configs/xenia/" "$romsPath/xbox360"
 	mkdir -p "$romsPath/xbox360/roms/xbla"
 	Xenia_addESConfig
+	Xenia_setupSaves
+	SRM_createParsers
 }
 
 Xenia_addESConfig(){
@@ -73,7 +75,7 @@ Xenia_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Microsoft Xbox 360' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/xbox360/roms' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.iso .ISO . .xex .XEX' \
-		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/xenia.sh z:%ROM%" \
+		--subnode '$newSystem' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/xenia.sh z:%ROM%" \
 		--insert '$newSystem/commandP' --type attr --name 'label' --value "Xenia (Proton)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'xbox360' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'xbox360' \
@@ -136,6 +138,7 @@ function Xenia_getPatches() {
 #update
 Xenia_update(){
 	echo "NYI"
+	Xenia_setupSaves
 }
 
 #ConfigurePaths
@@ -145,7 +148,8 @@ Xenia_setEmulationFolder(){
 
 #SetupSaves
 Xenia_setupSaves(){
-	echo "NYI"
+	mkdir -p "$romsPath/xbox360/content"
+	linkToSaveFolder xenia saves "$romsPath/xbox360/content"
 }
 
 
@@ -163,7 +167,9 @@ Xenia_wipeSettings(){
 
 #Uninstall
 Xenia_uninstall(){
-	rm -rf "${Xenia_emuPath}"
+	setMSG "Uninstalling $Xenia_emuName. Saves and ROMs will be retained in the ROMs folder."
+	find ${romsPath}/xbox360 -mindepth 1 \( -name roms -o -name content \) -prune -o -exec rm -rf '{}' \; &>> /dev/null
+	rm -rf $HOME/.local/share/applications/xenia.desktop &> /dev/null
 }
 
 #setABXYstyle
@@ -212,4 +218,9 @@ Xenia_IsInstalled(){
 Xenia_resetConfig(){
 	mv  "$Xenia_XeniaSettings" "$Xenia_XeniaSettings.bak" &>/dev/null
 	Xenia_init &>/dev/null && echo "true" || echo "false"
+}
+
+Xenia_setResolution(){
+	$xeniaResolution
+	echo "NYI"
 }
