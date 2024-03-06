@@ -124,6 +124,7 @@ ESDE_init(){
 	#ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
 	ESDE_migrateEpicNoir
+	SRM_createParsers
 
 	if [ "$system" == "chimeraos" ] || [ "$system" == "ChimeraOS" ]; then
 			ESDE_chimeraOS
