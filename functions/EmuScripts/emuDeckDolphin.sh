@@ -5,6 +5,7 @@ Dolphin_emuType="$emuDeckEmuTypeFlatpak"
 Dolphin_emuPath="org.DolphinEmu.dolphin-emu"
 Dolphin_configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
 Dolphin_configFileGFX="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
+Dolphin_gamecubeFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GCPadNew.ini"
 Dolphin_releaseURL=""
 
 #cleanupOlderThings
@@ -33,34 +34,35 @@ Dolphin_cleanup(){
 
 #Install
 Dolphin_install(){
-    setMSG "${Dolphin_emuName}: Install"
-    echo ""
+  setMSG "${Dolphin_emuName}: Install"
+  echo ""
 	installEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"
 }
 
 #ApplyInitialSettings
 Dolphin_init(){
-    setMSG "${Dolphin_emuName}: Apply initial config"
-    echo ""
+  
+  setMSG "${Dolphin_emuName}: Apply initial config"
+  echo ""
 	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}" "true"
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
-    Dolphin_cleanup
-    Dolphin_setCustomizations
+  Dolphin_cleanup
+  Dolphin_setCustomizations
 	SRM_createParsers
     #Dolphin_DynamicInputTextures
 }
 
 #update
 Dolphin_update(){
-    setMSG "${Dolphin_emuName}: Apply configuration Update"
-    echo ""
+  setMSG "${Dolphin_emuName}: Apply configuration Update"
+  echo ""
 	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
-    Dolphin_cleanup
+  Dolphin_cleanup
 }
 
 #ConfigurePaths
@@ -140,11 +142,18 @@ Dolphin_uninstall(){
 
 #setABXYstyle
 Dolphin_setABXYstyle(){
-   	echo "NYI"
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/A = `Button S`|Buttons/A = `Button E`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/B = `Button N`|Buttons/B = `Button S`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/X = `Button E`|Buttons/X = `Button N`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/Y = `Button W`|Buttons/Y = `Button W`|' $Dolphin_gamecubeFile
+
 }
 
 Dolphin_setBAYXstyle(){
-	   echo "NYI"
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/A = `Button E`|Buttons/A = `Button S`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/B = `Button S`|Buttons/B = `Button N`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/X = `Button N`|Buttons/X = `Button E`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/Y = `Button W`|Buttons/Y = `Button W`|' $Dolphin_gamecubeFile
 }
 
 #Migrate
