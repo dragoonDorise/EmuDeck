@@ -75,7 +75,7 @@ SRM_createParsers(){
       exclusionList=$exclusionList"mednafen_pcfx_libretro\n";
       exclusionList=$exclusionList"mednafen_vb_libretro\n";
       exclusionList=$exclusionList"sega_saturn-ra-kronos.json\n";
-	    exclusionList=$exclusionList"freeintv_libretro.json\n";
+	  exclusionList=$exclusionList"freeintv_libretro.json\n";
       exclusionList=$exclusionList"amiga_600-ra-puae.json\n";
       exclusionList=$exclusionList"amiga_1200-ra-puae.json\n";
       exclusionList=$exclusionList"amiga_cd-ra-puae.json\n";
@@ -303,7 +303,7 @@ SRM_createParsers(){
       exclusionList=$exclusionList"sony_ps3-rpcs3-extracted_iso_psn.json\n"
       exclusionList=$exclusionList"sony_ps3-rpcs3-pkg.json\n"
   fi
-  if [ "$doInstallCitra" == "false" ] || [ "$(Citra_IsInstalled)" == "false" ]; then
+  if [ "$(Citra_IsInstalled)" == "false" ]; then
       exclusionList=$exclusionList"nintendo_3ds-citra.json\n"
   fi
   if [ "$doInstallDolphin" == "false" ] || [ "$(Dolphin_IsInstalled)" == "false" ]; then
@@ -343,7 +343,7 @@ SRM_createParsers(){
   if [ "$doInstallMAME" == "false" ] || [ "$(MAME_IsInstalled)" == "false" ]; then
     exclusionList=$exclusionList"arcade-mame.json\n"
   fi
-  if [ "$doInstallYuzu" == "false" ] || [ "$(Yuzu_IsInstalled)" == "false" ]; then
+  if [ "$(Yuzu_IsInstalled)" == "false" ]; then
     exclusionList=$exclusionList"nintendo_switch-yuzu.json\n"
   fi
   if [ "$doInstallRyujinx" == "false" ] || [ "$(Ryujinx_IsInstalled)" == "false" ]; then
