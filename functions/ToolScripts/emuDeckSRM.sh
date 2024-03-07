@@ -368,11 +368,11 @@ SRM_createParsers(){
     exclusionList=$exclusionList"sony_ps2-pcsx2.json\n"
   fi
 
-  if [ "$doInstallSupermodel" == "false" ] || [ "$(Model2_IsInstalled)" == "false" ]; then
+  if [ "$doInstallSupermodel" == "false" ] || [ "$(Supermodel_IsInstalled)" == "false" ]; then
 	  exclusionList=$exclusionList"sega_model_3-supermodel.json\n"
   fi
 
-	if [ "$doInstallModel2" == "false" ] || [ "$(Supermodel_IsInstalled)" == "false" ]; then
+	if [ "$doInstallModel2" == "false" ] || [ "$(Model2_IsInstalled)" == "false" ]; then
 		exclusionList=$exclusionList"sega_model2-model2emulator.json\n"
 	fi
 
