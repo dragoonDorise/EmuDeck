@@ -126,6 +126,7 @@ ESDE_init(){
 	ESDE_symlinkGamelists
 	ESDE_migrateEpicNoir
 	SRM_createParsers
+	addSteamInputCustomIcons
 
 	if [ "$system" == "chimeraos" ] || [ "$system" == "ChimeraOS" ]; then
 			ESDE_chimeraOS
@@ -168,6 +169,7 @@ ESDE_update(){
 	ESDE_migrateDownloadedMedia
 	#ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
+	addSteamInputCustomIcons
 }
 
 ESDE_junksettingsFile(){

@@ -35,7 +35,7 @@ echo "${@}" > "${LOGFILE}" #might as well log out the parameters of the run
 exec > >(tee "${LOGFILE}") 2>&1
 
 #Wellcome
-text="`printf "<b>Hi!</b>\nAre you sure you want to uninstall EmuDeck?\n\nIf you are having issues, visit the EmuDeck Discord or Reddit for support. For links, see: https://www.emudeck.com/#download"`"
+text="`printf "<b>Hi!</b>\nAre you sure you want to uninstall EmuDeck?\n\nIf you are having issues, visit the EmuDeck Discord or Reddit for support. For links, see: https://emudeck.github.io/"`"
 
 zenity --question \
 		 --title="EmuDeck" \

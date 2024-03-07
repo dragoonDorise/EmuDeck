@@ -44,6 +44,10 @@ appImageInit() {
 			--text="${text}" 2>/dev/null
 	fi
 
+	if [ -d "$HOME/.config/pegasus-frontend/config" ]; then
+	  rsync -avz $HOME/.config/pegasus-frontend/config/  $HOME/.config/pegasus-frontend/
+	fi
+
 	#Xenia temp fix
 	if [ "$(Xenia_IsInstalled)" == "true" ]; then
 		 setSetting doInstallXenia "true"
