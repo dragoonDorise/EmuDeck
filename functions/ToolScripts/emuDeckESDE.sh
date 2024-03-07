@@ -43,8 +43,7 @@ ESDE_migration(){
 
 	if [ -f "${toolsPath}/$ESDE_downloadedToolName" ] && [ ! -L "${toolsPath}/$ESDE_downloadedToolName" ]; then
 		mv "${toolsPath}/$ESDE_downloadedToolName" "$ESDE_toolPath"
-		sed -i "s|$ESDE_downloadedToolName|$ESDE_toolName.AppImage|g" "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
-		ln -s  "${toolsPath}/$ESDE_toolName.AppImage"s "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
+		ln -s  "$ESDE_toolPath" "${toolsPath}/EmulationStation-DE-x64_SteamDeck.AppImage"
 		echo "$ESDE_toolName successfully migrated and linked."
 	fi
 
