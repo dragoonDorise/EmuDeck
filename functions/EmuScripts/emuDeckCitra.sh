@@ -202,7 +202,9 @@ Citra_IsInstalled(){
 	if [ -e "$Citra_emuPath" ]; then
 		echo "true"
 	else
-		echo "false"
+		Citra_IsInstalled(){
+			isFpInstalled "citra_emu"
+		}
 	fi
 }
 
