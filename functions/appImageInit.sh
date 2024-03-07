@@ -34,6 +34,7 @@ appImageInit() {
 			--text="${text}" 2>/dev/null
 	fi
 
+
 	#Fix Pegasus path
 	if find "$romsPath" -type f -name "metadata.txt" -exec grep -q "mmcblk0p1" {} \; -print | grep -q .; then
 		pegasus_init
