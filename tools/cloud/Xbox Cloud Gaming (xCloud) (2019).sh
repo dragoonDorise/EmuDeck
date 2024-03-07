@@ -3,4 +3,4 @@
 LINK="https://www.xbox.com/play"
 
 source ./cloud.conf
-browsercommand
+"/usr/bin/flatpak" run ${FLATPAKOPTIONS} ${BROWSERAPP} @@u @@ ${BROWSEROPTIONS} ${LINK}

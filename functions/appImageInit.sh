@@ -44,6 +44,16 @@ appImageInit() {
 			--text="${text}" 2>/dev/null
 	fi
 
+	#Fix Pegasus path
+	if find "$romsPath" -type f -name "metadata.txt" -exec grep -q "mmcblk0p1" {} \; -print | grep -q .; then
+		pegasus_init
+		text="$(printf "<b>Pegasus fixed</b>\nWe've detected an issue with Pegasus, but it's been fixed")"
+		zenity --info \
+			--title="EmuDeck" \
+			--width="450" \
+			--text="${text}" 2>/dev/null
+	fi
+
 	#Xenia temp fix
 	if [ "$(Xenia_IsInstalled)" == "true" ]; then
 		 setSetting doInstallXenia "true"

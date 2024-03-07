@@ -1,11 +1,11 @@
 #!/bin/bash
 #variables
 pegasus_toolName="Pegasus Frontend"
-pegasus_emuPath="org.pegasus_frontend.Pegasus"
-pegasus_path="$HOME/.var/app/$pegasus_emuPath/config"
-pegasus_dir_file="$pegasus_path/pegasus-frontend/game_dirs.txt"
-pegasus_config_file="$pegasus_path/pegasus-frontend/settings.txt"
-pegasus_themes_path="$pegasus_path/pegasus-frontend/themes"
+pegasus_emuPath="pegasus-frontend"
+pegasus_path="$HOME/.config/$pegasus_emuPath/config"
+pegasus_dir_file="$pegasus_path/game_dirs.txt"
+pegasus_config_file="$pegasus_path/settings.txt"
+pegasus_themes_path="$pegasus_path/themes"
 
 #cleanupOlderThings
 pegasus_cleanup(){
@@ -16,13 +16,18 @@ pegasus_cleanup(){
 pegasus_install(){
 
 	setMSG "Installing $pegasus_toolName"
-
+	flatpak uninstall "$pegasus_emuPath" --user -y &> /dev/null;
 	local showProgress="$1"
+	local name="pegasus-fe"
+	local url="https://github.com/dragoonDorise/pegasus-temp/releases/download/1.0/pegasus-fe"
+	local fileName="pegasus-fe"
 
-	installEmuFP "${pegasus_toolName}" "${pegasus_emuPath}"
-	flatpak override "${pegasus_emuPath}" --filesystem=host --user
-	pegasus_init
-
+	if safeDownload "$name" "$url" "$HOME/Applications/$fileName" "$showProgress"; then
+		chmod +x "$HOME/Applications/$fileName"
+		pegasus_init
+	else
+		return 1
+	fi
 }
 
 #ApplyInitialSettings
@@ -92,9 +97,14 @@ pegasus_setEmu(){
 }
 
 pegasus_IsInstalled(){
-	isFpInstalled "$pegasus_emuPath"
+  if [ -f  "$HOME/Applications/pegasus-fe" ]; then
+  	echo "true"
+  else
+ 	 echo "false"
+  fi
 }
 
 pegasus_uninstall(){
-	flatpak uninstall "$pegasus_emuPath" --user -y
+	flatpak uninstall "$pegasus_emuPath" --user -y &> /dev/null;
+	rm -rf "$HOME/Applications/pegasus-fe" &> /dev/null;
 }
