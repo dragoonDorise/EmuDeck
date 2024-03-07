@@ -4,7 +4,7 @@
   "steamDirectory": "${steamdirglobal}",
   "steamCategory": "${Atari Jaguar}",
   "romDirectory": "${romsdirglobal}",
-  "executableArgs": "%command% \"${filePath}\"",
+  "executableArgs": "\"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
