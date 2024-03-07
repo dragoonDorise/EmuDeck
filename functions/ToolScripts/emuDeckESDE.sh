@@ -58,16 +58,16 @@ ESDE_migration(){
 }
 
 ESDE_customDesktopShortcut(){
-	mkdir -p "$toolsPath/launchers/esde"
-	mkdir -p "$toolsPath/launchers/es-de"
-	mkdir -p "$toolsPath/launchers/esde"
-	cp "$EMUDECKGIT/tools/launchers/es-de/es-de.sh" "$toolsPath/launchers/es-de/es-de.sh"
-	rm -rf $HOME/.local/share/applications/$ESDE_oldtoolName.desktop
-	createDesktopShortcut   "$HOME/.local/share/applications/$ESDE_toolName.desktop" \
-		"$ESDE_toolName AppImage" \
-		"${toolsPath}/launchers/es-de/es-de.sh" \
-		"false"
-	ln -s "$toolsPath/launchers/es-de/es-de.sh" "$toolsPath/launchers/esde/emulationstationde.sh"
+
+    mkdir -p "$toolsPath/launchers/es-de"
+    mkdir -p "$toolsPath/launchers/esde"
+    cp "$EMUDECKGIT/tools/launchers/es-de/es-de.sh" "$toolsPath/launchers/es-de/es-de.sh"
+    rm -rf $HOME/.local/share/applications/$ESDE_oldtoolName.desktop
+    createDesktopShortcut   "$HOME/.local/share/applications/$ESDE_toolName.desktop" \
+        "$ESDE_toolName AppImage" \
+        "${toolsPath}/launchers/es-de/es-de.sh" \
+        "false"
+    ln -s "${toolsPath}/launchers/es-de/es-de.sh" "$toolsPath/launchers/esde/emulationstationde.sh"
 }
 
 ESDE_uninstall(){
