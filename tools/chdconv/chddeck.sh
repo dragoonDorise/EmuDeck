@@ -345,8 +345,8 @@ if [ "$selection" == "bulk" ]; then
 			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do			
 						if [ "$pspBulkSelection" == "CHD" ]; then
 							find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
-								echo "Converting: $f"
-								compressCHDDVD "$f using the createdvd flag"
+							echo "Converting: $f using the createdvd flag"
+							compressCHDDVD "$f"
 							done
 						elif [ "$pspBulkSelection" == "CSO" ]; then
 							find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
