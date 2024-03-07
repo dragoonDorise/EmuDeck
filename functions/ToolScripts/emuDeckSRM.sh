@@ -56,29 +56,14 @@ SRM_init(){
 
   mkdir -p "$SRM_userData_configDir/"
 
-  setMSG 'Steam Rom Manager - Creating Parsers & Steam Input profiles'
   SRM_createParsers
   SRM_addSteamInputProfiles
-  #old SRM
-
-  sleep 1
-
   SRM_setEnv
-
-
-	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userConfigurations.json"
-	sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$SRM_userData_configDir/userConfigurations.json"
-	sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userConfigurations.json"
-
-	sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userSettings.json"
-	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$SRM_userData_configDir/userSettings.json"
-	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userSettings.json"
-
-
   echo -e "true"
 }
 
 SRM_createParsers(){
+  setMSG 'Steam Rom Manager - Creating Parsers'
   local json_directory="$SRM_userData_configDir/parsers"
   local output_file="$SRM_userData_configDir/userConfigurations.json"
   local exclusionList=""
@@ -402,9 +387,15 @@ SRM_createParsers(){
   fi
   jq -s '.' $files $customfiles > "$output_file"
   rm -rf "$HOME/temp_parser"
+
+  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$output_file"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$output_file"
+  sed -i "s|/home/deck|$HOME|g" "$output_file"
+
 }
 
 SRM_addSteamInputProfiles(){
+   setMSG 'Steam Rom Manager - Adding Steam input profiles'
    cp "$EMUDECKGIT/$SRM_userData_directory/controllerTemplates.json" "$SRM_userData_configDir/controllerTemplates.json"
    rm -rf "$HOME/.steam/steam/controller_base/templates/ares_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
@@ -434,6 +425,7 @@ SRM_addSteamInputProfiles(){
 }
 
 SRM_setEnv(){
+	setMSG 'Steam Rom Manager - Set enviroment'
   tmp=$(mktemp)
   jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
   "$SRM_userData_configDir/userSettings.json" > "$tmp"\
@@ -443,6 +435,12 @@ SRM_setEnv(){
   jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
   "$SRM_userData_configDir/userSettings.json" > "$tmp" \
   && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
+
+  sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userSettings.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$SRM_userData_configDir/userSettings.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userSettings.json"
+
+
 }
 
 SRM_resetConfig(){
