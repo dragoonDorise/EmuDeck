@@ -35,7 +35,8 @@ pegasus_init(){
 	rsync -r  "$EMUDECKGIT/roms/" "$romsPath"
 	rsync -av -f"+ */" -f"- *"  "$EMUDECKGIT/roms/" "$toolsPath/downloaded_media"
 	find $romsPath -type f -name "metadata.txt" -exec sed -i "s|CORESPATH|${RetroArch_cores}|g" {} \;
-	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$pegasus_dir_file"
+	find $romsPath -type f -name "metadata.txt" -exec sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" {} \;
+
 	for systemPath in "$romsPath"/*; do rm -rf "$systemPath/media" &> /dev/null; done
 
 	for systemPath in "$romsPath"/*; do system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/'); mkdir -p "$toolsPath/downloaded_media/$system/covers"; rm -rf "$toolsPath/downloaded_media/$system/box2dfront" ; mkdir -p "$toolsPath/downloaded_media/$system/marquees"; rm -rf "$toolsPath/downloaded_media/$system/wheel" &> /dev/null;rm -rf "$toolsPath/downloaded_media/$system/screenshot" &> /dev/null; done
