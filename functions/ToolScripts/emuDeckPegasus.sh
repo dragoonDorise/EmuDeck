@@ -57,6 +57,7 @@ pegasus_init(){
 	#pegasus_setEmulationFolder
 	#pegasus_setDefaultEmulators
 	pegasus_applyTheme "$pegasusThemeUrl"
+	addSteamInputCustomIcons
 
 }
 
@@ -69,6 +70,7 @@ pegasus_resetConfig(){
 
 pegasus_update(){
 	pegasus_init &>/dev/null && echo "true" || echo "false"
+	addSteamInputCustomIcons
 }
 
 pegasus_addCustomSystems(){

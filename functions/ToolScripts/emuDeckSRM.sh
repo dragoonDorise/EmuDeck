@@ -59,6 +59,7 @@ SRM_init(){
   SRM_createParsers
   SRM_addSteamInputProfiles
   SRM_setEnv
+  addSteamInputCustomIcons
   echo -e "true"
 }
 
