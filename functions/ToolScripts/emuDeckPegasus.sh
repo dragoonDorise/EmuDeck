@@ -2,7 +2,7 @@
 #variables
 pegasus_toolName="Pegasus Frontend"
 pegasus_emuPath="pegasus-frontend"
-pegasus_path="$HOME/.config/$pegasus_emuPath/config"
+pegasus_path="$HOME/.config/$pegasus_emuPath"
 pegasus_dir_file="$pegasus_path/game_dirs.txt"
 pegasus_config_file="$pegasus_path/settings.txt"
 pegasus_themes_path="$pegasus_path/themes"
