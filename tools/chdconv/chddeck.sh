@@ -23,9 +23,9 @@ sevenzipfolderWhiteList=("atari2600" "atarilynx" "famicom" "gamegear"
 declare -a searchFolderList
 
 # File extensions
-chdFileExtensions=("gdi" "cue" "iso")
-rvzFileExtensions=("gcm" "iso")
-csoFileExtensions=("iso")
+chdFileExtensions=("gdi" "cue" "iso" "chd")
+rvzFileExtensions=("gcm" "iso" "rvz")
+csoFileExtensions=("iso" "cso")
 xboxFileExtensions=("iso")
 n3dsFileExtensions=("3ds")
 sevenzipFileExtensions=("ngp" "ngc" "a26"
@@ -38,6 +38,7 @@ sevenzipFileExtensions=("ngp" "ngc" "a26"
 "fig" "sfc" "smc"
 "swx" "32x" "gg"
 "gen" "md" "smd" )
+
 
 combinedFileExtensions=(
 "${chdFileExtensions[@]}" 
@@ -99,7 +100,22 @@ compressCHDDVD() {
 	local successful='' 
 	chdman5 createdvd --hunksize 16384 -i "$file" -o "${file%.*}.chd" && successful="true"
 	if [[ $successful == "true" ]]; then
-		echo "Converting $file to CHD using the createdvd flag."
+		echo "Converting $file to CHD using the createdvd flag and hunksize 16348."
+		echo "$file succesfully converted to ${file%.*}.chd"
+		rm -f "$file"
+	else
+		echo "Conversion of ${file} failed."
+		rm -f "${file%.*}.chd"
+	fi
+
+}
+
+compressCHDDVDLowerHunk() {
+	local file=$1
+	local successful='' 
+	chdman5 createdvd --hunksize 2048 -i "$file" -o "${file%.*}.chd" && successful="true"
+	if [[ $successful == "true" ]]; then
+		echo "Converting $file to CHD using the createdvd flag and hunksize 2048."
 		echo "$file succesfully converted to ${file%.*}.chd"
 		rm -f "$file"
 	else
@@ -182,16 +198,78 @@ compress7z() {
 
 }
 
+decompressCHDISO() {
+
+	local file=$1
+	local successful='' 
+	chdman5 extractdvd -i "$file" -o "${file%.*}.iso" && successful="true"
+	if [[ $successful == "true" ]]; then
+		echo "Decompressing $file to ISO using the extractdvd flag."
+		echo "$file succesfully decompressed to ${file%.*}.iso"
+		rm -f "$file"
+	else
+		echo "Conversion of ${file} failed."
+		rm -f "${file%.*}.iso"
+	fi
+
+}
+
+decompressCSOISO() {
+
+	local file=$1
+	local successful=''
+	ciso 0 "$file" "${file%.*}.iso" && successful="true"
+	if [[ $successful == "true" ]]; then
+		echo "$file succesfully converted to ${file%.*}.iso"
+		rm -f "$file"
+	else
+		echo "error converting $file"
+		rm -f "${file%.*}.iso"
+	fi
+
+}
+
+decompressRVZ() {
+	local file=$1
+	local successful=''
+	${dolphintool} convert -f iso -b 131072 -c zstd -l 5 -i "$file" -o "${file%.*}.iso" && successful="true"
+	if [[ $successful == "true" ]]; then
+		echo "$file succesfully decompressed to ${file%.*}.iso"
+		rm -f "$file"
+	else
+		echo "error converting $file"
+		rm -f "${file%.*}.iso"
+	fi
+}
+
 #main
 #text="$(printf "<b>Hi</b>\nWelcome to the EmuDeck Compression Tool!\n\nThis tool will compress your ROMs to best optimize your storage. This tool will convert your ROMs to a new file format and delete the original files. Be very careful and make sure you have extensive backups.\n\n<b></b>")"
 text="$(printf "<b>Hi</b>\nWelcome to the EmuDeck Compression Tool!\n\nThis tool will compress your ROMs to best optimize your storage. Be very careful and make sure you have extensive backups.\n\nThis tool will scan your selected ROMs folder and compress your ROMs files to the most optimal file format.\n\n<b>The original files will be deleted if compression is successful.</b>")"
 selection=$(zenity --question \
 	--title="EmuDeck" \
 	--width=250 \
-	--ok-label="Bulk Compress" \
+	--ok-label="Bulk Compression" \
+	--extra-button="Bulk Decompression" \
 	--extra-button="Pick a file" \
 	--cancel-label="Exit" \
 	--text="${text}" 2>/dev/null && echo "bulk")
+
+case $selection in
+    "bulk")
+        compressionSelection="Bulk Compression"
+        ;;
+    "Bulk Decompression")
+        compressionSelection="Bulk Decompression"
+        ;;
+    "Pick a file")
+        compressionSelection="Pick a File"
+        ;;
+    *)
+        compressionSelection="Exit"
+        ;;
+esac
+
+echo $compressionSelection
 
 if [ "$selection" == "bulk" ]; then
 
@@ -278,6 +356,7 @@ if [ "$selection" == "bulk" ]; then
 		zenity --list \
 			--title="EmuDeck" \
 			--height="$height" \
+			--height=600 \
 			--width=250 \
 			--ok-label="OK" \
 			--cancel-label="Exit" \
@@ -345,8 +424,8 @@ if [ "$selection" == "bulk" ]; then
 			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do			
 						if [ "$pspBulkSelection" == "CHD" ]; then
 							find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
-							echo "Converting: $f using the createdvd flag"
-							compressCHDDVD "$f"
+							echo "Converting: $f using the createdvd flag  and 2048 hunksize"
+							compressCHDDVDLowerHunk "$f"
 							done
 						elif [ "$pspBulkSelection" == "CSO" ]; then
 							find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
@@ -396,7 +475,7 @@ if [ "$selection" == "bulk" ]; then
 
 elif [ "$selection" == "Pick a file" ]; then
 	while true; do
-		selectedCompressionMethod=$(zenity --list --title="Select Option" --text="Select a compression method from the list below." --column="Options" "Compress a ROM to RVZ" "Compress a ROM to CHD" "Compress a PSP ROM to CHD or CSO" "Compress a ROM to XISO" "Compress a ROM to 7zip" "Trim a 3DS ROM" --width=300 --height=400)
+		selectedCompressionMethod=$(zenity --list --title="Select Option" --text="Select a compression method from the list below." --column="Options" "Compress a ROM to RVZ" "Compress a ROM to CHD" "Compress a PSP ROM to CHD or CSO" "Compress a ROM to XISO" "Compress a ROM to 7zip" "Trim a 3DS ROM" "Decompress a PSP CHD to ISO" "Decompress a PSP CSO to ISO" "Decompress a GC/Wii RVZ to ISO" --width=300 --height=600)
 		if [ $? -eq 1 ]; then
 			echo "Compression canceled."
 			exit 1
@@ -439,12 +518,28 @@ elif [ "$selection" == "Pick a file" ]; then
 	3ds)
 		echo 3ds
 		;;
+	chd)
+		echo chd
+		;;
+	rvz)
+		echo rvz
+		;;
+	cso)
+		echo cso
+		;;
 	esac
 
 	if [ "$selectedCompressionMethod" == "Compress a ROM to RVZ" ]; then	
 		if [[ "$ext" =~ "iso" || "$ext" =~ "ISO" || "$ext" =~ "gcm" || "$ext" =~ "GCM"  ]]; then
 			echo "Valid ROM found, compressing $f to RVZ"
 			compressRVZ "$f"
+		else
+			echo "No valid ROM found"
+		fi
+	elif [ "$selectedCompressionMethod" == "Decompress a GC/Wii RVZ to ISO" ]; then	
+		if [[ "$ext" =~ "rvz" || "$ext" =~ "RVZ" ]]; then
+			echo "Valid ROM found, decompressing $f to ISO"
+			decompressRVZ "$f"
 		else
 			echo "No valid ROM found"
 		fi
@@ -484,11 +579,25 @@ elif [ "$selection" == "Pick a file" ]; then
 				echo "Valid $ext ROM found, compressing $f to CSO"
 				compressCSO "$f"
 			elif [ "$pspSelection" == "CHD" ]; then
-				echo "Valid $ext ROM found, compressing $f to CHD"
-				compressCHDDVD "$f"
+				echo "Valid $ext ROM found, compressing $f to CHD using the createdvd flag and 2048 hunksize."
+				compressCHDDVDLowerHunk "$f"
 			fi
 		else 
 			echo "No valid ROM found"
+		fi
+	elif [ "$selectedCompressionMethod" == "Decompress a PSP CHD to ISO" ]; then
+		if [[ "$ext" =~ "chd" || "$ext" =~ "CHD" ]]; then
+			echo "Valid $ext ROM found, decompressing $f to ISO using the extractdvd flag."
+			decompressCHDISO "$f"
+		else 
+			echo "No valid ROM found"			
+		fi
+	elif [ "$selectedCompressionMethod" == "Decompress a PSP CSO to ISO" ]; then
+		if [[ "$ext" =~ "cso" || "$ext" =~ "CSO" ]]; then
+			echo "Valid $ext ROM found, decompressing $f to ISO."
+			decompressCSOISO "$f"
+		else 
+			echo "No valid ROM found"			
 		fi
 	elif [ "$selectedCompressionMethod" == "Trim a 3DS ROM" ]; then	
 		if [[ "$ext" =~ "(Trimmed)" ]]; then
@@ -511,14 +620,99 @@ elif [ "$selection" == "Pick a file" ]; then
 		echo "No valid ROM found"
 	fi
 
+elif [ "$compressionSelection" == "Bulk Decompression" ]; then
+
+	zenity --info --text="Only GC, Wii, and PSP decompression is supported at this time."
+
+	#find file types we support within whitelist of folders
+	for romfolder in "${csofolderWhiteList[@]}"; do
+		echo "Checking ${romsPath}/${romfolder}/"
+		mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.chd" -o -type f -iname "*.cso")
+		if [ ${#files[@]} -gt 0 ]; then
+			echo "found in $romfolder"
+			searchFolderList+=("$romfolder")
+		fi
+	done
+
+	if [[ -n "$flatpaktool" ]]; then #ensure tools are in place
+		for romfolder in "${rvzfolderWhiteList[@]}"; do
+			echo "Checking ${romsPath}/${romfolder}/"
+			mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f -iname "*.rvz")
+			if [ ${#files[@]} -gt 0 ]; then
+				echo "found in $romfolder"
+				searchFolderList+=("$romfolder")
+			fi
+		done
+	fi
+
+	if ((${#searchFolderList[@]} == 0)); then
+		echo "No eligible files found."
+		zenity --error \
+			--title="EmuDeck" \
+			--width=250 \
+			--ok-label="Exit" \
+			--text="No suitable ROMs were found for decompression."
+		exit
+	fi
+
+
+	declare -i height=(${#searchFolderList[@]}*100)
+	selectColumnStr="RomFolder "
+	for ((i = 1; i <= ${#searchFolderList[@]}; i++)); do selectColumnStr+="$i ${searchFolderList[$i - 1]} "; done
+	text="$(printf "Which folders do you want to convert?")"
+	folderstoconvert=$(
+		zenity --list \
+			--title="EmuDeck" \
+			--height="$height" \
+			--width=250 \
+			--height=500 \
+			--ok-label="OK" \
+			--cancel-label="Exit" \
+			--text="${text}" \
+			--checklist \
+			--column="" \
+			--column=${selectColumnStr}
+	) #goddamnit shellcheck broke this. array! do not quote.
+	echo "User selected $folderstoconvert" 2>/dev/null
+
+	IFS="|" read -r -a romfolders <<<"$folderstoconvert"
+
+
+
+	for romfolder in "${romfolders[@]}"; do
+		if [[ " ${csofolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+			find "$romsPath/$romfolder" -type f -iname "*.chd" | while read -r f; do			
+				echo "Decompressing $f using the extractdvd flag"
+				decompressCHDISO "$f"
+			done
+		fi
+	done
+
+	for romfolder in "${romfolders[@]}"; do
+		if [[ " ${csofolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+			find "$romsPath/$romfolder" -type f -iname "*.cso" | while read -r f; do			
+				echo "Decompressing $f"
+				decompressCSOISO "$f"
+			done
+		fi
+	done
+
+	for romfolder in "${romfolders[@]}"; do
+		if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
+			find "$romsPath/$romfolder" -type f -iname "*.rvz" | while read -r f; do
+				echo "Decompressing $f to ISO"
+				decompressRVZ "$f"
+			done
+		fi
+	done
 else
 	exit
 fi
 
-echo "All files compressed!"
+echo "All files converted!"
 
 if [ "$uiMode" != 'zenity' ]; then
-	text="$(printf " <b>All files have been compressed!</b>")"
+	text="$(printf " <b>All files have been converted!</b>")"
 	zenity --info \
 		--title="EmuDeck" \
 		--width="450" \
