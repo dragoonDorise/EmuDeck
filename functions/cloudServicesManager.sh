@@ -76,10 +76,10 @@ manageServicesMenu() {
     if [ $? != 0 ]; then
         csmMainMenu
     fi
-
+	
 	# Delete all old scripts that match file names from the github repo
 	for i in "${arrAll[@]}"; do
-		rm "$romsPath/cloud/$i"
+		rm "$romsPath/cloud/$i" 
 	done
 
 	# Setup selected scripts
@@ -91,7 +91,7 @@ manageServicesMenu() {
 
 	# Import steam profile
 	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_cloud_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
-
+	
 	# Notify to update & run SRM
 	csmSRMNotification
 
@@ -162,7 +162,7 @@ manageRPSMenu() {
 	else
 		arrAllRP+=(false "Spotify")
 	fi
-
+	
 	SteamLink_IsInstalled
 	ans=$?
 	if [ "$ans" == "1" ]; then
@@ -287,7 +287,7 @@ manageRPSMenu() {
             --pulsate \
             --auto-close \
             --width=300
-
+	
 	# Notify to update & run SRM
 	csmSRMNotification
 
@@ -313,7 +313,7 @@ changeSettingsMenu() {
 	else
 		arrBrowsOpts+=(false "System Default: $defaultBrowser" false)
 	fi
-
+	
 	# Add supported browsers to selection list
 	for brows in "${arrSupBrows[@]}"; do
 		if [[ "$(flatpak --columns=app list | grep "${brows}")" == *"${brows}"* ]]; then
@@ -376,7 +376,7 @@ changeLine() {
 
     local OLD=$(printf '%s\n' "$KEYWORD" | sed -e 's/[]\/$*.^[]/\\&/g')
     local NEW=$(printf '%s\n' "$REPLACE" | sed -e 's/[]\/$*.^[]/\\&/g')
-
+    
     sed -i "/^${OLD}/c\\${NEW}" "$FILE"
 }
 
@@ -457,7 +457,6 @@ fixCloudScripts() {
 		DEVICESCALEFACTOR_temp="$DEVICESCALEFACTOR"
 		rm "$romsPath/cloud/cloud.conf"
 		cp "$LOCALCLOUDFILES/cloud.conf" "$romsPath/cloud"
-		cp "$LOCALCLOUDFILES/cloud.sh" "$romsPath/cloud"
 		CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
 		source "$CLOUDSETTINGSFILE"
 		setCloudSetting BROWSERAPP "$BROWSERAPP_temp"
@@ -483,7 +482,6 @@ mkdir -p "$romsPath/cloud"
 mkdir -p "$romsPath/remoteplay"
 if [ ! -f "$romsPath/cloud/cloud.conf" ]; then
 	cp "$LOCALCLOUDFILES/cloud.conf" "$romsPath/cloud"
-	cp "$LOCALCLOUDFILES/cloud.sh" "$romsPath/cloud"
 	CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
 	source "$CLOUDSETTINGSFILE"
 
