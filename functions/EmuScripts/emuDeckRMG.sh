@@ -193,10 +193,9 @@ RMG_setABXYstyle(){
 	local header="[Rosalie's Mupen GUI - Input Plugin User Profile \"steamdeck\"]"
 
 	sed -i '/\[Rosalie'"'"'s Mupen GUI - Input Plugin User Profile "steamdeck"\]/,/^\[/ {
-		s/A_Name *= *"a"/A_Name = "b"/;
-		s/A_Data *= *"0"/A_Data = "1"/;
-		s/B_Name *= *"b"/B_Name = "a"/;
-		s/B_Data *= *"1"/B_Data = "0"/;
+
+		s/B_Name *= *"x"/B_Name = "b"/;
+		s/B_Data *= *"2"/B_Data = "1"/;
 	}' "$RMG_configFile"
 
 }
@@ -204,10 +203,8 @@ RMG_setBAYXstyle(){
 	local header="[Rosalie's Mupen GUI - Input Plugin User Profile \"steamdeck\"]"
 
 	sed -i '/\[Rosalie'"'"'s Mupen GUI - Input Plugin User Profile "steamdeck"\]/,/^\[/ {
-		s/A_Name *= *"b"/A_Name = "a"/;
-		s/A_Data *= *"1"/A_Data = "0"/;
-		s/B_Name *= *"a"/B_Name = "b"/;
-		s/B_Data *= *"0"/B_Data = "1"/;
+		s/B_Name *= *"b"/B_Name = "x"/;
+		s/B_Data *= *"1"/B_Data = "2"/;
 	}' "$RMG_configFile"
 
 }

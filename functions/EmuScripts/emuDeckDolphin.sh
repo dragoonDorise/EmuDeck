@@ -142,18 +142,18 @@ Dolphin_uninstall(){
 
 #setABXYstyle
 Dolphin_setABXYstyle(){
-   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/A = `Button S`|Buttons/A = `Button E`|' $Dolphin_gamecubeFile
-   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/B = `Button N`|Buttons/B = `Button S`|' $Dolphin_gamecubeFile
-   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/X = `Button E`|Buttons/X = `Button N`|' $Dolphin_gamecubeFile
-   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/Y = `Button W`|Buttons/Y = `Button W`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/A = `Button S`|Buttons/A = `Button S`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/B = `Button W`|Buttons/B = `Button E`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/X = `Button E`|Buttons/X = `Button W`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/Y = `Button N`|Buttons/Y = `Button N`|' $Dolphin_gamecubeFile
 
 }
 
 Dolphin_setBAYXstyle(){
-   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/A = `Button E`|Buttons/A = `Button S`|' $Dolphin_gamecubeFile
-   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/B = `Button S`|Buttons/B = `Button N`|' $Dolphin_gamecubeFile
-   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/X = `Button N`|Buttons/X = `Button E`|' $Dolphin_gamecubeFile
-   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/Y = `Button W`|Buttons/Y = `Button W`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/A = `Button S`|Buttons/A = `Button S`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/B = `Button E`|Buttons/B = `Button W`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/X = `Button W`|Buttons/X = `Button E`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/Y = `Button N`|Buttons/Y = `Button N`|' $Dolphin_gamecubeFile
 }
 
 #Migrate
