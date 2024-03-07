@@ -3,4 +3,4 @@
 LINK="http://localhost:8096"
 
 source ./cloud.conf
-browsercommand
+"/usr/bin/flatpak" run ${FLATPAKOPTIONS} ${BROWSERAPP} @@u @@ ${BROWSEROPTIONS} ${LINK}

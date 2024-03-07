@@ -3,4 +3,4 @@
 LINK="https://emby.media/"
 
 source ./cloud.conf
-browsercommand
+"/usr/bin/flatpak" run ${FLATPAKOPTIONS} ${BROWSERAPP} @@u @@ ${BROWSEROPTIONS} ${LINK}

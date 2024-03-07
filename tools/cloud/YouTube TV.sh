@@ -3,4 +3,4 @@
 LINK="https://tv.youtube.com/"
 
 source ./cloud.conf
-browsercommand
+"/usr/bin/flatpak" run ${FLATPAKOPTIONS} ${BROWSERAPP} @@u @@ ${BROWSEROPTIONS} ${LINK}
