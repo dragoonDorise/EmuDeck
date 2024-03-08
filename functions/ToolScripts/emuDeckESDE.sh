@@ -275,7 +275,7 @@ ESDE_setEmulationFolder(){
 	if [[ ! $(grep -rnw "$es_systemsFile" -e 'model2') == "" ]]; then
 		if [[ $(grep -rnw "$es_systemsFile" -e 'Model 2 Emulator (Proton)') == "" ]]; then
 			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="model2"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/model2.sh %BASENAME%" \
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="model2"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/model-2-emulator.sh %BASENAME%" \
 			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Model 2 Emulator (Proton)" \
 			-r 'systemList/system/commandP' -v 'command' \
 			"$es_systemsFile"
@@ -284,7 +284,7 @@ ESDE_setEmulationFolder(){
 			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 		else
 			#update
-			model2ProtonCommandString="/bin/bash ${toolsPath}/launchers/model2.sh %BASENAME%"
+			model2ProtonCommandString="/bin/bash ${toolsPath}/launchers/model-2-emulator.sh %BASENAME%"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Model 2 Emulator (Proton)"]' -v "$model2ProtonCommandString" "$es_systemsFile"
 		fi
 	fi
