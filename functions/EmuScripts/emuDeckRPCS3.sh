@@ -42,7 +42,7 @@ RPCS3_init(){
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
 	RPCS3_addESConfig
-	SRM_createParsers
+	#SRM_createParsers
 }
 
 #update

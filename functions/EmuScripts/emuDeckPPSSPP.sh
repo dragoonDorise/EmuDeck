@@ -30,7 +30,7 @@ PPSSPP_init(){
 	PPSSPP_setupSaves
 	#PPSSPP_addSteamInputProfile
 	PPSSPP_setRetroAchievements
-	SRM_createParsers
+	#SRM_createParsers
 }
 
 #update

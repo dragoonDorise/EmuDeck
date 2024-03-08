@@ -52,7 +52,7 @@ Model2_init(){
 	Model2_addESConfig
 	Model2_downloadProtonGE
 	Model2ULWGL_install
-	SRM_createParsers
+	#SRM_createParsers
 
 }
 

@@ -76,7 +76,7 @@ CemuProton_init(){
 	fi
 	CemuProton_setEmulationFolder
 	CemuProton_setupSaves
-	SRM_createParsers
+	#SRM_createParsers
 	#CemuProton_addSteamInputProfile
 	CemuProton_addESConfig
 

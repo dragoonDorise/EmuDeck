@@ -67,7 +67,7 @@ Ryujinx_init(){
     Ryujinx_setupStorage
     Ryujinx_setupSaves
     Ryujinx_finalize
-	SRM_createParsers
+	#SRM_createParsers
 }
 
 #update
