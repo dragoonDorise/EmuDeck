@@ -6,7 +6,7 @@ GAMELAUNCHER=$ULWGL_toolPath/ulwgl-run
 
 EXE="$romsPath/model2/EMULATOR.EXE"
 
-Model2Launcher="${toolsPath}/launchers/model2.sh"
+Model2Launcher="${toolsPath}/launchers/model-2-emulator.sh"
 
 #In case the user deletes it, will allow loading bar to pop up again.
 mkdir -p "$romsPath/model2/pfx"
