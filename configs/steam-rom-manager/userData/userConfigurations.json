@@ -1425,7 +1425,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Atari Jaguar/Jaguar CD - BigPEmu Proton",
+    "configTitle": "Atari Jaguar - BigPEmu Proton",
     "steamDirectory": "${steamdirglobal}",
     "steamCategory": "${Atari Jaguar}",
     "romDirectory": "${romsdirglobal}",
@@ -2058,7 +2058,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "Mattel Electronics Intellivision - RetroArch FreeIntv",
+    "configTitle": "Intellivision - RetroArch FreeIntv",
     "steamCategory": "${Mattel Electronics Intellivision}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/intellivision",
@@ -2539,7 +2539,7 @@
   },
   {
     "parserType": "Glob",
-    "configTitle": "NEC PC-FX - RetroArch Beetle PC-FX",
+    "configTitle": "PCFX - RetroArch Beetle PC-FX",
     "steamCategory": "${NEC PC-FX}",
     "executableModifier": "\"${exePath}\"",
     "romDirectory": "${romsdirglobal}/pcfx",
