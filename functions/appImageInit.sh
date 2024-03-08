@@ -55,7 +55,13 @@ appImageInit() {
 	#Xenia temp fix
 	if [ "$(Xenia_IsInstalled)" == "true" ]; then
 		 setSetting doInstallXenia "true"
-	  fi
+	fi
+
+	#pcsx2 fix
+	if [ ! -f "$HOME/.config/EmuDeck/.pcsx2211" ]; then
+		cp "$HOME/.config/EmuDeck/backend/tools/launchers/pcsx2-qt.sh" "$toolsPath/launchers/pcsx2-qt.sh"
+		touch "$HOME/.config/EmuDeck/.pcsx2211"
+	fi
 
 	# Init functions
 	mkdir -p "$HOME/emudeck/logs"
