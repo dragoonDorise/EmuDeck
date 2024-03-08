@@ -417,7 +417,10 @@ SRM_rolledbackcreateParsers(){
   rm -rf "$SRM_userData_configDir/parsers/emudeck/"
 
   rsync -avz --mkpath --exclude-from="$HOME/exclude.txt" "$EMUDECKGIT/$SRM_userData_directory/parsers/emudeck/" "$SRM_userData_configDir/parsers/emudeck/"
-  echo "Put your custom parsers here" "$SRM_userData_configDir/parsers/custom/readme.txt"
+  mkdir -p "$SRM_userData_configDir/parsers/custom"
+  echo "Place your custom parsers here. After placing your parsers, reset Steam ROM Manager in the EmuDeck application. The Citra and Yuzu parsers are two examples. If you no longer want to use them, you may delete the files here and reset Steam ROM Manager in the EmuDeck application to remove them from Steam ROM Manager." > "$SRM_userData_configDir/parsers/custom/readme.txt"
+  rsync -avz --mkpath "$EMUDECKGIT/$SRM_userData_directory/parsers/emudeck/nintendo_switch-yuzu.json" "$SRM_userData_configDir/parsers/custom"
+  rsync -avz --mkpath "$EMUDECKGIT/$SRM_userData_directory/parsers/emudeck/nintendo_3ds-citra.json" "$SRM_userData_configDir/parsers/custom"
   rsync -avhp --mkpath "$EMUDECKGIT/$SRM_userData_directory/userSettings.json" "$SRM_userData_configDir/" --backup --suffix=.bak
 
   cp "$SRM_userData_configDir/userConfigurations.json" "$SRM_userData_configDir/userConfigurations.bak"
