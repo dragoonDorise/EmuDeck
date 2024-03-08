@@ -270,60 +270,61 @@ RetroArch_buildbotDownloader(){
 	local ppssppDir="$biosPath/PPSSPP"
 	local cheatsDir="$storagePath/retroarch/cheats"
 
-	# Shaders
+	# Make folders
 	mkdir -p $shadersDir
+	mkdir -p $shaderscgDir
+	mkdir -p $shadersglslDir
+	mkdir -p $shadersslangDir
+	mkdir -p $assetsDir
+	mkdir -p $autoconfigDir
+	mkdir -p $overlaysDir
+	mkdir -p $infoDir
+	mkdir -p $ppssppDir
+	mkdir -p $cheatsDir
 
 	# Common Shaders
 	if [[ ! "$( ls -A $shaderscgDir)" ]] ; then
-		mkdir "$shaderscgDir"
 		{ curl -L "$RetroArch_shaderscgURL" -o "$shaderscgDir/shaders_cg.zip" && nice -n 5 unzip -q -o "$shaderscgDir/shaders_cg.zip" -d "$shaderscgDir" && rm "$shaderscgDir/shaders_cg.zip"; } &> /dev/null
 	fi
 
 	# GLSL Shaders
 	if [[ ! "$( ls -A "$shadersglslDir")" ]] ; then
-		mkdir "$shadersglslDir"
 		{ curl -L "$RetroArch_shadersglslURL" -o "$shadersglslDir/shaders_glsl.zip" && nice -n 5 unzip -q -o "$shadersglslDir/shaders_glsl.zip" -d "$shadersglslDir" && rm "$shadersglslDir/shaders_glsl.zip"; } &> /dev/null
 
 	fi
 
 	# Slang Shaders
 	if [[ ! "$( ls -A "$shadersslangDir")" ]] ; then
-		mkdir "$shadersslangDir"
 		{ curl -L "$RetroArch_shadersslangURL" -o "$shadersslangDir/shaders_glsl.zip" && nice -n 5 unzip -q -o "$shadersslangDir/shaders_glsl.zip" -d "$shadersslangDir" && rm "$shadersslangDir/shaders_glsl.zip"; } &> /dev/null
 
 	fi
 
 	# Assets
 	if  [[ ! "$( ls -A "$assetsDir")" ]] ; then
-		mkdir -p "$assetsDir"
 		{ curl -L "$RetroArch_assetsURL" -o "$assetsDir/assets.zip" && nice -n 5 unzip -q -o "$assetsDir/assets.zip" -d "$assetsDir" && rm "$assetsDir/assets.zip"; } &> /dev/null
 
 	fi
 
 	# Overlays
 	if [[ ! "$( ls -A "$overlaysDir/borders")" ]] ; then
-		mkdir -p "$overlaysDir"
 		{ curl -L "$RetroArch_overlaysURL" -o "$overlaysDir/overlays.zip" && nice -n 5 unzip -q -o "$overlaysDir/overlays.zip" -d "$overlaysDir" && rm "$overlaysDir/overlays.zip"; } &> /dev/null
 
 	fi
 
 	# Autoconfig - for controllers (primarily helps non-Steam Deck setups)
 	if [[ ! "$( ls -A "$autoconfigDir")" ]] ; then
-		mkdir -p "$autoconfigDir"
 		{ curl -L "$RetroArch_autoconfigURL" -o "$autoconfigDir/autoconfig.zip" && nice -n 5 unzip -q -o "$autoconfigDir/autoconfig.zip" -d "$autoconfigDir" && rm "$autoconfigDir/autoconfig.zip"; } &> /dev/null
 
 	fi
 
 	# Info
 	if [[ ! "$( ls -A "$infoDir")" ]] ; then
-	 	mkdir -p "$infoDir"
 		{ curl -L "$RetroArch_infoURL" -o "$infoDir/info.zip" && nice -n 5 unzip -q -o "$infoDir/info.zip" -d "$infoDir" && rm "$infoDir/info.zip"; } &> /dev/null
 
 	fi
 
 	# Cheats
 	if [[ ! "$( ls -A "$cheatsDir")" ]] ; then
-	 	mkdir -p "$cheatsDir"
 		{ curl -L "$RetroArch_cheatsURL" -o "$cheatsDir/cheats.zip" && nice -n 5 unzip -q -o "$cheatsDir/cheats.zip" -d "$cheatsDir" && rm "$cheatsDir/cheats.zip"; } &> /dev/null
 
 	fi
