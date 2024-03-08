@@ -4,11 +4,6 @@ SRM_toolPath="${toolsPath}/Steam ROM Manager.AppImage"
 
 if grep -q "mmcblk0p1" "$SRM_userData_configDir/userConfigurations.json"; then
 	SRM_init
-	text="$(printf "<b>Parsers fixed</b>\nWe've detected an issue with Steam Rom Manager, but it's been fixed")"
-	zenity --info \
-		--title="EmuDeck" \
-		--width="450" \
-		--text="${text}" 2>/dev/null
 fi
 SRM_addSteamInputProfiles
 
