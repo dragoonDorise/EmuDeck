@@ -19,7 +19,8 @@ appImageInit() {
 	SRM_migration # 2.2 Changes
 	ESDE_migration # 2.2 Changes
 	autofix_dynamicParsers # 2.2 Changes
-
+	mkdir -p "$toolsPath/launchers/esde/"
+	ln -s "${toolsPath}/launchers/es-de/es-de.sh" "$toolsPath/launchers/esde/emulationstationde.sh"
 
 	#Force SRM appimage move in case the migration fails
 	mv "${toolsPath}/srm/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" &> /dev/null
@@ -36,6 +37,14 @@ appImageInit() {
 
 	if [ -d "$HOME/.config/pegasus-frontend/config" ]; then
 	  rsync -avz $HOME/.config/pegasus-frontend/config/  $HOME/.config/pegasus-frontend/
+	fi
+
+	if [ -d "$romsPath/3ds" ]; then
+	  rsync -avz  $romsPath/3ds/ $romsPath/n3ds/ --ignore-existing-files
+	fi
+
+	if [ -d "$romsPath/gamecube" ]; then
+		ln -s "${romsPath}/gamecube" "${romsPath}/gc"
 	fi
 
 	if [ ! -f "$HOME/.config/EmuDeck/.srm2211" ]; then
