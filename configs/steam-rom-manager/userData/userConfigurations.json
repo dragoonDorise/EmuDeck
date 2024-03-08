@@ -11,9 +11,7 @@
     "titleModifier": "ES-DE",
     "fetchControllerTemplatesButton": null,
     "removeControllersButton": null,
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "userAccounts": {
@@ -40,38 +38,38 @@
     },
     "controllers": {
       "ps4": {
-          "title": "EmuDeck - Dual Shock 4 Frontend",
-          "mappingId": "emudeck_frontend_controller_ps4.vdf",
-          "profileType": "template"
+        "title": "EmuDeck - Dual Shock 4 Frontend",
+        "mappingId": "emudeck_frontend_controller_ps4.vdf",
+        "profileType": "template"
       },
       "ps5": {
-          "title": "EmuDeck - Dual Sense Frontend",
-          "mappingId": "emudeck_frontend_controller_ps5.vdf",
-          "profileType": "template"
+        "title": "EmuDeck - Dual Sense Frontend",
+        "mappingId": "emudeck_frontend_controller_ps5.vdf",
+        "profileType": "template"
       },
       "xbox360": {
-          "title": "EmuDeck - Xbox 360 Frontend",
-          "mappingId": "emudeck_frontend_controller_xbox360.vdf",
-          "profileType": "template"
+        "title": "EmuDeck - Xbox 360 Frontend",
+        "mappingId": "emudeck_frontend_controller_xbox360.vdf",
+        "profileType": "template"
       },
       "xboxone": {
-          "title": "EmuDeck - Xbox One Frontend",
-          "mappingId": "emudeck_frontend_controller_xboxone.vdf",
-          "profileType": "template"
+        "title": "EmuDeck - Xbox One Frontend",
+        "mappingId": "emudeck_frontend_controller_xboxone.vdf",
+        "profileType": "template"
       },
       "switch_joycon_left": null,
       "switch_joycon_right": null,
       "switch_pro": {
-          "title": "EmuDeck - Switch Pro Frontend",
-          "mappingId": "emudeck_frontend_controller_switch_pro.vdf",
-          "profileType": "template"
+        "title": "EmuDeck - Switch Pro Frontend",
+        "mappingId": "emudeck_frontend_controller_switch_pro.vdf",
+        "profileType": "template"
       },
       "neptune": {
-          "title": "EmuDeck - Steam Deck Frontend",
-          "mappingId": "emudeck_frontend_controller_steamdeck.vdf",
-          "profileType": "template"
+        "title": "EmuDeck - Steam Deck Frontend",
+        "mappingId": "emudeck_frontend_controller_steamdeck.vdf",
+        "profileType": "template"
       }
-  },
+    },
     "imageProviderAPIs": {
       "SteamGridDB": {
         "nsfw": false,
@@ -80,10 +78,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static",
-          "animated"
-        ]
+        "imageMotionTypes": ["static", "animated"]
       }
     },
     "defaultImage": {
@@ -94,11 +89,11 @@
       "icon": ""
     },
     "localImages": {
-      "tall": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_portrait.@(png|jpg)",
-      "long": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_banner.@(png|jpg)",
-      "hero": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_hero.@(png|jpg)",
-      "logo": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_logo.@(png|jpg)",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_ico.@(png|jpg|ico)"
+      "tall": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_portrait.@(png|jpg)",
+      "long": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_banner.@(png|jpg)",
+      "hero": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_hero.@(png|jpg)",
+      "logo": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_logo.@(png|jpg)",
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_ico.@(png|jpg|ico)"
     },
     "parserId": "164824496516097458",
     "version": 15,
@@ -116,9 +111,7 @@
     "titleModifier": "Pegasus Frontend",
     "fetchControllerTemplatesButton": null,
     "removeControllersButton": null,
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "userAccounts": {
@@ -185,10 +178,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static",
-          "animated"
-        ]
+        "imageMotionTypes": ["static", "animated"]
       }
     },
     "defaultImage": {
@@ -218,9 +208,7 @@
     "romDirectory": "/run/media/mmcblk0p1/Emulation/tools/launchers",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -253,9 +241,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -321,9 +307,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "${romsdirglobal}/cloud",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "disabled": false,
@@ -371,9 +355,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "164785598905497513",
@@ -403,9 +385,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "${romsdirglobal}/remoteplay",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "disabled": false,
@@ -439,9 +419,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "164785598905497514",
@@ -487,9 +465,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -531,9 +507,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -553,9 +527,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -597,9 +569,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -619,9 +589,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -663,9 +631,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -685,9 +651,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}puae_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -729,9 +693,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -749,9 +711,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -797,9 +757,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "166486574949993186",
@@ -817,9 +775,7 @@
     "titleModifier": "${fuzzyTitle}",
     "fetchControllerTemplatesButton": null,
     "removeControllersButton": null,
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "userAccounts": {
@@ -862,9 +818,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "defaultImage": {
@@ -895,9 +849,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -943,9 +895,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "165964954316677671",
@@ -963,9 +913,7 @@
     "titleModifier": "${fuzzyTitle}",
     "fetchControllerTemplatesButton": null,
     "removeControllersButton": null,
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "userAccounts": {
@@ -1008,9 +956,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "defaultImage": {
@@ -1043,9 +989,7 @@
     "executableArgs": "\"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "disabled": true,
     "userAccounts": {
       "specifiedAccounts": ""
@@ -1085,9 +1029,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -1119,9 +1061,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -1167,9 +1107,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "165768545254166037",
@@ -1184,9 +1122,7 @@
     "romDirectory": "${romsdirglobal}/fbneo",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -1231,9 +1167,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -1253,9 +1187,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mame2003_plus_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1297,9 +1229,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -1319,9 +1249,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mame2010_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1363,9 +1291,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -1385,9 +1311,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mame_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1429,9 +1353,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -1451,9 +1373,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}stella_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1495,9 +1415,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -1517,9 +1435,7 @@
     "titleModifier": "${fuzzyTitle}",
     "fetchControllerTemplatesButton": null,
     "removeControllersButton": null,
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "userAccounts": {
@@ -1562,9 +1478,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "defaultImage": {
@@ -1596,9 +1510,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}virtualjaguar_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1640,9 +1552,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -1662,9 +1572,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_lynx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1706,9 +1614,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -1728,9 +1634,7 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_wswan_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1772,9 +1676,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -1794,9 +1696,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_wswan_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -1838,9 +1738,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -1858,9 +1756,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -1906,9 +1802,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "164712598905497531",
@@ -1924,9 +1818,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -1972,9 +1864,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "164785598905497512",
@@ -1992,9 +1882,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}vice_xvic_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -2036,9 +1924,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -2058,9 +1944,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}prboom_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -2102,9 +1986,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -2121,9 +2003,7 @@
     "romDirectory": "${romsdirglobal}/dos",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -2168,9 +2048,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -2190,9 +2068,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}freeintv_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -2244,9 +2120,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -2266,9 +2140,7 @@
     "titleModifier": "${fuzzyTitle}",
     "fetchControllerTemplatesButton": null,
     "removeControllersButton": null,
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "userAccounts": {
@@ -2311,9 +2183,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "animated"
-        ]
+        "imageMotionTypes": ["animated"]
       }
     },
     "defaultImage": {
@@ -2343,9 +2213,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "disabled": false,
@@ -2389,9 +2257,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "167851246183635366",
@@ -2420,9 +2286,7 @@
     "romDirectory": "${romsdirglobal}/xbox",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -2465,9 +2329,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -2501,9 +2363,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}np2kai_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -2545,9 +2405,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -2565,9 +2423,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -2613,9 +2469,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "165856080826916450",
@@ -2631,9 +2485,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -2679,9 +2531,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "165855998563219386",
@@ -2699,9 +2549,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_pcfx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -2753,9 +2601,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -2775,9 +2621,7 @@
     "executableArgs": " \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "disabled": true,
     "userAccounts": {
       "specifiedAccounts": ""
@@ -2841,9 +2685,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -2877,9 +2719,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mupen64plus_next_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -2931,9 +2771,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -2951,9 +2789,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -3009,9 +2845,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "167184642099963041",
@@ -3026,9 +2860,7 @@
     "romDirectory": "${romsdirglobal}/nds",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -3095,9 +2927,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -3128,9 +2958,7 @@
     "romDirectory": "${romsdirglobal}/nds",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -3185,9 +3013,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -3204,9 +3030,7 @@
     "romDirectory": "${romsdirglobal}/nds",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -3261,9 +3085,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -3283,9 +3105,7 @@
     "executableArgs": "-f \"'${filePath}'\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "disabled": true,
     "userAccounts": {
       "specifiedAccounts": ""
@@ -3349,9 +3169,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -3385,9 +3203,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mgba_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -3439,9 +3255,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -3461,9 +3275,7 @@
     "executableArgs": "-f \"'${filePath}'\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -3483,39 +3295,39 @@
     "parserInputs": {
       "glob": "{gbc/**/!(homebrew),gbc}/${title}@(.7z|.7Z|.gb|.GB|.gbc|.GBC|.zip|.ZIP)"
     },
-      "controllers": {
-        "ps4": {
-            "title": "EmuDeck - Dual Shock 4",
-            "mappingId": "emudeck_controller_ps4.vdf",
-            "profileType": "template"
-        },
-        "ps5": {
-            "title": "EmuDeck - Dual Sense",
-            "mappingId": "emudeck_controller_ps5.vdf",
-            "profileType": "template"
-        },
-        "xbox360": {
-            "title": "EmuDeck - Xbox 360",
-            "mappingId": "emudeck_controller_xbox360.vdf",
-            "profileType": "template"
-        },
-        "xboxone": {
-            "title": "EmuDeck - Xbox One",
-            "mappingId": "emudeck_controller_xboxone.vdf",
-            "profileType": "template"
-        },
-        "switch_joycon_left": null,
-        "switch_joycon_right": null,
-        "switch_pro": {
-            "title": "EmuDeck - Switch Pro",
-            "mappingId": "emudeck_controller_switch_pro.vdf",
-            "profileType": "template"
-        },
-        "neptune": {
-            "title": "EmuDeck - Steam Deck",
-            "mappingId": "emudeck_controller_steamdeck_nintendo.vdf",
-            "profileType": "template"
-        }
+    "controllers": {
+      "ps4": {
+        "title": "EmuDeck - Dual Shock 4",
+        "mappingId": "emudeck_controller_ps4.vdf",
+        "profileType": "template"
+      },
+      "ps5": {
+        "title": "EmuDeck - Dual Sense",
+        "mappingId": "emudeck_controller_ps5.vdf",
+        "profileType": "template"
+      },
+      "xbox360": {
+        "title": "EmuDeck - Xbox 360",
+        "mappingId": "emudeck_controller_xbox360.vdf",
+        "profileType": "template"
+      },
+      "xboxone": {
+        "title": "EmuDeck - Xbox One",
+        "mappingId": "emudeck_controller_xboxone.vdf",
+        "profileType": "template"
+      },
+      "switch_joycon_left": null,
+      "switch_joycon_right": null,
+      "switch_pro": {
+        "title": "EmuDeck - Switch Pro",
+        "mappingId": "emudeck_controller_switch_pro.vdf",
+        "profileType": "template"
+      },
+      "neptune": {
+        "title": "EmuDeck - Steam Deck",
+        "mappingId": "emudeck_controller_steamdeck_nintendo.vdf",
+        "profileType": "template"
+      }
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -3539,9 +3351,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -3561,9 +3371,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}gambatte_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -3615,9 +3423,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -3637,9 +3443,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}sameboy_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -3691,9 +3495,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -3713,9 +3515,7 @@
     "executableArgs": "-f \"'${filePath}'\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -3791,9 +3591,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -3813,9 +3611,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}gambatte_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -3867,9 +3663,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -3889,9 +3683,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}sameboy_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -3943,9 +3735,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -3965,9 +3755,7 @@
     "titleModifier": "${fuzzyTitle}",
     "fetchControllerTemplatesButton": null,
     "removeControllersButton": null,
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "userAccounts": {
@@ -4010,9 +3798,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "defaultImage": {
@@ -4044,9 +3830,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mesen_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -4098,9 +3882,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -4118,9 +3900,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "disabled": false,
@@ -4154,9 +3934,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "164770728884890305",
@@ -4198,9 +3976,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mesen-s_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -4252,9 +4028,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -4274,9 +4048,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}bsnes_hd_beta_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -4328,9 +4100,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -4350,9 +4120,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}snes9x_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -4404,9 +4172,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -4424,9 +4190,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle} (Ryujinx)",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "userAccounts": {
@@ -4470,9 +4234,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "164788906872922785",
@@ -4504,9 +4266,7 @@
     "titleModifier": "${fuzzyTitle}",
     "fetchControllerTemplatesButton": null,
     "removeControllersButton": null,
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "userAccounts": {
@@ -4550,9 +4310,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "defaultImage": {
@@ -4584,9 +4342,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_vb_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -4638,9 +4394,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -4657,9 +4411,7 @@
     "romDirectory": "${romsdirglobal}/wii",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -4706,9 +4458,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -4739,9 +4489,7 @@
     "romDirectory": "${romsdirglobal}/wiiu/roms/",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -4808,9 +4556,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -4841,9 +4587,7 @@
     "romDirectory": "${romsdirglobal}/wiiu/roms/",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -4910,9 +4654,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -4943,9 +4685,7 @@
     "romDirectory": "${romsdirglobal}/wiiu/roms/",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle} (Proton)",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -5012,9 +4752,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -5045,9 +4783,7 @@
     "romDirectory": "${romsdirglobal}/wiiu/roms/",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle} (Proton)",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -5114,9 +4850,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -5150,9 +4884,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}opera_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -5194,9 +4926,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -5214,9 +4944,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -5262,9 +4990,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "168541242505111076",
@@ -5282,9 +5008,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}same_cdi_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -5326,9 +5050,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -5348,9 +5070,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}retro8_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -5392,9 +5112,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -5412,9 +5130,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${title}}",
     "imagePool": "${title}",
     "defaultImage": "",
@@ -5459,9 +5175,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "167174183584229566",
@@ -5478,9 +5192,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "disabled": false,
@@ -5528,9 +5240,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "166399570436769358",
@@ -5562,9 +5272,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}picodrive_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -5606,9 +5314,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -5628,9 +5334,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -5672,9 +5376,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -5694,9 +5396,7 @@
     "executableArgs": "\"'${filePath}'\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "disabled": false,
     "userAccounts": {
       "specifiedAccounts": ""
@@ -5736,9 +5436,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -5772,9 +5470,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}flycast_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -5816,9 +5512,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -5838,9 +5532,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -5882,9 +5574,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -5901,9 +5591,7 @@
     "romDirectory": "${romsdirglobal}",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -5948,9 +5636,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -5967,9 +5653,7 @@
     "romDirectory": "${romsdirglobal}/genesiswide",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -6014,9 +5698,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -6036,9 +5718,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}genesis_plus_gx_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -6080,9 +5760,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -6102,9 +5780,7 @@
     "titleModifier": "${fuzzyTitle}",
     "fetchControllerTemplatesButton": null,
     "removeControllersButton": null,
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "userAccounts": {
@@ -6151,9 +5827,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "defaultImage": {
@@ -6186,9 +5860,7 @@
     "executableArgs": "\"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "disabled": false,
     "userAccounts": {
       "specifiedAccounts": ""
@@ -6232,9 +5904,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -6268,9 +5938,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}kronos_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -6312,9 +5980,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -6332,9 +5998,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -6380,9 +6044,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "166502992463815988",
@@ -6400,9 +6062,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}yabause_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -6444,9 +6104,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -6466,9 +6124,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}px68k_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -6510,9 +6166,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -6530,9 +6184,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -6577,9 +6229,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "164785583010740300",
@@ -6596,9 +6246,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -6644,9 +6292,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "168642641869935597",
@@ -6664,9 +6310,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_ngp_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -6708,9 +6352,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -6730,9 +6372,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_ngp_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -6774,9 +6414,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -6794,9 +6432,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "disabled": false,
@@ -6830,9 +6466,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "164785208872922785",
@@ -6874,9 +6508,7 @@
     "executableArgs": "--no-gui \"'${filePath}'\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "disabled": false,
     "userAccounts": {
       "specifiedAccounts": ""
@@ -6916,9 +6548,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -6950,9 +6580,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "disabled": false,
@@ -6994,9 +6622,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -7030,9 +6656,7 @@
     "executableArgs": "-f -g \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "disabled": false,
     "userAccounts": {
       "specifiedAccounts": ""
@@ -7072,9 +6696,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -7108,9 +6730,7 @@
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}ppsspp_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -7152,9 +6772,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -7172,9 +6790,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "userAccounts": {
@@ -7217,9 +6833,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "166409089761171238",
@@ -7252,9 +6866,7 @@
     "executableArgs": "-batch -fullscreen \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "disabled": false,
     "userAccounts": {
       "specifiedAccounts": ""
@@ -7294,9 +6906,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -7327,9 +6937,7 @@
     "romDirectory": "${romsdirglobal}/psx",
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "titleModifier": "${fuzzyTitle}",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
@@ -7374,9 +6982,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -7394,9 +7000,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -7442,9 +7046,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "166001743996365855",
@@ -7462,9 +7064,7 @@
     "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}tic80_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "defaultImage": "",
     "defaultTallImage": "",
     "defaultHeroImage": "",
@@ -7506,9 +7106,7 @@
       "SteamGridDB": {
         "nsfw": false,
         "humor": false,
-        "imageMotionTypes": [
-          "static"
-        ],
+        "imageMotionTypes": ["static"],
         "styles": [],
         "stylesHero": [],
         "stylesLogo": [],
@@ -7526,9 +7124,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -7574,9 +7170,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "168540950876229866",
@@ -7592,9 +7186,7 @@
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "imageProviders": [
-      "SteamGridDB"
-    ],
+    "imageProviders": ["SteamGridDB"],
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "defaultImage": "",
@@ -7640,9 +7232,7 @@
         "stylesHero": [],
         "stylesLogo": [],
         "stylesIcon": [],
-        "imageMotionTypes": [
-          "static"
-        ]
+        "imageMotionTypes": ["static"]
       }
     },
     "parserId": "168541420924650278",
