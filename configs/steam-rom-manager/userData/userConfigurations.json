@@ -186,7 +186,7 @@
       "long": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "tall": "",
@@ -290,11 +290,11 @@
       "icon": ""
     },
     "localImages": {
-      "tall": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_portrait.@(png|jpg)",
-      "long": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_banner.@(png|jpg)",
-      "hero": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_hero.@(png|jpg)",
-      "logo": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_logo.@(png|jpg)",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_ico.@(png|jpg|ico)"
+      "tall": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_portrait.@(png|jpg)",
+      "long": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_banner.@(png|jpg)",
+      "hero": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_hero.@(png|jpg)",
+      "logo": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_logo.@(png|jpg)",
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/**/${title}_ico.@(png|jpg|ico)"
     }
   },
   {
@@ -365,7 +365,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -443,7 +443,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -470,7 +470,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -532,7 +532,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -594,7 +594,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -656,7 +656,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -826,7 +826,7 @@
       "long": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "tall": "",
@@ -856,7 +856,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -964,7 +964,7 @@
       "long": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "tall": "",
@@ -1041,7 +1041,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -1068,7 +1068,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -1130,7 +1130,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -1192,7 +1192,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -1254,7 +1254,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -1316,7 +1316,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -1378,7 +1378,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -1515,7 +1515,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -1577,7 +1577,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -1639,7 +1639,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -1701,7 +1701,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -1763,7 +1763,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -1825,7 +1825,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -1887,7 +1887,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -1949,7 +1949,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -2011,7 +2011,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -2073,7 +2073,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -2191,7 +2191,7 @@
       "long": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "tall": "",
@@ -2267,7 +2267,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -2341,7 +2341,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -2368,7 +2368,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -2430,7 +2430,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -2492,7 +2492,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -2554,7 +2554,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -2697,7 +2697,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -2724,7 +2724,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -2796,7 +2796,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -2939,7 +2939,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -2966,7 +2966,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -3038,7 +3038,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -3181,7 +3181,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -3208,7 +3208,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -3280,7 +3280,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -3376,7 +3376,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -3448,7 +3448,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -3520,7 +3520,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -3616,7 +3616,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -3688,7 +3688,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -3806,7 +3806,7 @@
       "long": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "tall": "",
@@ -3835,7 +3835,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -3954,7 +3954,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -3981,7 +3981,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -4053,7 +4053,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -4125,7 +4125,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -4244,7 +4244,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -4318,7 +4318,7 @@
       "long": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "tall": "",
@@ -4347,7 +4347,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -4470,7 +4470,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -4564,11 +4564,11 @@
       }
     },
     "defaultImage": {
-      "long": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/wiiu.jpg",
+      "long": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/wiiu.jpg",
       "tall": "",
-      "hero": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
-      "logo": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "hero": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
+      "logo": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -4662,11 +4662,11 @@
       }
     },
     "defaultImage": {
-      "long": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/wiiu.jpg",
+      "long": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/wiiu.jpg",
       "tall": "",
-      "hero": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
-      "logo": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "hero": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
+      "logo": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -4764,7 +4764,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -4862,7 +4862,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -4889,7 +4889,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -4951,7 +4951,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -5013,7 +5013,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -5075,7 +5075,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -5137,7 +5137,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -5277,7 +5277,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -5339,7 +5339,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -5448,7 +5448,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -5475,7 +5475,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -5537,7 +5537,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -5599,7 +5599,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -5661,7 +5661,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -5723,7 +5723,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -5835,7 +5835,7 @@
       "long": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "tall": "",
@@ -5916,7 +5916,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -5943,7 +5943,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -6005,7 +6005,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -6067,7 +6067,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -6129,7 +6129,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -6191,7 +6191,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -6253,7 +6253,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -6315,7 +6315,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -6377,7 +6377,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -6486,7 +6486,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -6560,7 +6560,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -6634,7 +6634,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -6708,7 +6708,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -6735,7 +6735,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -6918,7 +6918,7 @@
       "tall": "",
       "hero": "",
       "logo": "",
-      "icon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+      "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
     },
     "localImages": {
       "long": "",
@@ -6945,7 +6945,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -7007,7 +7007,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "disabled": true,
     "localImages": "",
     "localTallImages": "",
@@ -7069,7 +7069,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -7131,7 +7131,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
@@ -7193,7 +7193,7 @@
     "defaultTallImage": "",
     "defaultHeroImage": "",
     "defaultLogoImage": "",
-    "defaultIcon": "/run/media/mmcblk0p1/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
+    "defaultIcon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png",
     "localImages": "",
     "localTallImages": "",
     "localHeroImages": "",
