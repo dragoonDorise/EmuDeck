@@ -39,6 +39,10 @@ appImageInit() {
 	  rsync -avz $HOME/.config/pegasus-frontend/config/  $HOME/.config/pegasus-frontend/
 	fi
 
+	if [ -d "$romsPath/3ds" ]; then
+	  rsync -avz  $romsPath/3ds/ $romsPath/n3ds/ --ignore-existing-files
+	fi
+
 	if [ ! -f "$HOME/.config/EmuDeck/.srm2211" ]; then
 	  SRM_init
 	  touch $HOME/.config/EmuDeck/.srm2211
