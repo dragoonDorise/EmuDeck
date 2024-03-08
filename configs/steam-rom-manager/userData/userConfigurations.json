@@ -3694,7 +3694,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": false,
+    "disabled": true,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -3987,7 +3987,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": false,
+    "disabled": true,
     "userAccounts": {
       "specifiedAccounts": "",
       "skipWithMissingDataDir": true,
@@ -5667,7 +5667,7 @@
     "localHeroImages": "",
     "localLogoImages": "",
     "localIcons": "",
-    "disabled": false,
+    "disabled": true,
     "executable": {
       "path": "${retroarchpath}",
       "shortcutPassthrough": false,
