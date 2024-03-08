@@ -19,7 +19,7 @@ appImageInit() {
 	SRM_migration # 2.2 Changes
 	ESDE_migration # 2.2 Changes
 	autofix_dynamicParsers # 2.2 Changes
-
+	ln -s "${toolsPath}/launchers/es-de/es-de.sh" "$toolsPath/launchers/esde/emulationstationde.sh"
 
 	#Force SRM appimage move in case the migration fails
 	mv "${toolsPath}/srm/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" &> /dev/null
