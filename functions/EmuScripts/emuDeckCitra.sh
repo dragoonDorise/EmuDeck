@@ -5,8 +5,11 @@ Citra_emuType="$emuDeckEmuTypeAppImage"
 Citra_emuPath="$HOME/Applications/citra-qt.AppImage"
 Citra_releaseURL=""
 Citra_configFile="$HOME/.config/citra-emu/qt-config.ini"
+Citra_configPath="$HOME/.config/citra-emu"
 Citra_texturesPath="$HOME/.config/citra-emu/load/textures"
-
+Citra_flatpakPath="$HOME/.var/app/org.citra_emu.citra"
+Citra_flatpakconfigPath="$Citra_flatpakPath/config/citra-emu"
+Citra_flatpakconfigFile="$Citra_flatpakconfigPath/qt-config.ini"
 #cleanupOlderThings
 Citra_finalize(){
  echo "NYI"
@@ -24,13 +27,21 @@ Citra_install(){
 Citra_init(){
 	setMSG "Initializing $Citra_emuName settings."
 	#configEmuFP "${Citra_emuName}" "${Citra_emuPath}" "true"
-	Citra_migrate
-
-	Citra_setupStorage
+	#Citra_migrate
+	#Citra_setupStorage
 	Citra_setEmulationFolder
 	Citra_setupSaves
 	#SRM_createParsers
 	#Citra_addSteamInputProfile
+	cp "$EMUDECKGIT/tools/launchers/citra.sh" "$toolsPath/launchers/citra.sh"
+	chmod +x "$toolsPath/launchers/citra.sh"
+
+  	createDesktopShortcut   "$HOME/.local/share/applications/Citra.desktop" \
+							"Citra (AppImage/Flatpak)" \
+							"${toolsPath}/launchers/citra.sh"  \
+							"False"
+
+
 }
 
 #update
@@ -47,6 +58,8 @@ Citra_update(){
 Citra_setEmulationFolder(){
 	setMSG "Setting $Citra_emuName Emulation Folder"
 
+	mkdir -p "$Citra_configPath"
+	rsync -avhp "$EMUDECKGIT/configs/org.citra_emu.citra/config/citra-emu/qt-config.ini" "$Citra_configPath/qt-config.ini" --backup --suffix=.bak
 	gameDirOpt='Paths\\gamedirs\\3\\path='
 	newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/n3ds"
 	sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_configFile"
@@ -55,6 +68,23 @@ Citra_setEmulationFolder(){
 	mkdir -p "${biosPath}/citra/"
 	mkdir -p "$HOME/.local/share/citra-emu/sysdata"
 	ln -sn "$HOME/.local/share/citra-emu/sysdata" "${biosPath}/citra/keys"
+
+	if [ -d $Citra_flatpakPath ]; then 
+
+		mkdir -p $Citra_flatpakconfigPath
+		rsync -avhp "$EMUDECKGIT/configs/org.citra_emu.citra/config/citra-emu/qt-config.ini" "$Citra_flatpakconfigPath/qt-config.ini" --backup --suffix=.bak
+		gameDirOpt='Paths\\gamedirs\\3\\path='
+		newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/n3ds"
+		sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_flatpakconfigFile"
+
+		#Setup symlink for AES keys
+		mkdir -p "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sysdata"
+		mkdir -p "${biosPath}/citra-flatpak"
+		ln -sn "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sysdata" "${biosPath}/citra-flatpak/keys"
+
+	fi
+
+
 }
 
 #SetupSaves
@@ -63,67 +93,6 @@ Citra_setupSaves(){
 	linkToSaveFolder citra states "$HOME/.local/share/citra-emu/states"
 }
 
-
-#SetupStorage
-Citra_setupStorage(){
-
-	if [ -d "${HOME}/.local/share/Steam" ]; then
-		STEAMPATH="${HOME}/.local/share/Steam"
-	elif [ -d "${HOME}/.steam/steam" ]; then
-		STEAMPATH="${HOME}/.steam/steam"
-	else
-		echo "Steam install not found"
-	fi
-
-	if [[ -L "$romsPath/n3ds" && ! $(readlink -f "$romsPath/n3ds") =~ ^"$romsPath" ]] || [[ -L "$romsPath/3ds" && ! $(readlink -f "$romsPath/3ds") =~ ^"$romsPath" ]]; then
-		echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
-	else
-		if [[ ! -e "$romsPath/3ds" && ! -e "$romsPath/n3ds" ]]; then
-			mkdir -p "$romsPath/n3ds"
-			ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
-		elif [[ -d "$romsPath/3ds" && -L "$romsPath/n3ds" ]]; then
-			echo "Converting n3ds symlink to a regular directory..."
-			unlink "$romsPath/n3ds"
-			mv "$romsPath/3ds" "$romsPath/n3ds"
-			ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
-			echo "3ds symlink updated to point to n3ds"
-		elif [[ -d "$romsPath/3ds" && ! -e "$romsPath/n3ds" ]]; then
-			echo "Creating n3ds directory and updating 3ds symlink..."
-			mv "$romsPath/3ds" "$romsPath/n3ds"
-			ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
-			echo "3ds symlink updated to point to n3ds"
-		elif [[ -d "$romsPath/n3ds" && ! -e "$romsPath/3ds" ]]; then
-			echo "3ds symlink not found, creating..."
-			ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
-			echo "3ds symlink created"
-		fi
-	fi
-	find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/n3ds|${romsPath}/3ds|g" {} +
-
-	local textureLink="$(readlink -f "$Citra_texturesPath")"
-	if [[ "$textureLink" != "$emulationPath/hdpacks/3ds" ]]; then
-		rm -rf "$Citra_texturesPath"
-		ln -s "$Citra_texturesPath" "$emulationPath/hdpacks/3ds"
-	fi
-
-	if [ ! -f "$storagePath/citra/nand" ] && [ -d "$HOME/.local/share/citra-emu/nand/" ]; then
-
-		echo "citra nand does not exist in storagepath."
-		echo -e ""
-		setMSG "Moving Citra nand to the Emulation/storage folder"
-		echo -e ""
-
-		mv "$HOME/.local/share/citra-emu/nand/" $storagePath/citra/nand/
-		mv "$HOME/.local/share/citra-emu/sdmc/" $storagePath/citra/sdmc/
-
-		unlink "$HOME/.local/share/citra-emu/nand/"
-		unlink "$HOME/.local/share/citra-emu/sdmc/"
-
-		ln -ns "${storagePath}/citra/nand/" "$HOME/.local/share/citra-emu/nand/"
-		ln -ns "${storagePath}/citra/sdmc/" "$HOME/.local/share/citra-emu/sdmc/"
-	fi
-
-}
 
 
 #WipeSettings

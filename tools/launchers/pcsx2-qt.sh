@@ -19,6 +19,9 @@ fi
 #run the executable with the params.
 #Fix first '
 param="${@}"
-param=$(echo "$param" | sed "s|'|\"|g")
-eval "${exe} ${param} -fullscreen"
+substituteWith='"'
+param=${param/\'/"$substituteWith"}
+#Fix last ' on command
+param=$(echo "$param" | sed 's/.$/"/')
+eval "${exe} ${param} -bigpicture -fullscreen"
 rm -rf "$savesPath/.gaming"

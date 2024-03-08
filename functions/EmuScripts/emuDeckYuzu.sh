@@ -76,8 +76,13 @@ Yuzu_install() {
 Yuzu_init() {
     echo "Begin Yuzu Init"
 
+	cp "$EMUDECKGIT/tools/launchers/yuzu.sh" "$toolsPath/launchers/yuzu.sh"
+	chmod +x "$toolsPath/launchers/yuzu.sh"
+    mkdir -p "$HOME/.config/yuzu"
+    mkdir -p "$HOME/.local/share/yuzu"
+	rsync -avhp "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu/." "$HOME/.config/yuzu"
+	rsync -avhp "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu/." "$HOME/.local/share/yuzu"
     Yuzu_migrate
-
     configEmuAI "$Yuzu_emuName" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
     configEmuAI "$Yuzu_emuName" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
 
@@ -86,6 +91,11 @@ Yuzu_init() {
     Yuzu_setupSaves
     Yuzu_finalize
     #SRM_createParsers
+
+  	createDesktopShortcut   "$HOME/.local/share/applications/Yuzu.desktop" \
+							"Yuzu" \
+							"${toolsPath}/launchers/yuzu.sh"  \
+							"False"
 
 }
 
