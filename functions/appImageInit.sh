@@ -43,6 +43,10 @@ appImageInit() {
 	  rsync -avz  $romsPath/3ds/ $romsPath/n3ds/ --ignore-existing-files
 	fi
 
+	if [ -d "$romsPath/gamecube" ]; then
+		ln -s "${romsPath}/gamecube" "${romsPath}/gc"
+	fi
+
 	if [ ! -f "$HOME/.config/EmuDeck/.srm2211" ]; then
 	  SRM_init
 	  touch $HOME/.config/EmuDeck/.srm2211
