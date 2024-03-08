@@ -48,6 +48,11 @@ appImageInit() {
 	  rsync -avz $HOME/.config/pegasus-frontend/config/  $HOME/.config/pegasus-frontend/
 	fi
 
+	if [ ! -f "$HOME/.config/EmuDeck/.srm2211" ]; then
+	  SRM_init
+	  touch $HOME/.config/EmuDeck/.srm2211
+	fi
+
 	#Xenia temp fix
 	if [ "$(Xenia_IsInstalled)" == "true" ]; then
 		 setSetting doInstallXenia "true"
