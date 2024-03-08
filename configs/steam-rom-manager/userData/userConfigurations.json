@@ -6797,7 +6797,7 @@
       "specifiedAccounts": ""
     },
     "executable": {
-      "path": "/run/media/mmcblk0p1/Applications/Vita3K/Vita3K",
+      "path": "/home/deck/Applications/Vita3K/Vita3K",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
