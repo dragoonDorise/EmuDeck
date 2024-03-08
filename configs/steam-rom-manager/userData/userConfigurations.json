@@ -1631,7 +1631,7 @@
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_wswan_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+    "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_wswan_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
@@ -6328,7 +6328,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.ngc|.NGC|.ngp|.NGP|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.ngc|.NGC|.ngp|.NGP|.zip|.ZIP|.npc|.NPC)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -6390,7 +6390,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.ngc|.NGC|.ngp|.NGP|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.ngc|.NGC|.ngp|.NGP|.zip|.ZIP|.npc|.NPC)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -7061,7 +7061,7 @@
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}tic80_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+    "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}tic80_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
