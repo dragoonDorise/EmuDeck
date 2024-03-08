@@ -50,7 +50,7 @@ Dolphin_init(){
 	Dolphin_setupSaves
   Dolphin_cleanup
   Dolphin_setCustomizations
-	SRM_createParsers
+	#SRM_createParsers
     #Dolphin_DynamicInputTextures
 }
 

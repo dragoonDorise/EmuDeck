@@ -49,21 +49,67 @@ SRM_migration(){
   fi
 }
 
-SRM_init(){
+SRM_rollbackedinit(){
   setMSG "Configuring Steam ROM Manager"
   local json_directory="$SRM_userData_configDir/parsers"
   local output_file="$SRM_userData_configDir/userConfigurations.json"
 
   mkdir -p "$SRM_userData_configDir/"
 
-  SRM_createParsers
+  #SRM_createParsers
   SRM_addSteamInputProfiles
   SRM_setEnv
   addSteamInputCustomIcons
   echo -e "true"
 }
 
-SRM_createParsers(){
+SRM_init(){
+
+  setMSG "Configuring Steam Rom Manager"
+  
+  mkdir -p "$HOME/.config/steam-rom-manager/userData/"
+  rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/controllerTemplates.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  #cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
+  #cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/userSettings.json"	
+  sleep 3
+  tmp=$(mktemp)
+  jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
+  "$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp"\
+  && mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+
+  tmp=$(mktemp)
+  jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
+  "$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
+  && mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+
+  #sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
+  sed -i "s|/home/deck|$HOME|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
+
+  sed -i "s|/home/deck|$HOME|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+
+  if [ -d "${HOME}/.local/share/Steam" ]; then
+    STEAMPATH="${HOME}/.local/share/Steam"
+  elif [ -d "${HOME}/.steam/steam" ]; then
+    STEAMPATH="${HOME}/.steam/steam"
+  else
+    echo "Steam install not found"
+  fi
+
+  sed -i "s|/home/deck/.steam/steam|${STEAMPATH}|g" "$HOME/.config/steam-rom-manager/userData/controllerTemplates.json"
+
+
+  echo -e "true"
+
+
+}
+
+SRM_rolledbackcreateParsers(){
   setMSG 'Steam Rom Manager - Creating Parsers'
   local json_directory="$SRM_userData_configDir/parsers"
   local output_file="$SRM_userData_configDir/userConfigurations.json"

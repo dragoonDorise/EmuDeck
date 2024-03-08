@@ -51,7 +51,7 @@ BigPEmu_init(){
 	BigPEmu_addESConfig
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
-	SRM_createParsers
+	#SRM_createParsers
 }
 
 BigPEmu_addESConfig(){

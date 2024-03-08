@@ -25,7 +25,7 @@ Flycast_init(){
 	Flycast_setupStorage
 	Flycast_setEmulationFolder
 	Flycast_setupSaves
-	SRM_createParsers
+	#SRM_createParsers
 	#Flycast_addSteamInputProfile
 }
 

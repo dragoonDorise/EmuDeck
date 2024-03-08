@@ -79,7 +79,7 @@ RetroArch_init(){
 	RetroArch_setRetroAchievements
 	RetroArch_melonDSDSMigration
 	RetroArch_buildbotDownloader
-	SRM_createParsers
+	#SRM_createParsers
 
 	mkdir -p "$biosPath/mame/bios"
 	mkdir -p "$biosPath/dc"

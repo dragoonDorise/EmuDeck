@@ -29,7 +29,7 @@ melonDS_init(){
 	melonDS_setupStorage
 	melonDS_setEmulationFolder
 	melonDS_setupSaves
-	SRM_createParsers
+	#SRM_createParsers
 	#melonDS_addSteamInputProfile
 
 }

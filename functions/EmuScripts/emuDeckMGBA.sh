@@ -34,7 +34,7 @@ mGBA_init(){
 	mGBA_setupStorage
 	mGBA_setEmulationFolder
 	mGBA_setupSaves
-	SRM_createParsers
+	#SRM_createParsers
 	#mGBA_addSteamInputProfile
 }
 

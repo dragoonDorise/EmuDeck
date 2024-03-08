@@ -28,7 +28,7 @@ DuckStation_init(){
 	DuckStation_retroAchievementsSetLogin
 	DuckStation_setCustomizations
 	RetroArch_setRetroAchievements
-	SRM_createParsers
+	#SRM_createParsers
 }
 
 #update
