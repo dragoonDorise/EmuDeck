@@ -238,6 +238,12 @@ Cemu_functions () {
 		setupStorage
 		setupSaves
 		addSteamInputProfile
+	
+		if [ -e "$ESDE_toolPath" ]; then
+			CemuProton_addESConfig
+		else
+			echo "false"
+		fi
 	}
 
 	# Update
@@ -253,14 +259,19 @@ Cemu_functions () {
 		setupStorage
 		setupSaves
 		addSteamInputProfile
+		if [ -e "$ESDE_toolPath" ]; then
+			CemuProton_addESConfig
+		else
+			echo "ES-DE not found. Skipped adding custom system."
+		fi
 	}
 
 	# Is Installed
 	IsInstalled () {
 		if [ -e "${CemuNative[emuPath]}" ]; then
-			echo "true"
+			CemuProton_addESConfig
 		else
-			echo "false"
+			echo "ES-DE not found. Skipped adding custom system."
 		fi
 	}
 

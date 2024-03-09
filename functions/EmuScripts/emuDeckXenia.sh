@@ -62,9 +62,15 @@ Xenia_init(){
 	setMSG "Initializing Xenia Config"
 	rsync -avhp "$EMUDECKGIT/configs/xenia/" "$romsPath/xbox360"
 	mkdir -p "$romsPath/xbox360/roms/xbla"
-	Xenia_addESConfig
 	Xenia_setupSaves
 	#SRM_createParsers
+
+
+	if [ -e "$ESDE_toolPath" ]; then
+		Xenia_addESConfig
+	else
+		echo "ES-DE not found. Skipped adding custom system."
+	fi
 }
 
 Xenia_addESConfig(){

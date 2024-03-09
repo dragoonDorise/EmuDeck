@@ -49,10 +49,15 @@ Model2_init(){
 		mv -f "$Model2_configFile" "$Model2_configFile.bak" #retain Model 2 settings
 	fi
 	rsync -avhp "$EMUDECKGIT/configs/model2/" "${romsPath}/model2" --backup --suffix=.bak
-	Model2_addESConfig
 	Model2_downloadProtonGE
 	Model2ULWGL_install
 	#SRM_createParsers
+
+	if [ -e "$ESDE_toolPath" ]; then
+		Model2_addESConfig
+	else
+		echo "ES-DE not found. Skipped adding custom system."
+	fi
 
 }
 
