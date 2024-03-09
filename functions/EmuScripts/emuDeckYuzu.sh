@@ -92,8 +92,8 @@ Yuzu_init() {
     Yuzu_finalize
     #SRM_createParsers
 
-  	createDesktopShortcut   "$HOME/.local/share/applications/Yuzu.desktop" \
-							"Yuzu" \
+  	createDesktopShortcut   "$HOME/.local/share/applications/yuzu.desktop" \
+							"yuzu (AppImage)" \
 							"${toolsPath}/launchers/yuzu.sh"  \
 							"False"
 
