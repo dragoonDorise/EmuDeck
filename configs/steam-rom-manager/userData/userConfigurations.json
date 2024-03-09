@@ -5787,7 +5787,7 @@
       "specifiedAccounts": ""
     },
     "executable": {
-      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/model2.sh",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/model-2-emulator.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -5808,8 +5808,8 @@
     "controllers": {
       "switch_pro": null,
       "neptune": {
-        "title": "Gamepad with Mouse Trackpad",
-        "mappingId": "controller_neptune_gamepad+mouse.vdf",
+        "title": "EmuDeck - Steam Deck Frontend",
+        "mappingId": "emudeck_frontend_controller_steamdeck.vdf",
         "profileType": "template"
       },
       "ps4": null,
