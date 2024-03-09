@@ -89,6 +89,12 @@ CemuProton_init(){
 	if [ -e "${romsPath}/wiiu/controllerProfiles/controller3.xml" ];then
 		mv "${romsPath}/wiiu/controllerProfiles/controller3.xml" "${romsPath}/wiiu/controllerProfiles/controller3.xml.bak"
 	fi
+
+	if [ -e "$ESDE_toolPath" ]; then
+		CemuProton_addESConfig
+	else
+		echo "ES-DE not found. Skipped adding custom system."
+	fi
 }
 
 #update
@@ -99,6 +105,11 @@ CemuProton_update(){
 	CemuProton_setupSaves
 	#CemuProton_addSteamInputProfile
 	CemuProton_addESConfig
+	if [ -e "$ESDE_toolPath" ]; then
+		CemuProton_addESConfig
+	else
+		echo "ES-DE not found. Skipped adding custom system."
+	fi
 }
 
 
