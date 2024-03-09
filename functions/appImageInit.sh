@@ -39,18 +39,29 @@ appImageInit() {
 	  rsync -avz $HOME/.config/pegasus-frontend/config/  $HOME/.config/pegasus-frontend/
 	fi
 
-	if [ -d "$romsPath/3ds" ]; then
-	  rsync -avz  $romsPath/3ds/ $romsPath/n3ds/ --ignore-existing-files
+	if [ -L "${romsPath}/gc/gamecube" ]; then
+		rm "${romsPath}/gc/gamecube"
+	fi	
+
+	if [ -L "${romsPath}/n3ds/3ds" ]; then
+		rm "${romsPath}/3ds/3ds"
+	fi	
+
+	if [ ! -d "$romsPath/3ds" ]; then
+	  ln -s "$romsPath/n3ds/"  "$romsPath/3ds/"
 	fi
 
-	if [ -d "$romsPath/gamecube" ]; then
-		ln -s "${romsPath}/gamecube" "${romsPath}/gc"
+	if [ ! -d "$romsPath/gamecube" ]; then
+		ln -s "${romsPath}/gc" "${romsPath}/gamecube" 
 	fi
+
+
 
 	if [ ! -f "$HOME/.config/EmuDeck/.srm2211" ]; then
 	  SRM_init
 	  touch $HOME/.config/EmuDeck/.srm2211
 	fi
+
 
 	#Xenia temp fix
 	if [ "$(Xenia_IsInstalled)" == "true" ]; then
