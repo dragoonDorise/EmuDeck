@@ -48,10 +48,15 @@ BigPEmu_init(){
 	if [ -e "$BigPEmu_BigPEmuSettings.bak" ]; then
 		mv -f "$BigPEmu_BigPEmuSettings.bak" "$BigPEmu_BigPEmuSettings" #retain BigPEmuSettings
 	fi
-	BigPEmu_addESConfig
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
 	#SRM_createParsers
+	if [ -e "$ESDE_toolPath" ]; then
+		BigPEmu_addESConfig
+	else
+		echo "ES-DE not found. Skipped adding custom system."
+	fi
+
 }
 
 BigPEmu_addESConfig(){
@@ -100,6 +105,11 @@ BigPEmu_update(){
 	rsync -avhp "$EMUDECKGIT/configs/bigpemu/" "$BigPEmu_appData" --ignore-existing
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
+	if [ -e "$ESDE_toolPath" ]; then
+		BigPEmu_addESConfig
+	else
+		echo "ES-DE not found. Skipped adding custom system."
+	fi
 }
 
 
