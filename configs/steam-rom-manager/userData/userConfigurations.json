@@ -1631,7 +1631,7 @@
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_wswan_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+    "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_wswan_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],
@@ -5787,7 +5787,7 @@
       "specifiedAccounts": ""
     },
     "executable": {
-      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/model2.sh",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/model-2-emulator.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
@@ -5808,8 +5808,8 @@
     "controllers": {
       "switch_pro": null,
       "neptune": {
-        "title": "Gamepad with Mouse Trackpad",
-        "mappingId": "controller_neptune_gamepad+mouse.vdf",
+        "title": "EmuDeck - Steam Deck Frontend",
+        "mappingId": "emudeck_frontend_controller_steamdeck.vdf",
         "profileType": "template"
       },
       "ps4": null,
@@ -6328,7 +6328,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.ngc|.NGC|.ngp|.NGP|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.ngc|.NGC|.ngp|.NGP|.zip|.ZIP|.npc|.NPC)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -6390,7 +6390,7 @@
       "useCredentials": true
     },
     "parserInputs": {
-      "glob": "**/${title}@(.7z|.7Z|.ngc|.NGC|.ngp|.NGP|.zip|.ZIP)"
+      "glob": "**/${title}@(.7z|.7Z|.ngc|.NGC|.ngp|.NGP|.zip|.ZIP|.npc|.NPC)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -7061,7 +7061,7 @@
     "steamDirectory": "${steamdirglobal}",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
-    "executableArgs": "run org.libretro.RetroArch -L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}tic80_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+    "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}tic80_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": ["SteamGridDB"],

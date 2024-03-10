@@ -41,8 +41,14 @@ RPCS3_init(){
 	RPCS3_setupStorage
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
-	RPCS3_addESConfig
 	#SRM_createParsers
+
+	if [ -e "$ESDE_toolPath" ]; then
+		RPCS3_addESConfig
+	else
+		echo "ES-DE not found. Skipped adding custom system."
+	fi
+
 }
 
 #update
@@ -53,6 +59,12 @@ RPCS3_update(){
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
 	RPCS3_addESConfig
+
+	if [ -e "$ESDE_toolPath" ]; then
+		RPCS3_addESConfig
+	else
+		echo "ES-DE not found. Skipped adding custom system."
+	fi
 }
 
 #ConfigurePaths

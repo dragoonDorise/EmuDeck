@@ -35,6 +35,8 @@ Xenia_install(){
 		rsync -avzh "$romsPath"/xbox360/tmp/ "$romsPath"/xbox360/
 		rm -rf "$romsPath"/xbox360/tmp
 		rm -f "$romsPath"/xbox360/xenia.zip
+		# Prevents it from showing up in ES-DE
+		mv -f "$romsPath/xbox360/LICENSE" "$romsPath/xbox360/LICENSE.TXT"
 	else
 		return 1
 	fi
@@ -49,7 +51,8 @@ Xenia_install(){
 #	fi
 	chmod +x "${toolsPath}/launchers/xenia.sh"
 
-    Xenia_getPatches
+	Xenia_getPatches
+	Xenia_cleanESDE
 
 	createDesktopShortcut   "$HOME/.local/share/applications/xenia.desktop" \
 							"Xenia (Proton)" \
@@ -62,9 +65,17 @@ Xenia_init(){
 	setMSG "Initializing Xenia Config"
 	rsync -avhp "$EMUDECKGIT/configs/xenia/" "$romsPath/xbox360"
 	mkdir -p "$romsPath/xbox360/roms/xbla"
-	Xenia_addESConfig
 	Xenia_setupSaves
 	#SRM_createParsers
+	Xenia_cleanESDE
+
+
+	if [ -e "$ESDE_toolPath" ]; then
+		Xenia_addESConfig
+	else
+		echo "ES-DE not found. Skipped adding custom system."
+	fi
+
 }
 
 Xenia_addESConfig(){
@@ -89,49 +100,17 @@ Xenia_addESConfig(){
 }
 
 function Xenia_getPatches() {
-  local patches_dir="${romsPath}/xbox360/"
-  local patches_repo="https://github.com/xenia-canary/game-patches.git"
-  local patches_branch="main"
+	local patches_url="https://github.com/xenia-canary/game-patches/releases/latest/download/game-patches.zip"
 
-  # Create the patches directory if it doesn't exist
-  if [ ! -d "$patches_dir" ]; then
-    mkdir -p "$patches_dir"
-  fi
+	mkdir -p "${romsPath}/xbox360/patches"
+	if  [[ ! "$( ls -A "${romsPath}/xbox360/patches")" ]] ; then
+		{ curl -L "$patches_url" -o "${romsPath}/xbox360/game-patches.zip" && nice -n 5 unzip -q -o "${romsPath}/xbox360/game-patches.zip" -d "${romsPath}/xbox360" && rm "${romsPath}/xbox360/game-patches.zip"; } &> /dev/null
+		echo "Xenia patches downloaded." 
+	else 
+		{ curl -L "$patches_url" -o "${romsPath}/xbox360/game-patches.zip" && nice -n 5 unzip -q -u "${romsPath}/xbox360/game-patches.zip" -d "${romsPath}/xbox360" && rm "${romsPath}/xbox360/game-patches.zip"; } &> /dev/null
+		echo "Xenia patches updated." 
+	fi
 
-  # Initialize a new Git repository in the patches directory
-  cd "$patches_dir" || exit
-  if ! git rev-parse --git-dir > /dev/null 2>&1; then
-    git init
-  fi
-
-  # Set up a remote origin for the repository
-  if ! git remote get-url origin > /dev/null 2>&1; then
-    git remote add origin "$patches_repo"
-  fi
-
-  # Configure Git to perform a sparse checkout of the patches folder
-  if ! git config core.sparsecheckout > /dev/null 2>&1; then
-    git config core.sparsecheckout true
-  fi
-  if ! grep -Fxq "patches/*" .git/info/sparse-checkout; then
-    echo "patches/*" >> .git/info/sparse-checkout
-  fi
-
-  # Pull the latest changes from the remote repository
-  git fetch --depth=1 origin "$patches_branch"
-  if git merge FETCH_HEAD > /dev/null 2>&1; then
-    echo "Patches updated successfully"
-  else
-    # If the merge failed, reset the local changes and try again
-    git reset --hard HEAD > /dev/null 2>&1
-    git clean -fd > /dev/null 2>&1
-    git fetch --depth=1 origin "$patches_branch"
-    if git merge FETCH_HEAD > /dev/null 2>&1; then
-      echo "Patches updated successfully"
-    else
-      echo "Error: Failed to update patches"
-    fi
-  fi
 }
 
 
@@ -223,4 +202,20 @@ Xenia_resetConfig(){
 Xenia_setResolution(){
 	$xeniaResolution
 	echo "NYI"
+}
+
+Xenia_cleanESDE(){
+
+	# These files/folders make it so if you have no ROMs in xbox360, it still shows up as an "active" system
+
+	if [ -d "${romsPath}/xbox360/.git" ]; then
+		rm -rf "${romsPath}/xbox360/.git"
+	fi
+
+	if [ -f "$romsPath/xbox360/LICENSE" ]; then 
+		mv "$romsPath/xbox360/LICENSE" "$romsPath/xbox360/LICENSE.TXT"
+	fi
+
+
+
 }

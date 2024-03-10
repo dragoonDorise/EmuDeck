@@ -8,6 +8,8 @@ EXE="$romsPath/model2/EMULATOR.EXE"
 
 Model2Launcher="${toolsPath}/launchers/model-2-emulator.sh"
 
+Model2ConfigFile="$romsPath/model2/EMULATOR.INI"
+
 #In case the user deletes it, will allow loading bar to pop up again.
 mkdir -p "$romsPath/model2/pfx"
 
@@ -23,8 +25,21 @@ done
 # Must launch ROMs from the same directory as EMULATOR.EXE.
 cd $romsPath/model2
 
-# $Model2_ProtonGEVersion is assigned in emuDeckModel2.sh
-WINEPREFIX=$romsPath/model2/pfx/ GAMEID=ulwgl-model2 PROTONPATH="$HOME/.steam/steam/compatibilitytools.d/ULWGL-Proton-$Model2_ProtonGEVersion" $GAMELAUNCHER $EXE "${@}"
+
+if [[ "${*}" == "bel" ||  "${*}" == "gunblade" || "${*}" == "rchase2" ]]; then
+    # Disables cursor
+    sed -i 's/DrawCross=1/DrawCross=0/' "$Model2ConfigFile"
+    # $Model2_ProtonGEVersion is assigned in emuDeckModel2.sh
+    WINEPREFIX=$romsPath/model2/pfx/ GAMEID=ulwgl-model2 PROTONPATH="$HOME/.steam/steam/compatibilitytools.d/ULWGL-Proton-$Model2_ProtonGEVersion" $GAMELAUNCHER $EXE "${@}"
+
+else
+    # Enables cursor for lightgun games (and everything else)
+    sed -i 's/DrawCross=0/DrawCross=1/' "$Model2ConfigFile"
+    # $Model2_ProtonGEVersion is assigned in emuDeckModel2.sh
+    WINEPREFIX=$romsPath/model2/pfx/ GAMEID=ulwgl-model2 PROTONPATH="$HOME/.steam/steam/compatibilitytools.d/ULWGL-Proton-$Model2_ProtonGEVersion" $GAMELAUNCHER $EXE "${@}"
+fi
+
+
 
 
 
