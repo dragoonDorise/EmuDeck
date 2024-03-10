@@ -162,43 +162,32 @@ RLeft = SDL-1/-RightX
 LargeMotor = SDL-1/LargeMotor
 SmallMotor = SDL-1/SmallMotor"
 
-	new_hotkey_section="CycleAspectRatio = SDL-0/Start & SDL-0/DPadRight
-CycleAspectRatio = Keyboard/F6
+	new_hotkey_section="ToggleFullscreen = SDL-0/Start & SDL-0/LeftStick
 CycleInterlaceMode = Keyboard/F5
 CycleMipmapMode = Keyboard/Insert
-DecreaseUpscalemultiplier=SDL-0/Start & SDL-0/DPadDown
 GSDumpMultiFrame = Keyboard/Control & Keyboard/Shift & Keyboard/F8
-GSDumpSingleFrame = Keyboard/Shift & Keyboard/F8
-HoldTurbo = Keyboard/Period
-IncreaseUpscalemultiplier=SDL-0/Start & SDL-0/DPadUp
-InputRecToggleMode = Keyboard/Shift & Keyboard/R
-LoadStateFromSlot = Keyboard/F3
-LoadStateFromSlot = SDL-0/Back & SDL-0/LeftShoulder
-NextSaveStateSlot = Keyboard/F2
-NextSaveStateSlot = SDL-0/Start & SDL-0/RightShoulder
-OpenPauseMenu = Keyboard/Escape
-OpenPauseMenu = SDL-0/Start & SDL-0/LeftStick
-PreviousSaveStateSlot = Keyboard/Shift & Keyboard/F2
-PreviousSaveStateSlot = SDL-0/Start & SDL-0/LeftShoulder
-ResetVM = SDL-0/Back & SDL-0/B
-SaveStateToSlot = Keyboard/F1
-SaveStateToSlot = SDL-0/Back & SDL-0/RightShoulder
 Screenshot = Keyboard/F8
+GSDumpSingleFrame = Keyboard/Shift & Keyboard/F8
+ZoomIn = Keyboard/Control & Keyboard/Plus
+ZoomOut = Keyboard/Control & Keyboard/Minus
+InputRecToggleMode = Keyboard/Shift & Keyboard/R
+LoadStateFromSlot = SDL-0/Back & SDL-0/LeftShoulder
+SaveStateToSlot = SDL-0/Back & SDL-0/RightShoulder
 ShutdownVM = SDL-0/Back & SDL-0/Start
 ToggleFrameLimit = Keyboard/F4
-ToggleFrameLimit = SDL-0/Start & SDL-0/DPadRight
-ToggleFullscreen = Keyboard/Alt & Keyboard/Return
-ToggleFullscreen = SDL-0/Back & SDL-0/RightStick
-TogglePause = Keyboard/Space
 TogglePause = SDL-0/Back & SDL-0/A
-ToggleSlowMotion = Keyboard/Shift & Keyboard/Backtab
 ToggleSlowMotion = SDL-0/Back & SDL-0/+LeftTrigger
-ToggleSoftwareRendering = Keyboard/F9
-ToggleSoftwareRendering = SDL-0/Start & SDL-0/DPadLeft
-ToggleTurbo = Keyboard/Tab
 ToggleTurbo = SDL-0/Back & SDL-0/+RightTrigger
-ZoomIn = Keyboard/Control & Keyboard/Plus
-ZoomOut = Keyboard/Control & Keyboard/Minus"
+HoldTurbo = Keyboard/Period
+ResetVM = SDL-0/Back & SDL-0/LeftStick
+OpenPauseMenu = SDL-0/Back & SDL-0/RightStick
+IncreaseUpscaleMultiplier = SDL-0/Start & SDL-0/DPadUp
+DecreaseUpscaleMultiplier = SDL-0/Start & SDL-0/DPadDown
+CycleAspectRatio = SDL-0/Start & SDL-0/DPadRight
+ToggleSoftwareRendering = SDL-0/Start & SDL-0/DPadLeft
+ToggleSoftwareRendering = Keyboard/F9
+NextSaveStateSlot = SDL-0/Start & SDL-0/RightShoulder
+PreviousSaveStateSlot = SDL-0/Start & SDL-0/LeftShoulder"
 
 
 	iniSectionUpdate "${PCSX2QT_configFile}" "Hotkeys" "${new_hotkey_section}"
