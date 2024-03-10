@@ -269,9 +269,9 @@ Cemu_functions () {
 	# Is Installed
 	IsInstalled () {
 		if [ -e "${CemuNative[emuPath]}" ]; then
-			CemuProton_addESConfig
+			echo "true"
 		else
-			echo "ES-DE not found. Skipped adding custom system."
+			echo "false"
 		fi
 	}
 
