@@ -16,6 +16,7 @@ else
 #make sure that file is executable
 	chmod +x $exe
 fi
+
 #run the executable with the params.
 #Fix first '
 param="${@}"
@@ -23,5 +24,5 @@ substituteWith='"'
 param=${param/\'/"$substituteWith"}
 #Fix last ' on command
 param=$(echo "$param" | sed 's/.$/"/')
-eval "${exe} ${param} -bigpicture -fullscreen"
+eval "${exe} ${param} -fullscreen"
 rm -rf "$savesPath/.gaming"
