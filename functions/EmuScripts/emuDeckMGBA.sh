@@ -95,7 +95,7 @@ mGBA_wipe(){
 #Uninstall
 mGBA_uninstall(){
 	setMSG "Uninstalling $mGBA_emuName."
-	rm -rf "$emuPath"
+	rm -rf "$mGBA_emuPath"
 }
 
 #setABXYstyle
