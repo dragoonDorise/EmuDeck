@@ -169,7 +169,7 @@ cloud_backup_providersSetup(){
 cloud_backup_setup(){
 
     while true; do
-        if [ ! -e "$rclone_bin" ] || [ ! -e "$rclone_jobScript" ];  then
+        if [ ! -e "$rclone_bin" ] || [ ! -e "$cloud_backup_jobScript" ];  then
             ans=$(zenity --info --title 'cloud_backup' \
                         --text 'Click on Install to continue' \
                         --width=50 \
@@ -209,7 +209,7 @@ cloud_backup_setup(){
 
 cloud_backup_createJob(){
 
-echo '#!/bin/bash'>"$rclone_jobScript"
+echo '#!/bin/bash'>"$cloud_backup_jobScript"
 echo "source \$HOME/emudeck/settings.sh
 PIDFILE=\"\$toolsPath/rclone/rclone.pid\"
 
@@ -246,10 +246,10 @@ else
 fi
 
 \"\$toolsPath/rclone/rclone\" copy -L \"\$savesPath\" \"\$rclone_provider\":Emudeck/saves -P > \"\$toolsPath/rclone/rclone_job.log\"
-">>"$rclone_jobScript"
-chmod +x "$rclone_jobScript"
+">>"$cloud_backup_jobScript"
+chmod +x "$cloud_backup_jobScript"
 
-echo '#!/bin/bash'>"$rclone_restoreScript"
+echo '#!/bin/bash'>"$cloud_backup_restoreScript"
 echo "source \$HOME/emudeck/settings.sh
 PIDFILE=\"\$toolsPath/rclone/rclone.pid\"
 
@@ -286,8 +286,8 @@ else
 fi
 
 \"\$toolsPath/rclone/rclone\" copy -L \"\$rclone_provider\":Emudeck/saves \"\$savesPath\" -P > \"\$toolsPath/rclone/rclone_job.log\"
-">>"$rclone_restoreScript"
-chmod +x "$rclone_restoreScript"
+">>"$cloud_backup_restoreScript"
+chmod +x "$cloud_backup_restoreScript"
 }
 
 cloud_backup_createService(){
@@ -301,7 +301,7 @@ Description=EmuDeck cloud_backup service
 
 [Service]
 Type=simple
-ExecStart=\"$rclone_jobScript\"
+ExecStart=\"$cloud_backup_jobScript\"
 CPUWeight=20
 CPUQuota=50%
 IOWeight=20
