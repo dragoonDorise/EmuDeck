@@ -3,7 +3,7 @@
 
 # Set up cloud save
 source "${HOME}/.config/EmuDeck/backend/functions/all.sh"
-rclone_downloadEmu bigpemu
+emulatorInit "bigpemu"
 
 # Get SELFPATH
 SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"
@@ -46,6 +46,4 @@ else
     echo "ROM found, launching game"
 
 fi
-
-# Cloud Save
-rclone_uploadEmu bigpemu
+rm -rf "$savesPath/.gaming"
