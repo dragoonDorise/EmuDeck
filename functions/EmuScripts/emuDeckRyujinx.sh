@@ -68,6 +68,7 @@ Ryujinx_init(){
     Ryujinx_setupSaves
     Ryujinx_finalize
 	#SRM_createParsers
+    Ryujinx_flushEmulatorLauncher
 }
 
 #update
@@ -80,6 +81,7 @@ Ryujinx_update(){
     Ryujinx_setupStorage
     Ryujinx_setupSaves
     Ryujinx_finalize
+    Ryujinx_flushEmulatorLauncher
 }
 
 #ConfigurePaths
@@ -146,6 +148,8 @@ Ryujinx_setupSaves(){
 
     linkToSaveFolder Ryujinx saves "$HOME/.config/Ryujinx/bis/user/save"
     linkToSaveFolder Ryujinx saveMeta "$HOME/.config/Ryujinx/bis/user/saveMeta"
+	linkToSaveFolder Ryujinx system_saves "$HOME/.config/Ryujinx/bis/system/save"
+
 }
 
 #SetupStorage
@@ -272,5 +276,12 @@ Ryujinx_setResolution(){
 	  '.docked_mode = $docked | .res_scale = $multiplier' "$Ryujinx_configFile" > tmp.json
 
 	mv tmp.json "$Ryujinx_configFile"
+
+}
+
+Ryujinx_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "ryujinx"
 
 }

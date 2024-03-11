@@ -29,6 +29,7 @@ DuckStation_init(){
 	DuckStation_setCustomizations
 	RetroArch_setRetroAchievements
 	#SRM_createParsers
+	DuckStation_flushEmulatorLauncher
 }
 
 #update
@@ -39,6 +40,7 @@ DuckStation_update(){
 	DuckStation_setEmulationFolder
 	DuckStation_setupSaves
 	#DuckStation_addSteamInputProfile
+	DuckStation_flushEmulatorLauncher
 }
 
 #ConfigurePaths
@@ -217,4 +219,11 @@ DuckStation_setResolution(){
 	esac
 
 	RetroArch_setConfigOverride "ResolutionScale" $multiplier "$DuckStation_configFileNew"
+}
+
+DuckStation_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "duckstation"
+
 }

@@ -31,7 +31,7 @@ melonDS_init(){
 	melonDS_setupSaves
 	#SRM_createParsers
 	#melonDS_addSteamInputProfile
-
+	melonDS_flushEmulatorLauncher
 }
 
 #update
@@ -42,6 +42,7 @@ melonDS_update(){
 	melonDS_setEmulationFolder
 	melonDS_setupSaves
 	#melonDS_addSteamInputProfile
+	melonDS_flushEmulatorLauncher
 
 }
 
@@ -204,5 +205,12 @@ melonDS_setBAYXstyle(){
 	changeLine "$buttonY" "$buttonY""2" "${melonDS_configFile}"
 
 
+
+}
+
+melonDS_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "melonds"
 
 }

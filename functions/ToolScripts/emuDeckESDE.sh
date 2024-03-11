@@ -377,12 +377,12 @@ ESDE_setEmulationFolder(){
 ESDE_setDefaultEmulators(){
 	#ESDE default emulators
 	mkdir -p  "$ESDE_newConfigDirectory/gamelists/"
-	ESDE_setEmu 'Dolphin (Standalone)'
+	ESDE_setEmu 'Dolphin (Standalone)' gc
 	ESDE_setEmu 'PPSSPP (Standalone)' psp
 	ESDE_setEmu 'Dolphin (Standalone)' wii
 	ESDE_setEmu 'PCSX2 (Standalone)' ps2
 	ESDE_setEmu 'melonDS DS' nds
-	ESDE_setEmu 'Citra (Standalone)'
+	ESDE_setEmu 'Citra (Standalone)' n3ds
 	ESDE_setEmu 'Beetle Lynx' atarilynx
 	ESDE_setEmu 'DuckStation (Standalone)' psx
 	ESDE_setEmu 'Beetle Saturn' saturn

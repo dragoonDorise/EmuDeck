@@ -68,7 +68,7 @@ Xenia_init(){
 	Xenia_setupSaves
 	#SRM_createParsers
 	Xenia_cleanESDE
-
+	Xenia_flushEmulatorLauncher
 
 	if [ -e "$ESDE_toolPath" ]; then
 		Xenia_addESConfig
@@ -118,6 +118,7 @@ function Xenia_getPatches() {
 Xenia_update(){
 	echo "NYI"
 	Xenia_setupSaves
+	Xenia_flushEmulatorLauncher
 }
 
 #ConfigurePaths
@@ -217,5 +218,12 @@ Xenia_cleanESDE(){
 	fi
 
 
+
+}
+
+Xenia_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "xenia"
 
 }
