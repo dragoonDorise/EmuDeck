@@ -39,6 +39,7 @@ Vita3K_init(){
     Vita3K_setupSaves #?
     Vita3K_finalize
 	#SRM_createParsers
+    Vita3K_flushEmulatorLauncher
 }
 
 #update
@@ -51,6 +52,7 @@ Vita3K_update(){
     Vita3K_setupStorage
     Vita3K_setupSaves #?
     Vita3K_finalize
+    Vita3K_flushEmulatorLauncher
 }
 
 
@@ -146,4 +148,11 @@ Vita3K_resetConfig(){
 
 Vita3K_setResolution(){
 	echo "NYI"
+}
+
+Vita3K_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "vita3k"
+
 }

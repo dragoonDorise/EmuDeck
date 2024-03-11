@@ -33,6 +33,7 @@ Citra_init(){
 	Citra_setupSaves
 	#SRM_createParsers
 	#Citra_addSteamInputProfile
+	Citra_flushEmulatorLauncher
 	cp "$EMUDECKGIT/tools/launchers/citra.sh" "$toolsPath/launchers/citra.sh"
 	chmod +x "$toolsPath/launchers/citra.sh"
 
@@ -52,6 +53,7 @@ Citra_update(){
 	Citra_setEmulationFolder
 	Citra_setupSaves
 	Citra_addSteamInputProfile
+	Citra_flushEmulatorLauncher
 }
 
 #ConfigurePaths
@@ -194,4 +196,11 @@ Citra_setResolution(){
 	esac
 
 	setConfig "resolution_factor" $multiplier "$Citra_configFile"
+}
+
+Citra_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "citra"
+
 }

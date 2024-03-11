@@ -27,6 +27,7 @@ Flycast_init(){
 	Flycast_setupSaves
 	#SRM_createParsers
 	#Flycast_addSteamInputProfile
+	Flycast_flushEmulatorLauncher
 }
 
 #update
@@ -37,6 +38,7 @@ Flycast_update(){
 	Flycast_setEmulationFolder
 	Flycast_setupSaves
 	#Flycast_addSteamInputProfile
+	Flycast_flushEmulatorLauncher
 }
 
 #ConfigurePaths
@@ -143,4 +145,11 @@ Flycast_addSteamInputProfile(){
 
 Flycast_setResolution(){
 	echo "NYI"
+}
+
+Flycast_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "flycast"
+
 }

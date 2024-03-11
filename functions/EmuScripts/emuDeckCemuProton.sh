@@ -79,6 +79,7 @@ CemuProton_init(){
 	#SRM_createParsers
 	#CemuProton_addSteamInputProfile
 	CemuProton_addESConfig
+	CemuProton_flushEmulatorLauncher
 
 	if [ -e "${romsPath}/wiiu/controllerProfiles/controller1.xml" ];then
 		mv "${romsPath}/wiiu/controllerProfiles/controller1.xml" "${romsPath}/wiiu/controllerProfiles/controller1.xml.bak"
@@ -105,6 +106,7 @@ CemuProton_update(){
 	CemuProton_setupSaves
 	#CemuProton_addSteamInputProfile
 	CemuProton_addESConfig
+	CemuProton_flushEmulatorLauncher
 	if [ -e "$ESDE_toolPath" ]; then
 		CemuProton_addESConfig
 	else
@@ -250,4 +252,11 @@ CemuProton_addSteamInputProfile(){
 
 CemuProton_setResolution(){
 	echo "NYI"
+}
+
+CemuProton_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "cemu"
+
 }
