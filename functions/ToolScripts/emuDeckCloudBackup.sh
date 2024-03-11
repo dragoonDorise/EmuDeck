@@ -166,6 +166,11 @@ cloud_backup_providersSetup(){
   fi
 }
 
+# Previous entry point simply calls new entry point, ensures previously created .desktop shortcuts continue working
+rclone_setup(){
+  cloud_backup_setup
+}
+
 cloud_backup_setup(){
 
     while true; do
