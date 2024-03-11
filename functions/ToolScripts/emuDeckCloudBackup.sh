@@ -195,13 +195,13 @@ cloud_backup_setup(){
         if [ "$rc" == 0 ] || [ "$ans" == "" ]; then
             break
         elif [ "$ans" == "Install cloud_backup" ] || [ "$ans" == "Reinstall cloud_backup" ]; then
-            rclone_install
+            cloud_backup_install
         elif [ "$ans" == "Pick Provider" ]; then
-            rclone_pickProvider
+            cloud_backup_pickProvider
         elif [ "$ans" == "Login to your cloud provider" ]; then
-            rclone_updateProvider
+            cloud_backup_updateProvider
         elif [ "$ans" == "Create Backup" ]; then
-            rclone_createBackup
+            cloud_backup_createBackup
         fi
     done
 
