@@ -62,122 +62,136 @@ appImageInit() {
 	  touch $HOME/.config/EmuDeck/.srm2211
 	fi
 
-	if [ "$(ares_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		ares_flushEmulatorLauncher
-	fi
+	if [ ! -f "$HOME/.config/EmuDeck/.launcherupdate" ]; then
 
-	if [ "$(BigPEmu_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		BigPEmu_flushEmulatorLauncher
-	fi
+		zenity --question \
+		--text="A hotfix was pushed to fix ROMs launching into the emulator instead of the ROM directly.\nApplying this hotfix will reset any modifications you have made to the launchers in Emulation/tools/launchers. If you say no to this prompt, you may also apply this fix at any time by resetting an emulator on the Manage Emulators page.\nWould you like to apply this hotfix?" \
+		--title="Launcher updates" \
+		--height=300
 
-	if [ "$(Cemu_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		Cemu_flushEmulatorLauncher
-	fi
+		if [ $? = 0 ]; then
+			if [ "$(ares_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				ares_flushEmulatorLauncher
+			fi
 
-	if [ "$(CemuProton_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		CemuProton_flushEmulatorLauncher
-	fi
+			if [ "$(BigPEmu_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				BigPEmu_flushEmulatorLauncher
+			fi
 
-	if [ "$(Citra_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		Citra_flushEmulatorLauncher
-	fi
+			if [ "$(Cemu_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				Cemu_flushEmulatorLauncher
+			fi
 
-	if [ "$(Dolphin_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		Dolphin_flushEmulatorLauncher
-	fi
+			if [ "$(CemuProton_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				CemuProton_flushEmulatorLauncher
+			fi
 
-	if [ "$(DuckStation_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		DuckStation_flushEmulatorLauncher
-	fi
+			if [ "$(Citra_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				Citra_flushEmulatorLauncher
+			fi
 
-	if [ "$(Flycast_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		Flycast_flushEmulatorLauncher
-	fi
+			if [ "$(Dolphin_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				Dolphin_flushEmulatorLauncher
+			fi
 
-	if [ "$(MAME_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		MAME_flushEmulatorLauncher
-	fi
+			if [ "$(DuckStation_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				DuckStation_flushEmulatorLauncher
+			fi
 
-	if [ "$(melonDS_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		melonDS_flushEmulatorLauncher
-	fi
+			if [ "$(Flycast_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				Flycast_flushEmulatorLauncher
+			fi
 
-	if [ "$(mGBA_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		mGBA_flushEmulatorLauncher
-	fi
+			if [ "$(MAME_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				MAME_flushEmulatorLauncher
+			fi
 
-	if [ "$(Model2_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		Model2_flushEmulatorLauncher
-	fi
+			if [ "$(melonDS_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				melonDS_flushEmulatorLauncher
+			fi
 
-	if [ "$(PCSX2QT_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		PCSX2QT_flushEmulatorLauncher
-	fi
+			if [ "$(mGBA_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				mGBA_flushEmulatorLauncher
+			fi
 
-	if [ "$(PPSSPP_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		PPSSPP_flushEmulatorLauncher
-	fi
+			if [ "$(Model2_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				Model2_flushEmulatorLauncher
+			fi
 
-	if [ "$(Primehack_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		Primehack_flushEmulatorLauncher
-	fi
+			if [ "$(PCSX2QT_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				PCSX2QT_flushEmulatorLauncher
+			fi
 
-	if [ "$(RetroArch_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		RetroArch_flushEmulatorLauncher
-	fi
+			if [ "$(PPSSPP_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				PPSSPP_flushEmulatorLauncher
+			fi
 
-	if [ "$(RMG_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		RMG_flushEmulatorLauncher
-	fi
+			if [ "$(Primehack_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				Primehack_flushEmulatorLauncher
+			fi
 
-	if [ "$(RPCS3_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		RPCS3_flushEmulatorLauncher
-	fi
+			if [ "$(RetroArch_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				RetroArch_flushEmulatorLauncher
+			fi
 
-	if [ "$(Supermodel_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		Supermodel_flushEmulatorLauncher
-	fi
+			if [ "$(RMG_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				RMG_flushEmulatorLauncher
+			fi
 
-	if [ "$(Vita3K_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		Vita3K_flushEmulatorLauncher
-	fi
+			if [ "$(RPCS3_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				RPCS3_flushEmulatorLauncher
+			fi
 
-	if [ "$(Xemu_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		Xemu_flushEmulatorLauncher
-	fi
+			if [ "$(Supermodel_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				Supermodel_flushEmulatorLauncher
+			fi
 
-	#Xenia temp fix
-	if [ "$(Xenia_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		setSetting doInstallXenia "true"
-		Xenia_flushEmulatorLauncher
-	fi
+			if [ "$(Vita3K_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				Vita3K_flushEmulatorLauncher
+			fi
 
-	if [ "$(Yuzu_IsInstalled)" == "true" ]; then
-		#echo "NYI"
-		Yuzu_flushEmulatorLauncher
+			if [ "$(Xemu_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				Xemu_flushEmulatorLauncher
+			fi
+
+			#Xenia temp fix
+			if [ "$(Xenia_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				setSetting doInstallXenia "true"
+				Xenia_flushEmulatorLauncher
+			fi
+
+			if [ "$(Yuzu_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				Yuzu_flushEmulatorLauncher
+			fi
+		else 
+			echo "Do not apply hotfix."
+		fi	
+	touch "$HOME/.config/EmuDeck/.launcherupdate"
 	fi
+		
 
 	#pcsx2 fix
 	if [ ! -f "$HOME/.config/EmuDeck/.pcsx2211" ]; then
