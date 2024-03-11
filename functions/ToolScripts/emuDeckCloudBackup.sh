@@ -166,7 +166,7 @@ cloud_backup_providersSetup(){
   fi
 }
 
-cloud_backup_etup(){
+cloud_backup_setup(){
 
     while true; do
         if [ ! -e "$rclone_bin" ] || [ ! -e "$rclone_jobScript" ];  then
