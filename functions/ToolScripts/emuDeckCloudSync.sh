@@ -293,6 +293,11 @@ cloud_sync_upload(){
 }
 
 cloud_sync_download(){
+	if [ $(git rev-parse --abbrev-ref HEAD) == 'early' ] || [ $(git rev-parse --abbrev-ref HEAD) == 'dev' ] ; then
+		echo "CloudSync Downloading"
+	else
+		return 0
+	fi
   # startLog ${FUNCNAME[0]}
   local emuName=$1
   local timestamp=$(date +%s)
@@ -438,6 +443,7 @@ cloud_sync_uploadEmu(){
 }
 
 cloud_sync_downloadEmu(){
+
   # startLog ${FUNCNAME[0]}
   local emuName=$1
   local mode=$2
