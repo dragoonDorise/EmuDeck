@@ -1,7 +1,6 @@
 #!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
 emulatorInit "rpcs3"
-rm -rf "$savesPath/.gaming"
 emuName="rpcs3" #parameterize me
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
 
@@ -32,3 +31,4 @@ param=${param/\'/"$substituteWith"}
 #Fix last ' on command
 param=$(echo "$param" | sed 's/.$/"/')
 eval "${exe} ${param}"
+rm -rf "$savesPath/.gaming"

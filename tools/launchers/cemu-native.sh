@@ -1,6 +1,6 @@
 #!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-emulatorInit "cemu-native"
+emulatorInit "cemu"
 # shellcheck disable=SC1091
 . "${HOME}/emudeck/settings.sh"
 
@@ -11,5 +11,5 @@ LAUNCH="${toolsPath}/emu-launch.sh"
 EMU="Cemu"
 
 # Launch emu-launch.sh
-"${LAUNCH}" -e "${EMU}" -- "${@}" 
-rm -rf "$savesPath/.gaming"-native
+"${LAUNCH}" -e "${EMU}" -- "${@}"
+rm -rf "$savesPath/.gaming"
