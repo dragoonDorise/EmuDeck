@@ -293,7 +293,8 @@ cloud_sync_upload(){
 }
 
 cloud_sync_download(){
-	if [ $(git rev-parse --abbrev-ref HEAD) == 'early' ] || [ $(git rev-parse --abbrev-ref HEAD) == 'dev' ] ; then
+	local branch=$("cd $HOME/.config/EmuDeck/backend && git rev-parse --abbrev-ref HEAD")
+	if [ "$branch" == "early" ] || [ "$branch" == "dev" ] ; then
 		echo "CloudSync Downloading"
 	else
 		return 0
