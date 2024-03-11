@@ -146,6 +146,8 @@ Ryujinx_setupSaves(){
 
     linkToSaveFolder Ryujinx saves "$HOME/.config/Ryujinx/bis/user/save"
     linkToSaveFolder Ryujinx saveMeta "$HOME/.config/Ryujinx/bis/user/saveMeta"
+	linkToSaveFolder Ryujinx system_saves "$HOME/.config/Ryujinx/bis/system/save"
+
 }
 
 #SetupStorage
