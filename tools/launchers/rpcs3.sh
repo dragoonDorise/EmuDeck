@@ -5,10 +5,6 @@ rm -rf "$savesPath/.gaming"
 emuName="rpcs3" #parameterize me
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
 
-# Works with both Flatpak and AppImage
-export LD_LIBRARY_PATH=/usr/lib:/usr/local/lib
-
-
 #find full path to emu executable
 exe=$(find $emufolder -iname "${emuName}*.AppImage" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
 
