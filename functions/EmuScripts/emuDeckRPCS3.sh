@@ -42,7 +42,7 @@ RPCS3_init(){
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
 	#SRM_createParsers
-
+	RPCS3_flushEmulatorLauncher
 	if [ -e "$ESDE_toolPath" ]; then
 		RPCS3_addESConfig
 	else
@@ -59,7 +59,7 @@ RPCS3_update(){
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
 	RPCS3_addESConfig
-
+	RPCS3_flushEmulatorLauncher
 	if [ -e "$ESDE_toolPath" ]; then
 		RPCS3_addESConfig
 	else
@@ -235,5 +235,12 @@ RPCS3_setResolution(){
 	RetroArch_setConfigOverride "Resolution Scale:" $res "$RPCS3_configFile"
 
 	sed -i "s|Resolution Scale:=|Resolution Scale:|g" "$RPCS3_configFile"
+
+}
+
+RPCS3_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "rpcs3.sh"
 
 }

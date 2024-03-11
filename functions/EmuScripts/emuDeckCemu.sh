@@ -238,6 +238,7 @@ Cemu_functions () {
 		setupStorage
 		setupSaves
 		addSteamInputProfile
+		flushEmulatorLauncher
 	
 		if [ -e "$ESDE_toolPath" ]; then
 			CemuProton_addESConfig
@@ -259,6 +260,7 @@ Cemu_functions () {
 		setupStorage
 		setupSaves
 		addSteamInputProfile
+		flushEmulatorLauncher
 		if [ -e "$ESDE_toolPath" ]; then
 			CemuProton_addESConfig
 		else
@@ -288,6 +290,10 @@ Cemu_functions () {
 		#rsync -r "${EMUDECKGIT}/configs/steam-input/cemu_controller_config.vdf" "${HOME}/.steam/steam/controller_base/templates/"
 	}
 
+	flushEmulatorLauncher () {
+
+		flushEmulatorLaunchers "cemu"
+	}
 
 
 	$function "$showProgress" # Call the above functions
@@ -401,5 +407,12 @@ Cemu_setABXYstyle(){
 
 Cemu_setBAYXstyle(){
 	Cemu_functions "setBAYXstyle"
+
+}
+
+Cemu_flushEmulatorLauncher(){
+
+	Cemu_functions "flushEmulatorLauncher"
+	
 
 }
