@@ -35,6 +35,7 @@ Xemu_init() {
 	Xemu_setEmulationFolder
 	Xemu_setCustomizations
 	#SRM_createParsers
+	Xemu_flushEmulatorLauncher
 }
 
 #update
@@ -44,6 +45,7 @@ Xemu_update() {
 	Xemu_setupStorage
 	Xemu_setEmulationFolder
 	Xemu_setupSaves
+	Xemu_flushEmulatorLauncher
 }
 
 #ConfigurePaths
@@ -187,4 +189,11 @@ Xemu_setCustomizations(){
 Xemu_setResolution(){
 	$xemuResolution
 	echo "NYI"
+}
+
+Xemu_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "xemu-emu"
+
 }

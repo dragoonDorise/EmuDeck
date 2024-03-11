@@ -50,6 +50,7 @@ BigPEmu_init(){
 	fi
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
+	BigPEmu_flushEmulatorLauncher
 	#SRM_createParsers
 	if [ -e "$ESDE_toolPath" ]; then
 		BigPEmu_addESConfig
@@ -105,6 +106,7 @@ BigPEmu_update(){
 	rsync -avhp "$EMUDECKGIT/configs/bigpemu/" "$BigPEmu_appData" --ignore-existing
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
+	BigPEmu_flushEmulatorLauncher
 	if [ -e "$ESDE_toolPath" ]; then
 		BigPEmu_addESConfig
 	else
@@ -183,4 +185,11 @@ BigPEmu_addSteamInputProfile(){
 	# addSteamInputCustomIcons
 	# setMSG "Adding $BigPEmu_emuName Steam Input Profile."
 	# rsync -r "$EMUDECKGIT/configs/steam-input/BigPEmu_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+}
+
+BigPEmu_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "bigpemu"
+
 }

@@ -32,6 +32,7 @@ Supermodel_init(){
 	Supermodel_setEmulationFolder
 	Supermodel_setupSaves
 	#SRM_createParsers
+	Supermodel_flushEmulatorLauncher
 }
 
 #update
@@ -47,6 +48,7 @@ Supermodel_update(){
 	Supermodel_setupStorage
 	Supermodel_setEmulationFolder
 	Supermodel_setupSaves
+	Supermodel_flushEmulatorLauncher
 }
 
 #ConfigurePaths
@@ -119,4 +121,11 @@ Supermodel_IsInstalled(){
 
 Supermodel_resetConfig(){
 	Supermodel_init &>/dev/null && echo "true" || echo "false"
+}
+
+Supermodel_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "supermodel"
+
 }

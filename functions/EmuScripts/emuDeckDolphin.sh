@@ -50,6 +50,7 @@ Dolphin_init(){
 	Dolphin_setupSaves
   Dolphin_cleanup
   Dolphin_setCustomizations
+  Dolphin_flushEmulatorLauncher
 	#SRM_createParsers
     #Dolphin_DynamicInputTextures
 }
@@ -63,6 +64,7 @@ Dolphin_update(){
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
   Dolphin_cleanup
+  Dolphin_flushEmulatorLauncher
 }
 
 #ConfigurePaths
@@ -243,4 +245,11 @@ Dolphin_setResolution(){
 	esac
 
 	RetroArch_setConfigOverride "InternalResolution" $multiplier "$Dolphin_configFileGFX"
+}
+
+Dolphin_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "dolphin"
+
 }

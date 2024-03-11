@@ -80,7 +80,7 @@ RetroArch_init(){
 	RetroArch_melonDSDSMigration
 	RetroArch_buildbotDownloader
 	#SRM_createParsers
-
+	RetroArch_flushEmulatorLauncher
 	mkdir -p "$biosPath/mame/bios"
 	mkdir -p "$biosPath/dc"
 	mkdir -p "$biosPath/neocd"
@@ -212,6 +212,7 @@ RetroArch_update(){
 	RetroArch_setConfigAll
 	RetroArch_melonDSDSMigration
 	RetroArch_buildbotDownloader
+	RetroArch_flushEmulatorLauncher
 }
 
 
@@ -2542,4 +2543,11 @@ RetroArch_IsInstalled(){
 
 RetroArch_resetConfig(){
 	RetroArch_resetCoreConfigs &>/dev/null && RetroArch_init &>/dev/null && echo "true" || echo "false"
+}
+
+RetroArch_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "retroarch"
+
 }

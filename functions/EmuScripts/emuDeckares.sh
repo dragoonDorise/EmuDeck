@@ -29,10 +29,10 @@ ares_init() {
 	ares_setupSaves
 	#ares_addSteamInputProfile
 	ares_getDefaultShaders
-  ares_getQuarkShaders
+  	ares_getQuarkShaders
 	ares_addESConfig
 	#SRM_createParsers
-
+	ares_flushEmulatorLauncher
 }
 
 #update
@@ -44,9 +44,9 @@ ares_update() {
 	ares_setEmulationFolder
 	ares_setupSaves
 	ares_getDefaultShaders
-  ares_getQuarkShaders
+  	ares_getQuarkShaders
 	ares_addESConfig
-
+	ares_flushEmulatorLauncher
 }
 
 #ConfigurePaths
@@ -335,4 +335,11 @@ ares_addSteamInputProfile(){
 #finalExec - Extra stuff
 ares_finalize(){
 	echo "NYI"
+}
+
+ares_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "$ares_emuName"
+
 }

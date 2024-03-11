@@ -91,7 +91,7 @@ Yuzu_init() {
     Yuzu_setupSaves
     Yuzu_finalize
     #SRM_createParsers
-
+    Yuzu_flushEmulatorLauncher
   	createDesktopShortcut   "$HOME/.local/share/applications/yuzu.desktop" \
 							"yuzu (AppImage)" \
 							"${toolsPath}/launchers/yuzu.sh"  \
@@ -112,6 +112,7 @@ Yuzu_update() {
     Yuzu_setupStorage
     Yuzu_setupSaves
     Yuzu_finalize
+    Yuzu_flushEmulatorLauncher
 }
 
 #ConfigurePaths
@@ -359,4 +360,11 @@ Yuzu_setResolution(){
 
 	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Yuzu_configFile"
 	RetroArch_setConfigOverride "use_docked_mode" $docked "$Yuzu_configFile"
+}
+
+Yuzu_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "yuzu"
+
 }

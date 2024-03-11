@@ -52,7 +52,7 @@ Model2_init(){
 	Model2_downloadProtonGE
 	Model2ULWGL_install
 	#SRM_createParsers
-
+	Model2_flushEmulatorLauncher
 	if [ -e "$ESDE_toolPath" ]; then
 		Model2_addESConfig
 	else
@@ -89,6 +89,7 @@ Model2_update(){
 	setMSG "Updating $Model2_emuName settings."
 	rsync -avhp "$EMUDECKGIT/configs/model2/" "${romsPath}/model2" --ignore-existing
 	Model2ULWGL_install
+	Model2_flushEmulatorLauncher
 }
 
 
@@ -186,4 +187,9 @@ fi
 
 }
 
+Model2_flushEmulatorLauncher(){
 
+
+	flushEmulatorLaunchers "model-2-emulator"
+
+}

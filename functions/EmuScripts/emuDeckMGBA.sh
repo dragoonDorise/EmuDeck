@@ -36,6 +36,7 @@ mGBA_init(){
 	mGBA_setupSaves
 	#SRM_createParsers
 	#mGBA_addSteamInputProfile
+	mGBA_flushEmulatorLauncher
 }
 
 #update
@@ -46,6 +47,7 @@ mGBA_update(){
 	mGBA_setEmulationFolder
 	mGBA_setupSaves
 	#mGBA_addSteamInputProfile
+	mGBA_flushEmulatorLauncher
 }
 
 #ConfigurePaths
@@ -149,4 +151,11 @@ mGBA_addSteamInputProfile(){
 	addSteamInputCustomIcons
 	#setMSG "Adding $mGBA_emuName Steam Input Profile."
 	#rsync -r "$EMUDECKGIT/configs/steam-input/mGBA_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+}
+
+mGBA_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "mgba"
+
 }

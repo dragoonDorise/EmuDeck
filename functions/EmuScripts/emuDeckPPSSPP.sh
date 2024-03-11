@@ -31,6 +31,7 @@ PPSSPP_init(){
 	#PPSSPP_addSteamInputProfile
 	PPSSPP_setRetroAchievements
 	#SRM_createParsers
+	PPSSPP_flushEmulatorLauncher
 }
 
 #update
@@ -41,6 +42,7 @@ PPSSPP_update(){
 	PPSSPP_setEmulationFolder
 	PPSSPP_setupSaves
 	#PPSSPP_addSteamInputProfile
+	PPSSPP_flushEmulatorLauncher
 }
 
 #ConfigurePaths
@@ -183,4 +185,11 @@ PPSSPP_addSteamInputProfile(){
 PPSSPP_setResolution(){
 	$ppssppResolution
 	echo "NYI"
+}
+
+PPSSPP_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "ppsspp"
+
 }

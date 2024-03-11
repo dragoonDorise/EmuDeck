@@ -695,6 +695,31 @@ safeDownload() {
 	fi
 }
 
+flushEmulatorLaunchers(){
+
+    local name="$1"
+
+	shName=$(echo "$name" | awk '{print tolower($0)}')
+	find "${toolsPath}/launchers/" -maxdepth 1 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
+	while read -r f
+	do
+		echo "deleting $f"
+		rm -f "$f"
+	done
+
+    find "${EMUDECKGIT}/tools/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
+    while read -r l
+    do
+        echo "deploying $l"
+        launcherFileName=$(basename "$l")
+        chmod +x "$l"
+        cp -v "$l" "${toolsPath}/launchers/"
+        chmod +x "${toolsPath}/launchers/"*
+    done
+
+	
+}
+
 addSteamInputCustomIcons() {
 	rsync -av "$EMUDECKGIT/configs/steam-input/Icons/" "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons"
 }
