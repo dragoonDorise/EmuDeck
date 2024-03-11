@@ -25,7 +25,14 @@ PROTONLAUNCH="$emulationPath/tools/proton-launch.sh"
 BIGPEMU="$HOME/Applications/BigPEmu/BigPEmu.exe"
 
 # APPID
-APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
+if [ -e "/usr/bin/python" ]; then
+    APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
+elif [ -e "/usr/bin/python3" ]; then
+    APPID=$( /usr/bin/python3 "${APPIDPY}" "${EXE}" "${NAME}" )
+else 
+    echo "Python not found."
+fi
+
 echo "APPID: ${APPID}"
 
 # Proton Version

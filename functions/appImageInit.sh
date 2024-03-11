@@ -192,8 +192,7 @@ appImageInit() {
 		fi	
 	touch "$HOME/.config/EmuDeck/.launcherupdate"
 	fi
-		
-
+	
 	#pcsx2 fix
 	if [ ! -f "$HOME/.config/EmuDeck/.pcsx2211" ]; then
 		cp "$HOME/.config/EmuDeck/backend/tools/launchers/pcsx2-qt.sh" "$toolsPath/launchers/pcsx2-qt.sh"
