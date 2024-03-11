@@ -67,6 +67,7 @@ appImageInit() {
 		zenity --question \
 		--text="A hotfix was pushed to fix ROMs launching into the emulator instead of the ROM directly.\nApplying this hotfix will reset any modifications you have made to the launchers in Emulation/tools/launchers. If you say no to this prompt, you may also apply this fix at any time by resetting an emulator on the Manage Emulators page.\nWould you like to apply this hotfix?" \
 		--title="Launcher updates" \
+		--width=400 \
 		--height=300
 
 		if [ $? = 0 ]; then
