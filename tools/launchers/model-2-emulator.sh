@@ -1,6 +1,6 @@
 #!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-
+emulatorInit "model2"
 # $ULWGL_toolPath is assigned in emuDeckModel2.sh
 GAMELAUNCHER=$ULWGL_toolPath/ulwgl-run
 
@@ -39,7 +39,4 @@ else
     WINEPREFIX=$romsPath/model2/pfx/ GAMEID=ulwgl-model2 PROTONPATH="$HOME/.steam/steam/compatibilitytools.d/ULWGL-Proton-$Model2_ProtonGEVersion" $GAMELAUNCHER $EXE "${@}"
 fi
 
-
-
-
-
+rm -rf "$savesPath/.gaming"

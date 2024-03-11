@@ -1,7 +1,6 @@
 #!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
 emulatorInit "citra"
-rm -rf "$savesPath/.gaming"
 emuName="citra-qt" #parameterize me
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
 
@@ -25,3 +24,4 @@ fi
 param="${@}"
 param=$(echo $param | sed -e 's/^/"/' -e 's/$/"/')
 eval "${exe} ${param}"
+rm -rf "$savesPath/.gaming"
