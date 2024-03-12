@@ -496,6 +496,7 @@ fi
 	rm -rf "$HOME/.var/app/org.pegasus_frontend.Pegasus/" &> /dev/null 
 	rm -rf $HOME/Applications/pegasus-fe &> /dev/null 
 	rm -rf $HOME/.config/pegasus-frontend &> /dev/null 
+	rm -rf "$HOME/.local/share/applications/Pegasus.desktop" &> /dev/null 
 
 	echo "90"
 	echo "# Removing EmuDeck folders";
