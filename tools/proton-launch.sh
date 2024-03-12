@@ -267,8 +267,16 @@ main () {
     set_env
 
     # Start application with Proton
-    echo "Running python ${PROTON} waitforexitandrun ${*}" >> "${LOGFILE}" # Send command to log just in case
-    python "${PROTON}" waitforexitandrun "${@}"
+    if [ -e "/usr/bin/python" ]; then
+        echo "Running python ${PROTON} waitforexitandrun ${*}" >> "${LOGFILE}" # Send command to log just in case
+        python "${PROTON}" waitforexitandrun "${@}"
+    elif [ -e "/usr/bin/python3" ]; then
+        echo "Running python ${PROTON} waitforexitandrun ${*}" >> "${LOGFILE}" # Send command to log just in case
+        python3 "${PROTON}" waitforexitandrun "${@}"
+    else 
+        echo "Python not found."
+    fi
+
 }
 
 # Only run if run directly

@@ -154,7 +154,13 @@ main () {
         checkFile "${CEMU}"
 
         # APPID
-        APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
+        if [ -e "/usr/bin/python" ]; then
+            APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
+        elif [ -e "/usr/bin/python3" ]; then
+            APPID=$( /usr/bin/python3 "${APPIDPY}" "${EXE}" "${NAME}" )
+        else 
+            echo "Python not found."
+        fi
         echo "APPID: ${APPID}"
         if [ -z "${APPID}" ]; then
             reportError "Unable to calculate AppID" "true" "true"
