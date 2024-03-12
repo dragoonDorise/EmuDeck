@@ -12,5 +12,14 @@ exe=$(find "$emufolder" -iname "${emuName}" | sort -n | cut -d' ' -f 2- | tail -
 #make sure that file is executable
 chmod +x "$exe"
 
-eval "${exe} ${param}"
+fileExtension="${@##*.}"
+
+if [[ $fileExtension == "psvita" ]]; then
+    vita3kFile=$(<"${*}")
+    echo "GAME ID: $vita3kFile"
+    eval "${exe}" -Fr "$vita3kFile"
+else
+    eval "${exe} ${param}"
+fi
+
 rm -rf "$savesPath/.gaming"
