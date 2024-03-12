@@ -19,12 +19,19 @@ else
     chmod +x $exe
 fi
 
-#run the executable with the params.
-#Fix first '
-param="${@}"
-substituteWith='"'
-param=${param/\'/"$substituteWith"}
-#Fix last ' on command
-param=$(echo "$param" | sed 's/.$/"/')
-eval "${exe} ${param}"
-rm -rf "$savesPath/.gaming"
+fileExtension="${@##*.}"
+
+if [[ $fileExtension == "desktop" ]]; then
+    rpcs3desktopFile=$(grep -E "^Exec=" "${*}" | sed 's/^Exec=//' | sed 's/%%/%/g')
+    echo "Exec=$rpcs3desktopFile"
+    eval $rpcs3desktopFile
+else
+    #run the executable with the params.
+    #Fix first '
+    param="${@}"
+    substituteWith='"'
+    param=${param/\'/"$substituteWith"}
+    #Fix last ' on command
+    param=$(echo "$param" | sed 's/.$/"/')
+    eval "${exe} ${param}"
+fi

@@ -15,16 +15,24 @@ EXE="\"/usr/bin/bash\" \"${SELFPATH}\""
 NAME="Xenia"
 
 # AppID.py
-APPIDPY="/run/media/mmcblk0p1/Emulation/tools/appID.py"
+APPIDPY="${toolsPath}/appID.py"
 
 # Proton Launcher Script
-PROTONLAUNCH="/run/media/mmcblk0p1/Emulation/tools/proton-launch.sh"
+PROTONLAUNCH="${toolsPath}/proton-launch.sh"
 
 # Xenia.exe location
-XENIA="/run/media/mmcblk0p1/Emulation/roms/xbox360/xenia_canary.exe"
+XENIA="$romsPath/xbox360/xenia_canary.exe"
 
 # APPID
-APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
+if [ -e "/usr/bin/python" ]; then
+    APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
+elif [ -e "/usr/bin/python3" ]; then
+    APPID=$( /usr/bin/python3 "${APPIDPY}" "${EXE}" "${NAME}" )
+else 
+    echo "Python not found."
+fi
+
+echo "APPID: ${APPID}"
 
 # Proton Version:
 # - use env FORCED_PROTON_VER if set (FORCED_PROTON_VER="GE-Proton8-16" ./xenia.sh)
