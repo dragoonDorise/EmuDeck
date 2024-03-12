@@ -6606,7 +6606,7 @@
       "glob-regex": "${/(^[NP].+)/}/USRDIR/@(eboot.bin|EBOOT.BIN)"
     },
     "titleFromVariable": {
-      "limitToGroups": "${PS3}",
+      "limitToGroups": "${PSN}",
       "caseInsensitiveVariables": false,
       "skipFileIfVariableWasNotFound": false,
       "tryToMatchTitle": true
