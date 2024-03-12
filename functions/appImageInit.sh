@@ -179,7 +179,6 @@ appImageInit() {
 			#Xenia temp fix
 			if [ "$(Xenia_IsInstalled)" == "true" ]; then
 				#echo "NYI"
-				setSetting doInstallXenia "true"
 				Xenia_flushEmulatorLauncher
 			fi
 
