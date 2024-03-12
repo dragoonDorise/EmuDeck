@@ -36,7 +36,7 @@ Core:
   XFloat Accuracy: Approximate
   Accurate PPU 128-byte Reservation Op Max Length: 0
   Stub PPU Traps: 0
-  Full Width AVX-512: false
+  Full Width AVX-512: true
   PPU LLVM Java Mode Handling: true
   Use Accurate DFMA: true
   PPU Set Saturation Bit: false
@@ -223,7 +223,7 @@ Miscellaneous:
   Automatically start games after boot: true
   Exit RPCS3 when process finishes: false
   Pause emulation on RPCS3 focus loss: false
-  Start games in fullscreen mode: true
+  Start games in fullscreen mode: false
   Prevent display sleep while running games: true
   Show trophy popups: true
   Show shader compilation hint: true
