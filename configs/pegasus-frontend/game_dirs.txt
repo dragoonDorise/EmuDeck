@@ -88,7 +88,7 @@
 /run/media/mmcblk0p1/Emulation/roms/megadrivejp
 /run/media/mmcblk0p1/Emulation/roms/megaduck
 /run/media/mmcblk0p1/Emulation/roms/mess
-/run/media/mmcblk0p1/Emulation/roms/model2
+/run/media/mmcblk0p1/Emulation/roms/model2/roms
 /run/media/mmcblk0p1/Emulation/roms/model3
 /run/media/mmcblk0p1/Emulation/roms/moonlight
 /run/media/mmcblk0p1/Emulation/roms/moto
@@ -182,6 +182,7 @@
 /run/media/mmcblk0p1/Emulation/roms/x68000
 /run/media/mmcblk0p1/Emulation/roms/xbox
 /run/media/mmcblk0p1/Emulation/roms/xbox360/roms
+/run/media/mmcblk0p1/Emulation/roms/xbox360/roms/xbla
 /run/media/mmcblk0p1/Emulation/roms/zmachine
 /run/media/mmcblk0p1/Emulation/roms/zx81
 /run/media/mmcblk0p1/Emulation/roms/zxspectrum

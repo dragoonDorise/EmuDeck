@@ -1,0 +1,6 @@
+collection: Sega Model 2
+shortname: model2
+extensions: zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/model-2-emulator.sh {file.basename}
+
+
