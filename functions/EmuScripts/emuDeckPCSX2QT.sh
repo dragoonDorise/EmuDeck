@@ -47,6 +47,7 @@ PCSX2QT_init() {
 	PCSX2QT_setCustomizations
 	PCSX2QT_setRetroAchievements
 	#SRM_createParsers
+	PCSX2QT_flushEmulatorLauncher
 
 }
 
@@ -58,7 +59,7 @@ PCSX2QT_update() {
 	PCSX2QT_setupStorage
 	PCSX2QT_setupSaves
 	PCSX2QT_setupControllers
-
+	PCSX2QT_flushEmulatorLauncher
 
 }
 
@@ -331,4 +332,11 @@ PCSX2QT_setResolution(){
 	esac
 
 	RetroArch_setConfigOverride "upscale_multiplier" $multiplier "$PCSX2QT_configFile"
+}
+
+PCSX2QT_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "pcsx2-qt"
+
 }

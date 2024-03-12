@@ -28,6 +28,7 @@ MAME_init(){
 	MAME_setEmulationFolder
 	MAME_setupSaves
 	#SRM_createParsers
+	MAME_flushEmulatorLauncher
 }
 
 #update
@@ -36,6 +37,7 @@ MAME_update(){
 	MAME_setupStorage
 	MAME_setEmulationFolder
 	MAME_setupSaves
+	MAME_flushEmulatorLauncher
 }
 
 #ConfigurePaths
@@ -148,4 +150,11 @@ MAME_resetConfig(){
 #finalExec - Extra stuff
 MAME_finalize(){
 	echo "NYI"
+}
+
+MAME_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "mame"
+
 }

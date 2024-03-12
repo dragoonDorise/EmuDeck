@@ -35,6 +35,7 @@ RMG_init() {
 	RMG_setupSaves
 	#SRM_createParsers
 	#RMG_addSteamInputProfile
+	RMG_flushEmulatorLauncher
 
 }
 
@@ -47,7 +48,7 @@ RMG_update() {
 	RMG_setEmulationFolder
 	RMG_setupSaves
 	#RMG_addSteamInputProfile
-
+	RMG_flushEmulatorLauncher
 }
 
 #ConfigurePaths
@@ -206,5 +207,12 @@ RMG_setBAYXstyle(){
 		s/B_Name *= *"b"/B_Name = "x"/;
 		s/B_Data *= *"1"/B_Data = "2"/;
 	}' "$RMG_configFile"
+
+}
+
+RMG_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "rosaliesmupengui"
 
 }

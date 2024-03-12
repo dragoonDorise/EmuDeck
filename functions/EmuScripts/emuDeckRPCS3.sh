@@ -42,12 +42,8 @@ RPCS3_init(){
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
 	#SRM_createParsers
+	RPCS3_flushEmulatorLauncher
 
-	if [ -e "$ESDE_toolPath" ]; then
-		RPCS3_addESConfig
-	else
-		echo "ES-DE not found. Skipped adding custom system."
-	fi
 
 }
 
@@ -59,12 +55,8 @@ RPCS3_update(){
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
 	RPCS3_addESConfig
+	RPCS3_flushEmulatorLauncher
 
-	if [ -e "$ESDE_toolPath" ]; then
-		RPCS3_addESConfig
-	else
-		echo "ES-DE not found. Skipped adding custom system."
-	fi
 }
 
 #ConfigurePaths
@@ -77,33 +69,6 @@ RPCS3_setEmulationFolder(){
 RPCS3_setupSaves(){
 	linkToSaveFolder rpcs3 saves "${storagePath}/rpcs3/dev_hdd0/home/00000001/savedata"
 	linkToSaveFolder rpcs3 trophy "${storagePath}/rpcs3/dev_hdd0/home/00000001/trophy"
-}
-
-RPCS3_addESConfig(){
-	#insert RPCS3 custom system if it doesn't exist, but the file does
-	# LD_LIBRARY_PATH=/usr/lib:/usr/local/lib tested and works on both the Flatpak and the AppImage
-	if [[ $(grep -rnw "$es_systemsFile" -e 'ps3') == "" ]]; then
-		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
-		--var newSystem '$prev' \
-		--subnode '$newSystem' --type elem --name 'name' -v 'ps3' \
-		--subnode '$newSystem' --type elem --name 'fullname' -v 'Sony PlayStation 3' \
-		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/ps3' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.desktop .ps3 .PS3 .ps3dir .PS3DIR' \
-		--subnode '$newSystem' --type elem --name 'commandP' -v "LD_LIBRARY_PATH=/usr/lib:/usr/local/lib %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%" \
-		--insert '$newSystem/commandP' --type attr --name 'label' --value "RPCS3 Shortcut (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'commandN' -v "LD_LIBRARY_PATH=/usr/lib:/usr/local/lib %EMULATOR_RPCS3% --no-gui %ROM%" \
-		--insert '$newSystem/commandN' --type attr --name 'label' --value "RPCS3 Directory (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'platform' -v 'ps3' \
-		--subnode '$newSystem' --type elem --name 'theme' -v 'ps3' \
-		-r 'systemList/system/commandP' -v 'command' \
-		-r 'systemList/system/commandN' -v 'command' \
-		"$es_systemsFile"
-
-		#format doc to make it look nice
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-	fi
-    #Custom Systems config end
-
 }
 
 #SetupStorage
@@ -235,5 +200,12 @@ RPCS3_setResolution(){
 	RetroArch_setConfigOverride "Resolution Scale:" $res "$RPCS3_configFile"
 
 	sed -i "s|Resolution Scale:=|Resolution Scale:|g" "$RPCS3_configFile"
+
+}
+
+RPCS3_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "rpcs3.sh"
 
 }

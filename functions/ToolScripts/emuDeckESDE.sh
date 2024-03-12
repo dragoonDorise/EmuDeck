@@ -195,7 +195,6 @@ ESDE_addCustomSystems(){
 	BigPEmu_addESConfig
 	CemuProton_addESConfig
 	Model2_addESConfig
-	RPCS3_addESConfig
 	Xenia_addESConfig
 
 }
@@ -320,38 +319,6 @@ ESDE_setEmulationFolder(){
 			xmlstarlet ed -L -u '/systemList/system/command[@label="BigPEmu (Proton)"]' -v "$bigpemujaguarcdProtonCommandString" "$es_systemsFile"
 		fi
 	fi
-	if [[ ! $(grep -rnw "$es_systemsFile" -e 'ps3') == "" ]]; then
-		if [[ $(grep -rnw "$es_systemsFile" -e 'RPCS3 Shortcut (Standalone)') == "" ]]; then
-			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="ps3"]' --type elem --name 'commandP' -v "LD_LIBRARY_PATH=/usr/lib:/usr/local/lib %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%" \
-			--insert 'systemList/system/commandP' --type attr --name 'label' --value "RPCS3 Shortcut (Standalone)" \
-			-r 'systemList/system/commandP' -v 'command' \
-			"$es_systemsFile"
-
-			#format doc to make it look nice
-			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-		else
-			#update
-			rpcs3ShortcutCommandString="LD_LIBRARY_PATH=/usr/lib:/usr/local/lib %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%"
-			xmlstarlet ed -L -u '/systemList/system/command[@label="RPCS3 Shortcut (Standalone)"]' -v "$rpcs3ShortcutCommandString" "$es_systemsFile"
-		fi
-		if [[ $(grep -rnw "$es_systemsFile" -e 'RPCS3 Directory (Standalone)') == "" ]]; then
-			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="ps3"]' --type elem --name 'commandN' -v "LD_LIBRARY_PATH=/usr/lib:/usr/local/lib %EMULATOR_RPCS3% --no-gui %ROM%" \
-			--insert 'systemList/system/commandN' --type attr --name 'label' --value "RPCS3 Directory (Standalone)" \
-			-r 'systemList/system/commandN' -v 'command' \
-			"$es_systemsFile"
-
-			#format doc to make it look nice
-			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-		else
-			#update
-			rpcs3DirectoryCommandString="LD_LIBRARY_PATH=/usr/lib:/usr/local/lib %EMULATOR_RPCS3% --no-gui %ROM%"
-			xmlstarlet ed -L -u '/systemList/system/command[@label="RPCS3 Directory (Standalone)"]' -v "$rpcs3DirectoryCommandString" "$es_systemsFile"
-		fi
-	fi
-
-
 
 	echo "updating $es_settingsFile"
 	#configure roms Directory
@@ -377,12 +344,12 @@ ESDE_setEmulationFolder(){
 ESDE_setDefaultEmulators(){
 	#ESDE default emulators
 	mkdir -p  "$ESDE_newConfigDirectory/gamelists/"
-	ESDE_setEmu 'Dolphin (Standalone)'
+	ESDE_setEmu 'Dolphin (Standalone)' gc
 	ESDE_setEmu 'PPSSPP (Standalone)' psp
 	ESDE_setEmu 'Dolphin (Standalone)' wii
 	ESDE_setEmu 'PCSX2 (Standalone)' ps2
 	ESDE_setEmu 'melonDS DS' nds
-	ESDE_setEmu 'Citra (Standalone)'
+	ESDE_setEmu 'Citra (Standalone)' n3ds
 	ESDE_setEmu 'Beetle Lynx' atarilynx
 	ESDE_setEmu 'DuckStation (Standalone)' psx
 	ESDE_setEmu 'Beetle Saturn' saturn

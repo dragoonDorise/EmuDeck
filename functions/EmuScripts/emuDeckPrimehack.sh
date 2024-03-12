@@ -28,6 +28,7 @@ Primehack_init() {
 	Primehack_setupSaves
 	#SRM_createParsers
 	#Primehack_migrate
+	Primehack_flushEmulatorLauncher
 }
 
 #update
@@ -37,6 +38,7 @@ Primehack_update() {
 	Primehack_setupStorage
 	Primehack_setEmulationFolder
 	Primehack_setupSaves
+	Primehack_flushEmulatorLauncher
 }
 
 #ConfigurePaths
@@ -129,5 +131,12 @@ Primehack_setResolution(){
 	esac
 
 	RetroArch_setConfigOverride "InternalResolution" $multiplier "$Primehack_configFileGFX"
+
+}
+
+Primehack_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "primehack"
 
 }

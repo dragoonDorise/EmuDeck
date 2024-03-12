@@ -30,6 +30,7 @@ ScummVM_init(){
 	ScummVM_setEmulationFolder
 	ScummVM_setupSaves
 	#SRM_createParsers
+	ScummVM_flushEmulatorLauncher
 }
 
 #update
@@ -38,6 +39,7 @@ ScummVM_update(){
 	ScummVM_setupStorage
 	ScummVM_setEmulationFolder
 	ScummVM_setupSaves
+	ScummVM_flushEmulatorLauncher
 }
 
 #ConfigurePaths
@@ -117,4 +119,11 @@ ScummVM_IsInstalled(){
 
 ScummVM_resetConfig(){
 	ScummVM_init &>/dev/null && echo "true" || echo "false"
+}
+
+ScummVM_flushEmulatorLauncher(){
+
+
+	flushEmulatorLaunchers "scummvm.sh"
+
 }
