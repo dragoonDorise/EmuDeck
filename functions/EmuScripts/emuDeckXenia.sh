@@ -107,7 +107,7 @@ function Xenia_getPatches() {
 		{ curl -L "$patches_url" -o "${romsPath}/xbox360/game-patches.zip" && nice -n 5 unzip -q -o "${romsPath}/xbox360/game-patches.zip" -d "${romsPath}/xbox360" && rm "${romsPath}/xbox360/game-patches.zip"; } &> /dev/null
 		echo "Xenia patches downloaded." 
 	else 
-		{ curl -L "$patches_url" -o "${romsPath}/xbox360/game-patches.zip" && nice -n 5 unzip -q -u "${romsPath}/xbox360/game-patches.zip" -d "${romsPath}/xbox360" && rm "${romsPath}/xbox360/game-patches.zip"; } &> /dev/null
+		{ curl -L "$patches_url" -o "${romsPath}/xbox360/game-patches.zip" && nice -n 5 unzip -uqo "${romsPath}/xbox360/game-patches.zip" -d "${romsPath}/xbox360" && rm "${romsPath}/xbox360/game-patches.zip"; } &> /dev/null
 		echo "Xenia patches updated." 
 	fi
 
