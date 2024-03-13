@@ -5869,10 +5869,10 @@
       "glob": "**/${title}@(.zip|.ZIP)"
     },
     "titleFromVariable": {
-      "limitToGroups": "",
+      "limitToGroups": "${MAME}",
       "caseInsensitiveVariables": false,
       "skipFileIfVariableWasNotFound": false,
-      "tryToMatchTitle": false
+      "tryToMatchTitle": true
     },
     "fuzzyMatch": {
       "replaceDiacritics": true,
@@ -6098,7 +6098,7 @@
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
-    "parserId": "164785645253672240",
+    "parserId": "164795646253672241",
     "version": 10,
     "imageProviderAPIs": {
       "SteamGridDB": {

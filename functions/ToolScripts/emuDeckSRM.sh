@@ -5,6 +5,7 @@ SRM_toolType="$emuDeckEmuTypeAppImage"
 SRM_toolPath="${toolsPath}/Steam ROM Manager.AppImage"
 SRM_userData_directory="configs/steam-rom-manager/userData"
 SRM_userData_configDir="$HOME/.config/steam-rom-manager/userData"
+SRM_customVariablesURL="https://raw.githubusercontent.com/SteamGridDB/steam-rom-manager/master/files/customVariables.json"
 #cleanupOlderThings
 
 SRM_install(){
@@ -92,6 +93,8 @@ SRM_init(){
   sed -i "s|/home/deck|$HOME|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
   sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
   sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+
+  curl -L "$SRM_customVariablesURL" -o "$HOME/.config/steam-rom-manager/userData/customVariables.json"
 
   if [ -d "${HOME}/.local/share/Steam" ]; then
     STEAMPATH="${HOME}/.local/share/Steam"
