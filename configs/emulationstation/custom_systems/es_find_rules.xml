@@ -10,8 +10,8 @@
     </emulator>
     <emulator name="RETROARCH">
         <rule type="systempath">
-            <entry>retroarch</entry>
             <entry>org.libretro.RetroArch</entry>
+            <entry>retroarch</entry>
         </rule>
         <rule type="staticpath">
             <entry>~/.local/share/flatpak/exports/bin/org.libretro.RetroArch</entry>
@@ -42,4 +42,19 @@
             <entry>/usr/pkg/lib/libretro</entry>
         </rule>
     </core>
+    <emulator name="YUZU">
+        <!-- Nintendo Switch emulator Yuzu -->
+        <rule type="systempath">
+            <entry>yuzu</entry>
+            <entry>org.yuzu_emu.yuzu</entry>
+        </rule>
+        <rule type="staticpath">
+            <entry>~/Applications/yuzu*.AppImage</entry>
+            <entry>~/.local/share/applications/yuzu*.AppImage</entry>
+            <entry>~/.local/bin/yuzu*.AppImage</entry>
+            <entry>~/bin/yuzu*.AppImage</entry>
+            <entry>/var/lib/flatpak/exports/bin/org.yuzu_emu.yuzu</entry>
+            <entry>~/.local/share/flatpak/exports/bin/org.yuzu_emu.yuzu</entry>
+        </rule>
+    </emulator>
 </ruleList>

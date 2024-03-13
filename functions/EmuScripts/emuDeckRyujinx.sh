@@ -69,6 +69,13 @@ Ryujinx_init(){
     Ryujinx_finalize
 	#SRM_createParsers
     Ryujinx_flushEmulatorLauncher
+
+	if [ -e "$ESDE_toolPath" ]; then
+		Yuzu_addESConfig
+	else
+		echo "ES-DE not found. Skipped adding custom system."
+	fi
+
 }
 
 #update
@@ -82,6 +89,12 @@ Ryujinx_update(){
     Ryujinx_setupSaves
     Ryujinx_finalize
     Ryujinx_flushEmulatorLauncher
+
+	if [ -e "$ESDE_toolPath" ]; then
+		Yuzu_addESConfig
+	else
+		echo "ES-DE not found. Skipped adding custom system."
+	fi
 }
 
 #ConfigurePaths
