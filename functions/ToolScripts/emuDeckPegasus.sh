@@ -25,9 +25,12 @@ pegasus_install(){
 	if safeDownload "$name" "$url" "$HOME/Applications/$fileName" "$showProgress"; then
 		chmod +x "$HOME/Applications/$fileName"
 		pegasus_init
+		pegasus_customDesktopShortcut
 	else
 		return 1
 	fi
+
+
 }
 
 #ApplyInitialSettings
@@ -49,6 +52,7 @@ pegasus_init(){
 			if  [[ "$systemPath" == "$romsPath/model2" || "$systemPath" == "$romsPath/xbox360" || "$systemPath" == "$romsPath/wiiu" ]]; then
 				rm -rf "$systemPath/roms/media" &> /dev/null;
 				rm -rf "$romsPath/xbox360/roms/xbla/media" &> /dev/null;
+				rm -rf "$romsPath/xbox360/roms/xbla/metadata.txt" &> /dev/null;
 			else
 				rm -rf "$systemPath/media" &> /dev/null;
 			fi
@@ -83,7 +87,6 @@ pegasus_init(){
 				ln -s "$toolsPath/downloaded_media/$system/covers/" "$toolsPath/downloaded_media/$system/box2dfront" &> /dev/null
 				ln -s "$toolsPath/downloaded_media/$system/marquees/" "$toolsPath/downloaded_media/$system/wheel" &> /dev/null
 				ln -s "$toolsPath/downloaded_media/$system/screenshots/" "$toolsPath/downloaded_media/$system/screenshot" &> /dev/null
-				cp -P "$romsPath/xbox360/roms/media" "$romsPath/xbox360/roms/xbla"
 			else
 				system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
 				ln -s "$toolsPath/downloaded_media/$system" "$systemPath/media" &> /dev/null
@@ -138,6 +141,14 @@ pegasus_applyTheme(){
 
 	changeLine 'general.theme:' "general.theme: themes/$themeName" "$pegasus_config_file"
 
+}
+
+pegasus_customDesktopShortcut(){
+
+    createDesktopShortcut   "$HOME/.local/share/applications/Pegasus.desktop" \
+        "Pegasus Binary" \
+        "${toolsPath}/launchers/pegasus/pegasus-frontend.sh" \
+        "false"
 }
 
 pegasus_setDefaultEmulators(){
