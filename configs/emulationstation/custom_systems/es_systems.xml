@@ -30,13 +30,14 @@
     <theme>model2</theme>
   </system>
   <system>
-    <name>xbox360</name>
-    <fullname>Microsoft Xbox 360</fullname>
-    <path>%ROMPATH%/xbox360/roms</path>
-    <extension>.iso .ISO . .xex .XEX .zar .ZAR</extension>
-    <command label="Xenia (Proton)">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh z:%ROM%</command>
-    <platform>xbox360</platform>
-    <theme>xbox360</theme>
+    <name>switch</name>
+    <fullname>Nintendo Switch</fullname>
+    <path>%ROMPATH%/switch</path>
+    <extension>.nca .NCA .nro .NRO .nso .NSO .nsp .NSP .xci .XCI</extension>
+    <command label="Ryujinx (Standalone)">%EMULATOR_RYUJINX% %ROM%</command>
+    <command label="Yuzu (Standalone)">%INJECT%=%BASENAME%.esprefix %EMULATOR_YUZU% -f -g %ROM%</command>
+    <platform>switch</platform>
+    <theme>switch</theme>
   </system>
   <system>
     <name>wiiu</name>
@@ -47,5 +48,14 @@
     <command label="Cemu (Proton)">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh -w -f -g z:%ROM%</command>
     <platform>wiiu</platform>
     <theme>wiiu</theme>
+  </system>
+  <system>
+    <name>xbox360</name>
+    <fullname>Microsoft Xbox 360</fullname>
+    <path>%ROMPATH%/xbox360/roms</path>
+    <extension>.iso .ISO . .xex .XEX .zar .ZAR</extension>
+    <command label="Xenia (Proton)">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh z:%ROM%</command>
+    <platform>xbox360</platform>
+    <theme>xbox360</theme>
   </system>
 </systemList>

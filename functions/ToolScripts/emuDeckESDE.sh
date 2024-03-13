@@ -114,6 +114,7 @@ ESDE_init(){
 
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
+	rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
 
 	cp -r "$EMUDECKGIT/tools/launchers/es-de/." "$toolsPath/launchers/es-de/" && chmod +x "$toolsPath/launchers/es-de/es-de.sh"
 
@@ -127,19 +128,11 @@ ESDE_init(){
 	ESDE_migrateEpicNoir
 	SRM_createParsers
 	addSteamInputCustomIcons
+	ESDE_findRules
 
-	if [ "$system" == "chimeraos" ] || [ "$system" == "ChimeraOS" ]; then
-			ESDE_chimeraOS
-		fi
 }
 
-ESDE_chimeraOS(){
-	if [ ! -f "$es_rulesFile" ]; then
-		rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
-	else
-		xmlstarlet ed -d '//entry[contains(., "~/Applications/RetroArch-Linux*.AppImage") or contains(., "~/.local/share/applications/RetroArch-Linux*.AppImage") or contains(., "~/.local/bin/RetroArch-Linux*.AppImage") or contains(., "~/bin/RetroArch-Linux*.AppImage")]' $es_rulesFile > rules_temp.xml && mv rules_temp.xml $es_rulesFile
-	fi
-}
+
 
 ESDE_resetConfig(){
 	ESDE_init &>/dev/null && echo "true" || echo "false"
@@ -161,6 +154,7 @@ ESDE_update(){
 	#update es_settings.xml
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --ignore-existing
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --ignore-existing
+	rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --ignore-existing
 
 	ESDE_addCustomSystems
 	ESDE_setEmulationFolder
@@ -196,7 +190,7 @@ ESDE_addCustomSystems(){
 	CemuProton_addESConfig
 	Model2_addESConfig
 	Xenia_addESConfig
-
+	Yuzu_addESConfig
 }
 
 #update
@@ -319,6 +313,37 @@ ESDE_setEmulationFolder(){
 			xmlstarlet ed -L -u '/systemList/system/command[@label="BigPEmu (Proton)"]' -v "$bigpemujaguarcdProtonCommandString" "$es_systemsFile"
 		fi
 	fi
+	if [[ ! $(grep -rnw "$es_systemsFile" -e 'switch') == "" ]]; then
+		if [[ $(grep -rnw "$es_systemsFile" -e 'Ryujinx (Standalone)') == "" ]]; then
+			#insert
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="switch"]' --type elem --name 'commandP' -v "%EMULATOR_RYUJINX% %ROM%" \
+			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Ryujinx (Standalone)" \
+			-r 'systemList/system/commandP' -v 'command' \
+			"$es_systemsFile"
+
+			#format doc to make it look nice
+			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		else
+			#update
+			ryujinxSwitchCommandString="%EMULATOR_RYUJINX% %ROM%"
+			xmlstarlet ed -L -u '/systemList/system/command[@label="Ryujinx (Standalone)"]' -v "$ryujinxSwitchCommandString" "$es_systemsFile"
+		fi
+		if [[ $(grep -rnw "$es_systemsFile" -e 'Yuzu (Standalone)') == "" ]]; then
+			#insert
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="switch"]' --type elem --name 'commandP' -v "%INJECT%=%BASENAME%.esprefix %EMULATOR_YUZU% -f -g %ROM%" \
+			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Yuzu (Standalone)" \
+			-r 'systemList/system/commandP' -v 'command' \
+			"$es_systemsFile"
+
+			#format doc to make it look nice
+			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		else
+			#update
+			yuzuSwitchCommandString="%INJECT%=%BASENAME%.esprefix %EMULATOR_YUZU% -f -g %ROM%"
+			xmlstarlet ed -L -u '/systemList/system/command[@label="Yuzu (Standalone)"]' -v "$yuzuSwitchCommandString" "$es_systemsFile"
+		fi
+	fi
+
 
 	echo "updating $es_settingsFile"
 	#configure roms Directory
