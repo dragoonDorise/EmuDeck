@@ -128,7 +128,6 @@ ESDE_init(){
 	ESDE_migrateEpicNoir
 	SRM_createParsers
 	addSteamInputCustomIcons
-	ESDE_findRules
 
 }
 

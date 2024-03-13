@@ -192,7 +192,7 @@ appImageInit() {
 	touch "$HOME/.config/EmuDeck/.launcherupdate"
 	fi
 
-	if [ ! -f "$HOME/.config/EmuDeck/.esdeupdate" ]; then
+	if [ ! -f "$HOME/.config/EmuDeck/.esdeupdateyuzu" ]; then
 
 		zenity --question \
 		--text="An upcoming ES-DE update will be removing Yuzu support. This means that you will no longer be able to launch Nintendo Switch games using Yuzu in ES-DE. \nHowever, EmuDeck has pushed a hotfix to add back Yuzu support for ES-DE. \nIf you say no to this prompt, you may also apply this fix at any time by resetting ES-DE or Yuzu on the Manage Emulators page. \nWould you like to apply this hotfix?" \
@@ -207,7 +207,7 @@ appImageInit() {
 		else 
 			echo "Do not apply hotfix."
 		fi
-	touch "$HOME/.config/EmuDeck/.esdeupdate"
+	touch "$HOME/.config/EmuDeck/.esdeupdateyuzu"
 	fi
 	
 	#pcsx2 fix
