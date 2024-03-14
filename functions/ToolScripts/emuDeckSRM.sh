@@ -108,6 +108,7 @@ SRM_init(){
 
 
   echo -e "true"
+  SRM_flushToolLauncher
 
 
 }
@@ -500,7 +501,8 @@ SRM_resetConfig(){
   SRM_migration
   SRM_init
   #Reseting launchers
-  SRM_resetLaunchers
+  #SRM_resetLaunchers
+  SRM_flushToolLauncher
   echo "true"
 }
 
@@ -518,4 +520,9 @@ SRM_resetLaunchers(){
   do
    chmod +x "$entry"
   done
+}
+
+SRM_flushToolLauncher(){
+  mkdir -p "$toolsPath/launchers/srm"
+	cp "$EMUDECKGIT/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
 }

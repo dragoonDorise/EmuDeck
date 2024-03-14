@@ -128,7 +128,7 @@ ESDE_init(){
 	ESDE_migrateEpicNoir
 	SRM_createParsers
 	addSteamInputCustomIcons
-
+	ESDE_flushToolLauncher
 }
 
 
@@ -163,6 +163,7 @@ ESDE_update(){
 	#ESDE_addSteamInputProfile
 	ESDE_symlinkGamelists
 	addSteamInputCustomIcons
+	ESDE_flushToolLauncher
 }
 
 ESDE_junksettingsFile(){
@@ -446,4 +447,9 @@ ESDE_migrateEpicNoir(){
 		git clone https://github.com/anthonycaccese/epic-noir-revisited-es-de "$ESDE_newConfigDirectory/themes/epic-noir-revisited" --depth=1
 		changeLine '<string name="ThemeSet"' '<string name="ThemeSet" value="epic-noir-revisited-es-de" />' "$es_settingsFile"
 	fi
+}
+
+ESDE_flushToolLauncher(){
+	mkdir -p "$toolsPath/launchers/es-de"
+	cp "$EMUDECKGIT/tools/launchers/es-de/es-de.sh" "$toolsPath/launchers/es-de/es-de.sh"
 }
