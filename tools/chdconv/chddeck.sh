@@ -8,9 +8,9 @@ fi
 
 #whitelist
 chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "neogeocdjp" "megacd" "ps2" "cdimono1")
-rvzfolderWhiteList=("gamecube" "wii" "primehacks")
+rvzfolderWhiteList=("gc" "wii" "primehacks")
 csofolderWhiteList=("psp")
-n3dsfolderWhiteList=("3ds")
+n3dsfolderWhiteList=("n3ds")
 xboxfolderWhiteList=("xbox")
 sevenzipfolderWhiteList=("atari2600" "atarilynx" "famicom" "gamegear"
 "gb" "gbc" "gba"
@@ -41,6 +41,7 @@ sevenzipFileExtensions=("ngp" "ngc" "a26"
 
 
 combinedFileExtensions=(
+"${n3dsFileExtensions[@]}" 
 "${chdFileExtensions[@]}" 
 "${rvzFileExtensions[@]}" 
 "${rvzFileExtensions[@]}" 
