@@ -51,6 +51,7 @@ Dolphin_init(){
   Dolphin_cleanup
   Dolphin_setCustomizations
   Dolphin_flushEmulatorLauncher
+  Dolphin_flushSymlinks
 	#SRM_createParsers
     #Dolphin_DynamicInputTextures
 }
@@ -65,6 +66,7 @@ Dolphin_update(){
 	Dolphin_setupSaves
   Dolphin_cleanup
   Dolphin_flushEmulatorLauncher
+  Dolphin_flushSymlinks
 }
 
 #ConfigurePaths
@@ -94,39 +96,8 @@ Dolphin_setupSaves(){
 #SetupStorage
 Dolphin_setupStorage(){
 
-  if [ -d "${HOME}/.local/share/Steam" ]; then
-    STEAMPATH="${HOME}/.local/share/Steam"
-  elif [ -d "${HOME}/.steam/steam" ]; then
-    STEAMPATH="${HOME}/.steam/steam"
-  else
-    echo "Steam install not found"
-  fi
+	echo "NYI"
 
-  if [[ -L "$romsPath/gc" && ! $(readlink -f "$romsPath/gc") =~ ^"$romsPath" ]] || [[ -L "$romsPath/gamecube" && ! $(readlink -f "$romsPath/gamecube") =~ ^"$romsPath" ]]; then
-      echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
-  else
-    if [[ ! -e "$romsPath/gamecube" && ! -e "$romsPath/gc" ]]; then
-      mkdir -p "$romsPath/gc"
-      ln -sfn "$romsPath/gc" "$romsPath/gamecube"
-    elif [[ -d "$romsPath/gamecube" && -L "$romsPath/gc" ]]; then
-      echo "Converting gc symlink to a regular directory..."
-      unlink "$romsPath/gc"
-      mv "$romsPath/gamecube" "$romsPath/gc"
-      ln -sfn "$romsPath/gc" "$romsPath/gamecube"
-      echo "gamecube symlink updated to point to gc"
-    elif [[ -d "$romsPath/gamecube" && ! -e "$romsPath/gc" ]]; then
-      echo "Creating gc directory and updating gamecube symlink..."
-      mv "$romsPath/gamecube" "$romsPath/gc"
-      ln -sfn "$romsPath/gc" "$romsPath/gamecube"
-      echo "gamecube symlink updated to point to gc"
-    elif [[ -d "$romsPath/gc" && ! -e "$romsPath/gamecube" ]]; then
-      echo "gamecube symlink not found, creating..."
-      ln -sfn "$romsPath/gc" "$romsPath/gamecube"
-      echo "gamecube symlink created"
-    fi
-  fi
-
-  find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/gc|${romsPath}/gamecube|g" {} +
 }
 
 
@@ -251,5 +222,51 @@ Dolphin_flushEmulatorLauncher(){
 
 
 	flushEmulatorLaunchers "dolphin"
+
+}
+
+Dolphin_flushSymlinks(){
+
+  if [ -d "${HOME}/.local/share/Steam" ]; then
+    STEAMPATH="${HOME}/.local/share/Steam"
+  elif [ -d "${HOME}/.steam/steam" ]; then
+    STEAMPATH="${HOME}/.steam/steam"
+  else
+    echo "Steam install not found"
+  fi
+	if [ ! -f "$HOME/.config/EmuDeck/.dolphinsymlinks" ]; then
+
+    if [[ -L "$romsPath/gc" && ! $(readlink -f "$romsPath/gc") =~ ^"$romsPath" ]] || [[ -L "$romsPath/gamecube" && ! $(readlink -f "$romsPath/gamecube") =~ ^"$romsPath" ]]; then
+        echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
+    else
+      if [[ ! -e "$romsPath/gamecube" && ! -e "$romsPath/gc" ]]; then
+        mkdir -p "$romsPath/gc"
+        ln -sfn "$romsPath/gc" "$romsPath/gamecube"
+      elif [[ -d "$romsPath/gamecube" && -L "$romsPath/gc" ]]; then
+        echo "Converting gc symlink to a regular directory..."
+        unlink "$romsPath/gc"
+        mv "$romsPath/gamecube" "$romsPath/gc"
+        ln -sfn "$romsPath/gc" "$romsPath/gamecube"
+        echo "gamecube symlink updated to point to gc"
+      elif [[ -d "$romsPath/gamecube" && ! -e "$romsPath/gc" ]]; then
+        echo "Creating gc directory and updating gamecube symlink..."
+        mv "$romsPath/gamecube" "$romsPath/gc"
+        ln -sfn "$romsPath/gc" "$romsPath/gamecube"
+        echo "gamecube symlink updated to point to gc"
+      elif [[ -d "$romsPath/gc" && ! -e "$romsPath/gamecube" ]]; then
+        echo "gamecube symlink not found, creating..."
+        ln -sfn "$romsPath/gc" "$romsPath/gamecube"
+        echo "gamecube symlink created"
+      fi
+    fi
+
+    find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/gamecube|${romsPath}/gc|g" {} +
+		touch "$HOME/.config/EmuDeck/.dolphinsymlinks"	
+		echo "Dolphin symlink cleanup completed."
+		zenity --info --text="Dolphin symlinks have been cleaned. This cleanup was conducted to prevent any potential breakage with symlinks. Place all new ROMs in Emulation/roms/gc. Your ROMs have been moved from Emulation/roms/gamecube to Emulation/roms/gc." --title="Symlink Update"
+
+  else 
+  		echo "Dolphin symlinks already cleaned."
+  fi 
 
 }

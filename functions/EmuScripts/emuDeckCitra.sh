@@ -34,6 +34,7 @@ Citra_init(){
 	#SRM_createParsers
 	#Citra_addSteamInputProfile
 	Citra_flushEmulatorLauncher
+	Citra_flushSymlinks
 	cp "$EMUDECKGIT/tools/launchers/citra.sh" "$toolsPath/launchers/citra.sh"
 	chmod +x "$toolsPath/launchers/citra.sh"
 
@@ -54,36 +55,13 @@ Citra_update(){
 	Citra_setupSaves
 	Citra_addSteamInputProfile
 	Citra_flushEmulatorLauncher
+	Citra_flushSymlinks
 }
 
 #ConfigurePaths
 Citra_setEmulationFolder(){
 	setMSG "Setting $Citra_emuName Emulation Folder"
 
-	if [[ -L "$romsPath/n3ds" && ! $(readlink -f "$romsPath/n3ds") =~ ^"$romsPath" ]] || [[ -L "$romsPath/3ds" && ! $(readlink -f "$romsPath/3ds") =~ ^"$romsPath" ]]; then
-		echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
-	else
-		if [[ ! -e "$romsPath/3ds" && ! -e "$romsPath/n3ds" ]]; then
-			mkdir -p "$romsPath/n3ds"
-			ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
-		elif [[ -d "$romsPath/3ds" && -L "$romsPath/n3ds" ]]; then
-			echo "Converting n3ds symlink to a regular directory..."
-			unlink "$romsPath/n3ds"
-			mv "$romsPath/3ds" "$romsPath/n3ds"
-			ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
-			echo "3ds symlink updated to point to n3ds"
-		elif [[ -d "$romsPath/3ds" && ! -e "$romsPath/n3ds" ]]; then
-			echo "Creating n3ds directory and updating 3ds symlink..."
-			mv "$romsPath/3ds" "$romsPath/n3ds"
-			ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
-			echo "3ds symlink updated to point to n3ds"
-		elif [[ -d "$romsPath/n3ds" && ! -e "$romsPath/3ds" ]]; then
-			echo "3ds symlink not found, creating..."
-			ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
-			echo "3ds symlink created"
-		fi
-	fi
-	find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/n3ds|${romsPath}/3ds|g" {} +
 
 	mkdir -p "$Citra_configPath"
 	rsync -avhp "$EMUDECKGIT/configs/org.citra_emu.citra/config/citra-emu/qt-config.ini" "$Citra_configPath/qt-config.ini" --backup --suffix=.bak
@@ -227,5 +205,45 @@ Citra_flushEmulatorLauncher(){
 
 
 	flushEmulatorLaunchers "citra"
+
+}
+
+Citra_flushSymlinks(){
+
+	if [ ! -f "$HOME/.config/EmuDeck/.citrasymlinks" ]; then
+
+		if [[ -L "$romsPath/n3ds" && ! $(readlink -f "$romsPath/n3ds") =~ ^"$romsPath" ]] || [[ -L "$romsPath/3ds" && ! $(readlink -f "$romsPath/3ds") =~ ^"$romsPath" ]]; then
+			echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
+		else
+			if [[ ! -e "$romsPath/3ds" && ! -e "$romsPath/n3ds" ]]; then
+				mkdir -p "$romsPath/n3ds"
+				ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
+			elif [[ -d "$romsPath/3ds" && -L "$romsPath/n3ds" ]]; then
+				echo "Converting n3ds symlink to a regular directory..."
+				unlink "$romsPath/n3ds"
+				mv "$romsPath/3ds" "$romsPath/n3ds"
+				ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
+				echo "3ds symlink updated to point to n3ds"
+			elif [[ -d "$romsPath/3ds" && ! -e "$romsPath/n3ds" ]]; then
+				echo "Creating n3ds directory and updating 3ds symlink..."
+				mv "$romsPath/3ds" "$romsPath/n3ds"
+				ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
+				echo "3ds symlink updated to point to n3ds"
+			elif [[ -d "$romsPath/n3ds" && ! -e "$romsPath/3ds" ]]; then
+				echo "3ds symlink not found, creating..."
+				ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
+				echo "3ds symlink created"
+			fi
+		fi
+		find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
+
+		touch "$HOME/.config/EmuDeck/.citrasymlinks"	
+		echo "Citra symlink cleanup completed."
+		zenity --info --text="Citra symlinks have been cleaned. This cleanup was conducted to prevent any potential breakage with symlinks. Place all new ROMs in Emulation/roms/n3ds. Your ROMs have been moved from Emulation/roms/3ds to Emulation/roms/n3ds." --title="Symlink Update"
+
+	else 
+		echo "Citra symlinks already cleaned."
+	fi 
+
 
 }
