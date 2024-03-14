@@ -19,8 +19,6 @@ appImageInit() {
 	SRM_migration # 2.2 Changes
 	ESDE_migration # 2.2 Changes
 	autofix_dynamicParsers # 2.2 Changes
-	mkdir -p "$toolsPath/launchers/esde/"
-	ln -s "${toolsPath}/launchers/es-de/es-de.sh" "$toolsPath/launchers/esde/emulationstationde.sh"
 
 	#Force SRM appimage move in case the migration fails
 	mv "${toolsPath}/srm/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" &> /dev/null
@@ -46,7 +44,6 @@ appImageInit() {
 	if [ -L "${romsPath}/n3ds/3ds" ]; then
 		rm "${romsPath}/3ds/3ds"
 	fi	
-
 	if [ ! -d "$romsPath/3ds" ]; then
 	  ln -s "$romsPath/n3ds/"  "$romsPath/3ds/"
 	fi
@@ -54,7 +51,6 @@ appImageInit() {
 	if [ ! -d "$romsPath/gamecube" ]; then
 		ln -s "${romsPath}/gc" "${romsPath}/gamecube" 
 	fi
-
 
 
 	if [ ! -f "$HOME/.config/EmuDeck/.srm2211" ]; then
@@ -192,7 +188,7 @@ appImageInit() {
 	touch "$HOME/.config/EmuDeck/.launcherupdate"
 	fi
 
-	if [ ! -f "$HOME/.config/EmuDeck/.esdeupdate" ]; then
+	if [ ! -f "$HOME/.config/EmuDeck/.esdeupdateyuzu" ]; then
 
 		zenity --question \
 		--text="An upcoming ES-DE update will be removing Yuzu support. This means that you will no longer be able to launch Nintendo Switch games using Yuzu in ES-DE. \nHowever, EmuDeck has pushed a hotfix to add back Yuzu support for ES-DE. \nIf you say no to this prompt, you may also apply this fix at any time by resetting ES-DE or Yuzu on the Manage Emulators page. \nWould you like to apply this hotfix?" \
@@ -207,7 +203,7 @@ appImageInit() {
 		else 
 			echo "Do not apply hotfix."
 		fi
-	touch "$HOME/.config/EmuDeck/.esdeupdate"
+	touch "$HOME/.config/EmuDeck/.esdeupdateyuzu"
 	fi
 	
 	#pcsx2 fix
