@@ -525,4 +525,5 @@ SRM_resetLaunchers(){
 SRM_flushToolLauncher(){
   mkdir -p "$toolsPath/launchers/srm"
 	cp "$EMUDECKGIT/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
+  chmod +x "$toolsPath/launchers/srm/steamrommanager.sh"
 }

@@ -2,11 +2,6 @@
 source "$HOME/.config/EmuDeck/backend/functions/all.sh"
 SRM_toolPath="${toolsPath}/Steam ROM Manager.AppImage"
 
-if grep -q "mmcblk0p1" "$SRM_userData_configDir/userConfigurations.json"; then
-	SRM_init
-fi
-SRM_addSteamInputProfiles
-
 zenity --question \
 	--width 450 \
 	--title "Close Steam/Steam Input?" \

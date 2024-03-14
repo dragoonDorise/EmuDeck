@@ -452,4 +452,5 @@ ESDE_migrateEpicNoir(){
 ESDE_flushToolLauncher(){
 	mkdir -p "$toolsPath/launchers/es-de"
 	cp "$EMUDECKGIT/tools/launchers/es-de/es-de.sh" "$toolsPath/launchers/es-de/es-de.sh"
+	chmod +x "$toolsPath/launchers/es-de/es-de.sh"
 }
