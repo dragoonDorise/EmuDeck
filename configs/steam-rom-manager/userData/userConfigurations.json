@@ -2133,7 +2133,7 @@
     "configTitle": "Microsoft Xbox 360 - Xenia",
     "steamDirectory": "${steamdirglobal}",
     "steamCategory": "${Microsoft Xbox 360}",
-    "romDirectory": "${romsdirglobal}/xbox360/",
+    "romDirectory": "${romsdirglobal}/xbox360/roms",
     "executableArgs": "\"Z:${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -2152,7 +2152,7 @@
       "appendArgsToExecutable": true
     },
     "parserInputs": {
-      "glob": "{roms/**/!(xbla),roms}/**/${title}@(.iso|.ISO|.xex|.XEX)"
+      "glob": "**/!(xbla)/**/${title}@(.iso|.ISO|.xex|.XEX|.zar|.ZAR)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
