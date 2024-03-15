@@ -19,10 +19,10 @@
     "glob": "**/${title}@(.zip|.ZIP)"
   },
   "titleFromVariable": {
-    "limitToGroups": "",
+    "limitToGroups": "${MAME}",
     "caseInsensitiveVariables": false,
     "skipFileIfVariableWasNotFound": false,
-    "tryToMatchTitle": false
+    "tryToMatchTitle": true
   },
   "fuzzyMatch": {
     "replaceDiacritics": true,
