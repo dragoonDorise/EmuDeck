@@ -36,7 +36,7 @@ RetroArch_backupConfigs(){
 
 #Install
 RetroArch_install(){
-	setMSG "Installing $Primehack_emuName"
+	setMSG "Installing $RetroArch_emuName"
 	installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
 }
 
@@ -2267,6 +2267,7 @@ RetroArch_installCores(){
 				bsnes_libretro \
 				cap32_libretro \
 				chailove_libretro \
+				citra_libretro \
 				desmume_libretro \
 				dosbox_core_libretro \
 				dosbox_pure_libretro \
