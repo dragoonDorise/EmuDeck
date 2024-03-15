@@ -285,9 +285,11 @@ Cemu_functions () {
 
 	# Add Steam Input Profile
 	addSteamInputProfile () {
-		echo "NYI"
-		#setMSG "Adding ${CemuNative[emuName]} Steam Input Profile."
+		addSteamInputCustomIcons
+		setMSG "Adding ${CemuNative[emuName]} Steam Input Profile."
 		#rsync -r "${EMUDECKGIT}/configs/steam-input/cemu_controller_config.vdf" "${HOME}/.steam/steam/controller_base/templates/"
+		rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
+
 	}
 
 	flushEmulatorLauncher () {
