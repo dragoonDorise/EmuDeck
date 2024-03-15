@@ -30,7 +30,7 @@ melonDS_init(){
 	melonDS_setEmulationFolder
 	melonDS_setupSaves
 	#SRM_createParsers
-	#melonDS_addSteamInputProfile
+	melonDS_addSteamInputProfile
 	melonDS_flushEmulatorLauncher
 }
 
@@ -41,7 +41,7 @@ melonDS_update(){
 	melonDS_setupStorage
 	melonDS_setEmulationFolder
 	melonDS_setupSaves
-	#melonDS_addSteamInputProfile
+	melonDS_addSteamInputProfile
 	melonDS_flushEmulatorLauncher
 
 }
@@ -159,8 +159,9 @@ melonDS_resetConfig(){
 
 melonDS_addSteamInputProfile(){
 	addSteamInputCustomIcons
-	#setMSG "Adding $melonDS_emuName Steam Input Profile."
+	setMSG "Adding $melonDS_emuName Steam Input Profile."
 	#rsync -r "$EMUDECKGIT/configs/steam-input/melonds_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 melonDS_setResolution(){
