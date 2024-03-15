@@ -23,16 +23,6 @@ appImageInit() {
 	#Force SRM appimage move in case the migration fails
 	mv "${toolsPath}/srm/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" &> /dev/null
 
-	#Fix parsers
-	if grep -q "mmcblk0p1" "$SRM_userData_configDir/userConfigurations.json"; then
-		SRM_init
-	fi
-
-	#Fix Pegasus path
-	if find "$romsPath" -type f -name "metadata.txt" -exec grep -q "mmcblk0p1" {} \; -print | grep -q .; then
-		pegasus_init
-	fi
-
 	if [ -d "$HOME/.config/pegasus-frontend/config" ]; then
 	  rsync -avz $HOME/.config/pegasus-frontend/config/  $HOME/.config/pegasus-frontend/
 	fi
