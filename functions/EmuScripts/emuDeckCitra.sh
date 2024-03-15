@@ -32,7 +32,7 @@ Citra_init(){
 	Citra_setEmulationFolder
 	Citra_setupSaves
 	#SRM_createParsers
-	#Citra_addSteamInputProfile
+	Citra_addSteamInputProfile
 	Citra_flushEmulatorLauncher
 	Citra_flushSymlinks
 	cp "$EMUDECKGIT/tools/launchers/citra.sh" "$toolsPath/launchers/citra.sh"
@@ -186,7 +186,9 @@ Citra_resetConfig(){
 
 Citra_addSteamInputProfile(){
 	addSteamInputCustomIcons
+	setMSG "Adding $Citra_emuName Steam Input Profile."
 	#rsync -r "$EMUDECKGIT/configs/steam-input/citra_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 Citra_setResolution(){

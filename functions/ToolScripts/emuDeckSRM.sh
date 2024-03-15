@@ -58,9 +58,8 @@ SRM_rollbackedinit(){
   mkdir -p "$SRM_userData_configDir/"
 
   #SRM_createParsers
-  SRM_addSteamInputProfiles
+
   SRM_setEnv
-  addSteamInputCustomIcons
   echo -e "true"
 }
 
@@ -106,9 +105,11 @@ SRM_init(){
 
   sed -i "s|/home/deck/.steam/steam|${STEAMPATH}|g" "$HOME/.config/steam-rom-manager/userData/controllerTemplates.json"
 
-
-  echo -e "true"
   SRM_flushToolLauncher
+  SRM_addSteamInputProfiles
+  addSteamInputCustomIcons
+  
+  echo -e "true"
 
 
 }

@@ -35,7 +35,7 @@ mGBA_init(){
 	mGBA_setEmulationFolder
 	mGBA_setupSaves
 	#SRM_createParsers
-	#mGBA_addSteamInputProfile
+	mGBA_addSteamInputProfile
 	mGBA_flushEmulatorLauncher
 }
 
@@ -46,7 +46,7 @@ mGBA_update(){
 	mGBA_setupStorage
 	mGBA_setEmulationFolder
 	mGBA_setupSaves
-	#mGBA_addSteamInputProfile
+	mGBA_addSteamInputProfile
 	mGBA_flushEmulatorLauncher
 }
 
@@ -149,8 +149,9 @@ mGBA_finalize(){
 
 mGBA_addSteamInputProfile(){
 	addSteamInputCustomIcons
-	#setMSG "Adding $mGBA_emuName Steam Input Profile."
+	setMSG "Adding $mGBA_emuName Steam Input Profile."
 	#rsync -r "$EMUDECKGIT/configs/steam-input/mGBA_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 mGBA_flushEmulatorLauncher(){
