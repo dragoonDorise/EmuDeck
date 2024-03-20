@@ -593,7 +593,7 @@ cloud_sync_createService(){
   local service_name="EmuDeckCloudSync"
   local script_path="$HOME/.config/EmuDeck/backend/tools/cloudSync/cloud_sync_watcher.sh"
   local user_service_dir="$HOME/.config/systemd/user/"
-
+  mkdir -p $user_service_dir
   touch "$user_service_dir/$service_name.service"
   cat <<EOF > "$user_service_dir/$service_name.service"
 [Unit]
