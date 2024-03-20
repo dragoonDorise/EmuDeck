@@ -38,6 +38,7 @@ RetroArch_backupConfigs(){
 RetroArch_install(){
 	setMSG "Installing $RetroArch_emuName"
 	installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
+	RetroArch_installCores
 }
 
 
@@ -70,7 +71,7 @@ RetroArch_init(){
 	RetroArch_setEmulationFolder
 	RetroArch_setupSaves
 	RetroArch_setupStorage
-	RetroArch_installCores
+	#RetroArch_installCores
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
 	RetroArch_setupConfigurations
