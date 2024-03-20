@@ -717,7 +717,7 @@ flushEmulatorLaunchers(){
         chmod +x "${toolsPath}/launchers/"*
     done
 
-	
+
 }
 
 addSteamInputCustomIcons() {
@@ -949,6 +949,7 @@ function jsonToBashVars(){
 	setSetting doInstallPCSX2QT "$(jq .installEmus.pcsx2.status $json)"
 	setSetting doInstallRPCS3 "$(jq .installEmus.rpcs3.status $json)"
 	setSetting doInstallYuzu "$(jq .installEmus.yuzu.status $json)"
+	setSetting doInstallSuyu "$(jq .installEmus.suyu.status $json)"
 	setSetting doInstallCitra "$(jq .installEmus.citra.status $json)"
 	setSetting doInstallDuck "$(jq .installEmus.duckstation.status $json)"
 	setSetting doInstallCemu "$(jq .installEmus.cemu.status $json)"
@@ -978,6 +979,7 @@ function jsonToBashVars(){
 	setSetting doSetupPCSX2QT "$(jq .overwriteConfigEmus.pcsx2.status $json)"
 	setSetting doSetupRPCS3 "$(jq .overwriteConfigEmus.rpcs3.status $json)"
 	setSetting doSetupYuzu "$(jq .overwriteConfigEmus.yuzu.status $json)"
+	setSetting doSetupSuyu "$(jq .overwriteConfigEmus.suyu.status $json)"
 	setSetting doSetupCitra "$(jq .overwriteConfigEmus.citra.status $json)"
 	setSetting doSetupDuck "$(jq .overwriteConfigEmus.duckstation.status $json)"
 	setSetting doSetupCemu "$(jq .overwriteConfigEmus.cemu.status $json)"

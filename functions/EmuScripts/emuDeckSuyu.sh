@@ -1,14 +1,14 @@
 #!/bin/bash
 
 #variables
-Suyu_emuName="suyu"
-Suyu_emuType="$emuDeckEmuTypeAppImage"
-Suyu_emuPath="$HOME/Applications/suyu.AppImage"
+suyu_emuName="suyu"
+suyu_emuType="$emuDeckEmuTypeAppImage"
+suyu_emuPath="$HOME/Applications/suyu.AppImage"
 
-Suyu_configFile="$HOME/.config/suyu/qt-config.ini"
+suyu_configFile="$HOME/.config/suyu/qt-config.ini"
 
-declare -A Suyu_languages
-Suyu_languages=(
+declare -A suyu_languages
+suyu_languages=(
 ["ja"]=0
 ["en"]=1
 ["fr"]=2
@@ -23,8 +23,8 @@ Suyu_languages=(
 ["tw"]=11) # TODO: not all langs but we need to switch to full lang codes to support those
 
 # https://github.com/suyu-emu/suyu/blob/master/src/suyu/configuration/configure_system.ui#L272-L309
-declare -A Suyu_regions
-Suyu_regions=(
+declare -A suyu_regions
+suyu_regions=(
 ["ja"]=0 # Japan
 ["en"]=1 # USA
 ["fr"]=2 # Europe
@@ -43,14 +43,12 @@ Suyu_regions=(
 
 
 #Install
-Suyu_install() {
-    echo "Begin Suyu Install"
+suyu_install() {
+    echo "Begin suyu Install"
 
     local showProgress=$1
-    local lastVerFile="$HOME/emudeck/suyu.ver"
-    local latestVer=$(curl -fSs "https://api.github.com/repos/suyu-emu/suyu-mainline/releases" | jq -r '[ .[].tag_name ][0]')
     local success="false"
-    if installEmuAI "$Suyu_emuName" "$(getReleaseURLGH "suyu-emu/suyu-mainline" "AppImage")" "" "$showProgress" "$lastVerFile" "$latestVer"; then # suyu.AppImage - needs to be lowercase suyu for EsDE to find it
+    if installEmuAI "$suyu_emuName" "https://gitlab.com/suyu-emu/suyu-releases/-/raw/master/v0.0.2-master/suyu-mainline--.AppImage" "suyu" "$showProgress"; then
         success="true"
     fi
 
@@ -60,8 +58,8 @@ Suyu_install() {
 }
 
 #ApplyInitialSettings
-Suyu_init() {
-    echo "Begin Suyu Init"
+suyu_init() {
+    echo "Begin suyu Init"
 
 	cp "$EMUDECKGIT/tools/launchers/suyu.sh" "$toolsPath/launchers/suyu.sh"
 	chmod +x "$toolsPath/launchers/suyu.sh"
@@ -69,23 +67,23 @@ Suyu_init() {
     mkdir -p "$HOME/.local/share/suyu"
 	rsync -avhp "$EMUDECKGIT/configs/org.suyu_emu.suyu/config/suyu/." "$HOME/.config/suyu"
 	rsync -avhp "$EMUDECKGIT/configs/org.suyu_emu.suyu/data/suyu/." "$HOME/.local/share/suyu"
-    Suyu_migrate
-    configEmuAI "$Suyu_emuName" "config" "$HOME/.config/suyu" "$EMUDECKGIT/configs/org.suyu_emu.suyu/config/suyu" "true"
-    configEmuAI "$Suyu_emuName" "data" "$HOME/.local/share/suyu" "$EMUDECKGIT/configs/org.suyu_emu.suyu/data/suyu" "true"
+    suyu_migrate
+    configEmuAI "$suyu_emuName" "config" "$HOME/.config/suyu" "$EMUDECKGIT/configs/org.suyu_emu.suyu/config/suyu" "true"
+    configEmuAI "$suyu_emuName" "data" "$HOME/.local/share/suyu" "$EMUDECKGIT/configs/org.suyu_emu.suyu/data/suyu" "true"
 
-    Suyu_setEmulationFolder
-    Suyu_setupStorage
-    Suyu_setupSaves
-    Suyu_finalize
+    suyu_setEmulationFolder
+    suyu_setupStorage
+    suyu_setupSaves
+    suyu_finalize
     #SRM_createParsers
-    Suyu_flushEmulatorLauncher
+    suyu_flushEmulatorLauncher
   	createDesktopShortcut   "$HOME/.local/share/applications/suyu.desktop" \
 							"suyu (AppImage)" \
 							"${toolsPath}/launchers/suyu.sh"  \
 							"False"
 
 	if [ -e "$ESDE_toolPath" ]; then
-		Suyu_addESConfig
+		suyu_addESConfig
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
@@ -94,24 +92,24 @@ Suyu_init() {
 }
 
 #update
-Suyu_update() {
-    echo "Begin Suyu update"
+suyu_update() {
+    echo "Begin suyu update"
 
-    Suyu_migrate
+    suyu_migrate
 
-    configEmuAI "$Suyu_emuName" "config" "$HOME/.config/suyu" "$EMUDECKGIT/configs/org.suyu_emu.suyu/config/suyu"
-    configEmuAI "$Suyu_emuName" "data" "$HOME/.local/share/suyu" "$EMUDECKGIT/configs/org.suyu_emu.suyu/data/suyu"
+    configEmuAI "$suyu_emuName" "config" "$HOME/.config/suyu" "$EMUDECKGIT/configs/org.suyu_emu.suyu/config/suyu"
+    configEmuAI "$suyu_emuName" "data" "$HOME/.local/share/suyu" "$EMUDECKGIT/configs/org.suyu_emu.suyu/data/suyu"
 
-    Suyu_setEmulationFolder
-    Suyu_setupStorage
-    Suyu_setupSaves
-    Suyu_finalize
-    Suyu_flushEmulatorLauncher
+    suyu_setEmulationFolder
+    suyu_setupStorage
+    suyu_setupSaves
+    suyu_finalize
+    suyu_flushEmulatorLauncher
 }
 
 #ConfigurePaths
-Suyu_setEmulationFolder() {
-    echo "Begin Suyu Path Config"
+suyu_setEmulationFolder() {
+    echo "Begin suyu Path Config"
 
     screenshotDirOpt='Screenshots\\screenshot_path='
     gameDirOpt='Paths\\gamedirs\\4\\path='
@@ -128,13 +126,13 @@ Suyu_setEmulationFolder() {
     newSdmcDirOpt='sdmc_directory='"${storagePath}/suyu/sdmc"
     newTasDirOpt='tas_directory='"${storagePath}/suyu/tas"
 
-    sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" "$Suyu_configFile"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Suyu_configFile"
-    sed -i "/${dumpDirOpt}/c\\${newDumpDirOpt}" "$Suyu_configFile"
-    sed -i "/${loadDir}/c\\${newLoadDir}" "$Suyu_configFile"
-    sed -i "/${nandDirOpt}/c\\${newNandDirOpt}" "$Suyu_configFile"
-    sed -i "/${sdmcDirOpt}/c\\${newSdmcDirOpt}" "$Suyu_configFile"
-    sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "$Suyu_configFile"
+    sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" "$suyu_configFile"
+    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$suyu_configFile"
+    sed -i "/${dumpDirOpt}/c\\${newDumpDirOpt}" "$suyu_configFile"
+    sed -i "/${loadDir}/c\\${newLoadDir}" "$suyu_configFile"
+    sed -i "/${nandDirOpt}/c\\${newNandDirOpt}" "$suyu_configFile"
+    sed -i "/${sdmcDirOpt}/c\\${newSdmcDirOpt}" "$suyu_configFile"
+    sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "$suyu_configFile"
 
     #Setup Bios symlinks
     unlink "${biosPath}/suyu/keys" 2>/dev/null
@@ -151,8 +149,8 @@ Suyu_setEmulationFolder() {
 }
 
 #SetLanguage
-Suyu_setLanguage(){
-    setMSG "Setting Suyu Language"
+suyu_setLanguage(){
+    setMSG "Setting suyu Language"
 
     languageOpt="language_index="
     languageDefaultOpt="language_index\\\\default="
@@ -161,29 +159,29 @@ Suyu_setLanguage(){
     regionDefaultOpt="region_index\\\\default="
     newRegionDefaultOpt="region_index\\\\default=false"
 	#TODO: call this somewhere, and input the $language from somewhere (args?)
-	if [[ -f "${Suyu_configFile}" ]]; then
-		if [ ${Suyu_languages[$language]+_} ]; then
-            newLanguageOpt='language_index='"${Suyu_languages[$language]}"
-            newRegionOpt='region_index='"${Suyu_regions[$language]}"
-            changeLine "$languageOpt" "$newLanguageOpt" "$Suyu_configFile"
-            changeLine "$languageDefaultOpt" "$newLanguageDefaultOpt" "$Suyu_configFile"
-            changeLine "$regionOpt" "$newRegionOpt" "$Suyu_configFile"
-            changeLine "$regionDefaultOpt" "$newRegionDefaultOpt" "$Suyu_configFile"
+	if [[ -f "${suyu_configFile}" ]]; then
+		if [ ${suyu_languages[$language]+_} ]; then
+            newLanguageOpt='language_index='"${suyu_languages[$language]}"
+            newRegionOpt='region_index='"${suyu_regions[$language]}"
+            changeLine "$languageOpt" "$newLanguageOpt" "$suyu_configFile"
+            changeLine "$languageDefaultOpt" "$newLanguageDefaultOpt" "$suyu_configFile"
+            changeLine "$regionOpt" "$newRegionOpt" "$suyu_configFile"
+            changeLine "$regionDefaultOpt" "$newRegionDefaultOpt" "$suyu_configFile"
 		fi
 	fi
 }
 
 #SetupSaves
-Suyu_setupSaves() {
-    echo "Begin Suyu save link"
+suyu_setupSaves() {
+    echo "Begin suyu save link"
     unlink "${savesPath}/suyu/saves" 2>/dev/null # Fix for previous bad symlink2>/dev/null
     linkToSaveFolder suyu saves "${storagePath}/suyu/nand/user/save/"
     linkToSaveFolder suyu profiles "${storagePath}/suyu/nand/system/save/8000000000000010/su/avators/"
 }
 
 #SetupStorage
-Suyu_setupStorage() {
-    echo "Begin Suyu storage config"
+suyu_setupStorage() {
+    echo "Begin suyu storage config"
     mkdir -p "${storagePath}/suyu/dump"
     mkdir -p "${storagePath}/suyu/load"
     mkdir -p "${storagePath}/suyu/sdmc"
@@ -195,24 +193,24 @@ Suyu_setupStorage() {
 }
 
 #WipeSettings
-Suyu_wipe() {
-    echo "Begin Suyu delete config directories"
+suyu_wipe() {
+    echo "Begin suyu delete config directories"
     rm -rf "$HOME/.config/suyu"
     rm -rf "$HOME/.local/share/suyu"
 }
 
 #Uninstall
-Suyu_uninstall() {
-    echo "Begin Suyu uninstall"
-    rm -rf "$Suyu_emuPath"
-    SuyuEA_uninstall
+suyu_uninstall() {
+    echo "Begin suyu uninstall"
+    rm -rf "$suyu_emuPath"
+    suyuEA_uninstall
 }
 
 
 #Migrate
-Suyu_migrate() {
-    echo "Begin Suyu Migration"
-    migrationFlag="$HOME/.config/EmuDeck/.${Suyu_emuName}MigrationCompleted"
+suyu_migrate() {
+    echo "Begin suyu Migration"
+    migrationFlag="$HOME/.config/EmuDeck/.${suyu_emuName}MigrationCompleted"
     #check if we have a nomigrateflag for $emu
     if [ ! -f "$migrationFlag" ]; then
         #suyu flatpak to appimage
@@ -228,7 +226,7 @@ Suyu_migrate() {
     #move data from hidden folders out to these folders in case the user already put stuff here.
     origPath="$HOME/.local/share/"
 
-    Suyu_setupStorage
+    suyu_setupStorage
 
     rsync -av "${origPath}suyu/dump" "${storagePath}/suyu/" && rm -rf "${origPath}suyu/dump"
     rsync -av "${origPath}suyu/load" "${storagePath}/suyu/" && rm -rf "${origPath}suyu/load"
@@ -239,37 +237,37 @@ Suyu_migrate() {
 }
 
 #setABXYstyle
-Suyu_setABXYstyle() {
+suyu_setABXYstyle() {
     echo "NYI"
 }
 
 #WideScreenOn
-Suyu_wideScreenOn() {
+suyu_wideScreenOn() {
     echo "NYI"
 }
 
 #WideScreenOff
-Suyu_wideScreenOff() {
+suyu_wideScreenOff() {
     echo "NYI"
 }
 
 #BezelOn
-Suyu_bezelOn() {
+suyu_bezelOn() {
     echo "NYI"
 }
 
 #BezelOff
-Suyu_bezelOff() {
+suyu_bezelOff() {
     echo "NYI"
 }
 
 #finalExec - Extra stuff
-Suyu_finalize() {
-    echo "Begin Suyu finalize"
+suyu_finalize() {
+    echo "Begin suyu finalize"
 }
 
-Suyu_IsInstalled() {
-    if [ -e "$Suyu_emuPath" ]; then
+suyu_IsInstalled() {
+    if [ -e "$suyu_emuPath" ]; then
         echo "true"
     else
         echo "false"
@@ -277,16 +275,16 @@ Suyu_IsInstalled() {
 }
 
 
-Suyu_resetConfig() {
-    Suyu_init &>/dev/null && echo "true" || echo "false"
+suyu_resetConfig() {
+    suyu_init &>/dev/null && echo "true" || echo "false"
 }
 
 
 
 
-### Suyu EA
+### suyu EA
 
-SuyuEA_install() {
+suyuEA_install() {
     local jwtHost="https://api.suyu-emu.org/jwt/installer/"
     local suyuEaHost="https://api.suyu-emu.org/downloads/earlyaccess/"
     local suyuEaMetadata=$(curl -fSs ${suyuEaHost})
@@ -304,8 +302,8 @@ SuyuEA_install() {
 
     #echo "download ea appimage"
 
-    if safeDownload "suyu-ea" "$fileToDownload" "${SuyuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
-        chmod +x "$SuyuEA_emuPath"
+    if safeDownload "suyu-ea" "$fileToDownload" "${suyuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
+        chmod +x "$suyuEA_emuPath"
 
         cp -v "${EMUDECKGIT}/tools/launchers/suyu.sh" "${toolsPath}/launchers/" &>/dev/null
         chmod +x "${toolsPath}/launchers/suyu.sh"
@@ -318,17 +316,17 @@ SuyuEA_install() {
 
 }
 
-SuyuEA_addToken(){
+suyuEA_addToken(){
     local tokenValue=$1
     local user=""
     local auth=""
 
-   read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')" && SuyuEA_install "$tokenValue" || echo "invalid"
+   read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')" && suyuEA_install "$tokenValue" || echo "invalid"
 }
 
 
-SuyuEA_IsInstalled() {
-    if [ -e "$SuyuEA_emuPath" ]; then
+suyuEA_IsInstalled() {
+    if [ -e "$suyuEA_emuPath" ]; then
         echo "true"
     else
         echo "false"
@@ -336,12 +334,12 @@ SuyuEA_IsInstalled() {
 }
 
 
-SuyuEA_uninstall() {
-    echo "Begin Suyu EA uninstall"
-    rm -rf "$SuyuEA_emuPath"
+suyuEA_uninstall() {
+    echo "Begin suyu EA uninstall"
+    rm -rf "$suyuEA_emuPath"
 }
 
-Suyu_setResolution(){
+suyu_setResolution(){
 
 	case $suyuResolution in
 		"720P") multiplier=2; docked="false";;
@@ -351,18 +349,18 @@ Suyu_setResolution(){
 		*) echo "Error"; return 1;;
 	esac
 
-	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Suyu_configFile"
-	RetroArch_setConfigOverride "use_docked_mode" $docked "$Suyu_configFile"
+	RetroArch_setConfigOverride "resolution_setup" $multiplier "$suyu_configFile"
+	RetroArch_setConfigOverride "use_docked_mode" $docked "$suyu_configFile"
 }
 
-Suyu_flushEmulatorLauncher(){
+suyu_flushEmulatorLauncher(){
 
 
 	flushEmulatorLaunchers "suyu"
 
 }
 
-Suyu_addESConfig(){
+suyu_addESConfig(){
 	if [[ $(grep -rnw "$es_systemsFile" -e 'switch') == "" ]]; then
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
@@ -373,7 +371,7 @@ Suyu_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'commandB' -v "%EMULATOR_RYUJINX% %ROM%" \
 		--insert '$newSystem/commandB' --type attr --name 'label' --value "Ryujinx (Standalone)" \
 		--subnode '$newSystem' --type elem --name 'commandV' -v "%INJECT%=%BASENAME%.esprefix %EMULATOR_YUZU% -f -g %ROM%" \
-		--insert '$newSystem/commandV' --type attr --name 'label' --value "Suyu (Standalone)" \
+		--insert '$newSystem/commandV' --type attr --name 'label' --value "suyu (Standalone)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'switch' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'switch' \
 		-r 'systemList/system/commandB' -v 'command' \
