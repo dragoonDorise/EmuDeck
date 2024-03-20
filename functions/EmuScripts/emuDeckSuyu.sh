@@ -137,7 +137,7 @@ suyu_setEmulationFolder() {
     #Setup Bios symlinks
     unlink "${biosPath}/suyu/keys" 2>/dev/null
     unlink "${biosPath}/suyu/firmware" 2>/dev/null
-
+    mkdir -p ${biosPath}/suyu
     mkdir -p "$HOME/.local/share/suyu/keys/"
     mkdir -p "${storagePath}/suyu/nand/system/Contents/registered/"
 
