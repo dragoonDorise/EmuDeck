@@ -22,7 +22,7 @@
   "xenia": { "id": "xenia", "code": "Xenia", "version": 2 },
   "mgba": { "id": "mgba", "code": "mGBA", "version": 0 },
   "flycast": { "id": "flycast", "code": "Flycast", "version": 0 },
-  "bigpemu": { "id": "bigpemu", "code": "BigPemu", "version": 0 },
+  "bigpemu": { "id": "bigpemu", "code": "BigPEmu", "version": 0 },
   "model2": { "id": "model2", "code": "Model2", "version": 1 },
   "supermodel": { "id": "supermodel", "code": "Supermodel", "version": 1 }
 }
