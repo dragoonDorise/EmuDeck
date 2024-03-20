@@ -78,7 +78,7 @@ RetroArch_init(){
 	RetroArch_autoSave
 	RetroArch_setRetroAchievements
 	RetroArch_melonDSDSMigration
-	RetroArch_buildbotDownloader
+	#RetroArch_buildbotDownloader
 	#SRM_createParsers
 	RetroArch_flushEmulatorLauncher
 	mkdir -p "$biosPath/mame/bios"
