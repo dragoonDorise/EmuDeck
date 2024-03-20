@@ -2543,7 +2543,7 @@ RetroArch_IsInstalled(){
 }
 
 RetroArch_resetConfig(){
-	RetroArch_resetCoreConfigs &>/dev/null && RetroArch_init &>/dev/null && echo "true" || echo "false"
+	RetroArch_resetCoreConfigs &>/dev/null && echo "true" || echo "false"
 }
 
 RetroArch_flushEmulatorLauncher(){
