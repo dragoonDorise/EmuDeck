@@ -175,6 +175,11 @@ BigPEmu_IsInstalled(){
 	fi
 }
 
+
+BigPemu_resetConfig(){
+	BigPEmu_resetConfig
+}
+
 BigPEmu_resetConfig(){
 	mv  "$BigPEmu_BigPEmuSettings" "$BigPEmu_BigPEmuSettings.bak" &>/dev/null
 	BigPEmu_init &>/dev/null && echo "true" || echo "false"
