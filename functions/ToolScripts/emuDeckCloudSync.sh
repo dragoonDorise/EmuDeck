@@ -293,7 +293,7 @@ cloud_sync_upload(){
 }
 
 cloud_sync_download(){
-	local branch=$("cd $HOME/.config/EmuDeck/backend && git rev-parse --abbrev-ref HEAD")
+	local branch=$(cd "$HOME"/.config/EmuDeck/backend && git rev-parse --abbrev-ref HEAD)
 	if [ "$branch" == "early" ] || [ "$branch" == "dev" ] ; then
 		echo "CloudSync Downloading"
 	else
@@ -593,7 +593,7 @@ cloud_sync_createService(){
   local service_name="EmuDeckCloudSync"
   local script_path="$HOME/.config/EmuDeck/backend/tools/cloudSync/cloud_sync_watcher.sh"
   local user_service_dir="$HOME/.config/systemd/user/"
-
+  mkdir -p $user_service_dir
   touch "$user_service_dir/$service_name.service"
   cat <<EOF > "$user_service_dir/$service_name.service"
 [Unit]
