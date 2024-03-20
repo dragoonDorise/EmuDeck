@@ -57,4 +57,15 @@
             <entry>~/.local/share/flatpak/exports/bin/org.yuzu_emu.yuzu</entry>
         </rule>
     </emulator>
+	<emulator name="SUYU">
+		<!-- Nintendo Switch emulator Yuzu -->
+		<rule type="systempath">
+			<entry>suyu</entry>
+			<entry>org.suyu_emu.suyu</entry>
+		</rule>
+		<rule type="staticpath">
+			<entry>~/Applications/suyu*.AppImage</entry>
+		</rule>
+	</emulator>
+
 </ruleList>
