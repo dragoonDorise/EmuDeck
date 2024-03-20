@@ -79,7 +79,7 @@ RetroArch_init(){
 	RetroArch_autoSave
 	RetroArch_setRetroAchievements
 	RetroArch_melonDSDSMigration
-	#RetroArch_buildbotDownloader
+	RetroArch_buildbotDownloader
 	#SRM_createParsers
 	RetroArch_flushEmulatorLauncher
 	mkdir -p "$biosPath/mame/bios"
@@ -302,10 +302,10 @@ RetroArch_buildbotDownloader(){
 	fi
 
 	# Assets
-#	if  [[ ! "$( ls -A "$assetsDir")" ]] ; then
-#		{ curl -L "$RetroArch_assetsURL" -o "$assetsDir/assets.zip" && nice -n 5 unzip -q -o "$assetsDir/assets.zip" -d "$assetsDir" && rm "$assetsDir/assets.zip"; } &> /dev/null
-#
-#	fi
+	if  [[ ! "$( ls -A "$assetsDir")" ]] ; then
+		{ curl -L "$RetroArch_assetsURL" -o "$assetsDir/assets.zip" && nice -n 5 unzip -q -o "$assetsDir/assets.zip" -d "$assetsDir" && rm "$assetsDir/assets.zip"; } &> /dev/null
+
+	fi
 
 	# Overlays
 	if [[ ! "$( ls -A "$overlaysDir/borders")" ]] ; then
