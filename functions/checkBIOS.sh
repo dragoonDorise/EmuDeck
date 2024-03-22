@@ -66,9 +66,10 @@ checkPS2BIOS(){
 }
 
 checkYuzuBios(){
-	
-	FILE="$HOME/.local/share/yuzu/keys/prod.keys"
-	if [ -f "$FILE" ]; then	
+
+	RYUJINXFIRMWARE="$HOME/.config/Ryujinx/bis/system/Contents/registered"
+	RYUJINXKEYS="$HOME/.config/Ryujinx/system/prod.keys"
+	if [[ -f "$RYUJINXKEYS" ]] && [[ "$( ls -A "$RYUJINXFIRMWARE")" ]]; then	
 			echo "true";
 	else
 			echo "false";
