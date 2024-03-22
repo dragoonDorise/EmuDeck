@@ -17,11 +17,6 @@ appImageInit() {
 	autofix_duplicateESDE
 	autofix_lnk
 	SRM_migration # 2.2 Changes
-	ESDE_migration # 2.2 Changes
-	autofix_dynamicParsers # 2.2 Changes
-
-	#Force SRM appimage move in case the migration fails
-	mv "${toolsPath}/srm/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" &> /dev/null
 
 	if [ -d "$HOME/.config/pegasus-frontend/config" ]; then
 	  rsync -avz $HOME/.config/pegasus-frontend/config/  $HOME/.config/pegasus-frontend/
