@@ -210,7 +210,7 @@ cloud_backup_etup(){
 cloud_backup_createJob(){
 
 echo '#!/bin/bash'>"$rclone_jobScript"
-echo "source \$HOME/emudeck/settings.sh
+echo "source \$HOME/.config/EmuDeck/settings.sh
 PIDFILE=\"\$toolsPath/rclone/rclone.pid\"
 
 function finish {
@@ -250,7 +250,7 @@ fi
 chmod +x "$rclone_jobScript"
 
 echo '#!/bin/bash'>"$rclone_restoreScript"
-echo "source \$HOME/emudeck/settings.sh
+echo "source \$HOME/.config/EmuDeck/settings.sh
 PIDFILE=\"\$toolsPath/rclone/rclone.pid\"
 
 function finish {

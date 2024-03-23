@@ -623,17 +623,17 @@ cloud_sync_stopService(){
 
 cloud_sync_lock(){
   # startLog ${FUNCNAME[0]}
- touch "$HOME/emudeck/cloud.lock"
+ touch "$HOME/.config/EmuDeck/cloud.lock"
 }
 
 cloud_sync_unlock(){
   # startLog ${FUNCNAME[0]}
-  rm -rf "$HOME/emudeck/cloud.lock"
+  rm -rf "$HOME/.config/EmuDeck/cloud.lock"
 }
 
 cloud_sync_check_lock(){
   # startLog ${FUNCNAME[0]}
-  lockedFile="$HOME\emudeck\cloud.lock"
+  lockedFile="$HOME/.config/EmuDeck/cloud.lock"
 
   if [ -f $lockedFile ]; then
    text="$(printf "<b>CloudSync in progress!</b>\nWe're syncing your saved games, please wait...")"
@@ -658,13 +658,13 @@ cloud_decky_check_status(){
   # startLog ${FUNCNAME[0]}
   if [ $(check_internet_connection) == "true" ]; then
     if [ $cloud_sync_status = "true" ]; then
-      if [ -f "$savesPath/.gaming" ] && [ ! -f "$HOME/emudeck/cloud.lock" ]; then
+      if [ -f "$savesPath/.gaming" ] && [ ! -f "$HOME/.config/EmuDeck/emudeck/cloud.lock" ]; then
         echo "started"
       elif [ -f "$savesPath/.gaming" ]; then
         echo "nothing"
-      elif [ -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
+      elif [ -f "$HOME/.config/EmuDeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
         echo "uploading"
-      elif [ ! -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
+      elif [ ! -f "$HOME/.config/EmuDeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
         echo "nothing"
       else
         echo "nothing"

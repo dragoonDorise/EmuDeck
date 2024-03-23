@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Global variables
-emuDecksettingsFile="$HOME/emudeck/settings.sh"
+emuDecksettingsFile="$HOME/.local/share/emudeck/settings.sh"
 
 emuDeckEmuTypeFlatpak="Flatpak"
 emuDeckEmuTypeAppImage="AppImage"
@@ -11,8 +11,8 @@ emuDeckEmuTypeOther="Other"
 
 function startLog() {
 	funcName="$1"
-	mkdir -p "$HOME/emudeck/logs"
-	logFile="$HOME/emudeck/logs/$funcName.log"
+	mkdir -p "$HOME/.config/EmuDeck/logs"
+	logFile="$HOME/.config/EmuDeck/logs/$funcName.log"
 
 	touch "$logFile"
 
@@ -749,9 +749,9 @@ check_internet_connection(){
 }
 
 zipLogs() {
-	logsFolder="$HOME/emudeck/logs"
-	settingsFile="$HOME/emudeck/settings.sh"
-	zipOutput="$HOME/Desktop/emudeck_logs.zip"
+	logsFolder="$HOME/.config/EmuDeck/logs"
+	settingsFile="$HOME/.config/EmuDeck/settings.sh"
+	zipOutput="$HOME/.config/EmuDeck/logs/emudeck_logs.zip"
 
 	# Comprime los archivos en un archivo zip
 	zip -rj "$zipOutput" "$logsFolder" "$settingsFile"
@@ -844,7 +844,7 @@ saveLatestVersionGH() {
 		emuVersion=$(getLatestVersionGH "$repo")
 
 		# JSON file path
-		jsonFilePath="$HOME/emudeck/emu_versions.json"
+		jsonFilePath="$HOME/.local/share/emu_versions.json"
 
 		if [ -e "$jsonFilePath" ]; then
 			echo "file found"
@@ -871,11 +871,11 @@ saveLatestVersionGH() {
 
 isLatestVersionGH() {
 	emuName=$1
-	dontUpdate="$HOME/emudeck/emulatorInit.noupdate"
+	dontUpdate="$HOME/.local/share/emudeck/emulatorInit.noupdate"
 	emuDontUpdate="${emuName}.noupdate"
 
 	# check global noupdate file flag, emulator noupdate flag file using case insensitive find and internet connectivity
-	if [ ! -f "${dontUpdate}" ] && [[ -z $(find "$HOME/emudeck/" -maxdepth 1 -type f -iname "${emuDontUpdate}") ]] && [ "$(check_internet_connection)" == "true" ]; then
+	if [ ! -f "${dontUpdate}" ] && [[ -z $(find "$HOME/.local/share/emudeck/" -maxdepth 1 -type f -iname "${emuDontUpdate}") ]] && [ "$(check_internet_connection)" == "true" ]; then
 		repo=$(getEmuRepo "$emuName")
 
 		if [ "$repo" == "none" ]; then
@@ -884,7 +884,7 @@ isLatestVersionGH() {
 			emuVersion=$(getLatestVersionGH "$repo")
 
 			# JSON file path
-			jsonFilePath="$HOME/emudeck/emu_versions.json"
+			jsonFilePath="$HOME/.local/share/emu_versions.json"
 
 			if [ -f "$jsonFilePath" ]; then
 				echo "file found"

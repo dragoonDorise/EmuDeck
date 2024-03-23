@@ -11,7 +11,7 @@ echo $branch > "$HOME/.config/EmuDeck/branch.txt"
 
 #VARS
 EMUDECKGIT="$HOME/.config/EmuDeck/backend"
-emuDecksettingsFile="$HOME/emudeck/settings.sh"
+emuDecksettingsFile="$HOME/.config/EmuDeck/settings.sh"
 
 
 
