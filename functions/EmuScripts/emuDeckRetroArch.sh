@@ -38,6 +38,7 @@ RetroArch_backupConfigs(){
 RetroArch_install(){
 	setMSG "Installing $RetroArch_emuName"
 	installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
+	RetroArch_installCores
 }
 
 
@@ -70,7 +71,7 @@ RetroArch_init(){
 	RetroArch_setEmulationFolder
 	RetroArch_setupSaves
 	RetroArch_setupStorage
-	RetroArch_installCores
+	#RetroArch_installCores
 	RetroArch_setUpCoreOptAll
 	RetroArch_setConfigAll
 	RetroArch_setupConfigurations
@@ -219,7 +220,7 @@ RetroArch_update(){
 #ConfigurePaths
 RetroArch_setEmulationFolder(){
     setMSG "Setting $RetroArch_emuName Emulation Folder"
-	
+
     RetroArch_setConfigOverride 'system_directory' "${biosPath}" "$RetroArch_configFile"
     RetroArch_setConfigOverride 'rgui_browser_directory' "${romsPath}" "$RetroArch_configFile"
     RetroArch_setConfigOverride 'cheat_database_path' "${storagePath}/retroarch/cheats" "$RetroArch_configFile"
@@ -354,11 +355,11 @@ RetroArch_uninstall(){
 
 #setABXYstyle
 RetroArch_setABXYstyle(){
-	mv "$RetroArch_remapsDir/mGBA/mGBA.rmp.disabled" "$RetroArch_remapsDir/mGBA/mGBA.rmp"  
-	mv "$RetroArch_remapsDir/Gambatte/Gambatte.rmp.disabled" "$RetroArch_remapsDir/Gambatte/Gambatte.rmp" 
+	mv "$RetroArch_remapsDir/mGBA/mGBA.rmp.disabled" "$RetroArch_remapsDir/mGBA/mGBA.rmp"
+	mv "$RetroArch_remapsDir/Gambatte/Gambatte.rmp.disabled" "$RetroArch_remapsDir/Gambatte/Gambatte.rmp"
 	mv "$RetroArch_remapsDir/bsnes-hd beta/bsnes-hd beta.rmp.disabled" "$RetroArch_remapsDir/bsnes-hd beta/bsnes-hd beta.rmp"
-	mv "$RetroArch_remapsDir/melonDS DS/melonDS DS.rmp.disabled" "$RetroArch_remapsDir/melonDS DS/melonDS DS.rmp" 
-	mv "$RetroArch_remapsDir/Mupen64Plus-Next/Mupen64Plus-Next.rmp.disabled" "$RetroArch_remapsDir/Mupen64Plus-Next/Mupen64Plus-Next.rmp" 
+	mv "$RetroArch_remapsDir/melonDS DS/melonDS DS.rmp.disabled" "$RetroArch_remapsDir/melonDS DS/melonDS DS.rmp"
+	mv "$RetroArch_remapsDir/Mupen64Plus-Next/Mupen64Plus-Next.rmp.disabled" "$RetroArch_remapsDir/Mupen64Plus-Next/Mupen64Plus-Next.rmp"
 	mv "$RetroArch_remapsDir/SameBoy/SameBoy.rmp.disabled" "$RetroArch_remapsDir/SameBoy/SameBoy.rmp"
 	mv "$RetroArch_remapsDir/Snes9x/Snes9x.rmp.disabled" "$RetroArch_remapsDir/Snes9x/Snes9x.rmp"
 	mv "$RetroArch_remapsDir/Mesen/Mesen.rmp.disabled" "$RetroArch_remapsDir/Mesen/Mesen.rmp"
@@ -367,8 +368,8 @@ RetroArch_setABXYstyle(){
 
 }
 RetroArch_setBAYXstyle(){
-	mv "$RetroArch_remapsDir/mGBA/mGBA.rmp" "$RetroArch_remapsDir/mGBA/mGBA.rmp.disabled"  
-	mv "$RetroArch_remapsDir/Gambatte/Gambatte.rmp" "$RetroArch_remapsDir/Gambatte/Gambatte.rmp.disabled"  
+	mv "$RetroArch_remapsDir/mGBA/mGBA.rmp" "$RetroArch_remapsDir/mGBA/mGBA.rmp.disabled"
+	mv "$RetroArch_remapsDir/Gambatte/Gambatte.rmp" "$RetroArch_remapsDir/Gambatte/Gambatte.rmp.disabled"
 	mv "$RetroArch_remapsDir/bsnes-hd beta/bsnes-hd beta.rmp" "$RetroArch_remapsDir/bsnes-hd beta/bsnes-hd beta.rmp.disabled"
 	mv "$RetroArch_remapsDir/melonDS DS/melonDS DS.rmp" "$RetroArch_remapsDir/melonDS DS/melonDS DS.rmp.disabled"
 	mv "$RetroArch_remapsDir/Mupen64Plus-Next/Mupen64Plus-Next.rmp" "$RetroArch_remapsDir/Mupen64Plus-Next/Mupen64Plus-Next.rmp.disabled"
@@ -2543,7 +2544,7 @@ RetroArch_IsInstalled(){
 }
 
 RetroArch_resetConfig(){
-	RetroArch_resetCoreConfigs &>/dev/null && RetroArch_init &>/dev/null && echo "true" || echo "false"
+	RetroArch_resetCoreConfigs &>/dev/null && echo "true" || echo "false"
 }
 
 RetroArch_flushEmulatorLauncher(){
