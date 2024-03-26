@@ -27,11 +27,9 @@ netplaySetIP(){
 }
 
 netplaySetHost(){
-	setSetting netplay "true"
 	setSetting netplayHost "true"
 }
 
 netplaySetClient(){
-	setSetting netplay "true"
 	setSetting netplayHost "false"
 }

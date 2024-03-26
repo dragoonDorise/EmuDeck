@@ -949,6 +949,7 @@ function emulatorInit(){
 			fi
 		else
 			setSetting netplayCMD ""
+			setSetting netplayHost "false"
 		fi
 
 	fi
