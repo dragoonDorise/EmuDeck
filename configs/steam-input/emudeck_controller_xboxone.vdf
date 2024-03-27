@@ -432,6 +432,7 @@
 		"settings"
 		{
 			"deadzone_inner_radius"		"7199"
+			"deadzone_enable_type"		"1"
 		}
 	}
 	"group"
@@ -538,6 +539,10 @@
 				{
 				}
 			}
+		}
+		"settings"
+		{
+			"deadzone_enable_type"		"1"
 		}
 	}
 	"group"
