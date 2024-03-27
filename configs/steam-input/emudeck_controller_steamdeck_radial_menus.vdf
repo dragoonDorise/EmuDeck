@@ -8803,8 +8803,8 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button START, Quick Menu, EmuDeck_Menu.png, "
-							"binding"		"xinput_button JOYSTICK_LEFT, Quick Menu, EmuDeck_Menu.png, "
+							"binding"		"xinput_button SELECT, Quick Menu, EmuDeck_Menu.png, "
+							"binding"		"xinput_button JOYSTICK_RIGHT, Quick Menu, EmuDeck_Menu.png, "
 						}
 						"settings"
 						{
@@ -9029,7 +9029,6 @@
 		"settings"
 		{
 			"touch_menu_opacity"		"100"
-			"touch_menu_scale"		"120"
 		}
 	}
 	"group"

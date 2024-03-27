@@ -303,6 +303,10 @@
 				}
 			}
 		}
+		"settings"
+		{
+			"deadzone_enable_type"		"1"
+		}
 	}
 	"group"
 	{
@@ -328,6 +332,10 @@
 				{
 				}
 			}
+		}
+		"settings"
+		{
+			"deadzone_enable_type"		"1"
 		}
 	}
 	"group"
@@ -791,6 +799,7 @@
 		"settings"
 		{
 			"deadzone_inner_radius"		"7199"
+			"deadzone_enable_type"		"1"
 		}
 	}
 	"group"
@@ -897,6 +906,10 @@
 				{
 				}
 			}
+		}
+		"settings"
+		{
+			"deadzone_enable_type"		"1"
 		}
 	}
 	"group"
@@ -1135,6 +1148,70 @@
 						"bindings"
 						{
 							"binding"		"xinput_button SHOULDER_RIGHT, Select + R1 - Save State / Start + R1 - Next Save State Slot, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_back_left"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action empty_binding, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_back_right"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action empty_binding, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_back_left_upper"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action empty_binding, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_back_right_upper"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action empty_binding, , "
 						}
 					}
 				}
