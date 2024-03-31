@@ -64,18 +64,36 @@ Citra_setEmulationFolder(){
 	setMSG "Setting $Citra_emuName Emulation Folder"
 
 
-	mkdir -p "$Citra_configPath"
-	rsync -avhp "$EMUDECKGIT/configs/org.citra_emu.citra/config/citra-emu/qt-config.ini" "$Citra_configPath/qt-config.ini" --backup --suffix=.bak
-	gameDirOpt='Paths\\gamedirs\\3\\path='
-	newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/n3ds"
-	sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_configFile"
+	if [ -e "$Citra_emuPath" ]; then
 
-	#Setup symlink for AES keys
-	mkdir -p "${biosPath}/citra/"
-	mkdir -p "$HOME/.local/share/citra-emu/sysdata"
-	ln -sn "$HOME/.local/share/citra-emu/sysdata" "${biosPath}/citra/keys"
+		echo "AppImage found. Setting configurations."
 
-	if [ -d $Citra_flatpakPath ]; then 
+		mkdir -p "$Citra_configPath"
+		rsync -avhp "$EMUDECKGIT/configs/org.citra_emu.citra/config/citra-emu/qt-config.ini" "$Citra_configPath/qt-config.ini" --backup --suffix=.bak
+		gameDirOpt='Paths\\gamedirs\\3\\path='
+		newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/n3ds"
+		sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_configFile"
+
+		#Setup symlink for AES keys
+		mkdir -p "${biosPath}/citra/"
+		mkdir -p "$HOME/.local/share/citra-emu/sysdata"
+		ln -sn "$HOME/.local/share/citra-emu/sysdata" "${biosPath}/citra/keys"
+
+	else 
+		echo "AppImage not found."
+	fi
+
+
+	if [ "$(isFpInstalled "$Citra_flatpakName")" == "true" ]; then 
+
+		echo "Flatpak found. Setting configurations."
+
+		if [[ -e "$Citra_emuPath" ]] && [[ ! -f "$HOME/.config/EmuDeck/.citrasaves" ]];  then
+			echo "AppImage found. Copying Flatpak saves."
+			mkdir -p "$HOME/.local/share/citra-emu/sdmc"
+			rsync -avhp "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc/." "$HOME/.local/share/citra-emu/sdmc/."  --ignore-existing
+			touch "$HOME/.config/EmuDeck/.citrasaves"
+		fi
 
 		mkdir -p $Citra_flatpakconfigPath
 		rsync -avhp "$EMUDECKGIT/configs/org.citra_emu.citra/config/citra-emu/qt-config.ini" "$Citra_flatpakconfigPath/qt-config.ini" --backup --suffix=.bak
@@ -88,6 +106,8 @@ Citra_setEmulationFolder(){
 		mkdir -p "${biosPath}/citra-flatpak"
 		ln -sn "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sysdata" "${biosPath}/citra-flatpak/keys"
 
+	else
+		echo "Flatpak not found."
 	fi
 
 
@@ -240,13 +260,17 @@ Citra_flushSymlinks(){
 		fi
 		find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
 
-		touch "$HOME/.config/EmuDeck/.citrasymlinks"	
+		touch "$HOME/.config/EmuDeck/.citrasymlinks"
 		echo "Citra symlink cleanup completed."
-		zenity --info --text="Citra symlinks have been cleaned. This cleanup was conducted to prevent any potential breakage with symlinks. Place all new ROMs in Emulation/roms/n3ds. Your ROMs have been moved from Emulation/roms/3ds to Emulation/roms/n3ds." --title="Symlink Update"
+		zenity --info \
+		--text="Citra symlinks have been cleaned. This cleanup was conducted to prevent any potential breakage with symlinks. Place all new ROMs in Emulation/roms/n3ds. Your ROMs have been moved from Emulation/roms/3ds to Emulation/roms/n3ds." \
+		--title="Symlink Update" \
+		--width=400 \
+		--height=300
 
-	else 
+	else
 		echo "Citra symlinks already cleaned."
-	fi 
+	fi
 
 
 }
