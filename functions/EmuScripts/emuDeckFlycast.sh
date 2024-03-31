@@ -28,6 +28,7 @@ Flycast_init(){
 	#SRM_createParsers
 	#Flycast_addSteamInputProfile
 	Flycast_flushEmulatorLauncher
+	Flycast_addSteamInputProfile
 }
 
 #update
@@ -39,6 +40,7 @@ Flycast_update(){
 	Flycast_setupSaves
 	#Flycast_addSteamInputProfile
 	Flycast_flushEmulatorLauncher
+	Flycast_addSteamInputProfile
 }
 
 #ConfigurePaths
@@ -152,4 +154,9 @@ Flycast_flushEmulatorLauncher(){
 
 	flushEmulatorLaunchers "flycast"
 
+}
+
+Flycast_addSteamInputProfile(){
+	setMSG "Adding $Flycast_emuName Steam Input Profile."
+	rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/emudeck_steam_deck_light_gun_controls.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf"
 }

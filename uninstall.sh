@@ -446,8 +446,7 @@ fi
 	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_frontend_controller_switch_pro.vdf &> /dev/null
 	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_frontend_controller_xbox360.vdf &> /dev/null
 	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_frontend_controller_xboxone.vdf &> /dev/null
-
-
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf &> /dev/null
 
 	find  "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons" -name 'EmuDeck*' -exec rm {} \;
 
