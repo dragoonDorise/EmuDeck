@@ -224,17 +224,17 @@ Ryujinx_convertFromYuzu(){
 
 #setABXYstyle
 Ryujinx_setABXYstyle(){
-    sed -i 's/"button_x": "Y",/"button_x": "X",/' $Ryujinx_controllerFile
-    sed -i 's/"button_b": "A",/"button_b": "B",/' $Ryujinx_controllerFile
-    sed -i 's/"button_y": "X",/"button_y": "Y",/' $Ryujinx_controllerFile
-    sed -i 's/"button_a": "B"/"button_a": "A"/' $Ryujinx_controllerFile
+    sed -i 's/"button_x": "Y",/"button_x": "X",/' $Ryujinx_configFile
+    sed -i 's/"button_b": "A",/"button_b": "B",/' $Ryujinx_configFile
+    sed -i 's/"button_y": "X",/"button_y": "Y",/' $Ryujinx_configFile
+    sed -i 's/"button_a": "B"/"button_a": "A"/' $Ryujinx_configFile
 
 }
 Ryujinx_setBAYXstyle(){
-    sed -i 's/"button_x": "X",/"button_x": "Y",/' $Ryujinx_controllerFile
-    sed -i 's/"button_b": "B",/"button_b": "A",/' $Ryujinx_controllerFile
-    sed -i 's/"button_y": "Y",/"button_y": "X",/' $Ryujinx_controllerFile
-    sed -i 's/"button_a": "A"/"button_a": "B"/' $Ryujinx_controllerFile
+    sed -i 's/"button_x": "X",/"button_x": "Y",/' $Ryujinx_configFile
+    sed -i 's/"button_b": "B",/"button_b": "A",/' $Ryujinx_configFile
+    sed -i 's/"button_y": "Y",/"button_y": "X",/' $Ryujinx_configFile
+    sed -i 's/"button_a": "A"/"button_a": "B"/' $Ryujinx_configFile
 }
 
 
