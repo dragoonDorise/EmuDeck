@@ -100,11 +100,11 @@
         "rotate90_cw": false,
         "stick_button": "RightStick"
       },
-      "deadzone_left": 0,
-      "deadzone_right": 0,
-      "range_left": 1.2,
+      "deadzone_left": 0.1,
+      "deadzone_right": 0.1,
+      "range_left": 1,
       "range_right": 1,
-      "trigger_threshold": 0,
+      "trigger_threshold": 0.5,
       "motion": {
         "slot": 0,
         "alt_slot": 0,
