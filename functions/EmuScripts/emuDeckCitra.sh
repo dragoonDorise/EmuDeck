@@ -8,6 +8,7 @@ Citra_configFile="$HOME/.config/citra-emu/qt-config.ini"
 Citra_configPath="$HOME/.config/citra-emu"
 Citra_texturesPath="$HOME/.config/citra-emu/load/textures"
 Citra_flatpakPath="$HOME/.var/app/org.citra_emu.citra"
+Citra_flatpakName="org.citra_emu.citra"
 Citra_flatpakconfigPath="$Citra_flatpakPath/config/citra-emu"
 Citra_flatpakconfigFile="$Citra_flatpakconfigPath/qt-config.ini"
 #cleanupOlderThings
@@ -176,7 +177,7 @@ Citra_IsInstalled(){
 	if [ -e "$Citra_emuPath" ]; then
 		echo "true"
 	else
-		isFpInstalled "citra_emu"
+		isFpInstalled "$Citra_flatpakName"
 	fi
 }
 

@@ -162,7 +162,7 @@ RPCS3_finalize(){
 RPCS3_IsInstalled(){
 	local emuType=$1 # if empty we assume the caller doesn't care what type is installed, so we can check both
 	# if flatpak type or no type is requested and we haven't yet migrated, check flatpak installation status
-	if ([ "$emuType" == "$emuDeckEmuTypeFlatpak" ] || [ -z "$emuType" ]) && [ "$(RPCS3_IsMigrated)" != "true" ] && [ "$(isFpInstalled ""$RPCS3_emuPathFlatpak"")" == "true" ]; then
+	if ([ "$emuType" == "$emuDeckEmuTypeFlatpak" ] || [ -z "$emuType" ]) && [ "$(RPCS3_IsMigrated)" != "true" ] && [ "$(isFpInstalled "$RPCS3_emuPathFlatpak")" == "true" ]; then
 		echo "true"
 	# we can stop here if flatpak type was requested - we already migrated and no longer want to care about flatpak and launcher / desktop shortcut updates
 	elif [ "$emuType" == "$emuDeckEmuTypeFlatpak" ]; then
