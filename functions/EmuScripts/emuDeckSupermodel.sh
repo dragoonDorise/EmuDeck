@@ -33,6 +33,7 @@ Supermodel_init(){
 	Supermodel_setupSaves
 	#SRM_createParsers
 	Supermodel_flushEmulatorLauncher
+	Supermodel_addSteamInputProfile
 }
 
 #update
@@ -49,6 +50,7 @@ Supermodel_update(){
 	Supermodel_setEmulationFolder
 	Supermodel_setupSaves
 	Supermodel_flushEmulatorLauncher
+	Supermodel_addSteamInputProfile
 }
 
 #ConfigurePaths
@@ -128,4 +130,9 @@ Supermodel_flushEmulatorLauncher(){
 
 	flushEmulatorLaunchers "supermodel"
 
+}
+
+Supermodel_addSteamInputProfile(){
+	setMSG "Adding $Supermodel_emuName Steam Input Profile."
+	rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/emudeck_steam_deck_light_gun_controls.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf"
 }

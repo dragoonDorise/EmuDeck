@@ -53,6 +53,7 @@ Model2_init(){
 	Model2ULWGL_install
 	#SRM_createParsers
 	Model2_flushEmulatorLauncher
+	Model2_addSteamInputProfile
 	if [ -e "$ESDE_toolPath" ]; then
 		Model2_addESConfig
 	else
@@ -90,6 +91,7 @@ Model2_update(){
 	rsync -avhp "$EMUDECKGIT/configs/model2/" "${romsPath}/model2" --ignore-existing
 	Model2ULWGL_install
 	Model2_flushEmulatorLauncher
+	Model2_addSteamInputProfile
 }
 
 
@@ -192,4 +194,9 @@ Model2_flushEmulatorLauncher(){
 
 	flushEmulatorLaunchers "model-2-emulator"
 
+}
+
+Model2_addSteamInputProfile(){
+	setMSG "Adding $Model2_emuName Steam Input Profile."
+	rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/emudeck_steam_deck_light_gun_controls.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf"
 }
