@@ -263,7 +263,11 @@ Dolphin_flushSymlinks(){
     find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/gamecube|${romsPath}/gc|g" {} +
 		touch "$HOME/.config/EmuDeck/.dolphinsymlinks"	
 		echo "Dolphin symlink cleanup completed."
-		zenity --info --text="Dolphin symlinks have been cleaned. This cleanup was conducted to prevent any potential breakage with symlinks. Place all new ROMs in Emulation/roms/gc. Your ROMs have been moved from Emulation/roms/gamecube to Emulation/roms/gc." --title="Symlink Update"
+    zenity --info \
+    --text="Dolphin symlinks have been cleaned. This cleanup was conducted to prevent any potential breakage with symlinks. Place all new ROMs in Emulation/roms/gc. Your ROMs have been moved from Emulation/roms/gamecube to Emulation/roms/gc." \
+    --title="Symlink Update" \
+    --width=400 \
+    --height=300
 
   else 
   		echo "Dolphin symlinks already cleaned."
