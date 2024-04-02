@@ -234,7 +234,23 @@ Dolphin_flushSymlinks(){
   else
     echo "Steam install not found"
   fi
-	if [ ! -f "$HOME/.config/EmuDeck/.dolphinsymlinks" ]; then
+
+  if [ ! -f "$HOME/.config/EmuDeck/.dolphinlegacysymlinks" ] && [ -f "$HOME/.config/EmuDeck/.dolphinsymlinks" ]; then
+
+		mkdir -p "$romsPath/gc"
+    # Temporary deletion to check if there are any additional contents in the gc folder.
+    rm -rf "$romsPath/gc/media" &> /dev/null
+    rm -rf "$romsPath/gc/metadata.txt" &> /dev/null
+    rm -rf "$romsPath/gc/systeminfo.txt" &> /dev/null
+
+		# The Pegasus install was accidentally overwriting the pre-existing n3ds symlink. 
+		# This checks if the gc folder is empty (post-removing the contents above) and if the original gamecube folder is still a folder and not a symlink (for those who have already migrated). 
+		# If all of this is true, the gc folder is deleted and the old symlink is temporarily recreated to proceed with the migration. 
+    if [[ ! "$( ls -A "$romsPath/gc")" ]] && [ -d "$romsPath/gamecube" ] && [ ! -L "$romsPath/gamecube" ]; then
+      rm -rf "$romsPath/gc"
+      ln -sfn "$romsPath/gamecube" "$romsPath/gc" 
+      # Temporarily restores old directory structure. 
+    fi 
 
     if [[ -L "$romsPath/gc" && ! $(readlink -f "$romsPath/gc") =~ ^"$romsPath" ]] || [[ -L "$romsPath/gamecube" && ! $(readlink -f "$romsPath/gamecube") =~ ^"$romsPath" ]]; then
         echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
@@ -258,6 +274,72 @@ Dolphin_flushSymlinks(){
         ln -sfn "$romsPath/gc" "$romsPath/gamecube"
         echo "gamecube symlink created"
       fi
+    fi
+
+    rsync -avh "$EMUDECKGIT/roms/gc/." "$romsPath/gc/." --ignore-existing
+
+    if [ -d "$toolsPath/downloaded_media/gc" ] && [ ! -d "$romsPath/gc/media" ]; then 
+      ln -s "$toolsPath/downloaded_media/gc" "$romsPath/gc/media"
+    fi
+
+    find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/gamecube|${romsPath}/gc|g" {} +
+		touch "$HOME/.config/EmuDeck/.dolphinlegacysymlinks"	
+		echo "Dolphin symlink cleanup completed."
+    zenity --info \
+    --text="Dolphin symlinks have been cleaned. This cleanup was conducted to prevent any potential breakage with symlinks. Place all new ROMs in Emulation/roms/gc. Your ROMs have been moved from Emulation/roms/gamecube to Emulation/roms/gc." \
+    --title="Symlink Update" \
+    --width=400 \
+    --height=300
+
+  else 
+  		echo "Dolphin symlinks already cleaned."
+  fi 
+
+	if [ ! -f "$HOME/.config/EmuDeck/.dolphinsymlinks" ]; then
+
+		mkdir -p "$romsPath/gc"
+    # Temporary deletion to check if there are any additional contents in the gc folder.
+    rm -rf "$romsPath/gc/media" &> /dev/null
+    rm -rf "$romsPath/gc/metadata.txt" &> /dev/null
+    rm -rf "$romsPath/gc/systeminfo.txt" &> /dev/null
+
+		# The Pegasus install was accidentally overwriting the pre-existing n3ds symlink. 
+		# This checks if the gc folder is empty (post-removing the contents above) and if the original gamecube folder is still a folder and not a symlink (for those who have already migrated). 
+		# If all of this is true, the gc folder is deleted and the old symlink is temporarily recreated to proceed with the migration. 
+    if [[ ! "$( ls -A "$romsPath/gc")" ]] && [ -d "$romsPath/gamecube" ] && [ ! -L "$romsPath/gamecube" ]; then
+      rm -rf "$romsPath/gc"
+      ln -sfn "$romsPath/gamecube" "$romsPath/gc" 
+      # Temporarily restores old directory structure. 
+    fi 
+
+    if [[ -L "$romsPath/gc" && ! $(readlink -f "$romsPath/gc") =~ ^"$romsPath" ]] || [[ -L "$romsPath/gamecube" && ! $(readlink -f "$romsPath/gamecube") =~ ^"$romsPath" ]]; then
+        echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
+    else
+      if [[ ! -e "$romsPath/gamecube" && ! -e "$romsPath/gc" ]]; then
+        mkdir -p "$romsPath/gc"
+        ln -sfn "$romsPath/gc" "$romsPath/gamecube"
+      elif [[ -d "$romsPath/gamecube" && -L "$romsPath/gc" ]]; then
+        echo "Converting gc symlink to a regular directory..."
+        unlink "$romsPath/gc"
+        mv "$romsPath/gamecube" "$romsPath/gc"
+        ln -sfn "$romsPath/gc" "$romsPath/gamecube"
+        echo "gamecube symlink updated to point to gc"
+      elif [[ -d "$romsPath/gamecube" && ! -e "$romsPath/gc" ]]; then
+        echo "Creating gc directory and updating gamecube symlink..."
+        mv "$romsPath/gamecube" "$romsPath/gc"
+        ln -sfn "$romsPath/gc" "$romsPath/gamecube"
+        echo "gamecube symlink updated to point to gc"
+      elif [[ -d "$romsPath/gc" && ! -e "$romsPath/gamecube" ]]; then
+        echo "gamecube symlink not found, creating..."
+        ln -sfn "$romsPath/gc" "$romsPath/gamecube"
+        echo "gamecube symlink created"
+      fi
+    fi
+
+    rsync -avh "$EMUDECKGIT/roms/gc/." "$romsPath/gc/." --ignore-existing
+
+    if [ -d "$toolsPath/downloaded_media/gc" ] && [ ! -d "$romsPath/gc/media" ]; then 
+      ln -s "$toolsPath/downloaded_media/gc" "$romsPath/gc/media"
     fi
 
     find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/gamecube|${romsPath}/gc|g" {} +
