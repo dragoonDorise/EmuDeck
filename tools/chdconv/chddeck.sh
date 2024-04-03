@@ -99,7 +99,7 @@ compressCHD() {
 compressCHDDVD() {
 	local file=$1
 	local successful='' 
-	chdman5 createdvd --hunksize 16384 -i "$file" -o "${file%.*}.chd" && successful="true"
+	chdman5 createdvd -i "$file" -o "${file%.*}.chd" -c zstd && successful="true"
 	if [[ $successful == "true" ]]; then
 		echo "Converting $file to CHD using the createdvd flag and hunksize 16348."
 		echo "$file succesfully converted to ${file%.*}.chd"
