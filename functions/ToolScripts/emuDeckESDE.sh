@@ -129,6 +129,7 @@ ESDE_init(){
 	SRM_createParsers
 	addSteamInputCustomIcons
 	ESDE_flushToolLauncher
+	SRM_flushOldSymlinks
 }
 
 

@@ -105,6 +105,7 @@ SRM_init(){
   SRM_addSteamInputProfiles
   addSteamInputCustomIcons
   SRM_setEnv
+  SRM_flushOldSymlinks
   
   echo -e "true"
 
@@ -526,4 +527,16 @@ SRM_flushToolLauncher(){
   mkdir -p "$toolsPath/launchers/srm"
 	cp "$EMUDECKGIT/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
   chmod +x "$toolsPath/launchers/srm/steamrommanager.sh"
+}
+
+SRM_flushOldSymlinks(){
+
+  if [ -L "$romsPath/mame2003" ]; then
+    rm -f "$romsPath/mame2003"
+  fi
+
+  if [ -L "$romsPath/mamecurrent" ]; then
+    rm -f "$romsPath/mamecurrent"
+  fi
+
 }

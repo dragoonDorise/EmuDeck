@@ -78,9 +78,6 @@
 /run/media/mmcblk0p1/Emulation/roms/mame
 /run/media/mmcblk0p1/Emulation/roms/mame-advmame
 /run/media/mmcblk0p1/Emulation/roms/mame-mame4all
-/run/media/mmcblk0p1/Emulation/roms/mame2003
-/run/media/mmcblk0p1/Emulation/roms/mame2010
-/run/media/mmcblk0p1/Emulation/roms/mamecurrent
 /run/media/mmcblk0p1/Emulation/roms/mastersystem
 /run/media/mmcblk0p1/Emulation/roms/megacd
 /run/media/mmcblk0p1/Emulation/roms/megacdjp

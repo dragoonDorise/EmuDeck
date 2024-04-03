@@ -112,6 +112,7 @@ pegasus_init(){
 	pegasus_applyTheme "$pegasusThemeUrl"
 	addSteamInputCustomIcons
 	pegasus_flushToolLauncher
+	SRM_flushOldSymlinks
 
 }
 
