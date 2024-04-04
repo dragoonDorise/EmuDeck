@@ -252,7 +252,7 @@ ESDE_setEmulationFolder(){
 	if [[ ! $(grep -rnw "$es_systemsFile" -e 'xbox360') == "" ]]; then
 		if [[ $(grep -rnw "$es_systemsFile" -e 'Xenia (Proton)') == "" ]]; then
 			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="xbox360"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/xenia.sh z:%ROM%" \
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="xbox360"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/xenia.sh z:%ROM% %INJECT%=%BASENAME%.esprefix" \
 			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Xenia (Proton)" \
 			-r 'systemList/system/commandP' -v 'command' \
 			"$es_systemsFile"
@@ -261,7 +261,7 @@ ESDE_setEmulationFolder(){
 			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 		else
 			#update
-			xeniaProtonCommandString="/bin/bash ${toolsPath}/launchers/xenia.sh z:%ROM%"
+			xeniaProtonCommandString="/bin/bash ${toolsPath}/launchers/xenia.sh z:%ROM% %INJECT%=%BASENAME%.esprefix"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Xenia (Proton)"]' -v "$xeniaProtonCommandString" "$es_systemsFile"
 		fi
 	fi

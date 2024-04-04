@@ -54,7 +54,7 @@
     <fullname>Microsoft Xbox 360</fullname>
     <path>%ROMPATH%/xbox360/roms</path>
     <extension>.iso .ISO . .xex .XEX .zar .ZAR</extension>
-    <command label="Xenia (Proton)">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh z:%ROM%</command>
+    <command label="Xenia (Proton)">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh z:%ROM% %INJECT%=%BASENAME%.esprefix</command>
     <platform>xbox360</platform>
     <theme>xbox360</theme>
   </system>
