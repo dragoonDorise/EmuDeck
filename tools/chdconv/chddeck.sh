@@ -192,7 +192,7 @@ compress7z() {
 	7z a -mx=9 "${file%.*}.7z" "$file" && successful="true"
 	if [[ $successful == "true" ]]; then
 		echo "$file succesfully compressed to ${file%.*}.7z"
-		rm -f "${file%%.*}.$ext"
+		rm -f "$file"
 	else
 		echo "error converting $file"
 	fi
