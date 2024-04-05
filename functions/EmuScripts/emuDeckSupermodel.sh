@@ -22,7 +22,8 @@ Supermodel_install(){
 Supermodel_init(){
 	# Flatpak does not install to flatpak directory
 	mkdir -p $HOME/.supermodel/Analysis $HOME/.supermodel/Log
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel/." "$HOME/.supermodel/" --backup --suffix=.bak
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel/Config/Supermodel.ini" "$HOME/.supermodel/Config/Supermodel.ini" --backup --suffix=.bak
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel/." "$HOME/.supermodel/." --backup --suffix=.bak
 	# Download updated gamelist from source
 	if [ -e "$HOME/.supermodel/Config/Games.xml" ]; then
 		rm -rf "$HOME/.supermodel/Config/Games.xml"
