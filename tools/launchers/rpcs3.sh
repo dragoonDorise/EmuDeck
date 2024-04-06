@@ -12,7 +12,7 @@ echo $exe
 #if appimage doesn't exist fall back to flatpak.
 if [[ $exe == '' ]]; then
     #flatpak
-    flatpakApp=$(flatpak list --app --columns=application | grep $emuName)
+    flatpakApp=$(flatpak list --app --columns=application | grep "$RPCS3_emuPathFlatpak")
     exe="/usr/bin/flatpak run "$flatpakApp
 else
     #make sure that file is executable

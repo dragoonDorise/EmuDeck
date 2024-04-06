@@ -294,7 +294,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_RIGHT, Select + R3 - Quick Menu/Full Screen Toggle, , "
+							"binding"		"xinput_button JOYSTICK_RIGHT, Select + R3 - Quick Menu/Toggle Full Screen, , "
 						}
 					}
 				}
@@ -302,6 +302,10 @@
 				{
 				}
 			}
+		}
+		"settings"
+		{
+			"deadzone_enable_type"		"1"
 		}
 	}
 	"group"
@@ -328,6 +332,10 @@
 				{
 				}
 			}
+		}
+		"settings"
+		{
+			"deadzone_enable_type"		"1"
 		}
 	}
 	"group"
@@ -650,7 +658,19 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button X, , "
+							"binding"		"xinput_button X, Swap Screens - Select + X, , "
+						}
+					}
+					"chord"
+					{
+						"bindings"
+						{
+							"binding"		"key_press LEFT_CONTROL, , "
+							"binding"		"key_press TAB, , "
+						}
+						"settings"
+						{
+							"chord_button"		"15"
 						}
 					}
 				}
@@ -666,7 +686,18 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button Y, , "
+							"binding"		"xinput_button Y, Toggle Screen Layout - Select + Y, , "
+						}
+					}
+					"chord"
+					{
+						"bindings"
+						{
+							"binding"		"key_press TAB, , "
+						}
+						"settings"
+						{
+							"chord_button"		"15"
 						}
 					}
 				}
@@ -791,6 +822,7 @@
 		"settings"
 		{
 			"deadzone_inner_radius"		"7199"
+			"deadzone_enable_type"		"1"
 		}
 	}
 	"group"
@@ -878,7 +910,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_RIGHT, Full Screen Toggle - Select + R3 Reset Emulation - Select + L3, , "
+							"binding"		"xinput_button JOYSTICK_RIGHT, Toggle Full Screen - Select + R3 Reset Emulation - Select + L3, , "
 						}
 					}
 					"chord"
@@ -897,6 +929,10 @@
 				{
 				}
 			}
+		}
+		"settings"
+		{
+			"deadzone_enable_type"		"1"
 		}
 	}
 	"group"
@@ -1142,6 +1178,70 @@
 				{
 				}
 			}
+			"button_back_left"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action empty_binding, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_back_right"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action empty_binding, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_back_left_upper"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action empty_binding, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
+			"button_back_right_upper"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"controller_action empty_binding, , "
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
 			"button_capture"
 			{
 				"activators"
@@ -1302,8 +1402,8 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, Toggle Screen Layout - L5 / Stop Emulation - Long Press L5, , "
-							"binding"		"key_press TAB, Toggle Screen Layout - L5 / Stop Emulation - Long Press L5, , "
+							"binding"		"key_press LEFT_CONTROL, Swap Screens - L5 / Stop Emulation - Long Press L5, , "
+							"binding"		"key_press TAB, Swap Screens - L5 / Stop Emulation - Long Press L5, , "
 						}
 					}
 					"Long_Press"
@@ -1331,8 +1431,8 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press LEFT_CONTROL, Swap Screens - L5 / Stop Emulation - Long Press R5, , "
-							"binding"		"key_press TAB, Swap Screens - L5 / Stop Emulation - Long Press R5, , "
+							"binding"		"key_press LEFT_CONTROL, Swap Screens - R5 / Stop Emulation - Long Press R5, , "
+							"binding"		"key_press TAB, Swap Screens - R5 / Stop Emulation - Long Press R5, , "
 						}
 					}
 					"Long_Press"
@@ -1360,18 +1460,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press TAB, Swap Screens - L4 / Toggle Full Screen - Long Press L4, , "
-						}
-					}
-					"Long_Press"
-					{
-						"bindings"
-						{
-							"binding"		"key_press F11, , "
-						}
-						"settings"
-						{
-							"long_press_time"		"500"
+							"binding"		"key_press TAB, Toggle Screen Layout - L4, , "
 						}
 					}
 				}
@@ -1387,18 +1476,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press TAB, Swap Screens - R4 / Toggle Full Screen - Long Press R4, , "
-						}
-					}
-					"Long_Press"
-					{
-						"bindings"
-						{
-							"binding"		"key_press F11, , "
-						}
-						"settings"
-						{
-							"long_press_time"		"500"
+							"binding"		"key_press TAB, Toggle Screen Layout - R4, , "
 						}
 					}
 				}

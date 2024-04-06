@@ -8,6 +8,7 @@ Citra_configFile="$HOME/.config/citra-emu/qt-config.ini"
 Citra_configPath="$HOME/.config/citra-emu"
 Citra_texturesPath="$HOME/.config/citra-emu/load/textures"
 Citra_flatpakPath="$HOME/.var/app/org.citra_emu.citra"
+Citra_flatpakName="org.citra_emu.citra"
 Citra_flatpakconfigPath="$Citra_flatpakPath/config/citra-emu"
 Citra_flatpakconfigFile="$Citra_flatpakconfigPath/qt-config.ini"
 #cleanupOlderThings
@@ -63,18 +64,36 @@ Citra_setEmulationFolder(){
 	setMSG "Setting $Citra_emuName Emulation Folder"
 
 
-	mkdir -p "$Citra_configPath"
-	rsync -avhp "$EMUDECKGIT/configs/org.citra_emu.citra/config/citra-emu/qt-config.ini" "$Citra_configPath/qt-config.ini" --backup --suffix=.bak
-	gameDirOpt='Paths\\gamedirs\\3\\path='
-	newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/n3ds"
-	sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_configFile"
+	if [ -e "$Citra_emuPath" ]; then
 
-	#Setup symlink for AES keys
-	mkdir -p "${biosPath}/citra/"
-	mkdir -p "$HOME/.local/share/citra-emu/sysdata"
-	ln -sn "$HOME/.local/share/citra-emu/sysdata" "${biosPath}/citra/keys"
+		echo "AppImage found. Setting configurations."
 
-	if [ -d $Citra_flatpakPath ]; then 
+		mkdir -p "$Citra_configPath"
+		rsync -avhp "$EMUDECKGIT/configs/org.citra_emu.citra/config/citra-emu/qt-config.ini" "$Citra_configPath/qt-config.ini" --backup --suffix=.bak
+		gameDirOpt='Paths\\gamedirs\\3\\path='
+		newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/n3ds"
+		sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_configFile"
+
+		#Setup symlink for AES keys
+		mkdir -p "${biosPath}/citra/"
+		mkdir -p "$HOME/.local/share/citra-emu/sysdata"
+		ln -sn "$HOME/.local/share/citra-emu/sysdata" "${biosPath}/citra/keys"
+
+	else 
+		echo "AppImage not found."
+	fi
+
+
+	if [ "$(isFpInstalled "$Citra_flatpakName")" == "true" ]; then 
+
+		echo "Flatpak found. Setting configurations."
+
+		if [[ -e "$Citra_emuPath" ]] && [[ ! -f "$HOME/.config/EmuDeck/.citrasaves" ]];  then
+			echo "AppImage found. Copying Flatpak saves."
+			mkdir -p "$HOME/.local/share/citra-emu/sdmc"
+			rsync -avhp "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc/." "$HOME/.local/share/citra-emu/sdmc/."  --ignore-existing
+			touch "$HOME/.config/EmuDeck/.citrasaves"
+		fi
 
 		mkdir -p $Citra_flatpakconfigPath
 		rsync -avhp "$EMUDECKGIT/configs/org.citra_emu.citra/config/citra-emu/qt-config.ini" "$Citra_flatpakconfigPath/qt-config.ini" --backup --suffix=.bak
@@ -87,6 +106,8 @@ Citra_setEmulationFolder(){
 		mkdir -p "${biosPath}/citra-flatpak"
 		ln -sn "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sysdata" "${biosPath}/citra-flatpak/keys"
 
+	else
+		echo "Flatpak not found."
 	fi
 
 
@@ -176,7 +197,7 @@ Citra_IsInstalled(){
 	if [ -e "$Citra_emuPath" ]; then
 		echo "true"
 	else
-		isFpInstalled "citra_emu"
+		isFpInstalled "$Citra_flatpakName"
 	fi
 }
 
@@ -212,7 +233,31 @@ Citra_flushEmulatorLauncher(){
 
 Citra_flushSymlinks(){
 
-	if [ ! -f "$HOME/.config/EmuDeck/.citrasymlinks" ]; then
+
+	if [ -d "${HOME}/.local/share/Steam" ]; then
+		STEAMPATH="${HOME}/.local/share/Steam"
+	elif [ -d "${HOME}/.steam/steam" ]; then
+		STEAMPATH="${HOME}/.steam/steam"
+	else
+		echo "Steam install not found"
+	fi
+
+  	if [ ! -f "$HOME/.config/EmuDeck/.citralegacysymlinks" ] && [ -f "$HOME/.config/EmuDeck/.citrasymlinks" ]; then
+
+		mkdir -p "$romsPath/n3ds"
+    	# Temporary deletion to check if there are any additional contents in the n3ds folder.
+		rm -rf "$romsPath/n3ds/media" &> /dev/null
+		rm -rf "$romsPath/n3ds/metadata.txt" &> /dev/null
+		rm -rf "$romsPath/n3ds/systeminfo.txt" &> /dev/null
+
+		# The Pegasus install was accidentally overwriting the pre-existing n3ds symlink. 
+		# This checks if the n3ds folder is empty (post-removing the contents above) and if the original 3ds folder is still a folder and not a symlink (for those who have already migrated). 
+		# If all of this is true, the n3ds folder is deleted and the old symlink is temporarily recreated to proceed with the migration. 
+		if [[ ! "$( ls -A "$romsPath/n3ds")" ]] && [ -d "$romsPath/3ds" ] && [ ! -L "$romsPath/3ds" ]; then
+			rm -rf "$romsPath/n3ds"
+			ln -sfn "$romsPath/3ds" "$romsPath/n3ds" 
+      		# Temporarily restores old directory structure. 
+		fi 
 
 		if [[ -L "$romsPath/n3ds" && ! $(readlink -f "$romsPath/n3ds") =~ ^"$romsPath" ]] || [[ -L "$romsPath/3ds" && ! $(readlink -f "$romsPath/3ds") =~ ^"$romsPath" ]]; then
 			echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
@@ -237,15 +282,86 @@ Citra_flushSymlinks(){
 				echo "3ds symlink created"
 			fi
 		fi
-		find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
+		
 
-		touch "$HOME/.config/EmuDeck/.citrasymlinks"	
+		rsync -avh "$EMUDECKGIT/roms/n3ds/." "$romsPath/n3ds/." --ignore-existing
+
+		if [ -d "$toolsPath/downloaded_media/n3ds" ] && [ ! -d "$romsPath/n3ds/media" ]; then 
+			ln -s "$toolsPath/downloaded_media/n3ds" "$romsPath/n3ds/media"
+		fi
+
+    	find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
+		touch "$HOME/.config/EmuDeck/.citralegacysymlinks"
 		echo "Citra symlink cleanup completed."
-		zenity --info --text="Citra symlinks have been cleaned. This cleanup was conducted to prevent any potential breakage with symlinks. Place all new ROMs in Emulation/roms/n3ds. Your ROMs have been moved from Emulation/roms/3ds to Emulation/roms/n3ds." --title="Symlink Update"
+		zenity --info \
+		--text="Citra symlinks have been cleaned. This cleanup was conducted to prevent any potential breakage with symlinks. Place all new ROMs in Emulation/roms/n3ds. Your ROMs have been moved from Emulation/roms/3ds to Emulation/roms/n3ds." \
+		--title="Symlink Update" \
+		--width=400 \
+		--height=300
 
-	else 
+	else
 		echo "Citra symlinks already cleaned."
-	fi 
+	fi
 
 
+	if [ ! -f "$HOME/.config/EmuDeck/.citrasymlinks" ]; then
+
+
+		mkdir -p "$romsPath/n3ds"
+    	# Temporary deletion to check if there are any additional contents in the n3ds folder.
+		rm -rf "$romsPath/n3ds/media" &> /dev/null
+		rm -rf "$romsPath/n3ds/metadata.txt" &> /dev/null
+		rm -rf "$romsPath/n3ds/systeminfo.txt" &> /dev/null
+
+		# The Pegasus install was accidentally overwriting the pre-existing n3ds symlink. 
+		# This checks if the n3ds folder is empty (post-removing the contents above) and if the original 3ds folder is still a folder and not a symlink (for those who have already migrated). 
+		# If all of this is true, the n3ds folder is deleted and the old symlink is temporarily recreated to proceed with the migration. 
+		if [[ ! "$( ls -A "$romsPath/n3ds")" ]] && [ -d "$romsPath/3ds" ] && [ ! -L "$romsPath/3ds" ]; then
+			rm -rf "$romsPath/n3ds"
+			ln -sfn "$romsPath/3ds" "$romsPath/n3ds" 
+      		# Temporarily restores old directory structure. 
+		fi 
+
+		if [[ -L "$romsPath/n3ds" && ! $(readlink -f "$romsPath/n3ds") =~ ^"$romsPath" ]] || [[ -L "$romsPath/3ds" && ! $(readlink -f "$romsPath/3ds") =~ ^"$romsPath" ]]; then
+			echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
+		else
+			if [[ ! -e "$romsPath/3ds" && ! -e "$romsPath/n3ds" ]]; then
+				mkdir -p "$romsPath/n3ds"
+				ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
+			elif [[ -d "$romsPath/3ds" && -L "$romsPath/n3ds" ]]; then
+				echo "Converting n3ds symlink to a regular directory..."
+				unlink "$romsPath/n3ds"
+				mv "$romsPath/3ds" "$romsPath/n3ds"
+				ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
+				echo "3ds symlink updated to point to n3ds"
+			elif [[ -d "$romsPath/3ds" && ! -e "$romsPath/n3ds" ]]; then
+				echo "Creating n3ds directory and updating 3ds symlink..."
+				mv "$romsPath/3ds" "$romsPath/n3ds"
+				ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
+				echo "3ds symlink updated to point to n3ds"
+			elif [[ -d "$romsPath/n3ds" && ! -e "$romsPath/3ds" ]]; then
+				echo "3ds symlink not found, creating..."
+				ln -sfn "$romsPath/n3ds" "$romsPath/3ds"
+				echo "3ds symlink created"
+			fi
+		fi
+
+		rsync -avh "$EMUDECKGIT/roms/n3ds/." "$romsPath/n3ds/." --ignore-existing
+
+		if [ -d "$toolsPath/downloaded_media/n3ds" ] && [ ! -d "$romsPath/n3ds/media" ]; then 
+			ln -s "$toolsPath/downloaded_media/n3ds" "$romsPath/n3ds/media"
+		fi
+
+    	find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
+		touch "$HOME/.config/EmuDeck/.citrasymlinks"
+		echo "Citra symlink cleanup completed."
+		zenity --info \
+		--text="Citra symlinks have been cleaned. This cleanup was conducted to prevent any potential breakage with symlinks. Place all new ROMs in Emulation/roms/n3ds. Your ROMs have been moved from Emulation/roms/3ds to Emulation/roms/n3ds." \
+		--title="Symlink Update" \
+		--width=400 \
+		--height=300
+
+	else
+		echo "Citra symlinks already cleaned."
+	fi
 }

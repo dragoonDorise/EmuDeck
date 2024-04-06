@@ -18,31 +18,6 @@ appImageInit() {
 	autofix_lnk
 	SRM_migration # 2.2 Changes
 
-	if [ -d "$HOME/.config/pegasus-frontend/config" ]; then
-	  rsync -avz $HOME/.config/pegasus-frontend/config/  $HOME/.config/pegasus-frontend/
-	fi
-
-	if [ -L "${romsPath}/gc/gamecube" ]; then
-		rm "${romsPath}/gc/gamecube"
-	fi	
-
-	if [ -L "${romsPath}/n3ds/3ds" ]; then
-		rm "${romsPath}/3ds/3ds"
-	fi	
-	if [ ! -d "$romsPath/3ds" ]; then
-	  ln -s "$romsPath/n3ds/"  "$romsPath/3ds/"
-	fi
-
-	if [ ! -d "$romsPath/gamecube" ]; then
-		ln -s "${romsPath}/gc" "${romsPath}/gamecube" 
-	fi
-
-
-	if [ ! -f "$HOME/.config/EmuDeck/.srm2211" ]; then
-	  SRM_init
-	  touch $HOME/.config/EmuDeck/.srm2211
-	fi
-
 	if [ ! -f "$HOME/.config/EmuDeck/.launcherupdate" ]; then
 
 		zenity --question \
@@ -191,11 +166,7 @@ appImageInit() {
 	touch "$HOME/.config/EmuDeck/.esdeupdateyuzu"
 	fi
 	
-	#pcsx2 fix
-	if [ ! -f "$HOME/.config/EmuDeck/.pcsx2211" ]; then
-		cp "$HOME/.config/EmuDeck/backend/tools/launchers/pcsx2-qt.sh" "$toolsPath/launchers/pcsx2-qt.sh"
-		touch "$HOME/.config/EmuDeck/.pcsx2211"
-	fi
+
 
 	# Init functions
 	mkdir -p "$HOME/emudeck/logs"

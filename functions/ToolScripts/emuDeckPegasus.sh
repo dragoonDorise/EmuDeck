@@ -40,7 +40,7 @@ pegasus_init(){
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/$pegasus_emuPath/" "$pegasus_path/"
 
 	#metadata and paths
-	rsync -r --exclude='roms' --exclude='pfx' "$EMUDECKGIT/roms/" "$romsPath"
+	rsync -r --exclude='roms' --exclude='pfx' "$EMUDECKGIT/roms/" "$romsPath" --keep-dirlinks
 	rsync -av --exclude='roms' --exclude='pfx' "$EMUDECKGIT/roms/" "$toolsPath/downloaded_media"
 	find $romsPath -type f -name "metadata.txt" -exec sed -i "s|CORESPATH|${RetroArch_cores}|g" {} \;
 	find $romsPath -type f -name "metadata.txt" -exec sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" {} \;
@@ -112,6 +112,7 @@ pegasus_init(){
 	pegasus_applyTheme "$pegasusThemeUrl"
 	addSteamInputCustomIcons
 	pegasus_flushToolLauncher
+	SRM_flushOldSymlinks
 
 }
 

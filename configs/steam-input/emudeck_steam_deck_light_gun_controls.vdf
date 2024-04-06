@@ -1,19 +1,19 @@
 "controller_mappings"
 {
 	"version"		"3"
-	"revision"		"127"
-	"title"		"EmuDeck - Controller Hotkeys"
-	"description"		"Press the HOME button + A button to view hotkeys. Combo Hotkeys using Button Chords for Cemu, Citra, melonDS (Standalone), and mGBA (Standalone). This profile is not for the mGBA and melonDS DS RetroArch cores. Emulators not listed already have controller hotkeys mapped."
+	"revision"		"8"
+	"title"		"EmuDeck - Steam Deck Light Gun Controls"
+	"description"		"This profile is intended to be used for lightgun games in Flycast (Standalone), MAME (Standalone), the Model 2 Emulator, and Supermodel. Right Trackpad set as Mouse, sensitivity increased to 200%. R2 set as Left Click. L2 set as Right Click."
 	"creator"		"76561199036238022"
 	"progenitor"		""
-	"url"		"template://emudeck_controller_generic.vdf"
+	"url"		"template://emudeck_steam_deck_light_gun_controls.vdf"
 	"export_type"		"template"
-	"controller_type"		"controller_generic"
+	"controller_type"		"controller_neptune"
 	"controller_caps"		"23117823"
 	"major_revision"		"0"
 	"minor_revision"		"0"
 	"Timestamp"		"1514953696"
-	"actions"
+	"localization"
 	{
 		"Preset_1000001"
 		{
@@ -237,18 +237,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button A, Pause/Play - Select + A, , "
-						}
-					}
-					"chord"
-					{
-						"bindings"
-						{
-							"binding"		"key_press PAGE_UP, , "
-						}
-						"settings"
-						{
-							"chord_button"		"15"
+							"binding"		"xinput_button A, , "
 						}
 					}
 				}
@@ -264,19 +253,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button B, Screenshot - Select + B, , "
-						}
-					}
-					"chord"
-					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_CONTROL, , "
-							"binding"		"key_press P, , "
-						}
-						"settings"
-						{
-							"chord_button"		"15"
+							"binding"		"xinput_button B, , "
 						}
 					}
 				}
@@ -292,19 +269,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button X, Swap Screens - Select + X, , "
-						}
-					}
-					"chord"
-					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_CONTROL, , "
-							"binding"		"key_press TAB, , "
-						}
-						"settings"
-						{
-							"chord_button"		"15"
+							"binding"		"xinput_button X, , "
 						}
 					}
 				}
@@ -320,18 +285,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button Y, Toggle Screen Layout - Select + Y, , "
-						}
-					}
-					"chord"
-					{
-						"bindings"
-						{
-							"binding"		"key_press TAB, , "
-						}
-						"settings"
-						{
-							"chord_button"		"15"
+							"binding"		"xinput_button Y, , "
 						}
 					}
 				}
@@ -400,6 +354,10 @@
 				}
 			}
 		}
+		"settings"
+		{
+			"sensitivity"		"200"
+		}
 	}
 	"group"
 	{
@@ -417,33 +375,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_LEFT, Exit Full Screen - Start + L3 Reset Emulation - Select + L3, , "
+							"binding"		"xinput_button JOYSTICK_LEFT, , "
 						}
 						"settings"
 						{
 							"haptic_intensity"		"2"
-						}
-					}
-					"chord"
-					{
-						"bindings"
-						{
-							"binding"		"key_press PAGE_DOWN, , "
-						}
-						"settings"
-						{
-							"chord_button"		"14"
-						}
-					}
-					"chord"
-					{
-						"bindings"
-						{
-							"binding"		"key_press F6, , "
-						}
-						"settings"
-						{
-							"chord_button"		"15"
 						}
 					}
 				}
@@ -466,6 +402,26 @@
 		"description"		""
 		"inputs"
 		{
+			"click"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mouse_button RIGHT, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"2"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
 			"edge"
 			{
 				"activators"
@@ -474,7 +430,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press DELETE, Rewind - Select + L2, , "
+							"binding"		"mouse_button RIGHT, , "
 						}
 						"settings"
 						{
@@ -500,19 +456,38 @@
 		"description"		""
 		"inputs"
 		{
+			"click"
+			{
+				"activators"
+				{
+					"Full_Press"
+					{
+						"bindings"
+						{
+							"binding"		"mouse_button LEFT, , "
+						}
+						"settings"
+						{
+							"haptic_intensity"		"2"
+						}
+					}
+				}
+				"disabled_activators"
+				{
+				}
+			}
 			"edge"
 			{
 				"activators"
 				{
-					"chord"
+					"Full_Press"
 					{
 						"bindings"
 						{
-							"binding"		"key_press HOME, Fast Forward - Select + R2, , "
+							"binding"		"mouse_button LEFT, , "
 						}
 						"settings"
 						{
-							"chord_button"		"15"
 							"haptic_intensity"		"2"
 						}
 					}
@@ -543,18 +518,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_RIGHT, Toggle Full Screen - Select + R3, , "
-						}
-					}
-					"chord"
-					{
-						"bindings"
-						{
-							"binding"		"key_press F11, , "
-						}
-						"settings"
-						{
-							"chord_button"		"15"
+							"binding"		"xinput_button JOYSTICK_RIGHT, , "
 						}
 					}
 				}
@@ -584,22 +548,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_UP, Special 2 (melonDS - Open/Close Lid) - Select + DPad Up, , "
+							"binding"		"xinput_button DPAD_UP, , "
 						}
 						"settings"
 						{
 							"haptic_intensity"		"1"
-						}
-					}
-					"chord"
-					{
-						"bindings"
-						{
-							"binding"		"key_press INSERT, , "
-						}
-						"settings"
-						{
-							"chord_button"		"14"
 						}
 					}
 				}
@@ -615,23 +568,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_DOWN, Swap Screens - Start + DPad Down, , "
+							"binding"		"xinput_button DPAD_DOWN, , "
 						}
 						"settings"
 						{
 							"haptic_intensity"		"1"
-						}
-					}
-					"chord"
-					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_CONTROL, , "
-							"binding"		"key_press TAB, , "
-						}
-						"settings"
-						{
-							"chord_button"		"14"
 						}
 					}
 				}
@@ -647,22 +588,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_RIGHT, Special 1 (melonDS - FPS Limit mGBA - Cheats Citra - Amiibo) - Select + DPad Right, , "
+							"binding"		"xinput_button DPAD_RIGHT, , "
 						}
 						"settings"
 						{
 							"haptic_intensity"		"1"
-						}
-					}
-					"chord"
-					{
-						"bindings"
-						{
-							"binding"		"key_press END, , "
-						}
-						"settings"
-						{
-							"chord_button"		"14"
 						}
 					}
 				}
@@ -678,22 +608,11 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button DPAD_LEFT, Toggle Screen Layout - Start + DPad Left, , "
+							"binding"		"xinput_button DPAD_LEFT, , "
 						}
 						"settings"
 						{
 							"haptic_intensity"		"1"
-						}
-					}
-					"chord"
-					{
-						"bindings"
-						{
-							"binding"		"key_press TAB, , "
-						}
-						"settings"
-						{
-							"chord_button"		"14"
 						}
 					}
 				}
@@ -738,27 +657,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button START, Stop Emulation - Select + Start, , "
-						}
-					}
-					"Long_Press"
-					{
-						"bindings"
-						{
-							"binding"		"controller_action empty_binding, , "
-						}
-					}
-					"chord"
-					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, , "
-							"binding"		"key_press F4, , "
-						}
-						"settings"
-						{
-							"chord_button"		"15"
-							"haptic_intensity"		"3"
+							"binding"		"xinput_button START, , "
 						}
 					}
 				}
@@ -774,14 +673,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button SELECT, Stop Emulation - Select + Start, , "
-						}
-					}
-					"Long_Press"
-					{
-						"bindings"
-						{
-							"binding"		"controller_action empty_binding, , "
+							"binding"		"xinput_button SELECT, , "
 						}
 					}
 				}
@@ -797,18 +689,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button SHOULDER_LEFT, Load State - Select + L1, , "
-						}
-					}
-					"chord"
-					{
-						"bindings"
-						{
-							"binding"		"key_press F1, , "
-						}
-						"settings"
-						{
-							"chord_button"		"15"
+							"binding"		"xinput_button SHOULDER_LEFT, , "
 						}
 					}
 				}
@@ -824,109 +705,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button SHOULDER_RIGHT, Save State - Select + R1, , "
-						}
-					}
-					"chord"
-					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_SHIFT, , "
-							"binding"		"key_press F1, , "
-						}
-						"settings"
-						{
-							"chord_button"		"15"
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"button_back_left"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_CONTROL, Swap Screens - L5 / Stop Emulation - Long Press L5, , "
-							"binding"		"key_press TAB, Swap Screens - L5 / Stop Emulation - Long Press L5, , "
-						}
-					}
-					"Long_Press"
-					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, , "
-							"binding"		"key_press F4, , "
-						}
-						"settings"
-						{
-							"long_press_time"		"1000"
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"button_back_right"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_CONTROL, Swap Screens - R5 / Stop Emulation - Long Press R5, , "
-							"binding"		"key_press TAB, Swap Screens - R5 / Stop Emulation - Long Press R5, , "
-						}
-					}
-					"Long_Press"
-					{
-						"bindings"
-						{
-							"binding"		"key_press LEFT_ALT, , "
-							"binding"		"key_press F4, , "
-						}
-						"settings"
-						{
-							"long_press_time"		"1000"
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"button_back_left_upper"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"key_press TAB, Toggle Screen Layout - L4, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"button_back_right_upper"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"key_press TAB, Toggle Screen Layout - R4, , "
+							"binding"		"xinput_button SHOULDER_RIGHT, , "
 						}
 					}
 				}
@@ -976,3 +755,4 @@
 		"right_trackpad_mode"		"0"
 	}
 }
+

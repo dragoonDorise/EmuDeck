@@ -104,6 +104,8 @@ SRM_init(){
   SRM_flushToolLauncher
   SRM_addSteamInputProfiles
   addSteamInputCustomIcons
+  SRM_setEnv
+  SRM_flushOldSymlinks
   
   echo -e "true"
 
@@ -475,7 +477,9 @@ SRM_addSteamInputProfiles(){
    # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf"
 }
 
+
 SRM_setEnv(){
+  
 	setMSG 'Steam Rom Manager - Set enviroment'
   tmp=$(mktemp)
   jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
@@ -487,10 +491,10 @@ SRM_setEnv(){
   "$SRM_userData_configDir/userSettings.json" > "$tmp" \
   && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
 
-  sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userSettings.json"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$SRM_userData_configDir/userSettings.json"
-  sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userSettings.json"
-
+  # Already being set in SRM_init
+  #sed -i "s|/home/deck|$HOME|g" "$SRM_userData_configDir/userSettings.json"
+  #sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$SRM_userData_configDir/userSettings.json"
+  #sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$SRM_userData_configDir/userSettings.json"
 
 }
 
@@ -523,4 +527,59 @@ SRM_flushToolLauncher(){
   mkdir -p "$toolsPath/launchers/srm"
 	cp "$EMUDECKGIT/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
   chmod +x "$toolsPath/launchers/srm/steamrommanager.sh"
+}
+
+SRM_flushOldSymlinks(){
+
+  if [ -L "$romsPath/mame2003" ]; then
+    rm -f "$romsPath/mame2003"
+  fi
+
+  if [ -L "$romsPath/mamecurrent" ]; then
+    rm -f "$romsPath/mamecurrent"
+  fi
+
+}
+
+SRM_deleteCache(){
+
+  if [ -d "${HOME}/.local/share/Steam" ]; then
+    STEAMPATH="${HOME}/.local/share/Steam"
+  elif [ -d "${HOME}/.steam/steam" ]; then
+    STEAMPATH="${HOME}/.steam/steam"
+  else
+    echo "Steam install not found"
+  fi
+
+		zenity --question \
+    --text="If you are experiencing freezing or crashing with Steam ROM Manager, this will delete the cache and reset your non-Steam library. \
+    \nThis will delete all of your non-Steam shortcuts. \
+    \nDo note this includes any game launchers, browsers, fan games, any games or applications you have added as a non-Steam game. This will not delete the games or applications themselves. \
+    \n \
+    \nThis will also delete any curated art you may have selected or downloaded for both Steam and non-Steam games. \
+    \n \
+    \nDeleting the cache will remove any launch option modifications for Steam games. \
+    \n \ 
+    \nIf you do not delete the cache, Steam ROM Manager may continue to crash or freeze. However, your non-Steam shortcuts will remain intact. \
+    \n \
+    \nWould you like to delete the cache?" \
+    --title="Delete Cache" \
+		--width=400 \
+		--height=300 \
+    --ok-label="No" \
+    --cancel-label="Yes"
+
+
+		if [ $? = 1 ]; then
+      find "$STEAMPATH/userdata" -mindepth 2 -maxdepth 2 -type d -name 'config' -exec rm -rf {} +
+      echo "Cache deleted."
+      zenity --info \
+      --text="The cache has been deleted. All of your non-Steam shortcuts have been wiped. You may open Steam ROM Manager and re-add your ROMs to your library." \
+      --title="Cache deleted" \
+      --width=400 \
+      --height=300
+    else 
+      echo "User declined deleting cache."
+    fi 
+
 }

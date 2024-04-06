@@ -29,6 +29,7 @@ MAME_init(){
 	MAME_setupSaves
 	#SRM_createParsers
 	MAME_flushEmulatorLauncher
+	MAME_addSteamInputProfile
 }
 
 #update
@@ -38,6 +39,7 @@ MAME_update(){
 	MAME_setEmulationFolder
 	MAME_setupSaves
 	MAME_flushEmulatorLauncher
+	MAME_addSteamInputProfile
 }
 
 #ConfigurePaths
@@ -157,4 +159,9 @@ MAME_flushEmulatorLauncher(){
 
 	flushEmulatorLaunchers "mame"
 
+}
+
+MAME_addSteamInputProfile(){
+	setMSG "Adding $MAME_emuName Steam Input Profile."
+	rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/emudeck_steam_deck_light_gun_controls.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf"
 }

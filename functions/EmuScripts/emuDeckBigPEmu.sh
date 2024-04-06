@@ -45,9 +45,6 @@ BigPEmu_install(){
 BigPEmu_init(){
 	setMSG "Initializing $BigPEmu_emuName settings."
 	rsync -avhp "$EMUDECKGIT/configs/bigpemu/" "$BigPEmu_appData" --backup --suffix=.bak
-	if [ -e "$BigPEmu_BigPEmuSettings.bak" ]; then
-		mv -f "$BigPEmu_BigPEmuSettings.bak" "$BigPEmu_BigPEmuSettings" #retain BigPEmuSettings
-	fi
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
 	BigPEmu_flushEmulatorLauncher
