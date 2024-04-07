@@ -244,6 +244,7 @@ Cemu_functions () {
 			ESDE_junksettingsFile
 			ESDE_addCustomSystemsFile
 			CemuProton_addESConfig
+			ESDE_setEmulationFolder
 		else
 			echo "false"
 		fi
@@ -267,6 +268,7 @@ Cemu_functions () {
 			ESDE_junksettingsFile
 			ESDE_addCustomSystemsFile
 			CemuProton_addESConfig
+			ESDE_setEmulationFolder
 		else
 			echo "ES-DE not found. Skipped adding custom system."
 		fi

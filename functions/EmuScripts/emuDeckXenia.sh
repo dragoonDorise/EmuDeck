@@ -74,6 +74,7 @@ Xenia_init(){
 		ESDE_junksettingsFile
 		ESDE_addCustomSystemsFile
 		Xenia_addESConfig
+		ESDE_setEmulationFolder
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi

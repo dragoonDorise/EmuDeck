@@ -55,6 +55,7 @@ Model2_init(){
 		ESDE_junksettingsFile
 		ESDE_addCustomSystemsFile
 		Model2_addESConfig
+		ESDE_setEmulationFolder
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
