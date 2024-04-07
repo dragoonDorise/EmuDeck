@@ -92,6 +92,8 @@ CemuProton_init(){
 	fi
 
 	if [ -e "$ESDE_toolPath" ]; then
+		ESDE_junksettingsFile
+		ESDE_addCustomSystemsFile
 		CemuProton_addESConfig
 	else
 		echo "ES-DE not found. Skipped adding custom system."
@@ -108,6 +110,8 @@ CemuProton_update(){
 	CemuProton_addESConfig
 	CemuProton_flushEmulatorLauncher
 	if [ -e "$ESDE_toolPath" ]; then
+		ESDE_junksettingsFile
+		ESDE_addCustomSystemsFile
 		CemuProton_addESConfig
 	else
 		echo "ES-DE not found. Skipped adding custom system."
