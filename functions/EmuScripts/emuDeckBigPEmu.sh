@@ -53,6 +53,7 @@ BigPEmu_init(){
 		ESDE_junksettingsFile
 		ESDE_addCustomSystemsFile
 		BigPEmu_addESConfig
+		ESDE_setEmulationFolder
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
@@ -110,6 +111,7 @@ BigPEmu_update(){
 		ESDE_junksettingsFile
 		ESDE_addCustomSystemsFile
 		BigPEmu_addESConfig
+		ESDE_setEmulationFolder
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
