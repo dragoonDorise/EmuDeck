@@ -71,6 +71,8 @@ Ryujinx_init(){
     Ryujinx_flushEmulatorLauncher
 
 	if [ -e "$ESDE_toolPath" ]; then
+        ESDE_junksettingsFile
+        ESDE_addCustomSystemsFile
 		Yuzu_addESConfig
 	else
 		echo "ES-DE not found. Skipped adding custom system."
@@ -91,6 +93,8 @@ Ryujinx_update(){
     Ryujinx_flushEmulatorLauncher
 
 	if [ -e "$ESDE_toolPath" ]; then
+        ESDE_junksettingsFile
+        ESDE_addCustomSystemsFile
 		Yuzu_addESConfig
 	else
 		echo "ES-DE not found. Skipped adding custom system."

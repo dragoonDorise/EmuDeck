@@ -50,6 +50,8 @@ BigPEmu_init(){
 	BigPEmu_flushEmulatorLauncher
 	#SRM_createParsers
 	if [ -e "$ESDE_toolPath" ]; then
+		ESDE_junksettingsFile
+		ESDE_addCustomSystemsFile
 		BigPEmu_addESConfig
 	else
 		echo "ES-DE not found. Skipped adding custom system."
@@ -105,6 +107,8 @@ BigPEmu_update(){
 	BigPEmu_setupSaves
 	BigPEmu_flushEmulatorLauncher
 	if [ -e "$ESDE_toolPath" ]; then
+		ESDE_junksettingsFile
+		ESDE_addCustomSystemsFile
 		BigPEmu_addESConfig
 	else
 		echo "ES-DE not found. Skipped adding custom system."

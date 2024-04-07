@@ -241,6 +241,8 @@ Cemu_functions () {
 		flushEmulatorLauncher
 	
 		if [ -e "$ESDE_toolPath" ]; then
+			ESDE_junksettingsFile
+			ESDE_addCustomSystemsFile
 			CemuProton_addESConfig
 		else
 			echo "false"
@@ -262,6 +264,8 @@ Cemu_functions () {
 		addSteamInputProfile
 		flushEmulatorLauncher
 		if [ -e "$ESDE_toolPath" ]; then
+			ESDE_junksettingsFile
+			ESDE_addCustomSystemsFile
 			CemuProton_addESConfig
 		else
 			echo "ES-DE not found. Skipped adding custom system."

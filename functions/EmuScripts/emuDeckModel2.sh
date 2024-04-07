@@ -52,6 +52,8 @@ Model2_init(){
 	Model2_flushEmulatorLauncher
 	Model2_addSteamInputProfile
 	if [ -e "$ESDE_toolPath" ]; then
+		ESDE_junksettingsFile
+		ESDE_addCustomSystemsFile
 		Model2_addESConfig
 	else
 		echo "ES-DE not found. Skipped adding custom system."
