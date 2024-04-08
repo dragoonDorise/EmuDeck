@@ -1,7 +1,7 @@
 #!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
-emulatorInit "Ryujinx"
-emuName="Ryujinx.sh" #parameterize me
+emulatorInit "ryujinx"
+emuName="ryujinx.sh" #parameterize me
 emufolder="$HOME/Applications/publish" # has to be applications for ES-DE to find it
 
 #find full path to emu executable
