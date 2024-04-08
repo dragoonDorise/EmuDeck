@@ -336,7 +336,7 @@ cloud_sync_download(){
       else
 
         #We check the hashes
-        cloud_sync_save_hash "$emuName"
+        cloud_sync_save_hash "$savesPath/$emuName"
         local filePath="$savesPath/$emuName/.hash"
         local hash=$(cat "$savesPath/$emuName/.hash")
 
