@@ -5,13 +5,13 @@
 
 EmuDeck is a collection of scripts that allows you to autoconfigure your Steam Deck or any other Linux Distro, it creates your roms directory structure and downloads all of the needed Emulators for you along with the best configurations for each of them. EmuDeck works great with [Steam Rom Manager](https://github.com/SteamGridDB/steam-rom-manager) or with [EmulationStation DE](https://es-de.org)
 
-# How to use EmuDeck?
+## How to use EmuDeck?
 
 We recomend you take a look at our extensive Wiki, you'll find guides, videos and all sorts of content about the project:
 
 [EmuDeck Wiki](https://emudeck.github.io/how-to-install-emudeck/steamos/)
 
-# Developers, developers, developers.
+## Developers, developers, developers.
 
 If you wanna help us improve EmuDeck we are open to accept your PR! Just keep in mind this simple guide:
 
@@ -75,3 +75,34 @@ If it is a RetroArch core, replace `emulatorname` with `ra`.
   - `nintendo_64-rmg.json`
   - `nintendo_gba-ra-mgba.json`
   - `sega_saturn-ra-mednafen.json`
+ 
+## Credits
+
+### Configurations
+
+* bbilford83
+   * Tweaked and fine-tuned the Model 2 Emulator and Supermodel for EmuDeck on SteamOS
+* Warped Polygon
+   * Created the wonderful controls for the Model 2 Emulator and Supermodel
+   * [Model 2 Emulator](https://forums.launchbox-app.com/files/file/3926-sega-model-2-emulator-everything-pre-configured-inc-controls-for-pc-controller-mouse-light-guns-test-menus-configured-analogue-inputs-calibrated-free-play-all-games-in-english-2-player-mouse-support-no-screen-flash/)
+   * [Supermodel](https://forums.launchbox-app.com/files/file/3857-sega-model-3-supermodel-git-everything-pre-configured-inc-controls-for-pc-controller-mouse-light-guns-test-menus-configured-free-play-all-games-in-english-2-player-mouse-support-audio-adjusted-layout-imagesthe-whole-9-yards/)
+
+### Contributors
+
+* AngelofWoe
+* doctorjei
+* DragoonDoorise
+* DylanTackoor
+* exp111
+* EXtremeExploit
+* frostymm 
+* Godsbane
+* GloriousEggroll
+* JesseTG
+* Kardbord
+* KingIzzymon
+* rawdatafeel
+* Rosalie241 
+* SilentException
+* WedgeSparda
+* WingOfAGriffin

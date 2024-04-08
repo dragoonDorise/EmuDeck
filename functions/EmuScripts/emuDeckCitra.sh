@@ -74,6 +74,18 @@ Citra_setEmulationFolder(){
 		newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/n3ds"
 		sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_configFile"
 
+		nandDirOpt='nand_directory='
+		newnandDirOpt='nand_directory='"$HOME/.local/share/citra-emu/nand/"
+		sed -i "/${nandDirOpt}/c\\${newnandDirOpt}" "$Citra_configFile"
+
+		sdmcDirOpt='sdmc_directory='
+		newsdmcDirOpt='sdmc_directory='"$HOME/.local/share/citra-emu/sdmc/"
+		sed -i "/${sdmcDirOpt}/c\\${newsdmcDirOpt}" "$Citra_configFile"
+
+		screenshotsDirOpt='Paths\\screenshotPath='
+		newscreenshotDirOpt='Paths\\screenshotPath='"$HOME/.local/share/citra-emu/screenshots/"
+		sed -i "/${screenshotsDirOpt}/c\\${newscreenshotDirOpt}" "$Citra_configFile"
+
 		#Setup symlink for AES keys
 		mkdir -p "${biosPath}/citra/"
 		mkdir -p "$HOME/.local/share/citra-emu/sysdata"
@@ -88,12 +100,6 @@ Citra_setEmulationFolder(){
 
 		echo "Flatpak found. Setting configurations."
 
-		if [[ -e "$Citra_emuPath" ]] && [[ ! -f "$HOME/.config/EmuDeck/.citrasaves" ]];  then
-			echo "AppImage found. Copying Flatpak saves."
-			mkdir -p "$HOME/.local/share/citra-emu/sdmc"
-			rsync -avhp "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc/." "$HOME/.local/share/citra-emu/sdmc/."  --ignore-existing
-			touch "$HOME/.config/EmuDeck/.citrasaves"
-		fi
 
 		mkdir -p $Citra_flatpakconfigPath
 		rsync -avhp "$EMUDECKGIT/configs/org.citra_emu.citra/config/citra-emu/qt-config.ini" "$Citra_flatpakconfigPath/qt-config.ini" --backup --suffix=.bak
@@ -108,6 +114,13 @@ Citra_setEmulationFolder(){
 
 	else
 		echo "Flatpak not found."
+	fi
+
+	if [[ -e "$Citra_emuPath" ]] && [[ ! -f "$HOME/.config/EmuDeck/.citracopysaves" ]] && [[ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" ]] ;  then
+		echo "AppImage found. Copying Flatpak saves."
+		mkdir -p "$HOME/.local/share/citra-emu/sdmc"
+		rsync -avhp "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc/." "$HOME/.local/share/citra-emu/sdmc/."  --ignore-existing
+		touch "$HOME/.config/EmuDeck/.citracopysaves"
 	fi
 
 

@@ -158,14 +158,48 @@ appImageInit() {
 
 		if [ $? = 0 ]; then
 
-			Yuzu_addESConfig
-
+			if [ -e "$ESDE_toolPath" ]; then
+				ESDE_junksettingsFile
+				ESDE_addCustomSystemsFile
+				Yuzu_addESConfig
+			else
+				echo "ES-DE not found. Skipped adding custom system."
+			fi
+			
 		else 
 			echo "Do not apply hotfix."
 		fi
 	touch "$HOME/.config/EmuDeck/.esdeupdateyuzu"
 	fi
-	
+
+	if [ ! -f "$HOME/.config/EmuDeck/.esdefixupdateyuzu" ] && [ -f "$HOME/ES-DE/custom_systems" ]; then
+
+		zenity --info --text="If you are seeing this pop-up, that means the ES-DE hotfix for Yuzu did not properly apply to your system. Press OK below to proceed to the next pop-up so you may re-apply the hotfix."
+		--title="ES-DE" \
+		--width=400 \
+		--height=300
+		
+		zenity --question \
+		--text="An upcoming ES-DE update will be removing Yuzu support. This means that you will no longer be able to launch Nintendo Switch games using Yuzu in ES-DE. \nHowever, EmuDeck has pushed a hotfix to add back Yuzu support for ES-DE. \nIf you say no to this prompt, you may also apply this fix at any time by resetting ES-DE or Yuzu on the Manage Emulators page. \nWould you like to apply this hotfix?" \
+		--title="ES-DE Update" \
+		--width=400 \
+		--height=300
+
+		if [ $? = 0 ]; then
+
+			if [ -e "$ESDE_toolPath" ]; then
+				ESDE_junksettingsFile
+				ESDE_addCustomSystemsFile
+				Yuzu_addESConfig
+			else
+				echo "ES-DE not found. Skipped adding custom system."
+			fi
+			
+		else 
+			echo "Do not apply hotfix."
+		fi
+	touch "$HOME/.config/EmuDeck/.esdefixupdateyuzu"
+	fi
 
 
 	# Init functions

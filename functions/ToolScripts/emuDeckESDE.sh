@@ -108,12 +108,10 @@ ESDE_init(){
 
 	ESDE_migration
 	ESDE_junksettingsFile
-
-	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
+	ESDE_addCustomSystemsFile
+	
 	mkdir -p "$ESDE_newConfigDirectory/settings"
-
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
 
 	cp -r "$EMUDECKGIT/tools/launchers/es-de/." "$toolsPath/launchers/es-de/" && chmod +x "$toolsPath/launchers/es-de/es-de.sh"
@@ -147,13 +145,13 @@ ESDE_update(){
 
 	ESDE_migration
 	ESDE_junksettingsFile
+	ESDE_addCustomSystemsFile
 
 	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
 	mkdir -p "$ESDE_newConfigDirectory/settings"
 
 	#update es_settings.xml
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --ignore-existing
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --ignore-existing
 	rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --ignore-existing
 
 	ESDE_addCustomSystems
@@ -167,17 +165,34 @@ ESDE_update(){
 	ESDE_flushToolLauncher
 }
 
+
 ESDE_junksettingsFile(){
 
-junkSettingsFile="$ESDE_newConfigDirectory/settings"
+	local junkSettingsFile="$ESDE_newConfigDirectory/settings"
+	local customSystemsFile="$ESDE_newConfigDirectory/custom_systems"
 
 	if [ -f "$junkSettingsFile" ]; then
 		rm -f "$junkSettingsFile"
-		echo "'$junkSettingsFile' deleted."
+		echo ""$junkSettingsFile" deleted."
 	else
-		echo "File '$junkSettingsFile' does not exist."
+		echo ""$junkSettingsFile" does not exist."
 	fi
 
+	if [ -f "$customSystemsFile" ]; then
+		rm -f "$customSystemsFile"
+		echo ""$customSystemsFile" deleted."
+	else
+		echo ""$customSystemsFile" does not exist."
+	fi
+
+
+}
+
+ESDE_addCustomSystemsFile(){
+
+	# Separate function so it can be copied and used in the emulator scripts. 
+	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
 
 }
 

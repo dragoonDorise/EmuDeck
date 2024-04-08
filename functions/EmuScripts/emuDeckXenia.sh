@@ -71,7 +71,10 @@ Xenia_init(){
 	Xenia_flushEmulatorLauncher
 
 	if [ -e "$ESDE_toolPath" ]; then
+		ESDE_junksettingsFile
+		ESDE_addCustomSystemsFile
 		Xenia_addESConfig
+		ESDE_setEmulationFolder
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
