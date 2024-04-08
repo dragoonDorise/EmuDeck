@@ -71,7 +71,7 @@ cloudSyncHealth(){
 
 
 	#Test emulators
-	miArray=("Cemu" "citra" "dolphin" "duckstation" "MAME" "melonds" "mgba" "pcsx2" "ppsspp" "primehack" "retroarch" "rpcs3" "scummvm" "Vita3K" "yuzu" "ryujinx" )
+	miArray=("Cemu" "citra" "dolphin" "duckstation" "MAME" "melonds" "mgba" "pcsx2" "ppsspp" "primehack" "retroarch" "rpcs3" "scummvm" "Vita3K" "yuzu" "Ryujinx" "BigPEmu" )
 
 #	echo -e "<span class=\"yellow\">Testing uploading</span>"
 	for elemento in "${miArray[@]}"; do
