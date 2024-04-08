@@ -9,7 +9,7 @@
   "pcsx2": { "id": "pcsx2", "code": "PCSX2QT", "version": 1 },
   "rpcs3": { "id": "rpcs3", "code": "RPCS3", "version": 0 },
   "yuzu": { "id": "yuzu", "code": "Yuzu", "version": 1 },
-  "ryujinx": { "id": "ryujinx", "code": "Ryujinx", "version": 3 },
+  "ryujinx": { "id": "ryujinx", "code": "Ryujinx", "version": 4 },
   "xemu": { "id": "xemu", "code": "Xemu", "version": 0 },
   "cemu": { "id": "cemu", "code": "Cemu", "version": 0 },
   "srm": { "id": "srm", "code": "SRM", "version": 7 },
