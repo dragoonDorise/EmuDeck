@@ -287,6 +287,10 @@ fi
 	if [[ "$doUninstallCitra" == true ]]; then
 		flatpak uninstall org.citra_emu.citra -y
 		rm -rf $HOME/.var/app/org.citra_emu.citra &> /dev/null
+  		rm -rf $HOME/.local/share/applications/Citra.desktop &> /dev/null
+    		rm -rf $HOME/Applications/citra-qt*.AppImage &> /dev/null
+		rm -rf $HOME/.local/share/citra-emu &> /dev/null
+    		rm -rf $HOME/.config/citra-emu &> /dev/null
 	fi
 	if [[ "$doUninstallDolphin" == true ]]; then
 		flatpak uninstall org.DolphinEmu.dolphin-emu -y
