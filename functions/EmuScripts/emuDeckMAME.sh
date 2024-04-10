@@ -61,10 +61,10 @@ MAME_setEmulationFolder(){
 	newctrlrpathOpt="$ctrlrpathOpt""$storagePath/mame/ctrlr;"'$HOME/.mame/ctrlr;/app/share/mame/ctrlr'
 	changeLine "$ctrlrpathOpt" "$newctrlrpathOpt" "$MAME_configFile"
 
-	inipathOpt='inipath                   '
-	newinipathOpt="$inipathOpt""$storagePath/mame/ini;"'$HOME/.mame/ini;$HOME/.mame;/app/share/mame/ini'
-	changeLine "$inipathOpt" "$newinipathOpt" "$MAME_configFile"
-
+	# MAME doesn't seem too happy when you give it too many INI locations. This breaks loading artwork files (and potentially other things as well). This also reduces complexity for the end-user, only having the main INI file in one place. 	
+	# inipathOpt='inipath                   '
+	# newinipathOpt="$inipathOpt""$storagePath/mame/ini;"'$HOME/.mame/ini;$HOME/.mame;/app/share/mame/ini'
+	# changeLine "$inipathOpt" "$newinipathOpt" "$MAME_configFile"
 
 	cheatpathOpt='cheatpath                 '
 	newcheatpathOpt="$cheatpathOpt""$storagePath/mame/cheat;"'$HOME/.mame/cheat;/app/share/mame/cheat'
