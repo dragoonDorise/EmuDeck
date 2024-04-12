@@ -30,6 +30,22 @@ MAME_init(){
 	#SRM_createParsers
 	MAME_flushEmulatorLauncher
 	MAME_addSteamInputProfile
+
+	# If writeconfig is set to 1 in mame.ini, these files get created. Back up on reset so users can get the default/EmuDeck configured mame.ini file in ~/.mame
+	# writeconfig is disabled by default. Was enabled by default for a short time. 
+	if [ -f "$storagePath/mame/ini/mame.ini" ]; then
+		mv "$storagePath/mame/ini/mame.ini" "$storagePath/mame/ini/mame.ini.bak"
+	fi
+	if [ -f "$storagePath/mame/ini/ui.ini" ]; then
+		mv "$storagePath/mame/ini/ui.ini" "$storagePath/mame/ini/ui.ini.bak"
+	fi
+	if [ -f "$HOME/.mame/ini/mame.ini" ]; then
+		mv "$HOME/.mame/ini/mame.ini" "$HOME/.mame/ini/mame.ini.bak"
+	fi
+	if [ -f "$HOME/.mame/ini/ui.ini" ]; then
+		mv "$HOME/.mame/ini/ui.ini" "$HOME/.mame/ini/ui.ini.bak"
+	fi
+
 }
 
 #update
@@ -65,10 +81,13 @@ MAME_setEmulationFolder(){
 	newinipathOpt="$inipathOpt""$storagePath/mame/ini;"'$HOME/.mame/ini;$HOME/.mame;/app/share/mame/ini'
 	changeLine "$inipathOpt" "$newinipathOpt" "$MAME_configFile"
 
-
 	cheatpathOpt='cheatpath                 '
 	newcheatpathOpt="$cheatpathOpt""$storagePath/mame/cheat;"'$HOME/.mame/cheat;/app/share/mame/cheat'
 	changeLine "$cheatpathOpt" "$newcheatpathOpt" "$MAME_configFile"
+
+	pluginspathOpt='pluginspath               '
+	newpluginspathOpt="$pluginspathOpt""$storagePath/mame/plugins;"'$HOME/.mame/plugins;/app/share/mame/plugins'
+	changeLine "$pluginspathOpt" "$newpluginspathOpt" "$MAME_configFile"
 
 }
 
@@ -95,7 +114,14 @@ MAME_setupStorage(){
 	mkdir -p "$storagePath/mame/ctrlr"
 	mkdir -p "$storagePath/mame/ini"
 	mkdir -p "$storagePath/mame/cheat"
+	mkdir -p "$storagePath/mame/plugins"
 
+	mkdir -p "$HOME/.mame/samples"
+	mkdir -p "$HOME/.mame/artwork"
+	mkdir -p "$HOME/.mame/ctrlr"
+	mkdir -p "$HOME/.mame/ini"
+	mkdir -p "$HOME/.mame/cheat"
+	mkdir -p "$HOME/.mame/plugins"
 
 }
 
