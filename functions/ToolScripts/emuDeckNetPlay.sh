@@ -14,15 +14,15 @@ netplaySetIP(){
 	port=55435
 	timeout_seconds=1
 	netplaySetHost
-	for i in {2..254}; do
-		{
+	for i in {2..255}; do
+		 {
 			ip="$subnet$i"
-			if nc -z -w $timeout_seconds $ip $port >/dev/null 2>&1; then
+			if (echo > /dev/tcp/$ip/$port) >/dev/null 2>&1; then
 				netplaySetClient
 				setSetting netplayIP $ip
 				exit
 			fi
-		} &
+		 } &
 	done
 }
 
