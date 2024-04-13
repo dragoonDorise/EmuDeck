@@ -61,6 +61,7 @@ source "$EMUDECKGIT"/functions/ToolScripts/emuDeckInstallHomebrewGames.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckMigration.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckCopyGames.sh
 source "$EMUDECKGIT"/functions/ToolScripts/emuDecky.sh
+source "$EMUDECKGIT"/functions/ToolScripts/emuDeckNetPlay.sh
 
 
 #emuscripts
