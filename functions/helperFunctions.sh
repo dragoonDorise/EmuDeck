@@ -946,6 +946,7 @@ function emulatorInit(){
 		else
 			setSetting netplayCMD "' '"
 		fi
+		source $HOME/.config/EmuDeck/backend/functions/all.sh
 	fi
 
 	cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
