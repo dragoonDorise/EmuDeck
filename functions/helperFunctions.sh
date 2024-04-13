@@ -941,9 +941,10 @@ function emulatorInit(){
 
 		#Looks for devices listening, no listening device? you want to host
 		netplaySetIP
-		if [ "$netplayHost" = 'true' ]; then
+		source $HOME/.config/EmuDeck/backend/functions/all.sh
+		if [ "$netplayHost" == "true" ]; then
 			setSetting netplayCMD "-H"
-		elif [ "$netplayHost" = 'false' ]; then
+		elif [ "$netplayHost" == "false" ]; then
 			setSetting netplayCMD "-C $netplayIP"
 		else
 			setSetting netplayCMD ""
