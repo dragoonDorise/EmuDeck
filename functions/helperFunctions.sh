@@ -937,22 +937,19 @@ function emulatorInit(){
 	local emuName=$1
 	#isLatestVersionGH "$emuName"
 	#NetPlay
-# 	if [ "$emuName" = 'retroarch' ]; then
-#
-# 		if [ "$netplay" = 'true' ]; then
-# 			#Looks for devices listening, no listening device? you want to host
-# 			netplaySetIP
-# 			if [ "$netplayHost" = 'true' ]; then
-# 				setSetting netplayCMD "-H"
-# 			else
-# 				setSetting netplayCMD "-C $netplayIP"
-# 			fi
-# 		else
-# 			setSetting netplayCMD ""
-# 			setSetting netplayHost "false"
-# 		fi
-#
-# 	fi
+	if [ "$emuName" = 'retroarch' ]; then
+
+		#Looks for devices listening, no listening device? you want to host
+		netplaySetIP
+		if [ "$netplayHost" = 'true' ]; then
+			setSetting netplayCMD "-H"
+		elif [ "$netplayHost" = 'false' ]; then
+			setSetting netplayCMD "-C $netplayIP"
+		else
+			setSetting netplayCMD ""
+		fi
+
+	fi
 
 	cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
 }
