@@ -939,17 +939,10 @@ function emulatorInit(){
 	#NetPlay
 	if [ "$emuName" = 'retroarch' ]; then
    		if [ "$netPlay" == "true" ]; then
-			#Looks for devices listening, no listening device? you want to host
-			netplaySetHost
+			#Looks for devices listening
+			setSetting netplayCMD "-H"
 			sleep 2
 			netplaySetIP
-			if [ "$netplayHost" == "true" ]; then
-				setSetting netplayCMD "-H"
-			elif [ "$netplayHost" == "false" ]; then
-				setSetting netplayCMD "'-C $netplayIP'"
-			else
-				setSetting netplayCMD ""
-			fi
 		else
 			setSetting netplayCMD "' '"
 		fi

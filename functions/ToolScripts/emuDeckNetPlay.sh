@@ -16,19 +16,10 @@ netplaySetIP(){
 		 {
 			ip="$subnet$i"
 			if (echo > /dev/tcp/$ip/$port) >/dev/null 2>&1; then
-				setSetting netplayHost "false"
-				setSetting netplayIP "$ip"
+				setSetting netplayCMD "'-C $ip'"
 				exit
 			fi
 		 } &
 	done
 
-}
-
-netplaySetHost(){
-	setSetting netplayHost "true"
-}
-
-netplaySetClient(){
-	setSetting netplayHost "false"
 }
