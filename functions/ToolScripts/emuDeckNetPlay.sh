@@ -23,6 +23,7 @@ netplaySetIP(){
 			fi
 		 } &
 	done
+	sleep 1
 }
 
 netplaySetHost(){
