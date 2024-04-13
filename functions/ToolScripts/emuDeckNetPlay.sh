@@ -12,18 +12,20 @@ netplaySetIP(){
 	segment=$(echo $localIP | awk -F '.' '{print $1"."$2"."$3}')
 	subnet="$segment".
 	port=55435
-	#netplaySetHost
+	netplaySetHost
+	sleep 1
 	for i in {2..255}; do
 		 {
 			ip="$subnet$i"
 			if (echo > /dev/tcp/$ip/$port) >/dev/null 2>&1; then
 				setSetting netplayHost "false"
 				setSetting netplayIP "$ip"
+				sleep 1
 				exit
 			fi
 		 } &
 	done
-	sleep 1
+
 }
 
 netplaySetHost(){
