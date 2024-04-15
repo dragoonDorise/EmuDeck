@@ -9,17 +9,8 @@
         </rule>
     </emulator>
     <emulator name="RETROARCH">
-        <rule type="systempath">
-            <entry>org.libretro.RetroArch</entry>
-            <entry>retroarch</entry>
-        </rule>
         <rule type="staticpath">
-            <entry>~/.local/share/flatpak/exports/bin/org.libretro.RetroArch</entry>
-            <entry>/var/lib/flatpak/exports/bin/org.libretro.RetroArch</entry>
-            <entry>~/Applications/RetroArch-Linux*.AppImage</entry>
-            <entry>~/.local/share/applications/RetroArch-Linux*.AppImage</entry>
-            <entry>~/.local/bin/RetroArch-Linux*.AppImage</entry>
-            <entry>~/bin/RetroArch-Linux*.AppImage</entry>
+			<entry>/run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh</entry>
         </rule>
     </emulator>
     <core name="RETROARCH">
