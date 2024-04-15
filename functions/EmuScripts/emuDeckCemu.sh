@@ -196,11 +196,26 @@ Cemu_functions () {
 
 	# Setup Storage
 	setupStorage () {
+
+		# These remove the bad symlinks/files created by the lines below. 
+		if [ -L "${CemuNative[shareDir]}/graphicPacks" ]; then
+			rm -rf "${CemuNative[shareDir]}/graphicPacks"
+		fi
+
+  		if [ -f "${CemuNative[shareDir]}/graphicPacks" ]; then
+			rm -f "${CemuNative[shareDir]}/graphicPacks"
+		fi
+
+		if [ -L "${CemuNative[shareDir]}/mlc01/mlc01" ]; then
+			rm -rf "${CemuNative[shareDir]}/mlc01/mlc01"
+		fi
+
+  		# Commenting out for now. These need more testing. 
 		#install -d "${storagePath}/cemu"
-		unlink "${CemuNative[shareDir]}/mlc01"
-		unlink "${CemuNative[shareDir]}/graphicPacks"
-		ln -sn "${romsPath}/wiiu/mlc01" "${CemuNative[shareDir]}/mlc01"
-		ln -sn "${romsPath}/wiiu/graphicPacks" "${CemuNative[shareDir]}/graphicPacks"
+		#unlink "${CemuNative[shareDir]}/mlc01"
+		#unlink "${CemuNative[shareDir]}/graphicPacks"
+		#ln -sn "${romsPath}/wiiu/mlc01" "${CemuNative[shareDir]}/mlc01"
+		#ln -sn "${romsPath}/wiiu/graphicPacks" "${CemuNative[shareDir]}/graphicPacks"
 	}
 
 	# Wipe Settings
