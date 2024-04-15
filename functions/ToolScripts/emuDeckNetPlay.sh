@@ -21,7 +21,7 @@ netplaySetIP(){
 				setSetting netplayCMD "'-C $ip'"
 				break
 			fi
-		 } &
+		 }
 	done
 
 }
