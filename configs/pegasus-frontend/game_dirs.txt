@@ -1,5 +1,4 @@
 /run/media/mmcblk0p1/Emulation/roms/3do
-/run/media/mmcblk0p1/Emulation/roms/3ds
 /run/media/mmcblk0p1/Emulation/roms/64dd
 /run/media/mmcblk0p1/Emulation/roms/ags
 /run/media/mmcblk0p1/Emulation/roms/amiga
@@ -58,7 +57,6 @@
 /run/media/mmcblk0p1/Emulation/roms/fmtowns
 /run/media/mmcblk0p1/Emulation/roms/gameandwatch
 /run/media/mmcblk0p1/Emulation/roms/gamecom
-/run/media/mmcblk0p1/Emulation/roms/gamecube
 /run/media/mmcblk0p1/Emulation/roms/gamegear
 /run/media/mmcblk0p1/Emulation/roms/gb
 /run/media/mmcblk0p1/Emulation/roms/gba
