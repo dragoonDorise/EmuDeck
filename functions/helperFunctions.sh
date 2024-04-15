@@ -945,11 +945,14 @@ function emulatorInit(){
 			netplaySetIP
 		else
 			setSetting netplayCMD "' '"
+			cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
 		fi
 		source $HOME/.config/EmuDeck/backend/functions/all.sh
 	fi
 
-	cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
+	if [ "$emuName" != 'retroarch' ]; then
+		cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
+	fi
 }
 
 function jsonToBashVars(){
