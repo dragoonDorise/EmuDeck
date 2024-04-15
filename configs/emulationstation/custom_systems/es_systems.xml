@@ -57,5 +57,2271 @@
     <command label="Xenia (Proton)">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh z:%ROM% %INJECT%=%BASENAME%.esprefix</command>
     <platform>xbox360</platform>
     <theme>xbox360</theme>
-  </system>
-</systemList>
+	</system>
+	  <system>
+		  <name>3do</name>
+		  <fullname>3DO Interactive Multiplayer</fullname>
+		  <path>%ROMPATH%/3do</path>
+		  <extension>.bin .BIN .chd .CHD .cue .CUE .iso .ISO .7z .7Z .zip .ZIP</extension>
+		  <command label="Opera">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/opera_libretro.so %ROM%</command>
+		  <platform>3do</platform>
+		  <theme>3do</theme>
+	  </system>
+	  <system>
+		  <name>adam</name>
+		  <fullname>Coleco Adam</fullname>
+		  <path>%ROMPATH%/adam</path>
+		  <extension>.1dd .1DD .bin .BIN .col .COL .cqi .CQI .cqm .CQM .d77 .D77 .d88 .D88 .ddp .DDP .dfi .DFI .dsk .DSK .hfe .HFE .imd .IMD .mfi .MFI .mfm .MFM .rom .ROM .td0 .TD0 .wav .WAV .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME [Diskette] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/adam adam -flop1 %ROM%</command>
+		  <command label="MAME [Tape] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/adam adam -cass1 %ROM%</command>
+		  <command label="MAME [Cartridge] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/adam adam -cart1 %ROM%</command>
+		  <command label="MAME [Software list] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/adam adam %BASENAME%</command>
+		  <platform>adam</platform>
+		  <theme>adam</theme>
+	  </system>
+	  <system>
+		  <name>ags</name>
+		  <fullname>Adventure Game Studio Game Engine</fullname>
+		  <path>%ROMPATH%/ags</path>
+		  <extension>.desktop .sh</extension>
+		  <command label="Shortcut or script">%STARTDIR%=%GAMEDIR% %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <platform>pcwindows</platform>
+		  <theme>ags</theme>
+	  </system>
+	  <system>
+		  <name>amiga</name>
+		  <fullname>Commodore Amiga</fullname>
+		  <path>%ROMPATH%/amiga</path>
+		  <extension>.adf .ADF .adz .ADZ .ccd .CCD .chd .CHD .cue .CUE .dms .DMS .fdi .FDI .hdf .HDF .hdz .HDZ .ipf .IPF .iso .ISO .lha .LHA .m3u .M3U .mds .MDS .nrg .NRG .rp9 .RP9 .uae .UAE .7z .7Z .zip .ZIP</extension>
+		  <command label="PUAE">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/puae_libretro.so %ROM%</command>
+		  <command label="PUAE 2021">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/puae2021_libretro.so %ROM%</command>
+		  <command label="FS-UAE (Standalone)">%EMULATOR_FS-UAE% %ROM%</command>
+		  <command label="Amiberry (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_AMIBERRY% --autoload %ROM%</command>
+		  <platform>amiga</platform>
+		  <theme>amiga</theme>
+	  </system>
+	  <system>
+		  <name>amiga1200</name>
+		  <fullname>Commodore Amiga 1200</fullname>
+		  <path>%ROMPATH%/amiga1200</path>
+		  <extension>.adf .ADF .adz .ADZ .ccd .CCD .chd .CHD .cue .CUE .dms .DMS .fdi .FDI .hdf .HDF .hdz .HDZ .ipf .IPF .iso .ISO .lha .LHA .m3u .M3U .mds .MDS .nrg .NRG .rp9 .RP9 .uae .UAE .7z .7Z .zip .ZIP</extension>
+		  <command label="PUAE">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/puae_libretro.so %ROM%</command>
+		  <command label="PUAE 2021">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/puae2021_libretro.so %ROM%</command>
+		  <command label="FS-UAE (Standalone)">%EMULATOR_FS-UAE% %ROM%</command>
+		  <command label="Amiberry (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_AMIBERRY% --autoload %ROM%</command>
+		  <platform>amiga</platform>
+		  <theme>amiga1200</theme>
+	  </system>
+	  <system>
+		  <name>amiga600</name>
+		  <fullname>Commodore Amiga 600</fullname>
+		  <path>%ROMPATH%/amiga600</path>
+		  <extension>.adf .ADF .adz .ADZ .ccd .CCD .chd .CHD .cue .CUE .dms .DMS .fdi .FDI .hdf .HDF .hdz .HDZ .ipf .IPF .iso .ISO .lha .LHA .m3u .M3U .mds .MDS .nrg .NRG .rp9 .RP9 .uae .UAE .7z .7Z .zip .ZIP</extension>
+		  <command label="PUAE">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/puae_libretro.so %ROM%</command>
+		  <command label="PUAE 2021">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/puae2021_libretro.so %ROM%</command>
+		  <command label="FS-UAE (Standalone)">%EMULATOR_FS-UAE% %ROM%</command>
+		  <command label="Amiberry (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_AMIBERRY% --autoload %ROM%</command>
+		  <platform>amiga</platform>
+		  <theme>amiga600</theme>
+	  </system>
+	  <system>
+		  <name>amigacd32</name>
+		  <fullname>Commodore Amiga CD32</fullname>
+		  <path>%ROMPATH%/amigacd32</path>
+		  <extension>.adf .ADF .adz .ADZ .ccd .CCD .chd .CHD .cue .CUE .dms .DMS .fdi .FDI .hdf .HDF .hdz .HDZ .ipf .IPF .iso .ISO .lha .LHA .m3u .M3U .mds .MDS .nrg .NRG .rp9 .RP9 .uae .UAE .7z .7Z .zip .ZIP</extension>
+		  <command label="PUAE">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/puae_libretro.so %ROM%</command>
+		  <command label="PUAE 2021">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/puae2021_libretro.so %ROM%</command>
+		  <command label="FS-UAE (Standalone)">%EMULATOR_FS-UAE% --config:amiga-model=CD32 %ROM%</command>
+		  <command label="Amiberry (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_AMIBERRY% --model CD32 --autoload %ROM%</command>
+		  <platform>amigacd32</platform>
+		  <theme>amigacd32</theme>
+	  </system>
+	  <system>
+		  <name>amstradcpc</name>
+		  <fullname>Amstrad CPC</fullname>
+		  <path>%ROMPATH%/amstradcpc</path>
+		  <extension>.cdt .CDT .cpr .CPR .dsk .DSK .kcr .KCR .m3u .M3U .sna .SNA .tap .TAR .voc .VOC .7z .7Z .zip .ZIP</extension>
+		  <command label="Caprice32">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/cap32_libretro.so %ROM%</command>
+		  <command label="CrocoDS">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/crocods_libretro.so %ROM%</command>
+		  <command label="CPCemu (Standalone)">%STARTDIR%=~/.CPCemu %EMULATOR_CPCEMU% %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/amstradcpc cpc6128 -flop1 %ROM%</command>
+		  <platform>amstradcpc</platform>
+		  <theme>amstradcpc</theme>
+	  </system>
+	  <system>
+		  <name>android</name>
+		  <fullname>Google Android</fullname>
+		  <path>%ROMPATH%/android</path>
+		  <extension>.7z .7Z .zip .ZIP</extension>
+		  <command>PLACEHOLDER %ROM%</command>
+		  <platform>android</platform>
+		  <theme>android</theme>
+	  </system>
+	  <system>
+		  <name>apple2</name>
+		  <fullname>Apple II</fullname>
+		  <path>%ROMPATH%/apple2</path>
+		  <extension>.do .DO .dsk .DSK .nib .NIB .po .PO</extension>
+		  <command label="LinApple (Standalone)">%EMULATOR_LINAPPLE% -f -b --d1 %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module apple2 %ROM%</command>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "apple2e -rompath \"%GAMEDIRRAW%;%ROMPATH%/apple2\" -flop1 \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/apple2 apple2e -flop1 %ROM%</command>
+		  <platform>apple2</platform>
+		  <theme>apple2</theme>
+	  </system>
+	  <system>
+		  <name>apple2gs</name>
+		  <fullname>Apple IIGS</fullname>
+		  <path>%ROMPATH%/apple2gs</path>
+		  <extension>.2mg .2MG .7z .7z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "apple2gs -rompath \"%GAMEDIRRAW%;%ROMPATH%/apple2gs\" -flop3 \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/apple2gs apple2gs -flop3 %ROM%</command>
+		  <platform>apple2gs</platform>
+		  <theme>apple2gs</theme>
+	  </system>
+	  <system>
+		  <name>arcade</name>
+		  <fullname>Arcade</fullname>
+		  <path>%ROMPATH%/arcade</path>
+		  <extension>.cmd .CMD .desktop .neo .NEO .sh .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so %ROM%</command>
+		  <command label="MAME 2010">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2010_libretro.so %ROM%</command>
+		  <command label="MAME 2003-Plus">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2003_plus_libretro.so %ROM%</command>
+		  <command label="MAME 2000">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2000_libretro.so %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/arcade %BASENAME%</command>
+		  <command label="FinalBurn Neo">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbneo_libretro.so %ROM%</command>
+		  <command label="FinalBurn Neo (Standalone)">%EMULATOR_FINALBURN-NEO% -fullscreen %BASENAME%</command>
+		  <command label="FB Alpha 2012">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_libretro.so %ROM%</command>
+		  <command label="Geolith">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/geolith_libretro.so %ROM%</command>
+		  <command label="Flycast">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/flycast_libretro.so %ROM%</command>
+		  <command label="Flycast (Standalone)">%EMULATOR_FLYCAST% %ROM%</command>
+		  <command label="Flycast Dojo (Standalone)">%EMULATOR_FLYCAST-DOJO% %ROM%</command>
+		  <command label="Kronos">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/kronos_libretro.so %ROM%</command>
+		  <command label="Supermodel (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_SUPERMODEL% -log-output=%GAMEDIR%/Config/Supermodel.log %INJECT%=%BASENAME%.commands %ROM%</command>
+		  <command label="Shortcut or script">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>arcade</theme>
+	  </system>
+	  <system>
+		  <name>arcadia</name>
+		  <fullname>Emerson Arcadia 2001</fullname>
+		  <path>%ROMPATH%/arcadia</path>
+		  <extension>.bin .BIN .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "arcadia -rompath \"%GAMEDIRRAW%;%ROMPATH%/arcadia\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/arcadia arcadia -cart %ROM%</command>
+		  <platform>arcadia</platform>
+		  <theme>arcadia</theme>
+	  </system>
+	  <system>
+		  <name>archimedes</name>
+		  <fullname>Acorn Archimedes</fullname>
+		  <path>%ROMPATH%/archimedes</path>
+		  <extension>.1dd .1DD .360 .adf .ADF .adl .ADL .adm .ADM .ads .ADS .apd .APD .bbc .BBC .chd .CHD .cqi .CQI .cqm .CQM .d77 .D77 .d88 .D88 .dfi .DFI .dsd .DSD .dsk .DSK .hfe .HFE .ima .IMA .imd .IMD .img .IMG .ipf .IPF .jfd .JFD .mfi .MFI .mfm .MFM .msa .MSA .ssd .SSD .st .ST .td0 .TD0 .ufi .UFI .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME [Model A440/1] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/archimedes aa4401 -flop1 %ROM%</command>
+		  <command label="MAME [Model A3000] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/archimedes aa3000 -flop1 %ROM%</command>
+		  <command label="MAME [Model A310] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/archimedes aa310 -flop1 %ROM%</command>
+		  <command label="MAME [Model A540] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/archimedes aa540 -flop1 %ROM%</command>
+		  <platform>archimedes</platform>
+		  <theme>archimedes</theme>
+	  </system>
+	  <system>
+		  <name>arduboy</name>
+		  <fullname>Arduboy Miniature Game System</fullname>
+		  <path>%ROMPATH%/arduboy</path>
+		  <extension>.hex .HEX .7z .7Z .zip .ZIP</extension>
+		  <command label="Arduous">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/arduous_libretro.so %ROM%</command>
+		  <platform>arduboy</platform>
+		  <theme>arduboy</theme>
+	  </system>
+	  <system>
+		  <name>astrocde</name>
+		  <fullname>Bally Astrocade</fullname>
+		  <path>%ROMPATH%/astrocde</path>
+		  <extension>.7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "astrocde -rompath \"%GAMEDIRRAW%;%ROMPATH%/astrocde\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/astrocde astrocde -cart %BASENAME%</command>
+		  <platform>astrocde</platform>
+		  <theme>astrocade</theme>
+	  </system>
+	  <system>
+		  <name>atari2600</name>
+		  <fullname>Atari 2600</fullname>
+		  <path>%ROMPATH%/atari2600</path>
+		  <extension>.a26 .A26 .bin .BIN .7z .7Z .zip .ZIP</extension>
+		  <command label="Stella">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/stella_libretro.so %ROM%</command>
+		  <command label="Stella 2014">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/stella2014_libretro.so %ROM%</command>
+		  <command label="Stella (Standalone)">%EMULATOR_STELLA% %ROM%</command>
+		  <command label="Gopher2600 (Standalone)">%EMULATOR_GOPHER2600% %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Atari 2600" %ROM%</command>
+		  <platform>atari2600</platform>
+		  <theme>atari2600</theme>
+	  </system>
+	  <system>
+		  <name>atari5200</name>
+		  <fullname>Atari 5200</fullname>
+		  <path>%ROMPATH%/atari5200</path>
+		  <extension>.a52 .A52 .atr .ATR .atx .ATX .bin .BIN .car .CAR .cas .CAS .cdm .CDM .rom .ROM .xex .XEX .xfd .XFD .7z .7Z .zip .ZIP</extension>
+		  <command label="a5200">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/a5200_libretro.so %ROM%</command>
+		  <command label="Atari800">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/atari800_libretro.so %ROM%</command>
+		  <command label="Atari800 (Standalone)">%EMULATOR_ATARI800% %ROM%</command>
+		  <platform>atari5200</platform>
+		  <theme>atari5200</theme>
+	  </system>
+	  <system>
+		  <name>atari7800</name>
+		  <fullname>Atari 7800 ProSystem</fullname>
+		  <path>%ROMPATH%/atari7800</path>
+		  <extension>.a78 .A78 .bin .BIN .7z .7Z .zip .ZIP</extension>
+		  <command label="ProSystem">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/prosystem_libretro.so %ROM%</command>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "a7800 -rompath \"%GAMEDIRRAW%;%ROMPATH%/atari7800\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/atari7800 a7800 -cart %ROM%</command>
+		  <platform>atari7800</platform>
+		  <theme>atari7800</theme>
+	  </system>
+	  <system>
+		  <name>atari800</name>
+		  <fullname>Atari 800</fullname>
+		  <path>%ROMPATH%/atari800</path>
+		  <extension>.a52 .A52 .atr .ATR .atx .ATX .bin .BIN .car .CAR .cas .CAS .cdm .CDM .rom .ROM .xex .XEX .xfd .XFD .7z .7Z .zip .ZIP</extension>
+		  <command label="Atari800">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/atari800_libretro.so %ROM%</command>
+		  <command label="Atari800 (Standalone)">%EMULATOR_ATARI800% %ROM%</command>
+		  <platform>atari800</platform>
+		  <theme>atari800</theme>
+	  </system>
+	  <system>
+		  <name>atarijaguar</name>
+		  <fullname>Atari Jaguar</fullname>
+		  <path>%ROMPATH%/atarijaguar</path>
+		  <extension>.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP</extension>
+		  <command label="Virtual Jaguar">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/virtualjaguar_libretro.so %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/atarijaguar jaguar -cart %ROM%</command>
+		  <command label="BigPEmu (Wine)">%STARTDIR%=%EMUDIR% %PRECOMMAND_WINE% %EMULATOR_BIGPEMU-WINDOWS% %ROM%</command>
+		  <command label="BigPEmu (Proton)">%STARTDIR%=%EMUDIR% %PRECOMMAND_PROTON% %EMULATOR_BIGPEMU-WINDOWS% %ROM%</command>
+		  <platform>atarijaguar</platform>
+		  <theme>atarijaguar</theme>
+	  </system>
+	  <system>
+		  <name>atarijaguarcd</name>
+		  <fullname>Atari Jaguar CD</fullname>
+		  <path>%ROMPATH%/atarijaguarcd</path>
+		  <extension>.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP</extension>
+		  <command label="BigPEmu (Wine)">%STARTDIR%=%EMUDIR% %PRECOMMAND_WINE% %EMULATOR_BIGPEMU-WINDOWS% %ROM%</command>
+		  <command label="BigPEmu (Proton)">%STARTDIR%=%EMUDIR% %PRECOMMAND_PROTON% %EMULATOR_BIGPEMU-WINDOWS% %ROM%</command>
+		  <platform>atarijaguarcd</platform>
+		  <theme>atarijaguarcd</theme>
+	  </system>
+	  <system>
+		  <name>atarilynx</name>
+		  <fullname>Atari Lynx</fullname>
+		  <path>%ROMPATH%/atarilynx</path>
+		  <extension>.lnx .LNX .o .O .7z .7Z .zip .ZIP</extension>
+		  <command label="Handy">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/handy_libretro.so %ROM%</command>
+		  <command label="Beetle Lynx">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_lynx_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module lynx %ROM%</command>
+		  <platform>atarilynx</platform>
+		  <theme>atarilynx</theme>
+	  </system>
+	  <system>
+		  <name>atarist</name>
+		  <fullname>Atari ST</fullname>
+		  <path>%ROMPATH%/atarist</path>
+		  <extension>.st .ST .msa .MSA .stx .STX .dim .DIM .ipf .IPF .m3u .M3U .7z .7Z .zip .ZIP</extension>
+		  <command label="Hatari">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/hatari_libretro.so %ROM%</command>
+		  <command label="Hatari (Standalone)">%EMULATOR_HATARI% %ROM%</command>
+		  <platform>atarist</platform>
+		  <theme>atarist</theme>
+	  </system>
+	  <system>
+		  <name>atarixe</name>
+		  <fullname>Atari XE</fullname>
+		  <path>%ROMPATH%/atarixe</path>
+		  <extension>.a52 .A52 .atr .ATR .atx .ATX .bin .BIN .cas .CAS .cdm .CDM .xex .XEX .xfd .XFD .7z .7Z .zip .ZIP</extension>
+		  <command label="Atari800">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/atari800_libretro.so %ROM%</command>
+		  <command label="Atari800 (Standalone)">%EMULATOR_ATARI800% %ROM%</command>
+		  <platform>atarixe</platform>
+		  <theme>atarixe</theme>
+	  </system>
+	  <system>
+		  <name>atomiswave</name>
+		  <fullname>Sammy Corporation Atomiswave</fullname>
+		  <path>%ROMPATH%/atomiswave</path>
+		  <extension>.bin .BIN .dat .DAT .elf .ELF .lst .LST .7z .7Z .zip .ZIP</extension>
+		  <command label="Flycast">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/flycast_libretro.so %ROM%</command>
+		  <command label="Flycast (Standalone)">%EMULATOR_FLYCAST% %ROM%</command>
+		  <command label="Flycast Dojo (Standalone)">%EMULATOR_FLYCAST-DOJO% %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>atomiswave</theme>
+	  </system>
+	  <system>
+		  <name>bbcmicro</name>
+		  <fullname>Acorn Computers BBC Micro</fullname>
+		  <path>%ROMPATH%/bbcmicro</path>
+		  <extension>.dsd .DSD .img .IMG .ssd .SSD .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/bbcmicro bbcb -autoboot_delay "2" -autoboot_command "*cat\n\n*exec !boot\n" -flop1 %ROM%</command>
+		  <platform>bbcmicro</platform>
+		  <theme>bbcmicro</theme>
+	  </system>
+	  <system>
+		  <name>c64</name>
+		  <fullname>Commodore 64</fullname>
+		  <path>%ROMPATH%/c64</path>
+		  <extension>.bin .BIN .cmd .CMD .crt .CRT .d2m .D2M .d4m .D4M .d64 .D64 .d6z .D6Z .d71 .D71 .d7z .D7Z .d80 .D80 .d81 .D81 .d82 .D82 .d8z .D8Z .g41 .G41 .g4z .G4Z .g64 .G64 .g6z .G6Z .gz .GZ .lnx .LNX .m3u .M3U .nbz .NBZ .nib .NIB .p00 .P00 .prg .PRG .t64 .T64 .tap .TAP .vfl .VFL .vsf .VSF .x64 .X64 .x6z .X6Z .7z .7Z .zip .ZIP</extension>
+		  <command label="VICE x64sc Accurate">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/vice_x64sc_libretro.so %ROM%</command>
+		  <command label="VICE x64sc Accurate (Standalone)">%EMULATOR_VICE-X64SC% %ROM%</command>
+		  <command label="VICE x64 Fast">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/vice_x64_libretro.so %ROM%</command>
+		  <command label="VICE x64 SuperCPU">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/vice_xscpu64_libretro.so %ROM%</command>
+		  <command label="VICE x128">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/vice_x128_libretro.so %ROM%</command>
+		  <command label="Frodo">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/frodo_libretro.so %ROM%</command>
+		  <platform>c64</platform>
+		  <theme>c64</theme>
+	  </system>
+	  <system>
+		  <name>cdimono1</name>
+		  <fullname>Philips CD-i</fullname>
+		  <path>%ROMPATH%/cdimono1</path>
+		  <extension>.chd .CHD .cue .CUE .iso .ISO</extension>
+		  <command label="SAME CDi">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/same_cdi_libretro.so %ROM%</command>
+		  <command label="CDi 2015">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/cdi2015_libretro.so %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/cdimono1 cdimono1 -cdrom %ROM%</command>
+		  <platform>cdimono1</platform>
+		  <theme>cdimono1</theme>
+	  </system>
+	  <system>
+		  <name>cdtv</name>
+		  <fullname>Commodore CDTV</fullname>
+		  <path>%ROMPATH%/cdtv</path>
+		  <extension>.ccd .CCD .chd .CHD .cue .CUE .iso .ISO .m3u .M3U .mds .MDS .nrg .NRG .rp9 .RP9 .7z .7Z .zip .ZIP</extension>
+		  <command label="PUAE">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/puae_libretro.so %ROM%</command>
+		  <command label="PUAE 2021">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/puae2021_libretro.so %ROM%</command>
+		  <command label="FS-UAE (Standalone)">%EMULATOR_FS-UAE% --config:amiga-model=CDTV %ROM%</command>
+		  <command label="Amiberry (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_AMIBERRY% --model CDTV --autoload %ROM%</command>
+		  <platform>cdtv</platform>
+		  <theme>cdtv</theme>
+	  </system>
+	  <system>
+		  <name>chailove</name>
+		  <fullname>ChaiLove Game Engine</fullname>
+		  <path>%ROMPATH%/chailove</path>
+		  <extension>.chai .CHAI .chailove .CHAILOVE .7z .7Z .zip .ZIP</extension>
+		  <command label="ChaiLove">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/chailove_libretro.so %ROM%</command>
+		  <platform>love</platform>
+		  <theme>chailove</theme>
+	  </system>
+	  <system>
+		  <name>channelf</name>
+		  <fullname>Fairchild Channel F</fullname>
+		  <path>%ROMPATH%/channelf</path>
+		  <extension>.bin .BIN .chf .CHF .7z .7Z .zip .ZIP</extension>
+		  <command label="FreeChaF">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/freechaf_libretro.so %ROM%</command>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "channelf -rompath \"%GAMEDIRRAW%;%ROMPATH%/channelf\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/channelf channelf -cart %ROM%</command>
+		  <platform>channelf</platform>
+		  <theme>channelf</theme>
+	  </system>
+	  <system>
+		  <name>coco</name>
+		  <fullname>Tandy Color Computer</fullname>
+		  <path>%ROMPATH%/coco</path>
+		  <extension>.cas .CAS .ccc .CCC .dsk .DSK .rom .ROM</extension>
+		  <command label="XRoar CoCo 2 NTSC (Standalone)">%EMULATOR_XROAR% -fs -default-machine coco2bus %ROM%</command>
+		  <command label="XRoar CoCo 2 PAL (Standalone)">%EMULATOR_XROAR% -fs -default-machine coco2b %ROM%</command>
+		  <platform>coco</platform>
+		  <theme>coco</theme>
+	  </system>
+	  <system>
+		  <name>colecovision</name>
+		  <fullname>Coleco ColecoVision</fullname>
+		  <path>%ROMPATH%/colecovision</path>
+		  <extension>.bin .BIN .cas .CAS .col .COL .cv .CV .dsk .DSK .m3u .M3U .mx1 .MX1 .mx2 .MX2 .ri .RI .rom .ROM .sc .SC .sg .SG .7z .7Z .zip .ZIP</extension>
+		  <command label="blueMSX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bluemsx_libretro.so %ROM%</command>
+		  <command label="Gearcoleco">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/gearcoleco_libretro.so %ROM%</command>
+		  <command label="openMSX (Standalone)">%EMULATOR_OPENMSX% -machine ColecoVision_SGM %INJECT%=%BASENAME%.commands -cart %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "ColecoVision" %ROM%</command>
+		  <platform>colecovision</platform>
+		  <theme>colecovision</theme>
+	  </system>
+	  <system>
+		  <name>consolearcade</name>
+		  <fullname>Console Arcade Systems</fullname>
+		  <path>%ROMPATH%/consolearcade</path>
+		  <extension>.arcadedef .desktop .iso .ISO .sh .xbe .XBE .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/consolearcade %BASENAME%</command>
+		  <command label="Flycast">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/flycast_libretro.so %ROM%</command>
+		  <command label="Flycast (Standalone)">%EMULATOR_FLYCAST% %ROM%</command>
+		  <command label="Flycast Dojo (Standalone)">%EMULATOR_FLYCAST-DOJO% %ROM%</command>
+		  <command label="Kronos">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/kronos_libretro.so %ROM%</command>
+		  <command label="Mednafen [Sega Saturn] (Standalone)">%EMULATOR_MEDNAFEN% -force_module ss %ROM%</command>
+		  <command label="Play! (Standalone)">%EMULATOR_PLAY!% --disc %ROM%</command>
+		  <command label="RPCS3 Shortcut (Standalone)">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <command label="Triforce (Standalone)">%INJECT%=%BASENAME%.esprefix %EMULATOR_TRIFORCE% -b -e %ROM%</command>
+		  <command label="xemu (Standalone)">%INJECT%=%BASENAME%.esprefix %EMULATOR_XEMU% -dvd_path %ROM%</command>
+		  <command label="Shortcut or script">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>consolearcade</theme>
+	  </system>
+	  <system>
+		  <name>cps</name>
+		  <fullname>Capcom Play System</fullname>
+		  <path>%ROMPATH%/cps</path>
+		  <extension>.7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so %ROM%</command>
+		  <command label="MAME 2010">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2010_libretro.so %ROM%</command>
+		  <command label="MAME 2003-Plus">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2003_plus_libretro.so %ROM%</command>
+		  <command label="MAME 2000">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2000_libretro.so %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/cps %BASENAME%</command>
+		  <command label="FinalBurn Neo">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbneo_libretro.so %ROM%</command>
+		  <command label="FinalBurn Neo (Standalone)">%EMULATOR_FINALBURN-NEO% -fullscreen %BASENAME%</command>
+		  <command label="FB Alpha 2012">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_libretro.so %ROM%</command>
+		  <command label="FB Alpha 2012 CPS-1">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_cps1_libretro.so %ROM%</command>
+		  <command label="FB Alpha 2012 CPS-2">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_cps2_libretro.so %ROM%</command>
+		  <command label="FB Alpha 2012 CPS-3">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_cps3_libretro.so %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>cps</theme>
+	  </system>
+	  <system>
+		  <name>cps1</name>
+		  <fullname>Capcom Play System I</fullname>
+		  <path>%ROMPATH%/cps1</path>
+		  <extension>.7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so %ROM%</command>
+		  <command label="MAME 2010">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2010_libretro.so %ROM%</command>
+		  <command label="MAME 2003-Plus">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2003_plus_libretro.so %ROM%</command>
+		  <command label="MAME 2000">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2000_libretro.so %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/cps1 %BASENAME%</command>
+		  <command label="FinalBurn Neo">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbneo_libretro.so %ROM%</command>
+		  <command label="FinalBurn Neo (Standalone)">%EMULATOR_FINALBURN-NEO% -fullscreen %BASENAME%</command>
+		  <command label="FB Alpha 2012">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_libretro.so %ROM%</command>
+		  <command label="FB Alpha 2012 CPS-1">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_cps1_libretro.so %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>cps1</theme>
+	  </system>
+	  <system>
+		  <name>cps2</name>
+		  <fullname>Capcom Play System II</fullname>
+		  <path>%ROMPATH%/cps2</path>
+		  <extension>.7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so %ROM%</command>
+		  <command label="MAME 2010">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2010_libretro.so %ROM%</command>
+		  <command label="MAME 2003-Plus">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2003_plus_libretro.so %ROM%</command>
+		  <command label="MAME 2000">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2000_libretro.so %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/cps2 %BASENAME%</command>
+		  <command label="FinalBurn Neo">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbneo_libretro.so %ROM%</command>
+		  <command label="FinalBurn Neo (Standalone)">%EMULATOR_FINALBURN-NEO% -fullscreen %BASENAME%</command>
+		  <command label="FB Alpha 2012">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_libretro.so %ROM%</command>
+		  <command label="FB Alpha 2012 CPS-2">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_cps2_libretro.so %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>cps2</theme>
+	  </system>
+	  <system>
+		  <name>cps3</name>
+		  <fullname>Capcom Play System III</fullname>
+		  <path>%ROMPATH%/cps3</path>
+		  <extension>.7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so %ROM%</command>
+		  <command label="MAME 2010">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2010_libretro.so %ROM%</command>
+		  <command label="MAME 2003-Plus">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2003_plus_libretro.so %ROM%</command>
+		  <command label="MAME 2000">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2000_libretro.so %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/cps3 %BASENAME%</command>
+		  <command label="FinalBurn Neo">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbneo_libretro.so %ROM%</command>
+		  <command label="FinalBurn Neo (Standalone)">%EMULATOR_FINALBURN-NEO% -fullscreen %BASENAME%</command>
+		  <command label="FB Alpha 2012">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_libretro.so %ROM%</command>
+		  <command label="FB Alpha 2012 CPS-3">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_cps3_libretro.so %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>cps3</theme>
+	  </system>
+	  <system>
+		  <name>crvision</name>
+		  <fullname>VTech CreatiVision</fullname>
+		  <path>%ROMPATH%/crvision</path>
+		  <extension>.bin .BIN .rom .ROM .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "crvision -rompath \"%GAMEDIRRAW%;%ROMPATH%/crvision\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/crvision crvision -cart %ROM%</command>
+		  <platform>crvision</platform>
+		  <theme>crvision</theme>
+	  </system>
+	  <system>
+		  <name>daphne</name>
+		  <fullname>Daphne Arcade LaserDisc Emulator</fullname>
+		  <path>%ROMPATH%/daphne</path>
+		  <extension>.daphne .dirksimple .ogv .OGV .singe .7z .7Z .zip .ZIP</extension>
+		  <command label="Hypseus [Daphne] (Standalone)">%EMULATOR_HYPSEUS-SINGE% %BASENAME% vldp -framefile %GAMEDIR%/%BASENAME%.txt %INJECT%=%BASENAME%.commands</command>
+		  <command label="Hypseus [Singe] (Standalone)">%EMULATOR_HYPSEUS-SINGE% singe vldp -framefile %GAMEDIR%/%BASENAME%.txt -script %GAMEDIR%/%BASENAME%.singe %INJECT%=%BASENAME%.commands</command>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/daphne %BASENAME%</command>
+		  <command label="DirkSimple">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/dirksimple_libretro.so %ROM%</command>
+		  <platform>daphne, arcade</platform>
+		  <theme>daphne</theme>
+	  </system>
+	  <system>
+		  <name>desktop</name>
+		  <fullname>Desktop Applications</fullname>
+		  <path>%ROMPATH%/desktop</path>
+		  <extension>.AppImage .desktop .sh</extension>
+		  <command label="Suspend ES-DE">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <command label="Keep ES-DE running">%RUNINBACKGROUND% %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <command label="AppImage (Suspend ES-DE)">%EMULATOR_OS-SHELL% -c "%ROM%"</command>
+		  <command label="AppImage (Keep ES-DE running)">%RUNINBACKGROUND% %EMULATOR_OS-SHELL% -c "%ROM%"</command>
+		  <platform>pcwindows</platform>
+		  <theme>desktop</theme>
+	  </system>
+	  <system>
+		  <name>doom</name>
+		  <fullname>Doom</fullname>
+		  <path>%ROMPATH%/doom</path>
+		  <extension>.desktop .ipk3 .IPK3 .iwad .IWAD .pk3 .PK3 .pk4 .PK4 .pwad .PWAD .sh .wad .WAD</extension>
+		  <command label="PrBoom">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/prboom_libretro.so %ROM%</command>
+		  <command label="PrBoom+ (Standalone)">%EMULATOR_PRBOOM-PLUS% -iwad %ROM%</command>
+		  <command label="Boom 3">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/boom3_libretro.so %ROM%</command>
+		  <command label="Boom 3 xp">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/boom3_xp_libretro.so %ROM%</command>
+		  <command label="Shortcut or script">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <platform>pc, pcwindows</platform>
+		  <theme>doom</theme>
+	  </system>
+	  <system>
+		  <name>dos</name>
+		  <fullname>DOS (PC)</fullname>
+		  <path>%ROMPATH%/dos</path>
+		  <extension>.bat .BAT .com .COM .conf .CONF .cue .CUE .dosz .DOSZ .exe .EXE .iso .ISO .7z .7Z .zip .ZIP</extension>
+		  <command label="DOSBox-Pure">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/dosbox_pure_libretro.so %ROM%</command>
+		  <command label="DOSBox-Core">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/dosbox_core_libretro.so %ROM%</command>
+		  <command label="DOSBox-SVN">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/dosbox_svn_libretro.so %ROM%</command>
+		  <command label="DOSBox-X (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_DOSBOX-X% %ROM%</command>
+		  <command label="DOSBox Staging (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_DOSBOX-STAGING% %ROM%</command>
+		  <platform>dos</platform>
+		  <theme>dos</theme>
+	  </system>
+	  <system>
+		  <name>dragon32</name>
+		  <fullname>Dragon Data Dragon 32</fullname>
+		  <path>%ROMPATH%/dragon32</path>
+		  <extension>.cas .CAS .ccc .CCC .dsk .DSK .rom .ROM</extension>
+		  <command label="XRoar Dragon 32 (Standalone)">%EMULATOR_XROAR% -fs -default-machine dragon32 %ROM%</command>
+		  <command label="XRoar Dragon 64 (Standalone)">%EMULATOR_XROAR% -fs -default-machine dragon64 %ROM%</command>
+		  <platform>dragon32</platform>
+		  <theme>dragon32</theme>
+	  </system>
+	  <system>
+		  <name>dreamcast</name>
+		  <fullname>Sega Dreamcast</fullname>
+		  <path>%ROMPATH%/dreamcast</path>
+		  <extension>.cdi .CDI .chd .CHD .cue .CUE .dat .DAT .elf .ELF .gdi .GDI .iso .ISO .lst .LST .m3u .M3U .7z .7Z .zip .ZIP</extension>
+		  <command label="Flycast">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/flycast_libretro.so %ROM%</command>
+		  <command label="Flycast (Standalone)">%EMULATOR_FLYCAST% %ROM%</command>
+		  <command label="Flycast Dojo (Standalone)">%EMULATOR_FLYCAST-DOJO% %ROM%</command>
+		  <command label="Redream (Standalone)">%EMULATOR_REDREAM% %ROM%</command>
+		  <platform>dreamcast</platform>
+		  <theme>dreamcast</theme>
+	  </system>
+	  <system>
+		  <name>easyrpg</name>
+		  <fullname>EasyRPG Game Engine</fullname>
+		  <path>%ROMPATH%/easyrpg</path>
+		  <extension>.easyrpg .zip .ZIP</extension>
+		  <command label="EasyRPG">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/easyrpg_libretro.so %ROM%</command>
+		  <command label="EasyRPG Player (Standalone)">%STARTDIR%=%GAMEENTRYDIR% %EMULATOR_EASYRPG%</command>
+		  <platform>easyrpg</platform>
+		  <theme>easyrpg</theme>
+	  </system>
+	  <system>
+		  <name>electron</name>
+		  <fullname>Acorn Electron</fullname>
+		  <path>%ROMPATH%/electron</path>
+		  <extension>.1dd .1DD .adf .ADF .adl .ADL .adm .ADM .ads .ADS .bbc .BBC .bin .BIN .cqi .CQI .cqm .CQM .csw .CSW .d77 .D77 .d88 .D88 .dfi .DFI .dsd .DSD .dsk .DSK .hfe .HFE .imd .IMD .img .IMG .mfi .MFI .mfm .MFM .rom .ROM .ssd .SSD .td0 .TD0 .uef .UEF .wav .WAV .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME [Tape] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/electron electron64 -autoboot_delay "2" -autoboot_command "*T.\nCH.\"\"\n" -cass1 %ROM%</command>
+		  <command label="MAME [Diskette DFS] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/electron electron64 -exp plus1 -cart1 seds -autoboot_delay "2" -autoboot_command "*CAT\n\n\n\n\n\n*EXEC !BOOT\n" -flop1 %ROM%</command>
+		  <command label="MAME [Diskette ADFS] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/electron electron64 -exp plus3 -exp:plus3:fdc:1 35dd -autoboot_delay "2" -autoboot_command "*CAT\n\n\n\n\n\n*RUN !BOOT\n" -flop1 %ROM%</command>
+		  <platform>electron</platform>
+		  <theme>electron</theme>
+	  </system>
+	  <system>
+		  <name>emulators</name>
+		  <fullname>Emulators</fullname>
+		  <path>%ROMPATH%/emulators</path>
+		  <extension>.AppImage .desktop .sh</extension>
+		  <command label="Suspend ES-DE">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <command label="Keep ES-DE running">%RUNINBACKGROUND% %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <command label="AppImage (Suspend ES-DE)">%EMULATOR_OS-SHELL% -c "%ROM%"</command>
+		  <command label="AppImage (Keep ES-DE running)">%RUNINBACKGROUND% %EMULATOR_OS-SHELL% -c "%ROM%"</command>
+		  <platform>pcwindows</platform>
+		  <theme>emulators</theme>
+	  </system>
+	  <system>
+		  <name>epic</name>
+		  <fullname>Epic Games Store</fullname>
+		  <path>%ROMPATH%/epic</path>
+		  <extension>.desktop .sh</extension>
+		  <command label="Epic Games Store (Standalone)">%RUNINBACKGROUND% %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <platform>pcwindows</platform>
+		  <theme>epic</theme>
+	  </system>
+	  <system>
+		  <name>famicom</name>
+		  <fullname>Nintendo Family Computer</fullname>
+		  <path>%ROMPATH%/famicom</path>
+		  <extension>.3dsen .3DSEN .fds .FDS .nes .NES .unf .UNF .unif .UNIF .7z .7Z .zip .ZIP</extension>
+		  <command label="Mesen">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mesen_libretro.so %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="Nestopia UE">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/nestopia_libretro.so %ROM%</command>
+		  <command label="Nestopia UE (Standalone)">%EMULATOR_NESTOPIA-UE% --fullscreen %ROM%</command>
+		  <command label="FCEUmm">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fceumm_libretro.so %ROM%</command>
+		  <command label="QuickNES">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/quicknes_libretro.so %ROM%</command>
+		  <command label="puNES (Standalone)">%EMULATOR_PUNES% -u yes %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module nes %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Famicom" %ROM%</command>
+		  <command label="ares FDS (Standalone)">%EMULATOR_ARES% --fullscreen --system "Famicom Disk System" %ROM%</command>
+		  <command label="3dSen (Wine)">%STARTDIR%=%EMUDIR% %PRECOMMAND_WINE% %EMULATOR_3DSEN-WINDOWS% -id=%INJECT%=%BASENAME%.3dsen</command>
+		  <command label="3dSen (Proton)">%STARTDIR%=%EMUDIR% %PRECOMMAND_PROTON% %EMULATOR_3DSEN-WINDOWS% -id=%INJECT%=%BASENAME%.3dsen</command>
+		  <platform>famicom</platform>
+		  <theme>famicom</theme>
+	  </system>
+	  <system>
+		  <name>fba</name>
+		  <fullname>FinalBurn Alpha</fullname>
+		  <path>%ROMPATH%/fba</path>
+		  <extension>.iso .ISO .7z .7Z .zip .ZIP</extension>
+		  <command label="FB Alpha 2012">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_libretro.so %ROM%</command>
+		  <command label="FB Alpha 2012 Neo Geo">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_neogeo_libretro.so %ROM%</command>
+		  <command label="FB Alpha 2012 CPS-1">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_cps1_libretro.so %ROM%</command>
+		  <command label="FB Alpha 2012 CPS-2">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_cps2_libretro.so %ROM%</command>
+		  <command label="FB Alpha 2012 CPS-3">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_cps3_libretro.so %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>fba</theme>
+	  </system>
+	  <system>
+		  <name>fbneo</name>
+		  <fullname>FinalBurn Neo</fullname>
+		  <path>%ROMPATH%/fbneo</path>
+		  <extension>.7z .7Z .zip .ZIP</extension>
+		  <command label="FinalBurn Neo">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbneo_libretro.so %ROM%</command>
+		  <command label="FinalBurn Neo (Standalone)">%EMULATOR_FINALBURN-NEO% -fullscreen %BASENAME%</command>
+		  <platform>arcade</platform>
+		  <theme>fbneo</theme>
+	  </system>
+	  <system>
+		  <name>fds</name>
+		  <fullname>Nintendo Famicom Disk System</fullname>
+		  <path>%ROMPATH%/fds</path>
+		  <extension>.nes .NES .fds .FDS .unf .UNF .UNIF .UNIF .7z .7Z .zip .ZIP</extension>
+		  <command label="Mesen">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mesen_libretro.so %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="Nestopia UE">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/nestopia_libretro.so %ROM%</command>
+		  <command label="Nestopia UE (Standalone)">%EMULATOR_NESTOPIA-UE% --fullscreen %ROM%</command>
+		  <command label="FCEUmm">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fceumm_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module nes %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Famicom Disk System" %ROM%</command>
+		  <platform>fds</platform>
+		  <theme>fds</theme>
+	  </system>
+	  <system>
+		  <name>flash</name>
+		  <fullname>Adobe Flash</fullname>
+		  <path>%ROMPATH%/flash</path>
+		  <extension>.swf .SWF</extension>
+		  <command label="Ruffle (Standalone)">%EMULATOR_RUFFLE% --fullscreen %ROM%</command>
+		  <command label="Lightspark (Standalone)">%EMULATOR_LIGHTSPARK% --fullscreen %ROM%</command>
+		  <platform>flash</platform>
+		  <theme>flash</theme>
+	  </system>
+	  <system>
+		  <name>fm7</name>
+		  <fullname>Fujitsu FM-7</fullname>
+		  <path>%ROMPATH%/fm7</path>
+		  <extension>.1dd .1DD .cqi .CQI .cqm .CQM .d77 .D77 .d88 .D88 .dfi .DFI .dsk .DSK .hfe .HFE .imd .IMD .mfi .MFI .mfm .MFM .t77 .T77 .td0 .TD0 .wav .WAV .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME [FM-7 Diskette] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/fm7 fm7 -flop1 %ROM%</command>
+		  <command label="MAME [FM-7 Tape] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/fm7 fm7 -autoboot_delay "5" -autoboot_command "load\n\n\nrun\n" -cass1 %ROM%</command>
+		  <command label="MAME [FM-7 Software list] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/fm7 fm7 %BASENAME%</command>
+		  <command label="MAME [FM77AV Diskette] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/fm7 fm77av -flop1 %ROM%</command>
+		  <command label="MAME [FM77AV Tape] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/fm7 fm77av -autoboot_delay "5" -autoboot_command "load\n\n\nrun\n" -cass1 %ROM%</command>
+		  <command label="MAME [FM77AV Software list] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/fm7 fm77av %BASENAME%</command>
+		  <platform>fm7</platform>
+		  <theme>fm7</theme>
+	  </system>
+	  <system>
+		  <name>fmtowns</name>
+		  <fullname>Fujitsu FM Towns</fullname>
+		  <path>%ROMPATH%/fmtowns</path>
+		  <extension>.cdr .CDR .chd .CHD .cue .CUE .gdi .GDI .iso .ISO</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "fmtownshr -rompath \"%GAMEDIRRAW%;%ROMPATH%/fmtowns\" -cdrom \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/fmtowns fmtownshr -cdrom %ROM%</command>
+		  <command label="Tsugaru (Standalone)">%EMULATOR_TSUGARU% %EMUDIR%/roms -HOSTSHORTCUT ESC 0 0 FORCEQUIT -FULLSCREEN -CD %ROM% %INJECT%=%BASENAME%.cfg</command>
+		  <platform>fmtowns</platform>
+		  <theme>fmtowns</theme>
+	  </system>
+	  <system>
+		  <name>fpinball</name>
+		  <fullname>Future Pinball</fullname>
+		  <path>%ROMPATH%/fpinball</path>
+		  <extension>.fpt .FPT</extension>
+		  <command label="Future Pinball (Standalone)">PLACEHOLDER %ROM%</command>
+		  <platform>fpinball</platform>
+		  <theme>fpinball</theme>
+	  </system>
+	  <system>
+		  <name>gamate</name>
+		  <fullname>Bit Corporation Gamate</fullname>
+		  <path>%ROMPATH%/gamate</path>
+		  <extension>.bin .BIN .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "gamate -rompath \"%GAMEDIRRAW%;%ROMPATH%/gamate\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/gamate gamate -cart %ROM%</command>
+		  <platform>gamate</platform>
+		  <theme>gamate</theme>
+	  </system>
+	  <system>
+		  <name>gameandwatch</name>
+		  <fullname>Nintendo Game and Watch</fullname>
+		  <path>%ROMPATH%/gameandwatch</path>
+		  <extension>.mgw .MGW .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so %ROM%</command>
+		  <command label="MAME Local Artwork (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -artpath %ROMPATH%/gameandwatch/artwork -rompath %GAMEDIR%\;%ROMPATH%/gameandwatch %BASENAME%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/gameandwatch %BASENAME%</command>
+		  <command label="Handheld Electronic (GW)">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/gw_libretro.so %ROM%</command>
+		  <platform>gameandwatch</platform>
+		  <theme>gameandwatch</theme>
+	  </system>
+	  <system>
+		  <name>gamecom</name>
+		  <fullname>Tiger Electronics Game.com</fullname>
+		  <path>%ROMPATH%/gamecom</path>
+		  <extension>.tgc .TGC .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "gamecom -rompath \"%GAMEDIRRAW%;%ROMPATH%/gamecom\" -cartridge1 \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/gamecom gamecom -cartridge1 %ROM%</command>
+		  <platform>gamecom</platform>
+		  <theme>gamecom</theme>
+	  </system>
+	  <system>
+		  <name>gamegear</name>
+		  <fullname>Sega Game Gear</fullname>
+		  <path>%ROMPATH%/gamegear</path>
+		  <extension>.68k .68K .bin .BIN .bms .BMS .chd .CHD .col .COL .cue .CUE .gen .GEN .gg .GG .iso .ISO .m3u .M3U .md .MD .mdx .MDX .rom .ROM .sg .SG .sgd .SGD .smd .SMD .sms .SMS .7z .7Z .zip .ZIP</extension>
+		  <command label="Genesis Plus GX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_libretro.so %ROM%</command>
+		  <command label="Genesis Plus GX Wide">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_wide_libretro.so %ROM%</command>
+		  <command label="Gearsystem">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/gearsystem_libretro.so %ROM%</command>
+		  <command label="SMS Plus GX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/smsplus_libretro.so %ROM%</command>
+		  <command label="PicoDrive">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/picodrive_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module gg %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Game Gear" %ROM%</command>
+		  <platform>gamegear</platform>
+		  <theme>gamegear</theme>
+	  </system>
+	  <system>
+		  <name>gb</name>
+		  <fullname>Nintendo Game Boy</fullname>
+		  <path>%ROMPATH%/gb</path>
+		  <extension>.bs .BS .cgb .CGB .dmg .DMG .gb .GB .gbc .GBC .sgb .SGB .sfc .SFC .smc .SMC .7z .7Z .zip .ZIP</extension>
+		  <command label="Gambatte">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/gambatte_libretro.so %ROM%</command>
+		  <command label="SameBoy">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/sameboy_libretro.so %ROM%</command>
+		  <command label="SameBoy (Standalone)">%EMULATOR_SAMEBOY% -f %ROM%</command>
+		  <command label="Gearboy">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/gearboy_libretro.so %ROM%</command>
+		  <command label="Gearboy (Standalone)">%EMULATOR_GEARBOY% %ROM%</command>
+		  <command label="TGB Dual">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/tgbdual_libretro.so %ROM%</command>
+		  <command label="DoubleCherryGB">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/DoubleCherryGB_libretro.so %ROM%</command>
+		  <command label="Mesen-S">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mesen-s_libretro.so %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="bsnes">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_libretro.so %ROM%</command>
+		  <command label="mGBA">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mgba_libretro.so %ROM%</command>
+		  <command label="mGBA (Standalone)">%EMULATOR_MGBA% -f %ROM%</command>
+		  <command label="VBA-M">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/vbam_libretro.so %ROM%</command>
+		  <command label="VBA-M (Standalone)">%EMULATOR_VBA-M% -f %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module gb %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Game Boy" %ROM%</command>
+		  <command label="SkyEmu (Standalone)">%EMULATOR_SKYEMU% %ROM%</command>
+		  <platform>gb</platform>
+		  <theme>gb</theme>
+	  </system>
+	  <system>
+		  <name>gba</name>
+		  <fullname>Nintendo Game Boy Advance</fullname>
+		  <path>%ROMPATH%/gba</path>
+		  <extension>.agb .AGB .bin .BIN .cgb .CGB .dmg .DMG .gb .GB .gba .GBA .gbc .GBC .sgb .SGB .7z .7Z .zip .ZIP</extension>
+		  <command label="mGBA">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mgba_libretro.so %ROM%</command>
+		  <command label="mGBA (Standalone)">%EMULATOR_MGBA% -f %ROM%</command>
+		  <command label="VBA-M">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/vbam_libretro.so %ROM%</command>
+		  <command label="VBA-M (Standalone)">%EMULATOR_VBA-M% -f %ROM%</command>
+		  <command label="VBA Next">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/vba_next_libretro.so %ROM%</command>
+		  <command label="gpSP">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/gpsp_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module gba %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Game Boy Advance" %ROM%</command>
+		  <command label="SkyEmu (Standalone)">%EMULATOR_SKYEMU% %ROM%</command>
+		  <platform>gba</platform>
+		  <theme>gba</theme>
+	  </system>
+	  <system>
+		  <name>gbc</name>
+		  <fullname>Nintendo Game Boy Color</fullname>
+		  <path>%ROMPATH%/gbc</path>
+		  <extension>.bs .BS .cgb .CGB .dmg .DMG .gb .GB .gbc .GBC .sgb .SGB .sfc .SFC .smc .SMC .7z .7Z .zip .ZIP</extension>
+		  <command label="Gambatte">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/gambatte_libretro.so %ROM%</command>
+		  <command label="SameBoy">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/sameboy_libretro.so %ROM%</command>
+		  <command label="Sameboy (Standalone)">%EMULATOR_SAMEBOY% -f %ROM%</command>
+		  <command label="Gearboy">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/gearboy_libretro.so %ROM%</command>
+		  <command label="Gearboy (Standalone)">%EMULATOR_GEARBOY% %ROM%</command>
+		  <command label="TGB Dual">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/tgbdual_libretro.so %ROM%</command>
+		  <command label="DoubleCherryGB">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/DoubleCherryGB_libretro.so %ROM%</command>
+		  <command label="Mesen-S">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mesen-s_libretro.so %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="bsnes">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_libretro.so %ROM%</command>
+		  <command label="mGBA">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mgba_libretro.so %ROM%</command>
+		  <command label="mGBA (Standalone)">%EMULATOR_MGBA% -f %ROM%</command>
+		  <command label="VBA-M">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/vbam_libretro.so %ROM%</command>
+		  <command label="VBA-M (Standalone)">%EMULATOR_VBA-M% -f %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module gb %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Game Boy Color" %ROM%</command>
+		  <command label="SkyEmu (Standalone)">%EMULATOR_SKYEMU% %ROM%</command>
+		  <platform>gbc</platform>
+		  <theme>gbc</theme>
+	  </system>
+	  <system>
+		  <name>gc</name>
+		  <fullname>Nintendo GameCube</fullname>
+		  <path>%ROMPATH%/gc</path>
+		  <extension>.ciso .CISO .dff .DFF .dol .DOL .elf .ELF .gcm .GCM .gcz .GCZ .iso .ISO .json .JSON .m3u .M3U .rvz .RVZ .tgc .TGC .wad .WAD .wbfs .WBFS .wia .WIA .7z .7Z .zip .ZIP</extension>
+		  <command label="Dolphin">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/dolphin_libretro.so %ROM%</command>
+		  <command label="Dolphin (Standalone)">%INJECT%=%BASENAME%.esprefix %EMULATOR_DOLPHIN% -b -e %ROM%</command>
+		  <command label="PrimeHack (Standalone)">%INJECT%=%BASENAME%.esprefix %EMULATOR_PRIMEHACK% -b -e %ROM%</command>
+		  <command label="Triforce (Standalone)">%INJECT%=%BASENAME%.esprefix %EMULATOR_TRIFORCE% -b -e %ROM%</command>
+		  <platform>gc</platform>
+		  <theme>gc</theme>
+	  </system>
+	  <system>
+		  <name>genesis</name>
+		  <fullname>Sega Genesis</fullname>
+		  <path>%ROMPATH%/genesis</path>
+		  <extension>.32x .32X .68k .68K .bin .BIN .bms .BMS .chd .CHD .cue .CUE .gen .GEN .gg .GG .iso .ISO .m3u .M3U .md .MD .mdx .MDX .sg .SG .sgd .SGD .smd .SMD .sms .SMS .7z .7Z .zip .ZIP</extension>
+		  <command label="Genesis Plus GX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_libretro.so %ROM%</command>
+		  <command label="Genesis Plus GX Wide">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_wide_libretro.so %ROM%</command>
+		  <command label="PicoDrive">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/picodrive_libretro.so %ROM%</command>
+		  <command label="BlastEm">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/blastem_libretro.so %ROM%</command>
+		  <command label="BlastEm (Standalone)">%EMULATOR_BLASTEM% -m gen %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module md %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Mega Drive" %ROM%</command>
+		  <platform>genesis</platform>
+		  <theme>genesis</theme>
+	  </system>
+	  <system>
+		  <name>gmaster</name>
+		  <fullname>Hartung Game Master</fullname>
+		  <path>%ROMPATH%/gmaster</path>
+		  <extension>.bin .BIN .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "gmaster -rompath \"%GAMEDIRRAW%;%ROMPATH%/gmaster\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/gmaster gmaster -cart %ROM%</command>
+		  <platform>gmaster</platform>
+		  <theme>gmaster</theme>
+	  </system>
+	  <system>
+		  <name>gx4000</name>
+		  <fullname>Amstrad GX4000</fullname>
+		  <path>%ROMPATH%/gx4000</path>
+		  <extension>.bin .BIN .cdt .CDT .cpr .CPR .dsk .DSK .kcr .KCR .m3u .M3U .sna .SNA .tap .TAR .voc .VOC .7z .7Z .zip .ZIP</extension>
+		  <command label="Caprice32">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/cap32_libretro.so %ROM%</command>
+		  <command label="CrocoDS">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/crocods_libretro.so %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/gx4000 gx4000 -cart %ROM%</command>
+		  <platform>gx4000</platform>
+		  <theme>gx4000</theme>
+	  </system>
+	  <system>
+		  <name>intellivision</name>
+		  <fullname>Mattel Electronics Intellivision</fullname>
+		  <path>%ROMPATH%/intellivision</path>
+		  <extension>.bin .BIN .int .INT .rom .ROM .7z .7Z .zip .ZIP</extension>
+		  <command label="FreeIntv">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/freeintv_libretro.so %ROM%</command>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "intv -rompath \"%GAMEDIRRAW%;%ROMPATH%/intellivision\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/intellivision intv -cart %ROM%</command>
+		  <platform>intellivision</platform>
+		  <theme>intellivision</theme>
+	  </system>
+	  <system>
+		  <name>j2me</name>
+		  <fullname>Java 2 Micro Edition (J2ME)</fullname>
+		  <path>%ROMPATH%/j2me</path>
+		  <extension>.jar .JAR .7z .7Z .zip .ZIP</extension>
+		  <command label="SquirrelJME">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/squirreljme_libretro.so %ROM%</command>
+		  <platform>android</platform>
+		  <theme>j2me</theme>
+	  </system>
+	  <system>
+		  <name>kodi</name>
+		  <fullname>Kodi Home Theatre Software</fullname>
+		  <path>%ROMPATH%/kodi</path>
+		  <extension>.desktop .sh</extension>
+		  <command label="Kodi (Standalone)">%RUNINBACKGROUND% %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <platform>pcwindows</platform>
+		  <theme>kodi</theme>
+	  </system>
+	  <system>
+		  <name>laserdisc</name>
+		  <fullname>LaserDisc Games</fullname>
+		  <path>%ROMPATH%/laserdisc</path>
+		  <extension>.daphne .dirksimple .ogv .OGV .singe .7z .7Z .zip .ZIP</extension>
+		  <command label="Hypseus [Daphne] (Standalone)">%EMULATOR_HYPSEUS-SINGE% %BASENAME% vldp -framefile %GAMEDIR%/%BASENAME%.txt %INJECT%=%BASENAME%.commands</command>
+		  <command label="Hypseus [Singe] (Standalone)">%EMULATOR_HYPSEUS-SINGE% singe vldp -framefile %GAMEDIR%/%BASENAME%.txt -script %GAMEDIR%/%BASENAME%.singe %INJECT%=%BASENAME%.commands</command>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/laserdisc %BASENAME%</command>
+		  <command label="DirkSimple">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/dirksimple_libretro.so %ROM%</command>
+		  <platform>daphne, arcade</platform>
+		  <theme>laserdisc</theme>
+	  </system>
+	  <system>
+		  <name>lcdgames</name>
+		  <fullname>LCD Handheld Games</fullname>
+		  <path>%ROMPATH%/lcdgames</path>
+		  <extension>.mgw .MGW .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so %ROM%</command>
+		  <command label="MAME Local Artwork (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -artpath %ROMPATH%/lcdgames/artwork -rompath %GAMEDIR%\;%ROMPATH%/lcdgames %BASENAME%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/lcdgames %BASENAME%</command>
+		  <command label="Handheld Electronic (GW)">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/gw_libretro.so %ROM%</command>
+		  <platform>lcdgames, gameandwatch</platform>
+		  <theme>lcdgames</theme>
+	  </system>
+	  <system>
+		  <name>lowresnx</name>
+		  <fullname>LowRes NX Fantasy Console</fullname>
+		  <path>%ROMPATH%/lowresnx</path>
+		  <extension>.nx .NX</extension>
+		  <command label="LowRes NX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/lowresnx_libretro.so %ROM%</command>
+		  <platform>lowresnx</platform>
+		  <theme>lowresnx</theme>
+	  </system>
+	  <system>
+		  <name>lutris</name>
+		  <fullname>Lutris Open Gaming Platform</fullname>
+		  <path>%ROMPATH%/lutris</path>
+		  <extension>.desktop .sh</extension>
+		  <command label="Lutris (Standalone)">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <platform>pc, pcwindows</platform>
+		  <theme>lutris</theme>
+	  </system>
+	  <system>
+		  <name>lutro</name>
+		  <fullname>Lutro Game Engine</fullname>
+		  <path>%ROMPATH%/lutro</path>
+		  <extension>.lua .LUA .lutro .LUTRO .7z .7Z .zip .ZIP</extension>
+		  <command label="Lutro">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/lutro_libretro.so %ROM%</command>
+		  <platform>lutro</platform>
+		  <theme>lutro</theme>
+	  </system>
+	  <system>
+		  <name>macintosh</name>
+		  <fullname>Apple Macintosh</fullname>
+		  <path>%ROMPATH%/macintosh</path>
+		  <extension>.dsk .DSK .game .GAME</extension>
+		  <command label="MAME Mac SE Bootable (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/macintosh macse -flop1 %ROM%</command>
+		  <command label="MAME Mac SE Boot Disk (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/macintosh macse -flop1 %GAMEDIR%/boot.dsk -flop2 %ROM%</command>
+		  <command label="MAME Mac Plus Bootable (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/macintosh macplus -flop1 %ROM%</command>
+		  <command label="MAME Mac Plus Boot Disk (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/macintosh macplus -flop1 %GAMEDIR%/boot.dsk -flop2 %ROM%</command>
+		  <command label="Basilisk II (Standalone)">%EMULATOR_BASILISKII% --nogui true</command>
+		  <command label="SheepShaver (Standalone)">%EMULATOR_SHEEPSHAVER% --nogui true</command>
+		  <platform>macintosh</platform>
+		  <theme>macintosh</theme>
+	  </system>
+	  <system>
+		  <name>mame</name>
+		  <fullname>Multiple Arcade Machine Emulator</fullname>
+		  <path>%ROMPATH%/mame</path>
+		  <extension>.cmd .CMD .desktop .neo .NEO .sh .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so %ROM%</command>
+		  <command label="MAME 2010">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2010_libretro.so %ROM%</command>
+		  <command label="MAME 2003-Plus">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2003_plus_libretro.so %ROM%</command>
+		  <command label="MAME 2000">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame2000_libretro.so %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/mame %BASENAME%</command>
+		  <command label="FinalBurn Neo">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbneo_libretro.so %ROM%</command>
+		  <command label="FinalBurn Neo (Standalone)">%EMULATOR_FINALBURN-NEO% -fullscreen %BASENAME%</command>
+		  <command label="FB Alpha 2012">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbalpha2012_libretro.so %ROM%</command>
+		  <command label="Geolith">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/geolith_libretro.so %ROM%</command>
+		  <command label="Flycast">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/flycast_libretro.so %ROM%</command>
+		  <command label="Flycast (Standalone)">%EMULATOR_FLYCAST% %ROM%</command>
+		  <command label="Flycast Dojo (Standalone)">%EMULATOR_FLYCAST-DOJO% %ROM%</command>
+		  <command label="Kronos">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/kronos_libretro.so %ROM%</command>
+		  <command label="Supermodel (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_SUPERMODEL% -log-output=%GAMEDIR%/Config/Supermodel.log %INJECT%=%BASENAME%.commands %ROM%</command>
+		  <command label="Shortcut or script">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>mame</theme>
+	  </system>
+	  <system>
+		  <name>mame-advmame</name>
+		  <fullname>AdvanceMAME</fullname>
+		  <path>%ROMPATH%/mame-advmame</path>
+		  <extension>.7z .7Z .zip .ZIP</extension>
+		  <command label="AdvanceMAME (Standalone)">%STARTDIR%=~/.advance %EMULATOR_ADVANCEMAME% %BASENAME%</command>
+		  <platform>arcade</platform>
+		  <theme>mame-advmame</theme>
+	  </system>
+	  <system>
+		  <name>mastersystem</name>
+		  <fullname>Sega Master System</fullname>
+		  <path>%ROMPATH%/mastersystem</path>
+		  <extension>.68k .68K .bin .BIN .bms .BMS .chd .CHD .col .COL .cue .CUE .gen .GEN .gg .GG .iso .ISO .m3u .M3U .md .MD .mdx .MDX .rom .ROM .sg .SG .sgd .SGD .smd .SMD .sms .SMS .7z .7Z .zip .ZIP</extension>
+		  <command label="Genesis Plus GX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_libretro.so %ROM%</command>
+		  <command label="Genesis Plus GX Wide">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_wide_libretro.so %ROM%</command>
+		  <command label="SMS Plus GX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/smsplus_libretro.so %ROM%</command>
+		  <command label="Gearsystem">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/gearsystem_libretro.so %ROM%</command>
+		  <command label="PicoDrive">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/picodrive_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module sms %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Master System" %ROM%</command>
+		  <platform>mastersystem</platform>
+		  <theme>mastersystem</theme>
+	  </system>
+	  <system>
+		  <name>megacd</name>
+		  <fullname>Sega Mega-CD</fullname>
+		  <path>%ROMPATH%/megacd</path>
+		  <extension>.68k .68K .bin .BIN .bms .BMS .chd .CHD .cue .CUE .gen .GEN .gg .GG .iso .ISO .m3u .M3U .md .MD .mdx .MDX .sg .SG .sgd .SGD .smd .SMD .sms .SMS .7z .7Z .zip .ZIP</extension>
+		  <command label="Genesis Plus GX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_libretro.so %ROM%</command>
+		  <command label="Genesis Plus GX Wide">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_wide_libretro.so %ROM%</command>
+		  <command label="PicoDrive">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/picodrive_libretro.so %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Mega CD" %ROM%</command>
+		  <platform>segacd</platform>
+		  <theme>megacd</theme>
+	  </system>
+	  <system>
+		  <name>megacdjp</name>
+		  <fullname>Sega Mega-CD</fullname>
+		  <path>%ROMPATH%/megacdjp</path>
+		  <extension>.68k .68K .bin .BIN .bms .BMS .chd .CHD .cue .CUE .gen .GEN .gg .GG .iso .ISO .m3u .M3U .md .MD .mdx .MDX .sg .SG .sgd .SGD .smd .SMD .sms .SMS .7z .7Z .zip .ZIP</extension>
+		  <command label="Genesis Plus GX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_libretro.so %ROM%</command>
+		  <command label="Genesis Plus GX Wide">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_wide_libretro.so %ROM%</command>
+		  <command label="PicoDrive">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/picodrive_libretro.so %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Mega CD" %ROM%</command>
+		  <platform>segacd</platform>
+		  <theme>megacdjp</theme>
+	  </system>
+	  <system>
+		  <name>megadrive</name>
+		  <fullname>Sega Mega Drive</fullname>
+		  <path>%ROMPATH%/megadrive</path>
+		  <extension>.32x .32X .68k .68K .bin .BIN .bms .BMS .chd .CHD .cue .CUE .gen .GEN .gg .GG .iso .ISO .m3u .M3U .md .MD .mdx .MDX .sg .SG .sgd .SGD .smd .SMD .sms .SMS .7z .7Z .zip .ZIP</extension>
+		  <command label="Genesis Plus GX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_libretro.so %ROM%</command>
+		  <command label="Genesis Plus GX Wide">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_wide_libretro.so %ROM%</command>
+		  <command label="PicoDrive">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/picodrive_libretro.so %ROM%</command>
+		  <command label="BlastEm">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/blastem_libretro.so %ROM%</command>
+		  <command label="BlastEm (Standalone)">%EMULATOR_BLASTEM% -m gen %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module md %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Mega Drive" %ROM%</command>
+		  <platform>megadrive</platform>
+		  <theme>megadrive</theme>
+	  </system>
+	  <system>
+		  <name>megadrivejp</name>
+		  <fullname>Sega Mega Drive</fullname>
+		  <path>%ROMPATH%/megadrivejp</path>
+		  <extension>.32x .32X .68k .68K .bin .BIN .bms .BMS .chd .CHD .cue .CUE .gen .GEN .gg .GG .iso .ISO .m3u .M3U .md .MD .mdx .MDX .sg .SG .sgd .SGD .smd .SMD .sms .SMS .7z .7Z .zip .ZIP</extension>
+		  <command label="Genesis Plus GX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_libretro.so %ROM%</command>
+		  <command label="Genesis Plus GX Wide">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_wide_libretro.so %ROM%</command>
+		  <command label="PicoDrive">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/picodrive_libretro.so %ROM%</command>
+		  <command label="BlastEm">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/blastem_libretro.so %ROM%</command>
+		  <command label="BlastEm (Standalone)">%EMULATOR_BLASTEM% -m gen %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module md %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Mega Drive" %ROM%</command>
+		  <platform>megadrive</platform>
+		  <theme>megadrivejp</theme>
+	  </system>
+	  <system>
+		  <name>megaduck</name>
+		  <fullname>Creatronic Mega Duck</fullname>
+		  <path>%ROMPATH%/megaduck</path>
+		  <extension>.bin .BIN .7z .7Z .zip .ZIP</extension>
+		  <command label="SameDuck">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/sameduck_libretro.so %ROM%</command>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "megaduck -rompath \"%GAMEDIRRAW%;%ROMPATH%/megaduck\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/megaduck megaduck -cart %ROM%</command>
+		  <platform>megaduck</platform>
+		  <theme>megaduck</theme>
+	  </system>
+	  <system>
+		  <name>mess</name>
+		  <fullname>Multi Emulator Super System</fullname>
+		  <path>%ROMPATH%/mess</path>
+		  <extension>.chd .CHD .7z .7Z .zip .ZIP</extension>
+		  <command label="MESS 2015">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mess2015_libretro.so %ROM%</command>
+		  <platform>mess</platform>
+		  <theme>mess</theme>
+	  </system>
+	  <system>
+		  <name>model2</name>
+		  <fullname>Sega Model 2</fullname>
+		  <path>%ROMPATH%/model2</path>
+		  <extension>.7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/model2 %BASENAME%</command>
+		  <command label="Model 2 Emulator (Wine)">%STARTDIR%=%EMUDIR% %PRECOMMAND_WINE% %EMULATOR_M2EMULATOR-WINDOWS% %BASENAME%</command>
+		  <command label="Model 2 Emulator (Proton)">%STARTDIR%=%EMUDIR% %PRECOMMAND_PROTON% %EMULATOR_M2EMULATOR-WINDOWS% %BASENAME%</command>
+		  <platform>arcade</platform>
+		  <theme>model2</theme>
+	  </system>
+	  <system>
+		  <name>model3</name>
+		  <fullname>Sega Model 3</fullname>
+		  <path>%ROMPATH%/model3</path>
+		  <extension>.7z .7Z .zip .ZIP</extension>
+		  <command label="Supermodel (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_SUPERMODEL% -log-output=%GAMEDIR%/Config/Supermodel.log %INJECT%=%BASENAME%.commands %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>model3</theme>
+	  </system>
+	  <system>
+		  <name>moto</name>
+		  <fullname>Thomson MO/TO Series</fullname>
+		  <path>%ROMPATH%/moto</path>
+		  <extension>.fd .FD .k7 .K7 .m5 .M5 .m7 .M7 .rom .ROM .sap .SAP .7z .7Z .zip .ZIP</extension>
+		  <command label="Theodore">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/theodore_libretro.so %ROM%</command>
+		  <platform>moto</platform>
+		  <theme>moto</theme>
+	  </system>
+	  <system>
+		  <name>msx</name>
+		  <fullname>MSX</fullname>
+		  <path>%ROMPATH%/msx</path>
+		  <extension>.cas .CAS .col .COL .di1 .DI1 .di2 .DI2 .dmk .DMK .dsk .DSK .fd1 .FD1 .fd2 .FD2 .m3u .M3U .mx1 .MX1 .mx2 .MX2 .ogv .OGV .ri .RI .rom .ROM .sc .SC .sg .SG .wav .WAV .xsa .XSA .7z .7Z .zip .ZIP</extension>
+		  <command label="blueMSX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bluemsx_libretro.so %ROM%</command>
+		  <command label="fMSX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fmsx_libretro.so %ROM%</command>
+		  <command label="openMSX (Standalone)">%EMULATOR_OPENMSX% -machine National_CF-3300 %INJECT%=%BASENAME%.commands %ROM%</command>
+		  <command label="openMSX No Machine (Standalone)">%EMULATOR_OPENMSX% %INJECT%=%BASENAME%.commands %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "MSX" %ROM%</command>
+		  <platform>msx</platform>
+		  <theme>msx</theme>
+	  </system>
+	  <system>
+		  <name>msx1</name>
+		  <fullname>MSX1</fullname>
+		  <path>%ROMPATH%/msx1</path>
+		  <extension>.cas .CAS .col .COL .di1 .DI1 .di2 .DI2 .dmk .DMK .dsk .DSK .fd1 .FD1 .fd2 .FD2 .m3u .M3U .mx1 .MX1 .mx2 .MX2 .ogv .OGV .ri .RI .rom .ROM .sc .SC .sg .SG .wav .WAV .xsa .XSA .7z .7Z .zip .ZIP</extension>
+		  <command label="blueMSX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bluemsx_libretro.so %ROM%</command>
+		  <command label="fMSX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fmsx_libretro.so %ROM%</command>
+		  <command label="openMSX (Standalone)">%EMULATOR_OPENMSX% -machine National_CF-3300 %INJECT%=%BASENAME%.commands %ROM%</command>
+		  <command label="openMSX No Machine (Standalone)">%EMULATOR_OPENMSX% %INJECT%=%BASENAME%.commands %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "MSX" %ROM%</command>
+		  <platform>msx</platform>
+		  <theme>msx1</theme>
+	  </system>
+	  <system>
+		  <name>msx2</name>
+		  <fullname>MSX2</fullname>
+		  <path>%ROMPATH%/msx2</path>
+		  <extension>.cas .CAS .col .COL .di1 .DI1 .di2 .DI2 .dmk .DMK .dsk .DSK .fd1 .FD1 .fd2 .FD2 .m3u .M3U .mx1 .MX1 .mx2 .MX2 .ogv .OGV .ri .RI .rom .ROM .sc .SC .sg .SG .wav .WAV .xsa .XSA .7z .7Z .zip .ZIP</extension>
+		  <command label="blueMSX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bluemsx_libretro.so %ROM%</command>
+		  <command label="fMSX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fmsx_libretro.so %ROM%</command>
+		  <command label="openMSX (Standalone)">%EMULATOR_OPENMSX% -machine Panasonic_FS-A1WSX %INJECT%=%BASENAME%.commands %ROM%</command>
+		  <command label="openMSX No Machine (Standalone)">%EMULATOR_OPENMSX% %INJECT%=%BASENAME%.commands %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "MSX2" %ROM%</command>
+		  <platform>msx2</platform>
+		  <theme>msx2</theme>
+	  </system>
+	  <system>
+		  <name>msxturbor</name>
+		  <fullname>MSX Turbo R</fullname>
+		  <path>%ROMPATH%/msxturbor</path>
+		  <extension>.cas .CAS .col .COL .di1 .DI1 .di2 .DI2 .dmk .DMK .dsk .DSK .fd1 .FD1 .fd2 .FD2 .m3u .M3U .mx1 .MX1 .mx2 .MX2 .ogv .OGV .ri .RI .rom .ROM .sc .SC .sg .SG .wav .WAV .xsa .XSA .7z .7Z .zip .ZIP</extension>
+		  <command label="blueMSX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bluemsx_libretro.so %ROM%</command>
+		  <command label="openMSX (Standalone)">%EMULATOR_OPENMSX% -machine Panasonic_FS-A1GT %INJECT%=%BASENAME%.commands %ROM%</command>
+		  <command label="openMSX No Machine (Standalone)">%EMULATOR_OPENMSX% %INJECT%=%BASENAME%.commands %ROM%</command>
+		  <platform>msxturbor</platform>
+		  <theme>msxturbor</theme>
+	  </system>
+	  <system>
+		  <name>mugen</name>
+		  <fullname>M.U.G.E.N Game Engine</fullname>
+		  <path>%ROMPATH%/mugen</path>
+		  <extension>.mugen</extension>
+		  <command label="Ikemen GO (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_OS-SHELL% -c "%ROM%"</command>
+		  <platform>mugen</platform>
+		  <theme>mugen</theme>
+	  </system>
+	  <system>
+		  <name>multivision</name>
+		  <fullname>Othello Multivision</fullname>
+		  <path>%ROMPATH%/multivision</path>
+		  <extension>.bin .BIN .gg .GG .rom .ROM .sg .SG .sms .SMS .7z .7Z .zip .ZIP</extension>
+		  <command label="Gearsystem">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/gearsystem_libretro.so %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <platform>sg-1000</platform>
+		  <theme>multivision</theme>
+	  </system>
+	  <system>
+		  <name>n3ds</name>
+		  <fullname>Nintendo 3DS</fullname>
+		  <path>%ROMPATH%/n3ds</path>
+		  <extension>.3ds .3DS .3dsx .3DSX .app .APP .axf .AXF .cci .CCI .cxi .CXI .elf .ELF .7z .7Z .zip .ZIP</extension>
+		  <command label="Citra">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/citra_libretro.so %ROM%</command>
+		  <command label="Citra 2018">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/citra2018_libretro.so %ROM%</command>
+		  <command label="Citra (Standalone)">%EMULATOR_CITRA% %ROM%</command>
+		  <command label="Panda3DS (Standalone)">%EMULATOR_PANDA3DS% %ROM%</command>
+		  <platform>n3ds</platform>
+		  <theme>n3ds</theme>
+	  </system>
+	  <system>
+		  <name>n64</name>
+		  <fullname>Nintendo 64</fullname>
+		  <path>%ROMPATH%/n64</path>
+		  <extension>.bin .BIN .d64 .D64 .n64 .N64 .ndd .NDD .u1 .U1 .v64 .V64 .z64 .Z64 .7z .7Z .zip .ZIP</extension>
+		  <command label="Mupen64Plus-Next">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mupen64plus_next_libretro.so %ROM%</command>
+		  <command label="Mupen64Plus (Standalone)">%EMULATOR_MUPEN64PLUS% --nogui %ROM%</command>
+		  <command label="ParaLLEl N64">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/parallel_n64_libretro.so %ROM%</command>
+		  <command label="simple64 (Standalone)">%EMULATOR_SIMPLE64% --nogui %ROM%</command>
+		  <command label="Rosalie's Mupen GUI (Standalone)">%EMULATOR_ROSALIES-MUPEN-GUI% --nogui -q %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Nintendo 64" %ROM%</command>
+		  <platform>n64</platform>
+		  <theme>n64</theme>
+	  </system>
+	  <system>
+		  <name>n64dd</name>
+		  <fullname>Nintendo 64DD</fullname>
+		  <path>%ROMPATH%/n64dd</path>
+		  <extension>.bin .BIN .d64 .D64 .n64 .N64 .ndd .NDD .u1 .U1 .v64 .V64 .z64 .Z64 .7z .7Z .zip .ZIP</extension>
+		  <command label="ParaLLEl N64">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/parallel_n64_libretro.so %ROM%</command>
+		  <command label="Mupen64Plus-Next">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mupen64plus_next_libretro.so %ROM%</command>
+		  <command label="Rosalie's Mupen GUI (Standalone)">%EMULATOR_ROSALIES-MUPEN-GUI% --nogui -q %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Nintendo 64DD" %ROM%</command>
+		  <platform>n64</platform>
+		  <theme>n64dd</theme>
+	  </system>
+	  <system>
+		  <name>naomi</name>
+		  <fullname>Sega NAOMI</fullname>
+		  <path>%ROMPATH%/naomi</path>
+		  <extension>.bin .BIN .dat .DAT .elf .ELF .lst .LST .7z .7Z .zip .ZIP</extension>
+		  <command label="Flycast">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/flycast_libretro.so %ROM%</command>
+		  <command label="Flycast (Standalone)">%EMULATOR_FLYCAST% %ROM%</command>
+		  <command label="Flycast Dojo (Standalone)">%EMULATOR_FLYCAST-DOJO% %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>naomi</theme>
+	  </system>
+	  <system>
+		  <name>naomi2</name>
+		  <fullname>Sega NAOMI 2</fullname>
+		  <path>%ROMPATH%/naomi2</path>
+		  <extension>.bin .BIN .dat .DAT .elf .ELF .lst .LST .7z .7Z .zip .ZIP</extension>
+		  <command label="Flycast">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/flycast_libretro.so %ROM%</command>
+		  <command label="Flycast (Standalone)">%EMULATOR_FLYCAST% %ROM%</command>
+		  <command label="Flycast Dojo (Standalone)">%EMULATOR_FLYCAST-DOJO% %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>naomi2</theme>
+	  </system>
+	  <system>
+		  <name>naomigd</name>
+		  <fullname>Sega NAOMI GD-ROM</fullname>
+		  <path>%ROMPATH%/naomigd</path>
+		  <extension>.bin .BIN .dat .DAT .elf .ELF .lst .LST .7z .7Z .zip .ZIP</extension>
+		  <command label="Flycast">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/flycast_libretro.so %ROM%</command>
+		  <command label="Flycast (Standalone)">%EMULATOR_FLYCAST% %ROM%</command>
+		  <command label="Flycast Dojo (Standalone)">%EMULATOR_FLYCAST-DOJO% %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>naomigd</theme>
+	  </system>
+	  <system>
+		  <name>nds</name>
+		  <fullname>Nintendo DS</fullname>
+		  <path>%ROMPATH%/nds</path>
+		  <extension>.app .APP .bin .BIN .nds .NDS .7z .7Z .zip .ZIP</extension>
+		  <command label="melonDS DS">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/melondsds_libretro.so %ROM%</command>
+		  <command label="melonDS">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/melonds_libretro.so %ROM%</command>
+		  <command label="melonDS (Standalone)">%EMULATOR_MELONDS% %ROM%</command>
+		  <command label="DeSmuME">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/desmume_libretro.so %ROM%</command>
+		  <command label="DeSmuME 2015">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/desmume2015_libretro.so %ROM%</command>
+		  <command label="DeSmuME (Standalone)">%EMULATOR_DESMUME% %ROM%</command>
+		  <command label="SkyEmu (Standalone)">%EMULATOR_SKYEMU% %ROM%</command>
+		  <platform>nds</platform>
+		  <theme>nds</theme>
+	  </system>
+	  <system>
+		  <name>neogeo</name>
+		  <fullname>SNK Neo Geo</fullname>
+		  <path>%ROMPATH%/neogeo</path>
+		  <extension>.neo .NEO .7z .7Z .zip .ZIP</extension>
+		  <command label="FinalBurn Neo">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fbneo_libretro.so %ROM%</command>
+		  <command label="FinalBurn Neo (Standalone)">%EMULATOR_FINALBURN-NEO% -fullscreen %BASENAME%</command>
+		  <command label="Geolith">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/geolith_libretro.so %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/neogeo %BASENAME%</command>
+		  <platform>neogeo</platform>
+		  <theme>neogeo</theme>
+	  </system>
+	  <system>
+		  <name>neogeocd</name>
+		  <fullname>SNK Neo Geo CD</fullname>
+		  <path>%ROMPATH%/neogeocd</path>
+		  <extension>.chd .CHD .cue .CUE</extension>
+		  <command label="NeoCD">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/neocd_libretro.so %ROM%</command>
+		  <command label="FinalBurn Neo">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh --subsystem neocd -L %CORE_RETROARCH%/fbneo_libretro.so %ROM%</command>
+		  <command label="FinalBurn Neo (Standalone)">%EMULATOR_FINALBURN-NEO% neocdz -fullscreen -cd %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/neogeocd neocdz -cdrm %ROM%</command>
+		  <platform>neogeocd</platform>
+		  <theme>neogeocd</theme>
+	  </system>
+	  <system>
+		  <name>neogeocdjp</name>
+		  <fullname>SNK Neo Geo CD</fullname>
+		  <path>%ROMPATH%/neogeocdjp</path>
+		  <extension>.chd .CHD .cue .CUE</extension>
+		  <command label="NeoCD">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/neocd_libretro.so %ROM%</command>
+		  <command label="FinalBurn Neo">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh --subsystem neocd -L %CORE_RETROARCH%/fbneo_libretro.so %ROM%</command>
+		  <command label="FinalBurn Neo (Standalone)">%EMULATOR_FINALBURN-NEO% neocdz -fullscreen -cd %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/neogeocdjp neocdz -cdrm %ROM%</command>
+		  <platform>neogeocd</platform>
+		  <theme>neogeocdjp</theme>
+	  </system>
+	  <system>
+		  <name>nes</name>
+		  <fullname>Nintendo Entertainment System</fullname>
+		  <path>%ROMPATH%/nes</path>
+		  <extension>.3dsen .3DSEN .fds .FDS .nes .NES .unf .UNF .unif .UNIF .7z .7Z .zip .ZIP</extension>
+		  <command label="Mesen">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mesen_libretro.so %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="Nestopia UE">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/nestopia_libretro.so %ROM%</command>
+		  <command label="Nestopia UE (Standalone)">%EMULATOR_NESTOPIA-UE% --fullscreen %ROM%</command>
+		  <command label="FCEUmm">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fceumm_libretro.so %ROM%</command>
+		  <command label="QuickNES">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/quicknes_libretro.so %ROM%</command>
+		  <command label="puNES (Standalone)">%EMULATOR_PUNES% -u yes %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module nes %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Famicom" %ROM%</command>
+		  <command label="ares FDS (Standalone)">%EMULATOR_ARES% --fullscreen --system "Famicom Disk System" %ROM%</command>
+		  <command label="3dSen (Wine)">%STARTDIR%=%EMUDIR% %PRECOMMAND_WINE% %EMULATOR_3DSEN-WINDOWS% -id=%INJECT%=%BASENAME%.3dsen</command>
+		  <command label="3dSen (Proton)">%STARTDIR%=%EMUDIR% %PRECOMMAND_PROTON% %EMULATOR_3DSEN-WINDOWS% -id=%INJECT%=%BASENAME%.3dsen</command>
+		  <platform>nes</platform>
+		  <theme>nes</theme>
+	  </system>
+	  <system>
+		  <name>ngage</name>
+		  <fullname>Nokia N-Gage</fullname>
+		  <path>%ROMPATH%/ngage</path>
+		  <extension>.ngage .zip .ZIP</extension>
+		  <command label="EKA2L1 [Mounted] (Standalone)">%EMULATOR_EKA2L1% --fullscreen --device RH-29 --mount %ROM% --run "%BASENAME%"</command>
+		  <command label="EKA2L1 [Installed] (Standalone)">%EMULATOR_EKA2L1% --fullscreen --device RH-29 --run "%BASENAME%"</command>
+		  <command label="EKA2L1 [Mounted] (Wine)">%STARTDIR%=%EMUDIR% %PRECOMMAND_WINE% %EMULATOR_EKA2L1-WINDOWS% --fullscreen --device RH-29 --mount %ROM% --run "%BASENAME%"</command>
+		  <command label="EKA2L1 [Installed] (Wine)">%STARTDIR%=%EMUDIR% %PRECOMMAND_WINE% %EMULATOR_EKA2L1-WINDOWS% --fullscreen --device RH-29 --run "%BASENAME%"</command>
+		  <platform>ngage</platform>
+		  <theme>ngage</theme>
+	  </system>
+	  <system>
+		  <name>ngp</name>
+		  <fullname>SNK Neo Geo Pocket</fullname>
+		  <path>%ROMPATH%/ngp</path>
+		  <extension>.ngc .NGC .ngp .NGP .ngpc .NGPC .npc .NPC .7z .7Z .zip .ZIP</extension>
+		  <command label="Beetle NeoPop">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_ngp_libretro.so %ROM%</command>
+		  <command label="RACE">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/race_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module ngp %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Neo Geo Pocket" %ROM%</command>
+		  <platform>ngp</platform>
+		  <theme>ngp</theme>
+	  </system>
+	  <system>
+		  <name>ngpc</name>
+		  <fullname>SNK Neo Geo Pocket Color</fullname>
+		  <path>%ROMPATH%/ngpc</path>
+		  <extension>.ngc .NGC .ngp .NGP .ngpc .NGPC .npc .NPC .7z .7Z .zip .ZIP</extension>
+		  <command label="Beetle NeoPop">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_ngp_libretro.so %ROM%</command>
+		  <command label="RACE">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/race_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module ngp %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Neo Geo Pocket Color" %ROM%</command>
+		  <platform>ngpc</platform>
+		  <theme>ngpc</theme>
+	  </system>
+	  <system>
+		  <name>odyssey2</name>
+		  <fullname>Magnavox Odyssey 2</fullname>
+		  <path>%ROMPATH%/odyssey2</path>
+		  <extension>.bin .BIN .7z .7Z .zip .ZIP</extension>
+		  <command label="O2EM">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/o2em_libretro.so %ROM%</command>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "odyssey2 -rompath \"%GAMEDIRRAW%;%ROMPATH%/odyssey2\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/odyssey2 odyssey2 -cart %ROM%</command>
+		  <platform>odyssey2</platform>
+		  <theme>odyssey2</theme>
+	  </system>
+	  <system>
+		  <name>openbor</name>
+		  <fullname>OpenBOR Game Engine</fullname>
+		  <path>%ROMPATH%/openbor</path>
+		  <extension>.AppImage</extension>
+		  <command label="OpenBOR (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_OS-SHELL% -c "%ROM%"</command>
+		  <platform>openbor</platform>
+		  <theme>openbor</theme>
+	  </system>
+	  <system>
+		  <name>oric</name>
+		  <fullname>Tangerine Computer Systems Oric</fullname>
+		  <path>%ROMPATH%/oric</path>
+		  <extension>.dsk .DSK .ort .ORT .tap .TAP .wav .WAV</extension>
+		  <command label="Oricutron (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_ORICUTRON% %ROM%</command>
+		  <platform>oric</platform>
+		  <theme>oric</theme>
+	  </system>
+	  <system>
+		  <name>palm</name>
+		  <fullname>Palm OS</fullname>
+		  <path>%ROMPATH%/palm</path>
+		  <extension>.img .IMG .pqa .PQA .prc .PRC .7z .7Z .zip .ZIP</extension>
+		  <command label="Mu">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mu_libretro.so %ROM%</command>
+		  <platform>palm</platform>
+		  <theme>palm</theme>
+	  </system>
+	  <system>
+		  <name>pc</name>
+		  <fullname>IBM PC</fullname>
+		  <path>%ROMPATH%/pc</path>
+		  <extension>.bat .BAT .com .COM .conf .CONF .cue .CUE .dosz .DOSZ .exe .EXE .iso .ISO .7z .7Z .zip .ZIP</extension>
+		  <command label="DOSBox-Pure">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/dosbox_pure_libretro.so %ROM%</command>
+		  <command label="DOSBox-Core">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/dosbox_core_libretro.so %ROM%</command>
+		  <command label="DOSBox-SVN">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/dosbox_svn_libretro.so %ROM%</command>
+		  <command label="DOSBox-X (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_DOSBOX-X% %ROM%</command>
+		  <command label="DOSBox Staging (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_DOSBOX-STAGING% %ROM%</command>
+		  <platform>pc</platform>
+		  <theme>pc</theme>
+	  </system>
+	  <system>
+		  <name>pc88</name>
+		  <fullname>NEC PC-8800 Series</fullname>
+		  <path>%ROMPATH%/pc88</path>
+		  <extension>.88d .88D .cmt .CMT .d88 .D88 .m3u .M3U .t88 .T88 .u88 .U88</extension>
+		  <command label="QUASI88">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/quasi88_libretro.so %ROM%</command>
+		  <command label="QUASI88 (Standalone)">%EMULATOR_QUASI88% -romdir ~/.quasi88 %ROM%</command>
+		  <platform>pc88</platform>
+		  <theme>pc88</theme>
+	  </system>
+	  <system>
+		  <name>pc98</name>
+		  <fullname>NEC PC-9800 Series</fullname>
+		  <path>%ROMPATH%/pc98</path>
+		  <extension>.2hd .2HD .88d .88D .98d .98D .d88 .D88 .d98 .D98 .cmd .CMD .dup .DUP .fdd .FDD .fdi .FDI .hdd .HDD .hdi .HDI .hdm .HDM .hdn .HDN .m3u .M3U .nhd .NHD .tfd .TFD .thd .THD .xdf .XDF .7z .7Z .zip .ZIP</extension>
+		  <command label="Neko Project II Kai">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/np2kai_libretro.so %ROM%</command>
+		  <command label="Neko Project II">%STARTDIR%=%GAMEDIR% /bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/nekop2_libretro.so %ROM%</command>
+		  <platform>pc98</platform>
+		  <theme>pc98</theme>
+	  </system>
+	  <system>
+		  <name>pcarcade</name>
+		  <fullname>PC Arcade Systems</fullname>
+		  <path>%ROMPATH%/pcarcade</path>
+		  <extension>.AppImage .desktop .exe .EXE .sh</extension>
+		  <command label="Wine (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_WINE% %ROM%</command>
+		  <command label="Proton (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_PROTON% %ROM%</command>
+		  <command label="AppImage">%EMULATOR_OS-SHELL% -c "%ROM%"</command>
+		  <command label="Shortcut or script">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>pcarcade</theme>
+	  </system>
+	  <system>
+		  <name>pcengine</name>
+		  <fullname>NEC PC Engine</fullname>
+		  <path>%ROMPATH%/pcengine</path>
+		  <extension>.ccd .CCD .chd .CHD .cue .CUE .img .IMG .iso .ISO .m3u .M3U .pce .PCE .sgx .SGX .toc .TOC .7z .7Z .zip .ZIP</extension>
+		  <command label="Beetle PCE">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_pce_libretro.so %ROM%</command>
+		  <command label="Beetle PCE FAST">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_pce_fast_libretro.so %ROM%</command>
+		  <command label="Beetle SuperGrafx">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_supergrafx_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module pce %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "PC Engine" %ROM%</command>
+		  <platform>pcengine</platform>
+		  <theme>pcengine</theme>
+	  </system>
+	  <system>
+		  <name>pcenginecd</name>
+		  <fullname>NEC PC Engine CD</fullname>
+		  <path>%ROMPATH%/pcenginecd</path>
+		  <extension>.ccd .CCD .chd .CHD .cue .CUE .img .IMG .iso .ISO .m3u .M3U .pce .PCE .sgx .SGX .toc .TOC .7z .7Z .zip .ZIP</extension>
+		  <command label="Beetle PCE">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_pce_libretro.so %ROM%</command>
+		  <command label="Beetle PCE FAST">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_pce_fast_libretro.so %ROM%</command>
+		  <command label="Beetle SuperGrafx">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_supergrafx_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module pce %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "PC Engine CD" %ROM%</command>
+		  <platform>pcenginecd</platform>
+		  <theme>pcenginecd</theme>
+	  </system>
+	  <system>
+		  <name>pcfx</name>
+		  <fullname>NEC PC-FX</fullname>
+		  <path>%ROMPATH%/pcfx</path>
+		  <extension>.ccd .CCD .chd .CHD .cue CUE .m3u .M3U .toc .TOC .7z .7Z .zip .ZIP</extension>
+		  <command label="Beetle PC-FX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_pcfx_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module pcfx %ROM%</command>
+		  <platform>pcfx</platform>
+		  <theme>pcfx</theme>
+	  </system>
+	  <system>
+		  <name>pico8</name>
+		  <fullname>PICO-8 Fantasy Console</fullname>
+		  <path>%ROMPATH%/pico8</path>
+		  <extension>.p8 .P8 .png .PNG</extension>
+		  <command label="PICO-8 (Standalone)">%EMULATOR_PICO-8% -root_path %GAMEDIR% -run %ROM%</command>
+		  <command label="PICO-8 Splore (Standalone)">%EMULATOR_PICO-8% -root_path %GAMEDIR% -splore</command>
+		  <command label="Retro8">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/retro8_libretro.so %ROM%</command>
+		  <platform>pico8</platform>
+		  <theme>pico8</theme>
+	  </system>
+	  <system>
+		  <name>plus4</name>
+		  <fullname>Commodore Plus/4</fullname>
+		  <path>%ROMPATH%/plus4</path>
+		  <extension>.bin .BIN .cmd .CMD .crt .CRT .d2m .D2M .d4m .D4M .d64 .D64 .d6z .D6Z .d71 .D71 .d7z .D7Z .d80 .D80 .d81 .D81 .d82 .D82 .d8z .D8Z .g41 .G41 .g4z .G4Z .g64 .G64 .g6z .G6Z .gz .GZ .lnx .LNX .m3u .M3U .nbz .NBZ .nib .NIB .p00 .P00 .prg .PRG .t64 .T64 .tap .TAP .vfl .VFL .vsf .VSF .x64 .X64 .x6z .X6Z .7z .7Z .zip .ZIP</extension>
+		  <command label="VICE xplus4">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/vice_xplus4_libretro.so %ROM%</command>
+		  <command label="VICE xplus4 (Standalone)">%EMULATOR_VICE-XPLUS4% %ROM%</command>
+		  <platform>plus4</platform>
+		  <theme>plus4</theme>
+	  </system>
+	  <system>
+		  <name>pokemini</name>
+		  <fullname>Nintendo Pokémon Mini</fullname>
+		  <path>%ROMPATH%/pokemini</path>
+		  <extension>.min .MIN .7z .7Z .zip .ZIP</extension>
+		  <command label="PokeMini">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/pokemini_libretro.so %ROM%</command>
+		  <platform>pokemini</platform>
+		  <theme>pokemini</theme>
+	  </system>
+	  <system>
+		  <name>ports</name>
+		  <fullname>Ports</fullname>
+		  <path>%ROMPATH%/ports</path>
+		  <extension>.AppImage .desktop .exe .EXE .game .GAME .phd .PHD .psx .PSX .sh</extension>
+		  <command label="Shortcut or script">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <command label="AppImage">%EMULATOR_OS-SHELL% -c "%ROM%"</command>
+		  <command label="ECWolf (Wolfenstein 3D)">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/ecwolf_libretro.so %ROM%</command>
+		  <command label="NXEngine (Cave Story)">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/nxengine_libretro.so %ROM%</command>
+		  <command label="OpenLara (Tomb Raider)">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/openlara_libretro.so %ROM%</command>
+		  <command label="Super Bros War">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/superbroswar_libretro.so %ROM%</command>
+		  <platform>pc, pcwindows</platform>
+		  <theme>ports</theme>
+	  </system>
+	  <system>
+		  <name>ps2</name>
+		  <fullname>Sony PlayStation 2</fullname>
+		  <path>%ROMPATH%/ps2</path>
+		  <extension>.arcadedef .bin .BIN .chd .CHD .ciso .CISO .cso .CSO .dump .DUMP .elf .ELF .gz .GZ .m3u .M3U .mdf .MDF .img .IMG .iso .ISO .isz .ISZ .ngr .NRG .zso .ZSO</extension>
+		  <command label="LRPS2">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/pcsx2_libretro.so %ROM%</command>
+		  <command label="PCSX2">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/pcsx2_libretro.so %ROM%</command>
+		  <command label="PCSX2 (Standalone)">%EMULATOR_PCSX2% -batch %ROM%</command>
+		  <command label="PCSX2 Legacy (Standalone)">%EMULATOR_PCSX2-LEGACY% --nogui %ROM%</command>
+		  <command label="Play! (Standalone)">%EMULATOR_PLAY!% --disc %ROM%</command>
+		  <platform>ps2</platform>
+		  <theme>ps2</theme>
+	  </system>
+	  <system>
+		  <name>ps3</name>
+		  <fullname>Sony PlayStation 3</fullname>
+		  <path>%ROMPATH%/ps3</path>
+		  <extension>.desktop .ps3 .PS3 .ps3dir .PS3DIR</extension>
+		  <command label="RPCS3 Shortcut (Standalone)">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <command label="RPCS3 Directory (Standalone)">%EMULATOR_RPCS3% --no-gui %ROM%</command>
+		  <platform>ps3</platform>
+		  <theme>ps3</theme>
+	  </system>
+	  <system>
+		  <name>ps4</name>
+		  <fullname>Sony PlayStation 4</fullname>
+		  <path>%ROMPATH%/ps4</path>
+		  <extension>.7z .7Z .zip .ZIP</extension>
+		  <command>PLACEHOLDER %ROM%</command>
+		  <platform>ps4</platform>
+		  <theme>ps4</theme>
+	  </system>
+	  <system>
+		  <name>psp</name>
+		  <fullname>Sony PlayStation Portable</fullname>
+		  <path>%ROMPATH%/psp</path>
+		  <extension>.chd .CHD .cso .CSO .elf .ELF .iso .ISO .pbp .PBP .prx .PRX .7z .7Z .zip .ZIP</extension>
+		  <command label="PPSSPP">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/ppsspp_libretro.so %ROM%</command>
+		  <command label="PPSSPP (Standalone)">%EMULATOR_PPSSPP% %ROM%</command>
+		  <platform>psp</platform>
+		  <theme>psp</theme>
+	  </system>
+	  <system>
+		  <name>psvita</name>
+		  <fullname>Sony PlayStation Vita</fullname>
+		  <path>%ROMPATH%/psvita</path>
+		  <extension>.psvita</extension>
+		  <command label="Vita3K (Standalone)">%EMULATOR_VITA3K% -r %INJECT%=%BASENAME%.psvita</command>
+		  <platform>psvita</platform>
+		  <theme>psvita</theme>
+	  </system>
+	  <system>
+		  <name>psx</name>
+		  <fullname>Sony PlayStation</fullname>
+		  <path>%ROMPATH%/psx</path>
+		  <extension>.bin .BIN .cbn .CBN .ccd .CCD .chd .CHD .cue .CUE .ecm .ECM .exe .EXE .img .IMG .iso .ISO .m3u .M3U .mdf .MDF .mds .MDS .minipsf .MINIPSF .pbp .PBP .psexe .PSEXE .psf .PSF .toc .TOC .z .Z .znx .ZNX .7z .7Z .zip .ZIP</extension>
+		  <command label="Beetle PSX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_psx_libretro.so %ROM%</command>
+		  <command label="Beetle PSX HW">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_psx_hw_libretro.so %ROM%</command>
+		  <command label="PCSX ReARMed">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/pcsx_rearmed_libretro.so %ROM%</command>
+		  <command label="SwanStation">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/swanstation_libretro.so %ROM%</command>
+		  <command label="DuckStation (Standalone)">%EMULATOR_DUCKSTATION% -batch %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module psx %ROM%</command>
+		  <platform>psx</platform>
+		  <theme>psx</theme>
+	  </system>
+	  <system>
+		  <name>pv1000</name>
+		  <fullname>Casio PV-1000</fullname>
+		  <path>%ROMPATH%/pv1000</path>
+		  <extension>.bin .BIN .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "pv1000 -rompath \"%GAMEDIRRAW%;%ROMPATH%/pv1000\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/pv1000 pv1000 -cart %ROM%</command>
+		  <platform>pv1000</platform>
+		  <theme>pv1000</theme>
+	  </system>
+	  <system>
+		  <name>quake</name>
+		  <fullname>Quake</fullname>
+		  <path>%ROMPATH%/quake</path>
+		  <extension>.desktop .pak .PAK .pk3 .PK3 .sh</extension>
+		  <command label="TyrQuake">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/tyrquake_libretro.so %ROM%</command>
+		  <command label="vitaQuake 2">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/vitaquake2_libretro.so %ROM%</command>
+		  <command label="vitaQuake 2 [Rogue]">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/vitaquake2-rogue_libretro.so %ROM%</command>
+		  <command label="vitaQuake 2 [Xatrix]">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/vitaquake2-xatrix_libretro.so %ROM%</command>
+		  <command label="vitaQuake 2 [Zaero]">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/vitaquake2-zaero_libretro.so %ROM%</command>
+		  <command label="vitaQuake 3">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/vitaquake3_libretro.so %ROM%</command>
+		  <command label="Shortcut or script">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <platform>pc, pcwindows</platform>
+		  <theme>quake</theme>
+	  </system>
+	  <system>
+		  <name>samcoupe</name>
+		  <fullname>MGT SAM Coupé</fullname>
+		  <path>%ROMPATH%/samcoupe</path>
+		  <extension>.dsk .DSK .mgt .MGT .sad .SAD .sbt .SBT .7z .7Z .zip .ZIP</extension>
+		  <command label="SimCoupé (Standalone)">%EMULATOR_SIMCOUPE% %ROM%</command>
+		  <platform>samcoupe</platform>
+		  <theme>samcoupe</theme>
+	  </system>
+	  <system>
+		  <name>satellaview</name>
+		  <fullname>Nintendo Satellaview</fullname>
+		  <path>%ROMPATH%/satellaview</path>
+		  <extension>.bml .BML .bs .BS .fig .FIG .sfc .SFC .smc .SMC .swc .SWC .st .ST .7z .7Z .zip .ZIP</extension>
+		  <command label="Snes9x - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/snes9x_libretro.so %ROM%</command>
+		  <command label="Snes9x 2010">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/snes9x2010_libretro.so %ROM%</command>
+		  <command label="Snes9x 2005 Plus">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/snes9x2005_plus_libretro.so %ROM%</command>
+		  <command label="Snes9x (Standalone)">%EMULATOR_SNES9X% %ROM%</command>
+		  <command label="bsnes">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_libretro.so %ROM%</command>
+		  <command label="bsnes-hd">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_hd_beta_libretro.so %ROM%</command>
+		  <command label="bsnes-mercury Accuracy">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_mercury_accuracy_libretro.so %ROM%</command>
+		  <command label="bsnes (Standalone)">%EMULATOR_BSNES% --fullscreen %ROM%</command>
+		  <command label="Mesen-S">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mesen-s_libretro.so %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Super Famicom" %ROM%</command>
+		  <platform>satellaview</platform>
+		  <theme>satellaview</theme>
+	  </system>
+	  <system>
+		  <name>saturn</name>
+		  <fullname>Sega Saturn</fullname>
+		  <path>%ROMPATH%/saturn</path>
+		  <extension>.bin .BIN .ccd .CCD .chd .CHD .cue .CUE .iso .ISO .m3u .M3U .mds .MDS .toc .TOC .7z .7Z .zip .ZIP</extension>
+		  <command label="Beetle Saturn">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_saturn_libretro.so %ROM%</command>
+		  <command label="Kronos">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/kronos_libretro.so %ROM%</command>
+		  <command label="YabaSanshiro">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/yabasanshiro_libretro.so %ROM%</command>
+		  <command label="Yabause">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/yabause_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module ss %ROM%</command>
+		  <platform>saturn</platform>
+		  <theme>saturn</theme>
+	  </system>
+	  <system>
+		  <name>saturnjp</name>
+		  <fullname>Sega Saturn</fullname>
+		  <path>%ROMPATH%/saturnjp</path>
+		  <extension>.bin .BIN .ccd .CCD .chd .CHD .cue .CUE .iso .ISO .m3u .M3U .mds .MDS .toc .TOC .7z .7Z .zip .ZIP</extension>
+		  <command label="Beetle Saturn">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_saturn_libretro.so %ROM%</command>
+		  <command label="Kronos">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/kronos_libretro.so %ROM%</command>
+		  <command label="YabaSanshiro">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/yabasanshiro_libretro.so %ROM%</command>
+		  <command label="Yabause">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/yabause_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module ss %ROM%</command>
+		  <platform>saturn</platform>
+		  <theme>saturnjp</theme>
+	  </system>
+	  <system>
+		  <name>scummvm</name>
+		  <fullname>ScummVM Game Engine</fullname>
+		  <path>%ROMPATH%/scummvm</path>
+		  <extension>.scummvm .SCUMMVM .svm .SVM</extension>
+		  <command label="ScummVM">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/scummvm_libretro.so %ROM%</command>
+		  <command label="ScummVM (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_SCUMMVM% %BASENAME%</command>
+		  <platform>scummvm</platform>
+		  <theme>scummvm</theme>
+	  </system>
+	  <system>
+		  <name>scv</name>
+		  <fullname>Epoch Super Cassette Vision</fullname>
+		  <path>%ROMPATH%/scv</path>
+		  <extension>.0 .bin .BIN .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "scv -rompath \"%GAMEDIRRAW%;%ROMPATH%/scv\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/scv scv -cart %ROM%</command>
+		  <platform>scv</platform>
+		  <theme>scv</theme>
+	  </system>
+	  <system>
+		  <name>sega32x</name>
+		  <fullname>Sega Mega Drive 32X</fullname>
+		  <path>%ROMPATH%/sega32x</path>
+		  <extension>.32x .32X .68k .68K .bin .BIN .chd .CHD .cue .CUE .gen .GEN .iso .ISO .md .MD .smd .SMD .sms .SMS .7z .7Z .zip .ZIP</extension>
+		  <command label="PicoDrive">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/picodrive_libretro.so %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Mega 32X" %ROM%</command>
+		  <platform>sega32x</platform>
+		  <theme>sega32x</theme>
+	  </system>
+	  <system>
+		  <name>sega32xjp</name>
+		  <fullname>Sega Super 32X</fullname>
+		  <path>%ROMPATH%/sega32xjp</path>
+		  <extension>.32x .32X .68k .68K .bin .BIN .chd .CHD .cue .CUE .gen .GEN .iso .ISO .md .MD .smd .SMD .sms .SMS .7z .7Z .zip .ZIP</extension>
+		  <command label="PicoDrive">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/picodrive_libretro.so %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Mega 32X" %ROM%</command>
+		  <platform>sega32x</platform>
+		  <theme>sega32xjp</theme>
+	  </system>
+	  <system>
+		  <name>sega32xna</name>
+		  <fullname>Sega Genesis 32X</fullname>
+		  <path>%ROMPATH%/sega32xna</path>
+		  <extension>.32x .32X .68k .68K .bin .BIN .chd .CHD .cue .CUE .gen .GEN .iso .ISO .md .MD .smd .SMD .sms .SMS .7z .7Z .zip .ZIP</extension>
+		  <command label="PicoDrive">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/picodrive_libretro.so %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Mega 32X" %ROM%</command>
+		  <platform>sega32x</platform>
+		  <theme>sega32xna</theme>
+	  </system>
+	  <system>
+		  <name>segacd</name>
+		  <fullname>Sega CD</fullname>
+		  <path>%ROMPATH%/segacd</path>
+		  <extension>.68k .68K .bin .BIN .bms .BMS .chd .CHD .cue .CUE .gen .GEN .gg .GG .iso .ISO .m3u .M3U .md .MD .mdx .MDX .sg .SG .sgd .SGD .smd .SMD .sms .SMS .7z .7Z .zip .ZIP</extension>
+		  <command label="Genesis Plus GX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_libretro.so %ROM%</command>
+		  <command label="Genesis Plus GX Wide">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_wide_libretro.so %ROM%</command>
+		  <command label="PicoDrive">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/picodrive_libretro.so %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Mega CD" %ROM%</command>
+		  <platform>segacd</platform>
+		  <theme>segacd</theme>
+	  </system>
+	  <system>
+		  <name>sfc</name>
+		  <fullname>Nintendo SFC (Super Famicom)</fullname>
+		  <path>%ROMPATH%/sfc</path>
+		  <extension>.bin .BIN .bml .BML .bs .BS .bsx .BSX .dx2 .DX2 .fig .FIG .gd3 .GD3 .gd7 .GD7 .mgd .MGD .sfc .SFC .smc .SMC .st .ST .swc .SWC .7z .7Z .zip .ZIP</extension>
+		  <command label="Snes9x - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/snes9x_libretro.so %ROM%</command>
+		  <command label="Snes9x 2010">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/snes9x2010_libretro.so %ROM%</command>
+		  <command label="Snes9x 2005 Plus">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/snes9x2005_plus_libretro.so %ROM%</command>
+		  <command label="Snes9x (Standalone)">%EMULATOR_SNES9X% %ROM%</command>
+		  <command label="bsnes">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_libretro.so %ROM%</command>
+		  <command label="bsnes-hd">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_hd_beta_libretro.so %ROM%</command>
+		  <command label="bsnes-mercury Accuracy">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_mercury_accuracy_libretro.so %ROM%</command>
+		  <command label="bsnes (Standalone)">%EMULATOR_BSNES% --fullscreen %ROM%</command>
+		  <command label="Beetle Supafaust">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_supafaust_libretro.so %ROM%</command>
+		  <command label="Mesen-S">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mesen-s_libretro.so %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module snes %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Super Famicom" %ROM%</command>
+		  <platform>snes</platform>
+		  <theme>sfc</theme>
+	  </system>
+	  <system>
+		  <name>sg-1000</name>
+		  <fullname>Sega SG-1000</fullname>
+		  <path>%ROMPATH%/sg-1000</path>
+		  <extension>.68k .68K .bin .BIN .bms .BMS .chd .CHD .cue .CUE .gen .GEN .gg .GG .iso .ISO .m3u .M3U .md .MD .mdx .MDX .ri .RI .rom .ROM .sg .SG .sgd .SGD .smd .SMD .sms .SMS .7z .7Z .zip .ZIP</extension>
+		  <command label="Genesis Plus GX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_libretro.so %ROM%</command>
+		  <command label="Genesis Plus GX Wide">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/genesis_plus_gx_wide_libretro.so %ROM%</command>
+		  <command label="Gearsystem">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/gearsystem_libretro.so %ROM%</command>
+		  <command label="blueMSX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bluemsx_libretro.so %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "SG-1000" %ROM%</command>
+		  <platform>sg-1000</platform>
+		  <theme>sg-1000</theme>
+	  </system>
+	  <system>
+		  <name>sgb</name>
+		  <fullname>Nintendo Super Game Boy</fullname>
+		  <path>%ROMPATH%/sgb</path>
+		  <extension>.gb .GB .gbc .GBC .sgb .SGB .7z .7Z .zip .ZIP</extension>
+		  <command label="Mesen-S">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mesen-s_libretro.so %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen --gameBoy.useSgb2=true %ROM%</command>
+		  <command label="SameBoy">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/sameboy_libretro.so %ROM%</command>
+		  <command label="mGBA">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mgba_libretro.so %ROM%</command>
+		  <command label="mGBA (Standalone)">%EMULATOR_MGBA% -f %ROM%</command>
+		  <platform>sgb</platform>
+		  <theme>sgb</theme>
+	  </system>
+	  <system>
+		  <name>snes</name>
+		  <fullname>Nintendo SNES (Super Nintendo)</fullname>
+		  <path>%ROMPATH%/snes</path>
+		  <extension>.bin .BIN .bml .BML .bs .BS .bsx .BSX .dx2 .DX2 .fig .FIG .gd3 .GD3 .gd7 .GD7 .mgd .MGD .sfc .SFC .smc .SMC .st .ST .swc .SWC .7z .7Z .zip .ZIP</extension>
+		  <command label="Snes9x - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/snes9x_libretro.so %ROM%</command>
+		  <command label="Snes9x 2010">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/snes9x2010_libretro.so %ROM%</command>
+		  <command label="Snes9x 2005 Plus">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/snes9x2005_plus_libretro.so %ROM%</command>
+		  <command label="Snes9x (Standalone)">%EMULATOR_SNES9X% %ROM%</command>
+		  <command label="bsnes">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_libretro.so %ROM%</command>
+		  <command label="bsnes-hd">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_hd_beta_libretro.so %ROM%</command>
+		  <command label="bsnes-mercury Accuracy">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_mercury_accuracy_libretro.so %ROM%</command>
+		  <command label="bsnes (Standalone)">%EMULATOR_BSNES% --fullscreen %ROM%</command>
+		  <command label="Beetle Supafaust">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_supafaust_libretro.so %ROM%</command>
+		  <command label="Mesen-S">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mesen-s_libretro.so %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module snes %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Super Famicom" %ROM%</command>
+		  <platform>snes</platform>
+		  <theme>snes</theme>
+	  </system>
+	  <system>
+		  <name>snesna</name>
+		  <fullname>Nintendo SNES (Super Nintendo)</fullname>
+		  <path>%ROMPATH%/snesna</path>
+		  <extension>.bin .BIN .bml .BML .bs .BS .bsx .BSX .dx2 .DX2 .fig .FIG .gd3 .GD3 .gd7 .GD7 .mgd .MGD .sfc .SFC .smc .SMC .st .ST .swc .SWC .7z .7Z .zip .ZIP</extension>
+		  <command label="Snes9x - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/snes9x_libretro.so %ROM%</command>
+		  <command label="Snes9x 2010">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/snes9x2010_libretro.so %ROM%</command>
+		  <command label="Snes9x 2005 Plus">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/snes9x2005_plus_libretro.so %ROM%</command>
+		  <command label="Snes9x (Standalone)">%EMULATOR_SNES9X% %ROM%</command>
+		  <command label="bsnes">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_libretro.so %ROM%</command>
+		  <command label="bsnes-hd">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_hd_beta_libretro.so %ROM%</command>
+		  <command label="bsnes-mercury Accuracy">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_mercury_accuracy_libretro.so %ROM%</command>
+		  <command label="bsnes (Standalone)">%EMULATOR_BSNES% --fullscreen %ROM%</command>
+		  <command label="Beetle Supafaust">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_supafaust_libretro.so %ROM%</command>
+		  <command label="Mesen-S">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mesen-s_libretro.so %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module snes %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Super Famicom" %ROM%</command>
+		  <platform>snes</platform>
+		  <theme>snesna</theme>
+	  </system>
+	  <system>
+		  <name>solarus</name>
+		  <fullname>Solarus Game Engine</fullname>
+		  <path>%ROMPATH%/solarus</path>
+		  <extension>.solarus</extension>
+		  <command label="Solarus (Standalone)">%EMULATOR_SOLARUS% %ROM%</command>
+		  <platform>solarus</platform>
+		  <theme>solarus</theme>
+	  </system>
+	  <system>
+		  <name>spectravideo</name>
+		  <fullname>Spectravideo</fullname>
+		  <path>%ROMPATH%/spectravideo</path>
+		  <extension>.cas .CAS .col .COL .dsk .DSK .m3u .M3U .mx1 .MX1 .mx2 .MX2 .ri .RI .rom .ROM .sc .SC .sg .SG .7z .7Z .zip .ZIP</extension>
+		  <command label="blueMSX">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bluemsx_libretro.so %ROM%</command>
+		  <platform>spectravideo</platform>
+		  <theme>spectravideo</theme>
+	  </system>
+	  <system>
+		  <name>steam</name>
+		  <fullname>Valve Steam</fullname>
+		  <path>%ROMPATH%/steam</path>
+		  <extension>.desktop .sh</extension>
+		  <command label="Steam (Standalone)">%RUNINBACKGROUND% %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <platform>steam</platform>
+		  <theme>steam</theme>
+	  </system>
+	  <system>
+		  <name>stv</name>
+		  <fullname>Sega Titan Video Game System</fullname>
+		  <path>%ROMPATH%/stv</path>
+		  <extension>.7z .7Z .zip .ZIP</extension>
+		  <command label="Kronos">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/kronos_libretro.so %ROM%</command>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/stv %BASENAME%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module ss %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>stv</theme>
+	  </system>
+	  <system>
+		  <name>sufami</name>
+		  <fullname>Bandai SuFami Turbo</fullname>
+		  <path>%ROMPATH%/sufami</path>
+		  <extension>.bml .BML .bs .BS .fig .FIG .sfc .SFC .smc .SMC .st .ST .7z .7Z .zip .ZIP</extension>
+		  <command label="Snes9x - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/snes9x_libretro.so %ROM%</command>
+		  <command label="Snes9x 2010">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/snes9x2010_libretro.so %ROM%</command>
+		  <command label="Snes9x 2005 Plus">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/snes9x2005_plus_libretro.so %ROM%</command>
+		  <command label="Snes9x (Standalone)">%EMULATOR_SNES9X% %ROM%</command>
+		  <command label="bsnes">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_libretro.so %ROM%</command>
+		  <command label="bsnes-hd">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_hd_beta_libretro.so %ROM%</command>
+		  <command label="bsnes-mercury Accuracy">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/bsnes_mercury_accuracy_libretro.so %ROM%</command>
+		  <command label="bsnes (Standalone)">%EMULATOR_BSNES% --fullscreen %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Super Famicom" %ROM%</command>
+		  <platform>sufami</platform>
+		  <theme>sufami</theme>
+	  </system>
+	  <system>
+		  <name>supergrafx</name>
+		  <fullname>NEC SuperGrafx</fullname>
+		  <path>%ROMPATH%/supergrafx</path>
+		  <extension>.ccd .CCD .chd .CHD .cue .CUE .pce .PCE .sgx .SGX .7z .7Z .zip .ZIP</extension>
+		  <command label="Beetle SuperGrafx">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_supergrafx_libretro.so %ROM%</command>
+		  <command label="Beetle PCE">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_pce_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module pce %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "SuperGrafx" %ROM%</command>
+		  <platform>supergrafx</platform>
+		  <theme>supergrafx</theme>
+	  </system>
+	  <system>
+		  <name>supervision</name>
+		  <fullname>Watara Supervision</fullname>
+		  <path>%ROMPATH%/supervision</path>
+		  <extension>.bin .BIN .sv .SV .7z .7Z .zip .ZIP</extension>
+		  <command label="Potator">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/potator_libretro.so %ROM%</command>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "svision -rompath \"%GAMEDIRRAW%;%ROMPATH%/supervision\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/supervision svision -cart %ROM%</command>
+		  <platform>supervision</platform>
+		  <theme>supervision</theme>
+	  </system>
+	  <system>
+		  <name>supracan</name>
+		  <fullname>Funtech Super A'Can</fullname>
+		  <path>%ROMPATH%/supracan</path>
+		  <extension>.bin .BIN .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "supracan -rompath \"%GAMEDIRRAW%;%ROMPATH%/supracan\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/supracan supracan -cart %ROM%</command>
+		  <platform>supracan</platform>
+		  <theme>supracan</theme>
+	  </system>
+	  <system>
+		  <name>switch</name>
+		  <fullname>Nintendo Switch</fullname>
+		  <path>%ROMPATH%/switch</path>
+		  <extension>.nca .NCA .nro .NRO .nso .NSO .nsp .NSP .xci .XCI</extension>
+		  <command label="Ryujinx (Standalone)">%EMULATOR_RYUJINX% %ROM%</command>
+		  <platform>switch</platform>
+		  <theme>switch</theme>
+	  </system>
+	  <system>
+		  <name>symbian</name>
+		  <fullname>Symbian</fullname>
+		  <path>%ROMPATH%/symbian</path>
+		  <extension>.sis .SIS .sisx .SISX .symbian</extension>
+		  <command label="EKA2L1 [Nokia N-Gage] (Standalone)">%EMULATOR_EKA2L1% --fullscreen --device RH-29 --run "%BASENAME%"</command>
+		  <command label="EKA2L1 [Nokia N70] (Standalone)">%EMULATOR_EKA2L1% --fullscreen --device RM-84 --run "%BASENAME%"</command>
+		  <command label="EKA2L1 [Nokia N97] (Standalone)">%EMULATOR_EKA2L1% --fullscreen --device RM-507 --run "%BASENAME%"</command>
+		  <command label="EKA2L1 [Custom device] (Standalone)">%EMULATOR_EKA2L1% --fullscreen --device %INJECT%=%BASENAME%.device --run "%BASENAME%"</command>
+		  <platform>ngage</platform>
+		  <theme>symbian</theme>
+	  </system>
+	  <system>
+		  <name>tanodragon</name>
+		  <fullname>Tano Dragon</fullname>
+		  <path>%ROMPATH%/tanodragon</path>
+		  <extension>.cas .CAS .ccc .CCC .dsk .DSK .rom .ROM</extension>
+		  <command label="XRoar (Standalone)">%EMULATOR_XROAR% -fs -default-machine tano %ROM%</command>
+		  <platform>dragon32</platform>
+		  <theme>tanodragon</theme>
+	  </system>
+	  <system>
+		  <name>tg16</name>
+		  <fullname>NEC TurboGrafx-16</fullname>
+		  <path>%ROMPATH%/tg16</path>
+		  <extension>.ccd .CCD .chd .CHD .cue .CUE .img .IMG .iso .ISO .m3u .M3U .pce .PCE .sgx .SGX .toc .TOC .7z .7Z .zip .ZIP</extension>
+		  <command label="Beetle PCE">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_pce_libretro.so %ROM%</command>
+		  <command label="Beetle PCE FAST">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_pce_fast_libretro.so %ROM%</command>
+		  <command label="Beetle SuperGrafx">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_supergrafx_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module pce %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "PC Engine" %ROM%</command>
+		  <platform>pcengine</platform>
+		  <theme>tg16</theme>
+	  </system>
+	  <system>
+		  <name>tg-cd</name>
+		  <fullname>NEC TurboGrafx-CD</fullname>
+		  <path>%ROMPATH%/tg-cd</path>
+		  <extension>.ccd .CCD .chd .CHD .cue .CUE .img .IMG .iso .ISO .m3u .M3U .pce .PCE .sgx .SGX .toc .TOC .7z .7Z .zip .ZIP</extension>
+		  <command label="Beetle PCE">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_pce_libretro.so %ROM%</command>
+		  <command label="Beetle PCE FAST">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_pce_fast_libretro.so %ROM%</command>
+		  <command label="Beetle SuperGrafx">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_supergrafx_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module pce %ROM%</command>
+		  <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "PC Engine CD" %ROM%</command>
+		  <platform>pcenginecd</platform>
+		  <theme>tg-cd</theme>
+	  </system>
+	  <system>
+		  <name>ti99</name>
+		  <fullname>Texas Instruments TI-99</fullname>
+		  <path>%ROMPATH%/ti99</path>
+		  <extension>.rpk .RPK .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/ti99 ti99_4a -ioport peb -ioport:peb:slot3 speech -cart %BASENAME%</command>
+		  <platform>ti99</platform>
+		  <theme>ti99</theme>
+	  </system>
+	  <system>
+		  <name>tic80</name>
+		  <fullname>TIC-80 Fantasy Computer</fullname>
+		  <path>%ROMPATH%/tic80</path>
+		  <extension>.tic .TIC</extension>
+		  <command label="TIC-80">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/tic80_libretro.so %ROM%</command>
+		  <command label="TIC-80 (Standalone)">%EMULATOR_TIC-80% %ROM% --fullscreen</command>
+		  <platform>tic80</platform>
+		  <theme>tic80</theme>
+	  </system>
+	  <system>
+		  <name>to8</name>
+		  <fullname>Thomson TO8</fullname>
+		  <path>%ROMPATH%/to8</path>
+		  <extension>.fd .FD .k7 .K7 .m5 .M5 .m7 .M7 .rom .ROM .sap .SAP .7z .7Z .zip .ZIP</extension>
+		  <command label="Theodore">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/theodore_libretro.so %ROM%</command>
+		  <platform>moto</platform>
+		  <theme>to8</theme>
+	  </system>
+	  <system>
+		  <name>triforce</name>
+		  <fullname>Namco-Sega-Nintendo Triforce</fullname>
+		  <path>%ROMPATH%/triforce</path>
+		  <extension>.ciso .CISO .dff .DFF .dol .DOL .elf .ELF .gcm .GCM .gcz .GCZ .iso .ISO .json .JSON .m3u .M3U .rvz .RVZ .tgc .TGC .wad .WAD .wbfs .WBFS .wia .WIA .7z .7Z .zip .ZIP</extension>
+		  <command label="Triforce (Standalone)">%INJECT%=%BASENAME%.esprefix %EMULATOR_TRIFORCE% -b -e %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>triforce</theme>
+	  </system>
+	  <system>
+		  <name>trs-80</name>
+		  <fullname>Tandy TRS-80</fullname>
+		  <path>%ROMPATH%/trs-80</path>
+		  <extension>.cmd .CMD .dsk .DSK</extension>
+		  <command label="sdl2trs DOS Diskette (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_SDL2TRS% -rom %ROMPATH%/trs-80/level2.rom -disk0 %ROMPATH%/trs-80/boot.dsk -disk1 %ROM%</command>
+		  <command label="sdl2trs Bootable Diskette (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_SDL2TRS% -rom %ROMPATH%/trs-80/level2.rom -disk0 %ROM%</command>
+		  <command label="sdl2trs CMD File (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_SDL2TRS% -rom %ROMPATH%/trs-80/level2.rom %ROM%</command>
+		  <platform>trs-80</platform>
+		  <theme>trs-80</theme>
+	  </system>
+	  <system>
+		  <name>type-x</name>
+		  <fullname>Taito Type X</fullname>
+		  <path>%ROMPATH%/type-x</path>
+		  <extension>.AppImage .desktop .exe .EXE .sh</extension>
+		  <command label="Wine (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_WINE% %ROM%</command>
+		  <command label="Proton (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_PROTON% %ROM%</command>
+		  <command label="AppImage">%EMULATOR_OS-SHELL% -c "%ROM%"</command>
+		  <command label="Shortcut or script">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <platform>arcade</platform>
+		  <theme>type-x</theme>
+	  </system>
+	  <system>
+		  <name>uzebox</name>
+		  <fullname>Uzebox Open Source Console</fullname>
+		  <path>%ROMPATH%/uzebox</path>
+		  <extension>.uze .UZE .7z .7Z .zip .ZIP</extension>
+		  <command label="Uzem">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/uzem_libretro.so %ROM%</command>
+		  <platform>uzebox</platform>
+		  <theme>uzebox</theme>
+	  </system>
+	  <system>
+		  <name>vectrex</name>
+		  <fullname>GCE Vectrex</fullname>
+		  <path>%ROMPATH%/vectrex</path>
+		  <extension>.bin .BIN .gam .GAM .vc .VC .vec .VEC .7z .7Z .zip .ZIP</extension>
+		  <command label="vecx">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/vecx_libretro.so %ROM%</command>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "vectrex -rompath \"%GAMEDIRRAW%;%ROMPATH%/vectrex\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/vectrex vectrex -cart %ROM%</command>
+		  <platform>vectrex</platform>
+		  <theme>vectrex</theme>
+	  </system>
+	  <system>
+		  <name>vic20</name>
+		  <fullname>Commodore VIC-20</fullname>
+		  <path>%ROMPATH%/vic20</path>
+		  <extension>.bin .BIN .cmd .CMD .crt .CRT .d2m .D2M .d4m .D4M .d64 .D64 .d6z .D6Z .d71 .D71 .d7z .D7Z .d80 .D80 .d81 .D81 .d82 .D82 .d8z .D8Z .g41 .G41 .g4z .G4Z .g64 .G64 .g6z .G6Z .gz .GZ .lnx .LNX .m3u .M3U .nbz .NBZ .nib .NIB .p00 .P00 .prg .PRG .t64 .T64 .tap .TAP .vfl .VFL .vsf .VSF .x64 .X64 .x6z .X6Z .7z .7Z .zip .ZIP</extension>
+		  <command label="VICE xvic">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/vice_xvic_libretro.so %ROM%</command>
+		  <command label="VICE xvic (Standalone)">%EMULATOR_VICE-XVIC% %ROM%</command>
+		  <platform>vic20</platform>
+		  <theme>vic20</theme>
+	  </system>
+	  <system>
+		  <name>videopac</name>
+		  <fullname>Philips Videopac G7000</fullname>
+		  <path>%ROMPATH%/videopac</path>
+		  <extension>.bin .BIN .7z .7Z .zip .ZIP</extension>
+		  <command label="O2EM">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/o2em_libretro.so %ROM%</command>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "videopac -rompath \"%GAMEDIRRAW%;%ROMPATH%/videopac\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/videopac videopac -cart %ROM%</command>
+		  <platform>odyssey2</platform>
+		  <theme>videopac</theme>
+	  </system>
+	  <system>
+		  <name>virtualboy</name>
+		  <fullname>Nintendo Virtual Boy</fullname>
+		  <path>%ROMPATH%/virtualboy</path>
+		  <extension>.bin .BIN .vb .VB .vboy .VBOY .7z .7Z .zip .ZIP</extension>
+		  <command label="Beetle VB">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_vb_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module vb %ROM%</command>
+		  <platform>virtualboy</platform>
+		  <theme>virtualboy</theme>
+	  </system>
+	  <system>
+		  <name>vpinball</name>
+		  <fullname>Visual Pinball</fullname>
+		  <path>%ROMPATH%/vpinball</path>
+		  <extension>.vpt .VPT .vpx .VPX</extension>
+		  <command label="Visual Pinball (Standalone)">%EMULATOR_VISUAL-PINBALL% -play %ROM%</command>
+		  <platform>vpinball</platform>
+		  <theme>vpinball</theme>
+	  </system>
+	  <system>
+		  <name>vsmile</name>
+		  <fullname>VTech V.Smile</fullname>
+		  <path>%ROMPATH%/vsmile</path>
+		  <extension>.bin .BIN .7z .7Z .zip .ZIP</extension>
+		  <command label="MAME - Current">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mame_libretro.so "vsmile -rompath \"%GAMEDIRRAW%;%ROMPATH%/vsmile\" -cart \"%ROMRAW%\""</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/vsmile vsmile -cart %ROM%</command>
+		  <platform>vsmile</platform>
+		  <theme>vsmile</theme>
+	  </system>
+	  <system>
+		  <name>wasm4</name>
+		  <fullname>WASM-4 Fantasy Console</fullname>
+		  <path>%ROMPATH%/wasm4</path>
+		  <extension>.wasm .WASM</extension>
+		  <command label="WASM-4">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/wasm4_libretro.so %ROM%</command>
+		  <platform>wasm4</platform>
+		  <theme>wasm4</theme>
+	  </system>
+	  <system>
+		  <name>wii</name>
+		  <fullname>Nintendo Wii</fullname>
+		  <path>%ROMPATH%/wii</path>
+		  <extension>.ciso .CISO .dff .DFF .dol .DOL .elf .ELF .gcm .GCM .gcz .GCZ .iso .ISO .json .JSON .m3u .M3U .rvz .RVZ .tgc .TGC .wad .WAD .wbfs .WBFS .wia .WIA .7z .7Z .zip .ZIP</extension>
+		  <command label="Dolphin">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/dolphin_libretro.so %ROM%</command>
+		  <command label="Dolphin (Standalone)">%INJECT%=%BASENAME%.esprefix %EMULATOR_DOLPHIN% -b -e %ROM%</command>
+		  <command label="PrimeHack (Standalone)">%INJECT%=%BASENAME%.esprefix %EMULATOR_PRIMEHACK% -b -e %ROM%</command>
+		  <platform>wii</platform>
+		  <theme>wii</theme>
+	  </system>
+	  <system>
+		  <name>wiiu</name>
+		  <fullname>Nintendo Wii U</fullname>
+		  <path>%ROMPATH%/wiiu</path>
+		  <extension>.rpx .RPX .wua .WUA .wud .WUD .wux .WUX</extension>
+		  <command label="Cemu (Standalone)">%EMULATOR_CEMU% -g %ROM%</command>
+		  <platform>wiiu</platform>
+		  <theme>wiiu</theme>
+	  </system>
+	  <system>
+		  <name>windows</name>
+		  <fullname>Microsoft Windows</fullname>
+		  <path>%ROMPATH%/windows</path>
+		  <extension>.AppImage .desktop .sh</extension>
+		  <command label="Suspend ES-DE">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <command label="Keep ES-DE running">%RUNINBACKGROUND% %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <command label="AppImage (Suspend ES-DE)">%EMULATOR_OS-SHELL% -c "%ROM%"</command>
+		  <command label="AppImage (Keep ES-DE running)">%RUNINBACKGROUND% %EMULATOR_OS-SHELL% -c "%ROM%"</command>
+		  <platform>pcwindows</platform>
+		  <theme>windows</theme>
+	  </system>
+	  <system>
+		  <name>windows3x</name>
+		  <fullname>Microsoft Windows 3.x</fullname>
+		  <path>%ROMPATH%/windows3x</path>
+		  <extension>.AppImage .bat .BAT .desktop .dosz .DOSZ .sh .7z .7Z .zip .ZIP</extension>
+		  <command label="DOSBox-X (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_DOSBOX-X% -defaultdir %GAMEDIR% %ROM%</command>
+		  <command label="DOSBox-Pure">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/dosbox_pure_libretro.so %ROM%</command>
+		  <command label="Shortcut or script (Suspend ES-DE)">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <command label="Shortcut or script (Keep ES-DE running)">%RUNINBACKGROUND% %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <command label="AppImage (Suspend ES-DE)">%EMULATOR_OS-SHELL% -c "%ROM%"</command>
+		  <command label="AppImage (Keep ES-DE running)">%RUNINBACKGROUND% %EMULATOR_OS-SHELL% -c "%ROM%"</command>
+		  <platform>windows3x</platform>
+		  <theme>windows3x</theme>
+	  </system>
+	  <system>
+		  <name>windows9x</name>
+		  <fullname>Microsoft Windows 9x</fullname>
+		  <path>%ROMPATH%/windows9x</path>
+		  <extension>.AppImage .bat .BAT .desktop .dosz .DOSZ .sh .7z .7Z .zip .ZIP</extension>
+		  <command label="DOSBox-X (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_DOSBOX-X% -defaultdir %GAMEDIR% %ROM%</command>
+		  <command label="DOSBox-Pure">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/dosbox_pure_libretro.so %ROM%</command>
+		  <command label="Shortcut or script (Suspend ES-DE)">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <command label="Shortcut or script (Keep ES-DE running)">%RUNINBACKGROUND% %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <command label="AppImage (Suspend ES-DE)">%EMULATOR_OS-SHELL% -c "%ROM%"</command>
+		  <command label="AppImage (Keep ES-DE running)">%RUNINBACKGROUND% %EMULATOR_OS-SHELL% -c "%ROM%"</command>
+		  <platform>pcwindows</platform>
+		  <theme>windows9x</theme>
+	  </system>
+	  <system>
+		  <name>wonderswan</name>
+		  <fullname>Bandai WonderSwan</fullname>
+		  <path>%ROMPATH%/wonderswan</path>
+		  <extension>.pc2 .PC2 .ws .WS .7z .7Z .zip .ZIP</extension>
+		  <command label="Beetle Cygne">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_wswan_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module wswan %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "WonderSwan" %ROM%</command>
+		  <command label="ares [Benesse Pocket Challenge V2] (Standalone)">%EMULATOR_ARES% --fullscreen --system "Pocket Challenge V2" %ROM%</command>
+		  <platform>wonderswan</platform>
+		  <theme>wonderswan</theme>
+	  </system>
+	  <system>
+		  <name>wonderswancolor</name>
+		  <fullname>Bandai WonderSwan Color</fullname>
+		  <path>%ROMPATH%/wonderswancolor</path>
+		  <extension>.pc2 .PC2 .ws .WS .wsc .WSC .7z .7Z .zip .ZIP</extension>
+		  <command label="Beetle Cygne">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/mednafen_wswan_libretro.so %ROM%</command>
+		  <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module wswan %ROM%</command>
+		  <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "WonderSwan Color" %ROM%</command>
+		  <platform>wonderswancolor</platform>
+		  <theme>wonderswancolor</theme>
+	  </system>
+	  <system>
+		  <name>x1</name>
+		  <fullname>Sharp X1</fullname>
+		  <path>%ROMPATH%/x1</path>
+		  <extension>.2d .2D .2hd .2HD .88d .88D .cmd .CMD .d88 .D88 .dup .DUP .dx1 .DX1 .hdm .HDM .tap .TAP .tfd .TFD .xdf .XDF .7z .7Z .zip .ZIP</extension>
+		  <command label="X Millennium">%STARTDIR%=%GAMEDIR% /bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/x1_libretro.so %ROM%</command>
+		  <command label="MAME [Diskette] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/x1 x1 -flop1 %ROM%</command>
+		  <command label="MAME [Tape] (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/x1 x1 -cass1 %ROM%</command>
+		  <platform>x1</platform>
+		  <theme>x1</theme>
+	  </system>
+	  <system>
+		  <name>x68000</name>
+		  <fullname>Sharp X68000</fullname>
+		  <path>%ROMPATH%/x68000</path>
+		  <extension>.2hd .2HD .88d .88D .cmd .CMD .d88 .D88 .dim .DIM .dup .DUP .hdf .HDF .hdm .HDM .img .IMG .m3u .M3U .xdf .XDF .7z .7Z .zip .ZIP</extension>
+		  <command label="PX68k">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/px68k_libretro.so %ROM%</command>
+		  <command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/x68000 x68000 -flop1 %ROM%</command>
+		  <platform>x68000</platform>
+		  <theme>x68000</theme>
+	  </system>
+	  <system>
+		  <name>xbox</name>
+		  <fullname>Microsoft Xbox</fullname>
+		  <path>%ROMPATH%/xbox</path>
+		  <extension>.iso .ISO</extension>
+		  <command label="xemu (Standalone)">%INJECT%=%BASENAME%.esprefix %EMULATOR_XEMU% -dvd_path %ROM%</command>
+		  <platform>xbox</platform>
+		  <theme>xbox</theme>
+	  </system>
+	  <system>
+		  <name>xbox360</name>
+		  <fullname>Microsoft Xbox 360</fullname>
+		  <path>%ROMPATH%/xbox360</path>
+		  <extension>. .desktop .iso .ISO .sh .xex .XEX .zar .ZAR</extension>
+		  <command label="xenia (Wine)">%STARTDIR%=%EMUDIR% %PRECOMMAND_WINE% %EMULATOR_XENIA-WINDOWS% %ROM%</command>
+		  <command label="xenia (Proton)">%STARTDIR%=%EMUDIR% %PRECOMMAND_PROTON% %EMULATOR_XENIA-WINDOWS% %ROM%</command>
+		  <command label="Shortcut or script">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
+		  <platform>xbox360</platform>
+		  <theme>xbox360</theme>
+	  </system>
+	  <system>
+		  <name>zmachine</name>
+		  <fullname>Infocom Z-machine</fullname>
+		  <path>%ROMPATH%/zmachine</path>
+		  <extension>.dat .DAT .z1 .Z1 .z2 .Z2 .z3 .Z3 .z4 .Z4 .z5 .Z5 .z6 .Z6 .z7 .Z7 .z8 .Z8 .zlb .ZLB .zblorb .ZBLORB</extension>
+		  <command label="Gargoyle (Standalone)">%EMULATOR_GARGOYLE% %ROM%</command>
+		  <platform>zmachine</platform>
+		  <theme>zmachine</theme>
+	  </system>
+	  <system>
+		  <name>zx81</name>
+		  <fullname>Sinclair ZX81</fullname>
+		  <path>%ROMPATH%/zx81</path>
+		  <extension>.p .P .tzx .TZX .7z .7Z .zip .ZIP</extension>
+		  <command label="EightyOne">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/81_libretro.so %ROM%</command>
+		  <platform>zx81</platform>
+		  <theme>zx81</theme>
+	  </system>
+	  <system>
+		  <name>zxnext</name>
+		  <fullname>Sinclair ZX Spectrum Next</fullname>
+		  <path>%ROMPATH%/zxnext</path>
+		  <extension>.nex .NEX .sna .SNA</extension>
+		  <command label="#CSpect (Standalone)">%STARTDIR%=%GAMEDIR% MONO_IOMAP=all mono %EMULATOR_CSPECT% -fullscreen -s28 -vsync -60 -analytics -tv -zxnext -mmc=./ %ROM%</command>
+		  <command label="ZEsarUX (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_ZESARUX% --machine tbblue --realvideo --enabletimexvideo --tbblue-fast-boot-mode --enable-esxdos-handler --esxdos-root-dir %GAMEDIR% %ROM%</command>
+		  <platform>zxnext</platform>
+		  <theme>zxnext</theme>
+	  </system>
+	  <system>
+		  <name>zxspectrum</name>
+		  <fullname>Sinclair ZX Spectrum</fullname>
+		  <path>%ROMPATH%/zxspectrum</path>
+		  <extension>.dsk .DSK .gz .GZ .img .IMG .mgt .MGT .rzx .RZX .scl .SCL .sh .SH .sna .SNA .szx .SZX .tap .TAP .trd .TRD .tzx .TZX .udi .UDI .z80 .Z80 .7z .7Z .zip .ZIP</extension>
+		  <command label="Fuse">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L %CORE_RETROARCH%/fuse_libretro.so %ROM%</command>
+		  <command label="Fuse (Standalone)">%EMULATOR_FUSE% %ROM%</command>
+		  <platform>zxspectrum</platform>
+		  <theme>zxspectrum</theme>
+	  </system>
+  </systemList>
