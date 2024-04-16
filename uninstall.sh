@@ -378,6 +378,7 @@ fi
 	fi
 	if [[ "$doUninstallVita3K" == true ]]; then
 		rm -rf $HOME/Applications/Vita3K &> /dev/null
+		rm -rf "$HOME/Applications/Vita3K.AppImage" &> /dev/null
 		rm -rf $HOME/.cache/Vita3K &> /dev/null
 		rm -rf $HOME/.config/Vita3K &> /dev/null
 		rm -rf $HOME/.local/share/Vita3K &> /dev/null

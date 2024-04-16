@@ -3,7 +3,7 @@
 #variables
 Vita3K_emuName="Vita3K"
 Vita3K_emuType="$emuDeckEmuTypeBinary"
-Vita3K_emuPath="$HOME/Applications/Vita3K"
+Vita3K_emuPath="$HOME/Applications"
 Vita3K_configFile="$HOME/.config/Vita3K/config.yml"
 
 #cleanupOlderThings
@@ -16,12 +16,17 @@ Vita3K_install(){
     echo "Begin Vita3K Install"
     local showProgress="$1"
     #if installEmuBI "Vita3K" "https://github.com/Vita3K/Vita3K/releases/download/continuous/ubuntu-latest.zip" "Vita3K" "zip" "$showProgress"; then
-    if installEmuBI "$Vita3K_emuName" "$(getReleaseURLGH "Vita3K/Vita3K" "ubuntu-latest.zip")" "" "zip" "$showProgress"; then
-        unzip -o "$HOME/Applications/Vita3K.zip" -d "$Vita3K_emuPath" && rm -rf "$HOME/Applications/Vita3K.zip"
-        chmod +x "$Vita3K_emuPath/Vita3K"
+    #if installEmuBI "$Vita3K_emuName" "$(getReleaseURLGH "Vita3K/Vita3K" "ubuntu-latest.zip")" "" "zip" "$showProgress"; then
+    if installEmuAI "$Vita3K_emuName" "$(getReleaseURLGH "Vita3K/Vita3K" "Vita3K-x86_64.AppImage")" "Vita3K" "AppImage" "$showProgress"; then
+        #unzip -o "$HOME/Applications/Vita3K.zip" -d "$Vita3K_emuPath" && rm -rf "$HOME/Applications/Vita3K.zip"
+        chmod +x "$Vita3K_emuPath/Vita3K.AppImage"
+        # Delete old binary folder. No configs are located here. 
+        rm -rf "$HOME/Applications/Vita3K"
     else
         return 1
     fi
+
+    Vita3K_updateSRM
 }
 
 #Fix for autoupdate
@@ -40,7 +45,10 @@ Vita3K_init(){
     Vita3K_finalize
 	#SRM_createParsers
     Vita3K_flushEmulatorLauncher
+    Vita3K_updateSRM
 }
+
+
 
 #update
 Vita3K_update(){
@@ -53,6 +61,18 @@ Vita3K_update(){
     Vita3K_setupSaves #?
     Vita3K_finalize
     Vita3K_flushEmulatorLauncher
+    Vita3K_updateSRM
+}
+
+Vita3K_updateSRM(){
+
+    if [ ! -f "$HOME/.config/EmuDeck/.vita3klauncherupdate" ]; then
+
+        if [ -f "$HOME/.config/steam-rom-manager/userData/userConfigurations.json" ]; then 
+            sed -i "s|/home/deck/Applications/Vita3K/Vita3K|${toolsPath}/launchers/vita3k.sh|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
+            touch "$HOME/.config/EmuDeck/.vita3klauncherupdate" 
+        fi 
+    fi 
 }
 
 
@@ -94,7 +114,8 @@ Vita3K_wipe(){
 #Uninstall
 Vita3K_uninstall(){
     echo "Begin Vita3K uninstall"
-    rm -rf "$Vita3K_emuPath"
+    rm -rf "$Vita3K_emuPath/Vita3K"
+    rm -rf "$Vita3K_emuPath/Vita3K.AppImage"
 }
 
 #Migrate
@@ -134,9 +155,11 @@ Vita3K_finalize(){
 }
 
 Vita3K_IsInstalled(){
-    if [ -e "$Vita3K_emuPath/Vita3K" ]; then
+    if [ -e "$Vita3K_emuPath/Vita3K.AppImage" ]; then
         echo "true"
-    else
+    elif [ -e "$Vita3K_emuPath/Vita3K/Vita3K" ]; then
+        echo "true"
+    else 
         echo "false"
     fi
 }

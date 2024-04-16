@@ -6920,7 +6920,7 @@
     "steamCategory": "${Sony PlayStation Vita}",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "${romsdirglobal}${/}psvita",
-    "executableArgs": "-Fr \"${/.*[/\\\\]([^/\\\\]+)[/\\\\]/|${filePath}}\"",
+    "executableArgs": "'\"${/.*[/\\\\]([^/\\\\]+)[/\\\\]/|${filePath}}\"'",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -6931,7 +6931,7 @@
       "specifiedAccounts": ""
     },
     "executable": {
-      "path": "/home/deck/Applications/Vita3K/Vita3K",
+      "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/vita3k.sh",
       "shortcutPassthrough": false,
       "appendArgsToExecutable": true
     },
