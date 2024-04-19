@@ -46,17 +46,27 @@ pegasus_init(){
 	find $romsPath -type f -name "metadata.txt" -exec sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" {} \;
 
 
+		if [ -L "$toolsPath/downloaded_media/gamecube" ]; then 
+			rm -rf "$toolsPath/downloaded_media/gamecube" &> /dev/null
+		fi 
+
+		if [ -L "$toolsPath/downloaded_media/3ds" ]; then 
+			rm -rf "$toolsPath/downloaded_media/3ds" &> /dev/null
+		fi
 
 		for systemPath in "$romsPath"/*; do
-			echo $romsPath
+			echo "$romsPath"
 			if  [[ "$systemPath" == "$romsPath/model2" || "$systemPath" == "$romsPath/xbox360" || "$systemPath" == "$romsPath/wiiu" ]]; then
-				rm -rf "$systemPath/roms/media" &> /dev/null;
-				rm -rf "$romsPath/xbox360/roms/xbla/media" &> /dev/null;
-				rm -rf "$romsPath/xbox360/roms/xbla/metadata.txt" &> /dev/null;
+				rm -rf "$systemPath/roms/media" &> /dev/null
+				rm -rf "$romsPath/xbox360/roms/xbla/media" &> /dev/null
+				rm -rf "$romsPath/xbox360/roms/xbla/metadata.txt" &> /dev/null
+			elif  [[ "$systemPath" == "$romsPath/gamecube" || "$systemPath" == "$romsPath/3ds" ]]; then
+				continue
 			else
-				rm -rf "$systemPath/media" &> /dev/null;
+				rm -rf "$systemPath/media" &> /dev/null
 			fi
 		done
+
 
 		for systemPath in "$romsPath"/*; do
 			if [[ "$systemPath" == "$romsPath/model2" || "$systemPath" == "$romsPath/xbox360" || "$systemPath" == "$romsPath/wiiu" ]]; then
@@ -68,6 +78,8 @@ pegasus_init(){
 				rm -rf "$toolsPath/downloaded_media/$system/wheel" &> /dev/null
 				rm -rf "$toolsPath/downloaded_media/$system/screenshot" &> /dev/null
 				mkdir -p "$toolsPath/downloaded_media/$system/screenshots/"
+			elif  [[ "$systemPath" == "$romsPath/gamecube" || "$systemPath" == "$romsPath/3ds" ]]; then
+				continue 
 			else
 				system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
 				mkdir -p "$toolsPath/downloaded_media/$system/covers"
@@ -87,6 +99,8 @@ pegasus_init(){
 				ln -s "$toolsPath/downloaded_media/$system/covers/" "$toolsPath/downloaded_media/$system/box2dfront" &> /dev/null
 				ln -s "$toolsPath/downloaded_media/$system/marquees/" "$toolsPath/downloaded_media/$system/wheel" &> /dev/null
 				ln -s "$toolsPath/downloaded_media/$system/screenshots/" "$toolsPath/downloaded_media/$system/screenshot" &> /dev/null
+			elif  [[ "$systemPath" == "$romsPath/gamecube" || "$systemPath" == "$romsPath/3ds" ]]; then
+				continue
 			else
 				system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
 				ln -s "$toolsPath/downloaded_media/$system" "$systemPath/media" &> /dev/null
