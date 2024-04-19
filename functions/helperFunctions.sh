@@ -1092,11 +1092,14 @@ function jsonToBashVars(){
 	setSetting androidStorage "$(jq .android.storage $json)"
 	setSetting androidStoragePath "$(jq .android.storagePath $json)"
 
+	#We store the patreon token on install so we can create it for the first time
+	setSetting patreonToken "$(jq .patreonToken $json)"
+	storePatreonToken "$(jq .patreonToken $json)"
 }
 
 function storePatreonToken(){
 	local token=$1
-	echo $token > $savesPath/.token
+	echo "$token" > "$savesPath/.token"
 	if [ -f $cloud_sync_bin ]; then
 		"$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$savesPath/.token" "$cloud_sync_provider":Emudeck/saves/.token
 	fi
