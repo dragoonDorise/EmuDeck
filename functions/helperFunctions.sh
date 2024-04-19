@@ -1093,7 +1093,6 @@ function jsonToBashVars(){
 	setSetting androidStoragePath "$(jq .android.storagePath $json)"
 
 	#We store the patreon token on install so we can create it for the first time
-	setSetting patreonToken "$(jq .patreonToken $json)"
 	storePatreonToken "$(jq .patreonToken $json)"
 }
 
