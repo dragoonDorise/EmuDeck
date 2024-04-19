@@ -1094,6 +1094,14 @@ function jsonToBashVars(){
 
 }
 
+function storePatreonToken(){
+	local token=$1
+	echo $token > $savesPath/.token
+	if [ -f $cloud_sync_bin ]; then
+		"$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$savesPath/.token" "$cloud_sync_provider":Emudeck/saves/.token
+	fi
+}
+
 
 function controllerLayout_ABXY(){
 	Dolphin_setABXYstyle
