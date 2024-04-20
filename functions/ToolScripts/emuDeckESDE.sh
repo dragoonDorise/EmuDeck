@@ -111,13 +111,17 @@ ESDE_init(){
 	ESDE_addCustomSystemsFile
 	
 	mkdir -p "$ESDE_newConfigDirectory/settings"
+	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
+	# This duplicates ESDE_addCustomSystemsFile but this line only applies only if you are resetting ES-DE and not the emulators themselves. 
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
 
 	cp -r "$EMUDECKGIT/tools/launchers/es-de/." "$toolsPath/launchers/es-de/" && chmod +x "$toolsPath/launchers/es-de/es-de.sh"
 
 	ESDE_addCustomSystems
 	ESDE_setEmulationFolder
+	ESDE_setDefaultSettings
 	ESDE_setDefaultEmulators
 	ESDE_applyTheme  "$esdeThemeUrl" "$esdeThemeName"
 	ESDE_migrateDownloadedMedia
@@ -153,9 +157,11 @@ ESDE_update(){
 	#update es_settings.xml
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --ignore-existing
 	rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --ignore-existing
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --ignore-existing
 
 	ESDE_addCustomSystems
 	ESDE_setEmulationFolder
+	ESDE_setDefaultSettings
 	ESDE_setDefaultEmulators
 	ESDE_applyTheme "$esdeThemeUrl" "$esdeThemeName"
 	ESDE_migrateDownloadedMedia
@@ -192,7 +198,7 @@ ESDE_addCustomSystemsFile(){
 
 	# Separate function so it can be copied and used in the emulator scripts. 
 	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
+	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --ignore-existing
 
 }
 
@@ -360,8 +366,12 @@ ESDE_setEmulationFolder(){
 		fi
 	fi
 
-
 	echo "updating $es_settingsFile"
+
+}
+
+ESDE_setDefaultSettings(){
+
 	#configure roms Directory
 	esDE_romDir="<string name=\"ROMDirectory\" value=\"${romsPath}\" />" #roms
 
@@ -380,6 +390,7 @@ ESDE_setEmulationFolder(){
 		echo "setting ES-DE MediaDirectory to ${esDE_MediaDir}"
 		changeLine '<string name="MediaDirectory"' "${esDE_MediaDir}" "$es_settingsFile"
 	fi
+
 }
 
 ESDE_setDefaultEmulators(){
