@@ -80,7 +80,8 @@ CemuProton_init(){
 	#CemuProton_addSteamInputProfile
 	CemuProton_addESConfig
 	CemuProton_flushEmulatorLauncher
-
+	addProtonLaunch
+	
 	if [ -e "${romsPath}/wiiu/controllerProfiles/controller1.xml" ];then
 		mv "${romsPath}/wiiu/controllerProfiles/controller1.xml" "${romsPath}/wiiu/controllerProfiles/controller1.xml.bak"
 	fi
@@ -91,11 +92,8 @@ CemuProton_init(){
 		mv "${romsPath}/wiiu/controllerProfiles/controller3.xml" "${romsPath}/wiiu/controllerProfiles/controller3.xml.bak"
 	fi
 
-	if [ -e "$ESDE_toolPath" ]; then
-		ESDE_junksettingsFile
-		ESDE_addCustomSystemsFile
+	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		CemuProton_addESConfig
-		ESDE_setEmulationFolder
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
@@ -110,11 +108,8 @@ CemuProton_update(){
 	#CemuProton_addSteamInputProfile
 	CemuProton_addESConfig
 	CemuProton_flushEmulatorLauncher
-	if [ -e "$ESDE_toolPath" ]; then
-		ESDE_junksettingsFile
-		ESDE_addCustomSystemsFile
+	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		CemuProton_addESConfig
-		ESDE_setEmulationFolder
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
@@ -149,6 +144,10 @@ CemuProton_setLanguage(){
 }
 
 CemuProton_addESConfig(){
+
+	ESDE_junksettingsFile
+	ESDE_addCustomSystemsFile
+	ESDE_setEmulationFolder
 
 	#insert cemu custom system if it doesn't exist, but the file does
 	if [[ $(grep -rnw "$es_systemsFile" -e 'wiiu') == "" ]]; then
@@ -261,8 +260,6 @@ CemuProton_setResolution(){
 }
 
 CemuProton_flushEmulatorLauncher(){
-
-
 	flushEmulatorLaunchers "cemu"
-
 }
+
