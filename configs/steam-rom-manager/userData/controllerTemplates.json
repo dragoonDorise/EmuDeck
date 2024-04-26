@@ -37,12 +37,12 @@
                 "profileType": "template"
             },
             {
-                "title": "EmuDeck - Dual Shock 4",
+                "title": "EmuDeck - DualShock 4",
                 "mappingId": "emudeck_controller_ps4.vdf",
                 "profileType": "template"
             },
             {
-                "title": "EmuDeck - Dual Shock 4 Frontend",
+                "title": "EmuDeck - DualShock 4 Frontend",
                 "mappingId": "emudeck_frontend_controller_ps4.vdf",
                 "profileType": "template"
             }
@@ -84,13 +84,30 @@
                 "profileType": "template"
             },
             {
-                "title": "EmuDeck - Dual Sense",
+                "title": "EmuDeck - DualSense",
                 "mappingId": "emudeck_controller_ps5.vdf",
                 "profileType": "template"
             },
             {
-                "title": "EmuDeck - Dual Sense Frontend",
+                "title": "EmuDeck - DualSense Frontend",
                 "mappingId": "emudeck_frontend_controller_ps5.vdf",
+                "profileType": "template"
+            }
+        ],
+        "ps5_edge": [
+            {
+                "title": "Gamepad With Joystick Trackpad",
+                "mappingId": "emudeck_frontend_controller_ps5_dualsense_edge.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - DualSense Edge",
+                "mappingId": "emudeck_controller_ps5_dualsense_edge.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - DualSense Edge Frontend",
+                "mappingId": "emudeck_frontend_controller_ps5_dualsense_edge.vdf",
                 "profileType": "template"
             }
         ],
@@ -148,6 +165,18 @@
                 "profileType": "template"
             }
         ],
+        "xboxelite": [
+            {
+                "title": "EmuDeck - Xbox Elite",
+                "mappingId": "emudeck_controller_xboxelite.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Xbox Elite Frontend",
+                "mappingId": "emudeck_frontend_controller_xboxelite.vdf",
+                "profileType": "template"
+            }
+        ],
         "switch_joycon_left": [
             {
                 "title": "Gamepad",
@@ -184,12 +213,12 @@
                 "profileType": "template"
             },
             {
-                "title": "EmuDeck - Switch Pro",
+                "title": "EmuDeck - Switch Pro Controller",
                 "mappingId": "emudeck_controller_switch_pro.vdf",
                 "profileType": "template"
             },
             {
-                "title": "EmuDeck - Switch Pro Frontend",
+                "title": "EmuDeck - Switch Pro Controller Frontend",
                 "mappingId": "emudeck_frontend_controller_switch_pro.vdf",
                 "profileType": "template"
             }
@@ -217,7 +246,7 @@
             },
             {
                 "title": "Gamepad With Joystick Trackpad",
-                "mappingId": "emudeck_frontend_controller_steamdeck.vdf",
+                "mappingId": "controller_neptune_gamepad_fps.vdf",
                 "profileType": "template"
             },
             {
@@ -273,6 +302,23 @@
             {
                 "title": "EmuDeck - Steam Deck Proton",
                 "mappingId": "emudeck_controller_steamdeck_proton.vdf",
+                "profileType": "template"
+            }
+        ],
+        "steamcontroller_gordon": [
+            {
+                "title": "Gamepad with Mouse and Gyro",
+                "mappingId": "gamepad_mouse_gyro.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Steam Controller Frontend",
+                "mappingId": "emudeck_frontend_controller_steamcontroller.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Steam Controller",
+                "mappingId": "emudeck_controller_steamcontroller.vdf",
                 "profileType": "template"
             }
         ]
