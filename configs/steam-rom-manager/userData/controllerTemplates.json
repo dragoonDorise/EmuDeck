@@ -167,6 +167,11 @@
         ],
         "xboxelite": [
             {
+                "title": "Gamepad With Joystick Trackpad",
+                "mappingId": "emudeck_frontend_controller_xboxelite.vdf",
+                "profileType": "template"
+            },
+            {
                 "title": "EmuDeck - Xbox Elite",
                 "mappingId": "emudeck_controller_xboxelite.vdf",
                 "profileType": "template"
@@ -246,7 +251,7 @@
             },
             {
                 "title": "Gamepad With Joystick Trackpad",
-                "mappingId": "controller_neptune_gamepad_fps.vdf",
+                "mappingId": "emudeck_steam_deck_light_gun_controls.vdf",
                 "profileType": "template"
             },
             {
