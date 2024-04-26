@@ -51,11 +51,8 @@ Model2_init(){
 	#SRM_createParsers
 	Model2_flushEmulatorLauncher
 	Model2_addSteamInputProfile
-	if [ -e "$ESDE_toolPath" ]; then
-		ESDE_junksettingsFile
-		ESDE_addCustomSystemsFile
+	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		Model2_addESConfig
-		ESDE_setEmulationFolder
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
@@ -65,6 +62,11 @@ Model2_init(){
 
 
 Model2_addESConfig(){
+	
+	ESDE_junksettingsFile
+	ESDE_addCustomSystemsFile
+	ESDE_setEmulationFolder
+
 	if [[ $(grep -rnw "$es_systemsFile" -e 'model2') == "" ]]; then
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \

@@ -97,11 +97,8 @@ Yuzu_init() {
 							"${toolsPath}/launchers/yuzu.sh"  \
 							"False"
 
-	if [ -e "$ESDE_toolPath" ]; then
-        ESDE_junksettingsFile
-        ESDE_addCustomSystemsFile
+	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		Yuzu_addESConfig
-        ESDE_setEmulationFolder
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
@@ -380,6 +377,11 @@ Yuzu_flushEmulatorLauncher(){
 }
 
 Yuzu_addESConfig(){
+
+    ESDE_junksettingsFile
+    ESDE_addCustomSystemsFile
+    ESDE_setEmulationFolder
+
 	if [[ $(grep -rnw "$es_systemsFile" -e 'switch') == "" ]]; then
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \

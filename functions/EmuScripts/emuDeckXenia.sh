@@ -69,12 +69,10 @@ Xenia_init(){
 	#SRM_createParsers
 	Xenia_cleanESDE
 	Xenia_flushEmulatorLauncher
-
-	if [ -e "$ESDE_toolPath" ]; then
-		ESDE_junksettingsFile
-		ESDE_addCustomSystemsFile
+	addProtonLaunch
+	
+	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		Xenia_addESConfig
-		ESDE_setEmulationFolder
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
@@ -82,6 +80,11 @@ Xenia_init(){
 }
 
 Xenia_addESConfig(){
+
+	ESDE_junksettingsFile
+	ESDE_addCustomSystemsFile
+	ESDE_setEmulationFolder
+	
 	if [[ $(grep -rnw "$es_systemsFile" -e 'xbox360') == "" ]]; then
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
@@ -225,8 +228,6 @@ Xenia_cleanESDE(){
 }
 
 Xenia_flushEmulatorLauncher(){
-
-
 	flushEmulatorLaunchers "xenia"
-
 }
+

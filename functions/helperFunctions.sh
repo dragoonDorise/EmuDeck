@@ -932,6 +932,11 @@ isLatestVersionGH() {
 	fi
 }
 
+addProtonLaunch(){
+	rsync -avhp "$EMUDECKGIT/tools/proton-launch.sh" "${toolsPath}"
+	rsync -avhp "$EMUDECKGIT/tools/appID.py" "${toolsPath}"
+	chmod +x "${toolsPath}/proton-launch.sh"
+}
 
 function emulatorInit(){
 	local emuName=$1
