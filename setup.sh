@@ -212,6 +212,10 @@ if [ $doInstallYuzu == "true" ]; then
 	echo "Yuzu_install"
 	Yuzu_install
 fi
+if [ $doInstallSuyu == "true" ]; then
+	echo "suyu_install"
+	suyu_install
+fi
 if [ $doInstallRyujinx == "true" ]; then
 	echo "Ryujinx_install"
 	Ryujinx_install
@@ -335,6 +339,10 @@ if [ "$doSetupYuzu" == "true" ]; then
 	echo "Yuzu_init"
 	Yuzu_init
 fi
+if [ "$doSetupSuyu" == "true" ]; then
+	echo "suzu_init"
+	suzu_init
+fi
 if [ "$doSetupRyujinx" == "true" ]; then
 	echo "Ryujinx_init"
 	Ryujinx_init
@@ -404,12 +412,6 @@ if [ "$doSetupXenia" == "true" ]; then
 	echo "Xenia_init"
 	Xenia_init
 fi
-
-
-
-#Fixes repeated Symlink for older installations
-# Yuzu_finalize move into update / init to clean up install script
-
 
 
 #

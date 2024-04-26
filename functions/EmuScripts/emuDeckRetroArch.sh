@@ -50,7 +50,8 @@ Retroarch_install(){
 #ApplyInitialSettings
 RetroArch_init(){
 
-
+	#netPlay
+	setSetting netplayCMD "' '"
 
 	setMSG "RetroArch - HD Texture Packs"
 
