@@ -1045,7 +1045,7 @@ function jsonToBashVars(){
 
 	#CloudSync
 	setSetting cloud_sync_provider "$(jq .cloudSync $json)"
-	setSetting cloudSyncStatus "$(jq .cloudSyncStatus $json)"
+	setSetting cloud_sync_status "$(jq .cloudSyncStatus $json)"
 
 	#Resolutions
 	setSetting dolphinResolution  "$(jq .resolutions.dolphin $json)"
