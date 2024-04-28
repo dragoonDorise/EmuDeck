@@ -1,7 +1,7 @@
 #!/bin/bash
 
 linuxID=$(lsb_release -si)
-
+sandbox=""
 if [ $linuxID != "ChimeraOS" ]; then
 
 echo "installing EmuDeck"
@@ -52,7 +52,7 @@ elif [ $linuxID != "SteamOS" ]; then
     if command -v apt-get >/dev/null; then
         echo "Installing packages with apt..."
         DEBIAN_DEPS="jq zenity flatpak unzip bash libfuse2 git rsync whiptail"
-
+		sandbox=" --no-sandbox"
         sudo killall apt apt-get
         sudo apt-get -y update
         sudo apt-get -y install $DEBIAN_DEPS
@@ -108,5 +108,5 @@ EMUDECK_URL="$(curl -s ${EMUDECK_GITHUB_URL} | grep -E 'browser_download_url.*Ap
 mkdir -p ~/Applications
 curl -L "${EMUDECK_URL}" -o ~/Applications/EmuDeck.AppImage 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading EmuDeck" --width 600 --auto-close --no-cancel 2>/dev/null
 chmod +x ~/Applications/EmuDeck.AppImage
-~/Applications/EmuDeck.AppImage
+~/Applications/EmuDeck.AppImage$sandbox
 exit
