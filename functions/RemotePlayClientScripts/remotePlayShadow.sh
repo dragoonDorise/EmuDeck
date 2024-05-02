@@ -17,6 +17,9 @@ ShadowPC_install() {
 	else
         return 0
     fi
+
+	cp "$EMUDECKGIT/tools/remoteplayclients/ShadowPC.sh" "$romsPath/remoteplay"
+	chmod +x "$romsPath/remoteplay/ShadowPC.sh"
 }
 
 # ApplyInitialSettings
