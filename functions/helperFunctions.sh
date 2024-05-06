@@ -749,9 +749,11 @@ check_internet_connection(){
 }
 
 zipLogs() {
+	local desktop=$(xdg-user-dir DESKTOP)
+
 	logsFolder="$HOME/emudeck/logs"
 	settingsFile="$HOME/emudeck/settings.sh"
-	zipOutput="$HOME/Desktop/emudeck_logs.zip"
+	zipOutput="$desktop/emudeck_logs.zip"
 
 	# Comprime los archivos en un archivo zip
 	zip -rj "$zipOutput" "$logsFolder" "$settingsFile"

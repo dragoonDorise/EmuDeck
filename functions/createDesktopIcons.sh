@@ -1,7 +1,7 @@
 #!/bin/bash
 createDesktopIcons(){
 	local sandbox=""
-
+	local desktop=$(xdg-user-dir DESKTOP)
 	if command -v apt-get >/dev/null; then
 		sandbox=" --no-sandbox"
 	fi
@@ -17,7 +17,7 @@ createDesktopIcons(){
 	rm -rf ~/Desktop/EmuDeckAppImage.desktop 2>/dev/null
 
 	#New EmuDeck icon, same place so people won't get confused
-	createDesktopShortcut "$HOME/Desktop/EmuDeck.desktop" \
+	createDesktopShortcut "$desktop/EmuDeck.desktop" \
 	"EmuDeck" \
 	"$HOME/Applications/EmuDeck.AppImage$sandbox" \
 	"false"
