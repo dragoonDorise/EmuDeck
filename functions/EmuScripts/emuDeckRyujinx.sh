@@ -159,6 +159,10 @@ Ryujinx_setupSaves(){
         rm -rf "${emulationPath}/saves/ryujinx/saveMeta"
     fi
 
+    if [ -d "${emulationPath}/saves/Ryujinx/saves" ]; then
+        rm -rf "${emulationPath}/saves/Ryujinx/"
+    fi
+
     linkToSaveFolder ryujinx saves "$HOME/.config/Ryujinx/bis/user/save"
     linkToSaveFolder ryujinx saveMeta "$HOME/.config/Ryujinx/bis/user/saveMeta"
 	linkToSaveFolder ryujinx system_saves "$HOME/.config/Ryujinx/bis/system/save"
