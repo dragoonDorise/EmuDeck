@@ -151,6 +151,32 @@ if [ "$size" -gt 4096 ]; then
 	fi
 
 
+	if [ -d "$origin/EmuDeck/tools/downloaded_media" ]; then
+		text="$(printf "<b>ESDE Media folder found in your drive!</b>\nLet's import that one too")"
+		zenity --question \
+			--title="EmuDeck Import tool" \
+			--width=450 \
+			--cancel-label="No" \
+			--ok-label="Import my ESDE media" \
+			--text="${text}" 2>/dev/null
+		ans=$?
+		if [ $ans -eq 0 ]; then
+
+			checkSpace "$origin/EmuDeck/tools/downloaded_media/" "$toolsPath"
+
+			for entry in "$origin/EmuDeck/tools/downloaded_media/"*
+			do
+				rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/bios/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/tools/downloaded_media/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
+			done
+
+		else
+			echo "User selected no import: ESDE media"
+		fi
+
+	fi
+
+
+
 	if [ -d "$origin/EmuDeck/roms" ]; then
 		text="$(printf "<b>Roms folder found in your drive!</b>\nLet's import that one too")"
 		zenity --question \

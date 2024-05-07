@@ -86,3 +86,26 @@ installEmuZip(){
 
 }
 
+gcd() {
+	while [ $2 -ne 0 ]; do
+		set -- $2 $(( $1 % $2 ))
+	done
+	echo $1
+}
+
+
+function getScreenAR(){
+	dimensions=$(system_profiler SPDisplaysDataType | awk '/Resolution/{print $2, $4}')
+
+	width=$(echo $dimensions | cut -d ' ' -f 1)
+	height=$(echo $dimensions | cut -d ' ' -f 2)
+
+
+	g=$(gcd $width $height)
+
+	aspect_ratio_width=$((width / g))
+	aspect_ratio_height=$((height / g))
+
+	return $aspect_ratio_width$aspect_ratio_height
+
+}
