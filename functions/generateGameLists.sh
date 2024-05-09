@@ -1,7 +1,7 @@
 #!/bin/bash
 
 generateGameLists() {
-    ROMS_DIR="$romsPath"
+    ROMS_DIR="$romsPath/genesis"
 
     # Initialize an empty array in JSON format
     printf "["
