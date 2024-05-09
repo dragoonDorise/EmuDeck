@@ -1,14 +1,14 @@
 #!/bin/bash
 
 generateGameLists() {
-    ROMS_DIR="$romsPath"
+    ROMS_DIR="$romsPath/snes"
 
     # Initialize an empty array in JSON format
     printf "["
 
     first_system=true
 
-    for system_dir in "$ROMS_DIR"/*; do
+    for system_dir in "$ROMS_DIR"*; do
         if [[ -d "$system_dir" && -f "$system_dir/metadata.txt" ]]; then
 
             # Ignore directories named "ps3"
