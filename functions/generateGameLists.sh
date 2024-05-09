@@ -2,12 +2,12 @@
 
 generateGameLists(){
 
-    ROMS_DIR="$romsPath"
+    ROMS_DIR="$romsPath/snes"
 
     # Initialize an empty array in JSON format
     echo "["
 
-    for system_dir in "$ROMS_DIR"/*; do
+    for system_dir in "$ROMS_DIR"*; do
         if [[ -d "$system_dir" && -f "$system_dir/metadata.txt" ]]; then
 
             file_count=$(find "$system_dir" -type f | wc -l)
