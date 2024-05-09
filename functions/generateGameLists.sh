@@ -2,9 +2,9 @@
 
 generateGameLists(){
 
-    ROMS_DIR="$HOME/Emulation/roms"
+    ROMS_DIR="$romsPath"
 
-    JSON_OUTPUT="$HOME/Emulation/roms_games.json"
+    JSON_OUTPUT="$HOME/emudeck/roms_games.json"
     echo "[" > "$JSON_OUTPUT"
 
     for system_dir in "$ROMS_DIR"/*; do
