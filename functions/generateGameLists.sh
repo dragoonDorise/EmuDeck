@@ -10,6 +10,11 @@ generateGameLists(){
     for system_dir in "$ROMS_DIR"/*; do
         if [[ -d "$system_dir" && -f "$system_dir/metadata.txt" ]]; then
 
+            file_count=$(find "$system_dir" -type f | wc -l)
+            if [[ "$file_count" -le 2 ]]; then
+                continue  # Skip this system_dir if there are 2 or fewer files
+            fi
+
             collection=$(grep 'collection:' "$system_dir/metadata.txt" | cut -d ':' -f 2- | awk '{$1=$1};1')
             shortname=$(grep 'shortname:' "$system_dir/metadata.txt" | cut -d ':' -f 2- | awk '{$1=$1};1')
             extensions=$(grep 'extensions:' "$system_dir/metadata.txt" | cut -d ':' -f 2- | tr ',' '\n' | awk '{$1=$1};1' | tr '\n' '|')
