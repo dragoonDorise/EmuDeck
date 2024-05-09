@@ -1,11 +1,12 @@
 #!/bin/bash
 
-generateGameLists(){
-
+generateGameLists() {
     ROMS_DIR="$romsPath/snes"
 
     # Initialize an empty array in JSON format
-    echo "["
+    printf "["
+
+    first_system=true
 
     for system_dir in "$ROMS_DIR"*; do
         if [[ -d "$system_dir" && -f "$system_dir/metadata.txt" ]]; then
@@ -20,30 +21,37 @@ generateGameLists(){
             launcher=$(grep 'launch:' "$system_dir/metadata.txt" | cut -d ':' -f 2- | awk '{$1=$1};1')
             extensions=$(grep 'extensions:' "$system_dir/metadata.txt" | cut -d ':' -f 2- | tr ',' ' ' | awk '{$1=$1};1')
 
-            # Initialize an empty array in JSON format
-            echo -n "  {"
-            echo "\"title\": \"$collection\","
-            echo "\"id\": \"$shortname\","
-            echo "\"launcher\": \"$launcher\","
-            echo "\"games\": ["
+            if $first_system; then
+                first_system=false
+            else
+                printf ","
+            fi
+
+            # Start system object
+            printf '{ "title": "%s", "id": "%s", "launcher": "%s", "games": [' "$collection" "$shortname" "$launcher"
 
             # Use jq to create the JSON objects for each game and print them directly
-            find "$system_dir" -type f | while read file_path; do
+            first_game=true
+            find "$system_dir" -type f | while read -r file_path; do
                 filename=$(basename "$file_path")
                 extension="${filename##*.}"
                 name="${filename%.*}"
                 if [[ "$extensions" =~ "$extension" ]]; then
+                    if $first_game; then
+                        first_game=false
+                    else
+                        printf ","
+                    fi
                     jq -n --arg name "$name" --arg filename "$file_path" '{"name": $name, "filename": $filename}'
-                    echo ","
                 fi
             done
 
-            # Close the games array and the system object
-            echo "    },"
+            # End games array and system object
+            printf "] }"
 
         fi
     done
 
-    # Remove trailing comma from the last system object
-    echo -n "]"
+    # End of JSON array
+    printf "]"
 }
