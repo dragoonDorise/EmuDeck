@@ -11,7 +11,8 @@ generateGameLists() {
     for system_dir in "$ROMS_DIR"/*; do
         if [[ -d "$system_dir" && -f "$system_dir/metadata.txt" ]]; then
 
-            if [ $system_dir == 'ps3' ]; then
+            # Ignore directories named "ps3"
+            if [[ "$system_dir" == *"/ps3" ]]; then
                 continue
             fi
 
