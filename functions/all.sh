@@ -45,6 +45,7 @@ source "$EMUDECKGIT"/functions/createFolders.sh
 source "$EMUDECKGIT"/functions/runSRM.sh
 source "$EMUDECKGIT"/functions/appImageInit.sh
 source "$EMUDECKGIT"/functions/autofix.sh
+source "$EMUDECKGIT"/functions/generateGameLists.sh
 
 
 #toolScripts
