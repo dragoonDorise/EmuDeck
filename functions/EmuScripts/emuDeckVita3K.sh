@@ -67,8 +67,11 @@ Vita3K_updateSRM(){
 
     if [ ! -f "$HOME/.config/EmuDeck/.vita3klauncherupdate" ]; then
 		zenity --question \
-        --text="Vita3K was swapped to the AppImage from the Binary package which improves support on non-SteamOS distros. This should have minimal impact on your installation, your saves and configurations will be retained. However, if you would like to add new PlayStation Vita ROMs to Steam, you will need to reset Steam ROM Manager's configurations. If you would like to reset Steam ROM Manager, click Yes. If you decline this prompt, you may reset Steam ROM Manager at any time on the Manage Emulators tab in the EmuDeck application." \
-		--title="Launcher updates" \
+        --text="Vita3K was swapped to the AppImage from the Binary package which improves support on non-SteamOS distros. This should have minimal impact on your installation, your saves and configurations will be retained. \
+        \nHowever, if you would like to add new PlayStation Vita ROMs to Steam, you will need to reset Steam ROM Manager's configurations. \
+        \nWould you like to reset Steam ROM Manager at this time? \
+        \nIf you decline this prompt, you may reset Steam ROM Manager at any time on the Manage Emulators tab in the EmuDeck application." \
+		--title="Vita3K AppImage" \
 		--width=400 \
 		--height=300
 
