@@ -2,17 +2,22 @@
 #variables
 SRM_toolName="Steam ROM Manager"
 SRM_toolType="$emuDeckEmuTypeAppImage"
-SRM_toolPath="${toolsPath}/Steam ROM Manager.AppImage"
+SRM_toolPath="${toolsPath}/Steam-ROM-Manager.AppImage"
 SRM_userData_directory="configs/steam-rom-manager/userData"
 SRM_userData_configDir="$HOME/.config/steam-rom-manager/userData"
-SRM_customVariablesURL="https://raw.githubusercontent.com/SteamGridDB/steam-rom-manager/master/files/customVariables.json"
 #cleanupOlderThings
 
 SRM_install(){
   setMSG "Installing Steam ROM Manager"
   local showProgress="$1"
 
-  if installToolAI "$SRM_toolName" "$(getReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")" "" "$showProgress"; then
+  if [ -f "$toolsPath" ]; then 
+    rm -rf "$toolsPath"
+  fi 
+
+  mkdir -p "$toolsPath"
+
+  if installToolAI "Steam-ROM-Manager" "$(getReleaseURLGH "SteamGridDB/steam-rom-manager" "AppImage")" "" "$showProgress"; then
     SRM_customDesktopShortcut
   else
     return 1
@@ -38,11 +43,15 @@ SRM_customDesktopShortcut(){
 
 SRM_migration(){
   if [ -f "${toolsPath}/srm/Steam-ROM-Manager.AppImage" ]; then
-
     mv "${toolsPath}/srm/Steam-ROM-Manager.AppImage" "${toolsPath}/Steam ROM Manager.AppImage" &> /dev/null
     SRM_customDesktopShortcut
     SRM_flushToolLauncher
+  fi
 
+  if [ -f "${toolsPath}/Steam ROM Manager.AppImage" ]; then
+    mv "${toolsPath}/Steam ROM Manager.AppImage" "${toolsPath}/Steam-ROM-Manager.AppImage" &> /dev/null
+    SRM_customDesktopShortcut
+    SRM_flushToolLauncher
   fi
 }
 
@@ -87,8 +96,6 @@ SRM_init(){
   sed -i "s|/home/deck|$HOME|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
   sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
   sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
-
-  curl -L "$SRM_customVariablesURL" -o "$HOME/.config/steam-rom-manager/userData/customVariables.json"
 
   SRM_addControllerTemplate
   SRM_flushToolLauncher
@@ -512,12 +519,19 @@ SRM_resetConfig(){
 }
 
 SRM_IsInstalled(){
+
   if [ -f "$SRM_toolPath" ]; then
-  echo "true"
-  else
-  echo "false"
+    echo "true"
+  elif [ -e "${toolsPath}/Steam ROM Manager.AppImage" ]; then
+    echo "true"
+  elif [ -e "${toolsPath}/srm/Steam-ROM-Manager.AppImage" ]; then 
+    echo "true"
+  else 
+      echo "false"
   fi
+
 }
+
 SRM_resetLaunchers(){
   rsync -av --existing $HOME/.config/EmuDeck/backend/tools/launchers/ $toolsPath/launchers/
   for entry in $toolsPath/launchers/*.sh
