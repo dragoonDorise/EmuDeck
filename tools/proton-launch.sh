@@ -173,13 +173,13 @@ main () {
         # shellcheck disable=SC2207
         steamPaths=()
         # Make sure all paths are valid directories
-        for p in $( grep path "${steamLibraryFolders}" | awk '{print $2}' | sed 's|\"||g' ); do
+        while IFS= read -r p; do
             if [ -d "${p}" ]; then
                 steamPaths+=("${p}")
             else
                 echo "INFO: ${steamLibraryFolders} contains invalid directory ${p}." >> "${LOGFILE}"
             fi
-        done
+        done < <(grep path "${steamLibraryFolders}" | awk -F '"' '{print $4}' | sed 's|\"||g')
         
         # Exit if there are no paths found.
         if [[ "${#steamPaths[@]}" -eq 0 ]]; then
