@@ -70,11 +70,8 @@ Ryujinx_init(){
 	#SRM_createParsers
     Ryujinx_flushEmulatorLauncher
 
-	if [ -e "$ESDE_toolPath" ]; then
-        ESDE_junksettingsFile
-        ESDE_addCustomSystemsFile
+	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		Yuzu_addESConfig
-        ESDE_setEmulationFolder
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
@@ -93,11 +90,8 @@ Ryujinx_update(){
     Ryujinx_finalize
     Ryujinx_flushEmulatorLauncher
 
-	if [ -e "$ESDE_toolPath" ]; then
-        ESDE_junksettingsFile
-        ESDE_addCustomSystemsFile
+	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		Yuzu_addESConfig
-        ESDE_setEmulationFolder
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
@@ -165,9 +159,14 @@ Ryujinx_setupSaves(){
         rm -rf "${emulationPath}/saves/ryujinx/saveMeta"
     fi
 
-    linkToSaveFolder Ryujinx saves "$HOME/.config/Ryujinx/bis/user/save"
-    linkToSaveFolder Ryujinx saveMeta "$HOME/.config/Ryujinx/bis/user/saveMeta"
-	linkToSaveFolder Ryujinx system_saves "$HOME/.config/Ryujinx/bis/system/save"
+    if [ -d "${emulationPath}/saves/Ryujinx/saves" ]; then
+        rm -rf "${emulationPath}/saves/Ryujinx/"
+    fi
+
+    linkToSaveFolder ryujinx saves "$HOME/.config/Ryujinx/bis/user/save"
+    linkToSaveFolder ryujinx saveMeta "$HOME/.config/Ryujinx/bis/user/saveMeta"
+	linkToSaveFolder ryujinx system_saves "$HOME/.config/Ryujinx/bis/system/save"
+	linkToSaveFolder ryujinx system "$HOME/.config/Ryujinx/system"
 
 }
 

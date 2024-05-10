@@ -15,6 +15,10 @@ Greenlight_install() {
 	else
 		return 0
 	fi
+
+	cp "$EMUDECKGIT/tools/remoteplayclients/Greenlight.sh" "$romsPath/remoteplay"
+	chmod +x "$romsPath/remoteplay/Greenlight.sh"
+	
 }
 
 # ApplyInitialSettings

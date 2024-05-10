@@ -50,7 +50,8 @@ Retroarch_install(){
 #ApplyInitialSettings
 RetroArch_init(){
 
-
+	#netPlay
+	setSetting netplayCMD "' '"
 
 	setMSG "RetroArch - HD Texture Packs"
 
@@ -221,9 +222,9 @@ RetroArch_update(){
 RetroArch_setEmulationFolder(){
     setMSG "Setting $RetroArch_emuName Emulation Folder"
 
-    RetroArch_setConfigOverride 'system_directory' "${biosPath}" "$RetroArch_configFile"
-    RetroArch_setConfigOverride 'rgui_browser_directory' "${romsPath}" "$RetroArch_configFile"
-    RetroArch_setConfigOverride 'cheat_database_path' "${storagePath}/retroarch/cheats" "$RetroArch_configFile"
+    RetroArch_setConfigOverride 'system_directory' "\"${biosPath}\"" "$RetroArch_configFile"
+    RetroArch_setConfigOverride 'rgui_browser_directory' "\"${romsPath}\"" "$RetroArch_configFile"
+    RetroArch_setConfigOverride 'cheat_database_path' "\"${storagePath}/retroarch/cheats\"" "$RetroArch_configFile"
 }
 
 #SetupSaves
@@ -232,8 +233,8 @@ RetroArch_setupSaves(){
 	linkToSaveFolder retroarch states "$RetroArch_path/states"
 	linkToSaveFolder retroarch saves "$RetroArch_path/saves"
 
-	RetroArch_setConfigOverride 'savestate_directory' "$savesPath/retroarch/states" "$RetroArch_configFile"
-	RetroArch_setConfigOverride 'savefile_directory' "$savesPath/retroarch/saves" "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savestate_directory'  "\"$savesPath/retroarch/states\"" "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'savefile_directory'  "\"$savesPath/retroarch/saves\"" "$RetroArch_configFile"
 
 }
 
