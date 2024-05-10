@@ -70,8 +70,7 @@ Vita3K_updateSRM(){
         --text="Vita3K was swapped to the AppImage from the Binary package which improves support on non-SteamOS distros. This should have minimal impact on your installation, your saves and configurations will be retained. \
         \nHowever, if you would like to add new PlayStation Vita ROMs to Steam, you will need to reset Steam ROM Manager's configurations. \
         \nWould you like to reset Steam ROM Manager at this time? \
-        \nIf you decline this prompt, you may reset Steam ROM Manager at any time on the Manage Emulators tab in the EmuDeck application." \
-		--title="Vita3K AppImage" \
+        \nIf you decline this prompt, you may reset Steam ROM Manager at any time in the EmuDeck application on the Manage Emulators tab." \		--title="Vita3K AppImage" \
 		--width=400 \
 		--height=300
 
