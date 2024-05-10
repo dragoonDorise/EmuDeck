@@ -1,56 +1,89 @@
-#!/usr/bin/bash
+#!/bin/bash
 # bigpemu.sh
 
 # Set up cloud save
 source "${HOME}/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "bigpemu"
 
-# Get SELFPATH
-SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"
+emuName="bigpemu" #parameterize me
+emufolder="$HOME/Applications/BigPEmu"
+exe=$(find "$emufolder" -type f -iname "${emuName}" ! -name "*.*" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
 
-# Get EXE
-EXE="\"/usr/bin/bash\" \"${SELFPATH}\""
-echo "EXE: ${EXE}"
+echo "Executable: $exe"
 
-# NAME
-NAME="BigPEmu"
 
-# AppID.py
-APPIDPY="$emulationPath/tools/appID.py"
+#if binary doesn't exist fall back to windows executable.
+if [[ $exe == '' ]]; then
+    echo "Binary not found. Looking for the Windows executable instead."
+    # Get SELFPATH
+    SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"
 
-# Proton Launcher Script
-PROTONLAUNCH="$emulationPath/tools/proton-launch.sh"
+    # Get EXE
+    EXE="\"/usr/bin/bash\" \"${SELFPATH}\""
+    echo "EXE: ${EXE}"
 
-# BigPEmu location
-BIGPEMU="$HOME/Applications/BigPEmu/BigPEmu.exe"
+    # NAME
+    NAME="BigPEmu"
 
-# APPID
-if [ -e "/usr/bin/python" ]; then
-    APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
-elif [ -e "/usr/bin/python3" ]; then
-    APPID=$( /usr/bin/python3 "${APPIDPY}" "${EXE}" "${NAME}" )
-else 
-    echo "Python not found."
-fi
+    # AppID.py
+    APPIDPY="$emulationPath/tools/appID.py"
 
-echo "APPID: ${APPID}"
+    # Proton Launcher Script
+    PROTONLAUNCH="$emulationPath/tools/proton-launch.sh"
 
-# Proton Version
-PROTONVER="8.0"
+    # BigPEmu location
+    BIGPEMU="$HOME/Applications/BigPEmu/BigPEmu.exe"
 
-# Call the Proton launcher script and give the arguments
+    # APPID
+    if [ -e "/usr/bin/python" ]; then
+        APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
+    elif [ -e "/usr/bin/python3" ]; then
+        APPID=$( /usr/bin/python3 "${APPIDPY}" "${EXE}" "${NAME}" )
+    else
+        echo "Python not found."
+    fi
 
-if [ -z "${@}" ]; then
+    echo "APPID: ${APPID}"
 
-    echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "*" -localdata >> "${LOGFILE}"
-    "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "*" -localdata
-    echo "Launching BigPEmu directly"
+    # Proton Version
+    PROTONVER="8.0"
 
+    # Call the Proton launcher script and give the arguments
+
+    if [ -z "${@}" ]; then
+        echo "Launching BigPEmu directly"
+        echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "*" -localdata >> "${LOGFILE}"
+        "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "*" -localdata
+
+
+    else
+        echo "ROM found, launching game"
+        echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "${@}" -localdata >> "${LOGFILE}"
+        "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "${@}" -localdata
+
+    fi
 else
-
-    echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "${@}" -localdata >> "${LOGFILE}"
-    "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "${@}" -localdata
-    echo "ROM found, launching game"
-
+#make sure that file is executable
+	chmod +x $exe
+    echo "Binary found."
 fi
+
+#run the executable with the params.
+launch_args=()
+for rom in "${@}"; do
+	# Parsers previously had single quotes ("'/path/to/rom'" ), this allows those shortcuts to continue working.
+	removedLegacySingleQuotes=$(echo "$rom" | sed "s/^'//; s/'$//")
+	launch_args+=("$removedLegacySingleQuotes")
+done
+
+echo "Launching: "${exe}" "${launch_args[*]}""
+
+if [[ -z "${*}" ]]; then
+    echo "ROM not found. Launching $emuName directly"
+    "${exe}" "*" -localdata
+else
+    echo "ROM found, launching game"
+    "${exe}" "${launch_args[@]}" -localdata
+fi
+
 rm -rf "$savesPath/.gaming"

@@ -307,7 +307,7 @@ ESDE_setEmulationFolder(){
 		if [[ $(grep -rnw "$es_systemsFile" -e 'BigPEmu (Proton)') == "" ]]; then
 			#insert
 			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="atarijaguar"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/bigpemu.sh %BASENAME%" \
-			--insert 'systemList/system/commandP' --type attr --name 'label' --value "BigPEmu (Proton)" \
+			--insert 'systemList/system/commandP' --type attr --name 'label' --value "BigPEmu" \
 			-r 'systemList/system/commandP' -v 'command' \
 			"$es_systemsFile"
 
@@ -316,14 +316,14 @@ ESDE_setEmulationFolder(){
 		else
 			#update
 			bigpemujaguarProtonCommandString="/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%"
-			xmlstarlet ed -L -u '/systemList/system/command[@label="BigPEmu (Proton)"]' -v "$bigpemujaguarProtonCommandString" "$es_systemsFile"
+			xmlstarlet ed -L -u '/systemList/system/command[@label="BigPEmu"]' -v "$bigpemujaguarProtonCommandString" "$es_systemsFile"
 		fi
 	fi
 	if [[ ! $(grep -rnw "$es_systemsFile" -e 'atarijaguarcd') == "" ]]; then
-		if [[ $(grep -rnw "$es_systemsFile" -e 'BigPEmu (Proton)') == "" ]]; then
+		if [[ $(grep -rnw "$es_systemsFile" -e 'BigPEmu') == "" ]]; then
 			#insert
 			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="atarijaguarcd"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
-			--insert 'systemList/system/commandP' --type attr --name 'label' --value "BigPEmu (Proton)" \
+			--insert 'systemList/system/commandP' --type attr --name 'label' --value "BigPEmu" \
 			-r 'systemList/system/commandP' -v 'command' \
 			"$es_systemsFile"
 

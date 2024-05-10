@@ -1,10 +1,10 @@
 #!/bin/bash
 #variables
-BigPEmu_emuName="BigPEmu (Proton)"
-BigPEmu_emuType="$emuDeckEmuTypeWindows"
-BigPEmu_emuPath="$HOME/Applications/BigPEmu/BigPEmu.exe"
-BigPEmu_appData="$HOME/Applications/BigPEmu/UserData"
-BigPEmu_BigPEmuSettings="$HOME/Applications/BigPEmu/UserData/BigPEmuConfig.bigpcfg"
+BigPEmu_emuName="BigPEmu"
+BigPEmu_emuType="$emuDeckEmuTypeBinary"
+BigPEmu_emuPath="$HOME/Applications/BigPEmu/bigpemu"
+BigPEmu_appData="$HOME/Applications/BigPEmu/bigpemu_userdata"
+BigPEmu_BigPEmuSettings="$HOME/Applications/BigPEmu/bigpemu_userdata/BigPEmuConfig.bigpcfg"
 
 #cleanupOlderThings
 BigPEmu_cleanup(){
@@ -17,13 +17,15 @@ BigPEmu_install(){
 
 	mkdir -p $BigPEmu_appData
 
-	BigPEmudownloadLink=$(curl -s "https://www.richwhitehouse.com/jaguar/index.php?content=download" | grep -o 'https://www\.richwhitehouse\.com/jaguar/builds/BigPEmu_v[0-9]*\.zip' | grep -v "BigPEmu_*-DEV.zip" | head -n 1)
+	BigPEmudownloadLink=$(curl -s "https://www.richwhitehouse.com/jaguar/index.php?content=download" | grep -o 'https://www\.richwhitehouse\.com/jaguar/builds/BigPEmu_Linux64_v[0-9]*\.tar.gz' | grep -v "BigPEmu_*-DEV.zip" | head -n 1)
 
-	if safeDownload "BigPEmu" "$BigPEmudownloadLink" "$HOME/Applications/BigPEmu/BigPEmu.zip" "$showProgress"; then
-
-		unzip -o "$HOME/Applications/BigPEmu/BigPEmu.zip" -d "$HOME/Applications/BigPEmu"
-		rm -f "$HOME/Applications/BigPEmu/BigPEmu.zip"
-
+	if safeDownload "BigPEmu" "$BigPEmudownloadLink" "$HOME/Applications/BigPEmu/BigPEmu.tar.gz" "$showProgress"; then
+		{ tar -xvzf "$HOME/Applications/BigPEmu/BigPEmu.tar.gz" -C "$HOME/Applications/BigPEmu" --strip-components=1; } &> /dev/null
+		rm -f "$HOME/Applications/BigPEmu/BigPEmu.tar.gz"
+		rm -rf "$HOME/Applications/BigPEmu/BigPEmu.exe"
+		rm -rf "$HOME/Applications/BigPEmu/Plugins"
+		rsync -avhp --mkpath --exclude "BigPEmuConfig.bigpcfg" "$HOME/Applications/BigPEmu/UserData/." "$BigPEmu_appData/." --ignore-existing
+		chmod +x "$BigPEmu_emuPath"
 	else
 		return 1
 	fi
@@ -35,16 +37,22 @@ BigPEmu_install(){
 	chmod +x "${toolsPath}/launchers/bigpemu.sh"
 	chmod +x "$HOME/Applications/BigPEmu/bigpemu.sh"
 
-	createDesktopShortcut   "$HOME/.local/share/applications/BigPEmu (Proton).desktop" \
-							"BigPEmu (Proton)" \
-							"${toolsPath}/launchers/bigpemu.sh -w"  \
+	createDesktopShortcut   "$HOME/.local/share/applications/BigPEmu (Binary).desktop" \
+							"BigPEmu (Binary)" \
+							"${toolsPath}/launchers/bigpemu.sh"  \
 							"False"
 }
 
 #ApplyInitialSettings
 BigPEmu_init(){
 	setMSG "Initializing $BigPEmu_emuName settings."
-	rsync -avhp "$EMUDECKGIT/configs/bigpemu/" "$BigPEmu_appData" --backup --suffix=.bak
+
+	if [ -f "$HOME/Applications/BigPEmu/BigPEmu.exe" ]; then
+		rsync -avhp "$EMUDECKGIT/configs/bigpemu-proton/" "$HOME/Applications/BigPEmu/UserData" --backup --suffix=.bak
+	elif [ -f "$BigPEmu_emuPath" ]; then
+		rsync -avhp "$EMUDECKGIT/configs/bigpemu/" "$BigPEmu_appData" --backup --suffix=.bak
+	fi
+	
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
 	BigPEmu_flushEmulatorLauncher
@@ -61,7 +69,15 @@ BigPEmu_init(){
 #update
 BigPEmu_update(){
 	setMSG "Updating $BigPEmu_emuName settings."
-	rsync -avhp "$EMUDECKGIT/configs/bigpemu/" "$BigPEmu_appData" --ignore-existing
+
+	if [ -f "$HOME/Applications/BigPEmu/BigPEmu.exe" ]; then
+		rsync -avhp "$EMUDECKGIT/configs/bigpemu-proton/" "$HOME/Applications/BigPEmu/UserData" --backup --suffix=.bak
+		echo "Copying Windows configs."
+	elif [ -f "$BigPEmu_emuPath" ]; then
+		rsync -avhp "$EMUDECKGIT/configs/bigpemu/" "$BigPEmu_appData" --backup --suffix=.bak
+		echo "Copying Binary configs."
+	fi
+	
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
 	BigPEmu_flushEmulatorLauncher
@@ -88,7 +104,7 @@ BigPEmu_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/atarijaguar' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP' \
 		--subnode '$newSystem' --type elem --name 'commandB' -v "/usr/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
-		--insert '$newSystem/commandB' --type attr --name 'label' --value "BigPEmu (Proton)" \
+		--insert '$newSystem/commandB' --type attr --name 'label' --value "BigPEmu" \
 		--subnode '$newSystem' --type elem --name 'commandV' -v "%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/virtualjaguar_libretro.so %ROM%" \
 		--insert '$newSystem/commandV' --type attr --name 'label' --value "Virtual Jaguar" \
 		--subnode '$newSystem' --type elem --name 'commandM' -v "%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/atarijaguar jaguar -cart %ROM%" \
@@ -113,7 +129,7 @@ BigPEmu_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/atarijaguarcd' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP' \
 		--subnode '$newSystem' --type elem --name 'commandB' -v "/usr/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
-		--insert '$newSystem/commandB' --type attr --name 'label' --value "BigPEmu (Proton)" \
+		--insert '$newSystem/commandB' --type attr --name 'label' --value "BigPEmu" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'atarijaguarcd' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'atarijaguarcd' \
 		-r 'systemList/system/commandB' -v 'command' \
@@ -166,7 +182,7 @@ BigPEmu_wipeSettings(){
 BigPEmu_uninstall(){
 	setMSG "Uninstalling $BigPEmu_emuName. ROMs will be retained in the ROMs folder. Saves will be retained in "$HOME/Applications/BigPEmu/UserData"."
 	find "$HOME/Applications/BigPEmu" -mindepth 1 -name UserData -prune -o -exec rm -rf '{}' \; &>> /dev/null
-    rm -rf "$HOME/.local/share/applications/BigPEmu (Proton).desktop"
+    rm -rf "$HOME/.local/share/applications/BigPEmu (Binary).desktop"
     BigPEmu_wipeSettings
 }
 
@@ -183,6 +199,8 @@ BigPEmu_finalize(){
 BigPEmu_IsInstalled(){
 	if [ -e "$BigPEmu_emuPath" ]; then
 		echo "true"
+	elif [ -e "$HOME/Applications/BigPEmu/BigPEmu.exe" ]; then
+		echo "true" 
 	else
 		echo "false"
 	fi
@@ -209,5 +227,7 @@ BigPEmu_flushEmulatorLauncher(){
 
 
 	flushEmulatorLaunchers "bigpemu"
+
+	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$HOME/Applications/BigPEmu/bigpemu.sh"
 
 }

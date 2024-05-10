@@ -272,6 +272,7 @@ fi
 		rm -rf $HOME/Applications/BigPEmu &>> /dev/null
 		rm -rf $HOME/.local/share/applications/BigPEmu.desktop &>> /dev/null
 		rm -rf "$HOME/.local/share/applications/BigPEmu (Proton).desktop" &>> /dev/null
+		rm -rf "$HOME/.local/share/applications/BigPEmu (Binary).desktop" &>> /dev/null
 	fi
 	if [[ "$doUninstallCemu" == true ]]; then
 		find ${romsPath}/wiiu -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \;
