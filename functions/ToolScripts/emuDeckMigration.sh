@@ -113,6 +113,10 @@ Migration_updatePaths(){
 		fi
 	done
 
+	#Symlinks
+	Dolphin_flushSymlinks
+	Citra_flushSymlinks
+
 
 	text="$(printf "<b>Success</b>\nYour library has been moved to ${destination}\nPlease restart your Deck now to apply the changes")"
 	zenity --info \

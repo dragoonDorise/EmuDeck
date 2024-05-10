@@ -66,7 +66,6 @@ SRM_init(){
   mkdir -p "$HOME/.config/steam-rom-manager/userData/"
   rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
   rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
-  rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/controllerTemplates.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
   #cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
   #cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/userSettings.json"	
   sleep 3
@@ -91,16 +90,7 @@ SRM_init(){
 
   curl -L "$SRM_customVariablesURL" -o "$HOME/.config/steam-rom-manager/userData/customVariables.json"
 
-  if [ -d "${HOME}/.local/share/Steam" ]; then
-    STEAMPATH="${HOME}/.local/share/Steam"
-  elif [ -d "${HOME}/.steam/steam" ]; then
-    STEAMPATH="${HOME}/.steam/steam"
-  else
-    echo "Steam install not found"
-  fi
-
-  sed -i "s|/home/deck/.steam/steam|${STEAMPATH}|g" "$HOME/.config/steam-rom-manager/userData/controllerTemplates.json"
-
+  SRM_addControllerTemplate
   SRM_flushToolLauncher
   SRM_addSteamInputProfiles
   addSteamInputCustomIcons
@@ -447,9 +437,25 @@ SRM_rolledbackcreateParsers(){
 
 }
 
+SRM_addControllerTemplate(){
+
+  mkdir -p "$HOME/.config/steam-rom-manager/userData/"
+  rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/controllerTemplates.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+
+  if [ -d "${HOME}/.local/share/Steam" ]; then
+    STEAMPATH="${HOME}/.local/share/Steam"
+  elif [ -d "${HOME}/.steam/steam" ]; then
+    STEAMPATH="${HOME}/.steam/steam"
+  else
+    echo "Steam install not found"
+  fi
+
+  sed -i "s|/home/deck/.steam/steam|${STEAMPATH}|g" "$HOME/.config/steam-rom-manager/userData/controllerTemplates.json"
+
+}
+
 SRM_addSteamInputProfiles(){
    setMSG 'Steam Rom Manager - Adding Steam input profiles'
-   cp "$EMUDECKGIT/$SRM_userData_directory/controllerTemplates.json" "$SRM_userData_configDir/controllerTemplates.json"
    rm -rf "$HOME/.steam/steam/controller_base/templates/ares_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/cemu_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/citra_controller_config.vdf"
@@ -477,7 +483,6 @@ SRM_addSteamInputProfiles(){
    # ln -s "$HOME/.config/EmuDeck/backend/configs/steam-input/emudeck_controller_steamdeck.vdf" "$HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf"
 }
 
-
 SRM_setEnv(){
   
 	setMSG 'Steam Rom Manager - Set enviroment'
@@ -503,12 +508,10 @@ SRM_resetConfig(){
   SRM_init
   #Reseting launchers
   #SRM_resetLaunchers
-  SRM_flushToolLauncher
   echo "true"
 }
 
 SRM_IsInstalled(){
-
   if [ -f "$SRM_toolPath" ]; then
   echo "true"
   else

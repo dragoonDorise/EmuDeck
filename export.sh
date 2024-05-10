@@ -131,23 +131,48 @@ if [ "$size" -gt 4096 ]; then
 	fi
 
 	if [ -d "$emulationPath/bios" ]; then
-		text="$(printf "Do you want to export all your roms?")"
+		text="$(printf "Do you want to export all your bios?")"
 		zenity --question \
 			--title="EmuDeck Export tool" \
 			--width=450 \
 			--cancel-label="No" \
-			--ok-label="Export my roms" \
+			--ok-label="Export my bios" \
 			--text="${text}" 2>/dev/null
 		ans=$?
 		if [ $ans -eq 0 ]; then
 
-			checkSpace "$emulationPath/roms/" "$destination"
+			checkSpace "$emulationPath/bios/" "$destination"
 
-			mkdir -p "$destination/EmuDeck/roms"
+			mkdir -p "$destination/EmuDeck/bios"
 
-			for entry in "$emulationPath/roms/"*
+			for entry in "$emulationPath/bios/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/roms/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/roms/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/bios/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/bios/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+			done
+
+		else
+			echo "no bios"
+		fi
+	fi
+
+	if [ -d "$ESDEscrapData" ]; then
+		text="$(printf "Do you want to export all your EmulationStation media?")"
+		zenity --question \
+			--title="EmuDeck Export tool" \
+			--width=450 \
+			--cancel-label="No" \
+			--ok-label="Export my ESDE Media" \
+			--text="${text}" 2>/dev/null
+		ans=$?
+		if [ $ans -eq 0 ]; then
+
+			checkSpace "$ESDEscrapData" "$destination"
+
+			mkdir -p "$destination/EmuDeck/tools/downloaded_media"
+
+			for entry in "$ESDEscrapData/"*
+			do
+				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/roms/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/tools/downloaded_media/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 			done
 
 		else

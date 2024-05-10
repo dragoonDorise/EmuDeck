@@ -717,7 +717,7 @@ flushEmulatorLaunchers(){
         chmod +x "${toolsPath}/launchers/"*
     done
 
-	
+
 }
 
 addSteamInputCustomIcons() {
@@ -749,9 +749,11 @@ check_internet_connection(){
 }
 
 zipLogs() {
+	local desktop=$(xdg-user-dir DESKTOP)
+
 	logsFolder="$HOME/emudeck/logs"
 	settingsFile="$HOME/emudeck/settings.sh"
-	zipOutput="$HOME/Desktop/emudeck_logs.zip"
+	zipOutput="$desktop/emudeck_logs.zip"
 
 	# Comprime los archivos en un archivo zip
 	zip -rj "$zipOutput" "$logsFolder" "$settingsFile"
@@ -932,11 +934,32 @@ isLatestVersionGH() {
 	fi
 }
 
+addProtonLaunch(){
+	rsync -avhp "$EMUDECKGIT/tools/proton-launch.sh" "${toolsPath}"
+	rsync -avhp "$EMUDECKGIT/tools/appID.py" "${toolsPath}"
+	chmod +x "${toolsPath}/proton-launch.sh"
+}
 
 function emulatorInit(){
 	local emuName=$1
 	#isLatestVersionGH "$emuName"
-	cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
+	#NetPlay
+	#if [ "$emuName" = 'retroarch' ]; then
+   	#	if [ "$netPlay" == "true" ]; then
+	#		#Looks for devices listening
+	#		setSetting netplayCMD "-H"
+	#		sleep 2
+	#		netplaySetIP
+	#	else
+	#		setSetting netplayCMD "' '"
+	#		cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
+	#	fi
+	#	source $HOME/.config/EmuDeck/backend/functions/all.sh
+	#fi
+
+	if [ "$emuName" != 'retroarch' ]; then
+		cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
+	fi
 }
 
 function jsonToBashVars(){
@@ -949,6 +972,7 @@ function jsonToBashVars(){
 	setSetting doInstallPCSX2QT "$(jq .installEmus.pcsx2.status $json)"
 	setSetting doInstallRPCS3 "$(jq .installEmus.rpcs3.status $json)"
 	setSetting doInstallYuzu "$(jq .installEmus.yuzu.status $json)"
+	setSetting doInstallSuyu "$(jq .installEmus.suyu.status $json)"
 	setSetting doInstallCitra "$(jq .installEmus.citra.status $json)"
 	setSetting doInstallDuck "$(jq .installEmus.duckstation.status $json)"
 	setSetting doInstallCemu "$(jq .installEmus.cemu.status $json)"
@@ -978,6 +1002,7 @@ function jsonToBashVars(){
 	setSetting doSetupPCSX2QT "$(jq .overwriteConfigEmus.pcsx2.status $json)"
 	setSetting doSetupRPCS3 "$(jq .overwriteConfigEmus.rpcs3.status $json)"
 	setSetting doSetupYuzu "$(jq .overwriteConfigEmus.yuzu.status $json)"
+	setSetting doSetupSuyu "$(jq .overwriteConfigEmus.suyu.status $json)"
 	setSetting doSetupCitra "$(jq .overwriteConfigEmus.citra.status $json)"
 	setSetting doSetupDuck "$(jq .overwriteConfigEmus.duckstation.status $json)"
 	setSetting doSetupCemu "$(jq .overwriteConfigEmus.cemu.status $json)"
@@ -1022,7 +1047,7 @@ function jsonToBashVars(){
 
 	#CloudSync
 	setSetting cloud_sync_provider "$(jq .cloudSync $json)"
-	setSetting cloudSyncStatus "$(jq .cloudSyncStatus $json)"
+	setSetting cloud_sync_status "$(jq .cloudSyncStatus $json)"
 
 	#Resolutions
 	setSetting dolphinResolution  "$(jq .resolutions.dolphin $json)"
@@ -1074,6 +1099,16 @@ function jsonToBashVars(){
 	setSetting androidStorage "$(jq .android.storage $json)"
 	setSetting androidStoragePath "$(jq .android.storagePath $json)"
 
+	#We store the patreon token on install so we can create it for the first time
+	storePatreonToken "$(jq .patreonToken $json)"
+}
+
+function storePatreonToken(){
+	local token=$1
+	echo "$token" > "$savesPath/.token"
+	if [ -f $cloud_sync_bin ]; then
+		"$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$savesPath/.token" "$cloud_sync_provider":Emudeck/saves/.token
+	fi
 }
 
 
