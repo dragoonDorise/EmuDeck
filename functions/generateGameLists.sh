@@ -1,18 +1,26 @@
 #!/bin/bash
 
 generateGameLists() {
-    ROMS_DIR="$romsPath/snes"
+    ROMS_DIR="$romsPath"
 
     # Initialize an empty array in JSON format
     printf "["
 
     first_system=true
 
-    for system_dir in "$ROMS_DIR"*; do
+    for system_dir in "$ROMS_DIR"/*; do
         if [[ -d "$system_dir" && -f "$system_dir/metadata.txt" ]]; then
 
-            # Ignore directories named "ps3"
             if [[ "$system_dir" == *"/ps3" ]]; then
+                continue
+            fi
+            if [[ "$system_dir" == *"/xbox360" ]]; then
+                continue
+            fi
+            if [[ "$system_dir" == *"/model2" ]]; then
+                continue
+            fi
+            if [[ "$system_dir" == *"/genesiswide" ]]; then
                 continue
             fi
 
@@ -23,7 +31,8 @@ generateGameLists() {
 
             collection=$(grep 'collection:' "$system_dir/metadata.txt" | cut -d ':' -f 2- | awk '{$1=$1};1')
             shortname=$(grep 'shortname:' "$system_dir/metadata.txt" | cut -d ':' -f 2- | awk '{$1=$1};1')
-            launcher=$(grep 'launch:' "$system_dir/metadata.txt" | cut -d ':' -f 2- | awk '{$1=$1};1')
+#            launcher=$(grep 'launch:' "$system_dir/metadata.txt" | cut -d ':' -f 2- | awk '{$1=$1};1')
+            launcher=$(grep 'launch:' "$system_dir/metadata.txt" | cut -d ':' -f 2- | awk '{$1=$1};1' | sed 's/"/\\"/g')
             extensions=$(grep 'extensions:' "$system_dir/metadata.txt" | cut -d ':' -f 2- | tr ',' ' ' | awk '{$1=$1};1')
 
             if $first_system; then
