@@ -944,18 +944,18 @@ function emulatorInit(){
 	local emuName=$1
 	#isLatestVersionGH "$emuName"
 	#NetPlay
-	#if [ "$emuName" = 'retroarch' ]; then
-   	#	if [ "$netPlay" == "true" ]; then
-	#		#Looks for devices listening
-	#		setSetting netplayCMD "-H"
-	#		sleep 2
-	#		netplaySetIP
-	#	else
-	#		setSetting netplayCMD "' '"
-	#		cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
-	#	fi
-	#	source $HOME/.config/EmuDeck/backend/functions/all.sh
-	#fi
+	if [ "$emuName" = 'retroarch' ]; then
+   		if [ "$netPlay" == "true" ]; then
+			#Looks for devices listening
+			setSetting netplayCMD "-H"
+			sleep 2
+			netplaySetIP
+		else
+			setSetting netplayCMD "' '"
+			cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
+		fi
+		source $HOME/.config/EmuDeck/backend/functions/all.sh
+	fi
 
 	if [ "$emuName" != 'retroarch' ]; then
 		cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
