@@ -103,6 +103,7 @@ SRM_init(){
   addSteamInputCustomIcons
   SRM_setEnv
   SRM_flushOldSymlinks
+  SRM_launcherUpdate
   
   echo -e "true"
 
@@ -598,5 +599,63 @@ SRM_deleteCache(){
     else 
       echo "User declined deleting cache."
     fi 
+
+}
+
+SRM_launcherUpdate(){
+
+	if [ ! -f "$HOME/.config/EmuDeck/.emulatorlauncherupdate" ]; then
+
+		zenity --question \
+		--text="An update was pushed to fix launching ROMs. \
+    \nIn order to continue using certain emulators through Steam ROM Manager (Citra, mGBA, PCSX2, RPCS3, Ryujinx, Vita3K, and Yuzu), you will need to update their launchers as well. \
+    \nUpdating the launchers will not affect any changes you have made to configurations. 
+    \nWould you like to update the launchers now? \
+    \nIf you decline this prompt, you may reset each emulator at any time in the EmuDeck application on the Manage Emulators tab." \
+		--title="Launcher updates" \
+		--width=400 \
+		--height=300
+
+		if [ $? = 0 ]; then
+
+			if [ "$(Citra_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				Citra_flushEmulatorLauncher
+			fi
+
+			if [ "$(mGBA_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				mGBA_flushEmulatorLauncher
+			fi
+
+			if [ "$(PCSX2QT_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				PCSX2QT_flushEmulatorLauncher
+			fi
+
+			if [ "$(RPCS3_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				RPCS3_flushEmulatorLauncher
+			fi
+
+			if [ "$(Ryujinx_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				Ryujinx_flushEmulatorLauncher
+			fi
+
+			if [ "$(Vita3K_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				Vita3K_flushEmulatorLauncher
+			fi
+
+			if [ "$(Yuzu_IsInstalled)" == "true" ]; then
+				#echo "NYI"
+				Yuzu_flushEmulatorLauncher
+			fi
+		else 
+			echo "Do not apply update."
+		fi	
+	touch "$HOME/.config/EmuDeck/.emulatorlauncherupdate"
+	fi
 
 }
