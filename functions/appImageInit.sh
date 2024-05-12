@@ -201,6 +201,12 @@ appImageInit() {
 	touch "$HOME/.config/EmuDeck/.esdefixupdateyuzu"
 	fi
 
+	# This is intended so users can get the latest launcher with proper fall-back detection. This does not reset any of Steam ROM Manager's configs and only updates the launcher once. 
+	if [ ! -f "$HOME/.config/EmuDeck/.srmlauncherupdate" ]; then
+		SRM_flushToolLauncher
+		touch "$HOME/.config/EmuDeck/.srmlauncherupdate"
+	fi 
+
 
 	# Init functions
 	mkdir -p "$HOME/emudeck/logs"
