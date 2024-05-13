@@ -4,8 +4,12 @@ echo "0" > "$MSG"
 
 #Darwin
 appleChip=$(uname -m)
-if [ appleChip != "Linux" ]; then
-	PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+if [ $appleChip != "Linux" ]; then
+	if [ $appleChip = 'arm64' ]; then
+		PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+	else
+		PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+	fi
 fi
 
 #
