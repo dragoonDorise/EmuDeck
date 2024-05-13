@@ -31,14 +31,20 @@ function safeDownload() {
 			volumeName="$HOME/Applications/EmuDeck/$outFile"
 		fi
 
-		cp -r "$volumeName"/*.app "$HOME/Applications/EmuDeck/"
 
+
+		if [[ $volumeName == *"ES-DE"* ]]; then
+			cp -r "$volumeName"/*.app "$HOME/Applications/EmuDeck/ES-DE/"
+		else
+			cp -r "$volumeName"/*.app "$HOME/Applications/EmuDeck/"
+		fi
 		appName=$(find "$volumeName" -name "*.app" -exec basename {} \;)
 		chmod +x  "$HOME/Applications/EmuDeck/$appName"
 
-		#find "$HOME/Applications/EmuDeck/" -maxdepth 1 -name "*.app" -exec ln -s {} /Applications/ \;
-		find "$HOME/Emulation/tools/launchers" -maxdepth 1 -name "*.sh" -exec chmod +x {} \;
-		find "$HOME/Emulation/tools/launchers" -maxdepth 1 -name "*.sh" -exec bash -c 'source "$EMUDECKGIT/functions/all.sh" && darwin_generateAppfromSH "$0"' {} \;
+		find "$HOME/Applications/EmuDeck/" -maxdepth 1 -name "*.app" -exec ln -s {} /Applications/ \;
+		find "$HOME/Emulation/tools/launchers/" -maxdepth 1 -name "*.sh" -exec chmod +x {} \;
+		find "$HOME/Emulation/tools/launchers/ES-DE" -maxdepth 1 -name "*.sh" -exec chmod +x {} \;
+		find "$HOME/Emulation/tools/launchers/ES-DE" -maxdepth 1 -name "*.sh" -exec bash -c 'source "$EMUDECKGIT/functions/all.sh" && darwin_generateAppfromSH "$0"' {} \;
 		#chmod +x  "/Applications/$appName"
 		if [ -n "$volumeName" ]; then
 			hdiutil detach "$volumeName" && rm -rf "$outFile"
@@ -133,5 +139,9 @@ function createUpdateSettingsFile(){
 }
 
 function createDesktopShortcut(){
+	echo "no need"
+}
+
+function checkInstalledEmus(){
 	echo "no need"
 }
