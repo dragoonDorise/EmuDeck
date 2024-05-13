@@ -14,6 +14,11 @@ SRM_resetLaunchers(){
   done
 }
 
+
+SRM_install(){
+  darwin_installEmuDMG "Steam-ROM-Manager" "$(getReleaseURLGH "SteamGridDB/steam-rom-manager" "dmg")"
+}
+
 SRM_init(){
   setMSG "Configuring Steam ROM Manager"
   local json_directory="$SRM_userData_configDir/parsers"
