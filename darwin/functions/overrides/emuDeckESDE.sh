@@ -18,16 +18,16 @@ ESDE_SetAppImageURLS() {
 
 function darwin_ESDE_GenerateApp(){
 	local scriptPath=$1
-	local appName=$(basename "$scriptPath" .sh)
+	local appName="ES-DE"
 	# Extrae el nombre base del script y elimina la extensión .sh
 	rm -rf "/Applications/Emulators/es-de/$appName.app"
 	mkdir -p "/Applications/Emulators/es-de/$appName.app/Contents/MacOS"
 	#chmod +x "/Applications/Emulators/$appName.app"
-	cp "./darwin/tools/appGenerator/Automator Application Stub" "/Applications/Emulators/es-de/$appName.app/Contents/MacOS/"
-	cp "./darwin/tools/appGenerator/document.wflow" "/Applications/Emulators/es-de/$appName.app/Contents/"
-	cp "./darwin/tools/appGenerator/Info.plist" "/Applications/Emulators/es-de/$appName.app/Contents/"
-	sed -i "s|EMUDECKEMULATOR|es-de/${appName}|g" "/Applications/Emulators/es-de/$appName.app/Contents/document.wflow"
-	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "/Applications/Emulators/es-de/$appName.app/Contents/document.wflow"
+	cp "./darwin/tools/appGenerator/Automator Application Stub" "/Applications/$appName.app/Contents/MacOS/"
+	cp "./darwin/tools/appGenerator/document.wflow" "/Applications/$appName.app/Contents/"
+	cp "./darwin/tools/appGenerator/Info.plist" "/Applications/$appName.app/Contents/"
+	sed -i "s|EMUDECKEMULATOR|es-de/${appName}|g" "/Applications/$appName.app/Contents/document.wflow"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "/Applications/$appName.app/Contents/document.wflow"
 }
 
 function ESDE_migration(){
