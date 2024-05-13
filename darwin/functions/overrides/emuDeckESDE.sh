@@ -26,7 +26,10 @@ function darwin_ESDE_GenerateApp(){
 	cp "./darwin/tools/appGenerator/Automator Application Stub" "/Applications/Emulators/es-de/$appName.app/Contents/MacOS/"
 	cp "./darwin/tools/appGenerator/document.wflow" "/Applications/Emulators/es-de/$appName.app/Contents/"
 	cp "./darwin/tools/appGenerator/Info.plist" "/Applications/Emulators/es-de/$appName.app/Contents/"
-	sed -i "s|EMUDECKEMULATOR|es-de/${appName}|g"
-	"/Applications/Emulators/es-de/$appName.app/Contents/document.wflow"
+	sed -i "s|EMUDECKEMULATOR|es-de/${appName}|g" "/Applications/Emulators/es-de/$appName.app/Contents/document.wflow"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "/Applications/Emulators/es-de/$appName.app/Contents/document.wflow"
+}
+
+function ESDE_migration(){
+	echo "no need on darwin"
 }
