@@ -1,6 +1,6 @@
 #!/bin/bash
 
-safeDownload() {
+function safeDownload() {
 	local name="$1"
 	local url="$2"
 	local outFile="$3"
@@ -36,7 +36,9 @@ safeDownload() {
 		appName=$(find "$volumeName" -name "*.app" -exec basename {} \;)
 		chmod +x  "$HOME/Applications/EmuDeck/$appName"
 
-		find "$HOME/Applications/EmuDeck/" -maxdepth 1 -name "*.app" -exec ln -s {} /Applications/ \;
+		#find "$HOME/Applications/EmuDeck/" -maxdepth 1 -name "*.app" -exec ln -s {} /Applications/ \;
+		find "$HOME/Emulation/tools/launchers" -maxdepth 1 -name "*.sh" -exec chmod +x {} \;
+		find "$HOME/Emulation/tools/launchers" -maxdepth 1 -name "*.sh" -exec bash -c 'source "$EMUDECKGIT/functions/all.sh" && darwin_generateAppfromSH "$0"' {} \;
 		#chmod +x  "/Applications/$appName"
 		if [ -n "$volumeName" ]; then
 			hdiutil detach "$volumeName" && rm -rf "$outFile"
@@ -50,18 +52,13 @@ safeDownload() {
 
 }
 
-addSteamInputCustomIcons() {
+function addSteamInputCustomIcons() {
 	rsync -av "$EMUDECKGIT/darwin/configs/steam-input/Icons/" "$HOME/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/tenfoot/resource/images/library/controller/binding_icons/"
 }
 
-
-
-getEmuInstallStatus() {
+function getEmuInstallStatus() {
 	echo "NYI"
 }
-
-
-
 
 function createUpdateSettingsFile(){
 	#!/bin/bash
@@ -134,7 +131,6 @@ function createUpdateSettingsFile(){
 		done
 
 }
-
 
 function createDesktopShortcut(){
 	echo "no need"

@@ -1,8 +1,5 @@
 #!/bin/bash
-#We set the proper sed
-PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 appleChip=$(uname -m)
-
 #Override Vars
 SRM_toolPath="$HOME/Applications/EmuDeck/Steam ROM Manager.app"
 RetroArch_configFile="$HOME/Library/Application Support/RetroArch/config/retroarch.cfg"
@@ -29,5 +26,4 @@ source "$EMUDECKGIT/darwin/functions/overrides/installEmuAI.sh"
 source "$EMUDECKGIT/darwin/functions/overrides/installToolAI.sh"
 source "$EMUDECKGIT/darwin/functions/overrides/emuDeckRetroArch.sh"
 source "$EMUDECKGIT/darwin/functions/overrides/emuDeckPegasus.sh"
-
-
+source "$EMUDECKGIT/darwin/functions/overrides/emuDeckCloudSync.sh"

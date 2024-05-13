@@ -23,7 +23,7 @@
   "localIcons": "",
   "disabled": false,
   "executable": {
-    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/esde/emulationstationde.sh",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/es-de/es-de.sh",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },

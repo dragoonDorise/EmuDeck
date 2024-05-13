@@ -92,7 +92,7 @@ fi
 
 #Brew dependencies
 alert "Let's install EmuDeck dependencies... This could take some time. Please press OK"
-brew install zenity gnu-sed rsync xmlstarlet jq steam
+brew install zenity gnu-sed rsync xmlstarlet jq steam curl
 if ! command -v xcode-select &>/dev/null; then
 	xcode-select --install
 	wait
