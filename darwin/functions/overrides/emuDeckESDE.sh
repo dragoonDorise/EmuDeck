@@ -21,7 +21,7 @@ function darwin_ESDE_GenerateApp(){
 	local appName="ES-DE"
 	# Extrae el nombre base del script y elimina la extensión .sh
 	rm -rf "/Applications/Emulators/es-de/$appName.app"
-	mkdir -p "/Applications/Emulators/es-de/$appName.app/Contents/MacOS"
+	mkdir -p "/Applications/$appName.app/Contents/MacOS"
 	#chmod +x "/Applications/Emulators/$appName.app"
 	cp "./darwin/tools/appGenerator/Automator Application Stub" "/Applications/$appName.app/Contents/MacOS/"
 	cp "./darwin/tools/appGenerator/document.wflow" "/Applications/$appName.app/Contents/"
