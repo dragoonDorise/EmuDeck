@@ -8,6 +8,8 @@ ESDE_customDesktopShortcut(){
 ESDE_SetAppImageURLS() {
 	local json="$(curl -s $ESDE_releaseJSON)"
 
+	mkdir -p $HOME/Applications/EmuDeck/ES-DE
+
 	if [ appleChip == 'arm64' ]; then
 		ESDE_releaseURL=$(echo "$json" | jq -r '.stable.packages[] | select(.name == "macOSApple") | .url')
 	else

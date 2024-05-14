@@ -16,7 +16,8 @@ RetroArch_coresURL="https://buildbot.libretro.com/nightly/apple/osx/${appleChip}
 RetroArch_coresExtension="dylib.zip"
 
 #ESDE
-ESDE_toolPath="$HOME/Applications/EmuDeck/ES-DE/ES-DE.app"
+ESDE_toolPath="$HOME/Applications/EmuDeck/ES-DE/ES-DE.dmg"
+ESDE_toolPathExe="$HOME/Applications/EmuDeck/ES-DE/ES-DE.app" # Download
 ESDE_addSteamInputFile="$EMUDECKGIT/darwin/configs/steam-input/emulationstation-de_controller_config.vdf"
 
 #Pegasus
