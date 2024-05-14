@@ -20,7 +20,7 @@ function getLatestReleaseURLGH(){
 function alert() {
   osascript <<EOT
 	tell app "System Events"
-	  display dialog "$1" buttons {"OK"} default button 1 with icon caution with title "Flying Pigs - Mac Setup"
+	  display dialog "$1" buttons {"OK"} default button 1 with icon caution with title "EmuDeck - Mac Setup"
 	  return  -- Suppress result
 	end tell
 EOT
@@ -98,6 +98,7 @@ if ! command -v xcode-select &>/dev/null; then
 	wait
 fi
 
+alert "Please wait..."
 
 alert "All prerequisite packages have been installed. EmuDeck's DMG will be downloaded now!. Please press OK"
 
