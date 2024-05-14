@@ -117,8 +117,7 @@ ESDE_init(){
 	# This duplicates ESDE_addCustomSystemsFile but this line only applies only if you are resetting ES-DE and not the emulators themselves.
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
 
-	cp -r "$EMUDECKGIT/tools/launchers/es-de/." "$toolsPath/launchers/es-de/" && chmod +x "$toolsPath/launchers/es-de/es-de.sh"
-
+	ESDE_createLauncher
 	ESDE_addCustomSystems
 	ESDE_setEmulationFolder
 	ESDE_setDefaultSettings
@@ -134,7 +133,9 @@ ESDE_init(){
 	SRM_flushOldSymlinks
 }
 
-
+ESDE_createLauncher(){
+ cp -r "$EMUDECKGIT/tools/launchers/es-de/." "$toolsPath/launchers/es-de/" && chmod +x "$toolsPath/launchers/es-de/es-de.sh"
+}
 
 ESDE_resetConfig(){
 	ESDE_init &>/dev/null && echo "true" || echo "false"
