@@ -32,3 +32,11 @@ function darwin_ESDE_GenerateApp(){
 function ESDE_migration(){
 	echo "no need on darwin"
 }
+
+
+ESDE_addCustomSystems(){
+	echo "no need on darwin"
+}
+ESDE_addCustomSystemsFile(){
+	echo "no need on darwin"
+}

@@ -44,7 +44,6 @@ function darwin_installEmuDMG(){
 		chmod +x "$l"
 		cp -v "$l" "${toolsPath}/launchers/"
 		chmod +x "${toolsPath}/launchers/"*
-		darwin_generateAppfromSH $l
 	done
 
 }
