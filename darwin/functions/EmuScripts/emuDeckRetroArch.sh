@@ -5,7 +5,7 @@ RetroArch_install(){
 }
 
 RetroArch_IsInstalled(){
-	[ -f '/Applications/RetroArch.app' ] && echo "true" || echo "false"
+	[ -e '/Applications/RetroArch.app' ] && echo "true" || echo "false"
 }
 
 RetroArch_uninstall(){
