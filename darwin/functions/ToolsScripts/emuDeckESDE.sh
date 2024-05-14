@@ -29,6 +29,7 @@ function darwin_ESDE_GenerateApp(){
 	cp "./darwin/tools/appGenerator/Info.plist" "/Applications/$appName.app/Contents/"
 	sed -i "s|EMUDECKEMULATOR|es-de/${appName}|g" "/Applications/$appName.app/Contents/document.wflow"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "/Applications/$appName.app/Contents/document.wflow"
+	fileicon set /Applications/ES-DE.app "$HOME/.config/EmuDeck/backend/icons/ES-DE.png"
 }
 
 function ESDE_migration(){

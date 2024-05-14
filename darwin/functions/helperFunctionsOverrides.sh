@@ -159,7 +159,7 @@ function getScreenAR(){
 	height=$(echo $dimensions | cut -d ' ' -f 2)
 
 
-	g=$(gcd $width $height)
+	g=$(darwin_gcd $width $height)
 
 	aspect_ratio_width=$((width / g))
 	aspect_ratio_height=$((height / g))
