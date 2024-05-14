@@ -11,7 +11,7 @@ cloud_sync_install(){
     setSetting cloud_sync_status "true"
     rm -rf "$HOME/.config/systemd/user/EmuDeckCloudSync.service" > /dev/null
 
-    #if [ ! -f "$HOME/.steam/steam/.cef-enable-remote-debugging" ]; then
+    if [ $system != "darwin" ];then
       PASS_STATUS=$(passwd -S deck 2> /dev/null)
       if [ "${PASS_STATUS:5:2}" = "NP" ]; then
         Plugins_installEmuDecky "Decky!" && Plugins_installPluginLoader "Decky!"
@@ -29,12 +29,23 @@ cloud_sync_install(){
             zen_nospam --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
         fi
       fi
-    #fi
+    fi
     cloud_sync_createService
 
     if [ ! -f "$cloud_sync_bin" ]; then
+
+      rcloneFile="linux-amd64.zip"
+
+      if [ $system = "darwin" ];then
+        if [ $appleChip == "arm64" ];then
+             rcloneFile="osx-arm64.zip"
+        else
+             rcloneFile="osx-amd64.zip"
+        fi
+      fi
+
       mkdir -p "$cloud_sync_path"/tmp > /dev/null
-      curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$cloud_sync_path/tmp/rclone.temp" && mv "$cloud_sync_path/tmp/rclone.temp" "$cloud_sync_path/tmp/rclone.zip" > /dev/null
+      curl -L "$(getReleaseURLGH "rclone/rclone" "$rcloneFile")" --output "$cloud_sync_path/tmp/rclone.temp" && mv "$cloud_sync_path/tmp/rclone.temp" "$cloud_sync_path/tmp/rclone.zip" > /dev/null
 
       unzip -o "$cloud_sync_path/tmp/rclone.zip" -d "$cloud_sync_path/tmp/" && rm "$cloud_sync_path/tmp/rclone.zip" > /dev/null
       mv "$cloud_sync_path"/tmp/* "$cloud_sync_path/tmp/rclone"  > /dev/null  #don't quote the *
@@ -225,25 +236,30 @@ cloud_sync_install_and_config(){
 	 local cloud_sync_provider=$1
 	 #We force Chrome to be used as the default
 	 {
-	 browser=$(xdg-settings get default-web-browser)
 
-	 if [ "$browser" != 'com.google.Chrome.desktop' ];then
-	   flatpak install flathub com.google.Chrome -y --user
-	   xdg-settings set default-web-browser com.google.Chrome.desktop
-	 fi
+      if [ $system != "darwin" ];then
+       browser=$(xdg-settings get default-web-browser)
 
-	 if [ ! -f "$cloud_sync_bin" ]; then
-	   cloud_sync_install $cloud_sync_provider
-	 fi
+	     if [ "$browser" != 'com.google.Chrome.desktop' ];then
+	       flatpak install flathub com.google.Chrome -y --user
+	       xdg-settings set default-web-browser com.google.Chrome.desktop
+	     fi
+
+	     if [ ! -f "$cloud_sync_bin" ]; then
+	       cloud_sync_install $cloud_sync_provider
+	     fi
+       fi
 	 } && cloud_sync_config "$cloud_sync_provider"
 
 	 setSetting cloud_sync_provider "$cloud_sync_provider"
 	 setSetting cloud_sync_status "true"
 
 	 #We get the previous default browser back
-	 if [ "$browser" != 'com.google.Chrome.desktop' ];then
-	   xdg-settings set default-web-browser $browser
-	 fi
+     if [ $system != "darwin" ];then
+	   if [ "$browser" != 'com.google.Chrome.desktop' ];then
+	     xdg-settings set default-web-browser $browser
+	   fi
+     fi
  }
 
 cloud_sync_install_and_config_with_code(){
