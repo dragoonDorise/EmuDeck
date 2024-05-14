@@ -325,6 +325,7 @@ fi
 		rm -f "$HOME/.local/share/applications/Model 2 (Proton).desktop" &> /dev/null
 		# Current name.
 		rm -f "$HOME/.local/share/applications/Model 2 Emulator (Proton).desktop" &> /dev/null
+		rm -rf "$HOME/.steam/steam/compatibilitytools.d/ULWGL-Proton-8.0-5-3"
 	fi
 	if [[ "$doUninstallPCSX2" == true ]]; then
 		rm -rf $HOME/Applications/pcsx2-Qt.AppImage &> /dev/null
