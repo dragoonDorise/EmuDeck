@@ -91,16 +91,11 @@ if [ $hasBrew == "false" ]; then
 fi
 
 #Brew dependencies
-alert "Let's install EmuDeck dependencies... This could take some time. Please press OK"
 brew install zenity gnu-sed rsync xmlstarlet jq steam fileicon
 if ! command -v xcode-select &>/dev/null; then
 	xcode-select --install
 	wait
 fi
-
-alert "Please wait..."
-
-alert "All prerequisite packages have been installed. EmuDeck's DMG will be downloaded now!. Please press OK"
 
 if [ $appleChip == "arm64" ];then
 	EmuDeckURL="$(getLatestReleaseURLGH "EmuDeck/emudeck-electron-early" "arm64.dmg")"
