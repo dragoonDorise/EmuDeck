@@ -1,8 +1,9 @@
 #!/bin/bash
 cloud_sync_createService(){
-     SERVICE_NAME="com.emudeck.cloudsync"
-     SCRIPT_PATH="$HOME/.config/EmuDeck/backend/tools/cloudSync/cloud_sync_watcher.sh"
-     PLIST_PATH="$HOME/Library/LaunchAgents/$SERVICE_NAME.plist"
+     local SERVICE_NAME="com.emudeck.cloudsync"
+     local PLIST_PATH="$HOME/Library/LaunchAgents/$SERVICE_NAME.plist"
+     local SCRIPT_PATH="$HOME/.config/EmuDeck/backend/tools/cloudSync/cloud_sync_watcher.sh"
+
 
      mkdir -p "$(dirname "$PLIST_PATH")"
 
@@ -32,11 +33,15 @@ EOF
 
 
 cloud_sync_startService(){
+   local SERVICE_NAME="com.emudeck.cloudsync"
+   local PLIST_PATH="$HOME/Library/LaunchAgents/$SERVICE_NAME.plist"
    local SCRIPT_PATH="$HOME/.config/EmuDeck/backend/tools/cloudSync/cloud_sync_watcher.sh"
    launchctl load "$PLIST_PATH"
  }
 
  cloud_sync_stopService(){
+   local SERVICE_NAME="com.emudeck.cloudsync"
+   local PLIST_PATH="$HOME/Library/LaunchAgents/$SERVICE_NAME.plist"
    local SCRIPT_PATH="$HOME/.config/EmuDeck/backend/tools/cloudSync/cloud_sync_watcher.sh"
    launchctl unload "$PLIST_PATH"
  }
