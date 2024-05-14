@@ -4,9 +4,5 @@ RetroArch_install(){
 }
 
 RetroArch_IsInstalled(){
-	if [ -f '/Applications/RetroArch.app' ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	[ -d '/Applications/RetroArch.app' ] && echo "true" || echo "false"
 }
