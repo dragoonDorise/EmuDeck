@@ -46,3 +46,12 @@ function ESDE_addCustomSystemsFile(){
 function ESDE_update(){
 	echo "no need on darwin"
 }
+
+ESDE_IsInstalled(){
+	[ -f '/Applications/ES-DE.app' ] && echo "true" || echo "false"
+}
+ESDE_uninstall(){
+	rm -rf '/Applications/ES-DE.app'
+	rm -rf "$HOME/Applications/EmuDeck/ES-DE/ES-DE.app"
+	rm -rf "$toolsPath/launchers/es-de/ES-DE.sh"
+}

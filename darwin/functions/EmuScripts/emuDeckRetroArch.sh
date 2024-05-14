@@ -5,5 +5,11 @@ RetroArch_install(){
 }
 
 RetroArch_IsInstalled(){
-	[ -d '/Applications/RetroArch.app' ] && echo "true" || echo "false"
+	[ -f '/Applications/RetroArch.app' ] && echo "true" || echo "false"
+}
+
+RetroArch_uninstall(){
+	rm -rf '/Applications/RetroArch.app'
+	rm -rf "$HOME/Applications/EmuDeck/RetroArch.app"
+	rm -rf "$toolsPath/launchers/retroarch.sh"
 }
