@@ -58,6 +58,10 @@ RetroArch_init(){
 
 	setMSG "RetroArch - HD Texture Packs"
 
+	setMSG "RetroArch - FullScreen"
+	RetroArch_setConfigOverride 'video_fullscreen' "true" "$RetroArch_configFile"
+	RetroArch_setConfigOverride 'video_windowed_fullscreen' "true" "$RetroArch_configFile"
+
 	#NES
 	unlink "$emulationPath"/hdpacks/Mesen 2>/dev/null #refresh link if moved
 	ln -s "$biosPath"/HdPacks/ "$emulationPath"/hdpacks/nes
