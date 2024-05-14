@@ -48,7 +48,7 @@ function ESDE_update(){
 }
 
 ESDE_IsInstalled(){
-	[ -f '/Applications/ES-DE.app' ] && echo "true" || echo "false"
+	[ -e '/Applications/ES-DE.app' ] && echo "true" || echo "false"
 }
 ESDE_uninstall(){
 	rm -rf '/Applications/ES-DE.app'

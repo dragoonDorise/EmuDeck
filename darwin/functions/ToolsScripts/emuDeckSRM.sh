@@ -11,7 +11,7 @@ SRM_install(){
 }
 
 SRM_IsInstalled(){
-  [ -f '/Applications/Steam ROM Manager.app' ] && echo "true" || echo "false"
+  [ -e '/Applications/Steam ROM Manager.app' ] && echo "true" || echo "false"
 }
 
 SRM_uninstall(){
