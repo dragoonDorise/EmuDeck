@@ -55,3 +55,7 @@ ESDE_uninstall(){
 	rm -rf "$HOME/Applications/EmuDeck/ES-DE/ES-DE.app"
 	rm -rf "$toolsPath/launchers/es-de/ES-DE.sh"
 }
+
+ESDE_createLauncher(){
+ cp -r "$EMUDECKGIT/darwin/tools/launchers/es-de/." "$toolsPath/launchers/es-de/" && chmod +x "$toolsPath/launchers/es-de/ES-DE.sh"
+}
