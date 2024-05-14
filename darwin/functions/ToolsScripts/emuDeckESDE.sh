@@ -57,5 +57,10 @@ ESDE_uninstall(){
 }
 
 ESDE_createLauncher(){
- cp -r "$EMUDECKGIT/darwin/tools/launchers/es-de/." "$toolsPath/launchers/es-de/" && chmod +x "$toolsPath/launchers/es-de/ES-DE.sh"
+ mkdir -p "$toolsPath/launchers/es-de"
+ cp -r "$EMUDECKGIT/darwin/tools/launchers/es-de/es-de.sh" "$toolsPath/launchers/es-de/ES-DE.sh" && chmod +x "$toolsPath/launchers/es-de/ES-DE.sh"
+}
+
+ESDE_flushToolLauncher(){
+	ESDE_createLauncher
 }
