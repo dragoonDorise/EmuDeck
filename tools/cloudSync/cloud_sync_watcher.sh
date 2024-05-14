@@ -17,7 +17,7 @@ touch "$savesPath/.watching"
 
 # Declare an array to store current hashes
 echo "SERVICE - declare" >> $HOME/emudeck/logs/CloudWatcher.log
-declare -a current_hashes
+declare -A current_hashes
 
 # Function to calculate the hash of a directory
 calculate_hash() {
