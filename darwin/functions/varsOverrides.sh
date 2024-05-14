@@ -9,6 +9,8 @@ steam_input_templateFolder="$HOME/Library/Application Support/Steam/Steam.AppBun
 
 #RetroArch
 RetroArch_configFile="$HOME/Library/Application Support/RetroArch/config/retroarch.cfg"
+RetroArch_configPath="$HOME/Library/Application Support/RetroArch/config"
+RetroArch_videoPath="$HOME/Applications/EmuDeck/RetroArch.app/Contents/Resources/filters/video"
 RetroArch_coreConfigFolders="$HOME/Library/Application Support/RetroArch/config"
 RetroArch_cores="$HOME/Library/Application Support/RetroArch/cores"
 RetroArch_path="$HOME/Library/Application Support/RetroArch"
