@@ -1,11 +1,11 @@
 #!/bin/bash
-ESDE_customDesktopShortcut(){
+function ESDE_customDesktopShortcut(){
 	mkdir -p "$toolsPath/launchers/es-de"
 	cp "$EMUDECKGIT/darwin/tools/launchers/es-de/es-de.sh" "$toolsPath/launchers/es-de/ES-DE.sh"
 	darwin_ESDE_GenerateApp "$toolsPath/launchers/es-de/ES-DE.sh"
 }
 
-ESDE_SetAppImageURLS() {
+function ESDE_SetAppImageURLS() {
 	local json="$(curl -s $ESDE_releaseJSON)"
 
 	mkdir -p $HOME/Applications/EmuDeck/ES-DE
@@ -37,9 +37,12 @@ function ESDE_migration(){
 }
 
 
-ESDE_addCustomSystems(){
+function ESDE_addCustomSystems(){
 	echo "no need on darwin"
 }
-ESDE_addCustomSystemsFile(){
+function ESDE_addCustomSystemsFile(){
+	echo "no need on darwin"
+}
+function ESDE_update(){
 	echo "no need on darwin"
 }
