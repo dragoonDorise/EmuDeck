@@ -5,6 +5,11 @@ source "$HOME/emudeck/settings.sh"
 source "$HOME/.config/EmuDeck/backend/functions/helperFunctions.sh"
 source "$HOME/.config/EmuDeck/backend/functions/ToolScripts/emuDeckCloudSync.sh"
 
+
+if [ $system = "darwin" ];then
+  source "$HOME/.config/EmuDeck/backend/darwin/functions/ToolsScripts/emuDeckCloudSync.sh"
+fi
+
 touch "$savesPath/.gaming"
 touch "$savesPath/.watching"
 
@@ -12,7 +17,7 @@ touch "$savesPath/.watching"
 
 # Declare an array to store current hashes
 echo "SERVICE - declare" >> $HOME/emudeck/logs/CloudWatcher.log
-declare -A current_hashes
+declare -a current_hashes
 
 # Function to calculate the hash of a directory
 calculate_hash() {
