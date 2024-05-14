@@ -6,15 +6,6 @@ SRM_setEnv(){
 
 }
 
-SRM_resetLaunchers(){
-  rsync -av --existing $HOME/.config/EmuDeck/backend/darwin/tools/launchers/ $toolsPath/launchers/
-  for entry in $toolsPath/launchers/*.sh
-  do
-   chmod +x "$entry"
-  done
-}
-
-
 SRM_install(){
   darwin_installEmuDMG "Steam-ROM-Manager" "$(getReleaseURLGH "SteamGridDB/steam-rom-manager" "dmg")"
 }

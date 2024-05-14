@@ -41,10 +41,9 @@ function safeDownload() {
 		appName=$(find "$volumeName" -name "*.app" -exec basename {} \;)
 		chmod +x  "$HOME/Applications/EmuDeck/$appName"
 
-		find "$HOME/Applications/EmuDeck/" -maxdepth 1 -name "*.app" -exec ln -s {} /Applications/ \;
-		find "$HOME/Emulation/tools/launchers/" -maxdepth 1 -name "*.sh" -exec chmod +x {} \;
-		find "$HOME/Emulation/tools/launchers/ES-DE" -maxdepth 1 -name "*.sh" -exec chmod +x {} \;
-		find "$HOME/Emulation/tools/launchers/ES-DE" -maxdepth 1 -name "*.sh" -exec bash -c 'source "$EMUDECKGIT/functions/all.sh" && darwin_generateAppfromSH "$0"' {} \;
+		find "$HOME/Applications/EmuDeck/" -maxdepth 1 -name "*.app" -exec ln -sf {} /Applications/ \;
+		find "$HOME/Emulation/tools/launchers/" -maxdepth 2 -name "*.sh" -exec chmod +x {} \;
+
 		#chmod +x  "/Applications/$appName"
 		if [ -n "$volumeName" ]; then
 			hdiutil detach "$volumeName" && rm -rf "$outFile"
@@ -144,4 +143,54 @@ function createDesktopShortcut(){
 
 function checkInstalledEmus(){
 	echo "no need"
+}
+
+function darwin_gcd() {
+	while [ $2 -ne 0 ]; do
+		set -- $2 $(( $1 % $2 ))
+	done
+	echo $1
+}
+
+function getScreenAR(){
+	dimensions=$(system_profiler SPDisplaysDataType | awk '/Resolution/{print $2, $4}')
+
+	width=$(echo $dimensions | cut -d ' ' -f 1)
+	height=$(echo $dimensions | cut -d ' ' -f 2)
+
+
+	g=$(gcd $width $height)
+
+	aspect_ratio_width=$((width / g))
+	aspect_ratio_height=$((height / g))
+
+	return $aspect_ratio_width$aspect_ratio_height
+
+}
+
+
+
+function BINUP_install(){
+	echo "no need, darwin"
+}
+function FlatpakUP_install(){
+	echo "no need, darwin"
+}
+function CHD_install(){
+	echo "no need, darwin"
+}
+
+function createDesktopIcons(){
+	echo "no need, darwin"
+}
+
+function controllerLayout_BAYX(){
+	echo "no need, darwin"
+}
+function controllerLayout_ABXY(){
+	echo "no need, darwin"
+}
+
+function checkInstalledEmus(){
+	echo "checkInstalledEmus darwin pending"
 }
