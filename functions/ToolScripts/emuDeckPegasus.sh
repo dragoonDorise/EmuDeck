@@ -42,15 +42,15 @@ pegasus_init(){
 	#metadata and paths
 	rsync -r --exclude='roms' --exclude='pfx' "$EMUDECKGIT/roms/" "$romsPath" --keep-dirlinks
 	rsync -av --exclude='roms' --exclude='pfx' "$EMUDECKGIT/roms/" "$toolsPath/downloaded_media"
-	find $romsPath -type f -name "metadata.txt" -exec sed -i "s|CORESPATH|${RetroArch_cores}|g" {} \;
-	find $romsPath -type f -name "metadata.txt" -exec sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" {} \;
+	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|CORESPATH|${RetroArch_cores}|g" {} \;
+	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" {} \;
 
 
-		if [ -L "$toolsPath/downloaded_media/gamecube" ]; then 
+		if [ -L "$toolsPath/downloaded_media/gamecube" ]; then
 			rm -rf "$toolsPath/downloaded_media/gamecube" &> /dev/null
-		fi 
+		fi
 
-		if [ -L "$toolsPath/downloaded_media/3ds" ]; then 
+		if [ -L "$toolsPath/downloaded_media/3ds" ]; then
 			rm -rf "$toolsPath/downloaded_media/3ds" &> /dev/null
 		fi
 
@@ -79,7 +79,7 @@ pegasus_init(){
 				rm -rf "$toolsPath/downloaded_media/$system/screenshot" &> /dev/null
 				mkdir -p "$toolsPath/downloaded_media/$system/screenshots/"
 			elif  [[ "$systemPath" == "$romsPath/gamecube" || "$systemPath" == "$romsPath/3ds" ]]; then
-				continue 
+				continue
 			else
 				system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
 				mkdir -p "$toolsPath/downloaded_media/$system/covers"
