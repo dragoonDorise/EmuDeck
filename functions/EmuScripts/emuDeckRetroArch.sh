@@ -123,7 +123,7 @@ RetroArch_setCustomizations(){
 		RetroArch_genesis_ar43
 		  RetroArch_segacd_ar43
 		  RetroArch_sega32x_ar43
-		  if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then
+		  if [ "$RABezels" == "true" ] && [ "$doSetupRA" == "true" ]; then
 			  RetroArch_mastersystem_bezelOn
 			  RetroArch_genesis_bezelOn
 			  RetroArch_segacd_bezelOn
@@ -145,7 +145,7 @@ RetroArch_setCustomizations(){
 	  *)
 		RetroArch_snes_ar43
 		RetroArch_nes_ar43
-		if [ "$RABezels" == true ] && [ "$doSetupRA" == "true" ]; then
+		if [ "$RABezels" == "true" ] && [ "$doSetupRA" == "true" ]; then
 			RetroArch_snes_bezelOn
 		fi
 	  ;;
@@ -169,7 +169,7 @@ RetroArch_setCustomizations(){
 			RetroArch_Beetle_PSX_HW_wideScreenOff
 			RetroArch_SwanStation_wideScreenOff
 		#"Bezels on"
-		if [ "$RABezels" == true ]; then
+		if [ "$RABezels" == "true" ]; then
 			RetroArch_dreamcast_bezelOn
 			RetroArch_n64_bezelOn
 			RetroArch_psx_bezelOn
@@ -2478,28 +2478,28 @@ RetroArch_retroAchievementsSetLogin(){
 	fi
 }
 RetroArch_setBezels(){
-	if [ "$RABezels" == true ]; then
+	if [ "$RABezels" == "true" ]; then
 		RetroArch_bezelOnAll
 	else
 		RetroArch_bezelOffAll
 	fi
 }
 RetroArch_setShadersCRT(){
-	if [ "$RAHandClassic2D" == true ]; then
+	if [ "$RAHandClassic2D" == "true" ]; then
 		RetroArch_CRTshaderOnAll
 	else
 		RetroArch_CRTshaderOffAll
 	fi
 }
 RetroArch_setShaders3DCRT(){
-	if [ "$RAHandClassic3D" == true ]; then
+	if [ "$RAHandClassic3D" == "true" ]; then
 		RetroArch_3DCRTshaderOnAll
 	else
 		RetroArch_3DCRTshaderOffAll
 	fi
 }
 RetroArch_setShadersMAT(){
-	if [ "$RAHandHeldShader" == true ]; then
+	if [ "$RAHandHeldShader" == "true" ]; then
 		RetroArch_MATshadersOnAll
 	else
 		RetroArch_MATshadersOffAll
@@ -2507,7 +2507,7 @@ RetroArch_setShadersMAT(){
 }
 
 RetroArch_autoSave(){
-	if [ "$RAautoSave" == true ]; then
+	if [ "$RAautoSave" == "true" ]; then
 		RetroArch_autoSaveOn
 	else
 		RetroArch_autoSaveOff
