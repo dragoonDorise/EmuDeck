@@ -91,7 +91,7 @@ if [ $hasBrew == "false" ]; then
 fi
 
 #Brew dependencies
-brew install zenity gnu-sed rsync xmlstarlet jq steam fileicon
+brew install zenity gnu-sed rsync xmlstarlet jq fileicon
 if ! command -v xcode-select &>/dev/null; then
 	xcode-select --install
 	wait
