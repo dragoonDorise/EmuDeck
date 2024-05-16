@@ -1,6 +1,6 @@
 #!/bin/bash
 appleChip=$(uname -m)
-if [ $appleChip != "Linux" ]; then
+if [ $(uname) != "Linux" ]; then
     system="darwin"
     if [ $appleChip = 'arm64' ]; then
         PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
