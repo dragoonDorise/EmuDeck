@@ -71,12 +71,14 @@ generateGameLists() {
                         game_name=$name
                         game_img='';
                     else
-                        accountID=$(ls -d $HOME/.steam/steam/userdata/*/ | head -n 1)
-                        dest_folder="$HOME/.steam/steam/userdata/$accountID/config/grid/"
+                        accountfolder=$(ls -d $HOME/.steam/steam/userdata/*/ | head -n 1)
+                        dest_folder="$accountfolder/config/grid/"
                         mkdir -p "$dest_folder"
                         filename=$(basename "$game_img_url")
                         dest_path="$dest_folder/$filename"
-                        curl -o "$dest_path" "$game_img_url"
+                        if [ ! -f $dest_path ]; then
+                            curl -o "$dest_path" "$game_img_url"
+                        fi
                         game_img="/customimages/$game_img"
                     fi
 
