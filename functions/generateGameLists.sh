@@ -1,5 +1,4 @@
 #!/bin/bash
-
 generateGameLists() {
     ROMS_DIR="$romsPath"
 
@@ -58,22 +57,29 @@ generateGameLists() {
                     else
                         printf ","
                     fi
-                    clean_name=$(clean_name "$name")
-                    # Llamada a la API de SteamGridDB para obtener el ID del juego basado en el nombre
+
+                    clean_name=$(echo "$name" | tr ' ' '_' | sed 's/[^a-zA-Z0-9_]//g')
+
                     response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$clean_name")
 
-
-                    # Extraer el ID del juego de la respuesta JSON
                     game_name=$(echo "$response" | jq -r '.name')
-                    game_img=$(echo "$response" | jq -r '.img')
+                    game_img_url=$(echo "$response" | jq -r '.img')
+                    game_img=$(echo "$game_img_url" | sed 's|.*/||')
 
-                    # Si no se encontró un ID, continuar sin agregarlo al JSON
-                    if [ "$game_img" == "null" ]; then
+
+                    if [ "$game_img_url" == "null" ]; then
                         game_name=$name
                         game_img='';
+                    else
+                        accountID=$(ls -d $HOME/.steam/steam/userdata/*/ | head -n 1)
+                        dest_folder="$HOME/.steam/steam/userdata/$accountID/config/grid/"
+                        mkdir -p "$dest_folder"
+                        filename=$(basename "$game_img_url")
+                        dest_path="$dest_folder/$filename"
+                        curl -o "$dest_path" "$game_img_url"
+                        game_img="/customimages/$game_img"
                     fi
 
-                    # Generar el JSON con el ID del juego
                     jq -n --arg name "$game_name" --arg filename "$file_path" --arg game_img "$game_img" \
                         '{"name": $name, "filename": $filename, "img": $game_img}'
                 fi
