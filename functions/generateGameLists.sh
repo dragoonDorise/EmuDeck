@@ -46,6 +46,8 @@ generateGameLists() {
 
             # Use jq to create the JSON objects for each game and print them directly
             first_game=true
+            api_key="f80f92019254471cca9d62ff91c21eee"
+
             find "$system_dir" -type f | while read -r file_path; do
                 filename=$(basename "$file_path")
                 extension="${filename##*.}"
@@ -56,10 +58,26 @@ generateGameLists() {
                     else
                         printf ","
                     fi
-                    jq -n --arg name "$name" --arg filename "$file_path" '{"name": $name, "filename": $filename}'
+                    clean_name=$(clean_name "$name")
+                    # Llamada a la API de SteamGridDB para obtener el ID del juego basado en el nombre
+                    response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$clean_name")
+
+
+                    # Extraer el ID del juego de la respuesta JSON
+                    game_name=$(echo "$response" | jq -r '.name')
+                    game_img=$(echo "$response" | jq -r '.img')
+
+                    # Si no se encontró un ID, continuar sin agregarlo al JSON
+                    if [ "$game_img" == "null" ]; then
+                        game_name=$name
+                        game_img='';
+                    fi
+
+                    # Generar el JSON con el ID del juego
+                    jq -n --arg name "$game_name" --arg filename "$file_path" --arg game_img "$game_img" \
+                        '{"name": $name, "filename": $filename, "img": $game_img}'
                 fi
             done
-
             # End games array and system object
             printf "] }"
 
