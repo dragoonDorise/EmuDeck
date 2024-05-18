@@ -66,28 +66,29 @@ generateGameLists() {
                     fi
 
                     clean_name=$(echo "$name" | tr ' ' '_' | sed 's/[^a-zA-Z0-9_]//g')
+                    accountfolder=$(ls -d $HOME/.steam/steam/userdata/* | head -n 1)
+                    dest_folder="$accountfolder/config/grid/"
+                    mkdir -p "$dest_folder"
+                    file_to_check="$dest_folder$clean_name*"
 
-                    response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$clean_name")
-
-                    game_name=$(echo "$response" | jq -r '.name')
-                    game_img_url=$(echo "$response" | jq -r '.img')
-                    game_img=$(echo "$game_img_url" | sed 's|.*/||')
-
-                    if [ "$game_img_url" == "null" ]; then
-                        game_name=$name
-                        game_img=''
-                    else
-                        accountfolder=$(ls -d $HOME/.steam/steam/userdata/*/ | head -n 1)
-                        dest_folder="$accountfolder/config/grid/"
-                        mkdir -p "$dest_folder"
+                    #We only download the info again if the img doesn't exists
+                    if ! ls $file_to_check 1> /dev/null 2>&1; then
+                        response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$clean_name")
+                        game_name=$(echo "$response" | jq -r '.name')
+                        game_img_url=$(echo "$response" | jq -r '.img')
+                        game_img=$(echo "$game_img_url" | sed 's|.*/||')
                         filename=$(basename "$game_img_url")
-                        dest_path="$dest_folder/$filename"
+                        dest_path="$dest_folder$clean_name.jpg"
                         if [ ! -f "$dest_path" ]; then
                             #echo "Adding $game_img_url to download array"
                             download_array+=("$game_img_url")
                             download_dest_paths+=("$dest_path")
                         fi
-                        game_img="/customimages/$game_img"
+                    fi
+                    game_img="/customimages/$clean_name.jpg"
+
+                    if [ "$game_img_url" == "null" ]; then
+                        game_name=$name
                     fi
 
                     game_data+=$(jq -n --arg name "$game_name" --arg filename "$file_path" --arg game_img "$game_img" \
