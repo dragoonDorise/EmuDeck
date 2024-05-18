@@ -1,5 +1,8 @@
 #!/bin/bash
 generateGameLists() {
+
+    pegasus_setPaths
+
     ROMS_DIR="$romsPath"
 
     # Initialize an empty array in JSON format
