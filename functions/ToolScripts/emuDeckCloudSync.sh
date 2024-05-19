@@ -598,7 +598,12 @@ cloud_sync_uploadEmuAll(){
 cloud_sync_save_hash(){
   # startLog ${FUNCNAME[0]}
   local dir=$1
-  hash=$(find "$dir" -maxdepth 1 -type f -exec sha256sum {} + | sha256sum | awk '{print $1}')
+
+  if [ $system != "darwin" ];then
+    hash=$(find "$dir" -maxdepth 1 -type f -exec sha256sum {} + | sha256sum | awk '{print $1}')
+  else
+    hash=$(find "$dir" -maxdepth 1 -type f -exec shasum -a 256 {} + | shasum -a 256 | awk '{print $1}')
+  fi
   echo "$hash" > "$dir/.hash"
 }
 
