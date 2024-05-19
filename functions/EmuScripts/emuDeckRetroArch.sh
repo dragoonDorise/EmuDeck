@@ -53,13 +53,6 @@ RetroArch_init(){
 	#netPlay
 	setSetting netplayCMD "' '"
 
-	setMSG "RetroArch - HD Texture Packs"
-
-	#NES
-	unlink "$emulationPath"/hdpacks/Mesen 2>/dev/null #refresh link if moved
-	ln -s "$biosPath"/HdPacks/ "$emulationPath"/hdpacks/nes
-	echo "Put your Mesen HD Packs here. Remember to put the pack inside a folder here with the exact name of the rom" > "$emulationPath"/hdpacks/nes/readme.txt
-
 	RetroArch_backupConfigs
 	configEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "true"
 	RetroArch_setEmulationFolder
@@ -235,7 +228,7 @@ RetroArch_setupSaves(){
 #SetupStorage
 RetroArch_setupStorage(){
 	RetroArch_Mupen64Plus_Next_setUpHdPacks
-	rsync -a --ignore-existing '/var/lib/flatpak/app/org.libretro.RetroArch/current/active/files/share/libretro/database/cht/' "$storagePath/retroarch/cheats"
+	RetroArch_MesenNES_setUpHdPacks
 }
 
 #SetupConfigurations
@@ -1804,28 +1797,6 @@ RetroArch_Mupen64Plus_Next_setUpCoreOpt(){
 
 }
 
-#  setupHdPacks()
-RetroArch_Mupen64Plus_Next_setUpHdPacks(){
-  	local texturePackPath="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/system/Mupen64plus/hires_texture"
-	local textureCachePath="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/system/Mupen64plus/cache"
-
-	# Something in the install is causng infinite symlinks, commenting these lines out for now and deleting folders. Needs more thorough testing. 
-	rm -rf "$emulationPath/hdpacks/retroarch/Mupen64plus"
-	rm -rf "$biosPath/Mupen64plus/cache/"
-
-	#mkdir -p "$texturePackPath"
-	#mkdir -p "$textureCachePath"
-	#mkdir -p "$emulationPath/hdpacks/retroarch/Mupen64plus"
-	#ln -s "$emulationPath/hdpacks/retroarch/Mupen64plus/hires_texture" "$texturePackPath"
-	#ln -s "$emulationPath/hdpacks/retroarch/Mupen64plus/cache" "$textureCachePath"
-	#N64
-	#unlink "$emulationPath"/hdpacks/Mupen64plus_next 2>/dev/null #refresh link if moved
-	#mkdir "$biosPath"/Mupen64plus
-	#ln -s "$biosPath"/Mupen64plus/cache/ "$emulationPath"/hdpacks/n64
-	#echo "Put your Nintendo64 HD Packs here in HTS format. You can download them from https://emulationking.com/nintendo64/" > "$emulationPath"/hdpacks/n64/readme.txt
-
-}
-
 RetroArch_Beetle_PSX_HW_setUpCoreOpt(){
 	RetroArch_setOverride 'Beetle PSX HW.opt' 'Beetle PSX HW'  'beetle_psx_hw_adaptive_smoothing' '"disabled"'
 	RetroArch_setOverride 'Beetle PSX HW.opt' 'Beetle PSX HW'  'beetle_psx_hw_analog_calibration' '"disabled"'
@@ -2551,6 +2522,67 @@ if [ -d "$melonDS_remaps" ]; then
 fi
 
 }
+
+
+#  setupHdPacks()
+RetroArch_Mupen64Plus_Next_setUpHdPacks(){
+  	local texturePackPath="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/system/Mupen64plus/hires_texture"
+	local textureCachePath="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/system/Mupen64plus/cache"
+
+	# Something in the install is causng infinite symlinks, commenting these lines out for now and deleting folders. Needs more thorough testing. 	
+	if [[ -L "$biosPath/Mupen64plus/cache/cache" || -d "$biosPath/Mupen64plus/cache/cache" ]]; then
+		rm -rf "$biosPath/Mupen64plus/cache/"		
+	fi
+
+	if [[ -L "$emulationPath/hdpacks/n64" || -d "$emulationPath/hdpacks/n64" ]]; then 
+		rm -rf "$emulationPath/hdpacks/n64"
+	fi 
+
+	if [[ -d "$emulationPath/hdpacks/retroarch" ]]; then 
+		rm -rf "$emulationPath/hdpacks/retroarch" 
+	fi 
+
+	#mkdir -p "$texturePackPath"
+	#mkdir -p "$textureCachePath"
+	#mkdir -p "$emulationPath/hdpacks/retroarch/Mupen64plus"
+	#ln -s "$emulationPath/hdpacks/retroarch/Mupen64plus/hires_texture" "$texturePackPath"
+	#ln -s "$emulationPath/hdpacks/retroarch/Mupen64plus/cache" "$textureCachePath"
+	#N64
+	#unlink "$emulationPath"/hdpacks/Mupen64plus_next 2>/dev/null #refresh link if moved
+	#mkdir "$biosPath"/Mupen64plus
+	#ln -s "$biosPath"/Mupen64plus/cache/ "$emulationPath"/hdpacks/n64
+	#echo "Put your Nintendo64 HD Packs here in HTS format. You can download them from https://emulationking.com/nintendo64/" > "$emulationPath"/hdpacks/n64/readme.txt
+
+}
+
+#  setupHdPacks()
+RetroArch_MesenNES_setUpHdPacks(){
+
+	# Something in the install is causng infinite symlinks, commenting these lines out for now and deleting folders. Needs more thorough testing. 	
+	if [[ -L "$biosPath/HdPacks/HdPacks" || -d "$biosPath/HdPacks/HdPacks" ]]; then
+		rm -rf "$biosPath/HdPacks"	
+	fi
+
+	if [[ -L "$biosPath/hdpacks/nes/HdPacks/HdPacks" || -d "$biosPath/hdpacks/nes/HdPacks/HdPacks" ]]; then
+		rm -rf "$biosPath/hdpacks/nes"	
+	fi
+
+	if [ -L "$emulationPath/hdpacks/nes" ]; then 
+		rm -rf "$emulationPath/hdpacks/nes"
+	fi 
+
+	if [[ -d "$emulationPath/hdpacks/retroarch" ]]; then 
+		rm -rf "$emulationPath/hdpacks/retroarch" 
+	fi 
+
+	#NES
+	#unlink "$emulationPath"/hdpacks/Mesen 2>/dev/null #refresh link if moved
+	#ln -s "$biosPath"/HdPacks/ "$emulationPath"/hdpacks/nes
+	#echo "Put your Mesen HD Packs here. Remember to put the pack inside a folder here with the exact name of the rom" > "$emulationPath"/hdpacks/nes/readme.txt
+
+}
+
+
 
 RetroArch_IsInstalled(){
 	isFpInstalled "$RetroArch_emuPath"
