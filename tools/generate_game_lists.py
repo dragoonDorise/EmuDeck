@@ -14,6 +14,7 @@ def generate_game_lists(roms_path):
                 if extension in extensions:
 
                     name_cleaned = re.sub(r'\(.*?\)', '', name)
+                    name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
                     name_cleaned = name_cleaned.strip()
                     name_cleaned = name_cleaned.replace(' ', '_')
                     name_cleaned = name_cleaned.replace('-', '_')
@@ -22,7 +23,7 @@ def generate_game_lists(roms_path):
                     clean_name = name_cleaned
                     game_img = f"/customimages/{clean_name}.jpg"
                     game_info = {
-                        "name": name,
+                        "name": clean_name,
                         "filename": os.path.join(root, file),
                         "img": game_img
                     }
