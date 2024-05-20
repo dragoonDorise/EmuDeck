@@ -677,24 +677,30 @@ cloud_sync_check_lock(){
 
 cloud_decky_check_status(){
   # startLog ${FUNCNAME[0]}
-  if [ $(check_internet_connection) == "true" ]; then
-    if [ $cloud_sync_status = "true" ]; then
-      if [ -f "$savesPath/.gaming" ] && [ ! -f "$HOME/emudeck/cloud.lock" ]; then
-        echo "started"
-      elif [ -f "$savesPath/.gaming" ]; then
-        echo "nothing"
-      elif [ -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
-        echo "uploading"
-      elif [ ! -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
-        echo "nothing"
+
+  #Non cloudsync
+  if [ -f "$HOME/emudeck/.scraping" ]; then
+    echo "scraping"
+  else
+     if [ $(check_internet_connection) == "true" ]; then
+      if [ $cloud_sync_status = "true" ]; then
+        if [ -f "$savesPath/.gaming" ] && [ ! -f "$HOME/emudeck/cloud.lock" ]; then
+          echo "started"
+        elif [ -f "$savesPath/.gaming" ]; then
+          echo "nothing"
+        elif [ -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
+          echo "uploading"
+        elif [ ! -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
+          echo "nothing"
+        else
+          echo "nothing"
+        fi
       else
         echo "nothing"
       fi
     else
       echo "nothing"
     fi
-  else
-    echo "nothing"
   fi
 
 }

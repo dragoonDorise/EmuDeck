@@ -2,23 +2,24 @@
 generateGameLists() {
 
     pegasus_setPaths
-
-    python $HOME/test.py "$romsPath"
+    echo $HOME/emudeck/.scraping
+    python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py && rm -rf $HOME/emudeck/.scraping "$romsPath" & generateGameLists_artwork
 
 }
 
 generateGameListsJson() {
-
-    cat $HOME/emudeck/roms_games.json
-
+    cat $HOME/emudeck/roms_games.json & generateGameLists_artwork "-r"
 }
 
 generateGameLists_artwork() {
-    json=$(cat $HOME/emudeck/roms_games.json)
+    local direction=$1
+    local json=$(cat $HOME/emudeck/roms_games.json)
+    local accountfolder=$(ls -d $HOME/.steam/steam/userdata/* | head -n 1)
+    local dest_folder="$accountfolder/config/grid/"
     mapfile -t games_array < <(echo "$json" | jq -r '.[] | .games[]? | .name' | sed -e 's/ (.*)//g' -e 's/ /_/g')
 
-    accountfolder=$(ls -d $HOME/.steam/steam/userdata/* | head -n 1)
-    dest_folder="$accountfolder/config/grid/"
+    mapfile -t sorted_games_array < <(printf "%s\n" "${games_array[@]}" | sort $direction)
+
     mkdir -p "$dest_folder"
 
     # Imprime los nombres limpios almacenados en el array
