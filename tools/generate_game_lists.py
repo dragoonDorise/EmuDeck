@@ -1,6 +1,7 @@
 import os
 import json
 import sys
+import re
 
 def generate_game_lists(roms_path):
     def collect_game_data(system_dir, extensions):
@@ -11,7 +12,14 @@ def generate_game_lists(roms_path):
                 extension = filename.split('.')[-1]
                 name = '.'.join(filename.split('.')[:-1])
                 if extension in extensions:
-                    clean_name = ''.join(e if e.isalnum() else '_' for e in name)
+
+                    name_cleaned = re.sub(r'\(.*?\)', '', name)
+                    name_cleaned = name_cleaned.strip()
+                    name_cleaned = name_cleaned.replace(' ', '_')
+                    name_cleaned = name_cleaned.replace('-', '_')
+                    name_cleaned = re.sub(r'_+', '_', name_cleaned)
+
+                    clean_name = name_cleaned
                     game_img = f"/customimages/{clean_name}.jpg"
                     game_info = {
                         "name": name,
@@ -58,14 +66,6 @@ def generate_game_lists(roms_path):
     output_file = os.path.join(home_directory, 'emudeck', 'roms_games.json')
     with open(output_file, 'w') as f:
         f.write(json_output)
-
-    #print(f"JSON output saved to {output_file}")
-    #return json_output
-
-# Ejemplo de uso:
-# roms_path = "/ruta/a/roms"
-# output_file = "/ruta/al/archivo/output.json"
-# generate_game_lists(roms_path, output_file)
 
 roms_path = sys.argv[1]
 print(f"{roms_path}")
