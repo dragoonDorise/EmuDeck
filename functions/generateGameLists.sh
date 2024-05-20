@@ -51,6 +51,24 @@ generateGameLists_artwork() {
                     echo -e " - No picture"
                 fi
             fi
+
+            # Download in batches of 10
+            if [ ${#download_array[@]} -ge 10 ]; then
+                echo ""
+                echo "Start batch"
+                for i in "${!download_array[@]}"; do
+                    {
+                        curl -s -o "${download_dest_paths[$i]}" "${download_array[$i]}" > /dev/null 2>&1
+                    } &
+                done
+                wait
+                # Clear the arrays for the next batch
+                download_array=()
+                download_dest_paths=()
+                echo "Completed batch"
+                echo ""
+            fi
+
         done
 
         # Download images for the current platform
