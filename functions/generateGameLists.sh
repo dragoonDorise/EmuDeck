@@ -1,7 +1,7 @@
 #!/bin/bash
 generateGameLists() {
     pegasus_setPaths
-    python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py & generateGameLists_artwork
+    python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath" & generateGameLists_artwork
 
 }
 
