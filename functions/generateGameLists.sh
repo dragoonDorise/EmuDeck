@@ -3,19 +3,21 @@ generateGameLists() {
 
     pegasus_setPaths
 
-    python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath" & generateGameLists_artwork
-
+    python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath"
+    generateGameLists_artwork &> /dev/null &
 }
 
 generateGameListsJson() {
     cat $HOME/emudeck/roms_games.json
+    generateGameLists_artwork "-r" &> /dev/null &
 }
 
 generateGameLists_artwork() {
+    direction=$1
     json=$(cat $HOME/emudeck/roms_games.json)
     mapfile -t games_array < <(echo "$json" | jq -r '.[] | .games[]? | .name' | sed -e 's/ (.*)//g' -e 's/ /_/g')
 
-    #mapfile -t sorted_games_array < <(printf "%s\n" "${games_array[@]}" | sort)
+    mapfile -t sorted_games_array < <(printf "%s\n" "${games_array[@]}" | sort $direction)
 
     accountfolder=$(ls -d $HOME/.steam/steam/userdata/* | head -n 1)
     dest_folder="$accountfolder/config/grid/"
