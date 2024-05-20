@@ -27,7 +27,8 @@ def generate_game_lists(roms_path):
                         "img": game_img
                     }
                     game_data.append(game_info)
-        return game_data
+        game_data_sorted = sorted(game_data, key=lambda x: x['name'])
+        return game_data_sorted
 
     roms_dir = roms_path
     valid_system_dirs = []
