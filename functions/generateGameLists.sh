@@ -23,7 +23,7 @@ generateGameLists_artwork() {
     mkdir -p "$dest_folder"
 
     # Imprime los nombres limpios almacenados en el array
-    for game in "${games_array[@]}"; do
+    for game in "${sorted_games_array[@]}"; do
 
         declare -a download_array
         declare -a download_dest_paths
