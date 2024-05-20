@@ -3,6 +3,18 @@ generateGameLists() {
 
     pegasus_setPaths
 
+    python $HOME/test.py "$romsPath"
+
+}
+
+generateGameListsJson() {
+
+    cat $HOME/emudeck/roms_games.json
+
+}
+
+generateGameLists_artwork() {
+
     ROMS_DIR="$romsPath"
 
     # Initialize an empty array in JSON format
@@ -119,3 +131,4 @@ generateGameLists() {
     wait
     #echo "Downloads completed."
 }
+
