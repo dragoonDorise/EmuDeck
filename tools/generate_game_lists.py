@@ -35,7 +35,7 @@ def generate_game_lists(roms_path):
 
     for system_dir in os.listdir(roms_dir):
         full_path = os.path.join(roms_dir, system_dir)
-        if os.path.isdir(full_path) and os.path.isfile(os.path.join(full_path, 'metadata.txt')):
+        if os.path.isdir(full_path) and not os.path.islink(full_path) and os.path.isfile(os.path.join(full_path, 'metadata.txt')):
             file_count = sum([len(files) for r, d, files in os.walk(full_path)])
             if file_count > 2:
                 valid_system_dirs.append(full_path)
@@ -61,8 +61,10 @@ def generate_game_lists(roms_path):
             "games": games
         }
         game_list.append(system_info)
+        game_list_sorted = sorted(game_list, key=lambda x: x['title'])
 
-    json_output = json.dumps(game_list, indent=4)
+
+    json_output = json.dumps(game_list_sorted, indent=4)
     home_directory = os.path.expanduser("~")
     output_file = os.path.join(home_directory, 'emudeck', 'roms_games.json')
     with open(output_file, 'w') as f:
