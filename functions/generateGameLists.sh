@@ -1,6 +1,8 @@
 #!/bin/bash
 generateGameLists() {
+
     pegasus_setPaths
+
     python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath" & generateGameLists_artwork
 
 }
@@ -10,18 +12,17 @@ generateGameListsJson() {
 }
 
 generateGameLists_artwork() {
-    local direction=$1
-    local json=$(cat $HOME/emudeck/roms_games.json)
-    local accountfolder=$(ls -d $HOME/.steam/steam/userdata/* | head -n 1)
-    local dest_folder="$accountfolder/config/grid/"
+    json=$(cat $HOME/emudeck/roms_games.json)
     mapfile -t games_array < <(echo "$json" | jq -r '.[] | .games[]? | .name' | sed -e 's/ (.*)//g' -e 's/ /_/g')
 
-    mapfile -t sorted_games_array < <(printf "%s\n" "${games_array[@]}" | sort $direction)
+    #mapfile -t sorted_games_array < <(printf "%s\n" "${games_array[@]}" | sort)
 
+    accountfolder=$(ls -d $HOME/.steam/steam/userdata/* | head -n 1)
+    dest_folder="$accountfolder/config/grid/"
     mkdir -p "$dest_folder"
 
     # Imprime los nombres limpios almacenados en el array
-    for game in "${sorted_games_array[@]}"; do
+    for game in "${games_array[@]}"; do
 
         declare -a download_array
         declare -a download_dest_paths
@@ -29,6 +30,7 @@ generateGameLists_artwork() {
 
 
         file_to_check="$dest_folder$game*"
+
 
         if ! ls $file_to_check 1> /dev/null 2>&1; then
           echo $game
@@ -41,6 +43,7 @@ generateGameLists_artwork() {
           dest_path="$dest_folder$game.jpg"
           if [ ! -f "$dest_path" ]; then
               #echo "Adding $game_img_url to download array"
+              echo $game_img_url
               download_array+=("$game_img_url")
               download_dest_paths+=("$dest_path")
           fi
@@ -49,10 +52,10 @@ generateGameLists_artwork() {
 
         # Ensure the download array is not empty
         #echo "Download array length: ${#download_array[@]}"
-        if [ ${#download_array[@]} -eq 0 ]; then
-            #echo "No images to download."
-            return
-        fi
+        # if [ ${#download_array[@]} -eq 0 ]; then
+        #     #echo "No images to download."
+        #     return
+        # fi
 
         # Download images in parallel
         #echo "Starting downloads..."
