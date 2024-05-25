@@ -1678,6 +1678,7 @@ RetroArch_melonDSDS_setUpCoreOpt(){
 	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_opengl_filtering' '"nearest"'
 	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_render_mode' '"software"'
 	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_opengl_resolution' '"5"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_show_mic_state' '"disabled"'
 #	Unsupported in melonDSDS at this time.
 #	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_randomize_mac_address' '"disabled"'
 	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_gap' '"0"'
@@ -1687,6 +1688,18 @@ RetroArch_melonDSDS_setUpCoreOpt(){
 #	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_swapscreen_mode' '"Toggle"'
 	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_threaded_renderer' '"enabled"'
 	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_touch_mode' '"auto"'
+	# Screen layouts
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_show_current_layout' '"disabled"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_number_of_screen_layouts ' '"8"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_layout1' '"hybrid-top"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_layout2' '"hybrid-bottom"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_layout3' '"top"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_layout4' '"bottom"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_layout5' '"top-bottom"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_layout6' '"left-right"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_layout7' '"bottom-top"'
+	RetroArch_setOverride 'melonDS DS.opt' 'melonDS DS'  'melonds_screen_layout8' '"right-left"'
+
 }
 
 RetroArch_melonDSDS_setConfig(){
