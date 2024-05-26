@@ -5620,7 +5620,7 @@
           "appendArgsToExecutable": false
       },
       "parserInputs": {
-          "glob": "${title}@(.wux|.WUX|.wud|.WUD|.wua|.WUA|.wuhb|.WUHB)"
+          "glob": "**/${title}@(.elf|.ELF|.tmd|.TMD|.wua|.WUA|.wud|.WUD|.wuhb|.WUHB|.wux|.WUX)"
       },
       "titleFromVariable": {
           "limitToGroups": "",
@@ -5857,7 +5857,7 @@
           "appendArgsToExecutable": false
       },
       "parserInputs": {
-          "glob": "${title}@(.wux|.WUX|.wud|.WUD|.wua|.WUA|.wuhb|.WUHB)"
+          "glob": "**/${title}@(.elf|.ELF|.tmd|.TMD|.wua|.WUA|.wud|.WUD|.wuhb|.WUHB|.wux|.WUX)"
       },
       "titleFromVariable": {
           "limitToGroups": "",
