@@ -1,6 +1,6 @@
 #!/bin/bash
 
-safeDownload() {
+function safeDownload() {
 	local name="$1"
 	local url="$2"
 	local outFile="$3"
@@ -31,12 +31,19 @@ safeDownload() {
 			volumeName="$HOME/Applications/EmuDeck/$outFile"
 		fi
 
-		cp -r "$volumeName"/*.app "$HOME/Applications/EmuDeck/"
 
+
+		if [[ $volumeName == *"ES-DE"* ]]; then
+			cp -r "$volumeName"/*.app "$HOME/Applications/EmuDeck/ES-DE/"
+		else
+			cp -r "$volumeName"/*.app "$HOME/Applications/EmuDeck/"
+		fi
 		appName=$(find "$volumeName" -name "*.app" -exec basename {} \;)
 		chmod +x  "$HOME/Applications/EmuDeck/$appName"
 
-		find "$HOME/Applications/EmuDeck/" -maxdepth 1 -name "*.app" -exec ln -s {} /Applications/ \;
+		find "$HOME/Applications/EmuDeck/" -maxdepth 1 -name "*.app" -exec ln -sf {} /Applications/ \;
+		find "$HOME/Emulation/tools/launchers/" -maxdepth 2 -name "*.sh" -exec chmod +x {} \;
+
 		#chmod +x  "/Applications/$appName"
 		if [ -n "$volumeName" ]; then
 			hdiutil detach "$volumeName" && rm -rf "$outFile"
@@ -50,18 +57,13 @@ safeDownload() {
 
 }
 
-addSteamInputCustomIcons() {
+function addSteamInputCustomIcons() {
 	rsync -av "$EMUDECKGIT/darwin/configs/steam-input/Icons/" "$HOME/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/tenfoot/resource/images/library/controller/binding_icons/"
 }
 
-
-
-getEmuInstallStatus() {
+function getEmuInstallStatus() {
 	echo "NYI"
 }
-
-
-
 
 function createUpdateSettingsFile(){
 	#!/bin/bash
@@ -135,7 +137,60 @@ function createUpdateSettingsFile(){
 
 }
 
-
 function createDesktopShortcut(){
 	echo "no need"
+}
+
+function checkInstalledEmus(){
+	echo "no need"
+}
+
+function darwin_gcd() {
+	while [ $2 -ne 0 ]; do
+		set -- $2 $(( $1 % $2 ))
+	done
+	echo $1
+}
+
+function getScreenAR(){
+	dimensions=$(system_profiler SPDisplaysDataType | awk '/Resolution/{print $2, $4}')
+
+	width=$(echo $dimensions | cut -d ' ' -f 1)
+	height=$(echo $dimensions | cut -d ' ' -f 2)
+
+
+	g=$(darwin_gcd $width $height)
+
+	aspect_ratio_width=$((width / g))
+	aspect_ratio_height=$((height / g))
+
+	return $aspect_ratio_width$aspect_ratio_height
+
+}
+
+
+
+function BINUP_install(){
+	echo "no need, darwin"
+}
+function FlatpakUP_install(){
+	echo "no need, darwin"
+}
+function CHD_install(){
+	echo "no need, darwin"
+}
+
+function createDesktopIcons(){
+	echo "no need, darwin"
+}
+
+function controllerLayout_BAYX(){
+	echo "no need, darwin"
+}
+function controllerLayout_ABXY(){
+	echo "no need, darwin"
+}
+
+function checkInstalledEmus(){
+	echo "checkInstalledEmus darwin pending"
 }

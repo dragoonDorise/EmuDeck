@@ -20,7 +20,7 @@ function getLatestReleaseURLGH(){
 function alert() {
   osascript <<EOT
 	tell app "System Events"
-	  display dialog "$1" buttons {"OK"} default button 1 with icon caution with title "Flying Pigs - Mac Setup"
+	  display dialog "$1" buttons {"OK"} default button 1 with icon caution with title "EmuDeck - Mac Setup"
 	  return  -- Suppress result
 	end tell
 EOT
@@ -91,15 +91,11 @@ if [ $hasBrew == "false" ]; then
 fi
 
 #Brew dependencies
-alert "Let's install EmuDeck dependencies... This could take some time. Please press OK"
-brew install zenity gnu-sed rsync xmlstarlet jq steam
+brew install zenity gnu-sed rsync xmlstarlet jq fileicon
 if ! command -v xcode-select &>/dev/null; then
 	xcode-select --install
 	wait
 fi
-
-
-alert "All prerequisite packages have been installed. EmuDeck's DMG will be installed now!. Please press OK"
 
 if [ $appleChip == "arm64" ];then
 	EmuDeckURL="$(getLatestReleaseURLGH "EmuDeck/emudeck-electron-early" "arm64.dmg")"
@@ -108,5 +104,7 @@ else
 fi
 
 safeDownload "EmuDeck" "$EmuDeckURL" "$HOME/Downloads/EmuDeck.dmg" && open "$HOME/Downloads/EmuDeck.dmg"
+
+open "$HOME/Downloads/EmuDeck.dmg"
 
 exit

@@ -417,13 +417,13 @@ function getReleaseURLGH(){
 	local fileNameContains=$3
 	#local token=$(tokenGenerator)
 
-	if [ "$system" == "darwin" ]; then
-		fileType="dmg"
-	fi
-
-	if [ "$system" == "darwin" ]; then
-		fileType="dmg"
-	fi
+# 	if [ "$system" == "darwin" ]; then
+# 		fileType="dmg"
+# 	fi
+#
+# 	if [ "$system" == "darwin" ]; then
+# 		fileType="dmg"
+# 	fi
 
 	if [ "$url" == "" ]; then
 		url="https://api.github.com/repos/$repository/releases"

@@ -33,6 +33,14 @@ pegasus_install(){
 
 }
 
+pegasus_setPaths(){
+	rsync -r --exclude='roms' --exclude='pfx' "$EMUDECKGIT/roms/" "$romsPath" --keep-dirlinks
+	rsync -av --exclude='roms' --exclude='pfx' "$EMUDECKGIT/roms/" "$toolsPath/downloaded_media"
+	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|CORESPATH|${RetroArch_cores}|g" {} \;
+	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" {} \;
+
+}
+
 #ApplyInitialSettings
 pegasus_init(){
 	setMSG "Setting up $pegasus_toolName"
@@ -44,6 +52,8 @@ pegasus_init(){
 	rsync -av --exclude='roms' --exclude='pfx' "$EMUDECKGIT/roms/" "$toolsPath/downloaded_media"
 	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|CORESPATH|${RetroArch_cores}|g" {} \;
 	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" {} \;
+
+		pegasus_setPaths
 
 
 		if [ -L "$toolsPath/downloaded_media/gamecube" ]; then
