@@ -61,6 +61,7 @@ setDefaults(){
 	setSetting doSetupRMG false
 	setSetting doSetupScummVM true
 	setSetting doSetupSupermodel true
+	setSetting doSetupHypseusSinge true
 	setSetting doSetupVita3K true
 	setSetting doSetupBigPEmu true
 	setSetting doSetupESDE true
@@ -85,6 +86,7 @@ setDefaults(){
 	setSetting doInstallScummVM true
 	setSetting doInstallBigPEmu true
 	setSetting doInstallSupermodel true
+	setSetting doInstallHypseusSinge true
 	setSetting doInstallGyro false
 	setSetting doInstallVita3K true
 	setSetting doInstallSRM true
