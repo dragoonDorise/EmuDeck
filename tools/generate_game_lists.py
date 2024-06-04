@@ -16,15 +16,19 @@ def generate_game_lists(roms_path):
                     name_cleaned = re.sub(r'\(.*?\)', '', name)
                     name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
                     name_cleaned = name_cleaned.strip()
+
                     name_cleaned = name_cleaned.replace(' ', '_')
                     name_cleaned = name_cleaned.replace('-', '_')
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
+
+                    name_cleaned_pegasus = name.replace(' ', '_')
 
                     clean_name = name_cleaned
                     game_img = f"/customimages/{clean_name}.jpg"
                     game_info = {
                         "name": clean_name,
                         "filename": os.path.join(root, file),
+                        "file": name_cleaned_pegasus,
                         "img": game_img
                     }
                     game_data.append(game_info)
