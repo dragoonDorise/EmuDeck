@@ -25,7 +25,7 @@ Android_RetroArch_backupConfigs(){
 
 
 function Android_RetroArch_install(){
-	setMSG "RetroArch - Installing"
+	setMSG "Installing RetroArch"
 	temp_url="https://buildbot.libretro.com/stable/1.16.0/android/RetroArch_aarch64.apk"
 	temp_emu="ra"
 	Android_ADB_dl_installAPK $temp_emu $temp_url
