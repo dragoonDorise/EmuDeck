@@ -85,6 +85,8 @@ source "$EMUDECKGIT"/functions/helperFunctions.sh
 jsonToBashVars "$HOME/.config/EmuDeck/settings.json"
 source "$EMUDECKGIT/functions/all.sh"
 
+mkdir -p $Android_temp_internal
+mkdir -p $Android_temp_external
 
 #Roms folders
 if [[ "$androidStoragePath" == *-* ]]; then
@@ -96,18 +98,18 @@ fi
 setMSG "Creating rom folders in $androidStoragePath..."
 
 mkdir -p "$Android_cond_path/Emulation/roms/"
-rsync -r --ignore-existing "$EMUDECKGIT/roms/" "$Android_cond_path/Emulation/roms/"
+rsync -ra --ignore-existing "$EMUDECKGIT/roms/" "$Android_cond_path/Emulation/roms/"
 
 setMSG "Copying BIOS"
-rsync -r --ignore-existing "$biosPath" "$Android_cond_path/Emulation/bios"
+rsync -ra --ignore-existing "$biosPath" "$Android_cond_path/Emulation/bios"
 
 if [ $copySavedGames == "true" ]; then
 	setMSG "Copying Saves & States"
 	#RA
-	rsync -r --ignore-existing "$savesPath/RetroArch" "$Android_cond_path/Emulation/saves/RetroArch/"
+	rsync -ra --ignore-existing "$savesPath/RetroArch" "$Android_cond_path/Emulation/saves/RetroArch/"
 	#PPSSPP
-	rsync -r  "$savesPath/ppsspp/saves"  "$Android_temp_internal/Emulation/saves/PSP/SAVEDATA"
-	rsync -r  "$savesPath/ppsspp/states" "$Android_temp_internal/Emulation/saves/PSP/PPSSPP_STATE"
+	rsync -ra  "$savesPath/ppsspp/saves"  "$Android_temp_internal/Emulation/saves/PSP/SAVEDATA"
+	rsync -ra  "$savesPath/ppsspp/states" "$Android_temp_internal/Emulation/saves/PSP/PPSSPP_STATE"
 fi
 
 
