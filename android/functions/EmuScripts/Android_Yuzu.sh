@@ -7,5 +7,39 @@ function Android_Yuzu_install(){
 }
 
 function Android_Yuzu_init(){
-	echo "NYI"
+	setMSG "Setting up Yuzu"
+
+	rsync -r "$HOME/.config/EmuDeck/backend/android/configs/Android/data/org.yuzu.yuzu_emu/" "$Android_temp_android_data/org.yuzu.yuzu_emu/"
+
+	originFile="$Android_temp_android_data/org.yuzu.yuzu_emu/files/config/config.ini"
+	origin="XXXX"
+	#SD or internal?
+	#SD or internal?
+	if [[ "$androidStoragePath" == *-* ]]; then
+		target="${androidStoragePath//\/storage\//}"
+	else
+		target="primary"
+	fi
+
+	sed -E -i "s|$origin|$target|g" "$originFile"
+
+}
+
+function Android_Yuzu_setup(){
+	setMSG "YUZU"
+	adb shell pm grant org.yuzu.yuzu_emu android.permission.WRITE_EXTERNAL_STORAGE
+	adb shell am start -n org.yuzu.yuzu_emu/.ui.main.MainActivity
+	zenity --info --text="Waiting for user action..."
+	adb shell am force-stop org.yuzu.yuzu_emu
+
+}
+
+function Android_Yuzu_IsInstalled(){
+	package="org.yuzu.yuzu_emu"
+	test= adb shell pm list packages $package
+	if [ $test == "true" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
 }

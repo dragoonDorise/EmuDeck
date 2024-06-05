@@ -11,7 +11,7 @@
 source "$EMUDECKGIT/android/vars.sh"
 
 source "$EMUDECKGIT"/android/functions/EmuScripts/Android_Yuzu.sh
-source "$EMUDECKGIT"/android/functions/EmuScripts/Android_AetherSX2.sh
+source "$EMUDECKGIT"/android/functions/EmuScripts/Android_NetherSX2.sh
 source "$EMUDECKGIT"/android/functions/EmuScripts/Android_Citra.sh
 source "$EMUDECKGIT"/android/functions/EmuScripts/Android_Dolphin.sh
 source "$EMUDECKGIT"/android/functions/EmuScripts/Android_RetroArch.sh
