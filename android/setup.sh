@@ -106,8 +106,8 @@ if [ $copySavedGames == "true" ]; then
 	#RA
 	rsync -r --ignore-existing "$savesPath/RetroArch" "$Android_cond_path/Emulation/saves/RetroArch/"
 	#PPSSPP
-	rsync -r  "$savesPath\ppsspp\saves"  "$Android_temp_internal/Emulation/saves/PSP/SAVEDATA"
-	rsync -r  "$savesPath\ppsspp\states" "$Android_temp_internal/Emulation/saves/PSP/PPSSPP_STATE"
+	rsync -r  "$savesPath/ppsspp/saves"  "$Android_temp_internal/Emulation/saves/PSP/SAVEDATA"
+	rsync -r  "$savesPath/ppsspp/states" "$Android_temp_internal/Emulation/saves/PSP/PPSSPP_STATE"
 fi
 
 

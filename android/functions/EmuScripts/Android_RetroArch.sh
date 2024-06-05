@@ -2220,7 +2220,8 @@ fi
 }
 
 Android_RetroArch_IsInstalled(){
-	isFpInstalled "$Android_RetroArch_emuPath"
+	package="org.retroarch.com"
+	Android_ADB_appInstalled $package
 }
 
 Android_RetroArch_resetConfig(){

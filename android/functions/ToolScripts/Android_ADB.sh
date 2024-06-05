@@ -102,4 +102,11 @@ function Android_ADB_init(){
 }
 
 
-
+function Android_ADB_appInstalled(){
+	test=$(adb shell pm list packages $1)
+	if [[ $test != "" ]]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}

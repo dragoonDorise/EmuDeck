@@ -36,10 +36,5 @@ function Android_Yuzu_setup(){
 
 function Android_Yuzu_IsInstalled(){
 	package="org.yuzu.yuzu_emu"
-	test= adb shell pm list packages $package
-	if [ $test == "true" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	Android_ADB_appInstalled $package
 }
