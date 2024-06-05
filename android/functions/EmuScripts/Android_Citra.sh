@@ -8,7 +8,7 @@ function Android_Citra_install(){
 
 function Android_Citra_init(){
 	setMSG "Setting up Citra"
-	rsync -r "$HOME/.config/EmuDeck/backend/android/configs/citra-emu/" "$Android_temp_internal/citra-emu/"
+	rsync -ra "$HOME/.config/EmuDeck/backend/android/configs/citra-emu/" "$Android_temp_internal/citra-emu/"
 }
 
 function Android_Citra_setup(){

@@ -5,7 +5,7 @@ function Android_NetherSX2_install(){
 	temp_url="https://github.com/Trixarian/NetherSX2-patch/releases/download/1.8/NetherSX2-builder.zip"
 	temp_emu="nethersx2"
 	Android_download "$temp_emu.zip" $temp_url
-	unzip "$temp_emu.zip"
+	unzip "$Android_folder/$temp_emu.zip" -d $Android_folder
 	rm -rf "$Android_folder/$temp_emu.zip"
 	chmod +x $Android_folder/builder/build-nethersx2.sh
 	$Android_folder/builder/build-nethersx2.sh

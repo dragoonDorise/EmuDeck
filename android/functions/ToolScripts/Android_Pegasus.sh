@@ -16,29 +16,29 @@ function Android_Pegasus_init(){
 	temp_url="$(Android_getLatestReleaseURLGH "dragoonDorise/retromega-next" ".zip")"
 	temp_emu="retromega-next"
 	Android_download "$temp_emu.zip" $temp_url
-	unzip "$Android_folder/$temp_emu.zip"
+	unzip "$Android_folder/$temp_emu.zip" -d $Android_folder
 	rm -rf "$Android_folder/$temp_emu.zip"
 
 	temp_url="$(Android_getLatestReleaseURLGH "dragoonDorise/ES-Simple-Clean" ".zip")"
 	temp_emu="simple-clean"
 	Android_download "$temp_emu.zip" $temp_url
-	unzip "$Android_folder/$temp_emu.zip"
+	unzip "$Android_folder/$temp_emu.zip" -d $Android_folder
 	rm -rf "$Android_folder/$temp_emu.zip"
 
 	temp_url="$(Android_getLatestReleaseURLGH "dragoonDorise/COLORFUL" ".zip")"
 	temp_emu="colorful"
 	Android_download "$temp_emu.zip" $temp_url
-	unzip "$Android_folder/$temp_emu.zip"
+	unzip "$Android_folder/$temp_emu.zip" -d $Android_folder
 	rm -rf "$Android_folder/$temp_emu.zip"
 
 	temp_url="$(Android_getLatestReleaseURLGH "dragoonDorise/RP-epic-noir" ".zip")"
 	temp_emu="epicnoir"
 	Android_download "$temp_emu.zip" $temp_url
-	unzip "$Android_folder/$temp_emu.zip"
+	unzip "$Android_folder/$temp_emu.zip" -d $Android_folder
 	rm -rf "$Android_folder/$temp_emu.zip"
 
 	#Change paths
-	rsync "$GOME/.config/EmuDeck/backend/android/configs/Android/data/org.pegasus_frontend.android/files/pegasus-frontend" "$Android_Pegasus_temp/"
+	rsync -ra "$HOME/.config/EmuDeck/backend/android/configs/Android/data/org.pegasus_frontend.android/files/pegasus-frontend" "$Android_Pegasus_temp/"
 	originFile="$Android_Pegasus_temp/game_dirs.txt"
 	origin="XXXX"
 	target="$androidStoragePath"
