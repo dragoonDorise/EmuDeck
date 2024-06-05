@@ -86,6 +86,7 @@ fi
 ##
 #
 source "$EMUDECKGIT"/functions/helperFunctions.sh
+source "$EMUDECKGIT"/functions/jsonToBashVars.sh
 jsonToBashVars "$HOME/.config/EmuDeck/settings.json"
 source "$EMUDECKGIT/functions/all.sh"
 
