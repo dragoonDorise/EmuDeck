@@ -9,3 +9,21 @@ function Android_ScummVM_install(){
 function Android_ScummVM_init(){
 	echo "NYI"
 }
+
+function Android_ScummVM_setup(){
+	adb shell pm grant org.scummvm.scummvm android.permission.WRITE_EXTERNAL_STORAGE
+	adb shell am start -n org.scummvm.scummvm/.ui.main.MainActivity
+	sleep 1
+	adb shell am force-stop org.scummvm.scummvm
+
+}
+
+function Android_ScummVM_IsInstalled(){
+	package="org.scummvm.scummvm"
+	test= adb shell pm list packages $package
+	if [ $test == "true" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}

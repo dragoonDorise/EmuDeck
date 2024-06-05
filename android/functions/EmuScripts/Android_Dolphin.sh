@@ -7,5 +7,37 @@ function Android_Dolphin_install(){
 }
 
 function Android_Dolphin_init(){
-	echo "NYI"
+	setMSG "Setting up Dolphin"
+
+	rsync -r "$HOME/.config/EmuDeck/backend/android/configs/mmjr2-vbi" "$Android_temp_internal/mmjr2-vbi"
+	originFile="$Android_temp_internal/mmjr2-vbi/Config/Dolphin.ini"
+	origin="XXXX"
+
+	#SD or internal?
+	if [[ "$androidStoragePath" == *-* ]]; then
+		target="${androidStoragePath//\/storage\//}"
+	else
+		target="primary"
+	fi
+
+	sed -E -i "s|$origin|$target|g" "$originFile"
+
+}
+
+function Android_Dolphin_setup(){
+	adb shell pm grant org.dolphinemu.mmjr android.permission.WRITE_EXTERNAL_STORAGE
+	adb shell am start -n org.dolphinemu.mmjr/org.dolphinemu.dolphinemu.ui.main.MainActivity
+	sleep 1
+	adb shell am force-stop org.dolphinemu.mmjr
+
+}
+
+function Android_Dolphin_IsInstalled(){
+	package="org.dolphinemu.mmjr"
+	test= adb shell pm list packages $package
+	if [ $test == "true" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
 }

@@ -9,3 +9,17 @@ function Android_Vita3K_install(){
 function Android_Vita3K_init(){
 	echo "NYI"
 }
+
+function Android_Vita3K_setup(){
+	echo "NYI"
+}
+
+function Android_Vita3K_IsInstalled(){
+	package="com.retroarch.aarch64"
+	test= adb shell pm list packages $package
+	if [ $test == "true" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
