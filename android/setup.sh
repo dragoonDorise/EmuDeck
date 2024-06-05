@@ -105,7 +105,7 @@ mkdir -p "$Android_cond_path/Emulation/roms/"
 rsync -ra --ignore-existing "$EMUDECKGIT/roms/" "$Android_cond_path/Emulation/roms/"
 
 setMSG "Copying BIOS"
-rsync -ra --ignore-existing "$biosPath" "$Android_cond_path/Emulation/bios"
+rsync -ra --ignore-existing "$biosPath/" "$Android_cond_path/Emulation/bios/"
 
 # if [ $copySavedGames == "true" ]; then
 #     setMSG "Copying Saves & States"
