@@ -82,9 +82,11 @@ function Android_ADB_getSDCard(){
 	export PATH=$PATH:$Android_ADB_path
 	adb shell sm list-volumes public | perl -lane 'print $F[-1]'
 }
-
-function Android_ADB_init(){
+function Android_ADB_setPath(){
 	export PATH=$PATH:$Android_ADB_path
+}
+function Android_ADB_init(){
+
 	if [ $(Android_ADB_isInstalled) == "false" ]; then
 		$(Android_ADB_install)
 	fi
