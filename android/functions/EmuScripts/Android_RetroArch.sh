@@ -2,13 +2,10 @@
 
 #variables
 Android_RetroArch_emuName="RetroArch"
-Android_RetroArch_emuPath="$Android_RetroArch_temp/RetroArch"
-Android_RetroArch_path="$Android_RetroArch_temp/RetroArch/config/"
-Android_RetroArch_configFile="$Android_RetroArch_temp/retroarch.cfg"
-Android_RetroArch_coreConfigFolders="$Android_RetroArch_temp/RetroArch/config"
-Android_RetroArch_cores="$Android_RetroArch_temp/RetroArch/downloads"
-Android_RetroArch_coresURL="https://buildbot.libretro.com/nightly/android/latest/arm64-v8a/"
-Android_RetroArch_coresExtension="_android.so.zip"
+Android_RetroArch_emuPath="$Android_temp_internal/RetroArch"
+Android_RetroArch_path="$Android_temp_internal/RetroArch/config/"
+Android_RetroArch_configFile="$Android_temp_internal/retroarch.cfg"
+Android_RetroArch_coreConfigFolders="$Android_temp_internal/RetroArch/config"
 
 #cleanupOlderThings
 Android_RetroArch_cleanup(){
@@ -34,11 +31,11 @@ function Android_RetroArch_install(){
 
 #ApplyInitialSettings
 Android_RetroArch_init(){
-	Android_RetroArch_backupConfigs
-	Android_RetroArch_setEmulationFolder
-	Android_RetroArch_setupSaves
-	Android_RetroArch_setupStorage
-	Android_RetroArch_installCores
+	#Android_RetroArch_backupConfigs
+	#Android_RetroArch_setEmulationFolder
+	#Android_RetroArch_setupSaves
+	#Android_RetroArch_setupStorage
+	#Android_RetroArch_installCores
 	Android_RetroArch_setUpCoreOptAll
 	Android_RetroArch_setConfigAll
 	#Android_RetroArch_setupConfigurations
@@ -46,7 +43,7 @@ Android_RetroArch_init(){
 	#Android_RetroArch_autoSave
 	#Android_RetroArch_setRetroAchievements
 	#Android_RetroArch_melonDSDSMigration
-	Android_ADB_push $Android_RetroArch_emuPath $androidStoragePath
+	#Android_ADB_push $Android_RetroArch_emuPath $androidStoragePath
 }
 
 
