@@ -6,4 +6,3 @@ Android_temp_android_data="$HOME/emudeck/android/temp/CopyToInternal/Android/dat
 Android_temp_internal="$HOME/emudeck/android/temp/CopyToInternal"
 Android_temp_external="$HOME/emudeck/android/temp/CopyToSDCARD"
 Android_emusPath="/storage/emulated/0"
-Android_ADB_init
