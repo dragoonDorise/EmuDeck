@@ -86,6 +86,31 @@ jsonToBashVars "$HOME/.config/EmuDeck/settings.json"
 source "$EMUDECKGIT/functions/all.sh"
 
 
+#Roms folders
+if [[ "$androidStoragePath" == *-* ]]; then
+	Android_cond_path="$Android_temp_external"
+else
+	Android_cond_path="$Android_temp_internal"
+fi
+
+setMSG "Creating rom folders in $androidStoragePath..."
+
+mkdir -p "$Android_cond_path/Emulation/roms/"
+rsync -r --ignore-existing "$EMUDECKGIT/roms/" "$Android_cond_path/Emulation/roms/"
+
+setMSG "Copying BIOS"
+rsync -r --ignore-existing "$biosPath" "$Android_cond_path/Emulation/bios"
+
+if [ $copySavedGames == "true" ]; then
+	setMSG "Copying Saves & States"
+	#RA
+	rsync -r --ignore-existing "$savesPath/RetroArch" "$Android_cond_path/Emulation/saves/RetroArch/"
+	#PPSSPP
+	rsync -r  "$savesPath\ppsspp\saves"  "$Android_temp_internal/Emulation/saves/PSP/SAVEDATA"
+	rsync -r  "$savesPath\ppsspp\states" "$Android_temp_internal/Emulation/saves/PSP/PPSSPP_STATE"
+fi
+
+
 
 #
 ## Installation
@@ -154,8 +179,40 @@ if [ "$android_doSetupVita3K" == "true" ]; then
 	Android_Vita3K_init
 fi
 
-#Play Store emulators
-adb shell am start -a android.intent.action.VIEW -d "https://android.emudeck.com"
+#MTP
+echo "NYI"
+
+#Bring your own APK
+downloadPath="$HOME/Downloads"
+
+# Find all .apk files in the download path
+apkFiles=$(find "$downloadPath" -type f -name "*.apk")
+
+# Loop through each .apk file
+for file in $apkFiles; do
+	filePath="$file"
+	echo "Installing $filePath..."
+	Android_ADB_installAPK "$filePath"
+done
+
+# Check the success of the installations
+if [ "$success" = "false" ]; then
+	echo "500 #ANDROID"
+else
+	if [ "$androidInstallCitraMMJ" = "true" ]; then
+		Android_Citra_setup
+	fi
+	if [ "$androidInstallPegasus" = "true" ]; then
+		Android_Pegasus_setup
+	fi
+	if [ "$androidInstallDolphin" = "true" ]; then
+		Android_Dolphin_setup
+	fi
+	if [ "$androidInstallScummVM" = "true" ]; then
+		Android_ScummVM_setup
+	fi
+fi
+
 
 #
 # We mark the script as finished

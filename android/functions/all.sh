@@ -8,7 +8,7 @@
 # 	cp "$EMUDECKGIT/android/android_settings.sh" "$SETTINGSFILEANDROID"
 # 	source "$HOME/emudeck/android_settings.sh"
 # fi
-
+source "$EMUDECKGIT/android/vars.sh"
 
 source "$EMUDECKGIT"/android/functions/EmuScripts/Android_Yuzu.sh
 source "$EMUDECKGIT"/android/functions/EmuScripts/Android_AetherSX2.sh
