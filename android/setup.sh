@@ -1,4 +1,8 @@
 #!/bin/bash
+#source $HOME/.config/EmuDeck/backend/functions/all.sh
+
+
+
 MSG=$HOME/emudeck/logs/msg.log
 echo "0" > "$MSG"
 
@@ -103,14 +107,14 @@ rsync -ra --ignore-existing "$EMUDECKGIT/roms/" "$Android_cond_path/Emulation/ro
 setMSG "Copying BIOS"
 rsync -ra --ignore-existing "$biosPath" "$Android_cond_path/Emulation/bios"
 
-if [ $copySavedGames == "true" ]; then
-	setMSG "Copying Saves & States"
-	#RA
-	rsync -ra --ignore-existing "$savesPath/RetroArch" "$Android_cond_path/Emulation/saves/RetroArch/"
-	#PPSSPP
-	rsync -ra  "$savesPath/ppsspp/saves"  "$Android_temp_internal/Emulation/saves/PSP/SAVEDATA"
-	rsync -ra  "$savesPath/ppsspp/states" "$Android_temp_internal/Emulation/saves/PSP/PPSSPP_STATE"
-fi
+# if [ $copySavedGames == "true" ]; then
+#     setMSG "Copying Saves & States"
+#     #RA
+#     rsync -ra --ignore-existing "$savesPath/RetroArch" "$Android_cond_path/Emulation/saves/RetroArch/"
+#     #PPSSPP
+#     rsync -ra  "$savesPath/ppsspp/saves"  "$Android_temp_internal/Emulation/saves/PSP/SAVEDATA"
+#     rsync -ra  "$savesPath/ppsspp/states" "$Android_temp_internal/Emulation/saves/PSP/PPSSPP_STATE"
+# fi
 
 
 
@@ -125,12 +129,10 @@ fi
 #Pegasus Installation
 if [ $androidInstallPegasus == "true" ]; then
 	Android_Pegasus_install
+	Android_Pegasus_init
 fi
-if [ "$androidInstallAetherSX2" == "true" ]; then
-	Android_AetherSX2_install
-	Android_AetherSX2_init
-fi
-if [ $androidInstallCitra == "true" ]; then
+
+if [ $androidInstallCitraMMJ == "true" ]; then
 	Android_Citra_install
 	Android_Citra_init
 fi
@@ -140,24 +142,24 @@ if [ $androidInstallDolphin == "true" ]; then
 fi
 if [ $androidInstallRA == "true" ]; then
 	Android_RetroArch_install
-	Android_RetroArch_init
+	#Android_RetroArch_init
 fi
 if [ $androidInstallPPSSPP == "true" ]; then
 	Android_PPSSPP_install
 	Android_PPSSPP_init
 fi
-if [ $androidInstallYuzu == "true" ]; then
-	Android_Yuzu_install
-	Android_Yuzu_init
-fi
+#if [ $androidInstallYuzu == "true" ]; then
+#    Android_Yuzu_install
+#    Android_Yuzu_init
+#fi
 if [ $androidInstallScummVM == "true" ]; then
 	Android_ScummVM_install
 	Android_ScummVM_init
 fi
-if [ $androidInstallVita3K == "true" ]; then
-	Android_Vita3K_install
-	Android_Vita3K_init
-fi
+# if [ $androidInstallVita3K == "true" ]; then
+#     Android_Vita3K_install
+#     Android_Vita3K_init
+# fi
 
 
 #MTP
@@ -198,7 +200,7 @@ fi
 TEXT=$(printf "<b>ATTENTION:</b>\nA new window will open, copy the contents of the subfolders you'll see into your device.\n")
 zenity --info --width=400 --text="$TEXT"
 
-xdg-open "$Android_folder/temp"
+xdg-open "$Android_folder/temp" &
 
 
 #
