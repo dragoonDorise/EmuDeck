@@ -29,7 +29,7 @@ function Android_Yuzu_setup(){
 	setMSG "YUZU"
 	adb shell pm grant org.yuzu.yuzu_emu android.permission.WRITE_EXTERNAL_STORAGE
 	adb shell am start -n org.yuzu.yuzu_emu/.ui.main.MainActivity
-	zenity --info --text="Waiting for user action..."
+	zenity --info --width=400 --text="Waiting for user action..."
 	adb shell am force-stop org.yuzu.yuzu_emu
 
 }

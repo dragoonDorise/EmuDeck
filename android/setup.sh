@@ -195,6 +195,12 @@ else
 fi
 
 
+TEXT=$(printf "<b>ATTENTION:</b>\nA new window will open, copy the contents of the subfolders you'll see into your device.\n")
+zenity --info --width=400 --text="$TEXT"
+
+xdg-open "$Android_folder/temp"
+
+
 #
 # We mark the script as finished
 #
