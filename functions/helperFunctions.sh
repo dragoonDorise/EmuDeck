@@ -1098,6 +1098,24 @@ function jsonToBashVars(){
 	#Android
 	setSetting androidStorage "$(jq .android.storage $json)"
 	setSetting androidStoragePath "$(jq .android.storagePath $json)"
+	setSetting androidInstallRA "$(jq .android.installEmus.ra.status $json)"
+	setSetting androidInstallDolphin "$(jq .android.installEmus.dolphin.status $json)"
+	setSetting androidInstallPPSSPP "$(jq .android.installEmus.ppsspp.status $json)"
+	setSetting androidInstallCitraMMJ "$(jq .android.installEmus.citrammj.status $json)"
+	setSetting androidInstallNetherSX2 "$(jq .android.installEmus.nethersx2.status $json)"
+	setSetting androidInstallScummVM "$(jq .android.installEmus.scummvm.status $json)"
+
+	setSetting androidSetupRA "$(jq .android.overwriteConfigEmus.ra.status $json)"
+	setSetting androidSetupDolphin "$(jq .android.overwriteConfigEmus.dolphin.status $json)"
+	setSetting androidSetupPPSSPP "$(jq .android.overwriteConfigEmus.ppsspp.status $json)"
+	setSetting androidSetupCitraMMJ "$(jq .android.overwriteConfigEmus.citrammj.status $json)"
+	setSetting androidSetupNetherSX2 "$(jq .android.overwriteConfigEmus.nethersx2.status $json)"
+	setSetting androidSetupScummVM "$(jq .android.overwriteConfigEmus.scummvm.status $json)"
+
+	setSetting androidInstallESDE "$(jq .android.installFrontends.esde.status $json)"
+	setSetting androidInstallPegasus "$(jq .android.installFrontends.pegasus.status $json)"
+	setSetting androidRABezels "$(jq .android.bezels $json)"
+
 
 	#We store the patreon token on install so we can create it for the first time
 	storePatreonToken "$(jq .patreonToken $json)"
