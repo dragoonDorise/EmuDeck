@@ -121,63 +121,42 @@ if [ $(Android_ADB_isInstalled) == "false" ]; then
 fi
 
 #Pegasus Installation
-if [ $android_doInstallPegasus == "true" ]; then
+if [ $androidInstallPegasus == "true" ]; then
 	Android_Pegasus_install
 fi
-if [ "$android_doInstallAetherSX2" == "true" ]; then
+if [ "$androidInstallAetherSX2" == "true" ]; then
 	Android_AetherSX2_install
-fi
-if [ $android_doInstallCitra == "true" ]; then
-	Android_Citra_install
-fi
-if [ $android_doInstallDolphin == "true" ]; then
-	Android_Dolphin_install
-fi
-if [ $android_doInstallRA == "true" ]; then
-	Android_RetroArch_install
-fi
-if [ $android_doInstallPPSSPP == "true" ]; then
-	Android_PPSSPP_install
-fi
-if [ $android_doInstallYuzu == "true" ]; then
-	Android_Yuzu_install
-fi
-if [ $android_doInstallScummVM == "true" ]; then
-	Android_ScummVM_install
-fi
-if [ $android_doInstallVita3K == "true" ]; then
-	Android_Vita3K_install
-fi
-
-#
-## Configuration
-#
-
-
-if [ "$android_doSetupRA" == "true" ]; then
-	Android_RetroArch_init
-fi
-if [ "$android_doSetupDolphin" == "true" ]; then
-	Android_Dolphin_init
-fi
-if [ "$android_doSetupAetherSX2" == "true" ]; then
 	Android_AetherSX2_init
 fi
-if [ "$android_doSetupCitra" == "true" ]; then
+if [ $androidInstallCitra == "true" ]; then
+	Android_Citra_install
 	Android_Citra_init
 fi
-if [ "$android_doSetupYuzu" == "true" ]; then
-	Android_Yuzu_init
+if [ $androidInstallDolphin == "true" ]; then
+	Android_Dolphin_install
+	Android_Dolphin_init
 fi
-if [ "$android_doSetupPPSSPP" == "true" ]; then
+if [ $androidInstallRA == "true" ]; then
+	Android_RetroArch_install
+	Android_RetroArch_init
+fi
+if [ $androidInstallPPSSPP == "true" ]; then
+	Android_PPSSPP_install
 	Android_PPSSPP_init
 fi
-if [ "$android_doSetupScummVM" == "true" ]; then
+if [ $androidInstallYuzu == "true" ]; then
+	Android_Yuzu_install
+	Android_Yuzu_init
+fi
+if [ $androidInstallScummVM == "true" ]; then
+	Android_ScummVM_install
 	Android_ScummVM_init
 fi
-if [ "$android_doSetupVita3K" == "true" ]; then
+if [ $androidInstallVita3K == "true" ]; then
+	Android_Vita3K_install
 	Android_Vita3K_init
 fi
+
 
 #MTP
 echo "NYI"
