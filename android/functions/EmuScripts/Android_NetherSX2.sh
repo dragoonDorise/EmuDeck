@@ -20,7 +20,7 @@ function Android_NetherSX2_setup(){
 	setMSG "NETHERSX2"
 	adb shell pm grant xyz.aethersx2.android.permission.WRITE_EXTERNAL_STORAGE
 	adb shell am start -n xyz.aethersx2.android/.MainActivity
-	zenity --info --text="Waiting for user action..."
+	zenity --info --width=400 --text="Waiting for user action..."
 	adb shell am force-stop xyz.aethersx2.android
 }
 
