@@ -51,7 +51,7 @@ source "$EMUDECKGIT"/functions/runSRM.sh
 source "$EMUDECKGIT"/functions/appImageInit.sh
 source "$EMUDECKGIT"/functions/autofix.sh
 source "$EMUDECKGIT"/functions/generateGameLists.sh
-
+source "$EMUDECKGIT"/functions/jsonToBashVars.sh
 
 #toolScripts
 source "$EMUDECKGIT"/functions/ToolScripts/emuDeckESDE.sh
