@@ -1,0 +1,133 @@
+---
+initial-setup: true
+gdbstub: false
+log-active-shaders: false
+log-uniforms: false
+log-compat-warn: false
+validation-layer: true
+pstv-mode: false
+show-mode: false
+demo-mode: false
+show-gui: false
+show-info-bar: false
+apps-list-grid: false
+display-system-apps: true
+stretch_the_display_area: false
+show-live-area-screen: true
+icon-size: 64
+archive-log: false
+backend-renderer: Vulkan
+custom-driver-name: ""
+turbo-mode: false
+gpu-idx: 0
+high-accuracy: false
+resolution-multiplier: 1
+disable-surface-sync: true
+screen-filter: Bilinear
+v-sync: true
+anisotropic-filtering: 1
+texture-cache: true
+async-pipeline-compilation: true
+show-compile-shaders: true
+hashless-texture-cache: false
+import-textures: false
+export-textures: false
+export-as-png: true
+memory-mapping: double-buffer
+boot-apps-full-screen: false
+audio-backend: SDL
+ngs-enable: true
+sys-button: 1
+sys-lang: 1
+sys-date-format: 2
+sys-time-format: 0
+cpu-pool-size: 10
+modules-mode: 0
+delay-background: 4
+delay-start: 10
+background-alpha: 0.300000012
+log-level: 6
+cpu-backend: Dynarmic
+cpu-opt: true
+pref-path: /storage/emulated/0/Android/data/org.vita3k.emulator/files/vita/
+discord-rich-presence: true
+wait-for-debugger: false
+color-surface-debug: false
+show-touchpad-cursor: true
+performance-overlay: false
+perfomance-overlay-detail: 0
+perfomance-overlay-position: 0
+enable-gamepad-overlay: true
+overlay-show-touch-switch: false
+overlay-scale: 1
+keyboard-button-select: 229
+keyboard-button-start: 40
+keyboard-button-up: 82
+keyboard-button-right: 79
+keyboard-button-down: 81
+keyboard-button-left: 80
+keyboard-button-l1: 20
+keyboard-button-r1: 8
+keyboard-button-l2: 24
+keyboard-button-r2: 18
+keyboard-button-l3: 9
+keyboard-button-r3: 11
+keyboard-button-triangle: 25
+keyboard-button-circle: 6
+keyboard-button-cross: 27
+keyboard-button-square: 29
+keyboard-leftstick-left: 4
+keyboard-leftstick-right: 7
+keyboard-leftstick-up: 26
+keyboard-leftstick-down: 22
+keyboard-rightstick-left: 13
+keyboard-rightstick-right: 15
+keyboard-rightstick-up: 12
+keyboard-rightstick-down: 14
+keyboard-button-psbutton: 19
+keyboard-gui-toggle-gui: 10
+keyboard-gui-fullscreen: 68
+keyboard-gui-toggle-touch: 23
+keyboard-toggle-texture-replacement: 0
+user-id: ""
+user-auto-connect: false
+user-lang: ""
+display-info-message: true
+show-welcome: true
+check-for-updates: true
+asia-font-support: false
+shader-cache: true
+spirv-shader: false
+current-ime-lang: 4
+psn-signed-in: 0
+http-enable: true
+http-timeout-attempts: 50
+http-timeout-sleep-ms: 100
+http-read-end-attempts: 10
+http-read-end-sleep-ms: 250
+tracy-primitive-impl: false
+controller-binds:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+controller-led-color:
+  []
+lle-modules:
+  []
+ime-langs:
+  - 4
+tracy-advanced-profiling-modules:
+  []
+...
