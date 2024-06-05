@@ -6,10 +6,10 @@ function Android_NetherSX2_install(){
 	temp_emu="nethersx2"
 	Android_download "$temp_emu.zip" $temp_url
 	unzip "$temp_emu.zip"
-	rm -rf "$Android_folder\$temp_emu.zip"
-	chmod +x $Android_folder\builder\build-nethersx2.sh
-	$Android_folder\builder\build-nethersx2.sh
-	Android_ADB_installAPK "$HOME\emudeck\android\builder\PatchedAPK\15210-v1.5-4248-noads.apk"
+	rm -rf "$Android_folder/$temp_emu.zip"
+	chmod +x $Android_folder/builder/build-nethersx2.sh
+	$Android_folder/builder/build-nethersx2.sh
+	Android_ADB_installAPK "$HOME/emudeck/android/builder/PatchedAPK/15210-v1.5-4248-noads.apk"
 }
 
 function Android_NetherSX2_init(){
@@ -26,10 +26,5 @@ function Android_NetherSX2_setup(){
 
 function Android_NetherSX2_IsInstalled(){
 	package="xyz.aethersx2.android"
-	test= adb shell pm list packages $package
-	if [ $test == "true" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	Android_ADB_appInstalled $package
 }

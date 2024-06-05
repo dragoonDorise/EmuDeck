@@ -9,7 +9,7 @@ function Android_Dolphin_install(){
 function Android_Dolphin_init(){
 	setMSG "Setting up Dolphin"
 
-	rsync -r "$HOME/.config/EmuDeck/backend/android/configs/mmjr2-vbi" "$Android_temp_internal/mmjr2-vbi/"
+	rsync -r "$HOME/.config/EmuDeck/backend/android/configs/mmjr2-vbi/" "$Android_temp_internal/mmjr2-vbi/"
 	originFile="$Android_temp_internal/mmjr2-vbi/Config/Dolphin.ini"
 	origin="XXXX"
 
@@ -34,10 +34,5 @@ function Android_Dolphin_setup(){
 
 function Android_Dolphin_IsInstalled(){
 	package="org.dolphinemu.mmjr"
-	test= adb shell pm list packages $package
-	if [ $test == "true" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	Android_ADB_appInstalled $package
 }

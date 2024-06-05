@@ -16,10 +16,5 @@ function Android_Vita3K_setup(){
 
 function Android_Vita3K_IsInstalled(){
 	package="com.retroarch.aarch64"
-	test= adb shell pm list packages $package
-	if [ $test == "true" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	Android_ADB_appInstalled $package
 }

@@ -20,10 +20,5 @@ function Android_PPSSPP_setup(){
 
 function Android_PPSSPP_IsInstalled(){
 	package="org.ppsspp.ppsspp"
-	test= adb shell pm list packages $package
-	if [ $test == "true" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	Android_ADB_appInstalled $package
 }

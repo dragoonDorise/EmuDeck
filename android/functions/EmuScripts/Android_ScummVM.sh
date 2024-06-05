@@ -20,10 +20,5 @@ function Android_ScummVM_setup(){
 
 function Android_ScummVM_IsInstalled(){
 	package="org.scummvm.scummvm"
-	test= adb shell pm list packages $package
-	if [ $test == "true" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
+	Android_ADB_appInstalled $package
 }
