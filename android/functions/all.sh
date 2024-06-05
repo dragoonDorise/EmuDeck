@@ -22,3 +22,5 @@ source "$EMUDECKGIT"/android/functions/EmuScripts/Android_Vita3K.sh
 source "$EMUDECKGIT"/android/functions/ToolScripts/Android_ADB.sh
 source "$EMUDECKGIT"/android/functions/ToolScripts/Android_Daijisho.sh
 source "$EMUDECKGIT"/android/functions/ToolScripts/Android_Pegasus.sh
+
+Android_ADB_init
