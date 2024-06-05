@@ -110,6 +110,7 @@ source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlaySteamLink.sh
 
 source "$EMUDECKGIT"/functions/cloudSyncHealth.sh
 
+source "$EMUDECKGIT"/android/functions/all.sh
 
 # Darwin overrides
 if [ "$system" = "darwin" ]; then
