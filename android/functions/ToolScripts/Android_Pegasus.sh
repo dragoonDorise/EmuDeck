@@ -1,7 +1,7 @@
 #!/bin/bash
 
 Android_Pegasus_temp="$Android_temp_android_data/org.pegasus_frontend.android/files/pegasus-frontend"
-
+mkdir -p $Android_Pegasus_temp/themes
 function Android_Pegasus_install(){
 	setMSG "Installing Pegasus"
 	temp_url="$(getLatestReleaseURLGH "mmatyas/pegasus-frontend" "android64.apk")"
