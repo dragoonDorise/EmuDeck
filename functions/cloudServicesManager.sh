@@ -122,6 +122,7 @@ manageRPSMenu() {
 	# Create array of all Remote Play clients
 	cd "$EMUDECKGIT/functions/RemotePlayClientScripts"
 	declare -a arrAllRP=()
+	
 	Chiaki_IsInstalled
 	ans=$?
 	if [ "$ans" == "1" ]; then
@@ -236,7 +237,7 @@ manageRPSMenu() {
 					Spotify_update
 				else
 					Spotify_install
-				fi
+				fi 			
 			elif [ "$i" == "SteamLink" ]; then
 				SteamLink_IsInstalled
 				ans=$?
@@ -296,7 +297,7 @@ manageRPSMenu() {
 }
 
 changeSettingsMenu() {
-	declare -a arrSupBrows=("com.google.Chrome" "com.microsoft.Edge" "com.brave.Browser" "org.chromium.Chromium")
+	declare -a arrSupBrows=("com.google.Chrome" "com.microsoft.Edge"  "org.mozilla.firefox" "com.brave.Browser" "org.chromium.Chromium")
 	declare -a arrBrowsOpts=()
 
 	# Include system default browser and verify it is is installed
@@ -398,10 +399,13 @@ csmMainMenu() {
 	menuText=$(printf "<b>Main Menu</b>\n\n Currently Set Browser: $BROWSERAPP\n")
 	CHOICE=$(zenity --list \
 		--title="Cloud Services Manager" --text="$menuText" \
-        --width=300  --height=300 \
+        --width=400  --height=400 \
+		--ok-label="Select" \
+		--cancel-label="Exit" \
 		--column="" --column="Select an option:" --radiolist \
 			"" "Manage Cloud Services" \
 			"" "Manage Remote Play Clients" \
+			"" "Add to ES-DE and Pegasus" \
 			"" "Change Settings" \
 			"" "Quit")
     if [ $? != 0 ]; then
@@ -414,6 +418,8 @@ csmMainMenu() {
 		manageRPSMenu
 	elif [ "$CHOICE" == "Change Settings" ]; then
 		changeSettingsMenu
+	elif [ "$CHOICE" == "Add to ES-DE and Pegasus" ]; then
+		addESDEPegasus
 	elif [ "$CHOICE" == "Quit" ]; then
 		exit
 	fi
@@ -465,6 +471,68 @@ fixCloudScripts() {
 	fi
 }
 
+addESDEPegasus(){
+
+
+	# Ask to install new services or change settings
+	esdepegasusmenuText=$(printf "<b>ES-DE and Pegasus</b>\n\n Would you like to add your selected cloud services and remote play clients to ES-DE and Pegasus?\n\n This will copy your cloud services and remote play clients to the Emulation/roms/desktop folder.\n\n When using ES-DE, your cloud services and remote play clients will show up under the Desktop system.\n\n When using Pegasus, your cloud services and remote play clients will show up under the Cloud Services and Remote Play Clients system respectively.\n\n This will have no impact on Steam ROM Manager or any shortcuts you may have added to Steam using Steam ROM Manager.\n\n ")
+	ESDEPEGASUSCHOICE=$(zenity --list \
+		--title="Cloud Services Manager" --text="$esdepegasusmenuText" \
+        --width=350  --height=450 \
+		--ok-label="Select" \
+		--cancel-label="Return to Main Menu" \
+		--column="" --column="Select an option:" --radiolist \
+			"" "Add to ES-DE and Pegasus" \
+			"" "Remove from ES-DE and Pegasus" )
+
+    if [ $? != 0 ]; then
+        csmMainMenu
+    fi
+
+	if [ "$ESDEPEGASUSCHOICE" == "Add to ES-DE and Pegasus" ]; then
+		mkdir -p "$romsPath/desktop/cloud"
+		mkdir -p "$romsPath/desktop/remoteplay"
+		rsync -av --include='*.sh' --exclude='*' "$romsPath/cloud/" "$romsPath/desktop/cloud"
+		rsync -av --include='*.sh' --exclude='*' "$romsPath/remoteplay/" "$romsPath/desktop/remoteplay"
+
+		
+		# Pegasus
+		local pegasusDirectoriesFile="$HOME/.config/pegasus-frontend/game_dirs.txt"
+		cp "$HOME/.config/EmuDeck/backend/roms/desktop/cloud/metadata.txt" "$romsPath/desktop/cloud"
+		cp "$HOME/.config/EmuDeck/backend/roms/desktop/remoteplay/metadata.txt" "$romsPath/desktop/remoteplay"
+		cp "$HOME/.config/EmuDeck/backend/roms/desktop/cloud/metadata.txt" "$romsPath/desktop/cloud"
+		
+		if ! grep -Fxq "$romsPath/desktop/cloud" "$pegasusDirectoriesFile"; then
+			echo "$romsPath/desktop/cloud" >> "$pegasusDirectoriesFile"
+		fi
+
+		if ! grep -Fxq "$romsPath/desktop/remoteplay" "$pegasusDirectoriesFile"; then
+			echo "$romsPath/desktop/remoteplay" >> "$pegasusDirectoriesFile"
+		fi
+
+		if [ -f "$romsPath/remoteplay/metadata.txt" ]; then 
+			rm -f "$romsPath/remoteplay/metadata.txt"
+		fi 
+
+		if [ -f "$romsPath/cloud/metadata.txt" ]; then 
+			rm -f "$romsPath/cloud/metadata.txt"
+		fi 
+
+		# Pegasus end
+		
+		zenity --info --text="Cloud services and remote play clients added to ES-DE and Pegasus." \
+		--width=250 
+		csmMainMenu
+	elif [ "$ESDEPEGASUSCHOICE" == "Remove from ES-DE and Pegasus" ]; then
+		find "$romsPath/desktop/cloud" -name "*.sh" -type f -delete
+		find "$romsPath/desktop/remoteplay" -name "*.sh" -type f -delete
+		zenity --info --text="Cloud services and remote play clients removed from ES-DE and Pegasus." \
+		--width=250 
+		csmMainMenu
+	fi
+
+}
+
 ##################
 # Initialization #
 ##################
@@ -480,6 +548,7 @@ source "$EMUDECKGIT/functions/all.sh"
 # Check for existing cloud.conf or install & setup
 mkdir -p "$romsPath/cloud"
 mkdir -p "$romsPath/remoteplay"
+
 if [ ! -f "$romsPath/cloud/cloud.conf" ]; then
 	cp "$LOCALCLOUDFILES/cloud.conf" "$romsPath/cloud"
 	CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
@@ -495,6 +564,23 @@ if [ ! -f "$romsPath/cloud/cloud.conf" ]; then
 	setCloudSetting BROWSERAPP "$defaultBrowser"
 	flatpak --user override --filesystem=/run/udev:ro "$defaultBrowser"
 fi
+
+# Update cloud.conf with latest config.
+if ! grep -q "browsercommand()" "$romsPath/cloud/cloud.conf"; then
+	cp "$LOCALCLOUDFILES/cloud.conf" "$romsPath/cloud"
+	CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
+	source "$CLOUDSETTINGSFILE"
+
+	# Set web browser to system default browser
+	defaultBrowser=$(
+        APP=$(xdg-settings get default-web-browser)
+        EXT=".desktop"
+		# Exclude extension
+        echo "${APP%"$EXT"}"
+    )
+	setCloudSetting BROWSERAPP "$defaultBrowser"
+	flatpak --user override --filesystem=/run/udev:ro "$defaultBrowser"
+fi 
 
 CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
 source "$CLOUDSETTINGSFILE"

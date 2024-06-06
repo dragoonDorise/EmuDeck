@@ -3,18 +3,15 @@
 # Variables
 Greenlight_emuName="Greenlight"
 Greenlight_emuType="$emuDeckEmuTypeAppImage"
-Greenlight_emuPath="$romsPath/remoteplay/Greenlight.AppImage"
+Greenlight_emuPath="$HOME/Applications/Greenlight.AppImage"
+
 
 # Install
 Greenlight_install() {
     echo "Begin Greenlight Install"
 
 	local showProgress="$1"
-	if installEmuAI "Greenlight" "$(getReleaseURLGH "unknownskl/greenlight" ".AppImage")" "" "$showProgress"; then
-		return 1
-	else
-		return 0
-	fi
+	installEmuAI "Greenlight" "$(getReleaseURLGH "unknownskl/greenlight" ".AppImage")" "" "$showProgress"
 
 	cp "$EMUDECKGIT/tools/remoteplayclients/Greenlight.sh" "$romsPath/remoteplay"
 	chmod +x "$romsPath/remoteplay/Greenlight.sh"
@@ -32,7 +29,7 @@ Greenlight_init() {
 # Update appimage by reinstalling
 Greenlight_update() {
 	setMSG "Updating $Greenlight_emuName."
-	rm -rf "$Greenlight_emuPath"
+	rm -f "$Greenlight_emuPath"
 	Greenlight_install
 	# configEmuAI "$Greenlight_emuName" "config" "$HOME/.config/greenlilght" "$EMUDECKGIT/configs/Greenlight/.config/greenlight"
 	# Greenlight_addSteamInputProfile
@@ -41,16 +38,18 @@ Greenlight_update() {
 # Uninstall
 Greenlight_uninstall() {
 	setMSG "Uninstalling $Greenlight_emuName."
-	rm -rf "$Greenlight_emuPath"
-	rm "$romsPath/remoteplay/Greenlight Remote Play Client.sh"
+	rm -f "$Greenlight_emuPath"
+	rm "$romsPath/remoteplay/Greenlight.sh"
 }
 
 # Check if installed
 Greenlight_IsInstalled() {
-	if [ -e "$Greenlight_emuPath" ]; then
-		echo "true"
+	if [ -f "$Greenlight_emuPath" ]; then
+		echo true
+		return 1
 	else
-		echo "false"
+		echo false
+		return 0
 	fi
 }
 
