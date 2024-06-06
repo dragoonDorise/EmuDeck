@@ -23,7 +23,7 @@ Moonlight_install() {
 Moonlight_init() {
 	setMSG "Initializing $Moonlight_emuName settings."	
 	configEmuFP "$Moonlight_emuName" "$Moonlight_emuPath" "true"
-	$Moonlight_addSteamInputProfile
+	#Moonlight_addSteamInputProfile
 }
 
 # Update flatpak & launcher script
@@ -64,5 +64,6 @@ Moonlight_IsInstalled() {
 
 # Import steam profile
 Moonlight_addSteamInputProfile() {
-	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_moonlight_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	echo "NYI"
+	#rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_moonlight_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

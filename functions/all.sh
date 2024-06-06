@@ -102,9 +102,13 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckModel2.sh
 
 #remoteplayclientscripts
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh
-source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayParsec.sh
-source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayMoonlight.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayGreenlight.sh
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayMoonlight.sh
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayParsec.sh
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayShadow.sh
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlaySpotify.sh
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlaySteamLink.sh
+
 source "$EMUDECKGIT"/functions/cloudSyncHealth.sh
 
 source "$EMUDECKGIT"/android/functions/all.sh

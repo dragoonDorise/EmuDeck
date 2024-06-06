@@ -2426,6 +2426,94 @@
       "drmProtect": false
   },
   {
+    "parserType": "Glob",
+    "configTitle": "Desktop Applications",
+    "steamDirectory": "${steamdirglobal}",
+    "steamCategory": "${Desktop Applications}",
+    "romDirectory": "${romsdirglobal}",
+    "executableArgs": "",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "fetchControllerTemplatesButton": null,
+    "removeControllersButton": null,
+    "steamInputEnabled": "1",
+    "imageProviders": [
+        "sgdb"
+    ],
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "drmProtect": false,
+    "userAccounts": {
+        "specifiedAccounts": ""
+    },
+    "executable": {
+        "path": "",
+        "shortcutPassthrough": true,
+        "appendArgsToExecutable": true
+    },
+    "parserInputs": {
+        "glob": "{desktop/**/!(cloud|remoteplay),desktop}/${title}@(sh|.SH|.desktop|.DESKTOP)"
+    },
+    "titleFromVariable": {
+        "limitToGroups": "",
+        "caseInsensitiveVariables": false,
+        "skipFileIfVariableWasNotFound": false,
+        "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+        "replaceDiacritics": true,
+        "removeCharacters": true,
+        "removeBrackets": true
+    },
+    "controllers": {
+        "ps4": null,
+        "ps5": null,
+        "ps5_edge": null,
+        "xbox360": null,
+        "xboxone": null,
+        "xboxelite": null,
+        "switch_joycon_left": null,
+        "switch_joycon_right": null,
+        "switch_pro": null,
+        "neptune": null,
+        "steamcontroller_gordon": null
+    },
+    "imageProviderAPIs": {
+        "sgdb": {
+            "nsfw": false,
+            "humor": false,
+            "styles": [],
+            "stylesHero": [],
+            "stylesLogo": [],
+            "stylesIcon": [],
+            "imageMotionTypes": [
+                "static"
+            ],
+            "sizes": [],
+            "sizesHero": [],
+            "sizesIcon": []
+        },
+        "steamCDN": {}
+    },
+    "defaultImage": {
+        "tall": "",
+        "long": "",
+        "hero": "",
+        "logo": "",
+        "icon": ""
+    },
+    "localImages": {
+        "tall": "",
+        "long": "",
+        "hero": "",
+        "logo": "",
+        "icon": ""
+    },
+    "parserId": "171773288577350796",
+    "version": 18
+  },
+  {
       "parserType": "Glob",
       "configTitle": "DooM - RetroArch PrBoom",
       "steamCategory": "${DooM}",

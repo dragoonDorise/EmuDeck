@@ -64,6 +64,10 @@ pegasus_init(){
 				rm -rf "$systemPath/roms/media" &> /dev/null
 				rm -rf "$romsPath/xbox360/roms/xbla/media" &> /dev/null
 				rm -rf "$romsPath/xbox360/roms/xbla/metadata.txt" &> /dev/null
+			elif  [[ "$systemPath" == "$romsPath/desktop" ]]; then
+				rm -rf "$romsPath/desktop/remoteplay/media" &> /dev/null
+				rm -rf "$romsPath/desktop/cloud/media" &> /dev/null
+				rm -rf "$systemPath/media" &> /dev/null		
 			elif  [[ "$systemPath" == "$romsPath/gamecube" || "$systemPath" == "$romsPath/3ds" ]]; then
 				continue
 			else
@@ -74,6 +78,15 @@ pegasus_init(){
 
 		for systemPath in "$romsPath"/*; do
 			if [[ "$systemPath" == "$romsPath/model2" || "$systemPath" == "$romsPath/xbox360" || "$systemPath" == "$romsPath/wiiu" ]]; then
+				system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
+				echo $system
+				mkdir -p "$toolsPath/downloaded_media/$system/covers"
+				rm -rf "$toolsPath/downloaded_media/$system/box2dfront"
+				mkdir -p "$toolsPath/downloaded_media/$system/marquees"
+				rm -rf "$toolsPath/downloaded_media/$system/wheel" &> /dev/null
+				rm -rf "$toolsPath/downloaded_media/$system/screenshot" &> /dev/null
+				mkdir -p "$toolsPath/downloaded_media/$system/screenshots/"
+			elif [[ "$systemPath" == "$romsPath/desktop" ]]; then
 				system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
 				echo $system
 				mkdir -p "$toolsPath/downloaded_media/$system/covers"
@@ -100,6 +113,18 @@ pegasus_init(){
 			if  [[ "$systemPath" == "$romsPath/model2" || "$systemPath" == "$romsPath/xbox360" || "$systemPath" == "$romsPath/wiiu" ]]; then
 				system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
 				ln -s "$toolsPath/downloaded_media/$system" "$systemPath/roms/media" &> /dev/null
+				ln -s "$toolsPath/downloaded_media/$system/covers/" "$toolsPath/downloaded_media/$system/box2dfront" &> /dev/null
+				ln -s "$toolsPath/downloaded_media/$system/marquees/" "$toolsPath/downloaded_media/$system/wheel" &> /dev/null
+				ln -s "$toolsPath/downloaded_media/$system/screenshots/" "$toolsPath/downloaded_media/$system/screenshot" &> /dev/null
+			elif [[ "$systemPath" == "$romsPath/desktop" ]]; then
+				system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
+				ln -s "$toolsPath/downloaded_media/$system" "$systemPath/media" &> /dev/null
+				if [ -d  "$romsPath/desktop/cloud" ]; then 
+					ln -s "$toolsPath/downloaded_media/$system" "$systemPath/cloud/media" &> /dev/null
+				fi 
+				if [ -d "$romsPath/desktop/remoteplay" ]; then 
+					ln -s "$toolsPath/downloaded_media/$system" "$systemPath/remoteplay/media" &> /dev/null
+				fi 
 				ln -s "$toolsPath/downloaded_media/$system/covers/" "$toolsPath/downloaded_media/$system/box2dfront" &> /dev/null
 				ln -s "$toolsPath/downloaded_media/$system/marquees/" "$toolsPath/downloaded_media/$system/wheel" &> /dev/null
 				ln -s "$toolsPath/downloaded_media/$system/screenshots/" "$toolsPath/downloaded_media/$system/screenshot" &> /dev/null

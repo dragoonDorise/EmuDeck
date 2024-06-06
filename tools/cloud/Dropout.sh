@@ -1,6 +1,7 @@
 #!/usr/bin/bash
+source "$HOME/.config/EmuDeck/backend/functions/all.sh"
+source "$romsPath/cloud/cloud.conf"
 
 LINK=https://www.dropout.tv/browse
 
-source ./cloud.conf
-"/usr/bin/flatpak" run ${FLATPAKOPTIONS} ${BROWSERAPP} @@u @@ ${BROWSEROPTIONS} ${LINK}
+browsercommand

@@ -23,7 +23,7 @@ Chiaki_install() {
 Chiaki_init() {
 	setMSG "Initializing $Chiaki_emuName settings."	
 	configEmuFP "$Chiaki_emuName" "$Chiaki_emuPath" "true"
-	$Chiaki_addSteamInputProfile
+	#Chiaki_addSteamInputProfile
 }
 
 # Update flatpak & launcher script
@@ -64,5 +64,6 @@ Chiaki_IsInstalled() {
 
 # Import steam profile
 Chiaki_addSteamInputProfile() {
-	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_chiaki_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	echo "NYI"
+	#rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_chiaki_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

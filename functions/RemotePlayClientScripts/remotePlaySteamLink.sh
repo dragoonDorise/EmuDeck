@@ -16,14 +16,14 @@ SteamLink_install() {
 	flatpak override "$ID" --share=network --user
 	cp "$EMUDECKGIT/tools/remoteplayclients/SteamLink.sh" "$romsPath/remoteplay"
 	chmod +x "$romsPath/remoteplay/SteamLink.sh"
-	SteamLink_addSteamInputProfile
+	#SteamLink_addSteamInputProfile
 }
 
 # ApplyInitialSettings
 SteamLink_init() {
 	setMSG "Initializing $SteamLink_emuName settings."	
 	configEmuFP "$SteamLink_emuName" "$SteamLink_emuPath" "true"
-	$SteamLink_addSteamInputProfile
+	#SteamLink_addSteamInputProfile
 }
 
 # Update flatpak & launcher script
@@ -58,5 +58,6 @@ SteamLink_IsInstalled() {
 
 # Import steam profile
 SteamLink_addSteamInputProfile() {
-	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_steamlink_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	echo "NYI"
+	#rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_steamlink_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

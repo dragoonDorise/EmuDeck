@@ -16,14 +16,14 @@ Spotify_install() {
 	flatpak override "$ID" --share=network --user
 	cp "$EMUDECKGIT/tools/remoteplayclients/Spotify.sh" "$romsPath/remoteplay"
 	chmod +x "$romsPath/remoteplay/Spotify.sh"
-	Spotify_addSteamInputProfile
+	#Spotify_addSteamInputProfile
 }
 
 # ApplyInitialSettings
 Spotify_init() {
 	setMSG "Initializing $Spotify_emuName settings."	
 	configEmuFP "$Spotify_emuName" "$Spotify_emuPath" "true"
-	$Spotify_addSteamInputProfile
+	#Spotify_addSteamInputProfile
 }
 
 # Update flatpak & launcher script
@@ -58,5 +58,6 @@ Spotify_IsInstalled() {
 
 # Import steam profile
 Spotify_addSteamInputProfile() {
-	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_spotify_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	echo "NYI"
+	#rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_spotify_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
