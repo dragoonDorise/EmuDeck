@@ -143,7 +143,7 @@ if [ $androidInstallDolphin == "true" ]; then
 fi
 if [ $androidInstallRA == "true" ]; then
 	Android_RetroArch_install
-	#Android_RetroArch_init
+	Android_RetroArch_init
 fi
 if [ $androidInstallPPSSPP == "true" ]; then
 	Android_PPSSPP_install

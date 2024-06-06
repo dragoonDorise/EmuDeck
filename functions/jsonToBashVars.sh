@@ -1,4 +1,4 @@
-
+#!/bin/bash
 function jsonToBashVars(){
     local json=$1
     echo "#!/bin/bash" > "$emuDecksettingsFile"
