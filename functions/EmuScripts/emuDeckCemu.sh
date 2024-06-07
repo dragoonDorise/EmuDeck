@@ -14,6 +14,23 @@ Cemu_functions () {
 		[shareDir]="${HOME}/.local/share/Cemu"
 		[controllerDir]="${HOME}/.config/Cemu/controllerProfiles"
 	)
+
+	declare -A Cemu_languages
+	Cemu_languages=(
+	["ja"]=0
+	["en"]=1
+	["fr"]=2
+	["de"]=3
+	["it"]=4
+	["es"]=5
+	["zh"]=6
+	["ko"]=7
+	["nl"]=8
+	["pt"]=9
+	["ru"]=10
+	["tw"]=11)
+
+
 	# Cleanup older things
 	cleanup () {
 		echo "NYI"
