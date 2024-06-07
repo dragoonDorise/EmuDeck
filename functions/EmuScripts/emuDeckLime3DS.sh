@@ -2,7 +2,7 @@
 #variables
 Lime3DS_emuName="Lime3DS"
 Lime3DS_emuType="$emuDeckEmuTypeAppImage"
-Lime3DS_emuPath="$HOME/Applications/lime3DS-gui.AppImage"
+Lime3DS_emuPath="$HOME/Applications/lime3ds-gui.AppImage"
 Lime3DS_releaseURL=""
 Lime3DS_configFile="$HOME/.config/citra-emu/qt-config.ini"
 Lime3DS_configPath="$HOME/.config/citra-emu"
