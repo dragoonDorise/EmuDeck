@@ -31,6 +31,15 @@ ScummVM_init(){
 	ScummVM_setupSaves
 	#SRM_createParsers
 	ScummVM_flushEmulatorLauncher
+	ScummVM_setLanguage
+}
+
+ScummVM_setLanguage(){
+	setMSG "Setting ScummVM Language"
+	local language=$(locale | grep LANG | cut -d= -f2 | cut -d. -f1)
+	local languageOpt="gui_language="
+	newLanguageOpt='gui_language='"$language"
+	changeLine "$languageOpt" "$newLanguageOpt" "$ScummVM_configFile"
 }
 
 #update

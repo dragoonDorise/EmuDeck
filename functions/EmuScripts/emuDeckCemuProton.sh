@@ -81,7 +81,7 @@ CemuProton_init(){
 	CemuProton_addESConfig
 	CemuProton_flushEmulatorLauncher
 	addProtonLaunch
-	
+
 	if [ -e "${romsPath}/wiiu/controllerProfiles/controller1.xml" ];then
 		mv "${romsPath}/wiiu/controllerProfiles/controller1.xml" "${romsPath}/wiiu/controllerProfiles/controller1.xml.bak"
 	fi
@@ -135,6 +135,7 @@ CemuProton_setEmulationFolder(){
 #SetLanguage
 CemuProton_setLanguage(){
 	setMSG "Setting $CemuProton_emuName Language"
+	local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
 	#TODO: call this somewhere, and input the $language from somewhere (args?)
 	if [[ -f "${CemuProton_cemuSettings}" ]]; then
 		if [ ${CemuProton_languages[$language]+_} ]; then
