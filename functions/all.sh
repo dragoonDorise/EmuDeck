@@ -78,6 +78,7 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemuProton.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRPCS3.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCitra.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckLime3DS.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDolphin.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPrimehack.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRetroArch.sh

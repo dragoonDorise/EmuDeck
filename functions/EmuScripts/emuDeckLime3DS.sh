@@ -56,7 +56,7 @@ Lime3DS_init(){
 }
 
 Lime3DS_migrateFromCitra(){
-	if [ -d "$savesPath/citra"]; then
+	if [ -d "$savesPath/citra" ]; then
 		mv "$savesPath/citra" "$savesPath/lime3ds"
 	fi
 }
