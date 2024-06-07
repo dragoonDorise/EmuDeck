@@ -36,6 +36,7 @@ Xemu_init() {
 	Xemu_setCustomizations
 	#SRM_createParsers
 	Xemu_flushEmulatorLauncher
+	Xemu_setLanguage
 }
 
 #update
@@ -71,7 +72,7 @@ Xemu_setEmulationFolder(){
 #SetLanguage
 Xemu_setLanguage(){
     setMSG "Setting Xemu Language"
-
+	local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
     eepromPath="${storagePath}/xemu/eeprom.bin"
 	#TODO: call this somewhere, and input the $language from somewhere (args?)
 	if [[ -f "${eepromPath}" ]]; then # TODO: if not generate the eeprom?

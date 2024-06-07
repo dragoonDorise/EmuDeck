@@ -9,6 +9,20 @@ RPCS3_VFSConf="$HOME/.config/rpcs3/vfs.yml"
 RPCS3_migrationFlag="$HOME/.config/EmuDeck/.${RPCS3_emuName}MigrationCompleted"
 RPCS3_configFile="$HOME/.config/rpcs3/config.yml"
 
+declare -A RPCS3_languages
+RPCS3_languages=(
+["ja"]=""
+["en"]="English (US)"
+["fr"]="French"
+["de"]="German"
+["it"]="Italian"
+["es"]="Spanish"
+["ko"]="Korean"
+["nl"]="Dutch"
+["pt"]="Portiguese (Portugal)"
+["ru"]="Russian")
+
+
 #cleanupOlderThings
 RPCS3_cleanup(){
 	echo "NYI"
@@ -43,8 +57,18 @@ RPCS3_init(){
 	RPCS3_setupSaves
 	#SRM_createParsers
 	RPCS3_flushEmulatorLauncher
+	RPCS3_setLanguage
 
+}
 
+RPCS3_setLanguage(){
+	setMSG "Setting RPCS3 Language"
+	local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+	local languageOpt="  Language"
+	if [ ${RPCS3_languages[$language]+_} ]; then
+		newLanguageOpt="${RPCS3_languages[$language]}"
+		iniFieldUpdate "$RPCS3_configFile" "" "$languageOpt" "$newLanguageOpt" ": "
+	fi
 }
 
 #update
