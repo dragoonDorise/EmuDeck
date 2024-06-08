@@ -3439,116 +3439,116 @@
       "version": 17,
       "disabled": true
   },
-  {
-      "parserType": "Glob",
-      "configTitle": "Nintendo 3DS - Lime3ds",
-      "steamDirectory": "${steamdirglobal}",
-      "steamCategory": "${Nintendo 3DS}",
-      "romDirectory": "${romsdirglobal}/n3ds",
-      "executableArgs": " \"${filePath}\"",
-      "executableModifier": "\"${exePath}\"",
-      "startInDirectory": "",
-      "titleModifier": "${fuzzyTitle}",
-      "steamInputEnabled": "1",
-      "imageProviders": [
-          "SteamGridDB"
-      ],
-      "drmProtect": false,
-      "onlineImageQueries": "${${fuzzyTitle}}",
-      "imagePool": "${fuzzyTitle}",
-      "userAccounts": {
-          "specifiedAccounts": ""
-      },
-      "executable": {
-          "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/lime3ds.sh",
-          "shortcutPassthrough": false,
-          "appendArgsToExecutable": true
-      },
-      "parserInputs": {
-          "glob": "**/${title}@(.3ds|.3DS|.3dsx|.3DSX|.app|.APP|.axf|.AXF|.cii|.CII|.cxi|.CXI|.elf|.ELF|.cci|.CCI)"
-      },
-      "titleFromVariable": {
-          "limitToGroups": "",
-          "caseInsensitiveVariables": false,
-          "skipFileIfVariableWasNotFound": false,
-          "tryToMatchTitle": false
-      },
-      "fuzzyMatch": {
-          "replaceDiacritics": true,
-          "removeCharacters": true,
-          "removeBrackets": true
-      },
-      "controllers": {
-          "ps4": {
-              "title": "EmuDeck - DualShock 4",
-              "mappingId": "emudeck_controller_ps4.vdf",
-              "profileType": "template"
-          },
-          "ps5": {
-              "title": "EmuDeck - DualSense",
-              "mappingId": "emudeck_controller_ps5.vdf",
-              "profileType": "template"
-          },
-          "ps5_edge": {
-              "title": "EmuDeck - DualSense Edge",
-              "mappingId": "emudeck_controller_ps5_dualsense_edge.vdf",
-              "profileType": "template"
-          },
-          "xbox360": null,
-          "xboxone": null,
-          "xboxelite": {
-              "title": "EmuDeck - Xbox Elite",
-              "mappingId": "emudeck_controller_xboxelite.vdf",
-              "profileType": "template"
-          },
-          "switch_joycon_left": null,
-          "switch_joycon_right": null,
-          "switch_pro": {
-              "title": "EmuDeck - Switch Pro Controller",
-              "mappingId": "emudeck_controller_switch_pro.vdf",
-              "profileType": "template"
-          },
-          "neptune": {
-              "title": "EmuDeck - Steam Deck",
-              "mappingId": "emudeck_controller_steamdeck_nintendo.vdf",
-              "profileType": "template"
-          },
-          "steamcontroller_gordon": {
-              "title": "EmuDeck - Steam Controller",
-              "mappingId": "emudeck_controller_steamcontroller.vdf",
-              "profileType": "template"
-          }
-      },
-      "imageProviderAPIs": {
-          "SteamGridDB": {
-              "nsfw": false,
-              "humor": false,
-              "styles": [],
-              "stylesHero": [],
-              "stylesLogo": [],
-              "stylesIcon": [],
-              "imageMotionTypes": [
-                  "static"
-              ]
-          }
-      },
-      "defaultImage": {
-          "tall": "",
-          "long": "",
-          "hero": "",
-          "logo": "",
-          "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
-      },
-      "localImages": {
-          "tall": "",
-          "long": "",
-          "hero": "",
-          "logo": "",
-          "icon": ""
-      },
-      "parserId": "16478559884003905",
-      "version": 17,
-      "disabled": false
+    {
+        "parserType": "Glob",
+        "configTitle": "Nintendo 3DS - Lime3ds",
+        "steamDirectory": "${steamdirglobal}",
+        "steamCategory": "${Nintendo 3DS}",
+        "romDirectory": "${romsdirglobal}/n3ds",
+        "executableArgs": " \"${filePath}\"",
+        "executableModifier": "\"${exePath}\"",
+        "startInDirectory": "",
+        "titleModifier": "${fuzzyTitle}",
+        "steamInputEnabled": "1",
+        "imageProviders": [
+            "SteamGridDB"
+        ],
+        "drmProtect": false,
+        "onlineImageQueries": "${${fuzzyTitle}}",
+        "imagePool": "${fuzzyTitle}",
+        "userAccounts": {
+            "specifiedAccounts": ""
+        },
+        "executable": {
+            "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/lime3ds.sh",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
+        },
+        "parserInputs": {
+            "glob": "**/${title}@(.3ds|.3DS|.3dsx|.3DSX|.app|.APP|.axf|.AXF|.cii|.CII|.cxi|.CXI|.elf|.ELF|.cci|.CCI)"
+        },
+        "titleFromVariable": {
+            "limitToGroups": "",
+            "caseInsensitiveVariables": false,
+            "skipFileIfVariableWasNotFound": false,
+            "tryToMatchTitle": false
+        },
+        "fuzzyMatch": {
+            "replaceDiacritics": true,
+            "removeCharacters": true,
+            "removeBrackets": true
+        },
+        "controllers": {
+            "ps4": {
+                "title": "EmuDeck - DualShock 4",
+                "mappingId": "emudeck_controller_ps4.vdf",
+                "profileType": "template"
+            },
+            "ps5": {
+                "title": "EmuDeck - DualSense",
+                "mappingId": "emudeck_controller_ps5.vdf",
+                "profileType": "template"
+            },
+            "ps5_edge": {
+                "title": "EmuDeck - DualSense Edge",
+                "mappingId": "emudeck_controller_ps5_dualsense_edge.vdf",
+                "profileType": "template"
+            },
+            "xbox360": null,
+            "xboxone": null,
+            "xboxelite": {
+                "title": "EmuDeck - Xbox Elite",
+                "mappingId": "emudeck_controller_xboxelite.vdf",
+                "profileType": "template"
+            },
+            "switch_joycon_left": null,
+            "switch_joycon_right": null,
+            "switch_pro": {
+                "title": "EmuDeck - Switch Pro Controller",
+                "mappingId": "emudeck_controller_switch_pro.vdf",
+                "profileType": "template"
+            },
+            "neptune": {
+                "title": "EmuDeck - Steam Deck",
+                "mappingId": "emudeck_controller_steamdeck_nintendo.vdf",
+                "profileType": "template"
+            },
+            "steamcontroller_gordon": {
+                "title": "EmuDeck - Steam Controller",
+                "mappingId": "emudeck_controller_steamcontroller.vdf",
+                "profileType": "template"
+            }
+        },
+        "imageProviderAPIs": {
+            "SteamGridDB": {
+                "nsfw": false,
+                "humor": false,
+                "styles": [],
+                "stylesHero": [],
+                "stylesLogo": [],
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ]
+            }
+        },
+        "defaultImage": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+        },
+        "localImages": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "parserId": "16478559884003905",
+        "version": 17,
+        "disabled": false
   },
   {
       "parserType": "Glob",
@@ -8392,7 +8392,7 @@
       "steamCategory": "${Sony PlayStation 2}",
       "steamDirectory": "${steamdirglobal}",
       "romDirectory": "${romsdirglobal}/ps2",
-      "executableArgs": "-batch -fullscreen \"'${filePath}'\"",
+      "executableArgs": " -batch -fullscreen \"'${filePath}'\"",
       "executableModifier": "\"${exePath}\"",
       "startInDirectory": "",
       "titleModifier": "${fuzzyTitle}",
@@ -8795,7 +8795,7 @@
       "steamCategory": "${Sony PlayStation Vita}",
       "steamDirectory": "${steamdirglobal}",
       "romDirectory": "${romsdirglobal}${/}psvita",
-      "executableArgs": "-Fr \"${/.*[/\\\\]([^/\\\\]+)[/\\\\]/|${filePath}}\"",
+      "executableArgs": "\"${/.*[/\\\\]([^/\\\\]+)[/\\\\]/|${filePath}}\"",
       "executableModifier": "\"${exePath}\"",
       "startInDirectory": "",
       "titleModifier": "${fuzzyTitle}",
@@ -8808,7 +8808,7 @@
           "specifiedAccounts": ""
       },
       "executable": {
-          "path": "/home/deck/Applications/Vita3K/Vita3K",
+          "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/vita3k.sh",
           "shortcutPassthrough": false,
           "appendArgsToExecutable": true
       },
