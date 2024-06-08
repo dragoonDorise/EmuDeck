@@ -23,7 +23,7 @@ Parsec_install() {
 Parsec_init() {
 	setMSG "Initializing $Parsec_emuName settings."	
 	configEmuFP "$Parsec_emuName" "$Parsec_emuPath" "true"
-	$Parsec_addSteamInputProfile
+	#Parsec_addSteamInputProfile
 }
 
 # Update flatpak & launcher script
@@ -64,5 +64,6 @@ Parsec_IsInstalled() {
 
 # Import steam profile
 Parsec_addSteamInputProfile() {
-	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_parsec_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	echo "NYI"
+	#rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_parsec_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
