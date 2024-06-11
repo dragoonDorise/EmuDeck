@@ -76,6 +76,5 @@ def generate_game_lists(roms_path):
         f.write(json_output)
 
 roms_path = sys.argv[1]
-print(f"{roms_path}")
 
 generate_game_lists(f"{roms_path}")
