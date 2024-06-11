@@ -1,13 +1,12 @@
 #!/bin/bash
 generateGameLists() {
-
     pegasus_setPaths
-
     python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath"
     generateGameLists_artwork &> /dev/null &
 }
 
 generateGameListsJson() {
+    python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath"
     cat $HOME/emudeck/roms_games.json
     #generateGameLists_artwork &> /dev/null &
 }
