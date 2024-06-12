@@ -2,21 +2,26 @@
 generateGameLists() {
     pegasus_setPaths
     python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath"
-    generateGameLists_artwork &> /dev/null &
 }
 
 generateGameListsJson() {
+    local userid=$1
     python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath"
-    cat $HOME/emudeck/roms_games.json
-    #generateGameLists_artwork &> /dev/null &
+    cat $HOME/emudeck/cache/roms_games.json
+    generateGameLists_artwork $userid &> /dev/null &
 }
 
 generateGameLists_artwork() {
-    json=$(cat "$HOME/emudeck/roms_games.json")
-    platforms=$(echo "$json" | jq -r '.[].id')
+    mkdir -p "$HOME/emudeck/cache/"
+    local userid=$1
+    local json=$(cat "$HOME/emudeck/cache/roms_games.json")
+    local platforms=$(echo "$json" | jq -r '.[].id')
 
-    accountfolder=$(ls -d $HOME/.steam/steam/userdata/* | head -n 1)
-    dest_folder="$accountfolder/config/grid/"
+    #accountfolder=$(ls -d $HOME/.steam/steam/userdata/* | head -n 1)
+    accountfolder="$HOME/.steam/steam/userdata/$userid"
+
+
+    dest_folder="$accountfolder/config/grid/emudeck/"
     mkdir -p "$dest_folder"
 
     declare -A processed_games
