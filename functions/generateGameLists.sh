@@ -17,8 +17,8 @@ generateGameLists_artwork() {
     local json=$(cat "$HOME/emudeck/cache/roms_games.json")
     local platforms=$(echo "$json" | jq -r '.[].id')
 
-    #accountfolder=$(ls -d $HOME/.steam/steam/userdata/* | head -n 1)
-    accountfolder="$HOME/.steam/steam/userdata/$userid"
+    accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
+    #accountfolder="$HOME/.steam/steam/userdata/$userid"
 
 
     dest_folder="$accountfolder/config/grid/emudeck/"
