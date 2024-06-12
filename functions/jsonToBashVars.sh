@@ -139,6 +139,7 @@ function jsonToBashVars(){
     setSetting androidInstallDolphin "$(jq .android.installEmus.dolphin.status $json)"
     setSetting androidInstallPPSSPP "$(jq .android.installEmus.ppsspp.status $json)"
     setSetting androidInstallCitraMMJ "$(jq .android.installEmus.citrammj.status $json)"
+    setSetting androidInstallLime3DS "$(jq .android.installEmus.lime3ds.status $json)"
     setSetting androidInstallNetherSX2 "$(jq .android.installEmus.nethersx2.status $json)"
     setSetting androidInstallScummVM "$(jq .android.installEmus.scummvm.status $json)"
 
@@ -146,6 +147,7 @@ function jsonToBashVars(){
     setSetting androidSetupDolphin "$(jq .android.overwriteConfigEmus.dolphin.status $json)"
     setSetting androidSetupPPSSPP "$(jq .android.overwriteConfigEmus.ppsspp.status $json)"
     setSetting androidSetupCitraMMJ "$(jq .android.overwriteConfigEmus.citrammj.status $json)"
+    setSetting androidSetupLime3DS "$(jq .android.overwriteConfigEmus.lime3ds.status $json)"
     setSetting androidSetupNetherSX2 "$(jq .android.overwriteConfigEmus.nethersx2.status $json)"
     setSetting androidSetupScummVM "$(jq .android.overwriteConfigEmus.scummvm.status $json)"
 

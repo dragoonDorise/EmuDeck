@@ -133,9 +133,9 @@ if [ $androidInstallPegasus == "true" ]; then
 	Android_Pegasus_init
 fi
 
-if [ $androidInstallCitraMMJ == "true" ]; then
-	Android_Citra_install
-	Android_Citra_init
+if [ $androidInstallLime3DS == "true" ]; then
+	Android_Lime3DS_install
+	Android_Lime3DS_init
 fi
 if [ $androidInstallDolphin == "true" ]; then
 	Android_Dolphin_install
