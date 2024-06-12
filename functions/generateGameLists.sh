@@ -34,7 +34,9 @@ generateGameLists_artwork() {
            if ! ls $file_to_check 1> /dev/null 2>&1 && [ -z "${processed_games[$game]}" ]; then
                 echo -ne "$game"
 
-                response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$game&platform=$platform")
+                fuzzygame=$(python $HOME/.config/EmuDeck/backend/tools/fuzzy_search_rom.py "$game")
+
+                response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$fuzzygame&platform=$platform")
                 game_name=$(echo "$response" | jq -r '.name')
                 game_img_url=$(echo "$response" | jq -r '.img')
                 filename=$(basename "$game_img_url")
