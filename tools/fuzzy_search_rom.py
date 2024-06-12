@@ -27,6 +27,11 @@ def is_file_older_than(file_path, days):
 # URL del JSON
 url = "https://steamgriddb.com/api/games"
 
+# Título para buscar
+search_title = sys.argv[1]
+print(f"{search_title}")
+sys.exit()
+
 # Directorio para guardar el archivo JSON
 home_dir = os.path.expanduser("~")
 emudeck_dir = os.path.join(home_dir, "emudeck")
@@ -64,9 +69,6 @@ elif isinstance(json_data, dict) and 'games' in json_data:
 else:
     print("No se encontraron juegos en el JSON o la estructura no es la esperada.")
     games = []
-
-# Título para buscar
-search_title = sys.argv[1]
 
 # Buscar el título más parecido
 if games:
