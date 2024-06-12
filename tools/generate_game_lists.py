@@ -24,7 +24,7 @@ def generate_game_lists(roms_path):
                     name_cleaned_pegasus = name.replace(' ', '_')
 
                     clean_name = name_cleaned
-                    game_img = f"/customimages/{clean_name}.jpg"
+                    game_img = f"/customimages/emudeck/{clean_name}.jpg"
                     game_info = {
                         "name": clean_name,
                         "filename": os.path.join(root, file),
@@ -71,7 +71,7 @@ def generate_game_lists(roms_path):
 
     json_output = json.dumps(game_list_sorted, indent=4)
     home_directory = os.path.expanduser("~")
-    output_file = os.path.join(home_directory, 'emudeck', 'roms_games.json')
+    output_file = os.path.join(home_directory, 'emudeck', 'cache', 'roms_games.json')
     with open(output_file, 'w') as f:
         f.write(json_output)
 

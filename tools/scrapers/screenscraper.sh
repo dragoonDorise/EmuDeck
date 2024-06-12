@@ -336,7 +336,8 @@ romParser_SS_download(){
 romParser_SS_start(){
 	#generateGameLists
 	echo -e "${BOLD}Starting ScreenScraper Thumbnails Scraper...${NONE}"
-	json=$(cat "$HOME/emudeck/roms_games.json")
+	python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath"
+	json=$(cat "$HOME/emudeck/cache/roms_games.json")
 	platforms=$(echo "$json" | jq -r '.[].id')
 
 	declare -A processed_games
