@@ -54,7 +54,7 @@ Lime3DS_init(){
 							"False"
 
 	#ESDE Temp FIX
-	sed -i "s|lime-qt*.AppImage|lime3ds-*.AppImage|g" "$es_rulesFile"
+	ln -s "$HOME/Applications/lime3ds-gui.AppImage" "$HOME/Applications/lime-qt.AppImage"
 
 }
 
