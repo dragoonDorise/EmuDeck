@@ -50,7 +50,7 @@ Lime3DS_init(){
 
   	createDesktopShortcut   "$HOME/.local/share/applications/Lime3DS.desktop" \
 							"Lime3DS (AppImage)" \
-							"${toolsPath}/launchers/Lime3DS.sh"  \
+							"${toolsPath}/launchers/lime3ds.sh"  \
 							"False"
 
 }
