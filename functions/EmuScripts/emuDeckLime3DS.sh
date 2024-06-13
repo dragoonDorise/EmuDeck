@@ -53,6 +53,9 @@ Lime3DS_init(){
 							"${toolsPath}/launchers/lime3ds.sh"  \
 							"False"
 
+	#ESDE Temp FIX
+	sed -i "s|lime-qt*.AppImage|lime3ds-*.AppImage|g" "$es_rulesFile"
+
 }
 
 Lime3DS_migrateFromCitra(){
