@@ -29,8 +29,8 @@ url = "https://steamgriddb.com/api/games"
 
 # Título para buscar
 search_title = sys.argv[1]
-print(f"{search_title}")
-sys.exit()
+#print(f"{search_title}")
+#sys.exit()
 
 # Directorio para guardar el archivo JSON
 home_dir = os.path.expanduser("~")
