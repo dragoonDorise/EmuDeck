@@ -24,7 +24,7 @@ RPCS3_install(){
 	# Install RPCS3
 	local showProgress="$1"
 
-	if installEmuAI "$RPCS3_emuName" "$RPCS3_releaseURL" "rpcs3" "$showProgress"; then # rpcs3.AppImage - needs to be lowercase yuzu for EsDE to find it
+	if installEmuAI "$RPCS3_emuName" "$RPCS3_releaseURL" "rpcs3" "" "$showProgress"; then # rpcs3.AppImage - needs to be lowercase yuzu for EsDE to find it
 		:
 	else
 		return 1
