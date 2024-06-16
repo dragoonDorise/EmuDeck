@@ -48,13 +48,22 @@ AutoCopy(){
 			CopyGames $USBPath
 		else
 			text="`printf "We are going to create the proper folder structure in your USB Drive"`"
-			zenity --info \
+
+			(
+			  echo "3"; sleep 1
+			  echo "2"; sleep 1
+			  echo "1"; sleep 1
+			) | zenity --progress --percentage=0 --auto-close --no-cancel \
 					 --title="EmuDeck" \
 					 --width="450" \
 					 --text="${text}" 2>/dev/null
 			CreateStructureUSB $USBPath
 			text="`printf "<b>Success!</b>\n\nUSB folders created. Now copy your roms and bios in another computer and come back"`"
-			zenity --info \
+			(
+			  echo "3"; sleep 1
+			  echo "2"; sleep 1
+			  echo "1"; sleep 1
+			) |  zenity --progress --percentage=0 --auto-close --no-cancel \
 					 --title="EmuDeck" \
 					 --width="450" \
 					 --text="${text}" 2>/dev/null
@@ -64,7 +73,11 @@ AutoCopy(){
 		fi
 	else
 		text="`printf "<b>Error!</b>\n\nUSB Drive not found.\n\nMake sure the drive is named EMUDECK, all caps"`"
-		zenity --info \
+		(
+		  echo "3"; sleep 1
+		  echo "2"; sleep 1
+		  echo "1"; sleep 1
+		) | zenity --progress --percentage=0 --auto-close --no-cancel \
 				 --title="EmuDeck" \
 				 --width="450" \
 				 --text="${text}" 2>/dev/null
