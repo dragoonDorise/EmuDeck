@@ -34,6 +34,11 @@ CreateStructureUSB(){
 	fi
 }
 
+AutoCopy_install(){
+	cp "$EMUDECKGIT/tools/autocopy.sh" "$toolsPath/"
+
+	chmod +x "$EMUDECKGIT/tools/autocopy.sh"
+}
 
 AutoCopy(){
 	local USBPath=$(CheckUSB)
