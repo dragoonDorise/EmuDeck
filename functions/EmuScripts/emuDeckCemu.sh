@@ -15,22 +15,6 @@ Cemu_functions () {
 		[controllerDir]="${HOME}/.config/Cemu/controllerProfiles"
 	)
 
-	declare -A Cemu_languages
-	Cemu_languages=(
-	["ja"]=0
-	["en"]=1
-	["fr"]=2
-	["de"]=3
-	["it"]=4
-	["es"]=5
-	["zh"]=6
-	["ko"]=7
-	["nl"]=8
-	["pt"]=9
-	["ru"]=10
-	["tw"]=11)
-
-
 	# Cleanup older things
 	cleanup () {
 		echo "NYI"
@@ -210,20 +194,10 @@ Cemu_functions () {
 		linkToSaveFolder Cemu saves "${romsPath}/wiiu/mlc01/usr/save" #while we use both native and proton, i don't want to change the wiiu folder structure. I'm repeating myself now.
 	}
 
-	setLanguage(){
-		setMSG "Setting ${CemuNative[emuName]} Language"
-		local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
-		if [[ -f "${CemuNative[configFile]}" ]]; then
-			if [ ${Cemu_languages[$language]+_} ]; then
-				xmlstarlet ed --inplace  --subnode "content" --type elem -n "console_language" -v "${Cemu_languages[$language]}" "${CemuNative[configFile]}"
-			fi
-		fi
-	}
-
 	# Setup Storage
 	setupStorage () {
 
-		# These remove the bad symlinks/files created by the lines below.
+		# These remove the bad symlinks/files created by the lines below. 
 		if [ -L "${CemuNative[shareDir]}/graphicPacks" ]; then
 			rm -rf "${CemuNative[shareDir]}/graphicPacks"
 		fi
@@ -236,7 +210,7 @@ Cemu_functions () {
 			rm -rf "${CemuNative[shareDir]}/mlc01/mlc01"
 		fi
 
-  		# Commenting out for now. These need more testing.
+  		# Commenting out for now. These need more testing. 
 		#install -d "${storagePath}/cemu"
 		#unlink "${CemuNative[shareDir]}/mlc01"
 		#unlink "${CemuNative[shareDir]}/graphicPacks"
@@ -260,7 +234,7 @@ Cemu_functions () {
 	install () {
 		echo "Begin Cemu - Native Install"
 		local showProgress="$1"
-		if installEmuAI "Cemu" "$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")" "" "$showProgress"; then # Cemu.AppImage
+		if installEmuAI "Cemu" "$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")" "" "" "$showProgress"; then # Cemu.AppImage
 			:
 		else
 			return 1
@@ -280,7 +254,7 @@ Cemu_functions () {
 		setupSaves
 		addSteamInputProfile
 		flushEmulatorLauncher
-
+	
 		if [ -e "$ESDE_toolPath" ]; then
 			ESDE_junksettingsFile
 			ESDE_addCustomSystemsFile
@@ -404,11 +378,6 @@ Cemu_setupStorage () {
 	Cemu_functions "setupStorage"
 }
 
-# Set Languages
-Cemu_setLanguage () {
-	Cemu_functions "setLanguage"
-}
-
 # Wipe Settings
 Cemu_wipeSettings () {
 	Cemu_functions "wipeSettings"
@@ -467,7 +436,6 @@ Cemu_setBAYXstyle(){
 Cemu_flushEmulatorLauncher(){
 
 	Cemu_functions "flushEmulatorLauncher"
+	
 
 }
-
-
