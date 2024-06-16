@@ -37,7 +37,7 @@ CreateStructureUSB(){
 AutoCopy_install(){
 	cp "$EMUDECKGIT/tools/autocopy.sh" "$toolsPath/"
 
-	chmod +x "$EMUDECKGIT/tools/autocopy.sh"
+	chmod +x "$toolsPath/autocopy.sh"
 }
 
 AutoCopy(){
