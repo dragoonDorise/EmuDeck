@@ -7,132 +7,162 @@ Citra_releaseURL=""
 Citra_configFile="$HOME/.config/citra-emu/qt-config.ini"
 Citra_configPath="$HOME/.config/citra-emu"
 Citra_texturesPath="$HOME/.config/citra-emu/load/textures"
-Citra_flatpakPath="$HOME/.var/app/org.citra_emu.citra"
-Citra_flatpakName="org.citra_emu.citra"
-Citra_flatpakconfigPath="$Citra_flatpakPath/config/citra-emu"
-Citra_flatpakconfigFile="$Citra_flatpakconfigPath/qt-config.ini"
-#cleanupOlderThings
-Citra_finalize(){
- echo "NYI"
-}
 
 #Install
 Citra_install(){
-	setMSG "Installing $Citra_emuName"
-	installEmuFP "${Citra_emuName}" "${Citra_emuPath}"
-	curl -L https://github.com/citra-emu/citra-web/releases/download/2.0/citra-setup-linux > citra-setup-linux && chmod +x citra-setup-linux && ./citra-setup-linux --accept-licenses --confirm-command install
-	rm citra-setup-linux
+	echo "Begin $Citra_emuName Install"
+	local showProgress="$1"
+	if installEmuAI "$Citra_emuName" "$(getReleaseURLGH "PabloMK7/citra" "tar.gz" "" "appimage")" "citra" "tar.gz" "$showProgress"; then #citra-qt.AppImage
+		mkdir "$HOME/Applications/citra-temp"
+		tar -xvzf "$HOME/Applications/citra.tar.gz" -C "$HOME/Applications/citra-temp" --strip-components 1
+		mv "$HOME/Applications/citra-temp/citra-qt.AppImage" "$HOME/Applications"
+		rm -rf "$HOME/Applications/citra-temp"
+		rm -rf "$HOME/Applications/citra.tar.gz"
+		chmod +x "$HOME/Applications/citra-qt.AppImage"
+	else
+		return 1
+	fi
 }
 
 #ApplyInitialSettings
 Citra_init(){
 	setMSG "Initializing $Citra_emuName settings."
-	#configEmuFP "${Citra_emuName}" "${Citra_emuPath}" "true"
-	#Citra_migrate
-	#Citra_setupStorage
+	configEmuAI "$Citra_emuName" "citra-emu"  "$HOME/.config/citra-emu" "$EMUDECKGIT/configs/citra-emu" "true"
 	Citra_setEmulationFolder
+	Citra_setupStorage
 	Citra_setupSaves
-	#SRM_createParsers
 	Citra_addSteamInputProfile
 	Citra_flushEmulatorLauncher
 	Citra_flushSymlinks
-	cp "$EMUDECKGIT/tools/launchers/citra.sh" "$toolsPath/launchers/citra.sh"
-	chmod +x "$toolsPath/launchers/citra.sh"
-
-  	createDesktopShortcut   "$HOME/.local/share/applications/Citra.desktop" \
-							"Citra (AppImage/Flatpak)" \
-							"${toolsPath}/launchers/citra.sh"  \
-							"False"
-
-
+	Citra_setupTextures
 }
 
 #update
 Citra_update(){
 	setMSG "Updating $Citra_emuName settings."
-	cd $HOME/.citra && ./maintenancetool update
+	configEmuAI "$Citra_emuName" "citra-emu" "$HOME/.config/citra-emu" "$EMUDECKGIT/configs/citra-emu"
 	Citra_setupStorage
 	Citra_setEmulationFolder
 	Citra_setupSaves
 	Citra_addSteamInputProfile
 	Citra_flushEmulatorLauncher
 	Citra_flushSymlinks
+	Citra_setupTextures
+}
+
+Citra_setupStorage(){
+	mkdir -p "$storagePath/citra/"
+
+
+	# SDMC and NAND
+	if [ ! -d "$storagePath/citra/sdmc" ] && [ -d "$HOME/.var/app/org.citra_emu.citra" -o -d "$HOME/.local/share/citra-emu" ]; then
+		echo "Citra SDMC does not exist in storage path"
+
+		echo -e ""
+		setMSG "Moving Citra SDMC to the Emulation/storage folder"
+		echo -e ""
+
+		mkdir -p "$storagePath/citra"
+
+		if [ -d "$savesPath/citra/sdmc" ]; then
+			mv -f "$savesPath"/citra/sdmc "$storagePath"/citra/
+
+		elif [ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" ]; then
+			rsync -av "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" "$storagePath"/citra/ && rm -rf "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc"
+
+		elif [ -d "$HOME/.local/share/citra-emu/sdmc" ]; then
+			rsync -av "$HOME/.local/share/citra-emu/sdmc" "$storagePath"/citra/ && rm -rf "$HOME/.local/share/citra-emu/sdmc"
+		else 
+			mkdir -p "$storagePath/citra/sdmc"
+		fi
+	fi
+
+	if [ ! -d "$storagePath/citra/nand" ] && [ -d "$HOME/.var/app/org.citra_emu.citra" -o -d "$HOME/.local/share/citra-emu" ]; then
+		echo "Citra NAND does not exist in storage path"
+
+		echo -e ""
+		setMSG "Moving Citra NAND to the Emulation/storage folder"
+		echo -e ""
+
+		mkdir -p "$storagePath/citra"
+
+		if [ -d "$savesPath/citra/nand" ]; then
+			mv -f "$savesPath"/citra/nand "$storagePath"/citra/
+
+		elif [ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand" ]; then
+			rsync -av "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand" "$storagePath"/citra/ && rm -rf "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand"
+
+		elif [ -d "$HOME/.local/share/citra-emu/nand" ]; then
+			rsync -av "$HOME/.local/share/citra-emu/nand" "$storagePath"/citra/ && rm -rf "$HOME/.local/share/citra-emu/nand"
+		else 
+			mkdir -p "$storagePath/citra/nand"
+		fi
+	fi
+
+	# Cheats and Texture Packs
+	# Cheats
+	mkdir -p "$HOME/.local/share/citra-emu/cheats"
+	linkToStorageFolder citra cheats "$HOME/.local/share/citra-emu/cheats"
+	# Texture Pack
+	mkdir -p "$HOME/.local/share/citra-emu/load/textures"
+	linkToStorageFolder citra textures "$HOME/.local/share/citra-emu/load/textures"
 }
 
 #ConfigurePaths
 Citra_setEmulationFolder(){
 	setMSG "Setting $Citra_emuName Emulation Folder"
 
+	mkdir -p "$Citra_configPath"
+	gameDirOpt='Paths\\gamedirs\\3\\path='
+	newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/n3ds"
+	sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_configFile"
 
-	if [ -e "$Citra_emuPath" ]; then
+	nandDirOpt='nand_directory='
+	newnandDirOpt='nand_directory='"$storagePath/citra/nand/"
+	sed -i "/${nandDirOpt}/c\\${newnandDirOpt}" "$Citra_configFile"
 
-		echo "AppImage found. Setting configurations."
+	sdmcDirOpt='sdmc_directory='
+	newsdmcDirOpt='sdmc_directory='"$storagePath/citra/sdmc/"
+	sed -i "/${sdmcDirOpt}/c\\${newsdmcDirOpt}" "$Citra_configFile"
 
-		mkdir -p "$Citra_configPath"
-		rsync -avhp "$EMUDECKGIT/configs/org.citra_emu.citra/config/citra-emu/qt-config.ini" "$Citra_configPath/qt-config.ini" --backup --suffix=.bak
-		gameDirOpt='Paths\\gamedirs\\3\\path='
-		newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/n3ds"
-		sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_configFile"
+	mkdir -p "$storagePath/citra/screenshots/"
+	screenshotsDirOpt='Paths\\screenshotPath='
+	newscreenshotDirOpt='Paths\\screenshotPath='"$storagePath/citra/screenshots/"
+	sed -i "/${screenshotsDirOpt}/c\\${newscreenshotDirOpt}" "$Citra_configFile"
 
-		nandDirOpt='nand_directory='
-		newnandDirOpt='nand_directory='"$HOME/.local/share/citra-emu/nand/"
-		sed -i "/${nandDirOpt}/c\\${newnandDirOpt}" "$Citra_configFile"
+	# True/False configs
+	sed -i 's/nand_directory\\default=true/nand_directory\\default=false/' "$Citra_configFile"
+	sed -i 's/sdmc_directory\\default=true/sdmc_directory\\default=false/' "$Citra_configFile"
+	sed -i 's/use_custom_storage=false/use_custom_storage=true/' "$Citra_configFile"
+	sed -i 's/use_custom_storage\\default=true/use_custom_storage\\default=false/' "$Citra_configFile"
 
-		sdmcDirOpt='sdmc_directory='
-		newsdmcDirOpt='sdmc_directory='"$HOME/.local/share/citra-emu/sdmc/"
-		sed -i "/${sdmcDirOpt}/c\\${newsdmcDirOpt}" "$Citra_configFile"
+	# Vulkan Graphics
+	sed -E 's/layout_option=[0-9]+/layout_option=5/g' "$Citra_configFile"
+	sed -i 's/layout_option\\default=true/layout_option\\default=false/' "$Citra_configFile"
 
-		screenshotsDirOpt='Paths\\screenshotPath='
-		newscreenshotDirOpt='Paths\\screenshotPath='"$HOME/.local/share/citra-emu/screenshots/"
-		sed -i "/${screenshotsDirOpt}/c\\${newscreenshotDirOpt}" "$Citra_configFile"
-
-		#Setup symlink for AES keys
-		mkdir -p "${biosPath}/citra/"
-		mkdir -p "$HOME/.local/share/citra-emu/sysdata"
-		ln -sn "$HOME/.local/share/citra-emu/sysdata" "${biosPath}/citra/keys"
-
-	else 
-		echo "AppImage not found."
-	fi
-
-
-	if [ "$(isFpInstalled "$Citra_flatpakName")" == "true" ]; then 
-
-		echo "Flatpak found. Setting configurations."
-
-
-		mkdir -p $Citra_flatpakconfigPath
-		rsync -avhp "$EMUDECKGIT/configs/org.citra_emu.citra/config/citra-emu/qt-config.ini" "$Citra_flatpakconfigPath/qt-config.ini" --backup --suffix=.bak
-		gameDirOpt='Paths\\gamedirs\\3\\path='
-		newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/n3ds"
-		sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_flatpakconfigFile"
-
-		#Setup symlink for AES keys
-		mkdir -p "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sysdata"
-		mkdir -p "${biosPath}/citra-flatpak"
-		ln -sn "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sysdata" "${biosPath}/citra-flatpak/keys"
-
-	else
-		echo "Flatpak not found."
-	fi
-
-	if [[ -e "$Citra_emuPath" ]] && [[ ! -f "$HOME/.config/EmuDeck/.citracopysaves" ]] && [[ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" ]] ;  then
-		echo "AppImage found. Copying Flatpak saves."
-		mkdir -p "$HOME/.local/share/citra-emu/sdmc"
-		rsync -avhp "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc/." "$HOME/.local/share/citra-emu/sdmc/."  --ignore-existing
-		touch "$HOME/.config/EmuDeck/.citracopysaves"
-	fi
-
+	#Setup symlink for AES keys
+	mkdir -p "${biosPath}/citra/"
+	mkdir -p "$HOME/.local/share/citra-emu/sysdata"
+	ln -sn "$HOME/.local/share/citra-emu/sysdata" "${biosPath}/citra/keys"
 
 }
+
+
 
 #SetupSaves
 Citra_setupSaves(){
-	linkToSaveFolder citra saves "$HOME/.local/share/citra-emu/sdmc"
+	mkdir -p "$HOME/.local/share/citra-emu/states"
+	linkToSaveFolder citra saves "$storagePath/citra/sdmc"
 	linkToSaveFolder citra states "$HOME/.local/share/citra-emu/states"
 }
 
+#Set up textures
 
+Citra_setupTextures(){
+	mkdir -p "$HOME/.local/share/citra-emu/load/textures"
+	linkToTexturesFolder citra textures "$HOME/.local/share/citra-emu/load/textures"
+	
+}
 
 #WipeSettings
 Citra_wipe(){
@@ -144,61 +174,24 @@ Citra_wipe(){
 #Uninstall
 Citra_uninstall(){
 	setMSG "Uninstalling $Citra_emuName."
-	cd $HOME/.citra && ./maintenancetool purge
+	rm -rf "$Citra_emuPath"
+	rm -rf $HOME/.local/share/applications/Citra.desktop
 }
 
 #setABXYstyle
 Citra_setABXYstyle(){
-		echo "NYI"
+	sed -i '/button_a/s/button:1/button:0/' "$Citra_configFile"
+	sed -i '/button_b/s/button:0/button:1/' "$Citra_configFile"
+	sed -i '/button_x/s/button:3/button:2/' "$Citra_configFile"
+	sed -i '/button_y/s/button:2/button:3/' "$Citra_configFile"
+
 }
 
-#Migrate
-Citra_migrate(){
-echo "Begin Citra Migration"
-	emu="Citra"
-	migrationFlag="$HOME/.config/EmuDeck/.${emu}MigrationCompleted"
-	#check if we have a nomigrateflag for $emu
-	if [ ! -f "$migrationFlag" ]; then
-		#citra flatpak to appimage
-		#From -- > to
-		migrationTable=()
-		migrationTable+=("$HOME/.var/app/org.citra_emu.citra/data/citra-emu" "$HOME/.local/share/citra-emu")
-		migrationTable+=("$HOME/.var/app/org.citra_emu.citra/config/citra-emu" "$HOME/.config/citra-emu")
-
-		# migrateAndLinkConfig "$emu" "$migrationTable"
-	fi
-
-	#move data from hidden folders out to these folders in case the user already put stuff here.
-	origPath="$HOME/.var/app/org.citra_emu.citra/data/citra_emu/"
-
-	Citra_setupStorage
-
-	rsync -av "${origPath}citra/dump" "${storagePath}/citra/" && rm -rf "${origPath}citra/dump"
-	rsync -av "${origPath}citra/load" "${storagePath}/citra/" && rm -rf "${origPath}citra/load"
-	rsync -av "${origPath}citra/sdmc" "${storagePath}/citra/" && rm -rf "${origPath}citra/sdmc"
-	rsync -av "${origPath}citra/nand" "${storagePath}/citra/" && rm -rf "${origPath}citra/nand"
-	rsync -av "${origPath}citra/screenshots" "${storagePath}/citra/" && rm -rf "${origPath}citra/screenshots"
-	rsync -av "${origPath}citra/tas" "${storagePath}/citra/" && rm -rf "${origPath}citra/tas"
-}
-
-#WideScreenOn
-Citra_wideScreenOn(){
-echo "NYI"
-}
-
-#WideScreenOff
-Citra_wideScreenOff(){
-echo "NYI"
-}
-
-#BezelOn
-Citra_bezelOn(){
-echo "NYI"
-}
-
-#BezelOff
-Citra_bezelOff(){
-echo "NYI"
+Citra_setBAYXstyle(){
+	sed -i '/button_a/s/button:0/button:1/' "$Citra_configFile"
+	sed -i '/button_b/s/button:1/button:0/' "$Citra_configFile"
+	sed -i '/button_x/s/button:2/button:3/' "$Citra_configFile"
+	sed -i '/button_y/s/button:3/button:2/' "$Citra_configFile"
 }
 
 #finalExec - Extra stuff
@@ -210,7 +203,7 @@ Citra_IsInstalled(){
 	if [ -e "$Citra_emuPath" ]; then
 		echo "true"
 	else
-		isFpInstalled "$Citra_flatpakName"
+		echo "false"
 	fi
 }
 

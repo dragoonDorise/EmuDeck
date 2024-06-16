@@ -3,13 +3,19 @@ installEmuAI(){
     local name="$1"
     local url="$2"
     local fileName="$3"
-    local showProgress="$4"
-    local lastVerFile="$5"
-    local latestVer="$6"
+    local format="$4"
+    local showProgress="$5"
+    local lastVerFile="$6"
+    local latestVer="$7"
 
     if [[ "$fileName" == "" ]]; then
         fileName="$name"
     fi
+
+    if [[ "$format" == "" ]]; then
+        format="AppImage"
+    fi
+    
     echo "$name"
     echo "$url"
     echo "$fileName"
@@ -21,7 +27,7 @@ installEmuAI(){
     mkdir -p "$HOME/Applications"
 
     #curl -L "$url" -o "$HOME/Applications/$fileName.AppImage.temp" && mv "$HOME/Applications/$fileName.AppImage.temp" "$HOME/Applications/$fileName.AppImage"
-    if safeDownload "$name" "$url" "$HOME/Applications/$fileName.AppImage" "$showProgress"; then
+    if safeDownload "$name" "$url" "$HOME/Applications/$fileName.$format" "$showProgress"; then
         chmod +x "$HOME/Applications/$fileName.AppImage"
         if [[ -n $lastVerFile ]] && [[ -n $latestVer ]]; then
             echo "latest version $latestVer > $lastVerFile"

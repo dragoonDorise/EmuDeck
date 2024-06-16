@@ -462,6 +462,68 @@ function linkToSaveFolder(){
 
 }
 
+
+function linkToTexturesFolder(){
+	local emu=$1
+	local folderName=$2
+	local path=$3
+
+	mkdir "$emulationPath/texturepacks"
+	local texturepacks="$emulationPath/texturepacks"
+
+	if [ ! -d "$texturepacks/$emu/$folderName" ]; then
+		if [ ! -L "$texturepacks/$emu/$folderName" ]; then
+			mkdir -p "$texturepacks/$emu"
+			setMSG "Linking $emu $folderName to the Emulation/texturepacks folder"
+			mkdir -p "$path"
+			ln -snv "$path" "$texturepacks/$emu/$folderName"
+		fi
+	else
+		if [ ! -L "$texturepacks/$emu/$folderName" ]; then
+			echo "$texturepacks/$emu/$folderName is not a link. Please check it."
+		else
+			if [ $(readlink $texturepacks/$emu/$folderName) == $path ]; then
+				echo "$texturepacks/$emu/$folderName is already linked."
+				echo "     Target: $(readlink $texturepacks/$emu/$folderName)"
+			else
+				echo "$texturepacks/$emu/$folderName not linked correctly."
+				unlink "$texturepacks/$emu/$folderName"
+				linkToTexturesFolder "$emu" "$folderName" "$path"
+			fi
+		 fi
+	fi
+
+}
+
+function linkToStorageFolder(){
+	local emu=$1
+	local folderName=$2
+	local path=$3
+
+	if [ ! -d "$storagePath/$emu/$folderName" ]; then
+		if [ ! -L "$storagePath/$emu/$folderName" ]; then
+			mkdir -p "$storagePath/$emu"
+			setMSG "Linking $emu $folderName to the "$storagePath" folder"
+			mkdir -p "$path"
+			ln -snv "$path" "$storagePath/$emu/$folderName"
+		fi
+	else
+		if [ ! -L "$storagePath/$emu/$folderName" ]; then
+			echo "$storagePath/$emu/$folderName is not a link. Please check it."
+		else
+			if [ $(readlink $storagePath/$emu/$folderName) == $path ]; then
+				echo "$storagePath/$emu/$folderName is already linked."
+				echo "     Target: $(readlink $storagePath/$emu/$folderName)"
+			else
+				echo "$storagePath/$emu/$folderName not linked correctly."
+				unlink "$storagePath/$emu/$folderName"
+				linkToStorageFolder "$emu" "$folderName" "$path"
+			fi
+		 fi
+	fi
+
+}
+
 function moveSaveFolder(){
 	local emu=$1
 	local folderName=$2
