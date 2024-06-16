@@ -145,7 +145,11 @@ CopyGames(){
 	--text="Scanning..." --width=400 --percentage=0 --auto-close
 	) &&
 	text="`printf " <b>Success!</b>\n\nThe contents of your USB Drive have been copied to your Emulation folder"`"
-	 zenity --info \
+	(
+	  echo "3"; sleep 1
+	  echo "2"; sleep 1
+	  echo "1"; sleep 1
+	) | zenity  --progress --percentage=0 --auto-close --no-cancel \
 			 --title="EmuDeck" \
 			 --width="450" \
 			 --text="${text}" 2>/dev/null && echo "true"
