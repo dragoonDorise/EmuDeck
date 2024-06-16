@@ -34,12 +34,13 @@ CreateStructureUSB(){
 	fi
 }
 
+
 AutoCopy(){
 	local USBPath=$(CheckUSB)
 	if [ -d $USBPath ];then
-		local emulationPathUSB="$USBPath/Emulation"
-		if [ -d $emulationPathUSB ];then
-			CopyGames $emulationPathUSB
+		local biosPathUSB="$USBPath/bios"
+		if [ -d $biosPathUSB ];then
+			CopyGames $USBPath
 		else
 			text="`printf "We are going to create the proper folder structure in your USB Drive"`"
 			zenity --info \
@@ -47,13 +48,13 @@ AutoCopy(){
 					 --width="450" \
 					 --text="${text}" 2>/dev/null
 			CreateStructureUSB $USBPath
-			text="`printf "<b>Success!</b>\n\nUSB folders created. Now copy your roms and bios in another computer and come back)"`"
+			text="`printf "<b>Success!</b>\n\nUSB folders created. Now copy your roms and bios in another computer and come back"`"
 			zenity --info \
 					 --title="EmuDeck" \
 					 --width="450" \
 					 --text="${text}" 2>/dev/null
-			if [ -d $emulationPathUSB ];then
-				CopyGames $emulationPathUSB
+			if [ -d $biosPathUSB ];then
+				CopyGames $USBPath
 			fi
 		fi
 	else
@@ -120,9 +121,9 @@ CopyGames(){
 		 fi
 	done
 
-	rsync -rav --ignore-existing --progress "$origin/bios/" "$destination/bios/" |
+	rsync -rav --ignore-existing --progress "$origin/bios/" "$biosPath/" |
 	awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
-	zenity --progress --title "Importing your bios to $destination/bios" \
+	zenity --progress --title "Importing your bios to $biosPath/" \
 	--text="Scanning..." --width=400 --percentage=0 --auto-close
 	) &&
 	text="`printf " <b>Success!</b>\n\nThe contents of your USB Drive have been copied to your Emulation folder"`"
