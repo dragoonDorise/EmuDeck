@@ -1,4 +1,14 @@
 #!/bin/bash
+
+CheckUSB(){
+	path=$(find /run/media/ -type d -name "EMUDECK" 2>/dev/null)
+	if [ -n "$path" ]; then
+	  echo $path
+	else
+	  echo "false"
+	fi
+}
+
 CreateStructureUSB(){
 	local destination=$1
 	if [ -d "$destination/roms/" ]; then
@@ -8,6 +18,37 @@ CreateStructureUSB(){
 		mkdir -p "$destination/roms/"
 		(rsync -ravL --ignore-existing "$EMUDECKGIT/roms/" "$destination/roms/" && rsync -ravL --ignore-existing "$biosPath/" "$destination/bios") && echo "true" || echo "false"
 
+	fi
+}
+
+AutoCopy(){
+	local USBPath=$(CheckUSB)
+	if [ -d $USBPath ];then
+		local emulationPathUSB="$USBPath/Emulation"
+		if [ -d $emulationPathUSB ];then
+			CopyGames $emulationPathUSB
+		else
+			text="`printf " <b>EmuDeck!</b>\n\nWe are going to create the proper folder structure in your USB Drive)"`"
+			zenity --info \
+					 --title="EmuDeck" \
+					 --width="450" \
+					 --text="${text}" 2>/dev/null
+			CreateStructureUSB $USBPath
+			text="`printf " <b>Success!</b>\n\nUSB folders created. Now copy your roms and bios in another computer and come back)"`"
+			zenity --info \
+					 --title="EmuDeck" \
+					 --width="450" \
+					 --text="${text}" 2>/dev/null
+			if [ -d $emulationPathUSB ];then
+				CopyGames $emulationPathUSB
+			fi
+		fi
+	else
+		text="`printf " <b>Error!</b>\n\nUSB Drive not found.\n\nMake sure the drive is named EMUDECK, all caps"`"
+		zenity --info \
+				 --title="EmuDeck" \
+				 --width="450" \
+				 --text="${text}" 2>/dev/null
 	fi
 }
 
