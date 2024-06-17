@@ -19,7 +19,27 @@ if [[ $fileExtension == "psvita" ]]; then
     echo "GAME ID: $vita3kFile"
     eval "${exe}" -Fr "$vita3kFile"
 else
-    eval "${exe} ${param}"
+    #run the executable with the params.
+    launch_args=()
+    for rom in "${@}"; do
+        # Parsers previously had single quotes ("'/path/to/rom'" ), this allows those shortcuts to continue working.
+        removedLegacySingleQuotes=$(echo "$rom" | sed "s/^'//; s/'$//")
+        launch_args+=("$removedLegacySingleQuotes")
+    done
+
+    echo "Launching: "${exe}" "${launch_args[*]}""
+
+    if [[ -z "${*}" ]]; then
+        echo "ROM not found. Launching $emuName directly"
+        "${exe}"
+    else
+        echo "ROM found, launching game"
+        "${exe}" -Fr "${launch_args[@]}"
+    fi
+
 fi
 
-rm -rf "$savesPath/.gaming"
+    rm -rf "$savesPath/.gaming"
+
+
+
