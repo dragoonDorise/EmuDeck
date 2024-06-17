@@ -109,6 +109,16 @@ function runBinDownloads {
             messages+=("There was a problem updating Cemu (Native)")
         fi
     fi
+    if [[ "$binsToDL" == *"Citra"* ]]; then
+        ((progresspct += pct)) || true
+        echo "$progresspct"
+        echo "# Updating Citra"
+        if Citra_install "true" 2>&1; then
+            messages+=("Citra Updated Successfully")
+        else
+            messages+=("There was a problem updating Citra")
+        fi
+    fi
     if [[ "$binsToDL" == *"es-de"* ]]; then
         echo "0"
         echo "# Updating ES-DE"
@@ -210,6 +220,9 @@ if [ "$(CemuProton_IsInstalled ""$emuDeckEmuTypeWindows"")" == "true" ]; then
 fi
 if [ "$(Cemu_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "Nintendo Wii U (Native)" "cemu (native)")
+fi
+if [ "$(Citra_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
+    binTable+=(TRUE "Nintendo 3DS" "Citra")
 fi
 if [ "$(ESDE_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "ES-DE" "es-de")
