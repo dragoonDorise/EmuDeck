@@ -8,17 +8,8 @@ if [ "$?" == "1" ]; then
 fi
 
 emuTable=()
-if [ "$(RetroArch_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
-    emuTable+=(TRUE "Multiple" "RetroArch")
-fi
-if [ "$(Primehack_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
-    emuTable+=(TRUE "Metroid Prime" "PrimeHack")
-fi
-if [ "$(RPCS3_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
-    emuTable+=(TRUE "PS3" "RPCS3")
-fi
-if [ "$(Citra_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
-    emuTable+=(TRUE "3DS" "Citra")
+if [ "$(ares_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
+    emuTable+=(TRUE "Multi-System Emulator" "ares")
 fi
 if [ "$(Dolphin_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
     emuTable+=(TRUE "GC/Wii" "Dolphin")
@@ -26,11 +17,20 @@ fi
 if [ "$(DuckStation_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
     emuTable+=(TRUE "PSX" "DuckStation")
 fi
+if [ "$(melonDS_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
+    emuTable+=(TRUE "DS" "melonDS")
+fi
 if [ "$(PPSSPP_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
     emuTable+=(TRUE "PSP" "PPSSPP")
 fi
-if [ "$(Xemu_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
-    emuTable+=(TRUE "XBox" "Xemu")
+if [ "$(Primehack_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
+    emuTable+=(TRUE "Metroid Prime" "PrimeHack")
+fi
+if [ "$(RetroArch_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
+    emuTable+=(TRUE "Multiple" "RetroArch")
+fi
+if [ "$(RMG_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
+    emuTable+=(TRUE "N64" "RMG")
 fi
 if [ "$(ScummVM_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
     emuTable+=(TRUE "Scumm/DOS" "ScummVM")
@@ -38,19 +38,13 @@ fi
 if [ "$(Supermodel_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
     emuTable+=(TRUE "Model3" "Supermodel")
 fi
-if [ "$(RMG_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
-    emuTable+=(TRUE "N64" "RMG")
-fi
-if [ "$(melonDS_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
-    emuTable+=(TRUE "DS" "melonDS")
-fi
-if [ "$(ares_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
-    emuTable+=(TRUE "Multi-System Emulator" "ares")
+if [ "$(Xemu_IsInstalled ""$emuDeckEmuTypeFlatpak"")" == "true" ]; then
+    emuTable+=(TRUE "XBox" "Xemu")
 fi
 
 if [ "${#emuTable[@]}" -gt 0 ]; then
     #Emulator selector
-    text="$(printf "Which Flatpak emulators do you want to update?")"
+    text="$(printf "Which Flatpak emulators would you like to update?")"
     emusToInstall=$(zenity --list \
             --title="EmuDeck" \
             --height=500 \
@@ -75,17 +69,8 @@ if [ "${#emuTable[@]}" -gt 0 ]; then
 
             echo "User selected: $emusToInstall"
 
-            if [[ "$emusToInstall" == *"RetroArch"* ]]; then
-                doUpdateRA=true
-            fi
-            if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
-                doUpdatePrimeHack=true
-            fi
-            if [[ "$emusToInstall" == *"RPCS3"* ]]; then
-                doUpdateRPCS3=true
-            fi
-            if [[ "$emusToInstall" == *"Citra"* ]]; then
-                doUpdateCitra=true
+            if [[ "$emusToInstall" == *"ares"* ]]; then
+            	doUpdateares=true
             fi
             if [[ "$emusToInstall" == *"Dolphin"* ]]; then
                 doUpdateDolphin=true
@@ -93,11 +78,20 @@ if [ "${#emuTable[@]}" -gt 0 ]; then
             if [[ "$emusToInstall" == *"DuckStation"* ]]; then
                 doUpdateDuck=true
             fi
+            if [[ "$emusToInstall" == *"MelonDS"* ]]; then
+            	doUpdateMelonDS=true
+            fi
             if [[ "$emusToInstall" == *"PPSSPP"* ]]; then
                 doUpdatePPSSPP=true
             fi
-            if [[ "$emusToInstall" == *"Xemu"* ]]; then
-                doUpdateXemu=true
+            if [[ "$emusToInstall" == *"PrimeHack"* ]]; then
+                doUpdatePrimeHack=true
+            fi
+            if [[ "$emusToInstall" == *"RetroArch"* ]]; then
+                doUpdateRA=true
+            fi
+            if [[ "$emusToInstall" == *"RMG"* ]]; then
+            	doUpdateRMG=true
             fi
             if [[ "$emusToInstall" == *"ScummVM"* ]]; then
                 doUpdateScummVM=true
@@ -105,33 +99,15 @@ if [ "${#emuTable[@]}" -gt 0 ]; then
             if [[ "$emusToInstall" == *"Supermodel"* ]]; then
                 doUpdateSupermodel=true
             fi
-            if [[ "$emusToInstall" == *"MelonDS"* ]]; then
-            	doUpdateMelonDS=true
-            fi
-            if [[ "$emusToInstall" == *"RMG"* ]]; then
-            	doUpdateRMG=true
-            fi
-            if [[ "$emusToInstall" == *"ares"* ]]; then
-            	doUpdateares=true
+            if [[ "$emusToInstall" == *"Xemu"* ]]; then
+                doUpdateXemu=true
             fi
 
             (
                 progressInstalled=""
-                if [ "$doUpdateRA" == "true" ]; then
-                    echo "###Updating RetroArch..."
-                    (updateEmuFP "RetroArch" "org.libretro.RetroArch" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|RetroArch" && echo "&&&$progressInstalled"
-                fi
-                if [ "$doUpdatePrimeHack" == "true" ]; then
-                    echo "###Updating PrimeHack..."
-                    (updateEmuFP "PrimeHack" "io.github.shiiion.primehack" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|PrimeHack" && echo "&&&$progressInstalled"
-                fi
-                if [ "$doUpdateRPCS3" == "true" ]; then
-                    echo "###Updating RPCS3..."
-                    (updateEmuFP "RPCS3" "net.rpcs3.RPCS3" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|RPCS3" && echo "&&&$progressInstalled"
-                fi
-                if [ "$doUpdateCitra" == "true" ]; then
-                    echo "###Updating Citra..."
-                    (updateEmuFP "Citra" "org.citra_emu.citra" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|Citra" && echo "&&&$progressInstalled"
+                if [ "$doUpdateares" == "true" ]; then
+                    echo "###Updating ares..."
+                    (updateEmuFP "ares" "dev.ares.ares" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|ares" && echo "&&&$progressInstalled"
                 fi
                 if [ "$doUpdateDolphin" == "true" ]; then
                     echo "###Updating Dolphin..."
@@ -141,13 +117,25 @@ if [ "${#emuTable[@]}" -gt 0 ]; then
                     echo "###Updating DuckStation..."
                     (updateEmuFP "DuckStation" "org.duckstation.DuckStation" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|DuckStation" && echo "&&&$progressInstalled"
                 fi
+                if [ "$doUpdateMelonDS" == "true" ]; then
+                    echo "###Updating melonDS..."
+                    (updateEmuFP "melonDS" "net.kuribo64.melonDS" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|melonDS" && echo "&&&$progressInstalled"
+                fi
                 if [ "$doUpdatePPSSPP" == "true" ]; then
                     echo "###Updating PPSSPP..."
                     (updateEmuFP "PPSSPP" "org.ppsspp.PPSSPP" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|PPSSPP" && echo "&&&$progressInstalled"
                 fi
-                if [ "$doUpdateXemu" == "true" ]; then
-                    echo "###Updating Xemu..."
-                    (updateEmuFP "Xemu-Emu" "app.xemu.xemu" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|Xemu" && echo "&&&$progressInstalled"
+                if [ "$doUpdatePrimeHack" == "true" ]; then
+                    echo "###Updating PrimeHack..."
+                    (updateEmuFP "PrimeHack" "io.github.shiiion.primehack" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|PrimeHack" && echo "&&&$progressInstalled"
+                fi
+                if [ "$doUpdateRA" == "true" ]; then
+                    echo "###Updating RetroArch..."
+                    (updateEmuFP "RetroArch" "org.libretro.RetroArch" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|RetroArch" && echo "&&&$progressInstalled"
+                fi
+                if [ "$doUpdateRMG" == "true" ]; then
+                    echo "###Updating RMG..."
+                    (updateEmuFP "RMG" "com.github.Rosalie241.RMG" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|RMG" && echo "&&&$progressInstalled"
                 fi
                 if [ "$doUpdateScummVM" == "true" ]; then
                     echo "###Updating ScummVM..."
@@ -157,23 +145,15 @@ if [ "${#emuTable[@]}" -gt 0 ]; then
                     echo "###Updating Supermodel..."
                     (updateEmuFP "Supermodel" "com.supermodel.Supermodel" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|ScummVM" && echo "&&&$progressInstalled"
                 fi
-                if [ "$doUpdateMelonDS" == "true" ]; then
-                    echo "###Updating melonDS..."
-                    (updateEmuFP "melonDS" "net.kuribo64.melonDS" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|melonDS" && echo "&&&$progressInstalled"
-                fi
-                if [ "$doUpdateRMG" == "true" ]; then
-                    echo "###Updating RMG..."
-                    (updateEmuFP "RMG" "com.github.Rosalie241.RMG" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|RMG" && echo "&&&$progressInstalled"
-                fi
-                if [ "$doUpdateares" == "true" ]; then
-                    echo "###Updating ares..."
-                    (updateEmuFP "ares" "dev.ares.ares" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|ares" && echo "&&&$progressInstalled"
+                if [ "$doUpdateXemu" == "true" ]; then
+                    echo "###Updating Xemu..."
+                    (updateEmuFP "Xemu-Emu" "app.xemu.xemu" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|Xemu" && echo "&&&$progressInstalled"
                 fi
                 if [ $progresspct != 100 ]; then
                     progresspct=100
                     echo "%%%$progresspct"
                 fi
-                echo "###Flatpaks update complete!"
+                echo "###All selected Flatpaks updated!"
             ) |
             tee >( sed -u -n '/^%%%\|^###/p' | sed -u -r 's/^(#)##|^()%%%/\1/' | zenity --progress --title="Updating Flatpak Emulators" --text="..." --percentage=0 --width 600 2>/dev/null) | tee >({ sed -n '/^&&&/p' | sed 's/^&&&//' ; echo '-EOF-' ; } >&${progressInstalledPipe} ) | sed -u '/^&&&\|^###/d' | sed -u -r 's/^%%%(.*)$/\1%/'
             # first, we tee the output for zenity, leaving only lines starting with %%% (progress) and ### (dialog text update)
@@ -189,9 +169,9 @@ if [ "${#emuTable[@]}" -gt 0 ]; then
             echo "User installed: $progressInstalled"
 
             if [ $installResult != 0 ] ; then
-                echo "Flatpaks update cancelled!"
+                echo "Update cancelled!"
             else
-                echo "Flatpaks update done!"
+                echo "Update complete!"
             fi
         fi
     fi
