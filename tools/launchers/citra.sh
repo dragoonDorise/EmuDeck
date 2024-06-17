@@ -20,8 +20,21 @@ else
 fi
 
 #run the executable with the params.
-#Fix first '
-param="${@}"
-param=$(echo $param | sed -e 's/^/"/' -e 's/$/"/')
-eval "${exe} ${param}"
+launch_args=()
+for rom in "${@}"; do
+	# Parsers previously had single quotes ("'/path/to/rom'" ), this allows those shortcuts to continue working.
+	removedLegacySingleQuotes=$(echo "$rom" | sed "s/^'//; s/'$//")
+	launch_args+=("$removedLegacySingleQuotes")
+done
+
+echo "Launching: "${exe}" "${launch_args[*]}""
+
+if [[ -z "${*}" ]]; then
+    echo "ROM not found. Launching $emuName directly"
+    "${exe}"
+else
+    echo "ROM found, launching game"
+    "${exe}" "${launch_args[@]}"
+fi
+
 rm -rf "$savesPath/.gaming"

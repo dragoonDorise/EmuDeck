@@ -27,11 +27,22 @@ if [[ $fileExtension == "desktop" ]]; then
     eval $rpcs3desktopFile
 else
     #run the executable with the params.
-    #Fix first '
-    param="${@}"
-    substituteWith='"'
-    param=${param/\'/"$substituteWith"}
-    #Fix last ' on command
-    param=$(echo "$param" | sed 's/.$/"/')
-    eval "${exe} ${param}"
+    launch_args=()
+    for rom in "${@}"; do
+        # Parsers previously had single quotes ("'/path/to/rom'" ), this allows those shortcuts to continue working.
+        removedLegacySingleQuotes=$(echo "$rom" | sed "s/^'//; s/'$//")
+        launch_args+=("$removedLegacySingleQuotes")
+    done
+
+    echo "Launching: "${exe}" "${launch_args[*]}""
+
+    if [[ -z "${*}" ]]; then
+        echo "ROM not found. Launching $emuName directly"
+        "${exe}"
+    else
+        echo "ROM found, launching game"
+        "${exe}" "${launch_args[@]}"
+    fi
 fi
+
+rm -rf "$savesPath/.gaming"
