@@ -3,7 +3,7 @@ appImageInit() {
 
 
 	AutoCopy_install
-
+	server_install
 
 
 	if [ "$system" == "chimeraos" ]; then
