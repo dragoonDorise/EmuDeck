@@ -266,12 +266,8 @@ manageRPSMenu() {
 	IFS='|' read -r -a arrChosen <<< "$RP"
 	progresspct=0
 
-	#numInstalls=$(awk -F'|' '{print NF}' <<<"$arrAllRP")
-	numArrs=(${#arrAllRP[@]} + 1)
-	numPkgs=$((numArrs / 2))
-	pct=$((100 / numPkgs))
+	pct=$((100 / ((${#arrAllRP[@]} + 1) / 2)))
 
-	echo "$numPkgs packages to process" 
 	echo "User selected: ${arrChosen[*]}"
 	echo "percentage for progress: $pct"
 	
