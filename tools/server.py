@@ -6,16 +6,16 @@ import re
 import json
 import subprocess
 import asyncio
-#import tkinter as tk
-#from tkinter import messagebox
+import tkinter as tk
+from tkinter import messagebox
 
-# Variables globales
+
 roms_path = None
 BASE_DIR = None
 
-# Función para obtener la configuración
+
 async def getSettings():
-    global roms_path  # Declarar que se usará la variable global
+    global roms_path
     pattern = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)=(.*)')
     user_home = os.path.expanduser("~")
     config_file_path = os.path.join(user_home, 'emudeck', 'settings.sh')
@@ -26,10 +26,10 @@ async def getSettings():
             match = pattern.search(line)
             if match:
                 variable = match.group(1)
-                value = match.group(2).strip().strip('"')  # Strip para eliminar espacios adicionales
+                value = match.group(2).strip().replace('"', '')
                 configuration[variable] = value
                 if variable == "romsPath":
-                    roms_path = value  # Guardar el valor en la variable global
+                    roms_path = value
 
     bash_command = "cd $HOME/.config/EmuDeck/backend/ && git rev-parse --abbrev-ref HEAD"
     result = subprocess.run(bash_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -45,10 +45,10 @@ class SimpleHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             folder = form.getvalue('folder')
             files = form['files']
 
-            # Ruta de la carpeta de destino
+
             upload_folder = os.path.join(BASE_DIR, folder)
 
-            # Asegúrate de que la carpeta de subidas exista
+
             os.makedirs(upload_folder, exist_ok=True)
 
             if not isinstance(files, list):
@@ -86,20 +86,19 @@ def get_local_ip():
     return IP
 
 async def main():
-    global BASE_DIR  # Declarar que se usará la variable global
-    await getSettings()  # Obtener la configuración y establecer roms_path
-    BASE_DIR = roms_path  # Definir BASE_DIR usando roms_path
+    global BASE_DIR
+    await getSettings()
+    BASE_DIR = roms_path
 
-#    root = tk.Tk()
-#    root.withdraw()
+    root = tk.Tk()
+    root.withdraw()
 
     ip = get_local_ip()
     port = 8000
-#    messagebox.showinfo("Server loaded", f"Servidor corriendo en http://{ip}:{port}/")
+    messagebox.showinfo("Server loaded", f"Servidor corriendo en http://{ip}:{port}/")
 
-#    root.destroy()
+    root.destroy()
 
     http.server.test(HandlerClass=SimpleHTTPRequestHandler, port=port, bind=ip)
 
-# Ejecutar el ejemplo
 asyncio.run(main())
