@@ -13,7 +13,7 @@ MAME_cleanup(){
 
 #Install
 MAME_install(){
-	installEmuFP "${MAME_emuName}" "${MAME_emuPath}"
+	installEmuFP "${MAME_emuName}" "${MAME_emuPath}" "emulator"
 }
 
 #Fix for autoupdate
@@ -51,6 +51,7 @@ MAME_init(){
 #update
 MAME_update(){
 	configEmuAI "${MAME_emuName}" "mame" "$HOME/.mame" "${EMUDECKGIT}/configs/mame"
+	updateEmuFP "${MAME_emuName}" "${MAME_emuPath}" "emulator"
 	MAME_setupStorage
 	MAME_setEmulationFolder
 	MAME_setupSaves

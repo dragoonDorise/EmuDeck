@@ -3,17 +3,40 @@ updateEmuFP(){
 	
 	name=$1
 	ID=$2	
-	
+	type="$3"
+
+	if [[ "$type" == "emulator" ]]; then
+		gitPath="${EMUDECKGIT}/tools/launchers/"
+		launcherPath="${toolsPath}/launchers"
+	elif [[ "$type" == "remoteplay" ]]; then
+		gitPath="${EMUDECKGIT}/tools/remoteplayclients/"
+		launcherPath="${romsPath}/remoteplay"
+	elif [[ "$type" == "genericapplication" ]]; then
+		gitPath="${EMUDECKGIT}/tools/generic-applications/"
+		launcherPath="${romsPath}/generic-applications"
+	fi	
+
 	setMSG "Updating $name"
 	
 	flatpak update $ID -y
 	flatpak override $ID --filesystem=host --user
 	flatpak override $ID --share=network --user	
 	
-	shName=$(echo "$name" | awk '{print tolower($0)}')
+  	if [[ "$type" == "emulator" ]]; then
+        shName=$(echo "$name" | awk '{print tolower($0)}')-emu
+    else
+        shName=$(echo "$name" | awk '{print tolower($0)}')
+    fi 
 	
-	find "${toolsPath}"/launchers/ -type f -iname $shName.sh | while read f; do echo "deleting $f"; rm -f "$f"; done;
-	cp -v "${EMUDECKGIT}"/tools/launchers/"${shName}".sh "${toolsPath}"/launchers/"${shName}".sh
-	chmod +x "${toolsPath}"/launchers/"${shName}".sh
+	find "$launcherPath" -maxdepth 1 -type f \( -iname "${shName}.sh" -o -iname "${shName}.sh" \) | while read -r f; do
+		echo "deleting old: $f"
+		rm -f "$f"
+	done
+
+	find "$gitPath" -type f \( -iname "${shName}.sh" -o -iname "${shName}.sh" \) | while read -r l; do
+		echo "deploying new: $l"
+		chmod +x "$l"
+		cp -v "$l" "${launcherPath}"
+	done
 	
 }

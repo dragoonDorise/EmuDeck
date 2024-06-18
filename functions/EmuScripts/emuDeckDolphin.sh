@@ -36,7 +36,7 @@ Dolphin_cleanup(){
 Dolphin_install(){
   setMSG "${Dolphin_emuName}: Install"
   echo ""
-	installEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"
+	installEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}" "emulator"
 }
 
 #ApplyInitialSettings
@@ -59,8 +59,8 @@ Dolphin_init(){
 #update
 Dolphin_update(){
   setMSG "${Dolphin_emuName}: Apply configuration Update"
-  echo ""
 	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"
+  updateEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}" "emulator"
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves

@@ -43,6 +43,7 @@
 /run/media/mmcblk0p1/Emulation/roms/daphne
 /run/media/mmcblk0p1/Emulation/roms/desktop
 /run/media/mmcblk0p1/Emulation/roms/desktop/cloud
+/run/media/mmcblk0p1/Emulation/roms/desktop/generic-applications
 /run/media/mmcblk0p1/Emulation/roms/desktop/remoteplay
 /run/media/mmcblk0p1/Emulation/roms/doom
 /run/media/mmcblk0p1/Emulation/roms/dos

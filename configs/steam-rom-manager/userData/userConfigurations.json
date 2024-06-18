@@ -446,6 +446,90 @@
       "version": 17
   },
   {
+    "parserType": "Glob",
+    "configTitle": "Generic Applications - Generic Applications",
+    "steamCategory": "${Generic Applications}",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/generic-applications",
+    "executableArgs": "",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "${romsdirglobal}/generic-applications",
+    "titleModifier": "${fuzzyTitle}",
+    "imageProviders": [
+        "SteamGridDB"
+    ],
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "disabled": false,
+    "userAccounts": {
+        "specifiedAccounts": ""
+    },
+    "executable": {
+        "path": "",
+        "shortcutPassthrough": false,
+        "appendArgsToExecutable": false
+    },
+    "parserInputs": {
+        "glob": "**/${title}@(.sh|.AppImage)"
+    },
+    "titleFromVariable": {
+        "limitToGroups": "",
+        "caseInsensitiveVariables": false,
+        "skipFileIfVariableWasNotFound": false,
+        "tryToMatchTitle": false
+    },
+    "fuzzyMatch": {
+        "replaceDiacritics": true,
+        "removeCharacters": false,
+        "removeBrackets": true
+    },
+    "imageProviderAPIs": {
+        "SteamGridDB": {
+            "nsfw": false,
+            "humor": false,
+            "styles": [],
+            "stylesHero": [],
+            "stylesLogo": [],
+            "stylesIcon": [],
+            "imageMotionTypes": [
+                "static"
+            ]
+        }
+    },
+    "parserId": "165885598915497514",
+    "version": 17,
+    "controllers": {
+        "ps4": null,
+        "ps5": null,
+        "xbox360": null,
+        "xboxone": null,
+        "switch_joycon_left": null,
+        "switch_joycon_right": null,
+        "switch_pro": null,
+        "neptune": {
+            "title": "EmuDeck - Cloud",
+            "mappingId": "emudeck_cloud_controller_config.vdf",
+            "profileType": "template"
+        }
+    },
+    "defaultImage": {
+        "long": "",
+        "tall": "",
+        "hero": "",
+        "logo": "",
+        "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+    },
+    "localImages": {
+        "long": "",
+        "tall": "",
+        "hero": "",
+        "logo": "",
+        "icon": ""
+    },
+    "steamInputEnabled": "1",
+    "drmProtect": false
+  },
+  {
       "parserType": "Glob",
       "configTitle": "Remote Play Clients - Remote Play Clients",
       "steamCategory": "${Remote Play Clients}",
@@ -2453,7 +2537,7 @@
         "appendArgsToExecutable": true
     },
     "parserInputs": {
-        "glob": "{desktop/**/!(cloud|remoteplay),desktop}/${title}@(sh|.SH|.desktop|.DESKTOP)"
+        "glob": "{desktop/**/!(cloud|remoteplay|generic-applications),desktop}/${title}@(sh|.SH|.desktop|.DESKTOP)"
     },
     "titleFromVariable": {
         "limitToGroups": "",

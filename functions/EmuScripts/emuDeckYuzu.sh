@@ -63,7 +63,7 @@ Yuzu_install() {
     local lastVerFile="$HOME/emudeck/yuzu.ver"
     local latestVer=$(curl -fSs "https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases" | jq -r '[ .[].tag_name ][0]')
     local success="false"
-    if installEmuAI "$Yuzu_emuName" "$(getReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage")" "" "$showProgress" "$lastVerFile" "$latestVer"; then # yuzu.AppImage - needs to be lowercase yuzu for EsDE to find it
+    if installEmuAI "$Yuzu_emuName" "$(getReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage")" "" "" "emulator" "$showProgress" "$lastVerFile" "$latestVer"; then # yuzu.AppImage - needs to be lowercase yuzu for EsDE to find it
         success="true"
     fi
 

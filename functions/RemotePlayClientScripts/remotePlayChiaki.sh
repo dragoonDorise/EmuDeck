@@ -9,14 +9,7 @@ Chiaki_releaseURL=""
 # Install
 Chiaki_install() {
 	setMSG "Installing $Chiaki_emuName."
-	local ID="$Chiaki_emuPath"
-	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
-	flatpak install flathub "$ID" -y --user
-	flatpak override "$ID" --filesystem=host --user
-	flatpak override "$ID" --share=network --user
-	cp "$EMUDECKGIT/tools/remoteplayclients/Chiaki Remote Play Client.sh" "$romsPath/remoteplay"
-	chmod +x "$romsPath/remoteplay/Chiaki Remote Play Client.sh"
-	#Chiaki_addSteamInputProfile
+	installEmuFP "${Chiaki_emuName}" "${Chiaki_emuPath}" "remoteplay"
 }
 
 # ApplyInitialSettings
@@ -29,20 +22,15 @@ Chiaki_init() {
 # Update flatpak & launcher script
 Chiaki_update() {
 	setMSG "Updating $Chiaki_emuName settings."
-	local ID="$Chiaki_emuPath"
-	flatpak update $ID -y --user	
-	flatpak override $ID --filesystem=host --user
-	flatpak override $ID --share=network --user
-	rm "$romsPath/remoteplay/Chiaki Remote Play Client.sh"
-	cp "$EMUDECKGIT/tools/remoteplayclients/Chiaki Remote Play Client.sh" "$romsPath/remoteplay"
-	chmod +x "$romsPath/remoteplay/Chiaki Remote Play Client.sh"
+	updateEmuFP "${Chiaki_emuName}" "${Chiaki_emuPath}" "remoteplay"
 }
 
 # Uninstall
 Chiaki_uninstall() {
 	setMSG "Uninstalling $Chiaki_emuName."
     uninstallEmuFP "$Chiaki_emuPath"
-	rm "$romsPath/remoteplay/Chiaki Remote Play Client.sh"
+	rm -f "$romsPath/remoteplay/Chiaki Remote Play Client.sh"
+	rm -f "$romsPath/desktop/remoteplay/Chiaki Remote Play Client.sh"
 }
 
 # Check if installed

@@ -14,7 +14,7 @@ PPSSPP_cleanup(){
 #Install
 PPSSPP_install(){
 	setMSG "Installing $PPSSPP_emuName"
-	installEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}"
+	installEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}" "emulator"
 }
 #Fix for autoupdate
 Ppsspp_install(){
@@ -38,6 +38,7 @@ PPSSPP_init(){
 PPSSPP_update(){
 	setMSG "Updating $PPSSPP_emuName settings."
 	configEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}"
+	updateEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}" "emulator"
 	PPSSPP_setupStorage
 	PPSSPP_setEmulationFolder
 	PPSSPP_setupSaves

@@ -15,7 +15,7 @@ Supermodel_cleanup(){
 #Install
 Supermodel_install(){
 	setMSG "Installing $Supermodel_emuName"
-	installEmuFP "${Supermodel_emuName}" "${Supermodel_emuPath}"
+	installEmuFP "${Supermodel_emuName}" "${Supermodel_emuPath}" "emulator"
 }
 
 #ApplyInitialSettings
@@ -47,6 +47,7 @@ Supermodel_update(){
 		rm -rf "$HOME/.supermodel/Config/Games.xml"
 	fi
 	wget "$Supermodel_gamesList" -P "$HOME/.supermodel/Config/"
+	updateEmuFP "${Supermodel_emuName}" "${Supermodel_emuPath}" "emulator"
 	Supermodel_setupStorage
 	Supermodel_setEmulationFolder
 	Supermodel_setupSaves

@@ -24,7 +24,7 @@ Xemu_cleanup(){
 
 #Install
 Xemu_install() {
-	installEmuFP "${Xemu_emuName}" "${Xemu_emuPath}"
+	installEmuFP "${Xemu_emuName}" "${Xemu_emuPath}" "emulator"
 }
 
 #ApplyInitialSettings
@@ -41,6 +41,7 @@ Xemu_init() {
 #update
 Xemu_update() {
 	configEmuFP "${Xemu_emuName}" "${Xemu_emuPath}"
+	updateEmuFP "${Xemu_emuName}" "${Xemu_emuPath}" "emulator"
 	Xemu_migrate
 	Xemu_setupStorage
 	Xemu_setEmulationFolder

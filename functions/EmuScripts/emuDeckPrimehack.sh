@@ -16,7 +16,7 @@ Primehack_cleanup(){
 #Install
 Primehack_install() {
 	setMSG "Installing $Primehack_emuName"
-	installEmuFP "${Primehack_emuName}" "${Primehack_emuPath}"
+	installEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" "emulator"
 }
 
 #ApplyInitialSettings
@@ -35,6 +35,7 @@ Primehack_init() {
 Primehack_update() {
 	setMSG "Updating $Primehack_emuName settings."
 	configEmuFP "${Primehack_emuName}" "${Primehack_emuPath}"
+	updateEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" "emulator"
 	Primehack_setupStorage
 	Primehack_setEmulationFolder
 	Primehack_setupSaves

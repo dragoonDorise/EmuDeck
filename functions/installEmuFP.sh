@@ -3,6 +3,18 @@ installEmuFP(){
 	
 	local name="$1"
 	local ID="$2"
+	local type="$3"
+
+	if [[ "$type" == "emulator" ]]; then
+		gitPath="${EMUDECKGIT}/tools/launchers/"
+		launcherPath="${toolsPath}/launchers"
+	elif [[ "$type" == "remoteplay" ]]; then
+		gitPath="${EMUDECKGIT}/tools/remoteplayclients/"
+		launcherPath="${romsPath}/remoteplay"
+	elif [[ "$type" == "genericapplication" ]]; then
+		gitPath="${EMUDECKGIT}/tools/generic-applications/"
+		launcherPath="${romsPath}/generic-applications"
+	fi
 	
 	setMSG "Installing $name"
 	
@@ -15,9 +27,20 @@ installEmuFP(){
 		flatpak uninstall "$ID" --system -y
 	fi
  	
-	shName=$(echo "$name" | awk '{print tolower($0)}')
+  	if [[ "$type" == "emulator" ]]; then
+        shName=$(echo "$name" | awk '{print tolower($0)}')-emu
+    else
+        shName=$(echo "$name" | awk '{print tolower($0)}')
+    fi 
 	
-   	find "${toolsPath}/launchers/" -maxdepth 1 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | while read -r f; do echo "deleting old: $f"; rm -f "$f"; done;
-    find "${EMUDECKGIT}/tools/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | while read -r l; do echo "deploying new: $l"; chmod +x "$l"; cp -v "$l" "${toolsPath}/launchers/"; done;
+	find "$launcherPath" -maxdepth 1 -type f \( -iname "${shName}.sh" -o -iname "${shName}.sh" \) | while read -r f; do
+		echo "deleting old: $f"
+		rm -f "$f"
+	done
 
+	find "$gitPath" -type f \( -iname "${shName}.sh" -o -iname "${shName}.sh" \) | while read -r l; do
+		echo "deploying new: $l"
+		chmod +x "$l"
+		cp -v "$l" "${launcherPath}"
+	done
 }

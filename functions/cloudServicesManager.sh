@@ -76,10 +76,10 @@ manageServicesMenu() {
     if [ $? != 0 ]; then
         csmMainMenu
     fi
-	
+
 	# Delete all old scripts that match file names from the github repo
 	for i in "${arrAll[@]}"; do
-		rm "$romsPath/cloud/$i" 
+		rm "$romsPath/cloud/$i"
 	done
 
 	# Setup selected scripts
@@ -91,7 +91,7 @@ manageServicesMenu() {
 
 	# Import steam profile
 	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_cloud_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
-	
+
 	# Notify to update & run SRM
 	csmSRMNotification
 
@@ -118,68 +118,228 @@ installFP() {
 	flatpak override "$ID" --share=network --user
 }
 
+runRPSSettings()
+{
+	echo $progresspct
+	# Install/Update/uninstall selected
+	if [[ "${arrChosen[*]}" =~ "Chiaki" ]]; then
+		if [[ $(Chiaki_IsInstalled) == "true" ]]; then
+			echo "# Updating Chiaki"
+			Chiaki_update &>/dev/null
+		else
+			echo "# Installing Chiaki"
+			Chiaki_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Chiaki"
+		Chiaki_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "Chiaki4deck" ]]; then
+		if [[ $(Chiaki4deck_IsInstalled) == "true" ]]; then
+			echo "# Updating Chiaki4deck"
+			Chiaki4deck_update &>/dev/null
+		else
+			echo "# Installing Chiaki4deck"
+			Chiaki4deck_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Chiaki4deck"
+		Chiaki4deck_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "Greenlight" ]]; then
+		if [[ $(Greenlight_IsInstalled) == "true" ]]; then
+			echo "# Updating Greenlight"
+			Greenlight_update &>/dev/null
+		else
+			echo "# Installing Greenlight"
+			Greenlight_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Greenlight"
+		Greenlight_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "Moonlight" ]]; then
+		if [[ $(Moonlight_IsInstalled) == "true" ]]; then
+			echo "# Updating Moonlight"
+			Moonlight_update &>/dev/null
+		else
+			echo "# Installing Moonlight"
+			Moonlight_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Moonlight"
+		Moonlight_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "Parsec" ]]; then
+		if [[ $(Parsec_IsInstalled) == "true" ]]; then
+			echo "# Updating Parsec"
+			Parsec_update &>/dev/null
+		else
+			echo "# Installing Parsec"
+			Parsec_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Parsec"
+		Parsec_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "SteamLink" ]]; then
+		if [[ $(SteamLink_IsInstalled) == "true" ]]; then
+			echo "# Updating SteamLink"
+			SteamLink_update &>/dev/null
+		else
+			echo "# Installing SteamLink"
+			SteamLink_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling SteamLink"
+		SteamLink_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "ShadowPC" ]]; then
+		if [[ $(ShadowPC_IsInstalled) == "true" ]]; then
+			echo "# Updating ShadowPC"
+			ShadowPC_update &>/dev/null
+		else
+			echo "# Installing ShadowPC"
+			ShadowPC_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling ShadowPC"
+		ShadowPC_uninstall &>/dev/null
+	fi
+
+	echo "# Complete!"
+	echo "100" #exits the zenity with auto-close, sets the progress bar to 100%
+
+}
+
+runGASettings()
+{
+	echo $progresspct
+	# Install/Update/uninstall selected
+	
+	if [[ "${arrChosen[*]}" =~ "Cider" ]]; then
+		if [[ $(Cider_IsInstalled) == "true" ]]; then
+			echo "# Updating Cider"
+			Cider_update &>/dev/null
+		else
+			echo "# Installing Cider"
+			Cider_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Cider"
+		Cider_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "Heroic Games Launcher" ]]; then
+		if [[ $(Heroic_IsInstalled) == "true" ]]; then
+			echo "# Updating Heroic"
+			Heroic_update &>/dev/null
+		else
+			echo "# Installing Heroic"
+			Heroic_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Heroic"
+		Heroic_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "Plexamp" ]]; then
+		if [[ $(Plexamp_IsInstalled) == "true" ]]; then
+			echo "# Updating Plexamp"
+			Plexamp_update &>/dev/null
+		else
+			echo "# Installing Plexamp"
+			Plexamp_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Plexamp"
+		Plexamp_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "Spotify" ]]; then
+		if [[ $(Spotify_IsInstalled) == "true" ]]; then
+			echo "# Updating Spotify"
+			Spotify_update &>/dev/null
+		else
+			echo "# Installing Spotify"
+			Spotify_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Spotify"
+		Spotify_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "Tidal" ]]; then
+		if [[ $(Tidal_IsInstalled) == "true" ]]; then
+			echo "# Updating Tidal"
+			Tidal_update &>/dev/null
+		else
+			echo "# Installing Tidal"
+			Tidal_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Tidal"
+		Tidal_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	echo "# Complete!"
+	echo "100" #exits the zenity with auto-close, sets the progress bar to 100%
+
+}
+
 manageRPSMenu() {
 	# Create array of all Remote Play clients
-	cd "$EMUDECKGIT/functions/RemotePlayClientScripts"
+	cd "$EMUDECKGIT/functions/RemotePlayClientScripts" || return
 	declare -a arrAllRP=()
-	
-	Chiaki_IsInstalled
-	ans=$?
-	if [ "$ans" == "1" ]; then
-		arrAllRP+=(true "Chiaki")
-	else
-		arrAllRP+=(false "Chiaki")
-	fi
 
-	Greenlight_IsInstalled
-	ans=$?
-	if [ "$ans" == "1" ]; then
-		arrAllRP+=(true "Greenlight")
-	else
-		arrAllRP+=(false "Greenlight")
-	fi
-
-	Moonlight_IsInstalled
-	ans=$?
-	if [ "$ans" == "1" ]; then
-		arrAllRP+=(true "Moonlight")
-	else
-		arrAllRP+=(false "Moonlight")
-	fi
-
-	Parsec_IsInstalled
-	ans=$?
-	if [ "$ans" == "1" ]; then
-		arrAllRP+=(true "Parsec")
-	else
-		arrAllRP+=(false "Parsec")
-	fi
-
-
-	Spotify_IsInstalled
-	ans=$?
-	if [ "$ans" == "1" ]; then
-		arrAllRP+=(true "Spotify")
-	else
-		arrAllRP+=(false "Spotify")
-	fi
-	
-	SteamLink_IsInstalled
-	ans=$?
-	if [ "$ans" == "1" ]; then
-		arrAllRP+=(true "SteamLink")
-	else
-		arrAllRP+=(false "SteamLink")
-	fi
-
-	ShadowPC_IsInstalled
-	ans=$?
-	if [ "$ans" == "1" ]; then
-		arrAllRP+=(true "ShadowPC")
-	else
-		arrAllRP+=(false "ShadowPC")
-	fi
-
+	arrAllRP+=( $(Chiaki_IsInstalled) "Chiaki")
+	arrAllRP+=( $(Chiaki4deck_IsInstalled) "Chiaki4deck")
+	arrAllRP+=( $(Greenlight_IsInstalled) "Greenlight")
+	arrAllRP+=( $(Moonlight_IsInstalled) "Moonlight")
+	arrAllRP+=( $(Parsec_IsInstalled) "Parsec")
+	arrAllRP+=( $(SteamLink_IsInstalled) "SteamLink")
+	arrAllRP+=( $(ShadowPC_IsInstalled) "ShadowPC")
+	echo "list: ${arrAllRP[*]}"
 
 	# Dynamically build list of scripts
 	RP=$(zenity --list  \
@@ -187,113 +347,82 @@ manageRPSMenu() {
     --text="Select clients to install/update:" \
 	--ok-label="Start" --cancel-label="Return to Main Menu" \
 	--column="" --column="Disable to uninstall" \
-    --width=300 --height=300 --checklist "${arrAllRP[@]}")
+    --width=300 --height=350 --checklist "${arrAllRP[@]}")
     if [ $? != 0 ]; then
         csmMainMenu
     fi
 
+	arrChosen=()
+	IFS='|' read -r -a arrChosen <<< "$RP"
+	progresspct=0
+
+	pct=$((100 / ((${#arrAllRP[@]} + 1) / 2)))
+
+	echo "User selected: ${arrChosen[*]}"
+	echo "percentage for progress: $pct"
+
 	# Setup progress bar and perform install/update/uninstall of selected items
-    (
-		arrChosen=()
-		IFS='|' read -r -a arrChosen <<< "$RP"
-		for i in "${arrChosen[@]}"; do
-			# Install/Update selected
-			if [ "$i" == "Chiaki" ]; then
-				Chiaki_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					Chiaki_update
-				else
-					Chiaki_install
-				fi
-			elif [ "$i" == "Greenlight" ]; then
-				Greenlight_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					Greenlight_update
-				else
-					Greenlight_install
-				fi
-			elif [ "$i" == "Moonlight" ]; then
-				Moonlight_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					Moonlight_update
-				else
-					Moonlight_install
-				fi
-			elif [ "$i" == "Parsec" ]; then
-				Parsec_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					Parsec_update
-				else
-					Parsec_install
-				fi
-			elif [ "$i" == "Spotify" ]; then
-				Spotify_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					Spotify_update
-				else
-					Spotify_install
-				fi 			
-			elif [ "$i" == "SteamLink" ]; then
-				SteamLink_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					SteamLink_update
-				else
-					SteamLink_install
-				fi
-			elif [ "$i" == "ShadowPC" ]; then
-				ShadowPC_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					ShadowPC_update
-				else
-					ShadowPC_install
-				fi
-
-			fi
-		done
-
-		# Uninstall those not selected
-		if [[ ! "${arrChosen[*]}" =~ "Chiaki" ]]; then
-			Chiaki_uninstall
-		fi
-		if [[ ! "${arrChosen[*]}" =~ "Greenlight" ]]; then
-			Greenlight_uninstall
-		fi
-		if [[ ! "${arrChosen[*]}" =~ "Moonlight" ]]; then
-			Moonlight_uninstall
-		fi
-		if [[ ! "${arrChosen[*]}" =~ "Parsec" ]]; then
-			Parsec_uninstall
-		fi
-		if [[ ! "${arrChosen[*]}" =~ "Spotify" ]]; then
-			Spotify_uninstall
-		fi
-		if [[ ! "${arrChosen[*]}" =~ "SteamLink" ]]; then
-			SteamLink_uninstall
-   		fi
-		if [[ ! "${arrChosen[*]}" =~ "ShadowPC" ]]; then
-			ShadowPC_uninstall
-		fi
-	)	|	zenity --progress \
+   	runRPSSettings | zenity --progress \
             --title="Cloud Services Manager" \
             --text="Processing..." \
-            --percentage=0 \
             --no-cancel \
-            --pulsate \
-            --auto-close \
-            --width=300
-	
+			--percentage=0 \
+            --width=600 \
+			--height=250 2>/dev/null
+
 	# Notify to update & run SRM
 	csmSRMNotification
 
 	# Return to RPS Manager
 	manageRPSMenu
+}
+
+manageGAMenu() {
+	# Create array of all Generic Applications
+	cd "$EMUDECKGIT/functions/GenericApplicationsScripts" || return
+	declare -a arrAllGA=()
+
+	arrAllGA+=( $(Cider_IsInstalled) "Cider")
+	arrAllGA+=( $(Heroic_IsInstalled) "Heroic Games Launcher")
+	arrAllGA+=( $(Plexamp_IsInstalled) "Plexamp")
+	arrAllGA+=( $(Spotify_IsInstalled) "Spotify")
+	arrAllGA+=( $(Tidal_IsInstalled) "Tidal")
+	echo "list: ${arrAllGA[*]}"
+
+	# Dynamically build list of scripts
+	GA=$(zenity --list  \
+	--title="Cloud Services Manager" \
+    --text="Select clients to install/update:" \
+	--ok-label="Start" --cancel-label="Return to Main Menu" \
+	--column="" --column="Disable to uninstall" \
+    --width=300 --height=350 --checklist "${arrAllGA[@]}")
+    if [ $? != 0 ]; then
+        csmMainMenu
+    fi
+
+	arrChosen=()
+	IFS='|' read -r -a arrChosen <<< "$GA"
+	progresspct=0
+
+	pct=$((100 / ((${#arrAllGA[@]} + 1) / 2)))
+
+	echo "User selected: ${arrChosen[*]}"
+	echo "percentage for progress: $pct"
+
+	# Setup progress bar and perform install/update/uninstall of selected items
+   	runGASettings | zenity --progress \
+            --title="Cloud Services Manager" \
+            --text="Processing..." \
+            --no-cancel \
+			--percentage=0 \
+            --width=600 \
+			--height=250 2>/dev/null
+
+	# Notify to update & run SRM
+	csmSRMNotification
+
+	# Return to GA Manager
+	manageGAMenu
 }
 
 changeSettingsMenu() {
@@ -314,7 +443,7 @@ changeSettingsMenu() {
 	else
 		arrBrowsOpts+=(false "System Default: $defaultBrowser" false)
 	fi
-	
+
 	# Add supported browsers to selection list
 	for brows in "${arrSupBrows[@]}"; do
 		if [[ "$(flatpak --columns=app list | grep "${brows}")" == *"${brows}"* ]]; then
@@ -369,18 +498,6 @@ changeSettingsMenu() {
 	csmMainMenu
 }
 
-# Keyword replacement file. Only matches start of word
-changeLine() {
-    local KEYWORD=$1
-    local REPLACE=$2
-    local FILE=$3
-
-    local OLD=$(printf '%s\n' "$KEYWORD" | sed -e 's/[]\/$*.^[]/\\&/g')
-    local NEW=$(printf '%s\n' "$REPLACE" | sed -e 's/[]\/$*.^[]/\\&/g')
-    
-    sed -i "/^${OLD}/c\\${NEW}" "$FILE"
-}
-
 setCloudSetting() {
 	local var=$1
 	local new_val=$2
@@ -405,6 +522,7 @@ csmMainMenu() {
 		--column="" --column="Select an option:" --radiolist \
 			"" "Manage Cloud Services" \
 			"" "Manage Remote Play Clients" \
+			"" "Manage Generic Applications" \
 			"" "Add to ES-DE and Pegasus" \
 			"" "Change Settings" \
 			"" "Quit")
@@ -416,6 +534,8 @@ csmMainMenu() {
 		manageServicesMenu
 	elif [ "$CHOICE" == "Manage Remote Play Clients" ]; then
 		manageRPSMenu
+	elif [ "$CHOICE" == "Manage Generic Applications" ]; then
+		manageGAMenu 
 	elif [ "$CHOICE" == "Change Settings" ]; then
 		changeSettingsMenu
 	elif [ "$CHOICE" == "Add to ES-DE and Pegasus" ]; then
@@ -475,7 +595,7 @@ addESDEPegasus(){
 
 
 	# Ask to install new services or change settings
-	esdepegasusmenuText=$(printf "<b>ES-DE and Pegasus</b>\n\n Would you like to add your selected cloud services and remote play clients to ES-DE and Pegasus?\n\n This will copy your cloud services and remote play clients to the Emulation/roms/desktop folder.\n\n When using ES-DE, your cloud services and remote play clients will show up under the Desktop system.\n\n When using Pegasus, your cloud services and remote play clients will show up under the Cloud Services and Remote Play Clients system respectively.\n\n This will have no impact on Steam ROM Manager or any shortcuts you may have added to Steam using Steam ROM Manager.\n\n ")
+	esdepegasusmenuText=$(printf "<b>ES-DE and Pegasus</b>\n\n Would you like to add your selected cloud services, generic applications, and remote play clients to ES-DE and Pegasus?\n\n This will copy your cloud services, generic applications, and remote play clients to the Emulation/roms/desktop folder.\n\n When using ES-DE, your cloud services, generic applications, and remote play clients will show up under the Desktop system.\n\n When using Pegasus, your cloud services and remote play clients will show up under the Cloud Services, Generic Applications, and Remote Play Clients system respectively.\n\n This will have no impact on Steam ROM Manager or any shortcuts you may have added to Steam using Steam ROM Manager.\n\n ")
 	ESDEPEGASUSCHOICE=$(zenity --list \
 		--title="Cloud Services Manager" --text="$esdepegasusmenuText" \
         --width=350  --height=450 \
@@ -491,43 +611,50 @@ addESDEPegasus(){
 
 	if [ "$ESDEPEGASUSCHOICE" == "Add to ES-DE and Pegasus" ]; then
 		mkdir -p "$romsPath/desktop/cloud"
+		mkdir -p "$romsPath/desktop/generic-applications"
 		mkdir -p "$romsPath/desktop/remoteplay"
 		rsync -av --include='*.sh' --exclude='*' "$romsPath/cloud/" "$romsPath/desktop/cloud"
 		rsync -av --include='*.sh' --exclude='*' "$romsPath/remoteplay/" "$romsPath/desktop/remoteplay"
+		rsync -av --include='*.sh' --exclude='*' "$romsPath/generic-applications/" "$romsPath/desktop/generic-applications"
 
-		
+
 		# Pegasus
 		local pegasusDirectoriesFile="$HOME/.config/pegasus-frontend/game_dirs.txt"
 		cp "$HOME/.config/EmuDeck/backend/roms/desktop/cloud/metadata.txt" "$romsPath/desktop/cloud"
 		cp "$HOME/.config/EmuDeck/backend/roms/desktop/remoteplay/metadata.txt" "$romsPath/desktop/remoteplay"
-		cp "$HOME/.config/EmuDeck/backend/roms/desktop/cloud/metadata.txt" "$romsPath/desktop/cloud"
-		
+		cp "$HOME/.config/EmuDeck/backend/roms/desktop/generic-applications/metadata.txt" "$romsPath/desktop/generic-applications"
+
 		if ! grep -Fxq "$romsPath/desktop/cloud" "$pegasusDirectoriesFile"; then
 			echo "$romsPath/desktop/cloud" >> "$pegasusDirectoriesFile"
+		fi
+
+		if ! grep -Fxq "$romsPath/desktop/generic-applications" "$pegasusDirectoriesFile"; then
+			echo "$romsPath/desktop/generic-applications" >> "$pegasusDirectoriesFile"
 		fi
 
 		if ! grep -Fxq "$romsPath/desktop/remoteplay" "$pegasusDirectoriesFile"; then
 			echo "$romsPath/desktop/remoteplay" >> "$pegasusDirectoriesFile"
 		fi
 
-		if [ -f "$romsPath/remoteplay/metadata.txt" ]; then 
+		if [ -f "$romsPath/remoteplay/metadata.txt" ]; then
 			rm -f "$romsPath/remoteplay/metadata.txt"
-		fi 
+		fi
 
-		if [ -f "$romsPath/cloud/metadata.txt" ]; then 
+		if [ -f "$romsPath/cloud/metadata.txt" ]; then
 			rm -f "$romsPath/cloud/metadata.txt"
-		fi 
+		fi
 
 		# Pegasus end
-		
-		zenity --info --text="Cloud services and remote play clients added to ES-DE and Pegasus." \
-		--width=250 
+
+		zenity --info --text="Cloud services, generic applications, and remote play clients added to ES-DE and Pegasus." \
+		--width=250
 		csmMainMenu
 	elif [ "$ESDEPEGASUSCHOICE" == "Remove from ES-DE and Pegasus" ]; then
 		find "$romsPath/desktop/cloud" -name "*.sh" -type f -delete
 		find "$romsPath/desktop/remoteplay" -name "*.sh" -type f -delete
-		zenity --info --text="Cloud services and remote play clients removed from ES-DE and Pegasus." \
-		--width=250 
+		find "$romsPath/desktop/generic-applications" -name "*.sh" -type f -delete
+		zenity --info --text="Cloud services, generic applications, and remote play clients removed from ES-DE and Pegasus." \
+		--width=250
 		csmMainMenu
 	fi
 
@@ -547,6 +674,7 @@ source "$EMUDECKGIT/functions/all.sh"
 
 # Check for existing cloud.conf or install & setup
 mkdir -p "$romsPath/cloud"
+mkdir -p "$romsPath/generic-applications"
 mkdir -p "$romsPath/remoteplay"
 
 if [ ! -f "$romsPath/cloud/cloud.conf" ]; then
@@ -580,7 +708,7 @@ if ! grep -q "browsercommand()" "$romsPath/cloud/cloud.conf"; then
     )
 	setCloudSetting BROWSERAPP "$defaultBrowser"
 	flatpak --user override --filesystem=/run/udev:ro "$defaultBrowser"
-fi 
+fi
 
 CLOUDSETTINGSFILE="$romsPath/cloud/cloud.conf"
 source "$CLOUDSETTINGSFILE"

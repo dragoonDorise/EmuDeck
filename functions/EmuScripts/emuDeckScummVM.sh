@@ -13,9 +13,7 @@ ScummVM_cleanup(){
 
 #Install
 ScummVM_install(){
-	installEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}"
-	flatpak override "${ScummVM_emuPath}" --filesystem=host --user
-	flatpak override "${ScummVM_emuPath}" --share=network --user
+	installEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}" "emulator"
 }
 
 #Fix for autoupdate
@@ -36,6 +34,7 @@ ScummVM_init(){
 #update
 ScummVM_update(){
 	configEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}"
+	updateEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}" "emulator"
 	ScummVM_setupStorage
 	ScummVM_setEmulationFolder
 	ScummVM_setupSaves
