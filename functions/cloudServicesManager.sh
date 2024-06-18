@@ -360,18 +360,6 @@ changeSettingsMenu() {
 	csmMainMenu
 }
 
-# Keyword replacement file. Only matches start of word
-changeLine() {
-    local KEYWORD=$1
-    local REPLACE=$2
-    local FILE=$3
-
-    local OLD=$(printf '%s\n' "$KEYWORD" | sed -e 's/[]\/$*.^[]/\\&/g')
-    local NEW=$(printf '%s\n' "$REPLACE" | sed -e 's/[]\/$*.^[]/\\&/g')
-    
-    sed -i "/^${OLD}/c\\${NEW}" "$FILE"
-}
-
 setCloudSetting() {
 	local var=$1
 	local new_val=$2
