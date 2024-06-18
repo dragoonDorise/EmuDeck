@@ -257,7 +257,7 @@ manageRPSMenu() {
     --text="Select clients to install/update:" \
 	--ok-label="Start" --cancel-label="Return to Main Menu" \
 	--column="" --column="Disable to uninstall" \
-    --width=300 --height=300 --checklist "${arrAllRP[@]}")
+    --width=300 --height=350 --checklist "${arrAllRP[@]}")
     if [ $? != 0 ]; then
         csmMainMenu
     fi
