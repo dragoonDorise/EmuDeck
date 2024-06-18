@@ -125,15 +125,15 @@ runRPSSettings()
 	if [[ "${arrChosen[*]}" =~ "Chiaki" ]]; then
 		if [[ $(Chiaki_IsInstalled) == "true" ]]; then
 			echo "# Updating Chiaki"
-			Chiaki_update
+			Chiaki_update &>/dev/null
 		else
 			echo "# Installing Chiaki"
-			Chiaki_install
+			Chiaki_install &>/dev/null
 			echo "ok"
 		fi
 	else
 		echo "# Uninstalling Chiaki"
-		Chiaki_uninstall
+		Chiaki_uninstall &>/dev/null
 	fi
 	((progresspct += pct)) || true
 	echo "$progresspct"
@@ -141,15 +141,15 @@ runRPSSettings()
 	if [[ "${arrChosen[*]}" =~ "Greenlight" ]]; then
 		if [[ $(Greenlight_IsInstalled) == "true" ]]; then
 			echo "# Updating Greenlight"
-			Greenlight_update || true
+			Greenlight_update &>/dev/null
 		else
 			echo "# Installing Greenlight"
-			Greenlight_install || true
+			Greenlight_install &>/dev/null
 			echo "ok"
 		fi
 	else
 		echo "# Uninstalling Greenlight"
-		Greenlight_uninstall || true
+		Greenlight_uninstall &>/dev/null
 	fi
 	((progresspct += pct)) || true
 	echo "$progresspct"
@@ -157,15 +157,15 @@ runRPSSettings()
 	if [[ "${arrChosen[*]}" =~ "Moonlight" ]]; then
 		if [[ $(Moonlight_IsInstalled) == "true" ]]; then
 			echo "# Updating Moonlight"
-			Moonlight_update
+			Moonlight_update &>/dev/null
 		else
 			echo "# Installing Moonlight"
-			Moonlight_install
+			Moonlight_install &>/dev/null
 			echo "ok"
 		fi
 	else
 		echo "# Uninstalling Moonlight"
-		Moonlight_uninstall
+		Moonlight_uninstall &>/dev/null
 	fi
 	((progresspct += pct)) || true
 	echo "$progresspct"
@@ -173,15 +173,15 @@ runRPSSettings()
 	if [[ "${arrChosen[*]}" =~ "Parsec" ]]; then
 		if [[ $(Parsec_IsInstalled) == "true" ]]; then
 			echo "# Updating Parsec"
-			Parsec_update
+			Parsec_update &>/dev/null
 		else
 			echo "# Installing Parsec"
-			Parsec_install
+			Parsec_install &>/dev/null
 			echo "ok"
 		fi
 	else
 		echo "# Uninstalling Parsec"
-		Parsec_uninstall
+		Parsec_uninstall &>/dev/null
 	fi
 	((progresspct += pct)) || true
 	echo "$progresspct"
@@ -189,15 +189,15 @@ runRPSSettings()
 	if [[ "${arrChosen[*]}" =~ "Spotify" ]]; then
 		if [[ $(Spotify_IsInstalled) == "true" ]]; then
 			echo "# Updating Spotify"
-			Spotify_update
+			Spotify_update &>/dev/null
 		else
 			echo "# Installing Spotify"
-			Spotify_install
+			Spotify_install &>/dev/null
 			echo "ok"
 		fi
 	else
 		echo "# Uninstalling Spotify"
-		Spotify_uninstall
+		Spotify_uninstall &>/dev/null
 	fi
 	((progresspct += pct)) || true
 	echo "$progresspct"
@@ -205,15 +205,15 @@ runRPSSettings()
 	if [[ "${arrChosen[*]}" =~ "SteamLink" ]]; then
 		if [[ $(SteamLink_IsInstalled) == "true" ]]; then
 			echo "# Updating SteamLink"
-			SteamLink_update
+			SteamLink_update &>/dev/null
 		else
 			echo "# Installing SteamLink"
-			SteamLink_install
+			SteamLink_install &>/dev/null
 			echo "ok"
 		fi
 	else
 		echo "# Uninstalling SteamLink"
-		SteamLink_uninstall
+		SteamLink_uninstall &>/dev/null
 	fi
 	((progresspct += pct)) || true
 	echo "$progresspct"
@@ -221,18 +221,19 @@ runRPSSettings()
 	if [[ "${arrChosen[*]}" =~ "ShadowPC" ]]; then
 		if [[ $(ShadowPC_IsInstalled) == "true" ]]; then
 			echo "# Updating ShadowPC"
-			ShadowPC_update
+			ShadowPC_update &>/dev/null
 		else
 			echo "# Installing ShadowPC"
-			ShadowPC_install
+			ShadowPC_install &>/dev/null
 			echo "ok"
 		fi
 	else
 		echo "# Uninstalling ShadowPC"
-		ShadowPC_uninstall
+		ShadowPC_uninstall &>/dev/null
 	fi
-	((progresspct += pct)) || true
-	echo "$progresspct"
+	
+	echo "# Complete!"
+	echo "100" #exits the zenity with auto-close, sets the progress bar to 100%
 
 }
 
@@ -266,18 +267,20 @@ manageRPSMenu() {
 	progresspct=0
 
 	#numInstalls=$(awk -F'|' '{print NF}' <<<"$arrAllRP")
-	
-	pct=$((100 / (${#arrAllRP[@]} + 1)))
+	numArrs=(${#arrAllRP[@]} + 1)
+	numPkgs=$(($numArrs / 2))
+	pct=$((100 / $numPkgs))
 
-	echo "User selected $numInstalls packages." 
+	echo "$numPkgs packages to process" 
 	echo "User selected: ${arrChosen[*]}"
-
+	echo "percentage for progress: $pct"
 	
 	# Setup progress bar and perform install/update/uninstall of selected items
    	runRPSSettings | zenity --progress \
             --title="Cloud Services Manager" \
             --text="Processing..." \
             --no-cancel \
+			--percentage=0 \
             --width=600 \
 			--height=250 2>/dev/null
 	
