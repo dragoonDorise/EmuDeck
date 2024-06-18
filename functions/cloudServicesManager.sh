@@ -268,8 +268,8 @@ manageRPSMenu() {
 
 	#numInstalls=$(awk -F'|' '{print NF}' <<<"$arrAllRP")
 	numArrs=(${#arrAllRP[@]} + 1)
-	numPkgs=$(($numArrs / 2))
-	pct=$((100 / $numPkgs))
+	numPkgs=$((numArrs / 2))
+	pct=$((100 / numPkgs))
 
 	echo "$numPkgs packages to process" 
 	echo "User selected: ${arrChosen[*]}"
