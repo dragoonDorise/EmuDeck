@@ -95,7 +95,7 @@ async def main():
 
     ip = get_local_ip()
     port = 8000
-    messagebox.showinfo("Server loaded", f"Servidor corriendo en http://{ip}:{port}/")
+    messagebox.showinfo("Server loaded", f"Open http://{ip}:{port}/ in your computer's browser")
 
     root.destroy()
 
