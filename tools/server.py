@@ -95,10 +95,10 @@ async def main():
 
     ip = get_local_ip()
     port = 8000
+    http.server.test(HandlerClass=SimpleHTTPRequestHandler, port=port, bind=ip)
     messagebox.showinfo("Server loaded", f"Open http://{ip}:{port}/ in your computer's browser")
 
     root.destroy()
 
-    http.server.test(HandlerClass=SimpleHTTPRequestHandler, port=port, bind=ip)
 
 asyncio.run(main())
