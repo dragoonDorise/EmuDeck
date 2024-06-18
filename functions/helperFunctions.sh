@@ -1055,6 +1055,7 @@ function controllerLayout_BAYX(){
 
 function server_install(){
 	cp "$EMUDECKGIT/tools/server.sh" "$toolsPath/"
+	cp "$EMUDECKGIT/tools/index.html" "$toolsPath/"
 
 	chmod +x "$toolsPath/server.sh"
 }
