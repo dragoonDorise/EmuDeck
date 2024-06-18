@@ -429,6 +429,7 @@ fi
 #Always install
 BINUP_install
 AutoCopy_install
+server_install
 FlatpakUP_install
 CHD_install
 

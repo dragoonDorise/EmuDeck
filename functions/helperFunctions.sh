@@ -1051,3 +1051,10 @@ function controllerLayout_BAYX(){
 	melonDS_setBAYXstyle
 	RMG_setBAYXstyle
 }
+
+
+function server_install(){
+	cp "$EMUDECKGIT/tools/server.sh" "$toolsPath/"
+
+	chmod +x "$toolsPath/server.sh"
+}
