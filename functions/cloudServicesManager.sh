@@ -118,68 +118,138 @@ installFP() {
 	flatpak override "$ID" --share=network --user
 }
 
+runRPSSettings()
+{
+	echo $progresspct
+	# Install/Update/uninstall selected
+	if [[ "${arrChosen[*]}" =~ "Chiaki" ]]; then
+		if [[ $(Chiaki_IsInstalled) == "true" ]]; then
+			echo "# Updating Chiaki"
+			Chiaki_update &>/dev/null
+		else
+			echo "# Installing Chiaki"
+			Chiaki_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Chiaki"
+		Chiaki_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "Greenlight" ]]; then
+		if [[ $(Greenlight_IsInstalled) == "true" ]]; then
+			echo "# Updating Greenlight"
+			Greenlight_update &>/dev/null
+		else
+			echo "# Installing Greenlight"
+			Greenlight_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Greenlight"
+		Greenlight_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "Moonlight" ]]; then
+		if [[ $(Moonlight_IsInstalled) == "true" ]]; then
+			echo "# Updating Moonlight"
+			Moonlight_update &>/dev/null
+		else
+			echo "# Installing Moonlight"
+			Moonlight_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Moonlight"
+		Moonlight_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "Parsec" ]]; then
+		if [[ $(Parsec_IsInstalled) == "true" ]]; then
+			echo "# Updating Parsec"
+			Parsec_update &>/dev/null
+		else
+			echo "# Installing Parsec"
+			Parsec_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Parsec"
+		Parsec_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "Spotify" ]]; then
+		if [[ $(Spotify_IsInstalled) == "true" ]]; then
+			echo "# Updating Spotify"
+			Spotify_update &>/dev/null
+		else
+			echo "# Installing Spotify"
+			Spotify_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Spotify"
+		Spotify_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "SteamLink" ]]; then
+		if [[ $(SteamLink_IsInstalled) == "true" ]]; then
+			echo "# Updating SteamLink"
+			SteamLink_update &>/dev/null
+		else
+			echo "# Installing SteamLink"
+			SteamLink_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling SteamLink"
+		SteamLink_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "ShadowPC" ]]; then
+		if [[ $(ShadowPC_IsInstalled) == "true" ]]; then
+			echo "# Updating ShadowPC"
+			ShadowPC_update &>/dev/null
+		else
+			echo "# Installing ShadowPC"
+			ShadowPC_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling ShadowPC"
+		ShadowPC_uninstall &>/dev/null
+	fi
+	
+	echo "# Complete!"
+	echo "100" #exits the zenity with auto-close, sets the progress bar to 100%
+
+}
+
 manageRPSMenu() {
 	# Create array of all Remote Play clients
-	cd "$EMUDECKGIT/functions/RemotePlayClientScripts"
+	cd "$EMUDECKGIT/functions/RemotePlayClientScripts" || return
 	declare -a arrAllRP=()
-	
-	Chiaki_IsInstalled
-	ans=$?
-	if [ "$ans" == "1" ]; then
-		arrAllRP+=(true "Chiaki")
-	else
-		arrAllRP+=(false "Chiaki")
-	fi
 
-	Greenlight_IsInstalled
-	ans=$?
-	if [ "$ans" == "1" ]; then
-		arrAllRP+=(true "Greenlight")
-	else
-		arrAllRP+=(false "Greenlight")
-	fi
-
-	Moonlight_IsInstalled
-	ans=$?
-	if [ "$ans" == "1" ]; then
-		arrAllRP+=(true "Moonlight")
-	else
-		arrAllRP+=(false "Moonlight")
-	fi
-
-	Parsec_IsInstalled
-	ans=$?
-	if [ "$ans" == "1" ]; then
-		arrAllRP+=(true "Parsec")
-	else
-		arrAllRP+=(false "Parsec")
-	fi
-
-
-	Spotify_IsInstalled
-	ans=$?
-	if [ "$ans" == "1" ]; then
-		arrAllRP+=(true "Spotify")
-	else
-		arrAllRP+=(false "Spotify")
-	fi
-	
-	SteamLink_IsInstalled
-	ans=$?
-	if [ "$ans" == "1" ]; then
-		arrAllRP+=(true "SteamLink")
-	else
-		arrAllRP+=(false "SteamLink")
-	fi
-
-	ShadowPC_IsInstalled
-	ans=$?
-	if [ "$ans" == "1" ]; then
-		arrAllRP+=(true "ShadowPC")
-	else
-		arrAllRP+=(false "ShadowPC")
-	fi
-
+	arrAllRP+=( $(Chiaki_IsInstalled) "Chiaki")
+	arrAllRP+=( $(Greenlight_IsInstalled) "Greenlight")
+	arrAllRP+=( $(Moonlight_IsInstalled) "Moonlight")
+	arrAllRP+=( $(Parsec_IsInstalled) "Parsec")
+	arrAllRP+=( $(Spotify_IsInstalled) "Spotify")
+	arrAllRP+=( $(SteamLink_IsInstalled) "SteamLink")
+	arrAllRP+=( $(ShadowPC_IsInstalled) "ShadowPC")
+	echo "list: ${arrAllRP[*]}"
 
 	# Dynamically build list of scripts
 	RP=$(zenity --list  \
@@ -187,107 +257,28 @@ manageRPSMenu() {
     --text="Select clients to install/update:" \
 	--ok-label="Start" --cancel-label="Return to Main Menu" \
 	--column="" --column="Disable to uninstall" \
-    --width=300 --height=300 --checklist "${arrAllRP[@]}")
+    --width=300 --height=350 --checklist "${arrAllRP[@]}")
     if [ $? != 0 ]; then
         csmMainMenu
     fi
 
+	arrChosen=()
+	IFS='|' read -r -a arrChosen <<< "$RP"
+	progresspct=0
+
+	pct=$((100 / ((${#arrAllRP[@]} + 1) / 2)))
+
+	echo "User selected: ${arrChosen[*]}"
+	echo "percentage for progress: $pct"
+	
 	# Setup progress bar and perform install/update/uninstall of selected items
-    (
-		arrChosen=()
-		IFS='|' read -r -a arrChosen <<< "$RP"
-		for i in "${arrChosen[@]}"; do
-			# Install/Update selected
-			if [ "$i" == "Chiaki" ]; then
-				Chiaki_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					Chiaki_update
-				else
-					Chiaki_install
-				fi
-			elif [ "$i" == "Greenlight" ]; then
-				Greenlight_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					Greenlight_update
-				else
-					Greenlight_install
-				fi
-			elif [ "$i" == "Moonlight" ]; then
-				Moonlight_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					Moonlight_update
-				else
-					Moonlight_install
-				fi
-			elif [ "$i" == "Parsec" ]; then
-				Parsec_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					Parsec_update
-				else
-					Parsec_install
-				fi
-			elif [ "$i" == "Spotify" ]; then
-				Spotify_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					Spotify_update
-				else
-					Spotify_install
-				fi 			
-			elif [ "$i" == "SteamLink" ]; then
-				SteamLink_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					SteamLink_update
-				else
-					SteamLink_install
-				fi
-			elif [ "$i" == "ShadowPC" ]; then
-				ShadowPC_IsInstalled
-				ans=$?
-				if [ "$ans" == "1" ]; then
-					ShadowPC_update
-				else
-					ShadowPC_install
-				fi
-
-			fi
-		done
-
-		# Uninstall those not selected
-		if [[ ! "${arrChosen[*]}" =~ "Chiaki" ]]; then
-			Chiaki_uninstall
-		fi
-		if [[ ! "${arrChosen[*]}" =~ "Greenlight" ]]; then
-			Greenlight_uninstall
-		fi
-		if [[ ! "${arrChosen[*]}" =~ "Moonlight" ]]; then
-			Moonlight_uninstall
-		fi
-		if [[ ! "${arrChosen[*]}" =~ "Parsec" ]]; then
-			Parsec_uninstall
-		fi
-		if [[ ! "${arrChosen[*]}" =~ "Spotify" ]]; then
-			Spotify_uninstall
-		fi
-		if [[ ! "${arrChosen[*]}" =~ "SteamLink" ]]; then
-			SteamLink_uninstall
-   		fi
-		if [[ ! "${arrChosen[*]}" =~ "ShadowPC" ]]; then
-			ShadowPC_uninstall
-		fi
-	)	|	zenity --progress \
+   	runRPSSettings | zenity --progress \
             --title="Cloud Services Manager" \
             --text="Processing..." \
-            --percentage=0 \
             --no-cancel \
-            --pulsate \
-            --auto-close \
-            --width=300
+			--percentage=0 \
+            --width=600 \
+			--height=250 2>/dev/null
 	
 	# Notify to update & run SRM
 	csmSRMNotification
@@ -367,18 +358,6 @@ changeSettingsMenu() {
 
 	# Return to menu
 	csmMainMenu
-}
-
-# Keyword replacement file. Only matches start of word
-changeLine() {
-    local KEYWORD=$1
-    local REPLACE=$2
-    local FILE=$3
-
-    local OLD=$(printf '%s\n' "$KEYWORD" | sed -e 's/[]\/$*.^[]/\\&/g')
-    local NEW=$(printf '%s\n' "$REPLACE" | sed -e 's/[]\/$*.^[]/\\&/g')
-    
-    sed -i "/^${OLD}/c\\${NEW}" "$FILE"
 }
 
 setCloudSetting() {
