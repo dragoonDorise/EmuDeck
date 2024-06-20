@@ -125,7 +125,7 @@ if [ -z "$1" ];then
 fi
 
 #find full path to emu executable
-exe="prlimit --nofile=8192 ${emuExeFile}"
+exe=("prlimit" "--nofile=8192" "${emuExeFile}")
 
 #run the executable with the params.
 launch_args=()
@@ -135,14 +135,14 @@ for rom in "${@}"; do
 	launch_args+=("$removedLegacySingleQuotes")
 done
 
-echo "Launching: "${exe}" "${launch_args[*]}""
+echo "Launching: ${exe[*]} ${launch_args[*]}"
 
 if [[ -z "${*}" ]]; then
     echo "ROM not found. Launching $emuName directly"
-    "${exe}"
+    "${exe[@]}"
 else
     echo "ROM found, launching game"
-    "${exe}" "${launch_args[@]}"
+    "${exe[@]}" "${launch_args[@]}"
 fi
 
 rm -rf "$savesPath/.gaming"
