@@ -33,7 +33,7 @@ else
         launch_args+=("$removedLegacySingleQuotes")
     done
 
-    echo "Launching: ${exe[@]} ${launch_args[@]}"
+    echo "Launching: ${exe[*]} ${launch_args[*]}"
 
     if [[ -z "${*}" ]]; then
         echo "ROM not found. Launching $emuName directly"
