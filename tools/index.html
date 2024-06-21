@@ -33,28 +33,43 @@
       #loading {
         display: none;
         position: fixed;
-        left: 50%;
-        top: 50%;
-
+        left: 0%;
+        top: 0%;
+        width: 100vw;
+        height: 100vh;
         font-size: 20px;
-        color: #000;
+        backdrop-filter: blur(10px);
+        justify-content: space-around;
+        align-items: center;
       }
-
-      #loading div {
+      #loading .modal {
+        background: #fff;
+        color: #221d2d;
+        border-radius: 12px;
+        width: 50vw;
+        height: 50vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      #loading .modal__inner {
+        text-align: center;
+      }
+      #loading .modal__inner div {
         display: inline-block;
         width: 12px;
         height: 12px;
         margin: 3px;
         border-radius: 50%;
-        background: #000;
+        background: #221d2d;
         animation: loading 1s infinite alternate;
       }
 
-      #loading div:nth-child(2) {
+      #loading .modal__inner div:nth-child(2) {
         animation-delay: 0.2s;
       }
 
-      #loading div:nth-child(3) {
+      #loading .modal__inner div:nth-child(3) {
         animation-delay: 0.4s;
       }
 
@@ -102,6 +117,11 @@
         border-radius: 12px;
         display: flex;
         gap: 12px;
+        transition: 0.5s;
+      }
+      label:hover {
+        transform: scale(1.1);
+        transition: 0.5s;
       }
       input:checked + label {
         outline: 2px solid var(--color-surface-brand-base, #e7d8ff);
@@ -626,10 +646,15 @@
       </form>
 
       <div id="loading">
-        <div></div>
-        <div></div>
-        <div></div>
-        Uploading...
+        <div class="modal">
+          <div class="modal__inner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <br />
+            Uploading files, please wait
+          </div>
+        </div>
       </div>
     </div>
     <script>
@@ -700,18 +725,21 @@
         xhr.open("POST", "/upload", true);
 
         xhr.onloadstart = function () {
-          document.getElementById("loading").style.display = "block";
+          document.getElementById("loading").style.display = "flex";
         };
 
         xhr.onload = function () {
           document.getElementById("loading").style.display = "none";
           if (xhr.status === 200) {
-            alert("Archivos subidos exitosamente");
+            alert("File upload complete");
+            document.querySelectorAll("label").forEach((lbl) => {
+              lbl.classList.remove("hidden");
+            });
             // Limpiar la lista de archivos
             filesList = [];
             fileListElement.innerHTML = "";
           } else {
-            alert("Error al subir los archivos");
+            alert("File upload failed");
           }
         };
 
