@@ -157,7 +157,7 @@ CemuProton_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'name' -v 'wiiu' \
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo Wii U' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/wiiu/roms' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.rpx .RPX .wud .WUD .wux .WUX .elf .ELF .iso .ISO .wad .WAD .wua .WUA .wuhb .WUHB' \
+		--subnode '$newSystem' --type elem --name 'extension' -v '.elf .ELF .rpx .RPX .tmd .TMD .wua .WUA .wud .WUD .wuhb .WUHB .wux .WUX' \
 		--subnode '$newSystem' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -f -g z:%ROM%" \
 		--insert '$newSystem/commandP' --type attr --name 'label' --value "Cemu (Native)" \
 		--subnode '$newSystem' --type elem --name 'commandN' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g %ROM%" \
