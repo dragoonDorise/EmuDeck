@@ -81,15 +81,23 @@ def get_local_ip():
     return IP
 
 def start_server(ip, port):
+    home_config_dir = os.path.expanduser("~/.config/EmuDeck/backend/tools")
+    os.chdir(home_config_dir)  # Cambiar el directorio de trabajo
     http.server.test(HandlerClass=SimpleHTTPRequestHandler, port=port, bind=ip)
+
+def show_custom_popup(title, message, button_text):
+    popup = tk.Tk()
+    popup.wm_title(title)
+    label = tk.Label(popup, text=message, padx=20, pady=20)
+    label.pack(side="top", fill="x")
+    button = tk.Button(popup, text=button_text, command=popup.destroy, padx=10, pady=15)
+    button.pack()
+    popup.mainloop()
 
 async def main():
     global BASE_DIR
     await getSettings()
     BASE_DIR = roms_path
-
-    root = tk.Tk()
-    root.withdraw()
 
     ip = get_local_ip()
     port = 8000
@@ -98,8 +106,7 @@ async def main():
     server_thread.daemon = True
     server_thread.start()
 
-    messagebox.showinfo("Server loaded", f"Open http://{ip}:{port}/ in your computer's browser")
-
-    root.destroy()
+    # Mostrar el mensaje en el popup personalizado
+    show_custom_popup("Server loaded", f"Open http://{ip}:{port}/ in your computer's browser. Close this window when you are finished", "Close")
 
 asyncio.run(main())
