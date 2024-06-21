@@ -719,7 +719,20 @@
       });
     </script>
     <script>
+      document.querySelectorAll("label").forEach((label) => {
+        label.addEventListener("click", function () {
+          document.querySelectorAll("label").forEach((lbl) => {
+            if (lbl !== label) {
+              lbl.classList.add("hidden");
+            }
+          });
+        });
+      });
       document.getElementById("filter").addEventListener("input", function () {
+        document.querySelectorAll("label").forEach((lbl) => {
+          lbl.classList.remove("hidden");
+        });
+
         var filterValue = this.value.toLowerCase();
         var inputs = document.querySelectorAll('.systems input[type="radio"]');
 
