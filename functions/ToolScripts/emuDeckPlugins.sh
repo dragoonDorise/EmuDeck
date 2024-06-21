@@ -121,6 +121,28 @@ Plugins_installEmuDecky(){
 
 }
 
+Plugins_installDeckyRomLibrary(){
+   echo "Installing Decky Rom Library"
+   local password=$1
+   local destinationFolder="$HOME/homebrew/plugins/RomLibrary"
+   local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/decky-rom-library" ".zip")"
+   if [ -d "$HOME/homebrew/plugins/" ]; then
+    Plugins_checkPassword $password
+    echo $password |  sudo -S rm -rf $destinationFolder
+    echo $password |  sudo -S curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/decky-rom-library.zip"
+    echo $password |  sudo -S unzip "$HOME/homebrew/plugins/decky-rom-library.zip" -d "$HOME/homebrew/plugins/" && echo $password |  sudo -S rm "$HOME/homebrew/plugins/decky-rom-library.zip"
+    echo $password |  sudo -S chown $USER:$USER -R $HOME/homebrew/plugins/decky-rom-library
+    chmod 555 -R $HOME/homebrew/plugins/decky-rom-library
+    Plugins_install_cleanup $password
+  else
+     rm -rf $destinationFolder
+     curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/decky-rom-library.zip"
+     unzip "$HOME/homebrew/plugins/decky-rom-library.zip" -d "$HOME/homebrew/plugins/" && rm "$HOME/homebrew/plugins/decky-rom-library.zip"
+     chown $USER:$USER -R $HOME/homebrew/plugins/decky-rom-library
+   fi
+
+}
+
 Plugins_installSteamDeckGyroDSU(){
 	echo "Installing GyroDSU"
    local SDGyro_releaseURL="https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh"

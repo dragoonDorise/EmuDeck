@@ -3,8 +3,6 @@
 #https://dl.google.com/android/repository/platform-tools-latest-darwin.zip
 #https://dl.google.com/android/repository/platform-tools-latest-windows.zip
 
-Android_ADB_path="$HOME/emudeck/android/platform-tools"
-Android_ADB_url="https://dl.google.com/android/repository/platform-tools-latest-linux.zip"
 
 function Android_ADB_isInstalled(){
 	if [ -e "$Android_ADB_path" ]; then
@@ -17,7 +15,6 @@ function Android_ADB_isInstalled(){
 }
 
 function Android_ADB_install(){
-
 	local outFile="adb.zip"
 	local outDir="$HOME/emudeck/android"
 
@@ -48,6 +45,7 @@ function Android_download(){
 }
 
 function Android_ADB_connected(){
+	export PATH=$PATH:$Android_ADB_path
 	local output=$(adb devices)
 	local device_count=$(echo "$output" | grep -E "device\b" | wc -l)
 
@@ -81,9 +79,12 @@ Android_ADB_dl_installAPK(){
 }
 
 function Android_ADB_getSDCard(){
+	export PATH=$PATH:$Android_ADB_path
 	adb shell sm list-volumes public | perl -lane 'print $F[-1]'
 }
-
+function Android_ADB_setPath(){
+	export PATH=$PATH:$Android_ADB_path
+}
 function Android_ADB_init(){
 
 	if [ $(Android_ADB_isInstalled) == "false" ]; then
@@ -103,4 +104,11 @@ function Android_ADB_init(){
 }
 
 
-
+function Android_ADB_appInstalled(){
+	test=$(adb shell pm list packages $1)
+	if [[ $test != "" ]]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}

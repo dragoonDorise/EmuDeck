@@ -4,8 +4,12 @@ echo "0" > "$MSG"
 
 #Darwin
 appleChip=$(uname -m)
-if [ appleChip != "Linux" ]; then
-	PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+if [ $(uname) != "Linux" ]; then
+	if [ $appleChip = 'arm64' ]; then
+		PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+	else
+		PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+	fi
 fi
 
 #
@@ -114,6 +118,7 @@ EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 
 
 source "$EMUDECKGIT"/functions/helperFunctions.sh
+source "$EMUDECKGIT"/functions/jsonToBashVars.sh
 jsonToBashVars "$HOME/.config/EmuDeck/settings.json"
 source "$EMUDECKGIT/functions/all.sh"
 
@@ -423,6 +428,9 @@ fi
 
 #Always install
 BINUP_install
+AutoCopy_install
+server_install
+FlatpakUP_install
 CHD_install
 
 #
