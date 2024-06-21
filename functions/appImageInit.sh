@@ -4,7 +4,7 @@ appImageInit() {
 
 	AutoCopy_install
 	server_install
-
+	FlatpakUp_install
 
 	if [ "$system" == "chimeraos" ]; then
 		ESDE_chimeraOS
