@@ -5,14 +5,13 @@ import socket
 import re
 import json
 import subprocess
-import asyncio
+import threading
 import tkinter as tk
 from tkinter import messagebox
-
+import asyncio
 
 roms_path = None
 BASE_DIR = None
-
 
 async def getSettings():
     global roms_path
@@ -45,10 +44,7 @@ class SimpleHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             folder = form.getvalue('folder')
             files = form['files']
 
-
             upload_folder = os.path.join(BASE_DIR, folder)
-
-
             os.makedirs(upload_folder, exist_ok=True)
 
             if not isinstance(files, list):
@@ -76,7 +72,6 @@ class SimpleHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 def get_local_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
-        # No necesitamos conectarnos realmente
         s.connect(('10.254.254.254', 1))
         IP = s.getsockname()[0]
     except Exception:
@@ -84,6 +79,9 @@ def get_local_ip():
     finally:
         s.close()
     return IP
+
+def start_server(ip, port):
+    http.server.test(HandlerClass=SimpleHTTPRequestHandler, port=port, bind=ip)
 
 async def main():
     global BASE_DIR
@@ -95,10 +93,13 @@ async def main():
 
     ip = get_local_ip()
     port = 8000
-    http.server.test(HandlerClass=SimpleHTTPRequestHandler, port=port, bind=ip)
+
+    server_thread = threading.Thread(target=start_server, args=(ip, port))
+    server_thread.daemon = True
+    server_thread.start()
+
     messagebox.showinfo("Server loaded", f"Open http://{ip}:{port}/ in your computer's browser")
 
     root.destroy()
-
 
 asyncio.run(main())
