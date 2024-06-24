@@ -60,7 +60,8 @@ Lime3DS_init(){
 
 Lime3DS_migrateFromCitra(){
 	if [ -d "$savesPath/citra" ]; then
-		mv "$savesPath/citra" "$savesPath/lime3ds"
+		mkdir -p "$savesPath/lime3ds/"
+		rsync -av --ignore-existing "$savesPath/citra/" "$savesPath/lime3ds/"
 	fi
 }
 
