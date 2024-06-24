@@ -45,8 +45,8 @@ Lime3DS_init(){
 	Lime3DS_setupSaves
 	Lime3DS_addSteamInputProfile
 	Lime3DS_flushEmulatorLauncher
-	cp "$EMUDECKGIT/tools/launchers/Lime3DS.sh" "$toolsPath/launchers/Lime3DS.sh"
-	chmod +x "$toolsPath/launchers/Lime3DS.sh"
+	cp "$EMUDECKGIT/tools/launchers/lime3DS.sh" "$toolsPath/launchers/lime3DS.sh"
+	chmod +x "$toolsPath/launchers/lime3DS.sh"
 
   	createDesktopShortcut   "$HOME/.local/share/applications/Lime3DS.desktop" \
 							"Lime3DS (AppImage)" \
@@ -54,7 +54,7 @@ Lime3DS_init(){
 							"False"
 
 	#ESDE Temp FIX
-	ln -s "$HOME/Applications/lime3ds-gui.AppImage" "$HOME/Applications/lime-qt.AppImage"
+	#ln -s "$HOME/Applications/lime3ds-gui.AppImage" "$HOME/Applications/lime-qt.AppImage"
 
 }
 
