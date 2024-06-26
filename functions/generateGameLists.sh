@@ -10,13 +10,17 @@ generateGameListsJson() {
     cat $HOME/emudeck/cache/roms_games.json
     #generateGameLists_artwork $userid &> /dev/null &
     generateGameLists_artwork  &> /dev/null &
+    generateGameLists_artwork  &> /dev/null &
+    generateGameLists_artwork  &> /dev/null &
+    generateGameLists_artwork  &> /dev/null &
+    generateGameLists_artwork  &> /dev/null &
 }
 
 generateGameLists_artwork() {
     mkdir -p "$HOME/emudeck/cache/"
     # local userid=$1
     local json=$(cat "$HOME/emudeck/cache/roms_games.json")
-    local platforms=$(echo "$json" | jq -r '.[].id')
+    local platforms=$(echo "$json" | jq -r '.[].id' | shuf)
 
     accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     #accountfolder="$HOME/.steam/steam/userdata/$userid"
@@ -29,7 +33,7 @@ generateGameLists_artwork() {
 
     for platform in $platforms; do
         echo "Processing platform: $platform"
-        games=$(echo "$json" | jq -r --arg platform "$platform" '.[] | select(.id == $platform) | .games[]?.name')
+        games=$(echo "$json" | jq -r --arg platform "$platform" '.[] | select(.id == $platform) | .games[]?.name' | shuf)
 
         declare -a download_array
         declare -a download_dest_paths
