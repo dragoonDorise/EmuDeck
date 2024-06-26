@@ -5,15 +5,16 @@ generateGameLists() {
 }
 
 generateGameListsJson() {
-    local userid=$1
+    #local userid=$1
     python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath"
     cat $HOME/emudeck/cache/roms_games.json
-    generateGameLists_artwork $userid &> /dev/null &
+    #generateGameLists_artwork $userid &> /dev/null &
+    generateGameLists_artwork  &> /dev/null &
 }
 
 generateGameLists_artwork() {
     mkdir -p "$HOME/emudeck/cache/"
-    local userid=$1
+    # local userid=$1
     local json=$(cat "$HOME/emudeck/cache/roms_games.json")
     local platforms=$(echo "$json" | jq -r '.[].id')
 
@@ -48,7 +49,7 @@ generateGameLists_artwork() {
                 dest_path="$dest_folder$game.jpg"
 
 
-                if [ ! -f "$dest_path" ] && [ $game_img_url != "null" ]; then
+                if [ ! -f "$dest_path" ] && [ "$game_img_url" != "null" ]; then
                     echo -e " - $game_img_url" - $dest_path
                     download_array+=("$game_img_url")
                     download_dest_paths+=("$dest_path")
