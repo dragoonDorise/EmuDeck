@@ -253,14 +253,14 @@ Cemu_functions () {
 	# Uninstall
 	uninstall () {
 		setMSG "Uninstalling ${CemuNative[emuName]}."
-		rm -rf "${CemuNative[emuPath]}"
+		uninstallEmuAI "Cemu" "" "" "emulator"
 	}
 
 	# Install
 	install () {
 		echo "Begin Cemu - Native Install"
 		local showProgress="$1"
-		if installEmuAI "Cemu" "$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")" "" "" "$showProgress"; then # Cemu.AppImage
+		if installEmuAI "Cemu" "$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")" "" "" "emulator" "$showProgress"; then # Cemu.AppImage
 			:
 		else
 			return 1

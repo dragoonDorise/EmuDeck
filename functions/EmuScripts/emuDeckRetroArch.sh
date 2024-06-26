@@ -39,8 +39,8 @@ RetroArch_backupConfigs(){
 
 #Install
 RetroArch_install(){
-	setMSG "Installing $RetroArch_emuName"
-	installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
+	setMSG "Installing $RetroArch_emuName" 
+	installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "emulator" ""
 	RetroArch_installCores
 }
 
@@ -69,6 +69,7 @@ RetroArch_init(){
 
 	RetroArch_backupConfigs
 	configEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "true"
+	updateEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "emulator"
 	RetroArch_setEmulationFolder
 	RetroArch_setupSaves
 	RetroArch_setupStorage
@@ -205,6 +206,7 @@ RetroArch_update(){
 	setMSG "Updating $RetroArch_emuName settings."
 	RetroArch_backupConfigs
 	configEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
+	updateEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "emulator" ""
 	RetroArch_setEmulationFolder
 	RetroArch_setupSaves
 	RetroArch_setupStorage
@@ -351,7 +353,7 @@ RetroArch_wipe(){
 
 #Uninstall
 RetroArch_uninstall(){
-	flatpak uninstall "$RetroArch_emuPath" --user -y
+	uninstallEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "emulator" ""
 }
 
 #setABXYstyle

@@ -42,6 +42,8 @@ Xenia_install(){
 	fi
 
 	cp "$EMUDECKGIT/tools/launchers/xenia.sh" "${toolsPath}/launchers/xenia.sh"
+	cp "$EMUDECKGIT/tools/launchers/xenia.sh" "$romsPath/emulators/xenia.sh"
+	cp "$EMUDECKGIT/tools/launchers/xenia.sh" "$romsPath/xbox360/xenia.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/xenia.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/xenia.sh"
 	mkdir -p "$romsPath/xbox360/roms/xbla"
@@ -50,6 +52,8 @@ Xenia_install(){
 #		changeLine '"${PROTONLAUNCH}"' "$launchLine" "${toolsPath}/launchers/xenia.sh"
 #	fi
 	chmod +x "${toolsPath}/launchers/xenia.sh"
+	chmod +x "$romsPath/emulators/xenia.sh"
+	chmod +x "$romsPath/xbox360/xenia.sh"
 
 	Xenia_getPatches
 	Xenia_cleanESDE
@@ -156,6 +160,9 @@ Xenia_uninstall(){
 	setMSG "Uninstalling $Xenia_emuName. Saves and ROMs will be retained in the ROMs folder."
 	find ${romsPath}/xbox360 -mindepth 1 \( -name roms -o -name content \) -prune -o -exec rm -rf '{}' \; &>> /dev/null
 	rm -rf $HOME/.local/share/applications/xenia.desktop &> /dev/null
+	rm -rf "${toolsPath}/launchers/xenia.sh"
+	rm -rf "$romsPath/emulators/xenia.sh"
+	rm -rf "$romsPath/xbox360/xenia.sh"
 }
 
 #setABXYstyle
