@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 Plugins_install_cleanup() {
 	local password=$1
   	#We restart Decky
@@ -77,7 +75,7 @@ Plugins_installPowerTools(){
 Plugins_installPowerControl(){
 	echo "Installing PowerControl"
    local password=$1
-   local destinationFolder="$HOME/homebrew/plugins/EmuDecky"
+   local destinationFolder="$HOME/homebrew/plugins/PowerControl"
    local PowerControl_releaseURL="$(getLatestReleaseURLGH "mengmeet/PowerControl" ".tar.gz")"
    if [ -d "$HOME/homebrew" ]; then
    	Plugins_checkPassword $password
@@ -127,7 +125,7 @@ Plugins_installEmuDecky(){
 Plugins_installDeckyRomLibrary(){
    echo "Installing Decky Rom Library"
    local password=$1
-   local destinationFolder="$HOME/homebrew/plugins/RomLibrary"
+   local destinationFolder="$HOME/homebrew/plugins/decky-rom-library"
    local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/decky-rom-library" ".zip")"
    if [ -d "$HOME/homebrew" ]; then
     Plugins_checkPassword $password
