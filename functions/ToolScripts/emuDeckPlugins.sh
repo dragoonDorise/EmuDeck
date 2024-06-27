@@ -46,7 +46,7 @@ Plugins_installPluginLoader(){
 		Plugins_checkPassword $password  && echo $password | sudo -S chown -R $USER:$USER "$HOME/homebrew"
 		curl -L $PluginLoader_releaseURL | sh
 		touch "$HOME/.steam/steam/.cef-enable-remote-debugging"
-		echo $password |  sudo -S chown $USER:$USER ~/.steam/steam/.cef-enable-remote-debugging
+		echo $password | sudo -S chown $USER:$USER ~/.steam/steam/.cef-enable-remote-debugging
 		Plugins_install_cleanup $password
 	#fi
 }
@@ -65,7 +65,7 @@ Plugins_installPowerTools(){
    	echo $password |  sudo -S unzip "$HOME/homebrew/PowerTools.zip" -d "$HOME/homebrew/plugins/" && rm "$HOME/homebrew/PowerTools.zip"
    	Plugins_install_cleanup $password
    else
-      Plugins_installPluginLoader
+      Plugins_installPluginLoader $password
 	  rm -rf "$HOME/homebrew/plugins/PowerTools"
 	  curl -l "$url" --output "$HOME/homebrew/PowerTools.zip.temp" && mv "$HOME/homebrew/PowerTools.zip.temp" "$HOME/homebrew/PowerTools.zip"
 	  unzip "$HOME/homebrew/PowerTools.zip" -d "$HOME/homebrew/plugins/" && rm "$HOME/homebrew/PowerTools.zip"
@@ -86,7 +86,7 @@ Plugins_installPowerControl(){
    	chmod 555 -R $HOME/homebrew/plugins/PowerControl
    	Plugins_install_cleanup $password
    else
-      Plugins_installPluginLoader
+      Plugins_installPluginLoader $password
 	  rm -rf $destinationFolder
 	  curl -L "$PowerControl_releaseURL" -o "$HOME/homebrew/plugins/PowerControl.tar.gz"
 	  unzip "$HOME/homebrew/plugins/PowerControl.tar.gz" -d "$HOME/homebrew/plugins/" && rm "$HOME/homebrew/plugins/PowerControl.tar.gz"
@@ -113,7 +113,7 @@ Plugins_installEmuDecky(){
 		chmod 555 -R $HOME/homebrew/plugins/EmuDecky
 		Plugins_install_cleanup $password
 	else
-         Plugins_installPluginLoader
+         Plugins_installPluginLoader $password
 		 rm -rf $destinationFolder
 		 curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/EmuDecky.zip"
 		 unzip "$HOME/homebrew/plugins/EmuDecky.zip" -d "$HOME/homebrew/plugins/" && rm "$HOME/homebrew/plugins/EmuDecky.zip"
@@ -136,7 +136,7 @@ Plugins_installDeckyRomLibrary(){
     chmod 555 -R $HOME/homebrew/plugins/decky-rom-library
     Plugins_install_cleanup $password
   else
-     Plugins_installPluginLoader
+     Plugins_installPluginLoader $password
      rm -rf $destinationFolder
      curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/decky-rom-library.zip"
      unzip "$HOME/homebrew/plugins/decky-rom-library.zip" -d "$HOME/homebrew/plugins/" && rm "$HOME/homebrew/plugins/decky-rom-library.zip"
@@ -154,7 +154,8 @@ Plugins_installSteamDeckGyroDSU(){
 
 
 Plugins_install(){
+  local password=$1
 	Plugins_installEmuDecky
 	Plugins_installSteamDeckGyroDSU
-	Plugins_installPluginLoader
+	Plugins_installPluginLoader $password
 }
