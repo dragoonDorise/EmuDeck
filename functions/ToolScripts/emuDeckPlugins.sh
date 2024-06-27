@@ -9,14 +9,14 @@ Plugins_install_cleanup() {
 	#systemctl restart plugin_loader
 
 	#Deleting temp password
-	if [ "$password" = "Decky!" ]; then
+	if [ "$password" = "EmuDecky!" ]; then
 		echo "$password" | sudo -S -k passwd -d $(whoami)
 	fi
 }
 
 Plugins_checkPassword(){
    local password=$1
-   if [ "$password" = "Decky!" ]; then
+   if [ "$password" = "EmuDecky!" ]; then
      #We create the password
      yes "$password" | passwd $(whoami)
    elif [ "$system" == "chimeraos" ]; then
