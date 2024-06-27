@@ -762,12 +762,13 @@ flushEmulatorLaunchers(){
     local name="$1"
 
 	shName=$(echo "$name" | awk '{print tolower($0)}')
-	find "${toolsPath}/launchers/" -maxdepth 1 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
-	while read -r f
-	do
-		echo "deleting $f"
-		rm -f "$f"
-	done
+    mkdir -p "${romsPath}/emulators"
+    find "${toolsPath}/launchers/" "${romsPath}/emulators" -maxdepth 1 -type f \( -iname "$shName.sh" -o -iname "$shName-emu.sh" \) | \
+    while read -r f
+    do
+        echo "deleting $f"
+        rm -f "$f"
+    done
 
     find "${EMUDECKGIT}/tools/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
     while read -r l
@@ -777,6 +778,8 @@ flushEmulatorLaunchers(){
         chmod +x "$l"
         cp -v "$l" "${toolsPath}/launchers/"
         chmod +x "${toolsPath}/launchers/"*
+		cp -v "$l" "${romsPath}/emulators"
+		chmod +x "${romsPath}/emulators/"*
     done
 
 

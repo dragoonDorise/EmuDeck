@@ -24,12 +24,13 @@ Xemu_cleanup(){
 
 #Install
 Xemu_install() {
-	installEmuFP "${Xemu_emuName}" "${Xemu_emuPath}"
+	installEmuFP "${Xemu_emuName}" "${Xemu_emuPath}" "emulator" ""
 }
 
 #ApplyInitialSettings
 Xemu_init() {
 	configEmuFP "${Xemu_emuName}" "${Xemu_emuPath}" "true"
+	updateEmuFP "${Xemu_emuName}" "${Xemu_emuPath}" "emulator" ""
 	Xemu_migrate
 	Xemu_setupStorage
 	Xemu_setEmulationFolder
@@ -112,7 +113,7 @@ Xemu_wipe() {
 
 #Uninstall
 Xemu_uninstall() {
-	flatpak uninstall "$Xemu_emuPath" --user -y
+	uninstallEmuFP "${Xemu_emuName}" "${Xemu_emuPath}" "emulator" ""
 }
 
 #setABXYstyle

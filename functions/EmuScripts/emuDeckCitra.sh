@@ -12,7 +12,7 @@ Citra_texturesPath="$HOME/.config/citra-emu/load/textures"
 Citra_install(){
 	echo "Begin $Citra_emuName Install"
 	local showProgress="$1"
-	if installEmuAI "$Citra_emuName" "$(getReleaseURLGH "PabloMK7/citra" "tar.gz" "" "appimage")" "citra" "tar.gz" "$showProgress"; then #citra-qt.AppImage
+	if installEmuAI "$Citra_emuName" "$(getReleaseURLGH "PabloMK7/citra" "tar.gz" "" "appimage")" "citra" "tar.gz" "emulator" "$showProgress"; then #citra-qt.AppImage
 		mkdir "$HOME/Applications/citra-temp"
 		tar -xvzf "$HOME/Applications/citra.tar.gz" -C "$HOME/Applications/citra-temp" --strip-components 1
 		mv "$HOME/Applications/citra-temp/citra-qt.AppImage" "$HOME/Applications"
@@ -174,8 +174,7 @@ Citra_wipe(){
 #Uninstall
 Citra_uninstall(){
 	setMSG "Uninstalling $Citra_emuName."
-	rm -rf "$Citra_emuPath"
-	rm -rf $HOME/.local/share/applications/Citra.desktop
+	uninstallEmuAI $Citra_emuName "citra-qt" "" "emulator"
 }
 
 #setABXYstyle

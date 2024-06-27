@@ -11,10 +11,7 @@ Greenlight_install() {
     echo "Begin Greenlight Install"
 
 	local showProgress="$1"
-	installEmuAI "Greenlight" "$(getReleaseURLGH "unknownskl/greenlight" ".AppImage")" "" "$showProgress"
-
-	cp "$EMUDECKGIT/tools/remoteplayclients/Greenlight.sh" "$romsPath/remoteplay"
-	chmod +x "$romsPath/remoteplay/Greenlight.sh"
+	installEmuAI "$Greenlight_emuName" "$(getReleaseURLGH "unknownskl/greenlight" ".AppImage")" "" "" "remoteplay" "$showProgress"
 	
 }
 
@@ -38,8 +35,7 @@ Greenlight_update() {
 # Uninstall
 Greenlight_uninstall() {
 	setMSG "Uninstalling $Greenlight_emuName."
-	rm -f "$Greenlight_emuPath"
-	rm "$romsPath/remoteplay/Greenlight.sh"
+	uninstallEmuAI "$Greenlight_emuName" "" "" "remoteplay"
 }
 
 # Check if installed

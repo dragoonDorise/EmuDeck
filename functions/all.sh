@@ -40,7 +40,9 @@ source "$EMUDECKGIT"/functions/uninstallEmuFP.sh
 source "$EMUDECKGIT"/functions/setMSG.sh
 source "$EMUDECKGIT"/functions/emuDeckPrereqs.sh
 source "$EMUDECKGIT"/functions/installEmuAI.sh
+source "$EMUDECKGIT"/functions/uninstallEmuAI.sh
 source "$EMUDECKGIT"/functions/installEmuBI.sh
+source "$EMUDECKGIT"/functions/uninstallGeneric.sh
 source "$EMUDECKGIT"/functions/installToolAI.sh
 source "$EMUDECKGIT"/functions/migrateAndLinkConfig.sh
 source "$EMUDECKGIT"/functions/nonDeck.sh
@@ -100,14 +102,22 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckFlycast.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckSupermodel.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckModel2.sh
 
+# Generic Application scripts
+source "$EMUDECKGIT"/functions/GenericApplicationsScripts/genericApplicationCider.sh
+source "$EMUDECKGIT"/functions/GenericApplicationsScripts/genericApplicationHeroic.sh
+source "$EMUDECKGIT"/functions/GenericApplicationsScripts/genericApplicationPlexamp.sh
+source "$EMUDECKGIT"/functions/GenericApplicationsScripts/genericApplicationSpotify.sh
+source "$EMUDECKGIT"/functions/GenericApplicationsScripts/genericApplicationTidal.sh
+
 #remoteplayclientscripts
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki4deck.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayGreenlight.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayMoonlight.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayParsec.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayShadow.sh
-source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlaySpotify.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlaySteamLink.sh
+
 
 source "$EMUDECKGIT"/functions/cloudSyncHealth.sh
 

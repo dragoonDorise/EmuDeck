@@ -94,7 +94,7 @@ Vita3K_wipe(){
 #Uninstall
 Vita3K_uninstall(){
     echo "Begin Vita3K uninstall"
-    rm -rf "$Vita3K_emuPath"
+    uninstallGeneric $Vita3K_emuName $Vita3K_emuPath "" "emulator"
 }
 
 #Migrate

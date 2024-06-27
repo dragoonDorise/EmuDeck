@@ -14,8 +14,7 @@ RMG_cleanup(){
 #Install
 RMG_install() {
 	setMSG "Installing $RMG_emuName"
-
-	installEmuFP "${RMG_emuName}" "${RMG_emuPath}"
+	installEmuFP "${RMG_emuName}" "${RMG_emuPath}" "emulator" ""
 }
 
 #Fix for autoupdate
@@ -44,6 +43,7 @@ RMG_update() {
 	setMSG "Installing $RMG_emuName"
 
 	configEmuFP "${RMG_emuName}" "${RMG_emuPath}"
+	updateEmuFP "${RMG_emuName}" "${RMG_emuPath}" "emulator" ""
 	RMG_setupStorage
 	RMG_setEmulationFolder
 	RMG_setupSaves
@@ -139,7 +139,7 @@ RMG_wipe(){
 
 #Uninstall
 RMG_uninstall(){
-    flatpak uninstall "$RMG_emuPath" --user -y
+    uninstallEmuFP "${RMG_emuName}" "${RMG_emuPath}" "emulator" ""
 }
 
 #Migrate
