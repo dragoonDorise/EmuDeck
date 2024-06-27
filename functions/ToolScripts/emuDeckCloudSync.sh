@@ -14,7 +14,7 @@ cloud_sync_install(){
     if [ $system != "darwin" ];then
       PASS_STATUS=$(passwd -S deck 2> /dev/null)
       if [ "${PASS_STATUS:5:2}" = "NP" ]; then
-        Plugins_installEmuDecky "EmuDecky!" && Plugins_installPluginLoader "EmuDecky!"
+        Plugins_installEmuDecky "Decky!" && Plugins_installPluginLoader "Decky!"
       else
 
         text="$(printf "We need to install our Decky Plugin so you can use CloudSync on Gaming Mode.\nPlease enter your sudo/admin password so we can install it.")"
