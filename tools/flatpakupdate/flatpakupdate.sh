@@ -140,47 +140,47 @@ if [ ${#emuTable[@]} -gt 0 ]; then
                 progressInstalled=""
                 if [ "$doUpdateares" == "true" ]; then
                     echo "###Updating ares..."
-                    (updateEmuFP "ares" "dev.ares.ares" "emulator" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|ares" && echo "&&&$progressInstalled"
+                    (updateEmuFP "ares" "dev.ares.ares" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|ares" && echo "&&&$progressInstalled"
                 fi
                 if [ "$doUpdateDolphin" == "true" ]; then
                     echo "###Updating Dolphin..."
-                    (updateEmuFP "dolphin-emu" "org.DolphinEmu.dolphin-emu" "emulator" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|Dolphin" && echo "&&&$progressInstalled"
+                    (updateEmuFP "dolphin-emu" "org.DolphinEmu.dolphin-emu" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|Dolphin" && echo "&&&$progressInstalled"
                 fi
                 if [ "$doUpdateDuck" == "true" ]; then
                     echo "###Updating DuckStation..."
-                    (updateEmuFP "DuckStation" "org.duckstation.DuckStation" "emulator" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|DuckStation" && echo "&&&$progressInstalled"
+                    (updateEmuFP "DuckStation" "org.duckstation.DuckStation" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|DuckStation" && echo "&&&$progressInstalled"
                 fi
                 if [ "$doUpdateMelonDS" == "true" ]; then
                     echo "###Updating melonDS..."
-                    (updateEmuFP "melonDS" "net.kuribo64.melonDS" "emulator" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|melonDS" && echo "&&&$progressInstalled"
+                    (updateEmuFP "melonDS" "net.kuribo64.melonDS" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|melonDS" && echo "&&&$progressInstalled"
                 fi
                 if [ "$doUpdatePPSSPP" == "true" ]; then
                     echo "###Updating PPSSPP..."
-                    (updateEmuFP "PPSSPP" "org.ppsspp.PPSSPP" "emulator" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|PPSSPP" && echo "&&&$progressInstalled"
+                    (updateEmuFP "PPSSPP" "org.ppsspp.PPSSPP" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|PPSSPP" && echo "&&&$progressInstalled"
                 fi
                 if [ "$doUpdatePrimeHack" == "true" ]; then
                     echo "###Updating PrimeHack..."
-                    (updateEmuFP "PrimeHack" "io.github.shiiion.primehack" "emulator" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|PrimeHack" && echo "&&&$progressInstalled"
+                    (updateEmuFP "PrimeHack" "io.github.shiiion.primehack" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|PrimeHack" && echo "&&&$progressInstalled"
                 fi
                 if [ "$doUpdateRA" == "true" ]; then
                     echo "###Updating RetroArch..."
-                    (updateEmuFP "RetroArch" "org.libretro.RetroArch" "emulator" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|RetroArch" && echo "&&&$progressInstalled"
+                    (updateEmuFP "RetroArch" "org.libretro.RetroArch" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|RetroArch" && echo "&&&$progressInstalled"
                 fi
                 if [ "$doUpdateRMG" == "true" ]; then
                     echo "###Updating Rosalie's Mupen GUI..."
-                    (updateEmuFP "RMG" "com.github.Rosalie241.RMG" "emulator" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|RMG" && echo "&&&$progressInstalled"
+                    (updateEmuFP "RMG" "com.github.Rosalie241.RMG" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|RMG" && echo "&&&$progressInstalled"
                 fi
                 if [ "$doUpdateScummVM" == "true" ]; then
                     echo "###Updating ScummVM..."
-                    (updateEmuFP "ScummVM" "org.scummvm.ScummVM" "emulator" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|ScummVM" && echo "&&&$progressInstalled"
+                    (updateEmuFP "ScummVM" "org.scummvm.ScummVM" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|ScummVM" && echo "&&&$progressInstalled"
                 fi
                 if [ "$doUpdateSupermodel" == "true" ]; then
                     echo "###Updating Supermodel..."
-                    (updateEmuFP "Supermodel" "com.supermodel.Supermodel" "emulator" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|ScummVM" && echo "&&&$progressInstalled"
+                    (updateEmuFP "Supermodel" "com.supermodel.Supermodel" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|ScummVM" && echo "&&&$progressInstalled"
                 fi
                 if [ "$doUpdateXemu" == "true" ]; then
                     echo "###Updating Xemu..."
-                    (updateEmuFP "Xemu-Emu" "app.xemu.xemu" "emulator" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|Xemu" && echo "&&&$progressInstalled"
+                    (updateEmuFP "Xemu-Emu" "app.xemu.xemu" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|Xemu" && echo "&&&$progressInstalled"
                 fi
                 if [ $progresspct != 100 ]; then
                     progresspct=100
