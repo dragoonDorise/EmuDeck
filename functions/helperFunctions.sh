@@ -1038,21 +1038,23 @@ function storePatreonToken(){
 
 
 function controllerLayout_ABXY(){
-	Dolphin_setABXYstyle
 	Cemu_setABXYstyle
-	Ryujinx_setABXYstyle
+	Citra_setABXYstyle
+	Dolphin_setABXYstyle
+ 	melonDS_setABXYstyle
 	RetroArch_setABXYstyle
-	melonDS_setABXYstyle
 	RMG_setABXYstyle
+ 	Ryujinx_setABXYstyle
 }
 
 function controllerLayout_BAYX(){
-	Dolphin_setBAYXstyle
 	Cemu_setBAYXstyle
-	Ryujinx_setBAYXstyle
+ 	Citra_setBAYXstyle
+ 	Dolphin_setBAYXstyle
+  	melonDS_setBAYXstyle
 	RetroArch_setBAYXstyle
-	melonDS_setBAYXstyle
 	RMG_setBAYXstyle
+	Ryujinx_setBAYXstyle
 }
 
 
