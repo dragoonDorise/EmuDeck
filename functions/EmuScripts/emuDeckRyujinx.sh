@@ -192,7 +192,7 @@ Ryujinx_wipe(){
 #Uninstall
 Ryujinx_uninstall(){
     echo "Begin Ryujinx uninstall"
-    rm -rf "$Ryujinx_emuPath"
+    uninstallGeneric $Ryujinx_emuName $Ryujinx_emuPath "" "emulator"
 }
 
 #Migrate

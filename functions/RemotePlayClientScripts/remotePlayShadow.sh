@@ -2,7 +2,7 @@
 
 # Variables
 ShadowPC_emuName="ShadowPC"
-ShadowPC_emuType="AppImage"
+ShadowPC_emuType="$emuDeckEmuTypeAppImage"
 ShadowPC_emuPath="$HOME/Applications/ShadowPC.AppImage"
 ShadowPC_releaseURL="https://update.Shadow.tech/launcher/prod/linux/ubuntu_18.04/ShadowPC.AppImage"
 
@@ -12,11 +12,7 @@ ShadowPC_install() {
 
     local showProgress=$1
 	#local installShadowPC=$(wget -q $ShadowPC_releaseURL -P $ShadowPC_emuPath)
-	installEmuAI "ShadowPC" $ShadowPC_releaseURL "" "" "$showProgress"
-
-
-	cp "$EMUDECKGIT/tools/remoteplayclients/ShadowPC.sh" "$romsPath/remoteplay"
-	chmod +x "$romsPath/remoteplay/ShadowPC.sh"
+	installEmuAI "$ShadowPC_emuName" $ShadowPC_releaseURL "" "" "remoteplay" "$showProgress"
 }
 
 # ApplyInitialSettings
@@ -28,7 +24,7 @@ ShadowPC_init() {
 
 # Update appimage
 ShadowPC_update() {
-	setMSG "Updating $ShadowPC_emuName settings."
+	setMSG "Updating $ShadowPC_emuName settings." 
 	rm -f "$ShadowPC_emuPath"
 	ShadowPC_install
 }
@@ -36,8 +32,7 @@ ShadowPC_update() {
 # Uninstall
 ShadowPC_uninstall() {
 	setMSG "Uninstalling $ShadowPC_emuName."
-	rm -f "$ShadowPC_emuPath"
-	rm -f "$romsPath/remoteplay/ShadowPC.sh"
+	uninstallEmuAI "$ShadowPC_emuName" "" "" "remoteplay"
 }
 
 # Check if installed

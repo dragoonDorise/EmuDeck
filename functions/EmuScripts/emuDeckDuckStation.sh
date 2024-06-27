@@ -14,7 +14,7 @@ DuckStation_cleanup(){
 #Install
 DuckStation_install(){
 	setMSG "Installing $DuckStation_emuName"
-	installEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}"
+	installEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}" "emulator" ""
 }
 
 #ApplyInitialSettings
@@ -36,6 +36,7 @@ DuckStation_init(){
 DuckStation_update(){
 	setMSG "Updating $DuckStation_emuName settings."
 	configEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}"
+	updateEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}" "emulator" ""
 	DuckStation_setupStorage
 	DuckStation_setEmulationFolder
 	DuckStation_setupSaves
@@ -90,7 +91,7 @@ DuckStation_wipe(){
 #Uninstall
 DuckStation_uninstall(){
 	setMSG "Uninstalling ${DuckStation_emuName}."
-    flatpak uninstall "$DuckStation_emuPath" --user -y
+    uninstallEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}" "emulator" ""
 }
 
 #setABXYstyle
