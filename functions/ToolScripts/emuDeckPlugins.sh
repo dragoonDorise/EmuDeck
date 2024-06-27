@@ -8,7 +8,7 @@ Plugins_install_cleanup() {
 
 	#Deleting temp password
 	if [ "$password" = "Decky!" ]; then
-		echo "$password" | sudo -S -k passwd -d $(whoami)
+		echo "$password" | sudo -S -k passwd -d $(whoami) && echo "true"
 	fi
 }
 
