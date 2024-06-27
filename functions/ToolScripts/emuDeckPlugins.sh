@@ -22,7 +22,7 @@ Plugins_checkPassword(){
    elif [ "$system" == "chimeraos" ]; then
    	password="gamer"
    else
-      if ( echo "$PASS" | sudo -S -k true ); then
+      if ( echo "$password" | sudo -S -k true ); then
         echo "true"
       else
           read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
