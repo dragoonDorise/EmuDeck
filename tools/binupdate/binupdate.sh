@@ -109,6 +109,16 @@ function runBinDownloads {
             messages+=("There was a problem updating Cemu (Native)")
         fi
     fi
+    if [[ "$binsToDL" == *"Citra"* ]]; then
+        ((progresspct += pct)) || true
+        echo "$progresspct"
+        echo "# Updating Citra"
+        if Citra_install "true" 2>&1; then
+            messages+=("Citra Updated Successfully")
+        else
+            messages+=("There was a problem updating Citra")
+        fi
+    fi
     if [[ "$binsToDL" == *"ES-DE"* ]]; then
         echo "0"
         echo "# Updating ES-DE"
@@ -219,6 +229,11 @@ if [ "$(Cemu_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
 else
     binTable+=(FALSE "Cemu (Native)" "Nintendo Wii U")
 fi
+if [ "$(Citra_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
+    binTable+=(TRUE "Citra" "Nintendo 3DS")
+else
+    binTable+=(FALSE "Citra" "Nintendo 3DS")
+fi
 if [ "$(ESDE_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "ES-DE" "Emulator Front-End")
 else
@@ -305,3 +320,4 @@ else
     zenity --error \
         --text="Nothing available to be updated." 2>/dev/null
 fi
+
