@@ -16,7 +16,7 @@ Plugins_checkPassword(){
    local password=$1
    if [ "$password" = "EmuDecky!" ]; then
      #We create the password
-     yes "$password" | passwd $(whoami)
+     yes "$password" | passwd $(whoami) &>/dev/null
    elif [ "$system" == "chimeraos" ]; then
    	password="gamer"
    else
