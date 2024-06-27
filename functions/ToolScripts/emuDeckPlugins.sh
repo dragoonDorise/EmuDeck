@@ -61,7 +61,7 @@ Plugins_installPowerTools(){
    ptHash=$(curl https://beta.deckbrew.xyz/plugins | jq -r '.[] | select(.name=="PowerTools").versions[0].hash')
    local url="https://cdn.tzatzikiweeb.moe/file/steam-deck-homebrew/versions/$ptHash.zip"
 
-   if [ -d "$HOME/homebrew/plugins/" ]; then
+   if [ -d "$HOME/homebrew" ]; then
    	echo $password |  sudo -S rm -rf "$HOME/homebrew/plugins/PowerTools"
    	curl -l "$url" --output "$HOME/homebrew/PowerTools.zip.temp"  && mv "$HOME/homebrew/PowerTools.zip.temp" "$HOME/homebrew/PowerTools.zip"
    	echo $password |  sudo -S unzip "$HOME/homebrew/PowerTools.zip" -d "$HOME/homebrew/plugins/" && rm "$HOME/homebrew/PowerTools.zip"
@@ -79,7 +79,7 @@ Plugins_installPowerControl(){
    local password=$1
    local destinationFolder="$HOME/homebrew/plugins/EmuDecky"
    local PowerControl_releaseURL="$(getLatestReleaseURLGH "mengmeet/PowerControl" ".tar.gz")"
-   if [ -d "$HOME/homebrew/plugins/" ]; then
+   if [ -d "$HOME/homebrew" ]; then
    	Plugins_checkPassword $password
    	echo $password |  sudo -S rm -rf $destinationFolder
    	echo $password |  sudo -S curl -L "$PowerControl_releaseURL" -o "$HOME/homebrew/plugins/PowerControl.tar.gz"
@@ -106,7 +106,7 @@ Plugins_installEmuDecky(){
    local password=$1
    local destinationFolder="$HOME/homebrew/plugins/EmuDecky"
    local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/EmuDecky" ".zip")"
-   if [ -d "$HOME/homebrew/plugins/" ]; then
+   if [ -d "$HOME/homebrew" ]; then
 		Plugins_checkPassword $password
 		echo $password |  sudo -S rm -rf $destinationFolder
 		echo $password |  sudo -S curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/EmuDecky.zip"
@@ -129,7 +129,7 @@ Plugins_installDeckyRomLibrary(){
    local password=$1
    local destinationFolder="$HOME/homebrew/plugins/RomLibrary"
    local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/decky-rom-library" ".zip")"
-   if [ -d "$HOME/homebrew/plugins/" ]; then
+   if [ -d "$HOME/homebrew" ]; then
     Plugins_checkPassword $password
     echo $password |  sudo -S rm -rf $destinationFolder
     echo $password |  sudo -S curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/decky-rom-library.zip"
