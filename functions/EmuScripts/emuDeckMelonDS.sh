@@ -14,7 +14,7 @@ melonDS_finalize(){
 #Install
 melonDS_install(){
 	setMSG "Installing $melonDS_emuName"
-	installEmuFP "${melonDS_emuName}" "${melonDS_emuPath}"
+	installEmuFP "${melonDS_emuName}" "${melonDS_emuPath}" "emulator" ""
 }
 
 #Fix for autoupdate
@@ -38,6 +38,7 @@ melonDS_init(){
 melonDS_update(){
 	setMSG "Updating $melonDS_emuName settings."
 	configEmuFP "${melonDS_emuName}" "${melonDS_emuPath}"
+	updateEmuFP "${melonDS_emuName}" "${melonDS_emuPath}" "emulator" ""
 	melonDS_setupStorage
 	melonDS_setEmulationFolder
 	melonDS_setupSaves
@@ -111,7 +112,7 @@ melonDS_wipe(){
 #Uninstall
 melonDS_uninstall(){
 	setMSG "Uninstalling $melonDS_emuName."
-    flatpak uninstall "$melonDS_emuPath" --user -y
+	uninstallEmuFP "${melonDS_emuName}" "${melonDS_emuPath}" "emulator" ""
 }
 
 #setABXYstyle

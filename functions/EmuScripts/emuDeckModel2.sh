@@ -33,6 +33,12 @@ Model2_install(){
 	fi
 
 	cp "$EMUDECKGIT/tools/launchers/model-2-emulator.sh" "$toolsPath/launchers/model-2-emulator.sh"
+	cp "$EMUDECKGIT/tools/launchers/model-2-emulator.sh" "$romsPath/model2/model-2-emulator.sh"
+	cp "$EMUDECKGIT/tools/launchers/model-2-emulator.sh" "$romsPath/emulators/model-2-emulator.sh"
+
+	chmod +x "$toolsPath/launchers/model-2-emulator.sh"
+	chmod +x "$romsPath/emulators/model-2-emulator.sh"
+	chmod +x "$romsPath/model2/model-2-emulator.sh"
 
   	createDesktopShortcut   "$HOME/.local/share/applications/Model 2 Emulator (Proton).desktop" \
 							"$Model2_emuName (Proton)" \
@@ -112,9 +118,23 @@ Model2_wipeSettings(){
 
 #Uninstall
 Model2_uninstall(){
+
+	if [ -d "${HOME}/.local/share/Steam" ]; then
+		STEAMPATH="${HOME}/.local/share/Steam"
+	elif [ -d "${HOME}/.steam/steam" ]; then
+		STEAMPATH="${HOME}/.steam/steam"
+	else
+		echo "Steam install not found"
+	fi
+
 	setMSG "Uninstalling $Model2_emuName. Saves and ROMs will be retained in the ROMs folder."
 	find ${romsPath}/model2 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \; &>> /dev/null
-    rm -rf "$HOME/.local/share/applications/Model 2 Emulator (Proton).desktop"
+    rm -rf "$HOME/.local/share/applications/Model 2 Emulator (Proton).desktop" &>> /dev/null
+	rm -rf "$STEAMPATH/compatibilitytools.d/ULWGL-Proton-8.0-5-3" &>> /dev/null
+	rm -rf "$HOME/.local/share/ULWGL" &> /dev/null
+	rm -rf "${toolsPath}/launchers/model-2-emulator.sh"
+	rm -rf "$romsPath/emulators/model-2-emulator.sh"
+	rm -rf "$romsPath/model2/model-2-emulator.sh"
     Model2_wipeSettings
 }
 

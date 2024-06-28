@@ -32,7 +32,6 @@
 /run/media/mmcblk0p1/Emulation/roms/cdtv
 /run/media/mmcblk0p1/Emulation/roms/chailove
 /run/media/mmcblk0p1/Emulation/roms/channelf
-/run/media/mmcblk0p1/Emulation/roms/cloud
 /run/media/mmcblk0p1/Emulation/roms/coco
 /run/media/mmcblk0p1/Emulation/roms/coleco
 /run/media/mmcblk0p1/Emulation/roms/colecovision
@@ -43,11 +42,15 @@
 /run/media/mmcblk0p1/Emulation/roms/crvision
 /run/media/mmcblk0p1/Emulation/roms/daphne
 /run/media/mmcblk0p1/Emulation/roms/desktop
+/run/media/mmcblk0p1/Emulation/roms/desktop/cloud
+/run/media/mmcblk0p1/Emulation/roms/desktop/generic-applications
+/run/media/mmcblk0p1/Emulation/roms/desktop/remoteplay
 /run/media/mmcblk0p1/Emulation/roms/doom
 /run/media/mmcblk0p1/Emulation/roms/dos
 /run/media/mmcblk0p1/Emulation/roms/dragon32
 /run/media/mmcblk0p1/Emulation/roms/dreamcast
 /run/media/mmcblk0p1/Emulation/roms/easyrpg
+/run/media/mmcblk0p1/Emulation/roms/emulators
 /run/media/mmcblk0p1/Emulation/roms/epic
 /run/media/mmcblk0p1/Emulation/roms/famicom
 /run/media/mmcblk0p1/Emulation/roms/fba
@@ -128,7 +131,6 @@
 /run/media/mmcblk0p1/Emulation/roms/pv1000
 /run/media/mmcblk0p1/Emulation/roms/quake
 /run/media/mmcblk0p1/Emulation/roms/quake_1
-/run/media/mmcblk0p1/Emulation/roms/remoteplay
 /run/media/mmcblk0p1/Emulation/roms/roms
 /run/media/mmcblk0p1/Emulation/roms/samcoupe
 /run/media/mmcblk0p1/Emulation/roms/satellaview

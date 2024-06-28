@@ -1,6 +1,7 @@
 #!/bin/bash
+source "$HOME/.config/EmuDeck/backend/functions/all.sh"
+source "$romsPath/cloud/cloud.conf"
 
 LINK="https://open.spotify.com/"
 
-source ./cloud.conf
-"/usr/bin/flatpak" run ${FLATPAKOPTIONS} ${BROWSERAPP} @@u @@ ${BROWSEROPTIONS} ${LINK}
+browsercommand

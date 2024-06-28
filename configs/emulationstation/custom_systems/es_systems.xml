@@ -43,7 +43,7 @@
 	<name>wiiu</name>
 	<fullname>Nintendo Wii U</fullname>
 	<path>%ROMPATH%/wiiu/roms</path>
-	<extension>.rpx .RPX .wud .WUD .wux .WUX .elf .ELF .iso .ISO .wad .WAD .wua .WUA</extension>
+	<extension>.elf .ELF .rpx .RPX .tmd .TMD .wua .WUA .wud .WUD .wuhb .WUHB .wux .WUX</extension>
 	<command label="Cemu (Native)">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh -f -g %ROM%</command>
 	<command label="Cemu (Proton)">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh -w -f -g z:%ROM%</command>
 	<platform>wiiu</platform>

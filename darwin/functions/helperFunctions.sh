@@ -1,8 +1,6 @@
 #!/bin/bash
-#We set the proper sed
-PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-appleChip=$(uname -m)
-darwin_installEmuDMG(){
+
+function darwin_installEmuDMG(){
 	local name="$1"
 	local url="$2"
 	local altName="$3"
@@ -50,8 +48,7 @@ darwin_installEmuDMG(){
 
 }
 
-
-installEmuZip(){
+function darwin_installEmuZip(){
 	local name="$1"
 	local url="$2"
 	local altName="$3"
@@ -61,7 +58,6 @@ installEmuZip(){
 	if [[ "$altName" == "" ]]; then
 		altName="$name"
 	fi
-
 
 	mkdir -p "$HOME/Applications/EmuDeck"
 	safeDownload "$name" "$url" "$HOME/Applications/EmuDeck/$altName.zip" "$showProgress"
@@ -86,26 +82,17 @@ installEmuZip(){
 
 }
 
-gcd() {
-	while [ $2 -ne 0 ]; do
-		set -- $2 $(( $1 % $2 ))
-	done
-	echo $1
-}
 
-
-function getScreenAR(){
-	dimensions=$(system_profiler SPDisplaysDataType | awk '/Resolution/{print $2, $4}')
-
-	width=$(echo $dimensions | cut -d ' ' -f 1)
-	height=$(echo $dimensions | cut -d ' ' -f 2)
-
-
-	g=$(gcd $width $height)
-
-	aspect_ratio_width=$((width / g))
-	aspect_ratio_height=$((height / g))
-
-	return $aspect_ratio_width$aspect_ratio_height
-
+function darwin_generateAppfromSH(){
+	local scriptPath=$1
+	local appName=$2
+	# Extrae el nombre base del script y elimina la extensión .sh
+	rm -rf "/Applications/Emulators/$appName.app"
+	mkdir -p "/Applications/Emulators/$appName.app/Contents/MacOS"
+	#chmod +x "/Applications/Emulators/$appName.app"
+	cp "./darwin/tools/appGenerator/Automator Application Stub" "/Applications/Emulators/$appName.app/Contents/MacOS/"
+	cp "./darwin/tools/appGenerator/document.wflow" "/Applications/Emulators/$appName.app/Contents/"
+	cp "./darwin/tools/appGenerator/Info.plist" "/Applications/Emulators/$appName.app/Contents/"
+	sed -i "s|EMUDECKEMULATOR|${appName}|g" "/Applications/Emulators/$appName.app/Contents/document.wflow"
+	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "/Applications/Emulators/$appName.app/Contents/document.wflow"
 }

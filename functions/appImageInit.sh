@@ -1,6 +1,11 @@
 #!/bin/bash
 appImageInit() {
 
+
+	AutoCopy_install
+	server_install
+	FlatpakUp_install
+
 	if [ "$system" == "chimeraos" ]; then
 		ESDE_chimeraOS
 		mkdir -p $HOME/Applications
@@ -142,9 +147,9 @@ appImageInit() {
 				#echo "NYI"
 				Yuzu_flushEmulatorLauncher
 			fi
-		else 
+		else
 			echo "Do not apply hotfix."
-		fi	
+		fi
 	touch "$HOME/.config/EmuDeck/.launcherupdate"
 	fi
 
@@ -165,8 +170,8 @@ appImageInit() {
 			else
 				echo "ES-DE not found. Skipped adding custom system."
 			fi
-			
-		else 
+
+		else
 			echo "Do not apply hotfix."
 		fi
 	touch "$HOME/.config/EmuDeck/.esdeupdateyuzu"
@@ -178,7 +183,7 @@ appImageInit() {
 		--title="ES-DE" \
 		--width=400 \
 		--height=300
-		
+
 		zenity --question \
 		--text="An upcoming ES-DE update will be removing Yuzu support. This means that you will no longer be able to launch Nintendo Switch games using Yuzu in ES-DE. \nHowever, EmuDeck has pushed a hotfix to add back Yuzu support for ES-DE. \nIf you say no to this prompt, you may also apply this fix at any time by resetting ES-DE or Yuzu on the Manage Emulators page. \nWould you like to apply this hotfix?" \
 		--title="ES-DE Update" \
@@ -194,11 +199,17 @@ appImageInit() {
 			else
 				echo "ES-DE not found. Skipped adding custom system."
 			fi
-			
-		else 
+
+		else
 			echo "Do not apply hotfix."
 		fi
 	touch "$HOME/.config/EmuDeck/.esdefixupdateyuzu"
+	fi
+
+	# This is intended so users can get the latest launcher with proper fall-back detection. This does not reset any of Steam ROM Manager's configs and only updates the launcher once.
+	if [ ! -f "$HOME/.config/EmuDeck/.srmlauncherupdate" ]; then
+		SRM_flushToolLauncher
+		touch "$HOME/.config/EmuDeck/.srmlauncherupdate"
 	fi
 
 

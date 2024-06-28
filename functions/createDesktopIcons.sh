@@ -2,20 +2,19 @@
 createDesktopIcons(){
 	local sandbox=""
 	local desktop=$(xdg-user-dir DESKTOP)
-
 	if command -v apt-get >/dev/null; then
 		sandbox=" --no-sandbox"
 	fi
 
 	#We delete the old icons
-	rm -rf "$desktop/EmuDeckUninstall.desktop" 2>/dev/null
-	rm -rf "$desktop/EmuDeckCHD.desktop" 2>/dev/null
-	rm -rf "$desktop/EmuDeck.desktop" 2>/dev/null
-	rm -rf "$desktop/EmuDeckSD.desktop" 2>/dev/null
-	rm -rf "$desktop/EmuDeckBinUpdate.desktop" 2>/dev/null
-	rm -rf "$desktop/EmuDeckApp.desktop" 2>/dev/null
-	rm -rf "$desktop/EmuDeckAppImage.desktop" 2>/dev/null
-	rm -rf "$desktop/EmuDeckAppImage.desktop" "2>/dev/null
+	rm -rf ~/Desktop/EmuDeckUninstall.desktop 2>/dev/null
+	rm -rf ~/Desktop/EmuDeckCHD.desktop 2>/dev/null
+	rm -rf ~/Desktop/EmuDeck.desktop 2>/dev/null
+	rm -rf ~/Desktop/EmuDeckSD.desktop 2>/dev/null
+	rm -rf ~/Desktop/EmuDeckBinUpdate.desktop 2>/dev/null
+	rm -rf ~/Desktop/EmuDeckApp.desktop 2>/dev/null
+	rm -rf ~/Desktop/EmuDeckAppImage.desktop 2>/dev/null
+	rm -rf ~/Desktop/EmuDeckAppImage.desktop 2>/dev/null
 
 	#New EmuDeck icon, same place so people won't get confused
 	createDesktopShortcut "$desktop/EmuDeck.desktop" \

@@ -24,18 +24,20 @@ Xemu_cleanup(){
 
 #Install
 Xemu_install() {
-	installEmuFP "${Xemu_emuName}" "${Xemu_emuPath}"
+	installEmuFP "${Xemu_emuName}" "${Xemu_emuPath}" "emulator" ""
 }
 
 #ApplyInitialSettings
 Xemu_init() {
 	configEmuFP "${Xemu_emuName}" "${Xemu_emuPath}" "true"
+	updateEmuFP "${Xemu_emuName}" "${Xemu_emuPath}" "emulator" ""
 	Xemu_migrate
 	Xemu_setupStorage
 	Xemu_setEmulationFolder
 	Xemu_setCustomizations
 	#SRM_createParsers
 	Xemu_flushEmulatorLauncher
+	Xemu_setLanguage
 }
 
 #update
@@ -71,7 +73,7 @@ Xemu_setEmulationFolder(){
 #SetLanguage
 Xemu_setLanguage(){
     setMSG "Setting Xemu Language"
-
+	local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
     eepromPath="${storagePath}/xemu/eeprom.bin"
 	#TODO: call this somewhere, and input the $language from somewhere (args?)
 	if [[ -f "${eepromPath}" ]]; then # TODO: if not generate the eeprom?
@@ -111,7 +113,7 @@ Xemu_wipe() {
 
 #Uninstall
 Xemu_uninstall() {
-	flatpak uninstall "$Xemu_emuPath" --user -y
+	uninstallEmuFP "${Xemu_emuName}" "${Xemu_emuPath}" "emulator" ""
 }
 
 #setABXYstyle

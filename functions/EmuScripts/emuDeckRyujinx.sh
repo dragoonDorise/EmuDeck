@@ -76,6 +76,8 @@ Ryujinx_init(){
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
 
+    Ryujinx_setLanguage
+
 }
 
 #update
@@ -137,7 +139,7 @@ Ryujinx_setEmulationFolder(){
 #SetLanguage
 Ryujinx_setLanguage(){
     setMSG "Setting Ryujinx Language"
-
+    local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
 	#TODO: call this somewhere, and input the $language from somewhere (args?)
 	if [[ -f "${Ryujinx_configFile}" ]]; then
 		if [ ${Ryujinx_languages[$language]+_} ]; then
@@ -190,7 +192,7 @@ Ryujinx_wipe(){
 #Uninstall
 Ryujinx_uninstall(){
     echo "Begin Ryujinx uninstall"
-    rm -rf "$Ryujinx_emuPath"
+    uninstallGeneric $Ryujinx_emuName $Ryujinx_emuPath "" "emulator"
 }
 
 #Migrate

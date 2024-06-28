@@ -1,6 +1,16 @@
 #!/bin/bash
 source "$HOME/.config/EmuDeck/backend/functions/all.sh"
-SRM_toolPath="${toolsPath}/Steam ROM Manager.AppImage"
+
+if [ -e "${toolsPath}/Steam-ROM-Manager.AppImage" ]; then 
+	SRM_toolPath="${toolsPath}/Steam-ROM-Manager.AppImage"
+elif [ -e "${toolsPath}/Steam ROM Manager.AppImage" ]; then 
+	SRM_toolPath="${toolsPath}/Steam ROM Manager.AppImage"
+elif [ -e "${toolsPath}/srm/Steam-ROM-Manager.AppImage" ]; then 
+	SRM_toolPath="${toolsPath}/srm/Steam-ROM-Manager.AppImage"
+else 
+	SRM_install
+	SRM_init
+fi 
 
 zenity --question \
 	--width 450 \

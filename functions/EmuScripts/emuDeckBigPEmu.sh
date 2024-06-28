@@ -31,9 +31,11 @@ BigPEmu_install(){
 	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$toolsPath/launchers/bigpemu.sh"
 	# So users can still open BigPEmu from the ~/Applications folder.
 	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$HOME/Applications/BigPEmu/bigpemu.sh"
+	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$romsPath/emulators/bigpemu.sh"
 
 	chmod +x "${toolsPath}/launchers/bigpemu.sh"
 	chmod +x "$HOME/Applications/BigPEmu/bigpemu.sh"
+	chmod +x "$romsPath/emulators/bigpemu.sh"
 
 	createDesktopShortcut   "$HOME/.local/share/applications/BigPEmu (Proton).desktop" \
 							"BigPEmu (Proton)" \
@@ -164,10 +166,7 @@ BigPEmu_wipeSettings(){
 
 #Uninstall
 BigPEmu_uninstall(){
-	setMSG "Uninstalling $BigPEmu_emuName. ROMs will be retained in the ROMs folder. Saves will be retained in "$HOME/Applications/BigPEmu/UserData"."
-	find "$HOME/Applications/BigPEmu" -mindepth 1 -name UserData -prune -o -exec rm -rf '{}' \; &>> /dev/null
-    rm -rf "$HOME/.local/share/applications/BigPEmu (Proton).desktop"
-    BigPEmu_wipeSettings
+    uninstallGeneric $BigPEmu_emuName $BigPEmu_emuPath "" "emulator" 
 }
 
 #setABXYstyle

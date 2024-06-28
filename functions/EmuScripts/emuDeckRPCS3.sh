@@ -9,6 +9,20 @@ RPCS3_VFSConf="$HOME/.config/rpcs3/vfs.yml"
 RPCS3_migrationFlag="$HOME/.config/EmuDeck/.${RPCS3_emuName}MigrationCompleted"
 RPCS3_configFile="$HOME/.config/rpcs3/config.yml"
 
+declare -A RPCS3_languages
+RPCS3_languages=(
+["ja"]=""
+["en"]="English (US)"
+["fr"]="French"
+["de"]="German"
+["it"]="Italian"
+["es"]="Spanish"
+["ko"]="Korean"
+["nl"]="Dutch"
+["pt"]="Portiguese (Portugal)"
+["ru"]="Russian")
+
+
 #cleanupOlderThings
 RPCS3_cleanup(){
 	echo "NYI"
@@ -24,7 +38,7 @@ RPCS3_install(){
 	# Install RPCS3
 	local showProgress="$1"
 
-	if installEmuAI "$RPCS3_emuName" "$RPCS3_releaseURL" "rpcs3" "$showProgress"; then # rpcs3.AppImage - needs to be lowercase yuzu for EsDE to find it
+	if installEmuAI "$RPCS3_emuName" "$RPCS3_releaseURL" "rpcs3" "" "emulator" "$showProgress"; then # 
 		:
 	else
 		return 1
@@ -43,8 +57,18 @@ RPCS3_init(){
 	RPCS3_setupSaves
 	#SRM_createParsers
 	RPCS3_flushEmulatorLauncher
+	RPCS3_setLanguage
 
+}
 
+RPCS3_setLanguage(){
+	setMSG "Setting RPCS3 Language"
+	local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+	local languageOpt="  Language"
+	if [ ${RPCS3_languages[$language]+_} ]; then
+		newLanguageOpt="${RPCS3_languages[$language]}"
+		iniFieldUpdate "$RPCS3_configFile" "" "$languageOpt" "$newLanguageOpt" ": "
+	fi
 }
 
 #update
@@ -107,8 +131,8 @@ RPCS3_wipe(){
 #Uninstall
 RPCS3_uninstall(){
 	setMSG "Uninstalling $RPCS3_emuName."
-	rm -rf "$RPCS3_emuPath"
-	RPCS3_wipe
+	uninstallEmuAI "$RPCS3_emuName" "rpcs3" "" "emulator"
+	#RPCS3_wipe
 }
 
 #setABXYstyle

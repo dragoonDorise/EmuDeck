@@ -13,9 +13,8 @@ ScummVM_cleanup(){
 
 #Install
 ScummVM_install(){
-	installEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}"
-	flatpak override "${ScummVM_emuPath}" --filesystem=host --user
-	flatpak override "${ScummVM_emuPath}" --share=network --user
+	installEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}" "emulator" ""
+
 }
 
 #Fix for autoupdate
@@ -26,11 +25,21 @@ Scummvm_install(){
 #ApplyInitialSettings
 ScummVM_init(){
 	configEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}" "true"
+	updateEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}" "emulator" ""
 	ScummVM_setupStorage
 	ScummVM_setEmulationFolder
 	ScummVM_setupSaves
 	#SRM_createParsers
 	ScummVM_flushEmulatorLauncher
+	ScummVM_setLanguage
+}
+
+ScummVM_setLanguage(){
+	setMSG "Setting ScummVM Language"
+	local language=$(locale | grep LANG | cut -d= -f2 | cut -d. -f1)
+	local languageOpt="gui_language="
+	newLanguageOpt='gui_language='"$language"
+	changeLine "$languageOpt" "$newLanguageOpt" "$ScummVM_configFile"
 }
 
 #update
@@ -75,7 +84,7 @@ ScummVM_wipe(){
 
 #Uninstall
 ScummVM_uninstall(){
-    flatpak uninstall "$ScummVM_emuPath" --user -y
+    uninstallEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}" "emulator" ""
 }
 
 #setABXYstyle

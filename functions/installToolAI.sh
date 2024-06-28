@@ -7,15 +7,23 @@ installToolAI(){
     local lastVerFile="$5"
     local latestVer="$6"
 
-    if [[ "$fileName" == "" ]]; then
+    if [[ -z "$fileName" ]]; then
         fileName="$name"
     fi
-    echo "$name"
-    echo "$url"
-    echo "$fileName"
-    echo "$showProgress"
-    echo "$lastVerFile"
-    echo "$latestVer"
+
+    echo "1: $name"
+    echo "2: $url"
+    echo "3: $fileName"
+    echo "4: $showProgress"
+    echo "5: $lastVerFile"
+    echo "6: $latestVer"
+
+    echo "1, Application Name: $name"
+    echo "2, Application URL: $url"
+    echo "3, Application Filename: $fileName"
+    echo "4, Progress: $showProgress"
+    echo "5, Last Version File: $lastVerFile"
+    echo "6, Last Version: $latestVer"
 
 
     #curl -L "$url" -o "$toolsPath/$fileName.AppImage.temp" && mv "$toolsPath/$fileName.AppImage.temp" "$toolsPath/$fileName.AppImage"

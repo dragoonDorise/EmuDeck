@@ -33,6 +33,14 @@ pegasus_install(){
 
 }
 
+pegasus_setPaths(){
+	rsync -r --exclude='roms' --exclude='pfx' "$EMUDECKGIT/roms/" "$romsPath" --keep-dirlinks
+	rsync -av --exclude='roms' --exclude='pfx' "$EMUDECKGIT/roms/" "$toolsPath/downloaded_media"
+	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|CORESPATH|${RetroArch_cores}|g" {} \;
+	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" {} \;
+
+}
+
 #ApplyInitialSettings
 pegasus_init(){
 	setMSG "Setting up $pegasus_toolName"
@@ -40,18 +48,22 @@ pegasus_init(){
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/$pegasus_emuPath/" "$pegasus_path/"
 
 	#metadata and paths
-	rsync -r --exclude='roms' --exclude='pfx' "$EMUDECKGIT/roms/" "$romsPath" --keep-dirlinks
-	rsync -av --exclude='roms' --exclude='pfx' "$EMUDECKGIT/roms/" "$toolsPath/downloaded_media"
-	find $romsPath -type f -name "metadata.txt" -exec sed -i "s|CORESPATH|${RetroArch_cores}|g" {} \;
-	find $romsPath -type f -name "metadata.txt" -exec sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" {} \;
+		pegasus_setPaths
 
-
-		if [ -L "$toolsPath/downloaded_media/gamecube" ]; then 
+		if [ -L "$toolsPath/downloaded_media/gamecube" ]; then
 			rm -rf "$toolsPath/downloaded_media/gamecube" &> /dev/null
-		fi 
+		fi
 
-		if [ -L "$toolsPath/downloaded_media/3ds" ]; then 
+		if [ -L "$toolsPath/downloaded_media/3ds" ]; then
 			rm -rf "$toolsPath/downloaded_media/3ds" &> /dev/null
+		fi
+
+		if [ -L "$toolsPath/downloaded_media/cloud" ]; then
+			rm -rf "$toolsPath/downloaded_media/cloud" &> /dev/null
+		fi
+
+		if [ -L "$toolsPath/downloaded_media/remoteplay" ]; then
+			rm -rf "$toolsPath/downloaded_media/remoteplay" &> /dev/null
 		fi
 
 		for systemPath in "$romsPath"/*; do
@@ -60,8 +72,13 @@ pegasus_init(){
 				rm -rf "$systemPath/roms/media" &> /dev/null
 				rm -rf "$romsPath/xbox360/roms/xbla/media" &> /dev/null
 				rm -rf "$romsPath/xbox360/roms/xbla/metadata.txt" &> /dev/null
-			elif  [[ "$systemPath" == "$romsPath/gamecube" || "$systemPath" == "$romsPath/3ds" ]]; then
+			elif  [[ "$systemPath" == "$romsPath/3ds" || "$systemPath" == "$romsPath/cloud" || "$systemPath" == "$romsPath/gamecube" || "$systemPath" == "$romsPath/generic-applications" || "$systemPath" == "$romsPath/remoteplay" ]]; then
 				continue
+			elif  [[ "$systemPath" == "$romsPath/desktop" ]]; then
+				rm -rf "$romsPath/desktop/remoteplay/media" &> /dev/null
+				rm -rf "$romsPath/desktop/generic-applications/media" &> /dev/null
+				rm -rf "$romsPath/desktop/cloud/media" &> /dev/null
+				rm -rf "$systemPath/media" &> /dev/null		
 			else
 				rm -rf "$systemPath/media" &> /dev/null
 			fi
@@ -78,8 +95,17 @@ pegasus_init(){
 				rm -rf "$toolsPath/downloaded_media/$system/wheel" &> /dev/null
 				rm -rf "$toolsPath/downloaded_media/$system/screenshot" &> /dev/null
 				mkdir -p "$toolsPath/downloaded_media/$system/screenshots/"
-			elif  [[ "$systemPath" == "$romsPath/gamecube" || "$systemPath" == "$romsPath/3ds" ]]; then
-				continue 
+			elif  [[ "$systemPath" == "$romsPath/3ds" || "$systemPath" == "$romsPath/cloud" || "$systemPath" == "$romsPath/gamecube" || "$systemPath" == "$romsPath/generic-applications" || "$systemPath" == "$romsPath/remoteplay" ]]; then
+				continue
+			elif [[ "$systemPath" == "$romsPath/desktop" ]]; then
+				system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
+				echo $system
+				mkdir -p "$toolsPath/downloaded_media/$system/covers"
+				rm -rf "$toolsPath/downloaded_media/$system/box2dfront"
+				mkdir -p "$toolsPath/downloaded_media/$system/marquees"
+				rm -rf "$toolsPath/downloaded_media/$system/wheel" &> /dev/null
+				rm -rf "$toolsPath/downloaded_media/$system/screenshot" &> /dev/null
+				mkdir -p "$toolsPath/downloaded_media/$system/screenshots/"
 			else
 				system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
 				mkdir -p "$toolsPath/downloaded_media/$system/covers"
@@ -99,8 +125,20 @@ pegasus_init(){
 				ln -s "$toolsPath/downloaded_media/$system/covers/" "$toolsPath/downloaded_media/$system/box2dfront" &> /dev/null
 				ln -s "$toolsPath/downloaded_media/$system/marquees/" "$toolsPath/downloaded_media/$system/wheel" &> /dev/null
 				ln -s "$toolsPath/downloaded_media/$system/screenshots/" "$toolsPath/downloaded_media/$system/screenshot" &> /dev/null
-			elif  [[ "$systemPath" == "$romsPath/gamecube" || "$systemPath" == "$romsPath/3ds" ]]; then
+			elif  [[ "$systemPath" == "$romsPath/3ds" || "$systemPath" == "$romsPath/cloud" || "$systemPath" == "$romsPath/gamecube" || "$systemPath" == "$romsPath/generic-applications" || "$systemPath" == "$romsPath/remoteplay" ]]; then
 				continue
+			elif [[ "$systemPath" == "$romsPath/desktop" ]]; then
+				system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
+				mkdir -p "$romsPath/desktop/cloud"
+				mkdir -p "$romsPath/desktop/generic-applications"
+				mkdir -p "$romsPath/desktop/remoteplay"
+				ln -s "$toolsPath/downloaded_media/$system" "$systemPath/media" &> /dev/null
+				ln -s "$toolsPath/downloaded_media/$system" "$systemPath/cloud/media" &> /dev/null
+				ln -s "$toolsPath/downloaded_media/$system" "$systemPath/remoteplay/media" &> /dev/null
+				ln -s "$toolsPath/downloaded_media/$system" "$systemPath/generic-applications/media" &> /dev/null
+				ln -s "$toolsPath/downloaded_media/$system/covers/" "$toolsPath/downloaded_media/$system/box2dfront" &> /dev/null
+				ln -s "$toolsPath/downloaded_media/$system/marquees/" "$toolsPath/downloaded_media/$system/wheel" &> /dev/null
+				ln -s "$toolsPath/downloaded_media/$system/screenshots/" "$toolsPath/downloaded_media/$system/screenshot" &> /dev/null
 			else
 				system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
 				ln -s "$toolsPath/downloaded_media/$system" "$systemPath/media" &> /dev/null
