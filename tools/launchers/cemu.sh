@@ -124,6 +124,26 @@ main () {
 
         echo "${EMUPATH[@]}" "${@}"
         "${EMUPATH[@]}" "${@}"
+    elif [[ "${doProton}" == "true" && ! -f "$emulationPath/roms/wiiu/Cemu.exe" ]]; then
+        # If user selects Proton parsers/Proton Cemu without having it installed, fall back to AppImage.
+        if [[ "${EMUPATH}" == "false" ]] || [[ -z "${EMUPATH}" ]]; then
+            echo "Error: Unable to emulator path."
+            reportError "Error: Unable to emulator path." "true" "true"
+        fi
+
+        # If doProton is false, check that EMUPATH is executable
+        if [ -f "${EMUPATH}" ] && [[ ! -x "${EMUPATH}" ]]; then
+            chmod +x "${EMUPATH}" || reportError "Error: ${EMUPATH} cannot be made executable" "true" "true"
+        fi
+        # Check for "z:" or "Z:" in the last argument and remove it
+        if [[ "${*:$#}" =~ ^[zZ]: ]]; then
+            ARGS=("${@}")
+            ARGS[-1]="${ARGS[-1]#[zZ]:}"
+            set -- "${ARGS[@]}"
+        fi
+
+        echo "${EMUPATH[@]}" "${@}"
+        "${EMUPATH[@]}" "${@}"
     else
         # Get SELFPATH
         SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"
