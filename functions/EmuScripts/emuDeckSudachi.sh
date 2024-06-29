@@ -72,7 +72,7 @@ Sudachi_init() {
     mkdir -p "$HOME/.local/share/sudachi"
 	rsync -avhp "$EMUDECKGIT/configs/sudachi/config/." "$HOME/.config/sudachi"
 	rsync -avhp "$EMUDECKGIT/configs/sudachi/data/." "$HOME/.local/share/yuzu"
-    Sudachi_migrate
+    #Sudachi_migrate
     configEmuAI "$Sudachi_emuName" "config" "$HOME/.config/sudachi" "$EMUDECKGIT/configs/sudachi/config" "true"
     configEmuAI "$Sudachi_emuName" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/sudachi/data" "true"
 
@@ -130,7 +130,7 @@ Sudachi_setEmulationFolder() {
     #Setup Bios symlinks
     unlink "${biosPath}/sudachi/keys" 2>/dev/null
     unlink "${biosPath}/sudachi/firmware" 2>/dev/null
-
+    mkdir -p "${biosPath}/sudachi"
     mkdir -p "$HOME/.local/share/sudachi/keys/"
     mkdir -p "${storagePath}/sudachi/nand/system/Contents/registered/"
 
