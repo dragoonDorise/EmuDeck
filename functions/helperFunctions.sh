@@ -1045,6 +1045,7 @@ function controllerLayout_ABXY(){
 	RetroArch_setABXYstyle
 	RMG_setABXYstyle
  	Ryujinx_setABXYstyle
+	Sudachi_setABXYstyle
 }
 
 function controllerLayout_BAYX(){
@@ -1055,6 +1056,7 @@ function controllerLayout_BAYX(){
 	RetroArch_setBAYXstyle
 	RMG_setBAYXstyle
 	Ryujinx_setBAYXstyle
+	Sudachi_setBAYXstyle
 }
 
 
