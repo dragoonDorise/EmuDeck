@@ -457,7 +457,7 @@ SRM_addControllerTemplate(){
     echo "Steam install not found"
   fi
 
-  sed -i "s|/home/deck/.steam/steam|${STEAMPATH}|g" "$HOME/.config/steam-rom-manager/userData/controllerTemplates.json"
+  sed -i "s|/home/deck/.local/share/Steam|${STEAMPATH}|g" "$HOME/.config/steam-rom-manager/userData/controllerTemplates.json"
 
 }
 
