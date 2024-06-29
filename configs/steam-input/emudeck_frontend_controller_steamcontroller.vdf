@@ -8,7 +8,7 @@
 	"progenitor"		""
 	"url"		"template://emudeck_frontend_controller_steamcontroller.vdf"
 	"export_type"		"template"
-	"controller_type"		"steamcontroller_gordon"
+	"controller_type"		"controller_steamcontroller_gordon"
 	"controller_caps"		"23117823"
 	"major_revision"		"0"
 	"minor_revision"		"0"
@@ -33,7 +33,7 @@
 	{
 		"english"
 		{
-			"title"		"Gamepad With Joystick Trackpad"
+			"title"		"EmuDeck - Frontend Controller Hotkeys"
 			"description"		"This template is for most games that already have built-in gamepad support and have a first or third person controlled camera.  FPS or Third Person Adventure games, etc."
 		}
 		"czech"

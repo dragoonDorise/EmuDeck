@@ -2,27 +2,22 @@
 {
 	"version"		"3"
 	"revision"		"194"
-	"title"		"EmuDeck - Frontend Controller Hotkeys"
-	"description"		"Press the Steam button + A button to view hotkeys. Intended to be used with emulator frontends (Pegasus, ES-DE). Hold Start to switch between Cemu, Citra, melonDS (Standalone), and mGBA (Standalone) Hotkeys layer. If you are using the melonDS DS and mGBA RetroArch cores, use the All Hotkeys layer."
+	"title"		"EmuDeck - Controller Hotkeys"
+	"description"		"Press the Steam button + A button to view hotkeys. Combo Hotkeys using Button Chords for Cemu, Citra, melonDS (Standalone), and mGBA (Standalone). This profile is not for the mGBA and melonDS DS RetroArch cores. Emulators not listed already have controller hotkeys mapped."
 	"creator"		"76561199036238022"
 	"progenitor"		""
 	"url"		"template://emudeck_controller_steamcontroller.vdf"
 	"export_type"		"template"
-	"controller_type"		"steamcontroller_gordon"
+	"controller_type"		"controller_steamcontroller_gordon"
 	"controller_caps"		"23117823"
 	"major_revision"		"0"
 	"minor_revision"		"0"
 	"Timestamp"		"0"
 	"actions"
 	{
-		"Preset_1000002"
+		"Preset_1000001"
 		{
-			"title"		"EmuDeck Controller Hotkeys - All"
-			"legacy_set"		"1"
-		}
-		"Preset_1000003"
-		{
-			"title"		"EmuDeck Controller Hotkeys - Cemu, Citra, melonDS, and mGBA"
+			"title"		"EmuDeck Controller Hotkeys"
 			"legacy_set"		"1"
 		}
 	}
@@ -33,7 +28,7 @@
 	{
 		"english"
 		{
-			"title"		"Gamepad With Joystick Trackpad"
+			"title"		"EmuDeck - Controller Hotkeys"
 			"description"		"This template is for most games that already have built-in gamepad support and have a first or third person controlled camera.  FPS or Third Person Adventure games, etc."
 		}
 		"czech"
@@ -228,368 +223,7 @@
 	}
 	"group"
 	{
-		"id"		"111"
-		"mode"		"absolute_mouse"
-		"name"		""
-		"description"		""
-		"inputs"
-		{
-			"click"
-			{
-				"activators"
-				{
-					"Soft_Press"
-					{
-						"bindings"
-						{
-							"binding"		"mouse_button LEFT, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-		}
-	}
-	"group"
-	{
-		"id"		"110"
-		"mode"		"absolute_mouse"
-		"name"		""
-		"description"		""
-		"inputs"
-		{
-			"click"
-			{
-				"activators"
-				{
-					"Soft_Press"
-					{
-						"bindings"
-						{
-							"binding"		"mouse_button RIGHT, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-		}
-	}
-	"group"
-	{
-		"id"		"109"
-		"mode"		"joystick_move"
-		"name"		""
-		"description"		""
-		"inputs"
-		{
-			"click"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button JOYSTICK_RIGHT, Select + R3 - Quick Menu/Toggle Full Screen, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-		}
-		"settings"
-		{
-			"deadzone_enable_type"		"1"
-		}
-	}
-	"group"
-	{
-		"id"		"108"
-		"mode"		"joystick_move"
-		"name"		""
-		"description"		""
-		"inputs"
-		{
-			"click"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button JOYSTICK_LEFT, Reset Emulation - Select + L3, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-		}
-		"settings"
-		{
-			"deadzone_enable_type"		"1"
-		}
-	}
-	"group"
-	{
-		"id"		"107"
-		"mode"		"dpad"
-		"name"		""
-		"description"		""
-		"inputs"
-		{
-			"dpad_north"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button DPAD_UP, Start + DPad Up - Special Hotkey 1, , "
-						}
-					}
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"controller_action empty_binding, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"dpad_south"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button DPAD_DOWN, Start + DPad Down - Special Hotkey 2, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"dpad_east"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button DPAD_RIGHT, Start + DPad Right - Special Hotkey 4, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"dpad_west"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button DPAD_LEFT, Start + DPad Left - Special Hotkey 3, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-		}
-		"settings"
-		{
-			"requires_click"		"0"
-			"haptic_intensity_override"		"0"
-		}
-	}
-	"group"
-	{
-		"id"		"105"
-		"mode"		"trigger"
-		"name"		""
-		"description"		""
-		"inputs"
-		{
-			"edge"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"controller_action empty_binding, Fast Forward - Select + R2, , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-		}
-		"settings"
-		{
-			"output_trigger"		"2"
-		}
-	}
-	"group"
-	{
-		"id"		"104"
-		"mode"		"trigger"
-		"name"		""
-		"description"		""
-		"inputs"
-		{
-			"edge"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"controller_action empty_binding, Rewind - Select + L2 (If Enabled), , "
-						}
-						"settings"
-						{
-							"haptic_intensity"		"2"
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-		}
-		"settings"
-		{
-			"output_trigger"		"1"
-		}
-	}
-	"group"
-	{
-		"id"		"103"
-		"mode"		"four_buttons"
-		"name"		""
-		"description"		""
-		"inputs"
-		{
-			"button_a"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button A, Pause/Play - Select + A, , "
-						}
-					}
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"controller_action empty_binding, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"button_b"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button B, Screenshot - Select + B, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"button_x"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button X, Select + X - Special Hotkey 5, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"button_y"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button Y, Select + Y - Special Hotkey 6, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-		}
-	}
-	"group"
-	{
-		"id"		"112"
-		"mode"		"dpad"
-		"name"		""
-		"description"		""
-		"inputs"
-		{
-		}
-		"settings"
-		{
-			"requires_click"		"0"
-		}
-	}
-	"group"
-	{
-		"id"		"114"
+		"id"		"94"
 		"mode"		"four_buttons"
 		"name"		""
 		"description"		""
@@ -709,7 +343,7 @@
 	}
 	"group"
 	{
-		"id"		"115"
+		"id"		"95"
 		"mode"		"absolute_mouse"
 		"name"		""
 		"description"		""
@@ -739,7 +373,7 @@
 	}
 	"group"
 	{
-		"id"		"116"
+		"id"		"96"
 		"mode"		"absolute_mouse"
 		"name"		""
 		"description"		""
@@ -769,7 +403,7 @@
 	}
 	"group"
 	{
-		"id"		"117"
+		"id"		"97"
 		"mode"		"joystick_move"
 		"name"		""
 		"description"		""
@@ -783,7 +417,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_LEFT, Exit Full Screen - Start + L3, , "
+							"binding"		"xinput_button JOYSTICK_LEFT, Exit Full Screen - Start + L3 Reset Emulation - Select + L3, , "
 						}
 						"settings"
 						{
@@ -810,7 +444,6 @@
 						"settings"
 						{
 							"chord_button"		"15"
-							"haptic_intensity"		"3"
 						}
 					}
 				}
@@ -827,7 +460,7 @@
 	}
 	"group"
 	{
-		"id"		"118"
+		"id"		"98"
 		"mode"		"trigger"
 		"name"		""
 		"description"		""
@@ -861,7 +494,7 @@
 	}
 	"group"
 	{
-		"id"		"119"
+		"id"		"99"
 		"mode"		"trigger"
 		"name"		""
 		"description"		""
@@ -896,7 +529,7 @@
 	}
 	"group"
 	{
-		"id"		"120"
+		"id"		"100"
 		"mode"		"joystick_move"
 		"name"		""
 		"description"		""
@@ -910,7 +543,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button JOYSTICK_RIGHT, Toggle Full Screen - Select + R3 Reset Emulation - Select + L3, , "
+							"binding"		"xinput_button JOYSTICK_RIGHT, Toggle Full Screen - Select + R3, , "
 						}
 					}
 					"chord"
@@ -937,7 +570,7 @@
 	}
 	"group"
 	{
-		"id"		"121"
+		"id"		"101"
 		"mode"		"dpad"
 		"name"		""
 		"description"		""
@@ -1077,7 +710,7 @@
 	}
 	"group"
 	{
-		"id"		"122"
+		"id"		"102"
 		"mode"		"dpad"
 		"name"		""
 		"description"		""
@@ -1091,7 +724,7 @@
 	}
 	"group"
 	{
-		"id"		"106"
+		"id"		"93"
 		"mode"		"switches"
 		"name"		""
 		"description"		""
@@ -1105,178 +738,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"xinput_button START, Hold Start - Switch to Cemu Citra melonDS and mGBA Hotkeys, , "
-						}
-						"settings"
-						{
-							"interruptable"		"0"
-						}
-					}
-					"Long_Press"
-					{
-						"bindings"
-						{
-							"binding"		"controller_action CHANGE_PRESET 2 1 1, , "
-						}
-						"settings"
-						{
-							"long_press_time"		"1000"
-							"haptic_intensity"		"3"
-							"delay_start"		"25"
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"button_menu"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button SELECT, Select + Start - Stop Emulation, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"left_bumper"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button SHOULDER_LEFT, Select + L1 - Save State / Start + L1 - Previous Save State Slot, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"right_bumper"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button SHOULDER_RIGHT, Select + R1 - Save State / Start + R1 - Next Save State Slot, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"button_back_left"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"controller_action empty_binding, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"button_back_right"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"controller_action empty_binding, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"button_back_left_upper"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"controller_action empty_binding, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"button_back_right_upper"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"controller_action empty_binding, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-			"button_capture"
-			{
-				"activators"
-				{
-					"release"
-					{
-						"bindings"
-						{
-							"binding"		"controller_action system_key_1, , "
-						}
-					}
-				}
-				"disabled_activators"
-				{
-				}
-			}
-		}
-	}
-	"group"
-	{
-		"id"		"113"
-		"mode"		"switches"
-		"name"		""
-		"description"		""
-		"inputs"
-		{
-			"button_escape"
-			{
-				"activators"
-				{
-					"Full_Press"
-					{
-						"bindings"
-						{
-							"binding"		"xinput_button START, Stop Emulation - Select + Start / Hold Start - Switch to All Hotkeys, , "
+							"binding"		"xinput_button START, Stop Emulation - Select + Start, , "
 						}
 					}
 					"Long_Press"
@@ -1296,18 +758,6 @@
 						"settings"
 						{
 							"chord_button"		"15"
-							"haptic_intensity"		"3"
-						}
-					}
-					"Long_Press"
-					{
-						"bindings"
-						{
-							"binding"		"controller_action CHANGE_PRESET 1 1 1, , "
-						}
-						"settings"
-						{
-							"long_press_time"		"1000"
 							"haptic_intensity"		"3"
 						}
 					}
@@ -1505,37 +955,19 @@
 	"preset"
 	{
 		"id"		"0"
-		"name"		"Preset_1000002"
+		"name"		"Preset_1000001"
 		"group_source_bindings"
 		{
-			"106"		"switch active"
-			"103"		"button_diamond active"
-			"110"		"left_trackpad active"
-			"111"		"right_trackpad active"
-			"108"		"joystick active"
-			"104"		"left_trigger active"
-			"105"		"right_trigger active"
-			"109"		"right_joystick active"
-			"107"		"dpad active"
-			"112"		"gyro active"
-		}
-	}
-	"preset"
-	{
-		"id"		"1"
-		"name"		"Preset_1000003"
-		"group_source_bindings"
-		{
-			"113"		"switch active"
-			"114"		"button_diamond active"
-			"115"		"left_trackpad active"
-			"116"		"right_trackpad active"
-			"117"		"joystick active"
-			"118"		"left_trigger active"
-			"119"		"right_trigger active"
-			"120"		"right_joystick active"
-			"121"		"dpad active"
-			"122"		"gyro active"
+			"93"		"switch active"
+			"94"		"button_diamond active"
+			"95"		"left_trackpad active"
+			"96"		"right_trackpad active"
+			"97"		"joystick active"
+			"98"		"left_trigger active"
+			"99"		"right_trigger active"
+			"100"		"right_joystick active"
+			"101"		"dpad active"
+			"102"		"gyro active"
 		}
 	}
 	"settings"
