@@ -58,7 +58,15 @@ Sudachi_cleanup() {
 #Install
 Sudachi_install() {
     echo "Begin Sudachi Install"
+    local success="false"
 
+    if safeDownload "Sudachi" "$(getReleaseURLGH "sudachi-emu/sudachi" "linux.zip")" "$HOME/Applications/sudachi.zip" "$showProgress"; then
+      unzip "$HOME/Applications/sudachi.zip" -d "$HOME/Applications"
+      rm -rf "$HOME/Applications/sudachi.zip"
+      chmod +x "$HOME/Applications/sudachi"
+    else
+      return 1
+    fi
 
 }
 
