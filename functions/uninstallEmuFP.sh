@@ -29,10 +29,15 @@ uninstallEmuFP() {
     flatpak uninstall "$ID" -y --system
 
     shName=$(echo "$scriptname" | awk '{print tolower($0)}')
-    find "${launcherPath}/" "${romsPath}/emulators" "${romsPath}/desktop/remoteplay" "${romsPath}/desktop/generic-applications" -maxdepth 1 -type f \( -iname "$shName.sh" -o -iname "$shName-emu.sh" \) | \
-    while read -r f
-    do
-        echo "deleting $f"
-        rm -f "$f"
+    for romfolder in "${launcherPath}/" "${romsPath}/emulators" "${romsPath}/desktop/remoteplay" "${romsPath}/desktop/generic-applications"; do
+        if [ -d "$romfolder" ]; then
+            find "$romfolder" -maxdepth 1 -type f \( -iname "$shName.sh" -o -iname "$shName-emu.sh" \) | \
+            while read -r f; do
+                echo "deleting $f"
+                rm -f "$f"
+            done
+        else
+            echo "Skipping. $romfolder does not exist."
+        fi
     done
 }
