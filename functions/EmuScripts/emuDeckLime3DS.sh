@@ -132,8 +132,20 @@ Lime3DS_uninstall(){
 }
 
 #setABXYstyle
+#setABXYstyle
 Lime3DS_setABXYstyle(){
-		echo "NYI"
+	sed -i '/button_a/s/button:1/button:0/' "$Lime3DS_configFile"
+	sed -i '/button_b/s/button:0/button:1/' "$Lime3DS_configFile"
+	sed -i '/button_x/s/button:3/button:2/' "$Lime3DS_configFile"
+	sed -i '/button_y/s/button:2/button:3/' "$Lime3DS_configFile"
+
+}
+
+Lime3DS_setBAYXstyle(){
+	sed -i '/button_a/s/button:0/button:1/' "$Lime3DS_configFile"
+	sed -i '/button_b/s/button:1/button:0/' "$Lime3DS_configFile"
+	sed -i '/button_x/s/button:2/button:3/' "$Lime3DS_configFile"
+	sed -i '/button_y/s/button:3/button:2/' "$Lime3DS_configFile"
 }
 
 #WideScreenOn
