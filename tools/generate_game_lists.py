@@ -20,7 +20,11 @@ def generate_game_lists(roms_path):
                     name_cleaned = name_cleaned.replace(' ', '_')
                     name_cleaned = name_cleaned.replace('-', '_')
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
-
+                    name_cleaned = name_cleaned.replace('+', '_')
+                    name_cleaned = name_cleaned.replace('&', '_')
+                    name_cleaned = name_cleaned.replace('!', '')
+                    name_cleaned = name_cleaned.replace("'", '')
+                    name_cleaned = name_cleaned.replace('.', '')
                     name_cleaned_pegasus = name.replace(' ', '_')
 
                     clean_name = name_cleaned
@@ -48,7 +52,7 @@ def generate_game_lists(roms_path):
     game_list = []
 
     for system_dir in valid_system_dirs:
-        if any(x in system_dir for x in ["/ps3", "/xbox360", "/model2", "/genesiswide", "/mame"]):
+        if any(x in system_dir for x in ["/ps3", "/xbox360", "/model2", "/genesiswide", "/mame", "/emulators"]):
             continue
 
         with open(os.path.join(system_dir, 'metadata.txt')) as f:
