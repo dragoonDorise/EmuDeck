@@ -79,7 +79,7 @@ SRM_init(){
   #cp "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/userSettings.json"	
   sleep 3
   tmp=$(mktemp)
-  jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
+  jq -r --arg STEAMDIR "$HOME/.local/share/Steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
   "$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp"\
   && mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
 
