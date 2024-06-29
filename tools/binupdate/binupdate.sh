@@ -168,6 +168,16 @@ function runBinDownloads {
             messages+=("There was a problem updating Ryujinx")
         fi
     fi
+    if [[ "$binsToDL" == *"Sudachi"* ]]; then
+        ((progresspct += pct)) || true
+        echo "$progresspct"
+        echo "# Updating Sudachi"
+        if Sudachi_install "true" 2>&1; then
+            messages+=("Sudachi Updated Successfully")
+        else
+            messages+=("There was a problem updating Sudachi")
+        fi
+    fi
     if [[ "$binsToDL" == *"Steam ROM Manager"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
@@ -258,6 +268,11 @@ if [ "$(Ryujinx_IsInstalled ""$emuDeckEmuTypeBinary"")" == "true" ]; then
     binTable+=(TRUE "Ryujinx" "Nintendo Switch")
 else
     binTable+=(FALSE "Ryujinx" "Nintendo Switch")
+fi
+if [ "$(Sudachi_IsInstalled ""$emuDeckEmuTypeBinary"")" == "true" ]; then
+    binTable+=(TRUE "Sudachi" "Nintendo Switch")
+else
+    binTable+=(FALSE "Sudachi" "Nintendo Switch")
 fi
 if [ "$(SRM_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "Steam ROM Manager" "Emulation Tool")

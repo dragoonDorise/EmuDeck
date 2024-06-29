@@ -216,6 +216,7 @@ ESDE_addCustomSystems(){
 	Model2_addESConfig
 	Xenia_addESConfig
 	Yuzu_addESConfig
+	Sudachi_addESConfig
 }
 
 #update

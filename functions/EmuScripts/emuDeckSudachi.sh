@@ -2,9 +2,8 @@
 
 #variables
 Sudachi_emuName="sudachi"
-Sudachi_emuType="$emuDeckEmuTypeAppImage"
+Sudachi_emuType="$emuDeckEmuTypeBinary"
 Sudachi_emuPath="$HOME/Applications/sudachi"
-
 Sudachi_configFile="$HOME/.config/sudachi/qt-config.ini"
 
 # https://github.com/yuzu-emu/yuzu/blob/master/src/core/file_sys/control_metadata.cpp#L41-L60
@@ -40,21 +39,6 @@ Sudachi_regions=(
 ["tw"]=6 # Taiwan
 ) # TODO: split lang from region?
 
-#cleanupOlderThings
-Sudachi_cleanup() {
-    echo "Begin Sudachi Cleanup"
-    #Fixes repeated Symlink for older installations
-
-    if [ -f  "$HOME/.local/share/sudachi/keys/keys" ]; then
-        unlink "$HOME/.local/share/sudachi/keys/keys"
-    fi
-
-    if [ -f  "$HOME/.local/share/sudachi/keys/keys" ]; then
-        unlink "$HOME/.local/share/sudachi/nand/system/Contents/registered/registered"
-    fi
-
-}
-
 #Install
 Sudachi_install() {
     echo "Begin Sudachi Install"
@@ -87,7 +71,6 @@ Sudachi_init() {
     Sudachi_setEmulationFolder
     Sudachi_setupStorage
     Sudachi_setupSaves
-    Sudachi_finalize
     #SRM_createParsers
     Sudachi_flushEmulatorLauncher
   	createDesktopShortcut   "$HOME/.local/share/applications/sudachi.desktop" \
@@ -104,7 +87,6 @@ Sudachi_update() {
     Sudachi_setEmulationFolder
     Sudachi_setupStorage
     Sudachi_setupSaves
-    Sudachi_finalize
     Sudachi_flushEmulatorLauncher
 }
 
@@ -204,7 +186,6 @@ Sudachi_wipe() {
 Sudachi_uninstall() {
     echo "Begin Sudachi uninstall"
     rm -rf "$Sudachi_emuPath"
-    SudachiEA_uninstall
 }
 
 
@@ -223,32 +204,6 @@ Sudachi_setBAYXstyle(){
   sed -i 's|button_y="button:3|button_a="button:2|g' "$Sudachi_configFile"
 }
 
-#WideScreenOn
-Sudachi_wideScreenOn() {
-    echo "NYI"
-}
-
-#WideScreenOff
-Sudachi_wideScreenOff() {
-    echo "NYI"
-}
-
-#BezelOn
-Sudachi_bezelOn() {
-    echo "NYI"
-}
-
-#BezelOff
-Sudachi_bezelOff() {
-    echo "NYI"
-}
-
-#finalExec - Extra stuff
-Sudachi_finalize() {
-    echo "Begin Sudachi finalize"
-    Sudachi_cleanup
-}
-
 Sudachi_IsInstalled() {
     if [ -e "$Sudachi_emuPath" ]; then
         echo "true"
@@ -256,7 +211,6 @@ Sudachi_IsInstalled() {
         echo "false"
     fi
 }
-
 
 Sudachi_resetConfig() {
     Sudachi_init &>/dev/null && echo "true" || echo "false"
@@ -295,14 +249,13 @@ Sudachi_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'extension' -v '.nca .NCA .nro .NRO .nso .NSO .nsp .NSP .xci .XCI' \
 		--subnode '$newSystem' --type elem --name 'commandB' -v "%EMULATOR_RYUJINX% %ROM%" \
 		--insert '$newSystem/commandB' --type attr --name 'label' --value "Ryujinx (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'commandV' -v "%INJECT%=%BASENAME%.esprefix %EMULATOR_YUZU% -f -g %ROM%" \
+		--subnode '$newSystem' --type elem --name 'commandV' -v "%INJECT%=%BASENAME%.esprefix %EMULATOR_SUDACHI% -f -g %ROM%" \
 		--insert '$newSystem/commandV' --type attr --name 'label' --value "Sudachi (Standalone)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'switch' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'switch' \
 		-r 'systemList/system/commandB' -v 'command' \
 		-r 'systemList/system/commandV' -v 'command' \
 		"$es_systemsFile"
-
 
 
 		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
