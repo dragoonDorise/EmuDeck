@@ -18,7 +18,7 @@ generateGameListsJson() {
         generateGameLists_artwork  &> /dev/null &
         generateGameLists_artwork  &> /dev/null &
         generateGameLists_artwork  &> /dev/null &
-        touch -p "$HOME/emudeck/cache/.romlibrary_first"
+        touch "$HOME/emudeck/cache/.romlibrary_first"
     fi
 
 }
