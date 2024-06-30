@@ -1,6 +1,7 @@
 #!/bin/bash
 generateGameLists() {
     pegasus_setPaths
+    mkdir -p "$HOME/emudeck/cache/"
     python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath"
 }
 
