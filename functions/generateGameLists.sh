@@ -52,7 +52,7 @@ generateGameLists_artwork() {
         declare -a download_dest_paths
 
         for game in $games; do
-            file_to_check="$dest_folder${game// /_}*"
+            file_to_check="$dest_folder${game// /_}"
 
             if ! ls $file_to_check 1> /dev/null 2>&1 && [ -z "${processed_games[$game]}" ]; then
                 echo "GAME:" "$game" >> "$logfilename"
