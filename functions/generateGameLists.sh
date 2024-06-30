@@ -11,13 +11,18 @@ generateGameListsJson() {
     cat $HOME/emudeck/cache/roms_games.json
     #generateGameLists_artwork $userid &> /dev/null &
     if [ -f "$HOME/emudeck/cache/.romlibrary_first" ]; then
-        generateGameLists_artwork  &> /dev/null &
+        generateGameLists_artwork 0 &> /dev/null &
     else
-        generateGameLists_artwork  &> /dev/null &
-        generateGameLists_artwork  &> /dev/null &
-        generateGameLists_artwork  &> /dev/null &
-        generateGameLists_artwork  &> /dev/null &
-        generateGameLists_artwork  &> /dev/null &
+        generateGameLists_artwork 1 &> /dev/null &
+        sleep 5
+        generateGameLists_artwork 2 &> /dev/null &
+        sleep 5
+        generateGameLists_artwork 3 &> /dev/null &
+        sleep 5
+        generateGameLists_artwork 4 &> /dev/null &
+        sleep 5
+        generateGameLists_artwork 5 &> /dev/null &
+        sleep 5
         touch "$HOME/emudeck/cache/.romlibrary_first"
     fi
 
@@ -25,34 +30,48 @@ generateGameListsJson() {
 
 generateGameLists_artwork() {
     mkdir -p "$HOME/emudeck/cache/"
-    echo "" > "$HOME/emudeck/logs/romlibrary.log"
+    local number_log=$1
+    local current_time=$(date +"%H_%M_%S")
+    local logfilename="$HOME/emudeck/logs/library_${number_log}.log"
     local json_file="$HOME/emudeck/cache/roms_games.json"
     local json=$(cat "$json_file")
-    local platforms=$(echo "$json" | jq -r '.[].id' | shuf)
 
-    accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
+    if [ $number_log = 1 ]; then
+        local platforms=$(echo "$json" | jq -r '.[].id')
+    else
+        local platforms=$(echo "$json" | jq -r '.[].id' | shuf)
+    fi
+    local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
+    local dest_folder="$accountfolder/config/grid/emudeck/"
 
-    dest_folder="$accountfolder/config/grid/emudeck/"
+    echo "" > "$logfilename"
     mkdir -p "$dest_folder"
 
     declare -A processed_games
 
     for platform in $platforms; do
-        echo "Processing platform: $platform" >> "$HOME/emudeck/logs/romlibrary.log"
-        games=$(echo "$json" | jq -r --arg platform "$platform" '.[] | select(.id == $platform) | .games[]?.name' | shuf)
-
+        echo "Processing platform: $platform" >> "$logfilename"
+        if [ $number_log = 1 ]; then
+            games=$(echo "$json" | jq -r --arg platform "$platform" '.[] | select(.id == $platform) | .games[]?.name')
+        else
+            games=$(echo "$json" | jq -r --arg platform "$platform" '.[] | select(.id == $platform) | .games[]?.name' | shuf)
+        fi
         declare -a download_array
         declare -a download_dest_paths
 
         for game in $games; do
-            file_to_check="$dest_folder${game// /_}*"
+            file_to_check="$dest_folder${game// /_}.jpg"
 
             if ! ls $file_to_check 1> /dev/null 2>&1 && [ -z "${processed_games[$game]}" ]; then
-                echo -e "$game" >> "$HOME/emudeck/logs/romlibrary.log"
+                echo "GAME:" "$game" >> "$logfilename"
 
                 fuzzygame=$(python $HOME/.config/EmuDeck/backend/tools/fuzzy_search_rom.py "$game")
                 fuzzygame="${fuzzygame// /_}"
-                echo -e "$fuzzygame" >> "$HOME/emudeck/logs/romlibrary.log"
+                fuzzygame="${fuzzygame//:/}"
+                fuzzygame="${fuzzygame//./}"
+                fuzzygame="${fuzzygame//&/}"
+                fuzzygame="${fuzzygame//!/}"
+                echo "FUZZY:" "$fuzzygame" >> "$logfilename"
                 response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$fuzzygame")
                 game_name=$(echo "$response" | jq -r '.name')
                 game_img_url=$(echo "$response" | jq -r '.img')
@@ -60,7 +79,7 @@ generateGameLists_artwork() {
                 dest_path="$dest_folder$game.jpg"
 
                 if [ ! -f "$dest_path" ] && [ "$game_img_url" != "null" ]; then
-                    echo -e " - $game_img_url" - $dest_path
+                    echo "Added to the list: $game_img_url" >> "$logfilename"
                     download_array+=("$game_img_url")
                     download_dest_paths+=("$dest_path")
                     processed_games[$game]=1
@@ -75,7 +94,12 @@ generateGameLists_artwork() {
                     dest_path="$dest_folder$game.jpg"
 
                     if [ "$game_img_url" = "null" ]; then
-                       echo -e " - No picture" >> "$HOME/emudeck/logs/romlibrary.log"
+                       echo -e " - No picture" >> "$logfilename"
+                    else
+                        echo "Added to the list (NO FUZZY): $game_img_url" >> "$logfilename"
+                        download_array+=("$game_img_url")
+                        download_dest_paths+=("$dest_path")
+                        processed_games[$game]=1
                     fi
                 fi
             fi
@@ -83,17 +107,17 @@ generateGameLists_artwork() {
             # Download in batches of 10
             if [ ${#download_array[@]} -ge 10 ]; then
                 echo ""
-                echo "Start batch" >> "$HOME/emudeck/logs/romlibrary.log"
+                echo "Start batch" >> "$logfilename"
                 for i in "${!download_array[@]}"; do
                     {
-                        curl -s -o "${download_dest_paths[$i]}" "${download_array[$i]}" >> "$HOME/emudeck/logs/romlibrary.log"
+                        curl -s -o "${download_dest_paths[$i]}" "${download_array[$i]}" >> "$logfilename"
                     } &
                 done
                 wait
                 # Clear the arrays for the next batch
                 download_array=()
                 download_dest_paths=()
-                echo "Completed batch" >> "$HOME/emudeck/logs/romlibrary.log"
+                echo "Completed batch" >> "$logfilename"
                 echo ""
             fi
         done
@@ -102,13 +126,13 @@ generateGameLists_artwork() {
         if [ ${#download_array[@]} -ne 0 ]; then
             for i in "${!download_array[@]}"; do
                 {
-                    curl -s -o "${download_dest_paths[$i]}" "${download_array[$i]}" >> "$HOME/emudeck/logs/romlibrary.log"
+                    curl -s -o "${download_dest_paths[$i]}" "${download_array[$i]}" >> "$logfilename"
                 } &
             done
         fi
         wait
 
-        echo "Completed downloads for platform: $platform" >> "$HOME/emudeck/logs/romlibrary.log"
+        echo "Completed search for platform: $platform" >> "$logfilename"
     done
 
     # Save the updated JSON back to the file
