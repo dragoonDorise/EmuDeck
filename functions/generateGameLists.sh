@@ -90,6 +90,8 @@ generateGameLists_artwork() {
                         processed_games[$game]=1
                     fi
                 fi
+            else
+                echo "Ignored: $file_to_check" >> "$logfilename"
             fi
 
             # Download in batches of 10
