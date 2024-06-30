@@ -22,7 +22,9 @@ def generate_game_lists(roms_path):
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
                     name_cleaned = name_cleaned.replace('+', '_')
                     name_cleaned = name_cleaned.replace('&', '_')
-
+                    name_cleaned = name_cleaned.replace('!', '')
+                    name_cleaned = name_cleaned.replace("'", '')
+                    name_cleaned = name_cleaned.replace('.', '')
                     name_cleaned_pegasus = name.replace(' ', '_')
 
                     clean_name = name_cleaned

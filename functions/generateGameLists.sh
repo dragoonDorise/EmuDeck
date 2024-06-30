@@ -52,6 +52,7 @@ generateGameLists_artwork() {
 
                 fuzzygame=$(python $HOME/.config/EmuDeck/backend/tools/fuzzy_search_rom.py "$game")
                 fuzzygame="${fuzzygame// /_}"
+                echo -e "$fuzzygame" >> "$HOME/emudeck/logs/romlibrary.log"
                 response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$fuzzygame")
                 game_name=$(echo "$response" | jq -r '.name')
                 game_img_url=$(echo "$response" | jq -r '.img')
@@ -67,7 +68,15 @@ generateGameLists_artwork() {
                     # Update the JSON with the image URL
                     #json=$(echo "$json" | jq --arg platform "$platform" --arg game "$game" --arg img_url "$game_img_url" ' (.[].games[] | select(.name == $game) | .img) |= $img_url ')
                 else
-                    echo -e " - No picture" >> "$HOME/emudeck/logs/romlibrary.log"
+                    response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$game")
+                    game_name=$(echo "$response" | jq -r '.name')
+                    game_img_url=$(echo "$response" | jq -r '.img')
+                    filename=$(basename "$game_img_url")
+                    dest_path="$dest_folder$game.jpg"
+
+                    if [ "$game_img_url" = "null" ]; then
+                       echo -e " - No picture" >> "$HOME/emudeck/logs/romlibrary.log"
+                    fi
                 fi
             fi
 
