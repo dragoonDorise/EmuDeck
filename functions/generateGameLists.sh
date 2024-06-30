@@ -69,8 +69,8 @@ generateGameLists_artwork() {
                 fuzzygame="${fuzzygame// /_}"
                 fuzzygame="${fuzzygame//:/}"
                 fuzzygame="${fuzzygame//./}"
-                fuzzygame="${fuzzygame/&/./}"
-                fuzzygame="${fuzzygame/!/./}"
+                fuzzygame="${fuzzygame//&/}"
+                fuzzygame="${fuzzygame//!/}"
                 echo "FUZZY:" "$fuzzygame" >> "$logfilename"
                 response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$fuzzygame")
                 game_name=$(echo "$response" | jq -r '.name')
