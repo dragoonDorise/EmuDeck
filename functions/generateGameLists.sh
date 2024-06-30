@@ -10,11 +10,17 @@ generateGameListsJson() {
     python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath"
     cat $HOME/emudeck/cache/roms_games.json
     #generateGameLists_artwork $userid &> /dev/null &
-    generateGameLists_artwork  &> /dev/null &
-    generateGameLists_artwork  &> /dev/null &
-    generateGameLists_artwork  &> /dev/null &
-    generateGameLists_artwork  &> /dev/null &
-    generateGameLists_artwork  &> /dev/null &
+    if [ -f "$HOME/emudeck/cache/.romlibrary_first" ]; then
+        generateGameLists_artwork  &> /dev/null &
+    else
+        generateGameLists_artwork  &> /dev/null &
+        generateGameLists_artwork  &> /dev/null &
+        generateGameLists_artwork  &> /dev/null &
+        generateGameLists_artwork  &> /dev/null &
+        generateGameLists_artwork  &> /dev/null &
+        touch -p "$HOME/emudeck/cache/.romlibrary_first"
+    fi
+
 }
 
 generateGameLists_artwork() {
