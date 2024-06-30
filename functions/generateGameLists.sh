@@ -1,10 +1,5 @@
 #!/bin/bash
 generateGameLists() {
-    if [ -f "$HOME/emudeck/cache/.reset" ]; then
-        accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-        dest_folder="$accountfolder/config/grid/emudeck/"
-        rm -rf $dest_folder
-    fi
     pegasus_setPaths
     mkdir -p "$HOME/emudeck/cache/"
     python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath"
@@ -12,11 +7,9 @@ generateGameLists() {
 
 generateGameListsJson() {
     #local userid=$1
-    generateGameLists
+    python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath"
     cat $HOME/emudeck/cache/roms_games.json
     #generateGameLists_artwork $userid &> /dev/null &
-
-
     if [ -f "$HOME/emudeck/cache/.romlibrary_first" ]; then
         generateGameLists_artwork  &> /dev/null &
     else
