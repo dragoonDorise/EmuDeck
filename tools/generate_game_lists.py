@@ -25,7 +25,7 @@ def generate_game_lists(roms_path):
                     name_cleaned = name_cleaned.replace('!', '')
                     name_cleaned = name_cleaned.replace("'", '')
                     name_cleaned = name_cleaned.replace('.', '')
-                    name_cleaned_pegasus = name.replace(' ', '_')
+                    name_cleaned_pegasus = name.replace(',_', ',')
 
                     clean_name = name_cleaned
                     game_img = f"/customimages/emudeck/{clean_name}.jpg"
