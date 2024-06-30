@@ -59,6 +59,10 @@ generateGameLists_artwork() {
 
                 fuzzygame=$(python $HOME/.config/EmuDeck/backend/tools/fuzzy_search_rom.py "$game")
                 fuzzygame="${fuzzygame// /_}"
+                fuzzygame="${fuzzygame//:/}"
+                fuzzygame="${fuzzygame//./}"
+                fuzzygame="${fuzzygame/&/./}"
+                fuzzygame="${fuzzygame/!/./}"
                 echo "FUZZY:" "$fuzzygame" >> "$logfilename"
                 response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$fuzzygame")
                 game_name=$(echo "$response" | jq -r '.name')
@@ -84,7 +88,7 @@ generateGameLists_artwork() {
                     if [ "$game_img_url" = "null" ]; then
                        echo -e " - No picture" >> "$logfilename"
                     else
-                        echo "Added to the list: $game_img_url" >> "$logfilename"
+                        echo "Added to the list (NO FUZZY): $game_img_url" >> "$logfilename"
                         download_array+=("$game_img_url")
                         download_dest_paths+=("$dest_path")
                         processed_games[$game]=1
