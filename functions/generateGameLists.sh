@@ -48,11 +48,11 @@ generateGameLists_artwork() {
             file_to_check="$dest_folder${game// /_}*"
 
             if ! ls $file_to_check 1> /dev/null 2>&1 && [ -z "${processed_games[$game]}" ]; then
-                echo -e "$game" >> "$HOME/emudeck/logs/romlibrary.log"
+                echo "GAME:" "$game" >> "$HOME/emudeck/logs/romlibrary.log"
 
                 fuzzygame=$(python $HOME/.config/EmuDeck/backend/tools/fuzzy_search_rom.py "$game")
                 fuzzygame="${fuzzygame// /_}"
-                echo -e "$fuzzygame" >> "$HOME/emudeck/logs/romlibrary.log"
+                echo "FUZZY:" "$fuzzygame" >> "$HOME/emudeck/logs/romlibrary.log"
                 response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$fuzzygame")
                 game_name=$(echo "$response" | jq -r '.name')
                 game_img_url=$(echo "$response" | jq -r '.img')
@@ -60,7 +60,7 @@ generateGameLists_artwork() {
                 dest_path="$dest_folder$game.jpg"
 
                 if [ ! -f "$dest_path" ] && [ "$game_img_url" != "null" ]; then
-                    echo -e " - $game_img_url" - $dest_path
+                    echo "Added to the list: $game_img_url" - $dest_path
                     download_array+=("$game_img_url")
                     download_dest_paths+=("$dest_path")
                     processed_games[$game]=1
@@ -108,7 +108,7 @@ generateGameLists_artwork() {
         fi
         wait
 
-        echo "Completed downloads for platform: $platform" >> "$HOME/emudeck/logs/romlibrary.log"
+        echo "Completed search for platform: $platform" >> "$HOME/emudeck/logs/romlibrary.log"
     done
 
     # Save the updated JSON back to the file
