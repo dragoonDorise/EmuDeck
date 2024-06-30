@@ -76,6 +76,11 @@ generateGameLists_artwork() {
 
                     if [ "$game_img_url" = "null" ]; then
                        echo -e " - No picture" >> "$HOME/emudeck/logs/romlibrary.log"
+                    else
+                        echo "Added to the list: $game_img_url" - $dest_path
+                        download_array+=("$game_img_url")
+                        download_dest_paths+=("$dest_path")
+                        processed_games[$game]=1
                     fi
                 fi
             fi
