@@ -837,7 +837,7 @@
 			{
 				"activators"
 				{
-					"Full_Press"
+					"chord"
 					{
 						"bindings"
 						{
@@ -845,6 +845,7 @@
 						}
 						"settings"
 						{
+							"chord_button"		"15"
 							"haptic_intensity"		"2"
 						}
 					}
