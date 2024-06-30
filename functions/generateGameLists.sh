@@ -35,7 +35,12 @@ generateGameLists_artwork() {
     local logfilename="$HOME/emudeck/logs/library_${number_log}.log"
     local json_file="$HOME/emudeck/cache/roms_games.json"
     local json=$(cat "$json_file")
-    local platforms=$(echo "$json" | jq -r '.[].id' | shuf)
+
+    if [ $number_log = 1 ]; then
+        local platforms=$(echo "$json" | jq -r '.[].id')
+    else
+        local platforms=$(echo "$json" | jq -r '.[].id' | shuf)
+    fi
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local dest_folder="$accountfolder/config/grid/emudeck/"
 
@@ -46,8 +51,11 @@ generateGameLists_artwork() {
 
     for platform in $platforms; do
         echo "Processing platform: $platform" >> "$logfilename"
-        games=$(echo "$json" | jq -r --arg platform "$platform" '.[] | select(.id == $platform) | .games[]?.name' | shuf)
-
+        if [ $number_log = 1 ]; then
+            games=$(echo "$json" | jq -r --arg platform "$platform" '.[] | select(.id == $platform) | .games[]?.name')
+        else
+            games=$(echo "$json" | jq -r --arg platform "$platform" '.[] | select(.id == $platform) | .games[]?.name' | shuf)
+        fi
         declare -a download_array
         declare -a download_dest_paths
 
