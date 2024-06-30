@@ -60,7 +60,7 @@ generateGameLists_artwork() {
                 dest_path="$dest_folder$game.jpg"
 
                 if [ ! -f "$dest_path" ] && [ "$game_img_url" != "null" ]; then
-                    echo "Added to the list: $game_img_url" - $dest_path
+                    echo "Added to the list: $game_img_url" - $dest_path >> "$HOME/emudeck/logs/romlibrary.log"
                     download_array+=("$game_img_url")
                     download_dest_paths+=("$dest_path")
                     processed_games[$game]=1
@@ -77,7 +77,7 @@ generateGameLists_artwork() {
                     if [ "$game_img_url" = "null" ]; then
                        echo -e " - No picture" >> "$HOME/emudeck/logs/romlibrary.log"
                     else
-                        echo "Added to the list: $game_img_url" - $dest_path
+                        echo "Added to the list: $game_img_url" - $dest_path >> "$HOME/emudeck/logs/romlibrary.log"
                         download_array+=("$game_img_url")
                         download_dest_paths+=("$dest_path")
                         processed_games[$game]=1
