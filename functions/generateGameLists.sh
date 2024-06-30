@@ -11,17 +11,17 @@ generateGameListsJson() {
     cat $HOME/emudeck/cache/roms_games.json
     #generateGameLists_artwork $userid &> /dev/null &
     if [ -f "$HOME/emudeck/cache/.romlibrary_first" ]; then
-        generateGameLists_artwork  &> /dev/null &
+        generateGameLists_artwork 0 &> /dev/null &
     else
-        generateGameLists_artwork  &> /dev/null &
+        generateGameLists_artwork 1 &> /dev/null &
         sleep 5
-        generateGameLists_artwork  &> /dev/null &
+        generateGameLists_artwork 2 &> /dev/null &
         sleep 5
-        generateGameLists_artwork  &> /dev/null &
+        generateGameLists_artwork 3 &> /dev/null &
         sleep 5
-        generateGameLists_artwork  &> /dev/null &
+        generateGameLists_artwork 4 &> /dev/null &
         sleep 5
-        generateGameLists_artwork  &> /dev/null &
+        generateGameLists_artwork 5 &> /dev/null &
         sleep 5
         touch "$HOME/emudeck/cache/.romlibrary_first"
     fi
@@ -30,9 +30,9 @@ generateGameListsJson() {
 
 generateGameLists_artwork() {
     mkdir -p "$HOME/emudeck/cache/"
-
+    local number_log=$1
     local current_time=$(date +"%H_%M_%S")
-    local logfilename="$HOME/emudeck/logs/library_${current_time}.log"
+    local logfilename="$HOME/emudeck/logs/library_${number_log}.log"
     local json_file="$HOME/emudeck/cache/roms_games.json"
     local json=$(cat "$json_file")
     local platforms=$(echo "$json" | jq -r '.[].id' | shuf)
@@ -94,8 +94,6 @@ generateGameLists_artwork() {
                         processed_games[$game]=1
                     fi
                 fi
-            else
-                echo "Ignored: $file_to_check" >> "$logfilename"
             fi
 
             # Download in batches of 10
