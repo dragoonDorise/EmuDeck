@@ -22,6 +22,7 @@ doUninstallPrimeHacks=true
 doUninstallRMG=true
 doUninstallRPCS3=true
 doUninstallRyujinx=true
+doUninstallSudachi=true
 doUninstallScummVM=true
 doUninstallSRM=true
 doUninstallSupermodel=true
@@ -183,7 +184,7 @@ fi
 		fi
 		if [[ "$emusToUninstall" == *"BigPEmu"* ]]; then
 			doUninstallBigPEmu=false
-		fi	
+		fi
 		if [[ "$emusToUninstall" == *"Cemu"* ]]; then
 			doUninstallCemu=false
 		fi
@@ -234,6 +235,9 @@ fi
 		fi
 		if [[ "$emusToUninstall" == *"Ryujinx"* ]]; then
 			doUninstallRyujinx=false
+		fi
+		if [[ "$emusToUninstall" == *"Sudachi"* ]]; then
+			doUninstallSudachi=false
 		fi
 		if [[ "$emusToUninstall" == *"ScummVM"* ]]; then
 			doUninstallScummVM=false
@@ -321,7 +325,7 @@ fi
 	fi
 	if [[ "$doUninstallModel2" == true ]]; then
 		find ${romsPath}/model2 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \; &>> /dev/null
-		# Leaving this here for Patreon users stuck with the old name. 
+		# Leaving this here for Patreon users stuck with the old name.
 		rm -f "$HOME/.local/share/applications/Model 2 (Proton).desktop" &> /dev/null
 		# Current name.
 		rm -f "$HOME/.local/share/applications/Model 2 Emulator (Proton).desktop" &> /dev/null
@@ -365,6 +369,13 @@ fi
 		rm -rf $HOME/.config/Ryujinx &> /dev/null
 		rm -rf $HOME/Applications/publish &> /dev/null
 		rm -rf $HOME/.local/share/applications/Ryujinx.desktop &> /dev/null
+	fi
+	if [[ "$doUninstallSudachi" == true ]]; then
+		rm -rf $HOME/Applications/sudachi &> /dev/null
+		rm -rf $HOME/.config/sudachi &> /dev/null
+		rm -rf $HOME/.local/share/sudachi &> /dev/null
+		rm -rf $HOME/.cache/sudachi &> /dev/null
+		rm -rf $HOME/.local/share/applications/Sudachi.desktop &> /dev/null
 	fi
 	if [[ "$doUninstallScummVM" == true ]]; then
 		flatpak uninstall org.scummvm.ScummVM -y
@@ -423,46 +434,46 @@ fi
 			flatpak uninstall re.chiaki.Chiaki -y
 			rm -f "$romsPath/remoteplay/Chiaki Remote Play Client.sh" &> /dev/null
 			rm -rf "$HOME/.var/app/re.chiaki.Chiaki" &> /dev/null
-		fi 
+		fi
 
-		if [[ "$RPUninstall" != *"Chiaki4deck"* ]]; then	
+		if [[ "$RPUninstall" != *"Chiaki4deck"* ]]; then
 			rm -f "$HOME/Applications/Chiaki4deck.AppImage" &> /dev/null
 			rm -f "$romsPath/remoteplay/Greenlight.sh" &> /dev/null
 			rm -rf "$HOME/.local/share/applications/Chiaki4deck.desktop" &> /dev/null
-		fi 
+		fi
 
-		if [[ "$RPUninstall" != *"Greenlight"* ]]; then	
+		if [[ "$RPUninstall" != *"Greenlight"* ]]; then
 			rm -f "$HOME/Applications/Greenlight.AppImage" &> /dev/null
 			rm -f "$romsPath/remoteplay/Greenlight.sh" &> /dev/null
 			rm -rf "$HOME/.local/share/applications/Greenlight.desktop" &> /dev/null
-		fi 
+		fi
 
-		if [[ "$RPUninstall" != *"Moonlight Game Streaming"* ]]; then	
+		if [[ "$RPUninstall" != *"Moonlight Game Streaming"* ]]; then
 			flatpak uninstall com.moonlight_stream.Moonlight -y
 			rm -f "$romsPath/remoteplay/Moonlight Game Streaming.sh" &> /dev/null
 			rm -rf "$HOME/.var/app/com.moonlight_stream.Moonlight" &> /dev/null
-		fi 
+		fi
 
-		if [[ "$RPUninstall" != *"Parsec"* ]]; then	
+		if [[ "$RPUninstall" != *"Parsec"* ]]; then
 			flatpak uninstall com.parsecgaming.parsec -y
 			rm -f "$romsPath/remoteplay/Parsec.sh" &> /dev/null
 			rm -rf "$HOME/.var/app/com.parsecgaming.parsec" &> /dev/null
-		fi 
+		fi
 
-		if [[ "$RPUninstall" != *"ShadowPC"* ]]; then	
+		if [[ "$RPUninstall" != *"ShadowPC"* ]]; then
 			rm -f "$HOME/Applications/ShadowPC.AppImage" &> /dev/null
 			rm -f "$romsPath/remoteplay/ShadowPC.sh" &> /dev/null
 			rm -rf "$HOME/.local/share/applications/ShadowPC.desktop" &> /dev/null
-		fi 
+		fi
 
-		if [[ "$RPUninstall" != *"Steam Link"* ]]; then	
+		if [[ "$RPUninstall" != *"Steam Link"* ]]; then
 			flatpak uninstall com.valvesoftware.SteamLink -y
 			rm -f "$romsPath/remoteplay/SteamLink.sh" &> /dev/null
 			rm -rf "$HOME/.var/app/com.valvesoftware.SteamLink" &> /dev/null
-		fi 
+		fi
 
-	fi 
-	
+	fi
+
 	if find "$romsPath/generic-applications" -type f -name "*.sh" | grep -q .; then
 
 		GAUninstall=$(zenity --list  \
@@ -477,37 +488,37 @@ fi
 			4 "Spotify" \
 			5 "Tidal" )
 
-		if [[ "$GAUninstall" != *"Cider"* ]]; then	
+		if [[ "$GAUninstall" != *"Cider"* ]]; then
 			flatpak uninstall sh.cider.Cider -y
 			rm -f "$romsPath/generic-applications/Cider.sh" &> /dev/null
 			rm -rf "$HOME/.var/app/sh.cider.Cider" &> /dev/null
-		fi 
+		fi
 
 		if [[ "$GAUninstall" != *"Heroic Games Launcher"* ]]; then
 			rm -f "$HOME/Applications/Heroic-Games-Launcher.AppImage" &> /dev/null
 			rm -f "$romsPath/generic-applications/Heroic-Games-Launcher.sh" &> /dev/null
 			rm -rf "$HOME/.local/share/applications/Heroic-Games-Launcher.desktop" &> /dev/null
-		fi 
+		fi
 
-		if [[ "$GAUninstall" != *"Plexamp"* ]]; then	
+		if [[ "$GAUninstall" != *"Plexamp"* ]]; then
 			flatpak uninstall com.plexamp.Plexamp -y
 			rm -f "$romsPath/generic-applications/Plexamp.sh" &> /dev/null
 			rm -rf "$HOME/.var/app/com.plexamp.Plexamp" &> /dev/null
-		fi 
+		fi
 
-		if [[ "$GAUninstall" != *"Spotify"* ]]; then	
+		if [[ "$GAUninstall" != *"Spotify"* ]]; then
 			flatpak uninstall com.spotify.Client -y
 			rm -f "$romsPath/generic-applications/Spotify.sh" &> /dev/null
 			rm -rf "$HOME/.var/app/com.spotify.Client" &> /dev/null
-		fi 
+		fi
 
-		if [[ "$GAUninstall" != *"Tidal"* ]]; then	
+		if [[ "$GAUninstall" != *"Tidal"* ]]; then
 			flatpak uninstall com.mastermindzh.tidal-hifi -y
 			rm -f "$romsPath/generic-applications/Tidal.sh" &> /dev/null
 			rm -rf "$HOME/.var/app/com.mastermindzh.tidal-hifi" &> /dev/null
-		fi 
+		fi
 
-	fi 
+	fi
 
 
 	echo "55"
@@ -598,21 +609,21 @@ fi
 	# EmulationStation-DE
 	rm -rf $HOME/.emulationstation
 	rm -rf "$HOME/ES-DE" &> /dev/null
-	rm -rf "$toolsPath/EmulationStation-DE.AppImage" &> /dev/null 
-	rm -rf $HOME/Applications/EmulationStation-DE.AppImage &> /dev/null 
-	rm -rf $HOME/Applications/ES-DE.AppImage &> /dev/null 
-	rm -rf "$HOME/.local/share/applications/EmulationStation-DE.desktop" &> /dev/null 
-	rm -rf "$HOME/.local/share/applications/ES-DE.desktop" &> /dev/null 
+	rm -rf "$toolsPath/EmulationStation-DE.AppImage" &> /dev/null
+	rm -rf $HOME/Applications/EmulationStation-DE.AppImage &> /dev/null
+	rm -rf $HOME/Applications/ES-DE.AppImage &> /dev/null
+	rm -rf "$HOME/.local/share/applications/EmulationStation-DE.desktop" &> /dev/null
+	rm -rf "$HOME/.local/share/applications/ES-DE.desktop" &> /dev/null
  	# ULWGL
 	rm -rf "$HOME/.local/share/ULWGL" &> /dev/null
 	# SteamDeckGyroDSU
 	rm -rf "$HOME/sdgyrodsu" &> /dev/null
 	# Pegasus
 	flatpak uninstall org.pegasus_frontend.Pegasus -y
-	rm -rf "$HOME/.var/app/org.pegasus_frontend.Pegasus/" &> /dev/null 
-	rm -rf $HOME/Applications/pegasus-fe &> /dev/null 
-	rm -rf $HOME/.config/pegasus-frontend &> /dev/null 
-	rm -rf "$HOME/.local/share/applications/Pegasus.desktop" &> /dev/null 
+	rm -rf "$HOME/.var/app/org.pegasus_frontend.Pegasus/" &> /dev/null
+	rm -rf $HOME/Applications/pegasus-fe &> /dev/null
+	rm -rf $HOME/.config/pegasus-frontend &> /dev/null
+	rm -rf "$HOME/.local/share/applications/Pegasus.desktop" &> /dev/null
 
 	echo "90"
 	echo "# Removing EmuDeck folders";
