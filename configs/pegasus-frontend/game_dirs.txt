@@ -172,7 +172,7 @@
 /run/media/mmcblk0p1/Emulation/roms/vsmile
 /run/media/mmcblk0p1/Emulation/roms/wasm4
 /run/media/mmcblk0p1/Emulation/roms/wii
-/run/media/mmcblk0p1/Emulation/roms/wiiu/roms
+/run/media/mmcblk0p1/Emulation/roms/wiiu
 /run/media/mmcblk0p1/Emulation/roms/wonderswan
 /run/media/mmcblk0p1/Emulation/roms/wonderswancolor
 /run/media/mmcblk0p1/Emulation/roms/x1
