@@ -1,7 +1,4 @@
 collection: Sony PlayStation 3
 shortname: ps3
-extensions: desktop, DESKTOP
+extensions: desktop, DESKTOP, ps3
 launch:  /run/media/mmcblk0p1/Emulation/tools/launchers/rpcs3.sh {file.path}
-
-
-
