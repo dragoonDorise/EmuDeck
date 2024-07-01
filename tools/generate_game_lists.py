@@ -12,6 +12,22 @@ def generate_game_lists(roms_path):
                 extension = filename.split('.')[-1]
                 name = '.'.join(filename.split('.')[:-1])
                 if extension in extensions:
+                    if "wiiu" in system_dir:
+                    # Obtener el nombre de la carpeta dos niveles por encima
+                        if extension == "wux" :
+                            name = name
+                        else:
+                            parts = root.split(os.sep)
+                            if len(parts) >= 2:
+                                name = parts[-2]
+                            else:
+                                name = name
+
+                            if name == "roms":
+                               name = name
+
+                            if name == "wiiu":
+                               name = parts[-1]
 
                     name_cleaned = re.sub(r'\(.*?\)', '', name)
                     name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
