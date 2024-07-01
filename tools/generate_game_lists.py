@@ -43,8 +43,6 @@ def generate_game_lists(roms_path):
     valid_system_dirs = []
 
     for system_dir in os.listdir(roms_dir):
-        if system_dir == "wiiu":
-            system_dir = "wiiu/roms"
         if system_dir == "xbox360":
             system_dir = "xbox360/roms"
         full_path = os.path.join(roms_dir, system_dir)
@@ -56,14 +54,14 @@ def generate_game_lists(roms_path):
     game_list = []
 
     for system_dir in valid_system_dirs:
-        if any(x in system_dir for x in ["/ps3", "/xbox360", "/model2", "/genesiswide", "/mame", "/emulators", "/desktop"]):
+        if any(x in system_dir for x in ["/ps3", "/model2", "/genesiswide", "/mame", "/emulators", "/desktop"]):
             continue
 
         with open(os.path.join(system_dir, 'metadata.txt')) as f:
             metadata = f.read()
         collection = next((line.split(':')[1].strip() for line in metadata.splitlines() if line.startswith('collection:')), '')
         shortname = next((line.split(':')[1].strip() for line in metadata.splitlines() if line.startswith('shortname:')), '')
-        launcher = next((line.split(':')[1].strip() for line in metadata.splitlines() if line.startswith('launch:')), '').replace('"', '\\"')
+        launcher = next((line.split(':', 1)[1].strip() for line in metadata.splitlines() if line.startswith('launch:')), '').replace('"', '\\"')
         extensions = next((line.split(':')[1].strip().replace(',', ' ') for line in metadata.splitlines() if line.startswith('extensions:')), '').split()
 
         games = collect_game_data(system_dir, extensions)
