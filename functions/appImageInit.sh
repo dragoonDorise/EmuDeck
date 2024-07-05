@@ -4,6 +4,10 @@ appImageInit() {
 	#Fix cloudsync upload
 	if [ -f "$toolsPath/rclone/rclone" ]; then
 		if [ ! -f "$HOME/.config/systemd/user/EmuDeckCloudSync.service" ]; then
+		zenity --info --text="If you are seeing this pop-up, that means you were affected by the CloudSync not uploading bug. It should be fixed now"
+		--title="CloudSync" \
+		--width=400 \
+		--height=300
 			cloud_sync_createService
 		fi
 	fi
