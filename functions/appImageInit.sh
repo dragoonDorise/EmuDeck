@@ -12,7 +12,24 @@ appImageInit() {
 		fi
 	fi
 
+	#Fix branch bugs
+	if [ ! -f "$HOME/emudeck/.gitfix" ]; then
+		cd "$HOME/.config/EmuDeck/backend"
+		branchName=$(git rev-parse --abbrev-ref HEAD)
+		if [ $branchName == "*early*" ]; then
+			rm -rf "$HOME/.config/EmuDeck/backend"
+			mkdir -p "$HOME/.config/EmuDeck/backend"
+			cd "$HOME/.config/EmuDeck/backend"
+			git clone  --no-single-branch --depth=1 https://github.com/dragoonDorise/EmuDeck.git .
+			git checkout $branchName
+			touch "$HOME/emudeck/.gitfix"
 
+			zenity --info --text="Branch fixed, please manually restart EmuDeck"
+			--title="Restart needed" \
+			--width=400 \
+			--height=300
+		fi
+	fi
 
 
 	AutoCopy_install
