@@ -6,9 +6,9 @@ source "$HOME/.config/EmuDeck/backend/functions/helperFunctions.sh"
 source "$HOME/.config/EmuDeck/backend/functions/ToolScripts/emuDeckCloudSync.sh"
 
 
-if [ $system = "darwin" ];then
-  source "$HOME/.config/EmuDeck/backend/darwin/functions/ToolsScripts/emuDeckCloudSync.sh"
-fi
+#if [ $system = "darwin" ];then
+#  source "$HOME/.config/EmuDeck/backend/darwin/functions/ToolsScripts/emuDeckCloudSync.sh"
+#fi
 
 touch "$savesPath/.gaming"
 touch "$savesPath/.watching"
@@ -22,11 +22,11 @@ declare -A current_hashes
 # Function to calculate the hash of a directory
 calculate_hash() {
   dir="$1"
-  if [ $system != "darwin" ];then
+ # if [ $system != "darwin" ];then
     hash=$(find "$dir" -type f -exec sha256sum {} + | sha256sum | awk '{print $1}')
-  else
-    hash=$(find "$dir" -type f -exec shasum -a 256 {} + | shasum -a 256 | awk '{print $1}')
-  fi
+ # else
+ #   hash=$(find "$dir" -type f -exec shasum -a 256 {} + | shasum -a 256 | awk '{print $1}')
+ # fi
   echo "$hash"
 }
 
@@ -81,7 +81,7 @@ do
   # echo $currentEmu >> $HOME/emudeck/logs/CloudWatcher.log
   # echo $dir >> $HOME/emudeck/logs/CloudWatcher.log
 
-  if [ "${current_hashes[$dir]}" != "$new_hash" ] && [[ $dir == *"$currentEmu"* ]]; then
+  if [[ "${current_hashes[$dir]}" != "$new_hash" ]] && [[ $dir =~ $currentEmu ]]; then
     # Show the name of the folder immediately behind "saves"
      echo "SERVICE - CHANGES DETECTED on $dir, LETS CHECK IF ITS A DUPLICATE" >> $HOME/emudeck/logs/CloudWatcher.log
      timestamp=$(date +%s)
