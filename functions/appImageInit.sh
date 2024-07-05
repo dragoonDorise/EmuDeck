@@ -1,6 +1,15 @@
 #!/bin/bash
 appImageInit() {
 
+	#Fix cloudsync upload
+	if [ -f "$toolsPath/rclone/rclone" ]; then
+		if [ ! -f "$HOME/.config/systemd/user/EmuDeckCloudSync.service" ]; then
+			cloud_sync_createService
+		fi
+	fi
+
+
+
 
 	AutoCopy_install
 	server_install

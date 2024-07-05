@@ -585,11 +585,13 @@ cloud_sync_downloadEmu(){
 }
 
 cloud_sync_downloadEmuAll(){
+cloud_sync_createService
  cloud_sync_download 'all'
 }
 
 
 cloud_sync_uploadEmuAll(){
+  cloud_sync_createService
   cloud_sync_upload 'all'
 }
 
@@ -610,6 +612,7 @@ cloud_sync_save_hash(){
 
 cloud_sync_createService(){
   # startLog ${FUNCNAME[0]}
+if [ ! -f "$HOME/.config/systemd/user/EmuDeckCloudSync.service" ]; then
   echo "Creating CloudSync service"
   local service_name="EmuDeckCloudSync"
   local script_path="$HOME/.config/EmuDeck/backend/tools/cloudSync/cloud_sync_watcher.sh"
@@ -628,6 +631,9 @@ WantedBy=default.target
 EOF
 
   echo "$service_name created"
+else
+  echo "CloudSync service already exists"
+fi
 }
 
 cloud_sync_startService(){
