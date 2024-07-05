@@ -601,17 +601,17 @@ cloud_sync_save_hash(){
   # startLog ${FUNCNAME[0]}
   local dir=$1
 
-  if [ $system != "darwin" ];then
+  #if [ $system != "darwin" ];then
     hash=$(find "$dir" -maxdepth 1 -type f -exec sha256sum {} + | sha256sum | awk '{print $1}')
-  else
-    hash=$(find "$dir" -maxdepth 1 -type f -exec shasum -a 256 {} + | shasum -a 256 | awk '{print $1}')
-  fi
+  #else
+  #  hash=$(find "$dir" -maxdepth 1 -type f -exec shasum -a 256 {} + | shasum -a 256 | awk '{print $1}')
+  #fi
   echo "$hash" > "$dir/.hash"
 }
 
 
 cloud_sync_createService(){
-  # startLog ${FUNCNAME[0]}
+  startLog ${FUNCNAME[0]}
   echo "Creating CloudSync service"
   local service_name="EmuDeckCloudSync"
   local script_path="$HOME/.config/EmuDeck/backend/tools/cloudSync/cloud_sync_watcher.sh"
@@ -633,13 +633,13 @@ EOF
 }
 
 cloud_sync_startService(){
-  # startLog ${FUNCNAME[0]}
+  startLog ${FUNCNAME[0]}
   systemctl --user stop "EmuDeckCloudSync.service"
   systemctl --user start "EmuDeckCloudSync.service"
 }
 
 cloud_sync_stopService(){
-  # startLog ${FUNCNAME[0]}
+  startLog ${FUNCNAME[0]}
   systemctl --user stop "EmuDeckCloudSync.service"
 }
 
