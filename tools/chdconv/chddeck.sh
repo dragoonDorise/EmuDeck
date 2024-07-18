@@ -7,7 +7,17 @@ if [[ "$EMUDECKGIT" == "" ]]; then
 fi
 
 #whitelist
-chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "neogeocdjp" "megacd" "ps2" "cdimono1")
+chdfolderWhiteList=("3do" "amiga" "amiga1200" "amiga600"
+"amigacd32" "atomiswave" "cdimono1"
+"cdtv" "dreamcast" "genesis"
+"genesiswide" "megacd" "megacdjp"
+"megadrive" "megadrivejp" "naomi"
+"naomi2" "naomigd" "neogeocd"
+"neogeocdjp" "pcenginecd" "pcfx"
+"ps2" "psx" "saturn"
+"saturnjp" "sega32x" "sega32xjp"
+"sega32xna" "segacd" "tg-cd"
+"tg16")
 rvzfolderWhiteList=("gc" "wii" "primehacks")
 csofolderWhiteList=("psp")
 n3dsfolderWhiteList=("n3ds")
