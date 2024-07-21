@@ -42,6 +42,7 @@ pegasus_setPaths(){
 	#Yuzu path fix
 	if [ -f "$HOME/Applications/yuzu.AppImage" ]; then
 		sed -i "s|ryujinx|yuzu|g" "$romsPath/switch/metadata.txt"
+		sed -i "s|--fullscreen|-f -g|g" "$romsPath/switch/metadata.txt"
 	fi
 
 	#Citra path fix
