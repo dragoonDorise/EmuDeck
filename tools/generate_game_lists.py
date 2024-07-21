@@ -8,13 +8,16 @@ def generate_game_lists(roms_path):
         game_data = []
         for root, _, files in os.walk(system_dir):
             for file in files:
+                file_path = os.path.join(root, file)
+                if os.path.islink(file_path):
+                    continue
+
                 filename = os.path.basename(file)
                 extension = filename.split('.')[-1]
                 name = '.'.join(filename.split('.')[:-1])
                 if extension in extensions:
                     if "wiiu" in system_dir:
-                    # Obtener el nombre de la carpeta dos niveles por encima
-                        if extension == "wux" :
+                        if extension == "wux":
                             name = name
                         else:
                             parts = root.split(os.sep)
@@ -47,7 +50,7 @@ def generate_game_lists(roms_path):
                     game_img = f"/customimages/emudeck/{clean_name}.jpg"
                     game_info = {
                         "name": clean_name,
-                        "filename": os.path.join(root, file),
+                        "filename": file_path,
                         "file": name_cleaned_pegasus,
                         "img": game_img
                     }
@@ -63,7 +66,7 @@ def generate_game_lists(roms_path):
             system_dir = "xbox360/roms"
         full_path = os.path.join(roms_dir, system_dir)
         if os.path.isdir(full_path) and not os.path.islink(full_path) and os.path.isfile(os.path.join(full_path, 'metadata.txt')):
-            file_count = sum([len(files) for r, d, files in os.walk(full_path)])
+            file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])
             if file_count > 2:
                 valid_system_dirs.append(full_path)
 
@@ -81,19 +84,21 @@ def generate_game_lists(roms_path):
         extensions = next((line.split(':')[1].strip().replace(',', ' ') for line in metadata.splitlines() if line.startswith('extensions:')), '').split()
 
         games = collect_game_data(system_dir, extensions)
-        system_info = {
-            "title": collection,
-            "id": shortname,
-            "launcher": launcher,
-            "games": games
-        }
-        game_list.append(system_info)
-        game_list_sorted = sorted(game_list, key=lambda x: x['title'])
+        if games:
+            system_info = {
+                "title": collection,
+                "id": shortname,
+                "launcher": launcher,
+                "games": games
+            }
+            game_list.append(system_info)
+            game_list_sorted = sorted(game_list, key=lambda x: x['title'])
 
 
     json_output = json.dumps(game_list_sorted, indent=4)
     home_directory = os.path.expanduser("~")
     output_file = os.path.join(home_directory, 'emudeck', 'cache', 'roms_games.json')
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, 'w') as f:
         f.write(json_output)
 
