@@ -72,9 +72,14 @@ generateGameLists_artwork() {
                 fuzzygame="${fuzzygame//&/}"
                 fuzzygame="${fuzzygame//!/}"
                 echo "FUZZY:" "$fuzzygame" >> "$logfilename"
-                response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$fuzzygame")
-                game_name=$(echo "$response" | jq -r '.name')
-                game_img_url=$(echo "$response" | jq -r '.img')
+                #response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$fuzzygame")
+                #game_name=$(echo "$response" | jq -r '.name')
+                #game_img_url=$(echo "$response" | jq -r '.img')
+
+                wget -q -O "$HOME/emudeck/cache/response.json" "https://bot.emudeck.com/steamdbimg.php?name=$fuzzygame"
+                game_name=$(jq -r '.name' "$HOME/emudeck/cache/response.json")
+                game_img_url=$(jq -r '.img' "$HOME/emudeck/cache/response.json")
+
                 filename=$(basename "$game_img_url")
                 dest_path="$dest_folder$game.jpg"
 
@@ -83,13 +88,14 @@ generateGameLists_artwork() {
                     download_array+=("$game_img_url")
                     download_dest_paths+=("$dest_path")
                     processed_games[$game]=1
-
-                    # Update the JSON with the image URL
-                    #json=$(echo "$json" | jq --arg platform "$platform" --arg game "$game" --arg img_url "$game_img_url" ' (.[].games[] | select(.name == $game) | .img) |= $img_url ')
                 else
-                    response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$game")
-                    game_name=$(echo "$response" | jq -r '.name')
-                    game_img_url=$(echo "$response" | jq -r '.img')
+                    #response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$game")
+                    #game_name=$(echo "$response" | jq -r '.name')
+                    #game_img_url=$(echo "$response" | jq -r '.img')
+                    wget -q -O "$HOME/emudeck/cache/response.json" "https://bot.emudeck.com/steamdbimg.php?name=$game"
+
+                    game_name=$(jq -r '.name' "$HOME/emudeck/cache/response.json")
+                    game_img_url=$(jq -r '.img' "$HOME/emudeck/cache/response.json")
                     filename=$(basename "$game_img_url")
                     dest_path="$dest_folder$game.jpg"
 
@@ -110,7 +116,9 @@ generateGameLists_artwork() {
                 echo "Start batch" >> "$logfilename"
                 for i in "${!download_array[@]}"; do
                     {
-                        curl -s -o "${download_dest_paths[$i]}" "${download_array[$i]}" >> "$logfilename"
+                        #curl -s -o "${download_dest_paths[$i]}" "${download_array[$i]}" >> "$logfilename"
+                        wget -q -O "${download_dest_paths[$i]}" "${download_array[$i]}" >> "$logfilename"
+
                     } &
                 done
                 wait
@@ -126,7 +134,8 @@ generateGameLists_artwork() {
         if [ ${#download_array[@]} -ne 0 ]; then
             for i in "${!download_array[@]}"; do
                 {
-                    curl -s -o "${download_dest_paths[$i]}" "${download_array[$i]}" >> "$logfilename"
+                    #curl -s -o "${download_dest_paths[$i]}" "${download_array[$i]}" >> "$logfilename"
+                    wget -q -O "${download_dest_paths[$i]}" "${download_array[$i]}" >> "$logfilename"
                 } &
             done
         fi
