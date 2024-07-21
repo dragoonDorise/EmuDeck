@@ -39,6 +39,16 @@ pegasus_setPaths(){
 	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|CORESPATH|${RetroArch_cores}|g" {} \;
 	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" {} \;
 
+	#Yuzu path fix
+	if [ -f "$HOME/Applications/yuzu.AppImage" ]; then
+		sed -i "s|ryujinx|yuzu|g" "$romsPath/switch/metadata.txt"
+	fi
+
+	#Citra path fix
+	if [ -f "$HOME/Applications/citra-qt.AppImage" ]; then
+		sed -i "s|lime3ds|citra|g" "$romsPath/n3ds/metadata.txt"
+	fi
+
 }
 
 #ApplyInitialSettings
@@ -78,7 +88,7 @@ pegasus_init(){
 				rm -rf "$romsPath/desktop/remoteplay/media" &> /dev/null
 				rm -rf "$romsPath/desktop/generic-applications/media" &> /dev/null
 				rm -rf "$romsPath/desktop/cloud/media" &> /dev/null
-				rm -rf "$systemPath/media" &> /dev/null		
+				rm -rf "$systemPath/media" &> /dev/null
 			else
 				rm -rf "$systemPath/media" &> /dev/null
 			fi
