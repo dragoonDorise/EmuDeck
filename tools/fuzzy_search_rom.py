@@ -2,6 +2,7 @@ import urllib.request
 import json
 import sys
 import os
+import subprocess
 from difflib import SequenceMatcher
 from datetime import datetime, timedelta
 
@@ -40,15 +41,14 @@ json_file_path = os.path.join(emudeck_dir, "games.json")
 
 # Descargar o cargar el JSON
 if not os.path.exists(json_file_path) or is_file_older_than(json_file_path, 5):
-    # Configurar la solicitud con un User-Agent
-    request = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-    # Descargar el JSON
-    with urllib.request.urlopen(request) as response:
-        data = response.read().decode()
 
-    # Guardar el JSON en el disco duro
-    with open(json_file_path, "w") as json_file:
-        json_file.write(data)
+    bash_command = 'wget --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36" "https://steamgriddb.com/api/games" -O "$HOME/emudeck/games.json"'
+    try:
+        result = subprocess.run(bash_command, shell=True, check=True, text=True, capture_output=True)
+        print("Salida del comando:", result.stdout)
+    except subprocess.CalledProcessError as e:
+        print(f"Ocurrió un error al ejecutar el comando: {e}")
+
 else:
     # Cargar el JSON desde el disco duro
     with open(json_file_path, "r") as json_file:
