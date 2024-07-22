@@ -7,6 +7,8 @@ generateGameLists() {
 
 generateGameListsJson() {
     #local userid=$1
+    wget --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36" "https://steamgriddb.com/api/games" -O "$HOME/emudeck/games.json"
+
     python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath"
     cat $HOME/emudeck/cache/roms_games.json
     #generateGameLists_artwork $userid &> /dev/null &
