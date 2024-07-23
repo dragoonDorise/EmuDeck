@@ -151,3 +151,12 @@ generateGameLists_artwork() {
     # Save the updated JSON back to the file
     #echo "$json" > "$json_file"
 }
+
+saveImage(){
+    local url=$1
+    local name=$2
+    local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
+    local dest_folder="$accountfolder/config/grid/emudeck/"
+    local dest_path="$dest_folder$game.jpg"
+    wget -q -O "$dest_path" "$url"
+}
