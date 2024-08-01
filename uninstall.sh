@@ -423,7 +423,7 @@ fi
 			--column="" --column="Leave unchecked to uninstall." \
 			--width=500 --height=500 --checklist \
 			1 "Chiaki Remote Play Client"  \
-			2 "Chiaki4deck" \
+			2 "chiaki-ng" \
 			3 "Greenlight" \
 			4 "Moonlight Game Streaming" \
 			5 "Parsec" \
@@ -436,10 +436,10 @@ fi
 			rm -rf "$HOME/.var/app/re.chiaki.Chiaki" &> /dev/null
 		fi 
 
-		if [[ "$RPUninstall" != *"Chiaki4deck"* ]]; then	
-			rm -f "$HOME/Applications/Chiaki4deck.AppImage" &> /dev/null
-			rm -f "$romsPath/remoteplay/Greenlight.sh" &> /dev/null
-			rm -rf "$HOME/.local/share/applications/Chiaki4deck.desktop" &> /dev/null
+		if [[ "$RPUninstall" != *"chiaki-ng"* ]]; then	
+			rm -f "$HOME/Applications/chiaki-ng.AppImage" &> /dev/null
+			rm -f "$romsPath/remoteplay/chiaki-ng.sh" &> /dev/null
+			rm -rf "$HOME/.local/share/applications/chiaki-ng.desktop" &> /dev/null
 		fi 
 
 		if [[ "$RPUninstall" != *"Greenlight"* ]]; then	
