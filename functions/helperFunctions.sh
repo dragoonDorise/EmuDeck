@@ -1040,6 +1040,7 @@ function storePatreonToken(){
 function controllerLayout_ABXY(){
 	Cemu_setABXYstyle
 	Citra_setABXYstyle
+	Lime3DS_setABXYstyle
 	Dolphin_setABXYstyle
  	melonDS_setABXYstyle
 	RetroArch_setABXYstyle
@@ -1051,6 +1052,7 @@ function controllerLayout_BAYX(){
 	Cemu_setBAYXstyle
  	Citra_setBAYXstyle
  	Dolphin_setBAYXstyle
+	Lime3DS_setBAYXstyle
   	melonDS_setBAYXstyle
 	RetroArch_setBAYXstyle
 	RMG_setBAYXstyle
