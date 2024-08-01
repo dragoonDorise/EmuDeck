@@ -4,134 +4,215 @@ Lime3DS_emuName="Lime3DS"
 Lime3DS_emuType="$emuDeckEmuTypeAppImage"
 Lime3DS_emuPath="$HOME/Applications/lime3ds-gui.AppImage"
 Lime3DS_releaseURL=""
-Lime3DS_configFile="$HOME/.config/citra-emu/qt-config.ini"
-Lime3DS_configPath="$HOME/.config/citra-emu"
-Lime3DS_texturesPath="$HOME/.config/citra-emu/load/textures"
-
-#cleanupOlderThings
-Lime3DS_finalize(){
- echo "NYI"
-}
+Lime3DS_configFile="$HOME/.config/lime3ds-emu/qt-config.ini"
+Lime3DS_configPath="$HOME/.config/lime3ds-emu"
+Lime3DS_texturesPath="$HOME/.config/lime3ds-emu/load/textures"
 
 #Install
 Lime3DS_install(){
-	setMSG "Installing $Lime3DS_emuName"
-	local success="false"
-
-	if safeDownload "$Lime3DS_emuName" "$(getReleaseURLGH "Lime3DS/Lime3DS" "appimage.tar.gz")" "$HOME/Applications/lime3ds.tar.gz" "$showProgress"; then
-		tar -xvf "$HOME/Applications/lime3ds.tar.gz" -C "$HOME/Applications"
+	echo "Begin $Lime3DS_emuName Install"
+	local showProgress="$1"
+	if installEmuAI "$Lime3DS_emuName" "" "$(getReleaseURLGH "Lime3DS/Lime3DS" "tar.gz" "" "appimage")" "lime3ds" "tar.gz" "emulator" "$showProgress"; then #lime3ds-gui.AppImage
+		mkdir "$HOME/Applications/lime3ds-temp"
+		tar -xvzf "$HOME/Applications/lime3ds.tar.gz" -C "$HOME/Applications/lime3ds-temp" --strip-components 1
+		mv "$HOME/Applications/lime3ds-temp/lime3ds-gui.AppImage" "$HOME/Applications"
+		rm -rf "$HOME/Applications/lime3ds-temp"
 		rm -rf "$HOME/Applications/lime3ds.tar.gz"
-		app_dir="$HOME/Applications"
-		old_name=$(find "$app_dir" -maxdepth 1 -type d -name "lime3ds-*-linux-appimage" | head -n 1)
-
-		if [ -n "$old_name" ]; then
-		  new_name="${app_dir}/lime3ds"
-		  mv "$old_name" "$new_name"
-		fi
-	   mv "$HOME/Applications/lime3ds/lime3ds-gui.AppImage" "$HOME/Applications/"
-	   chmod +x "$HOME/Applications/lime3ds-gui.AppImage"
-	   rm -rf "$HOME/Applications/lime3ds/"
+		chmod +x "$HOME/Applications/lime3ds-gui.AppImage"
 	else
 		return 1
 	fi
-
 }
 
 #ApplyInitialSettings
 Lime3DS_init(){
 	setMSG "Initializing $Lime3DS_emuName settings."
-	Lime3DS_migrateFromCitra
+	configEmuAI "$Lime3DS_emuName" "lime3ds-emu"  "$Lime3DS_configPath" "$EMUDECKGIT/configs/lime3ds" "true"
 	Lime3DS_setEmulationFolder
+	Lime3DS_setupStorage
 	Lime3DS_setupSaves
 	Lime3DS_addSteamInputProfile
 	Lime3DS_flushEmulatorLauncher
-	cp "$EMUDECKGIT/tools/launchers/lime3ds.sh" "$toolsPath/launchers/lime3ds.sh"
-	chmod +x "$toolsPath/launchers/lime3ds.sh"
-
-  	createDesktopShortcut   "$HOME/.local/share/applications/Lime3DS.desktop" \
-							"Lime3DS (AppImage)" \
-							"${toolsPath}/launchers/lime3ds.sh"  \
-							"False"
-
-	#ESDE Temp FIX
-	#ln -s "$HOME/Applications/lime3ds-gui.AppImage" "$HOME/Applications/lime-qt.AppImage"
-
-}
-
-Lime3DS_migrateFromCitra(){
-	if [ -d "$savesPath/citra" ]; then
-		mkdir -p "$savesPath/lime3ds/"
-		rsync -av --ignore-existing "$savesPath/citra/" "$savesPath/lime3ds/"
-	fi
+	Lime3DS_setupTextures
 }
 
 #update
 Lime3DS_update(){
 	setMSG "Updating $Lime3DS_emuName settings."
-	Lime3DS_init
+	configEmuAI "$Lime3DS_emuName" "lime3ds-emu"  "$Lime3DS_configPath" "$EMUDECKGIT/configs/lime3ds" 
+	Lime3DS_setupStorage
+	Lime3DS_setEmulationFolder
+	Lime3DS_setupSaves
+	Lime3DS_addSteamInputProfile
+	Lime3DS_flushEmulatorLauncher
+	Lime3DS_setupTextures
+}
+
+Lime3DS_setupStorage(){
+	mkdir -p "$storagePath/lime3ds/"
+
+	if [ ! -d "$storagePath/lime3ds/sdmc" ] && [ -d "$HOME/.var/app/io.github.lime3ds.Lime3DS" -o -d "$HOME/.local/share/lime3ds-emu" ]; then
+		echo "Lime3DS SDMC does not exist in storage path"
+
+		echo -e ""
+		setMSG "Copying Lime3DS SDMC to the Emulation/storage folder"
+		echo -e ""
+
+		mkdir -p "$storagePath/lime3ds"
+
+		if [ -d "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/sdmc" ]; then
+			rsync -av "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/sdmc" "$storagePath"/lime3ds/ && rm -rf "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/sdmc"
+
+		elif [ -d "$HOME/.local/share/lime3ds-emu/sdmc" ]; then
+			rsync -av "$HOME/.local/share/lime3ds-emu/sdmc" "$storagePath"/lime3ds/ && rm -rf "$HOME/.local/share/lime3ds-emu/sdmc"
+		else 
+			mkdir -p "$storagePath/lime3ds/sdmc"
+		fi
+	fi
+
+	if [ ! -d "$storagePath/lime3ds/sdmc" ] && [ ! -d "$HOME/.var/app/io.github.lime3ds.Lime3DS" -o ! -d "$HOME/.local/share/lime3ds-emu" ]; then
+		echo "Lime3DS SDMC does not exist in storage path and does not exist in the original Flatpak or AppImage paths"
+
+		echo -e ""
+		setMSG "Copying Citra SDMC to the Lime3DS SDMC folder"
+		echo -e ""
+
+		mkdir -p "$storagePath/lime3ds"
+
+
+		if [ -d "$storagePath/citra/sdmc" ]; then 
+			rsync -av "$storagePath/citra/sdmc" "$storagePath"/lime3ds
+		elif [ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" ]; then
+			rsync -av "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" "$storagePath"/lime3ds
+		elif [ -d "$HOME/.local/share/citra-emu/sdmc" ]; then
+			rsync -av "$HOME/.local/share/citra-emu/sdmc" "$storagePath"/lime3ds
+		else 
+			mkdir -p "$storagePath/citra/sdmc"
+		fi
+	else 
+		mkdir -p "$storagePath/lime3ds/sdmc"
+	fi
+
+	if [ ! -d "$storagePath/lime3ds/nand" ] && [ -d "$HOME/.var/app/io.github.lime3ds.Lime3DS" -o -d "$HOME/.local/share/lime3ds-emu" ]; then
+		echo "Lime3DS nand does not exist in storage path"
+
+		echo -e ""
+		setMSG "Copying Citra NAND to the Lime3DS NAND folder"
+		echo -e ""
+
+		mkdir -p "$storagePath/lime3ds"
+
+		if [ -d "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand" ]; then
+			rsync -av "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand" "$storagePath"/lime3ds/ && rm -rf "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand"
+
+		elif [ -d "$HOME/.local/share/lime3ds-emu/nand" ]; then
+			rsync -av "$HOME/.local/share/lime3ds-emu/nand" "$storagePath"/lime3ds/ && rm -rf "$HOME/.local/share/lime3ds-emu/nand"
+		else 
+			mkdir -p "$storagePath/lime3ds/nand"
+		fi
+	fi
+
+	if [ ! -d "$storagePath/lime3ds/nand" ] && [ ! -d "$HOME/.var/app/io.github.lime3ds.Lime3DS" -o ! -d "$HOME/.local/share/lime3ds-emu" ]; then
+		echo "Lime3DS nand does not exist in storage path and does not exist in the original Flatpak or AppImage paths"
+
+		echo -e ""
+		setMSG "Copying Citra nand to the Lime3DS folder"
+		echo -e ""
+
+		mkdir -p "$storagePath/lime3ds"
+
+
+		if [ -d "$storagePath/citra/nand" ]; then 
+			rsync -av "$storagePath/citra/nand" "$storagePath"/lime3ds
+		elif [ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand" ]; then
+			rsync -av "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand" "$storagePath"/lime3ds
+		elif [ -d "$HOME/.local/share/citra-emu/nand" ]; then
+			rsync -av "$HOME/.local/share/citra-emu/nand" "$storagePath"/lime3ds
+		else 
+			mkdir -p "$storagePath/citra/nand"
+		fi
+	else 
+		mkdir -p "$storagePath/lime3ds/nand"
+	fi
+
+	# Cheats and Texture Packs
+	# Cheats
+	mkdir -p "$HOME/.local/share/lime3ds-emu/cheats"
+	linkToStorageFolder lime3ds cheats "$HOME/.local/share/lime3ds-emu/cheats"
+	# Texture Pack
+	mkdir -p "$HOME/.local/share/lime3ds-emu/load/textures"
+	linkToStorageFolder lime3ds textures "$HOME/.local/share/lime3ds-emu/load/textures"
 }
 
 #ConfigurePaths
 Lime3DS_setEmulationFolder(){
 	setMSG "Setting $Lime3DS_emuName Emulation Folder"
 
+	mkdir -p "$Lime3DS_configPath"
+	gameDirOpt='Paths\\gamedirs\\3\\path='
+	newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/n3ds"
+	sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Lime3DS_configFile"
 
-	if [ -e "$Lime3DS_emuPath" ]; then
+	nandDirOpt='nand_directory='
+	newnandDirOpt='nand_directory='"$storagePath/lime3ds/nand/"
+	sed -i "/${nandDirOpt}/c\\${newnandDirOpt}" "$Lime3DS_configFile"
 
-		echo "AppImage found. Setting configurations."
+	sdmcDirOpt='sdmc_directory='
+	newsdmcDirOpt='sdmc_directory='"$storagePath/lime3ds/sdmc/"
+	sed -i "/${sdmcDirOpt}/c\\${newsdmcDirOpt}" "$Lime3DS_configFile"
 
-		mkdir -p "$Lime3DS_configPath"
-		rsync -avhp "$EMUDECKGIT/configs/lime3ds/config/citra-emu/qt-config.ini" "$Lime3DS_configPath/qt-config.ini" --backup --suffix=.bak
-		gameDirOpt='Paths\\gamedirs\\3\\path='
-		newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/n3ds"
-		sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Lime3DS_configFile"
+	mkdir -p "$storagePath/lime3ds/screenshots/"
+	screenshotsDirOpt='Paths\\screenshotPath='
+	newscreenshotDirOpt='Paths\\screenshotPath='"$storagePath/lime3ds/screenshots/"
+	sed -i "/${screenshotsDirOpt}/c\\${newscreenshotDirOpt}" "$Lime3DS_configFile"
 
-		nandDirOpt='nand_directory='
-		newnandDirOpt='nand_directory='"$HOME/.local/share/citra-emu/nand/"
-		sed -i "/${nandDirOpt}/c\\${newnandDirOpt}" "$Lime3DS_configFile"
+	# True/False configs
+	sed -i 's/nand_directory\\default=true/nand_directory\\default=false/' "$Lime3DS_configFile"
+	sed -i 's/sdmc_directory\\default=true/sdmc_directory\\default=false/' "$Lime3DS_configFile"
+	sed -i 's/use_custom_storage=false/use_custom_storage=true/' "$Lime3DS_configFile"
+	sed -i 's/use_custom_storage\\default=true/use_custom_storage\\default=false/' "$Lime3DS_configFile"
 
-		sdmcDirOpt='sdmc_directory='
-		newsdmcDirOpt='sdmc_directory='"$HOME/.local/share/citra-emu/sdmc/"
-		sed -i "/${sdmcDirOpt}/c\\${newsdmcDirOpt}" "$Lime3DS_configFile"
+	# Vulkan Graphics
+	sed -E 's/layout_option=[0-9]+/layout_option=5/g' "$Lime3DS_configFile"
+	sed -i 's/layout_option\\default=true/layout_option\\default=false/' "$Lime3DS_configFile"
 
-		screenshotsDirOpt='Paths\\screenshotPath='
-		newscreenshotDirOpt='Paths\\screenshotPath='"$HOME/.local/share/citra-emu/screenshots/"
-		sed -i "/${screenshotsDirOpt}/c\\${newscreenshotDirOpt}" "$Lime3DS_configFile"
-
-		#Setup symlink for AES keys
-		mkdir -p "${biosPath}/Lime3DS/"
-		mkdir -p "$HOME/.local/share/citra-emu/sysdata"
-		ln -sn "$HOME/.local/share/citra-emu/sysdata" "${biosPath}/Lime3DS/keys"
-
-	else
-		echo "AppImage not found."
-	fi
-
+	#Setup symlink for AES keys
+	mkdir -p "${biosPath}/lime3ds/"
+	mkdir -p "$HOME/.local/share/lime3ds-emu/sysdata"
+	ln -sn "$HOME/.local/share/lime3ds-emu/sysdata" "${biosPath}/lime3ds/keys"
 
 }
+
+
 
 #SetupSaves
 Lime3DS_setupSaves(){
-	linkToSaveFolder lime3ds saves "$HOME/.local/share/citra-emu/sdmc"
-	linkToSaveFolder lime3ds states "$HOME/.local/share/citra-emu/states"
+	mkdir -p "$HOME/.local/share/lime3ds-emu/states"
+	linkToSaveFolder lime3ds saves "$storagePath/lime3ds/sdmc"
+	linkToSaveFolder lime3ds states "$HOME/.local/share/lime3ds-emu/states"
 }
 
+#Set up textures
 
+Lime3DS_setupTextures(){
+	mkdir -p "$HOME/.local/share/lime3ds-emu/load/textures"
+	linkToTexturesFolder lime3ds textures "$HOME/.local/share/lime3ds-emu/load/textures"
+	
+}
 
 #WipeSettings
 Lime3DS_wipe(){
 	setMSG "Wiping $Lime3DS_emuName config directory. (factory reset)"
-	rm -rf "$HOME/.config/citra-emu"
+	rm -rf "$HOME/.config/lime3ds-emu"
 }
 
 
 #Uninstall
 Lime3DS_uninstall(){
 	setMSG "Uninstalling $Lime3DS_emuName."
-	cd $HOME/.Lime3DS && ./maintenancetool purge
+	uninstallEmuAI $Lime3DS_emuName "lime3ds" "" "emulator"
 }
 
-#setABXYstyle
 #setABXYstyle
 Lime3DS_setABXYstyle(){
 	sed -i '/button_a/s/button:1/button:0/' "$Lime3DS_configFile"
@@ -146,26 +227,6 @@ Lime3DS_setBAYXstyle(){
 	sed -i '/button_b/s/button:1/button:0/' "$Lime3DS_configFile"
 	sed -i '/button_x/s/button:2/button:3/' "$Lime3DS_configFile"
 	sed -i '/button_y/s/button:3/button:2/' "$Lime3DS_configFile"
-}
-
-#WideScreenOn
-Lime3DS_wideScreenOn(){
-echo "NYI"
-}
-
-#WideScreenOff
-Lime3DS_wideScreenOff(){
-echo "NYI"
-}
-
-#BezelOn
-Lime3DS_bezelOn(){
-echo "NYI"
-}
-
-#BezelOff
-Lime3DS_bezelOff(){
-echo "NYI"
 }
 
 #finalExec - Extra stuff
@@ -193,7 +254,7 @@ Lime3DS_addSteamInputProfile(){
 }
 
 Lime3DS_setResolution(){
-	case $Lime3DSResolution in
+	case $lime3dsResolution in
 		"720P") multiplier=3;;
 		"1080P") multiplier=5;;
 		"1440P") multiplier=6;;
@@ -205,5 +266,10 @@ Lime3DS_setResolution(){
 }
 
 Lime3DS_flushEmulatorLauncher(){
-	flushEmulatorLaunchers "Lime3DS"
+
+
+	flushEmulatorLaunchers "lime3ds"
+
 }
+
+
