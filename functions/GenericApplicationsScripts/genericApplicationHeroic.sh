@@ -10,7 +10,7 @@ Heroic_install() {
 	setMSG "Installing $Heroic_emuName."
 
     local showProgress=$1
-	installEmuAI "$Heroic_emuName" "$(getReleaseURLGH "Heroic-Games-Launcher/HeroicGamesLauncher" ".AppImage")" "" "" "genericapplication" "$showProgress"
+	installEmuAI "$Heroic_emuName" "" "$(getReleaseURLGH "Heroic-Games-Launcher/HeroicGamesLauncher" ".AppImage")" "" "" "genericapplication" "$showProgress"
 }
 
 # ApplyInitialSettings

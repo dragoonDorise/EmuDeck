@@ -138,18 +138,18 @@ runRPSSettings()
 	((progresspct += pct)) || true
 	echo "$progresspct"
 
-	if [[ "${arrChosen[*]}" =~ "Chiaki4deck" ]]; then
-		if [[ $(Chiaki4deck_IsInstalled) == "true" ]]; then
-			echo "# Updating Chiaki4deck"
-			Chiaki4deck_update &>/dev/null
+	if [[ "${arrChosen[*]}" =~ "Chiaking" ]]; then
+		if [[ $(Chiaking_IsInstalled) == "true" ]]; then
+			echo "# Updating Chiaking"
+			Chiaking_update &>/dev/null
 		else
-			echo "# Installing Chiaki4deck"
-			Chiaki4deck_install &>/dev/null
+			echo "# Installing Chiaking"
+			Chiaking_install &>/dev/null
 			echo "ok"
 		fi
 	else
-		echo "# Uninstalling Chiaki4deck"
-		Chiaki4deck_uninstall &>/dev/null
+		echo "# Uninstalling Chiaking"
+		Chiaking_uninstall &>/dev/null
 	fi
 	((progresspct += pct)) || true
 	echo "$progresspct"
@@ -333,7 +333,7 @@ manageRPSMenu() {
 	declare -a arrAllRP=()
 
 	arrAllRP+=( $(Chiaki_IsInstalled) "Chiaki")
-	arrAllRP+=( $(Chiaki4deck_IsInstalled) "Chiaki4deck")
+	arrAllRP+=( $(Chiaking_IsInstalled) "Chiaking")
 	arrAllRP+=( $(Greenlight_IsInstalled) "Greenlight")
 	arrAllRP+=( $(Moonlight_IsInstalled) "Moonlight")
 	arrAllRP+=( $(Parsec_IsInstalled) "Parsec")
