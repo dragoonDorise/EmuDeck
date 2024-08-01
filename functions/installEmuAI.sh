@@ -1,13 +1,14 @@
 #!/bin/bash
 installEmuAI(){
     local name="$1"
-    local url="$2"
-    local fileName="$3"
-    local format="$4"
-    local type="$5"
-    local showProgress="$6"
-    local lastVerFile="$7"
-    local latestVer="$8"
+    local scriptName="$2"
+    local url="$3"
+    local fileName="$4"
+    local format="$5"
+    local type="$6"
+    local showProgress="$7"
+    local lastVerFile="$8"
+    local latestVer="$9"
 
     if [[ -z "$fileName" ]]; then
         fileName="$name"
@@ -15,6 +16,10 @@ installEmuAI(){
 
     if [[ -z "$format" ]]; then
         format="AppImage"
+    fi
+
+    if [[ -z "$scriptName" ]]; then
+        scriptName="$name"
     fi
 
 	if [[ "$type" == "emulator" ]]; then
@@ -29,13 +34,14 @@ installEmuAI(){
 	fi
 
     echo "1, Application Name: $name"
-    echo "2, Application URL: $url"
-    echo "3, Application Filename: $fileName"
-    echo "4, Application File Format: $format"
-    echo "5, Application Type: $type"
-    echo "6, Progress: $showProgress"
-    echo "7, Last Version File: $lastVerFile"
-    echo "8, Last Version: $latestVer"
+	echo "2, AppImage Script Name: $scriptName"
+    echo "3, Application URL: $url"
+    echo "4, Application Filename: $fileName"
+    echo "5, Application File Format: $format"
+    echo "6, Application Type: $type"
+    echo "7, Progress: $showProgress"
+    echo "8, Last Version File: $lastVerFile"
+    echo "9, Last Version: $latestVer"
 
 
     #rm -f "$HOME/Applications/$fileName.$format" # mv in safeDownload will overwrite...
@@ -52,7 +58,7 @@ installEmuAI(){
         return 1
     fi
 
-    shName=$(echo "$name" | awk '{print tolower($0)}')  
+    shName=$(echo "$scriptName" | awk '{print tolower($0)}')  
     mkdir -p "${romsPath}/emulators"
     mkdir -p "$launcherPath"
     find "${launcherPath}/" "${romsPath}/emulators" -maxdepth 1 -type f \( -iname "$shName.sh" -o -iname "$shName-emu.sh" \) | \

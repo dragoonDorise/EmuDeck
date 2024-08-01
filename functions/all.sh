@@ -111,7 +111,7 @@ source "$EMUDECKGIT"/functions/GenericApplicationsScripts/genericApplicationTida
 
 #remoteplayclientscripts
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh
-source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki4deck.sh
+source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaking.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayGreenlight.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayMoonlight.sh
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayParsec.sh
