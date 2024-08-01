@@ -12,7 +12,7 @@ ShadowPC_install() {
 
     local showProgress=$1
 	#local installShadowPC=$(wget -q $ShadowPC_releaseURL -P $ShadowPC_emuPath)
-	installEmuAI "$ShadowPC_emuName" $ShadowPC_releaseURL "" "" "remoteplay" "$showProgress"
+	installEmuAI "$ShadowPC_emuName" "" $ShadowPC_releaseURL "" "" "remoteplay" "$showProgress"
 }
 
 # ApplyInitialSettings

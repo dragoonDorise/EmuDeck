@@ -11,7 +11,7 @@ Greenlight_install() {
     echo "Begin Greenlight Install"
 
 	local showProgress="$1"
-	installEmuAI "$Greenlight_emuName" "$(getReleaseURLGH "unknownskl/greenlight" ".AppImage")" "" "" "remoteplay" "$showProgress"
+	installEmuAI "$Greenlight_emuName" "" "$(getReleaseURLGH "unknownskl/greenlight" ".AppImage")" "" "" "remoteplay" "$showProgress"
 	
 }
 
