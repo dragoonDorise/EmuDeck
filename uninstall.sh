@@ -134,6 +134,116 @@ else
 	echo -e "No"
 fi
 
+	if find "$romsPath/remoteplay" -type f -name "*.sh" | grep -q .; then
+
+		RPUninstall=$(zenity --list  \
+			--title="Remote Play Clients" \
+			--text="The EmuDeck uninstaller has detected you have installed Remote Play Clients using the Cloud Services Manager. \n\n Any checked items on this list will remain installed. \n\nAny unchecked items will be uninstalled. \n\nSelect which remote play clients you would like to keep installed." \
+			--ok-label="OK" --cancel-label="Exit" \
+			--column="" --column="Leave unchecked to uninstall." \
+			--width=500 --height=500 --checklist \
+			1 "Chiaki Remote Play Client"  \
+			2 "chiaki-ng" \
+			3 "Greenlight" \
+			4 "Moonlight Game Streaming" \
+			5 "Parsec" \
+			6 "ShadowPC" \
+			7 "Steam Link" )
+
+		if [[ "$RPUninstall" != *"Chiaki Remote Play Client"* ]]; then
+			flatpak uninstall re.chiaki.Chiaki -y
+			rm -f "$romsPath/remoteplay/Chiaki Remote Play Client.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/re.chiaki.Chiaki" &> /dev/null
+		fi 
+
+		if [[ "$RPUninstall" != *"chiaki-ng"* ]]; then	
+			rm -f "$HOME/Applications/chiaki-ng.AppImage" &> /dev/null
+			rm -rf "$HOME/.config/Chiaki/" &> /dev/null
+			rm -rf "$HOME/.cache/Chiaki/" &> /dev/null
+			rm -f "$romsPath/remoteplay/chiaki-ng.sh" &> /dev/null
+			rm -rf "$HOME/.local/share/applications/chiaki-ng.desktop" &> /dev/null
+		fi 
+
+		if [[ "$RPUninstall" != *"Greenlight"* ]]; then	
+			rm -f "$HOME/Applications/Greenlight.AppImage" &> /dev/null
+			rm -f "$romsPath/remoteplay/Greenlight.sh" &> /dev/null
+			rm -rf "$HOME/.config/greenlight/" &> /dev/null
+			rm -rf "$HOME/.local/share/applications/Greenlight.desktop" &> /dev/null
+		fi 
+
+		if [[ "$RPUninstall" != *"Moonlight Game Streaming"* ]]; then	
+			flatpak uninstall com.moonlight_stream.Moonlight -y
+			rm -f "$romsPath/remoteplay/Moonlight Game Streaming.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/com.moonlight_stream.Moonlight" &> /dev/null
+		fi 
+
+		if [[ "$RPUninstall" != *"Parsec"* ]]; then	
+			flatpak uninstall com.parsecgaming.parsec -y
+			rm -f "$romsPath/remoteplay/Parsec.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/com.parsecgaming.parsec" &> /dev/null
+		fi 
+
+		if [[ "$RPUninstall" != *"ShadowPC"* ]]; then	
+			rm -f "$HOME/Applications/ShadowPC.AppImage" &> /dev/null
+			rm -f "$romsPath/remoteplay/ShadowPC.sh" &> /dev/null
+			rm -rf "$HOME/.config/shadow/" &> /dev/null
+			rm -rf "$HOME/.local/share/applications/ShadowPC.desktop" &> /dev/null
+		fi 
+
+		if [[ "$RPUninstall" != *"Steam Link"* ]]; then	
+			flatpak uninstall com.valvesoftware.SteamLink -y
+			rm -f "$romsPath/remoteplay/SteamLink.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/com.valvesoftware.SteamLink" &> /dev/null
+		fi 
+
+	fi 
+	
+	if find "$romsPath/generic-applications" -type f -name "*.sh" | grep -q .; then
+
+		GAUninstall=$(zenity --list  \
+			--title="Generic Applications" \
+			--text="The EmuDeck uninstaller has detected you have installed Generic Applications using the Cloud Services Manager. \n\n Any checked items on this list will remain installed. \n\nAny unchecked items will be uninstalled. \n\nSelect which remote play clients you would like to keep installed." \
+			--ok-label="OK" --cancel-label="Exit" \
+			--column="" --column="Leave unchecked to uninstall." \
+			--width=500 --height=500 --checklist \
+			1 "Cider"  \
+			2 "Heroic Games Launcher" \
+			3 "Plexamp" \
+			4 "Spotify" \
+			5 "Tidal" )
+
+		if [[ "$GAUninstall" != *"Cider"* ]]; then	
+			flatpak uninstall sh.cider.Cider -y
+			rm -f "$romsPath/generic-applications/Cider.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/sh.cider.Cider" &> /dev/null
+		fi 
+
+		if [[ "$GAUninstall" != *"Heroic Games Launcher"* ]]; then
+			rm -f "$HOME/Applications/Heroic-Games-Launcher.AppImage" &> /dev/null
+			rm -f "$romsPath/generic-applications/Heroic-Games-Launcher.sh" &> /dev/null
+			rm -rf "$HOME/.config/heroic/" &> /dev/null
+			rm -rf "$HOME/.local/share/applications/Heroic-Games-Launcher.desktop" &> /dev/null
+		fi 
+
+		if [[ "$GAUninstall" != *"Plexamp"* ]]; then	
+			flatpak uninstall com.plexamp.Plexamp -y
+			rm -f "$romsPath/generic-applications/Plexamp.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/com.plexamp.Plexamp" &> /dev/null
+		fi 
+
+		if [[ "$GAUninstall" != *"Spotify"* ]]; then	
+			flatpak uninstall com.spotify.Client -y
+			rm -f "$romsPath/generic-applications/Spotify.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/com.spotify.Client" &> /dev/null
+		fi 
+
+		if [[ "$GAUninstall" != *"Tidal"* ]]; then	
+			flatpak uninstall com.mastermindzh.tidal-hifi -y
+			rm -f "$romsPath/generic-applications/Tidal.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/com.mastermindzh.tidal-hifi" &> /dev/null
+		fi 
+
+	fi 
 
 
 	#Emulator selector
@@ -414,111 +524,7 @@ fi
 	fi
 
 
-	if find "$romsPath/remoteplay" -type f -name "*.sh" | grep -q .; then
 
-		RPUninstall=$(zenity --list  \
-			--title="Remote Play Clients" \
-			--text="The EmuDeck uninstaller has detected you have installed Remote Play Clients using the Cloud Services Manager. \n\n Any checked items on this list will remain installed. \n\nAny unchecked items will be uninstalled. \n\nSelect which remote play clients you would like to keep installed." \
-			--ok-label="OK" --cancel-label="Exit" \
-			--column="" --column="Leave unchecked to uninstall." \
-			--width=500 --height=500 --checklist \
-			1 "Chiaki Remote Play Client"  \
-			2 "chiaki-ng" \
-			3 "Greenlight" \
-			4 "Moonlight Game Streaming" \
-			5 "Parsec" \
-			6 "ShadowPC" \
-			7 "Steam Link" )
-
-		if [[ "$RPUninstall" != *"Chiaki Remote Play Client"* ]]; then
-			flatpak uninstall re.chiaki.Chiaki -y
-			rm -f "$romsPath/remoteplay/Chiaki Remote Play Client.sh" &> /dev/null
-			rm -rf "$HOME/.var/app/re.chiaki.Chiaki" &> /dev/null
-		fi 
-
-		if [[ "$RPUninstall" != *"chiaki-ng"* ]]; then	
-			rm -f "$HOME/Applications/chiaki-ng.AppImage" &> /dev/null
-			rm -f "$romsPath/remoteplay/chiaki-ng.sh" &> /dev/null
-			rm -rf "$HOME/.local/share/applications/chiaki-ng.desktop" &> /dev/null
-		fi 
-
-		if [[ "$RPUninstall" != *"Greenlight"* ]]; then	
-			rm -f "$HOME/Applications/Greenlight.AppImage" &> /dev/null
-			rm -f "$romsPath/remoteplay/Greenlight.sh" &> /dev/null
-			rm -rf "$HOME/.local/share/applications/Greenlight.desktop" &> /dev/null
-		fi 
-
-		if [[ "$RPUninstall" != *"Moonlight Game Streaming"* ]]; then	
-			flatpak uninstall com.moonlight_stream.Moonlight -y
-			rm -f "$romsPath/remoteplay/Moonlight Game Streaming.sh" &> /dev/null
-			rm -rf "$HOME/.var/app/com.moonlight_stream.Moonlight" &> /dev/null
-		fi 
-
-		if [[ "$RPUninstall" != *"Parsec"* ]]; then	
-			flatpak uninstall com.parsecgaming.parsec -y
-			rm -f "$romsPath/remoteplay/Parsec.sh" &> /dev/null
-			rm -rf "$HOME/.var/app/com.parsecgaming.parsec" &> /dev/null
-		fi 
-
-		if [[ "$RPUninstall" != *"ShadowPC"* ]]; then	
-			rm -f "$HOME/Applications/ShadowPC.AppImage" &> /dev/null
-			rm -f "$romsPath/remoteplay/ShadowPC.sh" &> /dev/null
-			rm -rf "$HOME/.local/share/applications/ShadowPC.desktop" &> /dev/null
-		fi 
-
-		if [[ "$RPUninstall" != *"Steam Link"* ]]; then	
-			flatpak uninstall com.valvesoftware.SteamLink -y
-			rm -f "$romsPath/remoteplay/SteamLink.sh" &> /dev/null
-			rm -rf "$HOME/.var/app/com.valvesoftware.SteamLink" &> /dev/null
-		fi 
-
-	fi 
-	
-	if find "$romsPath/generic-applications" -type f -name "*.sh" | grep -q .; then
-
-		GAUninstall=$(zenity --list  \
-			--title="Generic Applications" \
-			--text="The EmuDeck uninstaller has detected you have installed Generic Applications using the Cloud Services Manager. \n\n Any checked items on this list will remain installed. \n\nAny unchecked items will be uninstalled. \n\nSelect which remote play clients you would like to keep installed." \
-			--ok-label="OK" --cancel-label="Exit" \
-			--column="" --column="Leave unchecked to uninstall." \
-			--width=500 --height=500 --checklist \
-			1 "Cider"  \
-			2 "Heroic Games Launcher" \
-			3 "Plexamp" \
-			4 "Spotify" \
-			5 "Tidal" )
-
-		if [[ "$GAUninstall" != *"Cider"* ]]; then	
-			flatpak uninstall sh.cider.Cider -y
-			rm -f "$romsPath/generic-applications/Cider.sh" &> /dev/null
-			rm -rf "$HOME/.var/app/sh.cider.Cider" &> /dev/null
-		fi 
-
-		if [[ "$GAUninstall" != *"Heroic Games Launcher"* ]]; then
-			rm -f "$HOME/Applications/Heroic-Games-Launcher.AppImage" &> /dev/null
-			rm -f "$romsPath/generic-applications/Heroic-Games-Launcher.sh" &> /dev/null
-			rm -rf "$HOME/.local/share/applications/Heroic-Games-Launcher.desktop" &> /dev/null
-		fi 
-
-		if [[ "$GAUninstall" != *"Plexamp"* ]]; then	
-			flatpak uninstall com.plexamp.Plexamp -y
-			rm -f "$romsPath/generic-applications/Plexamp.sh" &> /dev/null
-			rm -rf "$HOME/.var/app/com.plexamp.Plexamp" &> /dev/null
-		fi 
-
-		if [[ "$GAUninstall" != *"Spotify"* ]]; then	
-			flatpak uninstall com.spotify.Client -y
-			rm -f "$romsPath/generic-applications/Spotify.sh" &> /dev/null
-			rm -rf "$HOME/.var/app/com.spotify.Client" &> /dev/null
-		fi 
-
-		if [[ "$GAUninstall" != *"Tidal"* ]]; then	
-			flatpak uninstall com.mastermindzh.tidal-hifi -y
-			rm -f "$romsPath/generic-applications/Tidal.sh" &> /dev/null
-			rm -rf "$HOME/.var/app/com.mastermindzh.tidal-hifi" &> /dev/null
-		fi 
-
-	fi 
 
 
 	echo "55"
