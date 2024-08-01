@@ -75,7 +75,10 @@ Citra_setupStorage(){
 		else 
 			mkdir -p "$storagePath/citra/sdmc"
 		fi
+	else 
+		mkdir -p "$storagePath/citra/sdmc"
 	fi
+
 
 	if [ ! -d "$storagePath/citra/nand" ] && [ -d "$HOME/.var/app/org.citra_emu.citra" -o -d "$HOME/.local/share/citra-emu" ]; then
 		echo "Citra NAND does not exist in storage path"
@@ -97,6 +100,8 @@ Citra_setupStorage(){
 		else 
 			mkdir -p "$storagePath/citra/nand"
 		fi
+	else 
+		mkdir -p "$storagePath/citra/nand"
 	fi
 
 	# Cheats and Texture Packs

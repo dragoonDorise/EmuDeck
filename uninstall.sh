@@ -11,6 +11,7 @@ doUninstallDolphin=true
 doUninstallDuck=true
 doUninstallESDE=true
 doUninstallFlycast=true
+doUninstallLime3DS=true
 doUninstallMame=true
 doUninstallmelonDS=true
 doUninstallMGBA=true
@@ -156,23 +157,24 @@ fi
 				6 "Dolphin" \
 				7 "Duckstation" \
 				8 "Flycast" \
-				9 "Mame"  \
-				10 "melonDS"  \
-				11 "mGBA"  \
-				12 "Model2" \
-				13 "PCSX2" \
-				14 "PPSSPP" \
-				15 "PrimeHack" \
-				16 "RetroArch"\
-				17 "RMG"  \
-				18 "RPCS3" \
-				19 "Ryujinx" \
-				20 "ScummVM" \
-				21 "Supermodel" \
-				22 "Vita3K"  \
-				23 "Xemu" \
-				24 "Xenia"  \
-				25 "Yuzu" )
+				9 "Lime3DS" \
+				10 "Mame"  \
+				11 "melonDS"  \
+				12 "mGBA"  \
+				13 "Model2" \
+				14 "PCSX2" \
+				15 "PPSSPP" \
+				16 "PrimeHack" \
+				17 "RetroArch"\
+				18 "RMG"  \
+				19 "RPCS3" \
+				20 "Ryujinx" \
+				21 "ScummVM" \
+				22 "Supermodel" \
+				23 "Vita3K"  \
+				24 "Xemu" \
+				25 "Xenia"  \
+				26 "Yuzu" )
 
 	ans=$?
 
@@ -201,6 +203,9 @@ fi
 		fi
 		if [[ "$emusToUninstall" == *"Flycast"* ]]; then
 			doUninstallFlycast=false
+		fi
+		if [[ "$emusToUninstall" == *"Lime3DS"* ]]; then
+			doUninstallLime3DS=false
 		fi
 		if [[ "$emusToUninstall" == *"Mame"* ]]; then
 			doUninstallMame=false
@@ -288,9 +293,9 @@ fi
 		flatpak uninstall org.citra_emu.citra -y
 		rm -rf $HOME/.var/app/org.citra_emu.citra &> /dev/null
   		rm -rf $HOME/.local/share/applications/Citra.desktop &> /dev/null
-    		rm -rf $HOME/Applications/citra-qt*.AppImage &> /dev/null
+		rm -rf $HOME/Applications/citra-qt*.AppImage &> /dev/null
 		rm -rf $HOME/.local/share/citra-emu &> /dev/null
-    		rm -rf $HOME/.config/citra-emu &> /dev/null
+		rm -rf $HOME/.config/citra-emu &> /dev/null
 	fi
 	if [[ "$doUninstallDolphin" == true ]]; then
 		flatpak uninstall org.DolphinEmu.dolphin-emu -y
@@ -303,6 +308,12 @@ fi
 	if [[ "$doUninstallFlycast" == true ]]; then
 		flatpak uninstall org.flycast.Flycast -y
 		rm -rf $HOME/.var/app/org.flycast.Flycast &> /dev/null
+	fi 
+	if [[ "$doUninstallLime3DS" == true ]]; then
+		rm -rf $HOME/.config/lime3ds-emu/ &> /dev/null
+		rm -rf $HOME/.local/share/lime3ds-emu &> /dev/null
+  		rm -rf $HOME/.local/share/applications/Lime3DS.desktop &> /dev/null
+		rm -rf $HOME/Applications/lime3ds-gui*.AppImage &> /dev/null
 	fi
 	if [[ "$doUninstallMame" == true ]]; then
 		flatpak uninstall org.mamedev.MAME -y
