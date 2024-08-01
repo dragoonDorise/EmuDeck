@@ -156,7 +156,7 @@ saveImage(){
     local url=$1
     local name=$2
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local dest_folder="$accountfolder/config/grid/emudeck/"
-    local dest_path="$dest_folder$game.jpg"
+    local dest_folder="$accountfolder/config/grid/emudeck"
+    local dest_path="$dest_folder/$name.jpg"
     wget -q -O "$dest_path" "$url"
 }
