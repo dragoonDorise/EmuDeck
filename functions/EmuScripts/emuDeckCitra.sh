@@ -12,7 +12,7 @@ Citra_texturesPath="$HOME/.config/citra-emu/load/textures"
 Citra_install(){
 	echo "Begin $Citra_emuName Install"
 	local showProgress="$1"
-	if installEmuAI "$Citra_emuName" "$(getReleaseURLGH "PabloMK7/citra" "tar.gz" "" "appimage")" "citra" "tar.gz" "emulator" "$showProgress"; then #citra-qt.AppImage
+	if installEmuAI "$Citra_emuName" "" "$(getReleaseURLGH "PabloMK7/citra" "tar.gz" "" "appimage")" "citra" "tar.gz" "emulator" "$showProgress"; then #citra-qt.AppImage
 		mkdir "$HOME/Applications/citra-temp"
 		tar -xvzf "$HOME/Applications/citra.tar.gz" -C "$HOME/Applications/citra-temp" --strip-components 1
 		mv "$HOME/Applications/citra-temp/citra-qt.AppImage" "$HOME/Applications"
@@ -75,7 +75,10 @@ Citra_setupStorage(){
 		else 
 			mkdir -p "$storagePath/citra/sdmc"
 		fi
+	else 
+		mkdir -p "$storagePath/citra/sdmc"
 	fi
+
 
 	if [ ! -d "$storagePath/citra/nand" ] && [ -d "$HOME/.var/app/org.citra_emu.citra" -o -d "$HOME/.local/share/citra-emu" ]; then
 		echo "Citra NAND does not exist in storage path"
@@ -97,6 +100,8 @@ Citra_setupStorage(){
 		else 
 			mkdir -p "$storagePath/citra/nand"
 		fi
+	else 
+		mkdir -p "$storagePath/citra/nand"
 	fi
 
 	# Cheats and Texture Packs

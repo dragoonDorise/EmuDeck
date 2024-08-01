@@ -16,7 +16,7 @@ PCSX2QT_install() {
 	local showProgress="$1"
 
 	#if installEmuAI "${PCSX2QT_emuName}" "https://github.com/PCSX2/pcsx2/releases/download/v1.7.4749/pcsx2-v1.7.4749-linux-appimage-x64-Qt.AppImage" "pcsx2-Qt" "$showProgress"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
-	if installEmuAI "${PCSX2QT_emuName}" "$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")" "pcsx2-Qt" "" "emulator" "$showProgress"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
+	if installEmuAI "${PCSX2QT_emuName}" "" "$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")" "pcsx2-Qt" "" "emulator" "$showProgress"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
 		rm -rf $HOME/.local/share/applications/pcsx2-Qt.desktop &>/dev/null # delete old shortcut
 	else
 		return 1
