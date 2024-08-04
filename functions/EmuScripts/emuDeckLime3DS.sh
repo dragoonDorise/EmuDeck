@@ -62,11 +62,11 @@ Lime3DS_setupStorage(){
 
 
 		if [ -d "$storagePath/citra/sdmc" ]; then 
-			rsync -av "$storagePath/citra/sdmc" "$storagePath"/lime3ds
+			rsync -av "$storagePath/citra/sdmc" "$storagePath"/lime3ds --ignore-existing
 		elif [ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" ]; then
-			rsync -av "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" "$storagePath"/lime3ds
+			rsync -av "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" "$storagePath"/lime3ds --ignore-existing
 		elif [ -d "$HOME/.local/share/citra-emu/sdmc" ]; then
-			rsync -av "$HOME/.local/share/citra-emu/sdmc" "$storagePath"/lime3ds
+			rsync -av "$HOME/.local/share/citra-emu/sdmc" "$storagePath"/lime3ds --ignore-existing
 		else 
 			mkdir -p "$storagePath/citra/sdmc"
 		fi
@@ -83,10 +83,10 @@ Lime3DS_setupStorage(){
 		mkdir -p "$storagePath/lime3ds"
 
 		if [ -d "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/sdmc" ]; then
-			rsync -av "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/sdmc" "$storagePath"/lime3ds/ && rm -rf "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/sdmc"
+			rsync -av "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/sdmc" "$storagePath"/lime3ds/ && rm -rf "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/sdmc" --ignore-existing
 
 		elif [ -d "$HOME/.local/share/lime3ds-emu/sdmc" ]; then
-			rsync -av "$HOME/.local/share/lime3ds-emu/sdmc" "$storagePath"/lime3ds/ && rm -rf "$HOME/.local/share/lime3ds-emu/sdmc"
+			rsync -av "$HOME/.local/share/lime3ds-emu/sdmc" "$storagePath"/lime3ds/ && rm -rf "$HOME/.local/share/lime3ds-emu/sdmc" --ignore-existing
 		else 
 			mkdir -p "$storagePath/lime3ds/sdmc"
 		fi
@@ -107,11 +107,11 @@ Lime3DS_setupStorage(){
 
 
 		if [ -d "$storagePath/citra/nand" ]; then 
-			rsync -av "$storagePath/citra/nand" "$storagePath"/lime3ds
+			rsync -av "$storagePath/citra/nand" "$storagePath"/lime3ds --ignore-existing
 		elif [ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand" ]; then
-			rsync -av "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand" "$storagePath"/lime3ds
+			rsync -av "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand" "$storagePath"/lime3ds --ignore-existing
 		elif [ -d "$HOME/.local/share/citra-emu/nand" ]; then
-			rsync -av "$HOME/.local/share/citra-emu/nand" "$storagePath"/lime3ds
+			rsync -av "$HOME/.local/share/citra-emu/nand" "$storagePath"/lime3ds --ignore-existing
 		else 
 			mkdir -p "$storagePath/citra/nand"
 		fi
@@ -129,10 +129,10 @@ Lime3DS_setupStorage(){
 		mkdir -p "$storagePath/lime3ds"
 
 		if [ -d "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand" ]; then
-			rsync -av "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand" "$storagePath"/lime3ds/ && rm -rf "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand"
+			rsync -av "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand" "$storagePath"/lime3ds/ && rm -rf "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand" --ignore-existing
 
 		elif [ -d "$HOME/.local/share/lime3ds-emu/nand" ]; then
-			rsync -av "$HOME/.local/share/lime3ds-emu/nand" "$storagePath"/lime3ds/ && rm -rf "$HOME/.local/share/lime3ds-emu/nand"
+			rsync -av "$HOME/.local/share/lime3ds-emu/nand" "$storagePath"/lime3ds/ && rm -rf "$HOME/.local/share/lime3ds-emu/nand" --ignore-existing
 		else 
 			mkdir -p "$storagePath/lime3ds/nand"
 		fi
