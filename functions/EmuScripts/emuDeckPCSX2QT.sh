@@ -69,6 +69,7 @@ PCSX2QT_setEmulationFolder() {
 
 	iniFieldUpdate "$PCSX2QT_configFile" "UI" "ConfirmShutdown" "false"
  	iniFieldUpdate "$PCSX2QT_configFile" "UI" "SetupWizardIncomplete" "false"
+	iniFieldUpdate "$PCSX2QT_configFile" "UI" "StartFullscreen" "true"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Bios" "${biosPath}"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Snapshots" "${storagePath}/pcsx2/snaps"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Savestates" "${savesPath}/pcsx2/states"
