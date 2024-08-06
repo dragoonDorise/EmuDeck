@@ -128,7 +128,6 @@ function runBinDownloads {
             messages+=("There was a problem updating ES-DE")
         fi
     fi
-    fi
     if [[ "$binsToDL" == *"Lime3DS"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
