@@ -46,7 +46,7 @@ updateCemu() {
                 --width=800 \
                 --ok-label="OK" \
                 --cancel-label="Exit" \
-                --text="Choose your Cemu (windows) version. 2.0 is now recommended" \
+                --text="Select your Cemu (Windows) version. 2.0 is recommended" \
                 --radiolist \
                 --column="Select" \
                 --column="Release" \
@@ -126,6 +126,16 @@ function runBinDownloads {
             messages+=("ES-DE Updated Successfully")
         else
             messages+=("There was a problem updating ES-DE")
+        fi
+    fi
+    if [[ "$binsToDL" == *"Lime3DS"* ]]; then
+        ((progresspct += pct)) || true
+        echo "$progresspct"
+        echo "# Updating Lime3DS"
+        if Lime3DS_install "true" 2>&1; then
+            messages+=("Lime3DS Updated Successfully")
+        else
+            messages+=("There was a problem updating Lime3DS")
         fi
     fi
     if [[ "$binsToDL" == *"mGBA"* ]]; then
@@ -238,6 +248,11 @@ if [ "$(ESDE_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "ES-DE" "Emulator Front-End")
 else
     binTable+=(FALSE "ES-DE" "Emulator Front-End")
+fi
+if [ "$(Lime3DS_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
+    binTable+=(TRUE "Lime3DS" "Nintendo 3DS")
+else
+    binTable+=(FALSE "Lime3DS" "Nintendo 3DS")
 fi
 if [ "$(mGBA_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "mGBA" "Nintendo Game Boy Family")

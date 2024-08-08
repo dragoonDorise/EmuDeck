@@ -51,27 +51,8 @@ Lime3DS_update(){
 Lime3DS_setupStorage(){
 	mkdir -p "$storagePath/lime3ds/"
 
-	if [ ! -d "$storagePath/lime3ds/sdmc" ] && [ -d "$HOME/.var/app/io.github.lime3ds.Lime3DS" -o -d "$HOME/.local/share/lime3ds-emu" ]; then
-		echo "Lime3DS SDMC does not exist in storage path"
-
-		echo -e ""
-		setMSG "Copying Lime3DS SDMC to the Emulation/storage folder"
-		echo -e ""
-
-		mkdir -p "$storagePath/lime3ds"
-
-		if [ -d "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/sdmc" ]; then
-			rsync -av "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/sdmc" "$storagePath"/lime3ds/ && rm -rf "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/sdmc"
-
-		elif [ -d "$HOME/.local/share/lime3ds-emu/sdmc" ]; then
-			rsync -av "$HOME/.local/share/lime3ds-emu/sdmc" "$storagePath"/lime3ds/ && rm -rf "$HOME/.local/share/lime3ds-emu/sdmc"
-		else 
-			mkdir -p "$storagePath/lime3ds/sdmc"
-		fi
-	fi
-
-	if [ ! -d "$storagePath/lime3ds/sdmc" ] && [ ! -d "$HOME/.var/app/io.github.lime3ds.Lime3DS" -o ! -d "$HOME/.local/share/lime3ds-emu" ]; then
-		echo "Lime3DS SDMC does not exist in storage path and does not exist in the original Flatpak or AppImage paths"
+	if [ ! -d "$storagePath/lime3ds/sdmc" ] && [ ! -d "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/sdmc" -o ! -d "$HOME/.local/share/lime3ds-emu" ] && [ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" -o -d "$HOME/.local/share/citra-emu/sdmc" -o -d "$storagePath/citra/sdmc" ]; then
+		echo "Lime3DS SDMC does not exist in storage path and does not exist in the original Flatpak or AppImage paths. Citra SDMC folder found, copying Citra SDMC folder."
 
 		echo -e ""
 		setMSG "Copying Citra SDMC to the Lime3DS SDMC folder"
@@ -81,20 +62,65 @@ Lime3DS_setupStorage(){
 
 
 		if [ -d "$storagePath/citra/sdmc" ]; then 
-			rsync -av "$storagePath/citra/sdmc" "$storagePath"/lime3ds
+			rsync -av  --ignore-existing "$storagePath/citra/sdmc" "$storagePath"/lime3ds
 		elif [ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" ]; then
-			rsync -av "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" "$storagePath"/lime3ds
+			rsync -av --ignore-existing "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" "$storagePath"/lime3ds
 		elif [ -d "$HOME/.local/share/citra-emu/sdmc" ]; then
-			rsync -av "$HOME/.local/share/citra-emu/sdmc" "$storagePath"/lime3ds
+			rsync -av  --ignore-existing "$HOME/.local/share/citra-emu/sdmc" "$storagePath"/lime3ds
 		else 
 			mkdir -p "$storagePath/citra/sdmc"
 		fi
+
+	fi
+
+	if [ ! -d "$storagePath/lime3ds/sdmc" ] && [ -d "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/sdmc" -o -d "$HOME/.local/share/lime3ds-emu/sdmc" ]; then
+		echo "Lime3DS SDMC does not exist in storage path. Found Lime3DS SDMC in original path, copying to storage folder."
+
+		echo -e ""
+		setMSG "Copying Lime3DS SDMC to the Emulation/storage folder"
+		echo -e ""
+
+		mkdir -p "$storagePath/lime3ds"
+
+		if [ -d "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/sdmc" ]; then
+			rsync -av  --ignore-existing "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/sdmc" "$storagePath"/lime3ds/ && rm -rf "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/sdmc"
+
+		elif [ -d "$HOME/.local/share/lime3ds-emu/sdmc" ]; then
+			rsync -av  --ignore-existing "$HOME/.local/share/lime3ds-emu/sdmc" "$storagePath"/lime3ds/ && rm -rf "$HOME/.local/share/lime3ds-emu/sdmc"
+		else 
+			mkdir -p "$storagePath/lime3ds/sdmc"
+		fi
 	else 
+		echo "Lime3DS SDMC does not exist anywhere. Creating SDMC folder."
 		mkdir -p "$storagePath/lime3ds/sdmc"
 	fi
 
-	if [ ! -d "$storagePath/lime3ds/nand" ] && [ -d "$HOME/.var/app/io.github.lime3ds.Lime3DS" -o -d "$HOME/.local/share/lime3ds-emu" ]; then
-		echo "Lime3DS nand does not exist in storage path"
+
+	if [ ! -d "$storagePath/lime3ds/nand" ] && [ ! -d "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand" -o ! -d "$HOME/.local/share/lime3ds-emu" ] && [ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand" -o -d "$HOME/.local/share/citra-emu/nand" -o -d "$storagePath/citra/nand" ]; then
+		echo "Lime3DS NAND does not exist in storage path and does not exist in the original Flatpak or AppImage paths. Citra NAND folder found, copying Citra NAND folder."
+
+		echo -e ""
+		setMSG "Copying Citra NAND to the Lime3DS folder"
+		echo -e ""
+
+		mkdir -p "$storagePath/lime3ds"
+
+
+		if [ -d "$storagePath/citra/nand" ]; then 
+			rsync -av  --ignore-existing "$storagePath/citra/nand" "$storagePath"/lime3ds
+		elif [ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand" ]; then
+			rsync -av  --ignore-existing "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand" "$storagePath"/lime3ds
+		elif [ -d "$HOME/.local/share/citra-emu/nand" ]; then
+			rsync -av  --ignore-existing "$HOME/.local/share/citra-emu/nand" "$storagePath"/lime3ds
+		else 
+			mkdir -p "$storagePath/citra/nand"
+		fi
+
+	fi
+	
+
+	if [ ! -d "$storagePath/lime3ds/nand" ] && [ -d "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand" -o -d "$HOME/.local/share/lime3ds-emu/nand" ]; then
+		echo "Lime3DS NAND does not exist in storage path. Found Lime3DS NAND in original path, copying to storage folder."
 
 		echo -e ""
 		setMSG "Copying Citra NAND to the Lime3DS NAND folder"
@@ -103,37 +129,19 @@ Lime3DS_setupStorage(){
 		mkdir -p "$storagePath/lime3ds"
 
 		if [ -d "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand" ]; then
-			rsync -av "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand" "$storagePath"/lime3ds/ && rm -rf "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand"
+			rsync -av  --ignore-existing "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand" "$storagePath"/lime3ds/ && rm -rf "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand"
 
 		elif [ -d "$HOME/.local/share/lime3ds-emu/nand" ]; then
-			rsync -av "$HOME/.local/share/lime3ds-emu/nand" "$storagePath"/lime3ds/ && rm -rf "$HOME/.local/share/lime3ds-emu/nand"
+			rsync -av  --ignore-existing "$HOME/.local/share/lime3ds-emu/nand" "$storagePath"/lime3ds/ && rm -rf "$HOME/.local/share/lime3ds-emu/nand" 
 		else 
 			mkdir -p "$storagePath/lime3ds/nand"
 		fi
-	fi
-
-	if [ ! -d "$storagePath/lime3ds/nand" ] && [ ! -d "$HOME/.var/app/io.github.lime3ds.Lime3DS" -o ! -d "$HOME/.local/share/lime3ds-emu" ]; then
-		echo "Lime3DS nand does not exist in storage path and does not exist in the original Flatpak or AppImage paths"
-
-		echo -e ""
-		setMSG "Copying Citra nand to the Lime3DS folder"
-		echo -e ""
-
-		mkdir -p "$storagePath/lime3ds"
-
-
-		if [ -d "$storagePath/citra/nand" ]; then 
-			rsync -av "$storagePath/citra/nand" "$storagePath"/lime3ds
-		elif [ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand" ]; then
-			rsync -av "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand" "$storagePath"/lime3ds
-		elif [ -d "$HOME/.local/share/citra-emu/nand" ]; then
-			rsync -av "$HOME/.local/share/citra-emu/nand" "$storagePath"/lime3ds
-		else 
-			mkdir -p "$storagePath/citra/nand"
-		fi
 	else 
+		echo "Lime3DS NAND does not exist anywhere. Creating NAND folder."
 		mkdir -p "$storagePath/lime3ds/nand"
 	fi
+
+
 
 	# Cheats and Texture Packs
 	# Cheats
