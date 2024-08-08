@@ -74,7 +74,7 @@ source "$EMUDECKGIT"/functions/ToolScripts/emuDeckNetPlay.sh
 
 
 #emuscripts
-source "$EMUDECKGIT"/functions/EmuScripts/emuDeckSuyu.sh
+#source "$EMUDECKGIT"/functions/EmuScripts/emuDeckSuyu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckYuzu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemu.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckCemuProton.sh
