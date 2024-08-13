@@ -236,12 +236,12 @@ RetroArch_setupConfigurations(){
 
 	# Set input driver to SDL. X input driver does not seem to work ootb on some non-SteamOS distributions including ChimeraOS.
 	input_driver='input_driver = '
-	input_driverSetting="${input_driver}"\""sdl"\"
+	input_driverSetting="${input_driver}"\""sdl2"\"
 	changeLine "$input_driver" "$input_driverSetting" "$RetroArch_configFile"
 
 	# Set microphone driver to SDL. Potentially fixes RetroArch hanging when closing content.
 	microphone_driver='microphone_driver = '
-	microphone_driverSetting="${microphone_driver}"\""sdl"\"
+	microphone_driverSetting="${microphone_driver}"\""sdl2"\"
 	changeLine "$microphone_driver" "$microphone_driverSetting" "$RetroArch_configFile"
 
 }
