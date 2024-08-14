@@ -206,11 +206,21 @@ fi
 			--ok-label="OK" --cancel-label="Exit" \
 			--column="" --column="Leave unchecked to uninstall." \
 			--width=500 --height=500 --checklist \
-			1 "Cider"  \
-			2 "Heroic Games Launcher" \
-			3 "Plexamp" \
-			4 "Spotify" \
-			5 "Tidal" )
+			1 "Bottles" \
+			2 "Cider"  \
+			3 "Flatseal" \
+			4 "Heroic Games Launcher" \
+			5 "Lutris" \
+			6 "Plexamp" \
+			7 "Spotify" \
+			8 "Tidal" \
+			9 "Warehouse" )
+
+		if [[ "$GAUninstall" != *"Bottles"* ]]; then	
+			flatpak uninstall com.usebottles.bottles -y
+			rm -f "$romsPath/generic-applications/Bottles.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/com.usebottles.bottles" &> /dev/null
+		fi 
 
 		if [[ "$GAUninstall" != *"Cider"* ]]; then	
 			flatpak uninstall sh.cider.Cider -y
@@ -218,11 +228,23 @@ fi
 			rm -rf "$HOME/.var/app/sh.cider.Cider" &> /dev/null
 		fi 
 
+		if [[ "$GAUninstall" != *"Flatseal"* ]]; then	
+			flatpak uninstall com.github.tchx84.Flatseal -y
+			rm -f "$romsPath/generic-applications/Flatseal.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/com.github.tchx84.Flatseal" &> /dev/null
+		fi 
+
 		if [[ "$GAUninstall" != *"Heroic Games Launcher"* ]]; then
 			rm -f "$HOME/Applications/Heroic-Games-Launcher.AppImage" &> /dev/null
 			rm -f "$romsPath/generic-applications/Heroic-Games-Launcher.sh" &> /dev/null
 			rm -rf "$HOME/.config/heroic/" &> /dev/null
 			rm -rf "$HOME/.local/share/applications/Heroic-Games-Launcher.desktop" &> /dev/null
+		fi 
+
+		if [[ "$GAUninstall" != *"Lutris"* ]]; then	
+			flatpak uninstall net.lutris.Lutris -y
+			rm -f "$romsPath/generic-applications/Lutris.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/net.lutris.Lutris" &> /dev/null
 		fi 
 
 		if [[ "$GAUninstall" != *"Plexamp"* ]]; then	
@@ -241,6 +263,12 @@ fi
 			flatpak uninstall com.mastermindzh.tidal-hifi -y
 			rm -f "$romsPath/generic-applications/Tidal.sh" &> /dev/null
 			rm -rf "$HOME/.var/app/com.mastermindzh.tidal-hifi" &> /dev/null
+		fi 
+
+		if [[ "$GAUninstall" != *"Warehouse"* ]]; then	
+			flatpak uninstall io.github.flattool.Warehouse -y
+			rm -f "$romsPath/generic-applications/Warehouse.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/io.github.flattool.Warehouse" &> /dev/null
 		fi 
 
 	fi 

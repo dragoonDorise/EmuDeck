@@ -103,11 +103,15 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckSupermodel.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckModel2.sh
 
 # Generic Application scripts
+source "$EMUDECKGIT"/functions/GenericApplicationsScripts/genericApplicationBottles.sh
 source "$EMUDECKGIT"/functions/GenericApplicationsScripts/genericApplicationCider.sh
+source "$EMUDECKGIT"/functions/GenericApplicationsScripts/genericApplicationFlatseal.sh
 source "$EMUDECKGIT"/functions/GenericApplicationsScripts/genericApplicationHeroic.sh
+source "$EMUDECKGIT"/functions/GenericApplicationsScripts/genericApplicationLutris.sh
 source "$EMUDECKGIT"/functions/GenericApplicationsScripts/genericApplicationPlexamp.sh
 source "$EMUDECKGIT"/functions/GenericApplicationsScripts/genericApplicationSpotify.sh
 source "$EMUDECKGIT"/functions/GenericApplicationsScripts/genericApplicationTidal.sh
+source "$EMUDECKGIT"/functions/GenericApplicationsScripts/genericApplicationWarehouse.sh
 
 #remoteplayclientscripts
 source "$EMUDECKGIT"/functions/RemotePlayClientScripts/remotePlayChiaki.sh
