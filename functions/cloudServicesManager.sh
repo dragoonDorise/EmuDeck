@@ -241,7 +241,23 @@ runGASettings()
 {
 	echo $progresspct
 	# Install/Update/uninstall selected
-	
+
+	if [[ "${arrChosen[*]}" =~ "Bottles" ]]; then
+		if [[ $(Bottles_IsInstalled) == "true" ]]; then
+			echo "# Updating Bottles"
+			Bottles_update &>/dev/null
+		else
+			echo "# Installing Bottles"
+			Bottles_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Bottles"
+		Bottles_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
 	if [[ "${arrChosen[*]}" =~ "Cider" ]]; then
 		if [[ $(Cider_IsInstalled) == "true" ]]; then
 			echo "# Updating Cider"
@@ -258,6 +274,22 @@ runGASettings()
 	((progresspct += pct)) || true
 	echo "$progresspct"
 
+	if [[ "${arrChosen[*]}" =~ "Flatseal" ]]; then
+		if [[ $(Flatseal_IsInstalled) == "true" ]]; then
+			echo "# Updating Flatseal"
+			Flatseal_update &>/dev/null
+		else
+			echo "# Installing Flatseal"
+			Flatseal_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Flatseal"
+		Flatseal_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
 	if [[ "${arrChosen[*]}" =~ "Heroic Games Launcher" ]]; then
 		if [[ $(Heroic_IsInstalled) == "true" ]]; then
 			echo "# Updating Heroic"
@@ -270,6 +302,22 @@ runGASettings()
 	else
 		echo "# Uninstalling Heroic"
 		Heroic_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "Lutris" ]]; then
+		if [[ $(Lutris_IsInstalled) == "true" ]]; then
+			echo "# Updating Lutris"
+			Lutris_update &>/dev/null
+		else
+			echo "# Installing Lutris"
+			Lutris_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Lutris"
+		Lutris_uninstall &>/dev/null
 	fi
 	((progresspct += pct)) || true
 	echo "$progresspct"
@@ -318,6 +366,22 @@ runGASettings()
 	else
 		echo "# Uninstalling Tidal"
 		Tidal_uninstall &>/dev/null
+	fi
+	((progresspct += pct)) || true
+	echo "$progresspct"
+
+	if [[ "${arrChosen[*]}" =~ "Warehouse" ]]; then
+		if [[ $(Warehouse_IsInstalled) == "true" ]]; then
+			echo "# Updating Warehouse"
+			Warehouse_update &>/dev/null
+		else
+			echo "# Installing Warehouse"
+			Warehouse_install &>/dev/null
+			echo "ok"
+		fi
+	else
+		echo "# Uninstalling Warehouse"
+		Warehouse_uninstall &>/dev/null
 	fi
 	((progresspct += pct)) || true
 	echo "$progresspct"
@@ -382,11 +446,15 @@ manageGAMenu() {
 	cd "$EMUDECKGIT/functions/GenericApplicationsScripts" || return
 	declare -a arrAllGA=()
 
+	arrAllGA+=( $(Bottles_IsInstalled) "Bottles")
 	arrAllGA+=( $(Cider_IsInstalled) "Cider")
+	arrAllGA+=( $(Flatseal_IsInstalled) "Flatseal")
 	arrAllGA+=( $(Heroic_IsInstalled) "Heroic Games Launcher")
+	arrAllGA+=( $(Lutris_IsInstalled) "Lutris")
 	arrAllGA+=( $(Plexamp_IsInstalled) "Plexamp")
 	arrAllGA+=( $(Spotify_IsInstalled) "Spotify")
 	arrAllGA+=( $(Tidal_IsInstalled) "Tidal")
+	arrAllGA+=( $(Warehouse_IsInstalled) "Warehouse")
 	echo "list: ${arrAllGA[*]}"
 
 	# Dynamically build list of scripts
