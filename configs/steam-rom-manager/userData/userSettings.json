@@ -32,7 +32,7 @@
 	"navigationWidth": 256,
 	"clearLogOnTest": false,
 	"version": 10,
-	"theme": "Classic",
+	"theme": "EmuDeck",
 	"dnsServers": [],
 	"batchDownloadSize": 50,
 	"emudeckInstall": false,
