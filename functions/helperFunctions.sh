@@ -1025,6 +1025,33 @@ function emulatorInit(){
 	if [ "$emuName" != 'retroarch' ]; then
 		cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
 	fi
+
+	#Check if the service is up and running
+
+	if [ -f "$cloud_sync_bin" ] && [ "$cloud_sync_status" == "true" ]; then
+
+		if [ $(check_internet_connection) == "true" ]; then
+
+			systemctl --user is-active --quiet "EmuDeckCloudSync.service"
+
+			status=$?
+
+			if [ $status -eq 0 ]; then
+				echo "CloudSync Service running"
+			else
+				text="$(printf "<b>CloudSync Error.</b>\nCloudSync service is not running. Please contact us on Patreon")"
+				zenity --error \
+				--title="EmuDeck" \
+				--width=400 \
+				--text="${text}" 2>/dev/null
+			fi
+
+
+		fi
+
+	fi
+
+
 }
 
 
