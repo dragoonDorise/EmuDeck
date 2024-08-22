@@ -1046,8 +1046,16 @@ function emulatorInit(){
 				--text="${text}" 2>/dev/null
 			fi
 
+		else
+			text="$(printf "<b>CloudSync Error.</b>\nInternet connection not available. Please contact us on Patreon")"
+			zenity --error \
+			--title="EmuDeck" \
+			--width=400 \
+			--text="${text}" 2>/dev/null
 
 		fi
+
+
 
 	fi
 
