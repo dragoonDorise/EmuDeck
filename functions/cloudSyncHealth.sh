@@ -29,22 +29,22 @@ cloudSyncHealth(){
 		echo "<tr>"
 	#Check installation
 	if [ ! -f "$cloud_sync_bin" ]; then
-  		echo "<td>Executable Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></table>"
-  		exit
+		  echo "<td>Executable Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></table>"
+		  exit
 	else
 		echo "<td>Executable Status: </td><td class='alert--success'><strong>Success</strong></td>"
 	fi
 	echo "</tr><tr>"
 	if [ ! -f "$cloud_sync_config" ]; then
-  		echo "<td>Config file Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></table>"
-  		exit
+		  echo "<td>Config file Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></table>"
+		  exit
 	else
 		echo "<td>Config file Status: </td><td class='alert--success'><strong>Success</strong></td>"
 	fi
 	echo "</tr><tr>"
 	if [ $cloud_sync_provider = '' ]; then
-  		echo "<td>Provider Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></tr></table>"
-  		exit
+		  echo "<td>Provider Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></tr></table>"
+		  exit
 	else
 		echo "<td>Provider Status: </td><td class='alert--success'><strong>Success</strong></td>"
 	fi
@@ -60,18 +60,37 @@ cloudSyncHealth(){
 		  echo "<td>Watcher Status: </td><td class='alert--danger'><strong>Failure, please reinstall</strong></td></tr></table>"
 		  exit
 	else
-		echo "<td>Watcher Status: </td><td class='alert--success'><strong>Success</strong></td>"
+		echo "<td>Watcher Status: </td><td class='alert--success'><strong>Installed</strong></td>"
 	fi
-	echo "</tr>"
+	echo "</tr><tr>"
 
+	cloud_sync_startService
 
-	$(systemctl --user status "EmuDeckCloudSync.service")
+	systemctl --user is-active --quiet "EmuDeckCloudSync.service"
+
+	# Capturar el código de salida
+	status=$?
+
+	# Evaluar el código de salida
+	if [ $status -eq 0 ]; then
+		echo "<td>CloudSync Service: </td><td class='alert--success'><strong>Running</strong></td>"
+	else
+		echo "<td>CloudSync Service: </td><td class='alert--success'><strong>Not running</strong></td>"
+		text="$(printf "<b>CloudSync Service.</b>\n CloudSync service was not detected. Please contact us on Patreon")"
+		zenity --error \
+		--title="EmuDeck" \
+		--width=400 \
+		--text="${text}" 2>/dev/null
+	fi
+
+	cloud_sync_stopService
+
 	echo "</tr>"
 
 
 
 	#Test emulators
-	miArray=("Cemu" "citra" "dolphin" "duckstation" "MAME" "melonds" "mgba" "pcsx2" "ppsspp" "primehack" "retroarch" "rpcs3" "scummvm" "Vita3K" "yuzu" "ryujinx" "BigPEmu" )
+	miArray=("retroarch" )
 
 #	echo -e "<span class=\"yellow\">Testing uploading</span>"
 	for elemento in "${miArray[@]}"; do
