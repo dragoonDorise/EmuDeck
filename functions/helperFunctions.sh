@@ -1009,6 +1009,7 @@ function emulatorInit(){
 	local emuName=$1
 	#isLatestVersionGH "$emuName"
 	#NetPlay
+	cloud_sync_stopService
 	if [ "$emuName" = 'retroarch' ]; then
    		if [ "$netPlay" == "true" ]; then
 			#Looks for devices listening
