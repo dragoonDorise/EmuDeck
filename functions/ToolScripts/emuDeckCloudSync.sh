@@ -585,7 +585,7 @@ cloud_sync_downloadEmu(){
 }
 
 cloud_sync_downloadEmuAll(){
-cloud_sync_createService
+ cloud_sync_createService
  cloud_sync_download 'all'
 }
 

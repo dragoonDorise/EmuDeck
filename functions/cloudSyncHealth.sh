@@ -25,6 +25,142 @@ cloud_sync_dowload_test(){
 }
 
 cloudSyncHealth(){
+
+	local watcherStatus=1
+	local upload=1
+	local download=1
+
+	cloud_sync_stopService
+
+	#We start the service and check if it works
+
+	if [ $(check_internet_connection) == "true" ]; then
+
+		#Change path to a new test place
+		echo "internet ok"
+
+	else
+		text="$(printf "<b>CloudSync Error.</b>\nInternet connection not available.")"
+		zenity --error \
+		--title="EmuDeck" \
+		--width=400 \
+		--text="${text}" 2>/dev/null
+		exit
+	fi
+
+
+	#Zenity asking SRM or ESDE
+	#Opening RA/ESDE in background
+	zenity --question --title "CloudSync Health" --text "Do you launch your games using EmulationStation?" --cancel-label "No" --ok-label "Yes"
+	if [ $? = 0 ]; then
+
+		touch "$savesPath/.gaming"
+		touch "$savesPath/.watching"
+		echo "all" > "$savesPath/.emuName"
+		cloud_sync_startService
+
+		systemctl --user is-active --quiet "EmuDeckCloudSync.service"
+		status=$?
+
+		if [ $status -eq 0 ]; then
+			echo "CloudSync Service running"
+			watcherStatus=0
+		else
+			text="$(printf "<b>CloudSync Error.</b>\nCloudSync service is not running. Please reinstall CloudSync and try again")"
+			zenity --error \
+			--title="EmuDeck" \
+			--width=400 \
+			--text="${text}" 2>/dev/null
+		fi
+
+		"$ESDE_toolPath" & xdotool search --sync --onlyvisible --name '^ES-DE$' windowminimize
+	else
+		touch "$savesPath/.gaming"
+		touch "$savesPath/.watching"
+		echo "retroarch" > "$savesPath/.emuName"
+		cloud_sync_startService
+
+		systemctl --user is-active --quiet "EmuDeckCloudSync.service"
+		status=$?
+
+		if [ $status -eq 0 ]; then
+			echo "CloudSync Service running"
+		else
+			text="$(printf "<b>CloudSync Error.</b>\nCloudSync service is not running. Please reinstall CloudSync and try again")"
+			zenity --error \
+			--title="EmuDeck" \
+			--width=400 \
+			--text="${text}" 2>/dev/null
+		fi
+
+		/usr/bin/flatpak run org.libretro.RetroArch & xdotool search --sync --onlyvisible --name '^RetroArch$' windowminimize
+	fi
+
+
+	#
+	#Testing Upload
+	#
+
+	#Creating new file
+	echo "Creating test file"
+	sleep 2
+	echo "testing upload" > "$savesPath/retroarch/test_emudeck.txt"
+
+	#Upload should be happenning now in the background...
+
+	while pgrep -x "rclone" > /dev/null; do
+		echo "Waiting for to finish..."
+		sleep 5
+	done
+
+
+	#"$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$savesPath/test_emudeck.txt" "$cloud_sync_provider":Emudeck/saves/.test_emudeck.txt
+
+	#Check if the file exists in the cloud
+	"$cloud_sync_bin" lsf "$cloud_sync_provider":Emudeck/saves/retroarch/ | grep test_emudeck.txt
+	status=$?
+
+	# Evaluar el código de salida
+	if [ $status -eq 0 ]; then
+		echo "file exists in the cloud. SUCCESS"
+		upload=0
+	else
+		echo "file does not exist in the cloud. FAIL"
+	fi
+	#Delete local test file
+	rm -rf "$savesPath/retroarch/test_emudeck.txt"
+
+
+	#
+	##Testing Dowmload
+	#
+
+	#Downloading
+	"$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/retroarch/test_emudeck.txt "$savesPath/retroarch/test_emudeck.txt"
+
+	#Check if the file exists.
+
+	if [ -f "$savesPath/retroarch/test_emudeck.txt" ]; then
+		echo "file exists in local. SUCCESS"
+		download=0
+	else
+		echo "file does not exist in local. FAIL"
+	fi
+
+	#Delete local test file
+	rm -rf "$savesPath/retroarch/test_emudeck.txt"
+
+	#Delete remote test file
+	"$cloud_sync_bin" delete "$cloud_sync_provider":Emudeck/saves/retroarch/test_emudeck.txt
+
+	#Ending, closing loose ends
+	rm -rf "$savesPath/.gaming"
+	rm -rf "$savesPath/.watching"
+	rm -rf "$savesPath/.emuName"
+	xdotool search --sync --name '^ES-DE$' windowquit
+	killall retroarch
+
+
 	echo "<table class='table'>"
 		echo "<tr>"
 	#Check installation
@@ -64,15 +200,7 @@ cloudSyncHealth(){
 	fi
 	echo "</tr><tr>"
 
-	cloud_sync_startService
-
-	systemctl --user is-active --quiet "EmuDeckCloudSync.service"
-
-	# Capturar el código de salida
-	status=$?
-
-	# Evaluar el código de salida
-	if [ $status -eq 0 ]; then
+	if [ $watcherStatus -eq 0 ]; then
 		echo "<td>CloudSync Service: </td><td class='alert--success'><strong>Running</strong></td>"
 	else
 		echo "<td>CloudSync Service: </td><td class='alert--success'><strong>Not running</strong></td>"
@@ -82,46 +210,34 @@ cloudSyncHealth(){
 		--width=400 \
 		--text="${text}" 2>/dev/null
 	fi
-
-	cloud_sync_stopService
-
 	echo "</tr>"
 
+	# Tests upload
+	echo "<tr>"
+	if [ $upload -eq 0 ]; then
+		echo "<td>Upload Status: </td><td class='alert--success'><strong>Success</strong></td>"
+	elif [ $? = 2 ]; then
+		echo "<td>Save folder </td><td class='alert--warning'>not found</td>"
+	else
+		echo "<td>Upload Status: </td><td class='alert--danger'><strong>Failure</strong></td>"
+		echo "</tr></tr></table>"
+		exit
+	fi
+	echo "</tr>"
 
+	# Tests download
+	echo "<tr>"
+	if [ $upload -eq 0 ]; then
+		echo "<td>Download Status: </td><td class='alert--success'><strong>Success</strong></td>"
+	elif [ $? = 2 ]; then
+		echo "<td>Save folder </td><td class='alert--warning'>not found</td>"
+	else
+		echo "<td>Download Status: </td><td class='alert--danger'><strong>Failure</strong></td>"
+		echo "</tr></tr></table>"
+		exit
+	fi
+	echo "</tr>"
 
-	#Test emulators
-	miArray=("retroarch" )
-
-#	echo -e "<span class=\"yellow\">Testing uploading</span>"
-	for elemento in "${miArray[@]}"; do
-#		echo -ne "Testing $elemento upload..."
-		echo "<tr>"
-		if cloud_sync_upload_test $elemento;then
-			echo "<td>$elemento upload Status: </td><td class='alert--success'><strong>Success</strong></td>"
-		elif [ $? = 2 ]; then
-			echo "<td>$elemento, save folder </td><td class='alert--warning'>not found</td>"
-		else
-			echo "<td>$elemento upload Status: </td><td class='alert--danger'><strong>Failure</strong></td>"
-			echo "</tr></tr></table>"
-			exit
-		fi
-		echo "</tr>"
-	done
-
-#	echo -e "<span class=\"yellow\">Testing downloading</span>"
-	for elemento in "${miArray[@]}"; do
-		echo "<tr>"
-		if cloud_sync_dowload_test $elemento;then
-			echo "<td>$elemento download Status: </td><td class='alert--success'><strong>Success</strong></td>"
-		elif [ $? = 2 ]; then
-			echo "<td>$elemento, save folder </td><td class='alert--warning'>not found</td>"
-		else
-			echo "<td>$elemento download Status: </td><td class='alert--danger'><strong>Failure</strong></td>"
-			echo "</tr></tr></table>"
-			exit
-		fi
-		echo "</tr>"
-	done
 	echo "</table>"
 	echo "<span class='is-hidden'>true</span>"
 }
