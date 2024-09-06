@@ -11,9 +11,9 @@ SRM_install(){
   setMSG "Installing Steam ROM Manager"
   local showProgress="$1"
 
-  if [ -f "$toolsPath" ]; then 
+  if [ -f "$toolsPath" ]; then
     rm -rf "$toolsPath"
-  fi 
+  fi
 
   mkdir -p "$toolsPath"
 
@@ -72,8 +72,6 @@ SRM_init(){
 
 }
 
-SRM_
-
 SRM_setEmulationFolder(){
 
   sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
@@ -87,7 +85,7 @@ SRM_setEmulationFolder(){
 }
 
 SRM_setEnv(){
-  
+
 	setMSG 'Steam Rom Manager - Set enviroment'
   tmp=$(mktemp)
   jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
@@ -157,9 +155,9 @@ SRM_IsInstalled(){
     echo "true"
   elif [ -e "${toolsPath}/Steam ROM Manager.AppImage" ]; then
     echo "true"
-  elif [ -e "${toolsPath}/srm/Steam-ROM-Manager.AppImage" ]; then 
+  elif [ -e "${toolsPath}/srm/Steam-ROM-Manager.AppImage" ]; then
     echo "true"
-  else 
+  else
       echo "false"
   fi
 
@@ -201,7 +199,7 @@ SRM_deleteCache(){
     \nThis will also delete any curated art you may have selected or downloaded for both Steam and non-Steam games. \
     \n \
     \nDeleting the cache will remove any launch option modifications for Steam games. \
-    \n \ 
+    \n \
     \nIf you do not delete the cache, Steam ROM Manager may continue to crash or freeze. However, your non-Steam shortcuts will remain intact. \
     \n \
     \nWould you like to delete the cache?" \
@@ -220,8 +218,8 @@ SRM_deleteCache(){
       --title="Cache deleted" \
       --width=400 \
       --height=300
-    else 
+    else
       echo "User declined deleting cache."
-    fi 
+    fi
 
 }
