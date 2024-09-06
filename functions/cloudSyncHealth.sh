@@ -25,11 +25,14 @@ cloud_sync_dowload_test(){
 }
 
 cloudSyncHealth(){
-
+	echo "testing upload" > "$savesPath/retroarch/test_emudeck.txt"
 	local watcherStatus=1
 	local upload=1
 	local download=1
 
+	touch "$HOME/emudeck/logs/cloudHealth.log"
+
+{
 	cloud_sync_stopService
 
 	#We start the service and check if it works
@@ -51,9 +54,11 @@ cloudSyncHealth(){
 
 	#Zenity asking SRM or ESDE
 	#Opening RA/ESDE in background
+	kill="ESDE"
 	zenity --question --title "CloudSync Health" --text "Do you launch your games using EmulationStation?" --cancel-label "No" --ok-label "Yes"
-	if [ $? = 0 ]; then
 
+	if [ $? = 0 ]; then
+		notify-send "ESDE" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
 		touch "$savesPath/.gaming"
 		touch "$savesPath/.watching"
 		echo "all" > "$savesPath/.emuName"
@@ -75,6 +80,8 @@ cloudSyncHealth(){
 
 		"$ESDE_toolPath" & xdotool search --sync --onlyvisible --name '^ES-DE$' windowminimize
 	else
+		kill="RETROARCH"
+		notify-send "RETROARCH" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
 		touch "$savesPath/.gaming"
 		touch "$savesPath/.watching"
 		echo "retroarch" > "$savesPath/.emuName"
@@ -85,6 +92,7 @@ cloudSyncHealth(){
 
 		if [ $status -eq 0 ]; then
 			echo "CloudSync Service running"
+			watcherStatus=0
 		else
 			text="$(printf "<b>CloudSync Error.</b>\nCloudSync service is not running. Please reinstall CloudSync and try again")"
 			zenity --error \
@@ -93,7 +101,7 @@ cloudSyncHealth(){
 			--text="${text}" 2>/dev/null
 		fi
 
-		/usr/bin/flatpak run org.libretro.RetroArch & xdotool search --sync --onlyvisible --name '^RetroArch$' windowminimize
+		/usr/bin/flatpak run org.libretro.RetroArch & xdotool search --sync --name '^RetroArch$' windowminimize
 	fi
 
 
@@ -106,10 +114,11 @@ cloudSyncHealth(){
 	sleep 2
 	echo "testing upload" > "$savesPath/retroarch/test_emudeck.txt"
 
+
 	#Upload should be happenning now in the background...
 
 	while pgrep -x "rclone" > /dev/null; do
-		echo "Waiting for to finish..."
+		echo "Waiting for cloudsync to finish..."
 		sleep 5
 	done
 
@@ -147,19 +156,22 @@ cloudSyncHealth(){
 		echo "file does not exist in local. FAIL"
 	fi
 
-	#Delete local test file
-	rm -rf "$savesPath/retroarch/test_emudeck.txt"
-
-	#Delete remote test file
-	"$cloud_sync_bin" delete "$cloud_sync_provider":Emudeck/saves/retroarch/test_emudeck.txt
-
 	#Ending, closing loose ends
 	rm -rf "$savesPath/.gaming"
 	rm -rf "$savesPath/.watching"
 	rm -rf "$savesPath/.emuName"
-	xdotool search --sync --name '^ES-DE$' windowquit
-	killall retroarch
+	rm -rf "$savesPath/retroarch/test_emudeck.txt"
+	#Delete remote test file
+	"$cloud_sync_bin" delete "$cloud_sync_provider":Emudeck/saves/retroarch/test_emudeck.txt
 
+	if [ $kill == "RETROARCH" ];then
+		killall retroarch
+	else
+		xdotool search --sync --name '^ES-DE$' windowquit
+	fi
+
+
+} > "$HOME/emudeck/logs/cloudHealth.log"
 
 	echo "<table class='table'>"
 		echo "<tr>"
@@ -221,23 +233,22 @@ cloudSyncHealth(){
 	else
 		echo "<td>Upload Status: </td><td class='alert--danger'><strong>Failure</strong></td>"
 		echo "</tr></tr></table>"
-		exit
 	fi
 	echo "</tr>"
 
 	# Tests download
 	echo "<tr>"
-	if [ $upload -eq 0 ]; then
+	if [ $download -eq 0 ]; then
 		echo "<td>Download Status: </td><td class='alert--success'><strong>Success</strong></td>"
 	elif [ $? = 2 ]; then
 		echo "<td>Save folder </td><td class='alert--warning'>not found</td>"
 	else
 		echo "<td>Download Status: </td><td class='alert--danger'><strong>Failure</strong></td>"
 		echo "</tr></tr></table>"
-		exit
 	fi
 	echo "</tr>"
 
 	echo "</table>"
 	echo "<span class='is-hidden'>true</span>"
+	cloud_sync_stopService
 }
