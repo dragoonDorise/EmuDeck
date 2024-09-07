@@ -119,6 +119,10 @@ Plugins_installEmuDecky(){
 		 echo $password |  sudo -S unzip "$HOME/homebrew/plugins/EmuDecky.zip" -d "$HOME/homebrew/plugins/" && sudo rm "$HOME/homebrew/plugins/EmuDecky.zip"
 		 echo $password | sudo -S chown $USER:$USER -R $HOME/homebrew/plugins/EmuDecky
    fi
+   #CloudSync tools
+   rsync -avzh "$EMUDECKGIT/tools/cloudSync/" "$toolsPath/cloudSync/"
+   chmod +x "$toolsPath/cloudSync/cloud_sync_force_download.sh"
+   chmod +x "$toolsPath/cloudSync/cloud_sync_force_upload.sh"
 
 }
 
