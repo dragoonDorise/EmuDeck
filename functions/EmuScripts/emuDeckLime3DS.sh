@@ -15,10 +15,18 @@ Lime3DS_install(){
 	if installEmuAI "$Lime3DS_emuName" "" "$(getReleaseURLGH "Lime3DS/Lime3DS" "tar.gz" "" "appimage")" "lime3ds" "tar.gz" "emulator" "$showProgress"; then #lime3ds-gui.AppImage
 		mkdir "$HOME/Applications/lime3ds-temp"
 		tar -xvzf "$HOME/Applications/lime3ds.tar.gz" -C "$HOME/Applications/lime3ds-temp" --strip-components 1
-		mv "$HOME/Applications/lime3ds-temp/lime3ds-gui.AppImage" "$HOME/Applications"
+		if [ -f "$HOME/Applications/lime3ds-temp/lime3ds-gui.AppImage" ]; then
+			mv "$HOME/Applications/lime3ds-temp/lime3ds-gui.AppImage" "$Lime3DS_emuPath"
+		elif [ -f "$HOME/Applications/lime3ds-temp/lime3ds.AppImage" ]; then
+			mv "$HOME/Applications/lime3ds-temp/lime3ds.AppImage" "$Lime3DS_emuPath"
+		else
+			rm -rf "$HOME/Applications/lime3ds-temp"
+			rm -rf "$HOME/Applications/lime3ds.tar.gz"
+			return 1
+		fi
+		chmod +x "$HOME/Applications/lime3ds-gui.AppImage"
 		rm -rf "$HOME/Applications/lime3ds-temp"
 		rm -rf "$HOME/Applications/lime3ds.tar.gz"
-		chmod +x "$HOME/Applications/lime3ds-gui.AppImage"
 	else
 		return 1
 	fi
