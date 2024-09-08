@@ -24,6 +24,9 @@ RetroArch_autoconfigURL="https://buildbot.libretro.com/assets/frontend/autoconfi
 RetroArch_overlaysURL="https://buildbot.libretro.com/assets/frontend/overlays.zip"
 RetroArch_cheatsURL="https://buildbot.libretro.com/assets/frontend/cheats.zip"
 
+#darwin overrides
+source "$EMUDECKGIT"/darwin/functions/all.sh
+
 #cleanupOlderThings
 RetroArch_cleanup(){
 	echo "NYI"
@@ -39,7 +42,7 @@ RetroArch_backupConfigs(){
 
 #Install
 RetroArch_install(){
-	setMSG "Installing $RetroArch_emuName" 
+	setMSG "Installing $RetroArch_emuName"
 	installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "emulator" ""
 	RetroArch_installCores
 }
@@ -1809,15 +1812,15 @@ RetroArch_Mupen64Plus_Next_setUpCoreOpt(){
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-virefresh' '"Auto"'
 
 	# hd pack settings
-	# Commenting these out. These seem to be causing a lot of graphical issues. 
+	# Commenting these out. These seem to be causing a lot of graphical issues.
 	#RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txHiresEnable' '"True"'
 	#RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txHiresFullAlphaChannel' '"True"'
 	#RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txCacheCompression' '"True"'
 	#RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-EnableEnhancedHighResStorage' '"True"'
 	#RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-EnableEnhancedTextureStorage' '"False"' # lazy loading
-	
+
 	# revert hd pack settings
-	# These seem to be causing a lot of graphical issues. 
+	# These seem to be causing a lot of graphical issues.
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txHiresEnable' '"False"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txHiresFullAlphaChannel' '"False"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txCacheCompression' '"False"'
@@ -1828,10 +1831,10 @@ RetroArch_Mupen64Plus_Next_setUpCoreOpt(){
 
 #  setupHdPacks()
 RetroArch_Mupen64Plus_Next_setUpHdPacks(){
-  	local texturePackPath="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/system/Mupen64plus/hires_texture"
+	  local texturePackPath="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/system/Mupen64plus/hires_texture"
 	local textureCachePath="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/system/Mupen64plus/cache"
 
-	# Something in the install is causng infinite symlinks, commenting these lines out for now and deleting folders. Needs more thorough testing. 
+	# Something in the install is causng infinite symlinks, commenting these lines out for now and deleting folders. Needs more thorough testing.
 	rm -rf "$emulationPath/hdpacks/retroarch/Mupen64plus"
 	rm -rf "$biosPath/Mupen64plus/cache/"
 
@@ -2588,3 +2591,6 @@ RetroArch_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "retroarch"
 
 }
+
+
+source "$EMUDECKGIT"/darwin/functions/all.sh
