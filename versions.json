@@ -1,6 +1,6 @@
 {
   "ra": { "id": "ra", "code": "RetroArch", "version": 2 },
-  "dolphin": { "id": "dolphin", "code": "Dolphin", "version": 2 },
+  "dolphin": { "id": "dolphin", "code": "Dolphin", "version": 3 },
   "primehack": { "id": "primehack", "code": "Primehack", "version": 0 },
   "ppsspp": { "id": "ppsspp", "code": "PPSSPP", "version": 0 },
   "duckstation": { "id": "duckstation", "code": "Duckstation", "version": 0 },
