@@ -8,22 +8,23 @@ installEmuBI(){
     local lastVerFile="$6"
     local latestVer="$7"
 
-    if [[ "$fileName" == "" ]]; then
+    if [[ -z "$fileName" ]]; then
         fileName="$name"
     fi
-    echo "$name"
-    echo "$url"
-    echo "$fileName"
-    echo "$format"
-    echo "$showProgress"
-    echo "$lastVerFile"
-    echo "$latestVer"
+
+    echo "1, Application Name: $name"
+    echo "2, Application URL: $url"
+    echo "3, Application Filename: $fileName"
+    echo "4, Application File Format: $format"
+    echo "5, Progress: $showProgress"
+    echo "6, Last Version File: $lastVerFile"
+    echo "7, Last Version: $latestVer"
 
     #rm -f "$HOME/Applications/$fileName.$format" # mv below will overwrite...
     mkdir -p "$HOME/Applications"
 
     #curl -L "$url" -o "$HOME/Applications/$fileName.$format.temp" && mv "$HOME/Applications/$fileName.$format.temp" "$HOME/Applications/$fileName.$format"
-    if safeDownload "$name" "$url" "$HOME/Applications/$fileName.$format" "$showProgress"; then
+    if safeDownload "$name" "$url" "$HOME/Applications/${fileName}.${format}" "$showProgress"; then
         if [[ -n $lastVerFile ]] && [[ -n $latestVer ]]; then
             echo "latest version $latestVer > $lastVerFile"
             echo "$latestVer" > "$lastVerFile"
@@ -33,7 +34,8 @@ installEmuBI(){
     fi
 
     shName=$(echo "$name" | awk '{print tolower($0)}')
-    find "${toolsPath}/launchers/" -maxdepth 1 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
+    mkdir -p "${romsPath}/emulators"
+    find "${toolsPath}/launchers/" "${romsPath}/emulators" -maxdepth 1 -type f \( -iname "$shName.sh" -o -iname "$shName-emu.sh" \) | \
     while read -r f
     do
         echo "deleting $f"
@@ -48,6 +50,8 @@ installEmuBI(){
         chmod +x "$l"
         cp -v "$l" "${toolsPath}/launchers/"
         chmod +x "${toolsPath}/launchers/"*
+        cp -v "$l" "${romsPath}/emulators"
+		chmod +x "${romsPath}/emulators/"*
 
         createDesktopShortcut   "$HOME/.local/share/applications/$name.desktop" \
                                 "$name Binary" \

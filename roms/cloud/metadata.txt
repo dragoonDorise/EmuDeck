@@ -1,4 +1,0 @@
-collection: Cloud Services
-shortname: cloud
-extensions: sh
-launch:  {file.path}

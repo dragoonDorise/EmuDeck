@@ -80,6 +80,7 @@ CemuProton_init(){
 	#CemuProton_addSteamInputProfile
 	CemuProton_addESConfig
 	CemuProton_flushEmulatorLauncher
+	addProtonLaunch
 
 	if [ -e "${romsPath}/wiiu/controllerProfiles/controller1.xml" ];then
 		mv "${romsPath}/wiiu/controllerProfiles/controller1.xml" "${romsPath}/wiiu/controllerProfiles/controller1.xml.bak"
@@ -91,7 +92,7 @@ CemuProton_init(){
 		mv "${romsPath}/wiiu/controllerProfiles/controller3.xml" "${romsPath}/wiiu/controllerProfiles/controller3.xml.bak"
 	fi
 
-	if [ -e "$ESDE_toolPath" ]; then
+	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		CemuProton_addESConfig
 	else
 		echo "ES-DE not found. Skipped adding custom system."
@@ -107,7 +108,7 @@ CemuProton_update(){
 	#CemuProton_addSteamInputProfile
 	CemuProton_addESConfig
 	CemuProton_flushEmulatorLauncher
-	if [ -e "$ESDE_toolPath" ]; then
+	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		CemuProton_addESConfig
 	else
 		echo "ES-DE not found. Skipped adding custom system."
@@ -134,6 +135,7 @@ CemuProton_setEmulationFolder(){
 #SetLanguage
 CemuProton_setLanguage(){
 	setMSG "Setting $CemuProton_emuName Language"
+	local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
 	#TODO: call this somewhere, and input the $language from somewhere (args?)
 	if [[ -f "${CemuProton_cemuSettings}" ]]; then
 		if [ ${CemuProton_languages[$language]+_} ]; then
@@ -144,6 +146,10 @@ CemuProton_setLanguage(){
 
 CemuProton_addESConfig(){
 
+	ESDE_junksettingsFile
+	ESDE_addCustomSystemsFile
+	ESDE_setEmulationFolder
+
 	#insert cemu custom system if it doesn't exist, but the file does
 	if [[ $(grep -rnw "$es_systemsFile" -e 'wiiu') == "" ]]; then
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
@@ -151,7 +157,7 @@ CemuProton_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'name' -v 'wiiu' \
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo Wii U' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/wiiu/roms' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.rpx .RPX .wud .WUD .wux .WUX .elf .ELF .iso .ISO .wad .WAD .wua .WUA' \
+		--subnode '$newSystem' --type elem --name 'extension' -v '.elf .ELF .rpx .RPX .tmd .TMD .wua .WUA .wud .WUD .wuhb .WUHB .wux .WUX' \
 		--subnode '$newSystem' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -f -g z:%ROM%" \
 		--insert '$newSystem/commandP' --type attr --name 'label' --value "Cemu (Native)" \
 		--subnode '$newSystem' --type elem --name 'commandN' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g %ROM%" \
@@ -255,8 +261,6 @@ CemuProton_setResolution(){
 }
 
 CemuProton_flushEmulatorLauncher(){
-
-
 	flushEmulatorLaunchers "cemu"
-
 }
+

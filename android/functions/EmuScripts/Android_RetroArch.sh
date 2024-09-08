@@ -2,13 +2,10 @@
 
 #variables
 Android_RetroArch_emuName="RetroArch"
-Android_RetroArch_emuPath="$HOME/Desktop/EmuDeckAndroid/RetroArch"
-Android_RetroArch_path="$HOME/Desktop/EmuDeckAndroid/RetroArch/config/"
-Android_RetroArch_configFile="$HOME/Desktop/EmuDeckAndroid/RetroArch/config/retroarch.cfg"
-Android_RetroArch_coreConfigFolders="$HOME/Desktop/EmuDeckAndroid/RetroArch/config"
-Android_RetroArch_cores="$HOME/Desktop/EmuDeckAndroid/RetroArch/downloads"
-Android_RetroArch_coresURL="https://buildbot.libretro.com/nightly/android/latest/arm64-v8a/"
-Android_RetroArch_coresExtension="_android.so.zip"
+Android_RetroArch_emuPath="$Android_temp_internal/RetroArch"
+Android_RetroArch_path="$Android_temp_internal/RetroArch/config/"
+Android_RetroArch_configFile="$Android_temp_internal/retroarch.cfg"
+Android_RetroArch_coreConfigFolders="$Android_temp_internal/RetroArch/config"
 
 #cleanupOlderThings
 Android_RetroArch_cleanup(){
@@ -25,7 +22,7 @@ Android_RetroArch_backupConfigs(){
 
 
 function Android_RetroArch_install(){
-	setMSG "RetroArch - Installing"
+	setMSG "Installing RetroArch"
 	temp_url="https://buildbot.libretro.com/stable/1.16.0/android/RetroArch_aarch64.apk"
 	temp_emu="ra"
 	Android_ADB_dl_installAPK $temp_emu $temp_url
@@ -34,11 +31,11 @@ function Android_RetroArch_install(){
 
 #ApplyInitialSettings
 Android_RetroArch_init(){
-	Android_RetroArch_backupConfigs
-	Android_RetroArch_setEmulationFolder
-	Android_RetroArch_setupSaves
-	Android_RetroArch_setupStorage
-	Android_RetroArch_installCores
+	#Android_RetroArch_backupConfigs
+	#Android_RetroArch_setEmulationFolder
+	#Android_RetroArch_setupSaves
+	#Android_RetroArch_setupStorage
+	#Android_RetroArch_installCores
 	Android_RetroArch_setUpCoreOptAll
 	Android_RetroArch_setConfigAll
 	#Android_RetroArch_setupConfigurations
@@ -46,7 +43,7 @@ Android_RetroArch_init(){
 	#Android_RetroArch_autoSave
 	#Android_RetroArch_setRetroAchievements
 	#Android_RetroArch_melonDSDSMigration
-	Android_ADB_push $Android_RetroArch_emuPath $androidStoragePath
+	#Android_ADB_push $Android_RetroArch_emuPath $androidStoragePath
 }
 
 
@@ -180,14 +177,13 @@ Android_RetroArch_setupConfigurations(){
 
 #WipeSettings
 Android_RetroArch_wipe(){
-   rm -rf "$HOME/.var/app/$Android_RetroArch_emuPath"
-   # prob not cause roms are here
+	echo "NYI"
 }
 
 
 #Uninstall
 Android_RetroArch_uninstall(){
-	flatpak uninstall "$Android_RetroArch_emuPath" --user -y
+	echo "NYI"
 }
 
 #setABXYstyle
@@ -2063,138 +2059,7 @@ Android_RetroArch_finalize(){
 }
 
 Android_RetroArch_installCores(){
-
-	#Requests for:
-	#GP32
-	#N-gage
-	#Game.com
-
-
-	mkdir -p "$Android_RetroArch_cores"
-
-	#This is all the cores combined, and dupes taken out.
-	RAcores=(
-				81_libretro \
-				a5200_libretro \
-				arduous_libretro \
-				atari800_libretro \
-				blastem_libretro \
-				bluemsx_libretro \
-				bsnes_hd_beta_libretro \
-				bsnes_libretro \
-				cap32_libretro \
-				chailove_libretro \
-				desmume_libretro \
-				dosbox_core_libretro \
-				dosbox_pure_libretro \
-				easyrpg_libretro \
-				fbalpha2012_libretro \
-				fbneo_libretro \
-				flycast_libretro \
-				freechaf_libretro \
-				freeintv_libretro \
-				fuse_libretro \
-				gambatte_libretro \
-				gearboy_libretro \
-				gearsystem_libretro \
-				genesis_plus_gx_libretro \
-				genesis_plus_gx_wide_libretro \
-				gw_libretro \
-				handy_libretro \
-				hatari_libretro \
-				kronos_libretro \
-				lutro_libretro \
-				mame2003_plus_libretro \
-				mame_libretro \
-				mednafen_lynx_libretro \
-				mednafen_ngp_libretro \
-				mednafen_pce_fast_libretro \
-				mednafen_pce_libretro \
-				mednafen_pcfx_libretro \
-				mednafen_psx_hw_libretro \
-				mednafen_saturn_libretro \
-				mednafen_supergrafx_libretro \
-				mednafen_vb_libretro \
-				mednafen_wswan_libretro \
-				melonds_libretro \
-				melondsds_libretro \
-				mesen_libretro \
-				mesen-s_libretro \
-				mgba_libretro \
-				minivmac_libretro \
-				mu_libretro \
-				mupen64plus_next_libretro \
-				neocd_libretro \
-				nestopia_libretro \
-				np2kai_libretro \
-				nxengine_libretro \
-				o2em_libretro \
-				opera_libretro \
-				picodrive_libretro \
-				pokemini_libretro \
-				potator_libretro \
-				ppsspp_libretro \
-				prboom_libretro \
-				prosystem_libretro \
-				puae_libretro \
-				px68k_libretro \
-				quasi88_libretro \
-				retro8_libretro \
-				same_cdi_libretro \
-				sameboy_libretro \
-				sameduck_libretro \
-				scummvm_libretro \
-				snes9x_libretro \
-				squirreljme_libretro \
-				stella_libretro \
-				swanstation_libretro \
-				theodore_libretro \
-				tic80_libretro \
-				tyrquake_libretro \
-				uzem_libretro \
-				vbam_libretro \
-				vecx_libretro \
-				vice_x128_libretro \
-				vice_x64sc_libretro \
-				vice_xscpu64_libretro \
-				vice_xvic_libretro \
-				virtualjaguar_libretro \
-				vitaquake2_libretro \
-				vitaquake2-rogue_libretro \
-				vitaquake2-xatrix_libretro \
-				vitaquake2-zaero_libretro \
-				vitaquake3_libretro \
-				wasm4_libretro \
-				x1_libretro \
-			)
-	setMSG "Downloading RetroArch Cores for EmuDeck"
-	for i in "${RAcores[@]}"
-	do
-		FILE="${Android_RetroArch_cores}/${i}.*"
-		if [ -f "$FILE" ]; then
-			echo "${i}...Already Downloaded"
-		else
-			curl "$Android_RetroArch_coresURL$i$Android_RetroArch_coresExtension" --output "$Android_RetroArch_cores/${i}.zip"
-
-			#rm ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
-			echo "${i}...Downloaded!"
-		fi
-	done
-
-
-	for entry in "$Android_RetroArch_cores"/*.zip
-	do
-		 unzip -o "$entry" -d "$Android_RetroArch_cores"
-	done
-
-	for entry in "$Android_RetroArch_cores"/*.zip
-
-	do
-		 rm -f "$entry"
-	done
-
-
-
+	echo "NYI"
 }
 
 #Android_RetroArch_dlAdditionalFiles
@@ -2352,7 +2217,8 @@ fi
 }
 
 Android_RetroArch_IsInstalled(){
-	isFpInstalled "$Android_RetroArch_emuPath"
+	package="org.retroarch.com"
+	Android_ADB_appInstalled $package
 }
 
 Android_RetroArch_resetConfig(){

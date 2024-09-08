@@ -14,7 +14,7 @@ ares_cleanup(){
 ares_install() {
 	setMSG "Installing $ares_emuName"
 
-	installEmuFP "${ares_emuName}" "${ares_emuPath}"
+	installEmuFP "${ares_emuName}" "${ares_emuPath}" "emulator" ""
 }
 
 #ApplyInitialSettings
@@ -40,6 +40,7 @@ ares_update() {
 	setMSG "Installing $ares_emuName"
 
 	configEmuFP "${ares_emuName}" "${ares_emuPath}"
+	updateEmuFP "${ares_emuName}" "${ares_emuPath}" "emulator" ""
 	ares_setupStorage
 	ares_setEmulationFolder
 	ares_setupSaves
@@ -285,7 +286,7 @@ ares_wipe(){
 
 #Uninstall
 ares_uninstall(){
-    flatpak uninstall "$ares_emuPath" --user -y
+    uninstallEmuFP "${ares_emuName}" "${ares_emuPath}" "emulator" ""
 }
 
 #setABXYstyle

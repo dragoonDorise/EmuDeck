@@ -11,7 +11,7 @@ cloud_sync_install(){
     setSetting cloud_sync_status "true"
     rm -rf "$HOME/.config/systemd/user/EmuDeckCloudSync.service" > /dev/null
 
-    #if [ ! -f "$HOME/.steam/steam/.cef-enable-remote-debugging" ]; then
+   # if [ $system != "darwin" ];then
       PASS_STATUS=$(passwd -S deck 2> /dev/null)
       if [ "${PASS_STATUS:5:2}" = "NP" ]; then
         Plugins_installEmuDecky "Decky!" && Plugins_installPluginLoader "Decky!"
@@ -33,8 +33,19 @@ cloud_sync_install(){
     cloud_sync_createService
 
     if [ ! -f "$cloud_sync_bin" ]; then
+
+      rcloneFile="linux-amd64.zip"
+
+      if [ $system = "darwin" ];then
+        if [ $appleChip == "arm64" ];then
+             rcloneFile="osx-arm64.zip"
+        else
+             rcloneFile="osx-amd64.zip"
+        fi
+      fi
+
       mkdir -p "$cloud_sync_path"/tmp > /dev/null
-      curl -L "$(getReleaseURLGH "rclone/rclone" "linux-amd64.zip")" --output "$cloud_sync_path/tmp/rclone.temp" && mv "$cloud_sync_path/tmp/rclone.temp" "$cloud_sync_path/tmp/rclone.zip" > /dev/null
+      curl -L "$(getReleaseURLGH "rclone/rclone" "$rcloneFile")" --output "$cloud_sync_path/tmp/rclone.temp" && mv "$cloud_sync_path/tmp/rclone.temp" "$cloud_sync_path/tmp/rclone.zip" > /dev/null
 
       unzip -o "$cloud_sync_path/tmp/rclone.zip" -d "$cloud_sync_path/tmp/" && rm "$cloud_sync_path/tmp/rclone.zip" > /dev/null
       mv "$cloud_sync_path"/tmp/* "$cloud_sync_path/tmp/rclone"  > /dev/null  #don't quote the *
@@ -225,25 +236,30 @@ cloud_sync_install_and_config(){
 	 local cloud_sync_provider=$1
 	 #We force Chrome to be used as the default
 	 {
-	 browser=$(xdg-settings get default-web-browser)
 
-	 if [ "$browser" != 'com.google.Chrome.desktop' ];then
-	   flatpak install flathub com.google.Chrome -y --user
-	   xdg-settings set default-web-browser com.google.Chrome.desktop
-	 fi
+      if [ $system != "darwin" ];then
+       browser=$(xdg-settings get default-web-browser)
 
-	 if [ ! -f "$cloud_sync_bin" ]; then
-	   cloud_sync_install $cloud_sync_provider
-	 fi
+	     if [ "$browser" != 'com.google.Chrome.desktop' ];then
+	       flatpak install flathub com.google.Chrome -y --user
+	       xdg-settings set default-web-browser com.google.Chrome.desktop
+	     fi
+
+	     if [ ! -f "$cloud_sync_bin" ]; then
+	       cloud_sync_install $cloud_sync_provider
+	     fi
+       fi
 	 } && cloud_sync_config "$cloud_sync_provider"
 
 	 setSetting cloud_sync_provider "$cloud_sync_provider"
 	 setSetting cloud_sync_status "true"
 
 	 #We get the previous default browser back
-	 if [ "$browser" != 'com.google.Chrome.desktop' ];then
-	   xdg-settings set default-web-browser $browser
-	 fi
+     if [ $system != "darwin" ];then
+	   if [ "$browser" != 'com.google.Chrome.desktop' ];then
+	     xdg-settings set default-web-browser $browser
+	   fi
+     fi
  }
 
 cloud_sync_install_and_config_with_code(){
@@ -272,7 +288,7 @@ cloud_sync_upload(){
 
     if [ "$emuName" = "all" ]; then
         cloud_sync_save_hash $savesPath
-        ("$cloud_sync_bin" copy --fast-list --update --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$savesPath" "$cloud_sync_provider":Emudeck/saves/ && (
+        ("$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$HOME/emudeck/logs/rclone.log" --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload  --exclude=/.last_upload --exclude=/es-de/** "$savesPath" "$cloud_sync_provider":Emudeck/saves/ && (
           local baseFolder="$savesPath/"
            for folder in $baseFolder*/
             do
@@ -284,7 +300,7 @@ cloud_sync_upload(){
         ))
     else
         cloud_sync_save_hash "$savesPath/$emuName"
-        ("$cloud_sync_bin" copy --fast-list --update --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$savesPath/$emuName" "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload)
+        ("$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$HOME/emudeck/logs/rclone.log" --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload  --exclude=/.last_upload --exclude=/es-de/** "$savesPath/$emuName" "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload)
     fi
     cloud_sync_unlock
   fi
@@ -294,7 +310,7 @@ cloud_sync_upload(){
 
 cloud_sync_download(){
 	local branch=$(cd "$HOME"/.config/EmuDeck/backend && git rev-parse --abbrev-ref HEAD)
-	if [ "$branch" == "early" ] || [ "$branch" == "dev" ] ; then
+	if [[ "$branch" == *"early"* ]] || [ "$branch" == "dev" ] ; then
 		echo "CloudSync Downloading"
 	else
 		return 0
@@ -318,7 +334,7 @@ cloud_sync_download(){
 
         if [ -f "$savesPath/.hash" ] && [ "$hash" != "$hashCloud" ]; then
 
-             "$cloud_sync_bin" copy --fast-list --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/ "$savesPath" && (
+             "$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$HOME/emudeck/logs/rclone.log" --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload  --exclude=/.last_upload --exclude=/es-de/** "$cloud_sync_provider":Emudeck/saves/ "$savesPath" && (
                 local baseFolder="$savesPath/"
                  for folder in $baseFolder*/
                   do
@@ -336,7 +352,7 @@ cloud_sync_download(){
       else
 
         #We check the hashes
-        cloud_sync_save_hash "$emuName"
+        cloud_sync_save_hash "$savesPath/$emuName"
         local filePath="$savesPath/$emuName/.hash"
         local hash=$(cat "$savesPath/$emuName/.hash")
 
@@ -345,7 +361,7 @@ cloud_sync_download(){
         hashCloud=$(cat "$savesPath/$emuName/.hash")
 
         if [ -f "$savesPath/$emuName/.hash" ] && [ "$hash" != "$hashCloud" ];then
-            "$cloud_sync_bin" copy --fast-list --update --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/.pending_upload  --exclude=/.last_upload "$cloud_sync_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
+            "$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$HOME/emudeck/logs/rclone.log" --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload  --exclude=/.last_upload --exclude=/es-de/** "$cloud_sync_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
         else
           echo "up to date"
         fi
@@ -569,11 +585,13 @@ cloud_sync_downloadEmu(){
 }
 
 cloud_sync_downloadEmuAll(){
+ cloud_sync_createService
  cloud_sync_download 'all'
 }
 
 
 cloud_sync_uploadEmuAll(){
+  cloud_sync_createService
   cloud_sync_upload 'all'
 }
 
@@ -582,13 +600,18 @@ cloud_sync_uploadEmuAll(){
 cloud_sync_save_hash(){
   # startLog ${FUNCNAME[0]}
   local dir=$1
-  hash=$(find "$dir" -maxdepth 1 -type f -exec sha256sum {} + | sha256sum | awk '{print $1}')
+
+  #if [ $system != "darwin" ];then
+    hash=$(find "$dir" -maxdepth 1 -type f -exec sha256sum {} + | sha256sum | awk '{print $1}')
+  #else
+  #  hash=$(find "$dir" -maxdepth 1 -type f -exec shasum -a 256 {} + | shasum -a 256 | awk '{print $1}')
+  #fi
   echo "$hash" > "$dir/.hash"
 }
 
 
 cloud_sync_createService(){
-  # startLog ${FUNCNAME[0]}
+  startLog ${FUNCNAME[0]}
   echo "Creating CloudSync service"
   local service_name="EmuDeckCloudSync"
   local script_path="$HOME/.config/EmuDeck/backend/tools/cloudSync/cloud_sync_watcher.sh"
@@ -610,13 +633,13 @@ EOF
 }
 
 cloud_sync_startService(){
-  # startLog ${FUNCNAME[0]}
+  startLog ${FUNCNAME[0]}
   systemctl --user stop "EmuDeckCloudSync.service"
   systemctl --user start "EmuDeckCloudSync.service"
 }
 
 cloud_sync_stopService(){
-  # startLog ${FUNCNAME[0]}
+  startLog ${FUNCNAME[0]}
   systemctl --user stop "EmuDeckCloudSync.service"
 }
 
@@ -656,24 +679,30 @@ cloud_sync_check_lock(){
 
 cloud_decky_check_status(){
   # startLog ${FUNCNAME[0]}
-  if [ $(check_internet_connection) == "true" ]; then
-    if [ $cloud_sync_status = "true" ]; then
-      if [ -f "$savesPath/.gaming" ] && [ ! -f "$HOME/emudeck/cloud.lock" ]; then
-        echo "started"
-      elif [ -f "$savesPath/.gaming" ]; then
-        echo "nothing"
-      elif [ -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
-        echo "uploading"
-      elif [ ! -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
-        echo "nothing"
+
+  #Non cloudsync
+  if [ -f "$HOME/emudeck/.scraping" ]; then
+    echo "scraping"
+  else
+     if [ $(check_internet_connection) == "true" ]; then
+      if [ $cloud_sync_status = "true" ]; then
+        if [ -f "$savesPath/.gaming" ] && [ ! -f "$HOME/emudeck/cloud.lock" ]; then
+          echo "started"
+        elif [ -f "$savesPath/.gaming" ]; then
+          echo "nothing"
+        elif [ -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
+          echo "uploading"
+        elif [ ! -f "$HOME/emudeck/cloud.lock" ] && [ ! -f "$savesPath/.gaming" ]; then
+          echo "nothing"
+        else
+          echo "nothing"
+        fi
       else
         echo "nothing"
       fi
     else
       echo "nothing"
     fi
-  else
-    echo "nothing"
   fi
 
 }

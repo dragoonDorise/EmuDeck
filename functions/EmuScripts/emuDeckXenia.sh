@@ -42,6 +42,8 @@ Xenia_install(){
 	fi
 
 	cp "$EMUDECKGIT/tools/launchers/xenia.sh" "${toolsPath}/launchers/xenia.sh"
+	cp "$EMUDECKGIT/tools/launchers/xenia.sh" "$romsPath/emulators/xenia.sh"
+	cp "$EMUDECKGIT/tools/launchers/xenia.sh" "$romsPath/xbox360/xenia.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/xenia.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/xenia.sh"
 	mkdir -p "$romsPath/xbox360/roms/xbla"
@@ -50,6 +52,8 @@ Xenia_install(){
 #		changeLine '"${PROTONLAUNCH}"' "$launchLine" "${toolsPath}/launchers/xenia.sh"
 #	fi
 	chmod +x "${toolsPath}/launchers/xenia.sh"
+	chmod +x "$romsPath/emulators/xenia.sh"
+	chmod +x "$romsPath/xbox360/xenia.sh"
 
 	Xenia_getPatches
 	Xenia_cleanESDE
@@ -69,8 +73,9 @@ Xenia_init(){
 	#SRM_createParsers
 	Xenia_cleanESDE
 	Xenia_flushEmulatorLauncher
-
-	if [ -e "$ESDE_toolPath" ]; then
+	addProtonLaunch
+	
+	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		Xenia_addESConfig
 	else
 		echo "ES-DE not found. Skipped adding custom system."
@@ -79,6 +84,11 @@ Xenia_init(){
 }
 
 Xenia_addESConfig(){
+
+	ESDE_junksettingsFile
+	ESDE_addCustomSystemsFile
+	ESDE_setEmulationFolder
+	
 	if [[ $(grep -rnw "$es_systemsFile" -e 'xbox360') == "" ]]; then
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
@@ -150,6 +160,9 @@ Xenia_uninstall(){
 	setMSG "Uninstalling $Xenia_emuName. Saves and ROMs will be retained in the ROMs folder."
 	find ${romsPath}/xbox360 -mindepth 1 \( -name roms -o -name content \) -prune -o -exec rm -rf '{}' \; &>> /dev/null
 	rm -rf $HOME/.local/share/applications/xenia.desktop &> /dev/null
+	rm -rf "${toolsPath}/launchers/xenia.sh"
+	rm -rf "$romsPath/emulators/xenia.sh"
+	rm -rf "$romsPath/xbox360/xenia.sh"
 }
 
 #setABXYstyle
@@ -222,8 +235,6 @@ Xenia_cleanESDE(){
 }
 
 Xenia_flushEmulatorLauncher(){
-
-
 	flushEmulatorLaunchers "xenia"
-
 }
+

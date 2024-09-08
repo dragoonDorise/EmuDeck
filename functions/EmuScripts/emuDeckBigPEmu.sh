@@ -31,9 +31,11 @@ BigPEmu_install(){
 	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$toolsPath/launchers/bigpemu.sh"
 	# So users can still open BigPEmu from the ~/Applications folder.
 	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$HOME/Applications/BigPEmu/bigpemu.sh"
+	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$romsPath/emulators/bigpemu.sh"
 
 	chmod +x "${toolsPath}/launchers/bigpemu.sh"
 	chmod +x "$HOME/Applications/BigPEmu/bigpemu.sh"
+	chmod +x "$romsPath/emulators/bigpemu.sh"
 
 	createDesktopShortcut   "$HOME/.local/share/applications/BigPEmu (Proton).desktop" \
 							"BigPEmu (Proton)" \
@@ -48,8 +50,9 @@ BigPEmu_init(){
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
 	BigPEmu_flushEmulatorLauncher
+	addProtonLaunch
 	#SRM_createParsers
-	if [ -e "$ESDE_toolPath" ]; then
+	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		BigPEmu_addESConfig
 	else
 		echo "ES-DE not found. Skipped adding custom system."
@@ -57,7 +60,28 @@ BigPEmu_init(){
 
 }
 
+#update
+BigPEmu_update(){
+	setMSG "Updating $BigPEmu_emuName settings."
+	rsync -avhp "$EMUDECKGIT/configs/bigpemu/" "$BigPEmu_appData" --ignore-existing
+	BigPEmu_setEmulationFolder
+	BigPEmu_setupSaves
+	BigPEmu_flushEmulatorLauncher
+	addProtonLaunch
+	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
+		BigPEmu_addESConfig
+	else
+		echo "ES-DE not found. Skipped adding custom system."
+	fi
+}
+
 BigPEmu_addESConfig(){
+
+	ESDE_junksettingsFile
+	ESDE_addCustomSystemsFile
+	ESDE_setEmulationFolder
+	
+	# Atari Jaguar
 	if [[ $(grep -rnw "$es_systemsFile" -e 'atarijaguar') == "" ]]; then
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
@@ -78,6 +102,12 @@ BigPEmu_addESConfig(){
 		-r 'systemList/system/commandM' -v 'command' \
 		"$es_systemsFile"
 
+		#format doc to make it look nice
+		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+	fi
+
+	# Atari Jaguar CD
+	if [[ $(grep -rnw "$es_systemsFile" -e 'atarijaguarcd') == "" ]]; then
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
 		--subnode '$newSystem' --type elem --name 'name' -v 'atarijaguarcd' \
@@ -94,21 +124,9 @@ BigPEmu_addESConfig(){
 		#format doc to make it look nice
 		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 	fi
-	#Custom Systems config end
-}
 
-#update
-BigPEmu_update(){
-	setMSG "Updating $BigPEmu_emuName settings."
-	rsync -avhp "$EMUDECKGIT/configs/bigpemu/" "$BigPEmu_appData" --ignore-existing
-	BigPEmu_setEmulationFolder
-	BigPEmu_setupSaves
-	BigPEmu_flushEmulatorLauncher
-	if [ -e "$ESDE_toolPath" ]; then
-		BigPEmu_addESConfig
-	else
-		echo "ES-DE not found. Skipped adding custom system."
-	fi
+
+	#Custom Systems config end
 }
 
 
@@ -148,10 +166,7 @@ BigPEmu_wipeSettings(){
 
 #Uninstall
 BigPEmu_uninstall(){
-	setMSG "Uninstalling $BigPEmu_emuName. ROMs will be retained in the ROMs folder. Saves will be retained in "$HOME/Applications/BigPEmu/UserData"."
-	find "$HOME/Applications/BigPEmu" -mindepth 1 -name UserData -prune -o -exec rm -rf '{}' \; &>> /dev/null
-    rm -rf "$HOME/.local/share/applications/BigPEmu (Proton).desktop"
-    BigPEmu_wipeSettings
+    uninstallGeneric $BigPEmu_emuName $BigPEmu_emuPath "" "emulator" 
 }
 
 #setABXYstyle

@@ -70,11 +70,13 @@ Ryujinx_init(){
 	#SRM_createParsers
     Ryujinx_flushEmulatorLauncher
 
-	if [ -e "$ESDE_toolPath" ]; then
+	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		Yuzu_addESConfig
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
+
+    Ryujinx_setLanguage
 
 }
 
@@ -90,7 +92,7 @@ Ryujinx_update(){
     Ryujinx_finalize
     Ryujinx_flushEmulatorLauncher
 
-	if [ -e "$ESDE_toolPath" ]; then
+	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		Yuzu_addESConfig
 	else
 		echo "ES-DE not found. Skipped adding custom system."
@@ -137,7 +139,7 @@ Ryujinx_setEmulationFolder(){
 #SetLanguage
 Ryujinx_setLanguage(){
     setMSG "Setting Ryujinx Language"
-
+    local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
 	#TODO: call this somewhere, and input the $language from somewhere (args?)
 	if [[ -f "${Ryujinx_configFile}" ]]; then
 		if [ ${Ryujinx_languages[$language]+_} ]; then
@@ -159,9 +161,14 @@ Ryujinx_setupSaves(){
         rm -rf "${emulationPath}/saves/ryujinx/saveMeta"
     fi
 
-    linkToSaveFolder Ryujinx saves "$HOME/.config/Ryujinx/bis/user/save"
-    linkToSaveFolder Ryujinx saveMeta "$HOME/.config/Ryujinx/bis/user/saveMeta"
-	linkToSaveFolder Ryujinx system_saves "$HOME/.config/Ryujinx/bis/system/save"
+    if [ -d "${emulationPath}/saves/Ryujinx/saves" ]; then
+        rm -rf "${emulationPath}/saves/Ryujinx/"
+    fi
+
+    linkToSaveFolder ryujinx saves "$HOME/.config/Ryujinx/bis/user/save"
+    linkToSaveFolder ryujinx saveMeta "$HOME/.config/Ryujinx/bis/user/saveMeta"
+	linkToSaveFolder ryujinx system_saves "$HOME/.config/Ryujinx/bis/system/save"
+	linkToSaveFolder ryujinx system "$HOME/.config/Ryujinx/system"
 
 }
 
@@ -185,7 +192,7 @@ Ryujinx_wipe(){
 #Uninstall
 Ryujinx_uninstall(){
     echo "Begin Ryujinx uninstall"
-    rm -rf "$Ryujinx_emuPath"
+    uninstallGeneric $Ryujinx_emuName $Ryujinx_emuPath "" "emulator"
 }
 
 #Migrate

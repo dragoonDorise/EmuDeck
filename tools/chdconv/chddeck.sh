@@ -7,7 +7,17 @@ if [[ "$EMUDECKGIT" == "" ]]; then
 fi
 
 #whitelist
-chdfolderWhiteList=("dreamcast" "psx" "segacd" "3do" "saturn" "tg-cd" "pcenginecd" "pcfx" "amigacd32" "neogeocd" "neogeocdjp" "megacd" "ps2" "cdimono1")
+chdfolderWhiteList=("3do" "amiga" "amiga1200" "amiga600"
+"amigacd32" "atomiswave" "cdimono1"
+"cdtv" "dreamcast" "genesis"
+"genesiswide" "megacd" "megacdjp"
+"megadrive" "megadrivejp" "naomi"
+"naomi2" "naomigd" "neogeocd"
+"neogeocdjp" "pcenginecd" "pcfx"
+"ps2" "psx" "saturn"
+"saturnjp" "sega32x" "sega32xjp"
+"sega32xna" "segacd" "tg-cd"
+"tg16")
 rvzfolderWhiteList=("gc" "wii" "primehacks")
 csofolderWhiteList=("psp")
 n3dsfolderWhiteList=("n3ds")
@@ -245,25 +255,44 @@ decompressRVZ() {
 
 #main
 #text="$(printf "<b>Hi</b>\nWelcome to the EmuDeck Compression Tool!\n\nThis tool will compress your ROMs to best optimize your storage. This tool will convert your ROMs to a new file format and delete the original files. Be very careful and make sure you have extensive backups.\n\n<b></b>")"
-text="$(printf "<b>Hi</b>\nWelcome to the EmuDeck Compression Tool!\n\nThis tool will compress your ROMs to best optimize your storage. Be very careful and make sure you have extensive backups.\n\nThis tool will scan your selected ROMs folder and compress your ROMs files to the most optimal file format.\n\n<b>The original files will be deleted if compression is successful.</b>")"
-selection=$(zenity --question \
-	--title="EmuDeck" \
-	--width=250 \
-	--ok-label="Bulk Compression" \
-	--extra-button="Bulk Decompression" \
-	--extra-button="Pick a file" \
-	--cancel-label="Exit" \
-	--text="${text}" 2>/dev/null && echo "bulk")
+while true; do
+	text="$(printf "Welcome to the EmuDeck Compression Tool!\n\nThis tool will compress your ROMs to best optimize your storage. Be very careful and make sure you have extensive backups.\n\nThis tool will scan your selected ROMs folder and compress your ROMs files to the most optimal file format.\nThe original files will be deleted if compression is successful.\n\nSelect a compression method from the list below.")"
+	selection=$(zenity --list \
+		--title="EmuDeck" \
+		--width=500 \
+		--height=400 \
+		--ok-label="Select" \
+		--cancel-label="Exit" \
+		--column="Options" \
+		"Bulk Compression" "Bulk Decompression" "Select a ROM" \
+		--text="${text}" 2>/dev/null)
+	if [ $? -eq 1 ]; then
+		echo "Compression canceled."
+		exit 1
+	fi
+
+	if [ -n "$selection" ]; then
+		break
+	else
+		zenity --error \
+		--text="Please select a compression method." \
+		--width=200 \
+		--height=100
+	fi
+done
+
+
+echo $selection
 
 case $selection in
-    "bulk")
+    "Bulk Compression")
         compressionSelection="Bulk Compression"
         ;;
     "Bulk Decompression")
         compressionSelection="Bulk Decompression"
         ;;
-    "Pick a file")
-        compressionSelection="Pick a File"
+    "Select a ROM")
+        compressionSelection="Select a ROM"
         ;;
     *)
         compressionSelection="Exit"
@@ -272,7 +301,7 @@ esac
 
 echo $compressionSelection
 
-if [ "$selection" == "bulk" ]; then
+if [ "$selection" == "Bulk Compression" ]; then
 
 	#paths update via sed in main script
 	#romsPath="/run/media/mmcblk0p1/Emulation/roms" #use path from settings
@@ -474,9 +503,14 @@ if [ "$selection" == "bulk" ]; then
 	done
 
 
-elif [ "$selection" == "Pick a file" ]; then
+elif [ "$selection" == "Select a ROM" ]; then
 	while true; do
-		selectedCompressionMethod=$(zenity --list --title="Select Option" --text="Select a compression method from the list below." --column="Options" "Compress a ROM to RVZ" "Compress a ROM to CHD" "Compress a PSP ROM to CHD or CSO" "Compress a ROM to XISO" "Compress a ROM to 7zip" "Trim a 3DS ROM" "Decompress a PSP CHD to ISO" "Decompress a PSP CSO to ISO" "Decompress a GC/Wii RVZ to ISO" --width=300 --height=600)
+		selectedCompressionMethod=$(zenity --list \
+		--title="Select Option" \
+		--text="Select a compression method from the list below." \
+		--ok-label="Select" \
+		--cancel-label="Exit" \
+		--column="Options" "Compress a ROM to RVZ" "Compress a ROM to CHD" "Compress a PSP ROM to CHD or CSO" "Compress a ROM to XISO" "Compress a ROM to 7zip" "Trim a 3DS ROM" "Decompress a PSP CHD to ISO" "Decompress a PSP CSO to ISO" "Decompress a GC/Wii RVZ to ISO" --width=300 --height=600)
 		if [ $? -eq 1 ]; then
 			echo "Compression canceled."
 			exit 1
@@ -485,7 +519,10 @@ elif [ "$selection" == "Pick a file" ]; then
 		if [ -n "$selectedCompressionMethod" ]; then
 			break 
 		else
-			zenity --error --text="Please select a compression method."
+			zenity --error \
+			--text="Please select a compression method." \
+			--width=200 \
+			--height=100
 		fi
 	done
 		

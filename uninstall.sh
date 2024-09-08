@@ -11,6 +11,7 @@ doUninstallDolphin=true
 doUninstallDuck=true
 doUninstallESDE=true
 doUninstallFlycast=true
+doUninstallLime3DS=true
 doUninstallMame=true
 doUninstallmelonDS=true
 doUninstallMGBA=true
@@ -133,6 +134,144 @@ else
 	echo -e "No"
 fi
 
+	if find "$romsPath/remoteplay" -type f -name "*.sh" | grep -q .; then
+
+		RPUninstall=$(zenity --list  \
+			--title="Remote Play Clients" \
+			--text="The EmuDeck uninstaller has detected you have installed Remote Play Clients using the Cloud Services Manager. \n\n Any checked items on this list will remain installed. \n\nAny unchecked items will be uninstalled. \n\nSelect which remote play clients you would like to keep installed." \
+			--ok-label="OK" --cancel-label="Exit" \
+			--column="" --column="Leave unchecked to uninstall." \
+			--width=500 --height=500 --checklist \
+			1 "Chiaki Remote Play Client"  \
+			2 "chiaki-ng" \
+			3 "Greenlight" \
+			4 "Moonlight Game Streaming" \
+			5 "Parsec" \
+			6 "ShadowPC" \
+			7 "Steam Link" )
+
+		if [[ "$RPUninstall" != *"Chiaki Remote Play Client"* ]]; then
+			flatpak uninstall re.chiaki.Chiaki -y
+			rm -f "$romsPath/remoteplay/Chiaki Remote Play Client.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/re.chiaki.Chiaki" &> /dev/null
+		fi 
+
+		if [[ "$RPUninstall" != *"chiaki-ng"* ]]; then	
+			rm -f "$HOME/Applications/chiaki-ng.AppImage" &> /dev/null
+			rm -rf "$HOME/.config/Chiaki/" &> /dev/null
+			rm -rf "$HOME/.cache/Chiaki/" &> /dev/null
+			rm -f "$romsPath/remoteplay/chiaki-ng.sh" &> /dev/null
+			rm -rf "$HOME/.local/share/applications/chiaki-ng.desktop" &> /dev/null
+		fi 
+
+		if [[ "$RPUninstall" != *"Greenlight"* ]]; then	
+			rm -f "$HOME/Applications/Greenlight.AppImage" &> /dev/null
+			rm -f "$romsPath/remoteplay/Greenlight.sh" &> /dev/null
+			rm -rf "$HOME/.config/greenlight/" &> /dev/null
+			rm -rf "$HOME/.local/share/applications/Greenlight.desktop" &> /dev/null
+		fi 
+
+		if [[ "$RPUninstall" != *"Moonlight Game Streaming"* ]]; then	
+			flatpak uninstall com.moonlight_stream.Moonlight -y
+			rm -f "$romsPath/remoteplay/Moonlight Game Streaming.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/com.moonlight_stream.Moonlight" &> /dev/null
+		fi 
+
+		if [[ "$RPUninstall" != *"Parsec"* ]]; then	
+			flatpak uninstall com.parsecgaming.parsec -y
+			rm -f "$romsPath/remoteplay/Parsec.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/com.parsecgaming.parsec" &> /dev/null
+		fi 
+
+		if [[ "$RPUninstall" != *"ShadowPC"* ]]; then	
+			rm -f "$HOME/Applications/ShadowPC.AppImage" &> /dev/null
+			rm -f "$romsPath/remoteplay/ShadowPC.sh" &> /dev/null
+			rm -rf "$HOME/.config/shadow/" &> /dev/null
+			rm -rf "$HOME/.local/share/applications/ShadowPC.desktop" &> /dev/null
+		fi 
+
+		if [[ "$RPUninstall" != *"Steam Link"* ]]; then	
+			flatpak uninstall com.valvesoftware.SteamLink -y
+			rm -f "$romsPath/remoteplay/SteamLink.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/com.valvesoftware.SteamLink" &> /dev/null
+		fi 
+
+	fi 
+	
+	if find "$romsPath/generic-applications" -type f -name "*.sh" | grep -q .; then
+
+		GAUninstall=$(zenity --list  \
+			--title="Generic Applications" \
+			--text="The EmuDeck uninstaller has detected you have installed Generic Applications using the Cloud Services Manager. \n\n Any checked items on this list will remain installed. \n\nAny unchecked items will be uninstalled. \n\nSelect which remote play clients you would like to keep installed." \
+			--ok-label="OK" --cancel-label="Exit" \
+			--column="" --column="Leave unchecked to uninstall." \
+			--width=500 --height=500 --checklist \
+			1 "Bottles" \
+			2 "Cider"  \
+			3 "Flatseal" \
+			4 "Heroic Games Launcher" \
+			5 "Lutris" \
+			6 "Plexamp" \
+			7 "Spotify" \
+			8 "Tidal" \
+			9 "Warehouse" )
+
+		if [[ "$GAUninstall" != *"Bottles"* ]]; then	
+			flatpak uninstall com.usebottles.bottles -y
+			rm -f "$romsPath/generic-applications/Bottles.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/com.usebottles.bottles" &> /dev/null
+		fi 
+
+		if [[ "$GAUninstall" != *"Cider"* ]]; then	
+			flatpak uninstall sh.cider.Cider -y
+			rm -f "$romsPath/generic-applications/Cider.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/sh.cider.Cider" &> /dev/null
+		fi 
+
+		if [[ "$GAUninstall" != *"Flatseal"* ]]; then	
+			flatpak uninstall com.github.tchx84.Flatseal -y
+			rm -f "$romsPath/generic-applications/Flatseal.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/com.github.tchx84.Flatseal" &> /dev/null
+		fi 
+
+		if [[ "$GAUninstall" != *"Heroic Games Launcher"* ]]; then
+			rm -f "$HOME/Applications/Heroic-Games-Launcher.AppImage" &> /dev/null
+			rm -f "$romsPath/generic-applications/Heroic-Games-Launcher.sh" &> /dev/null
+			rm -rf "$HOME/.config/heroic/" &> /dev/null
+			rm -rf "$HOME/.local/share/applications/Heroic-Games-Launcher.desktop" &> /dev/null
+		fi 
+
+		if [[ "$GAUninstall" != *"Lutris"* ]]; then	
+			flatpak uninstall net.lutris.Lutris -y
+			rm -f "$romsPath/generic-applications/Lutris.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/net.lutris.Lutris" &> /dev/null
+		fi 
+
+		if [[ "$GAUninstall" != *"Plexamp"* ]]; then	
+			flatpak uninstall com.plexamp.Plexamp -y
+			rm -f "$romsPath/generic-applications/Plexamp.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/com.plexamp.Plexamp" &> /dev/null
+		fi 
+
+		if [[ "$GAUninstall" != *"Spotify"* ]]; then	
+			flatpak uninstall com.spotify.Client -y
+			rm -f "$romsPath/generic-applications/Spotify.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/com.spotify.Client" &> /dev/null
+		fi 
+
+		if [[ "$GAUninstall" != *"Tidal"* ]]; then	
+			flatpak uninstall com.mastermindzh.tidal-hifi -y
+			rm -f "$romsPath/generic-applications/Tidal.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/com.mastermindzh.tidal-hifi" &> /dev/null
+		fi 
+
+		if [[ "$GAUninstall" != *"Warehouse"* ]]; then	
+			flatpak uninstall io.github.flattool.Warehouse -y
+			rm -f "$romsPath/generic-applications/Warehouse.sh" &> /dev/null
+			rm -rf "$HOME/.var/app/io.github.flattool.Warehouse" &> /dev/null
+		fi 
+
+	fi 
 
 
 	#Emulator selector
@@ -156,23 +295,24 @@ fi
 				6 "Dolphin" \
 				7 "Duckstation" \
 				8 "Flycast" \
-				9 "Mame"  \
-				10 "melonDS"  \
-				11 "mGBA"  \
-				12 "Model2" \
-				13 "PCSX2" \
-				14 "PPSSPP" \
-				15 "PrimeHack" \
-				16 "RetroArch"\
-				17 "RMG"  \
-				18 "RPCS3" \
-				19 "Ryujinx" \
-				20 "ScummVM" \
-				21 "Supermodel" \
-				22 "Vita3K"  \
-				23 "Xemu" \
-				24 "Xenia"  \
-				25 "Yuzu" )
+				9 "Lime3DS" \
+				10 "Mame"  \
+				11 "melonDS"  \
+				12 "mGBA"  \
+				13 "Model2" \
+				14 "PCSX2" \
+				15 "PPSSPP" \
+				16 "PrimeHack" \
+				17 "RetroArch"\
+				18 "RMG"  \
+				19 "RPCS3" \
+				20 "Ryujinx" \
+				21 "ScummVM" \
+				22 "Supermodel" \
+				23 "Vita3K"  \
+				24 "Xemu" \
+				25 "Xenia"  \
+				26 "Yuzu" )
 
 	ans=$?
 
@@ -201,6 +341,9 @@ fi
 		fi
 		if [[ "$emusToUninstall" == *"Flycast"* ]]; then
 			doUninstallFlycast=false
+		fi
+		if [[ "$emusToUninstall" == *"Lime3DS"* ]]; then
+			doUninstallLime3DS=false
 		fi
 		if [[ "$emusToUninstall" == *"Mame"* ]]; then
 			doUninstallMame=false
@@ -287,6 +430,10 @@ fi
 	if [[ "$doUninstallCitra" == true ]]; then
 		flatpak uninstall org.citra_emu.citra -y
 		rm -rf $HOME/.var/app/org.citra_emu.citra &> /dev/null
+  		rm -rf $HOME/.local/share/applications/Citra.desktop &> /dev/null
+		rm -rf $HOME/Applications/citra-qt*.AppImage &> /dev/null
+		rm -rf $HOME/.local/share/citra-emu &> /dev/null
+		rm -rf $HOME/.config/citra-emu &> /dev/null
 	fi
 	if [[ "$doUninstallDolphin" == true ]]; then
 		flatpak uninstall org.DolphinEmu.dolphin-emu -y
@@ -299,6 +446,12 @@ fi
 	if [[ "$doUninstallFlycast" == true ]]; then
 		flatpak uninstall org.flycast.Flycast -y
 		rm -rf $HOME/.var/app/org.flycast.Flycast &> /dev/null
+	fi 
+	if [[ "$doUninstallLime3DS" == true ]]; then
+		rm -rf $HOME/.config/lime3ds-emu/ &> /dev/null
+		rm -rf $HOME/.local/share/lime3ds-emu &> /dev/null
+  		rm -rf $HOME/.local/share/applications/Lime3DS.desktop &> /dev/null
+		rm -rf $HOME/Applications/lime3ds-gui*.AppImage &> /dev/null
 	fi
 	if [[ "$doUninstallMame" == true ]]; then
 		flatpak uninstall org.mamedev.MAME -y
@@ -321,6 +474,7 @@ fi
 		rm -f "$HOME/.local/share/applications/Model 2 (Proton).desktop" &> /dev/null
 		# Current name.
 		rm -f "$HOME/.local/share/applications/Model 2 Emulator (Proton).desktop" &> /dev/null
+		rm -rf "$HOME/.steam/steam/compatibilitytools.d/ULWGL-Proton-8.0-5-3"
 	fi
 	if [[ "$doUninstallPCSX2" == true ]]; then
 		rm -rf $HOME/Applications/pcsx2-Qt.AppImage &> /dev/null
@@ -398,6 +552,9 @@ fi
 	fi
 
 
+
+
+
 	echo "55"
 	echo "# Removing Cloud Backup";
 
@@ -446,6 +603,11 @@ fi
 	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_frontend_controller_switch_pro.vdf &> /dev/null
 	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_frontend_controller_xbox360.vdf &> /dev/null
 	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_frontend_controller_xboxone.vdf &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_frontend_controller_xboxelite.vdf &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_xboxelite.vdf &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_frontend_controller_steamcontroller.vdf &> /dev/null
+	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_controller_steamcontroller.vdf &> /dev/null
+
 	rm -rf $HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf &> /dev/null
 
 	find  "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons" -name 'EmuDeck*' -exec rm {} \;

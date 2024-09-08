@@ -417,13 +417,13 @@ function getReleaseURLGH(){
 	local fileNameContains=$3
 	#local token=$(tokenGenerator)
 
-	if [ "$system" == "darwin" ]; then
-		fileType="dmg"
-	fi
-
-	if [ "$system" == "darwin" ]; then
-		fileType="dmg"
-	fi
+# 	if [ "$system" == "darwin" ]; then
+# 		fileType="dmg"
+# 	fi
+#
+# 	if [ "$system" == "darwin" ]; then
+# 		fileType="dmg"
+# 	fi
 
 	if [ "$url" == "" ]; then
 		url="https://api.github.com/repos/$repository/releases"
@@ -456,6 +456,68 @@ function linkToSaveFolder(){
 				echo "$savesPath/$emu/$folderName not linked correctly."
 				unlink "$savesPath/$emu/$folderName"
 				linkToSaveFolder "$emu" "$folderName" "$path"
+			fi
+		 fi
+	fi
+
+}
+
+
+function linkToTexturesFolder(){
+	local emu=$1
+	local folderName=$2
+	local path=$3
+
+	mkdir "$emulationPath/texturepacks"
+	local texturepacks="$emulationPath/texturepacks"
+
+	if [ ! -d "$texturepacks/$emu/$folderName" ]; then
+		if [ ! -L "$texturepacks/$emu/$folderName" ]; then
+			mkdir -p "$texturepacks/$emu"
+			setMSG "Linking $emu $folderName to the Emulation/texturepacks folder"
+			mkdir -p "$path"
+			ln -snv "$path" "$texturepacks/$emu/$folderName"
+		fi
+	else
+		if [ ! -L "$texturepacks/$emu/$folderName" ]; then
+			echo "$texturepacks/$emu/$folderName is not a link. Please check it."
+		else
+			if [ $(readlink $texturepacks/$emu/$folderName) == $path ]; then
+				echo "$texturepacks/$emu/$folderName is already linked."
+				echo "     Target: $(readlink $texturepacks/$emu/$folderName)"
+			else
+				echo "$texturepacks/$emu/$folderName not linked correctly."
+				unlink "$texturepacks/$emu/$folderName"
+				linkToTexturesFolder "$emu" "$folderName" "$path"
+			fi
+		 fi
+	fi
+
+}
+
+function linkToStorageFolder(){
+	local emu=$1
+	local folderName=$2
+	local path=$3
+
+	if [ ! -d "$storagePath/$emu/$folderName" ]; then
+		if [ ! -L "$storagePath/$emu/$folderName" ]; then
+			mkdir -p "$storagePath/$emu"
+			setMSG "Linking $emu $folderName to the "$storagePath" folder"
+			mkdir -p "$path"
+			ln -snv "$path" "$storagePath/$emu/$folderName"
+		fi
+	else
+		if [ ! -L "$storagePath/$emu/$folderName" ]; then
+			echo "$storagePath/$emu/$folderName is not a link. Please check it."
+		else
+			if [ $(readlink $storagePath/$emu/$folderName) == $path ]; then
+				echo "$storagePath/$emu/$folderName is already linked."
+				echo "     Target: $(readlink $storagePath/$emu/$folderName)"
+			else
+				echo "$storagePath/$emu/$folderName not linked correctly."
+				unlink "$storagePath/$emu/$folderName"
+				linkToStorageFolder "$emu" "$folderName" "$path"
 			fi
 		 fi
 	fi
@@ -700,12 +762,13 @@ flushEmulatorLaunchers(){
     local name="$1"
 
 	shName=$(echo "$name" | awk '{print tolower($0)}')
-	find "${toolsPath}/launchers/" -maxdepth 1 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
-	while read -r f
-	do
-		echo "deleting $f"
-		rm -f "$f"
-	done
+    mkdir -p "${romsPath}/emulators"
+    find "${toolsPath}/launchers/" "${romsPath}/emulators" -maxdepth 1 -type f \( -iname "$shName.sh" -o -iname "$shName-emu.sh" \) | \
+    while read -r f
+    do
+        echo "deleting $f"
+        rm -f "$f"
+    done
 
     find "${EMUDECKGIT}/tools/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
     while read -r l
@@ -715,6 +778,8 @@ flushEmulatorLaunchers(){
         chmod +x "$l"
         cp -v "$l" "${toolsPath}/launchers/"
         chmod +x "${toolsPath}/launchers/"*
+		cp -v "$l" "${romsPath}/emulators"
+		chmod +x "${romsPath}/emulators/"*
     done
 
 
@@ -749,9 +814,11 @@ check_internet_connection(){
 }
 
 zipLogs() {
+	local desktop=$(xdg-user-dir DESKTOP)
+
 	logsFolder="$HOME/emudeck/logs"
 	settingsFile="$HOME/emudeck/settings.sh"
-	zipOutput="$HOME/Desktop/emudeck_logs.zip"
+	zipOutput="$desktop/emudeck_logs.zip"
 
 	# Comprime los archivos en un archivo zip
 	zip -rj "$zipOutput" "$logsFolder" "$settingsFile"
@@ -932,185 +999,105 @@ isLatestVersionGH() {
 	fi
 }
 
+addProtonLaunch(){
+	rsync -avhp "$EMUDECKGIT/tools/proton-launch.sh" "${toolsPath}"
+	rsync -avhp "$EMUDECKGIT/tools/appID.py" "${toolsPath}"
+	chmod +x "${toolsPath}/proton-launch.sh"
+}
 
 function emulatorInit(){
 	local emuName=$1
 	#isLatestVersionGH "$emuName"
 	#NetPlay
+	cloud_sync_stopService
 	if [ "$emuName" = 'retroarch' ]; then
-
-		if [ "$netplay" = 'true' ]; then
-			#Looks for devices listening, no listening device? you want to host
+   		if [ "$netPlay" == "true" ]; then
+			#Looks for devices listening
+			setSetting netplayCMD "-H"
+			sleep 2
 			netplaySetIP
-			if [ "$netplayHost" = 'true' ]; then
-				setSetting netplayCMD "-H"
-			else
-				setSetting netplayCMD "-C $netplayIP"
-			fi
 		else
-			setSetting netplayCMD ""
-			setSetting netplayHost "false"
+			setSetting netplayCMD "' '"
+			cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
 		fi
+		source $HOME/.config/EmuDeck/backend/functions/all.sh
+	fi
+
+	if [ "$emuName" != 'retroarch' ]; then
+		cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
+	fi
+
+	#Check if the service is up and running
+
+	if [ -f "$cloud_sync_bin" ] && [ "$cloud_sync_status" == "true" ]; then
+
+		if [ $(check_internet_connection) == "true" ]; then
+
+			systemctl --user is-active --quiet "EmuDeckCloudSync.service"
+
+			status=$?
+
+			if [ $status -eq 0 ]; then
+				echo "CloudSync Service running"
+			else
+				text="$(printf "<b>CloudSync Error.</b>\nCloudSync service is not running. Please contact us on Patreon")"
+				zenity --error \
+				--title="EmuDeck" \
+				--width=400 \
+				--text="${text}" 2>/dev/null
+			fi
+
+		else
+			text="$(printf "<b>CloudSync Error.</b>\nInternet connection not available. Please contact us on Patreon")"
+			zenity --error \
+			--title="EmuDeck" \
+			--width=400 \
+			--text="${text}" 2>/dev/null
+
+		fi
+
+
 
 	fi
 
-	cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
+
 }
 
-function jsonToBashVars(){
-	local json=$1
-	echo "#!/bin/bash" > "$emuDecksettingsFile"
-	#Install Emus
-	setSetting system "$(jq .system $json)"
-	setSetting doInstallRA "$(jq .installEmus.ra.status $json)"
-	setSetting doInstallDolphin "$(jq .installEmus.dolphin.status $json)"
-	setSetting doInstallPCSX2QT "$(jq .installEmus.pcsx2.status $json)"
-	setSetting doInstallRPCS3 "$(jq .installEmus.rpcs3.status $json)"
-	setSetting doInstallYuzu "$(jq .installEmus.yuzu.status $json)"
-	setSetting doInstallSuyu "$(jq .installEmus.suyu.status $json)"
-	setSetting doInstallCitra "$(jq .installEmus.citra.status $json)"
-	setSetting doInstallDuck "$(jq .installEmus.duckstation.status $json)"
-	setSetting doInstallCemu "$(jq .installEmus.cemu.status $json)"
-	setSetting doInstallXenia "$(jq .installEmus.xenia.status $json)"
-	setSetting doInstallRyujinx "$(jq .installEmus.ryujinx.status $json)"
-	setSetting doInstallMAME "$(jq .installEmus.mame.status $json)"
-	setSetting doInstallPrimeHack "$(jq .installEmus.primehack.status $json)"
-	setSetting doInstallPPSSPP "$(jq .installEmus.ppsspp.status $json)"
-	setSetting doInstallXemu "$(jq .installEmus.xemu.status $json)"
-	setSetting doInstallSRM "$(jq .installEmus.srm.status $json)"
-	setSetting doInstallmelonDS "$(jq .installEmus.melonds.status $json)"
-	setSetting doInstallScummVM "$(jq .installEmus.scummvm.status $json)"
-	setSetting doInstallFlycast "$(jq .installEmus.flycast.status $json)"
-	setSetting doInstallVita3K "$(jq .installEmus.vita3k.status $json)"
-	setSetting doInstallMGBA "$(jq .installEmus.mgba.status $json)"
-	setSetting doInstallPrimehack "$(jq .installEmus.primehack.status $json)"
-	setSetting doInstallRMG "$(jq .installEmus.rmg.status $json)"
-	setSetting doInstallares "$(jq .installEmus.ares.status $json)"
-	setSetting doInstallSupermodel "$(jq .installEmus.supermodel.status $json)"
-	setSetting doInstallModel2  "$(jq .installEmus.model2.status $json)"
-	setSetting doInstallBigPEmu  "$(jq .installEmus.bigpemu.status $json)"
 
-
-	#Setup Emus
-	setSetting doSetupRA $(jq .overwriteConfigEmus.ra.status "$json")
-	setSetting doSetupDolphin "$(jq .overwriteConfigEmus.dolphin.status $json)"
-	setSetting doSetupPCSX2QT "$(jq .overwriteConfigEmus.pcsx2.status $json)"
-	setSetting doSetupRPCS3 "$(jq .overwriteConfigEmus.rpcs3.status $json)"
-	setSetting doSetupYuzu "$(jq .overwriteConfigEmus.yuzu.status $json)"
-	setSetting doSetupSuyu "$(jq .overwriteConfigEmus.suyu.status $json)"
-	setSetting doSetupCitra "$(jq .overwriteConfigEmus.citra.status $json)"
-	setSetting doSetupDuck "$(jq .overwriteConfigEmus.duckstation.status $json)"
-	setSetting doSetupCemu "$(jq .overwriteConfigEmus.cemu.status $json)"
-	setSetting doSetupXenia "$(jq .overwriteConfigEmus.xenia.status $json)"
-	setSetting doSetupRyujinx "$(jq .overwriteConfigEmus.ryujinx.status $json)"
-	setSetting doSetupMAME "$(jq .overwriteConfigEmus.mame.status $json)"
-	setSetting doSetupPrimeHack "$(jq .overwriteConfigEmus.primehack.status $json)"
-	setSetting doSetupPPSSPP "$(jq .overwriteConfigEmus.ppsspp.status $json)"
-	setSetting doSetupXemu "$(jq .overwriteConfigEmus.xemu.status $json)"
-	setSetting doSetupSRM "$(jq .overwriteConfigEmus.srm.status $json)"
-	setSetting doSetupmelonDS "$(jq .overwriteConfigEmus.melonds.status $json)"
-	setSetting doSetupScummVM "$(jq .overwriteConfigEmus.scummvm.status $json)"
-	setSetting doSetupFlycast "$(jq .overwriteConfigEmus.flycast.status $json)"
-	setSetting doSetupVita3K "$(jq .overwriteConfigEmus.vita3k.status $json)"
-	setSetting doSetupMGBA "$(jq .overwriteConfigEmus.mgba.status $json)"
-	setSetting doSetupPrimehack "$(jq .overwriteConfigEmus.primehack.status $json)"
-	setSetting doSetupRMG "$(jq .overwriteConfigEmus.rmg.status $json)"
-	setSetting doSetupares "$(jq .overwriteConfigEmus.ares.status $json)"
-	setSetting doSetupSupermodel "$(jq .overwriteConfigEmus.supermodel.status $json)"
-	setSetting doSetupModel2 "$(jq .overwriteConfigEmus.model2.status $json)"
-	setSetting doSetupBigPEmu  "$(jq .overwriteConfigEmus.bigpemu.status $json)"
-
-	#Frontends
-	setSetting doSetupSRM "$(jq .overwriteConfigEmus.srm.status $json)"
-	setSetting doSetupESDE "$(jq .overwriteConfigEmus.esde.status $json)"
-	setSetting doInstallESDE "$(jq .installFrontends.esde.status $json)"
-	setSetting doInstallPegasus "$(jq .installFrontends.pegasus.status $json)"
-	setSetting steamAsFrontend "$(jq .installFrontends.steam.status $json)"
-
-
-	#Customizations
-	setSetting RABezels "$(jq .bezels $json)"
-	setSetting RAautoSave "$(jq .autosave $json)"
-	setSetting arClassic3D "$(jq .ar.classic3d $json)"
-	setSetting arDolphin "$(jq .ar.dolphin $json)"
-	setSetting arSega "$(jq .ar.sega $json)"
-	setSetting arSnes "$(jq .ar.snes $json)"
-	setSetting RAHandClassic2D "$(jq .shaders.classic $json)"
-	setSetting RAHandClassic3D "$(jq .shaders.classic3d $json)"
-	setSetting RAHandHeldShader "$(jq .shaders.handhelds $json)"
-	setSetting controllerLayout "$(jq .controllerLayout $json)"
-
-	#CloudSync
-	setSetting cloud_sync_provider "$(jq .cloudSync $json)"
-	setSetting cloudSyncStatus "$(jq .cloudSyncStatus $json)"
-
-	#Resolutions
-	setSetting dolphinResolution  "$(jq .resolutions.dolphin $json)"
-	setSetting duckstationResolution  "$(jq .resolutions.duckstation $json)"
-	setSetting pcsx2Resolution  "$(jq .resolutions.pcsx2 $json)"
-	setSetting yuzuResolution  "$(jq .resolutions.yuzu $json)"
-	setSetting ppssppResolution  "$(jq .resolutions.ppsspp $json)"
-	setSetting rpcs3Resolution  "$(jq .resolutions.rpcs3 $json)"
-	setSetting citraResolution  "$(jq .resolutions.citra $json)"
-	setSetting xemuResolution  "$(jq .resolutions.xemu $json)"
-	setSetting xeniaResolution  "$(jq .resolutions.xenia $json)"
-	setSetting melondsResolution  "$(jq .resolutions.melonds $json)"
-
-	#MultiEmu Parsers
-	setSetting emuGBA  "$(jq .emulatorAlternative.gba $json)"
-	setSetting emuMAME  "$(jq .emulatorAlternative.mame $json)"
-	setSetting emuMULTI  "$(jq .emulatorAlternative.multiemulator $json)"
-	setSetting emuN64  "$(jq .emulatorAlternative.n64 $json)"
-	setSetting emuNDS  "$(jq .emulatorAlternative.nds $json)"
-	setSetting emuPSP  "$(jq .emulatorAlternative.psp $json)"
-	setSetting emuPSX  "$(jq .emulatorAlternative.psx $json)"
-	setSetting emuDreamcast  "$(jq .emulatorAlternative.dreamcast $json)"
-	setSetting emuSCUMMVM "$(jq .emulatorAlternative.scummvm $json)"
-
-	#Paths
-	globPath=$(jq .storagePath $json)
-	setSetting emulationPath "$globPath/Emulation"
-	setSetting romsPath "$globPath/Emulation/roms"
-	setSetting toolsPath "$globPath/Emulation/tools"
-	setSetting biosPath "$globPath/Emulation/bios"
-	setSetting savesPath "$globPath/Emulation/saves"
-	setSetting storagePath "$globPath/Emulation/storage"
-	setSetting ESDEscrapData "$globPath/Emulation/tools/downloaded_media"
-
-	#Default ESDE Theme
-	setSetting esdeThemeUrl "$(jq .themeESDE[0] $json)"
-	setSetting esdeThemeName "$(jq .themeESDE[1] $json)"
-
-	#Default Pegasus Theme
-	setSetting pegasusThemeUrl "$(jq .themePegasus[0] $json)"
-	setSetting pegasusThemeName "$(jq .themePegasus[1] $json)"
-
-	#RetroAchiviements
-	setSetting achievementsUser "$(jq .achievements.user $json)"
-	setSetting achievementsUserToken "$(jq .achievements.token $json)"
-	setSetting achievementsHardcore "$(jq .achievements.hardcore $json)"
-
-	#Android
-	setSetting androidStorage "$(jq .android.storage $json)"
-	setSetting androidStoragePath "$(jq .android.storagePath $json)"
-
+function storePatreonToken(){
+	local token=$1
+	echo "$token" > "$savesPath/.token"
+	if [ -f $cloud_sync_bin ]; then
+		"$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$savesPath/.token" "$cloud_sync_provider":Emudeck/saves/.token
+	fi
 }
 
 
 function controllerLayout_ABXY(){
-	Dolphin_setABXYstyle
 	Cemu_setABXYstyle
-	Ryujinx_setABXYstyle
+	Citra_setABXYstyle
+	Lime3DS_setABXYstyle
+	Dolphin_setABXYstyle
+ 	melonDS_setABXYstyle
 	RetroArch_setABXYstyle
-	melonDS_setABXYstyle
 	RMG_setABXYstyle
+ 	Ryujinx_setABXYstyle
 }
 
 function controllerLayout_BAYX(){
-	Dolphin_setBAYXstyle
 	Cemu_setBAYXstyle
-	Ryujinx_setBAYXstyle
+ 	Citra_setBAYXstyle
+ 	Dolphin_setBAYXstyle
+	Lime3DS_setBAYXstyle
+  	melonDS_setBAYXstyle
 	RetroArch_setBAYXstyle
-	melonDS_setBAYXstyle
 	RMG_setBAYXstyle
+	Ryujinx_setBAYXstyle
+}
+
+
+function server_install(){
+	cp "$EMUDECKGIT/tools/server.sh" "$toolsPath/"
+	#cp "$EMUDECKGIT/tools/index.html" "$toolsPath/"
+	chmod +x "$toolsPath/server.sh"
 }

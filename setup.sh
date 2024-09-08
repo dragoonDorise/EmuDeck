@@ -4,8 +4,12 @@ echo "0" > "$MSG"
 
 #Darwin
 appleChip=$(uname -m)
-if [ appleChip != "Linux" ]; then
-	PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+if [ $(uname) != "Linux" ]; then
+	if [ $appleChip = 'arm64' ]; then
+		PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+	else
+		PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+	fi
 fi
 
 #
@@ -114,6 +118,7 @@ EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 
 
 source "$EMUDECKGIT"/functions/helperFunctions.sh
+source "$EMUDECKGIT"/functions/jsonToBashVars.sh
 jsonToBashVars "$HOME/.config/EmuDeck/settings.json"
 source "$EMUDECKGIT/functions/all.sh"
 
@@ -183,6 +188,10 @@ fi
 if [ $doInstallCitra == "true" ]; then
 	echo "install Citra"
 	Citra_install
+fi
+if [ $doInstallLime3DS == "true" ]; then
+	echo "install Lime3DS"
+	Lime3DS_install
 fi
 if [ $doInstallDolphin == "true" ]; then
 	echo "install Dolphin"
@@ -331,6 +340,10 @@ if [ "$doSetupCitra" == "true" ]; then
 	echo "Citra_init"
 	Citra_init
 fi
+if [ $doSetupLime3DS == "true" ]; then
+	echo "Lime3DS_init"
+	Lime3DS_init
+fi
 if [ "$doSetupDuck" == "true" ]; then
 	echo "DuckStation_init"
 	DuckStation_init
@@ -423,6 +436,9 @@ fi
 
 #Always install
 BINUP_install
+AutoCopy_install
+server_install
+FlatpakUP_install
 CHD_install
 
 #

@@ -28,7 +28,7 @@
 	{
 		"english"
 		{
-			"title"		"Gamepad With Joystick Trackpad"
+			"title"		"EmuDeck - Controller Hotkeys"
 			"description"		"This template is for most games that already have built-in gamepad support and have a first or third person controlled camera.  FPS or Third Person Adventure games, etc."
 		}
 		"czech"
@@ -470,7 +470,7 @@
 			{
 				"activators"
 				{
-					"Full_Press"
+					"chord"
 					{
 						"bindings"
 						{
@@ -478,6 +478,7 @@
 						}
 						"settings"
 						{
+							"chord_button"		"15"
 							"haptic_intensity"		"2"
 						}
 					}
