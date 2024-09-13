@@ -2,7 +2,7 @@
 #variables
 Lime3DS_emuName="Lime3DS"
 Lime3DS_emuType="$emuDeckEmuTypeAppImage"
-Lime3DS_emuPath="$HOME/Applications/lime3ds-gui.AppImage"
+Lime3DS_emuPath="$HOME/Applications/lime3ds.AppImage"
 Lime3DS_releaseURL=""
 Lime3DS_configFile="$HOME/.config/lime3ds-emu/qt-config.ini"
 Lime3DS_configPath="$HOME/.config/lime3ds-emu"
@@ -12,7 +12,7 @@ Lime3DS_texturesPath="$HOME/.config/lime3ds-emu/load/textures"
 Lime3DS_install(){
 	echo "Begin $Lime3DS_emuName Install"
 	local showProgress="$1"
-	if installEmuAI "$Lime3DS_emuName" "" "$(getReleaseURLGH "Lime3DS/Lime3DS" "tar.gz" "" "appimage")" "lime3ds" "tar.gz" "emulator" "$showProgress"; then #lime3ds-gui.AppImage
+	if installEmuAI "$Lime3DS_emuName" "$(getReleaseURLGH "Lime3DS/Lime3DS" "tar.gz" "" "appimage")" "lime3ds" "tar.gz" "emulator" "$showProgress"; then #lime3ds-gui.AppImage
 		mkdir "$HOME/Applications/lime3ds-temp"
 		tar -xvzf "$HOME/Applications/lime3ds.tar.gz" -C "$HOME/Applications/lime3ds-temp" --strip-components 1
 		if [ -f "$HOME/Applications/lime3ds-temp/lime3ds-gui.AppImage" ]; then
@@ -226,7 +226,7 @@ Lime3DS_wipe(){
 #Uninstall
 Lime3DS_uninstall(){
 	setMSG "Uninstalling $Lime3DS_emuName."
-	uninstallEmuAI $Lime3DS_emuName "lime3ds-gui" "" "emulator"
+	uninstallEmuAI $Lime3DS_emuName "lime3ds" "" "emulator"
 }
 
 #setABXYstyle
