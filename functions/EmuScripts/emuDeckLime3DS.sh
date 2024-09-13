@@ -2,7 +2,7 @@
 #variables
 Lime3DS_emuName="Lime3DS"
 Lime3DS_emuType="$emuDeckEmuTypeAppImage"
-Lime3DS_emuPath="$HOME/Applications/lime3ds-gui.AppImage"
+Lime3DS_emuPath="$HOME/Applications/lime3ds.AppImage"
 Lime3DS_releaseURL=""
 Lime3DS_configFile="$HOME/.config/lime3ds-emu/qt-config.ini"
 Lime3DS_configPath="$HOME/.config/lime3ds-emu"
@@ -12,7 +12,7 @@ Lime3DS_texturesPath="$HOME/.config/lime3ds-emu/load/textures"
 Lime3DS_install(){
 	echo "Begin $Lime3DS_emuName Install"
 	local showProgress="$1"
-	if installEmuAI "$Lime3DS_emuName" "" "$(getReleaseURLGH "Lime3DS/Lime3DS" "tar.gz" "" "appimage")" "lime3ds" "tar.gz" "emulator" "$showProgress"; then #lime3ds-gui.AppImage
+	if installEmuAI "$Lime3DS_emuName" "$(getReleaseURLGH "Lime3DS/Lime3DS" "tar.gz" "" "appimage")" "lime3ds" "tar.gz" "emulator" "$showProgress"; then #lime3ds-gui.AppImage
 		mkdir "$HOME/Applications/lime3ds-temp"
 		tar -xvzf "$HOME/Applications/lime3ds.tar.gz" -C "$HOME/Applications/lime3ds-temp" --strip-components 1
 		if [ -f "$HOME/Applications/lime3ds-temp/lime3ds-gui.AppImage" ]; then
@@ -47,7 +47,7 @@ Lime3DS_init(){
 #update
 Lime3DS_update(){
 	setMSG "Updating $Lime3DS_emuName settings."
-	configEmuAI "$Lime3DS_emuName" "lime3ds-emu"  "$Lime3DS_configPath" "$EMUDECKGIT/configs/lime3ds" 
+	configEmuAI "$Lime3DS_emuName" "lime3ds-emu"  "$Lime3DS_configPath" "$EMUDECKGIT/configs/lime3ds"
 	Lime3DS_setupStorage
 	Lime3DS_setEmulationFolder
 	Lime3DS_setupSaves
@@ -69,13 +69,13 @@ Lime3DS_setupStorage(){
 		mkdir -p "$storagePath/lime3ds"
 
 
-		if [ -d "$storagePath/citra/sdmc" ]; then 
+		if [ -d "$storagePath/citra/sdmc" ]; then
 			rsync -av  --ignore-existing "$storagePath/citra/sdmc" "$storagePath"/lime3ds
 		elif [ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" ]; then
 			rsync -av --ignore-existing "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" "$storagePath"/lime3ds
 		elif [ -d "$HOME/.local/share/citra-emu/sdmc" ]; then
 			rsync -av  --ignore-existing "$HOME/.local/share/citra-emu/sdmc" "$storagePath"/lime3ds
-		else 
+		else
 			mkdir -p "$storagePath/citra/sdmc"
 		fi
 
@@ -95,10 +95,10 @@ Lime3DS_setupStorage(){
 
 		elif [ -d "$HOME/.local/share/lime3ds-emu/sdmc" ]; then
 			rsync -av  --ignore-existing "$HOME/.local/share/lime3ds-emu/sdmc" "$storagePath"/lime3ds/ && rm -rf "$HOME/.local/share/lime3ds-emu/sdmc"
-		else 
+		else
 			mkdir -p "$storagePath/lime3ds/sdmc"
 		fi
-	else 
+	else
 		echo "Lime3DS SDMC does not exist anywhere. Creating SDMC folder."
 		mkdir -p "$storagePath/lime3ds/sdmc"
 	fi
@@ -114,18 +114,18 @@ Lime3DS_setupStorage(){
 		mkdir -p "$storagePath/lime3ds"
 
 
-		if [ -d "$storagePath/citra/nand" ]; then 
+		if [ -d "$storagePath/citra/nand" ]; then
 			rsync -av  --ignore-existing "$storagePath/citra/nand" "$storagePath"/lime3ds
 		elif [ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand" ]; then
 			rsync -av  --ignore-existing "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand" "$storagePath"/lime3ds
 		elif [ -d "$HOME/.local/share/citra-emu/nand" ]; then
 			rsync -av  --ignore-existing "$HOME/.local/share/citra-emu/nand" "$storagePath"/lime3ds
-		else 
+		else
 			mkdir -p "$storagePath/citra/nand"
 		fi
 
 	fi
-	
+
 
 	if [ ! -d "$storagePath/lime3ds/nand" ] && [ -d "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand" -o -d "$HOME/.local/share/lime3ds-emu/nand" ]; then
 		echo "Lime3DS NAND does not exist in storage path. Found Lime3DS NAND in original path, copying to storage folder."
@@ -140,11 +140,11 @@ Lime3DS_setupStorage(){
 			rsync -av  --ignore-existing "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand" "$storagePath"/lime3ds/ && rm -rf "$HOME/.var/app/io.github.lime3ds.Lime3DS/data/lime3ds-emu/nand"
 
 		elif [ -d "$HOME/.local/share/lime3ds-emu/nand" ]; then
-			rsync -av  --ignore-existing "$HOME/.local/share/lime3ds-emu/nand" "$storagePath"/lime3ds/ && rm -rf "$HOME/.local/share/lime3ds-emu/nand" 
-		else 
+			rsync -av  --ignore-existing "$HOME/.local/share/lime3ds-emu/nand" "$storagePath"/lime3ds/ && rm -rf "$HOME/.local/share/lime3ds-emu/nand"
+		else
 			mkdir -p "$storagePath/lime3ds/nand"
 		fi
-	else 
+	else
 		echo "Lime3DS NAND does not exist anywhere. Creating NAND folder."
 		mkdir -p "$storagePath/lime3ds/nand"
 	fi
@@ -213,7 +213,7 @@ Lime3DS_setupSaves(){
 Lime3DS_setupTextures(){
 	mkdir -p "$HOME/.local/share/lime3ds-emu/load/textures"
 	linkToTexturesFolder lime3ds textures "$HOME/.local/share/lime3ds-emu/load/textures"
-	
+
 }
 
 #WipeSettings
