@@ -226,7 +226,7 @@ Lime3DS_wipe(){
 #Uninstall
 Lime3DS_uninstall(){
 	setMSG "Uninstalling $Lime3DS_emuName."
-	uninstallEmuAI $Lime3DS_emuName "lime3ds" "" "emulator"
+	uninstallEmuAI $Lime3DS_emuName "lime3ds-gui" "" "emulator"
 }
 
 #setABXYstyle
