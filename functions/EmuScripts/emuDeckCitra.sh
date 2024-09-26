@@ -12,7 +12,8 @@ Citra_texturesPath="$HOME/.config/citra-emu/load/textures"
 Citra_install(){
 	echo "Begin $Citra_emuName Install"
 	local showProgress="$1"
-	if installEmuAI "$Citra_emuName" "" "$(getReleaseURLGH "PabloMK7/citra" "tar.gz" "" "appimage")" "citra" "tar.gz" "emulator" "$showProgress"; then #citra-qt.AppImage
+	#if installEmuAI "$Citra_emuName" "" "$(getReleaseURLGH "PabloMK7/citra" "tar.gz" "" "appimage")" "citra" "tar.gz" "emulator" "$showProgress"; then #citra-qt.AppImage
+	if installEmuAI "$Citra_emuName" "" "https://github.com/PabloMK7/citra/releases/download/r518f723/citra-linux-appimage-20240717-518f723.tar.gz" "citra" "tar.gz" "emulator" "$showProgress"; then #citra-qt.AppImage
 		mkdir "$HOME/Applications/citra-temp"
 		tar -xvzf "$HOME/Applications/citra.tar.gz" -C "$HOME/Applications/citra-temp" --strip-components 1
 		mv "$HOME/Applications/citra-temp/citra-qt.AppImage" "$HOME/Applications"
@@ -72,10 +73,10 @@ Citra_setupStorage(){
 
 		elif [ -d "$HOME/.local/share/citra-emu/sdmc" ]; then
 			rsync -av "$HOME/.local/share/citra-emu/sdmc" "$storagePath"/citra/ && rm -rf "$HOME/.local/share/citra-emu/sdmc"
-		else 
+		else
 			mkdir -p "$storagePath/citra/sdmc"
 		fi
-	else 
+	else
 		mkdir -p "$storagePath/citra/sdmc"
 	fi
 
@@ -97,10 +98,10 @@ Citra_setupStorage(){
 
 		elif [ -d "$HOME/.local/share/citra-emu/nand" ]; then
 			rsync -av "$HOME/.local/share/citra-emu/nand" "$storagePath"/citra/ && rm -rf "$HOME/.local/share/citra-emu/nand"
-		else 
+		else
 			mkdir -p "$storagePath/citra/nand"
 		fi
-	else 
+	else
 		mkdir -p "$storagePath/citra/nand"
 	fi
 
@@ -166,7 +167,7 @@ Citra_setupSaves(){
 Citra_setupTextures(){
 	mkdir -p "$HOME/.local/share/citra-emu/load/textures"
 	linkToTexturesFolder citra textures "$HOME/.local/share/citra-emu/load/textures"
-	
+
 }
 
 #WipeSettings
@@ -252,22 +253,22 @@ Citra_flushSymlinks(){
 		echo "Steam install not found"
 	fi
 
-  	if [ ! -f "$HOME/.config/EmuDeck/.citralegacysymlinks" ] && [ -f "$HOME/.config/EmuDeck/.citrasymlinks" ]; then
+	  if [ ! -f "$HOME/.config/EmuDeck/.citralegacysymlinks" ] && [ -f "$HOME/.config/EmuDeck/.citrasymlinks" ]; then
 
 		mkdir -p "$romsPath/n3ds"
-    	# Temporary deletion to check if there are any additional contents in the n3ds folder.
+		# Temporary deletion to check if there are any additional contents in the n3ds folder.
 		rm -rf "$romsPath/n3ds/media" &> /dev/null
 		rm -rf "$romsPath/n3ds/metadata.txt" &> /dev/null
 		rm -rf "$romsPath/n3ds/systeminfo.txt" &> /dev/null
 
-		# The Pegasus install was accidentally overwriting the pre-existing n3ds symlink. 
-		# This checks if the n3ds folder is empty (post-removing the contents above) and if the original 3ds folder is still a folder and not a symlink (for those who have already migrated). 
-		# If all of this is true, the n3ds folder is deleted and the old symlink is temporarily recreated to proceed with the migration. 
+		# The Pegasus install was accidentally overwriting the pre-existing n3ds symlink.
+		# This checks if the n3ds folder is empty (post-removing the contents above) and if the original 3ds folder is still a folder and not a symlink (for those who have already migrated).
+		# If all of this is true, the n3ds folder is deleted and the old symlink is temporarily recreated to proceed with the migration.
 		if [[ ! "$( ls -A "$romsPath/n3ds")" ]] && [ -d "$romsPath/3ds" ] && [ ! -L "$romsPath/3ds" ]; then
 			rm -rf "$romsPath/n3ds"
-			ln -sfn "$romsPath/3ds" "$romsPath/n3ds" 
-      		# Temporarily restores old directory structure. 
-		fi 
+			ln -sfn "$romsPath/3ds" "$romsPath/n3ds"
+			  # Temporarily restores old directory structure.
+		fi
 
 		if [[ -L "$romsPath/n3ds" && ! $(readlink -f "$romsPath/n3ds") =~ ^"$romsPath" ]] || [[ -L "$romsPath/3ds" && ! $(readlink -f "$romsPath/3ds") =~ ^"$romsPath" ]]; then
 			echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
@@ -292,15 +293,15 @@ Citra_flushSymlinks(){
 				echo "3ds symlink created"
 			fi
 		fi
-		
+
 
 		rsync -avh "$EMUDECKGIT/roms/n3ds/." "$romsPath/n3ds/." --ignore-existing
 
-		if [ -d "$toolsPath/downloaded_media/n3ds" ] && [ ! -d "$romsPath/n3ds/media" ]; then 
+		if [ -d "$toolsPath/downloaded_media/n3ds" ] && [ ! -d "$romsPath/n3ds/media" ]; then
 			ln -s "$toolsPath/downloaded_media/n3ds" "$romsPath/n3ds/media"
 		fi
 
-    	find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
+		find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
 		touch "$HOME/.config/EmuDeck/.citralegacysymlinks"
 		echo "Citra symlink cleanup completed."
 		zenity --info \
@@ -318,19 +319,19 @@ Citra_flushSymlinks(){
 
 
 		mkdir -p "$romsPath/n3ds"
-    	# Temporary deletion to check if there are any additional contents in the n3ds folder.
+		# Temporary deletion to check if there are any additional contents in the n3ds folder.
 		rm -rf "$romsPath/n3ds/media" &> /dev/null
 		rm -rf "$romsPath/n3ds/metadata.txt" &> /dev/null
 		rm -rf "$romsPath/n3ds/systeminfo.txt" &> /dev/null
 
-		# The Pegasus install was accidentally overwriting the pre-existing n3ds symlink. 
-		# This checks if the n3ds folder is empty (post-removing the contents above) and if the original 3ds folder is still a folder and not a symlink (for those who have already migrated). 
-		# If all of this is true, the n3ds folder is deleted and the old symlink is temporarily recreated to proceed with the migration. 
+		# The Pegasus install was accidentally overwriting the pre-existing n3ds symlink.
+		# This checks if the n3ds folder is empty (post-removing the contents above) and if the original 3ds folder is still a folder and not a symlink (for those who have already migrated).
+		# If all of this is true, the n3ds folder is deleted and the old symlink is temporarily recreated to proceed with the migration.
 		if [[ ! "$( ls -A "$romsPath/n3ds")" ]] && [ -d "$romsPath/3ds" ] && [ ! -L "$romsPath/3ds" ]; then
 			rm -rf "$romsPath/n3ds"
-			ln -sfn "$romsPath/3ds" "$romsPath/n3ds" 
-      		# Temporarily restores old directory structure. 
-		fi 
+			ln -sfn "$romsPath/3ds" "$romsPath/n3ds"
+			  # Temporarily restores old directory structure.
+		fi
 
 		if [[ -L "$romsPath/n3ds" && ! $(readlink -f "$romsPath/n3ds") =~ ^"$romsPath" ]] || [[ -L "$romsPath/3ds" && ! $(readlink -f "$romsPath/3ds") =~ ^"$romsPath" ]]; then
 			echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
@@ -358,11 +359,11 @@ Citra_flushSymlinks(){
 
 		rsync -avh "$EMUDECKGIT/roms/n3ds/." "$romsPath/n3ds/." --ignore-existing
 
-		if [ -d "$toolsPath/downloaded_media/n3ds" ] && [ ! -d "$romsPath/n3ds/media" ]; then 
+		if [ -d "$toolsPath/downloaded_media/n3ds" ] && [ ! -d "$romsPath/n3ds/media" ]; then
 			ln -s "$toolsPath/downloaded_media/n3ds" "$romsPath/n3ds/media"
 		fi
 
-    	find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
+		find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
 		touch "$HOME/.config/EmuDeck/.citrasymlinks"
 		echo "Citra symlink cleanup completed."
 		zenity --info \
