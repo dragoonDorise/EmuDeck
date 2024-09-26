@@ -39,6 +39,7 @@ Plugins_checkPassword(){
 
 Plugins_installPluginLoader(){
 	echo "Installing Decky"
+
    local password=$1
    local PluginLoader_releaseURL="https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/install_release.sh"
    #if [ ! -f $HOME/.steam/steam/.cef-enable-remote-debugging ]; then
@@ -55,6 +56,7 @@ Plugins_installPowerTools(){
 	echo "Installing PowerTools"
    local password=$1
    local ptHash
+   mkdir -p "$HOME/homebrew/plugins/"
    Plugins_checkPassword $password
    ptHash=$(curl https://beta.deckbrew.xyz/plugins | jq -r '.[] | select(.name=="PowerTools").versions[0].hash')
    local url="https://cdn.tzatzikiweeb.moe/file/steam-deck-homebrew/versions/$ptHash.zip"
@@ -77,6 +79,7 @@ Plugins_installPowerControl(){
    local password=$1
    local destinationFolder="$HOME/homebrew/plugins/PowerControl"
    local PowerControl_releaseURL="$(getLatestReleaseURLGH "mengmeet/PowerControl" ".tar.gz")"
+   mkdir -p "$HOME/homebrew/plugins/"
    if [ -d "$HOME/homebrew" ]; then
    	Plugins_checkPassword $password
    	echo $password |  sudo -S rm -rf $destinationFolder
@@ -104,6 +107,9 @@ Plugins_installEmuDecky(){
    local password=$1
    local destinationFolder="$HOME/homebrew/plugins/EmuDecky"
    local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/EmuDecky" ".zip")"
+
+   mkdir -p "$HOME/homebrew/plugins/"
+
    if [ -d "$HOME/homebrew" ]; then
 		Plugins_checkPassword $password
 		echo $password |  sudo -S rm -rf $destinationFolder
@@ -131,6 +137,7 @@ Plugins_installDeckyRomLibrary(){
    local password=$1
    local destinationFolder="$HOME/homebrew/plugins/decky-rom-library"
    local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/decky-rom-library" ".zip")"
+   mkdir -p "$HOME/homebrew/plugins/"
    if [ -d "$HOME/homebrew" ]; then
     Plugins_checkPassword $password
     echo $password |  sudo -S rm -rf $destinationFolder
