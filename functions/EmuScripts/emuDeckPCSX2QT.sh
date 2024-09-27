@@ -49,6 +49,8 @@ PCSX2QT_init() {
 	#SRM_createParsers
 	PCSX2QT_flushEmulatorLauncher
 
+	linkToStorageFolder pcsx2 cheats "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/cheats"
+
 }
 
 #update
