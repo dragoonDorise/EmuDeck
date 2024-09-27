@@ -11,6 +11,8 @@
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
+        "fetchControllerTemplatesButton": null,
+        "removeControllersButton": null,
         "steamInputEnabled": "1",
         "imageProviders": [
             "sgdb",
@@ -263,6 +265,8 @@
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
+        "fetchControllerTemplatesButton": null,
+        "removeControllersButton": null,
         "steamInputEnabled": "1",
         "imageProviders": [
             "sgdb",
@@ -3584,93 +3588,6 @@
     },
     {
         "parserType": "Glob",
-        "configTitle": "Nintendo 3DS - RetroArch Citra",
-        "executableModifier": "\"${exePath}\"",
-        "romDirectory": "${romsdirglobal}/n3ds",
-        "steamDirectory": "${steamdirglobal}",
-        "startInDirectory": "",
-        "titleModifier": "${fuzzyTitle}",
-        "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}citra_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
-        "onlineImageQueries": "${${fuzzyTitle}}",
-        "imagePool": "${fuzzyTitle}",
-        "imageProviders": [
-            "sgdb",
-            "steamCDN"
-        ],
-        "disabled": true,
-        "userAccounts": {
-            "specifiedAccounts": [
-                "Global"
-            ]
-        },
-        "parserInputs": {
-            "glob": "**/${title}@(.3ds|.3DS|.3dsx|.3DSX|.app|.APP|.axf|.AXF|.cii|.CII|.cxi|.CXI|.elf|.ELF|.cci|.CCI)"
-        },
-        "controllers": {
-            "ps4": null,
-            "ps5": null,
-            "ps5_edge": null,
-            "xbox360": null,
-            "xboxone": null,
-            "xboxelite": null,
-            "switch_joycon_left": null,
-            "switch_joycon_right": null,
-            "switch_pro": null,
-            "neptune": null,
-            "steamcontroller_gordon": null
-        },
-        "titleFromVariable": {
-            "limitToGroups": "",
-            "caseInsensitiveVariables": false,
-            "skipFileIfVariableWasNotFound": false
-        },
-        "fuzzyMatch": {
-            "replaceDiacritics": true,
-            "removeCharacters": true,
-            "removeBrackets": true
-        },
-        "executable": {
-            "path": "${retroarchpath}",
-            "shortcutPassthrough": false,
-            "appendArgsToExecutable": true
-        },
-        "parserId": "164680998105308116",
-        "version": 22,
-        "imageProviderAPIs": {
-            "sgdb": {
-                "nsfw": false,
-                "humor": false,
-                "imageMotionTypes": [
-                    "static"
-                ],
-                "styles": [],
-                "stylesHero": [],
-                "stylesLogo": [],
-                "stylesIcon": []
-            }
-        },
-        "defaultImage": {
-            "long": "",
-            "tall": "",
-            "hero": "",
-            "logo": "",
-            "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
-        },
-        "localImages": {
-            "long": "",
-            "tall": "",
-            "hero": "",
-            "logo": "",
-            "icon": ""
-        },
-        "steamInputEnabled": "1",
-        "drmProtect": false,
-        "steamCategories": [
-            "Nintendo 3DS - RetroArch Citra"
-        ]
-    },
-    {
-        "parserType": "Glob",
         "configTitle": "Nintendo 3DS - Citra",
         "steamDirectory": "${steamdirglobal}",
         "romDirectory": "${romsdirglobal}/n3ds",
@@ -3681,6 +3598,8 @@
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
+        "fetchControllerTemplatesButton": null,
+        "removeControllersButton": null,
         "steamInputEnabled": "1",
         "imageProviders": [
             "sgdb",
@@ -3793,7 +3712,7 @@
         },
         "parserId": "16478559884003904",
         "version": 22,
-        "disabled": true
+        "disabled": false
     },
     {
         "parserType": "Glob",
@@ -4192,6 +4111,8 @@
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
+        "fetchControllerTemplatesButton": null,
+        "removeControllersButton": null,
         "steamInputEnabled": "1",
         "imageProviders": [
             "sgdb",
@@ -4492,6 +4413,8 @@
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
+        "fetchControllerTemplatesButton": null,
+        "removeControllersButton": null,
         "steamInputEnabled": "1",
         "imageProviders": [
             "sgdb",
@@ -4705,6 +4628,8 @@
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
+        "fetchControllerTemplatesButton": null,
+        "removeControllersButton": null,
         "steamInputEnabled": "1",
         "imageProviders": [
             "sgdb",
@@ -5005,6 +4930,8 @@
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
+        "fetchControllerTemplatesButton": null,
+        "removeControllersButton": null,
         "steamInputEnabled": "1",
         "imageProviders": [
             "sgdb",
@@ -6076,6 +6003,8 @@
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
+        "fetchControllerTemplatesButton": null,
+        "removeControllersButton": null,
         "steamInputEnabled": "1",
         "imageProviders": [
             "sgdb",
@@ -6201,6 +6130,8 @@
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
+        "fetchControllerTemplatesButton": null,
+        "removeControllersButton": null,
         "steamInputEnabled": "1",
         "imageProviders": [
             "sgdb",
@@ -6326,6 +6257,8 @@
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle} (Proton)",
+        "fetchControllerTemplatesButton": null,
+        "removeControllersButton": null,
         "steamInputEnabled": "1",
         "imageProviders": [
             "sgdb",
@@ -6460,6 +6393,8 @@
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle} (Proton)",
+        "fetchControllerTemplatesButton": null,
+        "removeControllersButton": null,
         "steamInputEnabled": "1",
         "imageProviders": [
             "sgdb",
@@ -7805,6 +7740,8 @@
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
+        "fetchControllerTemplatesButton": null,
+        "removeControllersButton": null,
         "steamInputEnabled": "1",
         "imageProviders": [
             "sgdb",
