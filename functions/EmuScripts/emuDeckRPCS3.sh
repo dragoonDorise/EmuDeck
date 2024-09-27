@@ -2,7 +2,7 @@
 #variables
 RPCS3_emuName="RPCS3"
 RPCS3_emuType="$emuDeckEmuTypeAppImage"
-RPCS3_releaseURL="https://github.com/RPCS3/rpcs3-binaries-linux/releases"
+RPCS3_releaseURL="https://github.com/RPCS3/rpcs3-binaries-linux/releases/download/build-9dd0b055d0ac4bdd3339bf5a099c4064cc568418/rpcs3-v0.0.33-16963-9dd0b055_linux64.AppImage"
 RPCS3_emuPath="$HOME/Applications/rpcs3.AppImage"
 RPCS3_emuPathFlatpak="net.rpcs3.RPCS3"
 RPCS3_VFSConf="$HOME/.config/rpcs3/vfs.yml"
