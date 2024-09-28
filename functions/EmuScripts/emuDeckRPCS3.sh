@@ -37,7 +37,7 @@ RPCS3_install(){
 	# Install RPCS3
 	local showProgress="$1"
 
-	if installEmuAI "$RPCS3_emuName" "" "$(getReleaseURLGH "RPCS3/rpcs3-binaries-linux" ".AppImage")" "rpcs3" "" "emulator" "$showProgress"; then #
+	if installEmuAI "$RPCS3_emuName" "" "$(getLatestReleaseURLGH "RPCS3/rpcs3-binaries-linux" ".AppImage")" "rpcs3" "" "emulator" "$showProgress"; then #
 		:
 	else
 		return 1
