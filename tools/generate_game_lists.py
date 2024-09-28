@@ -19,6 +19,8 @@ def generate_game_lists(roms_path):
                     if "wiiu" in system_dir:
                         if extension == "wux":
                             name = name
+                        elif extension == "wua":
+                            name = name
                         else:
                             parts = root.split(os.sep)
                             if len(parts) >= 2:
