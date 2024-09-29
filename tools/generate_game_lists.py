@@ -34,6 +34,21 @@ def generate_game_lists(roms_path):
                             if name == "wiiu":
                                name = parts[-1]
 
+                    if "ps3" in system_dir:
+                            parts = root.split(os.sep)
+                            if len(parts) >= 3:
+                                name = parts[-3]
+                            else:
+                                name = name
+
+                            if name == "roms":
+                               name = name
+
+                            if name == "ps3":
+                               name = parts[-1]
+
+
+
                     name_cleaned = re.sub(r'\(.*?\)', '', name)
                     name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
                     name_cleaned = name_cleaned.strip()
@@ -77,7 +92,7 @@ def generate_game_lists(roms_path):
     game_list = []
 
     for system_dir in valid_system_dirs:
-        if any(x in system_dir for x in ["/ps3", "/model2", "/genesiswide", "/mame", "/emulators", "/desktop"]):
+        if any(x in system_dir for x in ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop"]):
             continue
 
         with open(os.path.join(system_dir, 'metadata.txt')) as f:
