@@ -133,7 +133,7 @@ cloud_sync_setup_providers(){
         password="$(echo "$NCInput" | awk -F "," '{print $3}')"
         port="$(echo "$NCInput" | awk -F "," '{print $4}')"
 
-        "$cloud_sync_bin" config update "$cloud_sync_provider" host="$host" user="$username" port="$port" pass="$("$cloud_sync_bin" obscure $password)"
+        "$cloud_sync_bin" config update "$cloud_sync_provider" host="$host" user="$username" port="$port" pass="$password"
       else
         echo "Cancel SFTP Login"
       fi
