@@ -68,9 +68,10 @@ cloud_sync_config(){
   # startLog ${FUNCNAME[0]}
   kill -15 $(pidof rclone)
   local cloud_sync_provider=$1
+  local token=$2
    cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$cloud_sync_config"
   cloud_sync_stopService
-  cloud_sync_setup_providers
+  cloud_sync_setup_providers $token
   setSetting cloud_sync_status "true" && echo "true"
 
   #Check installation
@@ -86,6 +87,7 @@ cloud_sync_config(){
 }
 
 cloud_sync_setup_providers(){
+  local token=$1
   # startLog ${FUNCNAME[0]}
     if [ "$cloud_sync_provider" == "Emudeck-NextCloud" ]; then
 
@@ -136,6 +138,15 @@ cloud_sync_setup_providers(){
         echo "Cancel SFTP Login"
       fi
 
+    elif [ "$cloud_sync_provider" == "Emudeck-cloud" ]; then
+      json='{"token":"'"$token"'"}'
+
+      password=$(curl --request POST --url "https://token.emudeck.com/create-cs.php" --header "Content-Type: application/json" -d "${json}")
+
+      host="cloud.emudeck.com"
+      port="22"
+
+      "$cloud_sync_bin" config update "$cloud_sync_provider" host="$host" user="cs_$username" port="$port" pass="$("$cloud_sync_bin" obscure $password)"
 
     elif [ "$cloud_sync_provider" == "Emudeck-SMB" ]; then
 
@@ -234,6 +245,7 @@ cloud_sync_setup_providers(){
 cloud_sync_install_and_config(){
 	 #startLog ${FUNCNAME[0]}
 	 local cloud_sync_provider=$1
+     local token=$2
 	 #We force Chrome to be used as the default
 	 {
 
@@ -249,7 +261,7 @@ cloud_sync_install_and_config(){
 	       cloud_sync_install $cloud_sync_provider
 	     fi
        fi
-	 } && cloud_sync_config "$cloud_sync_provider"
+	 } && cloud_sync_config "$cloud_sync_provider" "$token"
 
 	 setSetting cloud_sync_provider "$cloud_sync_provider"
 	 setSetting cloud_sync_status "true"
