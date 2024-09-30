@@ -144,7 +144,7 @@ cloud_sync_setup_providers(){
 
       json='{"token":"'"$token"'"}'
 
-      password=$(curl --request POST --url "https://token.emudeck.com/create-cs.php" --header "Content-Type: application/json" -d "${json}")
+      password=$(curl --request POST --url "https://token.emudeck.com/create-cs.php" --header "Content-Type: application/json" -d "${json}") | jq -r '.cloud_token'
 
       host="cloud.emudeck.com"
       port="22"
