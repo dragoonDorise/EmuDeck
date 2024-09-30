@@ -155,7 +155,8 @@ cloud_sync_setup_providers(){
         "$cloud_sync_bin" config update "$cloud_sync_provider" host="$host" user="cs_$user" port="$port" pass="$password"
 
         "$cloud_sync_bin" mkdir "$cloud_sync_provider:"$cs_user"Emudeck/saves"
-        "$cloud_sync_bin" copy $savesPath "$cloud_sync_provider:"$cs_user"Emudeck/saves" --include "*.cloud"
+        cloud_sync_save_hash $savesPath
+        "$cloud_sync_bin" copy "$savesPath/.hash" "$cloud_sync_provider:"$cs_user"Emudeck/saves"
 
       elif [ "$cloud_sync_provider" == "Emudeck-SMB" ]; then
 
