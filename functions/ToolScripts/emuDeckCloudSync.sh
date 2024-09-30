@@ -139,6 +139,9 @@ cloud_sync_setup_providers(){
       fi
 
     elif [ "$cloud_sync_provider" == "Emudeck-cloud" ]; then
+
+      setSetting cs_user "cs_$user/"
+
       json='{"token":"'"$token"'"}'
 
       password=$(curl --request POST --url "https://token.emudeck.com/create-cs.php" --header "Content-Type: application/json" -d "${json}")
@@ -300,7 +303,7 @@ cloud_sync_upload(){
 
     if [ "$emuName" = "all" ]; then
         cloud_sync_save_hash $savesPath
-        ("$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$HOME/emudeck/logs/rclone.log" --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload  --exclude=/.last_upload --exclude=/es-de/** "$savesPath" "$cloud_sync_provider":Emudeck/saves/ && (
+        ("$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$HOME/emudeck/logs/rclone.log" --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload  --exclude=/.last_upload --exclude=/es-de/** "$savesPath" "$cloud_sync_provider":"$cs_user"Emudeck/saves/ && (
           local baseFolder="$savesPath/"
            for folder in $baseFolder*/
             do
@@ -312,7 +315,7 @@ cloud_sync_upload(){
         ))
     else
         cloud_sync_save_hash "$savesPath/$emuName"
-        ("$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$HOME/emudeck/logs/rclone.log" --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload  --exclude=/.last_upload --exclude=/es-de/** "$savesPath/$emuName" "$cloud_sync_provider":Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload)
+        ("$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$HOME/emudeck/logs/rclone.log" --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload  --exclude=/.last_upload --exclude=/es-de/** "$savesPath/$emuName" "$cloud_sync_provider":"$cs_user"Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload)
     fi
     cloud_sync_unlock
   fi
@@ -340,13 +343,13 @@ cloud_sync_download(){
         local filePath="$savesPath/.hash"
         local hash=$(cat "$savesPath/.hash")
 
-       "$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/.hash "$filePath" || upload="false"
+       "$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":"$cs_user"Emudeck/saves/.hash "$filePath" || upload="false"
 
         hashCloud=$(cat "$savesPath/.hash")
 
         if [ -f "$savesPath/.hash" ] && [ "$hash" != "$hashCloud" ]; then
 
-             "$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$HOME/emudeck/logs/rclone.log" --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload  --exclude=/.last_upload --exclude=/es-de/** "$cloud_sync_provider":Emudeck/saves/ "$savesPath" && (
+             "$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$HOME/emudeck/logs/rclone.log" --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload  --exclude=/.last_upload --exclude=/es-de/** "$cloud_sync_provider":"$cs_user"Emudeck/saves/ "$savesPath" && (
                 local baseFolder="$savesPath/"
                  for folder in $baseFolder*/
                   do
@@ -368,12 +371,12 @@ cloud_sync_download(){
         local filePath="$savesPath/$emuName/.hash"
         local hash=$(cat "$savesPath/$emuName/.hash")
 
-        "$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/$emuName/.hash "$filePath"
+        "$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":"$cs_user"Emudeck/saves/$emuName/.hash "$filePath"
 
         hashCloud=$(cat "$savesPath/$emuName/.hash")
 
         if [ -f "$savesPath/$emuName/.hash" ] && [ "$hash" != "$hashCloud" ];then
-            "$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$HOME/emudeck/logs/rclone.log" --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload  --exclude=/.last_upload --exclude=/es-de/** "$cloud_sync_provider":Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
+            "$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$HOME/emudeck/logs/rclone.log" --checkers=50 -P -L --exclude=/.fail_upload --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload  --exclude=/.last_upload --exclude=/es-de/** "$cloud_sync_provider":"$cs_user"Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
         else
           echo "up to date"
         fi
