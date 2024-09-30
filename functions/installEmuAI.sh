@@ -9,6 +9,7 @@ installEmuAI(){
     local showProgress="$7"
     local lastVerFile="$8"
     local latestVer="$9"
+    local downloadChecksumSha256="${10}"
 
     if [[ -z "$fileName" ]]; then
         fileName="$name"
@@ -33,29 +34,38 @@ installEmuAI(){
 		launcherPath="${romsPath}/generic-applications"
 	fi
 
-    echo "1, Application Name: $name"
-	echo "2, AppImage Script Name: $scriptName"
-    echo "3, Application URL: $url"
-    echo "4, Application Filename: $fileName"
-    echo "5, Application File Format: $format"
-    echo "6, Application Type: $type"
-    echo "7, Progress: $showProgress"
-    echo "8, Last Version File: $lastVerFile"
-    echo "9, Last Version: $latestVer"
-
+    echo "01, Application Name: $name"
+	echo "02, AppImage Script Name: $scriptName"
+    echo "03, Application URL: $url"
+    echo "04, Application Filename: $fileName"
+    echo "05, Application File Format: $format"
+    echo "06, Application Type: $type"
+    echo "07, Progress: $showProgress"
+    echo "08, Last Version File: $lastVerFile"
+    echo "09, Last Version: $latestVer"
+    echo "10, Download checksum (SHA256): $downloadChecksumSha256"
 
     #rm -f "$HOME/Applications/$fileName.$format" # mv in safeDownload will overwrite...
     mkdir -p "$HOME/Applications"
 
-    #curl -L "$url" -o "$HOME/Applications/$fileName.AppImage.temp" && mv "$HOME/Applications/$fileName.AppImage.temp" "$HOME/Applications/$fileName.AppImage"
-    if safeDownload "$name" "$url" "$HOME/Applications/${fileName}.${format}" "$showProgress"; then
-        chmod +x "$HOME/Applications/$fileName.AppImage"
-        if [[ -n $lastVerFile ]] && [[ -n $latestVer ]]; then
-            echo "latest version $latestVer > $lastVerFile"
-            echo "$latestVer" > "$lastVerFile"
+    if [[ -z "$url" ]]; then
+        if [ -f "$HOME/Applications/${fileName}.${format}" ]; then
+            echo "No download link provided but local file already exists. Will refresh links and launcher."
+        else
+            echo "No download link provided and no local file exists, exitting."
+            return 1
         fi
+    elif safeDownload "$name" "$url" "$HOME/Applications/${fileName}.${format}" "$showProgress" "" "$downloadChecksumSha256"; then
+        echo "$name downloaded successfuly."
     else
+        echo "Failed to download or verify $name."
         return 1
+    fi
+
+    chmod +x "$HOME/Applications/$fileName.AppImage"
+    if [[ -n $lastVerFile ]] && [[ -n $latestVer ]]; then
+        echo "latest version $latestVer > $lastVerFile"
+        echo "$latestVer" > "$lastVerFile"
     fi
 
     shName=$(echo "$scriptName" | awk '{print tolower($0)}')  
