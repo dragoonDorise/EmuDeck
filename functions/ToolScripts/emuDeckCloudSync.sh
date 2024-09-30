@@ -140,18 +140,24 @@ cloud_sync_setup_providers(){
 
     elif [ "$cloud_sync_provider" == "Emudeck-cloud" ]; then
 
-      setSetting cs_user "cs_$user/"
+        token="${token//---/|||}"
+        user=$(echo $token | cut -d "|" -f 1)
 
-      json='{"token":"'"$token"'"}'
+        setSetting cs_user "cs_$user/"
 
-      password=$(curl --request POST --url "https://token.emudeck.com/create-cs.php" --header "Content-Type: application/json" -d "${json}") | jq -r '.cloud_token'
+        json='{"token":"'"$token"'"}'
 
-      host="cloud.emudeck.com"
-      port="22"
+        password=$(curl --request POST --url "https://token.emudeck.com/create-cs.php" --header "Content-Type: application/json" -d "${json}" | jq -r .cloud_token)
+        host="cloud.emudeck.com"
+        port="22"
 
-      "$cloud_sync_bin" config update "$cloud_sync_provider" host="$host" user="cs_$username" port="$port" pass="$("$cloud_sync_bin" obscure $password)"
+        "$cloud_sync_bin" config update "$cloud_sync_provider" host="$host" user="cs_$user" port="$port" pass="$password"
 
-    elif [ "$cloud_sync_provider" == "Emudeck-SMB" ]; then
+        "$cloud_sync_bin" mkdir "$cloud_sync_provider:"$cs_user"Emudeck/saves"
+        "$cloud_sync_bin" copy $savesPath "$cloud_sync_provider:"$cs_user"Emudeck/saves" --include "*.cloud"
+
+      elif [ "$cloud_sync_provider" == "Emudeck-SMB" ]; then
+
 
       NCInput=$(zenity --forms \
           --title="SMB Sign in" \
