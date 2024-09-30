@@ -88,6 +88,7 @@ cloud_sync_config(){
 
 cloud_sync_setup_providers(){
   local token=$1
+  setSetting cs_user ""
   # startLog ${FUNCNAME[0]}
     if [ "$cloud_sync_provider" == "Emudeck-NextCloud" ]; then
 
