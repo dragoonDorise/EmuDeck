@@ -656,9 +656,11 @@ EOF
 }
 
 cloud_sync_startService(){
-  startLog ${FUNCNAME[0]}
-  systemctl --user stop "EmuDeckCloudSync.service"
-  systemctl --user start "EmuDeckCloudSync.service"
+  if [ $cloud_sync_status = "true" ]; then
+    startLog ${FUNCNAME[0]}
+    systemctl --user stop "EmuDeckCloudSync.service"
+    systemctl --user start "EmuDeckCloudSync.service"
+  fi
 }
 
 cloud_sync_stopService(){
