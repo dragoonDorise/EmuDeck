@@ -399,6 +399,7 @@ function getLatestReleaseURLGH(){
 	local repository=$1
 	local fileType=$2
 	local fileNameContains=$3
+	local fileNameStartsWith=$4
 	local url
 	#local token=$(tokenGenerator)
 
@@ -407,30 +408,23 @@ function getLatestReleaseURLGH(){
 	fi
 
 	curl -fSs "$url" | \
-		jq -r '[ .assets[] | select(.name | contains("'"$fileNameContains"'") and endswith("'"$fileType"'")).browser_download_url ][0] // empty'
+		jq -r '[ .assets[] | select(.name | contains("'"$fileNameContains"'") and startswith("'"$fileNameStartsWith"'") and endswith("'"$fileType"'")).browser_download_url ][0] // empty'
 }
 
 function getReleaseURLGH(){
 	local repository=$1
 	local fileType=$2
-	local url
 	local fileNameContains=$3
+	local fileNameStartsWith=$4
+	local url
 	#local token=$(tokenGenerator)
-
-# 	if [ "$system" == "darwin" ]; then
-# 		fileType="dmg"
-# 	fi
-#
-# 	if [ "$system" == "darwin" ]; then
-# 		fileType="dmg"
-# 	fi
 
 	if [ "$url" == "" ]; then
 		url="https://api.github.com/repos/$repository/releases"
 	fi
 
 	curl -fSs "$url" | \
-		jq -r '[ .[].assets[] | select(.name | contains("'"$fileNameContains"'") and endswith("'"$fileType"'")).browser_download_url ][0] // empty'
+		jq -r '[ .[].assets[] | select(.name | contains("'"$fileNameContains"'") and startswith("'"$fileNameStartsWith"'") and endswith("'"$fileType"'")).browser_download_url ][0] // empty'
 }
 
 function linkToSaveFolder(){
