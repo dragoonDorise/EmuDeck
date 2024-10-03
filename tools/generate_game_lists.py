@@ -19,6 +19,8 @@ def generate_game_lists(roms_path):
                     if "wiiu" in system_dir:
                         if extension == "wux":
                             name = name
+                        elif extension == "wua":
+                            name = name
                         else:
                             parts = root.split(os.sep)
                             if len(parts) >= 2:
@@ -31,6 +33,21 @@ def generate_game_lists(roms_path):
 
                             if name == "wiiu":
                                name = parts[-1]
+
+                    if "ps3" in system_dir:
+                            parts = root.split(os.sep)
+                            if len(parts) >= 3:
+                                name = parts[-3]
+                            else:
+                                name = name
+
+                            if name == "roms":
+                               name = name
+
+                            if name == "ps3":
+                               name = parts[-1]
+
+
 
                     name_cleaned = re.sub(r'\(.*?\)', '', name)
                     name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
@@ -64,8 +81,8 @@ def generate_game_lists(roms_path):
     for system_dir in os.listdir(roms_dir):
         if system_dir == "xbox360":
             system_dir = "xbox360/roms"
-        if system_dir == "wiiu":
-            system_dir = "wiiu/roms"
+        #if system_dir == "wiiu":
+        #    system_dir = "wiiu/roms"
         full_path = os.path.join(roms_dir, system_dir)
         if os.path.isdir(full_path) and not os.path.islink(full_path) and os.path.isfile(os.path.join(full_path, 'metadata.txt')):
             file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])
@@ -75,7 +92,7 @@ def generate_game_lists(roms_path):
     game_list = []
 
     for system_dir in valid_system_dirs:
-        if any(x in system_dir for x in ["/ps3", "/model2", "/genesiswide", "/mame", "/emulators", "/desktop"]):
+        if any(x in system_dir for x in ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop"]):
             continue
 
         with open(os.path.join(system_dir, 'metadata.txt')) as f:

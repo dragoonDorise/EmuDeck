@@ -8,7 +8,7 @@ cloud_sync_upload_test(){
 
 	echo "test" > "$savesPath/$emuName/.temp"
 	filePath="$savesPath/$emuName/.temp"
-	"$cloud_sync_bin"  -q  copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$filePath" "$cloud_sync_provider":Emudeck/saves/$emuName/.temp  && rm -rf "$savesPath/$emuName/.temp" && return 0 || return 1
+	"$cloud_sync_bin"  -q  copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$filePath" "$cloud_sync_provider":"$cs_user"Emudeck/saves/$emuName/.temp  && rm -rf "$savesPath/$emuName/.temp" && return 0 || return 1
 }
 
 cloud_sync_dowload_test(){
@@ -20,7 +20,7 @@ cloud_sync_dowload_test(){
 
 	echo "test" > "$savesPath/$emuName/.temp"
 	filePath="$savesPath/$emuName/.temp"
-	"$cloud_sync_bin"  -q  copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/$emuName/.temp "$filePath" && rm -rf "$savesPath/$emuName/.temp" && return 0 || return 1
+	"$cloud_sync_bin"  -q  copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":"$cs_user"Emudeck/saves/$emuName/.temp "$filePath" && rm -rf "$savesPath/$emuName/.temp" && return 0 || return 1
 
 }
 
@@ -123,10 +123,10 @@ cloudSyncHealth(){
 	done
 
 
-	#"$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$savesPath/test_emudeck.txt" "$cloud_sync_provider":Emudeck/saves/.test_emudeck.txt
+	#"$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$savesPath/test_emudeck.txt" "$cloud_sync_provider":"$cs_user"Emudeck/saves/.test_emudeck.txt
 
 	#Check if the file exists in the cloud
-	"$cloud_sync_bin" lsf "$cloud_sync_provider":Emudeck/saves/retroarch/ | grep test_emudeck.txt
+	"$cloud_sync_bin" lsf "$cloud_sync_provider":"$cs_user"Emudeck/saves/retroarch/ | grep test_emudeck.txt
 	status=$?
 
 	# Evaluar el código de salida
@@ -145,7 +145,7 @@ cloudSyncHealth(){
 	#
 
 	#Downloading
-	"$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":Emudeck/saves/retroarch/test_emudeck.txt "$savesPath/retroarch/test_emudeck.txt"
+	"$cloud_sync_bin"  --progress copyto -L --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":"$cs_user"Emudeck/saves/retroarch/test_emudeck.txt "$savesPath/retroarch/test_emudeck.txt"
 
 	#Check if the file exists.
 
@@ -162,7 +162,7 @@ cloudSyncHealth(){
 	rm -rf "$savesPath/.emuName"
 	rm -rf "$savesPath/retroarch/test_emudeck.txt"
 	#Delete remote test file
-	"$cloud_sync_bin" delete "$cloud_sync_provider":Emudeck/saves/retroarch/test_emudeck.txt
+	"$cloud_sync_bin" delete "$cloud_sync_provider":"$cs_user"Emudeck/saves/retroarch/test_emudeck.txt
 
 	if [ $kill == "RETROARCH" ];then
 		killall retroarch
