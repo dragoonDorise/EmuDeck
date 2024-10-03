@@ -48,19 +48,19 @@ Ryujinx_cleanup(){
 #Install
 Ryujinx_install(){
     echo "Begin Ryujinx Install"
-    # local showProgress=$1
-    # if installEmuBI "$Ryujinx_emuName" "$(getReleaseURLGH "Ryujinx/release-channel-master" "-linux_x64.tar.gz")" "" "tar.gz" "$showProgress"; then
-    #     tar -xvf "$HOME/Applications/Ryujinx.tar.gz" -C "$HOME/Applications/" && rm -rf "$HOME/Applications/Ryujinx.tar.gz"
-    #     chmod +x "$HOME/Applications/publish/Ryujinx"
-    # else
-    #     return 1
-    # fi
+    local showProgress=$1
+    if installEmuBI "$Ryujinx_emuName" "$(getReleaseURLGH "ryujinx-mirror/ryujinx" "-linux_x64.tar.gz")" "" "tar.gz" "$showProgress"; then
+        tar -xvf "$HOME/Applications/Ryujinx.tar.gz" -C "$HOME/Applications/" && rm -rf "$HOME/Applications/Ryujinx.tar.gz"
+        chmod +x "$HOME/Applications/publish/Ryujinx"
+    else
+        return 1
+    fi
 
-    flatpak install flathub org.ryujinx.Ryujinx -y --user
-    mkdir -p "$HOME/Applications/publish"
-    rsync -av "$HOME/.local/share/flatpak/app/org.ryujinx.Ryujinx/x86_64/stable/active/files/bin/" "$HOME/Applications/publish/" && flatpak uninstall flathub org.ryujinx.Ryujinx -y --user
-    rm -rf "$HOME/.config/Ryujinx/games"
-    chmod +x "$HOME/Applications/publish/Ryujinx"
+    # flatpak install flathub org.ryujinx.Ryujinx -y --user
+    # mkdir -p "$HOME/Applications/publish"
+    # rsync -av "$HOME/.local/share/flatpak/app/org.ryujinx.Ryujinx/x86_64/stable/active/files/bin/" "$HOME/Applications/publish/" && flatpak uninstall flathub org.ryujinx.Ryujinx -y --user
+    # rm -rf "$HOME/.config/Ryujinx/games"
+    # chmod +x "$HOME/Applications/publish/Ryujinx"
 
 }
 
