@@ -27,6 +27,90 @@ RPCS3_cleanup(){
 	echo "NYI"
 }
 
+# RPCS3 Update API
+RPCS3_download_link=""
+RPCS3_download_link_checksum=""
+RPCS3_ApiGetUpdateInfo(){
+	RPCS3_download_link=""
+	RPCS3_download_link_checksum=""
+
+	local apiUrl="https://update.rpcs3.net/"
+	local localFile="$RPCS3_emuPath"
+	local currentVersion="$1"
+	local apiVersion="v3"
+	local osType="linux"
+	local osArch="x64"
+	local osVersion=$(grep "VERSION_ID" /etc/os-release | cut -d'=' -f2 | tr -d '"')
+	local should_return_update=0
+
+	echo "Checking for RPCS3 updates..."
+
+	local response=$(curl -s -G "$apiUrl" \
+		--data-urlencode "api=$apiVersion" \
+		--data-urlencode "os_type=$osType" \
+		--data-urlencode "os_arch=$osArch" \
+		--data-urlencode "os_version=$osVersion")
+
+	local return_code=$(echo "$response" | jq '.return_code')
+
+	if [ "$return_code" -eq 1 ]; then
+		echo "Newer RPCS3 build found!"
+	elif [ "$return_code" -eq 0 ]; then
+		echo "Latest RPCS3 build found!" # when not using the $currentVersion (NYI), the API returns 0
+	elif [ "$return_code" -eq -3 ]; then
+		echo "Illegal search"
+		return 1
+	elif [ "$return_code" -eq -2 ]; then
+		echo "Maintenance mode"
+		return 1
+	elif [ "$return_code" -eq -1 ]; then
+		echo "Current build is not a master build."
+		return 1
+	else
+		echo "Failed to check for updates. Return Code: $return_code"
+		return 1
+	fi
+
+	#local latest_build=$(echo "$response" | jq -r '.latest_build')
+	#echo "Latest Build: $latest_build"
+
+	local download_link=$(echo "$response" | jq -r '.latest_build.linux.download')
+	local remote_checksum=$(echo "$response" | jq -r '.latest_build.linux.checksum' | tr '[:upper:]' '[:lower:]')
+
+	# Check if the local file exists
+	if [ "$return_code" -eq 0 ]; then
+		if [ -f "$localFile" ]; then
+			local local_checksum=$(calculate_checksum_sha256 "$localFile" | tr '[:upper:]' '[:lower:]')
+
+			echo "Local Checksum: $local_checksum"
+			echo "Remote Checksum: $remote_checksum"
+
+			if [ "$local_checksum" != "$remote_checksum" ]; then
+				echo "Checksums differ, returning download link and checksum."
+				should_return_update=1
+			else
+				echo "Checksums match, no need to update."
+				return 2
+			fi
+		else
+			echo "Local file not found, returning download link and checksum."
+			should_return_update=1
+		fi
+	else
+		should_return_update=1
+	fi
+
+	if [ "$should_return_update" -eq 1 ]; then
+		echo "Download Link: $download_link"
+		echo "Checksum: $remote_checksum"
+		RPCS3_download_link="$download_link"
+		RPCS3_download_link_checksum="$remote_checksum"
+		return 0
+	fi
+
+	return 1
+}
+
 #Install
 RPCS3_install(){
 	setMSG "Installing RPCS3"
@@ -35,11 +119,23 @@ RPCS3_install(){
 	RPCS3_migrate
 
 	# Install RPCS3
+
 	local showProgress="$1"
 
-	if installEmuAI "$RPCS3_emuName" "" "$(getLatestReleaseURLGH "RPCS3/rpcs3-binaries-linux" ".AppImage")" "rpcs3" "" "emulator" "$showProgress"; then #
-		:
+	RPCS3_ApiGetUpdateInfo
+	apiGetUpdateInfoResult=$?
+
+	if [ "$apiGetUpdateInfoResult" -eq 0 ] || [ "$apiGetUpdateInfoResult" -eq 2 ]; then
+		#if installEmuAI "$RPCS3_emuName" "" "$(getLatestReleaseURLGH "RPCS3/rpcs3-binaries-linux" ".AppImage")" "rpcs3" "" "emulator" "$showProgress"; then #
+		if installEmuAI "$RPCS3_emuName" "" "$RPCS3_download_link" "rpcs3" "" "emulator" "$showProgress" "" "" "${RPCS3_download_link_checksum}"; then #
+			#echo "RPCS3 installed or updated successfully."
+			:
+		else
+			#echo "RPCS3 installation or update failed."
+			return 1
+		fi
 	else
+		#echo "RPCS3 is already up to date or failed to retrieve update information."
 		return 1
 	fi
 

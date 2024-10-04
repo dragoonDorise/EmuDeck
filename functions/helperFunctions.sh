@@ -712,6 +712,16 @@ function iniSectionUpdate() {
 	mv "$tmp_file" "$file"
 }
 
+calculate_checksum_sha256() {
+	local file="$1"
+
+	if [ ! -f "$file" ]; then
+		echo "Error: File '$file' does not exist."
+		return 1
+	fi
+
+	sha256sum "$file" | awk '{ print $1 }'
+}
 
 safeDownload() {
 	local name="$1"
@@ -719,6 +729,7 @@ safeDownload() {
 	local outFile="$3"
 	local showProgress="$4"
 	local headers="$5"
+	local checksumSha256="$6"
 
 	echo "safeDownload()"
 	echo "- $name"
@@ -726,7 +737,7 @@ safeDownload() {
 	echo "- $outFile"
 	echo "- $showProgress"
 	echo "- $headers"
-
+	echo "- $checksumSha256"
 
 	if [ "$showProgress" == "true" ] || [[ $showProgress -eq 1 ]]; then
 		request=$(curl -w $'\1'"%{response_code}" --fail -L "$url" -H "$headers" -o "$outFile.temp" 2>&1 | tee >(stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading $name" --width 600 --auto-close --no-cancel 2>/dev/null) && echo $'\2'${PIPESTATUS[0]})
@@ -742,6 +753,16 @@ safeDownload() {
 	echo "CURL exit code: $exitCode"
 	if [ "$httpCode" = "200" ] && [ "$exitCode" == "0" ]; then
 		echo "$name downloaded successfully";
+		if [[ -n "$checksumSha256" ]]; then
+			downloadChecksumSha256=$(calculate_checksum_sha256 "$outFile.temp")
+			echo "Downloaded File Checksum: $downloadChecksumSha256"
+			echo "Expected Checksum: $checksumSha256"
+			if [ "$(echo $downloadChecksumSha256 | tr '[:upper:]' '[:lower:]')" != "$(echo $checksumSha256 | tr '[:upper:]' '[:lower:]')" ]; then
+				echo "Checksum mismatch, deleting the corrupted file."
+				rm -f "$outFile.temp"
+				return 1
+			fi
+		fi
 		mv -v "$outFile.temp" "$outFile"
 		return 0
 	else
@@ -753,28 +774,28 @@ safeDownload() {
 
 flushEmulatorLaunchers(){
 
-    local name="$1"
+	local name="$1"
 
 	shName=$(echo "$name" | awk '{print tolower($0)}')
-    mkdir -p "${romsPath}/emulators"
-    find "${toolsPath}/launchers/" "${romsPath}/emulators" -maxdepth 1 -type f \( -iname "$shName.sh" -o -iname "$shName-emu.sh" \) | \
-    while read -r f
-    do
-        echo "deleting $f"
-        rm -f "$f"
-    done
+	mkdir -p "${romsPath}/emulators"
+	find "${toolsPath}/launchers/" "${romsPath}/emulators" -maxdepth 1 -type f \( -iname "$shName.sh" -o -iname "$shName-emu.sh" \) | \
+	while read -r f
+	do
+		echo "deleting $f"
+		rm -f "$f"
+	done
 
-    find "${EMUDECKGIT}/tools/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
-    while read -r l
-    do
-        echo "deploying $l"
-        launcherFileName=$(basename "$l")
-        chmod +x "$l"
-        cp -v "$l" "${toolsPath}/launchers/"
-        chmod +x "${toolsPath}/launchers/"*
+	find "${EMUDECKGIT}/tools/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
+	while read -r l
+	do
+		echo "deploying $l"
+		launcherFileName=$(basename "$l")
+		chmod +x "$l"
+		cp -v "$l" "${toolsPath}/launchers/"
+		chmod +x "${toolsPath}/launchers/"*
 		cp -v "$l" "${romsPath}/emulators"
 		chmod +x "${romsPath}/emulators/"*
-    done
+	done
 
 
 }
@@ -850,16 +871,16 @@ setResolutions(){
 # VAR2="VALUE 2"
 # ...
 scriptConfigFileGetVar() {
-    local configFile=$1
-    local configVar=$2
-    local configVarDefaultValue=$3
+	local configFile=$1
+	local configVar=$2
+	local configVarDefaultValue=$3
 
-    local configVarValue="$( (grep -E "^${configVar}=" -m 1 "${configFile}" 2>/dev/null || echo "_=__UNDEFINED__") | head -n 1 | cut -d '=' -f 2- | xargs )"
-    if [ "${configVarValue}" = "__UNDEFINED__" ]; then
-        configVarValue="${configVarDefaultValue}"
-    fi
+	local configVarValue="$( (grep -E "^${configVar}=" -m 1 "${configFile}" 2>/dev/null || echo "_=__UNDEFINED__") | head -n 1 | cut -d '=' -f 2- | xargs )"
+	if [ "${configVarValue}" = "__UNDEFINED__" ]; then
+		configVarValue="${configVarDefaultValue}"
+	fi
 
-    printf -- "%s" "${configVarValue}"
+	printf -- "%s" "${configVarValue}"
 }
 
 
@@ -1088,7 +1109,6 @@ function controllerLayout_BAYX(){
 	RMG_setBAYXstyle
 	Ryujinx_setBAYXstyle
 }
-
 
 function server_install(){
 	cp "$EMUDECKGIT/tools/server.sh" "$toolsPath/"
