@@ -1,14 +1,14 @@
 #!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
 emulatorInit "ryujinx"
-emuName="Ryujinx.sh" #parameterize me
-emufolder="$HOME/Applications/publish" # has to be applications for ES-DE to find it
+emuName="Ryujinx" #parameterize me
+emufolder="$HOME/Applications/publish" # has to be here for ES-DE to find it
 
 #initialize execute array
 exe=()
 
 #find full path to emu executable
-exe_path=$(find "$emufolder" -iname "${emuName}" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
+exe_path=$(find "$emufolder" -iname "${emuName}.sh" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
 
 #if appimage doesn't exist fall back to flatpak.
 if [[ -z "$exe_path" ]]; then
