@@ -1115,3 +1115,7 @@ function server_install(){
 	#cp "$EMUDECKGIT/tools/index.html" "$toolsPath/"
 	chmod +x "$toolsPath/server.sh"
 }
+
+function startCompressor(){
+	konsole -e "/bin/bash $HOME/.config/EmuDeck/backend/tools/chdconv/chddeck.sh"
+}
