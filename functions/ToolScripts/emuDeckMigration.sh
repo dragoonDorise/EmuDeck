@@ -59,7 +59,9 @@ Migration_updatePaths(){
 
 	#Emu configs
 	#Cemu
-	sed -i "s|${origin}|${destination}|g" "$Cemu_cemuSettings"
+	sed -i "s|${origin}|${destination}|g" "$Lime3DS_configFile"
+	#Citra
+	sed -i "s|${origin}|${destination}|g" "$Citra_configFile"
 	#Citra
 	sed -i "s|${origin}|${destination}|g" "$Citra_configFile"
 	#Dolphin
