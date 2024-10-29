@@ -2,6 +2,9 @@
 
 linuxID=$(lsb_release -si)
 sandbox=""
+if [ linuxID = "Ubuntu" ]; then
+    sandbox="--no-sandbox"
+fi
 if [ $linuxID != "ChimeraOS" ]; then
 
 echo "installing EmuDeck"
@@ -52,7 +55,6 @@ elif [ $linuxID != "SteamOS" ]; then
     if command -v apt-get >/dev/null; then
         echo "Installing packages with apt..."
         DEBIAN_DEPS="jq zenity flatpak unzip bash libfuse2 git rsync whiptail"
-        sandbox=" --no-sandbox"
         sudo killall apt apt-get
         sudo apt-get -y update
         sudo apt-get -y install $DEBIAN_DEPS
