@@ -160,3 +160,16 @@ saveImage(){
     local dest_path="$dest_folder/$name.jpg"
     wget -q -O "$dest_path" "$url"
 }
+
+function addGameListsArtwork() {
+    # Parámetro de entrada
+    local file="$1"
+    local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
+    local appID=$(cat "$HOME/homebrew/settings/rom-library/scid.txt")
+
+
+    local origin="$accountFolder/config/grid/emudeck/$file.jpg"
+    local destination="$accountFolder/config/grid/${appID}p.jpg"
+
+    ln -s "$origin" "$destination"
+}
