@@ -170,6 +170,10 @@ function addGameListsArtwork() {
 
     local origin="$accountfolder/config/grid/emudeck/$file.jpg"
     local destination="$accountfolder/config/grid/${appID}p.png"
+    local destination_hero="$accountfolder/config/grid/${appID}_hero.png"
+    local destination_home="$accountfolder/config/grid/${appID}.png"
 
     ln -s "$origin" "$destination"
+    ln -s "$origin" "$destination_hero"
+    ln -s "$origin" "$destination_home"
 }
