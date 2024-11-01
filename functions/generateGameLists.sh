@@ -176,9 +176,9 @@ function addGameListsArtwork() {
     rm -rf "$destination"
     rm -rf "$destination_hero"
     rm -rf "$destination_home"
-    ln -s "$origin" "$destination"
-    ln -s "$origin" "$destination_hero"
-    ln -s "$origin" "$destination_home"
+    cp -rf "$origin" "$destination"
+    cp -rf "$origin" "$destination_hero"
+    cp -rf "$origin" "$destination_home"
     chmod 444 $destination
     chmod 444 $destination_hero
     chmod 444 $destination_home
