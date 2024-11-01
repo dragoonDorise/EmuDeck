@@ -165,7 +165,7 @@ function addGameListsArtwork() {
     # Parámetro de entrada
     local file="$1"
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local appID=$(cat "$HOME/homebrew/settings/rom-library/scid.txt")
+    local appID=$(cat "$HOME/homebrew/settings/decky-rom-library/scid.txt")
 
 
     local origin="$accountFolder/config/grid/emudeck/$file.jpg"
