@@ -166,13 +166,13 @@ function addGameListsArtwork() {
     local file="$1"
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local appID=$(cat "$HOME/homebrew/settings/decky-rom-library/scid.txt")
-
-
     local origin="$accountfolder/config/grid/emudeck/$file.jpg"
     local destination="$accountfolder/config/grid/${appID}p.png"
     local destination_hero="$accountfolder/config/grid/${appID}_hero.png"
     local destination_home="$accountfolder/config/grid/${appID}.png"
-
+    rm -rf "$destination"
+    rm -rf "$destination_hero"
+    rm -rf "$destination_home"
     ln -s "$origin" "$destination"
     ln -s "$origin" "$destination_hero"
     ln -s "$origin" "$destination_home"
