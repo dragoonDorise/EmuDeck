@@ -168,8 +168,8 @@ function addGameListsArtwork() {
     local appID=$(cat "$HOME/homebrew/settings/decky-rom-library/scid.txt")
 
 
-    local origin="$accountFolder/config/grid/emudeck/$file.jpg"
-    local destination="$accountFolder/config/grid/${appID}p.jpg"
+    local origin="$accountfolder/config/grid/emudeck/$file.jpg"
+    local destination="$accountfolder/config/grid/${appID}p.png"
 
     ln -s "$origin" "$destination"
 }
