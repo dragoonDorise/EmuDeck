@@ -163,9 +163,8 @@ saveImage(){
 
 function addGameListsArtwork() {
     local file="$1"
-    local number="$2"
+    local appID="$2"
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local appID=$(cat "$HOME/homebrew/settings/decky-rom-library/scid_$number.txt")
     local origin="$accountfolder/config/grid/emudeck/$file.jpg"
     local destination="$accountfolder/config/grid/${appID}p.png"
     local destination_hero="$accountfolder/config/grid/${appID}_hero.png"
