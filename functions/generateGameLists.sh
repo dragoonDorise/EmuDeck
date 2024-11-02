@@ -162,10 +162,13 @@ saveImage(){
 }
 
 function addGameListsArtwork() {
+    # Parámetro de entrada
+    chmod 777 $destination
+    chmod 777 $destination_hero
+    chmod 777 $destination_home
     local file="$1"
-    local number="$2"
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local appID=$(cat "$HOME/homebrew/settings/decky-rom-library/scid_$number.txt")
+    local appID=$(cat "$HOME/homebrew/settings/decky-rom-library/scid.txt")
     local origin="$accountfolder/config/grid/emudeck/$file.jpg"
     local destination="$accountfolder/config/grid/${appID}p.png"
     local destination_hero="$accountfolder/config/grid/${appID}_hero.png"
@@ -176,4 +179,7 @@ function addGameListsArtwork() {
     cp -rf "$origin" "$destination"
     cp -rf "$origin" "$destination_hero"
     cp -rf "$origin" "$destination_home"
+    chmod 444 $destination
+    chmod 444 $destination_hero
+    chmod 444 $destination_home
 }
