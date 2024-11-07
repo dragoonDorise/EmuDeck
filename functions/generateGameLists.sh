@@ -110,7 +110,7 @@ generateGameLists_artwork() {
                     filename=$(basename "$game_img_url")
                     dest_path="$dest_folder$game.jpg"
 
-                    if [ "$game_img_url" = "null" ]; then
+                    if [ "$game_img_url" == "null" ]; then
                        echo -e " - No picture" >> "$logfilename"
                     else
                         echo "Added to the list (NO FUZZY): $game_img_url" >> "$logfilename"
