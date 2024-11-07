@@ -47,7 +47,7 @@ generateGameLists_artwork() {
     local json_file="$HOME/emudeck/cache/roms_games.json"
     local json=$(cat "$json_file")
 
-    if [ $number_log = 1 ]; then
+    if [ "$number_log" = 1 ]; then
         local platforms=$(echo "$json" | jq -r '.[].id')
     else
         local platforms=$(echo "$json" | jq -r '.[].id' | shuf)
@@ -110,13 +110,13 @@ generateGameLists_artwork() {
                     filename=$(basename "$game_img_url")
                     dest_path="$dest_folder$game.jpg"
 
-                    if [ "$game_img_url" == "null" ]; then
-                       echo -e " - No picture" >> "$logfilename"
-                    else
+                    if [ "$game_img_url" != "null" ]; then
                         echo "Added to the list (NO FUZZY): $game_img_url" >> "$logfilename"
                         download_array+=("$game_img_url")
                         download_dest_paths+=("$dest_path")
                         processed_games[$game]=1
+                    else
+                        echo -e " - No picture" >> "$logfilename"
                     fi
                 fi
             fi
@@ -165,7 +165,7 @@ saveImage(){
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local dest_folder="$accountfolder/config/grid/emudeck"
     local dest_path="$dest_folder/$name.jpg"
-    if [ $url != "" ]; then
+    if [ -n "$url" ] && [ -n "$name" ]; then
         wget -q -O "$dest_path" "$url"
     fi
 }
