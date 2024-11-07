@@ -9,17 +9,27 @@ from datetime import datetime, timedelta
 def similar(a, b):
     return SequenceMatcher(None, a, b).ratio()
 
+def simple_similarity(a, b):
+        # Calcula la longitud de la coincidencia de prefijo más larga
+        match_length = len([i for i in range(min(len(a), len(b))) if a[i] == b[i]])
+        # Normaliza en función de la longitud del título de búsqueda
+        return match_length / max(len(a), len(b))
+
 def find_best_match(search_title, games):
     best_match = None
     highest_similarity = 0
 
     for game in games:
-        similarity = similar(search_title, game)  # Asegúrate de que estás comparando con el nombre del juego
+        # Calcula la similitud basada en el prefijo
+        similarity = simple_similarity(search_title, game)
         if similarity > highest_similarity:
             highest_similarity = similarity
-            best_match = game  # Devolver solo el nombre del juego o el objeto completo si prefieres
+            best_match = game
 
     return best_match
+
+
+
 
 def is_file_older_than(file_path, days):
     file_time = datetime.fromtimestamp(os.path.getmtime(file_path))
