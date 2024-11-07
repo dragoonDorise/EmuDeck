@@ -69,7 +69,8 @@ def generate_game_lists(roms_path):
                         "name": clean_name,
                         "filename": file_path,
                         "file": name_cleaned_pegasus,
-                        "img": game_img
+                        "img": game_img,
+                        "platform": system_dir
                     }
                     game_data.append(game_info)
         game_data_sorted = sorted(game_data, key=lambda x: x['name'])
