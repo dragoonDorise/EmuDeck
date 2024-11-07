@@ -32,6 +32,13 @@ generateGameListsJson() {
 
 }
 
+generateGameLists_importESDE() {
+    local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
+    local dest_folder="$accountfolder/config/grid/emudeck/"
+
+    python $HOME/.config/EmuDeck/backend/tools/retroLibrary/import_media.py "$romsPath" "$dest_folder"
+}
+
 generateGameLists_artwork() {
     mkdir -p "$HOME/emudeck/cache/"
     local number_log=$1
@@ -69,7 +76,7 @@ generateGameLists_artwork() {
             if ! ls $file_to_check 1> /dev/null 2>&1 && [ -z "${processed_games[$game]}" ]; then
                 echo "GAME:" "$game" >> "$logfilename"
 
-                fuzzygame=$(python $HOME/.config/EmuDeck/backend/tools/fuzzy_search_rom.py "$game")
+                fuzzygame=$(python $HOME/.config/EmuDeck/backend/tools/fuzzy_search_rom.py "$game" "$dest_folder")
                 fuzzygame="${fuzzygame// /_}"
                 fuzzygame="${fuzzygame//:/}"
                 fuzzygame="${fuzzygame//./}"

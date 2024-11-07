@@ -30,6 +30,7 @@ url = "https://steamgriddb.com/api/games"
 
 # Título para buscar
 search_title = sys.argv[1]
+images_path = sys.argv[2]
 #print(f"{search_title}")
 #sys.exit()
 
@@ -50,6 +51,13 @@ if not os.path.exists(json_file_path) or is_file_older_than(json_file_path, 5):
         print(f"Ocurrió un error al ejecutar el comando: {e}")
 
 else:
+    for root, _, files in os.walk(images_path):
+    for file in files:
+        file_path = os.path.join(root, file)
+        # Verifica si el archivo tiene un tamaño de 0 bytes
+        if os.path.getsize(file_path) == 0:
+            os.remove(file_path)
+
     # Cargar el JSON desde el disco duro
     with open(json_file_path, "r") as json_file:
         data = json_file.read()
