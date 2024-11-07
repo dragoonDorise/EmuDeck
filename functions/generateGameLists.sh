@@ -160,7 +160,7 @@ generateGameLists_artwork() {
 }
 
 saveImage(){
-    local ""=$1
+    local url=$1
     local name=$2
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local dest_folder="$accountfolder/config/grid/emudeck"
