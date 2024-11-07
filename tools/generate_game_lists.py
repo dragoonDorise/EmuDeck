@@ -47,7 +47,7 @@ def generate_game_lists(roms_path):
                             if name == "ps3":
                                name = parts[-1]
 
-
+                    platform = os.path.basename(system_dir)
 
                     name_cleaned = re.sub(r'\(.*?\)', '', name)
                     name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
@@ -70,7 +70,7 @@ def generate_game_lists(roms_path):
                         "filename": file_path,
                         "file": name_cleaned_pegasus,
                         "img": game_img,
-                        "platform": system_dir
+                        "platform": platform
                     }
                     game_data.append(game_info)
         game_data_sorted = sorted(game_data, key=lambda x: x['name'])
