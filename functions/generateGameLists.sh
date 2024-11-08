@@ -165,9 +165,7 @@ saveImage(){
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local dest_folder="$accountfolder/config/grid/emudeck"
     local dest_path="$dest_folder/$name.jpg"
-    if [ -n "$url" ] && [ -n "$name" ]; then
-        wget -q -O "$dest_path" "$url"
-    fi
+    wget -q -O "$dest_path" "$url"
 }
 
 function addGameListsArtwork() {
