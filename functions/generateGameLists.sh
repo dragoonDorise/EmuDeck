@@ -191,5 +191,5 @@ generateGameLists_getPercentage() {
     local jpg_count=$(find "$destination" -type f -name "*.jpg" | wc -l)
     local games=$(jq '[.[].games[]] | length' "$json_file")
     local percentage=$(( 100 * jpg_count / games ))
-    echo "$jpg_count / $games ($percentage) %"
+    echo "$jpg_count / $games ($percentage%)"
 }
