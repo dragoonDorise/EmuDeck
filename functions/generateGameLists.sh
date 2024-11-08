@@ -185,3 +185,13 @@ function addGameListsArtwork() {
     cp -rf "$origin" "$destination_hero"
     cp -rf "$origin" "$destination_home"
 }
+
+generateGameLists_getPercentage() {
+    local json_file="$HOME/emudeck/cache/roms_games.json"
+    local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
+    local destination="$accountfolder/config/grid/emudeck"
+    local jpg_count=$(find "$destination" -type f -name "*.jpg" | wc -l)
+    local games=$(jq '[.[].games[]] | length' "$json_file")
+    local percentage=$(( 100 * jpg_count / games ))
+    echo $percentage
+}
