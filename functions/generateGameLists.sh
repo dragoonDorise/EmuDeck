@@ -87,7 +87,7 @@ generateGameLists_artwork() {
                 #game_name=$(echo "$response" | jq -r '.name')
                 #game_img_url=$(echo "$response" | jq -r '.img')
 
-                wget -q -O "$HOME/emudeck/cache/response.json" "https://bot.emudeck.com/steamdbimg2.php?name=$fuzzygame"
+                wget -q -O "$HOME/emudeck/cache/response.json" "https://bot.emudeck.com/steamdbimg.php?name=$fuzzygame"
                 game_name=$(jq -r '.name' "$HOME/emudeck/cache/response.json")
                 game_img_url=$(jq -r '.img' "$HOME/emudeck/cache/response.json")
 
@@ -103,7 +103,7 @@ generateGameLists_artwork() {
                     #response=$(curl -s -G "https://bot.emudeck.com/steamdbimg.php?name=$game")
                     #game_name=$(echo "$response" | jq -r '.name')
                     #game_img_url=$(echo "$response" | jq -r '.img')
-                    wget -q -O "$HOME/emudeck/cache/response.json" "https://bot.emudeck.com/steamdbimg2.php?name=$game"
+                    wget -q -O "$HOME/emudeck/cache/response.json" "https://bot.emudeck.com/steamdbimg.php?name=$game"
 
                     game_name=$(jq -r '.name' "$HOME/emudeck/cache/response.json")
                     game_img_url=$(jq -r '.img' "$HOME/emudeck/cache/response.json")
