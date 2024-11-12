@@ -17,12 +17,13 @@ BigPEmu_install(){
 
 	mkdir -p $BigPEmu_appData
 
-	BigPEmudownloadLink=$(curl -s "https://www.richwhitehouse.com/jaguar/index.php?content=download" | grep -o 'https://www\.richwhitehouse\.com/jaguar/builds/BigPEmu_v[0-9]*\.zip' | grep -v "BigPEmu_*-DEV.zip" | head -n 1)
+	BigPEmudownloadLink=$(curl -s "https://www.richwhitehouse.com/jaguar/index.php?content=download" | grep -o 'https://www\.richwhitehouse\.com/jaguar/builds/BigPEmu_Linux64_v[0-9]*\.tar.gz' | grep -v "BigPEmu_*-DEV.tar.gz" | head -n 1)
 
-	if safeDownload "BigPEmu" "$BigPEmudownloadLink" "$HOME/Applications/BigPEmu/BigPEmu.zip" "$showProgress"; then
+	if safeDownload "BigPEmu" "$BigPEmudownloadLink" "$HOME/Applications/BigPEmu/BigPEmu.tar.gz" "$showProgress"; then
 
-		unzip -o "$HOME/Applications/BigPEmu/BigPEmu.zip" -d "$HOME/Applications/BigPEmu"
-		rm -f "$HOME/Applications/BigPEmu/BigPEmu.zip"
+		tar -xvzf "$HOME/Applications/BigPEmu/BigPEmu.tar.gz" -C "$HOME/Applications/BigPEmu" --strip-components 1
+
+		rm -f "$HOME/Applications/BigPEmu/BigPEmu.tar.gz"
 
 	else
 		return 1
@@ -80,7 +81,7 @@ BigPEmu_addESConfig(){
 	ESDE_junksettingsFile
 	ESDE_addCustomSystemsFile
 	ESDE_setEmulationFolder
-	
+
 	# Atari Jaguar
 	if [[ $(grep -rnw "$es_systemsFile" -e 'atarijaguar') == "" ]]; then
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
@@ -166,7 +167,7 @@ BigPEmu_wipeSettings(){
 
 #Uninstall
 BigPEmu_uninstall(){
-    uninstallGeneric $BigPEmu_emuName $BigPEmu_emuPath "" "emulator" 
+    uninstallGeneric $BigPEmu_emuName $BigPEmu_emuPath "" "emulator"
 }
 
 #setABXYstyle
