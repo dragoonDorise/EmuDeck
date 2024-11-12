@@ -12,7 +12,7 @@ Citra_texturesPath="$HOME/.config/citra-emu/load/textures"
 Citra_install(){
 	echo "Begin $Citra_emuName Install"
 	local showProgress="$1"
-	if installEmuAI "$Citra_emuName" "" "$(getReleaseURLGH "PabloMK7/citra" "tar.gz" "" "appimage")" "citra" "tar.gz" "emulator" "$showProgress"; then #citra-qt.AppImage
+	if installEmuAI "$Citra_emuName" "" "https://github.com/PabloMK7/citra/releases/download/r608383e/citra-linux-appimage-20240927-608383e.tar.gz" "citra" "tar.gz" "emulator" "$showProgress"; then #citra-qt.AppImage
 	#if installEmuAI "$Citra_emuName" "" "https://github.com/PabloMK7/citra/releases/download/r518f723/citra-linux-appimage-20240717-518f723.tar.gz" "citra" "tar.gz" "emulator" "$showProgress"; then #citra-qt.AppImage
 		mkdir "$HOME/Applications/citra-temp"
 		tar -xvzf "$HOME/Applications/citra.tar.gz" -C "$HOME/Applications/citra-temp" --strip-components 1
