@@ -8,7 +8,7 @@ emufolder="$HOME/Applications/BigPEmu" # has to be here for ES-DE to find it
 exe=()
 
 #find full path to emu executable
-exe_path=$(find "$emufolder" -iname "${emuName}.sh" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
+exe_path=$(find "$emufolder" -iname "${emuName}" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
 
 #if appimage doesn't exist fall back to flatpak.
 if [[ -z "$exe_path" ]]; then
