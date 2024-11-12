@@ -38,7 +38,7 @@ BigPEmu_install(){
 	#chmod +x "$HOME/Applications/BigPEmu/bigpemu.sh"
 	chmod +x "$romsPath/emulators/bigpemu.sh"
 
-	rm -rf "$HOME/.local/share/applications/BigPEmu.desktop"
+	rm -rf "$HOME/.local/share/applications/BigPEmu (Proton).desktop"
 	rm -rf "$HOME/Applications/BigPEmu/bigpemu.sh"
 
 	createDesktopShortcut   "$HOME/.local/share/applications/BigPEmu.desktop" \
