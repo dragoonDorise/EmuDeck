@@ -1,6 +1,6 @@
 #!/bin/bash
 #variables
-BigPEmu_emuName="BigPEmu (Proton)"
+BigPEmu_emuName="BigPEmu"
 BigPEmu_emuType="$emuDeckEmuTypeWindows"
 BigPEmu_emuPath="$HOME/Applications/BigPEmu/BigPEmu.exe"
 BigPEmu_appData="$HOME/Applications/BigPEmu/UserData"
@@ -31,15 +31,15 @@ BigPEmu_install(){
 
 	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$toolsPath/launchers/bigpemu.sh"
 	# So users can still open BigPEmu from the ~/Applications folder.
-	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$HOME/Applications/BigPEmu/bigpemu.sh"
+	#cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$HOME/Applications/BigPEmu/bigpemu.sh"
 	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$romsPath/emulators/bigpemu.sh"
 
 	chmod +x "${toolsPath}/launchers/bigpemu.sh"
-	chmod +x "$HOME/Applications/BigPEmu/bigpemu.sh"
+	#chmod +x "$HOME/Applications/BigPEmu/bigpemu.sh"
 	chmod +x "$romsPath/emulators/bigpemu.sh"
 
-	createDesktopShortcut   "$HOME/.local/share/applications/BigPEmu (Proton).desktop" \
-							"BigPEmu (Proton)" \
+	createDesktopShortcut   "$HOME/.local/share/applications/BigPEmu.desktop" \
+							"BigPEmu" \
 							"${toolsPath}/launchers/bigpemu.sh -w"  \
 							"False"
 }
@@ -51,7 +51,6 @@ BigPEmu_init(){
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
 	BigPEmu_flushEmulatorLauncher
-	addProtonLaunch
 	#SRM_createParsers
 	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		BigPEmu_addESConfig
@@ -68,7 +67,6 @@ BigPEmu_update(){
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
 	BigPEmu_flushEmulatorLauncher
-	addProtonLaunch
 	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		BigPEmu_addESConfig
 	else
@@ -91,7 +89,7 @@ BigPEmu_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/atarijaguar' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP' \
 		--subnode '$newSystem' --type elem --name 'commandB' -v "/usr/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
-		--insert '$newSystem/commandB' --type attr --name 'label' --value "BigPEmu (Proton)" \
+		--insert '$newSystem/commandB' --type attr --name 'label' --value "BigPEmu" \
 		--subnode '$newSystem' --type elem --name 'commandV' -v "%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/virtualjaguar_libretro.so %ROM%" \
 		--insert '$newSystem/commandV' --type attr --name 'label' --value "Virtual Jaguar" \
 		--subnode '$newSystem' --type elem --name 'commandM' -v "%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/atarijaguar jaguar -cart %ROM%" \
@@ -116,7 +114,7 @@ BigPEmu_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/atarijaguarcd' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP' \
 		--subnode '$newSystem' --type elem --name 'commandB' -v "/usr/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
-		--insert '$newSystem/commandB' --type attr --name 'label' --value "BigPEmu (Proton)" \
+		--insert '$newSystem/commandB' --type attr --name 'label' --value "BigPEmu" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'atarijaguarcd' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'atarijaguarcd' \
 		-r 'systemList/system/commandB' -v 'command' \
