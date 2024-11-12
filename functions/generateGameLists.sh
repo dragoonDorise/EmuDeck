@@ -41,11 +41,36 @@ generateGameLists_importESDE() {
 
 generateGameLists_artwork() {
     mkdir -p "$HOME/emudeck/cache/"
+
     local number_log=$1
     local current_time=$(date +"%H_%M_%S")
     local logfilename="$HOME/emudeck/logs/library_${number_log}.log"
     local json_file="$HOME/emudeck/cache/roms_games.json"
     local json=$(cat "$json_file")
+
+    local PIDFILE="$HOME/.config/EmuDeck/retrolibrary_$number_log.pid"
+
+    if [ -f "$PIDFILE" ]; then
+      PID=$(cat "$PIDFILE")
+      ps -p "$PID" > /dev/null 2>&1
+      if [ $? -eq 0 ]; then
+        echo "Process already running"
+        exit 1
+      else
+        ## Process not found assume not running
+        echo $$ > "$PIDFILE"
+        if [ $? -ne 0 ]; then
+          echo "Could not create PID file"
+          exit 1
+        fi
+      fi
+    else
+      echo $$ > "$PIDFILE"
+      if [ $? -ne 0 ]; then
+        echo "Could not create PID file"
+        exit 1
+      fi
+    fi
 
     if [ "$number_log" = 1 ]; then
         local platforms=$(echo "$json" | jq -r '.[].id')
@@ -157,6 +182,7 @@ generateGameLists_artwork() {
 
     # Save the updated JSON back to the file
     #echo "$json" > "$json_file"
+    rm -rf "$PIDFILE"
 }
 
 saveImage(){
