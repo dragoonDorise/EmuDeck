@@ -2,13 +2,10 @@
 
 linuxID=$(lsb_release -si)
 sandbox=""
-if [ $linuxID != "ChimeraOS" ]; then
 
-echo "installing EmuDeck"
-
-elif [ $linuxID != "SteamOS" ]; then
-
-
+if [ "$linuxID" == "ChimeraOS" ] || [ "$linuxID" == "SteamOS" ]; then
+    echo "installing EmuDeck"
+else
     zenityAvailable=$(command -v zenity &> /dev/null  && echo true)
 
     if [[ $zenityAvailable = true ]];then
