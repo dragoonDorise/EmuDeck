@@ -66,10 +66,4 @@ def process_json(save_folder):
         for future in as_completed(futures):
             future.result()  # Esperar a que cada tarea termine
 
-if __name__ == "__main__":
-    # Verificar que se pasaron los argumentos necesarios
-    if len(sys.argv) != 3:
-        print("Uso: python script.py <carpeta_destino> <número>")
-        sys.exit(1)
-
     process_json(save_folder)
