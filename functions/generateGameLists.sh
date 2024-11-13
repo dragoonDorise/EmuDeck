@@ -7,7 +7,7 @@ generateGameLists() {
 
 generateGameListsJson() {
     python $HOME/.config/EmuDeck/backend/tools/retro-library/generate_game_lists.py "$romsPath"
-    cat $HOME/emudeck/cache/roms_games.json
+    #cat $HOME/emudeck/cache/roms_games.json
     #generateGameLists_artwork $userid &> /dev/null &
     generateGameLists_artwork &> /dev/null &
 
@@ -59,7 +59,7 @@ generateGameLists_getPercentage() {
     local json_file_artwork="$HOME/emudeck/cache/missing_artwork.json"
 
     local games=$(jq '[.[].games[]] | length' "$json_file")
-    local artwork_missing=$(jq '.[] | length' "$json_file_artwork")
+    local artwork_missing=$(jq '[] | length' "$json_file_artwork")
 
 
     if [ "$games" -eq 0 ]; then
