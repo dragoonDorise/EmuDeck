@@ -56,6 +56,9 @@ function addGameListsArtwork() {
 
 generateGameLists_getPercentage() {
 
+    local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
+    local dest_folder="$accountfolder/config/grid/emudeck/"
+
     python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$dest_folder"
 
 
