@@ -55,22 +55,22 @@ function addGameListsArtwork() {
 }
 
 generateGameLists_getPercentage() {
-
-    python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$dest_folder"
-
     local json_file="$HOME/emudeck/cache/roms_games.json"
     local json_file_artwork="$HOME/emudeck/cache/missing_artwork.json"
 
+    # Contar el número total de juegos en `roms_games.json`
     local games=$(jq '[.[].games[]] | length' "$json_file")
+
     local artwork_missing=$(jq '. | length' "$json_file_artwork")
 
-
-    if [ "$games" -eq 0 ]; then
-        echo "0 / 0"
-        exit
+    if [[ -z "$games" || "$games" -eq 0 ]]; then
+        return
     fi
 
     local parsed_games=$(( games - artwork_missing ))
+
     local percentage=$(( 100 * parsed_games / games ))
+
+    # Mostrar el resultado
     echo "$parsed_games / $games ($percentage%)"
 }
