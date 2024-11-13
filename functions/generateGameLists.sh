@@ -56,10 +56,21 @@ function addGameListsArtwork() {
 
 generateGameLists_getPercentage() {
     local json_file="$HOME/emudeck/cache/roms_games.json"
-    local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local destination="$accountfolder/config/grid/emudeck"
-    local jpg_count=$(find "$destination" -type f -name "*.jpg" | wc -l)
+    local json_file_artwork="$HOME/emudeck/cache/missing_artwork.json"
+
     local games=$(jq '[.[].games[]] | length' "$json_file")
-    local percentage=$(( 100 * jpg_count / games ))
-    echo "$jpg_count / $games ($percentage%)"
+
+    local artwork_missing=$(jq '.[] | length' "$json_file_artwork")
+
+    # Verificar que games no sea cero para evitar división por cero
+    if [ "$games" -eq 0 ]; then
+        echo "No se encontraron juegos en $json_file"
+        echo "0 / 0"
+    fi
+
+    local parsed_games=$(( games - artwork_missing ))
+
+    local percentage=$(( 100 * parsed_games / games ))
+
+    echo "$parsed_games / $games ($percentage%)"
 }
