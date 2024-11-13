@@ -6,8 +6,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Path del JSON y carpeta de destino desde los argumentos
 save_folder = sys.argv[1]
-number = sys.argv[2]
-json_path = os.path.expanduser(f'~/emudeck/cache/missing_artwork{number}.json')
+json_path = os.path.expanduser(f'~/emudeck/cache/missing_artwork.json')
 
 def create_empty_image(name, save_folder):
     # Crear la carpeta si no existe

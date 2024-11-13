@@ -3,7 +3,7 @@ import json
 import sys
 import re
 
-def generate_game_lists(roms_path, images_path, number):
+def generate_game_lists(roms_path, images_path):
     def collect_game_data(system_dir, extensions):
         game_data = []
         for root, _, files in os.walk(system_dir):
@@ -100,7 +100,7 @@ def generate_game_lists(roms_path, images_path, number):
 
     json_output = json.dumps(game_list, indent=4)
     home_directory = os.path.expanduser("~")
-    output_file = os.path.join(home_directory, 'emudeck', 'cache', f'missing_artwork{number}.json')
+    output_file = os.path.join(home_directory, 'emudeck', 'cache', f'missing_artwork.json')
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, 'w') as f:
         f.write(json_output)
@@ -108,6 +108,5 @@ def generate_game_lists(roms_path, images_path, number):
 # Pasar la ruta de las ROMs y de las imágenes desde los argumentos de línea de comandos
 roms_path = sys.argv[1]
 images_path = sys.argv[2]
-number = sys.argv[3]
 
-generate_game_lists(roms_path, images_path, number)
+generate_game_lists(roms_path, images_path)
