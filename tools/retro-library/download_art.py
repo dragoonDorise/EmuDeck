@@ -66,4 +66,4 @@ def process_json(save_folder):
         for future in as_completed(futures):
             future.result()  # Esperar a que cada tarea termine
 
-    process_json(save_folder)
+process_json(save_folder)

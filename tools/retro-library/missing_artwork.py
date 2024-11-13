@@ -100,7 +100,7 @@ def generate_game_lists(roms_path, images_path):
 
     json_output = json.dumps(game_list, indent=4)
     home_directory = os.path.expanduser("~")
-    output_file = os.path.join(home_directory, 'emudeck', 'cache', f'missing_artwork.json')
+    output_file = os.path.join(home_directory, 'emudeck', 'cache', 'missing_artwork.json')
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, 'w') as f:
         f.write(json_output)
