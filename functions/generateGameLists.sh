@@ -62,7 +62,7 @@ generateGameLists_getPercentage() {
     local json_file_artwork="$HOME/emudeck/cache/missing_artwork.json"
 
     local games=$(jq '[.[].games[]] | length' "$json_file")
-    local artwork_missing=$(jq '[] | length' "$json_file_artwork")
+    local artwork_missing=$(jq '. | length' "$json_file_artwork")
 
 
     if [ "$games" -eq 0 ]; then
