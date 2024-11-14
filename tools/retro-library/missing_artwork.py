@@ -56,11 +56,11 @@ def generate_game_lists(roms_path, images_path):
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
                     name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
 
-                    game_img = f"/customimages/emudeck/{name_cleaned}.jpg"
+                    game_img = f"/customimages/emudeck/{platform}/{name_cleaned}.jpg"
 
                     # Verificar si la imagen existe en el images_path
 
-                    img_path = os.path.join(images_path, f"{name_cleaned}.jpg")
+                    img_path = os.path.join(images_path, f"{platform}/{name_cleaned}.jpg")
                     #print(img_path)
                     if not os.path.exists(img_path):
                         game_info = {
