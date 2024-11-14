@@ -64,11 +64,11 @@ def generate_game_lists(roms_path):
                     name_cleaned_pegasus = name.replace(',_', ',')
 
                     clean_name = name_cleaned
-                    game_img = f"/customimages/emudeck/{clean_name}.jpg"
+                    game_img = f"/customimages/emudeck/{platform}/{clean_name}.jpg"
                     game_info = {
                         "name": clean_name,
                         "filename": file_path,
-                        "file": name_cleaned_pegasus,
+                        "file": clean_name,
                         "img": game_img,
                         "platform": platform
                     }

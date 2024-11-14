@@ -32,8 +32,9 @@ generateGameLists_artwork() {
 saveImage(){
     local url=$1
     local name=$2
+    local system=$3
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local dest_folder="$accountfolder/config/grid/emudeck"
+    local dest_folder="$accountfolder/config/grid/emudeck/${system}"
     local dest_path="$dest_folder/$name.jpg"
     wget -q -O "$dest_path" "$url"
 }
@@ -41,8 +42,9 @@ saveImage(){
 function addGameListsArtwork() {
     local file="$1"
     local appID="$2"
+    local platform="$2"
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local origin="$accountfolder/config/grid/emudeck/$file.jpg"
+    local origin="$accountfolder/config/grid/emudeck/${platform}/$file.jpg"
     local destination="$accountfolder/config/grid/${appID}p.png"
     local destination_hero="$accountfolder/config/grid/${appID}_hero.png"
     local destination_home="$accountfolder/config/grid/${appID}.png"
