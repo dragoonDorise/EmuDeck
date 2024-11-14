@@ -50,14 +50,14 @@ function addGameListsArtwork() {
 
     local tempGrid =$(generateGameLists_extraArtwork $file $platform)
 
-    local origin="$tempGrid"
+    local origin="$accountfolder/config/grid/emudeck/${platform}/$file.jpg"
     local destination="$accountfolder/config/grid/${appID}p.png"
     local destination_hero="$accountfolder/config/grid/${appID}_hero.png"
     local destination_home="$accountfolder/config/grid/${appID}.png"
     rm -rf "$destination"
     rm -rf "$destination_hero"
     rm -rf "$destination_home"
-    cp "$origin" "$destination"
+    cp "$tempGrid" "$destination"
     cp "$origin" "$destination_hero"
     cp "$origin" "$destination_home"
 }
