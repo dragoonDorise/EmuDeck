@@ -48,18 +48,25 @@ function addGameListsArtwork() {
     local platform="$3"
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
 
-    local tempGrid =$(generateGameLists_extraArtwork $file $platform)
+    local tempGrid=$(generateGameLists_extraArtwork $file $platform)
 
-    local origin="$accountfolder/config/grid/emudeck/${platform}/$file.jpg"
-    local destination="$accountfolder/config/grid/${appID}p.png"
-    local destination_hero="$accountfolder/config/grid/${appID}_hero.png"
-    local destination_home="$accountfolder/config/grid/${appID}.png"
-    rm -rf "$destination"
+    # local vertical=$(echo "$tempGrid" | jq -r '.vertical')
+    local grid=$(echo "$tempGrid" | jq -r '.grid')
+    vertical="$accountfolder/config/grid/emudeck/$platform/$file.jpg"
+
+    # vertical="$accountfolder/config/grid/emudeck/$platform/$file.grid.temp"
+    # vertical="$accountfolder/config/grid/emudeck/$platform/$file.grid.temp" #vertical
+
+    local destination_vertical="$accountfolder/config/grid/${appID}p.png" #vertical
+    local destination_hero="$accountfolder/config/grid/${appID}_hero.png" #BG
+    local destination_grid="$accountfolder/config/grid/${appID}.png" #GRID
+    rm -rf "$destination_vertical"
     rm -rf "$destination_hero"
-    rm -rf "$destination_home"
-    cp "$tempGrid" "$destination"
-    cp "$origin" "$destination_hero"
-    cp "$origin" "$destination_home"
+    rm -rf "$destination_grid"
+
+    cp "$vertical" "$destination_vertical"
+    cp "$grid" "$destination_hero"
+    cp "$grid" "$destination_grid"
 }
 
 generateGameLists_getPercentage() {
@@ -86,7 +93,6 @@ generateGameLists_getPercentage() {
 
     local percentage=$(( 100 * parsed_games / games ))
 
-    # Mostrar el resultado
     echo "$parsed_games / $games ($percentage%)"
 }
 
@@ -99,12 +105,13 @@ generateGameLists_extraArtwork() {
     wget -q -O "$HOME/emudeck/cache/response.json" "https://bot.emudeck.com/steamdb_extra.php?name=$game"
 
     game_name=$(jq -r '.name' "$HOME/emudeck/cache/response.json")
-    game_img_url=$(jq -r '.img' "$HOME/emudeck/cache/response.json")
-    filename=$(basename "$game_img_url")
-    dest_path="$dest_folder/$platform/$game.temp.jpg"
+    game_img_url=$(jq -r '.grid' "$HOME/emudeck/cache/response.json")
+    dest_path="$dest_folder/$platform/$game.grid.temp"
 
     if [ "$game_img_url" != "null" ]; then
       wget -q -O "${dest_path}" "${game_img_url}"
     fi
-    echo $dest_path
+    json=$(jq -n --arg grid "$dest_path" '{grid: $grid}')
+
+    echo "$json"
 }
