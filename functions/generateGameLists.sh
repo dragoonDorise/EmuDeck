@@ -47,16 +47,19 @@ function addGameListsArtwork() {
     local appID="$2"
     local platform="$3"
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local origin="$accountfolder/config/grid/emudeck/${platform}/$file.jpg"
+
+    local tempGrid =$(generateGameLists_extraArtwork $file $platform)
+
+    local origin="$tempGrid"
     local destination="$accountfolder/config/grid/${appID}p.png"
     local destination_hero="$accountfolder/config/grid/${appID}_hero.png"
     local destination_home="$accountfolder/config/grid/${appID}.png"
     rm -rf "$destination"
     rm -rf "$destination_hero"
     rm -rf "$destination_home"
-    ln -s "$origin" "$destination"
-    ln -s "$origin" "$destination_hero"
-    ln -s "$origin" "$destination_home"
+    cp "$origin" "$destination"
+    cp "$origin" "$destination_hero"
+    cp "$origin" "$destination_home"
 }
 
 generateGameLists_getPercentage() {
@@ -85,4 +88,23 @@ generateGameLists_getPercentage() {
 
     # Mostrar el resultado
     echo "$parsed_games / $games ($percentage%)"
+}
+
+generateGameLists_extraArtwork() {
+    local game=$1
+    local platform=$2
+    local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
+    local dest_folder="$accountfolder/config/grid/emudeck"
+
+    wget -q -O "$HOME/emudeck/cache/response.json" "https://bot.emudeck.com/steamdb_extra.php?name=$game"
+
+    game_name=$(jq -r '.name' "$HOME/emudeck/cache/response.json")
+    game_img_url=$(jq -r '.img' "$HOME/emudeck/cache/response.json")
+    filename=$(basename "$game_img_url")
+    dest_path="$dest_folder/$platform/$game.temp.jpg"
+
+    if [ "$game_img_url" != "null" ]; then
+      wget -q -O "${dest_path}" "${game_img_url}"
+    fi
+    echo $dest_path
 }
