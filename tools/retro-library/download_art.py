@@ -13,7 +13,7 @@ def create_empty_image(name, platform, save_folder):
     os.makedirs(save_folder, exist_ok=True)
     # Definir la ruta de guardado para el archivo vacío
     img_path = os.path.join(save_folder, f"{platform}/{name}.jpg")
-
+    print(img_path)
     # Crear un archivo vacío
     with open(img_path, 'wb') as file:
         pass  # No escribimos nada para que quede vacío
@@ -24,7 +24,7 @@ def download_image(name, platform, img_url, save_folder):
     os.makedirs(save_folder, exist_ok=True)
     # Definir la ruta de guardado
     img_path = os.path.join(save_folder, f"{platform}/{name}.jpg")
-
+    print(img_path)
     # Descargar y guardar la imagen
     response = requests.get(img_url)
     if response.status_code == 200:
