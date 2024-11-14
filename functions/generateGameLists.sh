@@ -45,7 +45,7 @@ saveImage(){
 function addGameListsArtwork() {
     local file="$1"
     local appID="$2"
-    local platform="$2"
+    local platform="$3"
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local origin="$accountfolder/config/grid/emudeck/${platform}/$file.jpg"
     local destination="$accountfolder/config/grid/${appID}p.png"
@@ -54,9 +54,9 @@ function addGameListsArtwork() {
     rm -rf "$destination"
     rm -rf "$destination_hero"
     rm -rf "$destination_home"
-    cp -rf "$origin" "$destination"
-    cp -rf "$origin" "$destination_hero"
-    cp -rf "$origin" "$destination_home"
+    ln -s "$origin" "$destination"
+    ln -s "$origin" "$destination_hero"
+    ln -s "$origin" "$destination_home"
 }
 
 generateGameLists_getPercentage() {
