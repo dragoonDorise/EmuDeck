@@ -1,6 +1,10 @@
 #!/bin/bash
 generateGameLists() {
+    local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
+    local dest_folder="$accountfolder/config/grid/emudeck/"
+    mkdir -p $dest_folder
     pegasus_setPaths
+    rsync -r --exclude='roms' --exclude='txt' "$EMUDECKGIT/roms/" "$dest_folder" --keep-dirlinks
     mkdir -p "$HOME/emudeck/cache/"
     python $HOME/.config/EmuDeck/backend/tools/retro-library/generate_game_lists.py "$romsPath"
 }
@@ -14,8 +18,7 @@ generateGameListsJson() {
 }
 
 generateGameLists_importESDE() {
-    local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local dest_folder="$accountfolder/config/grid/emudeck/"
+
 
     python $HOME/.config/EmuDeck/backend/tools/retro-library/import_media.py "$romsPath" "$dest_folder"
 }
