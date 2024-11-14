@@ -48,15 +48,12 @@ function addGameListsArtwork() {
     local platform="$3"
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
 
-    local tempGrid=$(generateGameLists_extraArtwork $file $platform)
+    #Uncomment to get custom grid
+    #local tempGrid=$(generateGameLists_extraArtwork $file $platform)
+    #local grid=$(echo "$tempGrid" | jq -r '.grid')
 
-    # local vertical=$(echo "$tempGrid" | jq -r '.vertical')
-    local grid=$(echo "$tempGrid" | jq -r '.grid')
-    vertical="$accountfolder/config/grid/emudeck/$platform/$file.jpg"
-
-    # vertical="$accountfolder/config/grid/emudeck/$platform/$file.grid.temp"
-    # vertical="$accountfolder/config/grid/emudeck/$platform/$file.grid.temp" #vertical
-
+    local vertical="$accountfolder/config/grid/emudeck/$platform/$file.jpg"
+    local grid=$vertical
     local destination_vertical="$accountfolder/config/grid/${appID}p.png" #vertical
     local destination_hero="$accountfolder/config/grid/${appID}_hero.png" #BG
     local destination_grid="$accountfolder/config/grid/${appID}.png" #GRID
@@ -64,9 +61,10 @@ function addGameListsArtwork() {
     rm -rf "$destination_hero"
     rm -rf "$destination_grid"
 
-    cp "$vertical" "$destination_vertical"
-    cp "$grid" "$destination_hero"
-    cp "$grid" "$destination_grid"
+    #Use CP if custom grid instead of ln..
+    ln -s "$vertical" "$destination_vertical"
+    ln -s "$grid" "$destination_hero"
+    ln -s "$grid" "$destination_grid"
 }
 
 generateGameLists_getPercentage() {
