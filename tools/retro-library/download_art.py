@@ -62,7 +62,7 @@ def process_json(save_folder):
         games = json.load(file)
 
     # Usar ThreadPoolExecutor para descargar en paralelo
-    with ThreadPoolExecutor(max_workers=15) as executor:
+    with ThreadPoolExecutor(max_workers=5) as executor:
         futures = [executor.submit(fetch_image_data, game) for game in games]
         for future in as_completed(futures):
             future.result()  # Esperar a que cada tarea termine
