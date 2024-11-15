@@ -21,7 +21,7 @@
     "specifiedAccounts": ""
   },
   "parserInputs": {
-    "glob": "**/${title}@(.nds|.NDS|.app|.APP)"
+    "glob": "**/${title}@(.7z|.7Z|.dsi|.DSI|.ids|.IDS|.nds|.NDS|.zip|.ZIP|.app|.APP)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
