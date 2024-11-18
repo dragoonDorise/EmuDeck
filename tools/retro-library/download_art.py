@@ -37,7 +37,7 @@ def download_image(name, platform, img_url, save_folder):
 def fetch_image_data(game):
     name = game['name']
     platform = game['platform']
-    platform = game['hash']
+    hash = game['hash']
     url = f"https://bot.emudeck.com/steamdbimg.php?name={name}&platform={platform}&hash={hash}"
 
     try:
