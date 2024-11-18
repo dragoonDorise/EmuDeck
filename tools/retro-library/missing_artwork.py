@@ -2,8 +2,19 @@ import os
 import json
 import sys
 import re
+import hashlib
 
 def generate_game_lists(roms_path, images_path):
+    def calculate_hash(file_path):
+        hash_md5 = hashlib.md5()
+        try:
+            with open(file_path, "rb") as f:
+                for chunk in iter(lambda: f.read(4096), b""):
+                    hash_md5.update(chunk)
+            return hash_md5.hexdigest()
+        except Exception as e:
+            print(f"Error al calcular el hash para {file_path}: {e}")
+            return None
     def collect_game_data(system_dir, extensions):
         game_data = []
         for root, _, files in os.walk(system_dir):
@@ -57,7 +68,7 @@ def generate_game_lists(roms_path, images_path):
                     name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
 
                     game_img = f"/customimages/emudeck/{platform}/{name_cleaned}.jpg"
-
+                    rom_hash = calculate_hash(file_path)
                     # Verificar si la imagen existe en el images_path
 
                     img_path = os.path.join(images_path, f"{platform}/{name_cleaned}.jpg")
@@ -66,6 +77,7 @@ def generate_game_lists(roms_path, images_path):
                         game_info = {
                             "name": name_cleaned,
                             "platform": platform
+                            "hash": rom_hash
                         }
                         game_data.append(game_info)
 
