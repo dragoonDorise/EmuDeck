@@ -76,7 +76,7 @@ def generate_game_lists(roms_path, images_path):
                     if not os.path.exists(img_path):
                         game_info = {
                             "name": name_cleaned,
-                            "platform": platform
+                            "platform": platform,
                             "hash": rom_hash
                         }
                         game_data.append(game_info)
