@@ -97,10 +97,11 @@ generateGameLists_getPercentage() {
 generateGameLists_extraArtwork() {
     local game=$1
     local platform=$2
+    local hash=$3
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local dest_folder="$accountfolder/config/grid/emudeck"
 
-    wget -q -O "$HOME/emudeck/cache/response.json" "https://bot.emudeck.com/steamdb_extra.php?name=$game"
+    wget -q -O "$HOME/emudeck/cache/response.json" "https://bot.emudeck.com/steamdb_extra.php?name=$game&hash=$hash"
 
     game_name=$(jq -r '.name' "$HOME/emudeck/cache/response.json")
     game_img_url=$(jq -r '.grid' "$HOME/emudeck/cache/response.json")

@@ -2,8 +2,21 @@ import os
 import json
 import sys
 import re
+import hashlib
 
 def generate_game_lists(roms_path):
+    def calculate_hash(file_path):
+        """Calcula el hash MD5 de un archivo."""
+        hash_md5 = hashlib.md5()
+        try:
+            with open(file_path, "rb") as f:
+                for chunk in iter(lambda: f.read(4096), b""):
+                    hash_md5.update(chunk)
+            return hash_md5.hexdigest()
+        except Exception as e:
+            print(f"Error al calcular el hash para {file_path}: {e}")
+            return None
+
     def collect_game_data(system_dir, extensions):
         game_data = []
         for root, _, files in os.walk(system_dir):
@@ -63,6 +76,9 @@ def generate_game_lists(roms_path):
                     name_cleaned = name_cleaned.replace('.', '')
                     name_cleaned_pegasus = name.replace(',_', ',')
 
+                    # Calcular el hash de la ROM
+                    rom_hash = calculate_hash(file_path)
+
                     clean_name = name_cleaned
                     game_img = f"/customimages/emudeck/{platform}/{clean_name}.jpg"
                     game_info = {
@@ -70,7 +86,8 @@ def generate_game_lists(roms_path):
                         "filename": file_path,
                         "file": clean_name,
                         "img": game_img,
-                        "platform": platform
+                        "platform": platform,
+                        "hash": rom_hash  # Agregar el hash
                     }
                     game_data.append(game_info)
         game_data_sorted = sorted(game_data, key=lambda x: x['name'])
@@ -113,7 +130,6 @@ def generate_game_lists(roms_path):
             }
             game_list.append(system_info)
             game_list_sorted = sorted(game_list, key=lambda x: x['title'])
-
 
     json_output = json.dumps(game_list_sorted, indent=4)
     home_directory = os.path.expanduser("~")
