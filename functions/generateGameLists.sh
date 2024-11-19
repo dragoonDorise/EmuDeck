@@ -114,3 +114,8 @@ generateGameLists_extraArtwork() {
 
     echo "$json"
 }
+
+generateGameLists_retroAchievements(){
+    local hash=$1
+    python $HOME/.config/EmuDeck/backend/tools/retro-library/retro_achievements.py "$cheevos_username" "$hash"
+}
