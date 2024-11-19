@@ -6,14 +6,14 @@ API_USERNAME = "dragoonDorise"
 API_KEY = "mvLqoKB3JmbXrezCd7LIXzMnV42ApWzj"
 USER = sys.argv[1]
 md5_to_find = sys.argv[2]
-
+SYSTEM_ID = sys.argv[3]
 # Endpoints
 BASE_URL = "https://retroachievements.org/API/"
 GAMES_LIST_ENDPOINT = f"{BASE_URL}API_GetGameList.php"
 GAME_INFO_ENDPOINT = f"{BASE_URL}API_GetGameInfoAndUserProgress.php"
 
 # Función para obtener la lista de juegos del sistema
-def get_games(system_id=1):
+def get_games(system_id):
     response = requests.get(GAMES_LIST_ENDPOINT, params={
         "i": system_id,
         "h": 1,
@@ -44,7 +44,7 @@ def get_game_info_and_progress(game_id):
 # Función principal
 def main():
     # Obtener lista de juegos
-    games = get_games()
+    games = get_games(SYSTEM_ID)
     if not games:
         return
 
