@@ -1,6 +1,7 @@
 import requests
 import sys
 import warnings
+import json
 from requests.exceptions import RequestsDependencyWarning
 
 warnings.filterwarnings("ignore", category=RequestsDependencyWarning)
@@ -64,7 +65,8 @@ def main():
         # Obtener datos del juego y progreso del usuario
         game_data = get_game_info_and_progress(game_id)
         if game_data:
-            print(game_data)
+            # Imprimir JSON en formato válido
+            print(json.dumps(game_data, ensure_ascii=False, indent=4))
     else:
         print("Hash MD5 no encontrado en la lista de juegos.")
 
