@@ -1,7 +1,0 @@
-chardet==5.1.0
-pytest-cov==4.1.0
-Flask==2.2.3
-pytest>=7.4.4,<=8.3.3
-requests==2.31.0
-pre-commit
-build
