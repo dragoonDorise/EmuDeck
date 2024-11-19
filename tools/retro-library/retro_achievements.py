@@ -1,5 +1,9 @@
 import requests
 import sys
+import warnings
+from requests.exceptions import RequestsDependencyWarning
+
+warnings.filterwarnings("ignore", category=RequestsDependencyWarning)
 
 # Credenciales y usuario
 API_USERNAME = "dragoonDorise"
@@ -54,14 +58,12 @@ def main():
         hashes = game.get("Hashes", [])
         if md5_to_find in hashes:
             game_id = game.get("ID")
-            print(f"Juego encontrado: {game['Title']} (ID: {game_id})")
             break
 
     if game_id:
         # Obtener datos del juego y progreso del usuario
         game_data = get_game_info_and_progress(game_id)
         if game_data:
-            print("Datos del juego y progreso del usuario:")
             print(game_data)
     else:
         print("Hash MD5 no encontrado en la lista de juegos.")
