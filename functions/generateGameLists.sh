@@ -1,8 +1,15 @@
 #!/bin/bash
 generateGameLists() {
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local dest_folder="$accountfolder/config/grid/emudeck/"
-    mkdir -p $dest_folder
+    local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/"
+
+    mkdir -p "$storagePath/retrolibrary/artwork"
+    mkdir -p "$storagePath/retrolibrary/data"
+    mkdir -p "$accountfolder/config/grid/retrolibrary"
+
+    ln -s "$storagePath/retrolibrary/artwork" "$accountfolder/config/grid/retrolibrary/artwork"
+    ln -s "$storagePath/retrolibrary/data" "$accountfolder/config/grid/retrolibrary/data"
+
     pegasus_setPaths
     rsync -r --exclude='roms' --exclude='txt' "$EMUDECKGIT/roms/" "$dest_folder" --keep-dirlinks
     mkdir -p "$HOME/emudeck/cache/"
@@ -18,15 +25,13 @@ generateGameListsJson() {
 }
 
 generateGameLists_importESDE() {
-
-
     python $HOME/.config/EmuDeck/backend/tools/retro-library/import_media.py "$romsPath" "$dest_folder"
 }
 
 generateGameLists_artwork() {
     mkdir -p "$HOME/emudeck/cache/"
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local dest_folder="$accountfolder/config/grid/emudeck/"
+    local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/"
     python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$dest_folder"
     python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art.py "$dest_folder"
 
@@ -37,7 +42,7 @@ saveImage(){
     local name=$2
     local system=$3
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local dest_folder="$accountfolder/config/grid/emudeck/${system}"
+    local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/${system}"
     local dest_path="$dest_folder/$name.jpg"
     wget -q -O "$dest_path" "$url"
 }
@@ -52,7 +57,7 @@ function addGameListsArtwork() {
     #local tempGrid=$(generateGameLists_extraArtwork $file $platform)
     #local grid=$(echo "$tempGrid" | jq -r '.grid')
 
-    local vertical="$accountfolder/config/grid/emudeck/$platform/$file.jpg"
+    local vertical="$accountfolder/config/grid/retrolibrary/artwork/$platform/$file.jpg"
     local grid=$vertical
     local destination_vertical="$accountfolder/config/grid/${appID}p.png" #vertical
     local destination_hero="$accountfolder/config/grid/${appID}_hero.png" #BG
@@ -70,7 +75,7 @@ function addGameListsArtwork() {
 generateGameLists_getPercentage() {
 
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local dest_folder="$accountfolder/config/grid/emudeck/"
+    local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/"
 
     python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$dest_folder"
 
@@ -99,7 +104,7 @@ generateGameLists_extraArtwork() {
     local platform=$2
     local hash=$3
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local dest_folder="$accountfolder/config/grid/emudeck"
+    local dest_folder="$accountfolder/config/grid/retrolibrary/artwork"
 
     wget -q -O "$HOME/emudeck/cache/response.json" "https://bot.emudeck.com/steamdb_extra.php?name=$game&hash=$hash"
 

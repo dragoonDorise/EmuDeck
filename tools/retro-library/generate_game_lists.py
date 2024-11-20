@@ -80,7 +80,7 @@ def generate_game_lists(roms_path):
                     rom_hash = calculate_hash(file_path)
 
                     clean_name = name_cleaned
-                    game_img = f"/customimages/emudeck/{platform}/{clean_name}.jpg"
+                    game_img = f"//retrolibrary/artwork/{platform}/{clean_name}.jpg"
                     game_info = {
                         "name": clean_name,
                         "filename": file_path,
