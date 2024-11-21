@@ -7,8 +7,8 @@ generateGameLists() {
     mkdir -p "$storagePath/retrolibrary/data"
     mkdir -p "$accountfolder/config/grid/retrolibrary"
 
-    ln -s "$storagePath/retrolibrary/artwork" "$accountfolder/config/grid/retrolibrary/artwork"
-    ln -s "$storagePath/retrolibrary/data" "$accountfolder/config/grid/retrolibrary/data"
+    ln -s "$storagePath/retrolibrary/artwork/" "$accountfolder/config/grid/retrolibrary/artwork/"
+    ln -s "$storagePath/retrolibrary/data/" "$accountfolder/config/grid/retrolibrary/data/"
 
     pegasus_setPaths
     rsync -r --exclude='roms' --exclude='txt' "$EMUDECKGIT/roms/" "$dest_folder" --keep-dirlinks
