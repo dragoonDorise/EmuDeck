@@ -80,9 +80,9 @@ def generate_game_lists(roms_path):
                     rom_hash = calculate_hash(file_path)
 
                     clean_name = name_cleaned
-                    game_img = f"/customimages/retrolibrary/artwork/{platform}/box2dfront/{clean_name}.jpg"
-                    game_ss = f"/customimages/retrolibrary/artwork/{platform}/screenshot/{clean_name}.jpg"
-                    game_wheel = f"/customimages/retrolibrary/artwork/{platform}/wheel/{clean_name}.png"
+                    game_img = f"/customimages/retrolibrary/artwork/{platform}/media/box2dfront/{clean_name}.jpg"
+                    game_ss = f"/customimages/retrolibrary/artwork/{platform}/media/screenshot/{clean_name}.jpg"
+                    game_wheel = f"/customimages/retrolibrary/artwork/{platform}/media/wheel/{clean_name}.png"
                     game_info = {
                         "name": clean_name,
                         "filename": file_path,

@@ -34,7 +34,7 @@ generateGameLists_artwork() {
     local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/"
     python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$dest_folder"
     python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork_platforms.py "$romsPath" "$dest_folder"
-    python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art.py "$dest_folder"
+    python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art_platforms.py "$dest_folder"
 
 }
 
@@ -43,7 +43,7 @@ saveImage(){
     local name=$2
     local system=$3
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/${system}"
+    local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/${system}/media/box2dfront/"
     local dest_path="$dest_folder/$name.jpg"
     wget -q -O "$dest_path" "$url"
 }
@@ -58,7 +58,7 @@ function addGameListsArtwork() {
     #local tempGrid=$(generateGameLists_extraArtwork $file $platform)
     #local grid=$(echo "$tempGrid" | jq -r '.grid')
 
-    local vertical="$accountfolder/config/grid/retrolibrary/artwork/$platform/$file.jpg"
+    local vertical="$accountfolder/config/grid/retrolibrary/artwork/$platform/media/box2dfront/$file.jpg"
     local grid=$vertical
     local destination_vertical="$accountfolder/config/grid/${appID}p.png" #vertical
     local destination_hero="$accountfolder/config/grid/${appID}_hero.png" #BG
