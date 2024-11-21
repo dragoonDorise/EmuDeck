@@ -67,7 +67,7 @@ def generate_game_lists(roms_path, images_path):
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
                     name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
 
-                    game_img = f"//retrolibrary/artwork/{platform}/{name_cleaned}.jpg"
+                    game_img = f"/customimages/retrolibrary/artwork/{platform}/{name_cleaned}.jpg"
                     rom_hash = calculate_hash(file_path)
                     # Verificar si la imagen existe en el images_path
 
