@@ -4,11 +4,11 @@ generateGameLists() {
     local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/"
 
     mkdir -p "$storagePath/retrolibrary/artwork"
-    mkdir -p "$storagePath/retrolibrary/data"
     mkdir -p "$accountfolder/config/grid/retrolibrary"
-
     ln -s "$storagePath/retrolibrary/artwork/" "$accountfolder/config/grid/retrolibrary/artwork/"
-    ln -s "$storagePath/retrolibrary/data/" "$accountfolder/config/grid/retrolibrary/data/"
+
+    generateGameLists_downloadAchievements
+    generateGameLists_downloadData
 
     pegasus_setPaths
     rsync -r --exclude='roms' --exclude='txt' "$EMUDECKGIT/roms/" "$dest_folder" --keep-dirlinks
@@ -126,3 +126,22 @@ generateGameLists_retroAchievements(){
     local systemID=$2
     python $HOME/.config/EmuDeck/backend/tools/retro-library/retro_achievements.py "$cheevos_username" "$hash" "$systemID"
 }
+
+generateGameLists_downloadAchievements(){
+    local folder="$storagePath/retrolibrary/achievements"
+    if [ ! -d $folder ]; then
+        mkdip -p $folder
+        wget -q -O "$folder" "https://bot.emudeck.com/achievements/achievements.zip"
+        cd $folder && unzip -o achievements.zip && rm achievements.zip
+    fi
+}
+
+generateGameLists_downloadData(){
+    local folder="$storagePath/retrolibrary/data"
+    if [ ! -d $folder ]; then
+        mkdip -p $folder
+        wget -q -O "$folder" "https://bot.emudeck.com/data/data.zip"
+        cd $folder && unzip -o data.zip && rm data.zip
+    fi
+}
+
