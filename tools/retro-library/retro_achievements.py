@@ -11,33 +11,27 @@ API_USERNAME = "dragoonDorise"
 API_KEY = "mvLqoKB3JmbXrezCd7LIXzMnV42ApWzj"
 USER = sys.argv[1]
 md5_to_find = sys.argv[2]
-SYSTEM_ID = sys.argv[3]
-LOCAL_PATH = sys.argv[4]
+LOCAL_PATH = sys.argv[3]
 
 # Endpoints
 BASE_URL = "https://retroachievements.org/API/"
 GAMES_LIST_ENDPOINT = f"{LOCAL_PATH}"
 GAME_INFO_ENDPOINT = f"{BASE_URL}API_GetGameInfoAndUserProgress.php"
 
-# Función para obtener la lista de juegos del sistema
-def get_games(system_id):
+# Función para cargar la lista de juegos
+def get_games():
     try:
-        # Abrir el archivo local
         with open(GAMES_LIST_ENDPOINT, 'r') as file:
             # Leer y cargar el contenido JSON
             data = json.load(file)
-
-        # Filtrar los juegos por el `system_id` si es necesario
-        filtered_games = [game for game in data if game.get("system_id") == system_id]
-
-        return filtered_games
+        print(f"Loaded {len(data)} games.")  # Mensaje de depuración
+        return data
     except FileNotFoundError:
         print(f"Error: El archivo {GAMES_LIST_ENDPOINT} no se encuentra.")
         return None
     except json.JSONDecodeError:
         print(f"Error: El archivo {GAMES_LIST_ENDPOINT} no contiene un JSON válido.")
         return None
-
 
 # Función para obtener información del juego y progreso del usuario
 def get_game_info_and_progress(game_id):
@@ -56,7 +50,7 @@ def get_game_info_and_progress(game_id):
 # Función principal
 def main():
     # Obtener lista de juegos
-    games = get_games(SYSTEM_ID)
+    games = get_games()
     if not games:
         return
 
@@ -64,7 +58,7 @@ def main():
     game_id = None
     for game in games:
         hashes = game.get("Hashes", [])
-        if md5_to_find in hashes:
+        if isinstance(hashes, list) and md5_to_find in hashes:
             game_id = game.get("ID")
             break
 
