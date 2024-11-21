@@ -123,8 +123,9 @@ generateGameLists_extraArtwork() {
 
 generateGameLists_retroAchievements(){
     local hash=$1
-    local systemID=$2
-    python $HOME/.config/EmuDeck/backend/tools/retro-library/retro_achievements.py "$cheevos_username" "$hash" "$systemID"
+    local system=$2
+    local localDataPath="$storagePath/retrolibrary/achievements/$system.json"
+    python $HOME/.config/EmuDeck/backend/tools/retro-library/retro_achievements.py "$cheevos_username" "$hash" "$system" "$localDataPath"
 }
 
 generateGameLists_downloadAchievements(){

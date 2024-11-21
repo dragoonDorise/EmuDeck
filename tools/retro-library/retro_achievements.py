@@ -12,9 +12,11 @@ API_KEY = "mvLqoKB3JmbXrezCd7LIXzMnV42ApWzj"
 USER = sys.argv[1]
 md5_to_find = sys.argv[2]
 SYSTEM_ID = sys.argv[3]
+LOCAL_PATH = sys.argv[4]
+
 # Endpoints
 BASE_URL = "https://retroachievements.org/API/"
-GAMES_LIST_ENDPOINT = f"{BASE_URL}API_GetGameList.php"
+GAMES_LIST_ENDPOINT = f"{LOCAL_PATH}"
 GAME_INFO_ENDPOINT = f"{BASE_URL}API_GetGameInfoAndUserProgress.php"
 
 # Función para obtener la lista de juegos del sistema
