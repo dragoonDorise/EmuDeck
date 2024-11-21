@@ -24,7 +24,6 @@ def get_games():
         with open(GAMES_LIST_ENDPOINT, 'r') as file:
             # Leer y cargar el contenido JSON
             data = json.load(file)
-        print(f"Loaded {len(data)} games.")  # Mensaje de depuración
         return data
     except FileNotFoundError:
         print(f"Error: El archivo {GAMES_LIST_ENDPOINT} no se encuentra.")
