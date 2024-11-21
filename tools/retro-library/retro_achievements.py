@@ -21,18 +21,23 @@ GAME_INFO_ENDPOINT = f"{BASE_URL}API_GetGameInfoAndUserProgress.php"
 
 # Función para obtener la lista de juegos del sistema
 def get_games(system_id):
-    response = requests.get(GAMES_LIST_ENDPOINT, params={
-        "i": system_id,
-        "h": 1,
-        "f": 1,
-        "z": API_USERNAME,
-        "y": API_KEY
-    })
-    if response.status_code == 200:
-        return response.json()
-    else:
-        print(f"Error al obtener los juegos: {response.status_code}")
+    try:
+        # Abrir el archivo local
+        with open(GAMES_LIST_ENDPOINT, 'r') as file:
+            # Leer y cargar el contenido JSON
+            data = json.load(file)
+
+        # Filtrar los juegos por el `system_id` si es necesario
+        filtered_games = [game for game in data if game.get("system_id") == system_id]
+
+        return filtered_games
+    except FileNotFoundError:
+        print(f"Error: El archivo {GAMES_LIST_ENDPOINT} no se encuentra.")
         return None
+    except json.JSONDecodeError:
+        print(f"Error: El archivo {GAMES_LIST_ENDPOINT} no contiene un JSON válido.")
+        return None
+
 
 # Función para obtener información del juego y progreso del usuario
 def get_game_info_and_progress(game_id):
