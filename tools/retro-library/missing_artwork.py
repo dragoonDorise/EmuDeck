@@ -20,7 +20,7 @@ def generate_game_lists(roms_path, images_path):
         """Devuelve una lista de carpetas donde falta la imagen."""
         missing = []
         for folder in folders:
-            img_path = os.path.join(images_path, f"{platform}/{folder}/{name_cleaned}.jpg")
+            img_path = os.path.join(images_path, f"{platform}/media/{folder}/{name_cleaned}.jpg")
             if not os.path.exists(img_path):
                 missing.append(folder)
         return missing
