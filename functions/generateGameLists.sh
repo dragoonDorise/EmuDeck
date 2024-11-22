@@ -87,8 +87,7 @@ generateGameLists_getPercentage() {
 
     # Contar el número total de juegos en `roms_games.json`
     local games=$(jq '[.[].games[]] | length' "$json_file")
-
-    local artwork_missing=$(jq '. | length' "$json_file_artwork")
+    local artwork_missing=$(jq '[.[] | select(.type == "box2dart")] | length' "$json_file_artwork")
 
     if [[ -z "$games" || "$games" -eq 0 ]]; then
         return
