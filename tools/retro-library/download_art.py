@@ -40,7 +40,7 @@ def fetch_image_data(game):
     platform = game['platform']
     hash = game['hash']
     type = game['type']
-    url = f"https://bot.emudeck.com/steamdbimg.php?name={name}&platform={platform}&hash={hash}"
+    url = f"https://bot.emudeck.com/steamdbimg.php?name={name}&platform={platform}&hash={hash}&type={type}"
 
     try:
         response = requests.get(url, timeout=10)
