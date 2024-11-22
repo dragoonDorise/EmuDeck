@@ -8,7 +8,10 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 save_folder = sys.argv[1]
 json_path = os.path.expanduser(f'~/emudeck/cache/missing_artwork.json')
 
-def create_empty_image(name, platform, save_folder):
+def create_empty_image(name, platform, save_folder, type):
+    extension = "jpg"
+    if type == "wheel":
+        extension = "png"
     # Crear la carpeta si no existe
     os.makedirs(save_folder, exist_ok=True)
     # Definir la ruta de guardado para el archivo vacío
@@ -54,13 +57,13 @@ def fetch_image_data(game):
                 download_image(name, platform, img_url, save_folder, type)
             else:
                 print(f"No se encontró una URL de imagen válida para {platform}/{name}. Creando archivo vacío.")
-                #create_empty_image(name, platform, save_folder, type)
+                create_empty_image(name, platform, save_folder, type)
         else:
             print(f"Error al llamar al servicio para {platform}/{name}")
-            #create_empty_image(name, platform, save_folder, type)
+            create_empty_image(name, platform, save_folder, type)
     except requests.RequestException as e:
         print(f"Excepción al procesar {platform}/{name}: {e}")
-        #create_empty_image(name, platform, save_folder, type)
+        create_empty_image(name, platform, save_folder, type)
 
 def process_json(save_folder):
     # Leer el JSON original
