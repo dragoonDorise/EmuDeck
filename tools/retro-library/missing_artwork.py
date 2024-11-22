@@ -15,16 +15,6 @@ def generate_game_lists(roms_path, images_path):
         except Exception as e:
             print(f"Error al calcular el hash para {file_path}: {e}")
             return None
-
-    def missing_images(images_path, platform, name_cleaned, folders):
-        """Devuelve una lista de carpetas donde falta la imagen."""
-        missing = []
-        for folder in folders:
-            img_path = os.path.join(images_path, f"{platform}/media/{folder}/{name_cleaned}.jpg")
-            if not os.path.exists(img_path):
-                missing.append(folder)
-        return missing
-
     def collect_game_data(system_dir, extensions):
         game_data = []
         for root, _, files in os.walk(system_dir):
@@ -77,17 +67,42 @@ def generate_game_lists(roms_path, images_path):
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
                     name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
 
-                    # Verificar imágenes faltantes
-                    missing = missing_images(images_path, platform, name_cleaned, ["box2dfront", "wheel", "screenshot"])
-                    if missing:
-                        rom_hash = calculate_hash(file_path)
+                    rom_hash = calculate_hash(file_path)
+                    # Verificar si la imagen existe en el images_path
+
+                    img_path = os.path.join(images_path, f"{platform}/media/box2dfront/{name_cleaned}.jpg")
+
+                    #print(img_path)
+                    if not os.path.exists(img_path):
                         game_info = {
                             "name": name_cleaned,
                             "platform": platform,
                             "hash": rom_hash,
-                            "missing_images": missing
+                            "type": "box2dfront"
                         }
                         game_data.append(game_info)
+
+                    img_path = os.path.join(images_path, f"{platform}/media/wheel/{name_cleaned}.png")
+                    print(img_path)
+                    if not os.path.exists(img_path):
+                        game_info = {
+                            "name": name_cleaned,
+                            "platform": platform,
+                            "hash": rom_hash,
+                            "type": "wheel"
+                        }
+                        game_data.append(game_info)
+                    img_path = os.path.join(images_path, f"{platform}/media/screenshot/{name_cleaned}.jpg")
+                    #print(img_path)
+                    if not os.path.exists(img_path):
+                        game_info = {
+                            "name": name_cleaned,
+                            "platform": platform,
+                            "hash": rom_hash,
+                            "type": "screenshot"
+                        }
+                        game_data.append(game_info)
+
 
         game_data_sorted = sorted(game_data, key=lambda x: x['name'])
         return game_data_sorted
@@ -129,3 +144,4 @@ def generate_game_lists(roms_path, images_path):
 roms_path = sys.argv[1]
 images_path = sys.argv[2]
 
+generate_game_lists(roms_path, images_path)

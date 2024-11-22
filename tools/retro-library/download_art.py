@@ -19,11 +19,14 @@ def create_empty_image(name, platform, save_folder):
         pass  # No escribimos nada para que quede vacío
     print(f"Archivo vacío creado para {name}")
 
-def download_image(name, platform, img_url, save_folder):
+def download_image(name, platform, img_url, save_folder, type):
     # Crear la carpeta si no existe
     os.makedirs(save_folder, exist_ok=True)
     # Definir la ruta de guardado
-    img_path = os.path.join(save_folder, f"{platform}/{name}.jpg")
+    extension = "jpg"
+    if type === "wheel"
+        extension = "png"
+    img_path = os.path.join(save_folder, f"{platform}/media/{type}/{name}.{extension}")
     print(img_path)
     # Descargar y guardar la imagen
     response = requests.get(img_url)
@@ -38,6 +41,7 @@ def fetch_image_data(game):
     name = game['name']
     platform = game['platform']
     hash = game['hash']
+    type = game['type']
     url = f"https://bot.emudeck.com/steamdbimg.php?name={name}&platform={platform}&hash={hash}"
 
     try:
@@ -46,17 +50,17 @@ def fetch_image_data(game):
             data = response.json()
             img_url = data.get('img')  # Usar get para evitar errores si 'img' no existe o es None
             if img_url:
-                create_empty_image(name, platform, save_folder)
-                download_image(name, platform, img_url, save_folder)
+                create_empty_image(name, platform, save_folder, type)
+                download_image(name, platform, img_url, save_folder, type)
             else:
                 print(f"No se encontró una URL de imagen válida para {platform}/{name}. Creando archivo vacío.")
-                create_empty_image(name, platform, save_folder)
+                create_empty_image(name, platform, save_folder, type)
         else:
             print(f"Error al llamar al servicio para {platform}/{name}")
-            create_empty_image(name, platform, save_folder)
+            create_empty_image(name, platform, save_folder, type)
     except requests.RequestException as e:
         print(f"Excepción al procesar {platform}/{name}: {e}")
-        create_empty_image(name, platform, save_folder)
+        create_empty_image(name, platform, save_folder, type)
 
 def process_json(save_folder):
     # Leer el JSON original
