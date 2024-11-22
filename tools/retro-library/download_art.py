@@ -53,7 +53,7 @@ def fetch_image_data(game):
             data = response.json()
             img_url = data.get('img')  # Usar get para evitar errores si 'img' no existe o es None
             if img_url:
-                #create_empty_image(name, platform, save_folder, type)
+                create_empty_image(name, platform, save_folder, type)
                 download_image(name, platform, img_url, save_folder, type)
             else:
                 print(f"No se encontró una URL de imagen válida para {platform}/{name}. Creando archivo vacío.")
