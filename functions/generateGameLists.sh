@@ -4,8 +4,8 @@ generateGameLists() {
     local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/"
 
     mkdir -p "$storagePath/retrolibrary/artwork"
-    mkdir -p "$accountfolder/config/grid/retrolibrary"
-    ln -s "$storagePath/retrolibrary/artwork/" "$accountfolder/config/grid/retrolibrary/artwork/"
+    mkdir -p "$accountfolder/config/grid/retrolibrary/"
+    ln -s "$storagePath/retrolibrary/artwork/" "$accountfolder/config/grid/retrolibrary/artwork"
 
     generateGameLists_downloadAchievements
     generateGameLists_downloadData
@@ -132,17 +132,17 @@ generateGameLists_retroAchievements(){
 generateGameLists_downloadAchievements(){
     local folder="$storagePath/retrolibrary/achievements"
     if [ ! -d $folder ]; then
-        mkdip -p $folder
-        wget -q -O "$folder" "https://bot.emudeck.com/achievements/achievements.zip"
-        cd $folder && unzip -o achievements.zip && rm achievements.zip
+        mkdir -p $folder
+        wget -q -O "$folder/achievements.zip" "https://bot.emudeck.com/achievements/achievements.zip"
+        cd "$folder" && unzip -o achievements.zip && rm achievements.zip
     fi
 }
 
 generateGameLists_downloadData(){
     local folder="$storagePath/retrolibrary/data"
     if [ ! -d $folder ]; then
-        mkdip -p $folder
-        wget -q -O "$folder" "https://bot.emudeck.com/data/data.zip"
+        mkdir -p $folder
+        wget -q -O "$folder/data.zip" "https://bot.emudeck.com/data/data.zip"
         cd $folder && unzip -o data.zip && rm data.zip
     fi
 }

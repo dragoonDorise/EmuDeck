@@ -13,7 +13,7 @@ def generate_game_lists(roms_path, images_path):
                     hash_md5.update(chunk)
             return hash_md5.hexdigest()
         except Exception as e:
-            print(f"Error al calcular el hash para {file_path}: {e}")
+            #print(f"Error al calcular el hash para {file_path}: {e}")
             return None
     def collect_game_data(system_dir, extensions):
         game_data = []
@@ -72,7 +72,7 @@ def generate_game_lists(roms_path, images_path):
 
                     img_path = os.path.join(images_path, f"{platform}/media/box2dfront/{name_cleaned}.jpg")
 
-                    #print(img_path)
+                    ##print(img_path)
                     if not os.path.exists(img_path):
                         game_info = {
                             "name": name_cleaned,
@@ -83,7 +83,7 @@ def generate_game_lists(roms_path, images_path):
                         game_data.append(game_info)
 
                     img_path = os.path.join(images_path, f"{platform}/media/wheel/{name_cleaned}.png")
-                    print(img_path)
+                    #print(img_path)
                     if not os.path.exists(img_path):
                         game_info = {
                             "name": name_cleaned,
@@ -93,7 +93,7 @@ def generate_game_lists(roms_path, images_path):
                         }
                         game_data.append(game_info)
                     img_path = os.path.join(images_path, f"{platform}/media/screenshot/{name_cleaned}.jpg")
-                    #print(img_path)
+                    ##print(img_path)
                     if not os.path.exists(img_path):
                         game_info = {
                             "name": name_cleaned,
