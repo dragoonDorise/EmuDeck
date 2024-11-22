@@ -6,39 +6,34 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Path del JSON y carpeta de destino desde los argumentos
 save_folder = sys.argv[1]
-json_path = os.path.expanduser(f'~/emudeck/cache/missing_artwork.json')
+json_path = os.path.expanduser('~/emudeck/cache/missing_artwork.json')
 
 def create_empty_image(name, platform, save_folder, type):
-    extension = "jpg"
-    if type == "wheel":
-        extension = "png"
-    # Crear la carpeta si no existe
-    os.makedirs(save_folder, exist_ok=True)
-    # Definir la ruta de guardado para el archivo vacío
-    img_path = os.path.join(save_folder, f"{platform}/media/{type}/{name}.{extension}")
-    print(img_path)
-    # Crear un archivo vacío
+    extension = "jpg" if type != "wheel" else "png"
+    # Crear la ruta completa para la carpeta
+    folder_path = os.path.join(save_folder, platform, "media", type)
+    os.makedirs(folder_path, exist_ok=True)
+    img_path = os.path.join(folder_path, f"{name}.{extension}")
+    # Crear archivo vacío
     with open(img_path, 'wb') as file:
-        pass  # No escribimos nada para que quede vacío
-    print(f"Archivo vacío creado para {name}")
+        pass
+    print(f"Archivo vacío creado: {img_path}")
 
 def download_image(name, platform, img_url, save_folder, type):
-    # Crear la carpeta si no existe
-    os.makedirs(save_folder, exist_ok=True)
-    # Definir la ruta de guardado
-    extension = "jpg"
-    if type == "wheel":
-        extension = "png"
-    img_path = os.path.join(save_folder, f"{platform}/media/{type}/{name}.{extension}")
-    print(img_path)
-    # Descargar y guardar la imagen
-    response = requests.get(img_url)
-    if response.status_code == 200:
+    extension = "jpg" if type != "wheel" else "png"
+    # Crear la ruta completa para la carpeta
+    folder_path = os.path.join(save_folder, platform, "media", type)
+    os.makedirs(folder_path, exist_ok=True)
+    img_path = os.path.join(folder_path, f"{name}.{extension}")
+    try:
+        response = requests.get(img_url, timeout=10)
+        response.raise_for_status()  # Lanza una excepción para códigos de error HTTP
         with open(img_path, 'wb') as file:
             file.write(response.content)
-        print(f"Imagen guardada como {img_path}")
-    else:
-        print(f"Error al descargar la imagen para {platform}/{name}")
+        print(f"Imagen guardada: {img_path}")
+    except requests.RequestException as e:
+        print(f"Error al descargar la imagen para {platform}/{name}: {e}")
+        create_empty_image(name, platform, save_folder, type)
 
 def fetch_image_data(game):
     name = game['name']
@@ -48,21 +43,17 @@ def fetch_image_data(game):
     url = f"https://bot.emudeck.com/steamdbimg.php?name={name}&platform={platform}&hash={hash}"
 
     try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            data = response.json()
-            img_url = data.get('img')  # Usar get para evitar errores si 'img' no existe o es None
-            if img_url:
-                create_empty_image(name, platform, save_folder, type)
-                download_image(name, platform, img_url, save_folder, type)
-            else:
-                print(f"No se encontró una URL de imagen válida para {platform}/{name}. Creando archivo vacío.")
-                create_empty_image(name, platform, save_folder, type)
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()  # Lanza una excepción para códigos de error HTTP
+        data = response.json()
+        img_url = data.get('img')
+        if img_url:
+            download_image(name, platform, img_url, save_folder, type)
         else:
-            print(f"Error al llamar al servicio para {platform}/{name}")
+            print(f"No se encontró URL para {platform}/{name}. Creando archivo vacío.")
             create_empty_image(name, platform, save_folder, type)
     except requests.RequestException as e:
-        print(f"Excepción al procesar {platform}/{name}: {e}")
+        print(f"Error procesando {platform}/{name}: {e}")
         create_empty_image(name, platform, save_folder, type)
 
 def process_json(save_folder):
@@ -74,6 +65,10 @@ def process_json(save_folder):
     with ThreadPoolExecutor(max_workers=5) as executor:
         futures = [executor.submit(fetch_image_data, game) for game in games]
         for future in as_completed(futures):
-            future.result()  # Esperar a que cada tarea termine
+            try:
+                future.result()  # Procesar excepciones lanzadas en cada tarea
+            except Exception as e:
+                print(f"Error en una tarea: {e}")
 
-process_json(save_folder)
+if __name__ == "__main__":
+    process_json(save_folder)
