@@ -39,9 +39,9 @@ generateGameLists_artwork() {
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/"
     echo "Searching for missing artwork" > "$MSG"
-    python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork_platforms.py "$romsPath" "$dest_folder" && python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art_platforms.py "$dest_folder"
+    #python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork_platforms.py "$romsPath" "$dest_folder" && python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art_platforms.py "$dest_folder"
 
-    $(python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$dest_folder" && python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art.py "$dest_folder") &
+    #$(python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$dest_folder" && python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art.py "$dest_folder") &
     echo "Artwork finished. Restart if you see this message" > "$MSG"
 }
 
