@@ -39,12 +39,52 @@ def getSettings():
 
 settings = getSettings()
 storage_path = os.path.expandvars(settings["storagePath"])
-
+saves_path = os.path.expandvars(settings["savesPath"])
 
 # Function to write messages to the log file
 def log_message(message):
     with open(msg_file, "a") as log_file:  # "a" to append messages without overwriting
         log_file.write(message + "\n")
+
+def generate_saves_list(saves_path):
+    def clean_name(filename):
+        """Clean the game name using the same logic as in the ROM JSON."""
+        name_cleaned = re.sub(r'\(.*?\)', '', filename)
+        name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
+        name_cleaned = name_cleaned.strip().replace(' ', '_').replace('-', '_')
+        name_cleaned = re.sub(r'_+', '_', name_cleaned)
+        name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
+        return name_cleaned
+
+    saves_list = []
+    states_dir = os.path.join(saves_path, "retroarch", "states")
+
+    if not os.path.exists(states_dir):
+        log_message(f"Saves path does not exist: {states_dir}")
+        return
+
+    for root, _, files in os.walk(states_dir):
+        for file in files:
+            file_path = os.path.join(root, file)
+            if os.path.isfile(file_path):
+                # Clean and prepare data for the JSON
+                cleaned_name = clean_name(os.path.splitext(file)[0])
+                save_info = {
+                    "name": cleaned_name,
+                    "path": file_path
+                }
+                saves_list.append(save_info)
+                log_message(f"Found save state: {cleaned_name} at {file_path}")
+
+    # Sort and write the JSON
+    saves_list_sorted = sorted(saves_list, key=lambda x: x['name'])
+    json_output = json.dumps(saves_list_sorted, indent=4)
+
+    output_file = os.path.join(storage_path, "retrolibrary/cache/saves_states.json")
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+    with open(output_file, 'w') as f:
+        f.write(json_output)
+        log_message(f"Saved states JSON written to {output_file}")
 
 def generate_game_lists(roms_path):
     def calculate_hash(file_path):
@@ -154,3 +194,7 @@ roms_path = sys.argv[1]
 log_message("GGL: Starting game list generation...")
 generate_game_lists(f"{roms_path}")
 log_message("GGL: Game list generation completed.")
+
+log_message("GGL: Starting saves list generation...")
+generate_saves_list(saves_path)
+log_message("GGL: Saves list generation completed.")
