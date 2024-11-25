@@ -1,6 +1,7 @@
 import json
 import requests
 import os
+import re
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import subprocess

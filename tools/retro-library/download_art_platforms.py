@@ -5,6 +5,7 @@ import requests
 import zipfile
 from io import BytesIO
 import sys
+import re
 
 # Define the log file path
 home_dir = os.environ.get("HOME")
