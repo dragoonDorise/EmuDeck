@@ -6,6 +6,37 @@ import re
 home_dir = os.environ.get("HOME")
 msg_file = os.path.join(home_dir, ".config/EmuDeck/msg.log")
 
+async def getSettings(self):
+    pattern = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)=(.*)')
+    user_home = os.path.expanduser("~")
+    if os.name == 'nt':
+        config_file_path = os.path.join(user_home, 'emudeck', 'settings.ps1')
+    else:
+        config_file_path = os.path.join(user_home, 'emudeck', 'settings.sh')
+    configuration = {}
+
+    with open(config_file_path, 'r') as file:
+        for line in file:
+            match = pattern.search(line)
+            if match:
+                variable = match.group(1)
+                value = match.group(2).strip('"')
+                configuration[variable] = value
+
+    if os.name == 'nt':
+        bash_command = f"cd {appdata_roaming_path}/EmuDeck/backend/ && git rev-parse --abbrev-ref HEAD"
+    else:
+        bash_command = "cd $HOME/.config/EmuDeck/backend/ && git rev-parse --abbrev-ref HEAD"
+    result = subprocess.run(bash_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    configuration["branch"] = result.stdout.strip()
+
+    configuration["systemOS"] = os.name
+
+    return configuration
+
+settings = await getSettings()
+
+
 # Función para escribir en el archivo de log
 def log_message(message):
     with open(msg_file, "w") as log_file:  # "a" para agregar mensajes sin sobrescribir
@@ -66,8 +97,8 @@ def generate_systems_with_missing_images(roms_path, images_path):
             log_message(f"MAP: System with missing images: {os.path.basename(system_dir)}")
 
     json_output = json.dumps(list(systems_with_missing_images), indent=4)
-    home_directory = os.path.expanduser("~")
-    output_file = os.path.join(home_directory, 'emudeck', 'cache', 'missing_systems.json')
+
+    output_file = os.path.join(settings["storagePath"], "/retrolibrary/cache/missing_systems.json")
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, 'w') as f:
         f.write(json_output)

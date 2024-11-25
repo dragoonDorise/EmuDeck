@@ -8,6 +8,37 @@ import hashlib
 home_dir = os.environ.get("HOME")
 msg_file = os.path.join(home_dir, ".config/EmuDeck/msg.log")
 
+async def getSettings(self):
+    pattern = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)=(.*)')
+    user_home = os.path.expanduser("~")
+    if os.name == 'nt':
+        config_file_path = os.path.join(user_home, 'emudeck', 'settings.ps1')
+    else:
+        config_file_path = os.path.join(user_home, 'emudeck', 'settings.sh')
+    configuration = {}
+
+    with open(config_file_path, 'r') as file:
+        for line in file:
+            match = pattern.search(line)
+            if match:
+                variable = match.group(1)
+                value = match.group(2).strip('"')
+                configuration[variable] = value
+
+    if os.name == 'nt':
+        bash_command = f"cd {appdata_roaming_path}/EmuDeck/backend/ && git rev-parse --abbrev-ref HEAD"
+    else:
+        bash_command = "cd $HOME/.config/EmuDeck/backend/ && git rev-parse --abbrev-ref HEAD"
+    result = subprocess.run(bash_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    configuration["branch"] = result.stdout.strip()
+
+    configuration["systemOS"] = os.name
+
+    return configuration
+
+settings = await getSettings()
+
+
 # Function to write messages to the log file
 def log_message(message):
     with open(msg_file, "w") as log_file:  # "a" to append messages without overwriting
@@ -105,7 +136,7 @@ def generate_game_lists(roms_path, images_path):
     # Save the JSON output
     json_output = json.dumps(game_list, indent=4)
     home_directory = os.path.expanduser("~")
-    output_file = os.path.join(home_directory, 'emudeck', 'cache', 'missing_artwork.json')
+    output_file = os.path.join(settings["storagePath"], "/retrolibrary/cache/missing_artwork.json")
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, 'w') as f:
         f.write(json_output)
