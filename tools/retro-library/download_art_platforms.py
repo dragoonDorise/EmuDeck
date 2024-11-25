@@ -44,11 +44,14 @@ def download_and_extract(output_dir):
         print("No platforms found in the JSON file.")
         return
 
-    # Create the output directory if it doesn't exist
-    os.makedirs(output_dir, exist_ok=True)
-
     # Process each platform
     for platform in data:
+        extracted_folder = os.path.join(output_dir, platform)
+        if os.path.exists(extracted_folder):
+            log_message(f"Skipped: {platform} already extracted at {extracted_folder}.")
+            print(f"Skipped: {platform} already extracted at {extracted_folder}.")
+            continue
+
         url = f"https://bot.emudeck.com/artwork_deck/{platform}.zip"
         log_message(f"Downloading: {platform}")
         print(f"Downloading: {platform}")
@@ -62,6 +65,9 @@ def download_and_extract(output_dir):
             with zipfile.ZipFile(BytesIO(response.content)) as zip_file:
                 print(f"Extracting content from {platform}.zip to {output_dir}")
                 zip_file.extractall(output_dir)  # Overwrite by default
+
+            log_message(f"Extracted: {platform} to {output_dir}")
+            print(f"Extracted: {platform} to {output_dir}")
 
         except requests.exceptions.RequestException as e:
             log_message(f"Error downloading {platform}: {e}")
@@ -80,6 +86,9 @@ if len(sys.argv) != 2:
 # Output directory passed as an argument
 output_dir = sys.argv[1]
 
+# Create the output directory if it doesn't exist
+os.makedirs(output_dir, exist_ok=True)
+
 log_message("Starting download and extraction process for bundles...")
 download_and_extract(output_dir)
-log_message("Download and extraction process completed for bundles")
+log_message("Download and extraction process completed for bundles.")
