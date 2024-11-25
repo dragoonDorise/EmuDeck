@@ -9,6 +9,7 @@ generateGameLists() {
     mkdir -p "$storagePath/retrolibrary/artwork"
     mkdir -p "$accountfolder/config/grid/retrolibrary/"
     ln -s "$storagePath/retrolibrary/artwork/" "$accountfolder/config/grid/retrolibrary/artwork"
+    ln -s "$storagePath/retrolibrary/cache/" "$accountfolder/config/grid/retrolibrary/cache"
 
     generateGameLists_downloadAchievements
     generateGameLists_downloadData
