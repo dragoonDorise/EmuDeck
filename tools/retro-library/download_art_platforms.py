@@ -5,63 +5,84 @@ import zipfile
 from io import BytesIO
 import sys
 
+# Define the log file path
+home_dir = os.environ.get("HOME")
+msg_file = os.path.join(home_dir, ".config/EmuDeck/msg.log")
+
+# Function to write messages to the log file
+def log_message(message):
+    with open(msg_file, "w") as log_file:  # "a" to append messages without overwriting
+        log_file.write(message + "\n")
+
 def download_and_extract(output_dir):
-    # Ruta fija del archivo JSON
+    # Fixed path to the JSON file
     json_file_path = os.path.expanduser("~/emudeck/cache/missing_systems.json")
 
-    # Verificar que el archivo JSON exista
+    # Check if the JSON file exists
     if not os.path.exists(json_file_path):
-        print(f"Archivo JSON no encontrado: {json_file_path}")
+        log_message(f"JSON file not found: {json_file_path}")
+        print(f"JSON file not found: {json_file_path}")
         return
 
-    # Leer el JSON
+    # Read the JSON
     with open(json_file_path, 'r') as f:
         try:
             data = json.load(f)
         except json.JSONDecodeError as e:
-            print(f"Error al leer el archivo JSON: {e}")
+            log_message(f"Error reading JSON file: {e}")
+            print(f"Error reading JSON file: {e}")
             return
 
-    # Verificar que el JSON sea una lista
+    # Verify that the JSON contains a list
     if not isinstance(data, list):
-        print("El archivo JSON no contiene una lista válida.")
+        log_message("The JSON file does not contain a valid list.")
+        print("The JSON file does not contain a valid list.")
         return
 
     if not data:
-        print("No hay plataformas en el archivo JSON.")
+        log_message("No platforms found in the JSON file.")
+        print("No platforms found in the JSON file.")
         return
 
-    # Crear el directorio de salida si no existe
+    # Create the output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
 
-    # Procesar cada plataforma
+    # Process each platform
     for platform in data:
         url = f"https://bot.emudeck.com/artwork_deck/{platform}.zip"
-        print(f"Descargando: {url}")
+        log_message(f"Downloading: {url}")
+        print(f"Downloading: {url}")
 
         try:
-            # Descargar el archivo ZIP
+            # Download the ZIP file
             response = requests.get(url, stream=True)
-            response.raise_for_status()  # Lanza un error si la descarga falla
+            response.raise_for_status()  # Raise an error if the download fails
 
-            # Leer el contenido del ZIP en memoria
+            # Read the ZIP content in memory
             with zipfile.ZipFile(BytesIO(response.content)) as zip_file:
-                print(f"Extrayendo contenido de {platform}.zip a {output_dir}")
-                zip_file.extractall(output_dir)  # Sobrescribe por defecto
+                log_message(f"Extracting content from {platform}.zip to {output_dir}")
+                print(f"Extracting content from {platform}.zip to {output_dir}")
+                zip_file.extractall(output_dir)  # Overwrite by default
 
         except requests.exceptions.RequestException as e:
-            print(f"Error al descargar {url}: {e}")
+            log_message(f"Error downloading {url}: {e}")
+            print(f"Error downloading {url}: {e}")
         except zipfile.BadZipFile as e:
-            print(f"Error al procesar el ZIP para {platform}: {e}")
+            log_message(f"Error processing the ZIP file for {platform}: {e}")
+            print(f"Error processing the ZIP file for {platform}: {e}")
 
-    print("Proceso completado.")
+    log_message("Process completed.")
+    print("Process completed.")
 
-# Verificar argumentos de línea de comandos
+# Verify command-line arguments
 if len(sys.argv) != 2:
-    print("Uso: python3 download_and_extract.py <ruta_destino>")
+    log_message("Incorrect usage: python3 download_and_extract.py <destination_path>")
+    print("Usage: python3 download_and_extract.py <destination_path>")
     sys.exit(1)
 
-# Directorio de salida pasado como argumento
+# Output directory passed as an argument
 output_dir = sys.argv[1]
 
+log_message("Starting download and extraction process...")
 download_and_extract(output_dir)
+log_message("Download and extraction process completed.")

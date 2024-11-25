@@ -3,6 +3,14 @@ import json
 import sys
 import re
 
+home_dir = os.environ.get("HOME")
+msg_file = os.path.join(home_dir, ".config/EmuDeck/msg.log")
+
+# Función para escribir en el archivo de log
+def log_message(message):
+    with open(msg_file, "w") as log_file:  # "a" para agregar mensajes sin sobrescribir
+        log_file.write(message + "\n")
+
 def generate_systems_with_missing_images(roms_path, images_path):
     def has_missing_images(system_dir, extensions):
         for root, _, files in os.walk(system_dir):
@@ -26,6 +34,7 @@ def generate_systems_with_missing_images(roms_path, images_path):
 
                     img_path = os.path.join(images_path, f"{platform}/{name_cleaned}.jpg")
                     if not os.path.exists(img_path):
+                        log_message(f"Missing image: {img_path}")
                         return True
         return False
 
@@ -40,11 +49,13 @@ def generate_systems_with_missing_images(roms_path, images_path):
             file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])
             if file_count > 2:
                 valid_system_dirs.append(full_path)
+                log_message(f"Valid system directory added: {full_path}")
 
     systems_with_missing_images = set()
 
     for system_dir in valid_system_dirs:
         if any(x in system_dir for x in ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop"]):
+            log_message(f"Skipping directory: {system_dir}")
             continue
 
         with open(os.path.join(system_dir, 'metadata.txt')) as f:
@@ -53,6 +64,7 @@ def generate_systems_with_missing_images(roms_path, images_path):
 
         if has_missing_images(system_dir, extensions):
             systems_with_missing_images.add(os.path.basename(system_dir))
+            log_message(f"System with missing images: {os.path.basename(system_dir)}")
 
     json_output = json.dumps(list(systems_with_missing_images), indent=4)
     home_directory = os.path.expanduser("~")
@@ -60,9 +72,12 @@ def generate_systems_with_missing_images(roms_path, images_path):
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, 'w') as f:
         f.write(json_output)
+        log_message(f"JSON output saved to: {output_file}")
 
 # Pasar la ruta de las ROMs y de las imágenes desde los argumentos de línea de comandos
 roms_path = sys.argv[1]
 images_path = sys.argv[2]
 
+log_message("Searching missing artwork in bundles...")
 generate_systems_with_missing_images(roms_path, images_path)
+log_message("Completed missing artwork in bundles")

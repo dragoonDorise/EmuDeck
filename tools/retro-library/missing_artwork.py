@@ -4,6 +4,15 @@ import sys
 import re
 import hashlib
 
+# Define the log file path
+home_dir = os.environ.get("HOME")
+msg_file = os.path.join(home_dir, ".config/EmuDeck/msg.log")
+
+# Function to write messages to the log file
+def log_message(message):
+    with open(msg_file, "w") as log_file:  # "a" to append messages without overwriting
+        log_file.write(message + "\n")
+
 def generate_game_lists(roms_path, images_path):
     def calculate_hash(file_path):
         hash_md5 = hashlib.md5()
@@ -13,8 +22,9 @@ def generate_game_lists(roms_path, images_path):
                     hash_md5.update(chunk)
             return hash_md5.hexdigest()
         except Exception as e:
-            #print(f"Error al calcular el hash para {file_path}: {e}")
+            log_message(f"Error calculating hash for {file_path}: {e}")
             return None
+
     def collect_game_data(system_dir, extensions):
         game_data = []
         for root, _, files in os.walk(system_dir):
@@ -27,82 +37,38 @@ def generate_game_lists(roms_path, images_path):
                 extension = filename.split('.')[-1]
                 name = '.'.join(filename.split('.')[:-1])
                 if extension in extensions:
+                    # Custom logic for specific systems
                     if "wiiu" in system_dir:
-                        if extension == "wux":
-                            name = name
-                        elif extension == "wua":
-                            name = name
-                        else:
-                            parts = root.split(os.sep)
-                            if len(parts) >= 2:
-                                name = parts[-2]
-                            else:
-                                name = name
-
-                            if name == "roms":
-                               name = name
-
-                            if name == "wiiu":
-                               name = parts[-1]
+                        parts = root.split(os.sep)
+                        name = parts[-2] if len(parts) >= 2 else name
 
                     if "ps3" in system_dir:
-                            parts = root.split(os.sep)
-                            if len(parts) >= 3:
-                                name = parts[-3]
-                            else:
-                                name = name
-
-                            if name == "roms":
-                               name = name
-
-                            if name == "ps3":
-                               name = parts[-1]
+                        parts = root.split(os.sep)
+                        name = parts[-3] if len(parts) >= 3 else name
 
                     platform = os.path.basename(system_dir)
 
+                    # Clean the game name
                     name_cleaned = re.sub(r'\(.*?\)', '', name)
                     name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
-                    name_cleaned = name_cleaned.strip()
-                    name_cleaned = name_cleaned.replace(' ', '_').replace('-', '_')
+                    name_cleaned = name_cleaned.strip().replace(' ', '_').replace('-', '_')
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
                     name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
 
                     rom_hash = calculate_hash(file_path)
-                    # Verificar si la imagen existe en el images_path
 
-                    img_path = os.path.join(images_path, f"{platform}/media/box2dfront/{name_cleaned}.jpg")
-
-                    ##print(img_path)
-                    if not os.path.exists(img_path):
-                        game_info = {
-                            "name": name_cleaned,
-                            "platform": platform,
-                            "hash": rom_hash,
-                            "type": "box2dfront"
-                        }
-                        game_data.append(game_info)
-
-                    img_path = os.path.join(images_path, f"{platform}/media/wheel/{name_cleaned}.png")
-                    #print(img_path)
-                    if not os.path.exists(img_path):
-                        game_info = {
-                            "name": name_cleaned,
-                            "platform": platform,
-                            "hash": rom_hash,
-                            "type": "wheel"
-                        }
-                        game_data.append(game_info)
-                    img_path = os.path.join(images_path, f"{platform}/media/screenshot/{name_cleaned}.jpg")
-                    ##print(img_path)
-                    if not os.path.exists(img_path):
-                        game_info = {
-                            "name": name_cleaned,
-                            "platform": platform,
-                            "hash": rom_hash,
-                            "type": "screenshot"
-                        }
-                        game_data.append(game_info)
-
+                    # Check for missing images
+                    for img_type, ext in [("box2dfront", ".jpg"), ("wheel", ".png"), ("screenshot", ".jpg")]:
+                        img_path = os.path.join(images_path, f"{platform}/media/{img_type}/{name_cleaned}{ext}")
+                        if not os.path.exists(img_path):
+                            game_info = {
+                                "name": name_cleaned,
+                                "platform": platform,
+                                "hash": rom_hash,
+                                "type": img_type
+                            }
+                            game_data.append(game_info)
+                            log_message(f"Missing {img_type} image: {img_path}")
 
         game_data_sorted = sorted(game_data, key=lambda x: x['name'])
         return game_data_sorted
@@ -110,6 +76,7 @@ def generate_game_lists(roms_path, images_path):
     roms_dir = roms_path
     valid_system_dirs = []
 
+    # Validate system directories
     for system_dir in os.listdir(roms_dir):
         if system_dir == "xbox360":
             system_dir = "xbox360/roms"
@@ -118,11 +85,14 @@ def generate_game_lists(roms_path, images_path):
             file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])
             if file_count > 2:
                 valid_system_dirs.append(full_path)
+                log_message(f"Valid system directory found: {full_path}")
 
     game_list = []
 
+    # Process each system directory
     for system_dir in valid_system_dirs:
         if any(x in system_dir for x in ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop"]):
+            log_message(f"Skipping directory: {system_dir}")
             continue
 
         with open(os.path.join(system_dir, 'metadata.txt')) as f:
@@ -132,16 +102,21 @@ def generate_game_lists(roms_path, images_path):
         games = collect_game_data(system_dir, extensions)
         if games:
             game_list.extend(games)
+            log_message(f"Collected {len(games)} games from {system_dir}")
 
+    # Save the JSON output
     json_output = json.dumps(game_list, indent=4)
     home_directory = os.path.expanduser("~")
     output_file = os.path.join(home_directory, 'emudeck', 'cache', 'missing_artwork.json')
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, 'w') as f:
         f.write(json_output)
+        log_message(f"JSON output saved to: {output_file}")
 
-# Pasar la ruta de las ROMs y de las imágenes desde los argumentos de línea de comandos
+# Read ROMs and images paths from command-line arguments
 roms_path = sys.argv[1]
 images_path = sys.argv[2]
 
+log_message("Starting game list generation process...")
 generate_game_lists(roms_path, images_path)
+log_message("Game list generation process completed.")
