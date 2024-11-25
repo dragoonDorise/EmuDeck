@@ -17,12 +17,12 @@ generateGameLists() {
     rsync -r --exclude='roms' --exclude='txt' "$EMUDECKGIT/roms/" "$dest_folder" --keep-dirlinks
     mkdir -p "$HOME/emudeck/cache/"
     echo "Database built" > "$MSG"
-    #python $HOME/.config/EmuDeck/backend/tools/retro-library/generate_game_lists.py "$romsPath"
+    python $HOME/.config/EmuDeck/backend/tools/retro-library/generate_game_lists.py "$romsPath"
 }
 
 generateGameListsJson() {
     echo "Adding Games" > "$MSG"
-    python $HOME/.config/EmuDeck/backend/tools/retro-library/generate_game_lists.py "$romsPath"
+    #python $HOME/.config/EmuDeck/backend/tools/retro-library/generate_game_lists.py "$romsPath"
     echo "Games Added" > "$MSG"
     #cat $HOME/emudeck/cache/roms_games.json
     #generateGameLists_artwork $userid &> /dev/null &
@@ -85,8 +85,7 @@ generateGameLists_getPercentage() {
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/"
 
-    python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$dest_folder"
-
+    #python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$dest_folder"
 
     local json_file="$HOME/emudeck/cache/roms_games.json"
     local json_file_artwork="$HOME/emudeck/cache/missing_artwork.json"

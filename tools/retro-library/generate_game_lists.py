@@ -113,7 +113,7 @@ def generate_game_lists(roms_path):
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, 'w') as f:
         f.write(json_output)
-        print(json_output)
+        #print(json_output)
 
 roms_path = sys.argv[1]
 
