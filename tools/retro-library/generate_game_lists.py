@@ -38,6 +38,7 @@ def getSettings():
     return configuration
 
 settings = getSettings()
+storage_path = os.path.expandvars(settings["storagePath"])
 
 
 # Function to write messages to the log file
@@ -141,7 +142,7 @@ def generate_game_lists(roms_path):
 
     json_output = json.dumps(sorted(game_list, key=lambda x: x['title']), indent=4)
 
-    output_file = os.path.join(settings["storagePath"], "/retrolibrary/cache/roms_games.json")
+    output_file = os.path.join(storage_path, "/retrolibrary/cache/roms_games.json")
 
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, 'w') as f:

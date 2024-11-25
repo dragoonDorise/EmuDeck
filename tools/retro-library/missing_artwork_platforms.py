@@ -36,6 +36,7 @@ def getSettings():
     return configuration
 
 settings = getSettings()
+storage_path = os.path.expandvars(settings["storagePath"])
 
 
 # Función para escribir en el archivo de log
@@ -99,7 +100,7 @@ def generate_systems_with_missing_images(roms_path, images_path):
 
     json_output = json.dumps(list(systems_with_missing_images), indent=4)
 
-    output_file = os.path.join(settings["storagePath"], "/retrolibrary/cache/missing_systems.json")
+    output_file = os.path.join(storage_path, "/retrolibrary/cache/missing_systems.json")
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, 'w') as f:
         f.write(json_output)
