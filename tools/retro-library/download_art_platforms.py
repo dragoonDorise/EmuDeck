@@ -49,7 +49,7 @@ def log_message(message):
 
 def download_and_extract(output_dir):
     # Fixed path to the JSON file
-    json_file_path = os.path.join(storage_path, "/retrolibrary/cache/missing_systems.json")
+    json_file_path = os.path.join(storage_path, "retrolibrary/cache/missing_systems.json")
 
     # Check if the JSON file exists
     if not os.path.exists(json_file_path):

@@ -38,7 +38,7 @@ storage_path = os.path.expandvars(settings["storagePath"])
 
 # Path for the JSON and target folder from command-line arguments
 save_folder = sys.argv[1]
-json_path = os.path.join(storage_path, "/retrolibrary/cache/missing_artwork.json")
+json_path = os.path.join(storage_path, "retrolibrary/cache/missing_artwork.json")
 
 # Path for the log file
 home_dir = os.environ.get("HOME")
