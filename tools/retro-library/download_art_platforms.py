@@ -82,9 +82,11 @@ def download_and_extract(output_dir):
     for platform in data:
         extracted_folder = os.path.join(output_dir, platform)
         if os.path.exists(extracted_folder):
-            log_message(f"Skipped: {platform} already extracted at {extracted_folder}.")
-            print(f"Skipped: {platform} already extracted at {extracted_folder}.")
-            continue
+            num_files = len([f for f in os.listdir(extracted_folder) if os.path.isfile(os.path.join(extracted_folder, f))])
+            if num_files >= 3:
+                log_message(f"Skipped: {platform} already extracted at {extracted_folder} with {num_files} files.")
+                print(f"Skipped: {platform} already extracted at {extracted_folder} with {num_files} files.")
+                continue
 
         url = f"https://bot.emudeck.com/artwork_deck/{platform}.zip"
         log_message(f"Downloading: {platform}")
