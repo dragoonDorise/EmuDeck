@@ -1,8 +1,11 @@
 #!/bin/bash
+
+MSG="$HOME/.config/EmuDeck/msg.log"
+
 generateGameLists() {
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/"
-
+    echo "Starting to build database" > "$MSG"
     mkdir -p "$storagePath/retrolibrary/artwork"
     mkdir -p "$accountfolder/config/grid/retrolibrary/"
     ln -s "$storagePath/retrolibrary/artwork/" "$accountfolder/config/grid/retrolibrary/artwork"
@@ -13,11 +16,14 @@ generateGameLists() {
     pegasus_setPaths
     rsync -r --exclude='roms' --exclude='txt' "$EMUDECKGIT/roms/" "$dest_folder" --keep-dirlinks
     mkdir -p "$HOME/emudeck/cache/"
-    python $HOME/.config/EmuDeck/backend/tools/retro-library/generate_game_lists.py "$romsPath"
+    echo "Database built" > "$MSG"
+    #python $HOME/.config/EmuDeck/backend/tools/retro-library/generate_game_lists.py "$romsPath"
 }
 
 generateGameListsJson() {
+    echo "Adding Games" > "$MSG"
     python $HOME/.config/EmuDeck/backend/tools/retro-library/generate_game_lists.py "$romsPath"
+    echo "Games Added" > "$MSG"
     #cat $HOME/emudeck/cache/roms_games.json
     #generateGameLists_artwork $userid &> /dev/null &
     generateGameLists_artwork &> /dev/null &
@@ -32,11 +38,13 @@ generateGameLists_artwork() {
     mkdir -p "$HOME/emudeck/cache/"
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/"
+    echo "Searching for missing artwork" > "$MSG"
     python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork_platforms.py "$romsPath" "$dest_folder"
     python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art_platforms.py "$dest_folder"
 
     python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$dest_folder"
     python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art.py "$dest_folder"
+    echo "Artwork finished. Restart if you see this message" > "$MSG"
 }
 
 saveImage(){
@@ -131,18 +139,25 @@ generateGameLists_retroAchievements(){
 generateGameLists_downloadAchievements(){
     local folder="$storagePath/retrolibrary/achievements"
     if [ ! -d $folder ]; then
+        echo "Downloading Retroachievements Data" > "$MSG"
         mkdir -p $folder
         wget -q -O "$folder/achievements.zip" "https://bot.emudeck.com/achievements/achievements.zip"
         cd "$folder" && unzip -o achievements.zip && rm achievements.zip
+        echo "Retroachievements Data Downloaded" > "$MSG"
     fi
 }
 
 generateGameLists_downloadData(){
     local folder="$storagePath/retrolibrary/data"
     if [ ! -d $folder ]; then
+        echo "Downloading Metada" > "$MSG"
         mkdir -p $folder
         wget -q -O "$folder/data.zip" "https://bot.emudeck.com/data/data.zip"
         cd $folder && unzip -o data.zip && rm data.zip
+        echo "Metada Downloaded" > "$MSG"
     fi
 }
 
+generateGameLists_readMessage(){
+    cat "$MSG"
+}
