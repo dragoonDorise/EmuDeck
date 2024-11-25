@@ -6,7 +6,7 @@ import re
 home_dir = os.environ.get("HOME")
 msg_file = os.path.join(home_dir, ".config/EmuDeck/msg.log")
 
-def getSettings(self):
+def getSettings():
     pattern = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)=(.*)')
     user_home = os.path.expanduser("~")
     if os.name == 'nt':
