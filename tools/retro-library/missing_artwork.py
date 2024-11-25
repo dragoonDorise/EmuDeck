@@ -83,14 +83,14 @@ def generate_game_lists(roms_path, images_path):
             file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])
             if file_count > 2:
                 valid_system_dirs.append(full_path)
-                log_message(f"Valid system directory found: {full_path}")
+                log_message(f"MA: Valid system directory found: {full_path}")
 
     game_list = []
 
     # Process each system directory
     for system_dir in valid_system_dirs:
         if any(x in system_dir for x in ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop"]):
-            log_message(f"Skipping directory: {system_dir}")
+            log_message(f"MA: Skipping directory: {system_dir}")
             continue
 
         with open(os.path.join(system_dir, 'metadata.txt')) as f:
@@ -100,7 +100,7 @@ def generate_game_lists(roms_path, images_path):
         games = collect_game_data(system_dir, extensions)
         if games:
             game_list.extend(games)
-            log_message(f"Found {len(games)} missing artwork from {system_dir}")
+            log_message(f"MA: Found {len(games)} missing artwork from {system_dir}")
 
     # Save the JSON output
     json_output = json.dumps(game_list, indent=4)
@@ -114,6 +114,6 @@ def generate_game_lists(roms_path, images_path):
 roms_path = sys.argv[1]
 images_path = sys.argv[2]
 
-log_message("Missing artwork list generation in process...")
+log_message("MA: Missing artwork list generation in process...")
 generate_game_lists(roms_path, images_path)
-log_message("Missing artwork list process completed.")
+log_message("MA: Missing artwork list process completed.")

@@ -82,13 +82,13 @@ def generate_game_lists(roms_path):
             file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])
             if file_count > 2:
                 valid_system_dirs.append(full_path)
-                log_message(f"Valid system directory found: {full_path}")
+                log_message(f"GGL: Valid system directory found: {full_path}")
 
     game_list = []
 
     for system_dir in valid_system_dirs:
         if any(x in system_dir for x in ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop"]):
-            log_message(f"Skipping directory: {system_dir}")
+            log_message(f"GGL: Skipping directory: {system_dir}")
             continue
 
         with open(os.path.join(system_dir, 'metadata.txt')) as f:
@@ -107,7 +107,7 @@ def generate_game_lists(roms_path):
                 "games": games
             }
             game_list.append(system_info)
-            log_message(f"Detected {len(games)} games from {system_dir}")
+            log_message(f"GGL: Detected {len(games)} games from {system_dir}")
 
     json_output = json.dumps(sorted(game_list, key=lambda x: x['title']), indent=4)
     home_directory = os.path.expanduser("~")
@@ -119,6 +119,6 @@ def generate_game_lists(roms_path):
 
 roms_path = sys.argv[1]
 
-log_message("Starting game list generation...")
+log_message("GGL: Starting game list generation...")
 generate_game_lists(f"{roms_path}")
-log_message("Game list generation completed.")
+log_message("GGL: Game list generation completed.")
