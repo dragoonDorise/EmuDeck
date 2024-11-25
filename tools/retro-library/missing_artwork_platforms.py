@@ -2,6 +2,7 @@ import os
 import json
 import sys
 import re
+import subprocess
 
 home_dir = os.environ.get("HOME")
 msg_file = os.path.join(home_dir, ".config/EmuDeck/msg.log")

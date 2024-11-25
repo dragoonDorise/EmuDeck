@@ -3,6 +3,7 @@ import requests
 import os
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import subprocess
 
 def getSettings():
     pattern = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)=(.*)')

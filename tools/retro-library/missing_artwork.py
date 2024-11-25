@@ -3,6 +3,7 @@ import json
 import sys
 import re
 import hashlib
+import subprocess
 
 # Define the log file path
 home_dir = os.environ.get("HOME")
