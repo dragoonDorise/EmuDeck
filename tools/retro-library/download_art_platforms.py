@@ -9,7 +9,7 @@ import sys
 home_dir = os.environ.get("HOME")
 msg_file = os.path.join(home_dir, ".config/EmuDeck/msg.log")
 
-async def getSettings(self):
+def getSettings(self):
     pattern = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)=(.*)')
     user_home = os.path.expanduser("~")
     if os.name == 'nt':
@@ -37,7 +37,7 @@ async def getSettings(self):
 
     return configuration
 
-settings = await getSettings()
+settings = getSettings()
 
 
 # Function to write messages to the log file

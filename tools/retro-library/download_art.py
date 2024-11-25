@@ -4,7 +4,7 @@ import os
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-async def getSettings(self):
+def getSettings(self):
     pattern = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)=(.*)')
     user_home = os.path.expanduser("~")
     if os.name == 'nt':
@@ -32,7 +32,7 @@ async def getSettings(self):
 
     return configuration
 
-settings = await getSettings()
+settings = getSettings()
 
 # Path for the JSON and target folder from command-line arguments
 save_folder = sys.argv[1]
