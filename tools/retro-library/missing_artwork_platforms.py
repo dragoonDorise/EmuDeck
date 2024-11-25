@@ -34,7 +34,6 @@ def generate_systems_with_missing_images(roms_path, images_path):
 
                     img_path = os.path.join(images_path, f"{platform}/{name_cleaned}.jpg")
                     if not os.path.exists(img_path):
-                        log_message(f"Missing image: {img_path}")
                         return True
         return False
 
@@ -72,7 +71,6 @@ def generate_systems_with_missing_images(roms_path, images_path):
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, 'w') as f:
         f.write(json_output)
-        log_message(f"JSON output saved to: {output_file}")
 
 # Pasar la ruta de las ROMs y de las imágenes desde los argumentos de línea de comandos
 roms_path = sys.argv[1]

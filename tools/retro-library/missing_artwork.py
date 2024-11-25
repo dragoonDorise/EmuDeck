@@ -22,7 +22,6 @@ def generate_game_lists(roms_path, images_path):
                     hash_md5.update(chunk)
             return hash_md5.hexdigest()
         except Exception as e:
-            log_message(f"Error calculating hash for {file_path}: {e}")
             return None
 
     def collect_game_data(system_dir, extensions):
@@ -68,7 +67,6 @@ def generate_game_lists(roms_path, images_path):
                                 "type": img_type
                             }
                             game_data.append(game_info)
-                            log_message(f"Missing {img_type} image: {img_path}")
 
         game_data_sorted = sorted(game_data, key=lambda x: x['name'])
         return game_data_sorted
@@ -102,7 +100,7 @@ def generate_game_lists(roms_path, images_path):
         games = collect_game_data(system_dir, extensions)
         if games:
             game_list.extend(games)
-            log_message(f"Collected {len(games)} games from {system_dir}")
+            log_message(f"Found {len(games)} missing artwork from {system_dir}")
 
     # Save the JSON output
     json_output = json.dumps(game_list, indent=4)
@@ -111,12 +109,11 @@ def generate_game_lists(roms_path, images_path):
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, 'w') as f:
         f.write(json_output)
-        log_message(f"JSON output saved to: {output_file}")
 
 # Read ROMs and images paths from command-line arguments
 roms_path = sys.argv[1]
 images_path = sys.argv[2]
 
-log_message("Starting game list generation process...")
+log_message("Missing artwork list generation in process...")
 generate_game_lists(roms_path, images_path)
-log_message("Game list generation process completed.")
+log_message("Missing artwork list process completed.")

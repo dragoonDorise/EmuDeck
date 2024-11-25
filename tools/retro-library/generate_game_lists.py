@@ -23,7 +23,6 @@ def generate_game_lists(roms_path):
                     hash_md5.update(chunk)
             return hash_md5.hexdigest()
         except Exception as e:
-            log_message(f"Error calculating hash for {file_path}: {e}")
             return None
 
     def collect_game_data(system_dir, extensions):
@@ -70,7 +69,6 @@ def generate_game_lists(roms_path):
                         "hash": rom_hash
                     }
                     game_data.append(game_info)
-                    log_message(f"Game added: {game_info}")
         return sorted(game_data, key=lambda x: x['name'])
 
     roms_dir = roms_path
@@ -109,7 +107,7 @@ def generate_game_lists(roms_path):
                 "games": games
             }
             game_list.append(system_info)
-            log_message(f"Collected {len(games)} games from {system_dir}")
+            log_message(f"Detected {len(games)} games from {system_dir}")
 
     json_output = json.dumps(sorted(game_list, key=lambda x: x['title']), indent=4)
     home_directory = os.path.expanduser("~")
@@ -117,7 +115,6 @@ def generate_game_lists(roms_path):
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, 'w') as f:
         f.write(json_output)
-        log_message(f"JSON output saved to: {output_file}")
         print(json_output)
 
 roms_path = sys.argv[1]

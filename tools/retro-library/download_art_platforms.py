@@ -50,8 +50,8 @@ def download_and_extract(output_dir):
     # Process each platform
     for platform in data:
         url = f"https://bot.emudeck.com/artwork_deck/{platform}.zip"
-        log_message(f"Downloading: {url}")
-        print(f"Downloading: {url}")
+        log_message(f"Downloading: {platform}")
+        print(f"Downloading: {platform}")
 
         try:
             # Download the ZIP file
@@ -60,29 +60,26 @@ def download_and_extract(output_dir):
 
             # Read the ZIP content in memory
             with zipfile.ZipFile(BytesIO(response.content)) as zip_file:
-                log_message(f"Extracting content from {platform}.zip to {output_dir}")
                 print(f"Extracting content from {platform}.zip to {output_dir}")
                 zip_file.extractall(output_dir)  # Overwrite by default
 
         except requests.exceptions.RequestException as e:
-            log_message(f"Error downloading {url}: {e}")
+            log_message(f"Error downloading {platform}: {e}")
             print(f"Error downloading {url}: {e}")
         except zipfile.BadZipFile as e:
             log_message(f"Error processing the ZIP file for {platform}: {e}")
             print(f"Error processing the ZIP file for {platform}: {e}")
 
-    log_message("Process completed.")
     print("Process completed.")
 
 # Verify command-line arguments
 if len(sys.argv) != 2:
-    log_message("Incorrect usage: python3 download_and_extract.py <destination_path>")
     print("Usage: python3 download_and_extract.py <destination_path>")
     sys.exit(1)
 
 # Output directory passed as an argument
 output_dir = sys.argv[1]
 
-log_message("Starting download and extraction process...")
+log_message("Starting download and extraction process for bundles...")
 download_and_extract(output_dir)
-log_message("Download and extraction process completed.")
+log_message("Download and extraction process completed for bundles")
