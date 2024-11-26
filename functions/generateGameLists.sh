@@ -147,6 +147,8 @@ generateGameLists_downloadAchievements(){
 
 generateGameLists_downloadData(){
     local folder="$storagePath/retrolibrary/data"
+    local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
+    ln -s "$folder" "$accountfolder/config/grid/retrolibrary/data"
     if [ ! -d $folder ]; then
         echo "Downloading Metada" > "$MSG"
         mkdir -p $folder
@@ -154,8 +156,4 @@ generateGameLists_downloadData(){
         cd $folder && unzip -o data.zip && rm data.zip
         echo "Metada Downloaded" > "$MSG"
     fi
-}
-
-generateGameLists_readMessage(){
-    cat "$MSG"
 }
