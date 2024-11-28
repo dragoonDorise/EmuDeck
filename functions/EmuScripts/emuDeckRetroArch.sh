@@ -249,6 +249,11 @@ RetroArch_setupConfigurations(){
 	microphone_driverSetting="${microphone_driver}"\""sdl2"\"
 	changeLine "$microphone_driver" "$microphone_driverSetting" "$RetroArch_configFile"
 
+	#Enable screenshots for savestates
+	savestate_thumbnail='savestate_thumbnail_enable = '
+	savestate_thumbnailSetting="${input_driver}"\""true"\"
+	changeLine "$savestate_thumbnail" "$savestate_thumbnailSetting" "$RetroArch_configFile"
+
 }
 
 RetroArch_buildbotDownloader(){
