@@ -153,6 +153,9 @@ Plugins_installDeckyRomLibrary(){
      echo $password | sudo -S unzip "$HOME/homebrew/plugins/decky-rom-library.zip" -d "$HOME/homebrew/plugins/" && sudo rm "$HOME/homebrew/plugins/decky-rom-library.zip"
      echo $password | sudo -S chown $USER:$USER -R $HOME/homebrew/plugins/decky-rom-library
    fi
+   #RAachievemets
+   rau=$(cat "$HOME/.config/EmuDeck/.rau")
+   setSetting cheevos_username $rau
 
 }
 
