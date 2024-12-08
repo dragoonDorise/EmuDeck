@@ -136,21 +136,21 @@ Plugins_installDeckyRomLibrary(){
    echo "Installing Decky Rom Library"
    local password=$1
    local destinationFolder="$HOME/homebrew/plugins/decky-rom-library"
-   local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/decky-rom-library" ".zip")"
+   local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/decky-rom-library" ".7z")"
    mkdir -p "$HOME/homebrew/plugins/"
    if [ -d "$HOME/homebrew" ]; then
     Plugins_checkPassword $password
     echo $password |  sudo -S rm -rf $destinationFolder
-    echo $password |  sudo -S curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/decky-rom-library.zip"
-    echo $password |  sudo -S unzip "$HOME/homebrew/plugins/decky-rom-library.zip" -d "$HOME/homebrew/plugins/" && echo $password |  sudo -S rm "$HOME/homebrew/plugins/decky-rom-library.zip"
+    echo $password |  sudo -S curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/decky-rom-library.7z"
+    echo $password |  sudo -S unzip "$HOME/homebrew/plugins/decky-rom-library.7z" -d "$HOME/homebrew/plugins/" && echo $password |  sudo -S rm "$HOME/homebrew/plugins/decky-rom-library.7z"
     echo $password |  sudo -S chown $USER:$USER -R $HOME/homebrew/plugins/decky-rom-library
     echo $password | sudo -S chmod 555 -R $HOME/homebrew/plugins/decky-rom-library
     Plugins_install_cleanup $password
   else
      Plugins_installPluginLoader $password
      rm -rf $destinationFolder
-     echo $password |  sudo -S curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/decky-rom-library.zip"
-     echo $password | sudo -S unzip "$HOME/homebrew/plugins/decky-rom-library.zip" -d "$HOME/homebrew/plugins/" && sudo rm "$HOME/homebrew/plugins/decky-rom-library.zip"
+     echo $password |  sudo -S curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/decky-rom-library.7z"
+     echo $password | sudo -S unzip "$HOME/homebrew/plugins/decky-rom-library.7z" -d "$HOME/homebrew/plugins/" && sudo rm "$HOME/homebrew/plugins/decky-rom-library.7z"
      echo $password | sudo -S chown $USER:$USER -R $HOME/homebrew/plugins/decky-rom-library
    fi
    #RAachievemets
