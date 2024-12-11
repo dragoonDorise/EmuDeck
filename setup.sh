@@ -360,6 +360,10 @@ if [ "$doSetupRyujinx" == "true" ]; then
 	echo "Ryujinx_init"
 	Ryujinx_init
 fi
+if [ "$doSetupShadPS4" == "true" ]; then
+	echo "ShadPS4_init"
+	ShadPS4_init
+fi
 if [ "$doSetupPPSSPP" == "true" ]; then
 	echo "PPSSPP_init"
 	PPSSPP_init
