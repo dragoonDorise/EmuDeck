@@ -46,12 +46,19 @@ ShadPS4_install(){
         return 1
     fi
 
-    # flatpak install flathub net.shadps4.shadPS4 -y --user
-    # mkdir -p "$HOME/Applications/publish"
-    # rsync -av "$HOME/.local/share/flatpak/app/net.shadps4.shadPS4/x86_64/stable/active/files/bin/" "$HOME/Applications/publish/" && flatpak uninstall flathub net.shadps4.shadPS4 -y --user
-    # rm -rf "$HOME/.config/shadps4/games"
-    # chmod +x "$HOME/Applications/publish/shadps4"
+    # Flatpak install
+    echo "Installing ShadPS4 via Flatpak..."
+    flatpak install flathub net.shadps4.shadPS4 -y --user
 
+    # Move Flatpak installed files to the desired location
+    mkdir -p "$HOME/Applications/publish"
+    rsync -av "$HOME/.local/share/flatpak/app/net.shadps4.shadPS4/x86_64/stable/active/files/bin/" "$HOME/Applications/publish/" && flatpak uninstall flathub net.shadps4.shadPS4 -y --user
+
+    # Clean up old games directory if it exists
+    rm -rf "$HOME/.config/shadps4/games"
+
+    # Set executable permission
+    chmod +x "$HOME/Applications/publish/shadps4"
 }
 
 ShadPS4_init(){
