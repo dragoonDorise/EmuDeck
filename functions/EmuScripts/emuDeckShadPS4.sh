@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Script to install, initialize and configure ShadPS4 on EmuDeck
+# Note: No Bios/Keys symlinks necessary
 
 # External helper functions (defined outside this script)
 #- installEmuBI()
@@ -12,22 +13,96 @@
 #- flushEmulatorLaunchers()
 #- setMSG()
 
-#variables
+# Variables
 ShadPS4_emuName="ShadPS4"
 ShadPS4_emuType="$emuDeckEmuTypeBinary"
 ShadPS4_emuPath="$HOME/Applications/publish"
-ShadPS4_configFile="$HOME/.config/shadps4/Config.json"
-ShadPS4_controllerFile="$HOME/.config/shadps4/profiles/controller/Deck.json"
+ShadPS4_configFile="$HOME/.config/shadps4/config.toml"
+userDir="$HOME/.config/shadps4/user"
+sysDir="$HOME/.config/shadps4/system"
+inputConfigDir="$HOME/.config/shadps4/inputConfig"
+controllerFile="${inputConfigDir}/default.ini"
 
-ShadPS4_migrationFlag="$HOME/.config/EmuDeck/.${ShadPS4_emuName}MigrationCompleted"
+migrationFlag="$HOME/.config/EmuDeck/.${ShadPS4_emuName}MigrationCompleted"
 
+# Language keys using [ISO 639-1: Language codes] & [ISO 3166-1 alpha-2: Country codes]
+# NOTE: Keep in sync with https://github.com/shadps4-emu/shadPS4/tree/main/src/qt_gui/translations
+# even though project still just uses some two character codes e.g. 'nl' instead of 'nl_NL'
 declare -A ShadPS4_languages
-
-# Too early for languages support
-ShadPS4_languages=(["en"]="AmericanEnglish")
+ShadPS4_languages=(
+    ["ar"]="Arabic"
+    ["da_DK"]="Danish"
+    ["de"]="German Deutsch"
+    ["el"]="Greek"
+    ["el_GR"]="Greek"
+    ["en"]="English"
+    ["en_US"]="English (US)"
+    ["en_IE"]="English (Irish)"
+    ["es_ES"]="Spanish"
+    ["fa_IR"]="Farsi (Iran)"
+    ["fi"]="Finnish"
+    ["fi_FI"]="Finnish"
+    ["fr"]="French"
+    ["fr_FR"]="French"
+    ["hu_HU"]="Hungarian"
+    ["id"]="Indonesian"
+    ["it"]="Italian"
+    ["ja_JP"]="Japanese"
+    ["ko_KR"]="Korean"
+    ["lt_LT"]="Lithuanian"
+    ["nb"]="Norwegian Bokmål"
+    ["nl"]="Dutch"
+    ["nl_NL"]="Dutch (Netherlands)"
+    ["pl_PL"]="Polish"
+    ["pt_BR"]="Portuguese"
+    ["ro_RO"]="Romanian"
+    ["ru_RU"]="Russian"
+    ["sq"]="Albanian"
+    ["ti_ER"]="Tigrinya"
+    ["tr_TR"]="Turkish"
+    ["uk_UA"]="Ukrainian"
+    ["vi_VN"]="Vietnamese"
+    ["zh_CN"]="Chinese (Simplified)"
+    ["zh_TW"]="Traditional Chinese (Taiwan)"
+)
 
 declare -A ShadPS4_regions
-ShadPS4_regions=(["en"]="USA")
+ShadPS4_regions=(
+    ["ar"]="Arabic"
+    ["da_DK"]="Denmark"
+    ["de"]="Deutsch"
+    ["el"]="Greece"
+    ["el_GR"]="Greece"
+    ["en"]="Global English"
+    ["en_US"]="United States"
+    ["en_IE"]="Ireland"
+    ["es_ES"]="Spain"
+    ["fa_IR"]="Iran"
+    ["fi"]="Finland"
+    ["fi_FI"]="Finland"
+    ["fr"]="France"
+    ["fr_FR"]="France"
+    ["hu_HU"]="Hungary"
+    ["id"]="Indonesia"
+    ["it"]="Italian"
+    ["ja_JP"]="Japan"
+    ["ko_KR"]="South Korea"
+    ["lt_LT"]="Lithuania"
+    ["nb"]="Norway"
+    ["nl"]="Netherlands"
+    ["nl_NL"]="Netherlands"
+    ["pl_PL"]="Poland"
+    ["pt_BR"]="Brazil"
+    ["ro_RO"]="Romania"
+    ["ru_RU"]="Russia"
+    ["sq"]="Albania"
+    ["ti_ER"]="Eritrea"
+    ["tr_TR"]="Turkey"
+    ["uk_UA"]="Ukraine"
+    ["vi_VN"]="Vietnam"
+    ["zh_CN"]="China"
+    ["zh_TW"]="Taiwan"
+)
 
 ShadPS4_cleanup(){
     echo "Begin ShadPS4 Cleanup"
@@ -71,10 +146,8 @@ ShadPS4_init(){
 
 	# SRM_createParsers
   #	ShadPS4_migrate
-
 }
 
-#update
 ShadPS4_update(){
     echo "Begin ShadPS4 update"
 
@@ -87,89 +160,102 @@ ShadPS4_update(){
     ShadPS4_flushEmulatorLauncher
 }
 
-
-
-#ConfigurePaths
+# Configuration Paths
 ShadPS4_setEmulationFolder(){
     echo "Begin ShadPS4 Path Config"
-#     configFile="$HOME/.config/shadps4/qt-config.ini"
-#     screenshotDirOpt='Screenshots\\screenshot_path='
-#     gameDirOpt='Paths\\gamedirs\\4\\path='
-#     dumpDirOpt='dump_directory='
-#     loadDir='load_directory='
-#     nandDirOpt='nand_directory='
-#     sdmcDirOpt='sdmc_directory='
-#     tasDirOpt='tas_directory='
-#     newScreenshotDirOpt='Screenshots\\screenshot_path='"${storagePath}/shadps4/screenshots"
-#     newGameDirOpt='Paths\\gamedirs\\4\\path='"${romsPath}/switch"
-#     newDumpDirOpt='dump_directory='"${storagePath}/shadps4/dump"
-#     newLoadDir='load_directory='"${storagePath}/shadps4/load"
-#     newNandDirOpt='nand_directory='"${storagePath}/shadps4/nand"
-#     newSdmcDirOpt='sdmc_directory='"${storagePath}/shadps4/sdmc"
-#     newTasDirOpt='tas_directory='"${storagePath}/shadps4/tas"
-#
-#     sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" "$configFile"
-#     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
-#     sed -i "/${dumpDirOpt}/c\\${newDumpDirOpt}" "$configFile"
-#     sed -i "/${loadDir}/c\\${newLoadDir}" "$configFile"
-#     sed -i "/${nandDirOpt}/c\\${newNandDirOpt}" "$configFile"
-#     sed -i "/${sdmcDirOpt}/c\\${newSdmcDirOpt}" "$configFile"
-#     sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "$configFile"
 
-    #Setup Bios symlinks
-    unlink "${biosPath}/shadps4/keys"
-    mkdir -p "$HOME/.config/shadps4/system/"
-    mkdir -p "${biosPath}/shadps4/"
-    unlink "$HOME/.config/shadps4/system"
-    ln -sn "$HOME/.config/shadps4/system" "${biosPath}/shadps4/keys"
-    sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$ShadPS4_configFile"
+    # Define paths for PS4 ROMs
+    gameDirOpt='Paths\\gamedirs\\0\\path='
+    newGameDirOpt='Paths\\gamedirs\\0\\path='"${romsPath}/ps4"
 
+    # Update the configuration file
+    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$ShadPS4_configFile"
+
+    # https://github.com/shadps4-emu/shadPS4/blob/3f1061de5613c0c4a74d6394a6493491280bc03f/src/common/path_util.h
+    mkdir -p "${userDir}/screenshots/"
+    mkdir -p "${userDir}/shader/"
+    mkdir -p "${userDir}/savedata/"
+    mkdir -p "${userDir}/data/"
+    mkdir -p "${userDir}/temp/"
+    mkdir -p "${userDir}/sys_modules/"
+    mkdir -p "${userDir}/download/"
+    mkdir -p "${userDir}/captures/"
+    mkdir -p "${userDir}/cheats/"
+    mkdir -p "${userDir}/patches/"
+    mkdir -p "${userDir}/game_data/"
+
+    # https://github.com/shadps4-emu/shadPS4/blob/main/documents/Debugging/Debugging.md#quick-analysis
+    mkdir -p "${userDir}/log/"
+
+    mkdir -p "${inputConfigDir}"
+
+    echo "ShadPS4 Path Config Completed"
 }
 
-#SetLanguage
+# Reusable Function to read value from the config.toml file
+read_config_toml() {
+    local key="$1"
+    local configFile="$2"
+    echo "Reading arguments - key '$key' from config file: '$configFile'..."
+
+    local value
+    value=$(jq -r "$key" "$configFile")
+
+    echo "Extracted value: $value"
+    echo "$value"
+}
+
 ShadPS4_setLanguage(){
     setMSG "Setting ShadPS4 Language"
     local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
 
-#	# TODO: call this somewhere, and input the $language from somewhere (args?)
-#	if [[ -f "${ShadPS4_configFile}" ]]; then
-#		if [ ${ShadPS4_languages[$language]+_} ]; then
-#            # we cant edit inplace, so we save it into a tmp var
-#            tmp=$(jq ".system_language=\"${ShadPS4_languages[$language]}\"" "$ShadPS4_configFile")
-#            echo "$tmp" > "$ShadPS4_configFile"
-#            tmp=$(jq ".system_region=\"${ShadPS4_regions[$language]}\"" "$ShadPS4_configFile")
-#            echo "$tmp" > "$ShadPS4_configFile"
-#		fi
-#	fi
+    echo "Checking if the config file at path: '$ShadPS4_configFile'"
+    if [[ -f "${ShadPS4_configFile}" ]]; then
+        echo "Config file found: ${ShadPS4_configFile}"
 
+        emulatorLanguage=$(read_config_toml '.GUI.emulatorLanguage' "$ShadPS4_configFile")
+
+        echo "Checking if language key exists in current language setting..."
+        if [[ -n ${ShadPS4_languages[$emulatorLanguage]+_} ]]; then
+            echo "Language key found in current language settings!"
+
+            # Save the updated language settings back to the config file
+            echo "Updating system language and system region in the config file..."
+            tmp=$(jq --arg lang "${ShadPS4_languages[$emulatorLanguage]}" --arg region "${ShadPS4_regions[$emulatorLanguage]}" \
+                     '.system_language = $lang | .system_region = $region' \
+                     "${ShadPS4_configFile}")
+            echo "$tmp" > "${ShadPS4_configFile}"
+            echo "Config file updated successfully."
+        else
+            echo "Language key '${emulatorLanguage}' not found in current language settings. No updates made."
+        fi
+    else
+        echo "Configuration file not found: ${ShadPS4_configFile}"
+    fi
+
+    echo "ShadPS4 language '${emulatorLanguage}' configuration completed."
 }
 
-#SetupSaves
+# Setup Saves
 ShadPS4_setupSaves(){
     echo "Begin ShadPS4 save link"
 
-    if [ -d "${emulationPath}/saves/shadps4/saves" ]; then
-        rm -rf "${emulationPath}/saves/shadps4/saves"
-        rm -rf "${emulationPath}/saves/shadps4/saveMeta"
-    fi
+    # Create symbolic links
+    linkToSaveFolder ShadPS4 saves "${userDir}/savedata"
+    linkToSaveFolder ShadPS4 saveMeta "${userDir}/saveMeta"
+    linkToSaveFolder ShadPS4 system "${sysDir}"
+    linkToSaveFolder ShadPS4 system_saves "${sysDir}/save"
 
-    if [ -d "${emulationPath}/saves/shadps4/saves" ]; then
-        rm -rf "${emulationPath}/saves/shadps4/"
-    fi
-
-    linkToSaveFolder ShadPS4 saves "$HOME/.config/shadps4/bis/user/save"
-    linkToSaveFolder ShadPS4 saveMeta "$HOME/.config/shadps4/bis/user/saveMeta"
-	linkToSaveFolder ShadPS4 system_saves "$HOME/.config/shadps4/bis/system/save"
-	linkToSaveFolder ShadPS4 system "$HOME/.config/shadps4/system"
-
+    echo "ShadPS4 save link completed"
 }
+
 
 #SetupStorage
 ShadPS4_setupStorage(){
     echo "Begin ShadPS4 storage config"
 
     local origPath="$HOME/.config/"
-    mkdir -p "${storagePath}/shadps4/patchesAndDlc"
+#    mkdir -p "${storagePath}/shadps4/patchesAndDlc"
     rsync -av "${origPath}/shadps4/games/" "${storagePath}/shadps4/games/" && rm -rf "${origPath}ShadPS4/games"
     unlink "${origPath}/shadps4/games"
     ln -ns "${storagePath}/shadps4/games/" "${origPath}/shadps4/games"
@@ -205,7 +291,7 @@ ShadPS4_migrate(){
 }
 
 ShadPS4_IsMigrated(){
-	if [ -f "$ShadPS4_migrationFlag" ]; then
+	if [ -f "$migrationFlag" ]; then
 		echo "true"
 	else
 		echo "false"
@@ -226,7 +312,6 @@ ShadPS4_setBAYXstyle(){
     sed -i 's/"button_y": "Y",/"button_y": "X",/' $ShadPS4_configFile
     sed -i 's/"button_a": "A"/"button_a": "B"/' $ShadPS4_configFile
 }
-
 
 #WideScreenOn
 ShadPS4_wideScreenOn(){
