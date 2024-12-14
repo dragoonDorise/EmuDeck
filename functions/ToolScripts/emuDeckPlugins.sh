@@ -7,14 +7,14 @@ Plugins_install_cleanup() {
 	#systemctl restart plugin_loader
 
 	#Deleting temp password
-	if [ "$password" = "Decky!" ]; then
+	if [ "$password" = "EmuDecky!" ]; then
 		echo "$password" | sudo -S -k passwd -d $(whoami) && echo "true"
 	fi
 }
 
 Plugins_checkPassword(){
    local password=$1
-   if [ "$password" = "Decky!" ]; then
+   if [ "$password" = "EmuDecky!" ]; then
      #We create the password
      yes "$password" | passwd $(whoami) &>/dev/null
    elif [ "$system" == "chimeraos" ]; then
@@ -60,14 +60,13 @@ Plugins_installPowerTools(){
    Plugins_checkPassword $password
    ptHash=$(curl https://beta.deckbrew.xyz/plugins | jq -r '.[] | select(.name=="PowerTools").versions[0].hash')
    local url="https://cdn.tzatzikiweeb.moe/file/steam-deck-homebrew/versions/$ptHash.zip"
-
+   Plugins_installPluginLoader $password
    if [ -d "$HOME/homebrew" ]; then
    	echo $password |  sudo -S rm -rf "$HOME/homebrew/plugins/PowerTools"
    	echo $password | sudo -S curl -l "$url" --output "$HOME/homebrew/PowerTools.zip.temp"  && mv "$HOME/homebrew/PowerTools.zip.temp" "$HOME/homebrew/PowerTools.zip"
    	echo $password |  sudo -S unzip "$HOME/homebrew/PowerTools.zip" -d "$HOME/homebrew/plugins/" && sudo rm "$HOME/homebrew/PowerTools.zip"
    	Plugins_install_cleanup $password
    else
-      Plugins_installPluginLoader $password
 	  rm -rf "$HOME/homebrew/plugins/PowerTools"
 	  echo $password |  sudo -S curl -l "$url" --output "$HOME/homebrew/PowerTools.zip.temp" && mv "$HOME/homebrew/PowerTools.zip.temp" "$HOME/homebrew/PowerTools.zip"
 	  echo $password |  sudo -S unzip "$HOME/homebrew/PowerTools.zip" -d "$HOME/homebrew/plugins/" && sudo rm "$HOME/homebrew/PowerTools.zip"
@@ -80,6 +79,7 @@ Plugins_installPowerControl(){
    local destinationFolder="$HOME/homebrew/plugins/PowerControl"
    local PowerControl_releaseURL="$(getLatestReleaseURLGH "mengmeet/PowerControl" ".tar.gz")"
    mkdir -p "$HOME/homebrew/plugins/"
+   Plugins_installPluginLoader $password
    if [ -d "$HOME/homebrew" ]; then
    	Plugins_checkPassword $password
    	echo $password |  sudo -S rm -rf $destinationFolder
@@ -89,7 +89,6 @@ Plugins_installPowerControl(){
    	echo $password | sudo -S chmod 555 -R $HOME/homebrew/plugins/PowerControl
    	Plugins_install_cleanup $password
    else
-      Plugins_installPluginLoader $password
 	  rm -rf $destinationFolder
 	  echo $password |  sudo -S curl -L "$PowerControl_releaseURL" -o "$HOME/homebrew/plugins/PowerControl.tar.gz"
 	  echo $password |  sudo -S unzip "$HOME/homebrew/plugins/PowerControl.tar.gz" -d "$HOME/homebrew/plugins/" && sudo rm "$HOME/homebrew/plugins/PowerControl.tar.gz"
@@ -109,7 +108,7 @@ Plugins_installEmuDecky(){
    local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/EmuDecky" ".zip")"
 
    mkdir -p "$HOME/homebrew/plugins/"
-
+   Plugins_installPluginLoader $password
    if [ -d "$HOME/homebrew" ]; then
 		Plugins_checkPassword $password
 		echo $password |  sudo -S rm -rf $destinationFolder
@@ -119,7 +118,6 @@ Plugins_installEmuDecky(){
 		echo $password | sudo -S chmod 555 -R $HOME/homebrew/plugins/EmuDecky
 		Plugins_install_cleanup $password
 	else
-         Plugins_installPluginLoader $password
 		 rm -rf $destinationFolder
 		 echo $password |  sudo -S curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/EmuDecky.zip"
 		 echo $password |  sudo -S unzip "$HOME/homebrew/plugins/EmuDecky.zip" -d "$HOME/homebrew/plugins/" && sudo rm "$HOME/homebrew/plugins/EmuDecky.zip"
@@ -138,6 +136,7 @@ Plugins_installDeckyRomLibrary(){
    local destinationFolder="$HOME/homebrew/plugins/decky-rom-library"
    local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/decky-rom-library" ".7z")"
    mkdir -p "$HOME/homebrew/plugins/"
+   Plugins_installPluginLoader $password
    if [ -d "$HOME/homebrew" ]; then
     Plugins_checkPassword $password
     echo $password |  sudo -S rm -rf $destinationFolder
@@ -147,7 +146,6 @@ Plugins_installDeckyRomLibrary(){
     echo $password | sudo -S chmod 555 -R $HOME/homebrew/plugins/decky-rom-library
     Plugins_install_cleanup $password
   else
-     Plugins_installPluginLoader $password
      rm -rf $destinationFolder
      echo $password |  sudo -S curl -L "$DeckyControls_releaseURL" -o "$HOME/homebrew/plugins/decky-rom-library.7z"
      echo $password | sudo -S unzip "$HOME/homebrew/plugins/decky-rom-library.7z" -d "$HOME/homebrew/plugins/" && sudo rm "$HOME/homebrew/plugins/decky-rom-library.7z"
