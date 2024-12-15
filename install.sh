@@ -2,7 +2,13 @@
 
 linuxID=$(lsb_release -si)
 sandbox=""
-if [ $linuxID != "ChimeraOS" ]; then
+
+if [ "$linuxID" = "Ubuntu" ]; then
+
+    sandbox=" --no-sandbox"
+echo "installing EmuDeck"
+
+elif [ $linuxID != "ChimeraOS" ]; then
 
 echo "installing EmuDeck"
 
