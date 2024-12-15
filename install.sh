@@ -5,7 +5,7 @@ sandbox=""
 
 if [ "$linuxID" = "Ubuntu" ]; then
 
-    sandbox=" --no-sandbox"
+sandbox=" --no-sandbox"
 echo "installing EmuDeck"
 
 elif [ $linuxID != "ChimeraOS" ]; then
