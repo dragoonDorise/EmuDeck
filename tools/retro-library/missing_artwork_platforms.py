@@ -64,7 +64,7 @@ def generate_systems_with_missing_images(roms_path, images_path):
                     name_cleaned = name_cleaned.replace(' ', '_').replace('-', '_')
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
                     name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
-
+                    name_cleaned = name_cleaned.lower()
                     img_path = os.path.join(images_path, f"{platform}/{name_cleaned}.jpg")
                     if not os.path.exists(img_path):
                         return True

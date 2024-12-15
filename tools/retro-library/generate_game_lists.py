@@ -127,7 +127,7 @@ def generate_game_lists(roms_path):
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
                     name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
                     name_cleaned_pegasus = name.replace(',_', ',')
-
+                    name_cleaned = name_cleaned.lower()
                     # Calculate the ROM hash
                     rom_hash = calculate_hash(file_path)
 

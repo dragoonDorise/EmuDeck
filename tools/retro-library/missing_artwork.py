@@ -86,7 +86,7 @@ def generate_game_lists(roms_path, images_path):
                     name_cleaned = name_cleaned.strip().replace(' ', '_').replace('-', '_')
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
                     name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
-
+                    name_cleaned = name_cleaned.lower()
                     rom_hash = calculate_hash(file_path)
 
                     # Check for missing images
