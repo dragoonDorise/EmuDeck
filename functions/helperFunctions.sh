@@ -1119,3 +1119,11 @@ function server_install(){
 function startCompressor(){
 	konsole -e "/bin/bash $HOME/.config/EmuDeck/backend/tools/chdconv/chddeck.sh"
 }
+
+function installPIP(){
+	python -m pip --version &> /dev/null || python -m ensurepip --upgrade
+	python -m pip install --upgrade pip
+	grep -qxF 'PATH="$HOME/.local/bin:$PATH"' ~/.bashrc || echo 'PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+	grep -qxF 'alias pip="pip3"' ~/.bashrc || echo 'alias pip="pip3"' >> ~/.bashrc
+	PATH="$HOME/.local/bin:$PATH"
+}
