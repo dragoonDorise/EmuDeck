@@ -29,7 +29,7 @@ Xenia_install(){
 
 	#need to look at standardizing exe name; or download both?  let the user choose at runtime?
 	#curl -L "$Xenia_releaseURL" --output "$romsPath"/xbox360/xenia.zip
-	if safeDownload "$Xenia_emuName" "$Xenia_releaseURL" "$romsPath/xbox360/xenia.zip" "$showProgress"; then
+	if safeDownload "$Xenia_emuName" "https://github.com/xenia-canary/xenia-canary/releases/download/eb99874/xenia_canary.zip" "$romsPath/xbox360/xenia.zip" "$showProgress"; then
 		#mkdir -p "$romsPath"/xbox360/tmp
 		unzip -o "$romsPath"/xbox360/xenia.zip -d "$romsPath"/xbox360
 		#rsync -avzh "$romsPath"/xbox360/tmp/ "$romsPath"/xbox360/
