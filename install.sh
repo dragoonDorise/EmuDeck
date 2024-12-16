@@ -7,7 +7,6 @@ if [ $linuxID = "Ubuntu" ]; then
     sandbox="--no-sandbox"
 fi
 
-
 if [ "$linuxID" == "SteamOS" ]; then
     echo "installing EmuDeck"
 else
