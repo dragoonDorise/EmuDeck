@@ -3,18 +3,13 @@
 linuxID=$(lsb_release -si)
 sandbox=""
 
-if [ "$linuxID" = "Ubuntu" ]; then
+if [ $linuxID = "Ubuntu" ]; then
+    sandbox="--no-sandbox"
+fi
 
-sandbox=" --no-sandbox"
-echo "installing EmuDeck"
-
-elif [ $linuxID != "ChimeraOS" ]; then
-
-echo "installing EmuDeck"
-
-elif [ $linuxID != "SteamOS" ]; then
-
-
+if [ "$linuxID" == "SteamOS" ]; then
+    echo "installing EmuDeck"
+else
     zenityAvailable=$(command -v zenity &> /dev/null  && echo true)
 
     if [[ $zenityAvailable = true ]];then
@@ -57,32 +52,32 @@ elif [ $linuxID != "SteamOS" ]; then
 
     if command -v apt-get >/dev/null; then
         echo "Installing packages with apt..."
-        DEBIAN_DEPS="jq zenity flatpak unzip bash libfuse2 git rsync whiptail"
-		sandbox=" --no-sandbox"
+        DEBIAN_DEPS="jq zenity flatpak unzip bash libfuse2 git rsync whiptail python"
+
         sudo killall apt apt-get
         sudo apt-get -y update
         sudo apt-get -y install $DEBIAN_DEPS
     elif command -v pacman >/dev/null; then
         echo "Installing packages with pacman..."
-        ARCH_DEPS="steam jq zenity flatpak unzip bash fuse2 git rsync whiptail"
+        ARCH_DEPS="steam jq zenity flatpak unzip bash fuse2 git rsync whiptail python"
 
         sudo pacman --noconfirm -Syu
         sudo pacman --noconfirm -S $ARCH_DEPS
     elif command -v dnf >/dev/null; then
         echo "Installing packages with dnf..."
-        FEDORA_DEPS="jq zenity flatpak unzip bash fuse git rsync newt"
+        FEDORA_DEPS="jq zenity flatpak unzip bash fuse git rsync newt python"
 
         sudo dnf -y upgrade
         sudo dnf -y install $FEDORA_DEPS
     elif command -v zypper >/dev/null; then
         echo "Installing packages with zypper..."
-        SUSE_DEPS="steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail"
+        SUSE_DEPS="steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail python"
 
         sudo zypper --non-interactive up
         sudo zypper --non-interactive install $SUSE_DEPS
     elif command -v xbps-install >/dev/null; then
         echo "Installing packages with xbps..."
-        VOID_DEPS="steam jq zenity flatpak unzip bash fuse git rsync whiptail"
+        VOID_DEPS="steam jq zenity flatpak unzip bash fuse git rsync whiptail python"
 
         sudo xbps-install -Syu
         sudo xbps-install -Sy $VOID_DEPS

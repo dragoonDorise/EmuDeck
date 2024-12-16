@@ -144,15 +144,15 @@ cloud_sync_setup_providers(){
         token="${token//---/|||}"
         user=$(echo $token | cut -d "|" -f 1)
 
-        setSetting cs_user "cs_$user/"
+        setSetting cs_user "cs$user/"
 
         json='{"token":"'"$token"'"}'
 
-        password=$(curl --request POST --url "https://token.emudeck.com/create-cs.php" --header "Content-Type: application/json" -d "${json}" | jq -r .cloud_token)
-        host="cloud.emudeck.com"
-        port="22"
+        read -r cloud_key_id cloud_key < <(curl --request POST --url "https://token.emudeck.com/b2.php" \
+        --header "Content-Type: application/json" \
+        -d "${json}" | jq -r '[.cloud_key_id, .cloud_key] | @tsv')
 
-        "$cloud_sync_bin" config update "$cloud_sync_provider" host="$host" user="cs_$user" port="$port" pass="$password"
+        "$cloud_sync_bin" config update "$cloud_sync_provider"  key="$cloud_key" account="$cloud_key_id"
 
         "$cloud_sync_bin" mkdir "$cloud_sync_provider:"$cs_user"Emudeck/saves"
         cloud_sync_save_hash $savesPath
