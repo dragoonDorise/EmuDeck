@@ -2,25 +2,14 @@
 
 linuxID=$(lsb_release -si)
 sandbox=""
-if [ linuxID = "Ubuntu" ]; then
+
+if [ $linuxID = "Ubuntu" ]; then
     sandbox="--no-sandbox"
 fi
-#Python PIP for steamOS
-#if [ $linuxID == "SteamOS" ]; then
-#    python -m pip --version &> /dev/null || python -m ensurepip --upgrade
-#    python -m pip install --upgrade pip
-#    grep -qxF 'PATH="$HOME/.local/bin:$PATH"' ~/.bashrc || echo 'PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
-#    grep -qxF 'alias pip="pip3"' ~/.bashrc || echo 'alias pip="pip3"' >> ~/.bashrc
-#    PATH="$HOME/.local/bin:$PATH"
-#fi
 
-if [ $linuxID != "ChimeraOS" ]; then
-
-echo "installing EmuDeck"
-
-elif [ $linuxID != "SteamOS" ]; then
-
-
+if [ "$linuxID" == "SteamOS" ]; then
+    echo "installing EmuDeck"
+else
     zenityAvailable=$(command -v zenity &> /dev/null  && echo true)
 
     if [[ $zenityAvailable = true ]];then
