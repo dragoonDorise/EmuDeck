@@ -113,7 +113,7 @@ ShadPS4_install(){
     echo "Begin ShadPS4 Install"
     local showProgress=$1
 
-    if installEmuBI "$ShadPS4_emuName" "$(getReleaseURLGH "GreemDev/shadps4" "-linux_x64.tar.gz")" "" "tar.gz" "$showProgress"; then
+    if installEmuBI "$ShadPS4_emuName" "$(getReleaseURLGH "ShadPS4/shadps4" "-linux_x64.tar.gz")" "" "tar.gz" "$showProgress"; then
         mkdir -p "$HOME/Applications/publish"
         tar -xvf "$HOME/Applications/shadps4.tar.gz" -C "$HOME/Applications" && rm -rf "$HOME/Applications/shadps4.tar.gz"
         chmod +x "$HOME/Applications/publish/shadps4"
