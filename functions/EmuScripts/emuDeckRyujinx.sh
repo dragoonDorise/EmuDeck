@@ -49,7 +49,7 @@ Ryujinx_cleanup(){
 Ryujinx_install(){
     echo "Begin Ryujinx Install"
     local showProgress=$1
-    if installEmuBI "$Ryujinx_emuName" "$(getReleaseURLGH "GreemDev/Ryujinx" "-linux_x64.tar.gz")" "" "tar.gz" "$showProgress"; then
+    if installEmuBI "$Ryujinx_emuName" "$(getReleaseURLGH "ryujinx-mirror/ryujinx" "-linux_x64.tar.gz")" "" "tar.gz" "$showProgress"; then
         mkdir -p "$HOME/Applications/publish"
         tar -xvf "$HOME/Applications/Ryujinx.tar.gz" -C "$HOME/Applications" && rm -rf "$HOME/Applications/Ryujinx.tar.gz"
         chmod +x "$HOME/Applications/publish/Ryujinx"
