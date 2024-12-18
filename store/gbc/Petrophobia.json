@@ -1,0 +1,18 @@
+{
+  "system": "gbc",
+  "status": "true",
+  "logo": "logo_gbc",
+  "title": "Petrophobia",
+  "url": "https://orbistertius.itch.io/petrophobia",
+  "file": "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/gbc/petrophobia.zip",
+  "description": "A story-driven adventure game about colonialism and petroleum, loosely based on the short story 'The Mark of the Beast' by Rudyard Kipling, a passage from Thomas Pynchon's 'Against the Day', and the oil boom of the late 19th and early 20th centuries. TRIGGER WARNING: Themes of torture, racism, homophobia, and misogyny.",
+  "pictures": {
+    "screenshots": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gbc/screenshots/homebrew/Petrophobia.png?raw=true"
+    ],
+    "titlescreens": [
+      "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/gbc/titlescreens/homebrew/Petrophobia.png?raw=true"
+    ]
+  },
+  "tags": ["adventure"]
+}
