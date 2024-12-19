@@ -281,6 +281,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupCemu=true")
 	defaultSettingsList+=("doSetupXenia=false")
 	defaultSettingsList+=("doSetupRyujinx=true")
+	defaultSettingsList+=("doSetupShadPS4=false")
 	defaultSettingsList+=("doSetupMAME=true")
 	defaultSettingsList+=("doSetupPrimehack=true")
 	defaultSettingsList+=("doSetupPPSSPP=true")
