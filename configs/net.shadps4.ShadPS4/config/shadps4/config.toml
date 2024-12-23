@@ -1,0 +1,68 @@
+# ShadPS4 Settings/Config file
+
+[General]
+isPS4Pro = false
+Fullscreen = false
+playBGM = false
+BGMvolume = 50
+enableDiscordRPC = false
+logType = "async"       # Configures logging synchronization (sync/async)
+logFilter = ""          # Sets the logging category for various logging classes
+userName = "shadPS4"
+updateChannel = "Release"
+showSplash = false
+autoUpdate = false
+separateUpdateEnabled = false
+
+[Input]
+cursorState = 0  # HideCursorState::Idle
+cursorHideTimeout = 5
+backButtonBehavior = "left"
+useSpecialPad = false
+specialPadClass = 1
+
+[GPU]
+# Configures the game window width and height e.g. '800' for OLED Steameck (16:10 Aspect Ratio)
+screenWidth = 1280
+screenHeight = 720
+nullGpu = false         # Disables rendering
+copyGPUBuffers = false
+dumpShaders = false     # Dump shaders that are loaded by the emulator. Dump path: ../user/shader/dumps
+patchShaders = true
+vblankDivider = 1
+
+[Vulkan]
+gpuId = -1
+validation = false
+validation_sync = false
+validation_gpu = false
+rdocEnable = false      # Automatically hook RenderDoc when installed. Useful for debugging shaders and game rendering
+rdocMarkersEnable = false   # Enable automatic RenderDoc event annotation
+crashDiagnostic = false
+
+[Debug]
+DebugDump = false
+CollectShader = false
+
+[GUI]
+theme = 0
+iconSize = 36
+iconSizeGrid = 69
+sliderPos = 0
+sliderPosGrid = 0
+gameTableMode = 0
+mw_width = 1280
+mw_height = 720     # Need to set to '800' for OLED Deck (16:10 Aspect Ratio)
+geometry_x = 400
+geometry_y = 400
+geometry_w = 1280
+geometry_h = 720    # Need to set to '800' for OLED Deck (16:10 Aspect Ratio)
+installDirs = []
+addonInstallDir = ""
+pkgDirs = []
+elfDirs = []
+recentFiles = []
+emulatorLanguage = "en"
+
+[Settings]
+consoleLanguage = 1  # english

@@ -47,6 +47,7 @@ function jsonToBashVars(){
     setSetting doSetupCemu "$(jq .overwriteConfigEmus.cemu.status $json)"
     setSetting doSetupXenia "$(jq .overwriteConfigEmus.xenia.status $json)"
     setSetting doSetupRyujinx "$(jq .overwriteConfigEmus.ryujinx.status $json)"
+    setSetting doSetupShadPS4 "$(jq .overwriteConfigEmus.shadps4.status $json)"
     setSetting doSetupMAME "$(jq .overwriteConfigEmus.mame.status $json)"
     setSetting doSetupPrimeHack "$(jq .overwriteConfigEmus.primehack.status $json)"
     setSetting doSetupPPSSPP "$(jq .overwriteConfigEmus.ppsspp.status $json)"
