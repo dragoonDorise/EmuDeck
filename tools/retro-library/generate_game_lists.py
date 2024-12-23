@@ -2,7 +2,6 @@ import os
 import json
 import sys
 import re
-import hashlib
 import subprocess
 
 # Define the log file path
@@ -92,17 +91,6 @@ def generate_saves_list(saves_path):
         log_message(f"Saved states JSON written to {output_file}")
 
 def generate_game_lists(roms_path):
-    def calculate_hash(file_path):
-        """Calculate the MD5 hash of a file."""
-        hash_md5 = hashlib.md5()
-        try:
-            with open(file_path, "rb") as f:
-                for chunk in iter(lambda: f.read(4096), b""):
-                    hash_md5.update(chunk)
-            return hash_md5.hexdigest()
-        except Exception as e:
-            return None
-
     def collect_game_data(system_dir, extensions):
         game_data = []
         for root, _, files in os.walk(system_dir):
@@ -133,16 +121,14 @@ def generate_game_lists(roms_path):
                     name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
                     name_cleaned_pegasus = name.replace(',_', ',')
                     name_cleaned = name_cleaned.lower()
-                    # Calculate the ROM hash
-                    rom_hash = "000"
+
 
                     game_info = {
                         "name": name_cleaned,
                         "filename": file_path,
                         "file": name_cleaned,
                         "img": f"/customimages/retrolibrary/artwork/{platform}/media",
-                        "platform": platform,
-                        "hash": rom_hash
+                        "platform": platform
                     }
                     game_data.append(game_info)
         return sorted(game_data, key=lambda x: x['name'])
