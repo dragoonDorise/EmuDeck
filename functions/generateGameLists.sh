@@ -3,12 +3,12 @@
 MSG="$HOME/.config/EmuDeck/msg.log"
 
 generateGameLists_pythonEnv() {
-    if [ ! -d "$storagePath/retrolibrary/python_virtual_env" ]; then
-        python3 -m venv "$storagePath/retrolibrary/python_virtual_env"
-        source "$storagePath/retrolibrary/python_virtual_env/bin/activate"
+    if [ ! -d "$HOME/.config/EmuDeck/python_virtual_env" ]; then
+        python3 -m venv "$HOME/.config/EmuDeck/python_virtual_env"
+        source "$HOME/.config/EmuDeck/python_virtual_env/bin/activate"
         pip install requests
     else
-        source "$storagePath/retrolibrary/python_virtual_env/bin/activate"
+        source "$HOME/.config/EmuDeck/python_virtual_env/bin/activate"
     fi
 }
 
