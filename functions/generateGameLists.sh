@@ -7,9 +7,10 @@ generateGameLists() {
     local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/"
     echo "Starting to build database" > "$MSG"
     mkdir -p "$storagePath/retrolibrary/artwork"
-    mkdir -p "$accountfolder/config/grid/retrolibrary/"
-    ln -s "$storagePath/retrolibrary/artwork/" "$accountfolder/config/grid/retrolibrary/artwork"
-    ln -s "$storagePath/retrolibrary/cache/" "$accountfolder/config/grid/retrolibrary/cache"
+    mkdir -p "$accountfolder/config/grid/retrolibrary/cache"
+
+    ln -sf "$storagePath/retrolibrary/artwork" "$accountfolder/config/grid/retrolibrary/artwork"
+    ln -sf "$storagePath/retrolibrary/cache" "$accountfolder/config/grid/retrolibrary/cache"
 
     generateGameLists_downloadAchievements
     generateGameLists_downloadData
