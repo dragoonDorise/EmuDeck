@@ -57,12 +57,11 @@ generateGameLists_artwork() {
     echo "Searching for missing artwork" > "$MSG"
     python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork_platforms.py "$romsPath" "$storagePath/retrolibrary/artwork" && python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art_platforms.py "$storagePath/retrolibrary/artwork"
 
-    #$(python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$dest_folder" && python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art.py "$dest_folder") &
+    $(python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$storagePath/retrolibrary/artwork" && python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art.py "$storagePath/retrolibrary/artwork") &
     echo "Artwork finished. Restart if you see this message" > "$MSG"
 }
 
 saveImage(){
-    generateGameLists_pythonEnv &> /dev/null
     local url=$1
     local name=$2
     local system=$3
@@ -73,7 +72,6 @@ saveImage(){
 }
 
 function addGameListsArtwork() {
-    generateGameLists_pythonEnv &> /dev/null
     local file="$1"
     local appID="$2"
     local platform="$3"
@@ -124,7 +122,6 @@ generateGameLists_getPercentage() {
 }
 
 generateGameLists_extraArtwork() {
-    generateGameLists_pythonEnv &> /dev/null
     local game=$1
     local platform=$2
     local hash=$3
@@ -154,7 +151,6 @@ generateGameLists_retroAchievements(){
 }
 
 generateGameLists_downloadAchievements(){
-    generateGameLists_pythonEnv &> /dev/null
     local folder="$storagePath/retrolibrary/achievements"
     if [ ! -d $folder ]; then
         echo "Downloading Retroachievements Data" > "$MSG"
@@ -167,7 +163,6 @@ generateGameLists_downloadAchievements(){
 }
 
 generateGameLists_downloadData(){
-    generateGameLists_pythonEnv &> /dev/null
     local folder="$storagePath/retrolibrary/data"
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     ln -s "$folder" "$accountfolder/config/grid/retrolibrary/data"
