@@ -48,6 +48,7 @@ storage_path = os.path.expandvars(settings["storagePath"])
 
 # Function to write messages to the log file
 def log_message(message):
+    print(message)
     with open(msg_file, "w") as log_file:  # "a" to append messages without overwriting
         log_file.write(message + "\n")
 
@@ -56,10 +57,11 @@ def generate_game_lists(roms_path, images_path):
         hash_md5 = hashlib.md5()
         try:
             with open(file_path, "rb") as f:
-                for chunk in iter(lambda: f.read(4096), b""):
-                    hash_md5.update(chunk)
+                # Mapea el archivo completo a memoria
+                with mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ) as mm:
+                    hash_md5.update(mm)
             return hash_md5.hexdigest()
-        except Exception as e:
+        except Exception:
             return None
 
     def collect_game_data(system_dir, extensions):
