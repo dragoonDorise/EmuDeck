@@ -54,16 +54,16 @@ def log_message(message):
 
 def generate_game_lists(roms_path, images_path):
     def calculate_hash(file_path):
+        import hashlib
         hash_md5 = hashlib.md5()
         try:
             with open(file_path, "rb") as f:
-                # Mapea el archivo completo a memoria
-                with mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ) as mm:
-                    hash_md5.update(mm)
+                for chunk in iter(lambda: f.read(65536), b""):  # 64 KB chunks
+                    hash_md5.update(chunk)
+            print(hash_md5.hexdigest())
             return hash_md5.hexdigest()
         except Exception:
-            return None
-
+          return None
     def collect_game_data(system_dir, extensions):
         game_data = []
         for root, _, files in os.walk(system_dir):
