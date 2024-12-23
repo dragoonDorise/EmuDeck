@@ -40,6 +40,8 @@ def getSettings():
 
     return configuration
 
+settings = getSettings()
+storage_path = os.path.expandvars(settings["storagePath"])
 
 # Función para escribir en el archivo de log
 def log_message(message):
