@@ -22,7 +22,7 @@ generateGameLists() {
 
     pegasus_setPaths
     rsync -r --exclude='roms' --exclude='txt' "$EMUDECKGIT/roms/" "$storagePath/retrolibrary/artwork" --keep-dirlinks
-    mkdir -p "$HOME/emudeck/cache/"
+    mkdir -p "$storagePath/retrolibrary/cache/"
     echo "Database built" > "$MSG"
     python $HOME/.config/EmuDeck/backend/tools/retro-library/generate_game_lists.py "$romsPath"
 }
@@ -31,7 +31,7 @@ generateGameListsJson() {
     echo "Adding Games" > "$MSG"
     #python $HOME/.config/EmuDeck/backend/tools/retro-library/generate_game_lists.py "$romsPath"
     echo "Games Added" > "$MSG"
-    #cat $HOME/emudeck/cache/roms_games.json
+    #cat $storagePath/retrolibrary/cache/roms_games.json
     #generateGameLists_artwork $userid &> /dev/null &
     generateGameLists_artwork &> /dev/null &
 
@@ -116,10 +116,10 @@ generateGameLists_extraArtwork() {
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local dest_folder="$storagePath/retrolibrary/artwork"
 
-    wget -q -O "$HOME/emudeck/cache/response.json" "https://bot.emudeck.com/steamdb_extra.php?name=$game&hash=$hash"
+    wget -q -O "$storagePath/retrolibrary/cache/response.json" "https://bot.emudeck.com/steamdb_extra.php?name=$game&hash=$hash"
 
-    game_name=$(jq -r '.name' "$HOME/emudeck/cache/response.json")
-    game_img_url=$(jq -r '.grid' "$HOME/emudeck/cache/response.json")
+    game_name=$(jq -r '.name' "$storagePath/retrolibrary/cache/response.json")
+    game_img_url=$(jq -r '.grid' "$storagePath/retrolibrary/cache/response.json")
     dest_path="$dest_folder/$platform/$game.grid.temp"
 
     if [ "$game_img_url" != "null" ]; then
