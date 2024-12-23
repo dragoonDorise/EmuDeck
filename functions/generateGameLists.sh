@@ -21,14 +21,10 @@ generateGameLists() {
     echo "Starting to build database" > "$MSG"
     mkdir -p "$storagePath/retrolibrary/artwork"
     mkdir -p "$storagePath/retrolibrary/cache"
-    mkdir -p "$storagePath/retrolibrary/data"
-    mkdir -p "$storagePath/retrolibrary/achievements"
     mkdir -p "$accountfolder/config/grid/retrolibrary/"
 
     ln -sf "$storagePath/retrolibrary/artwork" "$accountfolder/config/grid/retrolibrary/artwork"
     ln -sf "$storagePath/retrolibrary/cache" "$accountfolder/config/grid/retrolibrary/cache"
-    ln -sf "$storagePath/retrolibrary/data" "$accountfolder/config/grid/retrolibrary/data"
-    ln -sf "$storagePath/retrolibrary/achievements" "$accountfolder/config/grid/retrolibrary/achievements"
 
     generateGameLists_downloadAchievements
     generateGameLists_downloadData
@@ -163,6 +159,7 @@ generateGameLists_downloadAchievements(){
     if [ ! -d $folder ]; then
         echo "Downloading Retroachievements Data" > "$MSG"
         mkdir -p $folder
+        ln -sf "$storagePath/retrolibrary/achievements" "$accountfolder/config/grid/retrolibrary/achievements"
         wget -q -O "$folder/achievements.zip" "https://bot.emudeck.com/achievements/achievements.zip"
         cd "$folder" && unzip -o achievements.zip && rm achievements.zip
         echo "Retroachievements Data Downloaded" > "$MSG"
@@ -177,6 +174,7 @@ generateGameLists_downloadData(){
     if [ ! -d $folder ]; then
         echo "Downloading Metada" > "$MSG"
         mkdir -p $folder
+        ln -sf "$storagePath/retrolibrary/data" "$accountfolder/config/grid/retrolibrary/data"
         wget -q -O "$folder/data.zip" "https://bot.emudeck.com/data/data.zip"
         cd $folder && unzip -o data.zip && rm data.zip
         echo "Metada Downloaded" > "$MSG"
