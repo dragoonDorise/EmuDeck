@@ -14,6 +14,7 @@ doSetupDuck=true
 doSetupCemu=true
 doSetupXenia=false
 doSetupRyujinx=true
+doSetupShadPS4=false
 doSetupMAME=true
 doSetupPrimehack=true
 doSetupPPSSPP=true

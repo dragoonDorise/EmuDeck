@@ -515,6 +515,16 @@ fi
 		rm -rf $HOME/Applications/publish &> /dev/null
 		rm -rf $HOME/.local/share/applications/Ryujinx.desktop &> /dev/null
 	fi
+	if [[ "$doUninstallShadPS4" == true ]]; then
+		# Flatpak
+		flatpak uninstall net.shadps4.ShadPS4 -y
+		rm -rf $HOME/.var/app/net.shadps4.ShadPS4 &> /dev/null
+		# AppImage
+		rm -rf "$HOME/.config/shadps4" &> /dev/null
+		rm -rf "$HOME/.cache/shadps4" &> /dev/null
+		rm -rf $HOME/.local/share/applications/ShadPS4.desktop &> /dev/null
+		rm -rf $HOME/Applications/shadps4.AppImage &> /dev/null
+	fi
 	if [[ "$doUninstallScummVM" == true ]]; then
 		flatpak uninstall org.scummvm.ScummVM -y
 		rm -rf $HOME/.var/app/org.scummvm.ScummVM &> /dev/null
