@@ -2,8 +2,8 @@ import os
 import json
 import sys
 import re
-import hashlib
 import subprocess
+import hashlib
 
 # Define the log file path
 home_dir = os.environ.get("HOME")
@@ -45,10 +45,8 @@ def getSettings():
 settings = getSettings()
 storage_path = os.path.expandvars(settings["storagePath"])
 
-
 # Function to write messages to the log file
 def log_message(message):
-    print(message)
     with open(msg_file, "w") as log_file:  # "a" to append messages without overwriting
         log_file.write(message + "\n")
 
@@ -60,10 +58,11 @@ def generate_game_lists(roms_path, images_path):
             with open(file_path, "rb") as f:
                 for chunk in iter(lambda: f.read(65536), b""):  # 64 KB chunks
                     hash_md5.update(chunk)
-            print(hash_md5.hexdigest())
+            print(file_path , hash_md5.hexdigest())
             return hash_md5.hexdigest()
         except Exception:
-          return None
+            return None
+
     def collect_game_data(system_dir, extensions):
         game_data = []
         for root, _, files in os.walk(system_dir):
@@ -76,11 +75,10 @@ def generate_game_lists(roms_path, images_path):
                 extension = filename.split('.')[-1]
                 name = '.'.join(filename.split('.')[:-1])
                 if extension in extensions:
-                    # Custom logic for specific systems
+                    # Special cases for WiiU and PS3
                     if "wiiu" in system_dir:
                         parts = root.split(os.sep)
                         name = parts[-2] if len(parts) >= 2 else name
-
                     if "ps3" in system_dir:
                         parts = root.split(os.sep)
                         name = parts[-3] if len(parts) >= 3 else name
@@ -93,6 +91,7 @@ def generate_game_lists(roms_path, images_path):
                     name_cleaned = name_cleaned.strip().replace(' ', '_').replace('-', '_')
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
                     name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
+                    name_cleaned_pegasus = name.replace(',_', ',')
                     name_cleaned = name_cleaned.lower()
                     rom_hash = calculate_hash(file_path)
 
@@ -100,6 +99,8 @@ def generate_game_lists(roms_path, images_path):
                     for img_type, ext in [("box2dfront", ".jpg"), ("wheel", ".png"), ("screenshot", ".jpg")]:
                         img_path = os.path.join(images_path, f"{platform}/media/{img_type}/{name_cleaned}{ext}")
                         if not os.path.exists(img_path):
+                            log_message(f"Missing image: {img_path}")
+
                             game_info = {
                                 "name": name_cleaned,
                                 "platform": platform,
@@ -108,16 +109,16 @@ def generate_game_lists(roms_path, images_path):
                             }
                             game_data.append(game_info)
 
-        game_data_sorted = sorted(game_data, key=lambda x: x['name'])
-        return game_data_sorted
+        return sorted(game_data, key=lambda x: x['name'])
 
     roms_dir = roms_path
     valid_system_dirs = []
 
-    # Validate system directories
     for system_dir in os.listdir(roms_dir):
         if system_dir == "xbox360":
             system_dir = "xbox360/roms"
+        if system_dir == "model2":
+            system_dir = "model2/roms"
         full_path = os.path.join(roms_dir, system_dir)
         if os.path.isdir(full_path) and not os.path.islink(full_path) and os.path.isfile(os.path.join(full_path, 'metadata.txt')):
             file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])
@@ -127,7 +128,6 @@ def generate_game_lists(roms_path, images_path):
 
     game_list = []
 
-    # Process each system directory
     for system_dir in valid_system_dirs:
         if any(x in system_dir for x in ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop"]):
             log_message(f"MA: Skipping directory: {system_dir}")
@@ -135,25 +135,34 @@ def generate_game_lists(roms_path, images_path):
 
         with open(os.path.join(system_dir, 'metadata.txt')) as f:
             metadata = f.read()
+        collection = next((line.split(':')[1].strip() for line in metadata.splitlines() if line.startswith('collection:')), '')
+        shortname = next((line.split(':')[1].strip() for line in metadata.splitlines() if line.startswith('shortname:')), '')
+        launcher = next((line.split(':', 1)[1].strip() for line in metadata.splitlines() if line.startswith('launch:')), '').replace('"', '\\"')
         extensions = next((line.split(':')[1].strip().replace(',', ' ') for line in metadata.splitlines() if line.startswith('extensions:')), '').split()
 
         games = collect_game_data(system_dir, extensions)
         if games:
-            game_list.extend(games)
-            log_message(f"MA: Found {len(games)} missing artwork from {system_dir}")
+            system_info = {
+                "title": collection,
+                "id": shortname,
+                "launcher": launcher,
+                "games": games
+            }
+            game_list.append(system_info)
+            log_message(f"MA: Detected {len(games)} games from {system_dir}")
 
-    # Save the JSON output
-    json_output = json.dumps(game_list, indent=4)
-    home_directory = os.path.expanduser("~")
+    json_output = json.dumps(sorted(game_list, key=lambda x: x['title']), indent=4)
+
     output_file = os.path.join(storage_path, "retrolibrary/cache/missing_artwork.json")
+
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, 'w') as f:
         f.write(json_output)
+        #print(json_output)
 
-# Read ROMs and images paths from command-line arguments
 roms_path = sys.argv[1]
 images_path = sys.argv[2]
 
-log_message("MA: Missing artwork list generation in process...")
+log_message("MA: Missing artwork list generation in progress...")
 generate_game_lists(roms_path, images_path)
 log_message("MA: Missing artwork list process completed.")
