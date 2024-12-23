@@ -134,15 +134,14 @@ def generate_game_lists(roms_path):
                     name_cleaned_pegasus = name.replace(',_', ',')
                     name_cleaned = name_cleaned.lower()
                     # Calculate the ROM hash
-                    rom_hash = calculate_hash(file_path)
+                    #rom_hash = calculate_hash(file_path)
 
                     game_info = {
                         "name": name_cleaned,
                         "filename": file_path,
                         "file": name_cleaned,
                         "img": f"/customimages/retrolibrary/artwork/{platform}/media",
-                        "platform": platform,
-                        "hash": rom_hash
+                        "platform": platform
                     }
                     game_data.append(game_info)
         return sorted(game_data, key=lambda x: x['name'])
