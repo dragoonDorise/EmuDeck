@@ -291,6 +291,11 @@ if [ "$doInstallModel2" == "true" ]; then
 	Model2_install
 fi
 
+if [ "$doInstallShadPS4" == "true" ]; then
+	echo "ShadPS4_install"
+	ShadPS4_install
+fi
+
 #Steam RomManager Config
 
 if [ "$doSetupSRM" == "true" ]; then
