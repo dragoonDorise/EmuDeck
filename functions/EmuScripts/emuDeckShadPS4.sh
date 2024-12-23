@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Credits: https://github.com/Aeonitis
 # Script to install, initialize and configure ShadPS4 on EmuDeck
 # Note: No Bios/Keys symlinks necessary
 
@@ -18,10 +19,10 @@ ShadPS4_emuName="ShadPS4"
 ShadPS4_emuType="$emuDeckEmuTypeBinary"
 ShadPS4_emuPath="$HOME/Applications/publish"
 ShadPS4_configFile="$HOME/.config/shadps4/config.toml"
-userDir="$HOME/.config/shadps4/user"
-sysDir="$HOME/.config/shadps4/system"
-inputConfigDir="$HOME/.config/shadps4/inputConfig"
-controllerFile="${inputConfigDir}/default.ini"
+ShadPS4_userDir="$HOME/.config/shadps4/user"
+ShadPS4_sysDir="$HOME/.config/shadps4/system"
+ShadPS4_inputConfigDir="$HOME/.config/shadps4/inputConfig"
+ShadPS4_controllerFile="${ShadPS4_inputConfigDir}/default.ini"
 
 migrationFlag="$HOME/.config/EmuDeck/.${ShadPS4_emuName}MigrationCompleted"
 
@@ -172,22 +173,22 @@ ShadPS4_setEmulationFolder(){
     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$ShadPS4_configFile"
 
     # https://github.com/shadps4-emu/shadPS4/blob/3f1061de5613c0c4a74d6394a6493491280bc03f/src/common/path_util.h
-    mkdir -p "${userDir}/screenshots/"
-    mkdir -p "${userDir}/shader/"
-    mkdir -p "${userDir}/savedata/"
-    mkdir -p "${userDir}/data/"
-    mkdir -p "${userDir}/temp/"
-    mkdir -p "${userDir}/sys_modules/"
-    mkdir -p "${userDir}/download/"
-    mkdir -p "${userDir}/captures/"
-    mkdir -p "${userDir}/cheats/"
-    mkdir -p "${userDir}/patches/"
-    mkdir -p "${userDir}/game_data/"
+    mkdir -p "${ShadPS4_userDir}/screenshots/"
+    mkdir -p "${ShadPS4_userDir}/shader/"
+    mkdir -p "${ShadPS4_userDir}/savedata/"
+    mkdir -p "${ShadPS4_userDir}/data/"
+    mkdir -p "${ShadPS4_userDir}/temp/"
+    mkdir -p "${ShadPS4_userDir}/sys_modules/"
+    mkdir -p "${ShadPS4_userDir}/download/"
+    mkdir -p "${ShadPS4_userDir}/captures/"
+    mkdir -p "${ShadPS4_userDir}/cheats/"
+    mkdir -p "${ShadPS4_userDir}/patches/"
+    mkdir -p "${ShadPS4_userDir}/game_data/"
 
     # https://github.com/shadps4-emu/shadPS4/blob/main/documents/Debugging/Debugging.md#quick-analysis
-    mkdir -p "${userDir}/log/"
+    mkdir -p "${ShadPS4_userDir}/log/"
 
-    mkdir -p "${inputConfigDir}"
+    mkdir -p "${ShadPS4_inputConfigDir}"
 
     echo "ShadPS4 Path Config Completed"
 }
@@ -241,10 +242,10 @@ ShadPS4_setupSaves(){
     echo "Begin ShadPS4 save link"
 
     # Create symbolic links
-    linkToSaveFolder ShadPS4 saves "${userDir}/savedata"
-    linkToSaveFolder ShadPS4 saveMeta "${userDir}/saveMeta"
-    linkToSaveFolder ShadPS4 system "${sysDir}"
-    linkToSaveFolder ShadPS4 system_saves "${sysDir}/save"
+    linkToSaveFolder ShadPS4 saves "${ShadPS4_userDir}/savedata"
+    linkToSaveFolder ShadPS4 saveMeta "${ShadPS4_userDir}/saveMeta"
+    linkToSaveFolder ShadPS4 system "${ShadPS4_sysDir}"
+    linkToSaveFolder ShadPS4 system_saves "${ShadPS4_sysDir}/save"
 
     echo "ShadPS4 save link completed"
 }
