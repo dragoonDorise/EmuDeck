@@ -2,7 +2,20 @@
 
 MSG="$HOME/.config/EmuDeck/msg.log"
 
+generateGameLists_pythonEnv() {
+    if [ ! -d "$storagePath/retrolibrary/python_virtual_env" ]; then
+        python3 -m venv "$storagePath/retrolibrary/python_virtual_env"
+        source "$storagePath/retrolibrary/python_virtual_env/bin/activate"
+        pip install requests
+    else
+        source "$storagePath/retrolibrary/python_virtual_env/bin/activate"
+    fi
+}
+
 generateGameLists() {
+
+    generateGameLists_pythonEnv
+
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/"
     echo "Starting to build database" > "$MSG"
@@ -28,6 +41,7 @@ generateGameLists() {
 }
 
 generateGameListsJson() {
+    generateGameLists_pythonEnv
     echo "Adding Games" > "$MSG"
     #python $HOME/.config/EmuDeck/backend/tools/retro-library/generate_game_lists.py "$romsPath"
     echo "Games Added" > "$MSG"
