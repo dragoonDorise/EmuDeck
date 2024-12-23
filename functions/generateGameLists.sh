@@ -42,14 +42,12 @@ generateGameLists() {
 }
 
 generateGameListsJson() {
-    generateGameLists_pythonEnv
     echo "Adding Games" > "$MSG"
     #python $HOME/.config/EmuDeck/backend/tools/retro-library/generate_game_lists.py "$romsPath"
     echo "Games Added" > "$MSG"
     cat $storagePath/retrolibrary/cache/roms_games.json
     #generateGameLists_artwork $userid &> /dev/null &
     #generateGameLists_artwork &> /dev/null &
-
 }
 
 generateGameLists_importESDE() {
