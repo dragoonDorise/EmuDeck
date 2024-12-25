@@ -429,26 +429,30 @@ function getReleaseURLGH(){
 }
 
 function linkToSaveFolder(){
-	local emu=$1 # /saves/$emu/
-	local folderName=$2 # states or saves
-	local path=$3 # original location
+	local emu=$1
+	local folderName=$2
+	local path=$3
 
-	mkdir -p "$path"
-
-	# Es el path un simlink?
-	if [ ! -L "$path" ]; then
-		#We delete the old symlink and move the saves
-		if [ -L "$savesPath/$emu/$folderName" ]; then
+	if [ ! -d "$savesPath/$emu/$folderName" ]; then
+		if [ ! -L "$savesPath/$emu/$folderName" ]; then
+			mkdir -p "$savesPath/$emu"
 			setMSG "Linking $emu $folderName to the Emulation/saves folder"
-			rm -rf "$savesPath/$emu/$folderName"
-			mv "$path" "$savesPath/$emu/$folderName"
-			ln -snv "$savesPath/$emu/$folderName" "$path"
+			mkdir -p "$path"
+			ln -snv "$path" "$savesPath/$emu/$folderName"
 		fi
 	else
-		setMSG "Rebuilding Link $emu $folderName to the Emulation/saves folder"
-		mkdir -p "$savesPath/$emu/$folderName"
-		unlink "$savesPath/$emu/$folderName"
-		ln -snv "$savesPath/$emu/$folderName" "$path"
+		if [ ! -L "$savesPath/$emu/$folderName" ]; then
+			echo "$savesPath/$emu/$folderName is not a link. Please check it."
+		else
+			if [ $(readlink $savesPath/$emu/$folderName) == $path ]; then
+				echo "$savesPath/$emu/$folderName is already linked."
+				echo "     Target: $(readlink $savesPath/$emu/$folderName)"
+			else
+				echo "$savesPath/$emu/$folderName not linked correctly."
+				unlink "$savesPath/$emu/$folderName"
+				linkToSaveFolder "$emu" "$folderName" "$path"
+			fi
+		 fi
 	fi
 
 }
