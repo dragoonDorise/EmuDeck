@@ -9220,7 +9220,7 @@
         "configTitle": "Sony PlayStation 4 - ShadPS4 (Installed PKG)",
         "steamDirectory": "${steamdirglobal}",
         "romDirectory": "/run/media/mmcblk0p1/Emulation/storage/shadps4/games",
-        "executableArgs": "--g \"'${filePath}'\"",
+        "executableArgs": "-g \"'${filePath}'\"",
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
@@ -9230,7 +9230,7 @@
         ],
         "onlineImageQueries": "${${fuzzyTitle}}",
         "imagePool": "${fuzzyTitle}",
-        "disabled": false,
+        "disabled": true,
         "userAccounts": {
             "specifiedAccounts": [
                 "Global"
@@ -9252,7 +9252,7 @@
             "appendArgsToExecutable": true
         },
         "parserInputs": {
-            "glob-regex": "${/(^[NP].+)/}/@(eboot.bin|EBOOT.BIN)"
+            "glob-regex": "${/(^.+)/}/@(eboot.bin|EBOOT.BIN)"
         },
         "titleFromVariable": {
             "limitToGroups": "${PS4}",

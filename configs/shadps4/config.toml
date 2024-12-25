@@ -1,7 +1,7 @@
 [General]
 logType = "async"
 separateUpdateEnabled = false
-showSplash = true
+showSplash = false
 Fullscreen = true
 checkCompatibilityOnStartup = false
 updateChannel = "Nightly"
