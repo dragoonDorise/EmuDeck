@@ -17,8 +17,8 @@
 ShadPS4_emuName="ShadPS4"
 ShadPS4_emuType="$emuDeckEmuTypeAppImage"
 ShadPS4_emuPath="$HOME/Applications"
-ShadPS4_configFile="$HOME/.config/shadps4/config.toml"
-ShadPS4_dir="$HOME/.config/shadps4/user"
+ShadPS4_dir="$HOME/.local/share/shadPS4"
+ShadPS4_configFile="$ShadPS4_dir/config.toml"
 
 
 # Language keys using [ISO 639-1: Language codes] & [ISO 3166-1 alpha-2: Country codes]
@@ -156,14 +156,14 @@ ShadPS4_setupSaves(){
 #SetupStorage
 ShadPS4_setupStorage(){
     echo "Begin ShadPS4 storage config"
-    mkdir - "$storagePath/shadps4/games"
-    mkdir - "$storagePath/shadps4/dlc"
+    mkdir -p "$storagePath/shadps4/games"
+    mkdir -p "$storagePath/shadps4/dlc"
 }
 
 #WipeSettings
 ShadPS4_wipe(){
     echo "Begin ShadPS4 delete config directories"
-    rm -rf "$HOME/.config/shadps4"
+    rm -rf "$ShadPS4_dir"
 }
 
 #Uninstall
