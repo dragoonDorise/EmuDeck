@@ -142,7 +142,7 @@ ShadPS4_setLanguage(){
     setMSG "Setting ShadPS4 Language"
     local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
     #TODO: call this somewhere, and input the $language from somewhere (args?)
-    changeLine "emulatorLanguage = " "emulatorLanguage = ${language}" $ShadPS4_configFile
+    changeLine "emulatorLanguage = " "emulatorLanguage = \"${language}\"" $ShadPS4_configFile
     echo "ShadPS4 language '${emulatorLanguage}' configuration completed."
 }
 
