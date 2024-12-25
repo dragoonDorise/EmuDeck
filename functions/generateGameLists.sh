@@ -2,19 +2,9 @@
 
 MSG="$HOME/.config/EmuDeck/msg.log"
 
-generateGameLists_pythonEnv() {
-    if [ ! -d "$HOME/.config/EmuDeck/python_virtual_env" ]; then
-        python3 -m venv "$HOME/.config/EmuDeck/python_virtual_env"
-        source "$HOME/.config/EmuDeck/python_virtual_env/bin/activate"
-        pip install requests
-    else
-        source "$HOME/.config/EmuDeck/python_virtual_env/bin/activate"
-    fi
-}
-
 generateGameLists() {
 
-    generateGameLists_pythonEnv &> /dev/null
+    generate_pythonEnv &> /dev/null
 
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/"
@@ -38,7 +28,7 @@ generateGameLists() {
 }
 
 generateGameListsJson() {
-    generateGameLists_pythonEnv &> /dev/null
+    generate_pythonEnv &> /dev/null
     echo "Adding Games" > "$MSG"
     #python $HOME/.config/EmuDeck/backend/tools/retro-library/generate_game_lists.py "$romsPath"
     echo "Games Added" > "$MSG"
@@ -48,12 +38,12 @@ generateGameListsJson() {
 }
 
 generateGameLists_importESDE() {
-    generateGameLists_pythonEnv &> /dev/null
+    generate_pythonEnv &> /dev/null
     python $HOME/.config/EmuDeck/backend/tools/retro-library/import_media.py "$romsPath" "$dest_folder"
 }
 
 generateGameLists_artwork() {
-    generateGameLists_pythonEnv &> /dev/null
+    generate_pythonEnv &> /dev/null
     echo "Searching for missing artwork" > "$MSG"
     python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork_platforms.py "$romsPath" "$storagePath/retrolibrary/artwork" && python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art_platforms.py "$storagePath/retrolibrary/artwork"
 
@@ -97,7 +87,7 @@ function addGameListsArtwork() {
 }
 
 generateGameLists_getPercentage() {
-    generateGameLists_pythonEnv &> /dev/null
+    generate_pythonEnv &> /dev/null
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local dest_folder="$storagePath/retrolibrary/artwork/"
 
@@ -143,7 +133,7 @@ generateGameLists_extraArtwork() {
 }
 
 generateGameLists_retroAchievements(){
-    generateGameLists_pythonEnv &> /dev/null
+    generate_pythonEnv &> /dev/null
     local hash=$1
     local system=$2
     local localDataPath="$storagePath/retrolibrary/achievements/$system.json"

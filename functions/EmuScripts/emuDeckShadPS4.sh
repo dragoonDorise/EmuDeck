@@ -16,15 +16,14 @@
 
 # Variables
 ShadPS4_emuName="ShadPS4"
-ShadPS4_emuType="$emuDeckEmuTypeBinary"
-ShadPS4_emuPath="$HOME/Applications/publish"
+ShadPS4_emuType="$emuDeckEmuTypeAppImage"
+ShadPS4_emuPath="$HOME/Applications"
 ShadPS4_configFile="$HOME/.config/shadps4/config.toml"
 ShadPS4_userDir="$HOME/.config/shadps4/user"
 ShadPS4_sysDir="$HOME/.config/shadps4/system"
 ShadPS4_inputConfigDir="$HOME/.config/shadps4/inputConfig"
 ShadPS4_controllerFile="${ShadPS4_inputConfigDir}/default.ini"
 
-migrationFlag="$HOME/.config/EmuDeck/.${ShadPS4_emuName}MigrationCompleted"
 
 # Language keys using [ISO 639-1: Language codes] & [ISO 3166-1 alpha-2: Country codes]
 # NOTE: Keep in sync with https://github.com/shadps4-emu/shadPS4/tree/main/src/qt_gui/translations
@@ -111,31 +110,17 @@ ShadPS4_cleanup(){
 
 # TODO: Install Flatpak from https://github.com/shadps4-emu/shadPS4-flatpak
 ShadPS4_install(){
-    echo "Begin ShadPS4 Install"
-    local showProgress=$1
+  echo "Begin ShadPS4 Install"
+  local showProgress=$1
 
-    if installEmuBI "$ShadPS4_emuName" "$(getReleaseURLGH "ShadPS4/shadps4" "-linux_x64.tar.gz")" "" "tar.gz" "$showProgress"; then
-        mkdir -p "$HOME/Applications/publish"
-        tar -xvf "$HOME/Applications/shadps4.tar.gz" -C "$HOME/Applications" && rm -rf "$HOME/Applications/shadps4.tar.gz"
-        chmod +x "$HOME/Applications/publish/shadps4"
-    else
-        return 1
-    fi
-
-    # Flatpak install
-    echo "Installing ShadPS4 via Flatpak..."
-    flatpak install flathub net.shadps4.shadPS4 -y --user
-
-    # Move Flatpak installed files to the desired location
-    mkdir -p "$HOME/Applications/publish"
-    rsync -av "$HOME/.local/share/flatpak/app/net.shadps4.shadPS4/x86_64/stable/active/files/bin/" "$HOME/Applications/publish/" && flatpak uninstall flathub net.shadps4.shadPS4 -y --user
-
-    # Clean up old games directory if it exists
-    rm -rf "$HOME/.config/shadps4/games"
-
-    # Set executable permission
-    chmod +x "$HOME/Applications/publish/shadps4"
+  if installEmuAI "$ShadPS4_emuName" "" "$(getReleaseURLGH "shadps4-emu/shadPS4" "zip" "linux-qt")" "" "zip" "emulator" "$showProgress"; then # Cemu.AppImage
+    unzip -o "$HOME/Applications/ShadPS4.zip" -d "$ShadPS4_emuPath" && rm -rf "$HOME/Applications/ShadPS4.zip"
+    chmod +x "$ShadPS4_emuPath/publish/Shadps4.AppImage"
+  else
+    return 1
+  fi
 }
+
 
 ShadPS4_init(){
 	configEmuAI "$ShadPS4_emuName" "config" "$HOME/.config/shadps4" "$EMUDECKGIT/configs/shadps4" "true"
@@ -191,19 +176,6 @@ ShadPS4_setEmulationFolder(){
     mkdir -p "${ShadPS4_inputConfigDir}"
 
     echo "ShadPS4 Path Config Completed"
-}
-
-# Reusable Function to read value from the config.toml file
-read_config_toml() {
-    local key="$1"
-    local configFile="$2"
-    echo "Reading arguments - key '$key' from config file: '$configFile'..."
-
-    local value
-    value=$(jq -r "$key" "$configFile")
-
-    echo "Extracted value: $value"
-    echo "$value"
 }
 
 ShadPS4_setLanguage(){
@@ -274,46 +246,6 @@ ShadPS4_uninstall(){
     uninstallGeneric $ShadPS4_emuName $ShadPS4_emuPath "" "emulator"
 }
 
-# Migrate flatpak to appimage??
-ShadPS4_migrate(){
-	echo "Begin ShadPS4 Migration"
-
-	# Migration
-	if [ "$(ShadPS4_IsMigrated)" != "true" ]; then
-		#ShadPS4 flatpak to appimage
-		#From -- > to
-		migrationTable=()
-		migrationTable+=("$HOME/.var/app/net.shadps4.ShadPS4/config/shadps4" "$HOME/.config/shadps4")
-
-		migrateAndLinkConfig "$ShadPS4_emuName" "$migrationTable"
-	fi
-
-	echo "true"
-}
-
-ShadPS4_IsMigrated(){
-	if [ -f "$migrationFlag" ]; then
-		echo "true"
-	else
-		echo "false"
-	fi
-}
-
-#setABXYstyle
-ShadPS4_setABXYstyle(){
-    sed -i 's/"button_x": "Y",/"button_x": "X",/' $ShadPS4_configFile
-    sed -i 's/"button_b": "A",/"button_b": "B",/' $ShadPS4_configFile
-    sed -i 's/"button_y": "X",/"button_y": "Y",/' $ShadPS4_configFile
-    sed -i 's/"button_a": "B"/"button_a": "A"/' $ShadPS4_configFile
-
-}
-ShadPS4_setBAYXstyle(){
-    sed -i 's/"button_x": "X",/"button_x": "Y",/' $ShadPS4_configFile
-    sed -i 's/"button_b": "B",/"button_b": "A",/' $ShadPS4_configFile
-    sed -i 's/"button_y": "Y",/"button_y": "X",/' $ShadPS4_configFile
-    sed -i 's/"button_a": "A"/"button_a": "B"/' $ShadPS4_configFile
-}
-
 #WideScreenOn
 ShadPS4_wideScreenOn(){
 echo "NYI"
@@ -340,7 +272,7 @@ ShadPS4_finalize(){
 }
 
 ShadPS4_IsInstalled(){
-    if [ -e "$ShadPS4_emuPath/shadps4" ]; then
+    if [ -e "$ShadPS4_emuPath/Shadps4-qt.AppImage" ]; then
         echo "true"
     else
         echo "false"
@@ -352,20 +284,7 @@ ShadPS4_resetConfig(){
 }
 
 ShadPS4_setResolution(){
-
-	case $ShadPS4Resolution in
-		"720P") multiplier=1; docked="false";;
-		"1080P") multiplier=1; docked="true";;
-		"1440P") multiplier=2; docked="false";;
-		"4K") multiplier=2; docked="true";;
-		*) echo "Error"; return 1;;
-	esac
-
-	jq --arg docked "$docked" --arg multiplier "$multiplier" \
-	  '.docked_mode = $docked | .res_scale = $multiplier' "$ShadPS4_configFile" > tmp.json
-
-	mv tmp.json "$ShadPS4_configFile"
-
+	echo "NYI"
 }
 
 ShadPS4_flushEmulatorLauncher(){
