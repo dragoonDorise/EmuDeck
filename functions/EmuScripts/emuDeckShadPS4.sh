@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Credits: https://github.com/Aeonitis
 # Script to install, initialize and configure ShadPS4 on EmuDeck
 # Note: No Bios/Keys symlinks necessary
 
@@ -19,10 +18,7 @@ ShadPS4_emuName="ShadPS4"
 ShadPS4_emuType="$emuDeckEmuTypeAppImage"
 ShadPS4_emuPath="$HOME/Applications"
 ShadPS4_configFile="$HOME/.config/shadps4/config.toml"
-ShadPS4_userDir="$HOME/.config/shadps4/user"
-ShadPS4_sysDir="$HOME/.config/shadps4/system"
-ShadPS4_inputConfigDir="$HOME/.config/shadps4/inputConfig"
-ShadPS4_controllerFile="${ShadPS4_inputConfigDir}/default.ini"
+ShadPS4_dir="$HOME/.config/shadps4/user"
 
 
 # Language keys using [ISO 639-1: Language codes] & [ISO 3166-1 alpha-2: Country codes]
@@ -115,7 +111,7 @@ ShadPS4_install(){
 
   if installEmuAI "$ShadPS4_emuName" "" "$(getReleaseURLGH "shadps4-emu/shadPS4" "zip" "linux-qt")" "" "zip" "emulator" "$showProgress"; then # Cemu.AppImage
     unzip -o "$HOME/Applications/ShadPS4.zip" -d "$ShadPS4_emuPath" && rm -rf "$HOME/Applications/ShadPS4.zip"
-    chmod +x "$ShadPS4_emuPath/publish/Shadps4.AppImage"
+    chmod +x "$ShadPS4_emuPath/publish/Shadps4-qt.AppImage"
   else
     return 1
   fi
@@ -123,102 +119,36 @@ ShadPS4_install(){
 
 
 ShadPS4_init(){
-	configEmuAI "$ShadPS4_emuName" "config" "$HOME/.config/shadps4" "$EMUDECKGIT/configs/shadps4" "true"
+	configEmuAI "$ShadPS4_emuName" "config" "$HOME/.local/share/shadPS4" "$EMUDECKGIT/configs/shadps4" "true"
 	ShadPS4_setupStorage
 	ShadPS4_setEmulationFolder
 	ShadPS4_setupSaves
 	ShadPS4_flushEmulatorLauncher
 	ShadPS4_setLanguage
-
-	# SRM_createParsers
-  #	ShadPS4_migrate
 }
 
 ShadPS4_update(){
-    echo "Begin ShadPS4 update"
-
-    configEmuAI "$ShadPS4_emuName" "config" "$HOME/.config/shadps4" "$EMUDECKGIT/configs/shadps4"
-
-    ShadPS4_setEmulationFolder
-    ShadPS4_setupStorage
-    ShadPS4_setupSaves
-    ShadPS4_finalize
-    ShadPS4_flushEmulatorLauncher
+    ShadPS4_init
 }
 
 # Configuration Paths
 ShadPS4_setEmulationFolder(){
     echo "Begin ShadPS4 Path Config"
-
-    # Define paths for PS4 ROMs
-    gameDirOpt='Paths\\gamedirs\\0\\path='
-    newGameDirOpt='Paths\\gamedirs\\0\\path='"${romsPath}/ps4"
-
-    # Update the configuration file
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$ShadPS4_configFile"
-
-    # https://github.com/shadps4-emu/shadPS4/blob/3f1061de5613c0c4a74d6394a6493491280bc03f/src/common/path_util.h
-    mkdir -p "${ShadPS4_userDir}/screenshots/"
-    mkdir -p "${ShadPS4_userDir}/shader/"
-    mkdir -p "${ShadPS4_userDir}/savedata/"
-    mkdir -p "${ShadPS4_userDir}/data/"
-    mkdir -p "${ShadPS4_userDir}/temp/"
-    mkdir -p "${ShadPS4_userDir}/sys_modules/"
-    mkdir -p "${ShadPS4_userDir}/download/"
-    mkdir -p "${ShadPS4_userDir}/captures/"
-    mkdir -p "${ShadPS4_userDir}/cheats/"
-    mkdir -p "${ShadPS4_userDir}/patches/"
-    mkdir -p "${ShadPS4_userDir}/game_data/"
-
-    # https://github.com/shadps4-emu/shadPS4/blob/main/documents/Debugging/Debugging.md#quick-analysis
-    mkdir -p "${ShadPS4_userDir}/log/"
-
-    mkdir -p "${ShadPS4_inputConfigDir}"
-
+    sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$ShadPS4_configFile"
     echo "ShadPS4 Path Config Completed"
 }
 
 ShadPS4_setLanguage(){
     setMSG "Setting ShadPS4 Language"
-    local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
-
-    echo "Checking if the config file at path: '$ShadPS4_configFile'"
-    if [[ -f "${ShadPS4_configFile}" ]]; then
-        echo "Config file found: ${ShadPS4_configFile}"
-
-        emulatorLanguage=$(read_config_toml '.GUI.emulatorLanguage' "$ShadPS4_configFile")
-
-        echo "Checking if language key exists in current language setting..."
-        if [[ -n ${ShadPS4_languages[$emulatorLanguage]+_} ]]; then
-            echo "Language key found in current language settings!"
-
-            # Save the updated language settings back to the config file
-            echo "Updating system language and system region in the config file..."
-            tmp=$(jq --arg lang "${ShadPS4_languages[$emulatorLanguage]}" --arg region "${ShadPS4_regions[$emulatorLanguage]}" \
-                     '.system_language = $lang | .system_region = $region' \
-                     "${ShadPS4_configFile}")
-            echo "$tmp" > "${ShadPS4_configFile}"
-            echo "Config file updated successfully."
-        else
-            echo "Language key '${emulatorLanguage}' not found in current language settings. No updates made."
-        fi
-    else
-        echo "Configuration file not found: ${ShadPS4_configFile}"
-    fi
-
+    changeLine "emulatorLanguage = " "emulatorLanguage = ${emulatorLanguage}" $ShadPS4_configFile
     echo "ShadPS4 language '${emulatorLanguage}' configuration completed."
 }
 
 # Setup Saves
 ShadPS4_setupSaves(){
     echo "Begin ShadPS4 save link"
-
     # Create symbolic links
-    linkToSaveFolder ShadPS4 saves "${ShadPS4_userDir}/savedata"
-    linkToSaveFolder ShadPS4 saveMeta "${ShadPS4_userDir}/saveMeta"
-    linkToSaveFolder ShadPS4 system "${ShadPS4_sysDir}"
-    linkToSaveFolder ShadPS4 system_saves "${ShadPS4_sysDir}/save"
-
+    linkToSaveFolder shadps4 saves "${ShadPS4_dir}/savedata"
     echo "ShadPS4 save link completed"
 }
 
@@ -226,12 +156,8 @@ ShadPS4_setupSaves(){
 #SetupStorage
 ShadPS4_setupStorage(){
     echo "Begin ShadPS4 storage config"
-
-    local origPath="$HOME/.config/"
-#    mkdir -p "${storagePath}/shadps4/patchesAndDlc"
-    rsync -av "${origPath}/shadps4/games/" "${storagePath}/shadps4/games/" && rm -rf "${origPath}ShadPS4/games"
-    unlink "${origPath}/shadps4/games"
-    ln -ns "${storagePath}/shadps4/games/" "${origPath}/shadps4/games"
+    mkdir - "$storagePath/shadps4/games"
+    mkdir - "$storagePath/shadps4/dlc"
 }
 
 #WipeSettings
@@ -243,7 +169,7 @@ ShadPS4_wipe(){
 #Uninstall
 ShadPS4_uninstall(){
     echo "Begin ShadPS4 uninstall"
-    uninstallGeneric $ShadPS4_emuName $ShadPS4_emuPath "" "emulator"
+    uninstallEmuAI $ShadPS4_emuName "Shadps4-qt" "AppImage" "emulator"
 }
 
 #WideScreenOn

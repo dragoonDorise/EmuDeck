@@ -1,7 +1,7 @@
 #!/bin/bash
 source $HOME/.config/EmuDeck/backend/functions/all.sh
 emulatorInit "shadps4"
-emuName="ShadPS4" #parameterize me
+emuName="Shadps4-qt" #parameterize me
 emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
 
 #initialize execute array
