@@ -9216,6 +9216,90 @@
         ]
     },
     {
+        "parserType": "Glob-regex",
+        "configTitle": "Sony PlayStation 4 - ShadPS4 (Installed PKG)",
+        "steamDirectory": "${steamdirglobal}",
+        "romDirectory": "/run/media/mmcblk0p1/Emulation/storage/shadps4/games",
+        "executableArgs": "--g \"'${filePath}'\"",
+        "executableModifier": "\"${exePath}\"",
+        "startInDirectory": "",
+        "titleModifier": "${fuzzyTitle}",
+        "imageProviders": [
+            "sgdb",
+            "steamCDN"
+        ],
+        "onlineImageQueries": "${${fuzzyTitle}}",
+        "imagePool": "${fuzzyTitle}",
+        "disabled": false,
+        "userAccounts": {
+            "specifiedAccounts": [
+                "Global"
+            ]
+        },
+        "controllers": {
+            "ps4": null,
+            "ps5": null,
+            "xbox360": null,
+            "xboxone": null,
+            "switch_joycon_left": null,
+            "switch_joycon_right": null,
+            "switch_pro": null,
+            "neptune": null
+        },
+        "executable": {
+            "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/shadps4.sh",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": true
+        },
+        "parserInputs": {
+            "glob-regex": "${/(^[NP].+)/}/@(eboot.bin|EBOOT.BIN)"
+        },
+        "titleFromVariable": {
+            "limitToGroups": "${PS4}",
+            "caseInsensitiveVariables": false,
+            "skipFileIfVariableWasNotFound": false
+        },
+        "fuzzyMatch": {
+            "replaceDiacritics": true,
+            "removeCharacters": true,
+            "removeBrackets": true
+        },
+        "parserId": "165182011309044893",
+        "version": 22,
+        "imageProviderAPIs": {
+            "sgdb": {
+                "nsfw": false,
+                "humor": false,
+                "imageMotionTypes": [
+                    "static"
+                ],
+                "styles": [],
+                "stylesHero": [],
+                "stylesLogo": [],
+                "stylesIcon": []
+            }
+        },
+        "defaultImage": {
+            "long": "",
+            "tall": "",
+            "hero": "",
+            "logo": "",
+            "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+        },
+        "localImages": {
+            "long": "",
+            "tall": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "steamInputEnabled": "1",
+        "drmProtect": false,
+        "steamCategories": [
+            "Sony PlayStation 4"
+        ]
+    },
+    {
         "parserType": "Glob",
         "configTitle": "Sony PlayStation Portable - PPSSPP (Standalone)",
         "executableModifier": "\"${exePath}\"",
