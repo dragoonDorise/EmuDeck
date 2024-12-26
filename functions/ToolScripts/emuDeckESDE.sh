@@ -116,7 +116,6 @@ ESDE_init(){
 	rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
 	# This duplicates ESDE_addCustomSystemsFile but this line only applies only if you are resetting ES-DE and not the emulators themselves.
 	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
-	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
 
 	ESDE_createLauncher
 	ESDE_addCustomSystems
@@ -132,6 +131,8 @@ ESDE_init(){
 	addSteamInputCustomIcons
 	ESDE_flushToolLauncher
 	SRM_flushOldSymlinks
+
+	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
 }
 
 ESDE_createLauncher(){
