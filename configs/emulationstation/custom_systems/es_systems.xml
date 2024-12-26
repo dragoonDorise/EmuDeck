@@ -63,7 +63,7 @@
 	  <fullname>Sony PlayStation 4</fullname>
 	  <path>%ROMPATH%/ps4/shortcuts</path>
 	  <extension>.desktop</extension>
-	  <command label="ShadPS4 Shortcuts (Standalone)">%HIDEWINDOW% %ESCAPESPECIALS% %EMULATOR_OS-SHELL% %ROM%</command>
+	  <command label="ShadPS4 Shortcuts (Standalone)">%EMULATOR_SHADPS4% %ROM%</command>
 	  <platform>ps4</platform>
 	  <theme>ps4</theme>
   </system>

@@ -36,7 +36,7 @@
     <emulator name="SHADPS4">
         <!-- PS4 emulator ShadPS4 -->
         <rule type="staticpath">
-            <entry>~/Applications/Shadps4*.AppImage</entry>
+            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/shadps4.sh</entry>
         </rule>
     </emulator>
     <emulator name="YUZU">
