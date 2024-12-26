@@ -40,6 +40,8 @@ def getSettings():
 
     return configuration
 
+settings = getSettings()
+storage_path = os.path.expandvars(settings["storagePath"])
 
 # Función para escribir en el archivo de log
 def log_message(message):
@@ -77,7 +79,11 @@ def generate_systems_with_missing_images(roms_path, images_path):
 
     for system_dir in os.listdir(roms_dir):
         if system_dir == "xbox360":
-            system_dir = "xbox360/roms"
+        system_dir = "xbox360/roms"
+        if system_dir == "model2":
+            system_dir = "model2/roms"
+        if system_dir == "ps4":
+            system_dir = "ps4/shortcuts"
         full_path = os.path.join(roms_dir, system_dir)
         if os.path.isdir(full_path) and not os.path.islink(full_path) and os.path.isfile(os.path.join(full_path, 'metadata.txt')):
             file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])

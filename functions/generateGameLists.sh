@@ -3,46 +3,51 @@
 MSG="$HOME/.config/EmuDeck/msg.log"
 
 generateGameLists() {
+
+    generate_pythonEnv &> /dev/null
+
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/"
     echo "Starting to build database" > "$MSG"
     mkdir -p "$storagePath/retrolibrary/artwork"
+    mkdir -p "$storagePath/retrolibrary/cache"
     mkdir -p "$accountfolder/config/grid/retrolibrary/"
-    ln -s "$storagePath/retrolibrary/artwork/" "$accountfolder/config/grid/retrolibrary/artwork"
-    ln -s "$storagePath/retrolibrary/cache/" "$accountfolder/config/grid/retrolibrary/cache"
+
+    ln -sf "$storagePath/retrolibrary/artwork" "$accountfolder/config/grid/retrolibrary/artwork"
+    ln -sf "$storagePath/retrolibrary/cache" "$accountfolder/config/grid/retrolibrary/cache"
 
     generateGameLists_downloadAchievements
     generateGameLists_downloadData
 
     pegasus_setPaths
-    rsync -r --exclude='roms' --exclude='txt' "$EMUDECKGIT/roms/" "$dest_folder" --keep-dirlinks
-    mkdir -p "$HOME/emudeck/cache/"
+    rsync -r --exclude='roms' --exclude='txt' "$EMUDECKGIT/roms/" "$storagePath/retrolibrary/artwork" --keep-dirlinks
+    mkdir -p "$storagePath/retrolibrary/cache/"
     echo "Database built" > "$MSG"
     python $HOME/.config/EmuDeck/backend/tools/retro-library/generate_game_lists.py "$romsPath"
+    generateGameLists_artwork &> /dev/null &
 }
 
 generateGameListsJson() {
+    generate_pythonEnv &> /dev/null
     echo "Adding Games" > "$MSG"
     #python $HOME/.config/EmuDeck/backend/tools/retro-library/generate_game_lists.py "$romsPath"
     echo "Games Added" > "$MSG"
-    #cat $HOME/emudeck/cache/roms_games.json
+    cat $storagePath/retrolibrary/cache/roms_games.json
     #generateGameLists_artwork $userid &> /dev/null &
-    generateGameLists_artwork &> /dev/null &
-
+    #generateGameLists_artwork &> /dev/null &
 }
 
 generateGameLists_importESDE() {
+    generate_pythonEnv &> /dev/null
     python $HOME/.config/EmuDeck/backend/tools/retro-library/import_media.py "$romsPath" "$dest_folder"
 }
 
 generateGameLists_artwork() {
-    mkdir -p "$HOME/emudeck/cache/"
-    local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/"
+    generate_pythonEnv &> /dev/null
     echo "Searching for missing artwork" > "$MSG"
-    python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork_platforms.py "$romsPath" "$dest_folder" && python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art_platforms.py "$dest_folder"
+    python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork_platforms.py "$romsPath" "$storagePath/retrolibrary/artwork" && python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art_platforms.py "$storagePath/retrolibrary/artwork"
 
-    $(python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$dest_folder" && python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art.py "$dest_folder") &
+    $(python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$storagePath/retrolibrary/artwork" && python $HOME/.config/EmuDeck/backend/tools/retro-library/download_art.py "$storagePath/retrolibrary/artwork") &
     echo "Artwork finished. Restart if you see this message" > "$MSG"
 }
 
@@ -51,7 +56,7 @@ saveImage(){
     local name=$2
     local system=$3
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/${system}/media/box2dfront/"
+    local dest_folder="$storagePath/retrolibrary/artwork/${system}/media/box2dfront/"
     local dest_path="$dest_folder/$name.jpg"
     wget -q -O "$dest_path" "$url"
 }
@@ -66,7 +71,7 @@ function addGameListsArtwork() {
     #local tempGrid=$(generateGameLists_extraArtwork $file $platform)
     #local grid=$(echo "$tempGrid" | jq -r '.grid')
 
-    local vertical="$accountfolder/config/grid/retrolibrary/artwork/$platform/media/box2dfront/$file.jpg"
+    local vertical="$storagePath/retrolibrary/artwork/$platform/media/box2dfront/$file.jpg"
     local grid=$vertical
     local destination_vertical="$accountfolder/config/grid/${appID}p.png" #vertical
     local destination_hero="$accountfolder/config/grid/${appID}_hero.png" #BG
@@ -76,20 +81,20 @@ function addGameListsArtwork() {
     rm -rf "$destination_grid"
 
     #Use CP if custom grid instead of ln..
-    ln -s "$vertical" "$destination_vertical"
-    ln -s "$grid" "$destination_hero"
-    ln -s "$grid" "$destination_grid"
+    ln -sf "$vertical" "$destination_vertical"
+    ln -sf "$grid" "$destination_hero"
+    ln -sf "$grid" "$destination_grid"
 }
 
 generateGameLists_getPercentage() {
-
+    generate_pythonEnv &> /dev/null
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local dest_folder="$accountfolder/config/grid/retrolibrary/artwork/"
+    local dest_folder="$storagePath/retrolibrary/artwork/"
 
-    python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$dest_folder"
+    #python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$dest_folder"
 
-    local json_file="$HOME/emudeck/cache/roms_games.json"
-    local json_file_artwork="$HOME/emudeck/cache/missing_artwork.json"
+    local json_file="$storagePath/retrolibrary/cache/roms_games.json"
+    local json_file_artwork="$storagePath/retrolibrary/cache/missing_artwork.json"
 
     # Contar el número total de juegos en `roms_games.json`
     local games=$(jq '[.[].games[]] | length' "$json_file")
@@ -111,12 +116,12 @@ generateGameLists_extraArtwork() {
     local platform=$2
     local hash=$3
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local dest_folder="$accountfolder/config/grid/retrolibrary/artwork"
+    local dest_folder="$storagePath/retrolibrary/artwork"
 
-    wget -q -O "$HOME/emudeck/cache/response.json" "https://bot.emudeck.com/steamdb_extra.php?name=$game&hash=$hash"
+    wget -q -O "$storagePath/retrolibrary/cache/response.json" "https://bot.emudeck.com/steamdb_extra.php?name=$game&hash=$hash"
 
-    game_name=$(jq -r '.name' "$HOME/emudeck/cache/response.json")
-    game_img_url=$(jq -r '.grid' "$HOME/emudeck/cache/response.json")
+    game_name=$(jq -r '.name' "$storagePath/retrolibrary/cache/response.json")
+    game_img_url=$(jq -r '.grid' "$storagePath/retrolibrary/cache/response.json")
     dest_path="$dest_folder/$platform/$game.grid.temp"
 
     if [ "$game_img_url" != "null" ]; then
@@ -128,6 +133,7 @@ generateGameLists_extraArtwork() {
 }
 
 generateGameLists_retroAchievements(){
+    generate_pythonEnv &> /dev/null
     local hash=$1
     local system=$2
     local localDataPath="$storagePath/retrolibrary/achievements/$system.json"
@@ -139,6 +145,7 @@ generateGameLists_downloadAchievements(){
     if [ ! -d $folder ]; then
         echo "Downloading Retroachievements Data" > "$MSG"
         mkdir -p $folder
+        ln -sf "$storagePath/retrolibrary/achievements" "$accountfolder/config/grid/retrolibrary/achievements"
         wget -q -O "$folder/achievements.zip" "https://bot.emudeck.com/achievements/achievements.zip"
         cd "$folder" && unzip -o achievements.zip && rm achievements.zip
         echo "Retroachievements Data Downloaded" > "$MSG"
@@ -152,6 +159,7 @@ generateGameLists_downloadData(){
     if [ ! -d $folder ]; then
         echo "Downloading Metada" > "$MSG"
         mkdir -p $folder
+        ln -sf "$storagePath/retrolibrary/data" "$accountfolder/config/grid/retrolibrary/data"
         wget -q -O "$folder/data.zip" "https://bot.emudeck.com/data/data.zip"
         cd $folder && unzip -o data.zip && rm data.zip
         echo "Metada Downloaded" > "$MSG"

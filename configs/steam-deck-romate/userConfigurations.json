@@ -1204,6 +1204,22 @@
       "name":"PlayStation 3"
    },
    {
+      "id": "12345678901234567",
+      "executable": {
+        "path": "\"/usr/bin/flatpak\" run net.shadps4.shadPS4 --no-gui \"${filePath}\"",
+        "arguments": ""
+      },
+      "romDirectory": "roms/ps4",
+      "supportedFileTypes": [
+        "iso",
+        "ISO",
+        "pkg",
+        "PKG"
+      ],
+      "category": "PlayStation 4",
+      "name": "PlayStation 4"
+   },
+   {
       "id":"164785656634747068",
       "executable":{
          "path":"\"/usr/bin/flatpak\" run org.ppsspp.PPSSPP -f -g \"${filePath}\"",

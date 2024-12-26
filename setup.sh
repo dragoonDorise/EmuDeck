@@ -291,6 +291,11 @@ if [ "$doInstallModel2" == "true" ]; then
 	Model2_install
 fi
 
+if [ "$doInstallShadPS4" == "true" ]; then
+	echo "ShadPS4_install"
+	ShadPS4_install
+fi
+
 #Steam RomManager Config
 
 if [ "$doSetupSRM" == "true" ]; then
@@ -359,6 +364,10 @@ fi
 if [ "$doSetupRyujinx" == "true" ]; then
 	echo "Ryujinx_init"
 	Ryujinx_init
+fi
+if [ "$doSetupShadPS4" == "true" ]; then
+	echo "ShadPS4_init"
+	ShadPS4_init
 fi
 if [ "$doSetupPPSSPP" == "true" ]; then
 	echo "PPSSPP_init"

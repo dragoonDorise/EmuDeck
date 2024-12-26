@@ -1,5 +1,5 @@
 #!/bin/bash
-configEmuAI(){
+function configEmuAI(){
 
 	emu=$1
 	folderName=$2
@@ -12,8 +12,8 @@ configEmuAI(){
     else
         overwrite="--ignore-existing"
     fi
-    
-	setMSG "Updating $emu $folderName using $overwrite"	
+
+	setMSG "Updating $emu $folderName using $overwrite"
 
 	rsync -avhp --mkpath $gitLocation/ $folderPath $overwrite
 
