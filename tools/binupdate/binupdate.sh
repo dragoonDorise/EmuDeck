@@ -168,6 +168,17 @@ function runBinDownloads {
             messages+=("There was a problem updating RPCS3")
         fi
     fi
+    if [[ "$binsToDL" == *"ShadPS4"* ]]; then
+        ((progresspct += pct)) || true
+        echo "$progresspct"
+        echo "# Updating ShadPS4"
+        if ShadPS4_install "true" 2>&1; then
+            messages+=("ShadPS4 Updated Successfully")
+        else
+            messages+=("There was a problem updating ShadPS4")
+        fi
+    fi
+
     if [[ "$binsToDL" == *"Ryujinx"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
@@ -268,6 +279,11 @@ if [ "$(RPCS3_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "RPCS3" "Sony PlayStation 3")
 else
     binTable+=(FALSE "RPCS3" "Sony PlayStation 3")
+fi
+if [ "$(ShadPS4_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
+    binTable+=(TRUE "ShadPS4" "Sony PlayStation 4")
+else
+    binTable+=(FALSE "ShadPS4" "Sony PlayStation 4")
 fi
 if [ "$(Ryujinx_IsInstalled ""$emuDeckEmuTypeBinary"")" == "true" ]; then
     binTable+=(TRUE "Ryujinx" "Nintendo Switch")
