@@ -9304,7 +9304,7 @@
         "configTitle": "Sony PlayStation 4 - ShadPS4 (Shortcut)",
         "steamDirectory": "${steamdirglobal}",
         "romDirectory": "${romsdirglobal}/ps4/shortcuts",
-        "executableArgs": "-batch -fullscreen \"'${filePath}'\"",
+        "executableArgs": "\"'${filePath}'\"",
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
