@@ -28,7 +28,7 @@ fileExtension="${@##*.}"
 if [[ $fileExtension == "desktop" ]]; then
     rpcs3desktopFile=$(grep -E "^Exec=" "${*}" | sed 's/^Exec=//' | sed 's/%%/%/g')
     launchParam="Exec=$rpcs3desktopFile"
-    launchParam=$(echo "$launchParam" | sed "s|^\(Exec=\)[^\"']*\"|\1$HOME/Applications/Shadps4-qt.AppImage\"|")
+    launchParam=$(echo "$launchParam" | sed "s|^\(Exec=\)[^\"']*\"|\1$HOME/Applications/Shadps4-qt.AppImage -g \"|" | sed 's/^Exec=//')
     eval $launchParam
 else
     #run the executable with the params.
