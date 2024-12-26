@@ -9326,7 +9326,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/@(.desktop)"
+            "glob": "**/${title}@(.desktop)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
