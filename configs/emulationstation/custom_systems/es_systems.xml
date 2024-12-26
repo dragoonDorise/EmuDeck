@@ -58,4 +58,22 @@
 	<platform>xbox360</platform>
 	<theme>xbox360</theme>
   </system>
+  <system>
+	  <name>ps4</name>
+	  <fullname>Sony PlayStation 4</fullname>
+	  <path>%ROMPATH%/ps4/shortcuts</path>
+	  <extension>.desktop</extension>
+	  <command label="ShadPS4 Shortcuts (Standalone)">%HIDEWINDOW% %ESCAPESPECIALS% %EMULATOR_OS-SHELL% %ROM%</command>
+	  <platform>ps4</platform>
+	  <theme>ps4</theme>
+  </system>
+  <!-- <system>
+		<name>ps4-pkg</name>
+		<fullname>Sony PlayStation 4</fullname>
+		<path>%ROMPATH%\ps4</path>
+		<extension>.desktop</extension>
+		<command label="ShadPS4 PKG (Standalone)">%EMULATOR_SHADPS4% %ROM%</command>
+		<platform>ps4</platform>
+		<theme>ps4</theme>
+	</system> -->
 </systemList>

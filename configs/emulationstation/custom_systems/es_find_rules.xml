@@ -33,6 +33,12 @@
             <entry>/usr/pkg/lib/libretro</entry>
         </rule>
     </core>
+    <emulator name="SHADPS4">
+        <!-- PS4 emulator ShadPS4 -->
+        <rule type="staticpath">
+            <entry>~/Applications/Shadps4*.AppImage</entry>
+        </rule>
+    </emulator>
     <emulator name="YUZU">
         <!-- Nintendo Switch emulator Yuzu -->
         <rule type="systempath">
