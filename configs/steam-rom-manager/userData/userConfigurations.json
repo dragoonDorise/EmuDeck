@@ -9252,7 +9252,7 @@
             "appendArgsToExecutable": true
         },
         "parserInputs": {
-            "glob-regex": "${/(^.+)/}/@(eboot.bin|EBOOT.BIN)"
+            "glob-regex": "${/(.+)/}/@(eboot.bin|EBOOT.BIN)"
         },
         "titleFromVariable": {
             "limitToGroups": "${PS4}",
