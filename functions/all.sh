@@ -85,6 +85,7 @@ source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDolphin.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPrimehack.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRetroArch.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckRyujinx.sh
+source "$EMUDECKGIT"/functions/EmuScripts/emuDeckShadPS4.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckPPSSPP.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckDuckStation.sh
 source "$EMUDECKGIT"/functions/EmuScripts/emuDeckXemu.sh

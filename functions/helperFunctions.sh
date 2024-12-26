@@ -281,6 +281,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupCemu=true")
 	defaultSettingsList+=("doSetupXenia=false")
 	defaultSettingsList+=("doSetupRyujinx=true")
+	defaultSettingsList+=("doSetupShadPS4=false")
 	defaultSettingsList+=("doSetupMAME=true")
 	defaultSettingsList+=("doSetupPrimehack=true")
 	defaultSettingsList+=("doSetupPPSSPP=true")
@@ -1120,10 +1121,25 @@ function startCompressor(){
 	konsole -e "/bin/bash $HOME/.config/EmuDeck/backend/tools/chdconv/chddeck.sh"
 }
 
-function installPIP(){
-	python -m pip --version &> /dev/null || python -m ensurepip --upgrade
-	python -m pip install --upgrade pip
-	grep -qxF 'PATH="$HOME/.local/bin:$PATH"' ~/.bashrc || echo 'PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
-	grep -qxF 'alias pip="pip3"' ~/.bashrc || echo 'alias pip="pip3"' >> ~/.bashrc
-	PATH="$HOME/.local/bin:$PATH"
+function generate_pythonEnv() {
+	if [ ! -d "$HOME/.config/EmuDeck/python_virtual_env" ]; then
+		python3 -m venv "$HOME/.config/EmuDeck/python_virtual_env"
+		source "$HOME/.config/EmuDeck/python_virtual_env/bin/activate"
+		pip install requests
+	else
+		source "$HOME/.config/EmuDeck/python_virtual_env/bin/activate"
+	fi
+}
+
+# Reusable Function to read value from the config.toml file
+function read_config_toml() {
+	local key="$1"
+	local configFile="$2"
+	echo "Reading arguments - key '$key' from config file: '$configFile'..."
+
+	local value
+	value=$(jq -r "$key" "$configFile")
+
+	echo "Extracted value: $value"
+	echo "$value"
 }
