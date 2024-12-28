@@ -1045,7 +1045,7 @@ function emulatorInit(){
 
 	#Check if the service is up and running
 
-	if [ -f "$cloud_sync_bin" ] && [ "$cloud_sync_status" == "true" ]; then
+	if [ -f "$cloud_sync_bin" ] && [ "$cloud_sync_status" == "true" ] && [ "$netPlay" != "true" ]; then
 
 		if [ $(check_internet_connection) == "true" ]; then
 
