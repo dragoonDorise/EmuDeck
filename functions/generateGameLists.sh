@@ -91,10 +91,10 @@ generateGameLists_getPercentage() {
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local dest_folder="$storagePath/retrolibrary/artwork/"
 
-    #python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork.py "$romsPath" "$dest_folder"
+    python $HOME/.config/EmuDeck/backend/tools/retro-library/missing_artwork_nohash.py "$romsPath" "$dest_folder"
 
     local json_file="$storagePath/retrolibrary/cache/roms_games.json"
-    local json_file_artwork="$storagePath/retrolibrary/cache/missing_artwork.json"
+    local json_file_artwork="$storagePath/retrolibrary/cache/missing_artwork_no_hash.json"
 
     # Contar el número total de juegos en `roms_games.json`
     local games=$(jq '[.[].games[]] | length' "$json_file")

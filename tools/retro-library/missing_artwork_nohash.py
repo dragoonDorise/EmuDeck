@@ -3,7 +3,9 @@ import json
 import sys
 import re
 import subprocess
+import hashlib
 
+# Define the log file path
 home_dir = os.environ.get("HOME")
 msg_file = os.path.join(home_dir, ".config/EmuDeck/msg.log")
 
@@ -43,13 +45,26 @@ def getSettings():
 settings = getSettings()
 storage_path = os.path.expandvars(settings["storagePath"])
 
-# Función para escribir en el archivo de log
+# Function to write messages to the log file
 def log_message(message):
-    with open(msg_file, "w") as log_file:  # "a" para agregar mensajes sin sobrescribir
+    with open(msg_file, "w") as log_file:  # "a" to append messages without overwriting
         log_file.write(message + "\n")
 
-def generate_systems_with_missing_images(roms_path, images_path):
-    def has_missing_images(system_dir, extensions):
+def generate_game_lists(roms_path, images_path):
+    def calculate_hash(file_path):
+        import hashlib
+        hash_md5 = hashlib.md5()
+        try:
+            with open(file_path, "rb") as f:
+                for chunk in iter(lambda: f.read(65536), b""):  # 64 KB chunks
+                    hash_md5.update(chunk)
+            print(file_path , hash_md5.hexdigest())
+            return hash_md5.hexdigest()
+        except Exception:
+            return None
+
+    def collect_game_data(system_dir, extensions):
+        game_data = []
         for root, _, files in os.walk(system_dir):
             for file in files:
                 file_path = os.path.join(root, file)
@@ -60,26 +75,46 @@ def generate_systems_with_missing_images(roms_path, images_path):
                 extension = filename.split('.')[-1]
                 name = '.'.join(filename.split('.')[:-1])
                 if extension in extensions:
+                    # Special cases for WiiU and PS3
+                    if "wiiu" in system_dir:
+                        parts = root.split(os.sep)
+                        name = parts[-2] if len(parts) >= 2 else name
+                    if "ps3" in system_dir:
+                        parts = root.split(os.sep)
+                        name = parts[-3] if len(parts) >= 3 else name
+
                     platform = os.path.basename(system_dir)
 
+                    # Clean the game name
                     name_cleaned = re.sub(r'\(.*?\)', '', name)
                     name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
-                    name_cleaned = name_cleaned.strip()
-                    name_cleaned = name_cleaned.replace(' ', '_').replace('-', '_')
+                    name_cleaned = name_cleaned.strip().replace(' ', '_').replace('-', '_')
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
                     name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
+                    name_cleaned_pegasus = name.replace(',_', ',')
                     name_cleaned = name_cleaned.lower()
-                    img_path = os.path.join(images_path, f"{platform}/{name_cleaned}.jpg")
-                    if not os.path.exists(img_path):
-                        return True
-        return False
+
+                    # Check for missing images
+                    for img_type, ext in [("box2dfront", ".jpg"), ("wheel", ".png"), ("screenshot", ".jpg")]:
+                        img_path = os.path.join(images_path, f"{platform}/media/{img_type}/{name_cleaned}{ext}")
+                        if not os.path.exists(img_path):
+                            log_message(f"Missing image: {img_path}")
+
+                            game_info = {
+                                "name": name_cleaned,
+                                "platform": platform,
+                                "type": img_type
+                            }
+                            game_data.append(game_info)
+
+        return sorted(game_data, key=lambda x: x['name'])
 
     roms_dir = roms_path
     valid_system_dirs = []
 
     for system_dir in os.listdir(roms_dir):
         if system_dir == "xbox360":
-          system_dir = "xbox360/roms"
+            system_dir = "xbox360/roms"
         if system_dir == "model2":
             system_dir = "model2/roms"
         if system_dir == "ps4":
@@ -89,34 +124,45 @@ def generate_systems_with_missing_images(roms_path, images_path):
             file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])
             if file_count > 2:
                 valid_system_dirs.append(full_path)
-                log_message(f"MAP: Valid system directory added: {full_path}")
+                log_message(f"MA: Valid system directory found: {full_path}")
 
-    systems_with_missing_images = set()
+    game_list = []
 
     for system_dir in valid_system_dirs:
         if any(x in system_dir for x in ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop"]):
-            log_message(f"MAP: Skipping directory: {system_dir}")
+            log_message(f"MA: Skipping directory: {system_dir}")
             continue
 
         with open(os.path.join(system_dir, 'metadata.txt')) as f:
             metadata = f.read()
+        collection = next((line.split(':')[1].strip() for line in metadata.splitlines() if line.startswith('collection:')), '')
+        shortname = next((line.split(':')[1].strip() for line in metadata.splitlines() if line.startswith('shortname:')), '')
+        launcher = next((line.split(':', 1)[1].strip() for line in metadata.splitlines() if line.startswith('launch:')), '').replace('"', '\\"')
         extensions = next((line.split(':')[1].strip().replace(',', ' ') for line in metadata.splitlines() if line.startswith('extensions:')), '').split()
 
-        if has_missing_images(system_dir, extensions):
-            systems_with_missing_images.add(os.path.basename(system_dir))
-            log_message(f"MAP: System with missing images: {os.path.basename(system_dir)}")
+        games = collect_game_data(system_dir, extensions)
+        if games:
+            system_info = {
+                "title": collection,
+                "id": shortname,
+                "launcher": launcher,
+                "games": games
+            }
+            game_list.append(system_info)
+            log_message(f"MA: Detected {len(games)} games from {system_dir}")
 
-    json_output = json.dumps(list(systems_with_missing_images), indent=4)
+    json_output = json.dumps(sorted(game_list, key=lambda x: x['title']), indent=4)
 
-    output_file = os.path.join(storage_path, "retrolibrary/cache/missing_systems.json")
+    output_file = os.path.join(storage_path, "retrolibrary/cache/missing_artwork_no_hash.json")
+
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, 'w') as f:
         f.write(json_output)
+        #print(json_output)
 
-# Pasar la ruta de las ROMs y de las imágenes desde los argumentos de línea de comandos
 roms_path = sys.argv[1]
 images_path = sys.argv[2]
 
-log_message("MAP: Searching missing artwork in bundles...")
-generate_systems_with_missing_images(roms_path, images_path)
-log_message("MAP: Completed missing artwork in bundles")
+log_message("MA: Missing artwork list generation in progress...")
+generate_game_lists(roms_path, images_path)
+log_message("MA: Missing artwork list process completed.")
