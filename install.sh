@@ -110,4 +110,3 @@ mkdir -p ~/Applications
 curl -L "${EMUDECK_URL}" -o ~/Applications/EmuDeck.AppImage 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading EmuDeck" --width 600 --auto-close --no-cancel 2>/dev/null
 chmod +x ~/Applications/EmuDeck.AppImage
 ~/Applications/EmuDeck.AppImage $sandbox &
-exit
