@@ -5,7 +5,7 @@ Full system name:
 Sony PlayStation 4
 
 Supported file extensions:
-.7z .7Z .zip .ZIP
+.desktop
 
 Launch command:
 PLACEHOLDER %ROM%

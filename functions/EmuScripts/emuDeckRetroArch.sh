@@ -39,7 +39,7 @@ RetroArch_backupConfigs(){
 
 #Install
 RetroArch_install(){
-	setMSG "Installing $RetroArch_emuName" 
+	setMSG "Installing $RetroArch_emuName"
 	installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "emulator" ""
 	RetroArch_installCores
 }
@@ -248,6 +248,11 @@ RetroArch_setupConfigurations(){
 	microphone_driver='microphone_driver = '
 	microphone_driverSetting="${microphone_driver}"\""sdl2"\"
 	changeLine "$microphone_driver" "$microphone_driverSetting" "$RetroArch_configFile"
+
+	#Enable screenshots for savestates
+	savestate_thumbnail='savestate_thumbnail_enable = '
+	savestate_thumbnailSetting="${input_driver}"\""true"\"
+	changeLine "$savestate_thumbnail" "$savestate_thumbnailSetting" "$RetroArch_configFile"
 
 }
 
@@ -1798,15 +1803,15 @@ RetroArch_Mupen64Plus_Next_setUpCoreOpt(){
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-virefresh' '"Auto"'
 
 	# hd pack settings
-	# Commenting these out. These seem to be causing a lot of graphical issues. 
+	# Commenting these out. These seem to be causing a lot of graphical issues.
 	#RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txHiresEnable' '"True"'
 	#RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txHiresFullAlphaChannel' '"True"'
 	#RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txCacheCompression' '"True"'
 	#RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-EnableEnhancedHighResStorage' '"True"'
 	#RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-EnableEnhancedTextureStorage' '"False"' # lazy loading
-	
+
 	# revert hd pack settings
-	# These seem to be causing a lot of graphical issues. 
+	# These seem to be causing a lot of graphical issues.
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txHiresEnable' '"False"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txHiresFullAlphaChannel' '"False"'
 	RetroArch_setOverride 'Mupen64Plus-Next.opt' 'Mupen64Plus-Next'  'mupen64plus-txCacheCompression' '"False"'
@@ -2476,7 +2481,7 @@ RetroArch_retroAchievementsSetLogin(){
 
 		iniFieldUpdate "$RetroArch_configFile" "" "cheevos_username" "$rau"
 		iniFieldUpdate "$RetroArch_configFile" "" "cheevos_token" "$rat"
-
+		setSetting cheevos_username $rau
 	fi
 }
 RetroArch_setBezels(){
@@ -2547,18 +2552,18 @@ RetroArch_Mupen64Plus_Next_setUpHdPacks(){
   	local texturePackPath="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/system/Mupen64plus/hires_texture"
 	local textureCachePath="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/system/Mupen64plus/cache"
 
-	# Something in the install is causng infinite symlinks, commenting these lines out for now and deleting folders. Needs more thorough testing. 	
+	# Something in the install is causng infinite symlinks, commenting these lines out for now and deleting folders. Needs more thorough testing.
 	if [[ -L "$biosPath/Mupen64plus/cache/cache" || -d "$biosPath/Mupen64plus/cache/cache" ]]; then
-		rm -rf "$biosPath/Mupen64plus/cache/"		
+		rm -rf "$biosPath/Mupen64plus/cache/"
 	fi
 
-	if [[ -L "$emulationPath/hdpacks/n64" || -d "$emulationPath/hdpacks/n64" ]]; then 
+	if [[ -L "$emulationPath/hdpacks/n64" || -d "$emulationPath/hdpacks/n64" ]]; then
 		rm -rf "$emulationPath/hdpacks/n64"
-	fi 
+	fi
 
-	if [[ -d "$emulationPath/hdpacks/retroarch" ]]; then 
-		rm -rf "$emulationPath/hdpacks/retroarch" 
-	fi 
+	if [[ -d "$emulationPath/hdpacks/retroarch" ]]; then
+		rm -rf "$emulationPath/hdpacks/retroarch"
+	fi
 
 	#mkdir -p "$texturePackPath"
 	#mkdir -p "$textureCachePath"
@@ -2576,22 +2581,22 @@ RetroArch_Mupen64Plus_Next_setUpHdPacks(){
 #  setupHdPacks()
 RetroArch_MesenNES_setUpHdPacks(){
 
-	# Something in the install is causng infinite symlinks, commenting these lines out for now and deleting folders. Needs more thorough testing. 	
+	# Something in the install is causng infinite symlinks, commenting these lines out for now and deleting folders. Needs more thorough testing.
 	if [[ -L "$biosPath/HdPacks/HdPacks" || -d "$biosPath/HdPacks/HdPacks" ]]; then
-		rm -rf "$biosPath/HdPacks"	
+		rm -rf "$biosPath/HdPacks"
 	fi
 
 	if [[ -L "$biosPath/hdpacks/nes/HdPacks/HdPacks" || -d "$biosPath/hdpacks/nes/HdPacks/HdPacks" ]]; then
-		rm -rf "$biosPath/hdpacks/nes"	
+		rm -rf "$biosPath/hdpacks/nes"
 	fi
 
-	if [ -L "$emulationPath/hdpacks/nes" ]; then 
+	if [ -L "$emulationPath/hdpacks/nes" ]; then
 		rm -rf "$emulationPath/hdpacks/nes"
-	fi 
+	fi
 
-	if [[ -d "$emulationPath/hdpacks/retroarch" ]]; then 
-		rm -rf "$emulationPath/hdpacks/retroarch" 
-	fi 
+	if [[ -d "$emulationPath/hdpacks/retroarch" ]]; then
+		rm -rf "$emulationPath/hdpacks/retroarch"
+	fi
 
 	#NES
 	#unlink "$emulationPath"/hdpacks/Mesen 2>/dev/null #refresh link if moved

@@ -131,6 +131,8 @@ ESDE_init(){
 	addSteamInputCustomIcons
 	ESDE_flushToolLauncher
 	SRM_flushOldSymlinks
+
+	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
 }
 
 ESDE_createLauncher(){

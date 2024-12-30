@@ -55,31 +55,9 @@ cloudSyncHealth(){
 	#Zenity asking SRM or ESDE
 	#Opening RA/ESDE in background
 	kill="ESDE"
-	zenity --question --title "CloudSync Health" --text "Do you launch your games using EmulationStation?" --cancel-label "No" --ok-label "Yes"
+	zenity --question --title "CloudSync Health" --text "You need to have RetroArch installed for this to work." --cancel-label "Cancel" --ok-label "OK"
 
 	if [ $? = 0 ]; then
-		notify-send "ESDE" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
-		touch "$savesPath/.gaming"
-		touch "$savesPath/.watching"
-		echo "all" > "$savesPath/.emuName"
-		cloud_sync_startService
-
-		systemctl --user is-active --quiet "EmuDeckCloudSync.service"
-		status=$?
-
-		if [ $status -eq 0 ]; then
-			echo "CloudSync Service running"
-			watcherStatus=0
-		else
-			text="$(printf "<b>CloudSync Error.</b>\nCloudSync service is not running. Please reinstall CloudSync and try again")"
-			zenity --error \
-			--title="EmuDeck" \
-			--width=400 \
-			--text="${text}" 2>/dev/null
-		fi
-
-		"$ESDE_toolPath" & xdotool search --sync --onlyvisible --name '^ES-DE$' windowminimize
-	else
 		kill="RETROARCH"
 		notify-send "RETROARCH" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
 		touch "$savesPath/.gaming"
@@ -102,6 +80,10 @@ cloudSyncHealth(){
 		fi
 
 		/usr/bin/flatpak run org.libretro.RetroArch & xdotool search --sync --name '^RetroArch$' windowminimize
+	else
+		zenity --info --width=400 --text="Please install RetroArch from Manage Emulators..."
+
+		exit
 	fi
 
 
@@ -164,11 +146,8 @@ cloudSyncHealth(){
 	#Delete remote test file
 	"$cloud_sync_bin" delete "$cloud_sync_provider":"$cs_user"Emudeck/saves/retroarch/test_emudeck.txt
 
-	if [ $kill == "RETROARCH" ];then
-		killall retroarch
-	else
-		xdotool search --sync --name '^ES-DE$' windowquit
-	fi
+	killall retroarch
+
 
 
 } > "$HOME/emudeck/logs/cloudHealth.log"
@@ -232,7 +211,6 @@ cloudSyncHealth(){
 		echo "<td>Save folder </td><td class='alert--warning'>not found</td>"
 	else
 		echo "<td>Upload Status: </td><td class='alert--danger'><strong>Failure</strong></td>"
-		echo "</tr></tr></table>"
 	fi
 	echo "</tr>"
 
@@ -244,7 +222,6 @@ cloudSyncHealth(){
 		echo "<td>Save folder </td><td class='alert--warning'>not found</td>"
 	else
 		echo "<td>Download Status: </td><td class='alert--danger'><strong>Failure</strong></td>"
-		echo "</tr></tr></table>"
 	fi
 	echo "</tr>"
 
