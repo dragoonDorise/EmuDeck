@@ -1,56 +1,44 @@
-#!/usr/bin/bash
-# bigpemu.sh
+#!/bin/bash
+source $HOME/.config/EmuDeck/backend/functions/all.sh
+emulatorInit "BigPEmu"
+emuName="bigpemu" #parameterize me
+emufolder="$HOME/Applications/BigPEmu" # has to be here for ES-DE to find it
 
-# Set up cloud save
-source "${HOME}/.config/EmuDeck/backend/functions/all.sh"
-emulatorInit "bigpemu"
+#initialize execute array
+exe=()
 
-# Get SELFPATH
-SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"
+#find full path to emu executable
+exe_path=$(find "$emufolder" -iname "${emuName}" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
 
-# Get EXE
-EXE="\"/usr/bin/bash\" \"${SELFPATH}\""
-echo "EXE: ${EXE}"
-
-# NAME
-NAME="BigPEmu"
-
-# AppID.py
-APPIDPY="$emulationPath/tools/appID.py"
-
-# Proton Launcher Script
-PROTONLAUNCH="$emulationPath/tools/proton-launch.sh"
-
-# BigPEmu location
-BIGPEMU="$HOME/Applications/BigPEmu/BigPEmu.exe"
-
-# APPID
-if [ -e "/usr/bin/python" ]; then
-    APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
-elif [ -e "/usr/bin/python3" ]; then
-    APPID=$( /usr/bin/python3 "${APPIDPY}" "${EXE}" "${NAME}" )
-else 
-    echo "Python not found."
-fi
-
-echo "APPID: ${APPID}"
-
-# Proton Version
-PROTONVER="8.0"
-
-# Call the Proton launcher script and give the arguments
-
-if [ -z "${@}" ]; then
-
-    echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "*" -localdata >> "${LOGFILE}"
-    "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "*" -localdata
-    echo "Launching BigPEmu directly"
-
+#if appimage doesn't exist fall back to flatpak.
+if [[ -z "$exe_path" ]]; then
+    #flatpak
+    flatpakApp=$(flatpak list --app --columns=application | grep "$emuName")
+    #fill execute array
+    exe=("flatpak" "run" "$flatpakApp")
 else
-
-    echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "${@}" -localdata >> "${LOGFILE}"
-    "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${BIGPEMU}" "${@}" -localdata
-    echo "ROM found, launching game"
-
+    #make sure that file is executable
+    chmod +x "$exe_path"
+    #fill execute array
+    exe=("$exe_path")
 fi
+
+#run the executable with the params.
+launch_args=()
+for rom in "${@}"; do
+    # Parsers previously had single quotes ("'/path/to/rom'" ), this allows those shortcuts to continue working.
+    removedLegacySingleQuotes=$(echo "$rom" | sed "s/^'//; s/'$//")
+    launch_args+=("$removedLegacySingleQuotes")
+done
+
+echo "Launching: ${exe[*]} ${launch_args[*]}"
+
+if [[ -z "${*}" ]]; then
+    echo "ROM not found. Launching $emuName directly"
+    "${exe[@]}"
+else
+    echo "ROM found, launching game"
+    "${exe[@]}" "${launch_args[@]}"
+fi
+
 rm -rf "$savesPath/.gaming"

@@ -76,13 +76,13 @@ cloud_sync_config(){
 
   #Check installation
   if [ ! -f "$cloud_sync_bin" ]; then
-  	echo "false"
+    echo "false"
   elif [ ! -f "$cloud_sync_config" ]; then
-  	echo "false"
+    echo "false"
   elif [ $cloud_sync_provider = '' ]; then
-  	echo "false"
+    echo "false"
   else
-  	echo "true"
+    echo "true"
   fi
 }
 
@@ -144,15 +144,15 @@ cloud_sync_setup_providers(){
         token="${token//---/|||}"
         user=$(echo $token | cut -d "|" -f 1)
 
-        setSetting cs_user "cs_$user/"
+        setSetting cs_user "cs$user/"
 
         json='{"token":"'"$token"'"}'
 
-        password=$(curl --request POST --url "https://token.emudeck.com/create-cs.php" --header "Content-Type: application/json" -d "${json}" | jq -r .cloud_token)
-        host="cloud.emudeck.com"
-        port="22"
+        read -r cloud_key_id cloud_key < <(curl --request POST --url "https://token.emudeck.com/b2.php" \
+        --header "Content-Type: application/json" \
+        -d "${json}" | jq -r '[.cloud_key_id, .cloud_key] | @tsv')
 
-        "$cloud_sync_bin" config update "$cloud_sync_provider" host="$host" user="cs_$user" port="$port" pass="$password"
+        "$cloud_sync_bin" config update "$cloud_sync_provider"  key="$cloud_key" account="$cloud_key_id"
 
         "$cloud_sync_bin" mkdir "$cloud_sync_provider:"$cs_user"Emudeck/saves"
         cloud_sync_save_hash $savesPath
@@ -254,34 +254,34 @@ cloud_sync_setup_providers(){
  }
 
 cloud_sync_install_and_config(){
-	 #startLog ${FUNCNAME[0]}
-	 local cloud_sync_provider=$1
+   #startLog ${FUNCNAME[0]}
+   local cloud_sync_provider=$1
      local token=$2
-	 #We force Chrome to be used as the default
-	 {
+   #We force Chrome to be used as the default
+   {
 
       if [ $system != "darwin" ];then
        browser=$(xdg-settings get default-web-browser)
 
-	     if [ "$browser" != 'com.google.Chrome.desktop' ];then
-	       flatpak install flathub com.google.Chrome -y --user
-	       xdg-settings set default-web-browser com.google.Chrome.desktop
-	     fi
-
-	     if [ ! -f "$cloud_sync_bin" ]; then
-	       cloud_sync_install $cloud_sync_provider
-	     fi
+       if [ "$browser" != 'com.google.Chrome.desktop' ];then
+         flatpak install flathub com.google.Chrome -y --user
+         xdg-settings set default-web-browser com.google.Chrome.desktop
        fi
-	 } && cloud_sync_config "$cloud_sync_provider" "$token"
 
-	 setSetting cloud_sync_provider "$cloud_sync_provider"
-	 setSetting cloud_sync_status "true"
+       if [ ! -f "$cloud_sync_bin" ]; then
+         cloud_sync_install $cloud_sync_provider
+       fi
+       fi
+   } && cloud_sync_config "$cloud_sync_provider" "$token"
 
-	 #We get the previous default browser back
+   setSetting cloud_sync_provider "$cloud_sync_provider"
+   setSetting cloud_sync_status "true"
+
+   #We get the previous default browser back
      if [ $system != "darwin" ];then
-	   if [ "$browser" != 'com.google.Chrome.desktop' ];then
-	     xdg-settings set default-web-browser $browser
-	   fi
+     if [ "$browser" != 'com.google.Chrome.desktop' ];then
+       xdg-settings set default-web-browser $browser
+     fi
      fi
  }
 
@@ -332,12 +332,12 @@ cloud_sync_upload(){
 }
 
 cloud_sync_download(){
-	local branch=$(cd "$HOME"/.config/EmuDeck/backend && git rev-parse --abbrev-ref HEAD)
-	if [[ "$branch" == *"early"* ]] || [ "$branch" == "dev" ] ; then
-		echo "CloudSync Downloading"
-	else
-		return 0
-	fi
+  local branch=$(cd "$HOME"/.config/EmuDeck/backend && git rev-parse --abbrev-ref HEAD)
+  if [[ "$branch" == *"early"* ]] || [ "$branch" == "dev" ] ; then
+    echo "CloudSync Downloading"
+  else
+    return 0
+  fi
   # startLog ${FUNCNAME[0]}
   local emuName=$1
   local timestamp=$(date +%s)
@@ -443,22 +443,22 @@ cloud_sync_uploadEmu(){
           #rm -rf $savesPath/$emuName/.pending_upload
           cloud_sync_createBackup "$emuName"
           cloud_sync_download $emuName && {
-			  rm -rf $savesPath/$emuName/.fail_download > /dev/null
-			  rm -rf $savesPath/$emuName/.pending_download > /dev/null
-			  rm -rf $savesPath/$emuName/.fail_upload > /dev/null
-			  rm -rf $savesPath/$emuName/.pending_upload > /dev/null
-		  }
+        rm -rf $savesPath/$emuName/.fail_download > /dev/null
+        rm -rf $savesPath/$emuName/.pending_download > /dev/null
+        rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+        rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+      }
 
         elif [[ $response =~ "0-" ]]; then
           #Upload - OK
           #rm -rf $savesPath/$emuName/.pending_upload
           cloud_sync_createBackup "$emuName"
           cloud_sync_upload $emuName && {
-			  rm -rf $savesPath/$emuName/.fail_download > /dev/null
-			  rm -rf $savesPath/$emuName/.pending_download > /dev/null
-			  rm -rf $savesPath/$emuName/.fail_upload > /dev/null
-			  rm -rf $savesPath/$emuName/.pending_upload > /dev/null
-		  }
+        rm -rf $savesPath/$emuName/.fail_download > /dev/null
+        rm -rf $savesPath/$emuName/.pending_download > /dev/null
+        rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+        rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+      }
         else
           #Skip - Cancel
           return
@@ -525,11 +525,11 @@ cloud_sync_downloadEmu(){
             #Download - OK
             cloud_sync_createBackup "$emuName"
             cloud_sync_download $emuName && {
-				rm -rf $savesPath/$emuName/.fail_download > /dev/null
-				rm -rf $savesPath/$emuName/.pending_download > /dev/null
-				rm -rf $savesPath/$emuName/.fail_upload > /dev/null
-				rm -rf $savesPath/$emuName/.pending_upload > /dev/null
-			}
+        rm -rf $savesPath/$emuName/.fail_download > /dev/null
+        rm -rf $savesPath/$emuName/.pending_download > /dev/null
+        rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+        rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+      }
             #echo $timestamp > "$savesPath"/$emuName/.pending_upload
           elif [[ $response =~ "0-" ]]; then
 
@@ -537,11 +537,11 @@ cloud_sync_downloadEmu(){
             #rm -rf $savesPath/$emuName/.pending_upload
             cloud_sync_createBackup "$emuName"
             cloud_sync_upload $emuName && {
-				rm -rf $savesPath/$emuName/.fail_download > /dev/null
-				rm -rf $savesPath/$emuName/.pending_download > /dev/null
-				rm -rf $savesPath/$emuName/.fail_upload > /dev/null
-				rm -rf $savesPath/$emuName/.pending_upload > /dev/null
-			}
+        rm -rf $savesPath/$emuName/.fail_download > /dev/null
+        rm -rf $savesPath/$emuName/.pending_download > /dev/null
+        rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+        rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+      }
           else
             #Skip - Cancel
             return
@@ -572,20 +572,20 @@ cloud_sync_downloadEmu(){
             #rm -rf $savesPath/$emuName/.pending_upload
             cloud_sync_createBackup "$emuName"
             cloud_sync_upload $emuName && {
-				rm -rf $savesPath/$emuName/.fail_download > /dev/null
-				rm -rf $savesPath/$emuName/.pending_download > /dev/null
-				rm -rf $savesPath/$emuName/.fail_upload > /dev/null
-				rm -rf $savesPath/$emuName/.pending_upload > /dev/null
-			}
+        rm -rf $savesPath/$emuName/.fail_download > /dev/null
+        rm -rf $savesPath/$emuName/.pending_download > /dev/null
+        rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+        rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+      }
           elif [[ $response =~ "0-" ]]; then
             #Download - OK
             cloud_sync_createBackup "$emuName"
             cloud_sync_download $emuName && {
-				rm -rf $savesPath/$emuName/.fail_download > /dev/null
-				rm -rf $savesPath/$emuName/.pending_download > /dev/null
-				rm -rf $savesPath/$emuName/.fail_upload > /dev/null
-				rm -rf $savesPath/$emuName/.pending_upload > /dev/null
-			}
+        rm -rf $savesPath/$emuName/.fail_download > /dev/null
+        rm -rf $savesPath/$emuName/.pending_download > /dev/null
+        rm -rf $savesPath/$emuName/.fail_upload > /dev/null
+        rm -rf $savesPath/$emuName/.pending_upload > /dev/null
+      }
           else
             #Skip - Cancel
             return

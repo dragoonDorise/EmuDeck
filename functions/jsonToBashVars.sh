@@ -32,6 +32,8 @@ function jsonToBashVars(){
     setSetting doInstallSupermodel "$(jq .installEmus.supermodel.status $json)"
     setSetting doInstallModel2  "$(jq .installEmus.model2.status $json)"
     setSetting doInstallBigPEmu  "$(jq .installEmus.bigpemu.status $json)"
+    setSetting doInstallShadPS4  "$(jq .installEmus.shadps4.status $json)"
+
 
 
     #Setup Emus
@@ -47,6 +49,7 @@ function jsonToBashVars(){
     setSetting doSetupCemu "$(jq .overwriteConfigEmus.cemu.status $json)"
     setSetting doSetupXenia "$(jq .overwriteConfigEmus.xenia.status $json)"
     setSetting doSetupRyujinx "$(jq .overwriteConfigEmus.ryujinx.status $json)"
+    setSetting doSetupShadPS4 "$(jq .overwriteConfigEmus.shadps4.status $json)"
     setSetting doSetupMAME "$(jq .overwriteConfigEmus.mame.status $json)"
     setSetting doSetupPrimeHack "$(jq .overwriteConfigEmus.primehack.status $json)"
     setSetting doSetupPPSSPP "$(jq .overwriteConfigEmus.ppsspp.status $json)"
@@ -63,6 +66,7 @@ function jsonToBashVars(){
     setSetting doSetupSupermodel "$(jq .overwriteConfigEmus.supermodel.status $json)"
     setSetting doSetupModel2 "$(jq .overwriteConfigEmus.model2.status $json)"
     setSetting doSetupBigPEmu  "$(jq .overwriteConfigEmus.bigpemu.status $json)"
+    setSetting doSetupShadPS4  "$(jq .overwriteConfigEmus.shadps4.status $json)"
 
     #Frontends
     setSetting doSetupSRM "$(jq .overwriteConfigEmus.srm.status $json)"
