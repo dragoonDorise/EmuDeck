@@ -281,6 +281,7 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doSetupCemu=true")
 	defaultSettingsList+=("doSetupXenia=false")
 	defaultSettingsList+=("doSetupRyujinx=true")
+	defaultSettingsList+=("doSetupShadPS4=false")
 	defaultSettingsList+=("doSetupMAME=true")
 	defaultSettingsList+=("doSetupPrimehack=true")
 	defaultSettingsList+=("doSetupPPSSPP=true")
@@ -1044,7 +1045,7 @@ function emulatorInit(){
 
 	#Check if the service is up and running
 
-	if [ -f "$cloud_sync_bin" ] && [ "$cloud_sync_status" == "true" ]; then
+	if [ -f "$cloud_sync_bin" ] && [ "$cloud_sync_status" == "true" ] && [ "$netPlay" != "true" ]; then
 
 		if [ $(check_internet_connection) == "true" ]; then
 
@@ -1118,4 +1119,27 @@ function server_install(){
 
 function startCompressor(){
 	konsole -e "/bin/bash $HOME/.config/EmuDeck/backend/tools/chdconv/chddeck.sh"
+}
+
+function generate_pythonEnv() {
+	if [ ! -d "$HOME/.config/EmuDeck/python_virtual_env" ]; then
+		python3 -m venv "$HOME/.config/EmuDeck/python_virtual_env"
+		source "$HOME/.config/EmuDeck/python_virtual_env/bin/activate"
+		pip install requests
+	else
+		source "$HOME/.config/EmuDeck/python_virtual_env/bin/activate"
+	fi
+}
+
+# Reusable Function to read value from the config.toml file
+function read_config_toml() {
+	local key="$1"
+	local configFile="$2"
+	echo "Reading arguments - key '$key' from config file: '$configFile'..."
+
+	local value
+	value=$(jq -r "$key" "$configFile")
+
+	echo "Extracted value: $value"
+	echo "$value"
 }

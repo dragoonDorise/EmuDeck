@@ -1,6 +1,6 @@
 #!/bin/bash
 
-uninstallEmuAI() {
+function uninstallEmuAI() {
     name=$1
     filename=$2
     format=$3
@@ -27,7 +27,7 @@ uninstallEmuAI() {
     echo "3, Application File Format: $format"
     echo "4, Application Type: $type"
 
-    echo "Uninstalling $name. Deleting "$HOME/Applications/$filename.$format". Deleting "$HOME/.local/share/applications/$name.desktop"" 
+    echo "Uninstalling $name. Deleting "$HOME/Applications/$filename.$format". Deleting "$HOME/.local/share/applications/$name.desktop""
 
     rm -rf "$HOME/Applications/$filename.$format"
     rm -rf "$HOME/.local/share/applications/$name.desktop"
