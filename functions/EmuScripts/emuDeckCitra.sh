@@ -304,11 +304,6 @@ Citra_flushSymlinks(){
 		find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
 		touch "$HOME/.config/EmuDeck/.citralegacysymlinks"
 		echo "Citra symlink cleanup completed."
-		zenity --info \
-		--text="Citra symlinks have been cleaned. This cleanup was conducted to prevent any potential breakage with symlinks. Place all new ROMs in Emulation/roms/n3ds. Your ROMs have been moved from Emulation/roms/3ds to Emulation/roms/n3ds." \
-		--title="Symlink Update" \
-		--width=400 \
-		--height=300
 
 	else
 		echo "Citra symlinks already cleaned."
@@ -366,11 +361,6 @@ Citra_flushSymlinks(){
 		find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
 		touch "$HOME/.config/EmuDeck/.citrasymlinks"
 		echo "Citra symlink cleanup completed."
-		zenity --info \
-		--text="Citra symlinks have been cleaned. This cleanup was conducted to prevent any potential breakage with symlinks. Place all new ROMs in Emulation/roms/n3ds. Your ROMs have been moved from Emulation/roms/3ds to Emulation/roms/n3ds." \
-		--title="Symlink Update" \
-		--width=400 \
-		--height=300
 
 	else
 		echo "Citra symlinks already cleaned."

@@ -2,7 +2,7 @@
 
 function Android_Lime3DS_install(){
 	setMSG "Installing Citra"
-	temp_url="$(getLatestReleaseURLGH "Lime3DS/Lime3DS" ".apk")"
+	temp_url="$(getLatestReleaseURLGH "Lime3DS/lime3ds-archive" ".apk")"
 	temp_emu="citra"
 	Android_ADB_dl_installAPK $temp_emu $temp_url
 }
