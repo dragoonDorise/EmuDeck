@@ -251,7 +251,7 @@ RetroArch_setupConfigurations(){
 
 	#Enable screenshots for savestates
 	savestate_thumbnail='savestate_thumbnail_enable = '
-	savestate_thumbnailSetting="${input_driver}"\""true"\"
+	savestate_thumbnailSetting="${savestate_thumbnail}"\""true"\"
 	changeLine "$savestate_thumbnail" "$savestate_thumbnailSetting" "$RetroArch_configFile"
 
 }
