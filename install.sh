@@ -2,10 +2,12 @@
 
 linuxID=$(lsb_release -si)
 sandbox=""
+
 if [ $linuxID = "Ubuntu" ]; then
     sandbox="--no-sandbox"
 fi
 clear
+
 if [ "$linuxID" == "SteamOS" ]; then
     echo "Installing EmuDeck"
 else
