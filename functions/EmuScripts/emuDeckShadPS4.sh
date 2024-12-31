@@ -52,8 +52,8 @@ ShadPS4_setEmulationFolder(){
 
     # setup bios link for LLE sys_modules (optional)
     mkdir -p "${biosPath}/shadps4/"
-    mkdir -p "ShadPS4_dir/sys_modules"
-    ln -sn "ShadPS4_dir/sys_modules" "${biosPath}/shadps4/sys_modules"
+    mkdir -p "$ShadPS4_dir/sys_modules"
+    ln -sn "$ShadPS4_dir/sys_modules" "${biosPath}/shadps4/sys_modules"
 
     echo "ShadPS4 Path Config Completed"
 }
