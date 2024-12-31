@@ -15,11 +15,14 @@ appImageInit() {
 		mv $HOME/Applications/Cemu.AppImage $HOME/.config/EmuDeck/Emulators/Cemu.AppImage
 		mv $HOME/Applications/citra-qt.AppImage $HOME/.config/EmuDeck/Emulators/citra-qt.AppImage
 		mv $HOME/Applications/EmuDeck.AppImage $HOME/.config/EmuDeck/Emulators/EmuDeck.AppImage
-		mv $HOME/Applications/ES-DE.AppImage $HOME/.config/EmuDeck/Emulators/ES-DE.AppImage
+
 		mv $HOME/Applications/pcsx2-Qt.AppImage $HOME/.config/EmuDeck/Emulators/pcsx2-Qt.AppImage
 		mv $HOME/Applications/pegasus-fe $HOME/.config/EmuDeck/Emulators/pegasus-fe
 		mv $HOME/Applications/rpcs3.AppImage $HOME/.config/EmuDeck/Emulators/rpcs3.AppImage
 		mv $HOME/Applications/Shadps4-qt.AppImage $HOME/.config/EmuDeck/Emulators/Shadps4-qt.AppImage
+
+		mkdir -p $ESDE_toolLocation
+		mv $HOME/Applications/ES-DE.AppImage $HOME/.config/EmuDeck/EmulationStation-DE/ES-DE.AppImage
 
 		#Fix paths shortcuts
 		if [ $doInstallESDE == "true" ]; then
