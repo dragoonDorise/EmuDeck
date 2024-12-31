@@ -6,7 +6,7 @@ ESDE_downloadedToolName="EmulationStation-DE-x64_SteamDeck.AppImage"
 ESDE_toolType="$emuDeckEmuTypeAppImage"
 ESDE_oldConfigDirectory="$ESDE_newConfigDirectory"
 ESDE_newConfigDirectory="$HOME/ES-DE"
-ESDE_toolLocation="$HOME/.config/EmuDeck/Emulators"
+ESDE_toolLocation="$HOME/.config/EmuDeck/EmulationStation-DE"
 ESDE_toolPath="${ESDE_toolLocation}/ES-DE.AppImage"
 ESDE_releaseURL="https://gitlab.com/es-de/emulationstation-de/-/package_files/76389058/download" #default URl in case of issues parsing json
 ESDE_releaseMD5="b749b927d61317fde0250af9492a4b9f" #default hash
@@ -79,6 +79,7 @@ ESDE_uninstall(){
 #Install
 ESDE_install(){
 	setMSG "Installing $ESDE_toolName"
+	mkdir -p $ESDE_toolLocation
 
 	# Move ES-DE to ~/Applications folder
 	ESDE_migration
