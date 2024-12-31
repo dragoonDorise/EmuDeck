@@ -33,12 +33,12 @@ ShadPS4_install(){
 }
 
 ShadPS4_init(){
-	configEmuAI "$ShadPS4_emuName" "config" "$HOME/.local/share/shadPS4" "$EMUDECKGIT/configs/shadps4" "true"
-	ShadPS4_setupStorage
-	ShadPS4_setEmulationFolder
-	ShadPS4_setupSaves
-	ShadPS4_flushEmulatorLauncher
-	ShadPS4_setLanguage
+    configEmuAI "$ShadPS4_emuName" "config" "$HOME/.local/share/shadPS4" "$EMUDECKGIT/configs/shadps4" "true"
+    ShadPS4_setupStorage
+    ShadPS4_setEmulationFolder
+    ShadPS4_setupSaves
+    ShadPS4_flushEmulatorLauncher
+    ShadPS4_setLanguage
 }
 
 ShadPS4_update(){
@@ -49,6 +49,12 @@ ShadPS4_update(){
 ShadPS4_setEmulationFolder(){
     echo "Begin ShadPS4 Path Config"
     sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$ShadPS4_configFile"
+
+    # setup bios link for LLE sys_modules (optional)
+    mkdir -p "${biosPath}/shadps4/"
+    mkdir -p "ShadPS4_dir/sys_modules"
+    ln -sn "ShadPS4_dir/sys_modules" "${biosPath}/shadps4/sys_modules"
+
     echo "ShadPS4 Path Config Completed"
 }
 
@@ -125,9 +131,9 @@ ShadPS4_resetConfig(){
 }
 
 ShadPS4_setResolution(){
-	echo "NYI"
+    echo "NYI"
 }
 
 ShadPS4_flushEmulatorLauncher(){
-	flushEmulatorLaunchers "ShadPS4"
+    flushEmulatorLaunchers "ShadPS4"
 }
