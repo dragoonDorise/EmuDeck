@@ -9,17 +9,17 @@ appImageInit() {
 
 
 		#Migrate AppImages to .config
-		mkdir -p $HOME/.config/Emulators
-		move $HOME/Applications/publish $HOME/.config/Emulators/publish
-		move $HOME/Applications/Vita3K $HOME/.config/Emulators/Vita3K
-		move $HOME/Applications/Cemu.AppImage $HOME/.config/Emulators/Cemu.AppImage
-		move $HOME/Applications/citra-qt.AppImage $HOME/.config/Emulators/citra-qt.AppImage
-		move $HOME/Applications/EmuDeck.AppImage $HOME/.config/Emulators/EmuDeck.AppImage
-		move $HOME/Applications/ES-DE.AppImage $HOME/.config/Emulators/ES-DE.AppImage
-		move $HOME/Applications/pcsx2-Qt.AppImage $HOME/.config/Emulators/pcsx2-Qt.AppImage
-		move $HOME/Applications/pegasus-fe $HOME/.config/Emulators/pegasus-fe
-		move $HOME/Applications/rpcs3.AppImage $HOME/.config/Emulators/rpcs3.AppImage
-		move $HOME/Applications/Shadps4-qt.AppImage $HOME/.config/Emulators/Shadps4-qt.AppImage
+		mkdir -p $HOME/.config/EmuDeck/Emulators
+		move $HOME/Applications/publish $HOME/.config/EmuDeck/Emulators/publish
+		move $HOME/Applications/Vita3K $HOME/.config/EmuDeck/Emulators/Vita3K
+		move $HOME/Applications/Cemu.AppImage $HOME/.config/EmuDeck/Emulators/Cemu.AppImage
+		move $HOME/Applications/citra-qt.AppImage $HOME/.config/EmuDeck/Emulators/citra-qt.AppImage
+		move $HOME/Applications/EmuDeck.AppImage $HOME/.config/EmuDeck/Emulators/EmuDeck.AppImage
+		move $HOME/Applications/ES-DE.AppImage $HOME/.config/EmuDeck/Emulators/ES-DE.AppImage
+		move $HOME/Applications/pcsx2-Qt.AppImage $HOME/.config/EmuDeck/Emulators/pcsx2-Qt.AppImage
+		move $HOME/Applications/pegasus-fe $HOME/.config/EmuDeck/Emulators/pegasus-fe
+		move $HOME/Applications/rpcs3.AppImage $HOME/.config/EmuDeck/Emulators/rpcs3.AppImage
+		move $HOME/Applications/Shadps4-qt.AppImage $HOME/.config/EmuDeck/Emulators/Shadps4-qt.AppImage
 
 		#Fix paths shortcuts
 		if [ $doInstallESDE == "true" ]; then
