@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Global variables
-emuDecksettingsFile="$HOME/emudeck/settings.sh"
+emuDecksettingsFile="$HOME/.config/EmuDeck/settings.sh"
 
 emuDeckEmuTypeFlatpak="Flatpak"
 emuDeckEmuTypeAppImage="AppImage"
@@ -11,8 +11,8 @@ emuDeckEmuTypeOther="Other"
 
 function startLog() {
 	funcName="$1"
-	mkdir -p "$HOME/emudeck/logs"
-	logFile="$HOME/emudeck/logs/$funcName.log"
+	mkdir -p "$HOME/.config/EmuDeck/logs"
+	logFile="$HOME/.config/EmuDeck/logs/$funcName.log"
 
 	touch "$logFile"
 
@@ -832,8 +832,8 @@ check_internet_connection(){
 zipLogs() {
 	local desktop=$(xdg-user-dir DESKTOP)
 
-	logsFolder="$HOME/emudeck/logs"
-	settingsFile="$HOME/emudeck/settings.sh"
+	logsFolder="$HOME/.config/EmuDeck/logs"
+	settingsFile="$HOME/.config/EmuDeck/settings.sh"
 	zipOutput="$desktop/emudeck_logs.zip"
 
 	# Comprime los archivos en un archivo zip
@@ -927,7 +927,7 @@ saveLatestVersionGH() {
 		emuVersion=$(getLatestVersionGH "$repo")
 
 		# JSON file path
-		jsonFilePath="$HOME/emudeck/emu_versions.json"
+		jsonFilePath="$HOME/.config/EmuDeck/emu_versions.json"
 
 		if [ -e "$jsonFilePath" ]; then
 			echo "file found"
@@ -954,11 +954,11 @@ saveLatestVersionGH() {
 
 isLatestVersionGH() {
 	emuName=$1
-	dontUpdate="$HOME/emudeck/emulatorInit.noupdate"
+	dontUpdate="$HOME/.config/EmuDeck/emulatorInit.noupdate"
 	emuDontUpdate="${emuName}.noupdate"
 
 	# check global noupdate file flag, emulator noupdate flag file using case insensitive find and internet connectivity
-	if [ ! -f "${dontUpdate}" ] && [[ -z $(find "$HOME/emudeck/" -maxdepth 1 -type f -iname "${emuDontUpdate}") ]] && [ "$(check_internet_connection)" == "true" ]; then
+	if [ ! -f "${dontUpdate}" ] && [[ -z $(find "$HOME/.config/EmuDeck/" -maxdepth 1 -type f -iname "${emuDontUpdate}") ]] && [ "$(check_internet_connection)" == "true" ]; then
 		repo=$(getEmuRepo "$emuName")
 
 		if [ "$repo" == "none" ]; then
@@ -967,7 +967,7 @@ isLatestVersionGH() {
 			emuVersion=$(getLatestVersionGH "$repo")
 
 			# JSON file path
-			jsonFilePath="$HOME/emudeck/emu_versions.json"
+			jsonFilePath="$HOME/.config/EmuDeck/emu_versions.json"
 
 			if [ -f "$jsonFilePath" ]; then
 				echo "file found"

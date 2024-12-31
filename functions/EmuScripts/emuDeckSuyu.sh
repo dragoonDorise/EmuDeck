@@ -3,7 +3,7 @@
 #variables
 suyu_emuName="suyu"
 suyu_emuType="$emuDeckEmuTypeAppImage"
-suyu_emuPath="$HOME/Applications/suyu.AppImage"
+suyu_emuPath="$HOME/.config/EmuDeck/Emulators/suyu.AppImage"
 
 suyu_configFile="$HOME/.config/suyu/qt-config.ini"
 

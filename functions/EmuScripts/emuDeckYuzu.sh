@@ -3,7 +3,7 @@
 #variables
 Yuzu_emuName="yuzu"
 Yuzu_emuType="$emuDeckEmuTypeAppImage"
-Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
+Yuzu_emuPath="$HOME/.config/EmuDeck/Emulators/yuzu.AppImage"
 
 Yuzu_configFile="$HOME/.config/yuzu/qt-config.ini"
 
@@ -60,7 +60,7 @@ Yuzu_install() {
     echo "Begin Yuzu Install"
 
     local showProgress=$1
-    local lastVerFile="$HOME/emudeck/yuzu.ver"
+    local lastVerFile="$HOME/.config/EmuDeck/yuzu.ver"
     local latestVer=$(curl -fSs "https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases" | jq -r '[ .[].tag_name ][0]')
     local success="false"
     if installEmuAI "$Yuzu_emuName" "$(getReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage")" "" "$showProgress" "$lastVerFile" "$latestVer"; then # yuzu.AppImage - needs to be lowercase yuzu for EsDE to find it

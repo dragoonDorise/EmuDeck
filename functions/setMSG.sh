@@ -10,8 +10,8 @@ setMSG() {
 		progressBar=90
 	fi
 
-	echo "$progressBar" > "$HOME/emudeck/logs/msg.log"
-	echo "# $1" >> "$HOME/emudeck/logs/msg.log"
+	echo "$progressBar" > "$HOME/.config/EmuDeck/logs/msg.log"
+	echo "# $1" >> "$HOME/.config/EmuDeck/logs/msg.log"
 	echo "$1"
 	sleep 0.5
 }

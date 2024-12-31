@@ -3,7 +3,7 @@
 # Variables
 Greenlight_emuName="Greenlight"
 Greenlight_emuType="$emuDeckEmuTypeAppImage"
-Greenlight_emuPath="$HOME/Applications/Greenlight.AppImage"
+Greenlight_emuPath="$HOME/.config/EmuDeck/Emulators/Greenlight.AppImage"
 
 
 # Install

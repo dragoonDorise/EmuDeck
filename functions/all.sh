@@ -18,10 +18,12 @@ source "$EMUDECKGIT"/functions/helperFunctions.sh
 
 
 
-SETTINGSFILE="$HOME/emudeck/settings.sh"
+SETTINGSFILE="$HOME/.config/EmuDeck/settings.sh"
 if [ -f "$SETTINGSFILE" ]; then
     # shellcheck source=./settings.sh
     source "$SETTINGSFILE"
+else
+    source "$HOME/emudeck/settings.sh"
 fi
 
 if [ "$system" != "darwin" ]; then

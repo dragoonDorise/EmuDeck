@@ -3,7 +3,7 @@
 
 API_pull(){
 	local branch=$1
-	cd ~/.config/EmuDeck/backend && touch ~/emudeck/logs/git.log && git reset --hard && git clean -fd && git checkout $branch && git pull && appImageInit && echo "OK" || echo "KO" >&2
+	cd ~/.config/EmuDeck/backend && touch $HOME/.config/EmuDeck/logs/git.log && git reset --hard && git clean -fd && git checkout $branch && git pull && appImageInit && echo "OK" || echo "KO" >&2
 }
 
 API_autoSave(){

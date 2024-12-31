@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# SETTINGSFILEANDROID="$HOME/emudeck/android_settings.sh"
+# SETTINGSFILEANDROID="$HOME/.config/EmuDeck/android_settings.sh"
 # if [ -f "$SETTINGSFILEANDROID" ]; then
 # 	# shellcheck source=./settings.sh
 # 	source "$SETTINGSFILEANDROID"
 # else
 # 	cp "$EMUDECKGIT/android/android_settings.sh" "$SETTINGSFILEANDROID"
-# 	source "$HOME/emudeck/android_settings.sh"
+# 	source "$HOME/.config/EmuDeck/android_settings.sh"
 # fi
 source "$EMUDECKGIT/android/vars.sh"
 

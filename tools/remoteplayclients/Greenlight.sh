@@ -1,3 +1,3 @@
 #!/bin/bash
 
-"$HOME/Applications/Greenlight.AppImage"
+"$HOME/.config/EmuDeck/Emulators/Greenlight.AppImage"

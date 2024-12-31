@@ -2,7 +2,7 @@
 source $HOME/.config/EmuDeck/backend/functions/all.sh
 emulatorInit "shadps4"
 emuName="Shadps4-qt" #parameterize me
-emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
+emufolder="$HOME/.config/EmuDeck/Emulators" # has to be applications for ES-DE to find it
 
 #initialize execute array
 exe=()
@@ -28,7 +28,7 @@ fileExtension="${@##*.}"
 if [[ $fileExtension == "desktop" ]]; then
     rpcs3desktopFile=$(grep -E "^Exec=" "${*}" | sed 's/^Exec=//' | sed 's/%%/%/g')
     launchParam="Exec=$rpcs3desktopFile"
-    launchParam=$(echo "$launchParam" | sed "s|^\(Exec=\)[^\"']*\"|\1$HOME/Applications/Shadps4-qt.AppImage -g \"|" | sed 's/^Exec=//')
+    launchParam=$(echo "$launchParam" | sed "s|^\(Exec=\)[^\"']*\"|\1$HOME/.config/EmuDeck/Emulators/Shadps4-qt.AppImage -g \"|" | sed 's/^Exec=//')
     eval $launchParam
 else
     #run the executable with the params.

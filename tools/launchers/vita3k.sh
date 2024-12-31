@@ -4,7 +4,7 @@ emulatorInit "Vita3k"
 export LC_ALL="C"
 
 emuName="Vita3K" #parameterize me
-emufolder="$HOME/Applications/Vita3K" # has to be applications for ES-DE to find it
+emufolder="$HOME/.config/EmuDeck/Emulators/Vita3K" # has to be applications for ES-DE to find it
 
 #initialize execute array
 exe=()

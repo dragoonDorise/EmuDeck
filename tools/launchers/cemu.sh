@@ -35,7 +35,7 @@ showArguments () {
 
 # Attempt to find the given program as an AppImage
 getAppImage () {
-    local EMUDIR="${HOME}/Applications"
+    local EMUDIR="${HOME}/.config/EmuDeck/Emulators"
 
     # Check for AppImage
     local APPIMAGE
@@ -65,7 +65,7 @@ getFlatpak () {
 
 # Main
 main () {
-    source ~/emudeck/settings.sh
+    source $HOME/.config/EmuDeck/settings.sh
 
     # NAME - Cemu
     NAME="Cemu"

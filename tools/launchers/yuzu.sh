@@ -4,13 +4,13 @@ emulatorInit "yuzu"
 
 emuName="yuzu" #parameterize me
 useEAifFound="true" # set to false to simply use the newest file found
-emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
-emuDontUpdate="$HOME/emudeck/${emuName}.noupdate"
-Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
-YuzuEA_emuPath="$HOME/Applications/yuzu-ea.AppImage"
-YuzuEA_tokenFile="$HOME/emudeck/yuzu-ea-token.txt"
-YuzuEA_lastVerFile="$HOME/emudeck/yuzu-ea.ver"
-Yuzu_lastVerFile="$HOME/emudeck/yuzu.ver"
+emufolder="$HOME/.config/EmuDeck/Emulators" # has to be applications for ES-DE to find it
+emuDontUpdate="$HOME/.config/EmuDeck/${emuName}.noupdate"
+Yuzu_emuPath="$HOME/.config/EmuDeck/Emulators/yuzu.AppImage"
+YuzuEA_emuPath="$HOME/.config/EmuDeck/Emulators/yuzu-ea.AppImage"
+YuzuEA_tokenFile="$HOME/.config/EmuDeck/yuzu-ea-token.txt"
+YuzuEA_lastVerFile="$HOME/.config/EmuDeck/yuzu-ea.ver"
+Yuzu_lastVerFile="$HOME/.config/EmuDeck/yuzu.ver"
 showProgress="true"
 
 #source the helpers for safeDownload
@@ -25,7 +25,7 @@ if [[ ! $emuExeFile =~ "AppImage" ]]; then
 	emuExeFile=$(find "$emufolder" -iname "${emuName}*.AppImage" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
 fi
 if [[ ! $emuExeFile =~ "AppImage" ]]; then
-	 zenity --info --title="Yuzu AppImage not found!" --width 200 --text "Please check that you have the appimage in ~/Applications or \nrerun Emudeck and ensure it is installed." 2>/dev/null
+	 zenity --info --title="Yuzu AppImage not found!" --width 200 --text "Please check that you have the appimage in ~/.config/EmuDeck/Emulators or \nrerun Emudeck and ensure it is installed." 2>/dev/null
 fi
 isMainline=true
 if [ ! "$emuExeFile" = "$emufolder/$emuName.AppImage" ]; then

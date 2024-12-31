@@ -3,7 +3,7 @@
 #variables
 Ryujinx_emuName="Ryujinx"
 Ryujinx_emuType="$emuDeckEmuTypeBinary"
-Ryujinx_emuPath="$HOME/Applications/publish"
+Ryujinx_emuPath="$HOME/.config/EmuDeck/Emulators/publish"
 Ryujinx_configFile="$HOME/.config/Ryujinx/Config.json"
 # https://github.com/Ryujinx/Ryujinx/blob/master/Ryujinx.Ui.Common/Configuration/System/Language.cs#L3-L23
 Ryujinx_controllerFile="$HOME/.config/Ryujinx/profiles/controller/Deck.json"
@@ -50,18 +50,18 @@ Ryujinx_install(){
     echo "Begin Ryujinx Install"
     local showProgress=$1
     if installEmuBI "$Ryujinx_emuName" "$(getReleaseURLGH "Ryubing/Ryujinx" "-linux_x64.tar.gz")" "" "tar.gz" "$showProgress"; then
-        mkdir -p "$HOME/Applications/publish"
-        tar -xvf "$HOME/Applications/Ryujinx.tar.gz" -C "$HOME/Applications" && rm -rf "$HOME/Applications/Ryujinx.tar.gz"
-        chmod +x "$HOME/Applications/publish/Ryujinx"
+        mkdir -p "$HOME/.config/EmuDeck/Emulators/publish"
+        tar -xvf "$HOME/.config/EmuDeck/Emulators/Ryujinx.tar.gz" -C "$HOME/.config/EmuDeck/Emulators" && rm -rf "$HOME/.config/EmuDeck/Emulators/Ryujinx.tar.gz"
+        chmod +x "$HOME/.config/EmuDeck/Emulators/publish/Ryujinx"
     else
         return 1
     fi
 
     # flatpak install flathub org.ryujinx.Ryujinx -y --user
-    # mkdir -p "$HOME/Applications/publish"
-    # rsync -av "$HOME/.local/share/flatpak/app/org.ryujinx.Ryujinx/x86_64/stable/active/files/bin/" "$HOME/Applications/publish/" && flatpak uninstall flathub org.ryujinx.Ryujinx -y --user
+    # mkdir -p "$HOME/.config/EmuDeck/Emulators/publish"
+    # rsync -av "$HOME/.local/share/flatpak/app/org.ryujinx.Ryujinx/x86_64/stable/active/files/bin/" "$HOME/.config/EmuDeck/Emulators/publish/" && flatpak uninstall flathub org.ryujinx.Ryujinx -y --user
     # rm -rf "$HOME/.config/Ryujinx/games"
-    # chmod +x "$HOME/Applications/publish/Ryujinx"
+    # chmod +x "$HOME/.config/EmuDeck/Emulators/publish/Ryujinx"
 
 }
 

@@ -3,7 +3,7 @@
 # Variables
 ShadowPC_emuName="ShadowPC"
 ShadowPC_emuType="$emuDeckEmuTypeAppImage"
-ShadowPC_emuPath="$HOME/Applications/ShadowPC.AppImage"
+ShadowPC_emuPath="$HOME/.config/EmuDeck/Emulators/ShadowPC.AppImage"
 ShadowPC_releaseURL="https://update.Shadow.tech/launcher/prod/linux/ubuntu_18.04/ShadowPC.AppImage"
 
 # Install

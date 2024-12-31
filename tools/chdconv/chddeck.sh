@@ -1,6 +1,6 @@
 #!/bin/bash
 # shellcheck source=/home/deck/emudeck/settings.sh
-. ~/emudeck/settings.sh
+. $HOME/.config/EmuDeck/settings.sh
 
 if [[ "$EMUDECKGIT" == "" ]]; then
     EMUDECKGIT="$HOME/.config/EmuDeck/backend"
@@ -73,8 +73,8 @@ dolphintool="flatpak run --command=dolphin-tool $flatpaktool"
 
 #initialize log
 TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
-mkdir -p "$HOME/emudeck/logs/compression"
-LOGFILE="$HOME/emudeck/logs/compression/chdman-$TIMESTAMP.log"
+mkdir -p "$HOME/.config/EmuDeck/logs/compression"
+LOGFILE="$HOME/.config/EmuDeck/logs/compression/chdman-$TIMESTAMP.log"
 exec > >(tee "${LOGFILE}") 2>&1
 
 #compression functions

@@ -20,11 +20,11 @@ installEmuBI(){
     echo "6, Last Version File: $lastVerFile"
     echo "7, Last Version: $latestVer"
 
-    #rm -f "$HOME/Applications/$fileName.$format" # mv below will overwrite...
-    mkdir -p "$HOME/Applications"
+    #rm -f "$HOME/.config/EmuDeck/Emulators/$fileName.$format" # mv below will overwrite...
+    mkdir -p "$HOME/.config/EmuDeck/Emulators"
 
-    #curl -L "$url" -o "$HOME/Applications/$fileName.$format.temp" && mv "$HOME/Applications/$fileName.$format.temp" "$HOME/Applications/$fileName.$format"
-    if safeDownload "$name" "$url" "$HOME/Applications/${fileName}.${format}" "$showProgress"; then
+    #curl -L "$url" -o "$HOME/.config/EmuDeck/Emulators/$fileName.$format.temp" && mv "$HOME/.config/EmuDeck/Emulators/$fileName.$format.temp" "$HOME/.config/EmuDeck/Emulators/$fileName.$format"
+    if safeDownload "$name" "$url" "$HOME/.config/EmuDeck/Emulators/${fileName}.${format}" "$showProgress"; then
         if [[ -n $lastVerFile ]] && [[ -n $latestVer ]]; then
             echo "latest version $latestVer > $lastVerFile"
             echo "$latestVer" > "$lastVerFile"

@@ -2,7 +2,7 @@
 source $HOME/.config/EmuDeck/backend/functions/all.sh
 emulatorInit "BigPEmu"
 emuName="bigpemu" #parameterize me
-emufolder="$HOME/Applications/BigPEmu" # has to be here for ES-DE to find it
+emufolder="$HOME/.config/EmuDeck/Emulators/BigPEmu" # has to be here for ES-DE to find it
 
 #initialize execute array
 exe=()

@@ -2,7 +2,7 @@
 #variables
 mGBA_emuName="mGBA"
 mGBA_emuType="$emuDeckEmuTypeAppImage"
-mGBA_emuPath="$HOME/Applications/mGBA.AppImage"
+mGBA_emuPath="$HOME/.config/EmuDeck/Emulators/mGBA.AppImage"
 mGBA_configFile="$HOME/.config/mgba/config.ini"
 
 #cleanupOlderThings

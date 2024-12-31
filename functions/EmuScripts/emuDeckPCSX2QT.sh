@@ -2,7 +2,7 @@
 #variables
 PCSX2QT_emuName="PCSX2-QT"
 PCSX2QT_emuType="$emuDeckEmuTypeAppImage"
-PCSX2QT_emuPath="$HOME/Applications/pcsx2-Qt.AppImage"
+PCSX2QT_emuPath="$HOME/.config/EmuDeck/Emulators/pcsx2-Qt.AppImage"
 PCSX2QT_configFile="$HOME/.config/PCSX2/inis/PCSX2.ini"
 
 #cleanupOlderThings

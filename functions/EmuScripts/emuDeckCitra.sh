@@ -2,7 +2,7 @@
 #variables
 Citra_emuName="Citra"
 Citra_emuType="$emuDeckEmuTypeAppImage"
-Citra_emuPath="$HOME/Applications/citra-qt.AppImage"
+Citra_emuPath="$HOME/.config/EmuDeck/Emulators/citra-qt.AppImage"
 Citra_releaseURL=""
 Citra_configFile="$HOME/.config/citra-emu/qt-config.ini"
 Citra_configPath="$HOME/.config/citra-emu"
@@ -14,12 +14,12 @@ Citra_install(){
 	local showProgress="$1"
 	if installEmuAI "$Citra_emuName" "" "https://github.com/PabloMK7/citra/releases/download/r608383e/citra-linux-appimage-20240927-608383e.tar.gz" "citra" "tar.gz" "emulator" "$showProgress"; then #citra-qt.AppImage
 	#if installEmuAI "$Citra_emuName" "" "https://github.com/PabloMK7/citra/releases/download/r518f723/citra-linux-appimage-20240717-518f723.tar.gz" "citra" "tar.gz" "emulator" "$showProgress"; then #citra-qt.AppImage
-		mkdir "$HOME/Applications/citra-temp"
-		tar -xvzf "$HOME/Applications/citra.tar.gz" -C "$HOME/Applications/citra-temp" --strip-components 1
-		mv "$HOME/Applications/citra-temp/citra-qt.AppImage" "$HOME/Applications"
-		rm -rf "$HOME/Applications/citra-temp"
-		rm -rf "$HOME/Applications/citra.tar.gz"
-		chmod +x "$HOME/Applications/citra-qt.AppImage"
+		mkdir "$HOME/.config/EmuDeck/Emulators/citra-temp"
+		tar -xvzf "$HOME/.config/EmuDeck/Emulators/citra.tar.gz" -C "$HOME/.config/EmuDeck/Emulators/citra-temp" --strip-components 1
+		mv "$HOME/.config/EmuDeck/Emulators/citra-temp/citra-qt.AppImage" "$HOME/.config/EmuDeck/Emulators"
+		rm -rf "$HOME/.config/EmuDeck/Emulators/citra-temp"
+		rm -rf "$HOME/.config/EmuDeck/Emulators/citra.tar.gz"
+		chmod +x "$HOME/.config/EmuDeck/Emulators/citra-qt.AppImage"
 	else
 		return 1
 	fi

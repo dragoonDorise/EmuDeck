@@ -2,7 +2,7 @@
 #variables
 Lime3DS_emuName="Lime3DS"
 Lime3DS_emuType="$emuDeckEmuTypeAppImage"
-Lime3DS_emuPath="$HOME/Applications/lime3ds-gui.AppImage"
+Lime3DS_emuPath="$HOME/.config/EmuDeck/Emulators/lime3ds-gui.AppImage"
 Lime3DS_releaseURL=""
 Lime3DS_configFile="$HOME/.config/lime3ds-emu/qt-config.ini"
 Lime3DS_configPath="$HOME/.config/lime3ds-emu"
@@ -13,20 +13,20 @@ Lime3DS_install(){
 	echo "Begin $Lime3DS_emuName Install"
 	local showProgress="$1"
 	if installEmuAI "$Lime3DS_emuName" "" "$(getReleaseURLGH "Lime3DS/lime3ds-archive" "tar.gz" "")" "lime3ds" "tar.gz" "emulator" "$showProgress"; then #lime3ds-gui.AppImage
-		mkdir "$HOME/Applications/lime3ds-temp"
-		tar -xvzf "$HOME/Applications/lime3ds.tar.gz" -C "$HOME/Applications/lime3ds-temp" --strip-components 1
-		if [ -f "$HOME/Applications/lime3ds-temp/lime3ds-gui.AppImage" ]; then
-			mv "$HOME/Applications/lime3ds-temp/lime3ds-gui.AppImage" "$Lime3DS_emuPath"
-		elif [ -f "$HOME/Applications/lime3ds-temp/lime3ds.AppImage" ]; then
-			mv "$HOME/Applications/lime3ds-temp/lime3ds.AppImage" "$Lime3DS_emuPath"
+		mkdir "$HOME/.config/EmuDeck/Emulators/lime3ds-temp"
+		tar -xvzf "$HOME/.config/EmuDeck/Emulators/lime3ds.tar.gz" -C "$HOME/.config/EmuDeck/Emulators/lime3ds-temp" --strip-components 1
+		if [ -f "$HOME/.config/EmuDeck/Emulators/lime3ds-temp/lime3ds-gui.AppImage" ]; then
+			mv "$HOME/.config/EmuDeck/Emulators/lime3ds-temp/lime3ds-gui.AppImage" "$Lime3DS_emuPath"
+		elif [ -f "$HOME/.config/EmuDeck/Emulators/lime3ds-temp/lime3ds.AppImage" ]; then
+			mv "$HOME/.config/EmuDeck/Emulators/lime3ds-temp/lime3ds.AppImage" "$Lime3DS_emuPath"
 		else
-			rm -rf "$HOME/Applications/lime3ds-temp"
-			rm -rf "$HOME/Applications/lime3ds.tar.gz"
+			rm -rf "$HOME/.config/EmuDeck/Emulators/lime3ds-temp"
+			rm -rf "$HOME/.config/EmuDeck/Emulators/lime3ds.tar.gz"
 			return 1
 		fi
-		chmod +x "$HOME/Applications/lime3ds-gui.AppImage"
-		rm -rf "$HOME/Applications/lime3ds-temp"
-		rm -rf "$HOME/Applications/lime3ds.tar.gz"
+		chmod +x "$HOME/.config/EmuDeck/Emulators/lime3ds-gui.AppImage"
+		rm -rf "$HOME/.config/EmuDeck/Emulators/lime3ds-temp"
+		rm -rf "$HOME/.config/EmuDeck/Emulators/lime3ds.tar.gz"
 	else
 		return 1
 	fi

@@ -3,7 +3,7 @@
 
 
 
-MSG=$HOME/emudeck/logs/msg.log
+MSG=$HOME/.config/EmuDeck/logs/msg.log
 echo "0" > "$MSG"
 
 #
@@ -13,7 +13,7 @@ echo "0" > "$MSG"
 #
 
 #mkdir -p "$HOME/.config/EmuDeck"
-#mkdir -p "$HOME/emudeck/logs"
+#mkdir -p "$HOME/.config/EmuDeck/logs"
 PIDFILE="$HOME/.config/EmuDeck/install.pid"
 
 
@@ -55,9 +55,9 @@ trap finish EXIT
 #
 
 #Creating log file
-LOGFILE="$HOME/emudeck/logs/emudeckAndroidSetup.log"
+LOGFILE="$HOME/.config/EmuDeck/logs/emudeckAndroidSetup.log"
 
-mv "${LOGFILE}" "$HOME/emudeck/logs/emudeckAndroidSetup.last.log" #backup last log
+mv "${LOGFILE}" "$HOME/.config/EmuDeck/logs/emudeckAndroidSetup.last.log" #backup last log
 
 if echo "${@}" > "${LOGFILE}" ; then
 	echo "Log created"
@@ -207,8 +207,8 @@ xdg-open "$Android_folder/temp" &
 #
 # We mark the script as finished
 #
-echo "100" > "$HOME/emudeck/logs/msg.log"
-echo "# Installation Complete" >> "$HOME/emudeck/logs/msg.log"
+echo "100" > "$HOME/.config/EmuDeck/logs/msg.log"
+echo "# Installation Complete" >> "$HOME/.config/EmuDeck/logs/msg.log"
 
 } | tee "${LOGFILE}" 2>&1
 

@@ -22,8 +22,8 @@ pegasus_install(){
 	local url="https://github.com/dragoonDorise/pegasus-temp/releases/download/1.0/pegasus-fe"
 	local fileName="pegasus-fe"
 
-	if safeDownload "$name" "$url" "$HOME/Applications/$fileName" "$showProgress"; then
-		chmod +x "$HOME/Applications/$fileName"
+	if safeDownload "$name" "$url" "$HOME/.config/EmuDeck/Emulators/$fileName" "$showProgress"; then
+		chmod +x "$HOME/.config/EmuDeck/Emulators/$fileName"
 		pegasus_init
 		pegasus_customDesktopShortcut
 	else
@@ -40,13 +40,13 @@ pegasus_setPaths(){
 	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" {} \;
 
 	#Yuzu path fix
-	if [ -f "$HOME/Applications/yuzu.AppImage" ]; then
+	if [ -f "$HOME/.config/EmuDeck/Emulators/yuzu.AppImage" ]; then
 		sed -i "s|ryujinx|yuzu|g" "$romsPath/switch/metadata.txt"
 		sed -i "s|--fullscreen|-f -g|g" "$romsPath/switch/metadata.txt"
 	fi
 
 	#Citra path fix
-	if [ -f "$HOME/Applications/citra-qt.AppImage" ]; then
+	if [ -f "$HOME/.config/EmuDeck/Emulators/citra-qt.AppImage" ]; then
 		sed -i "s|lime3ds|citra|g" "$romsPath/n3ds/metadata.txt"
 	fi
 
@@ -224,7 +224,7 @@ pegasus_setEmu(){
 }
 
 pegasus_IsInstalled(){
-  if [ -f  "$HOME/Applications/pegasus-fe" ]; then
+  if [ -f  "$HOME/.config/EmuDeck/Emulators/pegasus-fe" ]; then
   	echo "true"
   else
  	 echo "false"
@@ -233,7 +233,7 @@ pegasus_IsInstalled(){
 
 pegasus_uninstall(){
 	flatpak uninstall "$pegasus_emuPath" --user -y &> /dev/null;
-	rm -rf "$HOME/Applications/pegasus-fe" &> /dev/null;
+	rm -rf "$HOME/.config/EmuDeck/Emulators/pegasus-fe" &> /dev/null;
 }
 
 pegasus_flushToolLauncher(){

@@ -3,7 +3,7 @@
 # Variables
 Chiaking_emuName="chiaki-ng"
 Chiaking_emuType="$emuDeckEmuTypeAppImage"
-Chiaking_emuPath="$HOME/Applications/chiaki-ng.AppImage"
+Chiaking_emuPath="$HOME/.config/EmuDeck/Emulators/chiaki-ng.AppImage"
 
 # Install
 Chiaking_install() {
@@ -11,7 +11,7 @@ Chiaking_install() {
 
     local showProgress=$1
 	installEmuAI "$Chiaking_emuName" "$Chiaking_emuName" "$(getReleaseURLGH "streetpea/chiaki-ng" ".AppImage.zip")" "" "zip" "remoteplay" "$showProgress"
-	unzip -o "$HOME/Applications/chiaki-ng.zip" -d "$HOME/Applications" && rm -rf "$HOME/Applications/chiaki-ng.zip"
+	unzip -o "$HOME/.config/EmuDeck/Emulators/chiaki-ng.zip" -d "$HOME/.config/EmuDeck/Emulators" && rm -rf "$HOME/.config/EmuDeck/Emulators/chiaki-ng.zip"
 	chmod +x $Chiaking_emuPath
 	Chiaking_copySettings
 }

@@ -2,7 +2,7 @@
 #variables
 RPCS3_emuName="RPCS3"
 RPCS3_emuType="$emuDeckEmuTypeAppImage"
-RPCS3_emuPath="$HOME/Applications/rpcs3.AppImage"
+RPCS3_emuPath="$HOME/.config/EmuDeck/Emulators/rpcs3.AppImage"
 RPCS3_emuPathFlatpak="net.rpcs3.RPCS3"
 RPCS3_VFSConf="$HOME/.config/rpcs3/vfs.yml"
 RPCS3_migrationFlag="$HOME/.config/EmuDeck/.${RPCS3_emuName}MigrationCompleted"

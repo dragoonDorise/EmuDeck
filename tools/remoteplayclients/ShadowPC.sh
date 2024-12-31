@@ -1,3 +1,3 @@
 #!/bin/bash
 
-"$HOME/Applications/ShadowPC.AppImage"
+"$HOME/.config/EmuDeck/Emulators/ShadowPC.AppImage"
