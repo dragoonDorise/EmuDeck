@@ -19,7 +19,7 @@ source "$EMUDECKGIT"/functions/helperFunctions.sh
 
 
 SETTINGSFILE="$HOME/.config/EmuDeck/settings.sh"
-if [ -f "$SETTINGSFILE" ]; then
+if [ -f "$SETTINGSFILE" ] &&  [ ! -L "$SETTINGSFILE" ]; then
     # shellcheck source=./settings.sh
     source "$SETTINGSFILE"
 else
