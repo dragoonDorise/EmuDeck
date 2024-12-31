@@ -10,19 +10,21 @@ appImageInit() {
 
 		#Migrate AppImages to .config
 		mkdir -p $HOME/.config/EmuDeck/Emulators
-		mv $HOME/Applications/publish $HOME/.config/EmuDeck/Emulators/publish
-		mv $HOME/Applications/Vita3K $HOME/.config/EmuDeck/Emulators/Vita3K
-		mv $HOME/Applications/Cemu.AppImage $HOME/.config/EmuDeck/Emulators/Cemu.AppImage
-		mv $HOME/Applications/citra-qt.AppImage $HOME/.config/EmuDeck/Emulators/citra-qt.AppImage
-		mv $HOME/Applications/EmuDeck.AppImage $HOME/.config/EmuDeck/Emulators/EmuDeck.AppImage
+		mv -f $HOME/Applications/publish $HOME/.config/EmuDeck/Emulators/publish
+		mv -f $HOME/Applications/Vita3K $HOME/.config/EmuDeck/Emulators/Vita3K
+		mv -f $HOME/Applications/BigPEmu $HOME/.config/EmuDeck/Emulators/BigPEmu
+		mv -f $HOME/Applications/Cemu.AppImage $HOME/.config/EmuDeck/Emulators/Cemu.AppImage
+		mv -f $HOME/Applications/citra-qt.AppImage $HOME/.config/EmuDeck/Emulators/citra-qt.AppImage
+		mv -f $HOME/Applications/EmuDeck.AppImage $HOME/.config/EmuDeck/Emulators/EmuDeck.AppImage
+		mv -f $HOME/Applications/lime3ds-gui.AppImage $HOME/.config/EmuDeck/Emulators/lime3ds-gui.AppImage
 
-		mv $HOME/Applications/pcsx2-Qt.AppImage $HOME/.config/EmuDeck/Emulators/pcsx2-Qt.AppImage
-		mv $HOME/Applications/pegasus-fe $HOME/.config/EmuDeck/Emulators/pegasus-fe
-		mv $HOME/Applications/rpcs3.AppImage $HOME/.config/EmuDeck/Emulators/rpcs3.AppImage
-		mv $HOME/Applications/Shadps4-qt.AppImage $HOME/.config/EmuDeck/Emulators/Shadps4-qt.AppImage
+		mv -f $HOME/Applications/pcsx2-Qt.AppImage $HOME/.config/EmuDeck/Emulators/pcsx2-Qt.AppImage
+		mv -f $HOME/Applications/pegasus-fe $HOME/.config/EmuDeck/Emulators/pegasus-fe
+		mv -f $HOME/Applications/rpcs3.AppImage $HOME/.config/EmuDeck/Emulators/rpcs3.AppImage
+		mv -f $HOME/Applications/Shadps4-qt.AppImage $HOME/.config/EmuDeck/Emulators/Shadps4-qt.AppImage
 
 		mkdir -p $ESDE_toolLocation
-		mv $HOME/Applications/ES-DE.AppImage $HOME/.config/EmuDeck/EmulationStation-DE/ES-DE.AppImage
+		mv -f $HOME/Applications/ES-DE.AppImage $HOME/.config/EmuDeck/EmulationStation-DE/ES-DE.AppImage
 
 		#Fix paths shortcuts
 		if [ $doInstallESDE == "true" ]; then
