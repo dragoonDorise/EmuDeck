@@ -62,7 +62,7 @@ installEmuAI(){
         return 1
     fi
 
-    chmod +x "$HOME/Applications/$fileName.AppImage"
+    chmod +x "$HOME/Applications/$fileName.${format}"
     if [[ -n $lastVerFile ]] && [[ -n $latestVer ]]; then
         echo "latest version $latestVer > $lastVerFile"
         echo "$latestVer" > "$lastVerFile"
