@@ -2,8 +2,8 @@
 appImageInit() {
 
 	#Migrate emudeck folder
-	if [ -d "$HOME/emudeck/logs" ]; then
 
+	if [ -f "$HOME/emudeck/settings.sh" ] &&  [ ! -L "$HOME/emudeck/settings.sh" ]; then
 		# We move good old emudeck folder to .config
 		rsync -avh "$HOME/emudeck/" "$emudeckFolder" && rm -rf "$HOME/emudeck" && mkdir "$HOME/emudeck" && ln -s "$emudeckFolder/settings.sh" "$HOME/emudeck/settings.sh"
 
