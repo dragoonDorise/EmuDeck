@@ -8,7 +8,7 @@ Cemu_functions () {
 	declare -A CemuNative=(
 		[emuName]="CemuNative"
 		[emuType]="AppImage"
-		[emuPath]="${HOME}/.config/EmuDeck/Emulators/Cemu.AppImage"
+		[emuPath]="$emusFolder/Cemu.AppImage"
 		[configDir]="${HOME}/.config/Cemu"
 		[configFile]="${HOME}/.config/Cemu/settings.xml"
 		[shareDir]="${HOME}/.local/share/Cemu"
@@ -271,8 +271,10 @@ Cemu_functions () {
 	init () {
 		setMSG "Initialising ${CemuNative[emuName]} settings."
 		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/config/cemu" "true"
-		cp "$EMUDECKGIT/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
-		cp "$EMUDECKGIT/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "$SRM_userData_configDir/parsers/custom/"
+		mv "${CemuNative[configDir]}" "$HOME/EmuDeck/configs/cemu"
+		ln -sf "$HOME/EmuDeck/configs/cemu" "${CemuNative[configDir]}"
+		cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
+		cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "$SRM_userData_configDir/parsers/custom/"
 		#SRM_createParsers
 		#configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu" "true" #seems unneeded? maybe?
 		setEmulationFolder
@@ -295,8 +297,8 @@ Cemu_functions () {
 	update () {
 		setMSG "Updating ${CemuNative[emuName]} settings."
 		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/.config/cemu"
-		cp "$EMUDECKGIT/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
-		cp "$EMUDECKGIT/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "$SRM_userData_configDir/parsers/custom/"
+		cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
+		cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "$SRM_userData_configDir/parsers/custom/"
 		SRM_createParsers
 		#configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu" #seems unneeded? maybe?
 		#migrate
@@ -335,7 +337,7 @@ Cemu_functions () {
 		addSteamInputCustomIcons
 		setMSG "Adding ${CemuNative[emuName]} Steam Input Profile."
 		#rsync -r "${EMUDECKGIT}/configs/steam-input/cemu_controller_config.vdf" "${HOME}/.steam/steam/controller_base/templates/"
-		rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
+		rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
 
 	}
 

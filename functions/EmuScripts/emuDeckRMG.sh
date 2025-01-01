@@ -178,7 +178,7 @@ RMG_resetConfig(){
 RMG_addSteamInputProfile(){
 	addSteamInputCustomIcons
 	#setMSG "Adding $RMG_emuName Steam Input Profile."
-	#rsync -r "$EMUDECKGIT/configs/steam-input/rmg_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	#rsync -r "$emudeckBackend/configs/steam-input/rmg_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 #finalExec - Extra stuff

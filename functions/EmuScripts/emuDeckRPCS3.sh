@@ -2,10 +2,10 @@
 #variables
 RPCS3_emuName="RPCS3"
 RPCS3_emuType="$emuDeckEmuTypeAppImage"
-RPCS3_emuPath="$HOME/.config/EmuDeck/Emulators/rpcs3.AppImage"
+RPCS3_emuPath="$emusFolder/rpcs3.AppImage"
 RPCS3_emuPathFlatpak="net.rpcs3.RPCS3"
 RPCS3_VFSConf="$HOME/.config/rpcs3/vfs.yml"
-RPCS3_migrationFlag="$HOME/.config/EmuDeck/.${RPCS3_emuName}MigrationCompleted"
+RPCS3_migrationFlag="$emudeckFolder/.${RPCS3_emuName}MigrationCompleted"
 RPCS3_configFile="$HOME/.config/rpcs3/config.yml"
 
 declare -A RPCS3_languages
@@ -146,7 +146,7 @@ RPCS3_install(){
 #ApplyInitialSettings
 RPCS3_init(){
 	RPCS3_migrate
-	configEmuAI "$RPCS3_emuName" "config" "$HOME/.config/rpcs3" "$EMUDECKGIT/configs/rpcs3" "true"
+	configEmuAI "$RPCS3_emuName" "config" "$HOME/.config/rpcs3" "$emudeckBackend/configs/rpcs3" "true"
 	RPCS3_setupStorage
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
@@ -169,7 +169,7 @@ RPCS3_setLanguage(){
 #update
 RPCS3_update(){
 	RPCS3_migrate
-	configEmuAI "$RPCS3_emuName" "config" "$HOME/.config/rpcs3" "$EMUDECKGIT/configs/rpcs3"
+	configEmuAI "$RPCS3_emuName" "config" "$HOME/.config/rpcs3" "$emudeckBackend/configs/rpcs3"
 	RPCS3_setupStorage
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves

@@ -19,13 +19,13 @@ createDesktopIcons(){
 	#New EmuDeck icon, same place so people won't get confused
 	createDesktopShortcut "$desktop/EmuDeck.desktop" \
 	"EmuDeck" \
-	"$HOME/.config/EmuDeck/Emulators/EmuDeck.AppImage$sandbox" \
+	"$emusFolder/EmuDeck.AppImage$sandbox" \
 	"false"
 	 #App list
 	 #desktop-file-install --dir --delete-original "$HOME/Desktop/EmuDeck.desktop"
 	 createDesktopShortcut "$HOME/.local/share/applications/EmuDeck.desktop" \
 	 "EmuDeck" \
-	 "$HOME/.config/EmuDeck/Emulators/EmuDeck.AppImage$sandbox" \
+	 "$emusFolder/EmuDeck.AppImage$sandbox" \
 	 "false"
 
 }

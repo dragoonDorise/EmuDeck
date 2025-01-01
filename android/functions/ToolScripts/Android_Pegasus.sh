@@ -38,7 +38,7 @@ function Android_Pegasus_init(){
 	Android_Pegasus_dl_theme $temp_emu $temp_url
 
 	#Change paths
-	rsync -ra "$HOME/.config/EmuDeck/backend/android/configs/Android/data/org.pegasus_frontend.android/files/pegasus-frontend/" "$Android_Pegasus_temp/"
+	rsync -ra "$emudeckBackend/android/configs/Android/data/org.pegasus_frontend.android/files/pegasus-frontend/" "$Android_Pegasus_temp/"
 	originFile="$Android_Pegasus_temp/game_dirs.txt"
 	origin="XXXX"
 	target="$androidStoragePath"

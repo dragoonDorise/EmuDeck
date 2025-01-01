@@ -3,7 +3,7 @@
 # Variables
 ShadowPC_emuName="ShadowPC"
 ShadowPC_emuType="$emuDeckEmuTypeAppImage"
-ShadowPC_emuPath="$HOME/.config/EmuDeck/Emulators/ShadowPC.AppImage"
+ShadowPC_emuPath="$emusFolder/ShadowPC.AppImage"
 ShadowPC_releaseURL="https://update.Shadow.tech/launcher/prod/linux/ubuntu_18.04/ShadowPC.AppImage"
 
 # Install
@@ -49,5 +49,5 @@ ShadowPC_IsInstalled() {
 # Import steam profile
 ShadowPC_addSteamInputProfile() {
 	echo "NYI"
-	#rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_ShadowPC_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	#rsync -r "$emudeckBackend/configs/steam-input/emudeck_ShadowPC_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

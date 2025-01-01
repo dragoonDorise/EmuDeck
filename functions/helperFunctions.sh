@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Global variables
-emuDecksettingsFile="$HOME/.config/EmuDeck/settings.sh"
+emuDecksettingsFile="$emudeckFolder/settings.sh"
 
 emuDeckEmuTypeFlatpak="Flatpak"
 emuDeckEmuTypeAppImage="AppImage"
@@ -11,8 +11,8 @@ emuDeckEmuTypeOther="Other"
 
 function startLog() {
 	funcName="$1"
-	mkdir -p "$HOME/.config/EmuDeck/logs"
-	logFile="$HOME/.config/EmuDeck/logs/$funcName.log"
+	mkdir -p "$emudeckLogs"
+	logFile="$emudeckLogs/$funcName.log"
 
 	touch "$logFile"
 
@@ -170,7 +170,7 @@ function makeFunction(){
 
 function deleteConfigs(){
 
-	find "$HOME/.config/EmuDeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.opt" -o -type f -iname "*.cfg"| while read file
+	find "$emudeckBackend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.opt" -o -type f -iname "*.cfg"| while read file
 		do
 			rm "$file"
 		done
@@ -182,7 +182,7 @@ function customLocation(){
 }
 
 function refreshSource(){
-	source "$EMUDECKGIT/functions/all.sh"
+	source "$emudeckBackend/functions/all.sh"
 }
 
 function setAllEmuPaths(){
@@ -246,7 +246,7 @@ function updateOrAppendConfigLine(){
 function getEnvironmentDetails(){
 	local sdpath=$(getSDPath)
 	local sdValid=$(testLocationValid "sd" "$sdpath")
-	if [ -f "$HOME/.config/EmuDeck/.finished" ]; then
+	if [ -f "$emudeckFolder/.finished" ]; then
 		firstRun="false"
 	else
 		firstRun="true"
@@ -563,7 +563,7 @@ function createDesktopShortcut(){
 	mkdir -p "$HOME/.local/share/applications/"
 
 	mkdir -p "$HOME/.local/share/icons/emudeck/"
-	cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name")."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null
+	cp -v "$emudeckBackend/icons/$(cut -d " " -f1 <<< "$name")."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null
 	icon=$(find "$HOME/.local/share/icons/emudeck/" -type f -iname "$(cut -d " " -f1 <<< "$name").*")
 
 	if [ -z "$icon" ]; then
@@ -602,7 +602,7 @@ function desktopShortcutFieldUpdate(){
 		# update icon if name is updated
 		if [ "$shortcutKey" == "Name" ]; then
 			name=$shortcutValue
-			cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name").{svg,jpg,png}" "$HOME/.local/share/icons/emudeck/" 2>/dev/null
+			cp -v "$emudeckBackend/icons/$(cut -d " " -f1 <<< "$name").{svg,jpg,png}" "$HOME/.local/share/icons/emudeck/" 2>/dev/null
 			icon=$(find "$HOME/.local/share/icons/emudeck/" -type f \( -iname "$(cut -d " " -f1 <<< "$name").svg" -o -iname "$(cut -d " " -f1 <<< "$name").jpg" -o -iname "$(cut -d " " -f1 <<< "$name").png" \) -print -quit)
 			echo "Icon Found: $icon"
 			if [ -n "$icon" ]; then
@@ -802,7 +802,7 @@ flushEmulatorLaunchers(){
 }
 
 addSteamInputCustomIcons() {
-	rsync -av "$EMUDECKGIT/configs/steam-input/Icons/" "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons"
+	rsync -av "$emudeckBackend/configs/steam-input/Icons/" "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons"
 }
 
 getEmuInstallStatus() {
@@ -832,8 +832,8 @@ check_internet_connection(){
 zipLogs() {
 	local desktop=$(xdg-user-dir DESKTOP)
 
-	logsFolder="$HOME/.config/EmuDeck/logs"
-	settingsFile="$HOME/.config/EmuDeck/settings.sh"
+	logsFolder="$emudeckLogs"
+	settingsFile="$emudeckFolder/settings.sh"
 	zipOutput="$desktop/emudeck_logs.zip"
 
 	# Comprime los archivos en un archivo zip
@@ -927,7 +927,7 @@ saveLatestVersionGH() {
 		emuVersion=$(getLatestVersionGH "$repo")
 
 		# JSON file path
-		jsonFilePath="$HOME/.config/EmuDeck/emu_versions.json"
+		jsonFilePath="$emudeckFolder/emu_versions.json"
 
 		if [ -e "$jsonFilePath" ]; then
 			echo "file found"
@@ -954,11 +954,11 @@ saveLatestVersionGH() {
 
 isLatestVersionGH() {
 	emuName=$1
-	dontUpdate="$HOME/.config/EmuDeck/emulatorInit.noupdate"
+	dontUpdate="$emudeckFolder/emulatorInit.noupdate"
 	emuDontUpdate="${emuName}.noupdate"
 
 	# check global noupdate file flag, emulator noupdate flag file using case insensitive find and internet connectivity
-	if [ ! -f "${dontUpdate}" ] && [[ -z $(find "$HOME/.config/EmuDeck/" -maxdepth 1 -type f -iname "${emuDontUpdate}") ]] && [ "$(check_internet_connection)" == "true" ]; then
+	if [ ! -f "${dontUpdate}" ] && [[ -z $(find "$emudeckFolder" -maxdepth 1 -type f -iname "${emuDontUpdate}") ]] && [ "$(check_internet_connection)" == "true" ]; then
 		repo=$(getEmuRepo "$emuName")
 
 		if [ "$repo" == "none" ]; then
@@ -967,7 +967,7 @@ isLatestVersionGH() {
 			emuVersion=$(getLatestVersionGH "$repo")
 
 			# JSON file path
-			jsonFilePath="$HOME/.config/EmuDeck/emu_versions.json"
+			jsonFilePath="$emudeckFolder/emu_versions.json"
 
 			if [ -f "$jsonFilePath" ]; then
 				echo "file found"
@@ -1016,8 +1016,8 @@ isLatestVersionGH() {
 }
 
 addProtonLaunch(){
-	rsync -avhp "$EMUDECKGIT/tools/proton-launch.sh" "${toolsPath}"
-	rsync -avhp "$EMUDECKGIT/tools/appID.py" "${toolsPath}"
+	rsync -avhp "$emudeckBackend/tools/proton-launch.sh" "${toolsPath}"
+	rsync -avhp "$emudeckBackend/tools/appID.py" "${toolsPath}"
 	chmod +x "${toolsPath}/proton-launch.sh"
 }
 
@@ -1036,7 +1036,7 @@ function emulatorInit(){
 			setSetting netplayCMD "' '"
 			cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
 		fi
-		source $HOME/.config/EmuDeck/backend/functions/all.sh
+		source $emudeckBackend/functions/all.sh
 	fi
 
 	if [ "$emuName" != 'retroarch' ]; then
@@ -1112,22 +1112,22 @@ function controllerLayout_BAYX(){
 }
 
 function server_install(){
-	cp "$EMUDECKGIT/tools/server.sh" "$toolsPath/"
-	#cp "$EMUDECKGIT/tools/index.html" "$toolsPath/"
+	cp "$emudeckBackend/tools/server.sh" "$toolsPath/"
+	#cp "$emudeckBackend/tools/index.html" "$toolsPath/"
 	chmod +x "$toolsPath/server.sh"
 }
 
 function startCompressor(){
-	konsole -e "/bin/bash $HOME/.config/EmuDeck/backend/tools/chdconv/chddeck.sh"
+	konsole -e "/bin/bash $emudeckBackend/tools/chdconv/chddeck.sh"
 }
 
 function generate_pythonEnv() {
-	if [ ! -d "$HOME/.config/EmuDeck/python_virtual_env" ]; then
-		python3 -m venv "$HOME/.config/EmuDeck/python_virtual_env"
-		source "$HOME/.config/EmuDeck/python_virtual_env/bin/activate"
+	if [ ! -d "$emudeckFolder/python_virtual_env" ]; then
+		python3 -m venv "$emudeckFolder/python_virtual_env"
+		source "$emudeckFolder/python_virtual_env/bin/activate"
 		pip install requests
 	else
-		source "$HOME/.config/EmuDeck/python_virtual_env/bin/activate"
+		source "$emudeckFolder/python_virtual_env/bin/activate"
 	fi
 }
 

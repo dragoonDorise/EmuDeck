@@ -5,26 +5,29 @@ appImageInit() {
 	if [ -d "$HOME/emudeck/logs" ]; then
 
 		# We move good old emudeck folder to .config
-		rsync -avh "$HOME/emudeck/" "$HOME/.config/EmuDeck/" && rm -rf "$HOME/emudeck" && mkdir "$HOME/emudeck" && ln -s "$HOME/.config/EmuDeck/settings.sh" "$HOME/emudeck/settings.sh"
+		rsync -avh "$HOME/emudeck/" "$emudeckFolder" && rm -rf "$HOME/emudeck" && mkdir "$HOME/emudeck" && ln -s "$emudeckFolder/settings.sh" "$HOME/emudeck/settings.sh"
 
 
 		#Migrate AppImages to .config
-		mkdir -p $HOME/.config/EmuDeck/Emulators
-		mv -f $HOME/Applications/publish $HOME/.config/EmuDeck/Emulators/publish
-		mv -f $HOME/Applications/Vita3K $HOME/.config/EmuDeck/Emulators/Vita3K
-		mv -f $HOME/Applications/BigPEmu $HOME/.config/EmuDeck/Emulators/BigPEmu
-		mv -f $HOME/Applications/Cemu.AppImage $HOME/.config/EmuDeck/Emulators/Cemu.AppImage
-		mv -f $HOME/Applications/citra-qt.AppImage $HOME/.config/EmuDeck/Emulators/citra-qt.AppImage
-		mv -f $HOME/Applications/EmuDeck.AppImage $HOME/.config/EmuDeck/Emulators/EmuDeck.AppImage
-		mv -f $HOME/Applications/lime3ds-gui.AppImage $HOME/.config/EmuDeck/Emulators/lime3ds-gui.AppImage
+		mkdir -p $emusFolder
+		mv -f $HOME/Applications/publish $emusFolder/publish
+		mv -f $HOME/Applications/Vita3K $emusFolder/Vita3K
+		mv -f $HOME/Applications/BigPEmu $emusFolder/BigPEmu
+		mv -f $HOME/Applications/Cemu.AppImage $emusFolder/Cemu.AppImage
+		mv -f $HOME/Applications/citra-qt.AppImage $emusFolder/citra-qt.AppImage
+		mv -f $HOME/Applications/EmuDeck.AppImage $emusFolder/EmuDeck.AppImage
+		mv -f $HOME/Applications/lime3ds-gui.AppImage $emusFolder/lime3ds-gui.AppImage
 
-		mv -f $HOME/Applications/pcsx2-Qt.AppImage $HOME/.config/EmuDeck/Emulators/pcsx2-Qt.AppImage
-		mv -f $HOME/Applications/pegasus-fe $HOME/.config/EmuDeck/Emulators/pegasus-fe
-		mv -f $HOME/Applications/rpcs3.AppImage $HOME/.config/EmuDeck/Emulators/rpcs3.AppImage
-		mv -f $HOME/Applications/Shadps4-qt.AppImage $HOME/.config/EmuDeck/Emulators/Shadps4-qt.AppImage
+		mv -f $HOME/Applications/pcsx2-Qt.AppImage $emusFolder/pcsx2-Qt.AppImage
+		mv -f $HOME/Applications/pegasus-fe $emusFolder/pegasus-fe
+		mv -f $HOME/Applications/rpcs3.AppImage $emusFolder/rpcs3.AppImage
+		mv -f $HOME/Applications/Shadps4-qt.AppImage $emusFolder/Shadps4-qt.AppImage
 
-		mkdir -p $ESDE_toolLocation
-		mv -f $HOME/Applications/ES-DE.AppImage $HOME/.config/EmuDeck/EmulationStation-DE/ES-DE.AppImage
+		mkdir -p $esdeFolder
+		mv -f $HOME/Applications/ES-DE.AppImage $esdeFolder/ES-DE.AppImage
+
+		mkdir -p $pegasusPath
+		mv -f $HOME/Applications/pegasus-fe $pegasusFolder/pegasus-fe
 
 		#Fix paths shortcuts
 		if [ $doInstallESDE == "true" ]; then
@@ -129,7 +132,7 @@ appImageInit() {
 		fi
 
 		#Add Emus launchers to ESDE
-		rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
+		rsync -avhp --mkpath "$emudeckBackend/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
 		sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
 
 
@@ -137,7 +140,7 @@ appImageInit() {
 
 
 	# Init functions
-	mkdir -p "$HOME/.config/EmuDeck/logs"
-	mkdir -p "$HOME/.config/EmuDeck/feeds"
+	mkdir -p "$emudeckLogs"
+	mkdir -p "$emudeckFolder/feeds"
 
 }

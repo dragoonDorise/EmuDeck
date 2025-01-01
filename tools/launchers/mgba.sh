@@ -1,8 +1,8 @@
 #!/bin/bash
-source $HOME/.config/EmuDeck/backend/functions/all.sh
+. "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "mgba"
 emuName="mGBA" #parameterize me
-emufolder="$HOME/.config/EmuDeck/Emulators" # has to be applications for ES-DE to find it
+emufolder="$emusFolder" # has to be applications for ES-DE to find it
 
 #initialize execute array
 exe=()

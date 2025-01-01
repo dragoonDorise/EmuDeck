@@ -1,8 +1,8 @@
 #!/bin/bash
-source $HOME/.config/EmuDeck/backend/functions/all.sh
+. "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "ryujinx"
 emuName="Ryujinx" #parameterize me
-emufolder="$HOME/.config/EmuDeck/Emulators/publish" # has to be here for ES-DE to find it
+emufolder="$emusFolder/publish" # has to be here for ES-DE to find it
 
 #initialize execute array
 exe=()

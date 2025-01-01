@@ -18,7 +18,7 @@ cloud_backup_install(){
       rm -rf "$rclone_path/tmp"
       chmod +x "$rclone_bin"
     fi
-    cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
+    cp "$emudeckBackend/configs/rclone/rclone.conf" "$rclone_config"
     
     cloud_backup_createJob
 }
@@ -38,7 +38,7 @@ cloud_backup_install_and_config(){
       rm -rf "$rclone_path/tmp"
       chmod +x "$rclone_bin"
     fi
-    cp "$EMUDECKGIT/configs/rclone/rclone.conf" "$rclone_config"
+    cp "$emudeckBackend/configs/rclone/rclone.conf" "$rclone_config"
     
     cloud_backup_providersSetup
     cloud_backup_stopService
@@ -210,7 +210,7 @@ cloud_backup_etup(){
 cloud_backup_createJob(){
 
 echo '#!/bin/bash'>"$rclone_jobScript"
-echo "source \$HOME/.config/EmuDeck/settings.sh
+echo "source \$emudeckFolder/settings.sh
 PIDFILE=\"\$toolsPath/rclone/rclone.pid\"
 
 function finish {
@@ -250,7 +250,7 @@ fi
 chmod +x "$rclone_jobScript"
 
 echo '#!/bin/bash'>"$rclone_restoreScript"
-echo "source \$HOME/.config/EmuDeck/settings.sh
+echo "source \$emudeckFolder/settings.sh
 PIDFILE=\"\$toolsPath/rclone/rclone.pid\"
 
 function finish {

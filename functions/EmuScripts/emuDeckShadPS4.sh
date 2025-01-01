@@ -6,7 +6,7 @@
 
 ShadPS4_emuName="ShadPS4"
 ShadPS4_emuType="$emuDeckEmuTypeAppImage"
-ShadPS4_emuPath="$HOME/.config/EmuDeck/Emulators"
+ShadPS4_emuPath="$emusFolder"
 ShadPS4_dir="$HOME/.local/share/shadPS4"
 ShadPS4_configFile="$ShadPS4_dir/config.toml"
 
@@ -20,7 +20,7 @@ ShadPS4_install(){
   local showProgress=$1
 
   if installEmuAI "$ShadPS4_emuName" "" "$(getReleaseURLGH "shadps4-emu/shadPS4" "zip" "linux-qt")" "" "zip" "emulator" "$showProgress"; then
-    unzip -o "$HOME/.config/EmuDeck/Emulators/ShadPS4.zip" -d "$ShadPS4_emuPath" && rm -rf "$HOME/.config/EmuDeck/Emulators/ShadPS4.zip"
+    unzip -o "$emusFolder/ShadPS4.zip" -d "$ShadPS4_emuPath" && rm -rf "$emusFolder/ShadPS4.zip"
     chmod +x "$ShadPS4_emuPath/publish/Shadps4-qt.AppImage"
   else
     return 1
@@ -29,7 +29,7 @@ ShadPS4_install(){
 
 
 ShadPS4_init(){
-	configEmuAI "$ShadPS4_emuName" "config" "$HOME/.local/share/shadPS4" "$EMUDECKGIT/configs/shadps4" "true"
+	configEmuAI "$ShadPS4_emuName" "config" "$HOME/.local/share/shadPS4" "$emudeckBackend/configs/shadps4" "true"
 	ShadPS4_setupStorage
 	ShadPS4_setEmulationFolder
 	ShadPS4_setupSaves

@@ -30,7 +30,7 @@ cloudSyncHealth(){
 	local upload=1
 	local download=1
 
-	touch "$HOME/.config/EmuDeck/logs/cloudHealth.log"
+	touch "$emudeckLogs/cloudHealth.log"
 
 {
 	cloud_sync_stopService
@@ -150,7 +150,7 @@ cloudSyncHealth(){
 
 
 
-} > "$HOME/.config/EmuDeck/logs/cloudHealth.log"
+} > "$emudeckLogs/cloudHealth.log"
 
 	echo "<table class='table'>"
 		echo "<tr>"

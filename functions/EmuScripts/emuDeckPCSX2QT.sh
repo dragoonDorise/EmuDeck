@@ -2,7 +2,7 @@
 #variables
 PCSX2QT_emuName="PCSX2-QT"
 PCSX2QT_emuType="$emuDeckEmuTypeAppImage"
-PCSX2QT_emuPath="$HOME/.config/EmuDeck/Emulators/pcsx2-Qt.AppImage"
+PCSX2QT_emuPath="$emusFolder/pcsx2-Qt.AppImage"
 PCSX2QT_configFile="$HOME/.config/PCSX2/inis/PCSX2.ini"
 
 #cleanupOlderThings
@@ -37,7 +37,7 @@ PCSX2QT_init() {
 
 	if ! "$PCSX2QT_emuPath" -testconfig; then # try to generate the config file. if it fails, insert one as a fallback.
 		#fallback
-		configEmuAI "$PCSX2QT_emuName" "config" "$HOME/.config/PCSX2" "$EMUDECKGIT/configs/pcsx2qt/.config/PCSX2" "true"
+		configEmuAI "$PCSX2QT_emuName" "config" "$HOME/.config/PCSX2" "$emudeckBackend/configs/pcsx2qt/.config/PCSX2" "true"
 	fi
 
 	PCSX2QT_setEmulationFolder
@@ -56,7 +56,7 @@ PCSX2QT_init() {
 #update
 PCSX2QT_update() {
 	setMSG "Updating $PCSX2QT_emuName settings."
-	configEmuAI "$PCSX2QT_emuName" "config" "$HOME/.config/PCSX2" "$EMUDECKGIT/configs/pcsx2qt/.config/PCSX2"
+	configEmuAI "$PCSX2QT_emuName" "config" "$HOME/.config/PCSX2" "$emudeckBackend/configs/pcsx2qt/.config/PCSX2"
 	PCSX2QT_setEmulationFolder
 	PCSX2QT_setupStorage
 	PCSX2QT_setupSaves
@@ -295,8 +295,8 @@ PCSX2QT_retroAchievementsHardCoreOff() {
 }
 
 PCSX2QT_retroAchievementsSetLogin() {
-	rau=$(cat "$HOME/.config/EmuDeck/.rau")
-	rat=$(cat "$HOME/.config/EmuDeck/.rat")
+	rau=$(cat "$emudeckFolder/.rau")
+	rat=$(cat "$emudeckFolder/.rat")
 	echo "Evaluate RetroAchievements Login."
 	if [ ${#rat} -lt 1 ]; then
 		echo "--No token."

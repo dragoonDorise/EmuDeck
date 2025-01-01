@@ -29,13 +29,13 @@ CreateStructureUSB(){
 		echo  "Switch / Yuzu -> bios/yuzu/firmware and bios/yuzu/keys" >> "$destination/bios/readme.txt"
 		echo  "Those are the only mandatory bios, the rest are optional" >> "$destination/bios/readme.txt"
 
-		rsync -ravL --ignore-existing --exclude='*.txt' "$EMUDECKGIT/roms/" "$destination/roms/" && echo "true" || echo "false"
+		rsync -ravL --ignore-existing --exclude='*.txt' "$emudeckBackend/roms/" "$destination/roms/" && echo "true" || echo "false"
 
 	fi
 }
 
 AutoCopy_install(){
-	cp "$EMUDECKGIT/tools/autocopy.sh" "$toolsPath/"
+	cp "$emudeckBackend/tools/autocopy.sh" "$toolsPath/"
 
 	chmod +x "$toolsPath/autocopy.sh"
 }
@@ -132,7 +132,7 @@ CopyGames(){
 				fi
 
 				rsync -rav --ignore-existing --progress --exclude=".*" "$entry/" "$romsPath/$dir/" |
-				awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
+				awk -f $emudeckBackend/rsync.awk |
 				zenity --progress --title "Importing your $dir games to $romsPath" \
 				--text="Scanning..." --width=400 --percentage=0 --auto-close
 			fi
@@ -140,7 +140,7 @@ CopyGames(){
 	done
 
 	rsync -rav --ignore-existing --progress "$origin/bios/" "$biosPath/" |
-	awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
+	awk -f $emudeckBackend/rsync.awk |
 	zenity --progress --title "Importing your bios to $biosPath/" \
 	--text="Scanning..." --width=400 --percentage=0 --auto-close
 	) &&

@@ -1,5 +1,5 @@
 #!/bin/bash
-source $HOME/.config/EmuDeck/backend/functions/all.sh
+. "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
 NONE='\033[00m'
 RED='\033[01;31m'
@@ -12,23 +12,23 @@ BOLD='\033[1m'
 UNDERLINE='\033[4m'
 BLINK='\x1b[5m'
 
-if [ ! -f "$HOME/.config/EmuDeck/.userSS" ]; then
+if [ ! -f "$emudeckFolder/.userSS" ]; then
 	user=$(zenity --entry --title="ScreenScrapper" --text="User:")
 	password=$(zenity --password --title="ScreenScrapper" --text="Password:")
 	encryption_key=$(openssl rand -base64 32)
 	encrypted_password=$(echo "$password" | openssl enc -aes-256-cbc -pbkdf2 -base64 -pass "pass:$encryption_key")
-	echo "$encryption_key" > "$HOME/.config/EmuDeck/logs/.key"
-	echo "$encrypted_password" > "$HOME/.config/EmuDeck/.passSS"
-	echo "$user" > "$HOME/.config/EmuDeck/.userSS"
+	echo "$encryption_key" > "$emudeckLogs/.key"
+	echo "$encrypted_password" > "$emudeckFolder/.passSS"
+	echo "$user" > "$emudeckFolder/.userSS"
 fi
 
 romParser_SS_get_url(){
 	local romName=$1
 	local system=$2
 	local type=$3
-	local userSS=$(cat "$HOME/.config/EmuDeck/.userSS")
-	local encryption_key=$(cat "$HOME/.config/EmuDeck/logs/.key")
-	local encrypted_password=$(cat "$HOME/.config/EmuDeck/.passSS")
+	local userSS=$(cat "$emudeckFolder/.userSS")
+	local encryption_key=$(cat "$emudeckLogs/.key")
+	local encrypted_password=$(cat "$emudeckFolder/.passSS")
 	local decrypted_password=$(echo "$encrypted_password" | openssl enc -d -aes-256-cbc -pbkdf2 -base64 -pass "pass:$encryption_key")
 	local passSS=$decrypted_password
 
@@ -336,8 +336,8 @@ romParser_SS_download(){
 romParser_SS_start(){
 	#generateGameLists
 	echo -e "${BOLD}Starting ScreenScraper Thumbnails Scraper...${NONE}"
-	python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath"
-	json=$(cat "$HOME/.config/EmuDeck/cache/roms_games.json")
+	python $emudeckBackend/tools/generate_game_lists.py "$romsPath"
+	json=$(cat "$emudeckFolder/cache/roms_games.json")
 	platforms=$(echo "$json" | jq -r '.[].id')
 
 	declare -A processed_games

@@ -3,7 +3,7 @@
 #variables
 suyu_emuName="suyu"
 suyu_emuType="$emuDeckEmuTypeAppImage"
-suyu_emuPath="$HOME/.config/EmuDeck/Emulators/suyu.AppImage"
+suyu_emuPath="$emusFolder/suyu.AppImage"
 
 suyu_configFile="$HOME/.config/suyu/qt-config.ini"
 
@@ -61,15 +61,15 @@ suyu_install() {
 suyu_init() {
     echo "Begin suyu Init"
 
-	cp "$EMUDECKGIT/tools/launchers/suyu.sh" "$toolsPath/launchers/suyu.sh"
+	cp "$emudeckBackend/tools/launchers/suyu.sh" "$toolsPath/launchers/suyu.sh"
 	chmod +x "$toolsPath/launchers/suyu.sh"
     mkdir -p "$HOME/.config/suyu"
     mkdir -p "$HOME/.local/share/suyu"
-	rsync -avhp "$EMUDECKGIT/configs/org.suyu_emu.suyu/config/suyu/." "$HOME/.config/suyu"
-	rsync -avhp "$EMUDECKGIT/configs/org.suyu_emu.suyu/data/suyu/." "$HOME/.local/share/suyu"
+	rsync -avhp "$emudeckBackend/configs/org.suyu_emu.suyu/config/suyu/." "$HOME/.config/suyu"
+	rsync -avhp "$emudeckBackend/configs/org.suyu_emu.suyu/data/suyu/." "$HOME/.local/share/suyu"
     suyu_migrate
-    configEmuAI "$suyu_emuName" "config" "$HOME/.config/suyu" "$EMUDECKGIT/configs/org.suyu_emu.suyu/config/suyu" "true"
-    configEmuAI "$suyu_emuName" "data" "$HOME/.local/share/suyu" "$EMUDECKGIT/configs/org.suyu_emu.suyu/data/suyu" "true"
+    configEmuAI "$suyu_emuName" "config" "$HOME/.config/suyu" "$emudeckBackend/configs/org.suyu_emu.suyu/config/suyu" "true"
+    configEmuAI "$suyu_emuName" "data" "$HOME/.local/share/suyu" "$emudeckBackend/configs/org.suyu_emu.suyu/data/suyu" "true"
 
     suyu_setEmulationFolder
     suyu_setupStorage
@@ -97,8 +97,8 @@ suyu_update() {
 
     suyu_migrate
 
-    configEmuAI "$suyu_emuName" "config" "$HOME/.config/suyu" "$EMUDECKGIT/configs/org.suyu_emu.suyu/config/suyu"
-    configEmuAI "$suyu_emuName" "data" "$HOME/.local/share/suyu" "$EMUDECKGIT/configs/org.suyu_emu.suyu/data/suyu"
+    configEmuAI "$suyu_emuName" "config" "$HOME/.config/suyu" "$emudeckBackend/configs/org.suyu_emu.suyu/config/suyu"
+    configEmuAI "$suyu_emuName" "data" "$HOME/.local/share/suyu" "$emudeckBackend/configs/org.suyu_emu.suyu/data/suyu"
 
     suyu_setEmulationFolder
     suyu_setupStorage
@@ -210,7 +210,7 @@ suyu_uninstall() {
 #Migrate
 suyu_migrate() {
     echo "Begin suyu Migration"
-    migrationFlag="$HOME/.config/EmuDeck/.${suyu_emuName}MigrationCompleted"
+    migrationFlag="$emudeckFolder/.${suyu_emuName}MigrationCompleted"
     #check if we have a nomigrateflag for $emu
     if [ ! -f "$migrationFlag" ]; then
         #suyu flatpak to appimage

@@ -45,24 +45,24 @@ installEmuAI(){
     echo "09, Last Version: $latestVer"
     echo "10, Download checksum (SHA256): $downloadChecksumSha256"
 
-    #rm -f "$HOME/.config/EmuDeck/Emulators/$fileName.$format" # mv in safeDownload will overwrite...
-    mkdir -p "$HOME/.config/EmuDeck/Emulators"
+    #rm -f "$emusFolder/$fileName.$format" # mv in safeDownload will overwrite...
+    mkdir -p "$emusFolder"
 
     if [[ -z "$url" ]]; then
-        if [ -f "$HOME/.config/EmuDeck/Emulators/${fileName}.${format}" ]; then
+        if [ -f "$emusFolder/${fileName}.${format}" ]; then
             echo "No download link provided but local file already exists. Will refresh links and launcher."
         else
             echo "No download link provided and no local file exists, exitting."
             return 1
         fi
-    elif safeDownload "$name" "$url" "$HOME/.config/EmuDeck/Emulators/${fileName}.${format}" "$showProgress" "" "$downloadChecksumSha256"; then
+    elif safeDownload "$name" "$url" "$emusFolder/${fileName}.${format}" "$showProgress" "" "$downloadChecksumSha256"; then
         echo "$name downloaded successfuly."
     else
         echo "Failed to download or verify $name."
         return 1
     fi
 
-    chmod +x "$HOME/.config/EmuDeck/Emulators/$fileName.AppImage"
+    chmod +x "$emusFolder/$fileName.AppImage"
     if [[ -n $lastVerFile ]] && [[ -n $latestVer ]]; then
         echo "latest version $latestVer > $lastVerFile"
         echo "$latestVer" > "$lastVerFile"

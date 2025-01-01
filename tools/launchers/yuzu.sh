@@ -1,20 +1,20 @@
 #!/bin/bash
-source $HOME/.config/EmuDeck/backend/functions/all.sh
+. "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "yuzu"
 
 emuName="yuzu" #parameterize me
 useEAifFound="true" # set to false to simply use the newest file found
-emufolder="$HOME/.config/EmuDeck/Emulators" # has to be applications for ES-DE to find it
-emuDontUpdate="$HOME/.config/EmuDeck/${emuName}.noupdate"
-Yuzu_emuPath="$HOME/.config/EmuDeck/Emulators/yuzu.AppImage"
-YuzuEA_emuPath="$HOME/.config/EmuDeck/Emulators/yuzu-ea.AppImage"
-YuzuEA_tokenFile="$HOME/.config/EmuDeck/yuzu-ea-token.txt"
-YuzuEA_lastVerFile="$HOME/.config/EmuDeck/yuzu-ea.ver"
-Yuzu_lastVerFile="$HOME/.config/EmuDeck/yuzu.ver"
+emufolder="$emusFolder" # has to be applications for ES-DE to find it
+emuDontUpdate="$emudeckFolder/${emuName}.noupdate"
+Yuzu_emuPath="$emusFolder/yuzu.AppImage"
+YuzuEA_emuPath="$emusFolder/yuzu-ea.AppImage"
+YuzuEA_tokenFile="$emudeckFolder/yuzu-ea-token.txt"
+YuzuEA_lastVerFile="$emudeckFolder/yuzu-ea.ver"
+Yuzu_lastVerFile="$emudeckFolder/yuzu.ver"
 showProgress="true"
 
 #source the helpers for safeDownload
-. "$HOME/.config/EmuDeck/backend/functions/helperFunctions.sh"
+. "$emudeckBackend/functions/helperFunctions.sh"
 
 #force ea if available
 if [ "$useEAifFound" = "true" ]; then

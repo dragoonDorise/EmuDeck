@@ -1,5 +1,5 @@
 #!/bin/bash
-source $HOME/.config/EmuDeck/backend/functions/all.sh
+. "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "Cemu"
 # cemu.sh
 
@@ -35,7 +35,7 @@ showArguments () {
 
 # Attempt to find the given program as an AppImage
 getAppImage () {
-    local EMUDIR="${HOME}/.config/EmuDeck/Emulators"
+    local EMUDIR="$emusFolder"
 
     # Check for AppImage
     local APPIMAGE
@@ -65,7 +65,7 @@ getFlatpak () {
 
 # Main
 main () {
-    source $HOME/.config/EmuDeck/settings.sh
+    source $emudeckFolder/settings.sh
 
     # NAME - Cemu
     NAME="Cemu"

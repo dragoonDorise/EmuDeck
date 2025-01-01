@@ -235,7 +235,7 @@ Dolphin_flushSymlinks(){
     echo "Steam install not found"
   fi
 
-  if [ ! -f "$HOME/.config/EmuDeck/.dolphinlegacysymlinks" ] && [ -f "$HOME/.config/EmuDeck/.dolphinsymlinks" ]; then
+  if [ ! -f "$emudeckFolder/.dolphinlegacysymlinks" ] && [ -f "$emudeckFolder/.dolphinsymlinks" ]; then
 
 		mkdir -p "$romsPath/gc"
     # Temporary deletion to check if there are any additional contents in the gc folder.
@@ -276,20 +276,20 @@ Dolphin_flushSymlinks(){
       fi
     fi
 
-    rsync -avh "$EMUDECKGIT/roms/gc/." "$romsPath/gc/." --ignore-existing
+    rsync -avh "$emudeckBackend/roms/gc/." "$romsPath/gc/." --ignore-existing
 
     if [ -d "$toolsPath/downloaded_media/gc" ] && [ ! -d "$romsPath/gc/media" ]; then
       ln -s "$toolsPath/downloaded_media/gc" "$romsPath/gc/media"
     fi
 
     find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/gamecube|${romsPath}/gc|g" {} +
-		touch "$HOME/.config/EmuDeck/.dolphinlegacysymlinks"
+		touch "$emudeckFolder/.dolphinlegacysymlinks"
 		echo "Dolphin symlink cleanup completed."
   else
   		echo "Dolphin symlinks already cleaned."
   fi
 
-	if [ ! -f "$HOME/.config/EmuDeck/.dolphinsymlinks" ]; then
+	if [ ! -f "$emudeckFolder/.dolphinsymlinks" ]; then
 
 		mkdir -p "$romsPath/gc"
     # Temporary deletion to check if there are any additional contents in the gc folder.
@@ -330,14 +330,14 @@ Dolphin_flushSymlinks(){
       fi
     fi
 
-    rsync -avh "$EMUDECKGIT/roms/gc/." "$romsPath/gc/." --ignore-existing
+    rsync -avh "$emudeckBackend/roms/gc/." "$romsPath/gc/." --ignore-existing
 
     if [ -d "$toolsPath/downloaded_media/gc" ] && [ ! -d "$romsPath/gc/media" ]; then
       ln -s "$toolsPath/downloaded_media/gc" "$romsPath/gc/media"
     fi
 
     find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/gamecube|${romsPath}/gc|g" {} +
-		touch "$HOME/.config/EmuDeck/.dolphinsymlinks"
+		touch "$emudeckFolder/.dolphinsymlinks"
 		echo "Dolphin symlink cleanup completed."
 
   else

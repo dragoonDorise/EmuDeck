@@ -3,7 +3,7 @@
 #variables
 Vita3K_emuName="Vita3K"
 Vita3K_emuType="$emuDeckEmuTypeBinary"
-Vita3K_emuPath="$HOME/.config/EmuDeck/Emulators/Vita3K"
+Vita3K_emuPath="$emusFolder/Vita3K"
 Vita3K_configFile="$HOME/.config/Vita3K/config.yml"
 
 #cleanupOlderThings
@@ -17,7 +17,7 @@ Vita3K_install(){
     local showProgress="$1"
     #if installEmuBI "Vita3K" "https://github.com/Vita3K/Vita3K/releases/download/continuous/ubuntu-latest.zip" "Vita3K" "zip" "$showProgress"; then
     if installEmuBI "$Vita3K_emuName" "$(getReleaseURLGH "Vita3K/Vita3K" "ubuntu-latest.zip")" "" "zip" "$showProgress"; then
-        unzip -o "$HOME/.config/EmuDeck/Emulators/Vita3K.zip" -d "$Vita3K_emuPath" && rm -rf "$HOME/.config/EmuDeck/Emulators/Vita3K.zip"
+        unzip -o "$emusFolder/Vita3K.zip" -d "$Vita3K_emuPath" && rm -rf "$emusFolder/Vita3K.zip"
         chmod +x "$Vita3K_emuPath/Vita3K"
     else
         return 1
@@ -33,7 +33,7 @@ Vita3k_install(){
 Vita3K_init(){
     echo "Begin Vita3K Init"
 
-    configEmuAI "Vita3K" "config" "$HOME/.config/Vita3K" "$EMUDECKGIT/configs/Vita3K" "true"
+    configEmuAI "Vita3K" "config" "$HOME/.config/Vita3K" "$emudeckBackend/configs/Vita3K" "true"
     Vita3K_setEmulationFolder
     Vita3K_setupStorage
     Vita3K_setupSaves #?
@@ -46,7 +46,7 @@ Vita3K_init(){
 Vita3K_update(){
     echo "Begin Vita3K update"
 
-    configEmuAI "Vita3K" "config" "$HOME/.config/Vita3K" "$EMUDECKGIT/configs/Vita3K"
+    configEmuAI "Vita3K" "config" "$HOME/.config/Vita3K" "$emudeckBackend/configs/Vita3K"
 
     Vita3K_setEmulationFolder
     Vita3K_setupStorage

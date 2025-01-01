@@ -1,5 +1,12 @@
 #!/bin/bash
-MSG=$HOME/.config/EmuDeck/logs/msg.log
+#
+##
+## set backend location
+##
+# I think this should just be in the source, so there's one spot for initialization. hrm, no i'm wrong. Here is best.
+emudeckBackend="$HOME/.config/EmuDeck/backend/"
+. "$emudeckBackend/vars.sh"
+MSG=$emudeckLogs/msg.log
 echo "0" > "$MSG"
 
 #Darwin
@@ -19,8 +26,8 @@ fi
 #
 
 mkdir -p "$HOME/.config/EmuDeck"
-mkdir -p "$HOME/.config/EmuDeck/logs"
-PIDFILE="$HOME/.config/EmuDeck/install.pid"
+mkdir -p "$emudeckLogs"
+PIDFILE="$emudeckFolder/install.pid"
 
 
 if [ -f "$PIDFILE" ]; then
@@ -64,20 +71,20 @@ trap finish EXIT
 #Clean up previous installations
 rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
 rm -rf ~/dragoonDoriseTools
-rm -rf $HOME/.config/EmuDeck/backend
+rm -rf $emudeckBackend
 
 #Creating log file
-LOGFILE="$HOME/.config/EmuDeck/logs/emudeckSetup.log"
+LOGFILE="$emudeckLogs/emudeckSetup.log"
 
 mkdir -p "$HOME/.config/EmuDeck"
 
 #Custom Scripts
-mkdir -p "$HOME/.config/EmuDeck/custom_scripts"
-echo $'#!/bin/bash\nEMUDECKGIT="$HOME/.config/EmuDeck/backend"\nsource "$EMUDECKGIT/functions/all.sh"' > "$HOME/.config/EmuDeck/custom_scripts/example.sh"
+mkdir -p "$emudeckFolder/custom_scripts"
+echo $'#!/bin/bash\nemudeckBackend="$HOME/.config/EmuDeck/backend/"\nsource "$emudeckBackend/functions/all.sh"' > "$emudeckFolder/custom_scripts/example.sh"
 
 echo "Press the button to start..." > "$LOGFILE"
 
-mv "${LOGFILE}" "$HOME/.config/EmuDeck/logs/emudeckSetup.last.log" #backup last log
+mv "${LOGFILE}" "$emudeckLogs/emudeckSetup.last.log" #backup last log
 
 if echo "${@}" > "${LOGFILE}" ; then
 	echo "Log created"
@@ -90,23 +97,16 @@ fi
 {
 date "+%Y.%m.%d-%H:%M:%S %Z"
 #Mark if this not a fresh install
-FOLDER="$HOME/.config/EmuDeck/"
+FOLDER="$emudeckFolder"
 if [ -d "$FOLDER" ]; then
-	echo "" > "$HOME/.config/EmuDeck/.finished"
+	echo "" > "$emudeckFolder/.finished"
 fi
 sleep 1
-SECONDTIME="$HOME/.config/EmuDeck/.finished"
+SECONDTIME="$emudeckFolder/.finished"
 
 #Lets log github API limits just in case
 echo 'Github API limits:'
 curl -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28"  "https://api.github.com/rate_limit"
-
-#
-##
-## set backend location
-##
-# I think this should just be in the source, so there's one spot for initialization. hrm, no i'm wrong. Here is best.
-EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 
 
 #
@@ -117,10 +117,10 @@ EMUDECKGIT="$HOME/.config/EmuDeck/backend"
 
 
 
-source "$EMUDECKGIT"/functions/helperFunctions.sh
-source "$EMUDECKGIT"/functions/jsonToBashVars.sh
-jsonToBashVars "$HOME/.config/EmuDeck/settings.json"
-source "$EMUDECKGIT/functions/all.sh"
+source "$emudeckBackend"/functions/helperFunctions.sh
+source "$emudeckBackend"/functions/jsonToBashVars.sh
+jsonToBashVars "$emudeckFolder/settings.json"
+source "$emudeckBackend/functions/all.sh"
 
 
 #after sourcing functins, check if path is empty.
@@ -150,9 +150,9 @@ createFolders
 
 #setup Proton-Launch.sh
 #because this path gets updated by sed, we really should be installing it every and allowing it to be updated every time. In case the user changes their path.
-cp "$EMUDECKGIT/tools/proton-launch.sh" "${toolsPath}/proton-launch.sh"
+cp "$emudeckBackend/tools/proton-launch.sh" "${toolsPath}/proton-launch.sh"
 chmod +x "${toolsPath}/proton-launch.sh"
-cp "$EMUDECKGIT/tools/appID.py" "${toolsPath}/appID.py"
+cp "$emudeckBackend/tools/appID.py" "${toolsPath}/appID.py"
 
 # Setup emu-launch.sh
 cp "${EMUDECKGIT}/tools/emu-launch.sh" "${toolsPath}/emu-launch.sh"
@@ -503,7 +503,7 @@ fi
 
 #EmuDeck updater on gaming Mode
 #mkdir -p "${toolsPath}/updater"
-#cp -v "$EMUDECKGIT/tools/updater/emudeck-updater.sh" "${toolsPath}/updater/"
+#cp -v "$emudeckBackend/tools/updater/emudeck-updater.sh" "${toolsPath}/updater/"
 #chmod +x "${toolsPath}/updater/emudeck-updater.sh"
 
 #RemotePlayWhatever
@@ -514,10 +514,10 @@ fi
 #
 # We mark the script as finished
 #
-echo "" > "$HOME/.config/EmuDeck/.finished"
-echo "" > "$HOME/.config/EmuDeck/.ui-finished"
-echo "100" > "$HOME/.config/EmuDeck/logs/msg.log"
-echo "# Installation Complete" >> "$HOME/.config/EmuDeck/logs/msg.log"
+echo "" > "$emudeckFolder/.finished"
+echo "" > "$emudeckFolder/.ui-finished"
+echo "100" > "$emudeckLogs/msg.log"
+echo "# Installation Complete" >> "$emudeckLogs/msg.log"
 finished=true
 rm "$PIDFILE"
 
@@ -532,7 +532,7 @@ checkInstalledEmus
 # Run custom scripts... shhh for now ;)
 #
 
-for entry in "$HOME"/.config/emudeck/custom_scripts/*.sh
+for entry in "$emudeckFolder"/custom_scripts/*.sh
 do
 	 bash $entry
 done

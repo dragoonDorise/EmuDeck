@@ -124,7 +124,7 @@ Plugins_installEmuDecky(){
 		 echo $password | sudo -S chown $USER:$USER -R $HOME/homebrew/plugins/EmuDecky
    fi
    #CloudSync tools
-   rsync -avzh "$EMUDECKGIT/tools/cloudSync/" "$toolsPath/cloudSync/"
+   rsync -avzh "$emudeckBackend/tools/cloudSync/" "$toolsPath/cloudSync/"
    chmod +x "$toolsPath/cloudSync/cloud_sync_force_download.sh"
    chmod +x "$toolsPath/cloudSync/cloud_sync_force_upload.sh"
 
@@ -152,7 +152,7 @@ Plugins_installDeckyRomLibrary(){
      echo $password | sudo -S chown $USER:$USER -R $HOME/homebrew/plugins/decky-rom-library
    fi
    #RAachievemets
-   rau=$(cat "$HOME/.config/EmuDeck/.rau")
+   rau=$(cat "$emudeckFolder/.rau")
    setSetting cheevos_username $rau
 
 }

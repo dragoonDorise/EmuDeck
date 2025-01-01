@@ -142,7 +142,7 @@ Flycast_resetConfig(){
 Flycast_addSteamInputProfile(){
 	echo "NYI"
 	# setMSG "Adding $Flycast_emuName Steam Input Profile."
-	# rsync -r "$EMUDECKGIT/configs/steam-input/Flycast_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	# rsync -r "$emudeckBackend/configs/steam-input/Flycast_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 Flycast_setResolution(){
@@ -158,5 +158,5 @@ Flycast_flushEmulatorLauncher(){
 
 Flycast_addSteamInputProfile(){
 	setMSG "Adding $Flycast_emuName Steam Input Profile."
-	rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/emudeck_steam_deck_light_gun_controls.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf"
+	rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/emudeck_steam_deck_light_gun_controls.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf"
 }
