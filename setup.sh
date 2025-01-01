@@ -71,7 +71,6 @@ trap finish EXIT
 #Clean up previous installations
 rm ~/emudek.log 2>/dev/null # This is emudeck's old log file, it's not a typo!
 rm -rf ~/dragoonDoriseTools
-rm -rf $emudeckBackend
 
 #Creating log file
 LOGFILE="$emudeckLogs/emudeckSetup.log"
