@@ -30,8 +30,8 @@ else
 fi
 
 if [ "$system" != "darwin" ]; then
-    export PATH="${EMUDECKGIT}/tools/binaries/:$PATH"
-    chmod +x "${EMUDECKGIT}/tools/binaries/xmlstarlet"
+    export PATH="$emudeckBackend/tools/binaries/:$PATH"
+    chmod +x "$emudeckBackend/tools/binaries/xmlstarlet"
 fi
 
 source "$emudeckBackend"/functions/checkBIOS.sh

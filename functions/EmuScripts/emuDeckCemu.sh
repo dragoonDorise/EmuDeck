@@ -270,13 +270,13 @@ Cemu_functions () {
 	# Apply initial settings
 	init () {
 		setMSG "Initialising ${CemuNative[emuName]} settings."
-		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/config/cemu" "true"
+		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "$emudeckBackend/configs/cemu/config/cemu" "true"
 		mv "${CemuNative[configDir]}" "$HOME/EmuDeck/configs/cemu"
 		ln -sf "$HOME/EmuDeck/configs/cemu" "${CemuNative[configDir]}"
 		cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
 		cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "$SRM_userData_configDir/parsers/custom/"
 		#SRM_createParsers
-		#configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu" "true" #seems unneeded? maybe?
+		#configEmuAI "cemu" "data" "${storagePath}/cemu" "$emudeckBackend/configs/cemu/data/cemu" "true" #seems unneeded? maybe?
 		setEmulationFolder
 		setupStorage
 		setupSaves
@@ -296,11 +296,11 @@ Cemu_functions () {
 	# Update
 	update () {
 		setMSG "Updating ${CemuNative[emuName]} settings."
-		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${EMUDECKGIT}/configs/cemu/.config/cemu"
+		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "$emudeckBackend/configs/cemu/.config/cemu"
 		cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
 		cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "$SRM_userData_configDir/parsers/custom/"
 		SRM_createParsers
-		#configEmuAI "cemu" "data" "${storagePath}/cemu" "${EMUDECKGIT}/configs/cemu/data/cemu" #seems unneeded? maybe?
+		#configEmuAI "cemu" "data" "${storagePath}/cemu" "$emudeckBackend/configs/cemu/data/cemu" #seems unneeded? maybe?
 		#migrate
 		setEmulationFolder
 		setupStorage
@@ -336,7 +336,7 @@ Cemu_functions () {
 	addSteamInputProfile () {
 		addSteamInputCustomIcons
 		setMSG "Adding ${CemuNative[emuName]} Steam Input Profile."
-		#rsync -r "${EMUDECKGIT}/configs/steam-input/cemu_controller_config.vdf" "${HOME}/.steam/steam/controller_base/templates/"
+		#rsync -r "$emudeckBackend/configs/steam-input/cemu_controller_config.vdf" "${HOME}/.steam/steam/controller_base/templates/"
 		rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
 
 	}

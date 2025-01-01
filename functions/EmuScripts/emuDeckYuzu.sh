@@ -322,7 +322,7 @@ YuzuEA_install() {
     if safeDownload "yuzu-ea" "$fileToDownload" "${YuzuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
         chmod +x "$YuzuEA_emuPath"
 
-        cp -v "${EMUDECKGIT}/tools/launchers/yuzu.sh" "${toolsPath}/launchers/" &>/dev/null
+        cp -v "$emudeckBackend/tools/launchers/yuzu.sh" "${toolsPath}/launchers/" &>/dev/null
         chmod +x "${toolsPath}/launchers/yuzu.sh"
         echo "true"
         return 0

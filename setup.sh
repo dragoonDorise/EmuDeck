@@ -154,7 +154,7 @@ chmod +x "${toolsPath}/proton-launch.sh"
 cp "$emudeckBackend/tools/appID.py" "${toolsPath}/appID.py"
 
 # Setup emu-launch.sh
-cp "${EMUDECKGIT}/tools/emu-launch.sh" "${toolsPath}/emu-launch.sh"
+cp "$emudeckBackend/tools/emu-launch.sh" "${toolsPath}/emu-launch.sh"
 chmod +x "${toolsPath}/emu-launch.sh"
 
 #ESDE Installation

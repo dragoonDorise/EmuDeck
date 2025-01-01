@@ -305,7 +305,7 @@ suyuEA_install() {
     if safeDownload "suyu-ea" "$fileToDownload" "${suyuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
         chmod +x "$suyuEA_emuPath"
 
-        cp -v "${EMUDECKGIT}/tools/launchers/suyu.sh" "${toolsPath}/launchers/" &>/dev/null
+        cp -v "$emudeckBackend/tools/launchers/suyu.sh" "${toolsPath}/launchers/" &>/dev/null
         chmod +x "${toolsPath}/launchers/suyu.sh"
         echo "true"
         return 0
