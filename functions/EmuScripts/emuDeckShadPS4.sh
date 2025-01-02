@@ -21,7 +21,7 @@ ShadPS4_install(){
 
   if installEmuAI "$ShadPS4_emuName" "" "$(getReleaseURLGH "shadps4-emu/shadPS4" "zip" "linux-qt")" "" "zip" "emulator" "$showProgress"; then
     unzip -o "$HOME/Applications/ShadPS4.zip" -d "$ShadPS4_emuPath" && rm -rf "$HOME/Applications/ShadPS4.zip"
-    chmod +x "$ShadPS4_emuPath/publish/Shadps4-qt.AppImage"
+    chmod +x "$ShadPS4_emuPath/Shadps4-qt.AppImage"
   else
     return 1
   fi
