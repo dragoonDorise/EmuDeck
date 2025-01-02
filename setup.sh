@@ -347,6 +347,7 @@ fi
 #
 # We mark the script as finished
 #
+setMSG "Waiting for all task to finish.."
 wait
 echo "" > "$emudeckFolder/.finished"
 echo "" > "$emudeckFolder/.ui-finished"
