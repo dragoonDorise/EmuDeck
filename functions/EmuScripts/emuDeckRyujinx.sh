@@ -3,7 +3,7 @@
 #variables
 Ryujinx_emuName="Ryujinx"
 Ryujinx_emuType="$emuDeckEmuTypeBinary"
-Ryujinx_emuPath="$HOME/Applications/publish"
+Ryujinx_emuPath="$emusFolder/publish"
 Ryujinx_configFile="$HOME/.config/Ryujinx/Config.json"
 # https://github.com/Ryujinx/Ryujinx/blob/master/Ryujinx.Ui.Common/Configuration/System/Language.cs#L3-L23
 Ryujinx_controllerFile="$HOME/.config/Ryujinx/profiles/controller/Deck.json"
@@ -50,18 +50,18 @@ Ryujinx_install(){
     echo "Begin Ryujinx Install"
     local showProgress=$1
     if installEmuBI "$Ryujinx_emuName" "$(getReleaseURLGH "Ryubing/Ryujinx" "-linux_x64.tar.gz" "" "" "nogui")" "" "tar.gz" "$showProgress"; then
-        mkdir -p "$HOME/Applications/publish"
-        tar -xvf "$HOME/Applications/Ryujinx.tar.gz" -C "$HOME/Applications" && rm -rf "$HOME/Applications/Ryujinx.tar.gz"
-        chmod +x "$HOME/Applications/publish/Ryujinx"
+        mkdir -p "$emusFolder/publish"
+        tar -xvf "$emusFolder/Ryujinx.tar.gz" -C "$emusFolder" && rm -rf "$HOME/Applications/Ryujinx.tar.gz"
+        chmod +x "$emusFolder/publish/Ryujinx"
     else
         return 1
     fi
 
     # flatpak install flathub org.ryujinx.Ryujinx -y --user
-    # mkdir -p "$HOME/Applications/publish"
-    # rsync -av "$HOME/.local/share/flatpak/app/org.ryujinx.Ryujinx/x86_64/stable/active/files/bin/" "$HOME/Applications/publish/" && flatpak uninstall flathub org.ryujinx.Ryujinx -y --user
+    # mkdir -p "$emusFolder/publish"
+    # rsync -av "$HOME/.local/share/flatpak/app/org.ryujinx.Ryujinx/x86_64/stable/active/files/bin/" "$emusFolder/publish/" && flatpak uninstall flathub org.ryujinx.Ryujinx -y --user
     # rm -rf "$HOME/.config/Ryujinx/games"
-    # chmod +x "$HOME/Applications/publish/Ryujinx"
+    # chmod +x "$emusFolder/publish/Ryujinx"
 
 }
 
@@ -69,7 +69,7 @@ Ryujinx_install(){
 Ryujinx_init(){
     echo "Begin Ryujinx Init"
 
-    configEmuAI "Ryujinx" "config" "$HOME/.config/Ryujinx" "$EMUDECKGIT/configs/Ryujinx" "true"
+    configEmuAI "Ryujinx" "config" "$HOME/.config/Ryujinx" "$emudeckBackend/configs/Ryujinx" "true"
 
     Ryujinx_setEmulationFolder
     Ryujinx_setupStorage
@@ -92,7 +92,7 @@ Ryujinx_init(){
 Ryujinx_update(){
     echo "Begin Ryujinx update"
 
-    configEmuAI "yuzu" "config" "$HOME/.config/Ryujinx" "$EMUDECKGIT/configs/Ryujinx"
+    configEmuAI "yuzu" "config" "$HOME/.config/Ryujinx" "$emudeckBackend/configs/Ryujinx"
 
     Ryujinx_setEmulationFolder
     Ryujinx_setupStorage
@@ -207,7 +207,7 @@ Ryujinx_uninstall(){
 Ryujinx_migrate(){
     echo "Begin Ryujinx Migration"
     emu="Ryujinx"
-#     migrationFlag="$HOME/.config/EmuDeck/.${emu}MigrationCompleted"
+#     migrationFlag="$emudeckFolder/.${emu}MigrationCompleted"
 #     #check if we have a nomigrateflag for $emu
 #     if [ ! -f "$migrationFlag" ]; then
 #         #yuzu flatpak to appimage

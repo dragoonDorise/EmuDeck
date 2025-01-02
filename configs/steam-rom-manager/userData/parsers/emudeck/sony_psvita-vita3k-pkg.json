@@ -15,23 +15,23 @@
     "specifiedAccounts": ""
   },
   "executable": {
-    "path": "/home/deck/Applications/Vita3K/Vita3K",
+    "path": "/home/deck/.config/EmuDeck/Emulators/Vita3K/Vita3K",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },
   "parserInputs": {
     "glob": "**/${title}/@(eboot.bin|EBOOT.BIN)"
   },
-	"controllers": {
-	  "ps4": null,
-	  "ps5": null,
-	  "xbox360": null,
-	  "xboxone": null,
-	  "switch_joycon_left": null,
-	  "switch_joycon_right": null,
-	  "switch_pro": null,
-	  "neptune": null
-	},
+  "controllers": {
+    "ps4": null,
+    "ps5": null,
+    "xbox360": null,
+    "xboxone": null,
+    "switch_joycon_left": null,
+    "switch_joycon_right": null,
+    "switch_pro": null,
+    "neptune": null
+  },
   "titleFromVariable": {
     "limitToGroups": "${PSV}",
     "caseInsensitiveVariables": true,

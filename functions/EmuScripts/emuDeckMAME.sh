@@ -23,7 +23,7 @@ Mame_install(){
 
 #ApplyInitialSettings
 MAME_init(){
-	configEmuAI "${MAME_emuName}" "mame" "$HOME/.mame" "${EMUDECKGIT}/configs/mame" "true"
+	configEmuAI "${MAME_emuName}" "mame" "$HOME/.mame" "$emudeckBackend/configs/mame" "true"
 	MAME_setupStorage
 	MAME_setEmulationFolder
 	MAME_setupSaves
@@ -50,7 +50,7 @@ MAME_init(){
 
 #update
 MAME_update(){
-	configEmuAI "${MAME_emuName}" "mame" "$HOME/.mame" "${EMUDECKGIT}/configs/mame"
+	configEmuAI "${MAME_emuName}" "mame" "$HOME/.mame" "$emudeckBackend/configs/mame"
 	updateEmuFP "${MAME_emuName}" "${MAME_emuPath}" "emulator" ""
 	MAME_setupStorage
 	MAME_setEmulationFolder
@@ -190,5 +190,5 @@ MAME_flushEmulatorLauncher(){
 
 MAME_addSteamInputProfile(){
 	setMSG "Adding $MAME_emuName Steam Input Profile."
-	rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/emudeck_steam_deck_light_gun_controls.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf"
+	rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/emudeck_steam_deck_light_gun_controls.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf"
 }

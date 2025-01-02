@@ -3,7 +3,7 @@
 # Variables
 Greenlight_emuName="Greenlight"
 Greenlight_emuType="$emuDeckEmuTypeAppImage"
-Greenlight_emuPath="$HOME/Applications/Greenlight.AppImage"
+Greenlight_emuPath="$emusFolder/Greenlight.AppImage"
 
 
 # Install
@@ -28,7 +28,7 @@ Greenlight_update() {
 	setMSG "Updating $Greenlight_emuName."
 	rm -f "$Greenlight_emuPath"
 	Greenlight_install
-	# configEmuAI "$Greenlight_emuName" "config" "$HOME/.config/greenlilght" "$EMUDECKGIT/configs/Greenlight/.config/greenlight"
+	# configEmuAI "$Greenlight_emuName" "config" "$HOME/.config/greenlilght" "$emudeckBackend/configs/Greenlight/.config/greenlight"
 	# Greenlight_addSteamInputProfile
 }
 
@@ -52,5 +52,5 @@ Greenlight_IsInstalled() {
 # Import steam profile
 Greenlight_addSteamInputProfile() {
 	echo "NYI"
-	# rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_Greenlight_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	# rsync -r "$emudeckBackend/configs/steam-input/emudeck_Greenlight_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

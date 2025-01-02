@@ -1,3 +1,3 @@
 #!/bin/bash
 
-"$HOME/Applications/Heroic-Games-Launcher.AppImage"
+"$HOME/.config/EmuDeck/Emulators/Heroic-Games-Launcher.AppImage"

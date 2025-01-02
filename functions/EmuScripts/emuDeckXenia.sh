@@ -41,9 +41,9 @@ Xenia_install(){
 		return 1
 	fi
 
-	cp "$EMUDECKGIT/tools/launchers/xenia.sh" "${toolsPath}/launchers/xenia.sh"
-	cp "$EMUDECKGIT/tools/launchers/xenia.sh" "$romsPath/emulators/xenia.sh"
-	cp "$EMUDECKGIT/tools/launchers/xenia.sh" "$romsPath/xbox360/xenia.sh"
+	cp "$emudeckBackend/tools/launchers/xenia.sh" "${toolsPath}/launchers/xenia.sh"
+	cp "$emudeckBackend/tools/launchers/xenia.sh" "$romsPath/emulators/xenia.sh"
+	cp "$emudeckBackend/tools/launchers/xenia.sh" "$romsPath/xbox360/xenia.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/xenia.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/xenia.sh"
 	mkdir -p "$romsPath/xbox360/roms/xbla"
@@ -67,7 +67,7 @@ Xenia_install(){
 #ApplyInitialSettings
 Xenia_init(){
 	setMSG "Initializing Xenia Config"
-	rsync -avhp "$EMUDECKGIT/configs/xenia/" "$romsPath/xbox360"
+	rsync -avhp "$emudeckBackend/configs/xenia/" "$romsPath/xbox360"
 	mkdir -p "$romsPath/xbox360/roms/xbla"
 	Xenia_setupSaves
 	#SRM_createParsers

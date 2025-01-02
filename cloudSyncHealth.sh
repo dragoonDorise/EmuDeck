@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-source "$HOME/.config/EmuDeck/backend/functions/all.sh"
+. "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
 NONE='\033[00m'
 RED='\033[01;31m'

@@ -24,13 +24,13 @@ installEmuAI(){
     fi
 
 	if [[ "$type" == "emulator" ]]; then
-		gitPath="${EMUDECKGIT}/tools/launchers/"
+		gitPath="$emudeckBackend/tools/launchers/"
 		launcherPath="${toolsPath}/launchers"
 	elif [[ "$type" == "remoteplay" ]]; then
-		gitPath="${EMUDECKGIT}/tools/remoteplayclients/"
+		gitPath="$emudeckBackend/tools/remoteplayclients/"
 		launcherPath="${romsPath}/remoteplay"
 	elif [[ "$type" == "genericapplication" ]]; then
-		gitPath="${EMUDECKGIT}/tools/generic-applications/"
+		gitPath="$emudeckBackend/tools/generic-applications/"
 		launcherPath="${romsPath}/generic-applications"
 	fi
 
@@ -45,24 +45,25 @@ installEmuAI(){
     echo "09, Last Version: $latestVer"
     echo "10, Download checksum (SHA256): $downloadChecksumSha256"
 
-    #rm -f "$HOME/Applications/$fileName.$format" # mv in safeDownload will overwrite...
-    mkdir -p "$HOME/Applications"
+    #rm -f "$emusFolder/$fileName.$format" # mv in safeDownload will overwrite...
+    mkdir -p "$emusFolder"
 
     if [[ -z "$url" ]]; then
-        if [ -f "$HOME/Applications/${fileName}.${format}" ]; then
+        if [ -f "$emusFolder/${fileName}.${format}" ]; then
             echo "No download link provided but local file already exists. Will refresh links and launcher."
         else
             echo "No download link provided and no local file exists, exitting."
             return 1
         fi
-    elif safeDownload "$name" "$url" "$HOME/Applications/${fileName}.${format}" "$showProgress" "" "$downloadChecksumSha256"; then
+    elif safeDownload "$name" "$url" "$emusFolder/${fileName}.${format}" "$showProgress" "" "$downloadChecksumSha256"; then
         echo "$name downloaded successfuly."
     else
         echo "Failed to download or verify $name."
         return 1
     fi
 
-    chmod +x "$HOME/Applications/$fileName.${format}"
+    chmod +x "$emusFolder/$fileName.${format}"
+
     if [[ -n $lastVerFile ]] && [[ -n $latestVer ]]; then
         echo "latest version $latestVer > $lastVerFile"
         echo "$latestVer" > "$lastVerFile"

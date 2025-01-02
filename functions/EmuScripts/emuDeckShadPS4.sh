@@ -7,7 +7,7 @@
 ShadPS4_emuName="ShadPS4"
 ShadPS4_emuFileName="Shadps4-qt"
 ShadPS4_emuType="$emuDeckEmuTypeAppImage"
-ShadPS4_emuPath="$HOME/Applications"
+ShadPS4_emuPath="$emusFolder"
 ShadPS4_dir="$HOME/.local/share/shadPS4"
 ShadPS4_configFile="$ShadPS4_dir/config.toml"
 
@@ -20,8 +20,8 @@ ShadPS4_install(){
     echo "Begin ShadPS4 Install"
     local showProgress=$1
 
-    if safeDownload "$ShadPS4_emuName" "$(getReleaseURLGH "shadps4-emu/shadPS4" "zip" "linux-qt")" "$HOME/Applications/${ShadPS4_emuName}.zip" "$showProgress"; then
-        unzip -o "$HOME/Applications/${ShadPS4_emuName}.zip" -d "$ShadPS4_emuPath" && rm -f "$HOME/Applications/${ShadPS4_emuName}.zip"
+    if safeDownload "$ShadPS4_emuName" "$(getReleaseURLGH "shadps4-emu/shadPS4" "zip" "linux-qt")" "$emusFolder/${ShadPS4_emuName}.zip" "$showProgress"; then
+        unzip -o "$emusFolder/${ShadPS4_emuName}.zip" -d "$ShadPS4_emuPath" && rm -f "$emusFolder/${ShadPS4_emuName}.zip"
         if ! installEmuAI "$ShadPS4_emuName" "" "" "$ShadPS4_emuFileName" "" "emulator"; then # installEmuAI will handle everything when URL is not provided but AppImage exists...
             echo "Error installing ShadPS4"
             return 1
@@ -33,7 +33,7 @@ ShadPS4_install(){
 }
 
 ShadPS4_init(){
-    configEmuAI "$ShadPS4_emuName" "config" "$HOME/.local/share/shadPS4" "$EMUDECKGIT/configs/shadps4" "true"
+    configEmuAI "$ShadPS4_emuName" "config" "$HOME/.local/share/shadPS4" "$emudeckBackend/configs/shadps4" "true"
     ShadPS4_setupStorage
     ShadPS4_setEmulationFolder
     ShadPS4_setupSaves
