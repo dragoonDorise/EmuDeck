@@ -157,279 +157,113 @@ cp "$emudeckBackend/tools/appID.py" "${toolsPath}/appID.py"
 cp "$emudeckBackend/tools/emu-launch.sh" "${toolsPath}/emu-launch.sh"
 chmod +x "${toolsPath}/emu-launch.sh"
 
-#ESDE Installation
-if [ $doInstallESDE == "true" ]; then
-	echo "install esde"
-	ESDE_install
-fi
-#Pegasus Installation
-if [ $doInstallPegasus == "true" ]; then
-	echo "install Pegasus"
-	pegasus_install
-fi
-#SRM Installation
-if [ $doInstallSRM == "true" ]; then
-	echo "install srm"
-	SRM_install
-fi
-if [ "$doInstallPCSX2QT" == "true" ]; then
-	echo "install pcsx2Qt"
-	PCSX2QT_install
-fi
-if [ $doInstallPrimeHack == "true" ]; then
-	echo "install primehack"
-	Primehack_install
-fi
-if [ $doInstallRPCS3 == "true" ]; then
-	echo "install rpcs3"
-	RPCS3_install
-fi
-if [ $doInstallCitra == "true" ]; then
-	echo "install Citra"
-	Citra_install
-fi
-if [ $doInstallLime3DS == "true" ]; then
-	echo "install Lime3DS"
-	Lime3DS_install
-fi
-if [ $doInstallDolphin == "true" ]; then
-	echo "install Dolphin"
-	Dolphin_install
-fi
-if [ $doInstallDuck == "true" ]; then
-	echo "DuckStation_install"
-	DuckStation_install
-fi
-if [ $doInstallRA == "true" ]; then
-	echo "RetroArch_install"
-	RetroArch_install
-fi
-if [ $doInstallRMG == "true" ]; then
-	echo "RMG_install"
-	RMG_install
-fi
-if [ $doInstallares == "true" ]; then
-	echo "ares_install"
-	ares_install
-fi
-if [ $doInstallPPSSPP == "true" ]; then
-	echo "PPSSPP_install"
-	PPSSPP_install
-fi
-if [ $doInstallYuzu == "true" ]; then
-	echo "Yuzu_install"
-	Yuzu_install
-fi
-if [ $doInstallSuyu == "true" ]; then
-	echo "suyu_install"
-	suyu_install
-fi
-if [ $doInstallRyujinx == "true" ]; then
-	echo "Ryujinx_install"
-	Ryujinx_install
-fi
-if [ $doInstallMAME == "true" ]; then
-	echo "MAME_install"
-	MAME_install
-fi
-if [ $doInstallXemu == "true" ]; then
-	echo "Xemu_install"
-	Xemu_install
-fi
-if [ $doInstallCemu == "true" ]; then
-	echo "Cemu_install"
-	Cemu_install
-fi
-if [ "${doInstallCemuNative}" == "true" ]; then
-	echo "CemuNative_install"
-	CemuNative_install
-fi
-if [ $doInstallScummVM == "true" ]; then
-	echo "ScummVM_install"
-	ScummVM_install
-fi
-if [ $doInstallVita3K == "true" ]; then
-	echo "Vita3K_install"
-	Vita3K_install
-fi
-if [ $doInstallMGBA == "true" ]; then
-	echo "mGBA_install"
-	mGBA_install
-fi
-if [ $doInstallFlycast == "true" ]; then
-	echo "Flycast_install"
-	Flycast_install
-fi
-if [ $doInstallRMG == "true" ]; then
-	echo "RMG_install"
-	RMG_install
-fi
-if [ $doInstallares == "true" ]; then
-	echo "ares_install"
-	ares_install
-fi
-if [ $doInstallmelonDS == "true" ]; then
-	echo "melonDS_install"
-	melonDS_install
-fi
-if [ $doInstallBigPEmu == "true" ]; then
-	echo "BigPEmu_install"
-	BigPEmu_install
-fi
-if [ $doInstallSupermodel == "true" ]; then
-	echo "Supermodel_install"
-	Supermodel_install
-fi
-#Xenia - We need to install Xenia after creating the Roms folders!
-if [ "$doInstallXenia" == "true" ]; then
-	echo "Xenia_install"
-	Xenia_install
-fi
-if [ "$doInstallModel2" == "true" ]; then
-	echo "Model2_install"
-	Model2_install
-fi
 
-if [ "$doInstallShadPS4" == "true" ]; then
-	echo "ShadPS4_install"
-	ShadPS4_install
-fi
+max_jobs=5
+current_jobs=0
 
-#Steam RomManager Config
+for install_command in \
+	"$doInstallESDE ESDE_install" \
+	"$doInstallPegasus pegasus_install" \
+	"$doInstallSRM SRM_install" \
+	"$doInstallPCSX2QT PCSX2QT_install" \
+	"$doInstallPrimeHack Primehack_install" \
+	"$doInstallRPCS3 RPCS3_install" \
+	"$doInstallCitra Citra_install" \
+	"$doInstallLime3DS Lime3DS_install" \
+	"$doInstallDolphin Dolphin_install" \
+	"$doInstallDuck DuckStation_install" \
+	"$doInstallRA RetroArch_install" \
+	"$doInstallRMG RMG_install" \
+	"$doInstallares ares_install" \
+	"$doInstallPPSSPP PPSSPP_install" \
+	"$doInstallYuzu Yuzu_install" \
+	"$doInstallSuyu suyu_install" \
+	"$doInstallRyujinx Ryujinx_install" \
+	"$doInstallMAME MAME_install" \
+	"$doInstallXemu Xemu_install" \
+	"$doInstallCemu Cemu_install" \
+	"$doInstallCemuNative CemuNative_install" \
+	"$doInstallScummVM ScummVM_install" \
+	"$doInstallVita3K Vita3K_install" \
+	"$doInstallMGBA mGBA_install" \
+	"$doInstallFlycast Flycast_install" \
+	"$doInstallmelonDS melonDS_install" \
+	"$doInstallBigPEmu BigPEmu_install" \
+	"$doInstallSupermodel Supermodel_install" \
+	"$doInstallXenia Xenia_install" \
+	"$doInstallModel2 Model2_install" \
+	"$doInstallShadPS4 ShadPS4_install"; do
 
-if [ "$doSetupSRM" == "true" ]; then
-	echo "SRM_init"
-	SRM_init
-fi
+	condition=$(echo "$install_command" | awk '{print $1}')
+	command=$(echo "$install_command" | awk '{print $2}')
 
-#ESDE Config
-if [ "$doSetupESDE" == "true" ]; then
-	echo "ESDE_init"
-	ESDE_update
-fi
+	if [ "$condition" == "true" ]; then
+		echo "Executing $command"
+		$command &
+		current_jobs=$((current_jobs + 1))
+	fi
 
-#Pegasus Config
-#if [ $doSetupPegasus == "true" ]; then
-#	echo "pegasus_init"
-#	pegasus_init
-#fi
+	if [ $current_jobs -ge $max_jobs ]; then
+		wait
+		current_jobs=0
+	fi
+done
 
-#Emus config
-#setMSG "Configuring Steam Input for emulators.." moved to emu install
+wait # Wait for any remaining jobs to finish
 
+setMSG "Configuring emulators & tools.."
 
-setMSG "Configuring emulators.."
+max_jobs=5
+current_jobs=0
 
-if [ "$doSetupRA" == "true" ]; then
-	echo "RetroArch_init"
-	RetroArch_init
-fi
-if [ "$doSetupPrimehack" == "true" ]; then
-	echo "Primehack_init"
-	Primehack_init
-fi
-if [ "$doSetupDolphin" == "true" ]; then
-	echo "Dolphin_init"
-	Dolphin_init
-fi
-if [ "$doSetupPCSX2QT" == "true" ]; then
-	echo "PCSX2QT_init"
-	PCSX2QT_init
-fi
-if [ "$doSetupRPCS3" == "true" ]; then
-	echo "RPCS3_init"
-	RPCS3_init
-fi
-if [ "$doSetupCitra" == "true" ]; then
-	echo "Citra_init"
-	Citra_init
-fi
-if [ $doSetupLime3DS == "true" ]; then
-	echo "Lime3DS_init"
-	Lime3DS_init
-fi
-if [ "$doSetupDuck" == "true" ]; then
-	echo "DuckStation_init"
-	DuckStation_init
-fi
-if [ "$doSetupYuzu" == "true" ]; then
-	echo "Yuzu_init"
-	Yuzu_init
-fi
-if [ "$doSetupRyujinx" == "true" ]; then
-	echo "Ryujinx_init"
-	Ryujinx_init
-fi
-if [ "$doSetupShadPS4" == "true" ]; then
-	echo "ShadPS4_init"
-	ShadPS4_init
-fi
-if [ "$doSetupPPSSPP" == "true" ]; then
-	echo "PPSSPP_init"
-	PPSSPP_init
-fi
-if [ "$doSetupXemu" == "true" ]; then
-	echo "Xemu_init"
-	Xemu_init
-fi
-if [ "$doSetupMAME" == "true" ]; then
-	echo "MAME_init"
-	MAME_init
-fi
-if [ "$doSetupScummVM" == "true" ]; then
-	echo "ScummVM_init"
-	ScummVM_init
-fi
-if [ "$doSetupVita3K" == "true" ]; then
-	echo "Vita3K_init"
-	Vita3K_init
-fi
-if [ "$doSetupRMG" == "true" ]; then
-	echo "RMG_init"
-	RMG_init
-fi
-if [ "$doSetupares" == "true" ]; then
-	echo "ares_init"
-	ares_init
-fi
-if [ "$doSetupmelonDS" == "true" ]; then
-	echo "melonDS_init"
-	melonDS_init
-fi
-if [ "$doSetupMGBA" == "true" ]; then
-	echo "mGBA_init"
-	mGBA_init
-fi
-if [ "${doSetupCemuNative}" == "true" ]; then
-	echo "CemuNative_init"
-	CemuNative_init
-fi
-if [ "$doSetupFlycast" == "true" ]; then
-	echo "Flycast_init"
-	Flycast_init
-fi
-if [ "$doSetupSupermodel" == "true" ]; then
-	echo "Supermodel_init"
-	Supermodel_init
-fi
-if [ "$doSetupModel2" == "true" ]; then
-	echo "model2_init"
-	Model2_init
-fi
-#Proton Emus
-if [ "$doSetupCemu" == "true" ]; then
-	echo "Cemu_init"
-	Cemu_init
-fi
-if [ "$doSetupBigPEmu" == "true" ]; then
-	echo "BigPEmu_init"
-	BigPEmu_init
-fi
-if [ "$doSetupXenia" == "true" ]; then
-	echo "Xenia_init"
-	Xenia_init
-fi
+for setup_command in \
+	"$doSetupSRM SRM_init" \
+	"$doSetupESDE ESDE_update" \
+	"$doSetupPegasus pegasus_init" \
+	"$doSetupRA RetroArch_init" \
+	"$doSetupPrimehack Primehack_init" \
+	"$doSetupDolphin Dolphin_init" \
+	"$doSetupPCSX2QT PCSX2QT_init" \
+	"$doSetupRPCS3 RPCS3_init" \
+	"$doSetupCitra Citra_init" \
+	"$doSetupLime3DS Lime3DS_init" \
+	"$doSetupDuck DuckStation_init" \
+	"$doSetupYuzu Yuzu_init" \
+	"$doSetupRyujinx Ryujinx_init" \
+	"$doSetupShadPS4 ShadPS4_init" \
+	"$doSetupPPSSPP PPSSPP_init" \
+	"$doSetupXemu Xemu_init" \
+	"$doSetupMAME MAME_init" \
+	"$doSetupScummVM ScummVM_init" \
+	"$doSetupVita3K Vita3K_init" \
+	"$doSetupRMG RMG_init" \
+	"$doSetupares ares_init" \
+	"$doSetupmelonDS melonDS_init" \
+	"$doSetupMGBA mGBA_init" \
+	"$doSetupCemuNative CemuNative_init" \
+	"$doSetupFlycast Flycast_init" \
+	"$doSetupSupermodel Supermodel_init" \
+	"$doSetupModel2 Model2_init" \
+	"$doSetupCemu Cemu_init" \
+	"$doSetupBigPEmu BigPEmu_init" \
+	"$doSetupXenia Xenia_init"; do
 
+	condition=$(echo "$setup_command" | awk '{print $1}')
+	command=$(echo "$setup_command" | awk '{print $2}')
+
+	if [ "$condition" == "true" ]; then
+		echo "Executing $command"
+		$command &
+		current_jobs=$((current_jobs + 1))
+	fi
+
+	if [ $current_jobs -ge $max_jobs ]; then
+		wait
+		current_jobs=0
+	fi
+done
+
+wait # Wait for any remaining jobs to finish
 
 #
 ##
@@ -439,11 +273,11 @@ fi
 
 
 #Always install
-BINUP_install
-AutoCopy_install
-server_install
-FlatpakUP_install
-CHD_install
+BINUP_install &
+AutoCopy_install &
+server_install &
+FlatpakUP_install &
+CHD_install &
 
 #
 ##
@@ -482,13 +316,13 @@ if [ "$system" == "chimeraos" ]; then
 fi
 
 
-createDesktopIcons
+createDesktopIcons &
 
 
 if [ "$controllerLayout" == "bayx" ] || [ "$controllerLayout" == "baxy" ] ; then
-	controllerLayout_BAYX
+	controllerLayout_BAYX &
 else
-	controllerLayout_ABXY
+	controllerLayout_ABXY &
 fi
 
 #
@@ -513,6 +347,7 @@ fi
 #
 # We mark the script as finished
 #
+wait
 echo "" > "$emudeckFolder/.finished"
 echo "" > "$emudeckFolder/.ui-finished"
 echo "100" > "$emudeckLogs/msg.log"
@@ -523,6 +358,8 @@ rm "$PIDFILE"
 #
 ## We check all the selected emulators are installed
 #
+
+
 
 checkInstalledEmus
 
