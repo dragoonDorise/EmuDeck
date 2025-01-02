@@ -1,3 +1,3 @@
 #!/bin/bash
 
-"$HOME/Applications/chiaki-ng.AppImage"
+"$HOME/.config/EmuDeck/Emulators/chiaki-ng.AppImage"

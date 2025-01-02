@@ -4,7 +4,7 @@
 
 # Attempt to find the given program as an AppImage
 getAppImage () {
-    local EMUDIR="${HOME}/Applications"
+    local EMUDIR="${HOME}/.config/EmuDeck/Emulators"
 
     # Check for AppImage
     local APPIMAGE

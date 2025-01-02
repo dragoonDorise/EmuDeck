@@ -137,8 +137,8 @@ PPSSPP_retroAchievementsHardCoreOff() {
 PPSSPP_retroAchievementsSetLogin() {
 
 	# EmuDeck username and token files
-	rau=$(cat "$HOME/.config/EmuDeck/.rau")
-	rat=$(cat "$HOME/.config/EmuDeck/.rat")
+	rau=$(cat "$emudeckFolder/.rau")
+	rat=$(cat "$emudeckFolder/.rat")
 
 	# Create PPSSPP token file
 	PPSSPP_token="$HOME/.var/app/${PPSSPP_emuPath}/config/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat"
@@ -180,7 +180,7 @@ PPSSPP_setRetroAchievements(){
 PPSSPP_addSteamInputProfile(){
 	addSteamInputCustomIcons
 	#setMSG "Adding $PPSSPP_emuName Steam Input Profile."
-	#rsync -r "$EMUDECKGIT/configs/steam-input/ppsspp_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	#rsync -r "$emudeckBackend/configs/steam-input/ppsspp_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 PPSSPP_setResolution(){

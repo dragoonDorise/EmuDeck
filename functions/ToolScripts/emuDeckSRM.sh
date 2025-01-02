@@ -32,7 +32,7 @@ SRM_uninstall(){
 
 SRM_customDesktopShortcut(){
   mkdir -p "$toolsPath/launchers/srm"
-  cp "$EMUDECKGIT/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
+  cp "$emudeckBackend/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
   rm -rf $HOME/.local/share/applications/SRM.desktop
 
   createDesktopShortcut   "$HOME/.local/share/applications/Steam ROM Manager.desktop" \
@@ -59,8 +59,8 @@ SRM_init(){
 
   setMSG "Configuring Steam Rom Manager"
   mkdir -p "$HOME/.config/steam-rom-manager/userData/"
-  rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
-  rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
   SRM_setEmulationFolder
   SRM_setEnv
   SRM_addControllerTemplate
@@ -112,7 +112,7 @@ SRM_setEnv(){
 SRM_addControllerTemplate(){
 
   mkdir -p "$HOME/.config/steam-rom-manager/userData/"
-  rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/controllerTemplates.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/controllerTemplates.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
 
   if [ -d "${HOME}/.local/share/Steam" ]; then
     STEAMPATH="${HOME}/.local/share/Steam"
@@ -139,7 +139,7 @@ SRM_addSteamInputProfiles(){
    rm -rf "$HOME/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf"
 
-   rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
+   rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
    #Cleanup old controller schemes
 }
 
@@ -165,7 +165,7 @@ SRM_IsInstalled(){
 
 SRM_flushToolLauncher(){
   mkdir -p "$toolsPath/launchers/srm"
-	cp "$EMUDECKGIT/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
+	cp "$emudeckBackend/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
   chmod +x "$toolsPath/launchers/srm/steamrommanager.sh"
 }
 

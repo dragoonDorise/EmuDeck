@@ -1,10 +1,10 @@
 #!/bin/bash
 # shellcheck source=/home/deck/emudeck/settings.sh
-. ~/emudeck/settings.sh
-
-if [[ "$EMUDECKGIT" == "" ]]; then
-    EMUDECKGIT="$HOME/.config/EmuDeck/backend"
+if [[ "$emudeckBackend" == "" ]]; then
+	emudeckBackend="$HOME/.config/EmuDeck/backend/"
 fi
+. $emudeckBackend/vars.sh
+. $emudeckFolder/settings.sh
 
 #whitelist
 chdfolderWhiteList=("3do" "amiga" "amiga1200" "amiga600"
@@ -51,16 +51,16 @@ sevenzipFileExtensions=("ngp" "ngc" "a26"
 
 
 combinedFileExtensions=(
-"${n3dsFileExtensions[@]}" 
-"${chdFileExtensions[@]}" 
-"${rvzFileExtensions[@]}" 
-"${rvzFileExtensions[@]}" 
-"${csoFileExtensions[@]}" 
+"${n3dsFileExtensions[@]}"
+"${chdFileExtensions[@]}"
+"${rvzFileExtensions[@]}"
+"${rvzFileExtensions[@]}"
+"${csoFileExtensions[@]}"
 "${xboxFileExtensions[@]}"
 "${sevenzipFileExtensions[@]}")
 
 #executables
-chdPath="$EMUDECKGIT/tools/chdconv"
+chdPath="$emudeckBackend/tools/chdconv"
 chmod +x "$chdPath/chdman5"
 chmod +x "$chdPath/ciso"
 chmod +x "$chdPath/3dstool"
@@ -73,8 +73,8 @@ dolphintool="flatpak run --command=dolphin-tool $flatpaktool"
 
 #initialize log
 TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
-mkdir -p "$HOME/emudeck/logs/compression"
-LOGFILE="$HOME/emudeck/logs/compression/chdman-$TIMESTAMP.log"
+mkdir -p "$emudeckLogs/compression"
+LOGFILE="$emudeckLogs/compression/chdman-$TIMESTAMP.log"
 exec > >(tee "${LOGFILE}") 2>&1
 
 #compression functions
@@ -108,7 +108,7 @@ compressCHD() {
 
 compressCHDDVD() {
 	local file=$1
-	local successful='' 
+	local successful=''
 	chdman5 createdvd -i "$file" -o "${file%.*}.chd" -c zstd && successful="true"
 	if [[ $successful == "true" ]]; then
 		echo "Converting $file to CHD using the createdvd flag and hunksize 16348."
@@ -123,7 +123,7 @@ compressCHDDVD() {
 
 compressCHDDVDLowerHunk() {
 	local file=$1
-	local successful='' 
+	local successful=''
 	chdman5 createdvd --hunksize 2048 -i "$file" -o "${file%.*}.chd" && successful="true"
 	if [[ $successful == "true" ]]; then
 		echo "Converting $file to CHD using the createdvd flag and hunksize 2048."
@@ -212,7 +212,7 @@ compress7z() {
 decompressCHDISO() {
 
 	local file=$1
-	local successful='' 
+	local successful=''
 	chdman5 extractdvd -i "$file" -o "${file%.*}.iso" && successful="true"
 	if [[ $successful == "true" ]]; then
 		echo "Decompressing $file to ISO using the extractdvd flag."
@@ -365,7 +365,7 @@ if [ "$selection" == "Bulk Compression" ]; then
 				echo "found in $romfolder"
 				searchFolderList+=("$romfolder")
 			fi
-		done	
+		done
 	fi
 
 	if ((${#searchFolderList[@]} == 0)); then
@@ -450,8 +450,8 @@ if [ "$selection" == "Bulk Compression" ]; then
 				--ok-label="CHD" \
 				--extra-button="CSO" \
 				--cancel-label="Cancel" \
-				--text="${text}" 2>/dev/null && echo "CHD")	
-			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do			
+				--text="${text}" 2>/dev/null && echo "CHD")
+			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
 						if [ "$pspBulkSelection" == "CHD" ]; then
 							find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
 							echo "Converting: $f using the createdvd flag  and 2048 hunksize"
@@ -461,10 +461,10 @@ if [ "$selection" == "Bulk Compression" ]; then
 							find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
 								echo "Converting: $f"
 								compressCSO "$f"
-							done	
-						else 
+							done
+						else
 							echo "No valid ROM found"
-							exit	
+							exit
 						fi
 			done
 		fi
@@ -485,7 +485,7 @@ if [ "$selection" == "Bulk Compression" ]; then
 		if [[ " ${xboxfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
 			find "$romsPath/$romfolder" -type f -iname "*.iso" ! -name '*.xiso.iso' | while read -r f; do
 				echo "Converting: $f"
-				compressXISO "$f" 
+				compressXISO "$f"
 			done
 		fi
 	done
@@ -517,7 +517,7 @@ elif [ "$selection" == "Select a ROM" ]; then
 		fi
 
 		if [ -n "$selectedCompressionMethod" ]; then
-			break 
+			break
 		else
 			zenity --error \
 			--text="Please select a compression method." \
@@ -525,7 +525,7 @@ elif [ "$selection" == "Select a ROM" ]; then
 			--height=100
 		fi
 	done
-		
+
 	echo "Selected: $selectedCompressionMethod"
 
 	#/bin/bash
@@ -534,7 +534,7 @@ elif [ "$selection" == "Select a ROM" ]; then
 
 	ext=$(echo "${f##*.}" | awk '{print tolower($0)}')
 	romFilePath=$(dirname "$f")
-	
+
 	case $ext in
 
 	gcm)
@@ -567,14 +567,14 @@ elif [ "$selection" == "Select a ROM" ]; then
 		;;
 	esac
 
-	if [ "$selectedCompressionMethod" == "Compress a ROM to RVZ" ]; then	
+	if [ "$selectedCompressionMethod" == "Compress a ROM to RVZ" ]; then
 		if [[ "$ext" =~ "iso" || "$ext" =~ "ISO" || "$ext" =~ "gcm" || "$ext" =~ "GCM"  ]]; then
 			echo "Valid ROM found, compressing $f to RVZ"
 			compressRVZ "$f"
 		else
 			echo "No valid ROM found"
 		fi
-	elif [ "$selectedCompressionMethod" == "Decompress a GC/Wii RVZ to ISO" ]; then	
+	elif [ "$selectedCompressionMethod" == "Decompress a GC/Wii RVZ to ISO" ]; then
 		if [[ "$ext" =~ "rvz" || "$ext" =~ "RVZ" ]]; then
 			echo "Valid ROM found, decompressing $f to ISO"
 			decompressRVZ "$f"
@@ -587,20 +587,20 @@ elif [ "$selection" == "Select a ROM" ]; then
 			compressCHDDVD "$f"
 		elif [[ "$ext" =~ "gdi"  || "$ext" =~ "GDI" || "$ext" =~ "cue" || "$f" =~ "CUE" ]]; then
 				echo "Valid $ext ROM found, compressing $f to CHD"
-				compressCHD "$f" 
-		else 
-			echo "No valid ROM found"			
+				compressCHD "$f"
+		else
+			echo "No valid ROM found"
 		fi
-	elif [ "$selectedCompressionMethod" == "Compress a ROM to XISO" ]; then	
+	elif [ "$selectedCompressionMethod" == "Compress a ROM to XISO" ]; then
 		if [[ "$ext" =~ "xiso" || "$ext" =~ "XISO" ]]; then
 			echo "$f already compressed."
 		elif [[ "$ext" =~ "iso" || "$ext" =~ "ISO" ]]; then
 			echo "Valid $ext ROM found, compressing $f to xiso"
 			compressXISO "$f"
-		else 
+		else
 			echo "No valid ROM found"
 		fi
-	elif [ "$selectedCompressionMethod" == "Compress a PSP ROM to CHD or CSO" ]; then	
+	elif [ "$selectedCompressionMethod" == "Compress a PSP ROM to CHD or CSO" ]; then
 		if [[ "$ext" =~ "iso" || "$ext" =~ "ISO" ]]; then
 			echo "Valid ROM found, prompting user"
 
@@ -611,7 +611,7 @@ elif [ "$selection" == "Select a ROM" ]; then
 				--ok-label="CSO" \
 				--extra-button="CHD" \
 				--cancel-label="Cancel" \
-				--text="${text}" 2>/dev/null && echo "CSO")		
+				--text="${text}" 2>/dev/null && echo "CSO")
 
 			if [ "$pspSelection" == "CSO" ]; then
 				echo "Valid $ext ROM found, compressing $f to CSO"
@@ -620,38 +620,38 @@ elif [ "$selection" == "Select a ROM" ]; then
 				echo "Valid $ext ROM found, compressing $f to CHD using the createdvd flag and 2048 hunksize."
 				compressCHDDVDLowerHunk "$f"
 			fi
-		else 
+		else
 			echo "No valid ROM found"
 		fi
 	elif [ "$selectedCompressionMethod" == "Decompress a PSP CHD to ISO" ]; then
 		if [[ "$ext" =~ "chd" || "$ext" =~ "CHD" ]]; then
 			echo "Valid $ext ROM found, decompressing $f to ISO using the extractdvd flag."
 			decompressCHDISO "$f"
-		else 
-			echo "No valid ROM found"			
+		else
+			echo "No valid ROM found"
 		fi
 	elif [ "$selectedCompressionMethod" == "Decompress a PSP CSO to ISO" ]; then
 		if [[ "$ext" =~ "cso" || "$ext" =~ "CSO" ]]; then
 			echo "Valid $ext ROM found, decompressing $f to ISO."
 			decompressCSOISO "$f"
-		else 
-			echo "No valid ROM found"			
+		else
+			echo "No valid ROM found"
 		fi
-	elif [ "$selectedCompressionMethod" == "Trim a 3DS ROM" ]; then	
+	elif [ "$selectedCompressionMethod" == "Trim a 3DS ROM" ]; then
 		if [[ "$ext" =~ "(Trimmed)" ]]; then
 			echo "$f already trimmed."
 		elif [[ "$ext" =~ "3ds" || "$ext" =~ "3DS" ]]; then
 			echo "Valid $ext ROM found, trimming $f"
 			trim3ds "$f"
-		else 
+		else
 			echo "No valid ROM found"
 		fi
-	elif [ "$selectedCompressionMethod" == "Compress a ROM to 7zip" ]; then	
+	elif [ "$selectedCompressionMethod" == "Compress a ROM to 7zip" ]; then
 		echo "true"
 		if [[ " ${sevenzipFileExtensions[*]} " =~ " ${ext} " ]]; then
 			echo "Valid ROM found, compressing $f to 7zip"
-			compress7z "$f"	
-		else 
+			compress7z "$f"
+		else
 			echo "No valid ROM found"
 		fi
 	else
@@ -719,7 +719,7 @@ elif [ "$compressionSelection" == "Bulk Decompression" ]; then
 
 	for romfolder in "${romfolders[@]}"; do
 		if [[ " ${csofolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-			find "$romsPath/$romfolder" -type f -iname "*.chd" | while read -r f; do			
+			find "$romsPath/$romfolder" -type f -iname "*.chd" | while read -r f; do
 				echo "Decompressing $f using the extractdvd flag"
 				decompressCHDISO "$f"
 			done
@@ -728,7 +728,7 @@ elif [ "$compressionSelection" == "Bulk Decompression" ]; then
 
 	for romfolder in "${romfolders[@]}"; do
 		if [[ " ${csofolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-			find "$romsPath/$romfolder" -type f -iname "*.cso" | while read -r f; do			
+			find "$romsPath/$romfolder" -type f -iname "*.cso" | while read -r f; do
 				echo "Decompressing $f"
 				decompressCSOISO "$f"
 			done

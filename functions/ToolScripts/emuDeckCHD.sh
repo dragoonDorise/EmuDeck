@@ -7,7 +7,7 @@ CHD_Shortcutlocation="$HOME/Desktop/EmuDeckCHD.desktop"
 
 CHD_install(){
     
-    rsync -avhp --mkpath "$EMUDECKGIT/tools/chdconv" "$toolsPath/"
+    rsync -avhp --mkpath "$emudeckBackend/tools/chdconv" "$toolsPath/"
     
     chmod +x "$CHD_toolPath"
     chmod +x "$toolsPath"/chdconv/chdman5

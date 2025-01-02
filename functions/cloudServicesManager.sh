@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Dev variables (normally commented out)
-#EMUDECKGIT="$HOME/github/EmuDeck" #dev
+#emudeckBackend="$HOME/github/EmuDeck" #dev
 
 CloudScripts_update() {
 	fixCloudScripts
@@ -90,7 +90,7 @@ manageServicesMenu() {
 	done
 
 	# Import steam profile
-	rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_cloud_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r "$emudeckBackend/configs/steam-input/emudeck_cloud_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 
 	# Notify to update & run SRM
 	csmSRMNotification
@@ -393,7 +393,7 @@ runGASettings()
 
 manageRPSMenu() {
 	# Create array of all Remote Play clients
-	cd "$EMUDECKGIT/functions/RemotePlayClientScripts" || return
+	cd "$emudeckBackend/functions/RemotePlayClientScripts" || return
 	declare -a arrAllRP=()
 
 	arrAllRP+=( $(Chiaki_IsInstalled) "Chiaki")
@@ -443,7 +443,7 @@ manageRPSMenu() {
 
 manageGAMenu() {
 	# Create array of all Generic Applications
-	cd "$EMUDECKGIT/functions/GenericApplicationsScripts" || return
+	cd "$emudeckBackend/functions/GenericApplicationsScripts" || return
 	declare -a arrAllGA=()
 
 	arrAllGA+=( $(Bottles_IsInstalled) "Bottles")
@@ -603,7 +603,7 @@ csmMainMenu() {
 	elif [ "$CHOICE" == "Manage Remote Play Clients" ]; then
 		manageRPSMenu
 	elif [ "$CHOICE" == "Manage Generic Applications" ]; then
-		manageGAMenu 
+		manageGAMenu
 	elif [ "$CHOICE" == "Change Settings" ]; then
 		changeSettingsMenu
 	elif [ "$CHOICE" == "Add to ES-DE and Pegasus" ]; then
@@ -688,9 +688,9 @@ addESDEPegasus(){
 
 		# Pegasus
 		local pegasusDirectoriesFile="$HOME/.config/pegasus-frontend/game_dirs.txt"
-		cp "$HOME/.config/EmuDeck/backend/roms/desktop/cloud/metadata.txt" "$romsPath/desktop/cloud"
-		cp "$HOME/.config/EmuDeck/backend/roms/desktop/remoteplay/metadata.txt" "$romsPath/desktop/remoteplay"
-		cp "$HOME/.config/EmuDeck/backend/roms/desktop/generic-applications/metadata.txt" "$romsPath/desktop/generic-applications"
+		cp "$emudeckBackend/roms/desktop/cloud/metadata.txt" "$romsPath/desktop/cloud"
+		cp "$emudeckBackend/roms/desktop/remoteplay/metadata.txt" "$romsPath/desktop/remoteplay"
+		cp "$emudeckBackend/roms/desktop/generic-applications/metadata.txt" "$romsPath/desktop/generic-applications"
 
 		if ! grep -Fxq "$romsPath/desktop/cloud" "$pegasusDirectoriesFile"; then
 			echo "$romsPath/desktop/cloud" >> "$pegasusDirectoriesFile"
@@ -732,13 +732,13 @@ addESDEPegasus(){
 # Initialization #
 ##################
 
-if [[ "$EMUDECKGIT" == "" ]]; then
-    EMUDECKGIT="$HOME/.config/EmuDeck/backend"
+if [[ "$emudeckBackend" == "" ]]; then
+    emudeckBackend="$HOME/.config/EmuDeck/backend"
 fi
-LOCALCLOUDFILES="$EMUDECKGIT/tools/cloud"
-LOCALRPFILES="$EMUDECKGIT/tools/remoteplayclients"
+LOCALCLOUDFILES="$emudeckBackend/tools/cloud"
+LOCALRPFILES="$emudeckBackend/tools/remoteplayclients"
 
-source "$EMUDECKGIT/functions/all.sh"
+source "$emudeckBackend/functions/all.sh"
 
 # Check for existing cloud.conf or install & setup
 mkdir -p "$romsPath/cloud"

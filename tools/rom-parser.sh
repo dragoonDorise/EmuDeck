@@ -17,7 +17,7 @@ BLINK='\x1b[5m'
 
 romParser_RA_start
 #romParser_LB_start
-if [ -f "$HOME/emudeck/.userSS" ]; then
+if [ -f "$HOME/.config/EmuDeck/.userSS" ]; then
 	romParser_SS_start
 fi
-} | tee "$HOME/emudeck/logs/parser.log" 2>&1
+} | tee "$HOME/.config/EmuDeck/logs/parser.log" 2>&1

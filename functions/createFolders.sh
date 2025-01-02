@@ -18,6 +18,6 @@ createFolders(){
 	find "$romsPath" -name readme.txt -type f -delete -maxdepth 2
 
 	sleep 3
-	rsync -r --ignore-existing "$EMUDECKGIT/roms/" "$romsPath"
+	rsync -r --ignore-existing "$emudeckBackend/roms/" "$romsPath"
 	#End repeated code
 }

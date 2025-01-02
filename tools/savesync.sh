@@ -1,7 +1,7 @@
 #!/bin/bash
 SAVESYNC_toolName="EmuDeck SaveSync"
 SAVESYNC_toolType="AppImage"
-SAVESYNC_toolPath="$HOME/Applications/EmuDeck_SaveSync.AppImage"
+SAVESYNC_toolPath="$HOME/.config/EmuDeck/Emulators/EmuDeck_SaveSync.AppImage"
 SAVESYNC_systemd_path="$HOME/.config/systemd/user"
 
 source "$HOME/.config/EmuDeck/backend/functions/all.sh"
