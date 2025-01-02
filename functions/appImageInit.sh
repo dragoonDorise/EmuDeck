@@ -9,25 +9,25 @@ appImageInit() {
 
 
 		#Migrate AppImages to .config
-		mkdir -p $emusFolder
-		mv -f $HOME/Applications/publish $emusFolder/publish
-		mv -f $HOME/Applications/Vita3K $emusFolder/Vita3K
-		mv -f $HOME/Applications/BigPEmu $emusFolder/BigPEmu
-		mv -f $HOME/Applications/Cemu.AppImage $emusFolder/Cemu.AppImage
-		mv -f $HOME/Applications/citra-qt.AppImage $emusFolder/citra-qt.AppImage
-		mv -f $HOME/Applications/EmuDeck.AppImage $emusFolder/EmuDeck.AppImage
-		mv -f $HOME/Applications/lime3ds-gui.AppImage $emusFolder/lime3ds-gui.AppImage
-
-		mv -f $HOME/Applications/pcsx2-Qt.AppImage $emusFolder/pcsx2-Qt.AppImage
-		mv -f $HOME/Applications/pegasus-fe $emusFolder/pegasus-fe
-		mv -f $HOME/Applications/rpcs3.AppImage $emusFolder/rpcs3.AppImage
-		mv -f $HOME/Applications/Shadps4-qt.AppImage $emusFolder/Shadps4-qt.AppImage
-
-		mkdir -p $esdeFolder
-		mv -f $HOME/Applications/ES-DE.AppImage $esdeFolder/ES-DE.AppImage
-
-		mkdir -p $pegasusPath
-		mv -f $HOME/Applications/pegasus-fe $pegasusFolder/pegasus-fe
+# 		mkdir -p $emusFolder
+# 		mv -f $HOME/Applications/publish $emusFolder/publish
+# 		mv -f $HOME/Applications/Vita3K $emusFolder/Vita3K
+# 		mv -f $HOME/Applications/BigPEmu $emusFolder/BigPEmu
+# 		mv -f $HOME/Applications/Cemu.AppImage $emusFolder/Cemu.AppImage
+# 		mv -f $HOME/Applications/citra-qt.AppImage $emusFolder/citra-qt.AppImage
+# 		mv -f $HOME/Applications/EmuDeck.AppImage $emusFolder/EmuDeck.AppImage
+# 		mv -f $HOME/Applications/lime3ds-gui.AppImage $emusFolder/lime3ds-gui.AppImage
+#
+# 		mv -f $HOME/Applications/pcsx2-Qt.AppImage $emusFolder/pcsx2-Qt.AppImage
+# 		mv -f $HOME/Applications/pegasus-fe $emusFolder/pegasus-fe
+# 		mv -f $HOME/Applications/rpcs3.AppImage $emusFolder/rpcs3.AppImage
+# 		mv -f $HOME/Applications/Shadps4-qt.AppImage $emusFolder/Shadps4-qt.AppImage
+#
+# 		mkdir -p $esdeFolder
+# 		mv -f $HOME/Applications/ES-DE.AppImage $esdeFolder/ES-DE.AppImage
+#
+# 		mkdir -p $pegasusPath
+# 		mv -f $HOME/Applications/pegasus-fe $pegasusFolder/pegasus-fe
 
 		#Fix paths shortcuts
 		if [ $doInstallESDE == "true" ]; then
