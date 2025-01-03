@@ -1,3 +1,5 @@
 #!/bin/bash
 
-"$HOME/.config/EmuDeck/Emulators/ShadowPC.AppImage"
+source "$HOME/.config/EmuDeck/backend/functions/all.sh"
+
+"$emusFolder/ShadowPC.AppImage"

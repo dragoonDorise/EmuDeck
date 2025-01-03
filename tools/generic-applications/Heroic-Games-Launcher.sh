@@ -1,3 +1,5 @@
 #!/bin/bash
 
-"$HOME/.config/EmuDeck/Emulators/Heroic-Games-Launcher.AppImage"
+source "$HOME/.config/EmuDeck/backend/functions/all.sh"
+
+"$emusFolder/Heroic-Games-Launcher.AppImage"

@@ -417,6 +417,7 @@ function getReleaseURLGH(){
 	local fileType=$2
 	local fileNameContains=$3
 	local fileNameStartsWith=$4
+	local fileNameDoesNotContain=$5
 	local url
 	#local token=$(tokenGenerator)
 
@@ -424,8 +425,25 @@ function getReleaseURLGH(){
 		url="https://api.github.com/repos/$repository/releases"
 	fi
 
+	# fetch and filter assets
 	curl -fSs "$url" | \
-		jq -r '[ .[].assets[] | select(.name | contains("'"$fileNameContains"'") and startswith("'"$fileNameStartsWith"'") and endswith("'"$fileType"'")).browser_download_url ][0] // empty'
+	jq -r --arg contains "$fileNameContains" \
+		--arg startsWith "$fileNameStartsWith" \
+		--arg endsWith "$fileType" \
+		--arg doesNotContain "$fileNameDoesNotContain" '
+		[
+			.[].assets[] | 
+			select(.name | 
+					contains($contains) and 
+					startswith($startsWith) and 
+					endswith($endsWith) and 
+					(if $doesNotContain != "" then 
+						contains($doesNotContain) | not 
+					else 
+						true 
+					end)
+			).browser_download_url
+		][0] // empty'
 }
 
 function linkToSaveFolder(){

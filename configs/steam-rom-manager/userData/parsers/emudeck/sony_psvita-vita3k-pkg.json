@@ -15,7 +15,7 @@
     "specifiedAccounts": ""
   },
   "executable": {
-    "path": "/home/deck/.config/EmuDeck/Emulators/Vita3K/Vita3K",
+    "path": "/home/deck/Applications/Vita3K/Vita3K",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },
