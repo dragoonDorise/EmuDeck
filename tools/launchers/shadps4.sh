@@ -31,10 +31,25 @@ fi
 fileExtension="${@##*.}"
 
 if [[ $fileExtension == "desktop" ]]; then
-    rpcs3desktopFile=$(grep -E "^Exec=" "${*}" | sed 's/^Exec=//' | sed 's/%%/%/g')
-    launchParam="Exec=$rpcs3desktopFile"
-    launchParam=$(echo "$launchParam" | sed "s|^\(Exec=\)[^\"']*\"|\1$emusFolder/Shadps4-qt.AppImage -g \"|" | sed 's/^Exec=//')
-    eval $launchParam
+    # trying to figure this out... :)
+    # In desktop file the Exec line is like this:
+    # Exec=/tmp/.mount_ShadpsT3Dso0/usr/bin/shadps4 "/run/media/mmcblk0p1/Emulation/storage/shadps4/games/CUSA01369/eboot.bin"
+
+    # takes desktop file and extracts Exec= line
+    shadps4DesktopExec=$(grep -E "^Exec=" "${*}" | sed 's/^Exec=//' | sed 's/%%/%/g')
+
+    # commented, doing it bit different...
+    #launchParam="Exec=$shadps4DesktopExec" # construct new Exec= line
+    #launchParam=$(echo "$launchParam" | sed "s|^\(Exec=\)[^\"']*\"|\1$emusFolder/Shadps4-qt.AppImage -g \"|" | sed 's/^Exec=//')
+
+    # this removes everything in Exec= line before first " or ' (quotes), keeps everything after that (including the quotes)
+    # given example above, result will be: "/run/media/mmcblk0p1/Emulation/storage/shadps4/games/CUSA01369/eboot.bin"
+    launchParam=$(echo "Exec=$shadps4DesktopExec" | sed "s|^\(Exec=\)[^\"\']*\([\"\']\)|\2|")
+    
+    # construct launch args and run
+    launch_args=("-g" "$launchParam")
+    echo "Launching: ${exe[*]} ${launch_args[*]}"
+    "${exe[@]}" "${launch_args[@]}"
 else
     #run the executable with the params.
     launch_args=()
