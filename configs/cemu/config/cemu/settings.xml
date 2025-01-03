@@ -95,7 +95,7 @@
         <InputVolume>100</InputVolume>
         <TVDevice>default</TVDevice>
         <PadDevice>default</PadDevice>
-        <InputDevice>default</InputDevice>
+        <InputDevice></InputDevice>
     </Audio>
     <Account>
         <PersistentId>2147483649</PersistentId>
