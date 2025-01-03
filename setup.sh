@@ -208,7 +208,7 @@ for install_command in \
 		current_jobs=0
 	fi
 done
-
+setMSG "Waiting for installation tasks to finish.."
 wait # Wait for any remaining jobs to finish
 
 setMSG "Configuring emulators & tools.."
@@ -347,7 +347,7 @@ fi
 #
 # We mark the script as finished
 #
-setMSG "Waiting for all task to finish.."
+setMSG "Waiting for setup tasks to finish.."
 wait
 echo "" > "$emudeckFolder/.finished"
 echo "" > "$emudeckFolder/.ui-finished"
