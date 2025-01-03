@@ -1048,7 +1048,7 @@
   {
     "id": "166409089761171238",
     "executable": {
-      "path": "\"/home/deck/.config/EmuDeck/Emulators/Vita3K/Vita3K\" -Fr \"${/.*[/\\\\]([^/\\\\]+)[/\\\\]/|${filePath}}\"",
+      "path": "\"/home/deck/Applications/Vita3K/Vita3K\" -Fr \"${/.*[/\\\\]([^/\\\\]+)[/\\\\]/|${filePath}}\"",
       "arguments": ""
     },
     "romDirectory": "roms/psvita",

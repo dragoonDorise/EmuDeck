@@ -1,3 +1,5 @@
 #!/bin/bash
 
-"$HOME/.config/EmuDeck/Emulators/Greenlight.AppImage"
+source "$HOME/.config/EmuDeck/backend/functions/all.sh"
+
+"$emusFolder/Greenlight.AppImage"

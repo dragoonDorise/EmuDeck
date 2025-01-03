@@ -25,7 +25,7 @@ if [[ ! $emuExeFile =~ "AppImage" ]]; then
 	emuExeFile=$(find "$emufolder" -iname "${emuName}*.AppImage" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
 fi
 if [[ ! $emuExeFile =~ "AppImage" ]]; then
-	 zenity --info --title="Yuzu AppImage not found!" --width 200 --text "Please check that you have the appimage in ~/.config/EmuDeck/Emulators or \nrerun Emudeck and ensure it is installed." 2>/dev/null
+	 zenity --info --title="Yuzu AppImage not found!" --width 200 --text "Please check that you have the AppImage in ${emusFolder} or \nrerun Emudeck and ensure it is installed." 2>/dev/null
 fi
 isMainline=true
 if [ ! "$emuExeFile" = "$emufolder/$emuName.AppImage" ]; then
