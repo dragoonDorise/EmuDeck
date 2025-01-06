@@ -107,7 +107,11 @@ def fetch_image_data(game):
 def process_json(save_folder):
     # Read the original JSON
     with open(json_path, 'r') as file:
-        games = json.load(file)
+        systems = json.load(file)
+
+    games = []
+    for system in systems:
+        games.extend(system.get('games', []))  # Añade todos los juegos del sistema a la lista
 
     log_message(f"Starting processing for {len(games)} games...")
     print(f"Starting processing for {len(games)} games...")
@@ -124,6 +128,7 @@ def process_json(save_folder):
 
     log_message("Processing completed.")
     print("Processing completed.")
+
 
 if __name__ == "__main__":
     log_message("Starting image processing script...")
