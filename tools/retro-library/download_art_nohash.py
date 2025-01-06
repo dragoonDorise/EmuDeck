@@ -70,6 +70,7 @@ def download_image(name, platform, img_url, save_folder, type):
     folder_path = os.path.join(save_folder, platform, "media", type)
     os.makedirs(folder_path, exist_ok=True)
     img_path = os.path.join(folder_path, f"{name}.{extension}")
+    print(img_url)
     try:
         response = requests.get(img_url, timeout=10)
         response.raise_for_status()  # Raise an exception for HTTP error codes
@@ -80,7 +81,7 @@ def download_image(name, platform, img_url, save_folder, type):
     except requests.RequestException as e:
         log_message(f"Error downloading image for {platform}/{name}: {e}")
         print(f"Error downloading image for {platform}/{name}: {e}")
-        create_empty_image(name, platform, save_folder, type)
+        #create_empty_image(name, platform, save_folder, type)
 
 def fetch_image_data(game):
     name = game['name']
@@ -98,11 +99,11 @@ def fetch_image_data(game):
         else:
             log_message(f"No URL found for {platform}/{name}. Creating empty file.")
             print(f"No URL found for {platform}/{name}. Creating empty file.")
-            create_empty_image(name, platform, save_folder, type)
+            #create_empty_image(name, platform, save_folder, type)
     except requests.RequestException as e:
         log_message(f"Error processing {platform}/{name}: {e}")
         print(f"Error processing {platform}/{name}: {e}")
-        create_empty_image(name, platform, save_folder, type)
+        #create_empty_image(name, platform, save_folder, type)
 
 def process_json(save_folder):
     # Read the original JSON
