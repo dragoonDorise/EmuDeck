@@ -50,28 +50,10 @@ def log_message(message):
 
 def generate_systems_with_missing_images(roms_path, images_path):
     def has_missing_images(system_dir, extensions):
-        for root, _, files in os.walk(system_dir):
-            for file in files:
-                file_path = os.path.join(root, file)
-                if os.path.islink(file_path):
-                    continue
-
-                filename = os.path.basename(file)
-                extension = filename.split('.')[-1]
-                name = '.'.join(filename.split('.')[:-1])
-                if extension in extensions:
-                    platform = os.path.basename(system_dir)
-
-                    name_cleaned = re.sub(r'\(.*?\)', '', name)
-                    name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
-                    name_cleaned = name_cleaned.strip()
-                    name_cleaned = name_cleaned.replace(' ', '_').replace('-', '_')
-                    name_cleaned = re.sub(r'_+', '_', name_cleaned)
-                    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
-                    name_cleaned = name_cleaned.lower()
-                    img_path = os.path.join(images_path, f"{platform}/{name_cleaned}.jpg")
-                    if not os.path.exists(img_path):
-                        return True
+        platform = os.path.basename(system_dir)  # Extrae el nombre de la plataforma del directorio
+        media_folder_path = os.path.join(images_path, platform, "media")  # Ruta de la carpeta 'media'
+        if not os.path.isdir(media_folder_path):
+            return True
         return False
 
     roms_dir = roms_path
