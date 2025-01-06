@@ -88,7 +88,7 @@ def fetch_image_data(game):
     platform = game['platform']
     type = game['type']
     url = f"https://bot.emudeck.com/steamdbimg.php?name={name}&platform={platform}&type={type}"
-
+    print(url)
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()  # Raise an exception for HTTP error codes
