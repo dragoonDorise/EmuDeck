@@ -59,7 +59,7 @@ def generate_systems_with_missing_images(roms_path, images_path):
             if not os.path.islink(os.path.join(root, file))
         )
 
-        if file_count <= 2:
+        if file_count <= 3:
             return False
 
         if not os.path.isdir(media_folder_path):
