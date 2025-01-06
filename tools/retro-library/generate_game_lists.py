@@ -125,6 +125,7 @@ def generate_game_lists(roms_path):
 
                     game_info = {
                         "name": name_cleaned,
+                        "og_name": name,
                         "filename": file_path,
                         "file": name_cleaned,
                         "img": f"/customimages/retrolibrary/artwork/{platform}/media",
