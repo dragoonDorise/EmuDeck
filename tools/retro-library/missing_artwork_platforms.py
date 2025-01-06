@@ -52,8 +52,19 @@ def generate_systems_with_missing_images(roms_path, images_path):
     def has_missing_images(system_dir, extensions):
         platform = os.path.basename(system_dir)  # Extrae el nombre de la plataforma del directorio
         media_folder_path = os.path.join(images_path, platform, "media")  # Ruta de la carpeta 'media'
+
+        file_count = sum(
+            1 for root, _, files in os.walk(system_dir)
+            for file in files
+            if not os.path.islink(os.path.join(root, file))
+        )
+
+        if file_count <= 2:
+            return False
+
         if not os.path.isdir(media_folder_path):
             return True
+
         return False
 
     roms_dir = roms_path
