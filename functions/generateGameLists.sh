@@ -53,6 +53,10 @@ generateGameLists_artwork() {
     echo "Artwork finished. Restart if you see this message" > "$MSG"
 }
 
+generateGameLists_artwork_only(){
+    $(python $emudeckBackend/tools/retro-library/missing_artwork_nohash.py "$romsPath" "$storagePath/retrolibrary/artwork" && python $emudeckBackend/tools/retro-library/download_art_nohash.py "$storagePath/retrolibrary/artwork") &
+}
+
 saveImage(){
     local url=$1
     local name=$2
