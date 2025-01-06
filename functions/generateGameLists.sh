@@ -20,6 +20,7 @@ generateGameLists() {
 
     generateGameLists_downloadAchievements
     generateGameLists_downloadData
+    generateGameLists_downloadAssets
 
     rsync -r --exclude='roms' --exclude='txt' "$emudeckBackend/roms/" "$storagePath/retrolibrary/artwork" --keep-dirlinks
     pegasus_setPaths
@@ -164,5 +165,19 @@ generateGameLists_downloadData(){
         wget -q -O "$folder/data.zip" "https://bot.emudeck.com/data/data.zip"
         cd $folder && unzip -o data.zip && rm data.zip
         echo "Metada Downloaded" > "$MSG"
+    fi
+}
+
+generateGameLists_downloadAssets(){
+    local folder="$storagePath/retrolibrary/assets/systems"
+    local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
+    ln -s "$folder" "$accountfolder/config/grid/retrolibrary/systems"
+    if [ ! -d $folder ]; then
+        echo "Downloading Assets" > "$MSG"
+        mkdir -p $folder
+        ln -sf "$folder" "$accountfolder/config/grid/retrolibrary/systems"
+        wget -q -O "$folder/systems.zip" "https://bot.emudeck.com/assets/systems.zip"
+        cd $folder && unzip -o systems.zip && rm systems.zip
+        echo "Assets Downloaded" > "$MSG"
     fi
 }
