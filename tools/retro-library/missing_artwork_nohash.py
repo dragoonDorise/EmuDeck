@@ -75,15 +75,26 @@ def generate_game_lists(roms_path, images_path):
                 extension = filename.split('.')[-1]
                 name = '.'.join(filename.split('.')[:-1])
                 if extension in extensions:
+
+                    platform = os.path.basename(system_dir)
+
                     # Special cases for WiiU and PS3
                     if "wiiu" in system_dir:
                         parts = root.split(os.sep)
                         name = parts[-2] if len(parts) >= 2 else name
+                        platform = "wiiu"
                     if "ps3" in system_dir:
                         parts = root.split(os.sep)
                         name = parts[-3] if len(parts) >= 3 else name
-
-                    platform = os.path.basename(system_dir)
+                        platform = "ps3"
+                    if "xbox360" in system_dir:
+                        parts = root.split(os.sep)
+                        name = parts[-2] if len(parts) >= 2 else name
+                        platform = "xbox360"
+                    if "ps4" in system_dir:
+                        parts = root.split(os.sep)
+                        name = parts[-3] if len(parts) >= 3 else name
+                        platform = "ps4"
 
                     # Clean the game name
                     name_cleaned = re.sub(r'\(.*?\)', '', name)
