@@ -70,7 +70,6 @@ def download_image(name, platform, img_url, save_folder, type):
     folder_path = os.path.join(save_folder, platform, "media", type)
     os.makedirs(folder_path, exist_ok=True)
     img_path = os.path.join(folder_path, f"{name}.{extension}")
-    print(img_url)
     try:
         response = requests.get(img_url, timeout=10)
         response.raise_for_status()  # Raise an exception for HTTP error codes
@@ -88,7 +87,6 @@ def fetch_image_data(game):
     platform = game['platform']
     type = game['type']
     url = f"https://bot.emudeck.com/steamdbimg.php?name={name}&platform={platform}&type={type}"
-    print(url)
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()  # Raise an exception for HTTP error codes
