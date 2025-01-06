@@ -88,8 +88,6 @@ def generate_game_lists(roms_path, images_path):
                         name = parts[-3] if len(parts) >= 3 else name
                         platform = "ps3"
                     if "xbox360" in system_dir:
-                        parts = root.split(os.sep)
-                        name = parts[-2] if len(parts) >= 2 else name
                         platform = "xbox360"
                     if "ps4" in system_dir:
                         parts = root.split(os.sep)
@@ -101,7 +99,8 @@ def generate_game_lists(roms_path, images_path):
                     name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
                     name_cleaned = name_cleaned.strip().replace(' ', '_').replace('-', '_')
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
-                    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
+                    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '').replace('decrypted','')
+
                     name_cleaned_pegasus = name.replace(',_', ',')
                     name_cleaned = name_cleaned.lower()
 
