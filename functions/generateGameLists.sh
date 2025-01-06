@@ -13,6 +13,8 @@ generateGameLists() {
     mkdir -p "$storagePath/retrolibrary/cache"
     mkdir -p "$accountfolder/config/grid/retrolibrary/"
 
+    find "$storagePath/retrolibrary/artwork" -type f -size 0 -delete
+
     ln -sf "$storagePath/retrolibrary/artwork" "$accountfolder/config/grid/retrolibrary/artwork"
     ln -sf "$storagePath/retrolibrary/cache" "$accountfolder/config/grid/retrolibrary/cache"
 
