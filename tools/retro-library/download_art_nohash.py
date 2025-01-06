@@ -39,7 +39,7 @@ storage_path = os.path.expandvars(settings["storagePath"])
 
 # Path for the JSON and target folder from command-line arguments
 save_folder = sys.argv[1]
-json_path = os.path.join(storage_path, "retrolibrary/cache/missing_artwork.json")
+json_path = os.path.join(storage_path, "retrolibrary/cache/missing_artwork_no_hash.json")
 
 # Path for the log file
 home_dir = os.environ.get("HOME")
@@ -80,9 +80,8 @@ def download_image(name, platform, img_url, save_folder, type):
 def fetch_image_data(game):
     name = game['name']
     platform = game['platform']
-    hash = game['hash']
     type = game['type']
-    url = f"https://bot.emudeck.com/steamdbimg.php?name={name}&platform={platform}&hash={hash}&type={type}"
+    url = f"https://bot.emudeck.com/steamdbimg.php?name={name}&platform={platform}&type={type}"
 
     try:
         response = requests.get(url, timeout=10)

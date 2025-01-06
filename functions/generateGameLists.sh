@@ -19,9 +19,9 @@ generateGameLists() {
     generateGameLists_downloadAchievements
     generateGameLists_downloadData
 
-    pegasus_setPaths
     rsync -r --exclude='roms' --exclude='txt' "$emudeckBackend/roms/" "$storagePath/retrolibrary/artwork" --keep-dirlinks
-    mkdir -p "$storagePath/retrolibrary/cache/"
+    pegasus_setPaths
+
     echo "Database built" > "$MSG"
     python $emudeckBackend/tools/retro-library/generate_game_lists.py "$romsPath"
     generateGameLists_artwork &> /dev/null &
@@ -47,7 +47,7 @@ generateGameLists_artwork() {
     echo "Searching for missing artwork" > "$MSG"
     python $emudeckBackend/tools/retro-library/missing_artwork_platforms.py "$romsPath" "$storagePath/retrolibrary/artwork" && python $emudeckBackend/tools/retro-library/download_art_platforms.py "$storagePath/retrolibrary/artwork"
 
-    $(python $emudeckBackend/tools/retro-library/missing_artwork.py "$romsPath" "$storagePath/retrolibrary/artwork" && python $emudeckBackend/tools/retro-library/download_art.py "$storagePath/retrolibrary/artwork") &
+    $(python $emudeckBackend/tools/retro-library/missing_artwork_nohash.py "$romsPath" "$storagePath/retrolibrary/artwork" && python $emudeckBackend/tools/retro-library/download_art_nohash.py "$storagePath/retrolibrary/artwork") &
     echo "Artwork finished. Restart if you see this message" > "$MSG"
 }
 
