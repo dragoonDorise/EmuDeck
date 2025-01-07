@@ -169,15 +169,16 @@ generateGameLists_downloadData(){
 }
 
 generateGameLists_downloadAssets(){
-    local folder="$storagePath/retrolibrary/assets/systems"
+    local folder="$storagePath/retrolibrary/assets/bright"
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    ln -s "$folder" "$accountfolder/config/grid/retrolibrary/systems"
+    local destFolder="$accountfolder/config/grid/retrolibrary/assets/bright";
+    ln -s "$folder" $destFolder
     if [ ! -d $folder ]; then
         echo "Downloading Assets" > "$MSG"
         mkdir -p $folder
-        ln -sf "$folder" "$accountfolder/config/grid/retrolibrary/systems"
-        wget -q -O "$folder/systems.zip" "https://bot.emudeck.com/assets/systems.zip"
-        cd $folder && unzip -o systems.zip && rm systems.zip
+        ln -sf "$folder" $destFolder
+        wget -q -O "$folder/bright.zip" "https://bot.emudeck.com/assets/bright/bright.zip"
+        cd $folder && unzip -o bright.zip && rm bright.zip
         echo "Assets Downloaded" > "$MSG"
     fi
 }
