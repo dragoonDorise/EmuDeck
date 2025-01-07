@@ -176,6 +176,7 @@ generateGameLists_downloadAssets(){
     if [ ! -d $folder ]; then
         echo "Downloading Assets" > "$MSG"
         mkdir -p $folder
+        mkdir "$accountfolder/config/grid/retrolibrary/assets/"
         ln -sf "$folder" $destFolder
         wget -q -O "$folder/alekfull.zip" "https://bot.emudeck.com/assets/alekfull/alekfull.zip"
         cd $folder && unzip -o alekfull.zip && rm alekfull.zip
