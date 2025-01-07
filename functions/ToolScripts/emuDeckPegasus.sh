@@ -22,8 +22,8 @@ pegasus_install(){
 	local url="https://github.com/dragoonDorise/pegasus-temp/releases/download/1.0/pegasus-fe"
 	local fileName="pegasus-fe"
 
-	if safeDownload "$name" "$url" "$HOME/Applications/$fileName" "$showProgress"; then
-		chmod +x "$HOME/Applications/$fileName"
+	if safeDownload "$name" "$url" "$pegasusFolder/$fileName" "$showProgress"; then
+		chmod +x "$pegasusFolder/$fileName"
 		pegasus_init
 		pegasus_customDesktopShortcut
 	else
@@ -34,19 +34,19 @@ pegasus_install(){
 }
 
 pegasus_setPaths(){
-	rsync -avR --exclude='roms' --exclude='pfx' "$EMUDECKGIT/roms/" "$romsPath" --keep-dirlinks
-	rsync -avR --exclude='roms' --exclude='pfx' "$EMUDECKGIT/roms/" "$toolsPath/downloaded_media"
+	rsync -avR --exclude='roms' --exclude='pfx' "$emudeckBackend/roms/" "$romsPath" --keep-dirlinks
+	rsync -avR --exclude='roms' --exclude='pfx' "$emudeckBackend/roms/" "$toolsPath/downloaded_media"
 	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|CORESPATH|${RetroArch_cores}|g" {} \;
 	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" {} \;
 
 	#Yuzu path fix
-	if [ -f "$HOME/Applications/yuzu.AppImage" ]; then
+	if [ -f "$emusFolder/yuzu.AppImage" ]; then
 		sed -i "s|ryujinx|yuzu|g" "$romsPath/switch/metadata.txt"
 		sed -i "s|--fullscreen|-f -g|g" "$romsPath/switch/metadata.txt"
 	fi
 
 	#Citra path fix
-	if [ -f "$HOME/Applications/citra-qt.AppImage" ]; then
+	if [ -f "$emusFolder/citra-qt.AppImage" ]; then
 		sed -i "s|lime3ds|citra|g" "$romsPath/n3ds/metadata.txt"
 	fi
 
@@ -56,7 +56,7 @@ pegasus_setPaths(){
 pegasus_init(){
 	setMSG "Setting up $pegasus_toolName"
 
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/$pegasus_emuPath/" "$pegasus_path/"
+	rsync -avhp --mkpath "$emudeckBackend/configs/$pegasus_emuPath/" "$pegasus_path/"
 
 	#metadata and paths
 		pegasus_setPaths
@@ -168,7 +168,7 @@ pegasus_init(){
 
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$pegasus_dir_file"
 	#mkdir -p "$toolsPath/launchers/pegasus/"
-	#cp "$EMUDECKGIT/tools/launchers/pegasus/pegasus-frontend.sh" "$toolsPath/launchers/pegasus/pegasus-frontend.sh"
+	#cp "$emudeckBackend/tools/launchers/pegasus/pegasus-frontend.sh" "$toolsPath/launchers/pegasus/pegasus-frontend.sh"
 	#pegasus_addCustomSystems
 	#pegasus_setEmulationFolder
 	#pegasus_setDefaultEmulators
@@ -224,7 +224,7 @@ pegasus_setEmu(){
 }
 
 pegasus_IsInstalled(){
-  if [ -f  "$HOME/Applications/pegasus-fe" ]; then
+  if [ -f  "$pegasusFolder/pegasus-fe" ]; then
   	echo "true"
   else
  	 echo "false"
@@ -233,11 +233,11 @@ pegasus_IsInstalled(){
 
 pegasus_uninstall(){
 	flatpak uninstall "$pegasus_emuPath" --user -y &> /dev/null;
-	rm -rf "$HOME/Applications/pegasus-fe" &> /dev/null;
+	rm -rf "$pegasusFolder/pegasus-fe" &> /dev/null;
 }
 
 pegasus_flushToolLauncher(){
 	mkdir -p "$toolsPath/launchers/pegasus/"
-	cp "$EMUDECKGIT/tools/launchers/pegasus/pegasus-frontend.sh" "$toolsPath/launchers/pegasus/pegasus-frontend.sh"
+	cp "$emudeckBackend/tools/launchers/pegasus/pegasus-frontend.sh" "$toolsPath/launchers/pegasus/pegasus-frontend.sh"
 	chmod +x "$toolsPath/launchers/pegasus/pegasus-frontend.sh"
 }

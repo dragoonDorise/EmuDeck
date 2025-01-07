@@ -1,10 +1,10 @@
 #!/bin/bash
-source $HOME/.config/EmuDeck/backend/functions/all.sh
+. "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "Vita3k"
 export LC_ALL="C"
 
 emuName="Vita3K" #parameterize me
-emufolder="$HOME/Applications/Vita3K" # has to be applications for ES-DE to find it
+emufolder="$emusFolder/Vita3K" # has to be applications for ES-DE to find it
 
 #initialize execute array
 exe=()

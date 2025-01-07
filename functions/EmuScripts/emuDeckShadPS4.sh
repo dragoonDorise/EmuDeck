@@ -5,8 +5,9 @@
 # Variables
 
 ShadPS4_emuName="ShadPS4"
+ShadPS4_emuFileName="Shadps4-qt"
 ShadPS4_emuType="$emuDeckEmuTypeAppImage"
-ShadPS4_emuPath="$HOME/Applications"
+ShadPS4_emuPath="$emusFolder"
 ShadPS4_dir="$HOME/.local/share/shadPS4"
 ShadPS4_configFile="$ShadPS4_dir/config.toml"
 
@@ -16,25 +17,28 @@ ShadPS4_cleanup(){
 
 # TODO: Install Flatpak from https://github.com/shadps4-emu/shadPS4-flatpak
 ShadPS4_install(){
-  echo "Begin ShadPS4 Install"
-  local showProgress=$1
+    echo "Begin ShadPS4 Install"
+    local showProgress=$1
 
-  if installEmuAI "$ShadPS4_emuName" "" "$(getReleaseURLGH "shadps4-emu/shadPS4" "zip" "linux-qt")" "" "zip" "emulator" "$showProgress"; then
-    unzip -o "$HOME/Applications/ShadPS4.zip" -d "$ShadPS4_emuPath" && rm -rf "$HOME/Applications/ShadPS4.zip"
-    chmod +x "$ShadPS4_emuPath/Shadps4-qt.AppImage"
-  else
-    return 1
-  fi
+    if safeDownload "$ShadPS4_emuName" "$(getReleaseURLGH "shadps4-emu/shadPS4" "zip" "linux-qt")" "$emusFolder/${ShadPS4_emuName}.zip" "$showProgress"; then
+        unzip -o "$emusFolder/${ShadPS4_emuName}.zip" -d "$ShadPS4_emuPath" && rm -f "$emusFolder/${ShadPS4_emuName}.zip"
+        if ! installEmuAI "$ShadPS4_emuName" "" "" "$ShadPS4_emuFileName" "" "emulator"; then # installEmuAI will handle everything when URL is not provided but AppImage exists...
+            echo "Error installing ShadPS4"
+            return 1
+        fi
+    else
+        echo "Error installing ShadPS4"
+        return 1
+    fi
 }
 
-
 ShadPS4_init(){
-	configEmuAI "$ShadPS4_emuName" "config" "$HOME/.local/share/shadPS4" "$EMUDECKGIT/configs/shadps4" "true"
-	ShadPS4_setupStorage
-	ShadPS4_setEmulationFolder
-	ShadPS4_setupSaves
-	ShadPS4_flushEmulatorLauncher
-	ShadPS4_setLanguage
+    configEmuAI "$ShadPS4_emuName" "config" "$HOME/.local/share/shadPS4" "$emudeckBackend/configs/shadps4" "true"
+    ShadPS4_setupStorage
+    ShadPS4_setEmulationFolder
+    ShadPS4_setupSaves
+    ShadPS4_flushEmulatorLauncher
+    ShadPS4_setLanguage
 }
 
 ShadPS4_update(){
@@ -45,6 +49,12 @@ ShadPS4_update(){
 ShadPS4_setEmulationFolder(){
     echo "Begin ShadPS4 Path Config"
     sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$ShadPS4_configFile"
+
+    # setup bios link for LLE sys_modules (optional)
+    mkdir -p "${biosPath}/shadps4/"
+    mkdir -p "$ShadPS4_dir/sys_modules"
+    ln -sn "$ShadPS4_dir/sys_modules" "${biosPath}/shadps4/sys_modules"
+
     echo "ShadPS4 Path Config Completed"
 }
 
@@ -63,7 +73,6 @@ ShadPS4_setupSaves(){
     linkToSaveFolder shadps4 saves "${ShadPS4_dir}/savedata"
     echo "ShadPS4 save link completed"
 }
-
 
 #SetupStorage
 ShadPS4_setupStorage(){
@@ -122,9 +131,9 @@ ShadPS4_resetConfig(){
 }
 
 ShadPS4_setResolution(){
-	echo "NYI"
+    echo "NYI"
 }
 
 ShadPS4_flushEmulatorLauncher(){
-	flushEmulatorLaunchers "ShadPS4"
+    flushEmulatorLaunchers "ShadPS4"
 }

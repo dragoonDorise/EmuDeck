@@ -9,7 +9,7 @@ function Android_NetherSX2_install(){
 	rm -rf "$Android_folder/$temp_emu.zip"
 	chmod +x $Android_folder/builder/build-nethersx2.sh
 	$Android_folder/builder/build-nethersx2.sh
-	Android_ADB_installAPK "$HOME/emudeck/android/builder/PatchedAPK/15210-v1.5-4248-noads.apk"
+	Android_ADB_installAPK "$emudeckFolder/android/builder/PatchedAPK/15210-v1.5-4248-noads.apk"
 }
 
 function Android_NetherSX2_init(){

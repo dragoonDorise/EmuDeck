@@ -6,7 +6,7 @@ import subprocess
 
 # Define the log file path
 home_dir = os.environ.get("HOME")
-msg_file = os.path.join(home_dir, ".config/EmuDeck/msg.log")
+msg_file = os.path.join(home_dir, ".config/EmuDeck/logs/msg.log")
 
 def getSettings():
     pattern = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)=(.*)')
@@ -118,13 +118,14 @@ def generate_game_lists(roms_path):
                     name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
                     name_cleaned = name_cleaned.strip().replace(' ', '_').replace('-', '_')
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
-                    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
+                    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '').replace('_decrypted','').replace('decrypted','')
                     name_cleaned_pegasus = name.replace(',_', ',')
                     name_cleaned = name_cleaned.lower()
 
 
                     game_info = {
                         "name": name_cleaned,
+                        "og_name": name,
                         "filename": file_path,
                         "file": name_cleaned,
                         "img": f"/customimages/retrolibrary/artwork/{platform}/media",

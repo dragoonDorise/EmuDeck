@@ -1,5 +1,5 @@
 #!/bin/bash
-source $HOME/.config/EmuDeck/backend/functions/all.sh
+. "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "model2"
 # $ULWGL_toolPath is assigned in emuDeckModel2.sh
 GAMELAUNCHER=$ULWGL_toolPath/ulwgl-run

@@ -3,7 +3,7 @@
 # Variables
 Heroic_emuName="Heroic-Games-Launcher"
 Heroic_emuType="$emuDeckEmuTypeAppImage"
-Heroic_emuPath="$HOME/Applications/Heroic-Games-Launcher.AppImage"
+Heroic_emuPath="$emusFolder/Heroic-Games-Launcher.AppImage"
 
 # Install
 Heroic_install() {

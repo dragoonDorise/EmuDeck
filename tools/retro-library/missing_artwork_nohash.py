@@ -7,7 +7,7 @@ import hashlib
 
 # Define the log file path
 home_dir = os.environ.get("HOME")
-msg_file = os.path.join(home_dir, ".config/EmuDeck/msg.log")
+msg_file = os.path.join(home_dir, ".config/EmuDeck/logs/msg.log")
 
 def getSettings():
     pattern = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)=(.*)')
@@ -75,22 +75,32 @@ def generate_game_lists(roms_path, images_path):
                 extension = filename.split('.')[-1]
                 name = '.'.join(filename.split('.')[:-1])
                 if extension in extensions:
+
+                    platform = os.path.basename(system_dir)
+
                     # Special cases for WiiU and PS3
                     if "wiiu" in system_dir:
                         parts = root.split(os.sep)
                         name = parts[-2] if len(parts) >= 2 else name
+                        platform = "wiiu"
                     if "ps3" in system_dir:
                         parts = root.split(os.sep)
                         name = parts[-3] if len(parts) >= 3 else name
-
-                    platform = os.path.basename(system_dir)
+                        platform = "ps3"
+                    if "xbox360" in system_dir:
+                        platform = "xbox360"
+                    if "ps4" in system_dir:
+                        parts = root.split(os.sep)
+                        name = parts[-3] if len(parts) >= 3 else name
+                        platform = "ps4"
 
                     # Clean the game name
                     name_cleaned = re.sub(r'\(.*?\)', '', name)
                     name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
                     name_cleaned = name_cleaned.strip().replace(' ', '_').replace('-', '_')
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
-                    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
+                    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '').replace('_decrypted','').replace('decrypted','')
+
                     name_cleaned_pegasus = name.replace(',_', ',')
                     name_cleaned = name_cleaned.lower()
 

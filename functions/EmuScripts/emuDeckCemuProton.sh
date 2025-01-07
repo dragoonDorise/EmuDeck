@@ -51,7 +51,7 @@ CemuProton_install(){
 #	fi
 
 
-	cp "$EMUDECKGIT/tools/launchers/cemu.sh" "${toolsPath}/launchers/cemu.sh"
+	cp "$emudeckBackend/tools/launchers/cemu.sh" "${toolsPath}/launchers/cemu.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/cemu.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/cemu.sh"
 
@@ -70,7 +70,7 @@ CemuProton_install(){
 #ApplyInitialSettings
 CemuProton_init(){
 	setMSG "Initializing $CemuProton_emuName settings."
-	rsync -avhp "$EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu" --backup --suffix=.bak
+	rsync -avhp "$emudeckBackend/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu" --backup --suffix=.bak
 	if [ -e "$CemuProton_cemuSettings.bak" ]; then
 		mv -f "$CemuProton_cemuSettings.bak" "$CemuProton_cemuSettings" #retain cemuSettings
 	fi
@@ -102,7 +102,7 @@ CemuProton_init(){
 #update
 CemuProton_update(){
 	setMSG "Updating $CemuProton_emuName settings."
-	rsync -avhp "$EMUDECKGIT/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu" --ignore-existing
+	rsync -avhp "$emudeckBackend/configs/info.cemu.Cemu/data/cemu/" "${romsPath}/wiiu" --ignore-existing
 	CemuProton_setEmulationFolder
 	CemuProton_setupSaves
 	#CemuProton_addSteamInputProfile
@@ -253,7 +253,7 @@ CemuProton_resetConfig(){
 CemuProton_addSteamInputProfile(){
 	addSteamInputCustomIcons
 	#setMSG "Adding $CemuProton_emuName Steam Input Profile."
-	#rsync -r "$EMUDECKGIT/configs/steam-input/CemuProton_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	#rsync -r "$emudeckBackend/configs/steam-input/CemuProton_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 CemuProton_setResolution(){

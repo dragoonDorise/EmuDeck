@@ -71,7 +71,7 @@ mkdir -p "$destination/EmuDeck/saves"
 
 for entry in "$emulationPath/saves/"*
 do
-	rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/saves/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/saves/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+	rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/saves/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/saves/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 done
 
 
@@ -96,7 +96,7 @@ if [ "$size" -gt 4096 ]; then
 
 			for entry in "$emulationPath/storage/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/storage/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/storage/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/storage/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/storage/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
@@ -122,7 +122,7 @@ if [ "$size" -gt 4096 ]; then
 
 			for entry in "$emulationPath/bios/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/bios/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/bios/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/bios/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/bios/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
@@ -147,7 +147,7 @@ if [ "$size" -gt 4096 ]; then
 
 			for entry in "$emulationPath/bios/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/bios/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/bios/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/bios/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/bios/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
@@ -172,7 +172,7 @@ if [ "$size" -gt 4096 ]; then
 
 			for entry in "$ESDEscrapData/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/roms/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/tools/downloaded_media/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/roms/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/tools/downloaded_media/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 			done
 
 		else

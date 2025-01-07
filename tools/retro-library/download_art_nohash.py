@@ -9,10 +9,12 @@ import subprocess
 def getSettings():
     pattern = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)=(.*)')
     user_home = os.path.expanduser("~")
+
     if os.name == 'nt':
         config_file_path = os.path.join(user_home, 'emudeck', 'settings.ps1')
     else:
         config_file_path = os.path.join(user_home, 'emudeck', 'settings.sh')
+
     configuration = {}
 
     with open(config_file_path, 'r') as file:
@@ -20,13 +22,16 @@ def getSettings():
             match = pattern.search(line)
             if match:
                 variable = match.group(1)
-                value = match.group(2).strip('"')
-                configuration[variable] = value
+                value = match.group(2).strip().strip('"')
+                expanded_value = os.path.expandvars(value.replace('"', '').replace("'", ""))
+                configuration[variable] = expanded_value
 
+    # Obtener rama actual del repositorio backend
     if os.name == 'nt':
-        bash_command = f"cd {appdata_roaming_path}/EmuDeck/backend/ && git rev-parse --abbrev-ref HEAD"
+        bash_command = f"cd {os.path.join(user_home, 'AppData', 'Roaming', 'EmuDeck', 'backend')} && git rev-parse --abbrev-ref HEAD"
     else:
         bash_command = "cd $HOME/.config/EmuDeck/backend/ && git rev-parse --abbrev-ref HEAD"
+
     result = subprocess.run(bash_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     configuration["branch"] = result.stdout.strip()
 
@@ -39,7 +44,7 @@ storage_path = os.path.expandvars(settings["storagePath"])
 
 # Path for the JSON and target folder from command-line arguments
 save_folder = sys.argv[1]
-json_path = os.path.join(storage_path, "retrolibrary/cache/missing_artwork.json")
+json_path = os.path.join(storage_path, "retrolibrary/cache/missing_artwork_no_hash.json")
 
 # Path for the log file
 home_dir = os.environ.get("HOME")
@@ -75,15 +80,13 @@ def download_image(name, platform, img_url, save_folder, type):
     except requests.RequestException as e:
         log_message(f"Error downloading image for {platform}/{name}: {e}")
         print(f"Error downloading image for {platform}/{name}: {e}")
-        create_empty_image(name, platform, save_folder, type)
+        #create_empty_image(name, platform, save_folder, type)
 
 def fetch_image_data(game):
     name = game['name']
     platform = game['platform']
-    hash = game['hash']
     type = game['type']
-    url = f"https://bot.emudeck.com/steamdbimg.php?name={name}&platform={platform}&hash={hash}&type={type}"
-
+    url = f"https://bot.emudeck.com/steamdbimg.php?name={name}&platform={platform}&type={type}"
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()  # Raise an exception for HTTP error codes
@@ -94,16 +97,20 @@ def fetch_image_data(game):
         else:
             log_message(f"No URL found for {platform}/{name}. Creating empty file.")
             print(f"No URL found for {platform}/{name}. Creating empty file.")
-            create_empty_image(name, platform, save_folder, type)
+            #create_empty_image(name, platform, save_folder, type)
     except requests.RequestException as e:
         log_message(f"Error processing {platform}/{name}: {e}")
         print(f"Error processing {platform}/{name}: {e}")
-        create_empty_image(name, platform, save_folder, type)
+        #create_empty_image(name, platform, save_folder, type)
 
 def process_json(save_folder):
     # Read the original JSON
     with open(json_path, 'r') as file:
-        games = json.load(file)
+        systems = json.load(file)
+
+    games = []
+    for system in systems:
+        games.extend(system.get('games', []))  # Añade todos los juegos del sistema a la lista
 
     log_message(f"Starting processing for {len(games)} games...")
     print(f"Starting processing for {len(games)} games...")
@@ -120,6 +127,7 @@ def process_json(save_folder):
 
     log_message("Processing completed.")
     print("Processing completed.")
+
 
 if __name__ == "__main__":
     log_message("Starting image processing script...")
