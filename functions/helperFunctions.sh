@@ -432,15 +432,15 @@ function getReleaseURLGH(){
 		--arg endsWith "$fileType" \
 		--arg doesNotContain "$fileNameDoesNotContain" '
 		[
-			.[].assets[] | 
-			select(.name | 
-					contains($contains) and 
-					startswith($startsWith) and 
-					endswith($endsWith) and 
-					(if $doesNotContain != "" then 
-						contains($doesNotContain) | not 
-					else 
-						true 
+			.[].assets[] |
+			select(.name |
+					contains($contains) and
+					startswith($startsWith) and
+					endswith($endsWith) and
+					(if $doesNotContain != "" then
+						contains($doesNotContain) | not
+					else
+						true
 					end)
 			).browser_download_url
 		][0] // empty'
@@ -1144,6 +1144,7 @@ function generate_pythonEnv() {
 		python3 -m venv "$emudeckFolder/python_virtual_env"
 		source "$emudeckFolder/python_virtual_env/bin/activate"
 		pip install requests
+		pip install vdf
 	else
 		source "$emudeckFolder/python_virtual_env/bin/activate"
 	fi
@@ -1160,4 +1161,28 @@ function read_config_toml() {
 
 	echo "Extracted value: $value"
 	echo "$value"
+}
+
+function add_to_steam(){
+	#Example
+	#add_to_steam "es-de" "ES-DE" "$toolsPath/launchers/es-de/es-de.sh" "$HOME/Applications/" "$HOME/.config/EmuDeck/backend/icons/ico/EmulationStationDE.ico"
+	local id="$1"
+	local name="$2"
+	local target_path="$3"
+	local start_dir="$4"
+	local icon_path="$5"
+	local steam_directory="$HOME/.steam/steam/"
+	local user_id="$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)"
+
+	generate_pythonEnv &> /dev/null
+
+	steam_pid=$(pidof steam)
+
+	if [ -n "$steam_pid" ]; then
+		echo "Steam está en ejecución. Enviando SIGTERM..."
+		kill -15 $steam_pid
+		echo "Señal SIGTERM env"
+	fi
+	python ./test.py $id $name $target_path $start_dir $icon_path $steam_directory $user_id
+
 }

@@ -88,6 +88,8 @@ ESDE_install(){
 	ESDE_migration
 
 
+
+
 	local showProgress="$1"
 	echo $ESDE_releaseURL
 	if [[ $ESDE_releaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
@@ -103,10 +105,15 @@ ESDE_install(){
 	fi
 }
 
+ESDE_addToSteam(){
+	setMSG "Adding $ESDE_toolName to Steam"
+	add_to_steam "es-de" "ES-DE" "$toolsPath/launchers/es-de/es-de.sh" "$HOME/Applications/" "$HOME/.config/EmuDeck/backend/icons/ico/EmulationStationDE.ico"
+}
+
 #ApplyInitialSettings
 ESDE_init(){
 	setMSG "Setting up $ESDE_toolName"
-
+	ESDE_addToSteam
 	ESDE_migration
 	ESDE_junksettingsFile
 	ESDE_addCustomSystemsFile
