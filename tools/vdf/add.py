@@ -91,7 +91,7 @@ def copy_steam_images(grid_path, id, shortcut_id):
             print(f"{img_type.capitalize()} image not found: {src}")
 
 
-def add_steam_shortcut(id, name, target_path, start_dir, icon_path, steam_dir, user_id):
+def add_steam_shortcut_with_category(id, name, target_path, start_dir, icon_path, steam_dir, user_id, categories):
     # Ruta del archivo shortcuts.vdf
     shortcuts_path = os.path.join(user_id, "config", "shortcuts.vdf")
     grid_path = os.path.join(user_id, "config", "grid")
@@ -115,13 +115,7 @@ def add_steam_shortcut(id, name, target_path, start_dir, icon_path, steam_dir, u
     next_index = max(existing_indices, default=-1) + 1
 
     # Generar un AppID válido
-    #appid = short_app_id(target_path, name)
-
-    #app_id = generate_app_id(exe_path, appname)
     appid = short_app_id = generate_short_app_id(target_path, name)
-    #shortcut_id = generate_shortcut_id(exe_path, appname)
-
-
 
     # Crear el nuevo acceso directo
     shortcuts_data["shortcuts"][str(next_index)] = {
@@ -138,9 +132,7 @@ def add_steam_shortcut(id, name, target_path, start_dir, icon_path, steam_dir, u
         "Devkit": 0,
         "DevkitGameID": "",
         "LastPlayTime": 0,
-        "tags": {
-            "0": "favorite"
-        }
+        "tags": {str(i): category for i, category in enumerate(categories)}
     }
 
     # Modificación directa del `appid` después de cargar los datos
@@ -159,8 +151,8 @@ def add_steam_shortcut(id, name, target_path, start_dir, icon_path, steam_dir, u
     copy_steam_images(grid_path, id, appid)
 
 
-# Llamar a la función principal
-add_steam_shortcut(
+# Llamar a la función principal con categorías
+add_steam_shortcut_with_category(
     id=sys.argv[1],
     name=sys.argv[2],
     target_path=sys.argv[3],
@@ -168,4 +160,5 @@ add_steam_shortcut(
     icon_path=sys.argv[5],
     steam_dir=sys.argv[6],
     user_id=sys.argv[7],
+    categories=sys.argv[8:]  # Pasar las categorías como una lista
 )
