@@ -69,7 +69,10 @@ def appify_shortcut_id(shortcut_id):
 
 def copy_steam_images(grid_path, id, shortcut_id):
     # Directorio de las imágenes de Steam ROM Manager
-    src_dir = os.path.expanduser(f"~/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/{id}")
+    if os.name == 'nt':
+        src_dir = os.path.expanduser(f"~/AppData/Roaming/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/{id}")
+    else:
+        src_dir = os.path.expanduser(f"~/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/{id}")
 
     # Definir las rutas de origen y destino
     images = {
