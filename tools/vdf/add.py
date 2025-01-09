@@ -76,8 +76,9 @@ def copy_steam_images(grid_path, id, shortcut_id):
 
     # Definir las rutas de origen y destino
     images = {
-        "hero": (f"{src_dir}/{id}_hero.png", f"{grid_path}/{shortcut_id}_hero.png"),
+        "hero": (f"{src_dir}/{id}_hero.png", f"{grid_path}/{shortcut_id}_hero.jpg"),
         "logo": (f"{src_dir}/{id}_logo.png", f"{grid_path}/{shortcut_id}_logo.png"),
+        "banner": (f"{src_dir}/{id}_banner.png", f"{grid_path}/{shortcut_id}.jpg"),
         "portrait": (f"{src_dir}/{id}_portrait.png", f"{grid_path}/{shortcut_id}p.png"),
         "icon": (f"{src_dir}/{id}_ico.png", f"{grid_path}/{shortcut_id}_icon.ico"),
     }
