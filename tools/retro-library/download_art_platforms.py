@@ -16,7 +16,7 @@ def getSettings():
     user_home = os.path.expanduser("~")
 
     if os.name == 'nt':
-        config_file_path = os.path.join(user_home, 'emudeck', 'settings.ps1')
+        config_file_path = os.path.join(user_home, 'AppData', 'Roaming', 'EmuDeck', 'settings.ps1')
     else:
         config_file_path = os.path.join(user_home, 'emudeck', 'settings.sh')
 

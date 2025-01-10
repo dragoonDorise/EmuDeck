@@ -11,7 +11,7 @@ def getSettings():
     user_home = os.path.expanduser("~")
 
     if os.name == 'nt':
-        config_file_path = os.path.join(user_home, 'emudeck', 'settings.ps1')
+        config_file_path = os.path.join(user_home, 'AppData', 'Roaming', 'EmuDeck', 'settings.ps1')
     else:
         config_file_path = os.path.join(user_home, 'emudeck', 'settings.sh')
 
@@ -48,7 +48,10 @@ json_path = os.path.join(storage_path, "retrolibrary/cache/missing_artwork_no_ha
 
 # Path for the log file
 home_dir = os.environ.get("HOME")
-msg_file = os.path.join(home_dir, ".config/EmuDeck/logs/msg.log")
+if os.name == 'nt':
+    msg_file = os.path.join(home_dir, 'AppData', 'Roaming', 'EmuDeck', "logs/msg.log")
+else:
+    msg_file = os.path.join(home_dir, ".config/EmuDeck/logs/msg.log")
 
 # Function to write messages to the log file
 def log_message(message):
