@@ -33,16 +33,8 @@ generateGameLists() {
 generateGameListsJson() {
     generate_pythonEnv &> /dev/null
     echo "Adding Games" > "$MSG"
-    #python $emudeckBackend/tools/retro-library/generate_game_lists.py "$romsPath"
     echo "Games Added" > "$MSG"
     cat $storagePath/retrolibrary/cache/roms_games.json
-    #generateGameLists_artwork $userid &> /dev/null &
-    #generateGameLists_artwork &> /dev/null &
-}
-
-generateGameLists_importESDE() {
-    generate_pythonEnv &> /dev/null
-    python $emudeckBackend/tools/retro-library/import_media.py "$romsPath" "$dest_folder"
 }
 
 generateGameLists_artwork() {
@@ -69,10 +61,6 @@ function addGameListsArtwork() {
     local appID="$2"
     local platform="$3"
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-
-    #Uncomment to get custom grid
-    #local tempGrid=$(generateGameLists_extraArtwork $file $platform)
-    #local grid=$(echo "$tempGrid" | jq -r '.grid')
 
     local vertical="$storagePath/retrolibrary/artwork/$platform/media/box2dfront/$file.jpg"
     local grid=$vertical
@@ -113,26 +101,6 @@ generateGameLists_getPercentage() {
     echo "$parsed_games / $games ($percentage%)"
 }
 
-generateGameLists_extraArtwork() {
-    local game=$1
-    local platform=$2
-    local hash=$3
-    local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
-    local dest_folder="$storagePath/retrolibrary/artwork"
-
-    wget -q -O "$storagePath/retrolibrary/cache/response.json" "https://bot.emudeck.com/steamdb_extra.php?name=$game&hash=$hash"
-
-    game_name=$(jq -r '.name' "$storagePath/retrolibrary/cache/response.json")
-    game_img_url=$(jq -r '.grid' "$storagePath/retrolibrary/cache/response.json")
-    dest_path="$dest_folder/$platform/$game.grid.temp"
-
-    if [ "$game_img_url" != "null" ]; then
-      wget -q -O "${dest_path}" "${game_img_url}"
-    fi
-    json=$(jq -n --arg grid "$dest_path" '{grid: $grid}')
-
-    echo "$json"
-}
 
 generateGameLists_retroAchievements(){
     generate_pythonEnv &> /dev/null
