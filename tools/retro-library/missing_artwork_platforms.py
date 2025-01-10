@@ -4,11 +4,12 @@ import sys
 import re
 import subprocess
 
-home_dir = os.environ.get("HOME")
 if os.name == 'nt':
-    msg_file = os.path.join(home_dir, ".config/EmuDeck/logs/msg.log")
+    home_dir = os.environ.get("USERPROFILE")
+    msg_file = os.path.join(home_dir, 'AppData', 'Roaming', 'EmuDeck', "logs/msg.log")
 else:
-    msg_file = os.path.join(home_dir, 'AppData', 'Roaming', 'EmuDeck', 'logs/msg.log')
+    home_dir = os.environ.get("HOME")
+    msg_file = os.path.join(home_dir, ".config/EmuDeck/logs/msg.log")
 
 def getSettings():
     pattern = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)=(.*)')
