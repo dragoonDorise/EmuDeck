@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MSG="$emudeckFolder/msg.log"
+MSG="$emudeckLogs/msg.log"
 
 generateGameLists() {
 
