@@ -110,7 +110,7 @@ def generate_game_lists(roms_path, images_path):
                     name_cleaned = name_cleaned.lower()
 
                     # Check for missing images
-                    for img_type, ext in [("box2dfront", ".jpg"), ("wheel", ".png"), ("screenshot", ".jpg")]:
+                    for img_type, ext in [("box2dfront", ".jpg"), ("wheel", ".png"), ("box2dfront", ".jpg")]:
                         img_path = os.path.join(images_path, f"{platform}/media/{img_type}/{name_cleaned}{ext}")
                         if not os.path.exists(img_path):
                             log_message(f"Missing image: {img_path}")
