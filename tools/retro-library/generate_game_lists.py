@@ -61,7 +61,7 @@ def generate_saves_list(saves_path):
         name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
         name_cleaned = name_cleaned.strip().replace(' ', '_').replace('-', '_')
         name_cleaned = re.sub(r'_+', '_', name_cleaned)
-        name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
+        name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '').replace('.ps3', '')
         return name_cleaned
 
     saves_list = []
@@ -123,7 +123,7 @@ def generate_game_lists(roms_path):
                     name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
                     name_cleaned = name_cleaned.strip().replace(' ', '_').replace('-', '_')
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
-                    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '').replace('_decrypted','').replace('decrypted','')
+                    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '').replace('_decrypted','').replace('decrypted','').replace('.ps3', '')
                     name_cleaned_pegasus = name.replace(',_', ',')
                     name_cleaned = name_cleaned.lower()
 
