@@ -77,7 +77,7 @@ def generate_systems_with_missing_images(roms_path, images_path):
     for system_dir in os.listdir(roms_dir):
         if os.name != 'nt':
             if system_dir == "xbox360":
-            system_dir = "xbox360/roms"
+                system_dir = "xbox360/roms"
             if system_dir == "model2":
                 system_dir = "model2/roms"
             if system_dir == "ps4":
