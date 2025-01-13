@@ -138,6 +138,7 @@ generateGameLists_downloadData(){
 
 generateGameLists_downloadAssets(){
     local folder="$storagePath/retrolibrary/assets"
+    local folderDefault="$storagePath/retrolibrary/assets/default"
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
     local destFolder="$accountfolder/config/grid/retrolibrary/assets";
 
@@ -145,8 +146,17 @@ generateGameLists_downloadAssets(){
         echo "Downloading Assets" > "$MSG"
         mkdir -p $folder
         ln -sf "$folder" "$destFolder"
-        wget -q -O "$folder/alekfull.zip" "https://bot.emudeck.com/assets/alekfull/alekfull.zip"
+        wget -q -O "$folder/alekfull.zip" "https://bot.emudeck.com/assets/alekfull.zip"
         cd $folder && unzip -o alekfull.zip && rm alekfull.zip
+        echo "Assets Downloaded" > "$MSG"
+    fi
+
+    if [ ! -d $folderDefault ]; then
+        echo "Downloading Assets" > "$MSG"
+        mkdir -p $folder
+        ln -sf "$folder" "$destFolder"
+        wget -q -O "$folder/default.zip" "https://bot.emudeck.com/assets/default.zip"
+        cd $folder && unzip -o default.zip && rm default.zip
         echo "Assets Downloaded" > "$MSG"
     fi
 }
