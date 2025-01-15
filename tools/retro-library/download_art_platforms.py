@@ -8,15 +8,19 @@ import sys
 import re
 
 # Define the log file path
-home_dir = os.environ.get("HOME")
-msg_file = os.path.join(home_dir, ".config/EmuDeck/logs/msg.log")
+if os.name == 'nt':
+    home_dir = os.environ.get("USERPROFILE")
+    msg_file = os.path.join(home_dir, 'AppData', 'Roaming', 'EmuDeck', "logs/msg.log")
+else:
+    home_dir = os.environ.get("HOME")
+    msg_file = os.path.join(home_dir, ".config/EmuDeck/logs/msg.log")
 
 def getSettings():
     pattern = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)=(.*)')
     user_home = os.path.expanduser("~")
 
     if os.name == 'nt':
-        config_file_path = os.path.join(user_home, 'emudeck', 'settings.ps1')
+        config_file_path = os.path.join(user_home, 'AppData', 'Roaming', 'EmuDeck', 'settings.ps1')
     else:
         config_file_path = os.path.join(user_home, 'emudeck', 'settings.sh')
 

@@ -6,15 +6,19 @@ import subprocess
 import hashlib
 
 # Define the log file path
-home_dir = os.environ.get("HOME")
-msg_file = os.path.join(home_dir, ".config/EmuDeck/logs/msg.log")
+if os.name == 'nt':
+    home_dir = os.environ.get("USERPROFILE")
+    msg_file = os.path.join(home_dir, 'AppData', 'Roaming', 'EmuDeck', "logs/msg.log")
+else:
+    home_dir = os.environ.get("HOME")
+    msg_file = os.path.join(home_dir, ".config/EmuDeck/logs/msg.log")
 
 def getSettings():
     pattern = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)=(.*)')
     user_home = os.path.expanduser("~")
 
     if os.name == 'nt':
-        config_file_path = os.path.join(user_home, 'emudeck', 'settings.ps1')
+        config_file_path = os.path.join(user_home, 'AppData', 'Roaming', 'EmuDeck', 'settings.ps1')
     else:
         config_file_path = os.path.join(user_home, 'emudeck', 'settings.sh')
 
@@ -79,16 +83,17 @@ def generate_game_lists(roms_path, images_path):
                     platform = os.path.basename(system_dir)
 
                     # Special cases for WiiU and PS3
-                    if "wiiu" in system_dir:
-                        parts = root.split(os.sep)
-                        name = parts[-2] if len(parts) >= 2 else name
-                        platform = "wiiu"
-                    if "ps3" in system_dir:
-                        parts = root.split(os.sep)
-                        name = parts[-3] if len(parts) >= 3 else name
-                        platform = "ps3"
-                    if "xbox360" in system_dir:
-                        platform = "xbox360"
+                    if os.name != 'nt':
+                        if "wiiu" in system_dir:
+                            parts = root.split(os.sep)
+                            name = parts[-2] if len(parts) >= 2 else name
+                            platform = "wiiu"
+                        if "ps3" in system_dir:
+                            parts = root.split(os.sep)
+                            name = parts[-3] if len(parts) >= 3 else name
+                            platform = "ps3"
+                        if "xbox360" in system_dir:
+                            platform = "xbox360"
                     if "ps4" in system_dir:
                         parts = root.split(os.sep)
                         name = parts[-3] if len(parts) >= 3 else name
@@ -99,13 +104,13 @@ def generate_game_lists(roms_path, images_path):
                     name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
                     name_cleaned = name_cleaned.strip().replace(' ', '_').replace('-', '_')
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
-                    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '').replace('_decrypted','').replace('decrypted','')
+                    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '').replace('_decrypted','').replace('decrypted','').replace('.ps3', '')
 
                     name_cleaned_pegasus = name.replace(',_', ',')
                     name_cleaned = name_cleaned.lower()
 
                     # Check for missing images
-                    for img_type, ext in [("box2dfront", ".jpg"), ("wheel", ".png"), ("screenshot", ".jpg")]:
+                    for img_type, ext in [("box2dfront", ".jpg"), ("wheel", ".png"), ("box2dfront", ".jpg")]:
                         img_path = os.path.join(images_path, f"{platform}/media/{img_type}/{name_cleaned}{ext}")
                         if not os.path.exists(img_path):
                             log_message(f"Missing image: {img_path}")
@@ -123,12 +128,13 @@ def generate_game_lists(roms_path, images_path):
     valid_system_dirs = []
 
     for system_dir in os.listdir(roms_dir):
-        if system_dir == "xbox360":
-            system_dir = "xbox360/roms"
-        if system_dir == "model2":
-            system_dir = "model2/roms"
-        if system_dir == "ps4":
-            system_dir = "ps4/shortcuts"
+        if os.name != 'nt':
+            if system_dir == "xbox360":
+                system_dir = "xbox360/roms"
+            if system_dir == "model2":
+                system_dir = "model2/roms"
+            if system_dir == "ps4":
+                system_dir = "ps4/shortcuts"
         full_path = os.path.join(roms_dir, system_dir)
         if os.path.isdir(full_path) and not os.path.islink(full_path) and os.path.isfile(os.path.join(full_path, 'metadata.txt')):
             file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])

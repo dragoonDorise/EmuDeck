@@ -5,15 +5,19 @@ import re
 import subprocess
 
 # Define the log file path
-home_dir = os.environ.get("HOME")
-msg_file = os.path.join(home_dir, ".config/EmuDeck/logs/msg.log")
+if os.name == 'nt':
+    home_dir = os.environ.get("USERPROFILE")
+    msg_file = os.path.join(home_dir, 'AppData', 'Roaming', 'EmuDeck', 'logs/msg.log')
+else:
+    home_dir = os.environ.get("HOME")
+    msg_file = os.path.join(home_dir, ".config/EmuDeck/logs/msg.log")
 
 def getSettings():
     pattern = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)=(.*)')
     user_home = os.path.expanduser("~")
 
     if os.name == 'nt':
-        config_file_path = os.path.join(user_home, 'emudeck', 'settings.ps1')
+        config_file_path = os.path.join(user_home, 'AppData', 'Roaming', 'EmuDeck', 'settings.ps1')
     else:
         config_file_path = os.path.join(user_home, 'emudeck', 'settings.sh')
 
@@ -57,7 +61,7 @@ def generate_saves_list(saves_path):
         name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
         name_cleaned = name_cleaned.strip().replace(' ', '_').replace('-', '_')
         name_cleaned = re.sub(r'_+', '_', name_cleaned)
-        name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '')
+        name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '').replace('.ps3', '')
         return name_cleaned
 
     saves_list = []
@@ -104,12 +108,13 @@ def generate_game_lists(roms_path):
                 name = '.'.join(filename.split('.')[:-1])
                 if extension in extensions:
                     # Special cases for WiiU and PS3
-                    if "wiiu" in system_dir:
-                        parts = root.split(os.sep)
-                        name = parts[-2] if len(parts) >= 2 else name
-                    if "ps3" in system_dir:
-                        parts = root.split(os.sep)
-                        name = parts[-3] if len(parts) >= 3 else name
+                    if os.name != 'nt':
+                        if "wiiu" in system_dir:
+                            parts = root.split(os.sep)
+                            name = parts[-2] if len(parts) >= 2 else name
+                        if "ps3" in system_dir:
+                            parts = root.split(os.sep)
+                            name = parts[-3] if len(parts) >= 3 else name
 
                     platform = os.path.basename(system_dir)
 
@@ -118,7 +123,7 @@ def generate_game_lists(roms_path):
                     name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
                     name_cleaned = name_cleaned.strip().replace(' ', '_').replace('-', '_')
                     name_cleaned = re.sub(r'_+', '_', name_cleaned)
-                    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '').replace('_decrypted','').replace('decrypted','')
+                    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '').replace('_decrypted','').replace('decrypted','').replace('.ps3', '')
                     name_cleaned_pegasus = name.replace(',_', ',')
                     name_cleaned = name_cleaned.lower()
 
@@ -138,10 +143,12 @@ def generate_game_lists(roms_path):
     valid_system_dirs = []
 
     for system_dir in os.listdir(roms_dir):
-        if system_dir == "xbox360":
-            system_dir = "xbox360/roms"
-        if system_dir == "model2":
-            system_dir = "model2/roms"
+        if os.name != 'nt':
+            if system_dir == "xbox360":
+                system_dir = "xbox360/roms"
+            if system_dir == "model2":
+                system_dir = "model2/roms"
+
         if system_dir == "ps4":
             system_dir = "ps4/shortcuts"
 
