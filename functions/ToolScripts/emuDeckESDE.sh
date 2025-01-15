@@ -107,7 +107,7 @@ ESDE_install(){
 
 ESDE_addToSteam(){
 	setMSG "Adding $ESDE_toolName to Steam"
-	add_to_steam "es-de" "ES-DE" "$toolsPath/launchers/es-de/es-de.sh" "$HOME/Applications/" "$HOME/.config/EmuDeck/backend/icons/ico/EmulationStationDE.ico"
+	add_to_steam "es-de" "EmulationStationDE" "$toolsPath/launchers/es-de/es-de.sh" "$HOME/Applications/" "$HOME/.config/EmuDeck/backend/icons/ico/EmulationStationDE.ico"
 }
 
 #ApplyInitialSettings
