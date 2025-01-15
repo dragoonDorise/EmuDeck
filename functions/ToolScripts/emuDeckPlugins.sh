@@ -15,30 +15,42 @@ Plugins_install_cleanup() {
 Plugins_checkPassword(){
    local password=$1
    if [ "$password" = "EmuDecky!" ]; then
-     #We create the password
-     yes "$password" | passwd $(whoami) &>/dev/null
+   #We create the password
+   yes "$password" | passwd $(whoami) &>/dev/null || {
+     read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
+     if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
+       exit 1
+     fi
+     if ( echo "$PASS" | sudo -S -k true ); then
+       password=$PASS
+     else
+       zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
+     fi
+   }
    elif [ "$system" == "chimeraos" ]; then
-   	password="gamer"
+     password="gamer"
+   elif [ "$system" == "bazzite" ]; then
+  password="bazzite"
    else
-      if ( echo "$password" | sudo -S -k true ); then
-        echo "true"
+    if ( echo "$password" | sudo -S -k true ); then
+    echo "true"
+    else
+      read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
+      if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
+        exit 1
+      fi
+      if ( echo "$PASS" | sudo -S -k true ); then
+        password=$PASS
       else
-          read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
-          if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
-              exit 1
-          fi
-          if ( echo "$PASS" | sudo -S -k true ); then
-              password=$PASS
-          else
-              zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
-          fi
-        fi
+        zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
+      fi
+    fi
    fi
    echo $password
 }
 
 Plugins_installPluginLoader(){
-	echo "Installing Decky"
+   setMSG  "Installing Decky Loader"
 
    local password=$1
    local PluginLoader_releaseURL="https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/install_release.sh"
@@ -102,7 +114,7 @@ Plugins_installDeckyControls(){
   Plugins_installEmuDecky $password
 }
 Plugins_installEmuDecky(){
-   echo "Installing EmuDecky"
+   setMSG "Installing EmuDecky"
    local password=$1
    local destinationFolder="$HOME/homebrew/plugins/EmuDecky"
    local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/EmuDecky" ".zip")"
@@ -131,7 +143,7 @@ Plugins_installEmuDecky(){
 }
 
 Plugins_installDeckyRomLibrary(){
-   echo "Installing Decky Rom Library"
+   setMSG  "Installing Retro Library"
    local password=$1
    local destinationFolder="$HOME/homebrew/plugins/decky-rom-library"
    local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/decky-rom-library" ".zip")"
@@ -158,7 +170,7 @@ Plugins_installDeckyRomLibrary(){
 }
 
 Plugins_installSteamDeckGyroDSU(){
-	echo "Installing GyroDSU"
+   setMSG  "Installing GyroDSU"
    local SDGyro_releaseURL="https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh"
    curl -L $SDGyro_releaseURL --output /tmp/sdgyro.sh && chmod +x /tmp/sdgyro.sh && /tmp/sdgyro.sh && rm /tmp/sdgyro.sh
 }
