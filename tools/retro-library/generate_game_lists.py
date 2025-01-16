@@ -112,9 +112,9 @@ def generate_game_lists(roms_path):
                         if "wiiu" in system_dir:
                             parts = root.split(os.sep)
                             name = parts[-2] if len(parts) >= 2 else name
-                        if "ps3" in system_dir:
-                            parts = root.split(os.sep)
-                            name = parts[-3] if len(parts) >= 3 else name
+                    if "ps3" in system_dir:
+                        parts = root.split(os.sep)
+                        name = parts[-3] if len(parts) >= 3 else name
 
                     platform = os.path.basename(system_dir)
 
@@ -162,7 +162,7 @@ def generate_game_lists(roms_path):
     game_list = []
 
     for system_dir in valid_system_dirs:
-        if any(x in system_dir for x in ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop"]):
+        if any(x in system_dir for x in ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop", "/sneswide"]):
             log_message(f"GGL: Skipping directory: {system_dir}")
             continue
 
