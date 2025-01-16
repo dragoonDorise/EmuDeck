@@ -55,36 +55,43 @@ cloudSyncHealth(){
 	#Zenity asking SRM or ESDE
 	#Opening RA/ESDE in background
 	kill="ESDE"
-	zenity --question --title "CloudSync Health" --text "You need to have RetroArch installed for this to work." --cancel-label "Cancel" --ok-label "OK"
 
-	if [ $? = 0 ]; then
-		kill="RETROARCH"
-		notify-send "RETROARCH" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
-		touch "$savesPath/.gaming"
-		touch "$savesPath/.watching"
-		echo "retroarch" > "$savesPath/.emuName"
-		cloud_sync_startService
+	if [ "$(RetroArch_IsInstalled "$emuDeckEmuTypeFlatpak")" == "true" ]; then
+		echo "continue"
+	else
+		zenity --question --title "CloudSync Health" --text "You need to have RetroArch installed for this to work." --cancel-label "Cancel" --ok-label "OK"
 
-		systemctl --user is-active --quiet "EmuDeckCloudSync.service"
-		status=$?
+		if [ $? = 0 ]; then
+			kill="RETROARCH"
+			notify-send "RETROARCH" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
+			touch "$savesPath/.gaming"
+			touch "$savesPath/.watching"
+			echo "retroarch" > "$savesPath/.emuName"
+			cloud_sync_startService
 
-		if [ $status -eq 0 ]; then
-			echo "CloudSync Service running"
-			watcherStatus=0
+			systemctl --user is-active --quiet "EmuDeckCloudSync.service"
+			status=$?
+
+			if [ $status -eq 0 ]; then
+				echo "CloudSync Service running"
+				watcherStatus=0
+			else
+				text="$(printf "<b>CloudSync Error.</b>\nCloudSync service is not running. Please reinstall CloudSync and try again")"
+				zenity --error \
+				--title="EmuDeck" \
+				--width=400 \
+				--text="${text}" 2>/dev/null
+			fi
+
+			/usr/bin/flatpak run org.libretro.RetroArch & xdotool search --sync --name '^RetroArch$' windowminimize
 		else
-			text="$(printf "<b>CloudSync Error.</b>\nCloudSync service is not running. Please reinstall CloudSync and try again")"
-			zenity --error \
-			--title="EmuDeck" \
-			--width=400 \
-			--text="${text}" 2>/dev/null
+			zenity --info --width=400 --text="Please install RetroArch from Manage Emulators..."
+
+			exit
 		fi
 
-		/usr/bin/flatpak run org.libretro.RetroArch & xdotool search --sync --name '^RetroArch$' windowminimize
-	else
-		zenity --info --width=400 --text="Please install RetroArch from Manage Emulators..."
-
-		exit
 	fi
+
 
 
 	#
