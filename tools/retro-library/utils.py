@@ -85,22 +85,33 @@ def collect_game_data(system_dir, extensions, images_path = None):
                         platform = "ps3"
                     if "xbox360" in system_dir:
                         platform = "xbox360"
+                    if "ps4" in system_dir:
+                        platform = "ps4"
 
                 # Clean the game name
                 name_cleaned = clean_name(name)
 
                 if images_path:
                     # Check for missing images
+                    missing_images = False
                     for img_type, ext in [("box2dfront", ".jpg"), ("wheel", ".png"), ("box2dfront", ".jpg")]:
                         img_path = os.path.join(images_path, f"{platform}/media/{img_type}/{name_cleaned}{ext}")
-                        if not os.path.exists(img_path):
-                            log_message(f"Missing image: {img_path}")
 
+                        if not os.path.exists(img_path):
+                            print(f"Missing image: {img_path}")
+                            log_message(f"Missing image: {img_path}")
+                            missing_images = True
+
+                    if missing_images:
                         game_info = {
                             "name": name_cleaned,
-                            "platform": platform,
-                            "type": img_type
+                            "og_name": name,
+                            "filename": file_path,
+                            "file": name_cleaned,
+                            "img": f"/customimages/retrolibrary/artwork/{platform}/media",
+                            "platform": platform
                         }
+                        game_data.append(game_info)
                 else:
                     game_info = {
                         "name": name_cleaned,
@@ -110,8 +121,7 @@ def collect_game_data(system_dir, extensions, images_path = None):
                         "img": f"/customimages/retrolibrary/artwork/{platform}/media",
                         "platform": platform
                     }
-
-                game_data.append(game_info)
+                    game_data.append(game_info)
 
     return sorted(game_data, key=lambda x: x['name'])
 
