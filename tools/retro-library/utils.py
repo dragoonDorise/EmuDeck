@@ -114,17 +114,17 @@ def collect_game_data(system_dir, extensions, images_path = None):
 
 def get_valid_system_dirs(roms_dir):
     for system_dir in os.listdir(roms_dir):
-    if os.name != 'nt':
-        if system_dir == "xbox360":
-            system_dir = "xbox360/roms"
-        if system_dir == "model2":
-            system_dir = "model2/roms"
-    if system_dir == "ps4":
-        system_dir = "ps4/shortcuts"
-    full_path = os.path.join(roms_dir, system_dir)
-    if os.path.isdir(full_path) and not os.path.islink(full_path) and os.path.isfile(os.path.join(full_path, 'metadata.txt')):
-        file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])
-        if file_count > 2:
-            valid_system_dirs.append(full_path)
-            log_message(f"GGL: Valid system directory found: {full_path}")
-    return valid_system_dirs
+        if os.name != 'nt':
+            if system_dir == "xbox360":
+                system_dir = "xbox360/roms"
+            if system_dir == "model2":
+                system_dir = "model2/roms"
+        if system_dir == "ps4":
+            system_dir = "ps4/shortcuts"
+        full_path = os.path.join(roms_dir, system_dir)
+        if os.path.isdir(full_path) and not os.path.islink(full_path) and os.path.isfile(os.path.join(full_path, 'metadata.txt')):
+            file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])
+            if file_count > 2:
+                valid_system_dirs.append(full_path)
+                log_message(f"GGL: Valid system directory found: {full_path}")
+        return valid_system_dirs
