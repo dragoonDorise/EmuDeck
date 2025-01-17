@@ -4,16 +4,12 @@ import sys
 import re
 import subprocess
 from vars import home_dir, msg_file
-from utils import getSettings
+from utils import getSettings, log_message, clean_name, collect_game_data
 
 settings = getSettings()
 storage_path = os.path.expandvars(settings["storagePath"])
 saves_path = os.path.expandvars(settings["savesPath"])
 
-# Function to write messages to the log file
-def log_message(message):
-    with open(msg_file, "a") as log_file:  # "a" to append messages without overwriting
-        log_file.write(message + "\n")
 
 def generate_saves_list(saves_path):
     def clean_name(filename):
@@ -56,50 +52,6 @@ def generate_saves_list(saves_path):
         log_message(f"Saved states JSON written to {output_file}")
 
 def generate_game_lists(roms_path):
-    def collect_game_data(system_dir, extensions):
-        game_data = []
-        for root, _, files in os.walk(system_dir):
-            for file in files:
-                file_path = os.path.join(root, file)
-                if os.path.islink(file_path):
-                    continue
-
-                filename = os.path.basename(file)
-                extension = filename.split('.')[-1]
-                name = '.'.join(filename.split('.')[:-1])
-                if extension in extensions:
-                    # Special cases for WiiU and PS3
-                    if os.name != 'nt':
-                        if "wiiu" in system_dir:
-                            parts = root.split(os.sep)
-                            name = parts[-2] if len(parts) >= 2 else name
-                    if "ps3" in system_dir:
-                        parts = root.split(os.sep)
-                        name = parts[-3] if len(parts) >= 3 else name
-
-                    platform = os.path.basename(system_dir)
-
-                    # Clean the game name
-                    name_cleaned = re.sub(r'\(.*?\)', '', name)
-                    name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
-                    name_cleaned = name_cleaned.strip().replace(' ', '_').replace('-', '_')
-                    name_cleaned = re.sub(r'_+', '_', name_cleaned)
-                    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '').replace('_decrypted','').replace('decrypted','').replace('.ps3', '')
-                    name_cleaned_pegasus = name.replace(',_', ',')
-                    name_cleaned = name_cleaned.lower()
-
-
-                    game_info = {
-                        "name": name_cleaned,
-                        "og_name": name,
-                        "filename": file_path,
-                        "file": name_cleaned,
-                        "img": f"/customimages/retrolibrary/artwork/{platform}/media",
-                        "platform": platform
-                    }
-                    game_data.append(game_info)
-        return sorted(game_data, key=lambda x: x['name'])
-
     roms_dir = roms_path
     valid_system_dirs = []
 
@@ -109,10 +61,8 @@ def generate_game_lists(roms_path):
                 system_dir = "xbox360/roms"
             if system_dir == "model2":
                 system_dir = "model2/roms"
-
         if system_dir == "ps4":
             system_dir = "ps4/shortcuts"
-
         full_path = os.path.join(roms_dir, system_dir)
         if os.path.isdir(full_path) and not os.path.islink(full_path) and os.path.isfile(os.path.join(full_path, 'metadata.txt')):
             file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])

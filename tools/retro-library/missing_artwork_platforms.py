@@ -5,15 +5,11 @@ import re
 import subprocess
 
 from vars import home_dir, msg_file
-from utils import getSettings
+from utils import getSettings, log_message
 
 settings = getSettings()
 storage_path = os.path.expandvars(settings["storagePath"])
 
-# Función para escribir en el archivo de log
-def log_message(message):
-    with open(msg_file, "w") as log_file:  # "a" para agregar mensajes sin sobrescribir
-        log_file.write(message + "\n")
 
 def generate_systems_with_missing_images(roms_path, images_path):
     def has_missing_images(system_dir, extensions):

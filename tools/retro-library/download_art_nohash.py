@@ -7,7 +7,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import subprocess
 
 from vars import home_dir, msg_file
-from utils import getSettings
+from utils import getSettings, log_message
 
 settings = getSettings()
 storage_path = os.path.expandvars(settings["storagePath"])
@@ -16,11 +16,6 @@ storage_path = os.path.expandvars(settings["storagePath"])
 save_folder = sys.argv[1]
 json_path = os.path.join(storage_path, "retrolibrary/cache/missing_artwork_no_hash.json")
 
-
-# Function to write messages to the log file
-def log_message(message):
-    with open(msg_file, "a") as log_file:  # "a" to append messages without overwriting
-        log_file.write(message + "\n")
 
 def create_empty_image(name, platform, save_folder, type):
     extension = "jpg" if type != "wheel" else "png"
