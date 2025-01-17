@@ -105,11 +105,8 @@ def collect_game_data(system_dir, extensions, images_path = None):
                     if missing_images:
                         game_info = {
                             "name": name_cleaned,
-                            "og_name": name,
-                            "filename": file_path,
-                            "file": name_cleaned,
-                            "img": f"/customimages/retrolibrary/artwork/{platform}/media",
-                            "platform": platform
+                            "platform": platform,
+                            "type": img_type
                         }
                         game_data.append(game_info)
                 else:
