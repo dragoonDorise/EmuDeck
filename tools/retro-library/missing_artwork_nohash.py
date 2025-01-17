@@ -5,7 +5,7 @@ import re
 import subprocess
 import hashlib
 
-from vars import home_dir, msg_file
+from vars import home_dir, msg_file, excluded_systems
 from utils import getSettings, log_message, clean_name, collect_game_data, get_valid_system_dirs, parse_metadata_file
 
 settings = getSettings()
@@ -19,7 +19,7 @@ def generate_game_lists(roms_path, images_path):
     game_list = []
 
     for system_dir in valid_system_dirs:
-        if any(x in system_dir for x in ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop", "/sneswide"]):
+        if any(x in system_dir for x in excluded_systems):
             log_message(f"MA: Skipping directory: {system_dir}")
             continue
 

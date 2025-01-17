@@ -5,3 +5,5 @@ if os.name == 'nt':
 else:
     home_dir = os.environ.get("HOME")
     msg_file = os.path.join(home_dir, ".config/EmuDeck/logs/msg.log")
+
+excluded_systems = ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop", "/sneswide"]
