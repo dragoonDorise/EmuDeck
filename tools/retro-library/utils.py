@@ -127,7 +127,7 @@ def get_valid_system_dirs(roms_dir, valid_system_dirs):
             if file_count > 2:
                 valid_system_dirs.append(full_path)
                 log_message(f"GGL: Valid system directory found: {full_path}")
-        return valid_system_dirs
+    return valid_system_dirs
 
 def parse_metadata_file(metadata_path):
     if not os.path.exists(metadata_path):
