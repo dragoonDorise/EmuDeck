@@ -112,7 +112,7 @@ def collect_game_data(system_dir, extensions, images_path = None):
     return sorted(game_data, key=lambda x: x['name'])
 
 
-def get_valid_system_dirs(roms_dir):
+def get_valid_system_dirs(roms_dir, valid_system_dirs):
     for system_dir in os.listdir(roms_dir):
         if os.name != 'nt':
             if system_dir == "xbox360":

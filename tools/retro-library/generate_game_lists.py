@@ -54,7 +54,7 @@ def generate_saves_list(saves_path):
 def generate_game_lists(roms_path):
     roms_dir = roms_path
     valid_system_dirs = []
-    valid_system_dirs = get_valid_system_dirs(roms_dir)
+    valid_system_dirs = get_valid_system_dirs(roms_dir, valid_system_dirs)
     game_list = []
 
     for system_dir in valid_system_dirs:
