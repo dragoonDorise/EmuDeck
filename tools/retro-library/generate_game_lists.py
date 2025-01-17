@@ -4,7 +4,7 @@ import sys
 import re
 import subprocess
 from vars import home_dir, msg_file
-from utils import getSettings, log_message, clean_name, collect_game_data
+from utils import getSettings, log_message, clean_name, collect_game_data, get_valid_system_dirs
 
 settings = getSettings()
 storage_path = os.path.expandvars(settings["storagePath"])
@@ -54,22 +54,7 @@ def generate_saves_list(saves_path):
 def generate_game_lists(roms_path):
     roms_dir = roms_path
     valid_system_dirs = []
-
-    for system_dir in os.listdir(roms_dir):
-        if os.name != 'nt':
-            if system_dir == "xbox360":
-                system_dir = "xbox360/roms"
-            if system_dir == "model2":
-                system_dir = "model2/roms"
-        if system_dir == "ps4":
-            system_dir = "ps4/shortcuts"
-        full_path = os.path.join(roms_dir, system_dir)
-        if os.path.isdir(full_path) and not os.path.islink(full_path) and os.path.isfile(os.path.join(full_path, 'metadata.txt')):
-            file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])
-            if file_count > 2:
-                valid_system_dirs.append(full_path)
-                log_message(f"GGL: Valid system directory found: {full_path}")
-
+    valid_system_dirs = get_valid_system_dirs(roms_dir)
     game_list = []
 
     for system_dir in valid_system_dirs:
