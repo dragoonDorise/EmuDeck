@@ -128,3 +128,22 @@ def get_valid_system_dirs(roms_dir, valid_system_dirs):
                 valid_system_dirs.append(full_path)
                 log_message(f"GGL: Valid system directory found: {full_path}")
         return valid_system_dirs
+
+def parse_metadata_file(metadata_path):
+    if not os.path.exists(metadata_path):
+        raise FileNotFoundError(f"Metadata file not found: {metadata_path}")
+
+    with open(metadata_path, 'r') as f:
+        metadata = f.read()
+
+    collection = next((line.split(':')[1].strip() for line in metadata.splitlines() if line.startswith('collection:')), '')
+    shortname = next((line.split(':')[1].strip() for line in metadata.splitlines() if line.startswith('shortname:')), '')
+    launcher = next((line.split(':', 1)[1].strip() for line in metadata.splitlines() if line.startswith('launch:')), '').replace('"', '\\"')
+    extensions = next((line.split(':')[1].strip().replace(',', ' ') for line in metadata.splitlines() if line.startswith('extensions:')), '').split()
+
+    return {
+        "collection": collection,
+        "shortname": shortname,
+        "launcher": launcher,
+        "extensions": extensions
+    }

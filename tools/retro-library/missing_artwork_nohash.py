@@ -6,7 +6,7 @@ import subprocess
 import hashlib
 
 from vars import home_dir, msg_file
-from utils import getSettings, log_message, clean_name, collect_game_data, get_valid_system_dirs
+from utils import getSettings, log_message, clean_name, collect_game_data, get_valid_system_dirs, parse_metadata_file
 
 settings = getSettings()
 storage_path = os.path.expandvars(settings["storagePath"])
@@ -23,12 +23,11 @@ def generate_game_lists(roms_path, images_path):
             log_message(f"MA: Skipping directory: {system_dir}")
             continue
 
-        with open(os.path.join(system_dir, 'metadata.txt')) as f:
-            metadata = f.read()
-        collection = next((line.split(':')[1].strip() for line in metadata.splitlines() if line.startswith('collection:')), '')
-        shortname = next((line.split(':')[1].strip() for line in metadata.splitlines() if line.startswith('shortname:')), '')
-        launcher = next((line.split(':', 1)[1].strip() for line in metadata.splitlines() if line.startswith('launch:')), '').replace('"', '\\"')
-        extensions = next((line.split(':')[1].strip().replace(',', ' ') for line in metadata.splitlines() if line.startswith('extensions:')), '').split()
+        metadata = parse_metadata_file(os.path.join(system_dir, 'metadata.txt'))
+        collection = metadata["collection"]
+        shortname = metadata["shortname"]
+        launcher = metadata["launcher"]
+        extensions = metadata["extensions"]
 
         games = collect_game_data(system_dir, extensions, images_path)
         if games:

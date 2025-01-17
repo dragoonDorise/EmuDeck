@@ -51,7 +51,7 @@ def generate_systems_with_missing_images(roms_path, images_path):
     systems_with_missing_images = set()
 
     for system_dir in valid_system_dirs:
-        if any(x in system_dir for x in ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop"]):
+        if any(x in system_dir for x in ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop", "/sneswide"]):
             log_message(f"MAP: Skipping directory: {system_dir}")
             continue
 

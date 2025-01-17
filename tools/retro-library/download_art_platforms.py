@@ -7,16 +7,10 @@ from io import BytesIO
 import sys
 import re
 from vars import home_dir, msg_file
-from utils import getSettings
+from utils import getSettings, log_message
 
 settings = getSettings()
 storage_path = os.path.expandvars(settings["storagePath"])
-
-
-# Function to write messages to the log file
-def log_message(message):
-    with open(msg_file, "w") as log_file:  # "a" to append messages without overwriting
-        log_file.write(message + "\n")
 
 def download_and_extract(output_dir):
     # Fixed path to the JSON file
