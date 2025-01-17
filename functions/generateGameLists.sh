@@ -150,13 +150,6 @@ generateGameLists_downloadAssets(){
     mkdir -p $folder
     ln -sf "$folder" "$destFolder"
 
-    if [ ! -d $folder ]; then
-        echo "Downloading Assets" > "$MSG"
-        wget -q -O "$folder/alekfull.zip" "https://bot.emudeck.com/assets/alekfull.zip"
-        cd $folder && unzip -o alekfull.zip && rm alekfull.zip
-        echo "Assets Downloaded" > "$MSG"
-    fi
-
     if [ ! -d $folderDefault ]; then
         echo "Downloading Assets" > "$MSG"
         wget -q -O "$folder/default.zip" "https://bot.emudeck.com/assets/default.zip"
