@@ -4,6 +4,9 @@ MSG="$emudeckLogs/msg.log"
 
 generateGameLists() {
 
+
+    mv "$storagePath/retrolibrary/assets/alekfull/carousel-icons"  "$storagePath/retrolibrary/assets/default/carousel-icons"
+
     generate_pythonEnv &> /dev/null
 
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
