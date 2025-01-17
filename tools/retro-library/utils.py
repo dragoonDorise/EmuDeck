@@ -63,6 +63,14 @@ def collect_game_data(system_dir, extensions, images_path = None):
             name = '.'.join(filename.split('.')[:-1])
             if extension in extensions:
 
+                if any(f"Disc {i}" in name for i in range(2, 9)):
+                    log_message(f"Ignoring file with disc name: {file}")
+                    continue
+
+                if extension.lower() == "bin":
+                    log_message(f"Ignoring .bin file: {file}")
+                    continue
+
                 platform = os.path.basename(system_dir)
 
                 # Special cases for WiiU and PS3
