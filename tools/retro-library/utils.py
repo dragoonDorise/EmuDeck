@@ -77,10 +77,6 @@ def collect_game_data(system_dir, extensions, images_path = None):
                         platform = "ps3"
                     if "xbox360" in system_dir:
                         platform = "xbox360"
-                if "ps4" in system_dir:
-                    parts = root.split(os.sep)
-                    name = parts[-3] if len(parts) >= 3 else name
-                    platform = "ps4"
 
                 # Clean the game name
                 name_cleaned = clean_name(name)
