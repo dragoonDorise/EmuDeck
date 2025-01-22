@@ -4,6 +4,9 @@ MSG="$emudeckLogs/msg.log"
 
 generateGameLists() {
 
+
+    mv "$storagePath/retrolibrary/assets/alekfull/carousel-icons"  "$storagePath/retrolibrary/assets/default/carousel-icons"
+
     generate_pythonEnv &> /dev/null
 
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
@@ -137,26 +140,27 @@ generateGameLists_downloadData(){
 }
 
 generateGameLists_downloadAssets(){
-    local folder="$storagePath/retrolibrary/assets"
-    local folderDefault="$storagePath/retrolibrary/assets/default"
     local accountfolder=$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)
+    local folder="$storagePath/retrolibrary/assets"
     local destFolder="$accountfolder/config/grid/retrolibrary/assets";
 
-    if [ ! -d $folder ]; then
-        echo "Downloading Assets" > "$MSG"
-        mkdir -p $folder
-        ln -sf "$folder" "$destFolder"
-        wget -q -O "$folder/alekfull.zip" "https://bot.emudeck.com/assets/alekfull.zip"
-        cd $folder && unzip -o alekfull.zip && rm alekfull.zip
-        echo "Assets Downloaded" > "$MSG"
-    fi
+    local folderDefault="$storagePath/retrolibrary/assets/default"
+    local folderBezels="$storagePath/retrolibrary/assets/bezels"
+
+    mkdir -p $folder
+    ln -sf "$folder" "$destFolder"
 
     if [ ! -d $folderDefault ]; then
         echo "Downloading Assets" > "$MSG"
-        mkdir -p $folder
-        ln -sf "$folder" "$destFolder"
         wget -q -O "$folder/default.zip" "https://bot.emudeck.com/assets/default.zip"
         cd $folder && unzip -o default.zip && rm default.zip
         echo "Assets Downloaded" > "$MSG"
+    fi
+
+    if [ ! -d $folderBezels ]; then
+        echo "Downloading Bezels" > "$MSG"
+        wget -q -O "$folder/bezels.zip" "https://bot.emudeck.com/assets/bezels.zip"
+        cd $folder && unzip -o bezels.zip && rm bezels.zip
+        echo "Bezels Downloaded" > "$MSG"
     fi
 }
