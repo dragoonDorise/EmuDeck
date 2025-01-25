@@ -51,6 +51,8 @@ BigPEmu_install(){
 BigPEmu_init(){
 	setMSG "Initializing $BigPEmu_emuName settings."
 	rsync -avhp "$emudeckBackend/configs/bigpemu/" "$BigPEmu_appData" --backup --suffix=.bak
+	sed -E -i "s|/run/media/mmcblk0p1/Emulation|$emulationPath|g" "$BigPEmu_BigPEmuSettings"
+
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
 	BigPEmu_flushEmulatorLauncher
@@ -67,6 +69,8 @@ BigPEmu_init(){
 BigPEmu_update(){
 	setMSG "Updating $BigPEmu_emuName settings."
 	rsync -avhp "$emudeckBackend/configs/bigpemu/" "$BigPEmu_appData" --ignore-existing
+	sed -E -i "s|/run/media/mmcblk0p1/Emulation|$emulationPath|g" "$BigPEmu_BigPEmuSettings"
+
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
 	BigPEmu_flushEmulatorLauncher
