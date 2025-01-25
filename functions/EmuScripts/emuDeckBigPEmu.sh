@@ -2,7 +2,7 @@
 #variables
 BigPEmu_emuName="BigPEmu"
 BigPEmu_emuType="$emuDeckEmuTypeWindows"
-BigPEmu_emuPath="$HOME/Applications/BigPEmu/BigPEmu.exe"
+BigPEmu_emuPath="$HOME/Applications/BigPEmu/bigpemu"
 BigPEmu_appData="$HOME/Applications/BigPEmu/UserData"
 BigPEmu_BigPEmuSettings="$HOME/Applications/BigPEmu/UserData/BigPEmuConfig.bigpcfg"
 
