@@ -146,6 +146,8 @@ generateGameLists_downloadAssets(){
 
     local folderDefault="$storagePath/retrolibrary/assets/default"
     local folderBezels="$storagePath/retrolibrary/assets/bezels"
+    local folderWii="$storagePath/retrolibrary/assets/wii"
+
 
     mkdir -p $folder
     ln -sf "$folder" "$destFolder"
@@ -162,5 +164,12 @@ generateGameLists_downloadAssets(){
         wget -q -O "$folder/bezels.zip" "https://bot.emudeck.com/assets/bezels.zip"
         cd $folder && unzip -o bezels.zip && rm bezels.zip
         echo "Bezels Downloaded" > "$MSG"
+    fi
+
+    if [ ! -d $folderWii ]; then
+        echo "Downloading Wii assets" > "$MSG"
+        wget -q -O "$folder/wii.zip" "https://bot.emudeck.com/assets/wii.zip"
+        cd $folder && unzip -o wii.zip && rm wii.zip
+        echo "Wii assets Downloaded" > "$MSG"
     fi
 }
