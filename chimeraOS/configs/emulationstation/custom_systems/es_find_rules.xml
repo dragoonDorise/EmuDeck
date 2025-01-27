@@ -64,12 +64,8 @@
     </emulator>
     <emulator name="CITRON">
         <!-- Nintendo Switch emulator Citron -->
-        <rule type="systempath">
-            <entry>yuzu</entry>
-            <entry>citron</entry>
-        </rule>
         <rule type="staticpath">
-            <entry>~/Applications/citron*.AppImage</entry>
+            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/citron.sh</entry>
         </rule>
     </emulator>
 

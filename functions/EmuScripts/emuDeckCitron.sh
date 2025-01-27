@@ -105,7 +105,7 @@ Citron_init() {
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
 
-    Citron_setLanguage
+    #Citron_setLanguage
 
 }
 
@@ -148,12 +148,9 @@ Citron_setEmulationFolder() {
     unlink "${biosPath}/citron/firmware" 2>/dev/null
 
     mkdir -p "$HOME/.local/share/citron/keys/"
-    mkdir -p "${storagePath}/citron/nand/system/Contents/registered/"
-
+    mkdir -p "${biosPath}/citron"
     ln -sn "$HOME/.local/share/citron/keys/" "${biosPath}/citron/keys"
-    ln -sn "${storagePath}/citron/nand/system/Contents/registered/" "${biosPath}/citron/firmware"
-
-    touch "${storagePath}/citron/nand/system/Contents/registered/putfirmwarehere.txt"
+    ln -sn "$HOME/.local/share/citron/nand/system/Contents/registered/" "${biosPath}/citron/firmware"
 
 }
 
