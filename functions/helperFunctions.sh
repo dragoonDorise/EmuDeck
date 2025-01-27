@@ -1097,8 +1097,6 @@ function emulatorInit(){
 	fi
 
 	#We launch the emulator
-	#/usr/bin/flatpak run org.libretro.RetroArch $netplayCMD "${@}"
-	#initialize execute array
 	exe=()
 
 	#find full path to emu executable
@@ -1129,10 +1127,10 @@ function emulatorInit(){
 
 	if [[ -z "${*}" ]]; then
 		echo "ROM not found. Launching $emuName directly"
-		"${exe[params]}"
+		"${exe[@]}"
 	else
 		echo "ROM found, launching game"
-		"${exe[params]}" "${launch_args[params]}"
+		"${exe[@]}" "${launch_args[@]}"
 	fi
 
 
