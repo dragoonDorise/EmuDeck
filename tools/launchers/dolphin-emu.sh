@@ -1,5 +1,4 @@
 #!/bin/bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
-emulatorInit "dolphin"
-/usr/bin/flatpak run org.DolphinEmu.dolphin-emu "${@}"
+emulatorInit "dolphin" "dolphin-emu" "${@}"
 rm -rf "$savesPath/.gaming"

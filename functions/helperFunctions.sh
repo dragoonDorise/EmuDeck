@@ -1041,6 +1041,8 @@ addProtonLaunch(){
 
 function emulatorInit(){
 	local emuName=$1
+	local emuCode=$2
+	local params=$3
 	#isLatestVersionGH "$emuName"
 	#NetPlay
 	cloud_sync_stopService
@@ -1092,6 +1094,45 @@ function emulatorInit(){
 
 
 
+	fi
+
+	#We launch the emulator
+	#/usr/bin/flatpak run org.libretro.RetroArch $netplayCMD "${@}"
+	#initialize execute array
+	exe=()
+
+	#find full path to emu executable
+	exe_path=$(find "$emusfolder" -iname "${emuCode}" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
+
+	#if appimage doesn't exist fall back to flatpak.
+	if [[ -z "$exe_path" ]]; then
+		#flatpak
+		flatpakApp=$(flatpak list --app --columns=application | grep "$emuCode")
+		#fill execute array
+		exe=("flatpak" "run" "$flatpakApp" "$netplayCMD")
+	else
+		#make sure that file is executable
+		chmod +x "$exe_path"
+		#fill execute array
+		exe=("$exe_path")
+	fi
+
+	#run the executable with the params.
+	launch_args=()
+	for rom in "${params}"; do
+		# Parsers previously had single quotes ("'/path/to/rom'" ), this allows those shortcuts to continue working.
+		removedLegacySingleQuotes=$(echo "$rom" | sed "s/^'//; s/'$//")
+		launch_args+=("$removedLegacySingleQuotes")
+	done
+
+	echo "Launching: ${exe[*]} ${launch_args[*]}"
+
+	if [[ -z "${*}" ]]; then
+		echo "ROM not found. Launching $emuName directly"
+		"${exe[params]}"
+	else
+		echo "ROM found, launching game"
+		"${exe[params]}" "${launch_args[params]}"
 	fi
 
 
