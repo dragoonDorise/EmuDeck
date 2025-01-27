@@ -1097,40 +1097,44 @@ function emulatorInit(){
 	fi
 
 	#We launch the emulator
-	exe=()
+	if [[-z "$emuCode"]]; then
 
-	#find full path to emu executable
-	exe_path=$(find "$emusfolder" -iname "${emuCode}" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
+		#We launch the emulator
+		exe=()
 
-	#if appimage doesn't exist fall back to flatpak.
-	if [[ -z "$exe_path" ]]; then
-		#flatpak
-		flatpakApp=$(flatpak list --app --columns=application | grep "$emuCode")
-		#fill execute array
-		exe=("flatpak" "run" "$flatpakApp" "$netplayCMD")
-	else
-		#make sure that file is executable
-		chmod +x "$exe_path"
-		#fill execute array
-		exe=("$exe_path")
-	fi
+		#find full path to emu executable
+		exe_path=$(find "$emusfolder" -iname "${emuCode}" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
 
-	#run the executable with the params.
-	launch_args=()
-	for rom in "${params}"; do
-		# Parsers previously had single quotes ("'/path/to/rom'" ), this allows those shortcuts to continue working.
-		removedLegacySingleQuotes=$(echo "$rom" | sed "s/^'//; s/'$//")
-		launch_args+=("$removedLegacySingleQuotes")
-	done
+		#if appimage doesn't exist fall back to flatpak.
+		if [[ -z "$exe_path" ]]; then
+			#flatpak
+			flatpakApp=$(flatpak list --app --columns=application | grep "$emuCode")
+			#fill execute array
+			exe=("flatpak" "run" "$flatpakApp" "$netplayCMD")
+		else
+			#make sure that file is executable
+			chmod +x "$exe_path"
+			#fill execute array
+			exe=("$exe_path")
+		fi
 
-	echo "Launching: ${exe[*]} ${launch_args[*]}"
+		#run the executable with the params.
+		launch_args=()
+		for rom in "${params}"; do
+			# Parsers previously had single quotes ("'/path/to/rom'" ), this allows those shortcuts to continue working.
+			removedLegacySingleQuotes=$(echo "$rom" | sed "s/^'//; s/'$//")
+			launch_args+=("$removedLegacySingleQuotes")
+		done
 
-	if [[ -z "${*}" ]]; then
-		echo "ROM not found. Launching $emuName directly"
-		"${exe[@]}"
-	else
-		echo "ROM found, launching game"
-		"${exe[@]}" "${launch_args[@]}"
+		echo "Launching: ${exe[*]} ${launch_args[*]}"
+
+		if [[ -z "${*}" ]]; then
+			echo "ROM not found. Launching $emuName directly"
+			"${exe[@]}"
+		else
+			echo "ROM found, launching game"
+			"${exe[@]}" "${launch_args[@]}"
+		fi
 	fi
 
 
@@ -1225,5 +1229,61 @@ function add_to_steam(){
 		echo "Señal SIGTERM env"
 	fi
 
+
+}
+
+function flushAllLaunchers(){
+
+	local max_jobs=5
+	local current_jobs=0
+
+	for setup_command in \
+		"$doSetupSRM SRM_flushEmulatorLauncher" \
+		"$doSetupESDE ESDE_update" \
+		"$doSetupPegasus pegasus_flushEmulatorLauncher" \
+		"$doSetupRA RetroArch_flushEmulatorLauncher" \
+		"$doSetupPrimehack Primehack_flushEmulatorLauncher" \
+		"$doSetupDolphin Dolphin_flushEmulatorLauncher" \
+		"$doSetupPCSX2QT PCSX2QT_flushEmulatorLauncher" \
+		"$doSetupRPCS3 RPCS3_flushEmulatorLauncher" \
+		"$doSetupCitra Citra_flushEmulatorLauncher" \
+		"$doSetupLime3DS Lime3DS_flushEmulatorLauncher" \
+		"$doSetupDuck DuckStation_flushEmulatorLauncher" \
+		"$doSetupYuzu Yuzu_flushEmulatorLauncher" \
+		"$doSetupRyujinx Ryujinx_flushEmulatorLauncher" \
+		"$doSetupShadPS4 ShadPS4_flushEmulatorLauncher" \
+		"$doSetupPPSSPP PPSSPP_flushEmulatorLauncher" \
+		"$doSetupXemu Xemu_flushEmulatorLauncher" \
+		"$doSetupMAME MAME_flushEmulatorLauncher" \
+		"$doSetupScummVM ScummVM_flushEmulatorLauncher" \
+		"$doSetupVita3K Vita3K_flushEmulatorLauncher" \
+		"$doSetupRMG RMG_flushEmulatorLauncher" \
+		"$doSetupares ares_flushEmulatorLauncher" \
+		"$doSetupmelonDS melonDS_flushEmulatorLauncher" \
+		"$doSetupMGBA mGBA_flushEmulatorLauncher" \
+		"$doSetupCemuNative CemuNative_flushEmulatorLauncher" \
+		"$doSetupFlycast Flycast_flushEmulatorLauncher" \
+		"$doSetupSupermodel Supermodel_flushEmulatorLauncher" \
+		"$doSetupModel2 Model2_flushEmulatorLauncher" \
+		"$doSetupCemu Cemu_flushEmulatorLauncher" \
+		"$doSetupBigPEmu BigPEmu_flushEmulatorLauncher" \
+		"$doSetupXenia Xenia_flushEmulatorLauncher"; do
+
+		condition=$(echo "$setup_command" | awk '{print $1}')
+		command=$(echo "$setup_command" | awk '{print $2}')
+
+		if [ "$condition" == "true" ]; then
+			echo "Executing $command"
+			$command &
+			current_jobs=$((current_jobs + 1))
+		fi
+
+		if [ $current_jobs -ge $max_jobs ]; then
+			wait
+			current_jobs=0
+		fi
+	done
+
+	wait # Wait for any remaining jobs to finish
 
 }
