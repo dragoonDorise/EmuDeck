@@ -65,7 +65,7 @@
     <emulator name="CITRON">
         <!-- Nintendo Switch emulator Citron -->
         <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/citron.sh</entry>
+            <entry>~/Applications/citron*.AppImage</entry>
         </rule>
     </emulator>
 
