@@ -1,5 +1,4 @@
 #!/bin/bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
-emulatorInit "ppsspp"
-/usr/bin/flatpak run org.ppsspp.PPSSPP "${@}"
+emulatorInit "ppsspp" "ppsspp" "${@}"
 rm -rf "$savesPath/.gaming"

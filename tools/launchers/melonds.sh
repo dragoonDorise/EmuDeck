@@ -1,5 +1,4 @@
 #!/bin/bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
-emulatorInit "melonds"
-/usr/bin/flatpak run net.kuribo64.melonDS "${@}"
+emulatorInit "melonds" "melonDS" "${@}"
 rm -rf "$savesPath/.gaming"

@@ -1,5 +1,4 @@
 #!/bin/bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
-emulatorInit "scummvm"
-/usr/bin/flatpak run org.scummvm.ScummVM "${@}"
+emulatorInit "scummvm" "scummvm" "${@}"
 rm -rf "$savesPath/.gaming"

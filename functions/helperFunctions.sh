@@ -1118,23 +1118,33 @@ function emulatorInit(){
 			exe=("$exe_path")
 		fi
 
-		#run the executable with the params.
-		launch_args=()
-		for rom in "${params}"; do
-			# Parsers previously had single quotes ("'/path/to/rom'" ), this allows those shortcuts to continue working.
-			removedLegacySingleQuotes=$(echo "$rom" | sed "s/^'//; s/'$//")
-			launch_args+=("$removedLegacySingleQuotes")
-		done
+		fileExtension="${@##*.}"
 
-		echo "Launching: ${exe[*]} ${launch_args[*]}"
-
-		if [[ -z "${*}" ]]; then
-			echo "ROM not found. Launching $emuName directly"
-			"${exe[@]}"
+		if [[ $fileExtension == "psvita" ]]; then
+			vita3kFile=$(<"${*}")
+			echo "GAME ID: $vita3kFile"
+			"${exe[@]}" -Fr "$vita3kFile"
 		else
-			echo "ROM found, launching game"
-			"${exe[@]}" "${launch_args[@]}"
+			#run the executable with the params.
+			launch_args=()
+			for rom in "${params}"; do
+				# Parsers previously had single quotes ("'/path/to/rom'" ), this allows those shortcuts to continue working.
+				removedLegacySingleQuotes=$(echo "$rom" | sed "s/^'//; s/'$//")
+				launch_args+=("$removedLegacySingleQuotes")
+			done
+
+			echo "Launching: ${exe[*]} ${launch_args[*]}"
+
+			if [[ -z "${*}" ]]; then
+				echo "ROM not found. Launching $emuName directly"
+				"${exe[@]}"
+			else
+				echo "ROM found, launching game"
+				"${exe[@]}" "${launch_args[@]}"
+			fi
+
 		fi
+
 	fi
 
 
