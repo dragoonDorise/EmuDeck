@@ -1,0 +1,87 @@
+    {
+    "parserType": "Glob",
+    "configTitle": "Arcade - MAME (Standalone)",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/arcade",
+    "executableArgs": " \"${fileName}\"",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "imageProviders": [
+        "sgdb",
+        "steamCDN"
+    ],
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "disabled": false,
+    "userAccounts": {
+        "specifiedAccounts": [
+            "Global"
+        ]
+    },
+    "executable": {
+        "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mame.sh",
+        "shortcutPassthrough": false,
+        "appendArgsToExecutable": true
+    },
+    "parserInputs": {
+        "glob": "${title}@(.zip|.ZIP)"
+    },
+    "titleFromVariable": {
+        "limitToGroups": "${MAME}",
+        "caseInsensitiveVariables": false,
+        "skipFileIfVariableWasNotFound": false
+    },
+    "fuzzyMatch": {
+        "replaceDiacritics": true,
+        "removeCharacters": true,
+        "removeBrackets": true
+    },
+    "imageProviderAPIs": {
+        "sgdb": {
+            "nsfw": false,
+            "humor": false,
+            "styles": [],
+            "stylesHero": [],
+            "stylesLogo": [],
+            "stylesIcon": [],
+            "imageMotionTypes": [
+                "static"
+            ]
+        }
+    },
+    "parserId": "165964954316677671",
+    "version": 22,
+    "controllers": {
+        "ps4": null,
+        "ps5": null,
+        "ps5_edge": null,
+        "xbox360": null,
+        "xboxone": null,
+        "xboxelite": null,
+        "switch_joycon_left": null,
+        "switch_joycon_right": null,
+        "switch_pro": null,
+        "neptune": null,
+        "steamcontroller_gordon": null
+    },
+    "defaultImage": {
+        "long": "",
+        "tall": "",
+        "hero": "",
+        "logo": "",
+        "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+    },
+    "localImages": {
+        "long": "",
+        "tall": "",
+        "hero": "",
+        "logo": "",
+        "icon": ""
+    },
+    "steamInputEnabled": "1",
+    "drmProtect": false,
+    "steamCategories": [
+        "Arcade"
+    ]
+}

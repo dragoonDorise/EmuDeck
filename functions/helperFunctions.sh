@@ -1297,3 +1297,19 @@ function flushAllLaunchers(){
 	wait # Wait for any remaining jobs to finish
 
 }
+
+
+addParser(){
+	local source="$emudeckBackend/configs/steam-rom-manager/userData/parsers/optional"
+	local custom_parser=$1
+	local path="$source/$custom_parser"
+	local PARSER_ID=$(jq -r '.parserId' "$path")
+
+	EXISTS=$(jq --arg pid "$PARSER_ID" '[.[] | select(.parserId == $pid)] | length' "$SRM_userConfigurations")
+
+	if [[ "$EXISTS" -eq 0 ]]; then
+		jq --slurpfile newConfig "$path" '. + $newConfig' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+		SRM_setEmulationFolder
+	fi
+
+}

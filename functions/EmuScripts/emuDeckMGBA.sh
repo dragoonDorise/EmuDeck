@@ -37,6 +37,7 @@ mGBA_init(){
 	#SRM_createParsers
 	mGBA_addSteamInputProfile
 	mGBA_flushEmulatorLauncher
+	mGBA_addParser
 }
 
 #update
@@ -160,3 +161,10 @@ mGBA_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "mgba"
 
 }
+
+mGBA_addParser(){
+	addParser "nintendo_gb_mgba.json"
+	addParser "nintendo_gba_mgba.json"
+	addParser "nintendo_gbc_mgba.json"
+}
+

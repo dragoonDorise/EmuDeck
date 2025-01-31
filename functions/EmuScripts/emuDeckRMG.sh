@@ -35,6 +35,7 @@ RMG_init() {
 	#SRM_createParsers
 	#RMG_addSteamInputProfile
 	RMG_flushEmulatorLauncher
+	RMG_addParser
 
 }
 
@@ -211,8 +212,9 @@ RMG_setBAYXstyle(){
 }
 
 RMG_flushEmulatorLauncher(){
-
-
 	flushEmulatorLaunchers "rosaliesmupengui"
+}
 
+RMG_addParser(){
+	addParser "nintendo_64_rmg.json"
 }

@@ -1,0 +1,91 @@
+{
+    "parserType": "Glob",
+    "configTitle": "Philips CD-i - MAME (Standalone)",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/cdimono1",
+    "executableArgs": "cdimono1 -cdrom \"${filePath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "steamInputEnabled": "1",
+    "imageProviders": [
+        "sgdb",
+        "steamCDN"
+    ],
+    "drmProtect": false,
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "userAccounts": {
+        "specifiedAccounts": [
+            "Global"
+        ]
+    },
+    "executable": {
+        "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/mame.sh",
+        "shortcutPassthrough": false,
+        "appendArgsToExecutable": true
+    },
+    "parserInputs": {
+        "glob": "${title}@(.chd|.CHD)"
+    },
+    "titleFromVariable": {
+        "limitToGroups": "${MAME}",
+        "caseInsensitiveVariables": false,
+        "skipFileIfVariableWasNotFound": false
+    },
+    "fuzzyMatch": {
+        "replaceDiacritics": true,
+        "removeCharacters": true,
+        "removeBrackets": true
+    },
+    "controllers": {
+        "ps4": null,
+        "ps5": null,
+        "ps5_edge": null,
+        "xbox360": null,
+        "xboxone": null,
+        "xboxelite": null,
+        "switch_joycon_left": null,
+        "switch_joycon_right": null,
+        "switch_pro": null,
+        "neptune": {
+            "title": "Gamepad with Mouse Trackpad",
+            "mappingId": "controller_neptune_gamepad+mouse.vdf",
+            "profileType": "template"
+        },
+        "steamcontroller_gordon": null
+    },
+    "imageProviderAPIs": {
+        "sgdb": {
+            "nsfw": false,
+            "humor": false,
+            "styles": [],
+            "stylesHero": [],
+            "stylesLogo": [],
+            "stylesIcon": [],
+            "imageMotionTypes": [
+                "static"
+            ]
+        }
+    },
+    "defaultImage": {
+        "tall": "",
+        "long": "",
+        "hero": "",
+        "logo": "",
+        "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+    },
+    "localImages": {
+        "tall": "",
+        "long": "",
+        "hero": "",
+        "logo": "",
+        "icon": ""
+    },
+    "parserId": "168541242505111076",
+    "version": 22,
+    "disabled": false,
+    "steamCategories": [
+        "Philips CD-i - MAME"
+    ]
+},

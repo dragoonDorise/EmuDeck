@@ -309,3 +309,8 @@ Citron_addESConfig(){
 	rsync -avhp --mkpath "$emudeckBackend/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
     sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
 }
+
+
+Citron_addParser(){
+  addParser "nintendo_switch_citron.json"
+}

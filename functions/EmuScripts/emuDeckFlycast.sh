@@ -29,6 +29,7 @@ Flycast_init(){
 	#Flycast_addSteamInputProfile
 	Flycast_flushEmulatorLauncher
 	Flycast_addSteamInputProfile
+	Flycast_addParser
 }
 
 #update
@@ -159,4 +160,12 @@ Flycast_flushEmulatorLauncher(){
 Flycast_addSteamInputProfile(){
 	setMSG "Adding $Flycast_emuName Steam Input Profile."
 	rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/emudeck_steam_deck_light_gun_controls.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf"
+}
+
+
+Flycast_addParser(){
+	addParser "sega_dreamcast_flycast.json"
+	addParser "atomiswave_flycast.json"
+	addParser "naomi_flycast.json"
+	addParser "naomi2_flycast.json"
 }

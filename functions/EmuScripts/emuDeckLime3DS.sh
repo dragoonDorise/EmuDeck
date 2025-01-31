@@ -42,6 +42,7 @@ Lime3DS_init(){
 	Lime3DS_addSteamInputProfile
 	Lime3DS_flushEmulatorLauncher
 	Lime3DS_setupTextures
+	Lime3DS_addParser
 }
 
 #update
@@ -289,3 +290,6 @@ Lime3DS_flushEmulatorLauncher(){
 }
 
 
+Lime3DS_addParser(){
+	addParser "nintendo_3ds_lime3ds.json"
+}

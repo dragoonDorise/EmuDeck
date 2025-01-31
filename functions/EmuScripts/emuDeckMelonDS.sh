@@ -32,6 +32,7 @@ melonDS_init(){
 	#SRM_createParsers
 	melonDS_addSteamInputProfile
 	melonDS_flushEmulatorLauncher
+	melonDS_addParser
 }
 
 #update
@@ -211,8 +212,9 @@ melonDS_setBAYXstyle(){
 }
 
 melonDS_flushEmulatorLauncher(){
-
-
 	flushEmulatorLaunchers "melonds"
+}
 
+melonDS_addParser(){
+	addParser "nintendo_nds_melonds.json"
 }

@@ -5,6 +5,7 @@ SRM_toolType="$emuDeckEmuTypeAppImage"
 SRM_toolPath="${toolsPath}/Steam-ROM-Manager.AppImage"
 SRM_userData_directory="configs/steam-rom-manager/userData"
 SRM_userData_configDir="$HOME/.config/steam-rom-manager/userData"
+SRM_userConfigurations="$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 #cleanupOlderThings
 
 SRM_install(){

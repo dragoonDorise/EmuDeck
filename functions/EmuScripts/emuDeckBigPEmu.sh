@@ -56,7 +56,7 @@ BigPEmu_init(){
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
 	BigPEmu_flushEmulatorLauncher
-	#SRM_createParsers
+	BigPemu_addParser
 	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		BigPEmu_addESConfig
 	else
@@ -211,8 +211,9 @@ BigPEmu_addSteamInputProfile(){
 }
 
 BigPEmu_flushEmulatorLauncher(){
-
-
 	flushEmulatorLaunchers "bigpemu"
+}
 
+BigPemu_addParser(){
+	addParser "atari_jaguar_bigpemu.json"
 }
