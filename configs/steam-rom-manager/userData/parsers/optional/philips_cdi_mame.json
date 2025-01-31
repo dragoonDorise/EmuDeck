@@ -13,7 +13,7 @@
         "steamCDN"
     ],
     "drmProtect": false,
-    "onlineImageQueries": "${${fuzzyTitle}}",
+    "onlineImageQueries": "${fuzzyTitle}",
     "imagePool": "${fuzzyTitle}",
     "userAccounts": {
         "specifiedAccounts": [

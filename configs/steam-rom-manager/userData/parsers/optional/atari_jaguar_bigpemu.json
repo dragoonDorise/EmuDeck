@@ -7,7 +7,7 @@
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}virtualjaguar_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
-    "onlineImageQueries": "${${fuzzyTitle}}",
+    "onlineImageQueries": "${fuzzyTitle}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": [
         "sgdb",
