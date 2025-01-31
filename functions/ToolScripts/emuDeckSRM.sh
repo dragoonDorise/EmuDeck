@@ -62,6 +62,7 @@ SRM_init(){
   mkdir -p "$HOME/.config/steam-rom-manager/userData/"
   rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
   rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  SRM_addExtraParsers
   SRM_setEmulationFolder
   SRM_setEnv
   SRM_addControllerTemplate
@@ -224,3 +225,38 @@ SRM_deleteCache(){
     fi
 
 }
+
+SRM_addExtraParsers(){
+
+  max_jobs=5
+  current_jobs=0
+
+  for install_command in \
+    "BigPEmu_IsInstalled BigPEmu_addParser" \
+    "Flycast_IsInstalled Flycast_addParser" \
+    "Lime3DS_IsInstalled Lime3DS_addParser" \
+    "MAME_IsInstalled MAME_addParser" \
+    "mGBA_IsInstalled mGBA_addParser" \
+    "melonDS_IsInstalled melonDS_addParser" \
+    "RMG_IsInstalled RMG_addParser" \
+    "Citron_IsInstalled Citron_addParser" \
+    "Yuzu_IsInstalled Yuzu_addParser"; do
+
+    condition=$(echo "$install_command" | awk '{print $1}')
+    command=$(echo "$install_command" | awk '{print $2}')
+
+    if [ "$condition" == "true" ]; then
+      echo "Executing $command"
+      $command &
+      current_jobs=$((current_jobs + 1))
+    fi
+
+    if [ $current_jobs -ge $max_jobs ]; then
+      wait
+      current_jobs=0
+    fi
+  done
+
+
+}
+
