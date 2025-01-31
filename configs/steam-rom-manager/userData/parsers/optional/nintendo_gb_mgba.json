@@ -1,4 +1,4 @@
-    {
+{
     "parserType": "Glob",
     "configTitle": "Nintendo Game Boy - mGBA (Standalone)",
     "steamDirectory": "${steamdirglobal}",

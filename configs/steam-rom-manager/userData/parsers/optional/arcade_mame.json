@@ -1,4 +1,4 @@
-    {
+{
     "parserType": "Glob",
     "configTitle": "Arcade - MAME (Standalone)",
     "steamDirectory": "${steamdirglobal}",

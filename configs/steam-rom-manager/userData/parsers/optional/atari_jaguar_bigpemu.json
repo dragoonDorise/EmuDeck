@@ -1,4 +1,4 @@
-    {
+{
     "parserType": "Glob",
     "configTitle": "Atari Jaguar - RetroArch Virtual Jaguar",
     "executableModifier": "\"${exePath}\"",

@@ -1,4 +1,4 @@
-    {
+{
     "parserType": "Glob",
     "configTitle": "Nintendo Game Boy Color - mGBA (Standalone)",
     "steamDirectory": "${steamdirglobal}",
