@@ -232,7 +232,7 @@ SRM_addExtraParsers(){
   current_jobs=0
 
   for install_command in \
-    "BigPEmu_IsInstalled BigPEmu_addParser" \
+    "BigPemu_IsInstalled BigPEmu_addParser" \
     "Flycast_IsInstalled Flycast_addParser" \
     "Lime3DS_IsInstalled Lime3DS_addParser" \
     "MAME_IsInstalled MAME_addParser" \
@@ -242,8 +242,8 @@ SRM_addExtraParsers(){
     "Citron_IsInstalled Citron_addParser" \
     "Yuzu_IsInstalled Yuzu_addParser"; do
 
-    condition=$($install_command | awk '{print $1}')
-    command=$($install_command | awk '{print $2}')
+    condition=$(echo $install_command | awk '{print $1}')
+    command=$(echo $install_command | awk '{print $2}')
 
     if [ "$condition" == "true" ]; then
       echo "Executing $command"

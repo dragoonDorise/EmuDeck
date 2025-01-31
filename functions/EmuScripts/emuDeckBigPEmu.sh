@@ -214,6 +214,6 @@ BigPEmu_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "bigpemu"
 }
 
-BigPemu_addParser(){
+BigPEmu_addParser(){
 	addParser "atari_jaguar_bigpemu.json"
 }
