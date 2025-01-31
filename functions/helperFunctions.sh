@@ -1303,13 +1303,26 @@ addParser(){
 	local source="$emudeckBackend/configs/steam-rom-manager/userData/parsers/optional"
 	local custom_parser=$1
 	local path="$source/$custom_parser"
+
+	if [[ ! -f "$path" ]]; then
+		return 1
+	fi
+
 	local PARSER_ID=$(jq -r '.parserId' "$path")
+
+	echo "Parser ID: $PARSER_ID"
+
+	if [[ ! -f "$SRM_userConfigurations" ]]; then
+		echo "[] " > "$SRM_userConfigurations"  # Inicializar JSON si no existe
+	fi
 
 	EXISTS=$(jq --arg pid "$PARSER_ID" '[.[] | select(.parserId == $pid)] | length' "$SRM_userConfigurations")
 
 	if [[ "$EXISTS" -eq 0 ]]; then
-		jq --slurpfile newConfig "$path" '. + $newConfig' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+		echo "adding parser"
+		cat "$SRM_userConfigurations" | jq --argjson newConfig "$(cat "$path")" '. + [$newConfig]' > temp.json && mv temp.json "$SRM_userConfigurations"
 		SRM_setEmulationFolder
+		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
 	fi
 
 }

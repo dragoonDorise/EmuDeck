@@ -227,10 +227,6 @@ SRM_deleteCache(){
 }
 
 SRM_addExtraParsers(){
-
-  max_jobs=5
-  current_jobs=0
-
   for install_command in \
   "BigPEmu_IsInstalled BigPEmu_addParser" \
   "Flycast_IsInstalled Flycast_addParser" \
@@ -247,15 +243,7 @@ SRM_addExtraParsers(){
 
   if [ "$condition" == "true" ]; then
     echo "Executing $command"
-    $command &
-    current_jobs=$((current_jobs + 1))
-  else
-    echo "nope"
-  fi
-
-  if [ $current_jobs -ge $max_jobs ]; then
-    wait
-    current_jobs=0
+    $command
   fi
   done
 
