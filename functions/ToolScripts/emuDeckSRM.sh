@@ -242,8 +242,8 @@ SRM_addExtraParsers(){
     "Citron_IsInstalled Citron_addParser" \
     "Yuzu_IsInstalled Yuzu_addParser"; do
 
-    condition=$(echo "$install_command" | awk '{print $1}')
-    command=$(echo "$install_command" | awk '{print $2}')
+    condition=$($install_command | awk '{print $1}')
+    command=$($install_command | awk '{print $2}')
 
     if [ "$condition" == "true" ]; then
       echo "Executing $command"
