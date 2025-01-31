@@ -59,6 +59,7 @@ SRM_migration(){
 SRM_init(){
 
   setMSG "Configuring Steam Rom Manager"
+  mkdir -p "$emudeckFolder/customParsers"
   mkdir -p "$HOME/.config/steam-rom-manager/userData/"
   rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
   rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
@@ -227,6 +228,7 @@ SRM_deleteCache(){
 }
 
 SRM_addExtraParsers(){
+  rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
   for install_command in \
   "BigPEmu_IsInstalled BigPEmu_addParser" \
   "Flycast_IsInstalled Flycast_addParser" \
@@ -246,6 +248,27 @@ SRM_addExtraParsers(){
     $command
   fi
   done
+  SRM_addCustomParsers
+}
 
+SRM_addCustomParsers(){
+  local folder="$emudeckFolder/customParsers"
 
+  # Verificar que la carpeta existe
+  if [[ ! -d "$folder" ]]; then
+      echo "Error: La carpeta $folder no existe."
+      return 1
+  fi
+
+  # Recorrer cada archivo .json en la carpeta
+  for json_file in "$folder"/*.json; do
+      # Verificar que haya archivos JSON en la carpeta
+      if [[ ! -f "$json_file" ]]; then
+          echo "No se encontraron archivos JSON en $folder."
+          return 1
+      fi
+
+      echo "Procesando: $json_file"
+      addParser "$(basename "$json_file")"
+  done
 }
