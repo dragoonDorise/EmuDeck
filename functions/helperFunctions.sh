@@ -1042,11 +1042,30 @@ addProtonLaunch(){
 function emulatorInit(){
 	local emuName=$1
 	local emuCode=$2
-	local params=$3
+	local emuFolder=$3
+	shift 3
+	# extract list of executables, usually 1 but can be more (see yuzu)
+	# this list must be terminated by "--" argument because we need to separate it from command line arguments
+	local emuExecutables=()
+	if [[ -z "$1" ]]; then
+		shift
+	fi
+	while [[ -n "$1" && "$1" != "--" ]]; do
+		emuExecutables+=("$1")
+		shift
+	done
+	if [[ "$1" == "--" ]]; then
+		shift
+	fi
+	#if [[ ${#emuExecutables[@]} -eq 0 ]]; then
+	#	emuExecutables=("$emuCode")
+	#fi
+	local params=("$@")
+
 	#isLatestVersionGH "$emuName"
 	#NetPlay
 	cloud_sync_stopService
-	if [ "$emuName" = 'retroarch' ]; then
+	if [ "$emuName" == "retroarch" ]; then
    		if [ "$netPlay" == "true" ]; then
 			#Looks for devices listening
 			setSetting netplayCMD "-H"
@@ -1059,7 +1078,7 @@ function emulatorInit(){
 		source $emudeckBackend/functions/all.sh
 	fi
 
-	if [ "$emuName" != 'retroarch' ]; then
+	if [ "$emuName" != "retroarch" ]; then
 		cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
 	fi
 
@@ -1092,25 +1111,35 @@ function emulatorInit(){
 
 		fi
 
-
-
 	fi
 
 	#We launch the emulator
-	if [[-z "$emuCode"]]; then
+	if [[ ! -z "$emuCode" ]]; then
 
 		#We launch the emulator
 		exe=()
 
 		#find full path to emu executable
-		exe_path=$(find "$emusfolder" -iname "${emuCode}" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
+		#exe_path=$(find "$emusFolder" -iname "$emuCode" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
+		# search list of emuExecutables in searchPath, one by one
+		local searchPath="${emuFolder:-$emusFolder}"
+		local exe_path=""
+		for emuExecutable in "${emuExecutables[@]}"; do
+			echo "Searching for '$emuExecutable' in '$searchPath'"
+			found_exe=$(find "$searchPath" -iname "$emuExecutable" | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
+				echo "Found '$found_exe'"
+			if [[ -n "$found_exe" ]]; then
+				exe_path="$found_exe"
+				break
+			fi
+		done
 
 		#if appimage doesn't exist fall back to flatpak.
 		if [[ -z "$exe_path" ]]; then
 			#flatpak
 			flatpakApp=$(flatpak list --app --columns=application | grep "$emuCode")
 			#fill execute array
-			exe=("flatpak" "run" "$flatpakApp" "$netplayCMD")
+			exe=("flatpak" "run" "$flatpakApp")
 		else
 			#make sure that file is executable
 			chmod +x "$exe_path"
@@ -1118,20 +1147,68 @@ function emulatorInit(){
 			exe=("$exe_path")
 		fi
 
-		fileExtension="${@##*.}"
+		# moved to launcher, it can be handled from there
+		#if [[ "$emuName" == "Vita3k" ]]; then
+		#	export LC_ALL="C"
+		#fi
 
-		if [[ $fileExtension == "psvita" ]]; then
+		# we need to handle psvita viles for Vita3k and desktop files for RPCS3 and ShadPS4
+		fileExtension="${@##*.}"
+		if [[ $fileExtension == "psvita" && $emuName == "Vita3k" ]]; then
 			vita3kFile=$(<"${*}")
 			echo "GAME ID: $vita3kFile"
+			echo "Launching: ${exe[*]} -Fr $vita3kFile"
 			"${exe[@]}" -Fr "$vita3kFile"
+		elif [[ $fileExtension == "desktop" && ( $emuName == "rpcs3" || $emuName == "shadps4" ) ]]; then
+			# trying to figure this out... :)
+			# In desktop file the Exec line is like this:
+			# Exec="/home/deck/Applications/rpcs3.AppImage" --no-gui "%%RPCS3_GAMEID%%:BLES01732"
+			# Exec=/tmp/.mount_ShadpsT3Dso0/usr/bin/shadps4 "/run/media/mmcblk0p1/Emulation/storage/shadps4/games/CUSA01369/eboot.bin"
+			# shadPS4 should probably fix the executable here?
+			# they both seem to have incorrect executabe for flatpak versions (/app/run/rpcs3|shadps4)
+
+			# take desktop file and extract Exec= line
+			desktopFileExec=$(grep -E "^Exec=" "${*}" | sed 's/^Exec=//' | sed 's/%%/%/g')
+			echo $desktopFileExec
+
+			# this removes everything in Exec= line before first " or ' (quotes), keeps everything after that (including the quotes)
+			# we also need to skip the executable if it is quoted, Exec= starts with "
+			# given examples above, results should be: 
+			# "/run/media/mmcblk0p1/Emulation/storage/shadps4/games/CUSA01369/eboot.bin"
+			# "%%RPCS3_GAMEID%%:BLES01732"
+			#launchParam=$(echo "Exec=$desktopFileExec" | sed "s|^\(Exec=\)[^\"\']*\([\"\']\)|\2|")
+			launchParam=$(echo "Exec=$desktopFileExec" | awk -F'"' '{for (i=NF; i>0; i--) if ($i ~ /./) {print "\"" $i "\""; exit}}')
+
+			launch_args=()
+			if [[ $emuName == "rpcs3" ]]; then
+				launch_args+=("--no-gui")
+			elif [[ $emuName == "shadps4 " ]]; then
+				launch_args+=("-g")
+			fi
+			# construct launch args and run
+			launch_args+=("$launchParam")
+			echo "Launching: ${exe[*]} ${launch_args[*]}"
+			"${exe[@]}" "${launch_args[@]}"
 		else
 			#run the executable with the params.
 			launch_args=()
-			for rom in "${params}"; do
+			for rom in "${params[@]}"; do
 				# Parsers previously had single quotes ("'/path/to/rom'" ), this allows those shortcuts to continue working.
 				removedLegacySingleQuotes=$(echo "$rom" | sed "s/^'//; s/'$//")
 				launch_args+=("$removedLegacySingleQuotes")
 			done
+
+			# check if we need netplayCMD argument, if it is blank it messes up the run command
+			if [[ -n "${netplayCMD-}" && ! "$netplayCMD" =~ ^[[:space:]]*$ ]]; then
+				echo "Adding '${netplayCMD}' to launch arguments"
+				launch_args=("$netplayCMD" "${launch_args[@]}")
+			fi
+
+			# for yuzu and co, this was in the original launcher
+			if [[ "$emuName" == "yuzu" || "$emuName" == "suyu" || "$emuName" == "citron" || "$emuName" == "torzu" ]]; then
+				echo "Appending 'prlimit --nofile=8192' before executable"
+				exe=("prlimit" "--nofile=8192" "${exe[@]}")
+			fi
 
 			echo "Launching: ${exe[*]} ${launch_args[*]}"
 
@@ -1146,7 +1223,6 @@ function emulatorInit(){
 		fi
 
 	fi
-
 
 }
 

@@ -1,6 +1,4 @@
 #!/bin/sh
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
-param="${@}"
-param=$(echo "$param" | sed "s|'||g")
-emulatorInit "supermodel" "supermodel3" "${param}"
+emulatorInit "supermodel" "com.supermodel3.Supermodel" "" "" "--" "${@}"
 rm -rf "$savesPath/.gaming"

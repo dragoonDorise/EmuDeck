@@ -1,6 +1,7 @@
 #!/bin/bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "model2"
+
 # $ULWGL_toolPath is assigned in emuDeckModel2.sh
 GAMELAUNCHER=$ULWGL_toolPath/ulwgl-run
 
@@ -10,7 +11,7 @@ Model2Launcher="${toolsPath}/launchers/model-2-emulator.sh"
 
 Model2ConfigFile="$romsPath/model2/EMULATOR.INI"
 
-#In case the user deletes it, will allow loading bar to pop up again.
+# In case the user deletes it, will allow loading bar to pop up again.
 mkdir -p "$romsPath/model2/pfx"
 
 while [ ! -d "$romsPath/model2/pfx/drive_c" ]; do

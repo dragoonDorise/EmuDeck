@@ -1,4 +1,4 @@
 #!/bin/bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
-emulatorInit "melonds" "melonDS" "${@}"
+emulatorInit "melonds" "net.kuribo64.melonDS" "" "" "--" "${@}"
 rm -rf "$savesPath/.gaming"
