@@ -25,7 +25,6 @@
 	},
 	"enabledProviders": [
 		"sgdb",
-		"steamCDN"
 	],
 	"language": "en-US",
 	"offlineMode": false,
