@@ -1054,7 +1054,7 @@ function emulatorInit(){
 			sleep 2
 			netplaySetIP
 		else
-			setSetting netplayCMD "' '"
+			setSetting netplayCMD "''"
 			cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
 		fi
 		source $emudeckBackend/functions/all.sh
