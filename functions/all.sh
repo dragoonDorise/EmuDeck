@@ -9,7 +9,7 @@ if [ $(uname) != "Linux" ]; then
     fi
 fi
 
-if [[ "$emudeckBackend" == "" ]]; then
+if [[ -z "$emudeckBackend" ]]; then
     emudeckBackend="$HOME/.config/EmuDeck/backend/"
 fi
 
