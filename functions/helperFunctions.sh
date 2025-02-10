@@ -1043,12 +1043,12 @@ function emulatorInit(){
 	local emuName=$1
 	local emuCode=$2
 	local params=$3
-	netplayCMD=''
 	#isLatestVersionGH "$emuName"
 	#NetPlay
 	cloud_sync_stopService
+	netplayCMD=''
 	if [ "$emuName" = 'retroarch' ]; then
-   		if [ "$netPlay" == "true" ]; then
+		   if [ "$netPlay" == "true" ]; then
 			#Looks for devices listening
 			setSetting netplayCMD "-H"
 			sleep 2
@@ -1098,20 +1098,29 @@ function emulatorInit(){
 	fi
 
 	#We launch the emulator
-	if [[ ! -z "$emuCode" ]]; then
 
+
+
+	if [[ ! -z "$emuCode" ]]; then
 		#We launch the emulator
 		exe=()
 
+
 		#find full path to emu executable
 		exe_path=$(find "$emusFolder" -iname "*$emuCode*" -print0 2>/dev/null | sort -z | tail -zn 1 | tr -d '\0')
+
 
 		#if appimage doesn't exist fall back to flatpak.
 		if [[ -z "$exe_path" ]]; then
 			#flatpak
 			flatpakApp=$(flatpak list --app --columns=application | grep "$emuCode")
 			#fill execute array
-			exe=("flatpak" "run" "$flatpakApp" "$netplayCMD")
+			if [[ -z "$netplayCMD" ]]; then
+				exe=("flatpak" "run" "$flatpakApp")
+			else
+				exe=("flatpak" "run" "$flatpakApp" "$netplayCMD")
+			fi
+
 		else
 			#make sure that file is executable
 			chmod +x "$exe_path"
@@ -1136,7 +1145,7 @@ function emulatorInit(){
 
 			echo "Launching: ${exe[*]} ${launch_args[*]}"
 
-			if [[ -z "${*}" ]]; then
+			if [[ -z "${launch_args[*]}" ]]; then
 				echo "ROM not found. Launching $emuName directly"
 				"${exe[@]}"
 			else
