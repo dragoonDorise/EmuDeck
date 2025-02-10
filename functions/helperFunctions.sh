@@ -1043,6 +1043,7 @@ function emulatorInit(){
 	local emuName=$1
 	local emuCode=$2
 	local params=$3
+	netplayCMD=''
 	#isLatestVersionGH "$emuName"
 	#NetPlay
 	cloud_sync_stopService
