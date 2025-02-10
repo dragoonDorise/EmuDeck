@@ -98,6 +98,9 @@ mGBA_wipe(){
 #Uninstall
 mGBA_uninstall(){
 	setMSG "Uninstalling $mGBA_emuName."
+	removeParser "nintendo_gb_mgba.json"
+	removeParser "nintendo_gba_mgba.json"
+	removeParser "nintendo_gbc_mgba.json"
 	uninstallEmuAI "$mGBA_emuName" "" "" "emulator"
 }
 

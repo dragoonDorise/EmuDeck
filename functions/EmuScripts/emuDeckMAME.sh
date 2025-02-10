@@ -135,6 +135,9 @@ MAME_wipe(){
 
 #Uninstall
 MAME_uninstall(){
+	removeParser "arcade_mame.json"
+	removeParser "philips_cdi_mame.json"
+	removeParser "snk_neogeocd_mame.json"
     uninstallEmuFP "${MAME_emuName}" "${MAME_emuPath}" "emulator" ""
 }
 

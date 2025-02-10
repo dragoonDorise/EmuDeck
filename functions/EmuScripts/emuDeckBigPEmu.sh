@@ -167,6 +167,7 @@ BigPEmu_wipeSettings(){
 
 #Uninstall
 BigPEmu_uninstall(){
+	removeParser "atari_jaguar_bigpemu.json"
     uninstallGeneric $BigPEmu_emuName $BigPEmu_emuPath "" "emulator"
 }
 

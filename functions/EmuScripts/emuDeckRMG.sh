@@ -140,6 +140,7 @@ RMG_wipe(){
 
 #Uninstall
 RMG_uninstall(){
+	removeParser "nintendo_64_rmg.json"
     uninstallEmuFP "${RMG_emuName}" "${RMG_emuPath}" "emulator" ""
 }
 

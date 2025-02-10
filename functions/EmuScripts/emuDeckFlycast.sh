@@ -80,6 +80,10 @@ Flycast_wipe(){
 #Uninstall
 Flycast_uninstall(){
 	setMSG "Uninstalling ${Flycast_emuName}."
+	removeParser "sega_dreamcast_flycast.json"
+	removeParser "atomiswave_flycast.json"
+	removeParser "naomi_flycast.json"
+	removeParser "naomi2_flycast.json"
 	uninstallEmuFP "${Flycast_emuName}" "${Flycast_emuPath}" "emulator" ""
 }
 

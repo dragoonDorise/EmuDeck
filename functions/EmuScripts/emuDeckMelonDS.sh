@@ -113,6 +113,7 @@ melonDS_wipe(){
 #Uninstall
 melonDS_uninstall(){
 	setMSG "Uninstalling $melonDS_emuName."
+	removeParser "nintendo_nds_melonds.json"
 	uninstallEmuFP "${melonDS_emuName}" "${melonDS_emuPath}" "emulator" ""
 }
 

@@ -218,6 +218,7 @@ Yuzu_wipe() {
 #Uninstall
 Yuzu_uninstall() {
     echo "Begin Yuzu uninstall"
+    removeParser "nintendo_switch_yuzu.json"
     rm -rf "$Yuzu_emuPath"
     YuzuEA_uninstall
 }

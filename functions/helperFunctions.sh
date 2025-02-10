@@ -1336,3 +1336,34 @@ addParser(){
 	fi
 
 }
+
+removeParser() {
+	local source="$emudeckBackend/configs/steam-rom-manager/userData/parsers/optional"
+	local custom_parser=$1
+	local path="$source/$custom_parser"
+
+	if [[ ! -f "$path" ]]; then
+		echo "El parser $custom_parser no existe en $source"
+		return 1
+	fi
+
+	local PARSER_ID=$(jq -r '.parserId' "$path")
+
+	echo "Parser ID a eliminar: $PARSER_ID"
+
+	if [[ ! -f "$SRM_userConfigurations" ]]; then
+		echo "El archivo de configuración no existe."
+		return 1
+	fi
+
+	EXISTS=$(jq --arg pid "$PARSER_ID" '[.[] | select(.parserId == $pid)] | length' "$SRM_userConfigurations")
+
+	if [[ "$EXISTS" -gt 0 ]]; then
+		echo "Eliminando parser..."
+		jq --arg pid "$PARSER_ID" '[.[] | select(.parserId != $pid)]' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+		SRM_setEmulationFolder
+		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+	else
+		echo "El parser $PARSER_ID no se encontró en la configuración."
+	fi
+}

@@ -208,8 +208,8 @@ Citron_wipe() {
 #Uninstall
 Citron_uninstall() {
     echo "Begin Citron uninstall"
+    removeParser "nintendo_switch_citron.json"
     rm -rf "$Citron_emuPath"
-    CitronEA_uninstall
 }
 
 #setABXYstyle
