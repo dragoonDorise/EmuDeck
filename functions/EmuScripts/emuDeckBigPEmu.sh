@@ -149,11 +149,6 @@ BigPEmu_setupSaves(){
 		unlink "${savesPath}/BigPEmu/saves"
 	fi
 	linkToSaveFolder BigPEmu saves "${BigPEmu_appData}"
-
-	if [ -e "${savesPath}/BigPEmu/states" ]; then
-		unlink "${savesPath}/BigPEmu/states"
-	fi
-	linkToSaveFolder BigPEmu states "${BigPEmu_appData}"
 }
 
 
