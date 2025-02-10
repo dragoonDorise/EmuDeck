@@ -1097,7 +1097,7 @@ function emulatorInit(){
 	fi
 
 	#We launch the emulator
-	if [[-z "$emuCode"]]; then
+	if [[ -z "$emuCode" ]]; then
 
 		#We launch the emulator
 		exe=()
