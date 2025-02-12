@@ -1106,9 +1106,13 @@ function emulatorInit(){
 		exe=()
 
 
-		#find full path to emu executable
-		exe_path=$(find "$emusFolder" -iname "*$emuCode*" -print0 2>/dev/null | sort -z | tail -zn 1 | tr -d '\0')
+		#find full path to emu executable - Binary
+		exe_path=$(find "$emusFolder" -iname "*$emuCode" -print0 2>/dev/null | sort -z | tail -zn 1 | tr -d '\0')
 
+		#AppImage
+		if [[ -z "$exe_path" ]]; then
+			exe_path=$(find "$emusFolder" -iname "*$emuCode*.AppImage" -print0 2>/dev/null | sort -z | tail -zn 1 | tr -d '\0')
+		fi
 
 		#if appimage doesn't exist fall back to flatpak.
 		if [[ -z "$exe_path" ]]; then
