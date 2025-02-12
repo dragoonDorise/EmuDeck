@@ -10,7 +10,7 @@ def getSettings():
     if os.name == 'nt':
         config_file_path = os.path.join(user_home, 'AppData', 'Roaming', 'EmuDeck', 'settings.ps1')
     else:
-        config_file_path = os.path.join(user_home, 'emudeck', 'settings.sh')
+        config_file_path = os.path.join(user_home, '.config' , 'EmuDeck', 'settings.sh')
 
     configuration = {}
 
@@ -37,7 +37,7 @@ def getSettings():
     return configuration
 
 def log_message(message):
-    with open(msg_file, "a") as log_file:  # "a" to append messages without overwriting
+    with open(msg_file, "w") as log_file:  # "a" to append messages without overwriting
         log_file.write(message + "\n")
 
 def clean_name(name):
