@@ -1151,10 +1151,10 @@ function emulatorInit(){
 
 			if [[ -z "${launch_args[*]}" ]]; then
 				echo "ROM not found. Launching $emuName directly"
-				"${exe[@]}"
+				eval "${exe[@]}"
 			else
 				echo "ROM found, launching game"
-				"${exe[@]}" "${launch_args[@]}"
+				eval "${exe[@]}" "${launch_args[@]}"
 			fi
 
 		fi
