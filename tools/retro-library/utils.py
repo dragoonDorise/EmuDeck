@@ -76,19 +76,6 @@ def collect_game_data(system_dir, extensions, images_path = None):
                     continue
 
                 platform = os.path.basename(system_dir)
-                print(system_dir)
-
-
-                # Special cases for WiiU and PS3
-                if os.name != 'nt':
-                    if "wiiu" in system_dir:
-                        parts = root.split(os.sep)
-                        name = parts[-2] if len(parts) >= 2 else name
-                        platform = "wiiu"
-                    if "xbox360" in system_dir:
-                        platform = "xbox360"
-                    if "ps4" in system_dir:
-                        platform = "ps4"
 
                 # Clean the game name
                 name_cleaned = clean_name(name)
@@ -151,7 +138,9 @@ def collect_game_data(system_dir, extensions, images_path = None):
                 if os.name != 'nt':
                     if "wiiu" in system_dir:
                         parts = root.split(os.sep)
-                        name = parts[-2] if len(parts) >= 2 else name
+                        name = name
+                        if ".rpx" in file_path:
+                            name = parts[-2] if len(parts) >= 2 else name
                         platform = "wiiu"
                     if "ps3" in system_dir:
                         parts = root.split(os.sep)
