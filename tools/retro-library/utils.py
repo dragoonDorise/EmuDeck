@@ -131,8 +131,6 @@ def collect_game_data(system_dir, extensions, images_path = None):
                     continue
 
                 platform = os.path.basename(system_dir)
-                print(system_dir)
-
 
                 # Special cases for WiiU and PS3
                 if os.name != 'nt':
