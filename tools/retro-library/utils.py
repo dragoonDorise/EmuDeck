@@ -85,10 +85,6 @@ def collect_game_data(system_dir, extensions, images_path = None):
                         parts = root.split(os.sep)
                         name = parts[-2] if len(parts) >= 2 else name
                         platform = "wiiu"
-                    if "ps3" in system_dir:
-                        parts = root.split(os.sep)
-                        name = parts[-3] if len(parts) >= 3 else name
-                        platform = "ps3"
                     if "xbox360" in system_dir:
                         platform = "xbox360"
                     if "ps4" in system_dir:
@@ -148,6 +144,8 @@ def collect_game_data(system_dir, extensions, images_path = None):
                     continue
 
                 platform = os.path.basename(system_dir)
+                print(system_dir)
+
 
                 # Special cases for WiiU and PS3
                 if os.name != 'nt':
