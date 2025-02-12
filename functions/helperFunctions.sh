@@ -1041,12 +1041,9 @@ addProtonLaunch(){
 
 function emulatorInit(){
 	local emuName=$1
-	local emuCode=$2
-	local params=$3
 	#isLatestVersionGH "$emuName"
 	#NetPlay
 	cloud_sync_stopService
-	netplayCMD=''
 	if [ "$emuName" = 'retroarch' ]; then
 		   if [ "$netPlay" == "true" ]; then
 			#Looks for devices listening
@@ -1054,7 +1051,7 @@ function emulatorInit(){
 			sleep 2
 			netplaySetIP
 		else
-			setSetting netplayCMD "''"
+			setSetting netplayCMD "' '"
 			cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
 		fi
 		source $emudeckBackend/functions/all.sh
@@ -1094,70 +1091,6 @@ function emulatorInit(){
 		fi
 
 
-
-	fi
-
-	#We launch the emulator
-
-
-
-	if [[ ! -z "$emuCode" ]]; then
-		#We launch the emulator
-		exe=()
-
-
-		#find full path to emu executable - Binary
-		exe_path=$(find "$emusFolder" -iname "*$emuCode" -print0 2>/dev/null | sort -z | tail -zn 1 | tr -d '\0')
-
-		#AppImage
-		if [[ -z "$exe_path" ]]; then
-			exe_path=$(find "$emusFolder" -iname "*$emuCode*.AppImage" -print0 2>/dev/null | sort -z | tail -zn 1 | tr -d '\0')
-		fi
-
-		#if appimage doesn't exist fall back to flatpak.
-		if [[ -z "$exe_path" ]]; then
-			#flatpak
-			flatpakApp=$(flatpak list --app --columns=application | grep "$emuCode")
-			#fill execute array
-			if [[ -z "$netplayCMD" ]]; then
-				exe=("flatpak" "run" "$flatpakApp")
-			else
-				exe=("flatpak" "run" "$flatpakApp" "$netplayCMD")
-			fi
-
-		else
-			#make sure that file is executable
-			chmod +x "$exe_path"
-			#fill execute array
-			exe=("$exe_path")
-		fi
-
-		fileExtension="${@##*.}"
-
-		if [[ $fileExtension == "psvita" ]]; then
-			vita3kFile=$(<"${*}")
-			echo "GAME ID: $vita3kFile"
-			"${exe[@]}" -Fr "$vita3kFile"
-		else
-			#run the executable with the params.
-			launch_args=()
-			for rom in ${params}; do
-				# Parsers previously had single quotes ("'/path/to/rom'" ), this allows those shortcuts to continue working.
-				removedLegacySingleQuotes=$(echo "$rom" | sed "s/^'//; s/'$//")
-				launch_args+=("$removedLegacySingleQuotes")
-			done
-
-			echo "Launching: ${exe[*]} ${launch_args[*]}"
-
-			if [[ -z "${launch_args[*]}" ]]; then
-				echo "ROM not found. Launching $emuName directly"
-				eval "${exe[@]}"
-			else
-				echo "ROM found, launching game"
-				eval "${exe[@]}" "${launch_args[@]}"
-			fi
-
-		fi
 
 	fi
 

@@ -1,4 +1,5 @@
 #!/bin/bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
-emulatorInit "xemu" "xemu" "${@}"
-rm -rf "$savesPath/.gaming"
+emulatorInit "xemu"
+/usr/bin/flatpak run app.xemu.xemu "${@}"
+rm -rf "$savesPath/.gaming" 

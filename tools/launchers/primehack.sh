@@ -1,4 +1,5 @@
 #!/bin/bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
-emulatorInit "primehack" "primehack" "${@}"
+emulatorInit "primehack"
+/usr/bin/flatpak run io.github.shiiion.primehack "${@}"
 rm -rf "$savesPath/.gaming"
