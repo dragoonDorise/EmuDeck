@@ -52,7 +52,83 @@ def clean_name(name):
 
 def collect_game_data(system_dir, extensions, images_path = None):
     game_data = []
+
+    #PS3
+    for root, files, dirs in os.walk(system_dir):
+
+        #print(game_data)
+        for file in files:
+            file_path = os.path.join(root, file)
+            if os.path.islink(file_path):
+                continue
+
+            filename = os.path.basename(file)
+            extension = filename.split('.')[-1]
+            name = '.'.join(filename.split('.')[:-1])
+            if extension in extensions:
+
+                if any(f"Disc {i}" in name for i in range(2, 9)):
+                    log_message(f"Ignoring file with disc name: {file}")
+                    continue
+
+                if extension.lower() == "bin":
+                    log_message(f"Ignoring .bin file: {file}")
+                    continue
+
+                platform = os.path.basename(system_dir)
+                print(system_dir)
+
+
+                # Special cases for WiiU and PS3
+                if os.name != 'nt':
+                    if "wiiu" in system_dir:
+                        parts = root.split(os.sep)
+                        name = parts[-2] if len(parts) >= 2 else name
+                        platform = "wiiu"
+                    if "ps3" in system_dir:
+                        parts = root.split(os.sep)
+                        name = parts[-3] if len(parts) >= 3 else name
+                        platform = "ps3"
+                    if "xbox360" in system_dir:
+                        platform = "xbox360"
+                    if "ps4" in system_dir:
+                        platform = "ps4"
+
+                # Clean the game name
+                name_cleaned = clean_name(name)
+
+                if images_path:
+                    # Check for missing images
+                    missing_images = False
+                    for img_type, ext in [("box2dfront", ".jpg"), ("wheel", ".png"), ("box2dfront", ".jpg")]:
+                        img_path = os.path.join(images_path, f"{platform}/media/{img_type}/{name_cleaned}{ext}")
+
+                        if not os.path.exists(img_path):
+                            print(f"Missing image: {img_path}")
+                            log_message(f"Missing image: {img_path}")
+                            missing_images = True
+
+                    if missing_images:
+                        game_info = {
+                            "name": name_cleaned,
+                            "platform": platform,
+                            "type": img_type
+                        }
+                        game_data.append(game_info)
+                else:
+                    game_info = {
+                        "name": name_cleaned,
+                        "og_name": name,
+                        "filename": file_path,
+                        "file": name_cleaned,
+                        "img": f"/customimages/retrolibrary/artwork/{platform}/media",
+                        "platform": platform
+                    }
+                    game_data.append(game_info)
+
     for root, _, files in os.walk(system_dir):
+
+        #print(game_data)
         for file in files:
             file_path = os.path.join(root, file)
             if os.path.islink(file_path):
@@ -133,11 +209,20 @@ def get_valid_system_dirs(roms_dir, valid_system_dirs):
         if system_dir == "ps4":
             system_dir = "ps4/shortcuts"
         full_path = os.path.join(roms_dir, system_dir)
-        if os.path.isdir(full_path) and not os.path.islink(full_path) and os.path.isfile(os.path.join(full_path, 'metadata.txt')):
-            file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])
-            if file_count > 2:
+
+        if os.path.isdir(full_path) and not os.path.islink(full_path):
+
+            if system_dir == "ps3":
+
                 valid_system_dirs.append(full_path)
-                log_message(f"GGL: Valid system directory found: {full_path}")
+                log_message(f"GGL: Valid system directory found (PS3): {full_path}")
+            else:
+                # Lógica original para los demás sistemas
+                has_metadata = os.path.isfile(os.path.join(full_path, 'metadata.txt'))
+                file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])
+                if has_metadata and file_count > 3:
+                    valid_system_dirs.append(full_path)
+                    log_message(f"GGL: Valid system directory found: {full_path}")
     return valid_system_dirs
 
 def parse_metadata_file(metadata_path):
