@@ -168,7 +168,8 @@ def collect_game_data(system_dir, extensions, images_path = None):
                         game_info = {
                             "name": name_cleaned,
                             "platform": platform,
-                            "type": img_type
+                            "type": img_type,
+                            "filename": file_path
                         }
                         game_data.append(game_info)
                 else:
