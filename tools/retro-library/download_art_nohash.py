@@ -70,10 +70,15 @@ def fetch_game_artwork(name, platform, media_type):
                     result["name"] = name
                     result["img"] = media["url"]
                     break
+                if media.get("type") == "box-2D" and media_type == 'box2dfront':
+                    result["name"] = name
+                    result["img"] = media["url"]
+                    break
 
-        print(json.dumps(result))
+
+        return json.dumps(result)
     else:
-        print(json.dumps({"name": None, "img": None}))
+        return json.dumps({"name": None, "img": None})
 
 def create_empty_image(name, platform, save_folder, type):
     extension = "jpg" if type != "wheel" else "png"
@@ -116,7 +121,7 @@ def fetch_image_data(game):
             download_image(name, platform, img_url, save_folder, type)
         else:
             ss_data = fetch_game_artwork(name, platform, type)
-
+            ss_data = json.loads(ss_data)
             if ss_data and ss_data.get('img'):
                 download_image(name, platform, ss_data.get('img'), save_folder, type)
             else:
