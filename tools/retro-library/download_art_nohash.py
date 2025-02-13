@@ -5,6 +5,7 @@ import re
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import subprocess
+import hashlib
 
 from vars import home_dir, msg_file
 from utils import getSettings, log_message
@@ -41,6 +42,13 @@ def rom_parser_ss_get_alias(system):
         "doom": "135", "atomiswave": "53"
     }
     return system_map.get(system, "unknown")
+
+def calculate_md5(filename):
+    hash_md5 = hashlib.md5()
+    with open(filename, "rb") as f:
+        for chunk in iter(lambda: f.read(4096), b""):
+            hash_md5.update(chunk)
+    return hash_md5.hexdigest()
 
 def fetch_game_artwork(name, platform, media_type):
     username_ss = "djrodtc"
@@ -84,6 +92,50 @@ def fetch_game_artwork(name, platform, media_type):
     else:
         return json.dumps({"name": None, "img": None})
 
+def fetch_game_artwork_md5(filename, platform, media_type):
+    username_ss = "djrodtc"
+    password_ss = "diFay35WElL"
+    api_url_ss = "https://www.screenscraper.fr/api2/"
+
+    s_id = rom_parser_ss_get_alias(platform)
+    rom_md5 = calculate_md5(filename)
+
+    params = {
+        "devid": username_ss,
+        "devpassword": password_ss,
+        "softname": "EmuDeckRetroLibrary",
+        "rommd5": rom_md5,
+        "systemeid": s_id,
+        "output": "json"
+    }
+
+    response = requests.get(f"{api_url_ss}jeuInfos.php", params=params)
+    if response.status_code == 200:
+        data = response.json()
+        result = {"name": None, "img": None}
+
+        if "response" in data and "jeu" in data["response"] and "medias" in data["response"]["jeu"]:
+            medias = data["response"]["jeu"]["medias"]
+
+            for media in medias:
+                if media.get("type") == media_type:
+                    result["name"] = filename
+                    result["img"] = media["url"]
+                    break
+                if media.get("type") == "box-2D" and media_type == 'box2dfront':
+                    result["name"] = filename
+                    result["img"] = media["url"]
+                    break
+                if media.get("type") == "ss-title" and media_type == 'ss':
+                    result["name"] = filename
+                    result["img"] = media["url"]
+                    break
+
+        return json.dumps(result)
+    else:
+        return json.dumps({"name": None, "img": None})
+
+
 def create_empty_image(name, platform, save_folder, type):
     extension = "jpg" if type != "wheel" else "png"
     folder_path = os.path.join(save_folder, platform, "media", type)
@@ -115,6 +167,7 @@ def fetch_image_data(game):
     name = game['name']
     platform = game['platform']
     type = game['type']
+    filename = game['filename']
     url = f"https://artwork.emudeck.com/steamdbimg.php?name={name}&platform={platform}&type={type}"
     try:
         response = requests.get(url, timeout=10)
@@ -124,12 +177,19 @@ def fetch_image_data(game):
         if img_url:
             download_image(name, platform, img_url, save_folder, type)
         else:
+            #Let's try name matching with SS
             ss_data = fetch_game_artwork(name, platform, type)
             ss_data = json.loads(ss_data)
             if ss_data and ss_data.get('img'):
                 download_image(name, platform, ss_data.get('img'), save_folder, type)
             else:
-                log_message(f"No img found for {name} in {platform}.")
+                #Let's try MD5
+                ss_data = fetch_game_artwork_md5(filename, platform, type)
+                ss_data = json.loads(ss_data)
+                if ss_data and ss_data.get('img'):
+                    download_image(name, platform, ss_data.get('img'), save_folder, type)
+                else:
+                    log_message(f"No img found for {name} in {platform}.")
 
             #create_empty_image(name, platform, save_folder, type)
     except requests.RequestException as e:
