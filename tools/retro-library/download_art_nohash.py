@@ -79,15 +79,15 @@ def fetch_game_artwork(name, platform, media_type):
                     result["img"] = media["url"]
                     break
                 if media.get("type") == "ss-title" and media_type == 'screenshot':
-                    result["name"] = filename
+                    result["name"] = name
                     result["img"] = media["url"]
                     break
                 if media.get("type") == media_type:
-                    result["name"] = filename
+                    result["name"] = name
                     result["img"] = media["url"]
                     break
                 if media.get("type") == "box-2D" and media_type == 'box2dfront':
-                    result["name"] = filename
+                    result["name"] = name
                     result["img"] = media["url"]
                     break
 
@@ -127,15 +127,15 @@ def fetch_game_artwork_md5(filename, platform, media_type):
                     result["img"] = media["url"]
                     break
                 if media.get("type") == "ss-title" and media_type == 'screenshot':
-                    result["name"] = filename
+                    result["name"] = name
                     result["img"] = media["url"]
                     break
                 if media.get("type") == media_type:
-                    result["name"] = filename
+                    result["name"] = name
                     result["img"] = media["url"]
                     break
                 if media.get("type") == "box-2D" and media_type == 'box2dfront':
-                    result["name"] = filename
+                    result["name"] = name
                     result["img"] = media["url"]
                     break
 
