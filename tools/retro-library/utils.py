@@ -95,7 +95,8 @@ def collect_game_data(system_dir, extensions, images_path = None):
                         game_info = {
                             "name": name_cleaned,
                             "platform": platform,
-                            "type": img_type
+                            "type": img_type,
+                            "filename": file_path
                         }
                         game_data.append(game_info)
                 else:
@@ -161,15 +162,16 @@ def collect_game_data(system_dir, extensions, images_path = None):
                         if not os.path.exists(img_path):
                             #print(f"Missing image: {img_path}")
                             log_message(f"Missing image: {img_path}")
-                            missing_images = True
+                            game_info = {
+                                "name": name_cleaned,
+                                "platform": platform,
+                                "type": img_type,
+                                "filename": file_path
+                            }
+                            game_data.append(game_info)
 
-                    if missing_images:
-                        game_info = {
-                            "name": name_cleaned,
-                            "platform": platform,
-                            "type": img_type
-                        }
-                        game_data.append(game_info)
+
+
                 else:
                     game_info = {
                         "name": name_cleaned,
