@@ -5,7 +5,7 @@ import re
 import subprocess
 
 from vars import home_dir, msg_file, excluded_systems
-from utils import getSettings, log_message
+from utils import getSettings, log_message, get_valid_system_dirs
 
 settings = getSettings()
 storage_path = os.path.expandvars(settings["storagePath"])

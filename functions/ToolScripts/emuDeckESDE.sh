@@ -226,6 +226,7 @@ ESDE_addCustomSystems(){
 	Model2_addESConfig
 	Xenia_addESConfig
 	Yuzu_addESConfig
+	Citron_addESConfig
 }
 
 #update
@@ -377,6 +378,21 @@ ESDE_setEmulationFolder(){
 			yuzuSwitchCommandString="%INJECT%=%BASENAME%.esprefix %EMULATOR_YUZU% -f -g %ROM%"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Yuzu (Standalone)"]' -v "$yuzuSwitchCommandString" "$es_systemsFile"
 		fi
+		if [[ $(grep -rnw "$es_systemsFile" -e 'Citron (Standalone)') == "" ]]; then
+			#insert
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="switch"]' --type elem --name 'commandP' -v "%INJECT%=%BASENAME%.esprefix %EMULATOR_CITRON% -f -g %ROM%" \
+			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Citron (Standalone)" \
+			-r 'systemList/system/commandP' -v 'command' \
+			"$es_systemsFile"
+
+			#format doc to make it look nice
+			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		else
+			#update
+			yuzuSwitchCommandString="%INJECT%=%BASENAME%.esprefix %EMULATOR_CITRON% -f -g %ROM%"
+			xmlstarlet ed -L -u '/systemList/system/command[@label="Citron (Standalone)"]' -v "$yuzuSwitchCommandString" "$es_systemsFile"
+		fi
+
 	fi
 
 	echo "updating $es_settingsFile"

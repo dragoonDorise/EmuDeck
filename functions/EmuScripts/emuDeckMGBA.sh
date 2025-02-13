@@ -37,6 +37,7 @@ mGBA_init(){
 	#SRM_createParsers
 	mGBA_addSteamInputProfile
 	mGBA_flushEmulatorLauncher
+	mGBA_addParser
 }
 
 #update
@@ -97,6 +98,9 @@ mGBA_wipe(){
 #Uninstall
 mGBA_uninstall(){
 	setMSG "Uninstalling $mGBA_emuName."
+	removeParser "nintendo_gb_mgba.json"
+	removeParser "nintendo_gba_mgba.json"
+	removeParser "nintendo_gbc_mgba.json"
 	uninstallEmuAI "$mGBA_emuName" "" "" "emulator"
 }
 
@@ -160,3 +164,10 @@ mGBA_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "mgba"
 
 }
+
+mGBA_addParser(){
+	addParser "nintendo_gb_mgba.json"
+	addParser "nintendo_gba_mgba.json"
+	addParser "nintendo_gbc_mgba.json"
+}
+

@@ -230,6 +230,7 @@ for setup_command in \
 	"$doSetupLime3DS Lime3DS_init" \
 	"$doSetupDuck DuckStation_init" \
 	"$doSetupYuzu Yuzu_init" \
+	"$doSetupCitron Citron_init" \
 	"$doSetupRyujinx Ryujinx_init" \
 	"$doSetupShadPS4 ShadPS4_init" \
 	"$doSetupPPSSPP PPSSPP_init" \

@@ -48,7 +48,7 @@ def fetch_image_data(game):
     name = game['name']
     platform = game['platform']
     type = game['type']
-    url = f"https://bot.emudeck.com/steamdbimg.php?name={name}&platform={platform}&type={type}"
+    url = f"https://artwork.emudeck.com/steamdbimg.php?name={name}&platform={platform}&type={type}"
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()  # Raise an exception for HTTP error codes

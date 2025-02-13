@@ -9,7 +9,7 @@ if [ $(uname) != "Linux" ]; then
     fi
 fi
 
-if [[ "$emudeckBackend" == "" ]]; then
+if [[ -z "$emudeckBackend" ]]; then
     emudeckBackend="$HOME/.config/EmuDeck/backend/"
 fi
 
@@ -80,6 +80,7 @@ source "$emudeckBackend"/functions/ToolScripts/emuDeckNetPlay.sh
 
 #emuscripts
 #source "$emudeckBackend"/functions/EmuScripts/emuDeckSuyu.sh
+source "$emudeckBackend"/functions/EmuScripts/emuDeckCitron.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckYuzu.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckCemu.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckCemuProton.sh

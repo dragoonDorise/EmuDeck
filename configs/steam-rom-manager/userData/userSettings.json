@@ -1,42 +1,39 @@
 {
-	"fuzzyMatcher": {
-		"timestamps": {
-			"check": 1723761491380,
-			"download": 1723761491380
-		},
-		"verbose": false,
-		"filterProviders": true
-	},
-	"environmentVariables": {
+  "fuzzyMatcher": {
+    "timestamps": {
+      "check": 1723761491380,
+      "download": 1723761491380
+    },
+    "verbose": false,
+    "filterProviders": true
+  },
+  "environmentVariables": {
     "steamDirectory": "/home/deck/.steam/steam",
     "romsDirectory": "/run/media/mmcblk0p1/Emulation/roms",
     "retroarchPath": "/run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh",
-		"raCoresDirectory": "",
-		"localImagesDirectory": "",
-		"userAccounts": []
-	},
-	"previewSettings": {
-		"imageLoadStrategy": "loadLazy",
-		"retrieveCurrentSteamImages": true,
-		"disableCategories": false,
-		"deleteDisabledShortcuts": false,
-		"imageZoomPercentage": 30,
-		"hideUserAccount": false
-	},
-	"enabledProviders": [
-		"sgdb",
-		"steamCDN"
-	],
-	"language": "en-US",
-	"offlineMode": false,
-	"navigationWidth": 256,
-	"clearLogOnTest": false,
-	"version": 10,
-	"theme": "EmuDeck",
-	"dnsServers": [],
-	"batchDownloadSize": 50,
-	"emudeckInstall": false,
-	"autoUpdate": true,
-	"autoKillSteam": true,
-	"autoRestartSteam": true
+    "raCoresDirectory": "",
+    "localImagesDirectory": "",
+    "userAccounts": []
+  },
+  "previewSettings": {
+    "imageLoadStrategy": "loadLazy",
+    "retrieveCurrentSteamImages": true,
+    "disableCategories": false,
+    "deleteDisabledShortcuts": false,
+    "imageZoomPercentage": 30,
+    "hideUserAccount": false
+  },
+  "enabledProviders": ["sgdb"],
+  "language": "en-US",
+  "offlineMode": false,
+  "navigationWidth": 256,
+  "clearLogOnTest": false,
+  "version": 10,
+  "theme": "EmuDeck",
+  "dnsServers": [],
+  "batchDownloadSize": 50,
+  "emudeckInstall": false,
+  "autoUpdate": true,
+  "autoKillSteam": true,
+  "autoRestartSteam": true
 }

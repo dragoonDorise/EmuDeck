@@ -30,9 +30,9 @@ MAME_init(){
 	#SRM_createParsers
 	MAME_flushEmulatorLauncher
 	MAME_addSteamInputProfile
-
+	MAME_addParser
 	# If writeconfig is set to 1 in mame.ini, these files get created. Back up on reset so users can get the default/EmuDeck configured mame.ini file in ~/.mame
-	# writeconfig is disabled by default. Was enabled by default for a short time. 
+	# writeconfig is disabled by default. Was enabled by default for a short time.
 	if [ -f "$storagePath/mame/ini/mame.ini" ]; then
 		mv "$storagePath/mame/ini/mame.ini" "$storagePath/mame/ini/mame.ini.bak"
 	fi
@@ -135,6 +135,9 @@ MAME_wipe(){
 
 #Uninstall
 MAME_uninstall(){
+	removeParser "arcade_mame.json"
+	removeParser "philips_cdi_mame.json"
+	removeParser "snk_neogeocd_mame.json"
     uninstallEmuFP "${MAME_emuName}" "${MAME_emuPath}" "emulator" ""
 }
 
@@ -191,4 +194,10 @@ MAME_flushEmulatorLauncher(){
 MAME_addSteamInputProfile(){
 	setMSG "Adding $MAME_emuName Steam Input Profile."
 	rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/emudeck_steam_deck_light_gun_controls.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf"
+}
+
+MAME_addParser(){
+	addParser "arcade_mame.json"
+	addParser "philips_cdi_mame.json"
+	addParser "snk_neogeocd_mame.json"
 }

@@ -1045,7 +1045,7 @@ function emulatorInit(){
 	#NetPlay
 	cloud_sync_stopService
 	if [ "$emuName" = 'retroarch' ]; then
-   		if [ "$netPlay" == "true" ]; then
+		   if [ "$netPlay" == "true" ]; then
 			#Looks for devices listening
 			setSetting netplayCMD "-H"
 			sleep 2
@@ -1187,4 +1187,120 @@ function add_to_steam(){
 	fi
 
 
+}
+
+function flushAllLaunchers(){
+
+	local max_jobs=5
+	local current_jobs=0
+
+	for setup_command in \
+		"$doSetupSRM SRM_flushEmulatorLauncher" \
+		"$doSetupESDE ESDE_update" \
+		"$doSetupPegasus pegasus_flushEmulatorLauncher" \
+		"$doSetupRA RetroArch_flushEmulatorLauncher" \
+		"$doSetupPrimehack Primehack_flushEmulatorLauncher" \
+		"$doSetupDolphin Dolphin_flushEmulatorLauncher" \
+		"$doSetupPCSX2QT PCSX2QT_flushEmulatorLauncher" \
+		"$doSetupRPCS3 RPCS3_flushEmulatorLauncher" \
+		"$doSetupCitra Citra_flushEmulatorLauncher" \
+		"$doSetupLime3DS Lime3DS_flushEmulatorLauncher" \
+		"$doSetupDuck DuckStation_flushEmulatorLauncher" \
+		"$doSetupYuzu Yuzu_flushEmulatorLauncher" \
+		"$doSetupRyujinx Ryujinx_flushEmulatorLauncher" \
+		"$doSetupShadPS4 ShadPS4_flushEmulatorLauncher" \
+		"$doSetupPPSSPP PPSSPP_flushEmulatorLauncher" \
+		"$doSetupXemu Xemu_flushEmulatorLauncher" \
+		"$doSetupMAME MAME_flushEmulatorLauncher" \
+		"$doSetupScummVM ScummVM_flushEmulatorLauncher" \
+		"$doSetupVita3K Vita3K_flushEmulatorLauncher" \
+		"$doSetupRMG RMG_flushEmulatorLauncher" \
+		"$doSetupares ares_flushEmulatorLauncher" \
+		"$doSetupmelonDS melonDS_flushEmulatorLauncher" \
+		"$doSetupMGBA mGBA_flushEmulatorLauncher" \
+		"$doSetupCemuNative CemuNative_flushEmulatorLauncher" \
+		"$doSetupFlycast Flycast_flushEmulatorLauncher" \
+		"$doSetupSupermodel Supermodel_flushEmulatorLauncher" \
+		"$doSetupModel2 Model2_flushEmulatorLauncher" \
+		"$doSetupCemu Cemu_flushEmulatorLauncher" \
+		"$doSetupBigPEmu BigPEmu_flushEmulatorLauncher" \
+		"$doSetupXenia Xenia_flushEmulatorLauncher"; do
+
+		condition=$(echo "$setup_command" | awk '{print $1}')
+		command=$(echo "$setup_command" | awk '{print $2}')
+
+		if [ "$condition" == "true" ]; then
+			echo "Executing $command"
+			$command &
+			current_jobs=$((current_jobs + 1))
+		fi
+
+		if [ $current_jobs -ge $max_jobs ]; then
+			wait
+			current_jobs=0
+		fi
+	done
+
+	wait # Wait for any remaining jobs to finish
+
+}
+
+
+addParser(){
+	local source="$emudeckBackend/configs/steam-rom-manager/userData/parsers/optional"
+	local custom_parser=$1
+	local path="$source/$custom_parser"
+
+	if [[ ! -f "$path" ]]; then
+		return 1
+	fi
+
+	local PARSER_ID=$(jq -r '.parserId' "$path")
+
+	echo "Parser ID: $PARSER_ID"
+
+	if [[ ! -f "$SRM_userConfigurations" ]]; then
+		echo "[] " > "$SRM_userConfigurations"  # Inicializar JSON si no existe
+	fi
+
+	EXISTS=$(jq --arg pid "$PARSER_ID" '[.[] | select(.parserId == $pid)] | length' "$SRM_userConfigurations")
+
+	if [[ "$EXISTS" -eq 0 ]]; then
+		echo "adding parser"
+		cat "$SRM_userConfigurations" | jq --argjson newConfig "$(cat "$path")" '. + [$newConfig]' > temp.json && mv temp.json "$SRM_userConfigurations"
+		SRM_setEmulationFolder
+		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+	fi
+
+}
+
+removeParser() {
+	local source="$emudeckBackend/configs/steam-rom-manager/userData/parsers/optional"
+	local custom_parser=$1
+	local path="$source/$custom_parser"
+
+	if [[ ! -f "$path" ]]; then
+		echo "El parser $custom_parser no existe en $source"
+		return 1
+	fi
+
+	local PARSER_ID=$(jq -r '.parserId' "$path")
+
+	echo "Parser ID a eliminar: $PARSER_ID"
+
+	if [[ ! -f "$SRM_userConfigurations" ]]; then
+		echo "El archivo de configuración no existe."
+		return 1
+	fi
+
+	EXISTS=$(jq --arg pid "$PARSER_ID" '[.[] | select(.parserId == $pid)] | length' "$SRM_userConfigurations")
+
+	if [[ "$EXISTS" -gt 0 ]]; then
+		echo "Eliminando parser..."
+		jq --arg pid "$PARSER_ID" '[.[] | select(.parserId != $pid)]' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+		SRM_setEmulationFolder
+		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+	else
+		echo "El parser $PARSER_ID no se encontró en la configuración."
+	fi
 }

@@ -32,6 +32,7 @@ melonDS_init(){
 	#SRM_createParsers
 	melonDS_addSteamInputProfile
 	melonDS_flushEmulatorLauncher
+	melonDS_addParser
 }
 
 #update
@@ -112,6 +113,7 @@ melonDS_wipe(){
 #Uninstall
 melonDS_uninstall(){
 	setMSG "Uninstalling $melonDS_emuName."
+	removeParser "nintendo_nds_melonds.json"
 	uninstallEmuFP "${melonDS_emuName}" "${melonDS_emuPath}" "emulator" ""
 }
 
@@ -211,8 +213,9 @@ melonDS_setBAYXstyle(){
 }
 
 melonDS_flushEmulatorLauncher(){
-
-
 	flushEmulatorLaunchers "melonds"
+}
 
+melonDS_addParser(){
+	addParser "nintendo_nds_melonds.json"
 }
