@@ -83,7 +83,7 @@ def collect_game_data(system_dir, extensions, images_path = None):
                 if images_path:
                     # Check for missing images
                     missing_images = False
-                    for img_type, ext in [("box2dfront", ".jpg"), ("wheel", ".png"), ("box2dfront", ".jpg")]:
+                    for img_type, ext in [("box2dfront", ".jpg"), ("wheel", ".png"), ("screenshot", ".jpg")]:
                         img_path = os.path.join(images_path, f"{platform}/media/{img_type}/{name_cleaned}{ext}")
 
                         if not os.path.exists(img_path):
@@ -155,7 +155,7 @@ def collect_game_data(system_dir, extensions, images_path = None):
                 if images_path:
                     # Check for missing images
                     missing_images = False
-                    for img_type, ext in [("box2dfront", ".jpg"), ("wheel", ".png"), ("box2dfront", ".jpg")]:
+                    for img_type, ext in [("box2dfront", ".jpg"), ("wheel", ".png"), ("screenshot", ".jpg")]:
                         img_path = os.path.join(images_path, f"{platform}/media/{img_type}/{name_cleaned}{ext}")
 
                         if not os.path.exists(img_path):

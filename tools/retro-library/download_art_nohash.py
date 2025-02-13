@@ -74,6 +74,10 @@ def fetch_game_artwork(name, platform, media_type):
                     result["name"] = name
                     result["img"] = media["url"]
                     break
+                if media.get("type") == "ss-title" and media_type == 'ss':
+                    result["name"] = name
+                    result["img"] = media["url"]
+                    break
 
 
         return json.dumps(result)
