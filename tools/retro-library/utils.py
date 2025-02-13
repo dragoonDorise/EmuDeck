@@ -87,7 +87,7 @@ def collect_game_data(system_dir, extensions, images_path = None):
                         img_path = os.path.join(images_path, f"{platform}/media/{img_type}/{name_cleaned}{ext}")
 
                         if not os.path.exists(img_path):
-                            print(f"Missing image: {img_path}")
+                            #print(f"Missing image: {img_path}")
                             log_message(f"Missing image: {img_path}")
                             missing_images = True
 
@@ -160,7 +160,7 @@ def collect_game_data(system_dir, extensions, images_path = None):
                         img_path = os.path.join(images_path, f"{platform}/media/{img_type}/{name_cleaned}{ext}")
 
                         if not os.path.exists(img_path):
-                            print(f"Missing image: {img_path}")
+                            #print(f"Missing image: {img_path}")
                             log_message(f"Missing image: {img_path}")
                             game_info = {
                                 "name": name_cleaned,
