@@ -74,16 +74,20 @@ def fetch_game_artwork(name, platform, media_type):
             medias = data["response"]["jeu"]["medias"]
 
             for media in medias:
-                if media.get("type") == media_type:
+                if media.get("type") == "ss" and media_type == 'screenshot':
                     result["name"] = name
+                    result["img"] = media["url"]
+                    break
+                if media.get("type") == "ss-title" and media_type == 'screenshot':
+                    result["name"] = filename
+                    result["img"] = media["url"]
+                    break
+                if media.get("type") == media_type:
+                    result["name"] = filename
                     result["img"] = media["url"]
                     break
                 if media.get("type") == "box-2D" and media_type == 'box2dfront':
-                    result["name"] = name
-                    result["img"] = media["url"]
-                    break
-                if media.get("type") == "ss-title" and media_type == 'ss':
-                    result["name"] = name
+                    result["name"] = filename
                     result["img"] = media["url"]
                     break
 
@@ -193,7 +197,7 @@ def fetch_image_data(game):
                 if ss_data and ss_data.get('img'):
                     download_image(name, platform, ss_data.get('img'), save_folder, type)
                 else:
-                    log_message(f"No img found for {name} in {platform}.")
+                    print(f"No img found for {name} in {platform}.")
 
             #create_empty_image(name, platform, save_folder, type)
     except requests.RequestException as e:
