@@ -1853,7 +1853,7 @@
         },
         "ScriptsEnabled": [],
         "ScriptSettings": {},
-        "ROMPath": "Z:\\home\\deck\\Emulation\\roms\\atarijaguar",
+        "ROMPath": "/run/media/mmcblk0p1/Emulation/roms/atarijaguar",
         "SetDisc": "",
         "RecentFiles": [],
         "ScreenEffectOptions": []

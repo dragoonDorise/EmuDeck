@@ -35,6 +35,7 @@ RMG_init() {
 	#SRM_createParsers
 	#RMG_addSteamInputProfile
 	RMG_flushEmulatorLauncher
+	RMG_addParser
 
 }
 
@@ -139,6 +140,7 @@ RMG_wipe(){
 
 #Uninstall
 RMG_uninstall(){
+	removeParser "nintendo_64_rmg.json"
     uninstallEmuFP "${RMG_emuName}" "${RMG_emuPath}" "emulator" ""
 }
 
@@ -211,8 +213,9 @@ RMG_setBAYXstyle(){
 }
 
 RMG_flushEmulatorLauncher(){
-
-
 	flushEmulatorLaunchers "rosaliesmupengui"
+}
 
+RMG_addParser(){
+	addParser "nintendo_64_rmg.json"
 }

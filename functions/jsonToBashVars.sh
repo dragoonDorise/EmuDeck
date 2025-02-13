@@ -20,7 +20,6 @@ function jsonToBashVars(){
     setSetting doInstallPrimeHack "$(jq .installEmus.primehack.status $json)"
     setSetting doInstallPPSSPP "$(jq .installEmus.ppsspp.status $json)"
     setSetting doInstallXemu "$(jq .installEmus.xemu.status $json)"
-    setSetting doInstallSRM "$(jq .installEmus.srm.status $json)"
     setSetting doInstallmelonDS "$(jq .installEmus.melonds.status $json)"
     setSetting doInstallScummVM "$(jq .installEmus.scummvm.status $json)"
     setSetting doInstallFlycast "$(jq .installEmus.flycast.status $json)"
@@ -69,12 +68,12 @@ function jsonToBashVars(){
     setSetting doSetupShadPS4  "$(jq .overwriteConfigEmus.shadps4.status $json)"
 
     #Frontends
-    setSetting doSetupSRM "$(jq .overwriteConfigEmus.srm.status $json)"
+    setSetting doSetupSRM "$(jq .installFrontends.deckyromlauncher.status $json)"
     setSetting doSetupESDE "$(jq .overwriteConfigEmus.esde.status $json)"
     setSetting doInstallESDE "$(jq .installFrontends.esde.status $json)"
     setSetting doInstallPegasus "$(jq .installFrontends.pegasus.status $json)"
-    setSetting steamAsFrontend "$(jq .installFrontends.steam.status $json)"
-
+    setSetting doInstallRetroLibrary "$(jq .installFrontends.deckyromlauncher.status $json)"
+    setSetting doInstallSRM "$(jq .installFrontends.steam.status $json)"
 
     #Customizations
     setSetting RABezels "$(jq .bezels $json)"

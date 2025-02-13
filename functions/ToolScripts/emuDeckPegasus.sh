@@ -241,3 +241,9 @@ pegasus_flushToolLauncher(){
 	cp "$emudeckBackend/tools/launchers/pegasus/pegasus-frontend.sh" "$toolsPath/launchers/pegasus/pegasus-frontend.sh"
 	chmod +x "$toolsPath/launchers/pegasus/pegasus-frontend.sh"
 }
+
+
+ESDE_addToSteam(){
+	setMSG "Adding $pegasus_toolName to Steam"
+	add_to_steam "pegasus" "$pegasus_toolName" "$toolsPath/launchers/pegasus/pegasus-frontend.sh" "$HOME/Applications/" "$HOME/.config/EmuDeck/backend/icons/ico/pegasus.ico"
+}

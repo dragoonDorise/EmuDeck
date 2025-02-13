@@ -88,6 +88,8 @@ ESDE_install(){
 	ESDE_migration
 
 
+
+
 	local showProgress="$1"
 	echo $ESDE_releaseURL
 	if [[ $ESDE_releaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
@@ -103,10 +105,15 @@ ESDE_install(){
 	fi
 }
 
+ESDE_addToSteam(){
+	setMSG "Adding $ESDE_toolName to Steam"
+	add_to_steam "es-de" "EmulationStationDE" "$toolsPath/launchers/es-de/es-de.sh" "$HOME/Applications/" "$HOME/.config/EmuDeck/backend/icons/ico/EmulationStationDE.ico"
+}
+
 #ApplyInitialSettings
 ESDE_init(){
 	setMSG "Setting up $ESDE_toolName"
-
+	ESDE_addToSteam
 	ESDE_migration
 	ESDE_junksettingsFile
 	ESDE_addCustomSystemsFile
@@ -219,6 +226,7 @@ ESDE_addCustomSystems(){
 	Model2_addESConfig
 	Xenia_addESConfig
 	Yuzu_addESConfig
+	Citron_addESConfig
 }
 
 #update
@@ -370,6 +378,21 @@ ESDE_setEmulationFolder(){
 			yuzuSwitchCommandString="%INJECT%=%BASENAME%.esprefix %EMULATOR_YUZU% -f -g %ROM%"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Yuzu (Standalone)"]' -v "$yuzuSwitchCommandString" "$es_systemsFile"
 		fi
+		if [[ $(grep -rnw "$es_systemsFile" -e 'Citron (Standalone)') == "" ]]; then
+			#insert
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="switch"]' --type elem --name 'commandP' -v "%INJECT%=%BASENAME%.esprefix %EMULATOR_CITRON% -f -g %ROM%" \
+			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Citron (Standalone)" \
+			-r 'systemList/system/commandP' -v 'command' \
+			"$es_systemsFile"
+
+			#format doc to make it look nice
+			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		else
+			#update
+			yuzuSwitchCommandString="%INJECT%=%BASENAME%.esprefix %EMULATOR_CITRON% -f -g %ROM%"
+			xmlstarlet ed -L -u '/systemList/system/command[@label="Citron (Standalone)"]' -v "$yuzuSwitchCommandString" "$es_systemsFile"
+		fi
+
 	fi
 
 	echo "updating $es_settingsFile"

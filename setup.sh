@@ -165,6 +165,7 @@ for install_command in \
 	"$doInstallESDE ESDE_install" \
 	"$doInstallPegasus pegasus_install" \
 	"$doInstallSRM SRM_install" \
+	"$doInstallRetroLibrary Plugins_installDeckyRomLibrary" \
 	"$doInstallPCSX2QT PCSX2QT_install" \
 	"$doInstallPrimeHack Primehack_install" \
 	"$doInstallRPCS3 RPCS3_install" \
@@ -229,6 +230,7 @@ for setup_command in \
 	"$doSetupLime3DS Lime3DS_init" \
 	"$doSetupDuck DuckStation_init" \
 	"$doSetupYuzu Yuzu_init" \
+	"$doSetupCitron Citron_init" \
 	"$doSetupRyujinx Ryujinx_init" \
 	"$doSetupShadPS4 ShadPS4_init" \
 	"$doSetupPPSSPP PPSSPP_init" \
