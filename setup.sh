@@ -196,7 +196,7 @@ for install_command in \
 	"$doInstallShadPS4 ShadPS4_install"; do
 
 	condition=$(echo "$install_command" | awk '{print $1}')
-	command=$(echo "$install_command" | awk '{print $2}')
+	command=$(echo "$install_command" | cut -d' ' -f2-)
 
 	if [ "$condition" == "true" ]; then
 		echo "Executing $command"
