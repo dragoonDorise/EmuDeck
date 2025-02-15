@@ -15,26 +15,40 @@ Plugins_install_cleanup() {
 Plugins_checkPassword(){
    local password=$1
    if [ "$password" = "EmuDecky!" ]; then
-   #We create the password
-   yes "$password" | passwd $(whoami) &>/dev/null || {
-     read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
-     if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
-       exit 1
-     fi
-     if ( echo "$PASS" | sudo -S -k true ); then
-       password=$PASS
-     else
-       zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
-     fi
-   }
-   elif [ "$system" == "chimeraos" ]; then
-     password="gamer"
-   elif [ "$system" == "bazzite" ]; then
-  password="bazzite"
+      #We create the password
+      yes "$password" | passwd $(whoami) &>/dev/null || {
+        read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
+        if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
+          exit 1
+        fi
+        if ( echo "$PASS" | sudo -S -k true ); then
+          password=$PASS
+        else
+          zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
+        fi
+      }
+      elif [ "$system" == "chimeraos" ]; then
+        password="gamer"
+      elif [ "$system" == "bazzite" ]; then
+      password="bazzite"
    else
-    if ( echo "$password" | sudo -S -k true ); then
-    echo "true"
-    else
+
+    if [ -z $password ]; then
+        read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
+        if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
+            exit 1
+        fi
+        if ( echo "$PASS" | sudo -S -k true ); then
+            password=$PASS
+        else
+            zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
+            exit 1
+        fi
+    fi
+
+    fi
+
+    if ( echo "$password" | sudo -S -k false ); then
       read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
       if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
         exit 1
