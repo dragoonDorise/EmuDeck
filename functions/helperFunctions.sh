@@ -1176,8 +1176,6 @@ function add_to_steam(){
 
 	generate_pythonEnv &> /dev/null
 
-	python "$emudeckFolder/backend/tools/vdf/add.py" $id $name $target_path $start_dir $icon_path $steam_directory $user_id
-
 	steam_pid=$(pidof steam)
 
 	if [ -n "$steam_pid" ]; then
@@ -1186,6 +1184,7 @@ function add_to_steam(){
 		echo "Señal SIGTERM env"
 	fi
 
+	python "$emudeckFolder/backend/tools/vdf/add.py" $id $name $target_path $start_dir $icon_path $steam_directory $user_id
 
 }
 
