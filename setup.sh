@@ -219,7 +219,7 @@ current_jobs=0
 
 for setup_command in \
 	"$doSetupSRM SRM_init" \
-	"$doSetupESDE ESDE_update" \
+	"$doSetupESDE ESDE_init" \
 	"$doSetupPegasus pegasus_init" \
 	"$doSetupRA RetroArch_init" \
 	"$doSetupPrimehack Primehack_init" \
