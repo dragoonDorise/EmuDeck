@@ -3,6 +3,7 @@ import sys
 import vdf
 import zlib
 import shutil
+import subprocess
 
 def generate_preliminary_id(exe, appname):
     """
@@ -156,6 +157,8 @@ def add_steam_shortcut(id, name, target_path, start_dir, icon_path, steam_dir, u
 
     # Copiar imágenes usando el AppID
     copy_steam_images(grid_path, id, appid)
+
+    subprocess.Popen(["steam", "-silent"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
 # Llamar a la función principal
