@@ -174,6 +174,9 @@ Plugins_installDeckyRomLibrary(){
    local password=$1
    local destinationFolder="$HOME/homebrew/plugins/decky-rom-library"
    local DeckyControls_releaseURL="$(getLatestReleaseURLGH "EmuDeck/decky-rom-library" ".zip")"
+
+   generateGameLists
+
    mkdir -p "$HOME/homebrew/plugins/"
 
    # Asegurarnos de que el password sea correcto antes de continuar
