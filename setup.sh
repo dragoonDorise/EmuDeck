@@ -165,7 +165,7 @@ for install_command in \
 	"$doInstallESDE ESDE_install" \
 	"$doInstallPegasus pegasus_install" \
 	"$doInstallSRM SRM_install" \
-	"$doInstallRetroLibrary Plugins_installDeckyRomLibrary EmuDecky!" \
+	"$doInstallRetroLibrary Plugins_installDeckyRomLibrary" \
 	"$doInstallPCSX2QT PCSX2QT_install" \
 	"$doInstallPrimeHack Primehack_install" \
 	"$doInstallRPCS3 RPCS3_install" \
