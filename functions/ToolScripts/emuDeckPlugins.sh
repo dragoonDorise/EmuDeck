@@ -183,9 +183,6 @@ Plugins_installDeckyRomLibrary(){
      echo "$password" | sudo -S chown $USER:$USER -R "$HOME/homebrew/plugins/decky-rom-library"
    fi
 
-   # RA Achievements
-   rau=$(cat "$emudeckFolder/.rau")
-   setSetting cheevos_username "$rau"
 }
 
 
