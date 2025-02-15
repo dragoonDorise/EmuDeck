@@ -46,8 +46,6 @@ Plugins_checkPassword(){
         fi
     fi
 
-    fi
-
     if ( echo "$password" | sudo -S -k false ); then
       read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
       if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
