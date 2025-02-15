@@ -142,6 +142,11 @@ Plugins_installEmuDecky(){
 
    mkdir -p "$HOME/homebrew/plugins/"
 
+   # CloudSync tools
+    rsync -avzh "$emudeckBackend/tools/cloudSync/" "$toolsPath/cloudSync/"
+    chmod +x "$toolsPath/cloudSync/cloud_sync_force_download.sh"
+    chmod +x "$toolsPath/cloudSync/cloud_sync_force_upload.sh"
+
    # Capturar la contraseña corregida
    password=$(Plugins_checkPassword "$password")
 
@@ -161,10 +166,6 @@ Plugins_installEmuDecky(){
       echo "$password" | sudo -S chown $USER:$USER -R "$HOME/homebrew/plugins/EmuDecky"
    fi
 
-   # CloudSync tools
-   rsync -avzh "$emudeckBackend/tools/cloudSync/" "$toolsPath/cloudSync/"
-   chmod +x "$toolsPath/cloudSync/cloud_sync_force_download.sh"
-   chmod +x "$toolsPath/cloudSync/cloud_sync_force_upload.sh"
 }
 
 
