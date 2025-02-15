@@ -1,55 +1,41 @@
 #!/bin/bash
-. $HOME/.config/EmuDeck/backend/functions/all.sh
-
 
 Plugins_install_cleanup() {
-  local password=$1
-    #We restart Decky
-  #systemctl daemon-reload
-  #systemctl restart plugin_loader
+	local password=$1
+  	#We restart Decky
+	#systemctl daemon-reload
+	#systemctl restart plugin_loader
 
-  #Deleting temp password
-  if [ "$password" = "EmuDecky!" ]; then
-    echo "$password" | sudo -S -k passwd -d $(whoami) && echo "true"
-  fi
+	#Deleting temp password
+	if [ "$password" = "EmuDecky!" ]; then
+		echo "$password" | sudo -S -k passwd -d $(whoami) && echo "true"
+	fi
 }
 
 Plugins_checkPassword(){
    local password=$1
    if [ "$password" = "EmuDecky!" ]; then
-      #We create the password
-      yes "$password" | passwd $(whoami) &>/dev/null || {
-        read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
-        if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
-          exit 1
-        fi
-        if ( echo "$PASS" | sudo -S -k true ); then
-          password=$PASS
-        else
-          zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
-          exit 1
-        fi
-      }
-      elif [ "$system" == "chimeraos" ]; then
-        password="gamer"
-      elif [ "$system" == "bazzite" ]; then
-      password="bazzite"
+   #We create the password
+   yes "$password" | passwd $(whoami) &>/dev/null || {
+     read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
+     if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
+       exit 1
+     fi
+     if ( echo "$PASS" | sudo -S -k true ); then
+       password=$PASS
+     else
+       zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
+     fi
+   }
+   elif [ "$system" == "chimeraos" ]; then
+     password="gamer"
+   elif [ "$system" == "bazzite" ]; then
+  password="bazzite"
    else
-    if [ -z $password ]; then
-        read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
-        if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
-            exit 1
-        fi
-        if ( echo "$PASS" | sudo -S -k true ); then
-            password=$PASS
-        else
-            zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
-            exit 1
-        fi
-    fi
-
-    if ( echo "$password" | sudo -S -k false ); then
-        read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
+    if ( echo "$password" | sudo -S -k true ); then
+      echo "true"
+    else
+      read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
       if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
         exit 1
       fi
@@ -57,9 +43,7 @@ Plugins_checkPassword(){
         password=$PASS
       else
         zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
-        exit 1
       fi
-
     fi
    fi
    echo $password
@@ -69,14 +53,13 @@ Plugins_installPluginLoader(){
    local password=$1
    local PluginLoader_releaseURL="https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/install_release.sh"
    #if [ ! -f $HOME/.steam/steam/.cef-enable-remote-debugging ]; then
-    mkdir -p "$HOME/homebrew"
-    password=$(Plugins_checkPassword "$password")
-    echo $password | sudo -S chown -R $USER:$USER "$HOME/homebrew"
-    curl -L $PluginLoader_releaseURL | sh
-    touch "$HOME/.steam/steam/.cef-enable-remote-debugging"
-    echo $password | sudo -S chown $USER:$USER ~/.steam/steam/.cef-enable-remote-debugging
-    Plugins_install_cleanup $password
-  #fi
+		mkdir -p "$HOME/homebrew"
+		Plugins_checkPassword $password  && echo $password | sudo -S chown -R $USER:$USER "$HOME/homebrew"
+		curl -L $PluginLoader_releaseURL | sh
+		touch "$HOME/.steam/steam/.cef-enable-remote-debugging"
+		echo $password | sudo -S chown $USER:$USER ~/.steam/steam/.cef-enable-remote-debugging
+		Plugins_install_cleanup $password
+	#fi
     setMSG  "Installing Decky Loader"
 }
 
@@ -93,7 +76,7 @@ Plugins_installPowerTools(){
    ptHash=$(curl https://beta.deckbrew.xyz/plugins | jq -r '.[] | select(.name=="PowerTools").versions[0].hash')
    local url="https://cdn.tzatzikiweeb.moe/file/steam-deck-homebrew/versions/$ptHash.zip"
 
-   password=$(Plugins_checkPassword "$password")
+   Plugins_installPluginLoader "$password"
    setMSG "Installing PowerTools"
    if [ -d "$HOME/homebrew" ]; then
       echo "$password" | sudo -S rm -rf "$HOME/homebrew/plugins/PowerTools"
@@ -122,6 +105,7 @@ Plugins_installPowerControl(){
    Plugins_installPluginLoader "$password"
    setMSG "Installing PowerControl"
    if [ -d "$HOME/homebrew" ]; then
+      password=$(Plugins_checkPassword "$password") # Revalidar la contraseña
       echo "$password" | sudo -S rm -rf "$destinationFolder"
       echo "$password" | sudo -S curl -L "$PowerControl_releaseURL" -o "$HOME/homebrew/plugins/PowerControl.tar.gz"
       echo "$password" | sudo -S unzip "$HOME/homebrew/plugins/PowerControl.tar.gz" -d "$HOME/homebrew/plugins/" && echo "$password" | sudo -S rm "$HOME/homebrew/plugins/PowerControl.tar.gz"
@@ -180,12 +164,12 @@ Plugins_installDeckyRomLibrary(){
 
    # Asegurarnos de que el password sea correcto antes de continuar
    password=$(Plugins_checkPassword "$password")
-   echo $password
-   Plugins_installPluginLoader "$password"
 
+   Plugins_installPluginLoader "$password"
    setMSG  "Installing Retro Library"
-   if [ -d "$destinationFolder" ]; then
-    echo "$password" | sudo -S rm -rf "$destinationFolder/"
+   if [ -d "$HOME/homebrew" ]; then
+    password=$(Plugins_checkPassword "$password")  # Revalidamos el password
+    echo "$password" | sudo -S rm -rf "$destinationFolder"
     echo "$password" | sudo -S curl -L "$DeckyLibrary_releaseURL" -o "$HOME/homebrew/plugins/decky-rom-library.zip"
     echo "$password" | sudo -S unzip "$HOME/homebrew/plugins/decky-rom-library.zip" -d "$HOME/homebrew/plugins/" && echo "$password" | sudo -S rm "$HOME/homebrew/plugins/decky-rom-library.zip"
     echo "$password" | sudo -S chown $USER:$USER -R "$HOME/homebrew/plugins/decky-rom-library"
@@ -211,9 +195,9 @@ Plugins_installSteamDeckGyroDSU(){
 
 Plugins_install(){
   local password=$1
-  Plugins_installEmuDecky $password
+	Plugins_installEmuDecky $password
   Plugins_installDeckyRomLibrary $password
-  Plugins_installSteamDeckGyroDSU
+	Plugins_installSteamDeckGyroDSU
 }
 
 
