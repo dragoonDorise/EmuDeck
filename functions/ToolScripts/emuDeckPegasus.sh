@@ -243,7 +243,7 @@ pegasus_flushToolLauncher(){
 }
 
 
-ESDE_addToSteam(){
+pegasus_addToSteam(){
 	setMSG "Adding $pegasus_toolName to Steam"
 	add_to_steam "pegasus" "$pegasus_toolName" "$toolsPath/launchers/pegasus/pegasus-frontend.sh" "$HOME/Applications/" "$HOME/.config/EmuDeck/backend/icons/ico/pegasus.ico"
 }
