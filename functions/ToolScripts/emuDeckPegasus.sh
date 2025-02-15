@@ -60,6 +60,7 @@ pegasus_init(){
 
 	#metadata and paths
 		pegasus_setPaths
+		pegasus_addToSteam
 
 		if [ -L "$toolsPath/downloaded_media/gamecube" ]; then
 			rm -rf "$toolsPath/downloaded_media/gamecube" &> /dev/null
