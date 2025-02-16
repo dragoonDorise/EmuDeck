@@ -45,7 +45,7 @@ pegasus_setPaths(){
 		cp "$emudeckBackend/roms_alt_emus/dreamcast/metadata.txt" "$romsPath/n3ds/metadata.txt"
 	fi
 
-	if [ "$(mGBA_IS_IsInstalled)" == "true" ]; then
+	if [ "$(mGBA_IsInstalled)" == "true" ]; then
 		cp "$emudeckBackend/roms_alt_emus/gba/metadata.txt" "$romsPath/gba/metadata.txt"
 	fi
 
