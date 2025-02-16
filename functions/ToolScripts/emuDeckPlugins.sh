@@ -39,17 +39,8 @@ Plugins_checkPassword(){
 
         else
             #We create the password
-            yes "$password" | passwd $(whoami) &>/dev/null || {
-              read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
-              if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
-                exit 1
-              fi
-              if ( echo "$PASS" | sudo -S -k true ); then
-                password=$PASS
-              else
-                zenity --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
-              fi
-            }
+            password="EmuDecky!"
+            yes "$password" | passwd $(whoami) &>/dev/null
         fi
    fi
    echo $password
@@ -62,7 +53,8 @@ Plugins_installPluginLoader(){
    local PluginLoader_releaseURL="https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/install_release.sh"
    #if [ ! -f $HOME/.steam/steam/.cef-enable-remote-debugging ]; then
 		mkdir -p "$HOME/homebrew"
-		Plugins_checkPassword $password  && echo $password | sudo -S chown -R $USER:$USER "$HOME/homebrew"
+		password=$(Plugins_checkPassword "$password")
+        echo $password | sudo -S chown -R $USER:$USER "$HOME/homebrew"
 		curl -L $PluginLoader_releaseURL | sh
 		touch "$HOME/.steam/steam/.cef-enable-remote-debugging"
 		echo $password | sudo -S chown $USER:$USER ~/.steam/steam/.cef-enable-remote-debugging
