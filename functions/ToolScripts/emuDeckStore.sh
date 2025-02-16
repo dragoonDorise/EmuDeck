@@ -9,7 +9,7 @@ Store_installGame(){
     name="${filename%.*}"
 
     wget -O "${romsPath}/${system}/${name}.zip" "${url}" && \
-    wget -O "${storagePath}/retrolibrary/artwork/${system}/media/screenshot/${name}.png" "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/screenshots/homebrew/${name}.png" && \
+    wget -O "${storagePath}/retrolibrary/artwork/${system}/media/screenshot/${name}.jpg" "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/screenshots/homebrew/${name}.png" && \
     echo "true" || echo "false"
 }
 
