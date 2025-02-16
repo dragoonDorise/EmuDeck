@@ -41,6 +41,11 @@ pegasus_setPaths(){
 
 	#Alternative emulators
 
+	if [ "$(BigPEmu_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/atarijaguar/metadata.txt" "$romsPath/atarijaguar/metadata.txt"
+		cp "$emudeckBackend/roms_alt_emus/atarijaguarcd/metadata.txt" "$romsPath/atarijaguarcd/metadata.txt"
+	fi
+
 	if [ "$(Flycast_IsInstalled)" == "true" ]; then
 		cp "$emudeckBackend/roms_alt_emus/dreamcast/metadata.txt" "$romsPath/n3ds/metadata.txt"
 	fi
