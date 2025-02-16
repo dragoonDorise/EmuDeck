@@ -24,8 +24,8 @@ Plugins_checkPassword(){
    elif [ -z $password ]; then ## setup install when no password set
 
         #does it have a pass?
-        if sudo -n true 2>/dev/null; then
-
+        status=$(passwd -S "$(whoami)" | awk '{print $2}')
+        if [[ "$status" == "P" ]]; then
             read -r PASS <<< $(zenity --title="Decky Installer" --width=300 --height=100 --entry --hide-text --text="Enter your sudo/admin password so we can install Decky with the best plugins for emulation")
             if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
                 exit 1
