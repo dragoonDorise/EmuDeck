@@ -1,4 +1,4 @@
-collection: Nintendo Switch
+collection: Nintendo Switch (Yuzu)
 shortname: switch
 extensions: nca, NCA, nro, NRO, nso, NSO, nsp, NSP, xci, XCI
 launch: /bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/yuzu.sh --fullscreen "'{file.path}'"
