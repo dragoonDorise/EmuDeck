@@ -8,9 +8,9 @@ Store_installGame(){
     filename=$(basename "$url")
     name="${filename%.*}"
 
-    curl "${url}" -o "${romsPath}/${system}/${name}.zip" && \
-    curl "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/screenshots/homebrew/${name}.png" -o "${storagePath}/retrolibrary/artwork/${system}/media/screenshot/${name}.png" && echo "true" || echo "false"
-
+    wget -O "${romsPath}/${system}/${name}.zip" "${url}" && \
+    wget -O "${storagePath}/retrolibrary/artwork/${system}/media/screenshot/${name}.png" "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/screenshots/homebrew/${name}.png" && \
+    echo "true" || echo "false"
 }
 
 Store_uninstallGame(){
