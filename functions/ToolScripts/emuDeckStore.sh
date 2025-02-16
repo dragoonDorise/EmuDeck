@@ -10,6 +10,7 @@ Store_installGame(){
 
     wget -O "${romsPath}/${system}/${name}.zip" "${url}" && \
     wget -O "${storagePath}/retrolibrary/artwork/${system}/media/screenshot/${name}.jpg" "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/screenshots/homebrew/${name}.png" && \
+    wget -O "${storagePath}/retrolibrary/artwork/${system}/media/box2dfront/${name}.jpg" "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/titlescreens/homebrew/${name}.png" && \
     echo "true" || echo "false"
 }
 
@@ -22,7 +23,8 @@ Store_uninstallGame(){
     name="${filename%.*}"
 
     rm -rf "${romsPath}/${system}/${name}.zip" && \
-    rm -rf  "${storagePath}/retrolibrary/artwork/${system}/media/screenshot/${name}.png" && echo "true" || echo "false"
+    rm -rf  "${storagePath}/retrolibrary/artwork/${system}/media/screenshot/${name}.jpg" && \
+    "${storagePath}/retrolibrary/artwork/${system}/media/box2dfront/${name}.jpg" && echo "true" || echo "false"
 
 }
 
