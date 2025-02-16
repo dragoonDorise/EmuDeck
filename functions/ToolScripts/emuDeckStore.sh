@@ -8,11 +8,8 @@ Store_installGame(){
     filename=$(basename "$url")
     name="${filename%.*}"
 
-    gameUrl="${url//[ ]/%20}"
-
-    curl "${gameUrl}" -o "${romsPath}/${system}/${name}.zip" && \
+    curl "${url}" -o "${romsPath}/${system}/${name}.zip" && \
     curl "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/screenshots/homebrew/${name}.png" -o "${storagePath}/retrolibrary/artwork/${system}/media/screenshot/${name}.png" && echo "true" || echo "false"
-
 
 }
 
