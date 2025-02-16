@@ -5,10 +5,13 @@ Store_installGame(){
     gameName=$2
     url=$3
 
+    filename=$(basename "$url")
+    name="${filename%.*}"
+
     gameUrl="${url//[ ]/%20}"
 
-    curl "${gameUrl}" -o "${romsPath}/${system}/${gameName}.zip" && \
-    curl "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/screenshots/homebrew/${gameNameUrl}.png" -o "${storagePath}/retrolibrary/artwork/${system}/media/screenshot/${gameName}.png" && echo "true" || echo "false"
+    curl "${gameUrl}" -o "${romsPath}/${system}/${name}.zip" && \
+    curl "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/screenshots/homebrew/${name}.png" -o "${storagePath}/retrolibrary/artwork/${system}/media/screenshot/${name}.png" && echo "true" || echo "false"
 
 
 }
@@ -16,17 +19,25 @@ Store_installGame(){
 Store_uninstallGame(){
     system=$1
     gameName=$2
+    url=$3
 
-    rm -rf "${romsPath}/${system}/${gameName}.zip" && \
-    rm -rf  "${storagePath}/retrolibrary/artwork/${system}/media/screenshot/${gameName}.png" && echo "true" || echo "false"
+    filename=$(basename "$url")
+    name="${filename%.*}"
+
+    rm -rf "${romsPath}/${system}/${name}.zip" && \
+    rm -rf  "${storagePath}/retrolibrary/artwork/${system}/media/screenshot/${name}.png" && echo "true" || echo "false"
 
 }
 
 Store_isGameInstalled(){
     system=$1
     gameName=$2
+    url=$3
 
-    if [ -f "${romsPath}/${system}/${gameName}.zip" ]; then
+    filename=$(basename "$url")
+    name="${filename%.*}"
+
+    if [ -f "${romsPath}/${system}/${name}.zip" ]; then
         echo "true"
     else
         echo "false"
