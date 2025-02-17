@@ -172,4 +172,9 @@ generateGameLists_downloadAssets(){
         cd $folder && unzip -o wii.zip && rm wii.zip
         echo "Wii assets Downloaded" > "$MSG"
     fi
+
+    wget -q -O "$folder/default/backgrounds/store.jpg" "https://artwork.emudeck.com/assets/default/backgrounds/store.jpg"
+    wget -q -O "$folder/default/carousel-icons/store.jpg" "https://artwork.emudeck.com/assets/default/carousel-icons/store.jpg"
+    wget -q -O "$folder/default/logo/store.png" "https://artwork.emudeck.com/assets/default/logo/store.png"
+
 }
