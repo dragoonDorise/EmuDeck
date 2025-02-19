@@ -1,9 +1,15 @@
 #!/bin/bash
 
+DEBIAN_DEPS="jq zenity flatpak unzip bash libfuse2 git rsync whiptail python"
+ARCH_DEPS="steam jq zenity flatpak unzip bash fuse2 git rsync whiptail python"
+FEDORA_DEPS="jq zenity flatpak unzip bash fuse git rsync newt python"
+SUSE_DEPS="steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail python"
+VOID_DEPS="steam jq zenity flatpak unzip bash fuse git rsync whiptail python"
+
 linuxID=$(lsb_release -si)
 sandbox=""
 
-if [ $linuxID = "Ubuntu" ]; then
+if [ "$linuxID" = "Ubuntu" ]; then
     sandbox="--no-sandbox"
 fi
 clear
@@ -53,34 +59,39 @@ else
 
     if command -v apt-get >/dev/null; then
         echo "Installing packages with apt..."
-        DEBIAN_DEPS="jq zenity flatpak unzip bash libfuse2 git rsync whiptail python"
 
         sudo killall apt apt-get
         sudo apt-get -y update
+        # shellcheck disable=SC2086
         sudo apt-get -y install $DEBIAN_DEPS
     elif command -v pacman >/dev/null; then
         echo "Installing packages with pacman..."
-        ARCH_DEPS="steam jq zenity flatpak unzip bash fuse2 git rsync whiptail python"
 
         sudo pacman --noconfirm -Syu
+        # shellcheck disable=SC2086
         sudo pacman --noconfirm -S $ARCH_DEPS
+    elif command -v rpm-ostree >/dev/null; then
+        echo "Installing packages with rpm-ostree..."
+
+        # shellcheck disable=SC2086
+        sudo rpm-ostree install $FEDORA_DEPS
     elif command -v dnf >/dev/null; then
-        echo "Installing packages with dnf..."
-        FEDORA_DEPS="jq zenity flatpak unzip bash fuse git rsync newt python"
+        echo "Installing packages with rpm-ostree..."
 
         sudo dnf -y upgrade
+        # shellcheck disable=SC2086
         sudo dnf -y install $FEDORA_DEPS
     elif command -v zypper >/dev/null; then
         echo "Installing packages with zypper..."
-        SUSE_DEPS="steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail python"
 
         sudo zypper --non-interactive up
+        # shellcheck disable=SC2086
         sudo zypper --non-interactive install $SUSE_DEPS
     elif command -v xbps-install >/dev/null; then
         echo "Installing packages with xbps..."
-        VOID_DEPS="steam jq zenity flatpak unzip bash fuse git rsync whiptail python"
 
         sudo xbps-install -Syu
+        # shellcheck disable=SC2086
         sudo xbps-install -Sy $VOID_DEPS
     else
         log_err "Your Linux distro $linuxID is not supported by this script. We invite to open a PR or help us with adding your OS to this script. https://github.com/dragoonDorise/EmuDeck/issues"
