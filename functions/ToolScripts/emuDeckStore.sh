@@ -35,7 +35,7 @@ Store_uninstallGame(){
     name_cleaned=$(echo "$name_cleaned" | tr '[:upper:]' '[:lower:]')
 
 
-    rm -rf "${romsPath}/${system}/${name}.zip" && \
+    rm -rf "${romsPath}/${system}/${gameName}.zip" && \
     rm -rf  "${storagePath}/retrolibrary/artwork/${system}/media/screenshot/${name_cleaned}.jpg" && \
     "${storagePath}/retrolibrary/artwork/${system}/media/box2dfront/${name_cleaned}.jpg" && echo "true" || echo "false"
 
