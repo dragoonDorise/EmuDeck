@@ -14,7 +14,7 @@ Store_installGame(){
     name_cleaned=$(echo "$name_cleaned" | tr -d '+&!'\''.' | sed 's/_decrypted//g' | sed 's/decrypted//g' | sed 's/.ps3//g')
     name_cleaned=$(echo "$name_cleaned" | tr '[:upper:]' '[:lower:]')
 
-    wget -O "${romsPath}/${system}/${name}.zip" "https://f005.backblazeb2.com/file/emudeck-store/${system}/${name}.zip" && \
+    wget -O "${romsPath}/${system}/${name}.zip" "https://f005.backblazeb2.com/file/emudeck-store/${system}/${gameName}.zip" && \
     wget -O "${storagePath}/retrolibrary/artwork/${system}/media/screenshot/${name_cleaned}.jpg" "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/screenshots/homebrew/${name}.png" && \
     wget -O "${storagePath}/retrolibrary/artwork/${system}/media/box2dfront/${name_cleaned}.jpg" "https://raw.githubusercontent.com/EmuDeck/emudeck-homebrew/main/downloaded_media/${system}/titlescreens/homebrew/${name}.png" && \
     echo "true" || echo "false"
