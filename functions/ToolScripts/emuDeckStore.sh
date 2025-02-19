@@ -46,10 +46,7 @@ Store_isGameInstalled(){
     gameName=$2
     url=$3
 
-    filename=$(basename "$url")
-    name="${filename%.*}"
-
-    if [ -f "${romsPath}/${system}/${name}.zip" ]; then
+    if [ -f "${romsPath}/${system}/${gameName}.zip" ]; then
         echo "true"
     else
         echo "false"
