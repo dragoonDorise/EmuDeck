@@ -1,0 +1,6 @@
+yabause_addon_cartridge = "none"
+yabause_force_hle_bios = "disabled"
+yabause_frameskip = "disabled"
+yabause_multitap_port1 = "disabled"
+yabause_multitap_port2 = "disabled"
+yabause_numthreads = "4"

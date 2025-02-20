@@ -11,7 +11,6 @@
     <emulator name="RETROARCH">
         <rule type="systempath">
             <entry>org.libretro.RetroArch</entry>
-            <entry>retroarch</entry>
         </rule>
         <rule type="staticpath">
             <entry>~/.local/share/flatpak/exports/bin/org.libretro.RetroArch</entry>
@@ -42,6 +41,12 @@
             <entry>/usr/pkg/lib/libretro</entry>
         </rule>
     </core>
+    <emulator name="SHADPS4">
+        <!-- PS4 emulator ShadPS4 -->
+        <rule type="staticpath">
+            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/shadps4.sh</entry>
+        </rule>
+    </emulator>
     <emulator name="YUZU">
         <!-- Nintendo Switch emulator Yuzu -->
         <rule type="systempath">

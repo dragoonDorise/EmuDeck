@@ -7,132 +7,168 @@ Citra_releaseURL=""
 Citra_configFile="$HOME/.config/citra-emu/qt-config.ini"
 Citra_configPath="$HOME/.config/citra-emu"
 Citra_texturesPath="$HOME/.config/citra-emu/load/textures"
-Citra_flatpakPath="$HOME/.var/app/org.citra_emu.citra"
-Citra_flatpakName="org.citra_emu.citra"
-Citra_flatpakconfigPath="$Citra_flatpakPath/config/citra-emu"
-Citra_flatpakconfigFile="$Citra_flatpakconfigPath/qt-config.ini"
-#cleanupOlderThings
-Citra_finalize(){
- echo "NYI"
-}
 
 #Install
 Citra_install(){
-	setMSG "Installing $Citra_emuName"
-	installEmuFP "${Citra_emuName}" "${Citra_emuPath}"
-	curl -L https://github.com/citra-emu/citra-web/releases/download/2.0/citra-setup-linux > citra-setup-linux && chmod +x citra-setup-linux && ./citra-setup-linux --accept-licenses --confirm-command install
-	rm citra-setup-linux
+	echo "Begin $Citra_emuName Install"
+	local showProgress="$1"
+	if installEmuAI "$Citra_emuName" "" "https://github.com/PabloMK7/citra/releases/download/r608383e/citra-linux-appimage-20240927-608383e.tar.gz" "citra" "tar.gz" "emulator" "$showProgress"; then #citra-qt.AppImage
+	#if installEmuAI "$Citra_emuName" "" "https://github.com/PabloMK7/citra/releases/download/r518f723/citra-linux-appimage-20240717-518f723.tar.gz" "citra" "tar.gz" "emulator" "$showProgress"; then #citra-qt.AppImage
+		mkdir "$HOME/Applications/citra-temp"
+		tar -xvzf "$HOME/Applications/citra.tar.gz" -C "$HOME/Applications/citra-temp" --strip-components 1
+		mv "$HOME/Applications/citra-temp/citra-qt.AppImage" "$HOME/Applications"
+		rm -rf "$HOME/Applications/citra-temp"
+		rm -rf "$HOME/Applications/citra.tar.gz"
+		chmod +x "$HOME/Applications/citra-qt.AppImage"
+	else
+		return 1
+	fi
 }
 
 #ApplyInitialSettings
 Citra_init(){
 	setMSG "Initializing $Citra_emuName settings."
-	#configEmuFP "${Citra_emuName}" "${Citra_emuPath}" "true"
-	#Citra_migrate
-	#Citra_setupStorage
+	configEmuAI "$Citra_emuName" "citra-emu"  "$HOME/.config/citra-emu" "$EMUDECKGIT/configs/citra-emu" "true"
 	Citra_setEmulationFolder
+	Citra_setupStorage
 	Citra_setupSaves
-	#SRM_createParsers
 	Citra_addSteamInputProfile
 	Citra_flushEmulatorLauncher
 	Citra_flushSymlinks
-	cp "$EMUDECKGIT/tools/launchers/citra.sh" "$toolsPath/launchers/citra.sh"
-	chmod +x "$toolsPath/launchers/citra.sh"
-
-  	createDesktopShortcut   "$HOME/.local/share/applications/Citra.desktop" \
-							"Citra (AppImage/Flatpak)" \
-							"${toolsPath}/launchers/citra.sh"  \
-							"False"
-
-
+	Citra_setupTextures
 }
 
 #update
 Citra_update(){
 	setMSG "Updating $Citra_emuName settings."
-	cd $HOME/.citra && ./maintenancetool update
+	configEmuAI "$Citra_emuName" "citra-emu" "$HOME/.config/citra-emu" "$EMUDECKGIT/configs/citra-emu"
 	Citra_setupStorage
 	Citra_setEmulationFolder
 	Citra_setupSaves
 	Citra_addSteamInputProfile
 	Citra_flushEmulatorLauncher
 	Citra_flushSymlinks
+	Citra_setupTextures
+}
+
+Citra_setupStorage(){
+	mkdir -p "$storagePath/citra/"
+
+
+	# SDMC and NAND
+	if [ ! -d "$storagePath/citra/sdmc" ] && [ -d "$HOME/.var/app/org.citra_emu.citra" -o -d "$HOME/.local/share/citra-emu" ]; then
+		echo "Citra SDMC does not exist in storage path"
+
+		echo -e ""
+		setMSG "Moving Citra SDMC to the Emulation/storage folder"
+		echo -e ""
+
+		mkdir -p "$storagePath/citra"
+
+		if [ -d "$savesPath/citra/sdmc" ]; then
+			mv -f "$savesPath"/citra/sdmc "$storagePath"/citra/
+
+		elif [ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" ]; then
+			rsync -av "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" "$storagePath"/citra/ && rm -rf "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc"
+
+		elif [ -d "$HOME/.local/share/citra-emu/sdmc" ]; then
+			rsync -av "$HOME/.local/share/citra-emu/sdmc" "$storagePath"/citra/ && rm -rf "$HOME/.local/share/citra-emu/sdmc"
+		else
+			mkdir -p "$storagePath/citra/sdmc"
+		fi
+	else
+		mkdir -p "$storagePath/citra/sdmc"
+	fi
+
+
+	if [ ! -d "$storagePath/citra/nand" ] && [ -d "$HOME/.var/app/org.citra_emu.citra" -o -d "$HOME/.local/share/citra-emu" ]; then
+		echo "Citra NAND does not exist in storage path"
+
+		echo -e ""
+		setMSG "Moving Citra NAND to the Emulation/storage folder"
+		echo -e ""
+
+		mkdir -p "$storagePath/citra"
+
+		if [ -d "$savesPath/citra/nand" ]; then
+			mv -f "$savesPath"/citra/nand "$storagePath"/citra/
+
+		elif [ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand" ]; then
+			rsync -av "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand" "$storagePath"/citra/ && rm -rf "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/nand"
+
+		elif [ -d "$HOME/.local/share/citra-emu/nand" ]; then
+			rsync -av "$HOME/.local/share/citra-emu/nand" "$storagePath"/citra/ && rm -rf "$HOME/.local/share/citra-emu/nand"
+		else
+			mkdir -p "$storagePath/citra/nand"
+		fi
+	else
+		mkdir -p "$storagePath/citra/nand"
+	fi
+
+	# Cheats and Texture Packs
+	# Cheats
+	mkdir -p "$HOME/.local/share/citra-emu/cheats"
+	linkToStorageFolder citra cheats "$HOME/.local/share/citra-emu/cheats"
+	# Texture Pack
+	mkdir -p "$HOME/.local/share/citra-emu/load/textures"
+	linkToStorageFolder citra textures "$HOME/.local/share/citra-emu/load/textures"
 }
 
 #ConfigurePaths
 Citra_setEmulationFolder(){
 	setMSG "Setting $Citra_emuName Emulation Folder"
 
+	mkdir -p "$Citra_configPath"
+	gameDirOpt='Paths\\gamedirs\\3\\path='
+	newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/n3ds"
+	sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_configFile"
 
-	if [ -e "$Citra_emuPath" ]; then
+	nandDirOpt='nand_directory='
+	newnandDirOpt='nand_directory='"$storagePath/citra/nand/"
+	sed -i "/${nandDirOpt}/c\\${newnandDirOpt}" "$Citra_configFile"
 
-		echo "AppImage found. Setting configurations."
+	sdmcDirOpt='sdmc_directory='
+	newsdmcDirOpt='sdmc_directory='"$storagePath/citra/sdmc/"
+	sed -i "/${sdmcDirOpt}/c\\${newsdmcDirOpt}" "$Citra_configFile"
 
-		mkdir -p "$Citra_configPath"
-		rsync -avhp "$EMUDECKGIT/configs/org.citra_emu.citra/config/citra-emu/qt-config.ini" "$Citra_configPath/qt-config.ini" --backup --suffix=.bak
-		gameDirOpt='Paths\\gamedirs\\3\\path='
-		newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/n3ds"
-		sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_configFile"
+	mkdir -p "$storagePath/citra/screenshots/"
+	screenshotsDirOpt='Paths\\screenshotPath='
+	newscreenshotDirOpt='Paths\\screenshotPath='"$storagePath/citra/screenshots/"
+	sed -i "/${screenshotsDirOpt}/c\\${newscreenshotDirOpt}" "$Citra_configFile"
 
-		nandDirOpt='nand_directory='
-		newnandDirOpt='nand_directory='"$HOME/.local/share/citra-emu/nand/"
-		sed -i "/${nandDirOpt}/c\\${newnandDirOpt}" "$Citra_configFile"
+	# True/False configs
+	sed -i 's/nand_directory\\default=true/nand_directory\\default=false/' "$Citra_configFile"
+	sed -i 's/sdmc_directory\\default=true/sdmc_directory\\default=false/' "$Citra_configFile"
+	sed -i 's/use_custom_storage=false/use_custom_storage=true/' "$Citra_configFile"
+	sed -i 's/use_custom_storage\\default=true/use_custom_storage\\default=false/' "$Citra_configFile"
 
-		sdmcDirOpt='sdmc_directory='
-		newsdmcDirOpt='sdmc_directory='"$HOME/.local/share/citra-emu/sdmc/"
-		sed -i "/${sdmcDirOpt}/c\\${newsdmcDirOpt}" "$Citra_configFile"
+	# Vulkan Graphics
+	sed -E 's/layout_option=[0-9]+/layout_option=5/g' "$Citra_configFile"
+	sed -i 's/layout_option\\default=true/layout_option\\default=false/' "$Citra_configFile"
 
-		screenshotsDirOpt='Paths\\screenshotPath='
-		newscreenshotDirOpt='Paths\\screenshotPath='"$HOME/.local/share/citra-emu/screenshots/"
-		sed -i "/${screenshotsDirOpt}/c\\${newscreenshotDirOpt}" "$Citra_configFile"
-
-		#Setup symlink for AES keys
-		mkdir -p "${biosPath}/citra/"
-		mkdir -p "$HOME/.local/share/citra-emu/sysdata"
-		ln -sn "$HOME/.local/share/citra-emu/sysdata" "${biosPath}/citra/keys"
-
-	else 
-		echo "AppImage not found."
-	fi
-
-
-	if [ "$(isFpInstalled "$Citra_flatpakName")" == "true" ]; then 
-
-		echo "Flatpak found. Setting configurations."
-
-
-		mkdir -p $Citra_flatpakconfigPath
-		rsync -avhp "$EMUDECKGIT/configs/org.citra_emu.citra/config/citra-emu/qt-config.ini" "$Citra_flatpakconfigPath/qt-config.ini" --backup --suffix=.bak
-		gameDirOpt='Paths\\gamedirs\\3\\path='
-		newGameDirOpt='Paths\\gamedirs\\3\\path='"${romsPath}/n3ds"
-		sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Citra_flatpakconfigFile"
-
-		#Setup symlink for AES keys
-		mkdir -p "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sysdata"
-		mkdir -p "${biosPath}/citra-flatpak"
-		ln -sn "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sysdata" "${biosPath}/citra-flatpak/keys"
-
-	else
-		echo "Flatpak not found."
-	fi
-
-	if [[ -e "$Citra_emuPath" ]] && [[ ! -f "$HOME/.config/EmuDeck/.citracopysaves" ]] && [[ -d "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc" ]] ;  then
-		echo "AppImage found. Copying Flatpak saves."
-		mkdir -p "$HOME/.local/share/citra-emu/sdmc"
-		rsync -avhp "$HOME/.var/app/org.citra_emu.citra/data/citra-emu/sdmc/." "$HOME/.local/share/citra-emu/sdmc/."  --ignore-existing
-		touch "$HOME/.config/EmuDeck/.citracopysaves"
-	fi
-
+	#Setup symlink for AES keys
+	mkdir -p "${biosPath}/citra/"
+	mkdir -p "$HOME/.local/share/citra-emu/sysdata"
+	ln -sn "$HOME/.local/share/citra-emu/sysdata" "${biosPath}/citra/keys"
 
 }
+
+
 
 #SetupSaves
 Citra_setupSaves(){
-	linkToSaveFolder citra saves "$HOME/.local/share/citra-emu/sdmc"
+	mkdir -p "$HOME/.local/share/citra-emu/states"
+	linkToSaveFolder citra saves "$storagePath/citra/sdmc"
 	linkToSaveFolder citra states "$HOME/.local/share/citra-emu/states"
 }
 
+#Set up textures
 
+Citra_setupTextures(){
+	mkdir -p "$HOME/.local/share/citra-emu/load/textures"
+	linkToTexturesFolder citra textures "$HOME/.local/share/citra-emu/load/textures"
+
+}
 
 #WipeSettings
 Citra_wipe(){
@@ -144,61 +180,23 @@ Citra_wipe(){
 #Uninstall
 Citra_uninstall(){
 	setMSG "Uninstalling $Citra_emuName."
-	cd $HOME/.citra && ./maintenancetool purge
+	uninstallEmuAI $Citra_emuName "citra-qt" "" "emulator"
 }
 
 #setABXYstyle
 Citra_setABXYstyle(){
-		echo "NYI"
+	sed -i '/button_a/s/button:1/button:0/' "$Citra_configFile"
+	sed -i '/button_b/s/button:0/button:1/' "$Citra_configFile"
+	sed -i '/button_x/s/button:3/button:2/' "$Citra_configFile"
+	sed -i '/button_y/s/button:2/button:3/' "$Citra_configFile"
+
 }
 
-#Migrate
-Citra_migrate(){
-echo "Begin Citra Migration"
-	emu="Citra"
-	migrationFlag="$HOME/.config/EmuDeck/.${emu}MigrationCompleted"
-	#check if we have a nomigrateflag for $emu
-	if [ ! -f "$migrationFlag" ]; then
-		#citra flatpak to appimage
-		#From -- > to
-		migrationTable=()
-		migrationTable+=("$HOME/.var/app/org.citra_emu.citra/data/citra-emu" "$HOME/.local/share/citra-emu")
-		migrationTable+=("$HOME/.var/app/org.citra_emu.citra/config/citra-emu" "$HOME/.config/citra-emu")
-
-		# migrateAndLinkConfig "$emu" "$migrationTable"
-	fi
-
-	#move data from hidden folders out to these folders in case the user already put stuff here.
-	origPath="$HOME/.var/app/org.citra_emu.citra/data/citra_emu/"
-
-	Citra_setupStorage
-
-	rsync -av "${origPath}citra/dump" "${storagePath}/citra/" && rm -rf "${origPath}citra/dump"
-	rsync -av "${origPath}citra/load" "${storagePath}/citra/" && rm -rf "${origPath}citra/load"
-	rsync -av "${origPath}citra/sdmc" "${storagePath}/citra/" && rm -rf "${origPath}citra/sdmc"
-	rsync -av "${origPath}citra/nand" "${storagePath}/citra/" && rm -rf "${origPath}citra/nand"
-	rsync -av "${origPath}citra/screenshots" "${storagePath}/citra/" && rm -rf "${origPath}citra/screenshots"
-	rsync -av "${origPath}citra/tas" "${storagePath}/citra/" && rm -rf "${origPath}citra/tas"
-}
-
-#WideScreenOn
-Citra_wideScreenOn(){
-echo "NYI"
-}
-
-#WideScreenOff
-Citra_wideScreenOff(){
-echo "NYI"
-}
-
-#BezelOn
-Citra_bezelOn(){
-echo "NYI"
-}
-
-#BezelOff
-Citra_bezelOff(){
-echo "NYI"
+Citra_setBAYXstyle(){
+	sed -i '/button_a/s/button:0/button:1/' "$Citra_configFile"
+	sed -i '/button_b/s/button:1/button:0/' "$Citra_configFile"
+	sed -i '/button_x/s/button:2/button:3/' "$Citra_configFile"
+	sed -i '/button_y/s/button:3/button:2/' "$Citra_configFile"
 }
 
 #finalExec - Extra stuff
@@ -210,7 +208,7 @@ Citra_IsInstalled(){
 	if [ -e "$Citra_emuPath" ]; then
 		echo "true"
 	else
-		isFpInstalled "$Citra_flatpakName"
+		echo "false"
 	fi
 }
 
@@ -255,22 +253,22 @@ Citra_flushSymlinks(){
 		echo "Steam install not found"
 	fi
 
-  	if [ ! -f "$HOME/.config/EmuDeck/.citralegacysymlinks" ] && [ -f "$HOME/.config/EmuDeck/.citrasymlinks" ]; then
+	  if [ ! -f "$HOME/.config/EmuDeck/.citralegacysymlinks" ] && [ -f "$HOME/.config/EmuDeck/.citrasymlinks" ]; then
 
 		mkdir -p "$romsPath/n3ds"
-    	# Temporary deletion to check if there are any additional contents in the n3ds folder.
+		# Temporary deletion to check if there are any additional contents in the n3ds folder.
 		rm -rf "$romsPath/n3ds/media" &> /dev/null
 		rm -rf "$romsPath/n3ds/metadata.txt" &> /dev/null
 		rm -rf "$romsPath/n3ds/systeminfo.txt" &> /dev/null
 
-		# The Pegasus install was accidentally overwriting the pre-existing n3ds symlink. 
-		# This checks if the n3ds folder is empty (post-removing the contents above) and if the original 3ds folder is still a folder and not a symlink (for those who have already migrated). 
-		# If all of this is true, the n3ds folder is deleted and the old symlink is temporarily recreated to proceed with the migration. 
+		# The Pegasus install was accidentally overwriting the pre-existing n3ds symlink.
+		# This checks if the n3ds folder is empty (post-removing the contents above) and if the original 3ds folder is still a folder and not a symlink (for those who have already migrated).
+		# If all of this is true, the n3ds folder is deleted and the old symlink is temporarily recreated to proceed with the migration.
 		if [[ ! "$( ls -A "$romsPath/n3ds")" ]] && [ -d "$romsPath/3ds" ] && [ ! -L "$romsPath/3ds" ]; then
 			rm -rf "$romsPath/n3ds"
-			ln -sfn "$romsPath/3ds" "$romsPath/n3ds" 
-      		# Temporarily restores old directory structure. 
-		fi 
+			ln -sfn "$romsPath/3ds" "$romsPath/n3ds"
+			  # Temporarily restores old directory structure.
+		fi
 
 		if [[ -L "$romsPath/n3ds" && ! $(readlink -f "$romsPath/n3ds") =~ ^"$romsPath" ]] || [[ -L "$romsPath/3ds" && ! $(readlink -f "$romsPath/3ds") =~ ^"$romsPath" ]]; then
 			echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
@@ -295,22 +293,17 @@ Citra_flushSymlinks(){
 				echo "3ds symlink created"
 			fi
 		fi
-		
+
 
 		rsync -avh "$EMUDECKGIT/roms/n3ds/." "$romsPath/n3ds/." --ignore-existing
 
-		if [ -d "$toolsPath/downloaded_media/n3ds" ] && [ ! -d "$romsPath/n3ds/media" ]; then 
+		if [ -d "$toolsPath/downloaded_media/n3ds" ] && [ ! -d "$romsPath/n3ds/media" ]; then
 			ln -s "$toolsPath/downloaded_media/n3ds" "$romsPath/n3ds/media"
 		fi
 
-    	find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
+		find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
 		touch "$HOME/.config/EmuDeck/.citralegacysymlinks"
 		echo "Citra symlink cleanup completed."
-		zenity --info \
-		--text="Citra symlinks have been cleaned. This cleanup was conducted to prevent any potential breakage with symlinks. Place all new ROMs in Emulation/roms/n3ds. Your ROMs have been moved from Emulation/roms/3ds to Emulation/roms/n3ds." \
-		--title="Symlink Update" \
-		--width=400 \
-		--height=300
 
 	else
 		echo "Citra symlinks already cleaned."
@@ -321,19 +314,19 @@ Citra_flushSymlinks(){
 
 
 		mkdir -p "$romsPath/n3ds"
-    	# Temporary deletion to check if there are any additional contents in the n3ds folder.
+		# Temporary deletion to check if there are any additional contents in the n3ds folder.
 		rm -rf "$romsPath/n3ds/media" &> /dev/null
 		rm -rf "$romsPath/n3ds/metadata.txt" &> /dev/null
 		rm -rf "$romsPath/n3ds/systeminfo.txt" &> /dev/null
 
-		# The Pegasus install was accidentally overwriting the pre-existing n3ds symlink. 
-		# This checks if the n3ds folder is empty (post-removing the contents above) and if the original 3ds folder is still a folder and not a symlink (for those who have already migrated). 
-		# If all of this is true, the n3ds folder is deleted and the old symlink is temporarily recreated to proceed with the migration. 
+		# The Pegasus install was accidentally overwriting the pre-existing n3ds symlink.
+		# This checks if the n3ds folder is empty (post-removing the contents above) and if the original 3ds folder is still a folder and not a symlink (for those who have already migrated).
+		# If all of this is true, the n3ds folder is deleted and the old symlink is temporarily recreated to proceed with the migration.
 		if [[ ! "$( ls -A "$romsPath/n3ds")" ]] && [ -d "$romsPath/3ds" ] && [ ! -L "$romsPath/3ds" ]; then
 			rm -rf "$romsPath/n3ds"
-			ln -sfn "$romsPath/3ds" "$romsPath/n3ds" 
-      		# Temporarily restores old directory structure. 
-		fi 
+			ln -sfn "$romsPath/3ds" "$romsPath/n3ds"
+			  # Temporarily restores old directory structure.
+		fi
 
 		if [[ -L "$romsPath/n3ds" && ! $(readlink -f "$romsPath/n3ds") =~ ^"$romsPath" ]] || [[ -L "$romsPath/3ds" && ! $(readlink -f "$romsPath/3ds") =~ ^"$romsPath" ]]; then
 			echo "User has symlinks that don't match expected paths located under $romsPath. Aborting symlink update."
@@ -361,18 +354,13 @@ Citra_flushSymlinks(){
 
 		rsync -avh "$EMUDECKGIT/roms/n3ds/." "$romsPath/n3ds/." --ignore-existing
 
-		if [ -d "$toolsPath/downloaded_media/n3ds" ] && [ ! -d "$romsPath/n3ds/media" ]; then 
+		if [ -d "$toolsPath/downloaded_media/n3ds" ] && [ ! -d "$romsPath/n3ds/media" ]; then
 			ln -s "$toolsPath/downloaded_media/n3ds" "$romsPath/n3ds/media"
 		fi
 
-    	find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
+		find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
 		touch "$HOME/.config/EmuDeck/.citrasymlinks"
 		echo "Citra symlink cleanup completed."
-		zenity --info \
-		--text="Citra symlinks have been cleaned. This cleanup was conducted to prevent any potential breakage with symlinks. Place all new ROMs in Emulation/roms/n3ds. Your ROMs have been moved from Emulation/roms/3ds to Emulation/roms/n3ds." \
-		--title="Symlink Update" \
-		--width=400 \
-		--height=300
 
 	else
 		echo "Citra symlinks already cleaned."

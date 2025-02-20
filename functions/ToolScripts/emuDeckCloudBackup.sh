@@ -245,7 +245,7 @@ else
   fi
 fi
 
-\"\$toolsPath/rclone/rclone\" copy -L \"\$savesPath\" \"\$rclone_provider\":Emudeck/saves -P > \"\$toolsPath/rclone/rclone_job.log\"
+\"\$toolsPath/rclone/rclone\" copy -L \"\$savesPath\" \"\$rclone_provider\":"$cs_user"Emudeck/saves -P > \"\$toolsPath/rclone/rclone_job.log\"
 ">>"$rclone_jobScript"
 chmod +x "$rclone_jobScript"
 
@@ -285,7 +285,7 @@ else
   fi
 fi
 
-\"\$toolsPath/rclone/rclone\" copy -L \"\$rclone_provider\":Emudeck/saves \"\$savesPath\" -P > \"\$toolsPath/rclone/rclone_job.log\"
+\"\$toolsPath/rclone/rclone\" copy -L \"\$rclone_provider\":"$cs_user"Emudeck/saves \"\$savesPath\" -P > \"\$toolsPath/rclone/rclone_job.log\"
 ">>"$rclone_restoreScript"
 chmod +x "$rclone_restoreScript"
 }

@@ -16,7 +16,7 @@ Primehack_cleanup(){
 #Install
 Primehack_install() {
 	setMSG "Installing $Primehack_emuName"
-	installEmuFP "${Primehack_emuName}" "${Primehack_emuPath}"
+	installEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" "emulator" ""
 }
 
 #ApplyInitialSettings
@@ -34,7 +34,8 @@ Primehack_init() {
 #update
 Primehack_update() {
 	setMSG "Updating $Primehack_emuName settings."
-	configEmuFP "${Primehack_emuName}" "${Primehack_emuPath}"
+	configEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" 
+	updateEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" "emulator" ""
 	Primehack_setupStorage
 	Primehack_setEmulationFolder
 	Primehack_setupSaves
@@ -73,7 +74,7 @@ Primehack_wipe() {
 
 #Uninstall
 Primehack_uninstall() {
-	flatpak uninstall "${Primehack_emuPath}" -y
+	uninstallEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" "emulator" ""
 }
 
 #setABXYstyle
@@ -83,7 +84,7 @@ Primehack_setABXYstyle(){
 
 #Migrate
 Primehack_migrate(){
-	migrateDolphinStates "primehack" "io.github.shiiion.primehack"
+	migrateDolphinStates "primehack" "io.github.shiiion.primehack" 
 }
 
 #WideScreenOn

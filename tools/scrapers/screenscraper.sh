@@ -1,177 +1,63 @@
 #!/bin/bash
+source $HOME/.config/EmuDeck/backend/functions/all.sh
 
-user=$(zenity --entry --title="ScreenScrapper" --text="User:")
-password=$(zenity --password --title="ScreenScrapper" --text="Password:")
+NONE='\033[00m'
+RED='\033[01;31m'
+GREEN='\033[01;32m'
+YELLOW='\033[01;33m'
+PURPLE='\033[01;35m'
+CYAN='\033[01;36m'
+WHITE='\033[01;37m'
+BOLD='\033[1m'
+UNDERLINE='\033[4m'
+BLINK='\x1b[5m'
 
-encryption_key=$(openssl rand -base64 32)
-encrypted_password=$(echo "$password" | openssl enc -aes-256-cbc -pbkdf2 -base64 -pass "pass:$encryption_key")
+if [ ! -f "$HOME/.config/EmuDeck/.userSS" ]; then
+	user=$(zenity --entry --title="ScreenScrapper" --text="User:")
+	password=$(zenity --password --title="ScreenScrapper" --text="Password:")
+	encryption_key=$(openssl rand -base64 32)
+	encrypted_password=$(echo "$password" | openssl enc -aes-256-cbc -pbkdf2 -base64 -pass "pass:$encryption_key")
+	echo "$encryption_key" > "$HOME/.config/EmuDeck/logs/.key"
+	echo "$encrypted_password" > "$HOME/.config/EmuDeck/.passSS"
+	echo "$user" > "$HOME/.config/EmuDeck/.userSS"
+fi
 
-echo "$encryption_key" > "$HOME/.config/EmuDeck/logs/.key"
-echo "$encrypted_password" > "$HOME/.config/EmuDeck/.passSS"
-echo "$user" > "$HOME/.config/EmuDeck/.userSS"
-
-romParser_SS_download(){
+romParser_SS_get_url(){
 	local romName=$1
 	local system=$2
 	local type=$3
-	local userSS=$(cat "$HOME/emudeck/.userSS")
+	local userSS=$(cat "$HOME/.config/EmuDeck/.userSS")
 	local encryption_key=$(cat "$HOME/.config/EmuDeck/logs/.key")
 	local encrypted_password=$(cat "$HOME/.config/EmuDeck/.passSS")
 	local decrypted_password=$(echo "$encrypted_password" | openssl enc -d -aes-256-cbc -pbkdf2 -base64 -pass "pass:$encryption_key")
 	local passSS=$decrypted_password
 
-
-	#local ssID Set but calling romParser_SS_getAlias before
-	case "$type" in
-		"marquees")
-			media="wheel"
-			;;
-		"screenshots")
-			media="ss"
-			;;
-		*)
-			media="box-2D"
-			;;
-	esac
+	rom_clean=$(echo "$romName" | sed 's/([^)]*)//g; s/\[[^]]*\]//g')
+	rom_clean=$(echo "$rom_clean" | tr ' ' '_')
+	rom_clean="${rom_clean%.*}"
 
 	FILE=$romsPath/$system/media/$type/$romName.png
-	if [ -f "$FILE" ]; then
-		echo -e "Image already exists, ${YELLOW}ignoring${NONE}"
-	else
-		#We get the gameIDSS
-		urlIDSS="https://www.screenscraper.fr/api2/jeuInfos.php?devid=djrodtc&devpassword=diFay35WElL&softname=zzz&output=json&ssid=${userSS}&sspassword=${passSS}&crc=&systemeid=${ssID}&romtype=rom&romnom=${romName}.zip"
+	if [ ! -f "$FILE" ]; then
+
+		urlIDSS="https://www.screenscraper.fr/api2/jeuInfos.php?devid=djrodtc&devpassword=diFay35WElL&softname=zzz&output=json&ssid=${userSS}&sspassword=${passSS}&crc=&systemeid=${ssID}&romtype=rom&romnom=${rom_clean}"
+
+		#echo $urlIDSS
 
 		#Cleaning URL
 		urlIDSS=$(echo "$urlIDSS" | sed 's/ /%20/g')
 
 		#ID Game
-		content=$(curl $urlIDSS)
-		#Don't check art if screenscraper is closed
-		if [[ $content == *"API closed"* ]]; then
-			echo -e "The Screenscraper API is currently down, please try again later."
-			exit
-		fi
-		#Don't check art after a failed curl request
-		if [[ $content == "" ]]; then
-			echo -e "Request failed to send for $romName, ${YELLOW}skipping${NONE}"
-			echo ""
-			echo "Request failed for $romName"
-			exit
-		fi
-		#Don't check art if screenscraper can't find a match
-		if [[ $content == *"Erreur"* ]]; then
-			echo -e "Couldn't find a match for $romName, ${YELLOW}skipping${NONE}"
-			echo ""
-			echo "Couldn't find a match for $romName"
-			exit
+		content=$(curl -s $urlIDSS)
+
+
+		if [ $type = 'screenshots' ]; then
+			echo "$content" | jq -r '.response.jeu.medias[] | select(.type == "ss") | .url' | head -n 1
+		elif [ $type = 'wheel' ]; then
+			echo "$content" | jq -r '.response.jeu.medias[] | select(.type == "wheel") | .url' | head -n 1
+		elif [ $type = 'box2dfront' ]; then
+			echo "$content" | jq -r '.response.jeu.medias[] | select(.type == "box-2D") | .url' | head -n 1
 		fi
 
-		gameIDSS=$( jq -r  '.response.jeu.id' <<< "${content}" )
-
-		#Downloading art!
-		local url="https://www.screenscraper.fr/api2/mediaJeu.php?devid=djrodtc&devpassword=diFay35WElL&softname=EmuDeck&ssid=${userSS}&sspassword=${passSS}&crc=&md5=&sha1=&systemeid=${ssID}&jeuid=${gameIDSS}&media=${media}(wor)"
-
-
-		urlSave="$romsPath/$system/media/$media/$romName.png"
-		echo $urlSave
-
-		echo -e "${BOLD}Scraping: $media${NONE}"
-		StatusString=$(wget --spider "$url" 2>&1)
-		echo -ne "${BOLD}Searching World Region..."
-		if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
-			wget -q --show-progress "$url" -O "$urlSave" |
-			zenity --progress \
-			  --title="EmuDeck RetroArch Parser" \
-			  --text="Downloading artwork for $system..." \
-			  --auto-close \
-			  --pulsate \
-
-			echo -e "${GREEN}Found it!${NONE}"
-		else
-			echo -ne "${BOLD}Searching US Region..."
-			firstString="$url"
-			secondString="(us)"
-			url="${firstString/(wor)/"$secondString"}"
-			StatusString=$(wget --spider "$url" 2>&1)
-			if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
-				wget -q --show-progress "$url" -O "$urlSave" |
-				zenity --progress \
-				  --title="EmuDeck RetroArch Parser" \
-				  --text="Downloading artwork for $system..." \
-				  --auto-close \
-				  --pulsate \
-
-				echo -e "${GREEN}Found it!${NONE}"
-			else
-				echo -ne "${BOLD}Searching EU Region..."
-				firstString="$url"
-				secondString="(eu)"
-				url="${firstString/(us)/"$secondString"}"
-				StatusString=$(wget --spider "$url" 2>&1)
-				if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
-					wget -q --show-progress "$url" -O "$urlSave" |
-					zenity --progress \
-					  --title="EmuDeck RetroArch Parser" \
-					  --text="Downloading artwork for $system..." \
-					  --auto-close \
-					  --pulsate \
-
-					echo -e "${GREEN}Found it!${NONE}"
-
-				else
-					echo -ne "${BOLD}Searching USA Region..."
-					firstString="$url"
-					secondString="(usa)"
-					url="${firstString/(eu)/"$secondString"}"
-					StatusString=$(wget --spider "$url" 2>&1)
-					if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
-						wget -q --show-progress "$url" -O "$urlSave" |
-						zenity --progress \
-						  --title="EmuDeck RetroArch Parser" \
-						  --text="Downloading artwork for $system..." \
-						  --auto-close \
-						  --pulsate \
-
-						echo -e "${GREEN}Found it!${NONE}"
-					else
-						echo -ne "${BOLD}Searching Custom Region..."
-						firstString="$url"
-						secondString="(cus)"
-						url="${firstString/(usa)/"$secondString"}"
-						StatusString=$(wget --spider "$url" 2>&1)
-						if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
-							wget -q --show-progress "$url" -O "$urlSave" |
-							zenity --progress \
-							  --title="EmuDeck RetroArch Parser" \
-							  --text="Downloading artwork for $system..." \
-							  --auto-close \
-							  --pulsate \
-
-							echo -e "${GREEN}Found it!${NONE}"
-						else
-							echo -ne "${BOLD}Searching No Region..."
-							firstString="$url"
-							secondString=""
-							url="${firstString/(cus)/"$secondString"}"
-							StatusString=$(wget --spider "$url" 2>&1)
-							if [[ $StatusString == *"image/png"* ]] || [[ $StatusString == *"image/jpeg"* ]] || [[ $StatusString == *"image/jpg"* ]]; then
-								wget -q --show-progress "$url" -O "$urlSave" &> /dev/null
-								echo -e "${GREEN}Found it!${NONE}"|
-								zenity --progress \
-								  --title="EmuDeck RetroArch Parser" \
-								  --text="Downloading artwork for $system..." \
-								  --auto-close \
-								  --pulsate \
-
-
-							else
-								echo -e "${RED}NO IMG FOUND${NONE}"
-							fi
-						fi
-					fi
-				fi
-			fi
-		fi
 	fi
 }
 
@@ -220,7 +106,9 @@ romParser_SS_getAlias(){
 		ssID="25";;
 		atari2600)
 		ssID="26";;
-		jaguar)
+		atarijaguar)
+		ssID="27";;
+		atarijaguarcd)
 		ssID="27";;
 		lynx)
 		ssID="28";;
@@ -238,9 +126,9 @@ romParser_SS_getAlias(){
 		ssID="42";;
 		atari800)
 		ssID="43";;
-		wswan)
+		wonderswan)
 		ssID="45";;
-		wswanc)
+		wonderswancolor)
 		ssID="46";;
 		colecovision)
 		ssID="48";;
@@ -393,55 +281,99 @@ romParser_SS_getAlias(){
 	esac
 }
 
-romParser_SS_start(){
+romParser_SS_download(){
+	local games=$1
+	local platform=$2
+	local type=$3
+	for game in $games; do
+		#We bring back the spaces
+		game=${game//_/ }
+		 file_to_check="$romsPath/$platform/media/$type/${game}.png"
 
-	echo -e "${BOLD}Starting ScreenScraper Thumbnails Scraper...${NONE}"
+		 #echo $file_to_check
 
-	for systemPath in $romsPath/*;
- 	do
-		 if [[ "$systemPath" == *tx* ]]; then
-			 break
-		 fi
+		 if ! ls "$file_to_check" 1> /dev/null 2>&1; then
+		 #if ! ls $file_to_check 1> /dev/null 2>&1 && [ -z "${processed_games[$game]}" ]; then
 
-	 	system=$(echo "$systemPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
+			#romParser_SS_get_url "$game" $platform $type
 
-		romNumber=$(find "$systemPath" -maxdepth 1 -type f | wc -l)
+			game_screenshot_url=$(romParser_SS_get_url "$game" $platform $type)
 
-		#Getting roms
-		i=0
-		for romPath in $systemPath/*;
-		do
-			#Validating
-			if [ -f "$romPath" ] && [ "$(basename "$romPath")" != ".*" ] && [[ "$romPath" != *".tx" ]] && [[ "$(basename "$romPath")" != *".exe" ]] && [[ "$(basename "$romPath")" != *".conf" ]] && [[ "$(basename "$romPath")" != *".xml" ]]; then
 
-				#Cleaning rom directory
-				romfile=$(echo "$romPath" | sed 's/.*\/\([^\/]*\)\/\?$/\1/')
-				romName=$(basename "$romfile" .zip)
+			if [[ "$game_screenshot_url" == *"screenscraper"* ]]; then
 
-				if [ $i = 96 ]; then
-					i=95
+				echo -e ${GREEN}"$game added to batch"${NONE}
+
+				download_array+=("$game_screenshot_url")
+				download_dest_paths+=("$file_to_check")
+				processed_games[$game]=1
+				if [ ${#download_array[@]} -ge 10 ]; then
+					echo ""
+					echo "Start batch $platform $type"
+					for i in "${!download_array[@]}"; do
+						{
+							curl -s -o "${download_dest_paths[$i]}" "${download_array[$i]}" > /dev/null 2>&1
+						} &
+					done
+					wait
+					# Clear the arrays for the next batch
+					download_array=()
+					download_dest_paths=()
+					echo "Completed batch"
+					echo ""
 				fi
-
-				(
-					#We get the ssID for later
-					romParser_SS_getAlias $system
-					romParser_SS_download "$romName" $system "screenshots"
-					romParser_SS_download "$romName" $system "covers"
-					romParser_SS_download "$romName" $system "marquees"
-				) |
-				zenity --progress \
-				  --title="EmuDeck ScreenScraper Parser" \
-				  --text="Downloading artwork for $system..." \
-				  --auto-close \
-				  --pulsate \
-
-
-				((i++))
+			else
+				echo -e ${RED}"$game not found"${NONE}
 			fi
-		done
 
+		else
+			echo -e ${CYAN}"$game already scraped"${NONE}
+		fi
 	done
-	echo -e "${GREEN}RetroArch Parser completed!${NONE}"
+
 }
 
+romParser_SS_start(){
+	#generateGameLists
+	echo -e "${BOLD}Starting ScreenScraper Thumbnails Scraper...${NONE}"
+	python $HOME/.config/EmuDeck/backend/tools/generate_game_lists.py "$romsPath"
+	json=$(cat "$HOME/emudeck/cache/roms_games.json")
+	platforms=$(echo "$json" | jq -r '.[].id')
 
+	declare -A processed_games
+
+	for platform in $platforms; do
+		echo -e ${YELLOW}"Processing platform: $platform"${NONE}
+		games=$(echo "$json" | jq -r --arg platform "$platform" '.[] | select(.id == $platform) | .games[]?.file')
+
+		declare -a download_array
+		declare -a download_dest_paths
+		romParser_SS_getAlias $platform
+
+		#screenshots
+
+		romParser_SS_download "$games" "$platform" "screenshots"
+		romParser_SS_download "$games" "$platform" "box2dfront"
+		romParser_SS_download "$games" "$platform" "wheel"
+
+
+		#Wheel
+
+
+	done
+
+	#Missing files
+	for i in "${!download_array[@]}"; do
+		{
+			echo ${download_array[$i]}
+			curl -s -o "${download_dest_paths[$i]}" "${download_array[$i]}" > /dev/null 2>&1
+		} &
+	done
+
+
+
+	echo -e "${GREEN}ScreenScrapper Parser completed!${NONE}"
+}
+clear
+#
+romParser_SS_start
