@@ -3,7 +3,29 @@ installEmuFP(){
 	
 	local name="$1"
 	local ID="$2"
-	
+	local type="$3"
+	local scriptname="$4"
+
+	if [[ "$type" == "emulator" ]]; then
+		gitPath="${EMUDECKGIT}/tools/launchers/"
+		launcherPath="${toolsPath}/launchers"
+	elif [[ "$type" == "remoteplay" ]]; then
+		gitPath="${EMUDECKGIT}/tools/remoteplayclients/"
+		launcherPath="${romsPath}/remoteplay"
+	elif [[ "$type" == "genericapplication" ]]; then
+		gitPath="${EMUDECKGIT}/tools/generic-applications/"
+		launcherPath="${romsPath}/generic-applications"
+	fi
+
+    if [[ -z "$scriptname" ]]; then
+        scriptname="$name"
+    fi
+
+    echo "1, Flatpak Name: $name"
+    echo "2, Flatpak ID: $ID"
+    echo "3, Flatpak Type: $type"
+	echo "4, Flatpak Script Name: $scriptname"
+
 	setMSG "Installing $name"
 	
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
@@ -15,9 +37,23 @@ installEmuFP(){
 		flatpak uninstall "$ID" --system -y
 	fi
  	
-	shName=$(echo "$name" | awk '{print tolower($0)}')
-	
-   	find "${toolsPath}/launchers/" -maxdepth 1 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | while read -r f; do echo "deleting old: $f"; rm -f "$f"; done;
-    find "${EMUDECKGIT}/tools/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | while read -r l; do echo "deploying new: $l"; chmod +x "$l"; cp -v "$l" "${toolsPath}/launchers/"; done;
+	shName=$(echo "$scriptname" | awk '{print tolower($0)}')
+    mkdir -p "${romsPath}/emulators"
+	mkdir -p "$launcherPath"
+    find "${launcherPath}/" "${romsPath}/emulators" -maxdepth 1 -type f \( -iname "$shName.sh" -o -iname "$shName-emu.sh" \) | \
+    while read -r f
+    do
+        echo "deleting $f"
+        rm -f "$f"
+    done
 
+	find "$gitPath" -type f \( -iname "${shName}.sh" -o -iname "$shName-emu.sh" \) | while read -r l; do
+		echo "deploying new: $l"
+		chmod +x "$l"
+		cp -v "$l" "${launcherPath}"
+        if [[ "$type" == "emulator" ]]; then
+            cp -v "$l" "${romsPath}/emulators"
+			chmod +x "${romsPath}/emulators/"*
+        fi 
+	done
 }

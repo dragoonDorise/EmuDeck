@@ -14,14 +14,14 @@ Flycast_cleanup(){
 #Install
 Flycast_install(){
 	setMSG "Installing $Flycast_emuName"
-
-	installEmuFP "${Flycast_emuName}" "${Flycast_emuPath}"
+	installEmuFP "${Flycast_emuName}" "${Flycast_emuPath}" "emulator" ""
 }
 
 #ApplyInitialSettings
 Flycast_init(){
 	setMSG "Initializing $Flycast_emuName settings."
 	configEmuFP "${Flycast_emuName}" "${Flycast_emuPath}" "true"
+	updateEmuFP "${Flycast_emuName}" "${Flycast_emuPath}" "emulator" ""
 	Flycast_setupStorage
 	Flycast_setEmulationFolder
 	Flycast_setupSaves
@@ -79,7 +79,7 @@ Flycast_wipe(){
 #Uninstall
 Flycast_uninstall(){
 	setMSG "Uninstalling ${Flycast_emuName}."
-    flatpak uninstall "$Flycast_emuPath" --user -y
+	uninstallEmuFP "${Flycast_emuName}" "${Flycast_emuPath}" "emulator" ""
 }
 
 #setABXYstyle

@@ -43,12 +43,14 @@
 /run/media/mmcblk0p1/Emulation/roms/daphne
 /run/media/mmcblk0p1/Emulation/roms/desktop
 /run/media/mmcblk0p1/Emulation/roms/desktop/cloud
+/run/media/mmcblk0p1/Emulation/roms/desktop/generic-applications
 /run/media/mmcblk0p1/Emulation/roms/desktop/remoteplay
 /run/media/mmcblk0p1/Emulation/roms/doom
 /run/media/mmcblk0p1/Emulation/roms/dos
 /run/media/mmcblk0p1/Emulation/roms/dragon32
 /run/media/mmcblk0p1/Emulation/roms/dreamcast
 /run/media/mmcblk0p1/Emulation/roms/easyrpg
+/run/media/mmcblk0p1/Emulation/roms/emulators
 /run/media/mmcblk0p1/Emulation/roms/epic
 /run/media/mmcblk0p1/Emulation/roms/famicom
 /run/media/mmcblk0p1/Emulation/roms/fba
@@ -170,7 +172,7 @@
 /run/media/mmcblk0p1/Emulation/roms/vsmile
 /run/media/mmcblk0p1/Emulation/roms/wasm4
 /run/media/mmcblk0p1/Emulation/roms/wii
-/run/media/mmcblk0p1/Emulation/roms/wiiu/roms
+/run/media/mmcblk0p1/Emulation/roms/wiiu
 /run/media/mmcblk0p1/Emulation/roms/wonderswan
 /run/media/mmcblk0p1/Emulation/roms/wonderswancolor
 /run/media/mmcblk0p1/Emulation/roms/x1

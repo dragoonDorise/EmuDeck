@@ -1,4 +1,8 @@
 #!/bin/bash
+#source $HOME/.config/EmuDeck/backend/functions/all.sh
+
+
+
 MSG=$HOME/emudeck/logs/msg.log
 echo "0" > "$MSG"
 
@@ -82,8 +86,36 @@ fi
 ##
 #
 source "$EMUDECKGIT"/functions/helperFunctions.sh
+source "$EMUDECKGIT"/functions/jsonToBashVars.sh
 jsonToBashVars "$HOME/.config/EmuDeck/settings.json"
 source "$EMUDECKGIT/functions/all.sh"
+
+mkdir -p $Android_temp_internal
+mkdir -p $Android_temp_external
+
+#Roms folders
+if [[ "$androidStoragePath" == *-* ]]; then
+	Android_cond_path="$Android_temp_external"
+else
+	Android_cond_path="$Android_temp_internal"
+fi
+
+setMSG "Creating rom folders in $androidStoragePath..."
+
+mkdir -p "$Android_cond_path/Emulation/roms/"
+rsync -ra --ignore-existing "$EMUDECKGIT/roms/" "$Android_cond_path/Emulation/roms/"
+
+setMSG "Copying BIOS"
+rsync -ra --ignore-existing "$biosPath/" "$Android_cond_path/Emulation/bios/"
+
+# if [ $copySavedGames == "true" ]; then
+#     setMSG "Copying Saves & States"
+#     #RA
+#     rsync -ra --ignore-existing "$savesPath/RetroArch" "$Android_cond_path/Emulation/saves/RetroArch/"
+#     #PPSSPP
+#     rsync -ra  "$savesPath/ppsspp/saves"  "$Android_temp_internal/Emulation/saves/PSP/SAVEDATA"
+#     rsync -ra  "$savesPath/ppsspp/states" "$Android_temp_internal/Emulation/saves/PSP/PPSSPP_STATE"
+# fi
 
 
 
@@ -96,66 +128,81 @@ if [ $(Android_ADB_isInstalled) == "false" ]; then
 fi
 
 #Pegasus Installation
-if [ $android_doInstallPegasus == "true" ]; then
+if [ $androidInstallPegasus == "true" ]; then
 	Android_Pegasus_install
+	Android_Pegasus_init
 fi
-if [ "$android_doInstallAetherSX2" == "true" ]; then
-	Android_AetherSX2_install
+
+if [ $androidInstallLime3DS == "true" ]; then
+	Android_Lime3DS_install
+	Android_Lime3DS_init
 fi
-if [ $android_doInstallCitra == "true" ]; then
-	Android_Citra_install
-fi
-if [ $android_doInstallDolphin == "true" ]; then
+if [ $androidInstallDolphin == "true" ]; then
 	Android_Dolphin_install
-fi
-if [ $android_doInstallRA == "true" ]; then
-	Android_RetroArch_install
-fi
-if [ $android_doInstallPPSSPP == "true" ]; then
-	Android_PPSSPP_install
-fi
-if [ $android_doInstallYuzu == "true" ]; then
-	Android_Yuzu_install
-fi
-if [ $android_doInstallScummVM == "true" ]; then
-	Android_ScummVM_install
-fi
-if [ $android_doInstallVita3K == "true" ]; then
-	Android_Vita3K_install
-fi
-
-#
-## Configuration
-#
-
-
-if [ "$android_doSetupRA" == "true" ]; then
-	Android_RetroArch_init
-fi
-if [ "$android_doSetupDolphin" == "true" ]; then
 	Android_Dolphin_init
 fi
-if [ "$android_doSetupAetherSX2" == "true" ]; then
-	Android_AetherSX2_init
+if [ $androidInstallRA == "true" ]; then
+	Android_RetroArch_install
+	Android_RetroArch_init
 fi
-if [ "$android_doSetupCitra" == "true" ]; then
-	Android_Citra_init
-fi
-if [ "$android_doSetupYuzu" == "true" ]; then
-	Android_Yuzu_init
-fi
-if [ "$android_doSetupPPSSPP" == "true" ]; then
+if [ $androidInstallPPSSPP == "true" ]; then
+	Android_PPSSPP_install
 	Android_PPSSPP_init
 fi
-if [ "$android_doSetupScummVM" == "true" ]; then
+#if [ $androidInstallYuzu == "true" ]; then
+#    Android_Yuzu_install
+#    Android_Yuzu_init
+#fi
+if [ $androidInstallScummVM == "true" ]; then
+	Android_ScummVM_install
 	Android_ScummVM_init
 fi
-if [ "$android_doSetupVita3K" == "true" ]; then
-	Android_Vita3K_init
+# if [ $androidInstallVita3K == "true" ]; then
+#     Android_Vita3K_install
+#     Android_Vita3K_init
+# fi
+
+
+#MTP
+echo "NYI"
+
+#Bring your own APK
+downloadPath="$HOME/Downloads"
+
+# Find all .apk files in the download path
+apkFiles=$(find "$downloadPath" -type f -name "*.apk")
+
+# Loop through each .apk file
+for file in $apkFiles; do
+	filePath="$file"
+	echo "Installing $filePath..."
+	Android_ADB_installAPK "$filePath"
+done
+
+# Check the success of the installations
+if [ "$success" = "false" ]; then
+	echo "500 #ANDROID"
+else
+	if [ "$androidInstallCitraMMJ" = "true" ]; then
+		Android_Citra_setup
+	fi
+	if [ "$androidInstallPegasus" = "true" ]; then
+		Android_Pegasus_setup
+	fi
+	if [ "$androidInstallDolphin" = "true" ]; then
+		Android_Dolphin_setup
+	fi
+	if [ "$androidInstallScummVM" = "true" ]; then
+		Android_ScummVM_setup
+	fi
 fi
 
-#Play Store emulators
-adb shell am start -a android.intent.action.VIEW -d "https://android.emudeck.com"
+
+TEXT=$(printf "<b>ATTENTION:</b>\nA new window will open, copy the contents of the subfolders you'll see into your device.\n")
+zenity --info --width=400 --text="$TEXT"
+
+xdg-open "$Android_folder/temp" &
+
 
 #
 # We mark the script as finished

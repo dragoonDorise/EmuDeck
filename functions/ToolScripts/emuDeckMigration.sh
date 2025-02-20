@@ -59,7 +59,9 @@ Migration_updatePaths(){
 
 	#Emu configs
 	#Cemu
-	sed -i "s|${origin}|${destination}|g" "$Cemu_cemuSettings"
+	sed -i "s|${origin}|${destination}|g" "$Lime3DS_configFile"
+	#Citra
+	sed -i "s|${origin}|${destination}|g" "$Citra_configFile"
 	#Citra
 	sed -i "s|${origin}|${destination}|g" "$Citra_configFile"
 	#Dolphin
@@ -86,6 +88,8 @@ Migration_updatePaths(){
 	sed -i "s|${origin}|${destination}|g" "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/vfs.yml"
 	#Ryujinx
 	sed -i "s|${origin}|${destination}|g" "$HOME/.config/Ryujinx/Config.json"
+	#ShadPS4
+  sed -i "s|${origin}|${destination}|g" "$HOME/.config/shadps4/config.toml"
 	#ScummVM
 	sed -i "s|${origin}|${destination}|g" "$ScummVM_configFile"
 	#Vita3K
