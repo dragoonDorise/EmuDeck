@@ -26,10 +26,7 @@ generateGameLists() {
     generateGameLists_downloadAssets
 
     rsync -r --exclude='roms' --exclude='txt' "$emudeckBackend/roms/" "$storagePath/retrolibrary/artwork" --keep-dirlinks
-    pegasus_setPaths
-
-    echo "Database built" > "$MSG"
-    python $emudeckBackend/tools/retro-library/generate_game_lists.py "$romsPath"
+    pegasus_setPaths && echo "Database built" > "$MSG" && python $emudeckBackend/tools/retro-library/generate_game_lists.py "$romsPath"
     generateGameLists_artwork &> /dev/null &
 }
 
