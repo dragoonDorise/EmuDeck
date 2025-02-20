@@ -47,7 +47,7 @@ pegasus_setPaths(){
 	fi
 
 	if [ "$(Flycast_IsInstalled)" == "true" ]; then
-		cp "$emudeckBackend/roms_alt_emus/dreamcast/metadata.txt" "$romsPath/n3ds/metadata.txt"
+		cp "$emudeckBackend/roms_alt_emus/dreamcast/metadata.txt" "$romsPath/dreamcast/metadata.txt"
 	fi
 
 	if [ "$(mGBA_IsInstalled)" == "true" ]; then
