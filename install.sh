@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 linuxID=$(lsb_release -si)
 sandbox=""
