@@ -70,6 +70,12 @@ else
 
         sudo dnf -y upgrade
         sudo dnf -y install "${FEDORA_DEPS[@]}"
+    elif command -v rpm-ostree >/dev/null; then
+        echo "Installing packages wth rpm-ostree..."
+        FEDORA_DEPS=(jq zenity flatpak unzip bash fuse git rsync newt python)
+
+        sudo rpm-ostree upgrade
+        sudo rpm-ostree install "${FEDORA_DEPS[@]}"
     elif command -v zypper >/dev/null; then
         echo "Installing packages with zypper..."
         SUSE_DEPS=(steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail python)
