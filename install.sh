@@ -60,7 +60,7 @@ else
         sudo apt-get -y install "${DEBIAN_DEPS[@]}"
     elif command -v pacman >/dev/null; then
         echo "Installing packages with pacman..."
-        ARCH_DEPS=(steam jq zenity flatpak unzip bash fuse2 git rsync whiptail python)
+        ARCH_DEPS=(steam jq zenity flatpak unzip bash fuse2 git rsync libnewt python)
 
         sudo pacman --noconfirm -Syu
         sudo pacman --noconfirm -S "${ARCH_DEPS[@]}"
