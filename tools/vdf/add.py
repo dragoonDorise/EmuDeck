@@ -3,6 +3,7 @@ import sys
 import vdf
 import zlib
 import shutil
+import subprocess
 
 def generate_preliminary_id(exe, appname):
     """
@@ -74,6 +75,7 @@ def copy_steam_images(grid_path, id, shortcut_id):
     else:
         src_dir = os.path.expanduser(f"~/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/emus/{id}")
 
+
     # Definir las rutas de origen y destino
     images = {
         "hero": (f"{src_dir}/{id}_hero.png", f"{grid_path}/{shortcut_id}_hero.jpg"),
@@ -105,10 +107,17 @@ def add_steam_shortcut(id, name, target_path, start_dir, icon_path, steam_dir, u
         # Crear una estructura básica si no existe el archivo
         shortcuts_data = {"shortcuts": {}}
 
+    # Normalizar el nombre y la ruta para evitar duplicados por mayúsculas o espacios
+    normalized_name = name.strip().lower()
+    normalized_target = target_path.strip().lower()
+
     # Comprobar si ya existe un acceso directo con el mismo nombre o ruta
-    for shortcut in shortcuts_data["shortcuts"].values():
-        if shortcut.get("appname") == name or shortcut.get("exe").strip('"') == target_path:
-            print(f"El acceso directo '{name}' ya existe en la biblioteca de Steam en '{shortcuts_path}'.")
+    for shortcut in shortcuts_data.get("shortcuts", {}).values():
+        existing_name = shortcut.get("appname", "").strip().lower()
+        existing_target = shortcut.get("exe", "").strip('"').strip().lower()
+
+        if existing_name == normalized_name or existing_target == normalized_target:
+            print(f"El acceso directo '{name}' ya existe en Steam y no se añadirá.")
             return  # Salir sin añadir el acceso directo
 
     # Buscar el próximo índice disponible
@@ -116,13 +125,7 @@ def add_steam_shortcut(id, name, target_path, start_dir, icon_path, steam_dir, u
     next_index = max(existing_indices, default=-1) + 1
 
     # Generar un AppID válido
-    #appid = short_app_id(target_path, name)
-
-    #app_id = generate_app_id(exe_path, appname)
-    appid = short_app_id = generate_short_app_id(target_path, name)
-    #shortcut_id = generate_shortcut_id(exe_path, appname)
-
-
+    appid = generate_short_app_id(target_path, name)
 
     # Crear el nuevo acceso directo
     shortcuts_data["shortcuts"][str(next_index)] = {
@@ -139,13 +142,9 @@ def add_steam_shortcut(id, name, target_path, start_dir, icon_path, steam_dir, u
         "Devkit": 0,
         "DevkitGameID": "",
         "LastPlayTime": 0,
-        "tags": {
-            "0": "favorite"
-        }
+        "tags": {"0": "favorite"},
+        "appid": appid  # Agregar el AppID
     }
-
-    # Modificación directa del `appid` después de cargar los datos
-    shortcuts_data["shortcuts"][str(next_index)]["appid"] = appid
 
     # Escribir los cambios de vuelta al archivo
     with open(shortcuts_path, "wb") as f:
@@ -158,6 +157,8 @@ def add_steam_shortcut(id, name, target_path, start_dir, icon_path, steam_dir, u
 
     # Copiar imágenes usando el AppID
     copy_steam_images(grid_path, id, appid)
+
+    subprocess.Popen(["steam", "-silent"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
 # Llamar a la función principal

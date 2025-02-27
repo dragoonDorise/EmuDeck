@@ -34,21 +34,46 @@ pegasus_install(){
 }
 
 pegasus_setPaths(){
-	rsync -avR --exclude='roms' --exclude='pfx' "$emudeckBackend/roms/" "$romsPath" --keep-dirlinks
-	rsync -avR --exclude='roms' --exclude='pfx' "$emudeckBackend/roms/" "$toolsPath/downloaded_media"
+	rsync -av --exclude='roms' --exclude='pfx'  --ignore-times "$emudeckBackend/roms/" "$romsPath" --keep-dirlinks
+	rsync -av --exclude='roms' --exclude='pfx' "$emudeckBackend/roms/" "$toolsPath/downloaded_media"
+
+	#Alternative emulators
+
+	if [ "$(BigPEmu_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/atarijaguar/metadata.txt" "$romsPath/atarijaguar/metadata.txt"
+		cp "$emudeckBackend/roms_alt_emus/atarijaguarcd/metadata.txt" "$romsPath/atarijaguarcd/metadata.txt"
+	fi
+
+	if [ "$(Flycast_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/dreamcast/metadata.txt" "$romsPath/dreamcast/metadata.txt"
+	fi
+
+	if [ "$(mGBA_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/gba/metadata.txt" "$romsPath/gba/metadata.txt"
+	fi
+
+	if [ "$(Lime3DS_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/n3ds/metadata.txt" "$romsPath/n3ds/metadata.txt"
+	fi
+
+	if [ "$(RMG_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/n64/metadata.txt" "$romsPath/n64/metadata.txt"
+	fi
+
+	if [ "$(melonDS_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/nds/metadata.txt" "$romsPath/nds/metadata.txt"
+	fi
+
+	if [ "$(Yuzu_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/switch/yuzu/metadata.txt" "$romsPath/switch/metadata.txt"
+	fi
+
+	if [ "$(Citron_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/switch/citron/metadata.txt" "$romsPath/switch/metadata.txt"
+	fi
+
 	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|CORESPATH|${RetroArch_cores}|g" {} \;
 	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" {} \;
-
-	#Yuzu path fix
-	if [ -f "$emusFolder/yuzu.AppImage" ]; then
-		sed -i "s|ryujinx|yuzu|g" "$romsPath/switch/metadata.txt"
-		sed -i "s|--fullscreen|-f -g|g" "$romsPath/switch/metadata.txt"
-	fi
-
-	#Citra path fix
-	if [ -f "$emusFolder/citra-qt.AppImage" ]; then
-		sed -i "s|lime3ds|citra|g" "$romsPath/n3ds/metadata.txt"
-	fi
 
 }
 
@@ -60,6 +85,7 @@ pegasus_init(){
 
 	#metadata and paths
 		pegasus_setPaths
+		pegasus_addToSteam
 
 		if [ -L "$toolsPath/downloaded_media/gamecube" ]; then
 			rm -rf "$toolsPath/downloaded_media/gamecube" &> /dev/null
@@ -243,7 +269,7 @@ pegasus_flushToolLauncher(){
 }
 
 
-ESDE_addToSteam(){
+pegasus_addToSteam(){
 	setMSG "Adding $pegasus_toolName to Steam"
 	add_to_steam "pegasus" "$pegasus_toolName" "$toolsPath/launchers/pegasus/pegasus-frontend.sh" "$HOME/Applications/" "$HOME/.config/EmuDeck/backend/icons/ico/pegasus.ico"
 }

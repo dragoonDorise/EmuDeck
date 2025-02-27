@@ -196,7 +196,7 @@ for install_command in \
 	"$doInstallShadPS4 ShadPS4_install"; do
 
 	condition=$(echo "$install_command" | awk '{print $1}')
-	command=$(echo "$install_command" | awk '{print $2}')
+	command=$(echo "$install_command" | cut -d' ' -f2-)
 
 	if [ "$condition" == "true" ]; then
 		echo "Executing $command"
@@ -219,7 +219,7 @@ current_jobs=0
 
 for setup_command in \
 	"$doSetupSRM SRM_init" \
-	"$doSetupESDE ESDE_update" \
+	"$doSetupESDE ESDE_init" \
 	"$doSetupPegasus pegasus_init" \
 	"$doSetupRA RetroArch_init" \
 	"$doSetupPrimehack Primehack_init" \

@@ -208,8 +208,8 @@ Citron_wipe() {
 #Uninstall
 Citron_uninstall() {
     echo "Begin Citron uninstall"
+    removeParser "nintendo_switch_citron.json"
     rm -rf "$Citron_emuPath"
-    CitronEA_uninstall
 }
 
 #setABXYstyle
@@ -308,4 +308,9 @@ Citron_addESConfig(){
 
 	rsync -avhp --mkpath "$emudeckBackend/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
     sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
+}
+
+
+Citron_addParser(){
+  addParser "nintendo_switch_citron.json"
 }

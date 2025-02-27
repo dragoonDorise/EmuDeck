@@ -1,4 +1,5 @@
 #!/bin/bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
-emulatorInit "retroarch" "RetroArch" "${@}"
+emulatorInit "retroarch"
+/usr/bin/flatpak run org.libretro.RetroArch $netplayCMD "${@}"
 rm -rf "$savesPath/.gaming"

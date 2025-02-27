@@ -5,6 +5,7 @@ SRM_toolType="$emuDeckEmuTypeAppImage"
 SRM_toolPath="${toolsPath}/Steam-ROM-Manager.AppImage"
 SRM_userData_directory="configs/steam-rom-manager/userData"
 SRM_userData_configDir="$HOME/.config/steam-rom-manager/userData"
+SRM_userConfigurations="$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 #cleanupOlderThings
 
 SRM_install(){
@@ -58,9 +59,11 @@ SRM_migration(){
 SRM_init(){
 
   setMSG "Configuring Steam Rom Manager"
+  mkdir -p "$emudeckFolder/customParsers"
   mkdir -p "$HOME/.config/steam-rom-manager/userData/"
   rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
   rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  SRM_addExtraParsers
   SRM_setEmulationFolder
   SRM_setEnv
   SRM_addControllerTemplate
@@ -222,4 +225,50 @@ SRM_deleteCache(){
       echo "User declined deleting cache."
     fi
 
+}
+
+SRM_addExtraParsers(){
+  rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  for install_command in \
+  "BigPEmu_IsInstalled BigPEmu_addParser" \
+  "Flycast_IsInstalled Flycast_addParser" \
+  "Lime3DS_IsInstalled Lime3DS_addParser" \
+  "MAME_IsInstalled MAME_addParser" \
+  "mGBA_IsInstalled mGBA_addParser" \
+  "melonDS_IsInstalled melonDS_addParser" \
+  "RMG_IsInstalled RMG_addParser" \
+  "Citron_IsInstalled Citron_addParser" \
+  "Yuzu_IsInstalled Yuzu_addParser"; do
+
+  condition=$($install_command | awk '{print $1}')
+  command=$(echo $install_command | awk '{print $2}')
+
+  if [ "$condition" == "true" ]; then
+    echo "Executing $command"
+    $command
+  fi
+  done
+  SRM_addCustomParsers
+}
+
+SRM_addCustomParsers(){
+  local folder="$emudeckFolder/customParsers"
+
+  # Verificar que la carpeta existe
+  if [[ ! -d "$folder" ]]; then
+      echo "Error: La carpeta $folder no existe."
+      return 1
+  fi
+
+  # Recorrer cada archivo .json en la carpeta
+  for json_file in "$folder"/*.json; do
+      # Verificar que haya archivos JSON en la carpeta
+      if [[ ! -f "$json_file" ]]; then
+          echo "No se encontraron archivos JSON en $folder."
+          return 1
+      fi
+
+      echo "Procesando: $json_file"
+      addParser "$(basename "$json_file")"
+  done
 }

@@ -102,7 +102,7 @@ Yuzu_init() {
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
-
+    Yuzu_addParser
     Yuzu_setLanguage
 
 }
@@ -218,6 +218,7 @@ Yuzu_wipe() {
 #Uninstall
 Yuzu_uninstall() {
     echo "Begin Yuzu uninstall"
+    removeParser "nintendo_switch_yuzu.json"
     rm -rf "$Yuzu_emuPath"
     YuzuEA_uninstall
 }
@@ -408,4 +409,8 @@ Yuzu_addESConfig(){
 
 	rsync -avhp --mkpath "$emudeckBackend/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
 
+}
+
+Yuzu_addParser(){
+  addParser "nintendo_switch_yuzu.json"
 }

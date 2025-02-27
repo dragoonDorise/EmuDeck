@@ -26,10 +26,7 @@ generateGameLists() {
     generateGameLists_downloadAssets
 
     rsync -r --exclude='roms' --exclude='txt' "$emudeckBackend/roms/" "$storagePath/retrolibrary/artwork" --keep-dirlinks
-    pegasus_setPaths
-
-    echo "Database built" > "$MSG"
-    python $emudeckBackend/tools/retro-library/generate_game_lists.py "$romsPath"
+    pegasus_setPaths && echo "Database built" > "$MSG" && python $emudeckBackend/tools/retro-library/generate_game_lists.py "$romsPath"
     generateGameLists_artwork &> /dev/null &
 }
 
@@ -119,7 +116,7 @@ generateGameLists_downloadAchievements(){
         echo "Downloading Retroachievements Data" > "$MSG"
         mkdir -p $folder
         ln -sf "$storagePath/retrolibrary/achievements" "$accountfolder/config/grid/retrolibrary/achievements"
-        wget -q -O "$folder/achievements.zip" "https://bot.emudeck.com/achievements/achievements.zip"
+        wget -q -O "$folder/achievements.zip" "https://artwork.emudeck.com/achievements/achievements.zip"
         cd "$folder" && unzip -o achievements.zip && rm achievements.zip
         echo "Retroachievements Data Downloaded" > "$MSG"
     fi
@@ -133,7 +130,7 @@ generateGameLists_downloadData(){
         echo "Downloading Metada" > "$MSG"
         mkdir -p $folder
         ln -sf "$storagePath/retrolibrary/data" "$accountfolder/config/grid/retrolibrary/data"
-        wget -q -O "$folder/data.zip" "https://bot.emudeck.com/data/data.zip"
+        wget -q -O "$folder/data.zip" "https://artwork.emudeck.com/data/data.zip"
         cd $folder && unzip -o data.zip && rm data.zip
         echo "Metada Downloaded" > "$MSG"
     fi
@@ -154,22 +151,27 @@ generateGameLists_downloadAssets(){
 
     if [ ! -d $folderDefault ]; then
         echo "Downloading Assets" > "$MSG"
-        wget -q -O "$folder/default.zip" "https://bot.emudeck.com/assets/default.zip"
+        wget -q -O "$folder/default.zip" "https://artwork.emudeck.com/assets/default.zip"
         cd $folder && unzip -o default.zip && rm default.zip
         echo "Assets Downloaded" > "$MSG"
     fi
 
     if [ ! -d $folderBezels ]; then
         echo "Downloading Bezels" > "$MSG"
-        wget -q -O "$folder/bezels.zip" "https://bot.emudeck.com/assets/bezels.zip"
+        wget -q -O "$folder/bezels.zip" "https://artwork.emudeck.com/assets/bezels.zip"
         cd $folder && unzip -o bezels.zip && rm bezels.zip
         echo "Bezels Downloaded" > "$MSG"
     fi
 
     if [ ! -d $folderWii ]; then
         echo "Downloading Wii assets" > "$MSG"
-        wget -q -O "$folder/wii.zip" "https://bot.emudeck.com/assets/wii.zip"
+        wget -q -O "$folder/wii.zip" "https://artwork.emudeck.com/assets/wii.zip"
         cd $folder && unzip -o wii.zip && rm wii.zip
         echo "Wii assets Downloaded" > "$MSG"
     fi
+
+    wget -q -O "$folder/default/backgrounds/store.jpg" "https://artwork.emudeck.com/assets/default/backgrounds/store.jpg"
+    wget -q -O "$folder/default/carousel-icons/store.jpg" "https://artwork.emudeck.com/assets/default/carousel-icons/store.jpg"
+    wget -q -O "$folder/default/logo/store.png" "https://artwork.emudeck.com/assets/default/logo/store.png"
+
 }

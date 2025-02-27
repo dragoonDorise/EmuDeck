@@ -1041,13 +1041,11 @@ addProtonLaunch(){
 
 function emulatorInit(){
 	local emuName=$1
-	local emuCode=$2
-	local params=$3
 	#isLatestVersionGH "$emuName"
 	#NetPlay
 	cloud_sync_stopService
 	if [ "$emuName" = 'retroarch' ]; then
-   		if [ "$netPlay" == "true" ]; then
+		   if [ "$netPlay" == "true" ]; then
 			#Looks for devices listening
 			setSetting netplayCMD "-H"
 			sleep 2
@@ -1093,57 +1091,6 @@ function emulatorInit(){
 		fi
 
 
-
-	fi
-
-	#We launch the emulator
-	if [[-z "$emuCode"]]; then
-
-		#We launch the emulator
-		exe=()
-
-		#find full path to emu executable
-		exe_path=$(find "$emusfolder" -iname "${emuCode}" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
-
-		#if appimage doesn't exist fall back to flatpak.
-		if [[ -z "$exe_path" ]]; then
-			#flatpak
-			flatpakApp=$(flatpak list --app --columns=application | grep "$emuCode")
-			#fill execute array
-			exe=("flatpak" "run" "$flatpakApp" "$netplayCMD")
-		else
-			#make sure that file is executable
-			chmod +x "$exe_path"
-			#fill execute array
-			exe=("$exe_path")
-		fi
-
-		fileExtension="${@##*.}"
-
-		if [[ $fileExtension == "psvita" ]]; then
-			vita3kFile=$(<"${*}")
-			echo "GAME ID: $vita3kFile"
-			"${exe[@]}" -Fr "$vita3kFile"
-		else
-			#run the executable with the params.
-			launch_args=()
-			for rom in "${params}"; do
-				# Parsers previously had single quotes ("'/path/to/rom'" ), this allows those shortcuts to continue working.
-				removedLegacySingleQuotes=$(echo "$rom" | sed "s/^'//; s/'$//")
-				launch_args+=("$removedLegacySingleQuotes")
-			done
-
-			echo "Launching: ${exe[*]} ${launch_args[*]}"
-
-			if [[ -z "${*}" ]]; then
-				echo "ROM not found. Launching $emuName directly"
-				"${exe[@]}"
-			else
-				echo "ROM found, launching game"
-				"${exe[@]}" "${launch_args[@]}"
-			fi
-
-		fi
 
 	fi
 
@@ -1229,8 +1176,6 @@ function add_to_steam(){
 
 	generate_pythonEnv &> /dev/null
 
-	python "$emudeckFolder/backend/tools/vdf/add.py" $id $name $target_path $start_dir $icon_path $steam_directory $user_id
-
 	steam_pid=$(pidof steam)
 
 	if [ -n "$steam_pid" ]; then
@@ -1239,6 +1184,7 @@ function add_to_steam(){
 		echo "Señal SIGTERM env"
 	fi
 
+	python "$emudeckFolder/backend/tools/vdf/add.py" $id $name $target_path $start_dir $icon_path $steam_directory $user_id
 
 }
 
@@ -1296,4 +1242,64 @@ function flushAllLaunchers(){
 
 	wait # Wait for any remaining jobs to finish
 
+}
+
+
+addParser(){
+	local source="$emudeckBackend/configs/steam-rom-manager/userData/parsers/optional"
+	local custom_parser=$1
+	local path="$source/$custom_parser"
+
+	if [[ ! -f "$path" ]]; then
+		return 1
+	fi
+
+	local PARSER_ID=$(jq -r '.parserId' "$path")
+
+	echo "Parser ID: $PARSER_ID"
+
+	if [[ ! -f "$SRM_userConfigurations" ]]; then
+		echo "[] " > "$SRM_userConfigurations"  # Inicializar JSON si no existe
+	fi
+
+	EXISTS=$(jq --arg pid "$PARSER_ID" '[.[] | select(.parserId == $pid)] | length' "$SRM_userConfigurations")
+
+	if [[ "$EXISTS" -eq 0 ]]; then
+		echo "adding parser"
+		cat "$SRM_userConfigurations" | jq --argjson newConfig "$(cat "$path")" '. + [$newConfig]' > temp.json && mv temp.json "$SRM_userConfigurations"
+		SRM_setEmulationFolder
+		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+	fi
+
+}
+
+removeParser() {
+	local source="$emudeckBackend/configs/steam-rom-manager/userData/parsers/optional"
+	local custom_parser=$1
+	local path="$source/$custom_parser"
+
+	if [[ ! -f "$path" ]]; then
+		echo "El parser $custom_parser no existe en $source"
+		return 1
+	fi
+
+	local PARSER_ID=$(jq -r '.parserId' "$path")
+
+	echo "Parser ID a eliminar: $PARSER_ID"
+
+	if [[ ! -f "$SRM_userConfigurations" ]]; then
+		echo "El archivo de configuración no existe."
+		return 1
+	fi
+
+	EXISTS=$(jq --arg pid "$PARSER_ID" '[.[] | select(.parserId == $pid)] | length' "$SRM_userConfigurations")
+
+	if [[ "$EXISTS" -gt 0 ]]; then
+		echo "Eliminando parser..."
+		jq --arg pid "$PARSER_ID" '[.[] | select(.parserId != $pid)]' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+		SRM_setEmulationFolder
+		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+	else
+		echo "El parser $PARSER_ID no se encontró en la configuración."
+	fi
 }
