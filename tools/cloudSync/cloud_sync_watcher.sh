@@ -1,9 +1,7 @@
 #!/bin/bash
-
-echo "SERVICE - START" > $HOME/emudeck/logs/CloudWatcher.log
-source "$HOME/emudeck/settings.sh"
-source "$HOME/.config/EmuDeck/backend/functions/helperFunctions.sh"
-source "$HOME/.config/EmuDeck/backend/functions/ToolScripts/emuDeckCloudSync.sh"
+emudeckBackend="$HOME/.config/EmuDeck/backend/"
+. $emudeckBackend/functions/all.sh
+echo "SERVICE - START" > $emudeckLogs/CloudWatcher.log
 
 show_notification(){
   text=$1
@@ -16,7 +14,7 @@ show_notification(){
 }
 
 if [ $system = "darwin" ];then
-  source "$HOME/.config/EmuDeck/backend/darwin/functions/ToolsScripts/emuDeckCloudSync.sh"
+  source "$emudeckBackend/darwin/functions/ToolsScripts/emuDeckCloudSync.sh"
 fi
 
 touch "$savesPath/.gaming"
@@ -25,7 +23,7 @@ touch "$savesPath/.watching"
 show_notification "CloudSync Ready!"
 
 # Declare an array to store current hashes
-echo "SERVICE - declare" >> $HOME/emudeck/logs/CloudWatcher.log
+echo "SERVICE - declare" >> $emudeckLogs/CloudWatcher.log
 declare -A current_hashes
 
 # Function to calculate the hash of a directory
@@ -69,7 +67,7 @@ do
   lastSavedDir=''
 
   for dir in "${!current_hashes[@]}"; do
-    #echo -ne "." >> $HOME/emudeck/logs/CloudWatcher.log
+    #echo -ne "." >> $emudeckLogs/CloudWatcher.log
 
     if [ -h "$dir" ]; then
       realDir=$(readlink -f "$dir")
@@ -80,8 +78,8 @@ do
 
 
     # if [[ $dir == *"citra/saves"* ]]; then
-    #   echo "$dir - ${current_hashes[$dir]}" >> $HOME/emudeck/logs/CloudWatcher.log
-    #   echo "$dir - $new_hash" >> $HOME/emudeck/logs/CloudWatcher.log
+    #   echo "$dir - ${current_hashes[$dir]}" >> $emudeckLogs/CloudWatcher.log
+    #   echo "$dir - $new_hash" >> $emudeckLogs/CloudWatcher.log
     # fi
 
     currentEmu=$(get_emulator)
@@ -89,30 +87,30 @@ do
       currentEmu=$dir
     fi
 
-    # echo $currentEmu >> $HOME/emudeck/logs/CloudWatcher.log
-    # echo $dir >> $HOME/emudeck/logs/CloudWatcher.log
+    # echo $currentEmu >> $emudeckLogs/CloudWatcher.log
+    # echo $dir >> $emudeckLogs/CloudWatcher.log
 
     if [ "${current_hashes[$dir]}" != "$new_hash" ] && [[ $dir == *"$currentEmu"* ]]; then
       # Show the name of the folder immediately behind "saves"
-       echo "SERVICE - CHANGES DETECTED on $dir, LETS CHECK IF ITS A DUPLICATE" >> $HOME/emudeck/logs/CloudWatcher.log
+       echo "SERVICE - CHANGES DETECTED on $dir, LETS CHECK IF ITS A DUPLICATE" >> $emudeckLogs/CloudWatcher.log
        timestamp=$(date +%s)
 
        if [ $((timestamp - lastSavedTime)) == 0 ]; then
-        echo "SERVICE - IGNORED, same timestamp" >> $HOME/emudeck/logs/CloudWatcher.log
+        echo "SERVICE - IGNORED, same timestamp" >> $emudeckLogs/CloudWatcher.log
        fi
-       echo $((timestamp - lastSavedTime)) >> $HOME/emudeck/logs/CloudWatcher.log
+       echo $((timestamp - lastSavedTime)) >> $emudeckLogs/CloudWatcher.log
 
       if [ $((timestamp - lastSavedTime)) -ge 1 ]; then
         emuName=$(get_parent_folder_name "$dir")
         #cloud_sync_update
 
-        echo "SERVICE - $emuName CHANGES CONFIRMED" >> $HOME/emudeck/logs/CloudWatcher.log
+        echo "SERVICE - $emuName CHANGES CONFIRMED" >> $emudeckLogs/CloudWatcher.log
         echo $timestamp > "$savesPath/$emuName/.pending_upload"
-        echo "SERVICE - UPLOADING" >> $HOME/emudeck/logs/CloudWatcher.log
+        echo "SERVICE - UPLOADING" >> $emudeckLogs/CloudWatcher.log
         show_notification "Uploading from $emuName"
         cloud_sync_uploadEmu $emuName
         rm -rf "$savesPath/$emuName/.pending_upload"
-        echo "SERVICE - UPLOADED!" >> $HOME/emudeck/logs/CloudWatcher.log
+        echo "SERVICE - UPLOADED!" >> $emudeckLogs/CloudWatcher.log
         lastSavedTime=$(date +%s)
       else
         lastSavedTime=''
@@ -124,14 +122,14 @@ do
 
   #Autostop service when everything has finished
   if [ ! -f "$savesPath/.gaming" ]; then
-    echo "SERVICE - NO GAMING" >> $HOME/emudeck/logs/CloudWatcher.log
+    echo "SERVICE - NO GAMING" >> $emudeckLogs/CloudWatcher.log
     show_notification "Uploading... don't turn off your device"
-    if [ ! -f "$HOME/emudeck/cloud.lock" ]; then
-      echo "SERVICE - STOP WATCHING" >> $HOME/emudeck/logs/CloudWatcher.log
+    if [ ! -f "$emudeckFolder/cloud.lock" ]; then
+      echo "SERVICE - STOP WATCHING" >> $emudeckLogs/CloudWatcher.log
       show_notification "Sync Completed! You can safely turn off your device"
       rm -rf "$savesPath/.watching"
       rm -rf "$savesPath/.emuName"
-      echo "SERVICE - NO LOCK - KILLING SERVICE" >> $HOME/emudeck/logs/CloudWatcher.log
+      echo "SERVICE - NO LOCK - KILLING SERVICE" >> $emudeckLogs/CloudWatcher.log
 
       cloud_sync_stopService
     fi
@@ -139,4 +137,4 @@ do
 
   sleep 2  # Wait for 1 second before the next iteration
 done
-echo "SERVICE - END" >> $HOME/emudeck/logs/CloudWatcher.log
+echo "SERVICE - END" >> $emudeckLogs/CloudWatcher.log

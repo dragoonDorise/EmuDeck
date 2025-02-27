@@ -2,7 +2,7 @@
 #variables
 mGBA_emuName="mGBA"
 mGBA_emuType="$emuDeckEmuTypeAppImage"
-mGBA_emuPath="$HOME/Applications/mGBA.AppImage"
+mGBA_emuPath="$emusFolder/mGBA.AppImage"
 mGBA_configFile="$HOME/.config/mgba/config.ini"
 
 #cleanupOlderThings
@@ -30,19 +30,20 @@ Mgba_install(){
 #ApplyInitialSettings
 mGBA_init(){
 	setMSG "Initializing $mGBA_emuName settings."
-	configEmuAI "$mGBA_emuName" "config" "$HOME/.config/mgba" "$EMUDECKGIT/configs/mgba" "true"
+	configEmuAI "$mGBA_emuName" "config" "$HOME/.config/mgba" "$emudeckBackend/configs/mgba" "true"
 	mGBA_setupStorage
 	mGBA_setEmulationFolder
 	mGBA_setupSaves
 	#SRM_createParsers
 	mGBA_addSteamInputProfile
 	mGBA_flushEmulatorLauncher
+	mGBA_addParser
 }
 
 #update
 mGBA_update(){
 	setMSG "Updating $mGBA_emuName settings."
-	configEmuAI "$mGBA_emuName" "config" "$HOME/.config/mgba" "$EMUDECKGIT/configs/mgba"
+	configEmuAI "$mGBA_emuName" "config" "$HOME/.config/mgba" "$emudeckBackend/configs/mgba"
 	mGBA_setupStorage
 	mGBA_setEmulationFolder
 	mGBA_setupSaves
@@ -97,6 +98,9 @@ mGBA_wipe(){
 #Uninstall
 mGBA_uninstall(){
 	setMSG "Uninstalling $mGBA_emuName."
+	removeParser "nintendo_gb_mgba.json"
+	removeParser "nintendo_gba_mgba.json"
+	removeParser "nintendo_gbc_mgba.json"
 	uninstallEmuAI "$mGBA_emuName" "" "" "emulator"
 }
 
@@ -150,8 +154,8 @@ mGBA_finalize(){
 mGBA_addSteamInputProfile(){
 	addSteamInputCustomIcons
 	setMSG "Adding $mGBA_emuName Steam Input Profile."
-	#rsync -r "$EMUDECKGIT/configs/steam-input/mGBA_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
-	rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
+	#rsync -r "$emudeckBackend/configs/steam-input/mGBA_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 mGBA_flushEmulatorLauncher(){
@@ -160,3 +164,10 @@ mGBA_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "mgba"
 
 }
+
+mGBA_addParser(){
+	addParser "nintendo_gb_mgba.json"
+	addParser "nintendo_gba_mgba.json"
+	addParser "nintendo_gbc_mgba.json"
+}
+

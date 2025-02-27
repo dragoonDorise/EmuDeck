@@ -95,7 +95,7 @@ checkSpace "$origin/EmuDeck/saves/" "$emulationPath"
 
 for entry in "$origin/EmuDeck/saves/"*
 do
-	rsync -rav --ignore-existing --progress "$entry" "$emulationPath/saves/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/saves/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
+	rsync -rav --ignore-existing --progress "$entry" "$emulationPath/saves/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/saves/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
 done
 
 
@@ -117,7 +117,7 @@ if [ "$size" -gt 4096 ]; then
 
 			for entry in "$origin/EmuDeck/storage/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/storage/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/storage/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/storage/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/storage/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
@@ -141,7 +141,7 @@ if [ "$size" -gt 4096 ]; then
 
 			for entry in "$origin/EmuDeck/bios/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/bios/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/bios/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/bios/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/bios/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
@@ -192,7 +192,7 @@ if [ "$size" -gt 4096 ]; then
 
 			for entry in "$origin/EmuDeck/roms/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/roms/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/roms/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/roms/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/roms/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
 			done
 
 		else

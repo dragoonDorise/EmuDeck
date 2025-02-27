@@ -1,9 +1,16 @@
 #!/bin/bash
-#source $HOME/.config/EmuDeck/backend/functions/all.sh
 
+#
+##
+## set backend location
+##
+#
+if [[ "$emudeckBackend" == "" ]]; then
+	emudeckBackend="$HOME/.config/EmuDeck/backend/"
+fi
+. "$emudeckBackend/vars.sh"
 
-
-MSG=$HOME/emudeck/logs/msg.log
+MSG=$emudeckLogs/msg.log
 echo "0" > "$MSG"
 
 #
@@ -13,8 +20,8 @@ echo "0" > "$MSG"
 #
 
 #mkdir -p "$HOME/.config/EmuDeck"
-#mkdir -p "$HOME/emudeck/logs"
-PIDFILE="$HOME/.config/EmuDeck/install.pid"
+#mkdir -p "$emudeckLogs"
+PIDFILE="$emudeckFolder/install.pid"
 
 
 if [ -f "$PIDFILE" ]; then
@@ -55,9 +62,9 @@ trap finish EXIT
 #
 
 #Creating log file
-LOGFILE="$HOME/emudeck/logs/emudeckAndroidSetup.log"
+LOGFILE="$emudeckLogs/emudeckAndroidSetup.log"
 
-mv "${LOGFILE}" "$HOME/emudeck/logs/emudeckAndroidSetup.last.log" #backup last log
+mv "${LOGFILE}" "$emudeckLogs/emudeckAndroidSetup.last.log" #backup last log
 
 if echo "${@}" > "${LOGFILE}" ; then
 	echo "Log created"
@@ -72,23 +79,16 @@ date "+%Y.%m.%d-%H:%M:%S %Z"
 echo 'Github API limits:'
 curl -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28"  "https://api.github.com/rate_limit"
 
-#
-##
-## set backend location
-##
-#
-if [[ "$EMUDECKGIT" == "" ]]; then
-	EMUDECKGIT="$HOME/.config/EmuDeck/backend"
-fi
+
 #
 ##
 ## Start of installation
 ##
 #
-source "$EMUDECKGIT"/functions/helperFunctions.sh
-source "$EMUDECKGIT"/functions/jsonToBashVars.sh
-jsonToBashVars "$HOME/.config/EmuDeck/settings.json"
-source "$EMUDECKGIT/functions/all.sh"
+source "$emudeckBackend"/functions/helperFunctions.sh
+source "$emudeckBackend"/functions/jsonToBashVars.sh
+jsonToBashVars "$emudeckFolder/settings.json"
+source "$emudeckBackend/functions/all.sh"
 
 mkdir -p $Android_temp_internal
 mkdir -p $Android_temp_external
@@ -103,7 +103,7 @@ fi
 setMSG "Creating rom folders in $androidStoragePath..."
 
 mkdir -p "$Android_cond_path/Emulation/roms/"
-rsync -ra --ignore-existing "$EMUDECKGIT/roms/" "$Android_cond_path/Emulation/roms/"
+rsync -ra --ignore-existing "$emudeckBackend/roms/" "$Android_cond_path/Emulation/roms/"
 
 setMSG "Copying BIOS"
 rsync -ra --ignore-existing "$biosPath/" "$Android_cond_path/Emulation/bios/"
@@ -207,8 +207,8 @@ xdg-open "$Android_folder/temp" &
 #
 # We mark the script as finished
 #
-echo "100" > "$HOME/emudeck/logs/msg.log"
-echo "# Installation Complete" >> "$HOME/emudeck/logs/msg.log"
+echo "100" > "$emudeckLogs/msg.log"
+echo "# Installation Complete" >> "$emudeckLogs/msg.log"
 
 } | tee "${LOGFILE}" 2>&1
 

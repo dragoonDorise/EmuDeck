@@ -2,7 +2,7 @@
 #variables
 Citra_emuName="Citra"
 Citra_emuType="$emuDeckEmuTypeAppImage"
-Citra_emuPath="$HOME/Applications/citra-qt.AppImage"
+Citra_emuPath="$emusFolder/citra-qt.AppImage"
 Citra_releaseURL=""
 Citra_configFile="$HOME/.config/citra-emu/qt-config.ini"
 Citra_configPath="$HOME/.config/citra-emu"
@@ -14,12 +14,12 @@ Citra_install(){
 	local showProgress="$1"
 	if installEmuAI "$Citra_emuName" "" "https://github.com/PabloMK7/citra/releases/download/r608383e/citra-linux-appimage-20240927-608383e.tar.gz" "citra" "tar.gz" "emulator" "$showProgress"; then #citra-qt.AppImage
 	#if installEmuAI "$Citra_emuName" "" "https://github.com/PabloMK7/citra/releases/download/r518f723/citra-linux-appimage-20240717-518f723.tar.gz" "citra" "tar.gz" "emulator" "$showProgress"; then #citra-qt.AppImage
-		mkdir "$HOME/Applications/citra-temp"
-		tar -xvzf "$HOME/Applications/citra.tar.gz" -C "$HOME/Applications/citra-temp" --strip-components 1
-		mv "$HOME/Applications/citra-temp/citra-qt.AppImage" "$HOME/Applications"
-		rm -rf "$HOME/Applications/citra-temp"
-		rm -rf "$HOME/Applications/citra.tar.gz"
-		chmod +x "$HOME/Applications/citra-qt.AppImage"
+		mkdir "$emusFolder/citra-temp"
+		tar -xvzf "$emusFolder/citra.tar.gz" -C "$emusFolder/citra-temp" --strip-components 1
+		mv "$emusFolder/citra-temp/citra-qt.AppImage" "$emusFolder"
+		rm -rf "$emusFolder/citra-temp"
+		rm -rf "$emusFolder/citra.tar.gz"
+		chmod +x "$emusFolder/citra-qt.AppImage"
 	else
 		return 1
 	fi
@@ -28,7 +28,7 @@ Citra_install(){
 #ApplyInitialSettings
 Citra_init(){
 	setMSG "Initializing $Citra_emuName settings."
-	configEmuAI "$Citra_emuName" "citra-emu"  "$HOME/.config/citra-emu" "$EMUDECKGIT/configs/citra-emu" "true"
+	configEmuAI "$Citra_emuName" "citra-emu"  "$HOME/.config/citra-emu" "$emudeckBackend/configs/citra-emu" "true"
 	Citra_setEmulationFolder
 	Citra_setupStorage
 	Citra_setupSaves
@@ -41,7 +41,7 @@ Citra_init(){
 #update
 Citra_update(){
 	setMSG "Updating $Citra_emuName settings."
-	configEmuAI "$Citra_emuName" "citra-emu" "$HOME/.config/citra-emu" "$EMUDECKGIT/configs/citra-emu"
+	configEmuAI "$Citra_emuName" "citra-emu" "$HOME/.config/citra-emu" "$emudeckBackend/configs/citra-emu"
 	Citra_setupStorage
 	Citra_setEmulationFolder
 	Citra_setupSaves
@@ -219,8 +219,8 @@ Citra_resetConfig(){
 Citra_addSteamInputProfile(){
 	addSteamInputCustomIcons
 	setMSG "Adding $Citra_emuName Steam Input Profile."
-	#rsync -r "$EMUDECKGIT/configs/steam-input/citra_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
-	rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
+	#rsync -r "$emudeckBackend/configs/steam-input/citra_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 Citra_setResolution(){
@@ -253,7 +253,7 @@ Citra_flushSymlinks(){
 		echo "Steam install not found"
 	fi
 
-	  if [ ! -f "$HOME/.config/EmuDeck/.citralegacysymlinks" ] && [ -f "$HOME/.config/EmuDeck/.citrasymlinks" ]; then
+	  if [ ! -f "$emudeckFolder/.citralegacysymlinks" ] && [ -f "$emudeckFolder/.citrasymlinks" ]; then
 
 		mkdir -p "$romsPath/n3ds"
 		# Temporary deletion to check if there are any additional contents in the n3ds folder.
@@ -295,14 +295,14 @@ Citra_flushSymlinks(){
 		fi
 
 
-		rsync -avh "$EMUDECKGIT/roms/n3ds/." "$romsPath/n3ds/." --ignore-existing
+		rsync -avh "$emudeckBackend/roms/n3ds/." "$romsPath/n3ds/." --ignore-existing
 
 		if [ -d "$toolsPath/downloaded_media/n3ds" ] && [ ! -d "$romsPath/n3ds/media" ]; then
 			ln -s "$toolsPath/downloaded_media/n3ds" "$romsPath/n3ds/media"
 		fi
 
 		find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
-		touch "$HOME/.config/EmuDeck/.citralegacysymlinks"
+		touch "$emudeckFolder/.citralegacysymlinks"
 		echo "Citra symlink cleanup completed."
 
 	else
@@ -310,7 +310,7 @@ Citra_flushSymlinks(){
 	fi
 
 
-	if [ ! -f "$HOME/.config/EmuDeck/.citrasymlinks" ]; then
+	if [ ! -f "$emudeckFolder/.citrasymlinks" ]; then
 
 
 		mkdir -p "$romsPath/n3ds"
@@ -352,14 +352,14 @@ Citra_flushSymlinks(){
 			fi
 		fi
 
-		rsync -avh "$EMUDECKGIT/roms/n3ds/." "$romsPath/n3ds/." --ignore-existing
+		rsync -avh "$emudeckBackend/roms/n3ds/." "$romsPath/n3ds/." --ignore-existing
 
 		if [ -d "$toolsPath/downloaded_media/n3ds" ] && [ ! -d "$romsPath/n3ds/media" ]; then
 			ln -s "$toolsPath/downloaded_media/n3ds" "$romsPath/n3ds/media"
 		fi
 
 		find "$STEAMPATH/userdata" -name "shortcuts.vdf" -exec sed -i "s|${romsPath}/3ds|${romsPath}/n3ds|g" {} +
-		touch "$HOME/.config/EmuDeck/.citrasymlinks"
+		touch "$emudeckFolder/.citrasymlinks"
 		echo "Citra symlink cleanup completed."
 
 	else

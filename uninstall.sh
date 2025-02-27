@@ -1,5 +1,5 @@
 #!/bin/bash
-source "$HOME/.config/EmuDeck/backend/functions/all.sh"
+. "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
 doUninstall=false
 doUninstallares=true
@@ -87,9 +87,9 @@ if [[ -f "$HOME/homebrew/services/PluginLoader" ]] ; then
 		 --text="${text}"
 	ans=$?
 	if [ $ans -eq 0 ]; then
-		curl -S -s -L -O --output-dir "$HOME/emudeck" --connect-timeout 30 https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/user_install_script.sh
-		chmod +x "$HOME/emudeck/user_install_script.sh"
-		"$HOME/emudeck/user_install_script.sh"
+		curl -S -s -L -O --output-dir "$HOME/.config/EmuDeck" --connect-timeout 30 https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/user_install_script.sh
+		chmod +x "$emudeckFolder/user_install_script.sh"
+		"$emudeckFolder/user_install_script.sh"
 
 	else
 		echo -e "No"
@@ -158,7 +158,7 @@ fi
 		fi
 
 		if [[ "$RPUninstall" != *"chiaki-ng"* ]]; then
-			rm -f "$HOME/Applications/chiaki-ng.AppImage" &> /dev/null
+			rm -f "$emusFolder/chiaki-ng.AppImage" &> /dev/null
 			rm -rf "$HOME/.config/Chiaki/" &> /dev/null
 			rm -rf "$HOME/.cache/Chiaki/" &> /dev/null
 			rm -f "$romsPath/remoteplay/chiaki-ng.sh" &> /dev/null
@@ -166,7 +166,7 @@ fi
 		fi
 
 		if [[ "$RPUninstall" != *"Greenlight"* ]]; then
-			rm -f "$HOME/Applications/Greenlight.AppImage" &> /dev/null
+			rm -f "$emusFolder/Greenlight.AppImage" &> /dev/null
 			rm -f "$romsPath/remoteplay/Greenlight.sh" &> /dev/null
 			rm -rf "$HOME/.config/greenlight/" &> /dev/null
 			rm -rf "$HOME/.local/share/applications/Greenlight.desktop" &> /dev/null
@@ -185,7 +185,7 @@ fi
 		fi
 
 		if [[ "$RPUninstall" != *"ShadowPC"* ]]; then
-			rm -f "$HOME/Applications/ShadowPC.AppImage" &> /dev/null
+			rm -f "$emusFolder/ShadowPC.AppImage" &> /dev/null
 			rm -f "$romsPath/remoteplay/ShadowPC.sh" &> /dev/null
 			rm -rf "$HOME/.config/shadow/" &> /dev/null
 			rm -rf "$HOME/.local/share/applications/ShadowPC.desktop" &> /dev/null
@@ -236,7 +236,7 @@ fi
 		fi
 
 		if [[ "$GAUninstall" != *"Heroic Games Launcher"* ]]; then
-			rm -f "$HOME/Applications/Heroic-Games-Launcher.AppImage" &> /dev/null
+			rm -f "$emusFolder/Heroic-Games-Launcher.AppImage" &> /dev/null
 			rm -f "$romsPath/generic-applications/Heroic-Games-Launcher.sh" &> /dev/null
 			rm -rf "$HOME/.config/heroic/" &> /dev/null
 			rm -rf "$HOME/.local/share/applications/Heroic-Games-Launcher.desktop" &> /dev/null
@@ -417,7 +417,7 @@ fi
 		rm -rf $HOME/.var/app/dev.ares.ares &> /dev/null
 	fi
 	if [[ "$doUninstallBigPEmu" == true ]]; then
-		rm -rf $HOME/Applications/BigPEmu &>> /dev/null
+		rm -rf $emusFolder/BigPEmu &>> /dev/null
 		rm -rf $HOME/.local/share/applications/BigPEmu.desktop &>> /dev/null
 		rm -rf "$HOME/.local/share/applications/BigPEmu (Proton).desktop" &>> /dev/null
 	fi
@@ -426,7 +426,7 @@ fi
 		rm -f "$HOME/.local/share/applications/Cemu (Proton).desktop" &> /dev/null
 	fi
 	if [[ "${doUninstallCemuNative}" == "true" ]]; then
-		rm -rf $HOME/Applications/Cemu*.AppImage &> /dev/null
+		rm -rf $emusFolder/Cemu*.AppImage &> /dev/null
 		rm -rf $HOME/.config/Cemu &> /dev/null
 		rm -rf $HOME/.local/share/Cemu &> /dev/null
 		rm -rf $HOME/.cache/Cemu &> /dev/null
@@ -436,7 +436,7 @@ fi
 		flatpak uninstall org.citra_emu.citra -y
 		rm -rf $HOME/.var/app/org.citra_emu.citra &> /dev/null
   		rm -rf $HOME/.local/share/applications/Citra.desktop &> /dev/null
-		rm -rf $HOME/Applications/citra-qt*.AppImage &> /dev/null
+		rm -rf $emusFolder/citra-qt*.AppImage &> /dev/null
 		rm -rf $HOME/.local/share/citra-emu &> /dev/null
 		rm -rf $HOME/.config/citra-emu &> /dev/null
 	fi
@@ -456,7 +456,7 @@ fi
 		rm -rf $HOME/.config/lime3ds-emu/ &> /dev/null
 		rm -rf $HOME/.local/share/lime3ds-emu &> /dev/null
   		rm -rf $HOME/.local/share/applications/Lime3DS.desktop &> /dev/null
-		rm -rf $HOME/Applications/lime3ds-gui*.AppImage &> /dev/null
+		rm -rf $emusFolder/lime3ds-gui*.AppImage &> /dev/null
 	fi
 	if [[ "$doUninstallMame" == true ]]; then
 		flatpak uninstall org.mamedev.MAME -y
@@ -469,7 +469,7 @@ fi
 		rm -rf $HOME/.var/app/net.kuribo64.melonDS &> /dev/null
 	fi
 	if [[ "$doUninstallMGBA" == true ]]; then
-		rm -rf $HOME/Applications/mGBA.AppImage &> /dev/null
+		rm -rf $emusFolder/mGBA.AppImage &> /dev/null
 		rm -rf $HOME/.config/mgba &> /dev/null
 		rm -rf $HOME/.local/share/applications/mGBA.desktop &> /dev/null
 	fi
@@ -482,7 +482,7 @@ fi
 		rm -rf "$HOME/.steam/steam/compatibilitytools.d/ULWGL-Proton-8.0-5-3"
 	fi
 	if [[ "$doUninstallPCSX2" == true ]]; then
-		rm -rf $HOME/Applications/pcsx2-Qt.AppImage &> /dev/null
+		rm -rf $emusFolder/pcsx2-Qt.AppImage &> /dev/null
 		rm -rf $HOME/.config/PCSX2 &> /dev/null
 		# Has the PCSX2 desktop file name changed over time? As of February 2024, it's PCSX2-QT.desktop
 		rm -rf $HOME/.local/share/applications/pcsx2-Qt.desktop &> /dev/null
@@ -513,7 +513,7 @@ fi
 		rm -rf "$HOME/.config/rpcs3" &> /dev/null
 		rm -rf "$HOME/.cache/rpcs3" &> /dev/null
 		rm -rf $HOME/.local/share/applications/RPCS3.desktop &> /dev/null
-		rm -rf $HOME/Applications/rpcs3.AppImage &> /dev/null
+		rm -rf $emusFolder/rpcs3.AppImage &> /dev/null
 	fi
 	if [[ "$doUninstallShadPS4" == true ]]; then
 		# Flatpak
@@ -522,11 +522,11 @@ fi
 		rm -rf $HOME/.local/share/shadps4 &> /dev/null
 		# AppImage
 		rm -rf $HOME/.local/share/applications/ShadPS4.desktop &> /dev/null
-		rm -rf $HOME/Applications/shadPS4-qt.AppImage &> /dev/null
+		rm -rf $emusFolder/shadPS4-qt.AppImage &> /dev/null
 	fi
 	if [[ "$doUninstallRyujinx" == true ]]; then
 		rm -rf $HOME/.config/Ryujinx &> /dev/null
-		rm -rf $HOME/Applications/publish &> /dev/null
+		rm -rf $emusFolder/publish &> /dev/null
 		rm -rf $HOME/.local/share/applications/Ryujinx.desktop &> /dev/null
 	fi
 	if [[ "$doUninstallShadPS4" == true ]]; then
@@ -537,7 +537,7 @@ fi
 		rm -rf "$HOME/.config/shadps4" &> /dev/null
 		rm -rf "$HOME/.cache/shadps4" &> /dev/null
 		rm -rf $HOME/.local/share/applications/ShadPS4.desktop &> /dev/null
-		rm -rf $HOME/Applications/shadps4.AppImage &> /dev/null
+		rm -rf $emusFolder/shadps4.AppImage &> /dev/null
 	fi
 	if [[ "$doUninstallScummVM" == true ]]; then
 		flatpak uninstall org.scummvm.ScummVM -y
@@ -551,7 +551,7 @@ fi
 		rm -rf $HOME/.local/share/supermodel &>> /dev/null
 	fi
 	if [[ "$doUninstallVita3K" == true ]]; then
-		rm -rf $HOME/Applications/Vita3K &> /dev/null
+		rm -rf $emusFolder/Vita3K &> /dev/null
 		rm -rf $HOME/.cache/Vita3K &> /dev/null
 		rm -rf $HOME/.config/Vita3K &> /dev/null
 		rm -rf $HOME/.local/share/Vita3K &> /dev/null
@@ -568,7 +568,7 @@ fi
 	if [[ "$doUninstallYuzu" == true ]]; then
 		#flatpak uninstall org.yuzu_emu.yuzu --system -y
 		#rm -rf $HOME/.var/app/org.yuzu_emu.yuzu &> /dev/null
-		rm -rf $HOME/Applications/yuzu.AppImage &> /dev/null
+		rm -rf $emusFolder/yuzu.AppImage &> /dev/null
 		rm -rf $HOME/.config/yuzu &> /dev/null
 		rm -rf $HOME/.local/share/yuzu &> /dev/null
 		rm -rf $HOME/.cache/yuzu &> /dev/null
@@ -638,7 +638,7 @@ fi
 
 	echo "65"
 	echo "# Removing EmuDeck AppImage";
-	rm -rf $HOME/emudeck &> /dev/null
+	rm -rf $HOME/.config/EmuDeck &> /dev/null
 	rm -rf $HOME/Desktop/EmuDeckCHD.desktop &> /dev/null
 	rm -rf $HOME/Desktop/EmuDeckUninstall.desktop &> /dev/null
 	rm -rf $HOME/Desktop/EmuDeck.desktop &> /dev/null
@@ -647,9 +647,9 @@ fi
 	rm -rf $HOME/Desktop/SteamRomManager.desktop &> /dev/null
 	rm -rf $HOME/Desktop/uninstall-sdgyrodsu.desktop &> /dev/null
 	rm -rf $HOME/Desktop/update-sdgyrodsu.desktop &> /dev/null
-	rm -rf $HOME/Applications/EmuDeck.AppImage &> /dev/null
-	rm -rf $HOME/Applications/EmuDeck_SaveSync.AppImage &> /dev/null
-	rm -rf $HOME/Applications/RemotePlayWhatever.AppImage &> /dev/null
+	rm -rf $emusFolder/EmuDeck.AppImage &> /dev/null
+	rm -rf $emusFolder/EmuDeck_SaveSync.AppImage &> /dev/null
+	rm -rf $emusFolder/RemotePlayWhatever.AppImage &> /dev/null
 	rm -rf $HOME/.config/EmuDeck
 
 	echo "70"
@@ -668,8 +668,8 @@ fi
 	rm -rf $HOME/.emulationstation
 	rm -rf "$HOME/ES-DE" &> /dev/null
 	rm -rf "$toolsPath/EmulationStation-DE.AppImage" &> /dev/null
-	rm -rf $HOME/Applications/EmulationStation-DE.AppImage &> /dev/null
-	rm -rf $HOME/Applications/ES-DE.AppImage &> /dev/null
+	rm -rf $emusFolder/EmulationStation-DE.AppImage &> /dev/null
+	rm -rf $emusFolder/ES-DE.AppImage &> /dev/null
 	rm -rf "$HOME/.local/share/applications/EmulationStation-DE.desktop" &> /dev/null
 	rm -rf "$HOME/.local/share/applications/ES-DE.desktop" &> /dev/null
  	# ULWGL
@@ -679,7 +679,7 @@ fi
 	# Pegasus
 	flatpak uninstall org.pegasus_frontend.Pegasus -y
 	rm -rf "$HOME/.var/app/org.pegasus_frontend.Pegasus/" &> /dev/null
-	rm -rf $HOME/Applications/pegasus-fe &> /dev/null
+	rm -rf $emusFolder/pegasus-fe &> /dev/null
 	rm -rf $HOME/.config/pegasus-frontend &> /dev/null
 	rm -rf "$HOME/.local/share/applications/Pegasus.desktop" &> /dev/null
 

@@ -9,7 +9,7 @@ function Android_Lime3DS_install(){
 
 function Android_Lime3DS_init(){
 	setMSG "Setting up Citra"
-	rsync -ra "$HOME/.config/EmuDeck/backend/android/configs/citra-emu/" "$Android_temp_internal/citra-emu/"
+	rsync -ra "$emudeckBackend/android/configs/citra-emu/" "$Android_temp_internal/citra-emu/"
 }
 
 function Android_Lime3DS_setup(){

@@ -5,6 +5,7 @@ SRM_toolType="$emuDeckEmuTypeAppImage"
 SRM_toolPath="${toolsPath}/Steam-ROM-Manager.AppImage"
 SRM_userData_directory="configs/steam-rom-manager/userData"
 SRM_userData_configDir="$HOME/.config/steam-rom-manager/userData"
+SRM_userConfigurations="$HOME/.config/steam-rom-manager/userData/userConfigurations.json"
 #cleanupOlderThings
 
 SRM_install(){
@@ -32,7 +33,7 @@ SRM_uninstall(){
 
 SRM_customDesktopShortcut(){
   mkdir -p "$toolsPath/launchers/srm"
-  cp "$EMUDECKGIT/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
+  cp "$emudeckBackend/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
   rm -rf $HOME/.local/share/applications/SRM.desktop
 
   createDesktopShortcut   "$HOME/.local/share/applications/Steam ROM Manager.desktop" \
@@ -58,9 +59,11 @@ SRM_migration(){
 SRM_init(){
 
   setMSG "Configuring Steam Rom Manager"
+  mkdir -p "$emudeckFolder/customParsers"
   mkdir -p "$HOME/.config/steam-rom-manager/userData/"
-  rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
-  rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/userSettings.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  SRM_addExtraParsers
   SRM_setEmulationFolder
   SRM_setEnv
   SRM_addControllerTemplate
@@ -112,7 +115,7 @@ SRM_setEnv(){
 SRM_addControllerTemplate(){
 
   mkdir -p "$HOME/.config/steam-rom-manager/userData/"
-  rsync -avhp --mkpath "$EMUDECKGIT/configs/steam-rom-manager/userData/controllerTemplates.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/controllerTemplates.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
 
   if [ -d "${HOME}/.local/share/Steam" ]; then
     STEAMPATH="${HOME}/.local/share/Steam"
@@ -139,7 +142,7 @@ SRM_addSteamInputProfiles(){
    rm -rf "$HOME/.steam/steam/controller_base/templates/ppsspp_controller_config.vdf"
    rm -rf "$HOME/.steam/steam/controller_base/templates/rmg_controller_config.vdf"
 
-   rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
+   rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
    #Cleanup old controller schemes
 }
 
@@ -165,7 +168,7 @@ SRM_IsInstalled(){
 
 SRM_flushToolLauncher(){
   mkdir -p "$toolsPath/launchers/srm"
-	cp "$EMUDECKGIT/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
+	cp "$emudeckBackend/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
   chmod +x "$toolsPath/launchers/srm/steamrommanager.sh"
 }
 
@@ -222,4 +225,50 @@ SRM_deleteCache(){
       echo "User declined deleting cache."
     fi
 
+}
+
+SRM_addExtraParsers(){
+  rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  for install_command in \
+  "BigPEmu_IsInstalled BigPEmu_addParser" \
+  "Flycast_IsInstalled Flycast_addParser" \
+  "Lime3DS_IsInstalled Lime3DS_addParser" \
+  "MAME_IsInstalled MAME_addParser" \
+  "mGBA_IsInstalled mGBA_addParser" \
+  "melonDS_IsInstalled melonDS_addParser" \
+  "RMG_IsInstalled RMG_addParser" \
+  "Citron_IsInstalled Citron_addParser" \
+  "Yuzu_IsInstalled Yuzu_addParser"; do
+
+  condition=$($install_command | awk '{print $1}')
+  command=$(echo $install_command | awk '{print $2}')
+
+  if [ "$condition" == "true" ]; then
+    echo "Executing $command"
+    $command
+  fi
+  done
+  SRM_addCustomParsers
+}
+
+SRM_addCustomParsers(){
+  local folder="$emudeckFolder/customParsers"
+
+  # Verificar que la carpeta existe
+  if [[ ! -d "$folder" ]]; then
+      echo "Error: La carpeta $folder no existe."
+      return 1
+  fi
+
+  # Recorrer cada archivo .json en la carpeta
+  for json_file in "$folder"/*.json; do
+      # Verificar que haya archivos JSON en la carpeta
+      if [[ ! -f "$json_file" ]]; then
+          echo "No se encontraron archivos JSON en $folder."
+          return 1
+      fi
+
+      echo "Procesando: $json_file"
+      addParser "$(basename "$json_file")"
+  done
 }

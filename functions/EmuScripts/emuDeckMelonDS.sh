@@ -32,6 +32,7 @@ melonDS_init(){
 	#SRM_createParsers
 	melonDS_addSteamInputProfile
 	melonDS_flushEmulatorLauncher
+	melonDS_addParser
 }
 
 #update
@@ -112,6 +113,7 @@ melonDS_wipe(){
 #Uninstall
 melonDS_uninstall(){
 	setMSG "Uninstalling $melonDS_emuName."
+	removeParser "nintendo_nds_melonds.json"
 	uninstallEmuFP "${melonDS_emuName}" "${melonDS_emuPath}" "emulator" ""
 }
 
@@ -161,8 +163,8 @@ melonDS_resetConfig(){
 melonDS_addSteamInputProfile(){
 	addSteamInputCustomIcons
 	setMSG "Adding $melonDS_emuName Steam Input Profile."
-	#rsync -r "$EMUDECKGIT/configs/steam-input/melonds_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
-	rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
+	#rsync -r "$emudeckBackend/configs/steam-input/melonds_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 melonDS_setResolution(){
@@ -211,8 +213,9 @@ melonDS_setBAYXstyle(){
 }
 
 melonDS_flushEmulatorLauncher(){
-
-
 	flushEmulatorLaunchers "melonds"
+}
 
+melonDS_addParser(){
+	addParser "nintendo_nds_melonds.json"
 }

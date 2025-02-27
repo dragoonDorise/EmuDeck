@@ -32,9 +32,9 @@ Model2_install(){
 		return 1
 	fi
 
-	cp "$EMUDECKGIT/tools/launchers/model-2-emulator.sh" "$toolsPath/launchers/model-2-emulator.sh"
-	cp "$EMUDECKGIT/tools/launchers/model-2-emulator.sh" "$romsPath/model2/model-2-emulator.sh"
-	cp "$EMUDECKGIT/tools/launchers/model-2-emulator.sh" "$romsPath/emulators/model-2-emulator.sh"
+	cp "$emudeckBackend/tools/launchers/model-2-emulator.sh" "$toolsPath/launchers/model-2-emulator.sh"
+	cp "$emudeckBackend/tools/launchers/model-2-emulator.sh" "$romsPath/model2/model-2-emulator.sh"
+	cp "$emudeckBackend/tools/launchers/model-2-emulator.sh" "$romsPath/emulators/model-2-emulator.sh"
 
 	chmod +x "$toolsPath/launchers/model-2-emulator.sh"
 	chmod +x "$romsPath/emulators/model-2-emulator.sh"
@@ -51,7 +51,7 @@ Model2_install(){
 #ApplyInitialSettings
 Model2_init(){
 	setMSG "Initializing $Model2_emuName settings."
-	rsync -avhp "$EMUDECKGIT/configs/model2/" "${romsPath}/model2" --backup --suffix=.bak
+	rsync -avhp "$emudeckBackend/configs/model2/" "${romsPath}/model2" --backup --suffix=.bak
 	Model2_downloadProtonGE
 	Model2ULWGL_install
 	#SRM_createParsers
@@ -96,7 +96,7 @@ Model2_addESConfig(){
 #update
 Model2_update(){
 	setMSG "Updating $Model2_emuName settings."
-	rsync -avhp "$EMUDECKGIT/configs/model2/" "${romsPath}/model2" --ignore-existing
+	rsync -avhp "$emudeckBackend/configs/model2/" "${romsPath}/model2" --ignore-existing
 	Model2ULWGL_install
 	Model2_flushEmulatorLauncher
 	Model2_addSteamInputProfile
@@ -220,5 +220,5 @@ Model2_flushEmulatorLauncher(){
 
 Model2_addSteamInputProfile(){
 	setMSG "Adding $Model2_emuName Steam Input Profile."
-	rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/emudeck_steam_deck_light_gun_controls.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf"
+	rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/emudeck_steam_deck_light_gun_controls.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf"
 }
