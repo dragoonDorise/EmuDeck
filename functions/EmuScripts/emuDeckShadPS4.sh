@@ -17,6 +17,7 @@ ShadPS4_cleanup(){
 
 # TODO: Install Flatpak from https://github.com/shadps4-emu/shadPS4-flatpak
 ShadPS4_install(){
+
     echo "Begin ShadPS4 Install"
     local showProgress=$1
 
@@ -30,6 +31,7 @@ ShadPS4_install(){
         echo "Error installing ShadPS4"
         return 1
     fi
+
 }
 
 ShadPS4_init(){
