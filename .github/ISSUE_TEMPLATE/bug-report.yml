@@ -64,5 +64,5 @@ body:
     id: logs
     attributes:
       label: Relevant log output
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks. You can find the EmuDeck log in $HOME/emudeck. For more information, see https://emudeck.github.io/troubleshooting/steamos/#how-to-get-the-emudeck-log. 
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks. You can find the EmuDeck log in $HOME/.config/EmuDeck. For more information, see https://emudeck.github.io/troubleshooting/steamos/#how-to-get-the-emudeck-log. 
       render: shell

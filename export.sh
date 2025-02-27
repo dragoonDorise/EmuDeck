@@ -24,7 +24,7 @@ function checkSpace(){
 	local difference=$(($freeSpace - $neededSpace))
 
 	if [[ $difference -lt 0 ]]; then
-		text="$(printf "Make sure you have enought space in $destination. You need to have at least $neededSpaceInHuman available")"
+		text="$(printf "Make sure you have enough space in $destination. You need to have at least $neededSpaceInHuman available")"
 		zenity --question \
 			--title="EmuDeck Export tool" \
 			--width=450 \
@@ -71,7 +71,7 @@ mkdir -p "$destination/EmuDeck/saves"
 
 for entry in "$emulationPath/saves/"*
 do
-	rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/saves/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/saves/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+	rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/saves/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/saves/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 done
 
 
@@ -96,7 +96,7 @@ if [ "$size" -gt 4096 ]; then
 
 			for entry in "$emulationPath/storage/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/storage/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/storage/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/storage/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/storage/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
@@ -122,7 +122,7 @@ if [ "$size" -gt 4096 ]; then
 
 			for entry in "$emulationPath/bios/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/bios/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/bios/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/bios/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/bios/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
@@ -130,28 +130,28 @@ if [ "$size" -gt 4096 ]; then
 		fi
 	fi
 
-	if [ -d "$emulationPath/bios" ]; then
-		text="$(printf "Do you want to export all your bios?")"
+	if [ -d "$emulationPath/roms" ]; then
+		text="$(printf "Do you want to export all your roms?")"
 		zenity --question \
 			--title="EmuDeck Export tool" \
 			--width=450 \
 			--cancel-label="No" \
-			--ok-label="Export my bios" \
+			--ok-label="Export my roms" \
 			--text="${text}" 2>/dev/null
 		ans=$?
 		if [ $ans -eq 0 ]; then
 
-			checkSpace "$emulationPath/bios/" "$destination"
+			checkSpace "$emulationPath/roms/" "$destination"
 
-			mkdir -p "$destination/EmuDeck/bios"
+			mkdir -p "$destination/EmuDeck/roms"
 
-			for entry in "$emulationPath/bios/"*
+			for entry in "$emulationPath/roms/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/bios/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/bios/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/roms/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/roms/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
-			echo "no bios"
+			echo "no roms"
 		fi
 	fi
 
@@ -172,11 +172,11 @@ if [ "$size" -gt 4096 ]; then
 
 			for entry in "$ESDEscrapData/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/roms/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/tools/downloaded_media/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/tools/downloaded_media/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/tools/downloaded_media/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
-			echo "no roms"
+			echo "no media"
 		fi
 	fi
 

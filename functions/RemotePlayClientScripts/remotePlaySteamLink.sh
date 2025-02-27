@@ -45,5 +45,5 @@ SteamLink_IsInstalled() {
 # Import steam profile
 SteamLink_addSteamInputProfile() {
 	echo "NYI"
-	#rsync -r "$EMUDECKGIT/configs/steam-input/emudeck_steamlink_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	#rsync -r "$emudeckBackend/configs/steam-input/emudeck_steamlink_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

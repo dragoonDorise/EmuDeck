@@ -22,8 +22,8 @@ Supermodel_install(){
 Supermodel_init(){
 	# Flatpak does not install to flatpak directory
 	mkdir -p $HOME/.supermodel/Analysis $HOME/.supermodel/Log
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel/Config/Supermodel.ini" "$HOME/.supermodel/Config/Supermodel.ini" --backup --suffix=.bak
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel/." "$HOME/.supermodel/." --backup --suffix=.bak
+	rsync -avhp --mkpath "$emudeckBackend/configs/supermodel/Config/Supermodel.ini" "$HOME/.supermodel/Config/Supermodel.ini" --backup --suffix=.bak
+	rsync -avhp --mkpath "$emudeckBackend/configs/supermodel/." "$HOME/.supermodel/." --backup --suffix=.bak
 	# Download updated gamelist from source
 	if [ -e "$HOME/.supermodel/Config/Games.xml" ]; then
 		rm -rf "$HOME/.supermodel/Config/Games.xml"
@@ -41,7 +41,7 @@ Supermodel_init(){
 Supermodel_update(){
 	# Flatpak does not install to flatpak directory
 	mkdir -p $HOME/.supermodel/Analysis $HOME/.supermodel/Log
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/supermodel" "$HOME/.supermodel/" --ignore-existing
+	rsync -avhp --mkpath "$emudeckBackend/configs/supermodel" "$HOME/.supermodel/" --ignore-existing
 	# Download updated gamelist from source
 	if [ -e "$HOME/.supermodel/Config/Games.xml" ]; then
 		rm -rf "$HOME/.supermodel/Config/Games.xml"
@@ -136,5 +136,5 @@ Supermodel_flushEmulatorLauncher(){
 
 Supermodel_addSteamInputProfile(){
 	setMSG "Adding $Supermodel_emuName Steam Input Profile."
-	rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/emudeck_steam_deck_light_gun_controls.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf"
+	rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/emudeck_steam_deck_light_gun_controls.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf"
 }
