@@ -56,10 +56,8 @@ else
 
     echo "Installing EmuDeck dependencies..."
 
-    if [[ $linuxID == Bazzite ]]; then
-        # Bazzite comes with all needed dependencies out of the box. Dont do anything
-        :
-    elif command -v apt-get >/dev/null; then
+
+    if command -v apt-get >/dev/null; then
         echo "Installing packages with apt..."
 
         sudo killall apt apt-get
