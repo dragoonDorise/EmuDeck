@@ -30,7 +30,7 @@ cloudSyncHealth(){
 	local upload=1
 	local download=1
 
-	touch "$HOME/emudeck/logs/cloudHealth.log"
+	touch "$emudeckLogs/cloudHealth.log"
 
 {
 	cloud_sync_stopService
@@ -55,9 +55,8 @@ cloudSyncHealth(){
 	#Zenity asking SRM or ESDE
 	#Opening RA/ESDE in background
 	kill="ESDE"
-	zenity --question --title "CloudSync Health" --text "You need to have RetroArch installed for this to work." --cancel-label "Cancel" --ok-label "OK"
 
-	if [ $? = 0 ]; then
+	if [ "$(RetroArch_IsInstalled "$emuDeckEmuTypeFlatpak")" == "true" ]; then
 		kill="RETROARCH"
 		notify-send "RETROARCH" --icon="$HOME/.local/share/icons/emudeck/EmuDeck.png" --app-name "EmuDeck CloudSync"
 		touch "$savesPath/.gaming"
@@ -80,11 +79,20 @@ cloudSyncHealth(){
 		fi
 
 		/usr/bin/flatpak run org.libretro.RetroArch & xdotool search --sync --name '^RetroArch$' windowminimize
-	else
-		zenity --info --width=400 --text="Please install RetroArch from Manage Emulators..."
 
-		exit
+	else
+		zenity --question --title "CloudSync Health" --text "You need to have RetroArch installed for this to work." --cancel-label "Cancel" --ok-label "OK"
+
+		if [ $? = 0 ]; then
+			echo "continue"
+		else
+			zenity --info --width=400 --text="Please install RetroArch from Manage Emulators..."
+
+			exit
+		fi
+
 	fi
+
 
 
 	#
@@ -150,7 +158,7 @@ cloudSyncHealth(){
 
 
 
-} > "$HOME/emudeck/logs/cloudHealth.log"
+} > "$emudeckLogs/cloudHealth.log"
 
 	echo "<table class='table'>"
 		echo "<tr>"

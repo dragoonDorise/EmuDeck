@@ -47,7 +47,7 @@ installToolAI(){
 #         rm -f "$f"
 #     done
 #
-#     find "${EMUDECKGIT}/tools/launchers/" -maxdepth 2 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
+#     find "$emudeckBackend/tools/launchers/" -maxdepth 2 -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
 #     while read -r l
 #     do
 #         echo "deploying $l"

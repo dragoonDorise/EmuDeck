@@ -10,7 +10,7 @@ function Android_Yuzu_install(){
 function Android_Yuzu_init(){
 	setMSG "Setting up Yuzu"
 
-	rsync -ra "$HOME/.config/EmuDeck/backend/android/configs/Android/data/org.yuzu.yuzu_emu/" "$Android_temp_android_data/org.yuzu.yuzu_emu/"
+	rsync -ra "$emudeckBackend/android/configs/Android/data/org.yuzu.yuzu_emu/" "$Android_temp_android_data/org.yuzu.yuzu_emu/"
 
 	originFile="$Android_temp_android_data/org.yuzu.yuzu_emu/files/config/config.ini"
 	origin="XXXX"

@@ -1,19 +1,19 @@
 #!/bin/bash
-installEmuFP(){		
-	
+installEmuFP(){
+
 	local name="$1"
 	local ID="$2"
 	local type="$3"
 	local scriptname="$4"
 
 	if [[ "$type" == "emulator" ]]; then
-		gitPath="${EMUDECKGIT}/tools/launchers/"
+		gitPath="$emudeckBackend/tools/launchers/"
 		launcherPath="${toolsPath}/launchers"
 	elif [[ "$type" == "remoteplay" ]]; then
-		gitPath="${EMUDECKGIT}/tools/remoteplayclients/"
+		gitPath="$emudeckBackend/tools/remoteplayclients/"
 		launcherPath="${romsPath}/remoteplay"
 	elif [[ "$type" == "genericapplication" ]]; then
-		gitPath="${EMUDECKGIT}/tools/generic-applications/"
+		gitPath="$emudeckBackend/tools/generic-applications/"
 		launcherPath="${romsPath}/generic-applications"
 	fi
 
@@ -27,7 +27,7 @@ installEmuFP(){
 	echo "4, Flatpak Script Name: $scriptname"
 
 	setMSG "Installing $name"
-	
+
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
 	flatpak install flathub "$ID" -y --user
 	flatpak override "$ID" --filesystem=host --user
@@ -36,7 +36,7 @@ installEmuFP(){
 	if [ "$(flatpak --columns=app list --user | grep "$ID")" == "$ID" ]; then
 		flatpak uninstall "$ID" --system -y
 	fi
- 	
+
 	shName=$(echo "$scriptname" | awk '{print tolower($0)}')
     mkdir -p "${romsPath}/emulators"
 	mkdir -p "$launcherPath"
@@ -54,6 +54,6 @@ installEmuFP(){
         if [[ "$type" == "emulator" ]]; then
             cp -v "$l" "${romsPath}/emulators"
 			chmod +x "${romsPath}/emulators/"*
-        fi 
+        fi
 	done
 }

@@ -22,8 +22,8 @@ pegasus_install(){
 	local url="https://github.com/dragoonDorise/pegasus-temp/releases/download/1.0/pegasus-fe"
 	local fileName="pegasus-fe"
 
-	if safeDownload "$name" "$url" "$HOME/Applications/$fileName" "$showProgress"; then
-		chmod +x "$HOME/Applications/$fileName"
+	if safeDownload "$name" "$url" "$pegasusFolder/$fileName" "$showProgress"; then
+		chmod +x "$pegasusFolder/$fileName"
 		pegasus_init
 		pegasus_customDesktopShortcut
 	else
@@ -34,21 +34,46 @@ pegasus_install(){
 }
 
 pegasus_setPaths(){
-	rsync -avR --exclude='roms' --exclude='pfx' "$EMUDECKGIT/roms/" "$romsPath" --keep-dirlinks
-	rsync -avR --exclude='roms' --exclude='pfx' "$EMUDECKGIT/roms/" "$toolsPath/downloaded_media"
+	rsync -av --exclude='roms' --exclude='pfx'  --ignore-times "$emudeckBackend/roms/" "$romsPath" --keep-dirlinks
+	rsync -av --exclude='roms' --exclude='pfx' "$emudeckBackend/roms/" "$toolsPath/downloaded_media"
+
+	#Alternative emulators
+
+	if [ "$(BigPEmu_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/atarijaguar/metadata.txt" "$romsPath/atarijaguar/metadata.txt"
+		cp "$emudeckBackend/roms_alt_emus/atarijaguarcd/metadata.txt" "$romsPath/atarijaguarcd/metadata.txt"
+	fi
+
+	if [ "$(Flycast_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/dreamcast/metadata.txt" "$romsPath/dreamcast/metadata.txt"
+	fi
+
+	if [ "$(mGBA_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/gba/metadata.txt" "$romsPath/gba/metadata.txt"
+	fi
+
+	if [ "$(Lime3DS_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/n3ds/metadata.txt" "$romsPath/n3ds/metadata.txt"
+	fi
+
+	if [ "$(RMG_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/n64/metadata.txt" "$romsPath/n64/metadata.txt"
+	fi
+
+	if [ "$(melonDS_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/nds/metadata.txt" "$romsPath/nds/metadata.txt"
+	fi
+
+	if [ "$(Yuzu_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/switch/yuzu/metadata.txt" "$romsPath/switch/metadata.txt"
+	fi
+
+	if [ "$(Citron_IsInstalled)" == "true" ]; then
+		cp "$emudeckBackend/roms_alt_emus/switch/citron/metadata.txt" "$romsPath/switch/metadata.txt"
+	fi
+
 	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|CORESPATH|${RetroArch_cores}|g" {} \;
 	find $romsPath/ -type f -name "metadata.txt" -exec sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" {} \;
-
-	#Yuzu path fix
-	if [ -f "$HOME/Applications/yuzu.AppImage" ]; then
-		sed -i "s|ryujinx|yuzu|g" "$romsPath/switch/metadata.txt"
-		sed -i "s|--fullscreen|-f -g|g" "$romsPath/switch/metadata.txt"
-	fi
-
-	#Citra path fix
-	if [ -f "$HOME/Applications/citra-qt.AppImage" ]; then
-		sed -i "s|lime3ds|citra|g" "$romsPath/n3ds/metadata.txt"
-	fi
 
 }
 
@@ -56,10 +81,11 @@ pegasus_setPaths(){
 pegasus_init(){
 	setMSG "Setting up $pegasus_toolName"
 
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/$pegasus_emuPath/" "$pegasus_path/"
+	rsync -avhp --mkpath "$emudeckBackend/configs/$pegasus_emuPath/" "$pegasus_path/"
 
 	#metadata and paths
 		pegasus_setPaths
+		pegasus_addToSteam
 
 		if [ -L "$toolsPath/downloaded_media/gamecube" ]; then
 			rm -rf "$toolsPath/downloaded_media/gamecube" &> /dev/null
@@ -168,7 +194,7 @@ pegasus_init(){
 
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$pegasus_dir_file"
 	#mkdir -p "$toolsPath/launchers/pegasus/"
-	#cp "$EMUDECKGIT/tools/launchers/pegasus/pegasus-frontend.sh" "$toolsPath/launchers/pegasus/pegasus-frontend.sh"
+	#cp "$emudeckBackend/tools/launchers/pegasus/pegasus-frontend.sh" "$toolsPath/launchers/pegasus/pegasus-frontend.sh"
 	#pegasus_addCustomSystems
 	#pegasus_setEmulationFolder
 	#pegasus_setDefaultEmulators
@@ -224,7 +250,7 @@ pegasus_setEmu(){
 }
 
 pegasus_IsInstalled(){
-  if [ -f  "$HOME/Applications/pegasus-fe" ]; then
+  if [ -f  "$pegasusFolder/pegasus-fe" ]; then
   	echo "true"
   else
  	 echo "false"
@@ -233,11 +259,17 @@ pegasus_IsInstalled(){
 
 pegasus_uninstall(){
 	flatpak uninstall "$pegasus_emuPath" --user -y &> /dev/null;
-	rm -rf "$HOME/Applications/pegasus-fe" &> /dev/null;
+	rm -rf "$pegasusFolder/pegasus-fe" &> /dev/null;
 }
 
 pegasus_flushToolLauncher(){
 	mkdir -p "$toolsPath/launchers/pegasus/"
-	cp "$EMUDECKGIT/tools/launchers/pegasus/pegasus-frontend.sh" "$toolsPath/launchers/pegasus/pegasus-frontend.sh"
+	cp "$emudeckBackend/tools/launchers/pegasus/pegasus-frontend.sh" "$toolsPath/launchers/pegasus/pegasus-frontend.sh"
 	chmod +x "$toolsPath/launchers/pegasus/pegasus-frontend.sh"
+}
+
+
+pegasus_addToSteam(){
+	setMSG "Adding $pegasus_toolName to Steam"
+	add_to_steam "pegasus" "$pegasus_toolName" "$toolsPath/launchers/pegasus/pegasus-frontend.sh" "$HOME/Applications/" "$HOME/.config/EmuDeck/backend/icons/ico/pegasus.ico"
 }
