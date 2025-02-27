@@ -2,9 +2,11 @@
 #variables
 BigPEmu_emuName="BigPEmu"
 BigPEmu_emuType="$emuDeckEmuTypeWindows"
+
 BigPEmu_emuPath="$emusFolder/BigPEmu/bigpemu"
 BigPEmu_appData="$emusFolder/BigPEmu/UserData"
 BigPEmu_BigPEmuSettings="$emusFolder/BigPEmu/UserData/BigPEmuConfig.bigpcfg"
+
 
 #cleanupOlderThings
 BigPEmu_cleanup(){
@@ -50,7 +52,9 @@ BigPEmu_install(){
 #ApplyInitialSettings
 BigPEmu_init(){
 	setMSG "Initializing $BigPEmu_emuName settings."
+
 	rsync -avhp "$emudeckBackend/configs/bigpemu/" "$BigPEmu_appData" --backup --suffix=.bak
+
 	sed -E -i "s|/run/media/mmcblk0p1/Emulation|$emulationPath|g" "$BigPEmu_BigPEmuSettings"
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
@@ -67,7 +71,9 @@ BigPEmu_init(){
 #update
 BigPEmu_update(){
 	setMSG "Updating $BigPEmu_emuName settings."
+
 	rsync -avhp "$emudeckBackend/configs/bigpemu/" "$BigPEmu_appData" --ignore-existing
+
 	sed -E -i "s|/run/media/mmcblk0p1/Emulation|$emulationPath|g" "$BigPEmu_BigPEmuSettings"
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves

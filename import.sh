@@ -166,7 +166,7 @@ if [ "$size" -gt 4096 ]; then
 
 			for entry in "$origin/EmuDeck/tools/downloaded_media/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/bios/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/tools/downloaded_media/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/tools/downloaded_media/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/tools/downloaded_media/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
