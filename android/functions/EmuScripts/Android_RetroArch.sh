@@ -2127,16 +2127,16 @@ Android_RetroArch_retroAchievementsPromptLogin(){
 			ans=$?
 	if [ $ans -eq 0 ]; then
 		echo "RetroAchievment Login"
-		echo "$RAInput" | awk -F "," '{print $1}' > "$HOME/.config/EmuDeck/.rau"
-		echo "$RAInput" | awk -F "," '{print $2}' > "$HOME/.config/EmuDeck/.rap"
+		echo "$RAInput" | awk -F "," '{print $1}' > "$emudeckFolder/.rau"
+		echo "$RAInput" | awk -F "," '{print $2}' > "$emudeckFolder/.rap"
 	else
 		echo "Cancel RetroAchievment Login"
 	fi
 }
 Android_RetroArch_retroAchievementsSetLogin(){
-	rm -rf "$HOME/.config/EmuDeck/.rap"
-	rau=$(cat "$HOME/.config/EmuDeck/.rau")
-	rat=$(cat "$HOME/.config/EmuDeck/.rat")
+	rm -rf "$emudeckFolder/.rap"
+	rau=$(cat "$emudeckFolder/.rau")
+	rat=$(cat "$emudeckFolder/.rat")
 	echo "Evaluate RetroAchievements Login."
 	if [ ${#rat} -lt 1 ]; then
 		echo "--No token."

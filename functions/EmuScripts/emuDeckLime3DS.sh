@@ -2,7 +2,7 @@
 #variables
 Lime3DS_emuName="Lime3DS"
 Lime3DS_emuType="$emuDeckEmuTypeAppImage"
-Lime3DS_emuPath="$HOME/Applications/lime3ds-gui.AppImage"
+Lime3DS_emuPath="$emusFolder/lime3ds-gui.AppImage"
 Lime3DS_releaseURL=""
 Lime3DS_configFile="$HOME/.config/lime3ds-emu/qt-config.ini"
 Lime3DS_configPath="$HOME/.config/lime3ds-emu"
@@ -13,20 +13,20 @@ Lime3DS_install(){
 	echo "Begin $Lime3DS_emuName Install"
 	local showProgress="$1"
 	if installEmuAI "$Lime3DS_emuName" "" "$(getReleaseURLGH "Lime3DS/lime3ds-archive" "tar.gz" "")" "lime3ds" "tar.gz" "emulator" "$showProgress"; then #lime3ds-gui.AppImage
-		mkdir "$HOME/Applications/lime3ds-temp"
-		tar -xvzf "$HOME/Applications/lime3ds.tar.gz" -C "$HOME/Applications/lime3ds-temp" --strip-components 1
-		if [ -f "$HOME/Applications/lime3ds-temp/lime3ds-gui.AppImage" ]; then
-			mv "$HOME/Applications/lime3ds-temp/lime3ds-gui.AppImage" "$Lime3DS_emuPath"
-		elif [ -f "$HOME/Applications/lime3ds-temp/lime3ds.AppImage" ]; then
-			mv "$HOME/Applications/lime3ds-temp/lime3ds.AppImage" "$Lime3DS_emuPath"
+		mkdir "$emusFolder/lime3ds-temp"
+		tar -xvzf "$emusFolder/lime3ds.tar.gz" -C "$emusFolder/lime3ds-temp" --strip-components 1
+		if [ -f "$emusFolder/lime3ds-temp/lime3ds-gui.AppImage" ]; then
+			mv "$emusFolder/lime3ds-temp/lime3ds-gui.AppImage" "$Lime3DS_emuPath"
+		elif [ -f "$emusFolder/lime3ds-temp/lime3ds.AppImage" ]; then
+			mv "$emusFolder/lime3ds-temp/lime3ds.AppImage" "$Lime3DS_emuPath"
 		else
-			rm -rf "$HOME/Applications/lime3ds-temp"
-			rm -rf "$HOME/Applications/lime3ds.tar.gz"
+			rm -rf "$emusFolder/lime3ds-temp"
+			rm -rf "$emusFolder/lime3ds.tar.gz"
 			return 1
 		fi
-		chmod +x "$HOME/Applications/lime3ds-gui.AppImage"
-		rm -rf "$HOME/Applications/lime3ds-temp"
-		rm -rf "$HOME/Applications/lime3ds.tar.gz"
+		chmod +x "$emusFolder/lime3ds-gui.AppImage"
+		rm -rf "$emusFolder/lime3ds-temp"
+		rm -rf "$emusFolder/lime3ds.tar.gz"
 	else
 		return 1
 	fi
@@ -35,19 +35,20 @@ Lime3DS_install(){
 #ApplyInitialSettings
 Lime3DS_init(){
 	setMSG "Initializing $Lime3DS_emuName settings."
-	configEmuAI "$Lime3DS_emuName" "lime3ds-emu"  "$Lime3DS_configPath" "$EMUDECKGIT/configs/lime3ds" "true"
+	configEmuAI "$Lime3DS_emuName" "lime3ds-emu"  "$Lime3DS_configPath" "$emudeckBackend/configs/lime3ds" "true"
 	Lime3DS_setEmulationFolder
 	Lime3DS_setupStorage
 	Lime3DS_setupSaves
 	Lime3DS_addSteamInputProfile
 	Lime3DS_flushEmulatorLauncher
 	Lime3DS_setupTextures
+	Lime3DS_addParser
 }
 
 #update
 Lime3DS_update(){
 	setMSG "Updating $Lime3DS_emuName settings."
-	configEmuAI "$Lime3DS_emuName" "lime3ds-emu"  "$Lime3DS_configPath" "$EMUDECKGIT/configs/lime3ds"
+	configEmuAI "$Lime3DS_emuName" "lime3ds-emu"  "$Lime3DS_configPath" "$emudeckBackend/configs/lime3ds"
 	Lime3DS_setupStorage
 	Lime3DS_setEmulationFolder
 	Lime3DS_setupSaves
@@ -226,6 +227,7 @@ Lime3DS_wipe(){
 #Uninstall
 Lime3DS_uninstall(){
 	setMSG "Uninstalling $Lime3DS_emuName."
+	removeParser "nintendo_3ds_lime3ds.json"
 	uninstallEmuAI $Lime3DS_emuName "lime3ds-gui" "" "emulator"
 }
 
@@ -265,8 +267,8 @@ Lime3DS_resetConfig(){
 Lime3DS_addSteamInputProfile(){
 	addSteamInputCustomIcons
 	setMSG "Adding $Lime3DS_emuName Steam Input Profile."
-	#rsync -r "$EMUDECKGIT/configs/steam-input/Lime3DS_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
-	rsync -r --exclude='*/' "$EMUDECKGIT/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
+	#rsync -r "$emudeckBackend/configs/steam-input/Lime3DS_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 Lime3DS_setResolution(){
@@ -289,3 +291,6 @@ Lime3DS_flushEmulatorLauncher(){
 }
 
 
+Lime3DS_addParser(){
+	addParser "nintendo_3ds_lime3ds.json"
+}

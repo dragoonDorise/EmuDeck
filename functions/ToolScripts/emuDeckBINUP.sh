@@ -9,7 +9,7 @@ BINUP_Shortcutlocation="$HOME/Desktop/EmuDeckBinUpdate.desktop"
 
 BINUP_install(){
 
-	rsync -avhp --mkpath "$EMUDECKGIT/tools/binupdate" "$toolsPath/"
+	rsync -avhp --mkpath "$emudeckBackend/tools/binupdate" "$toolsPath/"
 
 	chmod +x "$BINUP_toolPath"
 	#update the paths in the script

@@ -2255,15 +2255,14 @@ RetroArch_finalize(){
 
 RetroArch_installCores(){
 
-	#Requests for:
-	#GP32
-	#N-gage
-	#Game.com
-
+	# Requests for:
+	# GP32
+	# N-gage
+	# Game.com
 
 	mkdir -p "$RetroArch_cores"
 
-	#This is all the cores combined, and dupes taken out.
+	# This is all the cores combined, and dupes taken out.
 	RAcores=(
 				81_libretro \
 				a5200_libretro \
@@ -2359,34 +2358,33 @@ RetroArch_installCores(){
 				wasm4_libretro \
 				x1_libretro \
 			)
+
 	setMSG "Downloading RetroArch Cores for EmuDeck"
-	for i in "${RAcores[@]}"
-	do
-		FILE="${RetroArch_cores}/${i}.*"
-		if [ -f "$FILE" ]; then
-			echo "${i}...Already Downloaded"
-		else
-			curl "$RetroArch_coresURL$i.$RetroArch_coresExtension" --output "$RetroArch_cores/${i}.zip"
 
-			#rm ~/.var/app/org.libretro.RetroArch/config/retroarch/cores/${i}.zip
-			echo "${i}...Downloaded!"
-		fi
+	batch_size=5
+	total=${#RAcores[@]}
+	for ((i=0; i<$total; i+=batch_size)); do
+		batch=("${RAcores[@]:i:batch_size}")
+
+		for core in "${batch[@]}"; do
+			FILE="${RetroArch_cores}/${core}.*"
+			if [ -f "$FILE" ]; then
+				echo "${core}...Already Downloaded"
+			else
+				curl "$RetroArch_coresURL$core.$RetroArch_coresExtension" --output "$RetroArch_cores/${core}.zip" &
+			fi
+		done
+
+		wait # Wait for the current batch to finish
 	done
 
-
-	for entry in "$RetroArch_cores"/*.zip
-	do
-		 unzip -q -o "$entry" -d "$RetroArch_cores"
+	for entry in "$RetroArch_cores"/*.zip; do
+		unzip -q -o "$entry" -d "$RetroArch_cores"
 	done
 
-	for entry in "$RetroArch_cores"/*.zip
-
-	do
-		 rm -f "$entry"
+	for entry in "$RetroArch_cores"/*.zip; do
+		rm -f "$entry"
 	done
-
-
-
 }
 
 #RetroArch_dlAdditionalFiles
@@ -2457,16 +2455,16 @@ RetroArch_retroAchievementsPromptLogin(){
 			ans=$?
 	if [ $ans -eq 0 ]; then
 		echo "RetroAchievment Login"
-		echo "$RAInput" | awk -F "," '{print $1}' > "$HOME/.config/EmuDeck/.rau"
-		echo "$RAInput" | awk -F "," '{print $2}' > "$HOME/.config/EmuDeck/.rap"
+		echo "$RAInput" | awk -F "," '{print $1}' > "$emudeckFolder/.rau"
+		echo "$RAInput" | awk -F "," '{print $2}' > "$emudeckFolder/.rap"
 	else
 		echo "Cancel RetroAchievment Login"
 	fi
 }
 RetroArch_retroAchievementsSetLogin(){
-	rm -rf "$HOME/.config/EmuDeck/.rap"
-	rau=$(cat "$HOME/.config/EmuDeck/.rau")
-	rat=$(cat "$HOME/.config/EmuDeck/.rat")
+	rm -rf "$emudeckFolder/.rap"
+	rau=$(cat "$emudeckFolder/.rau")
+	rat=$(cat "$emudeckFolder/.rat")
 	echo "Evaluate RetroAchievements Login."
 	if [ ${#rat} -lt 1 ]; then
 		echo "--No token."

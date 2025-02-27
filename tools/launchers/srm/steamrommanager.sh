@@ -1,5 +1,5 @@
 #!/bin/bash
-source "$HOME/.config/EmuDeck/backend/functions/all.sh"
+. "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
 sandbox=""
 
@@ -9,14 +9,14 @@ fi
 
 if [ -e "${toolsPath}/Steam-ROM-Manager.AppImage" ]; then 
 	SRM_toolPath="${toolsPath}/Steam-ROM-Manager.AppImage"
-elif [ -e "${toolsPath}/Steam ROM Manager.AppImage" ]; then 
+elif [ -e "${toolsPath}/Steam ROM Manager.AppImage" ]; then
 	SRM_toolPath="${toolsPath}/Steam ROM Manager.AppImage"
-elif [ -e "${toolsPath}/srm/Steam-ROM-Manager.AppImage" ]; then 
+elif [ -e "${toolsPath}/srm/Steam-ROM-Manager.AppImage" ]; then
 	SRM_toolPath="${toolsPath}/srm/Steam-ROM-Manager.AppImage"
-else 
+else
 	SRM_install
 	SRM_init
-fi 
+fi
 
 if grep -q '"autoKillSteam": true' "$HOME/.config/steam-rom-manager/userData/userSettings.json"; then
 	echo "Steam ROM Manager path: $SRM_toolPath"

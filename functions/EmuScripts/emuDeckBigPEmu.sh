@@ -2,9 +2,9 @@
 #variables
 BigPEmu_emuName="BigPEmu"
 BigPEmu_emuType="$emuDeckEmuTypeWindows"
-BigPEmu_emuPath="$HOME/Applications/BigPEmu/bigpemu"
-BigPEmu_appData="$HOME/Applications/BigPEmu/UserData"
-BigPEmu_BigPEmuSettings="$HOME/Applications/BigPEmu/UserData/BigPEmuConfig.bigpcfg"
+BigPEmu_emuPath="$emusFolder/BigPEmu/bigpemu"
+BigPEmu_appData="$emusFolder/BigPEmu/UserData"
+BigPEmu_BigPEmuSettings="$emusFolder/BigPEmu/UserData/BigPEmuConfig.bigpcfg"
 
 #cleanupOlderThings
 BigPEmu_cleanup(){
@@ -19,27 +19,27 @@ BigPEmu_install(){
 
 	BigPEmudownloadLink=$(curl -s "https://www.richwhitehouse.com/jaguar/index.php?content=download" | grep -o 'https://www\.richwhitehouse\.com/jaguar/builds/BigPEmu_Linux64_v[0-9]*\.tar.gz' | grep -v "BigPEmu_*-DEV.tar.gz" | head -n 1)
 
-	if safeDownload "BigPEmu" "$BigPEmudownloadLink" "$HOME/Applications/BigPEmu/BigPEmu.tar.gz" "$showProgress"; then
+	if safeDownload "BigPEmu" "$BigPEmudownloadLink" "$emusFolder/BigPEmu/BigPEmu.tar.gz" "$showProgress"; then
 
-		tar -xvzf "$HOME/Applications/BigPEmu/BigPEmu.tar.gz" -C "$HOME/Applications/BigPEmu" --strip-components 1
+		tar -xvzf "$emusFolder/BigPEmu/BigPEmu.tar.gz" -C "$emusFolder/BigPEmu" --strip-components 1
 
-		rm -f "$HOME/Applications/BigPEmu/BigPEmu.tar.gz"
+		rm -f "$emusFolder/BigPEmu/BigPEmu.tar.gz"
 
 	else
 		return 1
 	fi
 
-	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$toolsPath/launchers/bigpemu.sh"
+	cp "$emudeckBackend/tools/launchers/bigpemu.sh" "$toolsPath/launchers/bigpemu.sh"
 	# So users can still open BigPEmu from the ~/Applications folder.
-	#cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$HOME/Applications/BigPEmu/bigpemu.sh"
-	cp "$EMUDECKGIT/tools/launchers/bigpemu.sh" "$romsPath/emulators/bigpemu.sh"
+	#cp "$emudeckBackend/tools/launchers/bigpemu.sh" "$emusFolder/BigPEmu/bigpemu.sh"
+	cp "$emudeckBackend/tools/launchers/bigpemu.sh" "$romsPath/emulators/bigpemu.sh"
 
 	chmod +x "${toolsPath}/launchers/bigpemu.sh"
-	#chmod +x "$HOME/Applications/BigPEmu/bigpemu.sh"
+	#chmod +x "$emusFolder/BigPEmu/bigpemu.sh"
 	chmod +x "$romsPath/emulators/bigpemu.sh"
 
 	rm -rf "$HOME/.local/share/applications/BigPEmu (Proton).desktop"
-	rm -rf "$HOME/Applications/BigPEmu/bigpemu.sh"
+	rm -rf "$emusFolder/BigPEmu/bigpemu.sh"
 
 	createDesktopShortcut   "$HOME/.local/share/applications/BigPEmu.desktop" \
 							"BigPEmu" \
@@ -50,12 +50,12 @@ BigPEmu_install(){
 #ApplyInitialSettings
 BigPEmu_init(){
 	setMSG "Initializing $BigPEmu_emuName settings."
-	rsync -avhp "$EMUDECKGIT/configs/bigpemu/" "$BigPEmu_appData" --backup --suffix=.bak
+	rsync -avhp "$emudeckBackend/configs/bigpemu/" "$BigPEmu_appData" --backup --suffix=.bak
 	sed -E -i "s|/run/media/mmcblk0p1/Emulation|$emulationPath|g" "$BigPEmu_BigPEmuSettings"
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
 	BigPEmu_flushEmulatorLauncher
-	#SRM_createParsers
+	BigPemu_addParser
 	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		BigPEmu_addESConfig
 	else
@@ -67,7 +67,7 @@ BigPEmu_init(){
 #update
 BigPEmu_update(){
 	setMSG "Updating $BigPEmu_emuName settings."
-	rsync -avhp "$EMUDECKGIT/configs/bigpemu/" "$BigPEmu_appData" --ignore-existing
+	rsync -avhp "$emudeckBackend/configs/bigpemu/" "$BigPEmu_appData" --ignore-existing
 	sed -E -i "s|/run/media/mmcblk0p1/Emulation|$emulationPath|g" "$BigPEmu_BigPEmuSettings"
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
@@ -147,11 +147,6 @@ BigPEmu_setupSaves(){
 		unlink "${savesPath}/BigPEmu/saves"
 	fi
 	linkToSaveFolder BigPEmu saves "${BigPEmu_appData}"
-
-	if [ -e "${savesPath}/BigPEmu/states" ]; then
-		unlink "${savesPath}/BigPEmu/states"
-	fi
-	linkToSaveFolder BigPEmu states "${BigPEmu_appData}"
 }
 
 
@@ -170,6 +165,7 @@ BigPEmu_wipeSettings(){
 
 #Uninstall
 BigPEmu_uninstall(){
+	removeParser "atari_jaguar_bigpemu.json"
     uninstallGeneric $BigPEmu_emuName $BigPEmu_emuPath "" "emulator"
 }
 
@@ -205,12 +201,13 @@ BigPEmu_addSteamInputProfile(){
     echo "NYI"
 	# addSteamInputCustomIcons
 	# setMSG "Adding $BigPEmu_emuName Steam Input Profile."
-	# rsync -r "$EMUDECKGIT/configs/steam-input/BigPEmu_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	# rsync -r "$emudeckBackend/configs/steam-input/BigPEmu_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 BigPEmu_flushEmulatorLauncher(){
-
-
 	flushEmulatorLaunchers "bigpemu"
+}
 
+BigPEmu_addParser(){
+	addParser "atari_jaguar_bigpemu.json"
 }

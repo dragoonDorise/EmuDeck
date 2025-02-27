@@ -1,8 +1,8 @@
 #!/bin/bash
-source $HOME/.config/EmuDeck/backend/functions/all.sh
+. "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "lime3ds"
 emuName="lime3ds-gui" #parameterize me
-emufolder="$HOME/Applications" # has to be applications for ES-DE to find it
+emufolder="$emusFolder" # has to be applications for ES-DE to find it
 
 #initialize execute array
 exe=()

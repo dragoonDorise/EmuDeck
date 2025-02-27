@@ -7,13 +7,13 @@ updateEmuFP(){
 	scriptname="$4"
 
 	if [[ "$type" == "emulator" ]]; then
-		gitPath="${EMUDECKGIT}/tools/launchers/"
+		gitPath="$emudeckBackend/tools/launchers/"
 		launcherPath="${toolsPath}/launchers"
 	elif [[ "$type" == "remoteplay" ]]; then
-		gitPath="${EMUDECKGIT}/tools/remoteplayclients/"
+		gitPath="$emudeckBackend/tools/remoteplayclients/"
 		launcherPath="${romsPath}/remoteplay"
 	elif [[ "$type" == "genericapplication" ]]; then
-		gitPath="${EMUDECKGIT}/tools/generic-applications/"
+		gitPath="$emudeckBackend/tools/generic-applications/"
 		launcherPath="${romsPath}/generic-applications"
 	fi	
 
