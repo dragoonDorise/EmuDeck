@@ -92,7 +92,7 @@ Citron_init() {
     Citron_setupStorage
     Citron_setupSaves
     Citron_finalize
-    #SRM_createParsers
+    Citron_addParser
     Citron_flushEmulatorLauncher
   	createDesktopShortcut   "$HOME/.local/share/applications/citron.desktop" \
 							"Citron (AppImage)" \
