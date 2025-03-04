@@ -1,5 +1,9 @@
-#!/bin/bash
-. $HOME/.config/EmuDeck/backend/functions/all.sh
+#!/usr/bin/env bash
+
+# shellcheck disable=2034
+
+# shellcheck disable=1091
+. "${HOME}/.config/EmuDeck/backend/functions/all.sh"
 . ./api.sh
 
 YELLOW='\033[01;33m'
@@ -10,7 +14,7 @@ NONE='\033[00m'
 
 exec 9>&2
 exec 8> >(
-	while IFS='' read -r line || [ -n "$line" ]; do
+	while IFS='' read -r line || [ -n "${line}" ]; do
 	   echo -e "\033[31m${line}\033[0m"
 	done
 )
@@ -27,7 +31,7 @@ API_pull 1> /dev/null dev
 ## Quick Settings
 #
 
-function QuickSettings(){
+function QuickSettings () {
 
 	# AutoSave
 	echo "" && echo -ne "${CYAN}Testing AutoSave...${NONE}"
