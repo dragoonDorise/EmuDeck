@@ -1,35 +1,36 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# shellcheck disable=2317
 
 Cemu_functions () {
-	local function="$1"
-	local showProgress="$2"
+	local function="${1}"
+	local showProgress="${2}"
 
 	# Parameters
 	declare -A CemuNative=(
 		[emuName]="CemuNative"
 		[emuType]="AppImage"
-		[emuPath]="$emusFolder/Cemu.AppImage"
+		[emuPath]="${emusFolder}/Cemu.AppImage"
 		[configDir]="${HOME}/.config/Cemu"
 		[configFile]="${HOME}/.config/Cemu/settings.xml"
 		[shareDir]="${HOME}/.local/share/Cemu"
 		[controllerDir]="${HOME}/.config/Cemu/controllerProfiles"
 	)
 
-	declare -A Cemu_languages
-	Cemu_languages=(
-	["ja"]=0
-	["en"]=1
-	["fr"]=2
-	["de"]=3
-	["it"]=4
-	["es"]=5
-	["zh"]=6
-	["ko"]=7
-	["nl"]=8
-	["pt"]=9
-	["ru"]=10
-	["tw"]=11)
-
+	declare -A Cemu_languages=(
+		["ja"]=0
+		["en"]=1
+		["fr"]=2
+		["de"]=3
+		["it"]=4
+		["es"]=5
+		["zh"]=6
+		["ko"]=7
+		["nl"]=8
+		["pt"]=9
+		["ru"]=10
+		["tw"]=11
+	)
 
 	# Cleanup older things
 	cleanup () {
@@ -51,8 +52,6 @@ Cemu_functions () {
 		sed -i '/<mapping>3<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>3<\/button>/<button>2<\/button>/}' "${CemuNative[controllerDir]}/controller0.xml"
 		sed -i '/<mapping>4<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>2<\/button>/<button>3<\/button>/}' "${CemuNative[controllerDir]}/Deck-Gamepad-Gyro.xml"
 		sed -i '/<mapping>4<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>2<\/button>/<button>3<\/button>/}' "${CemuNative[controllerDir]}/controller0.xml"
-
-
 	}
 
 	setBAYXstyle () {
@@ -66,17 +65,16 @@ Cemu_functions () {
 		sed -i '/<mapping>4<\/mapping>/{:a;N;/<\/button>/!ba;s/<button>3<\/button>/<button>2<\/button>/}' "${CemuNative[controllerDir]}/controller0.xml"
 	}
 
-
-
-
 	# Migrate
 	migrate () {
 		echo "Begin Cemu migration"
 		migrationFlag="${HOME}/.config/EmuDeck/.${CemuNative[emuName]}MigrationCompleted"
 		if [ ! -f "${migrationFlag}" ]; then
 			# Check for Windows version mlc01
+			# shellcheck disable=2154
 			if [ -d "${romsPath}/wiiu/mlc01" ]; then
 				# Make sure we don't overwrite anything
+				# shellcheck disable=2154
 				if [ -d "${storagePath}/cemu/mlc01" ]; then
 					mv -f "${storagePath}/cemu/mlc01"{,.bak}
 				fi
@@ -206,13 +204,15 @@ Cemu_functions () {
 
 	# Set Saves
 	setupSaves () {
+		# shellcheck disable=2154
 		unlink "${savesPath}/Cemu/saves" # Fix for previous bad symlink
 		linkToSaveFolder Cemu saves "${romsPath}/wiiu/mlc01/usr/save" #while we use both native and proton, i don't want to change the wiiu folder structure. I'm repeating myself now.
 	}
 
 	setLanguage(){
 		setMSG "Setting ${CemuNative[emuName]} Language"
-		local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+		# shellcheck disable=2155
+		local language=$( locale | grep LANG | cut -d= -f2 | cut -d_ -f1 )
 		if [[ -f "${CemuNative[configFile]}" ]]; then
 			if [ ${Cemu_languages[$language]+_} ]; then
 				xmlstarlet ed --inplace  --subnode "content" --type elem -n "console_language" -v "${Cemu_languages[$language]}" "${CemuNative[configFile]}"
@@ -259,8 +259,8 @@ Cemu_functions () {
 	# Install
 	install () {
 		echo "Begin Cemu - Native Install"
-		local showProgress="$1"
-		if installEmuAI "Cemu" "" "$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")" "" "" "emulator" "$showProgress"; then # Cemu.AppImage
+		local showProgress="${1}"
+		if installEmuAI "Cemu" "" "$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")" "" "" "emulator" "${showProgress}"; then # Cemu.AppImage
 			:
 		else
 			return 1
@@ -270,11 +270,13 @@ Cemu_functions () {
 	# Apply initial settings
 	init () {
 		setMSG "Initialising ${CemuNative[emuName]} settings."
-		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "$emudeckBackend/configs/cemu/config/cemu" "true"
-		mv "${CemuNative[configDir]}" "$HOME/EmuDeck/configs/cemu"
-		ln -sf "$HOME/EmuDeck/configs/cemu" "${CemuNative[configDir]}"
-		cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
-		cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "$SRM_userData_configDir/parsers/custom/"
+		# shellcheck disable=2154
+		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${emudeckBackend}/configs/cemu/config/cemu" "true"
+		mv "${CemuNative[configDir]}" "${HOME}/EmuDeck/configs/cemu"
+		ln -sf "${HOME}/EmuDeck/configs/cemu" "${CemuNative[configDir]}"
+		# shellcheck disable=2154
+		cp "${emudeckBackend}/${SRM_userData_directory}/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "${SRM_userData_configDir}/parsers/custom/"
+		cp "${emudeckBackend}/${SRM_userData_directory}/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "${SRM_userData_configDir}/parsers/custom/"
 		#SRM_createParsers
 		#configEmuAI "cemu" "data" "${storagePath}/cemu" "$emudeckBackend/configs/cemu/data/cemu" "true" #seems unneeded? maybe?
 		setEmulationFolder
@@ -283,7 +285,8 @@ Cemu_functions () {
 		addSteamInputProfile
 		flushEmulatorLauncher
 
-		if [ -e "$ESDE_toolPath" ]; then
+		# shellcheck disable=2154
+		if [ -e "${ESDE_toolPath}" ]; then
 			ESDE_junksettingsFile
 			ESDE_addCustomSystemsFile
 			CemuProton_addESConfig
@@ -296,9 +299,9 @@ Cemu_functions () {
 	# Update
 	update () {
 		setMSG "Updating ${CemuNative[emuName]} settings."
-		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "$emudeckBackend/configs/cemu/.config/cemu"
-		cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
-		cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "$SRM_userData_configDir/parsers/custom/"
+		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "${emudeckBackend}/configs/cemu/.config/cemu"
+		cp "${emudeckBackend}/${SRM_userData_directory}/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "${SRM_userData_configDir}/parsers/custom/"
+		cp "${emudeckBackend}/${SRM_userData_directory}/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "${SRM_userData_configDir}/parsers/custom/"
 		SRM_createParsers
 		#configEmuAI "cemu" "data" "${storagePath}/cemu" "$emudeckBackend/configs/cemu/data/cemu" #seems unneeded? maybe?
 		#migrate
@@ -307,7 +310,7 @@ Cemu_functions () {
 		setupSaves
 		addSteamInputProfile
 		flushEmulatorLauncher
-		if [ -e "$ESDE_toolPath" ]; then
+		if [ -e "${ESDE_toolPath}" ]; then
 			ESDE_junksettingsFile
 			ESDE_addCustomSystemsFile
 			CemuProton_addESConfig
@@ -337,7 +340,7 @@ Cemu_functions () {
 		addSteamInputCustomIcons
 		setMSG "Adding ${CemuNative[emuName]} Steam Input Profile."
 		#rsync -r "$emudeckBackend/configs/steam-input/cemu_controller_config.vdf" "${HOME}/.steam/steam/controller_base/templates/"
-		rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/" "$HOME/.steam/steam/controller_base/templates/"
+		rsync -r --exclude='*/' "${emudeckBackend}/configs/steam-input/" "${HOME}/.steam/steam/controller_base/templates/"
 
 	}
 
@@ -347,7 +350,7 @@ Cemu_functions () {
 	}
 
 
-	$function "$showProgress" # Call the above functions
+	$function "${showProgress}" # Call the above functions
 }
 
 
@@ -423,8 +426,8 @@ Cemu_uninstall () {
 
 # Install
 Cemu_install () {
-	local showProgress="$1"
-	Cemu_functions "install" "$showProgress"
+	local showProgress="${1}"
+	Cemu_functions "install" "${showProgress}"
 }
 
 # Apply initial settings
@@ -458,18 +461,12 @@ Cemu_setResolution(){
 
 Cemu_setABXYstyle(){
 	Cemu_functions "setABXYstyle"
-
 }
 
 Cemu_setBAYXstyle(){
 	Cemu_functions "setBAYXstyle"
-
 }
 
 Cemu_flushEmulatorLauncher(){
-
 	Cemu_functions "flushEmulatorLauncher"
-
 }
-
-
