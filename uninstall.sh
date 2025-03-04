@@ -748,8 +748,8 @@ if [ "${doUninstall}" == true ]; then
 	zenity --progress \
 	  --title="Uninstalling EmuDeck..." \
 	  --text="..." \
-	  --percentage=0
-	  --auto-close
+	  --percentage=0 \
+	  --auto-close \
 	  --width="250"
 
 	if [ "$?" = -1 ] ; then
