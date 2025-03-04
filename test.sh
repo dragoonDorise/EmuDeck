@@ -1,12 +1,15 @@
-#!/bin/bash
-. $HOME/.config/EmuDeck/backend/functions/all.sh
+#!/usr/bin/env bash
 
-Lime3DS_IsInstalled(){
-    if [ -e "$Lime3DS_emuPath" ]; then
+# shellcheck disable=1091
+. "${HOME}/.config/EmuDeck/backend/functions/all.sh"
+
+Lime3DS_IsInstalled () {
+    # shellcheck disable=2154
+    if [ -e "${Lime3DS_emuPath}" ]; then
         echo "true"
     else
         echo "false"
     fi
 }
-echo $Lime3DS_emuPath
+echo "${Lime3DS_emuPath}"
 Lime3DS_IsInstalled
