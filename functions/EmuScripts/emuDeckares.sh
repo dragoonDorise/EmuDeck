@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-#variables
+# emuDeckares
+
+# Variables
 ares_emuName="ares"
 
 # shellcheck disable=2034,2154
@@ -8,19 +10,19 @@ ares_emuType="${emuDeckEmuTypeFlatpak}"
 ares_emuPath="dev.ares.ares"
 ares_configFile="${HOME}/.var/app/dev.ares.ares/data/ares/settings.bml"
 
-#cleanupOlderThings
+# cleanupOlderThings
 ares_cleanup () {
 	echo "NYI"
 }
 
-#Install
+# Install
 ares_install () {
 	setMSG "Installing ${ares_emuName}"
 
 	installEmuFP "${ares_emuName}" "${ares_emuPath}" "emulator" ""
 }
 
-#ApplyInitialSettings
+# ApplyInitialSettings
 
 ares_init () {
 
@@ -38,8 +40,8 @@ ares_init () {
 	ares_flushEmulatorLauncher
 }
 
-#update
-ares_update() {
+# Update
+ares_update () {
 	setMSG "Installing ${ares_emuName}"
 
 	configEmuFP "${ares_emuName}" "${ares_emuPath}"
@@ -53,10 +55,9 @@ ares_update() {
 	ares_flushEmulatorLauncher
 }
 
-#ConfigurePaths
+# ConfigurePaths
 ares_setEmulationFolder () {
 	setMSG "Setting ${ares_emuName} Emulation Folder"
-
 
   # ROM Paths
 	UserROMsPath='/home/deck/Emulation/roms/'
@@ -70,9 +71,8 @@ ares_setEmulationFolder () {
 
 }
 
-#SetupSaves
+# SetupSaves
 ares_setupSaves () {
-
   # Create saves folder
   	# shellcheck disable=2154
  	mkdir -p "${savesPath}/ares/"
@@ -83,9 +83,8 @@ ares_setupSaves () {
 }
 
 
-#SetupStorage
+# SetupStorage
 ares_setupStorage () {
-
 	# Create storage folder
 	# shellcheck disable=2154
 	mkdir -p "${storagePath}/ares/"
@@ -96,8 +95,8 @@ ares_setupStorage () {
 	sed -i "s|${UserStoragePath}|${storagePath}|g" "${ares_configFile}"
 }
 
+# addESConfig
 ares_addESConfig () {
-
 	# Bandai SuFami Turbo
 	# shellcheck disable=2154
 	if [[ $(grep -rnw "${es_systemsFile}" -e 'sufami') == "" ]]; then
@@ -136,10 +135,10 @@ ares_addESConfig () {
 		-r 'systemList/system/commandW' -v 'command' \
 		"${es_systemsFile}"
 
-		#format doc to make it look nice
+		# Format doc to make it look nice
 		xmlstarlet fo "${es_systemsFile}" > "${es_systemsFile}.tmp" && mv "${es_systemsFile}.tmp" "${es_systemsFile}"
 	fi
-	#Custom Systems config end
+	# Custom Systems config end
 
 	# Satellaview
 	if [[ $( grep -rnw "${es_systemsFile}" -e 'satellaview' ) == "" ]]; then
@@ -220,6 +219,7 @@ ares_addESConfig () {
 	#Custom Systems config end
 }
 
+# getDefaultShaders
 function ares_getDefaultShaders () {
 	local systemShadersFolder="/var/lib/flatpak/app/dev.ares.ares/x86_64/stable/active/files/share/ares/Shaders"
 	local userShadersFolder="${HOME}/.local/share/flatpak/app/dev.ares.ares/current/active/files/share/ares/Shaders"
@@ -240,10 +240,9 @@ function ares_getDefaultShaders () {
     else
         echo "ares install not found"
     fi
-
-
 }
 
+# getQuarkShaders
 function ares_getQuarkShaders () {
 	local shaderfolders_dir="${HOME}/.var/app/${ares_emuPath}/data/ares/Shaders"
 	local quarkshaders_repo="https://github.com/hizzlekizzle/quark-shaders.git"
@@ -290,54 +289,57 @@ function ares_getQuarkShaders () {
 	fi
 }
 
-#WipeSettings
+# WipeSettings
 ares_wipe () {
 	rm -rf "${HOME}/.var/app/${ares_emuPath}"
 }
 
-#Uninstall
+# Uninstall
 ares_uninstall () {
     uninstallEmuFP "${ares_emuName}" "${ares_emuPath}" "emulator" ""
 }
 
-#setABXYstyle
+# setABXYstyle
 ares_setABXYstyle () {
 	echo "NYI"
 }
 
-#Migrate
+# Migrate
 ares_migrate () {
 	echo "NYI"
 }
 
-#WideScreenOn
+# WideScreenOn
 ares_wideScreenOn () {
 	echo "NYI"
 }
 
-#WideScreenOff
+# WideScreenOff
 ares_wideScreenOff () {
 	echo "NYI"
 }
 
-#BezelOn
+# BezelOn
 ares_bezelOn () {
 	echo "NYI"
 }
 
-#BezelOff
+# BezelOff
 ares_bezelOff () {
 	echo "NYI"
 }
 
+# isInstalled
 ares_IsInstalled () {
 	isFpInstalled "${ares_emuPath}"
 }
 
+# resetConfig
 ares_resetConfig () {
 	ares_init &>/dev/null && echo "true" || echo "false"
 }
 
+# Add Steam Input Profile
 ares_addSteamInputProfile () {
 	addSteamInputCustomIcons
 	#setMSG "Adding $ares_emuName Steam Input Profile."
@@ -349,6 +351,7 @@ ares_finalize () {
 	echo "NYI"
 }
 
+# flushEmulatorLauncher
 ares_flushEmulatorLauncher () {
 	flushEmulatorLaunchers "${ares_emuName}"
 }

@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
+# emuDeckCemu
+
 # shellcheck disable=2317
 
+# Functions
 Cemu_functions () {
 	local function="${1}"
 	local showProgress="${2}"
@@ -17,6 +20,7 @@ Cemu_functions () {
 		[controllerDir]="${HOME}/.config/Cemu/controllerProfiles"
 	)
 
+	# Languages
 	declare -A Cemu_languages=(
 		["ja"]=0
 		["en"]=1
@@ -349,7 +353,6 @@ Cemu_functions () {
 		flushEmulatorLaunchers "cemu"
 	}
 
-
 	$function "${showProgress}" # Call the above functions
 }
 
@@ -455,18 +458,22 @@ Cemu_addSteamInputProfile () {
 	Cemu_functions "addSteamInputProfile"
 }
 
+# setResolution
 Cemu_setResolution(){
 	echo "NYI"
 }
 
+# setABXYstyle
 Cemu_setABXYstyle(){
 	Cemu_functions "setABXYstyle"
 }
 
+# setBAYXstyle
 Cemu_setBAYXstyle(){
 	Cemu_functions "setBAYXstyle"
 }
 
+# flushEmulatorLauncher
 Cemu_flushEmulatorLauncher(){
 	Cemu_functions "flushEmulatorLauncher"
 }

@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-# variables
+# emuDeckBigPEmu
+
+# Variables
 BigPEmu_emuName="BigPEmu"
 # shellcheck disable=2034,2154
 BigPEmu_emuType="${emuDeckEmuTypeWindows}"
@@ -8,7 +10,6 @@ BigPEmu_emuType="${emuDeckEmuTypeWindows}"
 BigPEmu_emuPath="${emusFolder}/BigPEmu/bigpemu"
 BigPEmu_appData="${emusFolder}/BigPEmu/UserData"
 BigPEmu_BigPEmuSettings="${emusFolder}/BigPEmu/UserData/BigPEmuConfig.bigpcfg"
-
 
 # cleanupOlderThings
 BigPEmu_cleanup () {
@@ -54,7 +55,7 @@ BigPEmu_install () {
 							"False"
 }
 
-#ApplyInitialSettings
+# ApplyInitialSettings
 BigPEmu_init () {
 	setMSG "Initializing ${BigPEmu_emuName} settings."
 	rsync -avhp "${emudeckBackend}/configs/bigpemu/" "${BigPEmu_appData}" --backup --suffix=.bak
@@ -73,7 +74,7 @@ BigPEmu_init () {
 
 }
 
-#update
+# Update
 BigPEmu_update () {
 	setMSG "Updating ${BigPEmu_emuName} settings."
 	rsync -avhp "${emudeckBackend}/configs/bigpemu/" "${BigPEmu_appData}" --ignore-existing
@@ -88,6 +89,7 @@ BigPEmu_update () {
 	fi
 }
 
+# addESConfig
 BigPEmu_addESConfig () {
 
 	ESDE_junksettingsFile
@@ -143,11 +145,9 @@ BigPEmu_addESConfig () {
 	# Custom Systems config end
 }
 
-
 # ConfigurePaths
 BigPEmu_setEmulationFolder () {
 	setMSG "Setting ${BigPEmu_emuName} Emulation Folder"
-
 	echo "NYI"
 }
 
@@ -160,7 +160,6 @@ BigPEmu_setupSaves () {
 	linkToSaveFolder BigPEmu saves "${BigPEmu_appData}"
 }
 
-
 # SetupStorage
 BigPEmu_setupStorage () {
 	# shellcheck disable=2154
@@ -168,12 +167,10 @@ BigPEmu_setupStorage () {
 	linkToStorageFolder BigPEmu screenshots "${BigPEmu_appData}"
 }
 
-
 # WipeSettings
 BigPEmu_wipeSettings () {
 	rm -rf "${BigPEmu_BigPEmuSettings}"
 }
-
 
 # Uninstall
 BigPEmu_uninstall () {
@@ -191,6 +188,7 @@ BigPEmu_finalize () {
 	BigPEmu_cleanup
 }
 
+# isInstalled
 BigPEmu_IsInstalled () {
 	if [ -e "${BigPEmu_emuPath}" ]; then
 		echo "true"
@@ -199,16 +197,18 @@ BigPEmu_IsInstalled () {
 	fi
 }
 
-
+# resetConfig redirect
 BigPemu_resetConfig () {
 	BigPEmu_resetConfig
 }
 
+# restConfig
 BigPEmu_resetConfig () {
 	mv  "${BigPEmu_BigPEmuSettings}" "${BigPEmu_BigPEmuSettings}.bak" &>/dev/null
 	BigPEmu_init &>/dev/null && echo "true" || echo "false"
 }
 
+# Add Steam Input Profile
 BigPEmu_addSteamInputProfile () {
     echo "NYI"
 	# addSteamInputCustomIcons
@@ -216,10 +216,12 @@ BigPEmu_addSteamInputProfile () {
 	# rsync -r "$emudeckBackend/configs/steam-input/BigPEmu_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
 
+# flushEmulatorLauncher
 BigPEmu_flushEmulatorLauncher () {
 	flushEmulatorLaunchers "bigpemu"
 }
 
+# addParser
 BigPEmu_addParser () {
 	addParser "atari_jaguar_bigpemu.json"
 }
