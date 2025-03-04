@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# shellcheck disable=2034
 
 #Expert mode off by default
 expert=false
