@@ -1,32 +1,35 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# shellcheck disable=1091
+
 appleChip=$(uname -m)
-if [ $(uname) != "Linux" ]; then
+if [ "$(uname)" != "Linux" ]; then
     system="darwin"
-    if [ $appleChip = 'arm64' ]; then
-        PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+    if [ "${appleChip}" = 'arm64' ]; then
+        PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:${PATH}"
     else
-        PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+        PATH="/usr/local/opt/gnu-sed/libexec/gnubin:${PATH}"
     fi
 fi
 
-if [[ -z "$emudeckBackend" ]]; then
-    emudeckBackend="$HOME/.config/EmuDeck/backend/"
+if [[ -z "${emudeckBackend}" ]]; then
+    emudeckBackend="${HOME}/.config/EmuDeck/backend/"
 fi
 
 #Vars
-source "$emudeckBackend"/vars.sh
+source "${emudeckBackend}"/vars.sh
 
 #load helpers first, just in case
-source "$emudeckBackend"/functions/helperFunctions.sh
+source "${emudeckBackend}"/functions/helperFunctions.sh
 
 
-
-SETTINGSFILE="$emudeckFolder/settings.sh"
+# shellcheck disable=2154
+SETTINGSFILE="${emudeckFolder}/settings.sh"
 if [ -f "$SETTINGSFILE" ] &&  [ ! -L "$SETTINGSFILE" ]; then
-    # shellcheck source=./settings.sh
-    source "$SETTINGSFILE"
+    # shellcheck disable=1090
+    source "${SETTINGSFILE}"
 else
-    source "$HOME/emudeck/settings.sh"
+    source "${HOME}/emudeck/settings.sh"
 fi
 
 if [ "$system" != "darwin" ]; then
@@ -34,6 +37,7 @@ if [ "$system" != "darwin" ]; then
     chmod +x "$emudeckBackend/tools/binaries/xmlstarlet"
 fi
 
+# shellcheck disable=1091
 source "$emudeckBackend"/functions/checkBIOS.sh
 source "$emudeckBackend"/functions/checkInstalledEmus.sh
 #source "$emudeckBackend"/functions/cloudServicesManager.sh
