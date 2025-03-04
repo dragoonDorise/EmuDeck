@@ -1,27 +1,30 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 #variables
 ares_emuName="ares"
-ares_emuType="$emuDeckEmuTypeFlatpak"
+
+# shellcheck disable=2034,2154
+ares_emuType="${emuDeckEmuTypeFlatpak}"
 ares_emuPath="dev.ares.ares"
-ares_configFile="$HOME/.var/app/dev.ares.ares/data/ares/settings.bml"
+ares_configFile="${HOME}/.var/app/dev.ares.ares/data/ares/settings.bml"
 
 #cleanupOlderThings
-ares_cleanup(){
- echo "NYI"
+ares_cleanup () {
+	echo "NYI"
 }
 
 #Install
-ares_install() {
-	setMSG "Installing $ares_emuName"
+ares_install () {
+	setMSG "Installing ${ares_emuName}"
 
 	installEmuFP "${ares_emuName}" "${ares_emuPath}" "emulator" ""
 }
 
 #ApplyInitialSettings
 
-ares_init() {
+ares_init () {
 
-  setMSG "Initializing $ares_emuName settings."
+  setMSG "Initializing ${ares_emuName} settings."
 
 	configEmuFP "${ares_emuName}" "${ares_emuPath}" "true"
 	ares_setupStorage
@@ -37,7 +40,7 @@ ares_init() {
 
 #update
 ares_update() {
-	setMSG "Installing $ares_emuName"
+	setMSG "Installing ${ares_emuName}"
 
 	configEmuFP "${ares_emuName}" "${ares_emuPath}"
 	updateEmuFP "${ares_emuName}" "${ares_emuPath}" "emulator" ""
@@ -51,48 +54,54 @@ ares_update() {
 }
 
 #ConfigurePaths
-ares_setEmulationFolder(){
-	setMSG "Setting $ares_emuName Emulation Folder"
+ares_setEmulationFolder () {
+	setMSG "Setting ${ares_emuName} Emulation Folder"
 
 
   # ROM Paths
 	UserROMsPath='/home/deck/Emulation/roms/'
-	sed -i "s|$UserROMsPath|${romsPath}\/|g" "$ares_configFile"
+	# shellcheck disable=2154
+	sed -i "s|${UserROMsPath}|${romsPath}\/|g" "${ares_configFile}"
 
 	# BIOS Paths
 	UserBIOSPath='/home/deck/Emulation/bios/'
-	sed -i "s|$UserBIOSPath|${biosPath}\/|g" "$ares_configFile"
+	# shellcheck disable=2154
+	sed -i "s|${UserBIOSPath}|${biosPath}\/|g" "${ares_configFile}"
 
 }
 
 #SetupSaves
-ares_setupSaves(){
+ares_setupSaves () {
 
   # Create saves folder
+  	# shellcheck disable=2154
  	mkdir -p "${savesPath}/ares/"
 
 	# Set saves path
 	UserSavesPath='/home/deck/Emulation/saves'
-	sed -i "s|$UserSavesPath|${savesPath}|g" "$ares_configFile"
+	sed -i "s|${UserSavesPath}|${savesPath}|g" "${ares_configFile}"
 }
 
 
 #SetupStorage
-ares_setupStorage(){
+ares_setupStorage () {
 
 	# Create storage folder
+	# shellcheck disable=2154
 	mkdir -p "${storagePath}/ares/"
 	mkdir -p "${storagePath}/ares/screenshots"
 
 	# Set Storage path
 	UserStoragePath='/home/deck/Emulation/storage'
-	sed -i "s|$UserStoragePath|${storagePath}|g" "$ares_configFile"
+	sed -i "s|${UserStoragePath}|${storagePath}|g" "${ares_configFile}"
 }
 
-ares_addESConfig(){
+ares_addESConfig () {
 
 	# Bandai SuFami Turbo
-	if [[ $(grep -rnw "$es_systemsFile" -e 'sufami') == "" ]]; then
+	# shellcheck disable=2154
+	if [[ $(grep -rnw "${es_systemsFile}" -e 'sufami') == "" ]]; then
+		# shellcheck disable=2016 # These variables aren't for bash
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
 		--subnode '$newSystem' --type elem --name 'name' -v 'sufami' \
@@ -125,15 +134,16 @@ ares_addESConfig(){
 		-r 'systemList/system/commandU' -v 'command' \
 		-r 'systemList/system/commandV' -v 'command' \
 		-r 'systemList/system/commandW' -v 'command' \
-		"$es_systemsFile"
+		"${es_systemsFile}"
 
 		#format doc to make it look nice
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		xmlstarlet fo "${es_systemsFile}" > "${es_systemsFile}.tmp" && mv "${es_systemsFile}.tmp" "${es_systemsFile}"
 	fi
 	#Custom Systems config end
 
 	# Satellaview
-	if [[ $(grep -rnw "$es_systemsFile" -e 'satellaview') == "" ]]; then
+	if [[ $( grep -rnw "${es_systemsFile}" -e 'satellaview' ) == "" ]]; then
+		# shellcheck disable=2016 # These variables aren't for bash
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
 		--subnode '$newSystem' --type elem --name 'name' -v 'satellaview' \
@@ -166,15 +176,16 @@ ares_addESConfig(){
 		-r 'systemList/system/commandU' -v 'command' \
 		-r 'systemList/system/commandV' -v 'command' \
 		-r 'systemList/system/commandW' -v 'command' \
-		"$es_systemsFile"
+		"${es_systemsFile}"
 
 		#format doc to make it look nice
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		xmlstarlet fo "${es_systemsFile}" > "${es_systemsFile}.tmp" && mv "${es_systemsFile}.tmp" "${es_systemsFile}"
 	fi
 	#Custom Systems config end
 
 	# Super Game Boy
-	if [[ $(grep -rnw "$es_systemsFile" -e 'sgb') == "" ]]; then
+	if [[ $( grep -rnw "${es_systemsFile}" -e 'sgb' ) == "" ]]; then
+		# shellcheck disable=2016 # These variables aren't for bash
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
 		--subnode '$newSystem' --type elem --name 'name' -v 'sgb' \
@@ -201,29 +212,29 @@ ares_addESConfig(){
 		-r 'systemList/system/commandS' -v 'command' \
 		-r 'systemList/system/commandT' -v 'command' \
 		-r 'systemList/system/commandU' -v 'command' \
-		"$es_systemsFile"
+		"${es_systemsFile}"
 
 		#format doc to make it look nice
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		xmlstarlet fo "${es_systemsFile}" > "${es_systemsFile}.tmp" && mv "${es_systemsFile}.tmp" "${es_systemsFile}"
 	fi
 	#Custom Systems config end
 }
 
-function ares_getDefaultShaders() {
+function ares_getDefaultShaders () {
 	local systemShadersFolder="/var/lib/flatpak/app/dev.ares.ares/x86_64/stable/active/files/share/ares/Shaders"
-	local userShadersFolder="$HOME/.local/share/flatpak/app/dev.ares.ares/current/active/files/share/ares/Shaders"
-	local flatpakShadersFolder="$HOME/.var/app/$ares_emuPath/data/ares/Shaders"
+	local userShadersFolder="${HOME}/.local/share/flatpak/app/dev.ares.ares/current/active/files/share/ares/Shaders"
+	local flatpakShadersFolder="${HOME}/.var/app/${ares_emuPath}/data/ares/Shaders"
 
-	if [ ! -d "$flatpakShadersFolder" ]; then
-	mkdir -p "$flatpakShadersFolder"
+	if [ ! -d "${flatpakShadersFolder}" ]; then
+	mkdir -p "${flatpakShadersFolder}"
 	fi
 
-    if [ -d $systemShadersFolder ]; then
-        cp -r $systemShadersFolder/* $flatpakShadersFolder
+    if [ -d "${systemShadersFolder}" ]; then
+        cp -r "${systemShadersFolder}"/* "${flatpakShadersFolder}"
         echo "System install found"
         echo "ares shaders copied"
-    elif [ -d $userShadersFolder ]; then
-        cp -r $userShadersFolder/* $flatpakShadersFolder
+    elif [ -d "${userShadersFolder}" ]; then
+        cp -r "${userShadersFolder}"/* "${flatpakShadersFolder}"
         echo "User install found"
         echo "ares shaders copied"
     else
@@ -233,114 +244,111 @@ function ares_getDefaultShaders() {
 
 }
 
-function ares_getQuarkShaders() {
-  local shaderfolders_dir="$HOME/.var/app/$ares_emuPath/data/ares/Shaders"
-  local quarkshaders_repo="https://github.com/hizzlekizzle/quark-shaders.git"
-  local shaders_branch="master"
+function ares_getQuarkShaders () {
+	local shaderfolders_dir="${HOME}/.var/app/${ares_emuPath}/data/ares/Shaders"
+	local quarkshaders_repo="https://github.com/hizzlekizzle/quark-shaders.git"
+	local shaders_branch="master"
 
-  # Create the patches directory if it doesn't exist
-  if [ ! -d "$shaderfolders_dir" ]; then
-    mkdir -p "$shaderfolders_dir"
-  fi
+	# Create the patches directory if it doesn't exist
+	if [ ! -d "${shaderfolders_dir}" ]; then
+		mkdir -p "${shaderfolders_dir}"
+	fi
 
-  # Initialize a new Git repository in the patches directory
-  cd "$shaderfolders_dir" || exit
-  if ! git rev-parse --git-dir > /dev/null 2>&1; then
-    git init
-  fi
+	# Initialize a new Git repository in the patches directory
+	cd "${shaderfolders_dir}" || exit
+	if ! git rev-parse --git-dir > /dev/null 2>&1; then
+		git init
+	fi
 
-  # Set up a remote origin for the repository
-  if ! git remote get-url origin > /dev/null 2>&1; then
-    git remote add origin "$quarkshaders_repo"
-  fi
+	# Set up a remote origin for the repository
+	if ! git remote get-url origin > /dev/null 2>&1; then
+		git remote add origin "${quarkshaders_repo}"
+	fi
 
-  # Configure Git to perform a sparse checkout of the patches folder
-  if ! git config core.sparsecheckout > /dev/null 2>&1; then
-    git config core.sparsecheckout true
-  fi
-  if ! grep -Fxq "/*" .git/info/sparse-checkout; then
-    echo "/*" >> .git/info/sparse-checkout
-  fi
+	# Configure Git to perform a sparse checkout of the patches folder
+	if ! git config core.sparsecheckout > /dev/null 2>&1; then
+		git config core.sparsecheckout true
+	fi
+	if ! grep -Fxq "/*" .git/info/sparse-checkout; then
+		echo "/*" >> .git/info/sparse-checkout
+	fi
 
-  # Pull the latest changes from the remote repository
-  git fetch --depth=1 origin "$shaders_branch"
-  if git merge FETCH_HEAD > /dev/null 2>&1; then
-    echo "Quark Shaders updated successfully"
-  else
-    # If the merge failed, reset the local changes and try again
-    git reset --hard HEAD > /dev/null 2>&1
-    git clean -fd > /dev/null 2>&1
-    git fetch --depth=1 origin "$shaders_branch"
-    if git merge FETCH_HEAD > /dev/null 2>&1; then
-      echo "Quark Shaders updated successfully"
-    else
-      echo "Error: Failed to update Quark Shaders"
-    fi
-  fi
+	# Pull the latest changes from the remote repository
+	git fetch --depth=1 origin "${shaders_branch}"
+	if git merge FETCH_HEAD > /dev/null 2>&1; then
+		echo "Quark Shaders updated successfully"
+	else
+	# If the merge failed, reset the local changes and try again
+		git reset --hard HEAD > /dev/null 2>&1
+		git clean -fd > /dev/null 2>&1
+		git fetch --depth=1 origin "${shaders_branch}"
+		if git merge FETCH_HEAD > /dev/null 2>&1; then
+			echo "Quark Shaders updated successfully"
+		else
+			echo "Error: Failed to update Quark Shaders"
+		fi
+	fi
 }
 
 #WipeSettings
-ares_wipe(){
-	rm -rf "$HOME/.var/app/$ares_emuPath"
+ares_wipe () {
+	rm -rf "${HOME}/.var/app/${ares_emuPath}"
 }
 
 #Uninstall
-ares_uninstall(){
+ares_uninstall () {
     uninstallEmuFP "${ares_emuName}" "${ares_emuPath}" "emulator" ""
 }
 
 #setABXYstyle
-ares_setABXYstyle(){
+ares_setABXYstyle () {
 	echo "NYI"
 }
 
 #Migrate
-ares_migrate(){
+ares_migrate () {
 	echo "NYI"
 }
 
 #WideScreenOn
-ares_wideScreenOn(){
+ares_wideScreenOn () {
 	echo "NYI"
 }
 
 #WideScreenOff
-ares_wideScreenOff(){
+ares_wideScreenOff () {
 	echo "NYI"
 }
 
 #BezelOn
-ares_bezelOn(){
-echo "NYI"
+ares_bezelOn () {
+	echo "NYI"
 }
 
 #BezelOff
-ares_bezelOff(){
-echo "NYI"
+ares_bezelOff () {
+	echo "NYI"
 }
 
-ares_IsInstalled(){
-	isFpInstalled "$ares_emuPath"
+ares_IsInstalled () {
+	isFpInstalled "${ares_emuPath}"
 }
 
-ares_resetConfig(){
+ares_resetConfig () {
 	ares_init &>/dev/null && echo "true" || echo "false"
 }
 
-ares_addSteamInputProfile(){
+ares_addSteamInputProfile () {
 	addSteamInputCustomIcons
 	#setMSG "Adding $ares_emuName Steam Input Profile."
 	#rsync -r "$emudeckBackend/configs/steam-input/ares_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 #finalExec - Extra stuff
-ares_finalize(){
+ares_finalize () {
 	echo "NYI"
 }
 
-ares_flushEmulatorLauncher(){
-
-
-	flushEmulatorLaunchers "$ares_emuName"
-
+ares_flushEmulatorLauncher () {
+	flushEmulatorLaunchers "${ares_emuName}"
 }
