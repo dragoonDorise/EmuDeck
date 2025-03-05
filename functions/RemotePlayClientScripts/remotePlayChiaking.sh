@@ -14,7 +14,7 @@ Chiaking_emuPath="${emusFolder}/chiaki-ng.AppImage"
 Chiaking_install () {
 	setMSG "Installing ${Chiaking_emuName}."
 
-    local showProgress=$"{1}"
+    local showProgress="${1}"
 	installEmuAI "${Chiaking_emuName}" "${Chiaking_emuName}" "$(getReleaseURLGH "streetpea/chiaki-ng" ".AppImage.zip")" "" "zip" "remoteplay" "${showProgress}"
 	unzip -o "${emusFolder}/chiaki-ng.zip" -d "${emusFolder}" && rm -rf "${emusFolder}/chiaki-ng.zip"
 	chmod +x "${Chiaking_emuPath}"

@@ -42,7 +42,7 @@ Chiaki_IsInstalled () {
 		if flatpak list | grep "${Chiaki_emuPath}" | grep "system"; then
 			Chiaki_uninstall
 			Chiaki_install
-		fiw
+		fi
 		echo true
 		return 1
 	else
