@@ -245,7 +245,7 @@ Yuzu_migrate () {
         migrationTable+=("${HOME}/.var/app/org.yuzu_emu.yuzu/config/yuzu" "${HOME}/.config/yuzu")
 
         # migrateAndLinkConfig "$emu" "$migrationTable"
-        touch "${{migrationFlag}}"
+        touch "${migrationFlag}"
     fi
 
     #move data from hidden folders out to these folders in case the user already put stuff here.
