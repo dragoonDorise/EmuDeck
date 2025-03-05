@@ -1,24 +1,29 @@
-#!/bin/bash
-#variables
+#!/usr/bin/env bash
+
+# emuDeckRPCS3Legacy
+
+# Variables
 RPCS3_remuName="RPCS3"
+# shellcheck disable=2034
 RPCS3_emuType="FlatPak"
 RPCS3_emuPath="net.rpcs3.RPCS3"
+# shellcheck disable=2034
 RPCS3_releaseURL=""
-RPCS3_VFSConf="$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/vfs.yml"
-RPCS3_configFile="$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/config.yml"
+RPCS3_VFSConf="${HOME}/.var/app/${RPCS3_emuPath}/config/rpcs3/vfs.yml"
+RPCS3_configFile="${HOME}/.var/app/${RPCS3_emuPath}/config/rpcs3/config.yml"
 
-#cleanupOlderThings
-RPCS3_cleanup(){
- echo "NYI"
+# cleanupOlderThings
+RPCS3_cleanup () {
+	echo "NYI"
 }
 
-#Install
-RPCS3_install(){
+# Install
+RPCS3_install () {
 	installEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}"
 }
 
-#ApplyInitialSettings
-RPCS3_init(){
+# ApplyInitialSettings
+RPCS3_init () {
 	configEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}" "true"
 	RPCS3_setupStorage
 	RPCS3_setEmulationFolder
@@ -27,13 +32,13 @@ RPCS3_init(){
 	#SRM_createParsers
 }
 
-#Fix for autoupdate
-Rpcsx3_install(){
+# Fix for autoupdate
+Rpcsx3_install () {
 	RPCS3_install
 }
 
-#update
-RPCS3_update(){
+# update
+RPCS3_update () {
 	configEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}"
 	RPCS3_setupStorage
 	RPCS3_setEmulationFolder
@@ -41,47 +46,51 @@ RPCS3_update(){
 	RPCS3_addESConfig
 }
 
-#ConfigurePaths
-RPCS3_setEmulationFolder(){
-   iniFieldUpdate "$RPCS3_VFSConf" "" "/dev_hdd0/" "$storagePath/rpcs3/dev_hdd0/" ": "
-   iniFieldUpdate "$RPCS3_VFSConf" "" "/games/" "$romsPath/ps3/" ": "
+# ConfigurePaths
+RPCS3_setEmulationFolder () {
+	# shellcheck disable=2154
+	iniFieldUpdate "${RPCS3_VFSConf}" "" "/dev_hdd0/" "${storagePath}/rpcs3/dev_hdd0/" ": "
+	# shellcheck disable=2154
+	iniFieldUpdate "${RPCS3_VFSConf}" "" "/games/" "${romsPath}/ps3/" ": "
 }
 
-#SetupSaves
-RPCS3_setupSaves(){
+# SetupSaves
+RPCS3_setupSaves () {
 	linkToSaveFolder rpcs3 saves "${storagePath}/rpcs3/dev_hdd0/home/00000001/savedata"
 }
 
+# SetupStorage
+RPCS3_setupStorage () {
+	mkdir -p "${storagePath}/rpcs3/"
 
-#SetupStorage
-RPCS3_setupStorage(){
-
-	mkdir -p "$storagePath/rpcs3/"
-
-	if [ ! -d "$storagePath"/rpcs3/dev_hdd0 ] && [ -d "$HOME/.var/app/${RPCS3_emuPath}/" ];then
+	if [ ! -d "${storagePath}"/rpcs3/dev_hdd0 ] && [ -d "${HOME}/.var/app/${RPCS3_emuPath}/" ];then
 		echo "rpcs3 hdd does not exist in storagepath."
 
 		echo -e ""
 		setMSG "Moving rpcs3 HDD to the Emulation/storage folder"
 		echo -e ""
 
-		mkdir -p "$storagePath/rpcs3"
+		mkdir -p "${storagePath}/rpcs3"
 
-		if [ -d "$savesPath/rpcs3/dev_hdd0" ]; then
-			mv -f "$savesPath"/rpcs3/dev_hdd0 "$storagePath"/rpcs3/
+		# shellcheck disable=2154
+		if [ -d "${savesPath}/rpcs3/dev_hdd0" ]; then
+			mv -f "${savesPath}"/rpcs3/dev_hdd0 "${storagePath}"/rpcs3/
 
-		elif [ -d "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0" ]; then
-			rsync -av "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0" "$storagePath"/rpcs3/ && rm -rf "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0"
+		elif [ -d "${HOME}/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0" ]; then
+			rsync -av "${HOME}/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0" "${storagePath}"/rpcs3/ && rm -rf "${HOME}/.var/app/${RPCS3_emuPath}/config/rpcs3/dev_hdd0"
 
 		fi
 	fi
-	mkdir -p "$storagePath/rpcs3/dev_hdd0/game"
+	mkdir -p "${storagePath}/rpcs3/dev_hdd0/game"
 }
 
-RPCS3_addESConfig(){
+# addESConfig
+RPCS3_addESConfig () {
 	#insert RPCS3 custom system if it doesn't exist, but the file does
 	# LD_LIBRARY_PATH=/usr/lib:/usr/local/lib tested and works on both the Flatpak and the AppImage
-	if [[ $(grep -rnw "$es_systemsFile" -e 'ps3') == "" ]]; then
+	# shellcheck disable=2154
+	if [[ $( grep -rnw "${es_systemsFile}" -e 'ps3' ) == "" ]]; then
+		# shellcheck disable=2016 # These variables aren't for bash.
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
 		--subnode '$newSystem' --type elem --name 'name' -v 'ps3' \
@@ -96,74 +105,74 @@ RPCS3_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'theme' -v 'ps3' \
 		-r 'systemList/system/commandP' -v 'command' \
 		-r 'systemList/system/commandN' -v 'command' \
-		"$es_systemsFile"
+		"${es_systemsFile}"
 
 		#format doc to make it look nice
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		xmlstarlet fo "${es_systemsFile}" > "${es_systemsFile}.tmp" && mv "${es_systemsFile}.tmp" "${es_systemsFile}"
 	fi
     #Custom Systems config end
-
 }
 
-
-#WipeSettings
-RPCS3_wipe(){
-   rm -rf "$HOME/.var/app/$RPCS3_emuPath"
+# WipeSettings
+RPCS3_wipe () {
+   rm -rf "${HOME}/.var/app/${RPCS3_emuPath}"
    # prob not cause roms are here
 }
 
-
-#Uninstall
-RPCS3_uninstall(){
-	flatpak uninstall "$RPCS3_emuPath" --user -y
+# Uninstall
+RPCS3_uninstall () {
+	flatpak uninstall "${RPCS3_emuPath}" --user -y
 }
 
-#setABXYstyle
-RPCS3_setABXYstyle(){
+# setABXYstyle
+RPCS3_setABXYstyle () {
 	 echo "NYI"
 }
 
-#Migrate
-RPCS3_migrate(){
+# Migrate
+RPCS3_migrate () {
 	  echo "NYI"
 }
 
-#WideScreenOn
-RPCS3_wideScreenOn(){
-echo "NYI"
-}
-
-#WideScreenOff
-RPCS3_wideScreenOff(){
-echo "NYI"
-}
-
-#BezelOn
-RPCS3_bezelOn(){
-echo "NYI"
-}
-
-#BezelOff
-RPCS3_bezelOff(){
-echo "NYI"
-}
-
-#finalExec - Extra stuff
-RPCS3_finalize(){
+# WideScreenOn
+RPCS3_wideScreenOn () {
 	echo "NYI"
 }
 
-RPCS3_IsInstalled(){
-	isFpInstalled "$RPCS3_emuPath"
+# WideScreenOff
+RPCS3_wideScreenOff () {
+	echo "NYI"
 }
 
-RPCS3_resetConfig(){
+# BezelOn
+RPCS3_bezelOn () {
+	echo "NYI"
+}
+
+# BezelOff
+RPCS3_bezelOff () {
+	echo "NYI"
+}
+
+# finalExec - Extra stuff
+RPCS3_finalize () {
+	echo "NYI"
+}
+
+# IsInstalled
+RPCS3_IsInstalled () {
+	isFpInstalled "${RPCS3_emuPath}"
+}
+
+# resetConfig
+RPCS3_resetConfig () {
 	RPCS3_init &>/dev/null && echo "true" || echo "false"
 }
 
-RPCS3_setResolution(){
-
-	case $rpcs3Resolution in
+# setResolution
+RPCS3_setResolution () {
+	# shellcheck disable=2154
+	case "${rpcs3Resolution}" in
 		"720P") res=100;;
 		"1080P") res=150;;
 		"1440P") res=200;;
@@ -171,8 +180,7 @@ RPCS3_setResolution(){
 		*) echo "Error"; return 1;;
 	esac
 
-	RetroArch_setConfigOverride "Resolution Scale:" $res "$RPCS3_configFile"
+	RetroArch_setConfigOverride "Resolution Scale:" "${res}" "${RPCS3_configFile}"
 
-	sed -i "s|Resolution Scale:=|Resolution Scale:|g" "$RPCS3_configFile"
-
+	sed -i "s|Resolution Scale:=|Resolution Scale:|g" "${RPCS3_configFile}"
 }

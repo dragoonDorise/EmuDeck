@@ -1,90 +1,96 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-#variables
+# emuDeckYuzu
+
+# Variables
 Yuzu_emuName="yuzu"
-Yuzu_emuType="$emuDeckEmuTypeAppImage"
-Yuzu_emuPath="$emusFolder/yuzu.AppImage"
+# shellcheck disable=2034,2154
+Yuzu_emuType="${emuDeckEmuTypeAppImage}"
+# shellcheck disable=2154
+Yuzu_emuPath="${emusFolder}/yuzu.AppImage"
+Yuzu_configFile="${HOME}/.config/yuzu/qt-config.ini"
 
-Yuzu_configFile="$HOME/.config/yuzu/qt-config.ini"
-
+# Languages
 # https://github.com/yuzu-emu/yuzu/blob/master/src/core/file_sys/control_metadata.cpp#L41-L60
-declare -A Yuzu_languages
-Yuzu_languages=(
-["ja"]=0
-["en"]=1
-["fr"]=2
-["de"]=3
-["it"]=4
-["es"]=5
-["zh"]=6
-["ko"]=7
-["nl"]=8
-["pt"]=9
-["ru"]=10
-["tw"]=11) # TODO: not all langs but we need to switch to full lang codes to support those
+declare -A Yuzu_languages=(
+    ["ja"]=0
+    ["en"]=1
+    ["fr"]=2
+    ["de"]=3
+    ["it"]=4
+    ["es"]=5
+    ["zh"]=6
+    ["ko"]=7
+    ["nl"]=8
+    ["pt"]=9
+    ["ru"]=10
+    ["tw"]=11
+) # TODO: not all langs but we need to switch to full lang codes to support those
 
+# Regions
 # https://github.com/yuzu-emu/yuzu/blob/master/src/yuzu/configuration/configure_system.ui#L272-L309
-declare -A Yuzu_regions
-Yuzu_regions=(
-["ja"]=0 # Japan
-["en"]=1 # USA
-["fr"]=2 # Europe
-["de"]=2 # Europe
-["it"]=2 # Europe
-["es"]=2 # Europe
-["zh"]=4 # China
-["ko"]=5 # Korea
-["nl"]=2 # Europe
-["pt"]=2 # Europe
-["ru"]=2 # Europe?
-["tw"]=6 # Taiwan
+declare -A Yuzu_regions=(
+    ["ja"]=0 # Japan
+    ["en"]=1 # USA
+    ["fr"]=2 # Europe
+    ["de"]=2 # Europe
+    ["it"]=2 # Europe
+    ["es"]=2 # Europe
+    ["zh"]=4 # China
+    ["ko"]=5 # Korea
+    ["nl"]=2 # Europe
+    ["pt"]=2 # Europe
+    ["ru"]=2 # Europe?
+    ["tw"]=6 # Taiwan
 ) # TODO: split lang from region?
 
-#cleanupOlderThings
-Yuzu_cleanup() {
+# cleanupOlderThings
+Yuzu_cleanup () {
     echo "Begin Yuzu Cleanup"
     #Fixes repeated Symlink for older installations
 
-    if [ -f  "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys" ]; then
-        unlink "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys"
+    if [ -f  "${HOME}/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys" ]; then
+        unlink "${HOME}/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys"
     fi
 
-    if [ -f  "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys" ]; then
-        unlink "$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/registered"
+    if [ -f  "${HOME}/.var/app/org.yuzu_emu.yuzu/data/yuzu/keys/keys" ]; then
+        unlink "${HOME}/.var/app/org.yuzu_emu.yuzu/data/yuzu/nand/system/Contents/registered/registered"
     fi
-
 }
 
-#Install
-Yuzu_install() {
+# Install
+Yuzu_install () {
     echo "Begin Yuzu Install"
 
     local showProgress=$1
-    local lastVerFile="$emudeckFolder/yuzu.ver"
-    local latestVer=$(curl -fSs "https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases" | jq -r '[ .[].tag_name ][0]')
+    # shellcheck disable=2154
+    local lastVerFile="${emudeckFolder}/yuzu.ver"
+    # shellcheck disable=2155
+    local latestVer=$( curl -fSs "https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases" | jq -r '[ .[].tag_name ][0]' )
     local success="false"
-    if installEmuAI "$Yuzu_emuName" "$(getReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage")" "" "$showProgress" "$lastVerFile" "$latestVer"; then # yuzu.AppImage - needs to be lowercase yuzu for EsDE to find it
+    if installEmuAI "${Yuzu_emuName}" "$(getReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage")" "" "${showProgress}" "${lastVerFile}" "${latestVer}"; then # yuzu.AppImage - needs to be lowercase yuzu for EsDE to find it
         success="true"
     fi
 
-    if [ "$success" != "true" ]; then
+    if [ "${success}" != "true" ]; then
         return 1
     fi
 }
 
-#ApplyInitialSettings
-Yuzu_init() {
+# ApplyInitialSettings
+Yuzu_init () {
     echo "Begin Yuzu Init"
 
-	cp "$emudeckBackend/tools/launchers/yuzu.sh" "$toolsPath/launchers/yuzu.sh"
-	chmod +x "$toolsPath/launchers/yuzu.sh"
-    mkdir -p "$HOME/.config/yuzu"
-    mkdir -p "$HOME/.local/share/yuzu"
-	rsync -avhp "$emudeckBackend/configs/org.yuzu_emu.yuzu/config/yuzu/." "$HOME/.config/yuzu"
-	rsync -avhp "$emudeckBackend/configs/org.yuzu_emu.yuzu/data/yuzu/." "$HOME/.local/share/yuzu"
+    # shellcheck disable=2154
+	cp "${emudeckBackend}/tools/launchers/yuzu.sh" "${toolsPath}/launchers/yuzu.sh"
+	chmod +x "${toolsPath}/launchers/yuzu.sh"
+    mkdir -p "${HOME}/.config/yuzu"
+    mkdir -p "${HOME}/.local/share/yuzu"
+	rsync -avhp "${emudeckBackend}/configs/org.yuzu_emu.yuzu/config/yuzu/." "${HOME}/.config/yuzu"
+	rsync -avhp "${emudeckBackend}/configs/org.yuzu_emu.yuzu/data/yuzu/." "${HOME}/.local/share/yuzu"
     Yuzu_migrate
-    configEmuAI "$Yuzu_emuName" "config" "$HOME/.config/yuzu" "$emudeckBackend/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
-    configEmuAI "$Yuzu_emuName" "data" "$HOME/.local/share/yuzu" "$emudeckBackend/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
+    configEmuAI "${Yuzu_emuName}" "config" "${HOME}/.config/yuzu" "${emudeckBackend}/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
+    configEmuAI "${Yuzu_emuName}" "data" "${HOME}/.local/share/yuzu" "${emudeckBackend}/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
 
     Yuzu_setEmulationFolder
     Yuzu_setupStorage
@@ -92,29 +98,28 @@ Yuzu_init() {
     Yuzu_finalize
     #SRM_createParsers
     Yuzu_flushEmulatorLauncher
-  	createDesktopShortcut   "$HOME/.local/share/applications/yuzu.desktop" \
+  	createDesktopShortcut   "${HOME}/.local/share/applications/yuzu.desktop" \
 							"yuzu (AppImage)" \
 							"${toolsPath}/launchers/yuzu.sh"  \
 							"False"
-
-	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
+    # shellcheck disable=2154
+	if [ -e "${ESDE_toolPath}" ] || [ -f "${toolsPath}/${ESDE_downloadedToolName}" ] || [ -f "${toolsPath}/${ESDE_oldtoolName}.AppImage" ]; then
 		Yuzu_addESConfig
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
     Yuzu_addParser
     Yuzu_setLanguage
-
 }
 
-#update
-Yuzu_update() {
+# update
+Yuzu_update () {
     echo "Begin Yuzu update"
 
     Yuzu_migrate
 
-    configEmuAI "$Yuzu_emuName" "config" "$HOME/.config/yuzu" "$emudeckBackend/configs/org.yuzu_emu.yuzu/config/yuzu"
-    configEmuAI "$Yuzu_emuName" "data" "$HOME/.local/share/yuzu" "$emudeckBackend/configs/org.yuzu_emu.yuzu/data/yuzu"
+    configEmuAI "${Yuzu_emuName}" "config" "${HOME}/.config/yuzu" "${emudeckBackend}/configs/org.yuzu_emu.yuzu/config/yuzu"
+    configEmuAI "${Yuzu_emuName}" "data" "${HOME}/.local/share/yuzu" "${emudeckBackend}/configs/org.yuzu_emu.yuzu/data/yuzu"
 
     Yuzu_setEmulationFolder
     Yuzu_setupStorage
@@ -123,8 +128,8 @@ Yuzu_update() {
     Yuzu_flushEmulatorLauncher
 }
 
-#ConfigurePaths
-Yuzu_setEmulationFolder() {
+# ConfigurePaths
+Yuzu_setEmulationFolder () {
     echo "Begin Yuzu Path Config"
 
     screenshotDirOpt='Screenshots\\screenshot_path='
@@ -134,7 +139,9 @@ Yuzu_setEmulationFolder() {
     nandDirOpt='nand_directory='
     sdmcDirOpt='sdmc_directory='
     tasDirOpt='tas_directory='
+    # shellcheck disable=2154
     newScreenshotDirOpt='Screenshots\\screenshot_path='"${storagePath}/yuzu/screenshots"
+    # shellcheck disable=2154
     newGameDirOpt='Paths\\gamedirs\\4\\path='"${romsPath}/switch"
     newDumpDirOpt='dump_directory='"${storagePath}/yuzu/dump"
     newLoadDir='load_directory='"${storagePath}/yuzu/load"
@@ -142,32 +149,33 @@ Yuzu_setEmulationFolder() {
     newSdmcDirOpt='sdmc_directory='"${storagePath}/yuzu/sdmc"
     newTasDirOpt='tas_directory='"${storagePath}/yuzu/tas"
 
-    sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" "$Yuzu_configFile"
-    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Yuzu_configFile"
-    sed -i "/${dumpDirOpt}/c\\${newDumpDirOpt}" "$Yuzu_configFile"
-    sed -i "/${loadDir}/c\\${newLoadDir}" "$Yuzu_configFile"
-    sed -i "/${nandDirOpt}/c\\${newNandDirOpt}" "$Yuzu_configFile"
-    sed -i "/${sdmcDirOpt}/c\\${newSdmcDirOpt}" "$Yuzu_configFile"
-    sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "$Yuzu_configFile"
+    sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" "${Yuzu_configFile}"
+    sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "${Yuzu_configFile}"
+    sed -i "/${dumpDirOpt}/c\\${newDumpDirOpt}" "${Yuzu_configFile}"
+    sed -i "/${loadDir}/c\\${newLoadDir}" "${Yuzu_configFile}"
+    sed -i "/${nandDirOpt}/c\\${newNandDirOpt}" "${Yuzu_configFile}"
+    sed -i "/${sdmcDirOpt}/c\\${newSdmcDirOpt}" "${Yuzu_configFile}"
+    sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "${Yuzu_configFile}"
 
-    #Setup Bios symlinks
+    # Setup Bios symlinks
+    # shellcheck disable=2154
     unlink "${biosPath}/yuzu/keys" 2>/dev/null
     unlink "${biosPath}/yuzu/firmware" 2>/dev/null
 
-    mkdir -p "$HOME/.local/share/yuzu/keys/"
+    mkdir -p "${HOME}/.local/share/yuzu/keys/"
     mkdir -p "${storagePath}/yuzu/nand/system/Contents/registered/"
 
-    ln -sn "$HOME/.local/share/yuzu/keys/" "${biosPath}/yuzu/keys"
+    ln -sn "${HOME}/.local/share/yuzu/keys/" "${biosPath}/yuzu/keys"
     ln -sn "${storagePath}/yuzu/nand/system/Contents/registered/" "${biosPath}/yuzu/firmware"
 
     touch "${storagePath}/yuzu/nand/system/Contents/registered/putfirmwarehere.txt"
-
 }
 
-#SetLanguage
-Yuzu_setLanguage(){
+# SetLanguage
+Yuzu_setLanguage () {
     setMSG "Setting Yuzu Language"
-    local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+    # shellcheck disable=2155
+    local language=$( locale | grep LANG | cut -d= -f2 | cut -d_ -f1 )
     languageOpt="language_index="
     languageDefaultOpt="language_index\\\\default="
     newLanguageDefaultOpt="language_index\\\\default=false" # we need those or else itll reset
@@ -179,24 +187,25 @@ Yuzu_setLanguage(){
 		if [ ${Yuzu_languages[$language]+_} ]; then
             newLanguageOpt='language_index='"${Yuzu_languages[$language]}"
             newRegionOpt='region_index='"${Yuzu_regions[$language]}"
-            changeLine "$languageOpt" "$newLanguageOpt" "$Yuzu_configFile"
-            changeLine "$languageDefaultOpt" "$newLanguageDefaultOpt" "$Yuzu_configFile"
-            changeLine "$regionOpt" "$newRegionOpt" "$Yuzu_configFile"
-            changeLine "$regionDefaultOpt" "$newRegionDefaultOpt" "$Yuzu_configFile"
+            changeLine "${languageOpt}" "${newLanguageOpt}" "${Yuzu_configFile}"
+            changeLine "${languageDefaultOpt}" "${newLanguageDefaultOpt}" "${Yuzu_configFile}"
+            changeLine "${regionOpt}" "${newRegionOpt}" "${Yuzu_configFile}"
+            changeLine "${regionDefaultOpt}" "${newRegionDefaultOpt}" "${Yuzu_configFile}"
 		fi
 	fi
 }
 
-#SetupSaves
-Yuzu_setupSaves() {
+# SetupSaves
+Yuzu_setupSaves () {
     echo "Begin Yuzu save link"
+    # shellcheck disable=2154
     unlink "${savesPath}/yuzu/saves" 2>/dev/null # Fix for previous bad symlink2>/dev/null
     linkToSaveFolder yuzu saves "${storagePath}/yuzu/nand/user/save/"
     linkToSaveFolder yuzu profiles "${storagePath}/yuzu/nand/system/save/8000000000000010/su/avators/"
 }
 
-#SetupStorage
-Yuzu_setupStorage() {
+# SetupStorage
+Yuzu_setupStorage () {
     echo "Begin Yuzu storage config"
     mkdir -p "${storagePath}/yuzu/dump"
     mkdir -p "${storagePath}/yuzu/load"
@@ -208,40 +217,39 @@ Yuzu_setupStorage() {
     ln -sn "${storagePath}/yuzu/nand/system/save/8000000000000010/su/avators/" "${savesPath}/yuzu/profiles"
 }
 
-#WipeSettings
-Yuzu_wipe() {
+# WipeSettings
+Yuzu_wipe () {
     echo "Begin Yuzu delete config directories"
-    rm -rf "$HOME/.config/yuzu"
-    rm -rf "$HOME/.local/share/yuzu"
+    rm -rf "${HOME}/.config/yuzu"
+    rm -rf "${HOME}/.local/share/yuzu"
 }
 
-#Uninstall
-Yuzu_uninstall() {
+# Uninstall
+Yuzu_uninstall () {
     echo "Begin Yuzu uninstall"
     removeParser "nintendo_switch_yuzu.json"
-    rm -rf "$Yuzu_emuPath"
+    rm -rf "${Yuzu_emuPath}"
     YuzuEA_uninstall
 }
 
-
-#Migrate
-Yuzu_migrate() {
+# Migrate
+Yuzu_migrate () {
     echo "Begin Yuzu Migration"
-    migrationFlag="$emudeckFolder/.${Yuzu_emuName}MigrationCompleted"
+    migrationFlag="${emudeckFolder}/.${Yuzu_emuName}MigrationCompleted"
     #check if we have a nomigrateflag for $emu
-    if [ ! -f "$migrationFlag" ]; then
+    if [ ! -f "${migrationFlag}" ]; then
         #yuzu flatpak to appimage
         #From -- > to
         migrationTable=()
-        migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/data/yuzu" "$HOME/.local/share/yuzu")
-        migrationTable+=("$HOME/.var/app/org.yuzu_emu.yuzu/config/yuzu" "$HOME/.config/yuzu")
+        migrationTable+=("${HOME}/.var/app/org.yuzu_emu.yuzu/data/yuzu" "${HOME}/.local/share/yuzu")
+        migrationTable+=("${HOME}/.var/app/org.yuzu_emu.yuzu/config/yuzu" "${HOME}/.config/yuzu")
 
         # migrateAndLinkConfig "$emu" "$migrationTable"
-        touch "${migrationFlag}"
+        touch "${{migrationFlag}}"
     fi
 
     #move data from hidden folders out to these folders in case the user already put stuff here.
-    origPath="$HOME/.local/share/"
+    origPath="${HOME}/.local/share/"
 
     Yuzu_setupStorage
 
@@ -253,77 +261,78 @@ Yuzu_migrate() {
     rsync -av "${origPath}yuzu/tas" "${storagePath}/yuzu/" && rm -rf "${origPath}yuzu/tas"
 }
 
-#setABXYstyle
-Yuzu_setABXYstyle() {
+# setABXYstyle
+Yuzu_setABXYstyle () {
     echo "NYI"
 }
 
-#WideScreenOn
-Yuzu_wideScreenOn() {
+# WideScreenOn
+Yuzu_wideScreenOn () {
     echo "NYI"
 }
 
-#WideScreenOff
-Yuzu_wideScreenOff() {
+# WideScreenOff
+Yuzu_wideScreenOff () {
     echo "NYI"
 }
 
-#BezelOn
-Yuzu_bezelOn() {
+# BezelOn
+Yuzu_bezelOn () {
     echo "NYI"
 }
 
-#BezelOff
-Yuzu_bezelOff() {
+# BezelOff
+Yuzu_bezelOff () {
     echo "NYI"
 }
 
-#finalExec - Extra stuff
-Yuzu_finalize() {
+# finalExec - Extra stuff
+Yuzu_finalize () {
     echo "Begin Yuzu finalize"
     Yuzu_cleanup
 }
 
-Yuzu_IsInstalled() {
-    if [ -e "$Yuzu_emuPath" ]; then
+# IsInstalled
+Yuzu_IsInstalled () {
+    if [ -e "${Yuzu_emuPath}" ]; then
         echo "true"
     else
         echo "false"
     fi
 }
 
-
-Yuzu_resetConfig() {
+# resetConfig
+Yuzu_resetConfig () {
     Yuzu_init &>/dev/null && echo "true" || echo "false"
 }
 
-
-
-
 ### Yuzu EA
-
-YuzuEA_install() {
+YuzuEA_install () {
     local jwtHost="https://api.yuzu-emu.org/jwt/installer/"
     local yuzuEaHost="https://api.yuzu-emu.org/downloads/earlyaccess/"
-    local yuzuEaMetadata=$(curl -fSs ${yuzuEaHost})
-    local fileToDownload=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).url')
-    local currentVer=$(echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).name')
-    local tokenValue="$1"
-    local showProgress="$2"
+    # shellcheck disable=2155
+    local yuzuEaMetadata=$( curl -fSs ${yuzuEaHost} )
+    # shellcheck disable=2155
+    local fileToDownload=$( echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).url' )
+    # shellcheck disable=2034,2155
+    local currentVer=$( echo "$yuzuEaMetadata" | jq -r '.files[] | select(.name|test(".*.AppImage")).name' )
+    local tokenValue="${1}"
+    local showProgress="${2}"
     local user
     local auth
 
-    read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')" || echo "invalid"
+    read -r user auth <<<"$( echo "${tokenValue}"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}' )" || echo "invalid"
 
     #echo "get bearer token"
-    BEARERTOKEN=$(curl -X POST ${jwtHost} -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck")
+    BEARERTOKEN=$( curl -X POST "${jwtHost}" -H "X-Username: ${user}" -H "X-Token: ${auth}" -H "User-Agent: EmuDeck" )
 
     #echo "download ea appimage"
 
-    if safeDownload "yuzu-ea" "$fileToDownload" "${YuzuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
-        chmod +x "$YuzuEA_emuPath"
+    # shellcheck disable=2154
+    if safeDownload "yuzu-ea" "${fileToDownload}" "${YuzuEA_emuPath}" "${showProgress}" "Authorization: Bearer ${BEARERTOKEN}"; then
+        chmod +x "${YuzuEA_emuPath}"
 
-        cp -v "$emudeckBackend/tools/launchers/yuzu.sh" "${toolsPath}/launchers/" &>/dev/null
+        cp -v "${emudeckBackend}/tools/launchers/yuzu.sh" "${toolsPath}/launchers/" &>/dev/null
         chmod +x "${toolsPath}/launchers/yuzu.sh"
         echo "true"
         return 0
@@ -331,35 +340,36 @@ YuzuEA_install() {
         echo "fail"
         return 1
     fi
-
 }
 
-YuzuEA_addToken(){
+# addToken
+YuzuEA_addToken () {
     local tokenValue=$1
     local user=""
     local auth=""
 
-   read -r user auth <<<"$(echo "$tokenValue"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}')" && YuzuEA_install "$tokenValue" || echo "invalid"
+   read -r user auth <<<"$( echo "${tokenValue}"==== | fold -w 4 | sed '$ d' | tr -d '\n' | base64 --decode| awk -F":" '{print $1" "$2}' )" && YuzuEA_install "${tokenValue}" || echo "invalid"
 }
 
-
-YuzuEA_IsInstalled() {
-    if [ -e "$YuzuEA_emuPath" ]; then
+# EA_IsInstalled
+YuzuEA_IsInstalled () {
+    if [ -e "${YuzuEA_emuPath}" ]; then
         echo "true"
     else
         echo "false"
     fi
 }
 
-
-YuzuEA_uninstall() {
+# EA_uninstall
+YuzuEA_uninstall () {
     echo "Begin Yuzu EA uninstall"
-    rm -rf "$YuzuEA_emuPath"
+    rm -rf "${YuzuEA_emuPath}"
 }
 
-Yuzu_setResolution(){
-
-	case $yuzuResolution in
+# setResolution
+Yuzu_setResolution () {
+    # shellcheck disable=2154
+	case "${yuzuResolution}" in
 		"720P") multiplier=2; docked="false";;
 		"1080P") multiplier=2; docked="true";;
 		"1440P") multiplier=3; docked="false";;
@@ -367,24 +377,24 @@ Yuzu_setResolution(){
 		*) echo "Error"; return 1;;
 	esac
 
-	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Yuzu_configFile"
-	RetroArch_setConfigOverride "use_docked_mode" $docked "$Yuzu_configFile"
+	RetroArch_setConfigOverride "resolution_setup" "${multiplier}" "${Yuzu_configFile}"
+	RetroArch_setConfigOverride "use_docked_mode" "${docked}" "${Yuzu_configFile}"
 }
 
-Yuzu_flushEmulatorLauncher(){
-
-
+# flushEmulatorLauncher
+Yuzu_flushEmulatorLauncher () {
 	flushEmulatorLaunchers "yuzu"
-
 }
 
-Yuzu_addESConfig(){
-
+# addESConfig
+Yuzu_addESConfig () {
     ESDE_junksettingsFile
     ESDE_addCustomSystemsFile
     ESDE_setEmulationFolder
 
-	if [[ $(grep -rnw "$es_systemsFile" -e 'switch') == "" ]]; then
+    # shellcheck disable=2154
+	if [[ $(grep -rnw "${es_systemsFile}" -e 'switch') == "" ]]; then
+        # shellcheck disable=2016
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
 		--subnode '$newSystem' --type elem --name 'name' -v 'switch' \
@@ -399,18 +409,17 @@ Yuzu_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'theme' -v 'switch' \
 		-r 'systemList/system/commandB' -v 'command' \
 		-r 'systemList/system/commandV' -v 'command' \
-		"$es_systemsFile"
+		"${es_systemsFile}"
 
-
-
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		xmlstarlet fo "${es_systemsFile}" > "${es_systemsFile}.tmp" && mv "${es_systemsFile}.tmp" "${es_systemsFile}"
 	fi
 	#Custom Systems config end
 
-	rsync -avhp --mkpath "$emudeckBackend/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
-
+    # shellcheck disable=2154
+	rsync -avhp --mkpath "${emudeckBackend}/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$( dirname "${es_rulesFile}" )" --backup --suffix=.bak
 }
 
-Yuzu_addParser(){
+# addParser
+Yuzu_addParser () {
   addParser "nintendo_switch_yuzu.json"
 }

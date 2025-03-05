@@ -1,39 +1,45 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-#variables
+# emuDeckVita3K
+
+# Variables
 Vita3K_emuName="Vita3K"
-Vita3K_emuType="$emuDeckEmuTypeBinary"
-Vita3K_emuPath="$emusFolder/Vita3K"
-Vita3K_configFile="$HOME/.config/Vita3K/config.yml"
+# shellcheck disable=2034,2154
+Vita3K_emuType="${emuDeckEmuTypeBinary}"
+# shellcheck disable=2154
+Vita3K_emuPath="${emusFolder}/Vita3K"
+Vita3K_configFile="${HOME}/.config/Vita3K/config.yml"
 
-#cleanupOlderThings
-Vita3K_cleanup(){
+# cleanupOlderThings
+Vita3K_cleanup () {
     echo "Begin Vita3K Cleanup"
 }
 
-#Install
-Vita3K_install(){
+# Install
+# shellcheck disable=2120
+Vita3K_install () {
     echo "Begin Vita3K Install"
-    local showProgress="$1"
+    local showProgress="${1}"
     #if installEmuBI "Vita3K" "https://github.com/Vita3K/Vita3K/releases/download/continuous/ubuntu-latest.zip" "Vita3K" "zip" "$showProgress"; then
-    if installEmuBI "$Vita3K_emuName" "$(getReleaseURLGH "Vita3K/Vita3K" "ubuntu-latest.zip")" "" "zip" "$showProgress"; then
-        unzip -o "$emusFolder/Vita3K.zip" -d "$Vita3K_emuPath" && rm -rf "$emusFolder/Vita3K.zip"
-        chmod +x "$Vita3K_emuPath/Vita3K"
+    if installEmuBI "${Vita3K_emuName}" "$(getReleaseURLGH "Vita3K/Vita3K" "ubuntu-latest.zip")" "" "zip" "${showProgress}"; then
+        unzip -o "${emusFolder}/Vita3K.zip" -d "${Vita3K_emuPath}" && rm -rf "${emusFolder}/Vita3K.zip"
+        chmod +x "${Vita3K_emuPath}/Vita3K"
     else
         return 1
     fi
 }
 
-#Fix for autoupdate
-Vita3k_install(){
+# Fix for autoupdate
+Vita3k_install () {
 	Vita3K_install
 }
 
-#ApplyInitialSettings
-Vita3K_init(){
+# ApplyInitialSettings
+Vita3K_init () {
     echo "Begin Vita3K Init"
 
-    configEmuAI "Vita3K" "config" "$HOME/.config/Vita3K" "$emudeckBackend/configs/Vita3K" "true"
+    # shellcheck disable=2154
+    configEmuAI "Vita3K" "config" "${HOME}/.config/Vita3K" "${emudeckBackend}/configs/Vita3K" "true"
     Vita3K_setEmulationFolder
     Vita3K_setupStorage
     Vita3K_setupSaves #?
@@ -42,11 +48,11 @@ Vita3K_init(){
     Vita3K_flushEmulatorLauncher
 }
 
-#update
-Vita3K_update(){
+# update
+Vita3K_update () {
     echo "Begin Vita3K update"
 
-    configEmuAI "Vita3K" "config" "$HOME/.config/Vita3K" "$emudeckBackend/configs/Vita3K"
+    configEmuAI "Vita3K" "config" "${HOME}/.config/Vita3K" "${emudeckBackend}/configs/Vita3K"
 
     Vita3K_setEmulationFolder
     Vita3K_setupStorage
@@ -55,104 +61,100 @@ Vita3K_update(){
     Vita3K_flushEmulatorLauncher
 }
 
-
-
-#ConfigurePaths
-Vita3K_setEmulationFolder(){
+# ConfigurePaths
+Vita3K_setEmulationFolder () {
     echo "Begin Vita3K Path Config"
 
     local prefpath_directoryOpt='pref-path: '
-    local newprefpath_directoryOpt="$prefpath_directoryOpt""$storagePath/Vita3K/"
-    changeLine "$prefpath_directoryOpt" "$newprefpath_directoryOpt" "$Vita3K_configFile"
+    # shellcheck disable=2154
+    local newprefpath_directoryOpt="${prefpath_directoryOpt}${storagePath}/Vita3K/"
+    changeLine "${prefpath_directoryOpt}" "${newprefpath_directoryOpt}" "${Vita3K_configFile}"
 }
 
-#SetupSaves
-Vita3K_setupSaves(){
+# SetupSaves
+Vita3K_setupSaves () {
     echo "Begin Vita3K save link"
-    linkToSaveFolder Vita3K saves "$storagePath/Vita3K/ux0/user/00/savedata"
+    linkToSaveFolder Vita3K saves "${storagePath}/Vita3K/ux0/user/00/savedata"
 }
 
-
-#SetupStorage
-Vita3K_setupStorage(){
+# SetupStorage
+Vita3K_setupStorage () {
     echo "Begin Vita3K storage config"
 
-    mkdir -p "$storagePath/Vita3K/ux0/app"
-    unlink "$romsPath/psvita/InstalledGames"
-    ln -s "$storagePath/Vita3K/ux0/app" "$romsPath/psvita/InstalledGames"
-
+    mkdir -p "${storagePath}/Vita3K/ux0/app"
+    # shellcheck disable=2154
+    unlink "${romsPath}/psvita/InstalledGames"
+    ln -s "${storagePath}/Vita3K/ux0/app" "${romsPath}/psvita/InstalledGames"
 }
 
 
-#WipeSettings
-Vita3K_wipe(){
+# WipeSettings
+Vita3K_wipe () {
     echo "Begin Vita3K delete config directories"
-    rm -rf "$HOME/.config/Vita3K"
+    rm -rf "${HOME}/.config/Vita3K"
 }
 
-
-#Uninstall
-Vita3K_uninstall(){
+# Uninstall
+Vita3K_uninstall () {
     echo "Begin Vita3K uninstall"
-    uninstallGeneric $Vita3K_emuName $Vita3K_emuPath "" "emulator"
+    uninstallGeneric "${Vita3K_emuName}" "${Vita3K_emuPath}" "" "emulator"
 }
 
-#Migrate
-Vita3K_migrate(){
-echo "NYI"
+# Migrate
+Vita3K_migrate () {
+ echo "NYI"
 }
 
-
-#setABXYstyle
-Vita3K_setABXYstyle(){
-echo "NYI"
+# setABXYstyle
+Vita3K_setABXYstyle () {
+    echo "NYI"
 }
 
-#WideScreenOn
-Vita3K_wideScreenOn(){
-echo "NYI"
+# WideScreenOn
+Vita3K_wideScreenOn () {
+    echo "NYI"
 }
 
-#WideScreenOff
-Vita3K_wideScreenOff(){
-echo "NYI"
+# WideScreenOff
+Vita3K_wideScreenOff () {
+    echo "NYI"
 }
 
-#BezelOn
-Vita3K_bezelOn(){
-echo "NYI"
+# BezelOn
+Vita3K_bezelOn () {
+    echo "NYI"
 }
 
-#BezelOff
-Vita3K_bezelOff(){
-echo "NYI"
+# BezelOff
+Vita3K_bezelOff () {
+    echo "NYI"
 }
 
-#finalExec - Extra stuff
-Vita3K_finalize(){
+# finalExec - Extra stuff
+Vita3K_finalize () {
     echo "Begin Vita3K finalize"
 }
 
-Vita3K_IsInstalled(){
-    if [ -e "$Vita3K_emuPath/Vita3K" ]; then
+# IsInstalled
+Vita3K_IsInstalled () {
+    if [ -e "${Vita3K_emuPath}/Vita3K" ]; then
         echo "true"
     else
         echo "false"
     fi
 }
 
-Vita3K_resetConfig(){
+# resetConfig
+Vita3K_resetConfig () {
     Vita3K_init &>/dev/null && echo "true" || echo "false"
 }
 
-
-Vita3K_setResolution(){
+# setResolution
+Vita3K_setResolution () {
 	echo "NYI"
 }
 
-Vita3K_flushEmulatorLauncher(){
-
-
+# flushEmulatorLauncher
+Vita3K_flushEmulatorLauncher () {
 	flushEmulatorLaunchers "vita3k"
-
 }
