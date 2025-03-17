@@ -49,7 +49,7 @@ Ryujinx_cleanup(){
 Ryujinx_install(){
     echo "Begin Ryujinx Install"
     local showProgress=$1
-    if installEmuBI "$Ryujinx_emuName" "https://github.com/Ryubing/Stable-Releases/releases/download/1.2.86/ryujinx-1.2.86-linux_x64.tar.gz" "" "tar.gz" "$showProgress"; then
+    if installEmuBI "$Ryujinx_emuName" "$(getReleaseURLGH "Ryubing/Stable-Releases" "-linux_x64.tar.gz" "" "" "nogui")" "" "tar.gz" "$showProgress"; then
         mkdir -p "$emusFolder/publish"
         tar -xvf "$emusFolder/Ryujinx.tar.gz" -C "$emusFolder" && rm -rf "$HOME/Applications/Ryujinx.tar.gz"
         chmod +x "$emusFolder/publish/Ryujinx"
