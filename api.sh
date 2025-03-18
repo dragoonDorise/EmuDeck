@@ -1,9 +1,11 @@
-#!/bin/bash
-. "$HOME/.config/EmuDeck/backend/functions/all.sh"
+#!/usr/bin/env bash
+
+# shellcheck disable=1091
+. "${HOME}/.config/EmuDeck/backend/functions/all.sh"
 
 API_pull(){
 	local branch=$1
-	cd ~/.config/EmuDeck/backend && touch $emudeckLogs/git.log && git reset --hard && git clean -fd && git checkout $branch && git pull && appImageInit && echo "OK" || echo "KO" >&2
+	cd ~/.config/EmuDeck/backend && touch "${emudeckLogs:?}"/git.log && git reset --hard && git clean -fd && git checkout "${branch}" && git pull && appImageInit && echo "OK" || echo "KO" >&2
 }
 
 API_autoSave(){
@@ -27,7 +29,7 @@ API_shaders_3D(){
 }
 
 API_ar_snes(){
-	if [ "$arSnes" == 87 ]; then
+	if [ "${arSnes:?}" == 87 ]; then
 		RetroArch_snes_ar87  1> /dev/null && RetroArch_nes_ar87 1> /dev/null && echo "OK" || echo "KO" >&2
 	else
 		RetroArch_snes_ar43 1> /dev/null && RetroArch_nes_ar43 1> /dev/null  && echo "OK" || echo "KO" >&2
@@ -47,7 +49,7 @@ API_setAR(){
 }
 
 API_setCloud(){
-  if [ $cloud_sync_status == "false" ]; then
+  if [ "${cloud_sync_status:?}" == "false" ]; then
 	setSetting cloud_sync_status "true" 1> /dev/null && echo "OK" || echo "KO" >&2
   else
 	  setSetting cloud_sync_status "false" 1> /dev/null && echo "OK" || echo "KO" >&2
@@ -57,13 +59,13 @@ API_setCloud(){
 API_setToken(){
 	local token=$1
 	local user=$2
-	echo $token > "$emudeckFolder/.rat" && echo $user > "$emudeckFolder/.rau" && RetroArch_retroAchievementsSetLogin && DuckStation_retroAchievementsSetLogin && PCSX2QT_retroAchievementsSetLogin && echo "OK" || echo "KO" >&2
+	echo "${token}" > "${emudeckFolder:?}/.rat" && echo "${user}" > "${emudeckFolder}/.rau" && RetroArch_retroAchievementsSetLogin && DuckStation_retroAchievementsSetLogin && PCSX2QT_retroAchievementsSetLogin && echo "OK" || echo "KO" >&2
 }
 
 API_getToken(){
 	local escapedUserName=$1
 	local escapedPass=$2
-	curl --location --data-urlencode u='$escapedUserName' --data-urlencode p='$escapedPass' --request POST 'https://retroachievements.org/dorequest.php?r=login' && echo "OK" || echo "KO" >&2
+	curl --location --data-urlencode u="'${escapedUserName}'" --data-urlencode p="'${escapedPass}'" --request POST 'https://retroachievements.org/dorequest.php?r=login' && echo "OK" || echo "KO" >&2
 }
 
 API_cloudSyncHealth(){

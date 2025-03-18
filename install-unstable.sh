@@ -3,23 +3,23 @@
 linuxID=$(lsb_release -si)
 sandbox=""
 
-if [ "$linuxID" = "Ubuntu" ]; then
+if [ "${linuxID}" = "Ubuntu" ]; then
     sandbox="--no-sandbox"
 fi
 
-if [ "$linuxID" == "SteamOS" ]; then
+if [ "${linuxID}" == "SteamOS" ]; then
     echo "installing EmuDeck"
 else
     zenityAvailable=$(command -v zenity &> /dev/null  && echo true)
 
     if [[ $zenityAvailable = true ]];then
         read -r PASSWD <<< "$(zenity --password --title="Password Entry" --text="Enter you user sudo password to install required depencies" 2>/dev/null)"
-        echo "$PASSWD" | sudo -v -S
+        echo "${PASSWD}" | sudo -v -S
         ans=$?
         if [[ $ans == 1 ]]; then
             #incorrect password
             read -r PASSWD <<< "$(zenity --password --title="Password Entry" --text="Password was incorrect. Try again. (Did you remember to set a password for linux before running this?)" 2>/dev/null)"
-            echo "$PASSWD" | sudo -v -S
+            echo "${PASSWD}" | sudo -v -S
             ans=$?
             if [[ $ans == 1 ]]; then
                     text="$(printf "<b>Password not accepted.</b>\n Expert mode tools which require a password will not work. Disabling them.")"
@@ -33,14 +33,16 @@ else
         fi
     fi
 
+    # shellcheck disable=2034
     SCRIPT_DIR=$( cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 
     function log_err {
       echo "$@" >&2
     }
 
+    # shellcheck disable=SC2317
     function script_failure {
-      log_err "An error occurred:$([ -z "$1" ] && " on line $1" || "(unknown)")."
+      log_err "An error occurred: $( [ -n "${1}" ] && echo "on line ${1}" || echo "(unknown)" )."
       log_err "Installation failed!"
       exit
     }
@@ -101,6 +103,7 @@ fi
 
 set -eo pipefail
 
+# shellcheck disable=2317
 report_error() {
     FAILURE="$(caller): ${BASH_COMMAND}"
     echo "Something went wrong!"
