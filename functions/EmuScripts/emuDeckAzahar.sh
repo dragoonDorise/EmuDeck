@@ -12,7 +12,9 @@ Azahar_texturesPath="$HOME/.config/azahar-emu/load/textures"
 Azahar_install(){
 	echo "Begin $Azahar_emuName Install"
 	local showProgress="$1"
-	if installEmuAI "$Azahar_emuName" "" "$(getReleaseURLGH "Azahar/azahar-archive" "tar.gz" "")" "azahar" "tar.gz" "emulator" "$showProgress"; then #azahar-gui.AppImage
+	#local url=$(getReleaseURLGH "Azahar/azahar-archive" "tar.gz" "")
+	local url="https://github.com/azahar-emu/azahar/releases/download/2120-rc3/azahar-2120-rc3-linux-appimage.tar.gz"
+	if installEmuAI "$Azahar_emuName" "" "$url" "azahar" "tar.gz" "emulator" "$showProgress"; then #azahar-gui.AppImage
 		mkdir "$emusFolder/azahar-temp"
 		tar -xvzf "$emusFolder/azahar.tar.gz" -C "$emusFolder/azahar-temp" --strip-components 1
 		if [ -f "$emusFolder/azahar-temp/azahar-gui.AppImage" ]; then
@@ -43,6 +45,7 @@ Azahar_init(){
 	Azahar_flushEmulatorLauncher
 	Azahar_setupTextures
 	Azahar_addParser
+	Azahar_migrate
 }
 
 #update
@@ -293,4 +296,17 @@ Azahar_flushEmulatorLauncher(){
 
 Azahar_addParser(){
 	addParser "nintendo_3ds_azahar.json"
+}
+
+Azahar_migrate(){
+	rm -rf "$toolsPath/launchers/citra.sh"
+	rm -rf "$toolsPath/launchers/lime3ds.sh"
+
+	simLinkPath="$toolsPath/launchers/lime3ds.sh"
+	emuSavePath="$toolsPath/launchers/azahar.sh"
+	ln -sf $emuSavePath $simLinkPath
+
+	simLinkPath="$toolsPath/launchers/citra.sh"
+	emuSavePath="$toolsPath/launchers/azahar.sh"
+	ln -sf $emuSavePath $simLinkPath
 }
