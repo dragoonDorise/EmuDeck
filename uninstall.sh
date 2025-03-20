@@ -11,7 +11,7 @@ doUninstallDolphin=true
 doUninstallDuck=true
 doUninstallESDE=true
 doUninstallFlycast=true
-doUninstallLime3DS=true
+doUninstallAzahar=true
 doUninstallMame=true
 doUninstallmelonDS=true
 doUninstallMGBA=true
@@ -296,7 +296,7 @@ fi
 				6 "Dolphin" \
 				7 "Duckstation" \
 				8 "Flycast" \
-				9 "Lime3DS" \
+				9 "Azahar" \
 				10 "Mame"  \
 				11 "melonDS"  \
 				12 "mGBA"  \
@@ -344,8 +344,8 @@ fi
 		if [[ "$emusToUninstall" == *"Flycast"* ]]; then
 			doUninstallFlycast=false
 		fi
-		if [[ "$emusToUninstall" == *"Lime3DS"* ]]; then
-			doUninstallLime3DS=false
+		if [[ "$emusToUninstall" == *"Azahar"* ]]; then
+			doUninstallAzahar=false
 		fi
 		if [[ "$emusToUninstall" == *"Mame"* ]]; then
 			doUninstallMame=false
@@ -452,11 +452,11 @@ fi
 		flatpak uninstall org.flycast.Flycast -y
 		rm -rf $HOME/.var/app/org.flycast.Flycast &> /dev/null
 	fi
-	if [[ "$doUninstallLime3DS" == true ]]; then
-		rm -rf $HOME/.config/lime3ds-emu/ &> /dev/null
-		rm -rf $HOME/.local/share/lime3ds-emu &> /dev/null
-  		rm -rf $HOME/.local/share/applications/Lime3DS.desktop &> /dev/null
-		rm -rf $emusFolder/lime3ds-gui*.AppImage &> /dev/null
+	if [[ "$doUninstallAzahar" == true ]]; then
+		rm -rf $HOME/.config/azahar-emu/ &> /dev/null
+		rm -rf $HOME/.local/share/azahar-emu &> /dev/null
+  		rm -rf $HOME/.local/share/applications/Azahar.desktop &> /dev/null
+		rm -rf $emusFolder/azahar-gui*.AppImage &> /dev/null
 	fi
 	if [[ "$doUninstallMame" == true ]]; then
 		flatpak uninstall org.mamedev.MAME -y

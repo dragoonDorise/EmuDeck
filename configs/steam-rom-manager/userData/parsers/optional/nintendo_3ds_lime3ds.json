@@ -1,10 +1,10 @@
 {
     "parserType": "Glob",
-    "configTitle": "Nintendo 3DS - Lime3DS",
+    "configTitle": "Nintendo 3DS - Azahar",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "${romsdirglobal}/n3ds",
     "steamCategories": [
-        "Nintendo 3DS - Lime3DS (Standalone)"
+        "Nintendo 3DS - Azahar (Standalone)"
     ],
     "executableArgs": " \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
@@ -26,7 +26,7 @@
         ]
     },
     "executable": {
-        "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/lime3ds.sh",
+        "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/azahar.sh",
         "shortcutPassthrough": false,
         "appendArgsToExecutable": true
     },
