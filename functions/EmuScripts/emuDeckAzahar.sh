@@ -46,7 +46,12 @@ Azahar_init(){
 	Azahar_setupTextures
 	Azahar_addParser
 	Azahar_migrate
+
+	#ESDE
+	ESDE_refreshCustomEmus
+
 }
+
 
 #update
 Azahar_update(){

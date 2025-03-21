@@ -407,7 +407,7 @@ Yuzu_addESConfig(){
 	fi
 	#Custom Systems config end
 
-	rsync -avhp --mkpath "$emudeckBackend/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
+	ESDE_refreshCustomEmus
 
 }
 

@@ -510,3 +510,9 @@ ESDE_flushToolLauncher(){
 	cp "$emudeckBackend/tools/launchers/es-de/es-de.sh" "$toolsPath/launchers/es-de/es-de.sh"
 	chmod +x "$toolsPath/launchers/es-de/es-de.sh"
 }
+
+
+ESDE_refreshCustomEmus(){
+	rsync -avhp --mkpath "$emudeckBackend/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
+	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
+}
