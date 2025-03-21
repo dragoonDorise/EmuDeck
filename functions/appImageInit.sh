@@ -8,7 +8,7 @@ appImageInit() {
 		rsync -avh "$HOME/emudeck/" "$emudeckFolder" && rm -rf "$HOME/emudeck" && mkdir "$HOME/emudeck" && ln -s "$emudeckFolder/settings.sh" "$HOME/emudeck/settings.sh"
 
 		#Add Emus launchers to ESDE
-		ESDE_refreshCustomEmus
+		#ESDE_refreshCustomEmus
 
 	fi
 
