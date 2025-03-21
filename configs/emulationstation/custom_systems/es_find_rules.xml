@@ -33,11 +33,6 @@
             <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh</entry>
         </rule>
     </emulator>
-    <emulator name="CITRA">
-        <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/citra.sh</entry>
-        </rule>
-    </emulator>
     <emulator name="DOLPHIN">
         <rule type="staticpath">
             <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/dolphin.sh</entry>
@@ -53,9 +48,9 @@
             <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/flycast.sh</entry>
         </rule>
     </emulator>
-    <emulator name="LIME3DS">
+    <emulator name="AZAHAR">
         <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/lime3ds.sh</entry>
+            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/azahar.sh</entry>
         </rule>
     </emulator>
     <emulator name="MAME">

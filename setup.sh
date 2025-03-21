@@ -169,8 +169,7 @@ for install_command in \
 	"$doInstallPCSX2QT PCSX2QT_install" \
 	"$doInstallPrimeHack Primehack_install" \
 	"$doInstallRPCS3 RPCS3_install" \
-	"$doInstallCitra Citra_install" \
-	"$doInstallLime3DS Lime3DS_install" \
+	"$doInstallAzahar Azahar_install" \
 	"$doInstallDolphin Dolphin_install" \
 	"$doInstallDuck DuckStation_install" \
 	"$doInstallRA RetroArch_install" \
@@ -226,8 +225,7 @@ for setup_command in \
 	"$doSetupDolphin Dolphin_init" \
 	"$doSetupPCSX2QT PCSX2QT_init" \
 	"$doSetupRPCS3 RPCS3_init" \
-	"$doSetupCitra Citra_init" \
-	"$doSetupLime3DS Lime3DS_init" \
+	"$doSetupAzahar Azahar_init" \
 	"$doSetupDuck DuckStation_init" \
 	"$doSetupYuzu Yuzu_init" \
 	"$doSetupCitron Citron_init" \
