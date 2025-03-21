@@ -50,6 +50,8 @@ Azahar_init(){
 	#ESDE
 	ESDE_refreshCustomEmus
 
+	ESDE_setEmu 'Azahar (Standalone)' n3ds
+
 }
 
 
