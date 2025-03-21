@@ -12,8 +12,8 @@ Azahar_texturesPath="$HOME/.config/azahar-emu/load/textures"
 Azahar_install(){
 	echo "Begin $Azahar_emuName Install"
 	local showProgress="$1"
-	#local url=$(getReleaseURLGH "Azahar/azahar-archive" "tar.gz" "")
-	local url="https://github.com/azahar-emu/azahar/releases/download/2120-rc3/azahar-2120-rc3-linux-appimage.tar.gz"
+	local url=$(getReleaseURLGH "azahar-emu/azahar" "tar.gz" "")
+	#local url="https://github.com/azahar-emu/azahar/releases/download/2120-rc3/azahar-2120-rc3-linux-appimage.tar.gz"
 	if installEmuAI "$Azahar_emuName" "" "$url" "azahar" "tar.gz" "emulator" "$showProgress"; then #azahar-gui.AppImage
 		mkdir "$emusFolder/azahar-temp"
 		tar -xvzf "$emusFolder/azahar.tar.gz" -C "$emusFolder/azahar-temp" --strip-components 1
