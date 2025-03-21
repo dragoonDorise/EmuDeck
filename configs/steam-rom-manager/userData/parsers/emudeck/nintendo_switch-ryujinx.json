@@ -4,7 +4,7 @@
   "steamCategory": "${Nintendo Switch - Ryujinx}",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}/switch",
-  "executableArgs": "--fullscreen \"'${filePath}'\"",
+  "executableArgs": "--no-gui --fullscreen \"'${filePath}'\"",
   "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle} (Ryujinx)",
