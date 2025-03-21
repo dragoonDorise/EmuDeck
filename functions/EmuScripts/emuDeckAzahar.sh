@@ -296,7 +296,7 @@ Azahar_setResolution(){
 Azahar_flushEmulatorLauncher(){
 
 
-	flushEmulatorLaunchers "azahar"
+	flushEmulatorLaunchers "Azahar"
 
 }
 
