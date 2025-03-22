@@ -24,7 +24,7 @@
     "appendArgsToExecutable": true
   },
   "parserInputs": {
-    "glob": "**/${title}@(.3dsx|.3DSX|.app|.APP|.axf|.AXF|.cii|.CII|.cxi|.CXI|.elf|.ELF|.cci|.CCI)"
+    "glob": "**/${title}@(.3ds|.3DS|.3dsx|.3DSX|.app|.APP|.axf|.AXF|.cii|.CII|.cxi|.CXI|.elf|.ELF|.cci|.CCI)"
   },
   "titleFromVariable": {
     "limitToGroups": "",
