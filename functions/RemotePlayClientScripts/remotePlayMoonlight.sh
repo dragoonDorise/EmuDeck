@@ -1,41 +1,45 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# remotePlayMoonlight
 
 # Variables
 Moonlight_emuName="Moonlight"
-Moonlight_emuType="$emuDeckEmuTypeFlatpak"
+# shellcheck disable=2034,2154
+Moonlight_emuType="${emuDeckEmuTypeFlatpak}"
 Moonlight_emuPath="com.moonlight_stream.Moonlight"
+# shellcheck disable=2034
 Moonlight_releaseURL=""
 
 # Install
-Moonlight_install() {
-	setMSG "Installing $Moonlight_emuName."
+Moonlight_install () {
+	setMSG "Installing ${Moonlight_emuName}."
 	installEmuFP "${Moonlight_emuName}" "${Moonlight_emuPath}" "remoteplay" "Moonlight Game Streaming"
 }
 
 # ApplyInitialSettings
-Moonlight_init() {
-	setMSG "Initializing $Moonlight_emuName settings."	
-	configEmuFP "$Moonlight_emuName" "$Moonlight_emuPath" "true"
+Moonlight_init () {
+	setMSG "Initializing ${Moonlight_emuName} settings."	
+	configEmuFP "${Moonlight_emuName}" "${Moonlight_emuPath}" "true"
 	#Moonlight_addSteamInputProfile
 }
 
 # Update flatpak & launcher script
-Moonlight_update() {
-	setMSG "Updating $Moonlight_emuName settings."
+Moonlight_update () {
+	setMSG "Updating ${Moonlight_emuName} settings."
 	updateEmuFP "${Moonlight_emuName}" "${Moonlight_emuPath}" "remoteplay" "Moonlight Game Streaming"
 }
 
 # Uninstall
-Moonlight_uninstall() {
-	setMSG "Uninstalling $Moonlight_emuName."
-    uninstallEmuFP "$Moonlight_emuName" "$Moonlight_emuPath" "remoteplay" "Moonlight Game Streaming"
+Moonlight_uninstall () {
+	setMSG "Uninstalling ${Moonlight_emuName}."
+    uninstallEmuFP "${Moonlight_emuName}" "${Moonlight_emuPath}" "remoteplay" "Moonlight Game Streaming"
 }
 
 # Check if installed
-Moonlight_IsInstalled() {
-	if [ "$(flatpak --columns=app list | grep "$Moonlight_emuPath")" == "$Moonlight_emuPath" ]; then
+Moonlight_IsInstalled () {
+	if [ "$(flatpak --columns=app list | grep "${Moonlight_emuPath}")" == "${Moonlight_emuPath}" ]; then
 		# Uninstall if previously installed to the "system" level
-		flatpak list | grep "$Moonlight_emuPath" | grep "system"
+		flatpak list | grep "${Moonlight_emuPath}" | grep "system"
 		if [ $? == 0 ]; then
 			Moonlight_uninstall
 			Moonlight_install
@@ -49,7 +53,7 @@ Moonlight_IsInstalled() {
 }
 
 # Import steam profile
-Moonlight_addSteamInputProfile() {
+Moonlight_addSteamInputProfile () {
 	echo "NYI"
 	#rsync -r "$emudeckBackend/configs/steam-input/emudeck_moonlight_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
