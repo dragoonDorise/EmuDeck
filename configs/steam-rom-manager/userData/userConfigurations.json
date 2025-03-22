@@ -6141,7 +6141,7 @@
         "steamDirectory": "${steamdirglobal}",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
-        "executableArgs": "-batch -fullscreen \"${filePath}\"",
+        "executableArgs": "-batch -fullscreen -nogui \"${filePath}\"",
         "onlineImageQueries": "${${fuzzyTitle}}",
         "imagePool": "${fuzzyTitle}",
         "imageProviders": [
@@ -6244,7 +6244,7 @@
             "appendArgsToExecutable": false
         },
         "parserInputs": {
-            "glob": "**/${title}@(.bin|.BIN|.chd|.CHD|.cso|.CSO|.dump|.DUMP|.gz|.GZ|.img|.IMG|.iso|.ISO|.mdf|.MDF|.nrg|.NRG)"
+            "glob": "**/${title}@(.bin|.BIN|.chd|.CHD|.cso|.CSO|.dump|.DUMP|.gz|.GZ|.img|.IMG|.iso|.ISO|.mdf|.MDF|.nrg|.NRG|.zso|.ZSO)"
         },
         "titleFromVariable": {
             "limitToGroups": "",
