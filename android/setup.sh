@@ -133,9 +133,9 @@ if [ $androidInstallPegasus == "true" ]; then
 	Android_Pegasus_init
 fi
 
-if [ $androidInstallLime3DS == "true" ]; then
-	Android_Lime3DS_install
-	Android_Lime3DS_init
+if [ $androidInstallAzahar == "true" ]; then
+	Android_Azahar_install
+	Android_Azahar_init
 fi
 if [ $androidInstallDolphin == "true" ]; then
 	Android_Dolphin_install
@@ -183,8 +183,8 @@ done
 if [ "$success" = "false" ]; then
 	echo "500 #ANDROID"
 else
-	if [ "$androidInstallCitraMMJ" = "true" ]; then
-		Android_Citra_setup
+	if [ "$androidInstallAzahar" = "true" ]; then
+		Android_Azahar_setup
 	fi
 	if [ "$androidInstallPegasus" = "true" ]; then
 		Android_Pegasus_setup

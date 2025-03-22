@@ -232,7 +232,7 @@ SRM_addExtraParsers(){
   for install_command in \
   "BigPEmu_IsInstalled BigPEmu_addParser" \
   "Flycast_IsInstalled Flycast_addParser" \
-  "Lime3DS_IsInstalled Lime3DS_addParser" \
+  "Azahar_IsInstalled Azahar_addParser" \
   "MAME_IsInstalled MAME_addParser" \
   "mGBA_IsInstalled mGBA_addParser" \
   "melonDS_IsInstalled melonDS_addParser" \

@@ -52,7 +52,7 @@ pegasus_setPaths(){
 		cp "$emudeckBackend/roms_alt_emus/gba/metadata.txt" "$romsPath/gba/metadata.txt"
 	fi
 
-	if [ "$(Lime3DS_IsInstalled)" == "true" ]; then
+	if [ "$(Azahar_IsInstalled)" == "true" ]; then
 		cp "$emudeckBackend/roms_alt_emus/n3ds/metadata.txt" "$romsPath/n3ds/metadata.txt"
 	fi
 

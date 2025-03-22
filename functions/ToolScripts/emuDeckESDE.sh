@@ -430,7 +430,7 @@ ESDE_setDefaultEmulators(){
 	ESDE_setEmu 'Dolphin (Standalone)' wii
 	ESDE_setEmu 'PCSX2 (Standalone)' ps2
 	ESDE_setEmu 'melonDS DS' nds
-	ESDE_setEmu 'Citra (Standalone)' n3ds
+	ESDE_setEmu 'Azahar (Standalone)' n3ds
 	ESDE_setEmu 'Beetle Lynx' atarilynx
 	ESDE_setEmu 'DuckStation (Standalone)' psx
 	ESDE_setEmu 'Beetle Saturn' saturn
@@ -509,4 +509,12 @@ ESDE_flushToolLauncher(){
 	mkdir -p "$toolsPath/launchers/es-de"
 	cp "$emudeckBackend/tools/launchers/es-de/es-de.sh" "$toolsPath/launchers/es-de/es-de.sh"
 	chmod +x "$toolsPath/launchers/es-de/es-de.sh"
+}
+
+
+ESDE_refreshCustomEmus(){
+	rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
+	rsync -avhp --mkpath "$emudeckBackend/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
+	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
+	ESDE_setDefaultEmulators
 }

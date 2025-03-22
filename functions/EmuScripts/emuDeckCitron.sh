@@ -313,11 +313,7 @@ Citron_addESConfig () {
 		xmlstarlet fo "${es_systemsFile}" > "${es_systemsFile}.tmp" && mv "${es_systemsFile}.tmp" "${es_systemsFile}"
 	fi
 	# Custom Systems config end
-
-    # shellcheck disable=2154
-	rsync -avhp --mkpath "${emudeckBackend}/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "${es_rulesFile}")" --backup --suffix=.bak
-    # shellcheck disable=2154
-    sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "${es_rulesFile}"
+	ESDE_refreshCustomEmus
 }
 
 # addParser

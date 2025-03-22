@@ -276,7 +276,6 @@ function createUpdateSettingsFile(){
 	#defaultSettingsList+=("doSetupPCSX2=true")
 	defaultSettingsList+=("doSetupRPCS3=true")
 	defaultSettingsList+=("doSetupYuzu=true")
-	defaultSettingsList+=("doSetupCitra=true")
 	defaultSettingsList+=("doSetupDuck=true")
 	defaultSettingsList+=("doSetupCemu=true")
 	defaultSettingsList+=("doSetupXenia=false")
@@ -307,7 +306,6 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doInstallRyujinx=true")
 	defaultSettingsList+=("doInstallRPCS3=true")
 	defaultSettingsList+=("doInstallYuzu=true")
-	defaultSettingsList+=("doInstallCitra=true")
 	defaultSettingsList+=("doInstallDuck=true")
 	defaultSettingsList+=("doInstallCemu=true")
 	defaultSettingsList+=("doInstallXenia=true")
@@ -866,7 +864,7 @@ zipLogs() {
 
 setResolutions(){
 	Cemu_setResolution
-	Citra_setResolution
+	Azahar_setResolution
 	Dolphin_setResolution
 	DuckStation_setResolution
 	Flycast_setResolution
@@ -906,7 +904,7 @@ scriptConfigFileGetVar() {
 getEmuRepo() {
 	case "$1" in
 		"cemu") repo="cemu-project/Cemu" ;;
-		"citra") repo="citra-emu/citra-nightly" ;;
+		"azahar") repo="azahar-emu/azahar" ;;
 		"dolphin") repo="shiiion/dolphin" ;;
 		"duckstation") repo="stenzek/duckstation" ;;
 		"flycast") repo="flyinghead/flycast" ;;
@@ -1109,8 +1107,7 @@ function storePatreonToken(){
 
 function controllerLayout_ABXY(){
 	Cemu_setABXYstyle
-	Citra_setABXYstyle
-	Lime3DS_setABXYstyle
+	Azahar_setABXYstyle
 	Dolphin_setABXYstyle
  	melonDS_setABXYstyle
 	RetroArch_setABXYstyle
@@ -1120,9 +1117,8 @@ function controllerLayout_ABXY(){
 
 function controllerLayout_BAYX(){
 	Cemu_setBAYXstyle
- 	Citra_setBAYXstyle
  	Dolphin_setBAYXstyle
-	Lime3DS_setBAYXstyle
+	Azahar_setBAYXstyle
   	melonDS_setBAYXstyle
 	RetroArch_setBAYXstyle
 	RMG_setBAYXstyle
@@ -1202,8 +1198,7 @@ function flushAllLaunchers(){
 		"$doSetupDolphin Dolphin_flushEmulatorLauncher" \
 		"$doSetupPCSX2QT PCSX2QT_flushEmulatorLauncher" \
 		"$doSetupRPCS3 RPCS3_flushEmulatorLauncher" \
-		"$doSetupCitra Citra_flushEmulatorLauncher" \
-		"$doSetupLime3DS Lime3DS_flushEmulatorLauncher" \
+		"$doSetupAzahar Azahar_flushEmulatorLauncher" \
 		"$doSetupDuck DuckStation_flushEmulatorLauncher" \
 		"$doSetupYuzu Yuzu_flushEmulatorLauncher" \
 		"$doSetupRyujinx Ryujinx_flushEmulatorLauncher" \
