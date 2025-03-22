@@ -1,39 +1,43 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# genericApplicationSpotify
 
 # Variables
 Spotify_emuName="Spotify"
-Spotify_emuType="$emuDeckEmuTypeFlatpak"
+# shellcheck disable=2034,2154
+Spotify_emuType="${emuDeckEmuTypeFlatpak}"
 Spotify_emuPath="com.spotify.Client"
+# shellcheck disable=2034
 Spotify_releaseURL=""
 
 # Install
-Spotify_install() {
-	setMSG "Installing $Spotify_emuName."
+Spotify_install () {
+	setMSG "Installing ${Spotify_emuName}."
 	installEmuFP "${Spotify_emuName}" "${Spotify_emuPath}" "genericapplication" ""
 }
 
 # ApplyInitialSettings
-Spotify_init() {
-	setMSG "Initializing $Spotify_emuName settings."	
-	configEmuFP "$Spotify_emuName" "$Spotify_emuPath" "true"
+Spotify_init () {
+	setMSG "Initializing ${Spotify_emuName} settings."	
+	configEmuFP "${Spotify_emuName}" "${Spotify_emuPath}" "true"
 	#Spotify_addSteamInputProfile
 }
 
 # Update flatpak & launcher script
-Spotify_update() {
-	setMSG "Updating $Spotify_emuName settings."
+Spotify_update () {
+	setMSG "Updating ${Spotify_emuName} settings."
 	updateEmuFP "${Spotify_emuName}" "${Spotify_emuPath}" "genericapplication" ""
 }
 
 # Uninstall
-Spotify_uninstall() {
-	setMSG "Uninstalling $Spotify_emuName."
-    uninstallEmuFP "$Spotify_emuName" "${Spotify_emuPath}" "genericapplication" ""
+Spotify_uninstall () {
+	setMSG "Uninstalling ${Spotify_emuName}."
+    uninstallEmuFP "${Spotify_emuName}" "${Spotify_emuPath}" "genericapplication" ""
 }
 
 # Check if installed
-Spotify_IsInstalled() {
-	if [ "$(flatpak --columns=app list | grep "$Spotify_emuPath")" == "$Spotify_emuPath" ]; then
+Spotify_IsInstalled () {
+	if [ "$(flatpak --columns=app list | grep "${Spotify_emuPath}")" == "${Spotify_emuPath}" ]; then
 		echo true
 		return 1
 	else
@@ -43,7 +47,7 @@ Spotify_IsInstalled() {
 }
 
 # Import steam profile
-Spotify_addSteamInputProfile() {
+Spotify_addSteamInputProfile () {
 	echo "NYI"
 	#rsync -r "$emudeckBackend/configs/steam-input/emudeck_spotify_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }

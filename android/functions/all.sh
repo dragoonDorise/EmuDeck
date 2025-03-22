@@ -13,7 +13,7 @@ source "$emudeckBackend/android/vars.sh"
 
 source "$emudeckBackend"/android/functions/EmuScripts/Android_Yuzu.sh
 source "$emudeckBackend"/android/functions/EmuScripts/Android_NetherSX2.sh
-source "$emudeckBackend"/android/functions/EmuScripts/Android_Lime3DS.sh
+source "$emudeckBackend"/android/functions/EmuScripts/Android_Azahar.sh
 source "$emudeckBackend"/android/functions/EmuScripts/Android_Dolphin.sh
 source "$emudeckBackend"/android/functions/EmuScripts/Android_RetroArch.sh
 source "$emudeckBackend"/android/functions/EmuScripts/Android_PPSSPP.sh

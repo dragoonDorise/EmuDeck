@@ -1,3 +1,4 @@
 .DS_Store
 .nova/Publishing/Deck.json
 *.log
+.nova/Configuration.json

@@ -175,7 +175,7 @@ for install_command in \
 	"${doInstallPCSX2QT} PCSX2QT_install" \
 	"${doInstallPrimeHack} Primehack_install" \
 	"${doInstallRPCS3} RPCS3_install" \
-	"${doInstallCitra} Citra_install" \
+	"${doInstallCitra} Azahar_install" \
 	"${doInstallLime3DS} Lime3DS_install" \
 	"${doInstallDolphin} Dolphin_install" \
 	"${doInstallDuck} DuckStation_install" \
@@ -232,7 +232,7 @@ for setup_command in \
 	"${doSetupDolphin} Dolphin_init" \
 	"${doSetupPCSX2QT} PCSX2QT_init" \
 	"${doSetupRPCS3} RPCS3_init" \
-	"${doSetupCitra} Citra_init" \
+	"${doSetupCitra} Azahar_init" \
 	"${doSetupLime3DS} Lime3DS_init" \
 	"${doSetupDuck} DuckStation_init" \
 	"${doSetupYuzu} Yuzu_init" \
