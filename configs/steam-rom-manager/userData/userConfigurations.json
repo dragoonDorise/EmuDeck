@@ -6222,7 +6222,7 @@
         "configTitle": "Sony PlayStation 2 - PCSX2",
         "steamDirectory": "${steamdirglobal}",
         "romDirectory": "${romsdirglobal}/ps2",
-        "executableArgs": "-batch -fullscreen \"'${filePath}'\"",
+        "executableArgs": "-batch -fullscreen -nogui \"'${filePath}'\"",
         "executableModifier": "\"${exePath}\"",
         "startInDirectory": "",
         "titleModifier": "${fuzzyTitle}",
