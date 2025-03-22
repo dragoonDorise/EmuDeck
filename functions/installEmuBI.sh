@@ -20,11 +20,11 @@ installEmuBI(){
     echo "6, Last Version File: $lastVerFile"
     echo "7, Last Version: $latestVer"
 
-    #rm -f "$HOME/Applications/$fileName.$format" # mv below will overwrite...
-    mkdir -p "$HOME/Applications"
+    #rm -f "$emusFolder/$fileName.$format" # mv below will overwrite...
+    mkdir -p "$emusFolder"
 
-    #curl -L "$url" -o "$HOME/Applications/$fileName.$format.temp" && mv "$HOME/Applications/$fileName.$format.temp" "$HOME/Applications/$fileName.$format"
-    if safeDownload "$name" "$url" "$HOME/Applications/${fileName}.${format}" "$showProgress"; then
+    #curl -L "$url" -o "$emusFolder/$fileName.$format.temp" && mv "$emusFolder/$fileName.$format.temp" "$emusFolder/$fileName.$format"
+    if safeDownload "$name" "$url" "$emusFolder/${fileName}.${format}" "$showProgress"; then
         if [[ -n $lastVerFile ]] && [[ -n $latestVer ]]; then
             echo "latest version $latestVer > $lastVerFile"
             echo "$latestVer" > "$lastVerFile"
@@ -42,7 +42,7 @@ installEmuBI(){
         rm -f "$f"
     done
 
-    find "${EMUDECKGIT}/tools/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
+    find "$emudeckBackend/tools/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
     while read -r l
     do
         echo "deploying $l"

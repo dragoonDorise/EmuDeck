@@ -31,7 +31,7 @@ Xenia_install(){
 
 	#need to look at standardizing exe name; or download both?  let the user choose at runtime?
 	#curl -L "$Xenia_releaseURL" --output "$romsPath"/xbox360/xenia.zip
-	if safeDownload "$Xenia_emuName" "https://github.com/xenia-canary/xenia-canary/releases/download/eb99874/xenia_canary.zip" "$romsPath/xbox360/xenia.zip" "$showProgress"; then
+	if safeDownload "$Xenia_emuName" "$Xenia_releaseURL" "$romsPath/xbox360/xenia.zip" "$showProgress"; then
 		#mkdir -p "$romsPath"/xbox360/tmp
 		unzip -o "$romsPath"/xbox360/xenia.zip -d "$romsPath"/xbox360
 		#rsync -avzh "$romsPath"/xbox360/tmp/ "$romsPath"/xbox360/
@@ -43,9 +43,9 @@ Xenia_install(){
 		return 1
 	fi
 
-	cp "$EMUDECKGIT/tools/launchers/xenia.sh" "${toolsPath}/launchers/xenia.sh"
-	cp "$EMUDECKGIT/tools/launchers/xenia.sh" "$romsPath/emulators/xenia.sh"
-	cp "$EMUDECKGIT/tools/launchers/xenia.sh" "$romsPath/xbox360/xenia.sh"
+	cp "$emudeckBackend/tools/launchers/xenia.sh" "${toolsPath}/launchers/xenia.sh"
+	cp "$emudeckBackend/tools/launchers/xenia.sh" "$romsPath/emulators/xenia.sh"
+	cp "$emudeckBackend/tools/launchers/xenia.sh" "$romsPath/xbox360/xenia.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/tools|${toolsPath}|g" "${toolsPath}/launchers/xenia.sh"
 	sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|" "${toolsPath}/launchers/xenia.sh"
 	mkdir -p "$romsPath/xbox360/roms/xbla"
@@ -69,7 +69,7 @@ Xenia_install(){
 #ApplyInitialSettings
 Xenia_init(){
 	setMSG "Initializing Xenia Config"
-	rsync -avhp "$EMUDECKGIT/configs/xenia/" "$romsPath/xbox360"
+	rsync -avhp "$emudeckBackend/configs/xenia/" "$romsPath/xbox360"
 	mkdir -p "$romsPath/xbox360/roms/xbla"
 	Xenia_setupSaves
 	#SRM_createParsers

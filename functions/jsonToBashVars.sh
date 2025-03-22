@@ -10,8 +10,7 @@ function jsonToBashVars(){
     setSetting doInstallRPCS3 "$(jq .installEmus.rpcs3.status $json)"
     setSetting doInstallYuzu "$(jq .installEmus.yuzu.status $json)"
     setSetting doInstallSuyu "$(jq .installEmus.suyu.status $json)"
-    setSetting doInstallCitra "$(jq .installEmus.citra.status $json)"
-    setSetting doInstallLime3DS "$(jq .installEmus.lime3ds.status $json)"
+    setSetting doInstallAzahar "$(jq .installEmus.azahar.status $json)"
     setSetting doInstallDuck "$(jq .installEmus.duckstation.status $json)"
     setSetting doInstallCemu "$(jq .installEmus.cemu.status $json)"
     setSetting doInstallXenia "$(jq .installEmus.xenia.status $json)"
@@ -20,7 +19,6 @@ function jsonToBashVars(){
     setSetting doInstallPrimeHack "$(jq .installEmus.primehack.status $json)"
     setSetting doInstallPPSSPP "$(jq .installEmus.ppsspp.status $json)"
     setSetting doInstallXemu "$(jq .installEmus.xemu.status $json)"
-    setSetting doInstallSRM "$(jq .installEmus.srm.status $json)"
     setSetting doInstallmelonDS "$(jq .installEmus.melonds.status $json)"
     setSetting doInstallScummVM "$(jq .installEmus.scummvm.status $json)"
     setSetting doInstallFlycast "$(jq .installEmus.flycast.status $json)"
@@ -43,8 +41,7 @@ function jsonToBashVars(){
     setSetting doSetupRPCS3 "$(jq .overwriteConfigEmus.rpcs3.status $json)"
     setSetting doSetupYuzu "$(jq .overwriteConfigEmus.yuzu.status $json)"
     setSetting doSetupSuyu "$(jq .overwriteConfigEmus.suyu.status $json)"
-    setSetting doSetupCitra "$(jq .overwriteConfigEmus.citra.status $json)"
-    setSetting doSetupLime3DS "$(jq .overwriteConfigEmus.lime3ds.status $json)"
+    setSetting doSetupAzahar "$(jq .overwriteConfigEmus.azahar.status $json)"
     setSetting doSetupDuck "$(jq .overwriteConfigEmus.duckstation.status $json)"
     setSetting doSetupCemu "$(jq .overwriteConfigEmus.cemu.status $json)"
     setSetting doSetupXenia "$(jq .overwriteConfigEmus.xenia.status $json)"
@@ -69,12 +66,12 @@ function jsonToBashVars(){
     setSetting doSetupShadPS4  "$(jq .overwriteConfigEmus.shadps4.status $json)"
 
     #Frontends
-    setSetting doSetupSRM "$(jq .overwriteConfigEmus.srm.status $json)"
+    setSetting doSetupSRM "$(jq .installFrontends.deckyromlauncher.status $json)"
     setSetting doSetupESDE "$(jq .overwriteConfigEmus.esde.status $json)"
     setSetting doInstallESDE "$(jq .installFrontends.esde.status $json)"
     setSetting doInstallPegasus "$(jq .installFrontends.pegasus.status $json)"
-    setSetting steamAsFrontend "$(jq .installFrontends.steam.status $json)"
-
+    setSetting doInstallRetroLibrary "$(jq .installFrontends.deckyromlauncher.status $json)"
+    setSetting doInstallSRM "$(jq .installFrontends.steam.status $json)"
 
     #Customizations
     setSetting RABezels "$(jq .bezels $json)"
@@ -144,16 +141,14 @@ function jsonToBashVars(){
     setSetting androidInstallRA "$(jq .android.installEmus.ra.status $json)"
     setSetting androidInstallDolphin "$(jq .android.installEmus.dolphin.status $json)"
     setSetting androidInstallPPSSPP "$(jq .android.installEmus.ppsspp.status $json)"
-    setSetting androidInstallCitraMMJ "$(jq .android.installEmus.citrammj.status $json)"
-    setSetting androidInstallLime3DS "$(jq .android.installEmus.lime3ds.status $json)"
+    setSetting androidInstallAzahar "$(jq .android.installEmus.azahar.status $json)"
     setSetting androidInstallNetherSX2 "$(jq .android.installEmus.nethersx2.status $json)"
     setSetting androidInstallScummVM "$(jq .android.installEmus.scummvm.status $json)"
 
     setSetting androidSetupRA "$(jq .android.overwriteConfigEmus.ra.status $json)"
     setSetting androidSetupDolphin "$(jq .android.overwriteConfigEmus.dolphin.status $json)"
     setSetting androidSetupPPSSPP "$(jq .android.overwriteConfigEmus.ppsspp.status $json)"
-    setSetting androidSetupCitraMMJ "$(jq .android.overwriteConfigEmus.citrammj.status $json)"
-    setSetting androidSetupLime3DS "$(jq .android.overwriteConfigEmus.lime3ds.status $json)"
+    setSetting androidSetupAzahar "$(jq .android.overwriteConfigEmus.azahar.status $json)"
     setSetting androidSetupNetherSX2 "$(jq .android.overwriteConfigEmus.nethersx2.status $json)"
     setSetting androidSetupScummVM "$(jq .android.overwriteConfigEmus.scummvm.status $json)"
 

@@ -62,4 +62,17 @@
             <entry>~/.local/share/flatpak/exports/bin/org.yuzu_emu.yuzu</entry>
         </rule>
     </emulator>
+    <emulator name="AZAHAR">
+        <!-- Nintendo 3DS -->
+        <rule type="staticpath">
+            <entry>~/Applications/azahar*.AppImage</entry>
+        </rule>
+    </emulator>
+    <emulator name="CITRON">
+        <!-- Nintendo Switch emulator Citron -->
+        <rule type="staticpath">
+            <entry>~/Applications/citron*.AppImage</entry>
+        </rule>
+    </emulator>
+
 </ruleList>

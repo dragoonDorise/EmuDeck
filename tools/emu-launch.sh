@@ -2,9 +2,11 @@
 
 ## emu-launch.sh
 
+source "$HOME/.config/EmuDeck/backend/functions/all.sh"
+
 # Attempt to find the given program as an AppImage
 getAppImage () {
-    local EMUDIR="${HOME}/Applications"
+    local EMUDIR="$emusFolder"
 
     # Check for AppImage
     local APPIMAGE

@@ -1,3 +1,5 @@
 #!/bin/bash
 
-"$HOME/Applications/chiaki-ng.AppImage"
+source "$HOME/.config/EmuDeck/backend/functions/all.sh"
+
+"$emusFolder/chiaki-ng.AppImage"
