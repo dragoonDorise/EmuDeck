@@ -6,14 +6,14 @@ ESDE_downloadedToolName="EmulationStation-DE-x64_SteamDeck.AppImage"
 ESDE_toolType="$emuDeckEmuTypeAppImage"
 ESDE_oldConfigDirectory="$ESDE_newConfigDirectory"
 ESDE_newConfigDirectory="$HOME/ES-DE"
-ESDE_toolLocation="$HOME/Applications"
+ESDE_toolLocation="$esdeFolder"
 ESDE_toolPath="${ESDE_toolLocation}/ES-DE.AppImage"
 ESDE_releaseURL="https://gitlab.com/es-de/emulationstation-de/-/package_files/76389058/download" #default URl in case of issues parsing json
 ESDE_releaseMD5="b749b927d61317fde0250af9492a4b9f" #default hash
 ESDE_prereleaseURL=""
 ESDE_prereleaseMD5=""
 ESDE_releaseJSON="https://gitlab.com/es-de/emulationstation-de/-/raw/master/latest_release.json"
-ESDE_addSteamInputFile="$EMUDECKGIT/configs/steam-input/emulationstation-de_controller_config.vdf"
+ESDE_addSteamInputFile="$emudeckBackend/configs/steam-input/emulationstation-de_controller_config.vdf"
 steam_input_templateFolder="$HOME/.steam/steam/controller_base/templates/"
 es_systemsFile="$ESDE_newConfigDirectory/custom_systems/es_systems.xml"
 es_settingsFile="$ESDE_newConfigDirectory/settings/es_settings.xml"
@@ -60,7 +60,7 @@ ESDE_customDesktopShortcut(){
 
     mkdir -p "$toolsPath/launchers/es-de"
     mkdir -p "$toolsPath/launchers/esde"
-    cp "$EMUDECKGIT/tools/launchers/es-de/es-de.sh" "$toolsPath/launchers/es-de/es-de.sh"
+    cp "$emudeckBackend/tools/launchers/es-de/es-de.sh" "$toolsPath/launchers/es-de/es-de.sh"
     rm -rf $HOME/.local/share/applications/$ESDE_oldtoolName.desktop
     createDesktopShortcut   "$HOME/.local/share/applications/$ESDE_toolName.desktop" \
         "$ESDE_toolName AppImage" \
@@ -79,12 +79,15 @@ ESDE_uninstall(){
 #Install
 ESDE_install(){
 	setMSG "Installing $ESDE_toolName"
+	mkdir -p $ESDE_toolLocation
 
 	# Move ES-DE to ~/Applications folder
 	ESDE_migration
 
 	ESDE_SetAppImageURLS
 	ESDE_migration
+
+
 
 
 	local showProgress="$1"
@@ -102,20 +105,25 @@ ESDE_install(){
 	fi
 }
 
+ESDE_addToSteam(){
+	setMSG "Adding $ESDE_toolName to Steam"
+	add_to_steam "es-de" "EmulationStationDE" "$toolsPath/launchers/es-de/es-de.sh" "$HOME/Applications/" "$HOME/.config/EmuDeck/backend/icons/ico/EmulationStationDE.ico"
+}
+
 #ApplyInitialSettings
 ESDE_init(){
 	setMSG "Setting up $ESDE_toolName"
-
+	ESDE_addToSteam
 	ESDE_migration
 	ESDE_junksettingsFile
 	ESDE_addCustomSystemsFile
 
 	mkdir -p "$ESDE_newConfigDirectory/settings"
 	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
-	rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
+	rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
+	rsync -avhp --mkpath "$emudeckBackend/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
 	# This duplicates ESDE_addCustomSystemsFile but this line only applies only if you are resetting ES-DE and not the emulators themselves.
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
+	rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
 
 	ESDE_createLauncher
 	ESDE_addCustomSystems
@@ -136,7 +144,7 @@ ESDE_init(){
 }
 
 ESDE_createLauncher(){
- cp -r "$EMUDECKGIT/tools/launchers/es-de/." "$toolsPath/launchers/es-de/" && chmod +x "$toolsPath/launchers/es-de/es-de.sh"
+ cp -r "$emudeckBackend/tools/launchers/es-de/." "$toolsPath/launchers/es-de/" && chmod +x "$toolsPath/launchers/es-de/es-de.sh"
 }
 
 ESDE_resetConfig(){
@@ -160,9 +168,9 @@ ESDE_update(){
 		mkdir -p "$ESDE_newConfigDirectory/settings"
 
 		#update es_settings.xml
-		rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --ignore-existing
-		rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --ignore-existing
-		rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --ignore-existing
+		rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --ignore-existing
+		rsync -avhp --mkpath "$emudeckBackend/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --ignore-existing
+		rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --ignore-existing
 
 		ESDE_addCustomSystems
 	fi
@@ -204,7 +212,7 @@ ESDE_addCustomSystemsFile(){
 
 	# Separate function so it can be copied and used in the emulator scripts.
 	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
-	rsync -avhp --mkpath "$EMUDECKGIT/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --ignore-existing
+	rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --ignore-existing
 
 }
 
@@ -218,6 +226,7 @@ ESDE_addCustomSystems(){
 	Model2_addESConfig
 	Xenia_addESConfig
 	Yuzu_addESConfig
+	Citron_addESConfig
 }
 
 #update
@@ -369,6 +378,21 @@ ESDE_setEmulationFolder(){
 			yuzuSwitchCommandString="%INJECT%=%BASENAME%.esprefix %EMULATOR_YUZU% -f -g %ROM%"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Yuzu (Standalone)"]' -v "$yuzuSwitchCommandString" "$es_systemsFile"
 		fi
+		if [[ $(grep -rnw "$es_systemsFile" -e 'Citron (Standalone)') == "" ]]; then
+			#insert
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="switch"]' --type elem --name 'commandP' -v "%INJECT%=%BASENAME%.esprefix %EMULATOR_CITRON% -f -g %ROM%" \
+			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Citron (Standalone)" \
+			-r 'systemList/system/commandP' -v 'command' \
+			"$es_systemsFile"
+
+			#format doc to make it look nice
+			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
+		else
+			#update
+			yuzuSwitchCommandString="%INJECT%=%BASENAME%.esprefix %EMULATOR_CITRON% -f -g %ROM%"
+			xmlstarlet ed -L -u '/systemList/system/command[@label="Citron (Standalone)"]' -v "$yuzuSwitchCommandString" "$es_systemsFile"
+		fi
+
 	fi
 
 	echo "updating $es_settingsFile"
@@ -406,7 +430,7 @@ ESDE_setDefaultEmulators(){
 	ESDE_setEmu 'Dolphin (Standalone)' wii
 	ESDE_setEmu 'PCSX2 (Standalone)' ps2
 	ESDE_setEmu 'melonDS DS' nds
-	ESDE_setEmu 'Citra (Standalone)' n3ds
+	ESDE_setEmu 'Azahar (Standalone)' n3ds
 	ESDE_setEmu 'Beetle Lynx' atarilynx
 	ESDE_setEmu 'DuckStation (Standalone)' psx
 	ESDE_setEmu 'Beetle Saturn' saturn
@@ -439,7 +463,7 @@ ESDE_setEmu(){
 	local system=$2
 	local gamelistFile="$ESDE_newConfigDirectory/gamelists/$system/gamelist.xml"
 	if [ ! -f "$gamelistFile" ]; then
-		mkdir -p "$ESDE_newConfigDirectory/gamelists/$system" && cp "$EMUDECKGIT/configs/emulationstation/gamelists/$system/gamelist.xml" "$gamelistFile"
+		mkdir -p "$ESDE_newConfigDirectory/gamelists/$system" && cp "$emudeckBackend/configs/emulationstation/gamelists/$system/gamelist.xml" "$gamelistFile"
 	else
 		gamelistFound=$(grep -rnw "$gamelistFile" -e 'gameList')
 		if [[ $gamelistFound == '' ]]; then
@@ -483,6 +507,14 @@ ESDE_migrateEpicNoir(){
 
 ESDE_flushToolLauncher(){
 	mkdir -p "$toolsPath/launchers/es-de"
-	cp "$EMUDECKGIT/tools/launchers/es-de/es-de.sh" "$toolsPath/launchers/es-de/es-de.sh"
+	cp "$emudeckBackend/tools/launchers/es-de/es-de.sh" "$toolsPath/launchers/es-de/es-de.sh"
 	chmod +x "$toolsPath/launchers/es-de/es-de.sh"
+}
+
+
+ESDE_refreshCustomEmus(){
+	rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
+	rsync -avhp --mkpath "$emudeckBackend/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
+	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
+	ESDE_setDefaultEmulators
 }

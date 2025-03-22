@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 linuxID=$(lsb_release -si)
 sandbox=""
 
-if [ $linuxID = "Ubuntu" ]; then
+if [ "$linuxID" = "Ubuntu" ]; then
     sandbox="--no-sandbox"
 fi
 clear
@@ -53,35 +53,41 @@ else
 
     if command -v apt-get >/dev/null; then
         echo "Installing packages with apt..."
-        DEBIAN_DEPS="jq zenity flatpak unzip bash libfuse2 git rsync whiptail python"
+        DEBIAN_DEPS=(jq zenity flatpak unzip bash libfuse2 git rsync whiptail python)
 
         sudo killall apt apt-get
         sudo apt-get -y update
-        sudo apt-get -y install $DEBIAN_DEPS
+        sudo apt-get -y install "${DEBIAN_DEPS[@]}"
     elif command -v pacman >/dev/null; then
         echo "Installing packages with pacman..."
-        ARCH_DEPS="steam jq zenity flatpak unzip bash fuse2 git rsync whiptail python"
+        ARCH_DEPS=(steam jq zenity flatpak unzip bash fuse2 git rsync libnewt python)
 
         sudo pacman --noconfirm -Syu
-        sudo pacman --noconfirm -S $ARCH_DEPS
+        sudo pacman --noconfirm -S "${ARCH_DEPS[@]}"
     elif command -v dnf >/dev/null; then
         echo "Installing packages with dnf..."
-        FEDORA_DEPS="jq zenity flatpak unzip bash fuse git rsync newt python"
+        FEDORA_DEPS=(jq zenity flatpak unzip bash fuse git rsync newt python)
 
         sudo dnf -y upgrade
-        sudo dnf -y install $FEDORA_DEPS
+        sudo dnf -y install "${FEDORA_DEPS[@]}"
+    elif command -v rpm-ostree >/dev/null; then
+        echo "Installing packages wth rpm-ostree..."
+        FEDORA_DEPS=(jq zenity flatpak unzip bash fuse git rsync newt python)
+
+        sudo rpm-ostree upgrade
+        sudo rpm-ostree install "${FEDORA_DEPS[@]}"
     elif command -v zypper >/dev/null; then
         echo "Installing packages with zypper..."
-        SUSE_DEPS="steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail python"
+        SUSE_DEPS=(steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail python)
 
         sudo zypper --non-interactive up
-        sudo zypper --non-interactive install $SUSE_DEPS
+        sudo zypper --non-interactive install "${SUSE_DEPS[@]}"
     elif command -v xbps-install >/dev/null; then
         echo "Installing packages with xbps..."
-        VOID_DEPS="steam jq zenity flatpak unzip bash fuse git rsync whiptail python"
+        VOID_DEPS=(steam jq zenity flatpak unzip bash fuse git rsync whiptail python)
 
         sudo xbps-install -Syu
-        sudo xbps-install -Sy $VOID_DEPS
+        sudo xbps-install -Sy "${VOID_DEPS[@]}"
     else
         log_err "Your Linux distro $linuxID is not supported by this script. We invite to open a PR or help us with adding your OS to this script. https://github.com/dragoonDorise/EmuDeck/issues"
         exit 1

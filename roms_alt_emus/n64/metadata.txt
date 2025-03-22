@@ -1,0 +1,4 @@
+collection: Nintendo 64 (RMG)
+shortname: n64
+extensions: bin, BIN, n64, N64, ndd, NDD, u1, U1, v64, V64, z64, Z64, 7z, 7Z, zip, ZIP
+launch: /run/media/mmcblk0p1/Emulation/tools/launchers/rmg.sh --fullscreen --nogui --quit-after-emulation  {file.path}

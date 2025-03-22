@@ -38,7 +38,7 @@ Migration_move(){
 	destination=$2
 	size=$3
 	rsync -av --progress "$origin" "$destination" |
-	awk -f $HOME/.config/EmuDeck/backend/rsync.awk |
+	awk -f $emudeckBackend/rsync.awk |
 	zenity --progress --title "Migrating your current ${size} Emulation folder to $destination" \
 	--text="Scanning..." --width=400 --percentage=0 --auto-close
 }
@@ -59,7 +59,7 @@ Migration_updatePaths(){
 
 	#Emu configs
 	#Cemu
-	sed -i "s|${origin}|${destination}|g" "$Lime3DS_configFile"
+	sed -i "s|${origin}|${destination}|g" "$Azahar_configFile"
 	#Citra
 	sed -i "s|${origin}|${destination}|g" "$Citra_configFile"
 	#Citra

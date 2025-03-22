@@ -1,5 +1,5 @@
 #!/bin/sh
-source $HOME/.config/EmuDeck/backend/functions/all.sh
+. "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "supermodel"
 param="${@}"
 param=$(echo "$param" | sed "s|'||g")

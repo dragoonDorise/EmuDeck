@@ -156,7 +156,7 @@ DuckStation_addSteamInputProfile(){
 	addSteamInputCustomIcons
 	#echo "NYI"
 	#setMSG "Adding $DuckStation_emuName Steam Input Profile."
-	#rsync -r "$EMUDECKGIT/configs/steam-input/duckstation_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
+	#rsync -r "$emudeckBackend/configs/steam-input/duckstation_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
 
 DuckStation_retroAchievementsOn(){
@@ -176,8 +176,8 @@ DuckStation_retroAchievementsHardCoreOff(){
 
 
 DuckStation_retroAchievementsSetLogin(){
-	rau=$(cat "$HOME/.config/EmuDeck/.rau")
-	rat=$(cat "$HOME/.config/EmuDeck/.rat")
+	rau=$(cat "$emudeckFolder/.rau")
+	rat=$(cat "$emudeckFolder/.rat")
 	echo "Evaluate RetroAchievements Login."
 	if [ ${#rat} -lt 1 ]; then
 		echo "--No token."

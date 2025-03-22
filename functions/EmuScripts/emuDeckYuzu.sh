@@ -3,7 +3,7 @@
 #variables
 Yuzu_emuName="yuzu"
 Yuzu_emuType="$emuDeckEmuTypeAppImage"
-Yuzu_emuPath="$HOME/Applications/yuzu.AppImage"
+Yuzu_emuPath="$emusFolder/yuzu.AppImage"
 
 Yuzu_configFile="$HOME/.config/yuzu/qt-config.ini"
 
@@ -60,7 +60,7 @@ Yuzu_install() {
     echo "Begin Yuzu Install"
 
     local showProgress=$1
-    local lastVerFile="$HOME/emudeck/yuzu.ver"
+    local lastVerFile="$emudeckFolder/yuzu.ver"
     local latestVer=$(curl -fSs "https://api.github.com/repos/yuzu-emu/yuzu-mainline/releases" | jq -r '[ .[].tag_name ][0]')
     local success="false"
     if installEmuAI "$Yuzu_emuName" "$(getReleaseURLGH "yuzu-emu/yuzu-mainline" "AppImage")" "" "$showProgress" "$lastVerFile" "$latestVer"; then # yuzu.AppImage - needs to be lowercase yuzu for EsDE to find it
@@ -76,15 +76,15 @@ Yuzu_install() {
 Yuzu_init() {
     echo "Begin Yuzu Init"
 
-	cp "$EMUDECKGIT/tools/launchers/yuzu.sh" "$toolsPath/launchers/yuzu.sh"
+	cp "$emudeckBackend/tools/launchers/yuzu.sh" "$toolsPath/launchers/yuzu.sh"
 	chmod +x "$toolsPath/launchers/yuzu.sh"
     mkdir -p "$HOME/.config/yuzu"
     mkdir -p "$HOME/.local/share/yuzu"
-	rsync -avhp "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu/." "$HOME/.config/yuzu"
-	rsync -avhp "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu/." "$HOME/.local/share/yuzu"
+	rsync -avhp "$emudeckBackend/configs/org.yuzu_emu.yuzu/config/yuzu/." "$HOME/.config/yuzu"
+	rsync -avhp "$emudeckBackend/configs/org.yuzu_emu.yuzu/data/yuzu/." "$HOME/.local/share/yuzu"
     Yuzu_migrate
-    configEmuAI "$Yuzu_emuName" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
-    configEmuAI "$Yuzu_emuName" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
+    configEmuAI "$Yuzu_emuName" "config" "$HOME/.config/yuzu" "$emudeckBackend/configs/org.yuzu_emu.yuzu/config/yuzu" "true"
+    configEmuAI "$Yuzu_emuName" "data" "$HOME/.local/share/yuzu" "$emudeckBackend/configs/org.yuzu_emu.yuzu/data/yuzu" "true"
 
     Yuzu_setEmulationFolder
     Yuzu_setupStorage
@@ -102,7 +102,7 @@ Yuzu_init() {
 	else
 		echo "ES-DE not found. Skipped adding custom system."
 	fi
-
+    Yuzu_addParser
     Yuzu_setLanguage
 
 }
@@ -113,8 +113,8 @@ Yuzu_update() {
 
     Yuzu_migrate
 
-    configEmuAI "$Yuzu_emuName" "config" "$HOME/.config/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/config/yuzu"
-    configEmuAI "$Yuzu_emuName" "data" "$HOME/.local/share/yuzu" "$EMUDECKGIT/configs/org.yuzu_emu.yuzu/data/yuzu"
+    configEmuAI "$Yuzu_emuName" "config" "$HOME/.config/yuzu" "$emudeckBackend/configs/org.yuzu_emu.yuzu/config/yuzu"
+    configEmuAI "$Yuzu_emuName" "data" "$HOME/.local/share/yuzu" "$emudeckBackend/configs/org.yuzu_emu.yuzu/data/yuzu"
 
     Yuzu_setEmulationFolder
     Yuzu_setupStorage
@@ -218,6 +218,7 @@ Yuzu_wipe() {
 #Uninstall
 Yuzu_uninstall() {
     echo "Begin Yuzu uninstall"
+    removeParser "nintendo_switch_yuzu.json"
     rm -rf "$Yuzu_emuPath"
     YuzuEA_uninstall
 }
@@ -226,7 +227,7 @@ Yuzu_uninstall() {
 #Migrate
 Yuzu_migrate() {
     echo "Begin Yuzu Migration"
-    migrationFlag="$HOME/.config/EmuDeck/.${Yuzu_emuName}MigrationCompleted"
+    migrationFlag="$emudeckFolder/.${Yuzu_emuName}MigrationCompleted"
     #check if we have a nomigrateflag for $emu
     if [ ! -f "$migrationFlag" ]; then
         #yuzu flatpak to appimage
@@ -322,7 +323,7 @@ YuzuEA_install() {
     if safeDownload "yuzu-ea" "$fileToDownload" "${YuzuEA_emuPath}" "$showProgress" "Authorization: Bearer ${BEARERTOKEN}"; then
         chmod +x "$YuzuEA_emuPath"
 
-        cp -v "${EMUDECKGIT}/tools/launchers/yuzu.sh" "${toolsPath}/launchers/" &>/dev/null
+        cp -v "$emudeckBackend/tools/launchers/yuzu.sh" "${toolsPath}/launchers/" &>/dev/null
         chmod +x "${toolsPath}/launchers/yuzu.sh"
         echo "true"
         return 0
@@ -406,6 +407,10 @@ Yuzu_addESConfig(){
 	fi
 	#Custom Systems config end
 
-	rsync -avhp --mkpath "$EMUDECKGIT/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
+	ESDE_refreshCustomEmus
 
+}
+
+Yuzu_addParser(){
+  addParser "nintendo_switch_yuzu.json"
 }

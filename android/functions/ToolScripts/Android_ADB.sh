@@ -16,15 +16,15 @@ function Android_ADB_isInstalled(){
 
 function Android_ADB_install(){
 	local outFile="adb.zip"
-	local outDir="$HOME/emudeck/android"
+	local outDir="$emudeckFolder/android"
 
 	Android_download "$outFile" "$Android_ADB_url" && unzip -o "$outDir/$outFile" -d $outDir && rm -rf "$outDir/$outFile" && echo "true" && return 0
 
 }
 
 function Android_download(){
-	local outDir="$HOME/emudeck/android/"
-	local outFile="$HOME/emudeck/android/$1"
+	local outDir="$emudeckFolder/android/"
+	local outFile="$emudeckFolder/android/$1"
 	local url=$2
 	mkdir -p $outDir
 
@@ -75,7 +75,7 @@ Android_ADB_dl_installAPK(){
 	local temp_emu=$1
 	local temp_url=$2
 	Android_download "$temp_emu.apk" $temp_url
-	Android_ADB_installAPK "$HOME/emudeck/android/$temp_emu.apk"
+	Android_ADB_installAPK "$emudeckFolder/android/$temp_emu.apk"
 }
 
 function Android_ADB_getSDCard(){

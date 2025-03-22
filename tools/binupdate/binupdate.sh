@@ -109,16 +109,6 @@ function runBinDownloads {
             messages+=("There was a problem updating Cemu (Native)")
         fi
     fi
-    if [[ "$binsToDL" == *"Citra"* ]]; then
-        ((progresspct += pct)) || true
-        echo "$progresspct"
-        echo "# Updating Citra"
-        if Citra_install "true" 2>&1; then
-            messages+=("Citra Updated Successfully")
-        else
-            messages+=("There was a problem updating Citra")
-        fi
-    fi
     if [[ "$binsToDL" == *"ES-DE"* ]]; then
         echo "0"
         echo "# Updating ES-DE"
@@ -128,14 +118,14 @@ function runBinDownloads {
             messages+=("There was a problem updating ES-DE")
         fi
     fi
-    if [[ "$binsToDL" == *"Lime3DS"* ]]; then
+    if [[ "$binsToDL" == *"Azahar"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
-        echo "# Updating Lime3DS"
-        if Lime3DS_install "true" 2>&1; then
-            messages+=("Lime3DS Updated Successfully")
+        echo "# Updating Azahar"
+        if Azahar_install "true" 2>&1; then
+            messages+=("Azahar Updated Successfully")
         else
-            messages+=("There was a problem updating Lime3DS")
+            messages+=("There was a problem updating Azahar")
         fi
     fi
     if [[ "$binsToDL" == *"mGBA"* ]]; then
@@ -250,20 +240,15 @@ if [ "$(Cemu_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
 else
     binTable+=(FALSE "Cemu (Native)" "Nintendo Wii U")
 fi
-if [ "$(Citra_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
-    binTable+=(TRUE "Citra" "Nintendo 3DS")
-else
-    binTable+=(FALSE "Citra" "Nintendo 3DS")
-fi
 if [ "$(ESDE_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "ES-DE" "Emulator Front-End")
 else
     binTable+=(FALSE "ES-DE" "Emulator Front-End")
 fi
-if [ "$(Lime3DS_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
-    binTable+=(TRUE "Lime3DS" "Nintendo 3DS")
+if [ "$(Azahar_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
+    binTable+=(TRUE "Azahar" "Nintendo 3DS")
 else
-    binTable+=(FALSE "Lime3DS" "Nintendo 3DS")
+    binTable+=(FALSE "Azahar" "Nintendo 3DS")
 fi
 if [ "$(mGBA_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "mGBA" "Nintendo Game Boy Family")

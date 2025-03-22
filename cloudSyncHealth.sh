@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-source "$HOME/.config/EmuDeck/backend/functions/all.sh"
+. "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
 NONE='\033[00m'
 RED='\033[01;31m'
@@ -40,7 +40,7 @@ cloud_sync_dowload_test(){
 echo -e "${CYAN}CloudSync Status Report${NONE}"
 echo ""
 
-miArray=("Cemu" "citra" "dolphin" "duckstation" "MAME" "melonds" "mgba" "pcsx2" "ppsspp" "primehack" "retroarch" "rpcs3" "scummvm" "Vita3K" "yuzu" "ryujinx" )
+miArray=("Cemu" "azahar" "dolphin" "duckstation" "MAME" "melonds" "mgba" "pcsx2" "ppsspp" "primehack" "retroarch" "rpcs3" "scummvm" "Vita3K" "yuzu" "ryujinx" )
 
 upload="true"
 download="true"

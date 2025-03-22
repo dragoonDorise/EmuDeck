@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Global variables
-emuDecksettingsFile="$HOME/emudeck/settings.sh"
+emuDecksettingsFile="$emudeckFolder/settings.sh"
 
 emuDeckEmuTypeFlatpak="Flatpak"
 emuDeckEmuTypeAppImage="AppImage"
@@ -11,8 +11,8 @@ emuDeckEmuTypeOther="Other"
 
 function startLog() {
 	funcName="$1"
-	mkdir -p "$HOME/emudeck/logs"
-	logFile="$HOME/emudeck/logs/$funcName.log"
+	mkdir -p "$emudeckLogs"
+	logFile="$emudeckLogs/$funcName.log"
 
 	touch "$logFile"
 
@@ -170,7 +170,7 @@ function makeFunction(){
 
 function deleteConfigs(){
 
-	find "$HOME/.config/EmuDeck/backend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.opt" -o -type f -iname "*.cfg"| while read file
+	find "$emudeckBackend/configs/org.libretro.RetroArch/config/retroarch/config" -type f -iname "*.opt" -o -type f -iname "*.cfg"| while read file
 		do
 			rm "$file"
 		done
@@ -182,7 +182,7 @@ function customLocation(){
 }
 
 function refreshSource(){
-	source "$EMUDECKGIT/functions/all.sh"
+	source "$emudeckBackend/functions/all.sh"
 }
 
 function setAllEmuPaths(){
@@ -246,7 +246,7 @@ function updateOrAppendConfigLine(){
 function getEnvironmentDetails(){
 	local sdpath=$(getSDPath)
 	local sdValid=$(testLocationValid "sd" "$sdpath")
-	if [ -f "$HOME/.config/EmuDeck/.finished" ]; then
+	if [ -f "$emudeckFolder/.finished" ]; then
 		firstRun="false"
 	else
 		firstRun="true"
@@ -276,7 +276,6 @@ function createUpdateSettingsFile(){
 	#defaultSettingsList+=("doSetupPCSX2=true")
 	defaultSettingsList+=("doSetupRPCS3=true")
 	defaultSettingsList+=("doSetupYuzu=true")
-	defaultSettingsList+=("doSetupCitra=true")
 	defaultSettingsList+=("doSetupDuck=true")
 	defaultSettingsList+=("doSetupCemu=true")
 	defaultSettingsList+=("doSetupXenia=false")
@@ -307,7 +306,6 @@ function createUpdateSettingsFile(){
 	defaultSettingsList+=("doInstallRyujinx=true")
 	defaultSettingsList+=("doInstallRPCS3=true")
 	defaultSettingsList+=("doInstallYuzu=true")
-	defaultSettingsList+=("doInstallCitra=true")
 	defaultSettingsList+=("doInstallDuck=true")
 	defaultSettingsList+=("doInstallCemu=true")
 	defaultSettingsList+=("doInstallXenia=true")
@@ -417,6 +415,7 @@ function getReleaseURLGH(){
 	local fileType=$2
 	local fileNameContains=$3
 	local fileNameStartsWith=$4
+	local fileNameDoesNotContain=$5
 	local url
 	#local token=$(tokenGenerator)
 
@@ -424,8 +423,25 @@ function getReleaseURLGH(){
 		url="https://api.github.com/repos/$repository/releases"
 	fi
 
+	# fetch and filter assets
 	curl -fSs "$url" | \
-		jq -r '[ .[].assets[] | select(.name | contains("'"$fileNameContains"'") and startswith("'"$fileNameStartsWith"'") and endswith("'"$fileType"'")).browser_download_url ][0] // empty'
+	jq -r --arg contains "$fileNameContains" \
+		--arg startsWith "$fileNameStartsWith" \
+		--arg endsWith "$fileType" \
+		--arg doesNotContain "$fileNameDoesNotContain" '
+		[
+			.[].assets[] |
+			select(.name |
+					contains($contains) and
+					startswith($startsWith) and
+					endswith($endsWith) and
+					(if $doesNotContain != "" then
+						contains($doesNotContain) | not
+					else
+						true
+					end)
+			).browser_download_url
+		][0] // empty'
 }
 
 function linkToSaveFolder(){
@@ -563,7 +579,7 @@ function createDesktopShortcut(){
 	mkdir -p "$HOME/.local/share/applications/"
 
 	mkdir -p "$HOME/.local/share/icons/emudeck/"
-	cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name")."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null
+	cp -v "$emudeckBackend/icons/$(cut -d " " -f1 <<< "$name")."{svg,jpg,png} "$HOME/.local/share/icons/emudeck/" 2>/dev/null
 	icon=$(find "$HOME/.local/share/icons/emudeck/" -type f -iname "$(cut -d " " -f1 <<< "$name").*")
 
 	if [ -z "$icon" ]; then
@@ -602,7 +618,7 @@ function desktopShortcutFieldUpdate(){
 		# update icon if name is updated
 		if [ "$shortcutKey" == "Name" ]; then
 			name=$shortcutValue
-			cp -v "$EMUDECKGIT/icons/$(cut -d " " -f1 <<< "$name").{svg,jpg,png}" "$HOME/.local/share/icons/emudeck/" 2>/dev/null
+			cp -v "$emudeckBackend/icons/$(cut -d " " -f1 <<< "$name").{svg,jpg,png}" "$HOME/.local/share/icons/emudeck/" 2>/dev/null
 			icon=$(find "$HOME/.local/share/icons/emudeck/" -type f \( -iname "$(cut -d " " -f1 <<< "$name").svg" -o -iname "$(cut -d " " -f1 <<< "$name").jpg" -o -iname "$(cut -d " " -f1 <<< "$name").png" \) -print -quit)
 			echo "Icon Found: $icon"
 			if [ -n "$icon" ]; then
@@ -786,7 +802,7 @@ flushEmulatorLaunchers(){
 		rm -f "$f"
 	done
 
-	find "${EMUDECKGIT}/tools/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
+	find "$emudeckBackend/tools/launchers/" -type f -iname "$shName.sh" -o -type f -iname "$shName-emu.sh" | \
 	while read -r l
 	do
 		echo "deploying $l"
@@ -802,7 +818,7 @@ flushEmulatorLaunchers(){
 }
 
 addSteamInputCustomIcons() {
-	rsync -av "$EMUDECKGIT/configs/steam-input/Icons/" "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons"
+	rsync -av "$emudeckBackend/configs/steam-input/Icons/" "$HOME/.steam/steam/tenfoot/resource/images/library/controller/binding_icons"
 }
 
 getEmuInstallStatus() {
@@ -832,8 +848,8 @@ check_internet_connection(){
 zipLogs() {
 	local desktop=$(xdg-user-dir DESKTOP)
 
-	logsFolder="$HOME/emudeck/logs"
-	settingsFile="$HOME/emudeck/settings.sh"
+	logsFolder="$emudeckLogs"
+	settingsFile="$emudeckFolder/settings.sh"
 	zipOutput="$desktop/emudeck_logs.zip"
 
 	# Comprime los archivos en un archivo zip
@@ -848,7 +864,7 @@ zipLogs() {
 
 setResolutions(){
 	Cemu_setResolution
-	Citra_setResolution
+	Azahar_setResolution
 	Dolphin_setResolution
 	DuckStation_setResolution
 	Flycast_setResolution
@@ -888,7 +904,7 @@ scriptConfigFileGetVar() {
 getEmuRepo() {
 	case "$1" in
 		"cemu") repo="cemu-project/Cemu" ;;
-		"citra") repo="citra-emu/citra-nightly" ;;
+		"azahar") repo="azahar-emu/azahar" ;;
 		"dolphin") repo="shiiion/dolphin" ;;
 		"duckstation") repo="stenzek/duckstation" ;;
 		"flycast") repo="flyinghead/flycast" ;;
@@ -927,7 +943,7 @@ saveLatestVersionGH() {
 		emuVersion=$(getLatestVersionGH "$repo")
 
 		# JSON file path
-		jsonFilePath="$HOME/emudeck/emu_versions.json"
+		jsonFilePath="$emudeckFolder/emu_versions.json"
 
 		if [ -e "$jsonFilePath" ]; then
 			echo "file found"
@@ -954,11 +970,11 @@ saveLatestVersionGH() {
 
 isLatestVersionGH() {
 	emuName=$1
-	dontUpdate="$HOME/emudeck/emulatorInit.noupdate"
+	dontUpdate="$emudeckFolder/emulatorInit.noupdate"
 	emuDontUpdate="${emuName}.noupdate"
 
 	# check global noupdate file flag, emulator noupdate flag file using case insensitive find and internet connectivity
-	if [ ! -f "${dontUpdate}" ] && [[ -z $(find "$HOME/emudeck/" -maxdepth 1 -type f -iname "${emuDontUpdate}") ]] && [ "$(check_internet_connection)" == "true" ]; then
+	if [ ! -f "${dontUpdate}" ] && [[ -z $(find "$emudeckFolder" -maxdepth 1 -type f -iname "${emuDontUpdate}") ]] && [ "$(check_internet_connection)" == "true" ]; then
 		repo=$(getEmuRepo "$emuName")
 
 		if [ "$repo" == "none" ]; then
@@ -967,7 +983,7 @@ isLatestVersionGH() {
 			emuVersion=$(getLatestVersionGH "$repo")
 
 			# JSON file path
-			jsonFilePath="$HOME/emudeck/emu_versions.json"
+			jsonFilePath="$emudeckFolder/emu_versions.json"
 
 			if [ -f "$jsonFilePath" ]; then
 				echo "file found"
@@ -1016,8 +1032,8 @@ isLatestVersionGH() {
 }
 
 addProtonLaunch(){
-	rsync -avhp "$EMUDECKGIT/tools/proton-launch.sh" "${toolsPath}"
-	rsync -avhp "$EMUDECKGIT/tools/appID.py" "${toolsPath}"
+	rsync -avhp "$emudeckBackend/tools/proton-launch.sh" "${toolsPath}"
+	rsync -avhp "$emudeckBackend/tools/appID.py" "${toolsPath}"
 	chmod +x "${toolsPath}/proton-launch.sh"
 }
 
@@ -1027,7 +1043,7 @@ function emulatorInit(){
 	#NetPlay
 	cloud_sync_stopService
 	if [ "$emuName" = 'retroarch' ]; then
-   		if [ "$netPlay" == "true" ]; then
+		   if [ "$netPlay" == "true" ]; then
 			#Looks for devices listening
 			setSetting netplayCMD "-H"
 			sleep 2
@@ -1036,7 +1052,7 @@ function emulatorInit(){
 			setSetting netplayCMD "' '"
 			cloud_sync_downloadEmu "$emuName" && cloud_sync_startService
 		fi
-		source $HOME/.config/EmuDeck/backend/functions/all.sh
+		source $emudeckBackend/functions/all.sh
 	fi
 
 	if [ "$emuName" != 'retroarch' ]; then
@@ -1091,8 +1107,7 @@ function storePatreonToken(){
 
 function controllerLayout_ABXY(){
 	Cemu_setABXYstyle
-	Citra_setABXYstyle
-	Lime3DS_setABXYstyle
+	Azahar_setABXYstyle
 	Dolphin_setABXYstyle
  	melonDS_setABXYstyle
 	RetroArch_setABXYstyle
@@ -1102,9 +1117,8 @@ function controllerLayout_ABXY(){
 
 function controllerLayout_BAYX(){
 	Cemu_setBAYXstyle
- 	Citra_setBAYXstyle
  	Dolphin_setBAYXstyle
-	Lime3DS_setBAYXstyle
+	Azahar_setBAYXstyle
   	melonDS_setBAYXstyle
 	RetroArch_setBAYXstyle
 	RMG_setBAYXstyle
@@ -1112,22 +1126,23 @@ function controllerLayout_BAYX(){
 }
 
 function server_install(){
-	cp "$EMUDECKGIT/tools/server.sh" "$toolsPath/"
-	#cp "$EMUDECKGIT/tools/index.html" "$toolsPath/"
+	cp "$emudeckBackend/tools/server.sh" "$toolsPath/"
+	#cp "$emudeckBackend/tools/index.html" "$toolsPath/"
 	chmod +x "$toolsPath/server.sh"
 }
 
 function startCompressor(){
-	konsole -e "/bin/bash $HOME/.config/EmuDeck/backend/tools/chdconv/chddeck.sh"
+	konsole -e "/bin/bash $emudeckBackend/tools/chdconv/chddeck.sh"
 }
 
 function generate_pythonEnv() {
-	if [ ! -d "$HOME/.config/EmuDeck/python_virtual_env" ]; then
-		python3 -m venv "$HOME/.config/EmuDeck/python_virtual_env"
-		source "$HOME/.config/EmuDeck/python_virtual_env/bin/activate"
+	if [ ! -d "$emudeckFolder/python_virtual_env" ]; then
+		python3 -m venv "$emudeckFolder/python_virtual_env"
+		source "$emudeckFolder/python_virtual_env/bin/activate"
 		pip install requests
+		pip install vdf
 	else
-		source "$HOME/.config/EmuDeck/python_virtual_env/bin/activate"
+		source "$emudeckFolder/python_virtual_env/bin/activate"
 	fi
 }
 
@@ -1142,4 +1157,144 @@ function read_config_toml() {
 
 	echo "Extracted value: $value"
 	echo "$value"
+}
+
+function add_to_steam(){
+	#Example
+	#add_to_steam "es-de" "ES-DE" "$toolsPath/launchers/es-de/es-de.sh" "$HOME/Applications/" "$HOME/.config/EmuDeck/backend/icons/ico/EmulationStationDE.ico"
+	local id="$1"
+	local name="$2"
+	local target_path="$3"
+	local start_dir="$4"
+	local icon_path="$5"
+	local steam_directory="$HOME/.steam/steam/"
+	local user_id="$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)"
+
+	generate_pythonEnv &> /dev/null
+
+	steam_pid=$(pidof steam)
+
+	if [ -n "$steam_pid" ]; then
+		echo "Steam está en ejecución. Enviando SIGTERM..."
+		kill -15 $steam_pid
+		echo "Señal SIGTERM env"
+	fi
+
+	python "$emudeckFolder/backend/tools/vdf/add.py" $id $name $target_path $start_dir $icon_path $steam_directory $user_id
+
+}
+
+function flushAllLaunchers(){
+
+	local max_jobs=5
+	local current_jobs=0
+
+	for setup_command in \
+		"$doSetupSRM SRM_flushEmulatorLauncher" \
+		"$doSetupESDE ESDE_update" \
+		"$doSetupPegasus pegasus_flushEmulatorLauncher" \
+		"$doSetupRA RetroArch_flushEmulatorLauncher" \
+		"$doSetupPrimehack Primehack_flushEmulatorLauncher" \
+		"$doSetupDolphin Dolphin_flushEmulatorLauncher" \
+		"$doSetupPCSX2QT PCSX2QT_flushEmulatorLauncher" \
+		"$doSetupRPCS3 RPCS3_flushEmulatorLauncher" \
+		"$doSetupAzahar Azahar_flushEmulatorLauncher" \
+		"$doSetupDuck DuckStation_flushEmulatorLauncher" \
+		"$doSetupYuzu Yuzu_flushEmulatorLauncher" \
+		"$doSetupRyujinx Ryujinx_flushEmulatorLauncher" \
+		"$doSetupShadPS4 ShadPS4_flushEmulatorLauncher" \
+		"$doSetupPPSSPP PPSSPP_flushEmulatorLauncher" \
+		"$doSetupXemu Xemu_flushEmulatorLauncher" \
+		"$doSetupMAME MAME_flushEmulatorLauncher" \
+		"$doSetupScummVM ScummVM_flushEmulatorLauncher" \
+		"$doSetupVita3K Vita3K_flushEmulatorLauncher" \
+		"$doSetupRMG RMG_flushEmulatorLauncher" \
+		"$doSetupares ares_flushEmulatorLauncher" \
+		"$doSetupmelonDS melonDS_flushEmulatorLauncher" \
+		"$doSetupMGBA mGBA_flushEmulatorLauncher" \
+		"$doSetupCemuNative CemuNative_flushEmulatorLauncher" \
+		"$doSetupFlycast Flycast_flushEmulatorLauncher" \
+		"$doSetupSupermodel Supermodel_flushEmulatorLauncher" \
+		"$doSetupModel2 Model2_flushEmulatorLauncher" \
+		"$doSetupCemu Cemu_flushEmulatorLauncher" \
+		"$doSetupBigPEmu BigPEmu_flushEmulatorLauncher" \
+		"$doSetupXenia Xenia_flushEmulatorLauncher"; do
+
+		condition=$(echo "$setup_command" | awk '{print $1}')
+		command=$(echo "$setup_command" | awk '{print $2}')
+
+		if [ "$condition" == "true" ]; then
+			echo "Executing $command"
+			$command &
+			current_jobs=$((current_jobs + 1))
+		fi
+
+		if [ $current_jobs -ge $max_jobs ]; then
+			wait
+			current_jobs=0
+		fi
+	done
+
+	wait # Wait for any remaining jobs to finish
+
+}
+
+
+addParser(){
+	local source="$emudeckBackend/configs/steam-rom-manager/userData/parsers/optional"
+	local custom_parser=$1
+	local path="$source/$custom_parser"
+
+	if [[ ! -f "$path" ]]; then
+		return 1
+	fi
+
+	local PARSER_ID=$(jq -r '.parserId' "$path")
+
+	echo "Parser ID: $PARSER_ID"
+
+	if [[ ! -f "$SRM_userConfigurations" ]]; then
+		echo "[] " > "$SRM_userConfigurations"  # Inicializar JSON si no existe
+	fi
+
+	EXISTS=$(jq --arg pid "$PARSER_ID" '[.[] | select(.parserId == $pid)] | length' "$SRM_userConfigurations")
+
+	if [[ "$EXISTS" -eq 0 ]]; then
+		echo "adding parser"
+		cat "$SRM_userConfigurations" | jq --argjson newConfig "$(cat "$path")" '. + [$newConfig]' > temp.json && mv temp.json "$SRM_userConfigurations"
+		SRM_setEmulationFolder
+		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+	fi
+
+}
+
+removeParser() {
+	local source="$emudeckBackend/configs/steam-rom-manager/userData/parsers/optional"
+	local custom_parser=$1
+	local path="$source/$custom_parser"
+
+	if [[ ! -f "$path" ]]; then
+		echo "El parser $custom_parser no existe en $source"
+		return 1
+	fi
+
+	local PARSER_ID=$(jq -r '.parserId' "$path")
+
+	echo "Parser ID a eliminar: $PARSER_ID"
+
+	if [[ ! -f "$SRM_userConfigurations" ]]; then
+		echo "El archivo de configuración no existe."
+		return 1
+	fi
+
+	EXISTS=$(jq --arg pid "$PARSER_ID" '[.[] | select(.parserId == $pid)] | length' "$SRM_userConfigurations")
+
+	if [[ "$EXISTS" -gt 0 ]]; then
+		echo "Eliminando parser..."
+		jq --arg pid "$PARSER_ID" '[.[] | select(.parserId != $pid)]' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+		SRM_setEmulationFolder
+		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+	else
+		echo "El parser $PARSER_ID no se encontró en la configuración."
+	fi
 }
