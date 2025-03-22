@@ -1,8 +1,8 @@
 #!/bin/bash
 
-checkInstalledEmus(){	
+checkInstalledEmus(){
 
-	#Add Emulators that are supposed to be installed 
+	#Add Emulators that are supposed to be installed
 	if $doInstallRA; then
 		emuList+=("RetroArch")
 	fi
@@ -11,12 +11,6 @@ checkInstalledEmus(){
 	fi
 	if $doInstallRPCS3; then
 		emuList+=("RPCS3")
-	fi
-	if $doInstallYuzu; then
-		emuList+=("Yuzu")
-	fi
-	if $doInstallCitra; then
-		emuList+=("Citra")
 	fi
 	if $doInstallDuck; then
 		emuList+=("DuckStation")
@@ -41,21 +35,57 @@ checkInstalledEmus(){
 	fi
 	if $doInstallMAME; then
 		emuList+=("MAME")
-	fi	
-	
+	fi
+	if $doInstallAzahar; then
+		emuList+=("Azahar")
+	fi
+	if $doInstallRMG; then
+		emuList+=("RMG")
+	fi
+	if $doInstallScummVM; then
+		emuList+=("ScummVM")
+	fi
+	if $doInstallVita3K; then
+		emuList+=("Vita3K")
+	fi
+	if $doInstallMGBA; then
+		emuList+=("mGBA")
+	fi
+	if $doInstallFlycast; then
+		emuList+=("Flycast")
+	fi
+	if $doInstallmelonDS; then
+		emuList+=("melonDS")
+	fi
+	if $doInstallBigPEmu; then
+		emuList+=("BigPEmu")
+	fi
+	if $doInstallSupermodel; then
+		emuList+=("Supermodel")
+	fi
+	if $doInstallXenia; then
+		emuList+=("Xenia")
+	fi
+	if $doInstallModel2; then
+		emuList+=("Model2")
+	fi
+	if $doInstallShadPS4; then
+		emuList+=("ShadPS4")
+	fi
 
-	
+
+
 	errorOnInstall=false
 	errosOnInstallDetailed=""
-	
+
 	for emu in "${emuList[@]}"
 	do
-		if ! ${emu}_IsInstalled; then 
-			errorOnInstall=true	
+		if ! ${emu}_IsInstalled; then
+			errorOnInstall=true
 			errosOnInstallDetailed+="${emu}\n"
 		fi
 	done
-	
+
 	if $errorOnInstall; then
 		text="$(printf "<b>We have found the following emulators were not installed:</b>\n\n ${errosOnInstallDetailed}\n\n You may try again, make sure your Internet Connection is working properly")"
 		zenity --error \
