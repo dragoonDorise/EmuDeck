@@ -6,7 +6,7 @@ Xenia_emuPath="${romsPath}/xbox360/xenia_canary.exe"
 Xenia_releaseURL_master="https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip"
 #Xenia_releaseURL_canary="https://github.com/xenia-canary/xenia-canary/releases/latest/download/xenia_canary.zip"
 # TODO - https://github.com/xenia-canary/xenia-canary-releases/releases/latest/download/xenia_canary_linux.tar.gz - Linux build, runs on SteamDeck =)
-Xenia_releaseURL_canary="https://github.com/xenia-canary/xenia-canary-releases/releases/latest/download/xenia_canary_windows.zip" 
+Xenia_releaseURL_canary="https://github.com/xenia-canary/xenia-canary-releases/releases/download/9132035/xenia_canary_windows.zip"
 Xenia_XeniaSettings="${romsPath}/xbox360/xenia-canary.config.toml"
 
 #cleanupOlderThings
@@ -20,14 +20,11 @@ Xenia_install(){
 	version=$1
 	local showProgress="$2"
 
-	if [[ "$version" == "master" ]]; then
-		Xenia_releaseURL="$Xenia_releaseURL_master"
-	else
-		Xenia_releaseURL="$Xenia_releaseURL_canary"
-	fi
+	Xenia_releaseURL="$Xenia_releaseURL_canary"
+
 	local name="$Xenia_emuName-$version"
 	echo $name
-	setMSG "Installing Xenia $version"
+	setMSG "Installing Xenia Canary"
 
 	#need to look at standardizing exe name; or download both?  let the user choose at runtime?
 	#curl -L "$Xenia_releaseURL" --output "$romsPath"/xbox360/xenia.zip
@@ -76,7 +73,7 @@ Xenia_init(){
 	Xenia_cleanESDE
 	Xenia_flushEmulatorLauncher
 	addProtonLaunch
-	
+
 	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		Xenia_addESConfig
 	else
@@ -90,7 +87,7 @@ Xenia_addESConfig(){
 	ESDE_junksettingsFile
 	ESDE_addCustomSystemsFile
 	ESDE_setEmulationFolder
-	
+
 	if [[ $(grep -rnw "$es_systemsFile" -e 'xbox360') == "" ]]; then
 		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
 		--var newSystem '$prev' \
@@ -117,10 +114,10 @@ function Xenia_getPatches() {
 	mkdir -p "${romsPath}/xbox360/patches"
 	if  [[ ! "$( ls -A "${romsPath}/xbox360/patches")" ]] ; then
 		{ curl -L "$patches_url" -o "${romsPath}/xbox360/game-patches.zip" && nice -n 5 unzip -q -o "${romsPath}/xbox360/game-patches.zip" -d "${romsPath}/xbox360" && rm "${romsPath}/xbox360/game-patches.zip"; } &> /dev/null
-		echo "Xenia patches downloaded." 
-	else 
+		echo "Xenia patches downloaded."
+	else
 		{ curl -L "$patches_url" -o "${romsPath}/xbox360/game-patches.zip" && nice -n 5 unzip -uqo "${romsPath}/xbox360/game-patches.zip" -d "${romsPath}/xbox360" && rm "${romsPath}/xbox360/game-patches.zip"; } &> /dev/null
-		echo "Xenia patches updated." 
+		echo "Xenia patches updated."
 	fi
 
 }
@@ -228,7 +225,7 @@ Xenia_cleanESDE(){
 		rm -rf "${romsPath}/xbox360/.git"
 	fi
 
-	if [ -f "$romsPath/xbox360/LICENSE" ]; then 
+	if [ -f "$romsPath/xbox360/LICENSE" ]; then
 		mv -f "$romsPath/xbox360/LICENSE" "$romsPath/xbox360/LICENSE.TXT"
 	fi
 
