@@ -1,6 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 clear
-if [ ! -f "$HOME/.config/EmuDeck/backend/functions/all.sh" ]; then
+
+if [ ! -f "${HOME}/.config/EmuDeck/backend/functions/all.sh" ]; then
 
  text="$(printf "<b>EmuDeck installation not found</b>\nPlease Install EmuDeck before using this tool")"
  zenity --error \
@@ -11,22 +13,29 @@ if [ ! -f "$HOME/.config/EmuDeck/backend/functions/all.sh" ]; then
  exit
 fi
 
-. "$HOME/.config/EmuDeck/backend/functions/all.sh"
+# shellcheck disable=1091
+. "${HOME}/.config/EmuDeck/backend/functions/all.sh"
+
 function customLocation(){
 	zenity --file-selection --directory --title="Select the root of the drive where you want to create your backup" 2>/dev/null
 }
 function checkSpace(){
 	local origin=$1
 	local destination=$2
-	local neededSpace=$(du -s "$origin" | awk '{print $1}')
+	# shellcheck disable=2155
+	local neededSpace=$(du -s "${origin}" | awk '{print $1}')
+	# shellcheck disable=2155
 	local neededSpaceInHuman=$(du -sh "$origin" | awk '{print $1}')
 	#File Size on destination
+	# shellcheck disable=2155
 	local freeSpace=$(df -k "$destination" --output=avail | tail -1)
-	local freeSpaceInHuman=$(df -kh "$destination" --output=avail | tail -1)
-	local difference=$(($freeSpace - $neededSpace))
+	# shellcheck disable=2034,2155
+	# Consider removing if unused
+	local freeSpaceInHuman=$(df -kh "${destination}" --output=avail | tail -1)
+	local difference=$((freeSpace - neededSpace))
 
 	if [[ $difference -lt 0 ]]; then
-		text="$(printf "Make sure you have enought space in $destination. You need to have at least $neededSpaceInHuman available")"
+		text="$(printf "Make sure you have enought space in %s. You need to have at least %s available" "${destination}" "${neededSpaceInHuman}")"
 		zenity --question \
 			--title="EmuDeck Import tool" \
 			--width=450 \
@@ -61,14 +70,15 @@ else
 fi
 
 text="$(printf "Please select the drive where you have your <b>exported saves</b>")"
- zenity --info \
+# shellcheck disable=2154
+zenity --info \
 --title="EmuDeck Import tool" \
 --width="${width}" \
 --text="${text}" 2>/dev/null
 
 origin=$(customLocation)
 
-if [ -d "$origin/EmuDeck/saves/" ]; then
+if [ -d "${origin}/EmuDeck/saves/" ]; then
 	echo "Continue..."
 else
 	text="$(printf "<b>No saved games detected</b>\nPlease select the root of the drive, don't select any of its folders.")"
@@ -78,7 +88,7 @@ else
 	 --ok-label="Try again" \
 	 --text="${text}"
 
-	 if [ -d "$origin/EmuDeck/saves/" ]; then
+	 if [ -d "${origin}/EmuDeck/saves/" ]; then
 		 echo "Continue..."
 	 else
 		 text="$(printf "<b>No EmuDeck save folder found</b>\nMake sure you have an Emulation/saves folder in your drive")"
@@ -91,18 +101,20 @@ else
 	 fi
 fi
 
-checkSpace "$origin/EmuDeck/saves/" "$emulationPath"
+# shellcheck disable=2154
+checkSpace "${origin}/EmuDeck/saves/" "${emulationPath}"
 
-for entry in "$origin/EmuDeck/saves/"*
+for entry in "${origin}/EmuDeck/saves/"*
 do
-	rsync -rav --ignore-existing --progress "$entry" "$emulationPath/saves/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/saves/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
+	# shellcheck disable=2154
+	rsync -rav --ignore-existing --progress "${entry}" "${emulationPath}/saves/" | awk -f "${emudeckBackend}/rsync.awk" | zenity --progress --text="Importing ${entry} to ${emulationPath}/saves/" --title="Importing ${entry}..." --width=400 --percentage=0 --auto-close
 done
 
 
 size=0;
-size=$((size + $(du -sb "$origin/EmuDeck/saves/" | cut -f1)))
-if [ "$size" -gt 4096 ]; then
-	if [ -d "$origin/EmuDeck/storage" ]; then
+size=$((size + $(du -sb "${origin}/EmuDeck/saves/" | cut -f1)))
+if [ $size -gt 4096 ]; then
+	if [ -d "${origin}/EmuDeck/storage" ]; then
 		text="$(printf "<b>Storage folder found in your drive!</b>\nLet's import that one too")"
 		zenity --question \
 			--title="EmuDeck Import tool" \
@@ -113,11 +125,11 @@ if [ "$size" -gt 4096 ]; then
 		ans=$?
 		if [ $ans -eq 0 ]; then
 
-			checkSpace "$origin/EmuDeck/storage/" "$emulationPath"
+			checkSpace "${origin}/EmuDeck/storage/" "${emulationPath}"
 
-			for entry in "$origin/EmuDeck/storage/"*
+			for entry in "${origin}/EmuDeck/storage/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/storage/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/storage/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "${entry}" "${emulationPath}/storage/" | awk -f "${emudeckBackend}/rsync.awk" | zenity --progress --text="Importing ${entry} to ${emulationPath}/storage/" --title="Importing ${entry}..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
@@ -126,7 +138,7 @@ if [ "$size" -gt 4096 ]; then
 
 	fi
 
-	if [ -d "$origin/EmuDeck/bios" ]; then
+	if [ -d "${origin}/EmuDeck/bios" ]; then
 		text="$(printf "<b>Bios folder found in your drive!</b>\nLet's import that one too")"
 		zenity --question \
 			--title="EmuDeck Import tool" \
@@ -137,11 +149,11 @@ if [ "$size" -gt 4096 ]; then
 		ans=$?
 		if [ $ans -eq 0 ]; then
 
-			checkSpace "$origin/EmuDeck/bios/" "$emulationPath"
+			checkSpace "${origin}/EmuDeck/bios/" "${emulationPath}"
 
 			for entry in "$origin/EmuDeck/bios/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/bios/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/bios/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "${entry}" "${emulationPath}/bios/" | awk -f "${emudeckBackend}/rsync.awk" | zenity --progress --text="Importing ${entry} to ${emulationPath}/bios/" --title="Importing ${entry}..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
@@ -151,7 +163,7 @@ if [ "$size" -gt 4096 ]; then
 	fi
 
 
-	if [ -d "$origin/EmuDeck/tools/downloaded_media" ]; then
+	if [ -d "${origin}/EmuDeck/tools/downloaded_media" ]; then
 		text="$(printf "<b>ESDE Media folder found in your drive!</b>\nLet's import that one too")"
 		zenity --question \
 			--title="EmuDeck Import tool" \
@@ -162,11 +174,12 @@ if [ "$size" -gt 4096 ]; then
 		ans=$?
 		if [ $ans -eq 0 ]; then
 
-			checkSpace "$origin/EmuDeck/tools/downloaded_media/" "$toolsPath"
+			# shellcheck disable=2154
+			checkSpace "${origin}/EmuDeck/tools/downloaded_media/" "${toolsPath}"
 
-			for entry in "$origin/EmuDeck/tools/downloaded_media/"*
+			for entry in "${origin}/EmuDeck/tools/downloaded_media/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/tools/downloaded_media/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/tools/downloaded_media/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "${entry}" "${emulationPath}/tools/downloaded_media/" | awk -f "${HOME}/.config/EmuDeck/backend/rsync.awk" | zenity --progress --text="Importing ${entry} to ${emulationPath}/tools/downloaded_media/" --title="Importing ${entry}..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
@@ -177,7 +190,7 @@ if [ "$size" -gt 4096 ]; then
 
 
 
-	if [ -d "$origin/EmuDeck/roms" ]; then
+	if [ -d "${origin}/EmuDeck/roms" ]; then
 		text="$(printf "<b>Roms folder found in your drive!</b>\nLet's import that one too")"
 		zenity --question \
 			--title="EmuDeck Import tool" \
@@ -188,11 +201,11 @@ if [ "$size" -gt 4096 ]; then
 		ans=$?
 		if [ $ans -eq 0 ]; then
 
-			checkSpace "$origin/EmuDeck/roms/" "$emulationPath"
+			checkSpace "${origin}/EmuDeck/roms/" "${emulationPath}"
 
-			for entry in "$origin/EmuDeck/roms/"*
+			for entry in "${origin}/EmuDeck/roms/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/roms/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/roms/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "${entry}" "${emulationPath}/roms/" | awk -f "${emudeckBackend}/rsync.awk" | zenity --progress --text="Importing ${entry} to ${emulationPath}/roms/" --title="Importing ${entry}..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
