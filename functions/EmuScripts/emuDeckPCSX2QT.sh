@@ -1,43 +1,50 @@
-#!/bin/bash
-#variables
-PCSX2QT_emuName="PCSX2-QT"
-PCSX2QT_emuType="$emuDeckEmuTypeAppImage"
-PCSX2QT_emuPath="$emusFolder/pcsx2-Qt.AppImage"
-PCSX2QT_configFile="$HOME/.config/PCSX2/inis/PCSX2.ini"
+#!/usr/bin/env bash
 
-#cleanupOlderThings
-PCSX2QT_cleanup() {
+# emuDeckPCSX2QT
+
+# Variables
+PCSX2QT_emuName="PCSX2-QT"
+# shellcheck disable=2034,2154
+PCSX2QT_emuType="${emuDeckEmuTypeAppImage}"
+# shellcheck disable=2154
+PCSX2QT_emuPath="${emusFolder}/pcsx2-Qt.AppImage"
+PCSX2QT_configFile="${HOME}/.config/PCSX2/inis/PCSX2.ini"
+
+# cleanupOlderThings
+PCSX2QT_cleanup () {
 	echo "NYI"
 }
 
-#Install
-PCSX2QT_install() {
+# Install
+# shellcheck disable=2120
+PCSX2QT_install () {
 	echo "Begin PCSX2-QT Install"
-	local showProgress="$1"
+	local showProgress="${1}"
 
-	#if installEmuAI "${PCSX2QT_emuName}" "https://github.com/PCSX2/pcsx2/releases/download/v1.7.4749/pcsx2-v1.7.4749-linux-appimage-x64-Qt.AppImage" "pcsx2-Qt" "$showProgress"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
-	if installEmuAI "${PCSX2QT_emuName}" "" "$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")" "pcsx2-Qt" "" "emulator" "$showProgress"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
-		rm -rf $HOME/.local/share/applications/pcsx2-Qt.desktop &>/dev/null # delete old shortcut
+	#if installEmuAI "${PCSX2QT_emuName}" "https://github.com/PCSX2/pcsx2/releases/download/v1.7.4749/pcsx2-v1.7.4749-linux-appimage-x64-Qt.AppImage" "pcsx2-Qt" "${showProgress}"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
+	if installEmuAI "${PCSX2QT_emuName}" "" "$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")" "pcsx2-Qt" "" "emulator" "${showProgress}"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
+		rm -rf "${HOME}/.local/share/applications/pcsx2-Qt.desktop" &>/dev/null # delete old shortcut
 	else
 		return 1
 	fi
 }
 #Fix for autoupdate
-Pcsx2_install(){
+Pcsx2_install () {
 	PCSX2QT_install
 }
 
 #ApplyInitialSettings
-PCSX2QT_init() {
-	setMSG "Initializing $PCSX2QT_emuName settings."
+PCSX2QT_init () {
+	setMSG "Initializing ${PCSX2QT_emuName} settings."
 
-	if [ -e "$PCSX2QT_configFile" ]; then
-		mv -f "$PCSX2QT_configFile" "$PCSX2QT_configFile.bak"
+	if [ -e "${PCSX2QT_configFile}" ]; then
+		mv -f "${PCSX2QT_configFile}" "${PCSX2QT_configFile}.bak"
 	fi
 
-	if ! "$PCSX2QT_emuPath" -testconfig; then # try to generate the config file. if it fails, insert one as a fallback.
+	if ! "${PCSX2QT_emuPath}" -testconfig; then # try to generate the config file. if it fails, insert one as a fallback.
 		#fallback
-		configEmuAI "$PCSX2QT_emuName" "config" "$HOME/.config/PCSX2" "$emudeckBackend/configs/pcsx2qt/.config/PCSX2" "true"
+		# shellcheck disable=2154
+		configEmuAI "${PCSX2QT_emuName}" "config" "${HOME}/.config/PCSX2" "${emudeckBackend}/configs/pcsx2qt/.config/PCSX2" "true"
 	fi
 
 	PCSX2QT_setEmulationFolder
@@ -49,49 +56,50 @@ PCSX2QT_init() {
 	#SRM_createParsers
 	PCSX2QT_flushEmulatorLauncher
 
-	linkToStorageFolder pcsx2 cheats "$HOME/.config/PCSX2/cheats"
-
+	linkToStorageFolder pcsx2 cheats "${HOME}/.config/PCSX2/cheats"
 }
 
-#update
-PCSX2QT_update() {
-	setMSG "Updating $PCSX2QT_emuName settings."
-	configEmuAI "$PCSX2QT_emuName" "config" "$HOME/.config/PCSX2" "$emudeckBackend/configs/pcsx2qt/.config/PCSX2"
+# update
+PCSX2QT_update () {
+	setMSG "Updating ${PCSX2QT_emuName} settings."
+	configEmuAI "${PCSX2QT_emuName}" "config" "${HOME}/.config/PCSX2" "${emudeckBackend}/configs/pcsx2qt/.config/PCSX2"
 	PCSX2QT_setEmulationFolder
 	PCSX2QT_setupStorage
 	PCSX2QT_setupSaves
 	PCSX2QT_setupControllers
 	PCSX2QT_flushEmulatorLauncher
-
 }
 
-#ConfigurePaths
-PCSX2QT_setEmulationFolder() {
-	setMSG "Setting $PCSX2QT_emuName Emulation Folder"
+# ConfigurePaths
+PCSX2QT_setEmulationFolder () {
+	setMSG "Setting ${PCSX2QT_emuName} Emulation Folder"
 
-	iniFieldUpdate "$PCSX2QT_configFile" "UI" "ConfirmShutdown" "false"
- 	iniFieldUpdate "$PCSX2QT_configFile" "UI" "SetupWizardIncomplete" "false"
-	iniFieldUpdate "$PCSX2QT_configFile" "UI" "StartFullscreen" "true"
-	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Bios" "${biosPath}"
-	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Snapshots" "${storagePath}/pcsx2/snaps"
-	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Savestates" "${savesPath}/pcsx2/states"
-	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "MemoryCards" "${savesPath}/pcsx2/saves"
-	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Cache" "${storagePath}/pcsx2/cache"
-	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Covers" "${storagePath}/pcsx2/covers"
-	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Textures" "${storagePath}/pcsx2/textures"
-
-	iniFieldUpdate "$PCSX2QT_configFile" "GameList" "RecursivePaths" "${romsPath}/ps2"
-
+	iniFieldUpdate "${PCSX2QT_configFile}" "UI" "ConfirmShutdown" "false"
+ 	iniFieldUpdate "${PCSX2QT_configFile}" "UI" "SetupWizardIncomplete" "false"
+	iniFieldUpdate "${PCSX2QT_configFile}" "UI" "StartFullscreen" "true"
+	# shellcheck disable=2154
+	iniFieldUpdate "${PCSX2QT_configFile}" "Folders" "Bios" "${biosPath}"
+	# shellcheck disable=2154
+	iniFieldUpdate "${PCSX2QT_configFile}" "Folders" "Snapshots" "${storagePath}/pcsx2/snaps"
+	# shellcheck disable=2154
+	iniFieldUpdate "${PCSX2QT_configFile}" "Folders" "Savestates" "${savesPath}/pcsx2/states"
+	iniFieldUpdate "${PCSX2QT_configFile}" "Folders" "MemoryCards" "${savesPath}/pcsx2/saves"
+	iniFieldUpdate "${PCSX2QT_configFile}" "Folders" "Cache" "${storagePath}/pcsx2/cache"
+	iniFieldUpdate "${PCSX2QT_configFile}" "Folders" "Covers" "${storagePath}/pcsx2/covers"
+	iniFieldUpdate "${PCSX2QT_configFile}" "Folders" "Textures" "${storagePath}/pcsx2/textures"
+	# shellcheck disable=2154
+	iniFieldUpdate "${PCSX2QT_configFile}" "GameList" "RecursivePaths" "${romsPath}/ps2"
 }
 
-#SetupSaves
-PCSX2QT_setupSaves() {
+# SetupSaves
+PCSX2QT_setupSaves () {
 	#link fp and ap saves / states?
-	moveSaveFolder pcsx2 saves "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards"
-	moveSaveFolder pcsx2 states "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates"
+	moveSaveFolder pcsx2 saves "${HOME}/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards"
+	moveSaveFolder pcsx2 states "${HOME}/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates"
 }
 
-PCSX2QT_setupControllers() {
+# setupControllers
+PCSX2QT_setupControllers () {
 	new_pad1_section="
 Type = DualShock2
 InvertL = 0
@@ -194,17 +202,13 @@ ToggleSoftwareRendering = Keyboard/F9
 NextSaveStateSlot = SDL-0/Start & SDL-0/RightShoulder
 PreviousSaveStateSlot = SDL-0/Start & SDL-0/LeftShoulder"
 
-
 	iniSectionUpdate "${PCSX2QT_configFile}" "Hotkeys" "${new_hotkey_section}"
-
 	iniSectionUpdate "${PCSX2QT_configFile}" "Pad1" "${new_pad1_section}"
-
 	iniSectionUpdate "${PCSX2QT_configFile}" "Pad2" "${new_pad2_section}"
-
 }
 
-#SetupStorage
-PCSX2QT_setupStorage() {
+# SetupStorage
+PCSX2QT_setupStorage () {
 	echo "Begin PCSX2-QT storage config"
 	mkdir -p "${storagePath}/pcsx2/snaps"
 	mkdir -p "${storagePath}/pcsx2/cache"
@@ -212,91 +216,102 @@ PCSX2QT_setupStorage() {
 	mkdir -p "${storagePath}/pcsx2/covers"
 }
 
-#WipeSettings
-PCSX2QT_wipe() {
-	setMSG "Wiping $PCSX2QT_emuName settings."
-	rm -rf "$HOME/.config/PCSX2"
+# WipeSettings
+PCSX2QT_wipe () {
+	setMSG "Wiping ${PCSX2QT_emuName} settings."
+	rm -rf "${HOME}/.config/PCSX2"
 	# prob not cause roms are here
 }
 
-#Uninstall
-PCSX2QT_uninstall() {
-	setMSG "Uninstalling $PCSX2QT_emuName."
-	uninstallEmuAI "$PCSX2QT_emuName" "pcsx2-Qt" "" "emulator"
+# Uninstall
+PCSX2QT_uninstall () {
+	setMSG "Uninstalling ${PCSX2QT_emuName}."
+	uninstallEmuAI "${PCSX2QT_emuName}" "pcsx2-Qt" "" "emulator"
 	#PCSX2QT_wipe
 }
 
-#setABXYstyle
-PCSX2QT_setABXYstyle() {
+# setABXYstyle
+PCSX2QT_setABXYstyle () {
 	echo "NYI"
 }
 
-#Migrate
-PCSX2QT_migrate() {
+# Migrate
+PCSX2QT_migrate () {
 	echo "NYI"
 }
 
-#WideScreenOn
-PCSX2QT_wideScreenOn() {
-	iniFieldUpdate "$PCSX2QT_configFile" "EmuCore" "EnableWideScreenPatches" "True"
-	iniFieldUpdate "$PCSX2QT_configFile" "EmuCore/GS" "AspectRatio" "16:9"
+# WideScreenOn
+PCSX2QT_wideScreenOn () {
+	iniFieldUpdate "${PCSX2QT_configFile}" "EmuCore" "EnableWideScreenPatches" "True"
+	iniFieldUpdate "${PCSX2QT_configFile}" "EmuCore/GS" "AspectRatio" "16:9"
 }
 
-#WideScreenOff
-PCSX2QT_wideScreenOff() {
-	iniFieldUpdate "$PCSX2QT_configFile" "EmuCore" "EnableWideScreenPatches" "false"
-	iniFieldUpdate "$PCSX2QT_configFile" "EmuCore/GS" "AspectRatio" "Auto 4:3/3:2"
+ WideScreenOff
+PCSX2QT_wideScreenOff () {
+	iniFieldUpdate "${PCSX2QT_configFile}" "EmuCore" "EnableWideScreenPatches" "false"
+	iniFieldUpdate "${PCSX2QT_configFile}" "EmuCore/GS" "AspectRatio" "Auto 4:3/3:2"
 }
 
-#BezelOn
-PCSX2QT_bezelOn() {
+# BezelOn
+PCSX2QT_bezelOn () {
 	echo "NYI"
 }
 
-#BezelOff
-PCSX2QT_bezelOff() {
+# BezelOff
+PCSX2QT_bezelOff () {
 	echo "NYI"
 }
 
-#finalExec - Extra stuff
-PCSX2QT_finalize() {
+# finalExec - Extra stuff
+PCSX2QT_finalize () {
 	echo "NYI"
 }
 
-PCSX2QT_IsInstalled() {
-	if [ -e "$PCSX2QT_emuPath" ]; then
+# IsInstalled
+PCSX2QT_IsInstalled () {
+	if [ -e "${PCSX2QT_emuPath}" ]; then
 		echo "true"
 	else
 		echo "false"
 	fi
 }
 
-PCSX2QT_resetConfig() {
+# resetConfig
+PCSX2QT_resetConfig () {
 	PCSX2QT_init &>/dev/null && echo "true" || echo "false"
 }
 
-PCSX2QT_addSteamInputProfile() {
+# Add Steam Input Profile
+PCSX2QT_addSteamInputProfile () {
 	echo "NYI"
 }
 
-PCSX2QT_retroAchievementsOn() {
-	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Enabled" "True"
-}
-PCSX2QT_retroAchievementsOff() {
-	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Enabled" "False"
+# retroAchievementsOn
+PCSX2QT_retroAchievementsOn () {
+	iniFieldUpdate "${PCSX2QT_configFile}" "Achievements" "Enabled" "True"
 }
 
-PCSX2QT_retroAchievementsHardCoreOn() {
-	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "ChallengeMode" "True"
-
-}
-PCSX2QT_retroAchievementsHardCoreOff() {
-	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "ChallengeMode" "False"
+# retroAchievementsOff
+PCSX2QT_retroAchievementsOff () {
+	iniFieldUpdate "${PCSX2QT_configFile}" "Achievements" "Enabled" "False"
 }
 
-PCSX2QT_retroAchievementsSetLogin() {
-	rau=$(cat "$emudeckFolder/.rau")
-	rat=$(cat "$emudeckFolder/.rat")
+# retroAchievementsHardCoreOn
+PCSX2QT_retroAchievementsHardCoreOn () {
+	iniFieldUpdate "${PCSX2QT_configFile}" "Achievements" "ChallengeMode" "True"
+
+}
+
+# retroAchievementsHardCoreOff
+PCSX2QT_retroAchievementsHardCoreOff () {
+	iniFieldUpdate "${PCSX2QT_configFile}" "Achievements" "ChallengeMode" "False"
+}
+
+# retroAchievementsSetLogin
+PCSX2QT_retroAchievementsSetLogin () {
+	# shellcheck disable=2154
+	rau=$(cat "${emudeckFolder}/.rau")
+	rat=$(cat "${emudeckFolder}/.rat")
 	echo "Evaluate RetroAchievements Login."
 	if [ ${#rat} -lt 1 ]; then
 		echo "--No token."
@@ -304,30 +319,33 @@ PCSX2QT_retroAchievementsSetLogin() {
 		echo "--No username."
 	else
 		echo "Valid Retroachievements Username and Password length"
-		iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Username" "$rau"
-		iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Token" "$rat"
-		iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "LoginTimestamp" "$(date +%s)"
+		iniFieldUpdate "${PCSX2QT_configFile}" "Achievements" "Username" "${rau}"
+		iniFieldUpdate "${PCSX2QT_configFile}" "Achievements" "Token" "${rat}"
+		iniFieldUpdate "${PCSX2QT_configFile}" "Achievements" "LoginTimestamp" "$(date +%s)"
 		PCSX2QT_retroAchievementsOn
 	fi
 }
 
-PCSX2QT_setRetroAchievements(){
+# setRetroAchievements
+PCSX2QT_setRetroAchievements () {
 	PCSX2QT_retroAchievementsSetLogin
-	if [ "$achievementsHardcore" == "true" ]; then
+	# shellcheck disable=2154
+	if [ "${achievementsHardcore}" == "true" ]; then
 		PCSX2QT_retroAchievementsHardCoreOn
 	else
 		PCSX2QT_retroAchievementsHardCoreOff
 	fi
 }
 
-PCSX2QT_setCustomizations(){
+# setCustomizations
+PCSX2QT_setCustomizations () {
 	echo "NYI"
 }
 
-
-PCSX2QT_setResolution(){
-
-	case $pcsx2Resolution in
+# setResolution
+PCSX2QT_setResolution () {
+	# shellcheck disable=2154
+	case "${pcsx2Resolution}" in
 		"720P") multiplier=2;;
 		"1080P") multiplier=3;;
 		"1440P") multiplier=4;;
@@ -335,12 +353,10 @@ PCSX2QT_setResolution(){
 		*) echo "Error"; return 1;;
 	esac
 
-	RetroArch_setConfigOverride "upscale_multiplier" $multiplier "$PCSX2QT_configFile"
+	RetroArch_setConfigOverride "upscale_multiplier" "${multiplier}" "${PCSX2QT_configFile}"
 }
 
-PCSX2QT_flushEmulatorLauncher(){
-
-
+# flushEmulatorLauncher
+PCSX2QT_flushEmulatorLauncher () {
 	flushEmulatorLaunchers "pcsx2-qt"
-
 }
