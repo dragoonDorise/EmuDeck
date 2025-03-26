@@ -11,7 +11,7 @@ Xenia_emuPath="${romsPath}/xbox360/xenia_canary.exe"
 Xenia_releaseURL_master="https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip"
 #Xenia_releaseURL_canary="https://github.com/xenia-canary/xenia-canary/releases/latest/download/xenia_canary.zip"
 # TODO - https://github.com/xenia-canary/xenia-canary-releases/releases/latest/download/xenia_canary_linux.tar.gz - Linux build, runs on SteamDeck =)
-Xenia_releaseURL_canary="https://github.com/xenia-canary/xenia-canary-releases/releases/latest/download/xenia_canary_windows.zip" 
+Xenia_releaseURL_canary="https://github.com/xenia-canary/xenia-canary-releases/releases/download/9132035/xenia_canary_windows.zip"
 Xenia_XeniaSettings="${romsPath}/xbox360/xenia-canary.config.toml"
 
 #cleanupOlderThings
@@ -23,15 +23,11 @@ Xenia_cleanup () {
 Xenia_install () {
 	local version="${1}"
 	local showProgress="${2}"
+	Xenia_releaseURL="${Xenia_releaseURL_canary}"
 
-	if [[ "${version}" == "master" ]]; then
-		Xenia_releaseURL="${Xenia_releaseURL_master}"
-	else
-		Xenia_releaseURL="${Xenia_releaseURL_canary}"
-	fi
-	local name="${Xenia_emuName}-${version}"
+	local name="${Xenia_emuName-$version}"
 	echo "${name}"
-	setMSG "Installing Xenia ${version}"
+	setMSG "Installing Xenia Canary"
 
 	#need to look at standardizing exe name; or download both?  let the user choose at runtime?
 	#curl -L "${Xenia_releaseURL}" --output "${romsPath}"/xbox360/xenia.zip
@@ -126,10 +122,10 @@ function Xenia_getPatches() {
 	mkdir -p "${romsPath}/xbox360/patches"
 	if  [[ ! "$( ls -A "${romsPath}/xbox360/patches")" ]] ; then
 		{ curl -L "$patches_url" -o "${romsPath}/xbox360/game-patches.zip" && nice -n 5 unzip -q -o "${romsPath}/xbox360/game-patches.zip" -d "${romsPath}/xbox360" && rm "${romsPath}/xbox360/game-patches.zip"; } &> /dev/null
-		echo "Xenia patches downloaded." 
-	else 
+		echo "Xenia patches downloaded."
+	else
 		{ curl -L "$patches_url" -o "${romsPath}/xbox360/game-patches.zip" && nice -n 5 unzip -uqo "${romsPath}/xbox360/game-patches.zip" -d "${romsPath}/xbox360" && rm "${romsPath}/xbox360/game-patches.zip"; } &> /dev/null
-		echo "Xenia patches updated." 
+		echo "Xenia patches updated."
 	fi
 }
 

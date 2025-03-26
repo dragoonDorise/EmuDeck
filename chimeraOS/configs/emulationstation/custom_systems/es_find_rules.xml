@@ -8,6 +8,11 @@
             <entry>sh</entry>
         </rule>
     </emulator>
+    <emulator name="DOLPHIN">
+        <rule type="staticpath">
+            <entry>~/.local/share/flatpak/exports/bin/org.DolphinEmu.dolphin-emu</entry>
+        </rule>
+    </emulator>
     <emulator name="RETROARCH">
         <rule type="systempath">
             <entry>org.libretro.RetroArch</entry>
