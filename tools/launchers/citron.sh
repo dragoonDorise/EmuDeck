@@ -23,5 +23,5 @@ fi
 #Fix first '
 param="${@}"
 param=$(echo $param | sed -e 's/^/"/' -e 's/$/"/')
-eval "${exe} ${param}"
+eval "${exe} -f -g ${param}"
 rm -rf "$savesPath/.gaming"
