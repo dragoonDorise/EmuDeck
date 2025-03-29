@@ -3706,7 +3706,7 @@
         },
         "disabled": false,
         "executable": {
-            "path": "/home/dj/Emulation/tools/launchers/citron.sh",
+            "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/citron.sh",
             "shortcutPassthrough": false,
             "appendArgsToExecutable": false
         },
@@ -3751,7 +3751,7 @@
             "long": "",
             "hero": "",
             "logo": "",
-            "icon": "/home/dj/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+            "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
         },
         "localImages": {
             "tall": "",
