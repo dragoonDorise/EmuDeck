@@ -3687,6 +3687,92 @@
     },
     {
         "parserType": "Glob",
+        "configTitle": "Nintendo Switch - Citron",
+        "steamDirectory": "${steamdirglobal}",
+        "romDirectory": "${romsdirglobal}/switch",
+        "executableArgs": "vblank_mode=0 %command% \"${filePath}\"",
+        "executableModifier": "\"${exePath}\"",
+        "startInDirectory": "",
+        "titleModifier": "${fuzzyTitle}",
+        "imageProviders": [
+            "sgdb",
+            "steamCDN"
+        ],
+        "imagePool": "${fuzzyTitle}",
+        "userAccounts": {
+            "specifiedAccounts": [
+                "Global"
+            ]
+        },
+        "disabled": false,
+        "executable": {
+            "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/citron.sh",
+            "shortcutPassthrough": false,
+            "appendArgsToExecutable": false
+        },
+        "parserInputs": {
+            "glob": "**/${title}@(.kip|.KIP|.nca|.NCA|.nro|.NRO|.nso|.NSO|.nsp|.NSP|.xci|.XCI)"
+        },
+        "titleFromVariable": {
+            "caseInsensitiveVariables": false,
+            "skipFileIfVariableWasNotFound": false,
+            "limitToGroups": []
+        },
+        "fuzzyMatch": {
+            "replaceDiacritics": true,
+            "removeCharacters": true,
+            "removeBrackets": true
+        },
+        "controllers": {
+            "ps4": null,
+            "ps5": null,
+            "xbox360": null,
+            "xboxone": null,
+            "switch_joycon_left": null,
+            "switch_joycon_right": null,
+            "switch_pro": null,
+            "neptune": null
+        },
+        "imageProviderAPIs": {
+            "sgdb": {
+                "nsfw": false,
+                "humor": false,
+                "styles": [],
+                "stylesHero": [],
+                "stylesLogo": [],
+                "stylesIcon": [],
+                "imageMotionTypes": [
+                    "static"
+                ]
+            }
+        },
+        "defaultImage": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+        },
+        "localImages": {
+            "tall": "",
+            "long": "",
+            "hero": "",
+            "logo": "",
+            "icon": ""
+        },
+        "parserId": "164725679855061950",
+        "version": 25,
+        "steamInputEnabled": "1",
+        "drmProtect": false,
+        "steamCategories": [
+            "Nintendo Switch - Citron"
+        ],
+        "onlineImageQueries": [
+            "${fuzzyTitle}"
+        ]
+    },
+    {
+        "parserType": "Glob",
         "configTitle": "Nintendo Switch - Ryujinx",
         "steamDirectory": "${steamdirglobal}",
         "romDirectory": "${romsdirglobal}/switch",
@@ -4056,7 +4142,7 @@
         },
         "defaultImage": {
             "tall": "",
-            "long": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/wiiu.jpg",
+            "long": "",
             "hero": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
             "logo": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
             "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
@@ -4183,7 +4269,7 @@
         },
         "defaultImage": {
             "tall": "",
-            "long": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/systems/grid/wiiu.jpg",
+            "long": "",
             "hero": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
             "logo": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
             "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
