@@ -8,11 +8,6 @@ body:
       value: |
         Thanks for taking the time to fill out this bug report!
 
-  - type: markdown
-    attributes:
-      value: |
-        Do not use this GitHub form if you are using EmuDeck for Windows. Instead, join the Discord (connect your Patreon to Discord), https://discord.gg/b9F7GpXtFP, or open an issue on the EmuDeck for Windows GitHub repository, https://github.com/EmuDeck/emudeck-we to report any issues. 
-  
   - type: checkboxes
     id: low-effort-checks
     attributes:
@@ -46,6 +41,7 @@ body:
         - Beta Candidate
         - Main (Alpha/Live Testing Branch, not the same thing as Stable)
         - Not Using a Steam Deck
+        - Using Windows
       default: 0
     validations:
       required: true
@@ -55,7 +51,7 @@ body:
     attributes:
       label: What happened?
       description: A clear and concise description of what the bug is and if possible, the steps you used to get to the bug. If appropriate, include screenshots or videos.
-      placeholder: Include as much detail as possible. 
+      placeholder: Include as much detail as possible.
       value: "A bug happened!"
     validations:
       required: true
@@ -64,5 +60,5 @@ body:
     id: logs
     attributes:
       label: Relevant log output
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks. You can find the EmuDeck log in $HOME/.config/EmuDeck. For more information, see https://emudeck.github.io/troubleshooting/steamos/#how-to-get-the-emudeck-log. 
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks. You can find the EmuDeck log in $HOME/.config/EmuDeck. For more information, see https://emudeck.github.io/troubleshooting/steamos/#how-to-get-the-emudeck-log.
       render: shell
