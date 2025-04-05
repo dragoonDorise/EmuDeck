@@ -1,6 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 clear
-if [ ! -f "$HOME/.config/EmuDeck/backend/functions/all.sh" ]; then
+
+if [ ! -f "${HOME}/.config/EmuDeck/backend/functions/all.sh" ]; then
  text="$(printf "<b>EmuDeck installation not found</b>")"
  zenity --error \
 	 --title="EmuDeck Export tool" \
@@ -9,22 +11,29 @@ if [ ! -f "$HOME/.config/EmuDeck/backend/functions/all.sh" ]; then
 	 --text="${text}" 2>/dev/null
  exit
 fi
-. "$HOME/.config/EmuDeck/backend/functions/all.sh"
-function customLocation(){
+
+# shellcheck disable=1091
+. "${HOME}/.config/EmuDeck/backend/functions/all.sh"
+function customLocation () {
 	zenity --file-selection --directory --title="Select the root of the drive with your backup" 2>/dev/null
 }
-function checkSpace(){
-	local origin=$1
-	local destination=$2
-	local neededSpace=$(du -s "$emulationPath/saves" | awk '{print $1}')
-	local neededSpaceInHuman=$(du -sh "$origin" | awk '{print $1}')
+
+function checkSpace () {
+	local origin="${1}"
+	local destination="${2}"
+	# shellcheck disable=2154,2155
+	local neededSpace=$(du -s "${emulationPath}/saves" | awk '{print $1}')
+	# shellcheck disable=2155
+	local neededSpaceInHuman=$(du -sh "${origin}" | awk '{print $1}')
 	#File Size on destination
-	local freeSpace=$(df -k "$destination" --output=avail | tail -1)
-	local freeSpaceInHuman=$(df -kh "$destination" --output=avail | tail -1)
-	local difference=$(($freeSpace - $neededSpace))
+	# shellcheck disable=2155
+	local freeSpace=$(df -k "${destination}" --output=avail | tail -1)
+	# shellcheck disable=2034,2155
+	local freeSpaceInHuman=$(df -kh "${destination}" --output=avail | tail -1)
+	local difference=$((freeSpace - neededSpace))
 
 	if [[ $difference -lt 0 ]]; then
-		text="$(printf "Make sure you have enough space in $destination. You need to have at least $neededSpaceInHuman available")"
+		text="$(printf "Make sure you have enough space in %s. You need to have at least %s available" "${destination}" "${neededSpaceInHuman}")"
 		zenity --question \
 			--title="EmuDeck Export tool" \
 			--width=450 \
@@ -59,27 +68,27 @@ else
 fi
 
 text="$(printf "Please pick the drive to export your saves.\n<b>Pick the root of the device, don't pick any subdirectory</b>")"
- zenity --info \
+# shellcheck disable=2154
+zenity --info \
 --title="EmuDeck Export tool" \
 --width="${width}" \
 --text="${text}" 2>/dev/null
 
 destination=$(customLocation)
-checkSpace "$emulationPath/saves/" "$destination"
+checkSpace "${emulationPath}/saves/" "${destination}"
 
-mkdir -p "$destination/EmuDeck/saves"
+mkdir -p "${destination}/EmuDeck/saves"
 
-for entry in "$emulationPath/saves/"*
+for entry in "${emulationPath}/saves/"*
 do
-	rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/saves/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/saves/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+	# shellcheck disable=2154
+	rsync -ravL --ignore-existing --progress "${entry}" "${destination}/EmuDeck/saves/" | awk -f "${emudeckBackend}/rsync.awk" | zenity --progress --text="Exporting ${entry} to ${destination}/EmuDeck/saves/" --title="Exporting ${entry}..." --width=400 --percentage=0 --auto-close
 done
 
-
-
 size=0;
-size=$((size + $(du -sb "$destination/EmuDeck/saves/" | cut -f1)))
-if [ "$size" -gt 4096 ]; then
-	if [ -d "$emulationPath/storage" ]; then
+size=$((size + $(du -sb "${destination}/EmuDeck/saves/" | cut -f1)))
+if [ $size -gt 4096 ]; then
+	if [ -d "${emulationPath}/storage" ]; then
 		text="$(printf "<b>Storage folder found in your internal Drive!</b>\nLet's export that one too")"
 		zenity --question \
 			--title="EmuDeck Export tool" \
@@ -90,13 +99,13 @@ if [ "$size" -gt 4096 ]; then
 		ans=$?
 		if [ $ans -eq 0 ]; then
 
-			checkSpace "$emulationPath/storage/" "$destination"
+			checkSpace "${emulationPath}/storage/" "${destination}"
 
-			mkdir -p "$destination/EmuDeck/storage"
+			mkdir -p "${destination}/EmuDeck/storage"
 
-			for entry in "$emulationPath/storage/"*
+			for entry in "${emulationPath}/storage/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/storage/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/storage/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "${entry}" "${destination}/EmuDeck/storage/" | awk -f "${emudeckBackend}/rsync.awk" | zenity --progress --text="Exporting ${entry} to ${destination}/EmuDeck/storage/" --title="Exporting ${entry}..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
@@ -105,7 +114,7 @@ if [ "$size" -gt 4096 ]; then
 
 	fi
 
-	if [ -d "$emulationPath/bios" ]; then
+	if [ -d "${emulationPath}/bios" ]; then
 		text="$(printf "Do you want to export all your bios?")"
 		zenity --question \
 			--title="EmuDeck Export tool" \
@@ -116,13 +125,13 @@ if [ "$size" -gt 4096 ]; then
 		ans=$?
 		if [ $ans -eq 0 ]; then
 
-			checkSpace "$emulationPath/bios/" "$destination"
+			checkSpace "${emulationPath}/bios/" "${destination}"
 
-			mkdir -p "$destination/EmuDeck/bios"
+			mkdir -p "${destination}/EmuDeck/bios"
 
-			for entry in "$emulationPath/bios/"*
+			for entry in "${emulationPath}/bios/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/bios/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/bios/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "${entry}" "${destination}/EmuDeck/bios/" | awk -f "${emudeckBackend}/rsync.awk" | zenity --progress --text="Exporting ${entry} to ${destination}/EmuDeck/bios/" --title="Exporting ${entry}..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
@@ -130,7 +139,7 @@ if [ "$size" -gt 4096 ]; then
 		fi
 	fi
 
-	if [ -d "$emulationPath/roms" ]; then
+	if [ -d "${emulationPath}/roms" ]; then
 		text="$(printf "Do you want to export all your roms?")"
 		zenity --question \
 			--title="EmuDeck Export tool" \
@@ -141,13 +150,13 @@ if [ "$size" -gt 4096 ]; then
 		ans=$?
 		if [ $ans -eq 0 ]; then
 
-			checkSpace "$emulationPath/roms/" "$destination"
+			checkSpace "${emulationPath}/roms/" "${destination}"
 
-			mkdir -p "$destination/EmuDeck/roms"
+			mkdir -p "${destination}/EmuDeck/roms"
 
-			for entry in "$emulationPath/roms/"*
+			for entry in "${emulationPath}/roms/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/roms/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/roms/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "${entry}" "${destination}/EmuDeck/roms/" | awk -f "${HOME}/.config/EmuDeck/backend/rsync.awk" | zenity --progress --text="Exporting ${entry} to ${destination}/EmuDeck/roms/" --title="Exporting ${entry}..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
@@ -155,7 +164,8 @@ if [ "$size" -gt 4096 ]; then
 		fi
 	fi
 
-	if [ -d "$ESDEscrapData" ]; then
+	# shellcheck disable=2154
+	if [ -d "${ESDEscrapData}" ]; then
 		text="$(printf "Do you want to export all your EmulationStation media?")"
 		zenity --question \
 			--title="EmuDeck Export tool" \
@@ -166,13 +176,13 @@ if [ "$size" -gt 4096 ]; then
 		ans=$?
 		if [ $ans -eq 0 ]; then
 
-			checkSpace "$ESDEscrapData" "$destination"
+			checkSpace "${ESDEscrapData}" "${destination}"
 
-			mkdir -p "$destination/EmuDeck/tools/downloaded_media"
+			mkdir -p "${destination}/EmuDeck/tools/downloaded_media"
 
-			for entry in "$ESDEscrapData/"*
+			for entry in "${ESDEscrapData}/"*
 			do
-				rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/tools/downloaded_media/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/tools/downloaded_media/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+				rsync -ravL --ignore-existing --progress "${entry}" "${destination}/EmuDeck/tools/downloaded_media/" | awk -f "${HOME}/.config/EmuDeck/backend/rsync.awk" | zenity --progress --text="Exporting ${entry} to ${destination}/EmuDeck/tools/downloaded_media/" --title="Exporting ${entry}..." --width=400 --percentage=0 --auto-close
 			done
 
 		else
