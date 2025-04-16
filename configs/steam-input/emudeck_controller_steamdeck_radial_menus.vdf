@@ -1090,7 +1090,8 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press X, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
+							"binding"		"key_press LEFT_ALT, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
+							"binding"		"key_press F4, Stop Emulation, EmuDeck_Quit-Exit.png, #232323 #AD0000"
 						}
 						"settings"
 						{
@@ -20889,7 +20890,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press E, Layout Toggle, , "
+							"binding"		"key_press TAB, Layout Toggle, , "
 						}
 					}
 				}
@@ -20905,7 +20906,8 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press X, Hold to Quit, , "
+							"binding"		"key_press LEFT_ALT, Hold to Quit, , "
+							"binding"		"key_press F4, Hold to Quit, , "
 						}
 						"settings"
 						{
@@ -20925,7 +20927,7 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press F, Toggle Full Screen, , "
+							"binding"		"key_press F11, Toggle Full Screen, , "
 						}
 					}
 				}
@@ -20941,7 +20943,8 @@
 					{
 						"bindings"
 						{
-							"binding"		"key_press S, Swap Screens, , "
+							"binding"		"key_press LEFT_CONTROL, Swap Screens, , "
+							"binding"		"key_press TAB, Swap Screens, , "
 						}
 					}
 				}
