@@ -8,9 +8,9 @@ import subprocess
 import hashlib
 
 from vars import home_dir, msg_file
-from utils import getSettings, log_message
+from utils import get_settings, log_message
 
-settings = getSettings()
+settings = get_settings()
 storage_path = os.path.expandvars(settings["storagePath"])
 
 # Path for the JSON and target folder from command-line arguments

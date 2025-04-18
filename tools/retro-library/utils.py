@@ -1,16 +1,18 @@
 import os
 import re
 import subprocess
-from vars import home_dir, msg_file
+from vars import msg_file
 
-def getSettings():
+
+def get_settings():
     pattern = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)=(.*)')
     user_home = os.path.expanduser("~")
-
+    bash_command = "cd $HOME/.config/EmuDeck/backend/ && git rev-parse --abbrev-ref HEAD"
+    config_file_path = os.path.join(user_home, '.config', 'EmuDeck',
+                                    'settings.sh')
     if os.name == 'nt':
+        bash_command = f"cd {os.path.join(user_home, 'AppData', 'Roaming', 'EmuDeck', 'backend')} && git rev-parse --abbrev-ref HEAD"
         config_file_path = os.path.join(user_home, 'AppData', 'Roaming', 'EmuDeck', 'settings.ps1')
-    else:
-        config_file_path = os.path.join(user_home, '.config' , 'EmuDeck', 'settings.sh')
 
     configuration = {}
 
@@ -23,12 +25,6 @@ def getSettings():
                 expanded_value = os.path.expandvars(value.replace('"', '').replace("'", ""))
                 configuration[variable] = expanded_value
 
-    # Obtener rama actual del repositorio backend
-    if os.name == 'nt':
-        bash_command = f"cd {os.path.join(user_home, 'AppData', 'Roaming', 'EmuDeck', 'backend')} && git rev-parse --abbrev-ref HEAD"
-    else:
-        bash_command = "cd $HOME/.config/EmuDeck/backend/ && git rev-parse --abbrev-ref HEAD"
-
     result = subprocess.run(bash_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     configuration["branch"] = result.stdout.strip()
 
@@ -36,21 +32,23 @@ def getSettings():
 
     return configuration
 
+
 def log_message(message):
     with open(msg_file, "w") as log_file:  # "a" to append messages without overwriting
         log_file.write(message + "\n")
+
 
 def clean_name(name):
     name_cleaned = re.sub(r'\(.*?\)', '', name)
     name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
     name_cleaned = name_cleaned.strip().replace(' ', '_').replace('-', '_')
     name_cleaned = re.sub(r'_+', '_', name_cleaned)
-    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '').replace('_decrypted','').replace('decrypted','').replace('.ps3', '')
-    name_cleaned_pegasus = name.replace(',_', ',')
+    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '').replace('_decrypted', '').replace('decrypted', '').replace('.ps3', '')
     name_cleaned = name_cleaned.lower()
     return name_cleaned
 
-def collect_game_data(system_dir, extensions, images_path = None):
+
+def collect_game_data(system_dir, extensions, images_path=None):
     game_data = []
 
     #PS3
@@ -169,9 +167,6 @@ def collect_game_data(system_dir, extensions, images_path = None):
                                 "filename": file_path
                             }
                             game_data.append(game_info)
-
-
-
                 else:
                     game_info = {
                         "name": name_cleaned,
@@ -211,6 +206,7 @@ def get_valid_system_dirs(roms_dir, valid_system_dirs):
                     valid_system_dirs.append(full_path)
                     log_message(f"GGL: Valid system directory found: {full_path}")
     return valid_system_dirs
+
 
 def parse_metadata_file(metadata_path):
     if not os.path.exists(metadata_path):
