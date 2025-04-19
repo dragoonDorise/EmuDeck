@@ -17,16 +17,8 @@ def get_app_id(exe, appname):
     return id_int
 
 
-def main():
-    """Get the two arguments and send them to get_app_id"""
-    exe = sys.argv[1]
-    appname = sys.argv[2]
-
-    print(get_app_id(exe, appname))
-
-
 if __name__ == "__main__":
     # If there aren't the correct number of arguments, fail with error
     if len(sys.argv) != 3:
         sys.exit("Not enough arguments")
-    main()
+    print(get_app_id(sys.argv[1], sys.argv[2]))
