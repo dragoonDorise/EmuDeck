@@ -11,6 +11,8 @@ appImageInit() {
 		#ESDE_refreshCustomEmus
 
 	fi
+	mkdir "$HOME/emudeck"
+	ln -s "$emudeckFolder/settings.sh" "$HOME/emudeck/settings.sh"
 
 
 	# Init functions
