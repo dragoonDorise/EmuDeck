@@ -1,13 +1,11 @@
 import os
 import json
 import sys
-import re
-import subprocess
+from vars import excluded_systems
+from utils import get_settings, log_message, get_valid_system_dirs
 
-from vars import home_dir, msg_file, excluded_systems
-from utils import getSettings, log_message, get_valid_system_dirs
 
-settings = getSettings()
+settings = get_settings()
 storage_path = os.path.expandvars(settings["storagePath"])
 
 

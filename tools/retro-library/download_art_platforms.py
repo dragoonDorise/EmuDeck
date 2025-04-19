@@ -1,16 +1,15 @@
 import os
 import json
-import subprocess
 import requests
 import zipfile
 from io import BytesIO
 import sys
-import re
-from vars import home_dir, msg_file
-from utils import getSettings, log_message
+from utils import get_settings, log_message
 
-settings = getSettings()
+
+settings = get_settings()
 storage_path = os.path.expandvars(settings["storagePath"])
+
 
 def download_and_extract(output_dir):
     # Fixed path to the JSON file
