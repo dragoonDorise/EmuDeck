@@ -15,7 +15,7 @@
     </emulator>
     <core name="RETROARCH">
         <rule type="corepath">
-            <entry>~/.config/retroarch/cores</entry>
+            <entry>~/.var/app/org.libretro.RetroArch/config/cores</entry>
         </rule>
     </core>
     <emulator name="SHADPS4">
