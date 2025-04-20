@@ -293,13 +293,11 @@ cloud_sync_install_and_config_with_code(){
     cloud_sync_config_with_code $code
 }
 
-
 cloud_sync_uninstall(){
   # startLog ${FUNCNAME[0]}
   setSetting cloud_sync_status "false" > /dev/null
   rm -rf "$cloud_sync_bin" && rm -rf "$cloud_sync_config" && echo "true"
 }
-
 
 cloud_sync_upload(){
   # startLog ${FUNCNAME[0]}
@@ -402,7 +400,6 @@ cloud_sync_createBackup (){
   find "$emulationPath/save-backups/$emuName/" -maxdepth 1 -type d -mtime +30 -delete
   cp -Lr "$savesPath/$emuName" "$emulationPath/save-backups/"
 }
-
 
 cloud_sync_uploadEmu(){
   # startLog ${FUNCNAME[0]}
@@ -612,13 +609,10 @@ cloud_sync_downloadEmuAll(){
  cloud_sync_download 'all'
 }
 
-
 cloud_sync_uploadEmuAll(){
   cloud_sync_createService
   cloud_sync_upload 'all'
 }
-
-
 
 cloud_sync_save_hash(){
   # startLog ${FUNCNAME[0]}
@@ -631,7 +625,6 @@ cloud_sync_save_hash(){
   #fi
   echo "$hash" > "$dir/.hash"
 }
-
 
 cloud_sync_createService(){
   startLog ${FUNCNAME[0]}
@@ -668,7 +661,6 @@ cloud_sync_stopService(){
   systemctl --user stop "EmuDeckCloudSync.service"
 }
 
-
 cloud_sync_lock(){
   # startLog ${FUNCNAME[0]}
  touch "$emudeckFolder/cloud.lock"
@@ -700,8 +692,6 @@ cloud_sync_check_lock(){
 
 }
 
-
-
 cloud_decky_check_status(){
   # startLog ${FUNCNAME[0]}
 
@@ -731,3 +721,104 @@ cloud_decky_check_status(){
   fi
 
 }
+
+
+cloud_sync_health_checkBin(){
+  ls "$cloud_sync_bin" > /dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    echo "true"
+  else
+    echo "false"
+  fi
+}
+
+cloud_sync_health_checkCfg() {
+  local char_count_og=$(wc -m < "$emudeckFolder/backend/configs/rclone/rclone.conf")
+  local char_count=$(wc -m < "$cloud_sync_config")
+
+  if [ "$char_count_og" -eq "$char_count" ]; then
+    echo "true"
+  else
+    echo "false"
+  fi
+}
+
+
+cloud_sync_health_checkServiceCreated(){
+  ls "$HOME/.config/systemd/user/EmuDeckCloudSync.service" > /dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    echo "true"
+  else
+    echo "false"
+  fi
+}
+
+cloud_sync_health_checkServiceStarts(){
+  systemctl --user stop "EmuDeckCloudSync.service" > /dev/null 2>&1
+  systemctl --user start "EmuDeckCloudSync.service" > /dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    systemctl --user stop "EmuDeckCloudSync.service" > /dev/null 2>&1
+    echo "true"
+  else
+    echo "false"
+  fi
+
+}
+
+cloud_sync_health_upload(){
+  local file="cloudsync.emudeck"
+  local filePath="$savesPath/$file"
+  echo "test" > "$filePath"
+  "$cloud_sync_bin" -q copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$filePath" "$cloud_sync_provider":"$cs_user"Emudeck/saves/$file
+
+  if [ $? -eq 0 ]; then
+    rm -rf "$filePath"
+    echo "true"
+  else
+    rm -rf "$filePath"
+    echo "false"
+  fi
+
+}
+
+cloud_sync_health_isFileUploaded(){
+  local file="cloudsync.emudeck"
+  local filePath="$savesPath/$file"
+
+  if rclone lsf "$cloud_sync_provider":"$cs_user"Emudeck/saves/$file --include "$file" | grep -q "^$file$"; then
+    echo "true"
+  else
+    echo "false"
+  fi
+}
+
+cloud_sync_health_download(){
+  local file="cloudsync.emudeck"
+  local filePath="$savesPath/$file"
+  "$cloud_sync_bin" -q copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":"$cs_user"Emudeck/saves/$file "$filePath"
+  if [ $? -eq 0 ]; then
+    rm -rf "$filePath"
+    echo "true"
+  else
+    rm -rf "$filePath"
+    echo "false"
+  fi
+
+}
+
+cloud_sync_health_isFileDownloaded(){
+  local file="cloudsync.emudeck"
+  local filePath="$savesPath/$file"
+  ls "$filePath" > /dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    echo "true"
+    rm -rf $filePath > /dev/null 2>&1
+  else
+    echo "false"
+  fi
+}
+
+
+
+
+
