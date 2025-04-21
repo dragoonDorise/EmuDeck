@@ -722,13 +722,16 @@ cloud_decky_check_status(){
 
 }
 
-
+#!/bin/bash
+cloud_sync_path="$toolsPath/rclone"
+cloud_sync_bin="$cloud_sync_path/rclone"
+cloud_sync_config="$cloud_sync_path/rclone.conf"
 cloud_sync_health_checkBin(){
   local file="cloudsync.emudeck"
   local filePath="$savesPath/$file"
 
   #Cleanup
-  rclone delete "$cloud_sync_provider":"$cs_user"Emudeck/saves/$file > /dev/null 2>&1
+  "$cloud_sync_bin" delete "$cloud_sync_provider":"$cs_user"Emudeck/saves/$file > /dev/null 2>&1
   rm -rf $filePath > /dev/null 2>&1
   rm -rf $savesPath/dl_$file > /dev/null 2>&1
 
