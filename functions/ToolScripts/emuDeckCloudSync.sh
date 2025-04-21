@@ -736,7 +736,7 @@ cloud_sync_health_checkBin(){
   if [ $? -eq 0 ]; then
     echo "true"
   else
-    echo "false"
+    echo $?
   fi
 }
 
@@ -745,7 +745,7 @@ cloud_sync_health_checkCfg() {
   local char_count=$(wc -m < "$cloud_sync_config")
 
   if [ "$char_count_og" -eq "$char_count" ]; then
-    echo "true"
+    echo "false"
   else
     echo "false"
   fi
@@ -757,7 +757,7 @@ cloud_sync_health_checkServiceCreated(){
   if [ $? -eq 0 ]; then
     echo "true"
   else
-    echo "false"
+    echo $?
   fi
 }
 
@@ -793,7 +793,7 @@ cloud_sync_health_isFileUploaded(){
   local file="cloudsync.emudeck"
   local filePath="$savesPath/$file"
 
-  if rclone lsf "$cloud_sync_provider":"$cs_user"Emudeck/saves/$file --include "$file" | grep -q "^$file$"; then
+  if "$cloud_sync_bin" lsf "$cloud_sync_provider":"$cs_user"Emudeck/saves/$file --include "$file" | grep -q "^$file$"; then
     echo "true"
   else
     echo "false"
@@ -826,7 +826,7 @@ cloud_sync_health_isFileDownloaded(){
   fi
 
   #Cleanup
-  rclone delete "$cloud_sync_provider":"$cs_user"Emudeck/saves/$file > /dev/null 2>&1
+  "$cloud_sync_bin" delete "$cloud_sync_provider":"$cs_user"Emudeck/saves/$file > /dev/null 2>&1
   rm -rf $filePath > /dev/null 2>&1
   rm -rf "$savesPath/dl_$file" > /dev/null 2>&1
 }
