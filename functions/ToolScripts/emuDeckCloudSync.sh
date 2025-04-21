@@ -48,7 +48,6 @@ cloud_sync_install(){
       curl -L "https://github.com/rclone/rclone/releases/download/v1.69.0/rclone-v1.69.0-linux-amd64.zip" --output "$cloud_sync_path/tmp/rclone.temp" && mv "$cloud_sync_path/tmp/rclone.temp" "$cloud_sync_path/tmp/rclone.zip"
 
       if [ $? -eq 0 ]; then
-        echo "true_cs"
         unzip -o "$cloud_sync_path/tmp/rclone.zip" -d "$cloud_sync_path/tmp/" && rm "$cloud_sync_path/tmp/rclone.zip" > /dev/null
         mv "$cloud_sync_path"/tmp/* "$cloud_sync_path/tmp/rclone"  > /dev/null  #don't quote the *
         mv  "$cloud_sync_path/tmp/rclone/rclone" "$cloud_sync_bin" > /dev/null
@@ -196,73 +195,6 @@ cloud_sync_setup_providers(){
     fi
 }
 
- cloud_sync_generate_code(){
-   #Lets search for that token
-   # startLog ${FUNCNAME[0]}
-   while read line
-   do
-      if [[ "$line" == *"[Emudeck"* ]]
-      then
-        section=$line
-      elif [[ "$line" == *"token == "* ]]; then
-        token=$line
-        break
-      fi
-
-   done < $cloud_sync_config
-
-   replace_with=""
-
-   # Cleanup
-   token=${token/"token == "/$replace_with}
-   token=$(echo "$token" | sed "s/\"/'/g")
-   section=$(echo "$section" | sed 's/[][]//g; s/"//g')
-
-   json='{"section":"'"$section"'","token":"'"$token"'"}'
-
-   #json=$token
-
-   response=$(curl --request POST --url "https://patreon.emudeck.com/hastebin.php" --header "content-type: #application/x-www-form-urlencoded" --data-urlencode "data=${json}")
-   text="$(printf "<b>CloudSync Configured!</b>\nIf you want to set CloudSync on another EmuDeck installation you need to use #this code:\n\n<b>${response}</b>")"
-
-    zenity --info --width=300 \
-   --text="${text}" 2>/dev/null
-
-   clean_response=$(echo -n "$response" | tr -d '\n')
- }
-
- cloud_sync_config_with_code(){
-   # startLog ${FUNCNAME[0]}
-   local code=$1
-   if [ $code ]; then
-     cloud_sync_stopService
-
-     json=$(curl -s "https://patreon.emudeck.com/hastebin.php?code=$code")
-     json_object=$(echo $json | jq .)
-
-     section=$(echo $json | jq .section)
-     token=$(echo $json | jq .token)
-
-      # Cleanup
-      token=$(echo "$token" | sed "s/\"//g")
-      token=$(echo "$token" | sed "s/'/\"/g")
-      section=$(echo "$section" | sed 's/[][]//g; s/"//g')
-
-     cp "$emudeckBackend/configs/rclone/rclone.conf" "$cloud_sync_config"
-
-     iniFieldUpdate "$cloud_sync_config" "$section" "token" "$token"
-
-     #Bad Temp fix:
-
-     sed -i "s/token =/''/g" $cloud_sync_config
-     sed -i 's/  /token = /g' $cloud_sync_config
-
-   else
-     exit
-   fi
-
- }
-
 cloud_sync_install_and_config(){
    #startLog ${FUNCNAME[0]}
    local cloud_sync_provider=$1
@@ -282,7 +214,7 @@ cloud_sync_install_and_config(){
          cloud_sync_install $cloud_sync_provider
        fi
        fi
-   } && cloud_sync_config "$cloud_sync_provider" "$token"
+   } && cloud_sync_config "$cloud_sync_provider" "$token" && echo "true_cs"
 
    setSetting cloud_sync_provider "$cloud_sync_provider"  > /dev/null
    setSetting cloud_sync_status "true"  > /dev/null
@@ -294,14 +226,6 @@ cloud_sync_install_and_config(){
      fi
      fi
  }
-
-cloud_sync_install_and_config_with_code(){
-    # startLog ${FUNCNAME[0]}
-    local cloud_sync_provider=$1
-    code=$(zenity --entry --text="Please enter your SaveSync code")
-    cloud_sync_install "$cloud_sync_provider"
-    cloud_sync_config_with_code $code
-}
 
 cloud_sync_uninstall(){
   # startLog ${FUNCNAME[0]}
