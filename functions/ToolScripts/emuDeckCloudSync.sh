@@ -48,7 +48,12 @@ cloud_sync_install(){
       curl -L "https://github.com/rclone/rclone/releases/download/v1.69.0/rclone-v1.69.0-linux-amd64.zip" --output "$cloud_sync_path/tmp/rclone.temp" && mv "$cloud_sync_path/tmp/rclone.temp" "$cloud_sync_path/tmp/rclone.zip"
 
       if [ $? -eq 0 ]; then
-        echo "true"
+        echo "true_cs"
+        unzip -o "$cloud_sync_path/tmp/rclone.zip" -d "$cloud_sync_path/tmp/" && rm "$cloud_sync_path/tmp/rclone.zip" > /dev/null
+        mv "$cloud_sync_path"/tmp/* "$cloud_sync_path/tmp/rclone"  > /dev/null  #don't quote the *
+        mv  "$cloud_sync_path/tmp/rclone/rclone" "$cloud_sync_bin" > /dev/null
+        rm -rf "$cloud_sync_path/tmp" > /dev/null
+        chmod +x "$cloud_sync_bin" > /dev/null
       else
 
        text="$(printf "<b>CloudSync Error!</b>\nIt appears rclone is not installing by itself, try again later</b>")"
@@ -57,11 +62,6 @@ cloud_sync_install(){
        --text="${text}" 2>/dev/null
       fi
 
-      unzip -o "$cloud_sync_path/tmp/rclone.zip" -d "$cloud_sync_path/tmp/" && rm "$cloud_sync_path/tmp/rclone.zip" > /dev/null
-      mv "$cloud_sync_path"/tmp/* "$cloud_sync_path/tmp/rclone"  > /dev/null  #don't quote the *
-      mv  "$cloud_sync_path/tmp/rclone/rclone" "$cloud_sync_bin" > /dev/null
-      rm -rf "$cloud_sync_path/tmp" > /dev/null
-      chmod +x "$cloud_sync_bin" > /dev/null
     fi
 
 
