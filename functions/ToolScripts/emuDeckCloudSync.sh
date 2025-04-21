@@ -747,7 +747,7 @@ cloud_sync_health_checkCfg() {
   if [ "$char_count_og" -eq "$char_count" ]; then
     echo "false"
   else
-    echo "false"
+    echo "true"
   fi
 }
 
