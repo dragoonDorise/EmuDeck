@@ -793,7 +793,7 @@ cloud_sync_health_isFileUploaded(){
   local file="cloudsync.emudeck"
   local filePath="$savesPath/$file"
 
-  if "$cloud_sync_bin" lsf "$cloud_sync_provider":"$cs_user"Emudeck/saves/$file --include "$file" | grep -q "^$file$"; then
+  if "$cloud_sync_bin" lsf "$cloud_sync_provider":"$cs_user"Emudeck/saves/ --include "$file" | grep -q "^$file$"; then
     echo "true"
   else
     echo "false"
@@ -815,7 +815,7 @@ cloud_sync_health_download(){
 }
 
 cloud_sync_health_isFileDownloaded(){
-  local file="cloudsync.emudeck"
+  local file="dl_cloudsync.emudeck"
   local filePath="$savesPath/$file"
   ls "$filePath" > /dev/null 2>&1
 
@@ -828,7 +828,7 @@ cloud_sync_health_isFileDownloaded(){
   #Cleanup
   "$cloud_sync_bin" delete "$cloud_sync_provider":"$cs_user"Emudeck/saves/$file > /dev/null 2>&1
   rm -rf $filePath > /dev/null 2>&1
-  rm -rf "$savesPath/dl_$file" > /dev/null 2>&1
+  rm -rf "$savesPath/$file" > /dev/null 2>&1
 }
 
 
