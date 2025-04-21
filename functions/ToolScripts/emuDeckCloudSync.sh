@@ -45,7 +45,17 @@ cloud_sync_install(){
       fi
 
       mkdir -p "$cloud_sync_path"/tmp > /dev/null
-      curl -L "https://github.com/rclone/rclone/releases/download/v1.69.0/rclone-v1.69.0-linux-amd64.zip" --output "$cloud_sync_path/tmp/rclone.temp" && mv "$cloud_sync_path/tmp/rclone.temp" "$cloud_sync_path/tmp/rclone.zip" > /dev/null
+      curl -L "https://github.com/rclone/rclone/releases/download/v1.69.0/rclone-v1.69.0-linux-amd64.zip" --output "$cloud_sync_path/tmp/rclone.temp" && mv "$cloud_sync_path/tmp/rclone.temp" "$cloud_sync_path/tmp/rclone.zip"
+
+      if [ $? -eq 0 ]; then
+        echo "true"
+      else
+
+       text="$(printf "<b>CloudSync Error!</b>\nIt appears rclone is not installing by itself, try again later</b>")"
+
+        zenity --info --width=300 \
+       --text="${text}" 2>/dev/null
+      fi
 
       unzip -o "$cloud_sync_path/tmp/rclone.zip" -d "$cloud_sync_path/tmp/" && rm "$cloud_sync_path/tmp/rclone.zip" > /dev/null
       mv "$cloud_sync_path"/tmp/* "$cloud_sync_path/tmp/rclone"  > /dev/null  #don't quote the *
@@ -274,8 +284,8 @@ cloud_sync_install_and_config(){
        fi
    } && cloud_sync_config "$cloud_sync_provider" "$token"
 
-   setSetting cloud_sync_provider "$cloud_sync_provider"
-   setSetting cloud_sync_status "true"
+   setSetting cloud_sync_provider "$cloud_sync_provider"  > /dev/null
+   setSetting cloud_sync_status "true"  > /dev/null
 
    #We get the previous default browser back
      if [ $system != "darwin" ];then
