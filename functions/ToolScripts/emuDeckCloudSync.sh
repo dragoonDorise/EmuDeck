@@ -724,6 +724,14 @@ cloud_decky_check_status(){
 
 
 cloud_sync_health_checkBin(){
+  local file="cloudsync.emudeck"
+  local filePath="$savesPath/$file"
+
+  #Cleanup
+  rclone delete "$cloud_sync_provider":"$cs_user"Emudeck/saves/$file > /dev/null 2>&1
+  rm -rf $filePath > /dev/null 2>&1
+  rm -rf $savesPath/dl_$file > /dev/null 2>&1
+
   ls "$cloud_sync_bin" > /dev/null 2>&1
   if [ $? -eq 0 ]; then
     echo "true"
@@ -795,7 +803,7 @@ cloud_sync_health_isFileUploaded(){
 cloud_sync_health_download(){
   local file="cloudsync.emudeck"
   local filePath="$savesPath/$file"
-  "$cloud_sync_bin" -q copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":"$cs_user"Emudeck/saves/$file "$filePath"
+  "$cloud_sync_bin" -q copyto --fast-list --checkers=50 --transfers=50 --low-level-retries 1 --retries 1 "$cloud_sync_provider":"$cs_user"Emudeck/saves/$file "$savesPath/dl_$file"
   if [ $? -eq 0 ]; then
     rm -rf "$filePath"
     echo "true"
@@ -810,12 +818,17 @@ cloud_sync_health_isFileDownloaded(){
   local file="cloudsync.emudeck"
   local filePath="$savesPath/$file"
   ls "$filePath" > /dev/null 2>&1
+
   if [ $? -eq 0 ]; then
     echo "true"
-    rm -rf $filePath > /dev/null 2>&1
   else
     echo "false"
   fi
+
+  #Cleanup
+  rclone delete "$cloud_sync_provider":"$cs_user"Emudeck/saves/$file > /dev/null 2>&1
+  rm -rf $filePath > /dev/null 2>&1
+  rm -rf "$savesPath/dl_$file" > /dev/null 2>&1
 }
 
 
