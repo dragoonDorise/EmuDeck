@@ -1,28 +1,24 @@
 #!/bin/bash
-. "$HOME/.config/EmuDeck/backend/functions/all.sh"
-emulatorInit "citron"
 emuName="citron" #parameterize me
-emufolder="$emusFolder" # has to be applications for ES-DE to find it
 
-#find full path to emu executable
-exe=$(find $emufolder -iname "${emuName}*.AppImage" | sort -n | cut -d' ' -f 2- | tail -n 1 2>/dev/null)
+. "$HOME/.config/EmuDeck/backend/functions/all.sh"
+emulatorInit "$emuName"
 
-echo $exe
+# find full path to emulator appimage
+appimage=$(find "$emusFolder" -iname "${emuName}*.AppImage" -print -quit 2>/dev/null)
 
-#if appimage doesn't exist fall back to flatpak.
-if [[ $exe == '' ]]; then
-	#flatpak
-	flatpakApp=$(flatpak list --app --columns=application | grep 'citron')
-	exe="/usr/bin/flatpak run "$flatpakApp
+# if appimage doesn't exist fall back to flatpak
+if [[ -z "$appimage" ]]; then
+	flatpakApp=$(/usr/bin/flatpak list --app --columns=application | grep -im1 "${emuName}")
+	set -- /usr/bin/flatpak run "$flatpakApp" "$@"
 else
-	#make sure that file is executable
-	chmod +x $exe
+	# make sure the appimage is executable
+	chmod +x "$appimage"
+	set -- "$appimage" "$@"
 fi
 
-#run the executable with the params.
-#Fix first '
-param="${@}"
-param=$(echo $param | sed -e 's/^/"/' -e 's/$/"/')
-eval "${exe} -f -g ${param}"
+echo "Launching ${emuName} with:" "$@"
+"$@"
+
 cloud_sync_uploadForced
-rm -rf "$savesPath/.gaming";
+rm -rf "$savesPath/.gaming"
