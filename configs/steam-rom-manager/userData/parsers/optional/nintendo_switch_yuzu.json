@@ -3,7 +3,7 @@
     "configTitle": "Nintendo Switch - Yuzu",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "${romsdirglobal}/switch",
-    "executableArgs": "vblank_mode=0 %command% -f -g \"'${filePath}'\"",
+    "executableArgs": "vblank_mode=0 %command% -f -g \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
