@@ -107,7 +107,7 @@ generateGameLists_retroAchievements(){
     local filename=$1
     local system=$2
     local localDataPath="$storagePath/retrolibrary/achievements/$system.json"
-    local hash=$(md5sum $emulationPath/roms/$system/$filename | awk '{ print $1 }')
+    local hash=$(md5sum "$emulationPath/roms/$system/$filename" | awk '{ print $1 }')
     python $emudeckBackend/tools/retro-library/retro_achievements.py "$cheevos_username" "$hash" "$localDataPath"
 }
 
