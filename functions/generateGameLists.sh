@@ -155,7 +155,7 @@ generateGameLists_retroAchievements(){
     local system=$2
     local localDataPath="$storagePath/retrolibrary/achievements/$system.json"
     #local hash=$(md5sum "$emulationPath/roms/$system/$filename" | awk '{ print $1 }')
-    ROM_FILE="$filename"
+    ROM_FILE="$emulationPath/roms/$system/$filename"
 
     if [[ ! -f "$ROM_FILE" ]]; then
         echo "Error: Archivo no encontrado."
