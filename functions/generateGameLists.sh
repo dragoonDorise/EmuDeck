@@ -102,13 +102,105 @@ generateGameLists_getPercentage() {
 }
 
 
+# Función para calcular MD5 directamente
+calculate_md5() {
+    md5sum "$1" | awk '{print $1}'
+}
+
+# Función para quitar cabecera temporalmente y calcular MD5
+calculate_md5_without_header() {
+    local file="$1"
+    local header_size="$2"
+    local tmpfile=$(mktemp)
+
+    dd if="$file" of="$tmpfile" bs=1 skip=$header_size status=none
+    md5sum "$tmpfile" | awk '{print $1}'
+    rm "$tmpfile"
+}
+
+# Función para manejar archivos ROM reales
+handle_rom_file() {
+    local rom="$1"
+    local rom_ext="${rom##*.}"
+    rom_ext="${rom_ext,,}"
+
+    case "$rom_ext" in
+        nes)
+            header=$(dd if="$rom" bs=4 count=1 status=none)
+            if [[ "$header" == "NES"* ]]; then
+                calculate_md5_without_header "$rom" 16
+            else
+                calculate_md5 "$rom"
+            fi
+            ;;
+        sfc|smc)
+            SIZE=$(stat --format="%s" "$rom")
+            if (( SIZE % 1024 == 512 )); then
+                calculate_md5_without_header "$rom" 512
+            else
+                calculate_md5 "$rom"
+            fi
+            ;;
+        *)
+            calculate_md5 "$rom"
+            ;;
+    esac
+}
+
+# --- Lógica principal ---
+
 generateGameLists_retroAchievements(){
     generate_pythonEnv &> /dev/null
     local filename=$1
     local system=$2
     local localDataPath="$storagePath/retrolibrary/achievements/$system.json"
-    local hash=$(md5sum "$emulationPath/roms/$system/$filename" | awk '{ print $1 }')
-    python $emudeckBackend/tools/retro-library/retro_achievements.py "$cheevos_username" "$hash" "$localDataPath"
+    #local hash=$(md5sum "$emulationPath/roms/$system/$filename" | awk '{ print $1 }')
+    ROM_FILE="$filename"
+
+    if [[ ! -f "$ROM_FILE" ]]; then
+        echo "Error: Archivo no encontrado."
+        exit 1
+    fi
+
+    EXTENSION="${ROM_FILE##*.}"
+    EXTENSION="${EXTENSION,,}"
+
+    if [[ "$EXTENSION" == "zip" ]]; then
+        # ZIP - extraer el primer archivo ROM
+        TMPDIR=$(mktemp -d)
+        unzip -j "$ROM_FILE" -d "$TMPDIR" >/dev/null
+        ROM_INNER=$(find "$TMPDIR" -type f | head -n 1)
+
+        if [[ -z "$ROM_INNER" ]]; then
+            echo "Error: No se encontró ROM dentro del ZIP."
+            rm -rf "$TMPDIR"
+            exit 1
+        fi
+
+        HASH=$(handle_rom_file "$ROM_INNER")
+        rm -rf "$TMPDIR"
+
+    elif [[ "$EXTENSION" == "7z" ]]; then
+        # 7z - extraer el primer archivo ROM
+        TMPDIR=$(mktemp -d)
+        7z e -o"$TMPDIR" "$ROM_FILE" >/dev/null
+        ROM_INNER=$(find "$TMPDIR" -type f | head -n 1)
+
+        if [[ -z "$ROM_INNER" ]]; then
+            echo "Error: No se encontró ROM dentro del 7z."
+            rm -rf "$TMPDIR"
+            exit 1
+        fi
+
+        HASH=$(handle_rom_file "$ROM_INNER")
+        rm -rf "$TMPDIR"
+
+    else
+        # Archivo ROM directo
+        HASH=$(handle_rom_file "$ROM_FILE")
+    fi
+
+    python $emudeckBackend/tools/retro-library/retro_achievements.py "$cheevos_username" "$HASH" "$localDataPath"
 }
 
 generateGameLists_downloadAchievements(){
