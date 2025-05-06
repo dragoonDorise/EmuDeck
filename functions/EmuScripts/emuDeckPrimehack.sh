@@ -1,27 +1,32 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-#variables
+# emuDeckPrimehack
+
+# Variables
 Primehack_emuName="Primehack"
-Primehack_emuType="$emuDeckEmuTypeFlatpak"
+# shellcheck disable=2034,2154
+Primehack_emuType="${emuDeckEmuTypeFlatpak}"
 Primehack_emuPath="io.github.shiiion.primehack"
-Primehack_configFile="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Dolphin.ini"
-Primehack_configFileGFX="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/GFX.ini"
+# shellcheck disable=2034
+Primehack_configFile="${HOME}/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Dolphin.ini"
+Primehack_configFileGFX="${HOME}/.var/app/io.github.shiiion.primehack/config/dolphin-emu/GFX.ini"
+# shellcheck disable=2034
 releaseURL=""
 
-#cleanupOlderThings
-Primehack_cleanup(){
- echo "NYI"
+# cleanupOlderThings
+Primehack_cleanup () {
+	echo "NYI"
 }
 
-#Install
-Primehack_install() {
-	setMSG "Installing $Primehack_emuName"
+# Install
+Primehack_install () {
+	setMSG "Installing ${Primehack_emuName}"
 	installEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" "emulator" ""
 }
 
-#ApplyInitialSettings
-Primehack_init() {
-	setMSG "Initializing $Primehack_emuName settings."
+# ApplyInitialSettings
+Primehack_init () {
+	setMSG "Initializing ${Primehack_emuName} settings."
 	configEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" "true"
 	Primehack_setupStorage
 	Primehack_setEmulationFolder
@@ -31,9 +36,9 @@ Primehack_init() {
 	Primehack_flushEmulatorLauncher
 }
 
-#update
-Primehack_update() {
-	setMSG "Updating $Primehack_emuName settings."
+# update
+Primehack_update () {
+	setMSG "Updating ${Primehack_emuName} settings."
 	configEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" 
 	updateEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" "emulator" ""
 	Primehack_setupStorage
@@ -42,88 +47,90 @@ Primehack_update() {
 	Primehack_flushEmulatorLauncher
 }
 
-#ConfigurePaths
-Primehack_setEmulationFolder() {
-	setMSG "Setting $Primehack_emuName Emulation Folder"
-	configFile="$HOME/.var/app/${Primehack_emuPath}/config/dolphin-emu/Dolphin.ini"
+# ConfigurePaths
+Primehack_setEmulationFolder () {
+	setMSG "Setting ${Primehack_emuName} Emulation Folder"
+	configFile="${HOME}/.var/app/${Primehack_emuPath}/config/dolphin-emu/Dolphin.ini"
 	gameDirOpt='ISOPath0 = '
+	# shellcheck disable=2154
 	newGameDirOpt='ISOPath0 = '"${romsPath}/primehacks"
 	sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
 }
 
-#SetupSaves
-Primehack_setupSaves(){
-	unlink "$savesPath/primehack/states"
-	linkToSaveFolder primehack GC "$HOME/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC"
-	linkToSaveFolder primehack Wii "$HOME/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii"
-	linkToSaveFolder primehack StateSaves "$HOME/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves/"
+# SetupSaves
+Primehack_setupSaves () {
+	# shellcheck disable=2154
+	unlink "${savesPath}/primehack/states"
+	linkToSaveFolder primehack GC "${HOME}/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC"
+	linkToSaveFolder primehack Wii "${HOME}/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii"
+	linkToSaveFolder primehack StateSaves "${HOME}/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves/"
 }
 
 
-#SetupStorage
-Primehack_setupStorage(){
+# SetupStorage
+Primehack_setupStorage () {
    	echo "NYI"
 }
 
-
-#WipeSettings
-Primehack_wipe() {
-	rm -rf "$HOME/.var/app/${Primehack_emuPath}"
+# WipeSettings
+Primehack_wipe () {
+	rm -rf "${HOME}/.var/app/${Primehack_emuPath}"
 }
 
-
-#Uninstall
-Primehack_uninstall() {
+# Uninstall
+Primehack_uninstall () {
 	uninstallEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" "emulator" ""
 }
 
-#setABXYstyle
-Primehack_setABXYstyle(){
+# setABXYstyle
+Primehack_setABXYstyle () {
     	echo "NYI"
 }
 
-#Migrate
-Primehack_migrate(){
+# Migrate
+Primehack_migrate () {
 	migrateDolphinStates "primehack" "io.github.shiiion.primehack" 
 }
 
-#WideScreenOn
-Primehack_wideScreenOn(){
+# WideScreenOn
+Primehack_wideScreenOn () {
 	echo "NYI"
 }
 
-#WideScreenOff
-Primehack_wideScreenOff(){
+# WideScreenOff
+Primehack_wideScreenOff () {
 	echo "NYI"
 }
 
-#BezelOn
-Primehack_bezelOn(){
-echo "NYI"
+# BezelOn
+Primehack_bezelOn () {
+	echo "NYI"
 }
 
-#BezelOff
-Primehack_BezelOff(){
-echo "NYI"
+# BezelOff
+Primehack_BezelOff () {
+	echo "NYI"
 }
 
-Primehack_IsInstalled(){
-	isFpInstalled "$Primehack_emuPath"
+# IsInstalled
+Primehack_IsInstalled () {
+	isFpInstalled "${Primehack_emuPath}"
 }
 
-Primehack_resetConfig(){
+# resetConfig
+Primehack_resetConfig () {
 	Primehack_init &>/dev/null && echo "true" || echo "false"
 }
 
-#finalExec - Extra stuff
-Primehack_finalize(){
+# finalExec - Extra stuff
+Primehack_finalize () {
 	echo "NYI"
 }
 
-
-Primehack_setResolution(){
-
-	case $dolphinResolution in
+# setResolution
+Primehack_setResolution () {
+	# shellcheck disable=2154
+	case "${dolphinResolution}" in
 		"720P") multiplier=2;;
 		"1080P") multiplier=3;;
 		"1440P") multiplier=4;;
@@ -131,13 +138,10 @@ Primehack_setResolution(){
 		*) echo "Error"; return 1;;
 	esac
 
-	RetroArch_setConfigOverride "InternalResolution" $multiplier "$Primehack_configFileGFX"
-
+	RetroArch_setConfigOverride "InternalResolution" "${multiplier}" "$Primehack_configFileGFX"
 }
 
-Primehack_flushEmulatorLauncher(){
-
-
+# flushEmulatorLauncher
+Primehack_flushEmulatorLauncher () {
 	flushEmulatorLaunchers "primehack"
-
 }
