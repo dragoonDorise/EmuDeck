@@ -81,6 +81,7 @@ source "$emudeckBackend"/functions/ToolScripts/emuDeckStore.sh
 #emuscripts
 #source "$emudeckBackend"/functions/EmuScripts/emuDeckSuyu.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckCitron.sh
+source "$emudeckBackend"/functions/EmuScripts/emuDeckEden.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckYuzu.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckCemu.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckCemuProton.sh
