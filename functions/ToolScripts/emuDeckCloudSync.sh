@@ -280,7 +280,7 @@ cloud_sync_download(){
   if [ "$cloud_sync_status" == "true" ]; then
 
     #Force upload at the ending flag
-    echo "$emuName" > "$romsPath/saves/.no_upload"
+    echo "$emuName" > "$savesPath/.no_upload"
 
     #We wait for any upload in progress in the background
     cloud_sync_check_lock
@@ -557,8 +557,8 @@ cloud_sync_uploadEmuAll(){
 }
 
 cloud_sync_uploadForced(){
-  if [ -f  "$romsPath/saves/.no_upload" ]; then
-    emuName=$(cat "$romsPath/saves/.no_upload")
+  if [ -f  "$savesPath/.no_upload" ]; then
+    emuName=$(cat "$savesPath/.no_upload")
     cloud_sync_upload "$emuName"
   fi
 }
