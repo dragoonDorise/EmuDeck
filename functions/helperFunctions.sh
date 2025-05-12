@@ -1045,6 +1045,7 @@ function emulatorInit(){
 
 	cd $emudeckBackend
 	git reset --hard && git pull
+	. "$HOME/.config/EmuDeck/backend/functions/all.sh"
 	appImageInit
 
 	#NetPlay
