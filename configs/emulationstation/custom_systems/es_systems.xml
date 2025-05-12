@@ -36,6 +36,7 @@
 	<extension>.nca .NCA .nro .NRO .nso .NSO .nsp .NSP .xci .XCI</extension>
 	<command label="Ryujinx (Standalone)">%EMULATOR_RYUJINX% %ROM%</command>
 	<command label="Yuzu (Standalone)">%INJECT%=%BASENAME%.esprefix %EMULATOR_YUZU% -f -g %ROM%</command>
+	<command label="Eden (Standalone)">%INJECT%=%BASENAME%.esprefix %EMULATOR_EDEN% -f -g %ROM%</command>
 	<platform>switch</platform>
 	<theme>switch</theme>
   </system>

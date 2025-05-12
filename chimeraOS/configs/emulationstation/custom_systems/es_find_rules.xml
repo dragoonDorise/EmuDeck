@@ -67,6 +67,15 @@
             <entry>~/.local/share/flatpak/exports/bin/org.yuzu_emu.yuzu</entry>
         </rule>
     </emulator>
+    <emulator name="EDEN">
+        <!-- Nintendo Switch emulator Eden -->
+        <rule type="systempath">
+            <entry>eden</entry>
+        </rule>
+        <rule type="staticpath">
+            <entry>~/Applications/Eden*.AppImage</entry>
+        </rule>
+    </emulator>
     <emulator name="AZAHAR">
         <!-- Nintendo 3DS -->
         <rule type="staticpath">
