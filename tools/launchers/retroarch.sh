@@ -2,4 +2,5 @@
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "retroarch"
 /usr/bin/flatpak run org.libretro.RetroArch $netplayCMD "${@}"
-rm -rf "$savesPath/.gaming"
+cloud_sync_uploadForced
+rm -rf "$savesPath/.gaming";

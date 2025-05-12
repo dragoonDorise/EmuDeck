@@ -12,4 +12,5 @@ EMU="Cemu"
 
 # Launch emu-launch.sh
 "${LAUNCH}" -e "${EMU}" -- "${@}"
-rm -rf "$savesPath/.gaming"
+cloud_sync_uploadForced
+rm -rf "$savesPath/.gaming";

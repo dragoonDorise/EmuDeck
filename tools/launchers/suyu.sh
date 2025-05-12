@@ -24,4 +24,5 @@ fi
 param="${@}"
 param=$(echo $param | sed -e 's/^/"/' -e 's/$/"/')
 eval "${exe} ${param}"
-rm -rf "$savesPath/.gaming"
+cloud_sync_uploadForced
+rm -rf "$savesPath/.gaming";

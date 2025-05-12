@@ -53,4 +53,5 @@ echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${XENIA}" "${@}"
 # >> "${LOGFILE}" # huh, what logfile is that?!?
 "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${XENIA}" "${@}"
 
-rm -rf "$savesPath/.gaming"
+cloud_sync_uploadForced
+rm -rf "$savesPath/.gaming";

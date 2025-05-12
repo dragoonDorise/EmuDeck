@@ -3,4 +3,5 @@
 #. "$emudeckBackend/tools/rom-parser.sh"
 cloud_sync_downloadEmuAll && cloud_sync_startService
 $pegasusFolder/pegasus-fe "${@}"
-rm -rf "$savesPath/.gaming"
+cloud_sync_uploadForced
+rm -rf "$savesPath/.gaming";

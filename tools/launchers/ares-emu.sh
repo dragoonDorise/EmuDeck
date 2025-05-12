@@ -3,4 +3,5 @@
 cd $biosPath
 emulatorInit "ares"
 /usr/bin/flatpak run dev.ares.ares "${@}"
-rm -rf "$savesPath/.gaming"
+cloud_sync_uploadForced
+rm -rf "$savesPath/.gaming";

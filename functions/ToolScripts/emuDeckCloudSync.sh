@@ -239,11 +239,12 @@ cloud_sync_upload(){
   local timestamp=$(date +%s)
 
   if [ "$cloud_sync_status" == "true" ]; then
+
     cloud_sync_lock
 
     if [ "$emuName" = "all" ]; then
         cloud_sync_save_hash $savesPath
-        ("$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$emudeckLogs/rclone.log" --checkers=50 -P -L --exclude=/.fail_upload --exclude=/BigPEmuConfig.bigpcfg --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload  --exclude=/.last_upload --exclude=/es-de/** "$savesPath" "$cloud_sync_provider":"$cs_user"Emudeck/saves/ && (
+        ("$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$emudeckLogs/rclone.log" --checkers=50 -P -L --exclude=/.fail_upload --exclude=/BigPEmuConfig.bigpcfg --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload -exclude=/.no_upload  --exclude=/.last_upload --exclude=/es-de/** "$savesPath" "$cloud_sync_provider":"$cs_user"Emudeck/saves/ && (
           local baseFolder="$savesPath/"
            for folder in $baseFolder*/
             do
@@ -255,8 +256,11 @@ cloud_sync_upload(){
         ))
     else
         cloud_sync_save_hash "$savesPath/$emuName"
-        ("$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$emudeckLogs/rclone.log" --checkers=50 -P -L --exclude=/.fail_upload --exclude=/BigPEmuConfig.bigpcfg --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload  --exclude=/.last_upload --exclude=/es-de/** "$savesPath/$emuName" "$cloud_sync_provider":"$cs_user"Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload)
+        ("$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$emudeckLogs/rclone.log" --checkers=50 -P -L --exclude=/.fail_upload --exclude=/BigPEmuConfig.bigpcfg --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload -exclude=/.no_upload  --exclude=/.last_upload --exclude=/es-de/** "$savesPath/$emuName" "$cloud_sync_provider":"$cs_user"Emudeck/saves/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_upload && rm -rf $savesPath/$emuName/.fail_upload)
     fi
+    #Did we upload? kill the flag
+    rm -rf "$savesPath/.no_upload"
+
     cloud_sync_unlock
   fi
 
@@ -275,6 +279,9 @@ cloud_sync_download(){
   local timestamp=$(date +%s)
   if [ "$cloud_sync_status" == "true" ]; then
 
+    #Force upload at the ending flag
+    echo "$emuName" > "$romsPath/saves/.no_upload"
+
     #We wait for any upload in progress in the background
     cloud_sync_check_lock
     if [ "$emuName" == "all" ]; then
@@ -289,7 +296,7 @@ cloud_sync_download(){
 
         if [ -f "$savesPath/.hash" ] && [ "$hash" != "$hashCloud" ]; then
 
-             "$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$emudeckLogs/rclone.log" --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/BigPEmuConfig.bigpcfg --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload  --exclude=/.last_upload --exclude=/es-de/** "$cloud_sync_provider":"$cs_user"Emudeck/saves/ "$savesPath" && (
+             "$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$emudeckLogs/rclone.log" --checkers=50 -P -L  --exclude=/.fail_upload --exclude=/BigPEmuConfig.bigpcfg --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload -exclude=/.no_upload  --exclude=/.last_upload --exclude=/es-de/** "$cloud_sync_provider":"$cs_user"Emudeck/saves/ "$savesPath" && (
                 local baseFolder="$savesPath/"
                  for folder in $baseFolder*/
                   do
@@ -316,7 +323,7 @@ cloud_sync_download(){
         hashCloud=$(cat "$savesPath/$emuName/.hash")
 
         if [ -f "$savesPath/$emuName/.hash" ] && [ "$hash" != "$hashCloud" ];then
-            "$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$emudeckLogs/rclone.log" --checkers=50 -P -L --exclude=/.fail_upload --exclude=/BigPEmuConfig.bigpcfg --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload  --exclude=/.last_upload --exclude=/es-de/** "$cloud_sync_provider":"$cs_user"Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
+            "$cloud_sync_bin" copy --fast-list --update --tpslimit 12 --log-file "$emudeckLogs/rclone.log" --checkers=50 -P -L --exclude=/.fail_upload --exclude=/BigPEmuConfig.bigpcfg --exclude=/.fail_download --exclude=/system/prod.keys --exclude=/system/title.keys --exclude=/.pending_upload -exclude=/.no_upload  --exclude=/.last_upload --exclude=/es-de/** "$cloud_sync_provider":"$cs_user"Emudeck/saves/$emuName/ "$savesPath"/$emuName/ && echo $timestamp > "$savesPath"/$emuName/.last_download && rm -rf $savesPath/$emuName/.fail_download
         else
           echo "up to date"
         fi
@@ -340,6 +347,7 @@ cloud_sync_uploadEmu(){
   local emuName=$1
   local mode=$2
   local time_stamp
+
   if [ -f "$cloud_sync_bin" ] && [ "$cloud_sync_status" == "true" ]; then
     if [[ $cloud_sync_provider != *"Emudeck"* ]]; then
 
@@ -548,6 +556,13 @@ cloud_sync_uploadEmuAll(){
   cloud_sync_upload 'all'
 }
 
+cloud_sync_uploadForced(){
+  if [ -f  "$romsPath/saves/.no_upload" ]; then
+    emuName=$(cat "$romsPath/saves/.no_upload")
+    cloud_sync_upload "$emuName"
+  fi
+}
+
 cloud_sync_save_hash(){
   # startLog ${FUNCNAME[0]}
   local dir=$1
@@ -584,6 +599,7 @@ EOF
 
 cloud_sync_startService(){
   if [ $cloud_sync_status = "true" ]; then
+
     startLog ${FUNCNAME[0]}
     systemctl --user stop "EmuDeckCloudSync.service"
     systemctl --user start "EmuDeckCloudSync.service"

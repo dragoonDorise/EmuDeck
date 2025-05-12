@@ -39,4 +39,5 @@ else
     WINEPREFIX=$romsPath/model2/pfx/ GAMEID=ulwgl-model2 PROTONPATH="$HOME/.steam/steam/compatibilitytools.d/ULWGL-Proton-$Model2_ProtonGEVersion" $GAMELAUNCHER $EXE "${@}"
 fi
 
-rm -rf "$savesPath/.gaming"
+cloud_sync_uploadForced
+rm -rf "$savesPath/.gaming";

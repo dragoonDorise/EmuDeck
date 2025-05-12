@@ -2,4 +2,5 @@
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "flycast"
 /usr/bin/flatpak run org.flycast.Flycast "${@}"
-rm -rf "$savesPath/.gaming"
+cloud_sync_uploadForced
+rm -rf "$savesPath/.gaming";

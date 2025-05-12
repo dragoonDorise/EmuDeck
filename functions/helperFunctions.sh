@@ -1040,6 +1040,13 @@ addProtonLaunch(){
 function emulatorInit(){
 	local emuName=$1
 	#isLatestVersionGH "$emuName"
+
+	#Update backend + init
+
+	cd $emudeckBackend
+	git reset --hard && git pull
+	appImageInit
+
 	#NetPlay
 	cloud_sync_stopService
 	if [ "$emuName" = 'retroarch' ]; then

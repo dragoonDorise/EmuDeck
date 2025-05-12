@@ -2,4 +2,5 @@
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "primehack"
 /usr/bin/flatpak run io.github.shiiion.primehack "${@}"
-rm -rf "$savesPath/.gaming"
+cloud_sync_uploadForced
+rm -rf "$savesPath/.gaming";

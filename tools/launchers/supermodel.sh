@@ -4,4 +4,5 @@ emulatorInit "supermodel"
 param="${@}"
 param=$(echo "$param" | sed "s|'||g")
 /usr/bin/flatpak run com.supermodel3.Supermodel "${param}"
-rm -rf "$savesPath/.gaming"
+cloud_sync_uploadForced
+rm -rf "$savesPath/.gaming";

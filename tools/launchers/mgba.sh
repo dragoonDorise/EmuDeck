@@ -41,4 +41,5 @@ else
     "${exe[@]}" "${launch_args[@]}"
 fi
 
-rm -rf "$savesPath/.gaming"
+cloud_sync_uploadForced
+rm -rf "$savesPath/.gaming";

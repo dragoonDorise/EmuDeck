@@ -49,4 +49,5 @@ else
     fi
 fi
 
-rm -rf "$savesPath/.gaming"
+cloud_sync_uploadForced
+rm -rf "$savesPath/.gaming";

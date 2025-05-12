@@ -223,4 +223,5 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     main "${@}"
 fi
 
-rm -rf "$savesPath/.gaming"
+cloud_sync_uploadForced
+rm -rf "$savesPath/.gaming";
