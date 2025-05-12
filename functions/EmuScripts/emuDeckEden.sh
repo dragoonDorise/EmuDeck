@@ -3,7 +3,7 @@
 #variables
 Eden_emuName="eden"
 Eden_emuType="$emuDeckEmuTypeAppImage"
-Eden_emuPath="$emusFolder/eden.AppImage"
+Eden_emuPath="$emusFolder/Eden.AppImage"
 
 Eden_configFile="$HOME/.config/eden/qt-config.ini"
 
