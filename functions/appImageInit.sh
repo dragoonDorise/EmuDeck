@@ -19,4 +19,8 @@ appImageInit() {
 	mkdir -p "$emudeckLogs"
 	mkdir -p "$emudeckFolder/feeds"
 
+	#We force the regeneration of all the installed launchers
+
+	update_launchers
+
 }

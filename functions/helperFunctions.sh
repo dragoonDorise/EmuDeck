@@ -1305,3 +1305,23 @@ removeParser() {
 		echo "El parser $PARSER_ID no se encontró en la configuración."
 	fi
 }
+
+
+update_launchers(){
+  local target_dir="$toolsPath/launchers"
+  local src_dir="$emudeckBackend/tools/launchers"
+
+  # Busca recursivamente todos los *.sh en target_dir
+  find "$target_dir" -type f -name '*.sh' | while read -r dst; do
+	# Calcula ruta relativa desde target_dir
+	rel="${dst#$target_dir/}"
+	src="$src_dir/$rel"
+
+	if [ -f "$src" ]; then
+	  echo "Overwriting $dst from $src"
+	  cp -v "$src" "$dst"
+	else
+	  echo "⚠️  No source found for $rel, saltando"
+	fi
+  done
+}
