@@ -1,6 +1,0 @@
-collection: VTech V, Smile
-shortname: vsmile
-extensions: bin, BIN, 7z, 7Z, zip, ZIP
-launch: /run/media/mmcblk0p1/Emulation/tools/launchers/mame.sh vsmile -cart {file.path}
-
-

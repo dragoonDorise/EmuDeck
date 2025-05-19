@@ -1,0 +1,5 @@
+---
+initial-setup: true
+backend-renderer: Vulkan
+pref-path: EMULATIONPATH/storage/Vita3K/
+...

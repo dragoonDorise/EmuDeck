@@ -1,8 +1,0 @@
-#!/usr/bin/env xdg-open
-[Desktop Entry]
-Name=Set passwd
-Exec=echo "Type your password. You will not see any text entry in the terminal while you type. This is normal." && passwd && exit
-Icon=steamdeck-gaming-return
-Terminal=true
-Type=Application
-StartupNotify=false

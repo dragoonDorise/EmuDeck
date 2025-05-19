@@ -1,4 +1,5 @@
+__pycache__
+charset_normalizer
 .DS_Store
-.nova/Publishing/Deck.json
-*.log
-.nova/Configuration.json
+test.py
+emudeck_cloudsync.py

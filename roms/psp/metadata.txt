@@ -1,7 +1,0 @@
-collection: Sony PlayStation Portable
-shortname: psp
-extensions: elf, ELF, iso, ISO, cso, CSO, prx, PRX, pbp, PBP, chd, CHD
-launch: /run/media/mmcblk0p1/Emulation/tools/launchers/ppsspp.sh {file.path}
-
-
-

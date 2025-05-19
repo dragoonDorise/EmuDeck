@@ -1,0 +1,4 @@
+collection: Nintendo 3DS
+shortname: n3ds
+extensions: 3dsx, 3DSX, app, APP, axf, AXF, cii, CII, cxi, CXI, elf, ELF, cci, CCI
+launch: EMULATIONPATH/tools/launchers/azahar.sh {file.path}

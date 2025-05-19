@@ -1,4 +1,0 @@
-collection: Apple Macintosh
-shortname: macintosh
-extensions: dsk, img, zip ,hvf ,cmd
-launch: /run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh -L CORESPATH/minivmac.so {file.path}

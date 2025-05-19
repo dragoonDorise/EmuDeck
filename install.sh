@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-DEBIAN_DEPS=(jq zenity flatpak unzip bash libfuse2 git rsync whiptail python)
-ARCH_DEPS=(steam jq zenity flatpak unzip bash fuse2 git rsync libnewt python)
-FEDORA_DEPS=(jq zenity flatpak unzip bash fuse git rsync newt python)
-SUSE_DEPS=(steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail python)
-VOID_DEPS=(steam jq zenity flatpak unzip bash fuse git rsync whiptail python)
+DEBIAN_DEPS=(steam flatpak git python python3.12-venv)
+ARCH_DEPS=(steam flatpak git python)
+FEDORA_DEPS=(steam flatpak git python)
+SUSE_DEPS=(steam flatpak git python)
+VOID_DEPS=(steam flatpak git python)
 
 linuxID=$(lsb_release -si)
 sandbox=""

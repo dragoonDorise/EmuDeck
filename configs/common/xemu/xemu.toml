@@ -1,0 +1,20 @@
+[general]
+show_welcome = false
+
+[general.misc]
+skip_boot_anim = true
+
+[input.bindings]
+port1 = '03000000de280000ff11000001000000'
+
+[display.ui]
+fit = 'stretch'
+
+[sys]
+mem_limit = '128'
+
+[sys.files]
+bootrom_path = 'EMULATIONPATH/bios/mcpx_1.0.bin'
+flashrom_path = 'EMULATIONPATH/bios/Complex_4627v1.03.bin'
+eeprom_path = 'EMULATIONPATH/saves/xemu/eeprom.bin'
+hdd_path = 'EMULATIONPATH/storage/xemu/xbox_hdd.qcow2'

@@ -1,6 +1,0 @@
-collection: Sega Model 3
-shortname: model3
-extensions: zip, ZIP
-launch: /run/media/mmcblk0p1/Emulation/tools/launchers/supermodel.sh {file.path}
-
-

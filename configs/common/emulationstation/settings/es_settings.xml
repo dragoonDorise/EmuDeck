@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<string name="ROMDirectory" value="EMULATIONPATH/roms/" />
+<string name="ThemeSet" value="es-epicnoir" />
+<string name="MediaDirectory" value="EMULATIONPATH/storage/es-de/downloaded-media"/>

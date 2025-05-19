@@ -1,0 +1,57 @@
+/* popup.qss */
+
+/* Hacemos que los QDialogs sean transparentes */
+QDialog {
+  background: transparent;
+}
+
+/* El contenedor interno (el widget con objectName="content") */
+QWidget#content {
+  background-color: #221d2d;
+  border: 1px solid transparent;
+  border-radius: 12px;
+}
+
+/* Estilo general de botones */
+QPushButton {
+  background: qlineargradient(
+      x1:0, y1:0,         /* punto inicial en la esquina superior */
+      x2:0, y2:1,         /* punto final en la esquina inferior */
+      stop:0   #f2ebff,   /* color al 0% */
+      stop:0.2409 #f2ebff,/* color al 24.09% */
+      stop:1   #e5d6ff    /* color al 100% */
+  );
+  color: #221d2d;
+  border: none;
+  border-radius: 12px;
+  padding: 6px 12px;
+  min-width: 80px;
+}
+/*
+QPushButton:hover {
+  background-color: #2980b9;
+}
+QPushButton:pressed {
+  background-color: #1f6391;
+}
+*/
+/* Etiquetas */
+QLabel {
+  color: white;
+  font-size: 14px;
+  margin-bottom: 14px
+}
+
+/* LineEdits (por si los usas) */
+QLineEdit {
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 4px;
+  background: #fafafa;
+}
+
+QCheckBox {
+  spacing: 10px;
+  font-size: 14px;
+  color: #fff
+}

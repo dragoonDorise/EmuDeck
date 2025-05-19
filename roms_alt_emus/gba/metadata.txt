@@ -1,4 +1,0 @@
-collection: Nintendo Game Boy Advance (mGBA)
-shortname: gba
-extensions: agb, AGB, bin, BIN, cgb, CGB, dmg, DMG, gb, GB, gba, GBA, gbc, GBC, sgb, SGB, 7z, 7Z, zip, ZIP
-launch: /run/media/mmcblk0p1/Emulation/tools/launchers/mgba.sh -f  {file.path}

@@ -1,4 +1,0 @@
-collection: Sony PlayStation Vita
-shortname: psvita
-extensions: psvita, PSVITA
-launch:  /run/media/mmcblk0p1/Emulation/tools/launchers/vita3k.sh {file.path}

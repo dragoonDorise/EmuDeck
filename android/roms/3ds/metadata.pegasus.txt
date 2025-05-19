@@ -1,4 +1,0 @@
-collection: Nintendo 3DS
-shortname: 3ds
-extensions: app, axf, cci, cxi, elf
-launch: am start -n io.github.lime3ds.android/.ui.EmulationActivity -a android.intent.action.VIEW -e GamePath {file.path}

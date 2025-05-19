@@ -1,4 +1,0 @@
-collection: Arcade
-shortname: arcade
-extensions: cmd, CMD, 7z, 7Z, zip, ZIP
-launch: /run/media/mmcblk0p1/Emulation/tools/launchers/mame.sh {file.path}

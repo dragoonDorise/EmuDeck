@@ -1,0 +1,101 @@
+from core.all import *
+
+
+def _xxx_install():
+    set_msg(f"Installing _xxx")
+
+    if system == "linux":
+        type="AppImage"
+        look_for=""
+        destination = f"{emus_folder}"
+
+    if system.startswith("win"):
+        type="zip"
+        look_for=""
+        destination = f"{emus_folder}"
+
+    if system == "darwin":
+        type="dmg"
+        look_for=""
+        destination = f"{emus_folder}"
+
+    try:
+        repo=get_latest_release_gh("_xxx/_xxx",type,look_for)
+        install_emu("_xxx", repo, type, destination)
+    except Exception as e:
+        print(f"Error during install: {e}")
+        return False
+
+
+def _xxx_uninstall():
+    try:
+        if system == "linux":
+            uninstall_emu("_xxx", "AppImage")
+        if system.startswith("win"):
+          uninstall_emu("_xxx", "dir")
+        if system == "darwin":
+          uninstall_emu("_xxx", "app")
+        return True
+    except Exception as e:
+        print(f"Error during uninstall: {e}")
+        return False
+
+def _xxx_is_installed():
+    if system == "linux":
+        return (emus_folder / "_xxx.AppImage").exists()
+    if system.startswith("win"):
+      return (emus_folder / "_xxx" / "_xxx.exe").exists()
+    if system == "darwin":
+      return (emus_folder / "_xxx.app").exists()
+
+
+def _xxx_init():
+    set_msg(f"Setting up _xxx")
+    if system == "linux":
+        destination=f"{home}/.config/_xxx/config"
+    if system.startswith("win"):
+        destination=f"{emus_folder}/_xxx/"
+    if system == "darwin":
+        destination=f"{home}/Library/Application Support/_xxx/"
+
+    copy_setting_dir(f"{system}/_xxx/",destination)
+    copy_and_set_settings_file(f"{system}/_xxx/settings.ini", destination)
+
+    _xxx_setup_saves()
+    _xxx_setup_storage()
+    _xxx_set_resolution()
+    _xxx_set_controller_style()
+
+def _xxx_install_init():
+    _xxx_install()
+    _xxx_init()
+
+def _xxx_setup_saves():
+    if system == "linux":
+        origin_saves=f"{home}/.share/_xxx/sdmc"
+        origin_states=f"{home}/.local/share/_xxx-emu/states"
+    if system.startswith("win"):
+        origin_saves=f"{emus_folder}/_xxx/sdmc"
+        origin_states=f"{emus_folder}/_xxx/states"
+    if system == "darwin":
+        origin_saves=f"{home}/.share/_xxx/sdmc"
+        origin_states=f"{home}/.local/share/_xxx-emu/states"
+
+    move_contents_and_link(origin_saves,f"{saves_path}/_xxx/saves")
+    move_contents_and_link(origin_states,f"{saves_path}/_xxx/states")
+
+
+def _xxx_set_resolution():
+    print("NYI")
+
+def _xxx_set_abxy_style():
+    print("NYI")
+
+def _xxx_set_bayx_style():
+    print("NYI")
+
+def _xxx_set_controller_style():
+    if settings.controllerLayout == "bayx":
+        _xxx_set_bayx_style()
+    else:
+        _xxx_set_bayx_style()
