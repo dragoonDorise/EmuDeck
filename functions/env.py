@@ -3,7 +3,7 @@ from pathlib import Path
 from core.vars import *
 
 def install_pip(name):
-    venv_dir = Path(emudeck_folder) / "python_virtual_env"
+    venv_dir = Path(emudeck_folder) / "python_virtual_env_3_0_0"
     pip_exe = venv_dir / "bin" / "pip"
     if system.startswith("win"):
         pip_exe = venv_dir / "Scripts" / "pip.exe"
@@ -11,7 +11,7 @@ def install_pip(name):
 
 def generate_python_env():
 
-    venv_dir = Path(emudeck_folder) / "python_virtual_env"
+    venv_dir = Path(emudeck_folder) / "python_virtual_env_3_0_0"
     if system == "linux" or system == "darwin":
         python_venv = venv_dir / "bin" / "python"
     if system.startswith("win"):
