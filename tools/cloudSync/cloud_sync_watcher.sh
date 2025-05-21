@@ -29,11 +29,7 @@ declare -A current_hashes
 # Function to calculate the hash of a directory
 calculate_hash() {
   dir="$1"
-  if [ $system != "darwin" ];then
-    hash=$(find "$dir" -type f -exec sha256sum {} + | sha256sum | awk '{print $1}')
-  else
-    hash=$(find "$dir" -type f -exec shasum -a 256 {} + | shasum -a 256 | awk '{print $1}')
-  fi
+  hash=$(find "$dir" -type f -exec sha256sum {} + | sha256sum | awk '{print $1}')
   echo "$hash"
 }
 
