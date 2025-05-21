@@ -198,32 +198,16 @@ cloud_sync_setup_providers(){
 cloud_sync_install_and_config(){
    #startLog ${FUNCNAME[0]}
    local cloud_sync_provider=$1
-     local token=$2
-   #We force Chrome to be used as the default
-   {
+   local token=$2
 
-      if [ $system != "darwin" ];then
-       browser=$(xdg-settings get default-web-browser)
-
-       if [ "$browser" != 'com.google.Chrome.desktop' ];then
-         flatpak install flathub com.google.Chrome -y --user
-         xdg-settings set default-web-browser com.google.Chrome.desktop
-       fi
-
-       if [ ! -f "$cloud_sync_bin" ]; then
-         cloud_sync_install $cloud_sync_provider
-       fi
-       fi
-   } && cloud_sync_config "$cloud_sync_provider" "$token" && echo "true_cs"
+   cloud_sync_install $cloud_sync_provider && cloud_sync_config "$cloud_sync_provider" "$token" && echo "true_cs"
 
    setSetting cloud_sync_provider "$cloud_sync_provider"  > /dev/null
    setSetting cloud_sync_status "true"  > /dev/null
 
    #We get the previous default browser back
-     if [ $system != "darwin" ];then
      if [ "$browser" != 'com.google.Chrome.desktop' ];then
        xdg-settings set default-web-browser $browser
-     fi
      fi
  }
 
