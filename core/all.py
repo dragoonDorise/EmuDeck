@@ -15,6 +15,7 @@ def _import_all_functions_and_vars():
 
     forced = [
         "functions.helpers",
+        "functions.tools_scripts.emudeck_plugins"
         "functions.mocks",
         "functions.vdf",
         "functions.tools_scripts.emudeck_esde",
