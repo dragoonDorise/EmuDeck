@@ -2006,6 +2006,12 @@ def set_setting(key: str, value: Any) -> None:
     with json_path.open('w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
         f.write("\n")
+    #Settings reload
+    json_settings_path = Path(emudeck_folder) / "settings.json"
+    if json_settings_path.exists():
+        with open(json_settings_path, encoding='utf-8') as jf:
+            # Aquí json.load lee y va aplicando object_hook a cada dict
+            settings = json.load(jf, object_hook=lambda d: SimpleNamespace(**d))
 
 def popup_ask_conflict(title: str, message: str) -> Optional[bool]:
     """
@@ -2274,3 +2280,32 @@ def load_remote_cloud_sync():
        cloudsync_remote = None
 
     return cloudsync_remote
+
+def netplay_set_ip() -> Optional[str]:
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+            # doesn't send, just picks the correct outbound interface
+            s.connect(("8.8.8.8", 80))
+            local_ip = s.getsockname()[0]
+    except Exception:
+        return None
+
+    # 2) Build the first three octets
+    octets = local_ip.split(".")
+    if len(octets) != 4:
+        return None
+    segment = ".".join(octets[:3]) + "."
+
+    port = 55435
+    for i in range(2, 256):
+        ip = f"{segment}{i}"
+        try:
+            # 3) Attempt a TCP connect with 50 ms timeout
+            with socket.create_connection((ip, port), timeout=0.05):
+                # 4) Success! Persist and return.
+                set_setting("netplay_cmd", f"'-C {ip}'")
+                return ip
+        except (socket.timeout, ConnectionRefusedError, OSError):
+            continue
+
+    return None

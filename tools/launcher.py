@@ -187,18 +187,26 @@ if system.startswith("win"):
     if emu.lower() == "eden":
         exe = f"{emus_folder}/eden/eden.exe"
 
+#netplay
+if emu.lower() == "retroarch":
+   if netplay:
+      set_setting("netplay_cmd","-H")
+      netplay_set_ip()
+   else:
+      set_setting("netplay_cmd",'')
+
 
 exe = str(exe)
-cmd = [exe] + args
+cmd = [exe] + netplay_cmd + args
 
 if system.startswith("win"):
-    cmd = [str(exe)] + args
+    cmd = [str(exe)] + netplay_cmd + args
     cmd = [part.replace("/", "\\") for part in cmd]
 if system == "darwin":
     darwin_trust_app(exe)
-    cmd = ["open", "-W", "-a", exe] + args
+    cmd = ["open", "-W", "-a", exe, netplay_cmd] + args
 
-if cloud_sync_provider:
+if cloud_sync_provider and settings.netplay = False:
     REMOTE_URL = f"https://token.emudeck.com/cloud-check.php?access_token={settings.patreonToken}"
     try:
         cloudsync_remote = load_remote_module(REMOTE_URL, "cloudsync_remote")
@@ -220,7 +228,7 @@ if cloud_sync_provider:
 
 if system.startswith("win") and raw and raw[0] == "-L" and len(raw) > 2:
     args = [ raw[0], raw[1], " ".join(raw[2:]) ]
-    cmd = [str(exe)] + args
+    cmd = [str(exe)] + netplay_cmd + args
     shell_status = True
 else:
    shell_status = False
