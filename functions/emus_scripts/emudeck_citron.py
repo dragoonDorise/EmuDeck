@@ -25,7 +25,7 @@ def citron_init():
         destination=f"{emus_folder}/citron/"
     if system == "darwin":
        return False
-
+    plugins_install_steamdeck_gyro_dsu()
     copy_setting_dir(f"{system}/citron/",destination)
     copy_and_set_settings_file(f"{system}/citron/config/citron/qt-config.ini", destination)
 

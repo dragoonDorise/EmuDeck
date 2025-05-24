@@ -28,7 +28,7 @@ def yuzu_init():
 
     copy_setting_dir(f"{system}/yuzu/",destination)
     copy_and_set_settings_file(f"{system}/yuzu/config/yuzu/qt-config.ini", destination)
-
+    plugins_install_steamdeck_gyro_dsu()
     yuzu_setup_saves()
     yuzu_setup_storage()
     yuzu_set_resolution()
