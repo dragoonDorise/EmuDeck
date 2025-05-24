@@ -4,7 +4,7 @@ DEBIAN_DEPS=(jq zenity flatpak unzip bash libfuse2 git rsync whiptail python)
 ARCH_DEPS=(steam jq zenity flatpak unzip bash fuse2 git rsync libnewt python)
 FEDORA_DEPS=(jq zenity flatpak unzip bash fuse git rsync newt python)
 SUSE_DEPS=(steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail python)
-VOID_DEPS=(steam jq zenity flatpak unzip bash fuse git rsync whiptail python)
+VOID_DEPS=(steam jq zenity flatpak unzip bash fuse git rsync newt python)
 
 linuxID=$(lsb_release -si)
 sandbox=""
