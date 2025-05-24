@@ -114,6 +114,7 @@ def dolphin_init():
     dolphin_setup_saves()
     dolphin_set_resolution()
     dolphin_set_controller_style()
+    dolphin_widescreen()
 
 def dolphin_install_init():
     dolphin_install()
@@ -178,3 +179,34 @@ def dolphin_set_controller_style():
         dolphin_set_bayx_style()
     else:
         dolphin_set_bayx_style()
+
+def dolphin_widescreen_on():
+    if system == "linux":
+        dolphin_config_file=f"{home}/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
+    if system.startswith("win"):
+        dolphin_config_file=f"{emus_folder}/Dolphin-x64/User/Config/GFX.ini"
+    if system == "darwin":
+        dolphin_config_file=f"{home}/Library/Application Support/Dolphin/Config/GFX.ini"
+    config_path = Path(dolphin_config_file)
+
+    set_config("wideScreenHack", "True", config_path)
+    set_config("AspectRatio", "1", config_path)
+
+def dolphin_widescreen_off():
+    if system == "linux":
+        dolphin_config_file=f"{home}/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
+    if system.startswith("win"):
+        dolphin_config_file=f"{emus_folder}/Dolphin-x64/User/Config/GFX.ini"
+    if system == "darwin":
+        dolphin_config_file=f"{home}/Library/Application Support/Dolphin/Config/GFX.ini"
+    config_path = Path(dolphin_config_file)
+
+    set_config("wideScreenHack", "False", config_path)
+    set_config("AspectRatio", "0", config_path)
+
+
+def dolphin_widescreen():
+    if settings.ar.dolphin == "169":
+        dolphin_widescreen_on()
+    else:
+        dolphin_widescreen_off()
