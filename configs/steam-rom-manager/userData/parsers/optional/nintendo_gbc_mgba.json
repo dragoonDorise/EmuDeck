@@ -6,7 +6,7 @@
     "steamCategories": [
         "Nintendo Game Boy Color - mGBA (Standalone)"
     ],
-    "executableArgs": "-f \"'${filePath}'\"",
+    "executableArgs": "-f \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
