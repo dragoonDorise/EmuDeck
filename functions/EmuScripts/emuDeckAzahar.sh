@@ -2,7 +2,7 @@
 #variables
 Azahar_emuName="Azahar"
 Azahar_emuType="$emuDeckEmuTypeAppImage"
-Azahar_emuPath="$emusFolder/azahar-gui.AppImage"
+Azahar_emuPath="$emusFolder/azahar.AppImage"
 Azahar_releaseURL=""
 Azahar_configFile="$HOME/.config/azahar-emu/qt-config.ini"
 Azahar_configPath="$HOME/.config/azahar-emu"
@@ -12,23 +12,11 @@ Azahar_texturesPath="$HOME/.config/azahar-emu/load/textures"
 Azahar_install(){
 	echo "Begin $Azahar_emuName Install"
 	local showProgress="$1"
-	local url=$(getReleaseURLGH "azahar-emu/azahar" "tar.gz" "")
-	#local url="https://github.com/azahar-emu/azahar/releases/download/2120-rc3/azahar-2120-rc3-linux-appimage.tar.gz"
-	if installEmuAI "$Azahar_emuName" "" "$url" "azahar" "tar.gz" "emulator" "$showProgress"; then #azahar-gui.AppImage
-		mkdir "$emusFolder/azahar-temp"
-		tar -xvzf "$emusFolder/azahar.tar.gz" -C "$emusFolder/azahar-temp" --strip-components 1
-		if [ -f "$emusFolder/azahar-temp/azahar-gui.AppImage" ]; then
-			mv "$emusFolder/azahar-temp/azahar-gui.AppImage" "$Azahar_emuPath"
-		elif [ -f "$emusFolder/azahar-temp/azahar.AppImage" ]; then
-			mv "$emusFolder/azahar-temp/azahar.AppImage" "$Azahar_emuPath"
-		else
-			rm -rf "$emusFolder/azahar-temp"
-			rm -rf "$emusFolder/azahar.tar.gz"
-			return 1
-		fi
-		chmod +x "$emusFolder/azahar-gui.AppImage"
-		rm -rf "$emusFolder/azahar-temp"
-		rm -rf "$emusFolder/azahar.tar.gz"
+	local url=$(getReleaseURLGH "azahar-emu/azahar" "AppImage" "")
+
+	if installEmuAI "$Azahar_emuName" "" "$url" "azahar" "AppImage" "emulator" "$showProgress"; then
+		mv "$emusFolder/azahar.AppImage" "$Azahar_emuPath"
+		chmod +x "$Azahar_emuPath"
 	else
 		return 1
 	fi
