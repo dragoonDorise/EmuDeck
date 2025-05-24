@@ -1218,54 +1218,6 @@ def addProtonLaunch():
     else:
         print(f"File not found for chmod: {pl}")
 
-def emulatorInit(emuName: str) -> None:
-    # 1) Detener cualquier servicio de cloud sync
-    cloud_sync_stopService()
-
-    # 2) Lógica específica para RetroArch
-    if emuName == "retroarch":
-        if netPlay == "true":
-            # Preparar NetPlay
-            setSetting("netplayCMD", "-H")
-            time.sleep(2)
-            netplaySetIP()
-        else:
-            setSetting("netplayCMD", " ")
-            if cloud_sync_downloadEmu(emuName):
-                cloud_sync_startService()
-        # En Bash hacían `source all.sh`, pero en Python
-        # asumimos que todas las funciones ya están disponibles.
-
-    # 3) Para otros emuladores, solo descarga e inicia cloud sync
-    if emuName != "retroarch":
-        if cloud_sync_downloadEmu(emuName):
-            cloud_sync_startService()
-
-    # 4) Verificar estado del servicio CloudSync
-    if Path(cloud_sync_bin).is_file() and cloud_sync_status == "true" and netPlay != "true":
-        if check_internet_connection():
-            result = subprocess.run(
-                ["systemctl", "--user", "is-active", "--quiet", "EmuDeckCloudSync.service"]
-            )
-            if result.returncode == 0:
-                print("CloudSync Service running")
-            else:
-                text = "<b>CloudSync Error.</b>\nCloudSync service is not running. Please contact us on Patreon"
-                subprocess.run([
-                    "zenity", "--error",
-                    "--title=EmuDeck",
-                    "--width=400",
-                    "--text", text
-                ], stderr=subprocess.DEVNULL)
-        else:
-            text = "<b>CloudSync Error.</b>\nInternet connection not available. Please contact us on Patreon"
-            subprocess.run([
-                "zenity", "--error",
-                "--title=EmuDeck",
-                "--width=400",
-                "--text", text
-            ], stderr=subprocess.DEVNULL)
-
 def store_patreon_token(token: str) -> None:
     """
     Guarda el token en saves_path/.token y lo sube mediante cloud_sync_bin si está disponible.
@@ -2029,25 +1981,31 @@ def md5_of_file(path: Path) -> str:
     return h.hexdigest()
 
 def set_setting(key: str, value: Any) -> None:
-    json_path = Path(emudeck_folder / "settings.json")
+    json_path = Path(emudeck_folder) / "settings.json"
     data: dict[str, Any]
     if json_path.exists():
         try:
             with json_path.open('r', encoding='utf-8') as f:
                 data = json.load(f)
                 if not isinstance(data, dict):
-                    # si no es un objeto, sobreescribimos
                     data = {}
         except json.JSONDecodeError:
             data = {}
     else:
         data = {}
 
-    data[key] = value
+    # Soporte para claves anidadas
+    keys = key.split('.')
+    d = data
+    for k in keys[:-1]:
+        if k not in d or not isinstance(d[k], dict):
+            d[k] = {}
+        d = d[k]
+    d[keys[-1]] = value
 
     with json_path.open('w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
-        f.write("\n")  # s
+        f.write("\n")
 
 def popup_ask_conflict(title: str, message: str) -> Optional[bool]:
     """
@@ -2295,3 +2253,24 @@ def add_parser(
         json.dumps(configs, indent=2, ensure_ascii=False), encoding="utf-8"
     )
     return True
+
+
+def load_remote_module(url: str, module_name: str):
+    resp = requests.get(url, timeout=10)
+    resp.raise_for_status()
+    source = resp.text
+
+    spec = importlib.util.spec_from_loader(module_name, loader=None)
+    module = importlib.util.module_from_spec(spec)
+    exec(source, module.__dict__)
+    sys.modules[module_name] = module
+    return module
+
+def load_remote_cloud_sync():
+    REMOTE_URL = f"https://token.emudeck.com/cloud-check.php?access_token={settings.patreonToken}"
+    try:
+       cloudsync_remote = load_remote_module(REMOTE_URL, "cloudsync_remote")
+    except Exception as e:
+       cloudsync_remote = None
+
+    return cloudsync_remote

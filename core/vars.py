@@ -52,6 +52,7 @@ if json_settings_path.exists():
         controllerLayout=settings.controllerLayout
 
         cloud_sync_status=settings.cloudSyncStatus
+        cloud_sync_provider=settings.cloudSync
 
         emuGBA=settings.emulatorAlternative.gba
         emuMAME=settings.emulatorAlternative.mame
@@ -107,8 +108,7 @@ if json_settings_path.exists():
 
         #Se crean desde fuera del setup
         #rclone_provider="Emudeck-cloud"
-        cs_user="csEC2D3ED74AF3/"
-        cloud_sync_provider="Emudeck-cloud"
+
 
 else:
     settings = ""  # o lo que quieras por defecto

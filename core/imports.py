@@ -7,7 +7,7 @@ from multiprocessing import Process
 from time import sleep
 from math import ceil
 from pathlib import Path
-from typing import Optional, Union, Callable, Any, Iterable, Callable
+from typing import Optional, Union, Callable, Any, Iterable, Callable, Sequence
 from pathlib import Path
 from contextlib import redirect_stdout, redirect_stderr
 from concurrent.futures import ThreadPoolExecutor, as_completed

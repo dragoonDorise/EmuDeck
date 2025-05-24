@@ -6,218 +6,226 @@ from functions.env import generate_python_env
 generate_python_env()
 from core.all import *
 
+if system in ("darwin", "unix"):
+    emu = Path(sys.argv[1]).stem  # strip off the .sh
+else:
+    emu = sys.argv[1]
 
-emu = sys.argv[1]
 args = sys.argv[2:]
+raw = sys.argv[2:]
 
 if system == "darwin":
-    if emu == "es-de":
+    if emu.lower() == "es-de":
         exe = f"{emus_folder}/ES-DE.app"
-    if emu == "steamrommanager":
+    if emu.lower() == "steamrommanager":
         exe = f"{emus_folder}/Steam Rom Manager.app"
-    if emu == "azahar":
+    if emu.lower() == "azahar":
         exe = f"{emus_folder}/Azahar.app"
-    if emu == "bigpemu":
+    if emu.lower() == "bigpemu":
         exe = f"{emus_folder}/bigpemu.app"
-    if emu == "cemu":
+    if emu.lower() == "cemu":
         exe = f"{emus_folder}/Cemu.app"
-    if emu == "citron":
+    if emu.lower() == "citron":
         exe = f"{emus_folder}/citron.app"
-    if emu == "dolphin-emu":
-        exe = f"{emus_folder}/dolphin-emu.app"
-    if emu == "duckstation":
+    if emu.lower() == "dolphin-emu":
+        exe = f"{emus_folder}/Dolphin.app"
+    if emu.lower() == "duckstation":
         exe = f"{emus_folder}/DuckStation.app"
-    if emu == "flycast":
+    if emu.lower() == "flycast":
         exe = f"{emus_folder}/Flycast.app"
-    if emu == "mame":
+    if emu.lower() == "mame":
         exe = f"{emus_folder}/mame.app"
-    if emu == "melonds":
+    if emu.lower() == "melonds":
         exe = f"{emus_folder}/melonds.app"
-    if emu == "mgba":
+    if emu.lower() == "mgba":
         exe = f"{emus_folder}/mGBA.app"
-    if emu == "model-2-emulator":
+    if emu.lower() == "model-2-emulator":
         exe = f"{emus_folder}/model-2-emulator.app"
-    if emu == "pcsx2-qt":
+    if emu.lower() == "pcsx2-qt":
         exe = f"{emus_folder}/PCSX2.app"
-    if emu == "ppsspp":
+    if emu.lower() == "ppsspp":
         exe = f"{emus_folder}/PPSSPP.app"
-    if emu == "primehack":
+    if emu.lower() == "primehack":
         exe = f"{emus_folder}/primehack.app"
-    if emu == "retroarch":
+    if emu.lower() == "retroarch":
         exe = f"{emus_folder}/RetroArch.app"
-    if emu == "rosaliesmupengui":
+    if emu.lower() == "rosaliesmupengui":
         exe = f"{emus_folder}/rosaliesmupengui.app"
-    if emu == "rpcs3":
+    if emu.lower() == "rpcs3":
         exe = f"{emus_folder}/rpcs3.app"
-    if emu == "ryujinx":
+    if emu.lower() == "ryujinx":
         exe = f"{emus_folder}/ryujinx.app"
-    if emu == "scummvm":
+    if emu.lower() == "scummvm":
         exe = f"{emus_folder}/scummvm.app"
-    if emu == "shadps4":
+    if emu.lower() == "shadps4":
         exe = f"{emus_folder}/shadps4.app"
-    if emu == "supermodel":
+    if emu.lower() == "supermodel":
         exe = f"{emus_folder}/supermodel.app"
-    if emu == "vita3k":
+    if emu.lower() == "vita3k":
         exe = f"{emus_folder}/vita3k.app"
-    if emu == "xemu-emu":
+    if emu.lower() == "xemu-emu":
         exe = f"{emus_folder}/xemu-emu.app"
-    if emu == "xenia":
+    if emu.lower() == "xenia":
         exe = f"{emus_folder}/xenia.app"
-    if emu == "yuzu":
+    if emu.lower() == "yuzu":
         exe = f"{emus_folder}/yuzu.app"
+    #Legacy names
+
+
 
 if system == "linux":
-    if emu == "es-de":
+    if emu.lower() == "es-de":
         exe = f"{emus_folder}/ES-DE.appImage"
-    if emu == "steamrommanager":
+    if emu.lower() == "steamrommanager":
         exe = f"{emus_folder}/srm.appImage"
-    if emu == "azahar":
+    if emu.lower() == "azahar":
         exe = f"{emus_folder}/Azahar.appImage"
-    if emu == "bigpemu":
+    if emu.lower() == "bigpemu":
         exe = f"{emus_folder}/bigpemu/bigpemu"
-    if emu == "cemu":
+    if emu.lower() == "cemu":
         exe = f"{emus_folder}/Cemu.AppImage"
-    if emu == "citron":
+    if emu.lower() == "citron":
         exe = f"{emus_folder}/citron.AppImage"
-    if emu == "dolphin-emu":
+    if emu.lower() == "dolphin-emu":
         exe = "/usr/bin/flatpak run org.DolphinEmu.dolphin-emu"
-    if emu == "duckstation":
+    if emu.lower() == "duckstation":
         exe = "/usr/bin/flatpak run org.duckstation.DuckStation"
-    if emu == "flycast":
+    if emu.lower() == "flycast":
         exe = "/usr/bin/flatpak run org.flycast.Flycast"
-    if emu == "mame":
+    if emu.lower() == "mame":
         exe = "/usr/bin/flatpak run org.mamedev.MAME"
-    if emu == "melonds":
+    if emu.lower() == "melonds":
         exe = "/usr/bin/flatpak run net.kuribo64.melonDS"
-    if emu == "mgba":
+    if emu.lower() == "mgba":
         exe = f"{emus_folder}/mGBA.AppImage"
-    if emu == "model-2-emulator":
+    if emu.lower() == "model-2-emulator":
         exe = f"{emus_folder}/model-2-emulator.AppImage"
-    if emu == "pcsx2-qt":
+    if emu.lower() == "pcsx2-qt":
         exe = f"{emus_folder}/pcsx2-qt.AppImage"
-    if emu == "ppsspp":
+    if emu.lower() == "ppsspp":
         exe = "/usr/bin/flatpak run org.ppsspp.PPSSPP"
-    if emu == "primehack":
+    if emu.lower() == "primehack":
         exe = "/usr/bin/flatpak run io.github.shiiion.primehack"
-    if emu == "retroarch":
+    if emu.lower() == "retroarch":
         exe = "/usr/bin/flatpak run org.libretro.RetroArch"
-    if emu == "rosaliesmupengui":
+    if emu.lower() == "rosaliesmupengui":
         exe = "/usr/bin/flatpak run com.github.Rosalie241.RMG"
-    if emu == "rpcs3":
+    if emu.lower() == "rpcs3":
         exe = f"{emus_folder}/rpcs3.AppImage"
-    if emu == "ryujinx":
+    if emu.lower() == "ryujinx":
         exe = f"{emus_folder}/ryujinx.AppImage"
-    if emu == "scummvm":
+    if emu.lower() == "scummvm":
         exe = "/usr/bin/flatpak run org.scummvm.ScummVM"
-    if emu == "shadps4":
+    if emu.lower() == "shadps4":
         exe = f"{emus_folder}/shadps4.AppImage"
-    if emu == "supermodel":
+    if emu.lower() == "supermodel":
         exe = "/usr/bin/flatpak run com.supermodel3.Supermodel"
-    if emu == "vita3k":
+    if emu.lower() == "vita3k":
         exe = f"{emus_folder}/vita3k.AppImage"
-    if emu == "xemu-emu":
+    if emu.lower() == "xemu-emu":
         exe = "/usr/bin/flatpak run app.xemu.xemu"
-    if emu == "xenia":
+    if emu.lower() == "xenia":
         exe = f"{emus_folder}/xenia.AppImage"
-    if emu == "yuzu":
+    if emu.lower() == "yuzu":
         exe = f"{emus_folder}/yuzu.AppImage"
+    if emu.lower() == "eden":
+          exe = f"{emus_folder}/eden.AppImage"
 
 if system.startswith("win"):
-    if emu == "es-de":
-        exe = f"{emus_folder}/Azahar.exe"
-    if emu == "steamrommanager":
-        exe = f"{emus_folder}/Azahar.exe"
-    if emu == "azahar":
+    if emu.lower() == "es-de" or emu.lower() == "emulationstationde":
+        exe = f"{emus_folder}/es-de.exe"
+    if emu.lower() == "steamrommanager":
+        exe = f"{emus_folder}/srm.exe"
+    if emu.lower() == "azahar":
         exe = f"{emus_folder}/azahar/azahar.exe"
-    if emu == "bigpemu":
+    if emu.lower() == "bigpemu":
         exe = f"{emus_folder}/bigpemu/bigpemu.exe"
-    if emu == "Cemu":
+    if emu.lower() == "Cemu":
         exe = f"{emus_folder}/cemu/cemu.exe"
-    if emu == "citron":
+    if emu.lower() == "citron":
         exe = f"{emus_folder}/citron/citron.exe"
-    if emu == "dolphin-emu":
+    if emu.lower() == "dolphin-emu" or emu.lower() == "dolphin":
         exe = f"{emus_folder}/dolphin-x64/dolphin.exe"
-    if emu == "duckstation":
+    if emu.lower() == "duckstation":
         exe = f"{emus_folder}/duckstation/duckstation-qt-x64-ReleaseLTCG.exe"
-    if emu == "flycast":
+    if emu.lower() == "flycast":
         exe = f"{emus_folder}/flycast/flycast.exe"
-    if emu == "mame":
+    if emu.lower() == "mame":
         exe = f"{emus_folder}/mame/mame.exe"
-    if emu == "melonDS":
+    if emu.lower() == "melonds":
         exe = f"{emus_folder}/melonds/melonds.exe"
-    if emu == "mgba":
+    if emu.lower() == "mgba":
         exe = f"{emus_folder}/mgba/mgba.exe"
-    if emu == "model-2-emulator":
+    if emu.lower() == "model-2-emulator":
         exe = f"{emus_folder}/model2/model2.exe"
-    if emu == "pcsx2-qt":
+    if emu.lower() == "pcsx2-qt" or emu.lower() == "pcsx2":
         exe = f"{emus_folder}/pcsx2/pcsx2.exe"
-    if emu == "PPSSPP":
+    if emu.lower() == "ppsspp":
         exe = f"{emus_folder}/ppsspp/PPSSPPWindows64.exe"
-    if emu == "primehack":
+    if emu.lower() == "primehack":
         exe = f"{emus_folder}/primehack/primehack.exe"
-    if emu == "retroarch":
+    if emu.lower() == "retroarch":
         exe = f"{emus_folder}/retroarch/retroarch.exe"
-    if emu == "rosaliesmupengui":
-        exe = f"{emus_folder}/rosaliesmupengui/rosaliesmupengui.exe"
-    if emu == "rpcs3":
+    if emu.lower() == "rpcs3":
         exe = f"{emus_folder}/rpcs3/rpcs3.exe"
-    if emu == "Ryujinx":
+    if emu.lower() == "ryujinx":
         exe = f"{emus_folder}/ryujinx/ryujinx.exe"
-    if emu == "ScummVM":
+    if emu.lower() == "scummvm":
         exe = f"{emus_folder}/scummvm/scummvm.exe"
-    if emu == "shadps4":
+    if emu.lower() == "shadps4":
         exe = f"{emus_folder}/shadps4/shadps4.exe"
-    if emu == "supermodel":
+    if emu.lower() == "supermodel":
         exe = f"{emus_folder}/supermodel/supermodel.exe"
-    if emu == "Vita3K":
+    if emu.lower() == "vita3k":
         exe = f"{emus_folder}/vita3k/vita3k.exe"
-    if emu == "xemu-emu":
+    if emu.lower() == "xemu-emu" or emu.lower() == "xemu":
         exe = f"{emus_folder}/xemu/xemu-emu.exe"
-    if emu == "xenia":
+    if emu.lower() == "xenia":
         exe = f"{emus_folder}/xenia/xenia_canary.exe"
-    if emu == "yuzu":
+    if emu.lower() == "yuzu":
         exe = f"{emus_folder}/yuzu/yuzu.exe"
+    if emu.lower() == "eden":
+        exe = f"{emus_folder}/eden/eden.exe"
+
 
 exe = str(exe)
 cmd = [exe] + args
+
 if system.startswith("win"):
     cmd = [str(exe)] + args
+    cmd = [part.replace("/", "\\") for part in cmd]
 if system == "darwin":
     darwin_trust_app(exe)
     cmd = ["open", "-W", "-a", exe] + args
 
-REMOTE_URL = f"https://token.emudeck.com/cloud-check.php?access_token={settings.patreonToken}"
-
-def load_remote_module(url: str, module_name: str):
-    resp = requests.get(url, timeout=10)
-    resp.raise_for_status()
-    source = resp.text
-
-    spec = importlib.util.spec_from_loader(module_name, loader=None)
-    module = importlib.util.module_from_spec(spec)
-    exec(source, module.__dict__)
-    sys.modules[module_name] = module
-    return module
-
-try:
-    cloudsync_remote = load_remote_module(REMOTE_URL, "cloudsync_remote")
-except Exception as e:
-    cloudsync_remote = None
-
-if cloudsync_remote:
+if cloud_sync_provider:
+    REMOTE_URL = f"https://token.emudeck.com/cloud-check.php?access_token={settings.patreonToken}"
     try:
-        cloudsync_remote.cloud_sync_download_emu(emu)
+        cloudsync_remote = load_remote_module(REMOTE_URL, "cloudsync_remote")
     except Exception as e:
-        print(f"Error en cloud_sync_download_emu: {e}", exc_info=True)
+        cloudsync_remote = None
 
-    t = threading.Thread(
-        target=cloudsync_remote.monitor_and_upload,
-        kwargs={"poll_interval": 1.0},
-        daemon=True
-    )
-    t.start()
+    if cloudsync_remote:
+        try:
+            cloudsync_remote.cloud_sync_download_emu(emu)
+        except Exception as e:
+            print(f"Error en cloud_sync_download_emu: {e}", exc_info=True)
 
-subprocess.run(cmd, check=True)
+        t = threading.Thread(
+            target=cloudsync_remote.monitor_and_upload,
+            kwargs={"poll_interval": 1.0},
+            daemon=True
+        )
+        t.start()
+
+if system.startswith("win") and raw and raw[0] == "-L" and len(raw) > 2:
+    args = [ raw[0], raw[1], " ".join(raw[2:]) ]
+    cmd = [str(exe)] + args
+    shell_status = True
+else:
+   shell_status = False
+
+subprocess.run(cmd, check=True, shell=shell_status)
 
 watch_file = Path(saves_path) / ".watching"
 if watch_file.exists():
