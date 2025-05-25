@@ -6,6 +6,7 @@ Yuzu_emuType="$emuDeckEmuTypeAppImage"
 Yuzu_emuPath="$emusFolder/yuzu.AppImage"
 
 Yuzu_configFile="$HOME/.config/yuzu/qt-config.ini"
+Yuzu_inputConfigFile="$HOME/.config/yuzu/input/emudeck.ini"
 
 # https://github.com/yuzu-emu/yuzu/blob/master/src/core/file_sys/control_metadata.cpp#L41-L60
 declare -A Yuzu_languages
@@ -255,7 +256,30 @@ Yuzu_migrate() {
 
 #setABXYstyle
 Yuzu_setABXYstyle() {
-    echo "NYI"
+    # Temporarily apply layout switching only to Player 0 (default Player?).
+    sed -i "/player_0_button_a/s/button:1/button:0/" ${Yuzu_configFile}
+    sed -i "/player_0_button_b/s/button:0/button:1/" ${Yuzu_configFile}
+    sed -i "/player_0_button_x/s/button:3/button:2/" ${Yuzu_configFile}
+    sed -i "/player_0_button_y/s/button:2/button:3/" ${Yuzu_configFile}
+
+    sed -i '/button_a/s/button:1/button:0/' "${Yuzu_inputConfigFile}"
+    sed -i '/button_b/s/button:0/button:1/' "${Yuzu_inputConfigFile}"
+    sed -i '/button_x/s/button:3/button:2/' "${Yuzu_inputConfigFile}"
+    sed -i '/button_y/s/button:2/button:3/' "${Yuzu_inputConfigFile}"
+}
+
+#setBAYXstyle
+Yuzu_setBAYXstyle() {
+    # Temporarily apply layout switching only to Player 0 (default Player?).
+    sed -i "/player_0_button_a/s/button:0/button:1/" ${Yuzu_configFile}
+    sed -i "/player_0_button_b/s/button:1/button:0/" ${Yuzu_configFile}
+    sed -i "/player_0_button_x/s/button:2/button:3/" ${Yuzu_configFile}
+    sed -i "/player_0_button_y/s/button:3/button:2/" ${Yuzu_configFile}
+
+    sed -i '/button_a/s/button:0/button:1/' "${Yuzu_inputConfigFile}"
+    sed -i '/button_b/s/button:1/button:0/' "${Yuzu_inputConfigFile}"
+    sed -i '/button_x/s/button:2/button:3/' "${Yuzu_inputConfigFile}"
+    sed -i '/button_y/s/button:3/button:2/' "${Yuzu_inputConfigFile}"
 }
 
 #WideScreenOn
