@@ -15,26 +15,43 @@ QWidget#content {
 /* Estilo general de botones */
 QPushButton {
   background: qlineargradient(
-      x1:0, y1:0,         /* punto inicial en la esquina superior */
-      x2:0, y2:1,         /* punto final en la esquina inferior */
-      stop:0   #f2ebff,   /* color al 0% */
-      stop:0.2409 #f2ebff,/* color al 24.09% */
-      stop:1   #e5d6ff    /* color al 100% */
-  );
-  color: #221d2d;
+  x1:0, y1:0, x2:0, y2:1,
+  stop:0 rgba(242, 235, 255, 41),
+  stop:1 rgba(242, 235, 255, 20)
+);
+  color: #fff;
   border: none;
   border-radius: 12px;
   padding: 6px 12px;
   min-width: 80px;
+  opacity:0.8
 }
-/*
+
+QPushButton:focus {
+ color: #221d2d;
+ opacity:1;
+ background: qlineargradient(
+     x1:0, y1:0,         /* punto inicial en la esquina superior */
+     x2:0, y2:1,         /* punto final en la esquina inferior */
+     stop:0   #f2ebff,   /* color al 0% */
+     stop:0.2409 #f2ebff,/* color al 24.09% */
+     stop:1   #e5d6ff    /* color al 100% */
+ );
+
+}
 QPushButton:hover {
-  background-color: #2980b9;
+ color: #221d2d;
+ opacity:1;
+ background: qlineargradient(
+     x1:0, y1:0,         /* punto inicial en la esquina superior */
+     x2:0, y2:1,         /* punto final en la esquina inferior */
+     stop:0   #f2ebff,   /* color al 0% */
+     stop:0.2409 #f2ebff,/* color al 24.09% */
+     stop:1   #e5d6ff    /* color al 100% */
+ );
 }
-QPushButton:pressed {
-  background-color: #1f6391;
-}
-*/
+
+
 /* Etiquetas */
 QLabel {
   color: white;

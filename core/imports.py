@@ -105,14 +105,34 @@ def poll_gamepad() -> Optional[str]:
             if e.button == CANCEL_BTN: return "cancel"
     return None
 
+def poll_gamepad_dir() -> Optional[str]:
+    """
+    Returns one of 'up','down','left','right' when the D-pad (hat) is moved
+    or left analog tilt is significant.
+    """
+    j = ensure_gamepad()
+    if not j:
+        return None
+    pygame.event.pump()
+    for e in pygame.event.get():
+        # D-pad (hat) events:
+        if e.type == pygame.JOYHATMOTION:
+            x, y = e.value  # y: 1=up, -1=down, x:1=right, -1=left
+            if y == 1:   return "up"
+            if y == -1:  return "down"
+            if x == -1:  return "left"
+            if x == 1:   return "right"
+        # optionally, check analog stick on axis 0/1:
+        if e.type == pygame.JOYAXISMOTION and abs(e.value) > 0.6:
+            if e.axis == 1:  # vertical stick
+                return "down" if e.value > 0 else "up"
+            if e.axis == 0:  # horizontal stick
+                return "right" if e.value > 0 else "left"
+    return None
 
 # ─── BaseDialog ───────────────────────────────────────────────────────────────
 
 class BaseDialog(QtWidgets.QDialog):
-    """
-    Dialog sin bordes, fondo transparente.
-    El contenido interno (objectName="content") recibirá el QSS.
-    """
     def __init__(self, title: str):
         super().__init__(None)
         self.setWindowTitle(title)
@@ -133,9 +153,6 @@ class BaseDialog(QtWidgets.QDialog):
         self._inner = inner
 
     def _add(self, widget: QtWidgets.QWidget, *, alignment=None):
-        """
-        Añade un widget al contenido.
-        """
         if alignment is not None:
             self._inner.addWidget(widget, alignment=alignment)
         else:

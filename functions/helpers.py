@@ -2014,12 +2014,6 @@ def set_setting(key: str, value: Any) -> None:
             settings = json.load(jf, object_hook=lambda d: SimpleNamespace(**d))
 
 def popup_ask_conflict(title: str, message: str) -> Optional[bool]:
-    """
-    Yes/No/Cancel dialog (botones y gamepad).
-      True  = Yes
-      False = No
-      None  = Cancel
-    """
     app = ensure_app()
     dlg = BaseDialog(title)
 
@@ -2037,11 +2031,19 @@ def popup_ask_conflict(title: str, message: str) -> Optional[bool]:
     btn_layout.addWidget(ca_btn)
     dlg._inner.addLayout(btn_layout)
 
+    widgets = [yes_btn, no_btn, ca_btn]
+    # initial focus on first button
+    widgets[0].setFocus()
+    idx = 0
+
     choice: Optional[str] = None
-    def _set(c: str):
+    def _set(c: str, accept: bool):
         nonlocal choice
         choice = c
-        dlg.accept()
+        if accept:
+            dlg.accept()
+        else:
+            dlg.reject()
 
     yes_btn.clicked.connect(lambda: _set("yes"))
     no_btn.clicked.connect(lambda: _set("no"))
@@ -2050,6 +2052,17 @@ def popup_ask_conflict(title: str, message: str) -> Optional[bool]:
     dlg.show()
     while dlg.isVisible():
         app.processEvents()
+        dir = poll_gamepad_dir()
+        if dir == "right":
+            idx = (idx + 1) % len(widgets)
+            widgets[idx].setFocus()
+        elif dir == "left":
+            idx = (idx - 1) % len(widgets)
+            widgets[idx].setFocus()
+        elif dir in ("up","down"):
+            # if vertical layout just wrap among them:
+            idx = (idx + (1 if dir=="down" else -1)) % len(widgets)
+            widgets[idx].setFocus()
         gp = poll_gamepad()
         if gp in ("yes","no","cancel"):
             _set(gp)
