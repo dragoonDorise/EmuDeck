@@ -1,6 +1,6 @@
 from core.all import *
 
-rl_excluded_systems = ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop", "/sneswide"]
+rl_excluded_systems = ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop", "/sneswide", "/roms", "/shortcuts"]
 json_path = os.path.join(storage_path, "retrolibrary/cache/missing_artwork_no_hash.json")
 
 warnings.filterwarnings("ignore", category=RequestsDependencyWarning)
@@ -9,16 +9,7 @@ warnings.filterwarnings("ignore", category=RequestsDependencyWarning)
 USER = ""
 md5_to_find = ""
 LOCAL_PATH = ""
-
-# Credenciales y usuario
-API_USERNAME = "dragoonDorise"
-API_KEY = "mvLqoKB3JmbXrezCd7LIXzMnV42ApWzj"
-
-# Endpoints
-BASE_URL = "https://retroachievements.org/API/"
 GAMES_LIST_ENDPOINT = f"{LOCAL_PATH}"
-GAME_INFO_ENDPOINT = f"{BASE_URL}API_GetGameInfoAndUserProgress.php"
-
 
 
 def log_message(value):
@@ -432,10 +423,13 @@ def rl_download_assets() -> None:
     #     dest_path.write_bytes(resp.content)
 
 def rl_generate_systems_with_missing_images():
-    images_path = os.path.join(storage_path ,"/retrolibrary/artwork")
+    images_path = Path(storage_path / "retrolibrary/artwork")
+
     def has_missing_images(system_dir, extensions):
         platform = os.path.basename(system_dir)  # Extrae el nombre de la plataforma del directorio
         media_folder_path = os.path.join(images_path, platform, "media")  # Ruta de la carpeta 'media'
+
+        print(media_folder_path)
 
         file_count = sum(
             1 for root, _, files in os.walk(system_dir)
@@ -829,16 +823,6 @@ def rl_generate_missing_artwork_lists():
         #print(json_output)
 
 def rl_save_image(url: str, name: str, system: str) -> Path:
-    """
-    Download the image at `url` and save it as `<name>.jpg` under:
-    storage_path/retrolibrary/artwork/<system>/media/box2dfront/
-
-    Mimics the bash logic of finding the most recent Steam userdata folder,
-    then creating a symlink under that userdata. In Python we only write
-    directly into our EmuDeck storage tree.
-
-    Returns the Path to the saved file.
-    """
     # 1) Find most-recent Steam userdata folder (if you need it for symlinks later)
     userdata_root = Path.home() / ".steam" / "steam" / "userdata"
     account_folders = sorted(
@@ -871,20 +855,12 @@ def rl_save_image(url: str, name: str, system: str) -> Path:
 
     return dest_path
 
-def rl_dd_game_lists_artwork(
+def rl_add_game_lists_artwork(
     filename: Union[str, Path],
     app_id: str,
     platform: str,
     storage_path: Union[str, Path]
 ) -> None:
-    """
-    Mirror artwork into Steam's grid folder for a given appID.
-
-    :param filename: base name (without extension) of the artwork file
-    :param app_id: Steam AppID, e.g. "12345"
-    :param platform: platform folder name, e.g. "nes"
-    :param storage_path: root storage path where retrolibrary lives
-    """
     filename = Path(filename).stem  # strip any extension
     home = Path.home()
     userdata_root = home / ".steam" / "steam" / "userdata"
@@ -929,10 +905,6 @@ def rl_dd_game_lists_artwork(
     _link_or_copy(grid_src, dest_grid)
 
 def generate_game_lists_get_percentage() -> Optional[str]:
-    """
-    Mirror of your bash generateGameLists_getPercentage.
-    Returns a string like "X / Y (Z%)", or None if no games found.
-    """
     # 1) ensure Python env (silently)
     try:
         generate_python_env()
@@ -994,6 +966,11 @@ def rl_get_games():
 
 # Función para obtener información del juego y progreso del usuario
 def rl_get_game_info_and_progress(game_id):
+    API_USERNAME = "dragoonDorise"
+    API_KEY = "mvLqoKB3JmbXrezCd7LIXzMnV42ApWzj"
+    BASE_URL = "https://retroachievements.org/API/"
+    GAME_INFO_ENDPOINT = f"{BASE_URL}API_GetGameInfoAndUserProgress.php"
+
     response = requests.get(GAME_INFO_ENDPOINT, params={
         "g": game_id,
         "u": USER,
@@ -1079,7 +1056,7 @@ def rl_init(): #generateGameLists
     rl_generate_game_list()
     rl_get_artwork()
 
-def rl_init_json(): #generateGameListsJson
+def rl_print_json(): #generateGameListsJson
     f = storage_path / "retrolibrary" / "cache" / "roms_games.json"
     data = json.loads(f.read_text(encoding="utf-8"))
     print(json.dumps(data, indent=2, ensure_ascii=False))
