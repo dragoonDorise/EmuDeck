@@ -1,6 +1,6 @@
 from core.all import *
 
-rl_excluded_systems = ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop", "/sneswide"]
+rl_excluded_systems = ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop", "/sneswide", "/media"]
 json_path = os.path.join(storage_path, "retrolibrary/cache/missing_artwork_no_hash.json")
 
 warnings.filterwarnings("ignore", category=RequestsDependencyWarning)
@@ -11,6 +11,25 @@ md5_to_find = ""
 LOCAL_PATH = ""
 GAMES_LIST_ENDPOINT = f"{LOCAL_PATH}"
 
+def count_visible_files(system_dir: str) -> int:
+    file_count = 0
+    # topdown=True para poder modificar dirs antes de descender
+    for root, dirs, files in os.walk(system_dir, topdown=True):
+        # 1) Filtrar dirs: quitamos los que empiezan por '.' o son symlinks
+        dirs[:] = [
+            d for d in dirs
+            if not d.startswith('.')
+            and not os.path.islink(os.path.join(root, d))
+        ]
+        # 2) Contar sólo los archivos visibles no symlink
+        for fname in files:
+            if fname.startswith('.'):
+                continue
+            full = os.path.join(root, fname)
+            if os.path.islink(full):
+                continue
+            file_count += 1
+    return file_count
 
 def log_message(value):
     print(value)
@@ -178,7 +197,7 @@ def rl_get_valid_system_dirs(valid_system_dirs):
             else:
                 # Lógica original para los demás sistemas
                 has_metadata = os.path.isfile(os.path.join(full_path, 'metadata.txt'))
-                file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])
+                file_count = count_visible_files(full_path)
                 if has_metadata and file_count > 2:
                     valid_system_dirs.append(full_path)
                     log_message(f"GGL: Valid system directory found: {full_path}")
@@ -431,11 +450,7 @@ def rl_generate_systems_with_missing_images():
 
         print(media_folder_path)
 
-        file_count = sum(
-            1 for root, _, files in os.walk(system_dir)
-            for file in files
-            if not os.path.islink(os.path.join(root, file))
-        )
+        file_count = count_visible_files(system_dir)
 
         if file_count <= 2:
             return False
