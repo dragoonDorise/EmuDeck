@@ -1,5 +1,22 @@
 from core.all import *
 
+def install():
+
+    #
+    # Create folders
+    #
+    emulation_path.mkdir(parents=True, exist_ok=True)
+    roms_path.mkdir(parents=True, exist_ok=True)
+    tools_path.mkdir(parents=True, exist_ok=True)
+    bios_path.mkdir(parents=True, exist_ok=True)
+    saves_path.mkdir(parents=True, exist_ok=True)
+    storage_path.mkdir(parents=True, exist_ok=True)
+    ESDEscrapData.mkdir(parents=True, exist_ok=True)
+
+    # Copy roms estructure
+    shutil.copytree(f"{emudeck_backend}/configs/common/roms", roms_path, dirs_exist_ok=True)
+
+
 def get_sd_path() -> Optional[str]:
 
     """
