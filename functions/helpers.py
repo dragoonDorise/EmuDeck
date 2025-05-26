@@ -2322,3 +2322,35 @@ def netplay_set_ip() -> Optional[str]:
             continue
 
     return None
+
+
+def calculate_md5(filename):
+    hash_md5 = hashlib.md5()
+    with open(filename, "rb") as f:
+        for chunk in iter(lambda: f.read(4096), b""):
+            hash_md5.update(chunk)
+    return hash_md5.hexdigest()
+
+def calculate_md5_without_header(
+        file: Union[str, Path],
+        header_size: int,
+        chunk_size: int = 8192
+    ) -> str:
+        """
+        Compute the MD5 checksum of the file at `file`, skipping the first
+        `header_size` bytes.
+
+        :param file: Path to the file.
+        :param header_size: Number of bytes to skip at the start.
+        :param chunk_size: Read in chunks of this size.
+        :returns: Hexadecimal MD5 digest string.
+        """
+        file_path = Path(file)
+        md5 = hashlib.md5()
+        with file_path.open('rb') as f:
+            # skip header
+            f.seek(header_size)
+            # read the rest in chunks
+            for chunk in iter(lambda: f.read(chunk_size), b''):
+                md5.update(chunk)
+        return md5.hexdigest()

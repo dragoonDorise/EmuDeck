@@ -2,7 +2,7 @@ from core.vars import emudeck_logs
 
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
-import shlex, sys, subprocess, pkgutil, importlib, inspect, json, venv, logging, requests, stat, hashlib, zipfile, re, errno, shutil, subprocess, io, zipfile, tempfile, time, plistlib, zlib, vdf, py7zr, tarfile, fileinput, ctypes, getpass, threading, socket, pygame,  traceback
+import shlex, sys, subprocess, pkgutil, importlib, inspect, json, venv, logging, requests, stat, hashlib, zipfile, re, errno, shutil, subprocess, io, zipfile, tempfile, time, plistlib, zlib, vdf, py7zr, tarfile, fileinput, ctypes, getpass, threading, socket, pygame,  traceback, warnings
 from multiprocessing import Process
 from time import sleep
 from math import ceil
@@ -12,6 +12,8 @@ from pathlib import Path
 from contextlib import redirect_stdout, redirect_stderr
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from PySide6 import QtWidgets, QtCore, QtGui
+from io import BytesIO
+from requests.exceptions import RequestsDependencyWarning
 
 # 1. Creamos y configuramos el logger raíz
 logger = logging.getLogger()
