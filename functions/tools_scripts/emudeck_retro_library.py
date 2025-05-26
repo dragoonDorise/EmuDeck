@@ -1072,4 +1072,4 @@ def rl_get_artwork(): #generateGameLists_artwork
     rl_process_json_artwork()
 
 def rl_generate_metadata():
-    print("rl_generate_metadata NYI")
+    shutil.copytree(f"{emudeck_backend}/configs/common/roms", roms_path, dirs_exist_ok=True)
