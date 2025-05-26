@@ -51,8 +51,8 @@ if json_settings_path.exists():
         RAHandHeldShader=settings.shaders.handhelds
         controllerLayout=settings.controllerLayout
 
-        cloud_sync_status=settings.cloudSyncStatus
-        cloud_sync_provider=settings.cloudSync
+        cloud_sync_status = getattr(settings, "cloudSyncStatus", False)
+        cloud_sync_provider = getattr(settings, "cloudSync", False)
 
         emuGBA=settings.emulatorAlternative.gba
         emuMAME=settings.emulatorAlternative.mame
