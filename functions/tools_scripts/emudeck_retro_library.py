@@ -1097,12 +1097,12 @@ def rl_generate_metadata():
         except Exception as e:
             print(f"❌ no pude leer {md!r}: {e}")
             continue
-        text="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores"
+        ra_cores_path="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores"
         if system.startswith("win"):
-            text=f"{emus_folder}/RetroArch/cores"
+            ra_cores_path=f"{emus_folder}/RetroArch/cores"
 
-        new_text = core_pattern.sub(new_core_key, text)
-        new_text = emu_pattern.sub(new_emulation_key, emulation_path)
+        new_text = core_pattern.sub(ra_cores_path, text)
+        new_text = emu_pattern.sub(emulation_path, new_text)
 
         if new_text != text:
             try:
