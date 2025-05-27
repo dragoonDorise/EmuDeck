@@ -1097,7 +1097,7 @@ def rl_generate_metadata():
         except Exception as e:
             print(f"❌ no pude leer {md!r}: {e}")
             continue
-        ra_cores_path="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores"
+        ra_cores_path=os.path.expanduser(f"~/.var/app/org.libretro.RetroArch/config/retroarch/cores")
         if system.startswith("win"):
             ra_cores_path=f"{emus_folder}/RetroArch/cores"
 
