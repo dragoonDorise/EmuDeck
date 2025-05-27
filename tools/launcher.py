@@ -206,7 +206,7 @@ if system == "darwin":
     darwin_trust_app(exe)
     cmd = ["open", "-W", "-a", exe, netplay_cmd] + args
 
-if cloud_sync_provider and settings.netplay = False:
+if cloud_sync_provider and settings.netplay == False:
     REMOTE_URL = f"https://token.emudeck.com/cloud-check.php?access_token={settings.patreonToken}"
     try:
         cloudsync_remote = load_remote_module(REMOTE_URL, "cloudsync_remote")
