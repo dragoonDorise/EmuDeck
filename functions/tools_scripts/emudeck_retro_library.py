@@ -1063,13 +1063,14 @@ def rl_init(): #generateGameLists
     rl_download_data()
     rl_download_assets()
 
-
-
     #Reset roms metadata
     rl_generate_metadata()
     rl_generate_saves_list()
     rl_generate_game_list()
-    rl_get_artwork()
+
+    executor = ThreadPoolExecutor(max_workers=1)
+    # lanzamos sin bloquear
+    future = executor.submit(rl_get_artwork)
 
 def rl_print_json(): #generateGameListsJson
     f = storage_path / "retrolibrary" / "cache" / "roms_games.json"
