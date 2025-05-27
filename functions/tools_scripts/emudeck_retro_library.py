@@ -1102,7 +1102,7 @@ def rl_generate_metadata():
             ra_cores_path=f"{emus_folder}/RetroArch/cores"
 
         new_text = core_pattern.sub(ra_cores_path, text)
-        new_text = emu_pattern.sub(emulation_path, new_text)
+        new_text = emu_pattern.sub(f"{emulation_path}", new_text)
 
         if new_text != text:
             try:
