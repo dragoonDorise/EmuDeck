@@ -6,7 +6,7 @@ from functions.env import generate_python_env
 generate_python_env()
 from core.all import *
 
-if system in ("darwin", "unix"):
+if system in ("darwin", "linux"):
     emu = Path(sys.argv[1]).stem  # strip off the .sh
 else:
     emu = sys.argv[1]
@@ -189,7 +189,7 @@ if system.startswith("win"):
 
 #netplay
 if emu.lower() == "retroarch":
-   if netplay:
+   if settings.netplay == True:
       set_setting("netplay_cmd","-H")
       netplay_set_ip()
    else:
@@ -197,14 +197,14 @@ if emu.lower() == "retroarch":
 
 
 exe = str(exe)
-cmd = [exe] + netplay_cmd + args
+cmd = [exe] + shlex.split(settings.netplay_cmd) + args
 
 if system.startswith("win"):
-    cmd = [str(exe)] + netplay_cmd + args
+    cmd = [str(exe)] + settings.netplay_cmd + args
     cmd = [part.replace("/", "\\") for part in cmd]
 if system == "darwin":
     darwin_trust_app(exe)
-    cmd = ["open", "-W", "-a", exe, netplay_cmd] + args
+    cmd = ["open", "-W", "-a", exe, settings.netplay_cmd] + args
 
 if cloud_sync_provider and settings.netplay == False:
     REMOTE_URL = f"https://token.emudeck.com/cloud-check.php?access_token={settings.patreonToken}"
@@ -231,7 +231,7 @@ if system.startswith("win") and raw and raw[0] == "-L" and len(raw) > 2:
     cmd = [str(exe)] + netplay_cmd + args
     shell_status = True
 else:
-   shell_status = False
+   shell_status = True
 
 subprocess.run(cmd, check=True, shell=shell_status)
 
