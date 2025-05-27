@@ -1063,7 +1063,6 @@ def rl_init(): #generateGameLists
     rl_download_data()
     rl_download_assets()
 
-    #Reset roms metadata
     rl_generate_metadata()
     rl_generate_saves_list()
     rl_generate_game_list()
@@ -1089,3 +1088,25 @@ def rl_get_artwork(): #generateGameLists_artwork
 
 def rl_generate_metadata():
     shutil.copytree(f"{emudeck_backend}/configs/common/roms", roms_path, dirs_exist_ok=True)
+    core_pattern = re.compile(r"\bCORESPATH\b")
+    emu_pattern  = re.compile(r"\bEMULATIONPATH\b")
+
+    for md in roms_path.rglob("metadata.txt"):
+        try:
+            text = md.read_text(encoding="utf-8")
+        except Exception as e:
+            print(f"❌ no pude leer {md!r}: {e}")
+            continue
+        text="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores")
+        if system.startswith("win"):
+            text=f"{emus_folder}/RetroArch/cores"
+
+        new_text = core_pattern.sub(new_core_key, text)
+        new_text = emu_pattern.sub(new_emulation_key, emulation_path)
+
+        if new_text != text:
+            try:
+                md.write_text(new_text, encoding="utf-8")
+                print(f"✅ actualizado {md!r}")
+            except Exception as e:
+                print(f"❌ error al escribir {md!r}: {e}")
