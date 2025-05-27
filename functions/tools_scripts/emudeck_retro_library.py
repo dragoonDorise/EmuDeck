@@ -1,6 +1,6 @@
 from core.all import *
 
-rl_excluded_systems = ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop", "/sneswide", "/media"]
+rl_excluded_systems = ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop", "/sneswide"]
 json_path = os.path.join(storage_path, "retrolibrary/cache/missing_artwork_no_hash.json")
 
 warnings.filterwarnings("ignore", category=RequestsDependencyWarning)
