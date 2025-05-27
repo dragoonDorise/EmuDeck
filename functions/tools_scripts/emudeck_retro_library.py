@@ -873,8 +873,7 @@ def rl_save_image(url: str, name: str, system: str) -> Path:
 def rl_add_game_lists_artwork(
     filename: Union[str, Path],
     app_id: str,
-    platform: str,
-    storage_path: Union[str, Path]
+    platform: str
 ) -> None:
     filename = Path(filename).stem  # strip any extension
     home = Path.home()
