@@ -55,8 +55,8 @@ def test_location_valid(location_name: str, test_location = "") -> str:
     if "SD" in location_name:
         test_location = get_sd_path()
 
-    testwrite = os.path.join(test_location, "/testwrite")
-    symlink  = os.path.join(test_location, "/testwrite.link")
+    testwrite = os.path.join(test_location, "testwrite")
+    symlink  = os.path.join(test_location, "testwrite.link")
 
     try:
         # 3) Intentar crear el fichero
