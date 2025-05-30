@@ -47,7 +47,7 @@ def get_sd_path() -> Optional[str]:
         # Puede fallar si findmnt no está instalado
         return None
 
-def test_location_valid(location_name: str, test_location) -> str:
+def test_location_valid(location_name: str, test_location = "") -> str:
 
     if " " in test_location:
         return f"Invalid: {location_name} contains spaces"
