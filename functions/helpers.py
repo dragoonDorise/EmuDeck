@@ -47,7 +47,7 @@ def get_sd_path() -> Optional[str]:
         # Puede fallar si findmnt no está instalado
         return None
 
-def test_location_valid(location_name: str, test_location: Optional[str]) -> str:
+def test_location_valid(location_name: str) -> str:
     """
     Comprueba si test_location:
       1) Está presente (no es None ni cadena vacía).
@@ -64,8 +64,11 @@ def test_location_valid(location_name: str, test_location: Optional[str]) -> str
     if " " in test_location:
         return f"Invalid: {location_name} contains spaces"
 
-    testwrite = os.path.join(test_location, "testwrite")
-    symlink  = os.path.join(test_location, "testwrite.link")
+    if "SD" in test_location:
+        location_name = get_sd_path()
+
+    testwrite = os.path.join(test_location, "/testwrite")
+    symlink  = os.path.join(test_location, "/testwrite.link")
 
     try:
         # 3) Intentar crear el fichero
