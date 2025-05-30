@@ -231,7 +231,14 @@ if system.startswith("win") and raw and raw[0] == "-L" and len(raw) > 2:
     cmd = [str(exe)] + netplay_cmd + args
     shell_status = True
 else:
-   shell_status = True
+    cmd = shlex.join(cmd)
+    cmd = cmd.replace("'/usr", "/usr")
+    cmd = cmd.replace("Arch'", "Arch")
+    cmd = cmd.replace("'", '"')
+    shell_status = True
+
+
+
 
 subprocess.run(cmd, check=True, shell=shell_status)
 
