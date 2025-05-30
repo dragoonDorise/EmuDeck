@@ -47,25 +47,13 @@ def get_sd_path() -> Optional[str]:
         # Puede fallar si findmnt no está instalado
         return None
 
-def test_location_valid(location_name: str) -> str:
-    """
-    Comprueba si test_location:
-      1) Está presente (no es None ni cadena vacía).
-      2) No contiene espacios.
-      3) Es escribible (podemos crear un fichero).
-      4) Permite crear enlaces simbólicos.
-    Devuelve "Valid" o "Invalid: <motivo>".
-    """
-    # 1) ¿Se pasó test_location?
-    if not test_location:
-        return f"Invalid: {location_name} path not provided"
+def test_location_valid(location_name: str, test_location) -> str:
 
-    # 2) ¿Contiene espacios?
     if " " in test_location:
         return f"Invalid: {location_name} contains spaces"
 
-    if "SD" in test_location:
-        location_name = get_sd_path()
+    if "SD" in location_name:
+        test_location = get_sd_path()
 
     testwrite = os.path.join(test_location, "/testwrite")
     symlink  = os.path.join(test_location, "/testwrite.link")
