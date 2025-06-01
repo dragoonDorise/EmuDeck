@@ -25,11 +25,12 @@ def generate_python_env():
         install_pip("vdf")
         install_pip("requests")
         install_pip("screeninfo")
-        install_pip("py7zr")
         install_pip("PySide6")
         install_pip("pygame")
         if system.startswith("win"):
             install_pip("pywin32")
+            install_pip("py7zr")
+
 
     try:
         current_py = Path(sys.executable).resolve()

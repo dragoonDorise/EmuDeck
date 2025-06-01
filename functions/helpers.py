@@ -1704,6 +1704,7 @@ def extract_flat(zip_path: Path, extract_to: Path):
                 shutil.copyfileobj(src_file, dst_file)
 
 def extract7z_flat(archive_path: Path, extract_to: Path):
+    import py7zr
     """
     Extract a .7z archive, ignoring a single top-level directory if present.
     - On Windows: uses the built-in `tar.exe -xf` (available in Win11).
