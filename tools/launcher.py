@@ -79,7 +79,7 @@ if system == "linux":
     if emu.lower() == "steamrommanager":
         exe = f"{emus_folder}/srm.appImage"
     if emu.lower() == "azahar":
-        exe = f"{emus_folder}/azahar.appImage"
+        exe = f"{emus_folder}/Azahar.appImage"
     if emu.lower() == "bigpemu":
         exe = f"{emus_folder}/bigpemu/bigpemu"
     if emu.lower() == "cemu":
@@ -233,11 +233,9 @@ if system.startswith("win") and raw and raw[0] == "-L" and len(raw) > 2:
 else:
     cmd = shlex.join(cmd)
     cmd = cmd.replace("'/usr", "/usr")
-    cmd = cmd.replace("Arch'", "Arch")
+    cmd = cmd.replace("' ", " ")
     cmd = cmd.replace("'", '"')
     shell_status = True
-
-
 
 
 subprocess.run(cmd, check=True, shell=shell_status)
