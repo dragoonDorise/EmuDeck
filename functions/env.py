@@ -29,6 +29,7 @@ def generate_python_env():
         install_pip("pygame")
         if system.startswith("win"):
             install_pip("pywin32")
+            install_pip("wmi")
             install_pip("py7zr")
 
 
