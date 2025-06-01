@@ -77,6 +77,14 @@ if json_settings_path.exists():
         storage_path=Path(os.path.expandvars(installationPath+"/Emulation/storage"))
         ESDEscrapData=Path(os.path.expandvars(installationPath+"/Emulation/tools/downloaded_media"))
 
+        emulation_path.mkdir(parents=True, exist_ok=True)
+        roms_path.mkdir(parents=True, exist_ok=True)
+        tools_path.mkdir(parents=True, exist_ok=True)
+        bios_path.mkdir(parents=True, exist_ok=True)
+        saves_path.mkdir(parents=True, exist_ok=True)
+        storage_path.mkdir(parents=True, exist_ok=True)
+        ESDEscrapData.mkdir(parents=True, exist_ok=True)
+
         esde_theme_url="https://github.com/anthonycaccese/epic-noir-revisited-es-de.git"
         esde_theme_name=settings.themeESDE
         pegasusThemeUrl=settings.themePegasus[0]
@@ -84,7 +92,6 @@ if json_settings_path.exists():
         achievementsUser=settings.achievements.user
         achievementsUserToken=settings.achievements.token
         achievementsHardcore=settings.achievements.hardcore
-
 
         androidStorage=None
         androidstorage_path=None
@@ -146,3 +153,4 @@ if system.startswith("win"):
 
 if system.startswith("darwin"):
     steam_install_path=f"{home}/Library/Application Support/Steam/"
+
