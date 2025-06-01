@@ -79,7 +79,7 @@ if system == "linux":
     if emu.lower() == "steamrommanager":
         exe = f"{emus_folder}/srm.appImage"
     if emu.lower() == "azahar":
-        exe = f"{emus_folder}/Azahar.appImage"
+        exe = f"{emus_folder}/azahar.appImage"
     if emu.lower() == "bigpemu":
         exe = f"{emus_folder}/bigpemu/bigpemu"
     if emu.lower() == "cemu":
