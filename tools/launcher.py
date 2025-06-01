@@ -75,13 +75,13 @@ if system == "darwin":
 
 if system == "linux":
     if emu.lower() == "es-de":
-        exe = f"{emus_folder}/ES-DE.appImage"
+        exe = f"{emus_folder}/ES-DE.AppImage"
     if emu.lower() == "steamrommanager":
-        exe = f"{emus_folder}/srm.appImage"
+        exe = f"{emus_folder}/srm.AppImage"
     if emu.lower() == "azahar":
-        exe = f"{emus_folder}/Azahar.appImage"
+        exe = f"{emus_folder}/azahar.AppImage"
     if emu.lower() == "bigpemu":
-        exe = f"{emus_folder}/bigpemu/bigpemu"
+        exe = f"{emus_folder}/BigPEmu/bigpemu"
     if emu.lower() == "cemu":
         exe = f"{emus_folder}/Cemu.AppImage"
     if emu.lower() == "citron":
@@ -101,7 +101,7 @@ if system == "linux":
     if emu.lower() == "model-2-emulator":
         exe = f"{emus_folder}/model-2-emulator.AppImage"
     if emu.lower() == "pcsx2-qt":
-        exe = f"{emus_folder}/pcsx2-qt.AppImage"
+        exe = f"{emus_folder}/pcsx2-Qt.AppImage"
     if emu.lower() == "ppsspp":
         exe = "/usr/bin/flatpak run org.ppsspp.PPSSPP"
     if emu.lower() == "primehack":
@@ -117,11 +117,11 @@ if system == "linux":
     if emu.lower() == "scummvm":
         exe = "/usr/bin/flatpak run org.scummvm.ScummVM"
     if emu.lower() == "shadps4":
-        exe = f"{emus_folder}/shadps4.AppImage"
+        exe = f"{emus_folder}/Shadps4-qt.AppImage"
     if emu.lower() == "supermodel":
         exe = "/usr/bin/flatpak run com.supermodel3.Supermodel"
     if emu.lower() == "vita3k":
-        exe = f"{emus_folder}/vita3k.AppImage"
+        exe = f"{emus_folder}/Vita3K/Vita3K"
     if emu.lower() == "xemu-emu":
         exe = "/usr/bin/flatpak run app.xemu.xemu"
     if emu.lower() == "xenia":
@@ -129,7 +129,7 @@ if system == "linux":
     if emu.lower() == "yuzu":
         exe = f"{emus_folder}/yuzu.AppImage"
     if emu.lower() == "eden":
-          exe = f"{emus_folder}/eden.AppImage"
+          exe = f"{emus_folder}/Eden.AppImage"
 
 if system.startswith("win"):
     if emu.lower() == "es-de" or emu.lower() == "emulationstationde":
@@ -197,7 +197,15 @@ if emu.lower() == "retroarch":
 
 
 exe = str(exe)
+
+#Dobule "'XXX'" cleanup
+last = args[-1]
+if len(last) >= 2 and last.startswith("'") and last.endswith("'"):
+  args[-1] = last[1:-1]
+
+
 cmd = [exe] + shlex.split(settings.netplay_cmd) + args
+
 
 if system.startswith("win"):
     cmd = [str(exe)] + settings.netplay_cmd + args
@@ -232,10 +240,17 @@ if system.startswith("win") and raw and raw[0] == "-L" and len(raw) > 2:
     shell_status = True
 else:
     cmd = shlex.join(cmd)
+#    popup_show_info("title",cmd)
     cmd = cmd.replace("'/usr", "/usr")
     cmd = cmd.replace("' ", " ")
     cmd = cmd.replace("'", '"')
+    #Last " for solo emulators
+    if cmd.count('"') == 1:
+       cmd = cmd.replace('"', "")
+
     shell_status = True
+
+#popup_show_info("title",cmd)
 
 
 subprocess.run(cmd, check=True, shell=shell_status)
