@@ -18,9 +18,12 @@ def init_sync_launchers() -> None:
         if src.exists():
             try:
                 shutil.copy2(src, sh_path)
-                print(f"✔️  Synced {rel}")
+                # Dar permisos de ejecución: usuario, grupo y otros
+                current_mode = sh_path.stat().st_mode
+                sh_path.chmod(current_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+                print(f"✔️  Synced and chmod +x {rel}")
             except Exception as e:
-                print(f"❌ Failed to copy {src} → {sh_path}: {e}", file=sys.stderr)
+                print(f"❌ Failed to copy or chmod {src} → {sh_path}: {e}", file=sys.stderr)
         else:
             print(f"⚠️  No backend file for {rel}; skipping")
 
