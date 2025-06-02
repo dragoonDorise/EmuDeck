@@ -47,13 +47,6 @@ def Dolphin_setCustomizations():
 def RetroArch_setCustomizations():
     retroarch_set_customizations()
 
-def decky_setAR():
-    retroarch_set_customizations()
-    xemu_widescreen()
-    duckstation_widescreen()
-    #PCSX2QT_setCustomizations
-    #Dolphin_setCustomizations
-
 def decky_netplay():
     if settings.netPlay == False:
         set_setting("netPlay",True)
@@ -66,3 +59,20 @@ def decky_cloud_sync_status():
     else:
         set_setting("decky_cloud_sync_status",False)
 
+
+
+def decky_set_ar_sega(value):
+    set_setting("ar.sega",value)
+    retroarch_set_customizations()
+
+def decky_set_ar_nintendo(value):
+    set_setting("ar.snes",value)
+    print("NYI")
+def decky_set_ar_3d(value):
+    set_setting("ar.classic3d",value)
+    xemu_widescreen()
+    duckstation_widescreen()
+    print("NYI")
+def decky_set_ar_dolphin(value):
+    set_setting("ar.dolphin",value)
+    print("NYI")
