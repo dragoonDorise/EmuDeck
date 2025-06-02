@@ -4,6 +4,7 @@ def plugins_install_retro_library():
     return True
 
 def plugins_install_emudecky(arg):
+    wrappers_install()
     return True
 
 def plugins_install_plugin_loader(arg):
@@ -21,7 +22,6 @@ def win_game_mode_disable():
 def plugins_install_steamdeck_gyro_dsu():
     system = platform.system()
     if system.startswith("Win"):
-        popup_show_info("GyroDSU Installer", "SteamDeckGyroDSU isn't supported on Windows.")
         return False
 
     url = "https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh"
