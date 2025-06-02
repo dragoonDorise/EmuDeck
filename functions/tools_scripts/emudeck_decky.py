@@ -4,13 +4,13 @@ from core.all import *
 
 def Decky_autoSave():
     retroarch_auto_save()
-    if settings.autosave == True:
-        set_setting("autosave",False)
-    else:
+    if settings.autosave == False:
         set_setting("autosave",True)
+    else:
+        set_setting("autosave",False)
 
 def Decky_bezels():
-    if settings.bezels == True:
+    if settings.bezels == False:
         retroarch_bezel_on_all()
         set_setting("bezels",True)
     else:
@@ -18,7 +18,7 @@ def Decky_bezels():
         set_setting("bezels",False)
 
 def Decky_shaders_LCD():
-    if settings.shaders.handhelds == True:
+    if settings.shaders.handhelds == False:
         retroarch_matrix_shaders_on_all()
         set_setting("shaders.handhelds",True)
     else:
@@ -26,7 +26,7 @@ def Decky_shaders_LCD():
         set_setting("shaders.handhelds",False)
 
 def Decky_shaders_2D():
-    if settings.shaders.classic == True:
+    if settings.shaders.classic == False:
         retroarch_crt_shader_on_all()
         set_setting("shaders.classic",True)
     else:
@@ -34,7 +34,7 @@ def Decky_shaders_2D():
         set_setting("shaders.classic",False)
 
 def Decky_shaders_3D():
-    if settings.shaders.classic3d == True:
+    if settings.shaders.classic3d == False:
         retroarch_3d_crt_shader_on_all()
         set_setting("shaders.classic3d",True)
     else:
