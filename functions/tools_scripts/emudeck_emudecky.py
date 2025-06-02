@@ -54,10 +54,10 @@ def decky_netplay():
         set_setting("netPlay",False)
 
 def decky_cloud_sync_status():
-    if settings.cloud_sync_status == False:
-        set_setting("cloud_sync_status",True)
-    else:
+    if settings.cloud_sync_status == True:
         set_setting("cloud_sync_status",False)
+    else:
+        set_setting("cloud_sync_status",True)
 
 def decky_set_ar_sega(value):
     set_setting("ar.sega",value)
@@ -65,12 +65,12 @@ def decky_set_ar_sega(value):
 
 def decky_set_ar_nintendo(value):
     set_setting("ar.snes",value)
-    print("NYI")
+    retroarch_set_customizations()
+
 def decky_set_ar_3d(value):
     set_setting("ar.classic3d",value)
     xemu_widescreen()
     duckstation_widescreen()
-    print("NYI")
+
 def decky_set_ar_dolphin(value):
     set_setting("ar.dolphin",value)
-    print("NYI")
