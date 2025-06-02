@@ -2363,3 +2363,6 @@ def calculate_md5_without_header(
             for chunk in iter(lambda: f.read(chunk_size), b''):
                 md5.update(chunk)
         return md5.hexdigest()
+
+def cloud_decky_check_status():
+    return "started"
