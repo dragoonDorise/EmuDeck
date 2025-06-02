@@ -10,6 +10,7 @@ def wrappers_do_install(script):
 
 def wrappers_install():
     #Update Emus
-    wrappers_do_install("cloud_sync_force_download.sh")
+    wrappers_do_install("update-emulators.sh")
     #CloudSync
+    wrappers_do_install("cloud_sync_force_download.sh")
     wrappers_do_install("cloud_sync_force_upload.sh")
