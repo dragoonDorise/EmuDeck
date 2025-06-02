@@ -54,10 +54,10 @@ def decky_netplay():
         set_setting("netPlay",False)
 
 def decky_cloud_sync_status():
-    if settings.cloud_sync_status == True:
-        set_setting("cloud_sync_status",False)
-    else:
+    if settings.cloud_sync_status == False:
         set_setting("cloud_sync_status",True)
+    else:
+        set_setting("cloud_sync_status",False)
 
 def decky_set_ar_sega(value):
     set_setting("ar.sega",value)
