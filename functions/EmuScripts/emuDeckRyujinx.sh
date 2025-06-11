@@ -49,9 +49,19 @@ Ryujinx_cleanup(){
 Ryujinx_install(){
     echo "Begin Ryujinx Install"
     local showProgress=$1
-    if installEmuBI "$Ryujinx_emuName" "$(getReleaseURLGH "Ryubing/Stable-Releases" "-linux_x64.tar.gz" "" "" "")" "" "tar.gz" "$showProgress"; then
+
+    # 1. Obtener el último tag (versión) con la API de GitLab
+    local latestTag=$(curl -s "https://git.ryujinx.app/api/v4/projects/1/packages?package_type=generic&package_name=Ryubing" \
+        | jq -r 'sort_by(.version)[-1].version')
+
+    # 2. Formar la URL del archivo genérico
+    local url="https://git.ryujinx.app/api/v4/projects/1/packages/generic/Ryubing/$latestTag/ryujinx-$latestTag-linux_x64.tar.gz"
+
+    echo "Descargando Ryujinx $latestTag para Linux x64..."
+    
+    if installEmuBI "$Ryujinx_emuName" "$url" "" "tar.gz" "$showProgress"; then
         mkdir -p "$emusFolder/publish"
-        tar -xvf "$emusFolder/Ryujinx.tar.gz" -C "$emusFolder" && rm -rf "$HOME/Applications/Ryujinx.tar.gz"
+        tar -xvf "$emusFolder/Ryujinx.tar.gz" -C "$emusFolder" && rm -f "$emusFolder/Ryujinx.tar.gz"
         chmod +x "$emusFolder/publish/Ryujinx"
     else
         return 1
