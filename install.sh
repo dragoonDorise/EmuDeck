@@ -11,6 +11,17 @@ linuxID=$(lsb_release -si)
 sandbox=""
 
 if [ "$linuxID" = "Ubuntu" ]; then
+    UBUNTU_VERSION=$(lsb_release -rs)
+    if [[ "$UBUNTU_VERSION" == "24.04" ]] || [[ "$UBUNTU_VERSION" > "24.04" ]]; then
+        # Instala curl si falta (necesario en Ubuntu 24.04+)
+        if ! command -v curl &> /dev/null; then
+            echo "curl not found, installing curl first..."
+            sudo apt-get update
+            sudo apt-get install -y curl
+        fi
+        # Cambia dependencias para Ubuntu 24.04+
+        DEBIAN_DEPS=(jq zenity flatpak unzip bash libfuse2t64 git rsync whiptail python3 curl)
+    fi
     sandbox="--no-sandbox"
 fi
 clear
