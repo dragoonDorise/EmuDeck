@@ -12,7 +12,8 @@ sandbox=""
 
 if [ "$linuxID" = "Ubuntu" ]; then
     UBUNTU_VERSION=$(lsb_release -rs)
-    if [[ "$UBUNTU_VERSION" == "24.04" ]] || [[ "$UBUNTU_VERSION" > "24.04" ]]; then
+    # Compara usando dpkg para versiones >= 24.04
+    if dpkg --compare-versions "$UBUNTU_VERSION" ge "24.04"; then
         # Instala curl si falta (necesario en Ubuntu 24.04+)
         if ! command -v curl &> /dev/null; then
             echo "curl not found, installing curl first..."
@@ -24,6 +25,7 @@ if [ "$linuxID" = "Ubuntu" ]; then
     fi
     sandbox="--no-sandbox"
 fi
+
 clear
 
 if [ "$linuxID" == "SteamOS" ]; then
