@@ -68,7 +68,7 @@ def cemu_init():
 
     copy_and_set_settings_file(settings_file_src, destination)
 
-    plugins_install_steamdeck_gyro_dsu()
+    #plugins_install_steamdeck_gyro_dsu()
     cemu_setup_saves()
     cemu_setup_storage()
     cemu_set_resolution()
