@@ -35,7 +35,7 @@ def scummvm_install():
 def scummvm_uninstall():
     try:
         if system == "linux":
-            uninstall_emu("org.scummvm.scummvm", "flatpak")
+            uninstall_emu("org.scummvm.ScummVM", "flatpak")
         if system.startswith("win"):
           uninstall_emu("scummvm", "dir")
         if system == "darwin":
@@ -47,7 +47,7 @@ def scummvm_uninstall():
 
 def scummvm_is_installed():
     if system == "linux":
-        return is_flatpak_installed("org.scummvm.scummvm")
+        return is_flatpak_installed("org.scummvm.ScummVM")
     if system.startswith("win"):
       return (emus_folder / "scummvm" / "scummvm.exe").exists()
     if system == "darwin":
