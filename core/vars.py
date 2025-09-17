@@ -66,9 +66,6 @@ if json_settings_path.exists():
 
 
         installationPath=settings.storagePath
-
-
-
         emulation_path=Path(os.path.expandvars(installationPath+"/Emulation"))
         roms_path=Path(os.path.expandvars(installationPath+"/Emulation/roms"))
         tools_path=Path(os.path.expandvars(installationPath+"/Emulation/tools"))
@@ -124,6 +121,15 @@ if json_settings_path.exists():
 else:
     settings = ""
     cloud_sync_bin = ""
+    installationPath=""
+    emulation_path=Path(os.path.expandvars(installationPath+"/Emulation"))
+    roms_path=Path(os.path.expandvars(installationPath+"/Emulation/roms"))
+    tools_path=Path(os.path.expandvars(installationPath+"/Emulation/tools"))
+    bios_path=Path(os.path.expandvars(installationPath+"/Emulation/bios"))
+    saves_path=Path(os.path.expandvars(installationPath+"/Emulation/saves"))
+    storage_path=Path(os.path.expandvars(installationPath+"/Emulation/storage"))
+    ESDEscrapData=Path(os.path.expandvars(installationPath+"/Emulation/tools/downloaded_media"))
+
 
 
 
