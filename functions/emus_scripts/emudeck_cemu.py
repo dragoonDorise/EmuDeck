@@ -64,7 +64,7 @@ def cemu_init():
         destination=f"{home}/Library/Application Support/Cemu/"
         settings_file_src=f"{system}/Cemu/settings.xml"
 
-    copy_setting_dir(f"{system}/Cemu/",destination)
+    copy_setting_dir(f"{system}/cemu/",destination)
 
     copy_and_set_settings_file(settings_file_src, destination)
 
