@@ -7,6 +7,36 @@ if system.startswith("win"):
 if system == "darwin":
     ryujinx_config_file=f"{home}/Library/Application Support/Ryujinx/Config.json"
 
+def ryujinx_get_url():
+    resp = requests.get("https://git.ryujinx.app/api/v4/projects/1/releases", timeout=10)
+    resp.raise_for_status()
+    releases = resp.json()  # ← aquí recibes una LISTA de releases
+
+    if system == "linux":
+        exename = "x64.AppImage"
+    elif system.startswith("win"):
+        exename = "win_x64.zip"
+    elif system == "darwin":
+        exename = "macos_universal.app.tar.gz"
+    else:
+        raise ValueError(f"Unsupported system: {system}")
+
+    releaseURL = None
+
+    # Busca en cada release hasta encontrar el asset correcto
+    for rel in releases:
+        assets = rel.get("assets", {})
+        for link in assets.get("links", []):
+            if exename in link.get("name"):
+                releaseURL = link.get("url")
+        if releaseURL:
+            break
+
+    if not releaseURL:
+        raise RuntimeError(f"No release asset named '{exename}' found")
+
+    return releaseURL
+
 
 def ryujinx_install():
     set_msg(f"Installing ryujinx")
@@ -27,7 +57,7 @@ def ryujinx_install():
         path=emus_folder
 
     try:
-        repo=get_latest_release_gh("Ryubing/Stable-Releases",type,look_for)
+        repo=ryujinx_get_url()
         install_emu("ryujinx", repo, type, path)
     except Exception as e:
         print(f"Error during install: {e}")
