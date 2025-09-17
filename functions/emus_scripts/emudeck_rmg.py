@@ -18,7 +18,6 @@ def rmg_install():
         return False;
 
     try:
-        repo=""
         install_emu(name, repo, type, destination)
     except Exception as e:
         print(f"Error during install: {e}")
