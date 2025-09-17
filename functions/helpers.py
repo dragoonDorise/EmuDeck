@@ -1366,7 +1366,7 @@ def install_emu(name, url, type_, destination):
             print(f"{name}.exe installedd at {dest_file}")
 
         elif type_ == "flatpak":
-            subprocess.run(["flatpak", "install", name, "-y", "--user"])
+            subprocess.run(["flatpak", "install", url, "-y", "--user"])
             print(f"Installed Flatpak")
             print(f"{name} flatpak installed")
 
