@@ -20,10 +20,7 @@ def dolphin_get_download_url() -> Optional[str]:
     html = resp.text
 
     if system == "linux":
-        pattern = re.compile(
-            r"https://dl\.dolphin-emu\.org/releases/[A-Za-z0-9_]+/"
-            r"dolphin-[A-Za-z0-9_]+-x64\.tar\.gz"
-        )
+        return ""
     if system.startswith("win"):
         pattern = re.compile(
             r"https://dl\.dolphin-emu\.org/releases/[A-Za-z0-9_]+/"

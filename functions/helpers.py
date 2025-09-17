@@ -1342,20 +1342,21 @@ def install_emu(name, url, type_, destination):
     dest_file = destination / f"{name}"
 
     try:
-        headers = {
-            "User-Agent": (
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/114.0.0.0 Safari/537.36"
-            ),
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        }
-        # Download the file
-        response = requests.get(url, stream=True, headers=headers, timeout=30)
-        response.raise_for_status()
-        with open(archive_path, "wb") as f:
-            for chunk in response.iter_content(chunk_size=8192):
-                f.write(chunk)
+        if type_ != "flatpak":
+            headers = {
+                "User-Agent": (
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/114.0.0.0 Safari/537.36"
+                ),
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            }
+            # Download the file
+            response = requests.get(url, stream=True, headers=headers, timeout=30)
+            response.raise_for_status()
+            with open(archive_path, "wb") as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    f.write(chunk)
 
         # === Handle based on file type ===
         if type_ == "exe":
