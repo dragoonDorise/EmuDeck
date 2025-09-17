@@ -20,7 +20,8 @@ def dolphin_get_download_url() -> Optional[str]:
     html = resp.text
 
     if system == "linux":
-        return ""
+        return "org.DolphinEmu.dolphin-emu"
+
     if system.startswith("win"):
         pattern = re.compile(
             r"https://dl\.dolphin-emu\.org/releases/[A-Za-z0-9_]+/"
@@ -47,7 +48,7 @@ def dolphin_install():
         type="flatpak"
         look_for=""
         destination = emus_folder
-        name="org.DolphinEmu.dolphin-emu"
+        name="dolphin-emu"
 
     if system.startswith("win"):
         type="7z"

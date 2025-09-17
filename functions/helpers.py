@@ -1342,7 +1342,7 @@ def install_emu(name, url, type_, destination):
     dest_file = destination / f"{name}"
 
     try:
-        if type_ != "flatpak":
+        if type_ in "http":
             headers = {
                 "User-Agent": (
                     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
