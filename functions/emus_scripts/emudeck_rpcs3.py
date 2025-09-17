@@ -42,7 +42,7 @@ def rpcs3_install():
 
     if system == "linux":
         type="AppImage"
-        look_for="appimage"
+        look_for="AppImage"
         path=emus_folder
 
     if system.startswith("win"):

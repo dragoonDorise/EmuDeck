@@ -4,8 +4,8 @@ def azahar_install():
     set_msg(f"Installing azahar")
 
     if system == "linux":
-        type="tar.gz"
-        look_for="appimage"
+        type="AppImage"
+        look_for="AppImage"
         path=emus_folder
 
     if system.startswith("win"):
