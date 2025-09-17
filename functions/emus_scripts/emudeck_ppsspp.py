@@ -5,10 +5,10 @@ def ppsspp_install():
     set_msg(f"Installing ppsspp")
 
     if system == "linux":
-        name="org.ppsspp.PPSSPP"
+        name="PPSSPP"
         type="flatpak"
         destination = f"{emus_folder}"
-        repo=""
+        repo="org.ppsspp.PPSSPP"
 
     if system.startswith("win"):
         name="ppsspp"
@@ -23,7 +23,6 @@ def ppsspp_install():
         repo="https://www.ppsspp.org/files/1_18/PPSSPP_macOS.dmg"
 
     try:
-
         install_emu(name, repo, type, destination)
     except Exception as e:
         print(f"Error during install: {e}")

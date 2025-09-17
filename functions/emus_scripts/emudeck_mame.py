@@ -5,7 +5,7 @@ def mame_install():
     set_msg(f"Installing mame")
 
     if system == "linux":
-        name="org.mamedev.MAME"
+        name="MAME"
         type="flatpak"
         look_for=""
         destination = f"{emus_folder}"
@@ -20,8 +20,11 @@ def mame_install():
         return False
 
     try:
-        repo=get_latest_release_gh("mamedev/mame",type,look_for)
-        install_emu(name, repo, type, destination)
+        if system == "linux":
+             repo="org.mamedev.MAME"
+         else:
+             repo=get_latest_release_gh("mamedev/mame",type,look_for)
+         install_emu(name, repo, type, destination)
     except Exception as e:
         print(f"Error during install: {e}")
         return False

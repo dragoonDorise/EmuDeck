@@ -5,10 +5,11 @@ def rmg_install():
     set_msg(f"Installing rmg")
 
     if system == "linux":
-        name="com.github.Rosalie241.RMG"
+        name="RMG"
         type="flatpak"
         look_for=""
         destination = f"{emus_folder}"
+        repo="com.github.Rosalie241.RMG"
 
     if system.startswith("win"):
         return False;

@@ -8,19 +8,21 @@ def primehack_install():
         type="flatpak"
         look_for=""
         destination = emus_folder
-        name="io.github.shiiion.primehack"
+        name="PrimeHack"
+        repo="io.github.shiiion.primehack"
 
     if system.startswith("win"):
         type="7z"
         look_for=""
         destination = f"{emus_folder}/primehack"
         name="dolphin"
+        repo="https://github.com/shiiion/dolphin/releases/download/1.0.7a/PrimeHack.Release.v1.0.7a.zip"
 
     if system == "darwin":
         return False
 
     try:
-        install_emu(name, "https://github.com/shiiion/dolphin/releases/download/1.0.7a/PrimeHack.Release.v1.0.7a.zip", type, destination)
+        install_emu(name, repo, type, destination)
     except Exception as e:
         print(f"Error during install: {e}")
         return False

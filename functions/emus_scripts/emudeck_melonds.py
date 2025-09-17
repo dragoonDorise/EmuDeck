@@ -5,7 +5,7 @@ def melonds_install():
     set_msg(f"Installing melonds")
 
     if system == "linux":
-        name="net.kuribo64.melonDS"
+        name="melonDS"
         type="flatpak"
         look_for=""
         destination = f"{emus_folder}"
@@ -20,7 +20,10 @@ def melonds_install():
         return False
 
     try:
-        repo=get_latest_release_gh("melonDS-emu/melonDS",type,look_for)
+        if system == "linux":
+         repo=" net.kuribo64.melonDS"
+        else:
+         repo=get_latest_release_gh("melonDS-emu/melonDS",type,look_for)
         install_emu(name, repo, type, destination)
     except Exception as e:
         print(f"Error during install: {e}")

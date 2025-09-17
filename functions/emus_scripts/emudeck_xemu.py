@@ -5,7 +5,7 @@ def xemu_install():
     set_msg(f"Installing Xemu")
 
     if system == "linux":
-        name="app.xemu.xemu"
+        name="xemu"
         type="flatpak"
         look_for=""
         destination = f"{emus_folder}"
@@ -23,7 +23,10 @@ def xemu_install():
         destination = f"{emus_folder}"
 
     try:
-        repo=get_latest_release_gh("xemu-project/xemu",type,look_for)
+        if system == "linux":
+            repo="app.xemu.xemu"
+        else:
+            repo=get_latest_release_gh("xemu-project/xemu",type,look_for)
         install_emu(name, repo, type, destination)
     except Exception as e:
         print(f"Error during install: {e}")

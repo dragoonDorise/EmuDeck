@@ -5,7 +5,7 @@ def flycast_install():
     set_msg(f"Installing Flycast")
 
     if system == "linux":
-        name="org.flycast.Flycast"
+        name="Flycast"
         type="flatpak"
         look_for=""
         destination = f"{emus_folder}"
@@ -23,7 +23,10 @@ def flycast_install():
         destination = f"{emus_folder}"
 
     try:
-        repo=get_latest_release_gh("flyinghead/flycast",type,look_for)
+        if system == "linux":
+            repo="org.flycast.Flycast"
+        else:
+            repo=get_latest_release_gh("flyinghead/flycast",type,look_for)
         install_emu(name, repo, type, destination)
     except Exception as e:
         print(f"Error during install: {e}")

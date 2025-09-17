@@ -5,11 +5,11 @@ def scummvm_install():
     set_msg(f"Installing ScummVM")
 
     if system == "linux":
-        name="org.scummvm.scummvm"
+        name="scummvm"
         type="flatpak"
         look_for=""
         destination = f"{emus_folder}"
-        repo=""
+        repo="org.scummvm.scummvm"
 
     if system.startswith("win"):
         name="scummvm"
