@@ -103,7 +103,7 @@ def dolphin_init():
     copy_setting_dir(f"{system}/dolphin-emu/",destination)
 
     if system == "linux":
-        copy_and_set_settings_file(f"{system}/dolphin-emu/config/dolphin-emu/Dolphin.ini", f"{destination}")
+        copy_and_set_settings_file(f"{system}/dolphin-emu/Dolphin.ini", f"{destination}")
     if system.startswith("win"):
         copy_and_set_settings_file(f"{system}/dolphin-emu/User/Config/Dolphin.ini", f"{destination}/User/Config/")
     if system == "darwin":
