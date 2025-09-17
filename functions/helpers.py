@@ -1527,8 +1527,8 @@ def create_app_shortcut(name: str):
 
     launcher_name = name
 
-    dest = Path(f"{tools_path}launchers")
-    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest = Path(f"{tools_path}/launchers")
+    dest.mkdir(parents=True, exist_ok=True)
 
     if(name == "Dolphin"):
          launcher_name = "dolphin-emu"
