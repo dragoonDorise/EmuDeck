@@ -9,7 +9,7 @@ def scummvm_install():
         type="flatpak"
         look_for=""
         destination = f"{emus_folder}"
-        repo="org.scummvm.scummvm"
+        repo="org.scummvm.ScummVM"
 
     if system.startswith("win"):
         name="scummvm"
