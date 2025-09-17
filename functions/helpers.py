@@ -1370,7 +1370,7 @@ def install_emu(name, url, type_, destination):
             print(f"Installed Flatpak")
             print(f"{name} flatpak installed")
 
-        elif type_ == "AppImage":
+        elif type_ in ("AppImage", "appimage"):
             dest_file = Path(f"{dest_file}.AppImage")
             shutil.move(str(archive_path), dest_file)
             dest_file.chmod(0o755)
