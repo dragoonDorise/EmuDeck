@@ -54,7 +54,7 @@ def pcsx2_uninstall():
 
 def pcsx2_is_installed():
     if system == "linux":
-        return (emus_folder / "PCSX2.AppImage").exists()
+        return (emus_folder / "pcsx2.AppImage").exists()
     if system.startswith("win"):
       return (emus_folder / "pcsx2" / "pcsx2-qt.exe").exists()
     if system == "darwin":
