@@ -56,7 +56,7 @@ def cemu_init():
     set_msg(f"Setting up cemu")
     if system == "linux":
         destination=f"{home}/.config/cemu"
-        settings_file_src=f"{system}/cemu/config/settings.xml"
+        settings_file_src=f"{system}/Cemu/settings.xml"
     if system.startswith("win"):
         destination=f"{emus_folder}/cemu"
         settings_file_src=f"{system}/cemu/settings.xml"
@@ -64,7 +64,7 @@ def cemu_init():
         destination=f"{home}/Library/Application Support/Cemu/"
         settings_file_src=f"{system}/Cemu/settings.xml"
 
-    copy_setting_dir(f"{system}/cemu/",destination)
+    copy_setting_dir(f"{system}/Cemu/",destination)
 
     copy_and_set_settings_file(settings_file_src, destination)
 
