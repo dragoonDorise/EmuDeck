@@ -1364,18 +1364,18 @@ def install_emu(name, url, type_, destination):
             shutil.move(str(archive_path), str(f"{dest_file}.exe"))
             print(f"{name}.exe installedd at {dest_file}")
 
-        if type_ == "flatpak":
+        elif type_ == "flatpak":
             subprocess.run(["flatpak", "install", name, "-y", "--user"])
             print(f"Installed Flatpak")
             print(f"{name} flatpak installed")
 
-        if type_ == "AppImage":
+        elif type_ == "AppImage":
             dest_file = Path(f"{dest_file}.AppImage")
             shutil.move(str(archive_path), dest_file)
             dest_file.chmod(0o755)
             print(f"{name}.AppImage installed at {dest_file}")
 
-        if type_ == "tar.gz":
+        elif type_ == "tar.gz":
             extract_to = emus_folder / destination / name
             extract_to.mkdir(parents=True, exist_ok=True)
             extract_tar_gz(archive_path, extract_to)
@@ -1417,14 +1417,14 @@ def install_emu(name, url, type_, destination):
 
             # 4. (optional) clean up extracted folder
             shutil.rmtree(extract_to, ignore_errors=True)
-        if type_ in ("tar.xz"):
+        elif type_ in ("tar.xz"):
             # Define extraction destination
             extract_to = emus_folder / destination
             extract_to.mkdir(parents=True, exist_ok=True)
             extract_tar_xz(archive_path, extract_to)
             print(f"{name} extracted to {extract_to}")
 
-        if type_ in ("zip"):
+        elif type_ in ("zip"):
             # Define extraction destination
             extract_to = emus_folder / destination if destination else emus_folder / name
             extract_to.mkdir(parents=True, exist_ok=True)
@@ -1461,7 +1461,7 @@ def install_emu(name, url, type_, destination):
             print(f"{name} extracted to {extract_to}")
 
 
-        if type_ in ("7z"):
+        elif type_ in ("7z"):
             # Define extraction destination
             extract_to = emus_folder / destination if destination else emus_folder / name
             extract_to.mkdir(parents=True, exist_ok=True)
@@ -1471,11 +1471,10 @@ def install_emu(name, url, type_, destination):
             print(f"{name} extracted to {extract_to}")
 
 
-        if type_ == "dmg":
+        elif type_ == "dmg":
             # 2) Use Finder/Open to mount (this invokes the GUI EULA)
             print(f"Opening {archive_path} in Finder…")
             install_dmg(name,archive_path)
-
         else:
             print(f"Unsupported type or platform: {type_}")
             return False
