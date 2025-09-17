@@ -48,7 +48,7 @@ def dolphin_install():
         type="flatpak"
         look_for=""
         destination = emus_folder
-        name="Dolphin"
+        name="dolphin-emu"
 
     if system.startswith("win"):
         type="7z"
