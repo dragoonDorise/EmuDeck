@@ -5,7 +5,7 @@ def mgba_install():
 
     if system == "linux":
         type="tar.gz"
-        look_for="x64.AppImage"
+        look_for="x64.appimage"
         path=emus_folder
 
     if system.startswith("win"):
