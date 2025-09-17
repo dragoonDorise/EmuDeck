@@ -1327,6 +1327,9 @@ def create_symlink_crossplatform(source: Path, link_path: Path):
         raise
 
 def install_emu(name, url, type_, destination):
+    if url is False:
+        print(f"Error downloading or processing {url}: {e}")
+        return False
     if destination is None:
         destination = emus_folder
     destination = Path(destination)
