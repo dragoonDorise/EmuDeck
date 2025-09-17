@@ -116,14 +116,16 @@ if json_settings_path.exists():
         #Se crean desde fuera del setup
         #rclone_provider="Emudeck-cloud"
 
+        cloud_sync_bin = tools_path / "rclone" / "rclone"
+
+        if system.startswith("win"):
+            cloud_sync_bin = tools_path / "rclone" / "rclone.exe"
 
 else:
-    settings = ""  # o lo que quieras por defecto
+    settings = ""
+    cloud_sync_bin = ""
 
-cloud_sync_bin = tools_path / "rclone" / "rclone"
 
-if system.startswith("win"):
-    cloud_sync_bin = tools_path / "rclone" / "rclone.exe"
 
 if system == "linux":
     srm_path=f"{home}/.config/Steam Rom Manager"
