@@ -20,7 +20,7 @@ def mame_install():
         return False
 
     try:
-        if system == "linux":
+         if system == "linux":
              repo="org.mamedev.MAME"
          else:
              repo=get_latest_release_gh("mamedev/mame",type,look_for)
