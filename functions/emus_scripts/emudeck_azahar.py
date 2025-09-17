@@ -20,7 +20,7 @@ def azahar_install():
 
     try:
         repo=get_latest_release_gh("azahar-emu/azahar",type,look_for)
-        install_emu("Azahar", repo, type, path)
+        install_emu("azahar", repo, type, path)
     except Exception as e:
         print(f"Error during install: {e}")
         return False
