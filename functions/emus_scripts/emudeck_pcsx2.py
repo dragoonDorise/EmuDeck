@@ -39,7 +39,6 @@ def pcsx2_install():
         print(f"Error during install: {e}")
         return False
 
-
 def pcsx2_uninstall():
     try:
         if system == "linux":
@@ -60,7 +59,6 @@ def pcsx2_is_installed():
       return (emus_folder / "pcsx2" / "pcsx2-qt.exe").exists()
     if system == "darwin":
       return (emus_folder / "PCSX2.app").exists()
-
 
 def pcsx2_init():
     set_msg(f"Setting up pcsx2")
@@ -137,3 +135,16 @@ def pcsx2_widescreen():
         pcsx2_widescreen_on()
     else:
         pcsx2_widescreen_off()
+
+
+#Legacy compatibility
+
+pcsx2qt_install = pcsx2_install
+pcsx2qt_uninstall = pcsx2_uninstall
+pcsx2qt_is_installed = pcsx2_is_installed
+pcsx2qt_init = pcsx2_init
+pcsx2qt_install_init = pcsx2_install_init
+pcsx2qt_set_resolution = pcsx2_set_resolution
+pcsx2qt_widescreen_on = pcsx2_widescreen_on
+pcsx2qt_widescreen_off = pcsx2_widescreen_off
+pcsx2qt_widescreen = pcsx2_widescreen
