@@ -81,7 +81,7 @@ def cemu_install_init():
 
 def cemu_setup_saves():
     if system == "linux":
-        origin_saves=f"{roms_folder}/wiiu/mlc01/usr/save"
+        origin_saves=f"{roms_path}/wiiu/mlc01/usr/save"
     if system.startswith("win"):
         origin_saves=f"{emus_folder}/cemu/mlc01/usr/save"
     if system == "darwin":
