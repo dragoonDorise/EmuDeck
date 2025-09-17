@@ -25,7 +25,7 @@ def retroarch_install():
     set_msg(f"Installing retroarch")
 
     if system == "linux":
-        type=""
+        type="flatpak"
         repo="org.libretro.RetroArch"
         path=emus_folder
 
