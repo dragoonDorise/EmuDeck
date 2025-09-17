@@ -5,7 +5,7 @@ def duckstation_install():
     set_msg(f"Installing DuckStation")
 
     if system == "linux":
-        name="org.duckstation.DuckStation"
+        name="duckstation"
         type="flatpak"
         look_for=""
         destination = f"{emus_folder}"
@@ -23,7 +23,11 @@ def duckstation_install():
         destination = f"{emus_folder}"
 
     try:
-        repo=get_latest_release_gh("stenzek/duckstation",type,look_for)
+        if system == "linux":
+            repo="org.duckstation.DuckStation"
+        else:
+            repo=get_latest_release_gh("stenzek/duckstation",type,look_for)
+
         install_emu(name, repo, type, destination)
     except Exception as e:
         print(f"Error during install: {e}")
