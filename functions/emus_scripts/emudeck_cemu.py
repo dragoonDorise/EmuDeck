@@ -55,8 +55,8 @@ def cemu_is_installed():
 def cemu_init():
     set_msg(f"Setting up cemu")
     if system == "linux":
-        destination=f"{home}/.config/cemu"
-        settings_file_src=f"{system}/Cemu/settings.xml"
+        destination=f"{home}/.config/Cemu"
+        settings_file_src=f"{system}/cemu/settings.xml"
     if system.startswith("win"):
         destination=f"{emus_folder}/cemu"
         settings_file_src=f"{system}/cemu/settings.xml"
