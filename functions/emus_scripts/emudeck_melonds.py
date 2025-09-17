@@ -21,7 +21,7 @@ def melonds_install():
 
     try:
         if system == "linux":
-         repo=" net.kuribo64.melonDS"
+         repo="net.kuribo64.melonDS"
         else:
          repo=get_latest_release_gh("melonDS-emu/melonDS",type,look_for)
         install_emu(name, repo, type, destination)
