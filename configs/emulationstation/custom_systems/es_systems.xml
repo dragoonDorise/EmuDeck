@@ -81,7 +81,7 @@
 		  <name>n3ds</name>
 		  <fullname>Nintendo 3DS</fullname>
 		  <path>%ROMPATH%/n3ds</path>
-		  <extension>.3ds .3DS .3dsx .3DSX .app .APP .axf .AXF .cci .CCI .cxi .CXI .elf .ELF .7z .7Z .zip .ZIP  .zcci .ZCCI .z3dsx .Z3DSX .zcxi .ZCXI</extension>
+		  <extension>.3ds .3DS .3dsx .3DSX .app .APP .axf .AXF .cci .CCI .cxi .CXI .elf .ELF .7z .7Z .zip .ZIP .zcci .ZCCI .z3dsx .Z3DSX .zcxi .ZCXI</extension>
 		  <command label="Citra">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\citra_libretro.dll %ROM%</command>
 		  <command label="Citra 2018">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\citra2018_libretro.dll %ROM%</command>
 		  <command label="Azahar (Standalone)">%EMULATOR_AZAHAR% %ROM%</command>
