@@ -21,12 +21,66 @@ es_rulesFile="$ESDE_newConfigDirectory/custom_systems/es_find_rules.xml"
 
 
 ESDE_SetAppImageURLS() {
-    local json="$(curl -s $ESDE_releaseJSON)"
-    ESDE_releaseURL=$(echo "$json" | jq -r '.stable.packages[] | select(.name == "LinuxSteamDeckAppImage") | .url')
-	ESDE_releaseMD5=$(echo "$json" | jq -r '.stable.packages[] | select(.name == "LinuxSteamDeckAppImage") | .md5')
-	ESDE_prereleaseURL=$(echo "$json" | jq -r '.prerelease.packages[] | select(.name == "LinuxSteamDeckAppImage") | .url')
-	ESDE_prereleaseMD5=$(echo "$json" | jq -r '.prerelease.packages[] | select(.name == "LinuxSteamDeckAppImage") | .md5')
+    local is_steamos=false
+    if grep -qi 'steamos' /etc/os-release 2>/dev/null; then
+        is_steamos=true
+    fi
+    if [[ "$(cat /sys/devices/virtual/dmi/id/product_name 2>/dev/null)" == "Jupiter" ]]; then
+        is_steamos=true
+    fi
+
+    local fallback_deck="https://gitlab.com/es-de/emulationstation-de/-/package_files/210210368/download"
+    local fallback_linux="https://gitlab.com/es-de/emulationstation-de/-/package_files/210210324/download"
+
+    local json
+    json="$(curl -fsSL "$ESDE_releaseJSON" 2>/dev/null || true)"
+
+    if [[ -z "$json" || "$json" == "404: Not Found" ]]; then
+        if $is_steamos; then
+            ESDE_releaseURL="$fallback_deck"
+        else
+            ESDE_releaseURL="$fallback_linux"
+        fi
+        ESDE_releaseMD5=""
+        ESDE_prereleaseURL=""
+        ESDE_prereleaseMD5=""
+        return
+    fi
+
+    if $is_steamos; then
+        ESDE_releaseURL=$(echo "$json" | jq -r '
+            .stable.packages[]?
+            | select(.name | test("(?i)^(LinuxSteamDeckAppImage|.*steam.*deck.*appimage)$"))
+            | .url' | head -n1)
+        ESDE_releaseMD5=$(echo "$json" | jq -r '
+            .stable.packages[]?
+            | select(.name | test("(?i)^(LinuxSteamDeckAppImage|.*steam.*deck.*appimage)$"))
+            | .md5' | head -n1)
+    else
+        ESDE_releaseURL=$(echo "$json" | jq -r '
+            .stable.packages[]?
+            | select(
+                (.name | test("(?i)linux.*appimage"))
+                and (.name | test("(?i)deck") | not)
+                and (.arch? == "x86_64" or .arch == null)
+            )
+            | .url' | head -n1)
+        ESDE_releaseMD5=$(echo "$json" | jq -r '
+            .stable.packages[]?
+            | select(
+                (.name | test("(?i)linux.*appimage"))
+                and (.name | test("(?i)deck") | not)
+                and (.arch? == "x86_64" or .arch == null)
+            )
+            | .md5' | head -n1)
+    fi
+
+    if [[ -z "$ESDE_releaseURL" || "$ESDE_releaseURL" == "null" ]]; then
+        ESDE_releaseURL=$($is_steamos && echo "$fallback_deck" || echo "$fallback_linux")
+        ESDE_releaseMD5=""
+    fi
 }
+
 
 #cleanupOlderThings
 ESDE_cleanup(){
@@ -96,6 +150,8 @@ ESDE_install(){
 		if safeDownload "$ESDE_toolName" "$ESDE_releaseURL" "$ESDE_toolPath" "$showProgress"; then
 			chmod +x "$ESDE_toolPath"
 			ESDE_customDesktopShortcut
+
+			ESDE_addToSteam
 		else
 			return 1
 		fi
@@ -183,6 +239,7 @@ ESDE_update(){
 	ESDE_symlinkGamelists
 	addSteamInputCustomIcons
 	ESDE_flushToolLauncher
+	ESDE_addToSteam
 }
 
 
