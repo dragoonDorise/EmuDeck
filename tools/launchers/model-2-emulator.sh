@@ -30,7 +30,6 @@ else
     sed -i 's/DrawCross=0/DrawCross=1/' "M2CONFIGFILE"
 fi
 
-# we do not need to setup prefix on recent Protons :/
 # APPID
 if [ -e "/usr/bin/python" ]; then
     APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
