@@ -62,7 +62,8 @@ cd $romsPath/model2
 # Call the Proton launcher script and give the arguments
 echo "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${EMUEXE}" "${@}"
 # >> "${LOGFILE}" # huh, what logfile is that?!?
-"${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${EMUEXE}" "${@}"
+# disable Xalia for this, since Xalia messes with manual reconf of M2emu controller binds
+PROTON_USE_XALIA=0 "${PROTONLAUNCH}" -p "${PROTONVER}" -i "${APPID}" -- "${EMUEXE}" "${@}"
 
 cloud_sync_uploadForced
 rm -rf "$savesPath/.gaming";
