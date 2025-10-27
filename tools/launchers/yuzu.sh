@@ -1,6 +1,5 @@
 #!/bin/bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
-emulatorInit "yuzu"
 
 emuName="yuzu" #parameterize me
 useEAifFound="true" # set to false to simply use the newest file found
@@ -15,6 +14,8 @@ showProgress="true"
 
 #source the helpers for safeDownload
 . "$emudeckBackend/functions/helperFunctions.sh"
+
+emulatorInit "yuzu"
 
 #force ea if available
 if [ "$useEAifFound" = "true" ]; then
