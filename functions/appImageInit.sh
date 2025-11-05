@@ -8,7 +8,7 @@ appImageInit() {
 
 		zenity --question --title "DuckStation migration" --text "DuckStation flatpak detected, it's recommended to update to the new AppImage release" --cancel-label "Cancel" --ok-label "OK"
 		if [ $? = 0 ]; then
-			Duckstation_install
+			DuckStation_install
 			zenity --info --width=400 --text="DuckStation migration complete"
 		else
 			echo "continue"

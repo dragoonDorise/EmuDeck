@@ -9,7 +9,7 @@ DuckStation_configPath="$HOME/.local/share/duckstation"
 DuckStation_configFile="$HOME/.local/share/duckstation/settings.ini"
 
 #Install
-Duckstation_install(){
+DuckStation_install(){
 	echo "Begin $DuckStation_emuName Install"
 	local showProgress="$1"
 	local url=$(getReleaseURLGH "stenzek/duckstation" "AppImage" "x64.")
