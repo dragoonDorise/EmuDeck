@@ -128,6 +128,16 @@ function runBinDownloads {
             messages+=("There was a problem updating Azahar")
         fi
     fi
+    if [[ "$binsToDL" == *"DuckStation"* ]]; then
+        ((progresspct += pct)) || true
+        echo "$progresspct"
+        echo "# Updating DuckStation"
+        if DuckStation_install "true" 2>&1; then
+            messages+=("DuckStation Updated Successfully")
+        else
+            messages+=("There was a problem updating DuckStation")
+        fi
+    fi
     if [[ "$binsToDL" == *"mGBA"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
@@ -249,6 +259,11 @@ if [ "$(Azahar_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "Azahar" "Nintendo 3DS")
 else
     binTable+=(FALSE "Azahar" "Nintendo 3DS")
+fi
+if [ "$(DuckStation_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
+    binTable+=(TRUE "DuckStation" "Sony PlayStation")
+else
+    binTable+=(FALSE "DuckStation" "Sony PlayStation")
 fi
 if [ "$(mGBA_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "mGBA" "Nintendo Game Boy Family")
