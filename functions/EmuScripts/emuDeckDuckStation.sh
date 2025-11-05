@@ -12,7 +12,7 @@ DuckStation_configFile="$HOME/.local/share/duckstation/settings.ini"
 Duckstation_install(){
 	echo "Begin $DuckStation_emuName Install"
 	local showProgress="$1"
-	local url=$(getReleaseURLGH "stenzek/duckstation" "AppImage" "")
+	local url=$(getReleaseURLGH "stenzek/duckstation" "AppImage" "x64")
 
 	if installEmuAI "$DuckStation_emuName" "" "$url" "DuckStation" "AppImage" "emulator" "$showProgress"; then
 		mv "$emusFolder/DuckStation.AppImage" "$DuckStation_emuPath"
