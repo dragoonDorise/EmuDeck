@@ -8,7 +8,7 @@ appImageInit() {
 
 		zenity --question --title "DuckStation migration" --text "DuckStation flatpak detected, it's recommended to update to the new AppImage release" --cancel-label "Cancel" --ok-label "OK"
 		if [ $? = 0 ]; then
-			mv "$HOME/.local/share"  "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation"
+			mv "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation" "$HOME/.local/share"
 			DuckStation_flushEmulatorLauncher
 			flatpak uninstall org.duckstation.DuckStation -y
 			zenity --info --width=400 --text="DuckStation migration complete"

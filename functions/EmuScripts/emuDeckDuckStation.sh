@@ -23,7 +23,7 @@ Duckstation_install(){
 
 	if [ -d "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation" ]; then
 		zenity --info --width=400 --text="DuckStation flatpak detected, we will now migrate your data to the new AppImage format"
-		mv "$HOME/.local/share"  "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation"
+		mv "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation" "$HOME/.local/share"
 		DuckStation_flushEmulatorLauncher
 		flatpak uninstall org.duckstation.DuckStation -y
 	fi
