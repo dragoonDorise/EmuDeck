@@ -1,5 +1,5 @@
 #!/bin/bash
-. "$HOME/.config/EmuDeck/backend/functions/all.sh"
+. "$emudeckBackend/all.sh"
 emulatorInit "yuzu"
 
 emuName="yuzu" #parameterize me
@@ -14,7 +14,7 @@ Yuzu_lastVerFile="$emudeckFolder/yuzu.ver"
 showProgress="true"
 
 #source the helpers for safeDownload
-. "$emudeckBackend/functions/helperFunctions.sh"
+#. "$emudeckBackend/functions/helperFunctions.sh"
 
 #force ea if available
 if [ "$useEAifFound" = "true" ]; then
