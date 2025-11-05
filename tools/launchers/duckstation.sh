@@ -1,7 +1,7 @@
 #!/bin/bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "duckstation"
-emuName="duckstation" #parameterize me
+emuName="DuckStation" #parameterize me
 emufolder="$emusFolder" # has to be applications for ES-DE to find it
 
 #initialize execute array
