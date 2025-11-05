@@ -2,25 +2,30 @@
 
 #variables
 DuckStation_emuName="DuckStation"
-DuckStation_emuType="$emuDeckEmuTypeFlatpak"
-DuckStation_emuPath="org.duckstation.DuckStation"
-DuckStation_configFileNew="$HOME/.var/app/org.duckstation.DuckStation/config/duckstation/settings.ini"
-
-#cleanupOlderThings
-DuckStation_cleanup(){
- echo "NYI"
-}
+DuckStation_emuType="$emuDeckEmuTypeAppImage"
+DuckStation_emuPath="$emusFolder/duckstation.appimage"
+DuckStation_releaseURL=""
+DuckStation_configPath="$HOME/.local/share/duckstation"
+DuckStation_configFile="$HOME/.local/share/duckstation/settings.ini"
 
 #Install
-DuckStation_install(){
-	setMSG "Installing $DuckStation_emuName"
-	installEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}" "emulator" ""
+Duckstation_install(){
+	echo "Begin $DuckStation_emuName Install"
+	local showProgress="$1"
+	local url=$(getReleaseURLGH "stenzek/duckstation" "AppImage" "")
+
+	if installEmuAI "DuckStation_emuName" "" "$url" "duckstation" "AppImage" "emulator" "$showProgress"; then
+		mv "$emusFolder/duckstation.appimage" "$DuckStation_emuPath"
+		chmod +x "$DuckStation_emuPath"
+	else
+		return 1
+	fi
 }
 
 #ApplyInitialSettings
 DuckStation_init(){
 	setMSG "Initializing $DuckStation_emuName settings."
-	configEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}" "true"
+	configEmuAI "$DuckStation_emuName" "duckstation"  "$DuckStation_configPath" "$emudeckBackend/configs/duckstation" "true"
 	DuckStation_setupStorage
 	DuckStation_setEmulationFolder
 	DuckStation_setupSaves
@@ -35,8 +40,7 @@ DuckStation_init(){
 #update
 DuckStation_update(){
 	setMSG "Updating $DuckStation_emuName settings."
-	configEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}"
-	updateEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}" "emulator" ""
+	configEmuAI "$DuckStation_emuName" "duckstation"  "$DuckStation_configPath" "$emudeckBackend/configs/duckstation"
 	DuckStation_setupStorage
 	DuckStation_setEmulationFolder
 	DuckStation_setupSaves
@@ -59,10 +63,10 @@ DuckStation_setEmulationFolder(){
 	memCardDir='Directory = '
 	memCardDirSetting="${memCardDir}""${savesPath}/duckstation/saves"
 
-	changeLine "$gameDirOpt" "$newGameDirOpt" "$DuckStation_configFileNew"
-	changeLine "$biosDir" "$biosDirSetting" "$DuckStation_configFileNew"
-	changeLine "$statesDir" "$statesDirSetting" "$DuckStation_configFileNew"
-	changeLine "$memCardDir" "$memCardDirSetting" "$DuckStation_configFileNew"
+	changeLine "$gameDirOpt" "$newGameDirOpt" "$DuckStation_configFile"
+	changeLine "$biosDir" "$biosDirSetting" "$DuckStation_configFile"
+	changeLine "$statesDir" "$statesDirSetting" "$DuckStation_configFile"
+	changeLine "$memCardDir" "$memCardDirSetting" "$DuckStation_configFile"
 
 }
 
@@ -72,6 +76,8 @@ DuckStation_setupSaves(){
 	moveSaveFolder duckstation states "$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/savestates"
 	moveSaveFolder duckstation saves "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation/memcards"
 	moveSaveFolder duckstation states "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation/savestates"
+	moveSaveFolder duckstation saves "$DuckStation_configPath/memcards"
+	moveSaveFolder duckstation states "$DuckStation_configPath/savestates"
 }
 
 
@@ -91,7 +97,7 @@ DuckStation_wipe(){
 #Uninstall
 DuckStation_uninstall(){
 	setMSG "Uninstalling ${DuckStation_emuName}."
-    uninstallEmuFP "${DuckStation_emuName}" "${DuckStation_emuPath}" "emulator" ""
+	uninstallEmuAI $DuckStation_emuName "DuckStation" "" "emulator"
 }
 
 #setABXYstyle
@@ -112,8 +118,8 @@ DuckStation_wideScreenOn(){
     wideScreenHackSetting='WidescreenHack = true'
     aspectRatio='AspectRatio = '
     aspectRatioSetting='AspectRatio = 16:9'
-	sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFileNew"
-	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$DuckStation_configFileNew"
+	sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFile"
+	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$DuckStation_configFile"
 }
 
 #WideScreenOff
@@ -124,8 +130,8 @@ DuckStation_wideScreenOff(){
     wideScreenHackSetting='WidescreenHack = false'
     aspectRatio='AspectRatio = '
     aspectRatioSetting='AspectRatio = 4:3'
-	sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFileNew"
-	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$DuckStation_configFileNew"
+	sed -i "/${wideScreenHack}/c\\${wideScreenHackSetting}" "$DuckStation_configFile"
+	sed -i "/${aspectRatio}/c\\${aspectRatioSetting}" "$DuckStation_configFile"
 
 }
 
@@ -145,7 +151,11 @@ DuckStation_finalize(){
 }
 
 DuckStation_IsInstalled(){
-	isFpInstalled "$DuckStation_emuPath"
+	if [ -e "$DuckStation_emuPath" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
 }
 
 DuckStation_resetConfig(){
@@ -160,18 +170,18 @@ DuckStation_addSteamInputProfile(){
 }
 
 DuckStation_retroAchievementsOn(){
-	iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "Enabled" "True"
+	iniFieldUpdate "$DuckStation_configFile" "Cheevos" "Enabled" "True"
 }
 DuckStation_retroAchievementsOff(){
-	iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "Enabled" "False"
+	iniFieldUpdate "$DuckStation_configFile" "Cheevos" "Enabled" "False"
 }
 
 DuckStation_retroAchievementsHardCoreOn(){
-	iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "ChallengeMode" "True"
+	iniFieldUpdate "$DuckStation_configFile" "Cheevos" "ChallengeMode" "True"
 
 }
 DuckStation_retroAchievementsHardCoreOff(){
-	iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "ChallengeMode" "False"
+	iniFieldUpdate "$DuckStation_configFile" "Cheevos" "ChallengeMode" "False"
 }
 
 
@@ -185,9 +195,9 @@ DuckStation_retroAchievementsSetLogin(){
 		echo "--No username."
 	else
 		echo "Valid Retroachievements Username and Password length"
-		iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "Username" "$rau"
-		iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "Token" "$rat"
-		iniFieldUpdate "$DuckStation_configFileNew" "Cheevos" "LoginTimestamp" "$(date +%s)"
+		iniFieldUpdate "$DuckStation_configFile" "Cheevos" "Username" "$rau"
+		iniFieldUpdate "$DuckStation_configFile" "Cheevos" "Token" "$rat"
+		iniFieldUpdate "$DuckStation_configFile" "Cheevos" "LoginTimestamp" "$(date +%s)"
 		DuckStation_retroAchievementsOn
 	fi
 }
@@ -219,7 +229,7 @@ DuckStation_setResolution(){
 		*) echo "Error"; return 1;;
 	esac
 
-	RetroArch_setConfigOverride "ResolutionScale" $multiplier "$DuckStation_configFileNew"
+	RetroArch_setConfigOverride "ResolutionScale" $multiplier "$DuckStation_configFile"
 }
 
 DuckStation_flushEmulatorLauncher(){
