@@ -3,7 +3,7 @@
 #variables
 DuckStation_emuName="DuckStation"
 DuckStation_emuType="$emuDeckEmuTypeAppImage"
-DuckStation_emuPath="$emusFolder/duckstation.appimage"
+DuckStation_emuPath="$emusFolder/DuckStation.AppImage"
 DuckStation_releaseURL=""
 DuckStation_configPath="$HOME/.local/share/duckstation"
 DuckStation_configFile="$HOME/.local/share/duckstation/settings.ini"
@@ -14,11 +14,18 @@ Duckstation_install(){
 	local showProgress="$1"
 	local url=$(getReleaseURLGH "stenzek/duckstation" "AppImage" "")
 
-	if installEmuAI "DuckStation_emuName" "" "$url" "duckstation" "AppImage" "emulator" "$showProgress"; then
-		mv "$emusFolder/duckstation.appimage" "$DuckStation_emuPath"
+	if installEmuAI "$DuckStation_emuName" "" "$url" "DuckStation" "AppImage" "emulator" "$showProgress"; then
+		mv "$emusFolder/DuckStation.AppImage" "$DuckStation_emuPath"
 		chmod +x "$DuckStation_emuPath"
 	else
 		return 1
+	fi
+
+	if [ -d "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation" ]; then
+		zenity --info --width=400 --text="DuckStation flatpak detected, we will now migrate your data to the new AppImage format"
+		mv "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation" "$HOME/.local/share"
+		DuckStation_setupSaves
+		DuckStation_flushEmulatorLauncher
 	fi
 }
 
@@ -72,10 +79,6 @@ DuckStation_setEmulationFolder(){
 
 #SetupSaves
 DuckStation_setupSaves(){
-	moveSaveFolder duckstation saves "$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/memcards"
-	moveSaveFolder duckstation states "$HOME/.var/app/org.duckstation.DuckStation/data/duckstation/savestates"
-	moveSaveFolder duckstation saves "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation/memcards"
-	moveSaveFolder duckstation states "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation/savestates"
 	moveSaveFolder duckstation saves "$DuckStation_configPath/memcards"
 	moveSaveFolder duckstation states "$DuckStation_configPath/savestates"
 }
