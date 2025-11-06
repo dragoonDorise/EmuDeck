@@ -1,5 +1,5 @@
 #!/bin/bash
-. "$emudeckBackend/all.sh"
+. "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "yuzu"
 
 emuName="yuzu" #parameterize me
