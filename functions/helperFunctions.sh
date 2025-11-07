@@ -1121,6 +1121,7 @@ function controllerLayout_ABXY(){
 	RetroArch_setABXYstyle
 	RMG_setABXYstyle
  	Ryujinx_setABXYstyle
+	Yuzu_setABXYstyle
 }
 
 function controllerLayout_BAYX(){
@@ -1131,6 +1132,7 @@ function controllerLayout_BAYX(){
 	RetroArch_setBAYXstyle
 	RMG_setBAYXstyle
 	Ryujinx_setBAYXstyle
+	Yuzu_setBAYXstyle
 }
 
 function server_install(){
