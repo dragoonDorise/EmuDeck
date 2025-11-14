@@ -1,5 +1,4 @@
 import http.server
-import cgi
 import os
 import socket
 import re
@@ -7,8 +6,8 @@ import json
 import subprocess
 import threading
 import tkinter as tk
-from tkinter import messagebox
 import asyncio
+from multipart import MultipartParser
 
 roms_path = None
 BASE_DIR = None
@@ -40,26 +39,49 @@ async def getSettings():
 class SimpleHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
         if self.path == '/upload':
-            form = cgi.FieldStorage(fp=self.rfile, headers=self.headers, environ={'REQUEST_METHOD': 'POST'})
-            folder = form.getvalue('folder')
-            files = form['files']
+            # Parse multipart form data using python-multipart library
+            content_type = self.headers.get('Content-Type', '')
+            content_length = int(self.headers.get('Content-Length', 0))
 
-            upload_folder = os.path.join(BASE_DIR, folder)
-            os.makedirs(upload_folder, exist_ok=True)
+            folder = None
+            uploaded_files = []
 
-            if not isinstance(files, list):
-                files = [files]
+            def on_field(field):
+                nonlocal folder
+                if field.field_name == b'folder':
+                    folder = field.value.decode('utf-8')
 
-            for file_item in files:
-                if file_item.filename:
-                    file_path = os.path.join(upload_folder, os.path.basename(file_item.filename))
-                    with open(file_path, 'wb') as output_file:
-                        output_file.write(file_item.file.read())
+            def on_file(file):
+                if file.field_name == b'files':
+                    uploaded_files.append({
+                        'filename': file.file_name.decode('utf-8') if file.file_name else None,
+                        'content': file.file_object.read()
+                    })
 
-            self.send_response(200)
-            self.send_header('Content-type', 'text/html')
-            self.end_headers()
-            self.wfile.write(b'Archivos subidos exitosamente')
+            parser = MultipartParser(self.rfile, content_type, content_length=content_length)
+            parser.register_on_field(on_field)
+            parser.register_on_file(on_file)
+            parser.parse()
+
+            if folder and uploaded_files:
+                upload_folder = os.path.join(BASE_DIR, folder)
+                os.makedirs(upload_folder, exist_ok=True)
+
+                for file_item in uploaded_files:
+                    if file_item['filename']:
+                        file_path = os.path.join(upload_folder, os.path.basename(file_item['filename']))
+                        with open(file_path, 'wb') as output_file:
+                            output_file.write(file_item['content'])
+
+                self.send_response(200)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+                self.wfile.write(b'Files uploaded successfully')
+            else:
+                self.send_response(400)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+                self.wfile.write(b'Error: Invalid form data')
         else:
             self.send_response(404)
             self.end_headers()
@@ -87,11 +109,14 @@ def start_server(ip, port):
 
 def show_custom_popup(title, message, button_text):
     popup = tk.Tk()
-    popup.wm_title(title)
-    label = tk.Label(popup, text=message, padx=20, pady=20)
-    label.pack(side="top", fill="x")
-    button = tk.Button(popup, text=button_text, command=popup.destroy, padx=10, pady=15)
-    button.pack()
+    popup.title(title)
+    label = tk.Label(popup, text=message, padx=20, pady=20, wraplength=400)
+    label.pack()
+    button = tk.Button(popup, text=button_text, command=popup.destroy, padx=20, pady=10)
+    button.pack(pady=(0, 10))
+    popup.update_idletasks()
+    popup.lift()
+    popup.focus_force()
     popup.mainloop()
 
 async def main():
@@ -106,7 +131,7 @@ async def main():
     server_thread.daemon = True
     server_thread.start()
 
-    # Mostrar el mensaje en el popup personalizado
+    # Show server info dialog
     show_custom_popup("Server loaded", f"Open http://{ip}:{port}/ in your computer's browser. Close this window when you are finished", "Close")
 
 asyncio.run(main())
