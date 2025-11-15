@@ -769,7 +769,7 @@ if [ "$uiMode" == 'zenity' ]; then
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		echo "user launched SRM"
-		"${toolsPath}/launchers/srm/steamrommanager.sh"
+		"${toolsPath}/launchers/srm/steam-rom-manager.sh"
 		exit
 	else
 		exit
