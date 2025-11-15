@@ -14,7 +14,7 @@ Yuzu_lastVerFile="$emudeckFolder/yuzu.ver"
 showProgress="true"
 
 #source the helpers for safeDownload
-. "$emudeckBackend/functions/helperFunctions.sh"
+#. "$emudeckBackend/functions/helperFunctions.sh"
 
 #force ea if available
 if [ "$useEAifFound" = "true" ]; then

@@ -21,12 +21,6 @@ else
     emuTable+=(FALSE "Dolphin" "Nintendo GameCube/Wii")
 fi
 
-if [ "$(DuckStation_IsInstalled "$emuDeckEmuTypeFlatpak")" == "true" ]; then
-    emuTable+=(TRUE "DuckStation" "Sony PlayStation 1")
-else
-    emuTable+=(FALSE "DuckStation" "Sony PlayStation 1")
-fi
-
 if [ "$(melonDS_IsInstalled "$emuDeckEmuTypeFlatpak")" == "true" ]; then
     emuTable+=(TRUE "melonDS" "Nintendo DS")
 else
@@ -108,9 +102,6 @@ if [ ${#emuTable[@]} -gt 0 ]; then
             if [[ "$emusToInstall" == *"Dolphin"* ]]; then
                 doUpdateDolphin=true
             fi
-            if [[ "$emusToInstall" == *"DuckStation"* ]]; then
-                doUpdateDuck=true
-            fi
             if [[ "$emusToInstall" == *"melonDS"* ]]; then
             	doUpdateMelonDS=true
             fi
@@ -145,10 +136,6 @@ if [ ${#emuTable[@]} -gt 0 ]; then
                 if [ "$doUpdateDolphin" == "true" ]; then
                     echo "###Updating Dolphin..."
                     (updateEmuFP "dolphin-emu" "org.DolphinEmu.dolphin-emu" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|Dolphin" && echo "&&&$progressInstalled"
-                fi
-                if [ "$doUpdateDuck" == "true" ]; then
-                    echo "###Updating DuckStation..."
-                    (updateEmuFP "DuckStation" "org.duckstation.DuckStation" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|DuckStation" && echo "&&&$progressInstalled"
                 fi
                 if [ "$doUpdateMelonDS" == "true" ]; then
                     echo "###Updating melonDS..."

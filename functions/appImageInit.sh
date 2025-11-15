@@ -1,6 +1,21 @@
 #!/bin/bash
 appImageInit() {
 
+
+	#Migrate DuckStation
+
+	if [ -d "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation" ]; then
+
+		zenity --question --title "DuckStation migration" --text "DuckStation flatpak detected, it's recommended to update to the new AppImage release" --cancel-label "Cancel" --ok-label "OK"
+		if [ $? = 0 ]; then
+			DuckStation_install
+			zenity --info --width=400 --text="DuckStation migration complete"
+		else
+			echo "continue"
+		fi
+
+	fi
+
 	#Migrate emudeck folder
 
 	if [ -f "$HOME/emudeck/settings.sh" ] &&  [ ! -L "$HOME/emudeck/settings.sh" ]; then
