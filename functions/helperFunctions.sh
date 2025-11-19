@@ -1168,29 +1168,46 @@ function read_config_toml() {
 }
 
 function add_to_steam(){
-	#Example
-	#add_to_steam "es-de" "ES-DE" "$toolsPath/launchers/es-de/es-de.sh" "$HOME/Applications/" "$HOME/.config/EmuDeck/backend/icons/ico/EmulationStationDE.ico"
+	# Example
+	# add_to_steam "es-de" "ES-DE" "$toolsPath/launchers/es-de/es-de.sh" "$HOME/Applications/" "$HOME/.config/EmuDeck/backend/icons/ico/EmulationStationDE.ico"
+
 	local id="$1"
 	local name="$2"
 	local target_path="$3"
 	local start_dir="$4"
 	local icon_path="$5"
+
 	local steam_directory="$HOME/.steam/steam/"
-	local user_id="$(ls -td $HOME/.steam/steam/userdata/* | head -n 1)"
+	local user_id
+	user_id="$(ls -td "$steam_directory/userdata"/* 2>/dev/null | head -n 1)"
 
-	generate_pythonEnv &> /dev/null
+	local venv_dir="$emudeckFolder/python_virtual_env"
+	local venv_python="$venv_dir/bin/python"
+	local add_script="$emudeckBackend/tools/vdf/add.py"
 
+	if ! [ -x "$venv_python" ] || ! "$venv_python" -c "import vdf" >/dev/null 2>&1; then
+		echo "add_to_steam: Recreating a Python environment for VDF..."
+		rm -rf "$venv_dir"
+		generate_pythonEnv
+	fi
+
+	if ! [ -x "$venv_python" ]; then
+		echo "add_to_steam: error, python del venv unavailable after generate_pythonEnv" >&2
+		return 1
+	fi
+
+	local steam_pid
 	steam_pid=$(pidof steam)
-
 	if [ -n "$steam_pid" ]; then
-		echo "Steam está en ejecución. Enviando SIGTERM..."
-		kill -15 $steam_pid
+		echo "Steam is running. Sending SIGTERM..."
+		kill -15 "$steam_pid"
 		echo "Señal SIGTERM env"
 	fi
 
-	python "$emudeckFolder/backend/tools/vdf/add.py" $id $name $target_path $start_dir $icon_path $steam_directory $user_id
-
+	"$venv_python" "$add_script" \
+		"$id" "$name" "$target_path" "$start_dir" "$icon_path" "$steam_directory" "$user_id"
 }
+
 
 function flushAllLaunchers(){
 
