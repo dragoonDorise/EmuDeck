@@ -195,14 +195,13 @@ def get_valid_system_dirs(roms_dir, valid_system_dirs):
         if os.path.isdir(full_path) and not os.path.islink(full_path):
 
             if system_dir == "ps3":
-
                 valid_system_dirs.append(full_path)
                 log_message(f"GGL: Valid system directory found (PS3): {full_path}")
             else:
                 # Lógica original para los demás sistemas
                 has_metadata = os.path.isfile(os.path.join(full_path, 'metadata.txt'))
                 file_count = sum([len(files) for r, d, files in os.walk(full_path) if not os.path.islink(r)])
-                if has_metadata and file_count > 3:
+                if has_metadata and file_count > 2:
                     valid_system_dirs.append(full_path)
                     log_message(f"GGL: Valid system directory found: {full_path}")
     return valid_system_dirs
