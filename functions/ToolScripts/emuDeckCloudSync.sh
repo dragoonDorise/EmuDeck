@@ -12,23 +12,7 @@ cloud_sync_install(){
     rm -rf "$HOME/.config/systemd/user/EmuDeckCloudSync.service" > /dev/null
 
    # if [ $system != "darwin" ];then
-      PASS_STATUS=$(passwd -S deck 2> /dev/null)
-      if [ "${PASS_STATUS:5:2}" = "NP" ]; then
-        Plugins_installEmuDecky "Decky!" && Plugins_installPluginLoader "Decky!"
-      else
 
-        text="$(printf "We need to install our Decky Plugin so you can use CloudSync on Gaming Mode.\nPlease enter your sudo/admin password so we can install it.")"
-
-        PASS=$(zenity --title="Decky CloudSync Plugin Installer" --width=300 --height=100 --entry --hide-text --text="${text}")
-        if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
-            exit 1
-        fi
-        if ( echo "$PASS" | sudo -S -k true ); then
-            Plugins_installEmuDecky "$PASS" && Plugins_installPluginLoader "$PASS"
-        else
-            zen_nospam --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
-        fi
-      fi
     #fi
     cloud_sync_createService
 
@@ -209,6 +193,26 @@ cloud_sync_install_and_config(){
      if [ "$browser" != 'com.google.Chrome.desktop' ];then
        xdg-settings set default-web-browser $browser
      fi
+   #Decky plugin
+   if [ ! -d "$HOME/homebrew/plugins/EmuDecky" ]; then
+     PASS_STATUS=$(passwd -S deck 2> /dev/null)
+     if [ "${PASS_STATUS:5:2}" = "NP" ]; then
+       Plugins_installEmuDecky "Decky!" && Plugins_installPluginLoader "Decky!"
+     else
+
+       text="$(printf "We need to install our Decky Plugin so you can use CloudSync on Gaming Mode.\nPlease enter your sudo/admin password so we can install it.")"
+
+       PASS=$(zenity --title="Decky CloudSync Plugin Installer" --width=300 --height=100 --entry --hide-text --text="${text}")
+       if [[ $? -eq 1 ]] || [[ $? -eq 5 ]]; then
+           exit 1
+       fi
+       if ( echo "$PASS" | sudo -S -k true ); then
+           Plugins_installEmuDecky "$PASS" && Plugins_installPluginLoader "$PASS"
+       else
+           zen_nospam --title="Decky Installer" --width=150 --height=40 --info --text "Incorrect Password"
+       fi
+     fi
+    fi
  }
 
 cloud_sync_uninstall(){
