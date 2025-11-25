@@ -15,24 +15,44 @@ ShadPS4_cleanup(){
     echo "Begin ShadPS4 Cleanup"
 }
 
-# TODO: Install Flatpak from https://github.com/shadps4-emu/shadPS4-flatpak
 ShadPS4_install(){
-
     echo "Begin ShadPS4 Install"
     local showProgress=$1
 
-    if safeDownload "$ShadPS4_emuName" "$(getReleaseURLGH "shadps4-emu/shadPS4" "zip" "linux-qt")" "$emusFolder/${ShadPS4_emuName}.zip" "$showProgress"; then
+    local api_url='https://api.github.com/repos/shadps4-emu/shadps4-qtlauncher/releases'
+    local shadps4_url
+    shadps4_url="$(curl -s -H "User-Agent: EmuDeck" "$api_url" \
+        | jq -r '.[0].assets[]
+                 | select(.name | contains("linux-qt") and endswith(".zip"))
+                 | .browser_download_url' \
+        | head -n 1)"
+
+    if [[ -z "$shadps4_url" || "$shadps4_url" == "null" ]]; then
+        echo "Error getting latest ShadPS4 linux-qt release URL"
+        return 1
+    fi
+
+    if safeDownload "$ShadPS4_emuName" "$shadps4_url" "$emusFolder/${ShadPS4_emuName}.zip" "$showProgress"; then
         unzip -o "$emusFolder/${ShadPS4_emuName}.zip" -d "$ShadPS4_emuPath" && rm -f "$emusFolder/${ShadPS4_emuName}.zip"
-        if ! installEmuAI "$ShadPS4_emuName" "" "" "$ShadPS4_emuFileName" "" "emulator"; then # installEmuAI will handle everything when URL is not provided but AppImage exists...
+
+        rm -f "$ShadPS4_emuPath/Shadps4-qt.AppImage"
+        mv "$ShadPS4_emuPath"/shadPS4QtLauncher-qt*.AppImage \
+           "$ShadPS4_emuPath/Shadps4-qt.AppImage"
+        chmod +x "$ShadPS4_emuPath/Shadps4-qt.AppImage"
+
+        if ! installEmuAI "$ShadPS4_emuName" "" "" "$ShadPS4_emuFileName" "" "emulator"; then
             echo "Error installing ShadPS4"
             return 1
         fi
+
+        ShadPS4_init
+
     else
         echo "Error installing ShadPS4"
         return 1
     fi
-
 }
+
 
 ShadPS4_init(){
     configEmuAI "$ShadPS4_emuName" "config" "$HOME/.local/share/shadPS4" "$emudeckBackend/configs/shadps4" "true"
@@ -44,7 +64,7 @@ ShadPS4_init(){
 }
 
 ShadPS4_update(){
-    ShadPS4_init
+    ShadPS4_install "$1"
 }
 
 # Configuration Paths
