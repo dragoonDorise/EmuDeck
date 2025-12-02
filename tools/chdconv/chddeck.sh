@@ -359,8 +359,7 @@ if [ "$selection" == "Bulk Compression" ]; then
 		echo "7za found"
 		for romfolder in "${sevenzipfolderWhiteList[@]}"; do
 			echo "Checking ${romsPath}/${romfolder}/"
-
-			mapfile -t files < <(find "${romsPath}/${romfolder}" -type f \( -iname "*.${sevenzipFileExtensions[0]}" $(for extension in "${sevenzipFileExtensions[@]:1}"; do echo ' -o -iname *.'"$extension"; done) \))
+			mapfile -t files < <(find "${romsPath}/${romfolder}/" -type f \( -iname "*.${sevenzipFileExtensions[0]}" $(for extension in "${sevenzipFileExtensions[@]:1}"; do echo ' -o -iname *.'"$extension"; done) \))
 			if [ ${#files[@]} -gt 0 ]; then
 				echo "found in $romfolder"
 				searchFolderList+=("$romfolder")
@@ -414,15 +413,15 @@ if [ "$selection" == "Bulk Compression" ]; then
 	for romfolder in "${romfolders[@]}"; do
 		if [[ " ${chdfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
 
-			find "$romsPath/$romfolder" -type f -iname "*.gdi" | while read -r f; do
+			find "$romsPath/$romfolder/" -type f -iname "*.gdi" | while read -r f; do
 				echo "Converting: $f using the createcd flag"
 				compressCHD "$f"
 			done
-			find "$romsPath/$romfolder" -type f -iname "*.cue" | while read -r f; do
+			find "$romsPath/$romfolder/" -type f -iname "*.cue" | while read -r f; do
 				echo "Converting: $f using the createcd flag"
 				compressCHD "$f"
 			done
-			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
+			find "$romsPath/$romfolder/" -type f -iname "*.iso" | while read -r f; do
 				echo "Converting: $f using the createdvd flag"
 				compressCHDDVD "$f"
 			done
@@ -433,7 +432,7 @@ if [ "$selection" == "Bulk Compression" ]; then
 
 	for romfolder in "${romfolders[@]}"; do
 		if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-			find "$romsPath/$romfolder" -type f -iname "*.gcm" -o -type f -iname "*.iso" | while read -r f; do
+			find "$romsPath/$romfolder/" -type f -iname "*.gcm" -o -type f -iname "*.iso" | while read -r f; do
 				echo "Converting: $f"
 				compressRVZ "$f"
 			done
@@ -451,14 +450,14 @@ if [ "$selection" == "Bulk Compression" ]; then
 				--extra-button="CSO" \
 				--cancel-label="Cancel" \
 				--text="${text}" 2>/dev/null && echo "CHD")
-			find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
+			find "$romsPath/$romfolder/" -type f -iname "*.iso" | while read -r f; do
 						if [ "$pspBulkSelection" == "CHD" ]; then
-							find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
+							find "$romsPath/$romfolder/" -type f -iname "*.iso" | while read -r f; do
 							echo "Converting: $f using the createdvd flag  and 2048 hunksize"
 							compressCHDDVDLowerHunk "$f"
 							done
 						elif [ "$pspBulkSelection" == "CSO" ]; then
-							find "$romsPath/$romfolder" -type f -iname "*.iso" | while read -r f; do
+							find "$romsPath/$romfolder/" -type f -iname "*.iso" | while read -r f; do
 								echo "Converting: $f"
 								compressCSO "$f"
 							done
@@ -474,7 +473,7 @@ if [ "$selection" == "Bulk Compression" ]; then
 	for romfolder in "${romfolders[@]}"; do
 		if [[ " ${n3dsfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
 			# Ignore trimmed files
-			find "$romsPath/$romfolder" -type f -iname "*.3ds" ! -name '*(Trimmed)*' | while read -r f; do
+			find "$romsPath/$romfolder/" -type f -iname "*.3ds" ! -name '*(Trimmed)*' | while read -r f; do
 				echo "Converting: $f"
 				trim3ds "$f"
 			done
@@ -483,7 +482,7 @@ if [ "$selection" == "Bulk Compression" ]; then
 
 	for romfolder in "${romfolders[@]}"; do
 		if [[ " ${xboxfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-			find "$romsPath/$romfolder" -type f -iname "*.iso" ! -name '*.xiso.iso' | while read -r f; do
+			find "$romsPath/$romfolder/" -type f -iname "*.iso" ! -name '*.xiso.iso' | while read -r f; do
 				echo "Converting: $f"
 				compressXISO "$f"
 			done
@@ -494,7 +493,7 @@ if [ "$selection" == "Bulk Compression" ]; then
 		if [[ " ${sevenzipfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
 
 			for ext in "${sevenzipFileExtensions[@]}"; do
-				find "$romsPath/$romfolder" -type f -iname "*.$ext" | while read -r f; do
+				find "$romsPath/$romfolder/" -type f -iname "*.$ext" | while read -r f; do
 					echo "Converting: $f"
 					compress7z "$f"
 				done
@@ -719,7 +718,7 @@ elif [ "$compressionSelection" == "Bulk Decompression" ]; then
 
 	for romfolder in "${romfolders[@]}"; do
 		if [[ " ${csofolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-			find "$romsPath/$romfolder" -type f -iname "*.chd" | while read -r f; do
+			find "$romsPath/$romfolder/" -type f -iname "*.chd" | while read -r f; do
 				echo "Decompressing $f using the extractdvd flag"
 				decompressCHDISO "$f"
 			done
@@ -728,7 +727,7 @@ elif [ "$compressionSelection" == "Bulk Decompression" ]; then
 
 	for romfolder in "${romfolders[@]}"; do
 		if [[ " ${csofolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-			find "$romsPath/$romfolder" -type f -iname "*.cso" | while read -r f; do
+			find "$romsPath/$romfolder/" -type f -iname "*.cso" | while read -r f; do
 				echo "Decompressing $f"
 				decompressCSOISO "$f"
 			done
@@ -737,7 +736,7 @@ elif [ "$compressionSelection" == "Bulk Decompression" ]; then
 
 	for romfolder in "${romfolders[@]}"; do
 		if [[ " ${rvzfolderWhiteList[*]} " =~ " ${romfolder} " ]]; then
-			find "$romsPath/$romfolder" -type f -iname "*.rvz" | while read -r f; do
+			find "$romsPath/$romfolder/" -type f -iname "*.rvz" | while read -r f; do
 				echo "Decompressing $f to ISO"
 				decompressRVZ "$f"
 			done
