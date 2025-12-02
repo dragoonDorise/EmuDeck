@@ -257,11 +257,6 @@ cloud_sync_upload(){
 
 cloud_sync_download(){
   local branch=$(cd "$emudeckBackend" && git rev-parse --abbrev-ref HEAD)
-  if [[ "$branch" == *"early"* ]] || [ "$branch" == "dev" ] ; then
-    echo "CloudSync Downloading"
-  else
-    return 0
-  fi
   # startLog ${FUNCNAME[0]}
   local emuName=$1
   local timestamp=$(date +%s)
@@ -537,6 +532,15 @@ cloud_sync_downloadEmu(){
 cloud_sync_downloadEmuAll(){
  cloud_sync_createService
  cloud_sync_download 'all'
+}
+
+cloud_sync_downloadESDE(){
+  if [[ "$branch" == *"early"* ]] || [ "$branch" == "dev" ] ; then
+    cloud_sync_createService
+    cloud_sync_download 'all'
+  else
+    return 0
+  fi
 }
 
 cloud_sync_uploadEmuAll(){
