@@ -33,12 +33,12 @@ SRM_uninstall(){
 
 SRM_customDesktopShortcut(){
   mkdir -p "$toolsPath/launchers/srm"
-  cp "$emudeckBackend/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
+  cp "$emudeckBackend/tools/launchers/srm/steam-rom-manager.sh" "$toolsPath/launchers/srm/steam-rom-manager.sh"
   rm -rf $HOME/.local/share/applications/SRM.desktop
 
   createDesktopShortcut   "$HOME/.local/share/applications/Steam ROM Manager.desktop" \
     "Steam-ROM-Manager AppImage" \
-    "${toolsPath}/launchers/srm/steamrommanager.sh" \
+    "${toolsPath}/launchers/srm/steam-rom-manager.sh" \
     "false"
 }
 
@@ -168,8 +168,8 @@ SRM_IsInstalled(){
 
 SRM_flushToolLauncher(){
   mkdir -p "$toolsPath/launchers/srm"
-	cp "$emudeckBackend/tools/launchers/srm/steamrommanager.sh" "$toolsPath/launchers/srm/steamrommanager.sh"
-  chmod +x "$toolsPath/launchers/srm/steamrommanager.sh"
+	cp "$emudeckBackend/tools/launchers/srm/steam-rom-manager.sh" "$toolsPath/launchers/srm/steam-rom-manager.sh"
+  chmod +x "$toolsPath/launchers/srm/steam-rom-manager.sh"
 }
 
 SRM_flushOldSymlinks(){
