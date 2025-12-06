@@ -12,7 +12,7 @@
   "removeControllersButton": null,
   "steamInputEnabled": "1",
   "imageProviders": ["sgdb", "steamCDN"],
-  "onlineImageQueries": "${fuzzyTitle}",
+  "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "drmProtect": false,
   "userAccounts": {

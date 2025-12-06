@@ -8,7 +8,7 @@
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
   "imageProviders": ["sgdb", "steamCDN"],
-  "onlineImageQueries": "${fuzzyTitle}",
+  "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "userAccounts": {
     "specifiedAccounts": ["Global"]
