@@ -11,7 +11,7 @@
         "sgdb",
         "steamCDN"
     ],
-    "onlineImageQueries": "${fuzzyTitle}",
+    "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "disabled": false,
     "userAccounts": {
