@@ -39,7 +39,7 @@ def rl_clean_name(name):
     name_cleaned = re.sub(r'\[.*?\]', '', name_cleaned)
     name_cleaned = name_cleaned.strip().replace(' ', '_').replace('-', '_')
     name_cleaned = re.sub(r'_+', '_', name_cleaned)
-    name_cleaned = name_cleaned.replace('+', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '').replace('_decrypted', '').replace('decrypted', '').replace('.ps3', '')
+    name_cleaned = name_cleaned.replace('+', '').replace(':', '').replace('&', '').replace('!', '').replace("'", '').replace('.', '').replace('_decrypted', '').replace('decrypted', '').replace('.ps3', '')
     name_cleaned = name_cleaned.lower()
     return name_cleaned
 
