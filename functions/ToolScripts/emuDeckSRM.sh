@@ -18,8 +18,8 @@ SRM_install(){
 
   mkdir -p "$toolsPath"
 
-  if installToolAI "Steam-ROM-Manager" "$(getReleaseURLGH "dragoonDorise/steam-rom-manager" "AppImage")" "" "$showProgress"; then
-    SRM_customDesktopShortcut
+  if installToolAI "Steam-ROM-Manager" "$(getReleaseURLGH 'SteamGridDB/steam-rom-manager' 'AppImage')" "" "$showProgress"; then
+  SRM_customDesktopShortcut
   else
     return 1
   fi
