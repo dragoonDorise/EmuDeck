@@ -21,6 +21,12 @@ retroarch_info_path=Path(f"{retroarch_dir}/info")
 retroarch_ppsspp_path=Path(f"{bios_path}/PPSSPP")
 retroarch_cheats_path=Path(f"{retroarch_dir}/cheats")
 
+def ra_install():
+    retroarch_install()
+    
+def ra_init():
+    retroarch_init()
+
 def retroarch_install():
     set_msg(f"Installing retroarch")
 
