@@ -1,7 +1,7 @@
 from core.all import *
 
 if system == "linux":
-    ryujinx_config_file="~/.config/ryujinx/Config.json"
+    ryujinx_config_file=f"{home}/.config/ryujinx/Config.json"
 if system.startswith("win"):
     ryujinx_config_file=f"{emus_folder}/ryujinx/Config.json"
 if system == "darwin":

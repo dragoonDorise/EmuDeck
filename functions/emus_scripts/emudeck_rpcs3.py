@@ -126,7 +126,7 @@ def rpcs3_setup_storage():
 
 def rpcs3_set_resolution() -> bool:
     if system == "linux":
-        rpcs3_config_file="~/.config/rpcs3/config.yml"
+        rpcs3_config_file=f"{home}/.config/rpcs3/config.yml"
     if system.startswith("win"):
         rpcs3_config_file=f"{emus_folder}/rpcs3/config.yml"
     if system == "darwin":

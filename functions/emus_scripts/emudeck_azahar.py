@@ -92,11 +92,11 @@ def azahar_setup_saves():
 def azahar_set_resolution() -> bool:
     return True
     if system == "linux":
-        azahar_config_file="~/.config/azahar/config/qt-config.ini"
+        azahar_config_file=f"{home}/.config/azahar/config/qt-config.ini"
     if system.startswith("win"):
         azahar_config_file=f"{emus_folder}/azahar/qt-config.ini"
     if system == "darwin":
-        azahar_config_file="~/.config/azahar/qt-config.ini"
+        azahar_config_file=f"{home}/.config/azahar/qt-config.ini"
 
     resolution_map = {
         "720P": 3,
