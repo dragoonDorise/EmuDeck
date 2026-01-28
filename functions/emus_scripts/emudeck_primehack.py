@@ -62,11 +62,11 @@ def primehack_init():
     copy_setting_dir(f"{system}/dolphin-emu/",destination)
 
     if system == "linux":
-        copy_and_set_settings_file(f"{system}/dolphin-emu/config/dolphin-emu/Dolphin.ini", f"{destination}")
+        copy_and_set_settings_file(f"{system}/primehack/config/dolphin-emu/Dolphin.ini", f"{destination}")
     if system.startswith("win"):
-        copy_and_set_settings_file(f"{system}/dolphin-emu/User/Config/Dolphin.ini", f"{destination}/User/Config/")
+        copy_and_set_settings_file(f"{system}/primehack/User/Config/Dolphin.ini", f"{destination}/User/Config/")
     if system == "darwin":
-        copy_and_set_settings_file(f"{system}/dolphin-emu/Dolphin.ini", destination)
+        copy_and_set_settings_file(f"{system}/primehack/Dolphin.ini", destination)
 
     primehack_setup_saves()
     primehack_set_resolution()
@@ -91,9 +91,9 @@ def primehack_setup_saves():
         origin_saves_wii=f"{home}/Library/Application Support/Dolphin/Wii"
         origin_states=f"{home}/Library/Application Support/Dolphin/StateSaves"
 
-    move_contents_and_link(origin_saves_gc,f"{saves_path}/dolphin/saves/GC")
-    move_contents_and_link(origin_saves_wii,f"{saves_path}/dolphin/saves/Wii")
-    move_contents_and_link(origin_states,f"{saves_path}/dolphin/StateSaves")
+    move_contents_and_link(origin_saves_gc,f"{saves_path}/primehack/saves/GC")
+    move_contents_and_link(origin_saves_wii,f"{saves_path}/primehack/saves/Wii")
+    move_contents_and_link(origin_states,f"{saves_path}/primehack/StateSaves")
 
 
 def primehack_set_resolution():
