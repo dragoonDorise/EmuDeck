@@ -1876,54 +1876,59 @@ def move_contents_and_link(origin: Union[str, Path], destination: Union[str, Pat
     origin = Path(origin)
     destination = Path(destination)
     print("Linking...")
-    # If origin doesn't exist at all, nothing to do
-    if not origin.exists():
+    
+    if not origin.exists() and not origin.is_symlink():
         origin.mkdir(parents=True, exist_ok=True)
         print("Info: No origin, creating")
-        #return False
-
-    # If origin is already a symlink/junction, skip
+    
     if origin.is_symlink():
         print("Warning: Origin is symlink")
         return False
-
-    # Only handle directories
+    
     if origin.is_dir():
-        # Ensure destination exists
         destination.mkdir(parents=True, exist_ok=True)
-
-        # Move each item from origin into destination
+        
+        # Crear backup si origin tiene contenido
+        if any(origin.iterdir()):
+            backup_path = origin.parent / f"{origin.name}_backup"
+            # Si ya existe un backup, añadir timestamp
+            if backup_path.exists():
+                from datetime import datetime
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                backup_path = origin.parent / f"{origin.name}_backup_{timestamp}"
+            shutil.copytree(str(origin), str(backup_path))
+            print(f"Backup created: {backup_path}")
+        
         for item in origin.iterdir():
-            shutil.move(str(item), str(destination / item.name))
-
-        # Remove the now-empty origin folder
+            dest_item = destination / item.name
+            if dest_item.exists():
+                if dest_item.is_dir():
+                    shutil.rmtree(str(dest_item))
+                else:
+                    dest_item.unlink()
+            shutil.move(str(item), str(dest_item))
+        
         try:
-            origin.rmdir()
-        except OSError:
-            # If it fails (e.g. non-empty), ignore
-            pass
-
-        # Create link: symlink on Unix, junction on Windows
+            shutil.rmtree(str(origin))
+        except OSError as e:
+            print(f"Error removing origin: {e}")
+            return False
+        
         if system.startswith("win"):
-            # Windows: try directory symlink first
             try:
-                print("Linking folder")
                 os.symlink(str(destination), str(origin), target_is_directory=True)
             except (OSError, NotImplementedError):
-                # Fallback to a junction via mklink
                 subprocess.run(
                     ["cmd", "/c", "mklink", "/J", str(origin), str(destination)],
                     shell=True,
                     check=True
                 )
         else:
-            # Unix-like: normal symlink
             os.symlink(str(destination), str(origin))
-
+        
         return True
-
-    # origin exists but is not a directory (e.g. file)
-    return False
+    
+        return False
 
 def set_config(old: str, new: str, file_to_check: Path, separator: str = "=") -> None:
     file_to_check = Path(file_to_check)
