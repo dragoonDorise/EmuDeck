@@ -63,7 +63,7 @@ def ppsspp_init():
         bios=""
 
     copy_setting_dir(f"{system}/ppsspp/",destination)
-    copy_and_set_settings_file(f"{system}/ppsspp/memstick/PSP/SYSTEM/ppsspp.ini", destination)
+    copy_and_set_settings_file(f"{system}/ppsspp/ppsspp.ini", destination)
 
    # move_contents_and_link(bios,f"{bios_path}/ppsspp")
 
