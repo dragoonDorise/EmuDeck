@@ -1,1 +1,2 @@
-python3 "$HOME/.config/EmuDeck/backend/tools/vdf/add.py" 'es-de', 'EmulationStationDE', '/Users/rsedano/Emulation/tools/launchers/es-de/es-de.sh', '/Users/rsedano/Applications', '/Users/rsedano/.config/EmuDeck/backend/icons/ico/EmulationStationDE.ico', '/Users/rsedano/Library/Application Support/Steam', '11255354'
+#!/bin/bash
+python3 .config/EmuDeck/backend/api.py ppsspp_init
