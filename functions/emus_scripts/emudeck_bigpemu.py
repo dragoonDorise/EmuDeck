@@ -53,7 +53,7 @@ def bigpemu_install():
 def bigpemu_uninstall():
     try:
         if system == "linux":
-            uninstall_emu("bigpemu", "AppImage")
+            uninstall_emu("bigpemu", "dir")
         if system.startswith("win"):
           uninstall_emu("bigpemu", "dir")
         if system == "darwin":
