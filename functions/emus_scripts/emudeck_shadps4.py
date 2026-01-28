@@ -70,7 +70,7 @@ def shadps4_init():
     if system == "darwin":
         destination=f"{home}/Library/Application Support/shadPS4"
 
-    copy_and_set_settings_file(f"{system}/shadps4/config.toml", destination)
+    copy_and_set_settings_file("common/shadps4/config.toml", destination)
 
     shadps4_setup_saves()
     esde_set_emu("ShadPS4 (Standalone)","ps4")
