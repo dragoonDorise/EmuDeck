@@ -145,7 +145,7 @@ if system.startswith("win"):
     if emu.lower() == "citron":
         exe = f"{emus_folder}/citron/citron.exe"
     if emu.lower() == "dolphin-emu" or emu.lower() == "dolphin":
-        exe = f"{emus_folder}/dolphin-x64/dolphin.exe"
+        exe = f"{emus_folder}/Dolphin-x64/Dolphin.exe"
     if emu.lower() == "duckstation":
         exe = f"{emus_folder}/duckstation/duckstation-qt-x64-ReleaseLTCG.exe"
     if emu.lower() == "flycast":
@@ -199,16 +199,17 @@ if emu.lower() == "retroarch":
 exe = str(exe)
 
 #Dobule "'XXX'" cleanup
-last = args[-1]
-if len(last) >= 2 and last.startswith("'") and last.endswith("'"):
-  args[-1] = last[1:-1]
+if args:
+    last = args[-1]
+    if len(last) >= 2 and last.startswith("'") and last.endswith("'"):
+        args[-1] = last[1:-1]
 
 
 cmd = [exe] + shlex.split(settings.netplay_cmd) + args
 
 
 if system.startswith("win"):
-    cmd = [str(exe)] + settings.netplay_cmd + args
+    cmd = [str(exe)] + shlex.split(settings.netplay_cmd) + args
     cmd = [part.replace("/", "\\") for part in cmd]
 if system == "darwin":
     darwin_trust_app(exe)

@@ -1578,11 +1578,11 @@ def create_app_shortcut(name: str):
         shell = Dispatch('WScript.Shell')
         shortcut = shell.CreateShortCut(str(dest))
 
-        # Point the .lnk at PowerShell and pass your .ps1 as an argument
-        ps_exe = Path(os.environ["WINDIR"]) / "System32" / "WindowsPowerShell" / "v1.0" / "powershell.exe"
-        shortcut.Targetpath = str(ps_exe)
-        # Bypass execution policy and run your script
-        shortcut.Arguments = f'-NoProfile -ExecutionPolicy Bypass -File "{script_path}"'
+        # Point the .lnk at cmd.exe and run the .bat launcher
+        # Using cmd.exe /c ensures the .bat script executes correctly
+        cmd_exe = Path(os.environ["WINDIR"]) / "System32" / "cmd.exe"
+        shortcut.Targetpath = str(cmd_exe)
+        shortcut.Arguments = f'/c "{script_path}"'
         shortcut.WorkingDirectory = str(script_path.parent)
         if icon:
             shortcut.IconLocation = icon
