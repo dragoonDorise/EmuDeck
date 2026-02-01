@@ -1,72 +1,89 @@
 from core.all import *
 
-def dolphin_get_download_url() -> Optional[str]:
-    download_page = "https://es.dolphin-emu.org/download/?ref=btn"
-    headers = {
-        "User-Agent": (
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/114.0.0.0 Safari/537.36"
-        ),
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    }
-    try:
-        resp = requests.get(download_page, headers=headers, timeout=10)
-        resp.raise_for_status()
-    except Exception as e:
-        print(f"Error fetching download page: {e}")
-        return None
+import subprocess
+import re
 
+def dolphin_download_url():
+    # Solo se usa en Windows/macOS
+    resp = requests.get("https://dolphin-emu.org/download/", timeout=10)
+    resp.raise_for_status()
     html = resp.text
 
-    if system == "linux":
-        return "org.DolphinEmu.dolphin-emu"
+    ids = re.findall(r"/download/release/(\d+)/", html)
+    if not ids:
+        print("Error: could not find any release IDs on Dolphin download page")
+        return None
+
+    latest_id = max(int(x) for x in ids)
 
     if system.startswith("win"):
-        pattern = re.compile(
-            r"https://dl\.dolphin-emu\.org/releases/[A-Za-z0-9_]+/"
-            r"dolphin-[A-Za-z0-9_]+-x64\.7z"
-        )
+        return f"https://dl.dolphin-emu.org/releases/{latest_id}/dolphin-{latest_id}-x64.7z"
 
     if system == "darwin":
-        pattern = re.compile(
-            r"https://dl\.dolphin-emu\.org/releases/[A-Za-z0-9_]+/"
-            r"dolphin-[A-Za-z0-9_]+-universal\.dmg"
-        )
+        return f"https://dl.dolphin-emu.org/releases/{latest_id}/dolphin-{latest_id}-universal.dmg"
 
-    urls = re.findall(pattern, html)
-
-    filtered = [u for u in urls if "-DEV" not in u]
-
-    return filtered[0] if filtered else None
-
+    return None
 
 def dolphin_install():
-    set_msg(f"Installing dolphin")
+    set_msg("Installing dolphin")
 
+    # LINUX (Flatpak)
     if system == "linux":
-        type="flatpak"
-        look_for=""
-        destination = emus_folder
-        name="dolphin-emu"
+        app_id = "org.DolphinEmu.dolphin-emu"
+        dolphin_remote_name = "dolphin-releases"
+        dolphin_remote_repo = "https://flatpak.dolphin-emu.org/releases.flatpakrepo"
+        flathub_name = "flathub"
+        flathub_repo = "https://flathub.org/repo/flathub.flatpakrepo"
 
+        def run(cmd):
+            return subprocess.run(
+                cmd,
+                check=False,
+                text=True,
+                stdin=subprocess.DEVNULL,
+            ).returncode == 0
+
+        run(["flatpak", "remote-add", "--if-not-exists", "--user", flathub_name, flathub_repo])
+        run(["flatpak", "remote-add", "--if-not-exists", "--user", dolphin_remote_name, dolphin_remote_repo])
+
+        ok = run(["flatpak", "install", "-y", "--noninteractive", "--user", dolphin_remote_name, app_id])
+        if ok:
+            return True
+
+        run(["flatpak", "install", "-y", "--noninteractive", "--user", flathub_name, "org.kde.Platform//6.8"])
+
+        ok = run(["flatpak", "install", "-y", "--noninteractive", "--user", dolphin_remote_name, app_id])
+        return ok
+
+    # WINDOWS 
     if system.startswith("win"):
-        type="7z"
-        look_for=""
-        destination = f"{emus_folder}/Dolphin-x64"
-        name="Dolphin"
+        try:
+            url = dolphin_download_url()
+            if not url:
+                return False
 
+            install_emu("Dolphin", url, "7z", f"{emus_folder}/Dolphin-x64")
+            return True
+
+        except Exception as e:
+            print(f"Error during Windows Dolphin install: {e}")
+            return False
+
+    # macOS
     if system == "darwin":
-        type="dmg"
-        look_for=""
-        destination = emus_folder
-        name="Dolphin"
+        try:
+            url = dolphin_download_url()
+            if not url:
+                return False
 
-    try:
-        install_emu(name, dolphin_get_download_url(), type, destination)
-    except Exception as e:
-        print(f"Error during install: {e}")
-        return False
+            install_emu("Dolphin", url, "dmg", emus_folder)
+            return True
+
+        except Exception as e:
+            print(f"Error during macOS Dolphin install: {e}")
+            return False
+
+    return False
 
 
 def dolphin_uninstall():
