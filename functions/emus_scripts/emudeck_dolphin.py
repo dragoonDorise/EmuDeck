@@ -1,8 +1,5 @@
 from core.all import *
 
-import subprocess
-import re
-
 def dolphin_download_url():
     # Solo se usa en Windows/macOS
     resp = requests.get("https://dolphin-emu.org/download/", timeout=10)
