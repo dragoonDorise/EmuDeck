@@ -92,7 +92,9 @@ def copy_steam_images(grid_path, id, shortcut_id):
 def add_steam_shortcut(id, name, target_path, start_dir, icon_path):
     if system in ("linux", "darwin"):
         # 1) Locate Steam directory
-        steam_dir = home / ".steam" / "steam"
+        steam_dir = home / ".steam" / "steam"        
+        steam_exe = shutil.which("steam")
+        
         if system == "darwin":
             steam_dir = home / "Library" / "Application Support" / "Steam"
 
@@ -200,6 +202,8 @@ def add_steam_shortcut(id, name, target_path, start_dir, icon_path):
 
     # Copiar imágenes usando el AppID
     copy_steam_images(grid_path, id, appid)
+    
+    if steam_exe:
+        subprocess.Popen([steam_exe, "-silent"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-    subprocess.Popen([steam_exe, "-silent"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
