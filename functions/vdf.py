@@ -125,8 +125,12 @@ def add_steam_shortcut(id, name, target_path, start_dir, icon_path):
         except Exception:
             pass
     if system == "linux":
-        subprocess.run(["kill", "-15", subprocess.check_output(["pidof", "steam"], text=True).strip()],
-                    check=False)
+        try:
+            pid = subprocess.check_output(["pidof", "steam"], text=True).strip()
+            if pid:
+                subprocess.run(["kill", "-15", pid], check=False)
+        except subprocess.CalledProcessError:
+            pass  # Steam no está corriendo
     if system.startswith("win"):
         subprocess.run(["taskkill", "/IM", "steam.exe", "/F"], check=False)
 
