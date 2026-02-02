@@ -68,7 +68,7 @@ def copy_steam_images(grid_path, id, shortcut_id):
     if os.name == 'nt':
         src_dir = os.path.expanduser(f"~/AppData/Roaming/EmuDeck/backend/configs/common/srm/userData/img/emus/{id}")
     else:
-        src_dir = os.path.expanduser(f"~/.config/EmuDeck/backend/configs/common/srm/userData/img/emus/{id}")
+        src_dir = os.path.expanduser(f"~/.config/EmuDeck/backend/configs/common/srm/img/emus/{id}")
 
 
     # Definir las rutas de origen y destino

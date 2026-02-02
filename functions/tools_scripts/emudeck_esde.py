@@ -162,16 +162,20 @@ def esde_set_emu(emu: str, system_code: str) -> None:
 
 def esde_add_to_steam():
     set_msg("Adding ES-DE to Steam")
-
+    
     if system == "linux" or system == "darwin":
-        launcher=str(tools_path / "launchers/es-de/es-de.sh"),
+        launcher=str(tools_path / "launchers/es-de/es-de.sh")
+        icon_path=str(emudeck_backend / "icons/ES-DE.png")
     if system.startswith("win"):
-        launcher=str(tools_path / "launchers/es-de/es-de.ps1")
-
-        add_steam_shortcut(
-            "es-de",
-            "EmulationStationDE",
-            launcher,
-            str(esde_folder),
-            str(emudeck_backend / "icons/ico/EmulationStationDE.ico")
-        )
+        launcher=str(tools_path / "launchers/es-de/es-de.bat")
+        icon_path=str(emudeck_backend / "icons/ico/es-de.ico")
+        
+    set_msg(icon_path)
+        
+    add_steam_shortcut(
+        "esde",
+        "EmulationStationDE",
+        launcher,
+        str(esde_folder),
+        str(icon_path)
+    )
