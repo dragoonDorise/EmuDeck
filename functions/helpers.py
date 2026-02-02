@@ -1616,6 +1616,7 @@ def create_app_shortcut(name: str):
         exec_path = Path(tools_path) / "launchers" / folder / f"{launcher_name.lower()}.sh"
 
         shutil.copy2(src_file, exec_path)
+        exec_path.chmod(exec_path.stat().st_mode | 0o111)
 
         desktop_entry = [
             "[Desktop Entry]",
