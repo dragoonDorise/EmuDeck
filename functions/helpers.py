@@ -2384,7 +2384,7 @@ def calculate_md5_without_header(
 def cloud_decky_check_status():
     return "started"
     
-def get_emu_install_status(emu_list_str):
+def get_emu_install_status(*emu_list_str):
     emu_array = [e.strip().strip('"') for e in emu_list_str.split('" "') if e.strip()]
     
     emulators = []
