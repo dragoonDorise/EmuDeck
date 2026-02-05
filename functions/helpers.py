@@ -2390,6 +2390,13 @@ def get_emu_install_status(*emu_array):
         func_name = f"{emu}_is_installed"
         try:
             func = globals().get(func_name)
+            if not func:
+                import sys
+                for module in sys.modules.values():
+                    func = getattr(module, func_name, None)
+                    if func:
+                        break
+            
             if func:
                 installed = func()
             else:
