@@ -55,8 +55,8 @@ def rmg_init():
     if system == "darwin":
         destination=f"{home}/Library/Application Support/rmg"
 
-    copy_setting_dir(f"common/rmg/",destination)
-    copy_and_set_settings_file(f"common/rmg/mupen64plus.cfg", destination)
+    copy_setting_dir(f"{system}/rmg/",destination)
+    copy_and_set_settings_file(f"{system}/rmg/mupen64plus.cfg", destination)
 
     rmg_set_resolution()
     rmg_set_controller_style()
