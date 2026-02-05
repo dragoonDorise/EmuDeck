@@ -47,15 +47,15 @@ DS_HASHES = {
 }
 
 
-def check_psx_bios(bios_path: Path) -> bool:
+def check_psx_bios() -> bool:
     return _bios_check_dir(bios_path, PSX_HASHES)
 
 
-def check_ps2_bios(bios_path: Path) -> bool:
+def check_ps2_bios() -> bool:
     return _bios_check_dir(bios_path, PS2_HASHES)
 
 
-def check_citron_bios(bios_path: Path) -> bool:
+def check_citron_bios() -> bool:
     """Requires both firmware files and prod.keys present."""
     firmware = bios_path / "citron" / "firmware"
     keys     = bios_path / "citron" / "keys" / "prod.keys"
@@ -78,23 +78,23 @@ def check_ryujinx_bios() -> bool:
     return keys.is_file() and any(fir.iterdir())
 
 
-def check_yuzu_bios(bios_path: Path) -> bool:
+def check_yuzu_bios() -> bool:
     firmware = bios_path / "yuzu"   / "firmware"
     keys     = bios_path / "yuzu"   / "keys"     / "prod.keys"
     return keys.is_file() and any(firmware.iterdir())
 
 
-def check_sega_cd_bios(bios_path: Path) -> bool:
+def check_sega_cd_bios() -> bool:
     return _bios_check_dir(bios_path, SEGA_CD_HASHES)
 
 
-def check_saturn_bios(bios_path: Path) -> bool:
+def check_saturn_bios() -> bool:
     return _bios_check_dir(bios_path, SATURN_HASHES)
 
 
-def check_dreamcast_bios(bios_path: Path) -> bool:
+def check_dreamcast_bios() -> bool:
     return _bios_check_dir(bios_path / "dc", DREAMCAST_HASHES)
 
 
-def check_ds_bios(bios_path: Path) -> bool:
+def check_ds_bios() -> bool:
     return _bios_check_dir(bios_path, DS_HASHES)
