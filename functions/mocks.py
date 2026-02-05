@@ -1,5 +1,3 @@
-def get_emu_install_status():
-    print("NYI")
 def duckStation_retro_achievements_set_login():
     print("NYI")
 def pcsx2_retro_achievements_set_login():

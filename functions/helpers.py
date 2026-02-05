@@ -2378,3 +2378,25 @@ def calculate_md5_without_header(
 
 def cloud_decky_check_status():
     return "started"
+    
+def get_emu_install_status(emu_list_str):
+    emu_array = [e.strip().strip('"') for e in emu_list_str.split('" "') if e.strip()]
+    
+    emulators = []
+    for emu in emu_array:
+        func_name = f"{emu}_is_installed"
+        try:
+            func = globals().get(func_name)
+            if func:
+                installed = func()
+            else:
+                installed = "false"
+        except Exception:
+            installed = "false"
+    
+        emulators.append({
+            "Name": emu,
+            "Installed": installed
+        })
+    
+    return json.dumps({"Emulators": emulators})  
