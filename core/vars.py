@@ -86,9 +86,9 @@ if json_settings_path.exists():
         esde_theme_name=settings.themeESDE
         pegasusThemeUrl=settings.themePegasus[0]
         pegasusThemeName=settings.themePegasus[1]
-        achievementsUser=settings.achievements.user
-        achievementsUserToken=settings.achievements.token
-        achievementsHardcore=settings.achievements.hardcore
+        achievements_user=settings.achievements.user
+        achievements_token=settings.achievements.token
+        achievements_hardcore=settings.achievements.hardcore
 
         androidStorage=None
         androidstorage_path=None

@@ -2090,7 +2090,7 @@ def retroarch_psx_set_config():
 def retroarch_retroachievements_on():
     set_config("cheevos_enable", "true", retroarch_cfg_file)
 
-    if settings.achievements.hardcore == False:
+    if achievements_hardcore == False:
         retroarch_retroachievements_hardcore_off()
     else:
         retroarch_retroachievements_hardcore_on()

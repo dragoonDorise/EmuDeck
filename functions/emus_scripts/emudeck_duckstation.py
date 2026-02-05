@@ -1,6 +1,5 @@
 from core.all import *
 
-
 def duckstation_install():
     set_msg(f"Installing DuckStation")
 
@@ -136,3 +135,19 @@ def duckstation_widescreen_off():
 
     set_config("WidescreenHack ", " false", config_path)
     set_config("AspectRatio ", " 4:3", config_path)
+    
+def duckstation_retro_achievements():
+    if system == "linux":
+        config_path=f"{home}/.var/app/org.duckstation.DuckStation/config/duckstation/settings.ini"
+    if system.startswith("win"):
+        config_path=f"{emus_folder}/duckstation/settings.ini"
+    if system == "darwin":
+        config_path=f"{home}/Library/Application Support/DuckStation/settings.ini"
+
+    set_config("Username ", f" {achievements_user}", config_path)
+    set_config("Token ", f" {achievements_token}", config_path)
+    set_config("LoginTimestamp ", f" {int(time.time())}", config_path)
+    set_config("Enabled ", " True", config_path)
+   
+    if achievements_hardcore:
+        set_config("ChallengeMode ", " True", config_path)

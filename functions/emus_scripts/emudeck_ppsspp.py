@@ -92,3 +92,21 @@ def ppsspp_setup_saves():
 
 def ppsspp_set_resolution():
     print("NYI")
+    
+def ppsspp_retro_achievements():
+    if system == "linux":
+        config_path=f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/ppsspp.ini"
+        token_path=f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat"
+    if system.startswith("win"):
+        config_path=f"{emus_folder}/ppsspp/ppsspp.ini"
+        token_path=f"{emus_folder}/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat"
+    if system == "darwin":
+        config_path=f"{home}/Library/Application Support/PPSSPP/settings.ini"
+        token_path=f"{home}/Library/Application Support/PPSSPP/PSP/SYSTEM/ppsspp_retroachievements.dat"
+    
+    set_config("AchievementsEnable", f"True", config_path)
+    set_config("AchievementsUserName", f"{achievements_user}", config_path)   
+    token_path.write_text(achievements_token)
+    
+    if achievements_hardcore:
+       set_config("AchievementsChallengeMode", f"True", config_path)    

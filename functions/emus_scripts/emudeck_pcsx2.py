@@ -137,6 +137,23 @@ def pcsx2_widescreen():
         pcsx2_widescreen_off()
 
 
+def pcsx2_retro_achievements():
+    if system == "linux":
+        pcsx2_config_file=f"{home}/.config/PCSX2/inis/PCSX2.ini"
+    if system.startswith("win"):
+        pcsx2_config_file=f"{emus_folder}/pcsx2/inis/PCSX2.ini"
+    if system == "darwin":
+        pcsx2_config_file=f"{home}/Library/Application Support/PCSX2/inis/PCSX2.ini"
+
+   set_ini_value(pcsx2_config_file, "Achievements", "Enabled", "true")
+   set_ini_value(pcsx2_config_file, "Achievements", "Username", "true")
+   set_ini_value(pcsx2_config_file, "Achievements", "Token", "true")
+   set_ini_value(pcsx2_config_file, "Achievements", "LoginTimestamp", f"{int(time.time())}")
+   
+   
+   if achievements_hardcore:
+      set_ini_value(pcsx2_config_file, "ChallengeMode", "Enabled", "true")
+
 #Legacy compatibility
 
 pcsx2qt_install = pcsx2_install
@@ -148,3 +165,4 @@ pcsx2qt_set_resolution = pcsx2_set_resolution
 pcsx2qt_widescreen_on = pcsx2_widescreen_on
 pcsx2qt_widescreen_off = pcsx2_widescreen_off
 pcsx2qt_widescreen = pcsx2_widescreen
+

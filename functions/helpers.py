@@ -2410,3 +2410,16 @@ def get_emu_install_status(*emu_array):
         })
     
     return json.dumps({"Emulators": emulators})
+    
+def set_ini_value(file_path, section, key, value):
+    config = configparser.ConfigParser()
+    config.optionxform = str  # Mantener mayúsculas/minúsculas
+    config.read(file_path)
+    
+    if section not in config:
+        config[section] = {}
+    
+    config[section][key] = value
+    
+    with open(file_path, 'w') as f:
+        config.write(f)    
