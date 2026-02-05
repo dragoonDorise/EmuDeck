@@ -23,16 +23,16 @@ def plugins_install_steamdeck_gyro_dsu():
     system = platform.system()
     if system.startswith("Win"):
         return False
-
+    
     url = "https://github.com/kmicki/SteamDeckGyroDSU/raw/master/pkg/update.sh"
     try:
         #popup_show_info("GyroDSU Installer", "Downloading installer…")
         resp = requests.get(url, timeout=30)
         resp.raise_for_status()
     except Exception as e:
-        popup_show_info("Download Failed", f"Could not fetch installer:\n{e}")
+        #popup_show_info("Download Failed", f"Could not fetch installer:\n{e}")
         return False
-
+    
     # write to temp file
     tmp = Path(tempfile.gettempdir()) / "sdgyro.sh"
     try:
@@ -40,9 +40,9 @@ def plugins_install_steamdeck_gyro_dsu():
         # make executable
         tmp.chmod(tmp.stat().st_mode | stat.S_IXUSR)
     except Exception as e:
-        popup_show_info("Write Error", f"Failed to write installer:\n{e}")
+        #popup_show_info("Write Error", f"Failed to write installer:\n{e}")
         return False
-
+    
     # run it
     try:
         #popup_show_info("GyroDSU Installer", "Running installer…")
@@ -53,14 +53,15 @@ def plugins_install_steamdeck_gyro_dsu():
             stderr=subprocess.PIPE,
             text=True,
         )
-        popup_show_info("Installation Complete", completed.stdout or "GyroDSU installed successfully.")
+        #popup_show_info("Installation Complete", completed.stdout or "GyroDSU installed successfully.")
     except subprocess.CalledProcessError as e:
-        popup_show_info("Installer Error", e.stderr or str(e))
+        #popup_show_info("Installer Error", e.stderr or str(e))
         return False
     finally:
         try:
             tmp.unlink()
         except OSError:
             pass
-
+    
     return True
+    
