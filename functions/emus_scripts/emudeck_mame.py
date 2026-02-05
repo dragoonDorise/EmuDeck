@@ -1,6 +1,5 @@
 from core.all import *
 
-
 def mame_install():
     set_msg(f"Installing mame")
 
@@ -11,10 +10,32 @@ def mame_install():
         destination = f"{emus_folder}"
 
     if system.startswith("win"):
-        name="mame"
-        type="zip"
-        look_for="64bit"
-        destination = f"{emus_folder}/mame"
+        name = "mame"
+        url = get_latest_release_gh("mamedev/mame", "exe", "x64.exe")
+        dest_dir = Path(emus_folder) / "mame"
+        dest_dir.mkdir(parents=True, exist_ok=True)
+
+        temp_dir = Path(tempfile.mkdtemp())
+        sfx_path = temp_dir / "mame_sfx.exe"
+
+        headers = {
+            "User-Agent": "Mozilla/5.0",
+            "Accept": "*/*",
+        }
+        r = requests.get(url, stream=True, headers=headers, timeout=60)
+        r.raise_for_status()
+        with open(sfx_path, "wb") as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                f.write(chunk)
+
+        subprocess.run([str(sfx_path), "-y", f"-o{dest_dir}"], check=True)
+        real_exe = dest_dir / "mame.exe"
+        if not real_exe.exists():
+            raise RuntimeError(f"No se encontró {real_exe} tras extraer el SFX")
+
+        create_app_shortcut("mame")
+        shutil.rmtree(temp_dir, ignore_errors=True)
+        return True
 
     if system == "darwin":
         return False
