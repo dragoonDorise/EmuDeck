@@ -78,6 +78,11 @@
             <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/supermodel.sh</entry>
         </rule>
     </emulator>
+    <emulator name="LINDBERGH">
+        <rule type="staticpath">
+            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/lindbergh.sh</entry>
+        </rule>
+    </emulator>
     <emulator name="PCSX2QT">
         <rule type="staticpath">
             <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/pcsx2-qt.sh</entry>
