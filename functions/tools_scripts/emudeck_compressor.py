@@ -100,7 +100,7 @@ def compress_chd_dvd(
             file_path: Path,
             mode: str = "createdvd",
             zstd: bool = True,
-            hunksize: int | None = None
+            hunksize: Optional[int] = None
         ) -> None:
     file_path = Path(file_path)
     output_path = file_path.with_suffix('.chd')

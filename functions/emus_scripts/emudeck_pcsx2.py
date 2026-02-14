@@ -145,14 +145,13 @@ def pcsx2_retro_achievements():
     if system == "darwin":
         pcsx2_config_file=f"{home}/Library/Application Support/PCSX2/inis/PCSX2.ini"
 
-   set_ini_value(pcsx2_config_file, "Achievements", "Enabled", "true")
-   set_ini_value(pcsx2_config_file, "Achievements", "Username", "true")
-   set_ini_value(pcsx2_config_file, "Achievements", "Token", "true")
-   set_ini_value(pcsx2_config_file, "Achievements", "LoginTimestamp", f"{int(time.time())}")
-   
-   
-   if achievements_hardcore:
-      set_ini_value(pcsx2_config_file, "ChallengeMode", "Enabled", "true")
+    set_ini_value(pcsx2_config_file, "Achievements", "Enabled", "true")
+    set_ini_value(pcsx2_config_file, "Achievements", "Username", "true")
+    set_ini_value(pcsx2_config_file, "Achievements", "Token", "true")
+    set_ini_value(pcsx2_config_file, "Achievements", "LoginTimestamp", f"{int(time.time())}")
+
+    if achievements_hardcore:
+        set_ini_value(pcsx2_config_file, "ChallengeMode", "Enabled", "true")
 
 #Legacy compatibility
 

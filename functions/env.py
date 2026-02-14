@@ -1,4 +1,4 @@
-import sys, subprocess, venv
+import os, sys, subprocess, venv
 from pathlib import Path
 from core.vars import *
 
@@ -33,14 +33,7 @@ def generate_python_env():
             install_pip("py7zr")
 
 
-    try:
-        current_py = Path(sys.executable).resolve()
-        target_py  = python_venv.resolve()
-    except Exception:
-        current_py = Path(sys.executable)
-        target_py  = python_venv
-
-    if current_py != target_py:
-        # print(f"[EmuDeck] Reiniciando con {target_py}")
-        os.execv(str(target_py), [str(target_py)] + sys.argv)
+    if Path(sys.prefix).resolve() != venv_dir.resolve():
+        # print(f"[EmuDeck] Reiniciando con {python_venv}")
+        os.execv(str(python_venv), [str(python_venv)] + sys.argv)
 

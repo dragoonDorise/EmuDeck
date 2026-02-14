@@ -1,6 +1,6 @@
 from core.all import *
 
-def check_usb() -> Path | None:
+def check_usb() -> Optional[Path]:
     """
     Busca el directorio /run/media/*/EMUDECK y devuelve el primero encontrado.
     Si no hay ninguno, devuelve None.
