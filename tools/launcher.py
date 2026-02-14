@@ -198,15 +198,39 @@ if emu.lower() == "retroarch":
 
 exe = str(exe)
 
-#Lanch popups
-show_again = None
-
-if emu.lower() == "retroarch"
-   show_again = popup_show_commands("RetroArch Hotkeys", [                                                                                                                ("SELECT + START", "Exit game"), ("SELECT + L1", "Load state")])
+#Launch popups
+if emu.lower() == "retroarch":
+   show_hotkeys("RetroArch", [                                                                                                               
+         ("SELECT + START", "Exit emulation"),
+         ("SELECT + L1", "Load save state"),
+         ("SELECT + R1", "Save save state"),
+         ("SELECT + L2", "Rewind"),
+         ("SELECT + R2", "Fast Forward"),
+   ])
+   
+if emu.lower() == "dolphin":
+   show_hotkeys("Dolphin", [                                                                                                               
+      ("SELECT + START", "Exit emulation"),
+      ("SELECT + L1", "Load save state"),
+      ("SELECT + R1", "Save save state"),
+   ])
+   
+if emu.lower() == "dolphin" and any("wii" in a.lower() for a in sys.argv[1:]):
+   controllers = get_connected_controllers()
+   if controllers > 1:
+       players = popup_wii_players("Wii Setup")
+   else:
+       players = 1
+   
+   if players:
+       for p in range(1, players + 1):
+           ctrl = popup_wii_controller_type("Wii Setup", player=p)
+           print(f"Player {p}: {ctrl}")
+           if ctrl is None:
+               break
+               
    
    
-#if not show_again:
-#   set_setting("show_hotkeys", "false")   
 
 #Dobule "'XXX'" cleanup
 if args:

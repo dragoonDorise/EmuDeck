@@ -2039,6 +2039,51 @@ def set_setting(key: str, value: Any) -> None:
             # Aquí json.load lee y va aplicando object_hook a cada dict
             settings = json.load(jf, object_hook=lambda d: SimpleNamespace(**d))
 
+def get_launcher_setting(key: str, default: Any = None) -> Any:
+    json_path = Path(emudeck_folder) / "launcher_settings.json"
+    if not json_path.exists():
+        return default
+    try:
+        with json_path.open('r', encoding='utf-8') as f:
+            data = json.load(f)
+    except json.JSONDecodeError:
+        return default
+    if not isinstance(data, dict):
+        return default
+    keys = key.split('.')
+    d = data
+    for k in keys:
+        if not isinstance(d, dict) or k not in d:
+            return default
+        d = d[k]
+    return d
+
+def set_launcher_setting(key: str, value: Any) -> None:
+    json_path = Path(emudeck_folder) / "launcher_settings.json"
+    data: dict[str, Any]
+    if json_path.exists():
+        try:
+            with json_path.open('r', encoding='utf-8') as f:
+                data = json.load(f)
+                if not isinstance(data, dict):
+                    data = {}
+        except json.JSONDecodeError:
+            data = {}
+    else:
+        data = {}
+
+    keys = key.split('.')
+    d = data
+    for k in keys[:-1]:
+        if k not in d or not isinstance(d[k], dict):
+            d[k] = {}
+        d = d[k]
+    d[keys[-1]] = value
+
+    with json_path.open('w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
+        f.write("\n")
+
 def popup_ask_conflict(title: str, message: str) -> Optional[bool]:
     app = ensure_app()
     dlg = BaseDialog(title)
@@ -2315,6 +2360,175 @@ def popup_show_commands(title: str, commands: list) -> bool:
         show_again = False
 
     return show_again
+
+def show_hotkeys(emu: str, commands: list) -> None:
+    """
+    Shows hotkeys popup for the given emulator if not previously dismissed.
+    Persists the user's choice in launcher_settings.json.
+    """
+    setting_key = f"show_hotkeys_{emu.lower()}"
+    if not get_launcher_setting(setting_key, True):
+        return
+    show_again = popup_show_commands(f"{emu} Hotkeys", commands)
+    set_launcher_setting(setting_key, show_again)
+
+def get_connected_controllers() -> int:
+    """
+    Returns the number of game controllers currently connected.
+    Initialises pygame/joystick subsystem if needed.
+    """
+    if not pygame.get_init():
+        pygame.init()
+    pygame.joystick.init()
+    return pygame.joystick.get_count()
+
+def popup_wii_players(title: str) -> Optional[int]:
+    """
+    Shows a popup with 4 buttons (1-4) to select number of players.
+    D-pad left/right to navigate, A confirms, B cancels.
+    Returns player count (1-4) or None if cancelled.
+    """
+    app = ensure_app()
+    dlg = BaseDialog(title)
+
+    heading = QtWidgets.QLabel("How many players?")
+    heading.setAlignment(QtCore.Qt.AlignCenter)
+    heading.setStyleSheet("font-size: 18px; font-weight: bold;")
+    dlg._add(heading)
+
+    btn_layout = QtWidgets.QHBoxLayout()
+    btn_layout.setSpacing(16)
+    btn_layout.addStretch(1)
+
+    choice: Optional[int] = None
+    buttons = []
+
+    def _pick(n: int):
+        nonlocal choice
+        choice = n
+        dlg.accept()
+
+    for n in range(1, 5):
+        btn = QtWidgets.QPushButton(str(n))
+        btn.setStyleSheet("font-size: 28px; font-weight: bold;")
+        btn.setMinimumHeight(140)
+        btn.setMinimumWidth(140)
+        btn.clicked.connect(lambda checked=False, num=n: _pick(num))
+        btn_layout.addWidget(btn)
+        buttons.append(btn)
+
+    btn_layout.addStretch(1)
+    dlg._inner.addLayout(btn_layout)
+
+    widgets = buttons
+    idx = -1
+    dlg.setFocus()
+
+    dlg.show()
+    while dlg.isVisible():
+        app.processEvents()
+        direction = poll_gamepad_dir()
+        if direction in ("left", "right"):
+            if idx == -1:
+                idx = 0
+            else:
+                idx = (idx + (1 if direction == "right" else -1)) % len(widgets)
+            widgets[idx].setFocus()
+        gp = poll_gamepad()
+        if gp == "yes" and idx >= 0:
+            widgets[idx].click()
+        elif gp in ("no", "cancel"):
+            dlg.reject()
+        QtCore.QThread.msleep(50)
+
+    if dlg.result() == QtWidgets.QDialog.Rejected:
+        return None
+    return choice
+
+def popup_wii_controller_type(title: str, player: int = 1) -> Optional[str]:
+    """
+    Shows a popup to select controller type for a specific player.
+    D-pad left/right to navigate, A confirms, B cancels.
+    Returns 'wiimote', 'wiimote_nunchuck', 'wii_classic_controller', or None if cancelled.
+    """
+    app = ensure_app()
+    dlg = BaseDialog(title)
+
+    heading = QtWidgets.QLabel(f"Player {player} — Select controller type")
+    heading.setAlignment(QtCore.Qt.AlignCenter)
+    heading.setStyleSheet("font-size: 18px; font-weight: bold;")
+    dlg._add(heading)
+
+    img_dir = Path(emudeck_backend) / "images"
+
+    btn_layout = QtWidgets.QHBoxLayout()
+    btn_layout.setSpacing(16)
+    btn_layout.addStretch(1)
+
+    icon_size = QtCore.QSize(96, 96)
+
+    wiimote_btn = QtWidgets.QPushButton()
+    wiimote_ico = QtGui.QIcon(str(img_dir / "wiimote.webp"))
+    wiimote_btn.setIcon(wiimote_ico)
+    wiimote_btn.setIconSize(icon_size)
+    wiimote_btn.setMinimumHeight(140)
+    wiimote_btn.setMinimumWidth(180)
+
+    nunchuck_btn = QtWidgets.QPushButton()
+    nunchuck_ico = QtGui.QIcon(str(img_dir / "wiimote_nunchuck.png"))
+    nunchuck_btn.setIcon(nunchuck_ico)
+    nunchuck_btn.setIconSize(icon_size)
+    nunchuck_btn.setMinimumHeight(140)
+    nunchuck_btn.setMinimumWidth(180)
+
+    classic_btn = QtWidgets.QPushButton()
+    classic_ico = QtGui.QIcon(str(img_dir / "wii_classic_controller.png"))
+    classic_btn.setIcon(classic_ico)
+    classic_btn.setIconSize(icon_size)
+    classic_btn.setMinimumHeight(140)
+    classic_btn.setMinimumWidth(180)
+
+    btn_layout.addWidget(wiimote_btn)
+    btn_layout.addWidget(nunchuck_btn)
+    btn_layout.addWidget(classic_btn)
+    btn_layout.addStretch(1)
+    dlg._inner.addLayout(btn_layout)
+
+    choice: Optional[str] = None
+
+    def _pick(value: str):
+        nonlocal choice
+        choice = value
+        dlg.accept()
+
+    wiimote_btn.clicked.connect(lambda: _pick("wiimote"))
+    nunchuck_btn.clicked.connect(lambda: _pick("wiimote_nunchuck"))
+    classic_btn.clicked.connect(lambda: _pick("wii_classic_controller"))
+
+    widgets = [wiimote_btn, nunchuck_btn, classic_btn]
+    idx = -1
+    dlg.setFocus()
+
+    dlg.show()
+    while dlg.isVisible():
+        app.processEvents()
+        direction = poll_gamepad_dir()
+        if direction in ("left", "right"):
+            if idx == -1:
+                idx = 0
+            else:
+                idx = (idx + (1 if direction == "right" else -1)) % len(widgets)
+            widgets[idx].setFocus()
+        gp = poll_gamepad()
+        if gp == "yes" and idx >= 0:
+            widgets[idx].click()
+        elif gp in ("no", "cancel"):
+            dlg.reject()
+        QtCore.QThread.msleep(50)
+
+    if dlg.result() == QtWidgets.QDialog.Rejected:
+        return None
+    return choice
 
 def get_locations():
     import wmi

@@ -7,6 +7,7 @@ system = platform.system().lower()  # 'linux', 'darwin', 'windows'
 home = Path.home()
 emudeck_backend = home / ".config/EmuDeck/backend"
 emudeck_folder = home / ".config/EmuDeck"
+launcher_settings = Path(emudeck_folder) / "launcher_settings.json"
 emudeck_logs = home / ".config/EmuDeck/logs/"
 temp_dir=home/"Downloads"
 app_folder=home/"Applications"
