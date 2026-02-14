@@ -2192,6 +2192,130 @@ def popup_ask_password(prompt: str, title: str = "Password") -> Optional[str]:
         return pw or None
     return None
 
+def popup_show_commands(title: str, commands: list) -> bool:
+    """
+    Steam Deck-style shortcut overlay.
+    commands: list of tuples (shortcut, description),
+    e.g. [("SELECT + START", "Exit game"), ("L3 + R3", "Save state")]
+    Returns False if user clicked "Don't show again", True otherwise.
+    """
+    app = ensure_app()
+    dlg = QtWidgets.QDialog(None)
+    dlg.setWindowTitle(title)
+    dlg.setWindowFlags(dlg.windowFlags() | QtCore.Qt.FramelessWindowHint)
+    dlg.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+    dlg.setStyleSheet("""
+        QDialog { background: transparent; }
+        #overlay {
+            background: rgba(20, 20, 30, 0.92);
+            border-radius: 12px;
+        }
+    """)
+
+    overlay = QtWidgets.QWidget(dlg)
+    overlay.setObjectName("overlay")
+    outer = QtWidgets.QVBoxLayout(dlg)
+    outer.setContentsMargins(0, 0, 0, 0)
+    outer.addWidget(overlay)
+
+    layout = QtWidgets.QVBoxLayout(overlay)
+    layout.setContentsMargins(30, 24, 30, 24)
+    layout.setSpacing(6)
+
+    # Title
+    title_lbl = QtWidgets.QLabel(title.upper())
+    title_lbl.setStyleSheet("color: #ffffff; font-size: 16px; font-weight: bold; letter-spacing: 2px; padding-bottom: 8px;")
+    layout.addWidget(title_lbl)
+
+    layout.addSpacing(4)
+
+    # Steam Deck button glyphs
+    _glyphs = {
+        "START": "\u2630",       # ☰
+        "SELECT": "\u29C9",      # ⧉
+        "STEAM": "STEAM",
+        "A": "\u24B6", "B": "\u24B7", "X": "\u24CD", "Y": "\u24CE",
+    }
+
+    # Command rows
+    for shortcut, description in commands:
+        row = QtWidgets.QHBoxLayout()
+        row.setSpacing(0)
+
+        # Build button pills from shortcut parts
+        parts = [p.strip() for p in shortcut.split("+")]
+        for i, part in enumerate(parts):
+            if i > 0:
+                plus = QtWidgets.QLabel("+")
+                plus.setStyleSheet("color: rgba(255,255,255,0.5); font-size: 13px; padding: 0 4px;")
+                plus.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+                row.addWidget(plus)
+            label = _glyphs.get(part.upper(), part)
+            btn_lbl = QtWidgets.QLabel(label)
+            btn_lbl.setStyleSheet(
+                "color: #ffffff; font-size: 12px; font-weight: bold;"
+                "background: rgba(255,255,255,0.13); border-radius: 4px;"
+                "padding: 3px 10px;"
+            )
+            btn_lbl.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+            row.addWidget(btn_lbl)
+
+        row.addStretch(1)
+
+        desc_lbl = QtWidgets.QLabel(description)
+        desc_lbl.setStyleSheet("color: rgba(255,255,255,0.85); font-size: 13px;")
+        desc_lbl.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
+        row.addWidget(desc_lbl)
+
+        layout.addLayout(row)
+
+    layout.addSpacing(4)
+
+    btn_layout = QtWidgets.QHBoxLayout()
+    btn_layout.addStretch(1)
+
+    ok_btn = QtWidgets.QPushButton("OK")
+    ok_btn.clicked.connect(dlg.accept)
+    btn_layout.addWidget(ok_btn)
+
+    dont_btn = QtWidgets.QPushButton("Don't show again")
+    dont_btn.clicked.connect(dlg.reject)
+    btn_layout.addWidget(dont_btn)
+
+    btn_layout.addStretch(1)
+    layout.addLayout(btn_layout)
+
+    show_again = True
+
+    dlg.resize(520, dlg.sizeHint().height())
+
+    # Center on screen
+    screen = QtWidgets.QApplication.primaryScreen().geometry()
+    dlg.move((screen.width() - dlg.width()) // 2, (screen.height() - dlg.height()) // 2)
+
+    widgets = [ok_btn, dont_btn]
+    idx = 0
+    ok_btn.setFocus()
+
+    dlg.show()
+    while dlg.isVisible():
+        app.processEvents()
+        direction = poll_gamepad_dir()
+        if direction in ("left", "right"):
+            idx = (idx + 1) % len(widgets)
+            widgets[idx].setFocus()
+        gp = poll_gamepad()
+        if gp == "yes":
+            dlg.accept()
+        elif gp in ("no", "cancel"):
+            dlg.reject()
+        QtCore.QThread.msleep(50)
+
+    if dlg.result() == QtWidgets.QDialog.Rejected:
+        show_again = False
+
+    return show_again
+
 def get_locations():
     import wmi
     c = wmi.WMI()
