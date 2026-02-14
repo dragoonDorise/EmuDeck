@@ -2446,15 +2446,10 @@ def popup_wii_players(title: str) -> Optional[int]:
     return choice
 
 def popup_wii_controller_type(title: str, player: int = 1) -> Optional[str]:
-    """
-    Shows a popup to select controller type for a specific player.
-    D-pad left/right to navigate, A confirms, B cancels.
-    Returns 'wiimote', 'wiimote_nunchuck', 'wii_classic_controller', or None if cancelled.
-    """
     app = ensure_app()
     dlg = BaseDialog(title)
 
-    heading = QtWidgets.QLabel(f"Player {player} — Select controller type")
+    heading = QtWidgets.QLabel(f"Player {player} — Select emulated controller")
     heading.setAlignment(QtCore.Qt.AlignCenter)
     heading.setStyleSheet("font-size: 18px; font-weight: bold;")
     dlg._add(heading)
