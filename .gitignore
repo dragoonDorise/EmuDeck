@@ -1,4 +1,6 @@
 __pycache__
 charset_normalizer
 .DS_Store
+test.py
+test.sh
 emudeck_cloudsync.py
