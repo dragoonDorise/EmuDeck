@@ -203,7 +203,10 @@ show_again = None
 
 if emu.lower() == "retroarch"
    show_again = popup_show_commands("RetroArch Hotkeys", [                                                                                                                ("SELECT + START", "Exit game"), ("SELECT + L1", "Load state")])
-
+   
+   
+#if not show_again:
+#   set_setting("show_hotkeys", "false")   
 
 #Dobule "'XXX'" cleanup
 if args:
