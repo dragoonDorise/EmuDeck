@@ -1206,7 +1206,7 @@ def addProtonLaunch():
     # emudeck_backend, tools_path
 
     backend_tools = Path(emudeck_backend) / "tools"
-    dst = Path(tools_path)
+    dst = Path(tools_path) / "launchers"
 
     # Archivos a copiar
     for fname in ("proton-launch.sh", "appID.py"):

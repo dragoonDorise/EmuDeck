@@ -98,8 +98,8 @@ if system == "linux":
         exe = "/usr/bin/flatpak run net.kuribo64.melonDS"
     if emu.lower() == "mgba":
         exe = f"{emus_folder}/mGBA.AppImage"
-    if emu.lower() == "model-2-emulator":
-        exe = f"{emus_folder}/model-2-emulator.AppImage"
+    # if emu.lower() == "model-2-emulator":
+    #     exe = f"{emus_folder}/model-2-emulator.AppImage"
     if emu.lower() == "pcsx2-qt":
         exe = f"{emus_folder}/pcsx2-Qt.AppImage"
     if emu.lower() == "ppsspp":
@@ -156,8 +156,8 @@ if system.startswith("win"):
         exe = f"{emus_folder}/melonds/melonds.exe"
     if emu.lower() == "mgba":
         exe = f"{emus_folder}/mgba/mgba.exe"
-    if emu.lower() == "model-2-emulator":
-        exe = f"{emus_folder}/model2/model2.exe"
+    if emu.lower() == "model2":
+        exe = f"{emus_folder}/m2emulator/EMULATOR.EXE"
     if emu.lower() == "pcsx2-qt" or emu.lower() == "pcsx2":
         exe = f"{emus_folder}/pcsx2/pcsx2.exe"
     if emu.lower() == "ppsspp":
