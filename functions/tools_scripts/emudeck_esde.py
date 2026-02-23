@@ -9,17 +9,9 @@ esde_add_steam_input_file = (
 )
 steam_input_templateFolder = home / ".steam" / "steam" / "controller_base" / "templates"
 
-if system == "linux":
-    esde_install_dir = Path.home() / "Applications"
-    esde_config_dir = Path.home() / "ES-DE"
-else:
-    esde_install_dir = esde_folder
-    esde_config_dir = esde_folder
-
-esde_settings_folder = esde_config_dir
-esde_settings_file = esde_config_dir / "settings" / "es_settings.xml"
-esde_systems_file = esde_config_dir / "custom_systems" / "es_systems.xml"
-esde_rules_file = esde_config_dir / "custom_systems" / "es_find_rules.xml"
+esde_settings_file = esde_settings_folder / "settings" / "es_settings.xml"
+esde_systems_file = esde_settings_folder / "custom_systems" / "es_systems.xml"
+esde_rules_file = esde_settings_folder / "custom_systems" / "es_find_rules.xml"
 
 
 def esde_get_url():
@@ -33,67 +25,61 @@ def esde_get_url():
 
     if system == "linux":
         exename = "LinuxSteamDeckAppImage"
-    if system.startswith("win"):
+    elif system.startswith("win"):
         exename = "WindowsPortable"
-    if system == "darwin":
+    elif system == "darwin":
         exename = "macOSApple"
+    else:
+        return False
 
-    ESDE_releaseURL = ""
     for pkg in data.get("stable", {}).get("packages", []):
         if pkg.get("name") == exename:
-            ESDE_releaseURL = pkg.get("url", "")
-            break
+            return pkg.get("url", "")
 
-    return ESDE_releaseURL
+    return False
 
 
 def esde_install():
     set_msg("Installing ES-DE")
 
     if system == "linux":
-        type = "AppImage"
+        type_ = "AppImage"
+    elif system.startswith("win"):
+        type_ = "zip"
+    elif system == "darwin":
+        type_ = "dmg"
+    else:
+        return False
 
-        esde_install_dir.mkdir(parents=True, exist_ok=True)
-        esde_config_dir.mkdir(parents=True, exist_ok=True)
+    # App dir (Linux: ~/Applications, Win: Roaming/EmuDeck/EmulationStation-DE)
+    esde_folder.mkdir(parents=True, exist_ok=True)
 
-        try:
-            install_emu("ES-DE", esde_get_url(), type, esde_install_dir)
-            esde_add_to_steam()
-            return True
-        except Exception as e:
-            print(f"Error during install: {e}")
-            return False
-
-    if system.startswith("win"):
-        type = "zip"
-    if system == "darwin":
-        type = "dmg"
-
-    esde_install_dir.mkdir(parents=True, exist_ok=True)
+    # Settings dir (Linux: ~/ES-DE, Win: .../EmulationStation-DE/ES-DE)
+    esde_settings_folder.mkdir(parents=True, exist_ok=True)
 
     try:
-        install_emu("ES-DE", esde_get_url(), type, esde_install_dir)
+        install_emu("ES-DE", esde_get_url(), type_, esde_folder)
         esde_add_to_steam()
         return True
     except Exception as e:
         print(f"Error during install: {e}")
         return False
 
+
 def esde_uninstall():
     try:
         if system == "linux":
             uninstall_emu("ES-DE", "AppImage")
-            esde_config_dir_local = Path.home() / "ES-DE"
-            if esde_config_dir_local.exists():
-                shutil.rmtree(esde_config_dir_local, ignore_errors=True)
-                print(f"Removed config directory at {esde_config_dir_local}")
+            if esde_settings_folder.exists():
+                shutil.rmtree(esde_settings_folder, ignore_errors=True)
+                print(f"Removed config directory at {esde_settings_folder}")
             return True
 
         if system.startswith("win"):
-            esde_win_dir = Path(os.environ["APPDATA"]) / "EmuDeck" / "EmulationStation-DE"
-            if esde_win_dir.exists():
-                shutil.rmtree(esde_win_dir, ignore_errors=True)
-                print(f"Removed {esde_win_dir}")
+            # In Windows both app + config live under esde_folder
+            if esde_folder.exists():
+                shutil.rmtree(esde_folder, ignore_errors=True)
+                print(f"Removed {esde_folder}")
             return True
 
         if system == "darwin":
@@ -110,15 +96,14 @@ def esde_uninstall():
 def esde_init():
     set_msg("EmulationStation DE - Paths and Themes")
 
-    destination = esde_settings_folder
-    destination.mkdir(parents=True, exist_ok=True)
+    esde_settings_folder.mkdir(parents=True, exist_ok=True)
 
     src = Path(emudeck_backend) / "configs" / "common" / "emulationstation"
-    shutil.copytree(src, destination, dirs_exist_ok=True)
+    shutil.copytree(src, esde_settings_folder, dirs_exist_ok=True)
 
     copy_and_set_settings_file(
         "common/emulationstation/settings/es_settings.xml",
-        destination / "settings",
+        esde_settings_folder / "settings",
     )
 
     dlmedia = Path(storage_path / "es-de/downloaded-media")
@@ -135,25 +120,23 @@ def esde_install_init():
 
 def esde_is_installed():
     if system == "linux":
-        return (Path.home() / "Applications" / "ES-DE.AppImage").exists()
+        return (esde_folder / "ES-DE.AppImage").exists()
     if system.startswith("win"):
-        return (Path(os.environ["APPDATA"]) / "EmuDeck" / "EmulationStation-DE" / "ES-DE.exe").exists()
+        return (esde_folder / "ES-DE.exe").exists()
     if system == "darwin":
         return (esde_folder / "ES-DE.app").exists()
     return False
 
 
 def esde_apply_theme(esde_theme_url: str, esde_theme_name: str):
-    # Themes en config dir (SIN /ES-DE extra)
-    themes_dir = esde_config_dir / "themes"
+    themes_dir = esde_settings_folder / "themes"
     themes_dir.mkdir(parents=True, exist_ok=True)
 
     dest = themes_dir / esde_theme_name
     if not dest.exists():
         subprocess.run(["git", "clone", esde_theme_url, str(dest)], check=True)
 
-    # Settings file real está en config/settings
-    settings_file = esde_config_dir / "settings" / "es_settings.xml"
+    settings_file = esde_settings_folder / "settings" / "es_settings.xml"
     text = settings_file.read_text(encoding="utf-8")
 
     pattern = r'(?<=<string name="ThemeSet" value=").*?(?=" />)'
@@ -163,7 +146,7 @@ def esde_apply_theme(esde_theme_url: str, esde_theme_name: str):
 
 
 def esde_set_default_emulators():
-    gamelists_dir = esde_config_dir / "gamelists"
+    gamelists_dir = esde_settings_folder / "gamelists"
     gamelists_dir.mkdir(parents=True, exist_ok=True)
 
     emus = [
@@ -184,7 +167,7 @@ def esde_set_default_emulators():
 
 
 def esde_set_emu(emu: str, system_code: str) -> None:
-    gamelist_file = esde_config_dir / "gamelists" / system_code / "gamelist.xml"
+    gamelist_file = esde_settings_folder / "gamelists" / system_code / "gamelist.xml"
 
     if gamelist_file.exists():
         print(f"{system_code} gamelist already present, skipping.")
@@ -214,19 +197,21 @@ def esde_set_emu(emu: str, system_code: str) -> None:
 def esde_add_to_steam():
     set_msg("Adding ES-DE to Steam")
 
-    if system == "linux" or system == "darwin":
+    if system in ("linux", "darwin"):
         launcher = str(tools_path / "launchers/es-de/es-de.sh")
         icon_path = str(emudeck_backend / "icons/ES-DE.png")
-    if system.startswith("win"):
+        start_dir = str(esde_settings_folder)
+    elif system.startswith("win"):
         launcher = str(tools_path / "launchers/es-de/es-de.bat")
         icon_path = str(emudeck_backend / "icons/ico/es-de.ico")
-
-    set_msg(icon_path)
+        start_dir = str(esde_folder)
+    else:
+        return
 
     add_steam_shortcut(
         "esde",
         "EmulationStationDE",
         launcher,
-        str(esde_config_dir if system == "linux" else esde_folder),
+        start_dir,
         str(icon_path),
     )

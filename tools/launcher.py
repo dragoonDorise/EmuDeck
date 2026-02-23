@@ -133,7 +133,7 @@ if system == "linux":
 
 if system.startswith("win"):
     if emu.lower() in ("es-de", "emulationstationde"):
-        exe = str(Path(os.environ["APPDATA"]) / "EmuDeck" / "EmulationStation-DE" / "ES-DE.exe")
+        exe = str(esde_folder / "ES-DE.exe")
     if emu.lower() == "steamrommanager":
         exe = f"{emus_folder}/srm.exe"
     if emu.lower() == "azahar":
