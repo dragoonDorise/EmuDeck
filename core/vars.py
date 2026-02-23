@@ -3,32 +3,40 @@ from pathlib import Path
 from types import SimpleNamespace
 
 system = platform.system().lower()  # 'linux', 'darwin', 'windows'
-#system = "linux"
 home = Path.home()
-emudeck_backend = home / ".config/EmuDeck/backend"
-emudeck_folder = home / ".config/EmuDeck"
-launcher_settings = Path(emudeck_folder) / "launcher_settings.json"
-emudeck_logs = home / ".config/EmuDeck/logs/"
-temp_dir=home/"Downloads"
-app_folder=home/"Applications"
-emus_folder=app_folder
-esde_folder=home/"ES-DE"
-pegasus_folder=app_folder
-progress_bar=0
+
+emudeck_folder = home / ".config" / "EmuDeck"
+emudeck_backend = emudeck_folder / "backend"
+emudeck_logs = emudeck_folder / "logs"
+launcher_settings = emudeck_folder / "launcher_settings.json"
+
+temp_dir = home / "Downloads"
+
+app_folder = home / "Applications"
+emus_folder = app_folder
+pegasus_folder = app_folder
+
+esde_folder = app_folder
+esde_settings_folder = home / "ES-DE"
+
+progress_bar = 0
 apple_chip = "arm64"  # or "arm64" on Apple Silicon
 
-
-#Windows vars
+# Windows vars
 if system.startswith("win"):
-    appdata_roaming = Path(os.environ.get("APPDATA"))
-    emudeck_backend = Path(os.path.expandvars(appdata_roaming / "EmuDeck/backend"))
-    emudeck_folder = Path(os.path.expandvars(appdata_roaming / "EmuDeck"))
-    emudeck_logs =  Path(os.path.expandvars(appdata_roaming / "EmuDeck/logs"))
-    emudeck_temp = Path(os.path.expandvars(appdata_roaming / "EmuDeck/temp"))
-    app_folder=Path(os.path.expandvars(emudeck_folder / "Emulators"))
-    emus_folder=Path(os.path.expandvars(app_folder))
-    esde_folder=Path(os.path.expandvars(emudeck_folder / "EmulationStation-DE"))
-    pegasus_folder=Path(os.path.expandvars(emudeck_folder / "Pegasus"))
+    appdata_roaming = Path(os.environ["APPDATA"])
+
+    emudeck_folder = appdata_roaming / "EmuDeck"
+    emudeck_backend = emudeck_folder / "backend"
+    emudeck_logs = emudeck_folder / "logs"
+    emudeck_temp = emudeck_folder / "temp"
+
+    app_folder = emudeck_folder / "Emulators"
+    emus_folder = app_folder
+    pegasus_folder = emudeck_folder / "Pegasus"
+
+    esde_folder = emudeck_folder / "EmulationStation-DE"
+    esde_settings_folder = esde_folder / "ES-DE"
 
 json_settings_path = Path(emudeck_folder) / "settings.json"
 if json_settings_path.exists():
