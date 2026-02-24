@@ -1206,7 +1206,7 @@ def addProtonLaunch():
     # emudeck_backend, tools_path
 
     backend_tools = Path(emudeck_backend) / "tools"
-    dst = Path(tools_path)
+    dst = Path(tools_path) / "launchers"
 
     # Archivos a copiar
     for fname in ("proton-launch.sh", "appID.py"):
@@ -1573,7 +1573,10 @@ def create_app_shortcut(name: str):
             display_name = "EmulationStationDE"
         else:
             folder = ""
-            script_filename = f"{launcher_name.lower()}.bat"
+            if name.lower() == "model2":
+                script_filename = "model-2-emulator.bat"
+            else:
+                script_filename = f"{launcher_name.lower()}.bat"
             display_name = name
 
         src_file = Path(emudeck_backend) / "tools" / "launchers" / "windows" / folder / script_filename
@@ -1656,6 +1659,7 @@ def create_app_shortcut(name: str):
         shutil.copy2(src_file, exec_path)
 
         create_mac_app(name, Path(exec_path))
+
 
 def create_mac_app(app_name: str, script_path: Path, output_dir: Path = Path("/Applications/EmuDeck")):
 
