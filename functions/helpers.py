@@ -1529,18 +1529,17 @@ def uninstall_emu(name, type_):
         print(f"Removed Flatpak")
 
 def create_app_shortcut(name: str):
-
     launcher_name = name
 
     dest = Path(f"{tools_path}/launchers")
     dest.mkdir(parents=True, exist_ok=True)
 
-    if(name == "Dolphin"):
-         launcher_name = "dolphin-emu"
-    if(name == "xemu"):
-         launcher_name = "xemu-emu"
-    if(name == "pcsx2"):
-         launcher_name = "pcsx2-qt"
+    if name == "Dolphin":
+        launcher_name = "dolphin-emu"
+    if name == "xemu":
+        launcher_name = "xemu-emu"
+    if name == "pcsx2":
+        launcher_name = "pcsx2-qt"
 
     if system.startswith("win"):
         import pythoncom
@@ -1548,57 +1547,67 @@ def create_app_shortcut(name: str):
         programs = appdata / "Microsoft" / "Windows" / "Start Menu" / "Programs"
         emudeck_folder_start_menu = programs / "EmuDeck"
         emudeck_folder_start_menu.mkdir(parents=True, exist_ok=True)
-        dest = emudeck_folder_start_menu / name.lower()
+
+        link_name = "EmulationStationDE" if name == "ES-DE" else name.lower()
+        dest = emudeck_folder_start_menu / link_name
+        if dest.suffix.lower() != ".lnk":
+            dest = dest.with_suffix(".lnk")
+
 
         try:
             from win32com.client import Dispatch
         except ImportError:
             raise RuntimeError("pywin32 is required on Windows to create shortcuts")
 
-        # Ensure .lnk extension
-        if dest.suffix.lower() != ".lnk":
-            dest = dest.with_suffix(".lnk")
-
         # Find icon
-        icons_src = Path(emudeck_backend) / "icons/ico"
+        icons_src = Path(emudeck_backend) / "icons" / "ico"
         base = name.split(" ", 1)[0]
         icon = ""
         ico_file = icons_src / f"{base}.ico"
         if ico_file.exists():
             icon = str(ico_file)
 
-        # Script to run
-        folder = "es-de" if name == "ES-DE" else ""
+        if name == "ES-DE":
+            folder = "es-de"
+            script_filename = "es-de.bat"
+            display_name = "EmulationStationDE"
+        else:
+            folder = ""
+            
+            if name.lower() == "model2":
+                script_filename = "model-2-emulator.bat"
+            else:
+                script_filename = f"{launcher_name.lower()}.bat"
 
-        if system.startswith("win"):
-            folder = "esde" if name == "ES-DE" else ""
-            name = "EmulationStationDE"
+            display_name = name
 
-        src_file = Path(emudeck_backend) / "tools" / "launchers" / "windows" / folder / f"{launcher_name.lower()}.bat"
-        script_path = Path(tools_path) / "launchers" / folder / f"{launcher_name.lower()}.bat"
+        src_file = Path(emudeck_backend) / "tools" / "launchers" / "windows" / folder / script_filename
+        script_path = Path(tools_path) / "launchers" / folder / script_filename
 
+        script_path.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src_file, script_path)
+
         # Create the shortcut
         pythoncom.CoInitialize()
-        shell = Dispatch('WScript.Shell')
+        shell = Dispatch("WScript.Shell")
         shortcut = shell.CreateShortCut(str(dest))
 
         # Point the .lnk at cmd.exe and run the .bat launcher
-        # Using cmd.exe /c ensures the .bat script executes correctly
         cmd_exe = Path(os.environ["WINDIR"]) / "System32" / "cmd.exe"
         shortcut.Targetpath = str(cmd_exe)
-        shortcut.Arguments = f'/c "{script_path}"'
+        shortcut.Arguments = f'/d /c ""{script_path}""'
         shortcut.WorkingDirectory = str(script_path.parent)
+
         if icon:
             shortcut.IconLocation = icon
-        shortcut.Description = name
+
+        shortcut.Description = display_name
         shortcut.save()
 
         print(f"Created Windows shortcut: {dest}")
         return
 
     if system == "linux":
-
         icons_src = Path(emudeck_backend) / "icons"
         icons_dest = Path.home() / ".local" / "share" / "icons" / "emudeck"
         icons_dest.mkdir(parents=True, exist_ok=True)
@@ -1613,12 +1622,14 @@ def create_app_shortcut(name: str):
                 icon = str(dst_file)
                 break
 
-        folder=""
+        folder = ""
         if name == "ES-DE":
-            folder="es-de"
+            folder = "es-de"
 
         src_file = Path(emudeck_backend) / "tools" / "launchers" / "unix" / folder / f"{launcher_name.lower()}.sh"
         exec_path = Path(tools_path) / "launchers" / folder / f"{launcher_name.lower()}.sh"
+
+        exec_path.parent.mkdir(parents=True, exist_ok=True)
 
         shutil.copy2(src_file, exec_path)
         exec_path.chmod(exec_path.stat().st_mode | 0o111)
@@ -1630,26 +1641,27 @@ def create_app_shortcut(name: str):
             f"Icon={icon}",
             f"Exec={exec_path}",
             f"Terminal=false",
-            "Categories=Utility;"
+            "Categories=Utility;",
         ]
 
         applications_dir = Path.home() / ".local" / "share" / "applications"
         dest = applications_dir / f"{name}.desktop"
-        dest = Path(dest)
         dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_text("\n".join(desktop_entry) + "\n", encoding='utf-8')
+        dest.write_text("\n".join(desktop_entry) + "\n", encoding="utf-8")
         dest.chmod(0o755)
         print(f"Created .desktop file: {dest}")
 
     if system == "darwin":
-        folder=""
+        folder = ""
         if name == "ES-DE":
-            folder="es-de"
+            folder = "es-de"
+
         src_file = Path(emudeck_backend) / "tools" / "launchers" / "unix" / folder / f"{launcher_name.lower()}.sh"
         exec_path = Path(tools_path) / "launchers" / folder / f"{launcher_name.lower()}.sh"
         shutil.copy2(src_file, exec_path)
 
         create_mac_app(name, Path(exec_path))
+
 
 def create_mac_app(app_name: str, script_path: Path, output_dir: Path = Path("/Applications/EmuDeck")):
 

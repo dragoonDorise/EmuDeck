@@ -21,24 +21,28 @@ def model2_install():
         else:
             return False
 
-        src_launcher = Path(emudeck_backend) / "tools" / "launchers" / "unix" / "model2.sh"
+        src_launcher = (
+            Path(emudeck_backend) / "tools" / "launchers" / "unix" / "model-2-emulator.sh"
+        )
+
         destinations = [
-            tools_path / "launchers" / "model2.sh",
-            roms_model2 / "model2.sh",
+            tools_path / "launchers" / "model-2-emulator.sh",
+            roms_model2 / "model-2-emulator.sh",
         ]
+
         for dest in destinations:
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(src_launcher, dest)
             dest.chmod(dest.stat().st_mode | 0o111)
 
         icon_path = Path(emudeck_backend) / "icons" / "ico" / "model2.ico"
-        launcher_path = tools_path / "launchers" / "model2.sh"
+        launcher_path = tools_path / "launchers" / "model-2-emulator.sh"
 
         desktop_entry = "\n".join(
             [
                 "[Desktop Entry]",
                 "Type=Application",
-                "Name=Model 2 Emulator (Proton) - EmuDeck",
+                "Name=Model-2-Emulator (Proton)",
                 f"Icon={icon_path}",
                 f"Exec={launcher_path}",
                 "Terminal=false",
@@ -62,6 +66,7 @@ def model2_install():
         type = "dmg"
         look_for = "macos"
         path = emus_folder
+
     try:
         install_emu("model2", url, type, path)
     except Exception as e:
@@ -140,8 +145,11 @@ def model2_uninstall():
         if model2_dir.exists():
             shutil.rmtree(model2_dir, ignore_errors=True)
 
-        launcher = tools_path / "launchers" / "model2.sh"
+        launcher = tools_path / "launchers" / "model-2-emulator.sh"
         launcher.unlink(missing_ok=True)
+
+        launcher_copy = roms_path / "model2" / "model-2-emulator.sh"
+        launcher_copy.unlink(missing_ok=True)
 
         desktop = Path.home() / ".local" / "share" / "applications" / "Model 2 Emulator (Proton).desktop"
         desktop.unlink(missing_ok=True)
