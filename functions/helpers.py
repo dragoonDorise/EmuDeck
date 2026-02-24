@@ -1573,12 +1573,10 @@ def create_app_shortcut(name: str):
             display_name = "EmulationStationDE"
         else:
             folder = ""
-            
             if name.lower() == "model2":
                 script_filename = "model-2-emulator.bat"
             else:
                 script_filename = f"{launcher_name.lower()}.bat"
-
             display_name = name
 
         src_file = Path(emudeck_backend) / "tools" / "launchers" / "windows" / folder / script_filename
