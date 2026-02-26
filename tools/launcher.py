@@ -173,7 +173,7 @@ if system.startswith("win"):
     if emu.lower() == "scummvm":
         exe = f"{emus_folder}/scummvm/scummvm.exe"
     if emu.lower() == "shadps4":
-        exe = f"{emus_folder}/shadps4/shadps4.exe"
+        exe = f"{emus_folder}/ShadPS4-qt/shadPS4QtLauncher.exe"
     if emu.lower() == "supermodel":
         exe = f"{emus_folder}/supermodel/supermodel.exe"
     if emu.lower() == "vita3k":
