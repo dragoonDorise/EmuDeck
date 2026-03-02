@@ -15,8 +15,8 @@ def supermodel_install():
         name="supermodel"
         type="zip"
         look_for="win64"
-        destination = f"{emus_folder}/supermodel"
-        repo="https://www.supermodel3.com/Files/Git_Snapshots/Supermodel_0.3a-git-d043dc0_Win64.zip"
+        destination = f"{emus_folder}/Supermodel"
+        repo = get_latest_release_gh("trzy/Supermodel", "zip", "windows.zip")
 
     if system == "darwin":
         name="supermodel"

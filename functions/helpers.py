@@ -1374,6 +1374,8 @@ def install_emu(name, url, type_, destination):
                 print(f"Error installing {name} flatpak: {result.stderr}")
                 return False
             print(f"{name} flatpak installed")
+            
+            return True 
 
         elif type_ in ("AppImage", "appimage"):
             dest_file = Path(f"{dest_file}.AppImage")
