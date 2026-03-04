@@ -179,7 +179,7 @@ if system.startswith("win"):
     if emu.lower() == "vita3k":
         exe = f"{emus_folder}/vita3k/vita3k.exe"
     if emu.lower() == "xemu-emu" or emu.lower() == "xemu":
-        exe = f"{emus_folder}/xemu/xemu-emu.exe"
+        exe = f"{emus_folder}/xemu/xemu.exe"
     if emu.lower() == "xenia":
         exe = f"{emus_folder}/xenia/xenia_canary.exe"
     if emu.lower() == "yuzu":
