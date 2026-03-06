@@ -163,7 +163,7 @@ if system.startswith("win"):
     if emu.lower() == "ppsspp":
         exe = f"{emus_folder}/ppsspp/PPSSPPWindows64.exe"
     if emu.lower() == "primehack":
-        exe = f"{emus_folder}/primehack/primehack.exe"
+        exe = f"{emus_folder}/primehack/Dolphin.exe"
     if emu.lower() == "retroarch":
         exe = f"{emus_folder}/retroarch/retroarch.exe"
     if emu.lower() == "rpcs3":
