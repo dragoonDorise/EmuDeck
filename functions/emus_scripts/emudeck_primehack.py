@@ -2,7 +2,7 @@ from core.all import *
 
 
 def primehack_install():
-    set_msg(f"Installing dolphin")
+    set_msg(f"Installing primehack")
 
     if system == "linux":
         type="flatpak"
@@ -12,11 +12,15 @@ def primehack_install():
         repo="io.github.shiiion.primehack"
 
     if system.startswith("win"):
-        type="7z"
-        look_for=""
+        name = "primehack"
+        type = "zip"
         destination = f"{emus_folder}/primehack"
-        name="dolphin"
-        repo="https://github.com/shiiion/dolphin/releases/download/1.0.7a/PrimeHack.Release.v1.0.7a.zip"
+
+        repo = get_latest_release_gh(
+            repository="shiiion/dolphin",
+            fileType="a.zip",                 
+            fileNameContains="PrimeHack.Release"
+        ) or "https://github.com/shiiion/dolphin/releases/download/1.0.8a/PrimeHack.Release.v1.0.8a.zip"
 
     if system == "darwin":
         return False
@@ -51,7 +55,7 @@ def primehack_is_installed():
 
 
 def primehack_init():
-    set_msg(f"Setting up dolphin")
+    set_msg(f"Setting up primehack")
     if system == "linux":
         destination=f"{home}/.var/app/io.github.shiiion.primehack/config/dolphin-emu/"
     if system.startswith("win"):
