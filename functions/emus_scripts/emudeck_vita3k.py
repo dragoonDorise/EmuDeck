@@ -1,12 +1,44 @@
 from core.all import *
 
 def vita3k_install():
-    set_msg(f"Installing Vita3k")
+    set_msg(f"Installing Vita3K")
 
     if system == "linux":
-        type="zip"
-        look_for="ubuntu-latest.zip"
-        path=f"{emus_folder}/vita3k"
+        repo = get_latest_release_gh("Vita3K/Vita3K", "zip", "ubuntu-latest.zip")
+        if not repo:
+            print("Error: could not find ubuntu-latest.zip")
+            return False
+
+        install_path = emus_folder / "Vita3K"
+        install_path.mkdir(parents=True, exist_ok=True)
+
+        temp_dir = Path(tempfile.mkdtemp())
+        archive_path = temp_dir / "vita3k.zip"
+
+        try:
+            response = requests.get(repo, stream=True, timeout=30)
+            response.raise_for_status()
+
+            with open(archive_path, "wb") as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    if chunk:
+                        f.write(chunk)
+
+            with zipfile.ZipFile(archive_path, "r") as zf:
+                zf.extractall(install_path)
+
+            binary_path = install_path / "Vita3K"
+            if binary_path.exists():
+                binary_path.chmod(binary_path.stat().st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+            else:
+                print(f"Error: Vita3K binary not found in {install_path}")
+                return False
+
+            create_app_shortcut("Vita3K")
+            return True
+
+        finally:
+            shutil.rmtree(temp_dir, ignore_errors=True)
 
     if system.startswith("win"):
         type="zip"
@@ -29,11 +61,11 @@ def vita3k_install():
 def vita3k_uninstall():
     try:
         if system == "linux":
-            uninstall_emu("vita3k", "dir")
+            uninstall_emu("Vita3K", "dir")
         if system.startswith("win"):
-          uninstall_emu("vita3k", "dir")
+            uninstall_emu("vita3k", "dir")
         if system == "darwin":
-          uninstall_emu("Vita3K", "app")
+            uninstall_emu("Vita3K", "app")
         return True
     except Exception as e:
         print(f"Error during uninstall: {e}")
@@ -41,17 +73,17 @@ def vita3k_uninstall():
 
 def vita3k_is_installed():
     if system == "linux":
-        return (emus_folder / "Vita3K").exists()
+        return (emus_folder / "Vita3K" / "Vita3K").exists()
     if system.startswith("win"):
-      return (emus_folder / "vita3k" / "vita3k.exe").exists()
+        return (emus_folder / "vita3k" / "vita3k.exe").exists()
     if system == "darwin":
-      return (emus_folder / "Vita3K.app").exists()
+        return (emus_folder / "Vita3K.app").exists()
 
 
 def vita3k_init():
-    set_msg(f"Setting up Vita3k")
+    set_msg(f"Setting up Vita3K")
     if system == "linux":
-        destination=f"{home}/.config/vita3k/config"
+        destination=f"{home}/.config/Vita3K"
     if system.startswith("win"):
         destination=f"{emus_folder}/vita3k/"
     if system == "darwin":
