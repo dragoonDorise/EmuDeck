@@ -80,8 +80,11 @@ def retroarch_init():
 
     retroarch_backup_configs()
 
-    copy_setting_dir(f"common/retroarch/",retroarch_dir)
-    #copy_and_set_settings_file(f"common/retroarch/retroarch.cfg", retroarch_dir)
+    if system.startswith("win"):
+        copy_setting_dir("windows/retroarch/", retroarch_dir)
+    else:
+        copy_setting_dir("common/retroarch/", retroarch_dir)
+
     retroarch_setup_cfg_file_paths()
     retroarch_setup_saves()
     retroarch_set_controller_style()
@@ -93,21 +96,25 @@ def retroarch_init():
     retroarch_set_retroachievements()
     retroarch_buildbot_downloader()
 
-    #Customizations
-
 def retroarch_install_init():
     retroarch_install()
     retroarch_init()
 
 
 def retroarch_setup_cfg_file_paths():
-    src = Path(f"{emudeck_backend}/configs/common/retroarch/retroarch.cfg")
+    if system.startswith("win"):
+        src = Path(f"{emudeck_backend}/configs/windows/retroarch/retroarch.cfg")
+    elif system == "linux":
+        src = Path(f"{emudeck_backend}/configs/common/retroarch/retroarch.cfg")
+    elif system == "darwin":
+        src = Path(f"{emudeck_backend}/configs/common/retroarch/retroarch.cfg")
+    else:
+        return
+
     shutil.copy2(src, retroarch_dir)
-    sed("EMULATIONPATH",emulation_path,retroarch_cfg_file)
-    sed("RETROARCHFOLDER",retroarch_dir,retroarch_cfg_file)
-    sed("ASSETSFOLDER",retroarch_assets_path,retroarch_cfg_file)
-
-
+    sed("EMULATIONPATH", emulation_path, retroarch_cfg_file)
+    sed("RETROARCHFOLDER", retroarch_dir, retroarch_cfg_file)
+    sed("ASSETSFOLDER", retroarch_assets_path, retroarch_cfg_file)
 
 def retroarch_setup_saves():
     origin_saves=f"{retroarch_dir}/saves"
