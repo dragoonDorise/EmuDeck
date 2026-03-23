@@ -2,15 +2,8 @@ from core.all import *
 
 def get_sd_path() -> Optional[str]:
 
-    """
-    Equivalente a tu función Bash getSDPath:
-    - Comprueba si /dev/mmcblk0p1 existe y es un dispositivo de bloque.
-    - Si existe, invoca 'findmnt' para obtener el punto de montaje.
-    - Devuelve la cadena vacía o None si no está presente.
-    """
     sd_block = "/dev/mmcblk0p1"
 
-    # 1) ¿Existe y es un bloque?
     try:
         st = os.stat(sd_block)
     except FileNotFoundError:
@@ -19,15 +12,13 @@ def get_sd_path() -> Optional[str]:
     if not stat.S_ISBLK(st.st_mode):
         return None
 
-    # 2) Llamada a findmnt
     try:
         out = subprocess.check_output(
             ["findmnt", "-n", "--raw", "--evaluate", "--output=target", "-S", sd_block],
-            text=True  # para obtener str en lugar de bytes
+            text=True
         ).strip()
         return out or None
     except (subprocess.CalledProcessError, FileNotFoundError):
-        # Puede fallar si findmnt no está instalado
         return None
 
 def test_location_valid(location_name: str, test_location = "") -> str:
@@ -42,13 +33,11 @@ def test_location_valid(location_name: str, test_location = "") -> str:
     symlink  = os.path.join(test_location, "testwrite.link")
 
     try:
-        # 3) Intentar crear el fichero
         with open(testwrite, "w") as f:
             pass
         if not os.path.isfile(testwrite):
             return f"Invalid: {location_name} not Writable"
 
-        # 4) Intentar crear symlink
         try:
             os.symlink(testwrite, symlink)
         except OSError:
@@ -58,7 +47,6 @@ def test_location_valid(location_name: str, test_location = "") -> str:
             return f"Invalid: {location_name} not Linkable"
 
     finally:
-        # Limpieza
         for path in (symlink, testwrite):
             try:
                 os.remove(path)
@@ -69,16 +57,10 @@ def test_location_valid(location_name: str, test_location = "") -> str:
     return "Valid"
 
 def get_product_name() -> Optional[str]:
-    """
-    Lee el contenido de /sys/devices/virtual/dmi/id/product_name
-    y devuelve la cadena sin saltos de línea. Si ocurre cualquier
-    error (por ejemplo permisos o ausencia del fichero), devuelve None.
-    """
     path = Path('/sys/devices/virtual/dmi/id/product_name')
     try:
         return path.read_text(encoding='utf-8').strip()
     except (OSError, UnicodeError):
-        # Puede fallar si no existe el archivo o no tienes permisos
         return None
 
 def get_screen_ar() -> int:
@@ -88,10 +70,8 @@ def get_screen_ar() -> int:
     if screen_height == 0:
         return 0
 
-    # 5) Calculamos ratio con 2 decimales
     ratio_str = f"{(screen_width / screen_height):.2f}"
 
-    # 6) Mapeamos a los códigos deseados
     if ratio_str == '1.60':
         return 1610
     elif ratio_str == '1.78':
@@ -100,10 +80,6 @@ def get_screen_ar() -> int:
         return 0
 
 def get_environment_details() -> None:
-    """
-    Recaba información de entorno y la imprime como JSON crudo.
-    Equivalente a tu función Bash que usaba jq -r.
-    """
     import json
     sd_path = get_sd_path()
     sd_valid = test_location_valid("sd", sd_path)
@@ -124,18 +100,15 @@ def get_environment_details() -> None:
         "UName":         uname,
     }
 
-    # Imprime JSON crudo (como jq -r <<< "$json")
     print(json.dumps(info, ensure_ascii=False))
 
 def get_primary_monitor_size():
     from screeninfo import get_monitors
     monitors = get_monitors()
-    # Suponemos que el primero es el principal; o filtra por m.is_primary
     m = monitors[0]
     return m.width, m.height
 
 def bool_from(val):
-    """Convierte un valor tipo str/bool/None a booleano."""
     if isinstance(val, bool):
         return val
     if val is None:
@@ -143,52 +116,32 @@ def bool_from(val):
     return str(val).lower() in ("1", "true", "yes", "y")
 
 def set_msg(message: str):
-    """
-    Reproduce el comportamiento de tu función Bash set_msg:
-    - Incrementa progress_bar en 5 (inicializando en 0 la primera vez).
-    - Si llega a 95, lo ajusta a 90.
-    - Escribe el valor de progress_bar y el mensaje en msg.log.
-    - Imprime el mensaje y duerme 0.5s.
-    """
     global progress_bar
 
-    # 1) Incremento y corrección del “eterno 99%”
     progress_bar += 5
     if progress_bar == 95:
         progress_bar = 90
 
-    # 2) Ruta al logfile
     log_path = Path(emudeck_logs) / "msg.log"
-    # Asegúrate de que el directorio existe
     log_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # 3) Escribir progress y mensaje
     with log_path.open("w", encoding="utf-8") as f:
         f.write(f"{progress_bar}")
         f.write(f"# {message}\n")
 
-    # 4) Mostrar mensaje en consola y pausar
     print(message)
 
 def update_or_append_config_line(config_file: str, option: str, replacement: str) -> None:
-    """
-    - Asegura que el directorio y el fichero existen.
-    - Si encuentra una línea que empiece por `option` (tras espaciado),
-      la sustituye por `replacement` y muestra "updating: ...".
-    - Si no la encuentra, la añade al final y muestra "appending: ...".
-    """
     path = Path(config_file)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.touch(exist_ok=True)
 
-    # Leemos todas las líneas, conservando saltos de línea
     lines = path.read_text(encoding='utf-8').splitlines(keepends=True)
 
     updated = False
     new_lines = []
     for line in lines:
         if line.lstrip().startswith(option):
-            # Reemplazamos la línea completa sólo la primera vez
             if not updated:
                 print(f"updating: {replacement} in {config_file}")
                 updated = True
@@ -200,83 +153,66 @@ def update_or_append_config_line(config_file: str, option: str, replacement: str
         print(f"appending: {replacement} to {config_file}")
         new_lines.append(replacement.rstrip('\n') + '\n')
 
-    # Escribimos de vuelta todo el contenido
     path.write_text(''.join(new_lines), encoding='utf-8')
 
 def ar_169_screen():
     set_msg("Applying RetroArch bezel corrections for 16:9 screens")
 
     root = Path(RetroArch_coreConfigFolders)
-    # rglob busca todos los ficheros que casen con el patrón en subdirectorios
 
-    # Mapea cada grupo de archivos a la lista de (option, replacement)
     config_map = {
-        # pcengine.cfg
         ('pcengine.cfg',): [
             ("aspect_ratio_index =",       'aspect_ratio_index = "0"'),
             ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "0"'),
             ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.055000"'),
             ("input_overlay_x_separation_landscape =",    'input_overlay_x_separation_landscape = "0"'),
         ],
-        # atari800.cfg, atari2600.cfg, atari5200.cfg
         ('atari800.cfg', 'atari2600.cfg', 'atari5200.cfg'): [
             ("aspect_ratio_index =",       'aspect_ratio_index = "0"'),
             ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "0"'),
             ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.055000"'),
             ("input_overlay_x_separation_landscape =",    'input_overlay_x_separation_landscape = "0"'),
         ],
-        # ngpc.cfg, ngp.cfg
         ('ngpc.cfg', 'ngp.cfg'): [
             ("input_overlay_x_separation_portrait =",     'input_overlay_x_separation_portrait = "0"'),
             ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "-0.285000"'),
             ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.605000"'),
             ("input_overlay_y_offset_landscape =",        'input_overlay_y_offset_landscape = "-0.130000"'),
         ],
-        # gb.cfg
         ('gb.cfg',): [
             ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.670000"'),
         ],
-        # gbc.cfg
         ('gbc.cfg',): [
             ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.680000"'),
         ],
-        # gamegear.cfg
         ('gamegear.cfg',): [
             ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "-0.010000"'),
             ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "-0.020000"'),
         ],
-        # mastersystem.cfg
         ('mastersystem.cfg',): [
             ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.055000"'),
         ],
-        # genesis.cfg, megadrive.cfg
         ('genesis.cfg', 'megadrive.cfg'): [
             ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.055000"'),
             ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "-0.010000"'),
         ],
-        # megacd.cfg, segacd.cfg
         ('megacd.cfg', 'segacd.cfg'): [
             ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.055000"'),
             ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "0.000000"'),
         ],
-        # sega32x.cfg
         ('sega32x.cfg',): [
             ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.070000"'),
             ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "-0.010000"'),
         ],
-        # snes.cfg
         ('snes.cfg',): [
             ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.055000"'),
         ],
-        # n64.cfg
         ('n64.cfg',): [
             ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "-0.025000"'),
         ],
-        # dreamcast.cfg
         ('dreamcast.cfg',): [
             ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "0"'),
         ],
-        # saturn.cfg
         ('saturn.cfg',): [
             ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "0"'),
         ],
@@ -289,10 +225,6 @@ def ar_169_screen():
                     update_or_append_config_line(str(config_path), option, repl)
 
 def get_xdg_user_dir(name: str) -> Path:
-    """
-    Obtiene la carpeta XDG (por ejemplo DESKTOP) usando xdg-user-dir,
-    o devuelve ~/Desktop si el comando falla o no existe.
-    """
     try:
         out = subprocess.check_output(
             ['xdg-user-dir', name],
@@ -303,17 +235,14 @@ def get_xdg_user_dir(name: str) -> Path:
             return Path(out)
     except (subprocess.CalledProcessError, FileNotFoundError):
         pass
-    # Fallback
     return Path.home() / 'Desktop'
 
 def command_exists(cmd: str) -> bool:
-    """Devuelve True si `command -v cmd` tiene éxito."""
     return subprocess.call(['command', '-v', cmd],
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL) == 0
 
 def remove_if_exists(path: Path):
-    """Elimina un fichero o carpeta sin lanzar excepción si no existe."""
     try:
         if path.is_dir():
             shutil.rmtree(path)
@@ -323,10 +252,6 @@ def remove_if_exists(path: Path):
         pass
 
 def create_desktop_shortcut(dest: Path, name: str, exec_path: str, terminal: bool):
-    """
-    On Linux/macOS creates a .desktop file.
-    On Windows creates a .lnk shortcut at `dest` (dest should end with .lnk).
-    """
     system = platform.system().lower()
 
     if system.startswith("win"):
@@ -336,7 +261,6 @@ def create_desktop_shortcut(dest: Path, name: str, exec_path: str, terminal: boo
         except ImportError:
             raise RuntimeError("pywin32 is required on Windows to create shortcuts")
         pythoncom.CoInitialize()
-        # Ensure .lnk extension
         if dest.suffix.lower() != ".lnk":
             dest = dest.with_suffix(".lnk")
 
@@ -350,13 +274,11 @@ def create_desktop_shortcut(dest: Path, name: str, exec_path: str, terminal: boo
                 break
 
 
-        # Create shortcut
         pythoncom.CoInitialize()
         shell = Dispatch('WScript.Shell')
         shortcut = shell.CreateShortCut(str(dest))
         shortcut.Targetpath = str(exec_path)
         shortcut.WorkingDirectory = str(Path(exec_path).parent)
-        # If terminal=True, wrap in cmd.exe to keep window open
         if terminal:
             shortcut.Arguments = '/k'
             shortcut.Targetpath = "cmd.exe"
@@ -400,21 +322,17 @@ def create_desktop_shortcut(dest: Path, name: str, exec_path: str, terminal: boo
         print(f"Created .desktop file: {dest}")
 
     if system == "darwin":
-        # Remove existing file or link
         if dest.exists() or dest.is_symlink():
             dest.unlink()
 
-        # Create the symlink
         dest.symlink_to(exec_path)
 
 def create_desktop_icon():
-    emus_folder = home/"Applications"  # Ajusta según dónde definas emusFolder
+    emus_folder = home/"Applications"
     desktop = get_xdg_user_dir('DESKTOP')
 
-    # Si tenemos apt-get, añadimos --no-sandbox
     sandbox_flag = ' --no-sandbox' if command_exists('apt-get') else ''
 
-    # Lista de iconos antiguos a borrar
     old_icons = [
         "EmuDeckUninstall.desktop",
         "EmuDeckCHD.desktop",
@@ -427,7 +345,6 @@ def create_desktop_icon():
     for icon in old_icons:
         remove_if_exists(desktop / icon)
 
-    # Creamos el nuevo EmuDeck.desktop en el Escritorio
     appimage = f"{emus_folder}/EmuDeck.AppImage{sandbox_flag}"
     create_desktop_shortcut(
         desktop / "EmuDeck.desktop",
@@ -436,7 +353,6 @@ def create_desktop_icon():
         terminal=False
     )
 
-    # También en ~/.local/share/applications
     applications_dir = Path.home() / ".local" / "share" / "applications"
     create_desktop_shortcut(
         applications_dir / "EmuDeck.desktop",
@@ -481,22 +397,18 @@ def md5_of(path: Path) -> Optional[str]:
     return h.hexdigest()
 
 def changeLine(KEYWORD: str, REPLACE: str, FILE: str) -> None:
-    # Mostrar info de actualización
     print(f"Updating: {FILE} - {KEYWORD} to {REPLACE}")
 
     path = Path(FILE)
-    # Leer todas las líneas conservando los saltos de línea
     lines = path.read_text(encoding='utf-8').splitlines(keepends=True)
 
     new_lines = []
     for line in lines:
         if line.startswith(KEYWORD):
-            # Sustituir toda la línea por REPLACE (añadiendo salto)
             new_lines.append(REPLACE.rstrip('\n') + '\n')
         else:
             new_lines.append(line)
 
-    # Escribir de nuevo en el fichero
     path.write_text(''.join(new_lines), encoding='utf-8')
 
 def escapeSedKeyword(INPUT: str) -> str:
@@ -520,14 +432,7 @@ def deleteConfigs():
                 print(f"Failed to delete {p}: {e}")
 
 def customLocation() -> Optional[str]:
-    """
-    Abre un diálogo de selección de directorio usando zenity y devuelve
-    la ruta seleccionada, o None si se cierra o hay error.
-    Equivalente a la función Bash:
-      zenity --file-selection --directory --title="Select a destination for the Emulation directory."
-    """
     try:
-        # Llamamos a zenity y capturamos la salida
         result = subprocess.check_output(
             [
                 "zenity",
@@ -540,7 +445,6 @@ def customLocation() -> Optional[str]:
         ).strip()
         return result or None
     except (subprocess.CalledProcessError, FileNotFoundError):
-        # Si el usuario cancela o no existe zenity
         return None
 
 def get_latest_release_gh(repository: str,
@@ -562,7 +466,6 @@ def get_latest_release_gh(repository: str,
                 and name.endswith(fileType)):
             return asset.get("browser_download_url", "")
 
-    # Si no hay coincidencias
     return False
 
 def get_latest_prerelease_gh(repository: str,
@@ -590,24 +493,17 @@ def linkToSaveFolder(emu: str, folderName: str, path: str, saves_path: str, set_
     link_path = Path(saves_path) / emu / folderName
     target_path = Path(path)
 
-    # Caso: no existe como directorio
     if not link_path.is_dir():
-        # Y tampoco existe como symlink
         if not link_path.is_symlink():
-            # Creación de carpeta padre
             (Path(saves_path) / emu).mkdir(parents=True, exist_ok=True)
             set_msg(f"Linking {emu} {folderName} to the Emulation/saves folder")
-            # Aseguramos que el destination exista
             target_path.mkdir(parents=True, exist_ok=True)
-            # Creamos (o actualizamos) el symlink
             link_path.symlink_to(target_path, target_is_directory=True)
             print(f"Linked: {link_path} → {target_path}")
     else:
-        # Ya existe como directorio (o symlink a directorio)
         if not link_path.is_symlink():
             print(f"{link_path} is not a link. Please check it.")
         else:
-            # Leemos el destination actual del symlink
             current_target = os.readlink(str(link_path))
             if Path(current_target) == target_path:
                 print(f"{link_path} is already linked.")
@@ -615,21 +511,15 @@ def linkToSaveFolder(emu: str, folderName: str, path: str, saves_path: str, set_
             else:
                 print(f"{link_path} not linked correctly, relinking.")
                 link_path.unlink()
-                # Recursivamente intentamos de nuevo
                 linkToSaveFolder(emu, folderName, path, saves_path, set_msg)
 
 def linkToTexturesFolder(emu: str, folderName: str, path: str, emulation_path: str, set_msg) -> None:
-    """
-    Crea un symlink en $emulation_path/texturepacks/emu/folderName apuntando a path.
-    Corrige enlaces existentes o informa si no son válidos.
-    """
     texturepacks_dir = Path(emulation_path) / "texturepacks"
     texturepacks_dir.mkdir(parents=True, exist_ok=True)
 
     link_path = texturepacks_dir / emu / folderName
     target_path = Path(path)
 
-    # Si no existe como directorio
     if not link_path.is_dir():
         if not link_path.is_symlink():
             (texturepacks_dir / emu).mkdir(parents=True, exist_ok=True)
@@ -651,10 +541,6 @@ def linkToTexturesFolder(emu: str, folderName: str, path: str, emulation_path: s
                 linkToTexturesFolder(emu, folderName, path, emulation_path, set_msg)
 
 def linkToStorageFolder(emu: str, folderName: str, path: str, storage_path: str, set_msg) -> None:
-    """
-    Crea un symlink en $storage_path/emu/folderName apuntando a path.
-    Corrige enlaces existentes o informa si no son válidos.
-    """
     link_path = Path(storage_path) / emu / folderName
     target_path = Path(path)
 
@@ -680,27 +566,21 @@ def linkToStorageFolder(emu: str, folderName: str, path: str, storage_path: str,
 
 def moveSaveFolder(emu: str, folderName: str, path: str, saves_path: str, set_msg) -> None:
     link_path = Path(saves_path) / emu / folderName
-    # Obtiene destination real (resolución completa)
     try:
         linkedTarget = Path(link_path).resolve(strict=True)
     except FileNotFoundError:
         print(f"No link at {link_path} to move from.")
         return
 
-    # Elimina el symlink
     link_path.unlink()
 
-    # Si tras unlink no existe, creamos carpeta y movemos
     if not link_path.exists():
         link_path.mkdir(parents=True, exist_ok=True)
         if str(linkedTarget) == str(path):
             set_msg(f"Moving {emu} {folderName} to the Emulation/saves/{emu}/{folderName} folder")
-            # Copiamos contenido de path a saves_path
             shutil.copytree(path, str(link_path), dirs_exist_ok=True)
-            # Renombramos el original
             bak_path = Path(path + ".bak")
             shutil.move(path, bak_path)
-            # Recreamos el symlink en original
             Path(path).symlink_to(link_path, target_is_directory=True)
             print(f"Moved and linked: {path} → {link_path} (original backed up to {bak_path})")
 def iniFieldUpdate(iniFile: str,
@@ -717,13 +597,11 @@ def iniFieldUpdate(iniFile: str,
     section_header = f"[{iniSection}]" if iniSection else ""
     start_idx = end_idx = None
 
-    # Si se indica sección, buscarla
     if iniSection:
         for i, line in enumerate(lines):
             if line.strip() == section_header:
                 start_idx = i
                 break
-        # buscar fin de sección (la próxima cabecera)
         if start_idx is not None:
             for j in range(start_idx + 1, len(lines)):
                 if lines[j].lstrip().startswith("[") and lines[j].rstrip().endswith("]"):
@@ -732,14 +610,12 @@ def iniFieldUpdate(iniFile: str,
             else:
                 end_idx = len(lines) - 1
 
-    # Función auxiliar para detectar línea de clave
     def is_key_line(line: str) -> bool:
         return line.startswith(f"{iniKey}{separator}")
 
     updated = False
 
     if iniSection and start_idx is None:
-        # sección no existe: crear cabecera + clave/value
         print(f"Creating Header {section_header}")
         if len(lines) > 0 and not lines[-1].endswith("\n"):
             lines[-1] = lines[-1] + "\n"
@@ -748,17 +624,13 @@ def iniFieldUpdate(iniFile: str,
         lines.append(f"{iniKey}{separator}{iniValue}\n")
         updated = True
     elif iniSection and start_idx is not None:
-        # sección existe
-        # buscar clave dentro del bloque
         block = lines[start_idx+1:end_idx+1] if end_idx is not None else lines[start_idx+1:]
         if not any(is_key_line(l) for l in block):
-            # crear clave justo después del header
             print(f"Creating {section_header} key {iniKey}{separator}{iniValue}")
             insert_pos = start_idx + 1
             lines.insert(insert_pos, f"{iniKey}{separator}{iniValue}\n")
             updated = True
         else:
-            # actualizar valor
             print(f"Updating {section_header} key {iniKey}{separator}{iniValue}")
             for k in range(start_idx+1, (end_idx or len(lines)-1) + 1):
                 if is_key_line(lines[k]):
@@ -766,7 +638,6 @@ def iniFieldUpdate(iniFile: str,
                     updated = True
                     break
     else:
-        # sin sección o sección no relevante
         if not any(is_key_line(l) for l in lines):
             print(f"Creating key {iniKey}{separator}{iniValue}")
             if not lines[-1].endswith("\n"):
@@ -793,7 +664,6 @@ def iniSectionUpdate(file: str, section_name: str, new_content: str) -> None:
     lines = path.read_text(encoding='utf-8').splitlines(keepends=True)
     header = f'[{section_name}]'
 
-    # 1) Hallar índice de cabecera
     start_idx = None
     for i, line in enumerate(lines):
         if line.strip() == header:
@@ -804,7 +674,6 @@ def iniSectionUpdate(file: str, section_name: str, new_content: str) -> None:
         print(f"Section {header} not found in {file}")
         return
 
-    # 2) Hallar fin de sección (siguiente línea que comienza por '[')
     end_idx = len(lines)
     for j in range(start_idx + 1, len(lines)):
         l = lines[j]
@@ -812,28 +681,17 @@ def iniSectionUpdate(file: str, section_name: str, new_content: str) -> None:
             end_idx = j
             break
 
-    # 3) Preparar new_content como lista de líneas con saltos
     new_block = []
     for part in new_content.splitlines():
         new_block.append(part + "\n")
-    # Asegurar un salto tras el bloque si no termina en línea vacía
     if not new_content.endswith("\n"):
         new_block.append("\n")
 
-    # 4) Reconstruir contenido:
-    #    - todo hasta e incluyendo la cabecera
-    #    - el new_block
-    #    - el resto desde end_idx en adelante
     updated = lines[: start_idx + 1] + new_block + lines[end_idx :]
 
-    # 5) Volcar al fichero
     path.write_text(''.join(updated), encoding='utf-8')
 
 def calculate_checksum_sha256(file: Union[str, Path]) -> Optional[str]:
-    """
-    Calcula el SHA256 de un fichero y devuelve el hash en minúsculas.
-    Si el fichero no existe, imprime un error y devuelve None.
-    """
     file = Path(file)
     if not file.is_file():
         print(f"Error: File '{file}' does not exist.")
@@ -856,13 +714,6 @@ def safeDownload(name: str,
     temp_file = outFile.with_suffix(outFile.suffix + '.temp')
     headers = headers or {}
 
-    # print("safeDownload()")
-    # print(f"- Name: {name}")
-    # print(f"- URL: {url}")
-    # print(f"- OutFile: {outFile}")
-    # print(f"- ShowProgress: {showProgress}")
-    # print(f"- Headers: {headers}")
-    # print(f"- Expected SHA256: {checksumSha256}")
 
     try:
         with requests.get(url, stream=True, headers=headers, allow_redirects=True) as r:
@@ -871,7 +722,6 @@ def safeDownload(name: str,
             if showProgress is True:
                 total = int(total)
                 downloaded = 0
-                #print(f"Downloading {name}:")
                 with temp_file.open('wb') as f:
                     for chunk in r.iter_content(chunk_size=8192):
                         if not chunk:
@@ -880,9 +730,8 @@ def safeDownload(name: str,
                         downloaded += len(chunk)
                         percent = downloaded * 100 // total
                         print(f"\r  {percent}% ({downloaded}/{total} bytes)", end='', flush=True)
-                print()  # salto de línea al terminar
+                print()
             else:
-                # Sin progreso
                 with temp_file.open('wb') as f:
                     for chunk in r.iter_content(chunk_size=8192):
                         if chunk:
@@ -893,7 +742,6 @@ def safeDownload(name: str,
             temp_file.unlink()
         return False
 
-    # Comprobación de checksum
     if checksumSha256:
         actual = calculate_checksum_sha256(temp_file)
         print(f"Downloaded File Checksum: {actual}")
@@ -903,13 +751,10 @@ def safeDownload(name: str,
             temp_file.unlink(missing_ok=True)
             return False
 
-    # Mover temp a destination final
     try:
         temp_file.replace(outFile)
-        #print(f"{name} downloaded successfully to {outFile}")
         return True
     except Exception as e:
-        #print(f"Error moving temp file: {e}")
         temp_file.unlink(missing_ok=True)
         return False
 
@@ -921,10 +766,8 @@ def addSteamInputCustomIcons():
         print(f"Source icons directory not found: {src}")
         return
 
-    # Aseguramos que la carpeta destination existe
     dest.mkdir(parents=True, exist_ok=True)
 
-    # Copiamos todos los ficheros y subdirectorios, preservando metadata
     for item in src.rglob('*'):
         rel = item.relative_to(src)
         target = dest / rel
@@ -936,12 +779,10 @@ def addSteamInputCustomIcons():
 
 def is_flatpak_installed(flatPakID: str) -> bool:
     try:
-        # Listado de apps de usuario
         user = subprocess.run(
             ["flatpak", "--columns=app", "list", "--user"],
             stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True, check=True
         ).stdout.splitlines()
-        # Listado de apps del sistema
         system = subprocess.run(
             ["flatpak", "--columns=app", "list", "--system"],
             stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True, check=True
@@ -949,7 +790,6 @@ def is_flatpak_installed(flatPakID: str) -> bool:
     except subprocess.CalledProcessError:
         return False
 
-    # Comprobamos igualdad exacta en cualquiera de las dos listas
     return any(line.strip() == flatPakID for line in user + system)
 
 def check_internet_connection() -> bool:
@@ -963,10 +803,8 @@ def check_internet_connection() -> bool:
         return False
 
 def zip_logs() -> bool:
-    # Importamos rutas desde tu configuración
     from core.vars import emudeck_logs, emudeck_folder
 
-    # 1) Determinar carpeta Desktop
     try:
         desktop = Path(subprocess.check_output(
             ["xdg-user-dir", "DESKTOP"], stderr=subprocess.DEVNULL, text=True
@@ -982,14 +820,11 @@ def zip_logs() -> bool:
 
     try:
         with zipfile.ZipFile(zip_output, "w", zipfile.ZIP_DEFLATED) as zf:
-            # Añadir todos los archivos de logs_folder (sin conservar ruta padre)
             if logs_folder.is_dir():
                 for f in logs_folder.rglob('*'):
                     if f.is_file():
-                        # arcname sin incluir la parte inicial de logs_folder
                         arcname = f.relative_to(logs_folder.parent)
                         zf.write(f, arcname)
-            # Añadir settings_file con su nombre base
             if settings_file.is_file():
                 zf.write(settings_file, settings_file.name)
         return True
@@ -1018,9 +853,6 @@ def setResolutions():
     Yuzu_setResolution()
 
 def addParser(custom_parser: str) -> None:
-    """
-    Añade un parser JSON a SRM_userConfigurations si no existe ya.
-    """
     source = Path(emudeck_backend) / "configs" / "steam-rom-manager" / "userData" / "parsers" / "optional"
     parser_path = source / custom_parser
 
@@ -1028,7 +860,6 @@ def addParser(custom_parser: str) -> None:
         print(f"Parser file not found: {parser_path}")
         return
 
-    # Cargar el parser JSON
     with parser_path.open(encoding='utf-8') as f:
         parser_cfg = json.load(f)
 
@@ -1036,11 +867,9 @@ def addParser(custom_parser: str) -> None:
     print(f"Parser ID: {parser_id}")
 
     srm_path = Path(SRM_userConfigurations)
-    # Inicializar JSON si no existe
     if not srm_path.is_file():
         srm_path.write_text("[]\n", encoding='utf-8')
 
-    # Leer configuración actual
     with srm_path.open(encoding='utf-8') as f:
         try:
             configs = json.load(f)
@@ -1049,28 +878,21 @@ def addParser(custom_parser: str) -> None:
         except Exception:
             configs = []
 
-    # Comprobar existencia
     if any(cfg.get("parserId") == parser_id for cfg in configs):
         print(f"Parser {parser_id} already exists in configuration.")
         return
 
-    # Añadir y ordenar
     print("adding parser")
     configs.append(parser_cfg)
-    # Llamada a SRM_setEmulationFolder (si existe)
     try:
         SRM_setEmulationFolder()
     except NameError:
         print("NYI SRM_setEmulationFolder")
 
     configs.sort(key=lambda x: x.get("configTitle", ""))
-    # Volcar de nuevo
     srm_path.write_text(json.dumps(configs, ensure_ascii=False, indent=2) + "\n", encoding='utf-8')
 
 def removeParser(custom_parser: str) -> None:
-    """
-    Elimina un parser del SRM_userConfigurations si está presente.
-    """
     source = Path(emudeck_backend) / "configs" / "steam-rom-manager" / "userData" / "parsers" / "optional"
     parser_path = source / custom_parser
 
@@ -1097,7 +919,6 @@ def removeParser(custom_parser: str) -> None:
             print("Configuración inválida, abortando.")
             return
 
-    # Filtrar fuera el parser
     new_configs = [cfg for cfg in configs if cfg.get("parserId") != parser_id]
     if len(new_configs) == len(configs):
         print(f"El parser {parser_id} no se encontró en la configuración.")
@@ -1115,11 +936,6 @@ def removeParser(custom_parser: str) -> None:
 def scriptConfigFileGetVar(configFile: str,
                            configVar: str,
                            configVarDefaultValue: str) -> str:
-    """
-    Lee la primera ocurrencia de `configVar=` en `configFile` y devuelve
-    el valor tras el '=' (sin espacios). Si no se encuentra, devuelve
-    `configVarDefaultValue`.
-    """
     path = Path(configFile)
     value = None
 
@@ -1128,7 +944,6 @@ def scriptConfigFileGetVar(configFile: str,
             with path.open(encoding='utf-8') as f:
                 for line in f:
                     if line.startswith(f"{configVar}="):
-                        # Todo lo que venga tras el primer '='
                         _, rhs = line.split("=", 1)
                         value = rhs.strip()
                         break
@@ -1140,10 +955,6 @@ def scriptConfigFileGetVar(configFile: str,
     return value
 
 def getEmuRepo(name: str) -> str:
-    """
-    Dado un nombre de emulador, devuelve el repositorio GitHub correspondiente,
-    o "none" si no existe mapeo.
-    """
     mapping = {
         "cemu":       "cemu-project/Cemu",
         "azahar":     "azahar-emu/azahar",
@@ -1165,10 +976,6 @@ def getEmuRepo(name: str) -> str:
     return mapping.get(name, "none")
 
 def getLatestVersionGH(repository: str) -> str:
-    """
-    Consulta la API de GitHub para obtener el campo `id`
-    del release más reciente de `repository` (owner/repo).
-    """
     url = f"https://api.github.com/repos/{repository}/releases/latest"
     headers = {
         "Accept": "application/vnd.github+json",
@@ -1177,21 +984,13 @@ def getLatestVersionGH(repository: str) -> str:
     resp = requests.get(url, headers=headers)
     resp.raise_for_status()
     data = resp.json()
-    # Devolver el ID como cadena
     return str(data.get("id", ""))
 
 def addProtonLaunch():
-    """
-    Copia proton-launch.sh y appID.py desde el backend de EmuDeck
-    a `tools_path`, y da permiso de ejecución a proton-launch.sh.
-    """
-    # Variables asumidas definidas en core.vars o similar:
-    # emudeck_backend, tools_path
 
     backend_tools = Path(emudeck_backend) / "tools"
     dst = Path(tools_path) / "launchers"
 
-    # Archivos a copiar
     for fname in ("proton-launch.sh", "appID.py"):
         src = backend_tools / fname
         if not src.is_file():
@@ -1201,7 +1000,6 @@ def addProtonLaunch():
         shutil.copy2(src, dst / fname)
         print(f"Copied {src} → {dst / fname}")
 
-    # Dar permiso de ejecución sólo a proton-launch.sh
     pl = dst / "proton-launch.sh"
     if pl.is_file():
         pl.chmod(pl.stat().st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
@@ -1210,9 +1008,6 @@ def addProtonLaunch():
         print(f"File not found for chmod: {pl}")
 
 def store_patreon_token(token: str) -> None:
-    """
-    Guarda el token en saves_path/.token y lo sube mediante cloud_sync_bin si está disponible.
-    """
     token_file = Path(saves_path) / ".token"
     token_file.parent.mkdir(parents=True, exist_ok=True)
     token_file.write_text(token, encoding='utf-8')
@@ -1230,9 +1025,6 @@ def store_patreon_token(token: str) -> None:
         subprocess.run(cmd)
 
 def server_install() -> None:
-    """
-    Copia server.sh desde el backend a tools_path y le da permiso de ejecución.
-    """
     src = Path(emudeck_backend) / "tools" / "server.sh"
     dst = Path(tools_path) / "server.sh"
     if not src.is_file():
@@ -1244,9 +1036,7 @@ def server_install() -> None:
     print(f"Installed server script to {dst}")
 
 def startCompressor() -> None:
-    """
-    Abre Konsole y ejecuta el script chddeck.sh en una nueva pestaña/ventana.
-    """
+   
     script = Path(emudeck_backend) / "tools" / "chdconv" / "chddeck.sh"
     if not script.is_file():
         print(f"Compressor script not found: {script}")
@@ -1259,15 +1049,6 @@ def call_func(func: Callable[..., Any],
               *args,
               silent: bool = True,
               **kwargs) -> Union[Any, dict]:
-    """
-    Ejecuta func(*args, **kwargs).
-    - Si silent=False: devuelve directamente el retorno de func.
-    - Si silent=True: captura stdout/stderr de func y devuelve un dict:
-         {"status":"OK","result":<func_return>}
-      o bien {"status":"KO","error":<mensaje>} si lanza excepción
-      o {"status":"KO"} si devuelve False.
-    **No** imprime nada.
-    """
     if not silent:
         return func(*args, **kwargs)
 
@@ -1279,17 +1060,12 @@ def call_func(func: Callable[..., Any],
     except Exception as e:
         return {"status": "KO", "error": str(e)}
 
-    # Si la función devolvió False/None ⇒ KO
     if result is False:
         return {"status": "KO"}
 
     return {"status": "OK", "result": result}
 
 def create_symlink_crossplatform(source: Path, link_path: Path):
-    """
-    Crea un symlink en macOS/Linux o una junction en Windows (si es un directorio).
-    Si el symlink ya existe, se reemplaza.
-    """
     if link_path.exists() or link_path.is_symlink():
         link_path.unlink()
 
@@ -1302,7 +1078,6 @@ def create_symlink_crossplatform(source: Path, link_path: Path):
                 shell=True, check=True
             )
         else:
-            # Usar ln -s en macOS/Linux para evitar alias
             subprocess.run(['ln', '-sf', str(source), str(link_path)], check=True)
 
     except subprocess.CalledProcessError as e:
@@ -1316,10 +1091,8 @@ def install_emu(name, url, type_, destination):
     if destination is None:
         destination = emus_folder
     destination = Path(destination)
-    # Define the folder where emulators will be stored
     emus_folder.mkdir(parents=True, exist_ok=True)
 
-    # Temporary directory to download the file
     temp_dir = Path(tempfile.mkdtemp())
     archive_path = temp_dir / f"{name}.{type_}"
     dest_file = destination / f"{name}"
@@ -1334,14 +1107,12 @@ def install_emu(name, url, type_, destination):
                 ),
                 "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
             }
-            # Download the file
             response = requests.get(url, stream=True, headers=headers, timeout=30)
             response.raise_for_status()
             with open(archive_path, "wb") as f:
                 for chunk in response.iter_content(chunk_size=8192):
                     f.write(chunk)
 
-        # === Handle based on file type ===
         if type_ == "exe":
             print(archive_path)
             print(dest_file)
@@ -1358,7 +1129,7 @@ def install_emu(name, url, type_, destination):
                 return False
             print(f"{name} flatpak installed")
             
-            return True 
+            return True
 
         elif type_ in ("AppImage", "appimage"):
             dest_file = Path(f"{dest_file}.AppImage")
@@ -1374,7 +1145,6 @@ def install_emu(name, url, type_, destination):
 
 
             if system == "linux":
-                # 2. Find the first .AppImage under extract_to
                 appimages = list(extract_to.rglob("*.AppImage"))
                 if not appimages:
                     print(f"No .AppImage found inside {extract_to}")
@@ -1383,14 +1153,12 @@ def install_emu(name, url, type_, destination):
                 appimage_path = appimages[0]
                 print(f"Found AppImage: {appimage_path}")
 
-                # 3. Copy it to emus_folder root
                 dest_file = emus_folder / appimage_path.name
                 shutil.copy2(appimage_path, dest_file)
                 dest_file.chmod(0o755)
                 print(f"{name}.AppImage installed at {dest_file}")
 
             if system == "darwin":
-                # 2. Find the first .AppImage under extract_to
                 apps = list(extract_to.rglob("*.app"))
                 if not apps:
                     print(f"No .app found inside {extract_to}")
@@ -1399,29 +1167,24 @@ def install_emu(name, url, type_, destination):
                 app_path = apps[0]
                 print(f"Found App: {app_path}")
 
-                # 3. Copy it to emus_folder root
                 dest_file = emus_folder / f"{name}.app"
                 shutil.copytree(app_path, dest_file, dirs_exist_ok=True)
                 dest_file.chmod(0o755)
                 darwin_trust_app(dest_file)
                 print(f"{name}.app installed at {dest_file}")
 
-            # 4. (optional) clean up extracted folder
             shutil.rmtree(extract_to, ignore_errors=True)
         elif type_ in ("tar.xz"):
-            # Define extraction destination
             extract_to = emus_folder / destination
             extract_to.mkdir(parents=True, exist_ok=True)
             extract_tar_xz(archive_path, extract_to)
             print(f"{name} extracted to {extract_to}")
 
         elif type_ in ("zip"):
-            # Define extraction destination
             extract_to = emus_folder / destination if destination else emus_folder / name
             extract_to.mkdir(parents=True, exist_ok=True)
 
             if system == "linux":
-                # 2. Find the first .AppImage under extract_to
                 appimages = list(extract_to.rglob("*.AppImage"))
                 if not appimages:
                     print(f"No .AppImage found inside {extract_to}")
@@ -1430,7 +1193,6 @@ def install_emu(name, url, type_, destination):
                 appimage_path = appimages[0]
                 print(f"Found AppImage: {appimage_path}")
 
-                # 3. Copy it to emus_folder root
                 dest_file = emus_folder / appimage_path.name
                 shutil.copy2(appimage_path, dest_file)
                 dest_file.chmod(0o755)
@@ -1453,7 +1215,6 @@ def install_emu(name, url, type_, destination):
 
 
         elif type_ in ("7z"):
-            # Define extraction destination
             extract_to = emus_folder / destination if destination else emus_folder / name
             extract_to.mkdir(parents=True, exist_ok=True)
 
@@ -1463,7 +1224,6 @@ def install_emu(name, url, type_, destination):
 
 
         elif type_ == "dmg":
-            # 2) Use Finder/Open to mount (this invokes the GUI EULA)
             print(f"Opening {archive_path} in Finder…")
             install_dmg(name,archive_path)
         else:
@@ -1478,7 +1238,6 @@ def install_emu(name, url, type_, destination):
         return False
 
     finally:
-        # Clean up temporary directory
         shutil.rmtree(temp_dir, ignore_errors=True)
 
 def uninstall_emu(name, type_):
@@ -1544,7 +1303,6 @@ def create_app_shortcut(name: str):
         except ImportError:
             raise RuntimeError("pywin32 is required on Windows to create shortcuts")
 
-        # Find icon
         icons_src = Path(emudeck_backend) / "icons" / "ico"
         base = name.split(" ", 1)[0]
         icon = ""
@@ -1570,12 +1328,10 @@ def create_app_shortcut(name: str):
         script_path.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src_file, script_path)
 
-        # Create the shortcut
         pythoncom.CoInitialize()
         shell = Dispatch("WScript.Shell")
         shortcut = shell.CreateShortCut(str(dest))
 
-        # Point the .lnk at cmd.exe and run the .bat launcher
         cmd_exe = Path(os.environ["WINDIR"]) / "System32" / "cmd.exe"
         shortcut.Targetpath = str(cmd_exe)
         shortcut.Arguments = f'/d /c ""{script_path}""'
@@ -1648,23 +1404,19 @@ def create_app_shortcut(name: str):
 
 def create_mac_app(app_name: str, script_path: Path, output_dir: Path = Path("/Applications/EmuDeck")):
 
-    # Define bundle structure
     app_bundle = output_dir / f"{app_name}.app"
     contents_dir = app_bundle / "Contents"
     macos_dir = contents_dir / "MacOS"
     resources_dir = contents_dir / "Resources"
 
-    # Create necessary directories
     macos_dir.mkdir(parents=True, exist_ok=True)
     resources_dir.mkdir(parents=True, exist_ok=True)
 
-    # Copy the shell script into Contents/MacOS and make it executable
-    exec_name = script_path.stem  # e.g. "myscript"
+    exec_name = script_path.stem
     target_exec = macos_dir / exec_name
     shutil.copy2(script_path, target_exec)
     target_exec.chmod(target_exec.stat().st_mode | stat.S_IEXEC)
 
-    # Create Info.plist
     plist = {
         "CFBundleName": app_name,
         "CFBundleDisplayName": app_name,
@@ -1680,22 +1432,13 @@ def create_mac_app(app_name: str, script_path: Path, output_dir: Path = Path("/A
     print(f"✅ Created macOS app bundle at: {app_bundle}")
 
 def extract(zip_path: Path, extract_to: Path) -> None:
-    """
-    Extract a ZIP archive preserving its full directory structure.
-    """
     extract_to.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(zip_path, 'r') as zf:
         zf.extractall(path=extract_to)
 
 def extract_flat(zip_path: Path, extract_to: Path):
-    """
-    Extract a ZIP archive, ignoring a single top-level directory if present.
-    Files end up directly under extract_to.
-    """
     with zipfile.ZipFile(zip_path, 'r') as zf:
-        # Gather all file entries (skip pure directories)
         files = [name for name in zf.namelist() if not name.endswith('/')]
-        # Determine if there’s exactly one common root folder
         roots = {Path(f).parts[0] for f in files}
         common_root = roots.pop() if len(roots) == 1 else None
 
@@ -1703,7 +1446,6 @@ def extract_flat(zip_path: Path, extract_to: Path):
             if member.is_dir():
                 continue
             src = Path(member.filename)
-            # Strip the common root if found
             parts = src.parts[1:] if common_root and src.parts[0] == common_root else src.parts
             dest = extract_to.joinpath(*parts)
             dest.parent.mkdir(parents=True, exist_ok=True)
@@ -1712,21 +1454,14 @@ def extract_flat(zip_path: Path, extract_to: Path):
 
 def extract7z_flat(archive_path: Path, extract_to: Path):
     import py7zr
-    """
-    Extract a .7z archive, ignoring a single top-level directory if present.
-    - On Windows: uses the built-in `tar.exe -xf` (available in Win11).
-    - Otherwise: tries py7zr and then falls back to external `7z`.
-    """
     extract_to.mkdir(parents=True, exist_ok=True)
 
-    # WINDOWS ⏩ use native tar to handle .7z
     if sys.platform == "win32":
         cmd = [
             "tar", "-xf", str(archive_path),
             "-C", str(extract_to)
         ]
         subprocess.run(cmd, check=True)
-        # After extraction, flatten a single top folder if needed:
         items = list(extract_to.iterdir())
         if len(items) == 1 and items[0].is_dir():
             top = items[0]
@@ -1735,7 +1470,6 @@ def extract7z_flat(archive_path: Path, extract_to: Path):
             top.rmdir()
         return
 
-    # NON-Windows: try pure-Python first
     try:
         with py7zr.SevenZipFile(str(archive_path), mode='r') as zf:
             all_files = [n for n in zf.getnames() if not n.endswith('/')]
@@ -1754,20 +1488,17 @@ def extract7z_flat(archive_path: Path, extract_to: Path):
         return
 
     except Exception as e:
-        # If it's not BCJ2, re-raise
         if "BCJ2 filter is not supported" not in str(e):
             raise
 
-    # FALLBACK on Unix-like: external 7z CLI
     cmd = [
-        "7z", "x",               # extract
-        "-y",                    # yes to all
-        f"-o{extract_to}",       # output dir
+        "7z", "x",
+        "-y",
+        f"-o{extract_to}",
         str(archive_path)
     ]
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 
-    # flatten top-level if needed
     items = list(extract_to.iterdir())
     if len(items) == 1 and items[0].is_dir():
         top = items[0]
@@ -1777,12 +1508,9 @@ def extract7z_flat(archive_path: Path, extract_to: Path):
 
 def install_dmg(name, archive_path):
     subprocess.run(["open", str(archive_path)], check=True)
-    # 3) Wait for mount to appear under /Volumes
     mount_point = None
     for _ in range(30):
         for vol in Path("/Volumes").iterdir():
-            # match a volume whose name begins with our dmg base name
-            #if vol.name.startswith(name):
             mount_point = vol
             break
         if mount_point:
@@ -1794,11 +1522,9 @@ def install_dmg(name, archive_path):
 
     print(f"✅ Mounted at {mount_point}")
 
-    # 4) Locate the .app bundle
     apps = list(mount_point.glob("*.app"))
     if not apps:
         print("❌ No .app found inside the DMG.")
-        # allow user to finish reading then detach
         input("Press Enter to unmount…")
         subprocess.run(["hdiutil", "detach", str(mount_point)])
         return False
@@ -1809,7 +1535,6 @@ def install_dmg(name, archive_path):
     shutil.copytree(app_bundle, target, dirs_exist_ok=True)
     print(f"✔️  Copied {app_bundle.name} → {target}")
     darwin_trust_app(target)
-    # 5) Finally unmount
     subprocess.run(["hdiutil", "detach", str(mount_point)], stdout=subprocess.DEVNULL)
     print("✔️  DMG detached.")
     return True
@@ -1828,29 +1553,15 @@ def copy_setting_dir(src: Path, dst: Path):
     )
 def copy_and_set_settings_file(src: Union[str, Path],
                                dst: Union[str, Path]) -> Path:
-    """
-    Copy a config file from:
-        emudeck_backend/configs/<src>
-    into the directory <dst>, preserving its filename.
-
-    :param src: Relative path under configs, e.g. "windows/azahar/qt-config.ini"
-    :param dst: Target directory (or Path) where the file should be copied.
-    :returns: The Path to the newly copied file.
-    :raises FileNotFoundError: if the source file doesn't exist.
-    """
-    # Build absolute source path
     src_path = Path(emudeck_backend) / "configs" / Path(src)
     if not src_path.is_file():
         raise FileNotFoundError(f"Source file not found: {src_path}")
 
-    # Ensure dst_dir exists
     dst_dir = Path(dst)
     dst_dir.mkdir(parents=True, exist_ok=True)
 
-    # Destination file is dst_dir / <same filename>
     dst_file = dst_dir / src_path.name
 
-    # Copy (cross-drive safe) with metadata
     shutil.copy2(src_path, dst_file)
 
     print(f"Copied {src_path} → {dst_file}")
@@ -1866,7 +1577,6 @@ def sed(old: str, replacement: str, file_path: str) -> None:
     file_str = str(file_path)
 
     pattern = re.compile(re.escape(old))
-    # Escape backslashes so "\\E" becomes "\\\\E" etc.
     safe_repl = replacement.replace("\\", "\\\\")
     for line in fileinput.input(str(file_path), inplace=True, backup=".bak"):
         new_line = pattern.sub(safe_repl, line)
@@ -1889,10 +1599,8 @@ def move_contents_and_link(origin: Union[str, Path], destination: Union[str, Pat
     if origin.is_dir():
         destination.mkdir(parents=True, exist_ok=True)
         
-        # Crear backup si origin tiene contenido
         if any(origin.iterdir()):
             backup_path = origin.parent / f"{origin.name}_backup"
-            # Si ya existe un backup, añadir timestamp
             if backup_path.exists():
                 from datetime import datetime
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -1933,35 +1641,25 @@ def move_contents_and_link(origin: Union[str, Path], destination: Union[str, Pat
 
 def set_config(old: str, new: str, file_to_check: Path, separator: str = "=") -> None:
     file_to_check = Path(file_to_check)
-    # Read all lines (preserving newlines later)
     lines = file_to_check.read_text(encoding="utf-8").splitlines()
 
-    # Prepare the new line
     new_line = f"{old}{separator}{new}"
 
-    # Search for an existing line containing 'old'
     for idx, line in enumerate(lines):
         if old in line:
             old_line = line
             lines[idx] = new_line
-            # Write back
             file_to_check.write_text("\n".join(lines) + "\n", encoding="utf-8")
             print(f"Line '{old_line}' changed to '{new_line}'")
             return
 
-    # If we get here, no existing line was found—append instead
     with file_to_check.open("a", encoding="utf-8") as f:
         f.write(new_line + "\n")
     print(f"Line '{new_line}' created in {file_to_check}")
 
 def extract_tar_xz(archive_path: Path, extract_to: Path):
-    """
-    Extrae un .tar.xz al directorio indicado.
-    """
-    # Asegúrate de que exista la carpeta destino
     extract_to.mkdir(parents=True, exist_ok=True)
 
-    # "r:xz" abre un tar comprimido con xz
     with tarfile.open(archive_path, mode="r:xz") as tar:
         tar.extractall(path=extract_to)
 
@@ -1990,11 +1688,11 @@ def update_json_key(key: str, new_value: Any, file_path: Path) -> None:
 
     with file_path.open("w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
-        f.write("\n")  # s
+        f.write("\n")
 
 
 def md5_of_file(path: Path) -> str:
-    """Return the lowercase MD5 checksum of a file."""
+    
     h = hashlib.md5()
     with path.open("rb") as f:
         for chunk in iter(lambda: f.read(8192), b""):
@@ -2015,7 +1713,6 @@ def set_setting(key: str, value: Any) -> None:
     else:
         data = {}
 
-    # Soporte para claves anidadas
     keys = key.split('.')
     d = data
     for k in keys[:-1]:
@@ -2027,11 +1724,9 @@ def set_setting(key: str, value: Any) -> None:
     with json_path.open('w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
         f.write("\n")
-    #Settings reload
     json_settings_path = Path(emudeck_folder) / "settings.json"
     if json_settings_path.exists():
         with open(json_settings_path, encoding='utf-8') as jf:
-            # Aquí json.load lee y va aplicando object_hook a cada dict
             settings = json.load(jf, object_hook=lambda d: SimpleNamespace(**d))
 
 def get_launcher_setting(key: str, default: Any = None) -> Any:
@@ -2087,7 +1782,6 @@ def popup_ask_conflict(title: str, message: str) -> Optional[bool]:
     lbl.setWordWrap(True)
     dlg._add(lbl)
 
-    # Botones
     btn_layout = QtWidgets.QHBoxLayout()
     yes_btn = QtWidgets.QPushButton("Yes")
     no_btn  = QtWidgets.QPushButton("No")
@@ -2098,7 +1792,6 @@ def popup_ask_conflict(title: str, message: str) -> Optional[bool]:
     dlg._inner.addLayout(btn_layout)
 
     widgets = [yes_btn, no_btn, ca_btn]
-    # initial focus on first button
     widgets[0].setFocus()
     idx = 0
 
@@ -2126,7 +1819,6 @@ def popup_ask_conflict(title: str, message: str) -> Optional[bool]:
             idx = (idx - 1) % len(widgets)
             widgets[idx].setFocus()
         elif dir in ("up","down"):
-            # if vertical layout just wrap among them:
             idx = (idx + (1 if dir=="down" else -1)) % len(widgets)
             widgets[idx].setFocus()
         gp = poll_gamepad()
@@ -2137,9 +1829,6 @@ def popup_ask_conflict(title: str, message: str) -> Optional[bool]:
     return {"yes": True, "no": False, "cancel": None}.get(choice)
 
 def popup_show_info(title: str, message: str) -> None:
-    """
-    OK-only dialog.
-    """
     app = ensure_app()
     dlg = BaseDialog(title)
 
@@ -2159,9 +1848,6 @@ def popup_show_info(title: str, message: str) -> None:
         QtCore.QThread.msleep(50)
 
 def popup_ask_string(prompt: str, title: str = "Input") -> Optional[str]:
-    """
-    Text input dialog. None si se cancela o vacía.
-    """
     app = ensure_app()
     dlg = BaseDialog(title)
 
@@ -2196,9 +1882,6 @@ def popup_ask_string(prompt: str, title: str = "Input") -> Optional[str]:
     return None
 
 def popup_ask_password(prompt: str, title: str = "Password") -> Optional[str]:
-    """
-    Password dialog (input oculto).
-    """
     app = ensure_app()
     dlg = BaseDialog(title)
 
@@ -2233,12 +1916,6 @@ def popup_ask_password(prompt: str, title: str = "Password") -> Optional[str]:
     return None
 
 def popup_show_commands(title: str, commands: list) -> bool:
-    """
-    Steam Deck-style shortcut overlay.
-    commands: list of tuples (shortcut, description),
-    e.g. [("SELECT + START", "Exit game"), ("L3 + R3", "Save state")]
-    Returns False if user clicked "Don't show again", True otherwise.
-    """
     app = ensure_app()
     dlg = QtWidgets.QDialog(None)
     dlg.setWindowTitle(title)
@@ -2246,7 +1923,6 @@ def popup_show_commands(title: str, commands: list) -> bool:
     dlg.setAttribute(QtCore.Qt.WA_TranslucentBackground)
     dlg.setStyleSheet("""
         QDialog { background: transparent; }
-        #overlay {
             background: rgba(20, 20, 30, 0.92);
             border-radius: 12px;
         }
@@ -2262,27 +1938,23 @@ def popup_show_commands(title: str, commands: list) -> bool:
     layout.setContentsMargins(30, 24, 30, 24)
     layout.setSpacing(6)
 
-    # Title
     title_lbl = QtWidgets.QLabel(title.upper())
     title_lbl.setStyleSheet("color: #ffffff; font-size: 16px; font-weight: bold; letter-spacing: 2px; padding-bottom: 8px;")
     layout.addWidget(title_lbl)
 
     layout.addSpacing(4)
 
-    # Steam Deck button glyphs
     _glyphs = {
-        "START": "\u2630",       # ☰
-        "SELECT": "\u29C9",      # ⧉
+        "START": "\u2630",
+        "SELECT": "\u29C9",
         "STEAM": "STEAM",
         "A": "\u24B6", "B": "\u24B7", "X": "\u24CD", "Y": "\u24CE",
     }
 
-    # Command rows
     for shortcut, description in commands:
         row = QtWidgets.QHBoxLayout()
         row.setSpacing(0)
 
-        # Build button pills from shortcut parts
         parts = [p.strip() for p in shortcut.split("+")]
         for i, part in enumerate(parts):
             if i > 0:
@@ -2329,7 +2001,6 @@ def popup_show_commands(title: str, commands: list) -> bool:
 
     dlg.resize(520, dlg.sizeHint().height())
 
-    # Center on screen
     screen = QtWidgets.QApplication.primaryScreen().geometry()
     dlg.move((screen.width() - dlg.width()) // 2, (screen.height() - dlg.height()) // 2)
 
@@ -2357,10 +2028,6 @@ def popup_show_commands(title: str, commands: list) -> bool:
     return show_again
 
 def show_hotkeys(emu: str, commands: list) -> None:
-    """
-    Shows hotkeys popup for the given emulator if not previously dismissed.
-    Persists the user's choice in launcher_settings.json.
-    """
     setting_key = f"show_hotkeys_{emu.lower()}"
     if not get_launcher_setting(setting_key, True):
         return
@@ -2368,10 +2035,6 @@ def show_hotkeys(emu: str, commands: list) -> None:
     set_launcher_setting(setting_key, show_again)
 
 def get_connected_controllers() -> int:
-    """
-    Returns the number of game controllers currently connected.
-    Initialises pygame/joystick subsystem if needed.
-    """
     if not pygame.get_init():
         pygame.init()
     pygame.joystick.init()
@@ -2525,7 +2188,6 @@ def get_locations():
     c = wmi.WMI()
     drive_info = []
 
-    # — Network drives (DriveType = 4) —
     for net in c.Win32_LogicalDisk(DriveType=4):
         if not net.VolumeName or not net.Size:
             continue
@@ -2540,7 +2202,6 @@ def get_locations():
             "letter": net.DeviceID,
         })
 
-    # — Physical disks —
     for disk in c.Win32_DiskDrive():
         media = disk.MediaType or ""
         if "Fixed hard disk media" in media:
@@ -2550,7 +2211,6 @@ def get_locations():
         else:
             dtype = "Unknown"
 
-        # Para cada partición asociada
         for part in disk.associators("Win32_DiskDriveToDiskPartition"):
             for ld in part.associators("Win32_LogicalDiskToPartition"):
                 if not ld.DeviceID or not disk.Size:
@@ -2566,10 +2226,8 @@ def get_locations():
                     "letter": ld.DeviceID,
                 })
 
-    # Ordenar por letra
     drive_info.sort(key=lambda d: d["letter"])
 
-    # Fallback si no hay nada
     if not drive_info:
         drive_info = [{
             "type":   "Internal",
@@ -2598,30 +2256,23 @@ def add_parser(
     if not parser_path.is_file():
         return False
 
-    # Leer el nuevo parser
     new_cfg = json.loads(parser_path.read_text(encoding="utf-8"))
     parser_id = new_cfg.get("parserId")
     print(f"Parser ID: {parser_id}")
 
-    # Asegurar que existe el fichero de configuraciones
     if not srm_user_configurations.exists():
         srm_user_configurations.write_text("[]", encoding="utf-8")
 
-    # Cargar lista actual
     configs = json.loads(srm_user_configurations.read_text(encoding="utf-8"))
 
-    # ¿Ya existe ese parserId?
     if any(item.get("parserId") == parser_id for item in configs):
-        return True  # nada que hacer
+        return True
 
-    # Añadir y ordenar
     print("adding parser")
     configs.append(new_cfg)
-    # Llamada a tu función de Python equivalente a SRM_setEmulationFolder
 
     configs.sort(key=lambda x: x.get("configTitle", ""))
 
-    # Guardar de nuevo
     srm_user_configurations.write_text(
         json.dumps(configs, indent=2, ensure_ascii=False), encoding="utf-8"
     )
@@ -2651,13 +2302,11 @@ def load_remote_cloud_sync():
 def netplay_set_ip() -> Optional[str]:
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
-            # doesn't send, just picks the correct outbound interface
             s.connect(("8.8.8.8", 80))
             local_ip = s.getsockname()[0]
     except Exception:
         return None
 
-    # 2) Build the first three octets
     octets = local_ip.split(".")
     if len(octets) != 4:
         return None
@@ -2667,9 +2316,7 @@ def netplay_set_ip() -> Optional[str]:
     for i in range(2, 256):
         ip = f"{segment}{i}"
         try:
-            # 3) Attempt a TCP connect with 50 ms timeout
             with socket.create_connection((ip, port), timeout=0.05):
-                # 4) Success! Persist and return.
                 set_setting("netplay_cmd", f"'-C {ip}'")
                 return ip
         except (socket.timeout, ConnectionRefusedError, OSError):
@@ -2702,9 +2349,7 @@ def calculate_md5_without_header(
         file_path = Path(file)
         md5 = hashlib.md5()
         with file_path.open('rb') as f:
-            # skip header
             f.seek(header_size)
-            # read the rest in chunks
             for chunk in iter(lambda: f.read(chunk_size), b''):
                 md5.update(chunk)
         return md5.hexdigest()
@@ -2741,7 +2386,7 @@ def get_emu_install_status(*emu_array):
     
 def set_ini_value(file_path, section, key, value):
     config = configparser.ConfigParser()
-    config.optionxform = str  # Mantener mayúsculas/minúsculas
+    config.optionxform = str
     config.read(file_path)
     
     if section not in config:
@@ -2750,4 +2395,4 @@ def set_ini_value(file_path, section, key, value):
     config[section][key] = value
     
     with open(file_path, 'w') as f:
-        config.write(f)    
+        config.write(f)
