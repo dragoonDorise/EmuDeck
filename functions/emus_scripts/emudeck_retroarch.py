@@ -2528,6 +2528,8 @@ def retroarch_retroachievements_set_login():
 def retroarch_set_bezels():
     if settings.bezels == True:
         retroarch_bezel_on_all()
+        if get_screen_ar() == 169:
+            retroarch_bezels_169_screen() 
     else:
         retroarch_bezel_off_all()
 
@@ -2547,4 +2549,73 @@ def retroarch_set_shaders_matrix():
     if settings.shaders.handhelds == True:
         retroarch_matrix_shaders_on_all()
     else:
-        retroarch_matrix_shaders_off_all()
+        retroarch_matrix_shaders_off_all()         
+                   
+def retroarch_bezels_169_screen():
+    set_msg("Applying RetroArch bezel corrections for 16:9 screens")
+    
+    root = Path(RetroArch_coreConfigFolders)
+    
+    config_map = {
+        ('pcengine.cfg',): [
+            ("aspect_ratio_index =",       'aspect_ratio_index = "0"'),
+            ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "0"'),
+            ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.055000"'),
+            ("input_overlay_x_separation_landscape =",    'input_overlay_x_separation_landscape = "0"'),
+        ],
+        ('atari800.cfg', 'atari2600.cfg', 'atari5200.cfg'): [
+            ("aspect_ratio_index =",       'aspect_ratio_index = "0"'),
+            ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "0"'),
+            ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.055000"'),
+            ("input_overlay_x_separation_landscape =",    'input_overlay_x_separation_landscape = "0"'),
+        ],
+        ('ngpc.cfg', 'ngp.cfg'): [
+            ("input_overlay_x_separation_portrait =",     'input_overlay_x_separation_portrait = "0"'),
+            ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "-0.285000"'),
+            ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.605000"'),
+            ("input_overlay_y_offset_landscape =",        'input_overlay_y_offset_landscape = "-0.130000"'),
+        ],
+        ('gb.cfg',): [
+            ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.670000"'),
+        ],
+        ('gbc.cfg',): [
+            ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.680000"'),
+        ],
+        ('gamegear.cfg',): [
+            ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "-0.010000"'),
+            ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "-0.020000"'),
+        ],
+        ('mastersystem.cfg',): [
+            ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.055000"'),
+        ],
+        ('genesis.cfg', 'megadrive.cfg'): [
+            ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.055000"'),
+            ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "-0.010000"'),
+        ],
+        ('megacd.cfg', 'segacd.cfg'): [
+            ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.055000"'),
+            ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "0.000000"'),
+        ],
+        ('sega32x.cfg',): [
+            ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.070000"'),
+            ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "-0.010000"'),
+        ],
+        ('snes.cfg',): [
+            ("input_overlay_scale_landscape =",           'input_overlay_scale_landscape = "1.055000"'),
+        ],
+        ('n64.cfg',): [
+            ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "-0.025000"'),
+        ],
+        ('dreamcast.cfg',): [
+            ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "0"'),
+        ],
+        ('saturn.cfg',): [
+            ("input_overlay_aspect_adjust_landscape =",  'input_overlay_aspect_adjust_landscape = "0"'),
+        ],
+    }
+    
+    for filenames, replacements in config_map.items():
+        for fname in filenames:
+            for config_path in root.rglob(fname):
+                for option, repl in replacements:
+                    update_or_append_config_line(str(config_path), option, repl)
