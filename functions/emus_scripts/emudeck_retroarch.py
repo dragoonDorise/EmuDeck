@@ -83,6 +83,7 @@ def retroarch_init():
     copy_setting_dir(f"common/retroarch/",retroarch_dir)
     #copy_and_set_settings_file(f"common/retroarch/retroarch.cfg", retroarch_dir)
     retroarch_setup_cfg_file_paths()
+    retroarch_patch_shader_references()
     retroarch_setup_saves()
     retroarch_set_controller_style()
     retroarch_set_core_opt_all()
@@ -101,11 +102,17 @@ def retroarch_install_init():
 
 
 def retroarch_setup_cfg_file_paths():
-    src = Path(f"{emudeck_backend}/configs/common/retroarch/retroarch.cfg")
-    shutil.copy2(src, retroarch_dir)
-    sed("EMULATIONPATH",emulation_path,retroarch_cfg_file)
-    sed("RETROARCHFOLDER",retroarch_dir,retroarch_cfg_file)
-    sed("ASSETSFOLDER",retroarch_assets_path,retroarch_cfg_file)
+    if system.startswith("win"):
+        src = Path(f"{emudeck_backend}/configs/windows/retroarch/retroarch.cfg")
+    elif system in ("linux", "darwin"):
+        src = Path(f"{emudeck_backend}/configs/common/retroarch/retroarch.cfg")
+    else:
+        return
+
+    shutil.copy2(src, retroarch_cfg_file)
+    sed("EMULATIONPATH", emulation_path, retroarch_cfg_file)
+    sed("RETROARCHFOLDER", retroarch_dir, retroarch_cfg_file)
+    sed("ASSETSFOLDER", retroarch_assets_path, retroarch_cfg_file)
 
 
 
@@ -210,8 +217,289 @@ def retroarch_disable_remap(path: Path) -> Path:
         new_path = path.with_name(new_name)
         path.rename(new_path)
 
+def retroarch_download_core(core_name: str, base_url: str, cores_dir: Path, archive_extension: str) -> bool:
+    archive_name = f"{core_name}.{archive_extension}"
+    archive_url = f"{base_url}{archive_name}"
+    archive_path = cores_dir / f"{core_name}.zip"
+
+    try:
+        print(f"Downloading core: {archive_url}")
+        response = requests.get(archive_url, stream=True, timeout=60)
+        response.raise_for_status()
+
+        with open(archive_path, "wb") as file_handle:
+            for chunk in response.iter_content(chunk_size=8192):
+                if chunk:
+                    file_handle.write(chunk)
+
+        with zipfile.ZipFile(archive_path, "r") as zip_file:
+            zip_file.extractall(path=cores_dir)
+
+        return True
+    except Exception as error:
+        print(f"Error downloading core {core_name}: {error}")
+        return False
+    finally:
+        if archive_path.exists():
+            archive_path.unlink()
+
+
 def retroarch_install_cores():
-    print("DIY")
+    if system.startswith("win"):
+        base_url = "https://buildbot.libretro.com/nightly/windows/x86_64/latest/"
+        archive_extension = "dll.zip"
+        ra_cores = [
+            "a5200_libretro",
+            "81_libretro",
+            "atari800_libretro",
+            "bluemsx_libretro",
+            "chailove_libretro",
+            "fbneo_libretro",
+            "freechaf_libretro",
+            "freeintv_libretro",
+            "fuse_libretro",
+            "gearsystem_libretro",
+            "gw_libretro",
+            "hatari_libretro",
+            "lutro_libretro",
+            "mednafen_pcfx_libretro",
+            "mednafen_vb_libretro",
+            "mednafen_wswan_libretro",
+            "mu_libretro",
+            "neocd_libretro",
+            "nestopia_libretro",
+            "nxengine_libretro",
+            "o2em_libretro",
+            "picodrive_libretro",
+            "pokemini_libretro",
+            "prboom_libretro",
+            "prosystem_libretro",
+            "px68k_libretro",
+            "quasi88_libretro",
+            "scummvm_libretro",
+            "squirreljme_libretro",
+            "theodore_libretro",
+            "uzem_libretro",
+            "vecx_libretro",
+            "vice_xvic_libretro",
+            "virtualjaguar_libretro",
+            "x1_libretro",
+            "mednafen_lynx_libretro",
+            "mednafen_ngp_libretro",
+            "mednafen_pce_libretro",
+            "mednafen_pce_fast_libretro",
+            "mednafen_psx_libretro",
+            "mednafen_psx_hw_libretro",
+            "mednafen_saturn_libretro",
+            "mednafen_supafaust_libretro",
+            "mednafen_supergrafx_libretro",
+            "blastem_libretro",
+            "bsnes_libretro",
+            "bsnes_mercury_accuracy_libretro",
+            "cap32_libretro",
+            "citra2018_libretro",
+            "citra_libretro",
+            "crocods_libretro",
+            "desmume2015_libretro",
+            "desmume_libretro",
+            "dolphin_libretro",
+            "dosbox_core_libretro",
+            "dosbox_pure_libretro",
+            "dosbox_svn_libretro",
+            "fbalpha2012_cps1_libretro",
+            "fbalpha2012_cps2_libretro",
+            "fbalpha2012_cps3_libretro",
+            "fbalpha2012_libretro",
+            "fbalpha2012_neogeo_libretro",
+            "fceumm_libretro",
+            "flycast_libretro",
+            "fmsx_libretro",
+            "frodo_libretro",
+            "gambatte_libretro",
+            "gearboy_libretro",
+            "genesis_plus_gx_libretro",
+            "genesis_plus_gx_wide_libretro",
+            "gpsp_libretro",
+            "handy_libretro",
+            "kronos_libretro",
+            "mame2000_libretro",
+            "mame2003_plus_libretro",
+            "mame2010_libretro",
+            "mame_libretro",
+            "melonds_libretro",
+            "melondsds_libretro",
+            "mesen_libretro",
+            "mesen-s_libretro",
+            "mgba_libretro",
+            "mupen64plus_next_libretro",
+            "nekop2_libretro",
+            "np2kai_libretro",
+            "parallel_n64_libretro",
+            "pcsx2_libretro",
+            "pcsx_rearmed_libretro",
+            "ppsspp_libretro",
+            "puae_libretro",
+            "quicknes_libretro",
+            "race_libretro",
+            "sameboy_libretro",
+            "smsplus_libretro",
+            "snes9x2010_libretro",
+            "snes9x_libretro",
+            "stella2014_libretro",
+            "stella_libretro",
+            "tgbdual_libretro",
+            "vbam_libretro",
+            "vba_next_libretro",
+            "vice_x128_libretro",
+            "vice_x64_libretro",
+            "vice_x64sc_libretro",
+            "vice_xscpu64_libretro",
+            "yabasanshiro_libretro",
+            "yabause_libretro",
+            "bsnes_hd_beta_libretro",
+            "swanstation_libretro",
+            "opera_libretro",
+        ]
+    elif system == "linux":
+        base_url = "https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
+        archive_extension = "so.zip"
+        ra_cores = [
+            "81_libretro",
+            "a5200_libretro",
+            "arduous_libretro",
+            "atari800_libretro",
+            "blastem_libretro",
+            "bluemsx_libretro",
+            "bsnes_hd_beta_libretro",
+            "bsnes_libretro",
+            "cap32_libretro",
+            "chailove_libretro",
+            "citra_libretro",
+            "desmume_libretro",
+            "dosbox_core_libretro",
+            "dosbox_pure_libretro",
+            "easyrpg_libretro",
+            "fbalpha2012_libretro",
+            "fbneo_libretro",
+            "flycast_libretro",
+            "freechaf_libretro",
+            "freeintv_libretro",
+            "fuse_libretro",
+            "gambatte_libretro",
+            "gearboy_libretro",
+            "gearsystem_libretro",
+            "genesis_plus_gx_libretro",
+            "genesis_plus_gx_wide_libretro",
+            "gw_libretro",
+            "handy_libretro",
+            "hatari_libretro",
+            "kronos_libretro",
+            "lutro_libretro",
+            "mame2003_plus_libretro",
+            "mame_libretro",
+            "mednafen_lynx_libretro",
+            "mednafen_ngp_libretro",
+            "mednafen_pce_fast_libretro",
+            "mednafen_pce_libretro",
+            "mednafen_pcfx_libretro",
+            "mednafen_psx_hw_libretro",
+            "mednafen_saturn_libretro",
+            "mednafen_supergrafx_libretro",
+            "mednafen_vb_libretro",
+            "mednafen_wswan_libretro",
+            "melonds_libretro",
+            "melondsds_libretro",
+            "mesen_libretro",
+            "mesen-s_libretro",
+            "mgba_libretro",
+            "minivmac_libretro",
+            "mu_libretro",
+            "mupen64plus_next_libretro",
+            "neocd_libretro",
+            "nestopia_libretro",
+            "np2kai_libretro",
+            "nxengine_libretro",
+            "o2em_libretro",
+            "opera_libretro",
+            "picodrive_libretro",
+            "pokemini_libretro",
+            "potator_libretro",
+            "ppsspp_libretro",
+            "prboom_libretro",
+            "prosystem_libretro",
+            "puae_libretro",
+            "px68k_libretro",
+            "quasi88_libretro",
+            "retro8_libretro",
+            "same_cdi_libretro",
+            "sameboy_libretro",
+            "sameduck_libretro",
+            "scummvm_libretro",
+            "snes9x_libretro",
+            "squirreljme_libretro",
+            "stella_libretro",
+            "swanstation_libretro",
+            "theodore_libretro",
+            "tic80_libretro",
+            "tyrquake_libretro",
+            "uzem_libretro",
+            "vbam_libretro",
+            "vecx_libretro",
+            "vice_x128_libretro",
+            "vice_x64sc_libretro",
+            "vice_xscpu64_libretro",
+            "vice_xvic_libretro",
+            "virtualjaguar_libretro",
+            "vitaquake2_libretro",
+            "vitaquake2-rogue_libretro",
+            "vitaquake2-xatrix_libretro",
+            "vitaquake2-zaero_libretro",
+            "vitaquake3_libretro",
+            "wasm4_libretro",
+            "x1_libretro",
+        ]
+    else:
+        print("Skipping RetroArch core download on unsupported system")
+        return True
+
+    retroarch_cores_path = retroarch_dir / "cores"
+    retroarch_cores_path.mkdir(parents=True, exist_ok=True)
+
+    set_msg("Downloading RetroArch cores")
+
+    for core in ra_cores:
+        if any(retroarch_cores_path.glob(f"{core}.*")):
+            print(f"{core} already downloaded")
+            continue
+
+        retroarch_download_core(core, base_url, retroarch_cores_path, archive_extension)
+
+    return True
+
+def retroarch_patch_shader_references():
+    if not system.startswith("win"):
+        return
+
+    config_root = Path(retroarch_dir) / "config"
+    if not config_root.exists():
+        return
+
+    replacements = {
+        "/app/share/libretro/shaders/shaders_glsl": ":/shaders/shaders_glsl",
+        "/app/share/libretro/shaders/shaders_slang": ":/shaders/shaders_slang",
+    }
+
+    for pattern in ("*.glslp", "*.slangp"):
+        for preset_path in config_root.rglob(pattern):
+            content = preset_path.read_text(encoding="utf-8")
+            updated = content
+
+            for source, target in replacements.items():
+                updated = updated.replace(source, target)
+
+            if updated != content:
+                preset_path.write_text(updated, encoding="utf-8")
+
 
 def retroarch_backup_configs() -> None:
     core_config_folders = [
