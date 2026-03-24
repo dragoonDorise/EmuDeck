@@ -1,5 +1,7 @@
 from core.all import *
-
+import re
+import requests
+from pathlib import Path
 
 def ppsspp_install():
     set_msg(f"Installing ppsspp")
@@ -11,16 +13,21 @@ def ppsspp_install():
         repo="org.ppsspp.PPSSPP"
 
     if system.startswith("win"):
-        name="ppsspp"
-        type="zip"
+        name = "ppsspp"
+        type = "zip"
         destination = f"{emus_folder}/ppsspp"
-        repo="https://www.ppsspp.org/files/1_18_1/ppsspp_win.zip"
+
+        repo = get_latest_release_gh(
+            repository="hrydgard/ppsspp",
+            fileType=".zip",
+            fileNameContains="Windows-x64"
+        ) or "https://www.ppsspp.org/files/1_20_1/ppsspp_win.zip"
 
     if system == "darwin":
         name="ppsspp"
         type="dmg"
         destination = f"{emus_folder}"
-        repo="https://www.ppsspp.org/files/1_18/PPSSPP_macOS.dmg"
+        repo="https://www.ppsspp.org/files/1_20_1/PPSSPP_macOS.dmg"
 
     try:
         install_emu(name, repo, type, destination)
@@ -46,7 +53,7 @@ def ppsspp_is_installed():
     if system == "linux":
         return is_flatpak_installed("org.ppsspp.PPSSPP")
     if system.startswith("win"):
-      return (emus_folder / "ppsspp" / "PPSSPPWindows.exe").exists()
+      return (emus_folder / "ppsspp" / "PPSSPPWindows64.exe").exists()
     if system == "darwin":
       return (emus_folder / "PPSSPPDL.app").exists()
 
@@ -55,9 +62,25 @@ def ppsspp_init():
     set_msg(f"Setting up ppsspp")
     if system == "linux":
         destination=f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/"
+        
     if system.startswith("win"):
-        destination=f"{emus_folder}/ppsspp/"
-        bios=""
+        destination = str(Path(f"{emus_folder}/ppsspp/"))
+        bios = ""
+
+        # Copia estructura base
+        copy_setting_dir(f"{system}/ppsspp/", destination)
+
+        # INI correcto en Windows
+        ini_src = f"{system}/ppsspp/memstick/PSP/SYSTEM/ppsspp.ini"
+        ini_dst = str(Path(destination) / "memstick" / "PSP" / "SYSTEM")
+        Path(ini_dst).mkdir(parents=True, exist_ok=True)
+
+        copy_and_set_settings_file(ini_src, ini_dst)
+
+        ppsspp_setup_saves()
+        ppsspp_set_resolution()
+        return
+
     if system == "darwin":
         destination=f"{home}/Library/Application Support/ppsspp"
         bios=""
