@@ -125,7 +125,7 @@ if system == "linux":
     if emu.lower() == "xemu-emu":
         exe = "/usr/bin/flatpak run app.xemu.xemu"
     if emu.lower() == "xenia":
-        exe = f"{emus_folder}/xenia.AppImage"
+        exe = f"{emus_folder}/xenia_canary_linux/build/bin/Linux/Release/xenia_canary"
     if emu.lower() == "yuzu":
         exe = f"{emus_folder}/yuzu.AppImage"
     if emu.lower() == "eden":
