@@ -21,10 +21,10 @@ retroarch_info_path=Path(f"{retroarch_dir}/info")
 retroarch_ppsspp_path=Path(f"{bios_path}/PPSSPP")
 retroarch_cheats_path=Path(f"{retroarch_dir}/cheats")
 
-def ra_install():
+def ra_install(): # Lecay compat
     retroarch_install()
     
-def ra_init():
+def ra_init(): # Lecay compat
     retroarch_init()
 
 def retroarch_install():
@@ -89,7 +89,11 @@ def retroarch_init():
     retroarch_set_core_opt_all()
     retroarch_set_config_all()
     retroarch_setup_extra_configurations()
-    retroarch_set_customizations()
+    retroarch_set_bezels()
+    retroarch_set_shaders_crt()
+    retroarch_set_shaders_3d_crt()
+    retroarch_set_shaders_matrix()
+    retroarch_set_widescreen()
     retroarch_auto_save()
     retroarch_set_retroachievements()
     retroarch_buildbot_downloader()
@@ -156,7 +160,7 @@ def retroarch_set_controller_style():
     if settings.controllerLayout == "bayx":
         retroarch_set_bayx_style()
     else:
-        retroarch_set_bayx_style()
+        retroarch_set_abxy_style()
 
 def retroarch_set_core_setting(config_name: str,
                                    core: str,
@@ -567,9 +571,6 @@ def retroarch_setup_extra_configurations():
 
     set_config("savestate_thumbnail_enable", "true", retroarch_cfg_file)
 
-
-def retroarch_set_customizations():
-    print("NYI")
 
 def retroarch_auto_save():
     if settings.autosave:
@@ -2524,7 +2525,6 @@ def retroarch_retroachievements_set_login():
     #retroarch_retroachievements_on()
     #setSetting cheevos_username $rau
 
-
 def retroarch_set_bezels():
     if settings.bezels == True:
         retroarch_bezel_on_all()
@@ -2619,3 +2619,52 @@ def retroarch_bezels_169_screen():
             for config_path in root.rglob(fname):
                 for option, repl in replacements:
                     update_or_append_config_line(str(config_path), option, repl)
+                    
+def retroarch_set_widescreen():
+    # Sega
+    if settings.ar.sega == "32":
+        retroarch_mastersystem_ar32()
+        retroarch_genesis_ar32()
+        retroarch_segacd_ar32()
+        retroarch_sega32x_ar32()
+    else:
+        retroarch_mastersystem_ar43()
+        retroarch_genesis_ar43()
+        retroarch_segacd_ar43()
+        retroarch_sega32x_ar43()
+        if settings.bezels:
+            retroarch_mastersystem_bezel_on()
+            retroarch_genesis_bezel_on()
+            retroarch_segacd_bezel_on()
+            retroarch_sega32x_bezel_on()
+    
+    # SNES and NES
+    if settings.ar.snes == "87":
+        retroarch_snes_ar87()
+        retroarch_nes_ar87()
+    elif settings.ar.snes == "32":
+        retroarch_snes_ar32()
+        retroarch_nes_ar32()
+    else:
+        retroarch_snes_ar43()
+        retroarch_nes_ar43()
+        if settings.bezels:
+            retroarch_snes_bezel_on()
+    
+    # Classic 3D Games (Dreamcast, PSX, N64, Saturn, Xbox)
+    if settings.shaders.classic3d == 169:
+        retroarch_Beetle_PSX_HW_wideScreen_on()
+        retroarch_Flycast_wideScreen_on()
+        retroarch_dreamcast_bezel_off()
+        retroarch_psx_bezel_off()
+        retroarch_n64_wideScreen_on()
+        retroarch_SwanStation_wideScreen_on()
+    else:
+        retroarch_Flycast_wideScreen()
+        retroarch_n64_wideScreen_off()
+        retroarch_Beetle_PSX_HW_wideScreen_off()
+        retroarch_SwanStation_wideScreenff()
+        if settings.bezels:
+            retroarch_dreamcast_bezel_on()
+            retroarch_n64_bezel_on()
+            RetroArch_psx_bezel_on()                    
