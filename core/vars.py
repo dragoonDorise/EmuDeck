@@ -83,13 +83,6 @@ if json_settings_path.exists():
         storage_path=Path(os.path.expandvars(installationPath+"/Emulation/storage"))
         ESDEscrapData=Path(os.path.expandvars(installationPath+"/Emulation/tools/downloaded_media"))
 
-        for p in (emulation_path, roms_path, tools_path, bios_path, saves_path, storage_path, ESDEscrapData):
-            if not p.exists():
-                p.mkdir(parents=True, exist_ok=True)
-
-        if not roms_path.exists() or not any(roms_path.iterdir()):
-            shutil.copytree(f"{emudeck_backend}/configs/common/roms", roms_path, dirs_exist_ok=True)
-
         esde_theme_url="https://github.com/anthonycaccese/epic-noir-revisited-es-de.git"
         esde_theme_name=settings.themeESDE
         pegasusThemeUrl=settings.themePegasus[0]

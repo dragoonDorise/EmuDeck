@@ -1,5 +1,16 @@
 from core.all import *
 
+def emudeck_init():
+    for p in (emulation_path, roms_path, tools_path, bios_path, saves_path, storage_path, ESDEscrapData):
+        if not p.exists():
+            p.mkdir(parents=True, exist_ok=True)
+    
+    if not roms_path.exists() or not any(roms_path.iterdir()):
+        shutil.copytree(f"{emudeck_backend}/configs/common/roms", roms_path, dirs_exist_ok=True)
+    if system == "linux":
+        create_desktop_icon()
+    
+
 def get_sd_path() -> Optional[str]:
 
     sd_block = "/dev/mmcblk0p1"
