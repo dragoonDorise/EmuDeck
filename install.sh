@@ -1,12 +1,20 @@
 #!/usr/bin/env bash
 
-DEBIAN_DEPS=(steam flatpak git python python3.12-venv)
-ARCH_DEPS=(steam flatpak git python)
-FEDORA_DEPS=(steam flatpak git python)
-SUSE_DEPS=(steam flatpak git python)
-VOID_DEPS=(steam flatpak git python)
+DEBIAN_DEPS=(jq zenity flatpak unzip bash libfuse2 git rsync whiptail python)
+ARCH_DEPS=(steam jq zenity flatpak unzip bash fuse2 git rsync libnewt python)
+FEDORA_DEPS=(jq zenity flatpak unzip bash fuse git rsync newt python)
+SUSE_DEPS=(steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail python)
+VOID_DEPS=(steam jq zenity flatpak unzip bash fuse git rsync newt python)
+GENTOO_DEPS=(app-misc/jq gnome-extra/zenity sys-apps/flatpak app-arch/unzip app-shells/bash sys-fs/fuse:0 dev-vcs/git net-misc/rsync dev-libs/newt dev-lang/python app-text/xmlstarlet)
 
-linuxID=$(lsb_release -si)
+
+OS_NAME=$(cat /etc/hostname)
+if [ "$OS_NAME" = "playnix" ]; then
+    linuxID="PlaynixOS"
+else
+    linuxID=$(lsb_release -si)
+fi
+
 sandbox=""
 
 if [ "$linuxID" = "Ubuntu" ]; then
@@ -14,7 +22,7 @@ if [ "$linuxID" = "Ubuntu" ]; then
 fi
 clear
 
-if [ "$linuxID" == "SteamOS" ]; then
+if [ "$linuxID" == "SteamOS" ] || [ "$linuxID" == "PlaynixOS" ]; then
     echo "Installing EmuDeck"
 else
     zenityAvailable=$(command -v zenity &> /dev/null  && echo true)
@@ -87,6 +95,11 @@ else
 
         sudo xbps-install -Syu
         sudo xbps-install -Sy "${VOID_DEPS[@]}"
+    elif command -v emerge >/dev/null; then
+        echo "Installing packages with emerge..."
+
+        sudo emerge --sync
+        sudo emerge -n "${GENTOO_DEPS[@]}"
     else
         log_err "Your Linux distro $linuxID is not supported by this script. We invite to open a PR or help us with adding your OS to this script. https://github.com/dragoonDorise/EmuDeck/issues"
         exit 1
