@@ -72,6 +72,7 @@ def duckstation_init():
     duckstation_set_resolution()
     duckstation_set_controller_style()
     duckstation_widescreen()
+    duckstation_retro_achievements()
 
 def duckstation_install_init():
     duckstation_install()
@@ -135,8 +136,14 @@ def duckstation_widescreen_off():
 
     set_config("WidescreenHack ", " false", config_path)
     set_config("AspectRatio ", " 4:3", config_path)
-    
+
 def duckstation_retro_achievements():
+    if settings.achievements.user == '':
+        duckstation_retro_achievements_off()
+    else:
+        duckstation_retro_achievements_on()
+        
+def duckstation_retro_achievements_on():
     if system == "linux":
         config_path=f"{home}/.var/app/org.duckstation.DuckStation/config/duckstation/settings.ini"
     if system.startswith("win"):
@@ -151,3 +158,6 @@ def duckstation_retro_achievements():
    
     if achievements_hardcore:
         set_config("ChallengeMode ", " True", config_path)
+        
+def duckstation_retro_achievements_off():
+    print("NYI")

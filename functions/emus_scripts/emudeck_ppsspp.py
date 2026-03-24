@@ -92,6 +92,7 @@ def ppsspp_init():
 
     ppsspp_setup_saves()
     ppsspp_set_resolution()
+    ppsspp_retro_achievements()
 
 def ppsspp_install_init():
     ppsspp_install()
@@ -116,7 +117,14 @@ def ppsspp_setup_saves():
 def ppsspp_set_resolution():
     print("NYI")
     
+    
 def ppsspp_retro_achievements():
+     if settings.achievements.user == '':
+         ppsspp_retro_achievements_off()
+     else:
+         ppsspp_retro_achievements_on()
+                 
+def ppsspp_retro_achievements_on():
     if system == "linux":
         config_path=f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/ppsspp.ini"
         token_path=f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat"
@@ -133,3 +141,7 @@ def ppsspp_retro_achievements():
     
     if achievements_hardcore:
        set_config("AchievementsChallengeMode", f"True", config_path)    
+       
+       
+def duckstation_retro_achievements_off():
+        print("NYI")

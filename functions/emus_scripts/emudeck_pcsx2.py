@@ -73,6 +73,7 @@ def pcsx2_init():
 
     pcsx2_set_resolution()
     pcsx2_widescreen()
+    pcsx2_retro_achievements()
 
 def pcsx2_install_init():
     pcsx2_install()
@@ -136,8 +137,13 @@ def pcsx2_widescreen():
     else:
         pcsx2_widescreen_off()
 
-
 def pcsx2_retro_achievements():
+         if settings.achievements.user == '':
+             pcsx2_retro_achievements_off()
+         else:
+             pcsx2_retro_achievements_on()
+
+def pcsx2_retro_achievements_on():
     if system == "linux":
         pcsx2_config_file=f"{home}/.config/PCSX2/inis/PCSX2.ini"
     if system.startswith("win"):
@@ -153,6 +159,9 @@ def pcsx2_retro_achievements():
     if achievements_hardcore:
         set_ini_value(pcsx2_config_file, "ChallengeMode", "Enabled", "true")
 
+def pcsx2_retro_achievements_off():
+        print("NYI")
+        
 #Legacy compatibility
 
 pcsx2qt_install = pcsx2_install

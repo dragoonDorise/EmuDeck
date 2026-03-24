@@ -95,7 +95,7 @@ def retroarch_init():
     retroarch_set_shaders_matrix()
     retroarch_set_widescreen()
     retroarch_auto_save()
-    retroarch_set_retroachievements()
+    retroarch_retro_achievements()
     retroarch_buildbot_downloader()
 
     #Customizations
@@ -586,12 +586,12 @@ def retroarch_auto_save_off():
     set_config("savestate_auto_load", "false", retroarch_cfg_file)
     set_config("savestate_auto_save", "false", retroarch_cfg_file)
 
-def retroarch_set_retroachievements():
-    retroarch_retroachievements_set_login()
+def retroarch_retro_achievements():
+    retroarch_retro_achievements_set_login()
     if settings.achievements.user == '':
-        retroarch_retroachievements_off()
+        retroarch_retro_achievements_off()
     else:
-        retroarch_retroachievements_on()
+        retroarch_retro_achievements_on()
 
 
 def retroarch_update_assets(assets_url: str, assets_dir: Path) -> bool:
@@ -2376,31 +2376,31 @@ def retroarch_psx_set_config():
     retroarch_psx_3d_crt_shader_off()
 
 
-def retroarch_retroachievements_on():
+def retroarch_retro_achievements_on():
     set_config("cheevos_enable", "true", retroarch_cfg_file)
 
     if achievements_hardcore == False:
-        retroarch_retroachievements_hardcore_off()
+        retroarch_retro_achievements_hardcore_off()
     else:
-        retroarch_retroachievements_hardcore_on()
+        retroarch_retro_achievements_hardcore_on()
 
     #Mame fix
     #retroarch_set_core_setting('mame.cfg','MAME 2003-Plus','cheevos_enable',"false")
     #retroarch_set_core_setting('mame.cfg','MAME','cheevos_enable',"false")
 
-def retroarch_retroachievements_off():
+def retroarch_retro_achievements_off():
     set_config("cheevos_enable", "false", retroarch_cfg_file)
     #Mame fix
     #retroarch_set_core_setting('mame.cfg','MAME 2003-Plus','cheevos_enable',"false")
     #retroarch_set_core_setting('mame.cfg','MAME','cheevos_enable',"false")
 
 
-def retroarch_retroachievements_hardcore_on():
+def retroarch_retro_achievements_hardcore_on():
     set_config("cheevos_hardcore_mode_enable", true, retroarch_cfg_file)
     retroarch_set_core_setting('FinalBurn Neo.opt','FinalBurn Neo','fbneo-allow-patched-romsets',"disabled")
 
 
-def retroarch_retroachievements_hardcore_off():
+def retroarch_retro_achievements_hardcore_off():
     set_config("cheevos_hardcore_mode_enable", false, retroarch_cfg_file)
     retroarch_set_core_setting('FinalBurn Neo.opt','FinalBurn Neo','fbneo-allow-patched-romsets',"enabled")
 
@@ -2518,11 +2518,11 @@ def retroarch_matrix_shaders_off_all():
 
 
 
-def retroarch_retroachievements_set_login():
+def retroarch_retro_achievements_set_login():
     print("NYI")
     #set_config('cheevos_username',rau,retroarch_cfg_file)
     #set_config('cheevos_token',rat,retroarch_cfg_file)
-    #retroarch_retroachievements_on()
+    #retroarch_retro_achievements_on()
     #setSetting cheevos_username $rau
 
 def retroarch_set_bezels():
