@@ -10,7 +10,7 @@ def emudeck_init():
     if system == "linux":
         create_desktop_icon()
    
-def custom_location() -> str | None:
+def custom_location() -> Optional[str]:
     if system.startswith("linux"):
         if shutil.which("zenity"):
             cmd = ["zenity", "--file-selection", "--directory",
