@@ -9,7 +9,40 @@ def emudeck_init():
         shutil.copytree(f"{emudeck_backend}/configs/common/roms", roms_path, dirs_exist_ok=True)
     if system == "linux":
         create_desktop_icon()
+   
+def custom_location() -> str | None:
+    if system.startswith("linux"):
+        if shutil.which("zenity"):
+            cmd = ["zenity", "--file-selection", "--directory",
+                "--title=Select a destination for the Emulation directory."]
+        elif shutil.which("kdialog"):
+            cmd = ["kdialog", "--getexistingdirectory", "."]
+        else:
+            return None
     
+        r = subprocess.run(cmd, capture_output=True, text=True)
+        return r.stdout.strip() or None
+    
+    elif system.startswith("darwin"):
+        r = subprocess.run(
+            ["osascript", "-e",
+            'POSIX path of (choose folder with prompt "Select a destination for the Emulation directory.")'],
+            capture_output=True, text=True
+        )
+        return r.stdout.strip() or None
+    
+    elif system.startswith("win"):
+        ps = (
+            "Add-Type -AssemblyName System.Windows.Forms;"
+            "$d=New-Object System.Windows.Forms.FolderBrowserDialog;"
+            "$d.Description='Select a destination for the Emulation directory.';"
+            "if($d.ShowDialog() -eq 'OK'){$d.SelectedPath}"
+        )
+        r = subprocess.run(["powershell", "-Command", ps],
+                        capture_output=True, text=True)
+        return r.stdout.strip() or None
+    
+    return None    
 
 def get_sd_path() -> Optional[str]:
 
