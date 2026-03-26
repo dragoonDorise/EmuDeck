@@ -99,6 +99,21 @@ def test_location_valid(location_name: str, test_location = "") -> str:
                     raise
 
     return "Valid"
+    
+def test_location_valid_only_write(location_name: str, test_location: str) -> str:
+    test_file = os.path.join(test_location, "testwrite")
+    try:
+        open(test_file, 'w').close()
+        if not os.path.isfile(test_file):
+            result = f"Invalid: {location_name} not Writable"
+        else:
+            result = "Valid"
+    except OSError:
+        result = f"Invalid: {location_name} not Writable"
+    finally:
+        if os.path.exists(test_file):
+            os.remove(test_file)
+    return result    
 
 def get_product_name() -> Optional[str]:
     path = Path('/sys/devices/virtual/dmi/id/product_name')
