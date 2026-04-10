@@ -7,7 +7,8 @@ def install_pip(name):
     pip_exe = venv_dir / "bin" / "pip"
     if system.startswith("win"):
         pip_exe = venv_dir / "Scripts" / "pip.exe"
-    subprocess.run([str(pip_exe), "install", "--upgrade", name], check=True)
+    env = {**os.environ, "PIP_DISABLE_PIP_VERSION_CHECK": "1"}
+    subprocess.run([str(pip_exe), "install", "--upgrade", name], check=True, env=env)
 
 def generate_python_env():
 
