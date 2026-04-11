@@ -34,9 +34,49 @@ except Exception as e:
 if y_pressed:
     print(f"Y pressed - emu: '{emu.lower()}'")
     try:
+        def ra_toggle_bezels():
+            if settings.bezels:
+                set_setting("bezels", False)
+                retroarch_bezel_off_all()
+            else:
+                set_setting("bezels", True)
+                retroarch_bezel_on_all()
+
+        def ra_toggle_autosave():
+            if settings.autosave:
+                set_setting("autosave", False)
+                retroarch_auto_save_off()
+            else:
+                set_setting("autosave", True)
+                retroarch_auto_save_on()
+
+        def ra_toggle_shaders_crt():
+            if settings.shaders.classic:
+                set_setting("shaders.classic", False)
+                retroarch_crt_shader_off_all()
+            else:
+                set_setting("shaders.classic", True)
+                retroarch_crt_shader_on_all()
+
+        def ra_toggle_shaders_matrix():
+            if settings.shaders.handhelds:
+                set_setting("shaders.handhelds", False)
+                retroarch_matrix_shaders_off_all()
+            else:
+                set_setting("shaders.handhelds", True)
+                retroarch_matrix_shaders_on_all()
+
+        bezels_status = "OFF" if settings.bezels else "ON"
+        autosave_status = "OFF" if settings.autosave else "ON"
+        crt_status = "OFF" if settings.shaders.classic else "ON"
+        matrix_status = "OFF" if settings.shaders.handhelds else "ON"
+
         emu_menus = {
             "retroarch":    [
-                  ("Reset RetroArch configuration", retroarch_init),
+                  (f"Bezels: Turn {bezels_status}", ra_toggle_bezels),
+                  (f"AutoSave: Turn {autosave_status}", ra_toggle_autosave),
+                  (f"CRT Shaders: Turn {crt_status}", ra_toggle_shaders_crt),
+                  (f"LCD Shaders: Turn {matrix_status}", ra_toggle_shaders_matrix),
                   ("Reset RetroArch configuration", retroarch_init),
             ],
             "dolphin-emu":  [("Reset Dolphin configuration", dolphin_init)],
