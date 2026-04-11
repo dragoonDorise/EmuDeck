@@ -38,15 +38,19 @@ def create_structure_usb(destination: Path) -> bool:
         readme.write_text("\n".join(lines), encoding="utf-8")
 
         # Copiar roms desde el backend (ignora *.txt y no sobreescribe)
-        src = emudeck_backend / "configs/common/roms"
+        src = emudeck_backend / "configs/common/roms/"
         dst = dest / "roms"
-        for f in src.rglob("*"):
-            if f.is_file() and not f.suffix.lower() == ".txt":
-                rel = f.relative_to(src)
-                target = dst / rel
+        
+        # Primero crear todas las subcarpetas (incluidas las vacías)
+        for item in src.rglob("*"):
+            rel = item.relative_to(src)
+            target = dst / rel
+            if item.is_dir():
+                target.mkdir(parents=True, exist_ok=True)
+            elif item.is_file() and item.suffix.lower() != ".txt":
                 if not target.exists():
                     target.parent.mkdir(parents=True, exist_ok=True)
-                    shutil.copy2(f, target)
+                    shutil.copy2(item, target)
 
         popup_show_info("USB Setup", "Structure created successfully.")
         return True
