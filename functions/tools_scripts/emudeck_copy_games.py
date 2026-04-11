@@ -13,7 +13,7 @@ def check_usb() -> Optional[Path]:
 def create_structure_usb(destination: Path) -> bool:
     dest = Path(destination)
     if (dest / "roms").is_dir():
-        popup_show_info("USB Check", "USB already has a `roms/` folder, structure valid.")
+        popup_show_info("USB Check", "USB already has a `roms/` folder, you can proceed to the next step.")
         return True
 
     try:
