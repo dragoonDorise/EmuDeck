@@ -13,7 +13,7 @@ def check_usb() -> Optional[Path]:
 def create_structure_usb(destination: Path) -> bool:
     dest = Path(destination)
     if (dest / "roms").is_dir():
-        _show_info("USB Check", "USB already has a `roms/` folder, structure valid.")
+        popup_show_info("USB Check", "USB already has a `roms/` folder, structure valid.")
         return True
 
     try:
@@ -48,11 +48,11 @@ def create_structure_usb(destination: Path) -> bool:
                     target.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(f, target)
 
-        _show_info("USB Setup", "Structure created successfully.")
+        popup_show_info("USB Setup", "Structure created successfully.")
         return True
 
     except Exception as e:
-        _show_info("USB Setup Error", f"Failed to create structure:\n{e}")
+        popup_show_info("USB Setup Error", f"Failed to create structure:\n{e}")
         return False
 
 
@@ -96,7 +96,7 @@ def copy_games(origin: Path) -> bool:
                 if not tgt.exists():
                     shutil.copy2(f, tgt)
 
-        _show_info("Copy Games", f"Imported '{folder}' → {dst_dir}")
+        popup_show_info("Copy Games", f"Imported '{folder}' → {dst_dir}")
 
     # Copiar bios
     bios_src = origin / "bios"
@@ -108,23 +108,23 @@ def copy_games(origin: Path) -> bool:
             if not tgt.exists():
                 shutil.copy2(f, tgt)
 
-    _show_info("Copy BIOS", f"BIOS imported → {bios_path}")
+    popup_show_info("Copy BIOS", f"BIOS imported → {bios_path}")
     return True
 
 
 def auto_copy() -> None:
     usb = check_usb()
     if usb is None:
-        _show_info(
+        popup_show_info(
             "USB Error",
             "USB Drive not found.\nMake sure the drive is named EMUDECK (all caps)."
         )
         return
 
     if not (usb / "bios").is_dir():
-        _show_info("USB", "Creating folder structure on USB…")
+        popup_show_info("USB", "Creating folder structure on USB…")
         if create_structure_usb(usb):
-            _show_info(
+            popup_show_info(
                 "USB Ready",
                 "USB folders created.\nNow copy your ROMs & BIOS on another computer, then re-plug USB."
             )
