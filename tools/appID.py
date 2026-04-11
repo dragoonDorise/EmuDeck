@@ -1,16 +1,8 @@
-#!/usr/bin/python
-
-# We need binascii to convert the path and app name to crc32 and sys to
-# get the command line arguments
 import binascii
 import sys
 
 
 def get_app_id(exe, appname):
-    """Get APP ID for non-steam shortcut.
-
-    get_api_id(file, str, str) -> int
-    """
     comboString = ''.join([exe, appname])
     id_int = binascii.crc32(str.encode(comboString)) | 0x80000000
     

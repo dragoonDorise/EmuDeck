@@ -73,7 +73,6 @@ class InstallDialog(QtWidgets.QDialog):
         self.adjustSize()
 
     def selected(self) -> list[str]:
-        """Devuelve la lista de emus marcados."""
         return [emu for emu, cb in self.checks.items() if cb.isChecked()]
 
 def show_dialog_update_emulators():

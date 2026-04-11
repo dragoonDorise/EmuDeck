@@ -5,10 +5,6 @@ def _bios_check_dir(
     valid_hashes: Iterable[str],
     subdir: Path = None
 ) -> bool:
-    """
-    Scan all files in `bios_dir[/subdir]`, compute MD5, and
-    return True as soon as one checksum matches `valid_hashes`.
-    """
     target_dir = bios_dir / subdir if subdir else bios_dir
     if not target_dir.is_dir():
         return False
@@ -56,17 +52,12 @@ def check_ps2_bios() -> bool:
 
 
 def check_citron_bios() -> bool:
-    """Requires both firmware files and prod.keys present."""
     firmware = bios_path / "citron" / "firmware"
     keys     = bios_path / "citron" / "keys" / "prod.keys"
     return keys.is_file() and any(firmware.iterdir())  # non-empty
 
 
 def check_ryujinx_bios() -> bool:
-    """
-    Ryujinx uses ~/.config/Ryujinx/bis/system/Contents/registered
-    and ~/.config/Ryujinx/system/prod.keys
-    """
     home = Path.home()
     if system == "linux":
         fir = home / ".config" / "Ryujinx" / "bis"    / "system" / "Contents" / "registered"

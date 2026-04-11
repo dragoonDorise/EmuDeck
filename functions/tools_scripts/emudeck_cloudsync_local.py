@@ -3,13 +3,6 @@ from core.all import *
 
 
 def cloud_sync_install_and_config(provider: str, token: str) -> bool:
-    """
-    1) En Linux, fuerza Chrome como navegador predeterminado (vía flatpak y xdg-settings).
-    2) Instala rclone si hace falta (llama a remote.cloud_sync_install).
-    3) Llama a remote.cloud_sync_config(provider, token). Si devuelve True, imprime "true_cs".
-    4) Guarda los settings y restaura el navegador previo.
-    """
-
     cloudsync_remote = load_remote_cloud_sync()
 
     system = sys.platform  # "linux", "darwin", "win32", etc.
@@ -71,10 +64,6 @@ def cloud_sync_upload_emu_all() -> None:
 
 
 def cloud_sync_health_check_bin() -> bool:
-    """
-    Delete any previous test files, then check that the rclone binary exists and is executable.
-    Returns True if OK, False otherwise.
-    """
     provider = cloud_sync_provider
     user = settings.cs_user
     test_file = "cloudsync.emudeck"
@@ -97,10 +86,6 @@ def cloud_sync_health_check_bin() -> bool:
 
 
 def cloud_sync_health_check_cfg() -> bool:
-    """
-    Compare character count of original rclone.conf vs active config.
-    Returns True if different (i.e. custom config is in use), False if identical.
-    """
     original = emudeck_folder / "backend" / "configs" / "rclone" / "rclone.conf"
     if not original.is_file() or not cloud_sync_config_file.is_file():
         return False
@@ -113,9 +98,6 @@ def cloud_sync_health_check_service_starts() -> bool:
 
 
 def cloud_sync_health_upload() -> bool:
-    """
-    Write a test file, attempt to upload it to the cloud. Return True on success.
-    """
     provider = cloud_sync_provider
     user = settings.cs_user
     test_file = "cloudsync.emudeck"
@@ -135,9 +117,6 @@ def cloud_sync_health_upload() -> bool:
 
 
 def cloud_sync_health_is_file_uploaded() -> bool:
-    """
-    Check if the test file exists remotely.
-    """
     provider = cloud_sync_provider
     user = settings.cs_user
     test_file = "cloudsync.emudeck"
@@ -151,9 +130,6 @@ def cloud_sync_health_is_file_uploaded() -> bool:
 
 
 def cloud_sync_health_download() -> bool:
-    """
-    Attempt to download the test file from the cloud. Return True on success.
-    """
     provider = cloud_sync_provider
     user = settings.cs_user
     test_file = "cloudsync.emudeck"
@@ -171,9 +147,6 @@ def cloud_sync_health_download() -> bool:
 
 
 def cloud_sync_health_is_file_downloaded() -> bool:
-    """
-    Check that the downloaded test file exists locally, then clean up.
-    """
     test_file = saves_path / "dl_cloudsync.emudeck"
     exists = test_file.is_file()
     # Cleanup remote + local

@@ -1478,11 +1478,6 @@ def get_connected_controllers() -> int:
     return pygame.joystick.get_count()
 
 def popup_wii_players(title: str) -> Optional[int]:
-    """
-    Shows a popup with 4 buttons (1-4) to select number of players.
-    D-pad left/right to navigate, A confirms, B cancels.
-    Returns player count (1-4) or None if cancelled.
-    """
     app = ensure_app()
     dlg = BaseDialog(title)
 

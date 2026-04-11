@@ -614,15 +614,6 @@ def calculate_md5_without_header(
         header_size: int,
         chunk_size: int = 8192
     ) -> str:
-        """
-        Compute the MD5 checksum of the file at `file`, skipping the first
-        `header_size` bytes.
-
-        :param file: Path to the file.
-        :param header_size: Number of bytes to skip at the start.
-        :param chunk_size: Read in chunks of this size.
-        :returns: Hexadecimal MD5 digest string.
-        """
         file_path = Path(file)
         md5 = hashlib.md5()
         with file_path.open('rb') as f:

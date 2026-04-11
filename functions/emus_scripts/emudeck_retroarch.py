@@ -166,11 +166,8 @@ def retroarch_set_core_setting(config_name: str,
                                    core: str,
                                    key: str,
                                    value: str) -> None:
-    """
-    Ensure that every config file named `config_name` under
-    `${retroarch_dir}/config/{core}` has `key = value`.
-    If no such file exists, create one with that single setting.
-    """
+
+
     config_root = Path(retroarch_dir) / "config" / core
 
     # Pattern to match lines beginning with the key (possibly with whitespace)

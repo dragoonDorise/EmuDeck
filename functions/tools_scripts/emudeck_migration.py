@@ -15,11 +15,6 @@ def replace_in_file(path: Path, old: str, new: str) -> None:
 # ─── MIGRATION FUNCTIONS ────────────────────────────────────────────────────
 
 def migration_init(destination: Path) -> bool:
-    """
-    1) Comprueba espacio libre vs usado en emulation_path.
-    2) Pregunta con diálogo nativo si falta espacio.
-    3) Si OK, mueve y actualiza rutas.
-    """
     origin = emulation_path
     dest   = Path(destination)
 
@@ -46,9 +41,6 @@ def migration_init(destination: Path) -> bool:
 
 
 def migration_move(origin: Path, destination: Path, size_human: str) -> bool:
-    """
-    Lanza rsync para copiar origin → destination.
-    """
     _show_info(
         "Migrating",
         f"Migrating your current {size_human} Emulation folder to {destination}"
@@ -65,9 +57,6 @@ def migration_move(origin: Path, destination: Path, size_human: str) -> bool:
 
 
 def migration_update_paths(origin: Path, destination: Path) -> None:
-    """
-    Sustituye en múltiples ficheros de configuración la ruta `origin` por `destination`.
-    """
     o = str(origin)
     d = str(destination)
 
@@ -124,10 +113,6 @@ def migration_update_paths(origin: Path, destination: Path) -> None:
 
 
 def migration_update_srm(origin: str, destination: str) -> None:
-    """
-    Reemplaza origin→destination en shortcuts.vdf de Steam y actualiza
-    userSettings.json de Steam Rom Manager.
-    """
     # 1) shortcuts.vdf
     for path in steam_userdata_path.rglob("shortcuts.vdf"):
         txt = path.read_text(encoding="utf-8")
@@ -143,9 +128,6 @@ def migration_update_srm(origin: str, destination: str) -> None:
 
 
 def migration_update_parsers(origin: str, destination: str) -> None:
-    """
-    Reemplaza origin→destination en userConfigurations.json de Steam Rom Manager.
-    """
     parsers_json = Path.home() / ".config" / "steam-rom-manager" / "userData" / \
                    "userConfigurations.json"
     if parsers_json.exists():
@@ -154,21 +136,14 @@ def migration_update_parsers(origin: str, destination: str) -> None:
 
 
 def migration_update_settings(origin: str, destination: str) -> None:
-    """
-    Igual que parsers: actualiza userConfigurations.json.
-    """
     migration_update_parsers(origin, destination)
 
 
 def migration_ESDE() -> None:
-    """Invoca la migración interna de ES-DE."""
     ESDE_set_emulation_folder()
 
 
 def migration_fix_SDPaths() -> bool:
-    """
-    Si detecta un nuevo SD con get_sd_path(), propone actualizar rutas.
-    """
     new_path = get_sd_path()
     if not new_path:
         _show_info(

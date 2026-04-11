@@ -65,10 +65,6 @@ sys.stderr = StreamToLogger(logger.error)
 _qapp: Optional[QtWidgets.QApplication] = None
 
 def ensure_app() -> QtWidgets.QApplication:
-    """
-    Crea (si hace falta) y devuelve el singleton QApplication
-    y carga dialog.qss si existe.
-    """
     global _qapp
     if _qapp is None:
         _qapp = QtWidgets.QApplication.instance() or QtWidgets.QApplication(sys.argv)
@@ -94,9 +90,6 @@ def ensure_gamepad() -> Optional[pygame.joystick.Joystick]:
     return _joystick
 
 def poll_gamepad() -> Optional[str]:
-    """
-    Devuelve "yes", "no" o "cancel" si se pulsa A/B/X en el gamepad.
-    """
     j = ensure_gamepad()
     if not j:
         return None
@@ -109,10 +102,6 @@ def poll_gamepad() -> Optional[str]:
     return None
 
 def poll_gamepad_dir() -> Optional[str]:
-    """
-    Returns one of 'up','down','left','right' when the D-pad (hat) is moved
-    or left analog tilt is significant.
-    """
     j = ensure_gamepad()
     if not j:
         return None

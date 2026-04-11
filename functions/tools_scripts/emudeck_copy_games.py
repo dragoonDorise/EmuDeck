@@ -1,10 +1,6 @@
 from core.all import *
 
 def check_usb() -> Optional[Path]:
-    """
-    Busca el directorio /run/media/*/EMUDECK y devuelve el primero encontrado.
-    Si no hay ninguno, devuelve None.
-    """
     base = Path("/run/media")
     if base.is_dir():
         for user_dir in base.iterdir():
@@ -15,11 +11,6 @@ def check_usb() -> Optional[Path]:
 
 
 def create_structure_usb(destination: Path) -> bool:
-    """
-    Crea la estructura básica en USB (bios/, bios/dc, roms/) y copia
-    los roms de emudeck_backend/roms (ignorando *.txt).
-    Devuelve True si todo ha ido bien.
-    """
     dest = Path(destination)
     if (dest / "roms").is_dir():
         _show_info("USB Check", "USB already has a `roms/` folder, structure valid.")
@@ -66,12 +57,6 @@ def create_structure_usb(destination: Path) -> bool:
 
 
 def copy_games(origin: Path) -> bool:
-    """
-    Copia recursivamente los roms desde origin/roms → roms_path,
-    y bios desde origin/bios → bios_path.
-    Comprueba espacio libre y pide confirmación si falta.
-    Devuelve True si todo ok.
-    """
     origin = Path(origin)
     roms_src = origin / "roms"
 
@@ -128,9 +113,6 @@ def copy_games(origin: Path) -> bool:
 
 
 def auto_copy() -> None:
-    """
-    Lógica principal: detecta USB, crea estructura si falta y copia juegos.
-    """
     usb = check_usb()
     if usb is None:
         _show_info(

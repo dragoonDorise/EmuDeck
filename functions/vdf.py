@@ -1,64 +1,32 @@
 from core.all import *
 
 def generate_preliminary_id(exe, appname):
-    """
-    Genera un ID preliminar utilizando CRC32 y el bit más significativo.
-    Equivalente a `generatePreliminaryId` en SRM.
-    """
     key = exe + appname
     crc_value = zlib.crc32(key.encode('utf-8')) & 0xFFFFFFFF  # Aseguramos 32 bits
     top = (crc_value | 0x80000000)  # Establecer el bit más significativo
     return (top << 32) | 0x02000000  # Combinar con 0x02000000
 
 def generate_app_id(exe, appname):
-    """
-    Genera el AppId completo utilizado en Big Picture Grids.
-    Equivalente a `generateAppId` en SRM.
-    """
     return str(generate_preliminary_id(exe, appname))
 
 def generate_short_app_id(exe, appname):
-    """
-    Genera el ShortAppId utilizado para otras grids.
-    Equivalente a `generateShortAppId` en SRM.
-    """
     long_id = generate_preliminary_id(exe, appname)
     return str(long_id >> 32)
 
 def generate_shortcut_id(exe, appname):
-    """
-    Genera el ShortcutId utilizado en shortcuts.vdf.
-    Equivalente a `generateShortcutId` en SRM.
-    """
     long_id = generate_preliminary_id(exe, appname)
     return int((long_id >> 32) - 0x100000000)
 
 def shorten_app_id(long_id):
-    """
-    Convierte un AppId largo a un ShortAppId.
-    Equivalente a `shortenAppId` en SRM.
-    """
     return str(int(long_id) >> 32)
 
 def lengthen_app_id(short_id):
-    """
-    Convierte un ShortAppId a un AppId largo.
-    Equivalente a `lengthenAppId` en SRM.
-    """
     return str((int(short_id) << 32) | 0x02000000)
 
 def shortcutify_app_id(long_id):
-    """
-    Convierte un AppId largo a un ShortcutAppId.
-    Equivalente a `shortcutifyAppId` en SRM.
-    """
     return int(shorten_app_id(long_id)) >> 32
 
 def appify_shortcut_id(shortcut_id):
-    """
-    Convierte un ShortcutAppId a un AppId largo.
-    Equivalente a `appifyShortcutId` en SRM.
-    """
     return lengthen_app_id(str(int(shortcut_id) + 0x100000000))
 
 

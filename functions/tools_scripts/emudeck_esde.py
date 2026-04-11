@@ -174,12 +174,6 @@ def esde_set_default_emulators():
 
 
 def esde_set_emu(emu: str, system_code: str) -> None:
-    """Set the alternative emulator for a system in its gamelist.xml.
-
-    Modifies the file in-place to preserve any existing game metadata
-    (scraped descriptions, images, etc.). If the file does not exist,
-    creates a new one.
-    """
     import xml.etree.ElementTree as ET
 
     gamelist_file = esde_settings_folder / "gamelists" / system_code / "gamelist.xml"

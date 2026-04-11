@@ -222,11 +222,6 @@ def compress_rvz(
         output_path.unlink(missing_ok=True)
 
 def compress_cso(file_path: Path) -> None:
-    """
-    Compresses a file to CSO using the `ciso` tool.
-    On success, deletes the original file and prints a success message.
-    On failure, deletes any partially created .cso and prints an error.
-    """
     file_path = Path(file_path)
     output_path = file_path.with_suffix(".cso")
 
@@ -252,11 +247,6 @@ def compress_cso(file_path: Path) -> None:
             pass
 
 def trim_3ds(file_path: Path) -> None:
-    """
-    Trims a .3ds file using the `3dstool` utility.
-    On success, renames the original file by appending '(Trimmed)' before the extension.
-    On failure, prints an error and leaves the file untouched.
-    """
     file_path = Path(file_path)
     # Run: 3dstool -r -f input_file
     result = subprocess.run(
@@ -333,11 +323,6 @@ def decompress_cso_iso(file_path: Path) -> None:
                 pass
 
 def decompress_chd_iso(file_path: Path) -> None:
-    """
-    Decompress a CHD file back into an ISO using chdman.
-    On success: deletes the original .chd
-    On failure: deletes any incomplete .iso
-    """
     file_path = Path(file_path)
     iso_path = chd_path.with_suffix(".iso")
 
@@ -438,12 +423,6 @@ def decompress_rvz(rvz_path: Path) -> None:
                 pass
 
 def popup_ask_compressor(title: str, message: str) -> Optional[bool]:
-    """
-    Yes/No/Cancel dialog (botones y gamepad).
-      True  = Yes
-      False = No
-      None  = Cancel
-    """
     app = ensure_app()
     dlg = BaseDialog(title)
 
@@ -483,14 +462,6 @@ def popup_select_folder(
     message: str,
     candidates: Sequence[str]
 ) -> Optional[str]:
-    """
-    Show a popup with:
-      • a label (message),
-      • a list of `candidates` to choose from,
-      • OK / Cancel buttons,
-      • gamepad support: A=OK, B=Cancel.
-    Returns the chosen string, or None if cancelled.
-    """
     app = ensure_app()
     dlg = BaseDialog(title)
 
