@@ -41,7 +41,7 @@ def migration_init(destination: Path) -> bool:
 
 
 def migration_move(origin: Path, destination: Path, size_human: str) -> bool:
-    _show_info(
+    popup_show_info(
         "Migrating",
         f"Migrating your current {size_human} Emulation folder to {destination}"
     )
@@ -52,7 +52,7 @@ def migration_move(origin: Path, destination: Path, size_human: str) -> bool:
         )
         return True
     except subprocess.CalledProcessError as e:
-        _show_info("Migration Error", f"rsync failed:\n{e}")
+        popup_show_info("Migration Error", f"rsync failed:\n{e}")
         return False
 
 
@@ -106,7 +106,7 @@ def migration_update_paths(origin: Path, destination: Path) -> None:
     # Dolphin_flushSymlinks()
     # Citra_flushSymlinks()
 
-    _show_info(
+    popup_show_info(
         "Migration Success",
         f"Your library has been moved to {d}\nPlease restart to apply changes."
     )
@@ -146,7 +146,7 @@ def migration_ESDE() -> None:
 def migration_fix_SDPaths() -> bool:
     new_path = get_sd_path()
     if not new_path:
-        _show_info(
+        popup_show_info(
             "SD Card Error",
             "Please check that your SD Card is properly inserted and recognized by the system."
         )
