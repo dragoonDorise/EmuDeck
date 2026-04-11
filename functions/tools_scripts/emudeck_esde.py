@@ -106,6 +106,13 @@ def esde_init():
         esde_settings_folder / "settings",
     )
 
+    # Replace EMULATIONPATH and .EXT in find rules and systems config
+    for config_file in (esde_rules_file, esde_systems_file):
+        if config_file.exists():
+            sed("EMULATIONPATH", emulation_path, config_file)
+            ext = ".bat" if system.startswith("win") else ".sh"
+            sed(".EXT", ext, config_file)
+
     dlmedia = Path(storage_path / "es-de/downloaded-media")
     dlmedia.mkdir(parents=True, exist_ok=True)
 
@@ -167,31 +174,60 @@ def esde_set_default_emulators():
 
 
 def esde_set_emu(emu: str, system_code: str) -> None:
+    """Set the alternative emulator for a system in its gamelist.xml.
+
+    Modifies the file in-place to preserve any existing game metadata
+    (scraped descriptions, images, etc.). If the file does not exist,
+    creates a new one.
+    """
+    import xml.etree.ElementTree as ET
+
     gamelist_file = esde_settings_folder / "gamelists" / system_code / "gamelist.xml"
-
-    if gamelist_file.exists():
-        print(f"{system_code} gamelist already present, skipping.")
-        return
-
     gamelist_file.parent.mkdir(parents=True, exist_ok=True)
 
-    src = (
-        emudeck_backend
-        / "configs"
-        / "common"
-        / "emulationstation"
-        / "gamelists"
-        / system_code
-        / "gamelist.xml"
-    )
+    if gamelist_file.exists():
+        try:
+            tree = ET.parse(gamelist_file)
+            root = tree.getroot()
+        except ET.ParseError:
+            # File exists but is not valid XML (e.g. dual-root template format).
+            # Read as text and handle the alternativeEmulator block manually.
+            text = gamelist_file.read_text(encoding="utf-8")
+            # Replace existing alternativeEmulator block
+            alt_pattern = re.compile(
+                r"<alternativeEmulator>\s*<label>[^<]*</label>\s*</alternativeEmulator>"
+            )
+            new_block = f"<alternativeEmulator>\n\t<label>{emu}</label>\n</alternativeEmulator>"
+            if alt_pattern.search(text):
+                text = alt_pattern.sub(new_block, text)
+            else:
+                # Insert before <gameList
+                text = new_block + "\n" + text
+            gamelist_file.write_text(text, encoding="utf-8")
+            print(f"Updated {system_code} alternative emulator to '{emu}' (text mode)")
+            return
 
-    try:
-        shutil.copy2(src, gamelist_file)
-        print(f"Copied template for {system_code} → {gamelist_file}")
-    except FileNotFoundError:
-        print(f"Template not found for {system_code}: {src}")
-    except Exception as e:
-        print(f"Error copying {system_code} gamelist: {e}")
+        # Valid XML — modify in-place
+        alt_emu = root.find("alternativeEmulator")
+        if alt_emu is None:
+            alt_emu = ET.SubElement(root, "alternativeEmulator")
+
+        label_el = alt_emu.find("label")
+        if label_el is None:
+            label_el = ET.SubElement(alt_emu, "label")
+        label_el.text = emu
+
+        tree.write(gamelist_file, xml_declaration=True, encoding="unicode")
+        print(f"Updated {system_code} alternative emulator to '{emu}'")
+    else:
+        # Create new gamelist with alternativeEmulator
+        root = ET.Element("gameList")
+        alt_emu = ET.SubElement(root, "alternativeEmulator")
+        label_el = ET.SubElement(alt_emu, "label")
+        label_el.text = emu
+        tree = ET.ElementTree(root)
+        tree.write(gamelist_file, xml_declaration=True, encoding="unicode")
+        print(f"Created {system_code} gamelist with emulator '{emu}'")
 
 
 def esde_add_to_steam():

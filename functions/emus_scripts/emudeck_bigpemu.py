@@ -86,8 +86,8 @@ def bigpemu_init():
     bigpemu_setup_saves()
     bigpemu_set_resolution()
     bigpemu_set_controller_style()
-    esde_set_emu("BigPEmu (Standalone)","atarijaguarcd")
-    esde_set_emu("BigPEmu (Standalone)","atarijaguar")
+    esde_set_emu("BigPEmu","atarijaguarcd")
+    esde_set_emu("BigPEmu","atarijaguar")
     bigpemu_add_custom_parser()
 
 def bigpemu_install_init():

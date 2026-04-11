@@ -5,9 +5,9 @@
 	<fullname>Atari Jaguar</fullname>
 	<path>%ROMPATH%/atarijaguar</path>
 	<extension>.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP</extension>
-	<command label="BigPEmu">/bin/bash EMULATIONPATH/tools/launchers/bigpemu.sh %ROM%</command>
+	<command label="BigPEmu">%EMULATOR_BIGPEMU% %ROM%</command>
 	<command label="Virtual Jaguar">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/virtualjaguar_libretro.so %ROM%</command>
-	<command label="MAME (Standalone)">%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/atarijaguar jaguar -cart %ROM%</command>
+	<command label="MAME (Standalone)">%EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/atarijaguar jaguar -cart %ROM%</command>
 	<platform>atarijaguar</platform>
 	<theme>atarijaguar</theme>
   </system>
@@ -16,7 +16,7 @@
 	<fullname>Atari Jaguar CD</fullname>
 	<path>%ROMPATH%/atarijaguarcd</path>
 	<extension>.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP</extension>
-	<command label="BigPEmu">/bin/bash EMULATIONPATH/tools/launchers/bigpemu.sh %ROM%</command>
+	<command label="BigPEmu">%EMULATOR_BIGPEMU% %ROM%</command>
 	<platform>atarijaguarcd</platform>
 	<theme>atarijaguarcd</theme>
   </system>
@@ -25,7 +25,7 @@
 	<fullname>Sega Model 2</fullname>
 	<path>%ROMPATH%/model2/roms</path>
 	<extension>.zip .ZIP</extension>
-	<command label="Model 2 Emulator (Proton)">/bin/bash EMULATIONPATH/tools/launchers/model-2-emulator.sh %BASENAME%</command>
+	<command label="Model 2 Emulator">%EMULATOR_MODEL2% %BASENAME%</command>
 	<platform>arcade</platform>
 	<theme>model2</theme>
   </system>
@@ -36,6 +36,8 @@
 	<extension>.nca .NCA .nro .NRO .nso .NSO .nsp .NSP .xci .XCI</extension>
 	<command label="Ryujinx (Standalone)">%EMULATOR_RYUJINX% %ROM%</command>
 	<command label="Yuzu (Standalone)">%INJECT%=%BASENAME%.esprefix %EMULATOR_YUZU% -f -g %ROM%</command>
+	<command label="Citron (Standalone)">%EMULATOR_CITRON% %ROM%</command>
+	<command label="Eden (Standalone)">%EMULATOR_EDEN% %ROM%</command>
 	<platform>switch</platform>
 	<theme>switch</theme>
   </system>
@@ -44,8 +46,7 @@
 	<fullname>Nintendo Wii U</fullname>
 	<path>%ROMPATH%/wiiu/roms</path>
 	<extension>.elf .ELF .rpx .RPX .tmd .TMD .wua .WUA .wud .WUD .wuhb .WUHB .wux .WUX</extension>
-	<command label="Cemu (Native)">/bin/bash EMULATIONPATH/tools/launchers/cemu.sh -f -g %ROM%</command>
-	<command label="Cemu (Proton)">/bin/bash EMULATIONPATH/tools/launchers/cemu.sh -w -f -g z:%ROM%</command>
+	<command label="Cemu">%EMULATOR_CEMU% -f -g %ROM%</command>
 	<platform>wiiu</platform>
 	<theme>wiiu</theme>
   </system>
@@ -54,7 +55,7 @@
 	<fullname>Microsoft Xbox 360</fullname>
 	<path>%ROMPATH%/xbox360/roms</path>
 	<extension>.iso .ISO . .xex .XEX .zar .ZAR</extension>
-	<command label="Xenia (Proton)">/bin/bash EMULATIONPATH/tools/launchers/xenia.sh z:%ROM% %INJECT%=%BASENAME%.esprefix</command>
+	<command label="Xenia">%EMULATOR_XENIA% %ROM%</command>
 	<platform>xbox360</platform>
 	<theme>xbox360</theme>
   </system>

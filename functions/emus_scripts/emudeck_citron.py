@@ -35,7 +35,7 @@ def citron_init():
     citron_set_resolution()
     citron_set_controller_style()
 
-    esde_set_emu("Citron (Standalon)","switch")
+    esde_set_emu("Citron (Standalone)","switch")
     citron_add_custom_parser()
 
 def citron_add_custom_parser():

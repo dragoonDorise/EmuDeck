@@ -194,7 +194,7 @@ def shadps4_init():
     shadps4_set_emulation_folder()
     shadps4_setup_saves()
 
-    esde_set_emu("ShadPS4 (Standalone)", "ps4")
+    esde_set_emu("ShadPS4 Shortcuts (Standalone)", "ps4")
     return True
 
 

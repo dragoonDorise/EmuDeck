@@ -1,82 +1,208 @@
 <?xml version="1.0"?>
-<!-- This is the ES-DE find rules configuration file for Unix -->
+<!-- ES-DE find rules for EmuDeck.
+     Each emulator points to the EmuDeck launcher script so all games
+     go through launcher.py (cloud sync, hotkeys, netplay, etc.).
+     .EXT is replaced by .sh (Unix) or .bat (Windows) during esde_init().
+     EMULATIONPATH is replaced by the actual emulation path. -->
 <ruleList>
     <emulator name="OS-SHELL">
-        <!-- Operating system shell -->
         <rule type="systempath">
             <entry>bash</entry>
             <entry>sh</entry>
         </rule>
     </emulator>
-    <emulator name="DOLPHIN">
-        <rule type="staticpath">
-            <entry>~/.local/share/flatpak/exports/bin/org.DolphinEmu.dolphin-emu</entry>
-        </rule>
-    </emulator>
+
+    <!-- RetroArch — covers ~50 systems (nes, snes, genesis, gb, gbc, saturn, etc.) -->
     <emulator name="RETROARCH">
-        <rule type="systempath">
-            <entry>org.libretro.RetroArch</entry>
-        </rule>
         <rule type="staticpath">
-            <entry>~/.local/share/flatpak/exports/bin/org.libretro.RetroArch</entry>
-            <entry>/var/lib/flatpak/exports/bin/org.libretro.RetroArch</entry>
-            <entry>~/Applications/RetroArch-Linux*.AppImage</entry>
-            <entry>~/.local/share/applications/RetroArch-Linux*.AppImage</entry>
-            <entry>~/.local/bin/RetroArch-Linux*.AppImage</entry>
-            <entry>~/bin/RetroArch-Linux*.AppImage</entry>
+            <entry>EMULATIONPATH/tools/launchers/retroarch.EXT</entry>
         </rule>
     </emulator>
     <core name="RETROARCH">
         <rule type="corepath">
-            <!-- Flatpak package -->
             <entry>~/.var/app/org.libretro.RetroArch/config/retroarch/cores</entry>
-            <!-- Snap package -->
             <entry>~/snap/retroarch/current/.config/retroarch/cores</entry>
-            <!-- AppImage and compiled from source -->
             <entry>~/.config/retroarch/cores</entry>
-            <!-- Ubuntu and Linux Mint repository -->
             <entry>/usr/lib/x86_64-linux-gnu/libretro</entry>
-            <!-- Fedora repository -->
             <entry>/usr/lib64/libretro</entry>
-            <!-- Manjaro repository -->
             <entry>/usr/lib/libretro</entry>
-            <!-- FreeBSD and OpenBSD repository -->
             <entry>/usr/local/lib/libretro</entry>
-            <!-- NetBSD repository -->
             <entry>/usr/pkg/lib/libretro</entry>
         </rule>
     </core>
+
+    <!-- Dolphin — gc, gamecube, wii -->
+    <emulator name="DOLPHIN">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/dolphin-emu.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- PCSX2 — ps2 -->
+    <emulator name="PCSX2">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/pcsx2-qt.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- DuckStation — psx -->
+    <emulator name="DUCKSTATION">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/duckstation.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- PPSSPP — psp -->
+    <emulator name="PPSSPP">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/ppsspp.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- melonDS — nds -->
+    <emulator name="MELONDS">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/melonds.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- mGBA — gba, gb, gbc -->
+    <emulator name="MGBA">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/mgba.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- RMG (Rosalie's Mupen GUI) — n64 -->
+    <emulator name="ROSALIES-MUPEN-GUI">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/rosaliesmupengui.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- Flycast — dreamcast, naomi, naomi2, naomigd -->
+    <emulator name="FLYCAST">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/flycast.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- ScummVM -->
+    <emulator name="SCUMMVM">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/scummvm.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- RPCS3 — ps3 -->
+    <emulator name="RPCS3">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/rpcs3.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- Ryujinx — switch -->
+    <emulator name="RYUJINX">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/ryujinx.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- Cemu — wiiu -->
+    <emulator name="CEMU">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/cemu.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- xemu — xbox -->
+    <emulator name="XEMU">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/xemu-emu.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- MAME — mame, arcade -->
+    <emulator name="MAME">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/mame.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- ShadPS4 — ps4 -->
     <emulator name="SHADPS4">
-        <!-- PS4 emulator ShadPS4 -->
         <rule type="staticpath">
-            <entry>EMULATIONPATH/tools/launchers/shadps4.sh</entry>
+            <entry>EMULATIONPATH/tools/launchers/shadps4.EXT</entry>
         </rule>
     </emulator>
-    <emulator name="YUZU">
-        <!-- Nintendo Switch emulator Yuzu -->
-        <rule type="systempath">
-            <entry>yuzu</entry>
-            <entry>org.yuzu_emu.yuzu</entry>
-        </rule>
-        <rule type="staticpath">
-            <entry>~/Applications/yuzu*.AppImage</entry>
-            <entry>~/.local/share/applications/yuzu*.AppImage</entry>
-            <entry>~/.local/bin/yuzu*.AppImage</entry>
-            <entry>~/bin/yuzu*.AppImage</entry>
-            <entry>/var/lib/flatpak/exports/bin/org.yuzu_emu.yuzu</entry>
-            <entry>~/.local/share/flatpak/exports/bin/org.yuzu_emu.yuzu</entry>
-        </rule>
-    </emulator>
+
+    <!-- Azahar — n3ds -->
     <emulator name="AZAHAR">
-        <!-- Nintendo 3DS -->
         <rule type="staticpath">
-            <entry>~/Applications/azahar*.AppImage</entry>
+            <entry>EMULATIONPATH/tools/launchers/azahar.EXT</entry>
         </rule>
     </emulator>
-    <emulator name="CITRON">
-        <!-- Nintendo Switch emulator Citron -->
+
+    <!-- Yuzu — switch (alternative) -->
+    <emulator name="YUZU">
         <rule type="staticpath">
-            <entry>~/Applications/citron*.AppImage</entry>
+            <entry>EMULATIONPATH/tools/launchers/yuzu.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- Citron — switch (alternative) -->
+    <emulator name="CITRON">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/citron.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- PrimeHack — gc/wii (alternative) -->
+    <emulator name="PRIMEHACK">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/primehack.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- Vita3K — psvita -->
+    <emulator name="VITA3K">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/vita3k.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- Supermodel — model3 -->
+    <emulator name="SUPERMODEL">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/supermodel.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- BigPEmu — atarijaguar, atarijaguarcd (custom, not in ES-DE builtin) -->
+    <emulator name="BIGPEMU">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/bigpemu.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- Model 2 Emulator — model2 (custom, not in ES-DE builtin) -->
+    <emulator name="MODEL2">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/model-2-emulator.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- Xenia — xbox360 (custom, not in ES-DE builtin) -->
+    <emulator name="XENIA">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/xenia.EXT</entry>
+        </rule>
+    </emulator>
+
+    <!-- Eden — switch (alternative, not in ES-DE builtin) -->
+    <emulator name="EDEN">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/eden.EXT</entry>
         </rule>
     </emulator>
 

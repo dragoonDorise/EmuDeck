@@ -35,7 +35,7 @@ def eden_init():
     eden_set_resolution()
     eden_set_controller_style()
 
-    esde_set_emu("Eden (Standalon)","switch")
+    esde_set_emu("Eden (Standalone)","switch")
     eden_add_custom_parser()
 
 def eden_add_custom_parser():

@@ -60,7 +60,7 @@ def rmg_init():
 
     rmg_set_resolution()
     rmg_set_controller_style()
-    esde_set_emu("RMG (Standalone)","n64")
+    esde_set_emu("Rosalie's Mupen GUI (Standalone)","n64")
     rmg_add_custom_parser()
 
 def rmg_install_init():
