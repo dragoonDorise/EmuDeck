@@ -69,42 +69,36 @@ def migration_update_paths(origin: Path, destination: Path) -> None:
     set_setting("storagePath",     f"{d}/storage")
     set_setting("ESDEscrapData",   f"{d}/tools/downloaded_media")
 
-    # Configs de emus
-    for cfg in [
-        Azahar_configFile, Citra_configFile, DuckStation_configFile,
-        MAME_configFile, melonDS_configFile, mGBA_configFile,
-        PCSX2QT_configFile, RetroArch_configFile, RMG_configFile,
-        Vita3K_configFile, ScummVM_configFile
-    ]:
-        if cfg.exists():
-            replace_in_file(cfg, o, d)
+    # Configs y paths de emus
+    bigpemu_init()
+    cemu_init()
+    citron_init()
+    dolphin_init()
+    duckstation_init()
+    eden_init()
+    flycast_init()
+    mame_init()
+    melonds_init()
+    mgba_init()
+    model2_init()
+    pcsx2_init()
+    ppsspp_init()
+    primehack_init()
+    retroarch_init()
+    rmg_init()
+    rpcs3_init()
+    ryujinx_init()
+    scummvm_init()
+    shadps4_init()
+    supermodel_init()
+    vita3k_init()
+    xemu_init()
+    xenia_init()
+    yuzu_init()
 
-    # Ruta flatpak de Dolphin
-    dolphin_ini = Path.home() / ".var" / "app" / "org.DolphinEmu.dolphin-emu" / \
-                 "config" / "dolphin-emu" / "Dolphin.ini"
-    if dolphin_ini.exists():
-        replace_in_file(dolphin_ini, o, d)
-
-    # RPCS3 vfs.yml
-    rpcs3_vfs = Path.home() / ".var" / "app" / RPCS3_emuPath / \
-                "config" / "rpcs3" / "vfs.yml"
-    if rpcs3_vfs.exists():
-        replace_in_file(rpcs3_vfs, o, d)
-
-    # yuzu qt-config.ini
-    yuzu_cfg = Path.home() / ".config" / "yuzu" / "qt-config.ini"
-    if yuzu_cfg.exists():
-        replace_in_file(yuzu_cfg, o, d)
 
     # Steam Rom Manager
     migration_update_srm(o, d)
-
-    # Reinicializar saves según plugins instalados (mock)
-    # for each emulator installed: llamar a *_setupSaves()
-
-    # Symlinks de Dolphin/Citra (mock)
-    # Dolphin_flushSymlinks()
-    # Citra_flushSymlinks()
 
     popup_show_info(
         "Migration Success",
