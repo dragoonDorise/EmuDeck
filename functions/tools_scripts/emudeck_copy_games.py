@@ -38,7 +38,7 @@ def create_structure_usb(destination: Path) -> bool:
         readme.write_text("\n".join(lines), encoding="utf-8")
 
         # Copiar roms desde el backend (ignora *.txt y no sobreescribe)
-        src = emudeck_backend / "roms"
+        src = emudeck_backend / "configs/common/roms"
         dst = dest / "roms"
         for f in src.rglob("*"):
             if f.is_file() and not f.suffix.lower() == ".txt":
