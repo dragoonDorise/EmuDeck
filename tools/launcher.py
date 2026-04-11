@@ -14,6 +14,20 @@ else:
 args = sys.argv[2:]
 raw = sys.argv[2:]
 
+# Detect if a button is held down at launch
+try:
+    if not pygame.get_init():
+        pygame.init()
+    pygame.joystick.init()
+    if pygame.joystick.get_count() > 0:
+        js = pygame.joystick.Joystick(0)
+        js.init()
+        pygame.event.pump()
+        if js.get_button(0):  # Button A / Cross
+            popup_show_info("EmuDeck Launcher", f"Button A detected while launching {emu}")
+except Exception as e:
+    print(f"Button detection skipped: {e}")
+
 if system == "darwin":
     if emu.lower() == "es-de":
         exe = f"{emus_folder}/ES-DE.app"
