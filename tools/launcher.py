@@ -23,8 +23,8 @@ try:
         js = pygame.joystick.Joystick(0)
         js.init()
         pygame.event.pump()
-        if js.get_button(0):  # Button A / Cross
-            popup_show_info("EmuDeck Launcher", f"Button A detected while launching {emu}")
+        if js.get_button(3):  # Button A / Cross
+            popup_show_info("EmuDeck Launcher", f"Button Y detected while launching {emu}")
 except Exception as e:
     print(f"Button detection skipped: {e}")
 
