@@ -15,6 +15,7 @@ args = sys.argv[2:]
 raw = sys.argv[2:]
 
 # Detect if a button is held down at launch
+y_pressed = False
 try:
     if not pygame.get_init():
         pygame.init()
@@ -23,10 +24,55 @@ try:
         js = pygame.joystick.Joystick(0)
         js.init()
         pygame.event.pump()
-        if js.get_button(3):  # Button A / Cross
-            popup_show_info("EmuDeck Launcher", f"Button Y detected while launching {emu}")
+        if js.get_button(3):  # Button Y
+            y_pressed = True
+            print(f"Button detected")
 except Exception as e:
     print(f"Button detection skipped: {e}")
+
+# Per-emulator configuration menu (shown on Y button press)
+if y_pressed:
+    print(f"Y pressed - emu: '{emu.lower()}'")
+    try:
+        emu_menus = {
+            "retroarch":    [
+                  ("Reset RetroArch configuration", retroarch_init),
+                  ("Reset RetroArch configuration", retroarch_init),
+            ],
+            "dolphin-emu":  [("Reset Dolphin configuration", dolphin_init)],
+            "duckstation":  [("Reset DuckStation configuration", duckstation_init)],
+            "pcsx2-qt":     [("Reset PCSX2 configuration", pcsx2_init)],
+            "ppsspp":       [("Reset PPSSPP configuration", ppsspp_init)],
+            "rpcs3":        [("Reset RPCS3 configuration", rpcs3_init)],
+            "cemu":         [("Reset Cemu configuration", cemu_init)],
+            "ryujinx":      [("Reset Ryujinx configuration", ryujinx_init)],
+            "vita3k":       [("Reset Vita3K configuration", vita3k_init)],
+            "xemu-emu":     [("Reset Xemu configuration", xemu_init)],
+            "mgba":         [("Reset mGBA configuration", mgba_init)],
+            "melonds":      [("Reset melonDS configuration", melonds_init)],
+            "mame":         [("Reset MAME configuration", mame_init)],
+            "flycast":      [("Reset Flycast configuration", flycast_init)],
+            "shadps4":      [("Reset ShadPS4 configuration", shadps4_init)],
+            "citron":       [("Reset Citron configuration", citron_init)],
+            "azahar":       [("Reset Azahar configuration", azahar_init)],
+            "scummvm":      [("Reset ScummVM configuration", scummvm_init)],
+            "primehack":    [("Reset PrimeHack configuration", primehack_init)],
+            "bigpemu":      [("Reset BigPEmu configuration", bigpemu_init)],
+            "supermodel":   [("Reset Supermodel configuration", supermodel_init)],
+            "xenia":        [("Reset Xenia configuration", xenia_init)],
+            "eden":         [("Reset Eden configuration", eden_init)],
+        }
+        print(f"Menu keys: {list(emu_menus.keys())}")
+        menu_options = emu_menus.get(emu.lower(), [])
+        print(f"Menu options for '{emu.lower()}': {menu_options}")
+        if menu_options:
+            popup_show_menu(f"Quick Menu", menu_options)
+        else:
+            print(f"No menu options found for emu '{emu.lower()}'")
+    except Exception as e:
+        print(f"Menu error: {e}")
+        import traceback
+        traceback.print_exc()
 
 if system == "darwin":
     if emu.lower() == "es-de":

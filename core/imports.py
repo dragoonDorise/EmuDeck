@@ -114,7 +114,13 @@ def poll_gamepad_dir() -> Optional[str]:
             if y == -1:  return "down"
             if x == -1:  return "left"
             if x == 1:   return "right"
-        # optionally, check analog stick on axis 0/1:
+        # D-pad as buttons (Xbox, Steam Deck, etc.):
+        if e.type == pygame.JOYBUTTONDOWN:
+            if e.button == 11:  return "up"
+            if e.button == 12:  return "down"
+            if e.button == 13:  return "left"
+            if e.button == 14:  return "right"
+        # Analog stick on axis 0/1:
         if e.type == pygame.JOYAXISMOTION and abs(e.value) > 0.6:
             if e.axis == 1:  # vertical stick
                 return "down" if e.value > 0 else "up"

@@ -1615,6 +1615,73 @@ def popup_wii_controller_type(title: str, player: int = 1) -> Optional[str]:
         return None
     return choice
 
+def popup_show_menu(title: str, options: list) -> Optional[bool]:
+
+    if not options:
+        return None
+
+    app = ensure_app()
+    dlg = BaseDialog(title)
+
+    heading = QtWidgets.QLabel(title)
+    heading.setAlignment(QtCore.Qt.AlignCenter)
+    heading.setStyleSheet("font-size: 18px; font-weight: bold;")
+    dlg._add(heading)
+
+    btn_layout = QtWidgets.QVBoxLayout()
+    btn_layout.setSpacing(10)
+
+    chosen_cb = None
+    buttons = []
+
+    def _pick(cb):
+        nonlocal chosen_cb
+        chosen_cb = cb
+        dlg.accept()
+
+    for label, cb in options:
+        btn = QtWidgets.QPushButton(label)
+        btn.setStyleSheet("font-size: 16px; padding: 10px 20px;")
+        btn.setMinimumHeight(50)
+        btn.clicked.connect(lambda checked=False, callback=cb: _pick(callback))
+        btn_layout.addWidget(btn)
+        buttons.append(btn)
+
+    # Cancel button
+    cancel_btn = QtWidgets.QPushButton("Cancel")
+    cancel_btn.setStyleSheet("font-size: 14px; padding: 8px 16px;")
+    cancel_btn.setMinimumHeight(40)
+    cancel_btn.clicked.connect(dlg.reject)
+    btn_layout.addWidget(cancel_btn)
+    buttons.append(cancel_btn)
+
+    dlg._inner.addLayout(btn_layout)
+
+    idx = 0
+    buttons[0].setFocus()
+
+    dlg.show()
+    while dlg.isVisible():
+        app.processEvents()
+        direction = poll_gamepad_dir()
+        if direction in ("up", "down"):
+            idx = (idx + (1 if direction == "down" else -1)) % len(buttons)
+            buttons[idx].setFocus()
+        gp = poll_gamepad()
+        if gp == "yes":
+            buttons[idx].click()
+        elif gp in ("no", "cancel"):
+            dlg.reject()
+        QtCore.QThread.msleep(50)
+
+    if dlg.result() == QtWidgets.QDialog.Rejected:
+        return None
+
+    if chosen_cb:
+        chosen_cb()
+    return True
+
+
 def add_parser(
         custom_parser: str,
     ) -> bool:
