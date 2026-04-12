@@ -17,16 +17,25 @@ raw = sys.argv[2:]
 # Detect if a button is held down at launch
 y_pressed = False
 try:
-    if not pygame.get_init():
-        pygame.init()
+    import pygame
+    os.environ.setdefault("SDL_VIDEODRIVER", "dummy")
+    os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
+    pygame.init()
     pygame.joystick.init()
+    print(f"[DEBUG] Gamepads detectados: {pygame.joystick.get_count()}")
     if pygame.joystick.get_count() > 0:
         js = pygame.joystick.Joystick(0)
         js.init()
-        pygame.event.pump()
-        if js.get_button(3):  # Button Y
-            y_pressed = True
-            print(f"Button detected")
+        deadline = time.time() + 0.3
+        while time.time() < deadline:
+            pygame.event.pump()
+            for e in pygame.event.get():
+                if e.type == pygame.JOYBUTTONDOWN and e.button == 3:
+                    y_pressed = True
+                    print("Button detected")
+            if y_pressed:
+                break
+    pygame.quit()
 except Exception as e:
     print(f"Button detection skipped: {e}")
 
