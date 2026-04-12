@@ -1,4 +1,4 @@
-import os, sys, subprocess, venv, importlib
+import os, sys, subprocess, venv, importlib.util
 from pathlib import Path
 from core.vars import *
 
@@ -41,14 +41,18 @@ def ensure_packages():
     for pip_name, import_name in packages:
         installed = False
         if venv_site:
-            finder = importlib.machinery.FileFinder(
-                venv_site,
-                (importlib.machinery.SourceFileLoader, [".py"]),
-                (importlib.machinery.ExtensionFileLoader, importlib.machinery.EXTENSION_SUFFIXES),
-            )
-            installed = finder.find_spec(import_name) is not None
+            orig_path = sys.path[:]
+            sys.path = [venv_site]
+            try:
+                spec = importlib.util.find_spec(import_name)
+                installed = spec is not None
+            except (ModuleNotFoundError, ValueError):
+                installed = False
+            finally:
+                sys.path = orig_path
 
         if not installed:
+            print(f"[EmuDeck] Módulo '{pip_name}' no encontrado en venv, instalando...")
             install_pip(pip_name)
 
 def generate_python_env():
@@ -64,4 +68,5 @@ def generate_python_env():
     if Path(sys.prefix).resolve() != venv_dir.resolve():
         os.execv(str(python_venv), [str(python_venv)] + sys.argv)
 
+    # Solo llegamos aquí si ya estamos dentro del venv
     ensure_packages()
