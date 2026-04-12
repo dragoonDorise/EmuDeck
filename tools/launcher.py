@@ -17,34 +17,16 @@ raw = sys.argv[2:]
 # Detect if a button is held down at launch
 y_pressed = False
 try:
-    from inputs import get_gamepad, DeviceManager
-    import threading
-
-    # Mapeo del botón Y según plataforma/controlador
-    # Xbox: BTN_NORTH, PlayStation: BTN_TRIANGLE, genérico: BTN_Y
-    Y_BUTTON_CODES = {"BTN_NORTH", "BTN_Y", "BTN_TRIANGLE"}
-
-    detected = threading.Event()
-
-    def _read_gamepad():
-        try:
-            deadline = time.time() + 0.3
-            while time.time() < deadline:
-                events = get_gamepad()
-                for e in events:
-                    if e.ev_type == "Key" and e.code in Y_BUTTON_CODES and e.state == 1:
-                        detected.set()
-                        return
-        except Exception:
-            pass
-
-    t = threading.Thread(target=_read_gamepad, daemon=True)
-    t.start()
-    t.join(timeout=0.3)
-    y_pressed = detected.is_set()
-    if y_pressed:
-        print("Button detected")
-
+    if not pygame.get_init():
+        pygame.init()
+    pygame.joystick.init()
+    if pygame.joystick.get_count() > 0:
+        js = pygame.joystick.Joystick(0)
+        js.init()
+        pygame.event.pump()
+        if js.get_button(3):  # Button Y
+            y_pressed = True
+            print(f"Button detected")
 except Exception as e:
     print(f"Button detection skipped: {e}")
 
@@ -187,6 +169,9 @@ if system == "darwin":
         exe = f"{emus_folder}/xenia.app"
     if emu.lower() == "yuzu":
         exe = f"{emus_folder}/yuzu.app"
+    #Legacy names
+
+
 
 if system == "linux":
     if emu.lower() == "es-de":
@@ -213,6 +198,8 @@ if system == "linux":
         exe = "/usr/bin/flatpak run net.kuribo64.melonDS"
     if emu.lower() == "mgba":
         exe = f"{emus_folder}/mGBA.AppImage"
+    # if emu.lower() == "model-2-emulator":
+    #     exe = f"{emus_folder}/model-2-emulator.AppImage"
     if emu.lower() == "pcsx2-qt":
         exe = f"{emus_folder}/pcsx2-Qt.AppImage"
     if emu.lower() == "ppsspp":
@@ -242,7 +229,7 @@ if system == "linux":
     if emu.lower() == "yuzu":
         exe = f"{emus_folder}/yuzu.AppImage"
     if emu.lower() == "eden":
-        exe = f"{emus_folder}/Eden.AppImage"
+          exe = f"{emus_folder}/Eden.AppImage"
 
 if system.startswith("win"):
     if emu.lower() in ("es-de", "emulationstationde"):
@@ -300,7 +287,7 @@ if system.startswith("win"):
     if emu.lower() == "eden":
         exe = f"{emus_folder}/eden/eden.exe"
 
-# netplay
+#netplay
 if emu.lower() == "retroarch":
    if settings.netplay == True:
       set_setting("netplay_cmd","-H")
@@ -311,39 +298,41 @@ if emu.lower() == "retroarch":
 
 exe = str(exe)
 
-# Launch popups
+#Launch popups
 if emu.lower() == "retroarch":
-   show_hotkeys("RetroArch", [
+   show_hotkeys("RetroArch", [                                                                                                               
          ("SELECT + START", "Exit emulation"),
          ("SELECT + L1", "Load save state"),
          ("SELECT + R1", "Save save state"),
          ("SELECT + L2", "Rewind"),
          ("SELECT + R2", "Fast Forward"),
    ])
-
+   
 if emu.lower() == "dolphin":
-   show_hotkeys("Dolphin", [
+   show_hotkeys("Dolphin", [                                                                                                               
       ("SELECT + START", "Exit emulation"),
       ("SELECT + L1", "Load save state"),
       ("SELECT + R1", "Save save state"),
    ])
-
+   
 if emu.lower() == "dolphin" and any("wii" in a.lower() for a in sys.argv[1:]):
    controllers = get_connected_controllers()
    if controllers > 1:
        players = popup_wii_players("Wii Setup")
    else:
        players = 1
-
+   
    if players:
        for p in range(1, players + 1):
            ctrl = popup_wii_controller_type("Wii Setup", player=p)
            print(f"Player {p}: {ctrl}")
            if ctrl is None:
                break
+               
+   
+   
 
-
-# Double "'XXX'" cleanup
+#Dobule "'XXX'" cleanup
 if args:
     last = args[-1]
     if len(last) >= 2 and last.startswith("'") and last.endswith("'"):
@@ -386,14 +375,18 @@ if system.startswith("win") and raw and raw[0] == "-L" and len(raw) > 2:
     shell_status = True
 else:
     cmd = shlex.join(cmd)
+#    popup_show_info("title",cmd)
     cmd = cmd.replace("'/usr", "/usr")
     cmd = cmd.replace("' ", " ")
     cmd = cmd.replace("'", '"')
-    # Last " for solo emulators
+    #Last " for solo emulators
     if cmd.count('"') == 1:
        cmd = cmd.replace('"', "")
 
     shell_status = True
+
+#popup_show_info("title",cmd)
+
 
 subprocess.run(cmd, check=True, shell=shell_status)
 

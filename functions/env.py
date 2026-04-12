@@ -7,7 +7,7 @@ REQUIRED_PACKAGES = [
     ("requests", "requests"),
     ("screeninfo", "screeninfo"),
     ("PySide6", "PySide6"),
-    ("inputs", "inputs"),
+    ("pygame", "pygame"),
 ]
 
 WIN_REQUIRED_PACKAGES = [

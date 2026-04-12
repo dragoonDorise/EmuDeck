@@ -3,7 +3,7 @@ from core.vars import emudeck_logs
 import os, warnings
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 warnings.filterwarnings("ignore", message="urllib3 v2 only supports OpenSSL")
-import shlex, sys, subprocess, pkgutil, importlib, inspect, json, venv, logging, requests, stat, hashlib, zipfile, re, errno, shutil, subprocess, io, zipfile, tempfile, time, plistlib, zlib, vdf, tarfile, fileinput, ctypes, getpass, threading, socket, traceback, warnings
+import shlex, sys, subprocess, pkgutil, importlib, inspect, json, venv, logging, requests, stat, hashlib, zipfile, re, errno, shutil, subprocess, io, zipfile, tempfile, time, plistlib, zlib, vdf, tarfile, fileinput, ctypes, getpass, threading, socket, pygame,  traceback, warnings
 from multiprocessing import Process
 from time import sleep
 from math import ceil
@@ -13,7 +13,6 @@ from pathlib import Path
 from contextlib import redirect_stdout, redirect_stderr
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from PySide6 import QtWidgets, QtCore, QtGui
-from PySide6.QtCore import Qt
 from io import BytesIO
 from requests.exceptions import RequestsDependencyWarning
 
@@ -47,16 +46,18 @@ class StreamToLogger:
         self.log_method = log_method
 
     def write(self, message):
+        # Evita líneas vacías
         message = message.rstrip()
         if message:
             self.log_method(message)
 
     def flush(self):
-        pass
+        pass  # Para compatibilidad
 
 # 5. Redirigimos stdout y stderr
 sys.stdout = StreamToLogger(logger.info)
 sys.stderr = StreamToLogger(logger.error)
+
 
 
 # ─── Single QApplication + QSS ───────────────────────────────────────────────
@@ -75,20 +76,57 @@ def ensure_app() -> QtWidgets.QApplication:
 
 # ─── Gamepad support ──────────────────────────────────────────────────────────
 
-# Mapeo de teclas que Steam/game mode traduce de los botones del mando
-# A=Return/Space, B=Escape, X=Backspace, Y=F1
-# D-pad = flechas del teclado
+_joystick: Optional[pygame.joystick.Joystick] = None
+YES_BTN, NO_BTN, CANCEL_BTN = 0, 1, 2
 
-YES_BTN_KEYS    = (Qt.Key_Return, Qt.Key_Space)
-NO_BTN_KEYS     = (Qt.Key_Escape,)
-CANCEL_BTN_KEYS = (Qt.Key_Backspace,)
-DIR_KEYS = {
-    Qt.Key_Up:    "up",
-    Qt.Key_Down:  "down",
-    Qt.Key_Left:  "left",
-    Qt.Key_Right: "right",
-}
+def ensure_gamepad() -> Optional[pygame.joystick.Joystick]:
+    global _joystick
+    if _joystick is None:
+        pygame.init()
+        pygame.joystick.init()
+        if pygame.joystick.get_count() > 0:
+            _joystick = pygame.joystick.Joystick(0)
+            _joystick.init()
+    return _joystick
 
+def poll_gamepad() -> Optional[str]:
+    j = ensure_gamepad()
+    if not j:
+        return None
+    pygame.event.pump()
+    for e in pygame.event.get():
+        if e.type == pygame.JOYBUTTONDOWN:
+            if e.button == YES_BTN:    return "yes"
+            if e.button == NO_BTN:     return "no"
+            if e.button == CANCEL_BTN: return "cancel"
+    return None
+
+def poll_gamepad_dir() -> Optional[str]:
+    j = ensure_gamepad()
+    if not j:
+        return None
+    pygame.event.pump()
+    for e in pygame.event.get():
+        # D-pad (hat) events:
+        if e.type == pygame.JOYHATMOTION:
+            x, y = e.value  # y: 1=up, -1=down, x:1=right, -1=left
+            if y == 1:   return "up"
+            if y == -1:  return "down"
+            if x == -1:  return "left"
+            if x == 1:   return "right"
+        # D-pad as buttons (Xbox, Steam Deck, etc.):
+        if e.type == pygame.JOYBUTTONDOWN:
+            if e.button == 11:  return "up"
+            if e.button == 12:  return "down"
+            if e.button == 13:  return "left"
+            if e.button == 14:  return "right"
+        # Analog stick on axis 0/1:
+        if e.type == pygame.JOYAXISMOTION and abs(e.value) > 0.6:
+            if e.axis == 1:  # vertical stick
+                return "down" if e.value > 0 else "up"
+            if e.axis == 0:  # horizontal stick
+                return "right" if e.value > 0 else "left"
+    return None
 
 # ─── BaseDialog ───────────────────────────────────────────────────────────────
 
@@ -117,29 +155,3 @@ class BaseDialog(QtWidgets.QDialog):
             self._inner.addWidget(widget, alignment=alignment)
         else:
             self._inner.addWidget(widget)
-
-    def keyPressEvent(self, event: QtGui.QKeyEvent):
-        key = event.key()
-        if key in YES_BTN_KEYS:
-            self._on_gamepad_yes()
-        elif key in NO_BTN_KEYS:
-            self._on_gamepad_no()
-        elif key in CANCEL_BTN_KEYS:
-            self._on_gamepad_cancel()
-        elif key in DIR_KEYS:
-            self._on_gamepad_dir(DIR_KEYS[key])
-        else:
-            super().keyPressEvent(event)
-
-    # Métodos a sobreescribir en subclases según necesiten
-    def _on_gamepad_yes(self):
-        self.accept()
-
-    def _on_gamepad_no(self):
-        self.reject()
-
-    def _on_gamepad_cancel(self):
-        self.reject()
-
-    def _on_gamepad_dir(self, direction: str):
-        pass  # sobreescribir en subclases que necesiten navegación
