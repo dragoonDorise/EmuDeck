@@ -1472,10 +1472,17 @@ def show_hotkeys(emu: str, commands: list) -> None:
     set_launcher_setting(setting_key, show_again)
 
 def get_connected_controllers() -> int:
-    if not pygame.get_init():
-        pygame.init()
-    pygame.joystick.init()
-    return pygame.joystick.get_count()
+    if sys.platform.startswith("win"):
+        try:
+            import winreg
+            key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SYSTEM\CurrentControlSet\Services\HidUsb\Enum")
+            count, _, _ = winreg.QueryInfoKey(key)
+            return max(0, count - 2)  # descarta Count y NextInstance
+        except Exception:
+            return 0
+    else:
+        from pathlib import Path
+        return len(list(Path("/dev/input").glob("js*")))
 
 def popup_wii_players(title: str) -> Optional[int]:
     app = ensure_app()
