@@ -2,7 +2,7 @@
 #variables
 ESDE_toolName="ES-DE"
 ESDE_oldtoolName="EmulationStation-DE"
-ESDE_downloadedToolName="EmulationStation-DE-x64_SteamDeck.AppImage"
+ESDE_downloadedToolName="ES-DE_x64_SteamDeck.AppImage"
 ESDE_toolType="$emuDeckEmuTypeAppImage"
 ESDE_oldConfigDirectory="$ESDE_newConfigDirectory"
 ESDE_newConfigDirectory="$HOME/ES-DE"
@@ -87,12 +87,13 @@ ESDE_install(){
 	ESDE_SetAppImageURLS
 	ESDE_migration
 
-
-
-
 	local showProgress="$1"
-	echo $ESDE_releaseURL
-	if [[ $ESDE_releaseURL = "https://gitlab.com/es-de/emulationstation-de/-/package_files/"* ]]; then
+	local esdeReleaseData=$(curl -fsSL "$ESDE_releaseJSON")
+
+	ESDE_releaseURL=$(echo "$esdeReleaseData" | jq -r '.stable.packages[] | select(.name == "LinuxSteamDeckAppImage") | .url')
+
+	echo "$ESDE_releaseURL"
+	if [[ -n "$ESDE_releaseURL" ]]; then
 		if safeDownload "$ESDE_toolName" "$ESDE_releaseURL" "$ESDE_toolPath" "$showProgress"; then
 			chmod +x "$ESDE_toolPath"
 			ESDE_customDesktopShortcut
