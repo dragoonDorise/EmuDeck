@@ -49,16 +49,8 @@ Ryujinx_cleanup(){
 Ryujinx_install(){
     echo "Begin Ryujinx Install"
     local showProgress=$1
+    local url=$(curl -s "https://update.ryujinx.app/api/v1/version/stable/latest?os=linux&arch=amd64" | jq -r '.download_url')
 
-    # 1. Obtener el último tag (versión) con la API de GitLab
-    local latestTag=$(curl -s "https://git.ryujinx.app/api/v4/projects/1/packages?package_type=generic&package_name=Ryubing" \
-        | jq -r 'sort_by(.version)[-1].version')
-
-    # 2. Formar la URL del archivo genérico
-    local url="https://git.ryujinx.app/api/v4/projects/1/packages/generic/Ryubing/$latestTag/ryujinx-$latestTag-linux_x64.tar.gz"
-
-    echo "Descargando Ryujinx $latestTag para Linux x64..."
-    
     if installEmuBI "$Ryujinx_emuName" "$url" "" "tar.gz" "$showProgress"; then
         mkdir -p "$emusFolder/publish"
         tar -xvf "$emusFolder/Ryujinx.tar.gz" -C "$emusFolder" && rm -f "$emusFolder/Ryujinx.tar.gz"
@@ -66,13 +58,6 @@ Ryujinx_install(){
     else
         return 1
     fi
-
-    # flatpak install flathub org.ryujinx.Ryujinx -y --user
-    # mkdir -p "$emusFolder/publish"
-    # rsync -av "$HOME/.local/share/flatpak/app/org.ryujinx.Ryujinx/x86_64/stable/active/files/bin/" "$emusFolder/publish/" && flatpak uninstall flathub org.ryujinx.Ryujinx -y --user
-    # rm -rf "$HOME/.config/Ryujinx/games"
-    # chmod +x "$emusFolder/publish/Ryujinx"
-
 }
 
 #ApplyInitialSettings
