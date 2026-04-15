@@ -102,7 +102,16 @@ main () {
 
     # Report arguments
     showArguments "${@}"
-
+    
+    LSFG="$HOME/lsfg"
+    LSFG_CONF="$HOME/.config/EmuDeck/backend/lsfg/Cemu.toml"
+    if [ -f "$LSFG" ] && [ -f "$LSFG_CONF" ]; then
+        export LSFGVK_CONFIG="$LSFG_CONF"
+        EMUPATH=("$LSFG" "${EMUPATH[@]}")
+    elif [ -f "$LSFG" ]; then
+        EMUPATH=("$LSFG" "${EMUPATH[@]}")
+    fi
+    
     # Run Emulator
     if [[ "${doProton}" == "false" ]]; then
         #If doProton is false, check that EMUPATH was set correctly

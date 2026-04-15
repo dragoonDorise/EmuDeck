@@ -1345,3 +1345,10 @@ update_launchers(){
 	fi
   done
 }
+
+update_lsfg(){
+  local src_dir="$emudeckBackend/configs/lsfg/"
+  local target_dir="$toolsPath/lsfg/"
+  mkdir -p $target_dir
+  rsync -avh "$src_dir" "$target_dir"	
+}

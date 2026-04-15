@@ -37,5 +37,6 @@ appImageInit() {
 	#We force the regeneration of all the installed launchers
 
 	update_launchers
+	update_lsfg
 
 }

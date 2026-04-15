@@ -127,6 +127,11 @@ fi
 #find full path to emu executable
 exe=("prlimit" "--nofile=8192" "${emuExeFile}")
 
+LSFG="$HOME/lsfg"
+if [ -f "$LSFG" ]; then
+	exe=("$LSFG" "${exe[@]}")
+fi
+
 #run the executable with the params.
 launch_args=()
 for rom in "${@}"; do

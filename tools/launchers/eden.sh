@@ -17,6 +17,14 @@ else
 	set -- "$appimage" "$@"
 fi
 
+
+LSFG="$HOME/lsfg"
+LSFG_CONF="$HOME/.config/EmuDeck/backend/launchers/eden.toml"
+if [ -f "$LSFG" ]; then
+	export LSFGVK_CONFIG="$LSFG_CONF"
+	set -- "$LSFG" "$@"
+fi
+
 echo "Launching ${emuName} with:" "$@"
 "$@"
 
