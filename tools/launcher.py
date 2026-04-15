@@ -395,12 +395,11 @@ else:
     shell_status = True
 
 #Lossless scaling
-if system == "linux":   
+if system == "linux":
    lsfg = Path(os.path.expanduser("~/lsfg"))
-   if lsfg.exists():
-      lsfg_conf = Path(f"{tools_path}/lsfg/{emu.lower()}.toml")
-      if lsfg_conf.exists():
-            os.environ["LSFGVK_CONFIG"] = str(lsfg_conf)
+   lsfg_conf = Path(f"{tools_path}/lsfg/{emu.lower()}.toml")
+   if lsfg.exists() and lsfg_conf.exists():
+      os.environ["LSFGVK_CONFIG"] = str(lsfg_conf)
       cmd = f"{lsfg} {cmd}"
       
 
