@@ -1,3 +1,4 @@
+#!/bin/bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "melonds"
 set -- /usr/bin/flatpak run net.kuribo64.melonDS "${@}"
