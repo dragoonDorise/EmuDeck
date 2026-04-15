@@ -398,8 +398,11 @@ else:
 if system == "linux":   
    lsfg = Path(os.path.expanduser("~/lsfg"))
    if lsfg.exists():
-       cmd = f"{lsfg} {cmd}"
-       
+      lsfg_conf = Path(f"{tools_path}/lsfg/{emu.lower()}.toml")
+      if lsfg_conf.exists():
+            os.environ["LSFGVK_CONFIG"] = str(lsfg_conf)
+      cmd = f"{lsfg} {cmd}"
+      
 
 subprocess.run(cmd, check=True, shell=shell_status)
 
