@@ -305,6 +305,44 @@ if emu.lower() == "retroarch":
       set_setting("netplay_cmd",'')
 
 
+# Auto-install if not installed
+emu_aliases = {
+    "dolphin-emu": "dolphin",
+    "pcsx2-qt": "pcsx2",
+    "xemu-emu": "xemu",
+    "model-2-emulator": "model2",
+    "rosaliesmupengui": "rmg",
+}
+emu_key = emu_aliases.get(emu.lower(), emu.lower())
+is_installed_fn = globals().get(f"{emu_key}_is_installed")
+install_fn = globals().get(f"{emu_key}_install")
+
+if is_installed_fn and install_fn:
+    try:
+        if not is_installed_fn():
+            print(f"{emu} not found, installing...")
+            install_fn()
+    except Exception as e:
+        print(f"Auto-install check failed for {emu}: {e}")
+
+# SRM: regenerate userConfigurations.json if missing or incomplete
+if emu.lower() == "steamrommanager":
+    srm_config = Path(srm_path) / "userData" / "userConfigurations.json"
+    regenerate = False
+    if not srm_config.exists():
+        regenerate = True
+    else:
+        try:
+            with open(srm_config, encoding="utf-8") as f:
+                data = json.loads(f.read())
+            if not isinstance(data, list) or len(data) < 10:
+                regenerate = True
+        except Exception:
+            regenerate = True
+    if regenerate:
+        print("SRM userConfigurations.json missing or incomplete, regenerating...")
+        srm_init()
+
 exe = str(exe)
 
 #Launch popups
