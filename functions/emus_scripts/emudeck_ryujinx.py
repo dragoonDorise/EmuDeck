@@ -89,7 +89,7 @@ def ryujinx_is_installed():
 def ryujinx_init():
     set_msg(f"Setting up ryujinx")
     if system == "linux":
-        destination=f"{home}/.config/ryujinx/config"
+        destination=f"{home}/.config/Ryujinx/config"
     if system.startswith("win"):
         destination=f"{emus_folder}/ryujinx/"
     if system == "darwin":
@@ -98,7 +98,7 @@ def ryujinx_init():
     copy_and_set_settings_file(f"{system}/ryujinx/Config.json", destination)
 
     ryujinx_setup_saves()
-    ryujinx_setup_storage()
+    #ryujinx_setup_storage()
     ryujinx_set_resolution()
     ryujinx_set_controller_style()
     esde_set_emu("Ryujinx (Standalone)","switch")
@@ -131,19 +131,19 @@ def ryujinx_setup_saves():
     move_contents_and_link(system_saves,f"{saves_path}/ryujinx/system_saves")
     move_contents_and_link(system_internal,f"{saves_path}/ryujinx/system")
 
-def ryujinx_setup_storage():
-    if system == "linux":
-        origin_saves=f"{home}/.share/ryujinx/sdmc"
-        origin_states=f"{home}/.local/share/ryujinx-emu/states"
-    if system.startswith("win"):
-        origin_saves=f"{emus_folder}/ryujinx/sdmc"
-        origin_states=f"{emus_folder}/ryujinx/states"
-    if system == "darwin":
-        origin_saves=f"{home}/.share/ryujinx/sdmc"
-        origin_states=f"{home}/.local/share/ryujinx-emu/states"
-
-    move_contents_and_link(origin_saves,f"{saves_path}/ryujinx/saves")
-    move_contents_and_link(origin_states,f"{saves_path}/ryujinx/states")
+# def ryujinx_setup_storage():
+#     if system == "linux":
+#         origin_saves=f"{home}/.share/ryujinx/sdmc"
+#         origin_states=f"{home}/.local/share/ryujinx-emu/states"
+#     if system.startswith("win"):
+#         origin_saves=f"{emus_folder}/ryujinx/sdmc"
+#         origin_states=f"{emus_folder}/ryujinx/states"
+#     if system == "darwin":
+#         origin_saves=f"{home}/.share/ryujinx/sdmc"
+#         origin_states=f"{home}/.local/share/ryujinx-emu/states"
+# 
+#     move_contents_and_link(origin_saves,f"{saves_path}/ryujinx/saves")
+#     move_contents_and_link(origin_states,f"{saves_path}/ryujinx/states")
 
 
 def ryujinx_set_resolution() -> bool:
