@@ -15,18 +15,6 @@ chmod +x "$exe_path"
 #fill execute array
 exe=("$exe_path")
 
-#LossLess
-
-
-LSFG="$HOME/lsfg"
-LSFG_CONF="$toolsPath/lsfg/${emuName}.toml"
-if [ -f "$LSFG" ] && [ -f "$LSFG_CONF" ]; then
-    export LSFGVK_CONFIG="$LSFG_CONF"
-    exe=("$LSFG" "${exe[@]}")
-elif [ -f "$LSFG" ]; then
-    exe=("$LSFG" "${exe[@]}")
-fi
-
 #run the executable with the params.
 launch_args=()
 for rom in "${@}"; do

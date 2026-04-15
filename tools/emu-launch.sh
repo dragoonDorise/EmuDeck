@@ -136,15 +136,6 @@ main () {
     echo "Arguments -" >> "${LOGFILE}"
     showArguments "${@}"
 
-    LSFG="$HOME/lsfg"
-    LSFG_CONF="$HOME/.config/EmuDeck/backend/lsfg/${EMUNAME}.toml"
-    if [ -f "$LSFG" ] && [ -f "$LSFG_CONF" ]; then
-        export LSFGVK_CONFIG="$LSFG_CONF"
-        EMUPATH=("$LSFG" "${EMUPATH[@]}")
-    elif [ -f "$LSFG" ]; then
-        EMUPATH=("$LSFG" "${EMUPATH[@]}")
-    fi
-
     # Run Emulator
     echo "${EMUPATH[@]}" "${@}" >> "${LOGFILE}"
     "${EMUPATH[@]}" "${@}"

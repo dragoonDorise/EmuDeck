@@ -17,11 +17,6 @@ else
 	set -- "$appimage" "$@"
 fi
 
-LSFG="$HOME/lsfg"
-if [ -f "$LSFG" ]; then
-	set -- "$LSFG" "$@"
-fi
-
 echo "Launching ${emuName} with:" "$@"
 "$@"
 

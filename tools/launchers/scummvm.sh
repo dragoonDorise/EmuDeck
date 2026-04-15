@@ -1,13 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "scummvm"
-set -- /usr/bin/flatpak run org.scummvm.ScummVM "${@}"
-LSFG="$HOME/lsfg"
-LSFG_CONF="$HOME/.config/EmuDeck/backend/launchers/scummvm.toml"
-if [ -f "$LSFG" ]; then
-	export LSFGVK_CONFIG="$LSFG_CONF"
-	set -- "$LSFG" "$@"
-fi
-"$@"
+/usr/bin/flatpak run org.scummvm.ScummVM "${@}"
 cloud_sync_uploadForced
-rm -rf "$savesPath/.gaming"
+rm -rf "$savesPath/.gaming";

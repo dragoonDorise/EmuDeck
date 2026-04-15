@@ -28,15 +28,6 @@ else
     exe=("$exe_path")
 fi
 
-LSFG="$HOME/lsfg"
-LSFG_CONF="$toolsPath/lsfg/${emuName}.toml"
-if [ -f "$LSFG" ] && [ -f "$LSFG_CONF" ]; then
-    export LSFGVK_CONFIG="$LSFG_CONF"
-    exe=("$LSFG" "${exe[@]}")
-elif [ -f "$LSFG" ]; then
-    exe=("$LSFG" "${exe[@]}")
-fi
-
 fileExtension="${@##*.}"
 
 if [[ $fileExtension == "desktop" ]]; then

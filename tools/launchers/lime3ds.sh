@@ -23,16 +23,6 @@ else
     exe=("$exe_path")
 fi
 
-#LossLess
-LSFG="$HOME/lsfg"
-LSFG_CONF="$toolsPath/lsfg/${emuName}.toml"
-if [ -f "$LSFG" ] && [ -f "$LSFG_CONF" ]; then
-    export LSFGVK_CONFIG="$LSFG_CONF"
-    exe=("$LSFG" "${exe[@]}")
-elif [ -f "$LSFG" ]; then
-    exe=("$LSFG" "${exe[@]}")
-fi
-
 #run the executable with the params.
 launch_args=()
 for rom in "${@}"; do
