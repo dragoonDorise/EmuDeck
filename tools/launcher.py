@@ -394,8 +394,12 @@ else:
 
     shell_status = True
 
-#popup_show_info("title",cmd)
-
+#Lossless scaling
+if system == "linux":   
+   lsfg = Path(os.path.expanduser("~/lsfg"))
+   if lsfg.exists():
+       cmd = f"{lsfg} {cmd}"
+       
 
 subprocess.run(cmd, check=True, shell=shell_status)
 
