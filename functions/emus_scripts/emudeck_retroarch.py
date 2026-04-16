@@ -3,12 +3,15 @@ from core.all import *
 if system == "linux":
     retroarch_cfg_file=Path(f"{home}/.var/app/org.libretro.RetroArch/config/retroarch/retroarch.cfg")
     retroarch_dir=Path(f"{home}/.var/app/org.libretro.RetroArch/config/retroarch")
+    retroarch_video_path="/app/lib/retroarch/filters/video"
 if system.startswith("win"):
     retroarch_cfg_file=Path(f"{emus_folder}/retroarch/retroarch.cfg")
     retroarch_dir=Path(f"{emus_folder}/retroarch")
+    retroarch_video_path=Path(f"{retroarch_dir}/filters/video")
 if system == "darwin":
     retroarch_cfg_file=Path(f"{home}/Library/Application Support/RetroArch/retroarch.cfg")
     retroarch_dir=Path(f"{home}/Library/Application Support/RetroArch")
+    retroarch_video_path=Path(f"{retroarch_dir}/filters/video")
 
 retroarch_shaders_path=Path(f"{retroarch_dir}/shaders")
 retroarch_shaderscg_path=Path(f"{retroarch_dir}/shaders/shaders_cg")
