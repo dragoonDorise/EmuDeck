@@ -6,16 +6,29 @@ Lindbergh_emuPath="com.github.lindberghloader"
 Lindbergh_releaseURL=""
 Lindbergh_configDir="$HOME/.config/lindbergh-loader"
 Lindbergh_configFile="$Lindbergh_configDir/config/lindbergh.ini"
+Lindbergh_appImagePath=""
 
 #cleanupOlderThings
 Lindbergh_cleanup(){
-	echo "NYI"
+	echo "Lindbergh cleanup is not applicable - games are self-contained"
 }
 
 #Install
 Lindbergh_install(){
 	setMSG "Installing $Lindbergh_emuName"
 	local showProgress="$1"
+
+	# Check for existing AppImage first
+	if [[ -z "$Lindbergh_appImagePath" ]]; then
+		Lindbergh_appImagePath=$(ls ~/Applications/Lindbergh*.AppImage 2>/dev/null | head -n 1 || true)
+	fi
+
+	# If AppImage exists, use it instead of Flatpak
+	if [[ -n "$Lindbergh_appImagePath" && -x "$Lindbergh_appImagePath" ]]; then
+		echo "Found AppImage: $Lindbergh_appImagePath"
+		Lindbergh_emuType="$emuDeckEmuTypeAppImage"
+		return 0
+	fi
 
 	# Fetch latest .flatpak from GitHub Releases API
 	local api_url='https://api.github.com/repos/lindbergh-loader/lindbergh-loader/releases/latest'
@@ -26,6 +39,12 @@ Lindbergh_install(){
 
 	if [[ -z "$flatpak_url" || "$flatpak_url" == "null" ]]; then
 		echo "Error: Could not get latest Lindbergh Loader flatpak URL from GitHub"
+		# Try AppImage as fallback
+		if [[ -n "$Lindbergh_appImagePath" ]]; then
+			echo "Falling back to AppImage: $Lindbergh_appImagePath"
+			Lindbergh_emuType="$emuDeckEmuTypeAppImage"
+			return 0
+		fi
 		return 1
 	fi
 
@@ -53,6 +72,12 @@ Lindbergh_install(){
 		fi
 	else
 		echo "Error: Failed to download Lindbergh Loader flatpak"
+		# Try AppImage as fallback
+		if [[ -n "$Lindbergh_appImagePath" ]]; then
+			echo "Falling back to AppImage: $Lindbergh_appImagePath"
+			Lindbergh_emuType="$emuDeckEmuTypeAppImage"
+			return 0
+		fi
 		return 1
 	fi
 }
@@ -103,9 +128,9 @@ Lindbergh_setEmulationFolder(){
 
 #SetupSaves
 Lindbergh_setupSaves(){
-	# Lindbergh games store saves in their own directories
-	# No central save location to configure
-	echo "NYI"
+	# Lindbergh games store saves in their game directories
+	# No central save location to configure for EmuDeck
+	return 0
 }
 
 #SetupStorage
@@ -128,32 +153,38 @@ Lindbergh_uninstall(){
 
 #setABXYstyle
 Lindbergh_setABXYstyle(){
-	echo "NYI"
+	# Not applicable for arcade light-gun emulator
+	return 0
 }
 
 #Migrate
 Lindbergh_migrate(){
-	echo "NYI"
+	# No migration path from previous versions
+	return 0
 }
 
 #WideScreenOn
 Lindbergh_wideScreenOn(){
-	echo "NYI"
+	# Arcade games use fixed resolutions, widescreen not applicable
+	return 0
 }
 
 #WideScreenOff
 Lindbergh_wideScreenOff(){
-	echo "NYI"
+	# Arcade games use fixed resolutions, widescreen not applicable
+	return 0
 }
 
 #BezelOn
 Lindbergh_bezelOn(){
-	echo "NYI"
+	# Bezel support not implemented in Lindbergh Loader
+	return 0
 }
 
 #BezelOff
 Lindbergh_bezelOff(){
-	echo "NYI"
+	# Bezel support not implemented in Lindbergh Loader
+	return 0
 }
 
 Lindbergh_IsInstalled(){
@@ -166,7 +197,8 @@ Lindbergh_resetConfig(){
 
 #finalExec - Extra stuff
 Lindbergh_finalize(){
-	echo "NYI"
+	# No extra finalization needed for Lindbergh
+	return 0
 }
 
 Lindbergh_flushEmulatorLauncher(){
