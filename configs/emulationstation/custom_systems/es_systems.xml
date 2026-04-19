@@ -33,7 +33,7 @@
 	<name>lindbergh</name>
 	<fullname>Sega Lindbergh</fullname>
 	<path>%ROMPATH%/lindbergh</path>
-	<extension>.elf .ELF</extension>
+	<extension>.elf .ELF .exe .EXE</extension>
 	<command label="Lindbergh Loader">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/lindbergh.sh %ROM%</command>
 	<platform>arcade</platform>
 	<theme>lindbergh</theme>

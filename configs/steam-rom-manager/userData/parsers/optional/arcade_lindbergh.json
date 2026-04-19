@@ -5,7 +5,7 @@
     "romDirectory": "${romsdirglobal}/lindbergh",
     "executableArgs": " \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
-    "startInDirectory": "${fileDir}",
+    "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "imageProviders": [
         "sgdb",
@@ -25,7 +25,7 @@
         "appendArgsToExecutable": true
     },
     "parserInputs": {
-        "glob": "${title}@(.elf|.ELF|Jennifer|vf5|abc|lgj_final|lgjsp_app|dsr|vsg|gsevo)"
+        "glob": "**/*.elf"
     },
     "titleFromVariable": {
         "limitToGroups": "",
