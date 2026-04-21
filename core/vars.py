@@ -145,8 +145,11 @@ if system == "darwin":
 def get_steam_paths():
     import winreg
     reg_path = r"Software\Valve\Steam"
-    with winreg.OpenKey(winreg.HKEY_CURRENT_USER, reg_path) as key:
-        steam_install_path = winreg.QueryValueEx(key, "SteamPath")[0]
+    try:
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, reg_path) as key:
+            steam_install_path = winreg.QueryValueEx(key, "SteamPath")[0]
+    except OSError:
+        return "", "", ""
     steam_install_path = steam_install_path.replace("/", "\\")
 
     steam_install_path_srm = steam_install_path.replace("\\", "\\\\")
