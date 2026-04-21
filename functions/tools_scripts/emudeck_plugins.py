@@ -1,8 +1,5 @@
 from core.all import *
 
-def plugins_install_retro_library():
-    return True
-
 def plugins_install_emudecky(arg):
     wrappers_install()
     return True

@@ -62,7 +62,6 @@ commands = [
     (install_emus.rpcs3.status,            rpcs3_install),
     (install_emus.ra.status,               retroarch_install),
     (install_emus.rmg.status,              rmg_install),
-    (install_frontends.deckyromlauncher.status,     plugins_install_retro_library),
     (install_emus.ryujinx.status,          ryujinx_install),
     (install_emus.scummvm.status,          scummvm_install),
     (install_emus.shadps4.status,          shadps4_install),
