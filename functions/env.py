@@ -39,21 +39,16 @@ def ensure_packages():
         packages += WIN_REQUIRED_PACKAGES
 
     for pip_name, import_name in packages:
-        installed = False
-        if venv_site:
-            orig_path = sys.path[:]
-            sys.path = [venv_site]
-            try:
-                spec = importlib.util.find_spec(import_name)
-                installed = spec is not None
-            except (ModuleNotFoundError, ValueError):
-                installed = False
-            finally:
-                sys.path = orig_path
+        try:
+            spec = importlib.util.find_spec(import_name)
+            installed = spec is not None
+        except (ModuleNotFoundError, ValueError):
+            installed = False
 
         if not installed:
             print(f"[EmuDeck] Módulo '{pip_name}' no encontrado en venv, instalando...")
             install_pip(pip_name)
+
 
 def generate_python_env():
     venv_dir = Path(emudeck_folder) / "python_virtual_env_3_0_0"
