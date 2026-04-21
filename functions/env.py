@@ -30,6 +30,22 @@ def install_pip(name):
         stderr=sys.stderr,
     )
 
+
+def run_pywin32_postinstall():
+    venv_dir = Path(emudeck_folder) / "python_virtual_env_3_0_0"
+    python_exe = venv_dir / "Scripts" / "python.exe"
+    postinstall = venv_dir / "Scripts" / "pywin32_postinstall.py"
+    if not postinstall.exists():
+        return
+    env = {**os.environ, "PIP_DISABLE_PIP_VERSION_CHECK": "1"}
+    subprocess.run(
+        [str(python_exe), str(postinstall), "-install", "-silent"],
+        check=False,
+        env=env,
+        stdout=sys.stderr,
+        stderr=sys.stderr,
+    )
+
 def ensure_packages():
     venv_dir = Path(emudeck_folder) / "python_virtual_env_3_0_0"
     if system in ("linux", "darwin"):
@@ -54,6 +70,8 @@ def ensure_packages():
         if not installed:
             print(f"[EmuDeck] Módulo '{pip_name}' no encontrado en venv, instalando...", file=sys.stderr)
             install_pip(pip_name)
+            if pip_name == "pywin32":
+                run_pywin32_postinstall()
 
 
 def generate_python_env():
