@@ -882,7 +882,7 @@ def create_app_shortcut(name: str):
             display_name = name
 
         src_file = Path(emudeck_backend) / "tools" / "launchers" / "windows" / folder / script_filename
-        script_path = Path(tools_path) / "launchers" / folder / script_filename
+        script_path = Path(str(tools_path).replace("$HOME", str(Path.home()), 1)) / "launchers" / folder / script_filename
 
         script_path.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src_file, script_path)
