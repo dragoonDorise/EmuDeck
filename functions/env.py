@@ -16,14 +16,6 @@ WIN_REQUIRED_PACKAGES = [
     ("py7zr", "py7zr"),
 ]
 
-# Brotli 1.2.x lacks a prebuilt win_arm64 wheel, so py7zr's install fails
-# trying to build it from source. Pin 1.1.0 (which does ship ARM wheels)
-# before py7zr gets a chance to pull the latest. On every other arch we
-# let py7zr resolve brotli normally.
-WIN_ARM_EXTRA_PACKAGES = [
-    ("brotli==1.1.0", "brotli"),
-]
-
 def install_pip(name):
     venv_dir = Path(emudeck_folder) / "python_virtual_env_3_0_0"
     pip_exe = venv_dir / "bin" / "pip"
@@ -50,8 +42,6 @@ def ensure_packages():
 
     packages = list(REQUIRED_PACKAGES)
     if system.startswith("win"):
-        if platform.machine().upper() == "ARM64":
-            packages += WIN_ARM_EXTRA_PACKAGES
         packages += WIN_REQUIRED_PACKAGES
 
     for pip_name, import_name in packages:
