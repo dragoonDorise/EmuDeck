@@ -49,7 +49,7 @@ Ryujinx_cleanup(){
 Ryujinx_install(){
     echo "Begin Ryujinx Install"
     local showProgress=$1
-    local url=$(curl -s "https://update.ryujinx.app/api/v1/version/stable/latest?os=linux&arch=amd64" | jq -r '.download_url')
+    local url=$(curl -s -H "User-Agent: EmuDeck" "https://git.ryujinx.app/api/v1/repos/Ryubing/Canary/releases/latest" | jq -r '.assets[] | select(.browser_download_url | test("linux_x64\\.tar\\.gz$")) | .browser_download_url' | head -n 1)
 
     if installEmuBI "$Ryujinx_emuName" "$url" "" "tar.gz" "$showProgress"; then
         mkdir -p "$emusFolder/publish"
