@@ -60,9 +60,10 @@ def ppsspp_is_installed():
 
 def ppsspp_init():
     set_msg(f"Setting up ppsspp")
+
     if system == "linux":
-        destination=f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/"
-        
+        destination = f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/"
+
     if system.startswith("win"):
         destination = str(Path(f"{emus_folder}/ppsspp/"))
         bios = ""
@@ -82,13 +83,11 @@ def ppsspp_init():
         return
 
     if system == "darwin":
-        destination=f"{home}/Library/Application Support/ppsspp"
-        bios=""
+        destination = f"{home}/Library/Application Support/ppsspp"
+        bios = ""
 
-    copy_setting_dir(f"{system}/ppsspp/",destination)
+    copy_setting_dir(f"{system}/ppsspp/", destination)
     copy_and_set_settings_file(f"{system}/ppsspp/ppsspp.ini", destination)
-
-   # move_contents_and_link(bios,f"{bios_path}/ppsspp")
 
     ppsspp_setup_saves()
     ppsspp_set_resolution()
@@ -119,29 +118,48 @@ def ppsspp_set_resolution():
     
     
 def ppsspp_retro_achievements():
-     if settings.achievements.user == '':
-         ppsspp_retro_achievements_off()
-     else:
-         ppsspp_retro_achievements_on()
-                 
+    if settings.achievements.user == '':
+        ppsspp_retro_achievements_off()
+    else:
+        ppsspp_retro_achievements_on()
+
+
 def ppsspp_retro_achievements_on():
     if system == "linux":
-        config_path=f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/ppsspp.ini"
-        token_path=f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat"
+        config_path = f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/ppsspp.ini"
+        token_path = Path(f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat")
     if system.startswith("win"):
-        config_path=f"{emus_folder}/ppsspp/ppsspp.ini"
-        token_path=f"{emus_folder}/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat"
+        config_path = f"{emus_folder}/ppsspp/ppsspp.ini"
+        token_path = Path(f"{emus_folder}/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat")
     if system == "darwin":
-        config_path=f"{home}/Library/Application Support/PPSSPP/settings.ini"
-        token_path=f"{home}/Library/Application Support/PPSSPP/PSP/SYSTEM/ppsspp_retroachievements.dat"
-    
-    set_config("AchievementsEnable", f"True", config_path)
-    set_config("AchievementsUserName", f"{achievements_user}", config_path)   
+        config_path = f"{home}/Library/Application Support/PPSSPP/settings.ini"
+        token_path = Path(f"{home}/Library/Application Support/PPSSPP/PSP/SYSTEM/ppsspp_retroachievements.dat")
+
+    set_config("AchievementsEnable", "True", config_path)
+    set_config("AchievementsUserName", f"{achievements_user}", config_path)
+
+    token_path.parent.mkdir(parents=True, exist_ok=True)
     token_path.write_text(achievements_token)
-    
+
     if achievements_hardcore:
-       set_config("AchievementsChallengeMode", f"True", config_path)    
-       
-       
-def duckstation_retro_achievements_off():
-        print("NYI")
+        set_config("AchievementsChallengeMode", "True", config_path)
+    else:
+        set_config("AchievementsChallengeMode", "False", config_path)
+
+
+def ppsspp_retro_achievements_off():
+    if system == "linux":
+        config_path = f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/ppsspp.ini"
+        token_path = Path(f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat")
+    if system.startswith("win"):
+        config_path = f"{emus_folder}/ppsspp/ppsspp.ini"
+        token_path = Path(f"{emus_folder}/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat")
+    if system == "darwin":
+        config_path = f"{home}/Library/Application Support/PPSSPP/settings.ini"
+        token_path = Path(f"{home}/Library/Application Support/PPSSPP/PSP/SYSTEM/ppsspp_retroachievements.dat")
+
+    set_config("AchievementsEnable", "False", config_path)
+    set_config("AchievementsChallengeMode", "False", config_path)
+
+    if token_path.exists():
+        token_path.unlink()
