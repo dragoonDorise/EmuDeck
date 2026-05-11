@@ -1,17 +1,13 @@
 from core.all import *
 
 if system == "linux":
-    ryujinx_config_file=f"{home}/.config/ryujinx/Config.json"
+    ryujinx_config_file = f"{home}/.config/Ryujinx/Config.json"
 if system.startswith("win"):
-    ryujinx_config_file=f"{emus_folder}/ryujinx/Config.json"
+    ryujinx_config_file = f"{emus_folder}/Ryujinx/portable/Config.json"
 if system == "darwin":
-    ryujinx_config_file=f"{home}/Library/Application Support/Ryujinx/Config.json"
+    ryujinx_config_file = f"{home}/Library/Application Support/Ryujinx/Config.json"
 
 def ryujinx_get_url():
-    resp = requests.get("https://git.ryujinx.app/api/v4/projects/1/releases", timeout=10)
-    resp.raise_for_status()
-    releases = resp.json()  # ← aquí recibes una LISTA de releases
-
     if system == "linux":
         exename = "x64.AppImage"
     elif system.startswith("win"):
@@ -21,47 +17,73 @@ def ryujinx_get_url():
     else:
         raise ValueError(f"Unsupported system: {system}")
 
-    releaseURL = None
+    resp = requests.get(
+        "https://git.ryujinx.app/api/v1/repos/Ryubing/Canary/releases/latest",
+        headers={"User-Agent": "EmuDeck"},
+        timeout=10,
+    )
+    resp.raise_for_status()
+    release = resp.json()
 
-    # Busca en cada release hasta encontrar el asset correcto
-    for rel in releases:
-        assets = rel.get("assets", {})
-        for link in assets.get("links", []):
-            if exename in link.get("name"):
-                releaseURL = link.get("url")
-        if releaseURL:
-            break
+    for asset in release.get("assets", []):
+        if exename in asset.get("name", ""):
+            return asset.get("browser_download_url")
 
-    if not releaseURL:
-        raise RuntimeError(f"No release asset named '{exename}' found")
-
-    return releaseURL
+    raise RuntimeError(f"No release asset named '{exename}' found")
 
 
 def ryujinx_install():
-    set_msg(f"Installing ryujinx")
+    set_msg("Installing ryujinx")
+    repo = ryujinx_get_url()
 
-    if system == "linux":
-        type="AppImage"
-        look_for="x64.AppImage"
-        path=emus_folder
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp_dir = Path(temp_dir)
 
-    if system.startswith("win"):
-        type="zip"
-        look_for="win_x64"
-        path=f"{emus_folder}/ryujinx"
+        if system.startswith("win"):
+            destination = Path(emus_folder) / "Ryujinx"
+            target = temp_dir / "ryujinx.zip"
 
-    if system == "darwin":
-        type="tar.gz"
-        look_for="macos_universal"
-        path=emus_folder
+        elif system == "linux":
+            destination = Path(emus_folder) / "ryujinx.AppImage"
+            target = destination
 
-    try:
-        repo=ryujinx_get_url()
-        install_emu("ryujinx", repo, type, path)
-    except Exception as e:
-        print(f"Error during install: {e}")
-        return False
+        elif system == "darwin":
+            return install_emu("ryujinx", repo, "tar.gz", emus_folder)
+
+        else:
+            raise ValueError(f"Unsupported system: {system}")
+
+        response = requests.get(
+            repo,
+            stream=True,
+            headers={"User-Agent": "EmuDeck"},
+            timeout=30,
+        )
+        response.raise_for_status()
+
+        with open(target, "wb") as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                if chunk:
+                    f.write(chunk)
+
+        if system.startswith("win"):
+            extract_dir = temp_dir / "ryujinx"
+
+            with zipfile.ZipFile(target, "r") as zf:
+                zf.extractall(extract_dir)
+
+            source_dir = extract_dir / "publish"
+            if not source_dir.exists():
+                raise RuntimeError(f"'publish' folder not found in extracted Ryujinx zip: {extract_dir}")
+
+            shutil.copytree(source_dir, destination, dirs_exist_ok=True)
+
+        elif system == "linux":
+            destination.chmod(0o755)
+
+    create_app_shortcut("ryujinx")
+    return True
+
 
 
 def ryujinx_uninstall():
@@ -87,21 +109,24 @@ def ryujinx_is_installed():
 
 
 def ryujinx_init():
-    set_msg(f"Setting up ryujinx")
+    set_msg("Setting up ryujinx")
+
     if system == "linux":
-        destination=f"{home}/.config/Ryujinx/config"
-    if system.startswith("win"):
-        destination=f"{emus_folder}/ryujinx/"
-    if system == "darwin":
-        destination=f"{home}/Library/Application Support/Ryujinx/"
+        destination = f"{home}/.config/Ryujinx/"
+    elif system.startswith("win"):
+        destination = f"{emus_folder}/Ryujinx/portable/"
+    elif system == "darwin":
+        destination = f"{home}/Library/Application Support/Ryujinx/"
+    else:
+        raise ValueError(f"Unsupported system: {system}")
 
     copy_and_set_settings_file(f"{system}/ryujinx/Config.json", destination)
 
     ryujinx_setup_saves()
-    #ryujinx_setup_storage()
     ryujinx_set_resolution()
     ryujinx_set_controller_style()
-    esde_set_emu("Ryujinx (Standalone)","switch")
+    esde_set_emu("Ryujinx (Standalone)", "switch")
+    return True
 
 def ryujinx_install_init():
     ryujinx_install()
@@ -109,27 +134,28 @@ def ryujinx_install_init():
 
 
 def ryujinx_setup_saves():
-
     if system == "linux":
         saves = f"{home}/.config/Ryujinx/bis/user/save"
         saveMeta = f"{home}/.config/Ryujinx/bis/user/saveMeta"
         system_saves = f"{home}/.config/Ryujinx/bis/system/save"
         system_internal = f"{home}/.config/Ryujinx/system"
-    if system.startswith("win"):
-        saves = f"{emus_folder}/Ryujinx/bis/user/save"
-        saveMeta = f"{emus_folder}/Ryujinx/bis/user/saveMeta"
-        system_saves = f"{emus_folder}/Ryujinx/bis/system/save"
-        system_internal = f"{emus_folder}/Ryujinx/system"
-    if system == "darwin":
+
+    elif system.startswith("win"):
+        saves = f"{emus_folder}/Ryujinx/portable/bis/user/save"
+        saveMeta = f"{emus_folder}/Ryujinx/portable/bis/user/saveMeta"
+        system_saves = f"{emus_folder}/Ryujinx/portable/bis/system/save"
+        system_internal = f"{emus_folder}/Ryujinx/portable/system"
+
+    elif system == "darwin":
         saves = f"{home}/Library/Application Support/Ryujinx/bis/user/save"
         saveMeta = f"{home}/Library/Application Support/Ryujinx/bis/user/saveMeta"
         system_saves = f"{home}/Library/Application Support/Ryujinx/bis/system/save"
         system_internal = f"{home}/Library/Application Support/Ryujinx/system"
 
-    move_contents_and_link(saves,f"{saves_path}/ryujinx/saves")
-    move_contents_and_link(saveMeta,f"{saves_path}/ryujinx/saveMeta")
-    move_contents_and_link(system_saves,f"{saves_path}/ryujinx/system_saves")
-    move_contents_and_link(system_internal,f"{saves_path}/ryujinx/system")
+    move_contents_and_link(saves, f"{saves_path}/ryujinx/saves")
+    move_contents_and_link(saveMeta, f"{saves_path}/ryujinx/saveMeta")
+    move_contents_and_link(system_saves, f"{saves_path}/ryujinx/system_saves")
+    move_contents_and_link(system_internal, f"{saves_path}/ryujinx/system")
 
 # def ryujinx_setup_storage():
 #     if system == "linux":
