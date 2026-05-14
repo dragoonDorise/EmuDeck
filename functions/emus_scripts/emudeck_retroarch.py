@@ -207,19 +207,34 @@ def retroarch_set_core_setting(config_name: str,
 def retroarch_enable_remap(path: Path) -> Path:
     path = Path(path)
     suffix = ".disabled"
-    if path.name.endswith(suffix):
-        # 'mesen.cfg.disabled' -> 'mesen.cfg'
-        new_name = path.name[:-len(suffix)]
-        new_path = path.with_name(new_name)
-        path.rename(new_path)
+
+    if not path.name.endswith(suffix):
+        return path
+
+    new_name = path.name[:-len(suffix)]
+    new_path = path.with_name(new_name)
+
+    if not path.exists():
+        return new_path
+
+    path.replace(new_path)
+    return new_path
+
 
 def retroarch_disable_remap(path: Path) -> Path:
-    path=Path(path)
-    if path.is_file() and path.suffix.lower() == ".rmp":
-        # path.name = "algo.rmp"; queremos "algo.rmp.disabled"
-        new_name = path.name + ".disabled"
-        new_path = path.with_name(new_name)
-        path.rename(new_path)
+    path = Path(path)
+
+    if path.suffix.lower() != ".rmp":
+        return path
+
+    new_path = path.with_name(path.name + ".disabled")
+
+    if not path.exists():
+        return new_path
+
+    path.replace(new_path)
+    return new_path
+
 
 def retroarch_download_core(core_name: str, base_url: str, cores_dir: Path, archive_extension: str) -> bool:
     archive_name = f"{core_name}.{archive_extension}"
@@ -834,20 +849,19 @@ def retroarch_pcengine_crt_shader_on():
 def retroarch_pcengine_crt_shader_off():
     retroarch_set_core_setting('pcengine.cfg','Beetle PCE Fast','video_shader_enable',"false")
     retroarch_set_core_setting('pcengine.cfg','Beetle PCE Fast','video_filter',f"{retroarch_video_path}/Normal4x.filt")
-    retroarch_set_core_setting('pcengine.cfg','Beetle PCE Fast','video_smooth' "true")
+    retroarch_set_core_setting('pcengine.cfg','Beetle PCE Fast','video_smooth',"true")
 
     retroarch_set_core_setting('pcengine.cfg','Beetle PCE','video_shader_enable',"false")
-    retroarch_set_core_setting('pcengine.cfg','Beetle,PCE','video_filter',f"{retroarch_video_path}/Normal4x.filt")
-    retroarch_set_core_setting('pcengine.cfg','Beetle,PCE','video_smooth',"true")
+    retroarch_set_core_setting('pcengine.cfg','Beetle PCE','video_filter',f"{retroarch_video_path}/Normal4x.filt")
+    retroarch_set_core_setting('pcengine.cfg','Beetle PCE','video_smooth',"true")
 
     retroarch_set_core_setting('tg16.cfg','Beetle PCE Fast','video_shader_enable',"false")
     retroarch_set_core_setting('tg16.cfg','Beetle PCE Fast','video_filter',f"{retroarch_video_path}/Normal4x.filt")
-    retroarch_set_core_setting('tg16.cfg','Beetle PCE Fast','video_smooth' "true")
+    retroarch_set_core_setting('tg16.cfg','Beetle PCE Fast','video_smooth',"true")
 
     retroarch_set_core_setting('tg16.cfg','Beetle PCE','video_shader_enable',"false")
-    retroarch_set_core_setting('tg16.cfg','Beetle,PCE','video_filter',f"{retroarch_video_path}/Normal4x.filt")
-    retroarch_set_core_setting('tg16.cfg','Beetle,PCE','video_smooth',"true")
-
+    retroarch_set_core_setting('tg16.cfg','Beetle PCE','video_filter',f"{retroarch_video_path}/Normal4x.filt")
+    retroarch_set_core_setting('tg16.cfg','Beetle PCE','video_smooth',"true")
 
 def retroarch_amiga1200_crt_shader_off():
     retroarch_set_core_setting('amiga1200.cfg','PUAE','video_shader_enable',"false")
@@ -2632,12 +2646,13 @@ def retroarch_set_widescreen():
         retroarch_genesis_ar43()
         retroarch_segacd_ar43()
         retroarch_sega32x_ar43()
+
         if settings.bezels:
             retroarch_mastersystem_bezel_on()
             retroarch_genesis_bezel_on()
             retroarch_segacd_bezel_on()
             retroarch_sega32x_bezel_on()
-    
+
     # SNES and NES
     if settings.ar.snes == "87":
         retroarch_snes_ar87()
@@ -2648,23 +2663,28 @@ def retroarch_set_widescreen():
     else:
         retroarch_snes_ar43()
         retroarch_nes_ar43()
+
         if settings.bezels:
             retroarch_snes_bezel_on()
-    
-    # Classic 3D Games (Dreamcast, PSX, N64, Saturn, Xbox)
+
+    # Classic 3D games: Dreamcast, PSX, N64, Saturn
     if settings.shaders.classic3d == 169:
-        retroarch_Beetle_PSX_HW_wideScreen_on()
-        retroarch_Flycast_wideScreen_on()
+        retroarch_Beetle_PSX_HW_wideScreenOn()
+        retroarch_Flycast_wideScreenOn()
+        retroarch_n64_wideScreenOn()
+        retroarch_SwanStation_wideScreenOn()
+
         retroarch_dreamcast_bezel_off()
         retroarch_psx_bezel_off()
-        retroarch_n64_wideScreen_on()
-        retroarch_SwanStation_wideScreen_on()
+        retroarch_n64_bezel_off()
     else:
-        retroarch_Flycast_wideScreen()
-        retroarch_n64_wideScreen_off()
-        retroarch_Beetle_PSX_HW_wideScreen_off()
-        retroarch_SwanStation_wideScreenff()
+        retroarch_Flycast_wideScreenOff()
+        retroarch_n64_wideScreenOff()
+        retroarch_Beetle_PSX_HW_wideScreenOff()
+        retroarch_SwanStation_wideScreenOff()
+
         if settings.bezels:
             retroarch_dreamcast_bezel_on()
             retroarch_n64_bezel_on()
-            RetroArch_psx_bezel_on()                    
+            retroarch_psx_bezel_on()
+               
