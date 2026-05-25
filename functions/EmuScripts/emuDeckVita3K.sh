@@ -15,13 +15,8 @@ Vita3K_cleanup(){
 Vita3K_install(){
     echo "Begin Vita3K Install"
     local showProgress="$1"
-    local vita3kAsset="Vita3K-x86_64.AppImage"
 
-    if [[ "$(uname -m)" == "aarch64" || "$(uname -m)" == "arm64" ]]; then
-        vita3kAsset="Vita3K-aarch64.AppImage"
-    fi
-
-    if installEmuBI "$Vita3K_emuName" "$(getReleaseURLGH "Vita3K/Vita3K" "$vita3kAsset")" "" "AppImage" "$showProgress"; then
+    if installEmuBI "$Vita3K_emuName" "$(getReleaseURLGH "Vita3K/Vita3K" "Vita3K-x86_64.AppImage")" "" "AppImage" "$showProgress"; then
         rm -rf "$Vita3K_emuPath"
         mkdir -p "$Vita3K_emuPath"
         mv -f "$emusFolder/Vita3K.AppImage" "$Vita3K_emuPath/Vita3K"
