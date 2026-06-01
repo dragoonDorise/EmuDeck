@@ -4,35 +4,36 @@ def vita3k_install():
     set_msg(f"Installing Vita3K")
 
     if system == "linux":
-        repo = get_latest_release_gh("Vita3K/Vita3K", "zip", "ubuntu-latest.zip")
+        repo = get_latest_release_gh("Vita3K/Vita3K", "AppImage", "Vita3K-x86_64.AppImage")
         if not repo:
-            print("Error: could not find ubuntu-latest.zip")
+            print("Error: could not find Vita3K-x86_64.AppImage")
             return False
 
         install_path = emus_folder / "Vita3K"
-        install_path.mkdir(parents=True, exist_ok=True)
+        binary_path = install_path / "Vita3K"
 
         temp_dir = Path(tempfile.mkdtemp())
-        archive_path = temp_dir / "vita3k.zip"
+        appimage_path = temp_dir / "Vita3K.AppImage"
 
         try:
             response = requests.get(repo, stream=True, timeout=30)
             response.raise_for_status()
 
-            with open(archive_path, "wb") as f:
+            with open(appimage_path, "wb") as f:
                 for chunk in response.iter_content(chunk_size=8192):
                     if chunk:
                         f.write(chunk)
 
-            with zipfile.ZipFile(archive_path, "r") as zf:
-                zf.extractall(install_path)
+            shutil.rmtree(install_path, ignore_errors=True)
+            install_path.mkdir(parents=True, exist_ok=True)
 
-            binary_path = install_path / "Vita3K"
-            if binary_path.exists():
-                binary_path.chmod(binary_path.stat().st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
-            else:
-                print(f"Error: Vita3K binary not found in {install_path}")
-                return False
+            shutil.move(str(appimage_path), str(binary_path))
+            binary_path.chmod(
+                binary_path.stat().st_mode |
+                stat.S_IXUSR |
+                stat.S_IXGRP |
+                stat.S_IXOTH
+            )
 
             create_app_shortcut("Vita3K")
             return True
@@ -83,13 +84,18 @@ def vita3k_is_installed():
 def vita3k_init():
     set_msg(f"Setting up Vita3K")
     if system == "linux":
-        destination=f"{home}/.config/Vita3K"
+        destination = f"{home}/.config/Vita3K"
     if system.startswith("win"):
-        destination=f"{emus_folder}/vita3k/"
+        destination = f"{emus_folder}/vita3k/"
     if system == "darwin":
-        destination=f"{home}/.config/vita3k/"
+        destination = f"{home}/.config/vita3k/"
 
     copy_and_set_settings_file(f"common/vita3k/config.yml", destination)
+
+    config_file = Path(destination) / "config.yml"
+    sed("STORAGEPATH", str(storage_path).replace("\\", "/"), config_file)
+
+    vita3k_setup_storage()
     vita3k_setup_saves()
 
 def vita3k_install_init():
@@ -100,3 +106,8 @@ def vita3k_install_init():
 def vita3k_setup_saves():
     origin_saves=f"{storage_path}/Vita3K/ux0/user/00/savedata"
     move_contents_and_link(origin_saves,f"{saves_path}/Vita3K/saves")
+
+def vita3k_setup_storage():
+    installed_games = f"{roms_path}/psvita/InstalledGames"
+    vita3k_apps = f"{storage_path}/Vita3K/ux0/app"
+    move_contents_and_link(vita3k_apps, installed_games)
