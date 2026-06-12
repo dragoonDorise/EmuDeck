@@ -9,9 +9,10 @@ def srm_install():
         destination = f"{emus_folder}"
 
     if system.startswith("win"):
-        type="exe"
-        look_for="portable"
-        destination = f"{tools_path}"
+        type = "exe"
+        look_for = "portable"
+        destination = Path(os.environ["APPDATA"]) / "EmuDeck" / "SteamRomManager"
+        destination.mkdir(parents=True, exist_ok=True)
 
     if system == "darwin":
         type="dmg"
@@ -33,11 +34,15 @@ def srm_uninstall():
         shutil.rmtree(tools_path / "launchers" / "srm", ignore_errors=True)
 
     if system.startswith("win"):
-        (tools_path / "srm.exe").unlink(missing_ok=True)
-        shutil.rmtree(tools_path / "launchers" / "srm", ignore_errors=True)
+        appdata = Path(os.environ["APPDATA"])
 
-        shortcut = Path(os.environ["APPDATA"]) / "Microsoft" / "Windows" / "Start Menu" / "Programs" / "EmuDeck" / "SteamRomManager.lnk"
-        shortcut.unlink(missing_ok=True)
+        shutil.rmtree(appdata / "EmuDeck" / "SteamRomManager", ignore_errors=True)
+        shutil.rmtree(tools_path / "launchers" / "srm", ignore_errors=True)
+        (appdata / "Microsoft" / "Windows" / "Start Menu" / "Programs" / "EmuDeck" / "SteamRomManager.lnk").unlink(missing_ok=True)
+
+        # Legacy installation
+        shutil.rmtree(tools_path / "userData", ignore_errors=True)
+        (tools_path / "srm.exe").unlink(missing_ok=True)
 
     if system == "darwin":
         uninstall_emu("Steam Rom Manager", "app")
@@ -48,7 +53,7 @@ def srm_is_installed():
     if system == "linux":
         return (emus_folder / "srm.AppImage").exists()
     if system.startswith("win"):
-        return (tools_path / "srm.exe").exists()
+        return (Path(os.environ["APPDATA"]) / "EmuDeck" / "SteamRomManager" / "srm.exe").exists()
     if system == "darwin":
         return (emus_folder / "Steam Rom Manager.app").exists()
     return False

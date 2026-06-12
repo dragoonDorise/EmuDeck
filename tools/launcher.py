@@ -244,7 +244,7 @@ if system.startswith("win"):
     if emu.lower() in ("es-de", "emulationstationde"):
         exe = str(esde_folder / "ES-DE.exe")
     if emu.lower() == "steamrommanager":
-        exe = f"{tools_path}/srm.exe"
+        exe = str(Path(os.environ["APPDATA"]) / "EmuDeck" / "SteamRomManager" / "srm.exe")
     if emu.lower() == "azahar":
         exe = f"{emus_folder}/azahar/azahar.exe"
     if emu.lower() == "bigpemu":
