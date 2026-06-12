@@ -851,11 +851,16 @@ def create_app_shortcut(name: str):
         emudeck_folder_start_menu = programs / "EmuDeck"
         emudeck_folder_start_menu.mkdir(parents=True, exist_ok=True)
 
-        link_name = "EmulationStationDE" if name == "ES-DE" else name.lower()
+        if name == "ES-DE":
+            link_name = "EmulationStationDE"
+        elif name == "srm":
+            link_name = "SteamRomManager"
+        else:
+            link_name = name.lower()
+
         dest = emudeck_folder_start_menu / link_name
         if dest.suffix.lower() != ".lnk":
             dest = dest.with_suffix(".lnk")
-
 
         try:
             from win32com.client import Dispatch
@@ -873,6 +878,10 @@ def create_app_shortcut(name: str):
             folder = "es-de"
             script_filename = "es-de.bat"
             display_name = "EmulationStationDE"
+        elif name == "srm":
+            folder = "srm"
+            script_filename = "steamrommanager.bat"
+            display_name = "SteamRomManager"
         else:
             folder = ""
             if name.lower() == "model2":
@@ -921,29 +930,41 @@ def create_app_shortcut(name: str):
                 break
 
         folder = ""
+        script_filename = f"{launcher_name.lower()}.sh"
+        display_name = name
+        desktop_filename = f"{name}.desktop"
+        keywords = f"{name.lower()};emudeck;"
+
         if name == "ES-DE":
             folder = "es-de"
 
-        src_file = Path(emudeck_backend) / "tools" / "launchers" / "unix" / folder / f"{launcher_name.lower()}.sh"
-        exec_path = Path(tools_path) / "launchers" / folder / f"{launcher_name.lower()}.sh"
+        if name == "srm":
+            folder = "srm"
+            script_filename = "steamrommanager.sh"
+            display_name = "SteamRomManager"
+            desktop_filename = "srm.desktop"
+            keywords = "srm;steam;rom;manager;steamrommanager;steam rom manager;emudeck;"
+
+        src_file = Path(emudeck_backend) / "tools" / "launchers" / "unix" / folder / script_filename
+        exec_path = Path(tools_path) / "launchers" / folder / script_filename
 
         exec_path.parent.mkdir(parents=True, exist_ok=True)
-
         shutil.copy2(src_file, exec_path)
         exec_path.chmod(exec_path.stat().st_mode | 0o111)
 
         desktop_entry = [
             "[Desktop Entry]",
             "Type=Application",
-            f"Name={name} - EmuDeck",
+            f"Name={display_name} - EmuDeck",
             f"Icon={icon}",
             f"Exec={exec_path}",
-            f"Terminal=false",
+            "Terminal=false",
             "Categories=Utility;",
+            f"Keywords={keywords}",
         ]
 
         applications_dir = Path.home() / ".local" / "share" / "applications"
-        dest = applications_dir / f"{name}.desktop"
+        dest = applications_dir / desktop_filename
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text("\n".join(desktop_entry) + "\n", encoding="utf-8")
         dest.chmod(0o755)

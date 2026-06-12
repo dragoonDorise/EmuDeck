@@ -9,9 +9,10 @@ def srm_install():
         destination = f"{emus_folder}"
 
     if system.startswith("win"):
-        type="exe"
-        look_for="portable"
-        destination = f"{tools_path}"
+        type = "exe"
+        look_for = "portable"
+        destination = Path(os.environ["APPDATA"]) / "EmuDeck" / "SteamRomManager"
+        destination.mkdir(parents=True, exist_ok=True)
 
     if system == "darwin":
         type="dmg"
@@ -28,26 +29,34 @@ def srm_install():
 
 
 def srm_uninstall():
-    try:
-        if system == "linux":
-            uninstall_emu("Steam Rom Manager", "AppImage")
-        if system.startswith("win"):
-            uninstall_emu("srm", "dir")
-        if system == "darwin":
-            uninstall_emu("Steam Rom Manager", "app")
-        return True
-    except Exception as e:
-        print(f"Error during uninstall: {e}")
-        return False
+    if system == "linux":
+        uninstall_emu("srm", "AppImage")
+        shutil.rmtree(tools_path / "launchers" / "srm", ignore_errors=True)
+
+    if system.startswith("win"):
+        appdata = Path(os.environ["APPDATA"])
+
+        shutil.rmtree(appdata / "EmuDeck" / "SteamRomManager", ignore_errors=True)
+        shutil.rmtree(tools_path / "launchers" / "srm", ignore_errors=True)
+        (appdata / "Microsoft" / "Windows" / "Start Menu" / "Programs" / "EmuDeck" / "SteamRomManager.lnk").unlink(missing_ok=True)
+
+        # Legacy installation
+        shutil.rmtree(tools_path / "userData", ignore_errors=True)
+        (tools_path / "srm.exe").unlink(missing_ok=True)
+
+    if system == "darwin":
+        uninstall_emu("Steam Rom Manager", "app")
+
+    return True
 
 def srm_is_installed():
     if system == "linux":
-        return (tools_path / "Steam Rom Manager.AppImage").exists()
+        return (emus_folder / "srm.AppImage").exists()
     if system.startswith("win"):
-      return (tools_path / "srm.exe").exists()
+        return (Path(os.environ["APPDATA"]) / "EmuDeck" / "SteamRomManager" / "srm.exe").exists()
     if system == "darwin":
-      return (emus_folder / "Steam Rom Manager.app").exists()
-
+        return (emus_folder / "Steam Rom Manager.app").exists()
+    return False
 
 def srm_init():
     set_msg(f"Setting up Steam Rom Manager")
