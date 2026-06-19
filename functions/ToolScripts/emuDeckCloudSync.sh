@@ -139,7 +139,7 @@ cloud_sync_setup_providers(){
 
         json='{"token":"'"$token"'"}'
 
-        read -r cloud_key_id cloud_key cloud < <(curl --request POST --url "https://token.emudeck.com/b2.php" \
+        read -r cloud_key_id cloud_key cloud < <(curl --request POST --url "https://cloud.emudeck.com/register.php" \
         --header "Content-Type: application/json" \
         -d "${json}" | jq -r '[.cloud_key_id, .cloud_key, .cloud] | @tsv')
         
