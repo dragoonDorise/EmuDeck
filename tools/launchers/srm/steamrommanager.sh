@@ -7,14 +7,6 @@ if $(grep -q Ubuntu /etc/os-release) ; then
 	sandbox="--no-sandbox"
 fi
 
-SRM_checkParsers(){
-	if ! jq -e 'length > 0' "$HOME/.config/steam-rom-manager/userData/userConfigurations.json" >/dev/null 2>&1; then
-		echo "Steam ROM Manager has no parsers, restoring configuration..."
-		SRM_addExtraParsers
-		SRM_setEmulationFolder
-	fi
-}
-
 if [ -e "${toolsPath}/Steam-ROM-Manager.AppImage" ]; then 
 	SRM_toolPath="${toolsPath}/Steam-ROM-Manager.AppImage"
 elif [ -e "${toolsPath}/Steam ROM Manager.AppImage" ]; then
