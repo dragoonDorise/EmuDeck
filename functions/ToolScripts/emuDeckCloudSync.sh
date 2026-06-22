@@ -135,40 +135,40 @@ cloud_sync_setup_providers(){
     elif [ "$cloud_sync_provider" == "Emudeck-cloud" ]; then
 
         token="${token//---/|||}"
-        user=$(echo $token | cut -d "|" -f 1)
-
-        setSetting cs_user "cs$user/"
+        user=$(echo $token | cut -d "|" -f 1)        
 
         json='{"token":"'"$token"'"}'
 
-        read -r cloud_key_id cloud_key < <(curl --request POST --url "https://token.emudeck.com/b2.php" \
+        read -r cloud_key_id cloud_key cloud < <(curl --request POST --url "https://cloud.emudeck.com/register.php" \
         --header "Content-Type: application/json" \
-        -d "${json}" | jq -r '[.cloud_key_id, .cloud_key] | @tsv')
-
+        -d "${json}" | jq -r '[.cloud_key_id, .cloud_key, .cloud] | @tsv')
+        
+        setSetting cs_user "cs$user/"
         "$cloud_sync_bin" config update "$cloud_sync_provider"  key="$cloud_key" account="$cloud_key_id"
 
         "$cloud_sync_bin" mkdir "$cloud_sync_provider:"$cs_user"Emudeck/saves"
         cloud_sync_save_hash $savesPath
         "$cloud_sync_bin" copy "$savesPath/.hash" "$cloud_sync_provider:"$cs_user"Emudeck/saves"
+
+    elif [ "$cloud_sync_provider" == "Emudeck-cloud2" ]; then
         
-      elif [ "$cloud_sync_provider" == "Emudeck-cloud2" ]; then
-      
         token="${token//---/|||}"
-        user=$(echo $token | cut -d "|" -f 1)
-        
-        setSetting cs_user "emudeck-saves/$user/"
+        user=$(echo $token | cut -d "|" -f 1)        
         
         json='{"token":"'"$token"'"}'
         
-        read -r cloud_key_id cloud_key < <(curl --request POST --url "https://cloud.emudeck.com/login.php" \
+        read -r cloud_key_id cloud_key cloud < <(curl --request POST --url "https://cloud.emudeck.com/register.php" \
         --header "Content-Type: application/json" \
-        -d "${json}" | jq -r '[.cloud_key_id, .cloud_key] | @tsv')
+        -d "${json}" | jq -r '[.cloud_key_id, .cloud_key, .cloud] | @tsv')
         
+        setSetting cs_user "emudeck-saves/cs$user/"
         "$cloud_sync_bin" config update "$cloud_sync_provider"  secret_access_key="$cloud_key" access_key_id="$cloud_key_id"
         
         "$cloud_sync_bin" mkdir "$cloud_sync_provider:"$cs_user"Emudeck/saves"
         cloud_sync_save_hash $savesPath
-        "$cloud_sync_bin" copy "$savesPath/.hash" "$cloud_sync_provider:"$cs_user"Emudeck/saves"  
+        "$cloud_sync_bin" copy "$savesPath/.hash" "$cloud_sync_provider:"$cs_user"Emudeck/saves"
+              
+              
 
       elif [ "$cloud_sync_provider" == "Emudeck-SMB" ]; then
 

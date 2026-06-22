@@ -1080,7 +1080,7 @@ function emulatorInit(){
 			if [ $status -eq 0 ]; then
 				echo "CloudSync Service running"
 			else
-				text="$(printf "<b>CloudSync Error.</b>\nCloudSync service is not running. Please contact us on Patreon")"
+				text="$(printf "<b>CloudSync Error.</b>\nCloudSync service is not running. Please reboot your machine")"
 				zenity --error \
 				--title="EmuDeck" \
 				--width=400 \
@@ -1088,7 +1088,7 @@ function emulatorInit(){
 			fi
 
 		else
-			text="$(printf "<b>CloudSync Error.</b>\nInternet connection not available. Please contact us on Patreon")"
+			text="$(printf "<b>CloudSync Error.</b>\nInternet connection not available. Please reboot your machine")"
 			zenity --error \
 			--title="EmuDeck" \
 			--width=400 \
