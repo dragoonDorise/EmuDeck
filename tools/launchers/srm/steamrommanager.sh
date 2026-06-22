@@ -18,6 +18,8 @@ else
 	SRM_init
 fi
 
+SRM_checkParsers
+
 if grep -q '"autoKillSteam": true' "$HOME/.config/steam-rom-manager/userData/userSettings.json"; then
 	echo "Steam ROM Manager path: $SRM_toolPath"
 	echo "autoKillSteam set to true in Steam ROM Manager. Skipping zenity prompt."

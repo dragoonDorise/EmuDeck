@@ -273,3 +273,11 @@ SRM_addCustomParsers(){
       addParser "$(basename "$json_file")"
   done
 }
+
+SRM_checkParsers(){
+  if ! jq -e 'length > 0' "$HOME/.config/steam-rom-manager/userData/userConfigurations.json" >/dev/null 2>&1; then
+    echo "Steam ROM Manager has no parsers, restoring configuration..."
+    SRM_addExtraParsers
+    SRM_setEmulationFolder
+  fi
+}
