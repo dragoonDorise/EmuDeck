@@ -3,10 +3,10 @@
 Xenia_emuName="Xenia"
 Xenia_emuType="$emuDeckEmuTypeWindows"
 Xenia_emuPath="${romsPath}/xbox360/xenia_canary.exe"
-Xenia_releaseURL_master="https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip"
+#Xenia_releaseURL_master="https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip"
 #Xenia_releaseURL_canary="https://github.com/xenia-canary/xenia-canary/releases/latest/download/xenia_canary.zip"
 # TODO - https://github.com/xenia-canary/xenia-canary-releases/releases/latest/download/xenia_canary_linux.tar.gz - Linux build, runs on SteamDeck =)
-Xenia_releaseURL_canary="https://github.com/xenia-canary/xenia-canary-releases/releases/latest/download/xenia_canary_windows_.zip"
+#Xenia_releaseURL_canary="https://github.com/xenia-canary/xenia-canary-releases/releases/latest/download/xenia_canary_windows_.zip"
 Xenia_XeniaSettings="${romsPath}/xbox360/xenia-canary.config.toml"
 
 #cleanupOlderThings
@@ -20,7 +20,8 @@ Xenia_install(){
 	version=$1
 	local showProgress="$2"
 
-	Xenia_releaseURL="$Xenia_releaseURL_canary"
+	#Xenia_releaseURL="$Xenia_releaseURL_canary"
+	local Xenia_releaseURL=$(getReleaseURLGH "xenia-canary/xenia-canary" "zip" "")
 
 	local name="$Xenia_emuName-$version"
 	echo $name
