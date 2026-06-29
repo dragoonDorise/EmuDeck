@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # xenia.sh
 cd "$HOME/.config/EmuDeck/backend/"
 git pull
@@ -12,7 +12,7 @@ SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"
 CONFIG_FILE="${SELFPATH}.config"
 
 # Get EXE
-EXE="\"/usr/bin/bash\" \"${SELFPATH}\""
+EXE="\"/usr/bin/env bash\" \"${SELFPATH}\""
 
 # NAME
 NAME="Xenia"

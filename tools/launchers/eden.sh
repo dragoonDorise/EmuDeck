@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 emuName="eden" #parameterize me
 
 cd "$HOME/.config/EmuDeck/backend/"

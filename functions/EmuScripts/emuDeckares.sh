@@ -99,7 +99,7 @@ ares_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Bandai SuFami Turbo' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/sufami' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.bml .BML .bs .BS .fig .FIG .sfc .SFC .smc .SMC .st .ST .7z .7Z .zip .ZIP' \
-		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/ares-emu.sh STBIOS.bin --fullscreen --system \"Super Famicom\" %ROM%" \
+		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/env bash ${toolsPath}/launchers/ares-emu.sh STBIOS.bin --fullscreen --system \"Super Famicom\" %ROM%" \
 		--insert '$newSystem/commandP' --type attr --name 'label' --value "ares (Standalone)" \
 		--subnode '$newSystem' --type elem --name 'commandQ' -v "%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/snes9x_libretro.so %ROM%" \
 		--insert '$newSystem/commandQ' --type attr --name 'label' --value "Snes9x - Current" \
@@ -140,7 +140,7 @@ ares_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo Satellaview' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/satellaview' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.bml .BML .bs .BS .fig .FIG .sfc .SFC .smc .SMC .swc .SWC .st .ST .7z .7Z .zip .ZIP' \
-		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/ares-emu.sh BS-X.bin --fullscreen --system \"Super Famicom\" %ROM%" \
+		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/env bash ${toolsPath}/launchers/ares-emu.sh BS-X.bin --fullscreen --system \"Super Famicom\" %ROM%" \
 		--insert '$newSystem/commandP' --type attr --name 'label' --value "ares (Standalone)" \
 		--subnode '$newSystem' --type elem --name 'commandQ' -v "%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/snes9x_libretro.so %ROM%" \
 		--insert '$newSystem/commandQ' --type attr --name 'label' --value "Snes9x - Current" \
@@ -181,7 +181,7 @@ ares_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo Super Game Boy' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/sgb' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.gb .GB .gbc .GBC .sgb .SGB .7z .7Z .zip .ZIP' \
-		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/ares-emu.sh SGB1.sfc --fullscreen --system \"Super Famicom\" %ROM%" \
+		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/env bash ${toolsPath}/launchers/ares-emu.sh SGB1.sfc --fullscreen --system \"Super Famicom\" %ROM%" \
 		--insert '$newSystem/commandP' --type attr --name 'label' --value "ares (Standalone)" \
 		--subnode '$newSystem' --type elem --name 'commandQ' -v "%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mesen-s_libretro.so %ROM%" \
 		--insert '$newSystem/commandQ' --type attr --name 'label' --value "Mesen-S" \

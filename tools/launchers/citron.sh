@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 emuName="citron" #parameterize me
 
 cd "$HOME/.config/EmuDeck/backend/"

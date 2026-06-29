@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 cd "$HOME/.config/EmuDeck/backend/"
 git pull
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
@@ -161,7 +161,7 @@ main () {
         CONFIG_FILE="${SELFPATH}.config"
 
         # Get EXE
-        EXE="\"/usr/bin/bash\" \"${SELFPATH}\""
+        EXE="\"/usr/bin/env bash\" \"${SELFPATH}\""
         echo "EXE: ${EXE}"
 
         # AppID.py

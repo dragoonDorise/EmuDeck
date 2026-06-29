@@ -264,7 +264,7 @@ ESDE_setEmulationFolder(){
 	if [[ ! $(grep -rnw "$es_systemsFile" -e 'wiiu') == "" ]]; then
 		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Native)') == "" ]]; then
 			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandN' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%" \
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandN' -v "/usr/bin/env bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%" \
 			--insert 'systemList/system/commandN' --type attr --name 'label' --value "Cemu (Native)" \
 			-r 'systemList/system/commandN' -v 'command' \
 			"$es_systemsFile"
@@ -273,12 +273,12 @@ ESDE_setEmulationFolder(){
 			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 		else
 			#update
-			cemuNativeCommandString="/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%"
+			cemuNativeCommandString="/usr/bin/env bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Native)"]' -v "$cemuNativeCommandString" "$es_systemsFile"
 		fi
 		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Proton)') == "" ]]; then
 			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%" \
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandP' -v "/usr/bin/env bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%" \
 			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Cemu (Proton)" \
 			-r 'systemList/system/commandP' -v 'command' \
 			"$es_systemsFile"
@@ -287,14 +287,14 @@ ESDE_setEmulationFolder(){
 			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 		else
 			#update
-			cemuProtonCommandString="/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%"
+			cemuProtonCommandString="/usr/bin/env bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Proton)"]' -v "$cemuProtonCommandString" "$es_systemsFile"
 		fi
 	fi
 	if [[ ! $(grep -rnw "$es_systemsFile" -e 'model2') == "" ]]; then
 		if [[ $(grep -rnw "$es_systemsFile" -e 'Model 2 Emulator (Proton)') == "" ]]; then
 			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="model2"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/model-2-emulator.sh %BASENAME%" \
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="model2"]' --type elem --name 'commandP' -v "/usr/bin/env bash ${toolsPath}/launchers/model-2-emulator.sh %BASENAME%" \
 			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Model 2 Emulator (Proton)" \
 			-r 'systemList/system/commandP' -v 'command' \
 			"$es_systemsFile"
@@ -303,14 +303,14 @@ ESDE_setEmulationFolder(){
 			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 		else
 			#update
-			model2ProtonCommandString="/bin/bash ${toolsPath}/launchers/model-2-emulator.sh %BASENAME%"
+			model2ProtonCommandString="/usr/bin/env bash ${toolsPath}/launchers/model-2-emulator.sh %BASENAME%"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="Model 2 Emulator (Proton)"]' -v "$model2ProtonCommandString" "$es_systemsFile"
 		fi
 	fi
 	if [[ ! $(grep -rnw "$es_systemsFile" -e 'atarijaguar') == "" ]]; then
 		if [[ $(grep -rnw "$es_systemsFile" -e 'BigPEmu (Proton)') == "" ]]; then
 			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="atarijaguar"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/bigpemu.sh %BASENAME%" \
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="atarijaguar"]' --type elem --name 'commandP' -v "/usr/bin/env bash ${toolsPath}/launchers/bigpemu.sh %BASENAME%" \
 			--insert 'systemList/system/commandP' --type attr --name 'label' --value "BigPEmu (Proton)" \
 			-r 'systemList/system/commandP' -v 'command' \
 			"$es_systemsFile"
@@ -319,14 +319,14 @@ ESDE_setEmulationFolder(){
 			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 		else
 			#update
-			bigpemujaguarProtonCommandString="/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%"
+			bigpemujaguarProtonCommandString="/usr/bin/env bash ${toolsPath}/launchers/bigpemu.sh %ROM%"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="BigPEmu (Proton)"]' -v "$bigpemujaguarProtonCommandString" "$es_systemsFile"
 		fi
 	fi
 	if [[ ! $(grep -rnw "$es_systemsFile" -e 'atarijaguarcd') == "" ]]; then
 		if [[ $(grep -rnw "$es_systemsFile" -e 'BigPEmu (Proton)') == "" ]]; then
 			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="atarijaguarcd"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
+			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="atarijaguarcd"]' --type elem --name 'commandP' -v "/usr/bin/env bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
 			--insert 'systemList/system/commandP' --type attr --name 'label' --value "BigPEmu (Proton)" \
 			-r 'systemList/system/commandP' -v 'command' \
 			"$es_systemsFile"
@@ -335,7 +335,7 @@ ESDE_setEmulationFolder(){
 			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
 		else
 			#update
-			bigpemujaguarcdProtonCommandString="/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%"
+			bigpemujaguarcdProtonCommandString="/usr/bin/env bash ${toolsPath}/launchers/bigpemu.sh %ROM%"
 			xmlstarlet ed -L -u '/systemList/system/command[@label="BigPEmu (Proton)"]' -v "$bigpemujaguarcdProtonCommandString" "$es_systemsFile"
 		fi
 	fi

@@ -94,7 +94,7 @@ Xenia_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Microsoft Xbox 360' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/xbox360/roms' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.iso .ISO . .xex .XEX' \
-		--subnode '$newSystem' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/xenia.sh z:%ROM% %INJECT%=%BASENAME%.esprefix" \
+		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/env bash ${toolsPath}/launchers/xenia.sh z:%ROM% %INJECT%=%BASENAME%.esprefix" \
 		--insert '$newSystem/commandP' --type attr --name 'label' --value "Xenia (Proton)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'xbox360' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'xbox360' \
