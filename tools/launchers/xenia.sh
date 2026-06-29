@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # xenia.sh
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "xenia"
@@ -9,7 +9,7 @@ SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"
 CONFIG_FILE="${SELFPATH}.config"
 
 # Get EXE
-EXE="\"/usr/bin/bash\" \"${SELFPATH}\""
+EXE="\"/usr/bin/env bash\" \"${SELFPATH}\""
 
 # NAME
 NAME="Xenia"

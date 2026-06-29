@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "shadps4"
 emuName="Shadps4-qt" #parameterize me

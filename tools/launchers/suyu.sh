@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 emuName="suyu" #parameterize me
 
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"

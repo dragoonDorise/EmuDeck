@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "model2"
 # Get SELFPATH
@@ -8,7 +8,7 @@ SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"
 CONFIG_FILE="${SELFPATH}.config"
 
 # Get EXE
-EXE="\"/usr/bin/bash\" \"${SELFPATH}\""
+EXE="\"/usr/bin/env bash\" \"${SELFPATH}\""
 
 # NAME
 NAME="Model2Emu"

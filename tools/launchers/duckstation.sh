@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 emulatorInit "duckstation"
 emuName="DuckStation" #parameterize me

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 cloud_sync_downloadESDE && cloud_sync_startService
 "$ESDE_toolPath" "${@}"

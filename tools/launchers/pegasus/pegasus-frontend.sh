@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 #. "$emudeckBackend/tools/rom-parser.sh"
 cloud_sync_downloadEmuAll && cloud_sync_startService
