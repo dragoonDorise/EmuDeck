@@ -62,7 +62,7 @@ getFlatpak () {
         echo "Error: Flatpak not found."
         return 1
     else
-        EMUPATH=("/usr/bin/flatpak" "run" "${FLATPAK}")
+        EMUPATH=("flatpak" "run" "${FLATPAK}")
     fi
 }
 
