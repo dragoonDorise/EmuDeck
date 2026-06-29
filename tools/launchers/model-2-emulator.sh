@@ -31,10 +31,10 @@ else
 fi
 
 # APPID
-if [ -e "/usr/bin/python" ]; then
-    APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
-elif [ -e "/usr/bin/python3" ]; then
-    APPID=$( /usr/bin/python3 "${APPIDPY}" "${EXE}" "${NAME}" )
+if command -v python &>/dev/null; then
+    APPID=$( python "${APPIDPY}" "${EXE}" "${NAME}" )
+elif command -v python3 &>/dev/null; then
+    APPID=$( python3 "${APPIDPY}" "${EXE}" "${NAME}" )
 else
     echo "Python not found."
 fi
