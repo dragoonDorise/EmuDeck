@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 emuName="suyu" #parameterize me
 
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
@@ -9,8 +9,8 @@ appimage=$(find "$emusFolder" -iname "${emuName}*.AppImage" -print -quit 2>/dev/
 
 # if appimage doesn't exist fall back to flatpak
 if [[ -z "$appimage" ]]; then
-	flatpakApp=$(/usr/bin/flatpak list --app --columns=application | grep -im1 "${emuName}")
-	set -- /usr/bin/flatpak run "$flatpakApp" "$@"
+	flatpakApp=$(flatpak list --app --columns=application | grep -im1 "${emuName}")
+	set -- flatpak run "$flatpakApp" "$@"
 else
 	# make sure the appimage is executable
 	chmod +x "$appimage"

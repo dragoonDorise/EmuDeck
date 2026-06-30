@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ## proton-launch.sh
 
@@ -267,10 +267,10 @@ main () {
     set_env
 
     # Start application with Proton
-    if [ -e "/usr/bin/python" ]; then
+    if command -v python &>/dev/null; then
         echo "Running python ${PROTON} waitforexitandrun ${*}" >> "${LOGFILE}" # Send command to log just in case
         python "${PROTON}" waitforexitandrun "${@}"
-    elif [ -e "/usr/bin/python3" ]; then
+    elif command -v python3 &>/dev/null; then
         echo "Running python ${PROTON} waitforexitandrun ${*}" >> "${LOGFILE}" # Send command to log just in case
         python3 "${PROTON}" waitforexitandrun "${@}"
     else 
