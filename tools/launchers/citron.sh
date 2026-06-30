@@ -17,6 +17,8 @@ else
 	set -- "$appimage" "$@"
 fi
 
+sleep 3
+
 echo "Launching ${emuName} with:" "$@"
 "$@"
 
