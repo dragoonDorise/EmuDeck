@@ -142,6 +142,7 @@ ESDE_init(){
 	SRM_flushOldSymlinks
 
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
+	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_systemsFile"
 }
 
 ESDE_createLauncher(){
