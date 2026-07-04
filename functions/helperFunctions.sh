@@ -454,7 +454,7 @@ function linkToSaveFolder(){
 			mkdir -p "$savesPath/$emu"
 			setMSG "Linking $emu $folderName to the Emulation/saves folder"
 			mkdir -p "$path"
-			ln -snv "$path" "$savesPath/$emu/$folderName"
+			ln -snfv "$path" "$savesPath/$emu/$folderName"
 		fi
 	else
 		if [ ! -L "$savesPath/$emu/$folderName" ]; then
