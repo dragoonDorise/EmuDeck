@@ -134,18 +134,23 @@ Xenia_addESConfig(){
 }
 
 Xenia_getPatches() {
-	local patches_url="https://github.com/xenia-canary/game-patches/releases/latest/download/game-patches.zip"
+	local patches_url="https://github.com/xenia-canary/game-patches/archive/refs/heads/main.zip"
+	local zip="$Xenia_dataPath/game-patches.zip"
 
 	mkdir -p "$Xenia_patchesPath"
 
-	if [[ ! "$(ls -A "$Xenia_patchesPath")" ]]; then
-		{ curl -L "$patches_url" -o "$Xenia_dataPath/game-patches.zip" && nice -n 5 unzip -q -o "$Xenia_dataPath/game-patches.zip" -d "$Xenia_dataPath" && rm "$Xenia_dataPath/game-patches.zip"; } &> /dev/null
-		echo "Xenia patches downloaded."
-	else
-		{ curl -L "$patches_url" -o "$Xenia_dataPath/game-patches.zip" && nice -n 5 unzip -uqo "$Xenia_dataPath/game-patches.zip" -d "$Xenia_dataPath" && rm "$Xenia_dataPath/game-patches.zip"; } &> /dev/null
+	if curl -fL "$patches_url" -o "$zip" &>/dev/null; then
+		nice -n 5 unzip -uqo "$zip" -d "$Xenia_dataPath" &>/dev/null
+		rm -f "$zip"
+		rsync -a --ignore-existing --remove-source-files "$Xenia_dataPath/game-patches-main/patches/" "$Xenia_patchesPath/" &> /dev/null
+		rm -rf "$Xenia_dataPath/game-patches-main"
 		echo "Xenia patches updated."
+	else
+		echo "Xenia patches download failed." >&2
+		return 1
 	fi
 }
+
 
 Xenia_cleanLegacyProtonInstall(){
 	setMSG "Cleaning old Xenia Proton files"
@@ -239,8 +244,8 @@ Xenia_migrate(){
 Xenia_migrateLegacyData(){
 	mkdir -p "$Xenia_dataPath"
 
-	cp "$Xenia_legacyPath/xenia.config.toml" "$Xenia_dataPath/xenia.config.toml"	
-	cp "$Xenia_legacyPath/xenia-canary.config.toml" "$Xenia_dataPath/xenia-canary.config.toml"
+	cp "$Xenia_legacyPath/xenia.config.toml" "$Xenia_dataPath/xenia.config.toml.legacy"	
+	cp "$Xenia_legacyPath/xenia-canary.config.toml" "$Xenia_dataPath/xenia-canary.config.toml.legacy"
 	
 	if [ -d "$Xenia_legacyPath/patches" ]; then
 		mkdir -p "$Xenia_patchesPath"
