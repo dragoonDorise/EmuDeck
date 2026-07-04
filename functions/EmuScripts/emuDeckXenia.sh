@@ -217,7 +217,7 @@ Xenia_migrate(){
 	if [ -d $Xenia_dataPath ]; then
 	
 		#Xenia Native is already installed, we have to ask the user about what to do with its current saves	
-		zenity --question --title "Xenia Native detected" --text "Xenia Native installation already installed not by EmuDeck, do you want us to migrate your Xenia Proton saves from the EmuDeck installation?If you installed Xenia Native on your own those saves could be out of date" --cancel-label "Don't migrate saves" --ok-label "Migrate saves from Xenia Proton"
+		zenity --question --title "Xenia Native detected" --text "Xenia Native installation detected outside of EmuDeck. Do you want us to migrate your Xenia Proton saves from the EmuDeck installation? If you installed Xenia Native on your own those saves could be out of date" --cancel-label "Don't migrate saves" --ok-label "Migrate saves from EmuDeck's Xenia"
 		if [ $? = 0 ]; then
 			(			
 				mv "$HOME/.local/share/Xenia/content" "$HOME/.local/share/Xenia/content_backup" && Xenia_migrateFunctions
@@ -234,7 +234,7 @@ Xenia_migrate(){
 			Xenia_migrateSRMparsers
 			Xenia_addESConfig		
 			Xenia_cleanLegacyProtonInstall
-			zenity --info --width=400 --text="Xenia migration finished, we've only deleted Xenia Proton and updated SRM entries and ESDE to use EmuDeck's AppImage location to ensure future updates. Your current saves and configurations were preserved. If you want to manually reset your settings please do so in Manage Emulators"		
+			zenity --info --width=400 --text="Xenia migration finished, we've only deleted Xenia Proton files and updated SRM entries and ESDE's settings to use EmuDeck's AppImage location to ensure future updates. Your current saves and configurations were preserved. If you want to manually reset your settings please do so in Manage Emulators"		
 		fi
 		
 	else		
