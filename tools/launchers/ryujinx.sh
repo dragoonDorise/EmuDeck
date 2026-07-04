@@ -1,5 +1,8 @@
 #!/bin/bash
+cd "$HOME/.config/EmuDeck/backend/"
+git pull
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
+launcherInit
 emulatorInit "ryujinx"
 emuName="Ryujinx" #parameterize me
 emufolder="$emusFolder/publish" # has to be here for ES-DE to find it

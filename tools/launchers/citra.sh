@@ -1,5 +1,8 @@
 #!/bin/bash
+cd "$HOME/.config/EmuDeck/backend/"
+git pull
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
+launcherInit
 emulatorInit "citra"
 emuName="citra-qt" #parameterize me
 emufolder="$emusFolder" # has to be applications for ES-DE to find it
