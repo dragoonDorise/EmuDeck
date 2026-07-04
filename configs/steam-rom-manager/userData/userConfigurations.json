@@ -1943,7 +1943,7 @@
       "appendArgsToExecutable": true
     },
     "parserInputs": {
-      "glob": "{roms/**/!(xbla),roms}/**/${title}@(.iso|.ISO|.xex|.XEX|.zar|.ZAR)"
+      "glob": "{,roms/}@(${title}|!(xbla)/**/${title})@(.iso|.ISO|.xex|.XEX|.zar|.ZAR)"
     },
     "titleFromVariable": {
       "limitToGroups": "",
@@ -2000,7 +2000,7 @@
     "parserType": "Glob",
     "configTitle": "Microsoft Xbox 360 - Xbox Live Arcade - Xenia",
     "steamDirectory": "${steamdirglobal}",
-    "romDirectory": "${romsdirglobal}/xbox360/roms/",
+    "romDirectory": "${romsdirglobal}/xbox360/",
     "executableArgs": "\"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
@@ -2018,7 +2018,7 @@
       "appendArgsToExecutable": true
     },
     "parserInputs": {
-      "glob": "xbla/**/${title}"
+      "glob": "{,roms/}xbla/**/${title}"
     },
     "titleFromVariable": {
       "limitToGroups": "",
