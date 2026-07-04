@@ -215,9 +215,13 @@ Xenia_migrate(){
 		Xenia_cleanLegacyProtonInstall
 		zenity --info --width=400 --text="Xenia Native already detected, we've only deleted Xenia Proton and updated SRM entries and ESDE. Your current saves and configuration were preserved. If you want to manually reset your settings please do so in Manage Emulators"		
 	else		
-		(
-			Xenia_install
+		(			
 			Xenia_init
+			Xenia_migrateLegacyData
+			Xenia_migrateLegacySaves
+			Xenia_migrateLegacySRMparsers
+			Xenia_cleanLegacyProtonInstall
+			Xenia_install
 		) | zenity --progress \
 			--title="Migrating Xenia" \
 			--text="Please stand by..." \
@@ -238,18 +242,16 @@ Xenia_migrateLegacyData(){
 	cp "$Xenia_legacyPath/xenia.config.toml" "$Xenia_dataPath/xenia.config.toml"	
 	cp "$Xenia_legacyPath/xenia-canary.config.toml" "$Xenia_dataPath/xenia-canary.config.toml"
 	
-	
-	
 	if [ -d "$Xenia_legacyPath/patches" ]; then
 		mkdir -p "$Xenia_patchesPath"
 		rsync -a --remove-source-files "$Xenia_legacyPath/patches/" "$Xenia_patchesPath/" &> /dev/null
 	fi	
 }
 
-Xenia_migrateSRMparsers(){
+Xenia_migrateLegacySRMparsers(){
 	#SRM parsers
-	old_path="Z:$romsPath"
-	new_path=$romsPath
+	local old_path="Z:$romsPath"
+	local new_path=$romsPath
 	find "$HOME/.local/share/Steam/userdata" -name "shortcuts.vdf" -exec sed -i "s|${old_path}|${new_path}|g" {} +
 	SRM_addExtraParsers	
 }
@@ -261,16 +263,6 @@ Xenia_migrateLegacySaves(){
 		mkdir -p "$Xenia_contentPath"
 		rsync -a --remove-source-files "$legacyContentPath/" "$Xenia_contentPath/" &> /dev/null
 	fi
-
-	if [ -L "$savesPath/xenia/saves" ]; then
-		local currentTarget
-		currentTarget="$(readlink "$savesPath/xenia/saves")"
-
-		if [ "$currentTarget" = "$legacyContentPath" ]; then
-			unlink "$savesPath/xenia/saves"
-		fi
-	fi
-	Xenia_setupSaves
 }
 
 
