@@ -220,7 +220,7 @@ Xenia_migrate(){
 		zenity --question --title "Xenia Native detected" --text "Xenia Native installation already installed not by EmuDeck, do you want us to migrate your Xenia Proton saves from the EmuDeck installation?If you installed Xenia Native on your own those saves could be out of date" --cancel-label "Don't migrate saves" --ok-label "Migrate saves from Xenia Proton"
 		if [ $? = 0 ]; then
 			(			
-				Xenia_migrateFunctions
+				mv "$HOME/.local/share/Xenia/content" "$HOME/.local/share/Xenia/content_backup" && Xenia_migrateFunctions
 			) | zenity --progress \
 				--title="Migrating Xenia" \
 				--text="Please stand by..." \
@@ -228,7 +228,7 @@ Xenia_migrate(){
 				--pulsate \
 				--auto-close \
 				--no-cancel
-			mv "$HOME/.local/share/Xenia/content" "$HOME/.local/share/Xenia/content_backup"
+			
 			zenity --info --width=400 --text="Xenia migration finished, we've kept a backup of your old saves in .local/share/Xenia/content_backup just in case"	
 		else
 			Xenia_migrateSRMparsers
