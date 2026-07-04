@@ -44,16 +44,11 @@ Xenia_install(){
 	version=$1
 	local showProgress="$2"
 	local latestReleaseURL
-	local shouldResetAfterInstall="false"
 
 	setMSG "Installing Xenia Canary"
 
 	mkdir -p "$Xenia_applicationsPath"
 	mkdir -p "$romsPath/xbox360"
-
-	if [ ! -e "$Xenia_emuPath" ]; then
-		shouldResetAfterInstall="true"
-	fi
 
 	latestReleaseURL=$(getLatestReleaseURLGH "$Xenia_releaseRepository" ".AppImage" "linux" "xenia_canary")
 
@@ -79,14 +74,14 @@ Xenia_install(){
 							"${toolsPath}/launchers/xenia.sh" \
 							"False"
 
-	if [ "$shouldResetAfterInstall" == "true" ]; then
-		echo "Xenia native AppImage was not previously installed. Running initial reset/config migration."
-		Xenia_resetConfig
-		Xenia_cleanLegacyProtonInstall
-	else
-		Xenia_flushEmulatorLauncher
-		Xenia_addESConfig
+	Xenia_flushEmulatorLauncher
+	Xenia_addESConfig
+	
+	#Migration
+	if [ ! -f "$Xenia_legacyPath/xenia.config.xml" ]; then
+		Xenia_migrate
 	fi
+	
 }
 
 #ApplyInitialSettings
@@ -94,13 +89,9 @@ Xenia_init(){
 	setMSG "Initializing Xenia Config"
 
 	mkdir -p "$Xenia_dataPath"
-	mkdir -p "$romsPath/xbox360/roms/xbla"
-
-	Xenia_migrateLegacyData
-
-	if [ ! -f "$Xenia_dataPath/xenia-canary.config.toml" ]; then
-		cp "$emudeckBackend/configs/xenia/xenia-canary.config.toml" "$Xenia_dataPath/xenia-canary.config.toml"
-	fi
+	mkdir -p "$romsPath/xbox360/xbla"
+	
+	cp "$emudeckBackend/configs/xenia/xenia-canary.config.toml" "$Xenia_dataPath/xenia-canary.config.toml"	
 
 	Xenia_setNativeConfigDefaults
 	Xenia_setupSaves
@@ -114,47 +105,6 @@ Xenia_setNativeConfigDefaults(){
 	if [ -f "$Xenia_XeniaSettings" ]; then
 		sed -i 's|^gpu = .*|gpu = "vulkan"|' "$Xenia_XeniaSettings"
 		sed -i 's|^fullscreen = .*|fullscreen = true|' "$Xenia_XeniaSettings"
-	fi
-}
-
-Xenia_migrateLegacyData(){
-	mkdir -p "$Xenia_dataPath"
-
-	if [ -f "$Xenia_legacyPath/xenia.config.toml" ] && [ ! -f "$Xenia_dataPath/xenia.config.toml.legacy-backup" ]; then
-		cp "$Xenia_legacyPath/xenia.config.toml" "$Xenia_dataPath/xenia.config.toml.legacy-backup"
-	fi
-
-	if [ -f "$Xenia_legacyPath/xenia-canary.config.toml" ] && [ ! -f "$Xenia_dataPath/xenia-canary.config.toml.legacy-backup" ]; then
-		cp "$Xenia_legacyPath/xenia-canary.config.toml" "$Xenia_dataPath/xenia-canary.config.toml.legacy-backup"
-	fi
-
-	if [ -d "$Xenia_legacyPath/patches" ]; then
-		mkdir -p "$Xenia_patchesPath"
-		rsync -a --ignore-existing "$Xenia_legacyPath/patches/" "$Xenia_patchesPath/" &> /dev/null
-	fi
-	
-	#SRM parsers
-	old_path="Z:$romsPath"
-	new_path=$romsPath
-	find "$HOME/.local/share/Steam/userdata" -name "shortcuts.vdf" -exec sed -i "s|${old_path}|${new_path}|g" {} +
-	SRM_addExtraParsers
-}
-
-Xenia_migrateLegacySaves(){
-	local legacyContentPath="$romsPath/xbox360/content"
-
-	if [ -d "$legacyContentPath" ]; then
-		mkdir -p "$Xenia_contentPath"
-		rsync -a --ignore-existing "$legacyContentPath/" "$Xenia_contentPath/" &> /dev/null
-	fi
-
-	if [ -L "$savesPath/xenia/saves" ]; then
-		local currentTarget
-		currentTarget="$(readlink "$savesPath/xenia/saves")"
-
-		if [ "$currentTarget" = "$legacyContentPath" ]; then
-			unlink "$savesPath/xenia/saves"
-		fi
 	fi
 }
 
@@ -201,7 +151,7 @@ Xenia_cleanLegacyProtonInstall(){
 	setMSG "Cleaning old Xenia Proton files"
 
 	if [ -d "$Xenia_legacyPath" ]; then
-		find "$Xenia_legacyPath" -mindepth 1 \( -name roms -o -name content \) -prune -o -exec rm -rf '{}' \; &> /dev/null
+		find "$Xenia_legacyPath" -mindepth 1 \( -name roms -o -name content -o -name xbla \) -prune -o -exec rm -rf '{}' \; &> /dev/null
 	fi
 
 	rm -f "$romsPath/xbox360/xenia.sh" &> /dev/null
@@ -222,7 +172,6 @@ Xenia_setEmulationFolder(){
 #SetupSaves
 Xenia_setupSaves(){
 	mkdir -p "$Xenia_contentPath"
-	Xenia_migrateLegacySaves
 	linkToSaveFolder xenia saves "$Xenia_contentPath"
 }
 
@@ -246,8 +195,6 @@ Xenia_uninstall(){
 	rm -f "$romsPath/emulators/xenia.sh" &> /dev/null
 	rm -f "$romsPath/xbox360/xenia.sh" &> /dev/null
 
-	find "$romsPath/xbox360" -mindepth 1 \( -name roms -o -name content \) -prune -o -exec rm -rf '{}' \; &> /dev/null
-
 	if [ -d "$Xenia_dataPath" ]; then
 		find "$Xenia_dataPath" -mindepth 1 \( -name content \) -prune -o -exec rm -rf '{}' \; &> /dev/null
 	fi
@@ -260,8 +207,72 @@ Xenia_setABXYstyle(){
 
 #Migrate
 Xenia_migrate(){
-	echo "NYI"
+	#Check if the user has the linux port already installed to prevent overwriting it
+	if [ -d $Xenia_dataPath ]; then
+		#Xenia Native is already installed, we have to assume the user has its saved games in the linux location so we only fix ESDE and SRM
+		Xenia_migrateSRMparsers
+		Xenia_addESConfig		
+		Xenia_cleanLegacyProtonInstall
+		zenity --info --width=400 --text="Xenia Native already detected, we've only deleted Xenia Proton and updated SRM entries and ESDE. Your current saves and configuration were preserved. If you want to manually reset your settings please do so in Manage Emulators"		
+	else		
+		(
+			Xenia_install
+			Xenia_init
+		) | zenity --progress \
+			--title="Migrating Xenia" \
+			--text="Please stand by..." \
+			--width=400 \
+			--pulsate \
+			--auto-close \
+			--no-cancel
+			
+		zenity --info --width=400 --text="Xenia Proton sucessfully migrated to Xenia Native. We've updated ESDE and SRM with the new paths and migrated your settings and saves. You can now go back to gaming mode if you want"
+	fi	
+	
 }
+
+
+Xenia_migrateLegacyData(){
+	mkdir -p "$Xenia_dataPath"
+
+	cp "$Xenia_legacyPath/xenia.config.toml" "$Xenia_dataPath/xenia.config.toml"	
+	cp "$Xenia_legacyPath/xenia-canary.config.toml" "$Xenia_dataPath/xenia-canary.config.toml"
+	
+	
+	
+	if [ -d "$Xenia_legacyPath/patches" ]; then
+		mkdir -p "$Xenia_patchesPath"
+		rsync -a --remove-source-files "$Xenia_legacyPath/patches/" "$Xenia_patchesPath/" &> /dev/null
+	fi	
+}
+
+Xenia_migrateSRMparsers(){
+	#SRM parsers
+	old_path="Z:$romsPath"
+	new_path=$romsPath
+	find "$HOME/.local/share/Steam/userdata" -name "shortcuts.vdf" -exec sed -i "s|${old_path}|${new_path}|g" {} +
+	SRM_addExtraParsers	
+}
+
+Xenia_migrateLegacySaves(){
+	local legacyContentPath="$romsPath/xbox360/content"
+
+	if [ -d "$legacyContentPath" ]; then
+		mkdir -p "$Xenia_contentPath"
+		rsync -a --remove-source-files "$legacyContentPath/" "$Xenia_contentPath/" &> /dev/null
+	fi
+
+	if [ -L "$savesPath/xenia/saves" ]; then
+		local currentTarget
+		currentTarget="$(readlink "$savesPath/xenia/saves")"
+
+		if [ "$currentTarget" = "$legacyContentPath" ]; then
+			unlink "$savesPath/xenia/saves"
+		fi
+	fi
+	Xenia_setupSaves
+}
+
 
 #WideScreenOn
 Xenia_wideScreenOn(){
