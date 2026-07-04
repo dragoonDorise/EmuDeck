@@ -177,6 +177,7 @@ Xenia_setEmulationFolder(){
 #SetupSaves
 Xenia_setupSaves(){
 	mkdir -p "$Xenia_contentPath"
+	unlink "$savesPath/xenia/saves"
 	linkToSaveFolder xenia saves "$Xenia_contentPath"
 }
 
@@ -214,19 +215,23 @@ Xenia_setABXYstyle(){
 Xenia_migrate(){
 	#Check if the user has the linux port already installed to prevent overwriting it
 	if [ -d $Xenia_dataPath ]; then
-		#Xenia Native is already installed, we have to assume the user has its saved games in the linux location so we only fix ESDE and SRM
-		Xenia_migrateSRMparsers
-		Xenia_addESConfig		
-		Xenia_cleanLegacyProtonInstall
-		zenity --info --width=400 --text="Xenia Native already detected, we've only deleted Xenia Proton and updated SRM entries and ESDE. Your current saves and configuration were preserved. If you want to manually reset your settings please do so in Manage Emulators"		
+	
+		#Xenia Native is already installed, we have to ask the user about what to do with its current saves	
+		zenity --question --title "Xenia Native detected" --text "Xenia Native installation already installed not by EmuDeck, do you want us to migrate your Xenia Proton saves from the EmuDeck installation?If you installed Xenia Native on your own those saves could be out of date" --cancel-label "Don't migrate saves" --ok-label "Migrate saves from Xenia Proton"
+		if [ $? = 0 ]; then
+			Xenia_migrateFunctions
+			mv "$HOME/.local/share/Xenia/content" "$HOME/.local/share/Xenia/content_backup"
+			zenity --info --width=400 --text="Xenia migration finished, we've kept a backup of your old saves in .local/share/Xenia/content_backup just in case"	
+		else
+			Xenia_migrateSRMparsers
+			Xenia_addESConfig		
+			Xenia_cleanLegacyProtonInstall
+			zenity --info --width=400 --text="Xenia migration finished, we've only deleted Xenia Proton and updated SRM entries and ESDE to use EmuDeck's AppImage location to ensure future updates. Your current saves and configurations were preserved. If you want to manually reset your settings please do so in Manage Emulators"		
+		fi
+		
 	else		
 		(			
-			Xenia_init
-			Xenia_migrateLegacyData
-			Xenia_migrateLegacySaves
-			Xenia_migrateLegacySRMparsers
-			Xenia_cleanLegacyProtonInstall
-			Xenia_install
+			Xenia_migrateFunctions
 		) | zenity --progress \
 			--title="Migrating Xenia" \
 			--text="Please stand by..." \
@@ -238,6 +243,15 @@ Xenia_migrate(){
 		zenity --info --width=400 --text="Xenia Proton sucessfully migrated to Xenia Native. We've updated ESDE and SRM with the new paths and migrated your settings and saves. You can now go back to gaming mode if you want"
 	fi	
 	
+}
+
+Xenia_migrateFunctions(){
+	Xenia_init
+	Xenia_migrateLegacyData
+	Xenia_migrateLegacySaves
+	Xenia_migrateLegacySRMparsers
+	Xenia_cleanLegacyProtonInstall
+	Xenia_install
 }
 
 
