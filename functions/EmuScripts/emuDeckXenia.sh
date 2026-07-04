@@ -132,6 +132,12 @@ Xenia_migrateLegacyData(){
 		mkdir -p "$Xenia_patchesPath"
 		rsync -a --ignore-existing "$Xenia_legacyPath/patches/" "$Xenia_patchesPath/" &> /dev/null
 	fi
+	
+	#SRM parsers
+	old_path="Z:$romsPath"
+	new_path=$romsPath
+	find "$HOME/.local/share/Steam/userdata" -name "shortcuts.vdf" -exec sed -i "s|${old_path}|${new_path}|g" {} +
+	SRM_addExtraParsers
 }
 
 Xenia_migrateLegacySaves(){
