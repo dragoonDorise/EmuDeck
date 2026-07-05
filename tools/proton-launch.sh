@@ -157,7 +157,9 @@ main () {
     showArguments "${@}"
 
     # Set main STEAMPATH
-    if [ -d "${HOME}/.local/share/Steam" ]; then
+    if [ -d "${HOME}/snap/steam/common/.local/share/Steam" ]; then
+        STEAMPATH="${HOME}/snap/steam/common/.local/share/Steam"
+    elif [ -d "${HOME}/.local/share/Steam" ]; then
         STEAMPATH="${HOME}/.local/share/Steam"
     elif [ -d "${HOME}/.steam/steam" ]; then
         STEAMPATH="${HOME}/.steam/steam"
