@@ -277,8 +277,9 @@ Xenia_migrateLegacyData(){
 
 Xenia_migrateLegacySRMparsers(){
 	#SRM parsers
-	local old_path="Z:$romsPath"
-	local new_path=$romsPath
+	local old_path="Z:$romsPath/xbox360"
+	local new_path="$romsPath/xbox360"
+	kill -15 $(pidof steam)
 	find "$HOME/.local/share/Steam/userdata" -name "shortcuts.vdf" -exec sed -i "s|${old_path}|${new_path}|g" {} +
 	SRM_addExtraParsers	
 }
