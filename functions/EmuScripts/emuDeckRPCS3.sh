@@ -40,6 +40,11 @@ RPCS3_ApiGetUpdateInfo(){
 	local apiVersion="v3"
 	local osType="linux"
 	local osArch="x64"
+	
+	if [ $CPUarch == "arm" ]; then
+		osArch="arm64"
+	fi
+	
 	local osVersion=$(grep "VERSION_ID" /etc/os-release | cut -d'=' -f2 | tr -d '"')
 	local should_return_update=0
 

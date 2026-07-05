@@ -17,6 +17,10 @@ Vita3K_install(){
     local showProgress="$1"
     local vita3kDownloadURL="https://github.com/Vita3K/Vita3K/releases/download/continuous/Vita3K-x86_64.AppImage"
 
+    if [ $CPUarch == "arm" ]; then
+        vita3kDownloadURL="https://github.com/Vita3K/Vita3K/releases/download/continuous/Vita3K-aarch64.AppImage"
+    fi
+
     if installEmuBI "$Vita3K_emuName" "$vita3kDownloadURL" "" "AppImage" "$showProgress"; then
         rm -rf "$Vita3K_emuPath"
         mkdir -p "$Vita3K_emuPath"

@@ -5,3 +5,7 @@ appFolder="$HOME/Applications"
 emusFolder="$appFolder"
 esdeFolder="$appFolder"
 pegasusFolder="$appFolder"
+CPUarch="x86"
+if [ "$(uname -m)" = "aarch64" ] || [ "$(uname -m)" = "arm64" ]; then
+	CPUarch="arm"
+fi

@@ -19,6 +19,10 @@ BigPEmu_install(){
 	mkdir -p $BigPEmu_appData
 
 	BigPEmudownloadLink=$(curl -s "https://www.richwhitehouse.com/jaguar/index.php?content=download" | grep -o 'https://www\.richwhitehouse\.com/jaguar/builds/BigPEmu_Linux64_v[0-9]*\.tar.gz' | grep -v "BigPEmu_*-DEV.tar.gz" | head -n 1)
+	
+	if [ $CPUarch == "arm" ]; then
+		BigPEmudownloadLink=$(curl -s "https://www.richwhitehouse.com/jaguar/index.php?content=download" | grep -o 'https://www\.richwhitehouse\.com/jaguar/builds/BigPEmu_LinuxARM64_v[0-9]*\.tar.gz' | grep -v "BigPEmu_*-DEV.tar.gz" | head -n 1)
+	fi
 
 	if safeDownload "BigPEmu" "$BigPEmudownloadLink" "$emusFolder/BigPEmu/BigPEmu.tar.gz" "$showProgress"; then
 

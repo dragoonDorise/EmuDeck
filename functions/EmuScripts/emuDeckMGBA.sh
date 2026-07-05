@@ -14,7 +14,15 @@ mGBA_cleanup(){
 mGBA_install(){
 	echo "Begin mGBA Install"
 	local showProgress="$1"
-	if installEmuAI "$mGBA_emuName" "" "$(getReleaseURLGH "mgba-emu/mgba" "x64.appimage")" "" "" "emulator" "$showProgress"; then #mGBA.AppImage
+	local appName="x64.appimage"
+	
+	if [ $CPUarch == "arm" ]; then
+		appName="arm64.appimage"			
+	fi
+	
+	local url=$(getReleaseURLGH "mgba-emu/mgba" "$appName")
+	
+	if installEmuAI "$mGBA_emuName" "" "$url" "" "" "emulator" "$showProgress"; then #mGBA.AppImage
 		:
 	else
 		return 1

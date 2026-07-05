@@ -13,8 +13,13 @@ DuckStation_install(){
 	echo "Begin $DuckStation_emuName Install"
 	local showProgress="$1"
 	local url=$(getReleaseURLGH "stenzek/duckstation" "AppImage" "x64.")
-
-	if installEmuAI "$DuckStation_emuName" "" "$url" "DuckStation" "AppImage" "emulator" "$showProgress"; then
+	local format="AppImage"
+	
+	if [ $CPUarch == "arm" ]; then
+		format="arm64.AppImage"
+	fi
+	
+	if installEmuAI "$DuckStation_emuName" "" "$url" "DuckStation" "$format" "emulator" "$showProgress"; then
 		mv "$emusFolder/DuckStation.AppImage" "$DuckStation_emuPath"
 		chmod +x "$DuckStation_emuPath"
 	else
