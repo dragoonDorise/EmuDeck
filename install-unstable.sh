@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 
 DEBIAN_DEPS=(jq zenity flatpak unzip bash libfuse2 git rsync whiptail python)
-ARCH_DEPS=(steam jq zenity flatpak unzip bash fuse2 git rsync whiptail python)
+ARCH_DEPS=(steam jq zenity flatpak unzip bash fuse2 git rsync libnewt python)
 FEDORA_DEPS=(jq zenity flatpak unzip bash fuse git rsync newt python)
 SUSE_DEPS=(steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail python)
-VOID_DEPS=(steam jq zenity flatpak unzip bash fuse git rsync whiptail python)
+VOID_DEPS=(steam jq zenity flatpak unzip bash fuse git rsync newt python)
 GENTOO_DEPS=(app-misc/jq gnome-extra/zenity sys-apps/flatpak app-arch/unzip app-shells/bash sys-fs/fuse:0 dev-vcs/git net-misc/rsync dev-libs/newt dev-lang/python app-text/xmlstarlet)
+
+CPU_ARCH="x86"
+if [ "$(uname -m)" = "aarch64" ] || [ "$(uname -m)" = "arm64" ]; then
+    CPU_ARCH="arm"
+fi
+
 
 OS_NAME=$(cat /etc/hostname)
 if [ "$OS_NAME" = "playnix" ]; then
@@ -120,8 +126,12 @@ report_error() {
 
 trap report_error ERR
 
+EMUDECK_EXT="x86_64.AppImage"
+if [ $CPU_ARCH == "arm" ]; then
+    EMUDECK_EXT="arm64.AppImage"
+fi
 EMUDECK_GITHUB_URL="https://api.github.com/repos/EmuDeck/emudeck-electron-early-unstable/releases/latest"
-EMUDECK_URL="$(curl -s ${EMUDECK_GITHUB_URL} | grep -E 'browser_download_url.*AppImage' | cut -d '"' -f 4)"
+EMUDECK_URL="$(curl -s ${EMUDECK_GITHUB_URL} | grep -E "browser_download_url.*${EMUDECK_EXT}" | cut -d '"' -f 4)"
 
 mkdir -p ~/Applications
 curl -L "${EMUDECK_URL}" -o ~/Applications/EmuDeck.AppImage 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading EmuDeck" --width 600 --auto-close --no-cancel 2>/dev/null
