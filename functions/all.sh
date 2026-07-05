@@ -56,6 +56,7 @@ source "$emudeckBackend"/functions/updateEmuFP.sh
 source "$emudeckBackend"/functions/createFolders.sh
 source "$emudeckBackend"/functions/runSRM.sh
 source "$emudeckBackend"/functions/appImageInit.sh
+source "$emudeckBackend"/functions/launcherInit.sh
 source "$emudeckBackend"/functions/autofix.sh
 source "$emudeckBackend"/functions/generateGameLists.sh
 source "$emudeckBackend"/functions/jsonToBashVars.sh

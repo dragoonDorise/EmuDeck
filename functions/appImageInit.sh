@@ -1,9 +1,17 @@
 #!/bin/bash
 appImageInit() {
-
+	
+	#Migrate Xenia
+	# if [ -f "$Xenia_legacyPath/xenia.config.toml" ]; then
+	# 	zenity --question --title "Xenia migration" --text "Xenia Proton detected, it's recommended to update to the new Native release" --cancel-label "Cancel" --ok-label "OK"
+	# 	if [ $? = 0 ]; then
+	# 		Xenia_migrate
+	# 	else
+	# 		echo "continue"
+	# 	fi
+	# fi	
 
 	#Migrate DuckStation
-
 	if [ -d "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation" ]; then
 
 		zenity --question --title "DuckStation migration" --text "DuckStation flatpak detected, it's recommended to update to the new AppImage release" --cancel-label "Cancel" --ok-label "OK"
@@ -17,7 +25,6 @@ appImageInit() {
 	fi
 
 	#Migrate emudeck folder
-
 	if [ -f "$HOME/emudeck/settings.sh" ] &&  [ ! -L "$HOME/emudeck/settings.sh" ]; then
 		# We move good old emudeck folder to .config
 		rsync -avh "$HOME/emudeck/" "$emudeckFolder" && rm -rf "$HOME/emudeck" && mkdir "$HOME/emudeck" && ln -s "$emudeckFolder/settings.sh" "$HOME/emudeck/settings.sh"
