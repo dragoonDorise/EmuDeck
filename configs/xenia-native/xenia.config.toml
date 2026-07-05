@@ -70,7 +70,7 @@ d3d12_tiled_shared_memory = true                  	# Enable tiled resources for 
 
 
 [Display]
-fullscreen = false                                	# Whether to launch the emulator in fullscreen.
+fullscreen = true                                	# Whether to launch the emulator in fullscreen.
 host_present_from_non_ui_thread = true            	# Allow the GPU emulation thread to present the guest output to the host surface directly instead of requesting the UI thread to do so through the host window system.
 postprocess_antialiasing = ""                     	# Post-processing anti-aliasing effect to apply to the image output of the game.
 													  # Using post-process anti-aliasing is heavily recommended when AMD FidelityFX Contrast Adaptive Sharpening or Super Resolution 1.0 is active.
