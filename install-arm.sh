@@ -129,7 +129,7 @@ trap report_error ERR
 EMUDECK_GITHUB_URL="https://api.github.com/repos/EmuDeck/emudeck-electron/releases/latest"
 EMUDECK_URL="$(curl -s ${EMUDECK_GITHUB_URL} | grep -E 'browser_download_url.*AppImage' | cut -d '"' -f 4)"
 
-if [ $CPU_ARCH == "ARM" ]; then
+if [ $CPU_ARCH == "arm" ]; then
     EMUDECK_URL="https://github.com/EmuDeck/emudeck-electron/releases/download/v2.6.1/EmuDeck-2.6.1-arm64.AppImage"
 fi
 
