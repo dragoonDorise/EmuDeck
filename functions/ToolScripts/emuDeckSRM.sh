@@ -17,8 +17,13 @@ SRM_install(){
   fi
 
   mkdir -p "$toolsPath"
+  
+  url=$(getReleaseURLGH 'SteamGridDB/steam-rom-manager' 'AppImage')
+  if [ $CPUarch == "arm" ]; then
+    url=$(getReleaseURLGH 'dragoonDorise/steam-rom-manager' 'arm64.AppImage')
+  fi
 
-  if installToolAI "Steam-ROM-Manager" "$(getReleaseURLGH 'SteamGridDB/steam-rom-manager' 'AppImage')" "" "$showProgress"; then
+  if installToolAI "Steam-ROM-Manager" "" "" "$showProgress"; then
   SRM_customDesktopShortcut
   else
     return 1
