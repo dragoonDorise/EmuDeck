@@ -91,7 +91,11 @@ ESDE_install(){
 	local esdeReleaseData=$(curl -fsSL "$ESDE_releaseJSON")
 
 	ESDE_releaseURL=$(echo "$esdeReleaseData" | jq -r '.stable.packages[] | select(.name == "LinuxSteamDeckAppImage") | .url')
-
+	
+	if [ $CPUarch == "arm" ]; then
+		ESDE_releaseURL=$(echo "$esdeReleaseData" | jq -r '.stable.packages[] | select(.name == "LinuxAArch64AppImage") | .url')
+	fi
+	
 	echo "$ESDE_releaseURL"
 	if [[ -n "$ESDE_releaseURL" ]]; then
 		if safeDownload "$ESDE_toolName" "$ESDE_releaseURL" "$ESDE_toolPath" "$showProgress"; then
