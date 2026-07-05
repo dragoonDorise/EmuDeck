@@ -2,14 +2,14 @@
 appImageInit() {
 	
 	#Migrate Xenia
-	if [ -f "$Xenia_legacyPath/xenia.config.toml" ]; then
-		zenity --question --title "Xenia migration" --text "Xenia Proton detected, it's recommended to update to the new Native release" --cancel-label "Cancel" --ok-label "OK"
-		if [ $? = 0 ]; then
-			Xenia_migrate
-		else
-			echo "continue"
-		fi
-	fi	
+	# if [ -f "$Xenia_legacyPath/xenia.config.toml" ]; then
+	# 	zenity --question --title "Xenia migration" --text "Xenia Proton detected, it's recommended to update to the new Native release" --cancel-label "Cancel" --ok-label "OK"
+	# 	if [ $? = 0 ]; then
+	# 		Xenia_migrate
+	# 	else
+	# 		echo "continue"
+	# 	fi
+	# fi	
 
 	#Migrate DuckStation
 	if [ -d "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation" ]; then
