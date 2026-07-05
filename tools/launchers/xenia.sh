@@ -1,6 +1,9 @@
 #!/bin/bash
 # xenia.sh
+cd "$HOME/.config/EmuDeck/backend/"
+git pull
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
+launcherInit
 emulatorInit "xenia"
 # Get SELFPATH
 SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"

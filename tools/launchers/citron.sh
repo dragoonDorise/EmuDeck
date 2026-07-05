@@ -1,7 +1,10 @@
 #!/bin/bash
 emuName="citron" #parameterize me
 
+cd "$HOME/.config/EmuDeck/backend/"
+git pull
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
+launcherInit
 emulatorInit "$emuName"
 
 # find full path to emulator appimage
