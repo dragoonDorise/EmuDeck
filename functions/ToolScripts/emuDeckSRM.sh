@@ -23,7 +23,7 @@ SRM_install(){
     url=$(getReleaseURLGH 'dragoonDorise/steam-rom-manager' 'arm64.AppImage')
   fi
 
-  if installToolAI "Steam-ROM-Manager" "" "" "$showProgress"; then
+  if installToolAI "Steam-ROM-Manager" "$url" "" "$showProgress"; then
   SRM_customDesktopShortcut
   else
     return 1
