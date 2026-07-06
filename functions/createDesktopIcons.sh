@@ -10,7 +10,6 @@ createDesktopIcons(){
 	# Armada / ARM fix
 	if [ ! -e /usr/lib64/libz.so ] && [ -e "$HOME/.local/lib/libz.so" ]; then
 		envPrefix="env LD_LIBRARY_PATH=$HOME/.local/lib:\$LD_LIBRARY_PATH "
-		sandbox=" --no-sandbox"
 	fi
 
 	#We delete the old icons

@@ -134,7 +134,6 @@ EMUDECK_URL="https://github.com/EmuDeck/emudeck-electron/releases/download/v2.6.
 #Armada fixes
 if [ ! -e /usr/lib64/libz.so ]; then
     mkdir -p "$HOME/.local/lib"
-    sandbox="--no-sandbox"
     if [ ! -e "$HOME/.local/lib/libz.so" ]; then
         ln -s /usr/lib64/libz.so.1 "$HOME/.local/lib/libz.so"
     fi
