@@ -126,12 +126,13 @@ report_error() {
 
 trap report_error ERR
 
-EMUDECK_EXT="x86_64.AppImage"
-if [ $CPU_ARCH == "arm" ]; then
-    EMUDECK_EXT="arm64.AppImage"
-fi
+
 EMUDECK_GITHUB_URL="https://api.github.com/repos/EmuDeck/emudeck-electron-early/releases/latest"
-EMUDECK_URL="$(curl -s ${EMUDECK_GITHUB_URL} | grep -E "browser_download_url.*${EMUDECK_EXT}" | cut -d '"' -f 4)"
+if [ "$CPU_ARCH" == "arm" ]; then
+    EMUDECK_URL="$(curl -s "$EMUDECK_GITHUB_URL" | grep -E 'browser_download_url.*arm64\.AppImage' | cut -d '"' -f 4)"
+else
+    EMUDECK_URL="$(curl -s "$EMUDECK_GITHUB_URL" | grep -E 'browser_download_url.*\.AppImage' | grep -v 'arm64' | cut -d '"' -f 4)"
+fi
 
 mkdir -p ~/Applications
 curl -L "${EMUDECK_URL}" -o ~/Applications/EmuDeck.AppImage 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading EmuDeck" --width 600 --auto-close --no-cancel 2>/dev/null
