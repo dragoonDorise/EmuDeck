@@ -2,7 +2,7 @@
 
 DEBIAN_DEPS=(jq zenity flatpak unzip bash libfuse2 git rsync whiptail python)
 ARCH_DEPS=(steam jq zenity flatpak unzip bash fuse2 git rsync libnewt python)
-FEDORA_DEPS=(jq zenity flatpak unzip bash fuse git rsync newt python)
+FEDORA_DEPS=(jq zenity flatpak unzip bash fuse git rsync newt python lsb_release fuse-libs)
 SUSE_DEPS=(steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail python)
 VOID_DEPS=(steam jq zenity flatpak unzip bash fuse git rsync newt python)
 GENTOO_DEPS=(app-misc/jq gnome-extra/zenity sys-apps/flatpak app-arch/unzip app-shells/bash sys-fs/fuse:0 dev-vcs/git net-misc/rsync dev-libs/newt dev-lang/python app-text/xmlstarlet)
@@ -130,6 +130,16 @@ EMUDECK_GITHUB_URL="https://api.github.com/repos/EmuDeck/emudeck-electron/releas
 #EMUDECK_URL="$(curl -s ${EMUDECK_GITHUB_URL} | grep -E 'browser_download_url.*AppImage' | cut -d '"' -f 4)"
 
 EMUDECK_URL="https://github.com/EmuDeck/emudeck-electron/releases/download/v2.6.1/EmuDeck-2.6.1-arm64.AppImage"
+
+#Armada fixes
+if [ ! -e /usr/lib64/libz.so ]; then
+    mkdir -p "$HOME/.local/lib"
+    sandbox="--no-sandbox"
+    if [ ! -e "$HOME/.local/lib/libz.so" ]; then
+        ln -s /usr/lib64/libz.so.1 "$HOME/.local/lib/libz.so"
+    fi
+    export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
+fi
 
 mkdir -p ~/Applications
 curl -L "${EMUDECK_URL}" -o ~/Applications/EmuDeck.AppImage 2>&1 | stdbuf -oL tr '\r' '\n' | sed -u 's/^ *\([0-9][0-9]*\).*\( [0-9].*$\)/\1\n#Download Speed\:\2/' | zenity --progress --title "Downloading EmuDeck" --width 600 --auto-close --no-cancel 2>/dev/null
