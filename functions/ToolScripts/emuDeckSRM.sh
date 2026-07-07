@@ -279,7 +279,15 @@ SRM_addCustomParsers(){
   done
 }
 
-SRM_checkParsers(){
+SRM_checkParsers(){  
+  local userSettings="$SRM_userData_configDir/userSettings.json"
+  local steamDir=""
+  [ -f "$userSettings" ] && steamDir=$(jq -r '.environmentVariables.steamDirectory // ""' "$userSettings" 2>/dev/null)
+  if [ -z "$steamDir" ]; then
+    echo "Steam ROM Manager steamDirectory is empty, running SRM_init..."
+    SRM_init
+  fi
+
   if ! jq -e 'length > 0' "$HOME/.config/steam-rom-manager/userData/userConfigurations.json" >/dev/null 2>&1; then
     echo "Steam ROM Manager has no parsers, restoring configuration..."
     SRM_addExtraParsers
