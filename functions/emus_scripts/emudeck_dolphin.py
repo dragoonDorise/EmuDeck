@@ -222,3 +222,60 @@ def dolphin_widescreen():
         dolphin_widescreen_on()
     else:
         dolphin_widescreen_off()
+
+
+def dolphin_cheevos_config_file():
+    if system == "linux":
+        return f"{home}/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/RetroAchievements.ini"
+    if system.startswith("win"):
+        return f"{emus_folder}/Dolphin-x64/User/Config/RetroAchievements.ini"
+    if system == "darwin":
+        return f"{home}/Library/Application Support/Dolphin/Config/RetroAchievements.ini"
+
+
+def dolphin_ensure_cheevos_config():
+    # Dolphin guarda los logros en RetroAchievements.ini. Si no existe lo creamos por defecto.
+    config_path = Path(dolphin_cheevos_config_file())
+    if not config_path.exists():
+        config_path.parent.mkdir(parents=True, exist_ok=True)
+        config_path.write_text(
+            "[Achievements]\n"
+            "ChallengeIndicatorsEnabled = True\n"
+            "DiscordPresenceEnabled = False\n"
+            "Enabled = False\n"
+            "EncoreEnabled = False\n"
+            "HardcoreEnabled = False\n"
+            "LeaderboardTrackerEnabled = True\n"
+            "ProgressEnabled = False\n"
+            "SpectatorEnabled = False\n"
+            "UnofficialEnabled = False\n"
+            "Username = \n"
+            "ApiToken = \n",
+            encoding="utf-8")
+
+
+def dolphin_retro_achievements():
+    if settings.achievements.user == '':
+        dolphin_retro_achievements_off()
+    else:
+        dolphin_retro_achievements_on()
+
+
+def dolphin_retro_achievements_on():
+    dolphin_ensure_cheevos_config()
+    config_path = dolphin_cheevos_config_file()
+    # Dolphin usa booleanos capitalizados (True/False) y el token en plano (ApiToken)
+    set_ini_value(config_path, "Achievements", "Enabled", "True")
+    set_ini_value(config_path, "Achievements", "Username", f"{achievements_user}")
+    set_ini_value(config_path, "Achievements", "ApiToken", f"{achievements_token}")
+    if achievements_hardcore:
+        set_ini_value(config_path, "Achievements", "HardcoreEnabled", "True")
+    else:
+        set_ini_value(config_path, "Achievements", "HardcoreEnabled", "False")
+
+
+def dolphin_retro_achievements_off():
+    dolphin_ensure_cheevos_config()
+    config_path = dolphin_cheevos_config_file()
+    set_ini_value(config_path, "Achievements", "Enabled", "False")
+    set_ini_value(config_path, "Achievements", "HardcoreEnabled", "False")

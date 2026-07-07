@@ -1801,23 +1801,23 @@ def set_ini_value(file_path, section, key, value):
     config = configparser.ConfigParser()
     config.optionxform = str
     config.read(file_path)
-    
+
     if section not in config:
         config[section] = {}
-    
+
     config[section][key] = value
-    
+
     with open(file_path, 'w') as f:
         config.write(f)
 
 def start_menu_reset():
     if os.name != 'nt':
-    return
-      
+        return
+
     subprocess.run(
-    ["taskkill", "/f", "/im", "explorer.exe"],
-    stdout=subprocess.DEVNULL,
-    stderr=subprocess.DEVNULL,
+        ["taskkill", "/f", "/im", "explorer.exe"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
     )
     subprocess.Popen(["explorer.exe"])
     

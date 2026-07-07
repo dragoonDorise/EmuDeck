@@ -2533,11 +2533,11 @@ def retroarch_matrix_shaders_off_all():
 
 
 def retroarch_retro_achievements_set_login():
-    print("NYI")
-    #set_config('cheevos_username',rau,retroarch_cfg_file)
-    #set_config('cheevos_token',rat,retroarch_cfg_file)
-    #retroarch_retro_achievements_on()
-    #setSetting cheevos_username $rau
+    if achievements_user == '' or achievements_token == '':
+        print("RetroAchievements: no username/token, skipping login")
+        return
+    set_config("cheevos_username", f'"{achievements_user}"', retroarch_cfg_file)
+    set_config("cheevos_token", f'"{achievements_token}"', retroarch_cfg_file)
 
 def retroarch_set_bezels():
     if settings.bezels == True:

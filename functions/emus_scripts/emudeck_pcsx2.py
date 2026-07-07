@@ -152,15 +152,25 @@ def pcsx2_retro_achievements_on():
         pcsx2_config_file=f"{home}/Library/Application Support/PCSX2/inis/PCSX2.ini"
 
     set_ini_value(pcsx2_config_file, "Achievements", "Enabled", "true")
-    set_ini_value(pcsx2_config_file, "Achievements", "Username", "true")
-    set_ini_value(pcsx2_config_file, "Achievements", "Token", "true")
+    set_ini_value(pcsx2_config_file, "Achievements", "Username", f"{achievements_user}")
+    set_ini_value(pcsx2_config_file, "Achievements", "Token", f"{achievements_token}")
     set_ini_value(pcsx2_config_file, "Achievements", "LoginTimestamp", f"{int(time.time())}")
 
     if achievements_hardcore:
-        set_ini_value(pcsx2_config_file, "ChallengeMode", "Enabled", "true")
+        set_ini_value(pcsx2_config_file, "Achievements", "ChallengeMode", "true")
+    else:
+        set_ini_value(pcsx2_config_file, "Achievements", "ChallengeMode", "false")
 
 def pcsx2_retro_achievements_off():
-        print("NYI")
+    if system == "linux":
+        pcsx2_config_file=f"{home}/.config/PCSX2/inis/PCSX2.ini"
+    if system.startswith("win"):
+        pcsx2_config_file=f"{emus_folder}/pcsx2/inis/PCSX2.ini"
+    if system == "darwin":
+        pcsx2_config_file=f"{home}/Library/Application Support/PCSX2/inis/PCSX2.ini"
+
+    set_ini_value(pcsx2_config_file, "Achievements", "Enabled", "false")
+    set_ini_value(pcsx2_config_file, "Achievements", "ChallengeMode", "false")
         
 #Legacy compatibility
 

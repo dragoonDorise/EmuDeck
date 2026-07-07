@@ -137,6 +137,53 @@ def duckstation_widescreen_off():
     set_config("WidescreenHack ", " false", config_path)
     set_config("AspectRatio ", " 4:3", config_path)
 
+def duckstation_encrypt_cheevos_token(token, username):
+    """Cifra el token de logros igual que DuckStation (AES-128-CBC).
+    Clave = SHA-256(machineKey + username) + 100 rondas. machineKey por plataforma:
+      - Windows: portable -> sin machineKey (solo username)
+      - Linux:   /etc/machine-id, leido TAL CUAL (incluido el \\n final)
+      - macOS:   hardware UUID (gethostuuid) en hex, minusculas, sin guiones
+    Clave con hashlib (puro), bloque AES con openssl. Verificado contra Win y Linux.
+    """
+    if not token or not username:
+        return ""
+
+    machine_key = b""
+    if sys.platform.startswith("linux"):
+        try:
+            with open("/etc/machine-id", "rb") as f:
+                machine_key = f.read()  # incluye el \n final, como hace DuckStation
+        except Exception:
+            machine_key = b""
+    elif sys.platform == "darwin":
+        try:
+            out = subprocess.run(
+                ["ioreg", "-rd1", "-c", "IOPlatformExpertDevice"],
+                capture_output=True, text=True).stdout
+            m = re.search(r'"IOPlatformUUID"\s*=\s*"([0-9A-Fa-f-]+)"', out)
+            if m:
+                machine_key = m.group(1).replace("-", "").lower().encode("utf-8")
+        except Exception:
+            machine_key = b""
+    # Windows -> portable, sin machineKey
+
+    key = hashlib.sha256(machine_key + username.encode("utf-8")).digest()
+    for _ in range(100):
+        key = hashlib.sha256(key).digest()
+    aeskey, iv = key[:16], key[16:32]
+
+    data = token.encode("utf-8")
+    padlen = ((len(data) + 15) // 16) * 16 or 16
+    data = data.ljust(padlen, b"\x00")
+    try:
+        p = subprocess.run(
+            ["openssl", "enc", "-aes-128-cbc", "-nopad",
+             "-K", aeskey.hex(), "-iv", iv.hex(), "-base64", "-A"],
+            input=data, capture_output=True)
+        return p.stdout.decode("utf-8").strip()
+    except Exception:
+        return ""
+
 def duckstation_retro_achievements():
     if settings.achievements.user == '':
         duckstation_retro_achievements_off()
@@ -145,19 +192,30 @@ def duckstation_retro_achievements():
         
 def duckstation_retro_achievements_on():
     if system == "linux":
-        config_path=f"{home}/.var/app/org.duckstation.DuckStation/config/duckstation/settings.ini"
+        config_path=f"{home}/.local/share/duckstation/settings.ini"
     if system.startswith("win"):
         config_path=f"{emus_folder}/duckstation/settings.ini"
     if system == "darwin":
         config_path=f"{home}/Library/Application Support/DuckStation/settings.ini"
 
-    set_config("Username ", f" {achievements_user}", config_path)
-    set_config("Token ", f" {achievements_token}", config_path)
-    set_config("LoginTimestamp ", f" {int(time.time())}", config_path)
-    set_config("Enabled ", " True", config_path)
-   
+    enc_token = duckstation_encrypt_cheevos_token(achievements_token, achievements_user)
+    set_ini_value(config_path, "Cheevos", "Username", f"{achievements_user}")
+    set_ini_value(config_path, "Cheevos", "Token", enc_token)
+    set_ini_value(config_path, "Cheevos", "LoginTimestamp", f"{int(time.time())}")
+    set_ini_value(config_path, "Cheevos", "Enabled", "true")
+
     if achievements_hardcore:
-        set_config("ChallengeMode ", " True", config_path)
-        
+        set_ini_value(config_path, "Cheevos", "ChallengeMode", "true")
+    else:
+        set_ini_value(config_path, "Cheevos", "ChallengeMode", "false")
+
 def duckstation_retro_achievements_off():
-    print("NYI")
+    if system == "linux":
+        config_path=f"{home}/.local/share/duckstation/settings.ini"
+    if system.startswith("win"):
+        config_path=f"{emus_folder}/duckstation/settings.ini"
+    if system == "darwin":
+        config_path=f"{home}/Library/Application Support/DuckStation/settings.ini"
+
+    set_ini_value(config_path, "Cheevos", "Enabled", "false")
+    set_ini_value(config_path, "Cheevos", "ChallengeMode", "false")
