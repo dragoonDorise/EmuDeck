@@ -9,7 +9,7 @@ if system == "darwin":
 
 def ryujinx_get_url():
     if system == "linux":
-        exename = "x64.AppImage"
+        exename = "arm64.AppImage" if cpu_arch == "arm" else "x64.AppImage"
     elif system.startswith("win"):
         exename = "win_x64.zip"
     elif system == "darwin":

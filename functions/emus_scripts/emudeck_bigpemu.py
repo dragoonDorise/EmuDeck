@@ -20,7 +20,10 @@ def bigpemu_get_download_url() -> Optional[str]:
     html = resp.text
 
     if system == "linux":
-        pattern = r"https://www\.richwhitehouse\.com/jaguar/builds/BigPEmu_Linux64_v[0-9]+\.tar\.gz"
+        if cpu_arch == "arm":
+            pattern = r"https://www\.richwhitehouse\.com/jaguar/builds/BigPEmu_LinuxARM64_v[0-9]+\.tar\.gz"
+        else:
+            pattern = r"https://www\.richwhitehouse\.com/jaguar/builds/BigPEmu_Linux64_v[0-9]+\.tar\.gz"
     if system.startswith("win"):
         pattern = r"https://www\.richwhitehouse\.com/jaguar/builds/BigPEmu_v[0-9]+\.zip"
     urls = re.findall(pattern, html)

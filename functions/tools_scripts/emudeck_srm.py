@@ -20,7 +20,10 @@ def srm_install():
         destination = f"{emus_folder}"
 
     try:
-        repo=get_latest_release_gh("SteamGridDB/steam-rom-manager",type,look_for)
+        if system == "linux" and cpu_arch == "arm":
+            repo=get_latest_release_gh("dragoonDorise/steam-rom-manager",type,"arm64.AppImage")
+        else:
+            repo=get_latest_release_gh("SteamGridDB/steam-rom-manager",type,look_for)
 
         install_emu("srm", repo, type, destination)
     except Exception as e:

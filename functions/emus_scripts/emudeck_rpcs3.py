@@ -6,7 +6,7 @@ def rpcs3_get_download_url():
         params = {
             "api":        "v3",
             "os_type":    "linux",
-            "os_arch":    "x64",
+            "os_arch":    "arm64" if cpu_arch == "arm" else "x64",
             "os_version": get_linux_version_id(),
         }
     if system.startswith("win"):

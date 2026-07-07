@@ -380,7 +380,10 @@ def retroarch_install_cores():
             "opera_libretro",
         ]
     elif system == "linux":
-        base_url = "https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
+        if cpu_arch == "arm":
+            base_url = "https://buildbot.libretro.com/nightly/linux/aarch64/latest/"
+        else:
+            base_url = "https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
         archive_extension = "so.zip"
         ra_cores = [
             "81_libretro",

@@ -24,7 +24,7 @@ def esde_get_url():
         return False
 
     if system == "linux":
-        exename = "LinuxSteamDeckAppImage"
+        exename = "LinuxAArch64AppImage" if cpu_arch == "arm" else "LinuxSteamDeckAppImage"
     elif system.startswith("win"):
         exename = "WindowsPortable"
     elif system == "darwin":

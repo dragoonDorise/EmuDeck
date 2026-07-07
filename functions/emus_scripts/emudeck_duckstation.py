@@ -6,7 +6,7 @@ def duckstation_install():
     if system == "linux":
         name="duckstation"
         type="AppImage"
-        look_for="x64.AppImage"
+        look_for="arm64.AppImage" if cpu_arch == "arm" else "x64.AppImage"
         destination = f"{emus_folder}"
 
     if system.startswith("win"):

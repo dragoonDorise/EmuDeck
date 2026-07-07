@@ -20,7 +20,11 @@ esde_folder = app_folder
 esde_settings_folder = home / "ES-DE"
 
 progress_bar = 0
-apple_chip = "arm64"  # or "arm64" on Apple Silicon
+apple_chip = platform.machine()  # 'arm64' en Apple Silicon, 'x86_64' en Intel
+
+# Arquitectura de CPU: "arm" en aarch64/arm64 (Deck ARM, Apple Silicon), "x86" en el resto.
+# Equivalente al CPUarch de la version bash.
+cpu_arch = "arm" if platform.machine().lower() in ("aarch64", "arm64") else "x86"
 
 # Windows vars
 if system.startswith("win"):

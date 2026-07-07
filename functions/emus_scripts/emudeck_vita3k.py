@@ -4,9 +4,10 @@ def vita3k_install():
     set_msg(f"Installing Vita3K")
 
     if system == "linux":
-        repo = get_latest_release_gh("Vita3K/Vita3K", "AppImage", "Vita3K-x86_64.AppImage")
+        asset = "Vita3K-aarch64.AppImage" if cpu_arch == "arm" else "Vita3K-x86_64.AppImage"
+        repo = get_latest_release_gh("Vita3K/Vita3K", "AppImage", asset)
         if not repo:
-            print("Error: could not find Vita3K-x86_64.AppImage")
+            print(f"Error: could not find {asset}")
             return False
 
         install_path = emus_folder / "Vita3K"
