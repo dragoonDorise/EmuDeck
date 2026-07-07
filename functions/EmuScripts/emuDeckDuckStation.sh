@@ -195,23 +195,19 @@ DuckStation_retroAchievementsHardCoreOff(){
 
 
 DuckStation_encryptCheevosToken(){
-	# DuckStation cifra el token de logros con AES-128-CBC. La clave se deriva de
-	# SHA-256(machineKey + username) + 100 rondas extra. En instalaciones NO portables
-	# (AppImage con config en ~/.local/share) la machineKey es /etc/machine-id, leido
-	# TAL CUAL (incluido el salto de linea final, DuckStation no lo recorta).
 	local token="$1" username="$2"
 	{ [ -z "$token" ] || [ -z "$username" ]; } && { echo ""; return; }
 
 	local key_hex
 	local portableFile="$(dirname "$DuckStation_emuPath")/portable.txt"
 	if [ ! -f "$portableFile" ] && [ -f /etc/machine-id ]; then
-		key_hex=$( { cat /etc/machine-id; printf '%s' "$username"; } | openssl dgst -sha256 -binary | xxd -p -c256 )
+		key_hex=$( { cat /etc/machine-id; printf '%s' "$username"; } | openssl dgst -sha256 -binary | od -An -v -tx1 | tr -d ' \n' )
 	else
-		key_hex=$( printf '%s' "$username" | openssl dgst -sha256 -binary | xxd -p -c256 )
+		key_hex=$( printf '%s' "$username" | openssl dgst -sha256 -binary | od -An -v -tx1 | tr -d ' \n' )
 	fi
 	local i
 	for ((i=0; i<100; i++)); do
-		key_hex=$(printf '%s' "$key_hex" | xxd -r -p | openssl dgst -sha256 -binary | xxd -p -c256)
+		key_hex=$( printf %b "$(sed 's/../\\x&/g' <<<"$key_hex")" | openssl dgst -sha256 -binary | od -An -v -tx1 | tr -d ' \n' )
 	done
 	local aeskey_hex="${key_hex:0:32}"   # bytes 0-15
 	local iv_hex="${key_hex:32:32}"      # bytes 16-31
