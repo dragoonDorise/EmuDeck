@@ -1810,5 +1810,17 @@ def set_ini_value(file_path, section, key, value):
     with open(file_path, 'w') as f:
         config.write(f)
 
+def start_menu_reset():
+    if os.name != 'nt':
+    return
+      
+    subprocess.run(
+    ["taskkill", "/f", "/im", "explorer.exe"],
+    stdout=subprocess.DEVNULL,
+    stderr=subprocess.DEVNULL,
+    )
+    subprocess.Popen(["explorer.exe"])
+    
+    
 
 from .helpers_scripts.unused import *
