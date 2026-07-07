@@ -1347,13 +1347,14 @@ update_launchers(){
 }
 
 ra_get_credentials() {
+		
 	achievementsUser=""
 	achievementsUserToken=""
 	achievementsHardcore="false"
-	if [ -f "$SETTINGS_JSON" ]; then
-		achievementsUser=$(jq -r '.achievements.user // ""' "$SETTINGS_JSON")
-		achievementsUserToken=$(jq -r '.achievements.token // ""' "$SETTINGS_JSON")
-		achievementsHardcore=$(jq -r '.achievements.hardcore // false' "$SETTINGS_JSON")
+	if [ -f "$emudeckFolder/settings.json" ]; then
+		achievementsUser=$(jq -r '.achievements.user // ""' "$emudeckFolder/settings.json")
+		achievementsUserToken=$(jq -r '.achievements.token // ""' "$emudeckFolder/settings.json")
+		achievementsHardcore=$(jq -r '.achievements.hardcore // false' "$emudeckFolder/settings.json")
 	fi
 }
 
