@@ -5,8 +5,8 @@ def duckstation_install():
 
     if system == "linux":
         name="duckstation"
-        type="flatpak"
-        look_for=""
+        type="AppImage"
+        look_for="x64.AppImage"
         destination = f"{emus_folder}"
 
     if system.startswith("win"):
@@ -22,12 +22,18 @@ def duckstation_install():
         destination = f"{emus_folder}"
 
     try:
-        if system == "linux":
-            repo="org.duckstation.DuckStation"
-        else:
-            repo=get_latest_release_gh("stenzek/duckstation",type,look_for)
-
+        repo=get_latest_release_gh("stenzek/duckstation",type,look_for)
         install_emu(name, repo, type, destination)
+
+        if system == "linux":
+            flatpak_cfg = Path(f"{home}/.var/app/org.duckstation.DuckStation/config/duckstation")
+            appimage_cfg = Path(f"{home}/.local/share/duckstation")
+            if flatpak_cfg.is_dir() and not appimage_cfg.exists():
+                appimage_cfg.parent.mkdir(parents=True, exist_ok=True)
+                shutil.move(str(flatpak_cfg), str(appimage_cfg))
+            if is_flatpak_installed("org.duckstation.DuckStation"):
+                subprocess.run(["flatpak", "uninstall", "org.duckstation.DuckStation", "-y"],
+                               capture_output=True)
     except Exception as e:
         print(f"Error during install: {e}")
         return False
@@ -36,7 +42,7 @@ def duckstation_install():
 def duckstation_uninstall():
     try:
         if system == "linux":
-            uninstall_emu("org.duckstation.DuckStation", "flatpak")
+            uninstall_emu("duckstation", "AppImage")
         if system.startswith("win"):
           uninstall_emu("duckstation", "dir")
         if system == "darwin":
@@ -48,7 +54,7 @@ def duckstation_uninstall():
 
 def duckstation_is_installed():
     if system == "linux":
-        return is_flatpak_installed("org.duckstation.DuckStation")
+        return (emus_folder / "duckstation.AppImage").exists()
     if system.startswith("win"):
       return (emus_folder / "duckstation" / "duckstation-qt-x64-ReleaseLTCG.exe").exists()
     if system == "darwin":
@@ -58,7 +64,7 @@ def duckstation_is_installed():
 def duckstation_init():
     set_msg(f"Setting up duckstation")
     if system == "linux":
-        destination=f"{home}/.var/app/org.duckstation.DuckStation/config/duckstation/"
+        destination=f"{home}/.local/share/duckstation/"
     if system.startswith("win"):
         destination=f"{emus_folder}/duckstation/"
     if system == "darwin":
@@ -81,8 +87,8 @@ def duckstation_install_init():
 
 def duckstation_setup_saves():
     if system == "linux":
-        origin_saves=f"{home}/.var/app/org.duckstation.DuckStation/data/duckstation/memcards"
-        origin_states=f"{home}/.var/app/org.duckstation.DuckStation/data/duckstation/savestates"
+        origin_saves=f"{home}/.local/share/duckstation/memcards"
+        origin_states=f"{home}/.local/share/duckstation/savestates"
     if system.startswith("win"):
         origin_saves=f"{emus_folder}/duckstation/memcards"
         origin_states=f"{emus_folder}/duckstation/savestates"
@@ -117,7 +123,7 @@ def duckstation_widescreen():
 
 def duckstation_widescreen_on():
     if system == "linux":
-        config_path=f"{home}/.var/app/org.duckstation.DuckStation/config/duckstation/settings.ini"
+        config_path=f"{home}/.local/share/duckstation/settings.ini"
     if system.startswith("win"):
         config_path=f"{emus_folder}/duckstation/settings.ini"
     if system == "darwin":
@@ -128,7 +134,7 @@ def duckstation_widescreen_on():
 
 def duckstation_widescreen_off():
     if system == "linux":
-        config_path=f"{home}/.var/app/org.duckstation.DuckStation/config/duckstation/settings.ini"
+        config_path=f"{home}/.local/share/duckstation/settings.ini"
     if system.startswith("win"):
         config_path=f"{emus_folder}/duckstation/settings.ini"
     if system == "darwin":
