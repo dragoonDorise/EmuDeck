@@ -295,8 +295,9 @@ PCSX2QT_retroAchievementsHardCoreOff() {
 }
 
 PCSX2QT_retroAchievementsSetLogin() {
-	rau=$(cat "$emudeckFolder/.rau")
-	rat=$(cat "$emudeckFolder/.rat")
+	ra_get_credentials
+	rau="$achievementsUser"
+	rat="$achievementsUserToken"
 	echo "Evaluate RetroAchievements Login."
 	if [ ${#rat} -lt 1 ]; then
 		echo "--No token."

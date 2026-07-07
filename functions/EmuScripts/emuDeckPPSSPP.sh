@@ -136,9 +136,10 @@ PPSSPP_retroAchievementsHardCoreOff() {
 
 PPSSPP_retroAchievementsSetLogin() {
 
-	# EmuDeck username and token files
-	rau=$(cat "$emudeckFolder/.rau")
-	rat=$(cat "$emudeckFolder/.rat")
+	# Credenciales desde settings.json
+	ra_get_credentials
+	rau="$achievementsUser"
+	rat="$achievementsUserToken"
 
 	# Create PPSSPP token file
 	PPSSPP_token="$HOME/.var/app/${PPSSPP_emuPath}/config/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat"

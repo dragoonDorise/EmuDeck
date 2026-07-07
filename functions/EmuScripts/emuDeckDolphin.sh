@@ -6,7 +6,69 @@ Dolphin_emuPath="org.DolphinEmu.dolphin-emu"
 Dolphin_configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
 Dolphin_configFileGFX="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
 Dolphin_gamecubeFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GCPadNew.ini"
+Dolphin_cheevosConfigFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/RetroAchievements.ini"
 Dolphin_releaseURL=""
+
+#RetroAchievements
+Dolphin_ensureCheevosConfig(){
+	# Dolphin guarda los logros en RetroAchievements.ini. Si no existe, lo creamos con los valores por defecto.
+	if [ ! -f "$Dolphin_cheevosConfigFile" ]; then
+		mkdir -p "$(dirname "$Dolphin_cheevosConfigFile")"
+		cat > "$Dolphin_cheevosConfigFile" <<-EOF
+		[Achievements]
+		ChallengeIndicatorsEnabled = True
+		DiscordPresenceEnabled = False
+		Enabled = False
+		EncoreEnabled = False
+		HardcoreEnabled = False
+		LeaderboardTrackerEnabled = True
+		ProgressEnabled = False
+		SpectatorEnabled = False
+		UnofficialEnabled = False
+		Username =
+		ApiToken =
+		EOF
+	fi
+}
+Dolphin_retroAchievementsOn(){
+	iniFieldUpdate "$Dolphin_cheevosConfigFile" "Achievements" "Enabled" "True"
+}
+Dolphin_retroAchievementsOff(){
+	iniFieldUpdate "$Dolphin_cheevosConfigFile" "Achievements" "Enabled" "False"
+}
+Dolphin_retroAchievementsHardCoreOn(){
+	Dolphin_ensureCheevosConfig
+	iniFieldUpdate "$Dolphin_cheevosConfigFile" "Achievements" "HardcoreEnabled" "True"
+}
+Dolphin_retroAchievementsHardCoreOff(){
+	Dolphin_ensureCheevosConfig
+	iniFieldUpdate "$Dolphin_cheevosConfigFile" "Achievements" "HardcoreEnabled" "False"
+}
+Dolphin_retroAchievementsSetLogin(){
+	Dolphin_ensureCheevosConfig
+	ra_get_credentials
+	rau="$achievementsUser"
+	rat="$achievementsUserToken"
+	echo "Evaluate RetroAchievements Login."
+	if [ ${#rat} -lt 1 ]; then
+		echo "--No token."
+	elif [ ${#rau} -lt 1 ]; then
+		echo "--No username."
+	else
+		echo "Valid Retroachievements Username and Password length"
+		iniFieldUpdate "$Dolphin_cheevosConfigFile" "Achievements" "Username" "$rau"
+		iniFieldUpdate "$Dolphin_cheevosConfigFile" "Achievements" "ApiToken" "$rat"
+		Dolphin_retroAchievementsOn
+	fi
+}
+Dolphin_setRetroAchievements(){
+	Dolphin_retroAchievementsSetLogin
+	if [ "$achievementsHardcore" == "true" ]; then
+		Dolphin_retroAchievementsHardCoreOn
+	else
+		Dolphin_retroAchievementsHardCoreOff
+	fi
+}
 
 #cleanupOlderThings
 Dolphin_cleanup(){
@@ -50,6 +112,7 @@ Dolphin_init(){
 	Dolphin_setupSaves
   Dolphin_cleanup
   Dolphin_setCustomizations
+  Dolphin_setRetroAchievements
   Dolphin_flushEmulatorLauncher
   Dolphin_flushSymlinks
 	#SRM_createParsers

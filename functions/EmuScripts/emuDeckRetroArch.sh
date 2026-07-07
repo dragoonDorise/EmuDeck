@@ -2467,9 +2467,9 @@ RetroArch_retroAchievementsPromptLogin(){
 	fi
 }
 RetroArch_retroAchievementsSetLogin(){
-	rm -rf "$emudeckFolder/.rap"
-	rau=$(cat "$emudeckFolder/.rau")
-	rat=$(cat "$emudeckFolder/.rat")
+	ra_get_credentials
+	rau="$achievementsUser"
+	rat="$achievementsUserToken"
 	echo "Evaluate RetroAchievements Login."
 	if [ ${#rat} -lt 1 ]; then
 		echo "--No token."

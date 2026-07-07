@@ -12,11 +12,12 @@ DuckStation_configFile="$HOME/.local/share/duckstation/settings.ini"
 DuckStation_install(){
 	echo "Begin $DuckStation_emuName Install"
 	local showProgress="$1"
-	local url=$(getReleaseURLGH "stenzek/duckstation" "AppImage" "x64.")
 	local format="AppImage"
 	
 	if [ $CPUarch == "arm" ]; then
-		format="arm64.AppImage"
+		url=$(getReleaseURLGH "stenzek/duckstation" "AppImage" "arm64.")
+	else
+		url=$(getReleaseURLGH "stenzek/duckstation" "AppImage" "x64.")
 	fi
 	
 	if installEmuAI "$DuckStation_emuName" "" "$url" "DuckStation" "$format" "emulator" "$showProgress"; then
@@ -193,9 +194,41 @@ DuckStation_retroAchievementsHardCoreOff(){
 }
 
 
+DuckStation_encryptCheevosToken(){
+	# DuckStation cifra el token de logros con AES-128-CBC. La clave se deriva de
+	# SHA-256(machineKey + username) + 100 rondas extra. En instalaciones NO portables
+	# (AppImage con config en ~/.local/share) la machineKey es /etc/machine-id, leido
+	# TAL CUAL (incluido el salto de linea final, DuckStation no lo recorta).
+	local token="$1" username="$2"
+	{ [ -z "$token" ] || [ -z "$username" ]; } && { echo ""; return; }
+
+	local key_hex
+	local portableFile="$(dirname "$DuckStation_emuPath")/portable.txt"
+	if [ ! -f "$portableFile" ] && [ -f /etc/machine-id ]; then
+		key_hex=$( { cat /etc/machine-id; printf '%s' "$username"; } | openssl dgst -sha256 -binary | xxd -p -c256 )
+	else
+		key_hex=$( printf '%s' "$username" | openssl dgst -sha256 -binary | xxd -p -c256 )
+	fi
+	local i
+	for ((i=0; i<100; i++)); do
+		key_hex=$(printf '%s' "$key_hex" | xxd -r -p | openssl dgst -sha256 -binary | xxd -p -c256)
+	done
+	local aeskey_hex="${key_hex:0:32}"   # bytes 0-15
+	local iv_hex="${key_hex:32:32}"      # bytes 16-31
+
+	local tlen=${#token}
+	local blocks=$(( (tlen + 15) / 16 )); [ "$blocks" -eq 0 ] && blocks=1
+	local padlen=$(( blocks * 16 ))
+	local zeros=$(( padlen - tlen ))
+
+	{ printf '%s' "$token"; [ "$zeros" -gt 0 ] && head -c "$zeros" /dev/zero; } | \
+		openssl enc -aes-128-cbc -nopad -K "$aeskey_hex" -iv "$iv_hex" -base64 -A
+}
+
 DuckStation_retroAchievementsSetLogin(){
-	rau=$(cat "$emudeckFolder/.rau")
-	rat=$(cat "$emudeckFolder/.rat")
+	ra_get_credentials
+	rau="$achievementsUser"
+	rat="$achievementsUserToken"
 	echo "Evaluate RetroAchievements Login."
 	if [ ${#rat} -lt 1 ]; then
 		echo "--No token."
@@ -203,8 +236,10 @@ DuckStation_retroAchievementsSetLogin(){
 		echo "--No username."
 	else
 		echo "Valid Retroachievements Username and Password length"
+		local encToken
+		encToken=$(DuckStation_encryptCheevosToken "$rat" "$rau")
 		iniFieldUpdate "$DuckStation_configFile" "Cheevos" "Username" "$rau"
-		iniFieldUpdate "$DuckStation_configFile" "Cheevos" "Token" "$rat"
+		iniFieldUpdate "$DuckStation_configFile" "Cheevos" "Token" "$encToken"
 		iniFieldUpdate "$DuckStation_configFile" "Cheevos" "LoginTimestamp" "$(date +%s)"
 		DuckStation_retroAchievementsOn
 	fi

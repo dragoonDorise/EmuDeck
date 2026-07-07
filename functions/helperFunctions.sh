@@ -1345,3 +1345,38 @@ update_launchers(){
 	fi
   done
 }
+
+ra_get_credentials() {
+	achievementsUser=""
+	achievementsUserToken=""
+	achievementsHardcore="false"
+	if [ -f "$SETTINGS_JSON" ]; then
+		achievementsUser=$(jq -r '.achievements.user // ""' "$SETTINGS_JSON")
+		achievementsUserToken=$(jq -r '.achievements.token // ""' "$SETTINGS_JSON")
+		achievementsHardcore=$(jq -r '.achievements.hardcore // false' "$SETTINGS_JSON")
+	fi
+}
+
+retroAchievementsLogin(){
+	RetroArch_retroAchievementsSetLogin
+	DuckStation_retroAchievementsSetLogin
+	PCSX2QT_retroAchievementsSetLogin
+	PPSSPP_retroAchievementsSetLogin
+	Dolphin_retroAchievementsSetLogin
+}
+
+retroAchievementsHardCoreOn(){
+	RetroArch_retroAchievementsHardCoreOn
+	DuckStation_retroAchievementsHardCoreOn
+	PCSX2QT_retroAchievementsHardCoreOn
+	PPSSPP_retroAchievementsHardCoreOn
+	Dolphin_retroAchievementsHardCoreOn
+}
+
+retroAchievementsHardCoreOff(){
+	RetroArch_retroAchievementsHardCoreOff
+	DuckStation_retroAchievementsHardCoreOff
+	PCSX2QT_retroAchievementsHardCoreOff
+	PPSSPP_retroAchievementsHardCoreOff
+	Dolphin_retroAchievementsHardCoreOff
+}
