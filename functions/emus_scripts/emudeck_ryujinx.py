@@ -1,4 +1,6 @@
 from core.all import *
+import ctypes
+import json
 
 if system == "linux":
     ryujinx_config_file = f"{home}/.config/Ryujinx/Config.json"
@@ -220,3 +222,125 @@ def ryujinx_set_controller_style():
         ryujinx_set_bayx_style()
     else:
         ryujinx_set_bayx_style()
+
+
+def _ryujinx_sdl_lib_candidates():
+    if system == "linux":
+        return [
+            f"{emus_folder}/publish/libSDL3.so",
+            "/usr/lib/libSDL3.so",
+            "/usr/lib/libSDL3.so.0",
+            "/usr/lib64/libSDL3.so",
+        ]
+    if system.startswith("win"):
+        return [
+            f"{emus_folder}/Ryujinx/SDL3.dll",
+            "SDL3.dll",
+        ]
+    if system == "darwin":
+        return [
+            f"{emus_folder}/ryujinx.app/Contents/Frameworks/libSDL3.dylib",
+            f"{emus_folder}/ryujinx.app/Contents/MacOS/libSDL3.dylib",
+            "/usr/local/lib/libSDL3.dylib",
+            "/opt/homebrew/lib/libSDL3.dylib",
+        ]
+    return []
+
+
+def ryujinx_get_first_gamepad():
+    lib = None
+    for candidate in _ryujinx_sdl_lib_candidates():
+        try:
+            lib = ctypes.CDLL(candidate)
+            break
+        except OSError:
+            continue
+    if lib is None:
+        print("Ryujinx gamepad detection: no SDL3 library found")
+        return None
+
+    class _GUID(ctypes.Structure):
+        _fields_ = [("data", ctypes.c_uint8 * 16)]
+
+    try:
+        lib.SDL_Init.argtypes = [ctypes.c_uint32]
+        lib.SDL_Init.restype = ctypes.c_bool
+        lib.SDL_GetGamepads.argtypes = [ctypes.POINTER(ctypes.c_int)]
+        lib.SDL_GetGamepads.restype = ctypes.POINTER(ctypes.c_uint32)
+        lib.SDL_GetJoystickNameForID.argtypes = [ctypes.c_uint32]
+        lib.SDL_GetJoystickNameForID.restype = ctypes.c_char_p
+        lib.SDL_GetJoystickGUIDForID.argtypes = [ctypes.c_uint32]
+        lib.SDL_GetJoystickGUIDForID.restype = _GUID
+    except AttributeError as e:
+        print(f"Ryujinx gamepad detection: unusable SDL library ({e})")
+        return None
+
+    SDL_INIT_GAMEPAD = 0x00002000
+    if not lib.SDL_Init(SDL_INIT_GAMEPAD):
+        print("Ryujinx gamepad detection: SDL_Init failed")
+        return None
+
+    try:
+        count = ctypes.c_int(0)
+        ids = lib.SDL_GetGamepads(ctypes.byref(count))
+        if count.value < 1:
+            return None
+
+        jid = ids[0]
+        b = bytes(lib.SDL_GetJoystickGUIDForID(jid).data)
+        raw_name = lib.SDL_GetJoystickNameForID(jid)
+        name = raw_name.decode() if raw_name else "Unknown Controller"
+    finally:
+        lib.SDL_Quit()
+
+    h = lambda i: f"{b[i]:02x}"
+    tail = "".join(f"{x:02x}" for x in b[10:16])
+    guid = f"0000{h(1)}{h(0)}-{h(5)}{h(4)}-{h(6)}{h(7)}-{h(8)}{h(9)}-{tail}"
+
+    return f"0-{guid}", name
+
+
+def ryujinx_set_gamepad_name():
+    """Write the detected gamepad id/name into Ryujinx's Config.json."""
+    detected = ryujinx_get_first_gamepad()
+    if detected is None:
+        print("No controller detected, keeping existing Ryujinx input config")
+        return False
+
+    gamepad_id, name = detected
+    print(f"Detected gamepad: {name} -> {gamepad_id}")
+
+    config_path = Path(ryujinx_config_file)
+    if not config_path.exists():
+        print(f"{config_path} not found")
+        return False
+
+    with config_path.open("r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    entries = data.get("input_config") or []
+    index = next(
+        (i for i, e in enumerate(entries) if str(e.get("backend", "")).startswith("Gamepad")),
+        None,
+    )
+    if index is None:
+        print("No gamepad entry in input_config, nothing to update")
+        return False
+
+    if entries[index].get("id") == gamepad_id and entries[index].get("name") == f"{name} (0)":
+        return True
+
+    entries[index]["id"] = gamepad_id
+    entries[index]["name"] = f"{name} (0)"
+
+    tmp_path = config_path.with_suffix(config_path.suffix + ".tmp")
+    with tmp_path.open("w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
+        f.write("\n")
+    tmp_path.replace(config_path)
+
+    return True
+
+
+def ryujinx_launch_fixes():
+    ryujinx_set_gamepad_name()
