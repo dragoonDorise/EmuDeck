@@ -80,6 +80,8 @@ Ryujinx_init(){
 	fi
 
     Ryujinx_setLanguage
+    
+    Ryujinx_set_gamepad_name
 
 }
 
@@ -307,4 +309,95 @@ Ryujinx_flushEmulatorLauncher(){
 
 	flushEmulatorLaunchers "ryujinx"
 
+}
+
+
+Ryujinx_getFirstGamepad(){
+    local sdlLib
+    for sdlLib in "$Ryujinx_emuPath/libSDL3.so" /usr/lib/libSDL3.so /usr/lib/libSDL3.so.0 /usr/lib64/libSDL3.so; do
+        [ -f "$sdlLib" ] && break
+        sdlLib=""
+    done
+    [ -n "$sdlLib" ] || { echo "libSDL3 not found" >&2; return 1; }
+    command -v python3 >/dev/null 2>&1 || { echo "python3 not found" >&2; return 1; }
+
+    SDL_LIB="$sdlLib" python3 -c '
+import ctypes, os, sys
+
+sdl = ctypes.CDLL(os.environ["SDL_LIB"])
+
+class GUID(ctypes.Structure):
+    _fields_ = [("data", ctypes.c_uint8 * 16)]
+
+sdl.SDL_Init.argtypes = [ctypes.c_uint32]
+sdl.SDL_Init.restype = ctypes.c_bool
+sdl.SDL_GetGamepads.argtypes = [ctypes.POINTER(ctypes.c_int)]
+sdl.SDL_GetGamepads.restype = ctypes.POINTER(ctypes.c_uint32)
+#GetJoystickNameForID, not GetGamepadNameForID: for Steam Input virtual pads the
+#latter returns "Steam Virtual Gamepad" while the former (like Ryujinx) resolves
+#to the physical controller name Steam publishes in virtualgamepadinfo.txt.
+sdl.SDL_GetJoystickNameForID.argtypes = [ctypes.c_uint32]
+sdl.SDL_GetJoystickNameForID.restype = ctypes.c_char_p
+sdl.SDL_GetJoystickGUIDForID.argtypes = [ctypes.c_uint32]
+sdl.SDL_GetJoystickGUIDForID.restype = GUID
+sdl.SDL_GetError.restype = ctypes.c_char_p
+
+SDL_INIT_GAMEPAD = 0x00002000
+if not sdl.SDL_Init(SDL_INIT_GAMEPAD):
+    sys.stderr.write("SDL_Init failed: %s\n" % sdl.SDL_GetError().decode())
+    sys.exit(1)
+
+count = ctypes.c_int(0)
+ids = sdl.SDL_GetGamepads(ctypes.byref(count))
+if count.value < 1:
+    sdl.SDL_Quit()
+    sys.exit(1)
+
+jid = ids[0]
+b = bytes(sdl.SDL_GetJoystickGUIDForID(jid).data)
+name = sdl.SDL_GetJoystickNameForID(jid)
+name = name.decode() if name else "Unknown Controller"
+sdl.SDL_Quit()
+
+# Mirrors Ryujinx SDL3GamepadDriver.SDLGuidToString + GenerateGamepadId:
+#   guid   = b2 b3 b1 b0 - b5 b4 - b6 b7 - b8 b9 - b10..b15
+#   guid   = "0000" + guid[4:]   <- it zeroes the CRC field to keep the id stable
+#   id     = "<n>-<guid>", n starting at 0 and only bumped on duplicates
+h = lambda i: "%02x" % b[i]
+guid = "0000" + h(1) + h(0) + "-" + h(5) + h(4) + "-" + h(6) + h(7) + "-" + \
+       h(8) + h(9) + "-" + "".join("%02x" % x for x in b[10:16])
+
+print("0-%s|%s" % (guid, name))
+'
+}
+
+Ryujinx_set_gamepad_name() {
+  local gamepad id name tmp
+
+  gamepad="$(Ryujinx_getFirstGamepad)" || { echo "No controller detected, keeping default input config" >&2; return 1; }
+
+  id="${gamepad%%|*}"
+  name="${gamepad#*|}"
+  { [ -n "$id" ] && [ -n "$name" ]; } || { echo "Could not read gamepad id/name" >&2; return 1; }
+
+  echo "Detected gamepad: ${name} -> ${id}"
+
+  tmp="$(mktemp)"
+  if jq --arg id "$id" --arg name "${name} (0)" '
+      (.input_config | map((.backend // "") | startswith("Gamepad")) | index(true)) as $i
+      | if $i == null then
+          error("no gamepad entry in input_config")
+        else
+          .input_config[$i].id = $id | .input_config[$i].name = $name
+        end' "$Ryujinx_configFile" > "$tmp" && [ -s "$tmp" ]; then
+    mv "$tmp" "$Ryujinx_configFile"
+  else
+    rm -f "$tmp"
+    echo "No gamepad entry to update in $Ryujinx_configFile" >&2
+    return 1
+  fi
+}
+
+ryujinx_launch_fixes(){
+  Ryujinx_set_gamepad_name
 }
