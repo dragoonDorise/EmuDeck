@@ -1,4 +1,7 @@
 #!/bin/bash
+
+
+
 appImageInit() {
 	
 	#Migrate Xenia
@@ -22,6 +25,13 @@ appImageInit() {
 			echo "continue"
 		fi
 
+	fi
+
+	#Ryujinx SDL3
+	if [ -f "$Ryujinx_configFile" ] && command -v jq >/dev/null 2>&1; then
+		if jq -e '[.input_config[]? | .backend? // ""] | any(startswith("GamepadSDL2"))' "$Ryujinx_configFile" >/dev/null 2>&1; then
+			Ryujinx_migrateToSDL3
+		fi
 	fi
 
 	#Migrate emudeck folder

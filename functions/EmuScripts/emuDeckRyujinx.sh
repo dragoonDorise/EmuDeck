@@ -402,6 +402,48 @@ Ryujinx_set_gamepad_name() {
   fi
 }
 
+Ryujinx_migrateToSDL3() {
+  local logFile="$emudeckLogs/ryujinx_sdl3_migration.log"
+  local rcFile
+  rcFile="$(mktemp)"
+  mkdir -p "$emudeckLogs"
+
+
+  migrate() {
+    echo "5" ; echo "#Downloading the latest Ryujinx..."
+    if Ryujinx_install >"$logFile" 2>&1; then
+      echo "70" ; echo "#Applying Ryujinx configuration..."
+      if Ryujinx_init >>"$logFile" 2>&1; then
+        echo "0" > "$rcFile"
+      else
+        echo "1" > "$rcFile"
+      fi
+    else
+      echo "1" > "$rcFile"
+    fi
+    echo "100"
+  }
+
+  
+  migrate | zenity --progress \
+    --title="EmuDeck" \
+    --text="Updating Ryujinx to the SDL3 input backend..." \
+    --width=450 \
+    --percentage=0 \
+    --auto-close \
+    --no-cancel 2>/dev/null
+
+  local rc
+  rc="$(cat "$rcFile" 2>/dev/null)"
+  rm -f "$rcFile"
+
+  if [ "$rc" != "0" ]; then
+    echo "Ryujinx: SDL3 migration failed, see $logFile" >&2
+    return 1
+  fi
+  return 0
+}
+
 ryujinx_launch_fixes(){
   Ryujinx_set_gamepad_name
 }
