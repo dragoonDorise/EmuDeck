@@ -1041,12 +1041,8 @@ function emulatorInit(){
 	local emuName=$1
 	#isLatestVersionGH "$emuName"
 
-	#Update backend + init
-
-	cd $emudeckBackend
-	git reset --hard && git pull
-	. "$HOME/.config/EmuDeck/backend/functions/all.sh"
-	#appImageInit
+	#Emulator auto fixes
+	emulatorLaunchFixes "$emuName"
 
 	#NetPlay
 	cloud_sync_stopService
@@ -1100,7 +1096,23 @@ function emulatorInit(){
 
 	fi
 
+}
 
+function emulatorLaunchFixes(){
+	local emuName=$1
+	[ -n "$emuName" ] || return 0
+
+	local emuNameLower
+	emuNameLower=$(printf '%s' "$emuName" | tr '[:upper:]' '[:lower:]')
+
+	local fixesFn
+	for fixesFn in "${emuName}_launch_fixes" "${emuNameLower}_launch_fixes"; do
+		if declare -F "$fixesFn" >/dev/null 2>&1; then
+			echo "Applying launch fixes: $fixesFn"
+			"$fixesFn" || echo "$fixesFn failed, continuing launch"
+			return 0
+		fi
+	done
 }
 
 
