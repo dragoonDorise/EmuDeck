@@ -1040,6 +1040,10 @@ addProtonLaunch(){
 function emulatorInit(){
 	local emuName=$1
 	#isLatestVersionGH "$emuName"
+	
+	cd $emudeckBackend
+	git reset --hard && git pull
+	. "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
 	#Emulator auto fixes
 	emulatorLaunchFixes "$emuName"
