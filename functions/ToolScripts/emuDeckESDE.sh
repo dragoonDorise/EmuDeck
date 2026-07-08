@@ -508,3 +508,8 @@ ESDE_refreshCustomEmus(){
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
 	ESDE_setDefaultEmulators
 }
+
+esde_launch_fixes(){
+	ryujinx_launch_fixes
+}
+	
