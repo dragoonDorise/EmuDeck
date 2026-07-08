@@ -439,7 +439,16 @@ if system == "linux":
    if lsfg.exists() and lsfg_conf.exists():
       os.environ["LSFGVK_CONFIG"] = str(lsfg_conf)
       cmd = f"{lsfg} {cmd}"
-      
+
+
+fixes_name = f"{emu.lower().replace('-', '_')}_launch_fixes"
+fixes_fn = globals().get(fixes_name)
+if callable(fixes_fn):
+    print(f"Applying launch fixes: {fixes_name}")
+    try:
+        fixes_fn()
+    except Exception as e:
+        print(f"{fixes_name} failed, continuing launch: {e}")
 
 subprocess.run(cmd, check=True, shell=shell_status)
 
