@@ -1045,7 +1045,7 @@ function emulatorInit(){
 	emulatorLaunchFixes "$emuName"
 	
 	if [ "$emuName" = 'esde' ]; then
-		exit
+		return 0
 	fi
 
 	#NetPlay
