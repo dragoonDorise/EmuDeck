@@ -1043,6 +1043,10 @@ function emulatorInit(){
 
 	#Emulator auto fixes
 	emulatorLaunchFixes "$emuName"
+	
+	if [ "$emuName" = 'esde' ]; then
+		exit
+	fi
 
 	#NetPlay
 	cloud_sync_stopService
