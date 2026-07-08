@@ -184,7 +184,7 @@
       },
       "version": 1,
       "backend": "GamepadSDL3",
-      "id": "0-00000003-28de-0000-ff11-000001000000",
+      "id": "0-00000000-0000-0000-0000-000000000000",
       "name": "Steam Deck Controller (0)",
       "controller_type": "ProController",
       "player_index": "Player1"
