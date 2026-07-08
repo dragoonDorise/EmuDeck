@@ -1049,6 +1049,7 @@ function emulatorInit(){
 	emulatorLaunchFixes "$emuName"
 	
 	if [ "$emuName" = 'esde' ]; then
+		cloud_sync_downloadESDE && cloud_sync_startService
 		return 0
 	fi
 
