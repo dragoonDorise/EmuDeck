@@ -20,10 +20,9 @@ appImageInit() {
 	fi
 
 	#Ryujinx SDL3
-	if [ -f "$Ryujinx_configFile" ] && command -v jq >/dev/null 2>&1; then
-		if jq -e '[.input_config[]? | .backend? // ""] | any(startswith("GamepadSDL2"))' "$Ryujinx_configFile" >/dev/null 2>&1; then
-			Ryujinx_migrateToSDL3
-		fi
+	if [ "$(Ryujinx_IsInstalled)" == "true" ] \
+	   && jq -e '[.input_config[]? | .backend? // ""] | any(startswith("GamepadSDL2"))' "$Ryujinx_configFile" >/dev/null 2>&1; then
+		Ryujinx_migrateToSDL3
 	fi
 
 	#Migrate emudeck folder
