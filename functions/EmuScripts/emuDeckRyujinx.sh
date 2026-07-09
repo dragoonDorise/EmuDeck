@@ -440,6 +440,8 @@ Ryujinx_migrateToSDL3() {
   return 0
 }
 
-ryujinx_launch_fixes(){
-  Ryujinx_set_gamepad_name
+ryujinx_launch_fixes(){  
+    if jq -e '[.input_config[]? | .backend? // ""] | any(startswith("GamepadSDL2"))' "$Ryujinx_configFile" >/dev/null 2>&1; then
+      Ryujinx_migrateToSDL3
+    fi
 }
