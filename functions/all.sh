@@ -109,6 +109,7 @@ source "$emudeckBackend"/functions/EmuScripts/emuDeckares.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckFlycast.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckSupermodel.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckModel2.sh
+source "$emudeckBackend"/functions/EmuScripts/emuDeckLindbergh.sh
 
 
 # Generic Application scripts
