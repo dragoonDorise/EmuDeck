@@ -1,24 +1,30 @@
 from core.all import *
 
 def dolphin_download_url():
-    # Solo se usa en Windows/macOS
-    resp = requests.get("https://dolphin-emu.org/download/", timeout=10)
+    resp = requests.get(
+        "https://dolphin-emu.org/update/latest/beta/",
+        headers={"User-Agent": "EmuDeck/2.0"},
+        timeout=20,
+    )
     resp.raise_for_status()
-    html = resp.text
 
-    ids = re.findall(r"/download/release/(\d+)/", html)
-    if not ids:
-        print("Error: could not find any release IDs on Dolphin download page")
-        return None
-
-    latest_id = max(int(x) for x in ids)
+    data = resp.json()
+    artifacts = data.get("artifacts", [])
 
     if system.startswith("win"):
-        return f"https://dl.dolphin-emu.org/releases/{latest_id}/dolphin-{latest_id}-x64.7z"
+        target_system = "Windows x64"
+    elif system == "linux":
+        target_system = "Linux x86_64 (Flatpak)"
+    elif system == "darwin":
+        target_system = "macOS (ARM/Intel Universal)"
+    else:
+        return None
 
-    if system == "darwin":
-        return f"https://dl.dolphin-emu.org/releases/{latest_id}/dolphin-{latest_id}-universal.dmg"
+    for artifact in artifacts:
+        if artifact.get("system") == target_system:
+            return artifact.get("url")
 
+    print(f"Error: could not find Dolphin artifact for {target_system}")
     return None
 
 def dolphin_install():
@@ -40,27 +46,45 @@ def dolphin_install():
                 stdin=subprocess.DEVNULL,
             ).returncode == 0
 
+        def is_installed():
+            for cmd in (
+                ["flatpak", "info", "--user", app_id],
+                ["flatpak", "info", app_id],
+            ):
+                result = subprocess.run(
+                    cmd,
+                    check=False,
+                    stdin=subprocess.DEVNULL,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
+                if result.returncode == 0:
+                    return True
+
+            return False
+
+        if is_installed():
+            return True
+
         run(["flatpak", "remote-add", "--if-not-exists", "--user", flathub_name, flathub_repo])
         run(["flatpak", "remote-add", "--if-not-exists", "--user", dolphin_remote_name, dolphin_remote_repo])
 
         ok = run(["flatpak", "install", "-y", "--noninteractive", "--user", dolphin_remote_name, app_id])
-        if ok:
+        if ok or is_installed():
             return True
 
-        run(["flatpak", "install", "-y", "--noninteractive", "--user", flathub_name, "org.kde.Platform//6.8"])
+        ok = run(["flatpak", "install", "-y", "--noninteractive", "--user", flathub_name, app_id])
+        return ok or is_installed()
 
-        ok = run(["flatpak", "install", "-y", "--noninteractive", "--user", dolphin_remote_name, app_id])
-        return ok
-
-    # WINDOWS 
+    # WINDOWS
     if system.startswith("win"):
         try:
             url = dolphin_download_url()
             if not url:
                 return False
 
-            install_emu("Dolphin", url, "7z", f"{emus_folder}/Dolphin-x64")
-            return True
+            install_emu("Dolphin", url, "7z", emus_folder)
+            return dolphin_is_installed()
 
         except Exception as e:
             print(f"Error during Windows Dolphin install: {e}")
@@ -82,7 +106,6 @@ def dolphin_install():
 
     return False
 
-
 def dolphin_uninstall():
     try:
         if system == "linux":
@@ -100,9 +123,9 @@ def dolphin_is_installed():
     if system == "linux":
         return is_flatpak_installed("org.DolphinEmu.dolphin-emu")
     if system.startswith("win"):
-      return (emus_folder / "Dolphin-x64" / "dolphin.exe").exists()
+        return (Path(emus_folder) / "Dolphin-x64" / "Dolphin.exe").exists()
     if system == "darwin":
-      return (emus_folder / "Dolphin.app").exists()
+        return (emus_folder / "Dolphin.app").exists()
 
 
 def dolphin_init():
@@ -137,10 +160,35 @@ def dolphin_setup_saves():
         origin_saves_gc=f"{home}/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC"
         origin_saves_wii=f"{home}/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii"
         origin_states=f"{home}/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves"
+
     if system.startswith("win"):
-        origin_saves_gc=f"{emus_folder}/Dolphin-x64/User/GC"
-        origin_saves_wii=f"{emus_folder}/Dolphin-x64/User/Wii"
-        origin_states=f"{emus_folder}/Dolphin-x64/User/StateSaves"
+        for origin, destination in [
+            (Path(f"{emus_folder}/Dolphin-x64/User/GC"), Path(f"{saves_path}/dolphin/saves/GC")),
+            (Path(f"{emus_folder}/Dolphin-x64/User/Wii"), Path(f"{saves_path}/dolphin/saves/Wii")),
+            (Path(f"{emus_folder}/Dolphin-x64/User/StateSaves"), Path(f"{saves_path}/dolphin/StateSaves")),
+        ]:
+            if origin.is_symlink() or origin.is_junction():
+                continue
+
+            destination.mkdir(parents=True, exist_ok=True)
+
+            if origin.exists():
+                shutil.copytree(origin, destination, dirs_exist_ok=True)
+                shutil.rmtree(origin, ignore_errors=True)
+
+            origin.parent.mkdir(parents=True, exist_ok=True)
+
+            try:
+                os.symlink(str(destination), str(origin), target_is_directory=True)
+            except OSError:
+                subprocess.run(
+                    ["cmd", "/c", "mklink", "/J", str(origin), str(destination)],
+                    shell=True,
+                    check=True
+                )
+
+        return
+
     if system == "darwin":
         origin_saves_gc=f"{home}/Library/Application Support/Dolphin/GC"
         origin_saves_wii=f"{home}/Library/Application Support/Dolphin/Wii"
