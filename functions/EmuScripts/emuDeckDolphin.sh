@@ -245,6 +245,24 @@ Dolphin_finalize(){
 	echo "NYI"
 }
 
+Dolphin_setGamepads(){
+	local configDir="$HOME/.var/app/${Dolphin_emuPath}/config/dolphin-emu"
+	[ -d "$configDir" ] || return 0
+	flatpak run --command=sh --filesystem=home "${Dolphin_emuPath}" -c '
+		for lib in /usr/lib/x86_64-linux-gnu/libSDL3.so.0 /app/lib/libSDL3.so.0 /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0; do
+			[ -f "$lib" ] || continue
+			SDL_LIB="$lib" DOLPHIN_CONFIG_DIR="$XDG_CONFIG_HOME/dolphin-emu" \
+				python3 "'"${emudeckBackend}"'/tools/dolphinGamepads.py" --write
+			exit $?
+		done
+		exit 1
+	' >/dev/null 2>&1
+}
+
+dolphin_launch_fixes(){
+	Dolphin_setGamepads
+}
+
 
 Dolphin_DynamicInputTextures(){
   local DIT_releaseURL="$(getLatestReleaseURLGH "Venomalia/UniversalDynamicInput" "7z")"

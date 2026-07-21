@@ -35,7 +35,7 @@
     </emulator>
     <emulator name="DOLPHIN">
         <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/dolphin.sh</entry>
+            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/dolphin-emu.sh</entry>
         </rule>
     </emulator>
     <emulator name="DUCKSTATION">
