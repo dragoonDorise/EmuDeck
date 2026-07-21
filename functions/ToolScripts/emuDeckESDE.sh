@@ -528,6 +528,19 @@ ESDE_ensureRyujinxFindRule(){
 	sed -i "s|</ruleList>|${ruleBlock}\n</ruleList>|" "$es_rulesFile"
 }
 
+ESDE_ensureDolphinFindRule(){
+	[ -f "$es_rulesFile" ] || return 0
+	local launcher="${toolsPath}/launchers/dolphin-emu.sh"
+	grep -q "<entry>${launcher}</entry>" "$es_rulesFile" && return 0
+	if grep -q 'name="DOLPHIN"' "$es_rulesFile"; then
+		sed -i "/<emulator name=\"DOLPHIN\">/,/<\/emulator>/ s|<entry>.*</entry>|<entry>${launcher}</entry>|" "$es_rulesFile"
+	else
+		local ruleBlock="    <emulator name=\"DOLPHIN\">\n        <rule type=\"staticpath\">\n            <entry>${launcher}</entry>\n        </rule>\n    </emulator>"
+		sed -i "s|</ruleList>|${ruleBlock}\n</ruleList>|" "$es_rulesFile"
+	fi
+}
+
 esde_launch_fixes(){
 	ESDE_ensureRyujinxFindRule
+	ESDE_ensureDolphinFindRule
 }

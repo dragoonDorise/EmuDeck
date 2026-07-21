@@ -10,7 +10,7 @@
     </emulator>
     <emulator name="DOLPHIN">
         <rule type="staticpath">
-            <entry>~/.local/share/flatpak/exports/bin/org.DolphinEmu.dolphin-emu</entry>
+            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/dolphin-emu.sh</entry>
         </rule>
     </emulator>
     <emulator name="RETROARCH">
