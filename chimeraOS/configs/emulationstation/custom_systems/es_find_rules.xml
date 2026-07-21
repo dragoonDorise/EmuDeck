@@ -67,6 +67,11 @@
             <entry>~/.local/share/flatpak/exports/bin/org.yuzu_emu.yuzu</entry>
         </rule>
     </emulator>
+    <emulator name="RYUJINX">
+        <rule type="staticpath">
+            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/ryujinx.sh</entry>
+        </rule>
+    </emulator>
     <emulator name="EDEN">
         <!-- Nintendo Switch emulator Eden -->
         <rule type="systempath">

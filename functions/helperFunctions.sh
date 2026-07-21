@@ -1364,9 +1364,24 @@ update_launchers(){
 	  echo "Overwriting $dst from $src"
 	  cp -v "$src" "$dst"
 	else
-	  echo "⚠️  No source found for $rel, saltando"
+	  echo "No source found for $rel"
 	fi
   done
+
+  local roms_dir="${romsPath}/emulators"
+  if [ -d "$roms_dir" ]; then
+    find "$roms_dir" -maxdepth 1 -type f -name '*.sh' | while read -r dst; do
+      base="$(basename "$dst")"
+      src="$(find "$src_dir" -type f -name "$base" | head -n 1)"
+      if [ -n "$src" ]; then
+        echo "Overwriting $dst from $src"
+        cp -v "$src" "$dst"
+        chmod +x "$dst"
+      else
+        echo "No source found for $base"
+      fi
+    done
+  fi
 }
 
 ra_get_credentials() {
