@@ -86,10 +86,12 @@ function escapeSedValue(){
 	printf '%s\n' "$INPUT" | sed -e 's/[\/&]/\\&/g'
 }
 
-function getSDPath(){
-	if [ -b "/dev/mmcblk0p1" ]; then
-		findmnt -n --raw --evaluate --output=target -S /dev/mmcblk0p1
-	fi
+function getSDPath() {
+	for dev in /dev/sd*1 /dev/mmcblk*p1; do
+		if [ -b "$dev" ]; then
+			findmnt -n --raw --evaluate --output=target -S "$dev"
+		fi
+	done
 }
 
 function getProductName(){
