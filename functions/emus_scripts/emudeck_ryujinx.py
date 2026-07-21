@@ -127,6 +127,7 @@ def ryujinx_init():
     ryujinx_setup_saves()
     ryujinx_set_resolution()
     ryujinx_set_controller_style()
+    ryujinx_ensure_gyro_dsu()
     esde_set_emu("Ryujinx (Standalone)", "switch")
     return True
 
@@ -247,7 +248,35 @@ def _ryujinx_sdl_lib_candidates():
     return []
 
 
-def ryujinx_get_first_gamepad():
+RYUJINX_BUILTIN_DEVICES = {
+    (0x28DE, 0x1205), (0x28DE, 0x1206),
+    (0x0B05, 0x1ABE), (0x0B05, 0x1B4C),
+    (0x17EF, 0x6182), (0x17EF, 0x6183),
+    (0x17EF, 0x6184), (0x17EF, 0x6185),
+}
+RYUJINX_BUILTIN_NAME_HINTS = ("steam deck", "rog ally", "legion go", "ayaneo", "aya neo", "onexplayer")
+
+RYUJINX_MOTION_DSU = {
+    "slot": 0,
+    "alt_slot": 0,
+    "mirror_input": False,
+    "dsu_server_host": "127.0.0.1",
+    "dsu_server_port": 26760,
+    "motion_backend": "CemuHook",
+    "sensitivity": 100,
+    "gyro_deadzone": 1,
+    "enable_motion": True,
+}
+
+RYUJINX_PLAYERS = ["Player1", "Player2", "Player3", "Player4"]
+
+
+def _ryujinx_is_builtin(vendor, product, name):
+    return (vendor, product) in RYUJINX_BUILTIN_DEVICES \
+        or any(hint in (name or "").lower() for hint in RYUJINX_BUILTIN_NAME_HINTS)
+
+
+def _ryujinx_load_sdl():
     lib = None
     for candidate in _ryujinx_sdl_lib_candidates():
         try:
@@ -275,40 +304,71 @@ def ryujinx_get_first_gamepad():
         print(f"Ryujinx gamepad detection: unusable SDL library ({e})")
         return None
 
+    return lib
+
+
+def _ryujinx_read_gamepads():
+    lib = _ryujinx_load_sdl()
+    if lib is None:
+        return []
+
     SDL_INIT_GAMEPAD = 0x00002000
     if not lib.SDL_Init(SDL_INIT_GAMEPAD):
         print("Ryujinx gamepad detection: SDL_Init failed")
-        return None
+        return []
 
+    pads = []
+    seen = {}
     try:
         count = ctypes.c_int(0)
         ids = lib.SDL_GetGamepads(ctypes.byref(count))
-        if count.value < 1:
-            return None
+        for i in range(count.value):
+            jid = ids[i]
+            b = bytes(lib.SDL_GetJoystickGUIDForID(jid).data)
+            raw_name = lib.SDL_GetJoystickNameForID(jid)
+            name = raw_name.decode() if raw_name else "Unknown Controller"
 
-        jid = ids[0]
-        b = bytes(lib.SDL_GetJoystickGUIDForID(jid).data)
-        raw_name = lib.SDL_GetJoystickNameForID(jid)
-        name = raw_name.decode() if raw_name else "Unknown Controller"
+            h = lambda i: f"{b[i]:02x}"
+            tail = "".join(f"{x:02x}" for x in b[10:16])
+            guid = f"0000{h(1)}{h(0)}-{h(5)}{h(4)}-{h(6)}{h(7)}-{h(8)}{h(9)}-{tail}"
+            vendor = b[4] | (b[5] << 8)
+            product = b[8] | (b[9] << 8)
+            builtin = _ryujinx_is_builtin(vendor, product, name)
+            dup = seen.get(guid, 0)
+            seen[guid] = dup + 1
+            pads.append({
+                "id": f"{dup}-{guid}",
+                "name": f"{name} ({dup})",
+                "is_builtin": builtin,
+            })
     finally:
         lib.SDL_Quit()
 
-    h = lambda i: f"{b[i]:02x}"
-    tail = "".join(f"{x:02x}" for x in b[10:16])
-    guid = f"0000{h(1)}{h(0)}-{h(5)}{h(4)}-{h(6)}{h(7)}-{h(8)}{h(9)}-{tail}"
+    return pads
 
-    return f"0-{guid}", name
+
+def ryujinx_gamepad_count():
+    return len(_ryujinx_read_gamepads())
+
+
+def ryujinx_get_ordered_gamepads():
+    pads = _ryujinx_read_gamepads()
+    if len(pads) > 1:
+        pads = [p for p in pads if not p["is_builtin"]] + [p for p in pads if p["is_builtin"]]
+    pads = pads[:4]
+    return [
+        {"player": RYUJINX_PLAYERS[i], "id": p["id"], "name": p["name"]}
+        for i, p in enumerate(pads)
+    ]
 
 
 def ryujinx_set_gamepad_name():
-    """Write the detected gamepad id/name into Ryujinx's Config.json."""
-    detected = ryujinx_get_first_gamepad()
-    if detected is None:
+    pads = ryujinx_get_ordered_gamepads()
+    if not pads:
         print("No controller detected, keeping existing Ryujinx input config")
         return False
 
-    gamepad_id, name = detected
-    print(f"Detected gamepad: {name} -> {gamepad_id}")
+    print(f"Detected gamepads: {[{'player': p['player'], 'name': p['name']} for p in pads]}")
 
     config_path = Path(ryujinx_config_file)
     if not config_path.exists():
@@ -319,19 +379,31 @@ def ryujinx_set_gamepad_name():
         data = json.load(f)
 
     entries = data.get("input_config") or []
-    index = next(
-        (i for i, e in enumerate(entries) if str(e.get("backend", "")).startswith("Gamepad")),
-        None,
+    template = next(
+        (e for e in entries if str(e.get("backend", "")).startswith("Gamepad")),
+        entries[0] if entries else None,
     )
-    if index is None:
+    if template is None:
         print("No gamepad entry in input_config, nothing to update")
         return False
 
-    if entries[index].get("id") == gamepad_id and entries[index].get("name") == f"{name} (0)":
-        return True
+    backend = template.get("backend", "")
+    if not str(backend).startswith("Gamepad"):
+        backend = "GamepadSDL3"
 
-    entries[index]["id"] = gamepad_id
-    entries[index]["name"] = f"{name} (0)"
+    new_entries = []
+    for pad in pads:
+        entry = json.loads(json.dumps(template))
+        entry["player_index"] = pad["player"]
+        entry["id"] = pad["id"]
+        entry["name"] = pad["name"]
+        entry["backend"] = backend
+        new_entries.append(entry)
+
+    if len(pads) == 1 and "steam deck" in pads[0]["name"].lower():
+        new_entries[0]["motion"] = json.loads(json.dumps(RYUJINX_MOTION_DSU))
+
+    data["input_config"] = new_entries
 
     tmp_path = config_path.with_suffix(config_path.suffix + ".tmp")
     with tmp_path.open("w", encoding="utf-8") as f:
@@ -342,5 +414,43 @@ def ryujinx_set_gamepad_name():
     return True
 
 
+def _ryujinx_uses_sdl2_backend():
+    config_path = Path(ryujinx_config_file)
+    if not config_path.exists():
+        return False
+    try:
+        with config_path.open("r", encoding="utf-8") as f:
+            data = json.load(f)
+    except (OSError, ValueError):
+        return False
+    entries = data.get("input_config") or []
+    return any(str(e.get("backend", "")).startswith("GamepadSDL2") for e in entries)
+
+
+def ryujinx_migrate_to_sdl3():
+    print("Ryujinx: migrating input backend to SDL3")
+    if not ryujinx_install():
+        print("Ryujinx: SDL3 migration failed while reinstalling")
+        return False
+    if not ryujinx_init():
+        print("Ryujinx: SDL3 migration failed while applying configuration")
+        return False
+    return True
+
+
+def ryujinx_ensure_gyro_dsu():
+    if get_product_name() not in ("Jupiter", "Galileo"):
+        return
+    if (Path(home) / "sdgyrodsu" / "sdgyrodsu").is_file():
+        return
+    plugins_install_steamdeck_gyro_dsu()
+
+
 def ryujinx_launch_fixes():
+    if ryujinx_is_installed() and _ryujinx_uses_sdl2_backend():
+        ryujinx_migrate_to_sdl3()
+    ryujinx_ensure_gyro_dsu()
+    if system == "linux" and ryujinx_gamepad_count() > 1:
+        os.environ["SDL_GAMECONTROLLER_IGNORE_DEVICES"] = "0x28de/0x11ff"
+        os.environ["SDL_JOYSTICK_IGNORE_DEVICES"] = "0x28de/0x11ff"
     ryujinx_set_gamepad_name()

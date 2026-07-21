@@ -120,6 +120,33 @@ def esde_init():
     esde_set_default_emulators()
 
 
+def esde_ensure_ryujinx_find_rule():
+    if not esde_rules_file.exists():
+        return
+    content = esde_rules_file.read_text(encoding="utf-8")
+    if 'name="RYUJINX"' in content:
+        return
+    ext = "bat" if system.startswith("win") else "sh"
+    entry = f"{tools_path}/launchers/ryujinx.{ext}"
+    rule_block = (
+        '    <emulator name="RYUJINX">\n'
+        '        <rule type="staticpath">\n'
+        f'            <entry>{entry}</entry>\n'
+        '        </rule>\n'
+        '    </emulator>\n'
+    )
+    content = content.replace("</ruleList>", rule_block + "</ruleList>")
+    esde_rules_file.write_text(content, encoding="utf-8")
+
+
+def esde_launch_fixes():
+    esde_ensure_ryujinx_find_rule()
+
+
+def esde_launch_fixes():
+    esde_ensure_ryujinx_find_rule()
+
+
 def esde_install_init():
     esde_install()
     esde_init()
