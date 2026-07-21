@@ -521,7 +521,13 @@ ESDE_refreshCustomEmus(){
 	ESDE_setDefaultEmulators
 }
 
-esde_launch_fixes(){
-	ryujinx_launch_fixes
+ESDE_ensureRyujinxFindRule(){
+	[ -f "$es_rulesFile" ] || return 0
+	grep -q 'name="RYUJINX"' "$es_rulesFile" && return 0
+	local ruleBlock="    <emulator name=\"RYUJINX\">\n        <rule type=\"staticpath\">\n            <entry>${toolsPath}/launchers/ryujinx.sh</entry>\n        </rule>\n    </emulator>"
+	sed -i "s|</ruleList>|${ruleBlock}\n</ruleList>|" "$es_rulesFile"
 }
-	
+
+esde_launch_fixes(){
+	ESDE_ensureRyujinxFindRule
+}

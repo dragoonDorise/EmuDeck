@@ -1364,7 +1364,7 @@ update_launchers(){
 	  echo "Overwriting $dst from $src"
 	  cp -v "$src" "$dst"
 	else
-	  echo "⚠️  No source found for $rel, saltando"
+	  echo "No source found for $rel"
 	fi
   done
 }

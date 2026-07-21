@@ -2,3 +2,4 @@
 .nova/Publishing/Deck.json
 *.log
 .nova/Configuration.json
+*.pyc
