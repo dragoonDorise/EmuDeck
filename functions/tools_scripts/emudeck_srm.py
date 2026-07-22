@@ -36,6 +36,11 @@ def srm_uninstall():
         uninstall_emu("srm", "AppImage")
         shutil.rmtree(tools_path / "launchers" / "srm", ignore_errors=True)
 
+        config_dir = Path(srm_path)
+        if config_dir.exists():
+            shutil.rmtree(config_dir, ignore_errors=True)
+            print(f"Removed config directory at {config_dir}")
+
     if system.startswith("win"):
         appdata = Path(os.environ["APPDATA"])
 
