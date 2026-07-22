@@ -327,3 +327,85 @@ def dolphin_retro_achievements_off():
     config_path = dolphin_cheevos_config_file()
     set_ini_value(config_path, "Achievements", "Enabled", "False")
     set_ini_value(config_path, "Achievements", "HardcoreEnabled", "False")
+
+def dolphin_config_dir():
+    if system == "linux":
+        return f"{home}/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu"
+    if system.startswith("win"):
+        return f"{emus_folder}/Dolphin-x64/User/Config"
+    if system == "darwin":
+        return f"{home}/Library/Application Support/Dolphin/Config"
+    return None
+
+
+def _dolphin_sdl_lib_candidates():
+    if system == "linux":
+        return [
+            "/app/lib/libSDL3.so.0",
+            "/usr/lib/x86_64-linux-gnu/libSDL3.so.0",
+            "/app/lib/libSDL2-2.0.so.0",
+            "/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0",
+        ]
+    if system.startswith("win"):
+        return [
+            f"{emus_folder}/Dolphin-x64/SDL3.dll",
+            f"{emus_folder}/Dolphin-x64/SDL2.dll",
+        ]
+    if system == "darwin":
+        return [
+            f"{emus_folder}/Dolphin.app/Contents/Frameworks/libSDL3.dylib",
+            f"{emus_folder}/Dolphin.app/Contents/MacOS/libSDL3.dylib",
+            "/Applications/Dolphin.app/Contents/Frameworks/libSDL3.dylib",
+            "/Applications/Dolphin.app/Contents/MacOS/libSDL3.dylib",
+        ]
+    return []
+
+
+def dolphin_set_gamepads():
+    config_dir = dolphin_config_dir()
+    if not config_dir or not Path(config_dir).is_dir():
+        return
+    tool = Path(emudeck_backend) / "tools" / "dolphin_gamepads.py"
+    if not tool.is_file():
+        return
+
+    if system == "linux":
+        libs = " ".join(_dolphin_sdl_lib_candidates())
+        inner = (
+            f'for lib in {libs}; do '
+            '[ -f "$lib" ] || continue; '
+            f'SDL_LIB="$lib" DOLPHIN_CONFIG_DIR="$XDG_CONFIG_HOME/dolphin-emu" python3 "{tool}" --write; '
+            'exit $?; '
+            'done; exit 1'
+        )
+        subprocess.run(
+            ["flatpak", "run", "--command=sh", "--filesystem=home",
+             "org.DolphinEmu.dolphin-emu", "-c", inner],
+            check=False,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        return
+
+    for candidate in _dolphin_sdl_lib_candidates():
+        if not Path(candidate).is_file():
+            continue
+        env = dict(os.environ)
+        env["SDL_LIB"] = str(candidate)
+        env["DOLPHIN_CONFIG_DIR"] = str(config_dir)
+        result = subprocess.run(
+            [sys.executable, str(tool), "--write"],
+            check=False,
+            env=env,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        if result.returncode == 0:
+            return
+    print("Dolphin gamepad detection: no SDL library found")
+
+
+def dolphin_launch_fixes():
+    dolphin_set_gamepads()
