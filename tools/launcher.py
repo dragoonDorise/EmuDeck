@@ -234,7 +234,7 @@ if system == "linux":
     if emu.lower() == "xemu-emu":
         exe = "/usr/bin/flatpak run app.xemu.xemu"
     if emu.lower() == "xenia":
-        exe = f"{emus_folder}/xenia_canary_linux/build/bin/Linux/Release/xenia_canary"
+        exe = f"{roms_path}/xbox360/xenia_canary.exe"
     if emu.lower() == "yuzu":
         exe = f"{emus_folder}/yuzu.AppImage"
     if emu.lower() == "eden":
@@ -415,6 +415,48 @@ if cloud_sync_provider and settings.netplay == False:
             daemon=True
         )
         t.start()
+        
+if system == "linux" and emu.lower() == "xenia":
+    launcher_path = (Path(tools_path) / "launchers" / "xenia.sh").resolve()
+    config_file = Path(f"{launcher_path}.config")
+    proton_launcher = Path(tools_path) / "launchers" / "proton-launch.sh"
+    app_id_script = Path(tools_path) / "launchers" / "appID.py"
+
+    proton_version = os.environ.get("FORCED_PROTON_VER", "")
+
+    if not proton_version and config_file.is_file():
+        for line in config_file.read_text(encoding="utf-8").splitlines():
+            if line.startswith("FORCED_PROTON_VER="):
+                proton_version = line.split("=", 1)[1].strip().strip("\"'")
+                break
+
+    proton_version = proton_version or "- Experimental"
+
+    launcher_identity = f'"/usr/bin/bash" "{launcher_path}"'
+    app_id = subprocess.check_output(
+        [sys.executable, str(app_id_script), launcher_identity, "Xenia"],
+        text=True,
+    ).strip()
+
+    subprocess.run(
+        [
+            str(proton_launcher),
+            "-p",
+            proton_version,
+            "-i",
+            app_id,
+            "--",
+            str(exe),
+            *args,
+        ]
+    )
+
+    if cloud_sync_provider:
+        cloud_sync_upload_emu_all()
+
+    shutil.rmtree(Path(saves_path) / ".gaming", ignore_errors=True)
+    (Path(saves_path) / ".watching").unlink(missing_ok=True)
+    sys.exit()
 
 if system.startswith("win") and raw and raw[0] == "-L" and len(raw) > 2:
     args = [ raw[0], raw[1], " ".join(raw[2:]) ]
