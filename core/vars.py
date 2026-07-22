@@ -137,7 +137,7 @@ else:
 
 
 if system == "linux":
-    srm_path=f"{home}/.config/Steam Rom Manager"
+    srm_path = home / ".config" / "steam-rom-manager"
 if system.startswith("win"):
     srm_path=f"{tools_path}/"
 if system == "darwin":
