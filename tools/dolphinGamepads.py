@@ -199,11 +199,32 @@ def set_wiimote_sources(path):
         f.writelines(out)
 
 
+def set_hotkeys_device(path):
+    if not os.path.isfile(path) or not players:
+        return
+    with open(path, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+    cur = None
+    done = False
+    out = []
+    for line in lines:
+        m = re.match(r"^\[(\w+)\]\s*$", line)
+        if m:
+            cur = m.group(1)
+        if cur == "Hotkeys" and not done and re.match(r"^\s*Device\s*=", line):
+            line = "Device = %s\n" % players[0]["device"]
+            done = True
+        out.append(line)
+    with open(path, "w", encoding="utf-8") as f:
+        f.writelines(out)
+
+
 if "--write" in sys.argv:
     cfg = os.environ.get("DOLPHIN_CONFIG_DIR", "")
     set_devices(os.path.join(cfg, "GCPadNew.ini"), "GCPad")
     set_devices(os.path.join(cfg, "WiimoteNew.ini"), "Wiimote")
     set_si_devices(os.path.join(cfg, "Dolphin.ini"))
     set_wiimote_sources(os.path.join(cfg, "WiimoteNew.ini"))
+    set_hotkeys_device(os.path.join(cfg, "Hotkeys.ini"))
 
 print(json.dumps(players))
