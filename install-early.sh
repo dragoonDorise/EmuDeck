@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-DEBIAN_DEPS=(jq zenity flatpak unzip bash libfuse2 git rsync whiptail python)
-ARCH_DEPS=(steam jq zenity flatpak unzip bash fuse2 git rsync libnewt python)
-FEDORA_DEPS=(jq zenity flatpak unzip bash fuse git rsync newt python lsb_release fuse-libs)
-SUSE_DEPS=(steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail python)
-VOID_DEPS=(steam jq zenity flatpak unzip bash fuse git rsync newt python)
-GENTOO_DEPS=(app-misc/jq gnome-extra/zenity sys-apps/flatpak app-arch/unzip app-shells/bash sys-fs/fuse:0 dev-vcs/git net-misc/rsync dev-libs/newt dev-lang/python app-text/xmlstarlet)
+DEBIAN_DEPS=(jq zenity flatpak unzip bash libfuse2 git rsync whiptail python libsdl2-2.0-0)
+ARCH_DEPS=(steam jq zenity flatpak unzip bash fuse2 git rsync libnewt python sdl2)
+FEDORA_DEPS=(jq zenity flatpak unzip bash fuse git rsync newt python lsb_release fuse-libs SDL2)
+SUSE_DEPS=(steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail python libSDL2-2_0-0)
+VOID_DEPS=(steam jq zenity flatpak unzip bash fuse git rsync newt python SDL2)
+GENTOO_DEPS=(app-misc/jq gnome-extra/zenity sys-apps/flatpak app-arch/unzip app-shells/bash sys-fs/fuse:0 dev-vcs/git net-misc/rsync dev-libs/newt dev-lang/python app-text/xmlstarlet media-libs/libsdl2)
 
 CPU_ARCH="x86"
 if [ "$(uname -m)" = "aarch64" ] || [ "$(uname -m)" = "arm64" ]; then

@@ -273,8 +273,8 @@ Cemu_functions () {
 		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "$emudeckBackend/configs/cemu/config/cemu" "true"
 		mv "${CemuNative[configDir]}" "$HOME/EmuDeck/configs/cemu"
 		ln -sf "$HOME/EmuDeck/configs/cemu" "${CemuNative[configDir]}"
-		cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
-		cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "$SRM_userData_configDir/parsers/custom/"
+		#cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
+		#cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-wud-wux-wua.json" "$SRM_userData_configDir/parsers/custom/"
 		#SRM_createParsers
 		#configEmuAI "cemu" "data" "${storagePath}/cemu" "$emudeckBackend/configs/cemu/data/cemu" "true" #seems unneeded? maybe?
 		setEmulationFolder
@@ -344,6 +344,20 @@ Cemu_functions () {
 	flushEmulatorLauncher () {
 
 		flushEmulatorLaunchers "cemu"
+	}
+
+	setControllers () {
+		local controllerDir="${CemuNative[controllerDir]}"
+		[ -d "$controllerDir" ] || return 0
+		local sdlLib="" cand
+		for cand in /usr/lib/libSDL3.so.0 /usr/lib/libSDL2-2.0.so.0 \
+			/usr/lib/x86_64-linux-gnu/libSDL3.so.0 /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0; do
+			if [ -f "$cand" ]; then sdlLib="$cand"; break; fi
+		done
+		[ -n "$sdlLib" ] || return 0
+		SDL_LIB="$sdlLib" CEMU_CONTROLLER_DIR="$controllerDir" \
+			CEMU_TEMPLATE_DIR="$emudeckBackend/configs/cemu/config/cemu/controllerTemplates" \
+			python3 "$emudeckBackend/tools/gamepads/cemuGamepads.py" --write >/dev/null 2>&1
 	}
 
 
@@ -470,6 +484,14 @@ Cemu_flushEmulatorLauncher(){
 
 	Cemu_functions "flushEmulatorLauncher"
 
+}
+
+Cemu_setControllers(){
+	Cemu_functions "setControllers"
+}
+
+Cemu_launch_fixes(){
+	Cemu_functions "setControllers"
 }
 
 
