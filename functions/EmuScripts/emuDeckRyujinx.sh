@@ -330,7 +330,7 @@ Ryujinx_gamepadCount(){
     local sdlLib
     sdlLib="$(Ryujinx_findSdlLib)" || { echo 0; return 0; }
     command -v python3 >/dev/null 2>&1 || { echo 0; return 0; }
-    SDL_LIB="$sdlLib" python3 "$emudeckBackend/tools/ryujinxGamepads.py" --count 2>/dev/null || echo 0
+    SDL_LIB="$sdlLib" python3 "$emudeckBackend/tools/gamepads/ryujinxGamepads.py" --count 2>/dev/null || echo 0
 }
 
 Ryujinx_getOrderedGamepads(){
@@ -338,7 +338,7 @@ Ryujinx_getOrderedGamepads(){
     sdlLib="$(Ryujinx_findSdlLib)" || { echo "libSDL3 not found" >&2; return 1; }
     command -v python3 >/dev/null 2>&1 || { echo "python3 not found" >&2; return 1; }
 
-    SDL_LIB="$sdlLib" python3 "$emudeckBackend/tools/ryujinxGamepads.py"
+    SDL_LIB="$sdlLib" python3 "$emudeckBackend/tools/gamepads/ryujinxGamepads.py"
 }
 
 Ryujinx_set_gamepad_name() {
