@@ -12,7 +12,6 @@ if [ "$(uname -m)" = "aarch64" ] || [ "$(uname -m)" = "arm64" ]; then
     CPU_ARCH="arm"
 fi
 
-
 OS_NAME=$(cat /etc/hostname)
 if [ "$OS_NAME" = "playnix" ]; then
     linuxID="PlaynixOS"
@@ -25,9 +24,10 @@ sandbox=""
 if [ "$linuxID" = "Ubuntu" ]; then
     sandbox="--no-sandbox"
 fi
+clear
 
 if [ "$linuxID" == "SteamOS" ] || [ "$linuxID" == "PlaynixOS" ]; then
-    echo "installing EmuDeck"
+    echo "Installing EmuDeck"
 else
     zenityAvailable=$(command -v zenity &> /dev/null  && echo true)
 
@@ -126,12 +126,18 @@ report_error() {
 
 trap report_error ERR
 
+EMUDECK_GITHUB_URL="https://api.github.com/repos/EmuDeck/emudeck-electron/releases/latest"
+#EMUDECK_URL="$(curl -s ${EMUDECK_GITHUB_URL} | grep -E 'browser_download_url.*AppImage' | cut -d '"' -f 4)"
 
-EMUDECK_GITHUB_URL="https://api.github.com/repos/EmuDeck/emudeck-electron-early/releases/latest"
-if [ "$CPU_ARCH" == "arm" ]; then
-    EMUDECK_URL="$(curl -s "$EMUDECK_GITHUB_URL" | grep -E 'browser_download_url.*arm64\.AppImage' | cut -d '"' -f 4)"
-else
-    EMUDECK_URL="$(curl -s "$EMUDECK_GITHUB_URL" | grep -E 'browser_download_url.*\.AppImage' | grep -v 'arm64' | cut -d '"' -f 4)"
+EMUDECK_URL="https://github.com/EmuDeck/emudeck-electron/releases/download/v2.6.1/EmuDeck-2.6.1-arm64.AppImage"
+
+#Armada fixes
+if [ ! -e /usr/lib64/libz.so ]; then
+    mkdir -p "$HOME/.local/lib"
+    if [ ! -e "$HOME/.local/lib/libz.so" ]; then
+        ln -s /usr/lib64/libz.so.1 "$HOME/.local/lib/libz.so"
+    fi
+    export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
 fi
 
 mkdir -p ~/Applications
