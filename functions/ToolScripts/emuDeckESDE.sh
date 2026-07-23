@@ -552,8 +552,16 @@ ESDE_ensureCemuFindRule(){
 	fi
 }
 
+ESDE_ensureSystemsPath(){
+	[ -f "$es_systemsFile" ] || return 0
+	grep -q '/run/media/mmcblk0p1/Emulation' "$es_systemsFile" || return 0
+	[ "$emulationPath" = "/run/media/mmcblk0p1/Emulation" ] && return 0
+	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_systemsFile"
+}
+
 esde_launch_fixes(){
 	ESDE_ensureRyujinxFindRule
 	ESDE_ensureDolphinFindRule
 	ESDE_ensureCemuFindRule
+	ESDE_ensureSystemsPath
 }
