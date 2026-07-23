@@ -189,7 +189,7 @@ Dolphin_setGamepads(){
 		for lib in /usr/lib/x86_64-linux-gnu/libSDL3.so.0 /app/lib/libSDL3.so.0 /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0; do
 			[ -f "$lib" ] || continue
 			SDL_LIB="$lib" DOLPHIN_CONFIG_DIR="$XDG_CONFIG_HOME/dolphin-emu" \
-				python3 "'"${emudeckBackend}"'/tools/dolphinGamepads.py" --write
+				python3 "'"${emudeckBackend}"'/tools/gamepads/dolphinGamepads.py" --write
 			exit $?
 		done
 		exit 1
