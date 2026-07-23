@@ -540,7 +540,20 @@ ESDE_ensureDolphinFindRule(){
 	fi
 }
 
+ESDE_ensureCemuFindRule(){
+	[ -f "$es_rulesFile" ] || return 0
+	local launcher="${toolsPath}/launchers/cemu.sh"
+	grep -q "<entry>${launcher}</entry>" "$es_rulesFile" && return 0
+	if grep -q 'name="CEMU"' "$es_rulesFile"; then
+		sed -i "/<emulator name=\"CEMU\">/,/<\/emulator>/ s|<entry>.*</entry>|<entry>${launcher}</entry>|" "$es_rulesFile"
+	else
+		local ruleBlock="    <emulator name=\"CEMU\">\n        <rule type=\"staticpath\">\n            <entry>${launcher}</entry>\n        </rule>\n    </emulator>"
+		sed -i "s|</ruleList>|${ruleBlock}\n</ruleList>|" "$es_rulesFile"
+	fi
+}
+
 esde_launch_fixes(){
 	ESDE_ensureRyujinxFindRule
 	ESDE_ensureDolphinFindRule
+	ESDE_ensureCemuFindRule
 }

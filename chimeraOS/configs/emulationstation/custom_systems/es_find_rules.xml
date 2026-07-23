@@ -8,6 +8,11 @@
             <entry>sh</entry>
         </rule>
     </emulator>
+    <emulator name="CEMU">
+        <rule type="staticpath">
+            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh</entry>
+        </rule>
+    </emulator>
     <emulator name="DOLPHIN">
         <rule type="staticpath">
             <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/dolphin-emu.sh</entry>
