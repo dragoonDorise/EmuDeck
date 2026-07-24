@@ -547,9 +547,17 @@ ESDE_ensureSystemsPath(){
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_systemsFile"
 }
 
+ESDE_ensurePS3Emulators(){
+	local ps3Roms="$romsPath/ps3"
+	local gamelist="$ESDE_newConfigDirectory/gamelists/ps3/gamelist.xml"
+	[ -d "$ps3Roms" ] || return 0
+	PS3_ROMS_DIR="$ps3Roms" PS3_GAMELIST="$gamelist" python3 "$emudeckBackend/tools/esdePS3Emulators.py" >/dev/null 2>&1
+}
+
 esde_launch_fixes(){
 	ESDE_ensureRyujinxFindRule
 	ESDE_ensureDolphinFindRule
 	ESDE_ensureCemuFindRule
 	ESDE_ensureSystemsPath
+	ESDE_ensurePS3Emulators
 }
