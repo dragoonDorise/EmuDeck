@@ -167,9 +167,31 @@ def esde_ensure_cemu_find_rule():
     esde_rules_file.write_text(content, encoding="utf-8")
 
 
+def esde_ensure_ps3_emulators():
+    ps3_roms = roms_path / "ps3"
+    if not ps3_roms.is_dir():
+        return
+    gamelist = esde_settings_folder / "gamelists" / "ps3" / "gamelist.xml"
+    tool = Path(emudeck_backend) / "tools" / "esde_ps3_emulators.py"
+    if not tool.is_file():
+        return
+    env = dict(os.environ)
+    env["PS3_ROMS_DIR"] = str(ps3_roms)
+    env["PS3_GAMELIST"] = str(gamelist)
+    subprocess.run(
+        [sys.executable, str(tool)],
+        check=False,
+        env=env,
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+
+
 def esde_launch_fixes():
     esde_ensure_ryujinx_find_rule()
     esde_ensure_cemu_find_rule()
+    esde_ensure_ps3_emulators()
 
 
 def esde_install_init():
