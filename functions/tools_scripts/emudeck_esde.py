@@ -139,12 +139,37 @@ def esde_ensure_ryujinx_find_rule():
     esde_rules_file.write_text(content, encoding="utf-8")
 
 
-def esde_launch_fixes():
-    esde_ensure_ryujinx_find_rule()
+def esde_ensure_cemu_find_rule():
+    if not esde_rules_file.exists():
+        return
+    ext = "bat" if system.startswith("win") else "sh"
+    entry = f"{tools_path}/launchers/cemu.{ext}"
+    content = esde_rules_file.read_text(encoding="utf-8")
+    if f"<entry>{entry}</entry>" in content:
+        return
+    if 'name="CEMU"' in content:
+        content = re.sub(
+            r'(<emulator name="CEMU">.*?)<entry>.*?</entry>(.*?</emulator>)',
+            rf"\1<entry>{entry}</entry>\2",
+            content,
+            count=1,
+            flags=re.DOTALL,
+        )
+    else:
+        rule_block = (
+            '    <emulator name="CEMU">\n'
+            '        <rule type="staticpath">\n'
+            f'            <entry>{entry}</entry>\n'
+            '        </rule>\n'
+            '    </emulator>\n'
+        )
+        content = content.replace("</ruleList>", rule_block + "</ruleList>")
+    esde_rules_file.write_text(content, encoding="utf-8")
 
 
 def esde_launch_fixes():
     esde_ensure_ryujinx_find_rule()
+    esde_ensure_cemu_find_rule()
 
 
 def esde_install_init():

@@ -106,3 +106,67 @@ def cemu_set_controller_style():
         cemu_set_bayx_style()
     else:
         cemu_set_bayx_style()
+
+def cemu_config_dir():
+    if system == "linux":
+        return f"{home}/.config/Cemu"
+    if system.startswith("win"):
+        return f"{emus_folder}/cemu"
+    if system == "darwin":
+        return f"{home}/Library/Application Support/Cemu"
+    return None
+
+
+def _cemu_sdl_lib_candidates():
+    if system == "linux":
+        return [
+            "/usr/lib/libSDL3.so.0",
+            "/usr/lib/libSDL2-2.0.so.0",
+            "/usr/lib/x86_64-linux-gnu/libSDL3.so.0",
+            "/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0",
+        ]
+    if system == "darwin":
+        return [
+            f"{emus_folder}/Cemu.app/Contents/Frameworks/libSDL2-2.0.0.dylib",
+            f"{emus_folder}/Cemu.app/Contents/Frameworks/libSDL2.dylib",
+            "/opt/homebrew/lib/libSDL2-2.0.0.dylib",
+            "/usr/local/lib/libSDL2-2.0.0.dylib",
+        ]
+    return []
+
+
+def cemu_set_controllers():
+    if system.startswith("win"):
+        return
+    config_dir = cemu_config_dir()
+    if not config_dir:
+        return
+    controller_dir = Path(config_dir) / "controllerProfiles"
+    if not controller_dir.is_dir():
+        return
+    tool = Path(emudeck_backend) / "tools" / "gamepads" / "cemu_gamepads.py"
+    template_dir = Path(emudeck_backend) / "configs" / system / "cemu" / "controllerTemplates"
+    if not tool.is_file() or not template_dir.is_dir():
+        return
+    for candidate in _cemu_sdl_lib_candidates():
+        if not Path(candidate).is_file():
+            continue
+        env = dict(os.environ)
+        env["SDL_LIB"] = str(candidate)
+        env["CEMU_CONTROLLER_DIR"] = str(controller_dir)
+        env["CEMU_TEMPLATE_DIR"] = str(template_dir)
+        result = subprocess.run(
+            [sys.executable, str(tool), "--write"],
+            check=False,
+            env=env,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        if result.returncode == 0:
+            return
+    print("Cemu gamepad detection: no SDL library found")
+
+
+def cemu_launch_fixes():
+    cemu_set_controllers()

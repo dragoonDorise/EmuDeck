@@ -365,7 +365,7 @@ def dolphin_set_gamepads():
     config_dir = dolphin_config_dir()
     if not config_dir or not Path(config_dir).is_dir():
         return
-    tool = Path(emudeck_backend) / "tools" / "dolphin_gamepads.py"
+    tool = Path(emudeck_backend) / "tools" / "gamepads" / "dolphin_gamepads.py"
     if not tool.is_file():
         return
 
