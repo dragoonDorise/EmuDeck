@@ -362,6 +362,10 @@ def _dolphin_sdl_lib_candidates():
 
 
 def dolphin_set_gamepads():
+    
+    if getattr(settings, "automap", None) == "false":
+      return
+    
     config_dir = dolphin_config_dir()
     if not config_dir or not Path(config_dir).is_dir():
         return
