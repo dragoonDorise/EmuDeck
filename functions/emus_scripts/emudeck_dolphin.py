@@ -363,6 +363,8 @@ def _dolphin_sdl_lib_candidates():
 
 def dolphin_set_gamepads():
     
+    dolphin_set_controller_style()
+    
     if getattr(settings, "automap", None) == "false":
       return
     
