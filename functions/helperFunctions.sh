@@ -1137,6 +1137,7 @@ function storePatreonToken(){
 
 
 function controllerLayout_ABXY(){
+	setSetting controllerLayout "abxy"
 	Cemu_setABXYstyle
 	Azahar_setABXYstyle
 	Dolphin_setABXYstyle
@@ -1148,6 +1149,7 @@ function controllerLayout_ABXY(){
 }
 
 function controllerLayout_BAYX(){
+	setSetting controllerLayout "baxy"
 	Cemu_setBAYXstyle
  	Dolphin_setBAYXstyle
 	Azahar_setBAYXstyle
