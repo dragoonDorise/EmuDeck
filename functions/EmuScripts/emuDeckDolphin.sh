@@ -48,12 +48,19 @@ Dolphin_init(){
 	Dolphin_setupStorage
 	Dolphin_setEmulationFolder
 	Dolphin_setupSaves
-  Dolphin_cleanup
-  Dolphin_setCustomizations
-  Dolphin_flushEmulatorLauncher
-  Dolphin_flushSymlinks
+    Dolphin_cleanup
+    Dolphin_setCustomizations
+    Dolphin_setRetroAchievements
+    Dolphin_flushEmulatorLauncher
+    Dolphin_flushSymlinks
 	#SRM_createParsers
     #Dolphin_DynamicInputTextures
+    
+    if [ "$controllerLayout" == "bayx" ] || [ "$controllerLayout" == "baxy" ] ; then
+      controllerLayout_BAYX &
+    else
+      controllerLayout_ABXY &
+    fi
 }
 
 #update
@@ -114,20 +121,28 @@ Dolphin_uninstall(){
 }
 
 #setABXYstyle
+#A = A in controller
 Dolphin_setABXYstyle(){
-   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/A = `Button S`|Buttons/A = `Button S`|' $Dolphin_gamecubeFile
-   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/B = `Button W`|Buttons/B = `Button E`|' $Dolphin_gamecubeFile
-   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/X = `Button E`|Buttons/X = `Button W`|' $Dolphin_gamecubeFile
-   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/Y = `Button N`|Buttons/Y = `Button N`|' $Dolphin_gamecubeFile
-
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/A = `Button E`|Buttons/A = `Button S`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/B = `Button S`|Buttons/B = `Button E`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/X = `Button N`|Buttons/X = `Button W`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/Y = `Button W`|Buttons/Y = `Button N`|' $Dolphin_gamecubeFile
 }
-
+#A = B in controller
 Dolphin_setBAYXstyle(){
-   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/A = `Button S`|Buttons/A = `Button S`|' $Dolphin_gamecubeFile
-   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/B = `Button E`|Buttons/B = `Button W`|' $Dolphin_gamecubeFile
-   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/X = `Button W`|Buttons/X = `Button E`|' $Dolphin_gamecubeFile
-   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/Y = `Button N`|Buttons/Y = `Button N`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/A = `Button S`|Buttons/A = `Button E`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/B = `Button E`|Buttons/B = `Button S`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/X = `Button W`|Buttons/X = `Button N`|' $Dolphin_gamecubeFile
+   	sed -i '/^\[GCPad1\]/,/^\[/ s|Buttons/Y = `Button N`|Buttons/Y = `Button W`|' $Dolphin_gamecubeFile
 }
+
+# 
+# Buttons/A = `Button E`
+# Buttons/B = `Button S`
+# Buttons/X = `Button N`
+# Buttons/Y = `Button W`
+
+
 
 #Migrate
 Dolphin_migrate(){
@@ -187,7 +202,14 @@ Dolphin_setGamepads(){
 	if [ "${autoMap}" == "false" ]; then
 		return 0
 	fi
-
+    cp "$emudeckBackend/configs/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GCPadNew.ini" $Dolphin_gamecubeFile
+    
+    if [ "$controllerLayout" == "bayx" ] || [ "$controllerLayout" == "baxy" ] ; then
+      Dolphin_setBAYXstyle
+    else
+      Dolphin_setABXYstyle
+    fi
+    
 	local configDir="$HOME/.var/app/${Dolphin_emuPath}/config/dolphin-emu"
 	[ -d "$configDir" ] || return 0
 	flatpak run --command=sh --filesystem=home "${Dolphin_emuPath}" -c '
