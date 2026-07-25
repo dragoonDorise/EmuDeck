@@ -347,6 +347,17 @@ Cemu_functions () {
 	}
 
 	setControllers () {
+		
+		if [ "${autoMap}" == "false" ]; then
+			return 0
+		fi
+		
+		if [ "$controllerLayout" == "bayx" ] || [ "$controllerLayout" == "baxy" ] ; then
+			Cemu_setBAYXstyle
+		else
+			Cemu_setABXYstyle
+		fi
+		
 		local controllerDir="${CemuNative[controllerDir]}"
 		[ -d "$controllerDir" ] || return 0
 		local sdlLib="" cand

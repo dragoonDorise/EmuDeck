@@ -343,6 +343,12 @@ Ryujinx_set_gamepad_name() {
     return 0
   fi
   
+  if [ "$controllerLayout" == "bayx" ] || [ "$controllerLayout" == "baxy" ] ; then
+    Ryujinx_setBAYXstyle
+  else
+    Ryujinx_setABXYstyle
+  fi
+  
   if [ "$(Ryujinx_gamepadCount)" -gt 1 ] 2>/dev/null; then
       export SDL_GAMECONTROLLER_IGNORE_DEVICES="0x28de/0x11ff"
       export SDL_JOYSTICK_IGNORE_DEVICES="0x28de/0x11ff"

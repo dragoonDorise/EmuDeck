@@ -57,9 +57,9 @@ Dolphin_init(){
     #Dolphin_DynamicInputTextures
     
     if [ "$controllerLayout" == "bayx" ] || [ "$controllerLayout" == "baxy" ] ; then
-      controllerLayout_BAYX &
+      Dolphin_setBAYXstyle
     else
-      controllerLayout_ABXY &
+      Dolphin_setABXYstyle
     fi
 }
 
