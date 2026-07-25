@@ -183,6 +183,11 @@ Dolphin_finalize(){
 }
 
 Dolphin_setGamepads(){
+  
+	if [ "${autoMap}" == "false" ]; then
+		return 0
+	fi
+
 	local configDir="$HOME/.var/app/${Dolphin_emuPath}/config/dolphin-emu"
 	[ -d "$configDir" ] || return 0
 	flatpak run --command=sh --filesystem=home "${Dolphin_emuPath}" -c '
