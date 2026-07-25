@@ -338,6 +338,16 @@ Ryujinx_getOrderedGamepads(){
 }
 
 Ryujinx_set_gamepad_name() {
+  
+  if [ "${autoMap}" == "false" ]; then
+    return 0
+  fi
+  
+  if [ "$(Ryujinx_gamepadCount)" -gt 1 ] 2>/dev/null; then
+      export SDL_GAMECONTROLLER_IGNORE_DEVICES="0x28de/0x11ff"
+      export SDL_JOYSTICK_IGNORE_DEVICES="0x28de/0x11ff"
+  fi
+  
   local pads tmp
 
   pads="$(Ryujinx_getOrderedGamepads)" || { echo "No controller detected, keeping default input config" >&2; return 1; }
@@ -427,9 +437,6 @@ ryujinx_launch_fixes(){
         Ryujinx_migrateToSDL3
     fi
     Ryujinx_ensureGyroDSU
-    if [ "$(Ryujinx_gamepadCount)" -gt 1 ] 2>/dev/null; then
-        export SDL_GAMECONTROLLER_IGNORE_DEVICES="0x28de/0x11ff"
-        export SDL_JOYSTICK_IGNORE_DEVICES="0x28de/0x11ff"
-    fi
+
     Ryujinx_set_gamepad_name
 }
