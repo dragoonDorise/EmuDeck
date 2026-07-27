@@ -21,7 +21,7 @@ Xenia_install(){
 	local showProgress="$2"
 
 	#Xenia_releaseURL="$Xenia_releaseURL_canary"
-	local Xenia_releaseURL=$(getReleaseURLGH "xenia-canary/xenia-canary" "zip" "")
+	local Xenia_releaseURL=$(getReleaseURLGH "xenia-canary/xenia-canary" "7z" "windows")
 
 	local name="$Xenia_emuName-$version"
 	echo $name
@@ -29,12 +29,10 @@ Xenia_install(){
 
 	#need to look at standardizing exe name; or download both?  let the user choose at runtime?
 	#curl -L "$Xenia_releaseURL" --output "$romsPath"/xbox360/xenia.zip
-	if safeDownload "$Xenia_emuName" "$Xenia_releaseURL" "$romsPath/xbox360/xenia.zip" "$showProgress"; then
-		#mkdir -p "$romsPath"/xbox360/tmp
-		unzip -o "$romsPath"/xbox360/xenia.zip -d "$romsPath"/xbox360
-		#rsync -avzh "$romsPath"/xbox360/tmp/ "$romsPath"/xbox360/
-		#rm -rf "$romsPath"/xbox360/tmp
-		rm -f "$romsPath"/xbox360/xenia.zip
+	if safeDownload "$Xenia_emuName" "$Xenia_releaseURL" "$romsPath/xbox360/xenia.7z" "$showProgress"; then
+		7z x -y "$romsPath/xbox360/xenia.7z" -o"$romsPath/xbox360" || return 1
+		rm -f "$romsPath/xbox360/xenia.7z"
+
 		# Prevents it from showing up in ES-DE
 		mv -f "$romsPath/xbox360/LICENSE" "$romsPath/xbox360/LICENSE.TXT"
 	else
