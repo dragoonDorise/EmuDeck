@@ -354,7 +354,9 @@ Ryujinx_getOrderedGamepads(){
 Ryujinx_set_gamepad_name() {
   
   if [ "$(getProductName)" == "Jupiter" ] || [ "$(getProductName)" == "Galileo" ]; then
-      return 0
+      if [ -z "${autoMap}" ]; then
+        return 0
+      fi
   fi
   
   if [ "${autoMap}" == "false" ]; then

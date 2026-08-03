@@ -263,7 +263,9 @@ Dolphin_finalize(){
 Dolphin_setGamepads(){
   
     if [ "$(getProductName)" == "Jupiter" ] || [ "$(getProductName)" == "Galileo" ]; then
+      if [ -z "${autoMap}" ]; then
         return 0
+      fi
     fi
   
 	if [ "${autoMap}" == "false" ]; then
