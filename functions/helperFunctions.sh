@@ -1288,7 +1288,7 @@ function flushAllLaunchers(){
 }
 
 
-addParser(){
+function addParser(){
 	local source="$emudeckBackend/configs/steam-rom-manager/userData/parsers/optional"
 	local custom_parser=$1
 	local path="$source/$custom_parser"
@@ -1316,7 +1316,7 @@ addParser(){
 
 }
 
-removeParser() {
+function removeParser() {
 	local source="$emudeckBackend/configs/steam-rom-manager/userData/parsers/optional"
 	local custom_parser=$1
 	local path="$source/$custom_parser"
@@ -1348,7 +1348,7 @@ removeParser() {
 }
 
 
-update_launchers(){
+function update_launchers(){
   local target_dir="$toolsPath/launchers"
   local src_dir="$emudeckBackend/tools/launchers"
 
@@ -1382,7 +1382,7 @@ update_launchers(){
   fi
 }
 
-ra_get_credentials() {
+function ra_get_credentials() {
 		
 	achievementsUser=""
 	achievementsUserToken=""
@@ -1394,7 +1394,7 @@ ra_get_credentials() {
 	fi
 }
 
-retroAchievementsLogin(){
+function retroAchievementsLogin(){
 	RetroArch_retroAchievementsSetLogin
 	DuckStation_retroAchievementsSetLogin
 	PCSX2QT_retroAchievementsSetLogin
@@ -1402,7 +1402,7 @@ retroAchievementsLogin(){
 	Dolphin_retroAchievementsSetLogin
 }
 
-retroAchievementsHardCoreOn(){
+function retroAchievementsHardCoreOn(){
 	RetroArch_retroAchievementsHardCoreOn
 	DuckStation_retroAchievementsHardCoreOn
 	PCSX2QT_retroAchievementsHardCoreOn
@@ -1410,7 +1410,7 @@ retroAchievementsHardCoreOn(){
 	Dolphin_retroAchievementsHardCoreOn
 }
 
-retroAchievementsHardCoreOff(){
+function retroAchievementsHardCoreOff(){
 	RetroArch_retroAchievementsHardCoreOff
 	DuckStation_retroAchievementsHardCoreOff
 	PCSX2QT_retroAchievementsHardCoreOff
@@ -1418,7 +1418,7 @@ retroAchievementsHardCoreOff(){
 	Dolphin_retroAchievementsHardCoreOff
 }
 
-getScreenInfo(){
+function getScreenInfo(){
 		
 	for f in /sys/class/drm/card*-HDMI*/status /sys/class/drm/card*-*/status; do
 		[ "$(cat "$f" 2>/dev/null)" = "connected" ] || continue
@@ -1452,4 +1452,13 @@ getScreenInfo(){
 
 	screenOrientation="$orientation"
 	
+}
+
+function autoMapOn(){
+	setSetting autoMap "true"
+}
+
+
+function autoMapOf(){
+	setSetting autoMap "false"
 }
