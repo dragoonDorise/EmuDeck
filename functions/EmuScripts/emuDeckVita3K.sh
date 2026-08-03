@@ -154,7 +154,26 @@ Vita3K_resetConfig(){
 
 
 Vita3K_setResolution(){
-	echo "NYI"
+    
+    case $vita3kResolution in
+        "720P") multiplier=1.25;;
+        "1080P") multiplier=2;;
+        "1440P") multiplier=2.75;;
+        "4K") multiplier=4;;
+        *) multiplier=1.25;;
+    esac
+    
+    #Steam Machine 4K > 1080P fallback
+    if [ $vita3kResolution = "4K" ]; then
+      getScreenInfo	
+      if [ "${screenWidth:-0}" -lt 3840 ]; then 
+        multiplier=1.25
+      fi
+    fi
+    
+    resolutionOpt='resolution-multiplier: '
+    newResolutionOpt='resolution-multiplier: '"$multiplier"
+    sed -i "/${resolutionOpt}/c\\${newResolutionOpt}" "$Vita3K_configFile"    
 }
 
 Vita3K_flushEmulatorLauncher(){
