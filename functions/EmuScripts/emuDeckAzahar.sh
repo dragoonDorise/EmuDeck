@@ -288,6 +288,12 @@ Azahar_setResolution(){
 	fi
 
 	setConfig "resolution_factor" $multiplier "$Azahar_configFile"
+	
+	resolutionOpt='resolution_factor='
+	newResolutionOpt='resolution_factor='"$multiplier"
+	sed -i "/${resolutionOpt}/c\\${newResolutionOpt}" "$Azahar_configFile"
+	
+	
 }
 
 Azahar_flushEmulatorLauncher(){
