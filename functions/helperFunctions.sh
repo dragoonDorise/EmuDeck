@@ -865,21 +865,16 @@ zipLogs() {
 }
 
 setResolutions(){
-	Cemu_setResolution
 	Eden_setResolution
 	Azahar_setResolution
 	Dolphin_setResolution
 	DuckStation_setResolution
-	Flycast_setResolution
-	MAME_setResolution
-	melonDS_setResolution
-	mGBA_setResolution
+	melonDS_setResolution	
 	PCSX2QT_setResolution
 	PPSSPP_setResolution
 	Primehack_setResolution
 	RPCS3_setResolution
 	Ryujinx_setResolution
-	ScummVM_setResolution
 	Vita3K_setResolution
 	Xemu_setResolution
 	Xenia_setResolution
