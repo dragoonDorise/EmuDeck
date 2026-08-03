@@ -30,6 +30,7 @@ PPSSPP_init(){
 	PPSSPP_setupSaves
 	#PPSSPP_addSteamInputProfile
 	PPSSPP_setRetroAchievements
+	PPSSPP_setResolution
 	#SRM_createParsers
 	PPSSPP_flushEmulatorLauncher
 }
@@ -185,8 +186,25 @@ PPSSPP_addSteamInputProfile(){
 }
 
 PPSSPP_setResolution(){
-	$ppssppResolution
-	echo "NYI"
+		
+	case $ppssppResolution in
+		"720P") multiplier=3;;
+		"1080P") multiplier=4;;
+		"1440P") multiplier=5;;
+		"4K") multiplier=6;;
+		*) multiplier=3;;
+	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ $ppssppResolution = "4K" ]; then
+		getScreenInfo	
+		if [ "${screenWidth:-0}" -lt 3840 ]; then 
+			multiplier=4
+		fi
+	fi
+	
+	RetroArch_setConfigOverride "InternalResolution" $multiplier "$PPSSPP_configFile"
+
 }
 
 PPSSPP_flushEmulatorLauncher(){
