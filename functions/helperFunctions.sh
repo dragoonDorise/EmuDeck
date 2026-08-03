@@ -1459,6 +1459,6 @@ function autoMapOn(){
 }
 
 
-function autoMapOf(){
+function autoMapOff(){
 	setSetting autoMap "false"
 }
