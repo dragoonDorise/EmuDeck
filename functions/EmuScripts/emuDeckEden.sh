@@ -94,6 +94,7 @@ Eden_init() {
     Eden_finalize
     Eden_addParser
     Eden_flushEmulatorLauncher
+    Eden_setResolution
   	createDesktopShortcut   "$HOME/.local/share/applications/eden.desktop" \
 							"Eden (AppImage)" \
 							"${toolsPath}/launchers/eden.sh"  \
@@ -265,7 +266,7 @@ Eden_setResolution(){
 		"1080P") multiplier=2; docked="true";;
 		"1440P") multiplier=3; docked="false";;
 		"4K") multiplier=3; docked="true";;
-		*) echo "Error"; return 1;;
+		*) multiplier=2; docked="false";;
 	esac
 
 	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Eden_configFile"

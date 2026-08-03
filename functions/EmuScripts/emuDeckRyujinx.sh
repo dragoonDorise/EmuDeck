@@ -76,6 +76,7 @@ Ryujinx_init(){
     Ryujinx_finalize
 	#SRM_createParsers
     Ryujinx_flushEmulatorLauncher
+    Ryujinx_setResolution
 
 	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		Yuzu_addESConfig
@@ -300,8 +301,17 @@ Ryujinx_setResolution(){
 		"1080P") multiplier=1; docked="true";;
 		"1440P") multiplier=2; docked="false";;
 		"4K") multiplier=2; docked="true";;
-		*) echo "Error"; return 1;;
+		*) multiplier=1; docked="false";;
 	esac
+  
+    #Steam Machine 4K > 1080P fallback
+    if [ $ryujinxResolution = "4K" ]; then
+      getScreenInfo	
+      if [ "${screenWidth:-0}" -lt 3840 ]; then 
+        multiplier=1
+        docked="true"
+      fi
+    fi
 
 	jq --arg docked "$docked" --arg multiplier "$multiplier" \
 	  '.docked_mode = $docked | .res_scale = $multiplier' "$Ryujinx_configFile" > tmp.json

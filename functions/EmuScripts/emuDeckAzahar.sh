@@ -34,6 +34,7 @@ Azahar_init(){
 	Azahar_setupTextures
 	Azahar_addParser
 	Azahar_migrate
+	Azahar_setResolution
 
 	#ESDE
 	ESDE_refreshCustomEmus
@@ -275,8 +276,16 @@ Azahar_setResolution(){
 		"1080P") multiplier=5;;
 		"1440P") multiplier=6;;
 		"4K") multiplier=9;;
-		*) echo "Error"; return 1;;
+		*) multiplier=3;;
 	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ $azaharResolution = "4K" ]; then
+		getScreenInfo	
+		if [ "${screenWidth:-0}" -lt 3840 ]; then 
+			multiplier=5
+		fi
+	fi
 
 	setConfig "resolution_factor" $multiplier "$Azahar_configFile"
 }

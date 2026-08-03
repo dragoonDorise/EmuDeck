@@ -94,6 +94,7 @@ Citron_init() {
     Citron_finalize
     Citron_addParser
     Citron_flushEmulatorLauncher
+    Citron_setResolution
   	createDesktopShortcut   "$HOME/.local/share/applications/citron.desktop" \
 							"Citron (AppImage)" \
 							"${toolsPath}/launchers/citron.sh"  \
@@ -265,8 +266,17 @@ Citron_setResolution(){
 		"1080P") multiplier=2; docked="true";;
 		"1440P") multiplier=3; docked="false";;
 		"4K") multiplier=3; docked="true";;
-		*) echo "Error"; return 1;;
+		*) multiplier=2; docked="false";;
 	esac
+  
+    #Steam Machine 4K > 1080P fallback
+    if [ $citronResolution = "4K" ]; then
+      getScreenInfo	
+      if [ "${screenWidth:-0}" -lt 3840 ]; then 
+        multiplier=2;
+        docked="true";
+      fi
+    fi
 
 	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Citron_configFile"
 	RetroArch_setConfigOverride "use_docked_mode" $docked "$Citron_configFile"

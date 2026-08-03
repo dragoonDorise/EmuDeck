@@ -23,6 +23,7 @@ RPCS3_init(){
 	RPCS3_setupStorage
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
+	RPCS3_setResolution
 	RPCS3_addESConfig
 	#SRM_createParsers
 }
@@ -168,8 +169,16 @@ RPCS3_setResolution(){
 		"1080P") res=150;;
 		"1440P") res=200;;
 		"4K") res=300;;
-		*) echo "Error"; return 1;;
+		*) res=100;;
 	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ $rpcs3Resolution = "4K" ]; then
+		getScreenInfo	
+		if [ "${screenWidth:-0}" -lt 3840 ]; then 
+			res=150
+		fi
+	fi
 
 	RetroArch_setConfigOverride "Resolution Scale:" $res "$RPCS3_configFile"
 

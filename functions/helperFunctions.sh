@@ -866,6 +866,7 @@ zipLogs() {
 
 setResolutions(){
 	Cemu_setResolution
+	Eden_setResolution
 	Azahar_setResolution
 	Dolphin_setResolution
 	DuckStation_setResolution
@@ -1420,4 +1421,40 @@ retroAchievementsHardCoreOff(){
 	PCSX2QT_retroAchievementsHardCoreOff
 	PPSSPP_retroAchievementsHardCoreOff
 	Dolphin_retroAchievementsHardCoreOff
+}
+
+getScreenInfo(){
+		
+	for f in /sys/class/drm/card*-HDMI*/status /sys/class/drm/card*-*/status; do
+		[ "$(cat "$f" 2>/dev/null)" = "connected" ] || continue
+		resolution=$(head -1 "${f%status}modes" 2>/dev/null)
+		[ -n "$resolution" ] && break
+	done
+
+	width=${resolution%x*}; height=${resolution#*x}
+	if [ "$width" -ge "$height" ]; then
+	 orientation="landscape"
+	else	 
+	 orientation="portrait"
+	fi
+	
+	
+	native=$(head -1 /sys/class/drm/card*-eDP-*/modes 2>/dev/null | head -1)
+	compositor="${width}x${height}"
+	if [ -n "$native" ] && [ "$native" != "$compositor" ] && [ "${native%x*}" = "${compositor#*x}" ]; then
+		screenRotated="false"
+	else
+		screenRotated="true"
+	fi
+	 
+	if [ $screenRotated == "true" ]; then
+		screenWidth="$height"
+		screenHeight="$width"
+	else
+		screenWidth="$width"
+		screenHeight="$height"
+	fi
+
+	screenOrientation="$orientation"
+	
 }

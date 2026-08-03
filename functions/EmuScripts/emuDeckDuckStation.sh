@@ -46,6 +46,7 @@ DuckStation_init(){
 	DuckStation_retroAchievementsSetLogin
 	DuckStation_setCustomizations
 	RetroArch_setRetroAchievements
+	DuckStation_setResolution
 	#SRM_createParsers
 	DuckStation_flushEmulatorLauncher
 }
@@ -265,8 +266,16 @@ DuckStation_setResolution(){
 		"1080P") multiplier=5;;
 		"1440P") multiplier=6;;
 		"4K") multiplier=9;;
-		*) echo "Error"; return 1;;
+		*) multiplier=3;;
 	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ $duckstationResolution = "4K" ]; then
+	  getScreenInfo	
+	  if [ "${screenWidth:-0}" -lt 3840 ]; then 
+		multiplier=5
+	  fi
+	fi
 
 	RetroArch_setConfigOverride "ResolutionScale" $multiplier "$DuckStation_configFile"
 }

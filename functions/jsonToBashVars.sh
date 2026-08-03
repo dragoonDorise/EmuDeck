@@ -100,7 +100,16 @@ function jsonToBashVars(){
     setSetting xemuResolution  "$(jq .resolutions.xemu $json)"
     setSetting xeniaResolution  "$(jq .resolutions.xenia $json)"
     setSetting melondsResolution  "$(jq .resolutions.melonds $json)"
-
+    setSetting cemuResolution  "$(jq .resolutions.cemu $json)"
+    setSetting azaharResolution  "$(jq .resolutions.azahar $json)"
+    setSetting edenResolution  "$(jq .resolutions.yuzu $json)"
+    setSetting ryujinxResolution  "$(jq .resolutions.yuzu $json)"
+    setSetting flycastResolution  "$(jq .resolutions.flycast $json)"
+    setSetting ppssppResolution  "$(jq .resolutions.ppsspp $json)"
+    setSetting vita3kResolution  "$(jq .resolutions.vita3k $json)"
+        
+    
+    
     #MultiEmu Parsers
     setSetting emuGBA  "$(jq .emulatorAlternative.gba $json)"
     setSetting emuMAME  "$(jq .emulatorAlternative.mame $json)"

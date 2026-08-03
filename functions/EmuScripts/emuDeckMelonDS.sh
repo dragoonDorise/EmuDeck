@@ -30,6 +30,7 @@ melonDS_init(){
 	melonDS_setEmulationFolder
 	melonDS_setupSaves
 	#SRM_createParsers
+	melonDS_setResolution
 	melonDS_addSteamInputProfile
 	melonDS_flushEmulatorLauncher
 	melonDS_addParser
@@ -173,8 +174,17 @@ melonDS_setResolution(){
 		"1080P") WindowWidth=1536; WindowHeight=1152;;
 		"1440P") WindowWidth=2048; WindowHeight=1536;;
 		"4K") WindowWidth=2816; WindowHeight=2112;;
-		*) echo "Error"; return 1;;
+		*) WindowWidth=1024; WindowHeight=768;;
 	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ $melonDSResolution = "4K" ]; then
+		getScreenInfo	
+		if [ "${screenWidth:-0}" -lt 3840 ]; then 
+			WindowWidth=1536
+			WindowHeight=1152
+		fi
+	fi
 
 	RetroArch_setConfigOverride "WindowWidth" $WindowWidth "$melonDS_configFile"
 	RetroArch_setConfigOverride "WindowHeight" $WindowHeight "$melonDS_configFile"
