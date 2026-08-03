@@ -28,6 +28,7 @@ Primehack_init() {
 	Primehack_setupSaves
 	#SRM_createParsers
 	#Primehack_migrate
+	Primehack_setResolution
 	Primehack_flushEmulatorLauncher
 }
 
@@ -128,8 +129,16 @@ Primehack_setResolution(){
 		"1080P") multiplier=3;;
 		"1440P") multiplier=4;;
 		"4K") multiplier=6;;
-		*) echo "Error"; return 1;;
+		*) multiplier=2;;
 	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ $dolphinResolution = "4K" ]; then
+	  getScreenInfo	
+	  if [ "${screenWidth:-0}" -lt 3840 ]; then 
+		multiplier=3
+	  fi
+	fi
 
 	RetroArch_setConfigOverride "InternalResolution" $multiplier "$Primehack_configFileGFX"
 

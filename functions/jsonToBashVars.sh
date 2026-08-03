@@ -99,7 +99,7 @@ function jsonToBashVars(){
     setSetting citraResolution  "$(jq .resolutions.citra $json)"
     setSetting xemuResolution  "$(jq .resolutions.xemu $json)"
     setSetting xeniaResolution  "$(jq .resolutions.xenia $json)"
-    setSetting melondsResolution  "$(jq .resolutions.melonds $json)"
+    setSetting melonDSResolution  "$(jq .resolutions.melonds $json)"
     setSetting cemuResolution  "$(jq .resolutions.cemu $json)"
     setSetting azaharResolution  "$(jq .resolutions.azahar $json)"
     setSetting edenResolution  "$(jq .resolutions.yuzu $json)"
