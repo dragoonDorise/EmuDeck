@@ -280,7 +280,7 @@ Azahar_setResolution(){
 	esac
 	
 	#Steam Machine 4K > 1080P fallback
-	if [ $azaharResolution = "4K" ]; then
+	if [ "$azaharResolution" = "4K" ]; then
 		getScreenInfo	
 		if [ "${screenWidth:-0}" -lt 3840 ]; then 
 			multiplier=5

@@ -305,7 +305,7 @@ Ryujinx_setResolution(){
 	esac
   
     #Steam Machine 4K > 1080P fallback
-    if [ $ryujinxResolution = "4K" ]; then
+    if [ "$ryujinxResolution" = "4K" ]; then
       getScreenInfo	
       if [ "${screenWidth:-0}" -lt 3840 ]; then 
         multiplier=1

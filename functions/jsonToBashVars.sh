@@ -103,6 +103,7 @@ function jsonToBashVars(){
     setSetting cemuResolution  "$(jq .resolutions.cemu $json)"
     setSetting azaharResolution  "$(jq .resolutions.azahar $json)"
     setSetting edenResolution  "$(jq .resolutions.yuzu $json)"
+    setSetting citronResolution  "$(jq .resolutions.yuzu $json)"
     setSetting ryujinxResolution  "$(jq .resolutions.yuzu $json)"
     setSetting flycastResolution  "$(jq .resolutions.flycast $json)"
     setSetting ppssppResolution  "$(jq .resolutions.ppsspp $json)"

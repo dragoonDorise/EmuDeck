@@ -164,7 +164,7 @@ Vita3K_setResolution(){
     esac
     
     #Steam Machine 4K > 1080P fallback
-    if [ $vita3kResolution = "4K" ]; then
+    if [ "$vita3kResolution" = "4K" ]; then
       getScreenInfo	
       if [ "${screenWidth:-0}" -lt 3840 ]; then 
         multiplier=1.25

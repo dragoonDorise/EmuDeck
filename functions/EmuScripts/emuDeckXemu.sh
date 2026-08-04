@@ -199,14 +199,14 @@ Xemu_setResolution(){
 	esac
 	
 	#Steam Machine 4K > 1080P fallback
-	if [ $xemuResolution = "4K" ]; then
+	if [ "$xemuResolution" = "4K" ]; then
 	  getScreenInfo	
 	  if [ "${screenWidth:-0}" -lt 3840 ]; then 
 		multiplier=2
 	  fi
 	fi
 	
-	RetroArch_setConfigOverride "surface_scale" $multiplier "$Eden_configFile"	
+	RetroArch_setConfigOverride "surface_scale" $multiplier "$Xemu_configFile"
 }
 
 Xemu_flushEmulatorLauncher(){

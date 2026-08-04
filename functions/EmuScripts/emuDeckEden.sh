@@ -269,6 +269,15 @@ Eden_setResolution(){
 		*) multiplier=2; docked="false";;
 	esac
 
+	#Steam Machine 4K > 1080P fallback
+	if [ "$edenResolution" = "4K" ]; then
+		getScreenInfo
+		if [ "${screenWidth:-0}" -lt 3840 ]; then
+			multiplier=2
+			docked="true"
+		fi
+	fi
+
 	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Eden_configFile"
 	RetroArch_setConfigOverride "use_docked_mode" $docked "$Eden_configFile"
 }

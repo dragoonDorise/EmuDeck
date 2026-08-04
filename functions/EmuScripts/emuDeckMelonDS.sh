@@ -178,7 +178,7 @@ melonDS_setResolution(){
 	esac
 	
 	#Steam Machine 4K > 1080P fallback
-	if [ $melonDSResolution = "4K" ]; then
+	if [ "$melonDSResolution" = "4K" ]; then
 		getScreenInfo	
 		if [ "${screenWidth:-0}" -lt 3840 ]; then 
 			WindowWidth=1536

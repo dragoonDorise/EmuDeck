@@ -196,7 +196,7 @@ PPSSPP_setResolution(){
 	esac
 	
 	#Steam Machine 4K > 1080P fallback
-	if [ $ppssppResolution = "4K" ]; then
+	if [ "$ppssppResolution" = "4K" ]; then
 		getScreenInfo	
 		if [ "${screenWidth:-0}" -lt 3840 ]; then 
 			multiplier=4
