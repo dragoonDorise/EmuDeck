@@ -121,7 +121,28 @@ def xemu_setup_storage():
 
 
 def xemu_set_resolution():
-    print("NYI")
+    if system == "linux":
+        config_path = f"{home}/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml"
+    if system.startswith("win"):
+        config_path = f"{emus_folder}/xemu/xemu.toml"
+    if system == "darwin":
+        config_path = f"{home}/Library/Application Support/xemu/xemu.toml"
+
+    resolution_map = {
+        "720P": 1,
+        "1080P": 2,
+        "1440P": 3,
+        "4K": 5,
+    }
+
+    multiplier = resolution_map.get(settings.resolutions.xemu, 1)
+
+    if settings.resolutions.xemu == "4K" and system == "linux" and get_screen_width() < 3840:
+        multiplier = 2
+
+    set_config("surface_scale", multiplier, Path(config_path), " = ")
+
+    return True
 
 
 def xemu_widescreen():

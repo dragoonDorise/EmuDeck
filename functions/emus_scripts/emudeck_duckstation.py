@@ -101,7 +101,28 @@ def duckstation_setup_saves():
 
 
 def duckstation_set_resolution():
-    print("NYI")
+    if system == "linux":
+        config_path = f"{home}/.local/share/duckstation/settings.ini"
+    if system.startswith("win"):
+        config_path = f"{emus_folder}/duckstation/settings.ini"
+    if system == "darwin":
+        config_path = f"{home}/Library/Application Support/DuckStation/settings.ini"
+
+    resolution_map = {
+        "720P": 3,
+        "1080P": 5,
+        "1440P": 6,
+        "4K": 9,
+    }
+
+    multiplier = resolution_map.get(settings.resolutions.duckstation, 3)
+
+    if settings.resolutions.duckstation == "4K" and system == "linux" and get_screen_width() < 3840:
+        multiplier = 5
+
+    set_config("ResolutionScale", multiplier, Path(config_path))
+
+    return True
 
 def duckstation_set_abxy_style():
     print("NYI")

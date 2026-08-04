@@ -98,6 +98,31 @@ def vita3k_init():
 
     vita3k_setup_storage()
     vita3k_setup_saves()
+    vita3k_set_resolution()
+
+def vita3k_set_resolution():
+    if system == "linux":
+        config_path = f"{home}/.config/Vita3K/config.yml"
+    if system.startswith("win"):
+        config_path = f"{emus_folder}/vita3k/config.yml"
+    if system == "darwin":
+        config_path = f"{home}/.config/vita3k/config.yml"
+
+    resolution_map = {
+        "720P": 1.25,
+        "1080P": 2,
+        "1440P": 2.75,
+        "4K": 4,
+    }
+
+    multiplier = resolution_map.get(settings.resolutions.vita3k, 1.25)
+
+    if settings.resolutions.vita3k == "4K" and system == "linux" and get_screen_width() < 3840:
+        multiplier = 1.25
+
+    set_config("resolution-multiplier", multiplier, Path(config_path), ": ")
+
+    return True
 
 def vita3k_install_init():
     vita3k_install()

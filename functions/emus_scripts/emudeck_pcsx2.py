@@ -94,14 +94,12 @@ def pcsx2_set_resolution() -> bool:
         "4K": 6,
     }
 
-    # Normalize config file path
     config_path = Path(pcsx2_config_file)
 
-    # Find the multiplier
-    multiplier = resolution_map.get(settings.resolutions.pcsx2)
-    if multiplier is None:
-        print(f"Error: unsupported resolution '{settings.resolutions.pcsx2}'")
-        return False
+    multiplier = resolution_map.get(settings.resolutions.pcsx2, 2)
+
+    if settings.resolutions.pcsx2 == "4K" and system == "linux" and get_screen_width() < 3840:
+        multiplier = 3
 
     set_config("upscale_multiplier", multiplier, config_path)
 

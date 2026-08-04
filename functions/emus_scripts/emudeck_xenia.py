@@ -134,6 +134,10 @@ def xenia_init():
     return True
 
 
+def xenia_set_resolution():
+    print("NYI")
+
+
 def xenia_install_init():
     if not xenia_install():
         return False

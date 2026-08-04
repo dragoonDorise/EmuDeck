@@ -177,31 +177,20 @@ def ryujinx_setup_saves():
 
 def ryujinx_set_resolution() -> bool:
     resolution_map = {
-        "720P": 1,
-        "1080P": 1,
-        "1440P": 2,
-        "4K": 2,
+        "720P": (1, False),
+        "1080P": (1, True),
+        "1440P": (2, False),
+        "4K": (2, True),
     }
 
-    docked_mode_map = {
-        "720P": False,
-        "1080P": True,
-        "1440P": False,
-        "4K": True,
-    }
+    multiplier, docked_mode = resolution_map.get(settings.resolutions.yuzu, (1, False))
 
-    # Normalize config file path
-    config_path = Path(ryujinx_config_file)
-
-    # Find the multiplier
-    multiplier = resolution_map.get(settings.resolutions.ryujinx)
-    docked_mode_map = docked_mode_map.get(settings.resolutions.ryujinx)
-    if multiplier is None:
-        print(f"Error: unsupported resolution '{settings.resolutions.ryujinx}'")
-        return False
+    if settings.resolutions.yuzu == "4K" and system == "linux" and get_screen_width() < 3840:
+        multiplier = 1
+        docked_mode = True
 
     update_json_key("res_scale", multiplier, ryujinx_config_file)
-    update_json_key("docked_mode", docked_mode_map, ryujinx_config_file)
+    update_json_key("docked_mode", docked_mode, ryujinx_config_file)
 
     return True
 

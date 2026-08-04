@@ -90,7 +90,6 @@ def azahar_setup_saves():
 
 
 def azahar_set_resolution() -> bool:
-    return True
     if system == "linux":
         azahar_config_file=f"{home}/.config/azahar/config/qt-config.ini"
     if system.startswith("win"):
@@ -105,14 +104,12 @@ def azahar_set_resolution() -> bool:
         "4K": 9,
     }
 
-    # Normalize config file path
     config_path = Path(azahar_config_file)
 
-    # Find the multiplier
-    multiplier = resolution_map.get(settings.resolutions.citra)
-    if multiplier is None:
-        print(f"Error: unsupported resolution '{settings.resolutions.citra}'")
-        return False
+    multiplier = resolution_map.get(settings.resolutions.azahar, 3)
+
+    if settings.resolutions.azahar == "4K" and system == "linux" and get_screen_width() < 3840:
+        multiplier = 5
 
     set_config("resolution_factor", multiplier, config_path)
 

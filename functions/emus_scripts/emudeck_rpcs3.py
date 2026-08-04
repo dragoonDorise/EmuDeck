@@ -139,15 +139,13 @@ def rpcs3_set_resolution() -> bool:
         "4K": 300,
     }
 
-    # Normalize config file path
     config_path = Path(rpcs3_config_file)
 
-    # Find the multiplier
-    multiplier = resolution_map.get(settings.resolutions.rpcs3)
-    if multiplier is None:
-        print(f"Error: unsupported resolution '{settings.resolutions.rpcs3}'")
-        return False
+    multiplier = resolution_map.get(settings.resolutions.rpcs3, 100)
 
-    set_config("Resolution Scale", multiplier, config_path)
+    if settings.resolutions.rpcs3 == "4K" and system == "linux" and get_screen_width() < 3840:
+        multiplier = 150
+
+    set_config("  Resolution Scale", multiplier, config_path, ": ")
 
     return True

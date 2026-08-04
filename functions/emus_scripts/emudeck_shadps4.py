@@ -198,6 +198,10 @@ def shadps4_init():
     return True
 
 
+def shadps4_set_resolution():
+    print("NYI")
+
+
 def shadps4_setup_storage():
     base = Path(storage_path) / "shadps4"
     (base / "games").mkdir(parents=True, exist_ok=True)

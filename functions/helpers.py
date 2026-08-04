@@ -167,6 +167,60 @@ def get_primary_monitor_size():
     m = monitors[0]
     return m.width, m.height
 
+def get_screen_info() -> dict:
+    try:
+        from screeninfo import get_monitors
+        monitors = get_monitors()
+        monitor = next((m for m in monitors if getattr(m, "is_primary", False)), monitors[0])
+        width = int(monitor.width)
+        height = int(monitor.height)
+    except Exception as e:
+        print(f"get_screen_info: unable to read screen info: {e}")
+        return {"width": 0, "height": 0, "orientation": "landscape"}
+
+    return {
+        "width": width,
+        "height": height,
+        "orientation": "landscape" if width >= height else "portrait",
+    }
+
+def get_screen_width() -> int:
+    return get_screen_info()["width"]
+
+def set_resolutions():
+    import core.all as emudeck # Emulator functions are loaded after helpers.py
+
+    if emudeck.azahar_is_installed():
+        emudeck.azahar_set_resolution()
+    if emudeck.citron_is_installed():
+        emudeck.citron_set_resolution()
+    if emudeck.dolphin_is_installed():
+        emudeck.dolphin_set_resolution()
+    if emudeck.duckstation_is_installed():
+        emudeck.duckstation_set_resolution()
+    if emudeck.eden_is_installed():
+        emudeck.eden_set_resolution()
+    if emudeck.melonds_is_installed():
+        emudeck.melonds_set_resolution()
+    if emudeck.pcsx2_is_installed():
+        emudeck.pcsx2_set_resolution()
+    if emudeck.ppsspp_is_installed():
+        emudeck.ppsspp_set_resolution()
+    if emudeck.primehack_is_installed():
+        emudeck.primehack_set_resolution()
+    if emudeck.rpcs3_is_installed():
+        emudeck.rpcs3_set_resolution()
+    if emudeck.ryujinx_is_installed():
+        emudeck.ryujinx_set_resolution()
+    if emudeck.vita3k_is_installed():
+        emudeck.vita3k_set_resolution()
+    if emudeck.xemu_is_installed():
+        emudeck.xemu_set_resolution()
+    if emudeck.xenia_is_installed():
+        emudeck.xenia_set_resolution()
+    if emudeck.yuzu_is_installed():
+        emudeck.yuzu_set_resolution()
+
 def set_msg(message: str):
     global progress_bar
 

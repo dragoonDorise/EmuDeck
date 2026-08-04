@@ -102,18 +102,15 @@ def melonds_set_resolution():
          "1440P": (2048, 1536),
          "4K":    (2816, 2112),
      }
-    dims = mapping.get(settings.resolutions.melonds)
-    if dims is None:
-      print(f"Error: unsupported resolution '{resolution}'")
-      return False
+    window_width, window_height = mapping.get(settings.resolutions.melonds, (1024, 768))
 
-    window_width, window_height = dims
+    if settings.resolutions.melonds == "4K" and system == "linux" and get_screen_width() < 3840:
+        window_width = 1536
+        window_height = 1152
 
-    # Ensure the destination folder exists (if you need to copy defaults, etc.)
     dest_dir = emus_folder / "melonDS"
     dest_dir.mkdir(parents=True, exist_ok=True)
 
-    # Update the two config keys
     set_config("WindowWidth",  window_width,  config_file)
     set_config("WindowHeight", window_height, config_file)
 

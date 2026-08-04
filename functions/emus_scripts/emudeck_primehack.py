@@ -115,14 +115,12 @@ def primehack_set_resolution():
         "4K": 6,
     }
 
-    # Normalize config file path
     config_path = Path(primehack_config_file)
 
-    # Find the multiplier
-    multiplier = resolution_map.get(settings.resolutions.dolphin)
-    if multiplier is None:
-        print(f"Error: unsupported resolution '{settings.resolutions.dolphin}'")
-        return False
+    multiplier = resolution_map.get(settings.resolutions.dolphin, 2)
+
+    if settings.resolutions.dolphin == "4K" and system == "linux" and get_screen_width() < 3840:
+        multiplier = 3
 
     set_config("InternalResolution", multiplier, config_path)
 

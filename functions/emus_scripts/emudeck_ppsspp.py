@@ -114,7 +114,28 @@ def ppsspp_setup_saves():
 
 
 def ppsspp_set_resolution():
-    print("NYI")
+    if system == "linux":
+        config_path = f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/ppsspp.ini"
+    if system.startswith("win"):
+        config_path = f"{emus_folder}/ppsspp/ppsspp.ini"
+    if system == "darwin":
+        config_path = f"{home}/Library/Application Support/PPSSPP/settings.ini"
+
+    resolution_map = {
+        "720P": 3,
+        "1080P": 4,
+        "1440P": 5,
+        "4K": 6,
+    }
+
+    multiplier = resolution_map.get(settings.resolutions.ppsspp, 3)
+
+    if settings.resolutions.ppsspp == "4K" and system == "linux" and get_screen_width() < 3840:
+        multiplier = 4
+
+    set_config("InternalResolution", multiplier, Path(config_path))
+
+    return True
     
     
 def ppsspp_retro_achievements():

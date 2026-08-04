@@ -59,7 +59,30 @@ def eden_setup_saves():
 
 
 def eden_set_resolution():
-    print("NYI")
+    if system == "linux":
+        config_path = f"{home}/.config/eden/config/qt-config.ini"
+    if system.startswith("win"):
+        config_path = f"{emus_folder}/eden/qt-config.ini"
+    if system == "darwin":
+        config_path = f"{home}/Library/Application Support/eden/config/qt-config.ini"
+
+    resolution_map = {
+        "720P": (2, "false"),
+        "1080P": (2, "true"),
+        "1440P": (3, "false"),
+        "4K": (3, "true"),
+    }
+
+    multiplier, docked = resolution_map.get(settings.resolutions.yuzu, (2, "false"))
+
+    if settings.resolutions.yuzu == "4K" and system == "linux" and get_screen_width() < 3840:
+        multiplier = 2
+        docked = "true"
+
+    set_config("resolution_setup", multiplier, Path(config_path))
+    set_config("use_docked_mode", docked, Path(config_path))
+
+    return True
 
 def eden_set_abxy_style():
     print("NYI")
