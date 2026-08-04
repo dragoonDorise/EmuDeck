@@ -30,6 +30,15 @@
 	<theme>model2</theme>
   </system>
   <system>
+	<name>lindbergh</name>
+	<fullname>Sega Lindbergh</fullname>
+	<path>%ROMPATH%/lindbergh</path>
+	<extension>.elf .ELF .exe .EXE</extension>
+	<command label="Lindbergh Loader">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/lindbergh.sh %ROM%</command>
+	<platform>arcade</platform>
+	<theme>lindbergh</theme>
+  </system>
+  <system>
 	<name>switch</name>
 	<fullname>Nintendo Switch</fullname>
 	<path>%ROMPATH%/switch</path>
