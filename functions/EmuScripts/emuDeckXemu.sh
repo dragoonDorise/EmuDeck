@@ -200,7 +200,7 @@ Xemu_setResolution(){
 	
 	#Steam Machine 4K > 1080P fallback
 	if [ "$xemuResolution" = "4K" ]; then
-	  getScreenInfo	
+	  getScreenInfoOnlyTV	
 	  if [ "${screenWidth:-0}" -lt 3840 ]; then 
 		multiplier=2
 	  fi

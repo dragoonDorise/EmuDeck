@@ -174,7 +174,7 @@ RPCS3_setResolution(){
 	
 	#Steam Machine 4K > 1080P fallback
 	if [ "$rpcs3Resolution" = "4K" ]; then
-		getScreenInfo	
+		getScreenInfoOnlyTV	
 		if [ "${screenWidth:-0}" -lt 3840 ]; then 
 			res=150
 		fi

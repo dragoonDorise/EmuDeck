@@ -1429,7 +1429,9 @@ function retroAchievementsHardCoreOff(){
 	Dolphin_retroAchievementsHardCoreOff
 }
 
-function getScreenInfo(){
+function getScreenInfoOnlyTV(){
+	
+	#This only works for external monitors since we don't take rotation into account
 		
 	for f in /sys/class/drm/card*-HDMI*/status /sys/class/drm/card*-*/status; do
 		[ "$(cat "$f" 2>/dev/null)" = "connected" ] || continue
@@ -1445,22 +1447,8 @@ function getScreenInfo(){
 	fi
 	
 	
-	native=$(head -1 /sys/class/drm/card*-eDP-*/modes 2>/dev/null | head -1)
-	compositor="${width}x${height}"
-	if [ -n "$native" ] && [ "$native" != "$compositor" ] && [ "${native%x*}" = "${compositor#*x}" ]; then
-		screenRotated="false"
-	else
-		screenRotated="true"
-	fi
-	 
-	if [ $screenRotated == "true" ]; then
-		screenWidth="$height"
-		screenHeight="$width"
-	else
-		screenWidth="$width"
-		screenHeight="$height"
-	fi
-
+	screenWidth="$width"
+	screenHeight="$height"
 	screenOrientation="$orientation"
 	
 }

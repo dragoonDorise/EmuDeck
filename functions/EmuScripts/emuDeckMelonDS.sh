@@ -179,7 +179,7 @@ melonDS_setResolution(){
 	
 	#Steam Machine 4K > 1080P fallback
 	if [ "$melonDSResolution" = "4K" ]; then
-		getScreenInfo	
+		getScreenInfoOnlyTV	
 		if [ "${screenWidth:-0}" -lt 3840 ]; then 
 			WindowWidth=1536
 			WindowHeight=1152

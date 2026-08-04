@@ -395,7 +395,7 @@ Yuzu_setResolution(){
     
     #Steam Machine 4K > 1080P fallback
     if [ "$yuzuResolution" = "4K" ]; then
-      getScreenInfo	
+      getScreenInfoOnlyTV	
       if [ "${screenWidth:-0}" -lt 3840 ]; then 
         multiplier=2;
         docked="true";

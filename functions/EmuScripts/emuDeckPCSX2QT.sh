@@ -339,7 +339,7 @@ PCSX2QT_setResolution(){
 	
 	#Steam Machine 4K > 1080P fallback
 	if [ "$pcsx2Resolution" = "4K" ]; then
-		getScreenInfo	
+		getScreenInfoOnlyTV	
 		if [ "${screenWidth:-0}" -lt 3840 ]; then 
 			multiplier=3
 		fi
