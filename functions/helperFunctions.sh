@@ -446,35 +446,48 @@ function getReleaseURLGH(){
 		][0] // empty'
 }
 
-function linkToSaveFolder(){
+function linkToSaveFolder() {
 	local emu=$1
 	local folderName=$2
 	local path=$3
 
-	if [ ! -d "$savesPath/$emu/$folderName" ]; then
-		if [ ! -L "$savesPath/$emu/$folderName" ]; then
-			mkdir -p "$savesPath/$emu"
-			setMSG "Linking $emu $folderName to the Emulation/saves folder"
-			mkdir -p "$path"
-			ln -snfv "$path" "$savesPath/$emu/$folderName"
-		fi
-	else
-		if [ ! -L "$savesPath/$emu/$folderName" ]; then
-			echo "$savesPath/$emu/$folderName is not a link. Please check it."
-		else
-			if [ $(readlink $savesPath/$emu/$folderName) == $path ]; then
-				echo "$savesPath/$emu/$folderName is already linked."
-				echo "     Target: $(readlink $savesPath/$emu/$folderName)"
-			else
-				echo "$savesPath/$emu/$folderName not linked correctly."
-				unlink "$savesPath/$emu/$folderName"
-				linkToSaveFolder "$emu" "$folderName" "$path"
-			fi
-		 fi
+	local realPath="$savesPath/$emu/$folderName"   
+	local linkPath="${path%/}"                     
+
+	mkdir -p "$savesPath/$emu"
+
+	if [ -L "$realPath" ]; then
+		setMSG "Migrating $emu $folderName to the new saves layout"
+		unlink "$realPath"
 	fi
 
-}
+	if [ -L "$linkPath" ]; then
+		if [ -d "$realPath" ] && [ "$(readlink -f "$linkPath")" == "$(readlink -f "$realPath")" ]; then
+			echo "$linkPath is already linked. Target: $realPath"
+			return 0
+		fi
+		
+		local oldTarget
+		oldTarget=$(readlink -f "$linkPath")
+		if [ -d "$oldTarget" ]; then
+			mkdir -p "$realPath"
+			cp -a -n "$oldTarget/." "$realPath/" 2>/dev/null
+		fi
+		unlink "$linkPath"
+	elif [ -d "$linkPath" ]; then
+		if [ -d "$realPath" ]; then
+			echo "Both $linkPath and $realPath exist. Merging without overwriting."
+			cp -a -n "$linkPath/." "$realPath/" 2>/dev/null
+			mv "$linkPath" "${linkPath}.bak.$(date +%Y%m%d%H%M%S)"
+		else
+			mv "$linkPath" "$realPath"
+		fi
+	fi
 
+	mkdir -p "$realPath"
+	mkdir -p "$(dirname "$linkPath")"
+	ln -snfv "$realPath" "$linkPath"
+}
 
 function linkToTexturesFolder(){
 	local emu=$1
@@ -1460,4 +1473,28 @@ function autoMapOn(){
 
 function autoMapOff(){
 	setSetting autoMap "false"
+}
+
+function makePortable(){
+	# Update saves folders
+	Azahar_setupSaves
+	BigPEmu_setupSaves
+	Cemu_setupSaves
+	Citron_setupSaves
+	Dolphin_setupSaves
+	Eden_setupSaves
+	Flycast_setupSaves
+	PPSSPP_setupSaves
+	Primehack_setupSaves
+	RetroArch_setupSaves
+	RPCS3_setupSaves
+	Ryujinx_setupSaves
+	ShadPS4_setupSaves
+	Vita3K_setupSaves
+	Xenia_setupSaves
+	Yuzu_setupSaves
+	ESDE_symlinkGamelists
+	
+	# Export SRM data
+
 }
