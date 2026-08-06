@@ -1502,6 +1502,11 @@ function hasSymlinks(){
 	[ -n "$(find "$dir" -type l -print -quit)" ]
 }
 
+function hasFiles(){
+	local dir="$1"
+	[ -n "$(find "$dir" -type f -print -quit 2>/dev/null)" ]
+}
+
 function makePortable(){
 	# Update saves folders
 	if hasSymlinks "$savesPath"; then

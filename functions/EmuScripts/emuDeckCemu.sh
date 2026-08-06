@@ -207,7 +207,17 @@ Cemu_functions () {
 	# Set Saves
 	setupSaves () {
 		unlink "${savesPath}/Cemu/saves" # Fix for previous bad symlink
-		linkToSaveFolder Cemu saves "${romsPath}/wiiu/mlc01/usr/save" #while we use both native and proton, i don't want to change the wiiu folder structure. I'm repeating myself now.
+		
+		#Since xmlstarlet broke we have no idea where the saves are, right?
+		
+		#are they in "${romsPath}/wiiu/mlc01/usr/save"?
+		if hasFiles "${romsPath}/wiiu/mlc01/usr/save"; then
+			path="${romsPath}/wiiu/mlc01/usr/save"
+		else if hasFiles "$HOME/.local/share/Cemu/mlc01/usr/save"; then
+			path="$HOME/.local/share/Cemu/mlc01/usr/save"
+		fi							
+		
+		linkToSaveFolder Cemu saves "$path"
 	}
 
 	setLanguage(){
