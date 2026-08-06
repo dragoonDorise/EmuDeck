@@ -1520,7 +1520,7 @@ function makePortable(){
 			Flycast_setupSaves
 			PPSSPP_setupSaves
 			Primehack_setupSaves
-			RetroArch_setupSaves
+			#RetroArch_setupSaves
 			RPCS3_setupSaves
 			Ryujinx_setupSaves
 			ShadPS4_setupSaves
