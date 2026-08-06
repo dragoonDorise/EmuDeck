@@ -185,23 +185,7 @@ Cemu_functions () {
 	# Configure Paths
 	setEmulationFolder () {
 		setMSG "Setting ${CemuNative[emuName]} Emulation Folder"
-		if [ -f "${CemuNative[configFile]}" ]; then
-
-			#gamepath
-			gamePathEntryFound="$( xmlstarlet sel -t -m "content/GamePaths/Entry" -v . -n "${CemuNative[configFile]}" )"
-
-			if [[ ! "${gamePathEntryFound}" == *"${romsPath}/wiiu/roms"* ]]; then
-				xmlstarlet ed --inplace --subnode "content/GamePaths" --type elem -n Entry -v "${romsPath}/wiiu/roms/" "${CemuNative[configFile]}" #while we use both native and proton, i don't want to change the wiiu folder structure.
-			fi
-
-			#mlc01 folder
-			mlcEntryFound="$( xmlstarlet sel -t -m "content/mlc_path" -v . -n "${CemuNative[configFile]}" )"
-			local mlcPath="${romsPath}/wiiu/mlc01"
-
-			if [[ ! "${mlcEntryFound}" == *"${mlcPath}"* ]]; then
-				xmlstarlet ed --inplace -u "content/mlc_path" -v "${romsPath}/wiiu/mlc01" "${CemuNative[configFile]}" #while we use both native and proton, i don't want to change the wiiu folder structure.
-			fi
-		fi
+		sed -E -i "s|/run/media/mmcblk0p1/Emulation|$emulationPath|g" "${CemuNative[configFile]}"		
 	}
 
 	# Set Saves
