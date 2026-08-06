@@ -213,7 +213,7 @@ Cemu_functions () {
 		#are they in "${romsPath}/wiiu/mlc01/usr/save"?
 		if hasFiles "${romsPath}/wiiu/mlc01/usr/save"; then
 			path="${romsPath}/wiiu/mlc01/usr/save"
-		else if hasFiles "$HOME/.local/share/Cemu/mlc01/usr/save"; then
+		elif hasFiles "$HOME/.local/share/Cemu/mlc01/usr/save"; then
 			path="$HOME/.local/share/Cemu/mlc01/usr/save"
 		fi							
 		
