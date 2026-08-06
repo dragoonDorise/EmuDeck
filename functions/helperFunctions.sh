@@ -1511,30 +1511,24 @@ function makePortable(){
 	# Update saves folders
 	if hasSymlinks "$savesPath"; then
 		(
-			Azahar_setupSaves
-			BigPEmu_setupSaves
-			Cemu_setupSaves
-			Citron_setupSaves
-			Dolphin_setupSaves
-			Eden_setupSaves
-			Flycast_setupSaves
-			PPSSPP_setupSaves
-			Primehack_setupSaves
-			RetroArch_setupSaves
-			RPCS3_setupSaves
-			Ryujinx_setupSaves
-			ShadPS4_setupSaves
-			Vita3K_setupSaves
-			Xenia_setupSaves
-			Yuzu_setupSaves
-			ESDE_symlinkGamelists
-			ShadPS4_setEmulationFolder
-			Ryujinx_setEmulationFolder
-			Azahar_setEmulationFolder
-			Eden_setEmulationFolder
-			Yuzu_setEmulationFolder
-			Citron_setEmulationFolder
-			Flycast_setEmulationFolder
+			"$( Azahar_IsInstalled )" == "true"; Azahar_setupSaves && Azahar_setEmulationFolder;
+			"$( BigPEmu_IsInstalled )" == "true"; BigPEmu_setupSaves ;
+			"$( Cemu_IsInstalled )" == "true"; Cemu_setupSaves ;
+			"$( Citron_IsInstalled )" == "true"; Citron_setupSaves && Citron_setEmulationFolder ;
+			"$( Dolphin_IsInstalled )" == "true"; Dolphin_setupSaves ;
+			"$( Eden_IsInstalled )" == "true"; Eden_setupSaves && Eden_setEmulationFolder;
+			"$( Flycast_IsInstalled )" == "true"; Flycast_setupSaves && Flycast_setEmulationFolder ;
+			"$( PPSSPP_IsInstalled )" == "true"; PPSSPP_setupSaves ;
+			"$( Primehack_IsInstalled )" == "true"; Primehack_setupSaves ;
+			"$( RetroArch_IsInstalled )" == "true"; RetroArch_setupSaves ;
+			"$( RPCS3_IsInstalled )" == "true"; RPCS3_setupSaves ;
+			"$( Ryujinx_IsInstalled )" == "true"; Ryujinx_setupSaves && Ryujinx_setEmulationFolder ;
+			"$( ShadPS4_IsInstalled )" == "true"; ShadPS4_setupSaves && ShadPS4_setEmulationFolder ;
+			"$( Vita3K_IsInstalled )" == "true"; Vita3K_setupSaves ;
+			"$( Xenia_IsInstalled )" == "true"; Xenia_setupSaves ;
+			"$( Yuzu_IsInstalled )" == "true"; Yuzu_setupSaves && Yuzu_setEmulationFolder ;
+			"$( ESDE_IsInstalled )" == "true"; ESDE_symlinkGamelists ;
+	
 		) | zenity --progress --percentage=0 --auto-close --no-cancel \
 		 --title="Making SD Card Portable please wait" \
 		 --width="450" \
