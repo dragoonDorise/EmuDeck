@@ -52,9 +52,16 @@ Flycast_setEmulationFolder(){
 	changeLine "$ContentPathSetting" "${ContentPathSetting}${romsPath}/dreamcast;${romsPath}/atomiswave;${romsPath}/naomi;${romsPath}/naomi2" "${Flycast_configFile}"
 
 	#Setup symlink for bios
-	mkdir -p "${biosPath}/flycast/"
-	mkdir -p "$HOME/.var/app/org.flycast.Flycast/data/flycast/"
-    ln -sn "$HOME/.var/app/org.flycast.Flycast/data/flycast/" "${biosPath}/flycast/bios"
+	folder_parent="${biosPath}/flycast"
+	link_parent="$HOME/.var/app/org.flycast.Flycast/data"       
+	mkdir -p "$folder_parent"
+	mkdir -p "$link_parent"
+		
+	folder="${folder_parent}/bios"
+	link="${link_parent}/flycast"
+		
+	linkToFolder "$folder" "$link"
+	
 }
 
 #SetupSaves

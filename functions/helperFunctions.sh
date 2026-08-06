@@ -446,6 +446,28 @@ function getReleaseURLGH(){
 		][0] // empty'
 }
 
+linkToFolder(){
+	local folder="$1"
+	local link="$2"
+
+	#Old EmuDeck, does the folder exist as a link?
+	if [ -L "$folder" ]; then
+		unlink "$folder"
+	fi
+
+	#Link exists already, lets unlink to create it back again
+	if [ -L "$link" ]; then
+		unlink "$link"
+	#Old EmuDeck, is the link a folder? We migrate it to the new folder
+	elif [ -d "$link" ]; then
+		mkdir -p "$(dirname "$folder")"
+		mv "$link" "$folder"
+	fi
+
+	mkdir -p "$folder"
+	ln -sfn "$folder" "$link"
+}
+
 function linkToSaveFolder() {
 	local emu=$1
 	local folderName=$2
@@ -1475,26 +1497,47 @@ function autoMapOff(){
 	setSetting autoMap "false"
 }
 
+function hasSymlinks(){
+	local dir="$1"
+	[ -n "$(find "$dir" -type l -print -quit)" ]
+}
+
 function makePortable(){
 	# Update saves folders
-	Azahar_setupSaves
-	BigPEmu_setupSaves
-	Cemu_setupSaves
-	Citron_setupSaves
-	Dolphin_setupSaves
-	Eden_setupSaves
-	Flycast_setupSaves
-	PPSSPP_setupSaves
-	Primehack_setupSaves
-	RetroArch_setupSaves
-	RPCS3_setupSaves
-	Ryujinx_setupSaves
-	ShadPS4_setupSaves
-	Vita3K_setupSaves
-	Xenia_setupSaves
-	Yuzu_setupSaves
-	ESDE_symlinkGamelists
+	if hasSymlinks "$savesPath"; then
+		(
+			Azahar_setupSaves
+			BigPEmu_setupSaves
+			Cemu_setupSaves
+			Citron_setupSaves
+			Dolphin_setupSaves
+			Eden_setupSaves
+			Flycast_setupSaves
+			PPSSPP_setupSaves
+			Primehack_setupSaves
+			RetroArch_setupSaves
+			RPCS3_setupSaves
+			Ryujinx_setupSaves
+			ShadPS4_setupSaves
+			Vita3K_setupSaves
+			Xenia_setupSaves
+			Yuzu_setupSaves
+			ESDE_symlinkGamelists
+			ShadPS4_setEmulationFolder
+			Ryujinx_setEmulationFolder
+			Azahar_setEmulationFolder
+			Eden_setEmulationFolder
+			Yuzu_setEmulationFolder
+			Citron_setEmulationFolder
+			Flycast_setEmulationFolder
+		) | zenity --progress --percentage=0 --auto-close --no-cancel \
+		 --title="Making SD Card Portable please wait" \
+		 --width="450" \
+		 --text="${text}" 2>/dev/null
+	else
+		zenity --info --width=400 --text="Your SD Card is already portable, nothing to do here!"
+	fi
 	
-	# Export SRM data
+	
 
 }

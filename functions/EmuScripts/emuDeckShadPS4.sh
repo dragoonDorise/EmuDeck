@@ -71,11 +71,18 @@ ShadPS4_update(){
 ShadPS4_setEmulationFolder(){
     echo "Begin ShadPS4 Path Config"
     sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$ShadPS4_configFile"
+    
+    
+    folder_parent="${biosPath}/shadps4"
+    link_parent="$ShadPS4_dir"        
+    mkdir -p "$folder_parent"
+    mkdir -p "$link_parent"
+    
+    folder="${folder_parent}/sys_modules"
+    link="${link_parent}/sys_modules"
 
-    # setup bios link for LLE sys_modules (optional)
-    mkdir -p "${biosPath}/shadps4/"
-    mkdir -p "$ShadPS4_dir/sys_modules"
-    ln -sn "$ShadPS4_dir/sys_modules" "${biosPath}/shadps4/sys_modules"
+    
+    linkToFolder "$folder" "$link"
 
     echo "ShadPS4 Path Config Completed"
 }
