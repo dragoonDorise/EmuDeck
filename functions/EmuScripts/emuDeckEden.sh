@@ -145,24 +145,33 @@ Eden_setEmulationFolder() {
     sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "$Eden_configFile"
 
     #Setup Bios symlinks
-    folder_parent="${biosPath}/eden"
-    link_parent="$HOME/.local/share/eden/"        
-    mkdir -p "$folder_parent"
-    mkdir -p "$link_parent"
+    unlink "${biosPath}/eden/keys" 2>/dev/null
+    unlink "${biosPath}/eden/firmware" 2>/dev/null
     
-    #Keys
-    folder="${folder_parent}/keys"
-    link="${link_parent}/keys"
-        
-    linkToFolder "$folder" "$link"
-    
-    #Firmware    
-    folder="${folder_parent}/firmware"
-    link="${link_parent}/nand/system/Contents/registered/"
-        
-    linkToFolder "$folder" "$link"   
-    
-    touch "${folder}/putfirmwarehere.txt"
+    mkdir -p "$HOME/.local/share/eden/keys/"
+    mkdir -p "${biosPath}/eden"
+    ln -sn "$HOME/.local/share/eden/keys/" "${biosPath}/eden/keys"
+    ln -sn "$HOME/.local/share/eden/nand/system/Contents/registered/" "${biosPath}/eden/firmware"
+
+    #Portable
+#     folder_parent="${biosPath}/eden"
+#     link_parent="$HOME/.local/share/eden/"        
+#     mkdir -p "$folder_parent"
+#     mkdir -p "$link_parent"
+#     
+#     #Keys
+#     folder="${folder_parent}/keys"
+#     link="${link_parent}/keys"
+#         
+#     linkToFolder "$folder" "$link"
+#     
+#     #Firmware    
+#     folder="${folder_parent}/firmware"
+#     link="${link_parent}/nand/system/Contents/registered/"
+#         
+#     linkToFolder "$folder" "$link"   
+#     
+#     touch "${folder}/putfirmwarehere.txt"
 
 }
 

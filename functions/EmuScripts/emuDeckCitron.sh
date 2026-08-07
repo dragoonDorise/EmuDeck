@@ -145,25 +145,34 @@ Citron_setEmulationFolder() {
     sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "$Citron_configFile"
 
     #Setup Bios symlinks
+    unlink "${biosPath}/citron/keys" 2>/dev/null
+    unlink "${biosPath}/citron/firmware" 2>/dev/null
     
-    folder_parent="${biosPath}/citron"
-    link_parent="$HOME/.local/share/citron/"        
-    mkdir -p "$folder_parent"
-    mkdir -p "$link_parent"
+    mkdir -p "$HOME/.local/share/citron/keys/"
+    mkdir -p "${biosPath}/citron"
+    ln -sn "$HOME/.local/share/citron/keys/" "${biosPath}/citron/keys"
+    ln -sn "$HOME/.local/share/citron/nand/system/Contents/registered/" "${biosPath}/citron/firmware"
     
-    #Keys
-    folder="${folder_parent}/keys"
-    link="${link_parent}/keys"
-        
-    linkToFolder "$folder" "$link"
     
-    #Firmware    
-    folder="${folder_parent}/firmware"
-    link="${link_parent}/nand/system/Contents/registered/"
-        
-    linkToFolder "$folder" "$link"    
-    
-    touch "${folder}/putfirmwarehere.txt"
+    # Portable
+    # folder_parent="${biosPath}/citron"
+    # link_parent="$HOME/.local/share/citron/"        
+    # mkdir -p "$folder_parent"
+    # mkdir -p "$link_parent"
+    # 
+    # #Keys
+    # folder="${folder_parent}/keys"
+    # link="${link_parent}/keys"
+    #     
+    # linkToFolder "$folder" "$link"
+    # 
+    # #Firmware    
+    # folder="${folder_parent}/firmware"
+    # link="${link_parent}/nand/system/Contents/registered/"
+    #     
+    # linkToFolder "$folder" "$link"    
+    # 
+    # touch "${folder}/putfirmwarehere.txt"
 
 }
 

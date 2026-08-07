@@ -185,23 +185,29 @@ Cemu_functions () {
 	# Configure Paths
 	setEmulationFolder () {
 		setMSG "Setting ${CemuNative[emuName]} Emulation Folder"
-		sed -E -i "s|/run/media/mmcblk0p1/Emulation|$emulationPath|g" "${CemuNative[configFile]}"		
+		if [ -f "${CemuNative[configFile]}" ]; then
+
+			#gamepath
+			gamePathEntryFound="$( xmlstarlet sel -t -m "content/GamePaths/Entry" -v . -n "${CemuNative[configFile]}" )"
+
+			if [[ ! "${gamePathEntryFound}" == *"${romsPath}/wiiu/roms"* ]]; then
+				xmlstarlet ed --inplace --subnode "content/GamePaths" --type elem -n Entry -v "${romsPath}/wiiu/roms/" "${CemuNative[configFile]}" #while we use both native and proton, i don't want to change the wiiu folder structure.
+			fi
+
+			#mlc01 folder
+			mlcEntryFound="$( xmlstarlet sel -t -m "content/mlc_path" -v . -n "${CemuNative[configFile]}" )"
+			local mlcPath="${romsPath}/wiiu/mlc01"
+
+			if [[ ! "${mlcEntryFound}" == *"${mlcPath}"* ]]; then
+				xmlstarlet ed --inplace -u "content/mlc_path" -v "${romsPath}/wiiu/mlc01" "${CemuNative[configFile]}" #while we use both native and proton, i don't want to change the wiiu folder structure.
+			fi
+		fi
 	}
 
 	# Set Saves
 	setupSaves () {
 		unlink "${savesPath}/Cemu/saves" # Fix for previous bad symlink
-		
-		#Since xmlstarlet broke we have no idea where the saves are, right?
-		
-		#are they in "${romsPath}/wiiu/mlc01/usr/save"?
-		if hasFiles "${romsPath}/wiiu/mlc01/usr/save"; then
-			path="${romsPath}/wiiu/mlc01/usr/save"
-		elif hasFiles "$HOME/.local/share/Cemu/mlc01/usr/save"; then
-			path="$HOME/.local/share/Cemu/mlc01/usr/save"
-		fi							
-		
-		linkToSaveFolder Cemu saves "$path"
+		linkToSaveFolder Cemu saves "${romsPath}/wiiu/mlc01/usr/save" #while we use both native and proton, i don't want to change the wiiu folder structure. I'm repeating myself now.
 	}
 
 	setLanguage(){
@@ -222,7 +228,7 @@ Cemu_functions () {
 			rm -rf "${CemuNative[shareDir]}/graphicPacks"
 		fi
 
-  		if [ -f "${CemuNative[shareDir]}/graphicPacks" ]; then
+		  if [ -f "${CemuNative[shareDir]}/graphicPacks" ]; then
 			rm -f "${CemuNative[shareDir]}/graphicPacks"
 		fi
 
@@ -230,7 +236,7 @@ Cemu_functions () {
 			rm -rf "${CemuNative[shareDir]}/mlc01/mlc01"
 		fi
 
-  		# Commenting out for now. These need more testing.
+		  # Commenting out for now. These need more testing.
 		#install -d "${storagePath}/cemu"
 		#unlink "${CemuNative[shareDir]}/mlc01"
 		#unlink "${CemuNative[shareDir]}/graphicPacks"

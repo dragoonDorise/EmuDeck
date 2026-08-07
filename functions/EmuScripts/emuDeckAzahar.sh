@@ -193,13 +193,18 @@ Azahar_setEmulationFolder(){
 	sed -i 's/layout_option\\default=true/layout_option\\default=false/' "$Azahar_configFile"
 
 	#Setup symlink for AES keys
-	sysdata="$HOME/.local/share/azahar-emu/sysdata"
-	keys="${biosPath}/azahar/keys"
+	mkdir -p "${biosPath}/azahar/"
+	mkdir -p "$HOME/.local/share/azahar-emu/sysdata"
+	ln -sn "$HOME/.local/share/azahar-emu/sysdata" "${biosPath}/azahar/keys"
 	
-	mkdir -p "${biosPath}/azahar"
-	mkdir -p "$HOME/.local/share/azahar-emu"
-	
-	linkToFolder "$keys" "$sysdata"
+	#Portable
+	#sysdata="$HOME/.local/share/azahar-emu/sysdata"
+	#keys="${biosPath}/azahar/keys"
+	#
+	#mkdir -p "${biosPath}/azahar"
+	#mkdir -p "$HOME/.local/share/azahar-emu"
+	#
+	#linkToFolder "$keys" "$sysdata"
 
 }
 

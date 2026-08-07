@@ -120,16 +120,24 @@ Ryujinx_setEmulationFolder(){
     sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$Ryujinx_configFile"
 
     #Setup Bios symlinks
-    folder_parent="${biosPath}/ryujinx"
-    link_parent="$HOME/.config/Ryujinx"       
-    mkdir -p "$folder_parent"
-    mkdir -p "$link_parent"
+    unlink "${biosPath}/ryujinx/keys"
+    mkdir -p "$HOME/.config/Ryujinx/system/"
+    mkdir -p "${biosPath}/ryujinx/"
+    unlink "$HOME/.config/Ryujinx/system"
+    ln -sn "$HOME/.config/Ryujinx/system" "${biosPath}/ryujinx/keys"
+    sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$Ryujinx_configFile"
     
-    #Keys
-    folder="${folder_parent}/keys"
-    link="${link_parent}/system"
-        
-    linkToFolder "$folder" "$link"
+    # Portable
+    # folder_parent="${biosPath}/ryujinx"
+    # link_parent="$HOME/.config/Ryujinx"       
+    # mkdir -p "$folder_parent"
+    # mkdir -p "$link_parent"
+    # 
+    # #Keys
+    # folder="${folder_parent}/keys"
+    # link="${link_parent}/system"
+    #     
+    # linkToFolder "$folder" "$link"
 
 }
 
