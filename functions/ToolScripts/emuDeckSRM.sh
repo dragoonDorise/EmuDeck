@@ -18,9 +18,10 @@ SRM_install(){
 
   mkdir -p "$toolsPath"
   
-  url=$(getReleaseURLGH 'SteamGridDB/steam-rom-manager' 'AppImage')
   if [ $CPUarch == "arm" ]; then
     url=$(getReleaseURLGH 'dragoonDorise/steam-rom-manager' 'arm64.AppImage')
+  else
+    url=$(getReleaseURLGH 'SteamGridDB/steam-rom-manager' 'AppImage' '' '' 'arm64')
   fi
 
   if installToolAI "Steam-ROM-Manager" "$url" "" "$showProgress"; then
