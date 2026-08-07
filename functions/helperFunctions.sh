@@ -1537,6 +1537,9 @@ function hasFiles(){
 }
 
 function makePortable(){
+	
+	zenity --info --width=400 --text="Disabled for now!"
+	
 	# Update saves folders
 	if hasSymlinks "$savesPath"; then
 		(
