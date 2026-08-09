@@ -1,0 +1,17 @@
+System name:
+openbor
+
+Full system name:
+OpenBOR Game Engine
+
+Supported file extensions:
+.AppImage
+
+Launch command:
+%STARTDIR%=%GAMEDIR% %EMULATOR_OS-SHELL% -c "%ROM%"
+
+Platform (for scraping):
+openbor
+
+Theme folder:
+openbor

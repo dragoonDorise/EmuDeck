@@ -1,0 +1,20 @@
+System name:
+cdtv
+
+Full system name:
+Commodore CDTV
+
+Supported file extensions:
+.ccd .CCD .chd .CHD .cue .CUE .iso .ISO .m3u .M3U .mds .MDS .nrg .NRG .rp9 .RP9 .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/puae_libretro.so %ROM%
+
+Alternative launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/puae2021_libretro.so %ROM%
+
+Platform (for scraping):
+cdtv
+
+Theme folder:
+cdtv

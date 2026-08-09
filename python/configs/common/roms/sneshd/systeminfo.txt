@@ -1,0 +1,19 @@
+System name:
+sneshd
+
+Full system name:
+Nintendo SNES WideScreen (Super Nintendo)
+
+Supported file extensions:
+.bin .BIN .bml .BML .bs .BS .bsx .BSX .dx2 .DX2 .fig .FIG .gd3 .GD3 .gd7 .GD7 .mgd .MGD .sfc .SFC .smc .SMC .st .ST .swc .SWC .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/bsnes_hd_beta_libretro.so %ROM%
+
+Alternative launch commands:
+
+Platform (for scraping):
+snes
+
+Theme folder:
+sneshd

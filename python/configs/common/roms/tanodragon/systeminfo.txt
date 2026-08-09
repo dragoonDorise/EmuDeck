@@ -1,0 +1,17 @@
+System name:
+tanodragon
+
+Full system name:
+Tano Dragon
+
+Supported file extensions:
+.cas .CAS .ccc .CCC .dsk .DSK .rom .ROM
+
+Launch command:
+%EMULATOR_XROAR% -fs -default-machine tano %ROM%
+
+Platform (for scraping):
+dragon32
+
+Theme folder:
+tanodragon

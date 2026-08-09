@@ -1,0 +1,17 @@
+System name:
+channelf
+
+Full system name:
+Fairchild Channel F
+
+Supported file extensions:
+.bin .BIN .chf .CHF .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/freechaf_libretro.so %ROM%
+
+Platform (for scraping):
+channelf
+
+Theme folder:
+channelf

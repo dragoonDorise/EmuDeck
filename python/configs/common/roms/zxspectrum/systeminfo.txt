@@ -1,0 +1,17 @@
+System name:
+zxspectrum
+
+Full system name:
+Sinclair ZX Spectrum
+
+Supported file extensions:
+.tzx .TZX .tap .TAP .z80 .Z80 .rzx .RZX .scl .SCL .trd .TRD .sh .SH .sna .SNA .szx .SZX .udi .UDI .mgt .MGT .img .IMG .dsk .DSK .gz .GZ .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/fuse_libretro.so %ROM%
+
+Platform (for scraping):
+zxspectrum
+
+Theme folder:
+zxspectrum

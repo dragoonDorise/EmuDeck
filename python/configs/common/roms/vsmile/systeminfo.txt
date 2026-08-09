@@ -1,0 +1,17 @@
+System name:
+vsmile
+
+Full system name:
+VTech V.Smile
+
+Supported file extensions:
+.bin .BIN .7z .7Z .zip .ZIP
+
+Launch command:
+%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/vsmile vsmile -cart %ROM%
+
+Platform (for scraping):
+vsmile
+
+Theme folder:
+vsmile

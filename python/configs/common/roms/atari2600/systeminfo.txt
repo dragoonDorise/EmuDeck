@@ -1,0 +1,20 @@
+System name:
+atari2600
+
+Full system name:
+Atari 2600
+
+Supported file extensions:
+.a26 .A26 .bin .BIN .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/stella_libretro.so %ROM%
+
+Alternative launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/stella2014_libretro.so %ROM%
+
+Platform (for scraping):
+atari2600
+
+Theme folder:
+atari2600

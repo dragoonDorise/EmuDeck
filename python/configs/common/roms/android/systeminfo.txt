@@ -1,0 +1,17 @@
+System name:
+android
+
+Full system name:
+Google Android
+
+Supported file extensions:
+.7z .7Z .zip .ZIP
+
+Launch command:
+PLACEHOLDER %ROM%
+
+Platform (for scraping):
+android
+
+Theme folder:
+android

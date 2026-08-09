@@ -1,0 +1,4 @@
+collection: Sony PlayStation 4
+shortname: ps4
+extensions: desktop
+launch: EMULATIONPATH/tools/launchers/shadps4.sh {file.path}

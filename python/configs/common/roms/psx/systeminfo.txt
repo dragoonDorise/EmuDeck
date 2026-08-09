@@ -1,0 +1,24 @@
+System name:
+psx
+
+Full system name:
+Sony PlayStation
+
+Supported file extensions:
+.bin .BIN .cbn .CBN .ccd .CCD .chd .CHD .cue .CUE .ecm .ECM .exe .EXE .img .IMG .iso .ISO .m3u .M3U .mdf .MDF .mds .MDS .pbp .PBP .psexe .PSEXE .psf .PSF .toc .TOC .z .Z .znx .ZNX .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mednafen_psx_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mednafen_psx_hw_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/pcsx_rearmed_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/swanstation_libretro.so %ROM%
+%EMULATOR_DUCKSTATION% -batch %ROM%
+%EMULATOR_MEDNAFEN% -force_module psx %ROM%
+
+Platform (for scraping):
+psx
+
+Theme folder:
+psx

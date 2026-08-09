@@ -1,0 +1,5 @@
+collection: Nintendo Switch
+shortname: switch
+extensions: nca, NCA, nro, NRO, nso, NSO, nsp, NSP, xci, XCI
+launch: /bin/bashEMULATIONPATH/tools/launchers/ryujinx.sh --fullscreen "'{file.path}'"
+

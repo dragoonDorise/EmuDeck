@@ -1,0 +1,194 @@
+Texture replacement
+
+The texture replacement file is a file named like the romset ended in .pat in the SCRIPTS folder (ex: daytona.pat)
+Each line of the file indicates a texture replacement. The format is
+
+ID1 ID2 Format Filename
+
+ID1 and ID2 are the ID pair used to identify the texture to replace
+Format is 
+	0 if you replace the texture with a grayscale texture, so it's handled through the model2 coloring pipeline (like original ones)
+	1-15 if your texture is already colored. A Pixel Shader with name mode_x.ps (with x equal to the number you specified) will be used to color
+	the texture. Some samples are provided:
+		mode_1.ps is an example of linear lighting (the way 1.0 version colored this textures). 
+		mode_2.ps is an example of lighting through the luminance conversion table specified in the game (see the shader comments).
+	There is no restriction to the size of the new texture (apart from your videoram)
+Filename is the name of the file to use as texture (.png). Alpha transparency is supported for Colored textures.
+
+In order to make a texture replacement, you need to know the ID pair of the texture you want to replace. To know the
+ID pair, first dump the texture cache from a running game using the Game menu option "Dump texture cache".
+This will dump the cached textures in png format to the TEXCACHE folder. The file name of the dumped files is ID1_ID2.png
+that way you can get the IDs and the corresponding texture as base for replacement.
+The .pat files are read on game load, so you need to re-load a game to see the new textures.
+
+You can start a line with // indicating a commented line,and it will not be processed
+
+
+LUA Scripts
+
+The emulator will load a script named the same than the romset, ended in .lua in the SCRIPTS folder (ex: daytona.lua)
+
+Each script can add some functions that will be called by the emulator:
+
+Init()
+	Called when the game has been loaded and is about to start
+
+Reset()
+	Called when the game has been reset (not on first reset, use Init for the first reset)
+
+Frame()
+	Called right after emulating a frame, and before starting video rendering
+
+PostDraw()
+	Called right after rendering the frame, and before blitting the frame to the screen (so you can add text 
+	and other images to the rendered image
+
+End()
+	Called when the emulator is about to terminate the emulation (use for cleanup or data persistence)
+
+Inside the LUA scripts you can access the emulator by using some helper functions provided by the emulator:
+
+
+Bit helper functions
+
+int AND(value,value2)
+	Performs bitwise (value AND value2)
+
+int OR(value1,value2)
+	Performs bitwise (value OR value2)
+
+int XOR(value,value2)
+	Performs bitwise (value XOR value2)
+
+int NOT(value)
+	Performs bitwise (NOT value)
+
+int SHL(value,shift)
+	Performs a left shift of "value" by "shift" bits
+
+int SHR(value,shift)
+	Performs a right shift of "value" by "shift" bits
+
+
+
+ROM Access functions
+
+int Romset_ReadByte(int area,int offset)
+int Romset_ReadWord(int area,int offset)
+int Romset_ReadDWord(int area,int offset)
+	Read byte/word/dword from rom files at specified area and offset 
+
+Romset_PatchByte(int area,int offset,int data)
+Romset_PatchWord(int area,int offset,int data)
+Romset_PatchDWord(int area,int offset,int data)
+	Write byte/word/dword to rom files at specified area and offset
+
+Romset areas depend on the driver. for model 2 they are:
+	0 - I960 program roms (word interleaved)
+	1 - Data roms (word interleaved)
+	2 - Coprocessor roms (word interleaved)
+	3 - Polygon data (word interleaved)
+	4 - Texture data (word interleaved)
+	5 - Sound program roms (byteswapped)
+	6 - Sample roms (linear)
+	7 - DSB program roms (byteswapped if it's DSB2)
+	8 - DSB sound roms (linear)
+	9 - Comm board rom
+	10 - Main board roms (word interleaved)
+	11 - Video board roms (word interleaved)
+
+The rom area data is not exactly the same than the roms, as they can be interleaved or swapped for faster access.
+
+Video access functions
+
+Video_DrawText(x,y,text,color)
+	Write text to string in the given color (R8G8B8. 0xFFFFFF=white) at the x,y position
+
+int Video_CreateFont(fontname,size,bold)
+	Create a font for text output with the given params (ex: "Arial",20,0)
+	Returns a font for use in RelaseFont and DrawTextWithFont
+
+Video_ReleaseFont(font)
+	Release the given font (usually on emulator exit)
+
+Video_DrawTextWithFont(font,x,y,text,color)
+	Write text to string in the given color (R8G8B8. 0xFFFFFF=white) at the x,y position with the given font
+	
+int Video_CreateSurfaceFromFile(filename)
+	Loads a image file (.png) as surface
+	Returns a surface to use with ReleaseSurface and DrawSurface
+
+Video_DrawSurface(surface,x,y)
+	Draws a surface to the given position
+
+Video_ReleaseSurface(surface)
+	Release a loaded surface
+
+Video_GetScreenSize()
+	Returns screen size (width,height) pair
+
+Input keys access
+
+int Input_IsKeyPressed(key)
+	For a keyboard, key is the DIK_ value of directinput (check dinput.h in directx sdk)
+	For a joystick, key is JOYx+Button (check common.lua for the values: ex: JOY1+BUTTON1  JOY1+LEFT)
+	returns 1 if the key/button is pressed in the current frame (will return 1 till it's released)
+
+Model 2 specific functions
+
+int I960_ReadByte(int)
+	Read a byte (8 bits) from the i960 memory map
+
+int I960_ReadWord(int)
+	Read a word (16 bits) from the i960 memory map
+
+int I960_ReadDWord(int)
+	Read a dword (32 bits) from the i960 memory map
+
+I960_WriteByte(int addr,int data)
+	Write byte "data" to the address "addr"
+
+I960_WriteWord(int addr,int data)
+	Write word "data" to the address "addr"
+
+I960_WriteDWord(int addr,int data)
+	Write dword "data" to the address "addr"
+
+int I960_GetRamPtr(int addr)
+	Get the memory address pointer (in emulator address space) of the given model2 memory offset (only works for RAM areas,
+	retrieving memory mapped peripheral data will return 0). Useful to pass the value to a cheat find engine like Renegade.
+
+Model2_SetWideScreen(int)
+	Enable (1) or disable (0) 3D transforms to output widescreen data
+
+Model2_SetStretchALow(int)
+	Enable (1) or disable (0) stretching to all visible area of the A tilemap when set in background mode
+
+Model2_SetStretchBLow(int)
+	Enable (1) or disable (0) stretching to all visible area of the B tilemap when set in background mode
+
+Model2_SetStretchAHigh(int)
+	Enable (1) or disable (0) stretching to all visible area of the A tilemap when set in foreground mode
+
+Model2_SetStretchBHigh(int)
+	Enable (1) or disable (0) stretching to all visible area of the B tilemap when set in foreground mode
+
+Options and cheats
+
+You can export named options and cheats that the user can activate from the Game Menu. To do so, create a structure in the LUA
+file with this format:
+
+Options =
+{
+	cheat1={name="Cheat 1",values={"Off","On"},runfunc=cheat1func,changefunc=cheat1change},
+	cheat2={name="Cheat 2",values={"Off","On"},runfunc=cheat2func,changefunc=cheat2change}
+}
+
+cheat1 is the cheat variable used to access its value. Inside a lua script access is as Options.cheat1.value.
+name is the text that appears in the game menu
+values is the name of the different values (the first one corresponds to value 0). if not specified, the values are "Off","On"
+runfunc is a function called when the cheat value is not 0. This function receives the current value as parameter
+changefunc is a function called when the user changes the value in the Game menu. It receives the new value as parameter.
+
+runfunc and changefunc are optional.
+

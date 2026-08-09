@@ -1,0 +1,17 @@
+System name:
+steam
+
+Full system name:
+Valve Steam
+
+Supported file extensions:
+.desktop .sh
+
+Launch command:
+%RUNINBACKGROUND% %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%
+
+Platform (for scraping):
+steam
+
+Theme folder:
+steam

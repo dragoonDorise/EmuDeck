@@ -1,0 +1,17 @@
+System name:
+neogeocdjp
+
+Full system name:
+SNK Neo Geo CD
+
+Supported file extensions:
+.chd .CHD .cue .CUE .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/neocd_libretro.so %ROM%
+
+Platform (for scraping):
+neogeocd
+
+Theme folder:
+neogeocdjp

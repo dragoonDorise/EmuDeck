@@ -1,0 +1,20 @@
+System name:
+daphne
+
+Full system name:
+Daphne Arcade LaserDisc Emulator
+
+Supported file extensions:
+.daphne .singe
+
+Launch command:
+%EMULATOR_HYPSEUS-SINGE% %BASENAME% vldp -framefile %GAMEDIR%/%BASENAME%.txt %INJECT%=%BASENAME%.commands
+
+Alternative launch command:
+%EMULATOR_HYPSEUS-SINGE% singe vldp -framefile %GAMEDIR%/%BASENAME%.txt -script %GAMEDIR%/%BASENAME%.singe %INJECT%=%BASENAME%.commands
+
+Platform (for scraping):
+daphne
+
+Theme folder:
+daphne

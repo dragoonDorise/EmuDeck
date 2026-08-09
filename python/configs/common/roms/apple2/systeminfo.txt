@@ -1,0 +1,21 @@
+System name:
+apple2
+
+Full system name:
+Apple II
+
+Supported file extensions:
+.do .DO .dsk .DSK .nib .NIB .po .PO
+
+Launch command:
+%EMULATOR_LINAPPLE% -f -b --d1 %ROM%
+
+Alternative launch commands:
+%EMULATOR_MEDNAFEN% -force_module apple2 %ROM%
+%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %ROMPATH%/apple2 apple2e -flop1 %ROM%
+
+Platform (for scraping):
+apple2
+
+Theme folder:
+apple2

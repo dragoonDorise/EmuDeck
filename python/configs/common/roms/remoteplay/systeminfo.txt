@@ -1,0 +1,17 @@
+System name:
+remoteplay
+
+Full system name:
+Remote Play Clients
+
+Supported file extensions:
+.sh
+
+Launch command:
+/bin/bash %ROM%
+
+Platform (for scraping):
+remoteplay
+
+Theme folder:
+remoteplay

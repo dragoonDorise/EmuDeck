@@ -1,0 +1,6 @@
+collection: Casio PV-1000
+shortname: pv1000
+extensions: bin, BIN, 7z, 7Z, zip, ZIP
+launch: PLACEHOLDER {file.path}
+
+

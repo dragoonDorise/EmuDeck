@@ -1,0 +1,17 @@
+System name:
+zx81
+
+Full system name:
+Sinclair ZX81
+
+Supported file extensions:
+.tzx .TZX .p .P .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/81_libretro.so %ROM%
+
+Platform (for scraping):
+zx81
+
+Theme folder:
+zx81

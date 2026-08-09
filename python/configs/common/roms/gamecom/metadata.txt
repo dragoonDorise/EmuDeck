@@ -1,0 +1,6 @@
+collection: Tiger Electronics Game, com
+shortname: gamecom
+extensions: tgc, TGC, 7z, 7Z, zip, ZIP
+launch: PLACEHOLDER {file.path}
+
+

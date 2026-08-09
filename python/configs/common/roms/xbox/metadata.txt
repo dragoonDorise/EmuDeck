@@ -1,0 +1,6 @@
+collection: Microsoft Xbox
+shortname: xbox
+extensions: iso, ISO
+launch:EMULATIONPATH/tools/launchers/xemu-emu.sh -full-screen -dvd_path {file.path}
+
+

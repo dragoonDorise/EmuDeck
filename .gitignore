@@ -3,3 +3,8 @@
 *.log
 .nova/Configuration.json
 *.pyc
+__pycache__
+charset_normalizer
+test.py
+test.sh
+emudeck_cloudsync.py

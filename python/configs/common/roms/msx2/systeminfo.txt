@@ -1,0 +1,20 @@
+System name:
+msx2
+
+Full system name:
+MSX2
+
+Supported file extensions:
+.rom .ROM .ri .RI .mx1 .MX1 .mx2 .MX2 .col .COL .dsk .DSK .cas .CAS .sg .SG .sc .SC .m3u .M3U .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/bluemsx_libretro.so %ROM%
+
+Alternative launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/fmsx_libretro.so %ROM%
+
+Platform (for scraping):
+msx2
+
+Theme folder:
+msx2

@@ -1,0 +1,157 @@
+from core.vars import emudeck_logs
+
+import os, warnings
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+warnings.filterwarnings("ignore", message="urllib3 v2 only supports OpenSSL")
+import shlex, sys, subprocess, pkgutil, importlib, inspect, json, venv, logging, requests, stat, hashlib, zipfile, re, errno, shutil, subprocess, io, zipfile, tempfile, time, plistlib, zlib, vdf, tarfile, fileinput, ctypes, getpass, threading, socket, pygame,  traceback, warnings
+from multiprocessing import Process
+from time import sleep
+from math import ceil
+from pathlib import Path
+from typing import Optional, Union, Callable, Any, Iterable, Callable, Sequence
+from pathlib import Path
+from contextlib import redirect_stdout, redirect_stderr
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from PySide6 import QtWidgets, QtCore, QtGui
+from io import BytesIO
+from requests.exceptions import RequestsDependencyWarning
+
+# 1. Creamos y configuramos el logger raíz
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+
+# 2. Handler para consola (stdout)
+console_handler = logging.StreamHandler(sys.stdout)
+console_handler.setLevel(logging.INFO)
+console_formatter = logging.Formatter(
+    '%(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+console_handler.setFormatter(console_formatter)
+logger.addHandler(console_handler)
+
+# 3. Handler para fichero de log
+file_handler = logging.FileHandler(emudeck_logs/'emudeck.log', encoding='utf-8')
+file_handler.setLevel(logging.DEBUG)
+file_formatter = logging.Formatter(
+    '%(asctime)s %(levelname)-8s %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+file_handler.setFormatter(file_formatter)
+logger.addHandler(file_handler)
+
+# 4. Clase para redirigir sys.stdout y sys.stderr al logger
+class StreamToLogger:
+    def __init__(self, log_method):
+        self.log_method = log_method
+
+    def write(self, message):
+        # Evita líneas vacías
+        message = message.rstrip()
+        if message:
+            self.log_method(message)
+
+    def flush(self):
+        pass  # Para compatibilidad
+
+# 5. Redirigimos stdout y stderr
+sys.stdout = StreamToLogger(logger.info)
+sys.stderr = StreamToLogger(logger.error)
+
+
+
+# ─── Single QApplication + QSS ───────────────────────────────────────────────
+
+_qapp: Optional[QtWidgets.QApplication] = None
+
+def ensure_app() -> QtWidgets.QApplication:
+    global _qapp
+    if _qapp is None:
+        _qapp = QtWidgets.QApplication.instance() or QtWidgets.QApplication(sys.argv)
+        qss = Path(__file__).parent / "dialog.qss"
+        if qss.exists():
+            _qapp.setStyleSheet(qss.read_text(encoding="utf-8"))
+    return _qapp
+
+
+# ─── Gamepad support ──────────────────────────────────────────────────────────
+
+_joystick: Optional[pygame.joystick.Joystick] = None
+YES_BTN, NO_BTN, CANCEL_BTN = 0, 1, 2
+
+def ensure_gamepad() -> Optional[pygame.joystick.Joystick]:
+    global _joystick
+    if _joystick is None:
+        pygame.init()
+        pygame.joystick.init()
+        if pygame.joystick.get_count() > 0:
+            _joystick = pygame.joystick.Joystick(0)
+            _joystick.init()
+    return _joystick
+
+def poll_gamepad() -> Optional[str]:
+    j = ensure_gamepad()
+    if not j:
+        return None
+    pygame.event.pump()
+    for e in pygame.event.get():
+        if e.type == pygame.JOYBUTTONDOWN:
+            if e.button == YES_BTN:    return "yes"
+            if e.button == NO_BTN:     return "no"
+            if e.button == CANCEL_BTN: return "cancel"
+    return None
+
+def poll_gamepad_dir() -> Optional[str]:
+    j = ensure_gamepad()
+    if not j:
+        return None
+    pygame.event.pump()
+    for e in pygame.event.get():
+        # D-pad (hat) events:
+        if e.type == pygame.JOYHATMOTION:
+            x, y = e.value  # y: 1=up, -1=down, x:1=right, -1=left
+            if y == 1:   return "up"
+            if y == -1:  return "down"
+            if x == -1:  return "left"
+            if x == 1:   return "right"
+        # D-pad as buttons (Xbox, Steam Deck, etc.):
+        if e.type == pygame.JOYBUTTONDOWN:
+            if e.button == 11:  return "up"
+            if e.button == 12:  return "down"
+            if e.button == 13:  return "left"
+            if e.button == 14:  return "right"
+        # Analog stick on axis 0/1:
+        if e.type == pygame.JOYAXISMOTION and abs(e.value) > 0.6:
+            if e.axis == 1:  # vertical stick
+                return "down" if e.value > 0 else "up"
+            if e.axis == 0:  # horizontal stick
+                return "right" if e.value > 0 else "left"
+    return None
+
+# ─── BaseDialog ───────────────────────────────────────────────────────────────
+
+class BaseDialog(QtWidgets.QDialog):
+    def __init__(self, title: str):
+        super().__init__(None)
+        self.setWindowTitle(title)
+        self.setWindowFlags(self.windowFlags() | QtCore.Qt.FramelessWindowHint)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.setAttribute(QtCore.Qt.WA_StyledBackground, True)
+
+        content = QtWidgets.QWidget(self)
+        content.setObjectName("content")
+
+        outer = QtWidgets.QVBoxLayout(self)
+        outer.setContentsMargins(0,0,0,0)
+        outer.addWidget(content)
+
+        inner = QtWidgets.QVBoxLayout(content)
+        inner.setContentsMargins(20,20,20,20)
+        inner.setSpacing(10)
+        self._inner = inner
+
+    def _add(self, widget: QtWidgets.QWidget, *, alignment=None):
+        if alignment is not None:
+            self._inner.addWidget(widget, alignment=alignment)
+        else:
+            self._inner.addWidget(widget)

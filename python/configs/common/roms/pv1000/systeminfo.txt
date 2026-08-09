@@ -1,0 +1,17 @@
+System name:
+pv1000
+
+Full system name:
+Casio PV-1000
+
+Supported file extensions:
+.bin .BIN .7z .7Z .zip .ZIP
+
+Launch command:
+%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/pv1000 pv1000 -cart %ROM%
+
+Platform (for scraping):
+pv1000
+
+Theme folder:
+pv1000

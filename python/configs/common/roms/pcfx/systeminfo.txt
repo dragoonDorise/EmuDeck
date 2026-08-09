@@ -1,0 +1,20 @@
+System name:
+pcfx
+
+Full system name:
+NEC PC-FX
+
+Supported file extensions:
+.cue CUE .ccd .CCD .toc .TOC .chd .CHD .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mednafen_pcfx_libretro.so %ROM%
+
+Alternative launch command:
+%EMULATOR_MEDNAFEN% -force_module pcfx %ROM%
+
+Platform (for scraping):
+pcfx
+
+Theme folder:
+pcfx

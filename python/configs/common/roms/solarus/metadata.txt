@@ -1,0 +1,6 @@
+collection: Solarus Game Engine
+shortname: solarus
+extensions: solarus
+launch: PLACEHOLDER {file.path}
+
+

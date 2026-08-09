@@ -1,0 +1,17 @@
+System name:
+moonlight
+
+Full system name:
+Moonlight Game Streaming
+
+Supported file extensions:
+.moonlight .MOONLIGHT .7z .7Z .zip .ZIP
+
+Launch command:
+PLACEHOLDER %ROM%
+
+Platform (for scraping):
+moonlight
+
+Theme folder:
+moonlight

@@ -1,0 +1,17 @@
+System name:
+atarijaguar
+
+Full system name:
+Atari Jaguar
+
+Supported file extensions:
+.j64 .J64 .jag .JAG .rom .ROM .abs .ABS .cof .COF .bin .BIN .prg .PRG .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/virtualjaguar_libretro.so %ROM%
+
+Platform (for scraping):
+atarijaguar, atarijaguarcd
+
+Theme folder:
+atarijaguar

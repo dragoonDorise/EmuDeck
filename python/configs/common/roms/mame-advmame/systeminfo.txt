@@ -1,0 +1,17 @@
+System name:
+mame-advmame
+
+Full system name:
+AdvanceMAME
+
+Supported file extensions:
+.chd .cue .CUE .CHD .cmd .CMD .fba .FBA .iso .ISO .7z .7Z .zip .ZIP
+
+Launch command:
+PLACEHOLDER %ROM%
+
+Platform (for scraping):
+arcade
+
+Theme folder:
+mame-advmame

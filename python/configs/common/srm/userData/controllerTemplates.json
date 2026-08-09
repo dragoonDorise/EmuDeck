@@ -1,0 +1,252 @@
+{
+    "/home/deck/.local/share/Steam": {
+        "ps4": [
+            {
+                "title": "Gamepad",
+                "mappingId": "controller_ps4_gamepad_joystick.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Gamepad With Camera Controls",
+                "mappingId": "controller_ps4_gamepad_fps.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Gamepad with Flick Stick",
+                "mappingId": "controller_ps4_gamepad_flickstick.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Gamepad with High Precision Camera/Aim",
+                "mappingId": "controller_ps4_gamepad+mouse.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Gamepad with Mouse and Gyro",
+                "mappingId": "controller_ps4_gamepad_mouse_gyro.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Keyboard (WASD) and Mouse",
+                "mappingId": "controller_ps4_wasd.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Controller Hotkeys",
+                "mappingId": "emudeck_controller_ps4.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Frontend Controller Hotkeys",
+                "mappingId": "emudeck_frontend_controller_ps4.vdf",
+                "profileType": "template"
+            }
+        ],
+        "ps5": [
+            {
+                "title": "Gamepad",
+                "mappingId": "controller_ps5_gamepad_joystick.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Gamepad With Camera Controls",
+                "mappingId": "controller_ps5_gamepad_fps.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Gamepad with Flick Stick",
+                "mappingId": "controller_ps5_gamepad_flickstick.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Gamepad with High Precision Camera/Aim",
+                "mappingId": "controller_ps5_gamepad+mouse.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Gamepad with Mouse and Gyro",
+                "mappingId": "controller_ps5_gamepad_mouse_gyro.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Keyboard (WASD) and Mouse",
+                "mappingId": "controller_ps5_wasd.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Controller Hotkeys",
+                "mappingId": "emudeck_controller_ps5.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Frontend Controller Hotkeys",
+                "mappingId": "emudeck_frontend_controller_ps5.vdf",
+                "profileType": "template"
+            }
+            
+        ],
+        "ps5_edge": [
+            {
+                "title": "EmuDeck - Controller Hotkeys",
+                "mappingId": "emudeck_controller_ps5_dualsense_edge.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Frontend Controller Hotkeys",
+                "mappingId": "emudeck_frontend_controller_ps5_dualsense_edge.vdf",
+                "profileType": "template"
+            }
+        ],
+        "xbox360": [
+            {
+                "title": "EmuDeck - Controller Hotkeys",
+                "mappingId": "emudeck_controller_xbox360.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Frontend Controller Hotkeys",
+                "mappingId": "emudeck_frontend_controller_xbox360.vdf",
+                "profileType": "template"
+            }
+        ],
+        "xboxone": [
+            {
+                "title": "EmuDeck - Controller Hotkeys",
+                "mappingId": "emudeck_controller_xboxone.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Frontend Controller Hotkeys",
+                "mappingId": "emudeck_frontend_controller_xboxone.vdf",
+                "profileType": "template"
+            }
+        ],
+        "xboxelite": [
+            {
+                "title": "EmuDeck - Controller Hotkeys",
+                "mappingId": "emudeck_controller_xboxelite.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Frontend Controller Hotkeys",
+                "mappingId": "emudeck_frontend_controller_xboxelite.vdf",
+                "profileType": "template"
+            }
+        ],
+        "switch_joycon_left": [
+            {
+                "title": "Gamepad",
+                "mappingId": "controller_switch_joycon_left_gamepad_joystick.vdf",
+                "profileType": "template"
+            }
+        ],
+        "switch_joycon_right": [
+            {
+                "title": "Gamepad",
+                "mappingId": "controller_switch_joycon_right_gamepad_joystick.vdf",
+                "profileType": "template"
+            }
+        ],
+        "switch_pro": [
+            {
+                "title": "Gamepad",
+                "mappingId": "controller_switch_pro_gamepad_joystick.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Gamepad with Flick Stick",
+                "mappingId": "controller_switch_pro_gamepad_flickstick.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Controller Hotkeys",
+                "mappingId": "emudeck_controller_switch_pro.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Frontend Controller Hotkeys",
+                "mappingId": "emudeck_frontend_controller_switch_pro.vdf",
+                "profileType": "template"
+            }
+        ],
+        "neptune": [
+            {
+                "title": "Gamepad",
+                "mappingId": "controller_neptune_gamepad_joystick.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Gamepad with Gyro",
+                "mappingId": "controller_neptune_gamepad_mouse_gyro.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Gamepad with Mouse Trackpad",
+                "mappingId": "controller_neptune_gamepad+mouse.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Keyboard (WASD) and Mouse",
+                "mappingId": "controller_neptune_wasd.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Mouse Only",
+                "mappingId": "controller_neptune_mouse.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Touchscreen Mouse Emulation",
+                "mappingId": "controller_neptune_touchscreen.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "Web Browser",
+                "mappingId": "controller_neptune_webbrowser.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Cloud",
+                "mappingId": "emudeck_cloud_controller_config.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Controller Hotkeys",
+                "mappingId": "emudeck_controller_steamdeck.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Frontend Controller Hotkeys",
+                "mappingId": "emudeck_frontend_controller_steamdeck.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Steam Deck Radial Menus",
+                "mappingId": "emudeck_controller_steamdeck_radial_menus.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Steam Deck Light Gun Controls",
+                "mappingId": "emudeck_steam_deck_light_gun_controls.vdf",
+                "profileType": "template"
+            }
+        ],
+        "steamcontroller_gordon": [
+            {
+                "title": "Gamepad with Mouse and Gyro",
+                "mappingId": "gamepad_mouse_gyro.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Controller Hotkeys",
+                "mappingId": "emudeck_controller_steamcontroller.vdf",
+                "profileType": "template"
+            },
+            {
+                "title": "EmuDeck - Frontend Controller Hotkeys",
+                "mappingId": "emudeck_frontend_controller_steamcontroller.vdf",
+                "profileType": "template"
+            }
+        ]
+    }
+}
