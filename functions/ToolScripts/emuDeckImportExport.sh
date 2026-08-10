@@ -1,3 +1,4 @@
+#!/bin/bash
 function importCustomLocation(){
 	zenity --file-selection --directory --title="Select the root of the drive where you have your backup" 2>/dev/null
 }
