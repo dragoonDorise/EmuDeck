@@ -347,12 +347,12 @@ Ryujinx_getOrderedGamepads(){
 Ryujinx_set_gamepad_name() {
   
   if [ "$(getProductName)" == "Jupiter" ] || [ "$(getProductName)" == "Galileo" ]; then
-      if [ -z "${autoMap}" ]; then
+      if [ -z "${autoMapSwitch}" ]; then
         return 0
       fi
   fi
   
-  if [ "${autoMap}" == "false" ]; then
+  if [ "${autoMapSwitch}" == "false" ]; then
     return 0
   fi
   
