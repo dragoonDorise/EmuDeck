@@ -349,12 +349,12 @@ Cemu_functions () {
 	setControllers () {
 		
 		if [ "$(getProductName)" == "Jupiter" ] || [ "$(getProductName)" == "Galileo" ]; then
-			if [ -z "${autoMap}" ]; then
+			if [ -z "${autoMapCemu}" ]; then
 			  return 0
 			fi
 		fi
 		
-		if [ "${autoMap}" == "false" ]; then
+		if [ "${autoMapCemu}" == "false" ]; then
 			return 0
 		fi
 		
