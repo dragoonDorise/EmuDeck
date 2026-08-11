@@ -292,14 +292,14 @@ function exportEmuDeck(){
 
 				mkdir -p "$destination/EmuDeckBackup/saves"
 
-				rsync -ravL --progress "$emulationPath/saves/" "$destination/EmuDeckBackup/saves/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting saves to $destination/EmuDeckBackup/saves/" --title="Exporting saves..." --width=600 --percentage=0 --auto-close
+				rsync -ravL --progress -m "$emulationPath/saves/" "$destination/EmuDeckBackup/saves/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting saves to $destination/EmuDeckBackup/saves/" --title="Exporting saves..." --width=600 --percentage=0 --auto-close
 				;;
 			"Storage")
 				importCheckSpace "$emulationPath/storage/" "$destination"
 
 				mkdir -p "$destination/EmuDeckBackup/storage"
 
-				rsync -ravL --progress "$emulationPath/storage/" "$destination/EmuDeckBackup/storage/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting files to $destination/EmuDeckBackup/storage/" --title="Exporting files..." --width=600 --percentage=0 --auto-close
+				rsync -ravL --progress -m "$emulationPath/storage/" "$destination/EmuDeckBackup/storage/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting files to $destination/EmuDeckBackup/storage/" --title="Exporting files..." --width=600 --percentage=0 --auto-close
 
 				;;
 			"ES-DE Media")
@@ -316,7 +316,7 @@ function exportEmuDeck(){
 
 				mkdir -p "$destination/EmuDeckBackup/bios"
 
-				rsync -ravL --progress "$emulationPath/bios/" "$destination/EmuDeckBackup/bios/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting files to $destination/EmuDeckBackup/bios/" --title="Exporting files..." --width=600 --percentage=0 --auto-close
+				rsync -ravL --progress -m "$emulationPath/bios/" "$destination/EmuDeckBackup/bios/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting files to $destination/EmuDeckBackup/bios/" --title="Exporting files..." --width=600 --percentage=0 --auto-close
 
 				;;
 			"Roms")
@@ -324,7 +324,7 @@ function exportEmuDeck(){
 
 				mkdir -p "$destination/EmuDeckBackup/roms"
 
-				rsync -ravL --progress --exclude='*.txt' "$emulationPath/roms/" "$destination/EmuDeckBackup/roms/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting roms to $destination/EmuDeckBackup/roms/" --title="Exporting roms..." --width=600 --percentage=0 --auto-close
+				rsync -ravL --progress -m --exclude='*.txt' "$emulationPath/roms/" "$destination/EmuDeckBackup/roms/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting roms to $destination/EmuDeckBackup/roms/" --title="Exporting roms..." --width=600 --percentage=0 --auto-close
 			;;
 		esac
 	done
