@@ -1,7 +1,37 @@
 #!/bin/bash
-function importCustomLocation(){
-	zenity --file-selection --directory --title="Select the root of the drive where you have your backup" 2>/dev/null
+function importGetExternalDrives(){
+	local dir user
+	user="${USER:-$(id -un)}"
+
+	for dir in "/run/media/$user"/* /run/media/* "/media/$user"/* /media/* /mnt/*; do
+		[ -d "$dir" ] || continue
+		mountpoint -q "$dir" || continue
+		printf '%s\n' "$dir"
+	done | sort -u
 }
+
+function importCustomLocation(){
+	local -a drives=()
+	local mount label
+
+	while read -r mount; do
+		label=$(lsblk -no LABEL "$(findmnt -no SOURCE "$mount")" 2>/dev/null | head -n1)
+		drives+=("$mount" "${label:-No label}")
+	done < <(importGetExternalDrives)
+
+	if [ ${#drives[@]} -eq 0 ]; then
+		zenity --error --text="No external drives found" 2>/dev/null
+		return 1
+	fi
+
+	zenity --list \
+		--title="Select the drive where you have your backup" \
+		--column="Path" --column="Label" \
+		--print-column=1 \
+		--width=600 --height=300 \
+		"${drives[@]}" 2>/dev/null
+}
+
 function importCheckSpace(){
 	local origin=$1
 	local destination=$2
