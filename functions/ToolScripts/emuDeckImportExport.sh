@@ -33,7 +33,7 @@ function importCheckSpace(){
 }
 
 function importEmuDeck(){
-	text="$(printf "Welcome to EmuDeck's <b>import</b> save tool.\nThis script will help you migrate your EmuDeck saved games from another Steam Deck")"
+	text="$(printf "Welcome to EmuDeck's <b>import</b> save tool.\nThis script will help you migrate your EmuDeck installation from another device")"
 	
 	zenity --question \
 		--title="EmuDeck Import tool" \
@@ -48,7 +48,7 @@ function importEmuDeck(){
 		exit
 	fi
 	
-	text="$(printf "Please select the drive where you have your <b>exported saves</b>")"
+	text="$(printf "Please select the drive where you have your <b>backup</b>")"
 	 zenity --info \
 	--title="EmuDeck Import tool" \
 	--width="${width}" \
@@ -189,7 +189,7 @@ function importEmuDeck(){
 	
 		fi
 	
-		text="$(printf "<b>Success!</b>\nRemember that you need to Open EmuDeck and run Steam Rom Manager in this new device to add EmulationStation or any of your games to Steam")"
+		text="$(printf "<b>Success!</b>\nRemember that you need to Open EmuDeck and run Steam Rom Manager in this new device to add any of your games to Steam")"
 		 zenity --info \
 		--title="EmuDeck Import tool" \
 		--width=350 \
@@ -209,7 +209,7 @@ function importEmuDeck(){
 
 function exportEmuDeck(){
 	
-	text="$(printf "Welcome to EmuDeck's <b>export</b> tool.\nThis script will help you migrate your EmuDeck saved games to another Steam Deck")"
+	text="$(printf "Welcome to EmuDeck's <b>export</b> tool.\nThis script will help you migrate your EmuDeck installation to another device")"
 	
 	zenity --question \
 		--title="EmuDeck Export tool" \
@@ -224,7 +224,7 @@ function exportEmuDeck(){
 		exit
 	fi
 	
-	text="$(printf "Please pick the drive to export your saves.\n<b>Pick the root of the device, don't pick any subdirectory</b>")"
+	text="$(printf "Please pick the drive to export your backup.\n<b>Pick the root of the device, don't pick any subdirectory</b>")"
 	 zenity --info \
 	--title="EmuDeck Export tool" \
 	--width="${width}" \
@@ -313,6 +313,13 @@ function exportEmuDeck(){
 	
 				for entry in "$emulationPath/roms/"*
 				do
+					[ -d "$entry" ] || continue
+				
+					# Avoid txt files
+					if [ -z "$(find "$entry" -type f ! -iname '*.txt' -print -quit)" ]; then
+						continue
+					fi
+				
 					rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/roms/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/roms/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 				done
 	
@@ -346,14 +353,14 @@ function exportEmuDeck(){
 			fi
 		fi
 	
-		text="$(printf "<b>Success!</b>\nNow it's time to:\n1 Install EmuDeck in your new Deck. \n2 Use the Import Tool in your new Deck. \n3 That's all :)")"
+		text="$(printf "<b>Success!</b>\nNow it's time to:\n1 Install EmuDeck in your new device. \n2 Use the Import Tool in your new device. \n3 That's all :)")"
 		 zenity --info \
 		--title="EmuDeck Export tool" \
 		--width=350 \
 		--text="${text}"
 	
 	else
-		text="$(printf "<b>The operation failed</b>\nYour saved games might not have been exported.")"
+		text="$(printf "<b>The operation failed</b>\nYour files might not have been exported.")"
 		zenity --error \
 		 --title="EmuDeck Export tool" \
 		 --width=250 \
