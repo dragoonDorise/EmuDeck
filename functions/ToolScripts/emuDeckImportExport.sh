@@ -56,7 +56,7 @@ function importEmuDeck(){
 	
 	origin=$(importCustomLocation)
 	
-	if [ -d "$origin/EmuDeck/saves/" ]; then
+	if [ -d "$origin/EmuDeckBackup/saves/" ]; then
 		echo "Continue..."
 	else
 		text="$(printf "<b>No saved games detected</b>\nPlease select the root of the drive, don't select any of its folders.")"
@@ -66,7 +66,7 @@ function importEmuDeck(){
 		 --ok-label="Try again" \
 		 --text="${text}"
 	
-		 if [ -d "$origin/EmuDeck/saves/" ]; then
+		 if [ -d "$origin/EmuDeckBackup/saves/" ]; then
 			 echo "Continue..."
 		 else
 			 text="$(printf "<b>No EmuDeck save folder found</b>\nMake sure you have an Emulation/saves folder in your drive")"
@@ -79,18 +79,18 @@ function importEmuDeck(){
 		 fi
 	fi
 	
-	importCheckSpace "$origin/EmuDeck/saves/" "$emulationPath"
+	importCheckSpace "$origin/EmuDeckBackup/saves/" "$emulationPath"
 	
-	for entry in "$origin/EmuDeck/saves/"*
+	for entry in "$origin/EmuDeckBackup/saves/"*
 	do
 		rsync -rav --ignore-existing --progress "$entry" "$emulationPath/saves/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/saves/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
 	done
 	
 	
 	size=0;
-	size=$((size + $(du -sb "$origin/EmuDeck/saves/" | cut -f1)))
+	size=$((size + $(du -sb "$origin/EmuDeckBackup/saves/" | cut -f1)))
 	if [ "$size" -gt 4096 ]; then
-		if [ -d "$origin/EmuDeck/storage" ]; then
+		if [ -d "$origin/EmuDeckBackup/storage" ]; then
 			text="$(printf "<b>Storage folder found in your drive!</b>\nLet's import that one too")"
 			zenity --question \
 				--title="EmuDeck Import tool" \
@@ -101,9 +101,9 @@ function importEmuDeck(){
 			ans=$?
 			if [ $ans -eq 0 ]; then
 	
-				importCheckSpace "$origin/EmuDeck/storage/" "$emulationPath"
+				importCheckSpace "$origin/EmuDeckBackup/storage/" "$emulationPath"
 	
-				for entry in "$origin/EmuDeck/storage/"*
+				for entry in "$origin/EmuDeckBackup/storage/"*
 				do
 					rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/storage/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/storage/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
 				done
@@ -114,7 +114,7 @@ function importEmuDeck(){
 	
 		fi
 	
-		if [ -d "$origin/EmuDeck/bios" ]; then
+		if [ -d "$origin/EmuDeckBackup/bios" ]; then
 			text="$(printf "<b>Bios folder found in your drive!</b>\nLet's import that one too")"
 			zenity --question \
 				--title="EmuDeck Import tool" \
@@ -125,9 +125,9 @@ function importEmuDeck(){
 			ans=$?
 			if [ $ans -eq 0 ]; then
 	
-				importCheckSpace "$origin/EmuDeck/bios/" "$emulationPath"
+				importCheckSpace "$origin/EmuDeckBackup/bios/" "$emulationPath"
 	
-				for entry in "$origin/EmuDeck/bios/"*
+				for entry in "$origin/EmuDeckBackup/bios/"*
 				do
 					rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/bios/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/bios/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
 				done
@@ -139,7 +139,7 @@ function importEmuDeck(){
 		fi
 	
 	
-		if [ -d "$origin/EmuDeck/tools/downloaded_media" ]; then
+		if [ -d "$origin/EmuDeckBackup/tools/downloaded_media" ]; then
 			text="$(printf "<b>ESDE Media folder found in your drive!</b>\nLet's import that one too")"
 			zenity --question \
 				--title="EmuDeck Import tool" \
@@ -150,9 +150,9 @@ function importEmuDeck(){
 			ans=$?
 			if [ $ans -eq 0 ]; then
 	
-				importCheckSpace "$origin/EmuDeck/tools/downloaded_media/" "$toolsPath"
+				importCheckSpace "$origin/EmuDeckBackup/tools/downloaded_media/" "$toolsPath"
 	
-				for entry in "$origin/EmuDeck/tools/downloaded_media/"*
+				for entry in "$origin/EmuDeckBackup/tools/downloaded_media/"*
 				do
 					rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/tools/downloaded_media/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/tools/downloaded_media/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
 				done
@@ -165,7 +165,7 @@ function importEmuDeck(){
 	
 	
 	
-		if [ -d "$origin/EmuDeck/roms" ]; then
+		if [ -d "$origin/EmuDeckBackup/roms" ]; then
 			text="$(printf "<b>Roms folder found in your drive!</b>\nLet's import that one too")"
 			zenity --question \
 				--title="EmuDeck Import tool" \
@@ -176,9 +176,9 @@ function importEmuDeck(){
 			ans=$?
 			if [ $ans -eq 0 ]; then
 	
-				importCheckSpace "$origin/EmuDeck/roms/" "$emulationPath"
+				importCheckSpace "$origin/EmuDeckBackup/roms/" "$emulationPath"
 	
-				for entry in "$origin/EmuDeck/roms/"*
+				for entry in "$origin/EmuDeckBackup/roms/"*
 				do
 					rsync -ravL --ignore-existing --progress "$entry" "$emulationPath/roms/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing $entry to $emulationPath/roms/" --title="Importing $entry..." --width=400 --percentage=0 --auto-close
 				done
@@ -233,17 +233,17 @@ function exportEmuDeck(){
 	destination=$(importCustomLocation)
 	importCheckSpace "$emulationPath/saves/" "$destination"
 	
-	mkdir -p "$destination/EmuDeck/saves"
+	mkdir -p "$destination/EmuDeckBackup/saves"
 	
 	for entry in "$emulationPath/saves/"*
 	do
-		rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/saves/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/saves/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+		rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeckBackup/saves/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeckBackup/saves/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 	done
 	
 	
 	
 	size=0;
-	size=$((size + $(du -sb "$destination/EmuDeck/saves/" | cut -f1)))
+	size=$((size + $(du -sb "$destination/EmuDeckBackup/saves/" | cut -f1)))
 	if [ "$size" -gt 4096 ]; then
 		if [ -d "$emulationPath/storage" ]; then
 			text="$(printf "<b>Storage folder found in your internal Drive!</b>\nLet's export that one too")"
@@ -258,11 +258,11 @@ function exportEmuDeck(){
 	
 				checkSpace "$emulationPath/storage/" "$destination"
 	
-				mkdir -p "$destination/EmuDeck/storage"
+				mkdir -p "$destination/EmuDeckBackup/storage"
 	
 				for entry in "$emulationPath/storage/"*
 				do
-					rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/storage/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/storage/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+					rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeckBackup/storage/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeckBackup/storage/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 				done
 	
 			else
@@ -284,11 +284,11 @@ function exportEmuDeck(){
 	
 				checkSpace "$emulationPath/bios/" "$destination"
 	
-				mkdir -p "$destination/EmuDeck/bios"
+				mkdir -p "$destination/EmuDeckBackup/bios"
 	
 				for entry in "$emulationPath/bios/"*
 				do
-					rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/bios/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/bios/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+					rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeckBackup/bios/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeckBackup/bios/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 				done
 	
 			else
@@ -309,7 +309,7 @@ function exportEmuDeck(){
 	
 				checkSpace "$emulationPath/roms/" "$destination"
 	
-				mkdir -p "$destination/EmuDeck/roms"
+				mkdir -p "$destination/EmuDeckBackup/roms"
 	
 				for entry in "$emulationPath/roms/"*
 				do
@@ -320,7 +320,7 @@ function exportEmuDeck(){
 						continue
 					fi
 				
-					rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/roms/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/roms/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+					rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeckBackup/roms/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeckBackup/roms/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 				done
 	
 			else
@@ -341,11 +341,11 @@ function exportEmuDeck(){
 	
 				checkSpace "$ESDEscrapData" "$destination"
 	
-				mkdir -p "$destination/EmuDeck/tools/downloaded_media"
+				mkdir -p "$destination/EmuDeckBackup/tools/downloaded_media"
 	
 				for entry in "$ESDEscrapData/"*
 				do
-					rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeck/tools/downloaded_media/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeck/tools/downloaded_media/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
+					rsync -ravL --ignore-existing --progress "$entry" "$destination/EmuDeckBackup/tools/downloaded_media/" | awk -f $HOME/.config/EmuDeck/backend/rsync.awk | zenity --progress --text="Exporting $entry to $destination/EmuDeckBackup/tools/downloaded_media/" --title="Exporting $entry..." --width=400 --percentage=0 --auto-close
 				done
 	
 			else
