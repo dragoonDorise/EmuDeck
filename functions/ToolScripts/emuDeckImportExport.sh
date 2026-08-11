@@ -33,7 +33,7 @@ function importCheckSpace(){
 }
 
 function importEmuDeck(){
-	text="$(printf "Welcome to EmuDeck's <b>import</b> save tool.\nThis script will help you migrate your EmuDeck installation from another device")"
+	text="$(printf "Welcome to EmuDeck's <b>import</b> tool.\nThis script will help you migrate your EmuDeck installation from another device")"
 	
 	zenity --question \
 		--title="EmuDeck Import tool" \
@@ -256,7 +256,7 @@ function exportEmuDeck(){
 			ans=$?
 			if [ $ans -eq 0 ]; then
 	
-				checkSpace "$emulationPath/storage/" "$destination"
+				importCheckSpace "$emulationPath/storage/" "$destination"
 	
 				mkdir -p "$destination/EmuDeckBackup/storage"
 	
@@ -282,7 +282,7 @@ function exportEmuDeck(){
 			ans=$?
 			if [ $ans -eq 0 ]; then
 	
-				checkSpace "$emulationPath/bios/" "$destination"
+				importCheckSpace "$emulationPath/bios/" "$destination"
 	
 				mkdir -p "$destination/EmuDeckBackup/bios"
 	
@@ -307,7 +307,7 @@ function exportEmuDeck(){
 			ans=$?
 			if [ $ans -eq 0 ]; then
 	
-				checkSpace "$emulationPath/roms/" "$destination"
+				importCheckSpace "$emulationPath/roms/" "$destination"
 	
 				mkdir -p "$destination/EmuDeckBackup/roms"
 	
@@ -339,7 +339,7 @@ function exportEmuDeck(){
 			ans=$?
 			if [ $ans -eq 0 ]; then
 	
-				checkSpace "$ESDEscrapData" "$destination"
+				importCheckSpace "$ESDEscrapData" "$destination"
 	
 				mkdir -p "$destination/EmuDeckBackup/tools/downloaded_media"
 	
