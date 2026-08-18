@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 
 #We check the current Emulation folder space, and the destination

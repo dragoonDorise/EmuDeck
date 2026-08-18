@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 Model2_emuName="Model-2-Emulator"
 Model2_emuType="$emuDeckEmuTypeWindows"

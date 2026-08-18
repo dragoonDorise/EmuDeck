@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 appleChip=$(uname -m)
 if [ $(uname) != "Linux" ]; then
     system="darwin"

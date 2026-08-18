@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 ScummVM_emuName="ScummVM"
 ScummVM_emuType="$emuDeckEmuTypeFlatpak"

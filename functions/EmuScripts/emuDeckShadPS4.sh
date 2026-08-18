@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Script to install, initialize and configure ShadPS4 on EmuDeck
 # Note: No Bios/Keys symlinks necessary

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 RetroArch_maincfg(){
 RetroArch_setOverride 'retroarch.cfg' 'retroarch'  'accessibility_enable' '"false"'

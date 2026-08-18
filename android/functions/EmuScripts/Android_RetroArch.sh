@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #variables
 Android_RetroArch_emuName="RetroArch"

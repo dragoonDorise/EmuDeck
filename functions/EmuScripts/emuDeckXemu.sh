@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 Xemu_emuName="Xemu-Emu"
 Xemu_emuType="$emuDeckEmuTypeFlatpak"

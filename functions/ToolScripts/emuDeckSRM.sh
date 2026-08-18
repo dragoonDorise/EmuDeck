@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 SRM_toolName="Steam ROM Manager"
 SRM_toolType="$emuDeckEmuTypeAppImage"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 ESDE_toolName="ES-DE"
 ESDE_oldtoolName="EmulationStation-DE"

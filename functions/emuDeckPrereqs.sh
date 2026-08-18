@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 OS_setupPrereqsArch(){		
 
 	#Ensure the dependencies are installed before proceeding.

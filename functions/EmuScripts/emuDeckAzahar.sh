@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 Azahar_emuName="Azahar"
 Azahar_emuType="$emuDeckEmuTypeAppImage"

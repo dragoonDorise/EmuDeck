@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 Supermodel_emuName="Supermodel"
 Supermodel_emuType="$emuDeckEmuTypeFlatpak"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function Android_NetherSX2_install(){
 	setMSG "Installing NetherSX2"

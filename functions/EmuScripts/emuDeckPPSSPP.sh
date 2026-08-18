@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 PPSSPP_emuName="PPSSPP"
 PPSSPP_emuType="$emuDeckEmuTypeFlatpak"

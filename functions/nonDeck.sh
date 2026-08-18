@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 nonDeck_169Screen(){
 

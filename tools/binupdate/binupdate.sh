@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #while this is in testing, i'm copying in the functions. once we leave the original repo in place and don't delete it, i'd like to use the functions we already made.
 
 # shellcheck source=functions/all.sh

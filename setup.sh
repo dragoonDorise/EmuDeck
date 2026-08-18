@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 ##
 ## set backend location
@@ -79,7 +79,7 @@ mkdir -p "$HOME/.config/EmuDeck"
 
 #Custom Scripts
 mkdir -p "$emudeckFolder/custom_scripts"
-echo $'#!/bin/bash\nemudeckBackend="$HOME/.config/EmuDeck/backend/"\nsource "$emudeckBackend/functions/all.sh"' > "$emudeckFolder/custom_scripts/example.sh"
+echo $'#!/usr/bin/env bash\nemudeckBackend="$HOME/.config/EmuDeck/backend/"\nsource "$emudeckBackend/functions/all.sh"' > "$emudeckFolder/custom_scripts/example.sh"
 
 echo "Press the button to start..." > "$LOGFILE"
 
