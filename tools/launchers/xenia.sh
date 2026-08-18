@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # xenia.sh
 cd "$HOME/.config/EmuDeck/backend/"
 git pull
@@ -12,7 +12,7 @@ SELFPATH="$( realpath "${BASH_SOURCE[0]}" )"
 CONFIG_FILE="${SELFPATH}.config"
 
 # Get EXE
-EXE="\"/usr/bin/bash\" \"${SELFPATH}\""
+EXE="\"/usr/bin/env bash\" \"${SELFPATH}\""
 
 # NAME
 NAME="Xenia"
@@ -27,10 +27,10 @@ PROTONLAUNCH="${toolsPath}/proton-launch.sh"
 XENIA="$romsPath/xbox360/xenia_canary.exe"
 
 # APPID
-if [ -e "/usr/bin/python" ]; then
-    APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
-elif [ -e "/usr/bin/python3" ]; then
-    APPID=$( /usr/bin/python3 "${APPIDPY}" "${EXE}" "${NAME}" )
+if command -v python &>/dev/null; then
+    APPID=$( python "${APPIDPY}" "${EXE}" "${NAME}" )
+elif command -v python3 &>/dev/null; then
+    APPID=$( python3 "${APPIDPY}" "${EXE}" "${NAME}" )
 else 
     echo "Python not found."
 fi

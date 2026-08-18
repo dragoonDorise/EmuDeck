@@ -34,6 +34,7 @@ Azahar_init(){
 	Azahar_setupTextures
 	Azahar_addParser
 	Azahar_migrate
+	Azahar_setResolution
 
 	#ESDE
 	ESDE_refreshCustomEmus
@@ -195,8 +196,18 @@ Azahar_setEmulationFolder(){
 	mkdir -p "${biosPath}/azahar/"
 	mkdir -p "$HOME/.local/share/azahar-emu/sysdata"
 	ln -sn "$HOME/.local/share/azahar-emu/sysdata" "${biosPath}/azahar/keys"
+	
+	#Portable
+	#sysdata="$HOME/.local/share/azahar-emu/sysdata"
+	#keys="${biosPath}/azahar/keys"
+	#
+	#mkdir -p "${biosPath}/azahar"
+	#mkdir -p "$HOME/.local/share/azahar-emu"
+	#
+	#linkToFolder "$keys" "$sysdata"
 
 }
+
 
 
 
@@ -275,10 +286,22 @@ Azahar_setResolution(){
 		"1080P") multiplier=5;;
 		"1440P") multiplier=6;;
 		"4K") multiplier=9;;
-		*) echo "Error"; return 1;;
+		*) multiplier=3;;
 	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ "$azaharResolution" = "4K" ]; then
+		getScreenInfoOnlyTV	
+		if [ "${screenWidth:-0}" -lt 3840 ]; then 
+			multiplier=5
+		fi
+	fi
 
-	setConfig "resolution_factor" $multiplier "$Azahar_configFile"
+	resolutionOpt='resolution_factor='
+	newResolutionOpt='resolution_factor='"$multiplier"
+	sed -i "/${resolutionOpt}/c\\${newResolutionOpt}" "$Azahar_configFile"
+	
+	
 }
 
 Azahar_flushEmulatorLauncher(){
@@ -319,7 +342,7 @@ Azahar_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo 3DS' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/n3ds' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.3ds .3DS .3dsx .3DSX .app .APP .axf .AXF .cci .CCI .cxi .CXI .elf .ELF .7z .7Z .zip .ZIP' \
-		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/azahar.sh %ROM%" \
+		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/env bash ${toolsPath}/launchers/azahar.sh %ROM%" \
 		--insert '$newSystem/commandP' --type attr --name 'label' --value "Azahar (Standalone)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'n3ds' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'n3ds' \

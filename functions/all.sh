@@ -78,6 +78,8 @@ source "$emudeckBackend"/functions/ToolScripts/emuDeckCopyGames.sh
 source "$emudeckBackend"/functions/ToolScripts/emuDecky.sh
 source "$emudeckBackend"/functions/ToolScripts/emuDeckNetPlay.sh
 source "$emudeckBackend"/functions/ToolScripts/emuDeckStore.sh
+source "$emudeckBackend"/functions/ToolScripts/emuDeckImportExport.sh
+
 
 #emuscripts
 #source "$emudeckBackend"/functions/EmuScripts/emuDeckSuyu.sh

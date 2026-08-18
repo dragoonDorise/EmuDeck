@@ -228,7 +228,7 @@ Cemu_functions () {
 			rm -rf "${CemuNative[shareDir]}/graphicPacks"
 		fi
 
-  		if [ -f "${CemuNative[shareDir]}/graphicPacks" ]; then
+		  if [ -f "${CemuNative[shareDir]}/graphicPacks" ]; then
 			rm -f "${CemuNative[shareDir]}/graphicPacks"
 		fi
 
@@ -236,7 +236,7 @@ Cemu_functions () {
 			rm -rf "${CemuNative[shareDir]}/mlc01/mlc01"
 		fi
 
-  		# Commenting out for now. These need more testing.
+		  # Commenting out for now. These need more testing.
 		#install -d "${storagePath}/cemu"
 		#unlink "${CemuNative[shareDir]}/mlc01"
 		#unlink "${CemuNative[shareDir]}/graphicPacks"
@@ -349,10 +349,12 @@ Cemu_functions () {
 	setControllers () {
 		
 		if [ "$(getProductName)" == "Jupiter" ] || [ "$(getProductName)" == "Galileo" ]; then
+			if [ -z "${autoMapCemu}" ]; then
 			  return 0
+			fi
 		fi
 		
-		if [ "${autoMap}" == "false" ]; then
+		if [ "${autoMapCemu}" == "false" ]; then
 			return 0
 		fi
 		

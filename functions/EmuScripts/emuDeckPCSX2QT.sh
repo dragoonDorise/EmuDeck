@@ -46,6 +46,7 @@ PCSX2QT_init() {
 	PCSX2QT_setupControllers
 	PCSX2QT_setCustomizations
 	PCSX2QT_setRetroAchievements
+	PCSX2QT_setResolution
 	#SRM_createParsers
 	PCSX2QT_flushEmulatorLauncher
 
@@ -333,8 +334,16 @@ PCSX2QT_setResolution(){
 		"1080P") multiplier=3;;
 		"1440P") multiplier=4;;
 		"4K") multiplier=6;;
-		*) echo "Error"; return 1;;
+		*) multiplier=2;;
 	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ "$pcsx2Resolution" = "4K" ]; then
+		getScreenInfoOnlyTV	
+		if [ "${screenWidth:-0}" -lt 3840 ]; then 
+			multiplier=3
+		fi
+	fi
 
 	RetroArch_setConfigOverride "upscale_multiplier" $multiplier "$PCSX2QT_configFile"
 }

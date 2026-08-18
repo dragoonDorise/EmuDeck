@@ -94,6 +94,7 @@ Eden_init() {
     Eden_finalize
     Eden_addParser
     Eden_flushEmulatorLauncher
+    Eden_setResolution
   	createDesktopShortcut   "$HOME/.local/share/applications/eden.desktop" \
 							"Eden (AppImage)" \
 							"${toolsPath}/launchers/eden.sh"  \
@@ -146,11 +147,31 @@ Eden_setEmulationFolder() {
     #Setup Bios symlinks
     unlink "${biosPath}/eden/keys" 2>/dev/null
     unlink "${biosPath}/eden/firmware" 2>/dev/null
-
+    
     mkdir -p "$HOME/.local/share/eden/keys/"
     mkdir -p "${biosPath}/eden"
     ln -sn "$HOME/.local/share/eden/keys/" "${biosPath}/eden/keys"
     ln -sn "$HOME/.local/share/eden/nand/system/Contents/registered/" "${biosPath}/eden/firmware"
+
+    #Portable
+#     folder_parent="${biosPath}/eden"
+#     link_parent="$HOME/.local/share/eden/"        
+#     mkdir -p "$folder_parent"
+#     mkdir -p "$link_parent"
+#     
+#     #Keys
+#     folder="${folder_parent}/keys"
+#     link="${link_parent}/keys"
+#         
+#     linkToFolder "$folder" "$link"
+#     
+#     #Firmware    
+#     folder="${folder_parent}/firmware"
+#     link="${link_parent}/nand/system/Contents/registered/"
+#         
+#     linkToFolder "$folder" "$link"   
+#     
+#     touch "${folder}/putfirmwarehere.txt"
 
 }
 
@@ -265,8 +286,17 @@ Eden_setResolution(){
 		"1080P") multiplier=2; docked="true";;
 		"1440P") multiplier=3; docked="false";;
 		"4K") multiplier=3; docked="true";;
-		*) echo "Error"; return 1;;
+		*) multiplier=2; docked="false";;
 	esac
+
+	#Steam Machine 4K > 1080P fallback
+	if [ "$edenResolution" = "4K" ]; then
+		getScreenInfoOnlyTV
+		if [ "${screenWidth:-0}" -lt 3840 ]; then
+			multiplier=2
+			docked="true"
+		fi
+	fi
 
 	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Eden_configFile"
 	RetroArch_setConfigOverride "use_docked_mode" $docked "$Eden_configFile"

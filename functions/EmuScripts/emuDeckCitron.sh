@@ -94,6 +94,7 @@ Citron_init() {
     Citron_finalize
     Citron_addParser
     Citron_flushEmulatorLauncher
+    Citron_setResolution
   	createDesktopShortcut   "$HOME/.local/share/applications/citron.desktop" \
 							"Citron (AppImage)" \
 							"${toolsPath}/launchers/citron.sh"  \
@@ -146,11 +147,32 @@ Citron_setEmulationFolder() {
     #Setup Bios symlinks
     unlink "${biosPath}/citron/keys" 2>/dev/null
     unlink "${biosPath}/citron/firmware" 2>/dev/null
-
+    
     mkdir -p "$HOME/.local/share/citron/keys/"
     mkdir -p "${biosPath}/citron"
     ln -sn "$HOME/.local/share/citron/keys/" "${biosPath}/citron/keys"
     ln -sn "$HOME/.local/share/citron/nand/system/Contents/registered/" "${biosPath}/citron/firmware"
+    
+    
+    # Portable
+    # folder_parent="${biosPath}/citron"
+    # link_parent="$HOME/.local/share/citron/"        
+    # mkdir -p "$folder_parent"
+    # mkdir -p "$link_parent"
+    # 
+    # #Keys
+    # folder="${folder_parent}/keys"
+    # link="${link_parent}/keys"
+    #     
+    # linkToFolder "$folder" "$link"
+    # 
+    # #Firmware    
+    # folder="${folder_parent}/firmware"
+    # link="${link_parent}/nand/system/Contents/registered/"
+    #     
+    # linkToFolder "$folder" "$link"    
+    # 
+    # touch "${folder}/putfirmwarehere.txt"
 
 }
 
@@ -265,8 +287,17 @@ Citron_setResolution(){
 		"1080P") multiplier=2; docked="true";;
 		"1440P") multiplier=3; docked="false";;
 		"4K") multiplier=3; docked="true";;
-		*) echo "Error"; return 1;;
+		*) multiplier=2; docked="false";;
 	esac
+  
+    #Steam Machine 4K > 1080P fallback
+    if [ "$citronResolution" = "4K" ]; then
+      getScreenInfoOnlyTV	
+      if [ "${screenWidth:-0}" -lt 3840 ]; then 
+        multiplier=2;
+        docked="true";
+      fi
+    fi
 
 	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Citron_configFile"
 	RetroArch_setConfigOverride "use_docked_mode" $docked "$Citron_configFile"

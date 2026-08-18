@@ -54,7 +54,20 @@ Flycast_setEmulationFolder(){
 	#Setup symlink for bios
 	mkdir -p "${biosPath}/flycast/"
 	mkdir -p "$HOME/.var/app/org.flycast.Flycast/data/flycast/"
-    ln -sn "$HOME/.var/app/org.flycast.Flycast/data/flycast/" "${biosPath}/flycast/bios"
+	ln -sn "$HOME/.var/app/org.flycast.Flycast/data/flycast/" "${biosPath}/flycast/bios"
+
+	
+	#Portable
+	# folder_parent="${biosPath}/flycast"
+	# link_parent="$HOME/.var/app/org.flycast.Flycast/data"       
+	# mkdir -p "$folder_parent"
+	# mkdir -p "$link_parent"
+	# 	
+	# folder="${folder_parent}/bios"
+	# link="${link_parent}/flycast"
+	# 	
+	# linkToFolder "$folder" "$link"
+	
 }
 
 #SetupSaves

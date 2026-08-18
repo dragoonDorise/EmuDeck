@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 cd "$HOME/.config/EmuDeck/backend/"
 git pull
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 launcherInit
-emulatorInit "Cemu"
+emulatorInit "Cemu" "${@}"
 # cemu.sh
 
 # Report Errors
@@ -62,7 +62,7 @@ getFlatpak () {
         echo "Error: Flatpak not found."
         return 1
     else
-        EMUPATH=("/usr/bin/flatpak" "run" "${FLATPAK}")
+        EMUPATH=("flatpak" "run" "${FLATPAK}")
     fi
 }
 
@@ -161,7 +161,7 @@ main () {
         CONFIG_FILE="${SELFPATH}.config"
 
         # Get EXE
-        EXE="\"/usr/bin/bash\" \"${SELFPATH}\""
+        EXE="\"/usr/bin/env bash\" \"${SELFPATH}\""
         echo "EXE: ${EXE}"
 
         # AppID.py
@@ -177,10 +177,10 @@ main () {
         checkFile "${CEMU}"
 
         # APPID
-        if [ -e "/usr/bin/python" ]; then
-            APPID=$( /usr/bin/python "${APPIDPY}" "${EXE}" "${NAME}" )
-        elif [ -e "/usr/bin/python3" ]; then
-            APPID=$( /usr/bin/python3 "${APPIDPY}" "${EXE}" "${NAME}" )
+        if command -v python &>/dev/null; then
+            APPID=$( python "${APPIDPY}" "${EXE}" "${NAME}" )
+        elif command -v python3 &>/dev/null; then
+            APPID=$( python3 "${APPIDPY}" "${EXE}" "${NAME}" )
         else 
             echo "Python not found."
         fi

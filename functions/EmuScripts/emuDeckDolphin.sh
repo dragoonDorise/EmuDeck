@@ -115,6 +115,7 @@ Dolphin_init(){
     Dolphin_setRetroAchievements
     Dolphin_flushEmulatorLauncher
     Dolphin_flushSymlinks
+    Dolphin_setResolution
 	#SRM_createParsers
     #Dolphin_DynamicInputTextures
     
@@ -262,10 +263,12 @@ Dolphin_finalize(){
 Dolphin_setGamepads(){
   
     if [ "$(getProductName)" == "Jupiter" ] || [ "$(getProductName)" == "Galileo" ]; then
+      if [ -z "${autoMapDolphin}" ]; then
         return 0
+      fi
     fi
   
-	if [ "${autoMap}" == "false" ]; then
+	if [ "${autoMapDolphin}" == "false" ]; then
 		return 0
 	fi
     cp "$emudeckBackend/configs/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GCPadNew.ini" $Dolphin_gamecubeFile
@@ -323,8 +326,16 @@ Dolphin_setResolution(){
 		"1080P") multiplier=3;;
 		"1440P") multiplier=4;;
 		"4K") multiplier=6;;
-		*) echo "Error"; return 1;;
+		*) multiplier=2;;
 	esac
+  
+    #Steam Machine 4K > 1080P fallback
+    if [ "$dolphinResolution" = "4K" ]; then
+      getScreenInfoOnlyTV	
+      if [ "${screenWidth:-0}" -lt 3840 ]; then 
+        multiplier=3
+      fi
+    fi
 
 	RetroArch_setConfigOverride "InternalResolution" $multiplier "$Dolphin_configFileGFX"
 }

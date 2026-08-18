@@ -10,6 +10,9 @@ port1 = '03000000de280000ff11000001000000'
 [display.ui]
 fit = 'stretch'
 
+[display.quality]
+surface_scale = 1
+
 [sys]
 mem_limit = '128'
 

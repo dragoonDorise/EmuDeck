@@ -90,6 +90,7 @@ Yuzu_init() {
     Yuzu_setEmulationFolder
     Yuzu_setupStorage
     Yuzu_setupSaves
+    Yuzu_setResolution
     Yuzu_finalize
     #SRM_createParsers
     Yuzu_flushEmulatorLauncher
@@ -154,14 +155,34 @@ Yuzu_setEmulationFolder() {
     #Setup Bios symlinks
     unlink "${biosPath}/yuzu/keys" 2>/dev/null
     unlink "${biosPath}/yuzu/firmware" 2>/dev/null
-
+    
     mkdir -p "$HOME/.local/share/yuzu/keys/"
     mkdir -p "${storagePath}/yuzu/nand/system/Contents/registered/"
-
+    
     ln -sn "$HOME/.local/share/yuzu/keys/" "${biosPath}/yuzu/keys"
     ln -sn "${storagePath}/yuzu/nand/system/Contents/registered/" "${biosPath}/yuzu/firmware"
 
-    touch "${storagePath}/yuzu/nand/system/Contents/registered/putfirmwarehere.txt"
+
+
+    #Portable
+#     folder_parent="${biosPath}/yuzu"
+#     link_parent="$HOME/.local/share/yuzu/"        
+#     mkdir -p "$folder_parent"
+#     mkdir -p "$link_parent"
+#     
+#     #Keys
+#     folder="${folder_parent}/keys"
+#     link="${link_parent}/keys"
+#         
+#     linkToFolder "$folder" "$link"
+#     
+#     #Firmware    
+#     folder="${folder_parent}/firmware"
+#     link="${link_parent}/nand/system/Contents/registered/"
+#         
+#     linkToFolder "$folder" "$link"   
+# 
+#     touch "${folder}/putfirmwarehere.txt"
 
 }
 
@@ -388,8 +409,18 @@ Yuzu_setResolution(){
 		"1080P") multiplier=2; docked="true";;
 		"1440P") multiplier=3; docked="false";;
 		"4K") multiplier=3; docked="true";;
-		*) echo "Error"; return 1;;
+		*) multiplier=2; docked="false";;
 	esac
+  
+    
+    #Steam Machine 4K > 1080P fallback
+    if [ "$yuzuResolution" = "4K" ]; then
+      getScreenInfoOnlyTV	
+      if [ "${screenWidth:-0}" -lt 3840 ]; then 
+        multiplier=2;
+        docked="true";
+      fi
+    fi
 
 	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Yuzu_configFile"
 	RetroArch_setConfigOverride "use_docked_mode" $docked "$Yuzu_configFile"
