@@ -1,261 +1,235 @@
 #!/bin/bash
-function importGetExternalDrives(){
+
+function logToFrontend(){
+	local payload="$1"
+	{ exec 3<>/dev/tcp/127.0.0.1/"${EMUDECK_BACKEND_PORT:-8099}"; } 2>/dev/null || return 1
+	printf '%s\n' "$payload" 2>/dev/null >&3
+	exec 3>&- 2>/dev/null
+	return 0
+} #OK
+
+function checkSpace(){
+	local origin="$1" destination="$2" label="$3"
+	local neededSpace freeSpace
+
+	logToFrontend "$(jq -nc --arg key "importExport.calculatingSize" --arg item "$label" '{key:$key,params:{item:$item},percentage:0,finished:false}')"
+
+	neededSpace=$(du -s "$origin" 2>/dev/null | awk '{print $1}')
+	freeSpace=$(df -k "$destination" --output=avail 2>/dev/null | tail -1 | tr -d ' ')
+
+	if [ "$freeSpace" -lt "$neededSpace" ]; then
+		logToFrontend "$(jq -nc --arg key "importExport.noSpace" --arg item "$label" --arg destination "$destination" '{key:$key,params:{item:$item,destination:$destination},percentage:100,finished:false}')"
+		return 1
+	fi
+
+	return 0
+} #OK
+
+function get_external_drives(){
 	local dir user
 	user="${USER:-$(id -un)}"
 
 	for dir in "/run/media/$user"/* /run/media/* "/media/$user"/* /media/* /mnt/*; do
 		[ -d "$dir" ] || continue
-		mountpoint -q "$dir" || continue
+		#mountpoint -q "$dir" || continue
 		printf '%s\n' "$dir"
 	done | sort -u
-}
+} #OK
 
-function importCustomLocation(){
-	local -a drives=()
-	local mount label
+function get_locations(){
+	local mount source label removable name type
+	local -a entries=()
 
 	while read -r mount; do
-		label=$(lsblk -no LABEL "$(findmnt -no SOURCE "$mount")" 2>/dev/null | head -n1)
-		drives+=("$mount" "${label:-No label}")
-	done < <(importGetExternalDrives)
+		source=$(findmnt -no SOURCE "$mount" 2>/dev/null | head -n1)
+		label=$(lsblk -no LABEL "$source" 2>/dev/null | head -n1)
+		removable=$(lsblk -no RM "$source" 2>/dev/null | head -n1 | tr -d ' ')
 
-	if [ ${#drives[@]} -eq 0 ]; then
-		zenity --error --text="No external drives found" 2>/dev/null
+		label="${label#"${label%%[![:space:]]*}"}"
+		label="${label%"${label##*[![:space:]]}"}"
+		[ -z "$label" ] && label="No label"
+
+		case "$source" in
+			*mmcblk*) name="SD Card"; type="External" ;;
+			*)
+				name="$label"
+				if [ "$removable" = "1" ]; then
+					type="External"
+				else
+					type="Internal"
+				fi
+				;;
+		esac
+
+		entries+=("$(jq -nc \
+			--arg letter "$mount" \
+			--arg name "$name" \
+			--arg label "$label" \
+			--arg type "$type" \
+			'{letter:$letter,name:$name,label:$label,type:$type}')")
+	done < <(get_external_drives)
+
+	if [ "${#entries[@]}" -eq 0 ]; then
+		entries+=("$(jq -nc \
+		--arg letter "$HOME" \
+		--arg name "User folder" \
+		--arg label "User folder" \
+		--arg type "Internal" \
+		'{letter:$letter,name:$name,label:$label,type:$type}')")
+		
+		printf '%s\n' "${entries[@]}" | jq -sc '.'
+		return 0
+	fi
+
+	printf '%s\n' "${entries[@]}" | jq -sc '.'
+	return 0
+} #OK
+
+function rsync_progress(){
+	local action="$1"
+	local item="$2"
+	local origin="$3"
+	local destination="$4"
+	local rsyncParams="$5"
+	local status
+
+	mkdir -p "$destination"
+
+	logToFrontend "$(jq -nc --arg key "importExport.$action" --arg item "$item" '{key:$key,params:{item:$item},percentage:0,finished:false}')"
+
+	rsync -a -m --info=progress2 --no-inc-recursive $rsyncParams "$origin" "$destination" | tr '\r' '\n' | {
+		last="0"
+		while read -r line; do
+			# case "$line" in
+			# 	*%*) ;;
+			# 	*) continue ;;
+			# esac
+			#We get the percentage from rsync output 
+			percent="${line%%%*}"
+			percent="${percent##* }"
+			# case "$percent" in
+			# 	''|*[!0-9]*) continue ;;
+			# esac
+			#We only send new percetages to the frontend, avoiding duplicates
+			[ "$percent" = "$last" ] && continue
+			last="$percent"
+			logToFrontend "$(jq -nc --arg key "importExport.$action" --arg item "$item" --argjson percentage "$percent" '{key:$key,params:{item:$item},percentage:$percentage,finished:false}')"
+		done
+	}
+	status=${PIPESTATUS[0]}
+
+	if [ "$status" -ne 0 ]; then
+		logToFrontend "$(jq -nc --arg key "importExport.failed" --arg item "$item" --argjson code "$status" '{key:$key,params:{item:$item,code:$code},percentage:100,finished:false}')"
+		sleep 1
+		return "$status"
+	fi
+
+	logToFrontend "$(jq -nc --arg key "importExport.$action" --arg item "$item" '{key:$key,params:{item:$item},percentage:100,finished:false}')"
+	return 0
+} #OK
+
+function import_emudeck(){
+	local items="$1"
+	local origin="$2"
+	local item root selected failed=0
+	local -a failedItems=()
+
+	if [ -z "$origin" ] || [ ! -d "$origin" ]; then
+		logToFrontend "$(jq -nc --arg key "importExport.invalidOrigin" --arg path "$origin" '{key:$key,params:{path:$path},percentage:100,finished:true}')"
 		return 1
 	fi
 
-	zenity --list \
-		--title="Select the drive for your backup" \
-		--column="Path" --column="Label" \
-		--print-column=1 \
-		--width=600 --height=300 \
-		"${drives[@]}" 2>/dev/null
-	
-}
+	root="$origin/EmuDeckBackup"
+	selected=$(printf '%s' "$items" | jq -r 'to_entries[] | select(.value == true) | .key | ascii_downcase' 2>/dev/null)
 
-function importCheckSpace(){
-	local origin=$1
-	local destination=$2
-	local neededSpace=$(du -s "$origin" | awk '{print $1}')
-	local neededSpaceInHuman=$(du -sh "$origin" | awk '{print $1}')
-	#File Size on destination
-	local freeSpace=$(df -k "$destination" --output=avail | tail -1)
-	local freeSpaceInHuman=$(df -kh "$destination" --output=avail | tail -1)
-	local difference=$(($freeSpace - $neededSpace))
-
-	if [[ $difference -lt 0 ]]; then
-		text="$(printf "Make sure you have enought space in $destination. You need to have at least $neededSpaceInHuman available")"
-		zenity --question \
-			--title="EmuDeck Import tool" \
-			--width=600 \
-			--cancel-label="Exit" \
-			--ok-label="Continue" \
-			--text="${text}" 2>/dev/null
-		ans=$?
-		if [ $ans -eq 0 ]; then
-			echo "Continue..."
-		else
-			exit
-		fi
-
-	else
-		echo "Continue..."
+	if [ -z "$selected" ]; then
+		logToFrontend "$(jq -nc --arg key "importExport.nothingSelectedImport" '{key:$key,params:{},percentage:100,finished:true}')"
+		return 0
 	fi
-}
 
-
-function importEmuDeck(){
-
-	text="$(printf "Welcome to EmuDeck's <b>import</b> tool.\nThis script will help you migrate your EmuDeck installation from another device")"
-
-	zenity --question \
-		--title="EmuDeck Import tool" \
-		--width=600 \
-		--cancel-label="Exit" \
-		--ok-label="Import EmuDeck Backup" \
-		--text="${text}" 2>/dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		echo "Waiting for the user to pick a destination...."
-	else
-		exit
-	fi
-	
-	origin=$(importCustomLocation) || exit
-	[ -z "$origin" ] && exit
-	
-	origin="$origin/EmuDeckBackup"
-	
-	[ -d "$origin" ] || { zenity --error --width=350 --text="No EmuDeck backup found on this drive"; exit; }
-	
-	#Zenity selection menu
-	local -a rows=()
-
-	[ -d "$origin/roms" ]   && rows+=(TRUE "Roms")
-	[ -d "$origin/bios" ]   && rows+=(TRUE "Bios")
-	[ -d "$origin/saves" ]   && rows+=(TRUE "Saves")
-	[ -d "$origin/storage" ]   && rows+=(TRUE "Storage")
-
-	if [ -d "$origin/tools/downloaded_media" ]; then
-		rows+=(TRUE "ES-DE Media")
-	fi
-	
-	[ ${#rows[@]} -eq 0 ] && { zenity --error --width=350 --text="No EmuDeck backup found on this drive"; exit; } 
-
-	selection=$(zenity --list --checklist \
-		--title="EmuDeck Restore" \
-		--text="Select what you want to import. This will overwrite all files" \
-		--column="" --column="Item" \
-		--separator="|" \
-		--width=500 --height=400 \
-		"${rows[@]}" \
-		2>/dev/null)
-	rc=$?
-	[ $rc -ne 0 ] && exit
-	[ -z "$selection" ] && exit
-	IFS='|' read -ra items <<< "$selection"
-
-	for item in "${items[@]}"; do
+	while read -r item; do
 		case "$item" in
-			"Saves")
-				importCheckSpace "$origin/saves" "$emulationPath"
-
-				rsync -rav --progress "$origin/saves/" "$emulationPath/saves/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing from $origin/saves/" --title="Importing saves..." --width=600 --percentage=0 --auto-close
-				
+			saves)
+				checkSpace "$root/saves" "$emulationPath" "saves" || { failed=1; failedItems+=("saves"); continue; }
+				rsync_progress "importing" "saves" "$root/saves/" "$emulationPath/saves/" || { failed=1; failedItems+=("saves"); }
 				;;
-			"Storage")
-				importCheckSpace "$origin/storage/" "$emulationPath"
-
-				rsync -rav --progress "$origin/storage/" "$emulationPath/storage/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing files from $origin/storage/" --title="Importing files..." --width=600 --percentage=0 --auto-close
-
+			storage)
+				checkSpace "$root/storage" "$emulationPath" "storage" || { failed=1; failedItems+=("storage"); continue; }
+				rsync_progress "importing" "storage" "$root/storage/" "$emulationPath/storage/" || { failed=1; failedItems+=("storage"); }
 				;;
-			"ES-DE Media")
-
-				importCheckSpace "$origin/tools/downloaded_media" "$emulationPath"
-				mkdir -p "$ESDEscrapData"
-				rsync -rav --progress  "$origin/tools/downloaded_media/" "$ESDEscrapData/"| awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing files from $origin/tools/downloaded_media/" --title="Importing files..." --width=600 --percentage=0 --auto-close
-				
+			esdeartwork|esdemedia|"es-de media")
+				checkSpace "$root/tools/downloaded_media" "$emulationPath" "esdeArtwork" || { failed=1; failedItems+=("esdeArtwork"); continue; }
+				rsync_progress "importing" "esdeArtwork" "$root/tools/downloaded_media/" "$ESDEscrapData/" || { failed=1; failedItems+=("esdeArtwork"); }
 				;;
-			"Bios")
-				importCheckSpace "$origin/bios/" "$emulationPath"
-
-				rsync -rav --progress "$origin/bios/" "$emulationPath/bios/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing files from $origin/bios/" --title="Importing files..." --width=600 --percentage=0 --auto-close
-
+			bios)
+				checkSpace "$root/bios" "$emulationPath" "bios" || { failed=1; failedItems+=("bios"); continue; }
+				rsync_progress "importing" "bios" "$root/bios/" "$emulationPath/bios/" || { failed=1; failedItems+=("bios"); }
 				;;
-			"Roms")
-				importCheckSpace "$origin/roms/" "$emulationPath"
-
-				rsync -rav --progress --exclude='*.txt' "$origin/roms/" "$emulationPath/roms/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Importing roms from $origin/roms/" --title="Importing roms..." --width=600 --percentage=0 --auto-close
-			;;
+			roms)
+				checkSpace "$root/roms" "$emulationPath" "roms" || { failed=1; failedItems+=("roms"); continue; }
+				rsync_progress "importing" "roms" "$root/roms/" "$emulationPath/roms/" "--exclude=*.txt" || { failed=1; failedItems+=("roms"); }
+				;;
 		esac
-	done
+	done <<< "$selected"
 
-	text="$(printf "<b>Success!</b>\nRemember that you need to run Steam Rom Manager in this new device to add any of your games to Steam")"
-	 zenity --info \
-	--title="EmuDeck Import tool" \
-	--width=350 \
-	--text="${text}"
-
-
-}
-
-
-function exportEmuDeck(){
-
-	text="$(printf "Welcome to EmuDeck's <b>export</b> tool.\nThis script will help you migrate your EmuDeck installation to another device")"
-
-	zenity --question \
-		--title="EmuDeck Export tool" \
-		--width=600 \
-		--cancel-label="Exit" \
-		--ok-label="Export EmuDeck Backup" \
-		--text="${text}" 2>/dev/null
-	ans=$?
-	if [ $ans -eq 0 ]; then
-		echo "Waiting for the user to pick a destination...."
+	if [ "$failed" -eq 0 ]; then
+		logToFrontend "$(jq -nc --arg key "importExport.importFinished" '{key:$key,params:{},percentage:100,finished:true}')"
 	else
-		exit
-	fi
-	
-	destination=$(importCustomLocation) || exit
-	[ -z "$destination" ] && exit
-	[ "$destination/Emulation" == "$emulationPath" ] && exit
-	
-	
-	#Zenity selection menu
-	local -a rows=()
-
-	rows+=(TRUE "Roms")
-	rows+=(TRUE "Bios")
-	rows+=(TRUE "Saves")
-	rows+=(TRUE "Storage")
-
-	if [ -d "$ESDEscrapData" ]; then
-		rows+=(TRUE "ES-DE Media")
+		logToFrontend "$(jq -nc --arg key "importExport.importFinishedWithErrors" --args '{key:$key,params:{items:$ARGS.positional},percentage:100,finished:true}' "${failedItems[@]}")"
 	fi
 
-	selection=$(zenity --list --checklist \
-		--title="EmuDeck Export" \
-		--text="Select what you want to back up. This will overwrite all files" \
-		--column="" --column="Item" \
-		--separator="|" \
-		--width=500 --height=400 \
-		"${rows[@]}" \
-		2>/dev/null)
-	rc=$?
-	[ $rc -ne 0 ] && exit
-	[ -z "$selection" ] && exit
-	IFS='|' read -ra items <<< "$selection"
+	return "$failed"
+} #OK
 
-	for item in "${items[@]}"; do
+function export_emudeck(){
+	local items="$1"
+	local destination="$2"
+	local item root selected failed=0
+	local -a failedItems=()
+
+	if [ -z "$destination" ] || [ ! -d "$destination" ]; then
+		logToFrontend "$(jq -nc --arg key "importExport.invalidDestination" --arg path "$destination" '{key:$key,params:{path:$path},percentage:100,finished:true}')"
+		return 1
+	fi
+
+	root="$destination/EmuDeckBackup"
+	selected=$(printf '%s' "$items" | jq -r 'to_entries[] | select(.value == true) | .key | ascii_downcase' 2>/dev/null)
+
+	if [ -z "$selected" ]; then
+		logToFrontend "$(jq -nc --arg key "importExport.nothingSelectedExport" '{key:$key,params:{},percentage:100,finished:true}')"
+		return 0
+	fi
+
+	while read -r item; do
 		case "$item" in
-			"Saves")
-				importCheckSpace "$emulationPath/saves/" "$destination"
-
-				mkdir -p "$destination/EmuDeckBackup/saves"
-
-				rsync -ravL --progress -m "$emulationPath/saves/" "$destination/EmuDeckBackup/saves/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting saves to $destination/EmuDeckBackup/saves/" --title="Exporting saves..." --width=600 --percentage=0 --auto-close
+			saves)
+				checkSpace "$emulationPath/saves" "$destination" "saves" || { failed=1; failedItems+=("saves"); continue; }
+				rsync_progress "exporting" "saves" "$emulationPath/saves/" "$root/saves/" "-L" || { failed=1; failedItems+=("saves"); }
 				;;
-			"Storage")
-				importCheckSpace "$emulationPath/storage/" "$destination"
-
-				mkdir -p "$destination/EmuDeckBackup/storage"
-
-				rsync -ravL --progress -m "$emulationPath/storage/" "$destination/EmuDeckBackup/storage/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting files to $destination/EmuDeckBackup/storage/" --title="Exporting files..." --width=600 --percentage=0 --auto-close
-
+			storage)
+				checkSpace "$emulationPath/storage" "$destination" "storage" || { failed=1; failedItems+=("storage"); continue; }
+				rsync_progress "exporting" "storage" "$emulationPath/storage/" "$root/storage/" "-L" || { failed=1; failedItems+=("storage"); }
 				;;
-			"ES-DE Media")
-
-				importCheckSpace "$ESDEscrapData" "$destination"
-
-				mkdir -p "$destination/EmuDeckBackup/tools/downloaded_media"
-
-				rsync -ravL --progress -m "$ESDEscrapData/" "$destination/EmuDeckBackup/tools/downloaded_media/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting files to $destination/EmuDeckBackup/tools/downloaded_media/" --title="Exporting files..." --width=600 --percentage=0 --auto-close
-				
+			esdeartwork|esdemedia|"es-de media")
+				checkSpace "$ESDEscrapData" "$destination" "esdeArtwork" || { failed=1; failedItems+=("esdeArtwork"); continue; }
+				rsync_progress "exporting" "esdeArtwork" "$ESDEscrapData/" "$root/tools/downloaded_media/" "-L" || { failed=1; failedItems+=("esdeArtwork"); }
 				;;
-			"Bios")
-				importCheckSpace "$emulationPath/bios/" "$destination"
-
-				mkdir -p "$destination/EmuDeckBackup/bios"
-
-				rsync -ravL --progress -m "$emulationPath/bios/" "$destination/EmuDeckBackup/bios/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting files to $destination/EmuDeckBackup/bios/" --title="Exporting files..." --width=600 --percentage=0 --auto-close
-
+			bios)
+				checkSpace "$emulationPath/bios" "$destination" "bios" || { failed=1; failedItems+=("bios"); continue; }
+				rsync_progress "exporting" "bios" "$emulationPath/bios/" "$root/bios/" "-L" || { failed=1; failedItems+=("bios"); }
 				;;
-			"Roms")
-				importCheckSpace "$emulationPath/roms/" "$destination"
-
-				mkdir -p "$destination/EmuDeckBackup/roms"
-
-				rsync -ravL --progress -m --exclude='*.txt' "$emulationPath/roms/" "$destination/EmuDeckBackup/roms/" | awk -f $emudeckBackend/rsync.awk | zenity --progress --text="Exporting roms to $destination/EmuDeckBackup/roms/" --title="Exporting roms..." --width=600 --percentage=0 --auto-close
-			;;
+			roms)
+				checkSpace "$emulationPath/roms" "$destination" "roms" || { failed=1; failedItems+=("roms"); continue; }
+				rsync_progress "exporting" "roms" "$emulationPath/roms/" "$root/roms/" "-L --exclude=*.txt" || { failed=1; failedItems+=("roms"); }
+				;;
 		esac
-	done
+	done <<< "$selected"
 
-	text="$(printf "<b>Success!</b>\nNow it's time to:\n1 Install EmuDeck in your new device. \n2 Use the Import Tool in your new device. \n3 That's all :)")"
-	 zenity --info \
-	--title="EmuDeck Export tool" \
-	--width=350 \
-	--text="${text}"
+	if [ "$failed" -eq 0 ]; then
+		logToFrontend "$(jq -nc --arg key "importExport.exportFinished" '{key:$key,params:{},percentage:100,finished:true}')"
+	else
+		logToFrontend "$(jq -nc --arg key "importExport.exportFinishedWithErrors" --args '{key:$key,params:{items:$ARGS.positional},percentage:100,finished:true}' "${failedItems[@]}")"
+	fi
 
-
-}
+	return "$failed"
+} #OK
