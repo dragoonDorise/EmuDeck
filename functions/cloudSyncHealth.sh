@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 cloud_sync_upload_test(){
 	local emuName=$1
 

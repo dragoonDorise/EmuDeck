@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 appleChip=$(uname -m)
 if [ $(uname) != "Linux" ]; then
     system="darwin"
@@ -137,9 +137,3 @@ source "$emudeckBackend"/functions/RemotePlayClientScripts/remotePlaySteamLink.s
 source "$emudeckBackend"/functions/cloudSyncHealth.sh
 
 source "$emudeckBackend"/android/functions/all.sh
-
-# Darwin overrides
-if [ "$system" = "darwin" ]; then
-    source "$emudeckBackend/darwin/functions/varsOverrides.sh"
-	source "$emudeckBackend/darwin/functions/all.sh"
-fi

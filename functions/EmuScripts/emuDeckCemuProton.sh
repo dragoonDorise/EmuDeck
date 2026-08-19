@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 CemuProton_emuName="Cemu (proton)"
 CemuProton_emuType="$emuDeckEmuTypeWindows"
@@ -158,9 +158,9 @@ CemuProton_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo Wii U' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/wiiu/roms' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.elf .ELF .rpx .RPX .tmd .TMD .wua .WUA .wud .WUD .wuhb .WUHB .wux .WUX' \
-		--subnode '$newSystem' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -f -g z:%ROM%" \
+		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/env bash ${toolsPath}/launchers/cemu.sh -f -g z:%ROM%" \
 		--insert '$newSystem/commandP' --type attr --name 'label' --value "Cemu (Native)" \
-		--subnode '$newSystem' --type elem --name 'commandN' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g %ROM%" \
+		--subnode '$newSystem' --type elem --name 'commandN' -v "/usr/bin/env bash ${toolsPath}/launchers/cemu.sh -w -f -g %ROM%" \
 		--insert '$newSystem/commandN' --type attr --name 'label' --value "Cemu (Proton)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'wiiu' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'wiiu' \

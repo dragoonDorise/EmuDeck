@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function Android_Vita3K_install(){
 	setMSG "Installing Vita3K"

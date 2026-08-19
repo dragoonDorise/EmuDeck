@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 Model2_emuName="Model-2-Emulator"
 Model2_emuType="$emuDeckEmuTypeWindows"
@@ -71,7 +71,7 @@ Model2_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Sega Model 2' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/model2/roms' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.zip .ZIP' \
-		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/model-2-emulator.sh %BASENAME%" \
+		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/env bash ${toolsPath}/launchers/model-2-emulator.sh %BASENAME%" \
 		--insert '$newSystem/commandP' --type attr --name 'label' --value "Model 2 Emulator (Proton)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'arcade' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'model2' \

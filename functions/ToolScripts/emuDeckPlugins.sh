@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 Plugins_install_cleanup() {
 	local password=$1

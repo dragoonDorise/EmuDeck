@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 BigPEmu_emuName="BigPEmu"
 BigPEmu_emuType="$emuDeckEmuTypeWindows"
@@ -98,7 +98,7 @@ BigPEmu_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Atari Jaguar' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/atarijaguar' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP' \
-		--subnode '$newSystem' --type elem --name 'commandB' -v "/usr/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
+		--subnode '$newSystem' --type elem --name 'commandB' -v "/usr/bin/env bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
 		--insert '$newSystem/commandB' --type attr --name 'label' --value "BigPEmu" \
 		--subnode '$newSystem' --type elem --name 'commandV' -v "%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/virtualjaguar_libretro.so %ROM%" \
 		--insert '$newSystem/commandV' --type attr --name 'label' --value "Virtual Jaguar" \
@@ -123,7 +123,7 @@ BigPEmu_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Atari Jaguar CD' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/atarijaguarcd' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP' \
-		--subnode '$newSystem' --type elem --name 'commandB' -v "/usr/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
+		--subnode '$newSystem' --type elem --name 'commandB' -v "/usr/bin/env bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
 		--insert '$newSystem/commandB' --type attr --name 'label' --value "BigPEmu" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'atarijaguarcd' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'atarijaguarcd' \

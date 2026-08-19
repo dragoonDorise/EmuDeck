@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #Default settings for all systems
 android_doSetupRA=true

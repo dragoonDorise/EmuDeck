@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 pegasus_toolName="Pegasus Frontend"
 pegasus_emuPath="pegasus-frontend"

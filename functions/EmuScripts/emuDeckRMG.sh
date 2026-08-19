@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 RMG_emuName="RosaliesMupenGui"
 RMG_emuType="$emuDeckEmuTypeFlatpak"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 cloud_sync_path="$toolsPath/rclone"
 cloud_sync_bin="$cloud_sync_path/rclone"
 cloud_sync_config="$cloud_sync_path/rclone.conf"
@@ -688,7 +688,7 @@ cloud_decky_check_status(){
 
 }
 
-#!/bin/bash
+#!/usr/bin/env bash
 cloud_sync_path="$toolsPath/rclone"
 cloud_sync_bin="$cloud_sync_path/rclone"
 cloud_sync_config="$cloud_sync_path/rclone.conf"

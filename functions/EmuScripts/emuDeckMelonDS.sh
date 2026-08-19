@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 melonDS_emuName="MelonDS"
 melonDS_emuType="$emuDeckEmuTypeFlatpak"

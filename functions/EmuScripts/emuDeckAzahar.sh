@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 Azahar_emuName="Azahar"
 Azahar_emuType="$emuDeckEmuTypeAppImage"
@@ -342,7 +342,7 @@ Azahar_addESConfig(){
 		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo 3DS' \
 		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/n3ds' \
 		--subnode '$newSystem' --type elem --name 'extension' -v '.3ds .3DS .3dsx .3DSX .app .APP .axf .AXF .cci .CCI .cxi .CXI .elf .ELF .7z .7Z .zip .ZIP' \
-		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/azahar.sh %ROM%" \
+		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/env bash ${toolsPath}/launchers/azahar.sh %ROM%" \
 		--insert '$newSystem/commandP' --type attr --name 'label' --value "Azahar (Standalone)" \
 		--subnode '$newSystem' --type elem --name 'platform' -v 'n3ds' \
 		--subnode '$newSystem' --type elem --name 'theme' -v 'n3ds' \

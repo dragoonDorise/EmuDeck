@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 RPCS3_emuName="RPCS3"
 RPCS3_emuType="$emuDeckEmuTypeAppImage"
