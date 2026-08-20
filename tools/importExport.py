@@ -12,12 +12,6 @@ import sys
 system = platform.system().lower()
 
 emulationPath = os.environ.get("emulationPath")
-ESDEscrapData = os.environ.get("ESDEscrapData")
-
-PERCENT_RE = re.compile(r"(\d+)%")
-
-WINDOWS_NESTED_ROMS = ("wiiu", "xbox360")
-KEEP_AT_SYSTEM_LEVEL = ("media", "xbla")
 
 #OK
 def log_to_frontend(payload):
@@ -143,6 +137,8 @@ def copy_with_robocopy(action, item, origin, destination, rsyncParams):
     if excludes:
         command.append("/XF")
         command.extend(excludes)
+        command.append("/XD")
+        command.extend(excludes)
 
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     copied = 0
@@ -179,7 +175,7 @@ def copy_with_rsync(action, item, origin, destination, rsyncParams):
         lines = re.split(r"[\r\n]", buffer)
         buffer = lines.pop()
         for line in lines:
-            found = PERCENT_RE.search(line)
+            found = re.search(r"(\d+)%", line)
             if not found:
                 continue
             percent = min(int(found.group(1)), 100)
@@ -220,7 +216,7 @@ def rsync_progress(action, item, origin, destination, rsyncParams=""):
     return 0
 
 def fix_windows_roms_layout(romsPath, nested):
-    for name in WINDOWS_NESTED_ROMS:
+    for name in ("wiiu", "xbox360"):
         systemPath = os.path.join(romsPath, name)
         if not os.path.isdir(systemPath):
             continue
@@ -229,7 +225,7 @@ def fix_windows_roms_layout(romsPath, nested):
 
         if nested:
             entries = [entry for entry in os.listdir(systemPath)
-                       if entry != "roms" and entry not in KEEP_AT_SYSTEM_LEVEL]
+                       if entry != "roms" and entry not in ("media", "xbla")]
             if not entries:
                 continue
             os.makedirs(nestedPath, exist_ok=True)
@@ -285,15 +281,15 @@ def import_emudeck(items, origin):
                 return 1
             if rsync_progress("importing", "storage",
                               os.path.join(backup_origin, "storage"),
-                              os.path.join(emulationPath, "storage")) != 0:
+                              os.path.join(emulationPath, "storage"), "--exclude=downloaded_media") != 0:
                 failed = 1
                 failedItems.append("storage")
-        elif item in ("esdeartwork", "esdemedia", "es-de media"):
-            if check_free_space(os.path.join(backup_origin, "tools", "downloaded_media"), emulationPath, "esdeArtwork") != 0:
+        elif item == "esdeartwork":
+            if check_free_space(os.path.join(backup_origin, "storage", "downloaded_media"), emulationPath, "esdeArtwork") != 0:
                 return 1
             if rsync_progress("importing", "esdeArtwork",
-                              os.path.join(backup_origin, "tools", "downloaded_media"),
-                              ESDEscrapData) != 0:
+                              os.path.join(backup_origin, "storage", "downloaded_media"),
+                              os.path.join(emulationPath, "storage","downloaded_media")) != 0:
                 failed = 1
                 failedItems.append("esdeArtwork")
         elif item == "bios":
@@ -362,14 +358,15 @@ def export_emudeck(items, destination):
                 return 1
             if rsync_progress("exporting", "storage",
                               os.path.join(emulationPath, "storage"),
-                              os.path.join(backup_destination, "storage"), "-L") != 0:
+                              os.path.join(backup_destination, "storage"), "-L --exclude=downloaded_media") != 0:
                 failed = 1
                 failedItems.append("storage")
-        elif item in ("esdeartwork", "esdemedia", "es-de media"):
-            if check_free_space(ESDEscrapData, destination, "esdeArtwork") != 0:
+        elif item == "esdeartwork":
+            if check_free_space(os.path.join(emulationPath, "storage", "downloaded_media"), destination, "esdeArtwork") != 0:
                 return 1
-            if rsync_progress("exporting", "esdeArtwork", ESDEscrapData,
-                              os.path.join(backup_destination, "tools", "downloaded_media"), "-L") != 0:
+            if rsync_progress("exporting", "esdeArtwork",
+                              os.path.join(emulationPath, "storage", "downloaded_media"),
+                              os.path.join(backup_destination, "storage", "downloaded_media"), "-L") != 0:
                 failed = 1
                 failedItems.append("esdeArtwork")
         elif item == "bios":
