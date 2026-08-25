@@ -486,7 +486,8 @@ ESDE_IsInstalled(){
 }
 
 ESDE_symlinkGamelists(){
-		linkToSaveFolder es-de gamelists "$ESDE_newConfigDirectory/gamelists/"
+		rm -rf "$savesPath/es-de"
+		linkToStorageFolder es-de gamelists "$ESDE_newConfigDirectory/gamelists/"
 }
 
 ESDE_migrateEpicNoir(){

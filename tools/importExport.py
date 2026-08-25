@@ -281,7 +281,7 @@ def import_emudeck(items, origin):
                 return 1
             if rsync_progress("importing", "storage",
                               os.path.join(backup_origin, "storage"),
-                              os.path.join(emulationPath, "storage"), "--exclude=downloaded_media") != 0:
+                              os.path.join(emulationPath, "storage"), "--exclude=downloaded_media --exclude=es-de") != 0:
                 failed = 1
                 failedItems.append("storage")
         elif item == "esdeartwork":
@@ -290,6 +290,11 @@ def import_emudeck(items, origin):
             if rsync_progress("importing", "esdeArtwork",
                               os.path.join(backup_origin, "storage", "downloaded_media"),
                               os.path.join(emulationPath, "storage","downloaded_media")) != 0:
+                failed = 1
+                failedItems.append("esdeArtwork")
+            if rsync_progress("importing", "esdeArtwork",
+                          os.path.join(backup_origin, "storage", "es-de"),
+                          os.path.join(emulationPath, "storage","es-de")) != 0:
                 failed = 1
                 failedItems.append("esdeArtwork")
         elif item == "bios":
@@ -358,7 +363,7 @@ def export_emudeck(items, destination):
                 return 1
             if rsync_progress("exporting", "storage",
                               os.path.join(emulationPath, "storage"),
-                              os.path.join(backup_destination, "storage"), "-L --exclude=downloaded_media") != 0:
+                              os.path.join(backup_destination, "storage"), "-L --exclude=downloaded_media --exclude=es-de") != 0:
                 failed = 1
                 failedItems.append("storage")
         elif item == "esdeartwork":
@@ -367,6 +372,11 @@ def export_emudeck(items, destination):
             if rsync_progress("exporting", "esdeArtwork",
                               os.path.join(emulationPath, "storage", "downloaded_media"),
                               os.path.join(backup_destination, "storage", "downloaded_media"), "-L") != 0:
+                failed = 1
+                failedItems.append("esdeArtwork")
+            if rsync_progress("exporting", "esdeArtwork",
+                          os.path.join(emulationPath, "storage", "es-de"),
+                          os.path.join(backup_destination, "storage", "es-de"), "-L") != 0:
                 failed = 1
                 failedItems.append("esdeArtwork")
         elif item == "bios":
