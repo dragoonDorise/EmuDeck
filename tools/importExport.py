@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import json
+import logging
 import os
 import platform
 import re
@@ -8,9 +9,25 @@ import shutil
 import socket
 import subprocess
 import sys
+import tempfile
 import time
 
 system = platform.system().lower()
+
+if system.startswith("win"):
+    logsPath = os.path.join(os.environ.get("APPDATA", ""), "EmuDeck", "logs")
+else:
+    logsPath = os.path.join(os.path.expanduser("~"), ".config", "EmuDeck", "logs")
+
+os.makedirs(logsPath, exist_ok=True)
+
+log = logging.getLogger("importExport")
+log.setLevel(logging.DEBUG)
+log.propagate = False
+logHandler = logging.FileHandler(os.path.join(logsPath, "importExport.log"), encoding="utf-8")
+logHandler.setFormatter(logging.Formatter("%(asctime)s %(levelname)-7s %(message)s",
+                                          datefmt="%Y-%m-%d %H:%M:%S"))
+log.addHandler(logHandler)
 
 emulationPath = os.environ.get("emulationPath")
 
@@ -32,6 +49,9 @@ def check_free_space(origin, destination, label):
 
 
     freeSpace = shutil.disk_usage(destination).free
+
+    log.info("space check %s: needs %s bytes, %s bytes free on %s",
+             label, neededSpace, freeSpace, destination)
 
     if freeSpace < neededSpace:
         log_to_frontend(json.dumps({"key": "importExport.noSpace",
@@ -144,7 +164,9 @@ def copy_with_robocopy(action, item, origin, destination, rsyncParams):
         command.append("/XD")
         command.extend(excludes)
 
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    log.info("robocopy: %s", " ".join(command))
+    errors = tempfile.TemporaryFile()
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=errors)
     copied = 0
     last = 0
     lastSent = 0.0
@@ -171,6 +193,14 @@ def copy_with_robocopy(action, item, origin, destination, rsyncParams):
                                   "percentage": percent, "finished": False}))
     process.stdout.close()
     status = process.wait()
+
+    errors.seek(0)
+    message = errors.read().decode("utf-8", "replace").strip()
+    errors.close()
+    if message:
+        log.warning("robocopy stderr: %s", message)
+    log.info("robocopy exit=%s", status)
+
     return 0 if status < 8 else status
 
 #OK
@@ -180,7 +210,9 @@ def copy_with_rsync(action, item, origin, destination, rsyncParams):
     command.append(origin.rstrip(os.sep) + os.sep)
     command.append(destination.rstrip(os.sep) + os.sep)
 
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    log.info("rsync: %s", " ".join(command))
+    errors = tempfile.TemporaryFile()
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=errors)
     last = 0
     lastSent = 0.0
     currentFile = ""
@@ -216,13 +248,24 @@ def copy_with_rsync(action, item, origin, destination, rsyncParams):
                                                  "speed": speed, "eta": eta},
                                       "percentage": percent, "finished": False}))
     process.stdout.close()
-    return process.wait()
+    status = process.wait()
+
+    errors.seek(0)
+    message = errors.read().decode("utf-8", "replace").strip()
+    errors.close()
+    if message:
+        log.warning("rsync stderr: %s", message)
+    log.info("rsync exit=%s", status)
+
+    return status
 
 # Revisar lo q devuelve
 def rsync_progress(action, item, origin, destination, rsyncParams=""):
+    log.info("%s %s: %s -> %s (%s)", action, item, origin, destination, rsyncParams or "no flags")
     try:
         os.makedirs(destination, exist_ok=True)
     except OSError as error:
+        log.error("could not create %s: %s", destination, error)
         log_to_frontend(json.dumps({"key": "importExport.failed",
                                   "params": {"item": item, "code": error.errno},
                                   "percentage": 100, "finished": False}))
@@ -237,10 +280,13 @@ def rsync_progress(action, item, origin, destination, rsyncParams=""):
         status = copy_with_rsync(action, item, origin, destination, rsyncParams)
 
     if status != 0:
+        log.error("%s %s FAILED with code %s", action, item, status)
         log_to_frontend(json.dumps({"key": "importExport.failed",
                                   "params": {"item": item, "code": status},
                                   "percentage": 100, "finished": False}))
         return status
+
+    log.info("%s %s completed", action, item)
 
     log_to_frontend(json.dumps({"key": "importExport." + action, "params": {"item": item},
                               "percentage": 100, "finished": False}))
@@ -260,11 +306,13 @@ def fix_windows_roms_layout(romsPath, nested):
             if not entries:
                 continue
             os.makedirs(nestedPath, exist_ok=True)
+            log.info("windows layout: nesting %s into %s", entries, nestedPath)
             for entry in entries:
                 shutil.move(os.path.join(systemPath, entry), os.path.join(nestedPath, entry))
         else:
             if not os.path.isdir(nestedPath):
                 continue
+            log.info("windows layout: unnesting %s from %s", os.listdir(nestedPath), nestedPath)
             for entry in os.listdir(nestedPath):
                 shutil.move(os.path.join(nestedPath, entry), os.path.join(systemPath, entry))
             os.rmdir(nestedPath)
@@ -349,9 +397,11 @@ def import_emudeck(items, origin):
                 fix_windows_roms_layout(os.path.join(emulationPath, "roms"), False)
 
     if failed == 0:
+        log.info("import finished with no errors")
         log_to_frontend(json.dumps({"key": "importExport.importFinished", "params": {},
                                   "percentage": 100, "finished": True}))
     else:
+        log.error("import finished with errors on: %s", failedItems)
         log_to_frontend(json.dumps({"key": "importExport.importFinishedWithErrors",
                                   "params": {"items": failedItems},
                                   "percentage": 100, "finished": True}))
@@ -430,9 +480,11 @@ def export_emudeck(items, destination):
                 fix_windows_roms_layout(os.path.join(backup_destination, "roms"), True)
 
     if failed == 0:
+        log.info("export finished with no errors")
         log_to_frontend(json.dumps({"key": "importExport.exportFinished", "params": {},
                                   "percentage": 100, "finished": True}))
     else:
+        log.error("export finished with errors on: %s", failedItems)
         log_to_frontend(json.dumps({"key": "importExport.exportFinishedWithErrors",
                                   "params": {"items": failedItems},
                                   "percentage": 100, "finished": True}))
@@ -450,11 +502,17 @@ if __name__ == "__main__":
         sys.stderr.write("usage: importExport.py {%s} [args]\n" % "|".join(functions))
         sys.exit(2)
 
+    log.info("=" * 60)
+    log.info("call: %s", " ".join(sys.argv[1:]))
+    log.info("system=%s emulationPath=%s port=%s",
+             system, emulationPath, os.environ.get("EMUDECK_BACKEND_PORT") or 8099)
+
     try:
         sys.exit(functions[sys.argv[1]](*sys.argv[2:]))
     except SystemExit:
         raise
     except BaseException as error:
+        log.exception("unhandled exception")
         log_to_frontend(json.dumps({"key": "importExport.unexpectedError",
                                   "params": {"error": "%s: %s" % (type(error).__name__, error)},
                                   "percentage": 100, "finished": True}))
