@@ -472,6 +472,8 @@ function linkToSaveFolder(){
 	local emu=$1
 	local folderName=$2
 	local path=$3
+	
+	mkdir -p "$path"
 
 	if [ ! -d "$savesPath/$emu/$folderName" ]; then
 		if [ ! -L "$savesPath/$emu/$folderName" ]; then
