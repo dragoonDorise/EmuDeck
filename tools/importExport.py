@@ -8,6 +8,7 @@ import shutil
 import socket
 import subprocess
 import sys
+import time
 
 system = platform.system().lower()
 
@@ -146,15 +147,27 @@ def copy_with_robocopy(action, item, origin, destination, rsyncParams):
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     copied = 0
     last = 0
+    lastSent = 0.0
+    started = time.monotonic()
     for raw in process.stdout:
-        if not raw.strip():
+        name = raw.decode("utf-8", "replace").strip()
+        if not name:
             continue
         copied += 1
         percent = 100 if total <= 0 else min(int(copied * 100 / total), 100)
-        if percent == last:
+        now = time.monotonic()
+        if percent == last and now - lastSent < 1.0:
             continue
         last = percent
-        log_to_frontend(json.dumps({"key": "importExport." + action, "params": {"item": item},
+        lastSent = now
+
+        elapsed = max(now - started, 0.001)
+        remaining = int((total - copied) * elapsed / max(copied, 1))
+        eta = "%d:%02d:%02d" % (remaining // 3600, remaining % 3600 // 60, remaining % 60)
+
+        log_to_frontend(json.dumps({"key": "importExport." + action,
+                                  "params": {"item": item, "file": os.path.basename(name),
+                                             "speed": "", "eta": eta},
                                   "percentage": percent, "finished": False}))
     process.stdout.close()
     status = process.wait()
@@ -162,13 +175,15 @@ def copy_with_robocopy(action, item, origin, destination, rsyncParams):
 
 #OK
 def copy_with_rsync(action, item, origin, destination, rsyncParams):
-    command = ["rsync", "-a", "-m", "--info=progress2", "--no-inc-recursive"]
+    command = ["rsync", "-a", "-m", "--info=progress2,name1", "--no-inc-recursive"]
     command.extend(rsyncParams.split())
     command.append(origin.rstrip(os.sep) + os.sep)
     command.append(destination.rstrip(os.sep) + os.sep)
 
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     last = 0
+    lastSent = 0.0
+    currentFile = ""
     buffer = ""
     while True:
         chunk = process.stdout.read(256)
@@ -180,12 +195,25 @@ def copy_with_rsync(action, item, origin, destination, rsyncParams):
         for line in lines:
             found = re.search(r"(\d+)%", line)
             if not found:
+                name = line.strip()
+                if name and not name.endswith("/") and not name.startswith("created directory"):
+                    currentFile = os.path.basename(name)
                 continue
+
             percent = min(int(found.group(1)), 100)
-            if percent == last:
+            now = time.monotonic()
+            if percent == last and now - lastSent < 1.0:
                 continue
             last = percent
-            log_to_frontend(json.dumps({"key": "importExport." + action, "params": {"item": item},
+            lastSent = now
+
+            fields = line.split()
+            speed = fields[2] if len(fields) > 2 else ""
+            eta = fields[3] if len(fields) > 3 else ""
+
+            log_to_frontend(json.dumps({"key": "importExport." + action,
+                                      "params": {"item": item, "file": currentFile,
+                                                 "speed": speed, "eta": eta},
                                       "percentage": percent, "finished": False}))
     process.stdout.close()
     return process.wait()
