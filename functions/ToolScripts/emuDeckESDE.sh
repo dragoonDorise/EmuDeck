@@ -146,7 +146,7 @@ ESDE_init(){
 	SRM_flushOldSymlinks
 	
 	#Symlinks for windows migration
-	ln -s "$ESDEscrapData" "$storagePath/downloaded_media"
+	ln -sfn "$ESDEscrapData/" "$storagePath/downloaded_media"
 	
 
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
