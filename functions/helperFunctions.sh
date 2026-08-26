@@ -87,9 +87,13 @@ function escapeSedValue(){
 }
 
 function getSDPath() {
-	for dev in /dev/sd*1 /dev/mmcblk*p1; do
+	for dev in /dev/mmcblk*p1 /dev/sd*1; do
 		if [ -b "$dev" ]; then
-			findmnt -n --raw --evaluate --output=target -S "$dev"
+			target=$(findmnt -n --raw --evaluate --output=target -S "$dev")
+			if [ -n "$target" ]; then
+				echo "$target"
+				return 0
+			fi
 		fi
 	done
 }
@@ -100,7 +104,7 @@ function getProductName(){
 
 function testRealDeck(){
 	case $(getProductName) in
-	  'Win600'|'Jupiter') 	isRealDeck=true
+	  'Win600'|'Jupiter'|'Galileo') 	isRealDeck=true
 	;;
 	  *)
 		isRealDeck=false
