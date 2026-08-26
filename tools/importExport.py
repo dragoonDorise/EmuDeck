@@ -66,8 +66,11 @@ def get_external_drives():
             continue
         for entry in entries:
             path = os.path.join(mount, entry)
-            if os.path.isdir(path) and not os.path.islink(path):
-                drives.append(path)
+            if not os.path.isdir(path) or os.path.islink(path):
+                continue
+            if not os.path.ismount(path):
+                continue
+            drives.append(path)
     return sorted(set(drives))
 
 #OK
