@@ -81,7 +81,7 @@ Ryujinx_init(){
 
     Ryujinx_setLanguage
     
-    Ryujinx_ensureGyroDSU
+    #Ryujinx_ensureGyroDSU
 
     Ryujinx_set_gamepad_name
 
