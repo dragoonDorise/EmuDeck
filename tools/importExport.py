@@ -21,15 +21,28 @@ else:
 
 os.makedirs(logsPath, exist_ok=True)
 
+logFile = os.path.join(logsPath, "importExport.log")
+logFormatter = logging.Formatter("%(asctime)s %(levelname)-7s %(message)s",
+                                 datefmt="%Y-%m-%d %H:%M:%S")
+
 log = logging.getLogger("importExport")
 log.setLevel(logging.DEBUG)
 log.propagate = False
-logHandler = logging.FileHandler(os.path.join(logsPath, "importExport.log"), encoding="utf-8")
-logHandler.setFormatter(logging.Formatter("%(asctime)s %(levelname)-7s %(message)s",
-                                          datefmt="%Y-%m-%d %H:%M:%S"))
+logHandler = logging.FileHandler(logFile, mode="a", encoding="utf-8")
+logHandler.setFormatter(logFormatter)
 log.addHandler(logHandler)
 
 emulationPath = os.environ.get("emulationPath")
+
+
+def reset_log():
+    global logHandler
+    log.removeHandler(logHandler)
+    logHandler.close()
+    logHandler = logging.FileHandler(logFile, mode="w", encoding="utf-8")
+    logHandler.setFormatter(logFormatter)
+    log.addHandler(logHandler)
+    log.info("Start LOG")
 
 #OK
 def log_to_frontend(payload):
@@ -320,6 +333,7 @@ def fix_windows_roms_layout(romsPath, nested):
 
 # Pendiente
 def import_emudeck(items, origin):
+    reset_log()
     failed = 0
     failedItems = []
 
@@ -410,6 +424,7 @@ def import_emudeck(items, origin):
 
 
 def export_emudeck(items, destination):
+    reset_log()
     failed = 0
     failedItems = []
 
