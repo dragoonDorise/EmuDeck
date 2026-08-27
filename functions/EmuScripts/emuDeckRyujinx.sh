@@ -446,7 +446,7 @@ ryujinx_launch_fixes(){
        && jq -e '[.input_config[]? | .backend? // ""] | any(startswith("GamepadSDL2"))' "$Ryujinx_configFile" >/dev/null 2>&1; then
         Ryujinx_migrateToSDL3
     fi
-    Ryujinx_ensureGyroDSU
+    #Ryujinx_ensureGyroDSU
 
     Ryujinx_set_gamepad_name
 }
