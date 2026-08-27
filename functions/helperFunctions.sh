@@ -1108,11 +1108,12 @@ addProtonLaunch(){
 function emulatorInit(){
 	local emuName=$1
 	local args=$2
+	local emuNameLower="${emuName,,}"
 	#isLatestVersionGH "$emuName"
 	
 	if [ -z $args ];then 
 		if [ "${autoMapSwitch}" == "true" ] || [ "${autoMapDolphin}" == "true" ]|| [ "${autoMapCemu}" == "true" ]; then		
-			if [ $emuName = "ryujinx" ] || [ $emuName = "dolphin" ] || [ $emuName = "Cemu" ]; then
+			if [ $emuNameLower = "ryujinx" ] || [ $emuNameLower = "dolphin" ] || [ $emuNameLower = "cemu" ]; then
 				TEXT=$(printf "<b>ATTENTION:</b>\nAutoMap is enabled.\nYou won't be able to change controller settings in this emulator, other settings are not locked.\nIf you want to customize your controller settings please turn AutoMap off in the EmuDeck app")
 				zenity --info --width=400 --text="$TEXT"
 			fi
