@@ -306,7 +306,7 @@ def rsync_progress(action, item, origin, destination, rsyncParams=""):
     return 0
 
 def fix_windows_roms_layout(romsPath, nested):
-    for name in ("wiiu", "xbox360"):
+    for name in ("wiiu", "xbox360", "model2"):
         systemPath = os.path.join(romsPath, name)
         if not os.path.isdir(systemPath):
             continue
@@ -404,7 +404,7 @@ def import_emudeck(items, origin):
             if rsync_progress("importing", "roms",
                               os.path.join(backup_origin, "roms"),
                               os.path.join(emulationPath, "roms"),
-                              "--exclude=*.txt --exclude=media --no-links") != 0:
+                              "--exclude=*.txt --exclude=media --exclude=*.sh --include='/xbox360/' --include='/xbox360/roms/***' --exclude='/xbox360/*' --include='/model2/' --include='/model2/roms/***' --exclude='/model2/*' --no-links") != 0:
                 failed = 1
                 failedItems.append("roms")
             elif system.startswith("win"):
@@ -488,7 +488,7 @@ def export_emudeck(items, destination):
                 return 1
             if rsync_progress("exporting", "roms",
                               os.path.join(emulationPath, "roms"),
-                              os.path.join(backup_destination, "roms"), "--no-links --exclude=*.txt --exclude=media") != 0:
+                              os.path.join(backup_destination, "roms"), "--no-links --exclude=*.txt --exclude=media  --exclude=*.sh --include='/xbox360/' --include='/xbox360/roms/***' --exclude='/xbox360/*' --include='/model2/' --include='/model2/roms/***' --exclude='/model2/*'") != 0:
                 failed = 1
                 failedItems.append("roms")
             elif system.startswith("win"):
