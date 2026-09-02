@@ -404,7 +404,7 @@ def import_emudeck(items, origin):
             if rsync_progress("importing", "roms",
                               os.path.join(backup_origin, "roms"),
                               os.path.join(emulationPath, "roms"),
-                              "--exclude=*.txt --exclude=media --exclude=*.sh --include='/xbox360/' --include='/xbox360/roms/***' --exclude='/xbox360/*' --include='/model2/' --include='/model2/roms/***' --exclude='/model2/*' --no-links") != 0:
+                              "--exclude=*.txt --exclude=media --exclude=*.sh --no-links") != 0:
                 failed = 1
                 failedItems.append("roms")
             elif system.startswith("win"):
@@ -488,7 +488,7 @@ def export_emudeck(items, destination):
                 return 1
             if rsync_progress("exporting", "roms",
                               os.path.join(emulationPath, "roms"),
-                              os.path.join(backup_destination, "roms"), "--no-links --exclude=*.txt --exclude=media  --exclude=*.sh --include='/xbox360/' --include='/xbox360/roms/***' --exclude='/xbox360/*' --include='/model2/' --include='/model2/roms/***' --exclude='/model2/*'") != 0:
+                              os.path.join(backup_destination, "roms"), "--no-links --exclude=*.txt --exclude=media  --exclude=*.sh") != 0:
                 failed = 1
                 failedItems.append("roms")
             elif system.startswith("win"):
