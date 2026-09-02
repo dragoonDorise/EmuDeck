@@ -40,6 +40,7 @@ Xemu_init() {
 	#SRM_createParsers
 	Xemu_flushEmulatorLauncher
 	Xemu_setLanguage
+	Xemu_setupSaves
 }
 
 #update
