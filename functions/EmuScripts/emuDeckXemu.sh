@@ -207,7 +207,15 @@ Xemu_setResolution(){
 	  fi
 	fi
 	
-	RetroArch_setConfigOverride "surface_scale" $multiplier "$Xemu_configFile"
+	if grep -q '^\[display\.quality\]$' "$Xemu_configFile"; then
+		if grep -q '^surface_scale[[:space:]]*=' "$Xemu_configFile"; then
+			sed -i "s/^surface_scale[[:space:]]*=.*/surface_scale = $multiplier/" "$Xemu_configFile"
+		else
+			sed -i "/^\[display\.quality\]$/a surface_scale = $multiplier" "$Xemu_configFile"
+		fi
+	else
+		sed -i "/^\[sys\]$/i [display.quality]\nsurface_scale = $multiplier\n" "$Xemu_configFile"
+	fi
 }
 
 Xemu_flushEmulatorLauncher(){
