@@ -282,11 +282,11 @@ Eden_resetConfig() {
 Eden_setResolution(){
 
 	case $edenResolution in
-		"720P") multiplier=2; docked="false";;
-		"1080P") multiplier=2; docked="true";;
-		"1440P") multiplier=3; docked="false";;
-		"4K") multiplier=3; docked="true";;
-		*) multiplier=2; docked="false";;
+		"720P")  multiplier=3; docked=0 ;;
+		"1080P") multiplier=3; docked=1 ;;
+		"1440P") multiplier=6; docked=0 ;;
+		"4K")    multiplier=6; docked=1 ;;
+		*)       multiplier=3; docked=0 ;;
 	esac
 
 	#Steam Machine 4K > 1080P fallback
@@ -298,8 +298,15 @@ Eden_setResolution(){
 		fi
 	fi
 
-	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Eden_configFile"
-	RetroArch_setConfigOverride "use_docked_mode" $docked "$Eden_configFile"
+	sed -i \
+		-e "/^\[Renderer\]$/,/^\[/ s/^resolution_setup=.*/resolution_setup=$multiplier/" \
+		-e "/^\[Renderer\]$/,/^\[/ s/^resolution_setup\\\\default=.*/resolution_setup\\\\default=false/" \
+		"$Eden_configFile"
+
+	sed -i \
+		-e "/^\[System\]$/,/^\[/ s/^use_docked_mode=.*/use_docked_mode=$docked/" \
+		-e "/^\[System\]$/,/^\[/ s/^use_docked_mode\\\\default=.*/use_docked_mode\\\\default=false/" \
+		"$Eden_configFile"
 }
 
 Eden_flushEmulatorLauncher(){

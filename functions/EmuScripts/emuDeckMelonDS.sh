@@ -5,6 +5,7 @@ melonDS_emuType="$emuDeckEmuTypeFlatpak"
 melonDS_emuPath="net.kuribo64.melonDS"
 melonDS_releaseURL=""
 melonDS_configFile="$HOME/.var/app/net.kuribo64.melonDS/config/melonDS/melonDS.ini"
+melonDS_resolutionFile="$HOME/.var/app/net.kuribo64.melonDS/config/melonDS/melonDS.toml"
 
 #cleanupOlderThings
 melonDS_finalize(){
@@ -26,6 +27,10 @@ Melonds_install(){
 melonDS_init(){
 	setMSG "Initializing $melonDS_emuName settings."
 	configEmuFP "${melonDS_emuName}" "${melonDS_emuPath}" "true"
+
+	sed -i "s|/run/media/mmcblk0p1/Emulation|$emulationPath|g" "$melonDS_configFile"
+	sed -i "s|/run/media/mmcblk0p1/Emulation|$emulationPath|g" "$melonDS_resolutionFile"
+
 	melonDS_setupStorage
 	melonDS_setEmulationFolder
 	melonDS_setupSaves
@@ -169,16 +174,16 @@ melonDS_addSteamInputProfile(){
 }
 
 melonDS_setResolution(){
-	case $melonDSResolution in
-		"720P") WindowWidth=1024; WindowHeight=768;;
-		"1080P") WindowWidth=1536; WindowHeight=1152;;
-		"1440P") WindowWidth=2048; WindowHeight=1536;;
-		"4K") WindowWidth=2816; WindowHeight=2112;;
-		*) WindowWidth=1024; WindowHeight=768;;
+	case $melondsResolution in
+		"720P")  WindowWidth=1024; WindowHeight=768;  scale=4 ;;
+		"1080P") WindowWidth=1536; WindowHeight=1152; scale=6 ;;
+		"1440P") WindowWidth=2048; WindowHeight=1536; scale=8 ;;
+		"4K")    WindowWidth=2816; WindowHeight=2112; scale=11 ;;
+		*)       WindowWidth=1024; WindowHeight=768;  scale=4 ;;
 	esac
 	
 	#Steam Machine 4K > 1080P fallback
-	if [ "$melonDSResolution" = "4K" ]; then
+	if [ "$melondsResolution" = "4K" ]; then
 		getScreenInfoOnlyTV	
 		if [ "${screenWidth:-0}" -lt 3840 ]; then 
 			WindowWidth=1536
@@ -188,6 +193,9 @@ melonDS_setResolution(){
 
 	RetroArch_setConfigOverride "WindowWidth" $WindowWidth "$melonDS_configFile"
 	RetroArch_setConfigOverride "WindowHeight" $WindowHeight "$melonDS_configFile"
+
+	scaleLine="ScaleFactor = $scale"
+	changeLine "ScaleFactor = " "$scaleLine" "$melonDS_resolutionFile"
 }
 
 #setABXYstyle
