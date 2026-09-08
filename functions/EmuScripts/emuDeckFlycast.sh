@@ -25,6 +25,7 @@ Flycast_init(){
 	Flycast_setupStorage
 	Flycast_setEmulationFolder
 	Flycast_setupSaves
+	Flycast_setResolution
 	#SRM_createParsers
 	#Flycast_addSteamInputProfile
 	Flycast_flushEmulatorLauncher
@@ -163,8 +164,16 @@ Flycast_addSteamInputProfile(){
 	# rsync -r "$emudeckBackend/configs/steam-input/Flycast_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
 
-Flycast_setResolution(){
-	echo "NYI"
+Flycast_setResolution() {
+	case $flycastResolution in
+		"720P")  res=720 ;;
+		"1080P") res=1200 ;;
+		"1440P") res=1440 ;;
+		"4K")    res=2160 ;;
+		*)       res=720 ;;
+	esac
+
+	RetroArch_setConfigOverride "rend.Resolution" "$res" "$Flycast_configFile"
 }
 
 Flycast_flushEmulatorLauncher(){

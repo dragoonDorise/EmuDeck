@@ -939,6 +939,7 @@ setResolutions(){
 	Azahar_setResolution
 	Dolphin_setResolution
 	DuckStation_setResolution
+	Flycast_setResolution
 	melonDS_setResolution	
 	PCSX2QT_setResolution
 	PPSSPP_setResolution
