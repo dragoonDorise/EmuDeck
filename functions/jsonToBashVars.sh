@@ -123,7 +123,7 @@ function jsonToBashVars(){
     setSetting emuSCUMMVM "$(jq .emulatorAlternative.scummvm $json)"
 
     #Paths
-    globPath=$(jq .storagePath $json)
+    globPath=$(jq -r .storagePath $json)
     setSetting emulationPath "$globPath/Emulation"
     setSetting romsPath "$globPath/Emulation/roms"
     setSetting toolsPath "$globPath/Emulation/tools"
