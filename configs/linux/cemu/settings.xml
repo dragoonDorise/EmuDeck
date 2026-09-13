@@ -48,9 +48,9 @@
     <RecentLaunchFiles/>
     <RecentNFCFiles/>
     <GamePaths>
-        <Entry>EMULATIONPATH/roms/wiiu/roms</Entry>
-    </GamePaths>
-    <GameCache/>
+		<Entry>EMULATIONPATH/roms/wiiu/roms</Entry>
+	</GamePaths>
+	<GameCache/>
     <GraphicPack/>
     <Graphic>
         <api>1</api>

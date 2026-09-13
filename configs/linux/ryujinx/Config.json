@@ -143,7 +143,12 @@
       "range_right": 1,
       "trigger_threshold": 0.5,
       "motion": {
-        "motion_backend": "GamepadDriver",
+        "slot": 0,
+        "alt_slot": 0,
+        "mirror_input": false,
+        "dsu_server_host": "127.0.0.1",
+        "dsu_server_port": 26760,
+        "motion_backend": "CemuHook",
         "sensitivity": 100,
         "gyro_deadzone": 1,
         "enable_motion": true
@@ -187,9 +192,24 @@
       "id": "0-00000003-28de-0000-ff11-000001000000",
       "name": "Steam Deck Controller (0)",
       "controller_type": "ProController",
-      "player_index": "Player1"
+      "player_index": "Player1",
+      "enable_dynamic_gamepad_swap": false
     }
   ],
+  "player_input_assignments": [
+    {
+      "player_index": "Player1",
+      "enable_dynamic_input_swap": false,
+      "devices": [
+        {
+          "type": "Controller",
+          "id": "0-00000003-28de-0000-ff11-000001000000",
+          "profile_name": "Deck"
+        }
+      ]
+    }
+  ],
+  "allow_duplicate_device_assignment": false,
   "rainbow_speed": 1,
   "graphics_backend": "Vulkan",
   "preferred_gpu": "0x1002_0x163F",
@@ -204,5 +224,6 @@
   "gdb_stub_port": 0,
   "debugger_suspend_on_start": false,
   "show_dirty_hacks": false,
-  "dirty_hacks": []
+  "dirty_hacks": [],
+  "pause_emulation_while_scanning_amiibo": false
 }
