@@ -1196,6 +1196,9 @@ def copy_and_set_settings_file(src: Union[str, Path],
 
     dst_file = dst_dir / src_path.name
 
+    if dst_file.exists():
+        shutil.copy2(dst_file, dst_file.with_name(dst_file.name + ".bak"))
+
     shutil.copy2(src_path, dst_file)
 
     print(f"Copied {src_path} → {dst_file}")
@@ -1207,14 +1210,11 @@ def copy_and_set_settings_file(src: Union[str, Path],
     sed(".EXT",ext,dst_file)
 
 def sed(old: str, replacement: str, file_path: str) -> None:
-    replacement = str(replacement)
-    file_str = str(file_path)
-
-    pattern = re.compile(re.escape(old))
-    safe_repl = replacement.replace("\\", "\\\\")
-    for line in fileinput.input(str(file_path), inplace=True, backup=".bak"):
-        new_line = pattern.sub(safe_repl, line)
-        print(new_line, end="")
+    path = Path(file_path)
+    with open(path, "r", encoding="utf-8", errors="surrogateescape", newline="") as f:
+        text = f.read()
+    with open(path, "w", encoding="utf-8", errors="surrogateescape", newline="") as f:
+        f.write(text.replace(old, str(replacement)))
 
 
 def move_contents_and_link(origin: Union[str, Path], destination: Union[str, Path]) -> bool:
@@ -1852,17 +1852,53 @@ def calculate_md5(filename):
     return hash_md5.hexdigest()
 
 def set_ini_value(file_path, section, key, value):
-    config = configparser.ConfigParser()
-    config.optionxform = str
-    config.read(file_path)
+    path = Path(file_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if not path.exists():
+        path.write_text("", encoding="utf-8")
 
-    if section not in config:
-        config[section] = {}
+    with open(path, "r", encoding="utf-8", errors="surrogateescape", newline="") as f:
+        lines = f.read().splitlines(keepends=True)
 
-    config[section][key] = value
+    eol = "\r\n" if any(l.endswith("\r\n") for l in lines) else "\n"
+    header = re.compile(r"^\s*\[(?P<name>[^\]]*)\]")
+    entry = re.compile(rf"^(?P<pre>\s*{re.escape(key)}\s*)(?P<sep>=)(?P<space>\s*)(?P<val>.*?)(?P<eol>\r?\n?)$")
 
-    with open(file_path, 'w') as f:
-        config.write(f)
+    start = end = None
+    for i, line in enumerate(lines):
+        m = header.match(line)
+        if not m:
+            continue
+        if start is None and m.group("name") == section:
+            start = i + 1
+        elif start is not None:
+            end = i
+            break
+    if start is not None and end is None:
+        end = len(lines)
+
+    if start is None:
+        if lines and not lines[-1].endswith(("\n", "\r")):
+            lines[-1] += eol
+        if lines and lines[-1].strip():
+            lines.append(eol)
+        lines.append(f"[{section}]{eol}")
+        lines.append(f"{key} = {value}{eol}")
+    else:
+        hit = False
+        for i in range(start, end):
+            m = entry.match(lines[i])
+            if m:
+                lines[i] = f"{m.group('pre')}{m.group('sep')}{m.group('space')}{value}{m.group('eol') or eol}"
+                hit = True
+        if not hit:
+            ins = end
+            while ins > start and lines[ins - 1].strip() == "":
+                ins -= 1
+            lines.insert(ins, f"{key} = {value}{eol}")
+
+    with open(path, "w", encoding="utf-8", errors="surrogateescape", newline="") as f:
+        f.writelines(lines)
 
 def start_menu_reset():
     if os.name != 'nt':
