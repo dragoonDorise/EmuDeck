@@ -867,6 +867,7 @@ flushEmulatorLaunchers(){
 
 	shName=$(echo "$name" | awk '{print tolower($0)}')
 	mkdir -p "${romsPath}/emulators"
+	mkdir -p "${toolsPath}/launchers"
 	find "${toolsPath}/launchers/" "${romsPath}/emulators" -maxdepth 1 -type f \( -iname "$shName.sh" -o -iname "$shName-emu.sh" \) | \
 	while read -r f
 	do
