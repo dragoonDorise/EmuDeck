@@ -157,7 +157,21 @@ def mame_add_custom_parser():
 
 
 def mame_setup_saves():
-    print("NYI")
+    if system == "linux":
+        config_file = f"{home}/.mame/mame.ini"
+    elif system.startswith("win"):
+        config_file = f"{emus_folder}/mame/mame.ini"
+    elif system == "darwin":
+        config_file = f"{home}/Library/Application Support/mame/mame.ini"
+    else:
+        return
+
+    path = Path(config_file)
+    if not path.is_file():
+        return
+
+    for key, sub in (("nvram_directory", "saves"), ("state_directory", "states")):
+        set_config(key, f"{saves_path}/mame/{sub}", path, separator=" " * (26 - len(key)))
 
 def mame_set_resolution():
     print("NYI")
