@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 ScummVM_emuName="ScummVM"
 ScummVM_emuType="$emuDeckEmuTypeFlatpak"
@@ -133,6 +133,6 @@ ScummVM_resetConfig(){
 ScummVM_flushEmulatorLauncher(){
 
 
-	flushEmulatorLaunchers "scummvm.sh"
+	flushEmulatorLaunchers "scummvm"
 
 }

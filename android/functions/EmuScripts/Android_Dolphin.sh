@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function Android_Dolphin_install(){
 	setMSG "Installing Dolphin"

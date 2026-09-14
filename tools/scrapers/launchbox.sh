@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # clear
 # echo -e "Using Launchbox GamesDB..."
 # for device_name in $romsPath/*;

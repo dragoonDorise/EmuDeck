@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 Android_Pegasus_temp="$Android_temp_android_data/org.pegasus_frontend.android/files/pegasus-frontend"
 mkdir -p $Android_Pegasus_temp/themes

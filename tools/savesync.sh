@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 source "$HOME/.config/EmuDeck/backend/functions/all.sh"
 SAVESYNC_toolName="EmuDeck SaveSync"
 SAVESYNC_toolType="AppImage"

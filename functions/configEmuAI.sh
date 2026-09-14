@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 function configEmuAI(){
 
 	emu=$1

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 Android_ADB_path="$emudeckFolder/android/platform-tools"
 Android_ADB_url="https://dl.google.com/android/repository/platform-tools-latest-linux.zip"
 Android_folder="$emudeckFolder/android/"

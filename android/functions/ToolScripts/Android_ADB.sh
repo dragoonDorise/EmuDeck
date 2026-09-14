@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #https://dl.google.com/android/repository/platform-tools-latest-linux.zip
 #https://dl.google.com/android/repository/platform-tools-latest-darwin.zip
 #https://dl.google.com/android/repository/platform-tools-latest-windows.zip

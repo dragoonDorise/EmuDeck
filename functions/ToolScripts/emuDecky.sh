@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 Decky_autoSave(){
 	RetroArch_autoSave

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 ESDE_toolName="ES-DE"
 ESDE_oldtoolName="EmulationStation-DE"
@@ -144,6 +144,10 @@ ESDE_init(){
 	addSteamInputCustomIcons
 	ESDE_flushToolLauncher
 	SRM_flushOldSymlinks
+	
+	#Symlinks for windows migration
+	ln -sfn "$ESDEscrapData/" "$storagePath/downloaded_media"
+	
 
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_systemsFile"
@@ -482,7 +486,8 @@ ESDE_IsInstalled(){
 }
 
 ESDE_symlinkGamelists(){
-		linkToSaveFolder es-de gamelists "$ESDE_newConfigDirectory/gamelists/"
+		rm -rf "$savesPath/es-de"
+		linkToStorageFolder es-de gamelists "$ESDE_newConfigDirectory/gamelists/"
 }
 
 ESDE_migrateEpicNoir(){

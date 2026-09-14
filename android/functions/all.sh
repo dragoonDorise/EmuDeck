@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # SETTINGSFILEANDROID="$emudeckFolder/android_settings.sh"
 # if [ -f "$SETTINGSFILEANDROID" ]; then

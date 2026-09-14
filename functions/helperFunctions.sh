@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #Global variables
 emuDecksettingsFile="$emudeckFolder/settings.sh"
@@ -270,10 +270,10 @@ function getSetting(){
 }
 
 function createUpdateSettingsFile(){
-	#!/bin/bash
+	#!/usr/bin/env bash
 
 	if [ ! -e "$emuDecksettingsFile" ]; then
-		echo "#!/bin/bash"> "$emuDecksettingsFile"
+		echo "#!/usr/bin/env bash"> "$emuDecksettingsFile"
 	fi
 	local defaultSettingsList=()
 	defaultSettingsList+=("expert=false")
@@ -476,6 +476,8 @@ function linkToSaveFolder(){
 	local emu=$1
 	local folderName=$2
 	local path=$3
+	
+	mkdir -p "$path"
 
 	if [ ! -d "$savesPath/$emu/$folderName" ]; then
 		if [ ! -L "$savesPath/$emu/$folderName" ]; then
@@ -865,6 +867,7 @@ flushEmulatorLaunchers(){
 
 	shName=$(echo "$name" | awk '{print tolower($0)}')
 	mkdir -p "${romsPath}/emulators"
+	mkdir -p "${toolsPath}/launchers"
 	find "${toolsPath}/launchers/" "${romsPath}/emulators" -maxdepth 1 -type f \( -iname "$shName.sh" -o -iname "$shName-emu.sh" \) | \
 	while read -r f
 	do
@@ -937,6 +940,7 @@ setResolutions(){
 	Azahar_setResolution
 	Dolphin_setResolution
 	DuckStation_setResolution
+	Flycast_setResolution
 	melonDS_setResolution	
 	PCSX2QT_setResolution
 	PPSSPP_setResolution
@@ -997,7 +1001,7 @@ getLatestVersionGH() {
 	echo $id
 }
 
-#!/bin/bash
+#!/usr/bin/env bash
 
 saveLatestVersionGH() {
 	emuName=$1
@@ -1106,14 +1110,20 @@ addProtonLaunch(){
 function emulatorInit(){
 	local emuName=$1
 	local args=$2
+	local emuNameLower="${emuName,,}"
 	#isLatestVersionGH "$emuName"
 	
 	if [ -z $args ];then 
-		if [ "${autoMapSwitch}" == "true" ] || [ "${autoMapDolphin}" == "true" ]|| [ "${autoMapCemu}" == "true" ]; then		
-			if [ $emuName = "ryujinx" ] || [ $emuName = "dolphin" ] || [ $emuName = "Cemu" ]; then
-				TEXT=$(printf "<b>ATTENTION:</b>\nAutoMap is enabled.\nYou won't be able to change controller settings in this emulator, other settings are not locked.\nIf you want to customize your controller settings please turn AutoMap off in the EmuDeck app")
-				zenity --info --width=400 --text="$TEXT"
-			fi
+		case "$emuNameLower" in
+			ryujinx) autoMapEmulatorStatus="$autoMapSwitch" ;;
+			dolphin) autoMapEmulatorStatus="$autoMapDolphin" ;;
+			cemu)    autoMapEmulatorStatus="$autoMapCemu" ;;
+			*)       autoMapEmulatorStatus="false" ;;
+		esac
+		
+		if [ "$autoMapEmulatorStatus" == "true" ]; then
+			TEXT=$(printf "<b>ATTENTION:</b>\nAutoMap is enabled.\nYou won't be able to change controller settings in this emulator, other settings are not locked.\nIf you want to customize your controller settings please turn AutoMap off in the EmuDeck app")
+			zenity --info --width=400 --text="$TEXT"
 		fi
 	fi
 	

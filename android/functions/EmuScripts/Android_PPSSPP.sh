@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function Android_PPSSPP_install(){
 	setMSG "Installing PPSSPP"

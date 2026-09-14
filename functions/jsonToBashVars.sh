@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 function jsonToBashVars(){
     local json=$1
-    echo "#!/bin/bash" > "$emuDecksettingsFile"
+    echo "#!/usr/bin/env bash" > "$emuDecksettingsFile"
     #Install Emus
     setSetting system "$(jq .system $json)"
     setSetting doInstallRA "$(jq .installEmus.ra.status $json)"
@@ -123,7 +123,7 @@ function jsonToBashVars(){
     setSetting emuSCUMMVM "$(jq .emulatorAlternative.scummvm $json)"
 
     #Paths
-    globPath=$(jq .storagePath $json)
+    globPath=$(jq -r .storagePath $json)
     setSetting emulationPath "$globPath/Emulation"
     setSetting romsPath "$globPath/Emulation/roms"
     setSetting toolsPath "$globPath/Emulation/tools"

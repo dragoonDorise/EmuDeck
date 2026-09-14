@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 installEmuAI(){
     local name="$1"
     local scriptName="$2"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 clear
 if [ ! -f "$HOME/.config/EmuDeck/backend/functions/all.sh" ]; then
  text="$(printf "<b>EmuDeck installation not found</b>")"

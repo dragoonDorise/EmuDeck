@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 CHD_toolName="EmuDeck Compression Tool"
 CHD_toolType="script"

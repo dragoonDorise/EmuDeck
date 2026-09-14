@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 MAME_emuName="MAME"
 MAME_emuType="$emuDeckEmuTypeFlatpak"

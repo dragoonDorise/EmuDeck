@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function Android_Daijisho_install(){
 	temp_url="$(getLatestReleaseURLGH "TapiocaFox/Daijishou" ".apk")"

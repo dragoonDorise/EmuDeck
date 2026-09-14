@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 PCSX2QT_emuName="PCSX2-QT"
 PCSX2QT_emuType="$emuDeckEmuTypeAppImage"

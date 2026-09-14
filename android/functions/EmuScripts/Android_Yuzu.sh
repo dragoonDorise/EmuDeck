@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function Android_Yuzu_install(){
 	setMSG "Installing Yuzu"

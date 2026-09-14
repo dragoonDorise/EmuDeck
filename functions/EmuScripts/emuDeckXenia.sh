@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 Xenia_emuName="Xenia"
 Xenia_emuType="$emuDeckEmuTypeWindows"

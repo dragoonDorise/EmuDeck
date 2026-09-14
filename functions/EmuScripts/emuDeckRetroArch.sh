@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 RetroArch_emuName="RetroArch"
 RetroArch_emuType="$emuDeckEmuTypeFlatpak"

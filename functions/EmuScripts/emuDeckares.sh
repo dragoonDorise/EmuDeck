@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 ares_emuName="ares"
 ares_emuType="$emuDeckEmuTypeFlatpak"

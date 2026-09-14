@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 mGBA_emuName="mGBA"
 mGBA_emuType="$emuDeckEmuTypeAppImage"

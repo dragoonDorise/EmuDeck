@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 CemuProton_emuName="Cemu (proton)"
 CemuProton_emuType="$emuDeckEmuTypeWindows"

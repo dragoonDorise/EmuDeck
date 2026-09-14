@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 FlatpakUP_toolName="EmuDeck Flatpak Updater"
 FlatpakUP_toolType="script"

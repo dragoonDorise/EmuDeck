@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 installEmuBI(){
     local name="$1"
     local url="$2"

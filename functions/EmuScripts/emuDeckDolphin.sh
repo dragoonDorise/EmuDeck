@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 Dolphin_emuName="Dolphin"
 Dolphin_emuType="$emuDeckEmuTypeFlatpak"

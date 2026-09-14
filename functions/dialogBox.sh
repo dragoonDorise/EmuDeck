@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 dialogCLI(){ 
     local HEIGHT=15

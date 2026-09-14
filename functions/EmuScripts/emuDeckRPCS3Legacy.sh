@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 RPCS3_remuName="RPCS3"
 RPCS3_emuType="FlatPak"

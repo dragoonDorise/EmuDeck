@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 RPCS3_emuName="RPCS3"
 RPCS3_emuType="$emuDeckEmuTypeAppImage"
@@ -341,6 +341,6 @@ RPCS3_setResolution(){
 RPCS3_flushEmulatorLauncher(){
 
 
-	flushEmulatorLaunchers "rpcs3.sh"
+	flushEmulatorLaunchers "rpcs3"
 
 }

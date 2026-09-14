@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # shellcheck source=/home/deck/emudeck/settings.sh
 if [[ "$emudeckBackend" == "" ]]; then
 	emudeckBackend="$HOME/.config/EmuDeck/backend/"

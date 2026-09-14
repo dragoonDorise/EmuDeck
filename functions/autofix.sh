@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 zenityInfo(){
 	local title=$1

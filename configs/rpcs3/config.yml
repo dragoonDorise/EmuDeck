@@ -4,9 +4,8 @@ Core:
   PPU Debug: false
   PPU Calling History: false
   Save LLVM logs: false
-  Use LLVM CPU: ""
+  Use LLVM CPU: ''
   Max LLVM Compile Threads: 0
-  PPU LLVM Greedy Mode: false
   LLVM Precompilation: true
   Thread Scheduler Mode: Operating System
   Set DAZ and FTZ: false
@@ -37,7 +36,6 @@ Core:
   Accurate PPU 128-byte Reservation Op Max Length: 0
   Stub PPU Traps: 0
   Full Width AVX-512: true
-  PPU LLVM Java Mode Handling: true
   Use Accurate DFMA: true
   PPU Set Saturation Bit: false
   PPU Accurate Non-Java Mode: false
@@ -46,8 +44,7 @@ Core:
   PPU Set FPCC Bits: false
   Debug Console Mode: false
   Hook static functions: false
-  Libraries Control:
-    []
+  Libraries Control: []
   HLE lwmutex: false
   SPU LLVM Lower Bound: 0
   SPU LLVM Upper Bound: 18446744073709551615
@@ -126,7 +123,6 @@ Video:
   Vulkan:
     Adapter: AMD Custom GPU 0405 (RADV VANGOGH)
     Force FIFO present mode: false
-    Force primitive restart flag: false
     Exclusive Fullscreen Mode: Automatic
     Asynchronous Texture Streaming 2: false
     FidelityFX CAS Sharpening Intensity: 50
@@ -150,10 +146,10 @@ Video:
     Center Horizontally: false
     Center Vertically: false
     Opacity (%): 70
-    Body Color (hex): "#FFE138FF"
-    Body Background (hex): "#002339FF"
-    Title Color (hex): "#F26C24FF"
-    Title Background (hex): "#00000000"
+    Body Color (hex): '#FFE138FF'
+    Body Background (hex): '#002339FF'
+    Title Color (hex): '#F26C24FF'
+    Title Background (hex): '#00000000'
   Shader Loading Dialog:
     Allow custom background: true
     Darkening effect strength: 30
@@ -166,27 +162,27 @@ Audio:
   Convert to 16 bit: false
   Audio Format: Stereo
   Audio Formats: 0
-  Audio Device: "@@@default@@@"
+  Audio Device: '@@@default@@@'
   Master Volume: 100
   Enable Buffering: true
   Desired Audio Buffer Duration: 100
   Enable Time Stretching: false
   Disable Sampling Skip: false
   Time Stretching Threshold: 75
-  Microphone Type: "Null"
-  Microphone Devices: "@@@@@@@@@@@@"
+  Microphone Type: 'Null'
+  Microphone Devices: '@@@@@@@@@@@@'
   Music Handler: Qt
 Input/Output:
-  Keyboard: "Null"
+  Keyboard: 'Null'
   Mouse: Basic
-  Camera: "Null"
+  Camera: 'Null'
   Camera type: Unknown
   Camera flip: None
   Camera ID: Default
-  Move: "Null"
-  Buzz emulated controller: "Null"
-  Turntable emulated controller: "Null"
-  GHLtar emulated controller: "Null"
+  Move: 'Null'
+  Buzz emulated controller: 'Null'
+  Turntable emulated controller: 'Null'
+  GHLtar emulated controller: 'Null'
   Pad handler mode: Single-threaded
   Keep pads connected: false
   Pad handler sleep (microseconds): 1000
@@ -203,14 +199,14 @@ System:
   Console time offset (s): 0
   PSID high: 0
   PSID low: 0
-  HDD Model Name: ""
-  HDD Serial Number: ""
+  HDD Model Name: ''
+  HDD Serial Number: ''
 Net:
   Internet enabled: Disconnected
   IP address: 0.0.0.0
   Bind address: 0.0.0.0
   DNS address: 8.8.8.8
-  IP swap list: ""
+  IP swap list: ''
   UPNP Enabled: false
   PSN status: Disconnected
 Savestate:
@@ -231,6 +227,6 @@ Miscellaneous:
   Use native user interface: true
   GDB Server: 127.0.0.1:2345
   Silence All Logs: false
-  Window Title Format: "FPS: %F | %R | %V | %T [%t]"
+  Window Title Format: 'FPS: %F | %R | %V | %T [%t]'
   Pause Emulation During Home Menu: false
 Log: {}
