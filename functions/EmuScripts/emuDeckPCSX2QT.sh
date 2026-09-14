@@ -75,7 +75,7 @@ PCSX2QT_setEmulationFolder() {
 	iniFieldUpdate "$PCSX2QT_configFile" "UI" "StartFullscreen" "true"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Bios" "${biosPath}"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Snapshots" "${storagePath}/pcsx2/snaps"
-	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Savestates" "${savesPath}/pcsx2/states"
+	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "SaveStates" "${savesPath}/pcsx2/states"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "MemoryCards" "${savesPath}/pcsx2/saves"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Cache" "${storagePath}/pcsx2/cache"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Covers" "${storagePath}/pcsx2/covers"
@@ -239,7 +239,7 @@ PCSX2QT_migrate() {
 
 #WideScreenOn
 PCSX2QT_wideScreenOn() {
-	iniFieldUpdate "$PCSX2QT_configFile" "EmuCore" "EnableWideScreenPatches" "True"
+	iniFieldUpdate "$PCSX2QT_configFile" "EmuCore" "EnableWideScreenPatches" "true"
 	iniFieldUpdate "$PCSX2QT_configFile" "EmuCore/GS" "AspectRatio" "16:9"
 }
 
@@ -281,18 +281,18 @@ PCSX2QT_addSteamInputProfile() {
 }
 
 PCSX2QT_retroAchievementsOn() {
-	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Enabled" "True"
+	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Enabled" "true"
 }
 PCSX2QT_retroAchievementsOff() {
-	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Enabled" "False"
+	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Enabled" "false"
 }
 
 PCSX2QT_retroAchievementsHardCoreOn() {
-	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "ChallengeMode" "True"
+	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "ChallengeMode" "true"
 
 }
 PCSX2QT_retroAchievementsHardCoreOff() {
-	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "ChallengeMode" "False"
+	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "ChallengeMode" "false"
 }
 
 PCSX2QT_retroAchievementsSetLogin() {
