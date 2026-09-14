@@ -58,38 +58,38 @@ def ppsspp_is_installed():
       return (emus_folder / "PPSSPPDL.app").exists()
 
 
+def ppsspp_config_dir():
+    if system == "linux":
+        return Path(f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SYSTEM")
+    if system.startswith("win"):
+        return Path(f"{emus_folder}/ppsspp/memstick/PSP/SYSTEM")
+    if system == "darwin":
+        return Path(f"{home}/Library/Application Support/PPSSPP/PSP/SYSTEM")
+
+
+def ppsspp_config_file():
+    return ppsspp_config_dir() / "ppsspp.ini"
+
+
+def ppsspp_token_file():
+    return ppsspp_config_dir() / "ppsspp_retroachievements.dat"
+
+
 def ppsspp_init():
     set_msg(f"Setting up ppsspp")
     flush_emulator_launchers("ppsspp")
 
-    if system == "linux":
-        destination = f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/"
+    destination = ppsspp_config_dir()
+    destination.mkdir(parents=True, exist_ok=True)
 
     if system.startswith("win"):
-        destination = str(Path(f"{emus_folder}/ppsspp/"))
-        bios = ""
-
-        # Copia estructura base
+        copy_setting_dir(f"{system}/ppsspp/", f"{emus_folder}/ppsspp/")
+        copy_and_set_settings_file(f"{system}/ppsspp/memstick/PSP/SYSTEM/ppsspp.ini", destination)
+    else:
         copy_setting_dir(f"{system}/ppsspp/", destination)
+        copy_and_set_settings_file(f"{system}/ppsspp/ppsspp.ini", destination)
 
-        # INI correcto en Windows
-        ini_src = f"{system}/ppsspp/memstick/PSP/SYSTEM/ppsspp.ini"
-        ini_dst = str(Path(destination) / "memstick" / "PSP" / "SYSTEM")
-        Path(ini_dst).mkdir(parents=True, exist_ok=True)
-
-        copy_and_set_settings_file(ini_src, ini_dst)
-
-        ppsspp_setup_saves()
-        ppsspp_set_resolution()
-        return
-
-    if system == "darwin":
-        destination = f"{home}/Library/Application Support/ppsspp"
-        bios = ""
-
-    copy_setting_dir(f"{system}/ppsspp/", destination)
-    copy_and_set_settings_file(f"{system}/ppsspp/ppsspp.ini", destination)
-
+    ppsspp_set_emulation_folder()
     ppsspp_setup_saves()
     ppsspp_set_resolution()
     ppsspp_retro_achievements()
@@ -114,13 +114,19 @@ def ppsspp_setup_saves():
     move_contents_and_link(origin_states,f"{saves_path}/ppsspp/states")
 
 
+def ppsspp_set_emulation_folder() -> bool:
+    config_file = ppsspp_config_file()
+
+    if not config_file.is_file():
+        return False
+
+    set_ini_value(config_file, "General", "CurrentDirectory", f"{roms_path}/psp")
+
+    return True
+
+
 def ppsspp_set_resolution():
-    if system == "linux":
-        config_path = f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/ppsspp.ini"
-    if system.startswith("win"):
-        config_path = f"{emus_folder}/ppsspp/ppsspp.ini"
-    if system == "darwin":
-        config_path = f"{home}/Library/Application Support/PPSSPP/settings.ini"
+    config_path = ppsspp_config_file()
 
     resolution_map = {
         "720P": 3,
@@ -134,7 +140,7 @@ def ppsspp_set_resolution():
     if settings.resolutions.ppsspp == "4K" and system == "linux" and get_screen_width() < 3840:
         multiplier = 4
 
-    set_config("InternalResolution", multiplier, Path(config_path))
+    set_config("InternalResolution", multiplier, Path(config_path), " = ")
 
     return True
     
@@ -147,41 +153,27 @@ def ppsspp_retro_achievements():
 
 
 def ppsspp_retro_achievements_on():
-    if system == "linux":
-        config_path = f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/ppsspp.ini"
-        token_path = Path(f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat")
-    if system.startswith("win"):
-        config_path = f"{emus_folder}/ppsspp/ppsspp.ini"
-        token_path = Path(f"{emus_folder}/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat")
-    if system == "darwin":
-        config_path = f"{home}/Library/Application Support/PPSSPP/settings.ini"
-        token_path = Path(f"{home}/Library/Application Support/PPSSPP/PSP/SYSTEM/ppsspp_retroachievements.dat")
+    config_path = ppsspp_config_file()
+    token_path = ppsspp_token_file()
 
-    set_config("AchievementsEnable", "True", config_path)
-    set_config("AchievementsUserName", f"{achievements_user}", config_path)
+    set_config("AchievementsEnable", "True", config_path, " = ")
+    set_config("AchievementsUserName", f"{achievements_user}", config_path, " = ")
 
     token_path.parent.mkdir(parents=True, exist_ok=True)
     token_path.write_text(achievements_token)
 
     if achievements_hardcore:
-        set_config("AchievementsChallengeMode", "True", config_path)
+        set_config("AchievementsChallengeMode", "True", config_path, " = ")
     else:
-        set_config("AchievementsChallengeMode", "False", config_path)
+        set_config("AchievementsChallengeMode", "False", config_path, " = ")
 
 
 def ppsspp_retro_achievements_off():
-    if system == "linux":
-        config_path = f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/ppsspp.ini"
-        token_path = Path(f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat")
-    if system.startswith("win"):
-        config_path = f"{emus_folder}/ppsspp/ppsspp.ini"
-        token_path = Path(f"{emus_folder}/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat")
-    if system == "darwin":
-        config_path = f"{home}/Library/Application Support/PPSSPP/settings.ini"
-        token_path = Path(f"{home}/Library/Application Support/PPSSPP/PSP/SYSTEM/ppsspp_retroachievements.dat")
+    config_path = ppsspp_config_file()
+    token_path = ppsspp_token_file()
 
-    set_config("AchievementsEnable", "False", config_path)
-    set_config("AchievementsChallengeMode", "False", config_path)
+    set_config("AchievementsEnable", "False", config_path, " = ")
+    set_config("AchievementsChallengeMode", "False", config_path, " = ")
 
-    if token_path.exists():
-        token_path.unlink()
+    token_path.parent.mkdir(parents=True, exist_ok=True)
+    token_path.write_text("")
