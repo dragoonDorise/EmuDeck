@@ -93,8 +93,7 @@ PCSX2QT_setupSaves() {
 }
 
 PCSX2QT_setupControllers() {
-	new_pad1_section="
-Type = DualShock2
+	new_pad1_section="Type = DualShock2
 InvertL = 0
 InvertR = 0
 Deadzone = 0.000000

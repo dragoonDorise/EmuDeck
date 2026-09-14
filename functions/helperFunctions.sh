@@ -766,37 +766,41 @@ function iniSectionUpdate() {
 	local file="$1"
 	local section_name="$2"
 	local new_content="$3"
-	local tmp_file=$(mktemp)
+	local tmp_file
+	tmp_file=$(mktemp)
 
 	local inside_section=0
+	local trailing=0
 
 	while IFS= read -r line; do
 
 		if [[ "$line" =~ ^\[$section_name\] ]]; then
 			inside_section=1
+			trailing=0
 			echo "$line"
 			echo "$new_content"
 			continue
 		fi
 
-		if [[ "$line" =~ ^\[ ]] && [[ ! "$line" =~ ^\[$section_name\] ]] && [[ $inside_section -eq 1 ]]; then
-			echo "$old_content"
-			inside_section=0
-		fi
-
 		if [[ $inside_section -eq 1 ]]; then
-			continue
+			if [[ "$line" =~ ^\[ ]]; then
+				inside_section=0
+				while [[ $trailing -gt 0 ]]; do echo ""; trailing=$((trailing - 1)); done
+			else
+				if [[ -z "${line//[[:space:]]/}" ]]; then
+					trailing=$((trailing + 1))
+				else
+					trailing=0
+				fi
+				continue
+			fi
 		fi
 
 		echo "$line"
 
-	local old_content="$line"
-
 	done < "$file" > "$tmp_file"
 
-	if [[ $inside_section -eq 1 ]]; then
-		echo "$old_content"
-	fi
+	while [[ $trailing -gt 0 ]]; do echo "" >> "$tmp_file"; trailing=$((trailing - 1)); done
 
 	mv "$tmp_file" "$file"
 }
