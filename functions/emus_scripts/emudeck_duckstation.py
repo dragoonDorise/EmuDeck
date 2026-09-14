@@ -74,6 +74,9 @@ def duckstation_init():
     copy_setting_dir(f"common/duckstation/",destination)
     copy_and_set_settings_file(f"common/duckstation/settings.ini", destination)
 
+    if system.startswith("win"):
+        copy_setting_dir(f"{system}/duckstation/",destination)
+
     duckstation_setup_saves()
     #duckstation_setup_storage()
     duckstation_set_resolution()
@@ -121,7 +124,7 @@ def duckstation_set_resolution():
     if settings.resolutions.duckstation == "4K" and system == "linux" and get_screen_width() < 3840:
         multiplier = 5
 
-    set_config("ResolutionScale", multiplier, Path(config_path))
+    set_config("ResolutionScale", multiplier, Path(config_path), " = ")
 
     return True
 
