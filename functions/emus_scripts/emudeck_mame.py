@@ -73,6 +73,52 @@ def mame_is_installed():
       return (emus_folder / "mame.app").exists()
 
 
+def mame_set_emulation_folder():
+    unix_tails = {
+        "samplepath": "$HOME/.mame/samples;/app/share/mame/samples",
+        "artpath": "$HOME/.mame/artwork;/app/share/mame/artwork",
+        "ctrlrpath": "$HOME/.mame/ctrlr;/app/share/mame/ctrlr",
+        "inipath": "$HOME/.mame/ini;$HOME/.mame;/app/share/mame/ini",
+        "cheatpath": "$HOME/.mame/cheat;/app/share/mame/cheat",
+        "pluginspath": "$HOME/.mame/plugins;/app/share/mame/plugins",
+    }
+
+    if system == "linux":
+        config_file = f"{home}/.mame/mame.ini"
+        tails = unix_tails
+    elif system.startswith("win"):
+        config_file = f"{emus_folder}/mame/mame.ini"
+        tails = {
+            "samplepath": "samples",
+            "artpath": "artwork",
+            "ctrlrpath": "ctrlr",
+            "inipath": ".;ini;ini\\presets;",
+            "cheatpath": "cheat",
+            "pluginspath": "plugins",
+        }
+    elif system == "darwin":
+        config_file = f"{home}/Library/Application Support/mame/mame.ini"
+        tails = unix_tails
+    else:
+        return
+
+    path = Path(config_file)
+    if not path.is_file():
+        return
+
+    subfolders = {
+        "samplepath": "samples", "artpath": "artwork", "ctrlrpath": "ctrlr",
+        "inipath": "ini", "cheatpath": "cheat", "pluginspath": "plugins",
+    }
+
+    values = {"rompath": f"{roms_path}/arcade;{bios_path};{bios_path}/mame"}
+    for key, sub in subfolders.items():
+        values[key] = f"{storage_path}/mame/{sub};{tails[key]}"
+
+    for key, value in values.items():
+        set_config(key, value, path, separator=" " * (26 - len(key)))
+
+
 def mame_init():
     set_msg(f"Setting up mame")
     flush_emulator_launchers("mame")
@@ -85,6 +131,8 @@ def mame_init():
 
     copy_setting_dir(f"{system}/mame/",destination)
     copy_and_set_settings_file(f"{system}/mame/mame.ini", destination)
+
+    mame_set_emulation_folder()
 
 
 
