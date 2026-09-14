@@ -87,7 +87,6 @@ source "$emudeckBackend"/functions/EmuScripts/emuDeckCitron.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckEden.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckYuzu.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckCemu.sh
-source "$emudeckBackend"/functions/EmuScripts/emuDeckCemuProton.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckRPCS3.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckAzahar.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckDolphin.sh
