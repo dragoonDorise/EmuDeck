@@ -99,22 +99,26 @@ SRM_setEnv(){
   tmp=$(mktemp)
   jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
   "$SRM_userData_configDir/userSettings.json" > "$tmp"\
-   && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
+   && cat "$tmp" > "$SRM_userData_configDir/userSettings.json"
+   rm -f "$tmp"
 
   tmp=$(mktemp)
   jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
   "$SRM_userData_configDir/userSettings.json" > "$tmp" \
-  && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
+  && cat "$tmp" > "$SRM_userData_configDir/userSettings.json"
+  rm -f "$tmp"
 
   tmp=$(mktemp)
   jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
   "$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp"\
-  && mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+  && cat "$tmp" > "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+  rm -f "$tmp"
 
   tmp=$(mktemp)
   jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
   "$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
-  && mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+  && cat "$tmp" > "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+  rm -f "$tmp"
 
 }
 

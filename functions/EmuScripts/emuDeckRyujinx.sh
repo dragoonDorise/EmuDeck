@@ -387,7 +387,8 @@ Ryujinx_set_gamepad_name() {
             name: .name,
             backend: (if (($tmpl.backend // "") | startswith("Gamepad")) then $tmpl.backend else "GamepadSDL3" end)
           } ]' "$Ryujinx_configFile" > "$tmp" && [ -s "$tmp" ]; then
-    mv "$tmp" "$Ryujinx_configFile"
+    cat "$tmp" > "$Ryujinx_configFile"
+    rm -f "$tmp"
   else
     rm -f "$tmp"
     echo "No gamepad entry to update in $Ryujinx_configFile" >&2
@@ -398,10 +399,9 @@ Ryujinx_set_gamepad_name() {
      && echo "$pads" | jq -e '(.[0].name // "") | ascii_downcase | contains("steam deck")' >/dev/null 2>&1; then
     tmp="$(mktemp)"
     if jq '.input_config[0].motion = {"slot":0,"alt_slot":0,"mirror_input":false,"dsu_server_host":"127.0.0.1","dsu_server_port":26760,"motion_backend":"CemuHook","sensitivity":100,"gyro_deadzone":1,"enable_motion":true}' "$Ryujinx_configFile" > "$tmp" && [ -s "$tmp" ]; then
-      mv "$tmp" "$Ryujinx_configFile"
-    else
-      rm -f "$tmp"
+      cat "$tmp" > "$Ryujinx_configFile"
     fi
+    rm -f "$tmp"
   fi
 }
 

@@ -365,7 +365,8 @@ function createUpdateSettingsFile(){
 	tmp=$(mktemp)
 	#sort "$emuDecksettingsFile" | uniq -u > "$tmp" && mv "$tmp" "$emuDecksettingsFile"
 
-	cat "$emuDecksettingsFile" | awk '!unique[$0]++' > "$tmp" && mv "$tmp" "$emuDecksettingsFile"
+	cat "$emuDecksettingsFile" | awk '!unique[$0]++' > "$tmp" && cat "$tmp" > "$emuDecksettingsFile"
+	rm -f "$tmp"
 	for setting in "${defaultSettingsList[@]}"
 		do
 			local settingName=$(cut -d "=" -f1 <<< "$setting")
@@ -802,7 +803,8 @@ function iniSectionUpdate() {
 
 	while [[ $trailing -gt 0 ]]; do echo "" >> "$tmp_file"; trailing=$((trailing - 1)); done
 
-	mv "$tmp_file" "$file"
+	cat "$tmp_file" > "$file"
+	rm -f "$tmp_file"
 }
 
 calculate_checksum_sha256() {
@@ -1404,10 +1406,12 @@ function addParser(){
 		echo "adding parser"
 		local tmpParser
 		tmpParser=$(mktemp)
-		jq --argjson newConfig "$(cat "$path")" '. + [$newConfig]' "$SRM_userConfigurations" > "$tmpParser" && mv "$tmpParser" "$SRM_userConfigurations"
+		jq --argjson newConfig "$(cat "$path")" '. + [$newConfig]' "$SRM_userConfigurations" > "$tmpParser" && [ -s "$tmpParser" ] && cat "$tmpParser" > "$SRM_userConfigurations"
+		rm -f "$tmpParser"
 		SRM_setEmulationFolder
 		tmpParser=$(mktemp)
-		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > "$tmpParser" && mv "$tmpParser" "$SRM_userConfigurations"
+		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > "$tmpParser" && [ -s "$tmpParser" ] && cat "$tmpParser" > "$SRM_userConfigurations"
+		rm -f "$tmpParser"
 	fi
 
 }

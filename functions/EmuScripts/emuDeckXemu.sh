@@ -101,8 +101,11 @@ Xemu_setupStorage(){
 	flatpak override app.xemu.xemu --filesystem="${storagePath}/xemu":rw --user
 	if [[ ! -f "${storagePath}/xemu/xbox_hdd.qcow2" ]]; then
 		mkdir -p "${storagePath}/xemu"
-		cd "${storagePath}/xemu"
-		curl -L https://github.com/mborgerson/xemu-hdd-image/releases/latest/download/xbox_hdd.qcow2.zip -o xbox_hdd.qcow2.zip && unzip -j xbox_hdd.qcow2.zip && rm -rf xbox_hdd.qcow2.zip
+		(
+			cd "${storagePath}/xemu" || exit 1
+			curl -L https://github.com/mborgerson/xemu-hdd-image/releases/latest/download/xbox_hdd.qcow2.zip -o xbox_hdd.qcow2.zip && unzip -j xbox_hdd.qcow2.zip
+			rm -rf xbox_hdd.qcow2.zip
+		)
 	fi
 }
 
