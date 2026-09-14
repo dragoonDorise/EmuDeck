@@ -1302,7 +1302,7 @@ def set_config(old: str, new: str, file_to_check: Path, separator: str = "=") ->
 
     eol = "\r\n" if any(l.endswith("\r\n") for l in lines) else "\n"
     new_line = f"{old}{separator}{new}"
-    pattern = re.compile(rf"^\s*{re.escape(old.rstrip())}(?![\w.\-])")
+    pattern = re.compile(rf"^\s*{re.escape(old.rstrip())}(?![\w.\-\\])")
 
     hit = False
     for idx, line in enumerate(lines):
