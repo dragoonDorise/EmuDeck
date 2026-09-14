@@ -1329,7 +1329,7 @@ def update_json_key(key: str, new_value: Any, file_path: Path) -> None:
     data[key] = new_value
 
     with file_path.open("w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
+        json.dump(data, f, ensure_ascii=False, indent=2)
         f.write("\n")
 
 

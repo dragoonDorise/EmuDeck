@@ -123,8 +123,10 @@ def ryujinx_init():
     else:
         raise ValueError(f"Unsupported system: {system}")
 
+    copy_setting_dir(f"{system}/ryujinx/", destination)
     copy_and_set_settings_file(f"{system}/ryujinx/Config.json", destination)
 
+    ryujinx_set_emulation_folder()
     ryujinx_setup_saves()
     ryujinx_set_resolution()
     ryujinx_set_controller_style()
@@ -174,6 +176,12 @@ def ryujinx_setup_saves():
 # 
 #     move_contents_and_link(origin_saves,f"{saves_path}/ryujinx/saves")
 #     move_contents_and_link(origin_states,f"{saves_path}/ryujinx/states")
+
+
+def ryujinx_set_emulation_folder() -> bool:
+    sed("/run/media/mmcblk0p1/Emulation/roms", str(roms_path), ryujinx_config_file)
+
+    return True
 
 
 def ryujinx_set_resolution() -> bool:
@@ -397,7 +405,7 @@ def ryujinx_set_gamepad_name():
 
     tmp_path = config_path.with_suffix(config_path.suffix + ".tmp")
     with tmp_path.open("w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
+        json.dump(data, f, ensure_ascii=False, indent=2)
         f.write("\n")
     tmp_path.replace(config_path)
 
