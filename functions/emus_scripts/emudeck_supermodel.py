@@ -1,5 +1,7 @@
 from core.all import *
 
+SUPERMODEL_GAMES_LIST = "https://raw.githubusercontent.com/trzy/Supermodel/master/Config/Games.xml"
+
 
 def supermodel_install():
     set_msg(f"Installing Supermodel")
@@ -65,7 +67,24 @@ def supermodel_init():
         destination=f"{home}/Library/Application Support/supermodel"
 
     copy_setting_dir(f"common/supermodel/",destination)
-    copy_and_set_settings_file(f"common/supermodel/Config/Supermodel.ini", destination)
+    copy_and_set_settings_file(f"common/supermodel/Config/Supermodel.ini", f"{destination}/Config")
+    supermodel_update_games_list(f"{destination}/Config/Games.xml")
+
+
+
+def supermodel_update_games_list(destination) -> bool:
+    try:
+        r = requests.get(SUPERMODEL_GAMES_LIST, timeout=30)
+        r.raise_for_status()
+    except Exception as e:
+        return False
+
+    if not r.content.strip():
+        return False
+
+    Path(destination).write_bytes(r.content)
+
+    return True
 
 def supermodel_install_init():
     supermodel_install()
