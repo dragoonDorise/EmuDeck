@@ -222,7 +222,7 @@ def dolphin_set_resolution():
     if settings.resolutions.dolphin == "4K" and system == "linux" and get_screen_width() < 3840:
         multiplier = 3
 
-    set_config("InternalResolution", multiplier, config_path)
+    set_config("InternalResolution", multiplier, config_path, " = ")
 
     return True
 
@@ -248,8 +248,8 @@ def dolphin_widescreen_on():
         dolphin_config_file=f"{home}/Library/Application Support/Dolphin/Config/GFX.ini"
     config_path = Path(dolphin_config_file)
 
-    set_config("wideScreenHack", "True", config_path)
-    set_config("AspectRatio", "1", config_path)
+    set_config("wideScreenHack", "True", config_path, " = ")
+    set_config("AspectRatio", "1", config_path, " = ")
 
 def dolphin_widescreen_off():
     if system == "linux":
@@ -260,8 +260,8 @@ def dolphin_widescreen_off():
         dolphin_config_file=f"{home}/Library/Application Support/Dolphin/Config/GFX.ini"
     config_path = Path(dolphin_config_file)
 
-    set_config("wideScreenHack", "False", config_path)
-    set_config("AspectRatio", "0", config_path)
+    set_config("wideScreenHack", "False", config_path, " = ")
+    set_config("AspectRatio", "0", config_path, " = ")
 
 
 def dolphin_widescreen():
