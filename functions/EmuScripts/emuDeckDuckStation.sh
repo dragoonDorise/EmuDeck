@@ -45,7 +45,6 @@ DuckStation_init(){
 	#DuckStation_addSteamInputProfile
 	DuckStation_retroAchievementsSetLogin
 	DuckStation_setCustomizations
-	RetroArch_setRetroAchievements
 	DuckStation_setResolution
 	#SRM_createParsers
 	DuckStation_flushEmulatorLauncher
