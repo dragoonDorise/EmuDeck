@@ -164,7 +164,7 @@ RPCS3_init(){
 
 RPCS3_setLanguage(){
 	setMSG "Setting RPCS3 Language"
-	local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+	local language=$(getSystemLanguage)
 	local languageOpt="  Language"
 	if [ ${RPCS3_languages[$language]+_} ]; then
 		newLanguageOpt="${RPCS3_languages[$language]}"

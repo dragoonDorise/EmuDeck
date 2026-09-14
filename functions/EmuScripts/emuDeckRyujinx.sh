@@ -144,7 +144,7 @@ Ryujinx_setEmulationFolder(){
 #SetLanguage
 Ryujinx_setLanguage(){
     setMSG "Setting Ryujinx Language"
-    local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+    local language=$(getSystemLanguage)
 	#TODO: call this somewhere, and input the $language from somewhere (args?)
 	if [[ -f "${Ryujinx_configFile}" ]]; then
 		if [ ${Ryujinx_languages[$language]+_} ]; then

@@ -36,7 +36,7 @@ ScummVM_init(){
 
 ScummVM_setLanguage(){
 	setMSG "Setting ScummVM Language"
-	local language=$(locale | grep LANG | cut -d= -f2 | cut -d. -f1)
+	local language=$(getSystemLocale)
 	local languageOpt="gui_language="
 	newLanguageOpt='gui_language='"$language"
 	changeLine "$languageOpt" "$newLanguageOpt" "$ScummVM_configFile"

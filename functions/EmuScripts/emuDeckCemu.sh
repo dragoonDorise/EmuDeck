@@ -212,7 +212,7 @@ Cemu_functions () {
 
 	setLanguage(){
 		setMSG "Setting ${CemuNative[emuName]} Language"
-		local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+		local language=$(getSystemLanguage)
 		if [[ -f "${CemuNative[configFile]}" ]]; then
 			if [ ${Cemu_languages[$language]+_} ]; then
 				xmlstarlet ed --inplace  --subnode "content" --type elem -n "console_language" -v "${Cemu_languages[$language]}" "${CemuNative[configFile]}"

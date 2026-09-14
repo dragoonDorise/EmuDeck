@@ -135,7 +135,7 @@ CemuProton_setEmulationFolder(){
 #SetLanguage
 CemuProton_setLanguage(){
 	setMSG "Setting $CemuProton_emuName Language"
-	local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+	local language=$(getSystemLanguage)
 	#TODO: call this somewhere, and input the $language from somewhere (args?)
 	if [[ -f "${CemuProton_cemuSettings}" ]]; then
 		if [ ${CemuProton_languages[$language]+_} ]; then

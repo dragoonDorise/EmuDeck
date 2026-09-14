@@ -1523,6 +1523,40 @@ function retroAchievementsHardCoreOff(){
 	Dolphin_retroAchievementsHardCoreOff
 }
 
+function getSystemLanguage(){
+	local lang="${LANG:-}"
+
+	if [ -z "$lang" ]; then
+		lang=$(locale 2>/dev/null | grep '^LANG=' | cut -d= -f2 | tr -d '"')
+	fi
+
+	lang="${lang%%.*}"
+	lang="${lang%%@*}"
+	lang="${lang%%_*}"
+
+	case "$lang" in
+		[a-z][a-z]) echo "$lang" ;;
+		*) echo "en" ;;
+	esac
+}
+
+function getSystemLocale(){
+	local lang="${LANG:-}"
+
+	if [ -z "$lang" ]; then
+		lang=$(locale 2>/dev/null | grep '^LANG=' | cut -d= -f2 | tr -d '"')
+	fi
+
+	lang="${lang%%.*}"
+	lang="${lang%%@*}"
+
+	case "$lang" in
+		[a-z][a-z]_[A-Z][A-Z]) echo "$lang" ;;
+		[a-z][a-z]) echo "$lang" ;;
+		*) echo "en" ;;
+	esac
+}
+
 function getScreenInfoOnlyTV(){
 	
 	#This only works for external monitors since we don't take rotation into account

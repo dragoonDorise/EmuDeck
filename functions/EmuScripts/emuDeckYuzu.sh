@@ -189,7 +189,7 @@ Yuzu_setEmulationFolder() {
 #SetLanguage
 Yuzu_setLanguage(){
     setMSG "Setting Yuzu Language"
-    local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+    local language=$(getSystemLanguage)
     languageOpt="language_index="
     languageDefaultOpt="language_index\\\\default="
     newLanguageDefaultOpt="language_index\\\\default=false" # we need those or else itll reset
