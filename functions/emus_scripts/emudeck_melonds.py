@@ -64,6 +64,7 @@ def melonds_init():
 
     copy_setting_dir(f"common/melonds/",destination)
     copy_and_set_settings_file(f"common/melonds/melonDS.ini", destination)
+    copy_and_set_settings_file(f"common/melonds/melonDS.toml", destination)
 
     # move_contents_and_link(bios,f"{bios_path}/melonds")
 
