@@ -176,6 +176,7 @@ def shadps4_install_init():
 
 def shadps4_init():
     set_msg("Setting up shadps4")
+    flush_emulator_launchers("shadps4")
 
     if system == "linux":
         destination = f"{home}/.local/share/shadPS4"

@@ -75,6 +75,7 @@ def mame_is_installed():
 
 def mame_init():
     set_msg(f"Setting up mame")
+    flush_emulator_launchers("mame")
     if system == "linux":
         destination=f"{home}/.mame/"
     if system.startswith("win"):

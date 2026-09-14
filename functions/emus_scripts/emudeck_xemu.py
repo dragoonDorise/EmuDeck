@@ -64,6 +64,7 @@ def xemu_is_installed():
 
 def xemu_init():
     set_msg("Setting up xemu")
+    flush_emulator_launchers("xemu")
 
     if system == "linux":
         destination = f"{home}/.var/app/app.xemu.xemu/data/xemu/xemu"

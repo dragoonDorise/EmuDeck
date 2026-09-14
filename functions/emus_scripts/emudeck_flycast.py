@@ -57,6 +57,7 @@ def flycast_is_installed():
 
 def flycast_init():
     set_msg(f"Setting up flycast")
+    flush_emulator_launchers("flycast")
     if system == "linux":
         destination=f"{home}/.var/app/org.flycast.Flycast/config/flycast/"
         bios=f"{home}/.var/app/org.flycast.Flycast/data/flycast/"

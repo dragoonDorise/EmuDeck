@@ -19,6 +19,7 @@ def yuzu_is_installed():
 
 def yuzu_init():
     set_msg(f"Setting up yuzu")
+    flush_emulator_launchers("yuzu")
     if system == "linux":
         destination=f"{home}/.config/yuzu/config"
     if system.startswith("win"):

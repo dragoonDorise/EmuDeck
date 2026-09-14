@@ -80,6 +80,7 @@ def retroarch_is_installed():
 
 def retroarch_init():
     set_msg(f"Setting up retroarch")
+    flush_emulator_launchers("retroarch")
 
     retroarch_backup_configs()
 

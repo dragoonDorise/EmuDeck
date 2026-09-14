@@ -50,6 +50,7 @@ def azahar_is_installed():
 
 def azahar_init():
     set_msg(f"Setting up Azahar")
+    flush_emulator_launchers("azahar")
     if system == "linux":
         destination=f"{home}/.config/azahar/config"
     if system.startswith("win"):

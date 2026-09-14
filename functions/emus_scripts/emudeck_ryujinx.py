@@ -112,6 +112,7 @@ def ryujinx_is_installed():
 
 def ryujinx_init():
     set_msg("Setting up ryujinx")
+    flush_emulator_launchers("ryujinx")
 
     if system == "linux":
         destination = f"{home}/.config/Ryujinx/"

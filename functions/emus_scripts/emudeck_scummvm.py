@@ -56,6 +56,7 @@ def scummvm_is_installed():
 
 def scummvm_init():
     set_msg(f"Setting up ScummVM")
+    flush_emulator_launchers("scummvm")
     if system == "linux":
         destination=f"{home}/.var/app/org.scummvm.scummvm/config/scummvm/"
         bios=f"{home}/.var/app/org.scummvm.scummvm/data/scummvm/"

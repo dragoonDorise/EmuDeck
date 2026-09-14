@@ -54,6 +54,7 @@ def cemu_is_installed():
 
 def cemu_init():
     set_msg(f"Setting up cemu")
+    flush_emulator_launchers("cemu")
     if system == "linux":
         destination=f"{home}/.config/Cemu"
         settings_file_src=f"{system}/cemu/settings.xml"

@@ -85,6 +85,7 @@ def model2_is_installed():
 
 def model2_init():
     set_msg("Setting up model2")
+    flush_emulator_launchers("model-2-emulator")
 
     if system == "linux":
         destination = roms_path / "model2"

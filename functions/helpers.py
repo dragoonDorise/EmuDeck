@@ -1851,6 +1851,34 @@ def calculate_md5(filename):
             hash_md5.update(chunk)
     return hash_md5.hexdigest()
 
+def flush_emulator_launchers(name: str) -> None:
+    win = system.startswith("win")
+    ext = ".bat" if win else ".sh"
+    src_dir = Path(emudeck_backend) / "tools" / "launchers" / ("windows" if win else "unix")
+    targets = [Path(tools_path) / "launchers", Path(roms_path) / "emulators"]
+
+    stem = str(name).lower()
+    wanted = {f"{stem}{ext}", f"{stem}-emu{ext}"}
+
+    for d in targets:
+        d.mkdir(parents=True, exist_ok=True)
+        for w in wanted:
+            old = d / w
+            if old.exists():
+                old.unlink()
+
+    if not src_dir.is_dir():
+        return
+
+    for src in sorted(src_dir.iterdir()):
+        if not src.is_file() or src.name.lower() not in wanted:
+            continue
+        for d in targets:
+            dst = d / src.name
+            shutil.copy2(src, dst)
+            dst.chmod(dst.stat().st_mode | 0o111)
+
+
 def set_ini_value(file_path, section, key, value):
     path = Path(file_path)
     path.parent.mkdir(parents=True, exist_ok=True)

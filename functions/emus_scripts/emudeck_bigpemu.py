@@ -77,6 +77,7 @@ def bigpemu_is_installed():
 
 def bigpemu_init():
     set_msg(f"Setting up bigpemu")
+    flush_emulator_launchers("bigpemu")
     if system == "linux":
         destination=f"{emus_folder}/bigpemu/"
     if system.startswith("win"):

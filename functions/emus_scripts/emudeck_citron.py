@@ -19,6 +19,7 @@ def citron_is_installed():
 
 def citron_init():
     set_msg(f"Setting up citron")
+    flush_emulator_launchers("citron")
     if system == "linux":
         destination=f"{home}/.config/citron/config"
     if system.startswith("win"):

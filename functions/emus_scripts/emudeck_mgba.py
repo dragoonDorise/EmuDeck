@@ -50,6 +50,7 @@ def mgba_is_installed():
 
 def mgba_init():
     set_msg(f"Setting up mgba")
+    flush_emulator_launchers("mgba")
     if system == "linux":
         destination=f"{home}/.config/mgba"
     if system.startswith("win"):

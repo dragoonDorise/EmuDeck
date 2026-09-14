@@ -87,6 +87,7 @@ def rpcs3_is_installed():
 
 def rpcs3_init():
     set_msg(f"Setting up rpcs3")
+    flush_emulator_launchers("rpcs3")
     if system == "linux":
         destination=f"{home}/.config/rpcs3"
     if system.startswith("win"):

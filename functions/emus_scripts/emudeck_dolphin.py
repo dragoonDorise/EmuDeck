@@ -130,6 +130,7 @@ def dolphin_is_installed():
 
 def dolphin_init():
     set_msg(f"Setting up dolphin")
+    flush_emulator_launchers("dolphin")
     if system == "linux":
         destination=f"{home}/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/"
     if system.startswith("win"):

@@ -56,6 +56,7 @@ def primehack_is_installed():
 
 def primehack_init():
     set_msg(f"Setting up primehack")
+    flush_emulator_launchers("primehack")
     if system == "linux":
         destination=f"{home}/.var/app/io.github.shiiion.primehack/config/dolphin-emu/"
     if system.startswith("win"):

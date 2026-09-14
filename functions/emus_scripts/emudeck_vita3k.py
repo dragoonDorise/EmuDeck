@@ -84,6 +84,7 @@ def vita3k_is_installed():
 
 def vita3k_init():
     set_msg(f"Setting up Vita3K")
+    flush_emulator_launchers("vita3k")
     if system == "linux":
         destination = f"{home}/.config/Vita3K"
     if system.startswith("win"):

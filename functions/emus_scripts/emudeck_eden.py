@@ -19,6 +19,7 @@ def eden_is_installed():
 
 def eden_init():
     set_msg(f"Setting up eden")
+    flush_emulator_launchers("eden")
     if system == "linux":
         destination=f"{home}/.config/eden/config"
     if system.startswith("win"):

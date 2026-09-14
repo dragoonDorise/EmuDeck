@@ -63,6 +63,7 @@ def duckstation_is_installed():
 
 def duckstation_init():
     set_msg(f"Setting up duckstation")
+    flush_emulator_launchers("duckstation")
     if system == "linux":
         destination=f"{home}/.local/share/duckstation/"
     if system.startswith("win"):

@@ -54,6 +54,7 @@ def melonds_is_installed():
 
 def melonds_init():
     set_msg(f"Setting up melonds")
+    flush_emulator_launchers("melonds")
     if system == "linux":
         destination=f"{home}/.var/app/net.kuribo64.melonDS/config/melonDS/"
     if system.startswith("win"):

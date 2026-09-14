@@ -111,6 +111,7 @@ def xenia_is_installed():
 
 def xenia_init():
     set_msg("Setting up Xenia")
+    flush_emulator_launchers("xenia")
 
     if system == "linux":
         destination = roms_path / "xbox360"

@@ -62,6 +62,7 @@ def pcsx2_is_installed():
 
 def pcsx2_init():
     set_msg(f"Setting up pcsx2")
+    flush_emulator_launchers("pcsx2-qt")
     if system == "linux":
         destination=f"{home}/.config/PCSX2/inis"
     if system.startswith("win"):

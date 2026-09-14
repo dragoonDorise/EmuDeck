@@ -56,6 +56,7 @@ def supermodel_is_installed():
 
 def supermodel_init():
     set_msg(f"Setting up Supermodel")
+    flush_emulator_launchers("supermodel")
     if system == "linux":
         destination=f"{home}/.supermodel/"
     if system.startswith("win"):

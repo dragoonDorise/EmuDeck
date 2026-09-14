@@ -60,6 +60,7 @@ def ppsspp_is_installed():
 
 def ppsspp_init():
     set_msg(f"Setting up ppsspp")
+    flush_emulator_launchers("ppsspp")
 
     if system == "linux":
         destination = f"{home}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/"

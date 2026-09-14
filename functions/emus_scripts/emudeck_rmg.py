@@ -48,6 +48,7 @@ def rmg_is_installed():
 
 def rmg_init():
     set_msg(f"Setting up RMG")
+    flush_emulator_launchers("rosaliesmupengui")
     if system == "linux":
         destination=f"{home}/.var/app/com.github.Rosalie241.RMG/config/RMG/"
     if system.startswith("win"):
