@@ -60,6 +60,25 @@ def pcsx2_is_installed():
     if system == "darwin":
       return (emus_folder / "PCSX2.app").exists()
 
+def pcsx2_set_emulation_folder():
+    if system == "linux":
+        pcsx2_config_file = f"{home}/.config/PCSX2/inis/PCSX2.ini"
+    elif system.startswith("win"):
+        pcsx2_config_file = f"{emus_folder}/pcsx2/inis/PCSX2.ini"
+    elif system == "darwin":
+        pcsx2_config_file = f"{home}/Library/Application Support/PCSX2/inis/PCSX2.ini"
+    else:
+        return
+
+    config_path = Path(pcsx2_config_file)
+    if not config_path.is_file():
+        return
+
+    set_ini_value(config_path, "UI", "ConfirmShutdown", "false")
+    set_ini_value(config_path, "UI", "SetupWizardIncomplete", "false")
+    set_ini_value(config_path, "UI", "StartFullscreen", "true")
+
+
 def pcsx2_init():
     set_msg(f"Setting up pcsx2")
     flush_emulator_launchers("pcsx2-qt")
@@ -72,6 +91,7 @@ def pcsx2_init():
 
     copy_and_set_settings_file(f"common/pcsx2/PCSX2.ini", destination)
 
+    pcsx2_set_emulation_folder()
     pcsx2_set_resolution()
     pcsx2_widescreen()
     pcsx2_retro_achievements()
@@ -102,7 +122,7 @@ def pcsx2_set_resolution() -> bool:
     if settings.resolutions.pcsx2 == "4K" and system == "linux" and get_screen_width() < 3840:
         multiplier = 3
 
-    set_config("upscale_multiplier", multiplier, config_path)
+    set_config("upscale_multiplier", multiplier, config_path, separator=" = ")
 
     return True
 
@@ -115,8 +135,8 @@ def pcsx2_widescreen_on():
         pcsx2_config_file=f"{home}/Library/Application Support/PCSX2/inis/PCSX2.ini"
     config_path = Path(pcsx2_config_file)
 
-    set_config("EnableWideScreenPatches", "True", config_path)
-    set_config("AspectRatio", "16:9", config_path)
+    set_config("EnableWideScreenPatches", "true", config_path, separator=" = ")
+    set_config("AspectRatio", "16:9", config_path, separator=" = ")
 
 def pcsx2_widescreen_off():
     if system == "linux":
@@ -127,8 +147,8 @@ def pcsx2_widescreen_off():
         pcsx2_config_file=f"{home}/Library/Application Support/PCSX2/inis/PCSX2.ini"
     config_path = Path(pcsx2_config_file)
 
-    set_config("EnableWideScreenPatches", "False", config_path)
-    set_config("AspectRatio", "Auto 4:3/3:2", config_path)
+    set_config("EnableWideScreenPatches", "false", config_path, separator=" = ")
+    set_config("AspectRatio", "Auto 4:3/3:2", config_path, separator=" = ")
 
 def pcsx2_widescreen():
     if settings.ar.classic3d == "169":
