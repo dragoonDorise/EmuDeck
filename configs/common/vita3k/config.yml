@@ -46,7 +46,7 @@ delay-start: 30
 background-alpha: 0.3
 log-level: 0
 cpu-opt: true
-pref-path: $STORAGEPATH/Vita3K/
+pref-path: STORAGEPATH/Vita3K/
 discord-rich-presence: true
 wait-for-debugger: false
 color-surface-debug: false

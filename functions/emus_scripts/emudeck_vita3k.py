@@ -95,6 +95,7 @@ def vita3k_init():
     copy_and_set_settings_file(f"common/vita3k/config.yml", destination)
 
     config_file = Path(destination) / "config.yml"
+    sed("STORAGEPATH", str(storage_path).replace("\\", "/"), config_file)
 
     vita3k_setup_storage()
     vita3k_setup_saves()
