@@ -59,6 +59,9 @@ def rmg_init():
     copy_setting_dir(f"{system}/rmg/",destination)
     copy_and_set_settings_file(f"{system}/rmg/mupen64plus.cfg", destination)
 
+    rmg_setup_storage()
+    rmg_set_emulation_folder()
+    rmg_setup_saves()
     rmg_set_resolution()
     rmg_set_controller_style()
     esde_set_emu("Rosalie's Mupen GUI (Standalone)","n64")
@@ -72,6 +75,61 @@ def rmg_install_init():
 def rmg_add_custom_parser():
     if rmg_is_installed() and srm_is_installed():
        add_parser("nintendo_64_rmg")
+
+def rmg_config_paths():
+    if system == "linux":
+        base = Path(f"{home}/.var/app/com.github.Rosalie241.RMG/config/RMG")
+    if system.startswith("win"):
+        base = Path(f"{emus_folder}/rmg")
+    if system == "darwin":
+        base = Path(f"{home}/Library/Application Support/rmg")
+    return base / "mupen64plus.cfg", base / "GLideN64.ini"
+
+
+def rmg_set_emulation_folder():
+    config_file, _ = rmg_config_paths()
+
+    set_config("Directory", f"{roms_path}/n64", config_file, " = ")
+    set_config("64DD_AmericanIPL", f"{bios_path}/64DD_IPL_US.n64", config_file, " = ")
+    set_config("64DD_JapaneseIPL", f"{bios_path}/64DD_IPL_JP.n64", config_file, " = ")
+    set_config("64DD_DevelopmentIPL", f"{bios_path}/64DD_IPL_DEV.n64", config_file, " = ")
+
+    return True
+
+
+def rmg_setup_saves():
+    config_file, _ = rmg_config_paths()
+
+    Path(f"{saves_path}/RMG/saves").mkdir(parents=True, exist_ok=True)
+    Path(f"{saves_path}/RMG/states").mkdir(parents=True, exist_ok=True)
+
+    set_config("SaveSRAMPath", f"{saves_path}/RMG/saves", config_file, " = ")
+    set_config("SaveStatePath", f"{saves_path}/RMG/states", config_file, " = ")
+
+    return True
+
+
+def rmg_setup_storage():
+    config_file, gliden_file = rmg_config_paths()
+
+    Path(f"{storage_path}/RMG/cache").mkdir(parents=True, exist_ok=True)
+    Path(f"{storage_path}/RMG/HiResTextures").mkdir(parents=True, exist_ok=True)
+    Path(f"{storage_path}/RMG/screenshots").mkdir(parents=True, exist_ok=True)
+
+    set_config("textureFilter\\txHiresEnable", "1", gliden_file)
+    set_config("textureFilter\\txPath", f"{storage_path}/RMG/HiResTextures", gliden_file)
+    set_config("textureFilter\\txCachePath", f"{storage_path}/RMG/cache", gliden_file)
+
+    set_config("ScreenshotPath", f"{storage_path}/RMG/screenshots", config_file, " = ")
+
+    if system == "linux":
+        data_dir = f"{home}/.var/app/com.github.Rosalie241.RMG/data/RMG"
+        cache_dir = f"{home}/.var/app/com.github.Rosalie241.RMG/cache/RMG"
+        set_config("UserDataDirectory", f'"{data_dir}"', config_file, " = ")
+        set_config("UserCacheDirectory", f'"{cache_dir}"', config_file, " = ")
+
+    return True
+
 
 def rmg_set_resolution():
     print("NYI")
