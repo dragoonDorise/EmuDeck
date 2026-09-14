@@ -79,11 +79,38 @@ def xemu_init():
     xemu_setup_storage()
     xemu_set_resolution()
     xemu_widescreen()
+    xemu_set_language()
 
 
 def xemu_install_init():
     xemu_install()
     xemu_init()
+
+
+XEMU_LANGUAGES = {
+    "en": 1, "ja": 2, "de": 3, "fr": 4, "es": 5,
+    "it": 6, "ko": 7, "zh": 8, "pt": 9,
+}
+
+XEMU_EEPROM_LANGUAGE_OFFSET = 0x90
+
+
+def xemu_set_language() -> bool:
+    eeprom_path = Path(storage_path) / "xemu" / "eeprom.bin"
+
+    if not eeprom_path.is_file():
+        return False
+
+    language = get_system_language()
+
+    if language not in XEMU_LANGUAGES:
+        return False
+
+    with open(eeprom_path, "r+b") as f:
+        f.seek(XEMU_EEPROM_LANGUAGE_OFFSET)
+        f.write(bytes([XEMU_LANGUAGES[language]]))
+
+    return True
 
 
 def xemu_setup_storage():

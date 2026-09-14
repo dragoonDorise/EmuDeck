@@ -3,7 +3,7 @@ from core.vars import emudeck_logs
 import os, warnings
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 warnings.filterwarnings("ignore", message="urllib3 v2 only supports OpenSSL")
-import shlex, sys, subprocess, pkgutil, importlib, inspect, json, venv, logging, requests, stat, hashlib, zipfile, re, errno, shutil, subprocess, io, zipfile, tempfile, time, plistlib, zlib, vdf, tarfile, fileinput, ctypes, getpass, threading, socket, pygame,  traceback, warnings
+import shlex, sys, subprocess, pkgutil, importlib, inspect, json, venv, logging, requests, stat, hashlib, zipfile, re, errno, shutil, subprocess, io, zipfile, tempfile, time, plistlib, zlib, vdf, tarfile, fileinput, ctypes, getpass, threading, socket, pygame,  traceback, warnings, locale
 from multiprocessing import Process
 from time import sleep
 from math import ceil

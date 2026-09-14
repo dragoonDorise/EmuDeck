@@ -70,11 +70,30 @@ def scummvm_init():
     copy_setting_dir(f"common/scummvm/",destination)
     copy_and_set_settings_file(f"common/scummvm/scummvm.ini", destination)
    # move_contents_and_link(bios,f"{bios_path}/scummvm")
+    scummvm_set_language()
     scummvm_set_resolution()
 
 def scummvm_install_init():
     scummvm_install()
     scummvm_init()
+
+
+def scummvm_set_language() -> bool:
+    if system == "linux":
+        config_file = f"{home}/.var/app/org.scummvm.scummvm/config/scummvm/scummvm.ini"
+    if system.startswith("win"):
+        config_file = f"{emus_folder}/scummvm/scummvm.ini"
+    if system == "darwin":
+        config_file = f"{home}/Library/Application Support/ScummVM/scummvm.ini"
+
+    config_path = Path(config_file)
+
+    if not config_path.is_file():
+        return False
+
+    set_config("gui_language", get_system_locale(), config_path)
+
+    return True
 
 
 def scummvm_set_resolution():

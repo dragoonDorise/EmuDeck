@@ -100,6 +100,7 @@ def rpcs3_init():
     rpcs3_setup_storage()
     rpcs3_setup_saves()
     rpcs3_set_resolution()
+    rpcs3_set_language()
 
 def rpcs3_install_init():
     rpcs3_install()
@@ -123,6 +124,36 @@ def rpcs3_setup_storage():
         origin=f"{home}/Library/Application Support/rpcs3/dev_hdd0"
 
     move_contents_and_link(origin,f"{storage_path}/rpcs3/dev_hdd0")
+
+
+RPCS3_LANGUAGES = {
+    "ja": "", "en": "English (US)", "fr": "French", "de": "German",
+    "it": "Italian", "es": "Spanish", "ko": "Korean", "nl": "Dutch",
+    "pt": "Portiguese (Portugal)", "ru": "Russian",
+}
+
+
+def rpcs3_set_language() -> bool:
+    if system == "linux":
+        config_file = f"{home}/.config/rpcs3/config.yml"
+    if system.startswith("win"):
+        config_file = f"{emus_folder}/rpcs3/config.yml"
+    if system == "darwin":
+        config_file = f"{home}/Library/Application Support/rpcs3/config.yml"
+
+    config_path = Path(config_file)
+
+    if not config_path.is_file():
+        return False
+
+    language = get_system_language()
+
+    if language not in RPCS3_LANGUAGES or not RPCS3_LANGUAGES[language]:
+        return False
+
+    set_ini_value(config_path, "System", "  Language", RPCS3_LANGUAGES[language])
+
+    return True
 
 
 def rpcs3_set_resolution() -> bool:

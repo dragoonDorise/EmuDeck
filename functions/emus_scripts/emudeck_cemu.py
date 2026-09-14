@@ -74,10 +74,48 @@ def cemu_init():
     cemu_setup_storage()
     cemu_set_resolution()
     cemu_set_controller_style()
+    cemu_set_language()
 
 def cemu_install_init():
     cemu_install()
     cemu_init()
+
+
+CEMU_LANGUAGES = {
+    "ja": 0, "en": 1, "fr": 2, "de": 3, "it": 4, "es": 5,
+    "zh": 6, "ko": 7, "nl": 8, "pt": 9, "ru": 10, "tw": 11,
+}
+
+
+def cemu_set_language() -> bool:
+    if system == "linux":
+        settings_file = f"{home}/.config/Cemu/settings.xml"
+    if system.startswith("win"):
+        settings_file = f"{emus_folder}/cemu/settings.xml"
+    if system == "darwin":
+        settings_file = f"{home}/Library/Application Support/Cemu/settings.xml"
+
+    settings_path = Path(settings_file)
+
+    if not settings_path.is_file():
+        return False
+
+    language = get_system_language()
+
+    if language not in CEMU_LANGUAGES:
+        return False
+
+    text = settings_path.read_text(encoding="utf-8")
+    new_tag = f"<console_language>{CEMU_LANGUAGES[language]}</console_language>"
+
+    if re.search(r"<console_language>[^<]*</console_language>", text):
+        text = re.sub(r"<console_language>[^<]*</console_language>", new_tag, text)
+    else:
+        text = text.replace("</content>", f"\t{new_tag}\n</content>")
+
+    settings_path.write_text(text, encoding="utf-8")
+
+    return True
 
 
 def cemu_setup_saves():

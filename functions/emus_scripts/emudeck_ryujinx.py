@@ -130,6 +130,7 @@ def ryujinx_init():
     ryujinx_setup_saves()
     ryujinx_set_resolution()
     ryujinx_set_controller_style()
+    ryujinx_set_language()
     ryujinx_ensure_gyro_dsu()
     esde_set_emu("Ryujinx (Standalone)", "switch")
     return True
@@ -202,6 +203,36 @@ def ryujinx_set_resolution() -> bool:
     update_json_key("docked_mode", docked_mode, ryujinx_config_file)
 
     return True
+
+RYUJINX_LANGUAGES = {
+    "ja": "Japanese", "en": "AmericanEnglish", "fr": "French", "de": "German",
+    "it": "Italian", "es": "Spanish", "zh": "Chinese", "ko": "Korean",
+    "nl": "Dutch", "pt": "Portuguese", "ru": "Russian", "tw": "Taiwanese",
+}
+
+RYUJINX_REGIONS = {
+    "ja": "Japan", "en": "USA", "fr": "Europe", "de": "Europe",
+    "it": "Europe", "es": "Europe", "zh": "China", "ko": "Korea",
+    "nl": "Europe", "pt": "Europe", "ru": "Europe", "tw": "Taiwan",
+}
+
+
+def ryujinx_set_language() -> bool:
+    config_path = Path(ryujinx_config_file)
+
+    if not config_path.is_file():
+        return False
+
+    language = get_system_language()
+
+    if language not in RYUJINX_LANGUAGES:
+        return False
+
+    update_json_key("system_language", RYUJINX_LANGUAGES[language], config_path)
+    update_json_key("system_region", RYUJINX_REGIONS[language], config_path)
+
+    return True
+
 
 def ryujinx_set_abxy_style():
     sed('"button_x": "Y"','"button_x": "X"',ryujinx_config_file)

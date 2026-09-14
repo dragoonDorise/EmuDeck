@@ -187,6 +187,28 @@ def get_screen_info() -> dict:
 def get_screen_width() -> int:
     return get_screen_info()["width"]
 
+def get_system_locale() -> str:
+    raw = os.environ.get("LC_ALL") or os.environ.get("LANG") or ""
+
+    if not raw:
+        try:
+            locale.setlocale(locale.LC_CTYPE, "")
+            raw = locale.getlocale(locale.LC_CTYPE)[0] or ""
+        except Exception:
+            raw = ""
+
+    raw = raw.split(".")[0].split("@")[0].replace("-", "_")
+
+    if re.fullmatch(r"[a-z]{2}_[A-Z]{2}", raw) or re.fullmatch(r"[a-z]{2}", raw):
+        return raw
+
+    return "en"
+
+
+def get_system_language() -> str:
+    return get_system_locale().split("_")[0]
+
+
 def set_resolutions():
     import core.all as emudeck # Emulator functions are loaded after helpers.py
 

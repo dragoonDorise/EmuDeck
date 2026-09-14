@@ -191,11 +191,33 @@ def shadps4_init():
         return False
 
     shadps4_setup_storage()
+    copy_setting_dir("common/shadps4/", destination)
     copy_and_set_settings_file("common/shadps4/config.toml", destination)
     shadps4_set_emulation_folder()
     shadps4_setup_saves()
+    shadps4_set_language()
 
     esde_set_emu("ShadPS4 Shortcuts (Standalone)", "ps4")
+    return True
+
+
+def shadps4_config_file():
+    if system == "linux":
+        return Path(home) / ".local" / "share" / "shadPS4" / "config.toml"
+    if system.startswith("win"):
+        return Path(emus_folder) / "ShadPS4-qt" / "user" / "config.toml"
+    if system == "darwin":
+        return Path(home) / "Library" / "Application Support" / "shadPS4" / "config.toml"
+
+
+def shadps4_set_language():
+    config_file = shadps4_config_file()
+
+    if not config_file.is_file():
+        return False
+
+    set_config("emulatorLanguage", f'"{get_system_language()}"', config_file, " = ")
+
     return True
 
 
