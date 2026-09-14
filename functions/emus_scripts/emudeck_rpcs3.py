@@ -95,9 +95,11 @@ def rpcs3_init():
     if system == "darwin":
         destination=f"{home}/Library/Application Support/RPCS3/"
 
+    copy_setting_dir(f"common/rpcs3/", destination)
     copy_and_set_settings_file(f"common/rpcs3/config.yml", destination)
 
     rpcs3_setup_storage()
+    rpcs3_set_emulation_folder()
     rpcs3_setup_saves()
     rpcs3_set_resolution()
     rpcs3_set_language()
@@ -133,6 +135,27 @@ RPCS3_LANGUAGES = {
 }
 
 
+def rpcs3_vfs_file():
+    if system == "linux":
+        return Path(f"{home}/.config/rpcs3/vfs.yml")
+    if system.startswith("win"):
+        return Path(f"{emus_folder}/rpcs3/vfs.yml")
+    if system == "darwin":
+        return Path(f"{home}/Library/Application Support/RPCS3/vfs.yml")
+
+
+def rpcs3_set_emulation_folder() -> bool:
+    vfs_file = rpcs3_vfs_file()
+
+    if not vfs_file.is_file():
+        return False
+
+    set_config("/dev_hdd0/", f"{storage_path}/rpcs3/dev_hdd0/", vfs_file, ": ")
+    set_config("/games/", f"{roms_path}/ps3/", vfs_file, ": ")
+
+    return True
+
+
 def rpcs3_set_language() -> bool:
     if system == "linux":
         config_file = f"{home}/.config/rpcs3/config.yml"
@@ -151,7 +174,7 @@ def rpcs3_set_language() -> bool:
     if language not in RPCS3_LANGUAGES or not RPCS3_LANGUAGES[language]:
         return False
 
-    set_ini_value(config_path, "System", "  Language", RPCS3_LANGUAGES[language])
+    set_config("  Language", RPCS3_LANGUAGES[language], config_path, ": ")
 
     return True
 
