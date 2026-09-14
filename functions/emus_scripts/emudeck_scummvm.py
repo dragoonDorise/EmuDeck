@@ -58,8 +58,8 @@ def scummvm_init():
     set_msg(f"Setting up ScummVM")
     flush_emulator_launchers("scummvm")
     if system == "linux":
-        destination=f"{home}/.var/app/org.scummvm.scummvm/config/scummvm/"
-        bios=f"{home}/.var/app/org.scummvm.scummvm/data/scummvm/"
+        destination=f"{home}/.var/app/org.scummvm.ScummVM/config/scummvm/"
+        bios=f"{home}/.var/app/org.scummvm.ScummVM/data/scummvm/"
     if system.startswith("win"):
         destination=f"{emus_folder}/scummvm/"
         bios=""
@@ -70,6 +70,8 @@ def scummvm_init():
     copy_setting_dir(f"common/scummvm/",destination)
     copy_and_set_settings_file(f"common/scummvm/scummvm.ini", destination)
    # move_contents_and_link(bios,f"{bios_path}/scummvm")
+    scummvm_set_emulation_folder()
+    scummvm_setup_saves()
     scummvm_set_language()
     scummvm_set_resolution()
 
@@ -78,20 +80,44 @@ def scummvm_install_init():
     scummvm_init()
 
 
-def scummvm_set_language() -> bool:
+def scummvm_config_file():
     if system == "linux":
-        config_file = f"{home}/.var/app/org.scummvm.scummvm/config/scummvm/scummvm.ini"
+        return Path(f"{home}/.var/app/org.scummvm.ScummVM/config/scummvm/scummvm.ini")
     if system.startswith("win"):
-        config_file = f"{emus_folder}/scummvm/scummvm.ini"
+        return Path(f"{emus_folder}/scummvm/scummvm.ini")
     if system == "darwin":
-        config_file = f"{home}/Library/Application Support/ScummVM/scummvm.ini"
+        return Path(f"{home}/Library/Application Support/ScummVM/scummvm.ini")
 
-    config_path = Path(config_file)
 
-    if not config_path.is_file():
+def scummvm_set_emulation_folder() -> bool:
+    config_file = scummvm_config_file()
+
+    if not config_file.is_file():
         return False
 
-    set_config("gui_language", get_system_locale(), config_path)
+    set_config("browser_lastpath", f"{roms_path}/scummvm", config_file)
+
+    return True
+
+
+def scummvm_setup_saves() -> bool:
+    config_file = scummvm_config_file()
+
+    if not config_file.is_file():
+        return False
+
+    set_config("savepath", f"{saves_path}/scummvm/saves", config_file)
+
+    return True
+
+
+def scummvm_set_language() -> bool:
+    config_file = scummvm_config_file()
+
+    if not config_file.is_file():
+        return False
+
+    set_config("gui_language", get_system_locale(), config_file)
 
     return True
 
