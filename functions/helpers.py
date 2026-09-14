@@ -1274,22 +1274,30 @@ def move_contents_and_link(origin: Union[str, Path], destination: Union[str, Pat
         return False
 
 def set_config(old: str, new: str, file_to_check: Path, separator: str = "=") -> None:
-    file_to_check = Path(file_to_check)
-    lines = file_to_check.read_text(encoding="utf-8").splitlines()
+    path = Path(file_to_check)
+    with open(path, "r", encoding="utf-8", errors="surrogateescape", newline="") as f:
+        lines = f.read().splitlines(keepends=True)
 
+    eol = "\r\n" if any(l.endswith("\r\n") for l in lines) else "\n"
     new_line = f"{old}{separator}{new}"
+    pattern = re.compile(rf"^\s*{re.escape(old.rstrip())}(?![\w.\-])")
 
+    hit = False
     for idx, line in enumerate(lines):
-        if old in line:
-            old_line = line
-            lines[idx] = new_line
-            file_to_check.write_text("\n".join(lines) + "\n", encoding="utf-8")
-            print(f"Line '{old_line}' changed to '{new_line}'")
-            return
+        if pattern.match(line):
+            stripped = line.rstrip("\r\n")
+            lines[idx] = new_line + line[len(stripped):]
+            print(f"Line '{stripped}' changed to '{new_line}'")
+            hit = True
 
-    with file_to_check.open("a", encoding="utf-8") as f:
-        f.write(new_line + "\n")
-    print(f"Line '{new_line}' created in {file_to_check}")
+    if not hit:
+        if lines and not lines[-1].endswith(("\n", "\r")):
+            lines[-1] += eol
+        lines.append(new_line + eol)
+        print(f"Line '{new_line}' created in {path}")
+
+    with open(path, "w", encoding="utf-8", errors="surrogateescape", newline="") as f:
+        f.writelines(lines)
 
 def extract_tar_xz(archive_path: Path, extract_to: Path):
     extract_to.mkdir(parents=True, exist_ok=True)
