@@ -161,7 +161,7 @@ def xemu_widescreen_on():
     elif system == "darwin":
         config_path = f"{home}/Library/Application Support/xemu/xemu.toml"
 
-    set_config("fit ", "'scale_16_9'", config_path)
+    set_config("fit", "'scale_16_9'", config_path, separator=" = ")
 
 
 def xemu_widescreen_off():
@@ -172,4 +172,4 @@ def xemu_widescreen_off():
     elif system == "darwin":
         config_path = f"{home}/Library/Application Support/xemu/xemu.toml"
 
-    set_config("fit ", "'scale_4_3'", config_path)
+    set_config("fit", "'scale_4_3'", config_path, separator=" = ")

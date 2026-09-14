@@ -19,5 +19,5 @@ mem_limit = '128'
 [sys.files]
 bootrom_path = 'EMULATIONPATH/bios/mcpx_1.0.bin'
 flashrom_path = 'EMULATIONPATH/bios/Complex_4627v1.03.bin'
-eeprom_path = 'EMULATIONPATH/saves/xemu/eeprom.bin'
+eeprom_path = 'EMULATIONPATH/storage/xemu/eeprom.bin'
 hdd_path = 'EMULATIONPATH/storage/xemu/xbox_hdd.qcow2'
