@@ -1435,9 +1435,14 @@ function removeParser() {
 
 	if [[ "$EXISTS" -gt 0 ]]; then
 		echo "Eliminando parser..."
-		jq --arg pid "$PARSER_ID" '[.[] | select(.parserId != $pid)]' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+		local tmpParser
+		tmpParser=$(mktemp)
+		jq --arg pid "$PARSER_ID" '[.[] | select(.parserId != $pid)]' "$SRM_userConfigurations" > "$tmpParser" && [ -s "$tmpParser" ] && cat "$tmpParser" > "$SRM_userConfigurations"
+		rm -f "$tmpParser"
 		SRM_setEmulationFolder
-		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+		tmpParser=$(mktemp)
+		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > "$tmpParser" && [ -s "$tmpParser" ] && cat "$tmpParser" > "$SRM_userConfigurations"
+		rm -f "$tmpParser"
 	else
 		echo "El parser $PARSER_ID no se encontró en la configuración."
 	fi

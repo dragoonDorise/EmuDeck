@@ -306,10 +306,13 @@ Ryujinx_setResolution(){
       fi
     fi
 
-	jq --arg docked "$docked" --arg multiplier "$multiplier" \
-	  ".docked_mode = $docked | .res_scale = $multiplier" "$Ryujinx_configFile" > tmp.json
-
-	mv tmp.json "$Ryujinx_configFile"
+	local tmpFile
+	tmpFile=$(mktemp)
+	if jq --arg docked "$docked" --arg multiplier "$multiplier" \
+	  ".docked_mode = $docked | .res_scale = $multiplier" "$Ryujinx_configFile" > "$tmpFile" && [ -s "$tmpFile" ]; then
+		cat "$tmpFile" > "$Ryujinx_configFile"
+	fi
+	rm -f "$tmpFile"
 
 }
 
