@@ -133,6 +133,6 @@ ScummVM_resetConfig(){
 ScummVM_flushEmulatorLauncher(){
 
 
-	flushEmulatorLaunchers "scummvm.sh"
+	flushEmulatorLaunchers "scummvm"
 
 }

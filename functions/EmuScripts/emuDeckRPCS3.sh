@@ -341,6 +341,6 @@ RPCS3_setResolution(){
 RPCS3_flushEmulatorLauncher(){
 
 
-	flushEmulatorLaunchers "rpcs3.sh"
+	flushEmulatorLaunchers "rpcs3"
 
 }
