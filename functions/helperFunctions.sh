@@ -1394,6 +1394,7 @@ function addParser(){
 	echo "Parser ID: $PARSER_ID"
 
 	if [[ ! -f "$SRM_userConfigurations" ]]; then
+		mkdir -p "$(dirname "$SRM_userConfigurations")"
 		echo "[] " > "$SRM_userConfigurations"  # Inicializar JSON si no existe
 	fi
 
@@ -1401,9 +1402,12 @@ function addParser(){
 
 	if [[ "$EXISTS" -eq 0 ]]; then
 		echo "adding parser"
-		cat "$SRM_userConfigurations" | jq --argjson newConfig "$(cat "$path")" '. + [$newConfig]' > temp.json && mv temp.json "$SRM_userConfigurations"
+		local tmpParser
+		tmpParser=$(mktemp)
+		jq --argjson newConfig "$(cat "$path")" '. + [$newConfig]' "$SRM_userConfigurations" > "$tmpParser" && mv "$tmpParser" "$SRM_userConfigurations"
 		SRM_setEmulationFolder
-		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+		tmpParser=$(mktemp)
+		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > "$tmpParser" && mv "$tmpParser" "$SRM_userConfigurations"
 	fi
 
 }
