@@ -13,7 +13,7 @@ stretch_the_display_area: false
 fullscreen_hd_res_pixel_perfect: false
 archive-log: false
 backend-renderer: Vulkan
-custom-driver-name: ''
+custom-driver-name: ""
 turbo-mode: false
 gpu-idx: 0
 high-accuracy: false
@@ -46,7 +46,7 @@ delay-start: 30
 background-alpha: 0.3
 log-level: 0
 cpu-opt: true
-pref-path: STORAGEPATH\Vita3K\
+pref-path: $STORAGEPATH/Vita3K/
 discord-rich-presence: true
 wait-for-debugger: false
 color-surface-debug: false
@@ -122,7 +122,7 @@ keyboard-alternate-pinch-in-alt: Unbound
 keyboard-alternate-pinch-out-alt: Unbound
 user-id: 00
 user-auto-connect: false
-user-lang: ''
+user-lang: ""
 show-welcome: true
 warn-missing-firmware: true
 check-for-updates-mode: 1
@@ -139,12 +139,12 @@ http-read-end-attempts: 10
 http-read-end-sleep-ms: 250
 adhoc-addr: 0
 front-camera-type: 2
-front-camera-id: ''
-front-camera-image: ''
+front-camera-id: ""
+front-camera-image: ""
 front-camera-color: 0
 back-camera-type: 2
-back-camera-id: ''
-back-camera-image: ''
+back-camera-id: ""
+back-camera-image: ""
 back-camera-color: 0
 tracy-primitive-impl: false
 controller-binds:
@@ -175,4 +175,3 @@ lle-modules: []
 ime-langs:
   - 4
 tracy-advanced-profiling-modules: []
-...
