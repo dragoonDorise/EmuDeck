@@ -52,7 +52,7 @@ def azahar_init():
     set_msg(f"Setting up Azahar")
     flush_emulator_launchers("azahar")
     if system == "linux":
-        destination=f"{home}/.config/azahar/config"
+        destination=f"{home}/.config/azahar-emu"
     if system.startswith("win"):
         destination=f"{emus_folder}/azahar/"
     if system == "darwin":
@@ -60,6 +60,7 @@ def azahar_init():
 
     copy_and_set_settings_file(f"{system}/azahar/qt-config.ini", destination)
 
+    azahar_set_emulation_folder()
     azahar_setup_saves()
     azahar_set_resolution()
     azahar_set_controller_style()
@@ -90,13 +91,43 @@ def azahar_setup_saves():
     move_contents_and_link(origin_states,f"{saves_path}/azahar/states")
 
 
+def azahar_config_file():
+    if system == "linux":
+        return Path(f"{home}/.config/azahar-emu/qt-config.ini")
+    if system.startswith("win"):
+        return Path(f"{emus_folder}/azahar/qt-config.ini")
+    if system == "darwin":
+        return Path(f"{home}/Library/Application Support/azahar/qt-config.ini")
+
+
+def azahar_set_emulation_folder() -> bool:
+    config_file = azahar_config_file()
+
+    if not config_file.is_file():
+        return False
+
+    Path(f"{storage_path}/azahar/screenshots").mkdir(parents=True, exist_ok=True)
+
+    set_config("Paths\\gamedirs\\3\\path", f"{roms_path}/n3ds", config_file)
+    set_config("nand_directory", f"{storage_path}/azahar/nand/", config_file)
+    set_config("sdmc_directory", f"{storage_path}/azahar/sdmc/", config_file)
+    set_config("Paths\\screenshotPath", f"{storage_path}/azahar/screenshots/", config_file)
+
+    set_config("nand_directory\\default", "false", config_file)
+    set_config("sdmc_directory\\default", "false", config_file)
+    set_config("use_custom_storage", "true", config_file)
+    set_config("use_custom_storage\\default", "false", config_file)
+
+    return True
+
+
 def azahar_set_resolution() -> bool:
     if system == "linux":
-        azahar_config_file=f"{home}/.config/azahar/config/qt-config.ini"
+        azahar_config_file=f"{home}/.config/azahar-emu/qt-config.ini"
     if system.startswith("win"):
         azahar_config_file=f"{emus_folder}/azahar/qt-config.ini"
     if system == "darwin":
-        azahar_config_file=f"{home}/.config/azahar/qt-config.ini"
+        azahar_config_file=f"{home}/Library/Application Support/azahar/qt-config.ini"
 
     resolution_map = {
         "720P": 3,
