@@ -152,7 +152,7 @@ def mame_install_init():
 
 
 def mame_add_custom_parser():
-    if mame_is_installed():
+    if mame_is_installed() and srm_is_installed():
         add_parser("arcade_mame")
 
 

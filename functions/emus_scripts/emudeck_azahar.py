@@ -71,7 +71,7 @@ def azahar_install_init():
     azahar_init()
 
 def azahar_add_custom_parser():
-    if azahar_is_installed():
+    if azahar_is_installed() and srm_is_installed():
         add_parser("nintendo_3ds_azahar")
 
 

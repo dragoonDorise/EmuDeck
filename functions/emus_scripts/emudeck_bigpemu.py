@@ -100,7 +100,7 @@ def bigpemu_install_init():
 
 
 def bigpemu_add_custom_parser():
-    if bigpemu_is_installed():
+    if bigpemu_is_installed() and srm_is_installed():
         add_parser("atari_jaguar_bigpemu")
 
 

@@ -69,7 +69,7 @@ def mgba_install_init():
     mgba_init()
 
 def mgba_add_custom_parser():
-    if mgba_is_installed():
+    if mgba_is_installed() and srm_is_installed():
         add_parser("nintendo_gba_mgba")
 
 

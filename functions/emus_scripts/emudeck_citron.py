@@ -40,7 +40,7 @@ def citron_init():
     citron_add_custom_parser()
 
 def citron_add_custom_parser():
-    if citron_is_installed():
+    if citron_is_installed() and srm_is_installed():
         add_parser("nintendo_switch_citron")
 
 

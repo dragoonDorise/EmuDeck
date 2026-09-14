@@ -80,7 +80,7 @@ def melonds_install_init():
 
 
 def melonds_add_custom_parser():
-   if melonds_is_installed():
+   if melonds_is_installed() and srm_is_installed():
       add_parser("nintendo_nds_melonds")
 
 

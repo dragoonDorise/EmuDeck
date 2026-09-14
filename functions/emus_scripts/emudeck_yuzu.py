@@ -38,7 +38,7 @@ def yuzu_init():
     yuzu_add_custom_parser()
 
 def yuzu_add_custom_parser():
-    if yuzu_is_installed():
+    if yuzu_is_installed() and srm_is_installed():
         add_parser("nintendo_switch_yuzu")
 
 

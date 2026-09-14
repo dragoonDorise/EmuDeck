@@ -70,7 +70,7 @@ def rmg_install_init():
 
 
 def rmg_add_custom_parser():
-    if rmg_is_installed():
+    if rmg_is_installed() and srm_is_installed():
        add_parser("nintendo_64_rmg")
 
 def rmg_set_resolution():

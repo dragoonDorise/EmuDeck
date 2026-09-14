@@ -109,7 +109,7 @@ def flycast_install_init():
 
 
 def flycast_add_custom_parser():
-    if flycast_is_installed():
+    if flycast_is_installed() and srm_is_installed():
       add_parser("atomiswave_flycast")
       add_parser("naomi_flycast")
       add_parser("naomi2_flycast")

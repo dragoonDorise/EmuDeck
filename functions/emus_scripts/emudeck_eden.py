@@ -40,7 +40,7 @@ def eden_init():
     eden_add_custom_parser()
 
 def eden_add_custom_parser():
-    if eden_is_installed():
+    if eden_is_installed() and srm_is_installed():
         add_parser("nintendo_switch_eden")
 
 
