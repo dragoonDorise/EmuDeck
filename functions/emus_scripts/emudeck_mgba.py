@@ -58,6 +58,7 @@ def mgba_init():
     if system == "darwin":
         destination=f"{home}/.config/mgba"
 
+    copy_setting_dir(f"common/mgba/", destination)
     copy_and_set_settings_file(f"common/mgba/config.ini", destination)
 
     mgba_set_controller_style()
