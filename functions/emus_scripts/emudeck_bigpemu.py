@@ -41,7 +41,7 @@ def bigpemu_install():
 
     if system.startswith("win"):
         type="zip"
-        destination = emus_folder / "bigpemu"
+        destination = emus_folder / "BigPEmu"
 
     if system == "darwin":
         return
@@ -68,9 +68,9 @@ def bigpemu_uninstall():
 
 def bigpemu_is_installed():
     if system == "linux":
-        return (emus_folder / "bigpemu" / "bigpemu").exists()
+        return (emus_folder / "BigPEmu" / "bigpemu").exists()
     if system.startswith("win"):
-      return (emus_folder / "bigpemu" / "bigpemu.exe").exists()
+      return (emus_folder / "BigPEmu" / "bigpemu.exe").exists()
     if system == "darwin":
       return
 
@@ -79,9 +79,9 @@ def bigpemu_init():
     set_msg(f"Setting up bigpemu")
     flush_emulator_launchers("bigpemu")
     if system == "linux":
-        destination=f"{emus_folder}/bigpemu/"
+        destination=f"{emus_folder}/BigPEmu/UserData/"
     if system.startswith("win"):
-        destination=f"{emus_folder}/bigpemu/"
+        destination=f"{emus_folder}/BigPEmu/UserData/"
     if system == "darwin":
         return
 
@@ -106,9 +106,9 @@ def bigpemu_add_custom_parser():
 
 def bigpemu_setup_saves():
     if system == "linux":
-        origin_saves=f"{emus_folder}/bigpemu/UserData"
+        origin_saves=f"{emus_folder}/BigPEmu/UserData"
     if system.startswith("win"):
-        origin_saves=f"{emus_folder}/bigpemu/UserData"
+        origin_saves=f"{emus_folder}/BigPEmu/UserData"
     if system == "darwin":
         return
 
