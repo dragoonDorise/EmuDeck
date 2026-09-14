@@ -1302,7 +1302,7 @@ def set_config(old: str, new: str, file_to_check: Path, separator: str = "=") ->
 
     eol = "\r\n" if any(l.endswith("\r\n") for l in lines) else "\n"
     new_line = f"{old}{separator}{new}"
-    pattern = re.compile(rf"^\s*{re.escape(old.rstrip())}(?![\w.\-\\])")
+    pattern = re.compile(rf"^\ufeff?\s*{re.escape(old.rstrip())}(?![\w.\-\\])")
 
     hit = False
     for idx, line in enumerate(lines):
@@ -1919,8 +1919,8 @@ def set_ini_value(file_path, section, key, value):
         lines = f.read().splitlines(keepends=True)
 
     eol = "\r\n" if any(l.endswith("\r\n") for l in lines) else "\n"
-    header = re.compile(r"^\s*\[(?P<name>[^\]]*)\]")
-    entry = re.compile(rf"^(?P<pre>\s*{re.escape(key)}\s*)(?P<sep>=)(?P<space>\s*)(?P<val>.*?)(?P<eol>\r?\n?)$")
+    header = re.compile(r"^\ufeff?\s*\[(?P<name>[^\]]*)\]")
+    entry = re.compile(rf"^(?P<pre>\ufeff?\s*{re.escape(key)}\s*)(?P<sep>=)(?P<space>\s*)(?P<val>.*?)(?P<eol>\r?\n?)$")
 
     start = end = None
     for i, line in enumerate(lines):
