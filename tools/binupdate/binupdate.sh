@@ -10,65 +10,6 @@ if [ "$?" == "1" ]; then
     exit
 fi
 
-updateCemu() {
-    local showProgress="$1"
-
-    local releasesStr=$(curl -sL https://cemu.info | awk 'BEGIN{
-            RS="</a>"
-            IGNORECASE=1
-            }
-            {
-            for(o=1;o<=NF;o++){
-                if ( $o ~ /href/){
-                gsub(/.*href=\042/,"",$o)
-                gsub(/\042.*/,"",$o)
-                print $(o)
-                }
-            }
-            }' | grep releases | grep -v github)
-
-    mapfile -t releases <<<"$releasesStr"
-
-    local releaseTable=()
-    for release in "${releases[@]}"; do
-        releaseTable+=(false "$release")
-        echo "release: $release"
-    done
-    releaseTable+=(false "https://cemu.info/releases/cemu_1.27.1.zip")
-    releaseTable+=(false "$(getReleaseURLGH "cemu-project/Cemu" "windows-x64.zip")")
-
-    local releaseChoice=""
-    if [ ${#releaseTable[@]} != 0 ]; then
-        releaseChoice=$(
-            zenity --list \
-                --title="EmuDeck" \
-                --height=500 \
-                --width=800 \
-                --ok-label="OK" \
-                --cancel-label="Exit" \
-                --text="Select your Cemu (Windows) version. 2.0 is recommended" \
-                --radiolist \
-                --column="Select" \
-                --column="Release" \
-                "${releaseTable[@]}" 2>/dev/null
-        )
-    fi
-
-    if [ -n "$releaseChoice" ]; then
-        if safeDownload "cemu" "$releaseChoice" "$romsPath/wiiu/cemu.zip" "$showProgress"; then
-            mkdir -p "$romsPath/wiiu/tmp"
-            unzip -o "$romsPath/wiiu/cemu.zip" -d "$romsPath/wiiu/tmp"
-            mv "$romsPath"/wiiu/tmp/[Cc]emu_*/ "$romsPath/wiiu/tmp/cemu/" #don't quote the *
-            rsync -avzh "$romsPath/wiiu/tmp/cemu/" "$romsPath/wiiu/"
-            rm -rf "$romsPath/wiiu/tmp"
-            rm -f "$romsPath/wiiu/cemu.zip"
-            return 0
-        fi
-    fi
-
-    return 1
-}
-
 function runBinDownloads {
     local binsToDL=$1
 
@@ -89,17 +30,7 @@ function runBinDownloads {
             messages+=("There was a problem updating BigPEmu (Proton)")
         fi
     fi
-    if [[ "$binsToDL" == *"Cemu (Proton)"* ]]; then
-        ((progresspct += pct)) || true
-        echo "$progresspct"
-        echo "# Updating Cemu (win/proton)"
-        if CemuProton_install "true" 2>&1; then
-            messages+=("Cemu (win/proton) Updated Successfully")
-        else
-            messages+=("There was a problem updating Cemu (win/proton")
-        fi
-    fi
-    if [[ "$binsToDL" == *"Cemu (Native)"* ]]; then
+    if [[ "$binsToDL" == *"Cemu"* ]]; then
         ((progresspct += pct)) || true
         echo "$progresspct"
         echo "# Updating Cemu (Native)"
@@ -240,15 +171,10 @@ if [ "$(BigPEmu_IsInstalled ""$emuDeckEmuTypeWindows"")" == "true" ]; then
 else
     binTable+=(FALSE "BigPEmu (Proton)" "Atari Jaguar and Jaguar CD")
 fi
-if [ "$(CemuProton_IsInstalled ""$emuDeckEmuTypeWindows"")" == "true" ]; then
-    binTable+=(TRUE "Cemu (Proton)" "Nintendo Wii U")
-else
-    binTable+=(FALSE "Cemu (Proton)" "Nintendo Wii U")
-fi
 if [ "$(Cemu_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
-    binTable+=(TRUE "Cemu (Native)" "Nintendo Wii U")
+    binTable+=(TRUE "Cemu" "Nintendo Wii U")
 else
-    binTable+=(FALSE "Cemu (Native)" "Nintendo Wii U")
+    binTable+=(FALSE "Cemu" "Nintendo Wii U")
 fi
 if [ "$(ESDE_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "ES-DE" "Emulator Front-End")
