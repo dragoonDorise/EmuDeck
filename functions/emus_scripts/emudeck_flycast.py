@@ -55,6 +55,21 @@ def flycast_is_installed():
       return (emus_folder / "Flycast.app").exists()
 
 
+def flycast_set_emulation_folder():
+    if system == "linux":
+        config_file = f"{home}/.var/app/org.flycast.Flycast/config/flycast/emu.cfg"
+    elif system.startswith("win"):
+        config_file = f"{emus_folder}/flycast/emu.cfg"
+    elif system == "darwin":
+        config_file = f"{home}/Library/Application Support/flycast/emu.cfg"
+    else:
+        return
+
+    folders = ("dreamcast", "atomiswave", "naomi", "naomi2")
+    content_path = ";".join(f"{roms_path}/{f}" for f in folders)
+    set_config("Dreamcast.ContentPath", content_path, Path(config_file), separator=" = ")
+
+
 def flycast_init():
     set_msg(f"Setting up flycast")
     flush_emulator_launchers("flycast")
@@ -70,6 +85,8 @@ def flycast_init():
 
     copy_setting_dir(f"common/flycast/",destination)
     copy_and_set_settings_file(f"common/flycast/emu.cfg", destination)
+
+    flycast_set_emulation_folder()
 
 
 
