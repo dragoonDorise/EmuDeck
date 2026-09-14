@@ -419,8 +419,8 @@ if cloud_sync_provider and settings.netplay == False:
 if system == "linux" and emu.lower() == "xenia":
     launcher_path = (Path(tools_path) / "launchers" / "xenia.sh").resolve()
     config_file = Path(f"{launcher_path}.config")
-    proton_launcher = Path(tools_path) / "launchers" / "proton-launch.sh"
-    app_id_script = Path(tools_path) / "launchers" / "appID.py"
+    proton_launcher = Path(emudeck_backend) / "tools" / "proton-launch.sh"
+    app_id_script = Path(emudeck_backend) / "tools" / "appID.py"
 
     proton_version = os.environ.get("FORCED_PROTON_VER", "")
 
@@ -440,6 +440,7 @@ if system == "linux" and emu.lower() == "xenia":
 
     subprocess.run(
         [
+            "/usr/bin/bash",
             str(proton_launcher),
             "-p",
             proton_version,

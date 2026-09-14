@@ -129,9 +129,6 @@ def xenia_init():
 
     xenia_setup_saves()
 
-    if system == "linux":
-        addProtonLaunch()
-
     return True
 
 
