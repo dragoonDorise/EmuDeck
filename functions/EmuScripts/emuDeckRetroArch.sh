@@ -9,7 +9,7 @@ RetroArch_configFile="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/ret
 RetroArch_coreConfigFolders="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/config"
 RetroArch_cores="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/cores"
 RetroArch_remapsDir="$HOME/.var/app/org.libretro.RetroArch/config/retroarch/config/remaps"
-RetroArch_overlaysPath="~/.var/app/org.libretro.RetroArch/config/retroarch/overlays"
+RetroArch_overlaysPath="$RetroArch_path/overlays"
 RetroArch_videoPath="/app/lib/retroarch/filters/video"
 
 RetroArch_coresURL="https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
@@ -87,7 +87,7 @@ RetroArch_init(){
 	echo  "Put your Neo Geo CD bios here" > "$biosPath/neocd/readme.txt"
 	echo  "# Where to put your bios?" > "$biosPath/readme.txt"
 	echo  "First of all, don't create any new subdirectory. ***" >> "$biosPath/readme.txt"
-	echo  "# System -> folder" > "$biosPath/readme.txt"
+	echo  "# System -> folder" >> "$biosPath/readme.txt"
 	echo  "Playstation 1 / Duckstation -> bios/" >> "$biosPath/readme.txt"
 	echo  "Playstation 2 / PCSX2 -> bios/" >> "$biosPath/readme.txt"
 	echo  "Nintendo DS / melonDS -> bios/" >> "$biosPath/readme.txt"
@@ -217,6 +217,9 @@ RetroArch_update(){
 #ConfigurePaths
 RetroArch_setEmulationFolder(){
 	setMSG "Setting $RetroArch_emuName Emulation Folder"
+
+	#We make sure the files hace home/user instead of ~
+	sed -i "s|\"~/.var/app/org.libretro.RetroArch/config/retroarch|\"$RetroArch_path|g" "$RetroArch_configFile"
 
 	RetroArch_setConfigOverride 'system_directory' "\"${biosPath}\"" "$RetroArch_configFile"
 	RetroArch_setConfigOverride 'rgui_browser_directory' "\"${romsPath}\"" "$RetroArch_configFile"
@@ -522,10 +525,10 @@ RetroArch_PPSSPP_setConfig(){
 	RetroArch_setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_fast_memory' '"enabled"'
 	RetroArch_setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_force_lag_sync' '"disabled"'
 	RetroArch_setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_frameskip' '"Off"'
-	RetroArch_setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_frameskiptype' '"Number'
+	RetroArch_setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_frameskiptype' '"Number of frames"'
 	RetroArch_setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_gpu_hardware_transform' '"enabled"'
 	RetroArch_setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_ignore_bad_memory_access' '"enabled"'
-	RetroArch_setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_inflight_frames' '"Up'
+	RetroArch_setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_inflight_frames' '"Up to 1"'
 	RetroArch_setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_internal_resolution' '"1440x816"'
 	RetroArch_setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_io_timing_method' '"Fast"'
 	RetroArch_setOverride 'psp.cfg' 'PPSSPP'  'ppsspp_language' '"Automatic"'
@@ -815,8 +818,8 @@ RetroArch_SameBoy_gb_setConfig(){
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_bootloader' '"enabled"'
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_colorization' '"internal"'
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_hwmode' '"Auto"'
-	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_internal_palette' '"GB'
-	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_mode' '"Not'
+	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_internal_palette' '"GB - DMG"'
+	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_mode' '"Not Connected"'
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_port' '"56400"'
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_1' '"0"'
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_10' '"0"'
@@ -830,8 +833,8 @@ RetroArch_SameBoy_gb_setConfig(){
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_7' '"0"'
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_8' '"0"'
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_link_network_server_ip_9' '"0"'
-	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_palette_twb64_1' '"TWB64'
-	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_palette_twb64_2' '"TWB64'
+	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_palette_twb64_1' '"TWB64 001 - Aqours Blue"'
+	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_gb_palette_twb64_2' '"TWB64 101 - 765PRO Pink"'
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_mix_frames' '"disabled"'
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_rumble_level' '"10"'
 	RetroArch_setOverride 'gb.cfg' 'SameBoy'  'gambatte_show_gb_link_settings' '"disabled"'
@@ -933,7 +936,7 @@ RetroArch_atari2600_CRTshaderOff(){
 RetroArch_mame_setConfig(){
 	RetroArch_setOverride 'mame.cfg' 'MAME 2003-Plus'  'input_player1_analog_dpad_mode' '"1"'
 	RetroArch_setOverride 'mame.cfg' 'MAME'  'input_player1_analog_dpad_mode' '"1"'
-	RetroArch_setOverride 'mame.cfg' 'MAME'  'cheevos_enable = "false"'
+	RetroArch_setOverride 'mame.cfg' 'MAME'  'cheevos_enable' '"false"'
 }
 
 RetroArch_mame_bezelOn(){
@@ -967,11 +970,11 @@ RetroArch_mame_CRTshaderOff(){
 }
 
 RetroArch_neogeo_bezelOn(){
-	RetroArch_setOverride 'neogeo.cfg' 'FinalBurn Neo'  'input_overlay' "$RetroArch_overlaysPath/pegasus/neogeo.cfg"
+	RetroArch_setOverride 'neogeo.cfg' 'FinalBurn Neo'  'input_overlay' "\"$RetroArch_overlaysPath/pegasus/neogeo.cfg\""
 	RetroArch_setOverride 'neogeo.cfg' 'FinalBurn Neo'  'input_overlay_auto_scale' '"false"'
 	RetroArch_setOverride 'neogeo.cfg' 'FinalBurn Neo'  'input_overlay_enable' '"true"'
 	RetroArch_setOverride 'neogeo.cfg' 'FinalBurn Neo'  'input_overlay_hide_in_menu' '"false"'
-	RetroArch_setOverride 'neogeo.cfg' 'FinalBurn Neo'  'input_overlay_scale_landscape' '"1.170000'
+	RetroArch_setOverride 'neogeo.cfg' 'FinalBurn Neo'  'input_overlay_scale_landscape' '"1.170000"'
 }
 
 RetroArch_neogeo_bezelOff(){
@@ -991,11 +994,11 @@ RetroArch_neogeo_CRTshaderOff(){
 }
 
 RetroArch_fbneo_bezelOn(){
-	RetroArch_setOverride 'fbneo.cfg' 'FinalBurn Neo'  'input_overlay' "$RetroArch_overlaysPath/pegasus/neogeo.cfg"
+	RetroArch_setOverride 'fbneo.cfg' 'FinalBurn Neo'  'input_overlay' "\"$RetroArch_overlaysPath/pegasus/neogeo.cfg\""
 	RetroArch_setOverride 'fbneo.cfg' 'FinalBurn Neo'  'input_overlay_auto_scale' '"false"'
 	RetroArch_setOverride 'fbneo.cfg' 'FinalBurn Neo'  'input_overlay_enable' '"true"'
 	RetroArch_setOverride 'fbneo.cfg' 'FinalBurn Neo'  'input_overlay_hide_in_menu' '"false"'
-	RetroArch_setOverride 'fbneo.cfg' 'FinalBurn Neo'  'input_overlay_scale_landscape' '"1.170000'
+	RetroArch_setOverride 'fbneo.cfg' 'FinalBurn Neo'  'input_overlay_scale_landscape' '"1.170000"'
 }
 
 RetroArch_fbneo_bezelOff(){
@@ -1025,14 +1028,14 @@ RetroArch_segacd_bezelOn(){
 	RetroArch_setOverride 'megacd.cfg' 'Genesis Plus GX'  'input_overlay_auto_scale' '"false"'
 	RetroArch_setOverride 'megacd.cfg' 'Genesis Plus GX'  'input_overlay_enable' '"true"'
 	RetroArch_setOverride 'megacd.cfg' 'Genesis Plus GX'  'input_overlay_hide_in_menu' '"false"'
-	RetroArch_setOverride 'megacd.cfg' 'Genesis Plus GX'  'input_overlay_scale_landscape' '"1.170000'
+	RetroArch_setOverride 'megacd.cfg' 'Genesis Plus GX'  'input_overlay_scale_landscape' '"1.170000"'
 	RetroArch_setOverride 'megacd.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"0"'
 
 	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'input_overlay' "\"$RetroArch_overlaysPath/pegasus/segacd.cfg\""
 	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'input_overlay_auto_scale' '"false"'
 	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'input_overlay_enable' '"true"'
 	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'input_overlay_hide_in_menu' '"false"'
-	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'input_overlay_scale_landscape' '"1.170000'
+	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'input_overlay_scale_landscape' '"1.170000"'
 	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"0"'
 }
 RetroArch_segacd_bezelOff(){
@@ -1325,7 +1328,7 @@ RetroArch_gb_MATshaderOff(){
 
 RetroArch_SameBoy_gbc_setConfig(){
 	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'input_player1_analog_dpad_mode' '"1"'
-	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'gambatte_gbc_color_correction' '"GBC'
+	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'gambatte_gbc_color_correction' '"GBC only"'
 	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'gambatte_gbc_color_correction_mode' '"accurate"'
 	RetroArch_setOverride 'gbc.cfg' 'SameBoy'  'gambatte_gbc_frontlight_position' '"central"'
 }
@@ -1984,7 +1987,7 @@ RetroArch_Gambatte_setUpCoreOpt(){
 	RetroArch_setOverride 'Gambatte.opt' 'Gambatte'  'gambatte_gb_link_network_server_ip_8' '"0"'
 	RetroArch_setOverride 'Gambatte.opt' 'Gambatte'  'gambatte_gb_link_network_server_ip_9' '"0"'
 	RetroArch_setOverride 'Gambatte.opt' 'Gambatte'  'gambatte_gb_palette_pixelshift_1' '"PixelShift 01 - Arctic Green"'
-	RetroArch_setOverride 'Gambatte.opt' 'Gambatte'  'gambatte_gb_palette_twb64_1' '"WB64 001 - Aqours Blue"'
+	RetroArch_setOverride 'Gambatte.opt' 'Gambatte'  'gambatte_gb_palette_twb64_1' '"TWB64 001 - Aqours Blue"'
 	RetroArch_setOverride 'Gambatte.opt' 'Gambatte'  'gambatte_gb_palette_twb64_2' '"TWB64 101 - 765PRO Pink"'
 	RetroArch_setOverride 'Gambatte.opt' 'Gambatte'  'gambatte_gbc_color_correction' '"GBC only"'
 	RetroArch_setOverride 'Gambatte.opt' 'Gambatte'  'gambatte_gbc_color_correction_mode' '"accurate"'
