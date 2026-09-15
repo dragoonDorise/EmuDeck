@@ -162,10 +162,8 @@ def get_environment_details() -> None:
     print(json.dumps(info, ensure_ascii=False))
 
 def get_primary_monitor_size():
-    from screeninfo import get_monitors
-    monitors = get_monitors()
-    m = monitors[0]
-    return m.width, m.height
+    info = get_screen_info()
+    return info["width"], info["height"]
 
 def get_screen_info() -> dict:
     try:
