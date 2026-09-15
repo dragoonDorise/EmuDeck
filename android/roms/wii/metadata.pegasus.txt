@@ -1,7 +1,0 @@
-collection: Nintendo Wii
-shortname: wii
-extensions: ciso, dff, dol, elf, gcm, gcz, iso, tgc, wad, wbfs, zip, 7z, rvz
-launch: am start
- -n org.mm.jr/org.dolphinemu.dolphinemu.ui.main.MainActivity
- -a android.intent.action.VIEW
- --es AutoStartFile "{file.path}"

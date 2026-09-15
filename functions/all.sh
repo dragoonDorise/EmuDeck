@@ -134,5 +134,3 @@ source "$emudeckBackend"/functions/RemotePlayClientScripts/remotePlaySteamLink.s
 
 
 source "$emudeckBackend"/functions/cloudSyncHealth.sh
-
-source "$emudeckBackend"/android/functions/all.sh

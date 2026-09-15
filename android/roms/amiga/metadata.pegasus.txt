@@ -1,9 +1,0 @@
-collection: Amiga
-shortname: amiga
-extensions: 7z, adf, adz, ccd, chd, cue, dms, fdi, hdf, hdz, info, ipf, iso, lha, m3u, mds, nrg, rp9, slave, uae, zip
-launch: am start
-  -n com.retroarch/.browser.retroactivity.RetroActivityFuture
-  -e ROM {file.path}
-  -e LIBRETRO /data/data/com.retroarch/cores/puae_libretro_android.so
-  -e CONFIGFILE /storage/emulated/0/Android/data/com.retroarch/files/retroarch.cfg
-  -e QUITFOCUS
