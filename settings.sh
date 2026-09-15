@@ -30,6 +30,7 @@ doSetupBigPEmu=true
 doSetupFlycast=true
 doSetupSupermodel=true
 doSetupModel2=true
+doSetupLindbergh=true
 
 #Install all systems by default
 doInstallSRM=true
@@ -61,6 +62,7 @@ doInstallPowertools=false
 doInstallGyro=false
 doInstallHomeBrewGames=false
 doInstallModel2=false
+doInstallLindbergh=false
 
 installString='Installing'
 
