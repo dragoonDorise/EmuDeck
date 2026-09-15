@@ -70,6 +70,7 @@ def cemu_init():
     copy_and_set_settings_file(settings_file_src, destination)
 
     #plugins_install_steamdeck_gyro_dsu()
+    cemu_set_emulation_folder()
     cemu_setup_saves()
     cemu_setup_storage()
     cemu_set_resolution()
@@ -87,15 +88,37 @@ CEMU_LANGUAGES = {
 }
 
 
-def cemu_set_language() -> bool:
+def cemu_settings_file():
     if system == "linux":
-        settings_file = f"{home}/.config/Cemu/settings.xml"
+        return Path(f"{home}/.config/Cemu/settings.xml")
     if system.startswith("win"):
-        settings_file = f"{emus_folder}/cemu/settings.xml"
+        return Path(f"{emus_folder}/cemu/settings.xml")
     if system == "darwin":
-        settings_file = f"{home}/Library/Application Support/Cemu/settings.xml"
+        return Path(f"{home}/Library/Application Support/Cemu/settings.xml")
 
-    settings_path = Path(settings_file)
+
+def cemu_set_emulation_folder() -> bool:
+    settings_path = cemu_settings_file()
+
+    if not settings_path.is_file():
+        return False
+
+    text = settings_path.read_text(encoding="utf-8")
+    roms_dir = f"{roms_path}/wiiu/roms"
+    mlc_dir = f"{roms_path}/wiiu/mlc01"
+
+    if roms_dir not in text:
+        text = text.replace("</GamePaths>", f"  <Entry>{roms_dir}/</Entry>\n  </GamePaths>", 1)
+
+    text = re.sub(r"<mlc_path>[^<]*</mlc_path>", f"<mlc_path>{mlc_dir}</mlc_path>", text)
+
+    settings_path.write_text(text, encoding="utf-8")
+
+    return True
+
+
+def cemu_set_language() -> bool:
+    settings_path = cemu_settings_file()
 
     if not settings_path.is_file():
         return False
