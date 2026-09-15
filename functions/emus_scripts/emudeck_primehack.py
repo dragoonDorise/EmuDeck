@@ -59,19 +59,24 @@ def primehack_init():
     flush_emulator_launchers("primehack")
     if system == "linux":
         destination=f"{home}/.var/app/io.github.shiiion.primehack/config/dolphin-emu/"
+        data_destination=f"{home}/.var/app/io.github.shiiion.primehack/data/dolphin-emu/"
+        config_src="common/primehack/config/dolphin-emu/"
+        data_src="common/primehack/data/dolphin-emu/"
     if system.startswith("win"):
-        destination=f"{emus_folder}/primehack/"
+        destination=f"{emus_folder}/primehack/User/Config/"
+        data_destination=f"{emus_folder}/primehack/User/GameSettings/"
+        config_src=f"{system}/primehack/User/Config/"
+        data_src=f"{system}/primehack/User/GameSettings/"
     if system == "darwin":
         destination=f"{home}/Library/Application Support/Dolphin/Config"
+        data_destination=f"{home}/Library/Application Support/Dolphin"
+        config_src="common/primehack/config/dolphin-emu/"
+        data_src="common/primehack/data/dolphin-emu/"
 
-    copy_setting_dir(f"{system}/dolphin-emu/",destination)
+    copy_setting_dir(config_src, destination)
+    copy_setting_dir(data_src, data_destination)
 
-    if system == "linux":
-        copy_and_set_settings_file(f"{system}/primehack/config/dolphin-emu/Dolphin.ini", f"{destination}")
-    if system.startswith("win"):
-        copy_and_set_settings_file(f"{system}/primehack/User/Config/Dolphin.ini", f"{destination}/User/Config/")
-    if system == "darwin":
-        copy_and_set_settings_file(f"{system}/primehack/Dolphin.ini", destination)
+    copy_and_set_settings_file(f"{config_src}Dolphin.ini", destination)
 
     primehack_setup_saves()
     primehack_set_resolution()
@@ -123,7 +128,7 @@ def primehack_set_resolution():
     if settings.resolutions.dolphin == "4K" and system == "linux" and get_screen_width() < 3840:
         multiplier = 3
 
-    set_config("InternalResolution", multiplier, config_path)
+    set_config("InternalResolution", multiplier, config_path, " = ")
 
     return True
 
