@@ -13,8 +13,11 @@ if [ "$(uname -m)" = "aarch64" ] || [ "$(uname -m)" = "arm64" ]; then
 fi
 
 
-OS_NAME=$(cat /etc/hostname)
-if [ "$OS_NAME" = "playnix" ]; then
+if [ -r /etc/os-release ] && grep -Eq '^ID="?armada"?$' /etc/os-release; then
+    linuxID="ArmadaOS"
+elif [ -e /usr/lib/armada/version ]; then
+    linuxID="ArmadaOS"
+elif [ "$(cat /etc/hostname)" = "playnix" ]; then
     linuxID="PlaynixOS"
 else
     linuxID=$(lsb_release -si)
@@ -26,7 +29,7 @@ if [ "$linuxID" = "Ubuntu" ]; then
     sandbox="--no-sandbox"
 fi
 
-if [ "$linuxID" == "SteamOS" ] || [ "$linuxID" == "PlaynixOS" ]; then
+if [ "$linuxID" == "SteamOS" ] || [ "$linuxID" == "PlaynixOS" ] || [ "$linuxID" == "ArmadaOS" ]; then
     echo "installing EmuDeck"
 else
     zenityAvailable=$(command -v zenity &> /dev/null  && echo true)
@@ -128,14 +131,6 @@ trap report_error ERR
 
 EMUDECK_GITHUB_URL="https://api.github.com/repos/EmuDeck/emudeck-electron/releases/latest"
 if [ "$CPU_ARCH" == "arm" ]; then
-    #Armada fixes
-    if [ ! -e /usr/lib64/libz.so ]; then
-        mkdir -p "$HOME/.local/lib"
-        if [ ! -e "$HOME/.local/lib/libz.so" ]; then
-            ln -s /usr/lib64/libz.so.1 "$HOME/.local/lib/libz.so"
-        fi
-        export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
-    fi
     EMUDECK_URL="$(curl -s "$EMUDECK_GITHUB_URL" | grep -E 'browser_download_url.*arm64\.AppImage' | cut -d '"' -f 4)"
 else
     EMUDECK_URL="$(curl -s "$EMUDECK_GITHUB_URL" | grep -E 'browser_download_url.*\.AppImage' | grep -v 'arm64' | cut -d '"' -f 4)"
