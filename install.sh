@@ -128,6 +128,14 @@ trap report_error ERR
 
 EMUDECK_GITHUB_URL="https://api.github.com/repos/EmuDeck/emudeck-electron/releases/latest"
 if [ "$CPU_ARCH" == "arm" ]; then
+    #Armada fixes
+    if [ ! -e /usr/lib64/libz.so ]; then
+        mkdir -p "$HOME/.local/lib"
+        if [ ! -e "$HOME/.local/lib/libz.so" ]; then
+            ln -s /usr/lib64/libz.so.1 "$HOME/.local/lib/libz.so"
+        fi
+        export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
+    fi
     EMUDECK_URL="$(curl -s "$EMUDECK_GITHUB_URL" | grep -E 'browser_download_url.*arm64\.AppImage' | cut -d '"' -f 4)"
 else
     EMUDECK_URL="$(curl -s "$EMUDECK_GITHUB_URL" | grep -E 'browser_download_url.*\.AppImage' | grep -v 'arm64' | cut -d '"' -f 4)"
