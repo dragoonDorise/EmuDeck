@@ -128,7 +128,27 @@ def flycast_setup_saves():
 
 
 def flycast_set_resolution():
-    print("NYI")
+    if system == "linux":
+        config_file = f"{home}/.var/app/org.flycast.Flycast/config/flycast/emu.cfg"
+    elif system.startswith("win"):
+        config_file = f"{emus_folder}/flycast/emu.cfg"
+    elif system == "darwin":
+        config_file = f"{home}/Library/Application Support/Flycast/emu.cfg"
+    else:
+        return False
+
+    resolution_map = {
+        "720P": 720,
+        "1080P": 1200,
+        "1440P": 1440,
+        "4K": 2160,
+    }
+
+    resolution = settings.resolutions.flycast
+    internal_resolution = resolution_map.get(resolution, 720)
+
+    set_config("rend.Resolution", internal_resolution, config_file, separator=" = ")
+    return True
 
 def flycast_set_abxy_style():
     print("NYI")

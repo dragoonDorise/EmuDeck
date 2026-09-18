@@ -54,7 +54,7 @@ def azahar_init():
     if system == "linux":
         destination=f"{home}/.config/azahar-emu"
     if system.startswith("win"):
-        destination=f"{emus_folder}/azahar/"
+        destination = f"{emus_folder}/azahar/user/config"
     if system == "darwin":
         destination=f"{home}/Library/Application Support/azahar/"
 
@@ -123,11 +123,11 @@ def azahar_set_emulation_folder() -> bool:
 
 def azahar_set_resolution() -> bool:
     if system == "linux":
-        azahar_config_file=f"{home}/.config/azahar-emu/qt-config.ini"
-    if system.startswith("win"):
-        azahar_config_file=f"{emus_folder}/azahar/qt-config.ini"
-    if system == "darwin":
-        azahar_config_file=f"{home}/Library/Application Support/azahar/qt-config.ini"
+        config_path = f"{home}/.config/azahar-emu/qt-config.ini"
+    elif system.startswith("win"):
+        config_path = f"{emus_folder}/azahar/user/config/qt-config.ini"
+    else:
+        return False
 
     resolution_map = {
         "720P": 3,
@@ -136,14 +136,14 @@ def azahar_set_resolution() -> bool:
         "4K": 9,
     }
 
-    config_path = Path(azahar_config_file)
+    resolution = settings.resolutions.azahar
+    multiplier = resolution_map.get(resolution, 3)
 
-    multiplier = resolution_map.get(settings.resolutions.azahar, 3)
-
-    if settings.resolutions.azahar == "4K" and system == "linux" and get_screen_width() < 3840:
+    if resolution == "4K" and system == "linux" and get_screen_width() < 3840:
         multiplier = 5
 
-    set_config("resolution_factor", multiplier, config_path)
+    set_ini_value(config_path, "Renderer", "resolution_factor", str(multiplier))
+    set_ini_value(config_path, "Renderer", r"resolution_factor\default", "false")
 
     return True
 
