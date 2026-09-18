@@ -23,7 +23,7 @@ def melonds_install():
         if system == "linux":
          repo="net.kuribo64.melonDS"
         else:
-         repo=get_latest_release_gh("melonDS-emu/melonDS",type,look_for)
+         repo=get_latest_release_gh("melonDS-emu/melonDS",type,look_for,"aarch64")
         install_emu(name, repo, type, destination)
     except Exception as e:
         print(f"Error during install: {e}")
@@ -65,6 +65,10 @@ def melonds_init():
     copy_setting_dir(f"common/melonds/",destination)
     copy_and_set_settings_file(f"common/melonds/melonDS.ini", destination)
     copy_and_set_settings_file(f"common/melonds/melonDS.toml", destination)
+    
+    if system.startswith("win"):
+        sed("\\", "/", f"{destination}/melonDS.ini")
+        sed("\\", "/", f"{destination}/melonDS.toml")
 
     # move_contents_and_link(bios,f"{bios_path}/melonds")
 
@@ -92,29 +96,36 @@ def melonds_setup_saves():
 
 def melonds_set_resolution():
     if system == "linux":
-      config_file=f"{home}/.var/app/net.kuribo64.melonDS/config/melonDS/melonDS.ini"
-    if system.startswith("win"):
-      config_file=f"{emus_folder}/melonds/melonDS.ini"
-    if system == "darwin":
-      config_file=f"{home}/Library/Application Support/melonDS/melonDS.ini"
+        ini_file = f"{home}/.var/app/net.kuribo64.melonDS/config/melonDS/melonDS.ini"
+        toml_file = f"{home}/.var/app/net.kuribo64.melonDS/config/melonDS/melonDS.toml"
+        toml_separator = "="
+    elif system.startswith("win"):
+        ini_file = f"{emus_folder}/melonds/melonDS.ini"
+        toml_file = f"{emus_folder}/melonds/melonDS.toml"
+        toml_separator = " = "
+    else:
+        return False
 
-    mapping = {
-         "720P":  (1024,  768),
-         "1080P": (1536, 1152),
-         "1440P": (2048, 1536),
-         "4K":    (2816, 2112),
-     }
-    window_width, window_height = mapping.get(settings.resolutions.melonds, (1024, 768))
+    resolution_map = {
+        "720P": (1024, 768, 4),
+        "1080P": (1536, 1152, 6),
+        "1440P": (2048, 1536, 8),
+        "4K": (2816, 2112, 11),
+    }
 
-    if settings.resolutions.melonds == "4K" and system == "linux" and get_screen_width() < 3840:
-        window_width = 1536
-        window_height = 1152
+    resolution = settings.resolutions.melonds
+    window_width, window_height, scale = resolution_map.get(resolution, resolution_map["720P"])
 
-    dest_dir = emus_folder / "melonDS"
-    dest_dir.mkdir(parents=True, exist_ok=True)
+    if resolution == "4K" and system == "linux" and get_screen_width() < 3840:
+        window_width, window_height, scale = resolution_map["1080P"]
 
-    set_config("WindowWidth",  window_width,  config_file)
-    set_config("WindowHeight", window_height, config_file)
+    if not Path(toml_file).is_file():
+        print(f"melonDS TOML was not found: {toml_file}")
+        return False
+
+    set_config("WindowWidth", window_width, ini_file)
+    set_config("WindowHeight", window_height, ini_file)
+    set_config("ScaleFactor", scale, toml_file, separator=toml_separator)
 
     return True
 

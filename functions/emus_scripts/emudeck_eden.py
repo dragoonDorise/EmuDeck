@@ -21,14 +21,14 @@ def eden_init():
     set_msg(f"Setting up eden")
     flush_emulator_launchers("eden")
     if system == "linux":
-        destination=f"{home}/.config/eden/config"
-    if system.startswith("win"):
-        destination=f"{emus_folder}/eden/"
+        destination = f"{home}/.config/eden"
+    elif system.startswith("win"):
+        destination = str(Path(os.environ["APPDATA"]) / "eden" / "config")
     if system == "darwin":
        return False
     plugins_install_steamdeck_gyro_dsu()
-    copy_setting_dir(f"{system}/eden/",destination)
-    copy_and_set_settings_file(f"{system}/eden/config/eden/qt-config.ini", destination)
+    copy_setting_dir("common/eden/", destination)
+    copy_and_set_settings_file("common/eden/qt-config.ini",destination)
 
 
     eden_setup_saves()
@@ -61,27 +61,29 @@ def eden_setup_saves():
 
 def eden_set_resolution():
     if system == "linux":
-        config_path = f"{home}/.config/eden/config/qt-config.ini"
-    if system.startswith("win"):
-        config_path = f"{emus_folder}/eden/qt-config.ini"
-    if system == "darwin":
-        config_path = f"{home}/Library/Application Support/eden/config/qt-config.ini"
+        config_path = f"{home}/.config/eden/qt-config.ini"
+    elif system.startswith("win"):
+        config_path = Path(os.environ["APPDATA"]) / "eden" / "config" / "qt-config.ini"
+    else:
+        return False
 
     resolution_map = {
-        "720P": (2, "false"),
-        "1080P": (2, "true"),
-        "1440P": (3, "false"),
-        "4K": (3, "true"),
+        "720P": (3, 0),
+        "1080P": (3, 1),
+        "1440P": (6, 0),
+        "4K": (6, 1),
     }
 
-    multiplier, docked = resolution_map.get(settings.resolutions.yuzu, (2, "false"))
+    resolution = settings.resolutions.eden
+    multiplier, docked = resolution_map.get(resolution, (3, 0))
 
-    if settings.resolutions.yuzu == "4K" and system == "linux" and get_screen_width() < 3840:
-        multiplier = 2
-        docked = "true"
+    if resolution == "4K" and system == "linux" and get_screen_width() < 3840:
+        multiplier, docked = 3, 1
 
-    set_config("resolution_setup", multiplier, Path(config_path))
-    set_config("use_docked_mode", docked, Path(config_path))
+    set_ini_value(config_path, "Renderer", "resolution_setup", str(multiplier))
+    set_ini_value(config_path, "Renderer", r"resolution_setup\default", "false")
+    set_ini_value(config_path, "System", "use_docked_mode", str(docked))
+    set_ini_value(config_path, "System", r"use_docked_mode\default", "false")
 
     return True
 

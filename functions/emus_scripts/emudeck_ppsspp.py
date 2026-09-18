@@ -135,13 +135,13 @@ def ppsspp_set_resolution():
         "4K": 6,
     }
 
-    multiplier = resolution_map.get(settings.resolutions.ppsspp, 3)
+    resolution = settings.resolutions.ppsspp
+    multiplier = resolution_map.get(resolution, 3)
 
-    if settings.resolutions.ppsspp == "4K" and system == "linux" and get_screen_width() < 3840:
+    if resolution == "4K" and system == "linux" and get_screen_width() < 3840:
         multiplier = 4
 
-    set_config("InternalResolution", multiplier, Path(config_path), " = ")
-
+    set_ini_value(config_path, "Graphics", "InternalResolution", str(multiplier))
     return True
     
     
