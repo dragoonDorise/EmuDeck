@@ -13,8 +13,11 @@ if [ "$(uname -m)" = "aarch64" ] || [ "$(uname -m)" = "arm64" ]; then
 fi
 
 
-OS_NAME=$(cat /etc/hostname)
-if [ "$OS_NAME" = "playnix" ]; then
+if [ -r /etc/os-release ] && grep -Eq '^ID="?armada"?$' /etc/os-release; then
+    linuxID="ArmadaOS"
+elif [ -e /usr/lib/armada/version ]; then
+    linuxID="ArmadaOS"
+elif [ "$(cat /etc/hostname)" = "playnix" ]; then
     linuxID="PlaynixOS"
 else
     linuxID=$(lsb_release -si)
@@ -26,7 +29,7 @@ if [ "$linuxID" = "Ubuntu" ]; then
     sandbox="--no-sandbox"
 fi
 
-if [ "$linuxID" == "SteamOS" ] || [ "$linuxID" == "PlaynixOS" ]; then
+if [ "$linuxID" == "SteamOS" ] || [ "$linuxID" == "PlaynixOS" ] || [ "$linuxID" == "ArmadaOS" ]; then
     echo "installing EmuDeck"
 else
     zenityAvailable=$(command -v zenity &> /dev/null  && echo true)

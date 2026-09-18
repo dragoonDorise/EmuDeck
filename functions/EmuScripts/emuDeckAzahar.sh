@@ -12,7 +12,12 @@ Azahar_texturesPath="$HOME/.config/azahar-emu/load/textures"
 Azahar_install(){
 	echo "Begin $Azahar_emuName Install"
 	local showProgress="$1"
-	local url=$(getReleaseURLGH "azahar-emu/azahar" "AppImage" "")
+	
+	if [ $CPUarch == "arm" ]; then
+		url=$(getReleaseURLGH "dragoonDorise/azahar" "AppImage" "arm64.")
+	else
+		url=$(getReleaseURLGH "stenzek/duckstation" "AppImage" "")
+	fi
 
 	if installEmuAI "$Azahar_emuName" "" "$url" "azahar" "AppImage" "emulator" "$showProgress"; then
 		mv "$emusFolder/azahar.AppImage" "$Azahar_emuPath"

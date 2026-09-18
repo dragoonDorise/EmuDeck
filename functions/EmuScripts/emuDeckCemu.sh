@@ -260,6 +260,13 @@ Cemu_functions () {
 	install () {
 		echo "Begin Cemu - Native Install"
 		local showProgress="$1"
+		
+		if [ $CPUarch == "arm" ]; then
+			url=$(getReleaseURLGH "dragoonDorise/Cemu" "AppImage" "arm64")
+		else
+			url=$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")
+		fi
+		
 		if installEmuAI "Cemu" "" "$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")" "" "" "emulator" "$showProgress"; then # Cemu.AppImage
 			:
 		else
