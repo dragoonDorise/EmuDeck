@@ -51,7 +51,7 @@ def download_and_extract(output_dir):
                 print(f"Skipped: {platform} already extracted at {extracted_folder} with {num_files} files.")
                 continue
 
-        url = f"https://artwork.emudeck.com/artwork_deck/{platform}.zip"
+        url = f"https://f005.backblazeb2.com/file/rift-frontend/artwork/{platform}.zip"
         log_message(f"Downloading: {platform}")
         print(f"Downloading: {platform}")
 
