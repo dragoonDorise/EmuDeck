@@ -1261,13 +1261,13 @@ function startCompressor(){
 }
 
 function generate_pythonEnv() {
-	if [ ! -d "$emudeckFolder/python_virtual_env" ]; then
-		python3 -m venv "$emudeckFolder/python_virtual_env"
-		source "$emudeckFolder/python_virtual_env/bin/activate"
-		pip install requests
-		pip install vdf
-	else
-		source "$emudeckFolder/python_virtual_env/bin/activate"
+	local venv_dir="$emudeckFolder/python_virtual_env"
+	if [ ! -d "$venv_dir" ]; then
+		python3 -m venv "$venv_dir"
+	fi
+	source "$venv_dir/bin/activate"
+	if ! python -c "import requests, vdf, python_multipart" &> /dev/null; then
+		pip install requests vdf python-multipart
 	fi
 }
 

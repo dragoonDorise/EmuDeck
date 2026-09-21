@@ -7,7 +7,7 @@ import subprocess
 import threading
 import tkinter as tk
 import asyncio
-from multipart import MultipartParser
+from python_multipart import parse_form
 
 roms_path = None
 BASE_DIR = None
@@ -53,15 +53,14 @@ class SimpleHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 
             def on_file(file):
                 if file.field_name == b'files':
+                    file.file_object.seek(0)
                     uploaded_files.append({
                         'filename': file.file_name.decode('utf-8') if file.file_name else None,
                         'content': file.file_object.read()
                     })
 
-            parser = MultipartParser(self.rfile, content_type, content_length=content_length)
-            parser.register_on_field(on_field)
-            parser.register_on_file(on_file)
-            parser.parse()
+            headers = {'Content-Type': content_type, 'Content-Length': content_length}
+            parse_form(headers, self.rfile, on_field, on_file)
 
             if folder and uploaded_files:
                 upload_folder = os.path.join(BASE_DIR, folder)
