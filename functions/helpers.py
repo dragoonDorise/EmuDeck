@@ -1259,6 +1259,10 @@ def move_contents_and_link(origin: Union[str, Path], destination: Union[str, Pat
     if origin.is_dir():
         destination.mkdir(parents=True, exist_ok=True)
         
+        if origin.resolve() == destination.resolve():
+            print("Info: Origin is already a junction to destination")
+            return True
+        
         if any(origin.iterdir()):
             backup_path = origin.parent / f"{origin.name}_backup"
             if backup_path.exists():

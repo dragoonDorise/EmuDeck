@@ -309,7 +309,7 @@ if system.startswith("win"):
     if emu.lower() == "yuzu":
         exe = f"{emus_folder}/yuzu/yuzu.exe"
     if emu.lower() == "eden":
-        exe = f"{emus_folder}/eden/eden.exe"
+        exe = f"{emus_folder}/eden-windows-msvc/eden.exe"
 
 #netplay
 if emu.lower() == "retroarch":
