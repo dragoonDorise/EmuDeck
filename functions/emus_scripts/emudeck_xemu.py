@@ -163,13 +163,29 @@ def xemu_set_resolution():
         "4K": 5,
     }
 
-    multiplier = resolution_map.get(settings.resolutions.xemu, 1)
+    resolution = settings.resolutions.xemu
+    multiplier = resolution_map.get(resolution, 1)
 
-    if settings.resolutions.xemu == "4K" and system == "linux" and get_screen_width() < 3840:
+    if resolution == "4K" and system == "linux" and get_screen_width() < 3840:
         multiplier = 2
 
-    set_config("surface_scale", multiplier, Path(config_path), " = ")
+    config_file = Path(config_path)
+    lines = config_file.read_text().splitlines()
+    setting = f"surface_scale = {multiplier}"
 
+    for index, line in enumerate(lines):
+        if line.startswith("surface_scale ="):
+            lines[index] = setting
+            break
+    else:
+        for index, line in enumerate(lines):
+            if line == "[display.quality]":
+                lines.insert(index + 1, setting)
+                break
+        else:
+            lines.extend(["", "[display.quality]", setting])
+
+    config_file.write_text("\n".join(lines) + "\n")
     return True
 
 

@@ -16,6 +16,11 @@ raw = sys.argv[2:]
 
 # Detect if a button is held down at launch
 y_pressed = False
+
+sdl_vars = ("SDL_VIDEODRIVER", "SDL_AUDIODRIVER")
+previous_sdl = {name: os.environ.get(name) for name in sdl_vars}
+pygame = None
+
 try:
     import pygame
     os.environ.setdefault("SDL_VIDEODRIVER", "dummy")
@@ -35,9 +40,19 @@ try:
                     print("Button detected")
             if y_pressed:
                 break
-    pygame.quit()
+    
 except Exception as e:
     print(f"Button detection skipped: {e}")
+    
+finally:
+    if pygame is not None:
+        pygame.quit()
+
+    for name, value in previous_sdl.items():
+        if value is None:
+            os.environ.pop(name, None)
+        else:
+            os.environ[name] = value
 
 # Per-emulator configuration menu (shown on Y button press)
 if y_pressed:

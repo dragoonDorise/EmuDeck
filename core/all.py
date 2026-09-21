@@ -27,6 +27,8 @@ def _import_all_functions_and_vars():
         print("⚠️ Forced modules not found:", missing_forced)
 
     remaining = sorted(m for m in all_modules if m not in forced_to_load)
+    
+    loaded_modules = []
 
     for module_name in forced_to_load + remaining:
         #print(f"Importing module: {module_name}")
@@ -40,6 +42,16 @@ def _import_all_functions_and_vars():
                 and not inspect.isfunction(val)
                 and not inspect.ismodule(val)):
                 globals()[var_name] = val
+                
+    shared_names = {
+        name: value
+        for name, value in globals().items()
+        if not name.startswith("_")
+    }
+
+    for module in loaded_modules:
+        for name, value in shared_names.items():
+            module.__dict__.setdefault(name, value)
 
 _import_all_functions_and_vars()
 

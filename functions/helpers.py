@@ -430,7 +430,8 @@ def md5_of(path: Path) -> Optional[str]:
 
 def get_latest_release_gh(repository: str,
                           fileType: str,
-                          fileNameContains: str) -> str:
+                          fileNameContains: str,
+                          fileNameExclude: str = "") -> str:
     api_url = f"https://api.github.com/repos/{repository}/releases/latest"
     headers = {
         "Accept": "application/vnd.github+json",
@@ -444,7 +445,12 @@ def get_latest_release_gh(repository: str,
     for asset in data.get("assets", []):
         name = asset.get("name", "")
         if (fileNameContains in name
-                and name.endswith(fileType)):
+                and name.endswith(fileType)
+            and (
+                not fileNameExclude
+                or fileNameExclude not in name
+            )
+        ):
             return asset.get("browser_download_url", "")
 
     return False
