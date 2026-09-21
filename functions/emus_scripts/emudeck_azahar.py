@@ -126,6 +126,8 @@ def azahar_set_resolution() -> bool:
         config_path = f"{home}/.config/azahar-emu/qt-config.ini"
     elif system.startswith("win"):
         config_path = f"{emus_folder}/azahar/user/config/qt-config.ini"
+    if system == "darwin":
+        config_path=f"{home}/Library/Application Support/azahar/qt-config.ini"
     else:
         return False
 

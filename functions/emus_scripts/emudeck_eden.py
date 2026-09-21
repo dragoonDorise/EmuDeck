@@ -12,7 +12,7 @@ def eden_is_installed():
     if system == "linux":
         return (emus_folder / "eden.AppImage").exists()
     if system.startswith("win"):
-      return (emus_folder / "eden" /"eden.exe").exists()
+      return (emus_folder / "eden-windows-msvc" /"eden.exe").exists()
     if system == "darwin":
       return False
 
@@ -23,7 +23,7 @@ def eden_init():
     if system == "linux":
         destination = f"{home}/.config/eden"
     elif system.startswith("win"):
-        destination = str(Path(os.environ["APPDATA"]) / "eden" / "config")
+        destination = str(emus_folder / "eden-windows-msvc" / "user" / "config")
     if system == "darwin":
        return False
     plugins_install_steamdeck_gyro_dsu()
@@ -38,6 +38,7 @@ def eden_init():
 
     esde_set_emu("Eden (Standalone)","switch")
     eden_add_custom_parser()
+    create_app_shortcut("eden")
 
 def eden_add_custom_parser():
     if eden_is_installed() and srm_is_installed():
@@ -49,21 +50,42 @@ def eden_setup_saves():
         origin_saves=f"{home}/.share/eden/sdmc"
         origin_states=f"{home}/.local/share/eden-emu/states"
     if system.startswith("win"):
-        origin_saves=f"{emus_folder}/eden/sdmc"
-        origin_states=f"{emus_folder}/eden/states"
+        origin_saves = str(emus_folder / "eden-windows-msvc" / "user" / "sdmc")
+        origin_states = str(emus_folder / "eden-windows-msvc" / "user" / "states")
     if system == "darwin":
         origin_saves=f"{home}/.share/eden/sdmc"
         origin_states=f"{home}/.local/share/eden-emu/states"
 
-    move_contents_and_link(origin_saves,f"{saves_path}/eden/saves")
-    move_contents_and_link(origin_states,f"{saves_path}/eden/states")
+    for origin, destination in ((origin_saves, f"{saves_path}/eden/saves"), (origin_states, f"{saves_path}/eden/states")):
+        origin_path = Path(origin)
 
+        if origin_path.is_symlink():
+            continue
+
+        origin_path.mkdir(parents=True, exist_ok=True)
+        move_contents_and_link(str(origin_path), destination)
+        
+def eden_setup_storage():
+    set_msg("Setting up Eden storage")
+    eden_storage = Path(storage_path) / "eden"
+
+    for directory in ("dump", "load", "sdmc", "nand", "screenshots", "tas"):
+        (eden_storage / directory).mkdir(parents=True, exist_ok=True)
+
+    if system == "linux":
+        origin_profiles = eden_storage / "nand" / "system" / "save" / "8000000000000010" / "su" / "avators"
+        origin_profiles.mkdir(parents=True, exist_ok=True)
+        move_contents_and_link(str(origin_profiles), f"{saves_path}/eden/profiles")
+
+    return True
 
 def eden_set_resolution():
     if system == "linux":
         config_path = f"{home}/.config/eden/qt-config.ini"
-    elif system.startswith("win"):
-        config_path = Path(os.environ["APPDATA"]) / "eden" / "config" / "qt-config.ini"
+    if system.startswith("win"):
+        config_path = emus_folder / "eden-windows-msvc" / "user" / "config" / "qt-config.ini"
+    if system == "darwin":
+        config_path = f"{home}/Library/Application Support/eden/config/qt-config.ini"
     else:
         return False
 
@@ -97,4 +119,4 @@ def eden_set_controller_style():
     if settings.controllerLayout == "bayx":
         eden_set_bayx_style()
     else:
-        eden_set_bayx_style()
+        eden_set_abxy_style()
