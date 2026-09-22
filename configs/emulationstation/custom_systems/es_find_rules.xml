@@ -8,26 +8,6 @@
             <entry>sh</entry>
         </rule>
     </emulator>
-    <emulator name="RETROARCH">
-        <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/retroarch.sh</entry>
-        </rule>
-    </emulator>
-    <core name="RETROARCH">
-        <rule type="corepath">
-            <entry>~/.var/app/org.libretro.RetroArch/config/retroarch/cores</entry>
-        </rule>
-    </core>
-    <emulator name="SHADPS4">
-        <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/shadps4.sh</entry>
-        </rule>
-    </emulator>
-    <emulator name="YUZU">
-        <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/yuzu.sh</entry>
-        </rule>
-    </emulator>
     <emulator name="CEMU">
         <rule type="staticpath">
             <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/cemu.sh</entry>
@@ -38,69 +18,58 @@
             <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/dolphin-emu.sh</entry>
         </rule>
     </emulator>
-    <emulator name="DUCKSTATION">
+    <emulator name="RETROARCH">
+        <rule type="systempath">
+            <entry>org.libretro.RetroArch</entry>
+        </rule>
         <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/duckstation.sh</entry>
+            <entry>~/.local/share/flatpak/exports/bin/org.libretro.RetroArch</entry>
+            <entry>/var/lib/flatpak/exports/bin/org.libretro.RetroArch</entry>
+            <entry>~/Applications/RetroArch-Linux*.AppImage</entry>
+            <entry>~/.local/share/applications/RetroArch-Linux*.AppImage</entry>
+            <entry>~/.local/bin/RetroArch-Linux*.AppImage</entry>
+            <entry>~/bin/RetroArch-Linux*.AppImage</entry>
         </rule>
     </emulator>
-    <emulator name="FLYCAST">
+    <core name="RETROARCH">
+        <rule type="corepath">
+            <!-- Flatpak package -->
+            <entry>~/.var/app/org.libretro.RetroArch/config/retroarch/cores</entry>
+            <!-- Snap package -->
+            <entry>~/snap/retroarch/current/.config/retroarch/cores</entry>
+            <!-- AppImage and compiled from source -->
+            <entry>~/.config/retroarch/cores</entry>
+            <!-- Ubuntu and Linux Mint repository -->
+            <entry>/usr/lib/x86_64-linux-gnu/libretro</entry>
+            <!-- Fedora repository -->
+            <entry>/usr/lib64/libretro</entry>
+            <!-- Manjaro repository -->
+            <entry>/usr/lib/libretro</entry>
+            <!-- FreeBSD and OpenBSD repository -->
+            <entry>/usr/local/lib/libretro</entry>
+            <!-- NetBSD repository -->
+            <entry>/usr/pkg/lib/libretro</entry>
+        </rule>
+    </core>
+    <emulator name="SHADPS4">
+        <!-- PS4 emulator ShadPS4 -->
         <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/flycast.sh</entry>
+            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/shadps4.sh</entry>
         </rule>
     </emulator>
-    <emulator name="AZAHAR">
-        <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/azahar.sh</entry>
+    <emulator name="YUZU">
+        <!-- Nintendo Switch emulator Yuzu -->
+        <rule type="systempath">
+            <entry>yuzu</entry>
+            <entry>org.yuzu_emu.yuzu</entry>
         </rule>
-    </emulator>
-    <emulator name="MAME">
         <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/mame.sh</entry>
-        </rule>
-    </emulator>
-    <emulator name="MELONDS">
-        <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/melonds.sh</entry>
-        </rule>
-    </emulator>
-    <emulator name="MGBA">
-        <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/mgba.sh</entry>
-        </rule>
-    </emulator>
-    <emulator name="MODEL2">
-        <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/model-2-emulator.sh</entry>
-        </rule>
-    </emulator>
-    <emulator name="SUPERMODEL">
-        <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/supermodel.sh</entry>
-        </rule>
-    </emulator>
-    <emulator name="PCSX2QT">
-        <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/pcsx2-qt.sh</entry>
-        </rule>
-    </emulator>
-    <emulator name="PPSSPP">
-        <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/ppsspp.sh</entry>
-        </rule>
-    </emulator>
-    <emulator name="PRIMEHACK">
-        <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/primehack.sh</entry>
-        </rule>
-    </emulator>
-    <emulator name="RMG">
-        <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/rosaliesmupengui.sh</entry>
-        </rule>
-    </emulator>
-    <emulator name="RPCS3">
-        <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/rpcs3.sh</entry>
+            <entry>~/Applications/yuzu*.AppImage</entry>
+            <entry>~/.local/share/applications/yuzu*.AppImage</entry>
+            <entry>~/.local/bin/yuzu*.AppImage</entry>
+            <entry>~/bin/yuzu*.AppImage</entry>
+            <entry>/var/lib/flatpak/exports/bin/org.yuzu_emu.yuzu</entry>
+            <entry>~/.local/share/flatpak/exports/bin/org.yuzu_emu.yuzu</entry>
         </rule>
     </emulator>
     <emulator name="RYUJINX">
@@ -108,19 +77,25 @@
             <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/ryujinx.sh</entry>
         </rule>
     </emulator>
-    <emulator name="SCUMMVM">
+    <emulator name="EDEN">
+        <!-- Nintendo Switch emulator Eden -->
+        <rule type="systempath">
+            <entry>eden</entry>
+        </rule>
         <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/scummvm.sh</entry>
+            <entry>~/Applications/Eden*.AppImage</entry>
         </rule>
     </emulator>
-    <emulator name="VITA3K">
+    <emulator name="AZAHAR">
+        <!-- Nintendo 3DS -->
         <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/vita3k.sh</entry>
+            <entry>~/Applications/azahar*.AppImage</entry>
         </rule>
     </emulator>
-    <emulator name="XEMU">
+    <emulator name="CITRON">
+        <!-- Nintendo Switch emulator Citron -->
         <rule type="staticpath">
-            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/xemu.sh</entry>
+            <entry>~/Applications/citron*.AppImage</entry>
         </rule>
     </emulator>
     <emulator name="XENIA">
@@ -128,4 +103,5 @@
             <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh</entry>
         </rule>
     </emulator>
+
 </ruleList>
