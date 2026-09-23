@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-zenity --info --width=400 --text="Backend loaded!"
-
 appImageInit() {
 	
 	#Migrate Xenia
