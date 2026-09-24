@@ -1,3 +1,5 @@
+import sys
+import re
 from core.all import *
 
 def emudeck_init():
@@ -1980,3 +1982,58 @@ def start_menu_reset():
     
 
 from .helpers_scripts.unused import *
+
+
+def _emudeck_namespace():
+    module = sys.modules.get("core.all")
+    return module.__dict__ if module else globals()
+
+
+def _emu_key(name):
+    return re.sub(r"[^a-z0-9]", "", str(name).lower())
+
+
+def find_emu_prefix(emu_name, suffix="_is_installed"):
+    key = _emu_key(emu_name)
+    if not key:
+        return ""
+
+    partial = None
+    for fn_name, fn in _emudeck_namespace().items():
+        if not fn_name.endswith(suffix) or not callable(fn):
+            continue
+        prefix = fn_name[: -len(suffix)]
+        candidate = _emu_key(prefix)
+        if candidate == key:
+            return prefix
+        if candidate.startswith(key) or key.startswith(candidate):
+            partial = prefix if partial is None else "ambiguous"
+
+    return partial if partial and partial != "ambiguous" else ""
+
+
+def emulator_launch_fixes(emu_name):
+    prefix = find_emu_prefix(emu_name, "_launch_fixes")
+    if not prefix:
+        return
+    fixes_name = f"{prefix}_launch_fixes"
+    print(f"Applying launch fixes: {fixes_name}")
+    try:
+        _emudeck_namespace()[fixes_name]()
+    except Exception as e:
+        print(f"{fixes_name} failed, continuing launch: {e}")
+
+
+def emulator_check_and_install(emu_name):
+    prefix = find_emu_prefix(emu_name)
+    if not prefix:
+        return
+    ns = _emudeck_namespace()
+    install = ns.get(f"{prefix}_install")
+    init = ns.get(f"{prefix}_init")
+    if not callable(install) or not callable(init):
+        return
+    if not ns[f"{prefix}_is_installed"]():
+        print(f"{prefix} is not installed, installing")
+        install()
+        init()

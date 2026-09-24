@@ -11,6 +11,8 @@ if system in ("darwin", "linux"):
 else:
     emu = sys.argv[1]
 
+emulator_check_and_install(emu)
+
 args = sys.argv[2:]
 raw = sys.argv[2:]
 
@@ -499,14 +501,7 @@ if system == "linux":
       cmd = f"{lsfg} {cmd}"
 
 
-fixes_name = f"{emu.lower().replace('-', '_')}_launch_fixes"
-fixes_fn = globals().get(fixes_name)
-if callable(fixes_fn):
-    print(f"Applying launch fixes: {fixes_name}")
-    try:
-        fixes_fn()
-    except Exception as e:
-        print(f"{fixes_name} failed, continuing launch: {e}")
+emulator_launch_fixes(emu)
 
 subprocess.run(cmd, check=True, shell=shell_status)
 
