@@ -1,75 +1,75 @@
- {
-	"parserType": "Glob",
-	"configTitle": "Microsoft Xbox 360 - Xbox Live Arcade - Xenia",
-	"steamDirectory": "${steamdirglobal}",
-	"romDirectory": "${romsdirglobal}/xbox360/roms/",
-	"executableArgs": "\"Z:${filePath}\"",
-	"executableModifier": "\"${exePath}\"",
-	"startInDirectory": "",
-	"titleModifier": "${fuzzyTitle}",
-	"imageProviders": ["sgdb", "steamCDN"],
-	"onlineImageQueries": "${${fuzzyTitle}}",
-	"imagePool": "${fuzzyTitle}",
-	"disabled": false,
-	"userAccounts": {
-	  "specifiedAccounts": ["Global"]
-	},
-	"executable": {
-	  "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/xeniaNative.sh",
-	  "shortcutPassthrough": false,
-	  "appendArgsToExecutable": true
-	},
-	"parserInputs": {
-	  "glob": "xbla/**/${title}"
-	},
-	"titleFromVariable": {
-	  "limitToGroups": "",
-	  "caseInsensitiveVariables": false,
-	  "skipFileIfVariableWasNotFound": false
-	},
-	"fuzzyMatch": {
-	  "replaceDiacritics": true,
-	  "removeCharacters": true,
-	  "removeBrackets": true
-	},
-	"controllers": {
-	  "ps4": null,
-	  "ps5": null,
-	  "xbox360": null,
-	  "xboxone": null,
-	  "switch_joycon_left": null,
-	  "switch_joycon_right": null,
-	  "switch_pro": null,
-	  "neptune": null
-	},
-	"imageProviderAPIs": {
-	  "sgdb": {
-		"nsfw": false,
-		"humor": false,
-		"styles": [],
-		"stylesHero": [],
-		"stylesLogo": [],
-		"stylesIcon": [],
-		"imageMotionTypes": ["static"]
-	  }
-	},
-	"parserId": "167851246183635366",
-	"version": 22,
-	"defaultImage": {
-	  "long": "",
-	  "tall": "",
-	  "hero": "",
-	  "logo": "",
-	  "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
-	},
-	"localImages": {
-	  "long": "",
-	  "tall": "",
-	  "hero": "",
-	  "logo": "",
-	  "icon": ""
-	},
-	"steamInputEnabled": "1",
-	"drmProtect": false,
-	"steamCategories": ["Microsoft Xbox 360 - Xbox Live Arcade"]
+{
+  "parserType": "Glob",
+  "configTitle": "Microsoft Xbox 360 - Xbox Live Arcade - Xenia",
+  "steamDirectory": "${steamdirglobal}",
+  "romDirectory": "${romsdirglobal}/xbox360/roms/",
+  "executableArgs": "\"Z:${filePath}\"",
+  "executableModifier": "\"${exePath}\"",
+  "startInDirectory": "",
+  "titleModifier": "${fuzzyTitle}",
+  "imageProviders": ["sgdb", "steamCDN"],
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "disabled": false,
+  "userAccounts": {
+    "specifiedAccounts": ["Global"]
   },
+  "executable": {
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/xeniaNative.sh",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "parserInputs": {
+    "glob": "xbla/**/${title}"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "controllers": {
+    "ps4": null,
+    "ps5": null,
+    "xbox360": null,
+    "xboxone": null,
+    "switch_joycon_left": null,
+    "switch_joycon_right": null,
+    "switch_pro": null,
+    "neptune": null
+  },
+  "imageProviderAPIs": {
+    "sgdb": {
+      "nsfw": false,
+      "humor": false,
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": [],
+      "imageMotionTypes": ["static"]
+    }
+  },
+  "parserId": "167851246183635366",
+  "version": 22,
+  "defaultImage": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/icon.png"
+  },
+  "localImages": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  },
+  "steamInputEnabled": "1",
+  "drmProtect": false,
+  "steamCategories": ["Microsoft Xbox 360 - Xbox Live Arcade"]
+}
