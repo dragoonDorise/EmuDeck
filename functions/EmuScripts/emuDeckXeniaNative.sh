@@ -82,9 +82,9 @@ XeniaNative_install(){
 	XeniaNative_addESConfig
 	
 	#Migration
-	if [ ! -f "$XeniaNative_legacyPath/xenia.config.xml" ]; then
-		XeniaNative_migrate
-	fi
+	#if [ ! -f "$XeniaNative_legacyPath/xenia.config.xml" ]; then
+	#	XeniaNative_migrate
+	#fi
 	
 }
 
@@ -218,6 +218,7 @@ XeniaNative_setABXYstyle(){
 
 #Migrate
 XeniaNative_migrate(){
+	return 0
 	#Check if the user has the linux port already installed to prevent overwriting it
 	if [ -d $XeniaNative_dataPath ]; then
 	
@@ -259,6 +260,7 @@ XeniaNative_migrate(){
 }
 
 XeniaNative_migrateFunctions(){
+	return 0
 	XeniaNative_init
 	XeniaNative_migrateLegacyData
 	XeniaNative_migrateLegacySaves
@@ -269,6 +271,7 @@ XeniaNative_migrateFunctions(){
 
 
 XeniaNative_migrateLegacyData(){
+	return 0
 	mkdir -p "$XeniaNative_dataPath"
 
 	cp "$XeniaNative_legacyPath/xenia.config.toml" "$XeniaNative_dataPath/xenia.config.toml.legacy"	
@@ -281,6 +284,7 @@ XeniaNative_migrateLegacyData(){
 }
 
 XeniaNative_migrateLegacySRMparsers(){
+	return 0
 	#SRM parsers
 	local old_path="Z:$romsPath/xbox360"
 	local new_path="$romsPath/xbox360"
@@ -290,6 +294,7 @@ XeniaNative_migrateLegacySRMparsers(){
 }
 
 XeniaNative_migrateLegacySaves(){
+	return 0
 	local legacyContentPath="$romsPath/xbox360/content"
 
 	if [ -d "$legacyContentPath" ]; then
