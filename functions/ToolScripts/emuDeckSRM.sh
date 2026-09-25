@@ -95,7 +95,7 @@ SRM_setEmulationFolder(){
 
 SRM_setEnv(){
 
-	setMSG 'Steam Rom Manager - Set enviroment'
+  setMSG 'Steam Rom Manager - Set enviroment'
   tmp=$(mktemp)
   jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
   "$SRM_userData_configDir/userSettings.json" > "$tmp"\
@@ -119,6 +119,22 @@ SRM_setEnv(){
   "$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
   && cat "$tmp" > "$HOME/.config/steam-rom-manager/userData/userSettings.json"
   rm -f "$tmp"
+  
+  if [ "$(getProductName)" == "frame" ]; then
+    tmp=$(mktemp)
+    jq -r --arg AUTOKILLSTEAM "false" '.autoKillSteam = "\($AUTOKILLSTEAM)"' \
+    "$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
+    && cat "$tmp" > "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+    rm -f "$tmp"
+    
+    tmp=$(mktemp)
+    jq -r --arg AUTOKILLSTEAM "false" '.autoRestartSteam = "\($AUTOKILLSTEAM)"' \
+    "$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
+    && cat "$tmp" > "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+    rm -f "$tmp"
+    
+    
+  fi
 
 }
 
