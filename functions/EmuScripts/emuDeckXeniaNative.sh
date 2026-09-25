@@ -1,26 +1,26 @@
 #!/usr/bin/env bash
 #variables
-Xenia_emuName="Xenia"
-Xenia_emuType="${emuDeckEmuTypeAppImage:-AppImage}"
+XeniaNative_emuName="Xenia"
+XeniaNative_emuType="${emuDeckEmuTypeAppImage:-AppImage}"
 
-Xenia_appImageName="xenia_canary_linux.AppImage"
-Xenia_applicationsPath="${applicationsPath:-$HOME/Applications}"
-Xenia_emuPath="${Xenia_applicationsPath}/${Xenia_appImageName}"
-Xenia_releaseRepository="xenia-canary/xenia-canary"
+XeniaNative_appImageName="XeniaNative_canary_linux.AppImage"
+XeniaNative_applicationsPath="${applicationsPath:-$HOME/Applications}"
+XeniaNative_emuPath="${XeniaNative_applicationsPath}/${XeniaNative_appImageName}"
+XeniaNative_releaseRepository="xenia-canary/xenia-canary"
 
-Xenia_dataPath="$HOME/.local/share/Xenia"
-Xenia_contentPath="${Xenia_dataPath}/content"
-Xenia_patchesPath="${Xenia_dataPath}/patches"
-Xenia_legacyPath="${romsPath}/xbox360"
+XeniaNative_dataPath="$HOME/.local/share/Xenia"
+XeniaNative_contentPath="${XeniaNative_dataPath}/content"
+XeniaNative_patchesPath="${XeniaNative_dataPath}/patches"
+XeniaNative_legacyPath="${romsPath}/xbox360"
 
-Xenia_XeniaSettings="${Xenia_dataPath}/xenia-canary.config.toml"
+XeniaNative_XeniaSettings="${XeniaNative_dataPath}/xenia-canary.config.toml"
 
 #cleanupOlderThings
-Xenia_cleanup(){
+XeniaNative_cleanup(){
 	echo "NYI"
 }
 
-Xenia_installLauncher(){
+XeniaNative_installLauncher(){
 	local launcherSource="$emudeckBackend/tools/launchers/xenia.sh"
 	local launcherTargets=(
 		"${toolsPath}/launchers/xenia.sh"
@@ -39,7 +39,7 @@ Xenia_installLauncher(){
 }
 
 #Install
-Xenia_install(){
+XeniaNative_install(){
 	local version
 	version=$1
 	local showProgress="$2"
@@ -47,10 +47,14 @@ Xenia_install(){
 
 	setMSG "Installing Xenia Canary"
 
-	mkdir -p "$Xenia_applicationsPath"
+	mkdir -p "$XeniaNative_applicationsPath"
 	mkdir -p "$romsPath/xbox360"
 
-	latestReleaseURL=$(getLatestReleaseURLGH "$Xenia_releaseRepository" ".AppImage" "linux" "xenia_canary")
+	if [ $CPUarch == "arm" ]; then
+		XeniaNative_releaseRepository="dragoonDorise/xenia-edge-arm"			
+	fi
+
+	latestReleaseURL=$(getLatestReleaseURLGH "$XeniaNative_releaseRepository" ".AppImage" "linux" "XeniaNative_canary")
 
 	if [[ -z "$latestReleaseURL" ]]; then
 		echo "Could not find latest Xenia Canary Linux AppImage release."
@@ -59,56 +63,57 @@ Xenia_install(){
 
 	echo "Downloading Xenia Canary from: $latestReleaseURL"
 
-	if safeDownload "$Xenia_emuName" "$latestReleaseURL" "$Xenia_emuPath" "$showProgress"; then
-		chmod +x "$Xenia_emuPath"
+	if safeDownload "$XeniaNative_emuName" "$latestReleaseURL" "$XeniaNative_emuPath" "$showProgress"; then
+		chmod +x "$XeniaNative_emuPath"
 	else
 		return 1
 	fi
 
-	Xenia_installLauncher
+	XeniaNative_installLauncher
 
-	rm -f "$HOME/.local/share/applications/xenia.desktop"
+	rm -f "$HOME/.local/share/applications/xeniaNative.desktop"
 
-	createDesktopShortcut   "$HOME/.local/share/applications/xenia.desktop" \
+	createDesktopShortcut   "$HOME/.local/share/applications/xeniaNative.desktop" \
 							"Xenia" \
-							"${toolsPath}/launchers/xenia.sh" \
+							"${toolsPath}/launchers/xeniaNative.sh" \
 							"False"
 
-	Xenia_flushEmulatorLauncher
-	Xenia_addESConfig
+	XeniaNative_flushEmulatorLauncher
+	XeniaNative_addESConfig
 	
 	#Migration
-	if [ ! -f "$Xenia_legacyPath/xenia.config.xml" ]; then
-		Xenia_migrate
+	if [ ! -f "$XeniaNative_legacyPath/xenia.config.xml" ]; then
+		XeniaNative_migrate
 	fi
 	
 }
 
 #ApplyInitialSettings
-Xenia_init(){
+XeniaNative_init(){
 	setMSG "Initializing Xenia Config"
 
-	mkdir -p "$Xenia_dataPath"
+	mkdir -p "$XeniaNative_dataPath"
 	mkdir -p "$romsPath/xbox360/xbla"
 	
-	cp "$emudeckBackend/configs/xenia/xenia-canary.config.toml" "$Xenia_dataPath/xenia-canary.config.toml"	
+	cp "$emudeckBackend/configs/xenia/xenia-canary.config.toml" "$XeniaNative_dataPath/xenia-canary.config.toml"	
 
-	Xenia_setNativeConfigDefaults
-	Xenia_setupSaves
-	Xenia_getPatches
-	Xenia_cleanESDE
-	Xenia_flushEmulatorLauncher
-	Xenia_addESConfig
+	XeniaNative_setNativeConfigDefaults
+	XeniaNative_setupSaves
+	XeniaNative_getPatches
+	XeniaNative_cleanESDE
+	XeniaNative_flushEmulatorLauncher
+	XeniaNative_addESConfig
+	XeniaNative_addParser
 }
 
-Xenia_setNativeConfigDefaults(){
-	if [ -f "$Xenia_XeniaSettings" ]; then
-		sed -i 's|^gpu = .*|gpu = "vulkan"|' "$Xenia_XeniaSettings"
-		sed -i 's|^fullscreen = .*|fullscreen = true|' "$Xenia_XeniaSettings"
+XeniaNative_setNativeConfigDefaults(){
+	if [ -f "$XeniaNative_XeniaSettings" ]; then
+		sed -i 's|^gpu = .*|gpu = "vulkan"|' "$XeniaNative_XeniaSettings"
+		sed -i 's|^fullscreen = .*|fullscreen = true|' "$XeniaNative_XeniaSettings"
 	fi
 }
 
-Xenia_addESConfig(){
+XeniaNative_addESConfig(){
 	[ -f "$es_systemsFile" ] || return 0
 	[ -f "$es_rulesFile" ] || return 0
 
@@ -127,23 +132,23 @@ Xenia_addESConfig(){
 	sed -i "/<\/ruleList>/i\\
     <emulator name=\"XENIA\">\\
         <rule type=\"staticpath\">\\
-            <entry>${toolsPath}/launchers/xenia.sh</entry>\\
+            <entry>${toolsPath}/launchers/xeniaNative.sh</entry>\\
         </rule>\\
     </emulator>
 	" "$es_rulesFile"
 }
 
-Xenia_getPatches() {
+XeniaNative_getPatches() {
 	local patches_url="https://github.com/xenia-canary/game-patches/archive/refs/heads/main.zip"
-	local zip="$Xenia_dataPath/game-patches.zip"
+	local zip="$XeniaNative_dataPath/game-patches.zip"
 
-	mkdir -p "$Xenia_patchesPath"
+	mkdir -p "$XeniaNative_patchesPath"
 
 	if curl -fL "$patches_url" -o "$zip" &>/dev/null; then
-		nice -n 5 unzip -uqo "$zip" -d "$Xenia_dataPath" &>/dev/null
+		nice -n 5 unzip -uqo "$zip" -d "$XeniaNative_dataPath" &>/dev/null
 		rm -f "$zip"
-		rsync -a --ignore-existing --remove-source-files "$Xenia_dataPath/game-patches-main/patches/" "$Xenia_patchesPath/" &> /dev/null
-		rm -rf "$Xenia_dataPath/game-patches-main"
+		rsync -a --ignore-existing --remove-source-files "$XeniaNative_dataPath/game-patches-main/patches/" "$XeniaNative_patchesPath/" &> /dev/null
+		rm -rf "$XeniaNative_dataPath/game-patches-main"
 		echo "Xenia patches updated."
 	else
 		echo "Xenia patches download failed." >&2
@@ -152,75 +157,75 @@ Xenia_getPatches() {
 }
 
 
-Xenia_cleanLegacyProtonInstall(){
+XeniaNative_cleanLegacyProtonInstall(){
 	setMSG "Cleaning old Xenia Proton files"
 
-	if [ -d "$Xenia_legacyPath" ]; then
-		find "$Xenia_legacyPath" -mindepth 1 \( -name roms -o -name content -o -name xbla \) -prune -o -exec rm -rf '{}' \; &> /dev/null
+	if [ -d "$XeniaNative_legacyPath" ]; then
+		find "$XeniaNative_legacyPath" -mindepth 1 \( -name roms -o -name content -o -name xbla \) -prune -o -exec rm -rf '{}' \; &> /dev/null
 	fi
 
 	rm -f "$romsPath/xbox360/xenia.sh" &> /dev/null
 }
 
 #update
-Xenia_update(){
+XeniaNative_update(){
 	echo "NYI"
-	Xenia_setupSaves
-	Xenia_flushEmulatorLauncher
+	XeniaNative_setupSaves
+	XeniaNative_flushEmulatorLauncher
 }
 
 #ConfigurePaths
-Xenia_setEmulationFolder(){
+XeniaNative_setEmulationFolder(){
 	echo "NYI"
 }
 
 #SetupSaves
-Xenia_setupSaves(){
-	mkdir -p "$Xenia_contentPath"
+XeniaNative_setupSaves(){
+	mkdir -p "$XeniaNative_contentPath"
 	unlink "$savesPath/xenia/saves"
-	linkToSaveFolder xenia saves "$Xenia_contentPath"
+	linkToSaveFolder xenia saves "$XeniaNative_contentPath"
 }
 
 #SetupStorage
-Xenia_setupStorage(){
+XeniaNative_setupStorage(){
 	echo "NYI"
 }
 
 #WipeSettings
-Xenia_wipeSettings(){
+XeniaNative_wipeSettings(){
 	echo "NYI"
 }
 
 #Uninstall
-Xenia_uninstall(){
-	setMSG "Uninstalling $Xenia_emuName. Saves and ROMs will be retained."
+XeniaNative_uninstall(){
+	setMSG "Uninstalling $XeniaNative_emuName. Saves and ROMs will be retained."
 
-	rm -f "$Xenia_emuPath" &> /dev/null
+	rm -f "$XeniaNative_emuPath" &> /dev/null
 	rm -f "$HOME/.local/share/applications/xenia.desktop" &> /dev/null
 	rm -f "${toolsPath}/launchers/xenia.sh" &> /dev/null
 	rm -f "$romsPath/emulators/xenia.sh" &> /dev/null
 	rm -f "$romsPath/xbox360/xenia.sh" &> /dev/null
 
-	if [ -d "$Xenia_dataPath" ]; then
-		find "$Xenia_dataPath" -mindepth 1 \( -name content \) -prune -o -exec rm -rf '{}' \; &> /dev/null
+	if [ -d "$XeniaNative_dataPath" ]; then
+		find "$XeniaNative_dataPath" -mindepth 1 \( -name content \) -prune -o -exec rm -rf '{}' \; &> /dev/null
 	fi
 }
 
 #setABXYstyle
-Xenia_setABXYstyle(){
+XeniaNative_setABXYstyle(){
 	echo "NYI"
 }
 
 #Migrate
-Xenia_migrate(){
+XeniaNative_migrate(){
 	#Check if the user has the linux port already installed to prevent overwriting it
-	if [ -d $Xenia_dataPath ]; then
+	if [ -d $XeniaNative_dataPath ]; then
 	
 		#Xenia Native is already installed, we have to ask the user about what to do with its current saves	
 		zenity --question --title "Xenia Native detected" --text "Xenia Native installation detected outside of EmuDeck. Do you want us to migrate your Xenia Proton saves from the EmuDeck installation? If you installed Xenia Native on your own those saves could be out of date" --cancel-label "Don't migrate saves" --ok-label "Migrate saves from EmuDeck's Xenia"
 		if [ $? = 0 ]; then
 			(			
-				mv "$HOME/.local/share/Xenia/content" "$HOME/.local/share/Xenia/content_backup" && Xenia_migrateFunctions
+				mv "$HOME/.local/share/Xenia/content" "$HOME/.local/share/Xenia/content_backup" && XeniaNative_migrateFunctions
 			) | zenity --progress \
 				--title="Migrating Xenia" \
 				--text="Please stand by..." \
@@ -231,15 +236,15 @@ Xenia_migrate(){
 			
 			zenity --info --width=400 --text="Xenia migration finished, we've kept a backup of your old saves in .local/share/Xenia/content_backup just in case"	
 		else
-			Xenia_migrateSRMparsers
-			Xenia_addESConfig		
-			Xenia_cleanLegacyProtonInstall
+			XeniaNative_migrateSRMparsers
+			XeniaNative_addESConfig		
+			XeniaNative_cleanLegacyProtonInstall
 			zenity --info --width=400 --text="Xenia migration finished, we've only deleted Xenia Proton files and updated SRM entries and ESDE's settings to use EmuDeck's AppImage location to ensure future updates. Your current saves and configurations were preserved. If you want to manually reset your settings please do so in Manage Emulators"		
 		fi
 		
 	else		
 		(			
-			Xenia_migrateFunctions
+			XeniaNative_migrateFunctions
 		) | zenity --progress \
 			--title="Migrating Xenia" \
 			--text="Please stand by..." \
@@ -253,29 +258,29 @@ Xenia_migrate(){
 	
 }
 
-Xenia_migrateFunctions(){
-	Xenia_init
-	Xenia_migrateLegacyData
-	Xenia_migrateLegacySaves
-	Xenia_migrateLegacySRMparsers
-	Xenia_cleanLegacyProtonInstall
-	Xenia_install
+XeniaNative_migrateFunctions(){
+	XeniaNative_init
+	XeniaNative_migrateLegacyData
+	XeniaNative_migrateLegacySaves
+	XeniaNative_migrateLegacySRMparsers
+	XeniaNative_cleanLegacyProtonInstall
+	XeniaNative_install
 }
 
 
-Xenia_migrateLegacyData(){
-	mkdir -p "$Xenia_dataPath"
+XeniaNative_migrateLegacyData(){
+	mkdir -p "$XeniaNative_dataPath"
 
-	cp "$Xenia_legacyPath/xenia.config.toml" "$Xenia_dataPath/xenia.config.toml.legacy"	
-	cp "$Xenia_legacyPath/xenia-canary.config.toml" "$Xenia_dataPath/xenia-canary.config.toml.legacy"
+	cp "$XeniaNative_legacyPath/xenia.config.toml" "$XeniaNative_dataPath/xenia.config.toml.legacy"	
+	cp "$XeniaNative_legacyPath/xenia-canary.config.toml" "$XeniaNative_dataPath/xenia-canary.config.toml.legacy"
 	
-	if [ -d "$Xenia_legacyPath/patches" ]; then
-		mkdir -p "$Xenia_patchesPath"
-		rsync -a --remove-source-files "$Xenia_legacyPath/patches/" "$Xenia_patchesPath/" &> /dev/null
+	if [ -d "$XeniaNative_legacyPath/patches" ]; then
+		mkdir -p "$XeniaNative_patchesPath"
+		rsync -a --remove-source-files "$XeniaNative_legacyPath/patches/" "$XeniaNative_patchesPath/" &> /dev/null
 	fi	
 }
 
-Xenia_migrateLegacySRMparsers(){
+XeniaNative_migrateLegacySRMparsers(){
 	#SRM parsers
 	local old_path="Z:$romsPath/xbox360"
 	local new_path="$romsPath/xbox360"
@@ -284,60 +289,60 @@ Xenia_migrateLegacySRMparsers(){
 	SRM_addExtraParsers	
 }
 
-Xenia_migrateLegacySaves(){
+XeniaNative_migrateLegacySaves(){
 	local legacyContentPath="$romsPath/xbox360/content"
 
 	if [ -d "$legacyContentPath" ]; then
-		mkdir -p "$Xenia_contentPath"
-		rsync -a --remove-source-files "$legacyContentPath/" "$Xenia_contentPath/" &> /dev/null
+		mkdir -p "$XeniaNative_contentPath"
+		rsync -a --remove-source-files "$legacyContentPath/" "$XeniaNative_contentPath/" &> /dev/null
 	fi
 }
 
 
 #WideScreenOn
-Xenia_wideScreenOn(){
+XeniaNative_wideScreenOn(){
 	echo "NYI"
 }
 
 #WideScreenOff
-Xenia_wideScreenOff(){
+XeniaNative_wideScreenOff(){
 	echo "NYI"
 }
 
 #BezelOn
-Xenia_bezelOn(){
+XeniaNative_bezelOn(){
 	echo "NYI"
 }
 
 #BezelOff
-Xenia_bezelOff(){
+XeniaNative_bezelOff(){
 	echo "NYI"
 }
 
 #finalExec - Extra stuff
-Xenia_finalize(){
-	Xenia_cleanup
+XeniaNative_finalize(){
+	XeniaNative_cleanup
 }
 
-Xenia_IsInstalled(){
-	if [ -e "$Xenia_emuPath" ]; then
+XeniaNative_IsInstalled(){
+	if [ -e "$XeniaNative_emuPath" ]; then
 		echo "true"
 	else
 		echo "false"
 	fi
 }
 
-Xenia_resetConfig(){
-	mv "$Xenia_XeniaSettings" "$Xenia_XeniaSettings.bak" &> /dev/null
-	Xenia_init &> /dev/null && echo "true" || echo "false"
+XeniaNative_resetConfig(){
+	mv "$XeniaNative_XeniaSettings" "$XeniaNative_XeniaSettings.bak" &> /dev/null
+	XeniaNative_init &> /dev/null && echo "true" || echo "false"
 }
 
-Xenia_setResolution(){
+XeniaNative_setResolution(){
 	$xeniaResolution
 	echo "NYI"
 }
 
-Xenia_cleanESDE(){
+XeniaNative_cleanESDE(){
 
 	if [ -d "${romsPath}/xbox360/.git" ]; then
 		rm -rf "${romsPath}/xbox360/.git"
@@ -348,6 +353,11 @@ Xenia_cleanESDE(){
 	fi
 }
 
-Xenia_flushEmulatorLauncher(){
+XeniaNative_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "xenia"
+}
+
+XeniaNative_addParser(){
+	addParser "microsoft_xbox360_iso_xenia.json"
+	addParser "microsoft_xbox360_xbla_xenia.json"
 }

@@ -98,6 +98,7 @@ source "$emudeckBackend"/functions/EmuScripts/emuDeckPPSSPP.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckDuckStation.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckXemu.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckXenia.sh
+source "$emudeckBackend"/functions/EmuScripts/emuDeckXeniaNative.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckPCSX2QT.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckMAME.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckScummVM.sh

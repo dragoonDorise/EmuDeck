@@ -72,6 +72,7 @@ Xenia_init(){
 	Xenia_cleanESDE
 	Xenia_flushEmulatorLauncher
 	addProtonLaunch
+	Xenia_addParser
 
 	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		Xenia_addESConfig
@@ -236,3 +237,8 @@ Xenia_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "xenia"
 }
 
+
+Xenia_addParser(){
+	addParser "microsoft_xbox360_iso_xenia_proton.json"
+	addParser "microsoft_xbox360_xbla_xenia_proton.json"	
+}

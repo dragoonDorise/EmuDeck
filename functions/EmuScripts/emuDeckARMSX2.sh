@@ -50,6 +50,7 @@ ARMSX2_init() {
 	#SRM_createParsers
 	ARMSX2_flushEmulatorLauncher
 	ARMSX2_addParser
+	ARMSX2_addESConfig
 	linkToStorageFolder pcsx2 cheats "$HOME/.config/ARMSX2/cheats"
 
 }
@@ -357,4 +358,30 @@ ARMSX2_flushEmulatorLauncher(){
 
 	flushEmulatorLaunchers "pcsx2-qt"
 
+}
+
+
+ARMSX2_addESConfig(){
+	[ -f "$es_systemsFile" ] || return 0
+	[ -f "$es_rulesFile" ] || return 0
+
+	sed -i '/<name>ps2<\/name>/,/<\/system>/ {
+		/<command label="ARMSX2">/d
+		/<command label="ARMSX2">/d
+	}' "$es_systemsFile"
+
+	sed -i '/<name>ps2<\/name>/,/<\/system>/ {
+		/<extension>/a\
+	<command label="ARMSX2">%EMULATOR_ARMSX2% -batch -fullscreen -nogui %ROM%</command>
+	}' "$es_systemsFile"
+
+	sed -i '/<emulator name="ARMSX2">/,/<\/emulator>/d' "$es_rulesFile"
+
+	sed -i "/<\/ruleList>/i\\
+	<emulator name=\"ARMSX2\">\\
+		<rule type=\"staticpath\">\\
+			<entry>${toolsPath}/launchers/xeniaNative.sh</entry>\\
+		</rule>\\
+	</emulator>
+	" "$es_rulesFile"
 }
