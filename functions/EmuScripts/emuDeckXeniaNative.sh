@@ -3,17 +3,17 @@
 XeniaNative_emuName="Xenia"
 XeniaNative_emuType="${emuDeckEmuTypeAppImage:-AppImage}"
 
-XeniaNative_appImageName="XeniaNative_canary_linux.AppImage"
+XeniaNative_appImageName="Xenia.AppImage"
 XeniaNative_applicationsPath="${applicationsPath:-$HOME/Applications}"
 XeniaNative_emuPath="${XeniaNative_applicationsPath}/${XeniaNative_appImageName}"
-XeniaNative_releaseRepository="xenia-canary/xenia-canary"
+XeniaNative_releaseRepository="has207/xenia-edge"
 
 XeniaNative_dataPath="$HOME/.local/share/Xenia"
 XeniaNative_contentPath="${XeniaNative_dataPath}/content"
 XeniaNative_patchesPath="${XeniaNative_dataPath}/patches"
 XeniaNative_legacyPath="${romsPath}/xbox360"
 
-XeniaNative_XeniaSettings="${XeniaNative_dataPath}/xenia-canary.config.toml"
+XeniaNative_XeniaSettings="${XeniaNative_dataPath}/xenia-edge.config.toml"
 
 #cleanupOlderThings
 XeniaNative_cleanup(){
@@ -21,10 +21,10 @@ XeniaNative_cleanup(){
 }
 
 XeniaNative_installLauncher(){
-	local launcherSource="$emudeckBackend/tools/launchers/xenia.sh"
+	local launcherSource="$emudeckBackend/tools/launchers/xeniaNative.sh"
 	local launcherTargets=(
-		"${toolsPath}/launchers/xenia.sh"
-		"$romsPath/emulators/xenia.sh"
+		"${toolsPath}/launchers/xeniaNative.sh"
+		"$romsPath/emulators/xeniaNative.sh"
 	)
 
 	mkdir -p "${toolsPath}/launchers"
@@ -35,7 +35,7 @@ XeniaNative_installLauncher(){
 		chmod +x "$launcherTarget"
 	done
 
-	rm -f "$romsPath/xbox360/xenia.sh"
+	rm -f "$romsPath/xbox360/xeniaNative.sh"
 }
 
 #Install
@@ -95,7 +95,7 @@ XeniaNative_init(){
 	mkdir -p "$XeniaNative_dataPath"
 	mkdir -p "$romsPath/xbox360/xbla"
 	
-	cp "$emudeckBackend/configs/xenia/xenia-canary.config.toml" "$XeniaNative_dataPath/xenia-canary.config.toml"	
+	cp "$emudeckBackend/configs/xenia/xenia-edge.config.toml" "$XeniaNative_dataPath/xenia-edge.config.toml"	
 
 	XeniaNative_setNativeConfigDefaults
 	XeniaNative_setupSaves
@@ -272,7 +272,7 @@ XeniaNative_migrateLegacyData(){
 	mkdir -p "$XeniaNative_dataPath"
 
 	cp "$XeniaNative_legacyPath/xenia.config.toml" "$XeniaNative_dataPath/xenia.config.toml.legacy"	
-	cp "$XeniaNative_legacyPath/xenia-canary.config.toml" "$XeniaNative_dataPath/xenia-canary.config.toml.legacy"
+	cp "$XeniaNative_legacyPath/xenia-edge.config.toml" "$XeniaNative_dataPath/xenia-edge.config.toml.legacy"
 	
 	if [ -d "$XeniaNative_legacyPath/patches" ]; then
 		mkdir -p "$XeniaNative_patchesPath"
