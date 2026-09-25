@@ -110,7 +110,8 @@ source "$emudeckBackend"/functions/EmuScripts/emuDeckares.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckFlycast.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckSupermodel.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckModel2.sh
-
+#arm
+source "$emudeckBackend"/functions/EmuScripts/emuDeckARMSX2.sh
 
 # Generic Application scripts
 source "$emudeckBackend"/functions/GenericApplicationsScripts/genericApplicationBottles.sh
