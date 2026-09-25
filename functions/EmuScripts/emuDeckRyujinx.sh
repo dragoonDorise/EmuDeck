@@ -52,10 +52,10 @@ Ryujinx_install(){
     local url
 
     if [ $CPUarch == "arm" ]; then
-        url="https://codeberg.org/dragoonDorise/test/releases/download/test/linux_arm64.tar.gz"
+        url="https://codeberg.org/attachments/5c65822a-f311-42cc-8304-6300009097fa"
         #url=$(curl -s -H "User-Agent: EmuDeck" "https://git.ryujinx.app/api/v1/repos/Ryubing/Canary/releases/latest" | jq -r '.assets[] | select(.browser_download_url | test("linux_arm64\\.tar\\.gz$")) | .browser_download_url' | head -n 1)
     else
-        url="https://codeberg.org/dragoonDorise/test/releases/download/test/linux_x64.tar.gz"
+        url="https://codeberg.org/attachments/b57a33b2-ccf7-4e0d-b434-126de0601602"
         #url=$(curl -s -H "User-Agent: EmuDeck" "https://git.ryujinx.app/api/v1/repos/Ryubing/Canary/releases/latest" | jq -r '.assets[] | select(.browser_download_url | test("linux_x64\\.tar\\.gz$")) | .browser_download_url' | head -n 1)
     fi
 
