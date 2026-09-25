@@ -99,7 +99,11 @@ function getSDPath() {
 }
 
 function getProductName(){
-	cat /sys/devices/virtual/dmi/id/product_name
+	if [ -f /sys/devices/virtual/dmi/id/product_name ]; then
+		cat /sys/devices/virtual/dmi/id/product_name
+	else
+		printf $(hostname)
+	fi
 }
 
 function testRealDeck(){
@@ -1354,12 +1358,16 @@ function add_to_steam(){
 		return 1
 	fi
 
-	local steam_pid
-	steam_pid=$(pidof steam)
-	if [ -n "$steam_pid" ]; then
-		echo "Steam is running. Sending SIGTERM..."
-		kill -15 "$steam_pid"
-		echo "Señal SIGTERM env"
+	if [ "$(getProductName)" != "frame" ]; then
+		local steam_pid
+		steam_pid=$(pidof steam)
+		if [ -n "$steam_pid" ]; then
+			echo "Steam is running. Sending SIGTERM..."
+			kill -15 "$steam_pid"
+			echo "Señal SIGTERM env"
+		fi
+	else
+		echo "frame, so no restart"
 	fi
 
 	"$venv_python" "$add_script" \
