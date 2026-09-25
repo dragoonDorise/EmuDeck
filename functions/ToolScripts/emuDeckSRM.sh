@@ -122,13 +122,13 @@ SRM_setEnv(){
   
   if [ "$(getProductName)" == "frame" ]; then
     tmp=$(mktemp)
-    jq -r --arg AUTOKILLSTEAM "false" '.autoKillSteam = "\($AUTOKILLSTEAM)"' \
+    jq -r --arg AUTOKILLSTEAM false '.autoKillSteam = "\($AUTOKILLSTEAM)"' \
     "$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
     && cat "$tmp" > "$HOME/.config/steam-rom-manager/userData/userSettings.json"
     rm -f "$tmp"
     
     tmp=$(mktemp)
-    jq -r --arg AUTOKILLSTEAM "false" '.autoRestartSteam = "\($AUTOKILLSTEAM)"' \
+    jq -r --arg AUTORESTARTSTEAM false '.autoRestartSteam = "\(AUTORESTARTSTEAM)"' \
     "$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
     && cat "$tmp" > "$HOME/.config/steam-rom-manager/userData/userSettings.json"
     rm -f "$tmp"
