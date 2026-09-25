@@ -51,7 +51,7 @@ XeniaNative_install(){
 	mkdir -p "$romsPath/xbox360"
 
 	if [ $CPUarch == "arm" ]; then
-		latestReleaseURL=$(getLatestReleaseURLGH "$XeniaNative_releaseRepository" ".AppImage" "edge" "xenia")
+		latestReleaseURL=$(getLatestReleaseURLGH "dragoonDorise/xenia-edge-arm" ".AppImage" "edge" "xenia")
 	else
 		latestReleaseURL=$(getLatestReleaseURLGH "$XeniaNative_releaseRepository" ".AppImage" "linux" "Xenia_canary")
 	fi
