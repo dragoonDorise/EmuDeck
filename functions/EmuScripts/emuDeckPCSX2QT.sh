@@ -19,7 +19,7 @@ PCSX2QT_install() {
 	
 	
 	if [ $CPUarch == "arm" ]; then
-		url=$(getReleaseURLGH "dragoonDorise/pcsx2" "AppImage" "aarch64")
+		return 0
 	else
 		url=$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage" "")
 	fi
