@@ -5,7 +5,7 @@ git pull
 launcherInit
 emulatorInit "xenia"
 
-XENIA="$HOME/Applications/xenia_canary_linux.AppImage"
+XENIA="$HOME/Applications/Xenia.AppImage"
 
 "$XENIA" "${@}"
 

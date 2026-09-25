@@ -21,10 +21,10 @@ XeniaNative_cleanup(){
 }
 
 XeniaNative_installLauncher(){
-	local launcherSource="$emudeckBackend/tools/launchers/xeniaNative.sh"
+	local launcherSource="$emudeckBackend/tools/launchers/xenia-emu.sh"
 	local launcherTargets=(
-		"${toolsPath}/launchers/xeniaNative.sh"
-		"$romsPath/emulators/xeniaNative.sh"
+		"${toolsPath}/launchers/xenia-emu.sh"
+		"$romsPath/emulators/xenia-emu.sh"
 	)
 
 	mkdir -p "${toolsPath}/launchers"
@@ -35,7 +35,7 @@ XeniaNative_installLauncher(){
 		chmod +x "$launcherTarget"
 	done
 
-	rm -f "$romsPath/xbox360/xeniaNative.sh"
+	rm -f "$romsPath/xbox360/xenia-emu.sh"
 }
 
 #Install
@@ -71,11 +71,11 @@ XeniaNative_install(){
 
 	XeniaNative_installLauncher
 
-	rm -f "$HOME/.local/share/applications/xeniaNative.desktop"
+	rm -f "$HOME/.local/share/applications/xenia-emu.desktop"
 
-	createDesktopShortcut   "$HOME/.local/share/applications/xeniaNative.desktop" \
+	createDesktopShortcut   "$HOME/.local/share/applications/xenia-emu.desktop" \
 							"Xenia" \
-							"${toolsPath}/launchers/xeniaNative.sh" \
+							"${toolsPath}/launchers/xenia-emu.sh" \
 							"False"
 
 	XeniaNative_flushEmulatorLauncher
@@ -132,7 +132,7 @@ XeniaNative_addESConfig(){
 	sed -i "/<\/ruleList>/i\\
     <emulator name=\"XENIA\">\\
         <rule type=\"staticpath\">\\
-            <entry>${toolsPath}/launchers/xeniaNative.sh</entry>\\
+            <entry>${toolsPath}/launchers/xenia-emu.sh</entry>\\
         </rule>\\
     </emulator>
 	" "$es_rulesFile"
@@ -164,7 +164,7 @@ XeniaNative_cleanLegacyProtonInstall(){
 		find "$XeniaNative_legacyPath" -mindepth 1 \( -name roms -o -name content -o -name xbla \) -prune -o -exec rm -rf '{}' \; &> /dev/null
 	fi
 
-	rm -f "$romsPath/xbox360/xenia.sh" &> /dev/null
+	rm -f "$romsPath/xbox360/xenia-emu.sh" &> /dev/null
 }
 
 #update
@@ -202,9 +202,9 @@ XeniaNative_uninstall(){
 
 	rm -f "$XeniaNative_emuPath" &> /dev/null
 	rm -f "$HOME/.local/share/applications/xenia.desktop" &> /dev/null
-	rm -f "${toolsPath}/launchers/xenia.sh" &> /dev/null
-	rm -f "$romsPath/emulators/xenia.sh" &> /dev/null
-	rm -f "$romsPath/xbox360/xenia.sh" &> /dev/null
+	rm -f "${toolsPath}/launchers/xenia-emu.sh" &> /dev/null
+	rm -f "$romsPath/emulators/xenia-emu.sh" &> /dev/null
+	rm -f "$romsPath/xbox360/xenia-emu.sh" &> /dev/null
 
 	if [ -d "$XeniaNative_dataPath" ]; then
 		find "$XeniaNative_dataPath" -mindepth 1 \( -name content \) -prune -o -exec rm -rf '{}' \; &> /dev/null
