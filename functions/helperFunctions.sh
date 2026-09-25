@@ -99,7 +99,11 @@ function getSDPath() {
 }
 
 function getProductName(){
-	cat /sys/devices/virtual/dmi/id/product_name
+	if [ -f /sys/devices/virtual/dmi/id/product_name ]; then
+		cat /sys/devices/virtual/dmi/id/product_name
+	else
+		printf $(hostname)
+	fi
 }
 
 function testRealDeck(){
@@ -1119,6 +1123,10 @@ function emulatorInit(){
 	local emuNameLower="${emuName,,}"
 	#isLatestVersionGH "$emuName"
 	
+	#Check if the emu is already installed or if we need to install it
+	emulatorCheckAndInstall "$emuNameLower"
+	
+	
 	if [ -z $args ];then 
 		case "$emuNameLower" in
 			ryujinx) autoMapEmulatorStatus="$autoMapSwitch" ;;
@@ -1199,22 +1207,59 @@ function emulatorInit(){
 
 }
 
+
+
+function findEmuPrefix(){
+	local emuName=$1
+	local functionToFind="${2:-_IsInstalled}"
+
+	local fn candidate prefix match=""
+	local emuNameLower
+	emuNameLower=$(printf '%s' "$emuName" | tr -cd '[:alnum:]' | tr '[:upper:]' '[:lower:]')
+
+	for fn in $(compgen -A function); do
+		[[ "$fn" == *"$functionToFind" ]] || continue
+		prefix="${fn%$functionToFind}"
+		candidate=$(printf '%s' "$prefix" | tr -cd '[:alnum:]' | tr '[:upper:]' '[:lower:]')
+		if [ "$candidate" = "$emuNameLower" ]; then
+			match="$prefix"
+			break
+		fi
+	done
+
+	echo "$match"
+}
+
 function emulatorLaunchFixes(){
 	local emuName=$1
 	[ -n "$emuName" ] || return 0
 
-	local emuNameLower
-	emuNameLower=$(printf '%s' "$emuName" | tr '[:upper:]' '[:lower:]')
+	local prefix
+	prefix=$(findEmuPrefix "$emuName" "_launch_fixes")
+	[ -n "$prefix" ] || return 0
 
-	local fixesFn
-	for fixesFn in "${emuName}_launch_fixes" "${emuNameLower}_launch_fixes"; do
-		if declare -F "$fixesFn" >/dev/null 2>&1; then
-			echo "Applying launch fixes: $fixesFn"
-			"$fixesFn" || echo "$fixesFn failed, continuing launch"
-			return 0
-		fi
-	done
+	local fixesFn="${prefix}_launch_fixes"
+	echo "Applying launch fixes: $fixesFn"
+	"$fixesFn" || echo "$fixesFn failed, continuing launch"
 }
+
+function emulatorCheckAndInstall(){
+	local emuName=$1
+	local prefix
+	prefix=$(findEmuPrefix "$emuName")
+	[ -n "$prefix" ] || return 0
+	declare -F "${prefix}_install" >/dev/null 2>&1 || return 0
+	declare -F "${prefix}_init" >/dev/null 2>&1 || return 0
+
+	if [ "$("${prefix}_IsInstalled")" != "true" ]; then
+		echo "$prefix is not installed, installing"
+		"${prefix}_install" && "${prefix}_init"
+	else
+		echo "$prefix is installed"
+	fi
+}
+
+
 
 
 function storePatreonToken(){
@@ -1313,12 +1358,16 @@ function add_to_steam(){
 		return 1
 	fi
 
-	local steam_pid
-	steam_pid=$(pidof steam)
-	if [ -n "$steam_pid" ]; then
-		echo "Steam is running. Sending SIGTERM..."
-		kill -15 "$steam_pid"
-		echo "Señal SIGTERM env"
+	if [ "$(getProductName)" != "frame" ]; then
+		local steam_pid
+		steam_pid=$(pidof steam)
+		if [ -n "$steam_pid" ]; then
+			echo "Steam is running. Sending SIGTERM..."
+			kill -15 "$steam_pid"
+			echo "Señal SIGTERM env"
+		fi
+	else
+		echo "frame, so no restart"
 	fi
 
 	"$venv_python" "$add_script" \

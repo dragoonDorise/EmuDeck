@@ -292,7 +292,7 @@ Dolphin_setGamepads(){
 	' >/dev/null 2>&1
 }
 
-dolphin_launch_fixes(){
+Dolphin_launch_fixes(){
 	Dolphin_setGamepads
 }
 

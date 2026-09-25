@@ -559,7 +559,7 @@ ESDE_ensurePS3Emulators(){
 	PS3_ROMS_DIR="$ps3Roms" PS3_GAMELIST="$gamelist" python3 "$emudeckBackend/tools/esdePS3Emulators.py" >/dev/null 2>&1
 }
 
-esde_launch_fixes(){
+ESDE_launch_fixes(){
 	ESDE_ensureRyujinxFindRule
 	ESDE_ensureDolphinFindRule
 	ESDE_ensureCemuFindRule
