@@ -49,9 +49,13 @@ ARMSX2_init() {
 	ARMSX2_setResolution
 	#SRM_createParsers
 	ARMSX2_flushEmulatorLauncher
-
+	ARMSX2_addParser
 	linkToStorageFolder pcsx2 cheats "$HOME/.config/ARMSX2/cheats"
 
+}
+
+ARMSX2_addParser(){
+	addParser "sony_ps2_armsx2.json"
 }
 
 #update

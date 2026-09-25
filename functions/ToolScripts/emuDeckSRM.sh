@@ -256,6 +256,7 @@ SRM_deleteCache(){
 
 SRM_addExtraParsers(){
   rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  
   for install_command in \
   "BigPEmu_IsInstalled BigPEmu_addParser" \
   "Flycast_IsInstalled Flycast_addParser" \
@@ -265,6 +266,8 @@ SRM_addExtraParsers(){
   "melonDS_IsInstalled melonDS_addParser" \
   "RMG_IsInstalled RMG_addParser" \
   "Citron_IsInstalled Citron_addParser" \
+  "ARMSX2_IsInstalled ARMSX2_addParser" \
+  "PCSX2QT_IsInstalled PCSX2QT_addParser" \
   "Yuzu_IsInstalled Yuzu_addParser"; do
 
   condition=$($install_command | awk '{print $1}')

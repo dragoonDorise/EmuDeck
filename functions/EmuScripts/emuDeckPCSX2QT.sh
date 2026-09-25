@@ -57,9 +57,13 @@ PCSX2QT_init() {
 	PCSX2QT_setResolution
 	#SRM_createParsers
 	PCSX2QT_flushEmulatorLauncher
-
+	PCSX2QT_addParser
 	linkToStorageFolder pcsx2 cheats "$HOME/.config/PCSX2/cheats"
 
+}
+
+ARMSX2_addParser(){
+	addParser "sony_ps2_pcsx2.json"
 }
 
 #update
