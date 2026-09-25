@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #variables
-ARMSX2_emuName="ARMX2"
+ARMSX2_emuName="ARMSX2"
 ARMSX2_emuType="$emuDeckEmuTypeAppImage"
-ARMSX2_emuPath="$emusFolder/armx2.AppImage"
-ARMSX2_configFile="$HOME/.config/ARMX2/inis/PCSX2.ini"
+ARMSX2_emuPath="$emusFolder/armsx2.AppImage"
+ARMSX2_configFile="$HOME/.config/ARMSX2/inis/PCSX2.ini"
 
 #cleanupOlderThings
 ARMSX2_cleanup() {
@@ -15,12 +15,13 @@ ARMSX2_install() {
 	echo "Begin ARMSX2 Install"
 	local showProgress="$1"
 
-
-
+	#if installEmuAI "${ARMSX2_emuName}" "https://github.com/PCSX2/pcsx2/releases/download/v1.7.4749/pcsx2-v1.7.4749-linux-appimage-x64-Qt.AppImage" "pcsx2-Qt" "$showProgress"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
+	
+	
 	if [ $CPUarch == "arm" ]; then
 		url=$(getReleaseURLGH "ARMSX2/ARMSX2" "AppImage" "4K-pages")
 	else
-		return 1
+		return 0
 	fi
 	
 	installEmuAI "${ARMSX2_emuName}" "" "$url" "armsx2" "" "emulator" "$showProgress"
@@ -36,7 +37,7 @@ ARMSX2_init() {
 
 	if ! "$ARMSX2_emuPath" -testconfig; then # try to generate the config file. if it fails, insert one as a fallback.
 		#fallback
-		configEmuAI "$ARMSX2_emuName" "config" "$HOME/.config/ARMSX2" "$emudeckBackend/configs/armsx2" "true"
+		configEmuAI "$ARMSX2_emuName" "config" "$HOME/.config/ARMSX2" "$emudeckBackend/configs/armsx2/.config/ARMSX2" "true"
 	fi
 
 	ARMSX2_setEmulationFolder
@@ -49,14 +50,14 @@ ARMSX2_init() {
 	#SRM_createParsers
 	ARMSX2_flushEmulatorLauncher
 
-	linkToStorageFolder armsx2 cheats "$HOME/.config/ARMSX2/cheats"
+	linkToStorageFolder pcsx2 cheats "$HOME/.config/ARMSX2/cheats"
 
 }
 
 #update
 ARMSX2_update() {
 	setMSG "Updating $ARMSX2_emuName settings."
-	configEmuAI "$ARMSX2_emuName" "config" "$HOME/.config/ARMSX2" "$emudeckBackend/configs/armsx2"
+	configEmuAI "$ARMSX2_emuName" "config" "$HOME/.config/ARMSX2" "$emudeckBackend/configs/armsx2/.config/ARMSX2"
 	ARMSX2_setEmulationFolder
 	ARMSX2_setupStorage
 	ARMSX2_setupSaves
@@ -70,7 +71,7 @@ ARMSX2_setEmulationFolder() {
 	setMSG "Setting $ARMSX2_emuName Emulation Folder"
 
 	iniFieldUpdate "$ARMSX2_configFile" "UI" "ConfirmShutdown" "false"
- 	iniFieldUpdate "$ARMSX2_configFile" "UI" "SetupWizardIncomplete" "false"
+	 iniFieldUpdate "$ARMSX2_configFile" "UI" "SetupWizardIncomplete" "false"
 	iniFieldUpdate "$ARMSX2_configFile" "UI" "StartFullscreen" "true"
 	iniFieldUpdate "$ARMSX2_configFile" "Folders" "Bios" "${biosPath}"
 	iniFieldUpdate "$ARMSX2_configFile" "Folders" "Snapshots" "${storagePath}/armsx2/snaps"
@@ -87,9 +88,9 @@ ARMSX2_setEmulationFolder() {
 #SetupSaves
 ARMSX2_setupSaves() {
 	#link fp and ap saves / states?
-	return 0
-	#moveSaveFolder pcsx2 saves "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/memcards"
-	#moveSaveFolder pcsx2 states "$HOME/.var/app/net.pcsx2.PCSX2/config/PCSX2/sstates"
+	echo "NYI"
+	#moveSaveFolder pcsx2 saves "$HOME/.var/app/net.pcsx2.PCSX2/config/ARMSX2/memcards"
+	#moveSaveFolder pcsx2 states "$HOME/.var/app/net.pcsx2.PCSX2/config/ARMSX2/sstates"
 }
 
 ARMSX2_setupControllers() {
@@ -350,6 +351,6 @@ ARMSX2_setResolution(){
 ARMSX2_flushEmulatorLauncher(){
 
 
-	flushEmulatorLaunchers "armsx2"
+	flushEmulatorLaunchers "pcsx2-qt"
 
 }
