@@ -16,7 +16,7 @@ Azahar_install(){
 	if [ $CPUarch == "arm" ]; then
 		url=$(getReleaseURLGH "dragoonDorise/azahar" "AppImage" "arm64.")
 	else
-		url=$(getReleaseURLGH "stenzek/duckstation" "AppImage" "")
+		url=$(getReleaseURLGH "azahar-emu/azahar" "AppImage" "")
 	fi
 
 	if installEmuAI "$Azahar_emuName" "" "$url" "azahar" "AppImage" "emulator" "$showProgress"; then
