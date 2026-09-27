@@ -667,9 +667,14 @@ function createDesktopShortcut(){
 		terminal="False"
 	fi
 
+	local label="$name"
+	if [[ "$label" != *EmuDeck* ]]; then
+		label="$name EmuDeck"
+	fi
+
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
-	Name=$name
+	Name=$label
 	Exec=$exec
 	Icon=$icon
 	Terminal=$terminal
