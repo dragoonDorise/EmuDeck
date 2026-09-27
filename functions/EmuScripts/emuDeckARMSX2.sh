@@ -385,3 +385,8 @@ ARMSX2_addESConfig(){
 	</emulator>
 	" "$es_rulesFile"
 }
+
+ARMSX2_addToSteam(){
+	setMSG "Adding BigPEmu to Steam"
+	add_to_steam "armsx2" "ARMSX2" "$toolsPath/launchers/armsx2.sh" "$HOME/Applications/" "$emudeckBackend/icons/armsx2.png" "Emulation"
+}

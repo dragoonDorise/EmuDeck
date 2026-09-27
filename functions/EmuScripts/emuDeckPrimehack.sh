@@ -150,3 +150,8 @@ Primehack_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "primehack"
 
 }
+
+Primehack_addToSteam(){
+	setMSG "Adding PrimeHack to Steam"
+	add_to_steam "primehack" "PrimeHack" "$toolsPath/launchers/primehack.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/primehack.ico" "Emulation"
+}

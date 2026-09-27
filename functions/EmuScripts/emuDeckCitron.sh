@@ -344,3 +344,8 @@ Citron_addESConfig(){
 Citron_addParser(){
   addParser "nintendo_switch_citron.json"
 }
+
+Citron_addToSteam(){
+	setMSG "Adding Citron to Steam"
+	add_to_steam "citron" "Citron" "$toolsPath/launchers/citron.sh" "$HOME/Applications/" "$emudeckBackend/icons/Citron.png" "Emulation"
+}

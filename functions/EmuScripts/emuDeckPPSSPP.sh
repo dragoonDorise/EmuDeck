@@ -213,3 +213,8 @@ PPSSPP_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "ppsspp"
 
 }
+
+PPSSPP_addToSteam(){
+	setMSG "Adding PPSSPP to Steam"
+	add_to_steam "ppsspp" "PPSSPP" "$toolsPath/launchers/ppsspp.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/PPSSPP.ico" "Emulation"
+}

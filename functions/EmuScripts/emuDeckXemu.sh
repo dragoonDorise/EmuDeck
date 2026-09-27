@@ -227,3 +227,8 @@ Xemu_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "xemu-emu"
 
 }
+
+Xemu_addToSteam(){
+	setMSG "Adding xemu to Steam"
+	add_to_steam "xemu" "xemu" "$toolsPath/launchers/xemu-emu.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/xemu.ico" "Emulation"
+}

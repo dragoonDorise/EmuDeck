@@ -2628,3 +2628,8 @@ RetroArch_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "retroarch"
 
 }
+
+RetroArch_addToSteam(){
+	setMSG "Adding RetroArch to Steam"
+	add_to_steam "retroarch" "RetroArch" "$toolsPath/launchers/retroarch.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/retroarch.ico" "Emulation"
+}

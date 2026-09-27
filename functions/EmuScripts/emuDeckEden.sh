@@ -350,3 +350,8 @@ Eden_addESConfig(){
 Eden_addParser(){
   addParser "nintendo_switch_eden.json"
 }
+
+Eden_addToSteam(){
+	setMSG "Adding Eden to Steam"
+	add_to_steam "eden" "Eden" "$toolsPath/launchers/eden.sh" "$HOME/Applications/" "$emudeckBackend/icons/eden.png" "Emulation"
+}

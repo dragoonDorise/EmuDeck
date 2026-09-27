@@ -344,3 +344,8 @@ RPCS3_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "rpcs3"
 
 }
+
+RPCS3_addToSteam(){
+	setMSG "Adding RPCS3 to Steam"
+	add_to_steam "rpcs3" "RPCS3" "$toolsPath/launchers/rpcs3.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/rpcs3.ico" "Emulation"
+}

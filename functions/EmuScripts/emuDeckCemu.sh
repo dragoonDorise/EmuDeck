@@ -519,3 +519,8 @@ Cemu_launch_fixes(){
 }
 
 
+
+Cemu_addToSteam(){
+	setMSG "Adding Cemu to Steam"
+	add_to_steam "cemu" "Cemu" "$toolsPath/launchers/cemu.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/cemu.ico" "Emulation"
+}

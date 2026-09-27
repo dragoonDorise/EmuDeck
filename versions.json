@@ -7,6 +7,7 @@
   "melonds": { "id": "melonds", "code": "melonDS", "version": 0 },
   "azahar": { "id": "azahar", "code": "Azahar", "version": 0 },
   "pcsx2": { "id": "pcsx2", "code": "PCSX2QT", "version": 1 },
+  "armsx2": { "id": "armsx2", "code": "ARMSX2", "version": 0 },
   "rpcs3": { "id": "rpcs3", "code": "RPCS3", "version": 0 },
   "yuzu": { "id": "yuzu", "code": "Yuzu", "version": 1 },
   "eden": { "id": "eden", "code": "Eden", "version": 0 },

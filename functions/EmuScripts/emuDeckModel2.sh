@@ -148,3 +148,8 @@ Model2_addSteamInputProfile(){
 	setMSG "Adding $Model2_emuName Steam Input Profile."
 	rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/emudeck_steam_deck_light_gun_controls.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf"
 }
+
+Model2_addToSteam(){
+	setMSG "Adding Model 2 Emulator to Steam"
+	add_to_steam "model2" "Model 2 Emulator" "$toolsPath/launchers/model-2-emulator.sh" "$HOME/Applications/" "$emudeckBackend/icons/Model-2-Emulator.png" "Emulation"
+}

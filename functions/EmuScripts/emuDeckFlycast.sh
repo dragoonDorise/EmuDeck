@@ -195,3 +195,8 @@ Flycast_addParser(){
 	addParser "naomi_flycast.json"
 	addParser "naomi2_flycast.json"
 }
+
+Flycast_addToSteam(){
+	setMSG "Adding Flycast to Steam"
+	add_to_steam "flycast" "Flycast" "$toolsPath/launchers/flycast.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/flycast.ico" "Emulation"
+}

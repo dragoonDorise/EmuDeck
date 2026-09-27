@@ -216,3 +216,8 @@ BigPEmu_flushEmulatorLauncher(){
 BigPEmu_addParser(){
 	addParser "atari_jaguar_bigpemu.json"
 }
+
+BigPEmu_addToSteam(){
+	setMSG "Adding BigPEmu to Steam"
+	add_to_steam "bigpemu" "BigPEmu" "$toolsPath/launchers/bigpemu.sh" "$HOME/Applications/" "$emudeckBackend/icons/BigPEmu.png" "Emulation"
+}

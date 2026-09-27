@@ -201,3 +201,8 @@ MAME_addParser(){
 	addParser "philips_cdi_mame.json"
 	addParser "snk_neogeocd_mame.json"
 }
+
+MAME_addToSteam(){
+	setMSG "Adding MAME to Steam"
+	add_to_steam "mame" "MAME" "$toolsPath/launchers/mame.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/mame.ico" "Emulation"
+}

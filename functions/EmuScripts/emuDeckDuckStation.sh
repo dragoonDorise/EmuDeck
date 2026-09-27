@@ -285,3 +285,8 @@ DuckStation_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "duckstation"
 
 }
+
+DuckStation_addToSteam(){
+	setMSG "Adding DuckStation to Steam"
+	add_to_steam "duckstation" "DuckStation" "$toolsPath/launchers/duckstation.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/duckstation.ico" "Emulation"
+}

@@ -237,3 +237,8 @@ melonDS_flushEmulatorLauncher(){
 melonDS_addParser(){
 	addParser "nintendo_nds_melonds.json"
 }
+
+melonDS_addToSteam(){
+	setMSG "Adding melonDS to Steam"
+	add_to_steam "melonds" "melonDS" "$toolsPath/launchers/melonds.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/melonDS.ico" "Emulation"
+}

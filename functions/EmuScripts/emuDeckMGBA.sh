@@ -179,3 +179,8 @@ mGBA_addParser(){
 	addParser "nintendo_gbc_mgba.json"
 }
 
+
+mGBA_addToSteam(){
+	setMSG "Adding mGBA to Steam"
+	add_to_steam "mgba" "mGBA" "$toolsPath/launchers/mgba.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/mgba.ico" "Emulation"
+}

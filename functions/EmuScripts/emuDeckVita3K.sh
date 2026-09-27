@@ -182,3 +182,8 @@ Vita3K_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "vita3k"
 
 }
+
+Vita3K_addToSteam(){
+	setMSG "Adding Vita3K to Steam"
+	add_to_steam "vita3k" "Vita3K" "$toolsPath/launchers/vita3k.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/vita3k.ico" "Emulation"
+}

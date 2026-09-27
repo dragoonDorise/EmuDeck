@@ -359,3 +359,8 @@ Azahar_addESConfig(){
 		echo "Azahar added to EmulationStation-DE custom_systems"
 	fi
 }
+
+Azahar_addToSteam(){
+	setMSG "Adding Azahar to Steam"
+	add_to_steam "azahar" "Azahar" "$toolsPath/launchers/azahar.sh" "$HOME/Applications/" "" "Emulation"
+}

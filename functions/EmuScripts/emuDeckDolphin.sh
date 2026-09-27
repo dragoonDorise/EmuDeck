@@ -467,3 +467,8 @@ Dolphin_flushSymlinks(){
   fi
 
 }
+
+Dolphin_addToSteam(){
+	setMSG "Adding Dolphin to Steam"
+	add_to_steam "dolphin" "Dolphin" "$toolsPath/launchers/dolphin-emu.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/dolphin.ico" "Emulation"
+}

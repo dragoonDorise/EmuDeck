@@ -344,3 +344,8 @@ ares_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "$ares_emuName"
 
 }
+
+ares_addToSteam(){
+	setMSG "Adding ares to Steam"
+	add_to_steam "ares" "ares" "$toolsPath/launchers/ares-emu.sh" "$HOME/Applications/" "" "Emulation"
+}

@@ -1338,6 +1338,8 @@ function add_to_steam(){
 	local target_path="$3"
 	local start_dir="$4"
 	local icon_path="$5"
+	local collection="${6-Emulation}"
+	local recent="${7:-false}"
 
 	local steam_directory="$HOME/.steam/steam/"
 	local user_id
@@ -1371,7 +1373,7 @@ function add_to_steam(){
 	fi
 
 	"$venv_python" "$add_script" \
-		"$id" "$name" "$target_path" "$start_dir" "$icon_path" "$steam_directory" "$user_id"
+		"$id" "$name" "$target_path" "$start_dir" "$icon_path" "$steam_directory" "$user_id" "$collection" "$recent"
 }
 
 

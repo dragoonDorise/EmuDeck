@@ -469,3 +469,8 @@ Yuzu_addESConfig(){
 Yuzu_addParser(){
   addParser "nintendo_switch_yuzu.json"
 }
+
+Yuzu_addToSteam(){
+	setMSG "Adding yuzu to Steam"
+	add_to_steam "yuzu" "yuzu" "$toolsPath/launchers/yuzu.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/yuzu.ico" "Emulation"
+}

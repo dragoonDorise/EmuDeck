@@ -138,3 +138,8 @@ Supermodel_addSteamInputProfile(){
 	setMSG "Adding $Supermodel_emuName Steam Input Profile."
 	rsync -r --exclude='*/' "$emudeckBackend/configs/steam-input/emudeck_steam_deck_light_gun_controls.vdf" "$HOME/.steam/steam/controller_base/templates/emudeck_steam_deck_light_gun_controls.vdf"
 }
+
+Supermodel_addToSteam(){
+	setMSG "Adding Supermodel to Steam"
+	add_to_steam "supermodel" "Supermodel" "$toolsPath/launchers/supermodel.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/supermodel.ico" "Emulation"
+}

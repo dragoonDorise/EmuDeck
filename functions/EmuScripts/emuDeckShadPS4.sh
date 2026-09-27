@@ -171,3 +171,8 @@ ShadPS4_setResolution(){
 ShadPS4_flushEmulatorLauncher(){
     flushEmulatorLaunchers "ShadPS4"
 }
+
+ShadPS4_addToSteam(){
+	setMSG "Adding shadPS4 to Steam"
+	add_to_steam "shadps4" "shadPS4" "$toolsPath/launchers/shadps4.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/ShadPS4.ico" "Emulation"
+}

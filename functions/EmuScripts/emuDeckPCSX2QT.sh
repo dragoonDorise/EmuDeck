@@ -365,3 +365,8 @@ PCSX2QT_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "pcsx2-qt"
 
 }
+
+PCSX2QT_addToSteam(){
+	setMSG "Adding PCSX2 to Steam"
+	add_to_steam "pcsx2" "PCSX2" "$toolsPath/launchers/pcsx2-qt.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/pcsx2.ico" "Emulation"
+}

@@ -464,3 +464,8 @@ Ryujinx_launch_fixes(){
 
     Ryujinx_set_gamepad_name
 }
+
+Ryujinx_addToSteam(){
+	setMSG "Adding Ryujinx to Steam"
+	add_to_steam "ryujinx" "Ryujinx" "$toolsPath/launchers/ryujinx.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/Ryujinx.ico" "Emulation"
+}

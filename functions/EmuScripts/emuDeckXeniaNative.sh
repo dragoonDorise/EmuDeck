@@ -366,3 +366,9 @@ XeniaNative_addParser(){
 	addParser "microsoft_xbox360_iso_xenia.json"
 	addParser "microsoft_xbox360_xbla_xenia.json"
 }
+
+
+XeniaNative_addToSteam(){
+	setMSG "Adding BigPEmu to Steam"
+	add_to_steam "xenia" "Xenia" "$toolsPath/launchers/armsx2.sh" "$HOME/Applications/" "$emudeckBackend/icons/Xenia.png" "Emulation"
+}

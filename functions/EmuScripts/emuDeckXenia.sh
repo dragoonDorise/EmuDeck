@@ -242,3 +242,8 @@ Xenia_addParser(){
 	addParser "microsoft_xbox360_iso_xenia_proton.json"
 	addParser "microsoft_xbox360_xbla_xenia_proton.json"	
 }
+
+Xenia_addToSteam(){
+	setMSG "Adding Xenia to Steam"
+	add_to_steam "xenia" "Xenia" "$toolsPath/launchers/xenia.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/xenia.ico" "Emulation"
+}

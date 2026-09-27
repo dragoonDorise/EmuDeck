@@ -136,3 +136,8 @@ ScummVM_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "scummvm"
 
 }
+
+ScummVM_addToSteam(){
+	setMSG "Adding ScummVM to Steam"
+	add_to_steam "scummvm" "ScummVM" "$toolsPath/launchers/scummvm.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/scummvm.ico" "Emulation"
+}
