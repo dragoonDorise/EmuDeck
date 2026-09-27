@@ -362,13 +362,11 @@ ARMSX2_flushEmulatorLauncher(){
 
 
 ARMSX2_addESConfig(){
-	[[ $(ARMSX2_IsInstalled) == "false" ]] || return 0
-	
 	sed -i "s|<!--armsx2||g" "$es_rulesFile"
 	sed -i "s|armsx2-->||g" "$es_rulesFile"
 	sed -i "s|<!--armsx2||g" "$es_systemsFile"
 	sed -i "s|armsx2-->||g" "$es_systemsFile"
-	
+	sed -i "s|PCSX2|ARMSX2|g" "$ESDE_newConfigDirectory/gamelists/ps2/gamelist.xml"
 }
 
 ARMSX2_addToSteam(){
