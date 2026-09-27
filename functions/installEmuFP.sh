@@ -56,7 +56,7 @@ installEmuFP(){
 			chmod +x "${romsPath}/emulators/"*
         fi
 		createDesktopShortcut	"$HOME/.local/share/applications/${ID}.desktop" \
-								"${name}" \
+								"${name} Flatpak" \
 								"${launcherPath}/$(basename "$l")" \
 								"false"
 	done
