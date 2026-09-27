@@ -672,6 +672,14 @@ function createDesktopShortcut(){
 			frameOption="NoDisplay=true"
 		fi	
 	fi
+	
+	if [[ "$name" == *Steam-ROM-Manager* ]]; then	
+		if [ "$(getProductName)" == "frame" ]; then
+			frameOption=""
+		fi	
+	fi
+	
+	
 
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
