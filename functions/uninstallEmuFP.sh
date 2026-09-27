@@ -27,6 +27,7 @@ uninstallEmuFP() {
 
     flatpak uninstall "$ID" -y --user
     flatpak uninstall "$ID" -y --system
+    rm -f "$HOME/.local/share/applications/${ID}.desktop"
 
     shName=$(echo "$scriptname" | awk '{print tolower($0)}')
     for romfolder in "${launcherPath}/" "${romsPath}/emulators" "${romsPath}/desktop/remoteplay" "${romsPath}/desktop/generic-applications"; do

@@ -683,6 +683,24 @@ function createDesktopShortcut(){
 	echo "$Shortcutlocation created"
 }
 
+function flatpakDesktopRegenerate(){
+	local emuTypeVar prefix ID name shName launcher
+
+	for emuTypeVar in $(compgen -A variable | grep '_emuType$'); do
+		[ "${!emuTypeVar}" == "$emuDeckEmuTypeFlatpak" ] || continue
+		prefix="${emuTypeVar%_emuType}"
+		ID="${prefix}_emuPath"; ID="${!ID}"
+		name="${prefix}_emuName"; name="${!name}"
+		[ -n "$ID" ] && [ -n "$name" ] || continue
+
+		shName="${name,,}"
+		launcher=$(find "$toolsPath/launchers" -maxdepth 1 -type f \( -iname "$shName.sh" -o -iname "$shName-emu.sh" \) | head -n 1)
+		[ -n "$launcher" ] || continue
+
+		createDesktopShortcut "$HOME/.local/share/applications/${ID}.desktop" "$name" "$launcher" "false"
+	done
+}
+
 #desktopShortcutFieldUpdate "$shortcutFile" "Field" "NewValue"
 function desktopShortcutFieldUpdate(){
 	local shortcutFile=$1

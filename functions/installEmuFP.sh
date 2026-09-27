@@ -55,5 +55,9 @@ installEmuFP(){
             cp -v "$l" "${romsPath}/emulators"
 			chmod +x "${romsPath}/emulators/"*
         fi
+		createDesktopShortcut	"$HOME/.local/share/applications/${ID}.desktop" \
+								"${name}" \
+								"${launcherPath}/$(basename "$l")" \
+								"false"
 	done
 }

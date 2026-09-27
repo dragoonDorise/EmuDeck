@@ -52,4 +52,6 @@ appImageInit() {
 
 	update_launchers
 
+	flatpakDesktopRegenerate
+
 }
