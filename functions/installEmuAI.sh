@@ -16,7 +16,7 @@ installEmuAI(){
     fi
 
     if [[ -z "$format" ]]; then
-        format="EmuDeck"
+        format="AppImage"
     fi
 
     if [[ -z "$scriptName" ]]; then
