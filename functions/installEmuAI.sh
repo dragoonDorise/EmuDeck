@@ -93,7 +93,7 @@ installEmuAI(){
         fi 
 
         createDesktopShortcut   "$HOME/.local/share/applications/${name}.desktop" \
-                                "${name} AppImage" \
+                                "${name} EmuDeck" \
                                 "${launcherPath}/${launcherFileName}" \
                                 "false"
     done
