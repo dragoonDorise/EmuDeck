@@ -144,6 +144,11 @@ function jsonToBashVars(){
     setSetting achievementsUser "$(jq .achievements.user $json)"
     setSetting achievementsUserToken "$(jq .achievements.token $json)"
     setSetting achievementsHardcore "$(jq .achievements.hardcore $json)"
+    
+    #Automap
+    setSetting automapCemu "$(jq .automap.cemu $json)"
+    setSetting automapDolphin "$(jq .automap.dolphin $json)"
+    setSetting automapSwitch "$(jq .automap.yuzu $json)"
 
     #Android
     setSetting androidStorage "$(jq .android.storage $json)"
