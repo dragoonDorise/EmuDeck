@@ -339,25 +339,7 @@ Azahar_addESConfig(){
 	ESDE_junksettingsFile
 	ESDE_addCustomSystemsFile
 	ESDE_setEmulationFolder
-
-	if [[ $(grep -rnw "$es_systemsFile" -e 'azahar') == "" ]]; then
-		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
-		--var newSystem '$prev' \
-		--subnode '$newSystem' --type elem --name 'name' -v 'n3ds' \
-		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo 3DS' \
-		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/n3ds' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.3ds .3DS .3dsx .3DSX .app .APP .axf .AXF .cci .CCI .cxi .CXI .elf .ELF .7z .7Z .zip .ZIP' \
-		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/env bash ${toolsPath}/launchers/azahar.sh %ROM%" \
-		--insert '$newSystem/commandP' --type attr --name 'label' --value "Azahar (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'platform' -v 'n3ds' \
-		--subnode '$newSystem' --type elem --name 'theme' -v 'n3ds' \
-		-r 'systemList/system/commandP' -v 'command' \
-		"$es_systemsFile"
-
-		#format doc to make it look nice
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-		echo "Azahar added to EmulationStation-DE custom_systems"
-	fi
+	
 }
 
 Azahar_addToSteam(){

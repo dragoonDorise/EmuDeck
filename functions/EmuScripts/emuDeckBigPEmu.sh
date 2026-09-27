@@ -90,52 +90,6 @@ BigPEmu_addESConfig(){
 	ESDE_addCustomSystemsFile
 	ESDE_setEmulationFolder
 
-	# Atari Jaguar
-	if [[ $(grep -rnw "$es_systemsFile" -e 'atarijaguar') == "" ]]; then
-		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
-		--var newSystem '$prev' \
-		--subnode '$newSystem' --type elem --name 'name' -v 'atarijaguar' \
-		--subnode '$newSystem' --type elem --name 'fullname' -v 'Atari Jaguar' \
-		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/atarijaguar' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP' \
-		--subnode '$newSystem' --type elem --name 'commandB' -v "/usr/bin/env bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
-		--insert '$newSystem/commandB' --type attr --name 'label' --value "BigPEmu" \
-		--subnode '$newSystem' --type elem --name 'commandV' -v "%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/virtualjaguar_libretro.so %ROM%" \
-		--insert '$newSystem/commandV' --type attr --name 'label' --value "Virtual Jaguar" \
-		--subnode '$newSystem' --type elem --name 'commandM' -v "%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/atarijaguar jaguar -cart %ROM%" \
-		--insert '$newSystem/commandM' --type attr --name 'label' --value "MAME (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'platform' -v 'atarijaguar' \
-		--subnode '$newSystem' --type elem --name 'theme' -v 'atarijaguar' \
-		-r 'systemList/system/commandB' -v 'command' \
-		-r 'systemList/system/commandV' -v 'command' \
-		-r 'systemList/system/commandM' -v 'command' \
-		"$es_systemsFile"
-
-		#format doc to make it look nice
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-	fi
-
-	# Atari Jaguar CD
-	if [[ $(grep -rnw "$es_systemsFile" -e 'atarijaguarcd') == "" ]]; then
-		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
-		--var newSystem '$prev' \
-		--subnode '$newSystem' --type elem --name 'name' -v 'atarijaguarcd' \
-		--subnode '$newSystem' --type elem --name 'fullname' -v 'Atari Jaguar CD' \
-		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/atarijaguarcd' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP' \
-		--subnode '$newSystem' --type elem --name 'commandB' -v "/usr/bin/env bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
-		--insert '$newSystem/commandB' --type attr --name 'label' --value "BigPEmu" \
-		--subnode '$newSystem' --type elem --name 'platform' -v 'atarijaguarcd' \
-		--subnode '$newSystem' --type elem --name 'theme' -v 'atarijaguarcd' \
-		-r 'systemList/system/commandB' -v 'command' \
-		"$es_systemsFile"
-
-		#format doc to make it look nice
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-	fi
-
-
-	#Custom Systems config end
 }
 
 

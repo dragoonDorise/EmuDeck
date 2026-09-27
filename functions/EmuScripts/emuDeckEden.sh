@@ -321,28 +321,6 @@ Eden_addESConfig(){
     ESDE_junksettingsFile
     ESDE_addCustomSystemsFile
     ESDE_setEmulationFolder
-
-	if [[ $(grep -rnw "$es_systemsFile" -e 'switch') == "" ]]; then
-		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
-		--var newSystem '$prev' \
-		--subnode '$newSystem' --type elem --name 'name' -v 'switch' \
-		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo Switch' \
-		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/switch' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.nca .NCA .nro .NRO .nso .NSO .nsp .NSP .xci .XCI' \
-		--subnode '$newSystem' --type elem --name 'commandB' -v "%EMULATOR_RYUJINX% %ROM%" \
-		--insert '$newSystem/commandB' --type attr --name 'label' --value "Ryujinx (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'commandV' -v "%INJECT%=%BASENAME%.esprefix %EMULATOR_CITRON% -f -g %ROM%" \
-		--insert '$newSystem/commandV' --type attr --name 'label' --value "Eden (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'platform' -v 'switch' \
-		--subnode '$newSystem' --type elem --name 'theme' -v 'switch' \
-		-r 'systemList/system/commandB' -v 'command' \
-		-r 'systemList/system/commandV' -v 'command' \
-		"$es_systemsFile"
-
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-	fi
-	#Custom Systems config end
-
 	ESDE_refreshCustomEmus
 }
 
