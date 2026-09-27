@@ -236,6 +236,7 @@ ESDE_addCustomSystems(){
 	Model2_addESConfig
 	Xenia_addESConfig
 	Yuzu_addESConfig
+	ARMSX2_addESConfig(){
 	Citron_addESConfig
 }
 

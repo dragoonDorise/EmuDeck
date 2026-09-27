@@ -87,25 +87,7 @@ Xenia_addESConfig(){
 	ESDE_junksettingsFile
 	ESDE_addCustomSystemsFile
 	ESDE_setEmulationFolder
-
-	if [[ $(grep -rnw "$es_systemsFile" -e 'xbox360') == "" ]]; then
-		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
-		--var newSystem '$prev' \
-		--subnode '$newSystem' --type elem --name 'name' -v 'xbox360' \
-		--subnode '$newSystem' --type elem --name 'fullname' -v 'Microsoft Xbox 360' \
-		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/xbox360/roms' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.iso .ISO . .xex .XEX' \
-		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/env bash ${toolsPath}/launchers/xenia.sh z:%ROM% %INJECT%=%BASENAME%.esprefix" \
-		--insert '$newSystem/commandP' --type attr --name 'label' --value "Xenia (Proton)" \
-		--subnode '$newSystem' --type elem --name 'platform' -v 'xbox360' \
-		--subnode '$newSystem' --type elem --name 'theme' -v 'xbox360' \
-		-r 'systemList/system/commandP' -v 'command' \
-		"$es_systemsFile"
-
-		#format doc to make it look nice
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-	fi
-	#Custom Systems config end
+	
 }
 
 function Xenia_getPatches() {

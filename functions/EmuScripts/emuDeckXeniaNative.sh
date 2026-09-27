@@ -114,28 +114,7 @@ XeniaNative_setNativeConfigDefaults(){
 }
 
 XeniaNative_addESConfig(){
-	[ -f "$es_systemsFile" ] || return 0
-	[ -f "$es_rulesFile" ] || return 0
-
-	sed -i '/<name>xbox360<\/name>/,/<\/system>/ {
-		/<command label="Xenia">/d
-		/<command label="Xenia (Proton)">/d
-	}' "$es_systemsFile"
-
-	sed -i '/<name>xbox360<\/name>/,/<\/system>/ {
-		/<extension>/a\
-	<command label="Xenia">%EMULATOR_XENIA% %ROM%</command>
-	}' "$es_systemsFile"
-
-	sed -i '/<emulator name="XENIA">/,/<\/emulator>/d' "$es_rulesFile"
-
-	sed -i "/<\/ruleList>/i\\
-    <emulator name=\"XENIA\">\\
-        <rule type=\"staticpath\">\\
-            <entry>${toolsPath}/launchers/xenia-emu.sh</entry>\\
-        </rule>\\
-    </emulator>
-	" "$es_rulesFile"
+	sed -i "s|xenia.sh|xenia-emu.sh\/|g" "$es_rulesFile"
 }
 
 XeniaNative_getPatches() {

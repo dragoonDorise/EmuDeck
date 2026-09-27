@@ -103,5 +103,11 @@
             <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh</entry>
         </rule>
     </emulator>
-
+    <!--armsx2 
+    <emulator name="ARMSX2">
+        <rule type="staticpath">
+            <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/armsx2.sh</entry>
+        </rule>
+    </emulator>
+    armsx2-->
 </ruleList>
