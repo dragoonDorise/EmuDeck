@@ -669,12 +669,13 @@ function createDesktopShortcut(){
 
 	if [[ "$name" != *EmuDeck* ]]; then	
 		if [ "$(getProductName)" == "frame" ]; then
-			return 0
+			frameOption="NoDisplay=true"
 		fi	
 	fi
 
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
+	$frameOption
 	Name=$name
 	Exec=$exec
 	Icon=$icon
