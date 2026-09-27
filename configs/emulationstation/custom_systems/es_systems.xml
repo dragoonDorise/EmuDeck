@@ -75,8 +75,9 @@
 		<extension>.bin .BIN .chd .CHD .cso .CSO .dump .DUMP .gz .GZ .img .IMG .iso .ISO .mdf .MDF .nrg .NRG .zso .ZSO</extension>
 		<command label="ARMSX2 (Standalone)">%EMULATOR_ARMSX2% -batch -fullscreen -nogui %ROM%</command>
 		<platform>ps2</platform>
-		<theme>ps2</theme> armsx2-->
+		<theme>ps2</theme> 
   </system>
+  armsx2-->
   <!-- <system>
 		<name>ps4-pkg</name>
 		<fullname>Sony PlayStation 4</fullname>
