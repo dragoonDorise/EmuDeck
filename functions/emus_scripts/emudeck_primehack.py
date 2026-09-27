@@ -144,3 +144,8 @@ def primehack_set_controller_style():
         primehack_set_bayx_style()
     else:
         primehack_set_bayx_style()
+
+def primehack_add_to_steam():
+    set_msg("Adding PrimeHack to Steam")
+    launcher = tools_path / "launchers" / ("primehack.bat" if system.startswith("win") else "primehack.sh")
+    add_steam_shortcut("primehack", "PrimeHack", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/primehack.ico"))

@@ -89,3 +89,8 @@ def supermodel_update_games_list(destination) -> bool:
 def supermodel_install_init():
     supermodel_install()
     supermodel_init()
+
+def supermodel_add_to_steam():
+    set_msg("Adding Supermodel to Steam")
+    launcher = tools_path / "launchers" / ("supermodel.bat" if system.startswith("win") else "supermodel.sh")
+    add_steam_shortcut("supermodel", "Supermodel", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/supermodel.ico"))

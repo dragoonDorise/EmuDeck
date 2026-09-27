@@ -95,3 +95,8 @@ def yuzu_set_controller_style():
         yuzu_set_bayx_style()
     else:
         yuzu_set_bayx_style()
+
+def yuzu_add_to_steam():
+    set_msg("Adding yuzu to Steam")
+    launcher = tools_path / "launchers" / ("yuzu.bat" if system.startswith("win") else "yuzu.sh")
+    add_steam_shortcut("yuzu", "yuzu", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/yuzu.ico"))

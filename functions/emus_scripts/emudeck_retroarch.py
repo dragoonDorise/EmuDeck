@@ -2758,3 +2758,8 @@ def retroarch_set_widescreen():
             retroarch_n64_bezel_on()
             retroarch_psx_bezel_on()
                
+
+def retroarch_add_to_steam():
+    set_msg("Adding RetroArch to Steam")
+    launcher = tools_path / "launchers" / ("retroarch.bat" if system.startswith("win") else "retroarch.sh")
+    add_steam_shortcut("retroarch", "RetroArch", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/retroarch.ico"))

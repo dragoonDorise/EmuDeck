@@ -189,3 +189,8 @@ def flycast_widescreen_off():
 
     set_config("rend.WidescreenGameHacks ", " no", config_path)
     set_config("rend.WideScreen ", " no", config_path)
+
+def flycast_add_to_steam():
+    set_msg("Adding Flycast to Steam")
+    launcher = tools_path / "launchers" / ("flycast.bat" if system.startswith("win") else "flycast.sh")
+    add_steam_shortcut("flycast", "Flycast", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/flycast.ico"))

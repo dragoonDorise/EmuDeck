@@ -140,3 +140,8 @@ def melonds_set_controller_style():
         melonds_set_bayx_style()
     else:
         melonds_set_bayx_style()
+
+def melonds_add_to_steam():
+    set_msg("Adding melonDS to Steam")
+    launcher = tools_path / "launchers" / ("melonds.bat" if system.startswith("win") else "melonds.sh")
+    add_steam_shortcut("melonds", "melonDS", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/melonDS.ico"))

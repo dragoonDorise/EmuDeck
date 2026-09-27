@@ -120,3 +120,8 @@ def eden_set_controller_style():
         eden_set_bayx_style()
     else:
         eden_set_abxy_style()
+
+def eden_add_to_steam():
+    set_msg("Adding Eden to Steam")
+    launcher = tools_path / "launchers" / ("eden.bat" if system.startswith("win") else "eden.sh")
+    add_steam_shortcut("eden", "Eden", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/eden.ico"))

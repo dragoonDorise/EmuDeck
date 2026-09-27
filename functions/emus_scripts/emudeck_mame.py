@@ -196,3 +196,8 @@ def mame_widescreen_on():
 
 def mame_widescreen_off():
     print("NYI")
+
+def mame_add_to_steam():
+    set_msg("Adding MAME to Steam")
+    launcher = tools_path / "launchers" / ("mame.bat" if system.startswith("win") else "mame.sh")
+    add_steam_shortcut("mame", "MAME", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/mame.ico"))

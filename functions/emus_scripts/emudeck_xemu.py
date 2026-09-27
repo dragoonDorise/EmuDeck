@@ -216,3 +216,8 @@ def xemu_widescreen_off():
         config_path = f"{home}/Library/Application Support/xemu/xemu.toml"
 
     set_config("fit", "'scale_4_3'", config_path, separator=" = ")
+
+def xemu_add_to_steam():
+    set_msg("Adding xemu to Steam")
+    launcher = tools_path / "launchers" / ("xemu-emu.bat" if system.startswith("win") else "xemu-emu.sh")
+    add_steam_shortcut("xemu", "xemu", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/xemu.ico"))

@@ -124,3 +124,8 @@ def scummvm_set_language() -> bool:
 
 def scummvm_set_resolution():
     print("NYI")
+
+def scummvm_add_to_steam():
+    set_msg("Adding ScummVM to Steam")
+    launcher = tools_path / "launchers" / ("scummvm.bat" if system.startswith("win") else "scummvm.sh")
+    add_steam_shortcut("scummvm", "ScummVM", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/scummvm.ico"))

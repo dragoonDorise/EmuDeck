@@ -318,4 +318,5 @@ def esde_add_to_steam():
         launcher,
         start_dir,
         str(icon_path),
+        recent=True,
     )

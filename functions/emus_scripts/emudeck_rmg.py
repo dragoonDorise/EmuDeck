@@ -145,3 +145,8 @@ def rmg_set_controller_style():
         rmg_set_bayx_style()
     else:
         rmg_set_bayx_style()
+
+def rmg_add_to_steam():
+    set_msg("Adding Rosalie's Mupen GUI to Steam")
+    launcher = tools_path / "launchers" / ("rosaliesmupengui.bat" if system.startswith("win") else "rosaliesmupengui.sh")
+    add_steam_shortcut("rmg", "Rosalie's Mupen GUI", str(launcher), str(emus_folder), "")

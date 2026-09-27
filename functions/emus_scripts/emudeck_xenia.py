@@ -178,3 +178,8 @@ def xenia_get_patches():
         return False
     finally:
         patches_zip.unlink(missing_ok=True)
+
+def xenia_add_to_steam():
+    set_msg("Adding Xenia to Steam")
+    launcher = tools_path / "launchers" / ("xenia.bat" if system.startswith("win") else "xenia.sh")
+    add_steam_shortcut("xenia", "Xenia", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/xenia.ico"))

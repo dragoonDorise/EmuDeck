@@ -85,3 +85,8 @@ def mgba_set_controller_style():
         mgba_set_bayx_style()
     else:
         mgba_set_bayx_style()
+
+def mgba_add_to_steam():
+    set_msg("Adding mGBA to Steam")
+    launcher = tools_path / "launchers" / ("mgba.bat" if system.startswith("win") else "mgba.sh")
+    add_steam_shortcut("mgba", "mGBA", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/mgba.ico"))

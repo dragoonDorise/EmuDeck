@@ -203,3 +203,8 @@ pcsx2qt_widescreen_on = pcsx2_widescreen_on
 pcsx2qt_widescreen_off = pcsx2_widescreen_off
 pcsx2qt_widescreen = pcsx2_widescreen
 
+
+def pcsx2_add_to_steam():
+    set_msg("Adding PCSX2 to Steam")
+    launcher = tools_path / "launchers" / ("pcsx2-qt.bat" if system.startswith("win") else "pcsx2-qt.sh")
+    add_steam_shortcut("pcsx2", "PCSX2", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/pcsx2.ico"))

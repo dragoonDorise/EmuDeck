@@ -159,3 +159,8 @@ def model2_uninstall():
 
     if system == "darwin":
         return True  # NYI
+
+def model2_add_to_steam():
+    set_msg("Adding Model 2 Emulator to Steam")
+    launcher = tools_path / "launchers" / ("model-2-emulator.bat" if system.startswith("win") else "model-2-emulator.sh")
+    add_steam_shortcut("model2", "Model 2 Emulator", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/model2.ico"))

@@ -96,3 +96,8 @@ def citron_set_controller_style():
         citron_set_bayx_style()
     else:
         citron_set_bayx_style()
+
+def citron_add_to_steam():
+    set_msg("Adding Citron to Steam")
+    launcher = tools_path / "launchers" / ("citron.bat" if system.startswith("win") else "citron.sh")
+    add_steam_shortcut("citron", "Citron", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/citron.ico"))

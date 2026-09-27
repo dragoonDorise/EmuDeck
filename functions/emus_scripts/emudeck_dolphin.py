@@ -415,3 +415,8 @@ def dolphin_set_gamepads():
 
 def dolphin_launch_fixes():
     dolphin_set_gamepads()
+
+def dolphin_add_to_steam():
+    set_msg("Adding Dolphin to Steam")
+    launcher = tools_path / "launchers" / ("dolphin-emu.bat" if system.startswith("win") else "dolphin-emu.sh")
+    add_steam_shortcut("dolphin", "Dolphin", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/dolphin.ico"))

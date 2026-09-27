@@ -160,3 +160,8 @@ def azahar_set_controller_style():
         azahar_set_bayx_style()
     else:
         azahar_set_bayx_style()
+
+def azahar_add_to_steam():
+    set_msg("Adding Azahar to Steam")
+    launcher = tools_path / "launchers" / ("azahar.bat" if system.startswith("win") else "azahar.sh")
+    add_steam_shortcut("azahar", "Azahar", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/azahar.ico"))

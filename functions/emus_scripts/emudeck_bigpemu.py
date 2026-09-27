@@ -130,3 +130,8 @@ def bigpemu_set_controller_style():
         bigpemu_set_bayx_style()
     else:
         bigpemu_set_bayx_style()
+
+def bigpemu_add_to_steam():
+    set_msg("Adding BigPEmu to Steam")
+    launcher = tools_path / "launchers" / ("bigpemu.bat" if system.startswith("win") else "bigpemu.sh")
+    add_steam_shortcut("bigpemu", "BigPEmu", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/bigpemu.ico"))

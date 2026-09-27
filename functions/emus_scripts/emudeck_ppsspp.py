@@ -177,3 +177,8 @@ def ppsspp_retro_achievements_off():
 
     token_path.parent.mkdir(parents=True, exist_ok=True)
     token_path.write_text("")
+
+def ppsspp_add_to_steam():
+    set_msg("Adding PPSSPP to Steam")
+    launcher = tools_path / "launchers" / ("ppsspp.bat" if system.startswith("win") else "ppsspp.sh")
+    add_steam_shortcut("ppsspp", "PPSSPP", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/PPSSPP.ico"))

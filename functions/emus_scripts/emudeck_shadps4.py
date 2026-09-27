@@ -287,3 +287,8 @@ def shadps4_set_emulation_folder():
         return True
 
     return True
+
+def shadps4_add_to_steam():
+    set_msg("Adding shadPS4 to Steam")
+    launcher = tools_path / "launchers" / ("shadps4.bat" if system.startswith("win") else "shadps4.sh")
+    add_steam_shortcut("shadps4", "shadPS4", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/ShadPS4.ico"))

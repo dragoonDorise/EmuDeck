@@ -204,3 +204,8 @@ def rpcs3_set_resolution() -> bool:
     set_config("  Resolution Scale", multiplier, config_path, ": ")
 
     return True
+
+def rpcs3_add_to_steam():
+    set_msg("Adding RPCS3 to Steam")
+    launcher = tools_path / "launchers" / ("rpcs3.bat" if system.startswith("win") else "rpcs3.sh")
+    add_steam_shortcut("rpcs3", "RPCS3", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/rpcs3.ico"))

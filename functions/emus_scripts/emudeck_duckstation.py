@@ -250,3 +250,8 @@ def duckstation_retro_achievements_off():
 
     set_ini_value(config_path, "Cheevos", "Enabled", "false")
     set_ini_value(config_path, "Cheevos", "ChallengeMode", "false")
+
+def duckstation_add_to_steam():
+    set_msg("Adding DuckStation to Steam")
+    launcher = tools_path / "launchers" / ("duckstation.bat" if system.startswith("win") else "duckstation.sh")
+    add_steam_shortcut("duckstation", "DuckStation", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/duckstation.ico"))

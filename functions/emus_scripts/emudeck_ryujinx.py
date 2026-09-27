@@ -483,3 +483,8 @@ def ryujinx_launch_fixes():
         os.environ["SDL_GAMECONTROLLER_IGNORE_DEVICES"] = "0x28de/0x11ff"
         os.environ["SDL_JOYSTICK_IGNORE_DEVICES"] = "0x28de/0x11ff"
     ryujinx_set_gamepad_name()
+
+def ryujinx_add_to_steam():
+    set_msg("Adding Ryujinx to Steam")
+    launcher = tools_path / "launchers" / ("ryujinx.bat" if system.startswith("win") else "ryujinx.sh")
+    add_steam_shortcut("ryujinx", "Ryujinx", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/Ryujinx.ico"))

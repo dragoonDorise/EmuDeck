@@ -138,3 +138,8 @@ def vita3k_setup_storage():
     installed_games = f"{roms_path}/psvita/InstalledGames"
     vita3k_apps = f"{storage_path}/Vita3K/ux0/app"
     move_contents_and_link(vita3k_apps, installed_games)
+
+def vita3k_add_to_steam():
+    set_msg("Adding Vita3K to Steam")
+    launcher = tools_path / "launchers" / ("vita3k.bat" if system.startswith("win") else "vita3k.sh")
+    add_steam_shortcut("vita3k", "Vita3K", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/vita3k.ico"))

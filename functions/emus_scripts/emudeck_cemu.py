@@ -232,3 +232,8 @@ def cemu_set_controllers():
 
 def cemu_launch_fixes():
     cemu_set_controllers()
+
+def cemu_add_to_steam():
+    set_msg("Adding Cemu to Steam")
+    launcher = tools_path / "launchers" / ("cemu.bat" if system.startswith("win") else "cemu.sh")
+    add_steam_shortcut("cemu", "Cemu", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/cemu.ico"))
