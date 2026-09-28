@@ -267,7 +267,7 @@ Cemu_functions () {
 			url=$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")
 		fi
 		
-		if installEmuAI "Cemu" "" "$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")" "" "" "emulator" "$showProgress"; then # Cemu.AppImage
+		if installEmuAI "Cemu" "" "$url" "" "" "emulator" "$showProgress"; then # Cemu.AppImage
 			:
 		else
 			return 1
