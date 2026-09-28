@@ -93,11 +93,9 @@ ARMSX2_setEmulationFolder() {
 }
 
 #SetupSaves
-ARMSX2_setupSaves() {
-	#link fp and ap saves / states?
-	echo "NYI"
-	#moveSaveFolder pcsx2 saves "$HOME/.var/app/net.pcsx2.PCSX2/config/ARMSX2/memcards"
-	#moveSaveFolder pcsx2 states "$HOME/.var/app/net.pcsx2.PCSX2/config/ARMSX2/sstates"
+ARMSX2_setupSaves() {	
+	mkdir -p "${savesPath}/pcsx2/states"
+	mkdir -p "${savesPath}/pcsx2/saves"
 }
 
 ARMSX2_setupControllers() {
