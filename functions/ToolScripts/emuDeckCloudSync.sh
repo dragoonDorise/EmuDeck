@@ -249,6 +249,10 @@ cloud_sync_upload(){
   # startLog ${FUNCNAME[0]}
   local emuName=$1
   local timestamp=$(date +%s)
+  
+  if [ "$emuName" = "armsx2" ]; then
+    emuName="pcsx2"
+  fi
 
   if [ "$cloud_sync_status" == "true" ]; then
 
@@ -288,6 +292,10 @@ cloud_sync_download(){
 
     #Force upload at the ending flag
     echo "$emuName" > "$savesPath/.no_upload"
+    
+    if [ "$emuName" = "armsx2" ]; then
+      emuName="pcsx2"
+    fi
 
     #We wait for any upload in progress in the background
     cloud_sync_check_lock
