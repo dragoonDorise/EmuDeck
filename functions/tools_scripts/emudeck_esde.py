@@ -118,6 +118,19 @@ def esde_init():
 
     # esde_apply_theme(esde_theme_url, esde_theme_name)
     esde_set_default_emulators()
+    esde_add_arm_cores()
+
+
+def esde_add_arm_cores():
+    if not (system == "linux" and cpu_arch == "arm"):
+        return
+    for xml in (esde_systems_file, esde_rules_file):
+        if xml.exists():
+            sed("<!--armcores", "", xml)
+            sed("armcores-->", "", xml)
+    gamelist = esde_settings_folder / "gamelists" / "ps2" / "gamelist.xml"
+    if gamelist.is_file():
+        sed("PCSX2", "ARMSX2", gamelist)
 
 
 def esde_ensure_ryujinx_find_rule():

@@ -128,11 +128,11 @@
             <entry>EMULATIONPATH/tools/launchers/xenia.sh</entry>
         </rule>
     </emulator>
-    <!--armsx2 
+    <!--armcores 
     <emulator name="ARMSX2">
         <rule type="staticpath">
             <entry>EMULATIONPATH/tools/launchers/armsx2.sh</entry>
         </rule>
     </emulator>
-    armsx2-->
+    armcores-->
 </ruleList>

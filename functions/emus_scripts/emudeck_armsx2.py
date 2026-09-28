@@ -64,7 +64,6 @@ def armsx2_init():
     armsx2_widescreen()
     flush_emulator_launchers("armsx2")
     armsx2_add_custom_parser()
-    armsx2_add_es_config()
     move_contents_and_link(f"{home}/.config/ARMSX2/cheats", f"{storage_path}/pcsx2/cheats")
     return True
 
@@ -188,18 +187,6 @@ def armsx2_retro_achievements_off():
 def armsx2_add_custom_parser():
     if armsx2_is_installed() and srm_is_installed():
         add_parser("sony_ps2_armsx2")
-
-
-def armsx2_add_es_config():
-    if not armsx2_is_installed():
-        return
-    for xml in (esde_rules_file, esde_systems_file):
-        if Path(xml).is_file():
-            sed("<!--armsx2", "", str(xml))
-            sed("armsx2-->", "", str(xml))
-    gamelist = esde_settings_folder / "gamelists" / "ps2" / "gamelist.xml"
-    if gamelist.is_file():
-        sed("PCSX2", "ARMSX2", str(gamelist))
 
 
 def armsx2_add_to_steam():
