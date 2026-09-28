@@ -8,7 +8,6 @@
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
   "imageProviders": ["sgdb", "steamCDN"],
-  "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "userAccounts": {
     "specifiedAccounts": ["Global"]
@@ -23,9 +22,9 @@
     "glob": "**/${title}@(.kip|.KIP|.nca|.NCA|.nro|.NRO|.nso|.NSO|.nsp|.NSP|.xci|.XCI)"
   },
   "titleFromVariable": {
-    "limitToGroups": "",
     "caseInsensitiveVariables": false,
-    "skipFileIfVariableWasNotFound": false
+    "skipFileIfVariableWasNotFound": false,
+    "limitToGroups": []
   },
   "fuzzyMatch": {
     "replaceDiacritics": true,
@@ -68,8 +67,9 @@
     "icon": ""
   },
   "parserId": "164725679855061950",
-  "version": 22,
+  "version": 25,
   "steamInputEnabled": "1",
   "drmProtect": false,
-  "steamCategories": ["Nintendo Switch - Citron"]
+  "steamCategories": ["Nintendo Switch - Citron"],
+  "onlineImageQueries": ["${fuzzyTitle}"]
 }
