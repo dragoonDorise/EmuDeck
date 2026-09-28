@@ -272,6 +272,33 @@ def copy_with_rsync(action, item, origin, destination, rsyncParams):
 
     return status
 
+def linked_dirs(origin, destination):
+    linked = []
+    for root, dirs, _files in os.walk(origin):
+        relRoot = os.path.relpath(root, origin)
+        pruned = []
+        for name in dirs:
+            rel = name if relRoot == "." else os.path.join(relRoot, name)
+            if os.path.islink(os.path.join(destination, rel)):
+                linked.append(rel)
+                pruned.append(name)
+        dirs[:] = [d for d in dirs if d not in pruned]
+    return linked
+
+
+def copy_through_links(action, item, origin, destination, rsyncParams):
+    destination = os.path.realpath(destination)
+    params = rsyncParams
+    for rel in linked_dirs(origin, destination):
+        params += " --exclude=/" + rel.replace(os.sep, "/")
+        target = os.path.realpath(os.path.join(destination, rel))
+        log.info("%s %s: %s is a link, copying into %s", action, item, rel, target)
+        status = copy_through_links(action, item, os.path.join(origin, rel), target, rsyncParams)
+        if status != 0:
+            return status
+    return copy_with_rsync(action, item, origin, destination, params)
+
+
 # Revisar lo q devuelve
 def rsync_progress(action, item, origin, destination, rsyncParams=""):
     log.info("%s %s: %s -> %s (%s)", action, item, origin, destination, rsyncParams or "no flags")
@@ -290,7 +317,7 @@ def rsync_progress(action, item, origin, destination, rsyncParams=""):
     if system.startswith("win"):
         status = copy_with_robocopy(action, item, origin, destination, rsyncParams)
     else:
-        status = copy_with_rsync(action, item, origin, destination, rsyncParams)
+        status = copy_through_links(action, item, origin, destination, rsyncParams)
 
     if status != 0:
         log.error("%s %s FAILED with code %s", action, item, status)
