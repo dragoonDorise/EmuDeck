@@ -11,6 +11,14 @@ appImageInit() {
 	# 		echo "continue"
 	# 	fi
 	# fi	
+	
+	#AutoMap set for old trick	
+	if [ "$autoMap" = "false" ]; then		
+		setSetting autoMapDolphin false
+		setSetting autoMapSwitch false
+		setSetting autoMapCemu false
+		setSetting autoMap "null"	
+	fi
 
 	#Migrate DuckStation
 	if [ -d "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation" ]; then
