@@ -98,9 +98,7 @@ def flycast_init():
     flycast_set_controller_style()
     flycast_widescreen()
 
-    esde_set_emu("Flycast (Standalone)","dreamcast")
-    esde_set_emu("Flycast (Standalone)","naomi")
-    esde_set_emu("Flycast (Standalone)","naomi2")
+    flycast_set_esde_emu()
     flycast_add_custom_parser()
 
 def flycast_install_init():
@@ -194,3 +192,13 @@ def flycast_add_to_steam():
     set_msg("Adding Flycast to Steam")
     launcher = tools_path / "launchers" / ("flycast.bat" if system.startswith("win") else "flycast.sh")
     add_steam_shortcut("flycast", "Flycast", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/flycast.ico"))
+
+
+def flycast_set_esde_emu():
+    if not esde_is_installed():
+        return
+    esde_set_emu("Flycast (Standalone)", "dreamcast")
+    esde_set_emu("Flycast (Standalone)", "naomi")
+    esde_set_emu("Flycast (Standalone)", "naomi2")
+    esde_set_emu("Flycast (Standalone)", "naomigd")
+    esde_set_emu("Flycast (Standalone)", "atomiswave")

@@ -76,7 +76,7 @@ def melonds_init():
     #melonds_setup_storage()
     melonds_set_resolution()
     melonds_set_controller_style()
-    esde_set_emu("melonDS (Standalone)","nds")
+    melonds_set_esde_emu()
     melonds_add_custom_parser()
 
 def melonds_install_init():
@@ -145,3 +145,9 @@ def melonds_add_to_steam():
     set_msg("Adding melonDS to Steam")
     launcher = tools_path / "launchers" / ("melonds.bat" if system.startswith("win") else "melonds.sh")
     add_steam_shortcut("melonds", "melonDS", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/melonDS.ico"))
+
+
+def melonds_set_esde_emu():
+    if not esde_is_installed():
+        return
+    esde_set_emu("melonDS (Standalone)", "nds")

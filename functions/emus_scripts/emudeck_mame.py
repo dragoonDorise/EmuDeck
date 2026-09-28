@@ -143,7 +143,7 @@ def mame_init():
     mame_set_resolution()
     mame_set_controller_style()
     mame_widescreen()
-    esde_set_emu("MAME (Standalone)","arcade")
+    mame_set_esde_emu()
     mame_add_custom_parser()
 
 def mame_install_init():
@@ -201,3 +201,10 @@ def mame_add_to_steam():
     set_msg("Adding MAME to Steam")
     launcher = tools_path / "launchers" / ("mame.bat" if system.startswith("win") else "mame.sh")
     add_steam_shortcut("mame", "MAME", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/mame.ico"))
+
+
+def mame_set_esde_emu():
+    if not esde_is_installed():
+        return
+    esde_set_emu("MAME (Standalone)", "arcade")
+    esde_set_emu("MAME (Standalone)", "mame")

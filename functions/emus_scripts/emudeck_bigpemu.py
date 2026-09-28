@@ -90,8 +90,7 @@ def bigpemu_init():
     bigpemu_setup_saves()
     bigpemu_set_resolution()
     bigpemu_set_controller_style()
-    esde_set_emu("BigPEmu","atarijaguarcd")
-    esde_set_emu("BigPEmu","atarijaguar")
+    bigpemu_set_esde_emu()
     bigpemu_add_custom_parser()
 
 def bigpemu_install_init():
@@ -135,3 +134,10 @@ def bigpemu_add_to_steam():
     set_msg("Adding BigPEmu to Steam")
     launcher = tools_path / "launchers" / ("bigpemu.bat" if system.startswith("win") else "bigpemu.sh")
     add_steam_shortcut("bigpemu", "BigPEmu", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/bigpemu.ico"))
+
+
+def bigpemu_set_esde_emu():
+    if not esde_is_installed():
+        return
+    esde_set_emu("BigPEmu (Proton)", "atarijaguar")
+    esde_set_emu("BigPEmu (Proton)", "atarijaguarcd")

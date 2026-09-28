@@ -62,7 +62,7 @@ def mgba_init():
     copy_and_set_settings_file(f"common/mgba/config.ini", destination)
 
     mgba_set_controller_style()
-    esde_set_emu("mGBA (Standalone)","gba")
+    mgba_set_esde_emu()
     mgba_add_custom_parser()
 
 def mgba_install_init():
@@ -90,3 +90,9 @@ def mgba_add_to_steam():
     set_msg("Adding mGBA to Steam")
     launcher = tools_path / "launchers" / ("mgba.bat" if system.startswith("win") else "mgba.sh")
     add_steam_shortcut("mgba", "mGBA", str(launcher), str(emus_folder), str(emudeck_backend / "icons/ico/mgba.ico"))
+
+
+def mgba_set_esde_emu():
+    if not esde_is_installed():
+        return
+    esde_set_emu("mGBA (Standalone)", "gba")

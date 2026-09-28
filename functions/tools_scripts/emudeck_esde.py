@@ -240,6 +240,12 @@ def esde_apply_theme(esde_theme_url: str, esde_theme_name: str):
 
 
 def esde_set_default_emulators():
+    from functions.emus_scripts.emudeck_melonds import melonds_is_installed, melonds_set_esde_emu
+    from functions.emus_scripts.emudeck_mgba import mgba_is_installed, mgba_set_esde_emu
+    from functions.emus_scripts.emudeck_flycast import flycast_is_installed, flycast_set_esde_emu
+    from functions.emus_scripts.emudeck_mame import mame_is_installed, mame_set_esde_emu
+    from functions.emus_scripts.emudeck_bigpemu import bigpemu_is_installed, bigpemu_set_esde_emu
+
     gamelists_dir = esde_settings_folder / "gamelists"
     gamelists_dir.mkdir(parents=True, exist_ok=True)
 
@@ -248,7 +254,6 @@ def esde_set_default_emulators():
         ("PPSSPP (Standalone)", "psp"),
         ("Dolphin (Standalone)", "wii"),
         ("PCSX2 (Standalone)", "ps2"),
-        ("melonDS", "nds"),
         ("Azahar (Standalone)", "n3ds"),
         ("Beetle Lynx", "atarilynx"),
         ("DuckStation (Standalone)", "psx"),
@@ -258,6 +263,20 @@ def esde_set_default_emulators():
 
     for label, system_code in emus:
         esde_set_emu(label, system_code)
+
+    if melonds_is_installed():
+        melonds_set_esde_emu()
+    else:
+        esde_set_emu("melonDS", "nds")
+
+    for is_installed, set_esde_emu in (
+        (mgba_is_installed, mgba_set_esde_emu),
+        (flycast_is_installed, flycast_set_esde_emu),
+        (mame_is_installed, mame_set_esde_emu),
+        (bigpemu_is_installed, bigpemu_set_esde_emu),
+    ):
+        if is_installed():
+            set_esde_emu()
 
 
 def esde_set_emu(emu: str, system_code: str) -> None:
