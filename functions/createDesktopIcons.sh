@@ -7,11 +7,6 @@ createDesktopIcons(){
 		sandbox=" --no-sandbox"
 	fi
 
-	# Armada / ARM fix
-	if [ ! -e /usr/lib64/libz.so ] && [ -e "$HOME/.local/lib/libz.so" ]; then
-		envPrefix="env LD_LIBRARY_PATH=$HOME/.local/lib:\$LD_LIBRARY_PATH "
-	fi
-
 	#We delete the old icons
 	rm -rf ~/Desktop/EmuDeckUninstall.desktop 2>/dev/null
 	rm -rf ~/Desktop/EmuDeckCHD.desktop 2>/dev/null
