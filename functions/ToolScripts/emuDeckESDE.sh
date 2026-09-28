@@ -131,7 +131,7 @@ ESDE_init(){
 	rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
 
 	ESDE_createLauncher
-	ESDE_addCustomSystems
+	
 	ESDE_setEmulationFolder
 	ESDE_setDefaultSettings
 	ESDE_setDefaultEmulators
@@ -148,7 +148,7 @@ ESDE_init(){
 	#Symlinks for windows migration
 	ln -sfn "$ESDEscrapData/" "$storagePath/downloaded_media"
 	
-
+	ESDE_addCustomSystems
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_systemsFile"
 }
@@ -387,6 +387,7 @@ ESDE_refreshCustomEmus(){
 	rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
+	ARMSX2_addESConfig
 	ESDE_setDefaultEmulators
 }
 

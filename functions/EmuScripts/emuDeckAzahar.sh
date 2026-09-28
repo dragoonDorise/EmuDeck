@@ -42,7 +42,7 @@ Azahar_init(){
 	Azahar_setResolution
 
 	#ESDE
-	ESDE_refreshCustomEmus
+	#ESDE_refreshCustomEmus
 	Azahar_addESConfig
 	ESDE_setEmu 'Azahar (Standalone)' n3ds
 

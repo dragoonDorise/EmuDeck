@@ -314,7 +314,7 @@ Citron_addESConfig(){
     ESDE_junksettingsFile
     ESDE_addCustomSystemsFile
     ESDE_setEmulationFolder	
-	ESDE_refreshCustomEmus
+	#ESDE_refreshCustomEmus
 }
 
 
