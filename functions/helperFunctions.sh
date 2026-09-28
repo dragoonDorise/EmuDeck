@@ -1427,6 +1427,7 @@ function flushAllLaunchers(){
 		"$doSetupPrimehack Primehack_flushEmulatorLauncher" \
 		"$doSetupDolphin Dolphin_flushEmulatorLauncher" \
 		"$doSetupPCSX2QT PCSX2QT_flushEmulatorLauncher" \
+		"$doSetupARSX2 ARMSX2_flushEmulatorLauncher" \
 		"$doSetupRPCS3 RPCS3_flushEmulatorLauncher" \
 		"$doSetupAzahar Azahar_flushEmulatorLauncher" \
 		"$doSetupDuck DuckStation_flushEmulatorLauncher" \
