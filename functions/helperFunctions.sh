@@ -1394,19 +1394,23 @@ function add_to_steam(){
 	fi
 
 	if [ "$(getProductName)" != "frame" ]; then
-		local steam_pid
-		steam_pid=$(pidof steam)
-		if [ -n "$steam_pid" ]; then
-			echo "Steam is running. Sending SIGTERM..."
-			kill -15 "$steam_pid"
-			echo "Señal SIGTERM env"
-		fi
+		killSteam
 	else
 		echo "frame, so no restart"
 	fi
 
 	"$venv_python" "$add_script" \
 		"$id" "$name" "$target_path" "$start_dir" "$icon_path" "$steam_directory" "$user_id" "$collection" "$recent"
+}
+
+function killSteam(){
+	local steam_pid
+	steam_pid=$(pidof steam)
+	if [ -n "$steam_pid" ]; then
+		echo "Steam is running. Sending SIGTERM..."
+		kill -15 "$steam_pid"
+		echo "Señal SIGTERM env"
+	fi
 }
 
 
