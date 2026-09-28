@@ -84,9 +84,19 @@ function runBinDownloads {
         echo "$progresspct"
         echo "# Updating PCSX2"
         if PCSX2QT_install "true" 2>&1; then
-            messages+=("PCSX2Updated Successfully")
+            messages+=("PCSX2 Updated Successfully")
         else
             messages+=("There was a problem updating PCSX2")
+        fi
+    fi
+    if [[ "$binsToDL" == *"ARMSX2"* ]]; then
+        ((progresspct += pct)) || true
+        echo "$progresspct"
+        echo "# Updating ARMSX2"
+        if ARMSX2_install "true" 2>&1; then
+            messages+=("ARMSX2 Updated Successfully")
+        else
+            messages+=("There was a problem updating ARMSX2")
         fi
     fi
     if [[ "$binsToDL" == *"RPCS3"* ]]; then
@@ -200,6 +210,11 @@ if [ "$(PCSX2QT_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "PCSX2" "Sony PlayStation 2")
 else
     binTable+=(FALSE "PCSX2" "Sony PlayStation 2")
+fi
+if [ "$(ARMSX2_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
+    binTable+=(TRUE "ARMSX2" "Sony PlayStation 2")
+else
+    binTable+=(FALSE "ARMSX2" "Sony PlayStation 2")
 fi
 if [ "$(RPCS3_IsInstalled ""$emuDeckEmuTypeAppImage"")" == "true" ]; then
     binTable+=(TRUE "RPCS3" "Sony PlayStation 3")
