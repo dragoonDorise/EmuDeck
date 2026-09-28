@@ -429,13 +429,18 @@ cloud_sync_uploadEmu(){
 }
 
 cloud_sync_downloadEmu(){
+  
 
   # startLog ${FUNCNAME[0]}
   local emuName=$1
   local mode=$2
 
-  echo $emuName > "$savesPath/.emuName"
-
+  if [[ "$branch" == *"early"* ]] || [ "$branch" == "dev" ] ; then
+    echo $emuName > "$savesPath/.emuName"
+  else
+    return 0
+  fi
+  
   if [ -f "$cloud_sync_bin" ]; then
     local timestamp=$(date +%s)
     if [ -f "$cloud_sync_bin" ] && [ "$cloud_sync_status" == "true" ]; then
