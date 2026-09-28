@@ -2,6 +2,10 @@
 
 appImageInit() {
 	
+	#Remove armada fix
+	sed -i 's|env LD_LIBRARY_PATH=[^ ]* ||' "$(xdg-user-dir DESKTOP)/EmuDeck.desktop" "$HOME/.local/share/applications/EmuDeck.desktop"
+	  2>/dev/null
+	
 	#Migrate Xenia
 	# if [ -f "$Xenia_legacyPath/xenia.config.toml" ]; then
 	# 	zenity --question --title "Xenia migration" --text "Xenia Proton detected, it's recommended to update to the new Native release" --cancel-label "Cancel" --ok-label "OK"

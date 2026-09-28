@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 createDesktopIcons(){
 	local sandbox=""
-	local envPrefix=""
 	local desktop=$(xdg-user-dir DESKTOP)
 	if command -v apt-get >/dev/null; then
 		sandbox=" --no-sandbox"
@@ -19,11 +18,11 @@ createDesktopIcons(){
 	#New EmuDeck icon, same place so people won't get confused
 	createDesktopShortcut "$desktop/EmuDeck.desktop" \
 	"EmuDeck" \
-	"${envPrefix}$emusFolder/EmuDeck.AppImage$sandbox" \
+	"$emusFolder/EmuDeck.AppImage$sandbox" \
 	"false"
 	 #App list
 	 createDesktopShortcut "$HOME/.local/share/applications/EmuDeck.desktop" \
 	 "EmuDeck" \
-	 "${envPrefix}$emusFolder/EmuDeck.AppImage$sandbox" \
+	 "$emusFolder/EmuDeck.AppImage$sandbox" \
 	 "false"
 }
