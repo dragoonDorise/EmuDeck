@@ -7,6 +7,7 @@ function jsonToBashVars(){
     setSetting doInstallRA "$(jq .installEmus.ra.status $json)"
     setSetting doInstallDolphin "$(jq .installEmus.dolphin.status $json)"
     setSetting doInstallPCSX2QT "$(jq .installEmus.pcsx2.status $json)"
+    setSetting doInstallARMSX2 "$(jq .installEmus.armsx2.status $json)"
     setSetting doInstallRPCS3 "$(jq .installEmus.rpcs3.status $json)"
     setSetting doInstallYuzu "$(jq .installEmus.yuzu.status $json)"
     setSetting doInstallSuyu "$(jq .installEmus.suyu.status $json)"
@@ -38,6 +39,7 @@ function jsonToBashVars(){
     setSetting doSetupRA $(jq .overwriteConfigEmus.ra.status "$json")
     setSetting doSetupDolphin "$(jq .overwriteConfigEmus.dolphin.status $json)"
     setSetting doSetupPCSX2QT "$(jq .overwriteConfigEmus.pcsx2.status $json)"
+    setSetting doSetupARMSX2 "$(jq .overwriteConfigEmus.armsx2.status $json)"
     setSetting doSetupRPCS3 "$(jq .overwriteConfigEmus.rpcs3.status $json)"
     setSetting doSetupYuzu "$(jq .overwriteConfigEmus.yuzu.status $json)"
     setSetting doSetupSuyu "$(jq .overwriteConfigEmus.suyu.status $json)"

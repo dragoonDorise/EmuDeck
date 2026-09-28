@@ -12,10 +12,11 @@ ARMSX2_cleanup() {
 
 #Install
 ARMSX2_install() {
-	echo "Begin ARMSX2 Install"
+	
 	local showProgress="$1"
 
 	if [ $CPUarch == "arm" ]; then
+		echo "Begin ARMSX2 Install"
 		url=$(getReleaseURLGH "ARMSX2/ARMSX2" "AppImage" "4K-pages")
 	else
 		return 0
@@ -26,7 +27,11 @@ ARMSX2_install() {
 
 #ApplyInitialSettings
 ARMSX2_init() {
-	setMSG "Initializing $ARMSX2_emuName settings."
+	if [ $CPUarch == "arm" ]; then
+		setMSG "Initializing $ARMSX2_emuName settings."
+	else
+		return 0
+	fi
 
 	if [ -e "$ARMSX2_configFile" ]; then
 		mv -f "$ARMSX2_configFile" "$ARMSX2_configFile.bak"
@@ -73,7 +78,7 @@ ARMSX2_setEmulationFolder() {
 	setMSG "Setting $ARMSX2_emuName Emulation Folder"
 
 	iniFieldUpdate "$ARMSX2_configFile" "UI" "ConfirmShutdown" "false"
-	 iniFieldUpdate "$ARMSX2_configFile" "UI" "SetupWizardIncomplete" "false"
+	iniFieldUpdate "$ARMSX2_configFile" "UI" "SetupWizardIncomplete" "false"
 	iniFieldUpdate "$ARMSX2_configFile" "UI" "StartFullscreen" "true"
 	iniFieldUpdate "$ARMSX2_configFile" "Folders" "Bios" "${biosPath}"
 	iniFieldUpdate "$ARMSX2_configFile" "Folders" "Snapshots" "${storagePath}/armsx2/snaps"
@@ -356,6 +361,11 @@ ARMSX2_flushEmulatorLauncher(){
 
 
 ARMSX2_addESConfig(){
+	
+	if [ "$(ARMSX2_IsInstalled)" = "false" ]; then
+		return
+	fi
+	
 	sed -i "s|<!--armsx2||g" "$es_rulesFile"
 	sed -i "s|armsx2-->||g" "$es_rulesFile"
 	sed -i "s|<!--armsx2||g" "$es_systemsFile"
