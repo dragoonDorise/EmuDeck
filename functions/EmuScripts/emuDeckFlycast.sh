@@ -30,6 +30,7 @@ Flycast_init(){
 	#Flycast_addSteamInputProfile
 	Flycast_flushEmulatorLauncher
 	Flycast_addSteamInputProfile
+	Flycast_setESDEEmu
 	Flycast_addParser
 }
 
@@ -199,4 +200,12 @@ Flycast_addParser(){
 Flycast_addToSteam(){
 	setMSG "Adding Flycast to Steam"
 	add_to_steam "flycast" "Flycast" "$toolsPath/launchers/flycast.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/flycast.ico" "Emulation"
+}
+
+Flycast_setESDEEmu(){
+	ESDE_forceEmu 'Flycast (Standalone)' dreamcast
+	ESDE_forceEmu 'Flycast (Standalone)' naomi
+	ESDE_forceEmu 'Flycast (Standalone)' naomi2
+	ESDE_forceEmu 'Flycast (Standalone)' naomigd
+	ESDE_forceEmu 'Flycast (Standalone)' atomiswave
 }

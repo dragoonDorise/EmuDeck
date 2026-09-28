@@ -45,6 +45,7 @@ mGBA_init(){
 	#SRM_createParsers
 	mGBA_addSteamInputProfile
 	mGBA_flushEmulatorLauncher
+	mGBA_setESDEEmu
 	mGBA_addParser
 }
 
@@ -183,4 +184,8 @@ mGBA_addParser(){
 mGBA_addToSteam(){
 	setMSG "Adding mGBA to Steam"
 	add_to_steam "mgba" "mGBA" "$toolsPath/launchers/mgba.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/mgba.ico" "Emulation"
+}
+
+mGBA_setESDEEmu(){
+	ESDE_forceEmu 'mGBA (Standalone)' gba
 }

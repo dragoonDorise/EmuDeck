@@ -38,6 +38,7 @@ melonDS_init(){
 	melonDS_setResolution
 	melonDS_addSteamInputProfile
 	melonDS_flushEmulatorLauncher
+	melonDS_setESDEEmu
 	melonDS_addParser
 }
 
@@ -241,4 +242,8 @@ melonDS_addParser(){
 melonDS_addToSteam(){
 	setMSG "Adding melonDS to Steam"
 	add_to_steam "melonds" "melonDS" "$toolsPath/launchers/melonds.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/melonDS.ico" "Emulation"
+}
+
+melonDS_setESDEEmu(){
+	ESDE_forceEmu 'melonDS (Standalone)' nds
 }

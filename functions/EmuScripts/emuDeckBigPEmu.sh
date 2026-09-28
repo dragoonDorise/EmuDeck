@@ -60,6 +60,7 @@ BigPEmu_init(){
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
 	BigPEmu_flushEmulatorLauncher
+	BigPEmu_setESDEEmu
 	BigPEmu_addParser
 	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		BigPEmu_addESConfig
@@ -174,4 +175,9 @@ BigPEmu_addParser(){
 BigPEmu_addToSteam(){
 	setMSG "Adding BigPEmu to Steam"
 	add_to_steam "bigpemu" "BigPEmu" "$toolsPath/launchers/bigpemu.sh" "$HOME/Applications/" "$emudeckBackend/icons/BigPEmu.png" "Emulation"
+}
+
+BigPEmu_setESDEEmu(){
+	ESDE_forceEmu 'BigPEmu (Proton)' atarijaguar
+	ESDE_forceEmu 'BigPEmu (Proton)' atarijaguarcd
 }

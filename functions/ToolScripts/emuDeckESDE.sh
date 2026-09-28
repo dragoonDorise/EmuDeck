@@ -311,13 +311,49 @@ ESDE_setDefaultEmulators(){
 	ESDE_setEmu 'PPSSPP (Standalone)' psp
 	ESDE_setEmu 'Dolphin (Standalone)' wii
 	ESDE_setEmu 'PCSX2 (Standalone)' ps2
-	ESDE_setEmu 'melonDS DS' nds
+	if [ "$(melonDS_IsInstalled)" == "true" ]; then
+		melonDS_setESDEEmu
+	else
+		ESDE_setEmu 'melonDS DS' nds
+	fi
 	ESDE_setEmu 'Azahar (Standalone)' n3ds
 	ESDE_setEmu 'Beetle Lynx' atarilynx
 	ESDE_setEmu 'DuckStation (Standalone)' psx
 	ESDE_setEmu 'Beetle Saturn' saturn
 	ESDE_setEmu 'ScummVM (Standalone)' scummvm
 	ESDE_setEmu 'Ryujinx (Standalone)' switch
+
+	if [ "$(mGBA_IsInstalled)" == "true" ]; then
+		mGBA_setESDEEmu
+	fi
+	if [ "$(Flycast_IsInstalled)" == "true" ]; then
+		Flycast_setESDEEmu
+	fi
+	if [ "$(MAME_IsInstalled)" == "true" ]; then
+		MAME_setESDEEmu
+	fi
+	if [ "$(BigPEmu_IsInstalled)" == "true" ]; then
+		BigPEmu_setESDEEmu
+	fi
+}
+
+ESDE_forceEmu(){
+	local emu=$1
+	local system=$2
+	local gamelistFile="$ESDE_newConfigDirectory/gamelists/$system/gamelist.xml"
+
+	if [ "$(ESDE_IsInstalled)" != "true" ]; then
+		return 0
+	fi
+
+	mkdir -p "$(dirname "$gamelistFile")"
+	if [ ! -f "$gamelistFile" ]; then
+		printf '<?xml version="1.0"?>\n<alternativeEmulator>\n\t<label>%s</label>\n</alternativeEmulator>\n<gameList />\n' "$emu" > "$gamelistFile"
+	elif grep -q '<alternativeEmulator>' "$gamelistFile"; then
+		sed -i "0,/<label>[^<]*<\/label>/s||<label>$emu</label>|" "$gamelistFile"
+	else
+		echo "<alternativeEmulator><label>$emu</label></alternativeEmulator>" >> "$gamelistFile"
+	fi
 }
 
 ESDE_migrateDownloadedMedia(){
