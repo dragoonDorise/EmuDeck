@@ -442,7 +442,8 @@ cloud_sync_downloadEmu(){
   # startLog ${FUNCNAME[0]}
   local emuName=$1
   local mode=$2
-
+  local branch=$(cd "$emudeckBackend" && git rev-parse --abbrev-ref HEAD)
+  
   if [[ "$branch" == *"early"* ]] || [ "$branch" == "dev" ] ; then
     echo $emuName > "$savesPath/.emuName"
   else
