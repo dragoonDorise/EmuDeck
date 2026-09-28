@@ -2,6 +2,7 @@
 
 function import_emudeck(){
 	#We make sure the ESDE artwork files and gamelists are in the same place as windows, at least as a symlink...
+	mkdir -p $ESDEscrapData
 	ln -sfn "$ESDEscrapData/" "$storagePath/downloaded_media"
 	ESDE_symlinkGamelists
 	emulationPath="$emulationPath" python3 "$emudeckBackend/tools/importExport.py" import_emudeck "$1" "$2"
