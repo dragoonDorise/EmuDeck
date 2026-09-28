@@ -71,9 +71,22 @@ def srm_init():
     copy_setting_dir(f"common/srm/",f"{srm_path}")
     copy_and_set_settings_file(f"common/srm/userData/userSettings.json", f"{srm_path}/userData")
     copy_and_set_settings_file(f"common/srm/userData/userConfigurations.json", f"{srm_path}/userData")
+    srm_frame_settings()
     srm_add_custom_parsers()
     if system.startswith("win"):
         srm_windows_paths()
+
+def srm_frame_settings():
+    if system != "linux" or get_product_name() != "frame":
+        return
+    user_settings = Path(srm_path) / "userData" / "userSettings.json"
+    if not user_settings.is_file():
+        return
+    data = json.loads(user_settings.read_text(encoding="utf-8"))
+    data["autoKillSteam"] = False
+    data["autoRestartSteam"] = False
+    user_settings.write_text(json.dumps(data, indent=2), encoding="utf-8")
+
 
 def srm_windows_paths():
     sed(':\\',':\\\\',f"{srm_path}/userData/userConfigurations.json")

@@ -136,6 +136,12 @@ def xenia_set_resolution():
     print("NYI")
 
 
+def xenia_add_custom_parser():
+    if system == "linux" and xenia_is_installed() and srm_is_installed():
+        add_parser("microsoft_xbox360_iso_xenia_proton")
+        add_parser("microsoft_xbox360_xbla_xenia_proton")
+
+
 def xenia_install_init():
     if not xenia_install():
         return False

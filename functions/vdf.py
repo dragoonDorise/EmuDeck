@@ -207,7 +207,7 @@ def add_steam_shortcut(id, name, target_path, start_dir, icon_path, collection="
                     print(f"Sent SIGTERM to Steam (pid {pid})")
         except Exception:
             pass
-    if system == "linux":
+    if system == "linux" and get_product_name() != "frame":
         try:
             pid = subprocess.check_output(["pidof", "steam"], text=True).strip()
             if pid:

@@ -122,7 +122,7 @@ def get_product_name() -> Optional[str]:
     try:
         return path.read_text(encoding='utf-8').strip()
     except (OSError, UnicodeError):
-        return None
+        return socket.gethostname()
 
 def get_screen_ar() -> int:
     w, h = get_primary_monitor_size()
@@ -311,7 +311,51 @@ def remove_if_exists(path: Path):
     except FileNotFoundError:
         pass
 
-def create_desktop_shortcut(dest: Path, name: str, exec_path: str, terminal: bool):
+FLATPAK_EMULATORS = {
+    "org.DolphinEmu.dolphin-emu": "Dolphin",
+    "org.flycast.Flycast": "Flycast",
+    "org.mamedev.MAME": "MAME",
+    "net.kuribo64.melonDS": "MelonDS",
+    "org.ppsspp.PPSSPP": "PPSSPP",
+    "io.github.shiiion.primehack": "Primehack",
+    "com.github.Rosalie241.RMG": "RosaliesMupenGui",
+    "org.libretro.RetroArch": "RetroArch",
+    "org.scummvm.ScummVM": "ScummVM",
+    "com.supermodel3.Supermodel": "Supermodel",
+    "app.xemu.xemu": "Xemu-Emu",
+}
+
+
+def desktop_hidden_on_frame() -> bool:
+    return get_product_name() == "frame"
+
+
+def find_launcher(name: str):
+    stem = name.lower()
+    launchers_dir = Path(tools_path) / "launchers"
+    for candidate in (f"{stem}.sh", f"{stem}-emu.sh"):
+        for path in launchers_dir.glob("*.sh"):
+            if path.name.lower() == candidate and path.is_file():
+                return path
+    return None
+
+
+def create_flatpak_desktop(app_id: str, name: str) -> None:
+    if system != "linux":
+        return
+    launcher = find_launcher(name)
+    if launcher is None:
+        return
+    dest = Path.home() / ".local" / "share" / "applications" / f"{app_id}.desktop"
+    create_desktop_shortcut(dest, f"{name} Flatpak - EmuDeck", str(launcher), False, hide_on_frame=True)
+
+
+def flatpak_desktop_regenerate() -> None:
+    for app_id, name in FLATPAK_EMULATORS.items():
+        create_flatpak_desktop(app_id, name)
+
+
+def create_desktop_shortcut(dest: Path, name: str, exec_path: str, terminal: bool, hide_on_frame: bool = True):
     system = platform.system().lower()
 
     if system.startswith("win"):
@@ -375,6 +419,8 @@ def create_desktop_shortcut(dest: Path, name: str, exec_path: str, terminal: boo
             f"Terminal={'true' if terminal else 'false'}",
             "Categories=Utility;"
         ]
+        if hide_on_frame and desktop_hidden_on_frame():
+            desktop_entry.append("NoDisplay=true")
         dest = Path(dest)
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text("\n".join(desktop_entry) + "\n", encoding='utf-8')
@@ -410,7 +456,8 @@ def create_desktop_icon():
         desktop / "EmuDeck.desktop",
         "EmuDeck",
         appimage,
-        terminal=False
+        terminal=False,
+        hide_on_frame=False
     )
 
     applications_dir = Path.home() / ".local" / "share" / "applications"
@@ -418,7 +465,8 @@ def create_desktop_icon():
         applications_dir / "EmuDeck.desktop",
         "EmuDeck",
         appimage,
-        terminal=False
+        terminal=False,
+        hide_on_frame=False
     )
 
 def md5_of(path: Path) -> Optional[str]:
@@ -911,6 +959,9 @@ def uninstall_emu(name, type_):
 
     if type_ == "flatpak":
         subprocess.run(["flatpak", "uninstall", name, "-y", "--user"])
+        desktop = Path.home() / ".local" / "share" / "applications" / f"{name}.desktop"
+        if desktop.exists():
+            desktop.unlink()
         print(f"Removed Flatpak")
 
 def create_app_shortcut(name: str):
@@ -1044,6 +1095,8 @@ def create_app_shortcut(name: str):
             "Categories=Utility;",
             f"Keywords={keywords}",
         ]
+        if name != "srm" and desktop_hidden_on_frame():
+            desktop_entry.append("NoDisplay=true")
 
         applications_dir = Path.home() / ".local" / "share" / "applications"
         dest = applications_dir / desktop_filename
@@ -1917,6 +1970,11 @@ def flush_emulator_launchers(name: str) -> None:
             dst = d / src.name
             shutil.copy2(src, dst)
             dst.chmod(dst.stat().st_mode | 0o111)
+
+    if not win:
+        for app_id, emu_name in FLATPAK_EMULATORS.items():
+            if emu_name.lower() in (stem, f"{stem}-emu", stem.removesuffix("-emu")):
+                create_flatpak_desktop(app_id, emu_name)
 
 
 def set_ini_value(file_path, section, key, value):

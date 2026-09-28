@@ -19,6 +19,11 @@ def ryujinx_get_url():
     else:
         raise ValueError(f"Unsupported system: {system}")
 
+    if system == "linux":
+        if platform.machine() in ("aarch64", "arm64"):
+            return "https://codeberg.org/attachments/5c65822a-f311-42cc-8304-6300009097fa"
+        return "https://codeberg.org/attachments/b57a33b2-ccf7-4e0d-b434-126de0601602"
+
     resp = requests.get(
         "https://git.ryujinx.app/api/v1/repos/Ryubing/Canary/releases/latest",
         headers={"User-Agent": "EmuDeck"},

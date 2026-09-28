@@ -252,6 +252,10 @@ if system == "linux":
         exe = "/usr/bin/flatpak run app.xemu.xemu"
     if emu.lower() == "xenia":
         exe = f"{roms_path}/xbox360/xenia_canary.exe"
+    if emu.lower() == "xenia-emu":
+        exe = f"{emus_folder}/Xenia.AppImage"
+    if emu.lower() == "armsx2":
+        exe = f"{emus_folder}/armsx2.AppImage"
     if emu.lower() == "yuzu":
         exe = f"{emus_folder}/yuzu.AppImage"
     if emu.lower() == "eden":

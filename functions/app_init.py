@@ -27,6 +27,13 @@ def init_sync_launchers() -> None:
         else:
             print(f"⚠️  No backend file for {rel}; skipping")
 
+def automap_migrate():
+    if getattr(settings, "automap", None) == "false":
+        set_setting("automap", {"cemu": False, "dolphin": False, "yuzu": False})
+
+
 def app_init():
+    automap_migrate()
     if system == "linux":
         init_sync_launchers()
+        flatpak_desktop_regenerate()
