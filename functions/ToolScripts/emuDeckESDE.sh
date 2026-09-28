@@ -236,8 +236,20 @@ ESDE_addCustomSystems(){
 	Model2_addESConfig
 	Xenia_addESConfig
 	Yuzu_addESConfig
-	ARMSX2_addESConfig
 	Citron_addESConfig
+	ESDE_addArmCores
+}
+
+ESDE_addArmCores(){
+	if [ "$CPUarch" != "arm" ]; then
+		return
+	fi
+	sed -i "s|<!--armcores||g" "$es_systemsFile"
+	sed -i "s|armcores-->||g" "$es_systemsFile"
+	sed -i "s|<!--armcores||g" "$es_rulesFile"
+	sed -i "s|armcores-->||g" "$es_rulesFile"
+	sed -i "s|PCSX2|ARMSX2|g" "$ESDE_newConfigDirectory/gamelists/ps2/gamelist.xml"
+	
 }
 
 #update
@@ -250,7 +262,7 @@ ESDE_applyTheme(){
 	if [ -d "$ESDE_newConfigDirectory/themes/$themeName" ]; then
 		cd "$ESDE_newConfigDirectory/themes/$themeName" && git pull
 	else
-		git clone $themeUrl "$ESDE_newConfigDirectory/themes/"
+		git clone $themeUrl "$ESDE_newConfigDirectory/themes/$themeName"
 	fi
 
 	updateOrAppendConfigLine "$es_settingsFile" "<string name=\"ThemeSet\"" "<string name=\"ThemeSet\" value=\"\""
@@ -387,7 +399,6 @@ ESDE_refreshCustomEmus(){
 	rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
 	rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
-	ARMSX2_addESConfig
 	ESDE_setDefaultEmulators
 }
 

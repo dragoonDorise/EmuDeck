@@ -52,7 +52,6 @@ ARMSX2_init() {
 	#SRM_createParsers
 	ARMSX2_flushEmulatorLauncher
 	ARMSX2_addParser
-	ARMSX2_addESConfig
 	linkToStorageFolder pcsx2 cheats "$HOME/.config/ARMSX2/cheats"
 
 }
@@ -357,19 +356,6 @@ ARMSX2_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "armsx2"
 }
 
-
-ARMSX2_addESConfig(){
-	
-	if [ "$(ARMSX2_IsInstalled)" = "false" ]; then
-		return
-	fi
-	
-	sed -i "s|<!--armsx2||g" "$es_rulesFile"
-	sed -i "s|armsx2-->||g" "$es_rulesFile"
-	sed -i "s|<!--armsx2||g" "$es_systemsFile"
-	sed -i "s|armsx2-->||g" "$es_systemsFile"
-	sed -i "s|PCSX2|ARMSX2|g" "$ESDE_newConfigDirectory/gamelists/ps2/gamelist.xml"
-}
 
 ARMSX2_addToSteam(){
 	setMSG "Adding BigPEmu to Steam"
