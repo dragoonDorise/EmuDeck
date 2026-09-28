@@ -15,9 +15,6 @@ ARMSX2_install() {
 	echo "Begin ARMSX2 Install"
 	local showProgress="$1"
 
-	#if installEmuAI "${ARMSX2_emuName}" "https://github.com/PCSX2/pcsx2/releases/download/v1.7.4749/pcsx2-v1.7.4749-linux-appimage-x64-Qt.AppImage" "pcsx2-Qt" "$showProgress"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
-	
-	
 	if [ $CPUarch == "arm" ]; then
 		url=$(getReleaseURLGH "ARMSX2/ARMSX2" "AppImage" "4K-pages")
 	else
@@ -354,10 +351,7 @@ ARMSX2_setResolution(){
 }
 
 ARMSX2_flushEmulatorLauncher(){
-
-
-	flushEmulatorLaunchers "pcsx2-qt"
-
+	flushEmulatorLaunchers "armsx2"
 }
 
 

@@ -62,7 +62,7 @@ PCSX2QT_init() {
 
 }
 
-ARMSX2_addParser(){
+PCSX2QT_addParser(){
 	addParser "sony_ps2_pcsx2.json"
 }
 
