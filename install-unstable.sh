@@ -6,15 +6,18 @@ FEDORA_DEPS=(jq zenity flatpak unzip bash fuse git rsync newt python lsb_release
 SUSE_DEPS=(steam jq zenity flatpak unzip bash libfuse2 git rsync whiptail python libSDL2-2_0-0)
 VOID_DEPS=(steam jq zenity flatpak unzip bash fuse git rsync newt python SDL2)
 GENTOO_DEPS=(app-misc/jq gnome-extra/zenity sys-apps/flatpak app-arch/unzip app-shells/bash sys-fs/fuse:0 dev-vcs/git net-misc/rsync dev-libs/newt dev-lang/python app-text/xmlstarlet media-libs/libsdl2)
-
+RELEASE="-early-unstable"
 CPU_ARCH="x86"
 if [ "$(uname -m)" = "aarch64" ] || [ "$(uname -m)" = "arm64" ]; then
     CPU_ARCH="arm"
 fi
 
 
-OS_NAME=$(cat /etc/hostname)
-if [ "$OS_NAME" = "playnix" ]; then
+if [ -r /etc/os-release ] && grep -Eq '^ID="?armada"?$' /etc/os-release; then
+    linuxID="ArmadaOS"
+elif [ -e /usr/lib/armada/version ]; then
+    linuxID="ArmadaOS"
+elif [ "$(cat /etc/hostname)" = "playnix" ]; then
     linuxID="PlaynixOS"
 else
     linuxID=$(lsb_release -si)
@@ -26,7 +29,7 @@ if [ "$linuxID" = "Ubuntu" ]; then
     sandbox="--no-sandbox"
 fi
 
-if [ "$linuxID" == "SteamOS" ] || [ "$linuxID" == "PlaynixOS" ]; then
+if [ "$linuxID" == "SteamOS" ] || [ "$linuxID" == "PlaynixOS" ] || [ "$linuxID" == "ArmadaOS" ]; then
     echo "installing EmuDeck"
 else
     zenityAvailable=$(command -v zenity &> /dev/null  && echo true)
@@ -126,7 +129,7 @@ report_error() {
 
 trap report_error ERR
 
-EMUDECK_GITHUB_URL="https://api.github.com/repos/EmuDeck/emudeck-electron-early-unstable/releases/latest"
+EMUDECK_GITHUB_URL="https://api.github.com/repos/EmuDeck/emudeck-electron${RELEASE}/releases/latest"
 if [ "$CPU_ARCH" == "arm" ]; then
     EMUDECK_URL="$(curl -s "$EMUDECK_GITHUB_URL" | grep -E 'browser_download_url.*arm64\.AppImage' | cut -d '"' -f 4)"
 else

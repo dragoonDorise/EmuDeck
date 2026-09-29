@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #variables
 Ryujinx_emuName="Ryujinx"
@@ -49,8 +49,15 @@ Ryujinx_cleanup(){
 Ryujinx_install(){
     echo "Begin Ryujinx Install"
     local showProgress=$1
-    #local url=$(curl -s -H "User-Agent: EmuDeck" "https://git.ryujinx.app/api/v1/repos/Ryubing/Canary/releases/latest" | jq -r '.assets[] | select(.browser_download_url | test("linux_x64\\.tar\\.gz$")) | .browser_download_url' | head -n 1)    
-    local url="https://codeberg.org/attachments/b57a33b2-ccf7-4e0d-b434-126de0601602"
+    local url
+
+    if [ $CPUarch == "arm" ]; then
+        url="https://codeberg.org/attachments/5c65822a-f311-42cc-8304-6300009097fa"
+        #url=$(curl -s -H "User-Agent: EmuDeck" "https://git.ryujinx.app/api/v1/repos/Ryubing/Canary/releases/latest" | jq -r '.assets[] | select(.browser_download_url | test("linux_arm64\\.tar\\.gz$")) | .browser_download_url' | head -n 1)
+    else
+        url="https://codeberg.org/attachments/b57a33b2-ccf7-4e0d-b434-126de0601602"
+        #url=$(curl -s -H "User-Agent: EmuDeck" "https://git.ryujinx.app/api/v1/repos/Ryubing/Canary/releases/latest" | jq -r '.assets[] | select(.browser_download_url | test("linux_x64\\.tar\\.gz$")) | .browser_download_url' | head -n 1)
+    fi
 
     if installEmuBI "$Ryujinx_emuName" "$url" "" "tar.gz" "$showProgress"; then
         mkdir -p "$emusFolder/publish"
@@ -73,6 +80,7 @@ Ryujinx_init(){
     Ryujinx_finalize
 	#SRM_createParsers
     Ryujinx_flushEmulatorLauncher
+    Ryujinx_setResolution
 
 	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		Yuzu_addESConfig
@@ -82,7 +90,7 @@ Ryujinx_init(){
 
     Ryujinx_setLanguage
     
-    #Ryujinx_ensureGyroDSU
+    Ryujinx_ensureGyroDSU
 
     Ryujinx_set_gamepad_name
 
@@ -110,29 +118,8 @@ Ryujinx_update(){
 #ConfigurePaths
 Ryujinx_setEmulationFolder(){
     echo "Begin Ryujinx Path Config"
-#     configFile="$HOME/.config/yuzu/qt-config.ini"
-#     screenshotDirOpt='Screenshots\\screenshot_path='
-#     gameDirOpt='Paths\\gamedirs\\4\\path='
-#     dumpDirOpt='dump_directory='
-#     loadDir='load_directory='
-#     nandDirOpt='nand_directory='
-#     sdmcDirOpt='sdmc_directory='
-#     tasDirOpt='tas_directory='
-#     newScreenshotDirOpt='Screenshots\\screenshot_path='"${storagePath}/yuzu/screenshots"
-#     newGameDirOpt='Paths\\gamedirs\\4\\path='"${romsPath}/switch"
-#     newDumpDirOpt='dump_directory='"${storagePath}/yuzu/dump"
-#     newLoadDir='load_directory='"${storagePath}/yuzu/load"
-#     newNandDirOpt='nand_directory='"${storagePath}/yuzu/nand"
-#     newSdmcDirOpt='sdmc_directory='"${storagePath}/yuzu/sdmc"
-#     newTasDirOpt='tas_directory='"${storagePath}/yuzu/tas"
-#
-#     sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" "$configFile"
-#     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$configFile"
-#     sed -i "/${dumpDirOpt}/c\\${newDumpDirOpt}" "$configFile"
-#     sed -i "/${loadDir}/c\\${newLoadDir}" "$configFile"
-#     sed -i "/${nandDirOpt}/c\\${newNandDirOpt}" "$configFile"
-#     sed -i "/${sdmcDirOpt}/c\\${newSdmcDirOpt}" "$configFile"
-#     sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "$configFile"
+    
+    sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$Ryujinx_configFile"
 
     #Setup Bios symlinks
     unlink "${biosPath}/ryujinx/keys"
@@ -141,13 +128,25 @@ Ryujinx_setEmulationFolder(){
     unlink "$HOME/.config/Ryujinx/system"
     ln -sn "$HOME/.config/Ryujinx/system" "${biosPath}/ryujinx/keys"
     sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$Ryujinx_configFile"
+    
+    # Portable
+    # folder_parent="${biosPath}/ryujinx"
+    # link_parent="$HOME/.config/Ryujinx"       
+    # mkdir -p "$folder_parent"
+    # mkdir -p "$link_parent"
+    # 
+    # #Keys
+    # folder="${folder_parent}/keys"
+    # link="${link_parent}/system"
+    #     
+    # linkToFolder "$folder" "$link"
 
 }
 
 #SetLanguage
 Ryujinx_setLanguage(){
     setMSG "Setting Ryujinx Language"
-    local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+    local language=$(getSystemLanguage)
 	#TODO: call this somewhere, and input the $language from somewhere (args?)
 	if [[ -f "${Ryujinx_configFile}" ]]; then
 		if [ ${Ryujinx_languages[$language]+_} ]; then
@@ -297,13 +296,25 @@ Ryujinx_setResolution(){
 		"1080P") multiplier=1; docked="true";;
 		"1440P") multiplier=2; docked="false";;
 		"4K") multiplier=2; docked="true";;
-		*) echo "Error"; return 1;;
+		*) multiplier=1; docked="false";;
 	esac
+  
+    #Steam Machine 4K > 1080P fallback
+    if [ "$ryujinxResolution" = "4K" ]; then
+      getScreenInfoOnlyTV	
+      if [ "${screenWidth:-0}" -lt 3840 ]; then 
+        multiplier=1
+        docked="true"
+      fi
+    fi
 
-	jq --arg docked "$docked" --arg multiplier "$multiplier" \
-	  '.docked_mode = $docked | .res_scale = $multiplier' "$Ryujinx_configFile" > tmp.json
-
-	mv tmp.json "$Ryujinx_configFile"
+	local tmpFile
+	tmpFile=$(mktemp)
+	if jq --arg docked "$docked" --arg multiplier "$multiplier" \
+	  ".docked_mode = $docked | .res_scale = $multiplier" "$Ryujinx_configFile" > "$tmpFile" && [ -s "$tmpFile" ]; then
+		cat "$tmpFile" > "$Ryujinx_configFile"
+	fi
+	rm -f "$tmpFile"
 
 }
 
@@ -341,10 +352,12 @@ Ryujinx_getOrderedGamepads(){
 Ryujinx_set_gamepad_name() {
   
   if [ "$(getProductName)" == "Jupiter" ] || [ "$(getProductName)" == "Galileo" ]; then
-      return 0
+      if [ -z "${autoMapSwitch}" ]; then
+        return 0
+      fi
   fi
   
-  if [ "${autoMap}" == "false" ]; then
+  if [ "${autoMapSwitch}" == "false" ]; then
     return 0
   fi
   
@@ -376,7 +389,8 @@ Ryujinx_set_gamepad_name() {
             name: .name,
             backend: (if (($tmpl.backend // "") | startswith("Gamepad")) then $tmpl.backend else "GamepadSDL3" end)
           } ]' "$Ryujinx_configFile" > "$tmp" && [ -s "$tmp" ]; then
-    mv "$tmp" "$Ryujinx_configFile"
+    cat "$tmp" > "$Ryujinx_configFile"
+    rm -f "$tmp"
   else
     rm -f "$tmp"
     echo "No gamepad entry to update in $Ryujinx_configFile" >&2
@@ -387,10 +401,9 @@ Ryujinx_set_gamepad_name() {
      && echo "$pads" | jq -e '(.[0].name // "") | ascii_downcase | contains("steam deck")' >/dev/null 2>&1; then
     tmp="$(mktemp)"
     if jq '.input_config[0].motion = {"slot":0,"alt_slot":0,"mirror_input":false,"dsu_server_host":"127.0.0.1","dsu_server_port":26760,"motion_backend":"CemuHook","sensitivity":100,"gyro_deadzone":1,"enable_motion":true}' "$Ryujinx_configFile" > "$tmp" && [ -s "$tmp" ]; then
-      mv "$tmp" "$Ryujinx_configFile"
-    else
-      rm -f "$tmp"
+      cat "$tmp" > "$Ryujinx_configFile"
     fi
+    rm -f "$tmp"
   fi
 }
 
@@ -442,12 +455,17 @@ Ryujinx_ensureGyroDSU(){
     Plugins_installSteamDeckGyroDSU
 }
 
-ryujinx_launch_fixes(){
+Ryujinx_launch_fixes(){
     if [ "$(Ryujinx_IsInstalled)" == "true" ] \
        && jq -e '[.input_config[]? | .backend? // ""] | any(startswith("GamepadSDL2"))' "$Ryujinx_configFile" >/dev/null 2>&1; then
         Ryujinx_migrateToSDL3
     fi
-    #Ryujinx_ensureGyroDSU
+    Ryujinx_ensureGyroDSU
 
     Ryujinx_set_gamepad_name
+}
+
+Ryujinx_addToSteam(){
+	setMSG "Adding Ryujinx to Steam"
+	add_to_steam "ryujinx" "Ryujinx" "$toolsPath/launchers/ryujinx.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/Ryujinx.ico" "Emulation"
 }

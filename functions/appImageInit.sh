@@ -1,12 +1,30 @@
-#!/bin/bash
-
-
+#!/usr/bin/env bash
 
 appImageInit() {
-
+	
+	#Remove armada fix
+	sed -i 's|env LD_LIBRARY_PATH=[^ ]* ||' "$(xdg-user-dir DESKTOP)/EmuDeck.desktop" "$HOME/.local/share/applications/EmuDeck.desktop"
+	  2>/dev/null
+	
+	#Migrate Xenia
+	# if [ -f "$Xenia_legacyPath/xenia.config.toml" ]; then
+	# 	zenity --question --title "Xenia migration" --text "Xenia Proton detected, it's recommended to update to the new Native release" --cancel-label "Cancel" --ok-label "OK"
+	# 	if [ $? = 0 ]; then
+	# 		Xenia_migrate
+	# 	else
+	# 		echo "continue"
+	# 	fi
+	# fi	
+	
+	#AutoMap set for old trick	
+	if [ "$autoMap" = "false" ]; then		
+		setSetting autoMapDolphin false
+		setSetting autoMapSwitch false
+		setSetting autoMapCemu false
+		setSetting autoMap "null"	
+	fi
 
 	#Migrate DuckStation
-
 	if [ -d "$HOME/.var/app/org.duckstation.DuckStation/config/duckstation" ]; then
 
 		zenity --question --title "DuckStation migration" --text "DuckStation flatpak detected, it's recommended to update to the new AppImage release" --cancel-label "Cancel" --ok-label "OK"
@@ -26,7 +44,6 @@ appImageInit() {
 	fi
 
 	#Migrate emudeck folder
-
 	if [ -f "$HOME/emudeck/settings.sh" ] &&  [ ! -L "$HOME/emudeck/settings.sh" ]; then
 		# We move good old emudeck folder to .config
 		rsync -avh "$HOME/emudeck/" "$emudeckFolder" && rm -rf "$HOME/emudeck" && mkdir "$HOME/emudeck" && ln -s "$emudeckFolder/settings.sh" "$HOME/emudeck/settings.sh"
@@ -46,5 +63,7 @@ appImageInit() {
 	#We force the regeneration of all the installed launchers
 
 	update_launchers
+
+	flatpakDesktopRegenerate
 
 }

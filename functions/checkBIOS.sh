@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 checkPS1BIOS(){
 
@@ -91,6 +91,19 @@ checkYuzuBios(){
 
 	local FIRMWARE="$biosPath/yuzu/firmware"
 	local KEYS="$biosPath/yuzu/keys/prod.keys"
+	if [[ -f "$KEYS" ]] && [[ "$( ls -A "$FIRMWARE")" ]]; then
+			echo "true";
+	else
+			echo "false";
+	fi
+
+}
+
+
+checkEdenBios(){
+
+	local FIRMWARE="$biosPath/eden/firmware"
+	local KEYS="$biosPath/eden/keys/prod.keys"
 	if [[ -f "$KEYS" ]] && [[ "$( ls -A "$FIRMWARE")" ]]; then
 			echo "true";
 	else

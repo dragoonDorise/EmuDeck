@@ -1,7 +1,0 @@
-collection: Dreamcast
-shortname: dreamcast
-extensions: 7z, bin, cdi, chd, cue, dat, elf, gdi, iso, lst, m3u, zip
-launch: am start
-  -n io.recompiled.redream/.MainActivity
-  -a android.intent.action.VIEW
-  -d "{file.path}"

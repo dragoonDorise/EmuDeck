@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 ##
 ## set backend location
@@ -79,7 +79,7 @@ mkdir -p "$HOME/.config/EmuDeck"
 
 #Custom Scripts
 mkdir -p "$emudeckFolder/custom_scripts"
-echo $'#!/bin/bash\nemudeckBackend="$HOME/.config/EmuDeck/backend/"\nsource "$emudeckBackend/functions/all.sh"' > "$emudeckFolder/custom_scripts/example.sh"
+echo $'#!/usr/bin/env bash\nemudeckBackend="$HOME/.config/EmuDeck/backend/"\nsource "$emudeckBackend/functions/all.sh"' > "$emudeckFolder/custom_scripts/example.sh"
 
 echo "Press the button to start..." > "$LOGFILE"
 
@@ -167,6 +167,7 @@ for install_command in \
 	"$doInstallSRM SRM_install" \
 	"$doInstallRetroLibrary Plugins_installDeckyRomLibrary" \
 	"$doInstallPCSX2QT PCSX2QT_install" \
+	"$doInstallARMSX2 ARMSX2_install" \
 	"$doInstallPrimeHack Primehack_install" \
 	"$doInstallRPCS3 RPCS3_install" \
 	"$doInstallAzahar Azahar_install" \
@@ -224,6 +225,7 @@ for setup_command in \
 	"$doSetupPrimehack Primehack_init" \
 	"$doSetupDolphin Dolphin_init" \
 	"$doSetupPCSX2QT PCSX2QT_init" \
+	"$doSetupARMSX2 ARMSX2_init" \
 	"$doSetupRPCS3 RPCS3_init" \
 	"$doSetupAzahar Azahar_init" \
 	"$doSetupDuck DuckStation_init" \

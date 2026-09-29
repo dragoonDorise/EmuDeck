@@ -48,8 +48,9 @@
     <RecentLaunchFiles/>
     <RecentNFCFiles/>
     <GamePaths>
-    </GamePaths>
-    <GameCache/>
+		<Entry>/run/media/mmcblk0p1/Emulation/roms/wiiu/roms</Entry>
+	</GamePaths>
+	<GameCache/>
     <GraphicPack/>
     <Graphic>
         <api>1</api>

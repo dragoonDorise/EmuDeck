@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 createDesktopIcons(){
 	local sandbox=""
 	local desktop=$(xdg-user-dir DESKTOP)
@@ -15,17 +15,14 @@ createDesktopIcons(){
 	rm -rf ~/Desktop/EmuDeckApp.desktop 2>/dev/null
 	rm -rf ~/Desktop/EmuDeckAppImage.desktop 2>/dev/null
 	rm -rf ~/Desktop/EmuDeckAppImage.desktop 2>/dev/null
-
 	#New EmuDeck icon, same place so people won't get confused
 	createDesktopShortcut "$desktop/EmuDeck.desktop" \
 	"EmuDeck" \
 	"$emusFolder/EmuDeck.AppImage$sandbox" \
 	"false"
 	 #App list
-	 #desktop-file-install --dir --delete-original "$HOME/Desktop/EmuDeck.desktop"
 	 createDesktopShortcut "$HOME/.local/share/applications/EmuDeck.desktop" \
 	 "EmuDeck" \
 	 "$emusFolder/EmuDeck.AppImage$sandbox" \
 	 "false"
-
 }

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 if [ "$?" == "1" ]; then
     echo "functions could not be loaded."
@@ -13,6 +13,12 @@ if [ "$(ares_IsInstalled "$emuDeckEmuTypeFlatpak")" == "true" ]; then
     emuTable+=(TRUE "ares" "Multi-System Emulator")
 else
     emuTable+=(FALSE "ares" "Multi-System Emulator")
+fi
+
+if [ "$(Flycast_IsInstalled "$emuDeckEmuTypeFlatpak")" == "true" ]; then
+    emuTable+=(TRUE "Flycast" "Sega Dreamcast")
+else
+    emuTable+=(FALSE "Flycast" "Sega Dreamcast")
 fi
 
 if [ "$(Dolphin_IsInstalled "$emuDeckEmuTypeFlatpak")" == "true" ]; then
@@ -102,6 +108,10 @@ if [ ${#emuTable[@]} -gt 0 ]; then
             if [[ "$emusToInstall" == *"Dolphin"* ]]; then
                 doUpdateDolphin=true
             fi
+            if [[ "$emusToInstall" == *"Flycast"* ]]; then
+                doUpdateFlycast=true
+            fi
+            
             if [[ "$emusToInstall" == *"melonDS"* ]]; then
             	doUpdateMelonDS=true
             fi
@@ -137,6 +147,10 @@ if [ ${#emuTable[@]} -gt 0 ]; then
                     echo "###Updating Dolphin..."
                     (updateEmuFP "dolphin-emu" "org.DolphinEmu.dolphin-emu" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|Dolphin" && echo "&&&$progressInstalled"
                 fi
+                if [ "$doUpdateFlycast" == "true" ]; then
+                    echo "###Updating Flycast..."
+                    (updateEmuFP "flycast" "org.flycast.Flycast" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|Flycast" && echo "&&&$progressInstalled"
+                fi                
                 if [ "$doUpdateMelonDS" == "true" ]; then
                     echo "###Updating melonDS..."
                     (updateEmuFP "melonDS" "net.kuribo64.melonDS" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|melonDS" && echo "&&&$progressInstalled"

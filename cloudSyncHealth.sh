@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 clear
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 

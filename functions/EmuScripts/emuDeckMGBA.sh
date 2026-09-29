@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 mGBA_emuName="mGBA"
 mGBA_emuType="$emuDeckEmuTypeAppImage"
@@ -14,7 +14,15 @@ mGBA_cleanup(){
 mGBA_install(){
 	echo "Begin mGBA Install"
 	local showProgress="$1"
-	if installEmuAI "$mGBA_emuName" "" "$(getReleaseURLGH "mgba-emu/mgba" "x64.appimage")" "" "" "emulator" "$showProgress"; then #mGBA.AppImage
+	local appName="x64.appimage"
+	
+	if [ $CPUarch == "arm" ]; then
+		appName="arm64.appimage"			
+	fi
+	
+	local url=$(getReleaseURLGH "mgba-emu/mgba" "$appName")
+	
+	if installEmuAI "$mGBA_emuName" "" "$url" "" "" "emulator" "$showProgress"; then #mGBA.AppImage
 		:
 	else
 		return 1
@@ -37,6 +45,7 @@ mGBA_init(){
 	#SRM_createParsers
 	mGBA_addSteamInputProfile
 	mGBA_flushEmulatorLauncher
+	mGBA_setESDEEmu
 	mGBA_addParser
 }
 
@@ -171,3 +180,12 @@ mGBA_addParser(){
 	addParser "nintendo_gbc_mgba.json"
 }
 
+
+mGBA_addToSteam(){
+	setMSG "Adding mGBA to Steam"
+	add_to_steam "mgba" "mGBA" "$toolsPath/launchers/mgba.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/mgba.ico" "Emulation"
+}
+
+mGBA_setESDEEmu(){
+	ESDE_forceEmu 'mGBA (Standalone)' gba
+}

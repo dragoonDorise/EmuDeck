@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 Dolphin_emuName="Dolphin"
 Dolphin_emuType="$emuDeckEmuTypeFlatpak"
@@ -6,7 +6,69 @@ Dolphin_emuPath="org.DolphinEmu.dolphin-emu"
 Dolphin_configFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
 Dolphin_configFileGFX="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GFX.ini"
 Dolphin_gamecubeFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GCPadNew.ini"
+Dolphin_cheevosConfigFile="$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/RetroAchievements.ini"
 Dolphin_releaseURL=""
+
+#RetroAchievements
+Dolphin_ensureCheevosConfig(){
+	# Dolphin guarda los logros en RetroAchievements.ini. Si no existe, lo creamos con los valores por defecto.
+	if [ ! -f "$Dolphin_cheevosConfigFile" ]; then
+		mkdir -p "$(dirname "$Dolphin_cheevosConfigFile")"
+		cat > "$Dolphin_cheevosConfigFile" <<-EOF
+		[Achievements]
+		ChallengeIndicatorsEnabled = True
+		DiscordPresenceEnabled = False
+		Enabled = False
+		EncoreEnabled = False
+		HardcoreEnabled = False
+		LeaderboardTrackerEnabled = True
+		ProgressEnabled = False
+		SpectatorEnabled = False
+		UnofficialEnabled = False
+		Username =
+		ApiToken =
+		EOF
+	fi
+}
+Dolphin_retroAchievementsOn(){
+	iniFieldUpdate "$Dolphin_cheevosConfigFile" "Achievements" "Enabled" "True"
+}
+Dolphin_retroAchievementsOff(){
+	iniFieldUpdate "$Dolphin_cheevosConfigFile" "Achievements" "Enabled" "False"
+}
+Dolphin_retroAchievementsHardCoreOn(){
+	Dolphin_ensureCheevosConfig
+	iniFieldUpdate "$Dolphin_cheevosConfigFile" "Achievements" "HardcoreEnabled" "True"
+}
+Dolphin_retroAchievementsHardCoreOff(){
+	Dolphin_ensureCheevosConfig
+	iniFieldUpdate "$Dolphin_cheevosConfigFile" "Achievements" "HardcoreEnabled" "False"
+}
+Dolphin_retroAchievementsSetLogin(){
+	Dolphin_ensureCheevosConfig
+	ra_get_credentials
+	rau="$achievementsUser"
+	rat="$achievementsUserToken"
+	echo "Evaluate RetroAchievements Login."
+	if [ ${#rat} -lt 1 ]; then
+		echo "--No token."
+	elif [ ${#rau} -lt 1 ]; then
+		echo "--No username."
+	else
+		echo "Valid Retroachievements Username and Password length"
+		iniFieldUpdate "$Dolphin_cheevosConfigFile" "Achievements" "Username" "$rau"
+		iniFieldUpdate "$Dolphin_cheevosConfigFile" "Achievements" "ApiToken" "$rat"
+		Dolphin_retroAchievementsOn
+	fi
+}
+Dolphin_setRetroAchievements(){
+	Dolphin_retroAchievementsSetLogin
+	if [ "$achievementsHardcore" == "true" ]; then
+		Dolphin_retroAchievementsHardCoreOn
+	else
+		Dolphin_retroAchievementsHardCoreOff
+	fi
+}
 
 #cleanupOlderThings
 Dolphin_cleanup(){
@@ -53,6 +115,7 @@ Dolphin_init(){
     Dolphin_setRetroAchievements
     Dolphin_flushEmulatorLauncher
     Dolphin_flushSymlinks
+    Dolphin_setResolution
 	#SRM_createParsers
     #Dolphin_DynamicInputTextures
     
@@ -200,10 +263,12 @@ Dolphin_finalize(){
 Dolphin_setGamepads(){
   
     if [ "$(getProductName)" == "Jupiter" ] || [ "$(getProductName)" == "Galileo" ]; then
+      if [ -z "${autoMapDolphin}" ]; then
         return 0
+      fi
     fi
   
-	if [ "${autoMap}" == "false" ]; then
+	if [ "${autoMapDolphin}" == "false" ]; then
 		return 0
 	fi
     cp "$emudeckBackend/configs/org.DolphinEmu.dolphin-emu/config/dolphin-emu/GCPadNew.ini" $Dolphin_gamecubeFile
@@ -227,7 +292,7 @@ Dolphin_setGamepads(){
 	' >/dev/null 2>&1
 }
 
-dolphin_launch_fixes(){
+Dolphin_launch_fixes(){
 	Dolphin_setGamepads
 }
 
@@ -261,8 +326,16 @@ Dolphin_setResolution(){
 		"1080P") multiplier=3;;
 		"1440P") multiplier=4;;
 		"4K") multiplier=6;;
-		*) echo "Error"; return 1;;
+		*) multiplier=2;;
 	esac
+  
+    #Steam Machine 4K > 1080P fallback
+    if [ "$dolphinResolution" = "4K" ]; then
+      getScreenInfoOnlyTV	
+      if [ "${screenWidth:-0}" -lt 3840 ]; then 
+        multiplier=3
+      fi
+    fi
 
 	RetroArch_setConfigOverride "InternalResolution" $multiplier "$Dolphin_configFileGFX"
 }
@@ -393,4 +466,9 @@ Dolphin_flushSymlinks(){
   		echo "Dolphin symlinks already cleaned."
   fi
 
+}
+
+Dolphin_addToSteam(){
+	setMSG "Adding Dolphin to Steam"
+	add_to_steam "dolphin" "Dolphin" "$toolsPath/launchers/dolphin-emu.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/dolphin.ico" "Emulation"
 }

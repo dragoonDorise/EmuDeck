@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 ESDE_toolName="ES-DE"
 ESDE_oldtoolName="EmulationStation-DE"
@@ -91,7 +91,11 @@ ESDE_install(){
 	local esdeReleaseData=$(curl -fsSL "$ESDE_releaseJSON")
 
 	ESDE_releaseURL=$(echo "$esdeReleaseData" | jq -r '.stable.packages[] | select(.name == "LinuxSteamDeckAppImage") | .url')
-
+	
+	if [ $CPUarch == "arm" ]; then
+		ESDE_releaseURL=$(echo "$esdeReleaseData" | jq -r '.stable.packages[] | select(.name == "LinuxAArch64AppImage") | .url')
+	fi
+	
 	echo "$ESDE_releaseURL"
 	if [[ -n "$ESDE_releaseURL" ]]; then
 		if safeDownload "$ESDE_toolName" "$ESDE_releaseURL" "$ESDE_toolPath" "$showProgress"; then
@@ -108,7 +112,7 @@ ESDE_install(){
 
 ESDE_addToSteam(){
 	setMSG "Adding $ESDE_toolName to Steam"
-	add_to_steam "es-de" "EmulationStationDE" "$toolsPath/launchers/es-de/es-de.sh" "$HOME/Applications/" "$HOME/.config/EmuDeck/backend/icons/ico/EmulationStationDE.ico"
+	add_to_steam "es-de" "EmulationStationDE" "$toolsPath/launchers/es-de/es-de.sh" "$HOME/Applications/" "$HOME/.config/EmuDeck/backend/icons/ico/EmulationStationDE.ico" "Emulation" "true"
 }
 
 #ApplyInitialSettings
@@ -122,12 +126,12 @@ ESDE_init(){
 	mkdir -p "$ESDE_newConfigDirectory/settings"
 	mkdir -p "$ESDE_newConfigDirectory/custom_systems/"
 	rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --backup --suffix=.bak
-	rsync -avhp --mkpath "$emudeckBackend/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
+	rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
 	# This duplicates ESDE_addCustomSystemsFile but this line only applies only if you are resetting ES-DE and not the emulators themselves.
 	rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
 
 	ESDE_createLauncher
-	ESDE_addCustomSystems
+	
 	ESDE_setEmulationFolder
 	ESDE_setDefaultSettings
 	ESDE_setDefaultEmulators
@@ -140,7 +144,11 @@ ESDE_init(){
 	addSteamInputCustomIcons
 	ESDE_flushToolLauncher
 	SRM_flushOldSymlinks
-
+	
+	#Symlinks for windows migration
+	ln -sfn "$ESDEscrapData/" "$storagePath/downloaded_media"
+	
+	ESDE_addCustomSystems
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_systemsFile"
 }
@@ -171,7 +179,7 @@ ESDE_update(){
 
 		#update es_settings.xml
 		rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/es_settings.xml" "$(dirname "$es_settingsFile")" --ignore-existing
-		rsync -avhp --mkpath "$emudeckBackend/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --ignore-existing
+		rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --ignore-existing
 		rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --ignore-existing
 
 		ESDE_addCustomSystems
@@ -229,6 +237,19 @@ ESDE_addCustomSystems(){
 	Xenia_addESConfig
 	Yuzu_addESConfig
 	Citron_addESConfig
+	ESDE_addArmCores
+}
+
+ESDE_addArmCores(){
+	if [ "$CPUarch" != "arm" ]; then
+		return
+	fi
+	sed -i "s|<!--armcores||g" "$es_systemsFile"
+	sed -i "s|armcores-->||g" "$es_systemsFile"
+	sed -i "s|<!--armcores||g" "$es_rulesFile"
+	sed -i "s|armcores-->||g" "$es_rulesFile"
+	sed -i "s|PCSX2|ARMSX2|g" "$ESDE_newConfigDirectory/gamelists/ps2/gamelist.xml"
+	
 }
 
 #update
@@ -241,7 +262,7 @@ ESDE_applyTheme(){
 	if [ -d "$ESDE_newConfigDirectory/themes/$themeName" ]; then
 		cd "$ESDE_newConfigDirectory/themes/$themeName" && git pull
 	else
-		git clone $themeUrl "$ESDE_newConfigDirectory/themes/"
+		git clone $themeUrl "$ESDE_newConfigDirectory/themes/$themeName"
 	fi
 
 	updateOrAppendConfigLine "$es_settingsFile" "<string name=\"ThemeSet\"" "<string name=\"ThemeSet\" value=\"\""
@@ -255,147 +276,6 @@ ESDE_applyTheme(){
 ESDE_setEmulationFolder(){
 	#update cemu custom system launcher to correct path by just replacing the line, if it exists.
 	echo "updating $es_systemsFile"
-
-	#insert new commands
-	if [[ ! $(grep -rnw "$es_systemsFile" -e 'wiiu') == "" ]]; then
-		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Native)') == "" ]]; then
-			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandN' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%" \
-			--insert 'systemList/system/commandN' --type attr --name 'label' --value "Cemu (Native)" \
-			-r 'systemList/system/commandN' -v 'command' \
-			"$es_systemsFile"
-
-			#format doc to make it look nice
-			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-		else
-			#update
-			cemuNativeCommandString="/bin/bash ${toolsPath}/launchers/cemu.sh -f -g %ROM%"
-			xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Native)"]' -v "$cemuNativeCommandString" "$es_systemsFile"
-		fi
-		if [[ $(grep -rnw "$es_systemsFile" -e 'Cemu (Proton)') == "" ]]; then
-			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="wiiu"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%" \
-			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Cemu (Proton)" \
-			-r 'systemList/system/commandP' -v 'command' \
-			"$es_systemsFile"
-
-			#format doc to make it look nice
-			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-		else
-			#update
-			cemuProtonCommandString="/bin/bash ${toolsPath}/launchers/cemu.sh -w -f -g z:%ROM%"
-			xmlstarlet ed -L -u '/systemList/system/command[@label="Cemu (Proton)"]' -v "$cemuProtonCommandString" "$es_systemsFile"
-		fi
-	fi
-	if [[ ! $(grep -rnw "$es_systemsFile" -e 'xbox360') == "" ]]; then
-		if [[ $(grep -rnw "$es_systemsFile" -e 'Xenia (Proton)') == "" ]]; then
-			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="xbox360"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/xenia.sh z:%ROM% %INJECT%=%BASENAME%.esprefix" \
-			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Xenia (Proton)" \
-			-r 'systemList/system/commandP' -v 'command' \
-			"$es_systemsFile"
-
-			#format doc to make it look nice
-			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-		else
-			#update
-			xeniaProtonCommandString="/bin/bash ${toolsPath}/launchers/xenia.sh z:%ROM% %INJECT%=%BASENAME%.esprefix"
-			xmlstarlet ed -L -u '/systemList/system/command[@label="Xenia (Proton)"]' -v "$xeniaProtonCommandString" "$es_systemsFile"
-		fi
-	fi
-	if [[ ! $(grep -rnw "$es_systemsFile" -e 'model2') == "" ]]; then
-		if [[ $(grep -rnw "$es_systemsFile" -e 'Model 2 Emulator (Proton)') == "" ]]; then
-			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="model2"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/model-2-emulator.sh %BASENAME%" \
-			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Model 2 Emulator (Proton)" \
-			-r 'systemList/system/commandP' -v 'command' \
-			"$es_systemsFile"
-
-			#format doc to make it look nice
-			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-		else
-			#update
-			model2ProtonCommandString="/bin/bash ${toolsPath}/launchers/model-2-emulator.sh %BASENAME%"
-			xmlstarlet ed -L -u '/systemList/system/command[@label="Model 2 Emulator (Proton)"]' -v "$model2ProtonCommandString" "$es_systemsFile"
-		fi
-	fi
-	if [[ ! $(grep -rnw "$es_systemsFile" -e 'atarijaguar') == "" ]]; then
-		if [[ $(grep -rnw "$es_systemsFile" -e 'BigPEmu (Proton)') == "" ]]; then
-			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="atarijaguar"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/bigpemu.sh %BASENAME%" \
-			--insert 'systemList/system/commandP' --type attr --name 'label' --value "BigPEmu (Proton)" \
-			-r 'systemList/system/commandP' -v 'command' \
-			"$es_systemsFile"
-
-			#format doc to make it look nice
-			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-		else
-			#update
-			bigpemujaguarProtonCommandString="/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%"
-			xmlstarlet ed -L -u '/systemList/system/command[@label="BigPEmu (Proton)"]' -v "$bigpemujaguarProtonCommandString" "$es_systemsFile"
-		fi
-	fi
-	if [[ ! $(grep -rnw "$es_systemsFile" -e 'atarijaguarcd') == "" ]]; then
-		if [[ $(grep -rnw "$es_systemsFile" -e 'BigPEmu (Proton)') == "" ]]; then
-			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="atarijaguarcd"]' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
-			--insert 'systemList/system/commandP' --type attr --name 'label' --value "BigPEmu (Proton)" \
-			-r 'systemList/system/commandP' -v 'command' \
-			"$es_systemsFile"
-
-			#format doc to make it look nice
-			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-		else
-			#update
-			bigpemujaguarcdProtonCommandString="/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%"
-			xmlstarlet ed -L -u '/systemList/system/command[@label="BigPEmu (Proton)"]' -v "$bigpemujaguarcdProtonCommandString" "$es_systemsFile"
-		fi
-	fi
-	if [[ ! $(grep -rnw "$es_systemsFile" -e 'switch') == "" ]]; then
-		if [[ $(grep -rnw "$es_systemsFile" -e 'Ryujinx (Standalone)') == "" ]]; then
-			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="switch"]' --type elem --name 'commandP' -v "%EMULATOR_RYUJINX% %ROM%" \
-			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Ryujinx (Standalone)" \
-			-r 'systemList/system/commandP' -v 'command' \
-			"$es_systemsFile"
-
-			#format doc to make it look nice
-			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-		else
-			#update
-			ryujinxSwitchCommandString="%EMULATOR_RYUJINX% %ROM%"
-			xmlstarlet ed -L -u '/systemList/system/command[@label="Ryujinx (Standalone)"]' -v "$ryujinxSwitchCommandString" "$es_systemsFile"
-		fi
-		if [[ $(grep -rnw "$es_systemsFile" -e 'Yuzu (Standalone)') == "" ]]; then
-			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="switch"]' --type elem --name 'commandP' -v "%INJECT%=%BASENAME%.esprefix %EMULATOR_YUZU% -f -g %ROM%" \
-			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Yuzu (Standalone)" \
-			-r 'systemList/system/commandP' -v 'command' \
-			"$es_systemsFile"
-
-			#format doc to make it look nice
-			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-		else
-			#update
-			yuzuSwitchCommandString="%INJECT%=%BASENAME%.esprefix %EMULATOR_YUZU% -f -g %ROM%"
-			xmlstarlet ed -L -u '/systemList/system/command[@label="Yuzu (Standalone)"]' -v "$yuzuSwitchCommandString" "$es_systemsFile"
-		fi
-		if [[ $(grep -rnw "$es_systemsFile" -e 'Citron (Standalone)') == "" ]]; then
-			#insert
-			xmlstarlet ed -S --inplace --subnode 'systemList/system[name="switch"]' --type elem --name 'commandP' -v "%INJECT%=%BASENAME%.esprefix %EMULATOR_CITRON% -f -g %ROM%" \
-			--insert 'systemList/system/commandP' --type attr --name 'label' --value "Citron (Standalone)" \
-			-r 'systemList/system/commandP' -v 'command' \
-			"$es_systemsFile"
-
-			#format doc to make it look nice
-			xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-		else
-			#update
-			yuzuSwitchCommandString="%INJECT%=%BASENAME%.esprefix %EMULATOR_CITRON% -f -g %ROM%"
-			xmlstarlet ed -L -u '/systemList/system/command[@label="Citron (Standalone)"]' -v "$yuzuSwitchCommandString" "$es_systemsFile"
-		fi
-
-	fi
 
 	echo "updating $es_settingsFile"
 
@@ -431,13 +311,49 @@ ESDE_setDefaultEmulators(){
 	ESDE_setEmu 'PPSSPP (Standalone)' psp
 	ESDE_setEmu 'Dolphin (Standalone)' wii
 	ESDE_setEmu 'PCSX2 (Standalone)' ps2
-	ESDE_setEmu 'melonDS DS' nds
+	if [ "$(melonDS_IsInstalled)" == "true" ]; then
+		melonDS_setESDEEmu
+	else
+		ESDE_setEmu 'melonDS DS' nds
+	fi
 	ESDE_setEmu 'Azahar (Standalone)' n3ds
 	ESDE_setEmu 'Beetle Lynx' atarilynx
 	ESDE_setEmu 'DuckStation (Standalone)' psx
 	ESDE_setEmu 'Beetle Saturn' saturn
 	ESDE_setEmu 'ScummVM (Standalone)' scummvm
 	ESDE_setEmu 'Ryujinx (Standalone)' switch
+
+	if [ "$(mGBA_IsInstalled)" == "true" ]; then
+		mGBA_setESDEEmu
+	fi
+	if [ "$(Flycast_IsInstalled)" == "true" ]; then
+		Flycast_setESDEEmu
+	fi
+	if [ "$(MAME_IsInstalled)" == "true" ]; then
+		MAME_setESDEEmu
+	fi
+	if [ "$(BigPEmu_IsInstalled)" == "true" ]; then
+		BigPEmu_setESDEEmu
+	fi
+}
+
+ESDE_forceEmu(){
+	local emu=$1
+	local system=$2
+	local gamelistFile="$ESDE_newConfigDirectory/gamelists/$system/gamelist.xml"
+
+	if [ "$(ESDE_IsInstalled)" != "true" ]; then
+		return 0
+	fi
+
+	mkdir -p "$(dirname "$gamelistFile")"
+	if [ ! -f "$gamelistFile" ]; then
+		printf '<?xml version="1.0"?>\n<alternativeEmulator>\n\t<label>%s</label>\n</alternativeEmulator>\n<gameList />\n' "$emu" > "$gamelistFile"
+	elif grep -q '<alternativeEmulator>' "$gamelistFile"; then
+		sed -i "0,/<label>[^<]*<\/label>/s||<label>$emu</label>|" "$gamelistFile"
+	else
+		echo "<alternativeEmulator><label>$emu</label></alternativeEmulator>" >> "$gamelistFile"
+	fi
 }
 
 ESDE_migrateDownloadedMedia(){
@@ -494,7 +410,8 @@ ESDE_IsInstalled(){
 }
 
 ESDE_symlinkGamelists(){
-		linkToSaveFolder es-de gamelists "$ESDE_newConfigDirectory/gamelists/"
+		rm -rf "$savesPath/es-de"
+		linkToStorageFolder es-de gamelists "$ESDE_newConfigDirectory/gamelists/"
 }
 
 ESDE_migrateEpicNoir(){
@@ -516,7 +433,7 @@ ESDE_flushToolLauncher(){
 
 ESDE_refreshCustomEmus(){
 	rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_systems.xml" "$(dirname "$es_systemsFile")" --backup --suffix=.bak
-	rsync -avhp --mkpath "$emudeckBackend/chimeraOS/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
+	rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
 	sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
 	ESDE_setDefaultEmulators
 }
@@ -566,7 +483,7 @@ ESDE_ensurePS3Emulators(){
 	PS3_ROMS_DIR="$ps3Roms" PS3_GAMELIST="$gamelist" python3 "$emudeckBackend/tools/esdePS3Emulators.py" >/dev/null 2>&1
 }
 
-esde_launch_fixes(){
+ESDE_launch_fixes(){
 	ESDE_ensureRyujinxFindRule
 	ESDE_ensureDolphinFindRule
 	ESDE_ensureCemuFindRule

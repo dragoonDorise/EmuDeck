@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #variables
 Vita3K_emuName="Vita3K"
@@ -16,6 +16,10 @@ Vita3K_install(){
     echo "Begin Vita3K Install"
     local showProgress="$1"
     local vita3kDownloadURL="https://github.com/Vita3K/Vita3K/releases/download/continuous/Vita3K-x86_64.AppImage"
+
+    if [ $CPUarch == "arm" ]; then
+        vita3kDownloadURL="https://github.com/Vita3K/Vita3K/releases/download/continuous/Vita3K-aarch64.AppImage"
+    fi
 
     if installEmuBI "$Vita3K_emuName" "$vita3kDownloadURL" "" "AppImage" "$showProgress"; then
         rm -rf "$Vita3K_emuPath"
@@ -150,7 +154,26 @@ Vita3K_resetConfig(){
 
 
 Vita3K_setResolution(){
-	echo "NYI"
+    
+    case $vita3kResolution in
+        "720P") multiplier=1.25;;
+        "1080P") multiplier=2;;
+        "1440P") multiplier=2.75;;
+        "4K") multiplier=4;;
+        *) multiplier=1.25;;
+    esac
+    
+    #Steam Machine 4K > 1080P fallback
+    if [ "$vita3kResolution" = "4K" ]; then
+      getScreenInfoOnlyTV	
+      if [ "${screenWidth:-0}" -lt 3840 ]; then 
+        multiplier=1.25
+      fi
+    fi
+    
+    resolutionOpt='resolution-multiplier: '
+    newResolutionOpt='resolution-multiplier: '"$multiplier"
+    sed -i "/${resolutionOpt}/c\\${newResolutionOpt}" "$Vita3K_configFile"    
 }
 
 Vita3K_flushEmulatorLauncher(){
@@ -158,4 +181,9 @@ Vita3K_flushEmulatorLauncher(){
 
 	flushEmulatorLaunchers "vita3k"
 
+}
+
+Vita3K_addToSteam(){
+	setMSG "Adding Vita3K to Steam"
+	add_to_steam "vita3k" "Vita3K" "$toolsPath/launchers/vita3k.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/vita3k.ico" "Emulation"
 }

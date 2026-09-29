@@ -1,0 +1,219 @@
+RecentROM = []
+SlowmoFPS = 30.0
+TargetFPS = 60.0
+LastROMFolder = "/run/media/mmcblk0p1/Emulation/roms/ds"
+FastForwardFPS = 1000.0
+UITheme = ""
+AudioSync = false
+LimitFPS = true
+PauseLostFocus = false
+
+[Instance0]
+JoystickID = 0
+SavestatePath = "/run/media/mmcblk0p1/Emulation/saves/melonds/states"
+SaveFilePath = "/run/media/mmcblk0p1/Emulation/saves/melonds/saves"
+CheatFilePath = "/run/media/mmcblk0p1/Emulation/storage/melonDS/cheats"
+EnableCheats = false
+
+[Instance0.Window2]
+Enabled = false
+
+[Instance0.Joystick]
+HK_GuitarGripBlue = -1
+HK_GuitarGripYellow = -1
+HK_GuitarGripGreen = -1
+HK_SlowMoToggle = -1
+HK_Lid = 9
+Y = 2
+HK_FrameStep = -1
+HK_SolarSensorIncrease = 68288511
+HK_GuitarGripRed = -1
+L = 4
+R = 5
+Up = 257
+HK_FullscreenToggle = 51511295
+HK_SlowMo = -1
+HK_Pause = -1
+Right = 258
+Start = 7
+Select = 6
+X = 3
+B = 0
+Down = 260
+A = 1
+HK_Mic = 10
+HK_FastForward = 86048774
+HK_FrameLimitToggle = 50462719
+Left = 264
+HK_SwapScreens = 69337087
+HK_SwapScreenEmphasis = -1
+HK_Reset = -1
+HK_PowerButton = -1
+HK_VolumeDown = -1
+HK_SolarSensorDecrease = 67239935
+HK_VolumeUp = -1
+HK_FastForwardToggle = -1
+
+[Instance0.Keyboard]
+HK_GuitarGripBlue = -1
+HK_GuitarGripYellow = -1
+HK_GuitarGripGreen = -1
+HK_SlowMoToggle = -1
+HK_Mic = 45
+HK_Lid = 47
+Y = -1
+HK_FrameStep = 59
+HK_SolarSensorIncrease = -1
+Down = -1
+B = -1
+HK_GuitarGripRed = -1
+L = -1
+R = -1
+Up = -1
+HK_FullscreenToggle = 46
+HK_SlowMo = -1
+HK_Pause = 91
+Right = -1
+Start = -1
+Select = -1
+X = -1
+HK_FastForward = 16777232
+HK_FrameLimitToggle = 16777233
+Left = -1
+HK_SwapScreens = 61
+A = -1
+HK_SwapScreenEmphasis = -1
+HK_Reset = 93
+HK_PowerButton = -1
+HK_VolumeDown = -1
+HK_SolarSensorDecrease = -1
+HK_VolumeUp = -1
+HK_FastForwardToggle = -1
+
+[Instance0.Window3]
+Enabled = false
+
+[Instance0.Window0]
+Enabled = true
+ScreenFilter = false
+ShowOSD = true
+ScreenAspectTop = 4
+IntegerScaling = false
+ScreenSizing = 3
+ScreenSwap = false
+Geometry = "AdnQywADAAAAAAAA////+AAAAv8AAAGvAAACGwAAAMQAAALiAAABJwAAAAACAAAABrYAAAAAAAAAFwAAAv8AAAGv"
+ScreenLayout = 3
+ScreenGap = 0
+ScreenAspectBot = 4
+ScreenRotation = 0
+
+[Instance0.Audio]
+DSiVolumeSync = false
+Volume = 256
+
+[Instance0.DS]
+[Instance0.DS.Battery]
+LevelOkay = true
+
+[Instance0.DSi]
+[Instance0.DSi.Battery]
+Charging = true
+Level = 15
+
+[Instance0.Firmware]
+FavouriteColour = 0
+BirthdayDay = 1
+BirthdayMonth = 1
+Language = 1
+Username = "melonDS"
+OverrideSettings = false
+
+[Instance0.Window1]
+Enabled = false
+
+[Mouse]
+HideSeconds = 5
+Hide = true
+
+[Mic]
+WavPath = ""
+Device = ""
+InputType = 1
+
+[Savestate]
+RelocSRAM = false
+
+[3D]
+Renderer = 1
+
+[3D.GL]
+BetterPolygons = true
+ScaleFactor = 3
+
+[3D.Soft]
+Threaded = true
+
+[LAN]
+DirectMode = false
+
+[Screen]
+VSyncInterval = 1
+VSync = true
+UseGL = true
+Filter = true
+
+[JIT]
+FastMemory = true
+LiteralOptimisations = true
+BranchOptimisations = true
+MaxBlockSize = 32
+Enable = false
+
+[Audio]
+Interpolation = 0
+
+[Emu]
+ExternalBIOSEnable = false
+DirectBoot = true
+ConsoleType = 0
+
+[DS]
+FirmwarePath = "/run/media/mmcblk0p1/Emulation/bios/firmware.bin"
+BIOS7Path = "/run/media/mmcblk0p1/Emulation/bios/bios7.bin"
+BIOS9Path = "/run/media/mmcblk0p1/Emulation/bios/bios9.bin"
+
+[DSi]
+FirmwarePath = "/run/media/mmcblk0p1/Emulation/bios/dsi_firmware.bin"
+NANDPath = "/run/media/mmcblk0p1/Emulation/bios/dsi_nand.bin"
+BIOS7Path = "/run/media/mmcblk0p1/Emulation/bios/dsi_bios7.bin"
+BIOS9Path = "/run/media/mmcblk0p1/Emulation/bios/dsi_bios9.bin"
+
+[DSi.Camera1]
+DeviceName = ""
+ImagePath = ""
+XFlip = false
+InputType = 0
+
+[DSi.Camera0]
+DeviceName = ""
+ImagePath = ""
+XFlip = false
+InputType = 0
+
+[DSi.SD]
+FolderSync = false
+ReadOnly = false
+ImagePath = "dsisd.bin"
+ImageSize = 0
+Enable = false
+
+[DLDI]
+FolderSync = false
+ReadOnly = false
+ImagePath = "dldi.bin"
+ImageSize = 0
+Enable = false
+
+[MP]
+RecvTimeout = 25
+AudioMode = 1

@@ -1,10 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 melonDS_emuName="MelonDS"
 melonDS_emuType="$emuDeckEmuTypeFlatpak"
 melonDS_emuPath="net.kuribo64.melonDS"
 melonDS_releaseURL=""
 melonDS_configFile="$HOME/.var/app/net.kuribo64.melonDS/config/melonDS/melonDS.ini"
+melonDS_resolutionFile="$HOME/.var/app/net.kuribo64.melonDS/config/melonDS/melonDS.toml"
 
 #cleanupOlderThings
 melonDS_finalize(){
@@ -26,12 +27,18 @@ Melonds_install(){
 melonDS_init(){
 	setMSG "Initializing $melonDS_emuName settings."
 	configEmuFP "${melonDS_emuName}" "${melonDS_emuPath}" "true"
+
+	sed -i "s|/run/media/mmcblk0p1/Emulation|$emulationPath|g" "$melonDS_configFile"
+	sed -i "s|/run/media/mmcblk0p1/Emulation|$emulationPath|g" "$melonDS_resolutionFile"
+
 	melonDS_setupStorage
 	melonDS_setEmulationFolder
 	melonDS_setupSaves
 	#SRM_createParsers
+	melonDS_setResolution
 	melonDS_addSteamInputProfile
 	melonDS_flushEmulatorLauncher
+	melonDS_setESDEEmu
 	melonDS_addParser
 }
 
@@ -168,16 +175,28 @@ melonDS_addSteamInputProfile(){
 }
 
 melonDS_setResolution(){
-	case $melonDSResolution in
-		"720P") WindowWidth=1024; WindowHeight=768;;
-		"1080P") WindowWidth=1536; WindowHeight=1152;;
-		"1440P") WindowWidth=2048; WindowHeight=1536;;
-		"4K") WindowWidth=2816; WindowHeight=2112;;
-		*) echo "Error"; return 1;;
+	case $melondsResolution in
+		"720P")  WindowWidth=1024; WindowHeight=768;  scale=4 ;;
+		"1080P") WindowWidth=1536; WindowHeight=1152; scale=6 ;;
+		"1440P") WindowWidth=2048; WindowHeight=1536; scale=8 ;;
+		"4K")    WindowWidth=2816; WindowHeight=2112; scale=11 ;;
+		*)       WindowWidth=1024; WindowHeight=768;  scale=4 ;;
 	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ "$melondsResolution" = "4K" ]; then
+		getScreenInfoOnlyTV	
+		if [ "${screenWidth:-0}" -lt 3840 ]; then 
+			WindowWidth=1536
+			WindowHeight=1152
+		fi
+	fi
 
 	RetroArch_setConfigOverride "WindowWidth" $WindowWidth "$melonDS_configFile"
 	RetroArch_setConfigOverride "WindowHeight" $WindowHeight "$melonDS_configFile"
+
+	scaleLine="ScaleFactor = $scale"
+	changeLine "ScaleFactor = " "$scaleLine" "$melonDS_resolutionFile"
 }
 
 #setABXYstyle
@@ -218,4 +237,13 @@ melonDS_flushEmulatorLauncher(){
 
 melonDS_addParser(){
 	addParser "nintendo_nds_melonds.json"
+}
+
+melonDS_addToSteam(){
+	setMSG "Adding melonDS to Steam"
+	add_to_steam "melonds" "melonDS" "$toolsPath/launchers/melonds.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/melonDS.ico" "Emulation"
+}
+
+melonDS_setESDEEmu(){
+	ESDE_forceEmu 'melonDS (Standalone)' nds
 }

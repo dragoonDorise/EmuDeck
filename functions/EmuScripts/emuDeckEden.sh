@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #variables
 Eden_emuName="eden"
@@ -94,6 +94,7 @@ Eden_init() {
     Eden_finalize
     Eden_addParser
     Eden_flushEmulatorLauncher
+    Eden_setResolution
   	createDesktopShortcut   "$HOME/.local/share/applications/eden.desktop" \
 							"Eden (AppImage)" \
 							"${toolsPath}/launchers/eden.sh"  \
@@ -146,18 +147,38 @@ Eden_setEmulationFolder() {
     #Setup Bios symlinks
     unlink "${biosPath}/eden/keys" 2>/dev/null
     unlink "${biosPath}/eden/firmware" 2>/dev/null
-
+    
     mkdir -p "$HOME/.local/share/eden/keys/"
     mkdir -p "${biosPath}/eden"
     ln -sn "$HOME/.local/share/eden/keys/" "${biosPath}/eden/keys"
     ln -sn "$HOME/.local/share/eden/nand/system/Contents/registered/" "${biosPath}/eden/firmware"
+
+    #Portable
+#     folder_parent="${biosPath}/eden"
+#     link_parent="$HOME/.local/share/eden/"        
+#     mkdir -p "$folder_parent"
+#     mkdir -p "$link_parent"
+#     
+#     #Keys
+#     folder="${folder_parent}/keys"
+#     link="${link_parent}/keys"
+#         
+#     linkToFolder "$folder" "$link"
+#     
+#     #Firmware    
+#     folder="${folder_parent}/firmware"
+#     link="${link_parent}/nand/system/Contents/registered/"
+#         
+#     linkToFolder "$folder" "$link"   
+#     
+#     touch "${folder}/putfirmwarehere.txt"
 
 }
 
 #SetLanguage
 Eden_setLanguage(){
     setMSG "Setting Eden Language"
-    local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+    local language=$(getSystemLanguage)
     languageOpt="language_index="
     languageDefaultOpt="language_index\\\\default="
     newLanguageDefaultOpt="language_index\\\\default=false" # we need those or else itll reset
@@ -261,15 +282,31 @@ Eden_resetConfig() {
 Eden_setResolution(){
 
 	case $edenResolution in
-		"720P") multiplier=2; docked="false";;
-		"1080P") multiplier=2; docked="true";;
-		"1440P") multiplier=3; docked="false";;
-		"4K") multiplier=3; docked="true";;
-		*) echo "Error"; return 1;;
+		"720P")  multiplier=3; docked=0 ;;
+		"1080P") multiplier=3; docked=1 ;;
+		"1440P") multiplier=6; docked=0 ;;
+		"4K")    multiplier=6; docked=1 ;;
+		*)       multiplier=3; docked=0 ;;
 	esac
 
-	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Eden_configFile"
-	RetroArch_setConfigOverride "use_docked_mode" $docked "$Eden_configFile"
+	#Steam Machine 4K > 1080P fallback
+	if [ "$edenResolution" = "4K" ]; then
+		getScreenInfoOnlyTV
+		if [ "${screenWidth:-0}" -lt 3840 ]; then
+			multiplier=2
+			docked="true"
+		fi
+	fi
+
+	sed -i \
+		-e "/^\[Renderer\]$/,/^\[/ s/^resolution_setup=.*/resolution_setup=$multiplier/" \
+		-e "/^\[Renderer\]$/,/^\[/ s/^resolution_setup\\\\default=.*/resolution_setup\\\\default=false/" \
+		"$Eden_configFile"
+
+	sed -i \
+		-e "/^\[System\]$/,/^\[/ s/^use_docked_mode=.*/use_docked_mode=$docked/" \
+		-e "/^\[System\]$/,/^\[/ s/^use_docked_mode\\\\default=.*/use_docked_mode\\\\default=false/" \
+		"$Eden_configFile"
 }
 
 Eden_flushEmulatorLauncher(){
@@ -284,32 +321,15 @@ Eden_addESConfig(){
     ESDE_junksettingsFile
     ESDE_addCustomSystemsFile
     ESDE_setEmulationFolder
-
-	if [[ $(grep -rnw "$es_systemsFile" -e 'switch') == "" ]]; then
-		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
-		--var newSystem '$prev' \
-		--subnode '$newSystem' --type elem --name 'name' -v 'switch' \
-		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo Switch' \
-		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/switch' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.nca .NCA .nro .NRO .nso .NSO .nsp .NSP .xci .XCI' \
-		--subnode '$newSystem' --type elem --name 'commandB' -v "%EMULATOR_RYUJINX% %ROM%" \
-		--insert '$newSystem/commandB' --type attr --name 'label' --value "Ryujinx (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'commandV' -v "%INJECT%=%BASENAME%.esprefix %EMULATOR_CITRON% -f -g %ROM%" \
-		--insert '$newSystem/commandV' --type attr --name 'label' --value "Eden (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'platform' -v 'switch' \
-		--subnode '$newSystem' --type elem --name 'theme' -v 'switch' \
-		-r 'systemList/system/commandB' -v 'command' \
-		-r 'systemList/system/commandV' -v 'command' \
-		"$es_systemsFile"
-
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-	fi
-	#Custom Systems config end
-
-	ESDE_refreshCustomEmus
+	#ESDE_refreshCustomEmus
 }
 
 
 Eden_addParser(){
   addParser "nintendo_switch_eden.json"
+}
+
+Eden_addToSteam(){
+	setMSG "Adding Eden to Steam"
+	add_to_steam "eden" "Eden" "$toolsPath/launchers/eden.sh" "$HOME/Applications/" "$emudeckBackend/icons/eden.png" "Emulation"
 }

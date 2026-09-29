@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 CheckUSB(){
 	path=$(find /run/media/ -type d -name "EMUDECK" 2>/dev/null)

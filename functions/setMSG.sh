@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 setMSG() {
 	if [ -z $progressBar ]; then
 		progressBar=0

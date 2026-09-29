@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #variables
 Primehack_emuName="Primehack"
@@ -6,6 +6,9 @@ Primehack_emuType="$emuDeckEmuTypeFlatpak"
 Primehack_emuPath="io.github.shiiion.primehack"
 Primehack_configFile="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Dolphin.ini"
 Primehack_configFileGFX="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/GFX.ini"
+Primehack_gamecubeFile="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/GCPadNew.ini"
+Primehack_wiiFile="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/WiimoteNew.ini"
+Primehack_hotKeysFile="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Hotkeys.ini"
 releaseURL=""
 
 #cleanupOlderThings
@@ -28,7 +31,16 @@ Primehack_init() {
 	Primehack_setupSaves
 	#SRM_createParsers
 	#Primehack_migrate
+	Primehack_setResolution
 	Primehack_flushEmulatorLauncher
+	
+	if [ "$(getProductName)" = "frame" ]; then
+		sed -i "s|evdev/0/Microsoft X-Box 360 pad 0|SDL/0/Steam Frame Controllers|g" "$Primehack_gamecubeFile"
+		sed -i "s|evdev/0/Microsoft X-Box 360 pad 0|SDL/0/Steam Frame Controllers|g" "$Primehack_wiiFile"
+		sed -i "s|evdev/0/Microsoft X-Box 360 pad 0|SDL/0/Steam Frame Controllers|g" "$Primehack_hotKeysFile"
+	fi
+	
+	
 }
 
 #update
@@ -128,8 +140,16 @@ Primehack_setResolution(){
 		"1080P") multiplier=3;;
 		"1440P") multiplier=4;;
 		"4K") multiplier=6;;
-		*) echo "Error"; return 1;;
+		*) multiplier=2;;
 	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ "$dolphinResolution" = "4K" ]; then
+	  getScreenInfoOnlyTV	
+	  if [ "${screenWidth:-0}" -lt 3840 ]; then 
+		multiplier=3
+	  fi
+	fi
 
 	RetroArch_setConfigOverride "InternalResolution" $multiplier "$Primehack_configFileGFX"
 
@@ -140,4 +160,9 @@ Primehack_flushEmulatorLauncher(){
 
 	flushEmulatorLaunchers "primehack"
 
+}
+
+Primehack_addToSteam(){
+	setMSG "Adding PrimeHack to Steam"
+	add_to_steam "primehack" "PrimeHack" "$toolsPath/launchers/primehack.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/primehack.ico" "Emulation"
 }

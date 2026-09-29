@@ -1,7 +1,7 @@
 <!--
   Supermodel
   A Sega Model 3 Arcade Emulator.
-  Copyright 2003-2022 The Supermodel Team
+  Copyright 2003-2026 The Supermodel Team
 
   Games.xml
 
@@ -19,7 +19,6 @@
     <hardware>
       <platform>Sega Model 3</platform>
       <stepping>1.0</stepping>
-      <pci_bridge>MPC106</pci_bridge>
       <inputs>
         <input type="common" />
         <input type="fishing" />
@@ -87,7 +86,6 @@
     <hardware>
       <platform>Sega Model 3</platform>
       <stepping>1.0</stepping>
-      <pci_bridge>MPC106</pci_bridge>
       <inputs>
         <input type="common" />
         <input type="fishing" />
@@ -113,7 +111,6 @@
     <hardware>
       <platform>Sega Model 3</platform>
       <stepping>1.0</stepping>
-      <pci_bridge>MPC106</pci_bridge>
       <inputs>
         <input type="common" />
         <input type="fishing" />
@@ -139,7 +136,6 @@
     <hardware>
       <platform>Sega Model 3</platform>
       <stepping>1.0</stepping>
-      <pci_bridge>MPC106</pci_bridge>
       <inputs>
         <input type="common" />
         <input type="fishing" />
@@ -172,7 +168,6 @@
       <stepping>2.1</stepping>
       <mpeg_board>DSB2</mpeg_board>
       <drive_board>Wheel</drive_board>
-      <real3d_status_bit_set_percent_of_frame>24</real3d_status_bit_set_percent_of_frame>
       <netboard>true</netboard>
 	  <audio>QuadFrontRear</audio>
       <inputs>
@@ -347,7 +342,6 @@
       <stepping>2.1</stepping>
       <mpeg_board>DSB2</mpeg_board>
       <drive_board>Wheel</drive_board>
-      <real3d_pci_id>0x16C311DB</real3d_pci_id>
       <netboard>true</netboard>
       <inputs>
         <input type="common" />
@@ -421,7 +415,6 @@
       <stepping>2.1</stepping>
       <mpeg_board>DSB2</mpeg_board>
       <drive_board>Wheel</drive_board>
-      <real3d_pci_id>0x16C311DB</real3d_pci_id>
       <netboard>true</netboard>
       <inputs>
         <input type="common" />
@@ -453,7 +446,6 @@
       <stepping>2.1</stepping>
       <mpeg_board>DSB2</mpeg_board>
       <drive_board>Wheel</drive_board>
-      <real3d_pci_id>0x16C311DB</real3d_pci_id>
       <netboard>true</netboard>
       <inputs>
         <input type="common" />
@@ -485,7 +477,6 @@
       <stepping>2.1</stepping>
       <mpeg_board>DSB2</mpeg_board>
       <drive_board>Wheel</drive_board>
-      <real3d_pci_id>0x16C311DB</real3d_pci_id>
       <netboard>true</netboard>
       <inputs>
         <input type="common" />
@@ -517,7 +508,6 @@
       <stepping>2.1</stepping>
       <mpeg_board>DSB2</mpeg_board>
       <drive_board>Wheel</drive_board>
-      <real3d_pci_id>0x16C311DB</real3d_pci_id>
       <netboard>true</netboard>
       <inputs>
         <input type="common" />
@@ -745,7 +735,6 @@
       <platform>Sega Model 3</platform>
       <stepping>2.0</stepping>
       <drive_board>Billboard</drive_board>
-      <real3d_status_bit_set_percent_of_frame>24</real3d_status_bit_set_percent_of_frame>
       <inputs>
         <input type="common" />
         <input type="joystick1" />
@@ -819,14 +808,13 @@
   <game name="fvipers2o" parent="fvipers2">
     <identity>
       <title>Fighting Vipers 2</title>
-      <version>?</version>
+      <version>Japan</version>
       <manufacturer>Sega</manufacturer>
       <year>1998</year>
     </identity>
     <hardware>
       <platform>Sega Model 3</platform>
       <stepping>2.0</stepping>
-      <real3d_status_bit_set_percent_of_frame>24</real3d_status_bit_set_percent_of_frame>
       <inputs>
         <input type="common" />
         <input type="joystick1" />
@@ -957,7 +945,6 @@
     <hardware>
       <platform>Sega Model 3</platform>
       <stepping>2.1</stepping>
-      <real3d_pci_id>0x16C311DB</real3d_pci_id>
       <inputs>
         <input type="common" />
         <input type="analog_gun1" />
@@ -1224,7 +1211,6 @@
     <hardware>
       <platform>Sega Model 3</platform>
       <stepping>2.1</stepping>
-      <real3d_pci_id>0x16C311DB</real3d_pci_id>
       <inputs>
         <input type="common" />
         <input type="magtruck" />
@@ -1295,7 +1281,6 @@
     <hardware>
       <platform>Sega Model 3</platform>
       <stepping>2.1</stepping>
-      <real3d_pci_id>0x16C311DB</real3d_pci_id>
       <inputs>
         <input type="common" />
         <input type="magtruck" />
@@ -1438,10 +1423,6 @@
       </inputs>
     </hardware>
     <roms>
-      <patches>
-        <!-- Prevent "rolling start" scrolling glitch -->
-        <patch region="crom" bits="32" offset="0x14BDB8" value="0x20B201E0" />
-      </patches>
       <region name="crom" stride="8" chunk_size="2" byte_swap="true">
         <file offset="0" name="epr-19691.20" crc32="0x83523B89" />
         <file offset="2" name="epr-19690.19" crc32="0x25F007FE" />
@@ -1530,8 +1511,6 @@
       <patches>
         <!-- Secret debug menu -->
         <patch region="crom" bits="32" offset="0x199DE8" value="0x00050208" />
-        <!-- Prevent "rolling start" scrolling glitch -->
-        <patch region="crom" bits="32" offset="0x14BDF4" value="0x20B201E0" />
       </patches>
       <region name="crom" stride="8" chunk_size="2" byte_swap="true">
         <file offset="0" name="epr-19734.20" crc32="0xBE897336" />
@@ -1554,7 +1533,7 @@
       <stepping>1.5</stepping>
       <mpeg_board>DSB1</mpeg_board>
       <drive_board>Wheel</drive_board>
-      <netboard>true</netboard>
+      <netboard>false</netboard>
       <audio>QuadFrontRear</audio>
       <inputs>
         <input type="common" />
@@ -1564,10 +1543,6 @@
       </inputs>
     </hardware>
     <roms>
-      <patches>
-        <!-- Prevent "rolling start" scrolling glitch -->
-        <patch region="crom" bits="32" offset="0x146350" value="0x20B201E0" />
-      </patches>
       <region name="crom" stride="8" chunk_size="2" byte_swap="true">
         <file offset="0" name="epr-19607a.20" crc32="0x24301A12" />
         <file offset="2" name="epr-19608a.19" crc32="0x1426160E" />
@@ -1619,6 +1594,79 @@
     </roms>
   </game>
 
+  <game name="scuddxo" parent="scud">
+    <identity>
+      <title>Scud Race</title>
+      <version>Export, Deluxe</version>
+      <manufacturer>Sega</manufacturer>
+      <year>1996</year>
+    </identity>
+    <hardware>
+      <platform>Sega Model 3</platform>
+      <stepping>1.5</stepping>
+      <mpeg_board>DSB1</mpeg_board>
+      <drive_board>Wheel</drive_board>
+	  <netboard>false</netboard>
+      <audio>QuadFrontRear</audio>
+      <inputs>
+        <input type="common" />
+        <input type="vehicle" />
+        <input type="shift4" />
+        <input type="vr4" />
+      </inputs>
+    </hardware>
+    <roms>
+      <region name="crom" stride="8" chunk_size="2" byte_swap="true">
+        <file offset="0" name="epr-19607.20" crc32="0x365CE059" />
+        <file offset="2" name="epr-19608.19" crc32="0x56B46D26" />
+        <file offset="4" name="epr-19609.18" crc32="0x75D2675C" />
+        <file offset="6" name="epr-19610.17" crc32="0x3632870A" />
+      </region>
+      <region name="banked_crom" stride="8" chunk_size="2" byte_swap="true">
+        <!-- CROM0 -->
+        <file offset="0x0000000" name="mpr-19589.4" crc32="0x5482238F" />
+        <file offset="0x0000002" name="mpr-19590.3" crc32="0xA5CD4718" />
+        <file offset="0x0000004" name="mpr-19591.2" crc32="0x48E1AAFF" />
+        <file offset="0x0000006" name="mpr-19592.1" crc32="0xD9003B6F" />
+        <!-- CROM1 -->
+        <file offset="0x1000000" name="mpr-19593.8" crc32="0x21E48FF8" />
+        <file offset="0x1000002" name="mpr-19594.7" crc32="0x654C26B0" />
+        <file offset="0x1000004" name="mpr-19595.6" crc32="0xD06FD9D6" />
+        <file offset="0x1000006" name="mpr-19596.5" crc32="0x5672E3F4" />
+        <!-- CROM2 -->
+        <file offset="0x2000000" name="mpr-19597.12" crc32="0x4D0FFE60" />
+        <file offset="0x2000002" name="mpr-19598.11" crc32="0xA081592E" />
+        <file offset="0x2000004" name="mpr-19599.10" crc32="0x65C1D33C" />
+        <file offset="0x2000006" name="mpr-19600.9" crc32="0xA25DA127" />
+      </region>
+      <region name="vrom" stride="32" chunk_size="2">
+        <file offset="0"  name="mpr-19574.26" crc32="0x9BE8F314" />
+        <file offset="2"  name="mpr-19573.27" crc32="0x57B61D65" />
+        <file offset="4"  name="mpr-19576.28" crc32="0x85F9B587" />
+        <file offset="6"  name="mpr-19575.29" crc32="0xDAB11C34" />
+        <file offset="8"  name="mpr-19578.30" crc32="0xAE882C42" />
+        <file offset="10" name="mpr-19577.31" crc32="0x36A1FE5D" />
+        <file offset="12" name="mpr-19580.32" crc32="0x62503CEE" />
+        <file offset="14" name="mpr-19579.33" crc32="0xAF9698D0" />
+        <file offset="16" name="mpr-19582.34" crc32="0xC8B9CF1A" />
+        <file offset="18" name="mpr-19581.35" crc32="0x8863C2D7" />
+        <file offset="20" name="mpr-19584.36" crc32="0x256B056C" />
+        <file offset="22" name="mpr-19583.37" crc32="0xC22CB5AA" />
+        <file offset="24" name="mpr-19586.38" crc32="0xAC37163E" />
+        <file offset="26" name="mpr-19585.39" crc32="0xE2598012" />
+        <file offset="28" name="mpr-19588.40" crc32="0x42E20AE9" />
+        <file offset="30" name="mpr-19587.41" crc32="0xC288C910" />
+      </region>
+      <region name="sound_program" stride="1" chunk_size="1" byte_swap="true">
+        <file offset="0" name="epr-19611.21" crc32="0x8888BF36" />
+      </region>
+      <region name="sound_samples" stride="1" chunk_size="1" byte_swap="true">
+        <file offset="0x000000" name="mpr-19601.22" crc32="0xBA350FCC" />
+        <file offset="0x400000" name="mpr-19602.24" crc32="0xA92231C1" />
+      </region>
+    </roms>
+  </game>
+
   <game name="scudplus" parent="scud">
     <identity>
       <title>Scud Race Plus</title>
@@ -1641,10 +1689,6 @@
       </inputs>
     </hardware>
     <roms>
-      <patches>
-        <!-- Prevent "rolling start" scrolling glitch -->
-        <patch region="crom" bits="32" offset="0x14E424" value="0x20B201E0" />
-      </patches>
       <region name="crom" stride="8" chunk_size="2" byte_swap="true">
         <file offset="0" name="epr-20095a.20" crc32="0x58C7E393" />
         <file offset="2" name="epr-20094a.19" crc32="0xDBF17A43" />
@@ -1682,7 +1726,6 @@
       <stepping>1.5</stepping>
       <mpeg_board>DSB1</mpeg_board>
       <drive_board>Wheel</drive_board>
-      <pci_bridge>MPC106</pci_bridge>
       <netboard>true</netboard>
       <audio>QuadFrontRear</audio>
       <inputs>
@@ -1693,10 +1736,6 @@
       </inputs>
     </hardware>
     <roms>
-      <patches>
-        <!-- Prevent "rolling start" scrolling glitch -->
-        <patch region="crom" bits="32" offset="0x14E014" value="0x20B201E0" />
-      </patches>
       <region name="crom" stride="8" chunk_size="2" byte_swap="true">
         <file offset="0" name="epr-20095.20" crc32="0x44467BC1" />
         <file offset="2" name="epr-20094.19" crc32="0x299B6257" />
@@ -1993,20 +2032,6 @@
       </inputs>
     </hardware>
     <roms>
-      <patches>
-        <!-- Old patch to bypass JTAG checks, breaks linked mode -->
-        <!--
-        <patch region="crom" bits="32" offset="0x7c0c4" value="0x60000000" />
-        <patch region="crom" bits="32" offset="0x7c0c8" value="0x60000000" />
-        <patch region="crom" bits="32" offset="0x7c0cc" value="0x60000000" />
-        -->
-        <!-- New patch to bypass JTAG checks -->
-        <patch region="crom" bits="32" offset="0x7b348" value="0x60000000" />
-        <patch region="crom" bits="32" offset="0x7b568" value="0x60000000" />
-        <patch region="crom" bits="32" offset="0x7b6b4" value="0x60000000" />
-        <patch region="crom" bits="32" offset="0x7b7b0" value="0x60000000" />
-        <patch region="crom" bits="32" offset="0x7b8a8" value="0x60000000" />
-      </patches>
       <region name="crom" stride="8" chunk_size="2" byte_swap="true">
         <file offset="0" name="epr-20635.20" crc32="0x7937473F" />
         <file offset="2" name="epr-20634.19" crc32="0x45A09245" />
@@ -2092,25 +2117,6 @@
       </inputs>
     </hardware>
     <roms>
-    	<patches>
-        <!-- Spindizzi notes : Not working ATM - Need correct patches for jtag stuffs -->
-        <!-- Test 1 -->
-        <!--
-        <patch region="crom" bits="32" offset="0x5bebc" value="0x60000000" />
-        <patch region="crom" bits="32" offset="0x5bec0" value="0x60000000" />
-        <patch region="crom" bits="32" offset="0x5bec4" value="0x60000000" />
-        -->
-        <!-- Test 2 -->
-        <!--
-        <patch region="crom" bits="32" offset="0x4f8d4" value="0x60000000" />
-        -->
-        <!-- Test 3 -->
-        <!--
-        <patch region="crom" bits="32" offset="0x501fc" value="0x60000000" />
-        <patch region="crom" bits="32" offset="0x50200" value="0x60000000" />
-        <patch region="crom" bits="32" offset="0x50204" value="0x60000000" />
-        -->
-      </patches>
       <region name="crom" stride="8" chunk_size="2" byte_swap="true">
         <file offset="0" name="ic20.20" crc32="0x5CC4FEA1" />
         <file offset="2" name="ic19.19" crc32="0xEF8C5FD0" />
@@ -2147,19 +2153,6 @@
       </inputs>
     </hardware>
     <roms>
-    	<patches>
-        <!-- Spindizzi notes : Not working ATM - Need correct patches for jtag stuffs -->
-        <!-- Test 1 -->
-        <!--
-        <patch region="crom" bits="32" offset="0x3ba44" value="0x60000000" />
-        <patch region="crom" bits="32" offset="0x3ba48" value="0x60000000" />
-        <patch region="crom" bits="32" offset="0x3ba4c" value="0x60000000" />
-        -->
-        <!-- Test 2 -->
-        <!--
-        <patch region="crom" bits="32" offset="0x3b10c" value="0x60000000" />
-        -->
-      </patches>
       <region name="crom" stride="8" chunk_size="2" byte_swap="true">
         <file offset="0" name="prog0.20" crc32="0xA904227D" />
         <file offset="2" name="prog1.19" crc32="0xB486BB74" />
@@ -2191,7 +2184,6 @@
       <stepping>2.0</stepping>
       <mpeg_board>DSB2</mpeg_board>
       <drive_board>Wheel</drive_board>
-      <real3d_status_bit_set_percent_of_frame>48</real3d_status_bit_set_percent_of_frame>
       <audio>QuadMix</audio>
       <inputs>
         <input type="common" />
@@ -2202,18 +2194,6 @@
       </inputs>
     </hardware>
     <roms>
-      <patches>
-        <!--
-          Base offset of program in CROM space: 0 (lines up perfectly with RAM
-          offsets). The game gets stuck in a region of code that appears to
-          wait on some exception to occur. It also appears to access the
-          tilegen space, indicating that this is perhaps related to frame
-          timing and IRQs (pure speculation; I haven't really looked at it).
-          Multiple places can be patched out - another one that works is
-          0x66ae0.
-        -->
-        <patch region="crom" bits="32" offset="0x66aa8" value="0x60000000" />
-      </patches>
       <region name="crom" stride="8" chunk_size="2" byte_swap="true">
         <file offset="0" name="epr-20505.20" crc32="0xC24A5097" />
         <file offset="2" name="epr-20504.19" crc32="0x30BBC46D" />
@@ -2284,13 +2264,6 @@
       <encryption_key>0x31272A01</encryption_key>
     </hardware>
     <roms>
-      <patches>
-        <!--
-          Patch from MAME: forces JTAG write/read tests to succeed, otherwise
-          the game spins in a loop forever (until we implement JTAG properly)
-        -->
-        <patch region="crom" bits="32" offset="0xf6e44" value="0x60000000" />
-      </patches>
       <region name="crom" stride="8" chunk_size="2" byte_swap="true">
         <file offset="0" name="epr-21382a.20" crc32="0x69BAF117" />
         <file offset="2" name="epr-21381a.19" crc32="0x2DD34E28" />
@@ -2374,10 +2347,6 @@
       <encryption_key>0x31272A01</encryption_key>
     </hardware>
     <roms>
-      <patches>
-        <!-- Patch from MAME, see swtrilgy for details -->
-        <patch region="crom" bits="32" offset="0xf6dd0" value="0x60000000" />
-      </patches>
       <region name="crom" stride="8" chunk_size="2" byte_swap="true">
         <file offset="0" name="epr-21382.20" crc32="0x0B9C44A0" />
         <file offset="2" name="epr-21381.19" crc32="0xBB5757BF" />
@@ -2406,19 +2375,6 @@
       <encryption_key>0x31272A01</encryption_key>
     </hardware>
     <roms>
-      <patches>
-        <!-- obsolete patches -->
-        <!-- 0x87db8 = 0x60000000 patch from Mame -->
-        <!-- 0x04184 = 0x480000AC no more needed if ffb lever rom loaded -->
-        <!-- 0x8391c = 0x60000000 no more needed if ffb lever rom loaded -->
-        <!-- related to force feedback setup -->
-        <patch region="crom" bits="32" offset="0x0292c" value="0x60000000" />
-        <patch region="crom" bits="32" offset="0x02998" value="0x60000000" />
-        <!-- unemulated JTAG stuff : enable service menu -->
-        <patch region="crom" bits="32" offset="0x886e0" value="0x60000000" />
-        <patch region="crom" bits="32" offset="0x886e4" value="0x60000000" />
-        <patch region="crom" bits="32" offset="0x886e8" value="0x60000000" />
-      </patches>
       <region name="crom" stride="8" chunk_size="2" byte_swap="true">
         <file offset="0" name="epr-crom0.20" crc32="0xDA7D49FA" />
         <file offset="2" name="epr-crom1.19" crc32="0x322B67A5" />
@@ -2645,7 +2601,6 @@
       <platform>Sega Model 3</platform>
       <stepping>2.0</stepping>
       <drive_board>Billboard</drive_board>
-      <real3d_pci_id>0x16C311DB</real3d_pci_id>
       <netboard>true</netboard>
       <inputs>
         <input type="common" />
@@ -2726,7 +2681,6 @@
       <platform>Sega Model 3</platform>
       <stepping>2.0</stepping>
       <drive_board>Billboard</drive_board>
-      <real3d_pci_id>0x16C311DB</real3d_pci_id>
       <netboard>true</netboard>
       <inputs>
         <input type="common" />
@@ -2755,7 +2709,6 @@
       <platform>Sega Model 3</platform>
       <stepping>2.0</stepping>
       <drive_board>Billboard</drive_board>
-      <real3d_pci_id>0x16C311DB</real3d_pci_id>
       <netboard>true</netboard>
       <inputs>
         <input type="common" />
@@ -2784,7 +2737,6 @@
       <platform>Sega Model 3</platform>
       <stepping>2.0</stepping>
       <drive_board>Billboard</drive_board>
-      <real3d_pci_id>0x16C311DB</real3d_pci_id>
       <netboard>true</netboard>
       <inputs>
         <input type="common" />
@@ -2891,7 +2843,6 @@
       <platform>Sega Model 3</platform>
       <stepping>1.5</stepping>
       <drive_board>Billboard</drive_board>
-      <pci_bridge>MPC106</pci_bridge>
       <inputs>
         <input type="common" />
         <input type="joystick1" />
@@ -2921,7 +2872,6 @@
       <platform>Sega Model 3</platform>
       <stepping>1.5</stepping>
       <drive_board>Billboard</drive_board>
-      <pci_bridge>MPC106</pci_bridge>
       <inputs>
         <input type="common" />
         <input type="joystick1" />
@@ -3041,7 +2991,6 @@
       <platform>Sega Model 3</platform>
       <stepping>1.5</stepping>
       <drive_board>Billboard</drive_board>
-      <pci_bridge>MPC106</pci_bridge>
       <inputs>
         <input type="common" />
         <input type="joystick1" />
@@ -3236,7 +3185,6 @@
       <platform>Sega Model 3</platform>
       <stepping>1.5</stepping>
       <drive_board>Billboard</drive_board>
-      <pci_bridge>MPC106</pci_bridge>
       <inputs>
         <input type="common" />
         <input type="joystick1" />
@@ -3264,7 +3212,6 @@
     <hardware>
       <platform>Sega Model 3</platform>
       <stepping>1.5</stepping>
-      <pci_bridge>MPC106</pci_bridge>
       <drive_board>Billboard</drive_board>
       <inputs>
         <input type="common" />
@@ -3293,7 +3240,6 @@
     <hardware>
       <platform>Sega Model 3</platform>
       <stepping>1.5</stepping>
-      <pci_bridge>MPC106</pci_bridge>
       <drive_board>Billboard</drive_board>
       <inputs>
         <input type="common" />

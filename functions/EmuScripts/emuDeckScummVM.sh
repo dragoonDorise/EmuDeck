@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 ScummVM_emuName="ScummVM"
 ScummVM_emuType="$emuDeckEmuTypeFlatpak"
@@ -36,7 +36,7 @@ ScummVM_init(){
 
 ScummVM_setLanguage(){
 	setMSG "Setting ScummVM Language"
-	local language=$(locale | grep LANG | cut -d= -f2 | cut -d. -f1)
+	local language=$(getSystemLocale)
 	local languageOpt="gui_language="
 	newLanguageOpt='gui_language='"$language"
 	changeLine "$languageOpt" "$newLanguageOpt" "$ScummVM_configFile"
@@ -133,6 +133,11 @@ ScummVM_resetConfig(){
 ScummVM_flushEmulatorLauncher(){
 
 
-	flushEmulatorLaunchers "scummvm.sh"
+	flushEmulatorLaunchers "scummvm"
 
+}
+
+ScummVM_addToSteam(){
+	setMSG "Adding ScummVM to Steam"
+	add_to_steam "scummvm" "ScummVM" "$toolsPath/launchers/scummvm.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/scummvm.ico" "Emulation"
 }

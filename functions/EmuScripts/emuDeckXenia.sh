@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 Xenia_emuName="Xenia"
 Xenia_emuType="$emuDeckEmuTypeWindows"
@@ -72,6 +72,7 @@ Xenia_init(){
 	Xenia_cleanESDE
 	Xenia_flushEmulatorLauncher
 	addProtonLaunch
+	Xenia_addParser
 
 	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		Xenia_addESConfig
@@ -86,25 +87,7 @@ Xenia_addESConfig(){
 	ESDE_junksettingsFile
 	ESDE_addCustomSystemsFile
 	ESDE_setEmulationFolder
-
-	if [[ $(grep -rnw "$es_systemsFile" -e 'xbox360') == "" ]]; then
-		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
-		--var newSystem '$prev' \
-		--subnode '$newSystem' --type elem --name 'name' -v 'xbox360' \
-		--subnode '$newSystem' --type elem --name 'fullname' -v 'Microsoft Xbox 360' \
-		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/xbox360/roms' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.iso .ISO . .xex .XEX' \
-		--subnode '$newSystem' --type elem --name 'commandP' -v "/bin/bash ${toolsPath}/launchers/xenia.sh z:%ROM% %INJECT%=%BASENAME%.esprefix" \
-		--insert '$newSystem/commandP' --type attr --name 'label' --value "Xenia (Proton)" \
-		--subnode '$newSystem' --type elem --name 'platform' -v 'xbox360' \
-		--subnode '$newSystem' --type elem --name 'theme' -v 'xbox360' \
-		-r 'systemList/system/commandP' -v 'command' \
-		"$es_systemsFile"
-
-		#format doc to make it look nice
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-	fi
-	#Custom Systems config end
+	
 }
 
 function Xenia_getPatches() {
@@ -236,3 +219,13 @@ Xenia_flushEmulatorLauncher(){
 	flushEmulatorLaunchers "xenia"
 }
 
+
+Xenia_addParser(){
+	addParser "microsoft_xbox360_iso_xenia_proton.json"
+	addParser "microsoft_xbox360_xbla_xenia_proton.json"	
+}
+
+Xenia_addToSteam(){
+	setMSG "Adding Xenia to Steam"
+	add_to_steam "xenia" "Xenia" "$toolsPath/launchers/xenia.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/xenia.ico" "Emulation"
+}

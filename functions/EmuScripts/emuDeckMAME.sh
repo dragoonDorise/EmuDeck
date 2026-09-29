@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 MAME_emuName="MAME"
 MAME_emuType="$emuDeckEmuTypeFlatpak"
@@ -30,6 +30,7 @@ MAME_init(){
 	#SRM_createParsers
 	MAME_flushEmulatorLauncher
 	MAME_addSteamInputProfile
+	MAME_setESDEEmu
 	MAME_addParser
 	# If writeconfig is set to 1 in mame.ini, these files get created. Back up on reset so users can get the default/EmuDeck configured mame.ini file in ~/.mame
 	# writeconfig is disabled by default. Was enabled by default for a short time.
@@ -200,4 +201,14 @@ MAME_addParser(){
 	addParser "arcade_mame.json"
 	addParser "philips_cdi_mame.json"
 	addParser "snk_neogeocd_mame.json"
+}
+
+MAME_addToSteam(){
+	setMSG "Adding MAME to Steam"
+	add_to_steam "mame" "MAME" "$toolsPath/launchers/mame.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/mame.ico" "Emulation"
+}
+
+MAME_setESDEEmu(){
+	ESDE_forceEmu 'MAME (Standalone)' arcade
+	ESDE_forceEmu 'MAME (Standalone)' mame
 }

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 Azahar_emuName="Azahar"
 Azahar_emuType="$emuDeckEmuTypeAppImage"
@@ -12,7 +12,12 @@ Azahar_texturesPath="$HOME/.config/azahar-emu/load/textures"
 Azahar_install(){
 	echo "Begin $Azahar_emuName Install"
 	local showProgress="$1"
-	local url=$(getReleaseURLGH "azahar-emu/azahar" "AppImage" "")
+	
+	if [ $CPUarch == "arm" ]; then
+		url=$(getReleaseURLGH "dragoonDorise/azahar" "AppImage" "arm64.")
+	else
+		url=$(getReleaseURLGH "azahar-emu/azahar" "AppImage" "")
+	fi
 
 	if installEmuAI "$Azahar_emuName" "" "$url" "azahar" "AppImage" "emulator" "$showProgress"; then
 		mv "$emusFolder/azahar.AppImage" "$Azahar_emuPath"
@@ -34,9 +39,10 @@ Azahar_init(){
 	Azahar_setupTextures
 	Azahar_addParser
 	Azahar_migrate
+	Azahar_setResolution
 
 	#ESDE
-	ESDE_refreshCustomEmus
+	#ESDE_refreshCustomEmus
 	Azahar_addESConfig
 	ESDE_setEmu 'Azahar (Standalone)' n3ds
 
@@ -195,8 +201,18 @@ Azahar_setEmulationFolder(){
 	mkdir -p "${biosPath}/azahar/"
 	mkdir -p "$HOME/.local/share/azahar-emu/sysdata"
 	ln -sn "$HOME/.local/share/azahar-emu/sysdata" "${biosPath}/azahar/keys"
+	
+	#Portable
+	#sysdata="$HOME/.local/share/azahar-emu/sysdata"
+	#keys="${biosPath}/azahar/keys"
+	#
+	#mkdir -p "${biosPath}/azahar"
+	#mkdir -p "$HOME/.local/share/azahar-emu"
+	#
+	#linkToFolder "$keys" "$sysdata"
 
 }
+
 
 
 
@@ -275,10 +291,22 @@ Azahar_setResolution(){
 		"1080P") multiplier=5;;
 		"1440P") multiplier=6;;
 		"4K") multiplier=9;;
-		*) echo "Error"; return 1;;
+		*) multiplier=3;;
 	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ "$azaharResolution" = "4K" ]; then
+		getScreenInfoOnlyTV	
+		if [ "${screenWidth:-0}" -lt 3840 ]; then 
+			multiplier=5
+		fi
+	fi
 
-	setConfig "resolution_factor" $multiplier "$Azahar_configFile"
+	resolutionOpt='resolution_factor='
+	newResolutionOpt='resolution_factor='"$multiplier"
+	sed -i "/${resolutionOpt}/c\\${newResolutionOpt}" "$Azahar_configFile"
+	
+	
 }
 
 Azahar_flushEmulatorLauncher(){
@@ -311,23 +339,10 @@ Azahar_addESConfig(){
 	ESDE_junksettingsFile
 	ESDE_addCustomSystemsFile
 	ESDE_setEmulationFolder
+	
+}
 
-	if [[ $(grep -rnw "$es_systemsFile" -e 'azahar') == "" ]]; then
-		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
-		--var newSystem '$prev' \
-		--subnode '$newSystem' --type elem --name 'name' -v 'n3ds' \
-		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo 3DS' \
-		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/n3ds' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.3ds .3DS .3dsx .3DSX .app .APP .axf .AXF .cci .CCI .cxi .CXI .elf .ELF .7z .7Z .zip .ZIP' \
-		--subnode '$newSystem' --type elem --name 'commandP' -v "/usr/bin/bash ${toolsPath}/launchers/azahar.sh %ROM%" \
-		--insert '$newSystem/commandP' --type attr --name 'label' --value "Azahar (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'platform' -v 'n3ds' \
-		--subnode '$newSystem' --type elem --name 'theme' -v 'n3ds' \
-		-r 'systemList/system/commandP' -v 'command' \
-		"$es_systemsFile"
-
-		#format doc to make it look nice
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-		echo "Azahar added to EmulationStation-DE custom_systems"
-	fi
+Azahar_addToSteam(){
+	setMSG "Adding Azahar to Steam"
+	add_to_steam "azahar" "Azahar" "$toolsPath/launchers/azahar.sh" "$HOME/Applications/" "" "Emulation"
 }

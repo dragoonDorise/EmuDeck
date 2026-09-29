@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 
 #We check the current Emulation folder space, and the destination
@@ -139,7 +139,8 @@ Migration_updateSRM(){
 	tmp=$(mktemp)
 	jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
 	"$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
-	&& mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+	&& cat "$tmp" > "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+	rm -f "$tmp"
 }
 
 Migration_updateParsers(){

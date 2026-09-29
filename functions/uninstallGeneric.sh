@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 uninstallGeneric() {
     name=$1

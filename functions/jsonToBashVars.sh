@@ -1,12 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env bash
 function jsonToBashVars(){
     local json=$1
-    echo "#!/bin/bash" > "$emuDecksettingsFile"
+    echo "#!/usr/bin/env bash" > "$emuDecksettingsFile"
     #Install Emus
     setSetting system "$(jq .system $json)"
     setSetting doInstallRA "$(jq .installEmus.ra.status $json)"
     setSetting doInstallDolphin "$(jq .installEmus.dolphin.status $json)"
     setSetting doInstallPCSX2QT "$(jq .installEmus.pcsx2.status $json)"
+    setSetting doInstallARMSX2 "$(jq .installEmus.armsx2.status $json)"
     setSetting doInstallRPCS3 "$(jq .installEmus.rpcs3.status $json)"
     setSetting doInstallYuzu "$(jq .installEmus.yuzu.status $json)"
     setSetting doInstallSuyu "$(jq .installEmus.suyu.status $json)"
@@ -38,6 +39,7 @@ function jsonToBashVars(){
     setSetting doSetupRA $(jq .overwriteConfigEmus.ra.status "$json")
     setSetting doSetupDolphin "$(jq .overwriteConfigEmus.dolphin.status $json)"
     setSetting doSetupPCSX2QT "$(jq .overwriteConfigEmus.pcsx2.status $json)"
+    setSetting doSetupARMSX2 "$(jq .overwriteConfigEmus.armsx2.status $json)"
     setSetting doSetupRPCS3 "$(jq .overwriteConfigEmus.rpcs3.status $json)"
     setSetting doSetupYuzu "$(jq .overwriteConfigEmus.yuzu.status $json)"
     setSetting doSetupSuyu "$(jq .overwriteConfigEmus.suyu.status $json)"
@@ -99,8 +101,18 @@ function jsonToBashVars(){
     setSetting citraResolution  "$(jq .resolutions.citra $json)"
     setSetting xemuResolution  "$(jq .resolutions.xemu $json)"
     setSetting xeniaResolution  "$(jq .resolutions.xenia $json)"
-    setSetting melondsResolution  "$(jq .resolutions.melonds $json)"
-
+    setSetting melonDSResolution  "$(jq .resolutions.melonds $json)"
+    setSetting cemuResolution  "$(jq .resolutions.cemu $json)"
+    setSetting azaharResolution  "$(jq .resolutions.azahar $json)"
+    setSetting edenResolution  "$(jq .resolutions.yuzu $json)"
+    setSetting citronResolution  "$(jq .resolutions.yuzu $json)"
+    setSetting ryujinxResolution  "$(jq .resolutions.yuzu $json)"
+    setSetting flycastResolution  "$(jq .resolutions.flycast $json)"
+    setSetting ppssppResolution  "$(jq .resolutions.ppsspp $json)"
+    setSetting vita3kResolution  "$(jq .resolutions.vita3k $json)"
+        
+    
+    
     #MultiEmu Parsers
     setSetting emuGBA  "$(jq .emulatorAlternative.gba $json)"
     setSetting emuMAME  "$(jq .emulatorAlternative.mame $json)"
@@ -113,7 +125,7 @@ function jsonToBashVars(){
     setSetting emuSCUMMVM "$(jq .emulatorAlternative.scummvm $json)"
 
     #Paths
-    globPath=$(jq .storagePath $json)
+    globPath=$(jq -r .storagePath $json)
     setSetting emulationPath "$globPath/Emulation"
     setSetting romsPath "$globPath/Emulation/roms"
     setSetting toolsPath "$globPath/Emulation/tools"
@@ -134,6 +146,11 @@ function jsonToBashVars(){
     setSetting achievementsUser "$(jq .achievements.user $json)"
     setSetting achievementsUserToken "$(jq .achievements.token $json)"
     setSetting achievementsHardcore "$(jq .achievements.hardcore $json)"
+    
+    #Automap
+    setSetting autoMapCemu "$(jq .automap.cemu $json)"
+    setSetting autoMapDolphin "$(jq .automap.dolphin $json)"
+    setSetting autoMapSwitch "$(jq .automap.yuzu $json)"
 
     #Android
     setSetting androidStorage "$(jq .android.storage $json)"

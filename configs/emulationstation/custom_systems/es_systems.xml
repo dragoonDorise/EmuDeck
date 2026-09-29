@@ -55,7 +55,7 @@
 	<fullname>Microsoft Xbox 360</fullname>
 	<path>%ROMPATH%/xbox360/roms</path>
 	<extension>.iso .ISO . .xex .XEX .zar .ZAR</extension>
-	<command label="Xenia (Proton)">/bin/bash /run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh z:%ROM% %INJECT%=%BASENAME%.esprefix</command>
+	<command label="Xenia">%EMULATOR_XENIA% %ROM%</command>
 	<platform>xbox360</platform>
 	<theme>xbox360</theme>
   </system>
@@ -68,15 +68,41 @@
 	  <platform>ps4</platform>
 	  <theme>ps4</theme>
   </system>
-  <!-- <system>
-		<name>ps4-pkg</name>
-		<fullname>Sony PlayStation 4</fullname>
-		<path>%ROMPATH%\ps4</path>
-		<extension>.desktop</extension>
-		<command label="ShadPS4 PKG (Standalone)">%EMULATOR_SHADPS4% %ROM%</command>
-		<platform>ps4</platform>
-		<theme>ps4</theme>
-	</system> -->
+  <!--armcores
+  <system>
+		  <name>ps2</name>
+		  <fullname>Sony PlayStation 2</fullname>
+		  <path>%ROMPATH%/ps2</path>
+		  <extension>.bin .BIN .chd .CHD .cso .CSO .dump .DUMP .gz .GZ .img .IMG .iso .ISO .mdf .MDF .nrg .NRG .zso .ZSO</extension>
+		  <command label="ARMSX2 (Standalone)">%EMULATOR_ARMSX2% -batch -fullscreen -nogui %ROM%</command>
+		  <platform>ps2</platform>
+		  <theme>ps2</theme> 
+	</system>
+	<system>
+		<name>nds</name>
+		<fullname>Nintendo DS</fullname>
+		<path>%ROMPATH%/nds</path>
+		<extension>.app .APP .bin .BIN .nds .NDS .7z .7Z .zip .ZIP</extension>
+		<command label="melonDS DS">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/melondsds_libretro.so %ROM%</command>
+		<command label="melonDS">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/melonds_libretro.so %ROM%</command>
+		<command label="melonDS (Standalone)">%EMULATOR_MELONDS% -f %ROM%</command>
+		<command label="DeSmuME (Standalone)">%EMULATOR_DESMUME% %ROM%</command>
+		<platform>nds</platform>
+		<theme>nds</theme>
+  </system>
+  <system>
+		<name>saturn</name>
+		<fullname>Sega Saturn</fullname>
+		<path>%ROMPATH%/saturn</path>
+		<extension>.bin .BIN .ccd .CCD .chd .CHD .cue .CUE .iso .ISO .m3u .M3U .mds .MDS .toc .TOC .7z .7Z .zip .ZIP</extension>
+		<command label="Beetle Saturn">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mednafen_saturn_libretro.so %ROM%</command>
+		<command label="Yabause">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/yabause_libretro.so %ROM%</command>
+		<command label="Ymir (Standalone)">%STARTDIR%=~/.ymir %EMULATOR_YMIR% %ROM%</command>
+		<command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module ss %ROM%</command>
+		<platform>saturn</platform>
+		<theme>saturn</theme>
+  </system>
+  armcores-->
 	<system>
 		  <name>n3ds</name>
 		  <fullname>Nintendo 3DS</fullname>

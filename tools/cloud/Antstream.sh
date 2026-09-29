@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 source "$romsPath/cloud/cloud.conf"
 

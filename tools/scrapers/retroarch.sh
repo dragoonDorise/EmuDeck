@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 romParser_RA_download(){
 	local romName=$1

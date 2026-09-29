@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 BINUP_toolName="EmuDeck AppImage Updater"
 BINUP_toolType="script"

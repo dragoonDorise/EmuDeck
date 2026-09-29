@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #variables
 Yuzu_emuName="yuzu"
@@ -90,6 +90,7 @@ Yuzu_init() {
     Yuzu_setEmulationFolder
     Yuzu_setupStorage
     Yuzu_setupSaves
+    Yuzu_setResolution
     Yuzu_finalize
     #SRM_createParsers
     Yuzu_flushEmulatorLauncher
@@ -154,21 +155,41 @@ Yuzu_setEmulationFolder() {
     #Setup Bios symlinks
     unlink "${biosPath}/yuzu/keys" 2>/dev/null
     unlink "${biosPath}/yuzu/firmware" 2>/dev/null
-
+    
     mkdir -p "$HOME/.local/share/yuzu/keys/"
     mkdir -p "${storagePath}/yuzu/nand/system/Contents/registered/"
-
+    
     ln -sn "$HOME/.local/share/yuzu/keys/" "${biosPath}/yuzu/keys"
     ln -sn "${storagePath}/yuzu/nand/system/Contents/registered/" "${biosPath}/yuzu/firmware"
 
-    touch "${storagePath}/yuzu/nand/system/Contents/registered/putfirmwarehere.txt"
+
+
+    #Portable
+#     folder_parent="${biosPath}/yuzu"
+#     link_parent="$HOME/.local/share/yuzu/"        
+#     mkdir -p "$folder_parent"
+#     mkdir -p "$link_parent"
+#     
+#     #Keys
+#     folder="${folder_parent}/keys"
+#     link="${link_parent}/keys"
+#         
+#     linkToFolder "$folder" "$link"
+#     
+#     #Firmware    
+#     folder="${folder_parent}/firmware"
+#     link="${link_parent}/nand/system/Contents/registered/"
+#         
+#     linkToFolder "$folder" "$link"   
+# 
+#     touch "${folder}/putfirmwarehere.txt"
 
 }
 
 #SetLanguage
 Yuzu_setLanguage(){
     setMSG "Setting Yuzu Language"
-    local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+    local language=$(getSystemLanguage)
     languageOpt="language_index="
     languageDefaultOpt="language_index\\\\default="
     newLanguageDefaultOpt="language_index\\\\default=false" # we need those or else itll reset
@@ -388,8 +409,18 @@ Yuzu_setResolution(){
 		"1080P") multiplier=2; docked="true";;
 		"1440P") multiplier=3; docked="false";;
 		"4K") multiplier=3; docked="true";;
-		*) echo "Error"; return 1;;
+		*) multiplier=2; docked="false";;
 	esac
+  
+    
+    #Steam Machine 4K > 1080P fallback
+    if [ "$yuzuResolution" = "4K" ]; then
+      getScreenInfoOnlyTV	
+      if [ "${screenWidth:-0}" -lt 3840 ]; then 
+        multiplier=2;
+        docked="true";
+      fi
+    fi
 
 	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Yuzu_configFile"
 	RetroArch_setConfigOverride "use_docked_mode" $docked "$Yuzu_configFile"
@@ -407,34 +438,15 @@ Yuzu_addESConfig(){
     ESDE_junksettingsFile
     ESDE_addCustomSystemsFile
     ESDE_setEmulationFolder
-
-	if [[ $(grep -rnw "$es_systemsFile" -e 'switch') == "" ]]; then
-		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
-		--var newSystem '$prev' \
-		--subnode '$newSystem' --type elem --name 'name' -v 'switch' \
-		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo Switch' \
-		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/switch' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.nca .NCA .nro .NRO .nso .NSO .nsp .NSP .xci .XCI' \
-		--subnode '$newSystem' --type elem --name 'commandB' -v "%EMULATOR_RYUJINX% %ROM%" \
-		--insert '$newSystem/commandB' --type attr --name 'label' --value "Ryujinx (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'commandV' -v "%INJECT%=%BASENAME%.esprefix %EMULATOR_YUZU% -f -g %ROM%" \
-		--insert '$newSystem/commandV' --type attr --name 'label' --value "Yuzu (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'platform' -v 'switch' \
-		--subnode '$newSystem' --type elem --name 'theme' -v 'switch' \
-		-r 'systemList/system/commandB' -v 'command' \
-		-r 'systemList/system/commandV' -v 'command' \
-		"$es_systemsFile"
-
-
-
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-	fi
-	#Custom Systems config end
-
-	ESDE_refreshCustomEmus
+	#ESDE_refreshCustomEmus
 
 }
 
 Yuzu_addParser(){
   addParser "nintendo_switch_yuzu.json"
+}
+
+Yuzu_addToSteam(){
+	setMSG "Adding yuzu to Steam"
+	add_to_steam "yuzu" "yuzu" "$toolsPath/launchers/yuzu.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/yuzu.ico" "Emulation"
 }

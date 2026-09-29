@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 appleChip=$(uname -m)
 if [ $(uname) != "Linux" ]; then
     system="darwin"
@@ -56,6 +56,7 @@ source "$emudeckBackend"/functions/updateEmuFP.sh
 source "$emudeckBackend"/functions/createFolders.sh
 source "$emudeckBackend"/functions/runSRM.sh
 source "$emudeckBackend"/functions/appImageInit.sh
+source "$emudeckBackend"/functions/launcherInit.sh
 source "$emudeckBackend"/functions/autofix.sh
 source "$emudeckBackend"/functions/generateGameLists.sh
 source "$emudeckBackend"/functions/jsonToBashVars.sh
@@ -77,6 +78,8 @@ source "$emudeckBackend"/functions/ToolScripts/emuDeckCopyGames.sh
 source "$emudeckBackend"/functions/ToolScripts/emuDecky.sh
 source "$emudeckBackend"/functions/ToolScripts/emuDeckNetPlay.sh
 source "$emudeckBackend"/functions/ToolScripts/emuDeckStore.sh
+source "$emudeckBackend"/functions/ToolScripts/emuDeckImportExport.sh
+
 
 #emuscripts
 #source "$emudeckBackend"/functions/EmuScripts/emuDeckSuyu.sh
@@ -84,7 +87,6 @@ source "$emudeckBackend"/functions/EmuScripts/emuDeckCitron.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckEden.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckYuzu.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckCemu.sh
-source "$emudeckBackend"/functions/EmuScripts/emuDeckCemuProton.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckRPCS3.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckAzahar.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckDolphin.sh
@@ -96,6 +98,7 @@ source "$emudeckBackend"/functions/EmuScripts/emuDeckPPSSPP.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckDuckStation.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckXemu.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckXenia.sh
+source "$emudeckBackend"/functions/EmuScripts/emuDeckXeniaNative.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckPCSX2QT.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckMAME.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckScummVM.sh
@@ -108,7 +111,8 @@ source "$emudeckBackend"/functions/EmuScripts/emuDeckares.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckFlycast.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckSupermodel.sh
 source "$emudeckBackend"/functions/EmuScripts/emuDeckModel2.sh
-
+#arm
+source "$emudeckBackend"/functions/EmuScripts/emuDeckARMSX2.sh
 
 # Generic Application scripts
 source "$emudeckBackend"/functions/GenericApplicationsScripts/genericApplicationBottles.sh
@@ -132,11 +136,3 @@ source "$emudeckBackend"/functions/RemotePlayClientScripts/remotePlaySteamLink.s
 
 
 source "$emudeckBackend"/functions/cloudSyncHealth.sh
-
-source "$emudeckBackend"/android/functions/all.sh
-
-# Darwin overrides
-if [ "$system" = "darwin" ]; then
-    source "$emudeckBackend/darwin/functions/varsOverrides.sh"
-	source "$emudeckBackend/darwin/functions/all.sh"
-fi

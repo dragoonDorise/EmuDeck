@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 {
 NONE='\033[00m'

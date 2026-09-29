@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #based in https://gist.github.com/ibackz/b959df705ed071852146510714f970d7
 
 EmuDeckM3U(){

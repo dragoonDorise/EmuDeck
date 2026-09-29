@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 createFolders(){
 	#Folder creation... This code is repeated outside of this if for the yes zenity mode

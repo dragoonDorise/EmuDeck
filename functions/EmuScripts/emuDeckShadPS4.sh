@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Script to install, initialize and configure ShadPS4 on EmuDeck
 # Note: No Bios/Keys symlinks necessary
@@ -71,21 +71,33 @@ ShadPS4_update(){
 ShadPS4_setEmulationFolder(){
     echo "Begin ShadPS4 Path Config"
     sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$ShadPS4_configFile"
-
+    
     # setup bios link for LLE sys_modules (optional)
     mkdir -p "${biosPath}/shadps4/"
     mkdir -p "$ShadPS4_dir/sys_modules"
     ln -sn "$ShadPS4_dir/sys_modules" "${biosPath}/shadps4/sys_modules"
+    
+    #portable  
+#     folder_parent="${biosPath}/shadps4"
+#     link_parent="$ShadPS4_dir"        
+#     mkdir -p "$folder_parent"
+#     mkdir -p "$link_parent"
+#     
+#     folder="${folder_parent}/sys_modules"
+#     link="${link_parent}/sys_modules"
+# 
+#     
+#     linkToFolder "$folder" "$link"
 
     echo "ShadPS4 Path Config Completed"
 }
 
 ShadPS4_setLanguage(){
     setMSG "Setting ShadPS4 Language"
-    local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+    local language=$(getSystemLanguage)
     #TODO: call this somewhere, and input the $language from somewhere (args?)
-    changeLine "emulatorLanguage = " "emulatorLanguage = \"${language}\"" $ShadPS4_configFile
-    echo "ShadPS4 language '${emulatorLanguage}' configuration completed."
+    changeLine "emulatorLanguage = " "emulatorLanguage = \"${language}\"" "$ShadPS4_configFile"
+    echo "ShadPS4 language '${language}' configuration completed."
 }
 
 # Setup Saves
@@ -158,4 +170,9 @@ ShadPS4_setResolution(){
 
 ShadPS4_flushEmulatorLauncher(){
     flushEmulatorLaunchers "ShadPS4"
+}
+
+ShadPS4_addToSteam(){
+	setMSG "Adding shadPS4 to Steam"
+	add_to_steam "shadps4" "shadPS4" "$toolsPath/launchers/shadps4.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/ShadPS4.ico" "Emulation"
 }

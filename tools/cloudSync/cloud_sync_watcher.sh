@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 emudeckBackend="$HOME/.config/EmuDeck/backend/"
 . $emudeckBackend/functions/all.sh
 echo "SERVICE - START" > $emudeckLogs/CloudWatcher.log

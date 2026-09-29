@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 
 doUninstall=false
@@ -18,6 +18,7 @@ doUninstallMGBA=true
 doUninstallModel2=true
 doUninstallRA=true
 doUninstallPCSX2=true
+doUninstallARMSX2=true
 doUninstallPPSSPP=true
 doUninstallPrimeHacks=true
 doUninstallRMG=true
@@ -314,7 +315,8 @@ fi
 				24 "Vita3K"  \
 				25 "Xemu" \
 				26 "Xenia"  \
-				27 "Yuzu" )
+				27 "Yuzu" \
+				28 "ARMSX2" )
 
 	ans=$?
 
@@ -364,6 +366,9 @@ fi
 		fi
 		if [[ "$emusToUninstall" == *"PCSX2"* ]]; then
 			doUninstallPCSX2=false
+		fi
+		if [[ "$emusToUninstall" == *"ARMSX2"* ]]; then
+			doUninstallARMSX2=false
 		fi
 		if [[ "$emusToUninstall" == *"PPSSPP"* ]]; then
 			doUninstallPPSSPP=false
@@ -488,6 +493,11 @@ fi
 		rm -rf $HOME/.local/share/applications/pcsx2-Qt.desktop &> /dev/null
 		rm -rf $HOME/.local/share/applications/PCSX2-Qt.desktop &> /dev/null
 		rm -rf $HOME/.local/share/applications/PCSX2-QT.desktop &> /dev/null
+	fi
+	if [[ "$doUninstallARMSX2" == true ]]; then
+		rm -rf $emusFolder/armsx2.AppImage &> /dev/null
+		rm -rf $HOME/.config/ARMSX2 &> /dev/null
+		rm -rf $HOME/.local/share/applications/armsx2.desktop &> /dev/null
 	fi
 	if [[ "$doUninstallPPSSPP" == true ]]; then
 		flatpak uninstall org.ppsspp.PPSSPP -y

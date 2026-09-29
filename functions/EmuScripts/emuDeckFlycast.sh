@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #variables
 Flycast_emuName="Flycast"
@@ -25,10 +25,12 @@ Flycast_init(){
 	Flycast_setupStorage
 	Flycast_setEmulationFolder
 	Flycast_setupSaves
+	Flycast_setResolution
 	#SRM_createParsers
 	#Flycast_addSteamInputProfile
 	Flycast_flushEmulatorLauncher
 	Flycast_addSteamInputProfile
+	Flycast_setESDEEmu
 	Flycast_addParser
 }
 
@@ -54,7 +56,20 @@ Flycast_setEmulationFolder(){
 	#Setup symlink for bios
 	mkdir -p "${biosPath}/flycast/"
 	mkdir -p "$HOME/.var/app/org.flycast.Flycast/data/flycast/"
-    ln -sn "$HOME/.var/app/org.flycast.Flycast/data/flycast/" "${biosPath}/flycast/bios"
+	ln -sn "$HOME/.var/app/org.flycast.Flycast/data/flycast/" "${biosPath}/flycast/bios"
+
+	
+	#Portable
+	# folder_parent="${biosPath}/flycast"
+	# link_parent="$HOME/.var/app/org.flycast.Flycast/data"       
+	# mkdir -p "$folder_parent"
+	# mkdir -p "$link_parent"
+	# 	
+	# folder="${folder_parent}/bios"
+	# link="${link_parent}/flycast"
+	# 	
+	# linkToFolder "$folder" "$link"
+	
 }
 
 #SetupSaves
@@ -150,8 +165,16 @@ Flycast_addSteamInputProfile(){
 	# rsync -r "$emudeckBackend/configs/steam-input/Flycast_controller_config.vdf" "$HOME/.steam/steam/controller_base/templates/"
 }
 
-Flycast_setResolution(){
-	echo "NYI"
+Flycast_setResolution() {
+	case $flycastResolution in
+		"720P")  res=720 ;;
+		"1080P") res=1200 ;;
+		"1440P") res=1440 ;;
+		"4K")    res=2160 ;;
+		*)       res=720 ;;
+	esac
+
+	RetroArch_setConfigOverride "rend.Resolution" "$res" "$Flycast_configFile"
 }
 
 Flycast_flushEmulatorLauncher(){
@@ -172,4 +195,17 @@ Flycast_addParser(){
 	addParser "atomiswave_flycast.json"
 	addParser "naomi_flycast.json"
 	addParser "naomi2_flycast.json"
+}
+
+Flycast_addToSteam(){
+	setMSG "Adding Flycast to Steam"
+	add_to_steam "flycast" "Flycast" "$toolsPath/launchers/flycast.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/flycast.ico" "Emulation"
+}
+
+Flycast_setESDEEmu(){
+	ESDE_forceEmu 'Flycast (Standalone)' dreamcast
+	ESDE_forceEmu 'Flycast (Standalone)' naomi
+	ESDE_forceEmu 'Flycast (Standalone)' naomi2
+	ESDE_forceEmu 'Flycast (Standalone)' naomigd
+	ESDE_forceEmu 'Flycast (Standalone)' atomiswave
 }

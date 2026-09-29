@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #Global variables
 emuDecksettingsFile="$emudeckFolder/settings.sh"
@@ -99,7 +99,11 @@ function getSDPath() {
 }
 
 function getProductName(){
-	cat /sys/devices/virtual/dmi/id/product_name
+	if [ -f /sys/devices/virtual/dmi/id/product_name ]; then
+		cat /sys/devices/virtual/dmi/id/product_name
+	else
+		printf $(hostname)
+	fi
 }
 
 function testRealDeck(){
@@ -270,10 +274,10 @@ function getSetting(){
 }
 
 function createUpdateSettingsFile(){
-	#!/bin/bash
+	#!/usr/bin/env bash
 
 	if [ ! -e "$emuDecksettingsFile" ]; then
-		echo "#!/bin/bash"> "$emuDecksettingsFile"
+		echo "#!/usr/bin/env bash"> "$emuDecksettingsFile"
 	fi
 	local defaultSettingsList=()
 	defaultSettingsList+=("expert=false")
@@ -365,7 +369,8 @@ function createUpdateSettingsFile(){
 	tmp=$(mktemp)
 	#sort "$emuDecksettingsFile" | uniq -u > "$tmp" && mv "$tmp" "$emuDecksettingsFile"
 
-	cat "$emuDecksettingsFile" | awk '!unique[$0]++' > "$tmp" && mv "$tmp" "$emuDecksettingsFile"
+	cat "$emuDecksettingsFile" | awk '!unique[$0]++' > "$tmp" && cat "$tmp" > "$emuDecksettingsFile"
+	rm -f "$tmp"
 	for setting in "${defaultSettingsList[@]}"
 		do
 			local settingName=$(cut -d "=" -f1 <<< "$setting")
@@ -450,17 +455,41 @@ function getReleaseURLGH(){
 		][0] // empty'
 }
 
+function linkToFolderPortable(){
+	local folder="$1"
+	local link="$2"
+
+	#Old EmuDeck, does the folder exist as a link?
+	if [ -L "$folder" ]; then
+		unlink "$folder"
+	fi
+
+	#Link exists already, lets unlink to create it back again
+	if [ -L "$link" ]; then
+		unlink "$link"
+	#Old EmuDeck, is the link a folder? We migrate it to the new folder
+	elif [ -d "$link" ]; then
+		mkdir -p "$(dirname "$folder")"
+		mv "$link" "$folder"
+	fi
+
+	mkdir -p "$folder"
+	ln -sfn "$folder" "$link"
+}
+
 function linkToSaveFolder(){
 	local emu=$1
 	local folderName=$2
 	local path=$3
+	
+	mkdir -p "$path"
 
 	if [ ! -d "$savesPath/$emu/$folderName" ]; then
 		if [ ! -L "$savesPath/$emu/$folderName" ]; then
 			mkdir -p "$savesPath/$emu"
 			setMSG "Linking $emu $folderName to the Emulation/saves folder"
 			mkdir -p "$path"
-			ln -snv "$path" "$savesPath/$emu/$folderName"
+			ln -snfv "$path" "$savesPath/$emu/$folderName"
 		fi
 	else
 		if [ ! -L "$savesPath/$emu/$folderName" ]; then
@@ -479,6 +508,48 @@ function linkToSaveFolder(){
 
 }
 
+function linkToSaveFolderPortable() {
+	local emu=$1
+	local folderName=$2
+	local path=$3
+
+	local realPath="$savesPath/$emu/$folderName"   
+	local linkPath="${path%/}"                     
+
+	mkdir -p "$savesPath/$emu"
+
+	if [ -L "$realPath" ]; then
+		setMSG "Migrating $emu $folderName to the new saves layout"
+		unlink "$realPath"
+	fi
+
+	if [ -L "$linkPath" ]; then
+		if [ -d "$realPath" ] && [ "$(readlink -f "$linkPath")" == "$(readlink -f "$realPath")" ]; then
+			echo "$linkPath is already linked. Target: $realPath"
+			return 0
+		fi
+		
+		local oldTarget
+		oldTarget=$(readlink -f "$linkPath")
+		if [ -d "$oldTarget" ]; then
+			mkdir -p "$realPath"
+			cp -a -n "$oldTarget/." "$realPath/" 2>/dev/null
+		fi
+		unlink "$linkPath"
+	elif [ -d "$linkPath" ]; then
+		if [ -d "$realPath" ]; then
+			echo "Both $linkPath and $realPath exist. Merging without overwriting."
+			cp -a -n "$linkPath/." "$realPath/" 2>/dev/null
+			mv "$linkPath" "${linkPath}.bak.$(date +%Y%m%d%H%M%S)"
+		else
+			mv "$linkPath" "$realPath"
+		fi
+	fi
+
+	mkdir -p "$realPath"
+	mkdir -p "$(dirname "$linkPath")"
+	ln -snfv "$realPath" "$linkPath"
+}
 
 function linkToTexturesFolder(){
 	local emu=$1
@@ -596,8 +667,23 @@ function createDesktopShortcut(){
 		terminal="False"
 	fi
 
+	if [[ "$name" != *EmuDeck* ]]; then	
+		if [ "$(getProductName)" == "frame" ]; then
+			frameOption="NoDisplay=true"
+		fi	
+	fi
+	
+	if [[ "$name" == *Steam-ROM-Manager* ]]; then	
+		if [ "$(getProductName)" == "frame" ]; then
+			frameOption=""
+		fi	
+	fi
+	
+	
+
 	echo "#!/usr/bin/env xdg-open
 	[Desktop Entry]
+	$frameOption
 	Name=$name
 	Exec=$exec
 	Icon=$icon
@@ -610,6 +696,24 @@ function createDesktopShortcut(){
 	balooctl check
 
 	echo "$Shortcutlocation created"
+}
+
+function flatpakDesktopRegenerate(){
+	local emuTypeVar prefix ID name shName launcher
+
+	for emuTypeVar in $(compgen -A variable | grep '_emuType$'); do
+		[ "${!emuTypeVar}" == "$emuDeckEmuTypeFlatpak" ] || continue
+		prefix="${emuTypeVar%_emuType}"
+		ID="${prefix}_emuPath"; ID="${!ID}"
+		name="${prefix}_emuName"; name="${!name}"
+		[ -n "$ID" ] && [ -n "$name" ] || continue
+
+		shName="${name,,}"
+		launcher=$(find "$toolsPath/launchers" -maxdepth 1 -type f \( -iname "$shName.sh" -o -iname "$shName-emu.sh" \) | head -n 1)
+		[ -n "$launcher" ] || continue
+
+		createDesktopShortcut "$HOME/.local/share/applications/${ID}.desktop" "$name" "$launcher" "false"
+	done
 }
 
 #desktopShortcutFieldUpdate "$shortcutFile" "Field" "NewValue"
@@ -700,39 +804,44 @@ function iniSectionUpdate() {
 	local file="$1"
 	local section_name="$2"
 	local new_content="$3"
-	local tmp_file=$(mktemp)
+	local tmp_file
+	tmp_file=$(mktemp)
 
 	local inside_section=0
+	local trailing=0
 
 	while IFS= read -r line; do
 
 		if [[ "$line" =~ ^\[$section_name\] ]]; then
 			inside_section=1
+			trailing=0
 			echo "$line"
 			echo "$new_content"
 			continue
 		fi
 
-		if [[ "$line" =~ ^\[ ]] && [[ ! "$line" =~ ^\[$section_name\] ]] && [[ $inside_section -eq 1 ]]; then
-			echo "$old_content"
-			inside_section=0
-		fi
-
 		if [[ $inside_section -eq 1 ]]; then
-			continue
+			if [[ "$line" =~ ^\[ ]]; then
+				inside_section=0
+				while [[ $trailing -gt 0 ]]; do echo ""; trailing=$((trailing - 1)); done
+			else
+				if [[ -z "${line//[[:space:]]/}" ]]; then
+					trailing=$((trailing + 1))
+				else
+					trailing=0
+				fi
+				continue
+			fi
 		fi
 
 		echo "$line"
 
-	local old_content="$line"
-
 	done < "$file" > "$tmp_file"
 
-	if [[ $inside_section -eq 1 ]]; then
-		echo "$old_content"
-	fi
+	while [[ $trailing -gt 0 ]]; do echo "" >> "$tmp_file"; trailing=$((trailing - 1)); done
 
-	mv "$tmp_file" "$file"
+	cat "$tmp_file" > "$file"
+	rm -f "$tmp_file"
 }
 
 calculate_checksum_sha256() {
@@ -801,6 +910,7 @@ flushEmulatorLaunchers(){
 
 	shName=$(echo "$name" | awk '{print tolower($0)}')
 	mkdir -p "${romsPath}/emulators"
+	mkdir -p "${toolsPath}/launchers"
 	find "${toolsPath}/launchers/" "${romsPath}/emulators" -maxdepth 1 -type f \( -iname "$shName.sh" -o -iname "$shName-emu.sh" \) | \
 	while read -r f
 	do
@@ -869,20 +979,17 @@ zipLogs() {
 }
 
 setResolutions(){
-	Cemu_setResolution
+	Eden_setResolution
 	Azahar_setResolution
 	Dolphin_setResolution
 	DuckStation_setResolution
 	Flycast_setResolution
-	MAME_setResolution
-	melonDS_setResolution
-	mGBA_setResolution
+	melonDS_setResolution	
 	PCSX2QT_setResolution
 	PPSSPP_setResolution
 	Primehack_setResolution
 	RPCS3_setResolution
 	Ryujinx_setResolution
-	ScummVM_setResolution
 	Vita3K_setResolution
 	Xemu_setResolution
 	Xenia_setResolution
@@ -937,7 +1044,7 @@ getLatestVersionGH() {
 	echo $id
 }
 
-#!/bin/bash
+#!/usr/bin/env bash
 
 saveLatestVersionGH() {
 	emuName=$1
@@ -1045,7 +1152,27 @@ addProtonLaunch(){
 
 function emulatorInit(){
 	local emuName=$1
+	local args=$2
+	local emuNameLower="${emuName,,}"
 	#isLatestVersionGH "$emuName"
+	
+	#Check if the emu is already installed or if we need to install it
+	emulatorCheckAndInstall "$emuNameLower"
+	
+	
+	if [ -z $args ];then 
+		case "$emuNameLower" in
+			ryujinx) autoMapEmulatorStatus="$autoMapSwitch" ;;
+			dolphin) autoMapEmulatorStatus="$autoMapDolphin" ;;
+			cemu)    autoMapEmulatorStatus="$autoMapCemu" ;;
+			*)       autoMapEmulatorStatus="false" ;;
+		esac
+		
+		if [ "$autoMapEmulatorStatus" == "true" ]; then
+			TEXT=$(printf "<b>ATTENTION:</b>\nAutoMap is enabled.\nYou won't be able to change controller settings in this emulator, other settings are not locked.\nIf you want to customize your controller settings please turn AutoMap off in the EmuDeck app")
+			zenity --info --width=400 --text="$TEXT"
+		fi
+	fi
 	
 	cd $emudeckBackend
 	git reset --hard && git pull
@@ -1113,22 +1240,59 @@ function emulatorInit(){
 
 }
 
+
+
+function findEmuPrefix(){
+	local emuName=$1
+	local functionToFind="${2:-_IsInstalled}"
+
+	local fn candidate prefix match=""
+	local emuNameLower
+	emuNameLower=$(printf '%s' "$emuName" | tr -cd '[:alnum:]' | tr '[:upper:]' '[:lower:]')
+
+	for fn in $(compgen -A function); do
+		[[ "$fn" == *"$functionToFind" ]] || continue
+		prefix="${fn%$functionToFind}"
+		candidate=$(printf '%s' "$prefix" | tr -cd '[:alnum:]' | tr '[:upper:]' '[:lower:]')
+		if [ "$candidate" = "$emuNameLower" ]; then
+			match="$prefix"
+			break
+		fi
+	done
+
+	echo "$match"
+}
+
 function emulatorLaunchFixes(){
 	local emuName=$1
 	[ -n "$emuName" ] || return 0
 
-	local emuNameLower
-	emuNameLower=$(printf '%s' "$emuName" | tr '[:upper:]' '[:lower:]')
+	local prefix
+	prefix=$(findEmuPrefix "$emuName" "_launch_fixes")
+	[ -n "$prefix" ] || return 0
 
-	local fixesFn
-	for fixesFn in "${emuName}_launch_fixes" "${emuNameLower}_launch_fixes"; do
-		if declare -F "$fixesFn" >/dev/null 2>&1; then
-			echo "Applying launch fixes: $fixesFn"
-			"$fixesFn" || echo "$fixesFn failed, continuing launch"
-			return 0
-		fi
-	done
+	local fixesFn="${prefix}_launch_fixes"
+	echo "Applying launch fixes: $fixesFn"
+	"$fixesFn" || echo "$fixesFn failed, continuing launch"
 }
+
+function emulatorCheckAndInstall(){
+	local emuName=$1
+	local prefix
+	prefix=$(findEmuPrefix "$emuName")
+	[ -n "$prefix" ] || return 0
+	declare -F "${prefix}_install" >/dev/null 2>&1 || return 0
+	declare -F "${prefix}_init" >/dev/null 2>&1 || return 0
+
+	if [ "$("${prefix}_IsInstalled")" != "true" ]; then
+		echo "$prefix is not installed, installing"
+		"${prefix}_install" && "${prefix}_init"
+	else
+		echo "$prefix is installed"
+	fi
+}
+
+
 
 
 function storePatreonToken(){
@@ -1175,13 +1339,13 @@ function startCompressor(){
 }
 
 function generate_pythonEnv() {
-	if [ ! -d "$emudeckFolder/python_virtual_env" ]; then
-		python3 -m venv "$emudeckFolder/python_virtual_env"
-		source "$emudeckFolder/python_virtual_env/bin/activate"
-		pip install requests
-		pip install vdf
-	else
-		source "$emudeckFolder/python_virtual_env/bin/activate"
+	local venv_dir="$emudeckFolder/python_virtual_env"
+	if [ ! -d "$venv_dir" ]; then
+		python3 -m venv "$venv_dir"
+	fi
+	source "$venv_dir/bin/activate"
+	if ! python -c "import requests, vdf, python_multipart" &> /dev/null; then
+		pip install requests vdf python-multipart
 	fi
 }
 
@@ -1207,6 +1371,8 @@ function add_to_steam(){
 	local target_path="$3"
 	local start_dir="$4"
 	local icon_path="$5"
+	local collection="${6-Emulation}"
+	local recent="${7:-false}"
 
 	local steam_directory="$HOME/.steam/steam/"
 	local user_id
@@ -1227,6 +1393,17 @@ function add_to_steam(){
 		return 1
 	fi
 
+	if [ "$(getProductName)" != "frame" ]; then
+		killSteam
+	else
+		echo "frame, so no restart"
+	fi
+
+	"$venv_python" "$add_script" \
+		"$id" "$name" "$target_path" "$start_dir" "$icon_path" "$steam_directory" "$user_id" "$collection" "$recent"
+}
+
+function killSteam(){
 	local steam_pid
 	steam_pid=$(pidof steam)
 	if [ -n "$steam_pid" ]; then
@@ -1234,9 +1411,6 @@ function add_to_steam(){
 		kill -15 "$steam_pid"
 		echo "Señal SIGTERM env"
 	fi
-
-	"$venv_python" "$add_script" \
-		"$id" "$name" "$target_path" "$start_dir" "$icon_path" "$steam_directory" "$user_id"
 }
 
 
@@ -1253,6 +1427,7 @@ function flushAllLaunchers(){
 		"$doSetupPrimehack Primehack_flushEmulatorLauncher" \
 		"$doSetupDolphin Dolphin_flushEmulatorLauncher" \
 		"$doSetupPCSX2QT PCSX2QT_flushEmulatorLauncher" \
+		"$doSetupARMSX2 ARMSX2_flushEmulatorLauncher" \
 		"$doSetupRPCS3 RPCS3_flushEmulatorLauncher" \
 		"$doSetupAzahar Azahar_flushEmulatorLauncher" \
 		"$doSetupDuck DuckStation_flushEmulatorLauncher" \
@@ -1296,7 +1471,7 @@ function flushAllLaunchers(){
 }
 
 
-addParser(){
+function addParser(){
 	local source="$emudeckBackend/configs/steam-rom-manager/userData/parsers/optional"
 	local custom_parser=$1
 	local path="$source/$custom_parser"
@@ -1310,6 +1485,7 @@ addParser(){
 	echo "Parser ID: $PARSER_ID"
 
 	if [[ ! -f "$SRM_userConfigurations" ]]; then
+		mkdir -p "$(dirname "$SRM_userConfigurations")"
 		echo "[] " > "$SRM_userConfigurations"  # Inicializar JSON si no existe
 	fi
 
@@ -1317,14 +1493,19 @@ addParser(){
 
 	if [[ "$EXISTS" -eq 0 ]]; then
 		echo "adding parser"
-		cat "$SRM_userConfigurations" | jq --argjson newConfig "$(cat "$path")" '. + [$newConfig]' > temp.json && mv temp.json "$SRM_userConfigurations"
+		local tmpParser
+		tmpParser=$(mktemp)
+		jq --argjson newConfig "$(cat "$path")" '. + [$newConfig]' "$SRM_userConfigurations" > "$tmpParser" && [ -s "$tmpParser" ] && cat "$tmpParser" > "$SRM_userConfigurations"
+		rm -f "$tmpParser"
 		SRM_setEmulationFolder
-		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+		tmpParser=$(mktemp)
+		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > "$tmpParser" && [ -s "$tmpParser" ] && cat "$tmpParser" > "$SRM_userConfigurations"
+		rm -f "$tmpParser"
 	fi
 
 }
 
-removeParser() {
+function removeParser() {
 	local source="$emudeckBackend/configs/steam-rom-manager/userData/parsers/optional"
 	local custom_parser=$1
 	local path="$source/$custom_parser"
@@ -1347,16 +1528,21 @@ removeParser() {
 
 	if [[ "$EXISTS" -gt 0 ]]; then
 		echo "Eliminando parser..."
-		jq --arg pid "$PARSER_ID" '[.[] | select(.parserId != $pid)]' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+		local tmpParser
+		tmpParser=$(mktemp)
+		jq --arg pid "$PARSER_ID" '[.[] | select(.parserId != $pid)]' "$SRM_userConfigurations" > "$tmpParser" && [ -s "$tmpParser" ] && cat "$tmpParser" > "$SRM_userConfigurations"
+		rm -f "$tmpParser"
 		SRM_setEmulationFolder
-		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > temp.json && mv temp.json "$SRM_userConfigurations"
+		tmpParser=$(mktemp)
+		jq 'sort_by(.configTitle)' "$SRM_userConfigurations" > "$tmpParser" && [ -s "$tmpParser" ] && cat "$tmpParser" > "$SRM_userConfigurations"
+		rm -f "$tmpParser"
 	else
 		echo "El parser $PARSER_ID no se encontró en la configuración."
 	fi
 }
 
 
-update_launchers(){
+function update_launchers(){
   local target_dir="$toolsPath/launchers"
   local src_dir="$emudeckBackend/tools/launchers"
 
@@ -1373,4 +1559,160 @@ update_launchers(){
 	  echo "No source found for $rel"
 	fi
   done
+
+  local roms_dir="${romsPath}/emulators"
+  if [ -d "$roms_dir" ]; then
+    find "$roms_dir" -maxdepth 1 -type f -name '*.sh' | while read -r dst; do
+      base="$(basename "$dst")"
+      src="$(find "$src_dir" -type f -name "$base" | head -n 1)"
+      if [ -n "$src" ]; then
+        echo "Overwriting $dst from $src"
+        cp -v "$src" "$dst"
+        chmod +x "$dst"
+      else
+        echo "No source found for $base"
+      fi
+    done
+  fi
 }
+
+function ra_get_credentials() {
+		
+	achievementsUser=""
+	achievementsUserToken=""
+	achievementsHardcore="false"
+	if [ -f "$emudeckFolder/settings.json" ]; then
+		achievementsUser=$(jq -r '.achievements.user // ""' "$emudeckFolder/settings.json")
+		achievementsUserToken=$(jq -r '.achievements.token // ""' "$emudeckFolder/settings.json")
+		achievementsHardcore=$(jq -r '.achievements.hardcore // false' "$emudeckFolder/settings.json")
+	fi
+}
+
+function retroAchievementsLogin(){
+	RetroArch_retroAchievementsSetLogin
+	DuckStation_retroAchievementsSetLogin
+	PCSX2QT_retroAchievementsSetLogin
+	PPSSPP_retroAchievementsSetLogin
+	Dolphin_retroAchievementsSetLogin
+}
+
+function retroAchievementsHardCoreOn(){
+	RetroArch_retroAchievementsHardCoreOn
+	DuckStation_retroAchievementsHardCoreOn
+	PCSX2QT_retroAchievementsHardCoreOn
+	PPSSPP_retroAchievementsHardCoreOn
+	Dolphin_retroAchievementsHardCoreOn
+}
+
+function retroAchievementsHardCoreOff(){
+	RetroArch_retroAchievementsHardCoreOff
+	DuckStation_retroAchievementsHardCoreOff
+	PCSX2QT_retroAchievementsHardCoreOff
+	PPSSPP_retroAchievementsHardCoreOff
+	Dolphin_retroAchievementsHardCoreOff
+}
+
+function getSystemLanguage(){
+	local lang="${LANG:-}"
+
+	if [ -z "$lang" ]; then
+		lang=$(locale 2>/dev/null | grep '^LANG=' | cut -d= -f2 | tr -d '"')
+	fi
+
+	lang="${lang%%.*}"
+	lang="${lang%%@*}"
+	lang="${lang%%_*}"
+
+	case "$lang" in
+		[a-z][a-z]) echo "$lang" ;;
+		*) echo "en" ;;
+	esac
+}
+
+function getSystemLocale(){
+	local lang="${LANG:-}"
+
+	if [ -z "$lang" ]; then
+		lang=$(locale 2>/dev/null | grep '^LANG=' | cut -d= -f2 | tr -d '"')
+	fi
+
+	lang="${lang%%.*}"
+	lang="${lang%%@*}"
+
+	case "$lang" in
+		[a-z][a-z]_[A-Z][A-Z]) echo "$lang" ;;
+		[a-z][a-z]) echo "$lang" ;;
+		*) echo "en" ;;
+	esac
+}
+
+function getScreenInfoOnlyTV(){
+	
+	#This only works for external monitors since we don't take rotation into account
+		
+	for f in /sys/class/drm/card*-HDMI*/status /sys/class/drm/card*-*/status; do
+		[ "$(cat "$f" 2>/dev/null)" = "connected" ] || continue
+		resolution=$(head -1 "${f%status}modes" 2>/dev/null)
+		[ -n "$resolution" ] && break
+	done
+
+	width=${resolution%x*}; height=${resolution#*x}
+	if [ "$width" -ge "$height" ]; then
+	 orientation="landscape"
+	else	 
+	 orientation="portrait"
+	fi
+	
+	
+	screenWidth="$width"
+	screenHeight="$height"
+	screenOrientation="$orientation"
+	
+}
+
+function hasSymlinks(){
+	local dir="$1"
+	[ -n "$(find "$dir" -type l -print -quit)" ]
+}
+
+function hasFiles(){
+	local dir="$1"
+	[ -n "$(find "$dir" -type f -print -quit 2>/dev/null)" ]
+}
+
+# function makePortable(){
+# 	
+# 	zenity --info --width=400 --text="Disabled for now!"
+# 	
+# 	# Update saves folders
+# 	if hasSymlinks "$savesPath"; then
+# 		(
+# 			"$( Azahar_IsInstalled )" == "true"; Azahar_setupSaves && Azahar_setEmulationFolder;
+# 			"$( BigPEmu_IsInstalled )" == "true"; BigPEmu_setupSaves ;
+# 			"$( Cemu_IsInstalled )" == "true"; Cemu_setupSaves ;
+# 			"$( Citron_IsInstalled )" == "true"; Citron_setupSaves && Citron_setEmulationFolder ;
+# 			"$( Dolphin_IsInstalled )" == "true"; Dolphin_setupSaves ;
+# 			"$( Eden_IsInstalled )" == "true"; Eden_setupSaves && Eden_setEmulationFolder;
+# 			"$( Flycast_IsInstalled )" == "true"; Flycast_setupSaves && Flycast_setEmulationFolder ;
+# 			"$( PPSSPP_IsInstalled )" == "true"; PPSSPP_setupSaves ;
+# 			"$( Primehack_IsInstalled )" == "true"; Primehack_setupSaves ;
+# 			"$( RetroArch_IsInstalled )" == "true"; RetroArch_setupSaves ;
+# 			"$( RPCS3_IsInstalled )" == "true"; RPCS3_setupSaves ;
+# 			"$( Ryujinx_IsInstalled )" == "true"; Ryujinx_setupSaves && Ryujinx_setEmulationFolder ;
+# 			"$( ShadPS4_IsInstalled )" == "true"; ShadPS4_setupSaves && ShadPS4_setEmulationFolder ;
+# 			"$( Vita3K_IsInstalled )" == "true"; Vita3K_setupSaves ;
+# 			"$( Xenia_IsInstalled )" == "true"; Xenia_setupSaves ;
+# 			"$( Yuzu_IsInstalled )" == "true"; Yuzu_setupSaves && Yuzu_setEmulationFolder ;
+# 			"$( ESDE_IsInstalled )" == "true"; ESDE_symlinkGamelists ;
+# 	
+# 		) | zenity --progress --percentage=0 --auto-close --no-cancel \
+# 		 --title="Making SD Card Portable please wait" \
+# 		 --width="450" \
+# 		 --text="${text}" 2>/dev/null
+# 	else
+# 		zenity --info --width=400 --text="Your SD Card is already portable, nothing to do here!"
+# 	fi
+# 	
+# 	
+# 
+# }

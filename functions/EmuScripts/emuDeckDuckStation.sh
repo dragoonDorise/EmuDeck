@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #variables
 DuckStation_emuName="DuckStation"
@@ -12,9 +12,15 @@ DuckStation_configFile="$HOME/.local/share/duckstation/settings.ini"
 DuckStation_install(){
 	echo "Begin $DuckStation_emuName Install"
 	local showProgress="$1"
-	local url=$(getReleaseURLGH "stenzek/duckstation" "AppImage" "x64.")
-
-	if installEmuAI "$DuckStation_emuName" "" "$url" "DuckStation" "AppImage" "emulator" "$showProgress"; then
+	local format="AppImage"
+	
+	if [ $CPUarch == "arm" ]; then
+		url=$(getReleaseURLGH "stenzek/duckstation" "AppImage" "arm64.")
+	else
+		url=$(getReleaseURLGH "stenzek/duckstation" "AppImage" "x64.")
+	fi
+	
+	if installEmuAI "$DuckStation_emuName" "" "$url" "DuckStation" "$format" "emulator" "$showProgress"; then
 		mv "$emusFolder/DuckStation.AppImage" "$DuckStation_emuPath"
 		chmod +x "$DuckStation_emuPath"
 	else
@@ -39,7 +45,7 @@ DuckStation_init(){
 	#DuckStation_addSteamInputProfile
 	DuckStation_retroAchievementsSetLogin
 	DuckStation_setCustomizations
-	RetroArch_setRetroAchievements
+	DuckStation_setResolution
 	#SRM_createParsers
 	DuckStation_flushEmulatorLauncher
 }
@@ -188,9 +194,37 @@ DuckStation_retroAchievementsHardCoreOff(){
 }
 
 
+DuckStation_encryptCheevosToken(){
+	local token="$1" username="$2"
+	{ [ -z "$token" ] || [ -z "$username" ]; } && { echo ""; return; }
+
+	local key_hex
+	local portableFile="$(dirname "$DuckStation_emuPath")/portable.txt"
+	if [ ! -f "$portableFile" ] && [ -f /etc/machine-id ]; then
+		key_hex=$( { cat /etc/machine-id; printf '%s' "$username"; } | openssl dgst -sha256 -binary | od -An -v -tx1 | tr -d ' \n' )
+	else
+		key_hex=$( printf '%s' "$username" | openssl dgst -sha256 -binary | od -An -v -tx1 | tr -d ' \n' )
+	fi
+	local i
+	for ((i=0; i<100; i++)); do
+		key_hex=$( printf %b "$(sed 's/../\\x&/g' <<<"$key_hex")" | openssl dgst -sha256 -binary | od -An -v -tx1 | tr -d ' \n' )
+	done
+	local aeskey_hex="${key_hex:0:32}"   # bytes 0-15
+	local iv_hex="${key_hex:32:32}"      # bytes 16-31
+
+	local tlen=${#token}
+	local blocks=$(( (tlen + 15) / 16 )); [ "$blocks" -eq 0 ] && blocks=1
+	local padlen=$(( blocks * 16 ))
+	local zeros=$(( padlen - tlen ))
+
+	{ printf '%s' "$token"; [ "$zeros" -gt 0 ] && head -c "$zeros" /dev/zero; } | \
+		openssl enc -aes-128-cbc -nopad -K "$aeskey_hex" -iv "$iv_hex" -base64 -A
+}
+
 DuckStation_retroAchievementsSetLogin(){
-	rau=$(cat "$emudeckFolder/.rau")
-	rat=$(cat "$emudeckFolder/.rat")
+	ra_get_credentials
+	rau="$achievementsUser"
+	rat="$achievementsUserToken"
 	echo "Evaluate RetroAchievements Login."
 	if [ ${#rat} -lt 1 ]; then
 		echo "--No token."
@@ -198,8 +232,10 @@ DuckStation_retroAchievementsSetLogin(){
 		echo "--No username."
 	else
 		echo "Valid Retroachievements Username and Password length"
+		local encToken
+		encToken=$(DuckStation_encryptCheevosToken "$rat" "$rau")
 		iniFieldUpdate "$DuckStation_configFile" "Cheevos" "Username" "$rau"
-		iniFieldUpdate "$DuckStation_configFile" "Cheevos" "Token" "$rat"
+		iniFieldUpdate "$DuckStation_configFile" "Cheevos" "Token" "$encToken"
 		iniFieldUpdate "$DuckStation_configFile" "Cheevos" "LoginTimestamp" "$(date +%s)"
 		DuckStation_retroAchievementsOn
 	fi
@@ -229,8 +265,16 @@ DuckStation_setResolution(){
 		"1080P") multiplier=5;;
 		"1440P") multiplier=6;;
 		"4K") multiplier=9;;
-		*) echo "Error"; return 1;;
+		*) multiplier=3;;
 	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ "$duckstationResolution" = "4K" ]; then
+	  getScreenInfoOnlyTV	
+	  if [ "${screenWidth:-0}" -lt 3840 ]; then 
+		multiplier=5
+	  fi
+	fi
 
 	RetroArch_setConfigOverride "ResolutionScale" $multiplier "$DuckStation_configFile"
 }
@@ -240,4 +284,9 @@ DuckStation_flushEmulatorLauncher(){
 
 	flushEmulatorLaunchers "duckstation"
 
+}
+
+DuckStation_addToSteam(){
+	setMSG "Adding DuckStation to Steam"
+	add_to_steam "duckstation" "DuckStation" "$toolsPath/launchers/duckstation.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/duckstation.ico" "Emulation"
 }

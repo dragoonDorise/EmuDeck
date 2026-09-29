@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 migrateAndLinkConfig(){
 
 emu=$1

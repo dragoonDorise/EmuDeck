@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 PPSSPP_emuName="PPSSPP"
 PPSSPP_emuType="$emuDeckEmuTypeFlatpak"
@@ -30,6 +30,7 @@ PPSSPP_init(){
 	PPSSPP_setupSaves
 	#PPSSPP_addSteamInputProfile
 	PPSSPP_setRetroAchievements
+	PPSSPP_setResolution
 	#SRM_createParsers
 	PPSSPP_flushEmulatorLauncher
 }
@@ -136,9 +137,10 @@ PPSSPP_retroAchievementsHardCoreOff() {
 
 PPSSPP_retroAchievementsSetLogin() {
 
-	# EmuDeck username and token files
-	rau=$(cat "$emudeckFolder/.rau")
-	rat=$(cat "$emudeckFolder/.rat")
+	# Credenciales desde settings.json
+	ra_get_credentials
+	rau="$achievementsUser"
+	rat="$achievementsUserToken"
 
 	# Create PPSSPP token file
 	PPSSPP_token="$HOME/.var/app/${PPSSPP_emuPath}/config/ppsspp/PSP/SYSTEM/ppsspp_retroachievements.dat"
@@ -184,8 +186,25 @@ PPSSPP_addSteamInputProfile(){
 }
 
 PPSSPP_setResolution(){
-	$ppssppResolution
-	echo "NYI"
+		
+	case $ppssppResolution in
+		"720P") multiplier=3;;
+		"1080P") multiplier=4;;
+		"1440P") multiplier=5;;
+		"4K") multiplier=6;;
+		*) multiplier=3;;
+	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ "$ppssppResolution" = "4K" ]; then
+		getScreenInfoOnlyTV	
+		if [ "${screenWidth:-0}" -lt 3840 ]; then 
+			multiplier=4
+		fi
+	fi
+	
+	RetroArch_setConfigOverride "InternalResolution" $multiplier "$PPSSPP_configFile"
+
 }
 
 PPSSPP_flushEmulatorLauncher(){
@@ -193,4 +212,9 @@ PPSSPP_flushEmulatorLauncher(){
 
 	flushEmulatorLaunchers "ppsspp"
 
+}
+
+PPSSPP_addToSteam(){
+	setMSG "Adding PPSSPP to Steam"
+	add_to_steam "ppsspp" "PPSSPP" "$toolsPath/launchers/ppsspp.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/PPSSPP.ico" "Emulation"
 }

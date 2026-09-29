@@ -1,5 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
+cd "$HOME/.config/EmuDeck/backend/"
+git pull
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
+launcherInit
 emulatorInit "cemu"
 # shellcheck disable=SC1091
 . "$emudeckFolder/settings.sh"

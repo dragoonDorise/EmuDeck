@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Dev variables (normally commented out)
 #emudeckBackend="$HOME/github/EmuDeck" #dev

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 installEmuFP(){
 
 	local name="$1"
@@ -55,5 +55,9 @@ installEmuFP(){
             cp -v "$l" "${romsPath}/emulators"
 			chmod +x "${romsPath}/emulators/"*
         fi
+		createDesktopShortcut	"$HOME/.local/share/applications/${ID}.desktop" \
+								"${name} Flatpak" \
+								"${launcherPath}/$(basename "$l")" \
+								"false"
 	done
 }

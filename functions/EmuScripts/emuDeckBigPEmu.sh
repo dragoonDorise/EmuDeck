@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 BigPEmu_emuName="BigPEmu"
 BigPEmu_emuType="$emuDeckEmuTypeWindows"
@@ -19,6 +19,10 @@ BigPEmu_install(){
 	mkdir -p $BigPEmu_appData
 
 	BigPEmudownloadLink=$(curl -s "https://www.richwhitehouse.com/jaguar/index.php?content=download" | grep -o 'https://www\.richwhitehouse\.com/jaguar/builds/BigPEmu_Linux64_v[0-9]*\.tar.gz' | grep -v "BigPEmu_*-DEV.tar.gz" | head -n 1)
+	
+	if [ $CPUarch == "arm" ]; then
+		BigPEmudownloadLink=$(curl -s "https://www.richwhitehouse.com/jaguar/index.php?content=download" | grep -o 'https://www\.richwhitehouse\.com/jaguar/builds/BigPEmu_LinuxARM64_v[0-9]*\.tar.gz' | grep -v "BigPEmu_*-DEV.tar.gz" | head -n 1)
+	fi
 
 	if safeDownload "BigPEmu" "$BigPEmudownloadLink" "$emusFolder/BigPEmu/BigPEmu.tar.gz" "$showProgress"; then
 
@@ -56,7 +60,8 @@ BigPEmu_init(){
 	BigPEmu_setEmulationFolder
 	BigPEmu_setupSaves
 	BigPEmu_flushEmulatorLauncher
-	BigPemu_addParser
+	BigPEmu_setESDEEmu
+	BigPEmu_addParser
 	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		BigPEmu_addESConfig
 	else
@@ -86,52 +91,6 @@ BigPEmu_addESConfig(){
 	ESDE_addCustomSystemsFile
 	ESDE_setEmulationFolder
 
-	# Atari Jaguar
-	if [[ $(grep -rnw "$es_systemsFile" -e 'atarijaguar') == "" ]]; then
-		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
-		--var newSystem '$prev' \
-		--subnode '$newSystem' --type elem --name 'name' -v 'atarijaguar' \
-		--subnode '$newSystem' --type elem --name 'fullname' -v 'Atari Jaguar' \
-		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/atarijaguar' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP' \
-		--subnode '$newSystem' --type elem --name 'commandB' -v "/usr/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
-		--insert '$newSystem/commandB' --type attr --name 'label' --value "BigPEmu" \
-		--subnode '$newSystem' --type elem --name 'commandV' -v "%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/virtualjaguar_libretro.so %ROM%" \
-		--insert '$newSystem/commandV' --type attr --name 'label' --value "Virtual Jaguar" \
-		--subnode '$newSystem' --type elem --name 'commandM' -v "%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/atarijaguar jaguar -cart %ROM%" \
-		--insert '$newSystem/commandM' --type attr --name 'label' --value "MAME (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'platform' -v 'atarijaguar' \
-		--subnode '$newSystem' --type elem --name 'theme' -v 'atarijaguar' \
-		-r 'systemList/system/commandB' -v 'command' \
-		-r 'systemList/system/commandV' -v 'command' \
-		-r 'systemList/system/commandM' -v 'command' \
-		"$es_systemsFile"
-
-		#format doc to make it look nice
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-	fi
-
-	# Atari Jaguar CD
-	if [[ $(grep -rnw "$es_systemsFile" -e 'atarijaguarcd') == "" ]]; then
-		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
-		--var newSystem '$prev' \
-		--subnode '$newSystem' --type elem --name 'name' -v 'atarijaguarcd' \
-		--subnode '$newSystem' --type elem --name 'fullname' -v 'Atari Jaguar CD' \
-		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/atarijaguarcd' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.abs .ABS .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM .7z .7Z .zip .ZIP' \
-		--subnode '$newSystem' --type elem --name 'commandB' -v "/usr/bin/bash ${toolsPath}/launchers/bigpemu.sh %ROM%" \
-		--insert '$newSystem/commandB' --type attr --name 'label' --value "BigPEmu" \
-		--subnode '$newSystem' --type elem --name 'platform' -v 'atarijaguarcd' \
-		--subnode '$newSystem' --type elem --name 'theme' -v 'atarijaguarcd' \
-		-r 'systemList/system/commandB' -v 'command' \
-		"$es_systemsFile"
-
-		#format doc to make it look nice
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-	fi
-
-
-	#Custom Systems config end
 }
 
 
@@ -211,4 +170,14 @@ BigPEmu_flushEmulatorLauncher(){
 
 BigPEmu_addParser(){
 	addParser "atari_jaguar_bigpemu.json"
+}
+
+BigPEmu_addToSteam(){
+	setMSG "Adding BigPEmu to Steam"
+	add_to_steam "bigpemu" "BigPEmu" "$toolsPath/launchers/bigpemu.sh" "$HOME/Applications/" "$emudeckBackend/icons/BigPEmu.png" "Emulation"
+}
+
+BigPEmu_setESDEEmu(){
+	ESDE_forceEmu 'BigPEmu (Proton)' atarijaguar
+	ESDE_forceEmu 'BigPEmu (Proton)' atarijaguarcd
 }

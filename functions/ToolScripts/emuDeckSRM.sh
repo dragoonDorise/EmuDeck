@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 SRM_toolName="Steam ROM Manager"
 SRM_toolType="$emuDeckEmuTypeAppImage"
@@ -17,8 +17,14 @@ SRM_install(){
   fi
 
   mkdir -p "$toolsPath"
+  
+  if [ $CPUarch == "arm" ]; then
+    url=$(getReleaseURLGH 'SteamGridDB/steam-rom-manager' 'arm64.AppImage')
+  else
+    url=$(getReleaseURLGH 'SteamGridDB/steam-rom-manager' 'AppImage' '' '' 'arm64')
+  fi
 
-  if installToolAI "Steam-ROM-Manager" "$(getReleaseURLGH 'SteamGridDB/steam-rom-manager' 'AppImage' '' '' 'arm64')" "" "$showProgress"; then
+  if installToolAI "Steam-ROM-Manager" "$url" "" "$showProgress"; then
   SRM_customDesktopShortcut
   else
     return 1
@@ -89,26 +95,46 @@ SRM_setEmulationFolder(){
 
 SRM_setEnv(){
 
-	setMSG 'Steam Rom Manager - Set enviroment'
+  setMSG 'Steam Rom Manager - Set enviroment'
   tmp=$(mktemp)
   jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
   "$SRM_userData_configDir/userSettings.json" > "$tmp"\
-   && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
+   && cat "$tmp" > "$SRM_userData_configDir/userSettings.json"
+   rm -f "$tmp"
 
   tmp=$(mktemp)
   jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
   "$SRM_userData_configDir/userSettings.json" > "$tmp" \
-  && mv "$tmp" "$SRM_userData_configDir/userSettings.json"
+  && cat "$tmp" > "$SRM_userData_configDir/userSettings.json"
+  rm -f "$tmp"
 
   tmp=$(mktemp)
   jq -r --arg STEAMDIR "$HOME/.steam/steam" '.environmentVariables.steamDirectory = "\($STEAMDIR)"' \
   "$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp"\
-  && mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+  && cat "$tmp" > "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+  rm -f "$tmp"
 
   tmp=$(mktemp)
   jq -r --arg ROMSDIR "$romsPath" '.environmentVariables.romsDirectory = "\($ROMSDIR)"' \
   "$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
-  && mv "$tmp" "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+  && cat "$tmp" > "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+  rm -f "$tmp"
+  
+  if [ "$(getProductName)" == "frame" ]; then
+    tmp=$(mktemp)
+    jq --argjson AUTOKILLSTEAM false '.autoKillSteam = $AUTOKILLSTEAM' \
+    "$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
+    && cat "$tmp" > "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+    rm -f "$tmp"
+    
+    tmp=$(mktemp)
+    jq -r --argjson AUTORESTARTSTEAM false '.autoRestartSteam = $AUTORESTARTSTEAM' \
+    "$HOME/.config/steam-rom-manager/userData/userSettings.json" > "$tmp" \
+    && cat "$tmp" > "$HOME/.config/steam-rom-manager/userData/userSettings.json"
+    rm -f "$tmp"
+    
+    
+  fi
 
 }
 
@@ -230,6 +256,7 @@ SRM_deleteCache(){
 
 SRM_addExtraParsers(){
   rsync -avhp --mkpath "$emudeckBackend/configs/steam-rom-manager/userData/userConfigurations.json" "$HOME/.config/steam-rom-manager/userData/" --backup --suffix=.bak
+  
   for install_command in \
   "BigPEmu_IsInstalled BigPEmu_addParser" \
   "Flycast_IsInstalled Flycast_addParser" \
@@ -239,6 +266,10 @@ SRM_addExtraParsers(){
   "melonDS_IsInstalled melonDS_addParser" \
   "RMG_IsInstalled RMG_addParser" \
   "Citron_IsInstalled Citron_addParser" \
+  "ARMSX2_IsInstalled ARMSX2_addParser" \
+  "PCSX2QT_IsInstalled PCSX2QT_addParser" \
+  "XeniaNative_IsInstalled XeniaNative_IsInstalled" \
+  "Xenia_IsInstalled Xenia_IsInstalled" \
   "Yuzu_IsInstalled Yuzu_addParser"; do
 
   condition=$($install_command | awk '{print $1}')

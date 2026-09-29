@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 RPCS3_remuName="RPCS3"
 RPCS3_emuType="FlatPak"
@@ -23,6 +23,7 @@ RPCS3_init(){
 	RPCS3_setupStorage
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
+	RPCS3_setResolution
 	RPCS3_addESConfig
 	#SRM_createParsers
 }
@@ -79,30 +80,7 @@ RPCS3_setupStorage(){
 }
 
 RPCS3_addESConfig(){
-	#insert RPCS3 custom system if it doesn't exist, but the file does
-	# LD_LIBRARY_PATH=/usr/lib:/usr/local/lib tested and works on both the Flatpak and the AppImage
-	if [[ $(grep -rnw "$es_systemsFile" -e 'ps3') == "" ]]; then
-		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
-		--var newSystem '$prev' \
-		--subnode '$newSystem' --type elem --name 'name' -v 'ps3' \
-		--subnode '$newSystem' --type elem --name 'fullname' -v 'Sony PlayStation 3' \
-		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/ps3' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.desktop .ps3 .PS3 .ps3dir .PS3DIR' \
-		--subnode '$newSystem' --type elem --name 'commandP' -v "LD_LIBRARY_PATH=/usr/lib:/usr/local/lib %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%" \
-		--insert '$newSystem/commandP' --type attr --name 'label' --value "RPCS3 Shortcut (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'commandN' -v "LD_LIBRARY_PATH=/usr/lib:/usr/local/lib %EMULATOR_RPCS3% --no-gui %ROM%" \
-		--insert '$newSystem/commandN' --type attr --name 'label' --value "RPCS3 Directory (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'platform' -v 'ps3' \
-		--subnode '$newSystem' --type elem --name 'theme' -v 'ps3' \
-		-r 'systemList/system/commandP' -v 'command' \
-		-r 'systemList/system/commandN' -v 'command' \
-		"$es_systemsFile"
-
-		#format doc to make it look nice
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-	fi
-    #Custom Systems config end
-
+echo "NYI"
 }
 
 
@@ -168,11 +146,21 @@ RPCS3_setResolution(){
 		"1080P") res=150;;
 		"1440P") res=200;;
 		"4K") res=300;;
-		*) echo "Error"; return 1;;
+		*) res=100;;
 	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ "$rpcs3Resolution" = "4K" ]; then
+		getScreenInfoOnlyTV	
+		if [ "${screenWidth:-0}" -lt 3840 ]; then 
+			res=150
+		fi
+	fi
 
-	RetroArch_setConfigOverride "Resolution Scale:" $res "$RPCS3_configFile"
+	sed -i 's|Resolution Scale: = [0-9]*$||' "$RPCS3_configFile"
 
-	sed -i "s|Resolution Scale:=|Resolution Scale:|g" "$RPCS3_configFile"
+	resolutionScale='  Resolution Scale: '
+	resolutionScaleSetting="${resolutionScale}${res}"
+	changeLine "${resolutionScale}" "${resolutionScaleSetting}" "$RPCS3_configFile"
 
 }

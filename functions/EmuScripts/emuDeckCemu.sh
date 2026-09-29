@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 Cemu_functions () {
 	local function="$1"
@@ -212,7 +212,7 @@ Cemu_functions () {
 
 	setLanguage(){
 		setMSG "Setting ${CemuNative[emuName]} Language"
-		local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+		local language=$(getSystemLanguage)
 		if [[ -f "${CemuNative[configFile]}" ]]; then
 			if [ ${Cemu_languages[$language]+_} ]; then
 				xmlstarlet ed --inplace  --subnode "content" --type elem -n "console_language" -v "${Cemu_languages[$language]}" "${CemuNative[configFile]}"
@@ -228,7 +228,7 @@ Cemu_functions () {
 			rm -rf "${CemuNative[shareDir]}/graphicPacks"
 		fi
 
-  		if [ -f "${CemuNative[shareDir]}/graphicPacks" ]; then
+		  if [ -f "${CemuNative[shareDir]}/graphicPacks" ]; then
 			rm -f "${CemuNative[shareDir]}/graphicPacks"
 		fi
 
@@ -236,7 +236,7 @@ Cemu_functions () {
 			rm -rf "${CemuNative[shareDir]}/mlc01/mlc01"
 		fi
 
-  		# Commenting out for now. These need more testing.
+		  # Commenting out for now. These need more testing.
 		#install -d "${storagePath}/cemu"
 		#unlink "${CemuNative[shareDir]}/mlc01"
 		#unlink "${CemuNative[shareDir]}/graphicPacks"
@@ -260,7 +260,14 @@ Cemu_functions () {
 	install () {
 		echo "Begin Cemu - Native Install"
 		local showProgress="$1"
-		if installEmuAI "Cemu" "" "$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")" "" "" "emulator" "$showProgress"; then # Cemu.AppImage
+		
+		if [ $CPUarch == "arm" ]; then
+			url=$(getReleaseURLGH "dragoonDorise/Cemu" "AppImage" "arm64")
+		else
+			url=$(getReleaseURLGH "cemu-project/Cemu" ".AppImage")
+		fi
+		
+		if installEmuAI "Cemu" "" "$url" "" "" "emulator" "$showProgress"; then # Cemu.AppImage
 			:
 		else
 			return 1
@@ -349,10 +356,12 @@ Cemu_functions () {
 	setControllers () {
 		
 		if [ "$(getProductName)" == "Jupiter" ] || [ "$(getProductName)" == "Galileo" ]; then
+			if [ -z "${autoMapCemu}" ]; then
 			  return 0
+			fi
 		fi
 		
-		if [ "${autoMap}" == "false" ]; then
+		if [ "${autoMapCemu}" == "false" ]; then
 			return 0
 		fi
 		
@@ -510,3 +519,8 @@ Cemu_launch_fixes(){
 }
 
 
+
+Cemu_addToSteam(){
+	setMSG "Adding Cemu to Steam"
+	add_to_steam "cemu" "Cemu" "$toolsPath/launchers/cemu.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/cemu.ico" "Emulation"
+}

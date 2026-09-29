@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 RPCS3_emuName="RPCS3"
 RPCS3_emuType="$emuDeckEmuTypeAppImage"
@@ -40,6 +40,11 @@ RPCS3_ApiGetUpdateInfo(){
 	local apiVersion="v3"
 	local osType="linux"
 	local osArch="x64"
+	
+	if [ $CPUarch == "arm" ]; then
+		osArch="arm64"
+	fi
+	
 	local osVersion=$(grep "VERSION_ID" /etc/os-release | cut -d'=' -f2 | tr -d '"')
 	local should_return_update=0
 
@@ -150,6 +155,7 @@ RPCS3_init(){
 	RPCS3_setupStorage
 	RPCS3_setEmulationFolder
 	RPCS3_setupSaves
+	RPCS3_setResolution
 	#SRM_createParsers
 	RPCS3_flushEmulatorLauncher
 	RPCS3_setLanguage
@@ -158,7 +164,7 @@ RPCS3_init(){
 
 RPCS3_setLanguage(){
 	setMSG "Setting RPCS3 Language"
-	local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+	local language=$(getSystemLanguage)
 	local languageOpt="  Language"
 	if [ ${RPCS3_languages[$language]+_} ]; then
 		newLanguageOpt="${RPCS3_languages[$language]}"
@@ -313,18 +319,33 @@ RPCS3_setResolution(){
 		"1080P") res=150;;
 		"1440P") res=200;;
 		"4K") res=300;;
-		*) echo "Error"; return 1;;
+		*) res=100;;
 	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ "$rpcs3Resolution" = "4K" ]; then
+		getScreenInfoOnlyTV	
+		if [ "${screenWidth:-0}" -lt 3840 ]; then 
+			res=150
+		fi
+	fi
 
-	RetroArch_setConfigOverride "Resolution Scale:" $res "$RPCS3_configFile"
+	sed -i 's|Resolution Scale: = [0-9]*$||' "$RPCS3_configFile"
 
-	sed -i "s|Resolution Scale:=|Resolution Scale:|g" "$RPCS3_configFile"
+	resolutionScale='  Resolution Scale: '
+	resolutionScaleSetting="${resolutionScale}${res}"
+	changeLine "${resolutionScale}" "${resolutionScaleSetting}" "$RPCS3_configFile"
 
 }
 
 RPCS3_flushEmulatorLauncher(){
 
 
-	flushEmulatorLaunchers "rpcs3.sh"
+	flushEmulatorLaunchers "rpcs3"
 
+}
+
+RPCS3_addToSteam(){
+	setMSG "Adding RPCS3 to Steam"
+	add_to_steam "rpcs3" "RPCS3" "$toolsPath/launchers/rpcs3.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/rpcs3.ico" "Emulation"
 }

@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 Xemu_emuName="Xemu-Emu"
 Xemu_emuType="$emuDeckEmuTypeFlatpak"
 Xemu_emuPath="app.xemu.xemu"
+Xemu_configFile="$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml"
 
 # https://xboxdevwiki.net/EEPROM
 declare -A Xemu_languages
@@ -35,9 +36,11 @@ Xemu_init() {
 	Xemu_setupStorage
 	Xemu_setEmulationFolder
 	Xemu_setCustomizations
+	Xemu_setResolution
 	#SRM_createParsers
 	Xemu_flushEmulatorLauncher
 	Xemu_setLanguage
+	Xemu_setupSaves
 }
 
 #update
@@ -52,7 +55,7 @@ Xemu_update() {
 
 #ConfigurePaths
 Xemu_setEmulationFolder(){
-  	configFile="$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml"
+  	
 
     bootrrom_path='bootrom_path = '
 	flashrom_path='flashrom_path = '
@@ -64,16 +67,16 @@ Xemu_setEmulationFolder(){
 	eeprom_pathSetting="${eeprom_path}""'${storagePath}/xemu/eeprom.bin'"
 	hdd_pathSetting="${hdd_path}""'${storagePath}/xemu/xbox_hdd.qcow2'"
 
-    changeLine "${bootrrom_path}" "${bootrrom_pathSetting}" "$configFile"
-    changeLine "${flashrom_path}" "${flashrom_pathSetting}" "$configFile"
-    changeLine "${eeprom_path}" "${eeprom_pathSetting}" "$configFile"
-    changeLine "${hdd_path}" "${hdd_pathSetting}" "$configFile"
+    changeLine "${bootrrom_path}" "${bootrrom_pathSetting}" "$Xemu_configFile"
+    changeLine "${flashrom_path}" "${flashrom_pathSetting}" "$Xemu_configFile"
+    changeLine "${eeprom_path}" "${eeprom_pathSetting}" "$Xemu_configFile"
+    changeLine "${hdd_path}" "${hdd_pathSetting}" "$Xemu_configFile"
 }
 
 #SetLanguage
 Xemu_setLanguage(){
     setMSG "Setting Xemu Language"
-	local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+	local language=$(getSystemLanguage)
     eepromPath="${storagePath}/xemu/eeprom.bin"
 	#TODO: call this somewhere, and input the $language from somewhere (args?)
 	if [[ -f "${eepromPath}" ]]; then # TODO: if not generate the eeprom?
@@ -98,8 +101,11 @@ Xemu_setupStorage(){
 	flatpak override app.xemu.xemu --filesystem="${storagePath}/xemu":rw --user
 	if [[ ! -f "${storagePath}/xemu/xbox_hdd.qcow2" ]]; then
 		mkdir -p "${storagePath}/xemu"
-		cd "${storagePath}/xemu"
-		curl -L https://github.com/mborgerson/xemu-hdd-image/releases/latest/download/xbox_hdd.qcow2.zip -o xbox_hdd.qcow2.zip && unzip -j xbox_hdd.qcow2.zip && rm -rf xbox_hdd.qcow2.zip
+		(
+			cd "${storagePath}/xemu" || exit 1
+			curl -L https://github.com/mborgerson/xemu-hdd-image/releases/latest/download/xbox_hdd.qcow2.zip -o xbox_hdd.qcow2.zip && unzip -j xbox_hdd.qcow2.zip
+			rm -rf xbox_hdd.qcow2.zip
+		)
 	fi
 }
 
@@ -143,18 +149,16 @@ Xemu_migrate(){
 
 #WideScreenOn
 Xemu_wideScreenOn(){
-	configFile="$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml"
     fit='fit = '
     fitSetting="${fit}'scale_16_9'"
-    changeLine "${fit}" "${fitSetting}" "$configFile"
+    changeLine "${fit}" "${fitSetting}" "$Xemu_configFile"
 }
 
 #WideScreenOff
-Xemu_wideScreenOff(){
-	configFile="$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml"
+Xemu_wideScreenOff(){	
     fit='fit = '
     fitSetting="${fit}'scale_4_3'"
-    changeLine "${fit}" "${fitSetting}" "$configFile"
+    changeLine "${fit}" "${fitSetting}" "$Xemu_configFile"
 }
 
 #BezelOn
@@ -189,8 +193,32 @@ Xemu_setCustomizations(){
 }
 
 Xemu_setResolution(){
-	$xemuResolution
-	echo "NYI"
+	
+	case $xemuResolution in
+		"720P") multiplier=1;;
+		"1080P") multiplier=2;;
+		"1440P") multiplier=3;;
+		"4K") multiplier=5;;
+		*) multiplier=1;;
+	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ "$xemuResolution" = "4K" ]; then
+	  getScreenInfoOnlyTV	
+	  if [ "${screenWidth:-0}" -lt 3840 ]; then 
+		multiplier=2
+	  fi
+	fi
+	
+	if grep -q '^\[display\.quality\]$' "$Xemu_configFile"; then
+		if grep -q '^surface_scale[[:space:]]*=' "$Xemu_configFile"; then
+			sed -i "s/^surface_scale[[:space:]]*=.*/surface_scale = $multiplier/" "$Xemu_configFile"
+		else
+			sed -i "/^\[display\.quality\]$/a surface_scale = $multiplier" "$Xemu_configFile"
+		fi
+	else
+		sed -i "/^\[sys\]$/i [display.quality]\nsurface_scale = $multiplier\n" "$Xemu_configFile"
+	fi
 }
 
 Xemu_flushEmulatorLauncher(){
@@ -198,4 +226,9 @@ Xemu_flushEmulatorLauncher(){
 
 	flushEmulatorLaunchers "xemu-emu"
 
+}
+
+Xemu_addToSteam(){
+	setMSG "Adding xemu to Steam"
+	add_to_steam "xemu" "xemu" "$toolsPath/launchers/xemu-emu.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/xemu.ico" "Emulation"
 }

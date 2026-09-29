@@ -19,18 +19,30 @@
   "range_right": 1,
   "trigger_threshold": 0.5,
   "motion": {
-    "motion_backend": "GamepadDriver",
+    "slot": 0,
+    "alt_slot": 0,
+    "mirror_input": false,
+    "dsu_server_host": "127.0.0.1",
+    "dsu_server_port": 26760,
+    "motion_backend": "CemuHook",
     "sensitivity": 100,
     "gyro_deadzone": 1,
-    "enable_motion": false
+    "enable_motion": true
   },
   "rumble": {
     "strong_rumble": 1,
     "weak_rumble": 1,
-    "enable_rumble": true
+    "enable_rumble": true,
+    "use_hdrumble": false
+  },
+  "led": {
+    "enable_led": false,
+    "turn_off_led": false,
+    "use_rainbow": false,
+    "led_color": 0
   },
   "left_joycon": {
-    "button_minus": "Minus",
+    "button_minus": "Back",
     "button_l": "LeftShoulder",
     "button_zl": "LeftTrigger",
     "button_sl": "Unbound",
@@ -41,7 +53,7 @@
     "dpad_right": "DpadRight"
   },
   "right_joycon": {
-    "button_plus": "Plus",
+    "button_plus": "Start",
     "button_r": "RightShoulder",
     "button_zr": "RightTrigger",
     "button_sl": "Unbound",
@@ -52,8 +64,10 @@
     "button_a": "B"
   },
   "version": 1,
-  "backend": "GamepadSDL2",
+  "backend": "GamepadSDL3",
   "id": "0-00000003-28de-0000-ff11-000001000000",
+  "name": null,
   "controller_type": "ProController",
-  "player_index": "Player1"
+  "player_index": "Player1",
+  "enable_dynamic_gamepad_swap": false
 }

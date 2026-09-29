@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #variables
 Citron_emuName="citron"
@@ -94,6 +94,7 @@ Citron_init() {
     Citron_finalize
     Citron_addParser
     Citron_flushEmulatorLauncher
+    Citron_setResolution
   	createDesktopShortcut   "$HOME/.local/share/applications/citron.desktop" \
 							"Citron (AppImage)" \
 							"${toolsPath}/launchers/citron.sh"  \
@@ -146,18 +147,39 @@ Citron_setEmulationFolder() {
     #Setup Bios symlinks
     unlink "${biosPath}/citron/keys" 2>/dev/null
     unlink "${biosPath}/citron/firmware" 2>/dev/null
-
+    
     mkdir -p "$HOME/.local/share/citron/keys/"
     mkdir -p "${biosPath}/citron"
     ln -sn "$HOME/.local/share/citron/keys/" "${biosPath}/citron/keys"
     ln -sn "$HOME/.local/share/citron/nand/system/Contents/registered/" "${biosPath}/citron/firmware"
+    
+    
+    # Portable
+    # folder_parent="${biosPath}/citron"
+    # link_parent="$HOME/.local/share/citron/"        
+    # mkdir -p "$folder_parent"
+    # mkdir -p "$link_parent"
+    # 
+    # #Keys
+    # folder="${folder_parent}/keys"
+    # link="${link_parent}/keys"
+    #     
+    # linkToFolder "$folder" "$link"
+    # 
+    # #Firmware    
+    # folder="${folder_parent}/firmware"
+    # link="${link_parent}/nand/system/Contents/registered/"
+    #     
+    # linkToFolder "$folder" "$link"    
+    # 
+    # touch "${folder}/putfirmwarehere.txt"
 
 }
 
 #SetLanguage
 Citron_setLanguage(){
     setMSG "Setting Citron Language"
-    local language=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1)
+    local language=$(getSystemLanguage)
     languageOpt="language_index="
     languageDefaultOpt="language_index\\\\default="
     newLanguageDefaultOpt="language_index\\\\default=false" # we need those or else itll reset
@@ -265,8 +287,17 @@ Citron_setResolution(){
 		"1080P") multiplier=2; docked="true";;
 		"1440P") multiplier=3; docked="false";;
 		"4K") multiplier=3; docked="true";;
-		*) echo "Error"; return 1;;
+		*) multiplier=2; docked="false";;
 	esac
+  
+    #Steam Machine 4K > 1080P fallback
+    if [ "$citronResolution" = "4K" ]; then
+      getScreenInfoOnlyTV	
+      if [ "${screenWidth:-0}" -lt 3840 ]; then 
+        multiplier=2;
+        docked="true";
+      fi
+    fi
 
 	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Citron_configFile"
 	RetroArch_setConfigOverride "use_docked_mode" $docked "$Citron_configFile"
@@ -280,36 +311,18 @@ Citron_flushEmulatorLauncher(){
 }
 
 Citron_addESConfig(){
-
     ESDE_junksettingsFile
     ESDE_addCustomSystemsFile
-    ESDE_setEmulationFolder
-
-	if [[ $(grep -rnw "$es_systemsFile" -e 'switch') == "" ]]; then
-		xmlstarlet ed -S --inplace --subnode '/systemList' --type elem --name 'system' \
-		--var newSystem '$prev' \
-		--subnode '$newSystem' --type elem --name 'name' -v 'switch' \
-		--subnode '$newSystem' --type elem --name 'fullname' -v 'Nintendo Switch' \
-		--subnode '$newSystem' --type elem --name 'path' -v '%ROMPATH%/switch' \
-		--subnode '$newSystem' --type elem --name 'extension' -v '.nca .NCA .nro .NRO .nso .NSO .nsp .NSP .xci .XCI' \
-		--subnode '$newSystem' --type elem --name 'commandB' -v "%EMULATOR_RYUJINX% %ROM%" \
-		--insert '$newSystem/commandB' --type attr --name 'label' --value "Ryujinx (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'commandV' -v "%INJECT%=%BASENAME%.esprefix %EMULATOR_CITRON% -f -g %ROM%" \
-		--insert '$newSystem/commandV' --type attr --name 'label' --value "Citron (Standalone)" \
-		--subnode '$newSystem' --type elem --name 'platform' -v 'switch' \
-		--subnode '$newSystem' --type elem --name 'theme' -v 'switch' \
-		-r 'systemList/system/commandB' -v 'command' \
-		-r 'systemList/system/commandV' -v 'command' \
-		"$es_systemsFile"
-
-		xmlstarlet fo "$es_systemsFile" > "$es_systemsFile".tmp && mv "$es_systemsFile".tmp "$es_systemsFile"
-	fi
-	#Custom Systems config end
-
-	ESDE_refreshCustomEmus
+    ESDE_setEmulationFolder	
+	#ESDE_refreshCustomEmus
 }
 
 
 Citron_addParser(){
   addParser "nintendo_switch_citron.json"
+}
+
+Citron_addToSteam(){
+	setMSG "Adding Citron to Steam"
+	add_to_steam "citron" "Citron" "$toolsPath/launchers/citron.sh" "$HOME/Applications/" "$emudeckBackend/icons/Citron.png" "Emulation"
 }

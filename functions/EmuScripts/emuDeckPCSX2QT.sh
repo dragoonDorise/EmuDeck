@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 PCSX2QT_emuName="PCSX2-QT"
 PCSX2QT_emuType="$emuDeckEmuTypeAppImage"
@@ -16,7 +16,15 @@ PCSX2QT_install() {
 	local showProgress="$1"
 
 	#if installEmuAI "${PCSX2QT_emuName}" "https://github.com/PCSX2/pcsx2/releases/download/v1.7.4749/pcsx2-v1.7.4749-linux-appimage-x64-Qt.AppImage" "pcsx2-Qt" "$showProgress"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
-	if installEmuAI "${PCSX2QT_emuName}" "" "$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage")" "pcsx2-Qt" "" "emulator" "$showProgress"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
+	
+	
+	if [ $CPUarch == "arm" ]; then
+		return 0
+	else
+		url=$(getReleaseURLGH "PCSX2/pcsx2" "Qt.AppImage" "")
+	fi
+	
+	if installEmuAI "${PCSX2QT_emuName}" "" "$url" "pcsx2-Qt" "" "emulator" "$showProgress"; then # pcsx2-Qt.AppImage - filename capitalization matters for ES-DE to find it
 		rm -rf $HOME/.local/share/applications/pcsx2-Qt.desktop &>/dev/null # delete old shortcut
 	else
 		return 1
@@ -46,11 +54,16 @@ PCSX2QT_init() {
 	PCSX2QT_setupControllers
 	PCSX2QT_setCustomizations
 	PCSX2QT_setRetroAchievements
+	PCSX2QT_setResolution
 	#SRM_createParsers
 	PCSX2QT_flushEmulatorLauncher
-
+	PCSX2QT_addParser
 	linkToStorageFolder pcsx2 cheats "$HOME/.config/PCSX2/cheats"
 
+}
+
+PCSX2QT_addParser(){
+	addParser "sony_ps2_pcsx2.json"
 }
 
 #update
@@ -74,7 +87,7 @@ PCSX2QT_setEmulationFolder() {
 	iniFieldUpdate "$PCSX2QT_configFile" "UI" "StartFullscreen" "true"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Bios" "${biosPath}"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Snapshots" "${storagePath}/pcsx2/snaps"
-	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Savestates" "${savesPath}/pcsx2/states"
+	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "SaveStates" "${savesPath}/pcsx2/states"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "MemoryCards" "${savesPath}/pcsx2/saves"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Cache" "${storagePath}/pcsx2/cache"
 	iniFieldUpdate "$PCSX2QT_configFile" "Folders" "Covers" "${storagePath}/pcsx2/covers"
@@ -92,8 +105,7 @@ PCSX2QT_setupSaves() {
 }
 
 PCSX2QT_setupControllers() {
-	new_pad1_section="
-Type = DualShock2
+	new_pad1_section="Type = DualShock2
 InvertL = 0
 InvertR = 0
 Deadzone = 0.000000
@@ -238,7 +250,7 @@ PCSX2QT_migrate() {
 
 #WideScreenOn
 PCSX2QT_wideScreenOn() {
-	iniFieldUpdate "$PCSX2QT_configFile" "EmuCore" "EnableWideScreenPatches" "True"
+	iniFieldUpdate "$PCSX2QT_configFile" "EmuCore" "EnableWideScreenPatches" "true"
 	iniFieldUpdate "$PCSX2QT_configFile" "EmuCore/GS" "AspectRatio" "16:9"
 }
 
@@ -280,23 +292,24 @@ PCSX2QT_addSteamInputProfile() {
 }
 
 PCSX2QT_retroAchievementsOn() {
-	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Enabled" "True"
+	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Enabled" "true"
 }
 PCSX2QT_retroAchievementsOff() {
-	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Enabled" "False"
+	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "Enabled" "false"
 }
 
 PCSX2QT_retroAchievementsHardCoreOn() {
-	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "ChallengeMode" "True"
+	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "ChallengeMode" "true"
 
 }
 PCSX2QT_retroAchievementsHardCoreOff() {
-	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "ChallengeMode" "False"
+	iniFieldUpdate "$PCSX2QT_configFile" "Achievements" "ChallengeMode" "false"
 }
 
 PCSX2QT_retroAchievementsSetLogin() {
-	rau=$(cat "$emudeckFolder/.rau")
-	rat=$(cat "$emudeckFolder/.rat")
+	ra_get_credentials
+	rau="$achievementsUser"
+	rat="$achievementsUserToken"
 	echo "Evaluate RetroAchievements Login."
 	if [ ${#rat} -lt 1 ]; then
 		echo "--No token."
@@ -332,8 +345,16 @@ PCSX2QT_setResolution(){
 		"1080P") multiplier=3;;
 		"1440P") multiplier=4;;
 		"4K") multiplier=6;;
-		*) echo "Error"; return 1;;
+		*) multiplier=2;;
 	esac
+	
+	#Steam Machine 4K > 1080P fallback
+	if [ "$pcsx2Resolution" = "4K" ]; then
+		getScreenInfoOnlyTV	
+		if [ "${screenWidth:-0}" -lt 3840 ]; then 
+			multiplier=3
+		fi
+	fi
 
 	RetroArch_setConfigOverride "upscale_multiplier" $multiplier "$PCSX2QT_configFile"
 }
@@ -343,4 +364,9 @@ PCSX2QT_flushEmulatorLauncher(){
 
 	flushEmulatorLaunchers "pcsx2-qt"
 
+}
+
+PCSX2QT_addToSteam(){
+	setMSG "Adding PCSX2 to Steam"
+	add_to_steam "pcsx2" "PCSX2" "$toolsPath/launchers/pcsx2-qt.sh" "$HOME/Applications/" "$emudeckBackend/icons/ico/pcsx2.ico" "Emulation"
 }

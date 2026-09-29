@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #variables
 RMG_emuName="RosaliesMupenGui"
 RMG_emuType="$emuDeckEmuTypeFlatpak"
@@ -218,4 +218,9 @@ RMG_flushEmulatorLauncher(){
 
 RMG_addParser(){
 	addParser "nintendo_64_rmg.json"
+}
+
+RMG_addToSteam(){
+	setMSG "Adding Rosalie's Mupen GUI to Steam"
+	add_to_steam "rmg" "Rosalie's Mupen GUI" "$toolsPath/launchers/rosaliesmupengui.sh" "$HOME/Applications/" "" "Emulation"
 }

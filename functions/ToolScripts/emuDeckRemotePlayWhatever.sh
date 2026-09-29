@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 RemotePlayWhatever_install(){		
 	mkdir -p "${toolsPath}/remoteplaywhatever"
