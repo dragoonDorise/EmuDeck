@@ -8,7 +8,7 @@ Primehack_configFile="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-
 Primehack_configFileGFX="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/GFX.ini"
 Primehack_gamecubeFile="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/GCPadNew.ini"
 Primehack_wiiFile="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/WiimoteNew.ini"
-Primehack_hotKeysFile="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/WiimoteNew.ini"
+Primehack_hotKeysFile="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Hotkeys.ini"
 releaseURL=""
 
 #cleanupOlderThings
