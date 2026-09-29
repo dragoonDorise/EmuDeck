@@ -81,6 +81,17 @@ def primehack_init():
     primehack_setup_saves()
     primehack_set_resolution()
     primehack_set_controller_style()
+    primehack_set_frame_controllers()
+
+
+def primehack_set_frame_controllers():
+    if system != "linux" or get_product_name() != "frame":
+        return
+    config_dir = f"{home}/.var/app/io.github.shiiion.primehack/config/dolphin-emu"
+    for ini in ("GCPadNew.ini", "WiimoteNew.ini", "Hotkeys.ini"):
+        ini_path = Path(config_dir) / ini
+        if ini_path.is_file():
+            sed("evdev/0/Microsoft X-Box 360 pad 0", "SDL/0/Steam Frame Controllers", ini_path)
 
 def primehack_install_init():
     primehack_install()
