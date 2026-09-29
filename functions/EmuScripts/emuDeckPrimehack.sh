@@ -6,6 +6,9 @@ Primehack_emuType="$emuDeckEmuTypeFlatpak"
 Primehack_emuPath="io.github.shiiion.primehack"
 Primehack_configFile="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Dolphin.ini"
 Primehack_configFileGFX="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/GFX.ini"
+Primehack_gamecubeFile="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/GCPadNew.ini"
+Primehack_wiiFile="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/WiimoteNew.ini"
+Primehack_hotKeysFile="$HOME/.var/app/io.github.shiiion.primehack/config/dolphin-emu/WiimoteNew.ini"
 releaseURL=""
 
 #cleanupOlderThings
@@ -30,6 +33,14 @@ Primehack_init() {
 	#Primehack_migrate
 	Primehack_setResolution
 	Primehack_flushEmulatorLauncher
+	
+	if [ "$(getProductName)" = "frame" ]; then
+		sed -i "s|evdev/0/Microsoft X-Box 360 pad 0|SDL/0/Steam Frame Controllers|g" "$Primehack_gamecubeFile"
+		sed -i "s|evdev/0/Microsoft X-Box 360 pad 0|SDL/0/Steam Frame Controllers|g" "$Primehack_wiiFile"
+		sed -i "s|evdev/0/Microsoft X-Box 360 pad 0|SDL/0/Steam Frame Controllers|g" "$Primehack_hotKeysFile"
+	fi
+	
+	
 }
 
 #update
