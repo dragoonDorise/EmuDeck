@@ -6,6 +6,14 @@ appImageInit() {
 	sed -i 's|env LD_LIBRARY_PATH=[^ ]* ||' "$(xdg-user-dir DESKTOP)/EmuDeck.desktop" "$HOME/.local/share/applications/EmuDeck.desktop"
 	  2>/dev/null
 	
+	#EmuDeck icons now open the launcher script instead of the AppImage
+	if ! grep -q "$emudeckFolder/emudeck.sh" "$HOME/.local/share/applications/EmuDeck.desktop" 2>/dev/null; then
+		createDesktopIcons
+	else
+		cp "$emudeckBackend/tools/launchers/emudeck.sh" "$emudeckFolder/emudeck.sh"
+		chmod +x "$emudeckFolder/emudeck.sh"
+	fi
+
 	#Migrate Xenia
 	# if [ -f "$Xenia_legacyPath/xenia.config.toml" ]; then
 	# 	zenity --question --title "Xenia migration" --text "Xenia Proton detected, it's recommended to update to the new Native release" --cancel-label "Cancel" --ok-label "OK"

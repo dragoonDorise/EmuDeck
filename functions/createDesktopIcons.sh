@@ -15,14 +15,19 @@ createDesktopIcons(){
 	rm -rf ~/Desktop/EmuDeckApp.desktop 2>/dev/null
 	rm -rf ~/Desktop/EmuDeckAppImage.desktop 2>/dev/null
 	rm -rf ~/Desktop/EmuDeckAppImage.desktop 2>/dev/null
+	#Launcher that picks the right display backend before opening the AppImage
+	mkdir -p "$emudeckFolder"
+	cp "$emudeckBackend/tools/launchers/emudeck.sh" "$emudeckFolder/emudeck.sh"
+	chmod +x "$emudeckFolder/emudeck.sh"
+
 	#New EmuDeck icon, same place so people won't get confused
 	createDesktopShortcut "$desktop/EmuDeck.desktop" \
 	"EmuDeck" \
-	"$emusFolder/EmuDeck.AppImage$sandbox" \
+	"$emudeckFolder/emudeck.sh$sandbox" \
 	"false"
 	 #App list
 	 createDesktopShortcut "$HOME/.local/share/applications/EmuDeck.desktop" \
 	 "EmuDeck" \
-	 "$emusFolder/EmuDeck.AppImage$sandbox" \
+	 "$emudeckFolder/emudeck.sh$sandbox" \
 	 "false"
 }
