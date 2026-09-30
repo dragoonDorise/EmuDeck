@@ -84,6 +84,10 @@ compressCHD() {
 	local CUEDIR=""
 	local successful=''
 	CUEDIR="$(dirname "${file}")"
+	if [[ -f "${file%.*}.chd" ]]; then
+		echo "${file%.*}.chd already exists, skipping ${file} (likely a duplicate .gdi/.cue descriptor for a disc that was already converted)."
+		return
+	fi
 	echo "Compressing ${file%.*}.chd"
 	chdman5 createcd -i "$file" -o "${file%.*}.chd" && successful="true"
 	if [[ $successful == "true" ]]; then
