@@ -4,7 +4,7 @@ checkPS1BIOS(){
 
 	PSXBIOS="NULL"
 
-	for entry in "$biosPath/"*
+	for entry in "$biosPath/"* "$biosPath/ps1/"*
 	do
 		if [ -f "$entry" ]; then
 			md5=($(md5sum "$entry"))
@@ -37,7 +37,7 @@ checkPS2BIOS(){
 
 	PS2BIOS="NULL"
 
-	for entry in "$biosPath/"*
+	for entry in "$biosPath/"* "$biosPath/ps2/"*
 	do
 		if [ -f "$entry" ]; then
 			md5=($(md5sum "$entry"))
