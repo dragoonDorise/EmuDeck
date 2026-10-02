@@ -54,8 +54,32 @@ def retroarch_install():
     try:
         install_emu("retroarch", repo, type, path)
         retroarch_install_cores()
+        retroarch_install_bezels()
     except Exception as e:
         print(f"Error during install: {e}")
+        return False
+
+
+def retroarch_install_bezels():
+    set_msg("Downloading RetroArch bezels")
+    try:
+        resp = requests.get("https://github.com/EmuDeck/bezels/archive/refs/heads/main.zip", timeout=120)
+        resp.raise_for_status()
+
+        destination = retroarch_overlays_path / "pegasus"
+        destination.mkdir(parents=True, exist_ok=True)
+        prefix = "bezels-main/pegasus/"
+        with zipfile.ZipFile(BytesIO(resp.content)) as zf:
+            for member in zf.infolist():
+                if member.is_dir() or not member.filename.startswith(prefix):
+                    continue
+                target = destination / member.filename[len(prefix):]
+                target.parent.mkdir(parents=True, exist_ok=True)
+                with zf.open(member) as src, open(target, "wb") as dst:
+                    shutil.copyfileobj(src, dst)
+        return True
+    except Exception as e:
+        print(f"Error downloading bezels: {e}")
         return False
 
 

@@ -27,8 +27,37 @@ def primehack_install():
 
     try:
         install_emu(name, repo, type, destination)
+        primehack_install_textures()
     except Exception as e:
         print(f"Error during install: {e}")
+        return False
+
+
+def primehack_install_textures():
+    """Descarga las texturas de botones de Steam Deck de la rama main de EmuDeck/primehack-deck-buttons."""
+    set_msg("Downloading PrimeHack textures")
+    if system == "linux":
+        textures_dir = Path(f"{home}/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Load/Textures")
+    elif system.startswith("win"):
+        textures_dir = Path(f"{emus_folder}/primehack/User/Load/Textures")
+    else:
+        textures_dir = Path(f"{home}/Library/Application Support/Dolphin/Load/Textures")
+    try:
+        resp = requests.get("https://github.com/EmuDeck/primehack-deck-buttons/archive/refs/heads/main.zip", timeout=120)
+        resp.raise_for_status()
+
+        prefix = "primehack-deck-buttons-main/R3M/"
+        with zipfile.ZipFile(BytesIO(resp.content)) as zf:
+            for member in zf.infolist():
+                if member.is_dir() or not member.filename.startswith(prefix):
+                    continue
+                target = textures_dir / "R3M" / member.filename[len(prefix):]
+                target.parent.mkdir(parents=True, exist_ok=True)
+                with zf.open(member) as src, open(target, "wb") as dst:
+                    shutil.copyfileobj(src, dst)
+        return True
+    except Exception as e:
+        print(f"Error downloading PrimeHack textures: {e}")
         return False
 
 
