@@ -20,6 +20,21 @@ Primehack_cleanup(){
 Primehack_install() {
 	setMSG "Installing $Primehack_emuName"
 	installEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" "emulator" ""
+	Primehack_installTextures
+}
+
+Primehack_installTextures(){
+	setMSG "Downloading $Primehack_emuName textures"
+	local texturesDir="$HOME/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Load/Textures"
+	local texturesZip="$texturesDir/primehack-deck-buttons.zip"
+	mkdir -p "$texturesDir"
+	if curl -sL "https://github.com/EmuDeck/primehack-deck-buttons/archive/refs/heads/main.zip" -o "$texturesZip" \
+		&& unzip -q -o "$texturesZip" 'primehack-deck-buttons-main/R3M/*' -d "$texturesDir"; then
+		cp -a "$texturesDir/primehack-deck-buttons-main/." "$texturesDir/"
+	else
+		echo "PrimeHack textures: download failed"
+	fi
+	rm -rf "$texturesZip" "$texturesDir/primehack-deck-buttons-main"
 }
 
 #ApplyInitialSettings

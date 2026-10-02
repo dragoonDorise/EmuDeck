@@ -47,6 +47,17 @@ RetroArch_install(){
 	setMSG "Installing $RetroArch_emuName"
 	installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "emulator" ""
 	RetroArch_installCores
+	RetroArch_installBezels
+}
+
+RetroArch_installBezels(){
+	setMSG "Downloading $RetroArch_emuName bezels"
+	local bezelsZip="$RetroArch_overlaysPath/bezels.zip"
+	mkdir -p "$RetroArch_overlaysPath/pegasus"
+	curl -sL "https://github.com/EmuDeck/bezels/archive/refs/heads/main.zip" -o "$bezelsZip" \
+		&& unzip -q -o -j "$bezelsZip" 'bezels-main/pegasus/*' -d "$RetroArch_overlaysPath/pegasus" \
+		|| echo "Bezels: download failed"
+	rm -f "$bezelsZip"
 }
 
 
